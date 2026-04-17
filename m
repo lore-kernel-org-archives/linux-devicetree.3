@@ -1,257 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010066.outbound.protection.outlook.com [52.101.69.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C35349B02;
-	Fri, 17 Apr 2026 10:51:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776423061; cv=none; b=bK7hFgn3lWY18nV9ecm13UF8Jm6inkmUTgY7iol+GpD6gj+0W0MrW+qHYrtzKYIrUQ6m80CT3GecBKbN3AVjJi/CVuimQ9cPkMDsKA+04jt4k+yF3cNbr8Nyp5wqLo7uTs/jvrMSon3Y0bY5NJ+5IIsNf1cuxYyHLmkmjxJYSxE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776423061; c=relaxed/simple;
-	bh=kSJnzsPBw1lwFdGqflMCj/6BVcSbCNpP00or8JnwiYg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cKXd+KGAOnFtfOpvtCJ9fcWncOWZ0xOOHsgXYGN3RXqZ+uhZTAhgBaVJzlBMUbiqUfDxZQeluAuCT/5gFknYi4KG+qf0ZlUBdh9z7XJM0B86U+yMI7bv9adm8PK0WQ1Awt4XZW2E4vZWThdIVdhxEPND5MD0r+mRkR+ZzxzpIqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A/e0wyp+; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1C33BBA09;
+	Fri, 17 Apr 2026 11:00:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776423616; cv=fail; b=TuM4p7YvtC61yQ1vw9OXBr6C/xMfyc6SSN3h/a9WqoFNY85a7VX7acqAjiKWEG63iUOLTvxa0eIlIV3JJ83KNFc47kZUgmTpQubAdbRKwx/0TVfHDUnblPTZGLEew+A7apcY4jyrQ7y8gaxFTRkCrFRTZtxdUbIb0xtq3ILZOzw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776423616; c=relaxed/simple;
+	bh=y8KajkngJsAaaePI0ZEgxCT8Dpxx0vBL3/s51nya2gk=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=cuppN25qfIdMg8kMErxoEQElcwHKn2njgJpGXDrTVnpcTgthL1C/pd2NhGvep+bRt21jVJL9HlkJnNWg5VsUhJIFIBNKwz2FrPkBA+KFgqVARo+ytRoioCVhH9OJi/7S3kocFg+ci2lz6BzLqfBkIUXYDXlBFrTZqqqGCvyT1gw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=CuZtCEll; arc=fail smtp.client-ip=52.101.69.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A/e0wyp+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 598B2C19425;
-	Fri, 17 Apr 2026 10:51:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776423060;
-	bh=kSJnzsPBw1lwFdGqflMCj/6BVcSbCNpP00or8JnwiYg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=A/e0wyp+Xc6NNHKUyHtFrHHPGSo6IYdvVQvKiDzzKeC09oFmSMfadNFHPXN/Yx+gi
-	 u/J79Qs35UD/m8ifRZk6uCHcXJYx6fYIG1Oy+OL7BLUciEYV1FpgdyDp/0pvRyDY/D
-	 cKeG2UO2VIB1CGiVNZuxEgAlk1Fe09ijL0DBvcyDzPO5IgxF7XZJ2+wiRUWQsrIW0H
-	 W08bE2dxVEjnUXH9cj696C9n3Sua6P48Jhi4OipIhipTQeO/Qt7ICdenouvHvYNmpx
-	 kvgT50OSWf1rdnhGbvgbzZElNmXPGLELxCUZsxK1XB7tYzmm2ulYiS8tqAgw9S6XM/
-	 ApVbtfcb+FHhg==
-Date: Fri, 17 Apr 2026 12:50:58 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Naushir Patuck <naush@raspberrypi.com>, Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com
-Subject: Re: [PATCH v2 2/3] pwm: rp1: Add RP1 PWM controller driver
-Message-ID: <aeIGxfQ7AoIVR5n6@monoceros>
-References: <cover.1775829499.git.andrea.porta@suse.com>
- <0d99317b9150310dfbd98de1cb2a890f0bffe7cd.1775829499.git.andrea.porta@suse.com>
- <adkrHkANCzxO8KUP@monoceros>
- <aeC6U7D6TfWm8JPx@apocalypse>
- <aeDmk-t5Lc1zpkg9@monoceros>
- <aeH373a_xmr6fnAy@apocalypse>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="CuZtCEll"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nVVxE2zPwISgixh8zKL0MaPtJFZ41jJ5HnGOxMJxrCFRRbgQUyfh4ANFHoJMcIQFfwAzDndgqkx579rPigEBJDvynDkxlNjCzxs+LXlzSBUnMcz6tF6SV1Fr64sdftbeKJfJMEvQ9L1K0annjGcuYQ775FR/KU46FaYDWs7MSKFyKzkQAgycRsYWZjUPvE3IqeKAfY/7lqQUhoZI+CZY/DG9bEK9r0BJ8+jH8OqyaD3LDqBz+OoEgbwsB7IPLnUzcJlCw1/hKWBX8Ra2ZmVrbS6vIPCEdNvyDg9Vxoanol1twXabQ4cZ62x1Rf51Pi2/6cvlevWKM3ywNFT48yyOAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YSnNGEQc82xSVE7hS0vM3RU6y1qTbAkWRgL0yv3iCL0=;
+ b=JWnC5JskdSvFe3h1uf0VMl4+TWeszbBz8i8+IATq/I9ezwy0+zo5kKyjQJhL3HMA90T8m2XFVoxbA0b0Dd1Jxyd+Px2TvD7Fbo1iVkzepPJdOFfnazbMgtyaPeyDgP0SV98RrQsTS2FzIoCW9ECyWDt6pb/uDLwJAjlKyYhHT83t/D3dNAaHa+DJ7B/ap3Zpz8Q7FRlILsAWXi/5HpSqGcCCzMMDUQIblTNfmBnR2y0xSNthY7vi9tiw1kPlDdCgFqk9Z/AyuT9mdDadcoB5Oz9RLC+qfquXgMily8kPYCT4jqD3hgxpiuXkg1HL3D0YK6CG8O3KbcA/Y1VlltIalQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YSnNGEQc82xSVE7hS0vM3RU6y1qTbAkWRgL0yv3iCL0=;
+ b=CuZtCEllYyv/yHd4PV4xdAd+/Pt/efdIopx3xuXhtgvMS4g0HcV6Xbg5GtLcs6cpac5f+qySMlXJmFZifIuwR5LDdGyavu6m6xuxHz6gW0qObF852UoFlXTerEU20PbmVfjbsMo/QyiuG1sRHQX3MRrctkiqXFxOVOzxxCal1GcmxrA82hXZPUI9xPf4oVu0774kziWl0byy2XSoQo4ui2PEpIvPVyNzgFBfijFZwpuqS9TH6gnvAf6ZpA+plLLW9GzzFtZknIi0jxZYS77SIPH6pEwYUWjrkgtEf3Aed+am7IdoqjBjEUMjsKuvu7ud/9V7SBNaMIApnB3hHGgUXg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB7821.eurprd04.prod.outlook.com (2603:10a6:102:c5::5)
+ by DU4PR04MB12276.eurprd04.prod.outlook.com (2603:10a6:10:629::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Fri, 17 Apr
+ 2026 11:00:12 +0000
+Received: from PA4PR04MB7821.eurprd04.prod.outlook.com
+ ([fe80::67dc:4bd2:8552:9b50]) by PA4PR04MB7821.eurprd04.prod.outlook.com
+ ([fe80::67dc:4bd2:8552:9b50%5]) with mapi id 15.20.9818.023; Fri, 17 Apr 2026
+ 11:00:12 +0000
+From: Robby Cai <robby.cai@nxp.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	festevam@gmail.com,
+	shawnguo@kernel.org,
+	martin.kepplinger@puri.sm
+Cc: kernel@pengutronix.de,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] Enable dual OV5640 cameras on i.MX8MQ EVK board
+Date: Fri, 17 Apr 2026 19:01:58 +0800
+Message-Id: <20260417110200.753678-1-robby.cai@nxp.com>
+X-Mailer: git-send-email 2.37.1
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA1P287CA0016.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a00:35::33) To PA4PR04MB7821.eurprd04.prod.outlook.com
+ (2603:10a6:102:c5::5)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nnaiyhbmq7n4v5c7"
-Content-Disposition: inline
-In-Reply-To: <aeH373a_xmr6fnAy@apocalypse>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB7821:EE_|DU4PR04MB12276:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d503e55-bd97-42df-803a-08de9c707f9b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|52116014|19092799006|1800799024|18002099003|56012099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	4rATppew7kRvadEZ2G1bzcMIGPkwLlssw/Zvt/FuIYL+8Tk/iYWDAlM/iJ7w9kmrNeob8f/hFJwMgixSG+TCCldiXSZQMEkbzoNqFbpJgMTNfMo2PUD23982YzBQPrRIWECIJZ6PYYSM5IoJlbSjX2bCiG01lOVCkokLvRrLEbsqhRvfUNEqYpmkqliF7Q3oRAjN9uEddHE959FOScpbxUZD1XKNL3cwf+QLtsFu5wN7sybIpWuwCiMWOnYVX745cHMPPqkoRWinrmQAqK6bXZ8ewRD0h62SBGC2n+cXMxws5llilOf4puZtxVIhJ5yK3qAbPjFU58T9a0gzm0nLdNi0FGeM4Tpv+0a0YLSgIBGbSXwcY90LCWy5D5uai6JPysSzRVOHzYyvwYQhYU3wcK60lmqgH8mSyAEbM2q1TIdmrNFFOOSsOetIJaua31wv+gFcJnj+1XPqXxk9gkVTVm61smSKkEhqLhJd02k/SbrrODG7+HchqVbSk7fPMo4kADKmYDFh+qJN9lPoq9AjrZop4OaCD+xBSvDJ8OAU1i3tx92kl4xsODiPX2BV3pG9Y517r8poE0gDUh40+2k6IQZtSiwBlVqKaHmlMNjWJuKBWl8kEhlKxur4ioNf++BRkZGzt22flaH88mwm+QpVLYlSXk5NSi8xPpsXuswU5xjLiOwknc3uCjVMHk7d4jMvee7FgXMeBewKm5LqAA4qx0fNDel2jR40DoFwgOF2oe843G4oMjF0+GLzhRdGLk6nMZsVHZjmdqkdbxKzHos4HpkVXntGY9Aw1Y4eNDWnHRA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB7821.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(52116014)(19092799006)(1800799024)(18002099003)(56012099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?T3crekY2NHdLdTVoU3hNTWpQcVp2aitBK2xLOWRtWDMwVnd6QytIbnpZcUpz?=
+ =?utf-8?B?cmJCMVduRUhuZTZrV3BBMkNJWmFDRHN4N1lRMHJGUFdDM3huUXFFNFFuejFO?=
+ =?utf-8?B?QWMvdDJ6dFdSNUNBNnE0Q3o2UXNUVHo4UDlHaHJtb0J0d2RGSkphek1jcjNB?=
+ =?utf-8?B?U1JpYTRXTytJODdJZE44bzdJM1h6WFhuWGNja0JVZ2hoREVIakViYTBYbHBt?=
+ =?utf-8?B?TkFUSG5xK2NaSENObnJaSTF0ekMycHdhcXZRSnZsZ3RwYURtZGpnZFB5WVJj?=
+ =?utf-8?B?UkR1ZUJUUlBWMGJrYWlpUitLTTJBdSt5VDNRODNCaWo4enJHQXVBaGNaeXRt?=
+ =?utf-8?B?WG5vSm9Xc0diNXlNMEdnc250VjViZjFQNGhYejNEUTBUYzVpbDY0cm5pY2wv?=
+ =?utf-8?B?UjNxblg0SUMveUl0ZmFtdzlaR09HV3RxakQwaU9oK3ZUZWJBMnpFMTlFaDJE?=
+ =?utf-8?B?YllHTUw0TjhaenpIMlFJMWZRenNVSUlBU0tBZ1N1Y2tCSnI4NVowY3NqeG1W?=
+ =?utf-8?B?RE4rUVlac3BKenFDdGx2WmZ4ZjhreUsrMjRLM0tpeHlRK0xhUHRYTlE0L1FP?=
+ =?utf-8?B?WGNzdkl2dVN6T2MxcEVzUkw1czRQUEM1VTh0RDR2VzRQRHBiczBFYTdEck9u?=
+ =?utf-8?B?cVE2QUZzRGZWVGZGdGxET3FTR0lwNHJPNnVGN1NmTnozSmtXazhCc2hSVE03?=
+ =?utf-8?B?SWlDbzR0ak1MaDZEdCtXZmFsZFBhUm1HNE94QXAyZkphZjJzYlE2ZWZmeENq?=
+ =?utf-8?B?YWRCdXl6Yi9KdHNobWdQTzhpdVdVMXc4N0h1YzNLWFdxdy9hRi9kV0wxcHRY?=
+ =?utf-8?B?TzdtMkNGRTBOc0JhMnNnV09qRndWUHlwMEhtZ0RwYks0eVFkWkFzeFQ2eEhz?=
+ =?utf-8?B?TzN4UlNCU0szWStSSi9aVzl2RzBWV09udktsaCtDVHViZVd1MXViWEdoVlRR?=
+ =?utf-8?B?M2ovK1BESlphcWoxZUdzaENsR0JRK1BFNXNZUWJOYWh0aU14R0ZrSmlxdWNl?=
+ =?utf-8?B?a1ozY1FnZW4ySStZTzRHZ2doUlRmY0J1a1hGSXFtOFAxcVZacmlkNHZSN1dr?=
+ =?utf-8?B?OEo1UGpyeEVyK1B4VUpLYXFkMkJFc0lQQTd1Znh4SHhOeHNPQURpZnczZkRQ?=
+ =?utf-8?B?MTY2M1EvbFY1MzRkeWg3WWJEWjVPMC85QzNrU0FuOUg1VHI0aWhkOWFyK1BE?=
+ =?utf-8?B?SnprS0srZllwcXJaTmZkVkR1d0dNRzV0bjAxcWtnY1MrNGQxZzgwMlFPVk04?=
+ =?utf-8?B?aEF5RGdoUU9wY2x5cWNvVEtXNnJNZXlTMnRQcFBBUFZyN1htVm5xMml6TUhw?=
+ =?utf-8?B?aFRJYzZUdWo1ZExLd1Y1bi95S1B5Q2pxdis5MlRMZUFOQjFTd3BBdHIyS0h5?=
+ =?utf-8?B?Zmh0RDNTeEkxWXJpTnhzVFgxSnFsSEFaeXIyd3V0ZVZ3WStKOEorSUZiRW1N?=
+ =?utf-8?B?dnduUFJxSmFybTFCWTRkZGQrVmZodjlIemJHKzJvMGZDczhSMG5naEthNHEr?=
+ =?utf-8?B?U2tqU0x1T2FSdHVSZEtaUVR5ZEMrN3Y1cHU0TzFBUlQvV1BDSVRhSTlTWjZO?=
+ =?utf-8?B?c0JDS0ZPaDBNT3Ywa2U3YTkxdTRIdWJsQVE0OXdmamFUYm9FUVhhWnlpRXA3?=
+ =?utf-8?B?U1A2alBwclgxOW0rWGlYSzA0MDArMk04bHB5VzQ0Rmp3YVdjY0hNSXR1cCtu?=
+ =?utf-8?B?QnY3dWxlU09hWVBEK2tzckhzb0hJb2V4RlRJYWV0ajZ1a3BEMW0zL3pSMUgv?=
+ =?utf-8?B?cFV1eGpwdHBHUy92eTBwd3paUnVvZCs3cUJMS1BISmtUNjQ2WncwdGRabll0?=
+ =?utf-8?B?aFQ5eUVBRWZ4Mmx6NEtwd1FSZjJMdzliTVBMbmg3bW5CTzFhKzVXYy93TGRS?=
+ =?utf-8?B?RHpEa2k1NzFuSFo5ZVpiZGdoeCs3NnhVOXpYZ3FNTTFkb3RuTUNTQ1NWWUhE?=
+ =?utf-8?B?d0NKQlRUSWVzNndVUWx0aUJsTEZkeUY3V1JmdThuT3dxQUxMRDR1S0tlVHFi?=
+ =?utf-8?B?NFlDVGVMcERtRTFKaTNvc0NwZlA3Smt1QTZvSkdjWHhlK3dWSUhMRnhSeUx6?=
+ =?utf-8?B?WTZVN3pRSEtpazRoN25oUVZwNDVjNFIxQ3JDajUxckhMV2VoeXJxZzFzcFVZ?=
+ =?utf-8?B?YThBTGEwbzl0UTJiNk9HM2w1bzdvQXlGQUpIM3UvNUpoRnVDbFh4TFIvR2hk?=
+ =?utf-8?B?c2VFZG9VTGFCNGpKa3hscVh6cFhpcFVyS29wWkRScFRaTjBaOVl2TVFrOGE4?=
+ =?utf-8?B?TEZoY1RlWmdFY2NIcEtsTXpPOXd2N0FzdHJwRTdoL01NWU56VU9TNEVqQWRL?=
+ =?utf-8?B?UDVxdTBQcXZsRE9EU2phdy9QYmtjV0tHWm5HVTg4eHA3QzRBNWZ1UT09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d503e55-bd97-42df-803a-08de9c707f9b
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB7821.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 11:00:12.6555
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CmPMiW2D7OgxI58v1MNRCN1X30lxGebot4i913gyhXJxhoqvCi0WsxEQxKqkxBWtBZoQ+cc3ajzzhqBGP7SO7w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB12276
 
+This series adds dual-camera support for the i.MX8MQ EVK board.
 
---nnaiyhbmq7n4v5c7
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 2/3] pwm: rp1: Add RP1 PWM controller driver
-MIME-Version: 1.0
+Patch 1 fixes the MIPI CSI clock configuration in the i.MX8MQ device tree.
+The previous configuration violated a timing constraint defined in the
+i.MX8MQ Reference Manual:
 
-Hello Andrea,
+"The frequency of clk must be exactly equal to or greater than the RX
+byte clock coming from the RX DPHY."
 
-On Fri, Apr 17, 2026 at 11:05:51AM +0200, Andrea della Porta wrote:
-> On 15:48 Thu 16 Apr     , Uwe Kleine-K=F6nig wrote:
-> > one thing I forgot to ask: Is there a public reference manual covering
-> > the hardware. If yes, please add a link at the top of the driver.
->=20
-> Sort of, it's already reported in this driver top comment (Datasheet: tag=
-).
-> The PWM controller is part of the RP1 chipset and you can find its descri=
-ption
-> under the PWM section. This is not a full-fledged datasheet but the regis=
-ters
-> for the controller are somewhow documented.
+This mismatch could lead to unstable operation, observed as intermittent
+capture failures. The updated clock ratios align with those used in NXP��s
+downstream BSP and were verified to resolve the issue.
 
-Ah, then I missed something different than I thought :-)
+Patch 2 enables full MIPI CSI support and dual OV5640 camera operation on
+the i.MX8MQ EVK. This includes enabling both CSI controllers and their
+corresponding MIPI CSI-2 host interfaces, as well as adding two OV5640
+sensor nodes on I2C1 and I2C2.
 
-> > On Thu, Apr 16, 2026 at 12:30:43PM +0200, Andrea della Porta wrote:
-> > > On 19:31 Fri 10 Apr     , Uwe Kleine-K=F6nig wrote:
-> > > > I assume there is a glitch if I update two channels and the old
-> > > > configuration of the first channel ends while I'm in the middle of
-> > > > configuring the second?
-> > >=20
-> > > The configuration registers are per-channel but the update flag is gl=
-obal.
-> > > I don't have details of the hw insights, my best guess is that anythi=
-ng that
-> > > you set in the registers before updating the flag will take effect, s=
-o there
-> > > should be no glitches.
-> >=20
-> > Would be great if you could test that. (Something along the lines of:
-> > configure a very short period and wait a bit to be sure the short
-> > configuration is active. Configure something with a long period and wait
-> > shortly to be sure that the long period started, then change the duty,
-> > toggle the update bit and modify a 2nd channel without toggling update
-> > again. Then check the output of the 2nd channel after the first
-> > channel's period ended.
->=20
-> I stand corrected here: after some more investigation it seems that only =
-the
-> enable/disable (plus osme other not currently used registers) depends on =
-the
-> global update flag, while the period and duty per-channel registers are
-> independtly updatable while they are latched on the end of (specific chan=
-nel)
-> period strobe.
-> I'd say that this should avoid any cross-channel glitches since they are =
-managed
-> independently. Unfortunately I'm not able to test this with my current (a=
-nd
-> rather old) equipment, this would require at least an external trigger ch=
-annel.
-> Regarding the setup of a new value exactly during the strobe: I think thi=
-s is
-> quite hard to achieve.
+Note:
+This series depends on patch [1] currently under review, as well as commit
+6d79bb8fd2aa ("media: imx8mq-mipi-csi2: Explicitly release reset").
 
-To sum up: period and duty_cycle changes might result in glitches unless
-the channel is disabled. This is ok, please just document it.
+[1] https://lore.kernel.org/imx/20260417080851.489303-1-robby.cai@nxp.com/
 
-The purpose of the update flag then is only to start several channels in
-sync? What happens if sync is asserted while a disabled channel didn't
-complete the last period yet?
+Robby Cai (2):
+  arm64: dts: imx8mq: Correct MIPI CSI clocks
+  arm64: dts: imx8mq-evk: Enable MIPI CSI and dual OV5640 cameras
 
-Maybe it's worth to test the following procedure for updating duty and
-period:
+ arch/arm64/boot/dts/freescale/imx8mq-evk.dts | 149 +++++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx8mq.dtsi    |   4 +-
+ 2 files changed, 151 insertions(+), 2 deletions(-)
 
-	disable channel
-	configure duty
-	configure period
-	enable
-	set update flag
+-- 
+2.37.1
 
-Assumint disable is delayed until the end of the currently running
-period, the effect of this procedure might be that no glitch happens if
-the update flag is asserted before the currently running period ends and
-the anormality is reduced to a longer inactive state if the updates are
-not that lucky (in contrast to more severe glitches).
-
-If you can configure a short and a long period that is distinguishable
-"manually" with an LED I think this should be testable even without
-further equipment.
-
-> > > > > +	if (ticks > U32_MAX)
-> > > > > +		ticks =3D U32_MAX;
-> > > > > +	wfhw->period_ticks =3D ticks;
-> > > >=20
-> > > > What happens if wf->period_length_ns > 0 but ticks =3D=3D 0?
-> > >=20
-> > > I've added a check, returning 1 to signal teh round-up, and a minimum=
- tick of 1
-> > > in this case.
-> >=20
-> > Sounds good. Are you able to verify that there is no +1 missing in the
-> > calculation, e.g. using 1 as register value really gives you a period of
-> > 1 tick and not 2?
->=20
-> You are right. The scope reveals there's always one extra (low signal) ti=
-ck at the
-> end of each period.
-
-So the hardware cannot do 100% relative duty, right? Please document
-that.
-
-> Let's say that teh user want 10 tick period, we have to use
-> 9 instead to account for the extra tick at the end, so that the complete =
-period
-> contains that extra tick?
-
-I would describe that a bit differently, but in general: yes.
-
-The more straight forward description is that setting
-
-	RP1_PWM_RANGE(pwm->hwpwm) :=3D x
-
-results in a period of x + 1 ticks.
-
-> This also means that if we ask for 100% duty cycle, the output waveform w=
-ill
-> have the high part of the signal lasting one tick less than expected.a I =
-guess
-> this is the accepted compromise.
-
-I assume you considered something like:
-
-	RP1_PWM_RANGE(pwm->hwpwm) :=3D 17
-	RP1_PWM_DUTY(pwm->hwpwm) :=3D 18
-
-to get a 100% relative duty?
-
-If this doesn't work that means that this has to be formalized in the
-callbacks. That is the fromhw function has to always report
-duty_length_ns less than period_length_ns.
-
-> OTOH, the minimum tick period would be 2 tick, less than that will otherw=
-ise
-> degenerate in a disabled channel.
-
-It's expected that in general for a period_length of 1 tick you can only
-have 0% and 100% relative duty. IIUC for this hardware you cannot do the
-100% case so there is only a single valid duty_length for period_length
-=3D 1 tick.
-
-I think it would be more complicated to consistently filter out
-period_length =3D 1 tick in the driver than to just accept the conceptual
-limitations. (Otherwise: What would you report in the fromhw callback if
-period_length =3D 1 tick is configured in wfhw? Would you refuse to commit
-that wfhw to hardware in .write_waveform()? The pwm core handles that
-just fine and consumers have all the means to detect and prevent that if
-they care enough.)
-
-> > > > On remove you miss to balance the call to clk_prepare_enable() (if =
-no
-> > > > failed call to clk_prepare_enable() in rp1_pwm_resume() happend).
-> > >=20
-> > > Since this driver now exports a syscon, it's only builtin (=3DY) so
-> > > it cannot be unloaded.
-> > > I've also avoided the .remove callback via .suppress_bind_attrs.
-> >=20
-> > Oh no, please work cleanly here and make the driver unbindable. This
-> > yields better code quality and also helps during development and
-> > debugging.
->=20
-> I wish to, but the issue here is that this driver exports a syscon via=20
-> of_syscon_register_regmap() which I think doesn't have the unregister
-> counterpart. So the consumer will break in case we can unbind/unload
-> the module and the syscon will leak.=20
-> If you have any alternative I'll be glad to discuss.
-
-My (not so well articulated) point is: Please be stringent about clock
-handling to not bank up technical dept more than necessary and such that
-the driver can be made unbindable if and when syscons grow
-that feature. Optionally wail at the syscon guys :-)
-
-Best regards
-Uwe
-
---nnaiyhbmq7n4v5c7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmniEI8ACgkQj4D7WH0S
-/k580Qf/SO3OiWMc9QDwejdP76mKbZJN81A0PEMT1XqTsTsB04ePmAQV8kf4+BrG
-fmv8hLQCTDUCRLXxdAaveYUiefKqE7oArFXJO4FJYs8R+BOCO1jK58OawmjxlCA7
-k6K4ccZp0ZrMdo6OwkQ+0N1rN/Wxuxmo2faGwkaVwacC7Ot/yobuE+hKfBVram3I
-/qBpp04vKsNmxBKGxi1ziUIKajDkE/VvPd98qWGEp5mI2JpLQFeHXLnHQyHPEwhU
-LJeXkbClLqYLhkobqw0f/etJZzFFGWyGQEeEuS9gBjufT2H3cQMplqRt/wemSjlR
-uSf1kc+4Z7NqJrm17G3PgBJDLbOj8w==
-=lj2I
------END PGP SIGNATURE-----
-
---nnaiyhbmq7n4v5c7--
