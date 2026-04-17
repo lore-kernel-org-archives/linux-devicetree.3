@@ -1,246 +1,424 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB4B371CF4;
-	Fri, 17 Apr 2026 22:25:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776464731; cv=pass; b=VFKrU7iZor5DAao1zvn/e6YIgp93oe2Cp3pNcB7qtiHzzrsO2NksoIqYnjeGAZmY27O3k0YQnnghTEnNx8GcZH//Bl7muKnsJa92eGy2K0dKNgFJ5bIqZZ7/ggahjp01dSDNBHAq/6GOFeEbv86gG6ls0YFHzqeYian6fh7WeHI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776464731; c=relaxed/simple;
-	bh=Gi0cAwXpdaGihMD8LjJU59zbs9HHr2y0ik9MgH/742c=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A95937DEB6
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 22:40:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776465654; cv=none; b=eCpnjZXlC95Mye+X8dVrSNBxPuxAVNCBqz+xiN7kaBGTUz075tAAbl7Sy6gk2vifOvP4LHzBkPdjs7tjYmEDNKTHniOVfjvW9LkauL43NYjCLz8GIZWqJulE8eSeMGZCd/Skr34xzllRPdlO3xAkrlZlZ9K8BNZoJL8JX9ms1+A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776465654; c=relaxed/simple;
+	bh=4ACzj62JukNrS5IqRGpOlSv09z3gsRQiFGjKjqmCOJ0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h4/lH7liQ5N095crm7AnbQEmHHo8hKLAQRJfDXj0PR29wBrweFgFMJLzIWA/jNXLBSKGT/oyav3LMRds50jRziz9IwM9lfbvKzMF4oFlPlVtPnyFhXm2Is2Vj2/dW88UnRss453H+20QMiri7ZlXsvMYhKibSOPjPonuRbR0Rjc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=jGM36SBP; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yj8WchnfVljorIPTdxmS62PbP3p6aF0r4tZ16HQQFj24cgE9XQlJo11L2icrn7UiE7e5VplaeWX3TyNo2b5ivFv0nYavSkQ6ofLEDXLPYqUInDuhpMUqLWw3x8PWv8BBdDvXaI/1zTyYgqe0KBDN1jUnMT4pLy3ehqBtYgYitJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=b1229CIW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HKlJ3z6M; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="jGM36SBP"
-ARC-Seal: i=1; a=rsa-sha256; t=1776464704; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=EMtDlA47WytILsQiJHXFMfsGWLQe3mkc8kqd3YUaHC+h8lzn9p63CR/XWc4vxIUCXUZ1gPgISPRmbJzTY+xoJaSwymJ6D8OKKhjtnjDDUxvByfypxj38Fgw0qKhZDvhnqQZfgDnHbOrCPEpDk9Pv85pSjwhhT1x/0BA1Fjz2xps=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1776464704; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=+zBBLCkgMkRnprkfPkN/u+UeorTqdWoVN2pXiolVZQc=; 
-	b=oL1R4vBq3IoWkluq2slvzZEt0lPPdtkCDgoVWEgGhftPZJYg5grfcMqM0vmeQ2FiQv/G3p5RzyMpqzHKbqL0p4kpvZyVnkNTHGFhh663Q1EFyT1M1IdfDuBcY2+2X6XpCwdwvmcc1txb7VVcwnsk4FE0ggIqbZzfjl09s9C0xSs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776464704;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=+zBBLCkgMkRnprkfPkN/u+UeorTqdWoVN2pXiolVZQc=;
-	b=jGM36SBPyQyrj76EO6boBdfflIRp+muoNNJhnM+itHMXeRtFhsw9iVQRePlUXd/w
-	3o/2GhadrZiI7yGUymFfMPRG72fyFvc9BZayLjgFitcPOgMDAa9nZ2K5NUPQx8ESpvm
-	g6x7e004R1f5zmL+On8jyykLbF0JJL05bbsAtCGU=
-Received: by mx.zohomail.com with SMTPS id 1776464702393585.2516640397748;
-	Fri, 17 Apr 2026 15:25:02 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 03312182620; Sat, 18 Apr 2026 00:24:58 +0200 (CEST)
-Date: Sat, 18 Apr 2026 00:24:57 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Pavel Zhovner <pavel@flipper.net>, 
-	Andy Yan <andy.yan@rock-chips.com>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH RFC 0/4] arm64: rockchip: The hunt for exact pixel clocks
- on RK3576
-Message-ID: <aeKtNf8CCAWduI-f@venus>
-References: <20260417-rk3576-dclk-v1-0-26a9d0dcb2de@flipper.net>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="b1229CIW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HKlJ3z6M"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63HIS0iN2434113
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 22:40:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	sclcRE1WdVYKamatXGxR8oVabV/AT2ae6fVVjlCcTRw=; b=b1229CIWRoe/9jVd
+	X4pOBn+rgsp9hGs7aywt+AgCjhF9P+G6oT94D5XwDIruAIb8CbaTUReCw6CPQc1p
+	DBLlP3frbhbys4t62NdlzUyZSY/UAyguh/xtt/wcIB0JQt2M8iDgCISHceZ2G8N2
+	jQsVepRfD1n6+KQMensU/FwmkxdfO8wWVAtGAJEDBsffwyaW8SSbuvmouzy74I2U
+	Q2wXVd8kJuyhdl2/CMHxWJSKMYutiaA/E7SHSKuWx4RW93r8dYT1jdmknQ836TUC
+	3BYos5UFiS+Hi7TV1AzXsgJ1FeGBYkSsRq0Hy4GHbNwUoFCX+OUXeGrRkOdfIl3p
+	Gj/YKQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dkt5mrj5d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 22:40:51 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50b4031b86dso26431821cf.0
+        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 15:40:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776465650; x=1777070450; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=sclcRE1WdVYKamatXGxR8oVabV/AT2ae6fVVjlCcTRw=;
+        b=HKlJ3z6M1gJAsidUq+tsZqIU8PbVFWuqJItDkNs4d70D6VFxNFnlNZP1VB5ZmhwYCT
+         j3mnrwBJ8lZQH57aA+1Gh1mkeR5f2rohUUeEproe9WHqGxEmDu9DG0qdwZvD3QVewItO
+         oNx+8iAtBDwQCu012mG1QHL4nVheq2qxSx/KBaLUrtgzxbCiX0ZJF4TSmL0k0nECTrWi
+         q/cwUK2n+ssxZKJwIDSnOnvrxLJv2+jkwRpLMHlejdpiHPVhZWRBkSy4dl6a40DmSTLa
+         doPCW5Fh39L/laTMkhWrZY0HBH/ygJvCDXx7pTvohgxJyvJeQLkzCPx6wAsx62BhGE08
+         m7AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776465650; x=1777070450;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=sclcRE1WdVYKamatXGxR8oVabV/AT2ae6fVVjlCcTRw=;
+        b=OJpKgT239BPL0GhtOL9X55q9C/Qjdkf8XokAjaTKu+0PjlNLWb5JvwTNd3TcFpbt0C
+         cUJvVDT8jx7rYSbTlz2hTHvPt1M5VDqRO+tmqfxZNNJsQJy7c8KEg8rCwVgGt9KoKsUe
+         cUrI5oKwi/rqpSL91wQOMkuhyZvskCwCd7v9g/H5lsgkFY31ov6cIKxywU5ko+dYn2bk
+         vvFQYSLkfp7IBf/1+RFY4+WI/s/mybmfAYzF25Dw3yBLU3hY7Rf/07i5OVrkq3YlwSi7
+         E5OlDAv6ltEbE9CVsil0gICd0ruEMQ9/pd7kQrJtV0SE3LEEl7vGIqlggJKyCr54kb3a
+         DkeQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+UsoglYN3FBzCYvy+DmNFt4cv4/hKVVyx7i/0lf/IlwgV4ofn6VS0cmviw+XAlrNMH5gthlxEmCTox@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy84fOjhd80WdI/ZCspkqCJWxxFUK0z1TdRJeT/VBHUNRxmYn2d
+	2UjHHgGkigAMremDm6LZF/bm4A/YfHz6HQvQUzFCa22r0aegrG4QGucnzxk/BjRz94Z0OgxrTUV
+	Ksn94Rlzs5Eg2J8OYjvqJfAgsP51kmf/W7RAE+W5bb3ZD7zPCDZbU460pOzlZAiBj
+X-Gm-Gg: AeBDieuRIOWI8c+Z95gCHmjgVud8SULAnng139b7QNrSjNtdx22ZEnkAe1MmZ8d2I95
+	eksjxeHd+6FxgCfZ6/e2xccOkYm1e8mIDhDb3zu9e51lyChDlbGr0cin2hcGcISXdUqVTMHfDdV
+	KirqwbeiNZvy6B31mZLDGhFCQ7AshjxNYerdO2omOiiHdnYtwOEIAyEFcsQ6qpwiaZDQZwvUYu1
+	F03ouFJODR1pkVD1iL3X3FHMEWyD0DjAXEABqVQIknrb55/zgLU1b6thHwuUFxNBgExYVKhxh+7
+	P5svqzS9e0Ojr6jMLOj5rb6bY9n0si5VxrB+UZhALvcHkfFNNEBwUlPlDm4QkolD8c4BLbrqtz6
+	6c11osjMo9MoxKtYy69JtCzd66cKHOeFeAjYdvdzEBGo6V1UsfxFiRkTgjSjo0VLWOFXX4aYLFd
+	QiOEHnYIUaFS60BXb7V19Htx0FjMUrqih8t4P3wuKMZIgqCQ==
+X-Received: by 2002:ac8:5ccb:0:b0:50d:8080:2a7 with SMTP id d75a77b69052e-50e36b8577emr71385531cf.21.1776465650426;
+        Fri, 17 Apr 2026 15:40:50 -0700 (PDT)
+X-Received: by 2002:ac8:5ccb:0:b0:50d:8080:2a7 with SMTP id d75a77b69052e-50e36b8577emr71385141cf.21.1776465649919;
+        Fri, 17 Apr 2026 15:40:49 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a41abceab0sm459069e87.61.2026.04.17.15.40.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Apr 2026 15:40:48 -0700 (PDT)
+Date: Sat, 18 Apr 2026 01:40:47 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Swati Agarwal <swati.agarwal@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: monaco-evk: Enable primary USB
+ controller in host mode
+Message-ID: <5l46jjjywvg2gtkrmazswyprj4vqlwbo54jpbnuh7scc6clesg@zxsnca6uzbev>
+References: <20260417152014.3000797-1-swati.agarwal@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="oavuqxz2xzcieowj"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260417-rk3576-dclk-v1-0-26a9d0dcb2de@flipper.net>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/276.440.67
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260417152014.3000797-1-swati.agarwal@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=AOj9hFqm c=1 sm=1 tr=0 ts=69e2b6f3 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=hYANR6JDRRYnxUl_LGMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: Q9tA0bNE8oEhdV1BSvZA1vwsIHQG6YqR
+X-Proofpoint-ORIG-GUID: Q9tA0bNE8oEhdV1BSvZA1vwsIHQG6YqR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDIyOCBTYWx0ZWRfXyJUi7Zeplzgn
+ Z2IKdRPKW+4lApxPE9Sk5xqGkWP7I1y89qrVK8AUmrl+Xe4RSmVd+QroQCjUFcqZw5hBoBq7iqI
+ wDacGtLt/WXBYcrxadDLgElPKj4eOhpfus+G0lcvA2SAHE3WInPnLJjr9yfQl8wJ7ysqrql6/dG
+ s/y1UdFP00XwWi67Mdjnjw9gQLl5RB+HBgrhIVxncDas40VDh4JO5H5zD2qBb80aLFuC8XSTcPx
+ FhKH9bQQZA+kGZW0YN1dhzQ2BNVyXJmSR7Q/uZKxp6gQnlO5oTrWSpKyebBhtHd3SIaVV/OHLfG
+ ka88XJNv5+t1UmvE155ac8oeB7LcQ3rjsy+FV2aHNDyiO3rgO8cAVJM8m7illvrD01YvdipSR+R
+ xKFB8El2Pxf+prQ8Do0AnRbOjuo67dU7khHVFlNOkSKhNHRgiIqo2DFTzrdmfo2QJ58zjikbDk9
+ WJXBc5Qt+NuC78EDa3Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-17_02,2026-04-17_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 priorityscore=1501 suspectscore=0 spamscore=0
+ malwarescore=0 phishscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604170228
 
+On Fri, Apr 17, 2026 at 08:50:14PM +0530, Swati Agarwal wrote:
+> Enable primary USB controller in host mode on monaco EVK Platform.
+> 
+> Primary USB controller is connected to a Genesys Logic USB HUB GL3590
+> having 4 ports. The ports of hub that are present on lemans EVK standalone
+> board are used as follows:-
+> 1) port-1 is connected to HD3SS3220 Type-C port controller.
+> 2) port-4 is used for the M.2 E key on corekit. Standard core kit uses UART
+> for Bluetooth. This port is to be used only if user optionally replaces the
+> WiFi card with the NFA765 chip which uses USB for Bluetooth.
+> 
+> Remaining 2 ports will become functional when the interface plus mezzanine
+> board is stacked on top of corekit:
+> 
+> 3) port-2 is connected to another hub which is present on the mezz through
+> which 4 type-A ports are connected.
+> 4) port-3 is used for the M.2 B key for a 5G card when the mezz is
+> connected.
+> 
+> Primary USB Controller
+>           ↓
+> GL3590 USB Hub (4 ports)
+>     |
+>     |-- Port 1 → HD3SS3220 Type‑C Port Controller → USB‑C Connector
+>     |
+>     |-- Port 2 → Mezzanine USB Hub (when mezz attached)
+>     |
+>     |-- Port 3 → M.2 B‑Key Slot (when mezz attached)
+>     |
+>     |-- Port 4 → M.2 E‑Key Slot
+>                          (Default: BT via UART;
+>                           USB only if NFA765 module is installed)
+> 
+> Mark the primary USB controller as host only capable and add the HD3SS3220
+> Type-C port controller along with Type-c connector for controlling vbus
+> supply.
+> 
+> In hardware, there are dip switches provided to operate between USB1 port 0
+> and port 1 for primary Type-C USB controller. By default, switches will be
+> off operating at USB0 port. After bootup to HLOS, it will be operated in
+> USB1 port.
 
---oavuqxz2xzcieowj
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RFC 0/4] arm64: rockchip: The hunt for exact pixel clocks
- on RK3576
-MIME-Version: 1.0
+Why did you choose this configuration?
 
-Hello Alexey,
+> Added support in the software for both HS and SS switches as
+> usb1_hs_sel_switch and usb1_ss_sel_switch to avoid manually changing the
+> dip switch position for USB1 port to function. Also, added usb1_hub_reset
+> pin for USB1 hub to get detected after bootup as USB1 hub will be in
+> inactive state before bootup.
 
-On Fri, Apr 17, 2026 at 07:11:43PM +0400, Alexey Charkov wrote:
-> Dear all,
->=20
-> Need the help of the collective wisdom of the community.
->=20
-> The problem I'm trying to solve is reliably obtaining the exact pixel
-> clock for arbitrary display modes supported by the RK3576 SoC.
->=20
-> Rockchip RK3576 has three display output processors VP0~VP2, each
-> supporting different ranges of display modes, roughly as follows:
-> - VP0: 4K 120Hz
-> - VP1: 2.5k 60Hz
-> - VP2: 1080p 60Hz
->=20
-> Each one obviously needs a pixel clock. The required frequencies for the
-> pixel clocks vary greatly depending on the display mode, and need to be
-> matched within a tight tolerance, or else many displays will refuse to
-> work. E.g. the preferred (maximum) display mode out of VP1 is particularly
-> awkward, because it requires a pixel clock of 248.88 MHz, which cannot
-> be obtained using integer dividers from its default clock source (GPLL
-> at 1188 MHz), and the nearest approximation is 237.6 MHz, which is well
-> outside the tolerance of e.g. DP specification, resulting in a blank
-> screen on most displays by default.
->=20
-> The clock sources are of course configurable, in particular there are mux=
-es
-> connected to each VP for selecting the source of the pixel clock:
-> - Each VP can take the clock either from the (single!) HDMI PHY or from
->   its dedicated dclk_vpX_src mux
-> - The dclk_vpX_src mux can select the clock from a number of system PLLs
->   (GPLL, CPLL, VPLL, BPLL, LPLL)
->=20
-> While the system PLLs can be configured to output a wide range of
-> frequencies, they are shared between many system components. E.g. on the
-> current mainline kernel on one of my RK3576 boards I've got the following:
-> GPLL: 1188 MHz, enable count 20
-> CPLL: 1000 MHz, enable count 17
-> VPLL: 594 MHz, enable count 0 (yaay!)
-> BPLL, LPLL: 816 MHz, enable count 0 (but these last ones don't have
->             predividers, so are less flexible)
->=20
-> So ultimately there is exactly one free fractional PLL (VPLL) which can be
-> used to generate arbitrary pixel clocks, but we have up to three consumers
-> trying to drive different display modes from it (e.g. HDMI on VP0, DP on
-> VP1 and MIPI DSI on VP2). We also want to be able to adjust the PLL output
-> frequency on the fly to satisfy the requirements of the selected display
-> mode.
->=20
-> And this is where I'm stuck. Trying to satisfy the requirements of up to
-> three consumers while changing the PLL frequency on the fly sounds like
-> a poorly tractable mathematical problem (is it 3-SAT?). We can take the
-> HDMI output out of the equation, because it can be driven from the HDMI
-> PHY (which is capable of arbitrary rates) instead of the mux, but that
-> makes the decision of which dclk source to use for a VP block dependent on
-> which downstream consumer is connected to it (HDMI vs. something else).
+Nit: imperative language, please.
 
-It becomes more messy: The HDMI PHY cannot be used as clock source
-for modes exceeding 4K@60Hz.
-
-> Even then we somehow need two devices to cooperate in picking a PLL
-> frequency that satisfies the requirements of both of them, and change to =
-it
-> without display corruption. I'm not even sure if the CCF has mechanisms
-> for that?..
->=20
-> What follows is a brief set of patches which illustrate a partial solution
-> for the case of "I just need 2.5k60Hz on VP1 via DP and don't care about
-> the rest". It switches the VP1 unconditionally to use VPLL as the source
-> for its dclk mux, allows changing the VPLL frequency on the fly, and also
-> changes the frequency calculation logic to allow for nearest-match
-> frequencies which are not necessarily rounded down. These are not meant
-> to be merged as-is, as I see the following issues:
-> - The flag allowing the PLL to change rate is in the clock driver, while
->   the reparenting to an unused PLL is in the device tree. If these go out
->   of sync, we might end up trying to change the frequency of a PLL which
->   is used by other consumers (I presume that could be dangerous)
-
-It is a problem, see e.g. this patch from Heiko removing the flag
-for an RK3588 VOP source clock:
-
-https://lore.kernel.org/linux-rockchip/20251008133135.3745785-1-heiko@sntec=
-h.de/
-
-Also note, that there is some more general ongoing work regarding
-this:
-
-See: https://lore.kernel.org/linux-clk/20260327-clk-scaling-v8-0-86cd0aba3c=
-5f@redhat.com/
-
-> - If VP0 happens to be driving DP output, it won't be able to produce the
->   2560x1440@60Hz mode for the same reasons as VP1 - then it must also be
->   reparented to VPLL and allowed to change its frequency on the fly
-
-There is also the problem that nearest match might be sensible for the
-display, but is not generally safe. For other clocks you might
-effectively overclock, which shouldn't be done by default.
-
-> It does bring me from a state of "always blank screen on DP output until
-> the mode is switched to something magically working" to a state of
-> "most monitors work at the default preferred mode" though.
->=20
-> It is tempting to just reparent both VP0 and VP1 to VPLL and allow both of
-> them to change its frequency, while leaving VP2 on the default (fixed)
-> GPLL and relying on the fact that 148.5 MHz (the required frequency for
-> its maximum supported mode of 1920x1080@60Hz) is conveniently 1188/8 MHz -
-> just what GPLL can provide. Then also force whichever VP is driving HDMI
-> output to use the HDMI PHY as its clock source. But we still have the
-> problem of DT vs. driver coordination, and I'm not sure how to define
-> the policy for "if you've got HDMI connected, you must use the HDMI PHY
-> clock for the respective VP, whichever VP that is".
-
-Sorry, I don't have any complete solutions - except that I can tell
-you that the VOP2 driver already automatically switches the clock
-source to the HDMI PHY for HDMI outputs if the pixel rates allows it:
-
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/dri=
-vers/gpu/drm/rockchip/rockchip_drm_vop2.c#n1757
-
-Greetings,
-
--- Sebastian
-
-> I would very much appreciate any thoughts on how to approach this.
->=20
-> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> Signed-off-by: Swati Agarwal <swati.agarwal@oss.qualcomm.com>
 > ---
-> Alexey Charkov (4):
->       arm64: dts: rockchip: rk3576: assign dclk_vp1_src to VPLL
->       clk: rockchip: pll: use round-nearest in determine_rate
->       clk: rockchip: rk3576: allow dclk_vp1_src to propagate rate to pare=
-nt PLL
->       clk: rockchip: rk3576: add ROUND_CLOSEST to dclk_vp1_src divider
->=20
->  arch/arm64/boot/dts/rockchip/rk3576.dtsi |  2 ++
->  drivers/clk/rockchip/clk-pll.c           | 16 ++++++++--------
->  drivers/clk/rockchip/clk-rk3576.c        |  4 ++--
->  3 files changed, 12 insertions(+), 10 deletions(-)
-> ---
-> base-commit: c7275b05bc428c7373d97aa2da02d3a7fa6b9f66
-> change-id: 20260417-rk3576-dclk-4c95bbb67581
->=20
-> Best regards,
-> --=20
-> Alexey Charkov <alchark@flipper.net>
->=20
+>  .../boot/dts/qcom/monaco-evk-common.dtsi      | 173 +++++++++++++++++-
+>  1 file changed, 172 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/monaco-evk-common.dtsi b/arch/arm64/boot/dts/qcom/monaco-evk-common.dtsi
+> index 12c847c03757..6316a8270f57 100644
+> --- a/arch/arm64/boot/dts/qcom/monaco-evk-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/monaco-evk-common.dtsi
+> @@ -23,6 +23,37 @@ chosen {
+>  		stdout-path = "serial0:115200n8";
+>  	};
+>  
+> +	connector-1 {
+> +		compatible = "usb-c-connector";
+> +		label = "USB1-Type-C";
+> +		data-role = "host";
+> +		power-role = "source";
+> +
+> +		vbus-supply = <&usb1_vbus>;
+> +
+> +		ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			port@0 {
+> +				reg = <0>;
+> +
+> +				usb1_con_hs_ep: endpoint {
+> +					remote-endpoint = <&usb_hub_2_1>;
+> +				};
+> +			};
+> +
+> +			port@1 {
+> +				reg = <1>;
+> +
+> +				usb1_con_ss_ep: endpoint {
+> +					remote-endpoint = <&hd3ss3220_1_in_ep>;
+> +				};
+> +
+> +			};
+> +		};
+> +	};
+> +
+>  	connector-2 {
+>  		compatible = "gpio-usb-b-connector", "usb-b-connector";
+>  		label = "micro-USB";
+> @@ -77,6 +108,15 @@ dp1_connector_in: endpoint {
+>  		};
+>  	};
+>  
+> +	usb1_vbus: regulator-usb1-vbus {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "usb1_vbus";
+> +		gpio = <&expander1 3 GPIO_ACTIVE_HIGH>;
+> +		regulator-min-microvolt = <5000000>;
+> +		regulator-max-microvolt = <5000000>;
+> +		enable-active-high;
+> +	};
+> +
+>  	usb2_vbus: regulator-usb2-vbus {
+>  		compatible = "regulator-fixed";
+>  		regulator-name = "usb2_vbus";
+> @@ -445,6 +485,39 @@ lt8713sx_dp1_out: endpoint {
+>  			};
+>  		};
+>  	};
+> +
+> +	usb-typec@47 {
+> +		compatible = "ti,hd3ss3220";
+> +		reg = <0x47>;
+> +
+> +		interrupts-extended = <&tlmm 45 IRQ_TYPE_EDGE_FALLING>;
+> +
+> +		id-gpios = <&tlmm 13 GPIO_ACTIVE_HIGH>;
+> +
+> +		pinctrl-0 = <&usb1_id>, <&usb1_intr>;
+> +		pinctrl-names = "default";
+> +
+> +		ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			port@0 {
+> +				reg = <0>;
+> +
+> +				hd3ss3220_1_in_ep: endpoint {
+> +					remote-endpoint = <&usb1_con_ss_ep>;
+> +				};
+> +			};
+> +
+> +			port@1 {
+> +				reg = <1>;
+> +
+> +				hd3ss3220_1_out_ep: endpoint {
+> +					remote-endpoint = <&usb_hub_3_1>;
+> +				};
+> +			};
+> +		};
+> +	};
+>  };
+>  
+>  &i2c1 {
+> @@ -556,6 +629,13 @@ expander5: gpio@3d {
+>  		interrupts-extended = <&tlmm 3 IRQ_TYPE_LEVEL_LOW>;
+>  		pinctrl-0 = <&expander5_int>;
+>  		pinctrl-names = "default";
+> +
+> +		gpio5-hog {
+> +			gpio-hog;
+> +			gpios = <5 GPIO_ACTIVE_HIGH>;
+> +			output-high;
+> +			line-name = "usb1_ss_sel_switch";
+> +		};
+>  	};
+>  
+>  	expander6: gpio@3e {
+> @@ -742,6 +822,28 @@ expander5_int: expander5-int-state {
+>  		bias-pull-up;
+>  	};
+>  
+> +	usb1_hub_reset: usb1-hub-reset-state {
+> +		pins = "gpio7";
+> +		function = "gpio";
+> +		output-enable;
+> +		output-high;
+> +		bias-disable;
+> +	};
+> +
+> +	usb1_id: usb1-id-state {
+> +		pins = "gpio13";
+> +		function = "gpio";
+> +		bias-pull-up;
+> +	};
+> +
+> +	usb1_hs_sel_switch: usb1-hs-sel-switch-state {
+> +		pins = "gpio14";
+> +		function = "gpio";
+> +		output-enable;
+> +		output-high;
+> +		bias-disable;
+> +	};
 
---oavuqxz2xzcieowj
-Content-Type: application/pgp-signature; name="signature.asc"
+Why do you use gpio-hog for SS switch, but then you use pinctrl for HS
+switch?
 
------BEGIN PGP SIGNATURE-----
+> +
+>  	expander1_int: expander1-int-state {
+>  		pins = "gpio16";
+>  		function = "gpio";
+> @@ -784,6 +886,12 @@ expander3_int: expander3-int-state {
+>  		bias-pull-up;
+>  	};
+>  
+> +	usb1_intr: usb1-intr-state {
+> +		pins = "gpio45";
+> +		function = "gpio";
+> +		bias-pull-up;
+> +	};
+> +
+>  	expander6_int:  expander6-int-state {
+>  		pins = "gpio52";
+>  		function = "gpio";
+> @@ -863,9 +971,72 @@ &ufs_mem_phy {
+>  };
+>  
+>  &usb_1 {
+> -	dr_mode = "peripheral";
+> +	dr_mode = "host";
+> +
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&usb1_hub_reset &usb1_hs_sel_switch>;
+>  
+>  	status = "okay";
+> +
+> +	usb_hub_2_x: hub@1 {
+> +		compatible = "usb5e3,610";
+> +		reg = <1>;
+> +
+> +		peer-hub = <&usb_hub_3_x>;
+> +
+> +		ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			port@1 {
+> +				reg = <1>;
+> +
+> +				usb_hub_2_1: endpoint {
+> +					remote-endpoint = <&usb1_con_hs_ep>;
+> +				};
+> +			};
+> +
+> +			/*
+> +			 * Port-4 is connected to M.2 E key connector on corekit.
+> +			 */
+> +			port@4 {
+> +				reg = <4>;
+> +
+> +				usb_hub_2_4: endpoint {
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+> +	usb_hub_3_x: hub@2 {
+> +		compatible = "usb5e3,625";
+> +		reg = <2>;
+> +
+> +		peer-hub = <&usb_hub_2_x>;
+> +
+> +		ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			port@1 {
+> +				reg = <1>;
+> +
+> +				usb_hub_3_1: endpoint {
+> +					remote-endpoint = <&hd3ss3220_1_out_ep>;
+> +				};
+> +			};
+> +
+> +			port@4 {
+> +				reg = <4>;
+> +
+> +				usb_hub_3_4: endpoint {
+> +				};
+> +			};
+> +		};
+> +	};
+>  };
+>  
+>  &usb_1_hsphy {
+> -- 
+> 2.34.1
+> 
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmniszUACgkQ2O7X88g7
-+pqLmQ//bIF1BfX8fP/unwatE/Nz4LyMh7NRPqn4bmRvdo7GivZPWcmoM4/4VRgk
-P4UFajrspzeLuLd0ve7vaJOjsp7rz7Dax+/GQVdBYODO52cXkIFmRfiRFxqgnfGd
-ZAmgvW47Ib5bbi4rUETncsx3JBKJEyBuoPOlhLwW9q8rQffPPx2R/x8J5wWjWSEA
-cxl6jOnxtHAIoEO3WiHW2YI7bCbvhzEQ3SYwjw01R7/bVMGAJT1VmpDIh/+UZsN7
-SLYqgCKrPMhBgGXG+8GWP9cx4mk4PekA3tFfcLS2ypxYmfaqPJyE+VCTd/1jPK04
-HrijXux1cSNXy2Ut7azCJ04bqCmCGUoYrzvUVZjHT4M88jE+45KLbATrb9htMnnz
-QQngIWTlUPYT6z6IItTYDz/Y28yOezmGe9NeVgzhYtd+mYL9WqEEHy7jzIjEqho7
-IZT5F8mk0I0URqWPAftcnlFljlIAk0TeHaxB2erPhGFOgQfvVdocRpQhrPzS+q9m
-1cZoVntJX/NB1kqkfnnA6b0ufKRXhwwLavigHfGnzunKhgFDvGMEAn08IUw0q9rA
-d/zVeWLu0D5+U94iR5VHkp9nPSlKi4K+l97OCT2UKZvWktjklZaCPvu3jks2h6rJ
-J8EpXrdem/c8gJ/eYIsjxx0NMK0/JTzRVaZXoCWkEjH0NJFsi7Q=
-=8+Q/
------END PGP SIGNATURE-----
-
---oavuqxz2xzcieowj--
+-- 
+With best wishes
+Dmitry
