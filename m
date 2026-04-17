@@ -1,163 +1,152 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7F1398915
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 12:37:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776429439; cv=none; b=YZskyiO51ylkjJGRhiEv16kJqhWSrzwqhJ35ZbbZzXnvbmZ/tPx+9eVLOuQaHhdLibAICW0Ooys8C2cOmx63SfT4765lSIK66UeWnOkprFzHlxABccW23gtWys8DVMJuy/SsUFYn+oL0bdIj1AAyo23KknFjRE99ARG3DuQPTms=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776429439; c=relaxed/simple;
-	bh=N35rTkhOKN3ePSz0lSG1W/FT/xQCyJLnN8AHKDEboJo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZCQSwQNy0ZN+X+yMbdVXdWjQg+N96jgl/aMaKJ4zkiiqdOmv/o84/McvtJrZoucVm3JZnKBVmoTCUqoyWSDfUSKbIKsCxUa9fIKv49KksfspmKbLR80s6YORjCqyLMeoMyFthtIsqFtjsTW8tp59yrsUn6PTwhEu/U+8/jhkF/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ga3R05o2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jmELN605; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 426DD3976A3
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 12:37:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776429476; cv=pass; b=XA7fyTiwjgT72NTZyz5CksRZAwFnpOB1/480eDgRWKCw5AWfCRtIQgHbxLuTUDRpDfVZZ+xCejeAAGe3vfq7lOiLjIWIxHFJ/CJBy1f7O6GOAauV03wnOf+498yFhmoGf1gm70FSuDms3gUnlI2h76BK9aS9rA4C4ODgYvqgT04=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776429476; c=relaxed/simple;
+	bh=oIu6DN+Yo1GS9V6OFVEhLzwsWKEJ4+izexh3mPX7P/M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lZpH7vawCAzawJknVUKw7TI2l3XN/dPaFkzyXFmHodGZfVQt/wrEgpvbZ9j6rxbT5geXaEAB28sSYMIrmkalbHjmQ9AdwBdlmxQZHjQ1Hhxk9LIcQTetDrQkmZfH1lVZxtx8nnvxKmXAiwHehxWEEPPEGg06BjUR8f+EurqPdJU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DKvfZEOF; arc=pass smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ga3R05o2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jmELN605"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63H7AXVG3438217
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 12:37:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	syN7s3fwKBB2b0e/L5u7fo14eh4La/wkEmwmtd3jb1U=; b=Ga3R05o2+xKIKWml
-	x9yiWLHQ6M2INngNQPokLoM8uhOWhJEp88merHbViBOqB10gOI5HtU0xzdj5LLcy
-	JDVOBX5EWUdHqA7wrTXsl9Zo21IAcnQ9unz4l27O+jtUgcVFLMrjnfPtXcsinddK
-	XKko5bf23ekjFxSkS3517Q8kkFPQARMvE8it/K8ljWNAK9RFoaYCR5dOQAGKqQ/8
-	tBytvuO/omYdy9ut+G8E6NdARuCJsfAbS4nIo1CVyMmijowfaBV6uLTOMFx+Otxp
-	gELRio8uS+uCDMTFGw89YcrLgYKlstd+ve9FgrP8rYRpFIUoCdXWT4IIrgw2vrTh
-	FYwSqg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dkg88s8v1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 12:37:15 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50d8c183c2eso5635661cf.0
-        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 05:37:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DKvfZEOF"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-43d7a5e77b1so470927f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 05:37:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776429470; cv=none;
+        d=google.com; s=arc-20240605;
+        b=f2WrL+zYnuPBmyusJUicnTEJwZujHrKOT5IIfgymPsK+0HbmsnIQYWhV3BDhX2jh0T
+         WREDboCPMKW/teHBdNleTplRXlVzXi2vXA4gtFKSSsE4XDlnYNW9zdqeb/oZSDMyaOGR
+         LGI4uO8U0XPvzJ6PZNDysG70WWuRBiKbow7oTh/4bi7Xiw5zYnnr49Hce85up6hP/Fdf
+         HI2N60IqJPDJmUE1CT7WntS0wq+jJgVlW3qUYjuu/VbwKUkV2+z1/5lfxc7ky8UYdG0A
+         stS+tfM6gPX22trMKn2vYUaE8KozFxKgcWR73clXupF8rxXiqyI/PhcG/+pXge6oIcf6
+         QRAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8M8W+2/vzBUP6Rhy7Ku2bFhd+eWXXf0DKZ7ykkT4Jdw=;
+        fh=qqYFEOhWDcUPhIhlqaMrd5x1waxPiDsjpP79a6EsWRU=;
+        b=Ji7GLCvl8leQ0W1oNBNhxjk+X/x70VOC9sn6qlC+m3S+SvbrOs9l6rWl7iBqb9YbuC
+         JUWrOPKO0Pp/gM6t9AMXn5wuarWnuqnScdg1K2OIxUdaUezAKHJrz+evRYHXNbfw7j2g
+         0+YFYroz7H8grULWhgA/apACgxnqda7FRsqnr4xWOAQ/cg98RazUMuZ8m2RmKZ9BYG6e
+         J4l7TyOH/VIKGPpUmiDkyVciTFtJy4iuOaOc1mpPRjHFAp4FfgJI6qIPmgLGNcb2vzdO
+         kCl4rFSY7se/UrERteRCX8wQCru/3igJ0qVScr7hP0vHp7c+6F0JPr68CSt9/P9+/K1a
+         almA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776429435; x=1777034235; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=syN7s3fwKBB2b0e/L5u7fo14eh4La/wkEmwmtd3jb1U=;
-        b=jmELN605ZeZaqjDzEX0P+Y4Nf1XtLUsNNZz+dxImHBPwODTFBme0aciD21Xd9wEMgk
-         7gtBy1VBVEK63Ihw2CGbpmtTyogizoJyEyZIu8Dr6gK11bU7X2nGJDedJkKD4vMbsIBH
-         56xqd685CXihv5T3wvaye7c3suS6iUBh8U4i3r2r/zoPps6dxCfu7fB/XFxJwcqJBiTc
-         R14KxbRVbETLtQT3rvsFH6pm3lu0HqRXMMCtmgG36db9rXi+usYGDUkPp8EjMI0J9vO3
-         Zc2ULE8sVzrIPB1xwknNN32vFoGouBtIImCq++7ZiPiux6oWRClcM4k24CeEEHTNxic4
-         L04w==
+        d=gmail.com; s=20251104; t=1776429470; x=1777034270; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8M8W+2/vzBUP6Rhy7Ku2bFhd+eWXXf0DKZ7ykkT4Jdw=;
+        b=DKvfZEOFlif43UowkBTiqnBqo4w51hQ1NFE+e3B9wKKJmkL4Dnk3gfxApDI3ObV9i1
+         RzS9mvQ3X/R7E+DPEnUSs2AhquNJuCPY7v4Fxdp8ID6l7VihnPSBXV/V2o7+atG/TYUa
+         g39OwaJop8TMOXSsDrdpQ3o+v2t1jlG4ca0YMuHBJs4c/CBiaquJ6nJka/DLSi7f3z3r
+         H7uduTF2cSl4ZGjxgWcMrkdG3VD0TrbK3IwHaBDau7r7ziu/S4aLEZO9lVqZxwmHLo7V
+         KB6FZ1EI9zs93NgzJjHfneT8GEXgZ5lwX8sbwzrv//QnhECprjlcu8U/PC7ctZzyjQ9W
+         Xjlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776429435; x=1777034235;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=syN7s3fwKBB2b0e/L5u7fo14eh4La/wkEmwmtd3jb1U=;
-        b=O6XX8EMKdifAMBusyTm0iT28N8fXNcIRlmgsoECBfVLHHuhrG9zEL1BSyW4Jjcdr7f
-         vhPonuLgoPDCQIX05R7cVo7wU3BKAKXPCyCcKuh7UEM8R1Qobi91wdiO7S8kI40JFYAL
-         ky9AHELdqUb17qgKUykS+61T5b5km59ZC/89E63SYAtsg93VwJVb/iWhg87zwZaoyAvz
-         PvAyAMq01dndq6vBNJmMYyg+gyzbEJ2qLke0c0KItfbz9ufQ5/ssgSh3AI19pp3gTOPC
-         9CUkAgC4Zz87y41CvuB3dcIvXm68EHwA5NcFdA4DvL9clKadqqNIqSUrrb4de7AkE2rN
-         wwNQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+pzvx2epQze+NlxO+/3UefUO1VUZ8GuWrK5Iy9qQVtwRIeqxmMtFb5Gyqylgo5LrllMQODjRW0Iozo@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQTSXajKStJdnHh58b/4Q0emJoaRAtVLGtc7k/Nj5/l7tHl7tD
-	FDtfHuRUe5zabsMjlxh+6XsJXKkEgynxfYCLx1NrmT3FMbkpRMQZn6pABx7ru8xVT+zOeJ8XPaK
-	g7uAqpkQ3STAz1v3J0xIzxLZky5bmSz90ppTGbAGeeAViBqPyXmPcJ2dcxqqqryhu
-X-Gm-Gg: AeBDiev0+nmKnyHeS05cDTeVpW19pfQdWnM/P0iTQWysSAibokFH1Z+XdvTXKJmXurl
-	Yg4NGpu4ILJhCFjPmKRTHFNqwwVchtQvqyRYwKEDZ+KfzHQAlr1c+x7zV3qOdA4MovWbaWjBibx
-	4WJt6RfkRqZXEcUNvppgJYfNHmuD7E9d6iQWbRR33VSx+yYsIwNaSpDA72u91nsForUzRnEgK2P
-	DoJyIqCIpNWdvATFocAiFRwAh9ekawJi5XEPAlyu0kmULzsec01xy7Piy/Yf+cxiBr66kn0M+3D
-	oBVN5itSVg96LIsKrTSqDdSwI754U3RSTahX/txZS/P80imi8F1hTiyAXZW4t5qEyW3ElDGKqXJ
-	QAGd6NrOi+wkd5Qj9Rgf6DnUNUCsVHg4mF16OiDWxteFyHGRIqHZXyhINppglPQs9zepDP+C+s0
-	IWa3oZTPoYc7AVtg==
-X-Received: by 2002:a05:622a:5c13:b0:501:5260:51e9 with SMTP id d75a77b69052e-50e36c65be4mr24028031cf.7.1776429434889;
-        Fri, 17 Apr 2026 05:37:14 -0700 (PDT)
-X-Received: by 2002:a05:622a:5c13:b0:501:5260:51e9 with SMTP id d75a77b69052e-50e36c65be4mr24027521cf.7.1776429434320;
-        Fri, 17 Apr 2026 05:37:14 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba4512115d6sm52459666b.7.2026.04.17.05.37.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Apr 2026 05:37:13 -0700 (PDT)
-Message-ID: <54ab414e-a33e-4cdb-a125-5a980ea7e851@oss.qualcomm.com>
-Date: Fri, 17 Apr 2026 14:37:11 +0200
+        d=1e100.net; s=20251104; t=1776429470; x=1777034270;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=8M8W+2/vzBUP6Rhy7Ku2bFhd+eWXXf0DKZ7ykkT4Jdw=;
+        b=N3/YH356MOOCdPJzbqBw3go/A5t4dwxfqQhuQN/hIkoaHWd/VH11vA0/cI5Gbhg3EP
+         eg7JDoRlFI+Yw9Wcmy8UdMA0wczAq2fxBzrxYDaFRMTDOIgp5Nx2OslLb984POd1/ImD
+         lKhSfj3Vpu1GYm/ed5ZIaT34f9fyeN9QGK42wTZ4lujYYy4j0pni6L3hSEkB6FSu8E1G
+         R9/mzrExIxt03/Qf0/mMeoFJSPYnZr9dJhevlrQHUBJ3dfJn4McyBQlHxrAg7nqjEMeL
+         WDmcTSBwgnnqSlhn4+1H8HtVFNoIFX7B/aPlQdF5HMcJ7vxcnQ63Zjgw6H6R2xXAN5tV
+         o/dA==
+X-Forwarded-Encrypted: i=1; AFNElJ/kWdJGVP5Ny7e79DOx2YRrltwDYP2RLFwsQV9L+Llf8GHQXfKoTxOHdvSJDvi2AIEVYqmTOEc0j3OQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxmjqCtos+2GJrHMCq+ByCE8MZpgaDEwMzHjkVjEJSYPDzkskMq
+	GmltW6Bg+x2Xdq5sWI0UL0CA6APy+f/FHgfh//xDLZfIt83/4LFE6Zh7fAiO7no7nDR7TTFoHGP
+	9lNRmqR3HHlno4hJwwFURaE5B0/UG3enq1rcW
+X-Gm-Gg: AeBDiesxXY3PtcVLoxmft2YJE8be8rzeAPbHCrbHxwVIPGkMkVGAk0TDhS/ZYuGhw4r
+	UblhTGpr4EdojbgTSgUCp+nH9Nws+A84pROTYMFI6J1EBHzyHgj7up6WZ0q8knk23RWC4IT3TOF
+	cEAaYDLnZWW/b0g/8ze0e78cNYhbkS4im8Rn7IlwIANk2IaWSjKTAXhRlc6mBJjR7Sfc3WwijZV
+	O0vcmVnRcOSSdVS8Y+hxnFrINKku69TIv0Ay/8weo+M8JOCG+W0fwT7Hq3D+mRGA2IYitmj8GYO
+	xqSiEUuoKC473hqlLaA=
+X-Received: by 2002:a05:6000:1ac5:b0:43d:73d4:b1a with SMTP id
+ ffacd0b85a97d-43fe407c0d8mr4468477f8f.19.1776429470199; Fri, 17 Apr 2026
+ 05:37:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: sc8280xp: use refgen regulator for DSI
-To: Pengyu Luo <mitltlatltl@gmail.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260228125431.23098-1-mitltlatltl@gmail.com>
- <awrfjdwsf4gyyg2s6ppw4jfmpzp5s2aavosmspsp26oqccco7y@csij6bpnfpu7>
- <CAH2e8h7W8Tng4v9Da9c7xg-oczHgNcMvz0OF6A27L9m+Pw7iZA@mail.gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <CAH2e8h7W8Tng4v9Da9c7xg-oczHgNcMvz0OF6A27L9m+Pw7iZA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: Nyqpiik1ESqfQDVM1g48Tv6kcPYlTK1L
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDEyMyBTYWx0ZWRfX0G6vGGlCmI5/
- z5zbj6riKfVEJnuw1aFX9aVkV8505T8Pg4mifrjkGbrewEwsDuO/t6dtX4+DbhL5yM7KIDkFkns
- 4XyVGz0xxiGJglc75loUqhMAixzEyJhHkWwRSWo/jH7BNoXtJ8DiUQEMi6o+Bw8eiZVRF21JgsD
- Gu9vqmbzDBF/eMObwtEPzXpvNFhtaH24qQj7vHYVNt2s7Og+S8MkWAHWMpx9wzi45/S1bUMmzs2
- uvUf3nBZ0OxH9+1fdMdL8u2HT3Ctc2a4A3M3k2GUHV1vHQXFX8np0ToeeejO1RzWrIeKiyrID6m
- XCnHJQTF2eY2iUMHrCto+gATbjTLn4Us5C1kQ8vwSIPxjprsznQDF6q2+Qh5zWSsvihZeuBIAzu
- HKwNDsqt/hZbFpXD3+QP6NRj464QEOxNwSiSzqRYMi8Ob/VrlpU6vV7ayzCeP9qxO6NUudiVOcC
- gMHBLpy8TXN4fvi5i0w==
-X-Authority-Analysis: v=2.4 cv=X+Fi7mTe c=1 sm=1 tr=0 ts=69e2297b cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=IGz76sYE0BYaplGTJ5AA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: Nyqpiik1ESqfQDVM1g48Tv6kcPYlTK1L
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-17_01,2026-04-17_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 spamscore=0 impostorscore=0 lowpriorityscore=0
- bulkscore=0 priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604170123
+References: <20260417114226.100033-1-clamor95@gmail.com> <20260417114226.100033-3-clamor95@gmail.com>
+ <aeIk3z8f4dvjEXBQ@kekkonen.localdomain>
+In-Reply-To: <aeIk3z8f4dvjEXBQ@kekkonen.localdomain>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Fri, 17 Apr 2026 15:37:37 +0300
+X-Gm-Features: AQROBzCGajxfHOMdb-jAWC2IPNr-tHIUYgt6Ny8fWbZU1eaEM3yL-TGQmmJHhU0
+Message-ID: <CAPVz0n0vf_Re-4s4ygOP8aAMA+b=o7yM+UYVZiRUfkrJ931J2A@mail.gmail.com>
+Subject: Re: [PATCH v1 2/5] media: lm3560: Add IN supply support
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 4/17/26 2:23 PM, Pengyu Luo wrote:
-> On Sat, Feb 28, 2026 at 9:13 PM Dmitry Baryshkov
-> <dmitry.baryshkov@oss.qualcomm.com> wrote:
->>
->> On Sat, Feb 28, 2026 at 08:54:30PM +0800, Pengyu Luo wrote:
->>> Use it for the DSI controllers, since DSI nodes have been added.
->>>
->>> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
->>> ---
->>> This patch depends on the below series:
->>> https://lore.kernel.org/linux-arm-msm/20260228101907.18043-1-mitltlatltl@gmail.com/
->>
->> Why was it not squashed into that series? I'd assume that DSI nodes are
->> incomplete and are working "by luck" without the refgen supplies.
->>
-> 
-> Today, I did a casual read. I found the register(0x8900000 + 0x80) to
-> enable refgen is always 0 on windows. The refgen driver may be not
-> compatible with sc8280xp or the DT configuration is wrong.
+=D0=BF=D1=82, 17 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 15:1=
+7 Sakari Ailus <sakari.ailus@linux.intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Hi Svyatoslav,
+>
+> On Fri, Apr 17, 2026 at 02:42:23PM +0300, Svyatoslav Ryhel wrote:
+> > Add IN supply (2.5V - 5.5V) found in LM3560 to ensure its proper work.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/media/i2c/lm3560.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> >
+> > diff --git a/drivers/media/i2c/lm3560.c b/drivers/media/i2c/lm3560.c
+> > index e6af61415821..a2674af6c9fb 100644
+> > --- a/drivers/media/i2c/lm3560.c
+> > +++ b/drivers/media/i2c/lm3560.c
+> > @@ -16,6 +16,7 @@
+> >  #include <linux/slab.h>
+> >  #include <linux/mutex.h>
+> >  #include <linux/regmap.h>
+> > +#include <linux/regulator/consumer.h>
+> >  #include <linux/videodev2.h>
+> >  #include <media/i2c/lm3560.h>
+> >  #include <media/v4l2-ctrls.h>
+> > @@ -434,6 +435,11 @@ static int lm3560_probe(struct i2c_client *client)
+> >               return dev_err_probe(&client->dev, PTR_ERR(flash->hwen_gp=
+io),
+> >                                    "failed to get hwen gpio\n");
+> >
+> > +     rval =3D devm_regulator_get_enable(&client->dev, "vin");
+>
+> I'd also enable this via runtime PM.
+>
+> Sensor drivers such as imx219 serve as a good example here.
+>
 
-The Linux driver casts a software vote. Most newer SoCs should have
-a separate hw line between the PHYs and the REFGEN regulator to take
-care of it automatically.
+Would you mind if I squash adding hwen, vin and pm into single commit?
+It would be tricky to separate them from PM addition. I will add
+descriptions of what was changed.
 
-Even if a little unnecessary, this won't hurt
-
-I *think* base+0xc & BIT(3) should tell you whether the power is
-actually flowing at a given moment
-
-Konrad
+> > +     if (rval)
+> > +             return dev_err_probe(&client->dev, rval,
+> > +                                  "failed to enable regulator\n");
+> > +
+> >       rval =3D lm3560_subdev_init(flash, LM3560_LED0, "lm3560-led0");
+> >       if (rval < 0)
+> >               return rval;
+>
+> --
+> Kind regards,
+>
+> Sakari Ailus
