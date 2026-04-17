@@ -1,130 +1,264 @@
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62DE35E944;
-	Fri, 17 Apr 2026 09:31:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54744363081;
+	Fri, 17 Apr 2026 09:33:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776418321; cv=none; b=N4kGM9eWW+DWDdqDQeVwl4PyghjQocSNKRqzwvLYdRWii+A6IvL5JHXxx9cpsd2oy6OeauVnE3HVCeXJ00M7DncYYAKj3ADoIAV9xtXt4qukxfD4IbY6cfRs7KbLIn6EJ9fL44GEbzappZnybN/wUwHUAFTVLfO7moVWabTg/Ow=
+	t=1776418420; cv=none; b=cfRXqMoDq+85uzTOl1cxN9xE9sYXAlyB024NqejmvuVBhtAUSbuA7GX5U8d0kJV/JE/HJGjsfTBGgabCsDWV2jyN1/hFJ40dYhk4ao/uK1u/hoPFI/fuEDzJPKsljQgIdlwnxxR3WM9GwrUm6vNWeeaT0mO3L9s66e/VAUKTiak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776418321; c=relaxed/simple;
-	bh=k2/NtjpEqjtp2ZMPsfxKYGQQDyh1+0ETw/LyMjy9rUk=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=bTBH5UYdj0Y+c64d80/6yvEjnxzu6DtERTIPUQT9IHESuE3hGfVWQ3K9TR4H+v3+W//IoWG5xK4HN92z9+pexQQlSMGzaxwi2EPUO2gPdYa/OLglVQEvUItkt3F4OrzvRMDq8j/0WL3u5HZ3PPT3Gt6YBz2Rwr05O563T3DW10I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=tLkFPJYl; arc=none smtp.client-ip=65.21.61.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+	s=arc-20240116; t=1776418420; c=relaxed/simple;
+	bh=BXdpks9H9rklxuI3yAO6kCgua5nDHMkIM6I8m8j0NKA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IFoxfFdsciRu5Y5KVdSuxMEMCQiWBbnv6cyflvzRDPXFiUw4PvvhBtzBkSHzTuf+BagCCmHon/uMaSPmMYtq5KEWSB9Gvhm+4PBVj6d92byq29wSHlyhZw9jHriSJIhE0Vnux3W+x0SeENBOXOtYgR7gocxSFnHXh2fVKUm/kUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=qss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PDBaXbNb; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=qss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="tLkFPJYl"
-Message-ID: <5514acb2-f4cd-499d-aabd-8f5d7a311be0@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
-	s=courrier-s1; t=1776418310;
-	bh=k2/NtjpEqjtp2ZMPsfxKYGQQDyh1+0ETw/LyMjy9rUk=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=tLkFPJYlW4M7Y+rvGQG9WBzFs13d68haPvQJ2LRKkkR/r5yeZdVM953uDuGHwnlky
-	 FXxNU8iXJ26PB2EBBuzXfCF0KMhhYWBcsHlmtVA8KBa+FEO7Crv69u8/mLOcwjzoWT
-	 KKtDdFdd+ts0aTqVaEGF2HTGwIjAYuwvZ59WyfWs=
-Date: Fri, 17 Apr 2026 11:31:49 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PDBaXbNb"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63H86u4Q065800;
+	Fri, 17 Apr 2026 09:33:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=5JmLXK651yqbEnZCMZk3XltBKhh2ELPuJSA
+	3C1TZ3K8=; b=PDBaXbNbtXnQ04F54Z64Xzbc4VhXSl3sNuLyZUvUd+Nefv9ePp9
+	mGXWI5zaXFOqwaPGJe5NnPzji7656LNAF5SHPpDa2R8bZixCpzCchyfNZD1hOcWI
+	JN0av9I8TIUnuVlXeo2+KMPOqrK9ba5j7DaUKzAorclBdkIDmdqdrqu2V1zf+irn
+	hgQ0CVJOOuruzoQDopmgu0xv3seUD7alXp4f/R5aOhyn/v7mvNf+GxneVV/tNOsd
+	IL2g0J14uGo4o20WjZq1K9w4QR3opC2siZD4osTT1U1i+8N8JaunsRARDN8IXaRm
+	J7Ymve6j84JFoVRcqofs6ELdA22bkuqg/nQ==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dk3af3319-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 17 Apr 2026 09:33:36 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 63H9XWVq031346;
+	Fri, 17 Apr 2026 09:33:32 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4dg5d1q1by-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 17 Apr 2026 09:33:32 +0000 (GMT)
+Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 63H9XWox031340;
+	Fri, 17 Apr 2026 09:33:32 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 63H9XW0K031339
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 17 Apr 2026 09:33:32 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
+	id 7EE87636; Fri, 17 Apr 2026 15:03:31 +0530 (+0530)
+From: Karthik S <karthik.s@qss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Karthik S <karthik.s@qss.qualcomm.com>
+Subject: [PATCH v1] arm64: dts: qcom: qcs6490-rb3gen2: Add WCD headset playback and record for qcs6490-rb3gen2 industrial mezzanine
+Date: Fri, 17 Apr 2026 15:03:27 +0530
+Message-Id: <20260417093327.3251203-1-karthik.s@qss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Subject: Re: [PATCH v2 1/8] dt-bindings: mfd: khadas: Add new compatible for
- Khadas VIM4 MCU
-To: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Beniamino Galvani <b.galvani@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-pm@vger.kernel.org
-References: <20260403-add-mcu-fan-khadas-vim4-v2-0-70536b22439a@aliel.fr>
- <20260403-add-mcu-fan-khadas-vim4-v2-1-70536b22439a@aliel.fr>
- <20260415214815.GA602572-robh@kernel.org>
- <6fc8ddeb-d54d-473d-94d2-49dc78a07154@aliel.fr>
- <6758aaa2-ac1a-4751-aece-2b445b84f2bc@linaro.org>
-Content-Language: en-US
-In-Reply-To: <6758aaa2-ac1a-4751-aece-2b445b84f2bc@linaro.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDA5NCBTYWx0ZWRfXzZCIbSjRlvZ7
+ DVsTW8BF7fA9WZ40mhXFVreath2LPg9JNqR1hotoiXjR3vuFSv1I0QW1WhmANotXfWQEV27fu3i
+ Vi5PdH7wz4RqHdZHJEkg2yRDqUwuYL4FpEmYdZmrMJFXRQV6sG4gxZGGXaV0sR4f7pU7udMVT2N
+ P2ev1h3kKO9+vGLvwHJSp+f7IIdnUrzQFDoQ/SRCPcJg6gjL+fikcyIZkJHvkjMB+iFeHmhpx6o
+ gLIoGFRD5jSWAcxfCf3JGcn8OsExc/YY+wBa4NWbzs4+WqF1eQaqbYBgiVdrirJh77b7UFCukYz
+ Oikx7mnOjPtyQ7hYTVDz9nzxonO/CiG2+aKmI+bRaQCnS5zUOLzaR9LNuO43SFtvu5q5xZy5icJ
+ 3gZwtie+WdRW5GKfVrukpH1FWwHpfwrzXgbEk1KQ2pNL7c6CoddRtZWQ6SGiR+m0QheRkslsacj
+ qNqTNSrYlhUNy/LfCVw==
+X-Proofpoint-ORIG-GUID: o-7mrK4v6KSskQg0EzyZi7Ffse7nDPSX
+X-Proofpoint-GUID: o-7mrK4v6KSskQg0EzyZi7Ffse7nDPSX
+X-Authority-Analysis: v=2.4 cv=DfInbPtW c=1 sm=1 tr=0 ts=69e1fe70 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=091khAkvSFST2kJ2BGsA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-16_04,2026-04-16_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 clxscore=1034 priorityscore=1501 phishscore=0
+ lowpriorityscore=0 malwarescore=0 bulkscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604170094
 
-On 4/17/26 9:53 AM, Neil Armstrong wrote:
-> On 4/16/26 10:25, Ronald Claveau wrote:
->> On 4/15/26 11:48 PM, Rob Herring wrote:
->>> On Fri, Apr 03, 2026 at 06:08:34PM +0200, Ronald Claveau wrote:
->>>> The Khadas VIM4 MCU register is slightly different
->>>> from previous boards' MCU.
->>>> This board also features a switchable power source for its fan.
->>>>
->>>> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
->>>> ---
->>>>   Documentation/devicetree/bindings/mfd/khadas,mcu.yaml | 5 +++++
->>>>   1 file changed, 5 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml
->>>> b/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml
->>>> index 084960fd5a1fd..67769ef5d58b1 100644
->>>> --- a/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml
->>>> +++ b/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml
->>>> @@ -18,6 +18,7 @@ properties:
->>>>     compatible:
->>>>       enum:
->>>>         - khadas,mcu # MCU revision is discoverable
->>>
->>> The revision is no longer discoverable as was claimed?
->>>
->>
->> The firmware revision is still discoverable, and via the same register,
->> but the VIM4 MCU has a different register layout (eg: no DEVICE_NO
->> register). The new compatible is needed to describe a different MCU
->> variant, not a different revision of the same MCU.
->> I will remove the comment as it is confusing with new boards.
-> 
-> Yes basically it was discoverable for earlier MCU version, but is not
-> for this particular board version.
-> 
-> Keep the comment, but add a comment on the vim4 entry saying this variant
-> is not discoverable.
-> 
-> Neil
-> 
+Add WCD playback and capture DAI link to sound node. Add WCD
+codec node and corresponding soundwire nodes to perform
+headset playback and record.
 
-Ok make sense, I will do that.
+Signed-off-by: Karthik S <karthik.s@qss.qualcomm.com>
+---
+ .../qcs6490-rb3gen2-industrial-mezzanine.dtso | 133 ++++++++++++++++++
+ 1 file changed, 133 insertions(+)
 
->>
->>>> +      - khadas,vim4-mcu
->>>>       "#cooling-cells": # Only needed for boards having FAN control
->>>> feature
->>>>       const: 2
->>>> @@ -25,6 +26,10 @@ properties:
->>>>     reg:
->>>>       maxItems: 1
->>>>   +  fan-supply:
->>>> +    description: Phandle to the regulator that powers the fan.
->>>> +    $ref: /schemas/types.yaml#/definitions/phandle
->>>> +
->>>>   required:
->>>>     - compatible
->>>>     - reg
->>>>
->>>> -- 
->>>> 2.49.0
->>>>
->>
->>
-> 
-
-
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
+index 83908db335af..d2503fce352c 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
++++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
+@@ -6,6 +6,7 @@
+ /dts-v1/;
+ /plugin/;
+ #include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/sound/qcom,q6afe.h>
+ #include <dt-bindings/clock/qcom,gcc-sc7280.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ 
+@@ -30,6 +31,29 @@ vreg_1p8: regulator-1v8 {
+ 		regulator-always-on;
+ 		regulator-boot-on;
+ 	};
++
++	wcd9370: audio-codec-0 {
++		compatible = "qcom,wcd9370-codec";
++
++		pinctrl-0 = <&wcd_default>;
++		pinctrl-names = "default";
++
++		reset-gpios = <&tlmm 83 GPIO_ACTIVE_LOW>;
++		vdd-buck-supply = <&vph_pwr>;
++		vdd-rxtx-supply = <&vph_pwr>;
++		vdd-px-supply = <&vph_pwr>;
++		vdd-mic-bias-supply = <&vph_pwr>;
++		qcom,micbias1-microvolt = <1800000>;
++		qcom,micbias2-microvolt = <1800000>;
++		qcom,micbias3-microvolt = <1800000>;
++		qcom,micbias4-microvolt = <1800000>;
++		qcom,hphl-jack-type-normally-closed = <1>;
++		qcom,ground-jack-type-normally-closed = <1>;
++		qcom,rx-device = <&wcd937x_rx>;
++		qcom,tx-device = <&wcd937x_tx>;
++
++		#sound-dai-cells = <1>;
++	};
+ };
+ 
+ &remoteproc_wpss {
+@@ -283,8 +307,117 @@ pcie1_tc9563_resx_n: pcie1-tc9563-resx-state {
+ 		output-enable;
+ 	};
+ 
++        wcd_default: wcd-reset-n-active-state {
++                pins = "gpio83";
++                function = "gpio";
++                drive-strength = <16>;
++                bias-disable;
++        };
++
+ };
+ 
+ &wifi {
+        status = "disabled";
+ };
++
++&swr0 {
++	status = "okay";
++
++	wcd937x_rx: codec@0,4 {
++	compatible = "sdw20217010a00";
++	reg = <0 4>;
++
++	/*
++	* WCD9370 RX Port 1 (HPH_L/R)       <==>    SWR1 Port 1 (HPH_L/R)
++	* WCD9370 RX Port 2 (CLSH)          <==>    SWR1 Port 2 (CLSH)
++	* WCD9370 RX Port 3 (COMP_L/R)      <==>    SWR1 Port 3 (COMP_L/R)
++	* WCD9370 RX Port 4 (LO)            <==>    SWR1 Port 4 (LO)
++	* WCD9370 RX Port 5 (DSD_L/R)       <==>    SWR1 Port 5 (DSD)
++	*/
++	qcom,rx-port-mapping = <1 2 3 4 5>;
++
++	/*
++	* Static channels mapping between slave and master rx port channels.
++	* In the order of slave port channels, which is
++	* hph_l, hph_r, clsh, comp_l, comp_r, lo, dsd_r, dsd_l.
++	*/
++	qcom,rx-channel-mapping = /bits/ 8 <1 2 1 1 2 1 1 2>;
++	};
++};
++
++&swr1 {
++	status = "okay";
++	wcd937x_tx: codec@0,3 {
++	compatible = "sdw20217010a00";
++	reg = <0 3>;
++
++	/*
++	* WCD9370 TX Port 1 (ADC1)               <=> SWR2 Port 2
++	* WCD9370 TX Port 2 (ADC2, 3)            <=> SWR2 Port 2
++	* WCD9370 TX Port 3 (DMIC0,1,2,3 & MBHC) <=> SWR2 Port 3
++	* WCD9370 TX Port 4 (DMIC4,5,6,7)        <=> SWR2 Port 4
++	*/
++	qcom,tx-port-mapping = <1 1 2 3>;
++
++	/*
++	* Static channel mapping between slave and master tx port channels.
++	* In the order of slave port channels which is adc1, adc2, adc3,
++	* mic0, dmic1, mbhc, dmic2, dmic3, dmci4, dmic5, dmic6, dmic7.
++	*/
++	qcom,tx-channel-mapping = /bits/ 8 <1 2 1 1 2 3 3 4 1 2 3 4>;
++	};
++};
++
++&lpass_tx_macro {
++	status = "okay";
++};
++
++&lpass_rx_macro {
++	status = "okay";
++};
++
++&sound {
++	model = "qcs6490-rb3gen2-ia-snd-card";
++	audio-routing = "SpkrLeft IN", "WSA_SPK1 OUT",
++		"SpkrRight IN", "WSA_SPK2 OUT",
++		"IN1_HPHL", "HPHL_OUT",
++		"IN2_HPHR", "HPHR_OUT",
++		"AMIC2", "MIC BIAS2",
++		"TX SWR_ADC1", "ADC2_OUTPUT",
++		"VA DMIC0", "vdd-micb",
++		"VA DMIC1", "vdd-micb",
++		"VA DMIC2", "vdd-micb",
++		"VA DMIC3", "vdd-micb";
++
++	wcd-capture-dai-link {
++		link-name = "WCD Capture";
++
++		codec {
++			sound-dai = <&wcd9370 1>, <&swr1 0>, <&lpass_tx_macro 0>;
++		};
++
++		cpu {
++			sound-dai = <&q6apmbedai TX_CODEC_DMA_TX_3>;
++		};
++
++		platform {
++			sound-dai = <&q6apm>;
++		};
++	};
++
++	wcd-playback-dai-link {
++		link-name = "WCD Playback";
++
++		codec {
++			sound-dai = <&wcd9370 0>, <&swr0 0>, <&lpass_rx_macro 0>;
++		};
++
++		cpu {
++			sound-dai = <&q6apmbedai RX_CODEC_DMA_RX_0>;
++		};
++
++		platform {
++			sound-dai = <&q6apm>;
++		};
++	};
++};
 -- 
-Best regards,
-Ronald
+2.34.1
+
