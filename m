@@ -1,56 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0E029A32D;
-	Fri, 17 Apr 2026 16:07:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D973290DB;
+	Fri, 17 Apr 2026 16:08:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776442025; cv=none; b=L8eYIhGtxw1NhS+ImkTr799FD+Q02nOfXrSqUjQCxjsIDl5lKb6ZuDPj4pF6LGvbXbP4vik/2O49OooeQyLTIbcDhN6ZiaVGOOXGcS21X/c3UndC54q4PpLXzURUTF8Nd9SnrDxGyLfgozRs5NV2j1kL93mC67oOy41X9wir/VU=
+	t=1776442102; cv=none; b=o/Vl0+Cs6vaRlKwCp0sgWZZracx+AL+echkh9061fcN4fwVpH3lGLD2584ZeRnVCooK1Pq6uoZr2Cr2VMSIWfK1bd6au97wRaVyBNt8IFvzXoCT9Q0WHfBfX6hLRjNQijDJ+fS9bM0zeqWC1zzZvvmE9oHUB4tLjZoXCY8fSfeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776442025; c=relaxed/simple;
-	bh=NQgku0XmKRU6rgKiAn/DW7pVK31ikSdLl/YitlLG/B0=;
+	s=arc-20240116; t=1776442102; c=relaxed/simple;
+	bh=rCbQ3eZIJe/RC4aBBQ8FhYf7+/XDZ4kSZXQKqXKk+bo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QCz8Il82Rx4y9MLjGSGPiRChjQBH487j4BCr8fCC/wK9jPM6Jva8I2ZHsemKsUho/G/pE5eWkloTV783OJUoZS+x1ux1Pp7F2DRNmjbwvuWQehpDqGU6nGVuuO9vbMvu3n65+IJHpj4pblc0A3BU9BOV3pwLtTZjheF4yBNQths=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O+ZilaRD; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=dZnZml5Yt4sL98ffZ51yB5BFy9Ynz0BUEBOQdo05d8Q/IUiAKwlSVWH/GRiFcIdE+W7NrtfG3oZ1QOphQRTNyjnfWDeOTkwylHTlwP4P8sylQEsD7Y2c5Op1gzDdMSyzUk5ZiumA4roCl+jVc64kqdCIQ07y4gimgbR7F3po6WY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tbjxfT8H; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O+ZilaRD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C29ACC19425;
-	Fri, 17 Apr 2026 16:07:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tbjxfT8H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF8F3C19425;
+	Fri, 17 Apr 2026 16:08:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776442025;
-	bh=NQgku0XmKRU6rgKiAn/DW7pVK31ikSdLl/YitlLG/B0=;
+	s=k20201202; t=1776442102;
+	bh=rCbQ3eZIJe/RC4aBBQ8FhYf7+/XDZ4kSZXQKqXKk+bo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=O+ZilaRDHbIpuk+btUy0PJqf2nDXeW9zyi9F0lc1bgO07JLLXlhdnIAxV0pt3QMbJ
-	 OZFjEc0Y4ag0wOuAXrdgkKVpb+Ivj0UkYvf9rieoR7CGQXx1W4NmEtWs+AuaMI/nrH
-	 hugHPhq3slfvFe/Yk0er0AkKjCzK1BYcR9U0RlhZmJAaDri7QRdLTGRBBGRu6USD84
-	 HnJe9ERiefV9hM7c0qA11VHA8ZpivyLxv/QjHa5cMtcfm2Aico6mlC+UUyCPz/RVI5
-	 dVsYHkDOne5Z1zIpQyWFf4YLtAkzqyKyOyVcKiyGzyaaZkpHkgMGS9qB/orNZUrrGG
-	 8yLX+nhkmwKeg==
-Date: Fri, 17 Apr 2026 17:06:57 +0100
+	b=tbjxfT8Hd4sBS2Hn+u4EnHt6C8x+USy+R+OePVB1NR+9W/GVB6fRp3z60iSfjivbf
+	 n6/J0tkOww/FMrJSmqw2O2e7mVMUVDxn9bA4VfUzbMcJOqa82GEwJeJRhQtRDoEkIo
+	 TdrzSu322M5DgVMJVPNV/W0G2+V5xA+W04DjnUpYpHLXB0YtlNIBM9KCcwpoIidec1
+	 7IrOZp/5xhwbHWDoiWAWEU9QoKj8RxUEnwBGqvKQmI11D2IkXYj2QNvkFAK168gr42
+	 tAJLiPODr22oKOUPBfQDZx63I2lJx1BQycdoiERXxkbPPR4JHbpIIN9YbNoF6ldr7i
+	 a3RnH3ES3+yBQ==
+Date: Fri, 17 Apr 2026 17:08:17 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+To: David Lechner <dlechner@baylibre.com>
+Cc: Ariana Lazar <ariana.lazar@microchip.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Andrew Jeffery <andrew@aj.id.au>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>
-Subject: Re: [PATCH v7 1/3] dt-bindings: pinctrl: Add
- aspeed,ast2700-soc0-pinctrl
-Message-ID: <20260417-anemia-borrower-fb90ac02b417@spud>
-References: <20260416-upstream_pinctrl-v7-0-d72762253163@aspeedtech.com>
- <20260416-upstream_pinctrl-v7-1-d72762253163@aspeedtech.com>
- <20260416-brutishly-saga-ba7168a4cd14@spud>
- <OSQPR06MB7252EB0C2A1A3313DE49406B8B202@OSQPR06MB7252.apcprd06.prod.outlook.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: iio: dac: mcp47feb02: Fix maxItems value
+ for reg property
+Message-ID: <20260417-sprain-list-014458b02e1d@spud>
+References: <20260417-mcp47feb02-fix5-v2-1-6592ea499cce@microchip.com>
+ <120a34be-bc0d-4202-9996-c5da8cf15963@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -58,157 +51,80 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/e075MT9JwuwmUji"
+	protocol="application/pgp-signature"; boundary="FZ/nzaa8zgZn+8C9"
 Content-Disposition: inline
-In-Reply-To: <OSQPR06MB7252EB0C2A1A3313DE49406B8B202@OSQPR06MB7252.apcprd06.prod.outlook.com>
+In-Reply-To: <120a34be-bc0d-4202-9996-c5da8cf15963@baylibre.com>
 
 
---/e075MT9JwuwmUji
-Content-Type: text/plain; charset=iso-8859-1
+--FZ/nzaa8zgZn+8C9
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Apr 17, 2026 at 02:20:25AM +0000, Billy Tsai wrote:
-> > > +=A0=A0=A0 properties:
-> > > +=A0=A0=A0=A0=A0 function:
-> > > +=A0=A0=A0=A0=A0=A0=A0 enum:
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMC
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGDDR
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGM0
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGPCIEA
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGPCIEB
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGPSP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGSSP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGTSP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGUSB3A
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGUSB3B
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - PCIERC0PERST
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - PCIERC1PERST
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - TSPRSTN
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - UFSCLKI
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AD0
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AD1
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AH
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AHP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AHPD0
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXH
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXH2B
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXHD1
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXHP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXHP2B
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXHPD1
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BD0
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BD1
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BH
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BHP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BHPD0
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXH
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXH2A
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXHD1
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXHP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXHP2A
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXHPD1
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXH
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXH2B
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXHD
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXHP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXHP2B
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXHPD
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXH
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXH2A
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXHD
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXHP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXHP2A
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXHPD
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - VB
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - VGADDC
-> > > +
-> > > +=A0=A0=A0=A0=A0 groups:
-> > > +=A0=A0=A0=A0=A0=A0=A0 enum:
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMCCDN
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMCG1
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMCG4
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMCG8
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMCWPN
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAG0
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - PCIERC0PERST
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - PCIERC1PERST
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - TSPRSTN
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - UFSCLKI
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2A
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AAP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2ABP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2ADAP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AH
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AHAP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2B
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BAP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BBP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BDBP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BH
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BHBP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3A
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AAP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3ABP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3B
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BAP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BBP
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - VB0
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - VB1
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - VGADDC
-> > > +=A0=A0=A0=A0=A0 pins:
-> > > +=A0=A0=A0=A0=A0=A0=A0 enum:
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AB13
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AB14
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AC13
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AC14
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AD13
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AD14
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AE13
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AE14
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AE15
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AF13
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AF14
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AF15
+On Fri, Apr 17, 2026 at 10:26:42AM -0500, David Lechner wrote:
+> On 4/17/26 8:38 AM, Ariana Lazar wrote:
+> > Change maxItems value from 8 to 1 for the channel number reg property.
 >=20
-> > Why do you have groups and pins?
->=20
-> > Is it valid in your device to have groups and pins in the same node?
->=20
-> The intent is to support both group-based mux selection and
-> configuration, as well as per-pin configuration.
->=20
-> In our hardware:
->=20
-> - `function` + `groups` are used for pinmux selection.
-> - `pins` is used for per-pin configuration (e.g. drive strength,
->   bias settings).
-> - `groups` may also be used for group-level configuration.
->=20
-> As a result, both `groups` and `pins` may appear in the same node,
-> but they serve different purposes and do not conflict:
->=20
-> - `groups` selects the mux function and may apply configuration to
->   the entire group.
-> - `pins` allows overriding or specifying configuration for individual
->   pins.
->=20
-> In most cases, only one of them is needed, but both are allowed when
-> both group-level and per-pin configuration are required.
+> The commit message needs to explain why this is the correct thing to do.
 
-To be honest, that sounds like your groups are not sufficiently
-granular and should be reduced such that you can use them for pin
-settings.=20
+With that,
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: changes-requested
 
---/e075MT9JwuwmUji
+>=20
+> >=20
+> > Fixes: 4ba12d304175 ("dt-bindings: iio: dac: adding support for Microch=
+ip MCP47FEB02")
+> > Link: https://lore.kernel.org/all/20260403-speed-childless-1360de358229=
+@spud/
+> > Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+> > ---
+> > Changes in v2:
+> > - keep just maxItems value update in this patch
+> > - remove Reported-by from commit message
+> > - Link to v1: https://lore.kernel.org/r/20260416-mcp47feb02-fix5-v1-1-9=
+656c2fed6d2@microchip.com
+> > ---
+> >  Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml | =
+3 +--
+> >  1 file changed, 1 insertion(+), 2 deletions(-)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47f=
+eb02.yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.=
+yaml
+> > index d2466aa6bda2106a8b695347a0edf38462294d03..f2efa0ccbaa32482dcdc69d=
+98c1565518538793f 100644
+> > --- a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.ya=
+ml
+> > +++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.ya=
+ml
+> > @@ -161,8 +161,7 @@ patternProperties:
+> >      properties:
+> >        reg:
+> >          description: The channel number.
+> > -        minItems: 1
+> > -        maxItems: 8
+> > +        maxItems: 1
+> > =20
+> >        label:
+> >          description: Unique name to identify which channel this is.
+> >=20
+> > ---
+> > base-commit: d2a4ec19d2a2e54c23b5180e939994d3da4a6b91
+> > change-id: 20260416-mcp47feb02-fix5-26994c5b428c
+> >=20
+> > Best regards,
+>=20
+
+--FZ/nzaa8zgZn+8C9
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeJaoQAKCRB4tDGHoIJi
-0oi8AQDp1gAb3AolAjABIl6fBvoBypslFDHqFAcNj6E2DlBE3QEA6Q6j2LCAIPOl
-0A+dbl1IvfSrQZC4005IZCZMYdRgOgE=
-=ZteU
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeJa8QAKCRB4tDGHoIJi
+0uAmAP4q4FFnQCEqx214vwq/24YuJXBNyLyV2gUi3uQ6RA8q5wEAptUVJZiccT0I
+vhJGwXqnQGGfqphIwSgmkkZ3jjl88QY=
+=a0DA
 -----END PGP SIGNATURE-----
 
---/e075MT9JwuwmUji--
+--FZ/nzaa8zgZn+8C9--
