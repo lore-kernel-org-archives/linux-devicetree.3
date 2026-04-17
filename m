@@ -1,98 +1,60 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792B0378D97
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 07:36:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B163815FB;
+	Fri, 17 Apr 2026 07:43:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776411373; cv=none; b=klc3fjLLcIQa2gBy5Pv9PUtzQQLbRWNz9+2AzLcqqxAP4VswceX2G4prBDXYSyBNy60uL2gnp5roWM1IYgx5E9tStSu+te2zVPsjfmjXI3nmc2KhdxVz/pxtPtpETnzEEYoh1m+/SXmgaVQSz1/zLVF1xd/tCuz7zFIAs1Lx1jc=
+	t=1776411808; cv=none; b=W4LlT8KMvS970mgG+Q5rFbtkznCu6XDLEXTWhWkebWSAsPUazMTMTl+IhPZZ/p4BtyYYpzFRZ6L1ZbqnCfXlu0BsspQSsruNTUul9xq3cNWmKTLDuJG+ENVgCYy5q5BRscQaRP/z3TlNvCHENpzPfRm4NaNkcQ/rZ/vyu5b5cME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776411373; c=relaxed/simple;
-	bh=cCGmNlhgmptqhQIVeOY33HwjFG+bSZo1sODRgqT6SZM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=OT7j2Kgo37YjvRsNWUthhS9Hnp0vPXC+S0hBihuGklCziWRtd36chjuvzkD8wvJTvpkyBchsgrt2joSJjGUicSzBPKzx548EdN3hbHRO/t7a2nnknm1aakxcsk+J2L9NRcAQg9R51dD+3C5xFlLFGKV19VuGZXVsKRivdQBY0qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CI014Vvt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J3RsDGZP; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776411808; c=relaxed/simple;
+	bh=rmCu0v0USkpwDe2jBOhMYOJEeBKXUyAdSRRO40th+Cw=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EvxqhlWO56uQkU5OtGJq7eVS3ZlrbQ4yKosgY3FwRYERSmfPAMer6DqUW/h9Zf+2UFFH6kZu4vmun1ysk4ttDGgvv990nXAg9lx9s9387Qgw/4Ll4HuK2LyX2Vq88cdx//ftG3UJbkFwinohs7iQfqekN7zaU85invSXd1oAbBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=ikYCYNIv; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CI014Vvt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J3RsDGZP"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63H0fqBO1981939
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 07:36:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=5hAEvyDRzBM
-	68/uIJNex8X2q/G8gy+MFr0oAB7pUsFU=; b=CI014VvtZlMWZP++pC5qlwiyuUF
-	m2vo7jwweyJw2zc4XOWoW6ZTCdLzFHawL0NJzKCGTDCF+190sJTvoLv+IyOKffjl
-	V4USowF/8+MhavNzWQUPz/58zckt+ELaJ+7dtFwCe+fCQ29Hz/Wqq2ZGZNgAl/Eo
-	r84R+pjnKyQq9tlMKq3UHbjfYRB+d+RwGd9MIU1g6STRBmKWu+lDw7rjqEJV7GWp
-	lS9DrqnyRgvY7JKw6rIf6wicBF9Ys+cDs1pwjyXMHASrk3wepy8HczeCHAspE3RP
-	6k/yVYaVRpqcB9u776bre7oFFKOp2rxyPc+/YqDhbGL2PwmZ9lpuNJAkFIw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dk52jj59q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 07:36:11 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-2c16233ee11so492517eec.1
-        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 00:36:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776411247; x=1777016047; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5hAEvyDRzBM68/uIJNex8X2q/G8gy+MFr0oAB7pUsFU=;
-        b=J3RsDGZPcCXzwxmIaJlnG1IMOkcXRimRtNYU7+eLcWNJGtMwfgmAQHH84TbjfvR4gt
-         3cF+DT07Y+iFY0/QnXRsFx69b5UkKEmGdpzPTTLN8OT6LdMt31JRqvYDXuZl/LW/kkmo
-         gfn0k9MD55Hj6EtZ4XNkxNfzrd9fWRw3Z26MtVvr3qUPRsi/jsJ1VUVWu91lLLpgRv/N
-         qxMyhUNVGpA3LUV+P+OSjZvdmj5JuiuHzycJLhDhR7iZNlA1MtCBzXNhc1FROt6l0H5r
-         IisUrSa+fq7yo7ftiYasysvlRSBjJj0hcbdqM99zcUjitTK+Mkhlc2WgK1BHQxm/K4AB
-         rL6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776411247; x=1777016047;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=5hAEvyDRzBM68/uIJNex8X2q/G8gy+MFr0oAB7pUsFU=;
-        b=deWeHxAYPNn7etGDhO1xV9lwe3ERa8FSu/vjKUlq+MeFSTKNF68VfJcXX6yyT8voD8
-         8PKnAsbF+npuBmPQdypb+qUkZcY3Fdidd4RBH5wNFXYVplwB5mNvNioaJsJ4eyOZW+Ez
-         fR9/al4Tz30fjPqB8yCGq51tSbye/f26JQOqtoNkh6SWt0fMywS121BPpqwmsJO4IOwo
-         iEAm9c2Na02VQiH3HrZdeHrAiES1as7zznhtH2wvYrXPB2GHYWs1ExmtuQYhKttkGdKj
-         RkyUWFKKmodJyXM/kal8KvEB9UFicTCUBdhqzpO0m09c1NyZfPZxopiudcrzO5KUVDPm
-         U5Cw==
-X-Forwarded-Encrypted: i=1; AFNElJ+MwuiO4PTq7/uvcFrKRYiXtRQnDFB535elJGyaJEkMMdwlPyCKLZEVY4+BLAIgewZtMR2AFm5hCukz@vger.kernel.org
-X-Gm-Message-State: AOJu0YynfXkBX1M2QfkFxdktyluhqffk3pUHW5DCDtq0KV8pDeWXym3q
-	Gda7PVR/Dft4shDHuTLEtMppiD6vGNS69L6iDseqDWC37uXJbjopvv55HP9r/xz3m/LU5tyJ5WD
-	HW5GjhnNXMkq81l3ZmaVEZbWHtSoQQeUxRsmoFusDliBzslgqTw//ZaD5Y8+uVis2
-X-Gm-Gg: AeBDieuVaS4LMAS8u58p/SYfRnxKyfzSCNnHDLDERrlBbhnmK107a0ay0G/xUqEat/T
-	IiNWSTfWudoDKIvSVL9mPVN/faQNWesukxmgzFPlzIxtX4BwU7N5wPnT89/xFIcz2Frw4EBZ1dc
-	4f9ZPl9v9rXAvkZC+6Cj3l/oE91ewUXpZV/o1nFJbSDZUYkYRfV8CzHwMLtIqhCF/0Fv4xyszea
-	oCpuQTeJCAEpzuVHpJYX6mb8rzpT4M8oxUAhJLvTrCZ3aM8D/66w48hKpIe4GNOuZX9OLrD59Ag
-	Us32VuTw8OLEPmnuhlghylxmYCrExXy3CR8ngP2/ULTgAe3L+71iwOIAjKhRJdyd0qXtta4bfy0
-	I3aVA6rac/cdckpmKsGgtGOa3KGTdbzO3dxfULU0E0vGRMP+3mqiVsd+jCem5edG0OrOJPmJPV5
-	g6jXWhVY7Mo2I=
-X-Received: by 2002:a05:7301:d17:b0:2c5:60d0:702e with SMTP id 5a478bee46e88-2e47873bcd5mr821993eec.18.1776411247284;
-        Fri, 17 Apr 2026 00:34:07 -0700 (PDT)
-X-Received: by 2002:a05:7301:d17:b0:2c5:60d0:702e with SMTP id 5a478bee46e88-2e47873bcd5mr821970eec.18.1776411246688;
-        Fri, 17 Apr 2026 00:34:06 -0700 (PDT)
-Received: from hu-songchai-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2e53ccd2564sm1135168eec.18.2026.04.17.00.34.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Apr 2026 00:34:06 -0700 (PDT)
-From: Songwei Chai <songwei.chai@oss.qualcomm.com>
-To: andersson@kernel.org, alexander.shishkin@linux.intel.com,
-        mike.leach@linaro.org, konrad.dybcio@oss.qualcomm.com,
-        suzuki.poulose@arm.com, james.clark@arm.com, krzk+dt@kernel.org,
-        conor+dt@kernel.org
-Cc: Songwei Chai <songwei.chai@oss.qualcomm.com>, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        coresight@lists.linaro.org, devicetree@vger.kernel.org,
-        gregkh@linuxfoundation.org, Jie Gan <jie.gan@oss.qualcomm.com>
-Subject: [PATCH v14 5/7] qcom-tgu: Add support to configure next action
-Date: Fri, 17 Apr 2026 00:33:34 -0700
-Message-Id: <20260417073336.2712426-6-songwei.chai@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260417073336.2712426-1-songwei.chai@oss.qualcomm.com>
-References: <20260417073336.2712426-1-songwei.chai@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="ikYCYNIv"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 63H7eJVS13458892, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1776411619; bh=7bAnNbDSyQm2tbM9RfAjxsUZhyF08bOCjXCLhVyYxIo=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=ikYCYNIvaltaimo4dwiRBzSVzmihzvmdYD7TJf2OPt27HwAJK2pvp050wzbnNDpoD
+	 gI5FrY5GukW4H9GNS7Z1kcIf6SmsIhBmp3lZBv7QroZaIC0eTqzWICbkEY+G5h1d5r
+	 3KySmlaUooQp2CV67wFWLnIO+hhX2I/FRBCq/V2yq0ASMgAoGvv6lYlojwTWhpXoPh
+	 eSbvmaeKr0NDnEu6K2z8a6li55KM7/sDIec9azlCM1nMEvdpD/uJsfm157bMmn8M8s
+	 NYOKKenr+GvPwy/Ed06c0MASG+m4oK9R9L1LAzV0mJHCRlnur+0mlzIOzv6/UrvlV6
+	 KZNWlIB+mr0AA==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.26/5.94) with ESMTPS id 63H7eJVS13458892
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 17 Apr 2026 15:40:19 +0800
+Received: from RTKEXHMBS04.realtek.com.tw (10.21.1.54) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10; Fri, 17 Apr 2026 15:40:18 +0800
+Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS04.realtek.com.tw
+ (10.21.1.54) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Fri, 17 Apr 2026 15:40:17 +0800
+From: Yu-Chun Lin <eleanor.lin@realtek.com>
+To: <bmasney@redhat.com>
+CC: <afaerber@suse.com>, <conor+dt@kernel.org>, <cy.huang@realtek.com>,
+        <cylee12@realtek.com>, <devicetree@vger.kernel.org>,
+        <eleanor.lin@realtek.com>, <james.tai@realtek.com>,
+        <jyanchou@realtek.com>, <krzk+dt@kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <linux-clk@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>,
+        <linux-realtek-soc@lists.infradead.org>, <mturquette@baylibre.com>,
+        <p.zabel@pengutronix.de>, <robh@kernel.org>, <sboyd@kernel.org>,
+        <stanley_chang@realtek.com>
+Subject: Re: [PATCH v6 07/10] clk: realtek: Add support for MMC-tuned PLL clocks
+Date: Fri, 17 Apr 2026 15:40:17 +0800
+Message-ID: <20260417074017.1198940-1-eleanor.lin@realtek.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <ac_XtHzDpIjHW8xT@redhat.com>
+References: <ac_XtHzDpIjHW8xT@redhat.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -100,268 +62,261 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=buR8wkai c=1 sm=1 tr=0 ts=69e1e2eb cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=s623Ih-0px1LxcEVn60A:9 a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-GUID: ikGB1LkXrJF46YYvCCeiw5oztMHFi4wA
-X-Proofpoint-ORIG-GUID: ikGB1LkXrJF46YYvCCeiw5oztMHFi4wA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDA3NSBTYWx0ZWRfX9+KC3kfrCPj4
- cwOmFal0zSBBALtEEbu5dW7ex0AS7EZcUoI8cEJ/UZB+L9zCrCZfXtWbhZ3nAycXGJuFcvI7Vlq
- nA0sWhtIvMKDd/zMrRQeN52tLQFOa3bEdo98j729wqX2y+Jw+PAprv1ciUD/GFNqgUwINcBmwgO
- 68nx65kUyGfnW7gvx9/AzrkXYqJ2UWlBWe3e3hRD24MGri8Gu/COgL2z6LsBX9222nFrJWXqkPN
- c6IJ6Srybf6bTcOg6vXKuOVYg1Q3lLk1eogGD/9WdPwxexooLnmkKPh4cihq0AM8wEdgJ65U9W/
- 1i/UgY9YmqV71mOLtEkVkQxs2qve71IKI+BBIqc9l6V0wYvsUrfbCzmUzNmgzYcvDpyd02spks4
- STh9c+v7lGV53Yjo4srvDPI52437YCY1lM5GhLPhVuGq/2kup6a+ULSKuAblbr1z0zUMi8hc+74
- xcbCgq+G1EZpSsPTvIw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-16_04,2026-04-16_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 bulkscore=0
- priorityscore=1501 spamscore=0 malwarescore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604170075
+Content-Type: text/plain
 
-Add "select" node for each step to determine if another step is taken,
-trigger(s) are generated, counters/timers incremented/decremented, etc.
+Hi Brian,
 
-Reviewed-by: Jie Gan <jie.gan@oss.qualcomm.com>
-Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
----
- .../ABI/testing/sysfs-bus-amba-devices-tgu    |  7 +++
- drivers/hwtracing/qcom/tgu.c                  | 53 ++++++++++++++++++-
- drivers/hwtracing/qcom/tgu.h                  | 26 +++++++++
- 3 files changed, 84 insertions(+), 2 deletions(-)
+Sorry for the late reply.
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-index 4ef0d696d3d0..786cb852bbe5 100644
---- a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-+++ b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-@@ -21,3 +21,10 @@ KernelVersion:	7.1
- Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
- Description:
- 		(RW) Set/Get the decode mode with specific step for TGU.
-+
-+What:		/sys/bus/amba/devices/<tgu-name>/step[0:7]_condition_select/reg[0:3]
-+Date:		April 2026
-+KernelVersion:	7.1
-+Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
-+Description:
-+		(RW) Set/Get the next action with specific step for TGU.
-diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
-index 937211923d93..fefe932059cb 100644
---- a/drivers/hwtracing/qcom/tgu.c
-+++ b/drivers/hwtracing/qcom/tgu.c
-@@ -29,6 +29,9 @@ static int calculate_array_location(struct tgu_drvdata *drvdata,
- 	case TGU_CONDITION_DECODE:
- 		return step_index * (drvdata->num_condition_decode) +
- 			reg_index;
-+	case TGU_CONDITION_SELECT:
-+		return step_index * (drvdata->num_condition_select) +
-+			reg_index;
- 	default:
- 		break;
- 	}
-@@ -71,6 +74,9 @@ static ssize_t tgu_dataset_show(struct device *dev,
- 	case TGU_CONDITION_DECODE:
- 		return sysfs_emit(buf, "0x%x\n",
- 				drvdata->value_table->condition_decode[index]);
-+	case TGU_CONDITION_SELECT:
-+		return sysfs_emit(buf, "0x%x\n",
-+				drvdata->value_table->condition_select[index]);
- 	default:
- 		break;
- 	}
-@@ -112,6 +118,10 @@ static ssize_t tgu_dataset_store(struct device *dev,
- 		tgu_drvdata->value_table->condition_decode[index] = val;
- 		ret = size;
- 		break;
-+	case TGU_CONDITION_SELECT:
-+		tgu_drvdata->value_table->condition_select[index] = val;
-+		ret = size;
-+		break;
- 	default:
- 		ret = -EINVAL;
- 		break;
-@@ -146,6 +156,13 @@ static umode_t tgu_node_visible(struct kobject *kobject,
- 		if (tgu_attr->reg_num < drvdata->num_condition_decode)
- 			return attr->mode;
- 		break;
-+	case TGU_CONDITION_SELECT:
-+		/* 'default' register is at the end of 'select' region */
-+		if (tgu_attr->reg_num == drvdata->num_condition_select - 1)
-+			attr->name = "default";
-+		if (tgu_attr->reg_num < drvdata->num_condition_select)
-+			return attr->mode;
-+		break;
- 	default:
- 		break;
- 	}
-@@ -184,6 +201,18 @@ static ssize_t tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
- 				drvdata->base + CONDITION_DECODE_STEP(i, j));
- 		}
- 	}
-+
-+	for (i = 0; i < drvdata->num_step; i++) {
-+		for (j = 0; j < drvdata->num_condition_select; j++) {
-+			index = check_array_location(drvdata, i,
-+						TGU_CONDITION_SELECT, j);
-+			if (index == -EINVAL)
-+				goto exit;
-+
-+			writel(drvdata->value_table->condition_select[index],
-+				drvdata->base + CONDITION_SELECT_STEP(i, j));
-+		}
-+	}
- 	/* Enable TGU to program the triggers */
- 	writel(1, drvdata->base + TGU_CONTROL);
- exit:
-@@ -223,6 +252,8 @@ static void tgu_set_conditions(struct tgu_drvdata *drvdata)
- 
- 	devid = readl(drvdata->base + TGU_DEVID);
- 	drvdata->num_condition_decode = TGU_DEVID_CONDITIONS(devid);
-+	/* select region has an additional 'default' register */
-+	drvdata->num_condition_select = TGU_DEVID_CONDITIONS(devid) + 1;
- }
- 
- static int tgu_enable(struct device *dev)
-@@ -366,6 +397,14 @@ static const struct attribute_group *tgu_attr_groups[] = {
- 	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(5),
- 	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(6),
- 	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(7),
-+	CONDITION_SELECT_ATTRIBUTE_GROUP_INIT(0),
-+	CONDITION_SELECT_ATTRIBUTE_GROUP_INIT(1),
-+	CONDITION_SELECT_ATTRIBUTE_GROUP_INIT(2),
-+	CONDITION_SELECT_ATTRIBUTE_GROUP_INIT(3),
-+	CONDITION_SELECT_ATTRIBUTE_GROUP_INIT(4),
-+	CONDITION_SELECT_ATTRIBUTE_GROUP_INIT(5),
-+	CONDITION_SELECT_ATTRIBUTE_GROUP_INIT(6),
-+	CONDITION_SELECT_ATTRIBUTE_GROUP_INIT(7),
- 	NULL,
- };
- 
-@@ -373,8 +412,8 @@ static int tgu_probe(struct amba_device *adev, const struct amba_id *id)
- {
- 	struct device *dev = &adev->dev;
- 	struct tgu_drvdata *drvdata;
--	unsigned int *priority, *condition;
--	size_t priority_size, condition_size;
-+	unsigned int *priority, *condition, *select;
-+	size_t priority_size, condition_size, select_size;
- 	int ret;
- 
- 	drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
-@@ -425,6 +464,16 @@ static int tgu_probe(struct amba_device *adev, const struct amba_id *id)
- 
- 	drvdata->value_table->condition_decode = condition;
- 
-+	select_size = drvdata->num_condition_select * drvdata->num_step;
-+
-+	select = devm_kcalloc(dev, select_size,
-+			     sizeof(*(drvdata->value_table->condition_select)),
-+			     GFP_KERNEL);
-+	if (!select)
-+		return -ENOMEM;
-+
-+	drvdata->value_table->condition_select = select;
-+
- 	drvdata->enabled = false;
- 
- 	pm_runtime_put(&adev->dev);
-diff --git a/drivers/hwtracing/qcom/tgu.h b/drivers/hwtracing/qcom/tgu.h
-index 56e4161a8bc2..c61aa8dc51b0 100644
---- a/drivers/hwtracing/qcom/tgu.h
-+++ b/drivers/hwtracing/qcom/tgu.h
-@@ -52,6 +52,7 @@
- #define STEP_OFFSET 0x1D8
- #define PRIORITY_START_OFFSET 0x0074
- #define CONDITION_DECODE_OFFSET 0x0050
-+#define CONDITION_SELECT_OFFSET 0x0060
- #define PRIORITY_OFFSET 0x60
- #define REG_OFFSET 0x4
- 
-@@ -63,6 +64,9 @@
- #define CONDITION_DECODE_STEP(step, decode) \
- 	(CONDITION_DECODE_OFFSET + REG_OFFSET * decode + STEP_OFFSET * step)
- 
-+#define CONDITION_SELECT_STEP(step, select) \
-+	(CONDITION_SELECT_OFFSET + REG_OFFSET * select + STEP_OFFSET * step)
-+
- #define tgu_dataset_rw(name, step_index, type, reg_num)                  \
- 	(&((struct tgu_attribute[]){ {                                   \
- 		__ATTR(name, 0644, tgu_dataset_show, tgu_dataset_store), \
-@@ -76,6 +80,8 @@
- 			reg_num)
- #define STEP_DECODE(step_index, reg_num) \
- 	tgu_dataset_rw(reg##reg_num, step_index, TGU_CONDITION_DECODE, reg_num)
-+#define STEP_SELECT(step_index, reg_num) \
-+	tgu_dataset_rw(reg##reg_num, step_index, TGU_CONDITION_SELECT, reg_num)
- 
- #define STEP_PRIORITY_LIST(step_index, priority) \
- 	{STEP_PRIORITY(step_index, 0, priority), \
-@@ -107,6 +113,15 @@
- 	 NULL               \
- 	}
- 
-+#define STEP_SELECT_LIST(n) \
-+	{STEP_SELECT(n, 0), \
-+	 STEP_SELECT(n, 1), \
-+	 STEP_SELECT(n, 2), \
-+	 STEP_SELECT(n, 3), \
-+	 STEP_SELECT(n, 4), \
-+	 NULL               \
-+	}
-+
- #define PRIORITY_ATTRIBUTE_GROUP_INIT(step, priority)\
- 	(&(const struct attribute_group){\
- 		.attrs = (struct attribute*[])STEP_PRIORITY_LIST(step, priority),\
-@@ -121,12 +136,20 @@
- 		.name = "step" #step "_condition_decode" \
- 	})
- 
-+#define CONDITION_SELECT_ATTRIBUTE_GROUP_INIT(step)\
-+	(&(const struct attribute_group){\
-+		.attrs = (struct attribute*[])STEP_SELECT_LIST(step),\
-+		.is_visible = tgu_node_visible,\
-+		.name = "step" #step "_condition_select" \
-+	})
-+
- enum operation_index {
- 	TGU_PRIORITY0,
- 	TGU_PRIORITY1,
- 	TGU_PRIORITY2,
- 	TGU_PRIORITY3,
- 	TGU_CONDITION_DECODE,
-+	TGU_CONDITION_SELECT,
- };
- 
- /* Maximum priority that TGU supports */
-@@ -142,6 +165,7 @@ struct tgu_attribute {
- struct value_table {
- 	unsigned int *priority;
- 	unsigned int *condition_decode;
-+	unsigned int *condition_select;
- };
- 
- static inline void TGU_LOCK(void __iomem *addr)
-@@ -172,6 +196,7 @@ static inline void TGU_UNLOCK(void __iomem *addr)
-  * @num_reg: Maximum number of registers
-  * @num_step: Maximum step size
-  * @num_condition_decode: Maximum number of condition_decode
-+ * @num_condition_select: Maximum number of condition_select
-  *
-  * This structure defines the data associated with a TGU device,
-  * including its base address, device pointers, clock, spinlock for
-@@ -187,6 +212,7 @@ struct tgu_drvdata {
- 	int num_reg;
- 	int num_step;
- 	int num_condition_decode;
-+	int num_condition_select;
- };
- 
- #endif
--- 
-2.34.1
+> Hi Yu-Chun and Cheng-Yu,
+>
+> On Thu, Apr 02, 2026 at 03:39:54PM +0800, Yu-Chun Lin wrote:
+> > From: Cheng-Yu Lee <cylee12@realtek.com>
+> > 
+> > Add clk_pll_mmc_ops for enable/disable, prepare, rate control, and status
+> > operations on MMC PLL clocks.
+> > 
+> > Also add clk_pll_mmc_phase_ops to support phase get/set operations.
+> > 
+> > Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> > Co-developed-by: Jyan Chou <jyanchou@realtek.com>
+> > Signed-off-by: Jyan Chou <jyanchou@realtek.com>
+> > Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> > Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> > ---
+> > Changes in v6:
+> > - Add the headers used in c file to follow the "Include What You Use" principle.
+> > - Move to_clk_pll_mmc() from clk-pll.h to clk-pll-mmc.c to limit its scope.
+> > - Change offset type from int to unsigned int.
+> > ---
+> >  MAINTAINERS                       |   8 +
+> >  drivers/clk/realtek/Kconfig       |   3 +
+> >  drivers/clk/realtek/Makefile      |   2 +
+> >  drivers/clk/realtek/clk-pll-mmc.c | 410 ++++++++++++++++++++++++++++++
+> >  drivers/clk/realtek/clk-pll.h     |  13 +
+> >  5 files changed, 436 insertions(+)
+> >  create mode 100644 drivers/clk/realtek/clk-pll-mmc.c
+> > 
+
+(snip)
+
+> > +
+> > +static inline int get_phrt0(struct clk_pll_mmc *clkm, u32 *val)
+> > +{
+> > +	u32 reg;
+> > +	int ret;
+> > +
+> > +	ret = regmap_read(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC1_OFFSET, &reg);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	*val = (reg >> PLL_PHRT0_SHIFT) & PLL_PHRT0_MASK;
+>
+> Sashiko reports the following:
+> https://sashiko.dev/#/patchset/20260402073957.2742459-1-eleanor.lin%40realtek.com
+> 
+>    With PLL_PHRT0_SHIFT defined as 1 and PLL_PHRT0_MASK as BIT(1) (0x02), shifting
+>    right by 1 moves the target bit 1 to position 0, but masking with 0x02 checks
+>    position 1 of the shifted value.
+>    
+>    Will this cause clk_pll_mmc_is_enabled() to always evaluate to false since it
+>    expects val == 0x1?
+>
+
+Thank you for catching this critical bug! You're absolutely right.
+The issue is that I incorrectly used BIT() for the mask values
+I will correct them, like PLL_PHRT0_MASK from BIT(1) to 0x1.
+
+> > +	return 0;
+> > +}
+> > +
+> > +static inline int set_phrt0(struct clk_pll_mmc *clkm, u32 val)
+> > +{
+> > +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC1_OFFSET,
+> > +				  PLL_PHRT0_MASK, val << PLL_PHRT0_SHIFT);
+> > +}
+> > +
+> > +static inline int get_phsel(struct clk_pll_mmc *clkm, int id, u32 *val)
+> > +{
+> > +	int ret;
+> > +	u32 raw_val;
+> > +	u32 sft = id ? 8 : 3;
+>
+> Put variables in reverse Christmas tree order.
+>
+
+Ack.
+
+(snip)
+
+> > +
+> > +static int clk_pll_mmc_phase_set_phase(struct clk_hw *hw, int degrees)
+> > +{
+> > +	struct clk_hw *hwp = clk_hw_get_parent(hw);
+> > +	struct clk_pll_mmc *clkm;
+> > +	int phase_id;
+> > +	int ret;
+> > +	u32 val;
+> > +
+> > +	if (!hwp)
+> > +		return -ENOENT;
+> > +
+> > +	clkm = to_clk_pll_mmc(hwp);
+> > +	phase_id = (hw - &clkm->phase0_hw) ? 1 : 0;
+> 
+> Are you checking to see if these two pointers are the same? If so, what
+> do you think about this instead?
+>
+>    hw == &clkm->phase0_hw
+>
+>
+> Does you mean phase_id = (hw == &clkm->phase0_hw) ? 0 : 1; ?
+>
+
+Yes, I will revise it according to your suggestion.
+
+> > +	val = DIV_ROUND_CLOSEST(degrees * 100, PHASE_SCALE_FACTOR);
+> > +	ret = set_phsel(clkm, phase_id, val);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	usleep_range(10, 20);
+> > +	return 0;
+> > +}
+> > +
+
+(snip)
+
+> > +
+> > +static unsigned long clk_pll_mmc_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
+> > +{
+> > +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
+> > +	u32 val, ext_f;
+> > +	int ret;
+> > +
+> > +	ret = get_ssc_div_n(clkm, &val);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = get_ssc_div_ext_f(clkm, &ext_f);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	return parent_rate / 4 * (val + 2) + (parent_rate / 4 * ext_f) / 8192;
+> > +}
+> > +
+> > +static int clk_pll_mmc_determine_rate(struct clk_hw *hw, struct clk_rate_request *req)
+> > +{
+>
+> Should there be a check for a parent rate of zero before the division is
+> done?
+>
+
+Ack, I will do it.
+
+> > +	u32 val = DIV_ROUND_CLOSEST(req->rate * 4, req->best_parent_rate);
+> > +
+> > +	req->rate = req->best_parent_rate * val / 4;
+> > +	return 0;
+> > +}
+> > +
+> > +static int clk_pll_mmc_set_rate(struct clk_hw *hw, unsigned long rate, unsigned long parent_rate)
+> > +{
+> > +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
+> > +	u32 val = PLL_MMC_SSC_DIV_N_VAL;
+> > +	int ret;
+> > +
+> > +	ret = regmap_update_bits(clkm->clkr.regmap,
+> > +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC1_OFFSET,
+> > +				 PLL_FLAG_INITAL_EMMC_MASK, 0x0 << PLL_FLAG_INITAL_EMMC_SHIFT);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = set_ssc_div_n(clkm, val);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = set_ssc_div_ext_f(clkm, 1517);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	switch (val) {
+> > +	case 31 ... 46:
+> > +		ret |= set_pi_ibselh(clkm, 3);
+> > +		ret |= set_sscpll_rs(clkm, 3);
+> > +		ret |= set_sscpll_icp(clkm, 2);
+> > +		break;
+> > +
+> > +	case 20 ... 30:
+> > +		ret |= set_pi_ibselh(clkm, 2);
+> > +		ret |= set_sscpll_rs(clkm, 3);
+> > +		ret |= set_sscpll_icp(clkm, 1);
+> > +		break;
+> > +
+> > +	case 10 ... 19:
+> > +		ret |= set_pi_ibselh(clkm, 1);
+> > +		ret |= set_sscpll_rs(clkm, 2);
+> > +		ret |= set_sscpll_icp(clkm, 1);
+> > +		break;
+> > +
+> > +	case 5 ... 9:
+> > +		ret |= set_pi_ibselh(clkm, 0);
+> > +		ret |= set_sscpll_rs(clkm, 2);
+> > +		ret |= set_sscpll_icp(clkm, 0);
+> > +		break;
+> > +	}
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = regmap_update_bits(clkm->clkr.regmap,
+> > +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC3_OFFSET,
+> > +				 PLL_NCODE_SSC_EMMC_MASK,
+> > +				 27 << PLL_NCODE_SSC_EMMC_SHIFT);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = regmap_update_bits(clkm->clkr.regmap,
+> > +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC3_OFFSET,
+> > +				 PLL_FCODE_SSC_EMMC_MASK, 321);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = regmap_update_bits(clkm->clkr.regmap,
+> > +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC4_OFFSET,
+> > +				 PLL_GRAN_EST_EM_MC_MASK, 5985);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = regmap_update_bits(clkm->clkr.regmap,
+> > +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC1_OFFSET,
+> > +				 PLL_EN_SSC_EMMC_MASK, 0x1);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = regmap_update_bits(clkm->clkr.regmap,
+> > +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC1_OFFSET,
+> > +				 PLL_EN_SSC_EMMC_MASK, 0x0);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = regmap_update_bits(clkm->clkr.regmap,
+> > +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC1_OFFSET,
+> > +				 PLL_FLAG_INITAL_EMMC_MASK,
+> > +				 0x1 << PLL_FLAG_INITAL_EMMC_SHIFT);
+>
+> It looks like the rate and parent rate are not used in this function.
+> Will this always end up with the same rate when everything is
+> successful?
+>
+> Brian
+
+Despite receiving various rate requests (26MHz, 52MHz, 200MHz), this function
+consistently returns 0x1b (represents the 27MHz) because it reflects the input
+reference clock frequency to the SSCPLL, not the PLL output frequency.
+
+However, the emmc host controller handles frequency division internally to
+achieve the requested eMMC frequency.
+
+Best Regards,
+Yu-Chun
 
