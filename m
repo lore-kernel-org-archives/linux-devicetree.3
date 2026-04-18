@@ -1,175 +1,138 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1DB3321DE
-	for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 19:38:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776541108; cv=none; b=U7ZAjbMXC/ib+F4OAcV59dz5Z4Vs4KUhvJ/aYJLXIcMg/Y17z2t1dzILZA9ZqmZqdzMM7fdTTAYQq1NoFP/6UIQn13BFXgxNkFQ1b2CsQgEjSgMYv2naiYRHOrV2jNMBZuV6RQRa1FeEj7Bt7uYK52kf1mUkl2iQZZFFCKHaSZg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776541108; c=relaxed/simple;
-	bh=D9bDtXxW3hYg3zOewGGHaPyX3bjoSoMDKPBs+JVD+jY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GRqG14zfGpQfCpM2r5sz61XrT4kLo9g3UGtcV3K3JE0/8t9heFx4SlpsL79tCyKmtOBQ3QLmPEAgkBtdH/jzxWSavOiVhdtZZ89gZ6zcV5rnNWfMTvjhcw2RlvhZBSc3I19rw0E15YK6K1nV9Cy4W1T9Q958llokyNe5sQsvv+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iPZXIwGw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GvFRYeH2; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBCE33C518
+	for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 19:48:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776541725; cv=pass; b=o0S8Cs1lj5wLYmnG53jXwOyugp2o4wA5GndrpEAFI5WgYN57NUPWH402FjdrQ76ikBUBQzYzl63bQaY5lN/beCXtNLVeOszgdA2jLncWJsKBZfHpRAv11weW14eDFSHz5+1jjAM4aGDn7+N4tHDpkE6PcHe9MRhIwBCG/HI8nsc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776541725; c=relaxed/simple;
+	bh=QNnjirEE9+taUl3FOqtm3HUbAhNxM6+8spyvJkRd0Lg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LuSVvSPPGR0Ul/0nOUMxOBv47WobT2Hj7D57cAVGTC1SlOBC6Duf0EiOFnepB7giITAWFLJloo7NOv9bMA9qR/AKRZnIE/JN9BW/WVc6za16LIXCbmwWgY3frJEX3ratfbsqRVArlkld6mvovyP+fMrPSP1cz1Ivdio0JdJEIQI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jJHFIscF; arc=pass smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iPZXIwGw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GvFRYeH2"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63I4m2Er2567587
-	for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 19:38:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=kbwvqRx22EuSdW1o5avcOXEZ
-	l4XvhLf+30K9TnHpX7o=; b=iPZXIwGw/DRx+Zt91iZVqqLZHLhQfaqwatR2rPg1
-	i8q/oA20HMpxH46pXKnyynNMPPH3db0oFL2PK63Bs7E27TI5ymG5qeIbZF5BvULk
-	fRL+sK6vkRG52aO4231tZMZp6/iiQg6i5CfN59YvFzpx/VShtp1gXg1vrhaOqV+d
-	sFE0aHqta25IQs3krIY5t1bY8CMV3neSQM9FM4XkgLm9RecZM35805nez8FbngXI
-	oSi3ULWHzpk6HGHHBH/6wUwPVCfWam5B1MN7PYZg5E1pyeEM7b7ymoyHzfk2d+Mo
-	pacK+MXqrVp5Yz+tWcCcwbV9AGMreEJX2ukMqJDehzcNAA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dm388h98d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 19:38:26 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50e423a05c8so21335311cf.0
-        for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 12:38:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jJHFIscF"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-43d7a5e77b1so1179080f8f.1
+        for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 12:48:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776541722; cv=none;
+        d=google.com; s=arc-20240605;
+        b=R46u7aZo8zjODKsyDgkt+LhkrFgq8B+yTe8ZVpyyRVATk5BQ6UMvTF7t0v18kibfHd
+         HgxeKmpvvApEc7vrvCF4+uK8UVlAUDAL0ncu1yybv3LsBgrjmll1dx7E0KIn8FCC8U8x
+         Q2kaidLVlcnOTAfmmOo+VSTkZdPDkgZJJHiLQNANagcLtbjMl8VYNsRm1y62vzHawF1F
+         8UlAlCJuE6V/bU/l0xuhyrX8KocME9cNC25KfOcU6uo1FA6gFRpQQ8XQfPxG005cPZzG
+         8abZEPaB5P99hVrr0R6tyZeI8SDfbJC/SLKz6k0d9DqWwQofKwxl9/c7qucuVqRBSF8m
+         mWQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KfNIvP+kGakhsVtQCOsk+NZ8Rg4P7VrKNiU3gLYB2YU=;
+        fh=QeSQ4AqlB+DupnB0Epzgx0P40sG4mX4G2/6yYZS/zQA=;
+        b=MawLdwdS3/FzMFD9XZ8Pel8UX2+TXW54eC++Smd4n3nJO7UhXVsfEFRFf+ewM6k5ho
+         DawzhNhHK6DA3sOx0up0OeuFbb1UShbBX9nuGq5rDomlfJIc7LHBL54QhsCUAL47WbGy
+         NaDFjd5O4kRcbRIEXj4/p8sHAXVUk3oWUmbD4ZkQfud0nz8hLk8Q1luyN9Cz1++U/APJ
+         aTvWp/1YCsvIyp9yS7E6nVjVcHjJNT5ailqwWlGJ8Ts3SaEBeiil3xk67bs9mB6uN0nB
+         Hq1/DSSxiDgAd5oZ8dAu+YeraQJNwq5Af/mWOK+jBG+dbVEsHRdzTjgMfn0VwZC/WKZP
+         +pXw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776541105; x=1777145905; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=kbwvqRx22EuSdW1o5avcOXEZl4XvhLf+30K9TnHpX7o=;
-        b=GvFRYeH2nJbXQnVmTxae0cy5BJ8CC7+i6hHTuJzCbz2DZFQuqsp6h9lsSypaJ+R+cI
-         jah43EYBSdWQPkMBJjUnHE3D3EJz4oShRVHehZgZmrdRI/vh6JqMfaY3/CAUzsagDUif
-         odZGQ6ir9XhXkXSZX0iC6WBSmaCpVKaIiO2H59+3lW2cE/HmZl3WtLyBFpiok1/7vgHy
-         l65wNvqR2nMICFVuR1Ly0GKJkTSrCUBtAW8nkQLStdyGAp/xHr45qG8f3S12jxNDg0W3
-         mknq8FT85rCigmT+2sj++Ytf0n7KH6U+JgqhVR8g0473fOUeLVokq9RNKiQ6jEpdvRYz
-         M61g==
+        d=gmail.com; s=20251104; t=1776541722; x=1777146522; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KfNIvP+kGakhsVtQCOsk+NZ8Rg4P7VrKNiU3gLYB2YU=;
+        b=jJHFIscFwOGbr2nIUSFFZqnEcSGC7zuP+sc27v9AvaE8SZ26xYQvKuyis5oDl/b5bP
+         YoW3UnjvSovARvlKMUz9vQWkN09uOcODvP8zeLy3iAM+6Cm52CX4Yr9yZA7qSZls/4df
+         x3Gtr0ilaFx/nLUvAQmPW5vuIg/b4GAH52Dyt55ZpOCAwfVzvW+LqPbiLC+IIw0FO+MP
+         J7jdmSU8sPBLnQQ2lo02+o/YCshDtjWWdZU8kKkSXCkOFzhNOl1yiX+N66RA8B13yWRJ
+         kOB6COXhkE6xx8YBbz44F/lWBerSrhbZbEilsJGpK18E4poa1vENZdJhUAb+KqmS4yYs
+         rU6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776541105; x=1777145905;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=kbwvqRx22EuSdW1o5avcOXEZl4XvhLf+30K9TnHpX7o=;
-        b=qNC5bm5wgFgfGLfcUn7rCHoCzpLAKtia6c1D1csryckXgeBi/NsNY9EzM+3YEqRFJj
-         wqJaSqr7+VVJSXXJq/yyhdEv09NMVq1S8vL41/k8exDXb2IMeV3fGTnjqOtqCoHFDo9N
-         dCyS7kITigcRxQdFRZIl427M+ejqXXojGpk2s/gfLnz9KDjKAxc6YU0UKvSrXI72DqTP
-         hiTyTcNudcVx7izw8VEflG8xERkLX5bhFgFx8d5THgq3jE05pPFN1cQMRzkTSZobNXx3
-         OszuJUukUJyOIXBAnpaYsGYnIqFCyBekFKKdP//S1zgF9Q5bDBg7L5rmswavr7ace4hV
-         5AmA==
-X-Forwarded-Encrypted: i=1; AFNElJ+3YwRQw1IdRuUfZxB9jruyFWifO0AWVGua01Vq5Z0gIBXCPWefOHk/OVxGScKO01zrVmg40Wi0hF0n@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy5wlQfzsmGHEEx7cVPRKKu1FWKnUDI2unnftrQPYw8ILP1WwHW
-	MzjWNxOF4pm+L12o6BxhQuhOBIQUGFKnI4A50zZ+1Al/uBIs4hx5dRL61OGmetH5+2MV7wXImAO
-	LXVd/i5EbLqFtzKL9i5HCvENuiUfFdzV9bYmEomncPmmEPymeGM79A9oSAnP9CC70
-X-Gm-Gg: AeBDiet74R8+8Xuwlecrf8a5zemJuOWzN9skJQQ+xO7Sv+i2nfQdXqyfpIZRg6MzvOR
-	P2/SxMC4Qvmo67NyGl5lVu9OIERsXJN4dVkVZqRRM+TSb6YhXWosg8dacVkgo/vcnDMbF7Nwbzk
-	/b4NyxYAlOgsc7I9VQWn7F4890vmK54P3D+mOFJ7wBjctV45FWzECo9Ro4RgeYdnMunw5xQx2xz
-	HLSf4jpJwHINvFgYYu0bbeZfr7kRxTZMPf3k+cbtO2cuAo98Sk0OgB3Np6BtmRjXj+Vuca/FgJt
-	f7ExDNZAONe8MNt9Phsg6ijL8QbN3zEcLPK4kkuvqn1eRCQxLdIpFmgD9e4Y95fnV9W/2T/AksW
-	BBAC1NLn6oZUaI9K1l1fClu07owjumM7+DAyNSaqTE6CVMFlus380rZOPsNGU6FmEkZ7OkvxWJg
-	lsr6cWw48fn7C2AU+aSjhigQw9U8gJhTZ1+tW133AogigfyQ==
-X-Received: by 2002:a05:622a:48c:b0:50d:9c1b:941f with SMTP id d75a77b69052e-50e3661b147mr97389841cf.8.1776541105484;
-        Sat, 18 Apr 2026 12:38:25 -0700 (PDT)
-X-Received: by 2002:a05:622a:48c:b0:50d:9c1b:941f with SMTP id d75a77b69052e-50e3661b147mr97389461cf.8.1776541105035;
-        Sat, 18 Apr 2026 12:38:25 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4187e7dd0sm1553387e87.69.2026.04.18.12.38.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Apr 2026 12:38:22 -0700 (PDT)
-Date: Sat, 18 Apr 2026 22:38:21 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Matthias Kaehlcke <mka@chromium.org>, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-bluetooth@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath10k@lists.infradead.org, linux-pm@vger.kernel.org,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 3/8] wifi: ath10k: snoc: support powering on the
- device via pwrseq
-Message-ID: <hdypom3nioc6tk26gh647imy5ykhcjqvknideilnbc2b5p7eo7@hm7fsscleutf>
-References: <20260119-wcn3990-pwrctl-v3-0-948df19f5ec2@oss.qualcomm.com>
- <20260119-wcn3990-pwrctl-v3-3-948df19f5ec2@oss.qualcomm.com>
- <DHUHU7UIT487.139L3KIVRVREU@fairphone.com>
+        d=1e100.net; s=20251104; t=1776541722; x=1777146522;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=KfNIvP+kGakhsVtQCOsk+NZ8Rg4P7VrKNiU3gLYB2YU=;
+        b=gXhM7Sor8i8EIrsDa5E/a+r9X1WD14QJ3LK4qgA1dgQf829ig8WnTuJJVk0oJQp7dm
+         3w+tyQb1c8Nht6t5GiQARzyinyi8DbZLcw3NnSszJphSX3O6TpHKRVD5T6/RVr6fYWKk
+         zONCbgphjOexxBZCFcAo2/U35ggbzx84MQGxV/URKNiyHqcosDmQFlDXsq6DnsxFp8e1
+         be6OjqEkK0yNuj1rszhbGR3qR194+LyxAPWCplr8vk1Mwc+UzWG7hYG2fOqwUlmoQL9B
+         kVo98E1Q8C/akif38AQ+ybJ55GqfcCdQUwok0L4IYGMG2nyI5nqByv0uXoAQB+URfaX5
+         Qplw==
+X-Forwarded-Encrypted: i=1; AFNElJ+hA+sgiLdmV69u63jJKBeuTfmujmIICsq9lzNPqVX+jl2A3LL+OwjLJnuNHtY1dXdpWZZQ3/YxEgSL@vger.kernel.org
+X-Gm-Message-State: AOJu0YzkhJluMPAJRniWYhbu/OA6BkXJkq4Qcw8+JSZqUdZgZ+2Z3yub
+	ruoeEqDHzrXxFZHmbF/psCfcuQdH9i6wld87au1ev3AGMnugL6Ff0t0cMo6oCGAFS67Fyqeuc9t
+	pYRrzPPtecueVJbTjv+rX5SBH1b1asuk=
+X-Gm-Gg: AeBDieuw7JBe599jsxv4J8UK1GY0WmMHOuAh64SUKHuNvKVxJA936wwUgyxfgcqhtsn
+	d8TRkcEldrjo5x52wPozIp/nWWMNygIJ1N6n83opxyyxRLLFvhV6kRnjtbO/SwZvGCzeDdW26N9
+	hgNLFJOrwE6Wyq5V0f7uzvWcLo2QqqmuJR+gAH1xRj6Shk1LyzDWfzrEOAupaz7f+gEx1Ruj32g
+	NRQhEw34eyFIddv/lIkI3gx/OKedWjeFlpItuNnn+izBiUCS6XpNDFOQ5Pv8Lf93K5iWzI3PoAJ
+	+nibZmazYysMoxTAJ8M=
+X-Received: by 2002:a05:6000:2dc6:b0:43d:7512:6f7b with SMTP id
+ ffacd0b85a97d-43fe3f35785mr12170312f8f.5.1776541721541; Sat, 18 Apr 2026
+ 12:48:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DHUHU7UIT487.139L3KIVRVREU@fairphone.com>
-X-Authority-Analysis: v=2.4 cv=GthyPE1C c=1 sm=1 tr=0 ts=69e3ddb2 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=bC-a23v3AAAA:8
- a=EUspDBNiAAAA:8 a=Rs7pINfTDodmtXVth3IA:9 a=CjuIK1q_8ugA:10
- a=dawVfQjAaf238kedN5IG:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-GUID: XC6pEGXohrmrHRbGCtApzY-xiEE57i4t
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE4MDE5NiBTYWx0ZWRfX3hC7TGOgeGlV
- JgWq3BvZvJ6cSHySxdhoTMmnSMXIbJQmaL0lcEk0/bpwWNh16HH669OnDo1FxW6/imPArqaTken
- 1iLqSvjO5DEco8R7ZuWLseJhLY3EzBxyF75QXhSEhgy8fvxh8vqvwA01wJP6cOQBx/bVUKouWwT
- bCjslX1LpSWsR8sBpWf6aseTaIpLFybBlgVdBo8fEuTHAdb9lbdS68PJ5UIIj6fGsHyLHXdDOgR
- q9YKYI4iNHLD1eF1ll7O2iSx+SexWtI5m31cD2DkOEJJYn0gfv3CJdLSMfQLPyek+dq0xalMjhE
- LgTbllymzEDdtlsxa4+TthnSxgXBhgeqIUNFGYhirwWoDL2aWIwHRvAO6twnObbzF/hiK+isGfq
- W2bB2ujyEpcGmRtiY9SMEVmK05pYubclZnnJjKVWMi93tP/7ZSSLhShfYPxWXnxEr0tS7At/uf+
- MoJlwoDOIbbmdn3OXMA==
-X-Proofpoint-ORIG-GUID: XC6pEGXohrmrHRbGCtApzY-xiEE57i4t
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-18_05,2026-04-17_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015
- priorityscore=1501 malwarescore=0 spamscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604180196
+References: <20260418144716.132936-1-clamor95@gmail.com> <36e3611d-642e-42de-9a56-cf81c3e06832@baylibre.com>
+In-Reply-To: <36e3611d-642e-42de-9a56-cf81c3e06832@baylibre.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Sat, 18 Apr 2026 22:48:29 +0300
+X-Gm-Features: AQROBzCxF8i16JN26FDAkpF1ordk5znfDFdpoQnWkq3YscwGp4AejBpZy9piygU
+Message-ID: <CAPVz0n1ph0Cjw9WOqoVPaEywF0MzaNXeEjw6=0rKf4qLWiJZtw@mail.gmail.com>
+Subject: Re: [PATCH v1 0/5] Update APDS990x ALS to support device trees
+To: David Lechner <dlechner@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 16, 2026 at 12:06:09PM +0200, Luca Weiss wrote:
-> Hi Dmitry,
-> 
-> On Mon Jan 19, 2026 at 6:07 PM CET, Dmitry Baryshkov wrote:
-> > The WCN39xx family of WiFi/BT chips incorporates a simple PMU, spreading
-> > voltages over internal rails. Implement support for using powersequencer
-> > for this family of ATH10k devices in addition to using regulators.
+=D1=81=D0=B1, 18 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 19:2=
+4 David Lechner <dlechner@baylibre.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On 4/18/26 9:47 AM, Svyatoslav Ryhel wrote:
+> > Document Avago APDS9900/9901 ALS/Proximity sensor in schema and moderni=
+ze
+> > its driver to support OF bindings.
 > >
-> > Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > ---
-> >  drivers/net/wireless/ath/ath10k/snoc.c | 53 ++++++++++++++++++++++++++++++++--
-> >  drivers/net/wireless/ath/ath10k/snoc.h |  3 ++
-> >  2 files changed, 53 insertions(+), 3 deletions(-)
+> > Svyatoslav Ryhel (5):
+> >   dt-bindings: iio: light: Document Avago APDS9900/9901 ALS/Proximity
+> >     sensor
+> >   misc: apds990x: Use more device managed approach in the probe
+> >   misc: apds990x: Drop Vled supply
+> >   misc: apds990x: Convert to use OF bindings
+> >   misc: apds990x: Drop IRQF_TRIGGER_LOW trigger
 > >
-> > +	ar_snoc->pwrseq = devm_pwrseq_get(&pdev->dev, "wlan");
-> > +	if (IS_ERR(ar_snoc->pwrseq)) {
-> > +		ret = PTR_ERR(ar_snoc->pwrseq);
-> > +		ar_snoc->pwrseq = NULL;
-> > +		if (ret != -EPROBE_DEFER)
-> > +			goto err_free_irq;
-> 
-> I'm fairly sure this is now broken with CONFIG_POWER_SEQUENCING=n since
-> then pwrseq_get() is returning ERR_PTR(-ENOSYS) which is not handled
-> here.
-> 
-> I'm observing my ath10k_snoc is now failing to probe "with error -38"
-> which definitely seems to be related, but I haven't debugged it further
-> yet.
+> >  .../bindings/iio/light/avago,apds9900.yaml    |  83 ++++++++
+> >  drivers/misc/apds990x.c                       | 197 +++++++++---------
+>
+> As mentioned in my reply to the dt-bindings patch, there is already an
+> IIO driver that looks like it could be compatible. I'm guessing that
+> this misc driver pre-dates the IIO subsystem. I would have a look at it
+> instead (drivers/iio/light/tsl2772.c).
+>
 
-Posted https://patch.msgid.link/20260418-ath10k-snoc-pwrseq-v1-1-832594ba3294@oss.qualcomm.com
+tsl2772 driver fits, thanks for pointing out. Maybe you know how
+apds9930 lux table was calculated? It is quite obscure to me.
 
--- 
-With best wishes
-Dmitry
+Obviously this patchset is obsolete and different set of changes is require=
+d.
+
+> >  include/linux/platform_data/apds990x.h        |  65 ------
+> >  3 files changed, 187 insertions(+), 158 deletions(-)
+> >  create mode 100644 Documentation/devicetree/bindings/iio/light/avago,a=
+pds9900.yaml
+> >  delete mode 100644 include/linux/platform_data/apds990x.h
+> >
+>
