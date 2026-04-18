@@ -1,101 +1,127 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 88C9E40DFC2;
-	Sat, 18 Apr 2026 11:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 475C63845AF
+	for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 14:04:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776513342; cv=none; b=pO5lsdHm7xO8Lag6PxbIboMmrbn+9lMcBRxVKuWVF7DKaoisFePXTo8VsnSbMmsKt7iP2TofUk9qnNAPGin6/O1Vms0R7FZdzqR57CLjSpPfLBihoAsNAxB8zFBXka1/ksQI/Srjo0PezJsgDU7ktuGZNMl/POvYcOpW2f6zZHs=
+	t=1776521070; cv=none; b=Ri1qyrnSPljKRu0D4s0kxqupdbGqjPpsYr06MdGlKKspWgXHw7VxjXHce8FQ65MfJ19VOlPxSB/Hn3iDeANqzreot5Txdqs6ITfHtZRqvOosb72FpoA8RVMchR7h5pMPUTfJxabkGHYzulOZ/ji+W2DGVNiOhE/Iz3Hei60cCUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776513342; c=relaxed/simple;
-	bh=cGEAy3W2Hgjbx+Rpgzb/NTGU3TEbtjntAU+pNGtk3uo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sJqYoGhAlOE+rdHBFeaBMOKwmk5zwlKOz8dG+YSmI46HuZUbAus3sSYibWItI9jcxdU8TYhykJdCLVoO20QK9hHIwpFkwgyG7sgNeCi+8TulYLhDWU5wd6Sd8mvI2NerqO7PLme/vC0W0sufh0TN6msCS8plZ8hyinrlIu5fXq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=I77IGIhf; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1776521070; c=relaxed/simple;
+	bh=yc18ztJG4osZ8bm0qipDK+7zsSdmqsiR7hXrTuncM8E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uWQMaTm+0zl4/s8h3Qm2Yqi7bsA2TayKn5P1Kya0kRbMhWUw+gTJBmyMQyBKhxiyKBVTW84ljahaqkm53KhoWmA0/zpk4Y0KozjqdlVeZFlfiabqY6QtlwplWqBf1Dk/GfU5UyLopS+twwd20IJxqOyHoDpd/JS9QmHyDuvZ3Vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=psRLuait; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="I77IGIhf"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5E42E1A32;
-	Sat, 18 Apr 2026 04:55:34 -0700 (PDT)
-Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C79563F7B4;
-	Sat, 18 Apr 2026 04:55:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1776513340; bh=cGEAy3W2Hgjbx+Rpgzb/NTGU3TEbtjntAU+pNGtk3uo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=I77IGIhfG2oOTNKY29yxyRzy03ikR066Bf0UIC+xT0+oE5iDSQmGJsRT10wsFPrz9
-	 a7stl6AZSe1Zo6+3IRh0kqsUl2qmZZ72nnDjWTdskqAGAHZKaDTvrfDfx0nVIPaVVz
-	 GkhaABXQM85B71RsWimBNtjtlIVlY83Q3wV1GUeY=
-Date: Sat, 18 Apr 2026 13:55:19 +0200
-From: Andre Przywara <andre.przywara@arm.com>
-To: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Samuel
- Holland <samuel@sholland.org>, Michal Piekos <michal.piekos@mmpsystems.pl>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm: dts: allwinner: t113s mangopi: enable watchdog for
- reboot
-Message-ID: <20260418135519.16e41490@ryzen.lan>
-In-Reply-To: <2825865.mvXUDI8C0e@jernej-laptop>
-References: <20260412-t113-mangopi-reboot-hang-v1-1-5002cfa6e0cc@mmpsystems.pl>
-	<2825865.mvXUDI8C0e@jernej-laptop>
-Organization: Arm Ltd.
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="psRLuait"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c76b6abdb73so1039427a12.1
+        for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 07:04:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776521067; x=1777125867; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=UX+XLnE+n26GbzvVTx+sR3X8DY99aZe6Qgz/9cD/YQo=;
+        b=psRLuaitwHpzOiXk83LsCOF17lQmm11Yyp7MJ58mtZIYAyLTtjGWT+dv1rv/omrt5O
+         5lfUJ1JM4A7Hu88KYSDDXEwcRewVXl2fm7JAkCcL7YiRZt+qKL1U6k2cvVJ+QBMTmNO6
+         +Neudq3swnJ6H8hyfnkdBTptJTyWd1inJQgJJhhRY/+PxeQQw+pxzKela+f+9qb4feof
+         VGyiUUMqZ+RT56kk+oDfgSgsovJFMFIdy4MyH3e1t4kXAM2DiCXgDkqlvFo0DmCuArmf
+         ZMnw86LOtCF7YnH89GIV9oVVMN68MHrWjV8Z0ZbueBwY8ypDyxm/lP8zBMefzW0jtDRu
+         adjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776521067; x=1777125867;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=UX+XLnE+n26GbzvVTx+sR3X8DY99aZe6Qgz/9cD/YQo=;
+        b=VW7DNFTz3M0irqpC7Ss1+HehtAcQRs+4fOEYx5pkS3sXYZCD6MwI5kXggEXGIQFzVb
+         3a5SKJ6MF/tPtb0bmxu32oxBXkFDevjiNm3uK/FF4Try1X6lA+Gbmr8wd5Ps3yuUbRYN
+         GcmySplsMyt7M3l0r3MuJgyWP0KWpgn7vXMVj6ZZuUBHhO4XMZCM+XH5K098CRuXby+b
+         pf3qUHP3H26Q/HKHG/ASQ66O07dDJwCgTtzoIISTP7Qv12oHzAWFO7KSj+lfbv2I3SXo
+         DSqvIjiGDG5uEq6qacEFh3bFm4gLyxaVD+4+D1N90rdyXbI3lttQkifCURhnTyA+WZfo
+         bSpg==
+X-Gm-Message-State: AOJu0Yz2bKtx/OD7D+cDZDcVR3nGP7IlFDVJ7l4bndTPZR3xEGiGq2bE
+	N1JEFornFpZbd93iMX6PC91B8H3oPMpEb6qTFaSjr4z0K8JZDiuxz2t+
+X-Gm-Gg: AeBDieszw9WlyjI8b7KQbUjUFYnqvQkvrCy9s/cucZiZ+jsv0cxJKuAMA34LPGvQNof
+	hHKICKFwL89DItqsTo51HCQwBXL/7PNZqHPi/3SAGiYSEIy8L2IuGfVV9WHPYpmfGf5zcJPshzA
+	ANbF1P1KW39ZwkfLSZcRadKa3TWCNVXWqGUAIDup+IZCU1M/43kzsULvJXVqjTHRsa1D8mmmsbq
+	3Pe6kTJGz2GlideAeoUlyCFupc7U6stFRaRvkQCCqcSgEUUcWLt3adQC1U5nU9eLtzIRqkv6HTx
+	qfxObgK9e8CNLD0F8Q31zCzj0KLU++dFQ3GxthVfWZ03f6oH5CAyEkCAHlNGVIdff1Fy3R0zFkA
+	azu79JMFRkKtHWhFNNlLksRsIGWcSC9RAQ5f/a/uIWGvJexSBpiEqDSyOdDNWYyEdbVVSEo6ivC
+	CabVM+F1H/tWmsMgXY02db/I8zX9lp
+X-Received: by 2002:a05:6a20:9389:b0:39b:bee4:2955 with SMTP id adf61e73a8af0-3a08d93dcc5mr7149913637.55.1776521067230;
+        Sat, 18 Apr 2026 07:04:27 -0700 (PDT)
+Received: from ubuntu.. ([110.9.142.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8e985a72sm5410933b3a.11.2026.04.18.07.04.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 18 Apr 2026 07:04:26 -0700 (PDT)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: robh@kernel.org,
+	saravanak@kernel.org
+Cc: devicetree@vger.kernel.org,
+	Sang-Heon Jeon <ekffu200098@gmail.com>
+Subject: [PATCH] of/fdt: remove redundant memset in __unflatten_device_tree()
+Date: Sat, 18 Apr 2026 23:04:20 +0900
+Message-ID: <20260418140420.2221736-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, 17 Apr 2026 20:19:20 +0200
-Jernej =C5=A0krabec <jernej.skrabec@gmail.com> wrote:
+All dt_alloc callbacks passed to __unflatten_device_tree() already
+return zero-initialized memory.
 
-> Hi,
->=20
-> Dne nedelja, 12. april 2026 ob 19:42:10 Srednjeevropski poletni =C4=8Das =
-je Michal Piekos napisal(a):
-> > Reboot hangs on MangoPi MQ-R T113s because no restart handler is
-> > available.
-> >=20
-> > Enable the SoC watchdog whose driver registers a restart handler.
-> >=20
-> > Tested on MangoPi MQ-R T113s.
-> >=20
-> > Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
-> > ---
-> >  arch/arm/boot/dts/allwinner/sun8i-t113s-mangopi-mq-r-t113.dts | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >=20
-> > diff --git a/arch/arm/boot/dts/allwinner/sun8i-t113s-mangopi-mq-r-t113.=
-dts b/arch/arm/boot/dts/allwinner/sun8i-t113s-mangopi-mq-r-t113.dts
-> > index 8b3a75383816..f0232a5e903b 100644
-> > --- a/arch/arm/boot/dts/allwinner/sun8i-t113s-mangopi-mq-r-t113.dts
-> > +++ b/arch/arm/boot/dts/allwinner/sun8i-t113s-mangopi-mq-r-t113.dts
-> > @@ -33,3 +33,7 @@ rtl8189ftv: wifi@1 {
-> >  		interrupt-names =3D "host-wake";
-> >  	};
-> >  };
-> > +
-> > +&wdt {
-> > +	status =3D "okay";
-> > +}; =20
->=20
-> Move this to sun8i-t113s.dtsi. All t113 boards have the same issue.
-> Watchdog should be always enabled on ARM.
+- kernel_tree_alloc uses kzalloc()
+- early_init_dt_alloc_memory_arch() and dt_alloc_memory() both use
+  memblock_alloc()
 
-We actually have that line in U-Boot:
-https://github.com/u-boot/u-boot/blob/master/arch/arm/dts/sunxi-u-boot.dtsi=
-#L22-L27
+So remove redundant memset after the allocation. No funtional change.
 
-IIRC, the idea was that it is *firmware* that chooses the watchdog, so
-the generic DT should not be the place to set this.
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+---
+dt-test result
 
-If people use $fdtcontroladdr as the DT source, everything falls in
-place neatly, no need for changes or runtime patching.
+[    0.529540] ### dt-test ### start of unittest - you will see error messages
+[    0.532758] ### dt-test ### EXPECT \ : Duplicate name in testcase-data, renamed to "duplicate-name#1"
+[    0.537608] ### dt-test ### EXPECT / : Duplicate name in testcase-data, renamed to "duplicate-name#1"
 
-Cheers,
-Andre
+...
+
+[    0.781700] ### dt-test ### EXPECT / : OF: resolver: overlay phandle fixup failed: -22
+[    0.781718] ### dt-test ### EXPECT / : OF: resolver: node label 'this_label_does_not_exist' not found in live devicetree symbols table
+[    0.781945] ### dt-test ### end of unittest - 423 passed, 0 failed
+
+---
+Hello, 
+
+While looking into boot information, I found a minor enhancement point.
+If I misunderstood anything, please feel free to let me know.
+
+Thank you for taking valuable time to review this work.
+
+Best Regards,
+Sang-Heon Jeon
+---
+ drivers/of/fdt.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
+index becc855ff8b5..647bff2c4521 100644
+--- a/drivers/of/fdt.c
++++ b/drivers/of/fdt.c
+@@ -391,8 +391,6 @@ void *__unflatten_device_tree(const void *blob,
+ 	if (!mem)
+ 		return NULL;
+ 
+-	memset(mem, 0, size);
+-
+ 	*(__be32 *)(mem + size) = cpu_to_be32(0xdeadbeef);
+ 
+ 	pr_debug("  unflattening %p...\n", mem);
+-- 
+2.43.0
+
