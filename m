@@ -1,63 +1,63 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B7138F259
-	for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 14:47:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865CB38758B
+	for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 14:47:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776523669; cv=none; b=li0ao2LdhyIi5dZ/mKF4seveZ1mVoWwmrlqymr6fdNlgLJqN+DF++RI1WP/HwIHU7B9Y6uZQXN5ulvFbcut3FRA2JqQZvBQDcOjZjkaBjyQuqg3NSVpMGpDZA1ylSrZITBMSQmsKMJ7FAP8qZZpmIWcp/wziuZFKEy6pjCQG5Yk=
+	t=1776523672; cv=none; b=qWzJN6EoKLO8/Vs8W90mNEVO2rRg6z3NaqTpezXnZ8B5BM86Od33+4Q4569khiPD3KfnLVvFwJ0hxPhEc4ZSB0Gt7TITBudx38hhCAW6mEomwEA5NCH7yQRNHenaSKpqmqYe1GT8QHAmo5xqjgaapz8UwGHKcRZK1vCwwD2IWvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776523669; c=relaxed/simple;
-	bh=Wxb9PwFATd17PDPb2rUk06CPpwp/tCyfuCX8k/OSLuo=;
+	s=arc-20240116; t=1776523672; c=relaxed/simple;
+	bh=ph482mdUz0pWl0OhYadrfp4dm9vKSDKlVaw1EwDrgLs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ElLg+nbU22AwRLxw25mUWi6jgnqQtgDa+ZuzOlM/tVqh3iCbgwfkzb8vcW+MOOm3NyGv5TpA0iGUQFfBMxSYx//4ZWJ2ef0C9ZA/S3AQiyLr4TX7WmlmB4jvHRd0pZ28uWbC4/Via+PSX+CJ4yNHeQ/fkM4epBzTa9ESMC1velA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dUUw2TB5; arc=none smtp.client-ip=209.85.208.173
+	 MIME-Version; b=X9nWUb44KMm+Ugjo14iuYUXyHUmHIl9PvgQzRvg0oszdDVjRf+N5j9dONKhZ80wCyA+0UJ0ZIf8yFi9Pgz8HJzdPrA3wsPo1tdGGhe+1Yat2hyWxgwqsv8zSU6uQ8ALEN1wGrCoeCBAADiUyFOO1c0klas9W3lzuARWGysftc6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A/aeekct; arc=none smtp.client-ip=209.85.167.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dUUw2TB5"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-38e7b0903cdso15099501fa.3
-        for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 07:47:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A/aeekct"
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5a0faa0d15cso1569257e87.0
+        for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 07:47:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776523666; x=1777128466; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1776523669; x=1777128469; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MNGi9+tIDznq2/odkG3FnpQo5XY+nW6Im4pa9lH4ZmA=;
-        b=dUUw2TB5DO60Dp+VSmLmon0yQjxrrUlpv8UXD2++STW6LR6xUqlTcv36HsIrd0G4Rz
-         JdX7gdHoEESzmzh0k3wCJS04MV1oH/zelvLpVvXU0xzTlp+YcdY/0MGg5a6QC10DMorW
-         6FUq/6/B9BFf5wACoGZmh9g+XK6KMHyE/sARMV6tFM4uf+dq8ndEsoAnrlZwTbeTEaHx
-         0QYzKHPEDc46ngnoMwRKMjgelFIgV9IctnIr0+7MlPDId2wpRgqgVM0aVPqhuA35PqkF
-         1vFe1dHH8YDadB+7bgLLf7c1O4tYh1cDdON4Tjw+fFlYmR90FHzhA1XE4SO9gimhl+n5
-         sstg==
+        bh=bJ0ZocjWEH0SujlKl/cIeDMBxgBomMJ+ZN9u8iNbXAE=;
+        b=A/aeekctnv0Q0F5ZOFiHtN4aqotpscFYLvTQdFf2KD8pirGp6sHbU3bdPJZ121qnxm
+         b3Oinian//IwLbH9h6DkQ74S28UnnYTyM2MW/58oaj6In0rXhxjL+EZ7Q2VjtQkYXRZY
+         UXepEzGECgGJRF0I42L2S25aUJXlwzN7jmg/POyL6FbHswNJR5OVNiKUN0fqXVPH4rsu
+         7DDhKi0IpWPU36hITwaNt6sm7PePfC8w/mZy4zmBkiL5u13ywKLPJd/BwYaBRSAhCWkQ
+         sZKaLKAYAzd0ss+0/xgwqr3dZnicUwC91yH18zYlv6r6p7ei0KjqSaRYRlfSWVK6pIGR
+         QE+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776523666; x=1777128466;
+        d=1e100.net; s=20251104; t=1776523669; x=1777128469;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=MNGi9+tIDznq2/odkG3FnpQo5XY+nW6Im4pa9lH4ZmA=;
-        b=ftOZ2vX9ZtvUAq1AuxWPKgsKHa5UhkFOJ9VbJ6vX87PcTjp61frxXg2ITn5klRvbEd
-         x6tOkehnOr4nimqmNrGSgh4A4fqDAJpSxh9xOS5IYh5NgUOnioYKdod0fv/6Ft5bl0Vh
-         87ew9GValMXCWqn7C1g9pGja0AaV0FNFEMqviXpqC8f39cy/D6VdencfSN0P/OQHbBNE
-         VKdb5lIYO80xqViZmlFnzbfjdwMKBItt/SPqcWJ/8SmBvhgHkkfgxUVdTgZZhP9Ztk8D
-         du2+CM1bNbJ0BCDLgnzVWFsHNRDEA1bwrMuuisaVWXPLY45+SMpMd3fu/Y6qCy3xp0xs
-         +CHw==
-X-Forwarded-Encrypted: i=1; AFNElJ8gZ/TloFm78feItibIi6j5XwvNq33otbwpakDM97OgeYjfUAj+3a/f6TmOKK5AB+xImUorPWReVnXG@vger.kernel.org
-X-Gm-Message-State: AOJu0YyvwEW0L35OwP/KkPbR//tvUy+sho/LEjfMcXcCp7ODf401F/o8
-	3wlv45LDLwaD0x9I4VQ6N7ncseDN6KyqZAteRf7UuaXHCed9s75EtfdL
-X-Gm-Gg: AeBDiet1k6Tg2ISIBbSA561GzvOqo505rEvQIlhEYr+YPQHs/5A7WfAJXjJC0rgLJZL
-	+qRufV9TMoCZAcJMcvm5gDlCrw0cCvF1jc5NFcRrKCRj366+tvmW8psHYZf4I7NuHE8VVXnjurX
-	D3iYHsUKQK01QcWQuK+xGWT7V3NTyOebBVqTjbxpBh3HyYmgEomYvmk1MXPsxpn2IQnKhL4/bgo
-	qoBpNgAmZPUxmTFRE/nea8t1GB/N+9fhU9Z/F8UZC+o3kkwSUU4UJWdO7dbEcJGBZsWP18suZXj
-	exPyjHqqI1rjDSUOrB1hcFHBd4++un21SpyhLdWWZ/GpOCRQ2FPm9nWVBPO+evr0KVdTJI5j0+5
-	DMYco9lFg8QUEBLATE0kbiDhhms9R3UKkK408ZD7R81qCvFksA1vGArV5Iu8ZVi4Vp/LEYW+IOQ
-	mP/u5UsuBx9aX6fLAyDcynjlxpo5yzhbccHA==
-X-Received: by 2002:a2e:a549:0:b0:38e:1ebe:95f6 with SMTP id 38308e7fff4ca-38ec7b2a3camr23980721fa.28.1776523666347;
-        Sat, 18 Apr 2026 07:47:46 -0700 (PDT)
+        bh=bJ0ZocjWEH0SujlKl/cIeDMBxgBomMJ+ZN9u8iNbXAE=;
+        b=OnETNRZ0vKyumm/Mo7gMZ2NVoOD8SQGv1GcmlCK05KHXXiYBrpOtLlrrO7hfcUCFYa
+         6UOZMV+QannH/AQeT3IXn7/xVnFUYJjb+xVM48OT9yScaL6ZqZntdGLH6GaSqAMNjIdR
+         zs+++TJxXPOi74HtAvecOkE+0V0Oz0OhLLfUiPjBJM8CEMG+z9S3snxbmqwdXB1u2qzj
+         Tk4Ew8oIjwYiufLIiWHabyAKcB/KXe+k5/Ol96EKdJjXB3MEKQXjJ1r+kjPzp+uPPsEZ
+         Hk+/PnlhSt99Fxau095Qdh3ZkeL1fU4TAiWrAhRqBgUSuRcGFAFOyYRZhSfEZFD3b9EF
+         4Gig==
+X-Forwarded-Encrypted: i=1; AFNElJ93RF2q9Q9/e8YOcjJM6XUXw7C3/6awuR/yIs3ykx/1KPsKkKrMKjl5dxCWxf1pb534PVRMzdxXsUQL@vger.kernel.org
+X-Gm-Message-State: AOJu0YySymTLib8cf6U2tqpiaExi9oHjJWiO/sSp4zPHqpnUIR58E2jK
+	FJ+KZNsmS+HGY33eh2ZlXcYQxC0QsfCHtQDLVjPr9j2bLzRS9LtO3+8O
+X-Gm-Gg: AeBDietocTo4MMw1wqYxG3b93pcc6w0NcIFy2CE1FkKDPbZWza4qHSjstKog9oPF+nG
+	Wf9mlU+zFC8/srUcSbbI9dVLAKy0qEplmQ1e4kWsUo6sTD+7pKdS4xsopBD7rViDu680SwqBeCb
+	13OihDfsicXZSMG6YuSZD8jHeXwoaHFwlazy0YpaBM2IcX/cBdqT/YO1kg5IxDeqHwExNNGp2oK
+	embrzIKTko8PuHdsMn3huPGtIXrfzaabbZMdNVyIuHRt1/lt6jKyoon+3RqX22BmJxFSBTI6dZe
+	QpSeBT9q2A+LX/XbQPlGg60zj4zoQXy3IRBHC1DNVolcpgXaHyiw/XbmT0+FW8EWh84aeOsuhJa
+	MtEe5jmWuDl/r8TQzX87kOIn0kD7iOOnz3fLG+EgjBL5kmQo1N7ELCT11MnRYQUUZpKTQDtxkkF
+	QSiz1WeaJcfIipuzj2PJappbj8zFHjc6tmGA==
+X-Received: by 2002:a05:6512:6193:b0:5a4:1add:c574 with SMTP id 2adb3069b0e04-5a41addc6aamr1448350e87.5.1776523668435;
+        Sat, 18 Apr 2026 07:47:48 -0700 (PDT)
 Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38ecb4f51easm10901001fa.6.2026.04.18.07.47.44
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38ecb4f51easm10901001fa.6.2026.04.18.07.47.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Apr 2026 07:47:45 -0700 (PDT)
+        Sat, 18 Apr 2026 07:47:47 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
@@ -73,9 +73,9 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 1/5] dt-bindings: iio: light: Document Avago APDS9900/9901 ALS/Proximity sensor
-Date: Sat, 18 Apr 2026 17:47:12 +0300
-Message-ID: <20260418144716.132936-2-clamor95@gmail.com>
+Subject: [PATCH v1 2/5] misc: apds990x: Use more device managed approach in the probe
+Date: Sat, 18 Apr 2026 17:47:13 +0300
+Message-ID: <20260418144716.132936-3-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260418144716.132936-1-clamor95@gmail.com>
 References: <20260418144716.132936-1-clamor95@gmail.com>
@@ -87,103 +87,167 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document Avago APDS-9900/9901 combined ALS/IR-LED/Proximity sensor.
+No functional changes to the driver. The probe code was refactored to
+switch to devm_ versions of functions and reduce the nesting of labels.
+This is in preparation for OF conversion and platform data removal.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../bindings/iio/light/avago,apds9900.yaml    | 83 +++++++++++++++++++
- 1 file changed, 83 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/light/avago,apds9900.yaml
+ drivers/misc/apds990x.c | 80 +++++++++++++++--------------------------
+ 1 file changed, 28 insertions(+), 52 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/light/avago,apds9900.yaml b/Documentation/devicetree/bindings/iio/light/avago,apds9900.yaml
-new file mode 100644
-index 000000000000..f5fb79439e56
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/light/avago,apds9900.yaml
-@@ -0,0 +1,83 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/light/avago,apds9900.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/misc/apds990x.c b/drivers/misc/apds990x.c
+index b69c3a1c94d1..742ab331a221 100644
+--- a/drivers/misc/apds990x.c
++++ b/drivers/misc/apds990x.c
+@@ -1053,9 +1053,10 @@ static const struct attribute_group apds990x_attribute_group[] = {
+ static int apds990x_probe(struct i2c_client *client)
+ {
+ 	struct apds990x_chip *chip;
++	struct device *dev = &client->dev;
+ 	int err;
+ 
+-	chip = kzalloc_obj(*chip);
++	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
+ 	if (!chip)
+ 		return -ENOMEM;
+ 
+@@ -1066,11 +1067,8 @@ static int apds990x_probe(struct i2c_client *client)
+ 	mutex_init(&chip->mutex);
+ 	chip->pdata	= client->dev.platform_data;
+ 
+-	if (chip->pdata == NULL) {
+-		dev_err(&client->dev, "platform data is mandatory\n");
+-		err = -EINVAL;
+-		goto fail1;
+-	}
++	if (chip->pdata == NULL)
++		return dev_err_probe(dev, -EINVAL, "platform data is mandatory\n");
+ 
+ 	if (chip->pdata->cf.ga == 0) {
+ 		/* set uncovered sensor default parameters */
+@@ -1113,75 +1111,61 @@ static int apds990x_probe(struct i2c_client *client)
+ 	chip->regs[0].supply = reg_vcc;
+ 	chip->regs[1].supply = reg_vled;
+ 
+-	err = regulator_bulk_get(&client->dev,
+-				 ARRAY_SIZE(chip->regs), chip->regs);
+-	if (err < 0) {
+-		dev_err(&client->dev, "Cannot get regulators\n");
+-		goto fail1;
+-	}
++	err = devm_regulator_bulk_get(dev, ARRAY_SIZE(chip->regs), chip->regs);
++	if (err)
++		return dev_err_probe(dev, err, "failed to get supplies\n");
+ 
+ 	err = regulator_bulk_enable(ARRAY_SIZE(chip->regs), chip->regs);
+-	if (err < 0) {
+-		dev_err(&client->dev, "Cannot enable regulators\n");
+-		goto fail2;
+-	}
++	if (err < 0)
++		return dev_err_probe(dev, err, "cannot enable regulators\n");
+ 
+ 	usleep_range(APDS_STARTUP_DELAY, 2 * APDS_STARTUP_DELAY);
+ 
+ 	err = apds990x_detect(chip);
+ 	if (err < 0) {
+-		dev_err(&client->dev, "APDS990X not found\n");
+-		goto fail3;
++		dev_err(dev, "APDS990X not found\n");
++		goto error_regulator;
+ 	}
+ 
+-	pm_runtime_set_active(&client->dev);
++	pm_runtime_set_active(dev);
+ 
+ 	apds990x_configure(chip);
+ 	apds990x_set_arate(chip, APDS_LUX_DEFAULT_RATE);
+ 	apds990x_mode_on(chip);
+ 
+-	pm_runtime_enable(&client->dev);
++	pm_runtime_enable(dev);
+ 
+ 	if (chip->pdata->setup_resources) {
+ 		err = chip->pdata->setup_resources();
+ 		if (err) {
+ 			err = -EINVAL;
+-			goto fail4;
++			goto error_pm;
+ 		}
+ 	}
+ 
+-	err = sysfs_create_group(&chip->client->dev.kobj,
+-				apds990x_attribute_group);
++	err = devm_device_add_group(dev, apds990x_attribute_group);
+ 	if (err < 0) {
+-		dev_err(&chip->client->dev, "Sysfs registration failed\n");
+-		goto fail5;
++		dev_err(dev, "Sysfs registration failed\n");
++		goto error_resourses;
+ 	}
+ 
+-	err = request_threaded_irq(client->irq, NULL,
+-				apds990x_irq,
+-				IRQF_TRIGGER_FALLING | IRQF_TRIGGER_LOW |
+-				IRQF_ONESHOT,
+-				"apds990x", chip);
++	err = devm_request_threaded_irq(dev, client->irq, NULL, apds990x_irq,
++					IRQF_TRIGGER_FALLING | IRQF_TRIGGER_LOW |
++					IRQF_ONESHOT, "apds990x", chip);
+ 	if (err) {
+-		dev_err(&client->dev, "could not get IRQ %d\n",
+-			client->irq);
+-		goto fail6;
++		dev_err(dev, "could not get IRQ %d\n", client->irq);
++		goto error_resourses;
+ 	}
 +
-+title: Avago APDS-9900/9901 combined ALS/IR-LED/Proximity sensor
+ 	return err;
+-fail6:
+-	sysfs_remove_group(&chip->client->dev.kobj,
+-			&apds990x_attribute_group[0]);
+-fail5:
++error_resourses:
+ 	if (chip->pdata && chip->pdata->release_resources)
+ 		chip->pdata->release_resources();
+-fail4:
+-	pm_runtime_disable(&client->dev);
+-fail3:
++error_pm:
++	pm_runtime_disable(dev);
++error_regulator:
+ 	regulator_bulk_disable(ARRAY_SIZE(chip->regs), chip->regs);
+-fail2:
+-	regulator_bulk_free(ARRAY_SIZE(chip->regs), chip->regs);
+-fail1:
+-	kfree(chip);
 +
-+maintainers:
-+  - Svyatoslav Ryhel <clamor95@gmail.com>
-+
-+description: |
-+  The APDS-9900/9901 provides digital ambient light sensing (ALS),
-+  IR LED and a complete proximity detection system in a single
-+  8 pin package over I2C interface.
-+  Datasheet at https://docs.broadcom.com/doc/AV02-2867EN
-+
-+properties:
-+  compatible:
-+    enum:
-+      - avago,apds9900
-+      - avago,apds9901
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  vdd-supply: true
-+
-+  avago,pdrive-microamp:
-+    description:
-+      The LED drive current is controlled by a regulated current
-+      sink on the LDR pin. This feature eliminates the need to use
-+      a current limiting resistor to control LED current. The LED
-+      drive current can be configured for 12.5 mA, 25 mA, 50 mA
-+      or 100 mA. For higher LED drive requirements, an external
-+      P type transistor can be used to control the LED current.
-+    enum: [12500, 25000, 50000, 100000]
-+    default: 100000
-+
-+  avago,ppcount:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      The number of LED pulses can be programmed to a value of 1 to
-+      255 pulses as needed. Increasing the number of LED pulses at a
-+      given current will increase the sensor sensitivity. Sensitivity
-+      grows by the square root of the number of pulses. Each pulse
-+      has a 16 mS period.
-+    minimum: 1
-+    maximum: 255
-+    default: 1
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        light-sensor@39 {
-+            compatible = "avago,apds9900";
-+            reg = <0x39>;
-+
-+            interrupt-parent = <&gpio>;
-+            interrupts = <82 IRQ_TYPE_EDGE_RISING>;
-+
-+            vdd-supply = <&vdd_2v85_als>;
-+
-+            avago,pdrive-microamp = <100000>;
-+            avago,ppcount = <3>;
-+        };
-+    };
-+...
+ 	return err;
+ }
+ 
+@@ -1189,10 +1173,6 @@ static void apds990x_remove(struct i2c_client *client)
+ {
+ 	struct apds990x_chip *chip = i2c_get_clientdata(client);
+ 
+-	free_irq(client->irq, chip);
+-	sysfs_remove_group(&chip->client->dev.kobj,
+-			apds990x_attribute_group);
+-
+ 	if (chip->pdata && chip->pdata->release_resources)
+ 		chip->pdata->release_resources();
+ 
+@@ -1201,10 +1181,6 @@ static void apds990x_remove(struct i2c_client *client)
+ 
+ 	pm_runtime_disable(&client->dev);
+ 	pm_runtime_set_suspended(&client->dev);
+-
+-	regulator_bulk_free(ARRAY_SIZE(chip->regs), chip->regs);
+-
+-	kfree(chip);
+ }
+ 
+ #ifdef CONFIG_PM_SLEEP
 -- 
 2.51.0
 
