@@ -1,138 +1,143 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBCE33C518
-	for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 19:48:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085642E4247;
+	Sat, 18 Apr 2026 20:07:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776541725; cv=pass; b=o0S8Cs1lj5wLYmnG53jXwOyugp2o4wA5GndrpEAFI5WgYN57NUPWH402FjdrQ76ikBUBQzYzl63bQaY5lN/beCXtNLVeOszgdA2jLncWJsKBZfHpRAv11weW14eDFSHz5+1jjAM4aGDn7+N4tHDpkE6PcHe9MRhIwBCG/HI8nsc=
+	t=1776542845; cv=pass; b=WSwQIId3iOK+u6muvBSUBF/vqfE8iYG9p/vbRruXMKgYdhNYhRRX+aiZZNz6fXgbfjcv7n69XZm14oY6CYvUVHXrBOt+c8WcrLUjWcMfUOYE4yn5XAgn+MKOzKbtrHj1IlscbiL7+O0FDa+WK4XHLA3j6OlI+l6J2Q7ic7LzVH8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776541725; c=relaxed/simple;
-	bh=QNnjirEE9+taUl3FOqtm3HUbAhNxM6+8spyvJkRd0Lg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LuSVvSPPGR0Ul/0nOUMxOBv47WobT2Hj7D57cAVGTC1SlOBC6Duf0EiOFnepB7giITAWFLJloo7NOv9bMA9qR/AKRZnIE/JN9BW/WVc6za16LIXCbmwWgY3frJEX3ratfbsqRVArlkld6mvovyP+fMrPSP1cz1Ivdio0JdJEIQI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jJHFIscF; arc=pass smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776542845; c=relaxed/simple;
+	bh=22w2I5NLd6Oc4e7UYBpDdZFyx3gOidmynxa+EEOsljE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hZaF9PXIu2/o50zPF66UjYLr8VcOU+tIuAcg0WgCa8KzXeCDux1CX5FeqgRfguZGAW8X0PN9t2XuUTU6vCEitRxPgjRM2XKBpWNnXiFF7tnLFnxmKOb6WN+Wkx4tA5ZHJ3GPHlxChtPdRpak6SjoVXlvOScqXA21S7inXSSaJj8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=Kb/eSYaT; arc=pass smtp.client-ip=185.185.170.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jJHFIscF"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-43d7a5e77b1so1179080f8f.1
-        for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 12:48:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776541722; cv=none;
-        d=google.com; s=arc-20240605;
-        b=R46u7aZo8zjODKsyDgkt+LhkrFgq8B+yTe8ZVpyyRVATk5BQ6UMvTF7t0v18kibfHd
-         HgxeKmpvvApEc7vrvCF4+uK8UVlAUDAL0ncu1yybv3LsBgrjmll1dx7E0KIn8FCC8U8x
-         Q2kaidLVlcnOTAfmmOo+VSTkZdPDkgZJJHiLQNANagcLtbjMl8VYNsRm1y62vzHawF1F
-         8UlAlCJuE6V/bU/l0xuhyrX8KocME9cNC25KfOcU6uo1FA6gFRpQQ8XQfPxG005cPZzG
-         8abZEPaB5P99hVrr0R6tyZeI8SDfbJC/SLKz6k0d9DqWwQofKwxl9/c7qucuVqRBSF8m
-         mWQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KfNIvP+kGakhsVtQCOsk+NZ8Rg4P7VrKNiU3gLYB2YU=;
-        fh=QeSQ4AqlB+DupnB0Epzgx0P40sG4mX4G2/6yYZS/zQA=;
-        b=MawLdwdS3/FzMFD9XZ8Pel8UX2+TXW54eC++Smd4n3nJO7UhXVsfEFRFf+ewM6k5ho
-         DawzhNhHK6DA3sOx0up0OeuFbb1UShbBX9nuGq5rDomlfJIc7LHBL54QhsCUAL47WbGy
-         NaDFjd5O4kRcbRIEXj4/p8sHAXVUk3oWUmbD4ZkQfud0nz8hLk8Q1luyN9Cz1++U/APJ
-         aTvWp/1YCsvIyp9yS7E6nVjVcHjJNT5ailqwWlGJ8Ts3SaEBeiil3xk67bs9mB6uN0nB
-         Hq1/DSSxiDgAd5oZ8dAu+YeraQJNwq5Af/mWOK+jBG+dbVEsHRdzTjgMfn0VwZC/WKZP
-         +pXw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776541722; x=1777146522; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KfNIvP+kGakhsVtQCOsk+NZ8Rg4P7VrKNiU3gLYB2YU=;
-        b=jJHFIscFwOGbr2nIUSFFZqnEcSGC7zuP+sc27v9AvaE8SZ26xYQvKuyis5oDl/b5bP
-         YoW3UnjvSovARvlKMUz9vQWkN09uOcODvP8zeLy3iAM+6Cm52CX4Yr9yZA7qSZls/4df
-         x3Gtr0ilaFx/nLUvAQmPW5vuIg/b4GAH52Dyt55ZpOCAwfVzvW+LqPbiLC+IIw0FO+MP
-         J7jdmSU8sPBLnQQ2lo02+o/YCshDtjWWdZU8kKkSXCkOFzhNOl1yiX+N66RA8B13yWRJ
-         kOB6COXhkE6xx8YBbz44F/lWBerSrhbZbEilsJGpK18E4poa1vENZdJhUAb+KqmS4yYs
-         rU6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776541722; x=1777146522;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=KfNIvP+kGakhsVtQCOsk+NZ8Rg4P7VrKNiU3gLYB2YU=;
-        b=gXhM7Sor8i8EIrsDa5E/a+r9X1WD14QJ3LK4qgA1dgQf829ig8WnTuJJVk0oJQp7dm
-         3w+tyQb1c8Nht6t5GiQARzyinyi8DbZLcw3NnSszJphSX3O6TpHKRVD5T6/RVr6fYWKk
-         zONCbgphjOexxBZCFcAo2/U35ggbzx84MQGxV/URKNiyHqcosDmQFlDXsq6DnsxFp8e1
-         be6OjqEkK0yNuj1rszhbGR3qR194+LyxAPWCplr8vk1Mwc+UzWG7hYG2fOqwUlmoQL9B
-         kVo98E1Q8C/akif38AQ+ybJ55GqfcCdQUwok0L4IYGMG2nyI5nqByv0uXoAQB+URfaX5
-         Qplw==
-X-Forwarded-Encrypted: i=1; AFNElJ+hA+sgiLdmV69u63jJKBeuTfmujmIICsq9lzNPqVX+jl2A3LL+OwjLJnuNHtY1dXdpWZZQ3/YxEgSL@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkhJluMPAJRniWYhbu/OA6BkXJkq4Qcw8+JSZqUdZgZ+2Z3yub
-	ruoeEqDHzrXxFZHmbF/psCfcuQdH9i6wld87au1ev3AGMnugL6Ff0t0cMo6oCGAFS67Fyqeuc9t
-	pYRrzPPtecueVJbTjv+rX5SBH1b1asuk=
-X-Gm-Gg: AeBDieuw7JBe599jsxv4J8UK1GY0WmMHOuAh64SUKHuNvKVxJA936wwUgyxfgcqhtsn
-	d8TRkcEldrjo5x52wPozIp/nWWMNygIJ1N6n83opxyyxRLLFvhV6kRnjtbO/SwZvGCzeDdW26N9
-	hgNLFJOrwE6Wyq5V0f7uzvWcLo2QqqmuJR+gAH1xRj6Shk1LyzDWfzrEOAupaz7f+gEx1Ruj32g
-	NRQhEw34eyFIddv/lIkI3gx/OKedWjeFlpItuNnn+izBiUCS6XpNDFOQ5Pv8Lf93K5iWzI3PoAJ
-	+nibZmazYysMoxTAJ8M=
-X-Received: by 2002:a05:6000:2dc6:b0:43d:7512:6f7b with SMTP id
- ffacd0b85a97d-43fe3f35785mr12170312f8f.5.1776541721541; Sat, 18 Apr 2026
- 12:48:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="Kb/eSYaT"
+Received: from darkstar.musicnaut.iki.fi (unknown [83.245.248.121])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: aaro.koskinen)
+	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4fyjTG4pT0z49PyQ;
+	Sat, 18 Apr 2026 23:07:14 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
+	t=1776542836;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bbLXe4Og5GCtNFoJgU/iohm65MD7uV97LErFdEaEF7E=;
+	b=Kb/eSYaTGUs55bvEsMxccKvCe1lUD/sC5KPz52uNr/U8hOF93wi3MJ/ppCQzVraZzFgRSf
+	NpbRguOwXxqkeAal1VE5DkM0YUkMeOOSm0b2kbTRx5Wn+bX6swZUBHk4lh29SsSTZk77jQ
+	Mzv3ulGDMEVOV5fx744CmMbp0OwNLWupT+/2EXWypmaU20OQXi/cqeD8BhJGXrc7daAZ0O
+	3a497Evvq0bC3XQVGjzncJo95Nxp64oByLOahYDQPAjtfkJ4RAxPEUdXH1K6047WHeGFCt
+	cTnzSg7cYlVtnN8bqzTZWwbHbuIHQ5JYsjgVx2Ldhh56Sb2FWpuG5/Ew6OVcLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=lahtoruutu; t=1776542836;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bbLXe4Og5GCtNFoJgU/iohm65MD7uV97LErFdEaEF7E=;
+	b=OzG0N6MLYgpi1aRsblyHfoGw+pLJtJWCg2i8myzuMiQHgjQpE1b3ERF/7QzQ+DVFBBV98S
+	eZFBGjKghztB7FKssj0DxIHoOAq02h1PDRTB4ILQtVrdOa4GfO8HpVjzOveNlPqCvZKjHf
+	uUR1QP9Mm7sWsbpbhmzi7ylUWdy79YGZw0NMaA1Pe9OhaoFiBqj6IJxykjbGrw5TTLyACi
+	Vef8no+A8Oe1cbnG2sNk40s2M6pefcWSxkk7ohZsWG3wgMkBhdIpY1ovKPCJSwAMu+bgaf
+	T/qWkC9ydIY9j3wIvP8ffGOiAGX5n9OAKRiK1pZkS9TlRMdyDH2uvZyI/INq9Q==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=aaro.koskinen smtp.mailfrom=aaro.koskinen@iki.fi
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1776542836;
+	b=eshlC+o2K2l5qT1L/SCjR+WV73Bxk3OnqYzN/ng9ZtWmLTCyGx4qWO0cj+sY3un7wD+DWF
+	MIP3JwY4ccDiOSgOBlDBrCiDbsuKg5rQfQRsHgPRr2U6MQ3X8fQhxnqSfdAtPVXB6faeIN
+	16RlXbFjoaeE0McGG6MI1iZ2Q3RmknYSgKIffA8i/SDklYeP4I2UHkA5sigaZmBd5Fr02U
+	pXCen5Yb7Y2rCQya5YQLIRq3jKAY7ZrLVPIjThjfrC+Zjqn4GNR8QJdgko2rkq9FRWbRBi
+	5/rhq39AbpRw5jUl2aGeuR57k23EZq+je5P9F9ullBxU4UZlhJ9erQa5rmyl7Q==
+Date: Sat, 18 Apr 2026 23:07:11 +0300
+From: Aaro Koskinen <aaro.koskinen@iki.fi>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>, linux-tegra@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+	linux-omap@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Paul Walmsley <pjw@kernel.org>
+Subject: Re: [PATCH v2 1/3] MAINTAINERS: Move Peter De Schrijver to CREDITS
+Message-ID: <aePkb1qTEvnMhkDg@darkstar.musicnaut.iki.fi>
+References: <20260417131549.3154534-1-thierry.reding@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260418144716.132936-1-clamor95@gmail.com> <36e3611d-642e-42de-9a56-cf81c3e06832@baylibre.com>
-In-Reply-To: <36e3611d-642e-42de-9a56-cf81c3e06832@baylibre.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Sat, 18 Apr 2026 22:48:29 +0300
-X-Gm-Features: AQROBzCxF8i16JN26FDAkpF1ordk5znfDFdpoQnWkq3YscwGp4AejBpZy9piygU
-Message-ID: <CAPVz0n1ph0Cjw9WOqoVPaEywF0MzaNXeEjw6=0rKf4qLWiJZtw@mail.gmail.com>
-Subject: Re: [PATCH v1 0/5] Update APDS990x ALS to support device trees
-To: David Lechner <dlechner@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260417131549.3154534-1-thierry.reding@kernel.org>
 
-=D1=81=D0=B1, 18 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 19:2=
-4 David Lechner <dlechner@baylibre.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On 4/18/26 9:47 AM, Svyatoslav Ryhel wrote:
-> > Document Avago APDS9900/9901 ALS/Proximity sensor in schema and moderni=
-ze
-> > its driver to support OF bindings.
-> >
-> > Svyatoslav Ryhel (5):
-> >   dt-bindings: iio: light: Document Avago APDS9900/9901 ALS/Proximity
-> >     sensor
-> >   misc: apds990x: Use more device managed approach in the probe
-> >   misc: apds990x: Drop Vled supply
-> >   misc: apds990x: Convert to use OF bindings
-> >   misc: apds990x: Drop IRQF_TRIGGER_LOW trigger
-> >
-> >  .../bindings/iio/light/avago,apds9900.yaml    |  83 ++++++++
-> >  drivers/misc/apds990x.c                       | 197 +++++++++---------
->
-> As mentioned in my reply to the dt-bindings patch, there is already an
-> IIO driver that looks like it could be compatible. I'm guessing that
-> this misc driver pre-dates the IIO subsystem. I would have a look at it
-> instead (drivers/iio/light/tsl2772.c).
->
+Hi,
 
-tsl2772 driver fits, thanks for pointing out. Maybe you know how
-apds9930 lux table was calculated? It is quite obscure to me.
+On Fri, Apr 17, 2026 at 03:15:46PM +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+> 
+> Peter sadly passed away a while back. Paul did a much better job at
+> finding the right words to mourn this loss than I ever could, so I will
+> leave this link here:
+> 
+>   https://lore.kernel.org/lkml/alpine.DEB.2.21.999.2407240345480.11116@utopia.booyaka.com/T/#u
+> 
+> Co-developed-by: Paul Walmsley <pjw@kernel.org>
+> Co-developed-by: Aaro Koskinen <aaro.koskinen@iki.fi>
+> Co-developed-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
 
-Obviously this patchset is obsolete and different set of changes is require=
-d.
+Reviewed-by: Aaro Koskinen <aaro.koskinen@iki.fi>
 
-> >  include/linux/platform_data/apds990x.h        |  65 ------
-> >  3 files changed, 187 insertions(+), 158 deletions(-)
-> >  create mode 100644 Documentation/devicetree/bindings/iio/light/avago,a=
-pds9900.yaml
-> >  delete mode 100644 include/linux/platform_data/apds990x.h
-> >
->
+A.
+
+> ---
+> Changes in v2:
+> - add more missing entries
+> 
+>  CREDITS     | 10 ++++++++++
+>  MAINTAINERS |  1 -
+>  2 files changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/CREDITS b/CREDITS
+> index 885fb05d8816..afd1f70b41cf 100644
+> --- a/CREDITS
+> +++ b/CREDITS
+> @@ -3645,7 +3645,17 @@ D: Macintosh IDE Driver
+>  
+>  N: Peter De Schrijver
+>  E: stud11@cc4.kuleuven.ac.be
+> +E: p2@mind.be
+> +E: peter.de-schrijver@nokia.com
+> +E: pdeschrijver@nvidia.com
+> +E: p2@psychaos.be
+> +D: Apollo Domain workstations
+> +D: Ariadne and Hydra Amiga Ethernet drivers
+> +D: IBM PS/2, Microchannel, and Token Ring support
+>  D: Mitsumi CD-ROM driver patches March version
+> +D: TWL4030 power management and audio codec driver
+> +D: OMAP power management
+> +D: NVIDIA Tegra clock and BPMP drivers, among many other things
+>  S: Molenbaan 29
+>  S: B2240 Zandhoven
+>  S: Belgium
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index ef978bfca514..ffe20d770249 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -26145,7 +26145,6 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tegra/linux.git
+>  N:	[^a-z]tegra
+>  
+>  TEGRA CLOCK DRIVER
+> -M:	Peter De Schrijver <pdeschrijver@nvidia.com>
+>  M:	Prashant Gaikwad <pgaikwad@nvidia.com>
+>  S:	Supported
+>  F:	drivers/clk/tegra/
+> -- 
+> 2.52.0
+> 
+> 
