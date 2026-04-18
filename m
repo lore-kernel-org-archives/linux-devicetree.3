@@ -1,143 +1,145 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085642E4247;
-	Sat, 18 Apr 2026 20:07:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776542845; cv=pass; b=WSwQIId3iOK+u6muvBSUBF/vqfE8iYG9p/vbRruXMKgYdhNYhRRX+aiZZNz6fXgbfjcv7n69XZm14oY6CYvUVHXrBOt+c8WcrLUjWcMfUOYE4yn5XAgn+MKOzKbtrHj1IlscbiL7+O0FDa+WK4XHLA3j6OlI+l6J2Q7ic7LzVH8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776542845; c=relaxed/simple;
-	bh=22w2I5NLd6Oc4e7UYBpDdZFyx3gOidmynxa+EEOsljE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hZaF9PXIu2/o50zPF66UjYLr8VcOU+tIuAcg0WgCa8KzXeCDux1CX5FeqgRfguZGAW8X0PN9t2XuUTU6vCEitRxPgjRM2XKBpWNnXiFF7tnLFnxmKOb6WN+Wkx4tA5ZHJ3GPHlxChtPdRpak6SjoVXlvOScqXA21S7inXSSaJj8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=Kb/eSYaT; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD402E62A4;
+	Sat, 18 Apr 2026 20:21:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776543669; cv=none; b=OGjVuQUrGk7raaIbuWLswahSfK/dFca0sUDn+sRodGJCSU3F1mQWHJf55z6Ee1ToCZpmuvKlCZqRBvNvaDUwNXjOIbgQpzCr/m0gmgNLlXQdu2ci3j8BJBJjnIQX2ERaxg40t0R5Ma9QwcPTpW79CxzeXpvpus8PlCq81hyne7A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776543669; c=relaxed/simple;
+	bh=uKWlxl3GBp17vJ8wClbLm2X803+Dflk0Su16uBstMpY=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=qj1DjesWknWgVMnizgmleoG0csZJBM3f1OH1MOLzWwCqJSCVzYx3fcBGQwRNmr0xybilH1imaZ/VIffz26Ux9xnXipSTp66cDWY/wwXxRBu9i4Mwy1zay0SfTCswj4/jaZp15lX1N8tTCE6lUxJz68FzWip+95WQuI6Kw4gf7xs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=RuQQ49jy; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=KUi3qRQN; arc=none smtp.client-ip=103.168.172.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="Kb/eSYaT"
-Received: from darkstar.musicnaut.iki.fi (unknown [83.245.248.121])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: aaro.koskinen)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4fyjTG4pT0z49PyQ;
-	Sat, 18 Apr 2026 23:07:14 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1776542836;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bbLXe4Og5GCtNFoJgU/iohm65MD7uV97LErFdEaEF7E=;
-	b=Kb/eSYaTGUs55bvEsMxccKvCe1lUD/sC5KPz52uNr/U8hOF93wi3MJ/ppCQzVraZzFgRSf
-	NpbRguOwXxqkeAal1VE5DkM0YUkMeOOSm0b2kbTRx5Wn+bX6swZUBHk4lh29SsSTZk77jQ
-	Mzv3ulGDMEVOV5fx744CmMbp0OwNLWupT+/2EXWypmaU20OQXi/cqeD8BhJGXrc7daAZ0O
-	3a497Evvq0bC3XQVGjzncJo95Nxp64oByLOahYDQPAjtfkJ4RAxPEUdXH1K6047WHeGFCt
-	cTnzSg7cYlVtnN8bqzTZWwbHbuIHQ5JYsjgVx2Ldhh56Sb2FWpuG5/Ew6OVcLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1776542836;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bbLXe4Og5GCtNFoJgU/iohm65MD7uV97LErFdEaEF7E=;
-	b=OzG0N6MLYgpi1aRsblyHfoGw+pLJtJWCg2i8myzuMiQHgjQpE1b3ERF/7QzQ+DVFBBV98S
-	eZFBGjKghztB7FKssj0DxIHoOAq02h1PDRTB4ILQtVrdOa4GfO8HpVjzOveNlPqCvZKjHf
-	uUR1QP9Mm7sWsbpbhmzi7ylUWdy79YGZw0NMaA1Pe9OhaoFiBqj6IJxykjbGrw5TTLyACi
-	Vef8no+A8Oe1cbnG2sNk40s2M6pefcWSxkk7ohZsWG3wgMkBhdIpY1ovKPCJSwAMu+bgaf
-	T/qWkC9ydIY9j3wIvP8ffGOiAGX5n9OAKRiK1pZkS9TlRMdyDH2uvZyI/INq9Q==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=aaro.koskinen smtp.mailfrom=aaro.koskinen@iki.fi
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1776542836;
-	b=eshlC+o2K2l5qT1L/SCjR+WV73Bxk3OnqYzN/ng9ZtWmLTCyGx4qWO0cj+sY3un7wD+DWF
-	MIP3JwY4ccDiOSgOBlDBrCiDbsuKg5rQfQRsHgPRr2U6MQ3X8fQhxnqSfdAtPVXB6faeIN
-	16RlXbFjoaeE0McGG6MI1iZ2Q3RmknYSgKIffA8i/SDklYeP4I2UHkA5sigaZmBd5Fr02U
-	pXCen5Yb7Y2rCQya5YQLIRq3jKAY7ZrLVPIjThjfrC+Zjqn4GNR8QJdgko2rkq9FRWbRBi
-	5/rhq39AbpRw5jUl2aGeuR57k23EZq+je5P9F9ullBxU4UZlhJ9erQa5rmyl7Q==
-Date: Sat, 18 Apr 2026 23:07:11 +0300
-From: Aaro Koskinen <aaro.koskinen@iki.fi>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>, linux-tegra@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
-	linux-omap@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Paul Walmsley <pjw@kernel.org>
-Subject: Re: [PATCH v2 1/3] MAINTAINERS: Move Peter De Schrijver to CREDITS
-Message-ID: <aePkb1qTEvnMhkDg@darkstar.musicnaut.iki.fi>
-References: <20260417131549.3154534-1-thierry.reding@kernel.org>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="RuQQ49jy";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="KUi3qRQN"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 43269EC017E;
+	Sat, 18 Apr 2026 16:21:06 -0400 (EDT)
+Received: from phl-imap-02 ([10.202.2.81])
+  by phl-compute-04.internal (MEProxy); Sat, 18 Apr 2026 16:21:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1776543666;
+	 x=1776630066; bh=hPYP9eUQ/eFYZOJFHq/Y0RBvgQgoNH9PKsqBaOrxT80=; b=
+	RuQQ49jyWjn6Jom0CeSAIywm+FP+ccY6QfhsaL4mHv1Qjp4DSIdRcn0MXKyBYXpO
+	9x/v/UJ/Ej/9PxZ0qllDKipoerwj9NnPqsvS/Zx8wnxUEr0bfLxvUpUxSCpmaG8/
+	v3fQhpG/kTSh0wXrZ/WLWvD4NjGqiwAvlanBI5wSYJPZv9Q51xYnar96YEEz72lZ
+	2BTtXVTpueX+MkoJFlAKZZ1MWlV82xsY5JbC6YhjelDMP+d4UUAqS9aLFUQ0c4CE
+	KfwXauoJfc6bllK4Yv/SLGWCEX/c66igcT5GjJ1iCfPvawKT0AQj2sNDr88Yf4SO
+	H7SxBJnB3mRZFitPvTYOAQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1776543666; x=
+	1776630066; bh=hPYP9eUQ/eFYZOJFHq/Y0RBvgQgoNH9PKsqBaOrxT80=; b=K
+	Ui3qRQNyT2ETE/LFDvK9Ld+axPSR3FvEJKbWhg/GBz1NR0NNL/tbVYAkq1V21FdK
+	jYeY0wgTDg2SPM2QNSMI4Z94NZv/BiHapJux60u8ZTG93j5btuIR+N+g5wedb+xp
+	cBqfpHxyr98g8UlJyatS8q+g3Bg5iLlTLSX9uCPLNEotxXYkZNv3WRjVfuGaUYv9
+	CKP6m9/Sd2UpuRFVrZAXwY8FMa8KhCCxUn04Vkd4DkZroqEOEJI8p47KViRDuo/x
+	HH953lr2fHRF7T7GsuHl6iIUEQItFAZK/i+vckjkQ1KK1re3TAj5/QY9Sk2LmqqS
+	SEsfU652mTUgqB5gkxWmw==
+X-ME-Sender: <xms:sefjafQETE3ukY_1sqjBw9Xhoy0upLAje-pBeuitv8ltOpWXeY0SJw>
+    <xme:sefjabknUDqeOiPkznVbNq3XW5YJoeeZ224-Gg3lfnliFUlB9BUV-7M90Zzz3wVAb
+    C0rTexlOJcFAN3f7BZz3S3chKmwh0QNABzV4glg0ElnSpcg-dQv5pAO>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdehfeejudcutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+    hrpefoggffhffvvefkjghfufgtgfesthejredtredttdenucfhrhhomhepfdetrhhnugcu
+    uegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrghtthgvrh
+    hnpefhtdfhvddtfeehudekteeggffghfejgeegteefgffgvedugeduveelvdekhfdvieen
+    ucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrrhhnug
+    esrghrnhgusgdruggvpdhnsggprhgtphhtthhopedufedpmhhouggvpehsmhhtphhouhht
+    pdhrtghpthhtohepnhhunhhordhsrgesrghnrghlohhgrdgtohhmpdhrtghpthhtohepug
+    hlvggthhhnvghrsegsrgihlhhisghrvgdrtghomhdprhgtphhtthhopegtlhgrmhhorhel
+    heesghhmrghilhdrtghomhdprhgtphhtthhopehrughunhhlrghpsehinhhfrhgruggvrg
+    gurdhorhhgpdhrtghpthhtoheprghnugihsehkvghrnhgvlhdrohhrghdprhgtphhtthho
+    pegtohhnohhrodgutheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepjhhitgdvfeeskh
+    gvrhhnvghlrdhorhhgpdhrtghpthhtohepkhhriihkodgutheskhgvrhhnvghlrdhorhhg
+    pdhrtghpthhtoheprhhosghhsehkvghrnhgvlhdrohhrgh
+X-ME-Proxy: <xmx:sefjaSALFtMZeX9IYriJ7JPFKlxgpcGTKtjXCEgGpZlTZ1tvJbAgPQ>
+    <xmx:sefjaQNwp03WnTpqiia_87zeRhXzQNCcrCFlh5PQm77TCBEvXpog-w>
+    <xmx:sefjaeOwKCNdEs-08Iqe4BxJ_ACR9kRhH1a84aY4FOEeEW2JxYwBaw>
+    <xmx:sefjaSKKA6Mrsb8pnfgH9i5upaJX0piegCIlng0Rll1q22Wr7H0E_A>
+    <xmx:sufjafiMrWZufyXkudmOG-EETmERMknbnGOp27aBU6FeYlFl5hh8pC-8>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 8FAEE700065; Sat, 18 Apr 2026 16:21:05 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260417131549.3154534-1-thierry.reding@kernel.org>
+X-ThreadId: A4Pw2mV9al1B
+Date: Sat, 18 Apr 2026 22:18:47 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "David Lechner" <dlechner@baylibre.com>,
+ "Svyatoslav Ryhel" <clamor95@gmail.com>,
+ "Jonathan Cameron" <jic23@kernel.org>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Randy Dunlap" <rdunlap@infradead.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <6e9e830b-edb6-46a6-919c-8772b904262e@app.fastmail.com>
+In-Reply-To: <36e3611d-642e-42de-9a56-cf81c3e06832@baylibre.com>
+References: <20260418144716.132936-1-clamor95@gmail.com>
+ <36e3611d-642e-42de-9a56-cf81c3e06832@baylibre.com>
+Subject: Re: [PATCH v1 0/5] Update APDS990x ALS to support device trees
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On Sat, Apr 18, 2026, at 18:24, David Lechner wrote:
+> On 4/18/26 9:47 AM, Svyatoslav Ryhel wrote:
+>> Document Avago APDS9900/9901 ALS/Proximity sensor in schema and modernize
+>> its driver to support OF bindings.
+>> 
+>> Svyatoslav Ryhel (5):
+>>   dt-bindings: iio: light: Document Avago APDS9900/9901 ALS/Proximity
+>>     sensor
+>>   misc: apds990x: Use more device managed approach in the probe
+>>   misc: apds990x: Drop Vled supply
+>>   misc: apds990x: Convert to use OF bindings
+>>   misc: apds990x: Drop IRQF_TRIGGER_LOW trigger
+>> 
+>>  .../bindings/iio/light/avago,apds9900.yaml    |  83 ++++++++
+>>  drivers/misc/apds990x.c                       | 197 +++++++++---------
+>
+> As mentioned in my reply to the dt-bindings patch, there is already an
+> IIO driver that looks like it could be compatible. I'm guessing that
+> this misc driver pre-dates the IIO subsystem. I would have a look at it
+> instead (drivers/iio/light/tsl2772.c).
 
-On Fri, Apr 17, 2026 at 03:15:46PM +0200, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
-> 
-> Peter sadly passed away a while back. Paul did a much better job at
-> finding the right words to mourn this loss than I ever could, so I will
-> leave this link here:
-> 
->   https://lore.kernel.org/lkml/alpine.DEB.2.21.999.2407240345480.11116@utopia.booyaka.com/T/#u
-> 
-> Co-developed-by: Paul Walmsley <pjw@kernel.org>
-> Co-developed-by: Aaro Koskinen <aaro.koskinen@iki.fi>
-> Co-developed-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
+I see that we have a number of ALS drivers like this one in drivers/misc:
 
-Reviewed-by: Aaro Koskinen <aaro.koskinen@iki.fi>
+drivers/misc/apds9802als.c
+drivers/misc/apds990x.c
+drivers/misc/bh1770glc.c
+drivers/misc/isl29020.c
+drivers/misc/isl29003.c
 
-A.
+As far as I can tell, all of these are entirely unused, with nothing
+in the kernel creating the platform devices. The drivers that used
+instead have all been converted to drivers/iio a long time ago.
 
-> ---
-> Changes in v2:
-> - add more missing entries
-> 
->  CREDITS     | 10 ++++++++++
->  MAINTAINERS |  1 -
->  2 files changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/CREDITS b/CREDITS
-> index 885fb05d8816..afd1f70b41cf 100644
-> --- a/CREDITS
-> +++ b/CREDITS
-> @@ -3645,7 +3645,17 @@ D: Macintosh IDE Driver
->  
->  N: Peter De Schrijver
->  E: stud11@cc4.kuleuven.ac.be
-> +E: p2@mind.be
-> +E: peter.de-schrijver@nokia.com
-> +E: pdeschrijver@nvidia.com
-> +E: p2@psychaos.be
-> +D: Apollo Domain workstations
-> +D: Ariadne and Hydra Amiga Ethernet drivers
-> +D: IBM PS/2, Microchannel, and Token Ring support
->  D: Mitsumi CD-ROM driver patches March version
-> +D: TWL4030 power management and audio codec driver
-> +D: OMAP power management
-> +D: NVIDIA Tegra clock and BPMP drivers, among many other things
->  S: Molenbaan 29
->  S: B2240 Zandhoven
->  S: Belgium
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index ef978bfca514..ffe20d770249 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -26145,7 +26145,6 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tegra/linux.git
->  N:	[^a-z]tegra
->  
->  TEGRA CLOCK DRIVER
-> -M:	Peter De Schrijver <pdeschrijver@nvidia.com>
->  M:	Prashant Gaikwad <pgaikwad@nvidia.com>
->  S:	Supported
->  F:	drivers/clk/tegra/
-> -- 
-> 2.52.0
-> 
-> 
+Is it time to remove all of the above?
+
+The notable exception is drivers/misc/tsl2550.c, which is instantiated
+from both arch/arm/boot/dts/ti/omap/am335x-evm.dts and
+drivers/i2c/busses/i2c-taos-evm.c. There is a similarly named
+drivers/iio/light/tsl2563.c driver, but unfortunately that uses
+a completely different register level interface.
+
+      Arnd
