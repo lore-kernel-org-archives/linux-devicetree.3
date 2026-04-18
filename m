@@ -1,61 +1,63 @@
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29A929C33F
-	for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 14:47:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B7138F259
+	for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 14:47:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776523668; cv=none; b=cOH8QB3gI12hX/uk7tkoeJhsVuNM/GofNbq7Vp1RvxGeZRur4sG50NUJnuDdteol6Jut8W/JWA71/6Y8lrrAbAnyaVsLGEn0FQNufPmtq7E5Z1O+dWlYiUvqVHEKad7O+aziISHdolSbZU8n8AUC3ARaAWaPqgx4ACLn+2OoJ9w=
+	t=1776523669; cv=none; b=li0ao2LdhyIi5dZ/mKF4seveZ1mVoWwmrlqymr6fdNlgLJqN+DF++RI1WP/HwIHU7B9Y6uZQXN5ulvFbcut3FRA2JqQZvBQDcOjZjkaBjyQuqg3NSVpMGpDZA1ylSrZITBMSQmsKMJ7FAP8qZZpmIWcp/wziuZFKEy6pjCQG5Yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776523668; c=relaxed/simple;
-	bh=eM+cPPhTbWP6d8hZZnG0IroQxUq2NWVkL9wVoSPJ1mc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RyhHNUu9ko3oHd6romRVx/PdKgBji1Xv/L7aJ7udO0v8QBC8rmdc1cZeQIjoFHFZRfRmOwVqQS1zqHWo19b2wga3PQDZ5SAzJfPCOg8lxq2eMmvLtnedN4PvCmooze93IswuP0yd/eHd1oy86HuN3cJQUddcskrW3El+I3S8CYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QHPAOyQm; arc=none smtp.client-ip=209.85.208.170
+	s=arc-20240116; t=1776523669; c=relaxed/simple;
+	bh=Wxb9PwFATd17PDPb2rUk06CPpwp/tCyfuCX8k/OSLuo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ElLg+nbU22AwRLxw25mUWi6jgnqQtgDa+ZuzOlM/tVqh3iCbgwfkzb8vcW+MOOm3NyGv5TpA0iGUQFfBMxSYx//4ZWJ2ef0C9ZA/S3AQiyLr4TX7WmlmB4jvHRd0pZ28uWbC4/Via+PSX+CJ4yNHeQ/fkM4epBzTa9ESMC1velA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dUUw2TB5; arc=none smtp.client-ip=209.85.208.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QHPAOyQm"
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-38e84ed22bdso16548341fa.2
-        for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 07:47:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dUUw2TB5"
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-38e7b0903cdso15099501fa.3
+        for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 07:47:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776523665; x=1777128465; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=cWVfW/QUZR75njEVm2LPlYmg1wiyoY5+XXkPVMcr87c=;
-        b=QHPAOyQmZAEx2oF5yYq1ftmp1Zua+DPzbyNlCF5DUFan0XjnafYesqP8laCeiTuN+N
-         5Uj2RA/gxuScCcH4QQFc+4i+bECZz/NYzhvf5Nz9cpt3270zW+g8t6swsNTMCnioQvjK
-         61rTlBLkvn5Df90QnrMaltkht7zjqwjgXWpb4S0uusNShbU3iS2e4g7IkInf6ITyTvdT
-         SyTrTsTUt/d7MfsZ59bTzN5XD8FS8k9IgbFAfPeJoDXMOO8cY8uhm884EC5V35cLqShR
-         k/IadaRklbeX6VVbz6xaKtJGvwkgmSUUocCLU4/Sgm8n3IkC46Zhc4WORBas0kbn0UBb
-         q9tw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776523665; x=1777128465;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1776523666; x=1777128466; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cWVfW/QUZR75njEVm2LPlYmg1wiyoY5+XXkPVMcr87c=;
-        b=MSjpkoEbY94TOs1npLL0xn0PwLWsMWZxEBD4iPs79kNsB2S+9pU3DCB+OQRksfKtIM
-         7Xj/UD2Fhxjo1EKL5/E5w+g4tUuCqPZnF1HVeXOqGRDk2PsfpUDFHkpanMVNYqAf9bSt
-         n35Mvg+o+vTGDUII3rHQ/GwHRPa2lxH157yi5iiOazS7ewRpvw/kFAgL42XWuTDChW2J
-         T9Gf1/IYig/6Dy3zvcXQM8jpg90kgfNhs/mTlAT0xNlDS4Hy3V8oyeRCOCi83Xkr2shn
-         sIsLzM4Nw2oDM2Gs6dZ63o2vwWD/lGubSk2GHfxo/kaJ2aWwpdhRwQjGXcK7b3hjtxec
-         15yg==
-X-Forwarded-Encrypted: i=1; AFNElJ+umYLWsHQ8vmxhrvr6qmT2TwVeo2Quo/6BFd6xEyOyfRUA9U9UcJv59JcJ9qMj5A6SQ+iSxI0I4pve@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw+W7YFE3eqJZtIZYGXdywIbtDqi/U6W9EBnDW8LgYj9BgtfA9F
-	Waw04lKlr/mjU+PJW67Ls969UbIfwaX5Z6kZWSQS+QOaFE6nhh1CL5rD
-X-Gm-Gg: AeBDietn4x23dm3Y+zuDvLL4Eac0COVImf1CGyxcVpg7voj9Mz3Cpr0fOwDNbGKDlGE
-	JYYmy76mWrh2GTbxOdD9o0fNS72Cc+OXrATVjNNjbLuQShfxjAz2ORLFnmE1hSzMgNJ1qAgKWiD
-	fUhvRvbzKhmI2zNpcgx8l1J7UTpzopbj202l3XK0McQtQUMlcIpCNexTxMWAULld6b2jNJDS20x
-	m0BXlvuw+LxhOrSi906SQhRr0nNRDbOtnz9mPOTcdmHw5Q9Ws6azPkVxwB9EUuJGVcmScwtXwdg
-	a6Tee6cMVHgTfsGDsQYppthdxonx2u8UIujV93Xn1T48+DdhB3fTniaUN8fnQF9TbX/LwyRJtiJ
-	luoy5PVl4RdxunGwG39V/8Dzc1/SsT0v6Yq8oT6TwQoKp0/HYVZw/5EOQteMo1tRiN0MQFT00Yb
-	GVJarUnOmtSNWQzapGipZCo9g=
-X-Received: by 2002:a05:651c:3259:b0:38e:7bf9:9835 with SMTP id 38308e7fff4ca-38ec7b09049mr22619261fa.25.1776523664375;
-        Sat, 18 Apr 2026 07:47:44 -0700 (PDT)
+        bh=MNGi9+tIDznq2/odkG3FnpQo5XY+nW6Im4pa9lH4ZmA=;
+        b=dUUw2TB5DO60Dp+VSmLmon0yQjxrrUlpv8UXD2++STW6LR6xUqlTcv36HsIrd0G4Rz
+         JdX7gdHoEESzmzh0k3wCJS04MV1oH/zelvLpVvXU0xzTlp+YcdY/0MGg5a6QC10DMorW
+         6FUq/6/B9BFf5wACoGZmh9g+XK6KMHyE/sARMV6tFM4uf+dq8ndEsoAnrlZwTbeTEaHx
+         0QYzKHPEDc46ngnoMwRKMjgelFIgV9IctnIr0+7MlPDId2wpRgqgVM0aVPqhuA35PqkF
+         1vFe1dHH8YDadB+7bgLLf7c1O4tYh1cDdON4Tjw+fFlYmR90FHzhA1XE4SO9gimhl+n5
+         sstg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776523666; x=1777128466;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=MNGi9+tIDznq2/odkG3FnpQo5XY+nW6Im4pa9lH4ZmA=;
+        b=ftOZ2vX9ZtvUAq1AuxWPKgsKHa5UhkFOJ9VbJ6vX87PcTjp61frxXg2ITn5klRvbEd
+         x6tOkehnOr4nimqmNrGSgh4A4fqDAJpSxh9xOS5IYh5NgUOnioYKdod0fv/6Ft5bl0Vh
+         87ew9GValMXCWqn7C1g9pGja0AaV0FNFEMqviXpqC8f39cy/D6VdencfSN0P/OQHbBNE
+         VKdb5lIYO80xqViZmlFnzbfjdwMKBItt/SPqcWJ/8SmBvhgHkkfgxUVdTgZZhP9Ztk8D
+         du2+CM1bNbJ0BCDLgnzVWFsHNRDEA1bwrMuuisaVWXPLY45+SMpMd3fu/Y6qCy3xp0xs
+         +CHw==
+X-Forwarded-Encrypted: i=1; AFNElJ8gZ/TloFm78feItibIi6j5XwvNq33otbwpakDM97OgeYjfUAj+3a/f6TmOKK5AB+xImUorPWReVnXG@vger.kernel.org
+X-Gm-Message-State: AOJu0YyvwEW0L35OwP/KkPbR//tvUy+sho/LEjfMcXcCp7ODf401F/o8
+	3wlv45LDLwaD0x9I4VQ6N7ncseDN6KyqZAteRf7UuaXHCed9s75EtfdL
+X-Gm-Gg: AeBDiet1k6Tg2ISIBbSA561GzvOqo505rEvQIlhEYr+YPQHs/5A7WfAJXjJC0rgLJZL
+	+qRufV9TMoCZAcJMcvm5gDlCrw0cCvF1jc5NFcRrKCRj366+tvmW8psHYZf4I7NuHE8VVXnjurX
+	D3iYHsUKQK01QcWQuK+xGWT7V3NTyOebBVqTjbxpBh3HyYmgEomYvmk1MXPsxpn2IQnKhL4/bgo
+	qoBpNgAmZPUxmTFRE/nea8t1GB/N+9fhU9Z/F8UZC+o3kkwSUU4UJWdO7dbEcJGBZsWP18suZXj
+	exPyjHqqI1rjDSUOrB1hcFHBd4++un21SpyhLdWWZ/GpOCRQ2FPm9nWVBPO+evr0KVdTJI5j0+5
+	DMYco9lFg8QUEBLATE0kbiDhhms9R3UKkK408ZD7R81qCvFksA1vGArV5Iu8ZVi4Vp/LEYW+IOQ
+	mP/u5UsuBx9aX6fLAyDcynjlxpo5yzhbccHA==
+X-Received: by 2002:a2e:a549:0:b0:38e:1ebe:95f6 with SMTP id 38308e7fff4ca-38ec7b2a3camr23980721fa.28.1776523666347;
+        Sat, 18 Apr 2026 07:47:46 -0700 (PDT)
 Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38ecb4f51easm10901001fa.6.2026.04.18.07.47.42
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38ecb4f51easm10901001fa.6.2026.04.18.07.47.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Apr 2026 07:47:43 -0700 (PDT)
+        Sat, 18 Apr 2026 07:47:45 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
@@ -71,10 +73,12 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 0/5] Update APDS990x ALS to support device trees
-Date: Sat, 18 Apr 2026 17:47:11 +0300
-Message-ID: <20260418144716.132936-1-clamor95@gmail.com>
+Subject: [PATCH v1 1/5] dt-bindings: iio: light: Document Avago APDS9900/9901 ALS/Proximity sensor
+Date: Sat, 18 Apr 2026 17:47:12 +0300
+Message-ID: <20260418144716.132936-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260418144716.132936-1-clamor95@gmail.com>
+References: <20260418144716.132936-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,24 +87,103 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document Avago APDS9900/9901 ALS/Proximity sensor in schema and modernize
-its driver to support OF bindings.
+Document Avago APDS-9900/9901 combined ALS/IR-LED/Proximity sensor.
 
-Svyatoslav Ryhel (5):
-  dt-bindings: iio: light: Document Avago APDS9900/9901 ALS/Proximity
-    sensor
-  misc: apds990x: Use more device managed approach in the probe
-  misc: apds990x: Drop Vled supply
-  misc: apds990x: Convert to use OF bindings
-  misc: apds990x: Drop IRQF_TRIGGER_LOW trigger
-
- .../bindings/iio/light/avago,apds9900.yaml    |  83 ++++++++
- drivers/misc/apds990x.c                       | 197 +++++++++---------
- include/linux/platform_data/apds990x.h        |  65 ------
- 3 files changed, 187 insertions(+), 158 deletions(-)
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ .../bindings/iio/light/avago,apds9900.yaml    | 83 +++++++++++++++++++
+ 1 file changed, 83 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/iio/light/avago,apds9900.yaml
- delete mode 100644 include/linux/platform_data/apds990x.h
 
+diff --git a/Documentation/devicetree/bindings/iio/light/avago,apds9900.yaml b/Documentation/devicetree/bindings/iio/light/avago,apds9900.yaml
+new file mode 100644
+index 000000000000..f5fb79439e56
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/light/avago,apds9900.yaml
+@@ -0,0 +1,83 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/light/avago,apds9900.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Avago APDS-9900/9901 combined ALS/IR-LED/Proximity sensor
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++description: |
++  The APDS-9900/9901 provides digital ambient light sensing (ALS),
++  IR LED and a complete proximity detection system in a single
++  8 pin package over I2C interface.
++  Datasheet at https://docs.broadcom.com/doc/AV02-2867EN
++
++properties:
++  compatible:
++    enum:
++      - avago,apds9900
++      - avago,apds9901
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  vdd-supply: true
++
++  avago,pdrive-microamp:
++    description:
++      The LED drive current is controlled by a regulated current
++      sink on the LDR pin. This feature eliminates the need to use
++      a current limiting resistor to control LED current. The LED
++      drive current can be configured for 12.5 mA, 25 mA, 50 mA
++      or 100 mA. For higher LED drive requirements, an external
++      P type transistor can be used to control the LED current.
++    enum: [12500, 25000, 50000, 100000]
++    default: 100000
++
++  avago,ppcount:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      The number of LED pulses can be programmed to a value of 1 to
++      255 pulses as needed. Increasing the number of LED pulses at a
++      given current will increase the sensor sensitivity. Sensitivity
++      grows by the square root of the number of pulses. Each pulse
++      has a 16 mS period.
++    minimum: 1
++    maximum: 255
++    default: 1
++
++additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        light-sensor@39 {
++            compatible = "avago,apds9900";
++            reg = <0x39>;
++
++            interrupt-parent = <&gpio>;
++            interrupts = <82 IRQ_TYPE_EDGE_RISING>;
++
++            vdd-supply = <&vdd_2v85_als>;
++
++            avago,pdrive-microamp = <100000>;
++            avago,ppcount = <3>;
++        };
++    };
++...
 -- 
 2.51.0
 
