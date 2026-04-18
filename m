@@ -1,63 +1,63 @@
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865CB38758B
-	for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 14:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E1E397E65
+	for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 14:47:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776523672; cv=none; b=qWzJN6EoKLO8/Vs8W90mNEVO2rRg6z3NaqTpezXnZ8B5BM86Od33+4Q4569khiPD3KfnLVvFwJ0hxPhEc4ZSB0Gt7TITBudx38hhCAW6mEomwEA5NCH7yQRNHenaSKpqmqYe1GT8QHAmo5xqjgaapz8UwGHKcRZK1vCwwD2IWvg=
+	t=1776523674; cv=none; b=qPnTTQkbRzM6xhrRO4PZLth5BntRw24tybqPML/dooWtP0+8CbL/mA+aJ4gO9xzCZTTC/Q78c7zbSIjJrDM7kz2GHRf5OAXzqmQDF4/zt5y0bNIih1ckXKqlP1tL6t/4H+4Thqmrs70m9oPhwGi1jHCkRn0z8oUbBBLVevKe66o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776523672; c=relaxed/simple;
-	bh=ph482mdUz0pWl0OhYadrfp4dm9vKSDKlVaw1EwDrgLs=;
+	s=arc-20240116; t=1776523674; c=relaxed/simple;
+	bh=XKtOaV+bu3GvFb00eX45ajrX/DX5a1syVpVsKIHtT+Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X9nWUb44KMm+Ugjo14iuYUXyHUmHIl9PvgQzRvg0oszdDVjRf+N5j9dONKhZ80wCyA+0UJ0ZIf8yFi9Pgz8HJzdPrA3wsPo1tdGGhe+1Yat2hyWxgwqsv8zSU6uQ8ALEN1wGrCoeCBAADiUyFOO1c0klas9W3lzuARWGysftc6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A/aeekct; arc=none smtp.client-ip=209.85.167.44
+	 MIME-Version; b=IFuhLYZa68sSLlIRs2WbOtxrzdQ7sqJjwXgdB/7RzbdI/t6OeiS8P3gov0R7KaAI/7YMjwm7vo3EIq2HQCtq35g3Z3mJFar+BGY1OG76aKozE3OJonxISX5uWGAXI5cBUmkTc9UXOZR6o14GsZBY8/SWsprr5Fjb/C7APSSv40I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QwHZS1HB; arc=none smtp.client-ip=209.85.208.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A/aeekct"
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5a0faa0d15cso1569257e87.0
-        for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 07:47:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QwHZS1HB"
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-38e91b06006so13026071fa.2
+        for <devicetree@vger.kernel.org>; Sat, 18 Apr 2026 07:47:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776523669; x=1777128469; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1776523671; x=1777128471; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bJ0ZocjWEH0SujlKl/cIeDMBxgBomMJ+ZN9u8iNbXAE=;
-        b=A/aeekctnv0Q0F5ZOFiHtN4aqotpscFYLvTQdFf2KD8pirGp6sHbU3bdPJZ121qnxm
-         b3Oinian//IwLbH9h6DkQ74S28UnnYTyM2MW/58oaj6In0rXhxjL+EZ7Q2VjtQkYXRZY
-         UXepEzGECgGJRF0I42L2S25aUJXlwzN7jmg/POyL6FbHswNJR5OVNiKUN0fqXVPH4rsu
-         7DDhKi0IpWPU36hITwaNt6sm7PePfC8w/mZy4zmBkiL5u13ywKLPJd/BwYaBRSAhCWkQ
-         sZKaLKAYAzd0ss+0/xgwqr3dZnicUwC91yH18zYlv6r6p7ei0KjqSaRYRlfSWVK6pIGR
-         QE+g==
+        bh=CjixepHmZluQFzutL7IUoBNMtxTYec1nzIsEup2SLc4=;
+        b=QwHZS1HB7y2cHsS0zZaLVw5mgiblgjtZL9OQg4LWZS7YHSOrwTACoGfkc+nBgrTwjJ
+         l0CiPXZhHIQVP+DT5NlNUIOlDX2JhKdQh2rzLfcrPOC2WXuLpYhdaYqFWPRsYAoHI1VF
+         im+iyRR0RFPhr4fH+bjE15Vf84b1sCnHos0710rtGpIygt5d+0T7l6bEYO+g2LpLlUAq
+         YLc2nGAquDJmz4uHAEXiw8g0tqGoADWRJunJe5B5TkyvrKfzybR8Kj/IHGbQDN+d/Bo5
+         1UgTxWWOmwM0eCz2R3OdS6DCpsseOndxbgeTKsNW32kCv7NM0Xq65ITzu0mvcwhBHV5u
+         2tCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776523669; x=1777128469;
+        d=1e100.net; s=20251104; t=1776523671; x=1777128471;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=bJ0ZocjWEH0SujlKl/cIeDMBxgBomMJ+ZN9u8iNbXAE=;
-        b=OnETNRZ0vKyumm/Mo7gMZ2NVoOD8SQGv1GcmlCK05KHXXiYBrpOtLlrrO7hfcUCFYa
-         6UOZMV+QannH/AQeT3IXn7/xVnFUYJjb+xVM48OT9yScaL6ZqZntdGLH6GaSqAMNjIdR
-         zs+++TJxXPOi74HtAvecOkE+0V0Oz0OhLLfUiPjBJM8CEMG+z9S3snxbmqwdXB1u2qzj
-         Tk4Ew8oIjwYiufLIiWHabyAKcB/KXe+k5/Ol96EKdJjXB3MEKQXjJ1r+kjPzp+uPPsEZ
-         Hk+/PnlhSt99Fxau095Qdh3ZkeL1fU4TAiWrAhRqBgUSuRcGFAFOyYRZhSfEZFD3b9EF
-         4Gig==
-X-Forwarded-Encrypted: i=1; AFNElJ93RF2q9Q9/e8YOcjJM6XUXw7C3/6awuR/yIs3ykx/1KPsKkKrMKjl5dxCWxf1pb534PVRMzdxXsUQL@vger.kernel.org
-X-Gm-Message-State: AOJu0YySymTLib8cf6U2tqpiaExi9oHjJWiO/sSp4zPHqpnUIR58E2jK
-	FJ+KZNsmS+HGY33eh2ZlXcYQxC0QsfCHtQDLVjPr9j2bLzRS9LtO3+8O
-X-Gm-Gg: AeBDietocTo4MMw1wqYxG3b93pcc6w0NcIFy2CE1FkKDPbZWza4qHSjstKog9oPF+nG
-	Wf9mlU+zFC8/srUcSbbI9dVLAKy0qEplmQ1e4kWsUo6sTD+7pKdS4xsopBD7rViDu680SwqBeCb
-	13OihDfsicXZSMG6YuSZD8jHeXwoaHFwlazy0YpaBM2IcX/cBdqT/YO1kg5IxDeqHwExNNGp2oK
-	embrzIKTko8PuHdsMn3huPGtIXrfzaabbZMdNVyIuHRt1/lt6jKyoon+3RqX22BmJxFSBTI6dZe
-	QpSeBT9q2A+LX/XbQPlGg60zj4zoQXy3IRBHC1DNVolcpgXaHyiw/XbmT0+FW8EWh84aeOsuhJa
-	MtEe5jmWuDl/r8TQzX87kOIn0kD7iOOnz3fLG+EgjBL5kmQo1N7ELCT11MnRYQUUZpKTQDtxkkF
-	QSiz1WeaJcfIipuzj2PJappbj8zFHjc6tmGA==
-X-Received: by 2002:a05:6512:6193:b0:5a4:1add:c574 with SMTP id 2adb3069b0e04-5a41addc6aamr1448350e87.5.1776523668435;
-        Sat, 18 Apr 2026 07:47:48 -0700 (PDT)
+        bh=CjixepHmZluQFzutL7IUoBNMtxTYec1nzIsEup2SLc4=;
+        b=e4zv4p3iAWfpxZHMlVV9+v3O7i4K1sBsbe1HGsVpuB+j1s+PpnactijDgl96PB63I/
+         6GtbJwDcDgq6VlCjgRlHkiaxfIoWdk9xIFKcwIBfYYZLJpLvwUsgP5k+NBWLYXix3ywY
+         1kd0FNoZ8JcU84LxTVOspSvytakLsHHhXOyWMRUnJfOO5TzmUwqTX4yV1YLsgKmgV/wz
+         6lgY81U2SwjSkEYKEzhBd6hNlDZVMdgtMVALkyy1l3/5WyOHjn+UAbUwFcGw1PJ79on1
+         i7hMsH4pLxXSJBpxmzI/dGTWycQdwOuCU/BT3T1ai7obX8SQtx1aMtv9o7Jtg/nx5I30
+         zCYw==
+X-Forwarded-Encrypted: i=1; AFNElJ9bdLCsvdFM2BqmW/WUVyz3akkAZtjVZnOdlO5SVZlV1VvFqS2RT3J3F+Rvkwgz0j+bU5jlq2Rgc0bp@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx83B3lS+H4PwYaE3QpOWyA3phnv7kbYkqR54A5crCR0/9JA1vl
+	JWx+m2Hlqh4DHCCNho0HOSCBHzctboKs3113AtoezwyNc2mYWg1iQQQg
+X-Gm-Gg: AeBDieseZJtqwsjZRhOBNdTJvqpfKktJhedoVqD9cbtMbz8Vfb7vofADMbmC+Cczdyq
+	bALPnmY4de1V0eYh3i5FWGIeGcvW+jbPP5nfypXqxCSOxKWSAkKWW9feZO6E3JALkIzLbILCQAj
+	GXyBUt/IyDXBIRoHGUmLoCsKKj/v+ncPRx9sp4Q8tas2eVnGBfecGLL5yPw+hgeSsWVUiJzQhaa
+	qcALT6hxm9ewO6bxYOz7Tm8gbTZbJw84mxDnVQ+pnT2N535s4QLxJQYDnnvmSnoEdon5i73aCoS
+	lm+Qt9+hnGiA92K92K8RVlZAPKltLvGE12lwq1K1+LKloJM7jM1YwiKqZTTbyDVRd/pAq3kc+Yj
+	zrDz3MGkbZTL2/6wVnYENEjhnT5D8CNDwJIGzqrZVohEiE6JoWlo92XQG0Y5LPInqACkjADiVVV
+	NvcbSquHipgxjKXkoHhl8wNAQ=
+X-Received: by 2002:a05:651c:144a:b0:38b:f0f0:e3f7 with SMTP id 38308e7fff4ca-38ec77f4afbmr20680301fa.7.1776523670642;
+        Sat, 18 Apr 2026 07:47:50 -0700 (PDT)
 Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38ecb4f51easm10901001fa.6.2026.04.18.07.47.46
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38ecb4f51easm10901001fa.6.2026.04.18.07.47.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Apr 2026 07:47:47 -0700 (PDT)
+        Sat, 18 Apr 2026 07:47:49 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
@@ -73,9 +73,9 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/5] misc: apds990x: Use more device managed approach in the probe
-Date: Sat, 18 Apr 2026 17:47:13 +0300
-Message-ID: <20260418144716.132936-3-clamor95@gmail.com>
+Subject: [PATCH v1 3/5] misc: apds990x: Drop Vled supply
+Date: Sat, 18 Apr 2026 17:47:14 +0300
+Message-ID: <20260418144716.132936-4-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260418144716.132936-1-clamor95@gmail.com>
 References: <20260418144716.132936-1-clamor95@gmail.com>
@@ -87,167 +87,89 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-No functional changes to the driver. The probe code was refactored to
-switch to devm_ versions of functions and reduce the nesting of labels.
-This is in preparation for OF conversion and platform data removal.
+According to the APDS9900/9901 documentation, this chip has only one
+supply, VDD; hence, drop the Vled supply. Additionally, supply has been
+set to lowercase for consistency.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/misc/apds990x.c | 80 +++++++++++++++--------------------------
- 1 file changed, 28 insertions(+), 52 deletions(-)
+ drivers/misc/apds990x.c | 27 +++++++++++----------------
+ 1 file changed, 11 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/misc/apds990x.c b/drivers/misc/apds990x.c
-index b69c3a1c94d1..742ab331a221 100644
+index 742ab331a221..264335b581c1 100644
 --- a/drivers/misc/apds990x.c
 +++ b/drivers/misc/apds990x.c
-@@ -1053,9 +1053,10 @@ static const struct attribute_group apds990x_attribute_group[] = {
- static int apds990x_probe(struct i2c_client *client)
+@@ -113,7 +113,7 @@ struct apds990x_chip {
+ 	struct apds990x_platform_data	*pdata;
+ 	struct i2c_client		*client;
+ 	struct mutex			mutex; /* avoid parallel access */
+-	struct regulator_bulk_data	regs[2];
++	struct regulator		*vdd_supply;
+ 	wait_queue_head_t		wait;
+ 
+ 	int	prox_en;
+@@ -179,10 +179,6 @@ static const u8 again[]	= {1, 8, 16, 120}; /* ALS gain steps */
+ static const u16 arates_hz[] = {10, 5, 2, 1};
+ static const u8 apersis[] = {1, 2, 4, 5};
+ 
+-/* Regulators */
+-static const char reg_vcc[] = "Vdd";
+-static const char reg_vled[] = "Vled";
+-
+ static int apds990x_read_byte(struct apds990x_chip *chip, u8 reg, u8 *data)
  {
- 	struct apds990x_chip *chip;
-+	struct device *dev = &client->dev;
- 	int err;
- 
--	chip = kzalloc_obj(*chip);
-+	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
- 	if (!chip)
- 		return -ENOMEM;
- 
-@@ -1066,11 +1067,8 @@ static int apds990x_probe(struct i2c_client *client)
- 	mutex_init(&chip->mutex);
- 	chip->pdata	= client->dev.platform_data;
- 
--	if (chip->pdata == NULL) {
--		dev_err(&client->dev, "platform data is mandatory\n");
--		err = -EINVAL;
--		goto fail1;
--	}
-+	if (chip->pdata == NULL)
-+		return dev_err_probe(dev, -EINVAL, "platform data is mandatory\n");
- 
- 	if (chip->pdata->cf.ga == 0) {
- 		/* set uncovered sensor default parameters */
-@@ -1113,75 +1111,61 @@ static int apds990x_probe(struct i2c_client *client)
- 	chip->regs[0].supply = reg_vcc;
- 	chip->regs[1].supply = reg_vled;
- 
--	err = regulator_bulk_get(&client->dev,
--				 ARRAY_SIZE(chip->regs), chip->regs);
--	if (err < 0) {
--		dev_err(&client->dev, "Cannot get regulators\n");
--		goto fail1;
--	}
-+	err = devm_regulator_bulk_get(dev, ARRAY_SIZE(chip->regs), chip->regs);
-+	if (err)
-+		return dev_err_probe(dev, err, "failed to get supplies\n");
- 
- 	err = regulator_bulk_enable(ARRAY_SIZE(chip->regs), chip->regs);
--	if (err < 0) {
--		dev_err(&client->dev, "Cannot enable regulators\n");
--		goto fail2;
--	}
-+	if (err < 0)
-+		return dev_err_probe(dev, err, "cannot enable regulators\n");
- 
- 	usleep_range(APDS_STARTUP_DELAY, 2 * APDS_STARTUP_DELAY);
- 
- 	err = apds990x_detect(chip);
- 	if (err < 0) {
--		dev_err(&client->dev, "APDS990X not found\n");
--		goto fail3;
-+		dev_err(dev, "APDS990X not found\n");
-+		goto error_regulator;
- 	}
- 
--	pm_runtime_set_active(&client->dev);
-+	pm_runtime_set_active(dev);
- 
- 	apds990x_configure(chip);
- 	apds990x_set_arate(chip, APDS_LUX_DEFAULT_RATE);
- 	apds990x_mode_on(chip);
- 
--	pm_runtime_enable(&client->dev);
-+	pm_runtime_enable(dev);
- 
- 	if (chip->pdata->setup_resources) {
- 		err = chip->pdata->setup_resources();
- 		if (err) {
- 			err = -EINVAL;
--			goto fail4;
-+			goto error_pm;
- 		}
- 	}
- 
--	err = sysfs_create_group(&chip->client->dev.kobj,
--				apds990x_attribute_group);
-+	err = devm_device_add_group(dev, apds990x_attribute_group);
- 	if (err < 0) {
--		dev_err(&chip->client->dev, "Sysfs registration failed\n");
--		goto fail5;
-+		dev_err(dev, "Sysfs registration failed\n");
-+		goto error_resourses;
- 	}
- 
--	err = request_threaded_irq(client->irq, NULL,
--				apds990x_irq,
--				IRQF_TRIGGER_FALLING | IRQF_TRIGGER_LOW |
--				IRQF_ONESHOT,
--				"apds990x", chip);
-+	err = devm_request_threaded_irq(dev, client->irq, NULL, apds990x_irq,
-+					IRQF_TRIGGER_FALLING | IRQF_TRIGGER_LOW |
-+					IRQF_ONESHOT, "apds990x", chip);
- 	if (err) {
--		dev_err(&client->dev, "could not get IRQ %d\n",
--			client->irq);
--		goto fail6;
-+		dev_err(dev, "could not get IRQ %d\n", client->irq);
-+		goto error_resourses;
- 	}
+ 	struct i2c_client *client = chip->client;
+@@ -597,8 +593,9 @@ static int apds990x_detect(struct apds990x_chip *chip)
+ #ifdef CONFIG_PM
+ static int apds990x_chip_on(struct apds990x_chip *chip)
+ {
+-	int err	 = regulator_bulk_enable(ARRAY_SIZE(chip->regs),
+-					chip->regs);
++	int err;
 +
- 	return err;
--fail6:
--	sysfs_remove_group(&chip->client->dev.kobj,
--			&apds990x_attribute_group[0]);
--fail5:
-+error_resourses:
- 	if (chip->pdata && chip->pdata->release_resources)
- 		chip->pdata->release_resources();
--fail4:
--	pm_runtime_disable(&client->dev);
--fail3:
-+error_pm:
-+	pm_runtime_disable(dev);
-+error_regulator:
- 	regulator_bulk_disable(ARRAY_SIZE(chip->regs), chip->regs);
--fail2:
--	regulator_bulk_free(ARRAY_SIZE(chip->regs), chip->regs);
--fail1:
--	kfree(chip);
-+
- 	return err;
++	err = regulator_enable(chip->vdd_supply);
+ 	if (err < 0)
+ 		return err;
+ 
+@@ -615,7 +612,7 @@ static int apds990x_chip_on(struct apds990x_chip *chip)
+ static int apds990x_chip_off(struct apds990x_chip *chip)
+ {
+ 	apds990x_write_byte(chip, APDS990X_ENABLE, APDS990X_EN_DISABLE_ALL);
+-	regulator_bulk_disable(ARRAY_SIZE(chip->regs), chip->regs);
++	regulator_disable(chip->vdd_supply);
+ 	return 0;
  }
  
-@@ -1189,10 +1173,6 @@ static void apds990x_remove(struct i2c_client *client)
- {
- 	struct apds990x_chip *chip = i2c_get_clientdata(client);
+@@ -1108,14 +1105,12 @@ static int apds990x_probe(struct i2c_client *client)
+ 	chip->prox_persistence = APDS_DEFAULT_PROX_PERS;
+ 	chip->prox_continuous_mode = false;
  
--	free_irq(client->irq, chip);
--	sysfs_remove_group(&chip->client->dev.kobj,
--			apds990x_attribute_group);
+-	chip->regs[0].supply = reg_vcc;
+-	chip->regs[1].supply = reg_vled;
 -
- 	if (chip->pdata && chip->pdata->release_resources)
- 		chip->pdata->release_resources();
+-	err = devm_regulator_bulk_get(dev, ARRAY_SIZE(chip->regs), chip->regs);
+-	if (err)
+-		return dev_err_probe(dev, err, "failed to get supplies\n");
++	chip->vdd_supply = devm_regulator_get(dev, "vdd");
++	if (IS_ERR(chip->vdd_supply))
++		return dev_err_probe(dev, PTR_ERR(chip->vdd_supply),
++				     "failed to get vdd-supply\n");
  
-@@ -1201,10 +1181,6 @@ static void apds990x_remove(struct i2c_client *client)
+-	err = regulator_bulk_enable(ARRAY_SIZE(chip->regs), chip->regs);
++	err = regulator_enable(chip->vdd_supply);
+ 	if (err < 0)
+ 		return dev_err_probe(dev, err, "cannot enable regulators\n");
  
- 	pm_runtime_disable(&client->dev);
- 	pm_runtime_set_suspended(&client->dev);
--
--	regulator_bulk_free(ARRAY_SIZE(chip->regs), chip->regs);
--
--	kfree(chip);
+@@ -1164,7 +1159,7 @@ static int apds990x_probe(struct i2c_client *client)
+ error_pm:
+ 	pm_runtime_disable(dev);
+ error_regulator:
+-	regulator_bulk_disable(ARRAY_SIZE(chip->regs), chip->regs);
++	regulator_disable(chip->vdd_supply);
+ 
+ 	return err;
  }
- 
- #ifdef CONFIG_PM_SLEEP
 -- 
 2.51.0
 
