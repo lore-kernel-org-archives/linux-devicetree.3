@@ -1,98 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from fr5000-r.dnsiaas.com (fr5000-r.dnsiaas.com [92.42.104.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DCE930F803;
-	Sun, 19 Apr 2026 11:30:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28FB1339B1;
+	Sun, 19 Apr 2026 11:43:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.42.104.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776598202; cv=none; b=q/f25+cTRf7giH6y+/vdJtAPnFhnzqIJ/zkDPF+Q954P/HC+ZiTaqwPdYb00R3svpXxpKLGEDadWJREII4RQMbVlWNJMXbQiBl8p8CL7own6uhYk1yyLuFxAWG9qdKuh2Kv9vwqMtZYhVg1TFgVCR3lr49yRPYNXeHU/ecg+SEg=
+	t=1776599007; cv=none; b=WzwGIE3qA44X4tQUJS6Iiyrmmintfa4tJISxU7llk5Ll33U5kyK/Nnyu5BWLPEW4l2O/85AfMGcHhUXD49L13KTtb5eH+mCxrTQ09cQnodpWKwmPmP8Y5sUKo+V6aD+7emviCPAXD+hBeErkBqxenFl+e3Iq9/jYynw1UViXa74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776598202; c=relaxed/simple;
-	bh=CHB4/6+0UEiC/NOhE0jTVNiOoZM6X5MNmZ8tDCiMuYk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=A0VBQxnsSNK2LgBhDjyptqzJg8WbcUjAYIDHpga8+n4Pkz85J0JnQg/UGlbj9+YvB85TfY8Yyx6kuMhnw/DZGom4svI18RyPV3HAV4fVnP8Rleqhn/ghQKoz5mN+OFDzj97D3/Ph3XmEMSlUHFhaXNAHubNCuBa70woqdDDzqtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OLA4WNsv; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776599007; c=relaxed/simple;
+	bh=WL4AZHxfBGBXO8GMVo8sFDi5dqnXuP+ssvyAyb87JKI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=OJ/Uj7+R41zJ3UI9sh45TaS405Qt3CB6Nx22eUgfhfa+dHNOXNDPdEVDWsWV9lu1UL0pyL96Vm0hk2iwabvclZzbhMtzw3tTVwj0WyL3RqJxpPvK+i1Df0ed0TDF2ugvW+ralNuTNEB5tR9g1XK+uLcRSlARfVuQ1Nne2wiH75g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=superkali.me; spf=pass smtp.mailfrom=superkali.me; dkim=pass (2048-bit key) header.d=superkali.me header.i=@superkali.me header.b=P4LBgMeu; arc=none smtp.client-ip=92.42.104.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=superkali.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=superkali.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OLA4WNsv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 225EAC2BCAF;
-	Sun, 19 Apr 2026 11:29:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776598201;
-	bh=CHB4/6+0UEiC/NOhE0jTVNiOoZM6X5MNmZ8tDCiMuYk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=OLA4WNsveo1tU8lw+9Wf0KVQhwYkwgLbftZ6QU0ltrNthIzHFh7YY84NHYLb3NtFL
-	 QGLu+DKfL53LBBBPKzmkCtqinWSZKaOBMnt9rEzXvxQw7qHbxmYFNjEnmymMK5uSor
-	 CIvO10CDqrx+Z5lpe41cMEmctEOp/TQOERZNKce5usKvpWOO5CgCjQI3kBM6EODIu3
-	 wPwBYqmDjVZ8JjwhGpRQejOKfHgIsFZs3OF4rXpUnP89cnVlZWbdyHOTDNTTGbGzx9
-	 l9RPRTc10XMMfc49NaBJTovd6fQntVXC7Pu1XpsIvnGc53N8rhOMEBi90Atci9Rca/
-	 QjNfUOYuMYIuA==
-Date: Sun, 19 Apr 2026 12:29:50 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] iio: tsl2772: add support for Avago
- APDS9900/9901 ALS/Proximity sensor
-Message-ID: <20260419122950.67355f4c@jic23-huawei>
-In-Reply-To: <20260419083125.35572-3-clamor95@gmail.com>
-References: <20260419083125.35572-1-clamor95@gmail.com>
-	<20260419083125.35572-3-clamor95@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=superkali.me header.i=@superkali.me header.b="P4LBgMeu"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=superkali.me; s=default; h=Cc:To:In-Reply-To:References:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=Ob+IZvhkIha5DTBe/HV7/KpWvsF/0JXOGJlTDavxCws=; b=P4LBgMeuLOq3uCybMLrjNXny7k
+	0nSUQYSlzzL0V8PBZFPq85imcyLAGUkfcpiteQYIzX7/eLE6ROppehSQK4wmh0LptCdnVxwfWCwA4
+	ixBB+9NQHOXzC2m+AEren/ZWXQdiaKe0lchY6mQ7e7ejoz5ufWc9OGCf5LWKziJJFXKGCrNPTKfbZ
+	u9lRUG90EgrpDsexljotIJHq/VP/m2kKExXF4oYYntiDCmbERM1b4SGgLQnuCH/X/00iuR/N74jm9
+	fuP1c20f5OvgVzcoZh8CkzNPGZIIpNl0Oc7wF1PIoCjJkUEKPUqbt7QEQ85iTz7yppjrgC6hYSc0T
+	IfB3F0cw==;
+Received: from [2a0d:52c0:500f:0:89e7:36b:a29f:1abe] (port=50188 helo=1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa)
+	by fr5000-r.dnsiaas.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.1)
+	(envelope-from <hello@superkali.me>)
+	id 1wEQYe-00000000aDt-0794;
+	Sun, 19 Apr 2026 13:43:23 +0200
+From: Daniele Briguglio <hello@superkali.me>
+Date: Sun, 19 Apr 2026 13:43:07 +0200
+Subject: [PATCH v4 2/5] clk: rockchip: allow grf_type_sys lookup in
+ aux_grf_table
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260419-rk3588-mclk-gate-grf-v4-2-513a42dd1dcc@superkali.me>
+References: <20260419-rk3588-mclk-gate-grf-v4-0-513a42dd1dcc@superkali.me>
+In-Reply-To: <20260419-rk3588-mclk-gate-grf-v4-0-513a42dd1dcc@superkali.me>
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Daniele Briguglio <hello@superkali.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776598989; l=1708;
+ i=hello@superkali.me; s=20260316; h=from:subject:message-id;
+ bh=WL4AZHxfBGBXO8GMVo8sFDi5dqnXuP+ssvyAyb87JKI=;
+ b=5VqU7APGADLVd+zkuPwb667zDrM45YTOPSrvYA0INwI2AXiQrDTV9haJ3c3wRGex6+Weu/f6F
+ 6DOsVhyLvwDCvSHfsAu1IlMSpEOMtCJy38IWjaonWcgyQtG7arLj8VY
+X-Developer-Key: i=hello@superkali.me; a=ed25519;
+ pk=5tynRWQdL93CDcapJ73FkcCRY2PeBOJOIAoIhRig53U=
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - fr5000-r.dnsiaas.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - superkali.me
+X-Get-Message-Sender-Via: fr5000-r.dnsiaas.com: authenticated_id: hello@superkali.me
+X-Authenticated-Sender: fr5000-r.dnsiaas.com: hello@superkali.me
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Sun, 19 Apr 2026 11:31:23 +0300
-Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+Remove the grf_type_sys exclusion from the auxiliary GRF table lookup
+in rockchip_clk_register_branches(). Previously, branches with
+grf_type_sys always used ctx->grf directly, bypassing the aux_grf_table.
 
-> The Avago APDS990x has the same register set as the TAOS/AMS TSL2772 so
-> just add the correct bindings and the appropriate LUX table derived from
-> the values in the datasheet. Driver was tested on the LG Optimus Vu P895.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Hi Svyatoslav,
+This is a problem on SoCs like RK3588 where ctx->grf points to the
+PHP_GRF (set via the CRU's rockchip,grf phandle), but GATE_GRF clock
+entries need to access the SYS_GRF instead.
 
-Just one small thing. 
+With this change, grf_type_sys branches first check the aux_grf_table,
+and fall back to ctx->grf if no entry is found. This is backwards
+compatible: on SoCs that do not register grf_type_sys in the
+aux_grf_table, the behavior is unchanged.
 
-Experience has given me a strong aversion to the use of wildcards
-in naming within drivers.  They go wrong too often because companies
-can seem to resist using similar names for very different parts.
+Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Signed-off-by: Daniele Briguglio <hello@superkali.me>
+---
+ drivers/clk/rockchip/clk.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-> ---
->  drivers/iio/light/tsl2772.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
-> diff --git a/drivers/iio/light/tsl2772.c b/drivers/iio/light/tsl2772.c
-> index c8f15ba95267..8dab34bf00ca 100644
-> --- a/drivers/iio/light/tsl2772.c
-> +++ b/drivers/iio/light/tsl2772.c
-> @@ -127,6 +127,7 @@ enum {
->  	tmd2672,
->  	tsl2772,
->  	tmd2772,
-> +	apds990x,
+diff --git a/drivers/clk/rockchip/clk.c b/drivers/clk/rockchip/clk.c
+index e8b3b0b9a4f8..911e6b610618 100644
+--- a/drivers/clk/rockchip/clk.c
++++ b/drivers/clk/rockchip/clk.c
+@@ -509,10 +509,9 @@ void rockchip_clk_register_branches(struct rockchip_clk_provider *ctx,
+ 		clk = NULL;
+ 
+ 		/* for GRF-dependent branches, choose the right grf first */
+-		if ((list->branch_type == branch_grf_mux ||
+-		     list->branch_type == branch_grf_gate ||
+-		     list->branch_type == branch_grf_mmc) &&
+-		    list->grf_type != grf_type_sys) {
++		if (list->branch_type == branch_grf_mux ||
++		    list->branch_type == branch_grf_gate ||
++		    list->branch_type == branch_grf_mmc) {
+ 			hash_for_each_possible(ctx->aux_grf_table, agrf, node, list->grf_type) {
+ 				if (agrf->type == list->grf_type) {
+ 					grf = agrf->grf;
 
-As above, just name this after one of the supported parts. apds9900
-That doesn't stop you using it for multiple compatible devices.
-
-Same applies for all the uses of x as a wildcard.
-
-thanks,
-
-Jonathan
-
->  	apds9930,
->  };
+-- 
+2.53.0
 
