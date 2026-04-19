@@ -1,61 +1,63 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 305D23BB4A
-	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 19:59:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED843BB4A
+	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 19:59:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776628770; cv=none; b=gfl0IQh8AeocGG8wnwc6K0HyziJe0AI2XoiPYPTiQf/oo/Z+Cnokmn2XlzKOf8z84XjlrhZa7Ch681PYolWcYhlkiDrPsMbtNXkknyJEDWE8VvwE7yavUugPziTLGUJyir0HHOoTS+q0daNGFT5uxX0UublKe43fEmi/kx3gi14=
+	t=1776628786; cv=none; b=J9uilcuBZtLbR980a4JndUKIfK7xz2QHNOBFjLuT7rxLuSGJPpEajuvJK+n4WOyox7Q+gE/TfhWXMlfxONNgTjKVqXJiyR3T04dyTn+nbEhcWxvihk4uISeb7xZ5vagTV8ymegCbpJGL7tNPnGZtQbS1XakAnI+zEj+Evj2eh9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776628770; c=relaxed/simple;
-	bh=yYJIIth611iq11YOjRUmN/jW4oJDgxU8uYIkrO7H0k0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BF8f9xSO54rd3iFCrVpCoC9SFrp+6FtIECkditjSdmBn84Pvjj/HQZej7zN+CXlYkGCuypPTpuuXSxH9RtozuJmIKUTVJqZRfRa0LmRzVpJaL8qYOLu0mQ4QTxlPyWUcsMFuiA1ddglzqnSF2L4HwW9BoG9MHMrv2oTR/F+NL/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qz8f6nLh; arc=none smtp.client-ip=209.85.128.51
+	s=arc-20240116; t=1776628786; c=relaxed/simple;
+	bh=0IIRG5T27Wem/201GoInqF2HkOGHY2wsZ6iq/ivbe2E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YCrtDN3E1/cKW2cLf0HNQvISm0afqPwNTdQIogObyB5BVx90smPL437jafS1QROYEs6Mqt0NbjJ0wYSFKA+jQrB/Fl/q19lVTll9cSi/3l5RQhMbI1akg5YSfUs/uZkVclLx4fbClpMk7+L4Aqrf6GqKEdwkJbGcHMWtjTODmkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ecKpsHCI; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qz8f6nLh"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-488a8ca4aadso31647215e9.3
-        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 12:59:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ecKpsHCI"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4852b81c73aso20277365e9.3
+        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 12:59:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776628768; x=1777233568; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=kmFIan17mu/w8oo/YbLoeCX4Y+0PS0/zX66M8FcpkFo=;
-        b=qz8f6nLhaUA7YsFEkLJYkm0czyiJLFNfn6eYfezcZuw/MTn6r5wsLbslJa6Y7MG+Wx
-         J2xwdNjBjRa2IKM5yFa/rgWpCq6asDM8hrwK/JeblrU1fa25tdG7KAGvnxNWeuAF2tOX
-         6eOboACK56tFK5tb+MTmtHisi2hiq7DjIlzBhPbxKIckydWyQm6vI7biMRin4blO3D+C
-         xNt5T5Bib19VRfem5m7j1Ex7I8W3trNC9vf8SAVNvh2yKzCJEa+/Ajpg0ux6Z1JLhj0I
-         LJa+LJofTIWdJGlQZOE1HNR7pINh1axpceed9vwRi0gtKx4QwXEPszEqMBqgvRXG8TpK
-         JBSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776628768; x=1777233568;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1776628783; x=1777233583; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kmFIan17mu/w8oo/YbLoeCX4Y+0PS0/zX66M8FcpkFo=;
-        b=eIhPNAxEr0hrchhsrhhle3VdvSrlW2nI5xpajZz1h9VnHlclbQ8nRysGHmGMXLxLn7
-         Yvabm6J14byS8qrJgrx42ExSMDNSYq3bwiX80jr6kBHeZotyER8TU4DddjHdUJxkDy2c
-         wwW4nuZqU45/v6jnGDstEEMoL5tTjA9UAJDeeyimuRo34fJQtqbDc4rv2D0Pcy235MYg
-         b0Rp4fcKTUoZPyzI08Vv7qFlWLeBvlpO1ywaOEoOH2+yU1VpqKLk+qcKW60KmhOvpXYR
-         INBT9jlR0AuFOE19LtUGdSV/i8KvlPze+1q2kGlucJJNH50ZWJ+M84aLMkWH7oQE5brx
-         uwHw==
-X-Forwarded-Encrypted: i=1; AFNElJ8AWZ2O+GTV5/bAGRJD0BhbJy847NHreWQu1uEbc8CM8rRoxzOuzaocUTRtx+M8EdVS2N9B6Csz5NWZ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwhN3p2AfndrhvY0SHZPVDtHBj3E+J4Ozf+LxXqppCZLA54LbhI
-	kh2nBZbUfuI30p3wPthHeV2uMl3UbWeom8XhmHY07asfPq9NWoStYQAg
-X-Gm-Gg: AeBDiespTNIQuXKPUgd8iOnz1Pm5wd6ObKTL5FTWNSSb4ePjFzpLIrSw0SRozyNT72J
-	/Oulu1e8j8mkOnLQOM2wihjM0r3zCij/gWmu79DwA8AntDi3MvZ/S/iFPFEfMap/E8QPYS9SIGH
-	KAC5XArDNOp66tk+M7n73M1EkDiNEaYvuOqS49/f3QWndt9EoE2o02DEqJNoYKk99vRaj4Cn/Xc
-	8t51iLovV1vtz4xyvg/gNvGNXRvUJhTBqnEkwrpfE9QAvTYF0ULhyKdyWoNk/1DtkYzSz6otBw6
-	t0j417dBVgSzrqRy5aNXw4KJrF/jBFztlb1ZrfUskdFJ7Ef6lpWPkLOBoHaAtts004XUHIK+5S2
-	KYXHrhTHMyWoVy8lEDV32zx/y0e4/z5V9phQwE3mo0Oh9kYyUWHLxUzfKEx4rXZwMARk5CejbgN
-	8kkt+5uVdBa+5y49oKRI0=
-X-Received: by 2002:a05:6000:2081:b0:43d:30b4:1859 with SMTP id ffacd0b85a97d-43fe3db2edfmr15961422f8f.7.1776628767526;
-        Sun, 19 Apr 2026 12:59:27 -0700 (PDT)
+        bh=vMdfheKYOJbEdDStgLEN2s9V6kR2BVq7VzWgg5gv0xY=;
+        b=ecKpsHCIySZFrMb7XoIq3kQ20SkKb5bCcibI+oQdcYUTyf6ESkKVBVH1wOI4/MOt48
+         GFmF3N15KfvHYU2Ijng9us0hPEyVhPqJaoyx/MnfpKMOT9hYXNMsfX0y+HoQeSwfMVoq
+         ZeJdD8yZDlLi3edcjeBpQPI2c74IhYLN/79c2PK4Tk5P+ab3Nhj6CurslQeyZzjnC5QF
+         zHptemZGrf7WLoQ7CZmEfY3CDgZ1KtonehdhkOuh+tQ17lRCjFcSmFrn9wGyXxMrCCsw
+         1qyKDLzVs4t8K8Dvln2xI9lHTtCm1j506Gqc84tBDppk7i5EXrPjm/ncY7p984ux0nlT
+         Ndew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776628783; x=1777233583;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=vMdfheKYOJbEdDStgLEN2s9V6kR2BVq7VzWgg5gv0xY=;
+        b=o+YPTuXHuAiKvIxv5TnT1l1PDVcJrHwv86c83pQVkbi981FfCalyXnzn1SNYzm45EI
+         M3w4hZvptE+immACpRWWiKyscXmTzGSBL5LcLbua/s//w6W2kDf3EnYgFMTf3WWv7mM4
+         HND+Fgvy//t2tL3yYPp89WR7t5VRyCUnOhGIfS9VIAcwXFlpQJxXbP+mbCKF+A/vuRjc
+         edYNJ8gnEmOdKab+MeC+sLiHASO9fzIf7yQXEFJfMdSAqhmB5H7kxg7hClO5R655iW3K
+         xoCpBASSlFrN8eAYRILZUFPKckhRzhwtTwBiL1BEaR1vGQ2nlUcTLzeFalfgUxBYIPDj
+         chEg==
+X-Forwarded-Encrypted: i=1; AFNElJ/gTrZMLoTvEgP6596BXfHEPLrx/965cPnr23/qdYqKT2V4RdfO6gbUGTD+3BdZAqAbpsCKPH0ndWb4@vger.kernel.org
+X-Gm-Message-State: AOJu0YyuLVdvC37ihD4d6CU5BDJgkSTqDj5TJLXxq2ViRXIlqt8fmiY9
+	3h8Zs25r3Ona/9QPw3BRIMJidrlZ5Vh4s9dII6BRcN3oeivMxMbMV1hY
+X-Gm-Gg: AeBDiesGgoUDrbp+Vvx1DUb925q50mXxNU5UMEdc476HQ0L3zjeawMiASjVhqA6imDy
+	FzdqZpaTVprM5FZivW4FJkZ2iaZuml3IJfZ9FH4NnecLYmrZMZYrb2hP02lqnsfm34a7ij0Zjss
+	64mbrHq4rWwMxJx9s+gb7ETPp/dNKGvFUgVTuu30EKn+U4VZfU4T9vTyiHKyA8eoPEmGRYIb0T2
+	gksjN4jq6d+9bPi3eMVB81x/3zGmlD8W+u57t4iExhy9Hpc2XTVvIy6C44XKGuPHRa/2xAYYmTA
+	Wo0aA5l4Uw4WDiJEC1K7c0F5lng5583gIN7HjvxpyEefFa4aNzGCVrPIUBu6HAjjqHT+1ZWE2wo
+	lw3nYNOWxhYgNqNe0PK8JB0gbHH9bFII90JtkzhuE3stinJbpellmo6Zv/yoUeSKeDPFDdLHqtn
+	5r9CPGhBPn
+X-Received: by 2002:a05:600c:3110:b0:487:243f:dc3e with SMTP id 5b1f17b1804b1-488fb739cf6mr161290185e9.6.1776628783444;
+        Sun, 19 Apr 2026 12:59:43 -0700 (PDT)
 Received: from fedora ([2a02:8071:50c5:5c0::d908])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e46471sm22482179f8f.28.2026.04.19.12.59.26
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e46471sm22482179f8f.28.2026.04.19.12.59.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Apr 2026 12:59:27 -0700 (PDT)
+        Sun, 19 Apr 2026 12:59:43 -0700 (PDT)
 From: Wadim Mueller <wafgo01@gmail.com>
 To: linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org
@@ -65,10 +67,12 @@ Cc: wbg@kernel.org,
 	robh@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wadim Mueller <wafgo01@gmail.com>
-Subject: [PATCH v2 0/3] counter: add GPIO-based quadrature encoder driver
-Date: Sun, 19 Apr 2026 21:59:05 +0200
-Message-ID: <20260419195908.12202-1-wafgo01@gmail.com>
+Subject: [PATCH v2 1/3] dt-bindings: counter: add gpio-quadrature-encoder binding
+Date: Sun, 19 Apr 2026 21:59:06 +0200
+Message-ID: <20260419195908.12202-2-wafgo01@gmail.com>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260419195908.12202-1-wafgo01@gmail.com>
+References: <20260419195908.12202-1-wafgo01@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -77,44 +81,86 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds a new counter subsystem driver that implements
-quadrature encoder position tracking using plain GPIO pins with
-edge-triggered interrupts.
+Add devicetree binding documentation for the GPIO-based quadrature
+encoder counter driver. The driver reads A/B quadrature signals and
+an optional index pulse via edge-triggered GPIO interrupts, supporting
+X1, X2, X4 quadrature decoding and pulse-direction mode.
 
-The driver is intended for low to medium speed rotary encoders where
-hardware counter peripherals (eQEP, FTM, etc.) are unavailable or
-already in use. It targets the same use-cases as interrupt-cnt.c but
-provides full quadrature decoding instead of simple pulse counting.
+This is useful on SoCs that lack a dedicated hardware quadrature
+decoder or where the encoder is wired to generic GPIO pins.
 
-Features:
-  - X1, X2, X4 quadrature decoding and pulse-direction mode
-  - Optional index signal for zero-reset
-  - Configurable ceiling (position clamping)
-  - Standard counter subsystem sysfs + chrdev interface
-  - Enable/disable via sysfs with IRQ gating
-
-Tested on TI AM64x (Cortex-A53) with a motor-driven rotary encoder
-at up to 2 kHz quadrature edge rate.
-
-Changes in v2:
-  - DT binding: rephrase description to describe hardware, not
-    driver/sysfs behaviour (Conor Dooley)
-  - DT binding: drop redundant example without index GPIO (Conor Dooley)
-
-Wadim Mueller (3):
-  dt-bindings: counter: add gpio-quadrature-encoder binding
-  counter: add GPIO-based quadrature encoder driver
-  MAINTAINERS: add entry for GPIO quadrature encoder counter driver
-
- .../counter/gpio-quadrature-encoder.yaml      |  60 ++
- MAINTAINERS                                   |   7 +
- drivers/counter/Kconfig                       |  15 +
- drivers/counter/Makefile                      |   1 +
- drivers/counter/gpio-quadrature-encoder.c     | 710 ++++++++++++++++++
- 5 files changed, 793 insertions(+)
+Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
+---
+ .../counter/gpio-quadrature-encoder.yaml      | 60 +++++++++++++++++++
+ 1 file changed, 60 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/counter/gpio-quadrature-encoder.yaml
- create mode 100644 drivers/counter/gpio-quadrature-encoder.c
 
+diff --git a/Documentation/devicetree/bindings/counter/gpio-quadrature-encoder.yaml b/Documentation/devicetree/bindings/counter/gpio-quadrature-encoder.yaml
+new file mode 100644
+index 000000000..741396b29
+--- /dev/null
++++ b/Documentation/devicetree/bindings/counter/gpio-quadrature-encoder.yaml
+@@ -0,0 +1,60 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/counter/gpio-quadrature-encoder.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: GPIO-based Quadrature Encoder
++
++maintainers:
++  - Wadim Mueller <wadim.mueller@cmblu.de>
++
++description: |
++  A generic GPIO-based quadrature encoder counter.  Reads A/B quadrature
++  signals and an optional index pulse via edge-triggered GPIO interrupts.
++  Supports X1, X2, X4 quadrature decoding and pulse-direction mode.
++
++  This is useful on SoCs that lack a dedicated hardware quadrature
++  decoder (eQEP, QEI, etc.) or where the encoder is wired to generic
++  GPIO pins rather than to a dedicated peripheral.
++
++properties:
++  compatible:
++    const: gpio-quadrature-encoder
++
++  encoder-a-gpios:
++    maxItems: 1
++    description:
++      GPIO connected to the encoder's A (phase A) output.
++
++  encoder-b-gpios:
++    maxItems: 1
++    description:
++      GPIO connected to the encoder's B (phase B) output.
++
++  encoder-index-gpios:
++    maxItems: 1
++    description:
++      Optional GPIO connected to the encoder's index (Z) output.
++      The index signal pulses once per revolution and can be used
++      as a reference point for absolute position tracking.
++
++required:
++  - compatible
++  - encoder-a-gpios
++  - encoder-b-gpios
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    quadrature-encoder {
++        compatible = "gpio-quadrature-encoder";
++        encoder-a-gpios = <&gpio0 10 GPIO_ACTIVE_LOW>;
++        encoder-b-gpios = <&gpio0 11 GPIO_ACTIVE_LOW>;
++        encoder-index-gpios = <&gpio0 12 GPIO_ACTIVE_LOW>;
++    };
++
++...
 -- 
 2.52.0
 
