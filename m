@@ -1,150 +1,88 @@
-Received: from poodle.tulip.relay.mailchannels.net (poodle.tulip.relay.mailchannels.net [23.83.218.249])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643063264FD;
-	Sun, 19 Apr 2026 13:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.218.249
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776605395; cv=pass; b=DqfRNqzBKJGHS8zNRUM4tC7BErpPsKdxiqAOfHHxoSknYNrbA1RIP4k9OHd7AYMwgl4g0VnvymSdUBcjArs8Umz32AIWcw8QOiqgwEzGIJT70nUpImERUJoAh8ar68OS45MwYG+3vMNLnq3iLZbm/0WS1aQEvi4hZPG+3/XkFyA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776605395; c=relaxed/simple;
-	bh=4Z4Wcqw7VDcVaplqu0BW77vSFI93Nn/Cayk4WSUUvis=;
-	h=Message-ID:MIME-Version:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Date; b=N/NBFWdY0bUAbE3jtPMb7ogn+P0S7OKLzmTjXov0gBCityouDD/9+88mG7oEfD54APMbSQawWEJJ3XtG6eGT7qRAWtBRKGHpctwzOTWI1z5iWgqVWGIMginoM7zYf7LxVtLraSFX164ieQlSWdYmWTbcO2FTZz8AQZav5zPAISw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=DlS6c2nS; arc=pass smtp.client-ip=23.83.218.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980538834;
+	Sun, 19 Apr 2026 13:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776605637; cv=none; b=bKFmRkPer4kqsgOg2itRRhHkKn4CJ8k2WcaUXIgkv+pUyNXu6xEouK/dFCzLisRubw1yPVroBUQ3nEUwRZpKeiIWo850QfzvpDCWKkkmS55zaAfSkpT+hN0gCgES1NKvf1xKLZTK0Fz8N/KyC+sd9g966X6bFAoHPGTFE7VLIHM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776605637; c=relaxed/simple;
+	bh=PN0KWt9UBkV0/n988jdngDmSjDH7FRRxV8CnMr1y2M4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Bfy+63HgjI7rwHDHdMSQhmCjo9eBGUUzBKMwtbtJ3vnLAvecEWoxJi6+p8SOKarkgv2GoEegKNxtMNDVeLd9djGWUAtu4tF/aIsJ/nfTvyaRFv/Xxqr3NzBsTGM+U5LdV44xcgdOIP/brtdsrz95O+PsyqXKVOoiBc0xjx7FJ70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fz5J/ILx; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="DlS6c2nS"
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 593CD920DA9;
-	Sun, 19 Apr 2026 13:19:52 +0000 (UTC)
-Received: from fr-int-smtpout13.hostinger.io (100-101-160-57.trex-nlb.outbound.svc.cluster.local [100.101.160.57])
-	(Authenticated sender: hostingeremail)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 2DBA6921737;
-	Sun, 19 Apr 2026 13:19:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
-	t=1776604792;
-	b=9muj/N7Ze2NuewtzKQNOPtzUb5DUPdyJhzjex2stFinR2C+lxprNisFXL/gkQaaBzaBiBJ
-	JwtfydKyPZV4mWBOBZcE5y+Yh0CJ6zR+C5/R2Fa9BXziwaX88pg+Qv2VxboDdQF57o1hdq
-	gZWF3uGO6/ZMeIq5Xkf5i8dSFpv7WQN3XilfQj9ouiiQv7cWlTyTu7f4QBvB8IHbdcmUtd
-	/LyR7a5flVgBH9EJ8P7pyy1r0iH+8dlfIpOFsqphyJWLZVaDe7E9H2b8fYfo8sNfl6o8x+
-	h90DMccbrJartcHt0zsA/FN9v/xpDJSUEtgP6PHrE7iX3Fz5j0ov/37QKqqCAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1776604792;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=6xNFPjnZXhlVOTlNwyTv/QJqMpXD5bnOXpRChy332Bs=;
-	b=B6Ew9GBXJbGJv5GzoPoxPCZNQivlxU5SCo5ZsijVqMxinb4SZ2Fr5YjpAgyi5/CeGVeDvY
-	qHrb6vdtNMpWcGX5mf8j8sJRhZNi5JhLn9M9awQNKJY6QfcHbvSwLs8Udy2hg53zP3FT3B
-	EsJrDWiu1bu3YSwGGI8i96bY0l56mSzVQF3sbNCeC0fkGFWj82Tn31+KWSJOdjRTsggzk2
-	Omi78n6Svn6sgrxGnXQ4snUeDZjnO3VNSZxdETQ5pSeDlIM8tMyrLcl3pdFPoSZO7wwEVH
-	XGPLNh0hK4WD8a1oI1A4odnnAnDyZOmoB0tChCTt2IxSiAWa+0kUhKPNmLpaVg==
-ARC-Authentication-Results: i=1;
-	rspamd-5895b9784c-hfltw;
-	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
-X-MailChannels-Auth-Id: hostingeremail
-X-Stop-Little: 4b331d3019656871_1776604792216_2934851878
-X-MC-Loop-Signature: 1776604792216:4247610514
-X-MC-Ingress-Time: 1776604792216
-Received: from fr-int-smtpout13.hostinger.io (fr-int-smtpout13.hostinger.io
- [148.222.54.40])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.101.160.57 (trex/7.1.5);
-	Sun, 19 Apr 2026 13:19:52 +0000
-Received: from [IPV6:2001:448a:c020:c3c:d097:d42a:836e:79a] (unknown [IPv6:2001:448a:c020:c3c:d097:d42a:836e:79a])
-	(Authenticated sender: linux@smankusors.com)
-	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4fz8Nc0G8FzyTd;
-	Sun, 19 Apr 2026 13:19:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
-	s=hostingermail-a; t=1776604787;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6xNFPjnZXhlVOTlNwyTv/QJqMpXD5bnOXpRChy332Bs=;
-	b=DlS6c2nSyZHacVndzRty1/Y6I6X2G9idreGv6AZx4WVPRocEH20ru4ErFlER9ODtrICJZi
-	rwqze+YHvrUdjnn7ZdPe33KqzjaBB9aQ7+cTyvgQpjqRsu9zBJXqJfPJwv0Z+L3QVW/u/f
-	NWDN5HILfhsJR3nPVwfKkHK1DeqIRcnhpjT5HpyHJ0CQVXKbbPqmODzuAkw/+8cOyUhjA7
-	peduaPtdJ6i7SO30HO1FTG1ZpeEOBDTdP7fHJ6JK09XVi5Jtcs55us4GM+3/s7AblkBMYt
-	gaVyuhvGKXVzJh96qPd9us0mBI1Uz+5lONFHkWMp2G/MfkPjkd/Oyl0RRPshJg==
-Message-ID: <794655c7-b09b-4bd9-bed4-edbf1ff16fe7@smankusors.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fz5J/ILx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A3ACC2BCAF;
+	Sun, 19 Apr 2026 13:33:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776605637;
+	bh=PN0KWt9UBkV0/n988jdngDmSjDH7FRRxV8CnMr1y2M4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=Fz5J/ILxpY7243N/yp4TIQIb3TSI04aTmab6+fS/DMEyW/6A09NubwZKXFCbgnSGf
+	 b60HmkbVGSTTV1EVwF9IayrJrw+qT3058CQlrb3ti2KnkWymyqcVJ3a7q+CXuxoB+k
+	 pTjID+rJvoU0UPvOC6bXzwq7p641KD4uTXjGVqQ+z+8XLbnUimi0KOdCz2IZOrW6VI
+	 9svlhO9k63UQyuaPICLWp7entRxw54ioTyfqMEDslnW+uBX2dB1zZe08/oanBGnmhJ
+	 AakfHLN+SNe9+cCnE74luUXeX5DL+1D6Xc+/XFqXxvEHIoma974i/nLR5ojeol6KP+
+	 qapnIKY4k/Ysg==
+Date: Sun, 19 Apr 2026 14:33:46 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] misc: Remove old APDS990x driver
+Message-ID: <20260419143346.45ed78c2@jic23-huawei>
+In-Reply-To: <20260419083125.35572-4-clamor95@gmail.com>
+References: <20260419083125.35572-1-clamor95@gmail.com>
+	<20260419083125.35572-4-clamor95@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/10] ARM: dts: qcom: msm8960: add SCM
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- Rudraksha Gupta <guptarud@gmail.com>
-References: <20260414-msm8960-wifi-v1-0-007fda9d6134@smankusors.com>
- <20260414-msm8960-wifi-v1-6-007fda9d6134@smankusors.com>
- <d53f1499-0afc-43e5-bee9-ae76df3c6910@oss.qualcomm.com>
-Content-Language: en-US
-From: Antony Kurniawan Soemardi <linux@smankusors.com>
-In-Reply-To: <d53f1499-0afc-43e5-bee9-ae76df3c6910@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Date: Sun, 19 Apr 2026 13:19:43 +0000 (UTC)
-X-CM-Envelope: MS4xfA7QW+BcQYt2wlQj4YerYBTTS8O/rpkk8GYgo22cvkJdA2o7SQq2viRL64/s8WXzbk5FI8JYkX1gUu8z26yJrhUEWM/377AHDibZn700sQEI2XKk/8Hr KQq5v/f4StI8Lzn32Sw05cdmJIzVwY8wfqPRMmbLr3rKq5HX76RRXxsQLRrsa9sK237Ssw2VlDZUSRirXlyYkmEMBxHzBtjvBAJ6ti2c2x5vLyh+28dXg/9U /e/O0f4C5oaemTZpdiW/gPj7LDQXBd2n5Izf4ea2hK0Y6Gpaqa4wpf7brrJ+ccTWfeL/9DKsxYbPC5J4JHcSPoqi7EAd0pK9oSK2hnFAxtumXSKjPUfMdXSy eB6ueNWGZGruclMNsf1Zzd4Xha30NoixP0P0anazC6PROTmck/SFX9Cb54Vrwv6Q2DFCnryAVtptJyd7+Xi0lYWtB+BkBVxGyZ10ewgkZNn9hUB4YO2gAgQe mc9XAZNYad6FZVB8NpLtJpo74BgHD4Yq5ecRxfR3IWxg4tXCSdvKEARrc5JuWg5KoBP96BZYKgIkq4hTp1IRLjlYtSbwAQXIKrqsl6ex0keyUze68N1WikFI Yd1QHeLS5lcTrj8WNue0q+YBiPWub8/zqUCCMVHGxe+mbiJPR7DqJCJPc8CfgJQjrR9DvoEUe2nSJNeWMLwQuwrxseHSNtHP/+eipzaWV2zKpZy4hDiCWNi6 sNsf8CS1MmgDFfm8YJiRapV08K+XrQEA1zaz/MEO+rTMOiFkNTqPHzTbtp7TVVu4zv2HOeUYEt5uDmxNO8qfbaOjSDS4SDM5
-X-CM-Analysis: v=2.4 cv=Gq4Q+V1C c=1 sm=1 tr=0 ts=69e4d673 a=q8XfeKLTkGORBkIvkVRlwA==:617 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=wxLWbCv9AAAA:8 a=pGLkceISAAAA:8 a=gnZU6cfvFUOo9DJwXEoA:9 a=QEXdDO2ut3YA:10 a=QJY96suAAestDpCc5Gi9:22
-X-AuthUser: linux@smankusors.com
 
-On 4/14/2026 4:46 PM, Konrad Dybcio wrote:
-> On 4/13/26 8:55 PM, Antony Kurniawan Soemardi via B4 Relay wrote:
->> From: Antony Kurniawan Soemardi <linux@smankusors.com>
->>
->> Add the Secure Channel Manager firmware device node to the MSM8960
->> device tree. The SCM is required for secure communication between the
->> application processor and other subsystems.
->>
->> Tested-by: Rudraksha Gupta <guptarud@gmail.com>
->> Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
->> ---
->>   arch/arm/boot/dts/qcom/qcom-msm8960.dtsi | 9 +++++++++
->>   1 file changed, 9 insertions(+)
->>
->> diff --git a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
->> index 1d5e97b6aa4b..bc3fd55e524a 100644
->> --- a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
->> +++ b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
->> @@ -77,6 +77,15 @@ l2: l2-cache {
->>   		};
->>   	};
->>   
->> +	firmware {
->> +		scm {
->> +			compatible = "qcom,scm-msm8960", "qcom,scm";
->> +
->> +			clocks = <&rpmcc RPM_DAYTONA_FABRIC_CLK>;
+On Sun, 19 Apr 2026 11:31:24 +0300
+Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+
+> The Avago APDS9900/9901 ALS/Proximity sensor is now supported by tsl2772
+> IIO driver so there is no need to keep this old implementation. Remove it.
 > 
-> I'm wondering if this should be an interconnect resource, but from a
-> quick grepping, I think this is always supposed to be @ 64 MHz so
-> perhaps not really
-> 
-> (please tell me if you know more)
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  Documentation/misc-devices/apds990x.rst |  128 ---
+Sashiko AI reviewing is now running on anything that hits linux-iio@vger.kernel.org
 
-Unfortunately I don't know either, this was ported as is from
-qcom-apq8064.dtsi.
+I'm slowly getting into the habit of checking out what it finds though
+I'm 500+ emails behind so it might not be that thorough today :*
 
--- 
-Thanks,
-Antony K. S.
+Anyhow, it caught an easy one here.
+
+This file is referenced from Documentation/misc-devices/index.rst
+so that needs an update as well.
+ 
+There is the obvious point of ABI compatibility raised as well, but given
+we don't seem to be getting much push back on that maybe that's not a significant
+concern.
+
+Jonathan
+
+>  drivers/misc/Kconfig                    |   10 -
+>  drivers/misc/Makefile                   |    1 -
+>  drivers/misc/apds990x.c                 | 1284 -----------------------
+>  include/linux/platform_data/apds990x.h  |   65 --
+>  5 files changed, 1488 deletions(-)
+>  delete mode 100644 Documentation/misc-devices/apds990x.rst
+>  delete mode 100644 drivers/misc/apds990x.c
+>  delete mode 100644 include/linux/platform_data/apds990x.h
