@@ -1,125 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD962ECEAE;
-	Sun, 19 Apr 2026 07:41:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776584467; cv=none; b=SH2bTISY4UtKEBcQZVLI6EsdKjz9hS3v2ceYUnOKZDEWHVQ2QLZTTmRAhlqpUqaZsZIUBOb866EE9dJPslfNbr3BqGSwogfCi6eB4GS9Gkm8lXmzf32sbVGxgC8mj9mI1gFsua6sLJCKybxzSDmNllId0V0aTrcaNXTVPciczkk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776584467; c=relaxed/simple;
-	bh=u4xRjPcoShJeOrcXozabjDzLtQaTiNnO+gmWmXC8nnQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jaLTOho+XMEcON/v3hHdVYP6R8iujWlTDWuxwwyt4u5U6M4ADyGTluxfNwNS4GuuHXAwJYhmUt5LC0LB736ny2rCq0qeGqNvZ+BuDWPQp3oTacm2gxCad+Z75WfLNvRiW8RrCdeUIirNt2jQgiEbJQRdmOo5/zqk3ZM/g4c4/PQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z+OC0lGb; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68272E6CC0
+	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 08:00:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776585649; cv=pass; b=XTP32oh61J8ePm+hK7rlY/I2m56gs1i6mnL3ot3vH7ARVoxE1HFKAIHcYqdKVjoSaKorfxqCopJ4zMbPkNfhbRBMRJvGIw666DJzgDseyQc8Abh39lOCuvFc+SAwCuuLIegnSJB122QnluDAfPDL+K9J5pV2ve6K6xeHgtWKsSY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776585649; c=relaxed/simple;
+	bh=2abiZr7o5o9n3MgDZZRlE7z5cwnYcdepAd/MNqbQdzA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rEWLFH5zka8q6JQ3Y1rSPl6VD6T50gri20fb2Xd12UMlWkiOXNBWsZMePfVTwL2lhzgoM0IVF4ZtOtl/ed3qBGCM5+3TDIC7k07uJUkjc+BBQCBUT+CJR9ZzkOz8kl2B81aA2HHIVdl5ooEPvxU9bXLqQMZoXywqxEkIiySSjvA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MbOltDvJ; arc=pass smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z+OC0lGb"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8DF66C2BCAF;
-	Sun, 19 Apr 2026 07:41:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776584466;
-	bh=u4xRjPcoShJeOrcXozabjDzLtQaTiNnO+gmWmXC8nnQ=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=Z+OC0lGb719f767ye5qcdtJspr1dlRFoB35L/9FFd7OjkIe7W3YghQfHcFsRNb35c
-	 cfmoUzES4H+Ph1ewINmOX/L9b/cNpljOzh/sknVBf1VJBlT5ssyCzfsoW3E/aWWwv3
-	 8zkK+hJWiUbzYMXc2HtSWQUq7SNuE+h9XF1+Hnl5l2Z7fvaFmnaA1qrdk4gyT8mBy4
-	 gGWXwOkuP7BRaKcm+AMeAt9gbWL9J/MAD1Q7M+eHE4hffpWCfakqT/rCLRrf/kC3SK
-	 WbtdVsnT0ZePFrCjGj40tpZh2fzjNPoxVwQR/bgkdVpOMd5kKk3iVezdPVEbgLv+AP
-	 QXmr5jrMn2RGA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 76609EA7191;
-	Sun, 19 Apr 2026 07:41:06 +0000 (UTC)
-From: Ekansh Gupta via B4 Relay <devnull+ekansh.gupta.oss.qualcomm.com@kernel.org>
-Date: Sun, 19 Apr 2026 13:11:04 +0530
-Subject: [PATCH v2] arm64: dts: qcom: talos: Add memory-region for audio PD
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MbOltDvJ"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-488ff90d6c7so11597745e9.2
+        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 01:00:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776585646; cv=none;
+        d=google.com; s=arc-20240605;
+        b=S3QIR6Ez1QtEcbzOjOT/sDgQX53LgjgUqxgLCMQtEIUtXydT+/7xwOWeALgisfUFiM
+         te5gCx4hzp0sFWurZoq4A9kyOcShVnzdngGjlYdg/VdN+8Pzs9He6+AQqU7p2wNLagY7
+         RPbSQprEZuUnkhyGtoqqsqFxRgnKbfIw+sCKytjJIA8XQ+pYFNa/Puq2bJLqfjKVecNi
+         PCmo/UZ7Fe+uXzf40G7WM3J5f8OvO/hYapUG41M1sc26sYW4oQ14fFuB/rG7JYnm7Bib
+         EoJJg0xLkrBt/ceOLugsiGiblQHJ6HXeSNE3yHvo5LkMyPxXuW4GLcbP5TvAiI81WeZv
+         ugBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5bJj2YUX3nt/Dk+iVGu4h6btDy49Kr3dD0yeQxG9Eyc=;
+        fh=Gf+mIUaXTaj8t6EcwXBZ6ogRnpHL9kGQqBeKPTZ+qRs=;
+        b=KF8HPMkQEI5eCG7TsDjdNa/QWfWR+iw/x86sRhDI9MxbeCXiRTKEDdamEK5P5CkPkI
+         qloFmlTZyse/TBetH5j0T6Pqp/3wsuWD3km2wsO881KwBWTnOYhSTN445nEN0bA5wzAb
+         EoVmqDlbamacRtxRtMaKpUAS3Wq6v2o8j5HQEsrUwILMfOlCGtW0m8mWSt8FrC1YmC96
+         /ig8MFoNA0z4YZU7ZH4pakfz2k0ydDXFYsJH/TAgP3CQlw9kOYyZkeUeC3lAwAFENYq7
+         zVCi6oJgiIvXTpDUUeuBOQgiDxXQ6yle+3OGLOy8+JZvR9DDtgPSR010jgnfHc81EWpB
+         9UGA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776585646; x=1777190446; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5bJj2YUX3nt/Dk+iVGu4h6btDy49Kr3dD0yeQxG9Eyc=;
+        b=MbOltDvJtASpsG26qpvrdPFnGtCDFtUaZJr1oVJI3C2yUIiefEzbAXEJdeepDGQsMA
+         Qz0TFYWyyhZd6rH2PzqAdtr0HUYRD0bs2CVVicoCA2hhr/oOztIKqQKJ+zEpwo9eS8oZ
+         JucRWen+PJq67eKLXqePOIhdUFwoaf1BZZwXOiLReOKCiLDDeZcool6Qbh9Rkd890Rlb
+         3S+9aJODCqN8YXImzTMpbxaBoZtfaj16fiPa+oUexjjMZODMZnBFte+RIv8vtv5NR8Ba
+         u4m/EWKt6qzFnit5QnE/B0v2OyHeG/EdtMDqnd3gOYH9l4lo6IoEggcWK9e6ry96/isd
+         OZow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776585646; x=1777190446;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=5bJj2YUX3nt/Dk+iVGu4h6btDy49Kr3dD0yeQxG9Eyc=;
+        b=gnmkPmQ9T6cT3dJFX6Kl73hg2YU0S3w3ggJNm5WcHzQFNrMZBcdXE1hgSR5u6zVy+Z
+         nVDowRRsUKAKnZ2ErPAf3t4jtbCbQyrxGtrn2Q+CE8qEasgp3u7h09unP+dLiHSNcWMb
+         SQxjR9GIH/SZvf/u13X31J5Krev576mc+8EWx0cio3mPvLDcX3FFj45Xgk2tq+iIYSWu
+         SKtznIOClEMWKejsNauhNE6vLTMDSqZQnYVmdSK/+5bT4xZxNsj97jnDf5COMIEX1A0K
+         58EUIKctHu06+L906Tnzik6E4M+5zK805N3acIz682zRaoXTd6qNgLtJHK/3cYTryxVR
+         5b/Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8hRAillSqzEQ6DA3xJ0NFfySiUfeO2dP9nvhyVVu50mJl6Qwi8IHoKmNZhh6ga6Ht3tN6L573PZEAT@vger.kernel.org
+X-Gm-Message-State: AOJu0YzZ/qNELof9dHACTJEmBcQQKiE1ovxhPAXwp5VI15FPFpY2fWq4
+	l6baJo5slsS+6Ebjkxqx11MULOE/k6EOVZxB45F9IfezcbHoZTWoLXisypzjcYKsudNbZ1PTnSl
+	qmofKwMb3CcyDV13af279f7L85vK3kAE=
+X-Gm-Gg: AeBDies7yjCR4dbTh8Jy87VdSaVF91zQK4Qy3d0rURtpkafPuHCA6HV9mCZSqn5ZNht
+	zecVJG9Rs0xqgNWIvcNu81sd0bASL2j/2o0imNgv9lJAso+kKqCtEcVUDzXNzDt770BftEtLb1O
+	ptR9ughh2dE0jnzpDruozNeF5l1hYLdo6E/zr1JjqT2ChOg5ed2HkXeWWvl672LzVuVqDz2pJWU
+	UgNnNawialQR9PF/G3tWcpwWFXRuMIxIf8orCdnb9R3vkltY9GXkuPpjtHDXFlxMAslxJHAD4rA
+	cg5u0U/MSmB7iqALsO8=
+X-Received: by 2002:a05:600c:c082:b0:488:b043:5efd with SMTP id
+ 5b1f17b1804b1-488fb75f7a6mr100818975e9.13.1776585646094; Sun, 19 Apr 2026
+ 01:00:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260419-talosaudio-v2-1-3a3b5dd67dd4@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAA+H5GkC/22MQQ6CMBBFr0JmbQmtYKor72FYTEsrkwDFDjQaw
- t2trN385P3kvQ3YRXIMt2KD6BIxhSmDOhVge5yeTlCXGVSlLlUttVhwCIxrR0EY7azX5orSnCE
- Lc3Se3kfs0WbuiZcQP0c7yd/7N5OkkKLRDRqlPKKv74G5fK042DCOZR5o933/AmzAeFSrAAAA
-X-Change-ID: 20260418-talosaudio-b8ecf8b9a1b3
-To: konrad.dybcio@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, quic_bkumar@quicinc.com, 
- quic_chennak@quicinc.com, dmitry.baryshkov@oss.qualcomm.com
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776584465; l=1797;
- i=ekansh.gupta@oss.qualcomm.com; s=20260223; h=from:subject:message-id;
- bh=tC5+DyoQ7lpix63zW4POZfE9Ynqt5jo0xccF4pymBmU=;
- b=Iqu18vQ5NLY3e8LcUmIiQGZF63DRpjQ9Sq1KLhSp1yscIWp7sCt561Eo4Hyl62zSr3vLqursJ
- l53YxyLgsm2D7fM6b9HnNqJWvkBmY7Y04yJeSPNXrqnPozgiKXWuPy9
-X-Developer-Key: i=ekansh.gupta@oss.qualcomm.com; a=ed25519;
- pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
-X-Endpoint-Received: by B4 Relay for ekansh.gupta@oss.qualcomm.com/20260223
- with auth_id=647
-X-Original-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Reply-To: ekansh.gupta@oss.qualcomm.com
+References: <20260418144716.132936-1-clamor95@gmail.com> <36e3611d-642e-42de-9a56-cf81c3e06832@baylibre.com>
+ <6e9e830b-edb6-46a6-919c-8772b904262e@app.fastmail.com>
+In-Reply-To: <6e9e830b-edb6-46a6-919c-8772b904262e@app.fastmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Sun, 19 Apr 2026 11:00:34 +0300
+X-Gm-Features: AQROBzC_6dKFSrI53kHXOiNihW66xoqTF2Ed7YHGg9qcbRld_e4zc7ORuN_gh-s
+Message-ID: <CAPVz0n3_jbun+rem3Z95BmniDcLMw+H8aRXGKftv0ScToMWVRg@mail.gmail.com>
+Subject: Re: [PATCH v1 0/5] Update APDS990x ALS to support device trees
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: David Lechner <dlechner@baylibre.com>, Jonathan Cameron <jic23@kernel.org>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+=D1=81=D0=B1, 18 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 23:2=
+1 Arnd Bergmann <arnd@arndb.de> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Sat, Apr 18, 2026, at 18:24, David Lechner wrote:
+> > On 4/18/26 9:47 AM, Svyatoslav Ryhel wrote:
+> >> Document Avago APDS9900/9901 ALS/Proximity sensor in schema and modern=
+ize
+> >> its driver to support OF bindings.
+> >>
+> >> Svyatoslav Ryhel (5):
+> >>   dt-bindings: iio: light: Document Avago APDS9900/9901 ALS/Proximity
+> >>     sensor
+> >>   misc: apds990x: Use more device managed approach in the probe
+> >>   misc: apds990x: Drop Vled supply
+> >>   misc: apds990x: Convert to use OF bindings
+> >>   misc: apds990x: Drop IRQF_TRIGGER_LOW trigger
+> >>
+> >>  .../bindings/iio/light/avago,apds9900.yaml    |  83 ++++++++
+> >>  drivers/misc/apds990x.c                       | 197 +++++++++--------=
+-
+> >
+> > As mentioned in my reply to the dt-bindings patch, there is already an
+> > IIO driver that looks like it could be compatible. I'm guessing that
+> > this misc driver pre-dates the IIO subsystem. I would have a look at it
+> > instead (drivers/iio/light/tsl2772.c).
+>
+> I see that we have a number of ALS drivers like this one in drivers/misc:
+>
+> drivers/misc/apds9802als.c
+> drivers/misc/apds990x.c
+> drivers/misc/bh1770glc.c
+> drivers/misc/isl29020.c
+> drivers/misc/isl29003.c
+>
+> As far as I can tell, all of these are entirely unused, with nothing
+> in the kernel creating the platform devices. The drivers that used
+> instead have all been converted to drivers/iio a long time ago.
+>
+> Is it time to remove all of the above?
+>
 
-Reserve memory region for audio PD dynamic loading and remote heap
-requirements. Add the required VMID list for memory ownership
-transfers.
+I will remove APDS990x from misc in v2 since this one I can convert it
+to use tsl2772 instead.
 
-Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
----
-Changes in v2:
-- Fixed VMID list alignment.
-- Link to v1: https://lore.kernel.org/r/20260418-talosaudio-v1-1-585ab22faaf4@oss.qualcomm.com
----
- arch/arm64/boot/dts/qcom/talos.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qcom/talos.dtsi
-index ff5afbfce2a4..f71b327c7ddf 100644
---- a/arch/arm64/boot/dts/qcom/talos.dtsi
-+++ b/arch/arm64/boot/dts/qcom/talos.dtsi
-@@ -11,6 +11,7 @@
- #include <dt-bindings/clock/qcom,qcs615-videocc.h>
- #include <dt-bindings/clock/qcom,rpmh.h>
- #include <dt-bindings/dma/qcom-gpi.h>
-+#include <dt-bindings/firmware/qcom,scm.h>
- #include <dt-bindings/interconnect/qcom,icc.h>
- #include <dt-bindings/interconnect/qcom,osm-l3.h>
- #include <dt-bindings/interconnect/qcom,qcs615-rpmh.h>
-@@ -657,6 +658,11 @@ pil_gpu_mem: pil-gpu@97715000 {
- 			reg = <0x0 0x97715000 0x0 0x2000>;
- 			no-map;
- 		};
-+
-+		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap@97717000 {
-+			reg = <0x0 0x97717000 0x0 0x800000>;
-+			no-map;
-+		};
- 	};
- 
- 	soc: soc@0 {
-@@ -5100,6 +5106,9 @@ fastrpc {
- 					compatible = "qcom,fastrpc";
- 					qcom,glink-channels = "fastrpcglink-apps-dsp";
- 					label = "adsp";
-+					memory-region = <&adsp_rpc_remote_heap_mem>;
-+					qcom,vmids = <QCOM_SCM_VMID_LPASS
-+						      QCOM_SCM_VMID_ADSP_HEAP>;
- 					#address-cells = <1>;
- 					#size-cells = <0>;
- 
-
----
-base-commit: c7275b05bc428c7373d97aa2da02d3a7fa6b9f66
-change-id: 20260418-talosaudio-b8ecf8b9a1b3
-
-Best regards,
--- 
-Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-
-
+> The notable exception is drivers/misc/tsl2550.c, which is instantiated
+> from both arch/arm/boot/dts/ti/omap/am335x-evm.dts and
+> drivers/i2c/busses/i2c-taos-evm.c. There is a similarly named
+> drivers/iio/light/tsl2563.c driver, but unfortunately that uses
+> a completely different register level interface.
+>
+>       Arnd
