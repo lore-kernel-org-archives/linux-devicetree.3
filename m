@@ -1,63 +1,63 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8FF309DB1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B47B3016E1
 	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 19:59:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776628788; cv=none; b=gXpR6q5VL71gE0+jMDVPik628Yl2jZiwCVOH5rN8YMou7JL3/0ZjYrFejCwhp17PDAHthxoLHwEuzEs6FiHtdjEA84WibjJAGfriUSRKnrIbux2/FtEgJOVbK+ej4dYDKd+jPZuNHbSth7as8b/64ykPNLWIPyptU1KgtK0tlhg=
+	t=1776628789; cv=none; b=MUUfPet0eO3iBOjuaPWzDj06Qs+YNE86ZbkDBS32Ms9dvjXJNF0KRWPBGuVgyQrYPD274BVuP26vQgF9ybsdwa8Yvjvt5PbFWzD1e/uHegdt/Ghdb3BI59y9DsTlirTRVb4NgVqTV1RcfZblRhajSItuEibl72ZBAgRIR4Z5D5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776628788; c=relaxed/simple;
-	bh=FtD2Z1xu1lLuUsrnPnIxxBPpzBzNkmTiFU81QCJiUQY=;
+	s=arc-20240116; t=1776628789; c=relaxed/simple;
+	bh=u1DjuLJv3B9UnrkHjQRMvjj8DrFn4X2FMIArEdPEwO4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K0U8aXMY8NQCNdL04RER/5igawTz4/ZUTt+5Gjy5HB0LaoolZd4ZA/Rh/X7xqXh4TEyqDCaHZBXhh6HYoJ8xU0079ZFYy+PKiRYB3TEoUy9oMJvQN76VOkwUedq9+I84Obe+H/1El0Mu6oHorluBMY3mEZGbJfapXKg0OD3d3i4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UHLy62ZZ; arc=none smtp.client-ip=209.85.128.47
+	 MIME-Version; b=SklMTpAM/BpM3CGFDmKWqHgRiNWvy3CvazIE2+/oYGC9/Ck7n4lQ8NiqU3BNTs1LTROBpz+nnEI21WFcCOaBHz/zfJQUmww9ZC/zBwmoxFUoG/KIqRd3fLEtz58S5RpIyP2ANGan7PLlCGM3hJPZ4ks7ftFQ/12hPXdM4A35zv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dH8XfEmn; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UHLy62ZZ"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-488b8efed61so24318245e9.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dH8XfEmn"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-48374014a77so29825245e9.3
         for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 12:59:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1776628785; x=1777233585; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6UF/iVRP69aP8wVCrm2EY96bha6HrIsHGDErfR8s64U=;
-        b=UHLy62ZZKNv0MjXNxAFa0Ft6T4rc3vnVYhcRCdPvMFlrIwSNIUxvMFZGlVpV/C4DgH
-         V5D1CuVU4aDWhXSFR3BVM2PNj+mGWwrMHqhvvlMbIzr6R3hISk7u988APcGXRFiJ7Ryt
-         TxKTIXpv6/zM1BcjSeD3InBsDye8RI5Mi7+FiI9mx/sLPjauEXXTPKJfYQfGycecB3OJ
-         U0xI8cTmHSZXarWa0NEo12hE0bRmnE4yQqjOsBs8IGyo8cQYUVi84v0TRd+YdB1h7Oul
-         zo/fwltiQEG4OABDRDZjwitkrrEiYJQelzYR3RGTy9XjCATcqzOH2usrKoWeiryLZthx
-         FGOg==
+        bh=rl/TuzTHRW8C3bls0W7JrVojdF7Zq05E0Xt/Pt3+S9I=;
+        b=dH8XfEmnH75UANRP0pPii6GSv29EyuZP0i2sBIwbvVqEVJQOLDOCeSS6OpFnTVpBql
+         Zrf8dT/f//JJoCgiEYtNnu2d5Yi9i3YRwwQQ4guAlACmVAaD6JWDW1G77twPKdI3a/Ed
+         zG3JmBUef7Xq045v66BQvhfAMbMxh+anwIA8rPVLI1XyDLrXPoXsSXyK56KqfbpmBmJn
+         mSpqz5bUgMjRXVK+co72P32OcsCC2yKKF+COu/Dv/dtfQtsJF+n3veVlsWqGzxl937M3
+         8hMp2lu5U7wnGw2cbjcuJmCbC0wMegC8B23Pru6D3gaZxSV0sq37sia9KOAEhlu0SgeK
+         F0rQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1776628785; x=1777233585;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=6UF/iVRP69aP8wVCrm2EY96bha6HrIsHGDErfR8s64U=;
-        b=O3o2zWwu0Ap7JNgYIsdGeUAkrOP9zu2D/kr919whvIU3F3LiynhJcOkfJ31zvVcY4d
-         M+taXWV0y4wBr/a4pSaWHxPsD6em2Njgj9QNEXrjWdpkXAL6pMvWkjriXwPmTKkqfsV1
-         6Pz7jPo+zANXcGiDQtO2ElzKUa8mLMIojIx/QPXga0cvhwWK61sH5sRSAnjKc4NAYvOM
-         LX3NGleUUfapnmKYFBIqsKnxW+c1MfSwgNwLw6VnPWRP9H/OohUAW/tJpSFYAHwx9Ket
-         RJcWk/dTjbU/tS88/oteMl8kdLZygfPPfY5GD66zgeUurQSMA3P2MiyuO5ykMH3v+XeN
-         Euiw==
-X-Forwarded-Encrypted: i=1; AFNElJ/leSYkUTy6tnDh11hkNo+B7XlWpqLJYhpiaqn3miH2k09heCy3qlDJfyHLxqKnV3HzYvJG2rcClacn@vger.kernel.org
-X-Gm-Message-State: AOJu0YwysIiLB++BtsUE+Mw/+il/byvwtqrLxnENup3ZP5EGQlO9licz
-	eVuk9r3wbH/K+fs/1u60bocqatSmlUMlI9W06IoM0FqrZpN2OyYgmY/5
-X-Gm-Gg: AeBDieuCLHyeTlm5TY7EvZb7bKKOvtmgmJWdS4fgRN/rEyaABy1P46hnhelP5oU25XA
-	hYSFVES9b0vHOOljEbhikTQThl58cSqcMXmaOMuBdk1QedhLKhfDfLIJfRGeggTAGglTyM7Ou02
-	QzDlmuBzkp8YjprEJ3YgR3Be8Nunp+15X6tPZ9pEZdpuoy2kl5Llclv/diE1dvT3u7Rp6ewX+zg
-	f3K44eCrmEEFWLHqKBzY+Fa6OkN4PjuAvuonRM6FxUA2mRitQkL6UI+yZV4FL71JovC93qlxvO0
-	BLNRCUYAZtSvsjLGFEvQhU6w7Z+Uu2mAa9+l2fuZzROXBOh2R/WBv9UzAL3CpfsBHfCvXa2FQPT
-	4dv16BC8TUImyQ4/c4GK9i0qzd7eDUTxq4eD+vn5kIMIdOgIEc7IdU050oWb7qb06lqmKTrY9Lv
-	sfTdgnPKTQ
-X-Received: by 2002:a05:600d:106:b0:488:a2a1:62cb with SMTP id 5b1f17b1804b1-488fb8b5753mr98476615e9.13.1776628785173;
-        Sun, 19 Apr 2026 12:59:45 -0700 (PDT)
-Received: from fedora ([2a02:8071:50c5:5c0::d908])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e46471sm22482179f8f.28.2026.04.19.12.59.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=rl/TuzTHRW8C3bls0W7JrVojdF7Zq05E0Xt/Pt3+S9I=;
+        b=GnkhNdpPnrpjZI/OeYyaNRisq0rx0THYswdzPkf1cYvIaqG93ueLX2vSqjRPKeKdss
+         JtFZt4RNpPSHKcUvW31nMkUs17ftJiYbAKadwqzaLMgqCIAdEDeCg9hW7xHFsVcPhU7l
+         J0IctCEsyJopppLdUlG0+nUj1vHfBHrkyk7pQ8x2frSqVDDZT70v75aPnq/DYMEg6vfi
+         SBFo6pXfh0ypXk8rRiDs719Z8xL1k2K3Fm/IY0Idignnq8PRZyTSe64rKhXd9sLGmV1/
+         YDqwKOy8fTjPiA2TCLw/Hu8UH71FYNRfA1cwxjAbvVVq/8K6ZxL10euBEESo9RRUD5QS
+         lfZw==
+X-Forwarded-Encrypted: i=1; AFNElJ8gSco40tWttrFlNNgvJmIvEgm6UVgtkUgr75fr1JLDCp4wSKqXBJzBtRBLLXCk11KFMqKw2NcdB6RL@vger.kernel.org
+X-Gm-Message-State: AOJu0YzWPfyQ1/GrzfgaG8GP/7+EBetw4zsTpsrnGZbJRH/8ZSL9sCuH
+	OCMu+cHQKsfnezLT2XXXs5LzsM9beHB3uD8m0zUteE9rL7IGueUEZMpK
+X-Gm-Gg: AeBDieu/ukq/rZrtvnpLp5hYLEdwzJklW1vrhbW6S3dGevZ5naOWwtV04W9Mq+LfWdv
+	9AkD9KEk/YKQ56fAVpL+UBAZ/MmjsJyROb6tXo5IkfhVb+5/gotIY0mEvEWdsw4mxuOx36MdJQL
+	7Arum/2joS/ZrhjOql8z9MtCtYls+5/NQVcQ68637loJxI2GgzJw4SiMftkwW2yWykkQLo+mUOZ
+	VrNrZfPbTrVAHnFRdtf2bKAxxwgR2jz2IP8VrbidzEnIsqrrx2glW5pZOOCgsOwjRhTcW/dULmg
+	3uzvttEwxpypH0r41CpybzopL0fScxeblTdLBaeaVNKguMSrPDXTVQK/2ihfpgeb958NcoXWj+k
+	zbqUHTwuLjPJ6HJsgpkGisOHsdO+r80L9Nk9EFopLCViYGun4K1pmkL40K9vtQdFgmHiNva2jGH
+	B+KKnFBGPA
+X-Received: by 2002:a05:6000:381:b0:43b:5b25:67f8 with SMTP id ffacd0b85a97d-43fe3dd4ce6mr15568490f8f.20.1776628784337;
         Sun, 19 Apr 2026 12:59:44 -0700 (PDT)
+Received: from fedora ([2a02:8071:50c5:5c0::d908])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e46471sm22482179f8f.28.2026.04.19.12.59.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Apr 2026 12:59:43 -0700 (PDT)
 From: Wadim Mueller <wafgo01@gmail.com>
 To: linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org
@@ -67,9 +67,9 @@ Cc: wbg@kernel.org,
 	robh@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wadim Mueller <wafgo01@gmail.com>
-Subject: [PATCH v2 3/3] MAINTAINERS: add entry for GPIO quadrature encoder counter driver
-Date: Sun, 19 Apr 2026 21:59:08 +0200
-Message-ID: <20260419195908.12202-4-wafgo01@gmail.com>
+Subject: [PATCH v2 2/3] counter: add GPIO-based quadrature encoder driver
+Date: Sun, 19 Apr 2026 21:59:07 +0200
+Message-ID: <20260419195908.12202-3-wafgo01@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260419195908.12202-1-wafgo01@gmail.com>
 References: <20260419195908.12202-1-wafgo01@gmail.com>
@@ -81,32 +81,783 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add myself as maintainer for the new gpio-quadrature-encoder counter
-driver and its devicetree binding.
+Add a platform driver that turns ordinary GPIOs into a quadrature
+encoder counter device.  The driver requests edge-triggered interrupts
+on the A and B (and optional Index) GPIOs and decodes the quadrature
+signal in software using a classic state-table approach.
+
+Supported counting modes:
+  - Quadrature X1 (count on A rising edge only)
+  - Quadrature X2 (count on both A edges)
+  - Quadrature X4 (count on every A and B edge)
+  - Pulse-direction (A = pulse, B = direction)
+
+An optional index signal resets the count to zero on its rising edge
+when enabled through sysfs.  A configurable ceiling clamps the count
+to [0, ceiling].
 
 Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
 ---
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/counter/Kconfig                   |  15 +
+ drivers/counter/Makefile                  |   1 +
+ drivers/counter/gpio-quadrature-encoder.c | 710 ++++++++++++++++++++++
+ 3 files changed, 726 insertions(+)
+ create mode 100644 drivers/counter/gpio-quadrature-encoder.c
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 06a8c7457..fca62baa7 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11018,6 +11018,13 @@ F:	Documentation/dev-tools/gpio-sloppy-logic-analyzer.rst
- F:	drivers/gpio/gpio-sloppy-logic-analyzer.c
- F:	tools/gpio/gpio-sloppy-logic-analyzer.sh
+diff --git a/drivers/counter/Kconfig b/drivers/counter/Kconfig
+index d30d22dfe..72c5c8159 100644
+--- a/drivers/counter/Kconfig
++++ b/drivers/counter/Kconfig
+@@ -68,6 +68,21 @@ config INTEL_QEP
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called intel-qep.
  
-+GPIO QUADRATURE ENCODER COUNTER DRIVER
-+M:	Wadim Mueller <wafgo01@gmail.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/counter/gpio-quadrature-encoder.yaml
-+F:	drivers/counter/gpio-quadrature-encoder.c
++config GPIO_QUADRATURE_ENCODER
++	tristate "GPIO-based quadrature encoder counter driver"
++	depends on GPIOLIB
++	help
++	  Select this option to enable the GPIO-based quadrature encoder
++	  counter driver.  It reads A/B quadrature signals and an optional
++	  index pulse via edge-triggered GPIO interrupts, supporting X1, X2,
++	  X4 quadrature decoding and pulse-direction mode.
 +
- GPIO SUBSYSTEM
- M:	Linus Walleij <linusw@kernel.org>
- M:	Bartosz Golaszewski <brgl@kernel.org>
++	  This is useful on SoCs that lack a dedicated hardware quadrature
++	  decoder or where the encoder is wired to generic GPIO pins.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called gpio-quadrature-encoder.
++
+ config INTERRUPT_CNT
+ 	tristate "Interrupt counter driver"
+ 	depends on GPIOLIB
+diff --git a/drivers/counter/Makefile b/drivers/counter/Makefile
+index fa3c1d08f..2bef64d10 100644
+--- a/drivers/counter/Makefile
++++ b/drivers/counter/Makefile
+@@ -14,6 +14,7 @@ obj-$(CONFIG_STM32_TIMER_CNT)	+= stm32-timer-cnt.o
+ obj-$(CONFIG_STM32_LPTIMER_CNT)	+= stm32-lptimer-cnt.o
+ obj-$(CONFIG_TI_EQEP)		+= ti-eqep.o
+ obj-$(CONFIG_FTM_QUADDEC)	+= ftm-quaddec.o
++obj-$(CONFIG_GPIO_QUADRATURE_ENCODER)	+= gpio-quadrature-encoder.o
+ obj-$(CONFIG_MICROCHIP_TCB_CAPTURE)	+= microchip-tcb-capture.o
+ obj-$(CONFIG_INTEL_QEP)		+= intel-qep.o
+ obj-$(CONFIG_TI_ECAP_CAPTURE)	+= ti-ecap-capture.o
+diff --git a/drivers/counter/gpio-quadrature-encoder.c b/drivers/counter/gpio-quadrature-encoder.c
+new file mode 100644
+index 000000000..0822f0a8a
+--- /dev/null
++++ b/drivers/counter/gpio-quadrature-encoder.c
+@@ -0,0 +1,710 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * GPIO-based Quadrature Encoder Counter Driver
++ *
++ * Reads quadrature encoder signals (A, B, and optional Index) via GPIOs.
++ * Supports X1, X2, X4 quadrature decoding and pulse-direction mode.
++ *
++ * Copyright (C) 2026 CMBlu Energy AG
++ * Author: Wadim Mueller <wafgo01@gmail.com>
++ */
++
++#include <linux/counter.h>
++#include <linux/gpio/consumer.h>
++#include <linux/interrupt.h>
++#include <linux/irq.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/spinlock.h>
++#include <linux/types.h>
++
++enum gpio_qenc_function {
++	GPIO_QENC_FUNC_QUAD_X1 = 0,
++	GPIO_QENC_FUNC_QUAD_X2,
++	GPIO_QENC_FUNC_QUAD_X4,
++	GPIO_QENC_FUNC_PULSE_DIR,
++};
++
++enum gpio_qenc_signal_id {
++	GPIO_QENC_SIGNAL_A = 0,
++	GPIO_QENC_SIGNAL_B,
++	GPIO_QENC_SIGNAL_INDEX,
++};
++
++struct gpio_qenc_priv {
++	struct gpio_desc *gpio_a;
++	struct gpio_desc *gpio_b;
++	struct gpio_desc *gpio_index;
++
++	int irq_a;
++	int irq_b;
++	int irq_index;
++
++	spinlock_t lock;
++
++	s64 count;
++	u64 ceiling;
++	bool enabled;
++	enum counter_count_direction direction;
++	enum gpio_qenc_function function;
++
++	int prev_a;
++	int prev_b;
++
++	bool index_enabled;
++
++	struct counter_signal signals[3];
++	struct counter_synapse synapses[3];
++	struct counter_count cnts;
++};
++
++/*
++ * Quadrature state table for X4 decoding.
++ * Rows = previous state (A<<1 | B), Columns = new state (A<<1 | B).
++ * Values: 0 = no change, +1 = forward, -1 = backward, 2 = error (skip).
++ */
++static const int quad_table[4][4] = {
++	/*          00  01  10  11  <- new */
++	/* 00 */ {  0, -1,  1,  2 },
++	/* 01 */ {  1,  0,  2, -1 },
++	/* 10 */ { -1,  2,  0,  1 },
++	/* 11 */ {  2,  1, -1,  0 },
++};
++
++static void gpio_qenc_update_count(struct gpio_qenc_priv *priv, int delta)
++{
++	s64 new_count;
++
++	if (!delta)
++		return;
++
++	new_count = priv->count + delta;
++
++	if (priv->ceiling) {
++		if (new_count < 0)
++			new_count = 0;
++		else if (new_count > (s64)priv->ceiling)
++			new_count = priv->ceiling;
++	}
++
++	priv->count = new_count;
++	priv->direction = (delta > 0) ? COUNTER_COUNT_DIRECTION_FORWARD
++				      : COUNTER_COUNT_DIRECTION_BACKWARD;
++}
++
++static irqreturn_t gpio_qenc_a_isr(int irq, void *dev_id)
++{
++	struct counter_device *counter = dev_id;
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++	unsigned long flags;
++	int a, b, prev_state, new_state, delta;
++
++	spin_lock_irqsave(&priv->lock, flags);
++
++	if (!priv->enabled)
++		goto out;
++
++	a = gpiod_get_value(priv->gpio_a);
++	b = gpiod_get_value(priv->gpio_b);
++
++	prev_state = (priv->prev_a << 1) | priv->prev_b;
++	new_state = (a << 1) | b;
++
++	switch (priv->function) {
++	case GPIO_QENC_FUNC_QUAD_X4:
++		delta = quad_table[prev_state][new_state];
++		if (delta == 2)
++			delta = 0;
++		gpio_qenc_update_count(priv, delta);
++		break;
++
++	case GPIO_QENC_FUNC_QUAD_X2:
++		delta = quad_table[prev_state][new_state];
++		if (delta == 2)
++			delta = 0;
++		gpio_qenc_update_count(priv, delta);
++		break;
++
++	case GPIO_QENC_FUNC_QUAD_X1:
++		if (!priv->prev_a && a) {
++			delta = b ? -1 : 1;
++			gpio_qenc_update_count(priv, delta);
++		}
++		break;
++
++	case GPIO_QENC_FUNC_PULSE_DIR:
++		if (!priv->prev_a && a) {
++			delta = b ? -1 : 1;
++			gpio_qenc_update_count(priv, delta);
++		}
++		break;
++	}
++
++	priv->prev_a = a;
++	priv->prev_b = b;
++
++	spin_unlock_irqrestore(&priv->lock, flags);
++
++	counter_push_event(counter, COUNTER_EVENT_CHANGE_OF_STATE, 0);
++
++	return IRQ_HANDLED;
++
++out:
++	spin_unlock_irqrestore(&priv->lock, flags);
++	return IRQ_HANDLED;
++}
++
++static irqreturn_t gpio_qenc_b_isr(int irq, void *dev_id)
++{
++	struct counter_device *counter = dev_id;
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++	unsigned long flags;
++	int a, b, prev_state, new_state, delta;
++
++	spin_lock_irqsave(&priv->lock, flags);
++
++	if (!priv->enabled)
++		goto out;
++
++	a = gpiod_get_value(priv->gpio_a);
++	b = gpiod_get_value(priv->gpio_b);
++
++	prev_state = (priv->prev_a << 1) | priv->prev_b;
++	new_state = (a << 1) | b;
++
++	switch (priv->function) {
++	case GPIO_QENC_FUNC_QUAD_X4:
++		delta = quad_table[prev_state][new_state];
++		if (delta == 2)
++			delta = 0;
++		gpio_qenc_update_count(priv, delta);
++		break;
++
++	case GPIO_QENC_FUNC_QUAD_X2:
++		/* X2: only A-channel edges update count */
++		break;
++
++	case GPIO_QENC_FUNC_QUAD_X1:
++	case GPIO_QENC_FUNC_PULSE_DIR:
++		break;
++	}
++
++	priv->prev_a = a;
++	priv->prev_b = b;
++
++	spin_unlock_irqrestore(&priv->lock, flags);
++	return IRQ_HANDLED;
++
++out:
++	spin_unlock_irqrestore(&priv->lock, flags);
++	return IRQ_HANDLED;
++}
++
++static irqreturn_t gpio_qenc_index_isr(int irq, void *dev_id)
++{
++	struct counter_device *counter = dev_id;
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++	unsigned long flags;
++
++	spin_lock_irqsave(&priv->lock, flags);
++
++	if (priv->enabled && priv->index_enabled)
++		priv->count = 0;
++
++	spin_unlock_irqrestore(&priv->lock, flags);
++
++	counter_push_event(counter, COUNTER_EVENT_INDEX, 0);
++
++	return IRQ_HANDLED;
++}
++
++static int gpio_qenc_count_read(struct counter_device *counter,
++				struct counter_count *count, u64 *val)
++{
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++	unsigned long flags;
++
++	spin_lock_irqsave(&priv->lock, flags);
++	*val = (u64)priv->count;
++	spin_unlock_irqrestore(&priv->lock, flags);
++
++	return 0;
++}
++
++static int gpio_qenc_count_write(struct counter_device *counter,
++				 struct counter_count *count, const u64 val)
++{
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++	unsigned long flags;
++
++	spin_lock_irqsave(&priv->lock, flags);
++
++	if (priv->ceiling && val > priv->ceiling) {
++		spin_unlock_irqrestore(&priv->lock, flags);
++		return -EINVAL;
++	}
++
++	priv->count = (s64)val;
++	spin_unlock_irqrestore(&priv->lock, flags);
++
++	return 0;
++}
++
++static const enum counter_function gpio_qenc_functions[] = {
++	COUNTER_FUNCTION_QUADRATURE_X1_A,
++	COUNTER_FUNCTION_QUADRATURE_X2_A,
++	COUNTER_FUNCTION_QUADRATURE_X4,
++	COUNTER_FUNCTION_PULSE_DIRECTION,
++};
++
++static int gpio_qenc_function_read(struct counter_device *counter,
++				   struct counter_count *count,
++				   enum counter_function *function)
++{
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++	unsigned long flags;
++
++	spin_lock_irqsave(&priv->lock, flags);
++
++	switch (priv->function) {
++	case GPIO_QENC_FUNC_QUAD_X1:
++		*function = COUNTER_FUNCTION_QUADRATURE_X1_A;
++		break;
++	case GPIO_QENC_FUNC_QUAD_X2:
++		*function = COUNTER_FUNCTION_QUADRATURE_X2_A;
++		break;
++	case GPIO_QENC_FUNC_QUAD_X4:
++		*function = COUNTER_FUNCTION_QUADRATURE_X4;
++		break;
++	case GPIO_QENC_FUNC_PULSE_DIR:
++		*function = COUNTER_FUNCTION_PULSE_DIRECTION;
++		break;
++	}
++
++	spin_unlock_irqrestore(&priv->lock, flags);
++	return 0;
++}
++
++static int gpio_qenc_function_write(struct counter_device *counter,
++				    struct counter_count *count,
++				    enum counter_function function)
++{
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++	unsigned long flags;
++
++	spin_lock_irqsave(&priv->lock, flags);
++
++	switch (function) {
++	case COUNTER_FUNCTION_QUADRATURE_X1_A:
++		priv->function = GPIO_QENC_FUNC_QUAD_X1;
++		break;
++	case COUNTER_FUNCTION_QUADRATURE_X2_A:
++		priv->function = GPIO_QENC_FUNC_QUAD_X2;
++		break;
++	case COUNTER_FUNCTION_QUADRATURE_X4:
++		priv->function = GPIO_QENC_FUNC_QUAD_X4;
++		break;
++	case COUNTER_FUNCTION_PULSE_DIRECTION:
++		priv->function = GPIO_QENC_FUNC_PULSE_DIR;
++		break;
++	default:
++		spin_unlock_irqrestore(&priv->lock, flags);
++		return -EINVAL;
++	}
++
++	spin_unlock_irqrestore(&priv->lock, flags);
++	return 0;
++}
++
++static const enum counter_synapse_action gpio_qenc_synapse_actions[] = {
++	COUNTER_SYNAPSE_ACTION_BOTH_EDGES,
++	COUNTER_SYNAPSE_ACTION_RISING_EDGE,
++	COUNTER_SYNAPSE_ACTION_NONE,
++};
++
++static int gpio_qenc_action_read(struct counter_device *counter,
++				 struct counter_count *count,
++				 struct counter_synapse *synapse,
++				 enum counter_synapse_action *action)
++{
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++	enum gpio_qenc_signal_id signal_id = synapse->signal->id;
++
++	switch (priv->function) {
++	case GPIO_QENC_FUNC_QUAD_X4:
++		if (signal_id == GPIO_QENC_SIGNAL_A ||
++		    signal_id == GPIO_QENC_SIGNAL_B)
++			*action = COUNTER_SYNAPSE_ACTION_BOTH_EDGES;
++		else
++			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
++		return 0;
++
++	case GPIO_QENC_FUNC_QUAD_X2:
++		if (signal_id == GPIO_QENC_SIGNAL_A)
++			*action = COUNTER_SYNAPSE_ACTION_BOTH_EDGES;
++		else if (signal_id == GPIO_QENC_SIGNAL_B)
++			*action = COUNTER_SYNAPSE_ACTION_NONE;
++		else
++			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
++		return 0;
++
++	case GPIO_QENC_FUNC_QUAD_X1:
++		if (signal_id == GPIO_QENC_SIGNAL_A)
++			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
++		else if (signal_id == GPIO_QENC_SIGNAL_B)
++			*action = COUNTER_SYNAPSE_ACTION_NONE;
++		else
++			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
++		return 0;
++
++	case GPIO_QENC_FUNC_PULSE_DIR:
++		if (signal_id == GPIO_QENC_SIGNAL_A)
++			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
++		else
++			*action = COUNTER_SYNAPSE_ACTION_NONE;
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
++static int gpio_qenc_signal_read(struct counter_device *counter,
++				 struct counter_signal *signal,
++				 enum counter_signal_level *level)
++{
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++	struct gpio_desc *gpio;
++	int ret;
++
++	switch (signal->id) {
++	case GPIO_QENC_SIGNAL_A:
++		gpio = priv->gpio_a;
++		break;
++	case GPIO_QENC_SIGNAL_B:
++		gpio = priv->gpio_b;
++		break;
++	case GPIO_QENC_SIGNAL_INDEX:
++		gpio = priv->gpio_index;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	if (!gpio)
++		return -EINVAL;
++
++	ret = gpiod_get_value(gpio);
++	if (ret < 0)
++		return ret;
++
++	*level = ret ? COUNTER_SIGNAL_LEVEL_HIGH : COUNTER_SIGNAL_LEVEL_LOW;
++	return 0;
++}
++
++static int gpio_qenc_events_configure(struct counter_device *counter)
++{
++	return 0;
++}
++
++static int gpio_qenc_watch_validate(struct counter_device *counter,
++				    const struct counter_watch *watch)
++{
++	if (watch->channel != 0)
++		return -EINVAL;
++
++	switch (watch->event) {
++	case COUNTER_EVENT_CHANGE_OF_STATE:
++	case COUNTER_EVENT_INDEX:
++		return 0;
++	default:
++		return -EINVAL;
++	}
++}
++
++static const struct counter_ops gpio_qenc_ops = {
++	.count_read	= gpio_qenc_count_read,
++	.count_write	= gpio_qenc_count_write,
++	.function_read	= gpio_qenc_function_read,
++	.function_write	= gpio_qenc_function_write,
++	.action_read	= gpio_qenc_action_read,
++	.signal_read	= gpio_qenc_signal_read,
++	.events_configure = gpio_qenc_events_configure,
++	.watch_validate	= gpio_qenc_watch_validate,
++};
++
++static int gpio_qenc_ceiling_read(struct counter_device *counter,
++				  struct counter_count *count, u64 *val)
++{
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++	unsigned long flags;
++
++	spin_lock_irqsave(&priv->lock, flags);
++	*val = priv->ceiling;
++	spin_unlock_irqrestore(&priv->lock, flags);
++
++	return 0;
++}
++
++static int gpio_qenc_ceiling_write(struct counter_device *counter,
++				   struct counter_count *count, const u64 val)
++{
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++	unsigned long flags;
++
++	spin_lock_irqsave(&priv->lock, flags);
++	priv->ceiling = val;
++	spin_unlock_irqrestore(&priv->lock, flags);
++
++	return 0;
++}
++
++static int gpio_qenc_enable_read(struct counter_device *counter,
++				 struct counter_count *count, u8 *enable)
++{
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++
++	*enable = priv->enabled;
++	return 0;
++}
++
++static int gpio_qenc_enable_write(struct counter_device *counter,
++				  struct counter_count *count, u8 enable)
++{
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++	unsigned long flags;
++
++	spin_lock_irqsave(&priv->lock, flags);
++
++	if (priv->enabled == !!enable) {
++		spin_unlock_irqrestore(&priv->lock, flags);
++		return 0;
++	}
++
++	if (enable) {
++		priv->enabled = true;
++		spin_unlock_irqrestore(&priv->lock, flags);
++		enable_irq(priv->irq_a);
++		enable_irq(priv->irq_b);
++		if (priv->irq_index)
++			enable_irq(priv->irq_index);
++	} else {
++		priv->enabled = false;
++		spin_unlock_irqrestore(&priv->lock, flags);
++		disable_irq(priv->irq_a);
++		disable_irq(priv->irq_b);
++		if (priv->irq_index)
++			disable_irq(priv->irq_index);
++	}
++
++	return 0;
++}
++
++static int gpio_qenc_direction_read(struct counter_device *counter,
++				    struct counter_count *count, u32 *direction)
++{
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++	unsigned long flags;
++
++	spin_lock_irqsave(&priv->lock, flags);
++	*direction = priv->direction;
++	spin_unlock_irqrestore(&priv->lock, flags);
++
++	return 0;
++}
++
++static int gpio_qenc_index_enable_read(struct counter_device *counter,
++				       struct counter_count *count, u8 *val)
++{
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++
++	*val = priv->index_enabled;
++	return 0;
++}
++
++static int gpio_qenc_index_enable_write(struct counter_device *counter,
++					struct counter_count *count, u8 val)
++{
++	struct gpio_qenc_priv *priv = counter_priv(counter);
++	unsigned long flags;
++
++	spin_lock_irqsave(&priv->lock, flags);
++	priv->index_enabled = !!val;
++	spin_unlock_irqrestore(&priv->lock, flags);
++
++	return 0;
++}
++
++static struct counter_comp gpio_qenc_count_ext[] = {
++	COUNTER_COMP_CEILING(gpio_qenc_ceiling_read, gpio_qenc_ceiling_write),
++	COUNTER_COMP_ENABLE(gpio_qenc_enable_read, gpio_qenc_enable_write),
++	COUNTER_COMP_DIRECTION(gpio_qenc_direction_read),
++	COUNTER_COMP_COUNT_BOOL("index_enabled",
++				gpio_qenc_index_enable_read,
++				gpio_qenc_index_enable_write),
++};
++
++static int gpio_qenc_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct counter_device *counter;
++	struct gpio_qenc_priv *priv;
++	bool has_index;
++	int num_signals;
++	int num_synapses;
++	int ret;
++
++	counter = devm_counter_alloc(dev, sizeof(*priv));
++	if (!counter)
++		return -ENOMEM;
++
++	priv = counter_priv(counter);
++	spin_lock_init(&priv->lock);
++
++	priv->gpio_a = devm_gpiod_get(dev, "encoder-a", GPIOD_IN);
++	if (IS_ERR(priv->gpio_a))
++		return dev_err_probe(dev, PTR_ERR(priv->gpio_a),
++				     "failed to get encoder-a GPIO\n");
++
++	priv->gpio_b = devm_gpiod_get(dev, "encoder-b", GPIOD_IN);
++	if (IS_ERR(priv->gpio_b))
++		return dev_err_probe(dev, PTR_ERR(priv->gpio_b),
++				     "failed to get encoder-b GPIO\n");
++
++	priv->gpio_index = devm_gpiod_get_optional(dev, "encoder-index",
++						    GPIOD_IN);
++	if (IS_ERR(priv->gpio_index))
++		return dev_err_probe(dev, PTR_ERR(priv->gpio_index),
++				     "failed to get encoder-index GPIO\n");
++
++	has_index = !!priv->gpio_index;
++
++	priv->irq_a = gpiod_to_irq(priv->gpio_a);
++	if (priv->irq_a < 0)
++		return dev_err_probe(dev, priv->irq_a,
++				     "failed to get IRQ for encoder-a\n");
++
++	priv->irq_b = gpiod_to_irq(priv->gpio_b);
++	if (priv->irq_b < 0)
++		return dev_err_probe(dev, priv->irq_b,
++				     "failed to get IRQ for encoder-b\n");
++
++	if (has_index) {
++		priv->irq_index = gpiod_to_irq(priv->gpio_index);
++		if (priv->irq_index < 0)
++			return dev_err_probe(dev, priv->irq_index,
++					     "failed to get IRQ for encoder-index\n");
++	}
++
++	priv->prev_a = gpiod_get_value(priv->gpio_a);
++	priv->prev_b = gpiod_get_value(priv->gpio_b);
++
++	priv->function = GPIO_QENC_FUNC_QUAD_X4;
++	priv->direction = COUNTER_COUNT_DIRECTION_FORWARD;
++
++	num_signals = has_index ? 3 : 2;
++
++	priv->signals[GPIO_QENC_SIGNAL_A].id = GPIO_QENC_SIGNAL_A;
++	priv->signals[GPIO_QENC_SIGNAL_A].name = "Signal A";
++
++	priv->signals[GPIO_QENC_SIGNAL_B].id = GPIO_QENC_SIGNAL_B;
++	priv->signals[GPIO_QENC_SIGNAL_B].name = "Signal B";
++
++	if (has_index) {
++		priv->signals[GPIO_QENC_SIGNAL_INDEX].id =
++			GPIO_QENC_SIGNAL_INDEX;
++		priv->signals[GPIO_QENC_SIGNAL_INDEX].name = "Index";
++	}
++
++	num_synapses = num_signals;
++
++	priv->synapses[0].actions_list = gpio_qenc_synapse_actions;
++	priv->synapses[0].num_actions = ARRAY_SIZE(gpio_qenc_synapse_actions);
++	priv->synapses[0].signal = &priv->signals[GPIO_QENC_SIGNAL_A];
++
++	priv->synapses[1].actions_list = gpio_qenc_synapse_actions;
++	priv->synapses[1].num_actions = ARRAY_SIZE(gpio_qenc_synapse_actions);
++	priv->synapses[1].signal = &priv->signals[GPIO_QENC_SIGNAL_B];
++
++	if (has_index) {
++		priv->synapses[2].actions_list = gpio_qenc_synapse_actions;
++		priv->synapses[2].num_actions =
++			ARRAY_SIZE(gpio_qenc_synapse_actions);
++		priv->synapses[2].signal =
++			&priv->signals[GPIO_QENC_SIGNAL_INDEX];
++	}
++
++	priv->cnts.id = 0;
++	priv->cnts.name = "Position";
++	priv->cnts.functions_list = gpio_qenc_functions;
++	priv->cnts.num_functions = ARRAY_SIZE(gpio_qenc_functions);
++	priv->cnts.synapses = priv->synapses;
++	priv->cnts.num_synapses = num_synapses;
++	priv->cnts.ext = gpio_qenc_count_ext;
++	priv->cnts.num_ext = ARRAY_SIZE(gpio_qenc_count_ext);
++
++	counter->name = dev_name(dev);
++	counter->parent = dev;
++	counter->ops = &gpio_qenc_ops;
++	counter->signals = priv->signals;
++	counter->num_signals = num_signals;
++	counter->counts = &priv->cnts;
++	counter->num_counts = 1;
++
++	irq_set_status_flags(priv->irq_a, IRQ_NOAUTOEN);
++	ret = devm_request_irq(dev, priv->irq_a, gpio_qenc_a_isr,
++			       IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING,
++			       "gpio-qenc-a", counter);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "failed to request IRQ for encoder-a\n");
++
++	irq_set_status_flags(priv->irq_b, IRQ_NOAUTOEN);
++	ret = devm_request_irq(dev, priv->irq_b, gpio_qenc_b_isr,
++			       IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING,
++			       "gpio-qenc-b", counter);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "failed to request IRQ for encoder-b\n");
++
++	if (has_index) {
++		irq_set_status_flags(priv->irq_index, IRQ_NOAUTOEN);
++		ret = devm_request_irq(dev, priv->irq_index,
++				       gpio_qenc_index_isr,
++				       IRQF_TRIGGER_RISING,
++				       "gpio-qenc-index", counter);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "failed to request IRQ for encoder-index\n");
++	}
++
++	ret = devm_counter_add(dev, counter);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "failed to add counter\n");
++
++	dev_info(dev, "GPIO quadrature encoder registered (signals: A, B%s)\n",
++		 has_index ? ", Index" : "");
++
++	return 0;
++}
++
++static const struct of_device_id gpio_qenc_of_match[] = {
++	{ .compatible = "gpio-quadrature-encoder" },
++	{}
++};
++MODULE_DEVICE_TABLE(of, gpio_qenc_of_match);
++
++static struct platform_driver gpio_qenc_driver = {
++	.probe = gpio_qenc_probe,
++	.driver = {
++		.name = "gpio-quadrature-encoder",
++		.of_match_table = gpio_qenc_of_match,
++	},
++};
++module_platform_driver(gpio_qenc_driver);
++
++MODULE_ALIAS("platform:gpio-quadrature-encoder");
++MODULE_AUTHOR("Wadim Mueller <wafgo01@gmail.com>");
++MODULE_DESCRIPTION("GPIO-based quadrature encoder counter driver");
++MODULE_LICENSE("GPL");
++MODULE_IMPORT_NS("COUNTER");
 -- 
 2.52.0
 
