@@ -1,55 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37EED26AA91
-	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 20:16:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2D3301704
+	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 20:17:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776629799; cv=none; b=aEqyISPLAENR47zzIU/AnLOwJIj1NoYE8hHg3+YDM8FIHf1RYjcKwsf1svyGIIx6D2JXPkE0b3Z3YQGtZTe6YTgLl3kO25bpvoZrXyx1yzhdmkR7zEs53nq/PBmkI8R1th0fth5odOESbsAcTm9BY8OzK7AqcVbmYxdbCSFAKSc=
+	t=1776629829; cv=none; b=X2Zs0KJC0vUl6nI7uPPXCIK6id2MhBQzXcuWFr/s5L1pkVrRc32LM91VBgPgmFiHQe3nwln152tU2WB8NInUsaqu4r0wn8/IpYWoO4v4fv9wDSY4MCpjecimCk6PMLMnEwHwM99DVuPzu1LAlARkkTttRIMIyG0aVECk7b9bOjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776629799; c=relaxed/simple;
-	bh=hlN82U3u5JGIfEK3aCxmpqJVvZHn8H0jsQ+771+7n0s=;
+	s=arc-20240116; t=1776629829; c=relaxed/simple;
+	bh=CP8bkuBKJOFmVGmEVu1l1muELYYVmpgOJntoDr4vk9Q=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oQVeAJ/33/BHC+gfNf1CwHbVYC+D8cf5LUiifZsN9SP8eFOc1Bw8DLBFD172qQRADej7nzlGTeeC+qDH+oEEtUNUjZtKiYoiJi0jnyMnEqiZOhH2gtxshTL9wnVLzRUBHeNI/NgvJTLovXWJ9UoYCcuxTVZK2kN+HqlI+erZZ0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IsKUyjy/; arc=none smtp.client-ip=10.30.226.201
+	 To:Cc:Content-Type; b=J+aXPE2DKPEED7B808uptaS9bRmdGjveWi4Vlr0Yv3WB+xClRtJkvG7Of7wzODYBTR9qJxAzOz6KDhYMsiqciQceiea2JGt5VAUVCao8cHXq6Y4rDgsR1M0AEuEL1y9xzd62pROifR5g69oiqI6pFNTyX/u7JtcxLWX8hM6NPfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cEWHcbDm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IsKUyjy/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 064CBC4AF09
-	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 20:16:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cEWHcbDm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8BF9C2BCB4
+	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 20:17:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776629799;
-	bh=hlN82U3u5JGIfEK3aCxmpqJVvZHn8H0jsQ+771+7n0s=;
+	s=k20201202; t=1776629828;
+	bh=CP8bkuBKJOFmVGmEVu1l1muELYYVmpgOJntoDr4vk9Q=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=IsKUyjy/vvwOFYoWiOM6lZZoizOKwCFEO4N+EyDgTKdb7zqwGo4asI5K+rQ10Vuwj
-	 jMl5Zm9uYs9lq9UO4MYdB4/5JZfXbuRdY/lxVC/p2T/EyiUrllwSkx9U8WfGDh0u3g
-	 CWw2je+DxwFgkMDoPwTDBVZdFc5TJqKhBjYc+qd2j0YICJ3l0c8No1NZvVQuBBpXLZ
-	 c0xA9P5GnrDpb11BzLJKViQcuSMGAfXMAm9rcbcb3CbYQGNEp0GjkaX0K5oW/b9bAa
-	 QT+A2klQhexiRQ4AXZ7G7ff62QniZWuVd69nVeZbjVVzFXbQFqqBBliGEKp9z3jvNh
-	 4QezrBYaP9/tg==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5a40b2bc96dso2760269e87.3
-        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 13:16:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/BIOuL2MMFK5L/4hbSQM5WAiHqTXsOCSsByUW5R8oxuMIMXy6ijVn7HkOZfK/Ma7mJBaNpA+Avz0Ps@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKTnOn03d4c00DtSprpKzq5Z4jkE/xXmbgVmHD8aQoGdGp9m1b
-	c2kttur4J/aSLD3+g/civhDcXV/Zkc9KVee2V1iM83vpXVt1V96TQkHIZ/4p1atNk6yYMJx4Z8B
-	vPtSsgHJt27u/gxgP+48SVZECv5Fkne4=
-X-Received: by 2002:a05:6512:ba1:b0:5a2:c05c:118e with SMTP id
- 2adb3069b0e04-5a4172c36e1mr3505118e87.11.1776629797744; Sun, 19 Apr 2026
- 13:16:37 -0700 (PDT)
+	b=cEWHcbDm6vKPyyB+UnYS+7FTWWZc4QZGNpZStMMYR1r0QoeMMS9diRSyhiJKVKZHe
+	 cU/sCS0cE4N8qlvoibxk3BkEYImb6j132yLJQzIiqQtT20fdNcpg7GovnPtPpq2LIe
+	 q+YvVMAZAqAVJNuDSNCGujDttyvAEAhEXrikJm9leb9ZHyQ6qWR3xoVYJsitMZl7qh
+	 uvG6YzHmH3+xWwsMQ/dulyaP2chRh11u3vNJtJKzBSBL9ux2H956JHpm3NMmUPcjjk
+	 i/XoJ7cXrklZ0B0NjF2eQCZk1VCyLaO3MBI0DLnYkmAkiji5rmJDsh8jmvoLFvFqQH
+	 zOmXlgUU4q2Yw==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5a3af1b7549so2947634e87.1
+        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 13:17:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8myI/GKI5lgPmdivQXcEWQTCj4hYD6Dy9RzO7FrrfdSTGXEPvHtsuZ0y0gtKqqsKJ1taMiMLVKLh9K@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyxwqe9MBRVN11nJbtqatvX3sphH5FkaY8+C6wFLiKfBRawANtz
+	CZq3YCO+217ZGrDjxULbXjEaOXjzSt0VYU2hIsDSipp4WFS/uFdSY7ryLnWh4T2PRGwDcR2L34u
+	zgCG7GvB/oaEIUIPk4yNxI1kvPicB3E0=
+X-Received: by 2002:a05:6512:32c8:b0:5a2:7b6e:fbb0 with SMTP id
+ 2adb3069b0e04-5a4172f4fc5mr3763987e87.36.1776629827515; Sun, 19 Apr 2026
+ 13:17:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com> <20260411-waveshare-dsi-touch-v2-15-75cdbeac5156@oss.qualcomm.com>
-In-Reply-To: <20260411-waveshare-dsi-touch-v2-15-75cdbeac5156@oss.qualcomm.com>
+References: <20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com> <20260411-waveshare-dsi-touch-v2-16-75cdbeac5156@oss.qualcomm.com>
+In-Reply-To: <20260411-waveshare-dsi-touch-v2-16-75cdbeac5156@oss.qualcomm.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 19 Apr 2026 22:16:26 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=0i4Z_xt7E4e_1JYJ7J7bGDGpEunS30DxZw3=ioh35jw@mail.gmail.com>
-X-Gm-Features: AQROBzDnFYGHHrw3HiuqBxQobwvrUSVyXOaQI0N4JGjLUJJBSKx7_rBzcGkbSOI
-Message-ID: <CAD++jL=0i4Z_xt7E4e_1JYJ7J7bGDGpEunS30DxZw3=ioh35jw@mail.gmail.com>
-Subject: Re: [PATCH v2 15/21] drm/panel: jadard-jd9365da-h3: support Waveshare
- WXGA DSI panels
+Date: Sun, 19 Apr 2026 22:16:55 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk4WdBjSKOxidrmNFaHnKRoCEJ0BZs75tzGaBs_GgcpVQ@mail.gmail.com>
+X-Gm-Features: AQROBzD4gh7x6mle0p09cPVW0iDsM4bdaCE_PLixWm3RoYCv64TOfpPLn5u7mzs
+Message-ID: <CAD++jLk4WdBjSKOxidrmNFaHnKRoCEJ0BZs75tzGaBs_GgcpVQ@mail.gmail.com>
+Subject: Re: [PATCH v2 16/21] drm/panel: jadard-jd9365da-h3: support Waveshare
+ 720p DSI panels
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
 	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -68,8 +68,8 @@ Content-Transfer-Encoding: quoted-printable
 On Sat, Apr 11, 2026 at 2:11=E2=80=AFPM Dmitry Baryshkov
 <dmitry.baryshkov@oss.qualcomm.com> wrote:
 
-> Add configuration for several Waveshare 8.0" and 10.1" WXGA DSI panels
-> using JD9365 controller
+> Add configuration for Waveshare 9.0" and 10.1" 720p DSI panels using
+> JD9365 controller.
 >
 > Tested-by: Riccardo Mereu <r.mereu@arduino.cc>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
