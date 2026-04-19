@@ -1,80 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from www637.your-server.de (www637.your-server.de [168.119.26.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B522D5C8E
-	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 20:18:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830471A6831;
+	Sun, 19 Apr 2026 20:55:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.26.117
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776629924; cv=none; b=KswAG/snH6snLqQSVpYK09u1mh5MK3lajVa+hTYudsf0Re+WnfaT7TdM6BnPvEIpufBXMB84vONYZQbvxkuZGW0Bct/dZMJxQ0aUHJ251tfm2d8A/gXGUzhwHJlbrqWi5D8uXdQscubIPsiMjeSskaQ1VAaFKLQlcwutDQdor8o=
+	t=1776632119; cv=none; b=YRRdEgp93Tp2XyY5sbZRwTa9m8DKGkmTQLNaHR/zrSS1gYo36bUh4rO273bGspX2y4AI/jp53ZhwZno+BsoACStjCAaKXfrKSIf8avmtKgSPbwFTlA+75WZgiGbA0FzMGRSL6RnjRsZDQZ+idRfKM/UsyWqjndrbyl8jMUBj2xE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776629924; c=relaxed/simple;
-	bh=OLw+eRHqgrO4zkt7f8sg4S1N4ShOJ80xQG0TYWK7Fzk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fdHEqnBlkm7sfMm/Ih01X2EImrN4HAc2OwT2EbyM1/rhHBX78eNOwaoXcPVATpFgj7OTKEd17MtQl3cor2JKWwlj69tS40fcRISS3wM/NCS0xjNbSrcMumPn37sNy6Ry39QgXoaW0CiL6fzSu9CF0al8prb+ws5FbwEEbMv566M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bdqXyam4; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776632119; c=relaxed/simple;
+	bh=mMXd/kazajBIcAdcXmWmpbLcdsL3+deZiodDRu1n87w=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Qn0uxqNcio/udnNp7VolRrDtq2lpFbfNd7M7YSRX60T4BV26H60gYBGDgjinKGtr6rx8CSJ1sSq3LiIjovcY6+1eFF6NdEFm04jrg7YM2w/qW5GBiX/3cP/QbfLX6iI50IjiNtPSbRYX2RocE2ANQrT5pqPbScH3vBWPIJN5S+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=apitzsch.eu; spf=pass smtp.mailfrom=apitzsch.eu; dkim=pass (2048-bit key) header.d=apitzsch.eu header.i=@apitzsch.eu header.b=v/uy9GLB; arc=none smtp.client-ip=168.119.26.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=apitzsch.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=apitzsch.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bdqXyam4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E14DC2BCB4
-	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 20:18:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776629924;
-	bh=OLw+eRHqgrO4zkt7f8sg4S1N4ShOJ80xQG0TYWK7Fzk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=bdqXyam4T54s0JFglAzKfobk/dK1aCbxutS+oHayTXXfHKcPGoDxQSMfQ2+tnWYos
-	 yR7nqQ7s0ulRQyYnm5pURSgZqYKFsE560VmQSLNFXuaeT1M7TfmsgMVgf8/0GYmyZp
-	 k5DDFFuiH5lFoR4vtuFe34Dt/vEmLsGyGsibDClZH3AFBmbZaEAkZbn2Hfym2NPHTZ
-	 N6FZPe025h7lf8IKuJwgm+DkE1X1JiCaVvGnC4OWPVanXkrBfraJtBbGQ0PamLUhfO
-	 SmzgbIcDxVRq86SrH/U9LSiiAboftYMCNUC2B/neKQxfAvX1GiOX35ElYtpxWSVOQ3
-	 +ayrGo2jnsu1A==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5a3af1b7549so2948431e87.1
-        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 13:18:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+1MSnozGvWump7rngWK9DsTBsU4JlrS3md5/9TISZhaVNPItphKmkH/qSlIXkyvJ/G74C4M39HxpGq@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz8jQnuabWStmGm11D9Hc/vWCyOvXpKQVdqX614nHcVF4DgDwcs
-	ShEJb3Of736NS4chgei5XhBfUqBBTQMH+DqXeLiMy1NK37G1QrUtKvkDSSgx4RBqd6MKz86JCAM
-	F+CsMz7+Cq4IX5EHY3vN9XXgqaEQnNFg=
-X-Received: by 2002:a05:6512:6d0:b0:5a4:1b8:1a92 with SMTP id
- 2adb3069b0e04-5a4172e7c28mr3289204e87.21.1776629922903; Sun, 19 Apr 2026
- 13:18:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=apitzsch.eu header.i=@apitzsch.eu header.b="v/uy9GLB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=apitzsch.eu
+	; s=default2410; h=MIME-Version:Content-Transfer-Encoding:Content-Type:
+	References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=8QJGLTOhJGOcLGXJwTPrhXHSouYTwqDUTTa8K1Pchto=; b=v/uy9GLBvVYkrWkA6SvLb0BA3b
+	OVOQMOxwGg8WTYnDAHcWZENwcIOTUsK7b33ebOC1PlFF1BgDGGrpMFW+i7urk9wrSnENETpWPkImJ
+	HuQr4OMQJcT59PG1LDbYS8uJjfTlhxcEOq36HiOrCQObErVWonlQrFZUFUSJ1PYjdOHX1knRTt2iT
+	R52hxwQtG9ix7UYLhmLdPSVOrRBbEFOQCVgOA52As38fbFpSxUxFk0lrmOPThRSFoawdk57jFlovg
+	4Sm3bGq97rT8s5rABh1dvuHdrPrLUvFlhMHXR/oJtCa3s74gkxWnXG/Vvu5iL+MDS22iPpQod7LsK
+	KdEDrucw==;
+Received: from sslproxy08.your-server.de ([78.47.166.52])
+	by www637.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <git@apitzsch.eu>)
+	id 1wEYjL-0006vf-2J;
+	Sun, 19 Apr 2026 22:26:59 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <git@apitzsch.eu>)
+	id 1wEYjK-000FSx-0B;
+	Sun, 19 Apr 2026 22:26:58 +0200
+Message-ID: <a09485c54946b754741259540257393734b518c3.camel@apitzsch.eu>
+Subject: Re: [PATCH RFC 06/10] arm64: dts: qcom: msm8939-asus-z00t: add Venus
+From: =?ISO-8859-1?Q?Andr=E9?= Apitzsch <git@apitzsch.eu>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Erikas Bitovtas
+	 <xerikasxx@gmail.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Bryan O'Donoghue	
+ <bod@kernel.org>, Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio	 <konradybcio@kernel.org>, Michael
+ Turquette <mturquette@baylibre.com>,  Stephen Boyd <sboyd@kernel.org>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+	phone-devel@vger.kernel.org
+Date: Sun, 19 Apr 2026 22:26:56 +0200
+In-Reply-To: <37poakqgqhsuavvrm2dyzwk36syyq44o4cfdsylkzwsupbh2yt@ycdvyrxgnrcs>
+References: <20260416-msm8939-venus-rfc-v1-0-a09fcf2c23df@gmail.com>
+	 <20260416-msm8939-venus-rfc-v1-6-a09fcf2c23df@gmail.com>
+	 <0a5f9bd6-d3ea-4819-8be3-cc5a06ec0339@oss.qualcomm.com>
+	 <ad482bdd-2fb5-432f-be1d-dec25d9cbf5b@gmail.com>
+	 <37poakqgqhsuavvrm2dyzwk36syyq44o4cfdsylkzwsupbh2yt@ycdvyrxgnrcs>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com> <20260411-waveshare-dsi-touch-v2-7-75cdbeac5156@oss.qualcomm.com>
-In-Reply-To: <20260411-waveshare-dsi-touch-v2-7-75cdbeac5156@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 19 Apr 2026 22:18:31 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkfBhdhhYoPwGEt4XghNGuLFaMEHsKPbjEoFGZv_JJiKg@mail.gmail.com>
-X-Gm-Features: AQROBzB3V9CUelEnoDXtHgFP9-TRM15zDUUV4XVkXbwM8iX4PWyJW-UeLgVME0U
-Message-ID: <CAD++jLkfBhdhhYoPwGEt4XghNGuLFaMEHsKPbjEoFGZv_JJiKg@mail.gmail.com>
-Subject: Re: [PATCH v2 07/21] drm/panel: himax-hx83102: support Waveshare
- 12.3" DSI panel
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Cong Yang <yangcong5@huaqin.corp-partner.google.com>, Ondrej Jirman <megi@xff.cz>, 
-	Javier Martinez Canillas <javierm@redhat.com>, Jagan Teki <jagan@edgeble.ai>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Virus-Scanned: Clear (ClamAV 1.4.3/27976/Sun Apr 19 08:26:09 2026)
 
-On Sat, Apr 11, 2026 at 2:11=E2=80=AFPM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
+Hi Dmitry,
 
-> Add support for the Waveshare 12.3" DSI TOUCH-A panel. According to the
-> vendor driver, it uses different mode_flags, so let the panel
-> descriptions override driver-wide defaults.
->
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Am Samstag, dem 18.04.2026 um 02:40 +0300 schrieb Dmitry Baryshkov:
+> On Thu, Apr 16, 2026 at 07:57:30PM +0300, Erikas Bitovtas wrote:
+> >=20
+> >=20
+> > On 4/16/26 6:17 PM, Konrad Dybcio wrote:
+> > > On 4/16/26 3:43 PM, Erikas Bitovtas wrote:
+> > > > Enable Venus video encoder/decoder for Asus ZenFone 2
+> > > > Laser/Selfie.
+> > > >=20
+> > > > Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
+> > > > ---
+> > > > =C2=A0arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts | 8 ++++++++
+> > > > =C2=A01 file changed, 8 insertions(+)
+> > > >=20
+> > > > diff --git a/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
+> > > > b/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
+> > > > index 90e966242720..231a3e9c1929 100644
+> > > > --- a/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
+> > > > +++ b/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
+> > > > @@ -267,6 +267,14 @@ &usb_hs_phy {
+> > > > =C2=A0	extcon =3D <&usb_id>;
+> > > > =C2=A0};
+> > > > =C2=A0
+> > > > +&venus {
+> > > > +	status =3D "okay";
+> > >=20
+> > > You need a firmware path here
+> >=20
+> > When I tested Venus on my device, it loaded without one specified -
+> > msm-firmware-loader creates a symbolic link from modem partition
+> > for firmware. Additionally, none of the MSM8916 devices seem to
+> > include a firmware name. Has something changed since then?
+>=20
+> Us becoming more strict? Or more caring? The default file paths are
+> supposed to be used for unfused devices. So if they don't work with
+> yours (most likely they don't), please add firmware-name:
+>=20
+> firmware-name =3D "qcom/msm8916/Asus/z00t/venus.mbn";
 
-Acked-by: Linus Walleij <linusw@kernel.org>
+For BQ M5 (msm8939-longcheer-l9100), venus works with the firmware
+provided by linux-firmware [1] and the default path (here "qcom/venus-
+1.8/venus.mbn").
 
-Yours,
-Linus Walleij
+Just to be clear, should the firmware-name still be added in this case,
+even if it is the default one?
+
+Best regards,
+Andr=C3=A9
+
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware=
+.git/tree/qcom/venus-1.8
