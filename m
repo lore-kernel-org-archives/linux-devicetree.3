@@ -1,145 +1,120 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95EE7330B3F
-	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 08:30:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0AA378D8B
+	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 08:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776587418; cv=none; b=cqdwwAU28cHZwm3WU+ce2uw0w5yICR7QcPbVkbBaLA+5pVOpq/51s2xO6KhAr+R4TcHWGHE/FokFCuuJaXPAEwu0MBZgnggmucMetiA78Dpq7KUdNs5qwnHBm9NiRV42dAeptHIpBzKhLNNNFev/sPrQQQl6FJwYyA9ug6EQcws=
+	t=1776587513; cv=none; b=TJEU0UkvEl9wmeli3zlm5iu4u7gVEiRZ+AadttZkk0vF+jpB0L50NW9HO/kmAZs7jk3qYqQAoVzVwrvDSQRRyIgbTCYvE6C6ITNb8KffPQ1IT09imDwcolgVXn3OZs7IwkeiSyJCj2JArndnV3S3/A2HEnOuP5og7QNKkS/+yOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776587418; c=relaxed/simple;
-	bh=qtKOfm/PzOwBHxZdRJEmVpIhLYPKyAT3yRn4rvKbC8I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sNKsdlMDjCwrkkGUZr88BGNiI79gYiZ5r3FYbMVnxo3uLxe6UaaFddgaVxJeW7erAllFjBZ8bGtB2C2lZFsB3RdOaIHtz3Js5rnSVWID1vOSHwI3Y+RKCfrcldGg8xljRiwD6Yg2LtEGVcNlfSMdxHw6io2rFMptJM+lCi63ick=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OFRV053y; arc=none smtp.client-ip=209.85.128.42
+	s=arc-20240116; t=1776587513; c=relaxed/simple;
+	bh=gnrgxSiEplSwxVqqHjj5p4vKQYyPxU64rzdSlduHd18=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JVhdGUJx1u8kd9252niDo/hNgEglh8RaWymn1MpQNt6KJqqP+lLgOi1pG/q6jQ48LYijr8GiLlh2uYyFvkwRHKYS4ibubzRcCS4rak8xSZTDYmk8YDdEp9pIRrkVEVx2tPmeuOioxApHSmG7XrQuSFK9OW11aYGBP9bEGAeUb+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JhAubaXY; arc=none smtp.client-ip=209.85.208.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OFRV053y"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-48374014a77so25378615e9.3
-        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 01:30:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JhAubaXY"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-38e800deae4so16450741fa.0
+        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 01:31:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776587416; x=1777192216; darn=vger.kernel.org;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=XwKzTLRiHs5eANohxZZBlyVS97g8sNagXG2LtuYayk8=;
-        b=OFRV053ybFwzWyLwga4u3ftRg0Kra8PG5tIhsnYxwUWprFtoOKuRq2FmXtpbs3h0/R
-         7n1lXk0KC0WqDzXSMFV/HVJkNwBcKewkGkCDAKyClaaZFl5EjMZQnsT6PaNRB3/blwbg
-         Zp/awDPhssDocF4/ZBHegbZuP27hfVnNQcHWjPTypt+CLjrWMnHVoKd2qZk5YzdQj8tz
-         g7xQ5txdhAAFQnCj6E+LK/D7Xc4GKT3Eh+6WK37JZ6fsKytfrloNcgdSiFQZBbVT0Niq
-         AvGf5ycUqbcfmZnpcvsMFJMoZRFLYSWWEDw9SrJZ7o/9ikE03AUGndANg4mFZX7kppgK
-         6SEg==
+        d=gmail.com; s=20251104; t=1776587508; x=1777192308; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=qM81ziYzPfu1Cz3YKli+lVf5D49rHetXa8ChE8aPwFo=;
+        b=JhAubaXYXGF2slYp8hEe7kIwTPNWbqhPCqMfK0suS9zSP6oYYluOxuy826Pn43yNMg
+         7V+uUUuId+q3szsjE3UVyXX01XjvjdssaW//juHrEiAk9bNGcgC5FrT2ULjmrM2VsylX
+         FaIA5uDSPQsed2AioCfbEBgb2K3VjJAj/Ok1qy4qRYwlr/Kt0NUGIVXHeIPZfpll45DG
+         SnvkKojC4wVjx6Q3QWIaFsQuZkQPs7hgBnXba7tDoFyXoPThiHD8ihFQzXLCQRPJR/jb
+         3F0g61Hn2sXXpLPZ0dUxnWtjmvBCo/nzeJ0ryfD52cDT0ABZo2Kirres/6BMnw7MZVyP
+         iVag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776587416; x=1777192216;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=XwKzTLRiHs5eANohxZZBlyVS97g8sNagXG2LtuYayk8=;
-        b=WX0qslkHohMDANKZk00GK3AVK4Icw4g6dH3aPVNr6aA7c7tsT4RmM3ZdH1RGGYrbII
-         zHuudKF4oXkmblfBqG/EWVLHKvKFTwTcE7FM9CI5uG6pX3OvADzEL7RJle48UHeEbXxu
-         2VscmPHW/ggFtPCIoQHAaK3t8Vt6Wx+iWv16jQDil6NfruqMTPenrzAlQjFy5I3NB2vu
-         O0VHQUeGS0djX4EgLGafJ6MiaJI0B69Xonx1ltz0lbLOomm6dxae7/BFV3Q/bMuRWXf6
-         e0aJhrJWGgfAX0K6UlMKurpHHwrosh7grRYggXOmUKsI8uwRc98ImymDRAhGp/G1T8Ol
-         VVSQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+4/R/B3Hxx6mCZd6tO1WLTxOr0AkNDbXvWoRNfs6OgmNQB4MT/P3rxJHcPDycm3uSWRyeawI5Es5Nw@vger.kernel.org
-X-Gm-Message-State: AOJu0YyaHEHFYVLdAxEJpg4ce9yGKvI5wZ7GddJOgVnRUIJ7wefGVy+C
-	HOUtqR1IiAbPWQE3xBjuT1bklcviKn2StizWKsWPht5r11Pvi1DHloYa
-X-Gm-Gg: AeBDiesXlDM9ud+TBApMa+zhLCnIq6hAO+4th8YqmaMtya7y7cpqoBFnPmrMK6XjO4+
-	mTzKhlMHzk+nMI0DaWuWl1MUQbRDlLGP57pBbXiYkSDAQXyuV/Kx9270tYT96N27IScE7xQN7uu
-	7vsx+tUOfV8cI1wAqF0znh/b7LEFzSg1rYWncaaFoLqa+3Rf2lqwE17tijIqH7ooFD3O6tVv/Vl
-	72v3RY1OR4vaFpB+XzuO+p4lbmdBLL1Oic9H+cnUt8GjEthjDt6VWOygP1L/NGq4MjLieETRfiJ
-	/K5zR+c+4YXOqnQRt8drLzrrcOCi10s1j85cd5VLzXnWK+DX8BvTBwPfvJC9SkkkN8RLA1Gdgje
-	6iZLJCNE8ox9LxYVzjSACFbvFF3Tf8BhZvmtW5MQli4l4vrFxXhyIziTndTy5YNGBi78PGPgqDJ
-	BtTsLiiqV8X80GGLWA6tsuvNCKlHgt/KoKf5JXT+00KOVohHkmDqR7E8eieQ==
-X-Received: by 2002:a05:600c:a108:b0:488:a82f:bbb4 with SMTP id 5b1f17b1804b1-488fb78a0famr104158265e9.26.1776587415722;
-        Sun, 19 Apr 2026 01:30:15 -0700 (PDT)
-Received: from strix.localnet ([197.250.227.196])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fc11ced7sm183002605e9.0.2026.04.19.01.30.11
+        d=1e100.net; s=20251104; t=1776587508; x=1777192308;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qM81ziYzPfu1Cz3YKli+lVf5D49rHetXa8ChE8aPwFo=;
+        b=r11iIZk0c8llUjiWnlZvjKlrmMwBSTcJVCE9KPjqBLBCleex6Fxg2ysv0Fmjfv1oTT
+         zWjN74UNKiRowOLGvvIhm2ResDKB/3DftJ+mus7YEOCq7swN93zvr1HM3xbaXGeh2+Dx
+         CkMzDttMtGzeeJAdokz017Gc8qH+Y0xpKAGw141EZcqTaD01don81N3Md6Lom1IX33TP
+         8S8l258vZL2bReCHHxkEb23wqemlhYFOSQpGBJ32bqf8R4Mzgx2yNlO/g3iRz2GUmmSM
+         t8oE9IJtJwd8lP+RlwcoMl/vCGlZjFiUxVutuV+2ahN2TBzEpkQyaRjI596C79f5WsS2
+         BYrg==
+X-Forwarded-Encrypted: i=1; AFNElJ8stMt0ht5VKr7TFMMWRv9dahHS8QpmQymyDUWpUKZriI2ZqeiC0v3uSDwVJY7W7na0YFYAwPODOY/A@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxO9t0NhQzPDjyzkkXqJHHkWSBrju0yUFLfndcuw+2HTf6eNQv
+	1IoJJ6v7ZvhbZu2U75Cv8kNzTWojl/tqNG35Yxd0IncWQ60X+dW+1/Yw
+X-Gm-Gg: AeBDievCwTyAZNw67AM/9zsuQL4kITKbwozJRuPu1ErbRhuWBtwiDh5R5qHJ/xVWc3M
+	h0ERKkf5PsurLfmciWTMs7WYTS2Y1n3Z2ouhrCbq1kIroz5CFKIZRMERnV6JV+PDuzPPcsp0VFm
+	89s4YQHvUfw6sEDflvU0nw05onYW02vcIXdQv4zQD0KABkcmqlkKD893uBedhErXcMVdL7w2rY2
+	rKh6qCgGFHdh0IoCSc/V4OauSqVHFsvouQ3qmrhm6CAdb9pqmcxGOxxbvyYAgz6ZbCh/u5U5ZAT
+	VyU+Xf8JmDYYgkiBK1dXbJ9bc69gU9EPB9/6Gd3Va8CV2tlHee70o10bdTSsr9BLxrmrCNhorl0
+	kYFBp89N1Ed4cqpaq0PH9ajwXJ0/sE0Mc1WO/+WhR3vofef1Nsb2uEdzmsTFNQ1G5Blw9v847pC
+	5RYRPXeZce0OoQYAOOWuY6ym4JffLAZtAcYQ==
+X-Received: by 2002:a05:651c:882:b0:38e:9192:b253 with SMTP id 38308e7fff4ca-38ec7b69c4cmr29093731fa.32.1776587508140;
+        Sun, 19 Apr 2026 01:31:48 -0700 (PDT)
+Received: from xeon ([188.163.112.56])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38ecb7613a9sm17852101fa.41.2026.04.19.01.31.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Apr 2026 01:30:14 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-doc@vger.kernel.org,
- devicetree@vger.kernel.org, Drew Fustini <fustini@kernel.org>,
- Linus Walleij <linusw@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
- Russell King <linux@armlinux.org.uk>, soc@lists.linux.dev,
- Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-serial@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v4 2/8] dt-bindings: arm: Add zx297520v3 board binding
-Date: Sun, 19 Apr 2026 11:30:04 +0300
-Message-ID: <6264667.lOV4Wx5bFT@strix>
-In-Reply-To: <177646012448.2165534.5760108355183774935.robh@kernel.org>
-References:
- <20260416-send-v4-0-e19d02b944ec@gmail.com>
- <20260416-send-v4-2-e19d02b944ec@gmail.com>
- <177646012448.2165534.5760108355183774935.robh@kernel.org>
+        Sun, 19 Apr 2026 01:31:47 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v2 0/3] Update APDS990x ALS to support device trees
+Date: Sun, 19 Apr 2026 11:31:21 +0300
+Message-ID: <20260419083125.35572-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart5099586.31r3eYUQgx";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Content-Transfer-Encoding: 8bit
 
---nextPart5099586.31r3eYUQgx
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Sun, 19 Apr 2026 11:30:04 +0300
-Message-ID: <6264667.lOV4Wx5bFT@strix>
-MIME-Version: 1.0
+Document Avago APDS9900/9901 ALS/Proximity sensor in schema and add its support
+to tsl2772 driver.
 
-Hi Rob,
+---
+Changes in v2:
+- dropped all previous patches
+- apds990x was documented in tsl2772.yaml
+- apds990x support was added to tsl2772.c
+- original apds990x driver removed from misc
+---
 
-Am Samstag, 18. April 2026, 00:08:44 Ostafrikanische Zeit schrieben Sie:
+Svyatoslav Ryhel (3):
+  dt-bindings: iio: light: Document Avago APDS9900/9901 ALS/Proximity
+    sensor
+  iio: tsl2772: add support for Avago APDS9900/9901 ALS/Proximity sensor
+  misc: Remove old APDS990x driver
 
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
+ .../bindings/iio/light/tsl2772.yaml           |    2 +
+ Documentation/misc-devices/apds990x.rst       |  128 --
+ drivers/iio/light/tsl2772.c                   |   16 +
+ drivers/misc/Kconfig                          |   10 -
+ drivers/misc/Makefile                         |    1 -
+ drivers/misc/apds990x.c                       | 1284 -----------------
+ include/linux/platform_data/apds990x.h        |   65 -
+ 7 files changed, 18 insertions(+), 1488 deletions(-)
+ delete mode 100644 Documentation/misc-devices/apds990x.rst
+ delete mode 100644 drivers/misc/apds990x.c
+ delete mode 100644 include/linux/platform_data/apds990x.h
 
-Here is a new PEBKAC issue for your mail template: I ran dt_binding_check, it 
-wrote the warning you pointed out, but I only checked the return value - which 
-indicated success. Which I guess makes sense for a warning, since there seem 
-to be a few preexisting ones. The warning itself was somewhere in the 
-scrollback because I let dt_binding_check check all the files.
-
-So I learned I have to actually look at the output to see if there are any 
-warnings.
-
-Cheers,
-Stefan
-
---nextPart5099586.31r3eYUQgx
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmnkkowbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoiU8AP/33cFyCxCEyOMxTZRv29
-5Ypqo+NuvryxWrpo7I7s2VQvp5/q6NlSpNpmQXLcgkV9mGS6axv15mCZ6py1gJMc
-HSIKkTqWZjzxeHoLZ2oZQCyFbMcPwvGhNK0qP/ckwWkv/4g/UFB9ujycOTFXVERG
-RWQyIvROo7Lb9IN8ozKehzOvD7ga+AjD0i4RQLlaGS/TbHUcDZKWr6+WqJ8SicVV
-wbiQU3cr4lAG7uCbKiAt2Jpcw1Aeuyfyci1hX4jL6KrY+MK6yG39ksq84DPUOgLI
-xR+5Rxitj449eH0hPE20fkrE5UvivbYiCNzkrhyqWn42ahIj5DIBrSayWB0KUjff
-lm6wYdL+yh/9760hh92rYCeNFYOz+kEQECsAHhTwqX73gCWFL5rYXJzFpNudFqXi
-24Yx9+vZm7OhMi+lGJjM1Tn51ztC7MsP0ozz+PAMpuiEl6luLD3ybO3XO0eTEvhZ
-oSylCbtelCVkO3KnW44cSdAspNidQ5Mr1EEXtLxUXOSSFQrmAGXmqmph3vSws7vi
-X3G+z1WQ3VQkpUUfYyzV5AD1IORM+TfeZtFbKUrbr2Brk54ib7UxztFqfuizV2V4
-9FuBUwZE1uXCLz3m7cB5yp+2zNX1AtkF/5STPQJh2hUC+mpbA68beyv6lefWIOKC
-NohR6Eo79ZapFjltX76P8lbO
-=NAGE
------END PGP SIGNATURE-----
-
---nextPart5099586.31r3eYUQgx--
-
-
+-- 
+2.51.0
 
