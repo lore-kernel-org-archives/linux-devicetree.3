@@ -1,159 +1,143 @@
-Received: from fr5000-r.dnsiaas.com (fr5000-r.dnsiaas.com [92.42.104.18])
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADF335AC24;
-	Sun, 19 Apr 2026 12:00:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.42.104.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA0318DB26;
+	Sun, 19 Apr 2026 12:05:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776600017; cv=none; b=NGOPgJzp4lNE5OLX4znAR8zkAwH8xo1HXExfbsuZQ1oS4+e2zuMEM13Hm8zxDAMiwgQRHG7y4j7d//uppeJ8eXtjNYfNq1ipByNH64rkkB7LOBI57/7fj5+BoBqq+7T/k/Ops7lXMgV2k2Zckq17CVYvAuHowRkxvEuxkQNiykw=
+	t=1776600325; cv=none; b=GtbaL+4MvuIuIb9MkG/R5JaPIZlp25fsHXBa9IyfgBJIZaUB8m9QHeLnWsTPGX9+BZ7bPy1ilrPZqRgJv7o/OPf/jkD4KvjOH2EiTxEhIgiYK0+PRTEOK08FnU00UUjYI1lNWKSuzX5gluWAzFWhM7ZrYiFTvYOH1Xa0dPesDik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776600017; c=relaxed/simple;
-	bh=r1SkPPydlBOIm8udGkFqPv+zpQaBol9w5Mkm43oRDw0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Xt6738MXZTpQpgznaIjDw9cnGFmr1kTjpG3ZOUQawJ58ZuwTGwS97vu0gop+8SIdu03wwlWxLdH8jiT8bH7z8M5XskOBxYQFE+gT1PIGxXH8ljg+1A+xCQS/F8jWJ7hcnchtpkE1Yw/xJ55JzRRY6iTEoUaASO4EvhboNW+l4o4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=superkali.me; spf=pass smtp.mailfrom=superkali.me; dkim=pass (2048-bit key) header.d=superkali.me header.i=@superkali.me header.b=Y2lyVA/+; arc=none smtp.client-ip=92.42.104.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=superkali.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=superkali.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=superkali.me header.i=@superkali.me header.b="Y2lyVA/+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=superkali.me; s=default; h=Cc:To:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=TZqO5/zYANJpAE1cS811lXxJvdTPmWyQ/PwqDeOFtrE=; b=Y2lyVA/+6Slvj3tM0jYEF/seQU
-	WU/bjvfV6cGpb0ug+3mWc8anm+Z26nKt/oMqSIAELHjgdMrFLbUlEcQDAw/JteR8Vb0xkbY7o/ctA
-	q8vy9EbHfdzNxA7TyMVncDgYbnw1GwdlM0IoZHYA7m0yMYDOAtad0+T3R7YDkanU6oEX3zZfOVhfF
-	9U1oT4xn4zi2EWqZkxKKLpolP5kF+mth7vQLeVHq+SSM6GXruXv0mijTpCzg8t/U/ss9/owsCrQOO
-	6+o4GTQkw3N/4/qWCOwD1corym25ee3ZuJ+77MIG+iuebhdngVtR6+HeXQlJFCBkEnzQKSMoU6tz5
-	HRKXdhGQ==;
-Received: from [2a0d:52c0:500f:0:89e7:36b:a29f:1abe] (port=50188 helo=1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa)
-	by fr5000-r.dnsiaas.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.1)
-	(envelope-from <hello@superkali.me>)
-	id 1wEQYV-00000000aDt-27Ex;
-	Sun, 19 Apr 2026 13:43:15 +0200
-From: Daniele Briguglio <hello@superkali.me>
-Subject: [PATCH v4 0/5] clk: rockchip: rk3588: add I2S MCLK output gate
- clocks
-Date: Sun, 19 Apr 2026 13:43:05 +0200
-Message-Id: <20260419-rk3588-mclk-gate-grf-v4-0-513a42dd1dcc@superkali.me>
+	s=arc-20240116; t=1776600325; c=relaxed/simple;
+	bh=sU+lBqCy95TUaGp6nCHLuIb1ds3xHsDuiuE6/pgp39U=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Uhy5ghEjnZI0koAPlimYLSTgKfDKdNrgItzC2F4tFKGDUIPjbMz5LmIQlmZer7qvglLmSJ3LUi208UKSBKNM2O6rK7rSnoy8j5JjW1e0/1PbIgW14rgBgPaCi84zL04GIMGLgXG8gozGGgdrpXFbxVNoKNp5qGmTzgn21GMsogU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+	 (Exim 4.99)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1wEQte-000000006Ha-26VQ;
+	Sun, 19 Apr 2026 12:05:06 +0000
+Date: Sun, 19 Apr 2026 13:05:01 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Olivia Mackall <olivia@selenic.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Daniel Golle <daniel@makrotopia.org>, linux-crypto@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH v3 1/2] dt-bindings: rng: mtk-rng: add SMC-based TRNG variants
+Message-ID: <585fc832e4e5d3656bd25ecee6bafb636993104a.1776600269.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XNSw6CMBSF4a2Qjq3py1IcuQ/joJQLNDzTYqMh7
- N3CiBiJw/8k97sz8uAseHRNZuQgWG+HPoY4JcjUuq8A2yI2YoRJwqnEruEXpXBn2gZXegJcuRI
- bkVNFBFelISiejg5K+9rY+yN2bf00uPf2JdB1/QMGigmWsswzzYRMqbr55wiu0a09d4BWM7C9k
- x04LDpGGFVonZNUsh8O3zmMHDg8OpkinCvQpmDmy1mW5QMfzyzySwEAAA==
-X-Change-ID: 20260316-rk3588-mclk-gate-grf-c4b180438fc0
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Daniele Briguglio <hello@superkali.me>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Ricardo Pardini <ricardo@pardini.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776598989; l=3569;
- i=hello@superkali.me; s=20260316; h=from:subject:message-id;
- bh=r1SkPPydlBOIm8udGkFqPv+zpQaBol9w5Mkm43oRDw0=;
- b=lubJrv9kgpydRivH8D+BbR9768NZY1HEJ3CqujvrxTzXg8fOrmAqoWeMWuvpDCyyXu8nuEB/3
- 2A+j1q252vBCmghEYREvT2Jhp0U0Pvpe93GdoI6+3rHr1isnoe8BSHW
-X-Developer-Key: i=hello@superkali.me; a=ed25519;
- pk=5tynRWQdL93CDcapJ73FkcCRY2PeBOJOIAoIhRig53U=
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - fr5000-r.dnsiaas.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - superkali.me
-X-Get-Message-Sender-Via: fr5000-r.dnsiaas.com: authenticated_id: hello@superkali.me
-X-Authenticated-Sender: fr5000-r.dnsiaas.com: hello@superkali.me
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On RK3588, the four I2S master clock (MCLK) outputs to external IO
-pins are gated by bits in SYS_GRF SOC_CON6 (offset 0x0318). These
-are set-to-disable gates with hiword mask semantics.
+Add compatible strings for MediaTek SoCs where the hardware random number
+generator is accessed via a vendor-defined Secure Monitor Call (SMC)
+rather than direct MMIO register access:
 
-The TRM documents the reset value of these bits as 0 (gate open),
-but in practice the Rockchip firmware (BL31) may set them during
-early boot, preventing the MCLK signal from reaching external audio
-codecs. The kernel should manage these gates explicitly so that
-audio functionality does not depend on bootloader register state.
+  - mediatek,mt7981-rng
+  - mediatek,mt7987-rng
+  - mediatek,mt7988-rng
 
-This series adds GATE_GRF clock entries for all four I2S MCLK output
-gates, following the same approach used for the RK3576 SAI MCLK
-output gates [1]. Board DTS files that need MCLK on an IO pin can
-reference these clocks (e.g. clocks = <&cru I2S0_8CH_MCLKOUT_TO_IO>),
-ensuring the output gate is opened when the clock is enabled.
+These variants require no reg, clocks, or clock-names properties since
+the RNG hardware is managed by ARM Trusted Firmware-A.
 
-Patch 1 adds the four clock ID bindings.
-Patch 2 removes the grf_type_sys exclusion from the aux_grf_table
-        lookup, which prevented SYS_GRF-based GATE_GRF entries from
-        being resolved on RK3588 (where ctx->grf points to PHP_GRF).
-Patch 3 introduces rockchip_clk_add_grf(), a helper to register
-        auxiliary GRFs, so SoC drivers don't open-code the aux_grf
-        allocation and hashtable insertion.
-Patch 4 adds the RK3588_SYSGRF_SOC_CON6 register define.
-Patch 5 adds the four GATE_GRF clock entries and registers the
-        SYS_GRF via the new helper.
+Relax the $nodename pattern to also allow 'rng' in addition to the
+existing 'rng@...' pattern.
 
-clk-rk3576.c currently open-codes the same GRF registration pattern
-twice and is an obvious candidate for conversion to the new helper,
-but that refactor is left as a separate follow-up to keep this
-series focused.
+Add a second example showing the minimal SMC variant binding.
 
-Tested on a Youyeetoo YY3588 (RK3588) board with an ES8388 audio
-codec connected to I2S0, and independently on a Mekotronics R58X-Pro
-(ES8388) by Ricardo Pardini.
-
-[1] https://lore.kernel.org/r/20250305-rk3576-sai-v1-2-64e6cf863e9a@collabora.com/
-
-Changes in v4:
-- Introduced rockchip_clk_add_grf() helper and used it in clk-rk3588.c
-  instead of open-coding the aux_grf registration (Heiko)
-- Dropped Reviewed-by from patch 5 since the code was refactored
-
-Changes in v3:
-- Added separate patch for RK3588_SYSGRF_SOC_CON6 register define
-  in rk3588_grf.h, replacing magic 0x0318 (Nicolas)
-- Dropped Reported-by/Closes tags from the driver patch (Nicolas)
-- Added Tested-by from Ricardo Pardini (Mekotronics R58X-Pro)
-
-Changes in v2:
-- Patch 1: shortened commit message (Krzysztof)
-- Driver patch: added missing #include <linux/slab.h> for kzalloc_obj
-  (kernel test robot)
-
-Signed-off-by: Daniele Briguglio <hello@superkali.me>
+Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 ---
-Daniele Briguglio (5):
-      dt-bindings: clock: rockchip,rk3588-cru: add I2S MCLK output to IO clock IDs
-      clk: rockchip: allow grf_type_sys lookup in aux_grf_table
-      clk: rockchip: add helper to register auxiliary GRFs
-      soc: rockchip: rk3588: add SYS_GRF SOC_CON6 register offset
-      clk: rockchip: rk3588: add GATE_GRF clocks for I2S MCLK output to IO
+v3:
+ * drop not: in compatible conditional
+ * add reg/clocks/clock-names: false for mt7981-rng
+ * add else: requiring reg/clocks/clock-names for others
 
- drivers/clk/rockchip/clk-rk3588.c               | 16 ++++++++++++++++
- drivers/clk/rockchip/clk.c                      | 25 +++++++++++++++++++++----
- drivers/clk/rockchip/clk.h                      |  3 +++
- include/dt-bindings/clock/rockchip,rk3588-cru.h |  4 ++++
- include/soc/rockchip/rk3588_grf.h               |  2 ++
- 5 files changed, 46 insertions(+), 4 deletions(-)
----
-base-commit: b84a0ebe421ca56995ff78b66307667b62b3a900
-change-id: 20260316-rk3588-mclk-gate-grf-c4b180438fc0
+v2: express compatibilities with fallback
 
-Best regards,
---  
-Daniele Briguglio <hello@superkali.me>
+ .../devicetree/bindings/rng/mtk-rng.yaml      | 32 ++++++++++++++++---
+ 1 file changed, 28 insertions(+), 4 deletions(-)
 
+diff --git a/Documentation/devicetree/bindings/rng/mtk-rng.yaml b/Documentation/devicetree/bindings/rng/mtk-rng.yaml
+index 7e8dc62e5d3a6..8fe6c209ab1e5 100644
+--- a/Documentation/devicetree/bindings/rng/mtk-rng.yaml
++++ b/Documentation/devicetree/bindings/rng/mtk-rng.yaml
+@@ -11,12 +11,13 @@ maintainers:
+ 
+ properties:
+   $nodename:
+-    pattern: "^rng@[0-9a-f]+$"
++    pattern: "^rng(@[0-9a-f]+)?$"
+ 
+   compatible:
+     oneOf:
+       - enum:
+           - mediatek,mt7623-rng
++          - mediatek,mt7981-rng
+       - items:
+           - enum:
+               - mediatek,mt7622-rng
+@@ -25,6 +26,11 @@ properties:
+               - mediatek,mt8365-rng
+               - mediatek,mt8516-rng
+           - const: mediatek,mt7623-rng
++      - items:
++          - enum:
++              - mediatek,mt7987-rng
++              - mediatek,mt7988-rng
++          - const: mediatek,mt7981-rng
+ 
+   reg:
+     maxItems: 1
+@@ -38,9 +44,23 @@ properties:
+ 
+ required:
+   - compatible
+-  - reg
+-  - clocks
+-  - clock-names
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: mediatek,mt7981-rng
++    then:
++      properties:
++        reg: false
++        clocks: false
++        clock-names: false
++    else:
++      required:
++        - reg
++        - clocks
++        - clock-names
+ 
+ additionalProperties: false
+ 
+@@ -53,3 +73,7 @@ examples:
+             clocks = <&infracfg CLK_INFRA_TRNG>;
+             clock-names = "rng";
+     };
++  - |
++    rng {
++            compatible = "mediatek,mt7981-rng";
++    };
+-- 
+2.53.0
