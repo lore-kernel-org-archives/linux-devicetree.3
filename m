@@ -1,81 +1,111 @@
-Received: from out-183.mta1.migadu.com (out-183.mta1.migadu.com [95.215.58.183])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A220317BCA
-	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 15:46:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F0E27F017;
+	Sun, 19 Apr 2026 16:17:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776613563; cv=none; b=S68DZfqeHd8Q4uvPhVdMJeJ7q8eVWVea61QAPqlUgR1mCX3K+lr7jTwPm64mQzlVa3NmhWesN5d65mFX6hZEBFRRwmjTlVmUO3WhwAk2oPlTayLycnsTqqYpMe1WZbnrYF1VJFT9rvaDW7fZIVo/u7xf8SXoHXYcXmEnQN4rSzo=
+	t=1776615429; cv=none; b=gGW2ExVVCtRQzT6uqf2cot44TdYct+cQkn58RCkQSxJn5Fbf6bRp3e6nPOi1t+rsXV0jrPiGJejTRL0YBWiFwv39dbi3NPmwJI8rev2TYCr71B4hrAhxOZFP9r4UG0p+/SGrHYhL2qjHs6sMdzRW2ZbvpWYJIMOfxi6k/vDFlMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776613563; c=relaxed/simple;
-	bh=Z7GdZ4hyN/F84dEJHs93NcKgZfzSyxC23VhMgNYBFAo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:Message-ID:
-	 MIME-Version:Content-Type; b=SWHiAozbfQk2ERv8U3KDAWAgqD1wEIChZdVKT3fkf1LVk4xa/RIlERo3VKBR0IhK9lFeSZwNDtawAOpDTuDLh2NC1T+JzK6IrJ+j6eCYkpGZlfSAQwgVP1Gjzwr6aNaBOC3KUCc5zZvEwr45TlQSnM/0Twc41Z82f/Yf4dpME94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=j2Zw050W; arc=none smtp.client-ip=95.215.58.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	s=arc-20240116; t=1776615429; c=relaxed/simple;
+	bh=gu8j9P9BZYREGptDZI6c7GCH3d1YmOV0s/aAizdNRIo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FDGscs38/aZC1Zn3IdC8AkhwtUuOgKVE/XG4sWtJqVfrnQChTGQ7qL35YNregHh2Mbfofj7KVfBacZOAxyko1pkoZrQ4KF6vIPRqb9dxQmmVBlJBE3HXESLyb6YbwhLcJPewo2m0yomueUVRrB5XuxvUBmrRNRP0q5y47NfuApY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xaomh4KP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="j2Zw050W"
-Date: Sun, 19 Apr 2026 15:42:51 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
-	s=key1; t=1776613559;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cLT2eB/INmsUfan5ZJAA2c3NcOmLZcowwg74jDCzZuo=;
-	b=j2Zw050Wogbc2NCupEep4CzUQsU7sA3tgzIJaluoWghjIvUaL0f7VP2OZgBqANVGKwEX+W
-	G/Azd3ri6eq84cN/+3ERkL3ueNR5HbXYh4JG3LZCWrtSV2HI+suUWTassAM20Psu757NTv
-	IzHmQCw1pzmfmWBameM/c69i4bkt5/NJq0QN0D4Lp/A4yE6/KkOEfxWtLtbUjg3XHvhH/c
-	iHIsiKEIjwRjVWHIk8xO3VtPfOqFXH16NqXuSDJ5BIzdr3cLEFVxyxpArtbrwM+HLQaEIC
-	mGNo/PUbm0Ztu2c4uF24lNy4HHVlAr6afGwLLP/OMNop4LnSkkoG34OX4daGWQ==
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Ferass El Hafidi <funderscore@postmarketos.org>
-To: linux-amlogic@lists.infradead.org, christian.koever-draxl@student.uibk.ac.at, neil.armstrong@linaro.org, khilman@baylibre.com
-Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, Christian Stefan K=?UTF-8?B?w7Y=?=v=?UTF-8?B?w6k=?=r-Draxl <christian.koever-draxl@student.uibk.ac.at>
-Subject: Re: [PATCH] arm64: dts: amlogic: add support for Amedia X98Q
-References: <20260419150855.121136-1-christian.koever-draxl@student.uibk.ac.at>
-In-Reply-To: <20260419150855.121136-1-christian.koever-draxl@student.uibk.ac.at>
-Message-ID: <tdqzsc.3ut55yjhut283@postmarketos.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xaomh4KP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CBF0C2BCAF;
+	Sun, 19 Apr 2026 16:17:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776615428;
+	bh=gu8j9P9BZYREGptDZI6c7GCH3d1YmOV0s/aAizdNRIo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=Xaomh4KPwIhECfnA406VbWGOWKtCQiIQ+IrgKRAPE08SpfrDF44QHfXYZ3lNic4sz
+	 GMgvDMv/EWx0Dopkdmwqej2Pflbynhe4uzNUOpsWHyEwTpHKJ2NWvpByBJR4g2Iq9d
+	 G4v9B3ZYa1ga5DHxLrcde95pAZpFwhdZca7We+blNdGUm2xAZkg3OdIBTzX7VJEaqW
+	 Wp0CY0Wk1YMv+E1K75yNwaXKqJ/8bpwPc2Iso/qp1ju7GUkHo4PHThziP9ppbFPRUe
+	 HYK9Yf4vZAGf9QQ78tJv1kBz0+BJ/g8PBiI9VicyRdm5GWoYWo9c69E1ncIAj6llQq
+	 NayP18PiIXttA==
+Date: Sun, 19 Apr 2026 17:16:58 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Conor Dooley <conor.dooley@microchip.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] iio: dac: mcp47feb02: add MCP48FEB02 SPI driver to
+ MCP47FEB02 I2C driver
+Message-ID: <20260419171658.2dbb9884@jic23-huawei>
+In-Reply-To: <20260403-mcp47feb02-fix2-v1-2-da60c773550e@microchip.com>
+References: <20260403-mcp47feb02-fix2-v1-0-da60c773550e@microchip.com>
+	<20260403-mcp47feb02-fix2-v1-2-da60c773550e@microchip.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset=utf-8; format=flowed
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, 19 Apr 2026 15:08, christian.koever-draxl@student.uibk.ac.at wrote:
->From: Christian Stefan Kövér-Draxl <christian.koever-draxl@student.uibk.ac.at>
->
->The X98Q is a TV box based on the Amlogic S4 (S905W2) SoC.
->Add the device tree for this board and document the compatible string.
->
->Supported features:
->- 1GB/2GB RAM (via U-Boot memory fixup)
->- 10/100 Ethernet (Internal PHY)
->- eMMC and SD card storage
->- PWM-based CPU voltage regulation
->- UART (Serial console)
->
->Signed-off-by: Christian Stefan Kövér-Draxl <christian.koever-draxl@student.uibk.ac.at>
->---
->- The Wi-Fi chip on this board is Amlogic W150S1. I have left the SDIO node enabled
->  but omitted the specific chip sub-node due to lack of mainline drivers (yet).
->- The console uses uart_b at 921600 baud.
->- Verified memory via /proc/device-tree; U-Boot patches the node to around 2GB if board supports more than 1GB.
->- Tested on the 2GB RAM plus 16GB EMMC variant.
->
+On Fri, 3 Apr 2026 13:50:14 +0300
+Ariana Lazar <ariana.lazar@microchip.com> wrote:
 
-Also, I just noticed now, but you seem to be missing a lot of people in
-your To/Cc. You should use get_maintainer.pl to get the list of
-the people you should send your patch to.
+> This is the iio driver for Microchip MCP48FxBy1/2/4/8 series of
+> buffered voltage output Digital-to-Analog Converters with nonvolatile or
+> volatile memory on top of MCP47FEB02. The families support up to 8
+> output channels and have 8-bit, 10-bit or 12-bit resolution.
+> 
+> The MCP47FEB02 driver was split into three modules: mcp47feb02-core.c,
+> mcp47feb02-i2c.c and mcp47feb02-spi.c in order to support both DAC families
+> - I2C (MCP47F(E/V)BXX) and SPI (MCP48F(E/V)BXX).
+Normal flow is to do a noop refactor for I2C + core split, then a follow
+up patch to add anything new (SPI driver + any changes that are only needed
+by SPI to the core module)
 
-(you can also use b4 (v0.14 is what I use) to make sending patches
-properly much easier)
+> 
+> Fixes: bf394cc80369 ("iio: dac: adding support for Microchip MCP47FEB02")
+> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+> Link: https://lore.kernel.org/all/aY4yaVP2TQFRI1E4@smile.fi.intel.com/
+> ---
+>  MAINTAINERS                       |   4 +
+>  drivers/iio/dac/Kconfig           |  29 +-
+>  drivers/iio/dac/Makefile          |   3 +
+>  drivers/iio/dac/mcp47feb02-core.c | 845 ++++++++++++++++++++++++++++++++++++++
+>  drivers/iio/dac/mcp47feb02-i2c.c  | 145 +++++++
+>  drivers/iio/dac/mcp47feb02-spi.c  | 145 +++++++
+>  drivers/iio/dac/mcp47feb02.h      | 158 +++++++
 
---
-Best regards,
-Ferass
+Given the description I'm a bit lost on why there isn't a mass of code being
+removed from mcp47feb02.c as it migrates to the core library.
+
+Anyhow one thing I noticed whilst glancing through this.
+
+>  7 files changed, 1328 insertions(+), 1 deletion(-)
+
+> diff --git a/drivers/iio/dac/mcp47feb02-spi.c b/drivers/iio/dac/mcp47feb02-spi.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..82e99388ac75860d534d0f2cc05dcc6628d96f6b
+> --- /dev/null
+> +++ b/drivers/iio/dac/mcp47feb02-spi.c
+> @@ -0,0 +1,145 @@
+
+> +
+> +static struct spi_driver mcp47feb02_spi_driver = {
+> +	.driver = {
+> +		.name	= "mcp47feb02",
+> +		.of_match_table = mcp47feb02_of_spi_match,
+
+As attempting to align = is already broken, that is pretty strong example
+for why it is rarely worth the pain.  I'd just use a single space before the =
+in all cases.
+
+> +		.pm	= pm_sleep_ptr(&mcp47feb02_pm_ops),
+> +	},
+> +	.probe		= mcp47feb02_spi_probe,
+> +	.id_table	= mcp47feb02_spi_id,
+> +};
+> +module_spi_driver(mcp47feb02_spi_driver);
