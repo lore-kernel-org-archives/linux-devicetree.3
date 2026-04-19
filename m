@@ -1,129 +1,103 @@
-Received: from www637.your-server.de (www637.your-server.de [168.119.26.117])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830471A6831;
-	Sun, 19 Apr 2026 20:55:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.26.117
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C01FF271A71;
+	Sun, 19 Apr 2026 20:56:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776632119; cv=none; b=YRRdEgp93Tp2XyY5sbZRwTa9m8DKGkmTQLNaHR/zrSS1gYo36bUh4rO273bGspX2y4AI/jp53ZhwZno+BsoACStjCAaKXfrKSIf8avmtKgSPbwFTlA+75WZgiGbA0FzMGRSL6RnjRsZDQZ+idRfKM/UsyWqjndrbyl8jMUBj2xE=
+	t=1776632171; cv=none; b=pGlr0xgFglkldpwJ+Y0FGr5wvSm9BswSTQ7E9XXK/GLmq2roN1oySQvcLC1xZKrNiLk6r14dl+/osZS2Xr4dQrUBsdiYLV5Mk4xhbazb8k4Mp6zLF54CWiRXM2wbUrozmBHbHeggUvRl7/mw1330etUgfCrffJDvGHVxV+pL51c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776632119; c=relaxed/simple;
-	bh=mMXd/kazajBIcAdcXmWmpbLcdsL3+deZiodDRu1n87w=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Qn0uxqNcio/udnNp7VolRrDtq2lpFbfNd7M7YSRX60T4BV26H60gYBGDgjinKGtr6rx8CSJ1sSq3LiIjovcY6+1eFF6NdEFm04jrg7YM2w/qW5GBiX/3cP/QbfLX6iI50IjiNtPSbRYX2RocE2ANQrT5pqPbScH3vBWPIJN5S+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=apitzsch.eu; spf=pass smtp.mailfrom=apitzsch.eu; dkim=pass (2048-bit key) header.d=apitzsch.eu header.i=@apitzsch.eu header.b=v/uy9GLB; arc=none smtp.client-ip=168.119.26.117
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=apitzsch.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=apitzsch.eu
+	s=arc-20240116; t=1776632171; c=relaxed/simple;
+	bh=10s7haxDAajQ345wnYTnCiGJYIwWQeORgzsvCDfqHlM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=g/uhX3ePLDbW+tYUabgpvrbGeuyuUoxb80oJrQ1TZA6PwZdhfpRIMzqrtsz6Ifb8EiC2mRXIhph2dLweT+iyvsELVIs4a+PeNBdah8y0cuQid9PTsr6Sec4Xb+5O08s1dRLqH7gY9K3TI+/9XBcRyByZNplBoZajLr7cK/E2SJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=MNtCF8tv; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=apitzsch.eu header.i=@apitzsch.eu header.b="v/uy9GLB"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=apitzsch.eu
-	; s=default2410; h=MIME-Version:Content-Transfer-Encoding:Content-Type:
-	References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=8QJGLTOhJGOcLGXJwTPrhXHSouYTwqDUTTa8K1Pchto=; b=v/uy9GLBvVYkrWkA6SvLb0BA3b
-	OVOQMOxwGg8WTYnDAHcWZENwcIOTUsK7b33ebOC1PlFF1BgDGGrpMFW+i7urk9wrSnENETpWPkImJ
-	HuQr4OMQJcT59PG1LDbYS8uJjfTlhxcEOq36HiOrCQObErVWonlQrFZUFUSJ1PYjdOHX1knRTt2iT
-	R52hxwQtG9ix7UYLhmLdPSVOrRBbEFOQCVgOA52As38fbFpSxUxFk0lrmOPThRSFoawdk57jFlovg
-	4Sm3bGq97rT8s5rABh1dvuHdrPrLUvFlhMHXR/oJtCa3s74gkxWnXG/Vvu5iL+MDS22iPpQod7LsK
-	KdEDrucw==;
-Received: from sslproxy08.your-server.de ([78.47.166.52])
-	by www637.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <git@apitzsch.eu>)
-	id 1wEYjL-0006vf-2J;
-	Sun, 19 Apr 2026 22:26:59 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <git@apitzsch.eu>)
-	id 1wEYjK-000FSx-0B;
-	Sun, 19 Apr 2026 22:26:58 +0200
-Message-ID: <a09485c54946b754741259540257393734b518c3.camel@apitzsch.eu>
-Subject: Re: [PATCH RFC 06/10] arm64: dts: qcom: msm8939-asus-z00t: add Venus
-From: =?ISO-8859-1?Q?Andr=E9?= Apitzsch <git@apitzsch.eu>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Erikas Bitovtas
-	 <xerikasxx@gmail.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Bryan O'Donoghue	
- <bod@kernel.org>, Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio	 <konradybcio@kernel.org>, Michael
- Turquette <mturquette@baylibre.com>,  Stephen Boyd <sboyd@kernel.org>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
-	phone-devel@vger.kernel.org
-Date: Sun, 19 Apr 2026 22:26:56 +0200
-In-Reply-To: <37poakqgqhsuavvrm2dyzwk36syyq44o4cfdsylkzwsupbh2yt@ycdvyrxgnrcs>
-References: <20260416-msm8939-venus-rfc-v1-0-a09fcf2c23df@gmail.com>
-	 <20260416-msm8939-venus-rfc-v1-6-a09fcf2c23df@gmail.com>
-	 <0a5f9bd6-d3ea-4819-8be3-cc5a06ec0339@oss.qualcomm.com>
-	 <ad482bdd-2fb5-432f-be1d-dec25d9cbf5b@gmail.com>
-	 <37poakqgqhsuavvrm2dyzwk36syyq44o4cfdsylkzwsupbh2yt@ycdvyrxgnrcs>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="MNtCF8tv"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3A8481596;
+	Sun, 19 Apr 2026 13:55:55 -0700 (PDT)
+Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7A8483F915;
+	Sun, 19 Apr 2026 13:55:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1776632160; bh=10s7haxDAajQ345wnYTnCiGJYIwWQeORgzsvCDfqHlM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=MNtCF8tvy8WdHuo8nDQCjkb6kVlS7Tlumm9GF9N22x7MmJE+MxVinmbK9IfyAHt4P
+	 +OnWVARYj7m1U0Dmu392HZMkadjj0YDsE7jMoRmOMZJ/46dJbgzv8xk/3KV/bO8dRG
+	 lZqbfLxDLDRtsE74r0JvPEOYF3cw+wT2k9Z+ljnk=
+Date: Sun, 19 Apr 2026 22:55:39 +0200
+From: Andre Przywara <andre.przywara@arm.com>
+To: Michal Piekos <michal.piekos@mmpsystems.pl>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner
+ <tglx@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai
+ <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
+ Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH 0/4] Add hstimer support for H616 and T113-S3
+Message-ID: <20260419225539.718367e0@ryzen.lan>
+In-Reply-To: <20260419-h616-t113s-hstimer-v1-0-1af74ebef7c5@mmpsystems.pl>
+References: <20260419-h616-t113s-hstimer-v1-0-1af74ebef7c5@mmpsystems.pl>
+Organization: Arm Ltd.
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Virus-Scanned: Clear (ClamAV 1.4.3/27976/Sun Apr 19 08:26:09 2026)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Dmitry,
+On Sun, 19 Apr 2026 14:46:06 +0200
+Michal Piekos <michal.piekos@mmpsystems.pl> wrote:
 
-Am Samstag, dem 18.04.2026 um 02:40 +0300 schrieb Dmitry Baryshkov:
-> On Thu, Apr 16, 2026 at 07:57:30PM +0300, Erikas Bitovtas wrote:
-> >=20
-> >=20
-> > On 4/16/26 6:17 PM, Konrad Dybcio wrote:
-> > > On 4/16/26 3:43 PM, Erikas Bitovtas wrote:
-> > > > Enable Venus video encoder/decoder for Asus ZenFone 2
-> > > > Laser/Selfie.
-> > > >=20
-> > > > Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
-> > > > ---
-> > > > =C2=A0arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts | 8 ++++++++
-> > > > =C2=A01 file changed, 8 insertions(+)
-> > > >=20
-> > > > diff --git a/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
-> > > > b/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
-> > > > index 90e966242720..231a3e9c1929 100644
-> > > > --- a/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
-> > > > +++ b/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
-> > > > @@ -267,6 +267,14 @@ &usb_hs_phy {
-> > > > =C2=A0	extcon =3D <&usb_id>;
-> > > > =C2=A0};
-> > > > =C2=A0
-> > > > +&venus {
-> > > > +	status =3D "okay";
-> > >=20
-> > > You need a firmware path here
-> >=20
-> > When I tested Venus on my device, it loaded without one specified -
-> > msm-firmware-loader creates a symbolic link from modem partition
-> > for firmware. Additionally, none of the MSM8916 devices seem to
-> > include a firmware name. Has something changed since then?
->=20
-> Us becoming more strict? Or more caring? The default file paths are
-> supposed to be used for unfused devices. So if they don't work with
-> yours (most likely they don't), please add firmware-name:
->=20
-> firmware-name =3D "qcom/msm8916/Asus/z00t/venus.mbn";
+Hi Michal,
 
-For BQ M5 (msm8939-longcheer-l9100), venus works with the firmware
-provided by linux-firmware [1] and the default path (here "qcom/venus-
-1.8/venus.mbn").
+> Add support for Allwinner H616 high speed timer in sun5i hstimer driver
+> and describe corresponding nodes in dts for H616 and T113-S3.
+> 
+> H616 uses same model as existing driver except register shift compared
+> to older variants. 
+> 
+> Added register layout abstraction in the driver, extended the binding
+> with new compatibles and wired up dts nodes for H616 and T113-S3 which
+> uses H616 as fallback compatible.
 
-Just to be clear, should the firmware-name still be added in this case,
-even if it is the default one?
+Can you say *why* we need this? IIUC Linux only ever uses one clock
+source, and selects the (non-optional) Generic Timer (aka arch timer)
+for that? So can you say what this hstimer clock source adds? I guess
+higher resolution, but what is your use case, so why would you need the
+200 MHz? And does this offset the higher access cost of an MMIO
+access, compared to the arch timer's sysreg based access? Also, IIUC,
+people would need to manually select this as the clocksource, why and
+when would they do so? (Given they even know about it in the first
+place).
+Also the hstimer hasn't been used since the A20, so nobody seemed to
+have missed it meanwhile?
 
-Best regards,
-Andr=C3=A9
+Cheers,
+Andre
 
+> 
+> Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
+> ---
+> Michal Piekos (4):
+>       dt-bindings: timer: allwinner,sun5i-a13-hstimer: add H616 and T113-S3
+>       clocksource/drivers/sun5i: add H616 hstimer support
+>       arm64: dts: allwinner: h616: add hstimer node
+>       arm: dts: allwinner: t113s: add hstimer node
+> 
+>  .../timer/allwinner,sun5i-a13-hstimer.yaml         |  8 +++-
+>  arch/arm/boot/dts/allwinner/sun8i-t113s.dtsi       | 12 +++++
+>  arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi     |  9 ++++
+>  drivers/clocksource/timer-sun5i.c                  | 56 +++++++++++++++++++---
+>  4 files changed, 78 insertions(+), 7 deletions(-)
+> ---
+> base-commit: faeab166167f5787719eb8683661fd41a3bb1514
+> change-id: 20260413-h616-t113s-hstimer-62939948f91c
+> 
+> Best regards,
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware=
-.git/tree/qcom/venus-1.8
