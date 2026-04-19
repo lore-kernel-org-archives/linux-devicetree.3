@@ -1,125 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from buffalo.tulip.relay.mailchannels.net (buffalo.tulip.relay.mailchannels.net [23.83.218.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D33D244661;
-	Sun, 19 Apr 2026 13:38:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776605881; cv=none; b=f2V480DDgXkUQMqfnlfr2b4iHs/+EDaYCYqbX10aqraRur4yC1YtP2ApX9jFHpcsPN6NUOMMaC30nw6Dl9gFFavCGjri1qkn18kY1ouEEXPYgA8aZ1XQRKrmbLXifMXLGLcFWsOSw6vXb1Lf1iHx6420Z2sWiSQC01n7SKFTuwU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776605881; c=relaxed/simple;
-	bh=6WY595BorbNWnGnJ/EDvEz8w+H+97ZbIq0Q2Gf00ZGE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gInONJzT4xe9JZon3esFHvKvj9zm0eQaLX2zkD55rgMO7y7k6GEC3yKFH4yBX1SoO4j3r1aFqLLkGr7gflhvj1LrBWWNiU0OoixtTOz/cIXB5B/avtvzsJTiNlvTbGSmFlErbTkJl47Hz6dDSF6OyHq2lgYRrIy+eIXUc8dnJrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=onyzH2b1; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3DE333998;
+	Sun, 19 Apr 2026 13:41:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.218.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776606083; cv=pass; b=cvDYmt1DaoT/iXUW6DvyrBCrw6oTNNnHxy5A15acSjUZbeVbEIbfbI2nkoL0kUD1QAfzg1OijoN4FNVKh1TGIe21NyLsRyj95+ZfIZ3aVT/sAD79s1KYi9vZAgmhLP+evPTH1Vx7SUzw8Gy0/8FPc7j9rLdacuPKhzYOiHv6G6M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776606083; c=relaxed/simple;
+	bh=VnFxSTJogffl2XE7uVUb6etkwqqG5nQ1gKXcU/nILEs=;
+	h=Message-ID:MIME-Version:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Date; b=TP6XY5kTjNIqdljvSE2I21ZuniIPFlL9D6kZ6hHgsQEReaFVAGs1/4HePJefxk38ZiRSd+sGAVhoXD76ghYmiurWGpnO9ybqaFDYSMqpKfHod/7jWbFEjkX46Ri4KoN/LFgYiErsiTgt/3HnncF97p0ESJPgBNS05BaLnKNCM54=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=sRVkW/Lt; arc=pass smtp.client-ip=23.83.218.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="onyzH2b1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B086BC2BCAF;
-	Sun, 19 Apr 2026 13:37:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776605881;
-	bh=6WY595BorbNWnGnJ/EDvEz8w+H+97ZbIq0Q2Gf00ZGE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=onyzH2b10RsdQQo0RQ9VXTWosVZynAK1s3DXlO7TMz/4WZoXj7QgUVE0UwqpMJEwP
-	 SFehCsCc+xgE7MOqArqdXbrl2U8PEtDTrxc9I8qM2e8USsZLmjxIq36nV/RtdlJg/s
-	 xEFRT7QjTs1gnz5J/XA78XGt2MUYTAXJXnRSzx4sBxVlQ3m8dMj2wbeOrZK1r8UaDy
-	 SDAGclHdy4hbikShrLOBCNOU6IK5tJI31hxK73e1WeqPZzl9hrDCv3FW4Egw2KDJal
-	 AVVObspcarz6so0QpcG7zjFXxGkk8zFDVyDBqg1nBUIJSEj41moZ9yg5xUerT1aUXU
-	 I1Od5V6AgR8vg==
-Date: Sun, 19 Apr 2026 14:37:51 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] iio: tsl2772: add support for Avago
- APDS9900/9901 ALS/Proximity sensor
-Message-ID: <20260419143751.11ec0b69@jic23-huawei>
-In-Reply-To: <20260419083125.35572-3-clamor95@gmail.com>
-References: <20260419083125.35572-1-clamor95@gmail.com>
-	<20260419083125.35572-3-clamor95@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="sRVkW/Lt"
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id C4BC176216A;
+	Sun, 19 Apr 2026 13:41:15 +0000 (UTC)
+Received: from fr-int-smtpout26.hostinger.io (100-103-3-248.trex-nlb.outbound.svc.cluster.local [100.103.3.248])
+	(Authenticated sender: hostingeremail)
+	by relay.mailchannels.net (Postfix) with ESMTPA id A806B7625CD;
+	Sun, 19 Apr 2026 13:41:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
+	t=1776606075;
+	b=5DiXgn5IjiaI0LEZp3wLsuPdKvUrdNUIf79gh3vibkWPKpw91rGAEoag+sHismIrahBBzF
+	BqsbBN8ylHhF/XcM3W1UOqfzdYyfydqb3jDo3qy2CZtHHMB/FJO+k/XACidaDlMp9wBB82
+	93vwsSHerKgFoFYzvMjhg9PAmL+OxyC0pgjZu6/m3o3jWvMKy4aMlHZ77pJfSC5D53gH54
+	fjrgHtl6XajdibIL3I88CLpl/ZqfpJjZUBqX3F9W3m/m5gkFIP67bpqa0AN4kzNnvxIMNv
+	9gUf65hTVai5bzmT+Am+B4oPeaODDTyso/QDZ0NMMMPONqB2W70qi96H7SbX7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1776606075;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=k3ZegHV/Cy+Vd7QHA2PrtnXvjHee6c7TW3JGeMrYaQs=;
+	b=evGteiemUyJ7t424zGfbZWENhvr5iuVUAlzDFktk6z4lmx0V7ttnV/avvUi0qhma7yCOEL
+	ZElRAumGAGo/WH+x/TBcx4mQZJ62zgkGkFrNz9U8wGlViOz/13T2YZmXrNUDA5aNDBUn9B
+	F/c1nnOw4IorkG6VNE2vZLURoJjIo0Iz7eyKC1FoOit0LBNYrvS7bzp/ql1OMOSnIz0wgG
+	H42xVcSLaSae2k2aUX1guN+Hx8CjKbt3VeI10uozeu6AnXmwakL08Abd1Q/089NPy2S/Xd
+	mDXjj+OBfVHIMP0tvbkJGvuNYJdQgvTtdUbwGcMNTr6qEhdoUfczTSGhsDi6eA==
+ARC-Authentication-Results: i=1;
+	rspamd-5895b9784c-cklvk;
+	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
+X-MailChannels-Auth-Id: hostingeremail
+X-Shoe-Tasty: 6f71109443f2d5fb_1776606075658_2962281406
+X-MC-Loop-Signature: 1776606075658:2584535058
+X-MC-Ingress-Time: 1776606075657
+Received: from fr-int-smtpout26.hostinger.io (fr-int-smtpout26.hostinger.io
+ [148.222.54.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.103.3.248 (trex/7.1.5);
+	Sun, 19 Apr 2026 13:41:15 +0000
+Received: from [IPV6:2001:448a:c020:c3c:d097:d42a:836e:79a] (unknown [IPv6:2001:448a:c020:c3c:d097:d42a:836e:79a])
+	(Authenticated sender: linux@smankusors.com)
+	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4fz8sH2FWqz1xml;
+	Sun, 19 Apr 2026 13:41:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
+	s=hostingermail-a; t=1776606071;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k3ZegHV/Cy+Vd7QHA2PrtnXvjHee6c7TW3JGeMrYaQs=;
+	b=sRVkW/Ltusmhkvn8dBC2v/Kcm7c87/nVx+exry90S4iyrTOLzdoozM2Xn65wmlYARLgZDw
+	nUJf8xW+Yg9aot3JHQ4Q8BqJ8HcgHml+h3JLnbqIE4zdziGx1UDJVUoIhy23cj032DeBuT
+	v52b9b3nb3v+Oy58YiVL/SrPAXerHLU9/eJJp39hBiTyY8ZbWss67iihZDOsIgluXQ/uFq
+	TCPrfhhyMINeA7vcCCQ34dBNnQSXb+6vXuRyyJpisn0qzw2COt/7sq+2zwxbf3+nVfW7k0
+	DyVqV0jMdobi07i52PGU4mFeqIl3gPPHcX47MWfRBwXXvBIbZei4Vex5rj/VFA==
+Message-ID: <71196906-0a06-4647-9080-ac6e7d2741ad@smankusors.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/10] ARM: dts: qcom: msm8960: add SMSM & SPS
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Krzysztof Kozlowski
+ <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org, Rudraksha Gupta <guptarud@gmail.com>
+References: <20260414-msm8960-wifi-v1-0-007fda9d6134@smankusors.com>
+ <20260414-msm8960-wifi-v1-8-007fda9d6134@smankusors.com>
+ <u7buljdmiu2kf5unlqs2jh5u24ymteyrfvbb2drc6ntsei2mqq@yuhjpchgpgh3>
+Content-Language: en-US
+From: Antony Kurniawan Soemardi <linux@smankusors.com>
+In-Reply-To: <u7buljdmiu2kf5unlqs2jh5u24ymteyrfvbb2drc6ntsei2mqq@yuhjpchgpgh3>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+Date: Sun, 19 Apr 2026 13:41:07 +0000 (UTC)
+X-CM-Envelope: MS4xfMHuAEyLu7fY7qdSQn1P7SJ3nktyA4wwwWmntaxPCTCwN7T0+fI9gq32cd86IoZ/CZizMu9sce47R5J3igRoOF28ezWgc9wwSPvyvZoZ1sfzAW+OqiLj 7kfGFPYbESJC1Pkmf2Wczry1JSrPdkJ3e/YPcJ4SdlqCKFBlEG+/j2TXDiPi4CLslY12rRzZc98aUp+kcJ5TJdvfzhY9l8RGhxlYcPH+O1CKh0J8yuENAr5I grNidR3JB2HsiOoA3Okjk6kxcPBINJLhSWwTfcZbeIXMpy1ptJDaVdNIGa40Bm0PaCis1PCR4N2icVc8g+gUtpAlppmNzhSyrAgLFylazbqlrAhj1t16HLn/ YM9Pf0cLDsSUU0LVsSpezoq+lEiG22tLBp4EDwHv72RtXRjnB5+SZC+G8tVnaEDq2Idizx0nB5RDKKEintAYEXzp3DvZRtu1IuUPGoi8ot9gmHnHN4lE3QW4 NLu09iyGkxnyW5AiZpx4COulyw9PhY3cMaJiPGtKJOw+udIu7eJtqMAoDkZ29/sGcTz1b+Ku9oVBCH4CtLUVyL6sX2HbjhIlFzKqWx82FxoUFqShDSIX+8sd EWo7tFRbmZNWfziYCei1XNGUMJiHl3nEn13BifEym0CXZIg3SsGFImBvz8Ejf04Ju3q06x0PmwmibmETOtagncmkvrcASO4OTcdCeKdyLtuLyluNpZdZVDXm m184KlolMWJASbtZ6Lc6yh7fMib1v6/V6yxfhOrkeXZ0PK45tvbMmaGfNVCnI+TufFDxqH/GFQnhauwMAnGuRzSXoKU7iZJL
+X-CM-Analysis: v=2.4 cv=ZbRPNdVA c=1 sm=1 tr=0 ts=69e4db77 a=q8XfeKLTkGORBkIvkVRlwA==:617 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=wxLWbCv9AAAA:8 a=pGLkceISAAAA:8 a=2Liv2LJbaJilggPZqoAA:9 a=QEXdDO2ut3YA:10 a=QJY96suAAestDpCc5Gi9:22
+X-AuthUser: linux@smankusors.com
 
-On Sun, 19 Apr 2026 11:31:23 +0300
-Svyatoslav Ryhel <clamor95@gmail.com> wrote:
-
-> The Avago APDS990x has the same register set as the TAOS/AMS TSL2772 so
-
-A Sashiko review comment makes me wonder about one thing below if the
-register set does match.  Maybe it's a bit more subtle than this
-patch description suggests?
-
-> just add the correct bindings and the appropriate LUX table derived from
-> the values in the datasheet. Driver was tested on the LG Optimus Vu P895.
+On 4/18/2026 11:53 PM, Dmitry Baryshkov wrote:
+> On Tue, Apr 14, 2026 at 01:55:35AM +0700, Antony Kurniawan Soemardi via B4 Relay wrote:
+>> From: Antony Kurniawan Soemardi <linux@smankusors.com>
+>>
+>> Add the Shared Memory State Machine node to coordinate state transitions
+>> between the Applications processor and the Riva subsystem.
+>>
+>> Tested-by: Rudraksha Gupta <guptarud@gmail.com>
+>> Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
+>> ---
+>>   arch/arm/boot/dts/qcom/qcom-msm8960.dtsi | 30 ++++++++++++++++++++++++++++++
+>>   1 file changed, 30 insertions(+)
+>>
+>> diff --git a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
+>> index 218cf3158dfb..107c5613aa4a 100644
+>> --- a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
+>> +++ b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
+>> @@ -109,6 +109,31 @@ smem {
+>>   		hwlocks = <&sfpb_mutex 3>;
+>>   	};
+>>   
+>> +	smsm {
+>> +		compatible = "qcom,smsm";
+>> +
+>> +		#address-cells = <1>;
+>> +		#size-cells = <0>;
+>> +
+>> +		qcom,ipc-1 = <&l2cc 8 4>;
+>> +		qcom,ipc-2 = <&l2cc 8 14>;
+>> +		qcom,ipc-3 = <&l2cc 8 23>;
+>> +		qcom,ipc-4 = <&sps_sic_non_secure 0x4094 0>;
+>> +
+>> +		apps_smsm: apps@0 {
+>> +			reg = <0>;
+>> +			#qcom,smem-state-cells = <1>;
+>> +		};
+>> +
+>> +		wcnss_smsm: wcnss@3 {
+>> +			reg = <3>;
+>> +			interrupts = <GIC_SPI 204 IRQ_TYPE_EDGE_RISING>;
+>> +
+>> +			interrupt-controller;
+>> +			#interrupt-cells = <2>;
+>> +		};
 > 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  drivers/iio/light/tsl2772.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
-> diff --git a/drivers/iio/light/tsl2772.c b/drivers/iio/light/tsl2772.c
-> index c8f15ba95267..8dab34bf00ca 100644
-> --- a/drivers/iio/light/tsl2772.c
-> +++ b/drivers/iio/light/tsl2772.c
-> @@ -127,6 +127,7 @@ enum {
->  	tmd2672,
->  	tsl2772,
->  	tmd2772,
-> +	apds990x,
->  	apds9930,
->  };
->  
-> @@ -221,6 +222,12 @@ static const struct tsl2772_lux tmd2x72_lux_table[TSL2772_DEF_LUX_TABLE_SZ] = {
->  	{     0,      0 },
->  };
->  
-> +static const struct tsl2772_lux apds990x_lux_table[TSL2772_DEF_LUX_TABLE_SZ] = {
-> +	{ 52000,  115960 },
-> +	{ 36400,   73840 },
-> +	{     0,       0 },
-> +};
-> +
->  static const struct tsl2772_lux apds9930_lux_table[TSL2772_DEF_LUX_TABLE_SZ] = {
->  	{ 52000,  96824 },
->  	{ 38792,  67132 },
-> @@ -238,6 +245,7 @@ static const struct tsl2772_lux *tsl2772_default_lux_table_group[] = {
->  	[tmd2672] = tmd2x72_lux_table,
->  	[tsl2772] = tsl2x72_lux_table,
->  	[tmd2772] = tmd2x72_lux_table,
-> +	[apds990x] = apds990x_lux_table,
->  	[apds9930] = apds9930_lux_table,
->  };
->  
-> @@ -289,6 +297,7 @@ static const int tsl2772_int_time_avail[][6] = {
->  	[tmd2672] = { 0, 2730, 0, 2730, 0, 699000 },
->  	[tsl2772] = { 0, 2730, 0, 2730, 0, 699000 },
->  	[tmd2772] = { 0, 2730, 0, 2730, 0, 699000 },
-> +	[apds990x] = { 0, 2720, 0, 2720, 0, 696000 },
->  	[apds9930] = { 0, 2730, 0, 2730, 0, 699000 },
->  };
->  
-> @@ -316,6 +325,7 @@ static const u8 device_channel_config[] = {
->  	[tmd2672] = PRX2,
->  	[tsl2772] = ALSPRX2,
->  	[tmd2772] = ALSPRX2,
-> +	[apds990x] = ALSPRX,
+> Are there other SMSMs (modem, Q6, DSPS)? If so and if you are going to
+> send another revision, could you please add those?
+Yes there are. But I've intentionally left them out for now since
+they're unrelated to this Wi-Fi enablement series and I currently have
+no way to test them without bringing up the modem, audio, and/or video
+subsystems first.
 
-This is different from tsl2772?
+I think it's cleaner to keep this series focused on what's verifiable
+today and handle the rest in a future separate series. What do you
+think?
 
->  	[apds9930] = ALSPRX2,
->  };
-
+-- 
+Thanks,
+Antony K. S.
