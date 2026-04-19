@@ -1,70 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E441E8320;
-	Sun, 19 Apr 2026 08:42:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99A83002BB
+	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 09:34:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776588144; cv=none; b=lF9GO+r9f1Pcas0elv+tqX+Dux3jW21KU3N1fn6OBhXmW5+c1W8+lAwVOEZ+dcOxuJFbBVUNhIZQbyaQ4Hb+4ca7uHA/VftA1MlGStRc0Ugt2YyO1bgfEg/RQs68fzSHwtLH5YcEgAHAV65x1cCcB3QddW9dW0sA/5gJmpWtOag=
+	t=1776591278; cv=none; b=t75eX2Izc6O1L6JMKH4U8WB9LKC582CS2w8I2MZNXPve3pHEATRnEl5iTP0FRu9tsyiZ/JMv6IYS36rPPjwfU3Yrk9CvyJq/aho2TiCyeTK8UXeNWAmnb6XPfXL3pXrE5Ga68cQem5U3xsniKbh3MVXHGc+ASP5dlTw+UCrgCDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776588144; c=relaxed/simple;
-	bh=MOL7VmBpAWH10DRxbdQF2yMii79Js7aAazFeqba1Et4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DRvwaz0vBPBTP0jDWb+mfRwb/oifG+1CYsGItEmo7F3pU8fiOiSE/Z1x759SRGpNPItDU5xcvGrb/jUxmfrJRcwL94YMywb/fiWcEREHiVMDVnd5+GWxKtSsZwbI2OzFSjXVYpYxakwVtKvyjAoj8gMo+SMcqjCBCexHz9PkI5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=i7/XB3Wu; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776591278; c=relaxed/simple;
+	bh=norNfde2cZxGgr7iCJx3n/UVpBzudP2qM89x8qgS1b8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h+ekCeBr9KyNEp/4ZKcAIDVrQTqrF0ws+BtXgoGeYRxoO5nWlWKC0+5A9LOyQAFZw0ItDtk56B5h+Ian+SaCNBR3EH4sFOk3NswXWy548Bo0kAsePZSvF+OMhUN+7RpppHIqRhMZMDzwRwJibp/2eTM9Z5YxjwS0c+dkDUysjLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zl6oi0IA; arc=none smtp.client-ip=209.85.208.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="i7/XB3Wu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C89FAC2BCAF;
-	Sun, 19 Apr 2026 08:42:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1776588143;
-	bh=MOL7VmBpAWH10DRxbdQF2yMii79Js7aAazFeqba1Et4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=i7/XB3Wuf5bSTDFleMu2lB3nxGebqJLARqhfemi8uIbNA0+d/wqmW8+zCYzIFyTiB
-	 7tvX0TYAzP3GkqLcV2cxDE1h9sD1MloIyaFvUftuYwabUL1Nf1rq++yYhQtk/Mvp5u
-	 HNqQ+aC1HQwFUz/xcZs6SQnGS5DWHlB71U5+906M=
-Date: Sun, 19 Apr 2026 10:42:20 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zl6oi0IA"
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-38dd575bca3so30129141fa.1
+        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 02:34:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776591274; x=1777196074; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0/2aUHxdqDtp+3Z99o+AnFQJqjm5BGPJpL3yuh69NhM=;
+        b=Zl6oi0IA7lpu+i7E/xp0y4TRY7uzWJvQ1zo6BAS5oOpAZ1obZLp11Ytn3wfkNmyVUJ
+         r7hU6v60uN60FioQOlb8dFp9k706X2Jd82uXif2EVDV7jdamqMkXJlwAAsRtXLHW8O0/
+         LBvFVoO8+UQUAFB1yZWwZtsncuuVejN2Xv2XlYRNoiZ8b1/Nwl828Arr5Cd1OkxVo8LF
+         6fpSC+oovOdpKIXp9GeN+YIe17ZUs/QD1Tw4juIDxroK+q1I23Tz96ihoJv41OrI+lXg
+         ZZDojhWK+pus3WGM25zeLdEC8hS+WfqDJ4X7yEb2FuL437OMarCwoiSYNy82zgr1k+eV
+         gWKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776591274; x=1777196074;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0/2aUHxdqDtp+3Z99o+AnFQJqjm5BGPJpL3yuh69NhM=;
+        b=g12JT2iq3hawt9zI0CLrO0nbrOPpDW9w80gCdQNyOZotQCsnoNy/jJwTHw0RjMlo0P
+         4VTYoWANaj1LqMHCtsfbc+J8y8whZioF37GM3yqMofHYSrNcET7ggkR5/VETRbPsfQD8
+         nX0Ohm+nSEkBm4w5ul/6iv3vk928c2HYwG0fGU1zpP77QCE73YrKg6gJxdQ2zjT6zP74
+         9Ga3bi3XH3Hr6EfGqT6pV5RgKOfptzqLVljbrfqZdUglsgRWao8I0kX2UHkO9xtnrgf5
+         YRm+9t5N1yTv+dVQHg5jFG75p9R7RXq23pmS4ZuTkcSz+zTKSoarBE5zDGBg4/ddl1Tf
+         Mmng==
+X-Forwarded-Encrypted: i=1; AFNElJ+UhZx1N46gYScGQ65EN8VGjjI9sI3Lfi5s9GJnrRzfy4EHis1Hn32nB4VnRfDmO9JqWFaTYWjO99Sb@vger.kernel.org
+X-Gm-Message-State: AOJu0YxhSV6yvXje6PX66mVnFhboFRuHN0+VW2HkL/21ABl9FjM1H8+p
+	NqSCBEq8YMAIUdbHqNGHwsP/DNoUsR7dhgNnzRgYzNbADVlTwGaCz0mK
+X-Gm-Gg: AeBDiev0Lcaf3/B0Gmvy3RLC3PKEQVaAhG22skspSKkAQUWtn5hNNraYobdlg+axG8m
+	D9K6GuEiEo+xzELQMhw7Cy3me3sMroPsYmrEtuaeZJRERK4NBImbKFatbFsYnIudl4VO8mw8F2K
+	TqLyErEJG7vNkMVBPcdoQ+O983wBcZLJaLiOdpU3+VFirnPq2Y6X0xw375PH7DlsfI6Jvkm15lY
+	LBbPD5wGzUmB0wUloGvLKSLGlLL2WAxH9MUrEz08k46yUzbI/LI/DtUQFwx7vpQwMydXXafnwoh
+	vLHrIqgwSyaTl9eiNomLSvPVkv/UwpVW7P8BYQG9xCZ9RK+G8VybWJ6uXaacnn40sVdyTaRnLL6
+	aITuxcLzecjAReVNf5XDzcEg/Qlu5ZUUyFOH/IEHi1165lgO1Io/twOSk07JxWUrI/H5GMp2rbd
+	mrGqRFj6sFEcgZgPVamJpwcCvDFDtAvYhS9Q==
+X-Received: by 2002:a2e:3302:0:b0:38e:9415:eb2b with SMTP id 38308e7fff4ca-38ec8fb23d5mr17461481fa.3.1776591273968;
+        Sun, 19 Apr 2026 02:34:33 -0700 (PDT)
+Received: from xeon ([188.163.112.56])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38ecb7613a9sm18221671fa.41.2026.04.19.02.34.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Apr 2026 02:34:33 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>, Randy Dunlap <rdunlap@infradead.org>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] misc: Remove old APDS990x driver
-Message-ID: <2026041913-coziness-fragrant-74ad@gregkh>
-References: <20260419083125.35572-1-clamor95@gmail.com>
- <20260419083125.35572-4-clamor95@gmail.com>
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org
+Subject: [PATCH v2 0/5] media: lm3560: convert to use OF bindings
+Date: Sun, 19 Apr 2026 12:34:07 +0300
+Message-ID: <20260419093412.40796-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260419083125.35572-4-clamor95@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Apr 19, 2026 at 11:31:24AM +0300, Svyatoslav Ryhel wrote:
-> The Avago APDS9900/9901 ALS/Proximity sensor is now supported by tsl2772
-> IIO driver so there is no need to keep this old implementation. Remove it.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  Documentation/misc-devices/apds990x.rst |  128 ---
->  drivers/misc/Kconfig                    |   10 -
->  drivers/misc/Makefile                   |    1 -
->  drivers/misc/apds990x.c                 | 1284 -----------------------
->  include/linux/platform_data/apds990x.h  |   65 --
->  5 files changed, 1488 deletions(-)
->  delete mode 100644 Documentation/misc-devices/apds990x.rst
->  delete mode 100644 drivers/misc/apds990x.c
->  delete mode 100644 include/linux/platform_data/apds990x.h
+Add missing HWEN input pin and IN supply. Fix v4l2 subdev registration.
+Remove platform data and switch to OF device tree bindings.
 
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+Changes in v2:
+- vendor properties swapped with generic LED properties
+- added mutex lock usage optimization
+- power supply and enable gpio commits squashed into PM
+  configuration since they are both required in making
+  proper on/off sequence.
+---
+
+Svyatoslav Ryhel (5):
+  dt-bindings: leds: Document TI LM3560 Synchronous Boost Flash Driver
+  media: i2c: lm3560: Fix v4l2 subdev registration
+  media: i2c: lm3560: Optimize mutex lock usage
+  media: i2c: lm3560: Convert to use OF bindings
+  media: i2c: lm3560: Add support for PM features
+
+ .../devicetree/bindings/leds/ti,lm3560.yaml   | 131 +++++++++
+ drivers/media/i2c/lm3560.c                    | 262 ++++++++++++++----
+ include/media/i2c/lm3560.h                    |  15 -
+ 3 files changed, 340 insertions(+), 68 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3560.yaml
+
+-- 
+2.51.0
+
