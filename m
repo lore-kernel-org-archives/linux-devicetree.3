@@ -1,158 +1,108 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fr5000-r.dnsiaas.com (fr5000-r.dnsiaas.com [92.42.104.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB0633689C
-	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 11:51:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776599470; cv=pass; b=h//LsW8MBSUPgBXeCKe+bX353Gr9euTk9/PfdQKDhdQtRr69f+52WYKjap/n5kJKHjrCb7ybI9xFg8T5ybygyMk3kLL3a7al3SKoHRHMgW6gQDYrYw8epyf7BdCtEHKh8hdqDpptIKgRCLNf4OxiDaug7Vdk3Ut8J4aovHOMsC0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776599470; c=relaxed/simple;
-	bh=YFp/ewbau35oN7gDA56jyAxYeb909Rw3ZdgCe0T18io=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jnl4mMNUDL6OjYGKx5aOFvGojYsTIQMsiE912GTtlTiMWIh5R+7OzcN+a/v0ZaIABxZMqElBtyGX5HWwlVFiYtRLIR18HpHjGRKFPPAHqYIt4wT7918+AO4jHyR8uSSS1lZ0btqj+cDhpO8N0RryfuSXjLQ+k58nH/21iNs6z7I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ULlXizHi; arc=pass smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE68733EAE4;
+	Sun, 19 Apr 2026 12:00:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.42.104.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776600012; cv=none; b=aYFDFli11alvsO6YVzaGCynmpdLrx6PNuESV2JYMHGjEK+jLu2AHxZ1aONyAagkvGa89/NH8LPkkfiVvC3V7ZP/4S/HiTMLGEJbq64NzZR7UFImQQcFM/W2sRP+1t2Kr5ESeabMluXOFek3NVznIE9Py51fCekjupyg3tFKcmOk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776600012; c=relaxed/simple;
+	bh=s/jc/s6Rzr1Mg/JbVnbKEPF1NVKRtlMfsACn6kbFdKc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GONHiTNpqZHSquADeCVvWHahVC0ukv8NGPQsNpFR3NNVl+gbMgWGvlcvH8oQ3W9WtxnvW9HR7VijRxPdYRnWSlQlEFgMnRQOu45BFpFN08z+Cl1/9AtxVfkxiyR1tGoqZV6DhAYZ6RwQxfaSq8EIccRPyUKDqDT3+JOPQCQDZtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=superkali.me; spf=pass smtp.mailfrom=superkali.me; dkim=pass (2048-bit key) header.d=superkali.me header.i=@superkali.me header.b=iVSs40kM; arc=none smtp.client-ip=92.42.104.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=superkali.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=superkali.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ULlXizHi"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-43d77f60944so1628657f8f.3
-        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 04:51:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776599467; cv=none;
-        d=google.com; s=arc-20240605;
-        b=e4qlD1zGDvNSWYlurzEU+6HSAvvqLprQIj9HgdTeJoi9FYKNcChHofWj7jQr55XxdU
-         NBAm2k01CByYR+8F/GY5ohUmD4FVyZuEJ3ccxi73Zf6yx+H7bC02lmgvLUQFqgRR64rr
-         uk50Xk+k1z/ZdXJ6KEcZcExIM4IIitrFwsjUyraI7QIb5wyRIhYG/0Cf5Ivd/wIMgmG4
-         g6LwWBQGiSLq5jtK6w2wPlOv4CqpyawBGn61JPSC7UmJQwagBuXwYG7TSAwpMvN3c1iZ
-         HP8dXS9Iokvx/QM6xJMvmGYHAxRb22tXYDnbNICTs+IiJjDSEOr+J5HvztoW4WRnnqaN
-         sICQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tncWQPfYyaqZlRgPygAaRhu74GKThm47UJdwkoBU6aE=;
-        fh=MlGuxw7BA5XtNl35kKx2v0UUDcmCcnURfpEtZAIp/rE=;
-        b=icI7Js14far3chGFYYUoB2bitXkkh2MwIT4kDricrJWraRLY6eT+UCmXVbw7DrR2Q3
-         +Jqdz/pdHTWsscCq+s5ARw7JghIeb1fnnJFrpY+IEcY2w/OIGHmbWnTr27BqsevFR7tS
-         EZy72EJgkgpOaNkolke2Fvuj52EAGaNnzdMI6CIjaHLcFwlOzGUlhWjV/bnwaeepoAxW
-         Sjj1bfyFeXKW/jrwdut6Zf3ayfDrqIQovjQlgHer+8bbJtUK5wsL+/fCi5iA2tU5ZFqk
-         2obXB895MUAqwicA6rSUD/T8FGpltIsYcrkrlwVmUP/gBSfoC7wWnTNVnK8xy3ojKYBw
-         G+rQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776599467; x=1777204267; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tncWQPfYyaqZlRgPygAaRhu74GKThm47UJdwkoBU6aE=;
-        b=ULlXizHiYDjudHl9qXhJkmL+V3dEip6uM5SHtuB5Z+uKFiJJIHbVopdSvws/mWI5Li
-         AVhXE1kDBm06a919Lz6TfPql8hdQ8WRki8hLSxwzNrUpyxnIb3UckqJbzecVetT1PJH6
-         HfoAu1PJhxvVRtmYAojgLLcqpK8Jtn/2nu2dvZC6HomStMhvvp2MUREp4x15gvCR6gjl
-         AZ6b+M5VW68nyHOeiiXRFIjl/bmvu2eJNxcDzxWobI8w2IBJDH6I/3l5CORfZF3ed1Om
-         SWsW5vnemQIKTD51TQBJCMrtP5GLxavNCo/aoexnZ1bP47RM4Isxkm2cG8Dqf0UtppHc
-         RY8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776599467; x=1777204267;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=tncWQPfYyaqZlRgPygAaRhu74GKThm47UJdwkoBU6aE=;
-        b=H4VaH6Ofrf+F9Mynr/pOl4FQXhZVdzkNLwd+eIjl6KgvkXKTWy2jKx3xNKis00l3aP
-         aGnpBvwMaATI7arFP68hG9lNi1JYudx2VKuaw3eP9hvHEMoBs+1WTkeXwZHnAqnI7jEp
-         BNV3+0QhTMf0B29x9+yTTwUMQSZvmbc5xIWBJfiBVs9xEaFe6hHSAUs5x9QQOF/rzmK6
-         lZxuBRL2AzKEnfMu5jHhxQbfrbATSRjJ4fahlC5LPFHnSzkP4J5MRnvaUF6FYB2yQVxI
-         XsxVpUWAgscQZMEWIyG1YpzqKVrda6PlDagpW5JFAc5/nQwkwmDeqSMHbAO9RYr5lrZI
-         1Djw==
-X-Forwarded-Encrypted: i=1; AFNElJ9gXPhbKywbkwGj77VCO94ANWbASHnR+7ZdzW/DaHlAQ32rHDLK9iAoKII83C9m9h4q6f+EMxzBlqc/@vger.kernel.org
-X-Gm-Message-State: AOJu0YyymkPYk4yfXtLkLc+OmPeQVNtpuz2beeTQkZebOISljgpDFPz5
-	YYqTPidqC9yh9FfHwt1Epjst0TnW6R1CFhwrC3CQrNezXkvhYmOLpf0ZjzkGUzTge1Rk+yYZd2p
-	dYdW15viHyx2u06v5xRB0BzEbiyAAlBw=
-X-Gm-Gg: AeBDieuPQQsytDA0Yx9XXcd1JZCFk7xh5CEiC//MAgApCwsw70/olEM9kh2KiKxdBHi
-	WwHSF0tU4X9MwKoc92Ht/T4PGfBO2W1FeGlWk69++T2CPpJyc6nqpb9XuuKpAAGr8jv+Iw/XRLM
-	eGTnn1MOtek5uCdsWQFo2iVH9Dlwt7Bvb9n9MXuyFqz+hEg8BIZce3W/udHPTN/JXO5ftHDu6ZK
-	c6PydgJXEWLyhTBiGf+Ngg587sn0W4c2gMliO4/xT3NAleLaAcBNzGsCAfwPcfpUu5oyK7AF/XN
-	PazM12t+b7UCGZDYySQ=
-X-Received: by 2002:a5d:5f82:0:b0:437:711c:8754 with SMTP id
- ffacd0b85a97d-43fe3dc842bmr14658844f8f.7.1776599467085; Sun, 19 Apr 2026
- 04:51:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=superkali.me header.i=@superkali.me header.b="iVSs40kM"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=superkali.me; s=default; h=Cc:To:In-Reply-To:References:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=4r6wkkKWx0HfcJZH7gXeKF9oJ6zCw/C5ilURSEcdU7I=; b=iVSs40kMSXExWxcYbEJbIbjbDf
+	ECnVYZWEBKwfGf0YIINpQ162mgyPLpr28/iFUwwUxAnXTGbfdENdTKw75J/fhYIDDLR0XBd2OMxNx
+	swfnoyMhOpOsDvHDhQPi0+c4zkTMpdJVUdY/GgzzYamn63axl1nQbtm368NqB91iINv7f4FT5wgDP
+	KNx5TJZXxKhCWb+GE/0O262KZQcJix4nTJX1A44NST7+eEFtxJZGfs/fu1b7X/3BXX1tPyy6ExF+Q
+	a4/IkefBTkZ6tBfNMOdTmcj1WKEnlSbw6IgQI8kMqP+SvKTW0VVf4ZP02q2grZOqEXR1NBoiOXj1S
+	sUMS1V/A==;
+Received: from [2a0d:52c0:500f:0:89e7:36b:a29f:1abe] (port=50188 helo=1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa)
+	by fr5000-r.dnsiaas.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.1)
+	(envelope-from <hello@superkali.me>)
+	id 1wEQYa-00000000aDt-0lKr;
+	Sun, 19 Apr 2026 13:43:19 +0200
+From: Daniele Briguglio <hello@superkali.me>
+Date: Sun, 19 Apr 2026 13:43:06 +0200
+Subject: [PATCH v4 1/5] dt-bindings: clock: rockchip,rk3588-cru: add I2S
+ MCLK output to IO clock IDs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260419083125.35572-1-clamor95@gmail.com> <20260419083125.35572-3-clamor95@gmail.com>
- <20260419122950.67355f4c@jic23-huawei>
-In-Reply-To: <20260419122950.67355f4c@jic23-huawei>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Sun, 19 Apr 2026 14:50:55 +0300
-X-Gm-Features: AQROBzDe6HM4uuoI0FaMpknWQm05f0KEdcarfEIwiYOb4XhXkmoLtebse2uUQdc
-Message-ID: <CAPVz0n1iB9iC+TFrGK5ajXjdk8-g8vzr4ZbXdvW5=F8iukanaA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] iio: tsl2772: add support for Avago APDS9900/9901
- ALS/Proximity sensor
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260419-rk3588-mclk-gate-grf-v4-1-513a42dd1dcc@superkali.me>
+References: <20260419-rk3588-mclk-gate-grf-v4-0-513a42dd1dcc@superkali.me>
+In-Reply-To: <20260419-rk3588-mclk-gate-grf-v4-0-513a42dd1dcc@superkali.me>
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Daniele Briguglio <hello@superkali.me>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776598989; l=975;
+ i=hello@superkali.me; s=20260316; h=from:subject:message-id;
+ bh=s/jc/s6Rzr1Mg/JbVnbKEPF1NVKRtlMfsACn6kbFdKc=;
+ b=jw66JKq81FohyP0tMKSSjcJsOwW+DXQwziYnEDIpT+1Q2qulTJ8m59TDX2Zh03coMQCR6OY8R
+ 0EvaB9eLU0EAHNvi77q+yT+5gWokt5HSY562mq/tLJW43Nq2cFjkdel
+X-Developer-Key: i=hello@superkali.me; a=ed25519;
+ pk=5tynRWQdL93CDcapJ73FkcCRY2PeBOJOIAoIhRig53U=
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - fr5000-r.dnsiaas.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - superkali.me
+X-Get-Message-Sender-Via: fr5000-r.dnsiaas.com: authenticated_id: hello@superkali.me
+X-Authenticated-Sender: fr5000-r.dnsiaas.com: hello@superkali.me
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-=D0=BD=D0=B4, 19 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 14:3=
-0 Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Sun, 19 Apr 2026 11:31:23 +0300
-> Svyatoslav Ryhel <clamor95@gmail.com> wrote:
->
-> > The Avago APDS990x has the same register set as the TAOS/AMS TSL2772 so
-> > just add the correct bindings and the appropriate LUX table derived fro=
-m
-> > the values in the datasheet. Driver was tested on the LG Optimus Vu P89=
-5.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> Hi Svyatoslav,
->
-> Just one small thing.
->
-> Experience has given me a strong aversion to the use of wildcards
-> in naming within drivers.  They go wrong too often because companies
-> can seem to resist using similar names for very different parts.
->
+Add clock identifiers for the four I2S MCLK output to IO gate clocks
+on RK3588, needed by board DTS files where the codec requires MCLK
+from the SoC on an external IO pin.
 
-Noted.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Daniele Briguglio <hello@superkali.me>
+---
+ include/dt-bindings/clock/rockchip,rk3588-cru.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> > ---
-> >  drivers/iio/light/tsl2772.c | 16 ++++++++++++++++
-> >  1 file changed, 16 insertions(+)
-> >
-> > diff --git a/drivers/iio/light/tsl2772.c b/drivers/iio/light/tsl2772.c
-> > index c8f15ba95267..8dab34bf00ca 100644
-> > --- a/drivers/iio/light/tsl2772.c
-> > +++ b/drivers/iio/light/tsl2772.c
-> > @@ -127,6 +127,7 @@ enum {
-> >       tmd2672,
-> >       tsl2772,
-> >       tmd2772,
-> > +     apds990x,
->
-> As above, just name this after one of the supported parts. apds9900
-> That doesn't stop you using it for multiple compatible devices.
->
-> Same applies for all the uses of x as a wildcard.
->
+diff --git a/include/dt-bindings/clock/rockchip,rk3588-cru.h b/include/dt-bindings/clock/rockchip,rk3588-cru.h
+index 0c7d3ca2d5bc..7528034cff56 100644
+--- a/include/dt-bindings/clock/rockchip,rk3588-cru.h
++++ b/include/dt-bindings/clock/rockchip,rk3588-cru.h
+@@ -734,6 +734,10 @@
+ #define PCLK_AV1_PRE			719
+ #define HCLK_SDIO_PRE			720
+ #define PCLK_VO1GRF			721
++#define I2S0_8CH_MCLKOUT_TO_IO		722
++#define I2S1_8CH_MCLKOUT_TO_IO		723
++#define I2S2_2CH_MCLKOUT_TO_IO		724
++#define I2S3_2CH_MCLKOUT_TO_IO		725
+ 
+ /* scmi-clocks indices */
+ 
 
-If this is the only thing keeping you from picking this patchset may I
-resend with apds990x fixed right away?
+-- 
+2.53.0
 
-> thanks,
->
-> Jonathan
->
-> >       apds9930,
-> >  };
->
