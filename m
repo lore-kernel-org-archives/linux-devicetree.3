@@ -1,103 +1,144 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C01FF271A71;
-	Sun, 19 Apr 2026 20:56:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7DCB2D5C7A
+	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 21:19:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776632171; cv=none; b=pGlr0xgFglkldpwJ+Y0FGr5wvSm9BswSTQ7E9XXK/GLmq2roN1oySQvcLC1xZKrNiLk6r14dl+/osZS2Xr4dQrUBsdiYLV5Mk4xhbazb8k4Mp6zLF54CWiRXM2wbUrozmBHbHeggUvRl7/mw1330etUgfCrffJDvGHVxV+pL51c=
+	t=1776633594; cv=none; b=caShGJrsxTMZQL563AwYMPnMbDFoQ0Yni44gVnmX80cMKZQoS3CxPJEfqJ2QRK8RNFjB5Z9jmioNESEmkJzx06Gxv/SEtG7B57DXhjHytpGrrEkcjfm+81bfr2Dm3w0pHLav3ZEfq6yraMMg1UVq5KPX6M/nVGLF9c6emYOWzFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776632171; c=relaxed/simple;
-	bh=10s7haxDAajQ345wnYTnCiGJYIwWQeORgzsvCDfqHlM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=g/uhX3ePLDbW+tYUabgpvrbGeuyuUoxb80oJrQ1TZA6PwZdhfpRIMzqrtsz6Ifb8EiC2mRXIhph2dLweT+iyvsELVIs4a+PeNBdah8y0cuQid9PTsr6Sec4Xb+5O08s1dRLqH7gY9K3TI+/9XBcRyByZNplBoZajLr7cK/E2SJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=MNtCF8tv; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1776633594; c=relaxed/simple;
+	bh=z9YbvWBNcBN/kiRFkQ6KPbSsQhW/tBBXUVGnpF4Bmp8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j+vqfwihCA14In0Zedb4xKaGHC4TRZObesRAFvLFizoEwA7Bo2Fm4QBgidVfLso/QjJ0uQW57/cqIuVpuwQTSGcyCuFqrufEC7I52ivDDNenqYrflAvaGTdGpYJ1T3YFZ7CI2haDKzUhfhZOR8W0muK9WUXeiZ/YY6W/3YGt5VQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBLgetj9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="MNtCF8tv"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3A8481596;
-	Sun, 19 Apr 2026 13:55:55 -0700 (PDT)
-Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7A8483F915;
-	Sun, 19 Apr 2026 13:55:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1776632160; bh=10s7haxDAajQ345wnYTnCiGJYIwWQeORgzsvCDfqHlM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=MNtCF8tvy8WdHuo8nDQCjkb6kVlS7Tlumm9GF9N22x7MmJE+MxVinmbK9IfyAHt4P
-	 +OnWVARYj7m1U0Dmu392HZMkadjj0YDsE7jMoRmOMZJ/46dJbgzv8xk/3KV/bO8dRG
-	 lZqbfLxDLDRtsE74r0JvPEOYF3cw+wT2k9Z+ljnk=
-Date: Sun, 19 Apr 2026 22:55:39 +0200
-From: Andre Przywara <andre.przywara@arm.com>
-To: Michal Piekos <michal.piekos@mmpsystems.pl>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner
- <tglx@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai
- <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
- Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH 0/4] Add hstimer support for H616 and T113-S3
-Message-ID: <20260419225539.718367e0@ryzen.lan>
-In-Reply-To: <20260419-h616-t113s-hstimer-v1-0-1af74ebef7c5@mmpsystems.pl>
-References: <20260419-h616-t113s-hstimer-v1-0-1af74ebef7c5@mmpsystems.pl>
-Organization: Arm Ltd.
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBLgetj9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94F1CC2BCB8
+	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 21:19:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776633593;
+	bh=z9YbvWBNcBN/kiRFkQ6KPbSsQhW/tBBXUVGnpF4Bmp8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=EBLgetj9NxEaAOYhlFeKYGK4lGLnbVmRASOWvmVhBRsyIPQhrMOwZ5KWaLROJdv5k
+	 MA8IG8AJWcIYLALvFc1iS6yV97tskuiGJD0BHr5wfBXSziCGItvYeGoMsFJ2WNm+nm
+	 moZklfet4zaMrHYF4XNT5uAQ6NKOfB/Va66TkwYqHAg8ExLX8sKH3Iz3RNAoNLrVFq
+	 lmfAsD4BLMVHgBnx49J5/Q3pP6N2z1j+f1Oy9sW4hQHtv/c9mJManCMx2URT7Gudo9
+	 YTdM3+LSbdnp2+xEpZJU9eJ3qQL23cOoPulh2d5cxsWThnqO/EF39rnL47ZaZ9J5bp
+	 afbCo17nvO0Zw==
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5a0ff30b240so3438928e87.0
+        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 14:19:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+BF9h6vZELY6S6qOZ9c7fAv8m9LrAqsvWlmeZvbxMUNEVLlW/Hiw3bVjmvHC9L3c2NVvElbTqDcK5E@vger.kernel.org
+X-Gm-Message-State: AOJu0YzoDu+AfBhxJ1vRiylaj6/B5sKJwPNrhfdK9xOlwL0hvUvW9PJe
+	W4HE7HfypnP89b4X9o3EVz6MSWmddIGyb4iGxAKizNHL6GzeOwIlIpqf13L0Sci8223s4YWTYlt
+	uVzZhXvF5c/eX5SbuQZhbnbYqcfUGiLA=
+X-Received: by 2002:a05:6512:ad1:b0:5a3:ff5a:d6c with SMTP id
+ 2adb3069b0e04-5a4172c756amr3690813e87.14.1776633592265; Sun, 19 Apr 2026
+ 14:19:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260408025243.1155482-1-eleanor.lin@realtek.com>
+ <20260408025243.1155482-4-eleanor.lin@realtek.com> <CAMRc=MfUh_OuxS4SC6QzSOg_PMNc9i9crGYgBASrbVUgHDHSCw@mail.gmail.com>
+ <52bf9ce2b7754af8af69b0afee0d07b2@realtek.com>
+In-Reply-To: <52bf9ce2b7754af8af69b0afee0d07b2@realtek.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Sun, 19 Apr 2026 23:19:40 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkpS-T9yK=ctSwpLvXkj7s7ivmwu1KKwzy4KS40LVYeyA@mail.gmail.com>
+X-Gm-Features: AQROBzAE2Y02h6LgmsVRXzFjBD7tYm8hngF_phTFw6dYL2PfXyxOmjtiC-kfPNE
+Message-ID: <CAD++jLkpS-T9yK=ctSwpLvXkj7s7ivmwu1KKwzy4KS40LVYeyA@mail.gmail.com>
+Subject: Re: [PATCH v2 3/4] gpio: realtek: Add driver for Realtek DHC RTD1625 SoC
+To: =?UTF-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>, 
+	Michael Walle <mwalle@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, 
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+	"linux-realtek-soc@lists.infradead.org" <linux-realtek-soc@lists.infradead.org>, 
+	=?UTF-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>, 
+	=?UTF-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>, 
+	=?UTF-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>, 
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "afaerber@suse.com" <afaerber@suse.com>, 
+	=?UTF-8?B?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 19 Apr 2026 14:46:06 +0200
-Michal Piekos <michal.piekos@mmpsystems.pl> wrote:
+Hi Yu-Chun,
 
-Hi Michal,
+On Fri, Apr 10, 2026 at 11:39=E2=80=AFAM Yu-Chun Lin [=E6=9E=97=E7=A5=90=E5=
+=90=9B]
+<eleanor.lin@realtek.com> wrote:
 
-> Add support for Allwinner H616 high speed timer in sun5i hstimer driver
-> and describe corresponding nodes in dts for H616 and T113-S3.
-> 
-> H616 uses same model as existing driver except register shift compared
-> to older variants. 
-> 
-> Added register layout abstraction in the driver, extended the binding
-> with new compatibles and wired up dts nodes for H616 and T113-S3 which
-> uses H616 as fallback compatible.
+> We did look into gpio-mmio and gpio-regmap, but they are not quite suitab=
+le for
+> our platform due to the specific hardware design:
+>
+> 1. Per-GPIO Dedicated Registers: Unlike typical GPIO controllers that pac=
+k 32 pins
+> into a single 32-bit register (1 bit per pin), our hardware uses a dedica=
+ted 32-bit
+> register for each individual GPIO. This single register controls the
+> input/output state, direction, and interrupt trigger type for that specif=
+ic pin.
 
-Can you say *why* we need this? IIUC Linux only ever uses one clock
-source, and selects the (non-optional) Generic Timer (aka arch timer)
-for that? So can you say what this hstimer clock source adds? I guess
-higher resolution, but what is your use case, so why would you need the
-200 MHz? And does this offset the higher access cost of an MMIO
-access, compared to the arch timer's sysreg based access? Also, IIUC,
-people would need to manually select this as the clocksource, why and
-when would they do so? (Given they even know about it in the first
-place).
-Also the hstimer hasn't been used since the A20, so nobody seemed to
-have missed it meanwhile?
+Isn't that attainable by:
 
-Cheers,
-Andre
+- setting .ngpio_per_reg to 1 in struct gpio_regmap_config
 
-> 
-> Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
-> ---
-> Michal Piekos (4):
->       dt-bindings: timer: allwinner,sun5i-a13-hstimer: add H616 and T113-S3
->       clocksource/drivers/sun5i: add H616 hstimer support
->       arm64: dts: allwinner: h616: add hstimer node
->       arm: dts: allwinner: t113s: add hstimer node
-> 
->  .../timer/allwinner,sun5i-a13-hstimer.yaml         |  8 +++-
->  arch/arm/boot/dts/allwinner/sun8i-t113s.dtsi       | 12 +++++
->  arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi     |  9 ++++
->  drivers/clocksource/timer-sun5i.c                  | 56 +++++++++++++++++++---
->  4 files changed, 78 insertions(+), 7 deletions(-)
-> ---
-> base-commit: faeab166167f5787719eb8683661fd41a3bb1514
-> change-id: 20260413-h616-t113s-hstimer-62939948f91c
-> 
-> Best regards,
+- extend .reg_mask_xlate callback with an enum for each operation
+  (need to change all users of the .reg_mask_xlate callback but
+  who cares, they are not many):
 
+e.g.
+
+enum gpio_regmap_operation {
+    GPIO_REGMAP_GET_OP,
+    GPIO_REGMAP_SET_OP,
+    GPIO_REGMAP_SET_WITH_CLEAR_OP,
+    GPIO_REGMAP_GET_DIR_OP,
+    GPIO_REGMAP_SET_DIR_OP,
+};
+
+ int (*reg_mask_xlate)(struct gpio_regmap *gpio,
+                              enum_gpio_regmap_operation op,
+                              unsigned int base,
+                              unsigned int offset, unsigned int *reg,
+                              unsigned int *mask);
+
+This way .reg_mask_xlate() can hit different bits in the returned
+*mask depending on operation and it will be find to pack all of
+the bits into one 32bit register.
+
+Added Michael Walle to the the thread, he will know if this is a
+good idea.
+
+> 2. Write-Enable (WREN) Mask Mechanism: Our hardware requires a specific W=
+rite-Enable
+> mask to be written simultaneously when updating the register values.
+
+Which is to just set bit 31.
+
+With the above scheme your .reg_mask_xlate callback can just set bit 31
+no matter what operating you're doing. Piece of cake.
+
+> 3. Hardware Debounce: We also need to support hardware debounce settings =
+per pin,
+> which requires custom configuration via set_config mapped to these specif=
+ic per-pin
+> registers.
+
+Just add a version of an optional .set_config() call to gpio-regmap.c
+to handle this using .reg_mask_xlate() per above and add a new
+GPIO_REGMAP_CONFIG_OP to the above enum, problem solved.
+
+If it seems too hard I can write patch 1 & 2 adding this infrastructure
+but I bet you can easily see what can be done with gpio-regmap.c
+here provided Michael W approves the idea.
+
+Yours,
+Linus Walleij
