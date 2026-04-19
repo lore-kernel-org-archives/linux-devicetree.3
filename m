@@ -1,266 +1,100 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+Received: from s106b.cyber-folks.pl (s106b.cyber-folks.pl [195.78.66.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA7F2E1F0E;
-	Sun, 19 Apr 2026 12:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB5473463;
+	Sun, 19 Apr 2026 12:47:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.78.66.88
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776600325; cv=none; b=GEN7M/rOvDoBQhGVWUM5ZrI6tufNyuc+8LYY2DFZCHpoTuhZC4lSk81xKM/gWOkgrtWiyygKwmJw+RWdfvnCi4uh5DMgDq5bqHWmRNeWFjNKgkd2HdXzB+1cQKjE0Kzf/X1B4pc0IMR/cXtBSyp0by6a7SkjaLIJTVaSsPoU6j0=
+	t=1776602844; cv=none; b=Lw77NZXN2uqawBxPDlxi+iKWNtQO3PhDVRbKSLwsJt3fhWY/GWFAe1OpSOIr5M2o4afht8+qXXzHCWbclthJkq9rRUoMXDCn+j+n+T0PzkwhXALfrcJkAiabWGcSwrHqkHEck+dwNERBzl1XrWiYx7mTyV2ikZSr1m1yWfSQITo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776600325; c=relaxed/simple;
-	bh=hdzhi2G+9D/Vf+uOgAxmlCr+SPwKVjQQdTXDS51x7IA=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yl21yo6ZXNt3q8wh1uxe3btoblvhp1jlTfmKQyN6zcr2gS/raX7979c2r5YWNusLbjg9VZq3uiAwpo8aTAYatnLjOvlqvW5l3VJnGEZWP+IJ/HN7KDAIbbExAtHtU6CqkmcY9eohTzD9TwXGRUcPLk10WXOqZy0XGAo4JFI7emc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
-	 (Exim 4.99)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1wEQtn-000000006Hd-3fA8;
-	Sun, 19 Apr 2026 12:05:15 +0000
-Date: Sun, 19 Apr 2026 13:05:13 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Daniel Golle <daniel@makrotopia.org>, linux-crypto@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH v3 2/2] hwrng: mtk - add support for hw access via SMCC
-Message-ID: <7ebe4162e0e150cbe092c9e254bc933bb91b4989.1776600269.git.daniel@makrotopia.org>
-References: <585fc832e4e5d3656bd25ecee6bafb636993104a.1776600269.git.daniel@makrotopia.org>
+	s=arc-20240116; t=1776602844; c=relaxed/simple;
+	bh=Ig02Ia886PvDCutXjdfrwpVcl7mRn3EDpKbJ7k34tmk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=HvB0aIfh/MVwyH9yNk9BMXNarPw04/HV+Q9oeYrcLegxUZTE7mr/taiR2aDVf85Eygd9KM4t7wipdrE2wxgXnStXVhrvxdwFKUDNXEePLNAVKuDv4GSExPN6KUT2JsO38B4b+w20Sc5CcAu+5x+bR1ivWtI3VvCy5u+8IW+TgIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mmpsystems.pl; spf=pass smtp.mailfrom=mmpsystems.pl; dkim=pass (2048-bit key) header.d=mmpsystems.pl header.i=@mmpsystems.pl header.b=alQhAJP7; arc=none smtp.client-ip=195.78.66.88
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mmpsystems.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mmpsystems.pl
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mmpsystems.pl header.i=@mmpsystems.pl header.b="alQhAJP7"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=mmpsystems.pl; s=x; h=Cc:To:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=CKOtsXDJcG0jDyOs/E1laUSgylmDBg7JVi69SXGBKH0=; b=alQhAJP7tyqN5X1VDvX2dghx0W
+	y4sLfD6xuynMppx31aUOAh9CREt/zRHnaKGUmixMvZJUZmjmNOH/osTRoUCFpK42/cuy6t9ktxuBi
+	qBR9vUQHAG0RgZO42koXO1zGPJDviDWD3iyli6jgcdTZgDtKys3RevFB7eqHEn1qA5FffOBEFWztq
+	pIf4etKKee5W4AgkZ6/2r+c/boYWZWlCt8GgQInk5PkQRNnm+PfSPV5kgeP6bdmwMC0ndSVxnsTm0
+	fW3cvWmVq0eZV5FoLNE/beSpQJr6WVD1WxhJk0mVBbjoyd3Xr7/4idJCjMpk1GL92yPhiwgGEw7++
+	Z0ofq9Fg==;
+Received: from user-5-173-16-91.play-internet.pl ([5.173.16.91] helo=localhost)
+	by s106.cyber-folks.pl with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <michal.piekos@mmpsystems.pl>)
+	id 1wERYT-0000000Fbcq-0WDP;
+	Sun, 19 Apr 2026 14:47:17 +0200
+From: Michal Piekos <michal.piekos@mmpsystems.pl>
+Subject: [PATCH 0/4] Add hstimer support for H616 and T113-S3
+Date: Sun, 19 Apr 2026 14:46:06 +0200
+Message-Id: <20260419-h616-t113s-hstimer-v1-0-1af74ebef7c5@mmpsystems.pl>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <585fc832e4e5d3656bd25ecee6bafb636993104a.1776600269.git.daniel@makrotopia.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAI7O5GkC/x3MPQqAMAxA4atIZgOmlWK9ijiIpjaDPzQiQvHuF
+ sdveC+DchJW6KsMiW9ROfYCqiuY47SvjLIUg2mMa1qyGB05vIisYtRLNk7ojLfet13wNEMJz8R
+ Bnn86jO/7AQpxxBNkAAAA
+To: Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ Michal Piekos <michal.piekos@mmpsystems.pl>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776602788; l=1244;
+ i=michal.piekos@mmpsystems.pl; s=20260301; h=from:subject:message-id;
+ bh=Ig02Ia886PvDCutXjdfrwpVcl7mRn3EDpKbJ7k34tmk=;
+ b=P72Zmpvb3tqGJ3FjNsRAhiu1NsSrvHIbMbWLAUANOSfQweRTZEGoFDQVDqlCouTp48oQ3stJJ
+ +t02yiKhdCYCrX/sRv5S9eZa4852+xqmhA7UtsvwEfODiQxp4aQA1/+
+X-Developer-Key: i=michal.piekos@mmpsystems.pl; a=ed25519;
+ pk=Aixyx03If7ZDamiKKN0lsa+0mtA+WjIuIf2ZQVYNBqg=
+X-Authenticated-Id: michal.piekos@mmpsystems.pl
 
-Newer versions of ARM TrustedFirmware-A on MediaTek's ARMv8 SoCs no longer
-allow accessing the TRNG from outside of the trusted firmware.
-Instead, a vendor-defined custom Secure Monitor Call can be used to
-acquire random bytes.
+Add support for Allwinner H616 high speed timer in sun5i hstimer driver
+and describe corresponding nodes in dts for H616 and T113-S3.
 
-Add support for newer SoCs (MT7981, MT7987, MT7988).
+H616 uses same model as existing driver except register shift compared
+to older variants. 
 
-As TF-A for the MT7986 may either follow the old or the new
-convention, the best bet is to test if firmware blocks direct access
-to the hwrng and if so, expect the SMCC interface to be usable.
+Added register layout abstraction in the driver, extended the binding
+with new compatibles and wired up dts nodes for H616 and T113-S3 which
+uses H616 as fallback compatible.
 
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
 ---
-v3: unchanged
-v2: unchanged
+Michal Piekos (4):
+      dt-bindings: timer: allwinner,sun5i-a13-hstimer: add H616 and T113-S3
+      clocksource/drivers/sun5i: add H616 hstimer support
+      arm64: dts: allwinner: h616: add hstimer node
+      arm: dts: allwinner: t113s: add hstimer node
 
- drivers/char/hw_random/mtk-rng.c | 127 ++++++++++++++++++++++++++-----
- 1 file changed, 106 insertions(+), 21 deletions(-)
+ .../timer/allwinner,sun5i-a13-hstimer.yaml         |  8 +++-
+ arch/arm/boot/dts/allwinner/sun8i-t113s.dtsi       | 12 +++++
+ arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi     |  9 ++++
+ drivers/clocksource/timer-sun5i.c                  | 56 +++++++++++++++++++---
+ 4 files changed, 78 insertions(+), 7 deletions(-)
+---
+base-commit: faeab166167f5787719eb8683661fd41a3bb1514
+change-id: 20260413-h616-t113s-hstimer-62939948f91c
 
-diff --git a/drivers/char/hw_random/mtk-rng.c b/drivers/char/hw_random/mtk-rng.c
-index 5808d09d12c45..8f5856b59ad66 100644
---- a/drivers/char/hw_random/mtk-rng.c
-+++ b/drivers/char/hw_random/mtk-rng.c
-@@ -3,6 +3,7 @@
-  * Driver for Mediatek Hardware Random Number Generator
-  *
-  * Copyright (C) 2017 Sean Wang <sean.wang@mediatek.com>
-+ * Copyright (C) 2026 Daniel Golle <daniel@makrotopia.org>
-  */
- #define MTK_RNG_DEV KBUILD_MODNAME
- 
-@@ -17,6 +18,8 @@
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-+#include <linux/arm-smccc.h>
-+#include <linux/soc/mediatek/mtk_sip_svc.h>
- 
- /* Runtime PM autosuspend timeout: */
- #define RNG_AUTOSUSPEND_TIMEOUT		100
-@@ -30,6 +33,11 @@
- 
- #define RNG_DATA			0x08
- 
-+/* Driver feature flags */
-+#define MTK_RNG_SMC			BIT(0)
-+
-+#define MTK_SIP_KERNEL_GET_RND		MTK_SIP_SMC_CMD(0x550)
-+
- #define to_mtk_rng(p)	container_of(p, struct mtk_rng, rng)
- 
- struct mtk_rng {
-@@ -37,6 +45,7 @@ struct mtk_rng {
- 	struct clk *clk;
- 	struct hwrng rng;
- 	struct device *dev;
-+	unsigned long flags;
- };
- 
- static int mtk_rng_init(struct hwrng *rng)
-@@ -103,6 +112,56 @@ static int mtk_rng_read(struct hwrng *rng, void *buf, size_t max, bool wait)
- 	return retval || !wait ? retval : -EIO;
- }
- 
-+static int mtk_rng_read_smc(struct hwrng *rng, void *buf, size_t max,
-+			    bool wait)
-+{
-+	struct arm_smccc_res res;
-+	int retval = 0;
-+
-+	while (max >= sizeof(u32)) {
-+		arm_smccc_smc(MTK_SIP_KERNEL_GET_RND, 0, 0, 0, 0, 0, 0, 0,
-+			      &res);
-+		if (res.a0)
-+			break;
-+
-+		*(u32 *)buf = res.a1;
-+		retval += sizeof(u32);
-+		buf += sizeof(u32);
-+		max -= sizeof(u32);
-+	}
-+
-+	return retval || !wait ? retval : -EIO;
-+}
-+
-+static bool mtk_rng_hw_accessible(struct mtk_rng *priv)
-+{
-+	u32 val;
-+	int err;
-+
-+	err = clk_prepare_enable(priv->clk);
-+	if (err)
-+		return false;
-+
-+	val = readl(priv->base + RNG_CTRL);
-+	val |= RNG_EN;
-+	writel(val, priv->base + RNG_CTRL);
-+
-+	val = readl(priv->base + RNG_CTRL);
-+
-+	if (val & RNG_EN) {
-+		/* HW is accessible, clean up: disable RNG and clock */
-+		writel(val & ~RNG_EN, priv->base + RNG_CTRL);
-+		clk_disable_unprepare(priv->clk);
-+		return true;
-+	}
-+
-+	/*
-+	 * If TF-A blocks direct access, the register reads back as 0.
-+	 * Leave the clock enabled as TF-A needs it.
-+	 */
-+	return false;
-+}
-+
- static int mtk_rng_probe(struct platform_device *pdev)
- {
- 	int ret;
-@@ -114,23 +173,42 @@ static int mtk_rng_probe(struct platform_device *pdev)
- 
- 	priv->dev = &pdev->dev;
- 	priv->rng.name = pdev->name;
--#ifndef CONFIG_PM
--	priv->rng.init = mtk_rng_init;
--	priv->rng.cleanup = mtk_rng_cleanup;
--#endif
--	priv->rng.read = mtk_rng_read;
- 	priv->rng.quality = 900;
--
--	priv->clk = devm_clk_get(&pdev->dev, "rng");
--	if (IS_ERR(priv->clk)) {
--		ret = PTR_ERR(priv->clk);
--		dev_err(&pdev->dev, "no clock for device: %d\n", ret);
--		return ret;
-+	priv->flags = (unsigned long)device_get_match_data(&pdev->dev);
-+
-+	if (!(priv->flags & MTK_RNG_SMC)) {
-+		priv->clk = devm_clk_get(&pdev->dev, "rng");
-+		if (IS_ERR(priv->clk)) {
-+			ret = PTR_ERR(priv->clk);
-+			dev_err(&pdev->dev, "no clock for device: %d\n", ret);
-+			return ret;
-+		}
-+
-+		priv->base = devm_platform_ioremap_resource(pdev, 0);
-+		if (IS_ERR(priv->base))
-+			return PTR_ERR(priv->base);
-+
-+		if (IS_ENABLED(CONFIG_HAVE_ARM_SMCCC) &&
-+		    of_device_is_compatible(pdev->dev.of_node,
-+					    "mediatek,mt7986-rng") &&
-+		    !mtk_rng_hw_accessible(priv)) {
-+			priv->flags |= MTK_RNG_SMC;
-+			dev_info(&pdev->dev,
-+				 "HW RNG not MMIO accessible, using SMC\n");
-+		}
- 	}
- 
--	priv->base = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(priv->base))
--		return PTR_ERR(priv->base);
-+	if (priv->flags & MTK_RNG_SMC) {
-+		if (!IS_ENABLED(CONFIG_HAVE_ARM_SMCCC))
-+			return -ENODEV;
-+		priv->rng.read = mtk_rng_read_smc;
-+	} else {
-+#ifndef CONFIG_PM
-+		priv->rng.init = mtk_rng_init;
-+		priv->rng.cleanup = mtk_rng_cleanup;
-+#endif
-+		priv->rng.read = mtk_rng_read;
-+	}
- 
- 	ret = devm_hwrng_register(&pdev->dev, &priv->rng);
- 	if (ret) {
-@@ -139,12 +217,15 @@ static int mtk_rng_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
--	dev_set_drvdata(&pdev->dev, priv);
--	pm_runtime_set_autosuspend_delay(&pdev->dev, RNG_AUTOSUSPEND_TIMEOUT);
--	pm_runtime_use_autosuspend(&pdev->dev);
--	ret = devm_pm_runtime_enable(&pdev->dev);
--	if (ret)
--		return ret;
-+	if (!(priv->flags & MTK_RNG_SMC)) {
-+		dev_set_drvdata(&pdev->dev, priv);
-+		pm_runtime_set_autosuspend_delay(&pdev->dev,
-+						 RNG_AUTOSUSPEND_TIMEOUT);
-+		pm_runtime_use_autosuspend(&pdev->dev);
-+		ret = devm_pm_runtime_enable(&pdev->dev);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	dev_info(&pdev->dev, "registered RNG driver\n");
- 
-@@ -181,8 +262,11 @@ static const struct dev_pm_ops mtk_rng_pm_ops = {
- #endif	/* CONFIG_PM */
- 
- static const struct of_device_id mtk_rng_match[] = {
--	{ .compatible = "mediatek,mt7986-rng" },
- 	{ .compatible = "mediatek,mt7623-rng" },
-+	{ .compatible = "mediatek,mt7981-rng", .data = (void *)MTK_RNG_SMC },
-+	{ .compatible = "mediatek,mt7986-rng" },
-+	{ .compatible = "mediatek,mt7987-rng", .data = (void *)MTK_RNG_SMC },
-+	{ .compatible = "mediatek,mt7988-rng", .data = (void *)MTK_RNG_SMC },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, mtk_rng_match);
-@@ -200,4 +284,5 @@ module_platform_driver(mtk_rng_driver);
- 
- MODULE_DESCRIPTION("Mediatek Random Number Generator Driver");
- MODULE_AUTHOR("Sean Wang <sean.wang@mediatek.com>");
-+MODULE_AUTHOR("Daniel Golle <daniel@makrotopia.org>");
- MODULE_LICENSE("GPL");
+Best regards,
 -- 
-2.53.0
+Michal Piekos <michal.piekos@mmpsystems.pl>
+
