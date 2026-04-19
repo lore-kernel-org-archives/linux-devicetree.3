@@ -1,191 +1,183 @@
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6342B30E834
-	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 22:38:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.50
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 948822FB969;
+	Sun, 19 Apr 2026 22:39:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776638309; cv=none; b=C5jqWhgv1NJXo+cCM1nne84+EY97z8f8umCRuJS4sCsGJnJKELv4tDBPScLWaIrSqln2u7R/aY0MpMMonOvyz9LoUrWoqgR7KXqKTbjcJPDaVmmG7xtBVeGpsxG4iyH1KGAua77OGYj89bh2xi+hMWdqqldjiaEGFv9lD45jxU0=
+	t=1776638381; cv=none; b=rU9U2Y3l2VotuoZBAhXVWiLpIdGow93sjyTGoYjArjJ1IHp4aWvweNbaRnUc9Bj8k1BXdfAq3278QvYPAEtXD3dGdYU2lR6/tMFvGGl5FwqlXZUdea20u0AFJfoFLa3Ykd1RTMHNTj1DIEbUFSIx9qpiY4mfMml5Uzhsdo1k7rY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776638309; c=relaxed/simple;
-	bh=FUdqs8G4xwhD/VXXAjrPpZWDZq3wYXxHJeq5QFisxbM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nbbhzJ+V0Zqmc2C4J16xCAG8pfvlGFXPUy9d2rNdEhEGBp0O7G0Xf+bCbzx/cl6ojPg31OCCuAbMjxxJE4pP3zV/gVk4X+GqkT5TxVVbsd0SCQ5Oe15BFEgc1+nBp+tk0GIb62Z9hrcc43Zkk7+zFwP0xyUziYLac610ddBZgk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p2XFwuer; arc=none smtp.client-ip=209.85.210.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776638381; c=relaxed/simple;
+	bh=tZlc1dVMVc8vW4uGAZJcag9m8q5W1bX9AFx/oA9k8L4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ONj89KTYYXvmwIsNQujNUY4a1UeHAqbpxCJhdQGi0r6ZCvJS7/JI4TBVgRpKUKr1Qu2OqWdXb+Twz38vCxQxCcupFAuNkuS2CsWlM8hTSWHQy7Y9BQ2lUx3kakB12EBncf5NQqS6l/xR11+E5dQuDLVl7b0xfQBw7nvj4eC8oTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vQOe0g74; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p2XFwuer"
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-7d9e22176a7so1351500a34.1
-        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 15:38:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776638306; x=1777243106; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yeLIlLS6xhhKIOicu0WwjZofN4fneA1R4+99jdOi6J8=;
-        b=p2XFwuerkqqQtesQvOPuW5A/cqIFi0kzEjEtuZdO0zqevgOVjO2JJ7mN70pzKnpeM6
-         E6OysWeXhiHUAFIQK+3C1j7mysDk5hTO3YbRqDRjr3uybiHI830ldxgAzcirix2Wqc6Z
-         uD9QpZdnTkaO9d137jzl7Bnrl3XRQPPi71jVcKo23LR3gYUvJ7yaBgRAZyAAQRZZk47b
-         gFgXV8AIEpDdPvL/JCwkbP1lNzfFV6waLfUg4sW7f5224qO1z5JCyU1N6Em/VvdvDb3a
-         RhejPa0qe9W6BBNLc9JyNKGWxuhGdyU4RDjfQv5tadxFmV+t1jm/5uTmo2jDxBwl/mgy
-         /XUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776638306; x=1777243106;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=yeLIlLS6xhhKIOicu0WwjZofN4fneA1R4+99jdOi6J8=;
-        b=s5UKPfSfii/lEg1X6KkCc4LPmadRqoFAhgGiFd9fqOrWOK0nXqIKbMiq5nzPSfrutx
-         q7rNMCJlLn48AYoS9RpC/Uy7ikx/JSEJTBbE2RLtlcIKnAEOgIx95XoApbXQaFQOOaC/
-         4iP0GSbRv1+78AcjTW+mHSanntU53L57vVyKSPwXybFqqll0qRbHrPJW1LkZq/GjEXlB
-         90npWdwj/9jibKSG4jSWZWCMZw2p52yC36KLjgSuV/P0p12xa4QVZTR72ZzB41kDx8Iu
-         uaX7tZRIGSvCmBld3pjzkmyA8SbqD5v7gc21oFiybZzp6qCLpEmWU0q6AZWOs0N1K6LO
-         alKg==
-X-Forwarded-Encrypted: i=1; AFNElJ+GYt1rXUCrZUJ7W6ldCM5IFnowNGlKjMWvaFcuP6HX/90RmPDc1gztcg7dzyZ4mZeAsIcNtgSuKzHz@vger.kernel.org
-X-Gm-Message-State: AOJu0YzP+ZTpwWbTQuEL7VnFCiSjMRFgGhSJ0n8lLU2VKJEBb+QqbAcS
-	E9AyxhRu3Sk4cApzbAFYc8TikQf5umlCpyfXfoi7F7eo+2UAfpOD7jgz
-X-Gm-Gg: AeBDiev24lWtPGtNpnVTPLXJ37WCw0HpjepLRPOvSCwJ3/Cwx4X3MVawZfmzKFOMz9z
-	PAl8nkAwfZOEuMq5OamLMqKoyLiX0Kq2F+6Qw6OV4PPqtIjNv6DjX9NbVDf4Q5vbo4CjEeeuF3p
-	ykJks+8QrOq89ERi5AuOXDm2Sd3r2d+NiVBIf0jDvfuwarsfvjxIbtdPWrn4opOmAuE7Aal0oUX
-	qcViiEwopZQsNXTtQydH75JgET5cYe3IflCJxrp8m6n41IAFw8UlTWbn/pinl0dzL/4SUb+9vZ1
-	5Hsq76i64lEnmsyNTk50aGK05NdBb7XosFFAdoJWY0dCKSmEcoIRmGOxX/sNzX6SdHaHybQzOyu
-	xSYHGE931GA0T89jFx3j8oeoLh28/2lYWf7HJJN9BhLIbkVkPV9c7ym2s6pFAZox9V/zAMxsElS
-	p8Ry6biMl487aKsBnkDU2Xd8gJWWvBTnSIU5Cf9KPEORsHyW5Dgv7729ZIUUGoBblbmI6n1Q7yP
-	K4PbbCg9WgrcNIKNShPTmJPPMhyzzJ0lPW204yJUbGxCi/akcBipUaM10Q=
-X-Received: by 2002:a05:6830:411a:b0:7d7:d2e4:6373 with SMTP id 46e09a7af769-7dc951fb364mr7104813a34.20.1776638306240;
-        Sun, 19 Apr 2026 15:38:26 -0700 (PDT)
-Received: from nukework.gtech (c-98-34-199-138.hsd1.tx.comcast.net. [98.34.199.138])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7dc975b057bsm7891589a34.20.2026.04.19.15.38.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Apr 2026 15:38:25 -0700 (PDT)
-From: "Alex G." <mr.nuke.me@gmail.com>
-To: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: sumit.garg@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
- Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject:
- Re: [PATCH v4 1/4] arm64: dts: qcom: ipq9574: Add gpio details for eMMC
-Date: Sun, 19 Apr 2026 17:38:24 -0500
-Message-ID: <3675281.vFx2qVVIhK@nukework.gtech>
-In-Reply-To: <20260202073322.259534-2-varadarajan.narayanan@oss.qualcomm.com>
-References:
- <20260202073322.259534-1-varadarajan.narayanan@oss.qualcomm.com>
- <20260202073322.259534-2-varadarajan.narayanan@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vQOe0g74"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0B5D41596;
+	Sun, 19 Apr 2026 15:39:32 -0700 (PDT)
+Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DC21E3F915;
+	Sun, 19 Apr 2026 15:39:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1776638377; bh=tZlc1dVMVc8vW4uGAZJcag9m8q5W1bX9AFx/oA9k8L4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=vQOe0g74c2CHoG+BqnFikOOPTwz5LN8/h4X9uqXxxx4gkMhyECe18zAQdmSfTH74n
+	 uI5EnqqpsQC4i9/+aDRnIVHXvuYOM30EMA+i2oYbfPR91IBsoDS6jdN5p5qstFI2Ps
+	 /3I0ugo8Lmyv8onj/Mo6uJGHzHE/up1DKDXRBnxY=
+Date: Mon, 20 Apr 2026 00:39:15 +0200
+From: Andre Przywara <andre.przywara@arm.com>
+To: Michal Piekos <michal.piekos@mmpsystems.pl>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner
+ <tglx@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai
+ <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
+ Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH 2/4] clocksource/drivers/sun5i: add H616 hstimer support
+Message-ID: <20260420003915.18c0d5f7@ryzen.lan>
+In-Reply-To: <20260419-h616-t113s-hstimer-v1-2-1af74ebef7c5@mmpsystems.pl>
+References: <20260419-h616-t113s-hstimer-v1-0-1af74ebef7c5@mmpsystems.pl>
+	<20260419-h616-t113s-hstimer-v1-2-1af74ebef7c5@mmpsystems.pl>
+Organization: Arm Ltd.
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Monday, February 2, 2026 1:33:19=E2=80=AFAM Central Daylight Time Varada=
-rajan=20
-Narayanan wrote:
+On Sun, 19 Apr 2026 14:46:08 +0200
+Michal Piekos <michal.piekos@mmpsystems.pl> wrote:
 
-Hi Varadarajan,
+Hi,
 
-> The RDP433 has NAND and eMMC variants. Presently, only NAND variant is
-> supported. To enable support for eMMC variant, add the relevant GPIO
-> related information.
->=20
-> Do not enable NAND by default here. Enable it in board specific DTS.
->=20
-
-This commit references sdc_default_state in the .dtsi file, without definin=
-g it.=20
-It creates a silent dependency on the board .dts, who must now define the p=
-ins.=20
-This makes no sense to me for boards that don't have eMMC. As an example, i=
-t=20
-breaks most downstream OpenWRT boards.
-
-Was this new dependency accidental?
-
-Alex
-
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Varadarajan Narayanan
-> <varadarajan.narayanan@oss.qualcomm.com> ---
-> v4: Move sdhc properties from emmc dts to SoC dtsi
->=20
-> v3: Disable nand in ipq9574-rdp-common.dtsi and enable it where required.
->     Add 'Reviewed-by: Konrad Dybcio'
+> H616 high speed timer differs from existing timer-sun5i by register base
+> offset.
+> 
+> Add selectable register layout structures.
+> Add H616 compatible string to OF match table.
+> 
+> Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
 > ---
->  .../boot/dts/qcom/ipq9574-rdp-common.dtsi     | 32 +++++++++++++++++++
->  arch/arm64/boot/dts/qcom/ipq9574.dtsi         |  9 ++++++
->  2 files changed, 41 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi
-> b/arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi index
-> bdb396afb992..e4ae79b2fcd9 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi
-> @@ -169,6 +169,38 @@ data-pins {
->  			bias-disable;
->  		};
->  	};
+>  drivers/clocksource/timer-sun5i.c | 56 ++++++++++++++++++++++++++++++++++-----
+>  1 file changed, 50 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/clocksource/timer-sun5i.c b/drivers/clocksource/timer-sun5i.c
+> index f827d3f98f60..125abc11c3c3 100644
+> --- a/drivers/clocksource/timer-sun5i.c
+> +++ b/drivers/clocksource/timer-sun5i.c
+> @@ -21,18 +21,52 @@
+>  #define TIMER_IRQ_EN_REG		0x00
+>  #define TIMER_IRQ_EN(val)			BIT(val)
+>  #define TIMER_IRQ_ST_REG		0x04
+> -#define TIMER_CTL_REG(val)		(0x20 * (val) + 0x10)
+>  #define TIMER_CTL_ENABLE			BIT(0)
+>  #define TIMER_CTL_RELOAD			BIT(1)
+> -#define TIMER_CTL_CLK_PRES(val)			(((val) & 0x7) << 4)
+>  #define TIMER_CTL_ONESHOT			BIT(7)
+> -#define TIMER_INTVAL_LO_REG(val)	(0x20 * (val) + 0x14)
+> -#define TIMER_INTVAL_HI_REG(val)	(0x20 * (val) + 0x18)
+> -#define TIMER_CNTVAL_LO_REG(val)	(0x20 * (val) + 0x1c)
+> -#define TIMER_CNTVAL_HI_REG(val)	(0x20 * (val) + 0x20)
+> +#define TIMER_CTL_CLK_PRES(val)		(((val) & 0x7) << 4)
+> +#define TIMER_CTL_REG(val)		\
+> +	(soc_base->stride * (val) + soc_base->ctl_base)
+> +#define TIMER_INTVAL_LO_REG(val)	\
+> +	(soc_base->stride * (val) + soc_base->intval_lo_base)
+> +#define TIMER_INTVAL_HI_REG(val)	\
+> +	(soc_base->stride * (val) + soc_base->intval_hi_base)
+> +#define TIMER_CNTVAL_LO_REG(val)	\
+> +	(soc_base->stride * (val) + soc_base->cntval_lo_base)
+> +#define TIMER_CNTVAL_HI_REG(val)	\
+> +	(soc_base->stride * (val) + soc_base->cntval_hi_base)
+>  
+>  #define TIMER_SYNC_TICKS	3
+>  
+> +struct sunxi_timer_base {
+> +	u32 ctl_base;
+> +	u32 intval_lo_base;
+> +	u32 intval_hi_base;
+> +	u32 cntval_lo_base;
+> +	u32 cntval_hi_base;
+> +	u32 stride;
+> +};
 > +
-> +	sdc_default_state: sdc-default-state {
-> +		clk-pins {
-> +			pins =3D "gpio5";
-> +			function =3D "sdc_clk";
-> +			drive-strength =3D <8>;
-> +			bias-disable;
-> +		};
+> +static const struct sunxi_timer_base sun5i_base = {
+> +	.ctl_base = 0x10,
+> +	.intval_lo_base = 0x14,
+> +	.intval_hi_base = 0x18,
+> +	.cntval_lo_base = 0x1c,
+> +	.cntval_hi_base = 0x20,
+
+Mmmh, why all these members? Aren't those all the same, just offset by
+0x10? So we just need a single value reg_offs, being either 0x0 or 0x10?
+
+> +	.stride = 0x20
+
+What it this about? It's the same stride for both versions, so why is
+this a field?
+
+> +};
 > +
-> +		cmd-pins {
-> +			pins =3D "gpio4";
-> +			function =3D "sdc_cmd";
-> +			drive-strength =3D <8>;
-> +			bias-pull-up;
-> +		};
+> +static const struct sunxi_timer_base sun50i_base = {
+> +	.ctl_base = 0x20,
+> +	.intval_lo_base = 0x24,
+> +	.intval_hi_base = 0x28,
+> +	.cntval_lo_base = 0x2c,
+> +	.cntval_hi_base = 0x30,
+> +	.stride = 0x20
+> +};
 > +
-> +		data-pins {
-> +			pins =3D "gpio0", "gpio1", "gpio2",
-> +			       "gpio3", "gpio6", "gpio7",
-> +			       "gpio8", "gpio9";
-> +			function =3D "sdc_data";
-> +			drive-strength =3D <8>;
-> +			bias-pull-up;
-> +		};
+> +static const struct sunxi_timer_base *soc_base;
+
+This doesn't look right. Differentiating between slightly different
+hardware revision via the compatible string is a common pattern, look
+at for instance drivers/media/rc/sunxi-cir.c and its usage of quirks for
+an example how to handle this more nicely.
+
+Cheers,
+Andre
+
 > +
-> +		rclk-pins {
-> +			pins =3D "gpio10";
-> +			function =3D "sdc_rclk";
-> +			drive-strength =3D <8>;
-> +			bias-pull-down;
-> +		};
-> +	};
+>  struct sun5i_timer {
+>  	void __iomem		*base;
+>  	struct clk		*clk;
+> @@ -238,6 +272,7 @@ static int sun5i_setup_clockevent(struct platform_device *pdev,
+>  static int sun5i_timer_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev = &pdev->dev;
+> +	struct device_node *node = dev_of_node(&pdev->dev);
+>  	struct sun5i_timer *st;
+>  	struct reset_control *rstc;
+>  	void __iomem *timer_base;
+> @@ -251,6 +286,14 @@ static int sun5i_timer_probe(struct platform_device *pdev)
+>  
+>  	platform_set_drvdata(pdev, st);
+>  
+> +	if (!node)
+> +		return -EINVAL;
+> +
+> +	if (of_device_is_compatible(node, "allwinner,sun50i-h616-hstimer"))
+> +		soc_base = &sun50i_base;
+> +	else
+> +		soc_base = &sun5i_base;
+> +
+>  	timer_base = devm_platform_ioremap_resource(pdev, 0);
+>  	if (IS_ERR(timer_base)) {
+>  		dev_err(dev, "Can't map registers\n");
+> @@ -314,6 +357,7 @@ static void sun5i_timer_remove(struct platform_device *pdev)
+>  static const struct of_device_id sun5i_timer_of_match[] = {
+>  	{ .compatible = "allwinner,sun5i-a13-hstimer" },
+>  	{ .compatible = "allwinner,sun7i-a20-hstimer" },
+> +	{ .compatible = "allwinner,sun50i-h616-hstimer" },
+>  	{},
 >  };
->=20
->  &qpic_bam {
-> diff --git a/arch/arm64/boot/dts/qcom/ipq9574.dtsi
-> b/arch/arm64/boot/dts/qcom/ipq9574.dtsi index 86c9cb9fffc9..4b8c58982869
-> 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq9574.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq9574.dtsi
-> @@ -467,6 +467,15 @@ sdhc_1: mmc@7804000 {
->  			clock-names =3D "iface", "core", "xo", "ice";
->  			non-removable;
->  			supports-cqe;
-> +			pinctrl-0 =3D <&sdc_default_state>;
-> +			pinctrl-names =3D "default";
-> +			mmc-ddr-1_8v;
-> +			mmc-hs200-1_8v;
-> +			mmc-hs400-1_8v;
-> +			mmc-hs400-enhanced-strobe;
-> +			max-frequency =3D <384000000>;
-> +			bus-width =3D <8>;
-> +
->  			status =3D "disabled";
->  		};
-
-
-
+>  MODULE_DEVICE_TABLE(of, sun5i_timer_of_match);
+> 
 
