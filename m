@@ -1,119 +1,75 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87CF02F5487
-	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 18:23:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11DF91A683B;
+	Sun, 19 Apr 2026 19:37:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776622985; cv=none; b=my01vzJ6D+Z6NAGDdcpZMdrbAOgPhdSHM+N1wya8YvmJiTWInLO4fvbEqCh/X21GCNk8yJHJQnADkTEh7De2HxZpN3UG4f8/kIu0VbPhwmcz7kQ8JxJ7Q+kh7aIP9YQdegfNdHLDBXNOvs0bIDHWdNsSD1KbiY0A2MEYMd/pMHA=
+	t=1776627461; cv=none; b=myBrJLP3Md379I9KAbyiNKt3LYeH3eWnpfG1XrHciNS/XmCVFm2bVennN7ah52GAqcjVhgtzq7ozeeq9em7slBTZOgcbIMa4kIzEGzfQeyGLTEMr3fieZN8UAiE7whNqu6Hun+NQqNb1QNKPlJa1wDiLsZIrXMNCZ+t8C1FCwF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776622985; c=relaxed/simple;
-	bh=WzntAKrn3SE/S0P6q3sFoaSPnkduyAfvojxfo8h0D/E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R6rgOMND4sIk46V2Fdfc/EpW+BN3GGnn5eZJLEmZUFNivlJ5qBO/b+ohCBkDgjGuZ8qU8JaPDpY9EXVBSEzMOHPrmcPz6lyRNIftcIaZCxk0kL0YbX46QPNdBsNXbETDaELgSzKDXlhG+sp8P8yPxN1enKmais8fSj0cnLV4+Ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Hgkh6xag; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KyJZ7Ljn; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776627461; c=relaxed/simple;
+	bh=hM0Ot1BC4msAiqEYhZKOQrZ+8uTcEmNfpDHaO7fqTQc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b7Xg3v8LQwZTDtqTMJnJlxeXgDxK925ewX1Ae4cHy6WAeIhUyVgLwHIrRwiFgkmV+HFXEpoVXMD4ZP1qsw7Wtg/HonaJKAURpK+vwyPEYffHU/MwnzU94XsrNwQI7oU7Le1KJKt1O1HKtVNO8bSX+m5R6OjcTM6oBWfMzTzasRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=v8VjAsMT; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=w7GRN8/2; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Hgkh6xag";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KyJZ7Ljn"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63INviGR2640135
-	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 18:23:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=/O0gxmkDAI9
-	OIMx5SPRWuVmH2AlYc/ZdPsgTg3SpEAo=; b=Hgkh6xagQ7VuzMo95XqD7wXM8EW
-	RmfJQJnGYCg+zIr14mvfwXRiofcPUgBcJT1x3V2T1HuMu1bZ/9I4psqEwzlv9cPz
-	k5lF9nwyVVIpQhownNXkMiTWDzeQh6OfHpte3eXiJ70mLmQZG39C0pfE/Ymj/DnA
-	qCk+m/SiN2hpb1hrNRE6hV4JIyPgQzBT0ZPLZmIgH9emvNkFE3sGnYKqxKEz8u21
-	7r9/TVICyhptUNTv/Hq7X8CG7gkufNdf/lP6iP7XlctZY+yzuYNg1ic3OQc6ekf4
-	FeN9Fk+jGAl0p3nJor4Lm0lpa3KAQJy7Iw20yoya2PbXgkVNJkYkwLT+LuA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dm0wr35gk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 18:23:01 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8b0312bb1dcso45777336d6.1
-        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 11:23:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776622980; x=1777227780; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/O0gxmkDAI9OIMx5SPRWuVmH2AlYc/ZdPsgTg3SpEAo=;
-        b=KyJZ7LjnQdmhr5hkI2I/xDuUZU46NZYDgRnSq9MQ9cxe+0eDZ+p1shMNvRDkpWDj+C
-         aQX4lnpT45I9wx3/trQ5ve2/6W1l3F0J8nu+LcMxVg3ICAbvHMdQhDS7Rq0JSzhaR0Ie
-         4KzYEZXfIjG+YICK6lzUPuCkJNRXEZfuRoBmhYrKPEfYir4ybItFviniqfrSyNmZ3nO/
-         54HY6tKSzd+rcEAgbVqkd26+FGqaWpSqUaGIYkgCF8W/moiSHKKj0uVcUd2iqrozMTrE
-         +vw8fpJbaoz1iZgJ0XVMER/Rfz8fadMLMkIVQ8ANtkuYLCtKHnFF0wHfFfnNtxjMwqyM
-         55zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776622980; x=1777227780;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=/O0gxmkDAI9OIMx5SPRWuVmH2AlYc/ZdPsgTg3SpEAo=;
-        b=nVvmFEnPUshZaxpcgRE9FdI1n7ujYrxJLJRK8aEDq59kxk2tCOzVZMaGvXUpKVU+OD
-         pe8VUbqCcO6DP4gDqTSSQJ8LZZPiKp0VwtEanIzWF4ngm5WU12dQ+tulOcQzJJgoAJar
-         9ExLi7dEXeG/OE9NxqRXP9PBQTFaAE2oszGkKiRzC6rIHhu9JsUkqTLuRRhw5hLW1U++
-         OW50j2nwXfl/OYcBgTfj3EWEhQcJOv25rLyWlKtH/GCMGLNKKdnrBnGUwvJH8DcN/CUj
-         vbsELJwFSbyhRFPo/Qkw2+VSw5WqELCtUgemAcs70v1/dtQ6345OIeKd1GyRqDkzJZIi
-         v0RQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8bEYpcIOSBGCUmtT+HTWhtkYVNRdyb4Fia3uHWSNgZRV1h8crDPRn+RIPnrkkID2Mh8p4efcDTSqXi@vger.kernel.org
-X-Gm-Message-State: AOJu0YybjO0zoGGFthAyi4JSxiNDUBbCWhceM2VH2ZnjaiCf/eUpt8VT
-	LAPTnWkQ2nJuVuWc9kIXjaqfdVGsZsgXkILATKriy6+CXXgTIpwQ/prZhKDjXTo6pT06xxaPP9T
-	gtXHhBStwakKFhCXCrTFiseqWjJzhHSRrZntZACPSqSUa5fX1b6UgzZ76ZB+PssgD
-X-Gm-Gg: AeBDieuidBuHmyujerpSWP9YpVjs2KWfDinvRGBd3KEDiPW6evXZByv/e4npkXEAqup
-	h1zQ99Zp7J/8fJguNa9Rd40TLxnLS93GvW6ZkVGzWKxN7hWN0gFj02wDttmYUjUMqwXcGLdttLz
-	q0mueeOIKc3XZ4anEk2/GWl1eqApOkUV0za6XakkgqcNZN0DFXJdvDX6K9FcBeprcBgI92mWr5N
-	ISTwBG42esWTTG+xsNCDUnyuAmjHvPPdnXRB7r8iq6iyvAEmll4GTeQRSE1fY2H5/BP70F8HSlu
-	AQm0l5cCv2pEVqXqYpYk9PeYaH2noheCfbPY2qolxk6vakkpltj6U4p6nhVloJJEAnc7Ypetk4P
-	VgLHwwaIIJqtjokjqQyguBNZRccUdtR0zF/f5ZhBmG4gEnGH7oMdpVVVflpSb
-X-Received: by 2002:a05:622a:a05:b0:50d:dd3a:73b4 with SMTP id d75a77b69052e-50e36c49454mr168590931cf.37.1776622980466;
-        Sun, 19 Apr 2026 11:23:00 -0700 (PDT)
-X-Received: by 2002:a05:622a:a05:b0:50d:dd3a:73b4 with SMTP id d75a77b69052e-50e36c49454mr168590301cf.37.1776622980036;
-        Sun, 19 Apr 2026 11:23:00 -0700 (PDT)
-Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:ae20:597c:99b8:d161])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e59f97sm25723070f8f.37.2026.04.19.11.22.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Apr 2026 11:22:59 -0700 (PDT)
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-To: rafael@kernel.org
-Cc: gaurav.kohli@oss.qualcomm.com, Zhang Rui <rui.zhang@intel.com>,
-        Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        Russell King <linux+etnaviv@armlinux.org.uk>,
-        Christian Gmeiner <christian.gmeiner@gmail.com>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Guenter Roeck <linux@roeck-us.net>, Joel Stanley <joel@jms.id.au>,
-        Andrew Jeffery <andrew@codeconstruct.com.au>,
-        =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-        Benson Leung <bleung@chromium.org>,
-        =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
-        Avi Fishman <avifishman70@gmail.com>,
-        Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
-        Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
-        Benjamin Fair <benjaminfair@google.com>,
-        Heiko Stuebner <heiko@sntech.de>,
-        Thierry Reding <thierry.reding@gmail.com>,
-        Jonathan Hunter <jonathanh@nvidia.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Amit Daniel Kachhap <amit.kachhap@gmail.com>,
-        Viresh Kumar <viresh.kumar@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Amit Kucheria <amitk@kernel.org>, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
-Subject: [PATCH v1 14/14] dt-bindings: thermal: cooling-devices: Update support for 3 cells cooling device
-Date: Sun, 19 Apr 2026 20:21:58 +0200
-Message-ID: <20260419182203.4083985-15-daniel.lezcano@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260419182203.4083985-1-daniel.lezcano@oss.qualcomm.com>
-References: <20260419182203.4083985-1-daniel.lezcano@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="v8VjAsMT";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="w7GRN8/2"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4fzJmf1flBz9tsS;
+	Sun, 19 Apr 2026 21:37:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1776627458;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Cp83c5BG9ViMtdfEgKoWZ8ShkaQqJKSJjfZOv6vUN3o=;
+	b=v8VjAsMTkpzoEgpLAGLJka0n0hkuT+J4/aAih96YxvIhze7hRaT2bRHPGOrCKGXH7XfmHK
+	3iNy+AY7iSdHHwSv/0DSjS2ZG9/5mNnkp9xlZyQlCl5bE1rHFXOi2xka+PdRQwBCrv/wrr
+	aWzf3NXQrGFjMG4dbkcSRimV0KbPs/ekYqIP2PrdYEbMQ3NNCINQGHkJw3LxWdE135LMJe
+	e4teUBvCZ9HkSTpvC+svz/3Kx565KNSOOX1hDc0A5Rw0qWp0SEfGhPFnMBPdZUuYQog0hy
+	kPYWjQliwlWsZKjiNfys7duvYSsilQnOJ7Y7DbtPIIGs0i3mk84lE9SH4nIhTQ==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1776627456;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Cp83c5BG9ViMtdfEgKoWZ8ShkaQqJKSJjfZOv6vUN3o=;
+	b=w7GRN8/2Wm3MAQ88k5My5vMrNKZQ2uwHq5wr52dUbj5Ozpm+IaYuqnG3BgrunF2eTfLPaQ
+	y1wpGgo/Q7PQ0fqdgnw1LeWJuGySITl89u2NiCqS4eI9QjKarroA/3q8J1/TogsFRruFrE
+	UDP3Yh0dqvWEjEZOYs0k9WILOpGpe9honc/LcCQ6Pt/MrnJlsvRG8pbYTanW1+CpzDk5pV
+	IzgyvhVR/SQbCrgRe8QOIdL1iuSPynAJ56XvJQBOoilnmxzslzfRgGqXANeOV8OatvVqrf
+	0HI4uCCHOkRsPsqhEFv13XXNBN3vcEC2xl1Qs2Jq71rIGDcR20T2jx0llnuSzQ==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Simona Vetter <simona@ffwll.ch>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH 0/7] arm64: dts: renesas: r8a779md: Add support for R-Car M3Le R8A779MD SoC and Geist board
+Date: Sun, 19 Apr 2026 21:35:31 +0200
+Message-ID: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -121,79 +77,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE5MDE5NyBTYWx0ZWRfX41uh1wPAn+4A
- O9hBZm51Fd3CdZ9zUh4V+reD9s77EbXH98MdSTj+iy34jHjVSKc/Cycsz+PgEtlFig/oT17KUjC
- LFBAA20W8efJM48W978Vd6HIEWlDb9VPTiWs/T1xkxW8QYZPQng9YZnPVDNiUX1p8M2cN1rhM56
- 3T1ld4WqQYKFyR2PJrmt/xxTfVTyKe8g5uTYKjZBeMPBLNFvaK931Ms53Vq28B9OkUzK0cRaKYo
- DWUgkbj3R+gpLMjIqdusWoZ6de0yv9S5ALtKj3dHWkXQjA3e4xaMSLnWB0EYIix8mbeEV3rOJva
- cUfPtT3KjEIfA0pusqhPVTP1U2So7HsCCDqzsrXGGDFZcE/TuFO/yHz16H0P0PBlktu3scBiShj
- LD02c/1e3dDygE/DDMn84tKbzCBdjB4czpqdlKQbvR8wBHhwHdFqCp3waUqMfrhgJb4E1oPZYHZ
- GmA+Iqo+9YTUX4EQzaA==
-X-Authority-Analysis: v=2.4 cv=G9Ys1dk5 c=1 sm=1 tr=0 ts=69e51d85 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=A5OVakUREuEA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8 a=GhBi0EG2tKjOyko4s0MA:9
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-ORIG-GUID: Cusv6Jy3Y2DGE3iEVBeY-X9aJGXmwv5d
-X-Proofpoint-GUID: Cusv6Jy3Y2DGE3iEVBeY-X9aJGXmwv5d
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-19_05,2026-04-17_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 adultscore=0 impostorscore=0 lowpriorityscore=0
- phishscore=0 spamscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604190197
+X-MBO-RS-ID: 5b7ad3aa5645162c028
+X-MBO-RS-META: s1wnqocyhj9w55px7iozj8ixtw9k5sg4
 
-From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Add support for the Renesas R-Car M3Le (R8A779MD) SoC, a register-compatible
+variant of the R8A77965 (M3-N) with reduced set of peripherals. Add support
+for the Geist board based on the Renesas R-Car R8A779MD (M3Le).
 
-Extend the thermal cooling device binding to support a 3 cells specifier
-along with tje 2 cells format.
+The DU part does probe, and to the best of my knowledge, should correctly
+describe the hardware, but is otherwise untested due to no remote display
+access. Note that the DU uses ports 0 and 2, which is unusual.
 
-Update #cooling-cells property to enum to support both 2 and 3 arguments.
+VIN is also untested due to no remote hardware access.
 
-Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Marek Vasut (5):
+  dt-bindings: display: renesas,du: Document Renesas R-Car R8A779MD M3Le
+  drm/rcar-du: Add support for Renesas R-Car R8A779MD M3Le
+  dt-bindings: clock: cs2000-cp: document CS2500
+  dt-bindings: soc: renesas: Document Renesas R-Car R8A779MD Geist
+  soc: renesas: Identify Renesas R-Car R8A779MD M3Le SoC
+
+Nguyen Tran (2):
+  arm64: dts: renesas: r8a779md: Add Renesas R-Car R8A779MD M3Le DTs
+  arm64: dts: renesas: r8a779md: Add support for R-Car M3Le R8A779MD
+    Geist
+
+ .../bindings/clock/cirrus,cs2000-cp.yaml      |  10 +-
+ .../bindings/display/renesas,du.yaml          |  70 ++
+ .../bindings/soc/renesas/renesas.yaml         |   6 +
+ arch/arm64/boot/dts/renesas/Makefile          |   3 +
+ .../dts/renesas/geist-panel-aa104xd12.dtso    |  17 +
+ .../arm64/boot/dts/renesas/r8a779md-geist.dts | 832 ++++++++++++++++++
+ arch/arm64/boot/dts/renesas/r8a779md.dtsi     |  48 +
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c |  25 +
+ drivers/soc/renesas/renesas-soc.c             |   1 +
+ 9 files changed, 1009 insertions(+), 3 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/renesas/geist-panel-aa104xd12.dtso
+ create mode 100644 arch/arm64/boot/dts/renesas/r8a779md-geist.dts
+ create mode 100644 arch/arm64/boot/dts/renesas/r8a779md.dtsi
+
 ---
- .../bindings/thermal/thermal-cooling-devices.yaml         | 8 ++++++--
- .../devicetree/bindings/thermal/thermal-zones.yaml        | 3 ++-
- 2 files changed, 8 insertions(+), 3 deletions(-)
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Michael Turquette <mturquette@baylibre.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Stephen Boyd <sboyd@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: devicetree@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-clk@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
 
-diff --git a/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml b/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
-index b9022f1613d8..28f5818f1e60 100644
---- a/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
-+++ b/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
-@@ -44,10 +44,14 @@ select: true
- properties:
-   "#cooling-cells":
-     description:
--      Must be 2, in order to specify minimum and maximum cooling state used in
-+      Must be 2 or 3. If 2, specifies minimum and maximum cooling state used in
-       the cooling-maps reference. The first cell is the minimum cooling state
-       and the second cell is the maximum cooling state requested.
--    const: 2
-+      If 3, the first cell specifies the thermal mitigation device specifier
-+      index for devices that support multiple thermal mitigation mechanisms.
-+      The two other cells are respectively the minimum cooling state and the
-+      maximum cooling state.
-+    enum: [2, 3]
- 
- additionalProperties: true
- 
-diff --git a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
-index 0de0a9757ccc..1261ba0e802e 100644
---- a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
-+++ b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
-@@ -214,7 +214,8 @@ patternProperties:
-                   device. Using the THERMAL_NO_LIMIT (-1UL) constant in the
-                   cooling-device phandle limit specifier lets the framework
-                   use the minimum and maximum cooling state for that cooling
--                  device automatically.
-+                  device automatically. If three arguments are specified,
-+                  the first argument is the cooling device specifier.
- 
-               contribution:
-                 $ref: /schemas/types.yaml#/definitions/uint32
 -- 
-2.43.0
+2.53.0
 
