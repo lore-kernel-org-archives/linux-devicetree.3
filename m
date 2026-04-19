@@ -1,477 +1,199 @@
-Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A50D282F31
-	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 18:00:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=138.232.1.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87CF02F5487
+	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 18:23:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776621624; cv=none; b=W0IHScFtr9KYiUSmxR7HV5d7FH92TG4hhjPGD+BeVDkwGiRqT+qJZEkTahs61vG5Zw5rTC5xttEt7eX6FEz20ojjgbXf31XvBbelmQMUGG+keJDS2MceiISzDkD4hNNvkj5iYnyToIfHXCNuazthvf5EYxMClipgAwIQOvRGoQ8=
+	t=1776622985; cv=none; b=my01vzJ6D+Z6NAGDdcpZMdrbAOgPhdSHM+N1wya8YvmJiTWInLO4fvbEqCh/X21GCNk8yJHJQnADkTEh7De2HxZpN3UG4f8/kIu0VbPhwmcz7kQ8JxJ7Q+kh7aIP9YQdegfNdHLDBXNOvs0bIDHWdNsSD1KbiY0A2MEYMd/pMHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776621624; c=relaxed/simple;
-	bh=fnlPmFW4fwmJLBcXlH4u3btpuySQe9zKus6pfj7VYc4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j4gQ6+4wEkWqRv575TzB0aJIuCAW9DAngrCRWSFeQoqiBrT3vN8756Re8RyLX5mWK7scgsSGuLiSAF+p33EO/YAjfD5tTIn6EpgbzZv6utZ+u992eDvOMLnmkmaoAagn98ijyFTybK4l0zLOhwAXG5hEjCT0BhIUx5RWj1rHkbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at; spf=pass smtp.mailfrom=student.uibk.ac.at; dkim=pass (1024-bit key) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.b=RujNVn4D; arc=none smtp.client-ip=138.232.1.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
+	s=arc-20240116; t=1776622985; c=relaxed/simple;
+	bh=WzntAKrn3SE/S0P6q3sFoaSPnkduyAfvojxfo8h0D/E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=R6rgOMND4sIk46V2Fdfc/EpW+BN3GGnn5eZJLEmZUFNivlJ5qBO/b+ohCBkDgjGuZ8qU8JaPDpY9EXVBSEzMOHPrmcPz6lyRNIftcIaZCxk0kL0YbX46QPNdBsNXbETDaELgSzKDXlhG+sp8P8yPxN1enKmais8fSj0cnLV4+Ik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Hgkh6xag; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KyJZ7Ljn; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.b="RujNVn4D"
-Received: from [192.168.1.4] (178.165.183.24.wireless.dyn.drei.com [178.165.183.24])
-	(authenticated bits=0)
-	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 63JHxv7q938343
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 19 Apr 2026 19:59:57 +0200
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 63JHxv7q938343
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
-	s=prod24a; t=1776621598;
-	bh=15ujJrbfiJmfJjBaBgqicGTeT16AP0wC9KkXzsx8QfI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RujNVn4D8KKml8Des+IZmAJx4xiX+MIppgeJCR8x7vLhowhy0ZkcJ958ITy+DjoQt
-	 0qXqJ7i2qrMnnfQMa6WsuhuwUGvazXElcU3qFvhXOwYmPSk6jR2b4SaCB7IiK23qsI
-	 5ghe4M8JBL4YJ2fnQQyKdEq/lVjFaBZhWBP6m08Y=
-Message-ID: <3445250e-cac4-40ca-aa62-d1a6a063b26d@student.uibk.ac.at>
-Date: Sun, 19 Apr 2026 19:59:56 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Hgkh6xag";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KyJZ7Ljn"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63INviGR2640135
+	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 18:23:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=/O0gxmkDAI9
+	OIMx5SPRWuVmH2AlYc/ZdPsgTg3SpEAo=; b=Hgkh6xagQ7VuzMo95XqD7wXM8EW
+	RmfJQJnGYCg+zIr14mvfwXRiofcPUgBcJT1x3V2T1HuMu1bZ/9I4psqEwzlv9cPz
+	k5lF9nwyVVIpQhownNXkMiTWDzeQh6OfHpte3eXiJ70mLmQZG39C0pfE/Ymj/DnA
+	qCk+m/SiN2hpb1hrNRE6hV4JIyPgQzBT0ZPLZmIgH9emvNkFE3sGnYKqxKEz8u21
+	7r9/TVICyhptUNTv/Hq7X8CG7gkufNdf/lP6iP7XlctZY+yzuYNg1ic3OQc6ekf4
+	FeN9Fk+jGAl0p3nJor4Lm0lpa3KAQJy7Iw20yoya2PbXgkVNJkYkwLT+LuA==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dm0wr35gk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 18:23:01 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8b0312bb1dcso45777336d6.1
+        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 11:23:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776622980; x=1777227780; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/O0gxmkDAI9OIMx5SPRWuVmH2AlYc/ZdPsgTg3SpEAo=;
+        b=KyJZ7LjnQdmhr5hkI2I/xDuUZU46NZYDgRnSq9MQ9cxe+0eDZ+p1shMNvRDkpWDj+C
+         aQX4lnpT45I9wx3/trQ5ve2/6W1l3F0J8nu+LcMxVg3ICAbvHMdQhDS7Rq0JSzhaR0Ie
+         4KzYEZXfIjG+YICK6lzUPuCkJNRXEZfuRoBmhYrKPEfYir4ybItFviniqfrSyNmZ3nO/
+         54HY6tKSzd+rcEAgbVqkd26+FGqaWpSqUaGIYkgCF8W/moiSHKKj0uVcUd2iqrozMTrE
+         +vw8fpJbaoz1iZgJ0XVMER/Rfz8fadMLMkIVQ8ANtkuYLCtKHnFF0wHfFfnNtxjMwqyM
+         55zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776622980; x=1777227780;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=/O0gxmkDAI9OIMx5SPRWuVmH2AlYc/ZdPsgTg3SpEAo=;
+        b=nVvmFEnPUshZaxpcgRE9FdI1n7ujYrxJLJRK8aEDq59kxk2tCOzVZMaGvXUpKVU+OD
+         pe8VUbqCcO6DP4gDqTSSQJ8LZZPiKp0VwtEanIzWF4ngm5WU12dQ+tulOcQzJJgoAJar
+         9ExLi7dEXeG/OE9NxqRXP9PBQTFaAE2oszGkKiRzC6rIHhu9JsUkqTLuRRhw5hLW1U++
+         OW50j2nwXfl/OYcBgTfj3EWEhQcJOv25rLyWlKtH/GCMGLNKKdnrBnGUwvJH8DcN/CUj
+         vbsELJwFSbyhRFPo/Qkw2+VSw5WqELCtUgemAcs70v1/dtQ6345OIeKd1GyRqDkzJZIi
+         v0RQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8bEYpcIOSBGCUmtT+HTWhtkYVNRdyb4Fia3uHWSNgZRV1h8crDPRn+RIPnrkkID2Mh8p4efcDTSqXi@vger.kernel.org
+X-Gm-Message-State: AOJu0YybjO0zoGGFthAyi4JSxiNDUBbCWhceM2VH2ZnjaiCf/eUpt8VT
+	LAPTnWkQ2nJuVuWc9kIXjaqfdVGsZsgXkILATKriy6+CXXgTIpwQ/prZhKDjXTo6pT06xxaPP9T
+	gtXHhBStwakKFhCXCrTFiseqWjJzhHSRrZntZACPSqSUa5fX1b6UgzZ76ZB+PssgD
+X-Gm-Gg: AeBDieuidBuHmyujerpSWP9YpVjs2KWfDinvRGBd3KEDiPW6evXZByv/e4npkXEAqup
+	h1zQ99Zp7J/8fJguNa9Rd40TLxnLS93GvW6ZkVGzWKxN7hWN0gFj02wDttmYUjUMqwXcGLdttLz
+	q0mueeOIKc3XZ4anEk2/GWl1eqApOkUV0za6XakkgqcNZN0DFXJdvDX6K9FcBeprcBgI92mWr5N
+	ISTwBG42esWTTG+xsNCDUnyuAmjHvPPdnXRB7r8iq6iyvAEmll4GTeQRSE1fY2H5/BP70F8HSlu
+	AQm0l5cCv2pEVqXqYpYk9PeYaH2noheCfbPY2qolxk6vakkpltj6U4p6nhVloJJEAnc7Ypetk4P
+	VgLHwwaIIJqtjokjqQyguBNZRccUdtR0zF/f5ZhBmG4gEnGH7oMdpVVVflpSb
+X-Received: by 2002:a05:622a:a05:b0:50d:dd3a:73b4 with SMTP id d75a77b69052e-50e36c49454mr168590931cf.37.1776622980466;
+        Sun, 19 Apr 2026 11:23:00 -0700 (PDT)
+X-Received: by 2002:a05:622a:a05:b0:50d:dd3a:73b4 with SMTP id d75a77b69052e-50e36c49454mr168590301cf.37.1776622980036;
+        Sun, 19 Apr 2026 11:23:00 -0700 (PDT)
+Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:ae20:597c:99b8:d161])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e59f97sm25723070f8f.37.2026.04.19.11.22.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Apr 2026 11:22:59 -0700 (PDT)
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+To: rafael@kernel.org
+Cc: gaurav.kohli@oss.qualcomm.com, Zhang Rui <rui.zhang@intel.com>,
+        Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Lucas Stach <l.stach@pengutronix.de>,
+        Russell King <linux+etnaviv@armlinux.org.uk>,
+        Christian Gmeiner <christian.gmeiner@gmail.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Guenter Roeck <linux@roeck-us.net>, Joel Stanley <joel@jms.id.au>,
+        Andrew Jeffery <andrew@codeconstruct.com.au>,
+        =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+        Benson Leung <bleung@chromium.org>,
+        =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+        Avi Fishman <avifishman70@gmail.com>,
+        Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
+        Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+        Benjamin Fair <benjaminfair@google.com>,
+        Heiko Stuebner <heiko@sntech.de>,
+        Thierry Reding <thierry.reding@gmail.com>,
+        Jonathan Hunter <jonathanh@nvidia.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Amit Daniel Kachhap <amit.kachhap@gmail.com>,
+        Viresh Kumar <viresh.kumar@linaro.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Amit Kucheria <amitk@kernel.org>, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
+Subject: [PATCH v1 14/14] dt-bindings: thermal: cooling-devices: Update support for 3 cells cooling device
+Date: Sun, 19 Apr 2026 20:21:58 +0200
+Message-ID: <20260419182203.4083985-15-daniel.lezcano@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260419182203.4083985-1-daniel.lezcano@oss.qualcomm.com>
+References: <20260419182203.4083985-1-daniel.lezcano@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: amlogic: add support for Amedia X98Q
-To: Ferass El Hafidi <funderscore@postmarketos.org>,
-        linux-amlogic@lists.infradead.org, neil.armstrong@linaro.org,
-        khilman@baylibre.com
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20260419150855.121136-1-christian.koever-draxl@student.uibk.ac.at>
- <tdqzjg.e0dtukngm56y@postmarketos.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_Stefan_K=C3=B6ver-Draxl?=
- <christian.koever-draxl@student.uibk.ac.at>
-In-Reply-To: <tdqzjg.e0dtukngm56y@postmarketos.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: () -13.9 ALL_TRUSTED,RCV_SMTP_AUTH,RCV_SMTP_UIBK,SUBJ_RE,UIBK_PHI_SUBJ
-X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE5MDE5NyBTYWx0ZWRfX41uh1wPAn+4A
+ O9hBZm51Fd3CdZ9zUh4V+reD9s77EbXH98MdSTj+iy34jHjVSKc/Cycsz+PgEtlFig/oT17KUjC
+ LFBAA20W8efJM48W978Vd6HIEWlDb9VPTiWs/T1xkxW8QYZPQng9YZnPVDNiUX1p8M2cN1rhM56
+ 3T1ld4WqQYKFyR2PJrmt/xxTfVTyKe8g5uTYKjZBeMPBLNFvaK931Ms53Vq28B9OkUzK0cRaKYo
+ DWUgkbj3R+gpLMjIqdusWoZ6de0yv9S5ALtKj3dHWkXQjA3e4xaMSLnWB0EYIix8mbeEV3rOJva
+ cUfPtT3KjEIfA0pusqhPVTP1U2So7HsCCDqzsrXGGDFZcE/TuFO/yHz16H0P0PBlktu3scBiShj
+ LD02c/1e3dDygE/DDMn84tKbzCBdjB4czpqdlKQbvR8wBHhwHdFqCp3waUqMfrhgJb4E1oPZYHZ
+ GmA+Iqo+9YTUX4EQzaA==
+X-Authority-Analysis: v=2.4 cv=G9Ys1dk5 c=1 sm=1 tr=0 ts=69e51d85 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=A5OVakUREuEA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8 a=GhBi0EG2tKjOyko4s0MA:9
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-ORIG-GUID: Cusv6Jy3Y2DGE3iEVBeY-X9aJGXmwv5d
+X-Proofpoint-GUID: Cusv6Jy3Y2DGE3iEVBeY-X9aJGXmwv5d
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-19_05,2026-04-17_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 adultscore=0 impostorscore=0 lowpriorityscore=0
+ phishscore=0 spamscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604190197
 
+From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
 
-On 4/19/26 17:19, Ferass El Hafidi wrote:
-> Hi, some drive-by feedback
->
-> On Sun, 19 Apr 2026 15:08, christian.koever-draxl@student.uibk.ac.at 
-> wrote:
->> From: Christian Stefan Kövér-Draxl 
->> <christian.koever-draxl@student.uibk.ac.at>
->>
->> The X98Q is a TV box based on the Amlogic S4 (S905W2) SoC.
->> Add the device tree for this board and document the compatible string.
->>
->> Supported features:
->> - 1GB/2GB RAM (via U-Boot memory fixup)
->> - 10/100 Ethernet (Internal PHY)
->> - eMMC and SD card storage
->> - PWM-based CPU voltage regulation
->> - UART (Serial console)
->>
->> Signed-off-by: Christian Stefan Kövér-Draxl 
->> <christian.koever-draxl@student.uibk.ac.at>
->> ---
->> - The Wi-Fi chip on this board is Amlogic W150S1. I have left the 
->> SDIO node enabled
->>  but omitted the specific chip sub-node due to lack of mainline 
->> drivers (yet).
->> - The console uses uart_b at 921600 baud.
->> - Verified memory via /proc/device-tree; U-Boot patches the node to 
->> around 2GB if board supports more than 1GB.
->> - Tested on the 2GB RAM plus 16GB EMMC variant.
->>
->> .../devicetree/bindings/arm/amlogic.yaml      |   7 +
->> arch/arm64/boot/dts/amlogic/Makefile          |   1 +
->> .../boot/dts/amlogic/meson-s4-s905w2-x98q.dts | 244 ++++++++++++++++++
->> 3 files changed, 252 insertions(+)
->> create mode 100644 arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
->>
->> diff --git a/Documentation/devicetree/bindings/arm/amlogic.yaml 
->> b/Documentation/devicetree/bindings/arm/amlogic.yaml
->> index a885278bc4e2..82671d58d1da 100644
->> --- a/Documentation/devicetree/bindings/arm/amlogic.yaml
->> +++ b/Documentation/devicetree/bindings/arm/amlogic.yaml
->> @@ -254,6 +254,13 @@ properties:
->>               - khadas,vim1s
->>           - const: amlogic,s905y4
->>           - const: amlogic,s4
->> +      +      - description: Boards with the Amlogic Meson S4 S905W2 SoC
->> +        items:
->> +          - enum:
->> +              - amediatech,x98q
->> +          - const: amlogic,s905w2
->> +          - const: amlogic,s4
->>
->>       - description: Boards with the Amlogic S6 S905X5 SoC
->>         items:
->
-> It is better to send the dt-binding changes separate from the actual
-> DTS. The golden rule is one commit per change.
->
-> You can (and should) send both patches as part of a patch series.
+Extend the thermal cooling device binding to support a 3 cells specifier
+along with tje 2 cells format.
 
+Update #cooling-cells property to enum to support both 2 and 3 arguments.
 
-Thanks for the Review! I have split this for v2.
+Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+---
+ .../bindings/thermal/thermal-cooling-devices.yaml         | 8 ++++++--
+ .../devicetree/bindings/thermal/thermal-zones.yaml        | 3 ++-
+ 2 files changed, 8 insertions(+), 3 deletions(-)
 
-
->
->> diff --git a/arch/arm64/boot/dts/amlogic/Makefile 
->> b/arch/arm64/boot/dts/amlogic/Makefile
->> index 15f9c817e502..6f0bdd5bdca2 100644
->> --- a/arch/arm64/boot/dts/amlogic/Makefile
->> +++ b/arch/arm64/boot/dts/amlogic/Makefile
->> @@ -86,6 +86,7 @@ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-vega-s96.dtb
->> dtb-$(CONFIG_ARCH_MESON) += meson-gxm-wetek-core2.dtb
->> dtb-$(CONFIG_ARCH_MESON) += meson-s4-s805x2-aq222.dtb
->> dtb-$(CONFIG_ARCH_MESON) += meson-s4-s905y4-khadas-vim1s.dtb
->> +dtb-$(CONFIG_ARCH_MESON) += meson-s4-s905w2-x98q.dtb
->
-> Keep this file in alphabetic order.
-
-
-Thanks, i have fixed it!
-
-
->
->> dtb-$(CONFIG_ARCH_MESON) += meson-sm1-a95xf3-air-gbit.dtb
->> dtb-$(CONFIG_ARCH_MESON) += meson-sm1-a95xf3-air.dtb
->> dtb-$(CONFIG_ARCH_MESON) += meson-sm1-bananapi-m2-pro.dtb
->> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts 
->> b/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
->> new file mode 100644
->> index 000000000000..f2db01730a3d
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
->> @@ -0,0 +1,244 @@
->> +
->> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
->> +/*
->> + * Copyright (c) 2026 Christian Stefan Köver-Draxl
->> + */
->
-> Did you base this DTS on another DTS that is already upstream? This
-> looks a lot like
-> https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git/tree/arch/arm64/boot/dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts?h=v7.1/arm64-dt 
->
->
-> If so, then you should keep their copyright. Something like:
->
-> /*
-> * Copyright (c) 2026 Christian Stefan Köver-Draxl
-> * Based on <...>:
-> *  - Copyright (c) <authors of the DTB this one is based on>
-> */
->
-> Correct me if I'm wrong.
-
-
-Yes, I used the VIM1S as a base. I will update the copyright header to 
-include the original authors.
-
-
->
->> +
->> +/dts-v1/;
->> +
->> +#include "meson-s4.dtsi"
->> +
->> +/ {
->> +    model = "Shenzhen Amedia X98Q";
->
-> Shouldn't this be
->     model = "Shenzhen Amediatech Technology Co., Ltd X98Q";
-> ?
->
-> There are other Amediatech boards supported currently:
->
-> dts/amlogic/meson-g12a-x96-max.dts:     model = "Shenzhen Amediatech 
-> Technology Co., Ltd X96 Max";
-> dts/amlogic/meson-sm1-x96-air-gbit.dts: model = "Shenzhen Amediatech 
-> Technology Co., Ltd X96 Air";
-> dts/amlogic/meson-sm1-x96-air.dts:      model = "Shenzhen Amediatech 
-> Technology Co., Ltd X96 Air";
->
-> I think it might be preferable to use a similar model format for
-> consistency.
->
-> It is also the documented vendor prefix for amediatech. (see
-> Documentation/devicetree/bindings/vendor-prefixes.yaml)
-
-
-I have updated the vendor prefix accordingly.
-
-
->
->> +    compatible = "amediatech,x98q", "amlogic,s905w2", "amlogic,s4";
->> +    interrupt-parent = <&gic>;
->> +    #address-cells = <2>;
->> +    #size-cells = <2>;
->> +
->> +    aliases {
->> +        mmc0 = &emmc; /* eMMC */
->> +        mmc1 = &sd; /* SD card */
->> +        mmc2 = &sdio; /* SDIO */
->> +        serial0 = &uart_b;
->> +    };
->> +
->> +    memory@0 {
->> +        device_type = "memory";
->> +        reg = <0x0 0x0 0x0 0x40000000>;
->> +    };
->> +
->> +    reserved-memory {
->> +        #address-cells = <2>;
->> +        #size-cells = <2>;
->> +        ranges;
->> +
->> +        /* 52 MiB reserved for ARM Trusted Firmware */
->> +        secmon_reserved: secmon@5000000 {
->> +            reg = <0x0 0x05000000 0x0 0x3400000>;
->> +            no-map;
->> +        };
->> +    };
->> +
->> +    emmc_pwrseq: emmc-pwrseq {
->> +        compatible = "mmc-pwrseq-emmc";
->> +        reset-gpios = <&gpio GPIOB_9 GPIO_ACTIVE_LOW>;
->> +    };
->> +
->> +    sdio_32k: sdio-32k {
->> +        compatible = "pwm-clock";
->> +        #clock-cells = <0>;
->> +        clock-frequency = <32768>;
->> +        pwms = <&pwm_ef 0 30518 0>; /* PWM_E at 32.768KHz */
->> +    };
->> +
->> +    sdio_pwrseq: sdio-pwrseq {
->> +        compatible = "mmc-pwrseq-simple";
->> +        reset-gpios = <&gpio GPIOX_6 GPIO_ACTIVE_LOW>;
->> +        clocks = <&sdio_32k>;
->> +        clock-names = "ext_clock";
->> +    };
->> +
->> +    main_5v: regulator-main-5v {
->> +        compatible = "regulator-fixed";
->> +        regulator-name = "5V";
->> +        regulator-min-microvolt = <5000000>;
->> +        regulator-max-microvolt = <5000000>;
->> +        regulator-always-on;
->> +    };
->> +
->> +    sd_3v3: regulator-sd-3v3 {
->> +        compatible = "regulator-fixed";
->> +        regulator-name = "SD_3V3";
->> +        regulator-min-microvolt = <3300000>;
->> +        regulator-max-microvolt = <3300000>;
->> +        gpio = <&gpio GPIOD_4 GPIO_ACTIVE_LOW>;
->> +        regulator-always-on;
->> +    };
->> +
->> +    vddio_sd: regulator-vddio-sd {
->> +        compatible = "regulator-gpio";
->> +        regulator-name = "VDDIO_SD";
->> +        regulator-min-microvolt = <1800000>;
->> +        regulator-max-microvolt = <3300000>;
->> +        gpios = <&gpio GPIOD_9 GPIO_ACTIVE_HIGH>;
->> +        gpios-states = <1>;
->> +        states = <1800000 1
->> +                3300000 0>;
->
-> nit: keep this in one line.
-
-
-Done for v2!
-BTW: I applied this part from the VIM1S. So maybe that dts needs to be 
-adjusted too in the future.
-
-
->
->> +    };
->> +
->> +    vddao_3v3: regulator-vddao-3v3 {
->> +        compatible = "regulator-fixed";
->> +        regulator-name = "VDDAO_3V3";
->> +        regulator-min-microvolt = <3300000>;
->> +        regulator-max-microvolt = <3300000>;
->> +        vin-supply = <&main_5v>;
->> +        regulator-always-on;
->> +    };
->> +
->> +    vddio_ao1v8: regulator-vddio-ao1v8 {
->> +        compatible = "regulator-fixed";
->> +        regulator-name = "VDDIO_AO1V8";
->> +        regulator-min-microvolt = <1800000>;
->> +        regulator-max-microvolt = <1800000>;
->> +        vin-supply = <&vddao_3v3>;
->> +        regulator-always-on;
->> +    };
->> +
->> +    /* SY8120B1ABC DC/DC Regulator. */
->> +    vddcpu: regulator-vddcpu {
->> +        compatible = "pwm-regulator";
->> +
->> +        regulator-name = "VDDCPU";
->> +        regulator-min-microvolt = <689000>;
->> +        regulator-max-microvolt = <1049000>;
->> +
->> +        vin-supply = <&main_5v>;
->> +
->> +        pwms = <&pwm_ij 1 1500 0>;
->> +        pwm-dutycycle-range = <100 0>;
->> +
->> +        regulator-boot-on;
->> +        regulator-always-on;
->> +        /* Voltage Duty-Cycle */
->> +        voltage-table = <1049000 0>,
->> +                <1039000 3>,
->> +                <1029000 6>,
->> +                <1019000 9>,
->> +                <1009000 12>,
->> +                <999000 14>,
->> +                <989000 17>,
->> +                <979000 20>,
->> +                <969000 23>,
->> +                <959000 26>,
->> +                <949000 29>,
->> +                <939000 31>,
->> +                <929000 34>,
->> +                <919000 37>,
->> +                <909000 40>,
->> +                <899000 43>,
->> +                <889000 45>,
->> +                <879000 48>,
->> +                <869000 51>,
->> +                <859000 54>,
->> +                <849000 56>,
->> +                <839000 59>,
->> +                <829000 62>,
->> +                <819000 65>,
->> +                <809000 68>,
->> +                <799000 70>,
->> +                <789000 73>,
->> +                <779000 76>,
->> +                <769000 79>,
->> +                <759000 81>,
->> +                <749000 84>,
->> +                <739000 87>,
->> +                <729000 89>,
->> +                <719000 92>,
->> +                <709000 95>,
->> +                <699000 98>,
->> +                <689000 100>;
->> +    };
->> +};
->> +
->> +&emmc {
->> +    status = "okay";
->> +    pinctrl-0 = <&emmc_pins>, <&emmc_ds_pins>;
->> +    pinctrl-1 = <&emmc_clk_gate_pins>;
->> +    pinctrl-names = "default", "clk-gate";
->> +
->> +    bus-width = <8>;
->> +    cap-mmc-highspeed;
->> +    mmc-ddr-1_8v;
->> +    mmc-hs200-1_8v;
->> +    max-frequency = <200000000>;
->> +    non-removable;
->> +    disable-wp;
->> +
->> +    mmc-pwrseq = <&emmc_pwrseq>;
->> +    vmmc-supply = <&vddao_3v3>;
->> +    vqmmc-supply = <&vddio_ao1v8>;
->> +};
->> +
->> +&ethmac {
->> +    status = "okay";
->> +    phy-handle = <&internal_ephy>;
->> +    phy-mode = "rmii";
->> +};
->> +
->> +&ir {
->> +    status = "okay";
->> +    pinctrl-0 = <&remote_pins>;
->> +    pinctrl-names = "default";
->> +};
->> +
->> +&pwm_ef {
->> +    status = "okay";
->> +    pinctrl-0 = <&pwm_e_pins1>;
->> +    pinctrl-names = "default";
->> +};
->> +
->> +&pwm_ij {
->> +    status = "okay";
->> +};
->> +
->> +&sd {
->> +    status = "okay";
->> +    pinctrl-0 = <&sdcard_pins>;
->> +    pinctrl-1 = <&sdcard_clk_gate_pins>;
->> +    pinctrl-names = "default", "clk-gate";
->> +    bus-width = <4>;
->> +    cap-sd-highspeed;
->> +    max-frequency = <50000000>;
->> +    disable-wp;
->> +
->> +    cd-gpios = <&gpio GPIOC_6 GPIO_ACTIVE_LOW>;
->> +
->> +    vmmc-supply = <&vddao_3v3>;
->> +    vqmmc-supply = <&vddao_3v3>;
->> +};
->> +
->> +&sdio {
->> +    status = "okay";
->> +    pinctrl-0 = <&sdio_pins>;
->> +    pinctrl-1 = <&sdio_clk_gate_pins>;
->> +    pinctrl-names = "default", "clk-gate";
->> +    #address-cells = <1>;
->> +    #size-cells = <0>;
->> +    bus-width = <4>;
->> +    cap-sd-highspeed;
->> +    sd-uhs-sdr50;
->> +    sd-uhs-sdr104;
->> +    max-frequency = <200000000>;
->> +    non-removable;
->> +    disable-wp;
->> +
->> +    no-sd;
->> +    no-mmc;
->> +    mmc-pwrseq = <&sdio_pwrseq>;
->> +    vmmc-supply = <&vddao_3v3>;
->> +    vqmmc-supply = <&vddio_ao1v8>;
->> +};
->
-> I suppose that's the Wi-Fi module you're talking about. I would put a 
-> comment
-> above to specify that it is indeed Wi-Fi and not yet supported.
->
-> Something like:
->
->     /*
->      * Wireless SDIO Module (Amlogic W150S1)
->      * Note: There is no driver for this at the moment.
->      */
->
-
-Yes that makes sense. I will add that.
-
-
->> +
->> +&uart_b {
->> +    status = "okay";
->> +};
->> -- 
->> 2.53.0
->
-> -- 
-> Best regards,
-> Ferass
-
-Thanks again,
-Christian
+diff --git a/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml b/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
+index b9022f1613d8..28f5818f1e60 100644
+--- a/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
++++ b/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
+@@ -44,10 +44,14 @@ select: true
+ properties:
+   "#cooling-cells":
+     description:
+-      Must be 2, in order to specify minimum and maximum cooling state used in
++      Must be 2 or 3. If 2, specifies minimum and maximum cooling state used in
+       the cooling-maps reference. The first cell is the minimum cooling state
+       and the second cell is the maximum cooling state requested.
+-    const: 2
++      If 3, the first cell specifies the thermal mitigation device specifier
++      index for devices that support multiple thermal mitigation mechanisms.
++      The two other cells are respectively the minimum cooling state and the
++      maximum cooling state.
++    enum: [2, 3]
+ 
+ additionalProperties: true
+ 
+diff --git a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+index 0de0a9757ccc..1261ba0e802e 100644
+--- a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
++++ b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+@@ -214,7 +214,8 @@ patternProperties:
+                   device. Using the THERMAL_NO_LIMIT (-1UL) constant in the
+                   cooling-device phandle limit specifier lets the framework
+                   use the minimum and maximum cooling state for that cooling
+-                  device automatically.
++                  device automatically. If three arguments are specified,
++                  the first argument is the cooling device specifier.
+ 
+               contribution:
+                 $ref: /schemas/types.yaml#/definitions/uint32
+-- 
+2.43.0
 
