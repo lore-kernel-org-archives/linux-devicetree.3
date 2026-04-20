@@ -1,73 +1,86 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F693A7F7C;
-	Mon, 20 Apr 2026 14:24:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE493A873A;
+	Mon, 20 Apr 2026 14:25:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776695091; cv=none; b=KCqV3J7TxZLCipg99FY/bzct9dw1WEQIp0Rmah3jWTRQkxzJAfdJJ8sWOyek4594wpT1oEUhG0oavq5X3GNPU81KUj+/rOOjVcOmJJiotIDip1wZxokT7GnYYN2/MNAQtYOCxV13r8xBnXGysSF/o0T1bwM3pf8B19+pc1CVbiI=
+	t=1776695144; cv=none; b=OniLvSlZu83eWENF8v/HHqC8G7872/KZsA9VBsD4bRTrXdtNEH60545GoJa28W+G4kih5rWr9iplaAWQnFvZoPiOPBfZacqUdWNZEQqm7O+5INnTRxWhtuSOAlGuW5XjoWUrzgL7quQvpvLjxJlzopctRGA3NKNuBDtazpgvHiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776695091; c=relaxed/simple;
-	bh=0lGfRSEcpfkHP4tjhbzldVYPoBHk1TuI3OH6+fPCTOM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z79DugS+1AtFOJ/n1V7zbvXS/g/v7YWhL7u8xI6HhFMTv23q75u6I8GK4wYqYh5qiT9xz49jYvRS9l4iRWjRE7Vp4sBGAYMeS09BR/FkoSMECFluewsDUXWO+I8i9yNDQWhCh43+QIuDB4WssLtJf4DQNtNUYuxz5MLMIeuRdEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
-	 (Exim 4.99)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1wEpY9-000000008Uq-2UVl;
-	Mon, 20 Apr 2026 14:24:33 +0000
-Date: Mon, 20 Apr 2026 15:24:30 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Sean Wang <sean.wang@mediatek.com>, linux-crypto@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: rng: mtk-rng: add SMC-based TRNG
- variants
-Message-ID: <aeY3HuP01VYl5x6X@makrotopia.org>
-References: <585fc832e4e5d3656bd25ecee6bafb636993104a.1776600269.git.daniel@makrotopia.org>
- <20260420-flat-rook-of-hail-bbede5@quoll>
+	s=arc-20240116; t=1776695144; c=relaxed/simple;
+	bh=kZ+s/Nwn78KcaXqnaXAIyBNa6oHj1Fx+ThsDHANH3S4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=N2YA+NNHfOklX5G7FzT8snvRt26EqBNz7UpMT5yvh0F2/WAi6DoeycVvpRxvYk0gZXOoGgCMi3zOWrRZ/KnGs+Py9gSVVKmUqSSsbPfuk1+fQSlrhrLipojDDgzKIosfvty7eS/QlTbidUTr+ZKbialMr+SCd4IgZRMU/8RZyoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ExUiQqn6; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ExUiQqn6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50395C2BCB4;
+	Mon, 20 Apr 2026 14:25:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776695144;
+	bh=kZ+s/Nwn78KcaXqnaXAIyBNa6oHj1Fx+ThsDHANH3S4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=ExUiQqn6lWdhD1k+6jDbIp2sUKTEj4P9z0/Ceq2imfVx1rWY1QAjLXql81bL8MBKV
+	 fiQ4oUWTjK+R7YJly+RYfcD/BALXQ1q4r0+i6BIoJfaNhjVP9oGruvXvqzPEwf5spx
+	 sPaGHBIuZ7woa1TX9jgRZaCGDE19Gk/OOZbstE7q2WSrpgP081UmbD8Zl1cT6vyruZ
+	 3VdtlCTNNcDV9KRIYDsVRZtY9OQQ5bmm4LbBM9eTzE+ZUS0INU4i/NRV/aid2MPiuG
+	 bZAGEXt94eQYPyZEwukX/jtX233jyjsWjbu8bdZgFlefNLWxmGkvSCyBGEINfbC2VD
+	 Ychp7N4EvbZww==
+Date: Mon, 20 Apr 2026 15:25:33 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Hardik Phalet <hardik.phalet@pm.me>
+Cc: gregkh@linuxfoundation.org, andy@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, dlechner@baylibre.com, krzk+dt@kernel.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-staging@lists.linux.dev, me@brighamcampbell.com, nuno.sa@analog.com,
+ robh@kernel.org, skhan@linuxfoundation.org, Hardik Phalet
+ <hardik.phalet@gmail.com>
+Subject: Re: [PATCH v3 4/5] iio: magnetometer: qmc5883p: add oversampling
+ ratio support
+Message-ID: <20260420152533.060c8f9a@jic23-huawei>
+In-Reply-To: <20260420-qmc5883p-driver-v3-4-da1e97088f8b@pm.me>
+References: <20260420-qmc5883p-driver-v3-0-da1e97088f8b@pm.me>
+	<20260420-qmc5883p-driver-v3-4-da1e97088f8b@pm.me>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260420-flat-rook-of-hail-bbede5@quoll>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Apr 20, 2026 at 04:07:33PM +0200, Krzysztof Kozlowski wrote:
-> On Sun, Apr 19, 2026 at 01:05:01PM +0100, Daniel Golle wrote:
-> > +    rng {
-> > +            compatible = "mediatek,mt7981-rng";
+On Sun, 19 Apr 2026 22:32:56 +0000
+Hardik Phalet <hardik.phalet@pm.me> wrote:
+
+> Expose the CTRL_1 OSR field through IIO_CHAN_INFO_OVERSAMPLING_RATIO so
+> userspace can select among the four oversampling settings (1, 2, 4, 8)
+> supported by the device. Read, write and available handlers mirror the
+> existing SAMP_FREQ plumbing and use the already-present rf.osr regmap
+> field.
 > 
-> I asked at v1. Reminded at v2. Nothing serious, but repeating myself is
-> pointless and kind of waste of time.
+> Signed-off-by: Hardik Phalet <hardik.phalet@pm.me>
+> ---
 
-Replying *once* telling what you would actually want, or replying to
-me asking back would have helped enormously:
-https://patchwork.kernel.org/comment/26880354/
+> @@ -306,6 +320,18 @@ static int qmc5883p_write_odr(struct qmc5883p_data *data, int val)
+>  	return -EINVAL;
+>  }
+>  
+> +static int qmc5883p_write_osr(struct qmc5883p_data *data, int val)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(qmc5883p_osr); i++) {
 
-All I can see is that you concluded "no improvements" without telling
-*what it is you would like to see improved*.
+Whilst a fairly recent thing, it is now considered fine to do
+	for (int i = 0; i < ... 
 
-You want me to drop the whole example? Drop the compatible?
-I did drop (and replace) the negative list with a positive list, and
-thought that was what you have asked me for
-https://patchwork.kernel.org/comment/26817847/
+> +		if (qmc5883p_osr[i] == val)
+> +			return regmap_field_write(data->rf.osr, i);
+> +	}
+> +
+> +	return -EINVAL;
+> +}
 
-This binding is dead simple: It's a compatible, describing the identical
-hardware now hidden behind and SMC call.
+
