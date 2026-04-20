@@ -1,231 +1,193 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B653B47FC
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 13:36:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776692193; cv=none; b=EROI13JUFmFwB+95DobpiMtnbKSVp7qlsSmznIc5to4zbl6Yep3y2+BKO32V/oltH4oKYVtoEOwN1oY7cVb1Dbuph2a5TggohVrLVPbjZnUir9uCGHFKDv1Z+DSvGlIM7UzwXwBI3/N1NiIIaCixt/sfh54Fv+awhWLwU19Iqws=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776692193; c=relaxed/simple;
-	bh=7fK/nJBDBKr8gQ/ZQZIfX6ZcYqbkWgAeRG2NCe02sJM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=epFmYgEO8QM2BLbBxW7PQMLqty4na1+u0glVEeKVyw+G5shejahCdeuxW5CcrgI0FarIVAXWrbScfGDasXnN0g/Yg99K0UaeTw63vBEl6gvP649j5krvzm2BeQ3bDplX/K8UzaOeV+t8MlZ9xM+5/LI3wNqnFC+BOdH2u2wGB0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EcNXDeB2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TeRuIfCC; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1E663B4EBC;
+	Mon, 20 Apr 2026 13:36:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776692203; cv=pass; b=O1B1VGJklkyQMl8W0GPdy7vcy38+qDMGHKKQe5jSRV9KVY0XPaimifxc1C0xuAavxqOR3eFz0HlVWt5uCZ1fl4q1t66O73Tghk/Rdew3iebethSUnR2FnueTu6rOxmLyCgvd9tLBWWqp1dsBwtBPh0v8cdPp0EinWJn7dy95PQw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776692203; c=relaxed/simple;
+	bh=QcKVmbaRkNCqiR47r/Fq9+7IbyifeWd+ELd7ZUsnp9Q=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=NFSUuB3061sRdDTfDOHNGc5+dC96+1Q/D4bcTFnM/XXpFgYAJ5OzSaRxAm2slooEAEVrK0xVLYA1rRTYz/lHO2t5L+7NBJYEY0A3ikH1c8yDWg2ipdz73Vu7TwCJL2S3HyBV66360mvt4/rlyij3qxE+74LMLvDNfdFDsviVSR8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=Ji49vSkd; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EcNXDeB2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TeRuIfCC"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63K91Rg02281691
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 13:36:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=Ejj/uRB4+uasiKUqyUjnwU1BaXr20Z3LDpH
-	r6AeJKXk=; b=EcNXDeB2VzFWRVeutC5wSfwWSePHjbPeP+qFko05O7Sda2K6mmj
-	5C1Nwo5E5Nfyunh9Woy22YXgFdwqU3qGIXO5gm6Tv7SZNjOYPO0s+EqxqFcFQORW
-	3F70i4mqcBojy2Z5/Wcy0WPomCgU+lRHuEpU7EOjisbpKf3jF+EsT14cfm29Gusy
-	ZnMhMLeyysBp8rVO0XDb3yZ2uyMD9Rifz8D+yBJC9k+6Ddh3H1sGO3vRbzL0egql
-	oV1u8mqjQ8Tfb6K8WrlFBeulkE1QEhohLGp3J3AuYSf9LNNho8M9dINSUpzVuNLa
-	P1k6t8Txsw3t0kRvwmazcJDfUpkzgFY+1CA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dnh598xn2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 13:36:30 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50df4c130dbso36980451cf.1
-        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 06:36:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776692190; x=1777296990; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ejj/uRB4+uasiKUqyUjnwU1BaXr20Z3LDpHr6AeJKXk=;
-        b=TeRuIfCCUY2JLUg+7Cq4QHz4GvEkyeGlqdpSD7g/g4jwON2n5h5DcIzIXO8SSGpb+R
-         haJGUfHEbjihcJYVR0FcX9NuqGpJRqvN9WxCYLVsNT0dn4voWfn6ZwZJ6eiO/5qBkm+p
-         XYRgggP4t4QdfCGDqRwygDVeyU/+YhEX689SuELrX5LTQOuOLChgCA01r3ywiS5uj9jK
-         IK9Y6IAP+PIw3ngeShHpVszKeexPBDln7nYX6nYmdtSCagJh1rD8gNekoTRh/3cG7XlV
-         7p9n3MLhy7InggdT4FPIfJdJ+Px61HCfsydy9Mir6CT+ZnQ+An6aDZNJ6rD3G8lFOK7I
-         xYPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776692190; x=1777296990;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ejj/uRB4+uasiKUqyUjnwU1BaXr20Z3LDpHr6AeJKXk=;
-        b=FnyqdihgfWT2eiVeM0VGm71MPkEidUsIvB7a52CvVvkMjNaO0SVB26L0ZCZ19Dc/5p
-         VlJdcfpmZI/EXhcvSlkdxseNF1RixHgmfW2kCNTPl4v383VxJg6H7v7byO9VMljuhD7R
-         bNAA7wiTDmSDvxuMzHOAVLbQGoxa541a5qUeqb48p4sXQbhVNavMT4HCgxB9wL7OQB5W
-         lG0jEWbIqZrE4fzn6RXO4Aim5UlhtqGTEVH9+mSh/CraoRI+Va8usXk5A0v7MZSU5OYx
-         CrF2VqqsRB0f2+wO+5i1O229IXhJKOtU8ecPCoK1fRzTNgIRQz+/4yKEJxUMCTNkHJzU
-         +e4g==
-X-Forwarded-Encrypted: i=1; AFNElJ8ikSxl1A9bqAwDwiDOTVNmHEOFWOYjJT2AxY5Ov1VmRpdJXWsUfzPLPnMT8pleHA4+typ5yI6axxWk@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyz18z+Rjd7kQfm/r6JSd+64j2LZ/yOkxiPQhLiH5vY3/7XLhC3
-	QOS/W9MzqVdaxy4YmXdHpLiF2DKsryH9Df5+ogSGcIRjX6NkvtltQ/r2Mk3wXd2HeDSS8dDZCZ3
-	oD43bHzuLXkJsG1/F1DsTiJpPOTQg04YVdZwTmjVQhNd/ELBaW8uIXFgTMZlqIwDD
-X-Gm-Gg: AeBDietzWynLcmyWQYxzrE6QbUTfPmliBgcm62IjcW0nf34pKBD3Cflp5w63EDCwV2j
-	LCLo1j9CFV7MgwFRpO4nRJFY7ilIRDSSIcFBTk2WmDonli8T+o/4saUsTxa6jAPRROJ7dF8NY8u
-	gVo2nL3djRuxYOA4LU1siiceBSHKzO7qY4aGS00v6Lfs6lnXFEzn2+tHmw8yPq0aOJRo/wEdY4a
-	QpxOSfK322tuwP0NzuVPtwHtVT3AZkf5omrppc8dBVfYj5XcXR96dtayRyXARLJy+NPf4s++xaG
-	kPRANRGG4UEBguz9yxoJe4r/pePf2Uhqe2NXaeKBMXW5JfXqMSb5HZ2EV5bXN1BWys2NWf3/vTG
-	Mnnf2akwBm5rlUwZYsZqNpCZzyH5Lt/DOBR7jo6GdplcsAno=
-X-Received: by 2002:a05:622a:a955:10b0:50e:4241:ec47 with SMTP id d75a77b69052e-50e4241f0efmr88547401cf.40.1776692190021;
-        Mon, 20 Apr 2026 06:36:30 -0700 (PDT)
-X-Received: by 2002:a05:622a:a955:10b0:50e:4241:ec47 with SMTP id d75a77b69052e-50e4241f0efmr88546901cf.40.1776692189418;
-        Mon, 20 Apr 2026 06:36:29 -0700 (PDT)
-Received: from quoll ([178.197.219.94])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fc100162sm310383925e9.5.2026.04.20.06.36.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Apr 2026 06:36:28 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH] arm64: dts: qcom: glymur: Drop fake PCIe phy 3B
-Date: Mon, 20 Apr 2026 15:36:17 +0200
-Message-ID: <20260420133616.88740-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Ji49vSkd"
+ARC-Seal: i=1; a=rsa-sha256; t=1776692166; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=kbWrdoVJzGhTG6U4AOCvWdKVLMOS8MtH4pD9eCVSkzJDFEpSsD/ZTPZTkJiYR206v7BM3BOc96uR+w14z0rIfyW/fZGo3re6vXgiWl277lBrHGlG+zNsNnd4gWKyFlvXwRw6w2CMte8nZAMqmwHDEn+Zp2zw+QJFHGaMzo5PKyE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1776692166; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=9x9hZMXBpn0P7sSuaA5owfOkbpFsWAWGV2pJQS60n9Q=; 
+	b=Vtoj0hCytPWlUHpOLIw6MRjkxyAb844eoMER6XHwLcvA30on3pE4xPPDn7IMJbyMD4nRBGbdrjl61uKxU4iqNC+JVCDid+s4Pvs9kGaYUqWF63PGYP6BZvYZVDH0ezzfudvUGvtUfkhXu8MdmX2ZOzESpTSy6v7VM4+BotLTBAA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776692166;
+	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=9x9hZMXBpn0P7sSuaA5owfOkbpFsWAWGV2pJQS60n9Q=;
+	b=Ji49vSkdVTSHfzJ6C7yxMIMN60E9ymIKS5kbwKbcKfdT+ZKqMF3wX6Ue+pnLRJ7u
+	pqKoObUC8gjBh+FXqOgznACl8Td4aSdPDqt9KW9pKyIJUyWohLDn8qOmRGYD/cPcUjH
+	RWBpHepzOIOIyB0p19AGwn2aFPz4Xq9mTBMSeGXI=
+Received: by mx.zohomail.com with SMTPS id 1776692164179410.7232026286083;
+	Mon, 20 Apr 2026 06:36:04 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Mon, 20 Apr 2026 15:35:19 +0200
+Subject: [PATCH v4 1/5] dt-bindings: pwm: Add a new binding for
+ rockchip,rk3576-pwm
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3121; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=7fK/nJBDBKr8gQ/ZQZIfX6ZcYqbkWgAeRG2NCe02sJM=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBp5ivQ/aUChFY0PKkUjcjMNJuav9qZLjk75JVxn
- 6Ljc3ZIXoiJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaeYr0AAKCRDBN2bmhouD
- 16UGEACS48d85D19VTfVaBcMmnO5x0ALRyEEIH0gbY62H9pywmTNxx35cuhLLsnR6JI3LwQDcEk
- Gk1xxLpZuMkWHdau0FR8NnFVN6R5bQC53zB39P/GqTmKsZ3QglcETU+PLt22N/+zglC6hQjgM+2
- NTg6jxNVjyFnLMO07kQavv1uQO66GuSKyjFHYOme/aWd/Ig8WbdAw/a8hAYtyq2ckNEQoLA8qWf
- od8AZJYXGT1jHWWRhxS1PGmV3G7i0M2w7IyhCIc7P075/Fxd6QU8ybaAAni0KTVWl3SJZpJvcFT
- pH0QpB58UW7IgxIv2bTfprlsmIzvlDzpC4KWyOqJ2aFhzOhT20OrvJboKwOnxfmX3xP9jkSkLzj
- YeUjd9juzWjxPad/7V6k3g197dbTbfqCiBoLWXQZN4C44nBfbA282SKUDfS1SBmuKkv8WMMYY2/
- wZQ1I37i2pg51Sk/Dow7lftPs9OaxHtfJJTZ5GomZ8IsZJw0fjmWhHGzHCpjkOiL+RcRSG7mzkS
- VP0x7i8U7kQ/7Kn54aftDdav7Wd0S+PnuxVRZv6ZoP2yVHLCpc6sWJBUvJRYzCKbdz4H1zK9qeG
- aoS2Pw/iWyweag0MwHxS+RVDWKAlA5XlhIs3cJdENyadMoQmDMjV+e6725jLvoQk+ujof9N51UN kRYfxLVNMp4HAtQ==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 4qTcEvi39cyWFasFyKc4ocHS5D_o2UH3
-X-Proofpoint-GUID: 4qTcEvi39cyWFasFyKc4ocHS5D_o2UH3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDEzMiBTYWx0ZWRfX5mAmr+bQyxbE
- wlr5wRdAVdZjbs4Uj7JJJix74IvJHEu5RNBiKkBTYKMd2NsQMcnI7T6nbvR16oG72a5B2vLHAdR
- aVobPyFxATKJLfJVVEAevBQjzuYhVlYo0XJCdYCgr942Q3TmxwGj2YqyL6Zre0X3N8+Hx8h14CC
- eYYeMg/tstrmbfEWORUJkpD0Y1SFt/0c9kUI/v8ycUmxDvcTxKj94c4FbgByCKH9AE537p38rJA
- Oasp41our/o39t2VJLUiLUOtZ3eUnKE/QXsl6BsHJhkMkl/XDmKB24TOdRqnV/7WgL99fzjQt71
- pcJmM3mqYncaKG5TCadq0RUV6hOu1n6TCgyT1JaUsw4LjeXNTYr0jK5cgjUpkU9seO3zvCVFHii
- Dv7DT3V1dbfSqHp439LruJJtFrwZOqaxlMva3EtowZhMx7bnw+3LOoNhkPt40zSwT1eHF4y7r1j
- EYTwchFq89SENjLY3zg==
-X-Authority-Analysis: v=2.4 cv=HNrz0Itv c=1 sm=1 tr=0 ts=69e62bde cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=6vJ1rGMNMJ1YGqXfLoAA:9 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-20_03,2026-04-17_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 adultscore=0 spamscore=0 phishscore=0
- impostorscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604200132
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260420-rk3576-pwm-v4-1-421738c7bf28@collabora.com>
+References: <20260420-rk3576-pwm-v4-0-421738c7bf28@collabora.com>
+In-Reply-To: <20260420-rk3576-pwm-v4-0-421738c7bf28@collabora.com>
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Lee Jones <lee@kernel.org>, William Breathitt Gray <wbg@kernel.org>, 
+ Damon Ding <damon.ding@rock-chips.com>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ kernel@collabora.com, Jonas Karlman <jonas@kwiboo.se>, 
+ Alexey Charkov <alchark@gmail.com>, linux-rockchip@lists.infradead.org, 
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-iio@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15.2
 
-According to user manual / programming guide there is no separate PCIe
-phy 3A and 3B, but one 8-lane QMP PCIe Gen5 PHY which consists of two
-4-lane blocks.  This is also visible in memory map, where the 0xf00000
-is marked as the main block with additional sub blocks for each 4-lane
-phys.
+The Rockchip RK3576 SoC has a newer PWM controller IP revision than
+previous Rockchip SoCs. This IP, called "PWMv4" by Rockchip, introduces
+several new features, and consequently differs in its bindings.
 
-Describing the sub phys without the rest is not correct from hardware
-description, even if it works.
+Instead of expanding the ever-growing rockchip-pwm binding that already
+has an if-condition, add an entirely new binding to handle this.
 
-Link: https://lore.kernel.org/r/20260420-optimistic-unnatural-stingray-80da35@quoll/
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+There are two additional clocks, "osc" and "rc". These are available for
+every PWM instance, and the PWM hardware can switch between the "pwm",
+"osc" and "rc" clock at runtime.
+
+The PWM controller also comes with an interrupt now. This interrupt is
+used to signal various conditions.
+
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- arch/arm64/boot/dts/qcom/glymur-crd.dtsi |  5 ---
- arch/arm64/boot/dts/qcom/glymur.dtsi     | 39 +-----------------------
- 2 files changed, 1 insertion(+), 43 deletions(-)
+ .../bindings/pwm/rockchip,rk3576-pwm.yaml          | 77 ++++++++++++++++++++++
+ MAINTAINERS                                        |  7 ++
+ 2 files changed, 84 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-index 2852d257ac8c..647e934f4edc 100644
---- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-@@ -440,11 +440,6 @@ &pcie3b {
- 	pinctrl-names = "default";
- };
+diff --git a/Documentation/devicetree/bindings/pwm/rockchip,rk3576-pwm.yaml b/Documentation/devicetree/bindings/pwm/rockchip,rk3576-pwm.yaml
+new file mode 100644
+index 000000000000..48d5055c8b06
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pwm/rockchip,rk3576-pwm.yaml
+@@ -0,0 +1,77 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pwm/rockchip,rk3576-pwm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Rockchip PWMv4 controller
++
++maintainers:
++  - Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
++
++description: |
++  The Rockchip PWMv4 controller is a PWM controller found on several Rockchip
++  SoCs, such as the RK3576.
++
++  It supports both generating and capturing PWM signals.
++
++allOf:
++  - $ref: pwm.yaml#
++
++properties:
++  compatible:
++    items:
++      - const: rockchip,rk3576-pwm
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Used to derive the PWM signal.
++      - description: Used as the APB bus clock.
++      - description: Used as an alternative to derive the PWM signal.
++      - description: Used as another alternative to derive the PWM signal.
++
++  clock-names:
++    items:
++      - const: pwm
++      - const: pclk
++      - const: osc
++      - const: rc
++
++  interrupts:
++    maxItems: 1
++
++  "#pwm-cells":
++    const: 3
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/rockchip,rk3576-cru.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    soc {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        pwm@2add0000 {
++            compatible = "rockchip,rk3576-pwm";
++            reg = <0x0 0x2add0000 0x0 0x1000>;
++            clocks = <&cru CLK_PWM1>, <&cru PCLK_PWM1>, <&cru CLK_OSC_PWM1>,
++                     <&cru CLK_RC_PWM1>;
++            clock-names = "pwm", "pclk", "osc", "rc";
++            interrupts = <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>;
++            #pwm-cells = <3>;
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 891fb83ba7a9..86f20cb563c6 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23172,6 +23172,13 @@ F:	Documentation/userspace-api/media/v4l/metafmt-rkisp1.rst
+ F:	drivers/media/platform/rockchip/rkisp1
+ F:	include/uapi/linux/rkisp1-config.h
  
--&pcie3b_phy {
--	vdda-phy-supply = <&vreg_l3c_e1_0p89>;
--	vdda-pll-supply = <&vreg_l2c_e1_1p14>;
--};
--
- &pcie3b_port0 {
- 	reset-gpios = <&tlmm 155 GPIO_ACTIVE_LOW>;
- 	wake-gpios = <&tlmm 157 GPIO_ACTIVE_LOW>;
-diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-index f23cf81ddb77..d5408bd3a389 100644
---- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-@@ -737,7 +737,7 @@ gcc: clock-controller@100000 {
- 				 <0>,				/* USB 2 Phy PIPEGMUX */
- 				 <0>,				/* USB 2 Phy SYS PCIE PIPEGMUX */
- 				 <0>,				/* PCIe 3a */
--				 <&pcie3b_phy>,			/* PCIe 3b */
-+				 <0>,				/* PCIe 3b */
- 				 <&pcie4_phy>,			/* PCIe 4 */
- 				 <&pcie5_phy>,			/* PCIe 5 */
- 				 <&pcie6_phy>,			/* PCIe 6 */
-@@ -3632,49 +3632,12 @@ pcie3b_port0: pcie@0 {
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
- 
--				phys = <&pcie3b_phy>;
--
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
- 			};
- 		};
- 
--		pcie3b_phy: phy@f10000 {
--			compatible = "qcom,glymur-qmp-gen5x4-pcie-phy";
--			reg = <0x0 0x00f10000 0x0 0x10000>;
--
--			clocks = <&gcc GCC_PCIE_PHY_3B_AUX_CLK>,
--				 <&gcc GCC_PCIE_3B_CFG_AHB_CLK>,
--				 <&tcsr TCSR_PCIE_3_CLKREF_EN>,
--				 <&gcc GCC_PCIE_3B_PHY_RCHNG_CLK>,
--				 <&gcc GCC_PCIE_3B_PIPE_CLK>,
--				 <&gcc GCC_PCIE_3B_PIPE_DIV2_CLK>;
--			clock-names = "aux",
--				      "cfg_ahb",
--				      "ref",
--				      "rchng",
--				      "pipe",
--				      "pipediv2";
--
--			resets = <&gcc GCC_PCIE_3B_PHY_BCR>,
--				 <&gcc GCC_PCIE_3B_NOCSR_COM_PHY_BCR>;
--			reset-names = "phy",
--				      "phy_nocsr";
--
--			assigned-clocks = <&gcc GCC_PCIE_3B_PHY_RCHNG_CLK>;
--			assigned-clock-rates = <100000000>;
--
--			power-domains = <&gcc GCC_PCIE_3B_PHY_GDSC>;
--
--			#clock-cells = <0>;
--			clock-output-names = "pcie3b_pipe_clk";
--
--			#phy-cells = <0>;
--
--			status = "disabled";
--		};
--
- 		tcsr_mutex: hwlock@1f40000 {
- 			compatible = "qcom,tcsr-mutex";
- 			reg = <0x0 0x01f40000 0x0 0x20000>;
++ROCKCHIP MFPWM
++M:	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
++L:	linux-rockchip@lists.infradead.org
++L:	linux-pwm@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/pwm/rockchip,rk3576-pwm.yaml
++
+ ROCKCHIP RK3568 RANDOM NUMBER GENERATOR SUPPORT
+ M:	Daniel Golle <daniel@makrotopia.org>
+ M:	Aurelien Jarno <aurelien@aurel32.net>
+
 -- 
-2.51.0
+2.53.0
 
