@@ -1,138 +1,135 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51C92D9EFF;
-	Mon, 20 Apr 2026 15:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FA22C236B;
+	Mon, 20 Apr 2026 15:43:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776699600; cv=none; b=Ts4jzDDfdsoqA6/Z3oc6YIPvL/x0CPobmlhttV1kcmEiZ5uq2elf9IFRXATAVd1xQIJ6SUI6/oUMRMLYtZ0iO4WvZq5avZ1+BA0drjubKHbFRqfFibe6vwFwT0KOhKkPqpY4i5FTz/3/6iG+pAmg5fPEFxtDezfYgsXuBB0aXnI=
+	t=1776699807; cv=none; b=sOBut3+emL9RC4yHsuJ81ft3Oh83XIW6EYQpUR/gtgbrTZx0j5FNIlkdOPqS67c4TBIoHSh9ms3phLtUHOCgmUdKBUxaXA78vr1UislLikniqhlP+0+8HNBanuqpC5EgSidQGe9Mpfb9JZ988lz7pxx91QKObwht7TRxdHBaurM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776699600; c=relaxed/simple;
-	bh=3a4Ypy1u/27PDujt5gseiPmQkXAZYng4hIbE0wEYSIo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=cHEukvPFnuEj/yA0c5p9HDi1fD4v9gYaPCwF/KDiYvavZJgwsAz9gX3vyBnMdCydtZ9z+XOtb7/W/vQgiknj6Uhx2bIU39Fcr1ij2Jmv4Y/dYKXBEKxMZ41dZVPwkviRNLy8nIP1TLw6OvPMLp90EDx39mh/Fc5hA3BINNgh37o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=foCCdtZZ; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1776699807; c=relaxed/simple;
+	bh=evcQTKcQdUhHHiyOuI3MPGu+0sPxTe4aEQ7V+krO06I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nTfLVfLL6VS4IwQMjfQ5ScEh6frZjDlE4dJX9/P4zfon42LwegrQMJQLd7LJGNRlEHjiJL0aJo6Q+PAYsUkE51Uh6iBSq4nBtXVqgg7dmBujo/geGJkIT0QXnPdPjDFVykaBTkN6GMq5gAJWWG/R5gLYmTuoul5pRNnPb+sUsTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TejkvJX9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="foCCdtZZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1776699597;
-	bh=3a4Ypy1u/27PDujt5gseiPmQkXAZYng4hIbE0wEYSIo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=foCCdtZZ/1xejNmuldd81+RADGJRtFhLL36zX5iKoOqelFoTXez78pbxFT3pBVv0g
-	 Be2FFBv6Kras+cLdG+K+Cj5axodx61S+bMEm+5r4iw/gPSRaM9lE7TphN9nUWZadPp
-	 b/QKOSHmG1HO23GPKMtDX4719enheLviE+SsOtE+udh0SAZqgoW7USfs/DecwSVYUZ
-	 98Qy35orBPU0UAuFTMZ2JADqD6S1PS9qHMiT/x39ZH6bUYr4Py/+JTjJs++W7QJzex
-	 aH3rMSHgSGlrKtomuZVFUGUttbi+WOJcL8X5eEtZHjcwNEXkkg99dNSyxUXxMAdTv5
-	 G3AVGTaNoF31A==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5B8CF17E0FFA;
-	Mon, 20 Apr 2026 17:39:55 +0200 (CEST)
-Message-ID: <90e206fad7bef6052fcf38314889e7ff525d3201.camel@collabora.com>
-Subject: Re: [RFC PATCH v5 1/9] media: v4l2-common: Add YUV24 format info
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Nas Chung <nas.chung@chipsnmedia.com>, mchehab@kernel.org, 
-	hverkuil@xs4all.nl, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, 	shawnguo@kernel.org, s.hauer@pengutronix.de
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-imx@nxp.com, 
-	linux-arm-kernel@lists.infradead.org, marek.vasut@mailbox.org, 
-	ming.qian@oss.nxp.com
-Date: Mon, 20 Apr 2026 11:39:54 -0400
-In-Reply-To: <20260415092529.577-2-nas.chung@chipsnmedia.com>
-References: <20260415092529.577-1-nas.chung@chipsnmedia.com>
-	 <20260415092529.577-2-nas.chung@chipsnmedia.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-2DWc7xt29sTqO4tsb6NB"
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TejkvJX9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FA56C19425;
+	Mon, 20 Apr 2026 15:43:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776699807;
+	bh=evcQTKcQdUhHHiyOuI3MPGu+0sPxTe4aEQ7V+krO06I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=TejkvJX9YT60PEgKv35mh5I0g7WY0NsOXSNGGPayp+QHj4iatuxvv+jj7VY83sEW3
+	 HVAqy9lCtvscoN5QS7RBS5/sCSaziON9vkbvRPW5VICWqbgxa+j/XPVsxgd6/wNReW
+	 cw/xH3PUaT7AhvGgQoGxVAiP6txdG67oj8cvIXVpMTFF5mYvP0jOAogn5SdgUDWbQ0
+	 gquPk94NMq0P51p6sZQUz8v22ZSNNQm4rBszsl/GIPkwlxMasExAu7T4ZU4i8WkBZq
+	 UO5yI1GlKp+usqzsx/6bIDpD+5L1Q2YCoFZh0fTyBCwfpnqpYMSVRw0AQX9PCkneVQ
+	 oX9zIEe+AQO1w==
+Message-ID: <bd832819-52b3-47e7-a16b-ed4aff16967c@kernel.org>
+Date: Mon, 20 Apr 2026 17:43:23 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-
---=-2DWc7xt29sTqO4tsb6NB
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Le mercredi 15 avril 2026 =C3=A0 18:25 +0900, Nas Chung a =C3=A9crit=C2=A0:
-> The YUV24 format is missing an entry in the v4l2_format_info().
-> The YUV24 format is the packed YUV 4:4:4 formats with 8 bits
-> per component.
->=20
-> Fixes: 0376a51fbe5e ("media: v4l: Add packed YUV444 24bpp pixel format")
-> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
-> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
-Unless you disagree, I might cherry-pick this one. Would it be ok with you =
-?
-
-Nicolas
-
-> ---
-> =C2=A0drivers/media/v4l2-core/v4l2-common.c | 1 +
-> =C2=A01 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-c=
-ore/v4l2-common.c
-> index 554c591e1113..55bcd5975d9f 100644
-> --- a/drivers/media/v4l2-core/v4l2-common.c
-> +++ b/drivers/media/v4l2-core/v4l2-common.c
-> @@ -281,6 +281,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 f=
-ormat)
-> =C2=A0		{ .format =3D V4L2_PIX_FMT_Y212,=C2=A0=C2=A0=C2=A0 .pixel_enc =3D=
- V4L2_PIXEL_ENC_YUV, .mem_planes =3D 1, .comp_planes =3D 1, .bpp =3D { 4, 0=
-, 0, 0 }, .bpp_div =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 1 },
-> =C2=A0		{ .format =3D V4L2_PIX_FMT_Y216,=C2=A0=C2=A0=C2=A0 .pixel_enc =3D=
- V4L2_PIXEL_ENC_YUV, .mem_planes =3D 1, .comp_planes =3D 1, .bpp =3D { 4, 0=
-, 0, 0 }, .bpp_div =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 1 },
-> =C2=A0		{ .format =3D V4L2_PIX_FMT_YUV48_12, .pixel_enc =3D V4L2_PIXEL_EN=
-C_YUV, .mem_planes =3D 1, .comp_planes =3D 1, .bpp =3D { 6, 0, 0, 0 }, .bpp=
-_div =3D { 1, 1, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
-> +		{ .format =3D V4L2_PIX_FMT_YUV24,=C2=A0=C2=A0 .pixel_enc =3D V4L2_PIXE=
-L_ENC_YUV, .mem_planes =3D 1, .comp_planes =3D 1, .bpp =3D { 3, 0, 0, 0 }, =
-.bpp_div =3D { 1, 1, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
-> =C2=A0		{ .format =3D V4L2_PIX_FMT_MT2110T, .pixel_enc =3D V4L2_PIXEL_ENC=
-_YUV, .mem_planes =3D 2, .comp_planes =3D 2, .bpp =3D { 5, 10, 0, 0 }, .bpp=
-_div =3D { 4, 4, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2,
-> =C2=A0		=C2=A0 .block_w =3D { 16, 8, 0, 0 }, .block_h =3D { 32, 16, 0, 0 =
-}},
-> =C2=A0		{ .format =3D V4L2_PIX_FMT_MT2110R, .pixel_enc =3D V4L2_PIXEL_ENC=
-_YUV, .mem_planes =3D 2, .comp_planes =3D 2, .bpp =3D { 5, 10, 0, 0 }, .bpp=
-_div =3D { 4, 4, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2,
-
---=-2DWc7xt29sTqO4tsb6NB
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] arm64: dts: qcom: qcs6490-rb3gen2: Add WCD headset
+ playback and record for qcs6490-rb3gen2 industrial mezzanine
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Karthik S <karthik.s@qss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260417093327.3251203-1-karthik.s@qss.qualcomm.com>
+ <b6600312-3667-472b-9b76-c9977355115a@kernel.org>
+ <6b24255e-b579-4526-8820-6d7330768c50@kernel.org>
+ <vgrw3n5invft2zxmeh2gsknxvkgluqus4dfb4h2ipea7lvma4k@wrumrkki54s7>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <vgrw3n5invft2zxmeh2gsknxvkgluqus4dfb4h2ipea7lvma4k@wrumrkki54s7>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
+On 18/04/2026 01:06, Dmitry Baryshkov wrote:
+> On Fri, Apr 17, 2026 at 12:12:46PM +0200, Krzysztof Kozlowski wrote:
+>> On 17/04/2026 11:42, Krzysztof Kozlowski wrote:
+>>>
+>>> And finally:
+>>>
+>>> Please run scripts/checkpatch.pl on the patches and fix reported
+>>> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+>>> patches and (probably) fix more warnings. Some warnings can be ignored,
+>>> especially from --strict run, but the code here looks like it needs a
+>>> fix. Feel free to get in touch if the warning is not clear.
+>>
+>> As you pointed correctly after offline talk, checkpatch does not report
+>> undocumented compatible for the sound card qcs6490-rb3gen2-ia-snd-card.
+>>
+>> Unfortunately this patch did not go through internal toolset fully
+>> (PatchWise), which could have flag the issue. Let's discuss it
+>> internally next week.
+>>
+>>>
+>>> Undocumented ABI (without any reference in changelog where to find
+>>> posted patch).
+>> You still need to solve the undocumented sound card ABI - new
+>> compatible. If it is already sent to mailing lists, then provide link in
+>> patch changelog (---).
+> 
+> Which compatible is new there? I think it is a model and not compatible.
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaeZIygAKCRDZQZRRKWBy
-9CfdAQCO+MAFLwej7ISQdlHPhX2fvSd7xBKCs0FZF4gVxogKnwD8Dc1yC+H87n/p
-doPKag8f1pxYNb5/Tp1TSSVscskPSg4=
-=uqzt
------END PGP SIGNATURE-----
+Ahh, damn, you are right. It's not adding any new compatible.
 
---=-2DWc7xt29sTqO4tsb6NB--
+It's fine, I got confused, no new ABI here.
+
+Thanks Dmitry, for pointing this out.
+
+Best regards,
+Krzysztof
