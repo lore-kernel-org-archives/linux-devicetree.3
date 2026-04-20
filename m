@@ -1,242 +1,102 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F4F3A7F51
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 17:57:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD023A1D05;
+	Mon, 20 Apr 2026 17:58:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776707825; cv=none; b=DWJBqCNzOaF1g9fE4dTlnaILi3nEgHfH/SDdgpE5sf9yPFlMPS/z5asK+RkS4P4wTm0YAVcnEtZvCYhzDMXAoYHYwxzXbJfM4WX2Q5NMIYxt0f+7c4CGnWXU275nCZZpKuCKiMhRRr/bnhBV/SfxVP/uvo6T5Uom5IwqkT6BDZo=
+	t=1776707898; cv=none; b=bHvCHhJTgoOahnopA9nx2yzQPARjkeEtfEqDw17yoJEGpUgi24lG0AJmPEVFCzSNzCn/wJgmBGoUyuLQgKHaH6vIdI4Wj3AwYMSPwDln9iV6jKuUw8gswD9oqKWvtd9xanJH894lowMaQvS9O7OeWx7Ec5FFw3R4g7YVvtZ7yy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776707825; c=relaxed/simple;
-	bh=mA0cosl1Y/UKnS5y10aDzdtF+S+d+4NJ48Fw+uJpY+c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ooEManX11j3TjOEwrPE5pFBC593qCSuLk8DtYLQ8Fnz9t4sqqfb+gufMth0LIZDmhfAUjkLmijOAlrzt/ebW792BO+C+PuCIxYWJi5tBYzRnLV2p0YvuYBQl18gxCAk27Fckrt2pdowBuYTd799ZdQBnYFxbPfqPqziyoTd380Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h5fOjvZM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AJZJrkEX; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776707898; c=relaxed/simple;
+	bh=loA65GrEhgZP61+HZTQhHidAq+shi8hD5OJvIfN+foU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CsUtYq73Dl3iyWa4Tvb7S+FQoo0lqeFBAZa3UnsSg4m5rSe+DXb65XPRIyuIwPIUa3cB1NlBKGjlmOrugfXmarW0+yF1pNOkqNhiQInT8qTN43ArJm7nD2G5OhjpXFXAOPU8zN28GLY3y5CkUHRO2FdooTRi6tV1WzW6l0/3Wl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ojeock6C; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h5fOjvZM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AJZJrkEX"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63KG9NRB2980857
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 17:57:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=lJedt12Ka/Xa0EGY392YLMx6
-	0quQ8TyR8f08LkpHbbs=; b=h5fOjvZM2RiFhmgAgBdxV0HPKW05h/nqXsfQJLUh
-	H+EBZDUz4lye5WDJy1bgmO5hZQRuVXOz/BRyIK7cSL7D1qta8SuaBTmtfNn0AZ5e
-	6CzIpb8gxAusOI+IU3x1G4VIiZwLw+genz9RODklxmraGfdgkXzKwXcAEXb4wOJ/
-	++ChKTkj4USBwG3mOTRj1NlWJ46s5LRQiTyxG1UYRkHlOtQmsc1wAADKTb+B6LPk
-	H9hjMNygJ2p1jt1YKBls+krmh4IEnr8dpkc3P3kjRYfe0mVTCjsGbGVVzAG5JVXC
-	1OotTtAuTkNHHBiUDDgj0gAkopVrDgy69Il3p0EZC9xf7A==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dnj2psr4r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 17:57:03 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50d5d1c2289so69767421cf.2
-        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 10:57:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776707822; x=1777312622; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=lJedt12Ka/Xa0EGY392YLMx60quQ8TyR8f08LkpHbbs=;
-        b=AJZJrkEX2cpauJnC39eN5OCzqdR3wzvqBmDdrjkKslP0qwGLKl5O1lXafODwHMkNRs
-         1B/FKFPUDVxjrkJvqRPLkIRINYmww0XvJMkOkUm7TbtH06RfKdOnQn2WHdx6JRUJaYUn
-         X+LiZZnc4/HRZIvsHY3qQPYt+O3FI7e9o0P69FWqxsfQ9hrgXj+19SsYo0H1d/EPT3M1
-         DQCfencoFo8QNfZCyNSVu4HkNrOvJZIJx8oKNHwfthpmdaJUf33HIsuugQFbDgVkrDsu
-         CwDyK0txB/dextIlaWLVNEQKpWEyVj4NfHFRfFxHuym+ltUtFMmXx4jx+8Tz7JUAZNc7
-         c54g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776707822; x=1777312622;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=lJedt12Ka/Xa0EGY392YLMx60quQ8TyR8f08LkpHbbs=;
-        b=LRrrSG9r41C8SBp2gz9J19x6h15sGqqwxgkn0tJeN9YfZ+H9r05s3d5x7cW8xSutTZ
-         Je3hgx8tS8APy4H9OQCgvihXrTARTIBs7kOFPSe97uUJTOrEayHe8wna+WpQQSO/H9KT
-         85bOPzsTUNnGg5cRYlh9cXRaQ19key+AX3zpcfuOmo74LJhWUeO70rsjR3h/SnEsPOJK
-         s+6xVRbWKSM8jTj8rjiaaCmIZkAs1AXYZrS+Qq+ieLVzqelJ6Oz2K5OljaSHWYG67xVa
-         UtJ1WN0cVM7BVI2e15nGGob6tnPRwLNcn5lX1WjaHOgaTpWIkmiG9nWdDQJfKfBf02rJ
-         JqFg==
-X-Forwarded-Encrypted: i=1; AFNElJ/6VrXQf0DWHQsK0YZzCj65HITNtfg1GYvWMhSnoFzbSpRKosXrQQGD4jVOQKtqCkym5Xh7P2gWaZyn@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzx27f2O4EMo+mr7ZOp51Nlz4BxVZwL10ZlGU+mgrRTn+BfHWqY
-	pvqfGjzJ1PolTiCvx8onI4CHd6P5EcHAxUB559k98Ui2GtKfqmeMSnnKnsWuul/iQTC2x3QTwXG
-	ZiUnOxium/vn6GU+7PGE0YgaUZg99ZEt2WcrWZj+kxSh21HnPE8TUzK3mfQO2IFfp
-X-Gm-Gg: AeBDieuLu9GbCrrJa8oxltC7x4kSW5T6PCjsWhQC9fqhBemcLf+A4tfgG9VisRev5fw
-	A4fbT/0W1LAgI+FtOJjwSPYhWunYziHoGtYeVHRo9rDS52ALxsXv93cNHFLXGAFEVbzrJB8whhW
-	gx7y0Obr1uxL619X89qgoG8WPSx2DtAaI47H/4+w1uYB9TzeyfC7cQJ2ZcGMpCHM0AyQWBappcK
-	3PsuQ7Owib3OFjEtF92FYyS8EXSJA6BBwH+zGw6XLQJxABkvitXgrkTwrDCBbbxVk329K54uZ5m
-	Mu+Xoan/xj/DCgkPY/B44iMWwRSnknwdifGZshkjJ6dfCB9ZFSCs7ojpiigqgDHYHsL8gnPTv8e
-	9XxxLW/5gXi3mocMEU5WCXm7Un2jQRrF/laYc1K2h+YYPlm6/sLHTQ1K6FtT+4em+fzh5lEIUvd
-	iPsq2fvYur+nGoNnHulk6NxCoAlJu01hjYzjAHrWBnMS1yEQ==
-X-Received: by 2002:a05:622a:a64c:b0:50e:5fe2:83aa with SMTP id d75a77b69052e-50e5fe290c0mr48699681cf.12.1776707822363;
-        Mon, 20 Apr 2026 10:57:02 -0700 (PDT)
-X-Received: by 2002:a05:622a:a64c:b0:50e:5fe2:83aa with SMTP id d75a77b69052e-50e5fe290c0mr48699181cf.12.1776707821844;
-        Mon, 20 Apr 2026 10:57:01 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4187eb5f1sm3049040e87.72.2026.04.20.10.57.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Apr 2026 10:57:00 -0700 (PDT)
-Date: Mon, 20 Apr 2026 20:56:58 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, iommu@lists.linux.dev
-Subject: Re: [PATCH 04/11] media: iris: Add helper to create a context bank
- device on iris vpu bus
-Message-ID: <cucl4m3h2wkosvzuyxdwyjec3v5n6vpa5g3osvo5y4farpewtn@jw6kzf3f3eyj>
-References: <20260414-glymur-v1-0-7d3d1cf57b16@oss.qualcomm.com>
- <20260414-glymur-v1-4-7d3d1cf57b16@oss.qualcomm.com>
- <ie6dad3xewm25gdrqqne2fsroopu3jwgrqmu54sfzjliis6mo5@6qsgagvyynwx>
- <b0ba2172-3f66-c912-29e9-0a48b4480987@oss.qualcomm.com>
- <sqg2db63gsjg3cxfdfbmndhxibzlprgviarbcl4l6isza36nc3@ljgg23nkuooi>
- <bab7f899-dc05-7c9d-aed5-fed1910aa32b@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ojeock6C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FF35C19425;
+	Mon, 20 Apr 2026 17:58:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776707898;
+	bh=loA65GrEhgZP61+HZTQhHidAq+shi8hD5OJvIfN+foU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=Ojeock6C8tzD64p/bHaST38UEsWakhCNjmuZFw6TdO5RWgi0a1ZTMGpVP4sHCCdhH
+	 OtiTuwZeZLqNxEPSbgyL102OAb5Bt8gqxUProFUOyZ87ZWBbmp6pXWs+i37hj30+Ua
+	 F/BaaxkZpnmzG1FxVJyOi0yfRNW3ZLE5OKc/aJKfmAOab8ZmLsy1wHntrkbKJrGxsQ
+	 ljaHmH504gXok8NFwe0ATX32I38a0LxpzUOVAf3JzE/lwxqrDuHKhwZjzRRhZFUnzw
+	 Rj5zEUpVQ4u5/ecS+Ng80uWc6Iq40GcIzhUhe8eyWAwbZSeURBJ2Ug6klNc8rvIlbH
+	 wxCvME1gRv/Kg==
+Date: Mon, 20 Apr 2026 18:58:07 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Antony Kurniawan Soemardi <linux@smankusors.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ phone-devel@vger.kernel.org, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v3 3/3] iio: adc: qcom-pm8xxx-xoadc: add support for
+ reading channel labels
+Message-ID: <20260420185807.24817684@jic23-huawei>
+In-Reply-To: <adQNlfiq4aaOJ2ll@ashevche-desk.local>
+References: <20260405-pm8xxx-xoadc-label-v3-0-9fe179c283ec@smankusors.com>
+	<20260405-pm8xxx-xoadc-label-v3-3-9fe179c283ec@smankusors.com>
+	<adQNlfiq4aaOJ2ll@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bab7f899-dc05-7c9d-aed5-fed1910aa32b@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: NnH4_Pc5KzWj_zggS_oP-G31Eo3gsyK5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDE3NCBTYWx0ZWRfX/ESB5eU+oS9X
- a1DubcJw9MY7abM74F0BrA/MOTSCogBm8OWoXyEb80X+Ke1bohfyO0IKtIVcMe/SHuOPaQk12jd
- WP6VqtNSeeeDKuWZzmRMyghW4DbBwCQmCVgps2C9VeTcM/1T2CienGV5BWCWlaAqkP/Gqfw9dzv
- 85WceA/iztfnSEPCfOwskgnQwRaVEQf3WOOWUaCcfdAbRy3hFsVTWTwMu+7VCVvW1/GtfsDOU4y
- +OvZ9PWHFrWSyjIPcGeM6+sy0Oz9iNDp5ANu6XWOe6IssitmJZg+6B+s0BTesMf7bDjCg36d8e+
- wFKtikTWpnVI27gp7yUMwf/qGItN+HiXxZBRJ/FoSUpE4Bx1b0vT2LkMfXK9l3IfJzPCRIIxc1E
- EQ0OAoBvEQFI1LaynVhEcY9rCfFAO2T+fss4DCOV+bcmeIDbHmDTxv5BochQlfKNKCJey3aJZUt
- uU5q3BSocG1aqqGn7og==
-X-Authority-Analysis: v=2.4 cv=XMoAjwhE c=1 sm=1 tr=0 ts=69e668ef cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=XurYlQOUMRzH-DkKxKYA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: NnH4_Pc5KzWj_zggS_oP-G31Eo3gsyK5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-20_03,2026-04-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 phishscore=0 adultscore=0 spamscore=0
- suspectscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
- definitions=main-2604200174
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Apr 20, 2026 at 07:33:01PM +0530, Vishnu Reddy wrote:
+On Mon, 6 Apr 2026 22:46:29 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+
+> On Sun, Apr 05, 2026 at 04:52:21PM +0000, Antony Kurniawan Soemardi wrote:
+> > Implement the .read_label callback to allow userspace to identify ADC
+> > channels via the "label" property in the device tree. The name field in
+> > pm8xxx_chan_info is renamed to label to better reflect its purpose. If
+> > no label is provided in the device tree, it defaults to the hardware
+> > datasheet name.  
 > 
-> On 4/17/2026 11:53 PM, Dmitry Baryshkov wrote:
-> > On Fri, Apr 17, 2026 at 08:49:44PM +0530, Vishnu Reddy wrote:
-> >> On 4/14/2026 8:48 PM, Dmitry Baryshkov wrote:
-> >>> On Tue, Apr 14, 2026 at 10:30:00AM +0530, Vishnu Reddy wrote:
-> >>>> From: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
-> >>>>
-> >>>> Add a helper function to allocate and register context bank (CB) device
-> >>>> on the iris vpu bus. The function ID associated with the CB is specified
-> >>>> from the platform data, allowing the bus dma_configure callback to apply
-> >>>> correct stream ID mapping when device is registered.
-> >>>>
-> >>>> Signed-off-by: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
-> >>>> Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
-> >>>> ---
-> >>>>   drivers/media/platform/qcom/iris/iris_resources.c | 33 +++++++++++++++++++++++
-> >>>>   drivers/media/platform/qcom/iris/iris_resources.h |  1 +
-> >>>>   2 files changed, 34 insertions(+)
-> >>>>
-> >>>> diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/media/platform/qcom/iris/iris_resources.c
-> >>>> index 773f6548370a..a25e0f2e9d26 100644
-> >>>> --- a/drivers/media/platform/qcom/iris/iris_resources.c
-> >>>> +++ b/drivers/media/platform/qcom/iris/iris_resources.c
-> >>>> @@ -6,6 +6,7 @@
-> >>>>   #include <linux/clk.h>
-> >>>>   #include <linux/devfreq.h>
-> >>>>   #include <linux/interconnect.h>
-> >>>> +#include <linux/iris_vpu_bus.h>
-> >>>>   #include <linux/pm_domain.h>
-> >>>>   #include <linux/pm_opp.h>
-> >>>>   #include <linux/pm_runtime.h>
-> >>>> @@ -141,3 +142,35 @@ int iris_disable_unprepare_clock(struct iris_core *core, enum platform_clk_type
-> >>>>   	return 0;
-> >>>>   }
-> >>>> +
-> >>>> +static void iris_release_cb_dev(struct device *dev)
-> >>>> +{
-> >>>> +	kfree(dev);
-> >>>> +}
-> >>>> +
-> >>>> +struct device *iris_create_cb_dev(struct iris_core *core, const char *name, const u32 *f_id)
-> >>> Please move into the bus code and make it generic enough.
-> >> Do you suggest to add a wrapper to pass the varying inputs to the generic
-> >> bus, something like this
-> >> struct device* create_and_register_device(dma_mask, parent_dev, *release,
-> >> dev_name,...)
-> > Definitely not the release function. The devname is also not that
-> > important. The rest, yes, you are correct.
-> >
-> >>>> +{
-> >>>> +	struct device *dev;
-> >>>> +	int ret;
-> >>>> +
-> >>>> +	dev = kzalloc_obj(*dev);
-> >>>> +	if (!dev)
-> >>>> +		return ERR_PTR(-ENOMEM);
-> >>>> +
-> >>>> +	dev->release = iris_release_cb_dev;
-> >>>> +	dev->bus = &iris_vpu_bus_type;
-> >>>> +	dev->parent = core->dev;
-> >>>> +	dev->coherent_dma_mask = core->iris_platform_data->dma_mask;
-> >>>> +	dev->dma_mask = &dev->coherent_dma_mask;
-> >>> Would you also need to set the of_node? See
-> >>> device_set_of_node_from_dev()
-> >> It might be needed for FastRPC as they are following sub node approach, Iris
-> >> does not need.
-> > Wouldn't it save you from passing it to of_dma_configure_id()?
-> Iris will pass parent device of_node, setting parent device is enough.
+> > The change has been tested on Sony Xperia SP (PM8921).  
+> 
+> ...
+> 
+> > +static int pm8xxx_read_label(struct iio_dev *indio_dev,
+> > +			     struct iio_chan_spec const *chan, char *label)
+> > +{
+> > +	struct pm8xxx_xoadc *adc = iio_priv(indio_dev);  
+> 
+> > +	struct pm8xxx_chan_info *ch = pm8xxx_get_channel(adc, chan->address);  
+> 
+> When you have a validation the better style is to split definition and
+> assignment. This makes code robust against (theoretically) possible changes
+> that might reuse the same variable for something else.
 
-Set the of node and pass NULL to of_dma_configure_id.
+I think you just mean
 
-> >>>> +
-> >>>> +	dev_set_name(dev, "%s", name);
-> >>>> +	dev_set_drvdata(dev, (void *)f_id);
-> >>>> +
-> >>>> +	ret = device_register(dev);
-> >>>> +	if (ret) {
-> >>>> +		put_device(dev);
-> >>>> +		return ERR_PTR(ret);
-> >>>> +	}
-> >>>> +
-> >>>> +	return dev;
-> >>>> +}
-> >>>> diff --git a/drivers/media/platform/qcom/iris/iris_resources.h b/drivers/media/platform/qcom/iris/iris_resources.h
-> >>>> index 6bfbd2dc6db0..4a494627ff23 100644
-> >>>> --- a/drivers/media/platform/qcom/iris/iris_resources.h
-> >>>> +++ b/drivers/media/platform/qcom/iris/iris_resources.h
-> >>>> @@ -15,5 +15,6 @@ int iris_unset_icc_bw(struct iris_core *core);
-> >>>>   int iris_set_icc_bw(struct iris_core *core, unsigned long icc_bw);
-> >>>>   int iris_disable_unprepare_clock(struct iris_core *core, enum platform_clk_type clk_type);
-> >>>>   int iris_prepare_enable_clock(struct iris_core *core, enum platform_clk_type clk_type);
-> >>>> +struct device *iris_create_cb_dev(struct iris_core *core, const char *name, const u32 *f_id);
-> >>>>   #endif
-> >>>>
-> >>>> -- 
-> >>>> 2.34.1
-> >>>>
+	struct pm8xx_chan_info *ch;
 
--- 
-With best wishes
-Dmitry
+	ch = pm8xx_get_...
+	if (!ch)
+		return -EINVAL?
+
+I suppose slightly better but it's a very small function and unlikely to have
+much complexity added to it.
+> 
+> > +	if (!ch)
+> > +		return -EINVAL;
+> > +	return sysfs_emit(label, "%s\n", ch->label);
+> > +}  
+> 
+> Again, no need to resend now, just make it in the next version if that version
+> is asked for.
+> 
+
