@@ -1,173 +1,950 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1429938C414
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 09:21:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1AF382372
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 09:25:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776676890; cv=none; b=fCEPN8M2ly9zXMOuPZ/erBR1YtYqGm0uZO+U+G8XOmVN5A1vHBtNCs9I8Z0z5ZgHDAmLMrFCcZUAPG8D3Wpx//cPKHAHb6qllTq4Mg9W4WxfWqEfYro46RxW/W0WZpanAr1axw8uPrAB1X0xZ/wFFWz6XTh0J1aCEm06lOzGbo0=
+	t=1776677127; cv=none; b=F59rck2Omwpy+unZjPs9rfl6/25xK9Ad4NxCnJvCxe0buOZaD1jkBafL/M0LGqNqz9Gb+zY41lOeyI5D4/k9H8hoNLzo9hkhuBvSTcIG9N9Ykp8msGUYxkZNyyrfg0pHwL9u8bSsR0MOzgovSpLhCvTOQyYXmpmFcn7FGAvH6TY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776676890; c=relaxed/simple;
-	bh=fFkqXe0fXUxiRzVl60VHLVC3FqHlD9EMGxP5bZKaNW4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CcwXAWVKQtIR/lIoR0usgZ2pUExrB0pJ+W7kMvnC0HNuX5iaffvfgfMcqA0UA7lQDj4Ys2VxBtlqfEhZGsocMnvxYg5Bz/1CEjMigBwrdVFjjo257DwcBDsehdfrswzj0GbNHDXO9vdbdqOfNjBbp7iq/RkZJXvgRVvdOQTux2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aQIzNxog; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AnMXHX6X; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776677127; c=relaxed/simple;
+	bh=5a1WQBOBFxuhVU/nscZ1Dt/ay0RNPTrPTmrXYOYO3NY=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=O/jgYV0IM4zul3Hf2YIb/oCi/S9n2KaMQSlW/9eruz1/1LFCibZlwXneFxrmzy8G9IIbemR6HCkyDhimJmApbIFR4k91LHQ03yR/6kpRmJzJ7ZREo5EqchvmHY1ojp229Ey+EHQ1hzvaS2ypzHT92+H2t3Ojkw9M1UcS4jeP+nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D5x+ULXv; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aQIzNxog";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AnMXHX6X"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63K70JlA3212158
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 09:21:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	x7Fv9i51vjat96fgAqnutQphDizXtxDgsL90vRu2EmE=; b=aQIzNxogUV0yuW2o
-	wvnNM0F6aWkDYnpKhYFWYlZGzCotaOLJTYTTEd3HFLYChTOsSr6fxsQqS4kF8xp4
-	gMzj0JaueCTwk7TaG1qhnxdxW+wXzH38BB968g7ESp9qEG6iG6vlqilx0pVUXzQ8
-	xUj7akofbdFbiig2+bVZMkPt6RYtALsRICMIUcGPy1rH17XfXSvt/6S74j0hxhtd
-	Ot5YIsGEte27tQmnJkAXvepn6ir56uJdLcrRo/iGUEl20/W7mT70oWuympUWslpA
-	A06/1IeZftmj4hVoQITE9fdL29pD2lFvLiA5y1IFsW2tWxTGdhGotK7eL0cnV0jA
-	tAPxuA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dnfcfgsfm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 09:21:28 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50e5c781193so259971cf.0
-        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 02:21:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776676887; x=1777281687; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=x7Fv9i51vjat96fgAqnutQphDizXtxDgsL90vRu2EmE=;
-        b=AnMXHX6XbL6Lr0yqFipqcM93JNHZ1sjKRXCb4tpoRdK9id9zj4VzpsxMD4/jWvzp1J
-         63uXPE3519VQG3/HBrbF4ZIweLMhzOgHr+aFxICa5CgVrbZQ2W00FSDV4pFmOcuHqBwQ
-         IaFI1QirNvktF1vfBmDl/bTmB4ZoC58+2rPOBpn+zmXOaEjahk4DKHUapL5NWNkVqAjI
-         qL2SjdUY/1IQryEV5u/62nEr+BjBwOwBmvGC6Etfnop4o5EPa8CIGpGreMEOo1BRavJW
-         k83WStmG0zrqXYVkuKImcFS0YPsQWqzirGqwdxZN9J9tNDtFez94/uACfbshA63GBuPh
-         z3Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776676887; x=1777281687;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=x7Fv9i51vjat96fgAqnutQphDizXtxDgsL90vRu2EmE=;
-        b=dx2dryHGiGgjRPWBI84CJ2xaqO8GjKmvH4zwBjiqQIwkDXAGAgM1xX2ey94BfDa4yD
-         NleL2MmNYp8byJBqmw4rwNqXrGuXvvQn4ELS73RUUUCgo5NaXzhHVk4YahJU1lu91sdu
-         /IlPlrSmOupzWMaMENXMTeKVpLbKfV/YISQ5uLqIKZoH9I5CCF+wYfb0r5wa3RDrl+EL
-         BuEb0zzz52AaoOO0XdPe7zmfCpDGbaJZIWLFw3ryrtcDVrtC2XKJSTqPCslNboj/2lwT
-         +S7m6oHOaS2NdOmSlUhZ2OJv4LwOqyEM7wZPAjXqWaKmdPcEkWQnFNEJ+PaREt1Hw5Oh
-         9EIQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9sm9+qJDYSXwNPyqiZL3HKoY9RozgcA/PR7fXFj9RcyaOXVnuxQW/bZaQxk5chIssHxvIb29YIjtIa@vger.kernel.org
-X-Gm-Message-State: AOJu0YxD4cpsaWScQbouPO5QJ4g7jWlEziLWy4oJTQhjqdfZGI6EE+vc
-	rWaGefTaaACvegv8WWf8xX388/WF/ehz8doARmcnLX3k6Fw4as0fvJagTSWp4BdjNrf9zOFsPbb
-	KhkxJo6DPnRWDrl1RnlxZcebt94hz7ruEpwytK7GysNdd+GgWgrXQXLTx5ss4l3yN
-X-Gm-Gg: AeBDiesp+/H+kXHcWxFhWh4kF4TV6YOncMEMmUXlbFcp0HMcR2nSimdHYkH9J6YRL2d
-	U7SkOmF0UlxdEP/cJgSAXEEsvTBbMwrMZqRltYYqr7+4BFbxFB45c3nMoEf3KzJAkR6FB9ln7h0
-	2HOV6vvaHcS6B4/5Hl01j/Ap0g3XcqwHEGQ3ZhvfD1+cgKNdjrQ+Keowcm5bL4BD8Q9fZd4afxR
-	1Q0MoXcMNvbLc1NkOZo8JSSoYly7+kphYrm2i7pt/GGB2jGfwf+rYoCiFFZYxxXIPgCfhlWSZGB
-	cdZju4aQn4J2js0NNcAeAy34iPLDKdKIevMvLp0DvjevBkQiDlsL5KK2/iE9JdZldmPq4UHYTBJ
-	P3sN1B9cwSwDt4bxkhLKoBfDwvVmBbwouq2CvZGwhM+uMVlZY4sF3xHBAOIq0qpqITP+Sy+MAp3
-	6uYcVCviP23cABlg==
-X-Received: by 2002:a05:622a:4607:b0:50e:5ca9:d264 with SMTP id d75a77b69052e-50e5ca9d76bmr25335081cf.0.1776676887569;
-        Mon, 20 Apr 2026 02:21:27 -0700 (PDT)
-X-Received: by 2002:a05:622a:4607:b0:50e:5ca9:d264 with SMTP id d75a77b69052e-50e5ca9d76bmr25334821cf.0.1776676887108;
-        Mon, 20 Apr 2026 02:21:27 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba44e5749d9sm329205966b.0.2026.04.20.02.21.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2026 02:21:26 -0700 (PDT)
-Message-ID: <77a87de7-3c66-44b5-9900-df8798d3074f@oss.qualcomm.com>
-Date: Mon, 20 Apr 2026 11:21:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D5x+ULXv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2678C2BCB3
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 09:25:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776677126;
+	bh=5a1WQBOBFxuhVU/nscZ1Dt/ay0RNPTrPTmrXYOYO3NY=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc:From;
+	b=D5x+ULXvolACViuqq5E+38ONhYqHOT14EmL8mD9bo7AIV5YGtwaAcAvUxQaM7LMDp
+	 NRm1se/ecZHIjkDfxFESN+o0Z5H8x5POlkeicPzJEm5fHKax9ix436Oc4SMKtypKcv
+	 4yDqP29Z0tNoqRwWlPPTUFFkyakuUZAESSa2aZM+jcm3d1zZ1WdOvkksE9sB3+6+9U
+	 IdTk8gB4UAO68cJsTjx45XK5Psu6Re3SfkS3z22a2rDhED4AfnVOsvvZC8ji6OFgqg
+	 dk8P4Uc63pMHS0OL9ryrvAZMs7nBHfcZyDAPjuRWamKAXSb1PemEjjz+Gqj8weOdRf
+	 E+0nF4FBQ8LEg==
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-12c565476d7so5414375c88.1
+        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 02:25:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8B5VhYnQcAYGEcdwfup6uxnvlSqtv8FxJNdAbf48u51cUj2cUhzUH8mAziB5tXWBq1RizqO/SaOxrd@vger.kernel.org
+X-Gm-Message-State: AOJu0YyVvxGMciAuwwR89riGvIcN4lucLGDEvbMJbTApxE6b68qwgn4f
+	zy4n9X37XvpPXZ7D1w3ThJ4Lg1VzINGLjVimFOgaHP5wTENfyFu5NwaVcFnFELyCf6kloX7EM1G
+	0vci/bpbbBuf4+BSZC8otUYBYrMDPlIyNQ0FQQeu8Aw==
+X-Received: by 2002:a05:7022:eac8:b0:128:d386:4bbb with SMTP id
+ a92af1059eb24-12c73f759d9mr6984938c88.13.1776677125788; Mon, 20 Apr 2026
+ 02:25:25 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 20 Apr 2026 02:25:22 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 20 Apr 2026 02:25:22 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260414-axiado-ax3000-sgpio-controller-v1-2-b5c7e4c2e69b@axiado.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] regulator: rpmh-regulator: Add RPMH regulator support
- for Nord
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Mark Brown <broonie@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260420072639.1249984-1-shengchao.guo@oss.qualcomm.com>
- <20260420072639.1249984-3-shengchao.guo@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260420072639.1249984-3-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDA5MCBTYWx0ZWRfX+OQKeqUQAqhx
- x+zikj0uOvEnrl0PaPpTZEzOrvmbIzOka4+vEDmqn3/vw38Ggr/V6SJe4AuYrbhDS2ILdtpZvzV
- 3+hMx5okU4rTUX9kTCeFPrvidxpXkV7Rgs7ZwdvkOrreVzbNrXvwDdxKHIJvbw4qDl3Z1wHVlAY
- Fqh56ZNMy73mDlR+zkuvkr6Z/CRnS6qAjjxKM5PqVwNys5D6puPAlUNOd83XDDKwI0cfU0j/4pN
- EZEEXYGPuEGe1NtERLLc7hjCfJxcr8HzhWqsZuRbnKzuNzxLmpfVcTiuwT8KSrdLFgrtHy98jvq
- 5FwrXaRAt6yWFqV7VpdidhawYtb123SU2ODSBsxjX2VY5IHSfUIhYSQvGznAqcdgeUFRBSw4aIU
- iTJQzTpKZesh6nv3yh+5QX8wakm31XAzKidbZ3AdlreWLVD/WGufTybB+4K/qsizigo13CrjIvb
- iSGTIInxTwXoWKUZ0sw==
-X-Proofpoint-ORIG-GUID: fGBv1Rumh3v0Llffi52MVtkva5yOVGCX
-X-Proofpoint-GUID: fGBv1Rumh3v0Llffi52MVtkva5yOVGCX
-X-Authority-Analysis: v=2.4 cv=L+ItheT8 c=1 sm=1 tr=0 ts=69e5f018 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=igqXcL88txhuDdJxovwA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-20_01,2026-04-17_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 adultscore=0 lowpriorityscore=0
- suspectscore=0 clxscore=1015 impostorscore=0 malwarescore=0 spamscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
- definitions=main-2604200090
+References: <20260414-axiado-ax3000-sgpio-controller-v1-0-b5c7e4c2e69b@axiado.com>
+ <20260414-axiado-ax3000-sgpio-controller-v1-2-b5c7e4c2e69b@axiado.com>
+Date: Mon, 20 Apr 2026 02:25:22 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfN4qc-Oz-_ErukxqwKbhg3aUHO-LWWvvGGcJAMwfP+5g@mail.gmail.com>
+X-Gm-Features: AQROBzCVykMLHfvx--YZ5vkX1KE4og7C-e65wmJHU6KkHcPp3z4r-0dCSLkMfBU
+Message-ID: <CAMRc=MfN4qc-Oz-_ErukxqwKbhg3aUHO-LWWvvGGcJAMwfP+5g@mail.gmail.com>
+Subject: Re: [PATCH 2/3] gpio: axiado: add SGPIO controller support
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Tzu-Hao Wei <twei@axiado.com>, Swark Yang <syang@axiado.com>, 
+	Prasad Bolisetty <pbolisetty@axiado.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Harshit Shah <hshah@axiado.com>, SriNavmani A <srinavmani@axiado.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 4/20/26 9:26 AM, Shawn Guo wrote:
-> From: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
-> 
-> Add support for PMAU0102 PMIC voltage regulators which are present on
-> Nord boards.
-> 
-> Signed-off-by: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+On Tue, 14 Apr 2026 15:48:33 +0200, Petar Stepanovic
+<pstepanovic@axiado.com> said:
+> Add support for the Axiado SGPIO controller.
+>
+> The controller provides a serialized interface for GPIOs with
+> configurable direction and interrupt support.
+>
+> The driver registers the controller as a gpio_chip and uses
+> regmap for register access.
+>
+> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
 > ---
->  drivers/regulator/qcom-rpmh-regulator.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
-> 
-> diff --git a/drivers/regulator/qcom-rpmh-regulator.c b/drivers/regulator/qcom-rpmh-regulator.c
-> index 6e4cb2871fca..9545300d7b03 100644
-> --- a/drivers/regulator/qcom-rpmh-regulator.c
-> +++ b/drivers/regulator/qcom-rpmh-regulator.c
-> @@ -1100,6 +1100,21 @@ static const struct rpmh_vreg_init_data pm8998_vreg_data[] = {
->  	{}
->  };
->  
-> +static const struct rpmh_vreg_init_data pmau0102_vreg_data[] = {
-> +	RPMH_VREG("smps1",  SMPS, 1,  &pmic5_ftsmps527,  "vdd-s1"),
-> +	RPMH_VREG("smps2",  SMPS, 2,  &pmic5_ftsmps527,  "vdd-s2"),
-> +	RPMH_VREG("smps3",  SMPS, 3,  &pmic5_ftsmps527,  "vdd-s3"),
-> +	RPMH_VREG("smps4",  SMPS, 4,  &pmic5_ftsmps527,  "vdd-s4"),
-> +	RPMH_VREG("smps5",  SMPS, 5,  &pmic5_ftsmps527,  "vdd-s5"),
-> +	RPMH_VREG("smps6",  SMPS, 6,  &pmic5_ftsmps527,  "vdd-s6"),
-> +	RPMH_VREG("smps7",  SMPS, 7,  &pmic5_ftsmps527,  "vdd-s7"),
-> +	RPMH_VREG("smps8",  SMPS, 8,  &pmic5_ftsmps527,  "vdd-s8"),
-> +	RPMH_VREG("ldo1",   LDO,  1,  &pmic5_nldo515,    NULL),
-> +	RPMH_VREG("ldo2",   LDO,  2,  &pmic5_nldo515,    NULL),
-> +	RPMH_VREG("ldo3",   LDO,  3,  &pmic5_pldo515_mv, NULL),
+>  drivers/gpio/Kconfig             |  18 +
+>  drivers/gpio/Makefile            |   1 +
+>  drivers/gpio/gpio-axiado-sgpio.c | 780 +++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 799 insertions(+)
+>
+> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+> index bd185482a7fd..42c56d157092 100644
+> --- a/drivers/gpio/Kconfig
+> +++ b/drivers/gpio/Kconfig
+> @@ -198,6 +198,24 @@ config GPIO_ATH79
+>  	  Select this option to enable GPIO driver for
+>  	  Atheros AR71XX/AR724X/AR913X SoC devices.
+>
+> +config GPIO_AXIADO_SGPIO
+> +	bool "Axiado SGPIO support"
+> +	depends on OF_GPIO
 
-Any reason for the NULL supplies?
+You don't need this.
 
-Konrad
+> +	depends on ARCH_AXIADO || COMPILE_TEST
+> +	select GPIO_GENERIC
+
+You don't seem to be using this.
+
+> +	select GPIOLIB_IRQCHIP
+> +	select REGMAP
+> +	help
+> +	  Enable support for the Axiado Serial GPIO (SGPIO) controller.
+> +
+> +	  The SGPIO controller provides a serialized interface for
+> +	  controlling multiple GPIO signals over a limited number of
+> +	  physical lines. It supports configurable data direction and
+> +	  interrupt handling.
+> +
+> +	  This driver integrates with the Linux GPIO subsystem and
+> +	  exposes the controller as a standard GPIO provider.
+> +
+>  config GPIO_RASPBERRYPI_EXP
+>  	tristate "Raspberry Pi 3 GPIO Expander"
+>  	default RASPBERRYPI_FIRMWARE
+> diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
+> index 2421a8fd3733..909a97551807 100644
+> --- a/drivers/gpio/Makefile
+> +++ b/drivers/gpio/Makefile
+> @@ -42,6 +42,7 @@ obj-$(CONFIG_GPIO_ARIZONA)		+= gpio-arizona.o
+>  obj-$(CONFIG_GPIO_ASPEED)		+= gpio-aspeed.o
+>  obj-$(CONFIG_GPIO_ASPEED_SGPIO)		+= gpio-aspeed-sgpio.o
+>  obj-$(CONFIG_GPIO_ATH79)		+= gpio-ath79.o
+> +obj-$(CONFIG_GPIO_AXIADO_SGPIO)		+= gpio-axiado-sgpio.o
+>  obj-$(CONFIG_GPIO_BCM_KONA)		+= gpio-bcm-kona.o
+>  obj-$(CONFIG_GPIO_BCM_XGS_IPROC)	+= gpio-xgs-iproc.o
+>  obj-$(CONFIG_GPIO_BD71815)		+= gpio-bd71815.o
+> diff --git a/drivers/gpio/gpio-axiado-sgpio.c b/drivers/gpio/gpio-axiado-sgpio.c
+> new file mode 100644
+> index 000000000000..8cd349ec6f53
+> --- /dev/null
+> +++ b/drivers/gpio/gpio-axiado-sgpio.c
+> @@ -0,0 +1,780 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2022-2026 Axiado Corporation
+> + */
+
+Please add a blank line here...
+
+> +#include <linux/types.h>
+> +#include <linux/kernel.h>
+> +#include <linux/init.h>
+> +#include <linux/module.h>
+> +
+> +#include <linux/platform_device.h>
+> +#include <linux/io.h>
+> +#include <linux/spinlock.h>
+> +
+> +#include <linux/interrupt.h>
+> +#include <linux/irq.h>
+> +#include <linux/irqdomain.h>
+> +
+> +#include <linux/gpio/driver.h>
+> +
+> +#include <linux/of.h>
+> +#include <linux/of_device.h>
+> +#include <linux/of_irq.h>
+> +
+> +#include <linux/regmap.h>
+> +
+
+... and keep the includes together as well as ordered alphabetically.
+
+> +struct sgpio_reg_offsets {
+> +	u32 mux_0;
+> +	u32 preset_0;
+> +	u32 count_0;
+> +	u32 pos_0;
+> +
+> +	u32 mux_1;
+> +	u32 ld;
+> +	u32 ld_ss;
+> +
+> +	u32 preset_1;
+> +	u32 count_1;
+> +	u32 pos_1;
+> +
+> +	u32 mux_2;
+> +	u32 dout;
+> +	u32 dout_ss;
+> +
+> +	u32 preset_2;
+> +	u32 count_2;
+> +	u32 pos_2;
+> +
+> +	u32 mux_3;
+> +	u32 preset_3;
+> +	u32 count_3;
+> +	u32 pos_3;
+> +
+> +	u32 mux_4;
+> +	u32 oe;
+> +	u32 oe_ss;
+> +
+> +	u32 preset_4;
+> +	u32 count_4;
+> +	u32 pos_4;
+> +
+> +	u32 mask;
+> +	u32 ctrl_en;
+> +	u32 ctrl_en_pos;
+> +
+> +	u32 din_ss;
+> +	u32 status;
+> +};
+> +
+> +static const struct sgpio_reg_offsets sgpio_offsets_512 = {
+> +	.mux_0 = 0x000,
+> +	.preset_0 = 0x1dc,
+> +	.count_0 = 0x1f0,
+> +	.pos_0 = 0x204,
+> +
+> +	.mux_1 = 0x004,
+> +	.ld = 0x014,
+> +	.ld_ss = 0x0d8,
+> +
+> +	.preset_1 = 0x1e0,
+> +	.count_1 = 0x1f4,
+> +	.pos_1 = 0x208,
+> +
+> +	.mux_2 = 0x008,
+> +	.dout = 0x054,
+> +	.dout_ss = 0x158,
+> +
+> +	.preset_2 = 0x1e4,
+> +	.count_2 = 0x1f8,
+> +	.pos_2 = 0x20c,
+> +
+> +	.mux_3 = 0x00c,
+> +	.preset_3 = 0x1e8,
+> +	.count_3 = 0x1fc,
+> +	.pos_3 = 0x210,
+> +
+> +	.mux_4 = 0x010,
+> +	.oe = 0x0d4,
+> +	.oe_ss = 0x1d8,
+> +
+> +	.preset_4 = 0x1ec,
+> +	.count_4 = 0x200,
+> +	.pos_4 = 0x214,
+> +
+> +	.mask = 0x224,
+> +	.ctrl_en = 0x218,
+> +	.ctrl_en_pos = 0x21c,
+> +
+> +	.din_ss = 0x198,
+> +	.status = 0x228,
+> +};
+> +
+> +static const struct sgpio_reg_offsets sgpio_offsets_128 = {
+> +	.mux_0 = 0x000,
+> +	.preset_0 = 0x08c,
+> +	.count_0 = 0x0a0,
+> +	.pos_0 = 0x0b4,
+> +
+> +	.mux_1 = 0x004,
+> +	.ld = 0x014,
+> +	.ld_ss = 0x048,
+> +
+> +	.preset_1 = 0x090,
+> +	.count_1 = 0x0a4,
+> +	.pos_1 = 0x0b8,
+> +
+> +	.mux_2 = 0x008,
+> +	.dout = 0x024,
+> +	.dout_ss = 0x068,
+> +
+> +	.preset_2 = 0x094,
+> +	.count_2 = 0x0a8,
+> +	.pos_2 = 0x0bc,
+> +
+> +	.mux_3 = 0x00c,
+> +	.preset_3 = 0x098,
+> +	.count_3 = 0x0ac,
+> +	.pos_3 = 0x0c0,
+> +
+> +	.mux_4 = 0x010,
+> +	.oe = 0x044,
+> +	.oe_ss = 0x088,
+> +
+> +	.preset_4 = 0x09c,
+> +	.count_4 = 0x0b0,
+> +	.pos_4 = 0x0c4,
+> +
+> +	.mask = 0x0d4,
+> +	.ctrl_en = 0x0c8,
+> +	.ctrl_en_pos = 0x0cc,
+> +
+> +	.din_ss = 0x078,
+> +	.status = 0x0d8,
+> +};
+> +
+> +#define MAX_SGPIO_PINS 512
+> +#define MAX_OFFSET_REG 16
+> +#define MAX_SLICE_COUNT 5
+> +
+> +struct ax3000_slice_info {
+> +	u32 out_mux;
+> +	u32 sgpio_mux;
+> +	u32 slice_mux;
+> +	u32 reg[MAX_OFFSET_REG];
+> +	u32 reg_ss[MAX_OFFSET_REG];
+> +	u32 preset;
+> +	u32 count;
+> +	u32 pos;
+> +};
+> +
+> +struct ax3000_sgpio {
+> +	u32 preset_value;
+> +	u32 count_value;
+> +	u32 pos_reg;
+> +	struct ax3000_slice_info
+> +		slices[MAX_SLICE_COUNT]; /* 0=clk,1=load,2=out,3=in,4=oe */
+> +	spinlock_t lock;
+> +	int ngpios;
+> +	int max_sgpio_pins;
+> +	int max_offset_regs;
+> +	struct gpio_chip chip;
+> +	u32 irq_unmasked[MAX_SGPIO_PINS];
+> +	int parent_irq;
+> +	struct regmap *regmap;
+> +	u32 regmap_base_offset;
+> +	struct sgpio_reg_offsets *regs;
+> +};
+> +
+> +static int sgpio_set_irq_type(struct irq_data *d, unsigned int type);
+> +static void sgpio_mask_irq(struct irq_data *d);
+> +static void sgpio_unmask_irq(struct irq_data *d);
+> +static void sgpio_irq_shutdown(struct irq_data *d);
+> +
+> +static const struct irq_chip axiado_sgpio_irqchip = {
+> +	.name = "axiado-sgpio",
+> +	.irq_mask = sgpio_mask_irq,
+> +	.irq_unmask = sgpio_unmask_irq,
+> +	.irq_set_type = sgpio_set_irq_type,
+> +	.irq_shutdown = sgpio_irq_shutdown,
+> +	.flags = IRQCHIP_IMMUTABLE | IRQCHIP_MASK_ON_SUSPEND,
+> +};
+> +
+> +static void ax3000_sgpio_set(struct gpio_chip *chip, unsigned int offset,
+> +			     int value)
+> +{
+> +	struct ax3000_sgpio *sgpio = gpiochip_get_data(chip);
+> +	unsigned long flags;
+> +	u32 bank = (offset / 2) / 32;
+> +	u32 position = (offset / 2) % 32;
+> +
+> +	spin_lock_irqsave(&sgpio->lock, flags);
+
+Please use guards for locks.
+
+> +	if (value)
+> +		sgpio->slices[2].reg_ss[bank] |= BIT(position);
+> +	else
+> +		sgpio->slices[2].reg_ss[bank] &= ~BIT(position);
+> +
+> +	spin_unlock_irqrestore(&sgpio->lock, flags);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->dout_ss +
+> +			     (bank * 4),
+> +		     sgpio->slices[2].reg_ss[bank]);
+> +}
+> +
+> +static int ax3000_sgpio_get(struct gpio_chip *chip, unsigned int offset)
+> +{
+> +	struct ax3000_sgpio *sgpio = gpiochip_get_data(chip);
+> +	u32 bank = (offset / 2) / 32;
+> +	u32 position = (offset / 2) % 32;
+> +
+> +	if (offset % 2 == 0)
+> +		return !!(sgpio->slices[3].reg_ss[bank] & BIT(position));
+> +	else
+> +		return !!(sgpio->slices[2].reg_ss[bank] & BIT(position));
+> +}
+> +
+> +static int ax3000_sgpio_dir_in(struct gpio_chip *chip, unsigned int offset)
+> +{
+> +	if (!(offset % 2))
+> +		return 0;
+> +	else
+> +		return -EINVAL;
+> +}
+> +
+> +static int ax3000_sgpio_dir_out(struct gpio_chip *chip, unsigned int offset,
+> +				int value)
+> +{
+> +	if (offset % 2) {
+> +		if (chip->set)
+> +			chip->set(chip, offset, value);
+> +		return 0;
+> +	} else {
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static irqreturn_t sgpio_irq_handler(int irq, void *arg)
+> +{
+> +	struct ax3000_sgpio *sgpio = (struct ax3000_sgpio *)arg;
+> +	unsigned long flags;
+> +	u32 status, new_value;
+> +	u32 changed_value;
+> +	int i, bit, reg_ptr;
+> +
+> +	/* Read-on-clear (ACK) parent cause */
+> +	regmap_read(sgpio->regmap,
+> +		    sgpio->regmap_base_offset + sgpio->regs->status, &status);
+> +	status >>= 16;
+> +
+> +	bool has_shifted_layout = (sgpio->max_offset_regs == MAX_OFFSET_REG);
+> +
+> +	reg_ptr = has_shifted_layout ? 16 - DIV_ROUND_UP(sgpio->ngpios, 32) : 0;
+> +
+> +	for (i = 0; i < DIV_ROUND_UP(sgpio->ngpios, 32); i++, reg_ptr++) {
+> +		if (status & BIT(reg_ptr)) {
+> +			regmap_read(sgpio->regmap,
+> +				    sgpio->regmap_base_offset +
+> +					    sgpio->regs->din_ss + (reg_ptr * 4),
+> +				    &new_value);
+> +			spin_lock_irqsave(&sgpio->lock, flags);
+> +			changed_value = sgpio->slices[3].reg_ss[i] ^ new_value;
+> +			sgpio->slices[3].reg_ss[i] = new_value;
+> +			spin_unlock_irqrestore(&sgpio->lock, flags);
+> +
+> +			while (changed_value) {
+> +				bit = __ffs(changed_value);
+> +				changed_value &= ~BIT(bit);
+> +
+> +				irq_hw_number_t hwirq = i * 32 + bit;
+> +
+> +				if (sgpio->irq_unmasked[hwirq]) {
+> +					unsigned int child_irq;
+> +
+> +					child_irq = irq_find_mapping(sgpio->chip.irq.domain,
+> +								     hwirq);
+> +
+> +					if (child_irq)
+> +						handle_nested_irq(child_irq);
+> +				}
+> +			}
+> +		}
+> +	}
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static void sgpio_hw_init(struct ax3000_sgpio *sgpio)
+> +{
+> +	u32 bank;
+> +	u32 position;
+> +	int i = 0;
+> +	bool has_shifted_layout = (sgpio->max_offset_regs == MAX_OFFSET_REG);
+> +
+> +	/* slice A0, Clock Pin - 0 */
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->mux_0, 0x306);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->preset_0,
+> +		     sgpio->preset_value);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->count_0,
+> +		     sgpio->count_value);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->pos_0, 0x1f001f);
+> +
+> +	/* Slice B1, Data Load Pin - 1 */
+> +	bank = (sgpio->ngpios - 1) / 32;
+> +	position = (sgpio->ngpios - 1) % 32;
+> +
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->mux_1,
+> +		     has_shifted_layout ? 0x30c : 0x304);
+> +
+> +	for (i = 0; i < bank; i++) {
+> +		regmap_write(sgpio->regmap,
+> +			     sgpio->regmap_base_offset + sgpio->regs->ld +
+> +				     (i * 4),
+> +			     0xffffffff);
+> +		regmap_write(sgpio->regmap,
+> +			     sgpio->regmap_base_offset + sgpio->regs->ld_ss +
+> +				     (i * 4),
+> +			     0xffffffff);
+> +	}
+> +
+> +	if (position) {
+> +		u32 val;
+> +
+> +		val = sgpio->slices[1].reg_ss[i];
+> +		val |= GENMASK(position - 1, 0);
+> +
+> +		regmap_write(sgpio->regmap,
+> +			     sgpio->regmap_base_offset + sgpio->regs->ld +
+> +				     (i * 4),
+> +			     val);
+> +		regmap_write(sgpio->regmap,
+> +			     sgpio->regmap_base_offset + sgpio->regs->ld_ss +
+> +				     (i * 4),
+> +			     val);
+> +	}
+> +
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->preset_1,
+> +		     sgpio->preset_value);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->count_1,
+> +		     sgpio->count_value);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->pos_1,
+> +		     sgpio->pos_reg);
+> +
+> +	/* Slice C2, Data Out Pin - 2 */
+> +	bank = sgpio->ngpios / 32;
+> +	position = sgpio->ngpios % 32;
+> +
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->mux_2,
+> +		     has_shifted_layout ? 0x30c : 0x304);
+> +
+> +	for (i = 0; i < bank; i++) {
+> +		regmap_write(sgpio->regmap,
+> +			     sgpio->regmap_base_offset + sgpio->regs->dout +
+> +				     (i * 4),
+> +			     sgpio->slices[2].reg_ss[i]);
+> +		regmap_write(sgpio->regmap,
+> +			     sgpio->regmap_base_offset + sgpio->regs->dout_ss +
+> +				     (i * 4),
+> +			     sgpio->slices[2].reg_ss[i]);
+> +	}
+> +
+> +	if (position) {
+> +		regmap_write(sgpio->regmap,
+> +			     sgpio->regmap_base_offset + sgpio->regs->dout +
+> +				     (i * 4),
+> +			     sgpio->slices[2].reg_ss[i]);
+> +		regmap_write(sgpio->regmap,
+> +			     sgpio->regmap_base_offset + sgpio->regs->dout_ss +
+> +				     (i * 4),
+> +			     sgpio->slices[2].reg_ss[i]);
+> +	}
+> +
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->preset_2,
+> +		     sgpio->preset_value);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->count_2,
+> +		     sgpio->count_value);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->pos_2,
+> +		     sgpio->pos_reg);
+> +
+> +	/* Slice D3, Data In Pin - 3 */
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->mux_3, 0x14C);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->preset_3,
+> +		     sgpio->preset_value);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->count_3,
+> +		     sgpio->count_value);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->pos_3,
+> +		     sgpio->pos_reg);
+> +
+> +	/* Slice E4, Output Enable for respective pins */
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->mux_4,
+> +		     has_shifted_layout ? 0x10c : 0x104);
+> +	regmap_write(sgpio->regmap, sgpio->regmap_base_offset + sgpio->regs->oe,
+> +		     0xffffffff);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->oe_ss,
+> +		     0xffffffff);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->preset_4,
+> +		     sgpio->preset_value);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->count_4,
+> +		     sgpio->count_value);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->pos_4, 0x1f001f);
+> +
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->mask, 0xdfff);
+> +
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->ctrl_en, 0xffff);
+> +	regmap_write(sgpio->regmap,
+> +		     sgpio->regmap_base_offset + sgpio->regs->ctrl_en_pos,
+> +		     0xffff);
+> +}
+> +
+> +static int sgpio_set_irq_type(struct irq_data *d, unsigned int type)
+> +{
+> +	switch (type) {
+> +	case IRQ_TYPE_EDGE_BOTH:
+> +	case IRQ_TYPE_EDGE_RISING:
+> +	case IRQ_TYPE_EDGE_FALLING:
+> +		irq_set_handler_locked(d, handle_edge_irq);
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void sgpio_mask_irq(struct irq_data *d)
+> +{
+> +	struct gpio_chip *chip;
+> +	struct ax3000_sgpio *sgpio;
+> +	u32 irq_num;
+> +
+> +	chip = irq_data_get_irq_chip_data(d);
+> +	if (!chip) {
+> +		pr_err("Unable to get gpio_chip for IRQ\n");
+> +		return;
+> +	}
+> +
+> +	sgpio = gpiochip_get_data(chip);
+> +	if (!sgpio) {
+> +		pr_err("Unable to get chip data\n");
+> +		return;
+> +	}
+> +
+> +	irq_num = irqd_to_hwirq(d);
+> +	sgpio->irq_unmasked[irq_num / 2] = 0;
+> +}
+> +
+> +static void sgpio_unmask_irq(struct irq_data *d)
+> +{
+> +	struct gpio_chip *chip;
+> +	struct ax3000_sgpio *sgpio;
+> +	u32 irq_num;
+> +
+> +	chip = irq_data_get_irq_chip_data(d);
+> +	if (!chip) {
+> +		pr_err("Unable to get gpio_chip for IRQ\n");
+> +		return;
+> +	}
+> +
+> +	sgpio = gpiochip_get_data(chip);
+> +	if (!sgpio) {
+> +		pr_err("Unable to get chip data\n");
+> +		return;
+> +	}
+> +
+> +	irq_num = irqd_to_hwirq(d);
+> +	sgpio->irq_unmasked[irq_num / 2] = 1;
+> +}
+> +
+> +static void sgpio_irq_shutdown(struct irq_data *d)
+> +{
+> +	sgpio_mask_irq(d);
+> +}
+> +
+> +static int sgpio_probe(struct platform_device *pdev)
+> +{
+> +	int rc;
+> +	int irq;
+> +	int i;
+> +	const __be32 *prop;
+> +	struct gpio_irq_chip *girq;
+> +	struct ax3000_sgpio *sgpio;
+> +	u32 variant;
+> +	u32 dout_value;
+> +	u32 bus_frequency;
+> +	u32 apb_frequency;
+> +	int dout_reverse;
+> +
+> +	void __iomem *base;
+> +
+> +	const struct regmap_config regmap_config = {
+> +		.reg_bits = 32,
+> +		.val_bits = 32,
+> +		.reg_stride = 4,
+> +	};
+> +
+> +	sgpio = devm_kzalloc(&pdev->dev, sizeof(*sgpio), GFP_KERNEL);
+> +	if (!sgpio)
+> +		return -ENOMEM;
+> +
+> +	spin_lock_init(&sgpio->lock);
+> +
+> +	sgpio->regmap = dev_get_regmap(pdev->dev.parent, NULL);
+> +
+> +	if (sgpio->regmap) {
+> +		rc = of_property_read_u32(pdev->dev.of_node, "reg",
+> +					  &sgpio->regmap_base_offset);
+
+Why are you mixing of_property_*() with device_property_*()?
+
+> +		if (rc) {
+> +			dev_err(&pdev->dev, "Failed to read reg property: %d\n",
+> +				rc);
+> +			return rc;
+> +		}
+> +		dev_info(&pdev->dev, "Using regmap with base offset: 0x%x\n",
+> +			 sgpio->regmap_base_offset);
+> +	} else {
+> +		base = devm_platform_ioremap_resource(pdev, 0);
+> +		if (IS_ERR(base))
+> +			return PTR_ERR(base);
+> +
+> +		sgpio->regmap =
+> +			devm_regmap_init_mmio(&pdev->dev, base, &regmap_config);
+> +
+> +		if (IS_ERR(sgpio->regmap))
+> +			return PTR_ERR(sgpio->regmap);
+> +
+> +		sgpio->regmap_base_offset = 0;
+> +
+> +		dev_info(&pdev->dev, "Using MMIO regmap\n");
+> +	}
+> +
+> +	rc = device_property_read_u32(&pdev->dev, "ngpios", &sgpio->ngpios);
+> +	if (rc < 0) {
+> +		dev_err(&pdev->dev, "Could not read ngpios property\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (device_property_read_u32(&pdev->dev, "design-variant", &variant)) {
+> +		dev_err(&pdev->dev, "design-variant not specified in DT\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (variant == 128) {
+> +		sgpio->regs = &sgpio_offsets_128;
+> +		sgpio->max_sgpio_pins = 128;
+> +		sgpio->max_offset_regs = 4;
+> +	} else if (variant == 512) {
+> +		sgpio->regs = &sgpio_offsets_512;
+> +		sgpio->max_sgpio_pins = 512;
+> +		sgpio->max_offset_regs = 16;
+> +	} else {
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (sgpio->ngpios > sgpio->max_sgpio_pins) {
+> +		dev_err(&pdev->dev, "ngpio is greater than 512 pins\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	rc = device_property_read_u32(&pdev->dev, "bus-frequency",
+> +				      &bus_frequency);
+> +	if (rc < 0) {
+> +		dev_err(&pdev->dev, "Could not read bus-frequency property\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	rc = device_property_read_u32(&pdev->dev, "apb-frequency",
+> +				      &apb_frequency);
+> +	if (rc < 0) {
+> +		dev_err(&pdev->dev, "Could not read apb-frequency property\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	sgpio->preset_value = (apb_frequency / bus_frequency) - 1;
+> +	sgpio->count_value = sgpio->preset_value;
+> +
+> +	u32 pos;
+> +
+> +	pos = sgpio->ngpios - 1;
+> +	sgpio->pos_reg = (pos << 16) | pos;
+> +
+> +	prop = of_get_property(pdev->dev.of_node, "dout-init", NULL);
+> +	if (!prop) {
+> +		dev_err(&pdev->dev, "Failed to get dout-init\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	for (i = 0; i < sgpio->max_offset_regs; i++) {
+> +		sgpio->slices[2].reg_ss[i] = 0;
+> +		dout_value = be32_to_cpu(prop[i]);
+> +
+> +		for (dout_reverse = 0; dout_reverse < 32; ++dout_reverse) {
+> +			sgpio->slices[2].reg_ss[i] <<= 1;
+> +			sgpio->slices[2].reg_ss[i] |= (dout_value & 1);
+> +			dout_value >>= 1;
+> +		}
+> +	}
+> +
+> +	sgpio_hw_init(sgpio);
+> +
+> +	irq = platform_get_irq(pdev, 0);
+> +
+
+Unnecessary newline.
+
+> +	if (irq < 0) {
+> +		dev_err(&pdev->dev, "Failed to get parent IRQ: %d\n", irq);
+> +		return irq;
+> +	}
+> +	/* Store parent IRQ for cleanup */
+> +	sgpio->parent_irq = irq;
+> +
+> +	rc = devm_request_threaded_irq(&pdev->dev, irq, NULL, sgpio_irq_handler,
+> +				       IRQF_ONESHOT, "axiado-sgpio", sgpio);
+> +
+> +	if (rc < 0) {
+> +		dev_err(&pdev->dev, "Failed to request threaded IRQ %d: %d\n",
+> +			irq, rc);
+> +		return rc;
+> +	}
+> +
+> +	sgpio->chip.parent = &pdev->dev;
+> +	sgpio->chip.ngpio = sgpio->ngpios * 2;
+> +	sgpio->chip.owner = THIS_MODULE;
+> +	sgpio->chip.direction_input = ax3000_sgpio_dir_in;
+> +	sgpio->chip.direction_output = ax3000_sgpio_dir_out;
+> +	sgpio->chip.get = ax3000_sgpio_get;
+> +	sgpio->chip.set = ax3000_sgpio_set;
+> +	sgpio->chip.label = dev_name(&pdev->dev);
+> +	sgpio->chip.base = -1;
+> +
+> +	girq = &sgpio->chip.irq;
+> +
+> +	girq->chip = &axiado_sgpio_irqchip;
+> +	girq->handler = handle_edge_irq;
+> +	girq->default_type = IRQ_TYPE_NONE;
+> +	girq->num_parents = 1;
+> +	girq->parents =
+> +		devm_kcalloc(&pdev->dev, 1, sizeof(*girq->parents), GFP_KERNEL);
+> +	if (!girq->parents) {
+> +		dev_err(&pdev->dev, "Failed to allocate parents array\n");
+
+Drop this message, returning -ENOMEM is enough.
+
+> +		return -ENOMEM;
+> +	}
+> +	girq->parents[0] = irq;
+> +
+> +	rc = devm_gpiochip_add_data(&pdev->dev, &sgpio->chip, sgpio);
+> +	if (rc < 0) {
+> +		dev_err(&pdev->dev, "Could not register gpiochip, %d\n", rc);
+> +		return rc;
+
+Use return dev_err_probe() here and elsewhere.
+
+> +	}
+> +
+> +	/* Store driver data for remove() */
+> +	platform_set_drvdata(pdev, sgpio);
+> +	dev_info(&pdev->dev, "SGPIO registered with %d GPIOs\n",
+> +		 sgpio->chip.ngpio);
+
+No need for this info message, please drop it.
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int sgpio_remove(struct platform_device *pdev)
+> +{
+> +	struct ax3000_sgpio *sgpio = platform_get_drvdata(pdev);
+> +	int i;
+> +
+> +	if (!sgpio)
+> +		return 0;
+> +
+> +	/* Disable interrupts in hardware */
+> +	if (sgpio->regs) {
+> +		regmap_write(sgpio->regmap,
+> +			     sgpio->regmap_base_offset + sgpio->regs->mask,
+> +			     0x0);
+> +		regmap_write(sgpio->regmap,
+> +			     sgpio->regmap_base_offset + sgpio->regs->ctrl_en,
+> +			     0x0);
+> +	}
+> +
+> +	/* Disable and synchronize parent IRQ to avoid races with handlers */
+> +	if (sgpio->parent_irq >= 0) {
+> +		disable_irq(sgpio->parent_irq);
+> +		synchronize_irq(sgpio->parent_irq);
+> +	}
+> +
+> +	/* Ensure all GPIO IRQ handlers complete before removal */
+> +	if (sgpio->chip.irq.domain) {
+> +		struct irq_domain *domain = sgpio->chip.irq.domain;
+> +		unsigned int irq;
+> +		int hwirq;
+> +
+> +		for (hwirq = 0; hwirq < sgpio->chip.ngpio; hwirq++) {
+> +			irq = irq_find_mapping(domain, hwirq);
+> +			if (irq) {
+> +				disable_irq(irq);
+> +				synchronize_irq(irq);
+> +			}
+> +		}
+> +	}
+> +
+> +	/* Clear internal IRQ state */
+> +	for (i = 0; i < sgpio->max_sgpio_pins; i++)
+> +		sgpio->irq_unmasked[i] = 0;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id ax_sgpio_match[] = {
+> +	{ .compatible = "axiado,sgpio" },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(of, ax_sgpio_match);
+> +
+> +static struct platform_driver sgpio_driver = {
+> +	.driver = {
+> +		.name = "sgpio",
+> +		.owner = THIS_MODULE,
+> +		.of_match_table = ax_sgpio_match,
+> +	},
+> +	.probe = sgpio_probe,
+> +	.remove = sgpio_remove,
+> +};
+> +
+> +static int __init ax_sgpio_init(void)
+> +{
+> +	int ret;
+> +
+> +	ret = platform_driver_register(&sgpio_driver);
+> +	if (ret < 0) {
+> +		pr_err("Failed to register SGPIO driver\n");
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void __exit ax_sgpio_exit(void)
+> +{
+> +	platform_driver_unregister(&sgpio_driver);
+> +}
+> +
+> +module_init(ax_sgpio_init);
+> +module_exit(ax_sgpio_exit);
+
+Just use module_platform_driver().
+
+> +
+> +MODULE_DESCRIPTION("Axiado Serial GPIO Driver");
+> +MODULE_AUTHOR("Axiado Corporation");
+> +MODULE_LICENSE("GPL");
+>
+> --
+> 2.34.1
+>
+>
+
+Bart
