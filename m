@@ -1,106 +1,118 @@
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC9239934A;
-	Mon, 20 Apr 2026 21:47:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3B33AA1B0;
+	Mon, 20 Apr 2026 21:51:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776721634; cv=none; b=VMCdvyB5SsBuwkbObupZjFPf0hgoSkFeBeMdSHhvUVK2pfoAJmGuzfhtE1uQklxmt9UT7xkq6UIb3tF77INnlF7NPF3HSpjRtQB7n+M0pMABloJdVXn2zqwF/rls35FQjCMsfKk2g040oSSAy/2L1XxHsvCVsZa63R8gU5nFtsk=
+	t=1776721912; cv=none; b=sqWNUFQVj3z5LPPUNce2zm+Ju2Smcgtikr89K8TWe9SuRVsbUu2n9A61HLEuq2HMbFJerx/JCxwE4mhqhqMcA4PkL7kVlLizh6kS2kzhCQP19VPIhHcPao8P0Bi30QoTAhuSUBo9pD2aj24kVlETZEn0REr8rYNx9uRlguNkSIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776721634; c=relaxed/simple;
-	bh=CLLSksC9+qDIWHIyI4I9YQ5LoX/FB7wYqB2vmAruL5I=;
+	s=arc-20240116; t=1776721912; c=relaxed/simple;
+	bh=I8nNv8NY/ksywkTVY0haji/kBEf+9HQMgNuDSyI9tNw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aqplI6I5IJZ7uUbloz5ax59A0r2AhzVBHQBBCjX9MvNvDNaf740Fus2Au+yPeIUyhQXKeSe6E6hIbK+132nhtHnr2djXxXMNHxz3Q1+owZDpOL6gZuxJsvSPTd1NvGsZzN2Om5Vrz/7ktHWG8rV2+uPUncEvrUvTdLSGDxhuX3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=HtBKX5/I; arc=none smtp.client-ip=195.154.119.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=KfCgVQsuSoUlD2B3bkyOV+I6yWIXtip2q06NUTDlF3kb7ddlBupT9JVBcAd3HgSBD/Rciz2bV7WZu5zV/TmU+TjuX3NvmfPzvKI/xKbMOGIG6ml0Bnz11eh63sVpxWD8nYh5SW3caM0s6ZKcolvSF6V4mZTq1Fgzxw8EshUkJfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FadkUhAu; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="HtBKX5/I"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=7vNfyFBOnLNbtekuQiXkiG2gtWPCS+o1h1We+Flr9lo=; b=HtBKX5/Il95oqVlLVCfX19riBr
-	g776peq+rh+OfYNsix46NL1UtKwuYZnaex5rnrF3cuzaIE7k8S6rNIK55Iolw5b08FauIzm73h9c0
-	/Ob57V+UtL6X3lmx1DkjhQR2MQawjHwjB1K9zY8wsAU4NeowmqR+xYBkE2z4EMb1gKhtbpWJbCuFt
-	zYbeSYp+4G0jdoLOLgNweuBIs0lOZDVDYAH3auT23Qx8R04lWxFwzWMD0onNH10sL9YC1GVYt+HYu
-	+gNxIKE6cZVQSKRXCTTXutKBm59tMW/ltoJawkhhqZNpj3iR3hIM1VhVVktrXIOGOBK/Cq1JrhqEX
-	wUh1pfvA==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1wEvyu-0000000DyKx-2dhQ;
-	Mon, 20 Apr 2026 23:16:36 +0200
-Date: Mon, 20 Apr 2026 23:16:35 +0200
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: Anand Moon <linux.amoon@gmail.com>
-Cc: Shuwei Wu <shuwei.wu@mailbox.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] riscv: dts: spacemit: Add cpu scaling for K1 SoC
-Message-ID: <aeaXszeaE62rM6BJ@aurel32.net>
-Mail-Followup-To: Anand Moon <linux.amoon@gmail.com>,
-	Shuwei Wu <shuwei.wu@mailbox.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, devicetree@vger.kernel.org
-References: <20260410-shadow-deps-v2-0-4e16b8c0f60e@mailbox.org>
- <20260410-shadow-deps-v2-2-4e16b8c0f60e@mailbox.org>
- <CANAwSgSNHO3MNewNzpYbhuj4K3NTdfzDC9KPoUHbFH97P4M_UQ@mail.gmail.com>
- <DHUCL24GMX7D.369IWK9DLPZPX@mailbox.org>
- <CANAwSgRt5-t_ah=phGc+CQYHG-CdWJuOX-2VTW6xE7n7EnVsFw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FadkUhAu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75859C19425;
+	Mon, 20 Apr 2026 21:51:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776721911;
+	bh=I8nNv8NY/ksywkTVY0haji/kBEf+9HQMgNuDSyI9tNw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FadkUhAu/qfwKjLNF1r09v2jnY+1cG6mdmayDB62+hGhOHBm1hiWDwD9slpvXRs0A
+	 6jtWa4p6CKpcmPPnSR7oWDjCDz0Raw3NOqlWHv8WcKhCEOcW0Z5KdvPU4B5jmofklR
+	 0kmHWB6sD5857hQNdWaIPfgJX+pX92v71SZ00IiYMQK8r5V8q7oYtD9bv2vK+ovSLp
+	 QTFMhHMtEnZNjmrVrCHfiAU0wsfDyLzDPEoiVrjEE56VtG5x2ZrqxwMkk/2CJDfliz
+	 iFIPG+5xEI0tr8r3ERSsWk4pmv4Y1sooDL1XS3be45xLulcHTVHzY8HddLrfeBtM3B
+	 YoeWVz+6lvahA==
+Date: Mon, 20 Apr 2026 16:51:49 -0500
+From: Rob Herring <robh@kernel.org>
+To: Daniel Golle <daniel@makrotopia.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] dt-bindings: automated coding style check for DTS
+ examples
+Message-ID: <20260420215149.GA3324615-robh@kernel.org>
+References: <cover.1776700167.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <CANAwSgRt5-t_ah=phGc+CQYHG-CdWJuOX-2VTW6xE7n7EnVsFw@mail.gmail.com>
-User-Agent: Mutt/2.2.13 (2024-03-09)
+In-Reply-To: <cover.1776700167.git.daniel@makrotopia.org>
 
-Hi Anand,
+On Mon, Apr 20, 2026 at 04:50:19PM +0100, Daniel Golle wrote:
+> Reviewing DTS examples in binding YAML files for coding style is
+> tedious and repetitive. The rules in dts-coding-style.rst are well
+> defined but currently not enforced by any tooling -- dtc does not
+> care about whitespace, and yamllint only sees the YAML structure,
+> not the DTS content inside literal block scalars.
+> 
 
-On 2026-04-16 17:07, Anand Moon wrote:
-> After reviewing the Banana Pi F3 schematics, I confirmed that Buck1 and B=
-uck2
-> Both supply the CORE_0V9 with 0.9V=C2=B11% rail. To resolve the restricti=
-on errors,
-> I expanded the voltage range in the DTS to 500,000=E2=80=93950,000 =C2=B5=
-V.
->=20
-> Additionally, I updated the DTS to map the second CPU cluster (cores 4=E2=
-=80=937)
-> to Buck2 to better align with the hardware's power distribution.
+Thanks for this!
 
-Actually the output of Buck1 and Buck2 are connected together, so they=20
-should always be configured with the same output voltage. And both=20
-clusters should be mapped to both outputs.
+> This series adds a Python script that produces a canonical form of
+> each DTS example and diffs it against the original. Any difference
+> is a style violation. The checks cover:
+> 
+>  - 4-space indentation per nesting level
 
-I also wonder why in the original patch the buck1 regulator is named=20
-buck1_3v45, from the schematics, it should rather be called buck1_0v9.
+I would like to see a way to disable 2 space indentation warnings. It's 
+not something I think we should 'fix' treewide, so we can't have 
+warnings for all of them. Perhaps just check for consistent indentation.
 
-Regards
-Aurelien
+>  - property ordering (compatible, reg, ranges, standard, vendor, status)
+>  - child node ordering by unit address
 
---=20
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
+I would guess this is more a .dts issue as examples are mostly a single 
+node.
+
+>  - blank line placement (before child nodes and status, nowhere else)
+>  - no trailing whitespace, no tabs in DTS lines
+
+I think we already check this except for spaces followed by tabs. We 
+might be able to add that to yamllint.
+
+>  - node names using only [a-z0-9-]
+
+This could be a schema. I actually have a WIP schema that I never 
+finished. The check I had added was banning 'status' in examples.
+
+>  - no unused labels (defined but never &-referenced)
+> 
+> The script uses only ruamel.yaml (already required by dtschema) and
+> has no other dependencies. It is wired into dt_binding_check_one
+> with || true, so currently informational.
+
+One reason the binding checks are so slow is due to python start-up 
+times. Part of the start-up time is module imports and IIRC ruamel.yaml 
+is pretty slow. That's why dt-doc-validate is not called for each 
+individual binding file for example and we shard it with xargs which you 
+followed. But really, make wants to do things a file at a time.
+
+We already parse the example once with dt-extract-example, so perhaps 
+the best approach would be to run these checks at that point.
+
+> Running it against the current tree finds issues in roughly 70% of
+> existing binding files -- mostly indentation (many older bindings
+> use 2-space indent) and unused labels. These can be cleaned up in
+> follow-up series; the immediate value is catching problems in new
+> submissions before reviewers have to.
+
+'make dt_binding_check' must be warning free (with the exception of 
+using dtschema main (unreleased) branch. So this will need to be 
+reworked to maintain that to be mergeable.
+
+I think this would be useful for .dts files too, so it would be good if 
+the extract example part and checks could be separated. We already have 
+code to extract examples, but then you lose some things like what the 
+indentation should be. And implementing as a diff or automatic fix mode 
+would be harder.
+
+Rob
