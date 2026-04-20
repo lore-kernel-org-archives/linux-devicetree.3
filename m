@@ -1,68 +1,68 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B53E2F999F
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 08:47:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C81389116
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 08:47:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776674844; cv=none; b=V7w47yGFs15cyeQ1U+x8VGFGhz6o8CoPsy28KQyqlWENZ+p6buR9pYoanbV6aFSBdflKtByuFT70tkxOTb9/kQ52QWFatIpd6n1YA0G3RDxvJYHkILFdQDoLC0alJ5xDxqOf3RGNRxvSzDbVqyuHtlYBQ1LTvQ9+SqE/qOl62sk=
+	t=1776674864; cv=none; b=BkpDA2T9oIhZUvol+vOvUx4vTDMdDYpF3UH0er9U7X1F7z5vrM+xM+H+qhkv0L5CiDtvuH0KwJ9SLW6CeIzfZoLTPHD4tx4VTh9waGH+X4qGiG4jgePrbTbhxF40MrtkZQq/QrJQ8NxVmEFNXakOLKBYW8uT62pG8XtOljhgehE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776674844; c=relaxed/simple;
-	bh=Fj3Io7jF1RCzoydTjdHBihVA2mMNzBFyf1jdscT7IVA=;
+	s=arc-20240116; t=1776674864; c=relaxed/simple;
+	bh=XNaz9AkZvYJdMfgUKEsBozfQCPVgljcFXRA4d8GnHZc=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=ljnl7fhUE++6sTWI9b8SAu74oucZCM1hZq+n5npHcz0noO7DczUBJMe6AwIyX3rqFYjV0tqLYQo2oPkVUCq476TkocydaA24zAl5bgsRggmrVYEz/bPBRtFPeJAhMGPskMcabMM8q4fwuuf/iHMUD2coDQlIq02vKCC7QPtOupM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=izDghL6d; arc=none smtp.client-ip=209.85.128.49
+	 In-Reply-To:Content-Type; b=IQW3onvNipatGb7KcbEVlkvF6squf3Xx+vhd+Yy18OWFfPKoCEtrQvIiF6XIXzLPd9tQjng72uH1aRquO8n5Rc59zsYH/BSy2d2tZmyojsdPvkHGy7yJMGCKBYRLXJfg01B65Ec1xGtjRHFzcdI6xyoY32z0fIqjb/4RfD3u77E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=S6xmskah; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="izDghL6d"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-488e1a8ac40so37448505e9.2
-        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 01:47:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="S6xmskah"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-488a8ca4aadso37937675e9.3
+        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 01:47:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1776674842; x=1777279642; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1776674861; x=1777279661; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=BMnG5zsFm8/YD9yDwCE2pChjm9vp3DUFGTfm9muAL/Q=;
-        b=izDghL6dXfT7eT+5Tq2toKIk3l4BpHkk5hKOtaZNENQVFoRoJDI7/bDoLsH09dMQPI
-         ejVEs+EOfgNdWbljXUDTQzWue+9gLFccMvmhoDWG/EhyFssQ/QWM565CK9fnjtT7Knio
-         gE7iJwLF/Dsti1u4hKCWpFlDBDErjWROKlSigcyRZsC4IyLWZFRuLH09RjxbexF/IZt6
-         +zkTokWVXCjiuTmnAgmpsAEtfYtawkgtDlkt9EL7KAsjzLkkvpPAx3D25xuUmGPyPpwR
-         t9DSJgnMnS9Md0jnrh1ro0cYPPVuHE7v85BfnyVUnylGYrFT0umLfrnqn7PdIpyTZonU
-         Jhyw==
+        bh=v4gP1X/1RVo+LT2tXlc26R+u2cPe0X8dceny5kiXZXs=;
+        b=S6xmskahSLBAAp00IUoxtb7tVHbIObW6RDGLAEUAxm46ECunuU5jUelCTMxfIvT8k1
+         wlRT5QySDSfjN87037fosE8tMFDHhL4QusF3HLcI3J72c94rnsoqFh0BzsRPW//FrAzB
+         qffOqPfm+dS18qM9yWLhpFBLQ1G8i5x4yQ51DsOODtQfD51Pv/5+xoHFWYAtKqpZRE+X
+         XbYatGhmM+6Y874naQ0AfnA7vR+nWordfo8ErXRDAa8GqAj5KT3FsI40+1X4cx9Nax85
+         qesn+927k8QCOGy+3As+bt05KrqyLNwfzzmBFl9A2kPeCOSVEvFJ3WODoMjXMyGN6Oke
+         A16Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776674842; x=1777279642;
+        d=1e100.net; s=20251104; t=1776674861; x=1777279661;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=BMnG5zsFm8/YD9yDwCE2pChjm9vp3DUFGTfm9muAL/Q=;
-        b=Y9mNYeIrEAwz1jvrHQ2FoqWosbtc3khnigBFJkKPM5fHL2wCIHkVZQDEkC03g6J/xa
-         25R1AQh18ZZPLCHTxsQn8a5ZcP53uK+vImZIxiez0IbEGMQa0MQWksQpXGZ0ao2VqdC/
-         lvO0oTX7+bkKc1LPNwf6rMvSyV6sBpUJGb5kjd5er9+GQhapPPahhI3MLI0vL25TdAV+
-         QiIJDIAY3bxiKzbh3gFhfJDb8F5BsuqMcR21bzwFcVbznK+2/Wo431jMsfJnvTkTtyEI
-         ND2DNNDp8YNqyteFJ41zIFapnh8mkfw532cFhXsXnwVYLtqei+13pAMo/+lb63ShtZ/z
-         DZ7g==
-X-Forwarded-Encrypted: i=1; AFNElJ+uiCNCNPhTtNwHKjt7WHDs/l+7Cdm8Oq91hz3qKWFH5VqQ9aDBky7D43HveYf1ljCaUOTY90e8y+rl@vger.kernel.org
-X-Gm-Message-State: AOJu0YzuNdCCGtkEOs2eYpiqWv6BRWmc2sswoCyoJV/vmhVWDyB2w+Vy
-	1vQ/LEQRPTnmHrsiWT07Tr5erTN4k5H+jg73dYMY/tWAzfsiN2MHiCU6+D8BzEyxrds=
-X-Gm-Gg: AeBDiethP0vwSaXAxChRzpzfS0dUqKXyfjuPXsMbu1jM9I7KdDv1nOwp82fJ6XuWIpD
-	crhq4bc8ieXe67zIwt/ssVMXyML6LkyJqAPdoOQ2ucqfgmvRQgXY5jiQls0twzr8UPlf2oaTTLM
-	JEJrg+JXnKw4ZCCyd4YHvp6YZaFVBQRaCpzU5fn/IxJNTKXEUl4RtKRinTkTa6dJDhQphqz55fH
-	/ypRLZjdaadef7jegblMViJsXLtWV8+G08tAuG5X31KqLlXimasdNApP6EDG+PD4omz2ZL8AJtQ
-	u1lQmVwZ6cIbmCQNi50myDLwgLs0HRue1y9cBKT3OqWHUL5qemHI0+wZF1fWIcmyLMRnRlTpz9t
-	qXJYx5eRHLHaeIEdhmdceuyNISQ3FO1G3bLo9n4MyfDDH/yUUGHvA7klu/FlEmMAlBircpMJFnh
-	OUAJbD368k5EhRNT0mAh5NmQKLUcez4BBB4c7LEqnTxct+c1wI0zcx2Mh3MahZr16HWREMNjGt4
-	LSN0iBcPU3M4kUjNw==
-X-Received: by 2002:a05:600c:c4a5:b0:489:96e8:1ef0 with SMTP id 5b1f17b1804b1-48996e8200amr15753395e9.30.1776674841495;
-        Mon, 20 Apr 2026 01:47:21 -0700 (PDT)
+        bh=v4gP1X/1RVo+LT2tXlc26R+u2cPe0X8dceny5kiXZXs=;
+        b=PcDe5fnGrgCaGwKG22dO9neCBJykL4sgrU8+e8VjLtSeQyeiP1u9sFh+T1zsKEGYbh
+         NC9izTrU/dkZMEUoqD2OOGrRl65zELBjX6fE+BTDgARsx0bIf3tM2bMIKLXjHDw6/Hrn
+         xw2CKgNEimcKiz/OizlwS8BAsvYfnBQZo0iPi61m7UQArRoEI6C4nzywd3VTW2IwzJ4N
+         bTbaH+0OLbvcEW47FwV4C2RNNoVgD49uAQ3M68kzu+y1xBoRWFYdW0ZLO44WjClMEV4f
+         CLOTGrRyKvydEX3gD6XKU0XSkF9n/JAxTU/E9MCnnsiKq+G8gkR0MEF+VlYy8B2okwLi
+         PyRA==
+X-Forwarded-Encrypted: i=1; AFNElJ+VL0d0Q4sH3tf5OYaMBax7gW4029SoL0J/MiQHTQwb1oepJtsQJzPY+98Y/bJmIwn2sgSebU0W2V+g@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz4ttWu5Pyw0jen/FVSUHV8z5YDoXIMhzvxgDYqWkRpEUvvKW3H
+	Ff/H1uqCKPt5iKTSMj0RG+Q+//vKJCAiZHLQx9G2dR/l1xMGJFWNk5OWVG2FRTiM1a8=
+X-Gm-Gg: AeBDieuhGem9IVgZf/N5MsTvFZuS1qrwCwJsoExsP9j02RITXm3OgpRvAkoQcbl+U0F
+	HZ91ODeRGkmk/Encq4+Q9757ecApXvdW7L8eVVonB0AJnSAspxn3+cDXg9ocesNafQpwPvFHCYb
+	Yq5ykWVMAlkNL4oRInL0G4BFVCnvLnRUJ5hBCwkLnYtaRIk73sqgWnO90GAPbhPfam+jIzUBrZr
+	PqVbarr/drUbjZEcGKOgVOcxAk/HzBZNMnZdpDdh0qZOxjf8DOFUciqVhL2uiJ7lbRTkyvcpbOY
+	XTwql4fmXxeYvgpWPMPgkW2JvDTgozXlRud7Bv1kvdzcXVRf2QgqsD8D2cCCONoL9E4T6zHbjmg
+	EBCKSZY1S6Rp6bBo3sZG0r6tO4Xunr+WevoooRjoYQI80DVhgoRkIdDKcNKtndXvpgG9VBp2kXU
+	rkEpBPuNFRaQEI58yy+VWPegll7b698vQSbSL0zxf5ZAk/yxkLgnANnFY7bBhy0h2hVTRFMtXTT
+	6YSz4ho4FB0tI9289mmAxD4pXS2
+X-Received: by 2002:a05:600c:890c:b0:487:1108:48af with SMTP id 5b1f17b1804b1-488fb7389a6mr137523595e9.4.1776674861197;
+        Mon, 20 Apr 2026 01:47:41 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:8290:9fd8:8af0:67dc? ([2a01:e0a:106d:1080:8290:9fd8:8af0:67dc])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fb75ab25sm85827105e9.11.2026.04.20.01.47.20
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4891f98728dsm11193695e9.23.2026.04.20.01.47.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2026 01:47:21 -0700 (PDT)
-Message-ID: <c9c3227f-2a46-47b5-963f-e784184f7f31@linaro.org>
-Date: Mon, 20 Apr 2026 10:47:20 +0200
+        Mon, 20 Apr 2026 01:47:40 -0700 (PDT)
+Message-ID: <e055b694-3e3e-42da-af54-586ef180b746@linaro.org>
+Date: Mon, 20 Apr 2026 10:47:40 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,8 +72,8 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 3/3] arm64: dts: amlogic: t7: khadas-vim4: Enable
- Bluetooth
+Subject: Re: [PATCH v2 2/3] arm64: dts: amlogic: t7: Add UART controllers
+ nodes
 To: Ronald Claveau <linux-kernel-dev@aliel.fr>,
  Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
@@ -82,7 +82,7 @@ To: Ronald Claveau <linux-kernel-dev@aliel.fr>,
 Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20260416-add-bluetooth-t7-vim4-v2-0-9a57098fd055@aliel.fr>
- <20260416-add-bluetooth-t7-vim4-v2-3-9a57098fd055@aliel.fr>
+ <20260416-add-bluetooth-t7-vim4-v2-2-9a57098fd055@aliel.fr>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -109,59 +109,109 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260416-add-bluetooth-t7-vim4-v2-3-9a57098fd055@aliel.fr>
+In-Reply-To: <20260416-add-bluetooth-t7-vim4-v2-2-9a57098fd055@aliel.fr>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 4/16/26 10:54, Ronald Claveau wrote:
-> Enable UART C on the Khadas VIM4 board and attach the BCM43438
->   compatible Bluetooth controller to it. The node configures the RTS/CTS
-> hardware flow control, the associated pinmux, the power supplies (vddao_3v3
-> and vddao_1v8), the 32 kHz LPO clock shared with the wifi32k fixed
-> clock, and the GPIO lines used for host wakeup, device wakeup and
-> shutdown.
+> Add device tree nodes for UART B through F (serial@7a000 to
+> serial@82000), completing the UART controller description for the T7
+> SoC. Each node includes the peripheral clock.
 > 
-> Remove clocks and clock-names for UART A, as they are defined in DTSI.
-
-This should be a separate patch.
-
-Neil
-
+> While at it, move the uart_a node to its correct position in the
+> bus address order (0x78000) to comply with the DT requirement that
+> nodes be sorted by their reg address. Complete the
+> uart_a node with its peripheral clock (CLKID_SYS_UART_A) and the
+> associated clock-names, matching the vendor default clock assignment,
+> consistent with the other UART nodes.
 > 
 > Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 > ---
->   .../dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts   | 21 +++++++++++++++++++--
->   1 file changed, 19 insertions(+), 2 deletions(-)
+>   arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 61 +++++++++++++++++++++++++----
+>   1 file changed, 54 insertions(+), 7 deletions(-)
 > 
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-> index 69d6118ba57e7..8ea7ae609fbd5 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-> @@ -250,6 +250,23 @@ &sd_emmc_c {
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+> index 4a55d9641bc9b..81c26b1e3e7a4 100644
+> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+> @@ -577,13 +577,6 @@ gpio_intc: interrupt-controller@4080 {
+>   					<10 11 12 13 14 15 16 17 18 19 20 21>;
+>   			};
 >   
->   &uart_a {
->   	status = "okay";
-> -	clocks = <&xtal>, <&xtal>, <&xtal>;
-> -	clock-names = "xtal", "pclk", "baud";
-> +};
+> -			uart_a: serial@78000 {
+> -				compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
+> -				reg = <0x0 0x78000 0x0 0x18>;
+> -				interrupts = <GIC_SPI 168 IRQ_TYPE_EDGE_RISING>;
+> -				status = "disabled";
+> -			};
+> -
+>   			gp0: clock-controller@8080 {
+>   				compatible = "amlogic,t7-gp0-pll";
+>   				reg = <0x0 0x8080 0x0 0x20>;
+> @@ -713,6 +706,60 @@ pwm_ao_cd: pwm@60000 {
+>   				status = "disabled";
+>   			};
+>   
+> +			uart_a: serial@78000 {
+> +				compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
+> +				reg = <0x0 0x78000 0x0 0x18>;
+> +				interrupts = <GIC_SPI 168 IRQ_TYPE_EDGE_RISING>;
+> +				clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_A>, <&xtal>;
+> +				clock-names = "xtal", "pclk", "baud";
+> +				status = "disabled";
+> +			};
 > +
-> +&uart_c {
-> +	status = "okay";
-> +	pinctrl-0 = <&uart_c_pins>;
-> +	pinctrl-names = "default";
-> +	uart-has-rtscts;
+> +			uart_b: serial@7a000 {
+> +				compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
+> +				reg = <0x0 0x7a000 0x0 0x18>;
+> +				interrupts = <GIC_SPI 169 IRQ_TYPE_EDGE_RISING>;
+> +				clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_B>, <&xtal>;
+> +				clock-names = "xtal", "pclk", "baud";
+> +				status = "disabled";
+> +			};
 > +
-> +	bluetooth {
-> +		compatible = "brcm,bcm43438-bt";
-> +		shutdown-gpios = <&gpio GPIOX_17 GPIO_ACTIVE_HIGH>;
-> +		host-wakeup-gpios = <&gpio GPIOX_18 GPIO_ACTIVE_HIGH>;
-> +		device-wakeup-gpios = <&gpio GPIOX_19 GPIO_ACTIVE_HIGH>;
-> +		max-speed = <3000000>;
-> +		clocks = <&wifi32k>;
-> +		clock-names = "lpo";
-> +		vbat-supply = <&vddao_3v3>;
-> +		vddio-supply = <&vddao_1v8>;
-> +	};
->   };
+> +			uart_c: serial@7c000 {
+> +				compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
+> +				reg = <0x0 0x7c000 0x0 0x18>;
+> +				interrupts = <GIC_SPI 170 IRQ_TYPE_EDGE_RISING>;
+> +				clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_C>, <&xtal>;
+> +				clock-names = "xtal", "pclk", "baud";
+> +				status = "disabled";
+> +			};
+> +
+> +			uart_d: serial@7e000 {
+> +				compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
+> +				reg = <0x0 0x7e000 0x0 0x18>;
+> +				interrupts = <GIC_SPI 171 IRQ_TYPE_EDGE_RISING>;
+> +				clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_D>, <&xtal>;
+> +				clock-names = "xtal", "pclk", "baud";
+> +				status = "disabled";
+> +			};
+> +
+> +			uart_e: serial@80000 {
+> +				compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
+> +				reg = <0x0 0x80000 0x0 0x18>;
+> +				interrupts = <GIC_SPI 172 IRQ_TYPE_EDGE_RISING>;
+> +				clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_E>, <&xtal>;
+> +				clock-names = "xtal", "pclk", "baud";
+> +				status = "disabled";
+> +			};
+> +
+> +			uart_f: serial@82000 {
+> +				compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
+> +				reg = <0x0 0x82000 0x0 0x18>;
+> +				interrupts = <GIC_SPI 173 IRQ_TYPE_EDGE_RISING>;
+> +				clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_F>, <&xtal>;
+> +				clock-names = "xtal", "pclk", "baud";
+> +				status = "disabled";
+> +			};
+> +
+>   			sd_emmc_a: mmc@88000 {
+>   				compatible = "amlogic,t7-mmc", "amlogic,meson-axg-mmc";
+>   				reg = <0x0 0x88000 0x0 0x800>;
 > 
 
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+
+Thanks,
+Neil
