@@ -1,187 +1,144 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022115.outbound.protection.outlook.com [40.107.75.115])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF2237F8A3;
-	Mon, 20 Apr 2026 03:25:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.115
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776655558; cv=fail; b=iuWcG1rObTndJUldQ+yZRwwCj3/UcZ4+BxBBtcrrtbWEkXn6RuzKVtfOfEnFAK9agyaygA+ZKfeF7mB+FxVJTlsksSQH5cgpaCe+9jcHv3dIDKGWpp1brc6xswLT3N4qPrfQCZyuAglW7Wu2L1noRdERwfPg4P/aLUSJLBwkHUE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776655558; c=relaxed/simple;
-	bh=EZY0gwyrX/KkJ4kCpsl3KJFm+HExEP2SAb5Qj4mF7Jk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=E1hWukI9h0R3qCTYxCz7ja8l0oIODsg2gRD/UafhxhpGcBZyvQQ3IUVoKUK+9G34wEbo5pk8Fyk0VpvztInS7IUYUvH1WllKH6gD5RHRaBwmcVUVRCZhGPcGwdap4Mc7S19DBA2ERwHd+7YTzGWEJFHHOQhHCgIHc2k+eTM2yYA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=zaV26pNF; arc=fail smtp.client-ip=40.107.75.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6063D37FF7B
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 03:52:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776657131; cv=none; b=Qxv3cIs4SGRepi2RzGi4QBUMc+DzRoLI+d6Zd56iV4dpPskmi3eSA8dAsqCHd8mbuyGC4LLiORcLW8YP9mwZKtRLLq1G6v6l83LHikZ0FQDtebGE5VTb/BzQcFH+JAgUOAnq0mSJN79EEsHoFnLACtI7uE2DHFBmSjkLayWWmwM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776657131; c=relaxed/simple;
+	bh=LjHpXILgSSxYdRyxuGdqsJT7SAwCxmBr+4K4Jx8gHpc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sbsKRekokRZH/H8C0ZR6d+XT3DclRhrZvjHMpF8bKgEGHOhS/kP+cUbdaPH508bO9beVOEhvWVAb3rQyExycpgYCv8D+vD7YtxWXp+0gKsBppVOHDiAoxNt8dpL9lRteSP4XaWZpzBDkT8TIy2K14EuV3xdiNkTSN98V1fQrgSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h22wBTbF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fvpZhheu; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="zaV26pNF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hcGRbbRjpo0C0iPXwNt96/rw57mb+mAHc/HOSP0N300FoCejdreml11SqLw6bhFoe3GXtlj9GfQa2WLlBrrP38IdZteae0KEiAELC4z18yGGMtrwa8qsP0V9ORjG3qrDOTH0+/pGyt0cy+dLMeRhCSO9woPVKSiISWHML/iLH9Jma9tXmwLGL//r69RhMpOiD4yH3DS7diXOJymKC1OOQNNc/fQGmc+ECvlvp1fDKl1QD7J+DRUIXlBZKnaqyUq9gduitNBLYL+TvH7VtUtMCCACiB0+Q7fGLrotNKpaheomg/LjY2J6fgSD+97+KW3J06MNv6EOKqZRvZfRNYHnMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zVeLv9U2wGGUeLYa/PHeZJcsaUcakX3uPRCqgc4Tj3Q=;
- b=y5i4ZtD88LQq1ss1wgS6m9fSqaNHKaErT7J/u1l5WoNP2NXjHKInPh2CBDCF94irvfpwjRE/woseLFV6gcEJIkojNkzDCHRMHnnupR6mPD93Up9FmFBYMPYMLWO1Ntrn5WSknZW6lH8AbMGrjDLvw12axuYpaFES+t0/kt50M/UgNUxenQEH0jHawCfSnPUkRmJZcWTRFMdpkfzV6Rc8usxOSJKhBijykxey5t2wo0O7PKEavhEHItanmW+i7hnOnLgEkt9GWhEENgSm1TKPF+k6SqonFiOcsJClwXMNba5gLUci95rGyl6zDcwCMgUdbP2Mv1pt74qY3tPOY4obvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zVeLv9U2wGGUeLYa/PHeZJcsaUcakX3uPRCqgc4Tj3Q=;
- b=zaV26pNFZh04XGGjlXD+WA7SIqXN2oxiJjh0wFFOQnuuO/O36MvRTIZbdluGYYUae+pBqvghBAXQzGYLSVMbYo0D+hJgz8cuKMD1ZoG6KNO6nXgpJNxL1mOuePElL3N8PZt2qtZMPnGw33d408NsPQK9zXztN1Y9KYTjtbdGJYYHpeobTDwfp07MkXYQVjYgF4pLsWphp9hXOp2hpYxzbPpiJC2tR9JvBbSrSR35HzDdNhijYkIbO6M8ZvWotDIBSql7d8YbziF7mPoPIQxCsGyss3x1aOR1ONFxn7aio1x3tqlNNocSM38a0RJp4XiHO5Do30Ucw7hBkSM8LR+L+Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB7149.apcprd03.prod.outlook.com (2603:1096:820:ca::7)
- by TYZPR03MB7361.apcprd03.prod.outlook.com (2603:1096:400:41f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Mon, 20 Apr
- 2026 03:25:53 +0000
-Received: from KL1PR03MB7149.apcprd03.prod.outlook.com
- ([fe80::2f06:12a:fff0:6506]) by KL1PR03MB7149.apcprd03.prod.outlook.com
- ([fe80::2f06:12a:fff0:6506%5]) with mapi id 15.20.9818.032; Mon, 20 Apr 2026
- 03:25:52 +0000
-Message-ID: <64cde9f6-4f28-4ba7-8362-aac28887ff22@amlogic.com>
-Date: Mon, 20 Apr 2026 11:25:49 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] arm64: dts: amlogic: t7: Add clk measure support
-To: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-References: <20260415-clkmsr_a1_t7-v2-0-02b6314427e6@amlogic.com>
- <20260415-clkmsr_a1_t7-v2-4-02b6314427e6@amlogic.com>
- <ae61c52d-814c-40fa-b02a-833377d840a8@aliel.fr>
-From: Jian Hu <jian.hu@amlogic.com>
-In-Reply-To: <ae61c52d-814c-40fa-b02a-833377d840a8@aliel.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SE2P216CA0076.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2c6::10) To KL1PR03MB7149.apcprd03.prod.outlook.com
- (2603:1096:820:ca::7)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h22wBTbF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fvpZhheu"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63JL1LWm2084743
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 03:52:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=eJRwZhCKQ5LNn9M5NSckJ+yOwtzDE3hUcfB
+	QCJ38fc0=; b=h22wBTbFMh0+QE+o2TkcwKm535QdGYBqOm0QK1H/MknkzLVG4Dl
+	YLW0gfL1jePiCSQWWYKeYNDbdc5nw34nRL9nlfJplZdPMOE6aBUENvrxKim3Ti/6
+	7SV1wZhpiIs8r35SS164s6c535OCBzQJm6ZyufWiwrxghsEm3+GbAU8Gd1L4szRJ
+	mMB0V4gyxnxMdUiaja4EZWyfC+SIQhm8JPBaR6GbP74SoqAsIIU04mbvP0UdM2B0
+	/7ofygKLe92g2tXw+5hg5AYlZtg7p3tbGMYXq4rR4qkA913Vn1MSmXzSoYMFJBRc
+	f6yIIgoE+sh5UtCjZtZlNwoDmGzHb05on8w==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dm21ukvaw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 03:52:09 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-127876be621so2359195c88.1
+        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 20:52:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776657128; x=1777261928; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=eJRwZhCKQ5LNn9M5NSckJ+yOwtzDE3hUcfBQCJ38fc0=;
+        b=fvpZhheuvw1b3IGMU2TQ0p7CxGO/UzkHIERgq/p/ojRuK433zJmLn6tG/NbhDBPkwJ
+         /uQFrk+KCriRDjFehOlb/pjZGUDuFpz/hVhf3LVX7NfJCcDKo8daRNiN9M45kvWUOlLN
+         /vW8XWy/tet6qd0mMLOCv2breC8xSOMJrWIQWv/svjdM//MoGrzD2KrbJx6p4AP4/dzV
+         OVY3o67QOk8pbK9Tl62qRO7D/R0Foiw/jVRKmEkb8Al7YEC3ZoyWzvB8fEGzSHbXX1YX
+         f5/K+JiLDlpp7kG9jahLuoaVnLACY3BiIlinQN0OSX8AYR+gn1WZyPmK0h1KcNEjAsQ8
+         RazA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776657128; x=1777261928;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eJRwZhCKQ5LNn9M5NSckJ+yOwtzDE3hUcfBQCJ38fc0=;
+        b=iOpwru/AV9kZkHax/mQWJviJr4ZYynUOYnKJzuKBbqQCaAMwAxtZFAqCv8HdmTVVlT
+         U5xRISsk2mcp/mTwgtakRRM7b2+ixdXclr69BxGtRsnCXiE914Dtp4I8o61r9aUcncia
+         d8aTp6wddnXxJopkndX7rWgXMBGJRgi1wY6xvioyLotXVx0egVUyoZ2xDF/ahKmLbrTi
+         w1D+NSysHT8rhxdpO+rR6pvn3M40RPfsmCUA7DPxnnwZGzrChzCWd6xi+JIo0IBb+1T1
+         I2ey//UmxdmyZfC4FHjMTWMkzLMK9vVzVFkSGMiHVyCxl39VFLwCQYHy9eWpyNXRE9RT
+         4G/A==
+X-Forwarded-Encrypted: i=1; AFNElJ/jO6QTpvbzjhKjJ9SN9iTnQqJiN9JS3EtYnCYU58sCkHso1lVehuRrjtvNfrZlR7OUIuxMPuzOSIDF@vger.kernel.org
+X-Gm-Message-State: AOJu0YzhTxTaeMBnsERYUV/zzZtE+djjZj2/LWyPNSZhzfAzpC8THpk7
+	QO4YkfKk40yET2T6oT4tSJ6GelS4SHdyeWO6PNleboxzY2iHl3parTUC/81K6WQJfOGhRSglvzZ
+	3fjbuMgsx7GI0qdS2DYuFYA/HmJTdPfOuv9zzccwxOiUIj3SJVSMomLToEJ45w99N
+X-Gm-Gg: AeBDieuNxdiuj31DjFuHNiB8sfwaLnvg0MpYbn5pKVqzwJiut86m34D4sUnvTYO4+l7
+	PdnG7auNg7Ew82vGwOUrmIbUeE6RFUlR0rRMfFx6sgyLCbX9CH/3g7r855P90R+1cCKTLnFoxXY
+	eMqeQCnLTYMaejV2elYOEK8ljAidyU1AHrA+JTp9IO7llQquFgJhImlC3sjaGXqpcl8Y1ghYzZK
+	aCp1KtuYuM6KOTBcfFdtQ024MX9Jek7fiki5zDDbB2eTbrPF3PT23vPozUi3AKShIf6Q2xdrNmi
+	bteaDUV9KVOsbT/tODyyr4KaJq9YbysAjSciOSBY2IgWrb/htMwxd3EqR9armY775Lh0pcV83Yk
+	ilzz5rFY016/lwbjYwty3yhY7/gAazx5kKkYAoZMg09k4vIpiEl6Gjt+lYWkTVLAVcbll11PWe4
+	b3/MVJ8Hc237Ye2ufL
+X-Received: by 2002:a05:7022:688b:b0:12c:81b:c74b with SMTP id a92af1059eb24-12c73ae93c1mr4664730c88.1.1776657128227;
+        Sun, 19 Apr 2026 20:52:08 -0700 (PDT)
+X-Received: by 2002:a05:7022:688b:b0:12c:81b:c74b with SMTP id a92af1059eb24-12c73ae93c1mr4664724c88.1.1776657127664;
+        Sun, 19 Apr 2026 20:52:07 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12c74a20c55sm13056111c88.13.2026.04.19.20.52.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Apr 2026 20:52:06 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Jassi Brar <jassisinghbrar@gmail.com>
+Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH 0/2] Add CPUCP mailbox support for Qualcomm Nord SoC
+Date: Mon, 20 Apr 2026 11:49:30 +0800
+Message-ID: <20260420034932.1247344-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB7149:EE_|TYZPR03MB7361:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e0d231a-c7a6-432f-bbba-08de9e8c86b4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	V386AE+mUxsN++gRa7VOb/ZbYUKN/7+2XXnmr3niNIa5WJs20DSoQMxmQG69x8Kwjkz6RTU9EdjzDBMBeEsrCw+qZ6kZXqubu6F5i5AnAPa0RpCi3QcCNCDu0Saz1Y6X/UlLgiB+bl59BDfTF3RBjVNf+YMzWIX9DDDxDGNmnzNWVbuVWD6B9oBmQo1LObvJhSARaeOLK3b1WpR085v7kTMwiUZRk2GlVpNGpNdn2XQDERFr0nz9OY9MZIh1fjBesiDhI/S5F8JvjBHvuCtmQwSzAvvXP55tNF5ymkMI32XXkW2s8uxy+9IoNwqUjfoOC6uXJcpWY4xlaQ5tLxcYK/ytkJS9jdKLwoGBsuhXCjQtVjRe5Bw46PatrIYcb35e7mbxrJMEF9uI9z2OlLRhJvLGoU1Y7s5r6vqns0l/z87OCIvVRYH7c11MPQgeEjQkz97NLltrUSvgT0Lhd/jjuUE7AuHzbDchZSa5JFl8b0cg1bpWfOYcR1G4+cGf4NBJWoJpbMyMs94yu26BrKIZPK7QJVAOmgpEd4KnqWnY67ZxPyl/VljwhJmaSkJ3Apb2Wz78D4S3E/ENwk2fxhFl9GViJJHvDXj+oR94kZoc4A8bjmpGP6t0jqqAv7b1xc/xUXFeX9n2SsGXCBWksYjgyL7+45yoQ3GjtxNyTuUsuImEyELnuVOyOTZpLm3gCYQq1ZJXSF64eGt+6GUW5MNi+upnJcvuiCTQKD9RePhd8PE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB7149.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YkVnQ3NXMzN1YU56WlRIUXdEU0NyN293T3pLSGQrQ0h4RjlpdnpFRGYvNXpC?=
- =?utf-8?B?cTZ5KzJXalF2WnlSRHRnVVpNTDNQN2krRnhiLzExWDVlSlR0Nks0NXlmTnN6?=
- =?utf-8?B?eXFEcVBHTTRWbU9BM3ZUSHBjbUdBQlUxQjZabXNsSFFVSnZTK3pPZlN6b2V0?=
- =?utf-8?B?S1BPbjlBbGFtaXFlbFBJSit6QXVoUDA5VWtyRTRSMWp3REQxMW9aaG03N1or?=
- =?utf-8?B?ZUF5ZkI1MFV4bS9DU0Exa3hENFVQREdncGRtVjNwdzlHTFdyNmwzZlJUUFdz?=
- =?utf-8?B?d0RJa3pPdVFFK3BQZ1BmWjBHTUxxZ1VxNVlFMUFRcFlqMnh4d2JHaGY5OTRF?=
- =?utf-8?B?dXpucjFyZFd5blk0WDNGUXY3SUNBMFNrbE9YeGpDVTFraTIvUHpsNm95NUsz?=
- =?utf-8?B?VG1MYndCMHpTbk5vVG5aeUtYekZBbjkwa3pzanBQeElZYklZbDNXOWJXNVI5?=
- =?utf-8?B?WFE0d2pCVWIzS3JJTnFZQ2xueU43MjZQZUVlRmdYQnp2ZDFnTVBCNGUyVnF4?=
- =?utf-8?B?MTQ1V2tzbkJFUC9obkVzQnNXK29hbHY0VHBhVHJtaXlNejhLUEp3K3FnWlpF?=
- =?utf-8?B?N1VSd1lhS2pEVkJ0R1luM0EzMWN5U1BocUxNbU85ZWtVZUUvaW80ZVErd2ZZ?=
- =?utf-8?B?UVpVbnNrZ0Ezc2NDVllHRmJiRW14R09ZYjFsVS9sdW1kVEYxODdSL1ZMbUkw?=
- =?utf-8?B?QldJT0g5ZCtZWGRhVDN3VlpzUmVMdmlNbE9wS1pONmRmbGU0OTFRSGFiQXNB?=
- =?utf-8?B?Z3dLdVFwanBraTA2TW5BdkhjTzI4R05GdlJwbExtVGZPc0JDTVR2MzR2VjN6?=
- =?utf-8?B?TzRrbEx5OWdmeDdPTjlLdWdFVUJ0bGQ1clErNjFocW5odFA5VVVtcDlRblJV?=
- =?utf-8?B?WHRwK1VOQzg1Y3dzS2N3RHIyeERvV1Uvbk16bjdxdGoxK054bDdqZ0FDWkhN?=
- =?utf-8?B?c1Q3QWNueEZMOFJ2VTRudU1FNWlKRXpza2lpRy9kTUFJVTQwMXcwM1kwNlB1?=
- =?utf-8?B?MXkwSDRqN09xQ3M2b3NBS25VUVBPWkFoUjNOam9mRFk3cUFSL2c5SzBrOGxa?=
- =?utf-8?B?aGh5d3dycmlkZHBQek9TSHNNUTBVL1dJQXpmOXRtai9TbllLSkplVndKTndR?=
- =?utf-8?B?NTdHeTRtNjFleEEwK05PUnVOSnkrWk8vWDF6SWZEa29qTDVFWGYyTDBpT0RQ?=
- =?utf-8?B?VkowNHVuSU9BNDl5aXNSb1VsMXc4Vzg0SVBFNkRlWS9KWkQrc3hsdi9nc0tC?=
- =?utf-8?B?NUR4eGExcVdDVjNxVmpnRG1qdjhZbFEvL2NxRHdiUjBXMkMrSUU1aDdXUWxZ?=
- =?utf-8?B?NDlyeHoyd1hjVW1Wemd2QW1hZys4Q3d2MG41RS94UVJzSVlsMUxzeWt6TDdw?=
- =?utf-8?B?YWZwUzZhWFVYdmJjQVlodVhBMW5yTU9xalJVQzZUTTByZnpQaEx6VjlNRjJY?=
- =?utf-8?B?NGV6MjNTMUExRzdOdnplRStlRWFZYXhHZXpLSlRqRGNrSWg2aDZvd2Q1czVo?=
- =?utf-8?B?UmtrUVhlbThFZ1hiMUI2cUk1dk9TZkdKdG5tYWFuRTlBRTIvTmRYQmR3SXBQ?=
- =?utf-8?B?NHJBLzAyVmZWR09tYk1rQzYxYVBRU2IyN216cWV4TzIvOVZaSE9qWlAzTWNQ?=
- =?utf-8?B?azh5a3NOV2tMR2kxUTM3eDBnWnQyNHVxTldWYTV1dTdIbi8zeWM4VzdyQ0pz?=
- =?utf-8?B?TWQva2Eyb1F0RE5rZjEyS0h4ZkdOcGZSb0RSd2cyNzhhb1N6Ukp6aFZIeXp0?=
- =?utf-8?B?Y3I4aGxRWFB4a2NDVjQxQnNQTTRsRFp4K0RZaHdST1hzVHNJbEhtcUN5eG02?=
- =?utf-8?B?WWUrb0pjSXlwbVYrTXpJbWtIUld4Mkd2MXppS1Ixb0c4NFBHaW8wK2RiV1Vx?=
- =?utf-8?B?NDJ6Y1ZkQnhENi9OZjJPNGJoTUJLbm5RUDBWYjl4V2tWN1lJR0tYVmNNYnhq?=
- =?utf-8?B?Z3YvOWZLc0pqRDEvSm5XdmtvVWYrYjFJRWhSZ2JjRWFMRG5tU3NjUUoxSHc0?=
- =?utf-8?B?TERhZkRYSFNKcXVBS2pBWWlCRjM3RlNqNFhYcXFDS3p6RHpoNFF2SGpGd2NT?=
- =?utf-8?B?bGRiMDJSclhQMWZHWkM1WXhTbzhSb0hOZTdBYVNwcGxzR1VTMldKQWZOVUVv?=
- =?utf-8?B?Q1czc3crOVluNWplOUFWOHpaZ2tiNHNlalp5VHo3OU5laUc4NW4ya1JWUGYw?=
- =?utf-8?B?dGVvVms3MlFyVXlwWG85c1BnWHdOSlVCZ25mdHl4ZC91M1hJalNZWWdFZ0xX?=
- =?utf-8?B?WXBZeFpUL0RuMnVNSXU4YTBLTlVNbXBmWndmSkcrSkdGWkI5SFVSdzU2NGJ4?=
- =?utf-8?B?Zyt3N3RSckwxSFBjazdTRHE4K2dwZGNpdjlRR09UTzErSEtOVmNqZz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e0d231a-c7a6-432f-bbba-08de9e8c86b4
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB7149.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 03:25:52.7348
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ej5Eh4CyoMJ/p39WbKK3od31vr6C5KzBF7L2QGr9vigNutcCAxyBBaI8aCM4eR6+soYOhN9HvyKgSq4miTwh9w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR03MB7361
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDAzMyBTYWx0ZWRfXwq3jmbpQ0CV4
+ DrqZASNZSocRlNuRORlbC3LxuSnQ3axAysppersoeh5O9co96JZ5FyMM1JaEC63ssk8wheJyXT/
+ XBULEa0M3hwyR89SuGgG4XTMdMz3DaYi7gvP/CR6R4tP29gmyU7SBE3VE5upN6Qf1W2f3sSTDVE
+ TthQrdgoeswHFBi3IrvI19ra6zdOYCgGhqeJeHAmM5sKN1oTwQWeK3nH+FY13909ctEc231uAYY
+ uU943V2ye+zp1hMIKfo/rwoGQnMeAJH1O88jZXBUpujAvbI/PFWE1NiOWQdtljV/+wCe/zKXkdi
+ 8Cb9VYyzdcLERMFsnjjhukO/vhGYKMU+fH+sj+848NBFf0hWHfDmQ93lyqh55ZwPxnljS0goEeQ
+ gcb2jDJvST9FomBM4T5P6Qie3PDYPw9JGqbwjKPWoneLPVTSjy01pxpX/t5fFuFvITTEAfTLjeP
+ 1CwT/03quFlUs0iG1bA==
+X-Proofpoint-GUID: vE11L5LSOTVHe1eA1PNr8t5x9tXjLtw5
+X-Proofpoint-ORIG-GUID: vE11L5LSOTVHe1eA1PNr8t5x9tXjLtw5
+X-Authority-Analysis: v=2.4 cv=WK1PmHsR c=1 sm=1 tr=0 ts=69e5a2e9 cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=rxKuTeQDrr0-oB1YhZwA:9
+ a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-19_07,2026-04-17_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 spamscore=0 malwarescore=0 bulkscore=0
+ suspectscore=0 phishscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604200033
 
-Hi Ronald,
+This series adds CPUCP mailbox controller support for Qualcomm Nord SoC.
 
+The Nord CPUCP mailbox is functionally identical to the existing x1e80100
+implementation, except it exposes 16 IPC channels instead of 3.  Patch 1
+adds the Nord compatible string to the DT binding.  Patch 2 refactors
+the channel count from a hardcoded compile-time constant into
+a per-hardware configuration struct populated via the device tree
+match data.
 
-Thanks for your review.
+Deepti Jaggi (2):
+  dt-bindings: mailbox: qcom: Document Nord CPUCP mailbox controller
+  mailbox: qcom-cpucp: Add support for Nord CPUCP mailbox controller
 
-On 4/17/2026 5:48 PM, Ronald Claveau wrote:
-> [ EXTERNAL EMAIL ]
->
-> Hello Jian,
->
-> On 4/15/26 10:33 AM, Jian Hu via B4 Relay wrote:
->> From: Jian Hu <jian.hu@amlogic.com>
->>
->> Add the clock measure device to the T7 SoC family.
->>
->> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
->> ---
->>   arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 5 +++++
->>   1 file changed, 5 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
->> index 7fe72c94ed62..cec2ea74850d 100644
->> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
->> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
->> @@ -701,6 +701,11 @@ pwm_ao_cd: pwm@60000 {
->>                                status = "disabled";
->>                        };
->>
->> +                     clock-measurer@48000 {
->> +                             compatible = "amlogic,t7-clk-measure";
->> +                             reg = <0x0 0x48000 0x0 0x1c>;
->> +                     };
->> +
-> Can you please order by reg, it should be between pwm_ao_gh and pwm_ab.
-> Thank you.
+ .../bindings/mailbox/qcom,cpucp-mbox.yaml     |  1 +
+ drivers/mailbox/qcom-cpucp-mbox.c             | 37 ++++++++++++++++---
+ 2 files changed, 32 insertions(+), 6 deletions(-)
 
-
-According to the "Order of Nodes" chapter in 
-Documentation/devicetree/bindings/dts-coding-style.rst,
-
-nodes of the same type should be grouped together, and this takes higher 
-priority.
-
-So I have placed the clock-measure node after all PWM nodes to avoid 
-splitting the PWM group.
-
-
-Best regards,
-
-Jian
+-- 
+2.43.0
 
