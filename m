@@ -1,163 +1,155 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FEB037FF50;
-	Mon, 20 Apr 2026 09:35:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1D2AB377EDA;
+	Mon, 20 Apr 2026 09:40:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776677743; cv=none; b=Vls1e6h/5PgQzw+97iCNAjvWo02zed0pt6218BQuFfWJePVJpfka/WrAI2TrDRQuBY8Xb49kU1W56yf3+jLnUr3IWSyTExR0UkuK2ct6CdrqJwYzaCcrmFuXSY17jxlbL+ooVxr80gQYOORry/OKC+VdCSNzu75NuWL+EzT9RtI=
+	t=1776678010; cv=none; b=V/0c9OYtLTAom3loCoOgNykkujeJ7xOIum+IgfuLvzg84U5VHjJ8/wBEkLYygI3qns+IJVjVJRHxlPRO6U160ImFLY8NwHpjbZmdgV1te/IzhFuLqRG2uUMIuRPACvGUwtggENlVSDd1IQ/hVDsN0KA3syiP3Zj9OENx3X+UFvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776677743; c=relaxed/simple;
-	bh=8W/J8aK+sWUGq5pncpL3L4qdZR0FZTI1XoD1DzM3QFg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=CJZ3vmocK/PyFc7zfRywvFvOwclJe1GzXNtvNF46+GL3Hm9v8JXC8b5JW9nhT7/eBz/OFBDes5NgUqUuZkmaCx0OstSFs3j0TIbBGmXhiZmATCZqStu1tR5UzHA4VFQBr2JFxM15yGlQzDUwLOYPeVy90lawyZulELPuOpecpAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=y9dY48/l; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="y9dY48/l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1776677725;
-	bh=vkXbNIbR++h6pZ5ZhTdpzW0zQcZfR0zYZFiVasZtcwg=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=y9dY48/lFdNCv2em4ADMiyDDYROoAqiZuJE48fPMKtvmGMkdLvvhbDvEWCitPDsYA
-	 ZzsLC4Jbcr1MVYxT/pix4i7h8rlKWI7DAh0gb/EaIloN1TNhElsWycvT8zoQhz1kVl
-	 wBRflUXWFV2MlgvJERBDuGZsB19kU2Yl3km390ik=
-X-QQ-mid: zesmtpgz7t1776677719t20d36658
-X-QQ-Originating-IP: L8IWvy8kdMykC/iQ/0qMSe0QQFM6oUby0IAkvkRc1Dg=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 20 Apr 2026 17:35:17 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14122269761632793100
-EX-QQ-RecipientCnt: 16
+	s=arc-20240116; t=1776678010; c=relaxed/simple;
+	bh=QVFxE6C8tjYvzbq5SIz9ADzbmv9mVzXYZ8nVrdP/Y7w=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Xa6WQe63EjPVgMXYkVeMCwHchXa2zRUOfwIQQ6XNjeuN/hYx21vXV4L2vaPtkaDKU7Ciq4ayFICQrJ4f1D3ge/InDLTQ9MIPKqFWVk2LVonVFwlW2euK0g4lOiyRjiyUJFxOKdNJsORsA7lKNA5eEL1zjp98Sh3uAuV1KASePrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.237.72.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
+	by app2 (Coremail) with SMTP id TQJkCgD3DaFT9OVpJi0TAA--.20924S2;
+	Mon, 20 Apr 2026 17:39:43 +0800 (CST)
+From: dongxuyang@eswincomputing.com
+To: mturquette@baylibre.com,
+	sboyd@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de,
+	huangyifeng@eswincomputing.com,
+	dongxuyang@eswincomputing.com,
+	benoit.monin@bootlin.com,
+	bmasney@redhat.com
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com
+Subject: [PATCH v2 0/3] Add driver support for ESWIN EIC7700 HSP clock and reset generator
+Date: Mon, 20 Apr 2026 17:39:29 +0800
+Message-Id: <20260420093929.1895-1-dongxuyang@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 20 Apr 2026 17:35:17 +0800
-Message-Id: <DHXVORP1EJ4M.1ZOO1F7UVW11@linux.spacemit.com>
-Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, "Krzysztof
- Kozlowski" <krzk@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Paul Walmsley" <paul.walmsley@sifive.com>, "Palmer Dabbelt"
- <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre
- Ghiti" <alex@ghiti.fr>, <spacemit@lists.linux.dev>,
- <linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "kernel test robot" <lkp@intel.com>
-Subject: Re: [PATCH] dts: riscv: spacemit: k3: only keep spacemit,k1-i2c
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Sandie Cao" <sandie.cao@deepcomputing.io>, "Yixun Lan"
- <dlan@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260420083931.1427703-1-sandie.cao@deepcomputing.io>
- <dfa3f1a7-f4c6-4655-94c0-326f88db3896@kernel.org>
- <87ef529e-b591-49f5-9fc9-3099672e2f0f@kernel.org>
- <DHXUQHVK4XRN.3CVZ3GH75L4L4@linux.spacemit.com>
- <20260420090936-GKB203300@kernel.org>
- <407ce3d77416bb2522b7906b0df3d5adf02c27ee.5595e961.9ee2.4959.8935.9a8f33812b0c@feishu.cn>
-In-Reply-To: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.5595e961.9ee2.4959.8935.9a8f33812b0c@feishu.cn>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: N/BaP5J2bFjv+cFlyBYAxWjq06zRbwPipQRfHHX9jufE+m+DfwljltAk
-	DDKL9MEkGJlBl2uwtsuiXbgg7XYtFQfkSURsBNBIhtD8AiI0Yf2Lv3eiMi+FVFPRPo4kXkN
-	kDy1IS0ysQeKwg55GdiFp40YR+2+s6XxP1ghb14iiDBx+ipRMtkgxTrwfDTSIK3zkS6G2Jr
-	Te1LX7PLQYCIXQDJwYz5ROnmue/dkHxa0Tw5EWy1+LQhpsHXu4VQy248G2iizl6rX/hBNzB
-	BJ1rWv6uiybQVF1i8/wTzbQv/7eCP1zWN+1WfdZdNmx1xAx0fRlQxE/OWwjxQpZaMqUBPrP
-	ZTLYrEbVCX7+aJltzl047iWYJu19ukYgce0DdeXDmOebd5PbL8lGqkHQzdS073mrCIX2D1t
-	DvMiw8mpZJclcRtqh0eVsprmAKwCpu7tbNfLraO3X/Vh4f3/MVHJadLpHMjJsH4zBatVJDj
-	KqE0V0DhoiIEPA9ObrOVihsShmDkYj3D+7+ExdiaJqFOc0pSUgHiDi1weWlRxK1D5gvFvMc
-	ZW5kEyVOg3BjtFih4WoiFa+HqKR0VxJOQRxlex1WLWyctV2J4R9bHADLbmdNAdroWSMa2qP
-	ikP2g35mh0KKAm1SeNO8DgELvfSqO0JXwMmJNTH+hhjHZVtNqMTic0RFbqaYU9qKGLd9r9x
-	wjlbL2vIgJST0Paj1TRmGCjKtUMJZmQmctpapivoQYF8gu3Ms6mI9yeuSavrk0WuDuYu9Ey
-	JzP5vvCXNDjnVgJPxq8yQR9P/GIAzbx4XkQtkGKY3KrXRthC3qKzOJ1zhtPtBhnOVMlFm6Y
-	NtPsfp+StA0nkAaPLM/C2jd1/lAoDINPCauMkNeAgSWuD6ViC4RI8d9Fk2W6GQvOrovQJFC
-	kahiz56CCu9QFA5TZQjTADPO+8yUhAq27nXIuYcXoWa6OwoixxeOCDhAfoiyw/b1LF76ZaZ
-	or3pB0rE5qPrHo/1+Jg3BwyH1y7sWHHaw/r/zXoBrn5UHomt/qIoFLgbTb9HoEFU4mkDGf9
-	QwOQJfmjfcEufhTsJJlE9x0rHeOXOaC4pv7FjeUcKEEj3cAII85ffLK1LVPbeQ0lUJs9Ncd
-	gfnsfWzIYPm7XHsG2dPB1mi3Lwe4PhugtPCX+osFNBH
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TQJkCgD3DaFT9OVpJi0TAA--.20924S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAF18tFW7Cw1DCw4xur47CFg_yoWrZFy8pF
+	W7WF95Jr1UXrWxuan7ta10vFW3Jan3JFyakan7Ja4xZwsIyFyDJr40ka45AF9rZ34fX345
+	G3W2q345uFyUAFJanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPa14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE
+	6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72
+	CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7
+	M4IIrI8v6xkF7I0E8cxan2IY04v7M4kE6xkIj40Ew7xC0wCY1x0262kKe7AKxVW8ZVWrXw
+	CY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
+	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6r
+	W5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF
+	7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxV
+	WUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTR
+	GNt4DUUUU
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
 
-On Mon Apr 20, 2026 at 5:26 PM CST, Sandie Cao wrote:
-> Hi, Lan & Troy & Krzysztof :
->
->> From: "Yixun Lan"<dlan@kernel.org>
->> Date:=C2=A0 Mon, Apr 20, 2026, 17:09
->
->> Hi Troy,
->>=C2=A0
->> On 16:50 Mon 20 Apr =C2=A0 =C2=A0 , Troy Mitchell wrote:
->> > On Mon Apr 20, 2026 at 4:44 PM CST, Krzysztof Kozlowski wrote:
->> > > On 20/04/2026 10:43, Krzysztof Kozlowski wrote:
->> > >> On 20/04/2026 10:39, Sandie Cao wrote:
->> > >>> Fix dtcheck issue: compatible:0: 'spacemit,k1-i2c' was expected
->> > >>=C2=A0
->> > >> Missing space after main commit msg.
->> > >>=C2=A0
->> > >>> Reported-by: kernel test robot <lkp@intel.com>
->> > >>> Closes: https://lore.kernel.org/r/202604140259.eKDaxKua-lkp@intel.=
-com/
->> > >>>
->> > >
->> > > Also, the file reported in above warning DOES NOT EXIST (I checked
->> > > next-20260414).
->> > In Documentation/devicetree/bindings/pinctrl/spacemit,k1-pinctrl.yaml:
->> >=C2=A0
->> > properties:
->> > =C2=A0 compatible:
->> > =C2=A0 =C2=A0 enum:
->> > =C2=A0 =C2=A0 =C2=A0 - spacemit,k1-pinctrl
->> > =C2=A0 =C2=A0 =C2=A0 - spacemit,k3-pinctrl
->> >=C2=A0
->> I think you refer to wrong file, which should be
->> =C2=A0Documentation/devicetree/bindings/i2c/spacemit,k1-i2c.yaml
->>=C2=A0
->> > So there's no reason to use k1-i2c. As far as I can tell, while they a=
-re the same IP,
->> > there are subtle differences between them.
->> >=C2=A0
->> But yes, the idea is correct, so NAK to this patch
->> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 - Troy
->>=C2=A0
->> --=C2=A0
->> Yixun Lan (dlan)
->>=C2=A0
->
-> Please know that, I send patch[1] to add DeepComputing FML13V05 board dev=
-ice tree.=C2=A0 The patch is based on k1/dt-for-next[2].=C2=A0
-> And it meets dtscheck issue:
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/r/202604140259.eKDaxKua-lkp@intel.com/
->
-> On k1/dt-for-next, it doesn't have spacemit,k3-i2c in Documentation/devic=
-etree/bindings/i2c/spacemit,k1-i2c.yaml.
-> Or I use the wrong branch?=C2=A0
-Yes... You are using a wrong branch I think.=20
-The k1/dt-for-next branch in this repo is Dlan=E2=80=99s tree. Since DT bin=
-dings are not within
-his purview, they aren't included there. I only mentioned this repository e=
-arlier to
-show that the UART portion of the pinctrl dtsi has already been merged into=
- it;
-it wasn't intended to be used as your development base.
->
-> And what should I do for my patch[1] ? =C2=A0
-I think you can use next-20260417 as your base commit.
-Everything you need is available here.
+From: Xuyang Dong <dongxuyang@eswincomputing.com>
 
-                                      - Troy
->
-> [1] https://lore.kernel.org/all/20260413060524.1235982-1-sandie.cao@deepc=
-omputing.io/
-> [2] https://github.com/spacemit-com/linux/tree/k1/for-next#
->
-> Best regards
-> Sandie
+Add support for the ESWIN EIC7700 HSP (high-speed peripherals). The drivers
+provide basic functionality to manage and control the clock and reset
+signals for EIC7700 HSP, including mmc, USB, ethernet, SATA and DMAC.
+
+The clock and reset registers are mapped to overlapping I/O address ranges.
+This causes a resource conflict when two drivers attempt to request the
+same region. Use the auxiliary device framework: the main driver
+allocates the shared register region and passes it to auxiliary
+devices, avoiding resource contention and duplicate remapping.
+
+Features:
+Implements support for the ESWIN EIC7700 HSP clock and reset controller.
+Provide API to manage clock and reset signals for the EIC7700 HSP.
+
+Supported chips:
+ESWIN EIC7700 series SoC.
+
+Test:
+Test this patch on the Sifive HiFive Premier P550 (which used the EIC7700
+SoC), include USB and other peripherals. All the drivers of these modules
+use the clock module and reset module.
+
+This patch depends on ESWIN EIC7700 clock controller patch [1], [2] and [3].
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20260331&id=8add6d87dc69c0620c7e60bdc6be6b3b0092d9fa
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20260331&id=cd44f127c1d42833a32ba0a0965255ee6184f8c1
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20260331&id=858f6273cf003e97c817903a07d8001b483fe40b
+
+Updates:
+  Changes in v2:
+  - bindings:
+    - Remove "hsp_" from clock-names.
+    - Replace "eswin,eic7700-clock.yaml" and "eswin,eic7700-hspcrg.yaml" with
+      "eswin,eic7700*".
+    - Replace "eswin,eic7700-clock.h" and "eswin,eic7700-hspcrg.h" with
+      "eswin,eic7700*".
+  - clock driver:
+    - Use guard(spinlock_irqsave)(gate->lock) instead of spin_lock_irqsave()
+      and remove spin_unlock_irqrestore().
+    - Remove the newline in function hsp_clk_gate_is_enabled().
+    - Use struct clk_init_data init = {}.
+    - Replace 'static struct clk_parent_data' with
+      'static const struct clk_parent_data'.
+    - Change '.fw_name' to '.index', because the function
+      eswin_clk_register_fixed_factor() uses .index.
+    - Improve the formatting.
+    - Create the regmap in the clock driver and remove (__force void*)data->base.
+      The reset driver uses dev_get_regmap() to get the regmap from the clock.
+    - Move 'const struct regmap_config eic7700_hsp_regmap_config' from reset
+      driver to clock driver.
+    - The USB clock gate (hsp_clk_gate_endisable) and the reset driver both
+      perform read-modify-write cycles on registers 0x800 and 0x900. Use
+      custom regmap lock callbacks so that regmap operations hold data->lock
+      with IRQs disabled, the same lock the clock gate path uses, preventing
+      concurrent RMW races on those shared registers.
+  - reset driver:
+    - Remove 'depends on COMMON_CLK_EIC7700_HSP' and 'default COMMON_CLK_EIC7700_HSP'.
+    - Use regmap_assign_bits() in assert and deassert functions.
+    - Remove eic7700_hsp_reset_reset().
+    - The clock driver creates the regmap, and the reset driver uses dev_get_regmap().
+    - Remove the setting of_reset_n_cells.
+
+  - Link to v1: https://lore.kernel.org/all/20260403093459.612-1-dongxuyang@eswincomputing.com/
+
+Xuyang Dong (3):
+  dt-bindings: clock: Add ESWIN eic7700 HSP clock and reset generator
+  clk: eswin: Add eic7700 HSP clock driver
+  reset: eswin: Add eic7700 HSP reset driver
+
+ .../bindings/clock/eswin,eic7700-hspcrg.yaml  |  63 +++
+ MAINTAINERS                                   |   5 +-
+ drivers/clk/eswin/Kconfig                     |  12 +
+ drivers/clk/eswin/Makefile                    |   1 +
+ drivers/clk/eswin/clk-eic7700-hsp.c           | 385 ++++++++++++++++++
+ drivers/reset/Kconfig                         |  11 +
+ drivers/reset/Makefile                        |   1 +
+ drivers/reset/reset-eic7700-hsp.c             | 118 ++++++
+ .../dt-bindings/clock/eswin,eic7700-hspcrg.h  |  33 ++
+ .../dt-bindings/reset/eswin,eic7700-hspcrg.h  |  21 +
+ 10 files changed, 648 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/eswin,eic7700-hspcrg.yaml
+ create mode 100644 drivers/clk/eswin/clk-eic7700-hsp.c
+ create mode 100644 drivers/reset/reset-eic7700-hsp.c
+ create mode 100644 include/dt-bindings/clock/eswin,eic7700-hspcrg.h
+ create mode 100644 include/dt-bindings/reset/eswin,eic7700-hspcrg.h
+
+--
+2.43.0
 
