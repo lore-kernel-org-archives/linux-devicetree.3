@@ -1,148 +1,188 @@
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDE63164B4
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 06:58:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E4E2FD7D3;
+	Mon, 20 Apr 2026 07:22:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776668331; cv=none; b=RG5jjJkQy97vhUtA6qcDLJsCHBj25nRjdtisRpJBOZ6p4kCbY5EX+Zclh4vFG16yKpI719dcAt5bbyIu8p1fhNseWHXpWHjW6Zez1xidVsUSrZ4OebP84qVzLwr3QIU+T2rhQG6eO31iyp481KP5RwFjPNlesg3Ny7NmjvTsobg=
+	t=1776669738; cv=none; b=i/+DI5VRI3Krd7Neoxh9NQVhqAe7coZiWqIfEw0J97BU674xsrYJtlJDyuMZ9qtObf1tCXlrA0UkaOyg+4pNf5wW5b6wtOrFszaghVQNxfFZBLxwHMhEWuMvDfc7sVALNG4PfxmJzMzNVLit2JLB0u1zuORJUIGmmBldzx8Ts2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776668331; c=relaxed/simple;
-	bh=4jXkQwGliVjo5HQ8xpKkQLE97BY4mpvsOew8INsIQk0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jL9aEVJgYFN3GiQEOB0hIibM8YLHdTsaLa4K30JcW46h5/4cZ7Zx5Ex2rn0d9Z6XqeWVtKPMhCXCkTPydw01MvuVTUEXKjRZMqvx51R43GBWTvcKicpB6i6PzRchZaAVy95u2DCXL0eqvCGW2Dw1VIXZsdJ1uWUX8Hu1Ei7cJ1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XYxp7XX9; arc=none smtp.client-ip=74.125.82.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776669738; c=relaxed/simple;
+	bh=OfvTvpLPvCOhEfrZP20Fdwx6Oml0HCemcKq7lCtxkyE=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
+	 References:In-Reply-To; b=CtGcEA20VRHAtCreG3inKFfe8ttb/FAuHDL6pxnOAUD46h2Shk8GSVrksL2yV3QDzj3lon0mixPk5btKcShzaI1THTyGhoseaywMPfMbjiL2pcNDSOUwfBSYL7LfhKFrWU2/8rZrBaAvIc8ijLjs1b+buyPJunHQoWIvm7ErfWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IMey3crY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XYxp7XX9"
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-12713e56abdso1508305c88.1
-        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 23:58:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776668329; x=1777273129; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=T3r02hhZx3Vxqyj1q31IQgqGPj+UcnZ1kBemjU+jdaU=;
-        b=XYxp7XX9CUfsbbSfbeDSXVNWeWn///m+EdCkx8eVmJt4ddO2FYnbsxLXlxK/b0vfv8
-         Y/Pq17fvUM3XhrTIbRNJAS53b9Gpa9F0h4IRqPC5LXcHFIehi0F1nPUj1WWZUSBtkAqY
-         w7nphHcv0sAbXTRtT2owBbnMbX0OQTNMKK6yn+W6JD3CWXtGDL8Pq67Pcl6+a4o7vONq
-         0nrtuLQahOxaDOf9ZNFdDiO+a/UJ3XWk2gYgqGIL7aMQ/4YGA1T3Et/8O/ILizRaEhAO
-         enUtDYcfhQVbz5ftRSTEu7KsN7+v6A+M7cV0XKKJV3S0JzqShMyWH6MKhD+XtaSgtkMu
-         nHJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776668329; x=1777273129;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=T3r02hhZx3Vxqyj1q31IQgqGPj+UcnZ1kBemjU+jdaU=;
-        b=GuAh46Uoz4kueXmTAW5XQ+BH5p0tljtoQwJbEmmFbh7QpoDKsNOvicDwaBxASmW8Xu
-         bmcQZrr0iXmhVxMP+9+aVM0WBDk2H9c/hEJ2D4E3uR6fz24o5ml1yqD4+SY+v73nAvZF
-         1ourJA1M2YWY6tlqLysqrICXQ981sBrWJ6ZXWNJCrUXmEH/y3vqPrUOhCX3fUqjNgU6n
-         R2/Gc4UW2m4RD7pCZu1apyCHNdyFgQS3tiqaZptzFJQohVBpWdCcEDyTEBpIDlpPTDr+
-         hczt/QT5jLMXP8cBMo49ayQwi/g3vRkXw/2aIbDyQ4yq8VrUxQPpsWk7nujPrBI7ZAY2
-         hGgw==
-X-Forwarded-Encrypted: i=1; AFNElJ/oh/Kiw+2taCXsIq4IQnDhiy/BcHiPHc0gHUFUifG7lqpSzguvcmlqe/ku1T0q0LBaqj4Py4ORi95W@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxkt7bhd7myFQpSfu6L/c2x8h2P5SGvPO0kSOeCqSa+asyKXfjm
-	M7/aOZP/YRz+qywn8obSWq+ka2sXXEzBd2JlaOkCd+NtUiVjCz9pk4ow
-X-Gm-Gg: AeBDies9WSDt9OdbDgW/QfSDq3NBwlZpeG/6Uj0BejezmKEGNWlkrN9Lgrk4HzQHW+8
-	RYg8/OdF8VF2U8Q4tjTHGR3BOI0PBDnV6vBoq1KvUc1IS29KXNyoLKzJb7hRGYmLfS/iIsbVLj+
-	HoGUreP0lvyaolnQoKZIcJ/S8yc8NSgwMUyIXh4p/li0I+uB78PXrkFhmUbUjJ8ds6nKYZOOqtP
-	3uiTGgKemmU+D3UY7XsMXP2rY0E/03ESj4D5S3dx+f7VBmZ3DxO2K5zcEV8YCXspeIG6I1R1cUo
-	f6Lr59l95IoXSxt/zMfmkslT+kOC9hMkFGflT+60QK5/pTawlO8pcs7lwrOi3T6KpwO1FgzSCYW
-	vO070PVfUu63T9Wnt2JNLlG/ZMfvbam9WU6KKT9Rrsy+FlrvrIZW/HNhyi4nhSrnAiGIkpXI4pv
-	YB6D4b2kcc
-X-Received: by 2002:a05:7022:4191:b0:12c:427:dacf with SMTP id a92af1059eb24-12c73b05ceamr5070810c88.10.1776668329484;
-        Sun, 19 Apr 2026 23:58:49 -0700 (PDT)
-Received: from CNSZTL-PC.lan ([2607:f130:0:13b::3a])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12c74a20b9csm13380651c88.12.2026.04.19.23.58.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2026 23:58:49 -0700 (PDT)
-Message-ID: <2d2b1e17-388f-431a-be86-a0f26b5be6cf@gmail.com>
-Date: Mon, 20 Apr 2026 14:58:44 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IMey3crY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805D0C19425;
+	Mon, 20 Apr 2026 07:22:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776669737;
+	bh=OfvTvpLPvCOhEfrZP20Fdwx6Oml0HCemcKq7lCtxkyE=;
+	h=Date:Subject:Cc:From:To:References:In-Reply-To:From;
+	b=IMey3crYn7faai6rgUGWKlY+8hRpsd9v7aeDXyOpQyfZoHGJbsfz6R50DB40aPfGA
+	 scmZDevIY5KrT+Xtm5F1Q5W7GkcKH3TlcudlihDzXyEZfC4uJ+ID9uoHTpOITXJddl
+	 kPx9P7oi2FNemZrjdUBG2macvC/BHf5ra7cx++oyuddBTo2iO556nLVT08mYazZN8b
+	 kq8Y2FBt/k3RZKnO/cCH2ywt+sead2cswjBkqqCIbMaGQuWEMezh9nYE6zLs2AS0ig
+	 MkwDgIBIrtcF0tjJEpppzUi+REL0BbYUsRRA2xXYQ+DadjTO2xLi/VT7fa+E54lIGL
+	 OczJRz0NsD0+Q==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: rockchip: Replace deprecated snps,* props
- for NanoPi R5S
-To: Diederik de Haas <diederik@cknow-tech.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: Arnd Bergmann <arnd@arndb.de>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Quentin Schulz <quentin.schulz@cherry.de>,
- Jonas Karlman <jonas@kwiboo.se>
-References: <20260401131551.734456-1-diederik@cknow-tech.com>
- <20260401131551.734456-3-diederik@cknow-tech.com>
- <DHTSOV43O2EX.38TGASN7SQEZL@cknow-tech.com>
-From: Tianling Shen <cnsztl@gmail.com>
-In-Reply-To: <DHTSOV43O2EX.38TGASN7SQEZL@cknow-tech.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=90b98803b27b5277d55f5c028db99ddc444d61087c0fc38a687673f1b0fc;
+ micalg=pgp-sha384; protocol="application/pgp-signature"
+Date: Mon, 20 Apr 2026 09:22:13 +0200
+Message-Id: <DHXSUW3NJU22.1RUYUHQZSZ53S@kernel.org>
+Subject: Re: [PATCH v2 3/4] gpio: realtek: Add driver for Realtek DHC
+ RTD1625 SoC
+Cc: "Bartosz Golaszewski" <brgl@kernel.org>, "linux-gpio@vger.kernel.org"
+ <linux-gpio@vger.kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-realtek-soc@lists.infradead.org"
+ <linux-realtek-soc@lists.infradead.org>,
+ =?utf-8?b?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
+ =?utf-8?b?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>,
+ =?utf-8?b?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
+ "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+ <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "afaerber@suse.com" <afaerber@suse.com>,
+ =?utf-8?b?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>
+From: "Michael Walle" <mwalle@kernel.org>
+To: "Linus Walleij" <linusw@kernel.org>,
+ =?utf-8?b?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
+X-Mailer: aerc 0.20.0
+References: <20260408025243.1155482-1-eleanor.lin@realtek.com>
+ <20260408025243.1155482-4-eleanor.lin@realtek.com>
+ <CAMRc=MfUh_OuxS4SC6QzSOg_PMNc9i9crGYgBASrbVUgHDHSCw@mail.gmail.com>
+ <52bf9ce2b7754af8af69b0afee0d07b2@realtek.com>
+ <CAD++jLkpS-T9yK=ctSwpLvXkj7s7ivmwu1KKwzy4KS40LVYeyA@mail.gmail.com>
+In-Reply-To: <CAD++jLkpS-T9yK=ctSwpLvXkj7s7ivmwu1KKwzy4KS40LVYeyA@mail.gmail.com>
 
-On 2026/4/15 22:23, Diederik de Haas wrote:
-> On Wed Apr 1, 2026 at 3:11 PM CEST, Diederik de Haas wrote:
->> The various snps,reset-* properties are deprecated, so convert them into
->> their replacements.
+--90b98803b27b5277d55f5c028db99ddc444d61087c0fc38a687673f1b0fc
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+
+Hi,
+
+On Sun Apr 19, 2026 at 11:19 PM CEST, Linus Walleij wrote:
+> Hi Yu-Chun,
+>
+> On Fri, Apr 10, 2026 at 11:39=E2=80=AFAM Yu-Chun Lin [=E6=9E=97=E7=A5=90=
+=E5=90=9B]
+> <eleanor.lin@realtek.com> wrote:
+>
+>> We did look into gpio-mmio and gpio-regmap, but they are not quite suita=
+ble for
+>> our platform due to the specific hardware design:
 >>
->> Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
->> ---
->>   arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts | 7 +++----
->>   1 file changed, 3 insertions(+), 4 deletions(-)
->>
->> diff --git a/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts b/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts
->> index 90ce6f0e1dcf..92d044ec696b 100644
->> --- a/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts
->> +++ b/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts
->> @@ -85,10 +85,6 @@ &gmac0_tx_bus2
->>   		     &gmac0_rx_bus2
->>   		     &gmac0_rgmii_clk
->>   		     &gmac0_rgmii_bus>;
->> -	snps,reset-gpio = <&gpio0 RK_PC5 GPIO_ACTIVE_LOW>;
->> -	snps,reset-active-low;
->> -	/* Reset time is 15ms, 50ms for rtl8211f */
->> -	snps,reset-delays-us = <0 15000 50000>;
->>   	tx_delay = <0x3c>;
->>   	rx_delay = <0x2f>;
->>   	status = "okay";
->> @@ -100,6 +96,9 @@ rgmii_phy0: ethernet-phy@1 {
->>   		reg = <1>;
->>   		pinctrl-0 = <&gmac0_rstn_gpio0_c5_pin>;
->>   		pinctrl-names = "default";
->> +		reset-assert-us = <15000>;
->> +		reset-deassert-us = <50000>;
->> +		reset-gpios = <&gpio0 RK_PC5 GPIO_ACTIVE_LOW>;
->>   	};
->>   };
->>   
-> 
-> Please disregard/drop this patch.
-> 
-> I was recently made aware of 'sashiko.dev' and checked whether it had
-> also checked my patch, which it did:
-> https://sashiko.dev/#/patchset/20260401131551.734456-1-diederik%40cknow-tech.com
-> 
-> And it turns out that the concern raised is valid (thanks Quentin!), so
-> this patch could introduce a regression.
-> So it looks like staying with the deprecated properties is actually
-> better (in this case?).
+>> 1. Per-GPIO Dedicated Registers: Unlike typical GPIO controllers that pa=
+ck 32 pins
+>> into a single 32-bit register (1 bit per pin), our hardware uses a dedic=
+ated 32-bit
+>> register for each individual GPIO. This single register controls the
+>> input/output state, direction, and interrupt trigger type for that speci=
+fic pin.
+>
+> Isn't that attainable by:
+>
+> - setting .ngpio_per_reg to 1 in struct gpio_regmap_config
 
-Well actually we more or less rely on U-Boot to reset the PHY first now. 
-Many rockchip boards in tree require a reset before the PHY can be 
-recognized, but we just use the generic "ethernet-phy-ieee802.3-c22" 
-compatible.
+Which is just used by the gpio_regmap_simple_xlate() anyway. So it
+doesn't really matter. But yeah, 1 would be the correct value here,
+assuming that the registers are consecutive.
 
-Another option is to move the reset props to mdio node instead of PHY 
-node, though.
+> - extend .reg_mask_xlate callback with an enum for each operation
+>   (need to change all users of the .reg_mask_xlate callback but
+>   who cares, they are not many):
+>
+> e.g.
+>
+> enum gpio_regmap_operation {
+>     GPIO_REGMAP_GET_OP,
+>     GPIO_REGMAP_SET_OP,
+>     GPIO_REGMAP_SET_WITH_CLEAR_OP,
+>     GPIO_REGMAP_GET_DIR_OP,
+>     GPIO_REGMAP_SET_DIR_OP,
+> };
+>
+>  int (*reg_mask_xlate)(struct gpio_regmap *gpio,
+>                               enum_gpio_regmap_operation op,
+>                               unsigned int base,
+>                               unsigned int offset, unsigned int *reg,
+>                               unsigned int *mask);
+>
+> This way .reg_mask_xlate() can hit different bits in the returned
+> *mask depending on operation and it will be find to pack all of
+> the bits into one 32bit register.
+>
+> Added Michael Walle to the the thread, he will know if this is a
+> good idea.
 
-Thanks,
-Tianling.
+Nice idea, though the information is then redundant in the usual
+case, i.e. drivers which need to translate specific registers
+will do a "switch (base)" at the moment. These should be converted
+to "switch (op)" just to keep all the drivers aligned and prevent
+new drivers from using the old method. You'd need to touch them
+anyway.
 
-> 
-> Cheers,
->    Diederik
+I was briefly thinking about making it somewhat possible to embed
+the op into the base, if it would otherwise be all the same. That
+way, you could gpio-regmap as is. A special case like
+GPIO_REGMAP_ADDR_ZERO, that could be used by these kind of drivers,
+but that is probably too hacky.
 
+I'm fine with either way.
+
+>> 2. Write-Enable (WREN) Mask Mechanism: Our hardware requires a specific =
+Write-Enable
+>> mask to be written simultaneously when updating the register values.
+>
+> Which is to just set bit 31.
+>
+> With the above scheme your .reg_mask_xlate callback can just set bit 31
+> no matter what operating you're doing. Piece of cake.
+
+Keep in mind, that this will make reading and writing somewhat
+different. reading assumes there is only one bit set in mask,
+because of the "!!(val & mask)" op, which is hardcoded. I'm not
+against using the write like that though.
+
+-michael
+
+>> 3. Hardware Debounce: We also need to support hardware debounce settings=
+ per pin,
+>> which requires custom configuration via set_config mapped to these speci=
+fic per-pin
+>> registers.
+>
+> Just add a version of an optional .set_config() call to gpio-regmap.c
+> to handle this using .reg_mask_xlate() per above and add a new
+> GPIO_REGMAP_CONFIG_OP to the above enum, problem solved.
+>
+> If it seems too hard I can write patch 1 & 2 adding this infrastructure
+> but I bet you can easily see what can be done with gpio-regmap.c
+> here provided Michael W approves the idea.
+>
+> Yours,
+> Linus Walleij
+
+
+--90b98803b27b5277d55f5c028db99ddc444d61087c0fc38a687673f1b0fc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaeXUJhIcbXdhbGxlQGtl
+cm5lbC5vcmcACgkQEic87j4CH/gYPAGA38kF6k0QPnHqbuf0F8snMjubpa3TOjs3
+G9onuKDYzjTIsUAnEIkP2OGyzFeQDyiSAX9GSJK/SNrLRYFKwB25HIvNQffrfllE
+mYvy1Hm1NFWYVTeAs8zKhOWZ1siJfgpLSHg=
+=VBJf
+-----END PGP SIGNATURE-----
+
+--90b98803b27b5277d55f5c028db99ddc444d61087c0fc38a687673f1b0fc--
