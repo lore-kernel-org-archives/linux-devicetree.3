@@ -1,145 +1,214 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6A42D7D3A
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 20:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF84274FD0
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 20:57:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776718311; cv=none; b=oRnFotE7IIKYb/azQeDgESb+JDDpU8G3XTa/V2cr5xzIVQuZxn9tzqtJL+5xRX3NaA9qxIp2Kto/zWFxGtTPDCz441sauE/mGsKnNiz8M9hHksoi0+Gqjc8/6A6DvJJrjJ/cllfggCiWX9Key+1B6mITlqSzR/ftIkYh5EN0HAU=
+	t=1776718671; cv=none; b=MozeA7ph9uU0IesQ0+yyb38jla8pdbCXg83hHwhCTZNpll6gZdonXEvjzDFbrEFIzUo8id7FxIUj8APn52KF+2kOc8G4AmYuC6xg/DfIb15RKddlQmBZeoFEwlrkryykYeYP9r+E41aFr1htQDkhLEg6L54G1Ph6tiPRVkw2tSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776718311; c=relaxed/simple;
-	bh=HD5TVKcIUA3Vs9kUbCC9h69ccSAxTBy7PSs9IMhxjQw=;
+	s=arc-20240116; t=1776718671; c=relaxed/simple;
+	bh=ulA/E3omBV0/ANHTKXtHQdfXIzWGQ3Qsywuk4gNKI20=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Er1BnZS4MsLhv8z5+5TTnzl/OoxR56Qdlq6XWSPFoh+SzFbZU356KGK49czXzegKj2fJr/tjPcsNqfbJTsfU6W/M6shpU2aiA93vTtWeM5dHA1kD4S3NlEJd8IyFSHRWZXgzSQ3wFFEsC0ZtoPhADyPIFrV5iCHds0lVlofShYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YDi6ZzAB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BtiECJ/S; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=AQ9SyuMZ6O6kp8a8lrIjJYYYnabAAjgxPDExBQY1tbHuJEuAqptBnkY0yUYBeX6btFMI0CgLBCNosookTm149O14GXz65g4xqQUH6+lYnEaYD2vgSuZRXy37E9C+wQusq/lHhTsDI9mlRN6WaCOwQhDoB2uM5fODxkXO2jFGY4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ahSWxL4E; arc=none smtp.client-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YDi6ZzAB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BtiECJ/S"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63KHCqZR3015371
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 20:51:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=ShdYyf7UWppTknPbWPh0egFT
-	HdBn9gJPWfCvL0VBpLE=; b=YDi6ZzABcdZT9DvlowXiuNcfmZ9MRpKcyDxYTzV9
-	6P0BK//xT61sQ3KPqwE6XK2+6Kh3qIYa5Jk5Iws78Pg0SJ1EnHCFirLer/4KX1E2
-	atRtT9cFAc7k2S3AxeKhMyEBN3vftgwIOAO00Jti00CJzbdqr89Nc56msZMo9+bA
-	92of584g6/TUS1tFZohBEOn1WsHisTjClMOBzRbcXmPWuhgaAmdNPHqCv38skUe+
-	6Rj0xrfq6pbBkHOAO1S1Lx4Vgu/p6DF7kmJIKCNZVqlU8QWoWan0hWNL1NNnGtur
-	IC3giAxMRo5p4YXIygbnVylqTyI2wujFfQ8vMm7ruuXofA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dnjukt48u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 20:51:48 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50e575a50bcso19559901cf.0
-        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 13:51:48 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ahSWxL4E"
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-12c637089ccso8422720c88.1
+        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 13:57:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776718308; x=1777323108; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ShdYyf7UWppTknPbWPh0egFTHdBn9gJPWfCvL0VBpLE=;
-        b=BtiECJ/S9P0TznyaiYnIYMAo8sqIyRdNqXx/BSgiWd7B6aHKsmLmYmT2ZijF56bINM
-         BZTJdocDM4Y+m8qhHj2iR2jV6ZP7SYWXXFLYtLdlYLDq3Epx9xmh9c0QILEsSi6XadCb
-         mvimxxHHfEt31BYNr/t8iiT/C9r0UH1AGUitZE5vcCAP0u6P8SVS8bq+AOs32YcFgkWU
-         ZNGv1mjD2nSbKZTl9IGrNH86FnMEiQmtTp15krkVp4qiYa0gQ73gm8MFvWjX4IKKy2zU
-         Uvw2cyL+JQebdmayKFi7ub6GnNRwQUh68OToBqXwwZwKgc9SLO5ZWop6LHlw7FIrMpNC
-         yKuA==
+        d=chromium.org; s=google; t=1776718668; x=1777323468; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=UJTy7ISgMbSZNylSWRqrfmNeCOG0G9Vq8ABg0zDPRJQ=;
+        b=ahSWxL4EtDmp/jyqVaK/DLuO7XSXkccgc53hOz7e5nOB6z2w02VsZX5E9ROXvkfsHB
+         MfH/RlA5MQwZ0ZxlRB8Pbodwx1mXi9ipojgdBhR2jhCqGE6QhBCCSfliPDpqoCTGseSq
+         XgWMbTV6bJy6WV2aP+jArAewL7y5R2rno75A4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776718308; x=1777323108;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ShdYyf7UWppTknPbWPh0egFTHdBn9gJPWfCvL0VBpLE=;
-        b=AsPGA54cpisR8oZVRqP+f3KH2z7sSfnUMz/sBfMwHINVWOT8/W1V/S+JQAhAySvUJE
-         xRduG5oe0TvpJgYZW2fQLid93mLuXUhj+ve++qsMVFzK9pzj8fnHa2qRf3Jsyy77jA+w
-         0Ey8Ug1O9oKGNPRW1Cp2QtNyhcd04hwYsXNmNxk6VuPI1RIeAk57Ui2Xp6T7wxWxHwYW
-         63w+VaZWmfMrY4AJAcEHdA0MP/sArMraoYhs1SeBwo2rF0BWENZMDUtQhbzpxIR2XUCv
-         isrKqJjBqGNgTjy9UT1E2jS+q/TOUxqoQIUVNjFC3ppfIDgRpPW2TslOmmmKl5vrylHX
-         8D8g==
-X-Forwarded-Encrypted: i=1; AFNElJ+3cCPgS1+aouhys+OQ4IF7OasHMMTgA6vy+NaR6L06fvhXsrDZsHm/1z3hlvxD3fDJD1qotIbmL/tE@vger.kernel.org
-X-Gm-Message-State: AOJu0YzFo4PNj6DFDw7MnU3m7qrH3FN+H8thLCm97FdnHDr6K95/JHjn
-	izAGD3VN+0FlrQ6jtoPKSDlP4E+MIHQ4B7o1REvO7dk/UEpydIWO0MSZvtNZ98oosshoHrvtpq2
-	5Q/yQf5SlQ2vED09bH7DagvYKhl8fNuSJLuzHgd/MegLkjPjykChozDC4+fOZCqZy
-X-Gm-Gg: AeBDieseei3dqXdA4VeQAhTxfmTPmBacHbARML1wOkr/TY99ScwPthBjJWADZBkN4Q2
-	f0a1ZU0wD8zHq7AoDlJyPa/R3J5aIBjOd2VjfFlk0wFaFcaP14iI3DdK78T0GC35Jlng+4lkat7
-	wv372wpv9P2N1XwxXGUnV4Vsyt47ojQybST2c2pUpXVRBYrIsS17XgCoZb19dmi4BsXqo9IoDGc
-	t+tix50XoNnlKrZRS2csweWMEDJ4nTHz457i6jlPm2xxrRblt93TuFr3zEdHKUpmGfx1hBDwZ1D
-	mahf7bEw6RIjELEheeC/GIz0q/6iSxHcz/XsSDVkpnvI3g8GR66FTeLzff6jFR0t8fByapF6qUT
-	Wq8ky08GwskVTbo7EfPK4RB4Dwsa4wI8lKZqcKyd1/etzpLJUC9DTASb0Gf4vYOH45rYlDdgey0
-	B6nZBbc1rBZLbjQvmVB/z514OCi9RCNOvXJl8PECcvtuU9EQ==
-X-Received: by 2002:ac8:5dd1:0:b0:50d:6baa:9e9c with SMTP id d75a77b69052e-50e367ffe43mr218495401cf.6.1776718308068;
-        Mon, 20 Apr 2026 13:51:48 -0700 (PDT)
-X-Received: by 2002:ac8:5dd1:0:b0:50d:6baa:9e9c with SMTP id d75a77b69052e-50e367ffe43mr218494951cf.6.1776718307623;
-        Mon, 20 Apr 2026 13:51:47 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4185bc58fsm3231005e87.30.2026.04.20.13.51.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Apr 2026 13:51:46 -0700 (PDT)
-Date: Mon, 20 Apr 2026 23:51:44 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-        David Collins <david.collins@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, kernel@oss.qualcomm.com
-Subject: Re: [PATCH v3 2/2] spmi: spmi-pmic-arb: add support for PMIC arbiter
- v8.5
-Message-ID: <rajdw22en2r6tfbhrlc3x6mhblxlz6pt5bfkxusfu2swixlnj6@4l4ejrojlq7g>
-References: <20260419-hawi-spmi-v3-0-b04ee909cb87@oss.qualcomm.com>
- <20260419-hawi-spmi-v3-2-b04ee909cb87@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1776718668; x=1777323468;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=UJTy7ISgMbSZNylSWRqrfmNeCOG0G9Vq8ABg0zDPRJQ=;
+        b=DXWJaMJ/i1DfMzv0TH5Bm2vYNH4g10DvWcax1VfMipNXK7/zQxslN7nswauZ9ZeHjj
+         wZEKSCO9UqDyqCEr2WcuZarJpTpuc1gsoGDJULvP6cGrsxC5eUBUVI+D3HYHAn1Xwenc
+         KiRY1a6ev2jTkzjXUklOtEQ4248yfrwce7pBekTFky4HO50TcfyZx3De/ZpkGSGb7hE8
+         O104C84hncdZ0VbQTNNtZQx2FWpEhV81ihX9ywq/I0+3NwKUS5DiPzoR5mux2aYasX9h
+         ACUQehZTYc28CMj3hjfdFcl17EvDrtcr0zVvlmzVOeRfrltoZ63u1DNfpTEXKysq6G1H
+         /MaA==
+X-Forwarded-Encrypted: i=1; AFNElJ85kV4VlcHl8Oh91YJb1ljV78mMy0JLpMuka0hgDMaM9C0vG2BOa5//GzA8S/4CIWp1kPSQh5JVNtBG@vger.kernel.org
+X-Gm-Message-State: AOJu0YwNa1PWoiFODdtHdeoFWf25efD+KMmDTGhtrl6ZedVV8ZRPrlmb
+	xPsXqFae+hDbqQXIJkCO5G7+6Td6dooVnDzUAzeNBg9Vpo+u1h4FyFFmCjtc/xHklA==
+X-Gm-Gg: AeBDieupEGmuzBM9zwYeSIKvstSqERnfN7ZtJeAAQawuaqGCdQFgtn6LdIb6obz0g0f
+	udQBQOe7500LJ1Vzbqh7zUCwBSozph+8Hg4iABE3L3GpbF5nIDbpmA2dAZLm5odpWPjP8hXr2vo
+	9mt4NpPYtwkpvcthilHgl1eGtYLnlxtM/MsmchF/M61ZMkJfdqrEocBU/EGbubbxcWCUNLV/q8I
+	6+bLjFubCgU8O6MjjiABWDzelzIscTz+e4l0tihNTxacg1nt+EWWAHRSr4+CjQAhiKAgzGGlBpo
+	Vhgb7jFFTqhsR6jcTTO/jWPptYdUIxUO/qYusAvM+mOuxjxrvbuuC/8es6aG087wrJtKEf9DCH4
+	FZo/Ls7zSB3jOC+Y8cyJI8BEFPxG1Pm/Om5wQ9GF7VUGQyXJ23BIfhZ2dOOv+lTyePkobJZ385P
+	4/tk4rwnGdHq+AOF27QTeW4R+NgOrDTyC06P8lWPwmwjmahAiMsc0mAyMuQIG/qRpw8nM/inbH
+X-Received: by 2002:a05:7022:513:b0:12a:94ab:e20 with SMTP id a92af1059eb24-12c73f930cemr8621290c88.20.1776718668238;
+        Mon, 20 Apr 2026 13:57:48 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2e7c:8:b635:62cc:359d:682d])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-12c74a20b9csm16321311c88.12.2026.04.20.13.57.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 20 Apr 2026 13:57:47 -0700 (PDT)
+Date: Mon, 20 Apr 2026 13:57:45 -0700
+From: Brian Norris <briannorris@chromium.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, Sasha Levin <sashal@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Doug Anderson <dianders@chromium.org>,
+	Julius Werner <jwerner@chromium.org>,
+	chrome-platform@lists.linux.dev
+Subject: Re: [regression] of: mis-parsing Depthcharge's /firmware
+Message-ID: <aeaTSYyaqQjuP29U@google.com>
+References: <Z0NbeyTwxo-M4Lgi@sashalap>
+ <936bf452-3d1f-4940-9a91-69efcdc6985e@collabora.com>
+ <CAGXv+5FLkZbZVHNkfRWuT+OioZ0TG=u2WfaFCx-jZFi73QHnVg@mail.gmail.com>
+ <19ba4910-f909-41b4-ba62-c904bc37d41d@linaro.org>
+ <e77669ea-9edd-4321-8d17-4da40161b59d@linaro.org>
+ <Z0R6myuCR4Jpmc_y@sashalap>
+ <CAL_Jsq+QBweDZ+1=FXq7Hez=+mhiOxOvurr3rP0+3y_FCd49Ew@mail.gmail.com>
+ <20241209092809.GA3246424@google.com>
+ <aeKlYzTiL0OB1y3g@google.com>
+ <CAL_Jsq+UCYbKMXG5m8BRNVRA_03Ki8aGF0uoaDs8HHvOSCZ2Mg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260419-hawi-spmi-v3-2-b04ee909cb87@oss.qualcomm.com>
-X-Proofpoint-GUID: 4RoPl3MhUU57JEQSZRzKL_G2IbMIR3qu
-X-Proofpoint-ORIG-GUID: 4RoPl3MhUU57JEQSZRzKL_G2IbMIR3qu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDIwMiBTYWx0ZWRfX9GFAJmk6jifP
- JPVIZg+yc5vFfR+mRCTt1mXwwnZ7VJ8KiNfefJ6YdTLJ5d6JpTQYSxbgLCL0h4hl8Faizf2S+Bi
- BdKX2i15HVucetRnY/V6QxDosQTEaEm9ALg0n+aRfOZkfYxTm3IWAA/vuRa/WOVzXKe0T6swooC
- l/jdFzhOtz4LNi8yHtCnHfMiMeW5SJmU2fnltiSzz1kU740HZjMZYrDC6AcOXLuqvaj45x2kc4i
- qgjiD8fs8qYVdpaN4HuQKltsWlLR33yCMMe70K6qYOw2l8RGYK4w+roufTYf9EBwigaLs73Cbs0
- mUrczXvMareru78Psixyvg3G8zJ+kNlwRAdfNPLx341H4o10roW9uK6mVLz+jRA4rLXiRn6q+wj
- Rud2BSpEPzZgAvIJ46AE4DE8w1DEhWGX+z2fW0wwCv9V7Bc+6y9Avi6+kH7rygkxpCd8V8jAkfq
- hCskKUKN08Hz1HTCMUQ==
-X-Authority-Analysis: v=2.4 cv=WuUb99fv c=1 sm=1 tr=0 ts=69e691e4 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=4h3_F-PqDEY_y8xvUNAA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-20_04,2026-04-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 phishscore=0
- priorityscore=1501 suspectscore=0 clxscore=1015 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604200202
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAL_Jsq+UCYbKMXG5m8BRNVRA_03Ki8aGF0uoaDs8HHvOSCZ2Mg@mail.gmail.com>
 
-On Sun, Apr 19, 2026 at 07:25:53PM -0700, Fenglin Wu wrote:
-> PMIC arbiter v8.5 is an extension of PMIC arbiter v8 that updated
-> the definition of the channel status register bit fields. Add support
-> to handle this difference.
+Hi Rob,
+
+On Mon, Apr 20, 2026 at 07:57:40AM -0500, Rob Herring wrote:
+> On Fri, Apr 17, 2026 at 4:26 PM Brian Norris <briannorris@chromium.org> wrote:
+> >
+> > Hi all,
+> >
+> > (New subject; was "Re: [GIT PULL] Devicetree updates for v6.13")
+> >
+> > On Mon, Dec 09, 2024 at 05:28:09PM +0800, Chen-Yu Tsai wrote:
+> > > steelix.dtb is the same, plus the firmware now inserts #address-cells
+> > > and #size-cells under /firmware. This fix has landed for all future
+> > > ChromeOS devices via our main firmware branch [1].
+> > >
+> > > AFAIK they also have a bad FDT END symbol. This was only recently
+> > > discovered and fixed for future devices [2].
+> > >
+> > >
+> > > ChenYu
+> > >
+> > > [1] Gerrit: https://crrev.com/c/6051580
+> > > [2] Gerrit: https://review.coreboot.org/c/coreboot/+/85462
+> >
+> > This all comes back to bite us, since nobody went back to patch the
+> > existing Chromebook device trees, and now we've added a true regression
+> > on top:
+> >
+> > In commit 6e5773d52f4a ("of/address: Fix WARN when attempting
+> > translating non-translatable addresses") we now reject devices without
+> > '#address-cells', and this breaks the DTs generated by bootloaders
+> > without Chen-Yu's https://crrev.com/c/6051580 fix (this is ... pretty
+> > much all Chromebooks). Specifically, Linux now refuses to add 'reg'
+> > resources to the /firmware/coreboot device, and we fail with:
+> >
+> > [   11.886271] coreboot_table firmware:coreboot: probe with driver coreboot_table failed with error -22
+> >
+> > This is almost certainly a DTB ABI regression.
+> >
+> > This was noticed here (OpenWrt supports some Chromium-based WiFi routers
+> > that use Depthcharge-based bootloaders from many years ago):
+> >
+> > https://github.com/openwrt/openwrt/issues/21243
+> >
+> > For now, I just patched up the OpenWrt DTS files like so:
+> > https://github.com/openwrt/openwrt/pull/22951
+> >
+> > But what should we do going forward? I note that Rob says "We may
+> > revisit this later and address with a fixup to the DT itself" in commit
+> > 8600058ba28a ("of: Add coreboot firmware to excluded default cells
+> > list").
+> >
+> > That never happened, and a ton of Chromium devices are still broken.
 > 
-> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-> ---
->  drivers/spmi/spmi-pmic-arb.c | 142 ++++++++++++++++++++++++++++++++++---------
->  1 file changed, 112 insertions(+), 30 deletions(-)
+> The above just silenced the warning. If they are broken, then
+> something else broke them.
+
+Right.
+
+To be clear, the regression is in commit 6e5773d52f4a, not 8600058ba28a.
+But 8600058ba28a (and this thread I'm replying to):
+
+(a) started the precedent of treating this known-problemtatic DT pattern
+    specially;
+
+(b) started to consider "fixing" those old DTs (but notably, not
+    reliably/proactively -- even if Google updates official bootloaders,
+    many devices are far out of Google support; or even if supported,
+    don't have a systematic way of receiving Google-provided updates
+    because they run non-Google software); and
+
+(c) because (a)/(b) hid the problem partially, it was less noticeable
+    that commit 6e5773d52f4a *really* broke things a month later, in the
+    last days of the v6.13 cycle. (Official Google testing probably
+    didn't notice, because they only tested devices with the latest
+    Google bootloaders. Only people with old bootloaders / non-Google
+    software noticed.)
+
+> > (They don't have WARNINGs, but /sys/firmware/vpd, etc., is still
+> > missing.)
+> >
+> > Can we patch of_bus_default_match() to accept an empty 'ranges' [1]? Or
+> > should I go patch every Chromium-device DTS file I can find? So far, I
+> > think I can get that done in 17 files in the upstream tree...
 > 
+> Both.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To be clear, my options were:
 
+1. fix up kernel parsing to accept these /firmware/coreboot node
+   structures (with empty ranges / no #{address,size}-cells)
+2. add #{address,size}-cells into the kernel-included dts(i) files (this
+   will merge safely with the DTB modifications patched in by old
+   bootloaders).
 
--- 
-With best wishes
-Dmitry
+I wouldn't call #2 "kernel fixup the DT", personally. I'd call it "fix
+up the DT source that happens to be provided by the kernel." This
+assumes no one is using device trees that are exclusively maintained
+outside the kernel. (I believe that's generally true, except for
+OpenWrt. And even there, it's still acceptable to patch the DT source,
+and I've already done so.)
+
+> Though I'd rather the kernel fixup the DT rather than relax the
+> parsing code for everyone. Then we know what platforms need this and
+> don't let new ones in.
+
+I'm not sure how to parse this. This paragraph sounds like a 3rd option:
+
+3. "kernel fixup the DT" -- sound like you want the kernel to identify
+   these specific /firmware/coreboot structures, and activtly
+   modify/patch the FDT at runtime
+
+Is that an accurate interpretation? If so, that sounds rather novel, and
+nothing like "both" (#1 + #2 above). It's certainly possible, but seems
+like a large lift for this particular incompatibility.
+
+So I assume you actually meant something else, possibly a clarification
+or narrowing of #1 or #2. Can you help un-confuse me on what you think
+the best route or routes are?
+
+Brian
