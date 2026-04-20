@@ -1,166 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F10277029;
-	Mon, 20 Apr 2026 05:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8E01AAE17
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 06:05:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776664792; cv=none; b=SRG/MsUHuEw65N1TYLD//PWgJlLidMH6lxrwlBiFXyv5nX+dGVLcmhm3BGYKXHM+g8cSMjbD6jW1tZoChXzZBO2cfz7kK7ukr/1qqRrcGrm+zz5jStoaW7OGFUfRpwSYMS1I0oOPIidhU4b5wTr8KcYGbeCmKOk+zrkLPBFgIEM=
+	t=1776665148; cv=none; b=aDGGVkaeuiL4IYMBMWpX+lfKCK75yToAcWgtKP0xRYB217n0zCcJFvcvGEgiegdj4a8HdcvbjhtBSZS2On9HsDkGKRU7XvRwk3/A0VWN5qhoSTkgWVn9koSQUac1nnA8rEvXYYQzT5pvBzKofLNl/cYT/xINtxA2jboGRldHXfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776664792; c=relaxed/simple;
-	bh=qvl88XtpdJrz8xvd3WG4vIRbwZ4m+ixBTe9tfI8jYX0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sAwQsVrb/Z0GINW42mfLC18HoFiAqaUw+M1pKe11rUFzXn+yqsBto8ylAvlpw+s+0YG7sJ64i6wYt72zhLUG4UDxJurgF+iHNWIDzkihhV5Yye/8lnrEVOX6zz53feGH5faZ0zSL9/iVDSqqe/t/zTAyqMJuhM/hmYUnAkd2QqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a70U5ES6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776665148; c=relaxed/simple;
+	bh=WCxScN3+3shYk4oWiVR5D8bSSKIfAo+O5iQqzFaWARM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BZyCnMl7rnPXZflIuQYVdNTh29kDyzsuQziz7hwT8Mm+QOAeMCh4preXhV/JmgWlLzjOimqMY0bU7NRAyupmFy4CvWx9UfKLCX1/Dap9tHu5IrGqce6wI+CZbH1xRJt10znQMU5QebPO5Tl+/GovJbvYywzDvwjLmgtNxj7gKG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZTpCly8I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TLJ7YkV6; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a70U5ES6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97238C19425;
-	Mon, 20 Apr 2026 05:59:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776664792;
-	bh=qvl88XtpdJrz8xvd3WG4vIRbwZ4m+ixBTe9tfI8jYX0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=a70U5ES6AjDceje7rOqIc7JnQIn22gpZdzWbf3e1gVc9efcR1maz9eUKMxJq2DOOa
-	 I8T4UsKNswsirAX8s3GwZtGavjXDUesSVhiMNuHkP9rk4Uw9/UySyDAbO4YjHrsVGX
-	 Gz7HJ3XN9bYIA8we2iuQVq8jtLYiATvFWZSkeo+GZL3oT79t2BlJxY/vmOSaWM0Nfy
-	 /nM55fF4TSFZpAi4z+X4qQ/eSRoIfa8PnfBDWS8AzFdLW5tWaHP6WIqx5MQgNdsmdn
-	 uNVIivsEoINM2+IPspRN1QCp8oiE9H+MrBU/Cm6Peo4A5wyeqfbL38e/MGQ6G5LAy8
-	 hXQUqEFPkmUnw==
-Date: Mon, 20 Apr 2026 11:29:37 +0530
-From: "mani@kernel.org" <mani@kernel.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Sherry Sun <sherry.sun@nxp.com>, "robh@kernel.org" <robh@kernel.org>, 
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
-	Frank Li <frank.li@nxp.com>, "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, 
-	"kernel@pengutronix.de" <kernel@pengutronix.de>, "festevam@gmail.com" <festevam@gmail.com>, 
-	"lpieralisi@kernel.org" <lpieralisi@kernel.org>, "kwilczynski@kernel.org" <kwilczynski@kernel.org>, 
-	"bhelgaas@google.com" <bhelgaas@google.com>, Hongxing Zhu <hongxing.zhu@nxp.com>, 
-	"l.stach@pengutronix.de" <l.stach@pengutronix.de>, "imx@lists.linux.dev" <imx@lists.linux.dev>, 
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, 
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH V13 02/12] PCI: host-generic: Add common helpers for
- parsing Root Port properties
-Message-ID: <viggqsxczf5d5hok4qpqhknalwb46xapsgdxbbgbqhruhyn2hn@wtck4yajmuw7>
-References: <VI0PR04MB1211449884AC3BC8E3711F1AB92202@VI0PR04MB12114.eurprd04.prod.outlook.com>
- <20260417195533.GA92707@bhelgaas>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZTpCly8I";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TLJ7YkV6"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63JNnUW7514565
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 06:05:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=9HAxgUkvpe6av4f5T+wXhFcc6rAIntcGOvB
+	TaP37iQ4=; b=ZTpCly8I8olMwFYpbWA4Ppum+5ylOeWwAbG/kewaPNCxZD6k6ku
+	pwcfwU2X7W75Mmx14rFigSfH4eNve4tDsYsLTQzeu3MDPOI+HogRPV1lTi+K4PTh
+	garSuvT9PbZf/FvRWHU6WxakTqsXpY+IbZ1v3pyxrxskAVCMgUdSy9CdBviY/Zqg
+	QGGz1oIuHVC2YIvOOg/KHiozFL/KdiKa/GgVyUeSe24K6MPS3wqhwMcVPSGQ8+uQ
+	Odbp3Q/xaHXytJ++oIRoNvsqQiJXr2pz4sMG+bqsqbn04avYHKuWLJf7HsR/q/l6
+	xJm7o70h2tJMIdvVwh8fjU5HrbczYGilgSQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dkynecmcv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 06:05:46 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-2da19227bc1so4100302eec.1
+        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 23:05:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776665146; x=1777269946; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9HAxgUkvpe6av4f5T+wXhFcc6rAIntcGOvBTaP37iQ4=;
+        b=TLJ7YkV6nG7vwToQgBdMkG1EkzSVBFPu5b3NVfRm83c64yyXU/iPnvfV0g8uaCYXlb
+         UtGDALUJ0jG9HRjCv4VSpCTYfBG43KBEZhxdML29NoejrcduOBgLkIe89VCgdYWHiFbF
+         Ly/jWl9JPE81DuoCmkms2l0rn0krkxzJ0+vBvkdPGmSwrtxe+Mj3DJutcnrP7JhHbII4
+         WzpqqQwdyi1YQB0t47l4l/jYTrxfX9Zs7rrB6OHLqG4VQeAghMylK9mFTH2lKnMKwP9b
+         FTEi1VxtzIBJAyNDlxKohBbF8jzhubFDCvwQBPpNkL08V9RCiak+WJo/P8htW9CLdWQK
+         Oo+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776665146; x=1777269946;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9HAxgUkvpe6av4f5T+wXhFcc6rAIntcGOvBTaP37iQ4=;
+        b=O6tpxmN+ynRbtdRPhfuA9wtD5pKzyqlTAKiYJFTYbwZkIemx1H998nG88CBGymBSSy
+         jOYkN+UDQetLB2vBaldYDOr7DAB4fBiXREXYieidYeeyo4QAIyeSjpe3x+AOmT5FCvn5
+         xgFnhbcQFo4nyY7sN7Mg47iwccwuRjzfgDBrRdPDn6xmz+taISq6IiMmaYj646wSVKCo
+         ZIt9MJsg2cEn4oKjGIHqDRQuZ6HuDJs+D/wSu8xOPbawV3nl37egRfyHvKeMhqE434cV
+         omqWyFelY8fCKt2FC+SY6ez0C0iTzhRRC4lGEZxAdngYyFzsDOmTuYXPqZbWdgV4EUxv
+         oFhA==
+X-Forwarded-Encrypted: i=1; AFNElJ8+3h5wLJ9eHNCMnuIsB+zD532CqFJTCHQxqfeO6nhHejnSKsp5f419iOml/tl8q+CzaEsNIdvOI3pb@vger.kernel.org
+X-Gm-Message-State: AOJu0YymBV0oxg2WH1SVhoCfmgpTCP/TFUYrcTnGsGakX2wPyt1JGyE1
+	Jh4a00abuzgkPwo6SnmANDVzCd9pNKlpNNh+Q1gS4U8mvy0pwH9s0R4JyN1Y+vt+szXFMODFdPz
+	qi5Jnqjg7k4kn0HMqiwNf109hFQiYrU3vUTq8FuG6bJ62sS40jODcrLk9SFY7P47+1A/z4mSXmt
+	M=
+X-Gm-Gg: AeBDievLrLVuZLcGldtk+heG7F6c/L8Y/Bw1wzET2MkfJ/xSn/OxtYoTVp+Umk4KqPP
+	qC8G2zg0Iul3UUrxnmrGzNyWyC27rC1vxZeZ4jkH1umgFhdrT6gIoEt9VBg9Ac9Z90lbAsqtwUQ
+	W6n1TYWvzF3/bDU/G62f22gxbMm2D7f9YBRHwog2uIi9e4Z9U/EsVnxCZ/at6TblEu2IvVfXdrJ
+	E0gWCLkB4wC2ZIU0WRXNbdpWbQeRP0wP0Ef1PqVUXcsM6K9h41B6aD6QG0ML5aQZ8Xu76g6XbRB
+	5VevbCiXhNaT97WPAq3sMAfZtOctUTiRsG7Zcskl1tNElWou11w3nE7n2ywG8zpFgmS6mEKO0Px
+	/0Z7Tkc/m3pAqRhy5YEC6qm/4NMdY49QcQxTKVjDXMNzKgWY7DQ0fAFbNLz+qNJoArwcS6G3xv8
+	2pid8s4Hvr2XTG3XLN
+X-Received: by 2002:a05:7300:bc97:b0:2c5:220c:5673 with SMTP id 5a478bee46e88-2e4647d0397mr6385059eec.5.1776665146087;
+        Sun, 19 Apr 2026 23:05:46 -0700 (PDT)
+X-Received: by 2002:a05:7300:bc97:b0:2c5:220c:5673 with SMTP id 5a478bee46e88-2e4647d0397mr6385035eec.5.1776665145585;
+        Sun, 19 Apr 2026 23:05:45 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2e53ccd2564sm13430382eec.18.2026.04.19.23.05.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Apr 2026 23:05:44 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Praveen Talari <quic_ptalari@quicinc.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH] dt-bindings: serial: Add compatible for Qualcomm Nord SoC
+Date: Mon, 20 Apr 2026 14:05:24 +0800
+Message-ID: <20260420060524.1248432-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260417195533.GA92707@bhelgaas>
+X-Authority-Analysis: v=2.4 cv=HbokiCE8 c=1 sm=1 tr=0 ts=69e5c23a cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=oH9XnFzfs7V-9WSmyQkA:9 a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-GUID: K151krG6oCnruyP_sX-uUSoZ23xDm2TZ
+X-Proofpoint-ORIG-GUID: K151krG6oCnruyP_sX-uUSoZ23xDm2TZ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDA1NyBTYWx0ZWRfXzUORkVeyDgeD
+ GbFX57dMEetSeMqQSTT/ij1eNFZlfUnADg002zNVHGcaprL3JvK/6FTKOAAMAVhXvE5WkHAXAYR
+ Xez+aaCECNGWckZ6qxFHTwoTe0/kpH8Mnvh2nqAqD/H5EK9Jp1Fgj1IpIz9dj/TKt84jMBmcgM3
+ 4fh51jeROFAjy8pR5n6lGMvw/EP6jwDMmDg89JWfxmU8ohZo6bEuNXAqOwmMlFK26yF/+193dG9
+ fyeNov82NHXWykY9SGwggB/ytc9r6ekiKdE9jbrq/5xo6vUDmxkAk065Mg5cb0gEiMrrlRsbdNH
+ NieHcbkK62J4vt58pnMGoYvRXA/JoOEbSZBUbpg2yE18X/hVBLvY/PPyB/VIkAcpL2ApJN/g+tu
+ JP/lGbLGqK1wn3AUbfDWK68LTamYoPeDc1F0zmkeKp29EQYeIR8/RXHi1iTZRpcTCcoBW7fxWVx
+ lF+iOa4bfTF8LtcxQlA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-20_01,2026-04-17_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ priorityscore=1501 adultscore=0 phishscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604200057
 
-On Fri, Apr 17, 2026 at 02:55:33PM -0500, Bjorn Helgaas wrote:
-> On Fri, Apr 17, 2026 at 03:17:16AM +0000, Sherry Sun wrote:
-> > > On Thu, Apr 16, 2026 at 07:14:12PM +0800, Sherry Sun wrote:
-> > > > Introduce generic helper functions to parse Root Port device
-> > > > tree nodes and extract common properties like reset GPIOs. This
-> > > > allows multiple PCI host controller drivers to share the same
-> > > > parsing logic.
-> > > >
-> > > > Define struct pci_host_port to hold common Root Port properties
-> > > > (currently only reset GPIO descriptor) and add
-> > > > pci_host_common_parse_ports() to parse Root Port nodes from
-> > > > device tree.
-> > > 
-> > > Are the Root Port and the RC the only possible places for 'reset'
-> > > GPIO descriptions in DT?  I think PERST# routing is outside the
-> > > PCIe spec, so it seems like a system could provide a PERST# GPIO
-> > > routed to any Switch Upstream Port or Endpoint (I assume a PERST#
-> > > connected to a switch would apply to both the upstream port and
-> > > the downstream ports).
-> > 
-> > Thanks for the feedback. You're right that PERST# routing could
-> > theoretically be connected to any device in the hierarchy. However,
-> > for this patch series, I've focused on the most common use case in
-> > practice: use Root Port level PERST# instead of the legacy Root
-> > Complex level PERST#.
-> > 
-> > Root Port level PERST# - This is the primary target, where each Root
-> > Port has individual control over devices connected to it.  RC level
-> > PERST# - Legacy binding support, where a single GPIO controls all
-> > ports.
-> > 
-> > We can extend this framework later if real hardware emerges that
-> > needs Switch or EP-level PERST# control. I can add a comment
-> > documenting this limitation if needed.
-> > 
-> > BTW, Mani and Rob had some great discussions in dt-schema about
-> > PERST# and WAKE# sideband signals settings.
-> 
-> > You can check here:
-> > https://github.com/devicetree-org/dt-schema/issues/168
-> > https://github.com/devicetree-org/dt-schema/pull/126
-> > https://github.com/devicetree-org/dt-schema/pull/170
-> 
-> The upshot of all those conversations is that WAKE# and PERST# can be
-> routed to arbitrary devices independent of the PCI topology.
-> 
-> I think extending host-generic to look for 'reset' in Root Port nodes
-> is the right thing.  My concern is more about where we store it.  This
-> patch saves it in a new "pci_host_port" struct, but someday we'll want
-> a place to save the PERST# GPIOs for several slots behind a switch.
-> Then we'll have two different ways to save the same information.
-> 
+From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
 
-Even if there are PERST# GPIOs from the host, connected to downstream ports of a
-PCIe switch, they could be stored in the Root Port's (pci_host_port) struct as a
-list of PERST#. This is what pcie-qcom driver does.
+Document compatibles for QUP GENI UART controller on Nord SoC with
+fallback on SA8255P compatibles.
 
-It is too clumsy to handle PERST# individually for each device. We tried it
-before with pwrctrl, but it always ended up biting us on who gets to control the
-PERST#. We can't let pwrctrl handle PERST# for a switch port and host controller
-driver handle it for RP. And we cannot let pwrctrl handle PERST# for all ports,
-because, host controller drivers also need to control them for RC
-initialization.
+Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+ .../bindings/serial/qcom,sa8255p-geni-uart.yaml     | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-That's why it was decided to handle PERST# for all ports in the host controller
-drivers. So following that pattern, this helper could also be extended to parse
-the PERST# from all ports defined in DT and store them in the same Root Port
-struct.
-
-It should be trivial to implement this logic in the current helper. @Sherry:
-Could you please implement this logic?
-
-> WAKE# signals might be more pertinent -- we definitely need to support
-> multiple WAKE# signals below a single Root Port, and it seems like
-> PERST# and WAKE# GPIOs should be saved the same place.
-> 
-> I'm wondering if both should go in the pci_dev itself.  I guess the
-> implication is that a pci_dev->reset GPIO would describe a PERST#
-> connected to the device *below* the pci_dev, at least for Downstream
-> Ports.
-> 
-
-Problem is, PERST# needs to be controlled even before 'pci_dev' gets created. We
-create 'pci_dev' only when a device get's detected. But the PERST# assertion and
-deassertion happens even before the pci_host_probe() call, which is the starting
-point for enumeration. That's why storing it as a list in 'pci_host_bridge'
-makes it accessible by the host controller drivers.
-
-> I don't know about WAKE# signals.  When it's in a connector, there's
-> probably only a single possible WAKE# per Downstream Port.  But is it
-> possible have multiple WAKE# signals from a multi-function device
-> that's on the motherboard?  Saving the WAKE# GPIO in the Downstream
-> Port wouldn't accommodate that case.
-
-AFAIK, a single device can have only one WAKE# irrespective of how many function
-it exposes. PCIe base spec doesn't indicate whether it is per-device or
-per-function, but the form factor specfications like CEM, Mini-CEM define it as
-a per-device signal.
-
-Moreover, unlike PERST#, WAKE# is not driven by the host system. Host just needs
-to register an IRQ handler to service the interrupts raised by the device. So it
-can be parsed *after* enumerating a device and stored in 'pci_dev' as done in
-Krishna's series:
-https://lore.kernel.org/linux-pci/20260403-wakeirq_support-v9-0-1cbecf3b58d7@oss.qualcomm.com/
-
-- Mani
-
+diff --git a/Documentation/devicetree/bindings/serial/qcom,sa8255p-geni-uart.yaml b/Documentation/devicetree/bindings/serial/qcom,sa8255p-geni-uart.yaml
+index c8f01923cb25..55e73b359f04 100644
+--- a/Documentation/devicetree/bindings/serial/qcom,sa8255p-geni-uart.yaml
++++ b/Documentation/devicetree/bindings/serial/qcom,sa8255p-geni-uart.yaml
+@@ -14,9 +14,16 @@ allOf:
+ 
+ properties:
+   compatible:
+-    enum:
+-      - qcom,sa8255p-geni-uart
+-      - qcom,sa8255p-geni-debug-uart
++    oneOf:
++      - enum:
++          - qcom,sa8255p-geni-uart
++          - qcom,sa8255p-geni-debug-uart
++      - items:
++          - const: qcom,nord-auto-geni-uart
++          - const: qcom,sa8255p-geni-uart
++      - items:
++          - const: qcom,nord-auto-geni-debug-uart
++          - const: qcom,sa8255p-geni-debug-uart
+ 
+   reg:
+     maxItems: 1
 -- 
-மணிவண்ணன் சதாசிவம்
+2.43.0
+
