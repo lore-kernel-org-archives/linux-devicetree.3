@@ -1,146 +1,503 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0343914FD
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 09:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 09A64388E63;
+	Mon, 20 Apr 2026 09:48:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776678352; cv=none; b=CLpGAtm7ZhzJk4HRPgEYU1eldIes79s553Qy88qh+ZcFZI4KS3GbhxWfN66kDCNPYDVgk388XmWzZfy0JcyvaSjSmgFdYzDGzbB+sAPG/7Dg9lCl1xPNOquHg3BI7KnNFJs2K+7atjbKLqjDGppxm4WBp6fuaSt1zPZObRDX6pQ=
+	t=1776678487; cv=none; b=eBj3r4r7kbr56BzPXNcOBtBGovDlT/+XF/kLyDy6LNPjirsJEzVRyBZuBz7y3NPKWvMSplSRBDiTr7K1L5UqfSnNVVpB/z6zMnis+lGMWp3QOGaEPXdwoqHHFqRbi9wkk63Ka2KtsdB9X4WcLgkIch+3ZWH8hr2veXtAyUKywrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776678352; c=relaxed/simple;
-	bh=VZM+J9wy2pF1ST1d8Dr81X7N9+uaPGz8QDcnICd3iqQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MnBa8cHC5Q06HwLMxXB6EfTnYdThPz1meD0ji1TQnKLopSnJh0dWJ/olKkn1KsJmSyWxCLMpQIGRt0Sa/GMU5Ls1PGwyq087aEl/4vnINyLeRikT9z/LaewGKL/RcLU7BqVAxhqfthiZZc/RAhqMu77jvCdrGtWwfbVGTJyLfTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QiSCxw1Z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FrXINIWw; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QiSCxw1Z";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FrXINIWw"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63K6UKBJ1041266
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 09:45:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	u/hxKOQR8knJ33ZpSAKDOQasdw+ZOshf56WwdR5BKl0=; b=QiSCxw1ZmDjeAXwj
-	lw9HTuS8A+MxK8UXjJg+IVbXrqfH5eYBalisABqBkjHRr5E2NXpPkojblhXPAxNE
-	SE/OyzBuLp8b++Z+fCJ1D/ymAkqPXvAu+jEAHyYO6fTsQi030qmnRpiNtdRvHDjq
-	60T/qekIn5V5Yetm4gm7/GpNLPuSUVhhPdXudLwxkU2yppoLYHpCVf8DWu28ftIh
-	EakKcyGW9zb7j51IrmXew1QUcpZsgv8CLGknYUyzXUATFQRPp+D9kOOuMR14KYlu
-	DbjYLYwdFFQoMKYpHv+c6ebMYOf12QUy1RAA+dmhEvuqJFCGNMhoGzKYHDfRUFFX
-	Pn2h2g==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dm2b75edu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 09:45:50 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50e5d7f4b63so2171861cf.0
-        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 02:45:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776678350; x=1777283150; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=u/hxKOQR8knJ33ZpSAKDOQasdw+ZOshf56WwdR5BKl0=;
-        b=FrXINIWwsLbLOtguFGHECQ7TbPeWmMXm3uEH6+FWz4jWnMuilJNVgv4DZy4N+5hQBn
-         lNXHkQSdzr9NviUr+GNGhIgh34JFbaZIKBv8owprQj7lTm9G1Q4UjXNUkVvXXYFIbGJC
-         8YE+XuiB1k9XWFVG4W9xcenSVoBUgsCc2vr9p1GlvZD7vZiyNagi18hdXG8+vjR6QxWa
-         ilzeZyez+4vOK3pRj0nbsV2+lbByQMMsRO/i3FVMm9lipYdkHVXYDUX8HdgL13ajGvF2
-         WhiWIsleyQRLeWYqV5/YnL2T4znSfp9b4cb6IGCgwT9puFgnd26o6xypftq2aTyjuFyc
-         wh3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776678350; x=1777283150;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=u/hxKOQR8knJ33ZpSAKDOQasdw+ZOshf56WwdR5BKl0=;
-        b=SDgyBKgAElvO0aOZovJ/1QGmPQXIbHOLKCgjR1jxeWGy3zPckmIhCFdbRqBDsqopvb
-         zgTcNb6+xsoNwXJeTWOLLtZ0ybstpH7Ntc3kq/2uJqX+BEOX4h9h3FYj+8scfm/rpvIw
-         wsi2ZynIVl+E8rnjiMoUrTBi0L7Vbjct9hN9GBT0jxb91VNksOB7MTwzP3mMx4MBArbI
-         u/cYvdQiFvYjXjGWjKZ23pxTn236O/KJ4DcutuLg9XhxGbkbRPg5mjJLVfAbHo5XQ+b4
-         iaGLgU3+H3GDPmC3/YgJ0rgF441bapIwo4e2Z3w+YjW70QydO9dEyCF5xjJe7FXycMN4
-         l6dg==
-X-Forwarded-Encrypted: i=1; AFNElJ88854S9MihDmA2S9HjDCSDHE/yatzzoMWyurZLmdYu7SwqWS8PZhs0XK8kCMx1ywVpd9P1NTUOXtSR@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQU6C4UqBR7ei3DiwBmpqb54/v/Jw/STrH8O4bgeW27ohTHhvB
-	drnC8r/Sp4dXaTYcqGimCQ7HBJbqyYlgHRBacYp7G7UDYOQTla9pUnxXcve4ramyxeOJ3H1wVsz
-	PJ6OCT8YOnPA6ky2Zm56uaoQ42UHSMhhauoZsZmPKJP5mJrJ0yzg7pJ1ALwF4DjkM
-X-Gm-Gg: AeBDiesJLfSRhXiN1/iRoQ7xWjH8mvdJ4h30/5bbBpfIiwTaT7xgvquT8c/gpNKA7kB
-	HRuU12IvGJm4vqfdQq1fzHAVnmeBB26E/BzbzHYjehZ4TOCmFk0giU3AyRG4K7nmri/TiNy339X
-	FiNQCc1MgbaOfn5ysS8hanGzMR3AuzcS07qCEpEtguPB5kzT0JBqm2c4mnIW/lXqhYQCp20nDti
-	WndM0HsQfFelQL+EQ+aovgpeqB0TT4WTCQ8Cdq1ZcapCl+Tvm/Pie/2Y5OLDyjHH6XtUwXYJ3Yo
-	vS0YlNa+DNNEBEmoxE9OIWwFu+aOOvN44MUEHXRimrfqz0I5C76wmGWhQYaGmKJJwYC4tWLH2jz
-	/0ygm97YNVNHXl0LXD8LFH07sD/6WacQENeezeUiPKWGr4TFsig4pPyNGrDEpW3GQpztbB8OE4N
-	SKUZ944z45ZlrZ/A==
-X-Received: by 2002:ac8:5e4b:0:b0:50d:aa1f:68be with SMTP id d75a77b69052e-50e36c1a80emr125781211cf.4.1776678349590;
-        Mon, 20 Apr 2026 02:45:49 -0700 (PDT)
-X-Received: by 2002:ac8:5e4b:0:b0:50d:aa1f:68be with SMTP id d75a77b69052e-50e36c1a80emr125781011cf.4.1776678349072;
-        Mon, 20 Apr 2026 02:45:49 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba45121109csm334359466b.6.2026.04.20.02.45.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2026 02:45:48 -0700 (PDT)
-Message-ID: <26b34f92-c336-43b3-8054-9de3379ce01a@oss.qualcomm.com>
-Date: Mon, 20 Apr 2026 11:45:45 +0200
+	s=arc-20240116; t=1776678487; c=relaxed/simple;
+	bh=3qv8bLjkgawVi1hoELs99thdZafocGtpn/AOUoaWGwo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nUhgw5FXkTjRSG81ek7E+7DqLSGj4haIpA7hX+rVsQDapdhOxQmJD3MiEr/mcDg+vkRSXpBMQyNJ9StHoBeWPSOzupFXlzIjP6GCL5KGsszHHYUeAaGVYKwM6Cyi8fDCVHVBdb9gCFx+TcJblITXxu+rMJOJ7S98pfDzyjJxERE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=13.76.78.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
+	by app1 (Coremail) with SMTP id TAJkCgDniXM39uVpsDMTAA--.12927S2;
+	Mon, 20 Apr 2026 17:47:44 +0800 (CST)
+From: dongxuyang@eswincomputing.com
+To: mturquette@baylibre.com,
+	sboyd@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de,
+	huangyifeng@eswincomputing.com,
+	dongxuyang@eswincomputing.com,
+	benoit.monin@bootlin.com,
+	bmasney@redhat.com
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com
+Subject: [PATCH v2 2/3] clk: eswin: Add eic7700 HSP clock driver
+Date: Mon, 20 Apr 2026 17:47:34 +0800
+Message-Id: <20260420094734.2392-1-dongxuyang@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
+In-Reply-To: <20260420093929.1895-1-dongxuyang@eswincomputing.com>
+References: <20260420093929.1895-1-dongxuyang@eswincomputing.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/7] arm64: dts: qcom: sc7180: Add QSPI memory
- interconnect path
-To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org
-Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260420-spi-nor-v3-0-7de325a29010@oss.qualcomm.com>
- <20260420-spi-nor-v3-7-7de325a29010@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260420-spi-nor-v3-7-7de325a29010@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=KZridwYD c=1 sm=1 tr=0 ts=69e5f5ce cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=Qfo_qk6ajyruwQE2hCAA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDA5NCBTYWx0ZWRfX+o7/jf/cxaP4
- 1uc7sDhGeze68UB+JUL24Xr6CFYGodJt7sGOQ1U1u6CEmmZ7NPvqt1NAEB5FQSlWY2pA+KaO03g
- 4W6yhl21S94ph4urosCFj+mTdnjc/sYYAkguCWZ354OIe/DMlQXYkbaYpzrr9XJvxj9rYLv7GO5
- OdeTfnnCUDqslGl9+m1gwJ/rED8d9dfSq0HWztkiRlC4ZKjrBzNkV5/Gad8xKSSp0bI23un6h0J
- cMv9+Z8p9ssLBney+aW90kG3tjMDPKSBg1hwT8X9TNPH3Hsz1WBWThNhRvt+kjBdqIaQIxYo3Hf
- 2RmuOCa0m6k2YuXtycSYj4Su6Q8WfnRSc7YQsSJgC9pWkOM4+HYvQouQ87dCt1FMG+kUg7IPhpS
- D9CkgUbk+ft/38xwsxAAYR9wbkQF2GYF9DY1nBsJ6OOLJZEcB0XbaNmGh11sS+TvqLS72hbbTJL
- u3y8/njhhVkJ8Y19jIg==
-X-Proofpoint-GUID: KtyaKKeh7etR1KuVmhidKjEkwI7PjPdV
-X-Proofpoint-ORIG-GUID: KtyaKKeh7etR1KuVmhidKjEkwI7PjPdV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-20_02,2026-04-17_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 spamscore=0 bulkscore=0 malwarescore=0
- priorityscore=1501 clxscore=1015 phishscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604200094
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TAJkCgDniXM39uVpsDMTAA--.12927S2
+X-Coremail-Antispam: 1UD129KBjvAXoW3KrW5Aw47Jr1Uuw13WryfJFb_yoW8GFyfGo
+	WfKF43Z348Jw18urWFkw1Sy3WfZrs7AFy3ZFn5CrnrCa4Fyr45JryxGwnI9r13ta4Y9rWD
+	Arn7Jry3uFZxGFyfn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UjIYCTnIWjp_UUUYK7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E6xAIw20EY4v20xva
+	j40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2
+	x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8
+	Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7M4kE6xkIj40Ew7xC0wCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42
+	xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWU
+	GwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI4
+	8JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4U
+	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
+	8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUeZ2-DUUUU
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
 
-On 4/20/26 8:12 AM, Viken Dadhaniya wrote:
-> Add the missing QSPI-to-memory interconnect path alongside the existing
-> configuration path. Without this path, the interconnect framework cannot
-> correctly vote for the bandwidth required by QSPI DMA data transfers.
-> 
-> Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-> ---
+From: Xuyang Dong <dongxuyang@eswincomputing.com>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Add driver for the ESWIN EIC7700 high-speed peripherals system
+clock controller and register an auxiliary device for system
+reset controller which is named as "hsp-reset".
 
-Konrad
+Signed-off-by: Xuyang Dong <dongxuyang@eswincomputing.com>
+---
+ drivers/clk/eswin/Kconfig           |  12 +
+ drivers/clk/eswin/Makefile          |   1 +
+ drivers/clk/eswin/clk-eic7700-hsp.c | 385 ++++++++++++++++++++++++++++
+ 3 files changed, 398 insertions(+)
+ create mode 100644 drivers/clk/eswin/clk-eic7700-hsp.c
+
+diff --git a/drivers/clk/eswin/Kconfig b/drivers/clk/eswin/Kconfig
+index 0406ec499ec9..e6cc2a407bac 100644
+--- a/drivers/clk/eswin/Kconfig
++++ b/drivers/clk/eswin/Kconfig
+@@ -13,3 +13,15 @@ config COMMON_CLK_EIC7700
+ 	  SoC. The clock controller generates and supplies clocks to various
+ 	  peripherals within the SoC.
+ 	  Say yes here to support the clock controller on the EIC7700 SoC.
++
++config COMMON_CLK_EIC7700_HSP
++	tristate "EIC7700 HSP Clock Driver"
++	depends on ARCH_ESWIN || COMPILE_TEST
++	select AUXILIARY_BUS
++	select COMMON_CLK_EIC7700
++	select RESET_EIC7700_HSP if RESET_CONTROLLER
++	help
++	  This driver provides support for clock controller on ESWIN EIC7700
++	  HSP. The clock controller generates and supplies clocks to high
++	  speed peripherals within the SoC.
++	  Say yes here to support the clock controller on the EIC7700 HSP.
+diff --git a/drivers/clk/eswin/Makefile b/drivers/clk/eswin/Makefile
+index 4a7c2af82164..21a09a3396df 100644
+--- a/drivers/clk/eswin/Makefile
++++ b/drivers/clk/eswin/Makefile
+@@ -6,3 +6,4 @@
+ obj-$(CONFIG_COMMON_CLK_ESWIN)		+= clk.o
+
+ obj-$(CONFIG_COMMON_CLK_EIC7700)	+= clk-eic7700.o
++obj-$(CONFIG_COMMON_CLK_EIC7700_HSP)	+= clk-eic7700-hsp.o
+diff --git a/drivers/clk/eswin/clk-eic7700-hsp.c b/drivers/clk/eswin/clk-eic7700-hsp.c
+new file mode 100644
+index 000000000000..d8f5493b45e7
+--- /dev/null
++++ b/drivers/clk/eswin/clk-eic7700-hsp.c
+@@ -0,0 +1,385 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright 2026, Beijing ESWIN Computing Technology Co., Ltd..
++ * All rights reserved.
++ *
++ * ESWIN EIC7700 HSP Clock Driver
++ *
++ * Authors: Xuyang Dong <dongxuyang@eswincomputing.com>
++ */
++
++#include <linux/auxiliary_bus.h>
++#include <linux/clk-provider.h>
++#include <linux/io.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++
++#include <dt-bindings/clock/eswin,eic7700-hspcrg.h>
++
++#include "common.h"
++
++#define EIC7700_HSP_SATA_REG		0x300
++#define EIC7700_HSP_MSHC0_REG		0x510
++#define EIC7700_HSP_MSHC1_REG		0x610
++#define EIC7700_HSP_MSHC2_REG		0x710
++#define EIC7700_HSP_USB0_REG		0x800
++#define EIC7700_HSP_USB0_REF_REG	0x83c
++#define EIC7700_HSP_USB1_REG		0x900
++#define EIC7700_HSP_USB1_REF_REG	0x93c
++
++#define USB_REF_XTAL24M			0x2a
++#define EIC7700_HSP_NR_CLKS		(EIC7700_HSP_CLK_GATE_SATA + 1)
++
++struct eic7700_hsp_clk_gate {
++	struct clk_hw hw;
++	unsigned int id;
++	void __iomem *reg;
++	void __iomem *ref_reg;
++	const char *name;
++	const struct clk_parent_data *parent_data;
++	unsigned long flags;
++	unsigned long offset;
++	unsigned long ref_offset;
++	u8 bit_idx;
++	u8 gate_flags;
++	spinlock_t *lock; /* protect register read-modify-write cycle */
++};
++
++/*
++ * The USB clock gate (hsp_clk_gate_endisable) and the reset driver both
++ * perform read-modify-write cycles on registers 0x800 and 0x900. Use
++ * custom regmap lock callbacks so that regmap operations hold data->lock
++ * with IRQs disabled, the same lock the clock gate path uses, preventing
++ * concurrent RMW races on those shared registers.
++ */
++struct eic7700_hsp_regmap_lock {
++	spinlock_t *lock; /* protect register read-modify-write cycle */
++	unsigned long flags;
++};
++
++static void eic7700_hsp_regmap_lock_fn(void *arg)
++{
++	struct eic7700_hsp_regmap_lock *ctx = arg;
++
++	spin_lock_irqsave(ctx->lock, ctx->flags);
++}
++
++static void eic7700_hsp_regmap_unlock_fn(void *arg)
++{
++	struct eic7700_hsp_regmap_lock *ctx = arg;
++
++	spin_unlock_irqrestore(ctx->lock, ctx->flags);
++}
++
++static inline struct eic7700_hsp_clk_gate *to_gate_clk(struct clk_hw *hw)
++{
++	return container_of(hw, struct eic7700_hsp_clk_gate, hw);
++}
++
++#define EIC7700_HSP_GATE(_id, _name, _pdata, _flags, _offset, _idx,	\
++			 _ref_offset)					\
++	{								\
++		.id		= _id,					\
++		.name		= _name,				\
++		.parent_data	= _pdata,				\
++		.flags		= _flags,				\
++		.offset		= _offset,				\
++		.ref_offset	= _ref_offset,				\
++		.bit_idx	= _idx,					\
++	}
++
++static void hsp_clk_gate_endisable(struct clk_hw *hw, int enable)
++{
++	struct eic7700_hsp_clk_gate *gate = to_gate_clk(hw);
++	u32 reg;
++
++	guard(spinlock_irqsave)(gate->lock);
++
++	reg = readl(gate->reg);
++
++	if (enable)
++		reg |= BIT(gate->bit_idx);
++	else
++		reg &= ~BIT(gate->bit_idx);
++
++	/*
++	 * Hardware bug: The reference clock is 24MHz, but the reference clock
++	 * register reset to an incorrect default value.
++	 * Workaround: Rewrite the correct value before enabling/disabling
++	 * the gate clock.
++	 */
++	writel(USB_REF_XTAL24M, gate->ref_reg);
++	writel(reg, gate->reg);
++}
++
++static int hsp_clk_gate_enable(struct clk_hw *hw)
++{
++	hsp_clk_gate_endisable(hw, 1);
++
++	return 0;
++}
++
++static void hsp_clk_gate_disable(struct clk_hw *hw)
++{
++	hsp_clk_gate_endisable(hw, 0);
++}
++
++static int hsp_clk_gate_is_enabled(struct clk_hw *hw)
++{
++	struct eic7700_hsp_clk_gate *gate = to_gate_clk(hw);
++	u32 reg;
++
++	reg = readl(gate->reg);
++	reg &= BIT(gate->bit_idx);
++
++	return reg ? 1 : 0;
++}
++
++static const struct clk_ops hsp_clk_gate_ops = {
++	.enable = hsp_clk_gate_enable,
++	.disable = hsp_clk_gate_disable,
++	.is_enabled = hsp_clk_gate_is_enabled,
++};
++
++static struct clk_hw *
++hsp_clk_register_gate(struct device *dev, unsigned int id, const char *name,
++		      const struct clk_parent_data *parent_data,
++		      unsigned long flags, void __iomem *reg,
++		      void __iomem *ref_reg, u8 bit_idx, u8 clk_gate_flags,
++		      spinlock_t *lock)
++{
++	struct eic7700_hsp_clk_gate *gate;
++	struct clk_init_data init = {};
++	struct clk_hw *hw;
++	int ret;
++
++	gate = devm_kzalloc(dev, sizeof(*gate), GFP_KERNEL);
++	if (!gate)
++		return ERR_PTR(-ENOMEM);
++
++	init.name = name;
++	init.ops = &hsp_clk_gate_ops;
++	init.flags = flags;
++	init.parent_data = parent_data;
++	init.num_parents = 1;
++
++	gate->id = id;
++	gate->reg = reg;
++	gate->ref_reg = ref_reg;
++	gate->bit_idx = bit_idx;
++	gate->gate_flags = clk_gate_flags;
++	gate->lock = lock;
++	gate->hw.init = &init;
++
++	hw = &gate->hw;
++	ret = devm_clk_hw_register(dev, hw);
++	if (ret)
++		hw = ERR_PTR(ret);
++
++	return hw;
++}
++
++static const struct clk_parent_data hsp_cfg[] = {
++	{ .index = 0 }
++};
++
++static const struct clk_parent_data hsp_mmc[] = {
++	{ .index = 1 }
++};
++
++static const struct clk_parent_data hsp_usb_sata[] = {
++	{ .index = 2 }
++};
++
++static struct eswin_fixed_factor_clock eic7700_hsp_factor_clks[] = {
++	ESWIN_FACTOR(EIC7700_HSP_CLK_FAC_CFG_DIV2, "factor_hsp_cfg_div2",
++		     hsp_cfg, 1, 2, 0),
++	ESWIN_FACTOR(EIC7700_HSP_CLK_FAC_CFG_DIV4, "factor_hsp_cfg_div4",
++		     hsp_cfg, 1, 4, 0),
++	ESWIN_FACTOR(EIC7700_HSP_CLK_FAC_MMC_DIV10, "factor_hsp_mmc_div10",
++		     hsp_mmc, 1, 10, 0),
++};
++
++static struct eswin_gate_clock eic7700_hsp_gate_clks[] = {
++	ESWIN_GATE(EIC7700_HSP_CLK_GATE_SATA, "gate_clk_hsp_sata", hsp_usb_sata,
++		   CLK_SET_RATE_PARENT, EIC7700_HSP_SATA_REG, 28, 0),
++	ESWIN_GATE(EIC7700_HSP_CLK_GATE_MSHC0_TMR, "gate_clk_hsp_mshc0_tmr",
++		   hsp_mmc, CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC0_REG, 8, 0),
++	ESWIN_GATE(EIC7700_HSP_CLK_GATE_MSHC1_TMR, "gate_clk_hsp_mshc1_tmr",
++		   hsp_mmc, CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC1_REG, 8, 0),
++	ESWIN_GATE(EIC7700_HSP_CLK_GATE_MSHC2_TMR, "gate_clk_hsp_mshc2_tmr",
++		   hsp_mmc, CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC2_REG, 8, 0),
++};
++
++static struct eic7700_hsp_clk_gate eic7700_hsp_spec_gate_clks[] = {
++	EIC7700_HSP_GATE(EIC7700_HSP_CLK_GATE_USB0, "gate_clk_hsp_usb0",
++			 hsp_usb_sata, CLK_SET_RATE_PARENT,
++			 EIC7700_HSP_USB0_REG, 28, EIC7700_HSP_USB0_REF_REG),
++	EIC7700_HSP_GATE(EIC7700_HSP_CLK_GATE_USB1, "gate_clk_hsp_usb1",
++			 hsp_usb_sata, CLK_SET_RATE_PARENT,
++			 EIC7700_HSP_USB1_REG, 28, EIC7700_HSP_USB1_REF_REG),
++};
++
++static const struct clk_parent_data mux_mmc_3mux1_p[] = {
++	{ .fw_name = "cfg" },
++	{ .hw = &eic7700_hsp_factor_clks[0].hw },
++	{ .hw = &eic7700_hsp_factor_clks[1].hw },
++};
++
++static const struct clk_parent_data mux_mmc_2mux1_p[] = {
++	{ .fw_name = "mmc" },
++	{ .hw = &eic7700_hsp_factor_clks[2].hw },
++};
++
++static u32 mux_mmc_3mux1_tbl[] = { 0x0, 0x1, 0x3 };
++
++static struct eswin_mux_clock eic7700_hsp_mux_clks[] = {
++	ESWIN_MUX_TBL(EIC7700_HSP_CLK_MUX_EMMC_3MUX1, "mux_hsp_emmc_3mux1",
++		      mux_mmc_3mux1_p, ARRAY_SIZE(mux_mmc_3mux1_p),
++		      CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC0_REG, 16, 2, 0,
++		      mux_mmc_3mux1_tbl),
++	ESWIN_MUX_TBL(EIC7700_HSP_CLK_MUX_SD0_3MUX1, "mux_hsp_sd0_3mux1",
++		      mux_mmc_3mux1_p, ARRAY_SIZE(mux_mmc_3mux1_p),
++		      CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC1_REG, 16, 2, 0,
++		      mux_mmc_3mux1_tbl),
++	ESWIN_MUX_TBL(EIC7700_HSP_CLK_MUX_SD1_3MUX1, "mux_hsp_sd1_3mux1",
++		      mux_mmc_3mux1_p, ARRAY_SIZE(mux_mmc_3mux1_p),
++		      CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC2_REG, 16, 2, 0,
++		      mux_mmc_3mux1_tbl),
++	ESWIN_MUX(EIC7700_HSP_CLK_MUX_EMMC_CQE_2MUX1, "mux_hsp_emmc_cqe_2mux1",
++		  mux_mmc_2mux1_p, ARRAY_SIZE(mux_mmc_2mux1_p),
++		  CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC0_REG, 0, 1, 0),
++	ESWIN_MUX(EIC7700_HSP_CLK_MUX_SD0_CQE_2MUX1, "mux_hsp_sd0_cqe_2mux1",
++		  mux_mmc_2mux1_p, ARRAY_SIZE(mux_mmc_2mux1_p),
++		  CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC1_REG, 0, 1, 0),
++	ESWIN_MUX(EIC7700_HSP_CLK_MUX_SD1_CQE_2MUX1, "mux_hsp_sd1_cqe_2mux1",
++		  mux_mmc_2mux1_p, ARRAY_SIZE(mux_mmc_2mux1_p),
++		  CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC2_REG, 0, 1, 0),
++};
++
++static struct eswin_clk_info eic7700_hsp_clks[] = {
++	ESWIN_GATE_TYPE(EIC7700_HSP_CLK_GATE_EMMC, "gate_clk_hsp_emmc",
++			EIC7700_HSP_CLK_MUX_EMMC_3MUX1,
++			CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED,
++			EIC7700_HSP_MSHC0_REG, 24, 0),
++	ESWIN_GATE_TYPE(EIC7700_HSP_CLK_GATE_SD0, "gate_clk_hsp_sd0",
++			EIC7700_HSP_CLK_MUX_SD0_3MUX1,
++			CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED,
++			EIC7700_HSP_MSHC1_REG, 24, 0),
++	ESWIN_GATE_TYPE(EIC7700_HSP_CLK_GATE_SD1, "gate_clk_hsp_sd1",
++			EIC7700_HSP_CLK_MUX_SD1_3MUX1,
++			CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED,
++			EIC7700_HSP_MSHC2_REG, 24, 0),
++};
++
++static int eic7700_hsp_clk_probe(struct platform_device *pdev)
++{
++	struct eic7700_hsp_regmap_lock *lock_ctx;
++	struct device *dev = &pdev->dev;
++	struct auxiliary_device *adev;
++	struct eswin_clock_data *data;
++	struct regmap *regmap;
++	struct clk_hw *hw;
++	int i, ret;
++
++	data = eswin_clk_init(pdev, EIC7700_HSP_NR_CLKS);
++	if (IS_ERR(data))
++		return dev_err_probe(dev, PTR_ERR(data),
++				     "failed to get clk data!\n");
++
++	lock_ctx = devm_kzalloc(dev, sizeof(*lock_ctx), GFP_KERNEL);
++	if (!lock_ctx)
++		return dev_err_probe(dev, -ENOMEM,
++				     "failed to alloc regmap lock ctx\n");
++
++	lock_ctx->lock = &data->lock;
++	const struct regmap_config eic7700_hsp_regmap_config = {
++		.reg_bits = 32,
++		.val_bits = 32,
++		.max_register = 0x1ffc,
++		.reg_stride = 4,
++		.lock = eic7700_hsp_regmap_lock_fn,
++		.unlock = eic7700_hsp_regmap_unlock_fn,
++		.lock_arg = lock_ctx,
++	};
++
++	regmap = devm_regmap_init_mmio(dev, data->base,
++				       &eic7700_hsp_regmap_config);
++	if (IS_ERR(regmap))
++		return dev_err_probe(dev, PTR_ERR(regmap),
++				     "failed to get regmap!\n");
++
++	ret = eswin_clk_register_fixed_factor(dev, eic7700_hsp_factor_clks,
++					      ARRAY_SIZE(eic7700_hsp_factor_clks),
++					      data);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "failed to register fixed factor clock\n");
++
++	ret = eswin_clk_register_gate(dev, eic7700_hsp_gate_clks,
++				      ARRAY_SIZE(eic7700_hsp_gate_clks), data);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "failed to register gate clock\n");
++
++	ret = eswin_clk_register_mux(dev, eic7700_hsp_mux_clks,
++				     ARRAY_SIZE(eic7700_hsp_mux_clks),
++				     data);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "failed to register mux clock\n");
++
++	ret = eswin_clk_register_clks(dev, eic7700_hsp_clks,
++				      ARRAY_SIZE(eic7700_hsp_clks), data);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "failed to register clock\n");
++
++	for (i = 0; i < ARRAY_SIZE(eic7700_hsp_spec_gate_clks); i++) {
++		struct eic7700_hsp_clk_gate *gate;
++
++		gate = &eic7700_hsp_spec_gate_clks[i];
++		hw = hsp_clk_register_gate(dev, gate->id, gate->name,
++					   gate->parent_data, gate->flags,
++					   data->base + gate->offset,
++					   data->base + gate->ref_offset,
++					   gate->bit_idx, 0, &data->lock);
++		if (IS_ERR(hw))
++			return dev_err_probe(dev, PTR_ERR(hw),
++					     "failed to register gate clock\n");
++
++		data->clk_data.hws[gate->id] = hw;
++	}
++
++	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get,
++					  &data->clk_data);
++	if (ret)
++		return dev_err_probe(dev, ret, "add clk provider failed\n");
++
++	adev = devm_auxiliary_device_create(dev, "hsp-reset", NULL);
++	if (!adev)
++		return dev_err_probe(dev, -ENODEV,
++				     "register hsp-reset device failed\n");
++
++	return 0;
++}
++
++static const struct of_device_id eic7700_hsp_clock_dt_ids[] = {
++	{ .compatible = "eswin,eic7700-hspcrg", },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, eic7700_hsp_clock_dt_ids);
++
++static struct platform_driver eic7700_hsp_clock_driver = {
++	.probe	= eic7700_hsp_clk_probe,
++	.driver = {
++		.name	= "eic7700-hsp-clock",
++		.of_match_table	= eic7700_hsp_clock_dt_ids,
++	},
++};
++
++module_platform_driver(eic7700_hsp_clock_driver);
++
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Xuyang Dong <dongxuyang@eswincomputing.com>");
++MODULE_DESCRIPTION("ESWIN EIC7700 HSP clock controller driver");
+--
+2.43.0
+
