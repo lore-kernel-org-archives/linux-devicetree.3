@@ -1,189 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34DE128000F
-	for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 23:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36E8538DF9
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 01:11:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776641066; cv=none; b=aGap7gKIKEGEsYi26GzVFHDs9aBl7CsXnjw36fVMxs8z0gvy8c82RGPaE2c+oVHsORDoysd3htdUkioMboKQz8zByjadnXwc3GodHNP3dmm5g2ub6gxDphJgSNZPIK8CYY/ShyKVrjxdEcyUiDXdbFkCCCHr0ddHr7HcjWSnPWs=
+	t=1776647498; cv=none; b=tHcgPbVSIItzW3w+outyftUocVRteOujX+HhZz3CmunpYSRKPan8cdN7Hk9aq8y6evn+cXpHBfa7zRnEUkJ/bsTIaNUuElKjIMYNi1VXsyF9jAaWcy/FLe80t3NAShnTHb3cr91Yv8al01PMysIjBRrXSiVaFbg4sSBdRfs5+Z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776641066; c=relaxed/simple;
-	bh=qdp4S1ycSoghdrsZA7/NsSAACV+sbKq1KZFe/S2hrcc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Zh3WQvFCblK1F2vqwQ6ZmdOKBf4sEcuQHFRbfnciL0HyXSVsVIEC8P30fFUI09Y9yhz+/0/7mR8LShfIF5CO5tVySe0xgYooC6CdqAGssDVnzS1WaIS893Eps40Hy7WJAknDvPLMGRvFwwIvEM8IUYHV8xiPGG9RWCqb5ftwsv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U1VrgB6d; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U1VrgB6d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D6DDC2BCB6;
-	Sun, 19 Apr 2026 23:24:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776641065;
-	bh=qdp4S1ycSoghdrsZA7/NsSAACV+sbKq1KZFe/S2hrcc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=U1VrgB6dH98NpavcTq5gGA7pA/e5gjkarTUeFaXYbYdkv1qWy9veuLwQ0zr9lvjKg
-	 yfsvV0RMHeTqwO0L8r76hvbjR9yToPWQc49jTUMtOsC3scrCdxmDxUx7h82zJA9PFh
-	 k9WTCZlKBtJJhPE10WE4UkCSC9b+QEFFPB6VpVVRrAnSfBvZ0VtEBiZrR4cN6ZjIn5
-	 98lyRUmY7d1Can9DWR9bHFIKZ5KWQvSEbXtG7dow/SKEm6R3JTAlcjBsI5EZjs8ZkL
-	 jK2d/z0X+yhmeFHVULEjAOkZaZ88hrQ+EUxp86sUqSH2B/qLINfilsO+yv9nGqPzyq
-	 HwhKpwogTjV0g==
-From: Dinh Nguyen <dinguyen@kernel.org>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: dinguyen@kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCHv2 2/2] arm64: dts: socfpga: agilex7m: Add SoCFPGA Agilex7-M devkit
-Date: Sun, 19 Apr 2026 18:24:16 -0500
-Message-ID: <20260419232416.68331-2-dinguyen@kernel.org>
-X-Mailer: git-send-email 2.42.0.411.g813d9a9188
-In-Reply-To: <20260419232416.68331-1-dinguyen@kernel.org>
-References: <20260419232416.68331-1-dinguyen@kernel.org>
+	s=arc-20240116; t=1776647498; c=relaxed/simple;
+	bh=C0aW81I3StTCcJXehP69KLFeqWnD+swGwk+Y2hOVrM8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nNqALjFw8FXwMnLU4Z39kKCeXmBFakr2kfoIOzryTamfAtXwCWvE4XARABuotiQOEGDKbS9I3tnzBQRFoezg17zfgmY0IGsn12hDYgIkmUaD3ns/fZOkNansCUURlhIRm+/hq06z2tqY6OLm7KdY/kq8s1UOe9gRjxVvAFei4GQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gompa.dev; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.210.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gompa.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7dc51aa8926so1094221a34.3
+        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 18:11:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776647495; x=1777252295;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=C0aW81I3StTCcJXehP69KLFeqWnD+swGwk+Y2hOVrM8=;
+        b=XpOvUEIUl/75+CnEKLzTXmf6ZWobBSduy/T5SdfoAWbZfDPTywUSVFszXxgRbRt3cn
+         aonpyNVBd4UnJyPGt5kAWXvt2TtN/TUmENeocsZhogpa7sTj91A9tq4UMTbuJs75UPa2
+         DTh3W2uRAmuxEafkTOw5bMQewUYtrGOpreBwL/ilrch+POg+fxcKrGlaiJbaFMzNUIhC
+         pJgCwhyslM1IaewKLrM9E2oq7mBaxqvfWdbsF0JEon/NUSTgU2DFi8MLCnaDPH7Z2A9H
+         R+giN06dSC+/BbwCRhlulsfJNy8cwYgStcSNALTKblBjH5nFWPxhGw4e+l8c3gNjvz7h
+         q9LQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/f7t6bMkkKHKZ2lfk2qB7j1KlelHIGQxFkQcOXi6HVKDHFDspiF0Ny5c0OGWSX6h+1hTH55q0hY4H+@vger.kernel.org
+X-Gm-Message-State: AOJu0YzpIm8wTK1QxmCTpbHD9zUDBn5YDT+YW+TDSRYRjmhADfb5E4tj
+	oaOlSnHACL5llvuU94iVf+p8wwMDjCEkk6Es8Dn0yofowt1c/9TIB+yYeaY0Rw==
+X-Gm-Gg: AeBDietmwF/CcF3EfapuzV6RHvuECwzR3tCWUk3ixRZFZeYylZuX8ZlL8nwIFuKdVNG
+	8VkA1PUzPHaw4RZalYqRQUBM5QHN8UR/5PDwbJlT7MOzZPgG+CKKXExr0PTtUKtN3kA9KGxBNs9
+	JvUxb3al2FfmZaqUqSv45z091PA5RyMZxuwFyO6KYLGfwNgrA8jcufw17f/rZKM1RjaJq4+JzRD
+	ERmS0zPLGO1Or9m2XxhMX9FeqVfznUm2I/qg+d4TH/Rtk6BUyVGnQ2lfNtiRl8XwNWA19RAY602
+	QzfY94P/LsbYzDisgsz8mneY0gbr7zGp2prLQ/cmEMGN+09aAi8vVlftBI7tLFgunbGqAMRYMXb
+	Eeoi7m3vv6699y5hn5TPrCjz7ZTsdmRnE5+2aSwxMcsWp1uATCjmyNiLCogTIN7Ie4z/salW7yH
+	CEzORFp8ginp8RgH1DNxsjeMPlRP0RVJ8LiaW9pGR9QGs0LQPaP1vnTJwPHgAmllrSCTsh/2+kB
+	iFnmThSCMlb5g9OL6SmLTqz/AzKEBlY9T+ccLMSKF8E3HnG3gCDRgYeEbHI+h6NUWHgkdl1Ayq6
+	eSEeJwD6MvyYo/J/KdU=
+X-Received: by 2002:a05:6830:828a:b0:7d7:cdd3:df6b with SMTP id 46e09a7af769-7dc9521f4ecmr7107734a34.14.1776647495608;
+        Sun, 19 Apr 2026 18:11:35 -0700 (PDT)
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com. [209.85.210.51])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7dca6f589d0sm5574500a34.27.2026.04.19.18.11.35
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 19 Apr 2026 18:11:35 -0700 (PDT)
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7dbe437b072so1470351a34.2
+        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 18:11:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+gbJ46WL8UYRAQhbMiR4rTtXbvc97vrXT8Stmx4WO7bm7D4trEol6DGbeOs4J20jcZl8RZ9fcxNiuK@vger.kernel.org
+X-Received: by 2002:a05:6830:828a:b0:7d7:cdd3:df6b with SMTP id
+ 46e09a7af769-7dc9521f4ecmr7107720a34.14.1776647494828; Sun, 19 Apr 2026
+ 18:11:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260411-mailmap-v1-0-5a519f7b00b5@chaosmail.tech> <20260411-mailmap-v1-1-5a519f7b00b5@chaosmail.tech>
+In-Reply-To: <20260411-mailmap-v1-1-5a519f7b00b5@chaosmail.tech>
+From: Neal Gompa <neal@gompa.dev>
+Date: Sun, 19 Apr 2026 21:10:58 -0400
+X-Gmail-Original-Message-ID: <CAEg-Je9WStzQj30YsRfJvp-9z1-+qbbGPxTNGkt7Kdj+XjjbUA@mail.gmail.com>
+X-Gm-Features: AQROBzDnYy_QIhsEDV3LeYMU1OQV8X44CvHYlKgDLdrGKHckgRju0mncg5q_5Ow
+Message-ID: <CAEg-Je9WStzQj30YsRfJvp-9z1-+qbbGPxTNGkt7Kdj+XjjbUA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] mailmap: Update Sasha Finkelstein's email address
+To: Sasha Finkelstein <k@chaosmail.tech>
+Cc: Janne Grunau <j@jannau.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>, 
+	asahi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Agilex7-M devkit contains an Agilex7M SoC, which is a newly branded
-version of the original Agilex SoC. The Agilex7M core peripherals are
-identical to the Agilex SoC.
+On Sat, Apr 11, 2026 at 10:36=E2=80=AFAM Sasha Finkelstein <k@chaosmail.tec=
+h> wrote:
+>
+> Add mailmap entry
+>
+> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+> ---
 
-We can re-use the socfpga_agilex.dtsi for this devkit. The Agilex7-M
-devkit supports PCIE 5.0(x16), DDR4, DDR5, LPDDR5 and does not have QSPI.
+Acked-by: Neal Gompa <neal@gompa.dev>
 
-Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
----
-v2: use the updated "altr,socfpga-agilex7m" and
-    "altr,socfpga-agilex7m-socdk"
----
- arch/arm64/boot/dts/intel/Makefile            |   1 +
- .../boot/dts/intel/socfpga_agilex7m_socdk.dts | 104 ++++++++++++++++++
- 2 files changed, 105 insertions(+)
- create mode 100644 arch/arm64/boot/dts/intel/socfpga_agilex7m_socdk.dts
 
-diff --git a/arch/arm64/boot/dts/intel/Makefile b/arch/arm64/boot/dts/intel/Makefile
-index 33fcc55d0cb9..088a03b89c99 100644
---- a/arch/arm64/boot/dts/intel/Makefile
-+++ b/arch/arm64/boot/dts/intel/Makefile
-@@ -8,5 +8,6 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += socfpga_agilex_n6000.dtb \
- 				socfpga_agilex5_socdk_013b.dtb \
- 				socfpga_agilex5_socdk_modular.dtb \
- 				socfpga_agilex5_socdk_nand.dtb \
-+				socfpga_agilex7m_socdk.dtb \
- 				socfpga_n5x_socdk.dtb
- dtb-$(CONFIG_ARCH_KEEMBAY) += keembay-evm.dtb
-diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex7m_socdk.dts b/arch/arm64/boot/dts/intel/socfpga_agilex7m_socdk.dts
-new file mode 100644
-index 000000000000..952987cf3fd4
---- /dev/null
-+++ b/arch/arm64/boot/dts/intel/socfpga_agilex7m_socdk.dts
-@@ -0,0 +1,104 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2026 Altera Corporation
-+
-+#include "socfpga_agilex.dtsi"
-+
-+/ {
-+	model = "Altera SoCFPGA Agilex7-M SoCDK";
-+	compatible = "altr,socfpga-agilex7m-socdk",
-+		     "altr,socfpga-agilex7m";
-+
-+	aliases {
-+		serial0 = &uart0;
-+		ethernet0 = &gmac0;
-+		ethernet1 = &gmac1;
-+		ethernet2 = &gmac2;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+		led0 {
-+			label = "hps_led0";
-+			gpios = <&portb 20 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led1 {
-+			label = "hps_led1";
-+			gpios = <&portb 19 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led2 {
-+			label = "hps_led2";
-+			gpios = <&portb 21 GPIO_ACTIVE_HIGH>;
-+		};
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		/* We expect the bootloader to fill in the reg */
-+		reg = <0 0x80000000 0 0>;
-+	};
-+};
-+
-+&gpio1 {
-+	status = "okay";
-+};
-+
-+&gmac0 {
-+	status = "okay";
-+	phy-mode = "rgmii-id";
-+	phy-handle = <&phy0>;
-+
-+	max-frame-size = <9000>;
-+
-+	mdio0 {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		compatible = "snps,dwmac-mdio";
-+		phy0: ethernet-phy@4 {
-+			reg = <4>;
-+
-+			txd0-skew-ps = <0>; /* -420ps */
-+			txd1-skew-ps = <0>; /* -420ps */
-+			txd2-skew-ps = <0>; /* -420ps */
-+			txd3-skew-ps = <0>; /* -420ps */
-+			rxd0-skew-ps = <420>; /* 0ps */
-+			rxd1-skew-ps = <420>; /* 0ps */
-+			rxd2-skew-ps = <420>; /* 0ps */
-+			rxd3-skew-ps = <420>; /* 0ps */
-+			txen-skew-ps = <0>; /* -420ps */
-+			txc-skew-ps = <900>; /* 0ps */
-+			rxdv-skew-ps = <420>; /* 0ps */
-+			rxc-skew-ps = <1680>; /* 780ps */
-+		};
-+	};
-+};
-+
-+&mmc {
-+	status = "okay";
-+	cap-sd-highspeed;
-+	broken-cd;
-+	bus-width = <4>;
-+	clk-phase-sd-hs = <0>, <135>;
-+};
-+
-+&osc1 {
-+	clock-frequency = <25000000>;
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-+&usb0 {
-+	status = "okay";
-+	disable-over-current;
-+};
-+
-+&watchdog0 {
-+	status = "okay";
-+};
--- 
-2.42.0.411.g813d9a9188
-
+--=20
+=E7=9C=9F=E5=AE=9F=E3=81=AF=E3=81=84=E3=81=A4=E3=82=82=E4=B8=80=E3=81=A4=EF=
+=BC=81/ Always, there's only one truth!
