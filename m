@@ -1,710 +1,169 @@
-Received: from out28-4.mail.aliyun.com (out28-4.mail.aliyun.com [115.124.28.4])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8473C3783C3;
-	Mon, 20 Apr 2026 02:34:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946883783DE
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 02:37:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776652458; cv=none; b=Z7N5YVfEY+lvMEP9AK700NFq5bx0uLiKqxZbMBVViTEnRMYW5i9yb7rNRrv3bKxA5WDJr+e1fzRbkx8xqCy+0RinV7haIQf84DcjdI01K1O0ezbR3xxVoJg3X6yqBvy4hLk+doJpcRqfHAa1L/LzVDoQsRwiKRqKccB5mcznfZc=
+	t=1776652679; cv=none; b=lFeHwBtCFvqwY2Jc8LAK8c+V4XIb+lQq7rJK91evLMcOJJvM0AuPQ09QMgw+AoXzfZof9OowDmu1U0cf3mjE+Y2RQecsYntJZEioM8W4STJNXuetFyPaynD6p1T5JJ8LX9uGXY/ZuAD0gKFyNWsfn+OUXUM7HsSThpHWwa/BZqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776652458; c=relaxed/simple;
-	bh=L3qBz4w68csF+NdhMoLZihdw9jHrUJhm5+/wCxk8vfc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mE3DRozItUgvvk1sA2ObS3EhQdqoLDhhzbALhhEksdDjGsveK0GmQBIvnKDLqSV4HbbSi10eSVVZt/VhyRmaXe5YhWC9ca3YZ60Q2g75izwnHjyO80Pr05t1ZKsC4e/GgHWwhn4UtstSSHxqdp5tdGqkOAh8Y5YdrRb/3gd6aV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=XN69d/rD; arc=none smtp.client-ip=115.124.28.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+	s=arc-20240116; t=1776652679; c=relaxed/simple;
+	bh=edi7ASQs4faQY0RBHHFXV7sYsMZdNk9LRoZpbng+BQA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=PzpO3leh49VIE1Yv1TpK7utOqkFqoirmSU4pkLCFAKpeHmqkgrn0U2WG2WxpNPJw8ugbvtvacRpjSOsKGlGwGzKlf8NppYiNM0EMRf8rAlQbto1djahWyjDpEoUQMAnjzdhq6Ugw56nqJKS/089Ucois4Yu16x9D2jwEgTqd6/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lnZOAr51; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fMtgAdWu; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="XN69d/rD"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1776652447; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
-	bh=Ir0KxAAn4FerualjHK4s3pLwwnuJV0oEPtqxTbJrSq0=;
-	b=XN69d/rDXv7S8lCeHWVJpPckArVL1wPc99NnNX42H8slwMRao5HmhSwuyf+ghbrIpLnGCv3jUUER+3EXNB/y1lTsCbiH591nktN7/C+g9Ndui9JNw8Yo8I88zipTY1d/XNTFRWr5F/PfKKgyObtQRWz/wxr7yS1ll50fhT+CS7jGJiI2xMTCRdASaq2l7+WzvjIcjWbOoko/fUPkOxDdSZMwgb1P/ZaT36rrCXdGkCb2UqR0OGDVrircD/huc80mAe2j5IhE3N+6UMhLaYyZxhOU8SWoBDG+vIk/14CFGx1CIN1C9QD4sJ7l53Us11PdGHcFCqv5iUGKD0L+GXYPcw==
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00847375-0.000234493-0.991292;FP=13482438463041654523|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032062159;MF=syyang@lontium.com;NM=1;PH=DS;RN=19;RT=19;SR=0;TI=SMTPD_---.hFmvE5U_1776652444;
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.hFmvE5U_1776652444 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 20 Apr 2026 10:34:05 +0800
-From: syyang@lontium.com
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	maarten.lankhorst@linux.intel.com,
-	rfoss@kernel.org,
-	mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	tzimmermann@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	yangsunyun1993@gmail.com,
-	xmzhu@lontium.corp-partner.google.com,
-	Sunyun Yang <syyang@lontium.com>
-Subject: [PATCH 2/2] drm/bridge: Add LT7911EXC edp to mipi bridge driver
-Date: Mon, 20 Apr 2026 10:33:54 +0800
-Message-Id: <20260420023354.1192642-3-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260420023354.1192642-1-syyang@lontium.com>
-References: <20260420023354.1192642-1-syyang@lontium.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lnZOAr51";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fMtgAdWu"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63J1oaT1898295
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 02:37:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Sk4Dj5hdlb9kf/ULIiGgAP
+	bRPnBpzNiWF4D+Yyr9emw=; b=lnZOAr51yUm1cQjT4WYDc2WKYzIacZ7KN8O4DE
+	/xgo5MqznKz8+LMyIJhhLOkJTuUbvl1nMdGnsBiE1vp5y6YDA/aJuC9mWahGFUlA
+	/DyuhTMQLUH5s2ZV8pTJ1XAf0oI660U+I4SI/fFFOQF2snmI2+OILg14BDwFkDAQ
+	A/dFPf+QEDPeZTBy9E2+aq81CtFDLSITmIUPuJanH5oSPuxVDoXK9SyFQn4IsLs5
+	da7ii88X02gs67Kz4A2R+S86FNmNuCA92x1tz7wWpIs63MliXk+t/es2Zx2ZH/SM
+	7xebzM0OW5n1hpi98aCYApW5bOoFhx5nJjQbqJouzgrkY8Yw==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dm388kmmk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 02:37:55 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-12c21dbc9c1so3057670c88.0
+        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 19:37:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776652675; x=1777257475; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Sk4Dj5hdlb9kf/ULIiGgAPbRPnBpzNiWF4D+Yyr9emw=;
+        b=fMtgAdWunbS+AW83PxX5LhLCtHy6VqneUdkOa0GpSqlwPVGE+Wz2XQ0Ms89KiG1jZI
+         xkgSY7gnwKb+gZMhGAYEW3xKCVzBlsQ6A/65ljtAivCC0sWevvYE0kysG1BeTepgxAW+
+         4UgqBJRg9bdRWKEOyGa4JiAOG4U8OCEbQtG/RAWcItNwe7m4OtLe6s1lH0uV3audEG5+
+         ra97y73QmldPart6tGRTu/K71ZexjjcCT3N+imYByXfklEDP/PuzPs180AwB2sE9CESy
+         WLOxOISGmFslD4MzQyP0LQTPQHGWg6wkWJkc24/WSB9l3GqQyVZiCxCivj+xfiVINICc
+         Ogag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776652675; x=1777257475;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Sk4Dj5hdlb9kf/ULIiGgAPbRPnBpzNiWF4D+Yyr9emw=;
+        b=oAnrm8wOvvLtfpc5mclqUCW1Br3GVl0yBDVHfvAE2S3vaWcGCygqMwWoQKUpRofyqj
+         feuTEptgFCifPnE+VcOyZJ/PDV9h/XeeL+X9VRXbOW2cPeoge5klP0MoP4GmRTK5yO3z
+         KMi3TYxMgbbrPpa9MtwV5FbN0dNbQfO/1Jm5KXndmkAZPj9Be4wJWfMsPXoYeikMTe/e
+         ASgzakiv+TaQITiaJJ6sJlyYU+fA3Jo0ZBr3NgZ8JzhS5NmoP9oRvnkoIxP++Dcdp/uM
+         YsIyPXF7T+oGQCF+ucvRNz36lzyLyLF5pAW9O4ZVdaMLdrpL2exRkLmQ/BuLOiRyhMuQ
+         ZL3w==
+X-Forwarded-Encrypted: i=1; AFNElJ9RLokaCsGL8lJGSRpITWzvjpjPvJ2ymUQCF0ctKVfSloGQl6cmV664EpSIAhlY0v2GDlQP+YL61KeL@vger.kernel.org
+X-Gm-Message-State: AOJu0YwHvDpVDONaFl+I5K8ay1QVWGAqUkQN5ogzu1CUgTCEfmGc8YOd
+	t4ZLD8uNp4LiMtPOmaPPI4dBkuD8hmN7Gph/2t/WtgSXeZmBcPib7fYcgI6Nw88E3DunA01ilm4
+	PzUUjYPaMEGM14tsBSDZY8K3PbKi59Nkw3LJ9eP4KPLXkGffymJojQikN9/8lyXDj
+X-Gm-Gg: AeBDiet/ZPMTTvV3px44QTn/NqKfuq5JXZrHaPizGm52DbeCH2xTYATHSRi1lblkHO5
+	Q1pxabBLfQQ9+i8czXt3KZ0a50E/48velFY6AnOgb+EzikBKxmrJc85hOlVI5Jnfm94fm8jD3Wc
+	Rf7VXQSTsthkbYtMJUrE6kDZQlueI16D8PqRRUvni/mxcOiR66PrvEpwdDsRkMdAvXKIAUXG0Hm
+	o0rZQXLYxmDBXpKq6EJ/Wedyj9vV/toaMwbSpJqt3DIwU7d4PdbbNb+XtmI/tWOWQFTNz9QB403
+	vaiDmhPuTG+QpipZdHPnwGLCAarscxiEycI27uDYpCKW8OC1PJ2CnhhUSoI+o9//LmoKwsjVcvj
+	QOzg8LhFZoxExXY2HTFojdhyvLHT//69N1ptqQldtFXzdceymeOmx9jJWJdBjrfDICfDClE2bY6
+	5h/p/B8BZq
+X-Received: by 2002:a05:7301:9f12:b0:2e1:e3e6:2910 with SMTP id 5a478bee46e88-2e46577039dmr6929835eec.9.1776652674878;
+        Sun, 19 Apr 2026 19:37:54 -0700 (PDT)
+X-Received: by 2002:a05:7301:9f12:b0:2e1:e3e6:2910 with SMTP id 5a478bee46e88-2e46577039dmr6929814eec.9.1776652674251;
+        Sun, 19 Apr 2026 19:37:54 -0700 (PDT)
+Received: from hu-fenglinw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2e53d4bdaf7sm12000421eec.25.2026.04.19.19.37.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Apr 2026 19:37:53 -0700 (PDT)
+From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Date: Sun, 19 Apr 2026 19:37:37 -0700
+Subject: [PATCH] dt-bindings: soc: qcom: qcom,pmic-glink: Add Hawi
+ compatible string
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260419-hawi-pmic-glink-v1-1-a26908c468fc@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAHCR5WkC/yXMTQqDMBBA4avIrDsQB6naq0gXMRl1tI2S+FMQ7
+ 26qy2/x3g6BvXCAV7KD51WCjC4ifSRgOu1aRrHRQIqeKlMFdnoTnL5isP2IG5BKWxOVOrW5gVh
+ Nnhv5XcfqfTssdc9m/m/gOE5hZeyYcwAAAA==
+X-Change-ID: 20260408-hawi-pmic-glink-29db229a1d7c
+To: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev-17187
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776652673; l=1238;
+ i=fenglin.wu@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
+ bh=edi7ASQs4faQY0RBHHFXV7sYsMZdNk9LRoZpbng+BQA=;
+ b=aye1Sft7hdu1VtYWT1egNkDDC7uQBo9LBEun9XqzAG2KVi605Zt2ehbdhius39pvsxRmVq5sj
+ qISz3AwXjqdDZq4Nq4qcRLQUkLwRxUxFPo4KwUxht7F8M+AGs7BuX0F
+X-Developer-Key: i=fenglin.wu@oss.qualcomm.com; a=ed25519;
+ pk=hJdt3E7o54lql+miD2GaxwF74cDyhgNwMbmFOZ46bRU=
+X-Authority-Analysis: v=2.4 cv=GthyPE1C c=1 sm=1 tr=0 ts=69e59183 cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=vdZi5cMLbBxFiwGQSQwA:9 a=QEXdDO2ut3YA:10
+ a=Fk4IpSoW4aLDllm1B1p-:22
+X-Proofpoint-GUID: Elm5IIlqs-QflPw6F-mcNeZ4MEWHfpHc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDAyMyBTYWx0ZWRfX4ckv7OexCocN
+ tdlgdKItSl5+cftZ0CPpO45tGx8Ipoa4Y7Y0OAg9FDTKICNv29poFjU+RvXwefSnQYjwd+SCMKi
+ VIAgIsFGYkR9wWTbT8qXTKLJ8JPR5N4f8wuSEQbZAngmo8ehrX6JHD1fMamAs//HQ+GVCb7B3sd
+ o/130Wg9nxHOhjIRNd2McraOmVbuoHW17Ygzfz4SsNoj+fK+otXEHOmhpn9lsvExATArMmP+3Dv
+ HKbsYVwWHG2rY16REVq6V9B/jh14r/pv/GmcIyxH1wnIiGVrEVqUTXkLYHuCCWp9h2oKTOkjjTI
+ cE6lAjaFXKGV2yp9ScZJqpshEFj5GHMSL6LVAgKNAfKxZ2fVcd+7SPa+FVZQa56RY3T43tfEQQv
+ MZtNhRxsNajOfnZ11vSRs5shxnKiA2YyuXDrB+M8B27ttSpGA6pEldW82LoO/kyIS/dW7brJ978
+ VUXFZadGlGvQEZvn5jA==
+X-Proofpoint-ORIG-GUID: Elm5IIlqs-QflPw6F-mcNeZ4MEWHfpHc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-19_07,2026-04-17_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015
+ priorityscore=1501 malwarescore=0 spamscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604200023
 
-From: Sunyun Yang <syyang@lontium.com>
+Hawi is a mobile platform that is compatible with Kaanapali platform
+with respect to pmic-glink support. Add the Hawi compatible string
+with Kaanapali as a fallback.
 
-LT7911EXC is a high performance  eDP1.4 to MIPI chip for 
-VR/Display application.
-
--eDP1.4Receiver 
- 1.Support SSC
- 2.Support 1/2/4 lanes
- 3.Support up to 4K@60HzRGB/YCbCr4:4:48bpc
- 4.Support lane swap and PN swap
-
--MIPI Transmitter
- 1.CompliantwithD-PHY1.2&DSI1.1&CSI-22.0；1 clock lane,
-   and1/2/3/4 configurable data lanes:2.5Gbpsperdatalane
- 2.CompliantwithC-PHY1.0&DSI-21.0&CSI-22.0;
-   1/2/3 configurable data trio；2.5Gsps perdatatrio
- 3.Support1/2configurable ports
- 4.DSISupport16/20/24-bit YCbCr4:2:2,16/18/24/30-bit RGB
-
-Signed-off-by: Sunyun Yang <syyang@lontium.com>
+Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 ---
- drivers/gpu/drm/bridge/Kconfig             |  18 +
- drivers/gpu/drm/bridge/Makefile            |   1 +
- drivers/gpu/drm/bridge/lontium-lt7911exc.c | 571 +++++++++++++++++++++
- 3 files changed, 590 insertions(+)
- create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
+ Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index c3209b0f4678..bae8cdaea666 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -202,6 +202,24 @@ config DRM_LONTIUM_LT8713SX
- 	  to 3 configurable Type-C/DP1.4/HDMI2.0 outputs
- 	  Please say Y if you have such hardware.
- 
-+config DRM_LONTIUM_LT9611C
-+	tristate "Lontium LT9611C DSI/HDMI bridge"
-+	select SND_SOC_HDMI_CODEC if SND_SOC
-+	depends on OF
-+	select CRC8
-+	select FW_LOADER
-+	select DRM_PANEL_BRIDGE
-+	select DRM_KMS_HELPER
-+	select DRM_MIPI_DSI
-+	select DRM_DISPLAY_HELPER
-+	select DRM_DISPLAY_HDMI_STATE_HELPER
-+	select REGMAP_I2C
-+	help
-+	  Driver for Lontium DSI to HDMI bridge
-+	  chip driver that converts dual DSI and I2S to
-+	  HDMI signals
-+	  Please say Y if you have such hardware.
-+
- config DRM_ITE_IT66121
- 	tristate "ITE IT66121 HDMI bridge"
- 	depends on OF
-diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index beab5b695a6e..54b293d1663e 100644
---- a/drivers/gpu/drm/bridge/Makefile
-+++ b/drivers/gpu/drm/bridge/Makefile
-@@ -18,6 +18,7 @@ obj-$(CONFIG_DRM_LONTIUM_LT9211) += lontium-lt9211.o
- obj-$(CONFIG_DRM_LONTIUM_LT9611) += lontium-lt9611.o
- obj-$(CONFIG_DRM_LONTIUM_LT9611UXC) += lontium-lt9611uxc.o
- obj-$(CONFIG_DRM_LONTIUM_LT8713SX) += lontium-lt8713sx.o
-+obj-$(CONFIG_DRM_LONTIUM_LT7911EXC) += lontium-lt7911exc.o
- obj-$(CONFIG_DRM_LVDS_CODEC) += lvds-codec.o
- obj-$(CONFIG_DRM_MEGACHIPS_STDPXXXX_GE_B850V3_FW) += megachips-stdpxxxx-ge-b850v3-fw.o
- obj-$(CONFIG_DRM_MICROCHIP_LVDS_SERIALIZER) += microchip-lvds.o
-diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
-new file mode 100644
-index 000000000000..d1c1d9e073ef
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
-@@ -0,0 +1,571 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 Lontium Semiconductor, Inc.
-+ */
-+
-+#include <linux/crc32.h>
-+#include <linux/firmware.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/regmap.h>
-+#include <drm/drm_of.h>
-+
-+#define FW_SIZE (64 * 1024)
-+#define LT_PAGE_SIZE 32
-+#define FW_FILE  "LT7911EXC.bin"
-+#define LT7911EXC_PAGE_CONTROL 0xff
-+
-+struct lt7911exc {
-+	struct device *dev;
-+	struct i2c_client *client;
-+	struct drm_bridge bridge;
-+	struct drm_bridge *panel_bridge;
-+	struct regmap *regmap;
-+	/* Protects all accesses to registers by stopping the on-chip MCU */
-+	struct mutex ocm_lock;
-+	struct regulator_bulk_data supplies[2];
-+
-+	struct gpio_desc *reset_gpio;
-+	const struct firmware *fw;
-+	int fw_version;
-+	u32 fw_crc;
-+
-+	bool enabled;
-+};
-+
-+static const struct regmap_range_cfg lt7911exc_ranges[] = {
-+	{
-+		.name = "register_range",
-+		.range_min =  0,
-+		.range_max = 0xffff,
-+		.selector_reg = LT7911EXC_PAGE_CONTROL,
-+		.selector_mask = 0xff,
-+		.selector_shift = 0,
-+		.window_start = 0,
-+		.window_len = 0x100,
-+	},
-+};
-+
-+static const struct regmap_config lt7911exc_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = 0xffff,
-+	.ranges = lt7911exc_ranges,
-+	.num_ranges = ARRAY_SIZE(lt7911exc_ranges),
-+};
-+
-+static u32 cal_crc32_custom(const u8 *data, u64 length)
-+{
-+	u32 crc = 0xffffffff;
-+	u8 buf[4];
-+	u64 i;
-+
-+	for (i = 0; i < length; i += 4) {
-+		buf[0] = data[i + 3];
-+		buf[1] = data[i + 2];
-+		buf[2] = data[i + 1];
-+		buf[3] = data[i + 0];
-+		crc = crc32_be(crc, buf, 4);
-+		}
-+
-+	return crc;
-+}
-+
-+static inline struct lt7911exc *
-+		bridge_to_lt7911exc(struct drm_bridge *bridge)
-+{
-+	return container_of(bridge, struct lt7911exc, bridge);
-+}
-+
-+static int lt7911exc_regulator_enable(struct lt7911exc *lt7911exc)
-+{
-+	int ret;
-+
-+	ret = regulator_enable(lt7911exc->supplies[0].consumer);
-+	if (ret < 0)
-+		return ret;
-+
-+	usleep_range(5000, 10000);
-+
-+	ret = regulator_enable(lt7911exc->supplies[1].consumer);
-+	if (ret < 0) {
-+		regulator_disable(lt7911exc->supplies[0].consumer);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_regulator_disable(struct lt7911exc *lt7911exc)
-+{
-+	int ret;
-+
-+	ret = regulator_disable(lt7911exc->supplies[1].consumer);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = regulator_disable(lt7911exc->supplies[0].consumer);
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static void lt7911exc_reset(struct lt7911exc *lt7911exc)
-+{
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
-+	msleep(20);
-+
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
-+	msleep(20);
-+
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
-+	msleep(400);
-+
-+	dev_dbg(lt7911exc->dev, "lt7911exc reset");
-+}
-+
-+static int lt7911exc_parse_dt(struct lt7911exc *lt7911exc)
-+{
-+	int ret;
-+
-+	lt7911exc->supplies[0].supply = "vcc";
-+	lt7911exc->supplies[1].supply = "vdd";
-+
-+	ret = devm_regulator_bulk_get(lt7911exc->dev, 2, lt7911exc->supplies);
-+	if (ret) {
-+		dev_err(lt7911exc->dev, "failed get regulator\n");
-+		return ret;
-+	}
-+
-+	lt7911exc->reset_gpio = devm_gpiod_get(lt7911exc->dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(lt7911exc->reset_gpio)) {
-+		dev_err(lt7911exc->dev, "failed to acquire reset gpio\n");
-+		return PTR_ERR(lt7911exc->reset_gpio);
-+	}
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_read_version(struct lt7911exc *lt7911exc)
-+{
-+	u8 buf[2];
-+	int ret;
-+
-+	ret = regmap_bulk_read(lt7911exc->regmap, 0xe081, buf, 3);
-+	if (ret)
-+		return ret;
-+
-+	return (buf[0] << 16) | (buf[1] << 8) | buf[2];
-+}
-+
-+static void lt7911exc_lock(struct lt7911exc *lt7911exc)
-+{
-+	mutex_lock(&lt7911exc->ocm_lock);
-+	regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
-+}
-+
-+static void lt7911exc_unlock(struct lt7911exc *lt7911exc)
-+{
-+	regmap_write(lt7911exc->regmap, 0xe0ee, 0x00);
-+	mutex_unlock(&lt7911exc->ocm_lock);
-+}
-+
-+static int lt7911exc_prepare_firmware_data(struct lt7911exc *lt7911exc)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	int ret;
-+	u8 *buffer;
-+	size_t total_size = FW_SIZE - 4;
-+
-+	ret = request_firmware(&lt7911exc->fw, FW_FILE, dev);
-+	if (ret) {
-+		dev_err(dev, "failed load file '%s', error type %d\n", FW_FILE, ret);
-+		return ret;
-+	}
-+
-+	if (lt7911exc->fw->size > total_size) {
-+		dev_err(dev, "firmware too large (%zu > %zu)\n", lt7911exc->fw->size, total_size);
-+		release_firmware(lt7911exc->fw);
-+		lt7911exc->fw = NULL;
-+		return -EINVAL;
-+	}
-+
-+	dev_dbg(dev, "firmware size: %zu bytes\n", lt7911exc->fw->size);
-+
-+	buffer = kzalloc(total_size, GFP_KERNEL);
-+	if (!buffer) {
-+		release_firmware(lt7911exc->fw);
-+		lt7911exc->fw = NULL;
-+		return -ENOMEM;
-+	}
-+
-+	memset(buffer, 0xff, total_size);
-+	memcpy(buffer, lt7911exc->fw->data, lt7911exc->fw->size);
-+
-+	lt7911exc->fw_crc = cal_crc32_custom(buffer, total_size);
-+	dev_dbg(dev, "firmware crc: 0x%08x\n", lt7911exc->fw_crc);
-+
-+	kfree(buffer);
-+	return 0;
-+}
-+
-+static void lt7911exc_block_erase(struct lt7911exc *lt7911exc)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	const u32 addr = 0x00;
-+
-+	const struct reg_sequence seq_write[] = {
-+		REG_SEQ0(0xe0ee, 0x01),
-+		REG_SEQ0(0xe054, 0x01),
-+		REG_SEQ0(0xe055, 0x06),
-+		REG_SEQ0(0xe051, 0x01),
-+		REG_SEQ0(0xe051, 0x00),
-+		REG_SEQ0(0xe054, 0x05),
-+		REG_SEQ0(0xe055, 0xd8),
-+		REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
-+		REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
-+		REG_SEQ0(0xe05c, addr & 0xff),
-+		REG_SEQ0(0xe051, 0x01),
-+		REG_SEQ0(0xe050, 0x00),
-+	};
-+
-+	regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(seq_write));
-+
-+	msleep(200);
-+	dev_dbg(dev, "erase flash done.\n");
-+}
-+
-+static void lt7911exc_prog_init(struct lt7911exc *lt7911exc, u64 addr)
-+{
-+	const struct reg_sequence seq_write[] = {
-+		REG_SEQ0(0xe0ee, 0x01),
-+		REG_SEQ0(0xe05f, 0x01),
-+		REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
-+		REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
-+		REG_SEQ0(0xe05c, addr & 0xff),
-+	};
-+
-+	regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(seq_write));
-+}
-+
-+static int lt7911exc_write_data(struct lt7911exc *lt7911exc, u64 addr)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	int ret;
-+	int page = 0, num = 0, page_len = 0;
-+	u64 size, offset;
-+	const u8 *data;
-+
-+	data = lt7911exc->fw->data;
-+	size = lt7911exc->fw->size;
-+	page = (size + LT_PAGE_SIZE - 1) / LT_PAGE_SIZE;
-+	if (page * LT_PAGE_SIZE > FW_SIZE) {
-+		dev_err(dev, "firmware size out of range\n");
-+		return -EINVAL;
-+	}
-+
-+	dev_dbg(dev, "%u pages, total size %llu byte\n", page, size);
-+
-+	for (num = 0; num < page; num++) {
-+		offset = num * LT_PAGE_SIZE;
-+		page_len = (offset + LT_PAGE_SIZE <= size) ? LT_PAGE_SIZE : (size - offset);
-+		lt7911exc_prog_init(lt7911exc, addr);
-+
-+		ret = regmap_raw_write(lt7911exc->regmap, 0xe05d, &data[offset], page_len);
-+		if (ret) {
-+			dev_err(dev, "write error at page %d\n", num);
-+			return ret;
-+		}
-+
-+		if (page_len < LT_PAGE_SIZE) {
-+			regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
-+			regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-+			//hardware requires delay
-+			usleep_range(1000, 2000);
-+		}
-+
-+		regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
-+		addr += LT_PAGE_SIZE;
-+	}
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_write_crc(struct lt7911exc *lt7911exc, u64 addr)
-+{
-+	u8 crc[4];
-+	int ret;
-+
-+	crc[0] = lt7911exc->fw_crc & 0xff;
-+	crc[1] = (lt7911exc->fw_crc >> 8) & 0xff;
-+	crc[2] = (lt7911exc->fw_crc >> 16) & 0xff;
-+	crc[3] = (lt7911exc->fw_crc >> 24) & 0xff;
-+
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-+	regmap_write(lt7911exc->regmap, 0xe05a, (addr >> 16) & 0xff);
-+	regmap_write(lt7911exc->regmap, 0xe05b, (addr >> 8) & 0xff);
-+	regmap_write(lt7911exc->regmap, 0xe05c, addr & 0xff);
-+
-+	ret = regmap_raw_write(lt7911exc->regmap, 0xe05d, crc, 4);
-+	if (ret)
-+		return ret;
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-+	usleep_range(1000, 2000);
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_firmware_upgrade(struct lt7911exc *lt7911exc)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	int ret;
-+
-+	ret = lt7911exc_prepare_firmware_data(lt7911exc);
-+	if (ret < 0)
-+		return ret;
-+
-+	dev_dbg(dev, "starting firmware upgrade, size: %zu bytes\n", lt7911exc->fw->size);
-+
-+	lt7911exc_block_erase(lt7911exc);
-+
-+	ret = lt7911exc_write_data(lt7911exc, 0);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to write firmware data\n");
-+		return ret;
-+	}
-+
-+	release_firmware(lt7911exc->fw);
-+	lt7911exc->fw = NULL;
-+
-+	ret = lt7911exc_write_crc(lt7911exc, FW_SIZE - 4);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to write firmware crc\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_upgrade_result(struct lt7911exc *lt7911exc)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	u32 read_hw_crc = 0;
-+	u8 crc_tmp[4];
-+	int ret;
-+
-+	regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
-+	regmap_write(lt7911exc->regmap, 0xe07b, 0x60);
-+	regmap_write(lt7911exc->regmap, 0xe07b, 0x40);
-+	msleep(150);
-+	ret = regmap_bulk_read(lt7911exc->regmap, 0x22, crc_tmp, 4);
-+	if (ret) {
-+		dev_err(lt7911exc->dev, "Failed to read CRC: %d\n", ret);
-+		return ret;
-+	}
-+
-+	read_hw_crc = crc_tmp[0] << 24 | crc_tmp[1] << 16 |
-+				crc_tmp[2] << 8 | crc_tmp[3];
-+
-+	if (read_hw_crc != lt7911exc->fw_crc) {
-+		dev_err(dev, "lt7911exc firmware upgrade failed, expected CRC=0x%08x, read CRC=0x%08x\n",
-+			lt7911exc->fw_crc, read_hw_crc);
-+		return -EIO;
-+	}
-+
-+	dev_dbg(dev, "lt7911exc firmware upgrade success, CRC=0x%08x\n", read_hw_crc);
-+	return 0;
-+}
-+
-+static void lt7911exc_pre_enable(struct drm_bridge *bridge)
-+{
-+	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
-+	int ret;
-+
-+	if (lt7911exc->enabled)
-+		return;
-+
-+	ret = lt7911exc_regulator_enable(lt7911exc);
-+	if (ret)
-+		return;
-+
-+	lt7911exc_reset(lt7911exc);
-+
-+	lt7911exc->enabled = true;
-+}
-+
-+static void lt7911exc_disable(struct drm_bridge *bridge)
-+{
-+	/* Delay after panel is disabled */
-+	msleep(20);
-+}
-+
-+static void lt7911exc_post_disable(struct drm_bridge *bridge)
-+{
-+	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
-+	int ret;
-+
-+	if (!lt7911exc->enabled)
-+		return;
-+
-+	lt7911exc->enabled = false;
-+
-+	ret = lt7911exc_regulator_disable(lt7911exc);
-+	if (ret)
-+		return;
-+
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
-+}
-+
-+static int lt7911exc_attach(struct drm_bridge *bridge,
-+			    struct drm_encoder *encoder,
-+			    enum drm_bridge_attach_flags flags)
-+{
-+	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
-+
-+	return drm_bridge_attach(lt7911exc->bridge.encoder, lt7911exc->panel_bridge,
-+				 &lt7911exc->bridge, flags);
-+}
-+
-+static const struct drm_bridge_funcs lt7911exc_bridge_funcs = {
-+	.pre_enable = lt7911exc_pre_enable,
-+	.disable = lt7911exc_disable,
-+	.post_disable = lt7911exc_post_disable,
-+	.attach = lt7911exc_attach,
-+};
-+
-+static int lt7911exc_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct lt7911exc *lt7911exc;
-+	struct drm_bridge *panel_bridge;
-+	bool fw_updated = false;
-+	int ret;
-+
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
-+		dev_err(dev, "device doesn't support I2C\n");
-+		return -ENODEV;
-+	}
-+
-+	lt7911exc = devm_drm_bridge_alloc(dev, struct lt7911exc, bridge,
-+					  &lt7911exc_bridge_funcs);
-+	if (IS_ERR(lt7911exc))
-+		return PTR_ERR(lt7911exc);
-+
-+	panel_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
-+	if (IS_ERR(panel_bridge))
-+		return PTR_ERR(panel_bridge);
-+
-+	lt7911exc->panel_bridge = panel_bridge;
-+	lt7911exc->client = client;
-+	lt7911exc->dev = dev;
-+	i2c_set_clientdata(client, lt7911exc);
-+	mutex_init(&lt7911exc->ocm_lock);
-+
-+	lt7911exc->regmap = devm_regmap_init_i2c(client, &lt7911exc_regmap_config);
-+	if (IS_ERR(lt7911exc->regmap)) {
-+		dev_err(dev, "regmap i2c init failed\n");
-+		return PTR_ERR(lt7911exc->regmap);
-+	}
-+
-+	ret = lt7911exc_parse_dt(lt7911exc);
-+	if (ret)
-+		return ret;
-+
-+	ret = lt7911exc_regulator_enable(lt7911exc);
-+	if (ret)
-+		return ret;
-+
-+	lt7911exc_reset(lt7911exc);
-+	lt7911exc->enabled = true;
-+	lt7911exc_lock(lt7911exc);
-+
-+retry:
-+	lt7911exc->fw_version = lt7911exc_read_version(lt7911exc);
-+	if (lt7911exc->fw_version < 0) {
-+		dev_err(dev, "failed to read FW version\n");
-+		lt7911exc_unlock(lt7911exc);
-+		goto err_disable_regulators;
-+
-+	} else if (lt7911exc->fw_version == 0) {
-+		if (!fw_updated) {
-+			fw_updated = true;
-+			ret = lt7911exc_firmware_upgrade(lt7911exc);
-+			if (ret < 0) {
-+				lt7911exc_unlock(lt7911exc);
-+				goto err_disable_regulators;
-+			}
-+
-+			lt7911exc_reset(lt7911exc);
-+
-+			ret = lt7911exc_upgrade_result(lt7911exc);
-+			if (ret < 0) {
-+				lt7911exc_unlock(lt7911exc);
-+				goto err_disable_regulators;
-+			}
-+
-+			goto retry;
-+
-+		} else {
-+			dev_err(dev, "fw version 0x%04x, update failed\n", lt7911exc->fw_version);
-+			ret = -EOPNOTSUPP;
-+			lt7911exc_unlock(lt7911exc);
-+			goto err_disable_regulators;
-+		}
-+	}
-+
-+	lt7911exc_unlock(lt7911exc);
-+
-+	lt7911exc->bridge.type = DRM_MODE_CONNECTOR_DSI;
-+	lt7911exc->bridge.of_node = dev->of_node;
-+	drm_bridge_add(&lt7911exc->bridge);
-+
-+	return 0;
-+
-+err_disable_regulators:
-+	regulator_bulk_disable(ARRAY_SIZE(lt7911exc->supplies), lt7911exc->supplies);
-+	if (lt7911exc->fw) {
-+		release_firmware(lt7911exc->fw);
-+		lt7911exc->fw = NULL;
-+	}
-+
-+	return ret;
-+}
-+
-+static void lt7911exc_remove(struct i2c_client *client)
-+{
-+	struct lt7911exc *lt7911exc = i2c_get_clientdata(client);
-+
-+	drm_bridge_remove(&lt7911exc->bridge);
-+	mutex_destroy(&lt7911exc->ocm_lock);
-+}
-+
-+static const struct i2c_device_id lt7911exc_i2c_table[] = {
-+	{"lontium, lt7911exc", 0},
-+	{ /* sentinel */ }
-+};
-+
-+MODULE_DEVICE_TABLE(i2c, lt7911exc_i2c_table);
-+
-+static const struct of_device_id lt7911exc_devices[] = {
-+	{.compatible = "lontium,lt7911exc",},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, lt7911exc_devices);
-+
-+static struct i2c_driver lt7911exc_driver = {
-+	.id_table	= lt7911exc_i2c_table,
-+	.probe		= lt7911exc_probe,
-+	.remove		= lt7911exc_remove,
-+	.driver		= {
-+		.name	= "lt7911exc",
-+		.of_match_table = lt7911exc_devices,
-+	},
-+};
-+module_i2c_driver(lt7911exc_driver);
-+
-+MODULE_AUTHOR("SunYun Yang <syyang@lontium.com>");
-+MODULE_DESCRIPTION("Lontium lt7911exc edp to mipi dsi bridge driver");
-+MODULE_LICENSE("GPL v2");
--- 
-2.34.1
+diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+index ff01d2f3ee5b..2ba96d26126b 100644
+--- a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
++++ b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+@@ -32,6 +32,11 @@ properties:
+               - qcom,sm8450-pmic-glink
+               - qcom,sm8550-pmic-glink
+           - const: qcom,pmic-glink
++      - items:
++          - enum:
++              - qcom,hawi-pmic-glink
++          - const: qcom,kaanapali-pmic-glink
++          - const: qcom,pmic-glink
+       - items:
+           - enum:
+               - qcom,sm7325-pmic-glink
+
+---
+base-commit: 33b04b06d215c7381f76b70aff351f649ccce202
+change-id: 20260408-hawi-pmic-glink-29db229a1d7c
+
+Best regards,
+--  
+Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 
