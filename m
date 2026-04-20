@@ -1,183 +1,243 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B76344D83;
-	Mon, 20 Apr 2026 11:00:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17CC2D8DC2;
+	Mon, 20 Apr 2026 11:02:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776682830; cv=none; b=LTYsC5fl1SAm3pizvSDUu5XCitnHDLnymfNQIOP6EHoLtqqoxaAmeNblxNXUuMxTNPm18Xm3mv0sJ/9x/UOdmvxaIb6J2u5+Gdx6hF7KTYtBueA+qyicZ3U/NdgxizWoY82jZJzPcv2fR39gA3ixmSlhmb/s8Fee9uYAKWGaZak=
+	t=1776682923; cv=none; b=cNME02kTgZuRp2BoE+IhJpl/vrln2/4nQ3AZiTYb0AH67C1omTRMeFd7ltqE7TPKS02JHAJM5Y++JH6mumse01NHUc12G/RY9mqLJ3DcckrVEXs3sArPMl3ebeb7SQ20jQY3fOxi+HzcFPDt0MwcrR5VLatEeFIFh8ET1QUEjm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776682830; c=relaxed/simple;
-	bh=PLPNmgPAxeK5mYLQnnUXuoPE4aCHhmjsyDeuAgufwss=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QAb1+VEJiWrdFwlmlqpAZtfuuvr3515pWDhfsVvdfxz96QM/yV2INr3WIZOSHmExQAzmnYwuPdo86TJU1d9BB0i3ceBtzMO8YufFeUsF2O2eF+ywW5eudw5kbo780/VwYjouVcfpXmm37SyApTvPVEGuTqxZYeeboi7ZwcXlTKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=K0CY6tvZ; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="K0CY6tvZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1776682826;
-	bh=PLPNmgPAxeK5mYLQnnUXuoPE4aCHhmjsyDeuAgufwss=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=K0CY6tvZ839+ED5+JnvY8glBhKFO790KScWfvsNhZDE9pe4jF7PrB2Kic+moM9ZW3
-	 BIMal4m2vnG6ohpyr2fQrSFew483858a5b26SmlEuJbPp8jlIBh/QdXrFNXi3g0oDj
-	 kaJVEkPIdbGwNncdTi+RkrpomJ7ry+gwM7tTMx9SXcwFkTkzzH+boQ1JaWTRz0C2W2
-	 dnmU7FH1m8muVP55ogcfnrHSzuaqVwNda+qefEMeGqYVIovbCSnv0q5ZFz8qr152qg
-	 RXiseB/qzTH0cnFahf7JzeZ5WxXvPCJuXEiQs0d2OiOa7s1ayeC3o0y90v0ZCWapkC
-	 4V3yepyJhcRCg==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1CAE617E1388;
-	Mon, 20 Apr 2026 13:00:26 +0200 (CEST)
-Message-ID: <401a020f-ca5d-4c7d-941e-f0288e144357@collabora.com>
-Date: Mon, 20 Apr 2026 14:00:25 +0300
+	s=arc-20240116; t=1776682923; c=relaxed/simple;
+	bh=wEFL3OZffnREpGBS2ozgm2jKsxN4TsWV/oZgbFCA5R0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=tILG/YFZ7u8P8mXJBS5kec7+FRbW1qk/ra2lD/NwdBBBEWC/hbvpqioXsN/wF6VwFmHwrLyP1qkI0/Aed0aM3g5cjvBoxABDVixHjBCyJqhwH1mZCn1+L27HxZTRzYq2hax+hpEakPP4nJ1h7Mk9wqN4KRDUTyRKFYJ+MPTXU8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 97FB41A0346;
+	Mon, 20 Apr 2026 12:52:40 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 5F9B31A033A;
+	Mon, 20 Apr 2026 12:52:40 +0200 (CEST)
+Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 5E301180028E;
+	Mon, 20 Apr 2026 18:52:39 +0800 (+08)
+From: Lakshay Piplani <lakshay.piplani@nxp.com>
+To: linux-kernel@vger.kernel.org,
+	linux-i3c@lists.infradead.org,
+	alexandre.belloni@bootlin.com,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	broonie@kernel.org,
+	lee@kernel.org,
+	Frank.Li@nxp.com,
+	lgirdwood@gmail.com
+Cc: vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	aman.kumarpandey@nxp.com,
+	Lakshay Piplani <lakshay.piplani@nxp.com>
+Subject: [PATCH v9 1/7] i3c: master: Expose the APIs to support I3C hub
+Date: Mon, 20 Apr 2026 16:22:16 +0530
+Message-Id: <20260420105222.1562243-2-lakshay.piplani@nxp.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260420105222.1562243-1-lakshay.piplani@nxp.com>
+References: <20260420105222.1562243-1-lakshay.piplani@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/40] arm64: dts: rockchip: Add frl-enable-gpios to
- rk3576-luckfox-core3576
-To: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: kernel@collabora.com, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260417-dts-rk-frl-enable-gpios-v1-0-a19c0dd8c9f6@collabora.com>
- <2000470.6tgchFWduM@phil>
- <62f51359-9d91-4107-917b-cd722c7321c2@collabora.com>
- <2282688.C4sosBPzcN@phil>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <2282688.C4sosBPzcN@phil>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-Hi Heiko,
+From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 
-On 4/18/26 2:12 AM, Heiko Stuebner wrote:
-> Hi Cristian,
-> 
-> Am Freitag, 17. April 2026, 18:34:17 Mitteleuropäische Sommerzeit schrieb Cristian Ciocaltea:
->> On 4/17/26 2:32 PM, Heiko Stuebner wrote:
->>> the comments below apply sort of to all patches in that series.
->>>
->>> Am Freitag, 17. April 2026, 11:24:39 Mitteleuropäische Sommerzeit schrieb Cristian Ciocaltea:
->>>> The board exposes the GPIO4_C6 line to control the voltage bias on the
->>>> HDMI data lines.  It must be asserted when operating in HDMI 2.1 FRL
->>>> mode and deasserted for HDMI 1.4/2.0 TMDS mode.
->>>>
->>>> Wire up the HDMI node to the GPIO line using the frl-enable-gpios
->>>> property and drop the line from the vcc_5v0_hdmi regulator to allow
->>>> adjusting the bias when transitioning between TMDS and FRL operating
->>>> modes.
+The following APIs were already declared in i3c_internals.h but were
+missing EXPORT_SYMBOL_GPL() in their implementation, making them
+inaccessible to modular drivers such as the I3C hub driver:
 
-[...]
+1) i3c_dev_enable_ibi_locked()
+2) i3c_dev_disable_ibi_locked()
+3) i3c_dev_request_ibi_locked()
+4) i3c_dev_free_ibi_locked()
 
->>>
->>>
->>>> @@ -231,6 +228,8 @@ &gpu {
->>>>  };
->>>>  
->>>>  &hdmi {
->>>> +	pinctrl-0 = <&hdmi_txm0_pins &hdmi_tx_scl &hdmi_tx_sda &hdmi_frl_en>;
->>>> +	frl-enable-gpios = <&gpio4 RK_PC6 GPIO_ACTIVE_LOW>;
->>>
->>> this should be sorted the other way around I think.
->>>
->>> Also please provide a pinctrl-names property too. If for whatever reason
->>> the dw-hdmi aquires a 2nd pinctrl state in the future, this makes sure
->>> board DTs are staying in the "old" compatible mode until they are adapted.
->>
->> Just to make sure I fully understand, the convention is that 
->>
->>   pinctrl-names = "default";
->>
->> should be always provided, even when the node overrides an existing pinctrl-0
->> property?
->>
->> E.g. in rk3576.dtsi we have:
->>
->>   hdmi: hdmi@27da0000 {
->>     ...
->>     pinctrl-names = "default";
->>     pinctrl-0 = <&hdmi_txm0_pins &hdmi_tx_scl &hdmi_tx_sda>;
->>     ...
->>   }
->>
->> Hence I omitted pinctrl-names which doesn't change and just appended
->> &hdmi_frl_en to pinctrl-0's original value.
-> 
-> correct, please always provide a pinctrl-names entry when setting a new
-> pinctrl-0 .
-> 
-> The background is, imagine you have a base:
-> 
-> pinctrl-names = "default";
-> pinstrl-0 = <....>;
-> 
-> and override pinctrl-0 in a board.
-> 
-> Now a newer binding introduces a 2nd pinctrl state "foo". Of course
-> we're backwards compatible, and both are valid and the driver checks
-> what states are defined.
-> 
-> So the base sets:
-> pinctrl-names = "default", "foo";
-> pinctrl-0 = <...>;
-> pinctrl-1 = <...>;
-> 
-> in your (old) board you override pinctrl-0, but the driver still sees
-> the new variant with 2 pinctrl states, where it should've stayed with
-> the legacy 1-state, until the board-dts might get adapted in the future.
-> 
-> 
-> And I know, we're likely not doing that everywhere, and also in most
-> cases it won't really matter, but still it is safer and sets the better
-> precedent :-) .
+i3c_master_reattach_i3c_dev() is declared in include/linux/i3c/master.h
+and exported via EXPORT_SYMBOL_GPL() to make it accessible to the I3C
+hub driver.
 
-Thanks for the detailed explanation, that clears things up!
+Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
 
-There are several other nodes (e.g. i2c, pwm, uart) that also lack
-pinctrl-names despite providing pinctrl-0 - I can address those in a
-separate patch.
+---
+Changes in v9:
+ - No change
 
-I also noticed an inconsistency in property ordering: some nodes place
-pinctrl-names before pinctrl-<n> and others after.  I have always used
-the former, but we should probably prefer the latter to stay consistent
-with how clocks, resets, phys, etc. are ordered.
+Changes in v8:
+ - No change
 
-Thoughts?
+Changes in v7:
+ - Fix kernel-doc warnings for *_locked() APIs
+ - Clarify API exposure in commit message
 
-> 
->>>>  	status = "okay";
->>>>  };
->>>>  
->>>> @@ -655,7 +654,7 @@ &pcie0 {
->>>>  
->>>>  &pinctrl {
->>>>  	hdmi {
->>>> -		hdmi_con_en: hdmi-con-en {
->>>> +		hdmi_frl_en: hdmi-frl-en {
->>>
->>> pinctrl names should ideally match the naming in schematics, for example the
->>> "HDMI0_TX_ON_H" for jaguar and tiger. This makes it way easier to> go from DT
->>> to schematics and back.
->>
->> I opted for a more descriptive name that could be used consistently across all
->> boards, given that not all schematics are publicly available.
->>
->> You make a fair point though, we should probably stick with the pretty terrible
->> hdmi[N]_tx_on_h naming instead.
-> 
-> yep, we're doing that everywhere else already too, and sticking to the
-> schematics naming, also prevents any discussions about how something
-> should be named ;-) .
+Changes in v6:
+ - Split the patch into two parts:
+        1) expose the existing API
+        2) add new APIs.
 
-Indeed. :)
+Changes in v5:
+ - No change
+
+Changes in v4:
+ - Updated I3C master to handle hub support
+---
+---
+ drivers/i3c/master.c       | 70 ++++++++++++++++++++++++++++++++++++--
+ include/linux/i3c/master.h |  2 ++
+ 2 files changed, 70 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+index 5cd4e5da2233..d11fe6937ba8 100644
+--- a/drivers/i3c/master.c
++++ b/drivers/i3c/master.c
+@@ -1652,8 +1652,23 @@ static int i3c_master_attach_i3c_dev(struct i3c_master_controller *master,
+ 	return 0;
+ }
+ 
+-static int i3c_master_reattach_i3c_dev(struct i3c_dev_desc *dev,
+-				       u8 old_dyn_addr)
++/**
++ * i3c_master_reattach_i3c_dev() - reattach an I3C device with a new address
++ * @dev: I3C device descriptor to reattach
++ * @old_dyn_addr: previous dynamic address of the device
++ *
++ * This function reattaches an existing I3C device to the bus when its dynamic
++ * address has changed. It updates the bus address slot status accordingly:
++ * - Marks the new dynamic address as occupied by an I3C device.
++ * - Frees the old dynamic address slot if applicable.
++ *
++ * This function must be called with the bus lock held in write mode.
++ *
++ * Return: 0 on success, or a negative error code if reattachment fails
++ *         (e.g. -EBUSY if the new address slot is not free).
++ */
++int i3c_master_reattach_i3c_dev(struct i3c_dev_desc *dev,
++				u8 old_dyn_addr)
+ {
+ 	struct i3c_master_controller *master = i3c_dev_get_master(dev);
+ 	int ret;
+@@ -1677,6 +1692,7 @@ static int i3c_master_reattach_i3c_dev(struct i3c_dev_desc *dev,
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(i3c_master_reattach_i3c_dev);
+ 
+ static void i3c_master_detach_i3c_dev(struct i3c_dev_desc *dev)
+ {
+@@ -3195,6 +3211,16 @@ int i3c_dev_do_xfers_locked(struct i3c_dev_desc *dev, struct i3c_xfer *xfers,
+ 	return master->ops->i3c_xfers(dev, xfers, nxfers, mode);
+ }
+ 
++/**
++ * i3c_dev_disable_ibi_locked() - Disable IBIs coming from a specific device
++ * @dev: device on which IBIs should be disabled
++ *
++ * This function disable IBIs coming from a specific device and wait for
++ * all pending IBIs to be processed.
++ *
++ * Context: Must be called with mutex_lock(&dev->desc->ibi_lock) held.
++ * Return: 0 in case of success, a negative error core otherwise.
++ */
+ int i3c_dev_disable_ibi_locked(struct i3c_dev_desc *dev)
+ {
+ 	struct i3c_master_controller *master;
+@@ -3216,7 +3242,22 @@ int i3c_dev_disable_ibi_locked(struct i3c_dev_desc *dev)
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(i3c_dev_disable_ibi_locked);
+ 
++/**
++ * i3c_dev_enable_ibi_locked() - Enable IBIs from a specific device (lock held)
++ * @dev: device on which IBIs should be enabled
++ *
++ * This function enable IBIs coming from a specific device and wait for
++ * all pending IBIs to be processed. This should be called on a device
++ * where i3c_device_request_ibi() has succeeded.
++ *
++ * Note that IBIs from this device might be received before this function
++ * returns to its caller.
++ *
++ * Context: Must be called with mutex_lock(&dev->desc->ibi_lock) held.
++ * Return: 0 on success, or a negative error code on failure.
++ */
+ int i3c_dev_enable_ibi_locked(struct i3c_dev_desc *dev)
+ {
+ 	struct i3c_master_controller *master = i3c_dev_get_master(dev);
+@@ -3231,7 +3272,20 @@ int i3c_dev_enable_ibi_locked(struct i3c_dev_desc *dev)
+ 
+ 	return ret;
+ }
++EXPORT_SYMBOL_GPL(i3c_dev_enable_ibi_locked);
+ 
++/**
++ * i3c_dev_request_ibi_locked() - Request an IBI
++ * @dev: device for which we should enable IBIs
++ * @req: setup requested for this IBI
++ *
++ * This function is responsible for pre-allocating all resources needed to
++ * process IBIs coming from @dev. When this function returns, the IBI is not
++ * enabled until i3c_device_enable_ibi() is called.
++ *
++ * Context: Must be called with mutex_lock(&dev->desc->ibi_lock) held.
++ * Return: 0 in case of success, a negative error core otherwise.
++ */
+ int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
+ 			       const struct i3c_ibi_setup *req)
+ {
+@@ -3270,7 +3324,18 @@ int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
+ 
+ 	return ret;
+ }
++EXPORT_SYMBOL_GPL(i3c_dev_request_ibi_locked);
+ 
++/**
++ * i3c_dev_free_ibi_locked() - Free all resources needed for IBI handling
++ * @dev: device on which you want to release IBI resources
++ *
++ * This function is responsible for de-allocating resources previously
++ * allocated by i3c_device_request_ibi(). It should be called after disabling
++ * IBIs with i3c_device_disable_ibi().
++ *
++ * Context: Must be called with mutex_lock(&dev->desc->ibi_lock) held.
++ */
+ void i3c_dev_free_ibi_locked(struct i3c_dev_desc *dev)
+ {
+ 	struct i3c_master_controller *master = i3c_dev_get_master(dev);
+@@ -3301,6 +3366,7 @@ void i3c_dev_free_ibi_locked(struct i3c_dev_desc *dev)
+ 	kfree(dev->ibi);
+ 	dev->ibi = NULL;
+ }
++EXPORT_SYMBOL_GPL(i3c_dev_free_ibi_locked);
+ 
+ static int __init i3c_init(void)
+ {
+diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
+index 592b646f6134..aeccec171e64 100644
+--- a/include/linux/i3c/master.h
++++ b/include/linux/i3c/master.h
+@@ -613,6 +613,8 @@ void i3c_master_dma_unmap_single(struct i3c_dma *dma_xfer);
+ DEFINE_FREE(i3c_master_dma_unmap_single, void *,
+ 	    if (_T) i3c_master_dma_unmap_single(_T))
+ 
++int i3c_master_reattach_i3c_dev(struct i3c_dev_desc *dev,
++				u8 old_dyn_addr);
+ int i3c_master_set_info(struct i3c_master_controller *master,
+ 			const struct i3c_device_info *info);
+ 
+-- 
+2.25.1
+
