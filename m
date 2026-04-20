@@ -1,151 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE533D411A;
-	Mon, 20 Apr 2026 13:37:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2687A3B777F
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 13:38:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776692274; cv=none; b=mbmYHYx5wMXYCpLKvGAXgJWSGHNR0LBXEhgCzWARdLAuiCX26A3E70zOg57/frWayvmwe8/duHEkLPYLgs7h3S6UyQU4RsvZ0Wne7rXGK8q2C5E9Vqw9qqThl1M8dPTc2166X6Zq7JpBdXHQjgsqyT5bCZDgJ8BSAKkYnD6jhFg=
+	t=1776692306; cv=none; b=nYYNLCx4AV9/JFK7efZzdvtTpOczHfyjMsWqQkJ1B0PQfx4O0zfmk7gtP1rn3apcF239PocKZT8SONxNSz2LrxZqWYk44sNKj7LQ81O+648pIY7jCfcQDksZi/Br9krXbsujBrXlf3QToHWq87c+lAZIFEpr0Na8nF/vpTYqQVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776692274; c=relaxed/simple;
-	bh=VQKHomIJ8wUs6jjB1/NiO3QUKnCZu/i13ZYm5jdV80I=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PDIpbtHyMnBmtGxtP3+dxckvFQ8Els475Dhvt0k9vUZi7xGvktoLyUacC2B2+CiSEHdF/BY8sRQ38f2ldX4LpctMJbDc4tMaJpqfAcWXWlmuoYCe/kHFKmkhYi7wUN/VAI9SB3KCyKwIBtMcSZWg645s3FDImOtgXphFlci8wGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z/tFWdJR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776692306; c=relaxed/simple;
+	bh=1yww//0UTBt1DeqslfBtonPIE1kUPccFq0wnp94V2mY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ij5h/Q/q6PzFxClJNGFF7MZDKSHdECYU/CozhOk7BpdhXwUl8jzaPNNLuNRU3RcLPBskfb79GQHqTcjHf1H4uHporEp1BDMlDHotroSXRAnd9OvJ48TwPMFJo86f41cO7I+HMppz0wFMk4grrXbPQEsVXWpuje9j0GqWWP1bwQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=dbJCfC4U; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z/tFWdJR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A425C19425;
-	Mon, 20 Apr 2026 13:37:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776692274;
-	bh=VQKHomIJ8wUs6jjB1/NiO3QUKnCZu/i13ZYm5jdV80I=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Z/tFWdJRawQJ/l0sW+p4YLYKmdoAldOFR9Xo8mheWYv3kuSIJXsPTRC/RX3IXrxpN
-	 r1Vd5+B05slIJaHUePyQFXttXdJYhA+oBYe88OxnokJpWVoukZZ5cvToCBwg0n6x1D
-	 gOWVQHy3D6nmoqUCDj6vkI856OVn5EoujPVU/tP+Ligw1vjpMVe0P3tylJL7wOkIPN
-	 AojxfD6+6zdRgXzPaPqTSeQXjA4FLhrGs7G/QU9OO2JDbx93Sh3CvpShNlR7KVAxL0
-	 7Z+l1AigzhmU4nhYazouZUbsbuf1YxefoiR8+MOXJv0se8k+KdPrriMn7NADiKuCJp
-	 W16El2xOIq8Kw==
-Date: Mon, 20 Apr 2026 14:37:42 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Hardik Phalet <hardik.phalet@pm.me>
-Cc: gregkh@linuxfoundation.org, andy@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, dlechner@baylibre.com, krzk+dt@kernel.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-staging@lists.linux.dev, me@brighamcampbell.com, nuno.sa@analog.com,
- robh@kernel.org, skhan@linuxfoundation.org, Hardik Phalet
- <hardik.phalet@gmail.com>
-Subject: Re: [PATCH v3 2/5] dt-bindings: iio: magnetometer: QSTCORP QMC5883P
-Message-ID: <20260420143742.1dfe8833@jic23-huawei>
-In-Reply-To: <20260420-qmc5883p-driver-v3-2-da1e97088f8b@pm.me>
-References: <20260420-qmc5883p-driver-v3-0-da1e97088f8b@pm.me>
-	<20260420-qmc5883p-driver-v3-2-da1e97088f8b@pm.me>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="dbJCfC4U"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 6F1BC1A335E;
+	Mon, 20 Apr 2026 13:38:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 38E8C5FFA5;
+	Mon, 20 Apr 2026 13:38:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CBB6710460969;
+	Mon, 20 Apr 2026 15:38:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1776692301; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=CBwguYIzdd07ajaYm/pQF2q5czxsQgmSLj3rTqILxMs=;
+	b=dbJCfC4U8GTOBI84x7yHyaS5mXUlyCLQnwUBC10ZfN09Jkh6CCA1ER3p6CjrLNoVul0j5l
+	WbTHGj+fAj8vDlHPKsglERQm2XhTMBXrKKauW6wIsOTlENv9yn/IX5sXBbAdX8YTQ/7lN6
+	qh4hcXMqiV+qLyuLsrvpDTvWJD/mlOhhxbRsQPArLjlbEm+ukqQo7lIHPkkllpK5d6hBwe
+	fEISn4ZQhablSCU7hUej2laZDERtRSA+FIxbFWQ6Vh2KatrIRsZPytxrPwN90WkIFDS7No
+	w1AIepZG7+v4b4Hl3Bl2Uv0wUoXJKhjTV6NsftGkZMcFG5aB2dOCGc1SaofCSA==
+Message-ID: <c36821db-2fcb-438c-b54c-a4f2d5b33fa5@bootlin.com>
+Date: Mon, 20 Apr 2026 15:38:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: ti: k3-j722s: use ti,j7200-padconf compatible
+To: "Richard Genoud (TI)" <richard.genoud@bootlin.com>,
+ Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Gregory CLEMENT <gregory.clement@bootlin.com>, Udit Kumar <u-kumar1@ti.com>,
+ Abhash Kumar <a-kumar2@ti.com>, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260420131735.3833993-1-richard.genoud@bootlin.com>
+Content-Language: en-US
+From: Thomas Richard <thomas.richard@bootlin.com>
+In-Reply-To: <20260420131735.3833993-1-richard.genoud@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, 19 Apr 2026 22:32:32 +0000
-Hardik Phalet <hardik.phalet@pm.me> wrote:
+Hello Richard,
 
-> Add the device tree binding document for the QST QMC5883P, a 3-axis
-> anisotropic magneto-resistive (AMR) sensor with a 16-bit ADC that
-> communicates over I2C.
+On 4/20/26 3:17 PM, Richard Genoud (TI) wrote:
+> From: Abhash Kumar Jha <a-kumar2@ti.com>
 > 
-> Add a MAINTAINERS entry for the QSTCORP QMC5883P devicetree binding.
+> The pinctrl contexts for j722s should be saved and restored during
+> suspend-to-ram, just like it is done for j7200 and j784s4 SoCs.
 > 
-> Signed-off-by: Hardik Phalet <hardik.phalet@pm.me>
-
-Google fed me a break out board for this that has a drdy pin?
-If so include that as an interrupt as the binding should attempt
-to be as complete as possible from the start.
-
+> Use ti,j7200-padconf compatible to save and restore pinctrl contexts during
+> suspend-to-ram.
+> 
+> Signed-off-by: Abhash Kumar Jha <a-kumar2@ti.com>
+> Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
 > ---
->  .../iio/magnetometer/qstcorp,qmc5883p.yaml         | 48 ++++++++++++++++++++++
->  MAINTAINERS                                        |  6 +++
->  2 files changed, 54 insertions(+)
+>  arch/arm64/boot/dts/ti/k3-j722s-evm.dts | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc5883p.yaml b/Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc5883p.yaml
-> new file mode 100644
-> index 000000000000..72cc3fef2226
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc5883p.yaml
-> @@ -0,0 +1,48 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/magnetometer/qstcorp,qmc5883p.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: QSTCORP QMC5883P 3-axis magnetometer
-> +
-> +maintainers:
-> +  - Hardik Phalet <hardik.phalet@pm.me>
-> +
-> +description:
-> +  The QMC5883P is a 3-axis anisotropic magneto-resistive (AMR) sensor with a
-> +  16-bit ADC. It communicates over I2C (standard and fast modes) and is
-
-If you are spinning again I'd drop the standard and fast modes thing.
-It's rare that a device doesn't support those two.  High speed mode is another thing
-entirely as that changes the protocol quite a bit (I think - it's been a while
-since I spec dived on these).
-
-> +  targeted at compass, navigation, and industrial applications.
-> +
-> +properties:
-> +  compatible:
-> +    const: qstcorp,qmc5883p
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description: I2C address of the device; the default address is 0x2c
-> +
-> +  vdd-supply:
-> +    description:
-> +      VDD power supply (2.5 V to 3.6 V). Powers all internal analog and
-> +      digital functional blocks.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        magnetometer@2c {
-> +            compatible = "qstcorp,qmc5883p";
-> +            reg = <0x2c>;
-> +            vdd-supply = <&vdd_3v3>;
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 48fda1f8332e..d41f6b33d0e5 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -21554,6 +21554,12 @@ F:	Documentation/networking/device_drivers/ethernet/freescale/dpaa2/overview.rst
->  F:	drivers/bus/fsl-mc/
->  F:	include/uapi/linux/fsl_mc.h
+> diff --git a/arch/arm64/boot/dts/ti/k3-j722s-evm.dts b/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
+> index e66330c71593..757eb6abcd72 100644
+> --- a/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
+> +++ b/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
+> @@ -242,6 +242,7 @@ &phy_gmii_sel {
+>  };
 >  
-> +QSTCORP QMC5883P MAGNETOMETER DRIVER
-> +M:	Hardik Phalet <hardik.phalet@pm.me>
-> +L:	linux-iio@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc5883p.yaml
-> +
->  QT1010 MEDIA DRIVER
->  L:	linux-media@vger.kernel.org
->  S:	Orphan
-> 
+>  &main_pmx0 {
+> +	compatible = "ti,j7200-padconf", "pinctrl-single";
+>  
+>  	main_mcan0_pins_default: main-mcan0-default-pins {
+>  		pinctrl-single,pins = <
+> @@ -418,6 +419,7 @@ &main_uart5 {
+>  };
+>  
+>  &mcu_pmx0 {
+> +	compatible = "ti,j7200-padconf", "pinctrl-single";
+>  
+>  	mcu_i2c0_pins_default: mcu-i2c0-default-pins {
+>  		pinctrl-single,pins = <
 
+It should be done at SoC level, not just for the EVM board.
+You should modify k3-j722s-main.dtsi and create k3-j722s-mcu.dtsi.
+
+Best Regards,
+Thomas
