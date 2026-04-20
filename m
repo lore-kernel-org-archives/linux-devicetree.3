@@ -1,241 +1,146 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.229.168.213])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E158C3921E7;
-	Mon, 20 Apr 2026 09:48:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.229.168.213
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA6E3921DD
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 09:48:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776678508; cv=none; b=fNzJZNdqEiuvDoAkkCd7eyeGdM+xsUv8Updmsoj0wj0UvMo/HQgnqamA0EdKZbk3jnQKKqDftL/CImGFsWCFHAoI235r95JEb4NIgTKXmDPRR2p2/YXuQzoJEx8+Hs3bZo8SyAJWozC/Sgivxe4HlyUu7Jil/nT6nkID9WAmDOE=
+	t=1776678509; cv=none; b=J0zWBomJkDMDEZt3tw5eDuPtBXaGysxbMPbGgplHsHyNmISn2jiaT6Y8AI05C8LbKid/gh+HCPDAim542UucwaXXsObpNOjZNNFZStyzvnG40yjJEx+gLSo6UZ54AIY+pCduPoksZDLOyHSMAPtTLfuUr/Z9mPTFMdveW33m2+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776678508; c=relaxed/simple;
-	bh=KXoGQ1SAeB/JDQgYoYgZZI+kNHQX0ajxb/HQpVDlbXw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=lXHrStL2mkU7fAH0Fu2ZBfl0DVnD8Vvx4wDmZcJfBxeIy1KVYwPBjrV5Vs+VaaeK+JYbfVvOKoYzcgT+FdInyGugW92BpHdZFgVQzy5rZTN1QDJfp1lJsyd4bgu2ZONvQttImWnnomzHc1lypLzxDTGw8OJTeSPqYKGv9snUcdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.229.168.213
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
-	by app2 (Coremail) with SMTP id TQJkCgBXbaBO9uVpdi0TAA--.56313S2;
-	Mon, 20 Apr 2026 17:47:59 +0800 (CST)
-From: dongxuyang@eswincomputing.com
-To: mturquette@baylibre.com,
-	sboyd@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	p.zabel@pengutronix.de,
-	huangyifeng@eswincomputing.com,
-	dongxuyang@eswincomputing.com,
-	benoit.monin@bootlin.com,
-	bmasney@redhat.com
-Cc: ningyu@eswincomputing.com,
-	linmin@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com
-Subject: [PATCH v2 3/3] reset: eswin: Add eic7700 HSP reset driver
-Date: Mon, 20 Apr 2026 17:47:56 +0800
-Message-Id: <20260420094756.2449-1-dongxuyang@eswincomputing.com>
-X-Mailer: git-send-email 2.31.1.windows.1
-In-Reply-To: <20260420093929.1895-1-dongxuyang@eswincomputing.com>
-References: <20260420093929.1895-1-dongxuyang@eswincomputing.com>
+	s=arc-20240116; t=1776678509; c=relaxed/simple;
+	bh=Y0VZfMMDGtnkJYhGf+U9Z5MtZVR+mZz8AJlSieCPJKU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uo2/IDf+2uweaY8bKUPraW8548dBjuoB8Wan5knW/O8Nmoy3vInOvpl0In9UKaKuf73VldfegXvqQUd18j1tN7RHZSpQFJ+9agxC6QYJKYcduaP9uzGJPOAP4EFNwwEtbkTykgP1GZsKrDxGB9NAXKXa71+AQHukQw9YqWOZBt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Hj6QWsVK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Fro+B+lw; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Hj6QWsVK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Fro+B+lw"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63K9mPkr3925588
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 09:48:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	HQ8ZoOouZ4BrjvsYaJON/pwnwqOqCBNwUORSK1JbGIo=; b=Hj6QWsVKeOBMGENc
+	UMoFGwqmbTMHVPx7dLpoz91xhUY7REEm6sigWQIlrafCi289JxodOTD37fDR+jk6
+	/GTDDFxCHeLe0jbPvkpVV+OxVFzPoJQh4jjfVkJHuFDBaRzdd9wsL0EVW65E0XyZ
+	epa2tJVxHMcEW2+uQTI6aHBSQ1Glu/5VudwfQUHWCEgqV2Wp5yCPOgR9EsAgnzlb
+	VoW3adil/qfuqYjaXjnRYglP+gB2TAIKZRTjTI/Av8lRwnDmCsVaP20vu4q0yfQD
+	ADU99l5zmmxSom83ltF8BAs4ySWgBrirkJSmYwwhpXaS0XqQH4gybB7fQjbro5Rb
+	+VR6pQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dnhu9r006-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 09:48:25 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50e62562b6aso1035151cf.2
+        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 02:48:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776678505; x=1777283305; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=HQ8ZoOouZ4BrjvsYaJON/pwnwqOqCBNwUORSK1JbGIo=;
+        b=Fro+B+lwlPtRqLoEYmwBJ9RjZxQ9xxpMEg2qFGn34dAc37oLLXkmUQvrl7gC55yiY2
+         JCaCdkLXCQk2ad+BztW48iVN9CiBo+gN+HbBe1OmhTEmifr/o5oUjR3Bkj2k+fDigsjb
+         JXrUxAZwlYRCfHqCaDtD2j8qIxZyMzo1mKabC+jFwezuk1RWdKs6d0XzVfpY+iIGvOH8
+         Y/LOmj/Naxhp0L2hrw4JrGPO5ZIyJPjgvPMnzF2TlgTOT0kN6ykDeCyZK7vyhKFxqf7H
+         SRk8HisblEHsC6cFU5AYQyWfbExi4YQMGjVX8MrAg+E7pRi3XuOq07YPpC662d5vjy2t
+         miXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776678505; x=1777283305;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=HQ8ZoOouZ4BrjvsYaJON/pwnwqOqCBNwUORSK1JbGIo=;
+        b=otpWp/OIUno9wWoEoZIekX4Xfi85j/a0gVqDMEPXKzU4JisgbVokeBoFhnkxLoBzIE
+         KqXWmFtM/ax9oJoag9KeOHqMm1zHGX6l0tujJsaNRv07MQhHeyFzExkrb5mAnvOezdJM
+         ggbHmUXBYRq0Fxawtj3gSJXhvdYNhn2jx93lAHVbw/POtaaFSdTo1ThiZEfIKguOs2RP
+         OOo0JiuKQhM747rYCJGe2DcbwU8mHsRfKEOm5YVO+CYqkFuCIFGcABeEXMoeMRoLZKXq
+         VRzsWcFQUCqIMmPXJdDcD0TmZP3bFbGlhu/WVpZyS4R3DNQ7+ZB9iiaEZXfUiVbgm2Ye
+         jnQQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+oH1GjJdt+WeNEosGQ9dF+jMtamnNKTY0ydzZHw5B+WLTlbnZHV8yPXq1rAWZ/FLMjGRt7PhK83OV8@vger.kernel.org
+X-Gm-Message-State: AOJu0YydHeOMd6XWGnfOYYLMtWSKurgNZ4xwd4DRH3cP9jbV2oNHGR8K
+	vROUUYlhLXDdmWzrDoi5cvVQXq1VbdfMXIRkaoMC5RcUTWOhD07pPYfYPxO1CP2crsIdoNs9KPk
+	2ssx0weSdSn/O/Q5vcF0L4F4qwOuvxsP/XjSZVC30bOP7Nv5hc1lxKi0rR++k/ssj
+X-Gm-Gg: AeBDietY7jrcqFaVEjAFQSnmxiazgUxbN2tY2yNzwHvXtVqYGjU3FzLKnnfAxw7rxvS
+	TtNsLqZFNtGT0A9R1yTFAfFvoc9t07dpcFT8Qczb2q+ZGOUa7W4RhOLPY35YpTycSvnUmGpdWVq
+	1NmqapZ5y581Upl+paonep9z1WO7dYyORh6I3XQdh6mlUyzdtmtuoS+daS923uObRohHEvkUu/a
+	FcxmUt7IjIO6usHOrD7g/2x3jm0KJY5Y7Wv4dPo/Ts0P4joGVP1cWxjZzq6HcGigyYu2+Qit2vd
+	7y0aHtMjUp0Kc0Rq6P9OuN/bcwJEfHAMVDNqqX4t8H37J9lc8UaNaoFXNcYXynFyVBp25ZyKFnu
+	qhkfQb4eVIHgQZlPtWCZSvBY4ThN3dsuH4d6Xwatsu/TSFn/qUMfGosdXaLmdfFvjXwtXxtuBX9
+	dy1ybLXimBXPsm5w==
+X-Received: by 2002:a05:622a:2587:b0:50e:a1ab:67e6 with SMTP id d75a77b69052e-50ea1ab6a40mr9032081cf.4.1776678504872;
+        Mon, 20 Apr 2026 02:48:24 -0700 (PDT)
+X-Received: by 2002:a05:622a:2587:b0:50e:a1ab:67e6 with SMTP id d75a77b69052e-50ea1ab6a40mr9031811cf.4.1776678504448;
+        Mon, 20 Apr 2026 02:48:24 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-672c480e22asm2021642a12.9.2026.04.20.02.48.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 20 Apr 2026 02:48:22 -0700 (PDT)
+Message-ID: <221187cb-e28f-4cd2-bc7d-0f738a01770e@oss.qualcomm.com>
+Date: Mon, 20 Apr 2026 11:48:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TQJkCgBXbaBO9uVpdi0TAA--.56313S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuFy3KF4DGr1fZw1rXF1DZFb_yoW7Kr1DpF
-	WrAF43Ar45XrWfGFZ3GF1qyFy3Xan3try5C3yxJ3WS9rsxWryUJrWUta40yr9rJry7Gry5
-	JF13KF1xuFnIyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBm14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04
-	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
-	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
-	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1U
-	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
-	8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUeZ2-DUUUU
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/7] arm64: dts: qcom: talos: Add QSPI support
+To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+        Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org
+Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260420-spi-nor-v3-0-7de325a29010@oss.qualcomm.com>
+ <20260420-spi-nor-v3-4-7de325a29010@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260420-spi-nor-v3-4-7de325a29010@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDA5NCBTYWx0ZWRfX9DIHRrEcuNL+
+ 3e59Qt5H1VpecCXFBWjMqImaQvoE0zVBX2VG52nAepfoWI8LOQ34zz91adjTi7L+Q/Wk2e3029S
+ 6UE1c9C31AT7j1dvfff1bYuLA6qgirshVZxQI5wysKn40p3haNJIclvVo8pjcnToeWe3vEENBhR
+ LYAwuqmyM1pwFTQL8MsUhLOSXqGrDAPyde/ihXyCph0L8vylvbh1xhobf6i8AKCvL0AoIk1ab15
+ eBrXi94BROVS6uuLmEdH/ksD5+PKn1LVcYMc2vGSznf6g/ygcd1vLM7cNczt6yKlVNhOZGtKIfD
+ 9m/GnRu0nfZLAKwBQe9z1k/HlPSAGvtOxHMIzmhK2gnPAksrGr7sCkzOYWa6qLGWTlAPAyBIvAg
+ yG3oXdi8XlLixYNlnpeIy6dGaruAKYBQiW54Hpce4oSZmp4SPlN8MlvIyR3G0TfuO4IgnMCOzD/
+ SjtD7NDhqjQkQN1eDXw==
+X-Authority-Analysis: v=2.4 cv=IIoyzAvG c=1 sm=1 tr=0 ts=69e5f669 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=v9HvSh1xhsShxInwDaAA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: FEAWiNCIlN0DQ56CEmGgjXYglnMV_6zL
+X-Proofpoint-ORIG-GUID: FEAWiNCIlN0DQ56CEmGgjXYglnMV_6zL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-20_02,2026-04-17_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 bulkscore=0 phishscore=0 lowpriorityscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
+ definitions=main-2604200094
 
-From: Xuyang Dong <dongxuyang@eswincomputing.com>
+On 4/20/26 8:12 AM, Viken Dadhaniya wrote:
+> The Talos (QCS615) platform includes a QSPI controller used for accessing
+> external flash storage. Add the QSPI OPP table, TLMM pinmux entries, and
+> the QSPI controller node to enable support for this hardware.
+> 
+> Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+> ---
 
-Add auxiliary driver to support ESWIN EIC7700 high-speed peripherals
-system. The reset controller is created using the auxiliary device
-framework and set up in the clock driver.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Signed-off-by: Xuyang Dong <dongxuyang@eswincomputing.com>
----
- drivers/reset/Kconfig             |  11 +++
- drivers/reset/Makefile            |   1 +
- drivers/reset/reset-eic7700-hsp.c | 118 ++++++++++++++++++++++++++++++
- 3 files changed, 130 insertions(+)
- create mode 100644 drivers/reset/reset-eic7700-hsp.c
-
-diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-index d009eb0849a3..f63e89ed6a4e 100644
---- a/drivers/reset/Kconfig
-+++ b/drivers/reset/Kconfig
-@@ -83,6 +83,17 @@ config RESET_EIC7700
- 	  The driver supports eic7700 series chips and provides functionality for
- 	  asserting and deasserting resets on the chip.
- 
-+config RESET_EIC7700_HSP
-+	tristate "EIC7700 HSP Reset controller"
-+	depends on ARCH_ESWIN || COMPILE_TEST
-+	select AUXILIARY_BUS
-+	help
-+	  This enables the HSP reset controller driver for ESWIN SoCs. This
-+	  driver is specific to ESWIN SoCs and should only be enabled if using
-+	  such hardware.
-+	  The driver supports EIC7700 series chips and provides functionality
-+	  for asserting and deasserting resets on the chip.
-+
- config RESET_EYEQ
- 	bool "Mobileye EyeQ reset controller"
- 	depends on EYEQ || COMPILE_TEST
-diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
-index 3e52569bd276..a75af831ef58 100644
---- a/drivers/reset/Makefile
-+++ b/drivers/reset/Makefile
-@@ -15,6 +15,7 @@ obj-$(CONFIG_RESET_BERLIN) += reset-berlin.o
- obj-$(CONFIG_RESET_BRCMSTB) += reset-brcmstb.o
- obj-$(CONFIG_RESET_BRCMSTB_RESCAL) += reset-brcmstb-rescal.o
- obj-$(CONFIG_RESET_EIC7700) += reset-eic7700.o
-+obj-$(CONFIG_RESET_EIC7700_HSP) += reset-eic7700-hsp.o
- obj-$(CONFIG_RESET_EYEQ) += reset-eyeq.o
- obj-$(CONFIG_RESET_GPIO) += reset-gpio.o
- obj-$(CONFIG_RESET_HSDK) += reset-hsdk.o
-diff --git a/drivers/reset/reset-eic7700-hsp.c b/drivers/reset/reset-eic7700-hsp.c
-new file mode 100644
-index 000000000000..dde1f9bffa61
---- /dev/null
-+++ b/drivers/reset/reset-eic7700-hsp.c
-@@ -0,0 +1,118 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright 2026, Beijing ESWIN Computing Technology Co., Ltd..
-+ * All rights reserved.
-+ *
-+ * ESWIN EIC7700 HSP Reset Driver
-+ *
-+ * Authors: Xuyang Dong <dongxuyang@eswincomputing.com>
-+ */
-+
-+#include <linux/auxiliary_bus.h>
-+#include <linux/device.h>
-+#include <linux/regmap.h>
-+#include <linux/reset-controller.h>
-+
-+#include <dt-bindings/reset/eswin,eic7700-hspcrg.h>
-+
-+/**
-+ * struct eic7700_hsp_reset_data - reset controller information structure
-+ * @rcdev: reset controller entity
-+ * @regmap: regmap handle containing the memory-mapped reset registers
-+ */
-+struct eic7700_hsp_reset_data {
-+	struct reset_controller_dev rcdev;
-+	struct regmap *regmap;
-+};
-+
-+struct eic7700_hsp_reg {
-+	u32 reg;
-+	u32 bit;
-+	bool active_low;
-+};
-+
-+static inline struct eic7700_hsp_reset_data *
-+to_eic7700_hsp_reset(struct reset_controller_dev *rcdev)
-+{
-+	return container_of(rcdev, struct eic7700_hsp_reset_data, rcdev);
-+}
-+
-+static const struct eic7700_hsp_reg eic7700_hsp_reset[] = {
-+	[EIC7700_HSP_RST_SATA_P0]	= {0x340, BIT(0), false},
-+	[EIC7700_HSP_RST_SATA_PHY]	= {0x340, BIT(1), false},
-+	[EIC7700_HSP_RST_USB0]		= {0x800, BIT(24), true},
-+	[EIC7700_HSP_RST_USB1]		= {0x900, BIT(24), true},
-+	[EIC7700_HSP_RST_USB0_PHY]	= {0x800, BIT(25), false},
-+	[EIC7700_HSP_RST_USB1_PHY]	= {0x900, BIT(25), false},
-+};
-+
-+static int eic7700_hsp_reset_assert(struct reset_controller_dev *rcdev,
-+				    unsigned long id)
-+{
-+	struct eic7700_hsp_reset_data *data = to_eic7700_hsp_reset(rcdev);
-+	int ret;
-+
-+	ret = regmap_assign_bits(data->regmap, eic7700_hsp_reset[id].reg,
-+				 eic7700_hsp_reset[id].bit,
-+				 !eic7700_hsp_reset[id].active_low);
-+
-+	return ret;
-+}
-+
-+static int eic7700_hsp_reset_deassert(struct reset_controller_dev *rcdev,
-+				      unsigned long id)
-+{
-+	struct eic7700_hsp_reset_data *data = to_eic7700_hsp_reset(rcdev);
-+	int ret;
-+
-+	ret = regmap_assign_bits(data->regmap, eic7700_hsp_reset[id].reg,
-+				 eic7700_hsp_reset[id].bit,
-+				 eic7700_hsp_reset[id].active_low);
-+
-+	return ret;
-+}
-+
-+static const struct reset_control_ops eic7700_hsp_reset_ops = {
-+	.assert = eic7700_hsp_reset_assert,
-+	.deassert = eic7700_hsp_reset_deassert,
-+};
-+
-+static int eic7700_hsp_reset_probe(struct auxiliary_device *adev,
-+				   const struct auxiliary_device_id *id)
-+{
-+	struct eic7700_hsp_reset_data *data;
-+	struct device *dev = &adev->dev;
-+
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->regmap = dev_get_regmap(dev->parent, NULL);
-+	if (!data->regmap)
-+		return dev_err_probe(dev, -EINVAL, "failed to get regmap!\n");
-+
-+	data->rcdev.owner = THIS_MODULE;
-+	data->rcdev.ops = &eic7700_hsp_reset_ops;
-+	data->rcdev.of_node = dev->parent->of_node;
-+	data->rcdev.dev = dev;
-+	data->rcdev.nr_resets = ARRAY_SIZE(eic7700_hsp_reset);
-+
-+	return devm_reset_controller_register(dev, &data->rcdev);
-+}
-+
-+static const struct auxiliary_device_id eic7700_hsp_reset_dt_ids[] = {
-+	{ .name = "clk_eic7700_hsp.hsp-reset", },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(auxiliary, eic7700_hsp_reset_dt_ids);
-+
-+static struct auxiliary_driver eic7700_hsp_reset_driver = {
-+	.probe	= eic7700_hsp_reset_probe,
-+	.id_table = eic7700_hsp_reset_dt_ids,
-+};
-+
-+module_auxiliary_driver(eic7700_hsp_reset_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Xuyang Dong <dongxuyang@eswincomputing.com>");
-+MODULE_DESCRIPTION("ESWIN EIC7700 HSP Reset Controller Driver");
--- 
-2.43.0
-
+Konrad
