@@ -1,48 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03E334BA28;
-	Mon, 20 Apr 2026 16:22:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA6E1FB1;
+	Mon, 20 Apr 2026 16:22:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776702120; cv=none; b=QnTyyG+viI7W7YAd/4o9Cro9bP/V63OT0Xdy2QOXrplEAvt5XDw5GWgvBXSb7bIy9BK2NRQ43IT5j0RSfL7lD7CcFluKsCB6xx2llsuH9uvx+0dglL/JkDOYtTnQ/gxeTMqUlpdnuvjAaNa9xOOFzxTMAbBR3/Pn825g9VtEK4o=
+	t=1776702171; cv=none; b=jnIXgxuSkwwNjczuGpq3qAp62MBMbIqta21V3wiVFDAiEqyfYoVDAYr+YsFKw2/b8syZTswaCP/gfMPsk12G7N5Q4lydBkeBmKAWXWBj/t7TqZtC+W8Wzb1dIHC55V7/x1P1fJ4BUlj/DbPfVYSAOF0E58FqcSEbaViyEe9TjfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776702120; c=relaxed/simple;
-	bh=7gSnfTauznAgCbps4yyQD5dJfmqkXOvSHr5T5TBqeI4=;
+	s=arc-20240116; t=1776702171; c=relaxed/simple;
+	bh=YEdo/V0QTAr+NW2dlqYidtGFQZDQxJkbLKbUxoyQ7yM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Byuol0NIdPqKrI9fc3uuE981czux0H1GRWkfYw4tZuU3vtLRvr6eLbF0jXvEiDreKdzir/a3hQu/EQ2H6XZMQoeWV8RxjFPYQ7v7aG5cd6PPbT5c98UqKWyzm5zX9VbUmox6vqBaY+mKBpEFlQt+Zf5DMiihJa0plw9jWxD8G+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CURfiw2D; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=P0qKrWSMhNNqWnJzk5CRJb/XmWW+dGnqeykOZguqyU7663ZhP1KmjF3/KZhG11N7aheE1Z79r2wsZmmwfOMFPaKaKoFIzIsfvpUUV4qJluBZVkluTehpQUbZwwhYK9RC3+E0/SuoqU1fWShW613WM4QUycY7UWmWRWlOCom/kt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nxTKj7Pl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CURfiw2D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F34EFC2BCB6;
-	Mon, 20 Apr 2026 16:21:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nxTKj7Pl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2870EC19425;
+	Mon, 20 Apr 2026 16:22:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776702120;
-	bh=7gSnfTauznAgCbps4yyQD5dJfmqkXOvSHr5T5TBqeI4=;
+	s=k20201202; t=1776702171;
+	bh=YEdo/V0QTAr+NW2dlqYidtGFQZDQxJkbLKbUxoyQ7yM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CURfiw2DVJrkCT+AMf7ywtgJkQwfXAV7uuVqT2nINKO8tQsw4AogPu9Hzv9aYSYH7
-	 boI6AcEPH7BxzPXlyjAuwcIfOvvvFAscmab9N3urAKRqQpypdoQRChQZ3Hfz/z+15/
-	 tK5LgNdyn7noKcS7Wj9FkrsrdMPr9gJ2YursU9gdmDLXQPZZaogvGHC8MPQTpGUPeR
-	 mEZuigOzyFV9Ou6j6VLyEipcn6Mhx7fN+qCBx9CsQkR2rjwdkMX2TL/GrqqHhtJdFA
-	 /hjGemxm4CGwfDdG+yNroSHeL4Q3Bchgxhf6ZZU+EBRrfPvp0iOgrxJEDtg0368FiI
-	 flrthm5C93ouA==
-Date: Mon, 20 Apr 2026 17:21:55 +0100
+	b=nxTKj7PlWluEqHuKTzEen462dAfrv0zZY9/iW/KTchxzdbie0xAcn49tOEIN3vpM5
+	 aGzG0ZJn1mUsntJEkhTrtI3/I5Dz7AvBultI6l5O9IapBABCmY+15Cnw7cVQIQjn2B
+	 uA9xZr93tge3LmcQ+Dz/swtlU+pjx44PshwqpOyyyHC8qWN1NSXlRQXv54p58pOwlZ
+	 1hAXJgHCOBRBt921Q/hIosqWUL1VxjxxrAyohHXLmZ9/EP8WAd3oFDvfXgyWo/AgJ8
+	 hhjg/J1tsBpcEJeSnJfk97FV7kmABYjkdDcVFhmJ1OEGlYpXuP2DYoKnfJkEnwiqjq
+	 nSpyLSq0InXRw==
+Date: Mon, 20 Apr 2026 17:22:44 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Biju <biju.das.au@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+To: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Subject: Re: [PATCH 1/3] dt-bindings: mfd: syscon: Document the LVDS_CMN
- syscon for the RZ/G3L
-Message-ID: <20260420-carry-freefall-c4ab36009cab@spud>
-References: <20260417175235.224809-1-biju.das.jz@bp.renesas.com>
- <20260417175235.224809-2-biju.das.jz@bp.renesas.com>
+	Andi Shyti <andi.shyti@kernel.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Beniamino Galvani <b.galvani@gmail.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, linux-amlogic@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH v3 1/8] dt-bindings: mfd: khadas: Add new compatible for
+ Khadas VIM4 MCU
+Message-ID: <20260420-viable-plot-862e0c545837@spud>
+References: <20260417-add-mcu-fan-khadas-vim4-v3-0-a6a7f570b11b@aliel.fr>
+ <20260417-add-mcu-fan-khadas-vim4-v3-1-a6a7f570b11b@aliel.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,40 +58,68 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="w7TgQA/ijccKXpiD"
+	protocol="application/pgp-signature"; boundary="EN5NAUw4RNBry5U5"
 Content-Disposition: inline
-In-Reply-To: <20260417175235.224809-2-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260417-add-mcu-fan-khadas-vim4-v3-1-a6a7f570b11b@aliel.fr>
 
 
---w7TgQA/ijccKXpiD
+--EN5NAUw4RNBry5U5
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Apr 17, 2026 at 06:52:28PM +0100, Biju wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
+On Fri, Apr 17, 2026 at 06:27:17PM +0200, Ronald Claveau wrote:
+> The Khadas VIM4 MCU register is slightly different
+> from previous boards' MCU.
+> This board also features a switchable power source for its fan.
 >=20
-> The RZ/G3{E,L} SoCs have an LVDS Common (LVDS_CMN) region which is common
-> to all LVDS channels. The RZ/G3L has single-link, but the RZ/G3E has both
-> single and dual-link.
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> ---
+>  Documentation/devicetree/bindings/mfd/khadas,mcu.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
 >=20
-> Use the syscon interface to access these registers for scalability.
->=20
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> diff --git a/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml b/Docu=
+mentation/devicetree/bindings/mfd/khadas,mcu.yaml
+> index 084960fd5a1fd..a80718f7595ce 100644
+> --- a/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml
+> @@ -18,6 +18,7 @@ properties:
+>    compatible:
+>      enum:
+>        - khadas,mcu # MCU revision is discoverable
+> +      - khadas,vim4-mcu # Different MCU variant, not discoverable
+> =20
+>    "#cooling-cells": # Only needed for boards having FAN control feature
+>      const: 2
+> @@ -25,6 +26,10 @@ properties:
+>    reg:
+>      maxItems: 1
+> =20
+> +  fan-supply:
+> +    description: Phandle to the regulator that powers the fan.
+> +    $ref: /schemas/types.yaml#/definitions/phandle
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Can you limit this by compatible please?
+pw-bot: changes-requested
 
---w7TgQA/ijccKXpiD
+> +
+>  required:
+>    - compatible
+>    - reg
+>=20
+> --=20
+> 2.49.0
+>=20
+
+--EN5NAUw4RNBry5U5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeZSowAKCRB4tDGHoIJi
-0uArAP0Uwj/QDk4niPPOviDgu6KP4qYKKsSzJadtkpfptH/KcQEAlFi1i6IgSsHo
-tSctM13zM671OyShM5Wpk8dxoiFxGA4=
-=FZKM
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeZS1AAKCRB4tDGHoIJi
+0rq6AQCyNe1h3KXPOtFS9t3ntlaZUO80Ck84GL+I6mmU6358DQEA0hx/x6pQ5aO7
+RXk37eL/R10YB9DDqs+wJN/2TnZoxgw=
+=ak6Z
 -----END PGP SIGNATURE-----
 
---w7TgQA/ijccKXpiD--
+--EN5NAUw4RNBry5U5--
