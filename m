@@ -1,76 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5B863A0B23;
-	Mon, 20 Apr 2026 12:52:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7D9375AD0;
+	Mon, 20 Apr 2026 12:53:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776689551; cv=none; b=Bqoh2c7Q2NokhKxpdiEkQsk/8eaYnzhXtJ6Hb7KHZROnxwEcBOE1uuFvIZEtB9P6IrXS7H9AqGXFM+OWS3hEJHC5wDu9taaSIVatJhRGlE/KDe6UN/xuPPDZYzQb4QF2mdpQCM2Mi/dEsYOobcVEr33uPbx+vh814+ggOzOUTVA=
+	t=1776689600; cv=none; b=OTxsGrQ6h6Mqb2Mw9keghNyw3K3AhAQCVK7i53CD+NYXGERNn3aTuRSzoVU9zudQjn26J4yfmmj9cvnjKKHVV+Ghrx70K7CnB/JUMqOGwQDewkRyRjpD4SrULRFe0H/sRCwq2oeDEHyjHeaRFX4l/ZF6+sl1s1lbRslJweXmXpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776689551; c=relaxed/simple;
-	bh=TRCb85quAb1Jds1qq2otmPssvYv2USQ9yjh0heKXfyE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=izqjyd2O5OnCpRK/ZeliEZgpbjkLaLGbuo8/u3UmneEagrPa7sq9gWZpCLHgNHGSGibifs6UHXKl45rpXH0pKpPHhVGQ1sbE1vUCbwmjhZV+6CiK5PlRXbpzF/SdAIufbQ7fJPWZz/coEU1bwUubic9KXwp+FqnrLTmeF9IBvFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RNdNYyzT; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776689600; c=relaxed/simple;
+	bh=3aIblukag/ZNLd2OaZ8WSCtw1NSjxSWvPCnZvAuBXfU=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=PKFx53a20WxAKLsZ0VlKIL4lyYQKzY9FOxFApYbfNHM5sgesm+vs3LchoAG4EmjDRd5EeN/0DSFlrGus3o4kgNIi/nyaY923m5e6EWd20nISF8Kt/sizANX+48Ap/tiwQSOZKCaufASgT1ClT+8cpkUT/d33mb60vNU8FRc2H3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=K4Mlov9p; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RNdNYyzT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DB08C2BCB7;
-	Mon, 20 Apr 2026 12:52:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776689551;
-	bh=TRCb85quAb1Jds1qq2otmPssvYv2USQ9yjh0heKXfyE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=RNdNYyzT2UbESTygKadw7B97rSGCznI60gv46bQ/UsYzCarkQiGRdVDLQHyQ90ez2
-	 RqExQkQt5V6F3jOhESpQWJy0rnAAKejDckiOoAXXeTr3H4UBtG62aMLvffVO+PPGm/
-	 8d1e291fmL5JxH34ZNhItJ3u2OeDQg19kTdcBA+bf0BzV3K4zgPE3W0rWpsqFQFzxB
-	 HspLoYwRQwN6kQyZXNXWXWsgpVS8jJgU+LXwvTQIEJ/k3PrSjbYwG5rS5kh19XAH1f
-	 jHC0PizFDrVMvuAqy8gTLIxLUbh2iZlG/S5QHjEuSJaadTcWQJyhrzN72T6tyDUk4k
-	 0wTSZk0oWezrw==
-Date: Mon, 20 Apr 2026 13:52:21 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Harpreet Saini <sainiharpreet29@yahoo.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, Bjorn
- Andersson <bjorn.andersson@oss.qualcomm.com>, Marek Vasut
- <marex@nabladev.com>, Kael D'Alcamo <dev@kael-k.io>, Lad Prabhakar
- <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: iio: light: Add PixArt PAJ7620 gesture
- sensor
-Message-ID: <20260420135221.2af64921@jic23-huawei>
-In-Reply-To: <028a5407-e0c1-438b-b124-55df8e5fda92@baylibre.com>
-References: <20260413000308.7618-1-sainiharpreet29.ref@yahoo.com>
-	<20260413000308.7618-1-sainiharpreet29@yahoo.com>
-	<028a5407-e0c1-438b-b124-55df8e5fda92@baylibre.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="K4Mlov9p"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c30:51df:7e0d:3bc9:3b1b:3f69])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A7019E45;
+	Mon, 20 Apr 2026 14:51:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1776689499;
+	bh=3aIblukag/ZNLd2OaZ8WSCtw1NSjxSWvPCnZvAuBXfU=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=K4Mlov9ppUMNP8rZPLvF8+Lk8FYC7T67oddg8h381mNfchsny+Z+bmTKgUw9pppjo
+	 J1oeold4xdOJrZA8nL4Qo+c//XgFFiXVDyRtE+fUXLWZpcxKVM/iF5OkWi4fOBYTWz
+	 n51RR8LnrOw/r5AgAfQG/PskGTCzv9gCR8Aromw0=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260420-very-cartel-645595ffd1c7@spud>
+References: <20260303-drop-starfive-camss-v3-0-8f44c07fb137@ideasonboard.com> <20260303-drop-starfive-camss-v3-2-8f44c07fb137@ideasonboard.com> <20260420-very-cartel-645595ffd1c7@spud>
+Subject: Re: [PATCH v3 2/2] media: dt-bindings: Drop starfive,jh7110-camss from staging
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Philipp Zabel <p.zabel@pengutronix.de>, Changhuang Liang <changhuang.liang@starfivetech.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Rishikesh Donadkar <r-donadkar@ti.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Conor Dooley <conor@kernel.org>
+Date: Mon, 20 Apr 2026 18:23:11 +0530
+Message-ID: <177668959135.489396.16825302864805843232@freya>
+User-Agent: alot/0.13.dev20+g31692a239
 
-On Mon, 13 Apr 2026 09:25:19 -0500
-David Lechner <dlechner@baylibre.com> wrote:
+Hi Conor,
 
-> On 4/12/26 7:02 PM, Harpreet Saini wrote:
-> > Signed-off-by: Harpreet Saini <sainiharpreet29@yahoo.com>
-> > ---
-> > This is part 1 of a 2-patch series proposing a driver for the PixArt
-> > PAJ7620 gesture sensor. This patch adds the Device Tree bindings and   
-> 
-> Gesture sensor sounds like input subsystem, not IIO.
+Quoting Conor Dooley (2026-04-20 16:46:11)
+> On Tue, Mar 03, 2026 at 02:54:07PM +0530, Jai Luthra wrote:
+> > The starfive-camss driver is no longer being worked upon for destaging,
+> > and will be dropped in a subsequent commit, so drop the DT bindings.
+> >=20
+> > Link: https://lore.kernel.org/all/ZQ0PR01MB13024A92926C415C187D2C18F29F=
+2@ZQ0PR01MB1302.CHNPR01.prod.partner.outlook.cn/
+> > Acked-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+>=20
+> In removing the binding, you should have also sent patches for removing
+> the users of this:
+> arch/riscv/boot/dts/starfive/jh7110-deepcomputing-fml13v01.dtb: /soc/isp@=
+19840000: failed to match any schema with compatible: ['starfive,jh7110-cam=
+ss']
+> arch/riscv/boot/dts/starfive/jh7110-pine64-star64.dtb: /soc/isp@19840000:=
+ failed to match any schema with compatible: ['starfive,jh7110-camss']
+> arch/riscv/boot/dts/starfive/jh7110-milkv-mars.dtb: /soc/isp@19840000: fa=
+iled to match any schema with compatible: ['starfive,jh7110-camss']
+> arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2-lite.dtb: /soc/=
+isp@19840000: failed to match any schema with compatible: ['starfive,jh7110=
+-camss']
+> arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2-lite-emmc.dtb: =
+/soc/isp@19840000: failed to match any schema with compatible: ['starfive,j=
+h7110-camss']
+> arch/riscv/boot/dts/starfive/jh7110-milkv-marscm-emmc.dtb: /soc/isp@19840=
+000: failed to match any schema with compatible: ['starfive,jh7110-camss']
+> arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2-v1.2a.dtb: /soc=
+/isp@19840000: failed to match any schema with compatible: ['starfive,jh711=
+0-camss']
+> arch/riscv/boot/dts/starfive/jh7110-orangepi-rv.dtb: /soc/isp@19840000: f=
+ailed to match any schema with compatible: ['starfive,jh7110-camss']
+> arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2-v1.3b.dtb: /soc=
+/isp@19840000: failed to match any schema with compatible: ['starfive,jh711=
+0-camss']
+> arch/riscv/boot/dts/starfive/jh7110-milkv-marscm-lite.dtb: /soc/isp@19840=
+000: failed to match any schema with compatible: ['starfive,jh7110-camss']
 
-There is one gesture sensor in IIO but that was driven by it
-being a combination of that and a proximity + ambient light sensor.
+My bad, I'll post a patch.
 
-drivers/light/apds9960.c
+Ideally the usage should have been removed in a separate patch before this
+one that drops the bindings. But what would be best now? Have "Fixes: <this
+commit>" in the patch dropping the uses, so it can be picked in rc2?
 
-It seems there is already a series for this one on the input list, so I'll let
-any further discussion and review happen there.
-
-
+Thanks,
+    Jai
