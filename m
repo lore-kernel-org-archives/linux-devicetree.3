@@ -1,100 +1,96 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E8A34CFAD;
-	Mon, 20 Apr 2026 16:38:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AA0363C49;
+	Mon, 20 Apr 2026 16:44:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776703114; cv=none; b=FEYJqgY3j0W2gErj5wW23eQL6l+1cPm/lQEOmqauxlHILsyWQS6X8V50GFlmeuXrB6c0ELL4ynlk6JmvXXqX9u5B6kgWYzcDXa8JI15k/Ytti0x50Eyv6NiPsSjJulG05yX98midl7F5pJ/EGJOhGVqj0YCkd57BjF+SLMa+spU=
+	t=1776703455; cv=none; b=eMwavvqf2ajn6CqxGXt60QDX5Mae4BBSPHqEEAt9DKPhNUNKRSklHyMlEhU058KSs0+NJ8GLvg+zMwBlbw75WW75TRihJaUcHula1PycsAzT9perzsEOJxsX6+3f1rHNVXqAODX20CkHLipHqYKa4ZlZJrYgIKfH4EPZ7O7cHfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776703114; c=relaxed/simple;
-	bh=sDMKr+I0wPw0EgTY5uXghh8IDBSMUMByoxKE7SP//dY=;
+	s=arc-20240116; t=1776703455; c=relaxed/simple;
+	bh=1ntPEsTT6PvCrr7xUGP3cYD5TgC1Shos1ROli0m696Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vs4seiePHbVMbbeJXO97cQqrUaFuUarBARvq4owjJaqO6JqmLDuEwjOrR7iK3FsmaTuuxgGIfqjWadIfVDYM/TEBi5dXs6jRTeAZ2SeA8dyIh2SmqPCxTC+uvkRWKiMW58A4ivrdI6hSdeScxJuGKu0F2haA3G7SFG8R5nvJ8j0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Esq1Aerx; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=X6bPb8p8ZnMwTsKqkm8ibS17eucgHUSmrv5r33OlRk42JpPFO6PKuSQ220NG3lF5eTZILLMgqoZJFLbO3F4I6pi7vBIhkOIINgMURNGzmObBB2taYmq4z/sv0YuGjRfoxF0kWAyIrt11G8Vxsd5b1z6eun4AvMGg/trWYKmUZlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nPJf+G8T; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Esq1Aerx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1776703112; x=1808239112;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=sDMKr+I0wPw0EgTY5uXghh8IDBSMUMByoxKE7SP//dY=;
-  b=Esq1AerxfvTboF16ZkmuqXbYSCOZA1NEmUVuJ2oFlxWvy6riopmXYg+v
-   uHtGHyZL0VElqF6wV6qg2tPVgC/D6rhYaDsRQn8p7Hp/0NabS4zz2xPcG
-   wSkhPX3rrN8GJI44ZYaRnnOTG1Gef9EP7blKP3tKqZBBUCAJPPNBPH1ri
-   eDjICnmhG0l635+CDnbQX6/QUKvAUtZhRVA9GgsFBSlQNQxFKa2pjEMBx
-   3ihoRSbndJKi2A4tstUXhjdI9u79l2lJCnr2gN+QvHE2ZGCZWpfX6OiVZ
-   UiuTnGshU1g+xVmbX/ge5uqoXYplMOujzz4SQkCdYMtEO0VhknimGUcBJ
-   A==;
-X-CSE-ConnectionGUID: zANUO/S1STK+Knx5RgqxqQ==
-X-CSE-MsgGUID: w9xQqME4TpOzdnei/0P/xw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="77808038"
-X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; 
-   d="scan'208";a="77808038"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2026 09:38:32 -0700
-X-CSE-ConnectionGUID: aRk3h2QWQraEGMNwpTYDsA==
-X-CSE-MsgGUID: oXRg4GqQRnWoF/NAH+AFhg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; 
-   d="scan'208";a="230893594"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.218])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2026 09:38:28 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id A13C211FC4C;
-	Mon, 20 Apr 2026 19:38:25 +0300 (EEST)
-Date: Mon, 20 Apr 2026 19:38:25 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Svyatoslav Ryhel <clamor95@gmail.com>, Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nPJf+G8T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07342C19425;
+	Mon, 20 Apr 2026 16:44:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776703454;
+	bh=1ntPEsTT6PvCrr7xUGP3cYD5TgC1Shos1ROli0m696Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nPJf+G8TwGrcUq0V8YPUgu57x972iCRSlxxFksR5FEOEIcy8fjOQDgcBJx1oqVAmH
+	 z4X4N+GWyZadxlC898Uogq1OkGuWBcQQu69ojyQslNQlK2t0yQKplch40irkqFppwW
+	 L38tSp2jPZgja445JGM+oSdgWChkbNXYT9rRjsbiLnUhVobvR/vO2EhPSW+7EbLXCB
+	 vG2l4DPgiioAOvhZQjwNNSvmetwpZ1RpymbqSPomIhM9jAcfzBqs4XGVtURicas+c/
+	 B+EytDesRiNQe6nZepYu71KR8r3OaidN6IRQnqQHnmLtyD20Yor3wyAObiXx+2/MnD
+	 xhxXTBwR8adIQ==
+Date: Mon, 20 Apr 2026 17:44:09 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] dt-bindings: leds: Document TI LM3560 Synchronous
- Boost Flash Driver
-Message-ID: <aeZWgcARBqMQatrr@kekkonen.localdomain>
-References: <20260419093412.40796-1-clamor95@gmail.com>
- <20260419093412.40796-2-clamor95@gmail.com>
- <20260420-affection-ferocious-e28cd29f360a@spud>
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/7] spi: qcom-qspi: Add interconnect support for
+ memory path
+Message-ID: <e7873eb0-bfcc-4ad2-8016-17b0db80feea@sirena.org.uk>
+References: <20260420-spi-nor-v3-0-7de325a29010@oss.qualcomm.com>
+ <20260420-spi-nor-v3-3-7de325a29010@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bwAeXuYM9E8xVQPw"
+Content-Disposition: inline
+In-Reply-To: <20260420-spi-nor-v3-3-7de325a29010@oss.qualcomm.com>
+X-Cookie: Sales tax applies.
+
+
+--bwAeXuYM9E8xVQPw
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260420-affection-ferocious-e28cd29f360a@spud>
+Content-Transfer-Encoding: quoted-printable
 
-Hi Conor,
+On Mon, Apr 20, 2026 at 11:42:50AM +0530, Viken Dadhaniya wrote:
+> The QSPI controller has two interconnect paths:
+> 1. qspi-config: CPU to QSPI controller for register access
+> 2. qspi-memory: QSPI controller to memory for DMA operations
 
-On Mon, Apr 20, 2026 at 05:20:28PM +0100, Conor Dooley wrote:
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - ti,lm3559
-> > +      - ti,lm3560
-> 
-> What differentiates these devices to the point that fallback compatibles
-> are not suitable?
+> @@ -729,6 +737,11 @@ static int qcom_qspi_probe(struct platform_device *p=
+dev)
+>  		return dev_err_probe(dev, PTR_ERR(ctrl->icc_path_cpu_to_qspi),
+>  				     "Failed to get cpu path\n");
+> =20
+> +	ctrl->icc_path_mem =3D devm_of_icc_get(dev, "qspi-memory");
+> +	if (IS_ERR(ctrl->icc_path_mem))
+> +		return dev_err_probe(dev, PTR_ERR(ctrl->icc_path_mem),
+> +				     "Failed to get memory path\n");
+> +
 
-Good question.
+Does this handle missing qspi-memory properly?  It's not conditional on
+the compatible so it'll run even for existing devices.
 
-It seems the currents are different albeit the register values themselves
-are the same. The driver doesn't seem to handle that properly right now, so
-it's a driver bug.
+--bwAeXuYM9E8xVQPw
+Content-Type: application/pgp-signature; name="signature.asc"
 
-I'd keep the compatibles as-is as the current limit applied should be as
-specified in DT.
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Kind regards,
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnmV9gACgkQJNaLcl1U
+h9Bj2Af/UoZAegaTBYDvZr4TigID7C5f0PRB5VbJEJeSG98ecetQSKeIzsw5kB6D
+ZFZdDNWJZVFWfzwjXEP3r8zymF11muSDS5XGGxACpfneo4XFS4687PuXJiNHOWLK
+y+CDCO2Wa6H5aEb/ApTU7+yxjLxtBdOcZRlJ8+cZbEOcIyj7zs8w+XjRN36iPmVL
+vNmiinOsen69q7WDT/jktIQBUdo0/PPgoiRQAQcIwPWhLT1KD+yDSm+cR6HPDFO9
+mTmvwUzgONY9gpLvsLJN5xwO+QGWbwbbBWjk2nysqwgwsHyb3GIlm5lVhmaXCDiL
+075JxCdvmxU3XXixHWCgYOK/4QVrkQ==
+=de6f
+-----END PGP SIGNATURE-----
 
-Sakari Ailus
+--bwAeXuYM9E8xVQPw--
