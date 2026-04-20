@@ -1,161 +1,159 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4501539E182
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 12:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B07441A8F
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 12:57:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776689856; cv=none; b=Z6oRf9DUxDpS3IqR0IRx1ARPg70WZVnvOHXD42dUtEkBLTQqPOjGekFQGVtaoUJgLn0gWlRQ/NRAP7YrTJGPy1GslbmGL8vblwwLCmiRpV3VKVOWSiBbSeFC6KD5akSC+V7C77bsEu8AvYj2hGkZ8SYAiAes/BcIDes/Ccv1tNo=
+	t=1776689875; cv=none; b=RWM30ul3PV9vNwnxvjgrgVW1D2u7eS7cIOAsKEKovh7yaj5r0rNuqE7PIHkOMQf1svcEZ0Rin+FyEwf8McqtEexo7VkedW9wLOpv4aUUqMU+sJgtvn2iszQJ54uwSn+OR9e8D29sxud88qvDZP9icZGF4A858sZvJYbjC+Yrqdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776689856; c=relaxed/simple;
-	bh=2yuzhsqIoFkC93c8bQUG7uE36plzmoFPEtctfPNZbxo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PPA3rrTb9QCqdyIp3eaqNPy/HIWa/xQz2+R+iQiBfTe8IN/d1UoFxgGdl0r+fQacj51xYAVAmPUwwZyoh9tE+8ULTSsBSKVa4K3DbO9ZbJ7xWSVajzJh0iGn2ek0mLpMmdmouaI8dTGxEp2WHXaAO412fg+InEmL+H6cz8R7MN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DOpVZm/x; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ymy336hn; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776689875; c=relaxed/simple;
+	bh=V7FPj1tNedM8iIeydBk5vJ5jEFd2bEmcvSkLalKsPgA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oYsDd0o500woiCkS4R4nMnQuiURUV3wufoK8XMqAYSvk8QUSjeqUXsHax6KTyAudGZ2kOq9LJVy936sn+APTvJq77x3j9WVWwv9dyXGKacZarSTXJ+2rjKAnJmMm+vtpeQl9mU4MYLrgZBhXVHxi2ij65c882nnO+mpfPSq7GE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gxAdgBun; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DOpVZm/x";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ymy336hn"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63K97qG81599885
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 12:57:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=41og4mU1cLDXbt7IUpYZOpMl
-	mqtt4dfz8VnoGJQGa8U=; b=DOpVZm/xN/P2BBvah3VvNjMlOn5xsAXk5r9cx/RR
-	jn/gCp6WiV2dtQpJ/Yf7wGvknOeNQMsM5o+hYsZqh/YbkJWoXgEhy8M8f8OEfW4D
-	AwSpAWaSyrY3Y16RU41RgFqmPLNmWonnyaR833AZsykPu/xrFIjjU9UG4YKl84GX
-	POSpm3vnRPrT6m6MUCPeWKBwfay/VXtkr6So7Z9LCs0LWFXZ2jIIdpgujkoNvu+M
-	HAdBS0emtefdUg7WWDcqyqU8Z4w8JDEtar1FE2my+TpbeWakq/MxNtxQOZ/zlVOi
-	YvPUwUu0PgnumtjcBiYV+ms3B4jGH4jh55GV/ToxoddiIw==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dnh898rbq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 12:57:32 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-127876be621so2677459c88.1
-        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 05:57:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776689851; x=1777294651; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=41og4mU1cLDXbt7IUpYZOpMlmqtt4dfz8VnoGJQGa8U=;
-        b=Ymy336hneZq8kQqKCHEOgaaL+gDp5WbC0Y82vPyUE+ydgIUDpoX1BY19CDVjy+O3Q4
-         Ws7jhbTeOwxEuFJdSYmUgPc5pu1R2UY0POb4bT3LUfVbGYtsCMkxpJjpV8HKf6um/WHL
-         mEN+iBcYcIEuX02OudJIbtaYe3hsY/Oa5VzoI6wBWk/s4bxMNhdzsyByMmzM1hGYF5RV
-         tHxLwHYLat0m1P3CSm5oVZUYiQ/uuWw9NBclB7wzfwBC1ztAoNPxKtzIFjhTn1Ln+5Rd
-         1fipFQUeoDjRNOLwDEmhBXPGdfBs4+dk6UMkpr3kXj1eWi660zJgs0GLz/qP80ZNQYFt
-         BITw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776689851; x=1777294651;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=41og4mU1cLDXbt7IUpYZOpMlmqtt4dfz8VnoGJQGa8U=;
-        b=RBgrKTGAOENS7V0cRO0BeXAEMgn2fRMP4Hm6zry0u03TX9a+7nAzgcF+BpmfrXoudl
-         AEHogorGEj8/QlaDHY6qBZh+yenJE1mtGw3vrknbVzIxuX8mk8m2YLIVK+I/XEsaRfcH
-         DPxe3WYZ5lk5NaceJq8rxGDMV+Z6i7NwjpOUd1Am4EdYHvvXCYEOmyuweX8LuLaglBoF
-         FGsXNVZByGCrtUcNRR8OisQyyNaNfNMnPxCJ0UzK+k5dMS7Q5o/RnsNwbNNXMMW/AmYI
-         pkWJ2R3ZEMMCqQDATrhr94B4QzARGkl52vvYsK27yFtmx65ElHdtMOFI+iSRr/ujh2YF
-         SGHw==
-X-Forwarded-Encrypted: i=1; AFNElJ8xCJ+uJNa+yycXHc+WQUiHlEXW3hiZbOx4fi6EncfdEVt1/8zEkYYUgtNT3Rd1WA6XFOTOgryYQwF4@vger.kernel.org
-X-Gm-Message-State: AOJu0YycKPBuuTkI9Y9nke3Sc7diRlCkGY4D4AX3PktiFmmRJUXfsFze
-	FKRop/xJW8P+nLZOX8vK9kv+mnw5dF3ZHIFurJuK5Nm1bo7J4Ti2+t8g7BL23mOZc7Ryf0J4dkH
-	TO1tI4+lmVlEP+I4KOAeF1VuKIXqhXFaTLkv0GRExP9MfVILAoWZtTa95NUUuM56e
-X-Gm-Gg: AeBDieu7vLIHn+j+6b0tvDoMqWZaKuBfOPY4f00Lkv3UHMcejQYcxKupyL5UrQ/OmzJ
-	e9q4NlFCRLq1g2Oli508iWi8fbhXrQEDOhFhRMl8X6cE+4YVk8HtYmgmmDJlTLSQZ3M26JkX6/9
-	FbLUwEot4RbNmsKX95eRMn5sEQa5Y73hHbCzHkxNOL/ycG3o858KLFrjEN1Np2N8+FE+jclJ4Vv
-	glzssiKw+7fESK46zldb+sXJmAwiK0/cenfnsds6J3JznVKn1RcFeE9WC+3XIMk9iQf55M1Z//Q
-	GORYg6l5eqBT0PdUpWE6sIzkmL64d2QQ7q/y6zz5MXN8fOggdfWM0BktFfIB2ND/Cu+XUhha/aV
-	q55OjqM2FNuZwj5z4br6isP3QDgmxlKgTFIf73UYm+1LlXxP2UxNpQs9oUbPlyG7elnAfHZnTXF
-	0=
-X-Received: by 2002:a05:7022:1281:b0:11c:883d:1ef0 with SMTP id a92af1059eb24-12c73b2c248mr5226096c88.15.1776689851135;
-        Mon, 20 Apr 2026 05:57:31 -0700 (PDT)
-X-Received: by 2002:a05:7022:1281:b0:11c:883d:1ef0 with SMTP id a92af1059eb24-12c73b2c248mr5226067c88.15.1776689850578;
-        Mon, 20 Apr 2026 05:57:30 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12c7b62fe87sm10608117c88.2.2026.04.20.05.57.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Apr 2026 05:57:30 -0700 (PDT)
-Date: Mon, 20 Apr 2026 20:57:23 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: crypto: qcom,inline-crypto-engine: Document
- Nord ICE
-Message-ID: <aeYis8uC0BcGXB3Z@QCOM-aGQu4IUr3Y>
-References: <20260420073301.1250197-1-shengchao.guo@oss.qualcomm.com>
- <dd5ee12e-1aac-494f-a8f8-74e236ecb47c@kernel.org>
- <aeXmOSfAFoxhIAcD@QCOM-aGQu4IUr3Y>
- <4b074757-ac44-4077-8ab4-5a983d1be50b@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gxAdgBun"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA737C19425
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 12:57:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776689874;
+	bh=V7FPj1tNedM8iIeydBk5vJ5jEFd2bEmcvSkLalKsPgA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=gxAdgBun7l29CLJmx3skh/iZ6VE3gSZ5GWQLCuJSsfB5Q+ICpcBuAeqKQ1a5j5RpC
+	 87EHEua1uwSu69AjMVicdA8cIJmfz0o9YSx3hD/0dzqFbEHAE4Nue7qxvAZgiPbMC1
+	 Ve0xDwp+aOZbxNFZqFBsrJRBK7Myudq7ZRYBJLpFRFYPCaagjGGkoAbQrFy1ghGGQz
+	 T1Huix/3BJqtzGYpVBGLaFpBT4w8rXT8Yk3gJXyVsfD69Um3fCVcOO+lIZiKXdlVFi
+	 AzJNbnhPW4DptQsGjX9XnTNYYCyzRrWf3FFe+duOdhO2spQirYYjxwI/FQy0fnK/W1
+	 KKqRgXZvNe6KA==
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-b8f9568e074so541945166b.0
+        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 05:57:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9qnhuXC69gBgR2E64i46kuGk1yqpsagFKlyXRk97cM5eTHJmySGT7neSIHpvPGtTIclr5wL/WY+dqv@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx0/4FXw/cEzi+GA/2DPTrGBBcYZhdch0UbQo//G8FlteDPKEmG
+	BWmNxphgLNN66+zTrTFQHOFNcHwfp01LW8q9Ys8OlIbP5QsQMLE6XXGCkA0UC82y/RwyVMtQDxJ
+	njMwYFWXjZi1hpwQNO5++Cnnlz0Evvg==
+X-Received: by 2002:a17:907:1682:b0:b9d:872f:f5b9 with SMTP id
+ a640c23a62f3a-ba41a91e1abmr709097466b.23.1776689873405; Mon, 20 Apr 2026
+ 05:57:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4b074757-ac44-4077-8ab4-5a983d1be50b@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDEyNiBTYWx0ZWRfX5W2SKO9O6m4Z
- NrWPcoEpjUHeB5pTTvOd34Lj9gyinQ6w59jdddxfuz96y5mApu9e/Vh/0sj/lkcy+LKGmo96Tbr
- qgzlNgt4zolVnOfF4tFRpqvqg1gAYhFYvodMJoSrH0iAbmZTo0bk775mPI8pPESoFH12bzYucpo
- hGZ/eVV9P/CVboAv0nLEpLj8vsjqs9TZO3w/N/nP9uWIY2GgC7a3Ht7vzaja5Wwr6oJVgKUTrNP
- REW0yvihkuPoGQENePmCIGFq1d9y6bqS9ayjjbDPk2aecTjF7HgYUVUM8Gvq8tuKLXjRtrqr9ji
- jYJbZTU4weaByTX3ekFrsTyVvmW4yklg9PbFaV2UmSaU6L+4ZvnPB/bp9v/a+JoCXAUJx5p/r6P
- qZ+MYt7JUUWFpTWzHjJeomN5Rb2sp0rHXjNyxegPCHQRbts1d1zgJcfwMdLT7hkyYyG4XZ3RSpw
- hFcLP9xz09qmQSFWUuA==
-X-Authority-Analysis: v=2.4 cv=D6B37PRj c=1 sm=1 tr=0 ts=69e622bc cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=NEAV23lmAAAA:8 a=lIS4hxcDbv2UqGGAmQAA:9 a=CjuIK1q_8ugA:10
- a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-ORIG-GUID: zYKVesLSbun-2-4H-iaKD0ST72jMr41f
-X-Proofpoint-GUID: zYKVesLSbun-2-4H-iaKD0ST72jMr41f
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-20_02,2026-04-17_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 bulkscore=0 adultscore=0 lowpriorityscore=0
- malwarescore=0 suspectscore=0 priorityscore=1501 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604200126
+References: <Z0NUdoG17EwuCigT@sashalap> <c25e6a80-f6dc-4ef9-a90d-0fa09cbbc217@linaro.org>
+ <Z0NbeyTwxo-M4Lgi@sashalap> <936bf452-3d1f-4940-9a91-69efcdc6985e@collabora.com>
+ <CAGXv+5FLkZbZVHNkfRWuT+OioZ0TG=u2WfaFCx-jZFi73QHnVg@mail.gmail.com>
+ <19ba4910-f909-41b4-ba62-c904bc37d41d@linaro.org> <e77669ea-9edd-4321-8d17-4da40161b59d@linaro.org>
+ <Z0R6myuCR4Jpmc_y@sashalap> <CAL_Jsq+QBweDZ+1=FXq7Hez=+mhiOxOvurr3rP0+3y_FCd49Ew@mail.gmail.com>
+ <20241209092809.GA3246424@google.com> <aeKlYzTiL0OB1y3g@google.com>
+In-Reply-To: <aeKlYzTiL0OB1y3g@google.com>
+From: Rob Herring <robh@kernel.org>
+Date: Mon, 20 Apr 2026 07:57:40 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+UCYbKMXG5m8BRNVRA_03Ki8aGF0uoaDs8HHvOSCZ2Mg@mail.gmail.com>
+X-Gm-Features: AQROBzC2C_xA3b0Mjz0zbeaIOwFHYjnlA51sUwMWExHOdDIrYqslHpa-2xJeEdo
+Message-ID: <CAL_Jsq+UCYbKMXG5m8BRNVRA_03Ki8aGF0uoaDs8HHvOSCZ2Mg@mail.gmail.com>
+Subject: Re: [regression] of: mis-parsing Depthcharge's /firmware
+To: Brian Norris <briannorris@chromium.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, Sasha Levin <sashal@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	Matthias Brugger <matthias.bgg@gmail.com>, Doug Anderson <dianders@chromium.org>, 
+	Julius Werner <jwerner@chromium.org>, chrome-platform@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Apr 20, 2026 at 01:56:46PM +0200, Krzysztof Kozlowski wrote:
-> On 20/04/2026 10:39, Shawn Guo wrote:
-> > On Mon, Apr 20, 2026 at 10:27:56AM +0200, Krzysztof Kozlowski wrote:
-> >> On 20/04/2026 09:33, Shawn Guo wrote:
-> >>> Add compatible for Inline Crypto Engine (ICE) on Qualcomm Nord SoC
-> >>> witha fallback on qcom,inline-crypto-engine.
-> >>
-> >> Don't explain what the diff is doing. Explain why. Why do you use fallback?
-> >>
-> >> What is Nord? It's nowhere explained. First posting was 1.5 months ago
-> >> and it did not provide any explanation. I don't see any information
-> >> being posted in the series sent now.
-> > 
-> > I'm still checking internally to see how we can get the best socinfo
-> > patch describing Nord which is a SoC family covering both SA8997P and
-> > IQ10 variant.  Hopefully I will get it soon.
-> 
-> I found the DTS on:
-> https://github.com/qualcomm-linux/kernel-topics/commits/early/hwe/nord/
-> so it should be mentioned somewhere, which I kind of asked when we
-> discussed about adding compatibles used by that DTS. You would solve
-> yourself all my questions from three threads.
+On Fri, Apr 17, 2026 at 4:26=E2=80=AFPM Brian Norris <briannorris@chromium.=
+org> wrote:
+>
+> Hi all,
+>
+> (New subject; was "Re: [GIT PULL] Devicetree updates for v6.13")
+>
+> On Mon, Dec 09, 2024 at 05:28:09PM +0800, Chen-Yu Tsai wrote:
+> > steelix.dtb is the same, plus the firmware now inserts #address-cells
+> > and #size-cells under /firmware. This fix has landed for all future
+> > ChromeOS devices via our main firmware branch [1].
+> >
+> > AFAIK they also have a bad FDT END symbol. This was only recently
+> > discovered and fixed for future devices [2].
+> >
+> >
+> > ChenYu
+> >
+> > [1] Gerrit: https://crrev.com/c/6051580
+> > [2] Gerrit: https://review.coreboot.org/c/coreboot/+/85462
+>
+> This all comes back to bite us, since nobody went back to patch the
+> existing Chromebook device trees, and now we've added a true regression
+> on top:
+>
+> In commit 6e5773d52f4a ("of/address: Fix WARN when attempting
+> translating non-translatable addresses") we now reject devices without
+> '#address-cells', and this breaks the DTs generated by bootloaders
+> without Chen-Yu's https://crrev.com/c/6051580 fix (this is ... pretty
+> much all Chromebooks). Specifically, Linux now refuses to add 'reg'
+> resources to the /firmware/coreboot device, and we fail with:
+>
+> [   11.886271] coreboot_table firmware:coreboot: probe with driver corebo=
+ot_table failed with error -22
+>
+> This is almost certainly a DTB ABI regression.
+>
+> This was noticed here (OpenWrt supports some Chromium-based WiFi routers
+> that use Depthcharge-based bootloaders from many years ago):
+>
+> https://github.com/openwrt/openwrt/issues/21243
+>
+> For now, I just patched up the OpenWrt DTS files like so:
+> https://github.com/openwrt/openwrt/pull/22951
+>
+> But what should we do going forward? I note that Rob says "We may
+> revisit this later and address with a fixup to the DT itself" in commit
+> 8600058ba28a ("of: Add coreboot firmware to excluded default cells
+> list").
+>
+> That never happened, and a ton of Chromium devices are still broken.
 
-Ah, I see.  I thought only patches posted to list count.
+The above just silenced the warning. If they are broken, then
+something else broke them.
 
-Thanks!
+> (They don't have WARNINGs, but /sys/firmware/vpd, etc., is still
+> missing.)
+>
+> Can we patch of_bus_default_match() to accept an empty 'ranges' [1]? Or
+> should I go patch every Chromium-device DTS file I can find? So far, I
+> think I can get that done in 17 files in the upstream tree...
 
-Shawn
+Both.
+
+Though I'd rather the kernel fixup the DT rather than relax the
+parsing code for everyone. Then we know what platforms need this and
+don't let new ones in.
+
+>
+> Brian
+>
+> [1] From ePAPR:
+>
+>   "If the [ranges] property is defined with an <empty> value, it
+>   specifies that the parent and child address 28 space is identical, and
+>   no address translation is required."
+>
+> And:
+>
+>   "An ePAPR-compliant boot program shall supply #address-cells and
+>   #size-cells on all nodes 16 that have children.
+>
+>   If missing, a client program should assume a default value of 2 for
+>   #address-cells, and a value of 1 for #size-cells."
+
+ePAPR may say that, but that's not what the kernel implements,
+defaulting to 1 address cell (on !SPARC). dtc however does default to
+2 cells. Relying on defaults has been a warning in dtc essentially
+forever. I'd like to get rid of defaults in the kernel
+
+Rob
