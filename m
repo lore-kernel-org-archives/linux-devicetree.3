@@ -1,344 +1,137 @@
-Received: from out-189.mta1.migadu.com (out-189.mta1.migadu.com [95.215.58.189])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82054314D18
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 11:29:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796E53815D6;
+	Mon, 20 Apr 2026 11:33:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776684565; cv=none; b=Yt+XH/AfomGVvCw8fLANFRlrEM+POc3lnDd6LxgFkglaPI7as1yUztyJf/BJabrBJjUwcd14WH46vT9mj3Kr2ITNGJzZZd68TZbhja9A+PxU3QaPMxQfaSw4sDVEBuSxtnf+N8lsqM7kkhAcoDR1L5kvKt5nifWBjqUbSpaEEv8=
+	t=1776684832; cv=none; b=PaMs40INp5t+2yHFT4R6n7JIQ7rJRKt22hRv8zKpC/weB0gYIwmeXx9OAfJizsELduov8tP9/2nDIU7R3KTAx3bSrHK/+MrhOYOdoYB4VS8fZ6pyxJMEGXfVtoeQfiHqCaeBuwTmVONMyDLKLvGJ9tD6h4PJFN7AjPSRu0VKGmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776684565; c=relaxed/simple;
-	bh=3gXLrZDsuvdad1Oeu/La1HOjTIyxVsNU/CW/O98x9KQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:Message-ID:
-	 MIME-Version:Content-Type; b=h7bmdglIvXkuRRY0YMfKCdDH9yWmDf/pc7yqF31xE79JyUQk/PEXsS4TMIody0cNStqJYDpJe/YJI0Kit3yZLPV0xWvmKFrN6oPNzk5/CTdqTqR+saNscEP+cYJToeXggMuWi8uyAI9rhZ+h+BtBLfmbvId0vjXOm+CpgfCJbj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=I6Au+Djn; arc=none smtp.client-ip=95.215.58.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	s=arc-20240116; t=1776684832; c=relaxed/simple;
+	bh=liMwdSxiWyK/QiGmg16SrEda19KDCZ6G/77g9d5KXgo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jxQHAMuK4WL8zOm2t3s5iclvLtysh6FC3VvlAqBdmWLM1bWWWQH+9RRw4+vPDqoFwDcI1NwYuawvv20HJgLQS74Y6eSmeyQXLCaCsbDRu4upgWXrfgRM88x+cyuzqtseXRYalXe6SxtTCHUtjY6ZFZ/D6OSHfF7k9XqnHUeerAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HAyQZ9dU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="I6Au+Djn"
-Date: Mon, 20 Apr 2026 10:43:50 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
-	s=key1; t=1776684557;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ywrf5g5AerKkuHm35hzEfe78NXKD4YVHkcI057XoQG0=;
-	b=I6Au+DjnXkzfExnJXo+ncHa1T67RHXf9FtxP2OSIp3sTkLyn5NBMC0RDw8l3pTL8fHgaYs
-	Jp/p4/fLY+XFX+0tSBoR21NgBxbGcCC/CKC5zMZpPppynK134S2GS3iwrFvefOnwnp8tuX
-	WSwgQIJZhmJX0vWPkBZ5RAMuwfdsB3tZ43OrQoV4XLTw17htJv8y3HaIqJn2DeMrVL/Vds
-	8/QZ+eSm7ZwwMNxldTBpO6EKbuADPDEkaQNyg2n5pjcPJdu4O/DRCX2iHoX3Amia9Frem6
-	RFt7FAus3L5Ge2kPhZq0McW+6tfFZc5LpcBxO0sBLXcjBTexd76PjJDhBv3wtA==
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Ferass El Hafidi <funderscore@postmarketos.org>
-To: linux-amlogic@lists.infradead.org, christian.koever-draxl@student.uibk.ac.at, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com
-Cc: jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, funderscore@postmarketos.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, christian.koever-draxl@student.uibk.ac.at
-Subject: Re: [PATCH v2 2/2] arm64: dts: amlogic: add support for X98Q
-References: <20260420061854.5421-1-christian.koever-draxl@student.uibk.ac.at> <20260420061854.5421-3-christian.koever-draxl@student.uibk.ac.at>
-In-Reply-To: <20260420061854.5421-3-christian.koever-draxl@student.uibk.ac.at>
-Message-ID: <tdsikb.3afuzjop9p14v@postmarketos.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HAyQZ9dU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56019C19425;
+	Mon, 20 Apr 2026 11:33:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776684832;
+	bh=liMwdSxiWyK/QiGmg16SrEda19KDCZ6G/77g9d5KXgo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=HAyQZ9dUOY+QrGTpZC0TdQkfKPve82Lz5oCqDqld9vDi6Wxes+PIVwE36nebvvj/b
+	 Mak0OKTSAyjLZKojHh80J49AwPS07M4LaadJECHJANE1PrUxbo8l+C2TGH8QxMovDB
+	 YJH1VmSmwjp9VNa19uN4o5/hlwNMelG3SkvTGBMd0qQ6m711WAht1M7wsXX+ADEFA+
+	 tefVEu0anrdRn7GX0jxXJbzyAEZDmGx6D02BEC9WhWYNddw8u+USyjsvuOA2hwaD+6
+	 KtLzjCJF4yohdBWpT/XRyFKaD5FHe/nZPX0WBv8juLIIXQunb09eqs1k7Mslslc6c5
+	 BLOFJFDg4m3LA==
+Message-ID: <192f1948-bb9a-4831-a1cd-5ef500cfb413@kernel.org>
+Date: Mon, 20 Apr 2026 13:33:46 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset=utf-8; format=flowed
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: bridge: This patch adds new content
+ to the lontium,lt9611.yaml binding file
+To: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
+ rfoss@kernel.org, mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@ideasonboard.com,
+ jonas@kwiboo.se, jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com
+References: <20260420061644.1251070-1-syyang@lontium.com>
+ <20260420061644.1251070-2-syyang@lontium.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260420061644.1251070-2-syyang@lontium.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 20 Apr 2026 06:18, christian.koever-draxl@student.uibk.ac.at wrote:
->From: Christian Stefan Kövér-Draxl <christian.koever-draxl@student.uibk.ac.at>
->
->Signed-off-by: Christian Stefan Kövér-Draxl <christian.koever-draxl@student.uibk.ac.at>
->---
-> arch/arm64/boot/dts/amlogic/Makefile          |   1 +
-> .../boot/dts/amlogic/meson-s4-s905w2-x98q.dts | 250 ++++++++++++++++++
-> 2 files changed, 251 insertions(+)
-> create mode 100644 arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
->
->diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/Makefile
->index 15f9c817e502..c7752684dea6 100644
->--- a/arch/arm64/boot/dts/amlogic/Makefile
->+++ b/arch/arm64/boot/dts/amlogic/Makefile
->@@ -85,6 +85,7 @@ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-ugoos-am3.dtb
-> dtb-$(CONFIG_ARCH_MESON) += meson-gxm-vega-s96.dtb
-> dtb-$(CONFIG_ARCH_MESON) += meson-gxm-wetek-core2.dtb
-> dtb-$(CONFIG_ARCH_MESON) += meson-s4-s805x2-aq222.dtb
->+dtb-$(CONFIG_ARCH_MESON) += meson-s4-s905w2-x98q.dtb
-> dtb-$(CONFIG_ARCH_MESON) += meson-s4-s905y4-khadas-vim1s.dtb
-> dtb-$(CONFIG_ARCH_MESON) += meson-sm1-a95xf3-air-gbit.dtb
-> dtb-$(CONFIG_ARCH_MESON) += meson-sm1-a95xf3-air.dtb
->diff --git a/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts b/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
->new file mode 100644
->index 000000000000..26c60a4c2a43
->--- /dev/null
->+++ b/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
->@@ -0,0 +1,250 @@
->+
+On 20/04/2026 08:16, syyang@lontium.com wrote:
+> From: Sunyun Yang <syyang@lontium.com>
+> 
+> Add lt9611c,lt9611ex,lt9611uxd to the lontium,lt9611.yaml file.
+> LT9611C(EX/UXD) is a high performance Single/Dual-Port MIPI to
+> HDMI 1.4/2.0 converter:
+> 
+> -Single/Dual-port MIPI DSI Receiver
+>  1. Compliantwith D-PHY1.2&DSI-2 1.0
+>  2. 1/2configurable ports
+>  3. 1 clock lane and 1/2/3/4 configurable data lanes per port
+>  4. 80Mbps~2.5Gbps per data lane
+>  5. Support RGB666, loosely RGB666, RGB888, RGB565,16-bit YCbCr4:2:2
+> 
+> -HDMI 1.4/2.0 Transmitter
+>  1.Data rate up to 6Gbps
+>  2.Support HDCP1.4/2.3
+>  3.Support CEC,HDR10
+>  4.Support lane swap
+> 
+> -audio
+>  1.sample rates of 32~192 KHz and sample sizes
+>    of 16~24 bits
+>  2.SPDIF interface supports PCM, Dolbydigital, DTS digital audio
+>    at up to 192KHz frame rate
+> 
+> -Miscellaneous
+>  1.CSC:RGB<->YUV444<->YUV422
 
-nit: Trailing newline
+Commit msg is not a datasheet introduction chapter. What does this all
+mean for compatibility? What is the benefit of listing all this?
 
->+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
->+/*
->+ * Copyright (c) 2026 Christian Stefan Köver-Draxl
->+ * Based on meson-s4-s905y4-khadas-vim1s.dts:
->+ *  - Copyright (c) 2026 Khadas Technology Co., Ltd.
->+ */
->+
->+/dts-v1/;
->+
->+#include "meson-s4.dtsi"
->+
->+/ {
->+	model = "Shenzhen Amediatech Technology Co., Ltd X98Q";
->+	compatible = "amediatech,x98q", "amlogic,s905w2", "amlogic,s4";
->+	interrupt-parent = <&gic>;
->+	#address-cells = <2>;
->+	#size-cells = <2>;
->+
->+	aliases {
->+		mmc0 = &emmc; /* eMMC */
->+		mmc1 = &sd; /* SD card */
->+		mmc2 = &sdio; /* SDIO */
->+		serial0 = &uart_b;
->+	};
->+
->+	memory@0 {
->+		device_type = "memory";
->+		reg = <0x0 0x0 0x0 0x40000000>;
->+	};
->+
->+	reserved-memory {
->+		#address-cells = <2>;
->+		#size-cells = <2>;
->+		ranges;
->+
->+		/* 52 MiB reserved for ARM Trusted Firmware */
->+		secmon_reserved: secmon@5000000 {
->+			reg = <0x0 0x05000000 0x0 0x3400000>;
->+			no-map;
->+		};
->+	};
->+
->+	emmc_pwrseq: emmc-pwrseq {
->+		compatible = "mmc-pwrseq-emmc";
->+		reset-gpios = <&gpio GPIOB_9 GPIO_ACTIVE_LOW>;
->+	};
->+
->+	sdio_32k: sdio-32k {
->+		compatible = "pwm-clock";
->+		#clock-cells = <0>;
->+		clock-frequency = <32768>;
->+		pwms = <&pwm_ef 0 30518 0>; /* PWM_E at 32.768KHz */
->+	};
->+
->+	sdio_pwrseq: sdio-pwrseq {
->+		compatible = "mmc-pwrseq-simple";
->+		reset-gpios = <&gpio GPIOX_6 GPIO_ACTIVE_LOW>;
->+		clocks = <&sdio_32k>;
->+		clock-names = "ext_clock";
->+	};
->+
->+	main_5v: regulator-main-5v {
->+		compatible = "regulator-fixed";
->+		regulator-name = "5V";
->+		regulator-min-microvolt = <5000000>;
->+		regulator-max-microvolt = <5000000>;
->+		regulator-always-on;
->+	};
->+
->+	sd_3v3: regulator-sd-3v3 {
->+		compatible = "regulator-fixed";
->+		regulator-name = "SD_3V3";
->+		regulator-min-microvolt = <3300000>;
->+		regulator-max-microvolt = <3300000>;
->+		gpio = <&gpio GPIOD_4 GPIO_ACTIVE_LOW>;
->+		regulator-always-on;
->+	};
->+
->+	vddio_sd: regulator-vddio-sd {
->+		compatible = "regulator-gpio";
->+		regulator-name = "VDDIO_SD";
->+		regulator-min-microvolt = <1800000>;
->+		regulator-max-microvolt = <3300000>;
->+		gpios = <&gpio GPIOD_9 GPIO_ACTIVE_HIGH>;
->+		gpios-states = <1>;
->+		states = <1800000 1 3300000 0>;
->+	};
->+
->+	vddao_3v3: regulator-vddao-3v3 {
->+		compatible = "regulator-fixed";
->+		regulator-name = "VDDAO_3V3";
->+		regulator-min-microvolt = <3300000>;
->+		regulator-max-microvolt = <3300000>;
->+		vin-supply = <&main_5v>;
->+		regulator-always-on;
->+	};
->+
->+	vddio_ao1v8: regulator-vddio-ao1v8 {
->+		compatible = "regulator-fixed";
->+		regulator-name = "VDDIO_AO1V8";
->+		regulator-min-microvolt = <1800000>;
->+		regulator-max-microvolt = <1800000>;
->+		vin-supply = <&vddao_3v3>;
->+		regulator-always-on;
->+	};
->+
->+	/* SY8120B1ABC DC/DC Regulator. */
->+	vddcpu: regulator-vddcpu {
->+		compatible = "pwm-regulator";
->+
->+		regulator-name = "VDDCPU";
->+		regulator-min-microvolt = <689000>;
->+		regulator-max-microvolt = <1049000>;
->+
->+		vin-supply = <&main_5v>;
->+
->+		pwms = <&pwm_ij 1 1500 0>;
->+		pwm-dutycycle-range = <100 0>;
->+
->+		regulator-boot-on;
->+		regulator-always-on;
->+		/* Voltage Duty-Cycle */
->+		voltage-table = <1049000 0>,
->+				<1039000 3>,
->+				<1029000 6>,
->+				<1019000 9>,
->+				<1009000 12>,
->+				<999000 14>,
->+				<989000 17>,
->+				<979000 20>,
->+				<969000 23>,
->+				<959000 26>,
->+				<949000 29>,
->+				<939000 31>,
->+				<929000 34>,
->+				<919000 37>,
->+				<909000 40>,
->+				<899000 43>,
->+				<889000 45>,
->+				<879000 48>,
->+				<869000 51>,
->+				<859000 54>,
->+				<849000 56>,
->+				<839000 59>,
->+				<829000 62>,
->+				<819000 65>,
->+				<809000 68>,
->+				<799000 70>,
->+				<789000 73>,
->+				<779000 76>,
->+				<769000 79>,
->+				<759000 81>,
->+				<749000 84>,
->+				<739000 87>,
->+				<729000 89>,
->+				<719000 92>,
->+				<709000 95>,
->+				<699000 98>,
->+				<689000 100>;
->+	};
->+};
->+
->+&emmc {
->+	status = "okay";
->+	pinctrl-0 = <&emmc_pins>, <&emmc_ds_pins>;
->+	pinctrl-1 = <&emmc_clk_gate_pins>;
->+	pinctrl-names = "default", "clk-gate";
->+
->+	bus-width = <8>;
->+	cap-mmc-highspeed;
->+	mmc-ddr-1_8v;
->+	mmc-hs200-1_8v;
->+	max-frequency = <200000000>;
->+	non-removable;
->+	disable-wp;
->+
->+	mmc-pwrseq = <&emmc_pwrseq>;
->+	vmmc-supply = <&vddao_3v3>;
->+	vqmmc-supply = <&vddio_ao1v8>;
->+};
->+
->+&ethmac {
->+	status = "okay";
->+	phy-handle = <&internal_ephy>;
->+	phy-mode = "rmii";
->+};
->+
->+&ir {
->+	status = "okay";
->+	pinctrl-0 = <&remote_pins>;
->+	pinctrl-names = "default";
->+};
->+
->+&pwm_ef {
->+	status = "okay";
->+	pinctrl-0 = <&pwm_e_pins1>;
->+	pinctrl-names = "default";
->+};
->+
->+&pwm_ij {
->+	status = "okay";
->+};
->+
->+&sd {
->+	status = "okay";
->+	pinctrl-0 = <&sdcard_pins>;
->+	pinctrl-1 = <&sdcard_clk_gate_pins>;
->+	pinctrl-names = "default", "clk-gate";
->+	bus-width = <4>;
->+	cap-sd-highspeed;
->+	max-frequency = <50000000>;
->+	disable-wp;
->+
->+	cd-gpios = <&gpio GPIOC_6 GPIO_ACTIVE_LOW>;
->+
->+	vmmc-supply = <&vddao_3v3>;
->+	vqmmc-supply = <&vddao_3v3>;
->+};
->+
->+/*
->+* Wireless SDIO Module (Amlogic W150S1)
->+* Note: There is no driver for this at the moment.
->+*/
+You did not even explain the differences between C, UX and EXD, so all
+above is pointless. Explain the differences and why devices are not
+compatible.
 
-Align like this:
 
-	/*
-	 * Wireless SDIO Module (Amlogic W150S1)
-	 * Note: There is no driver for this at the moment.
-	 */
-
->+
->+&sdio {
->+	status = "okay";
->+	pinctrl-0 = <&sdio_pins>;
->+	pinctrl-1 = <&sdio_clk_gate_pins>;
->+	pinctrl-names = "default", "clk-gate";
->+	#address-cells = <1>;
->+	#size-cells = <0>;
->+	bus-width = <4>;
->+	cap-sd-highspeed;
->+	sd-uhs-sdr50;
->+	sd-uhs-sdr104;
->+	max-frequency = <200000000>;
->+	non-removable;
->+	disable-wp;
->+
->+	no-sd;
->+	no-mmc;
->+	mmc-pwrseq = <&sdio_pwrseq>;
->+	vmmc-supply = <&vddao_3v3>;
->+	vqmmc-supply = <&vddio_ao1v8>;
->+};
->+
->+&uart_b {
->+	status = "okay";
->+};
->-- 
->2.53.0
-
---
 Best regards,
-Ferass
+Krzysztof
