@@ -1,94 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BC931E844;
-	Mon, 20 Apr 2026 14:54:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6446034E746;
+	Mon, 20 Apr 2026 15:01:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776696884; cv=none; b=Wbuf1rZIHzUBua/sB/BpzbcyNy/MLcCPnaeJHBnqzLRe6Y11qZhO14lM/152zmDFmlwlJXYnwpMytDt4jT91OGlb/cPNAJOEQPBBBMpZpFJmoPdHknBg0SfSu09gkHGJet3Jw9Com+50/wowa7dcEKFJV9qWIY/hEqSf8v0QKHk=
+	t=1776697279; cv=none; b=kPE7laCu/a/PVtc/mwEfIsevfprNCI7eOR3RD60MkjMaH2lFgrOpIZPw5WwnpWxgcT0QaIJrbWpqe2DZQSaGw/1uOfkykKI9WD2nYtOsdNkiWGTaxfbIEiZ8R6hrnp92uQfkekhd5sVc39IJ8FNt5KyzyrLsJ5GZl+06vxsWjJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776696884; c=relaxed/simple;
-	bh=uGL3RkNr80Rb4I0b+dBZzhPVLXURYIOCB1+i0nmoLZ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=c/frIvSjzDzNm1z2vA5AYWQEpZuokeToaf4acqC2n9izGPkmymH4n36ntbJufa0XfWBhGQZrIvkILXwlMulpmsOHiXAJYHN3I2YHPjJGZTyjD28LenjR6TPlk+ltcu/a5Pv3UAzxtY1/zRGBB8BF+oZ6WdU1PsXwAicz+XAytA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vJvL3pB0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776697279; c=relaxed/simple;
+	bh=0+jyjM0Uy5qmCUUkrw0ZUslYImT7Dy2hq65NWqQk5pk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p6vmPlIvxLq7IUUDDNcO5pG3B2g/zYWNZBTnT93z5JCOv8JiK/H1H7iGr4Ja+VUEtipQqYZgKOzHWc4Z7QfLBghFVIgSmgcnItze4V6E9OqgPbz7QukgkD/a0bmwxkmIls+UO6wdNINLIFbO96pFwH7Ex8XKJ+M3cojRXgwbzys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HuPRO6I9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vJvL3pB0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B17CC19425;
-	Mon, 20 Apr 2026 14:54:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HuPRO6I9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5B9FC2BCB6;
+	Mon, 20 Apr 2026 15:01:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776696884;
-	bh=uGL3RkNr80Rb4I0b+dBZzhPVLXURYIOCB1+i0nmoLZ8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=vJvL3pB0ISuKcagfn2khLoIEfExVuzlnvYQvbLVQU+hJ8ZIM7WvF0D8pVgAZZDrLE
-	 hT3GVTuIPbpS28VdyWTu/ocjDuw23i01+7th0sRY8NIyJZBso//GlPfJ5E7IQ6NvRH
-	 JfLHiCGSP+ffLZSwlvrYfMJk11lT3+5jC3EDBYGAoJiDJznyoY7W/5bKvPJEA6w1bG
-	 ehg3SEa5sguXPBQhwTNiUHPG3najL63j16XmDEzXA2xBOKOaQHJX+kWVXFtylaCHcp
-	 J8Ewr2l1iLKC+MqS6uM05BWt/9AX1trUZJY06TVzVcApfFnQsi90cRfYs5ZhVAPlUb
-	 L9E0R7jD8hXhQ==
-Date: Mon, 20 Apr 2026 15:54:34 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Jonathan Santos <Jonathan.Santos@analog.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, lars@metafoo.de,
- Michael.Hennerich@analog.com, nuno.sa@analog.com, andy@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, Krzysztof
- Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 2/5] dt-bindings: iio: adc: ad4130: Add new supported
- parts
-Message-ID: <20260420155434.72e35891@jic23-huawei>
-In-Reply-To: <cf4ac074-9098-45f5-9cd6-0eeea0b41179@baylibre.com>
-References: <cover.1774996100.git.Jonathan.Santos@analog.com>
-	<7bf387e8ad20e2f2bb14534fb03608bbadfa47d2.1774996100.git.Jonathan.Santos@analog.com>
-	<cf4ac074-9098-45f5-9cd6-0eeea0b41179@baylibre.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20201202; t=1776697279;
+	bh=0+jyjM0Uy5qmCUUkrw0ZUslYImT7Dy2hq65NWqQk5pk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HuPRO6I9Q84sN/XKi57ht0RX5uGSAYGttTfsI5s8DYy36r8oqbuIzsI8aDYLNpQ/o
+	 uOvt2qA8Ph5X+u/rfvor/UlOvplH25DGdv7OZuHWoXLzBAIrscRIXzv4ATd3ubC4UQ
+	 AxXnd5tH6IlRKkEQdSC58qkbNN2NthZxqWEu5WCzcvNKMomB5k9gQf0xOUXyKW6RFg
+	 kOYSN6KRNPmGk4Hg21Fbz46W7SE0glufuj2NyK7FncF2vWV7noelKHKD1uFU8ijl+V
+	 XAas1LRvLVTAAmDHIBv22c37MN1d9PvHz8E/R+vk+Q9FrGMZOe1t1zLbH7Pw2n4V1Z
+	 Ayl6q9YAhiUUw==
+Date: Mon, 20 Apr 2026 10:01:16 -0500
+From: Rob Herring <robh@kernel.org>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: iio: dac: mcp47feb02: Fix maxItems value
+ for reg property
+Message-ID: <20260420150116.GA2486072-robh@kernel.org>
+References: <20260417-mcp47feb02-fix5-v2-1-6592ea499cce@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260417-mcp47feb02-fix5-v2-1-6592ea499cce@microchip.com>
 
-On Sat, 11 Apr 2026 14:08:59 -0500
-David Lechner <dlechner@baylibre.com> wrote:
-
-> On 4/1/26 6:58 AM, Jonathan Santos wrote:
-> > Extend driver support for AD4129-4/8, AD4130-4, and AD4131-4/8 ADC
-> > variants.
-> > 
-> > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> > Signed-off-by: Jonathan Santos <Jonathan.Santos@analog.com>
-> > ---
-> > Changes in v3:
-> > * None.
-> > 
-> > Changes in v2:
-> > * None.
-> > ---
-> >  .../devicetree/bindings/iio/adc/adi,ad4130.yaml   | 15 +++++++++++++--
-> >  1 file changed, 13 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4130.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4130.yaml
-> > index fcc00e5cfd54..f4cad68fa04d 100644
-> > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4130.yaml
-> > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4130.yaml
-> > @@ -5,19 +5,30 @@
-> >  $id: http://devicetree.org/schemas/iio/adc/adi,ad4130.yaml#
-> >  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> >  
-> > -title: Analog Devices AD4130 ADC device driver
-> > +title: Analog Devices AD4130 family ADC device driver  
+On Fri, Apr 17, 2026 at 04:38:29PM +0300, Ariana Lazar wrote:
+> Change maxItems value from 8 to 1 for the channel number reg property.
 > 
-> I'm surprised that on one said anything about the word "driver"
-> in a devicetree binding. :-)
+> Fixes: 4ba12d304175 ("dt-bindings: iio: dac: adding support for Microchip MCP47FEB02")
+> Link: https://lore.kernel.org/all/20260403-speed-childless-1360de358229@spud/
+> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+> ---
+> Changes in v2:
+> - keep just maxItems value update in this patch
+> - remove Reported-by from commit message
+> - Link to v1: https://lore.kernel.org/r/20260416-mcp47feb02-fix5-v1-1-9656c2fed6d2@microchip.com
+> ---
+>  Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 > 
-You could have kept quiet! :)  Anyhow, tweaked here and in the patch title
-to not mention driver.
+> diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
+> index d2466aa6bda2106a8b695347a0edf38462294d03..f2efa0ccbaa32482dcdc69d98c1565518538793f 100644
+> --- a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
+> +++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
+> @@ -161,8 +161,7 @@ patternProperties:
+>      properties:
+>        reg:
+>          description: The channel number.
+> -        minItems: 1
+> -        maxItems: 8
+> +        maxItems: 1
 
-Series applied to the testing branch of iio.git.
+Perhaps there are 8 channels and 'maximum: 8' is what was intended?
 
-Jonathan
-
-
+Rob
