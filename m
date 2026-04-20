@@ -1,130 +1,94 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A105938F250
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 13:39:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776692401; cv=none; b=NB4CggYKQQ6qFTrIPlcsx1NR+vvQKNRDGaGkRGbGCn3JjYjKk7DkTCWjIBxWVBSnbLkres9eqKWzfE73fxjk5A9pidPojmceBsTwmddUx0WvfC9b17BYhFW1DCsNck3AoAElYirpOdp84wdXAHM/yOQMpVgOTYBI9EpSvSlVV5w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776692401; c=relaxed/simple;
-	bh=cOlwDods3+RDyfVRhAhLNPWGpK0Yh6EZU0juYekUiho=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bEnzjlDEsF6lpjqomwefPiGtVJztdPdBrBZ5N4mYJEhYo1PSW9K7ynsrLMhNGGa8wFKWw781z2jh0T1f1SdKSOjfalJ4wKSku8J9ylKgoWGusp3EkmafNLh7fAqtmg3kDsimRiJleQZ/a0FeQ/VJizeaMmzUynon8kSAv30LQHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-b8f97c626aaso479047466b.2
-        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 06:39:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776692398; x=1777297198;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LKax9YzIu6M6HTrqHFluRZuqCMKY5kOF7MhO6S3HLpA=;
-        b=iG2HsLWNw6zhePCPxn7xDTL23Q2aJeWz8n/3Th5xlNYuYtUyT4lBEkT1BwtI6MqECo
-         mgjIK21oZA8vGBw9nt+e5sUGRJ6w43gDf5YfyTMyCFx8Y93tfb/s28g05pG1T9SZqA37
-         BWWRwnG96seyXe6poJ3BoYcPKBwRzXdprS4rp04gLRI5WM4c0xQ+fJ5mqucpz5kPYQZl
-         eQZfNvr/EYqeJb5dMbYJasqg2aBV1Hzgs24wRrq9CRhBQIBe1mpzUqyLc5P0QQ1juW0F
-         5xzEQylbVdHItL4bfDF4lXWKFQpNpMGlRaaV8XHahCUiiSqS16jVy/ZxzdptaHIIWKYx
-         lVPQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9mxArDWwfciBMAQ+K/8oxxIPBSR9mEhekh/OHYl/f8th3PzMxXTKxdMmXVlIk97hxGBHZ8Hhu7jZP+@vger.kernel.org
-X-Gm-Message-State: AOJu0YyIomtz4TrlQHAK08RtwLIjyvHH74VE9WFvm/tV0A0uibAktCuM
-	HYsv0UnylsdxEH58Jp6156+R3nKkLb7tGAvgUySLhHIQPXj2qdLNe3JkRDOfBVSd9Gw=
-X-Gm-Gg: AeBDietBEBC/PWlq+dFQ1lnr/6PrD11nAK3eOiqk5DFo3ZvjTY5VBtJ4HFXwj2BhuIi
-	9oTiEqTDKOClvufFU0YbTAl5pLLOsLv8tuPNqN8k+pFt839bpYPQRli1W/Edy8DiysgGkMgIEuR
-	qdypE32HsZl8uCDBoLn1PKmI4843DOLlALHkoMUCg4hhyXzc8GwaHwjKupW3TAOSTLLBFdEZxwt
-	te+sUH6lrfNUkbrgfCoyq+3WU3z9UoHNFQrValv78PrnvaPohD6cMJMGrqdYyAb2hh/oU7+Xqjo
-	n+S4xQWY3f6WwC0dojAvzA0JuR92yuQZCy012hcpOGTyrAu8f41ml1n/ziQuOj6EhODaIPMBHs/
-	gWU/4XAAhTg58viSJDb0BpIxYIYqL1Yd3KKNi5xzm+DIkVn+Of9OpQehc97gMYg/WvgnMB8aW13
-	8clAalXw9rgM0ClsKFJu0O1CqkQy56WmwXH8eeZ+PO46EuHJPuuangkiLrDGIqo9CQTw/uW9w=
-X-Received: by 2002:a17:906:ba84:b0:ba4:8288:b464 with SMTP id a640c23a62f3a-ba48288b8demr611461766b.6.1776692397744;
-        Mon, 20 Apr 2026 06:39:57 -0700 (PDT)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com. [209.85.218.54])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba4520ca202sm349388566b.28.2026.04.20.06.39.55
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2026 06:39:55 -0700 (PDT)
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-b886fc047d5so563635566b.3
-        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 06:39:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/JRgVqDcNa9vSoIUbgrdbXkSB92YVixlgS7K+dNLWCjPlSHa3fDU0yz3CF1bqDJO5uNWf5YBHUbUf+@vger.kernel.org
-X-Received: by 2002:a17:907:9342:b0:b9d:e301:20db with SMTP id
- a640c23a62f3a-ba41de2e49amr637943266b.25.1776692395631; Mon, 20 Apr 2026
- 06:39:55 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300D513C9C4;
+	Mon, 20 Apr 2026 13:44:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776692685; cv=pass; b=DRrwrZas53dwhailMYd/MZMk4gIXoEBT2lHyvz/t11LbN3yxR9cpmYt9vzZCcoWNLnL2qmyZsCDsVVuSsFulrvrC1bRjvXOjhwZeJoy9KRUodZCiZK0/S8gqXdDA7PYus5AiQwSXsedB7SopRvzeorrFE7tqoJfSkFrqtbq7m1Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776692685; c=relaxed/simple;
+	bh=sNIWRbAV3+NPzvh4QoLTVBs2+aGwD7SqO1y5ZMLcUjg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Uxr6KZwFHa0kpYsKF7XJbda0Wf6HwKAbc47jUDe1hrosAcscua2yC+pNbWn+o1v0GIq2vQ3TuZhq1UluG9jMxWJJ51UdoJwnaxDSHJGylMR/wszbAYEPs42P72c4NvTC7bibEAoyYBmLivoyY2xhFqAfNYjrqGYc0N8GJlLbee0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=e0yYgZgA; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="e0yYgZgA"
+ARC-Seal: i=1; a=rsa-sha256; t=1776692659; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mkcwrM2zd34qpqDcVR6YMrm683IYTNFwsnrcnqxXc6QfyMACLBM9776F9ysKorGVEK2v5XKxTUkCdbYJ6JhqCK5ofdRtXhBB7y3/inV66/60tpz48tRUzv0+CT35vpax+hIbjgCWck7D/Ykfy+RzBKYTUeW6pruZk5FLjaYBmSI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1776692659; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=1V3GuJpNnFWJCfMVIGdTdAgiX6h8PD58kcy6YMlRmyg=; 
+	b=WB27jklrsxoT2MtVUad/IT9wsRm0zzUx4og1biUR0t3/KOxIYvo9noN98ctcKY1s/WbEIkh5GzANyH9DmMvMmL43k2mAQje762NCtJfK8E2wdIG9MmEksSVV2jK7CSFLtuIiNJXFY/6rEuXZ/vS45r9nL8lo/hadSfpD5z485j4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776692658;
+	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+	bh=1V3GuJpNnFWJCfMVIGdTdAgiX6h8PD58kcy6YMlRmyg=;
+	b=e0yYgZgAY6nsZsSsAPvVGSdH5P1MJJs7vvPiCsZXWVYhL0E7HOLvx/sKsb+q3sVl
+	WgOsEKk9ClrKgrH30latvBAEHpcZ1enwaenfSQnr8RKUtPozJWIb+FrdjyLKRzNrXb/
+	AzxJGRCZ3swvSlmNxhyq9Wtin00TR6wgOyfwZUMI=
+Received: by mx.zohomail.com with SMTPS id 1776692658154201.29359424090717;
+	Mon, 20 Apr 2026 06:44:18 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Lee Jones <lee@kernel.org>, William Breathitt Gray <wbg@kernel.org>,
+ Damon Ding <damon.ding@rock-chips.com>
+Cc: kernel@collabora.com, Jonas Karlman <jonas@kwiboo.se>,
+ Alexey Charkov <alchark@gmail.com>, linux-rockchip@lists.infradead.org,
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org
+Subject: Re: [PATCH v4 3/5] pwm: Add rockchip PWMv4 driver
+Date: Mon, 20 Apr 2026 15:44:13 +0200
+Message-ID: <AP7g6gy2QFms8ov59vex7A@collabora.com>
+In-Reply-To: <20260420-rk3576-pwm-v4-3-421738c7bf28@collabora.com>
+References:
+ <20260420-rk3576-pwm-v4-0-421738c7bf28@collabora.com>
+ <20260420-rk3576-pwm-v4-3-421738c7bf28@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260420132211.1350656-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260420132211.1350656-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 20 Apr 2026 15:39:41 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdX06K5TzAWZv_Ehec2Am-P0Q-3cchc6XiOgAk6Q-W3BYg@mail.gmail.com>
-X-Gm-Features: AQROBzAmjYSSdb5ADg_fg8teFvEbOwlE1BEHm3O6myg3QbwtkKt0POGfv4EoMeI
-Message-ID: <CAMuHMdX06K5TzAWZv_Ehec2Am-P0Q-3cchc6XiOgAk6Q-W3BYg@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: renesas: rz-smarc-du-adv7513: Simplify DU
- port configuration
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 
-Hi Prabhkar,
+On Monday, 20 April 2026 15:35:21 Central European Summer Time Nicolas Frattaroli wrote:
+> The Rockchip RK3576 brings with it a new PWM IP, in downstream code
+> referred to as "v4". This new IP is different enough from the previous
+> Rockchip IP that I felt it necessary to add a new driver for it, instead
+> of shoehorning it in the old one.
+> 
+> Add this new driver, based on the PWM core's waveform APIs. Its platform
+> device is registered by the parent mfpwm driver, from which it also
+> receives a little platform data struct, so that mfpwm can guarantee that
+> all the platform device drivers spread across different subsystems for
+> this specific hardware IP do not interfere with each other.
+> 
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> ---
+>  MAINTAINERS                            |   2 +
+>  drivers/counter/Kconfig                |  11 +
+>  drivers/counter/Makefile               |   1 +
+>  drivers/counter/rockchip-pwm-capture.c | 307 ++++++++++++++++++++++++++
+>  drivers/pwm/Kconfig                    |  11 +
+>  drivers/pwm/Makefile                   |   1 +
+>  drivers/pwm/pwm-rockchip-v4.c          | 383 +++++++++++++++++++++++++++++++++
+>  7 files changed, 716 insertions(+)
+> 
 
-On Mon, 20 Apr 2026 at 15:22, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> The SoC dtsi already defines the du node with its ports hierarchy,
-> including the du_out_rgb endpoint node under port@0. There is no need
-> to redefine the entire ports/port@0 structure in the board-level dtsi.
->
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Ah jeez, I accidentally squashed the counter driver into this commit.
+time to send out a v5, please ignore this.
 
-Thanks for your patch!
 
-> --- a/arch/arm64/boot/dts/renesas/rz-smarc-du-adv7513.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/rz-smarc-du-adv7513.dtsi
-> @@ -24,19 +24,10 @@ &du {
->         pinctrl-names = "default";
->
->         status = "okay";
-> +};
->
-> -       ports {
-> -               #address-cells = <1>;
-> -               #size-cells = <0>;
-> -
-> -               port@0 {
-> -                       reg = <0>;
-> -
-> -                       du_out_rgb: endpoint {
-> -                               remote-endpoint = <&adv7513_in>;
-> -                       };
-> -               };
-> -       };
-> +&du_out_rgb {
-> +       remote-endpoint = <&adv7513_in>;
->  };
->
->  &ADV7513_PARENT_I2C {
 
-Doesn't this introduce new DTC W=1 warnings?
-Cfr. "[PATCH 0/4] arm64: dts: renesas: Fix missing cells and reg"
-https://lore.kernel.org/20260326042411.215241-1-marek.vasut+renesas@mailbox.org/
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
