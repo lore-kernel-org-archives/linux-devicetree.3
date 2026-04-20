@@ -1,68 +1,68 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8184437EFED
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E7B3A758B
 	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 17:40:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776706813; cv=none; b=X+HirpQIIE4MUa+crmjuXVIixcZOOkZT0DxAs617XRbNUce75JskUyhkgbOLV+udQcXV32wCYC69eVKTBB4IzREN4L8HfA9a5Hfuj3QzJTVeFO07qkxe5qk2k+Ut4e24bj4MFEjh5uYekRzNpfM5C7riDKDH2R/YxVd5m7WWjWg=
+	t=1776706813; cv=none; b=ISuRt2CAoAxDaOWddoiyFPNrEvUOqqOPZwM9BjAtLOc7x3kk1TquaiLwUQe5dFmspE7+YEXhiCrG9eHpUP50EYneupJ6lfxoTfzIyn1fRny6ht0rin1mrcy7vXoHmBf77VChswvleiH10AYkRerwAmWop48uF24PxiHbwMKDrgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1776706813; c=relaxed/simple;
-	bh=49BtV4liclRnJ5e6tUfHwtwQp6Rtyy5+WI8PtQcjUpM=;
+	bh=WKLGUtHcCNyB75a/mIe0Fi5jZUq9xL1obF/iPOKGPO0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Ck0XG1W/2Bsgn/UBJkslqCxk6MQ+W0TKfevwCfTsDRF45nlwQXnyRynGNWVHUnX/RTnREobgyLsBAqqfKRooyn0HBhD03FsvZsmN3rJCEXmnW77dKhEjn8jRxghEc1wFGq0vP3F4SJlRH4GWYdR1QmD05DxQK5EBrS51IA9eCtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=pu2puW6w; arc=none smtp.client-ip=209.85.128.48
+	 In-Reply-To:To:Cc; b=ATy21ZxlzsofwDlYHF5hmICXEq+oSvPjTXdrUNNfPYcNTEtdoisbs1weQBdNwnvdigtDcF1q60J6CnbFJhVpCGnUVG7Uyn/252wymG78th2JEIdIfGcHMp00pZ1m5emhiPtD55d9feh5skRTC3D9nKgNy1E8wUNTz3ONYiUEQRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=pHQxB6IQ; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="pu2puW6w"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4891e5b9c1fso11238535e9.2
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="pHQxB6IQ"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4893940bb5eso6046755e9.3
         for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 10:40:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google; t=1776706807; x=1777311607; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=kIQGoy6fl4lhGyxodk/fSO9eXPaG/yS/b0aAUL+PrPk=;
-        b=pu2puW6wiYhIQyvZ6Bv69jrBzkXu9fblMWyeUCZtxjjX0nVhoCrk6h7vWzfXcxaGBi
-         /6VHvJDfMQTZ0vHjD2iNjly+XL9yAYF582FCduP8c9vbJehXi9jHZWLGDBDO2IuT7bfP
-         xG2Zw6N/DZSjbl0TOEYdpQVtWSg4qhLL7qFYRpTc7lVvRbQ8QSLtSrX9uWy9NJY2Njbb
-         KJijcabD1ruK3zh84hdh8Mi79RFYYdy40LuWt2I91abMLVUV5W7mhcUl4f+LzkQkS4Qb
-         K7mFzDtV+ry5UF1qN54siF6hMlu6VYMbelQYlPX1qG41hKQEevCTFT6lvuZxVHO5sJ2i
-         LK1w==
+        bh=UQZMf3eIsjFVRWF3sE9lpUJLt72fcFn9iR6RKZYiOCs=;
+        b=pHQxB6IQCIrDn+3pfFpg/Jcabfmo/j2yJ+1pmIcj4QHNjvlaYXBU6Qr5yL2/hgrvdm
+         sDJ0dRDMvVvy/cd/xc8VkvMaKc9synXKZ147S1EOH6mxQQpOU6o8am5CBRfzBsjAV9Rz
+         Dpg9tiZDepiQNzq5Jd5qOUEsowTwfMfguKRhjBunjIOlXSbrLEfwLvleSJpgssx85VGm
+         fGgyMAiScZBJt2luYFTtv5iQFuA6SpEMhjHAhptyE5C/+rs+G5acrAKsFObe1FuQL0V2
+         BgxJCoRs+PrQYYm3DGYRIk7En5F/t4rlIMAiBcX7KDzJ0KYLGZOqk28WDvWqATJPyCJo
+         zd+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1776706807; x=1777311607;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=kIQGoy6fl4lhGyxodk/fSO9eXPaG/yS/b0aAUL+PrPk=;
-        b=HbCCl9kQKItTQArx3ifoGTIlNFcByubG+rW02TNc760fjdQP+p/ZaYfx1k6cBzIy+m
-         E0AVttU6DTfniBIWJPQ8vis3wQ31E5GWFl6lf9RpXFIl4oiWQc8A37XkSjREQzeTCpri
-         o9XnHkWYzkr1zQBLTKQEMa867AwfMgRMf/R61YK30Mo6XY698jA8bWbx9v7XevlU374a
-         EPnDeNmBcQy6Tmh4U4a0jBjjjCN6ldZdxKsyyOpoLITxc3UVVK4TSzVJXLq3LFXoNekA
-         Z7j+t/laV07jqZP8R4Ahh0bax5kK9eHPPVefqklrO8XpC50OPYd8j7IY6VNvYhFidnGN
-         GPEg==
-X-Forwarded-Encrypted: i=1; AFNElJ9vtGCd9oW3kWfza4ZtFXABm2rZCosrnypHt/r6/XVM3a/q8YFZAake2B3yW1p9TcnAy1/W1JE1FKWt@vger.kernel.org
-X-Gm-Message-State: AOJu0YwHXuBtO07MPZd/peMn9+9aoclnCbh4DS3Tojpt1nQBTVezVkda
-	jvdZWpl8JE3BFQqwudEKTcjPuEe2nEsAdgzVXmqAmfLCpmn66/N9qrnMo3hstkW82L0=
-X-Gm-Gg: AeBDiev7fBug44A8fqzea92V4qi0wGzgfFu6pXwrHd9+JTfSbYZrevImn9gDU/Wuk5T
-	gZ5nEc9b7S0lD+nPlawPUz5QB/PNnnaDCp91p9QApds/mTX6elXq8BXwdCvbQfKc8hyi3doVDQD
-	3fpgCaCyiQXB9NO1JkkczMUuI/ZLtg0SYstFh/LghaJ5aesOpCgsI78U41YX4C+/PAXP480jFhZ
-	F70xKY4gXXauprNjoXTZZ/BJsZiFrNpWtYy8VF/U3aqnDctAoQKhkNFv4enwCRXw6B2bWg0EZ3X
-	7HyQVgWafCjgZ1Wl1exzUvTiwk1Y2mugASadzSLujw37w2U5bop7JRjOfUbHAaEyeiZZgugHoVq
-	R3ZCToSbG3Eze2P4yHKXsfRVy4f/ew/ZNI6wFiGMidgbBRjghQmpDIoa3j5GTHaprcNUJylX70S
-	On+EYS6MeE2gWT1kRExaRX2bCuG5HE1Ud61x4xVhi8Av4f1ZU44f8pkenSJODHnL8iU06g7NY8X
-	5/HfBDk2Octxo97zg==
-X-Received: by 2002:a05:600c:c0c8:b0:488:a824:fe04 with SMTP id 5b1f17b1804b1-488fb787bfdmr160240165e9.26.1776706807433;
-        Mon, 20 Apr 2026 10:40:07 -0700 (PDT)
+        bh=UQZMf3eIsjFVRWF3sE9lpUJLt72fcFn9iR6RKZYiOCs=;
+        b=jWA/kikZ6gmxN4wjTG2C5p2Lh5wF5brwCjKCb9anEzoLXc5GdiAfVyhz9mdtn2/I8K
+         O6zV6GZ9UexIhNOp8gMiabN5H844oDTvGL+NSGHUfWgCG93+EGeUTex2K/vB0NW9ElOW
+         JFRocEXIbMWCMy8O7U7huPdbmd+/j9C5kfaZcp8sBnBuWmGp+AgKJwinZvaYULzHbbq0
+         FBe4wot+cGn6Te0sOtdSOcdtzv6mOfSqwvFLAYWOMZDGsyPvD+a/pIaiJBjBWa5UnFez
+         MR6paFBOF6DEO85Kcg6R5+yWSi+C3h5IsnygxlIsu8X0FE4kFOersPDJsrB+nnigS+Fi
+         MQKQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/TRhYB0FIVdNxS3tRZGxSn4KwJsGAASeqlN7PwkVffwrgnuW9hrdcJ8LgSbmRPHFBDvenWQxjamPkw@vger.kernel.org
+X-Gm-Message-State: AOJu0YwerEm+rd3WsPnzxFKS+ewDbfpRRDYisUg9W+EEp79DWXmaNW0B
+	IxGaQpfCRcTppP18misaSYN2ZxsakUMC6tAcfxhuqm+SOKFkaVWaHTl3vZWosP7RkcA=
+X-Gm-Gg: AeBDiespKBzkkCFX/O0TWF5jOxWo5QRa15+bhZfL4jK0mK7ewYCtw9frQQXgmhvRgQ6
+	D5FCbxIVa96MfzGf+cZxkfO6lmrZJHbKjtvDvKv3P9l1IWnRd+KiZrM2p3I75yh3HNmtsKINWDm
+	qkwmXd4CIdeN3MZNcVK9WUhaw7lGk35ynhiQ2TbutYi55pi2rJT8US3RsTde+Q++ULIqI4wEgWS
+	V3WZMLXRtSj8n0ge9c/l1N+Z97ThB7DSkzJ8fo+joRqV6LlywAHmBSwWkkOoKw4GFXkdurVgXEi
+	ro6X1RPplbrpMxPOvoPsBucg9NhLtxHZITYi6zqvKz9kNYv+G8f/brX6IOPJkHa8kkphd4Gdk3j
+	xT2ZCFIizm6CJn+gsXz9h19pDazJ24B0AtzxBgWbeOQYEqWbMJxqCBTkz7ZX8AXFBWIrAaoRw/A
+	inIqhbnPCswAV1AxAHdfx2osPBzo4LTVCL8fVxIN2hf0WocIqMRXyGJl/fQjcAhSCj4dbHBPzNk
+	imRjGRwgjzax+v9ww==
+X-Received: by 2002:a05:600c:8b38:b0:485:39b2:a47c with SMTP id 5b1f17b1804b1-488fb796fa0mr194800345e9.25.1776706806875;
+        Mon, 20 Apr 2026 10:40:06 -0700 (PDT)
 Received: from ta2.c.googlers.com (17.83.155.104.bc.googleusercontent.com. [104.155.83.17])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fb72d365sm144280285e9.1.2026.04.20.10.40.07
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fb72d365sm144280285e9.1.2026.04.20.10.40.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Apr 2026 10:40:07 -0700 (PDT)
+        Mon, 20 Apr 2026 10:40:06 -0700 (PDT)
 From: Tudor Ambarus <tudor.ambarus@linaro.org>
-Date: Mon, 20 Apr 2026 17:39:49 +0000
-Subject: [PATCH v3 03/10] firmware: samsung: acpm: Drop redundant _ops
- suffix in acpm_ops members
+Date: Mon, 20 Apr 2026 17:39:48 +0000
+Subject: [PATCH v3 02/10] firmware: samsung: acpm: Consolidate transfer
+ initialization helper
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260420-acpm-tmu-v3-3-3dc8e93f0b26@linaro.org>
+Message-Id: <20260420-acpm-tmu-v3-2-3dc8e93f0b26@linaro.org>
 References: <20260420-acpm-tmu-v3-0-3dc8e93f0b26@linaro.org>
 In-Reply-To: <20260420-acpm-tmu-v3-0-3dc8e93f0b26@linaro.org>
 To: "Rafael J. Wysocki" <rafael@kernel.org>, 
@@ -94,118 +94,187 @@ Cc: willmcvicker@google.com, jyescas@google.com, shin.son@samsung.com,
  linux-arm-kernel@lists.infradead.org, linux-hardening@vger.kernel.org, 
  linux-clk@vger.kernel.org, Tudor Ambarus <tudor.ambarus@linaro.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776706804; l=4439;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776706804; l=6621;
  i=tudor.ambarus@linaro.org; s=20241212; h=from:subject:message-id;
- bh=49BtV4liclRnJ5e6tUfHwtwQp6Rtyy5+WI8PtQcjUpM=;
- b=Pb4Ofrj7eCzqfvbfC4jlUZiTiFA9g6OyHFVOMPAZ6LNGAdtEXvx8niESMIV34rfDTzWwZ5BSc
- ToF6YjPTTDyBqda5yHWVBCS1dGST4FFpBxbq6/jLClzYXE6tQ6i/abx
+ bh=WKLGUtHcCNyB75a/mIe0Fi5jZUq9xL1obF/iPOKGPO0=;
+ b=ytLvdkH0V8xD4mIf4tcLZpXLnSbLl/4UU3zbh5ud7q3fmPRkdRuj8JAUqTQnvZ4eRLJtHyGFE
+ 59M1NRPpitpBmHv1QMuyFz62NbxsoDC/uwHQG7F+8TLWYZIAMDziI7M
 X-Developer-Key: i=tudor.ambarus@linaro.org; a=ed25519;
  pk=uQzE0NXo3dIjeowMTOPCpIiPHEz12IA/MbyzrZVh9WI=
 
-Rename the `dvfs_ops` and `pmic_ops` members of `struct acpm_ops` to
-`dvfs` and `pmic` respectively.
+Both the DVFS and PMIC ACPM sub-drivers implement their own identical
+local helper functions (acpm_dvfs_set_xfer and acpm_pmic_set_xfer) to
+initialize the acpm_xfer structure before sending an IPC message.
 
-Since these members are housed within the `acpm_ops` structure and
-utilize the `acpm_*_ops` types, the `_ops` suffix on the variable names
-creates unnecessary redundancy (e.g., `handle.ops.dvfs_ops`).
-
-This cleanup removes the stuttering, leading to cleaner consumer code.
+Move this logic into a single centralized helper, acpm_set_xfer(),
+in the core ACPM driver to reduce boilerplate and code duplication.
+In addition to cleaning up the DVFS and PMIC implementations, this
+centralized method will also be utilized by the upcoming Exynos ACPM
+Thermal Management Unit (TMU) driver.
 
 Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
 ---
- drivers/clk/samsung/clk-acpm.c                        | 8 ++++----
- drivers/firmware/samsung/exynos-acpm.c                | 4 ++--
- drivers/mfd/sec-acpm.c                                | 6 +++---
- include/linux/firmware/samsung/exynos-acpm-protocol.h | 4 ++--
- 4 files changed, 11 insertions(+), 11 deletions(-)
+ drivers/firmware/samsung/exynos-acpm-dvfs.c | 17 ++---------------
+ drivers/firmware/samsung/exynos-acpm-pmic.c | 20 +++++---------------
+ drivers/firmware/samsung/exynos-acpm.c      | 23 +++++++++++++++++++++++
+ drivers/firmware/samsung/exynos-acpm.h      |  2 ++
+ 4 files changed, 32 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/clk/samsung/clk-acpm.c b/drivers/clk/samsung/clk-acpm.c
-index d8944160793a..93667777094c 100644
---- a/drivers/clk/samsung/clk-acpm.c
-+++ b/drivers/clk/samsung/clk-acpm.c
-@@ -68,8 +68,8 @@ static unsigned long acpm_clk_recalc_rate(struct clk_hw *hw,
- {
- 	struct acpm_clk *clk = to_acpm_clk(hw);
+diff --git a/drivers/firmware/samsung/exynos-acpm-dvfs.c b/drivers/firmware/samsung/exynos-acpm-dvfs.c
+index 06bdf62dea1f..7266312ef5a6 100644
+--- a/drivers/firmware/samsung/exynos-acpm-dvfs.c
++++ b/drivers/firmware/samsung/exynos-acpm-dvfs.c
+@@ -21,19 +21,6 @@
+ #define ACPM_DVFS_FREQ_REQ		0
+ #define ACPM_DVFS_FREQ_GET		1
  
--	return clk->handle->ops.dvfs_ops.get_rate(clk->handle,
--					clk->mbox_chan_id, clk->id);
-+	return clk->handle->ops.dvfs.get_rate(clk->handle, clk->mbox_chan_id,
-+					      clk->id);
+-static void acpm_dvfs_set_xfer(struct acpm_xfer *xfer, u32 *cmd, size_t cmdlen,
+-			       unsigned int acpm_chan_id, bool response)
+-{
+-	xfer->acpm_chan_id = acpm_chan_id;
+-	xfer->txcnt = cmdlen;
+-	xfer->txd = cmd;
+-
+-	if (response) {
+-		xfer->rxcnt = cmdlen;
+-		xfer->rxd = cmd;
+-	}
+-}
+-
+ static void acpm_dvfs_init_set_rate_cmd(u32 cmd[4], unsigned int clk_id,
+ 					unsigned long rate)
+ {
+@@ -51,7 +38,7 @@ int acpm_dvfs_set_rate(struct acpm_handle *handle,
+ 	u32 cmd[4];
+ 
+ 	acpm_dvfs_init_set_rate_cmd(cmd, clk_id, rate);
+-	acpm_dvfs_set_xfer(&xfer, cmd, ARRAY_SIZE(cmd), acpm_chan_id, false);
++	acpm_set_xfer(&xfer, cmd, ARRAY_SIZE(cmd), acpm_chan_id, false);
+ 
+ 	return acpm_do_xfer(handle, &xfer);
+ }
+@@ -71,7 +58,7 @@ unsigned long acpm_dvfs_get_rate(struct acpm_handle *handle,
+ 	int ret;
+ 
+ 	acpm_dvfs_init_get_rate_cmd(cmd, clk_id);
+-	acpm_dvfs_set_xfer(&xfer, cmd, ARRAY_SIZE(cmd), acpm_chan_id, true);
++	acpm_set_xfer(&xfer, cmd, ARRAY_SIZE(cmd), acpm_chan_id, true);
+ 
+ 	ret = acpm_do_xfer(handle, &xfer);
+ 	if (ret)
+diff --git a/drivers/firmware/samsung/exynos-acpm-pmic.c b/drivers/firmware/samsung/exynos-acpm-pmic.c
+index 0c50993cc9a8..f032f2c69685 100644
+--- a/drivers/firmware/samsung/exynos-acpm-pmic.c
++++ b/drivers/firmware/samsung/exynos-acpm-pmic.c
+@@ -58,16 +58,6 @@ static inline u32 acpm_pmic_get_bulk(u32 data, unsigned int i)
+ 	return (data >> (ACPM_PMIC_BULK_SHIFT * i)) & ACPM_PMIC_BULK_MASK;
  }
  
- static int acpm_clk_determine_rate(struct clk_hw *hw,
-@@ -89,8 +89,8 @@ static int acpm_clk_set_rate(struct clk_hw *hw, unsigned long rate,
+-static void acpm_pmic_set_xfer(struct acpm_xfer *xfer, u32 *cmd, size_t cmdlen,
+-			       unsigned int acpm_chan_id)
+-{
+-	xfer->txd = cmd;
+-	xfer->rxd = cmd;
+-	xfer->txcnt = cmdlen;
+-	xfer->rxcnt = cmdlen;
+-	xfer->acpm_chan_id = acpm_chan_id;
+-}
+-
+ static void acpm_pmic_init_read_cmd(u32 cmd[4], u8 type, u8 reg, u8 chan)
  {
- 	struct acpm_clk *clk = to_acpm_clk(hw);
+ 	cmd[0] = FIELD_PREP(ACPM_PMIC_TYPE, type) |
+@@ -86,7 +76,7 @@ int acpm_pmic_read_reg(struct acpm_handle *handle,
+ 	int ret;
  
--	return clk->handle->ops.dvfs_ops.set_rate(clk->handle,
--					clk->mbox_chan_id, clk->id, rate);
-+	return clk->handle->ops.dvfs.set_rate(clk->handle, clk->mbox_chan_id,
-+					      clk->id, rate);
- }
+ 	acpm_pmic_init_read_cmd(cmd, type, reg, chan);
+-	acpm_pmic_set_xfer(&xfer, cmd, ARRAY_SIZE(cmd), acpm_chan_id);
++	acpm_set_xfer(&xfer, cmd, ARRAY_SIZE(cmd), acpm_chan_id, true);
  
- static const struct clk_ops acpm_clk_ops = {
+ 	ret = acpm_do_xfer(handle, &xfer);
+ 	if (ret)
+@@ -119,7 +109,7 @@ int acpm_pmic_bulk_read(struct acpm_handle *handle,
+ 		return -EINVAL;
+ 
+ 	acpm_pmic_init_bulk_read_cmd(cmd, type, reg, chan, count);
+-	acpm_pmic_set_xfer(&xfer, cmd, ARRAY_SIZE(cmd), acpm_chan_id);
++	acpm_set_xfer(&xfer, cmd, ARRAY_SIZE(cmd), acpm_chan_id, true);
+ 
+ 	ret = acpm_do_xfer(handle, &xfer);
+ 	if (ret)
+@@ -159,7 +149,7 @@ int acpm_pmic_write_reg(struct acpm_handle *handle,
+ 	int ret;
+ 
+ 	acpm_pmic_init_write_cmd(cmd, type, reg, chan, value);
+-	acpm_pmic_set_xfer(&xfer, cmd, ARRAY_SIZE(cmd), acpm_chan_id);
++	acpm_set_xfer(&xfer, cmd, ARRAY_SIZE(cmd), acpm_chan_id, true);
+ 
+ 	ret = acpm_do_xfer(handle, &xfer);
+ 	if (ret)
+@@ -199,7 +189,7 @@ int acpm_pmic_bulk_write(struct acpm_handle *handle,
+ 		return -EINVAL;
+ 
+ 	acpm_pmic_init_bulk_write_cmd(cmd, type, reg, chan, count, buf);
+-	acpm_pmic_set_xfer(&xfer, cmd, ARRAY_SIZE(cmd), acpm_chan_id);
++	acpm_set_xfer(&xfer, cmd, ARRAY_SIZE(cmd), acpm_chan_id, true);
+ 
+ 	ret = acpm_do_xfer(handle, &xfer);
+ 	if (ret)
+@@ -229,7 +219,7 @@ int acpm_pmic_update_reg(struct acpm_handle *handle,
+ 	int ret;
+ 
+ 	acpm_pmic_init_update_cmd(cmd, type, reg, chan, value, mask);
+-	acpm_pmic_set_xfer(&xfer, cmd, ARRAY_SIZE(cmd), acpm_chan_id);
++	acpm_set_xfer(&xfer, cmd, ARRAY_SIZE(cmd), acpm_chan_id, true);
+ 
+ 	ret = acpm_do_xfer(handle, &xfer);
+ 	if (ret)
 diff --git a/drivers/firmware/samsung/exynos-acpm.c b/drivers/firmware/samsung/exynos-acpm.c
-index 8b2529e50328..39d3d2317659 100644
+index 16c46ed60837..8b2529e50328 100644
 --- a/drivers/firmware/samsung/exynos-acpm.c
 +++ b/drivers/firmware/samsung/exynos-acpm.c
-@@ -616,8 +616,8 @@ static int acpm_channels_init(struct acpm_info *acpm)
-  */
- static void acpm_setup_ops(struct acpm_info *acpm)
- {
--	struct acpm_dvfs_ops *dvfs_ops = &acpm->handle.ops.dvfs_ops;
--	struct acpm_pmic_ops *pmic_ops = &acpm->handle.ops.pmic_ops;
-+	struct acpm_dvfs_ops *dvfs_ops = &acpm->handle.ops.dvfs;
-+	struct acpm_pmic_ops *pmic_ops = &acpm->handle.ops.pmic;
+@@ -463,6 +463,29 @@ int acpm_do_xfer(struct acpm_handle *handle, const struct acpm_xfer *xfer)
+ 	return acpm_wait_for_message_response(achan, xfer);
+ }
  
- 	dvfs_ops->set_rate = acpm_dvfs_set_rate;
- 	dvfs_ops->get_rate = acpm_dvfs_get_rate;
-diff --git a/drivers/mfd/sec-acpm.c b/drivers/mfd/sec-acpm.c
-index 0e23b9d9f7ee..9e15b260b8df 100644
---- a/drivers/mfd/sec-acpm.c
-+++ b/drivers/mfd/sec-acpm.c
-@@ -391,7 +391,7 @@ static int sec_pmic_acpm_bus_write(void *context, const void *data,
- {
- 	struct sec_pmic_acpm_bus_context *ctx = context;
- 	struct acpm_handle *acpm = ctx->shared->acpm;
--	const struct acpm_pmic_ops *pmic_ops = &acpm->ops.pmic_ops;
-+	const struct acpm_pmic_ops *pmic_ops = &acpm->ops.pmic;
- 	size_t val_count = count - BITS_TO_BYTES(ACPM_ADDR_BITS);
- 	const u8 *d = data;
- 	const u8 *vals = &d[BITS_TO_BYTES(ACPM_ADDR_BITS)];
-@@ -411,7 +411,7 @@ static int sec_pmic_acpm_bus_read(void *context, const void *reg_buf, size_t reg
- {
- 	struct sec_pmic_acpm_bus_context *ctx = context;
- 	struct acpm_handle *acpm = ctx->shared->acpm;
--	const struct acpm_pmic_ops *pmic_ops = &acpm->ops.pmic_ops;
-+	const struct acpm_pmic_ops *pmic_ops = &acpm->ops.pmic;
- 	const u8 *r = reg_buf;
- 	u8 reg;
- 
-@@ -430,7 +430,7 @@ static int sec_pmic_acpm_bus_reg_update_bits(void *context, unsigned int reg, un
- {
- 	struct sec_pmic_acpm_bus_context *ctx = context;
- 	struct acpm_handle *acpm = ctx->shared->acpm;
--	const struct acpm_pmic_ops *pmic_ops = &acpm->ops.pmic_ops;
-+	const struct acpm_pmic_ops *pmic_ops = &acpm->ops.pmic;
- 
- 	return pmic_ops->update_reg(acpm, ctx->shared->acpm_chan_id, ctx->type, reg & 0xff,
- 				    ctx->shared->speedy_channel, val, mask);
-diff --git a/include/linux/firmware/samsung/exynos-acpm-protocol.h b/include/linux/firmware/samsung/exynos-acpm-protocol.h
-index 13f17dc4443b..62a3eb450067 100644
---- a/include/linux/firmware/samsung/exynos-acpm-protocol.h
-+++ b/include/linux/firmware/samsung/exynos-acpm-protocol.h
-@@ -35,8 +35,8 @@ struct acpm_pmic_ops {
- };
- 
- struct acpm_ops {
--	struct acpm_dvfs_ops dvfs_ops;
--	struct acpm_pmic_ops pmic_ops;
-+	struct acpm_dvfs_ops dvfs;
-+	struct acpm_pmic_ops pmic;
- };
- 
++/**
++ * acpm_set_xfer() - initialize an ACPM IPC transfer structure.
++ * @xfer:	pointer to the ACPM transfer structure that is being initialized.
++ * @cmd:	pointer to the buffer containing the command to be transmitted
++ *              to the ACPM firmware.
++ * @cmdlen:	size (count) of the command.
++ * @acpm_chan_id: mailbox channel identifier.
++ * @response:	boolean flag indicating whether the kernel expects the ACPM
++ *              firmware to send a reply to this specific command.
++ */
++void acpm_set_xfer(struct acpm_xfer *xfer, u32 *cmd, size_t cmdlen,
++		   unsigned int acpm_chan_id, bool response)
++{
++	xfer->acpm_chan_id = acpm_chan_id;
++	xfer->txcnt = cmdlen;
++	xfer->txd = cmd;
++
++	if (response) {
++		xfer->rxcnt = cmdlen;
++		xfer->rxd = cmd;
++	}
++}
++
  /**
+  * acpm_chan_shmem_get_params() - get channel parameters and addresses of the
+  * TX/RX queues.
+diff --git a/drivers/firmware/samsung/exynos-acpm.h b/drivers/firmware/samsung/exynos-acpm.h
+index 5df8354dc96c..3d8e33040444 100644
+--- a/drivers/firmware/samsung/exynos-acpm.h
++++ b/drivers/firmware/samsung/exynos-acpm.h
+@@ -17,6 +17,8 @@ struct acpm_xfer {
+ 
+ struct acpm_handle;
+ 
++void acpm_set_xfer(struct acpm_xfer *xfer, u32 *cmd, size_t cmdlen,
++		   unsigned int acpm_chan_id, bool response);
+ int acpm_do_xfer(struct acpm_handle *handle,
+ 		 const struct acpm_xfer *xfer);
+ 
 
 -- 
 2.54.0.rc1.555.g9c883467ad-goog
