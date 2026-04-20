@@ -1,113 +1,120 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF2A303A0A;
-	Mon, 20 Apr 2026 08:41:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E90E2E62AC;
+	Mon, 20 Apr 2026 08:43:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776674503; cv=none; b=tbJ14Rbs6w/Cn5D/ZK6GPJW0aJpIjaB6Qyi4bwYWJ84FD/YDVM1s4lnaykjGr8tR2y+qGFA415aqCNhWVX24X6VjBwq6CjcpLVWSOmYhqL49MzA4K8Gm8rmTkjx0Ozk+sJq15ZEfGIGHPKwL27tM2pR06KaODygLhJNxTVuswZs=
+	t=1776674594; cv=none; b=EOcL0/EDdyyyvQ9bZfsElGmUl5G8/A+9nUN7R/gbHcmpH03Udq+X2KTsC0gVXN5G/BmbtUg45EVRP8J2/x4WuAB0Xcsb4+AAQF6vDoGyNpCPxxtF7p/5cr5cCg4fgBOGqN3QizMZ+XuJ6gGG8ujXM7dGmF+4mCXo4v0TPUVyLpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776674503; c=relaxed/simple;
-	bh=hqFLWvMnHtD7k5CCC1+CJvhLbI1x/FBeWUF2UPXFIq4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PzcpRCrMk3Hiy/SmiKRcYl6wM411VL5lCDyk6mtp48UKDxhVxWrnITWKdJeQUC0V8N0Ln70vdIS8pQa6aoxuVgWZW5fq+OsWk3hI1vGqLWCpFKM29VVXCVbtPVz+TlJOQAnI4KYmGAU4y5/Hzy/IL7L2qmtnw6zZsvGSPMjcKBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V7l+dm49; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1776674594; c=relaxed/simple;
+	bh=qBaG8dVSFOBf45SSCko/wmEic1Ge8zi/morj7vkbQ7s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i8/cjxOIAqMZGIVAuQ3uSqDb0be0P6B0poCJyeynaQnWHznJBj1SAoWeuiO8oXAzsc4h1GdID0qRYNnY1A2E7urevoDa9hec8IAULuEpLUda0r0fj6H7g7THwGrPxT80MVj+Y5phKo91QNRNHiE2S8/KyH2qBP3KhSrMAoW4EdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnNU8IjZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V7l+dm49"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1776674501; x=1808210501;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=hqFLWvMnHtD7k5CCC1+CJvhLbI1x/FBeWUF2UPXFIq4=;
-  b=V7l+dm49YKkrcs1m7v4yb7fy1IMoTPRua13GrHbUyF9Vm2uIMAxBDfp8
-   37jhw7rsqdeC3PGqcGHaZo/6Y//+guFRs144/UNNU18aZ68Y7AXzoG3Ls
-   jju6NzPDM5CDvaxbM66nuSTYPZVN03UmWXLjxAobW/XXdZltclvM9LpbE
-   4kQXBPJWp0SaHFXkPK1JN2oBUkB8ooTHQ7i35w7QdqD8fZLe73/g57cQ3
-   9pLs1ln/fixCHXhKlvF0XRzbMBirVQUnr3dTPU6lfWN2MO6tBLBrfcqwE
-   lsGHUKYebZxYKsSkNVcenHp9kvUp3z/C+vHNuDZ048wNCMIzNVoFHCqXB
-   Q==;
-X-CSE-ConnectionGUID: E9zqP4diQB6pdHz5Rr14ig==
-X-CSE-MsgGUID: KaIThdOAT0SpLTKJDwKpmA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="95146091"
-X-IronPort-AV: E=Sophos;i="6.23,189,1770624000"; 
-   d="scan'208";a="95146091"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2026 01:41:40 -0700
-X-CSE-ConnectionGUID: 6GLblZMtQBK7Gn0XuQpwMQ==
-X-CSE-MsgGUID: SP+ZPJ94Sse0CHR/p0kEUg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,189,1770624000"; 
-   d="scan'208";a="231574172"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.90])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2026 01:41:36 -0700
-Date: Mon, 20 Apr 2026 11:41:33 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] misc: Remove old APDS990x driver
-Message-ID: <aeXmvaFIbTlxqNO0@ashevche-desk.local>
-References: <20260419083125.35572-1-clamor95@gmail.com>
- <20260419083125.35572-4-clamor95@gmail.com>
- <20260419143346.45ed78c2@jic23-huawei>
- <CAPVz0n1qrSYr16zSSqRHuTWVkRfdC+c9w+mxAhtzgfHzL41XFw@mail.gmail.com>
- <20260419172216.3cf10e51@jic23-huawei>
- <aeXh7j410AxESy4U@ashevche-desk.local>
- <68c671b4-6754-49df-9fdb-2b3382033fb3@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnNU8IjZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F9FCC19425;
+	Mon, 20 Apr 2026 08:43:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776674593;
+	bh=qBaG8dVSFOBf45SSCko/wmEic1Ge8zi/morj7vkbQ7s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=SnNU8IjZqClicDn3FpZJ/jbJ1Vl4VNRUwYUR3WuIMUPAuEXuZGfESQWweerYR128B
+	 4bl+ZS9KbfOaPGmVQ5jvO76C8A2MD1w8Su5dSG6/ahxyVPt85Q4GPaDVs+g9GfY68T
+	 QUdkiSfIwJSXlmiAOXz6sazbn4i4SN9CRM8rxOwIHgx5cudiJ+VY2iGI0kpsdFxxnb
+	 JPWVu1dUWy//D2Y4SH+PTD2f+kZt6uIVkXCMGM98ediHqiTDRKNjGgp14N5d6RldL2
+	 2OsagMpJvIhEbwkuLSc1CvZ+y8wsLTwkHSEG4B0JXANwHCtJGpiDg7/NP7CavR1CrM
+	 ZaIpncXnPjQKw==
+Message-ID: <dfa3f1a7-f4c6-4655-94c0-326f88db3896@kernel.org>
+Date: Mon, 20 Apr 2026 10:43:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <68c671b4-6754-49df-9fdb-2b3382033fb3@app.fastmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dts: riscv: spacemit: k3: only keep spacemit,k1-i2c
+To: Sandie Cao <sandie.cao@deepcomputing.io>, Yixun Lan <dlan@kernel.org>,
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, spacemit@lists.linux.dev,
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
+References: <20260420083931.1427703-1-sandie.cao@deepcomputing.io>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260420083931.1427703-1-sandie.cao@deepcomputing.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Apr 20, 2026 at 10:33:22AM +0200, Arnd Bergmann wrote:
-> On Mon, Apr 20, 2026, at 10:21, Andy Shevchenko wrote:
-> > On Sun, Apr 19, 2026 at 05:22:16PM +0100, Jonathan Cameron wrote:
-> >> On Sun, 19 Apr 2026 16:41:24 +0300 Svyatoslav Ryhel <clamor95@gmail.com> wrote:
-> >> > нд, 19 квіт. 2026 р. о 16:33 Jonathan Cameron <jic23@kernel.org> пише:
+On 20/04/2026 10:39, Sandie Cao wrote:
+> Fix dtcheck issue: compatible:0: 'spacemit,k1-i2c' was expected
+
+Missing space after main commit msg.
+
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/r/202604140259.eKDaxKua-lkp@intel.com/
 > 
-> >> Their userspace will be broken by dropping it.  The lack of upstream users
-> >> makes this less critical but it can be argued it's still a possible regression.
-> >
-> > Usual recommendation is to google, and check Debian code search engine.
-> > I randomly chose a couple of sysfs nodes and only kernel code refers to them.
-> > So, at least there is a good sign that it likely not in use. But one has
-> > to perform more checks (all attributes, more sources of information) and
-> > summarise that in the commit message.
-> 
-> I think in this case it's sufficient to point out that there is no
-> devicetree support in the driver, and no pre-DT board file ever
-> declared a platform_device with apds990x_platform_data in mainline
-> kernels. The ambient light sensor drivers in drivers/misc/ were
-> all added in before the change from boardfile to DT, and from custom
-> ABI to drivers/iio.
 
-Works for me. I am all for removing old and legacy (especially non-FW node
-compatible) code.
+There is no space between tags.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Anyway, explain WHY K3 device does not use K3 compatible. It is clearly
+violating writing-bindings.
 
+Plus, I don't think this report is correct. You just send us something
+close to random fix of random warning, without even opening the files
+and understanding what is there. spacemit,k3-i2c MUST be used with K1.
+Please read the binding.
 
+NAK
+
+Best regards,
+Krzysztof
