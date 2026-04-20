@@ -1,33 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F2D2E62AC;
-	Mon, 20 Apr 2026 08:44:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B53E2F999F
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 08:47:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776674691; cv=none; b=KKVHIhmogDR0GQSLgV2b5ZbUeIcRJ2eko0NtyJUdlgYUo1qEQhKXzzo2z4UV1C562Eeq1X8JikEq9vdcz9WCZ+PVpEUJtokBlLWh1Cf8nadfXQ7oJM13t8aXvxI1mXNxQODM8VyEjepI5Xpuy95XF0tMneedpR4MCaXDajv0v7M=
+	t=1776674844; cv=none; b=V7w47yGFs15cyeQ1U+x8VGFGhz6o8CoPsy28KQyqlWENZ+p6buR9pYoanbV6aFSBdflKtByuFT70tkxOTb9/kQ52QWFatIpd6n1YA0G3RDxvJYHkILFdQDoLC0alJ5xDxqOf3RGNRxvSzDbVqyuHtlYBQ1LTvQ9+SqE/qOl62sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776674691; c=relaxed/simple;
-	bh=wwJkcklq/d0LUSKaLa5NNiJb86iZWnx7isPH1IKMsH4=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=JuRY4DQ2OeaXPtTqGymAI8MT+4QlSX6HiA9OFwtRdoaRUsrE261JyICse4p9ZnEtWiutczZ0j0RoTesPlrNtERGnfKcHRNoYxMZfqnRm0pOyLKPU3A5ewWj+QEQg1D0U7aiR0ot4CfXCAiPx+hs8MO9zQeCIm6nXZjF89BO+bGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Orh6K8S1; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776674844; c=relaxed/simple;
+	bh=Fj3Io7jF1RCzoydTjdHBihVA2mMNzBFyf1jdscT7IVA=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=ljnl7fhUE++6sTWI9b8SAu74oucZCM1hZq+n5npHcz0noO7DczUBJMe6AwIyX3rqFYjV0tqLYQo2oPkVUCq476TkocydaA24zAl5bgsRggmrVYEz/bPBRtFPeJAhMGPskMcabMM8q4fwuuf/iHMUD2coDQlIq02vKCC7QPtOupM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=izDghL6d; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Orh6K8S1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93BB1C19425;
-	Mon, 20 Apr 2026 08:44:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776674690;
-	bh=wwJkcklq/d0LUSKaLa5NNiJb86iZWnx7isPH1IKMsH4=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=Orh6K8S1SG/IhDYz/oBF2PgUjwknzZlWjP30/Vz77T6S5qRAaeiVbf+6VrEAdfhuI
-	 6n23F5hRl+JuBqHaiBR41NVwZ8plihCfGHFbrArIrBV+ZBV1VY/c2pyBhGQ4eWQ6Yz
-	 T4kQguQlffNF4D6pq4c7hWbJwOps8Yg6gIC1iN8cJgH3q7r3K2IfC7+9TnYbOY6s8A
-	 +2JN9JpR3oeGFFRaX87B+eXFBTq/3Ia/ZwCgDw2u5ajrif9coKiukaHrKVQE9asWnL
-	 faynmgHlkFOVp6KV00S7GMC/tCF2tu8HOvYH/gcwE3CwFwZ1IasmLYlMoijgyPF1oG
-	 vA7ACI/WPOs0w==
-Message-ID: <87ef529e-b591-49f5-9fc9-3099672e2f0f@kernel.org>
-Date: Mon, 20 Apr 2026 10:44:45 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="izDghL6d"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-488e1a8ac40so37448505e9.2
+        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 01:47:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1776674842; x=1777279642; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=BMnG5zsFm8/YD9yDwCE2pChjm9vp3DUFGTfm9muAL/Q=;
+        b=izDghL6dXfT7eT+5Tq2toKIk3l4BpHkk5hKOtaZNENQVFoRoJDI7/bDoLsH09dMQPI
+         ejVEs+EOfgNdWbljXUDTQzWue+9gLFccMvmhoDWG/EhyFssQ/QWM565CK9fnjtT7Knio
+         gE7iJwLF/Dsti1u4hKCWpFlDBDErjWROKlSigcyRZsC4IyLWZFRuLH09RjxbexF/IZt6
+         +zkTokWVXCjiuTmnAgmpsAEtfYtawkgtDlkt9EL7KAsjzLkkvpPAx3D25xuUmGPyPpwR
+         t9DSJgnMnS9Md0jnrh1ro0cYPPVuHE7v85BfnyVUnylGYrFT0umLfrnqn7PdIpyTZonU
+         Jhyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776674842; x=1777279642;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=BMnG5zsFm8/YD9yDwCE2pChjm9vp3DUFGTfm9muAL/Q=;
+        b=Y9mNYeIrEAwz1jvrHQ2FoqWosbtc3khnigBFJkKPM5fHL2wCIHkVZQDEkC03g6J/xa
+         25R1AQh18ZZPLCHTxsQn8a5ZcP53uK+vImZIxiez0IbEGMQa0MQWksQpXGZ0ao2VqdC/
+         lvO0oTX7+bkKc1LPNwf6rMvSyV6sBpUJGb5kjd5er9+GQhapPPahhI3MLI0vL25TdAV+
+         QiIJDIAY3bxiKzbh3gFhfJDb8F5BsuqMcR21bzwFcVbznK+2/Wo431jMsfJnvTkTtyEI
+         ND2DNNDp8YNqyteFJ41zIFapnh8mkfw532cFhXsXnwVYLtqei+13pAMo/+lb63ShtZ/z
+         DZ7g==
+X-Forwarded-Encrypted: i=1; AFNElJ+uiCNCNPhTtNwHKjt7WHDs/l+7Cdm8Oq91hz3qKWFH5VqQ9aDBky7D43HveYf1ljCaUOTY90e8y+rl@vger.kernel.org
+X-Gm-Message-State: AOJu0YzuNdCCGtkEOs2eYpiqWv6BRWmc2sswoCyoJV/vmhVWDyB2w+Vy
+	1vQ/LEQRPTnmHrsiWT07Tr5erTN4k5H+jg73dYMY/tWAzfsiN2MHiCU6+D8BzEyxrds=
+X-Gm-Gg: AeBDiethP0vwSaXAxChRzpzfS0dUqKXyfjuPXsMbu1jM9I7KdDv1nOwp82fJ6XuWIpD
+	crhq4bc8ieXe67zIwt/ssVMXyML6LkyJqAPdoOQ2ucqfgmvRQgXY5jiQls0twzr8UPlf2oaTTLM
+	JEJrg+JXnKw4ZCCyd4YHvp6YZaFVBQRaCpzU5fn/IxJNTKXEUl4RtKRinTkTa6dJDhQphqz55fH
+	/ypRLZjdaadef7jegblMViJsXLtWV8+G08tAuG5X31KqLlXimasdNApP6EDG+PD4omz2ZL8AJtQ
+	u1lQmVwZ6cIbmCQNi50myDLwgLs0HRue1y9cBKT3OqWHUL5qemHI0+wZF1fWIcmyLMRnRlTpz9t
+	qXJYx5eRHLHaeIEdhmdceuyNISQ3FO1G3bLo9n4MyfDDH/yUUGHvA7klu/FlEmMAlBircpMJFnh
+	OUAJbD368k5EhRNT0mAh5NmQKLUcez4BBB4c7LEqnTxct+c1wI0zcx2Mh3MahZr16HWREMNjGt4
+	LSN0iBcPU3M4kUjNw==
+X-Received: by 2002:a05:600c:c4a5:b0:489:96e8:1ef0 with SMTP id 5b1f17b1804b1-48996e8200amr15753395e9.30.1776674841495;
+        Mon, 20 Apr 2026 01:47:21 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:8290:9fd8:8af0:67dc? ([2a01:e0a:106d:1080:8290:9fd8:8af0:67dc])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fb75ab25sm85827105e9.11.2026.04.20.01.47.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 20 Apr 2026 01:47:21 -0700 (PDT)
+Message-ID: <c9c3227f-2a46-47b5-963f-e784184f7f31@linaro.org>
+Date: Mon, 20 Apr 2026 10:47:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,81 +70,98 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dts: riscv: spacemit: k3: only keep spacemit,k1-i2c
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sandie Cao <sandie.cao@deepcomputing.io>, Yixun Lan <dlan@kernel.org>,
- Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, spacemit@lists.linux.dev,
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
-References: <20260420083931.1427703-1-sandie.cao@deepcomputing.io>
- <dfa3f1a7-f4c6-4655-94c0-326f88db3896@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <dfa3f1a7-f4c6-4655-94c0-326f88db3896@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 3/3] arm64: dts: amlogic: t7: khadas-vim4: Enable
+ Bluetooth
+To: Ronald Claveau <linux-kernel-dev@aliel.fr>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260416-add-bluetooth-t7-vim4-v2-0-9a57098fd055@aliel.fr>
+ <20260416-add-bluetooth-t7-vim4-v2-3-9a57098fd055@aliel.fr>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260416-add-bluetooth-t7-vim4-v2-3-9a57098fd055@aliel.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 20/04/2026 10:43, Krzysztof Kozlowski wrote:
-> On 20/04/2026 10:39, Sandie Cao wrote:
->> Fix dtcheck issue: compatible:0: 'spacemit,k1-i2c' was expected
+On 4/16/26 10:54, Ronald Claveau wrote:
+> Enable UART C on the Khadas VIM4 board and attach the BCM43438
+>   compatible Bluetooth controller to it. The node configures the RTS/CTS
+> hardware flow control, the associated pinmux, the power supplies (vddao_3v3
+> and vddao_1v8), the 32 kHz LPO clock shared with the wifi32k fixed
+> clock, and the GPIO lines used for host wakeup, device wakeup and
+> shutdown.
 > 
-> Missing space after main commit msg.
+> Remove clocks and clock-names for UART A, as they are defined in DTSI.
+
+This should be a separate patch.
+
+Neil
+
 > 
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes: https://lore.kernel.org/r/202604140259.eKDaxKua-lkp@intel.com/
->>
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> ---
+>   .../dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts   | 21 +++++++++++++++++++--
+>   1 file changed, 19 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+> index 69d6118ba57e7..8ea7ae609fbd5 100644
+> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+> @@ -250,6 +250,23 @@ &sd_emmc_c {
+>   
+>   &uart_a {
+>   	status = "okay";
+> -	clocks = <&xtal>, <&xtal>, <&xtal>;
+> -	clock-names = "xtal", "pclk", "baud";
+> +};
+> +
+> +&uart_c {
+> +	status = "okay";
+> +	pinctrl-0 = <&uart_c_pins>;
+> +	pinctrl-names = "default";
+> +	uart-has-rtscts;
+> +
+> +	bluetooth {
+> +		compatible = "brcm,bcm43438-bt";
+> +		shutdown-gpios = <&gpio GPIOX_17 GPIO_ACTIVE_HIGH>;
+> +		host-wakeup-gpios = <&gpio GPIOX_18 GPIO_ACTIVE_HIGH>;
+> +		device-wakeup-gpios = <&gpio GPIOX_19 GPIO_ACTIVE_HIGH>;
+> +		max-speed = <3000000>;
+> +		clocks = <&wifi32k>;
+> +		clock-names = "lpo";
+> +		vbat-supply = <&vddao_3v3>;
+> +		vddio-supply = <&vddao_1v8>;
+> +	};
+>   };
+> 
 
-Also, the file reported in above warning DOES NOT EXIST (I checked
-next-20260414).
-
-Please do not send reported-by bug reports for things which do not exist.
-
-Best regards,
-Krzysztof
