@@ -1,126 +1,54 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A713A2D0C64;
-	Mon, 20 Apr 2026 18:22:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263453368B2;
+	Mon, 20 Apr 2026 18:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776709358; cv=none; b=NOnoo4IerqN+k72QJSKAWV1ypnByIIbvKuGJ6vD8gPS8I3Uov+pAvfwIdEpidxV91r8Bm/2GaxvNjgnD4gkovh4KjbItqnWjOcyyKgh82kdbAu0e5D2G2Murb1yee0vk3GJTOsvelb5fAb4WksfzLKS5sQrbMWtKUIFNoFOWrhs=
+	t=1776710283; cv=none; b=fhJztcBV1dTZgLp+MG40Oa2FcQvXbymALvXNVPQOBhc+CSEKI3b6/IrfKH7vMAFQbKwHhdX+zbjskuOeOKT5835fUgZQrMQ7ZwNA2BD9I4fklbCMVUc+O0JglXkPvRax0u1TKN6h3mANXSUszpgcIP1/gHzWPYZqX4t10F55Xfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776709358; c=relaxed/simple;
-	bh=TtsWasBb5ImTTzc3W/be5q8qYDc5s5SbmUhAVMr0O9Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MthaGboCJwdUQ4ENZPNbFEOrqlnkTt2j/RiWuN79OgMGMJvD3Vn9TcP0gvBNrQuErk2kYpWgbSWwp+UzDmZ3pt48YYiW7Whm60yxR3z7TuTlaGyknZ9SP6YY6owYY27CCtojdrToBURAehsT0tUj3OnBw8molyposGm9JEknC0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cxwptElp; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1776710283; c=relaxed/simple;
+	bh=hJ0lycRYGV4y8XaDz0FBYcKAJV3l46BXgtsUAQIkGuU=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=GluV5ByITfhEAuB+L67wGEXm5mJ2zgECQuehLeTbjcy59J0lx7lecy3wjm1HuXJ0v0vziQdoz7/gZ/hMfiUhwHWHyZ8dIZKCbK2o4ksAKLzI+Y86Hq1d49lum/YzdRqmtkrESnbvUOEpsDBCYkWTHUs0cHhDP1Ddb2YhM7Yi5BA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V4muTQUH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cxwptElp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1776709357; x=1808245357;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=TtsWasBb5ImTTzc3W/be5q8qYDc5s5SbmUhAVMr0O9Q=;
-  b=cxwptElpS8BwqKlRI6Yqj9U9TOlY8bYvAFJCpaa4srKp9+/YFXaVuQuM
-   20zTYEVJdUlWw3pGOTmuT9w/8wg4dTJWaph+FlDH6q+hVKsMqEsh+FgP2
-   GAelHhP3frDhhAvSHjmiMz49NoyDMCbYGx7MIKqnp6bmsa4kljKFTovuK
-   6VOCR4AyGK0yfsa5hzmz9y1tlplZySKjcEEMT8Wsz+AWCliwTmdZS7MPB
-   x4+2r0L218/We4S48xhO2AMGvuH9PQlKaUOoxilZ9hBO01pG1mQNTDyWJ
-   fK96MZHNQLYmox0wV/4J8X3T+cDiX4KPuabfipBS1H3h7RpHpuODPdILf
-   A==;
-X-CSE-ConnectionGUID: TG3CvOzhQ2Sl5A1nuSz47w==
-X-CSE-MsgGUID: sCD3c/IDQk2oLztqHR6SWQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="65169188"
-X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; 
-   d="scan'208";a="65169188"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2026 11:22:36 -0700
-X-CSE-ConnectionGUID: AjnDA9z7RpKAdDntsYjfOQ==
-X-CSE-MsgGUID: 18rUKD+dRQKEavptMctsBA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; 
-   d="scan'208";a="236789366"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.90])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2026 11:22:32 -0700
-Date: Mon, 20 Apr 2026 21:22:29 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Antony Kurniawan Soemardi <linux@smankusors.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, phone-devel@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v3 3/3] iio: adc: qcom-pm8xxx-xoadc: add support for
- reading channel labels
-Message-ID: <aeZu5eI8ECxzKiUS@ashevche-desk.local>
-References: <20260405-pm8xxx-xoadc-label-v3-0-9fe179c283ec@smankusors.com>
- <20260405-pm8xxx-xoadc-label-v3-3-9fe179c283ec@smankusors.com>
- <adQNlfiq4aaOJ2ll@ashevche-desk.local>
- <20260420185807.24817684@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V4muTQUH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A476AC19425;
+	Mon, 20 Apr 2026 18:38:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776710282;
+	bh=hJ0lycRYGV4y8XaDz0FBYcKAJV3l46BXgtsUAQIkGuU=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=V4muTQUHbcsd7/nox7EQrxep4fA9+nM8nJx9awVFnoFuns8my/ol9FPydoR90PS0N
+	 QCtUQh74HiG7dO+XdzoLfw2RPfeV2FiCRrsM9BGuF8BqcUQDcDP3+kW6BYBb9vRyS2
+	 jhKMgGRxf/HCEUZhmJf/Tmq2xIk/8eVEvCm1Rvdt87BPydtS6713LOmLpmaW0mwOrS
+	 alaRgSzStVGRjB0MrgyfMf/b+C6a74c3nA+2sJTGs9pg6d57WSLXVdRC8ctvat+WhF
+	 /0wa7uSFULIsYrifDEIvHP1CEJgzaLQSD6QStAL0G1VmxlZmTkMHyh9o9DL3jYEsLh
+	 Io8ExSk/SZouA==
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260420185807.24817684@jic23-huawei>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260419193718.133174-4-marek.vasut+renesas@mailbox.org>
+References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org> <20260419193718.133174-4-marek.vasut+renesas@mailbox.org>
+Subject: Re: [PATCH 3/7] dt-bindings: clock: cs2000-cp: document CS2500
+From: Stephen Boyd <sboyd@kernel.org>
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, Geert Uytterhoeven <geert+renesas@glider.be>, Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>, Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>, linux-arm-kernel@lists.infradead.org
+Date: Mon, 20 Apr 2026 11:38:00 -0700
+Message-ID: <177671028062.5403.10359224538543497170@lazor>
+User-Agent: alot/0.12
 
-On Mon, Apr 20, 2026 at 06:58:07PM +0100, Jonathan Cameron wrote:
-> On Mon, 6 Apr 2026 22:46:29 +0300
-> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-> > On Sun, Apr 05, 2026 at 04:52:21PM +0000, Antony Kurniawan Soemardi wrote:
+Quoting Marek Vasut (2026-04-19 12:35:34)
+> Document backward compatibility support for CS2500 chip, which
+> is a drop-in replacement for CS2000 chip.
+>=20
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> ---
 
-...
-
-> > > +static int pm8xxx_read_label(struct iio_dev *indio_dev,
-> > > +			     struct iio_chan_spec const *chan, char *label)
-> > > +{
-> > > +	struct pm8xxx_xoadc *adc = iio_priv(indio_dev);  
-> > 
-> > > +	struct pm8xxx_chan_info *ch = pm8xxx_get_channel(adc, chan->address);  
-> > 
-> > When you have a validation the better style is to split definition and
-> > assignment. This makes code robust against (theoretically) possible changes
-> > that might reuse the same variable for something else.
-> 
-> I think you just mean
-
-Yes.
-
-> 	struct pm8xx_chan_info *ch;
-> 
-> 	ch = pm8xx_get_...
-> 	if (!ch)
-> 		return -EINVAL?
-
-> I suppose slightly better but it's a very small function and unlikely to have
-> much complexity added to it.
-
-I am also on the educational side. If we learn how to do things right from the
-beginning...
-
-> > > +	if (!ch)
-> > > +		return -EINVAL;
-> > > +	return sysfs_emit(label, "%s\n", ch->label);
-> > > +}  
-> > 
-> > Again, no need to resend now, just make it in the next version if that version
-> > is asked for.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Acked-by: Stephen Boyd <sboyd@kernel.org>
