@@ -1,16 +1,16 @@
 Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 379BD329C6D;
-	Mon, 20 Apr 2026 15:50:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38EC93368AF;
+	Mon, 20 Apr 2026 15:50:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776700228; cv=none; b=QQDCWrrUpoGm0NFQoDAkby+c7YFZd9yZC36Uh93hWoWaTIeJOKBGplCi1s9pFsWvCJwVBmoRGwmq3kwVcaa32Wyh7p3CPWXK3kgXmPErbcqdNFDdhwScS/kqdxSjw1UBur5a9yz81BUqXWm5Ib1siZBu9k8fiY4bMN506fSN62s=
+	t=1776700234; cv=none; b=AFlZsh4lAe+KO58sL/DHuqk+vMh8ur/j3yGfeHbMNACI32vvmAGQ+XikiG2ouA0k2EbSF0EwOu57YahtFt+mu8hRkV3ed+/xCx4uK+jbmjDrZEJsjAy/pDBGxTXguqZ1KqpMyJ0eNzuenAk5vLmxmXanasdpmXj0Pu15ZP5f3Dw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776700228; c=relaxed/simple;
-	bh=E38J4KXKUXyjKrmo8l1ZcnPvVFPsI2mYxlLbLtWzxoA=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=q6PM26RFFWYH3Or1e+nByKRP8a7iSK0EbIwjmOgrBGf3sz/jsjIjvdb2+a7IDseZAWeJIOJALhnF0+AcA/kMxo+oUdm5c6SOZd5L7lo5ScYAXR1dpME+lPQDgWgHJS28+wAMjvx5JhWGEn02lXAerBPFAUIlSqnD2e8AZdZChKQ=
+	s=arc-20240116; t=1776700234; c=relaxed/simple;
+	bh=eGaLR1LuTlFmK9QFcantO7x68tspLjhb53MDRnhtzS4=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uObQMy0heoTZSEIk+kxkZBMvaTpGqiyHnMekUh0l4WfV3OLgxep9NDDB7SDRWJ76SO8FIIbGKJExgz3ZQVb++5h3aUYaARe+4A8lbSBUg6Gt3sYP0p8PgIAEiVQZmOzz4CCW/7zybScT/oKlgr9vQIj4x5KLzDH0qpwxo4z1apc=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
@@ -18,18 +18,18 @@ Received: from local
 	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
 	 (Exim 4.99)
 	(envelope-from <daniel@makrotopia.org>)
-	id 1wEqtD-000000000qI-0kQn;
-	Mon, 20 Apr 2026 15:50:23 +0000
-Date: Mon, 20 Apr 2026 16:50:19 +0100
+	id 1wEqtJ-000000000qV-2YQF;
+	Mon, 20 Apr 2026 15:50:29 +0000
+Date: Mon, 20 Apr 2026 16:50:27 +0100
 From: Daniel Golle <daniel@makrotopia.org>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Saravana Kannan <saravanak@kernel.org>,
 	Daniel Golle <daniel@makrotopia.org>, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] dt-bindings: automated coding style check for DTS
- examples
-Message-ID: <cover.1776700167.git.daniel@makrotopia.org>
+Subject: [PATCH 1/2] dt-bindings: add DTS example style checker
+Message-ID: <941c1ca0cd30c596556a88c36d28d60368867409.1776700167.git.daniel@makrotopia.org>
+References: <cover.1776700167.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,53 +38,738 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <cover.1776700167.git.daniel@makrotopia.org>
 
-Reviewing DTS examples in binding YAML files for coding style is
-tedious and repetitive. The rules in dts-coding-style.rst are well
-defined but currently not enforced by any tooling -- dtc does not
-care about whitespace, and yamllint only sees the YAML structure,
-not the DTS content inside literal block scalars.
+Add a Python script that enforces coding style rules from
+dts-coding-style.rst on examples embedded in YAML binding files.
 
-This series adds a Python script that produces a canonical form of
-each DTS example and diffs it against the original. Any difference
-is a style violation. The checks cover:
+Checks indentation, property and child node ordering, blank line
+placement, node naming, tabs, trailing whitespace and unused labels.
+Produces a canonical form and diffs it against the original.
 
- - 4-space indentation per nesting level
- - property ordering (compatible, reg, ranges, standard, vendor, status)
- - child node ordering by unit address
- - blank line placement (before child nodes and status, nowhere else)
- - no trailing whitespace, no tabs in DTS lines
- - node names using only [a-z0-9-]
- - no unused labels (defined but never &-referenced)
-
-The script uses only ruamel.yaml (already required by dtschema) and
-has no other dependencies. It is wired into dt_binding_check_one
-with || true, so currently informational.
-
-Running it against the current tree finds issues in roughly 70% of
-existing binding files -- mostly indentation (many older bindings
-use 2-space indent) and unused labels. These can be cleaned up in
-follow-up series; the immediate value is catching problems in new
-submissions before reviewers have to.
-
-A --diff flag produces unified diffs showing exactly what needs to
-change, making fixes trivial. A future --fix mode could rewrite
-examples in-place.
-
-As someone who has repeatedly annoyed DT maintainers with exactly
-the kind of mistakes this tool catches, I hope this makes up for
-some of that. And since my Python is even much worse than my DTS
-coding style, the script was written with generous help from
-Claude Opus 4.6.
-
-Daniel Golle (2):
-  dt-bindings: add DTS example style checker
-  dt-bindings: wire example style check into dt_binding_check
-
- Documentation/devicetree/bindings/Makefile |  15 +-
- scripts/dtc/dt-check-example-style         | 712 +++++++++++++++++++++
- 2 files changed, 725 insertions(+), 2 deletions(-)
+Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+---
+ scripts/dtc/dt-check-example-style | 712 +++++++++++++++++++++++++++++
+ 1 file changed, 712 insertions(+)
  create mode 100755 scripts/dtc/dt-check-example-style
 
+diff --git a/scripts/dtc/dt-check-example-style b/scripts/dtc/dt-check-example-style
+new file mode 100755
+index 0000000000000..3daccee3a6f61
+--- /dev/null
++++ b/scripts/dtc/dt-check-example-style
+@@ -0,0 +1,712 @@
++#!/usr/bin/env python3
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# Check DTS example style in YAML binding files.
++#
++# Enforces the coding style rules from
++# Documentation/devicetree/bindings/dts-coding-style.rst on the examples:
++# sections of devicetree binding YAML files.
++
++import argparse
++import difflib
++import re
++import sys
++from enum import Enum, auto
++
++import ruamel.yaml
++
++
++class LineType(Enum):
++    BLANK = auto()
++    COMMENT = auto()
++    COMMENT_START = auto()
++    COMMENT_BODY = auto()
++    COMMENT_END = auto()
++    PREPROCESSOR = auto()
++    NODE_OPEN = auto()
++    NODE_CLOSE = auto()
++    PROPERTY = auto()
++    CONTINUATION = auto()
++
++
++class DtsLine:
++    __slots__ = ('raw', 'linetype', 'indent', 'stripped', 'prop_name',
++                 'continuations', 'node_name', 'node_addr', 'label',
++                 'ref_name')
++
++    def __init__(self, raw, linetype, indent, stripped):
++        self.raw = raw
++        self.linetype = linetype
++        self.indent = indent
++        self.stripped = stripped
++        self.prop_name = None
++        self.continuations = []
++        self.node_name = None
++        self.node_addr = None
++        self.label = None
++        self.ref_name = None
++
++
++re_cpp_directive = re.compile(
++    r'^#\s*(include|define|undef|ifdef|ifndef|if|else|elif|endif|'
++    r'pragma|error|warning)\b')
++
++
++def is_preprocessor(stripped):
++    """Distinguish C preprocessor directives from DTS # properties.
++
++    DTS properties like #address-cells, #size-cells, #interrupt-cells
++    start with # but are followed by a property name pattern and = or ;.
++    """
++    return re_cpp_directive.match(stripped) is not None
++
++
++def classify_lines(text):
++    """Classify each line of a DTS example into structural types."""
++    lines = text.split('\n')
++    result = []
++    in_block_comment = False
++    prev_complete = True
++
++    for raw in lines:
++        stripped = raw.lstrip()
++        indent = len(raw) - len(stripped) if stripped else 0
++
++        if not stripped:
++            result.append(DtsLine(raw, LineType.BLANK, 0, ''))
++            continue
++
++        if in_block_comment:
++            if '*/' in stripped:
++                in_block_comment = False
++                result.append(DtsLine(raw, LineType.COMMENT_END,
++                                      indent, stripped))
++            else:
++                result.append(DtsLine(raw, LineType.COMMENT_BODY,
++                                      indent, stripped))
++            continue
++
++        if stripped.startswith('/*'):
++            if '*/' in stripped:
++                result.append(DtsLine(raw, LineType.COMMENT,
++                                      indent, stripped))
++            else:
++                in_block_comment = True
++                result.append(DtsLine(raw, LineType.COMMENT_START,
++                                      indent, stripped))
++            continue
++
++        if stripped.startswith('//'):
++            result.append(DtsLine(raw, LineType.COMMENT, indent, stripped))
++            continue
++
++        if stripped.startswith('#') and is_preprocessor(stripped):
++            result.append(DtsLine(raw, LineType.PREPROCESSOR,
++                                  indent, stripped))
++            prev_complete = True
++            continue
++
++        if not prev_complete:
++            dl = DtsLine(raw, LineType.CONTINUATION, indent, stripped)
++            result.append(dl)
++            prev_complete = (stripped.endswith(';') or
++                             stripped.endswith('{') or
++                             stripped.rstrip().endswith('};'))
++            continue
++
++        if stripped.rstrip(';').rstrip() == '}' or stripped == '};':
++            result.append(DtsLine(raw, LineType.NODE_CLOSE,
++                                  indent, stripped))
++            prev_complete = True
++            continue
++
++        if stripped.endswith('{'):
++            dl = DtsLine(raw, LineType.NODE_OPEN, indent, stripped)
++            parse_node_header(dl)
++            result.append(dl)
++            prev_complete = True
++            continue
++
++        # Property or boolean property
++        dl = DtsLine(raw, LineType.PROPERTY, indent, stripped)
++        parse_property_name(dl)
++        result.append(dl)
++        prev_complete = stripped.endswith(';')
++        continue
++
++    return result
++
++
++# Regex for node header: optional "label: " then name optionally @addr
++# then optional whitespace and {
++re_node_header = re.compile(
++    r'^(?:([a-zA-Z_][a-zA-Z0-9_]*):\s*)?'  # optional label
++    r'([a-zA-Z][a-zA-Z0-9,._+-]*|/)'       # node name or /
++    r'(?:@([0-9a-fA-F,]+))?'               # optional @address
++    r'\s*\{$'
++)
++
++# Regex for &reference node: &label { ... }
++re_ref_node = re.compile(
++    r'^&([a-zA-Z_][a-zA-Z0-9_]*)\s*\{$'
++)
++
++
++def parse_node_header(dl):
++    """Extract label, node name, and unit address from a NODE_OPEN line."""
++    m = re_node_header.match(dl.stripped)
++    if m:
++        dl.label = m.group(1)
++        dl.node_name = m.group(2)
++        dl.node_addr = m.group(3)
++        return
++
++    m = re_ref_node.match(dl.stripped)
++    if m:
++        dl.ref_name = m.group(1)
++
++
++def parse_property_name(dl):
++    """Extract the property name from a PROPERTY line."""
++    s = dl.stripped
++    # "prop-name = value;" or "prop-name;"
++    m = re.match(r'^([a-zA-Z#][a-zA-Z0-9,._+#-]*)\s*[=;]', s)
++    if m:
++        dl.prop_name = m.group(1)
++
++
++def group_continuations(lines):
++    """Attach CONTINUATION lines to their preceding PROPERTY."""
++    grouped = []
++    for dl in lines:
++        if dl.linetype == LineType.CONTINUATION and grouped:
++            # Find the last PROPERTY in grouped
++            for prev in reversed(grouped):
++                if prev.linetype == LineType.PROPERTY:
++                    prev.continuations.append(dl)
++                    break
++            else:
++                grouped.append(dl)
++        else:
++            grouped.append(dl)
++    return grouped
++
++
++def collect_labels_and_refs(text):
++    """Collect all label definitions and &references in example text."""
++    labels_defined = set()
++    labels_referenced = set()
++
++    for m in re.finditer(r'([a-zA-Z_][a-zA-Z0-9_]*):', text):
++        # Exclude things like http: or property names before =
++        ctx_after = text[m.end():m.end() + 20].lstrip()
++        # A label is followed by a node name or another label
++        # Property names are followed by = or ;
++        if not ctx_after or ctx_after[0] not in ('=', ';', '"', '<'):
++            labels_defined.add(m.group(1))
++
++    for m in re.finditer(r'&([a-zA-Z_][a-zA-Z0-9_]*)', text):
++        labels_referenced.add(m.group(1))
++
++    return labels_defined, labels_referenced
++
++
++def prop_sort_key(dl, orig_index):
++    """Sort key for property ordering within a node.
++
++    Order: compatible, reg, ranges, standard props (original order),
++    vendor props (original order), status.
++
++    Within the standard and vendor groups, original order is preserved
++    (stable sort) because the coding style examples are not fully
++    consistent on natural sort within groups.
++    """
++    name = dl.prop_name or ''
++    check_name = name.lstrip('#')
++
++    if name == 'compatible':
++        return (0, 0)
++    if name == 'reg':
++        return (1, 0)
++    if name == 'reg-names':
++        return (1, 1)
++    if name == 'ranges':
++        return (2, 0)
++    if name == 'status':
++        return (5, 0)
++
++    # Vendor-specific: name contains a comma
++    if ',' in check_name:
++        return (4, orig_index)
++
++    # Standard property -- preserve original order
++    return (3, orig_index)
++
++
++def natural_sort_key(s):
++    """Sort key that handles embedded numbers naturally."""
++    parts = []
++    for part in re.split(r'(\d+)', s):
++        if part.isdigit():
++            parts.append((0, int(part)))
++        else:
++            parts.append((1, part))
++    return parts
++
++
++def node_sort_key(dl):
++    """Sort key for child node ordering.
++
++    Nodes with unit addresses sort by address (numeric), then nodes
++    without addresses sort by name (natural).
++    """
++    if dl.node_addr is not None:
++        # Parse comma-separated hex address parts
++        parts = dl.node_addr.split(',')
++        try:
++            nums = tuple(int(p, 16) for p in parts)
++            return (0, nums, '')
++        except ValueError:
++            return (0, (0,), dl.node_addr)
++    name = dl.node_name or ''
++    return (1, (0,), natural_sort_key(name))
++
++
++def continuation_align_col(first_line_stripped):
++    """Find the column to align continuation lines to.
++
++    Aligns to the first < or " after = in the property's first line.
++    Returns None if no alignment target found.
++    """
++    eq_pos = first_line_stripped.find('=')
++    if eq_pos < 0:
++        return None
++    rest = first_line_stripped[eq_pos + 1:]
++    for i, ch in enumerate(rest):
++        if ch in '<"':
++            return eq_pos + 1 + i
++    return None
++
++
++def canonicalize_node_body(lines, depth):
++    """Re-emit a node body in canonical form.
++
++    lines: list of DtsLine within a single { } scope (excluding the
++           { and } lines themselves).
++    depth: nesting depth of contents (1 for top-level node body).
++    Returns list of canonical output lines (strings).
++    """
++    indent = '    ' * depth
++    output = []
++
++    # Separate into properties, comments attached to properties,
++    # and child nodes
++    properties = []
++    child_nodes = []
++    i = 0
++    pending_comments = []
++
++    while i < len(lines):
++        dl = lines[i]
++
++        if dl.linetype == LineType.BLANK:
++            i += 1
++            continue
++
++        if dl.linetype in (LineType.COMMENT, LineType.COMMENT_START,
++                           LineType.COMMENT_BODY, LineType.COMMENT_END):
++            pending_comments.append(dl)
++            i += 1
++            continue
++
++        if dl.linetype == LineType.PREPROCESSOR:
++            # Preprocessor lines within a node are unusual but pass through
++            properties.append(('preproc', pending_comments[:], dl))
++            pending_comments.clear()
++            i += 1
++            continue
++
++        if dl.linetype == LineType.PROPERTY:
++            properties.append(('prop', pending_comments[:], dl))
++            pending_comments.clear()
++            i += 1
++            continue
++
++        if dl.linetype == LineType.NODE_OPEN:
++            # Collect the entire child node
++            child_lines = []
++            child_open = dl
++            child_depth = 1
++            i += 1
++            while i < len(lines) and child_depth > 0:
++                if lines[i].linetype == LineType.NODE_OPEN:
++                    child_depth += 1
++                elif lines[i].linetype == LineType.NODE_CLOSE:
++                    child_depth -= 1
++                    if child_depth == 0:
++                        i += 1
++                        break
++                child_lines.append(lines[i])
++                i += 1
++            child_nodes.append(('node', pending_comments[:],
++                                child_open, child_lines))
++            pending_comments.clear()
++            continue
++
++        # Unexpected line type -- pass through
++        properties.append(('other', pending_comments[:], dl))
++        pending_comments.clear()
++        i += 1
++
++    # Sort properties by canonical order (with original index for stability)
++    prop_items = [(p, idx) for idx, p in enumerate(properties)
++                  if p[0] == 'prop']
++    sorted_props = sorted(
++        prop_items,
++        key=lambda pi: prop_sort_key(pi[0][2], pi[1])
++    )
++    sorted_props = [p for p, _ in sorted_props]
++    # Keep preprocessor and other lines in their relative position
++    # (prepend them before the sorted properties)
++    preprocs = [p for p in properties if p[0] != 'prop']
++
++    # Sort child nodes
++    sorted_children = sorted(child_nodes, key=lambda c: node_sort_key(c[2]))
++
++    # Emit preprocessor lines first (if any within node)
++    for kind, comments, dl in preprocs:
++        for c in comments:
++            output.append(format_comment_line(c, indent))
++        output.append(dl.raw.rstrip())  # preprocessor: preserve original
++        need_blank = True
++
++    # Emit sorted properties
++    prev_was_status = False
++    for idx, (kind, comments, dl) in enumerate(sorted_props):
++        # Blank line before status
++        if dl.prop_name == 'status' and output:
++            output.append('')
++
++        for c in comments:
++            output.append(format_comment_line(c, indent))
++
++        output.append(format_property(dl, indent))
++        for cont in dl.continuations:
++            output.append(format_continuation(dl, cont, indent))
++
++    # Emit sorted child nodes
++    for kind, comments, child_open, child_body in sorted_children:
++        # Blank line before each child node
++        if output:
++            output.append('')
++
++        for c in comments:
++            output.append(format_comment_line(c, indent))
++
++        output.append(indent + format_node_open(child_open))
++        body_output = canonicalize_node_body(child_body, depth + 1)
++        output.extend(body_output)
++        output.append(indent + '};')
++
++    # Trailing comments that weren't attached
++    if pending_comments:
++        for c in pending_comments:
++            output.append(format_comment_line(c, indent))
++
++    return output
++
++
++def format_comment_line(dl, indent):
++    """Format a comment line with canonical indent."""
++    # Block comment body/end lines get extra space for " * " style
++    if dl.linetype in (LineType.COMMENT_BODY, LineType.COMMENT_END):
++        return indent + ' ' + dl.stripped
++    return indent + dl.stripped
++
++
++def format_property(dl, indent):
++    """Format a property line with canonical indent."""
++    return indent + dl.stripped
++
++
++def format_continuation(prop_dl, cont_dl, indent):
++    """Format a continuation line aligned to the property's value."""
++    col = continuation_align_col(prop_dl.stripped)
++    if col is not None:
++        # Align to that column relative to indent
++        total_col = len(indent) + col
++        return ' ' * total_col + cont_dl.stripped
++    # Fallback: indent + 4 extra spaces
++    return indent + '    ' + cont_dl.stripped
++
++
++def format_node_open(dl):
++    """Format a node opening line canonically."""
++    if dl.ref_name:
++        return '&{} {{'.format(dl.ref_name)
++    parts = []
++    if dl.label:
++        parts.append(dl.label + ': ')
++    if dl.node_name:
++        parts.append(dl.node_name)
++    if dl.node_addr is not None:
++        parts.append('@' + dl.node_addr)
++    parts.append(' {')
++    return ''.join(parts)
++
++
++def canonicalize_example(text):
++    """Produce canonical form of a DTS example."""
++    lines = classify_lines(text)
++    lines = group_continuations(lines)
++
++    output = []
++    # Top-level: preprocessor lines first, then nodes
++    top_preprocs = []
++    top_nodes = []
++    i = 0
++    pending_comments = []
++
++    while i < len(lines):
++        dl = lines[i]
++
++        if dl.linetype == LineType.BLANK:
++            i += 1
++            continue
++
++        if dl.linetype in (LineType.COMMENT, LineType.COMMENT_START,
++                           LineType.COMMENT_BODY, LineType.COMMENT_END):
++            pending_comments.append(dl)
++            i += 1
++            continue
++
++        if dl.linetype == LineType.PREPROCESSOR:
++            top_preprocs.append((pending_comments[:], dl))
++            pending_comments.clear()
++            i += 1
++            continue
++
++        if dl.linetype == LineType.NODE_OPEN:
++            node_lines = []
++            node_open = dl
++            depth = 1
++            i += 1
++            while i < len(lines) and depth > 0:
++                if lines[i].linetype == LineType.NODE_OPEN:
++                    depth += 1
++                elif lines[i].linetype == LineType.NODE_CLOSE:
++                    depth -= 1
++                    if depth == 0:
++                        i += 1
++                        break
++                node_lines.append(lines[i])
++                i += 1
++            top_nodes.append((pending_comments[:], node_open, node_lines))
++            pending_comments.clear()
++            continue
++
++        # Top-level property (unusual but possible, e.g. /delete-node/)
++        output.append(dl.raw.rstrip())
++        pending_comments.clear()
++        i += 1
++
++    # Emit preprocessor includes
++    for comments, dl in top_preprocs:
++        for c in comments:
++            output.append(format_comment_line(c, ''))
++        output.append(dl.stripped)
++
++    # Blank line between preprocessor and first node
++    if top_preprocs and top_nodes:
++        output.append('')
++
++    # Emit top-level nodes
++    for idx, (comments, node_open, node_body) in enumerate(top_nodes):
++        if idx > 0:
++            output.append('')
++
++        for c in comments:
++            output.append(format_comment_line(c, ''))
++
++        output.append(format_node_open(node_open))
++        body = canonicalize_node_body(node_body, 1)
++        output.extend(body)
++        output.append('};')
++
++    # Trailing comments
++    for c in pending_comments:
++        output.append(format_comment_line(c, ''))
++
++    return '\n'.join(output)
++
++
++def check_node_names(lines, errors, filepath, base_line):
++    """Check node name coding style rules."""
++    re_valid_name = re.compile(r'^[a-z][a-z0-9-]*$')
++
++    for dl in lines:
++        if dl.linetype != LineType.NODE_OPEN:
++            continue
++        if dl.node_name is None:
++            continue
++        # Skip root node "/"
++        if dl.node_name == '/':
++            continue
++
++        name = dl.node_name
++        if not re_valid_name.match(name):
++            errors.append(
++                "node name '{}' must use only [a-z0-9-]".format(name))
++
++        if dl.node_addr is not None:
++            addr = dl.node_addr
++            # Check no leading zeros in each address part
++            for part in addr.split(','):
++                if len(part) > 1 and part.startswith('0'):
++                    errors.append(
++                        "unit address '{}' has leading zeros"
++                        .format(addr))
++                    break
++                # Must be valid hex
++                try:
++                    int(part, 16)
++                except ValueError:
++                    errors.append(
++                        "unit address '{}' is not valid hex"
++                        .format(addr))
++                    break
++
++
++def check_unused_labels(text, errors):
++    """Check for labels that are defined but never referenced."""
++    labels_defined, labels_referenced = collect_labels_and_refs(text)
++    for label in sorted(labels_defined - labels_referenced):
++        # Skip fake_intc labels (injected by dt-extract-example wrapper)
++        if label.startswith('fake_intc'):
++            continue
++        errors.append(
++            "label '{}' defined but never referenced".format(label))
++
++
++def check_tabs(lines, errors):
++    """Check for tabs in non-preprocessor DTS lines."""
++    for dl in lines:
++        if dl.linetype == LineType.PREPROCESSOR:
++            continue
++        if dl.linetype == LineType.BLANK:
++            continue
++        if '\t' in dl.raw:
++            errors.append("tab character in DTS line: {}".format(
++                dl.raw.rstrip()))
++
++
++def check_trailing_whitespace(lines, errors):
++    """Check for trailing whitespace."""
++    for dl in lines:
++        if dl.raw != dl.raw.rstrip():
++            errors.append("trailing whitespace: {}".format(
++                repr(dl.raw.rstrip()[-30:])))
++
++
++def check_example(text, filepath, yaml_line, show_diff=False):
++    """Check a single DTS example. Returns list of error strings."""
++    errors = []
++    lines = classify_lines(text)
++
++    check_trailing_whitespace(lines, errors)
++    check_tabs(lines, errors)
++    check_node_names(lines, errors, filepath, yaml_line)
++    check_unused_labels(text, errors)
++
++    # Generate canonical form and compare
++    canonical = canonicalize_example(text)
++
++    # Strip trailing newlines for comparison
++    orig_stripped = text.rstrip('\n')
++    canon_stripped = canonical.rstrip('\n')
++
++    if orig_stripped != canon_stripped:
++        if show_diff:
++            orig_lines = orig_stripped.splitlines()
++            canon_lines = canon_stripped.splitlines()
++            diff = difflib.unified_diff(
++                orig_lines, canon_lines,
++                fromfile='{} (original)'.format(filepath),
++                tofile='{} (canonical)'.format(filepath),
++                lineterm='')
++            errors.append('canonical form differs:\n' + '\n'.join(diff))
++        else:
++            # Generate concise per-line errors
++            orig_l = orig_stripped.splitlines()
++            canon_l = canon_stripped.splitlines()
++            maxlen = max(len(orig_l), len(canon_l))
++            for i in range(maxlen):
++                o = orig_l[i] if i < len(orig_l) else '<missing>'
++                c = canon_l[i] if i < len(canon_l) else '<missing>'
++                if o != c:
++                    errors.append(
++                        'line {}: expected: {}'.format(i + 1, c.rstrip()))
++
++    return errors
++
++
++def process_file(filepath, show_diff=False):
++    """Process a single YAML binding file. Returns total error count."""
++    yaml = ruamel.yaml.YAML()
++    try:
++        with open(filepath, encoding='utf-8') as f:
++            data = yaml.load(f)
++    except Exception as e:
++        print('{}: error loading YAML: {}'.format(filepath, e),
++              file=sys.stderr)
++        return 0
++
++    if not isinstance(data, dict) or 'examples' not in data:
++        return 0
++
++    examples = data['examples']
++    total_errors = 0
++
++    for i, ex in enumerate(examples):
++        if not isinstance(ex, str):
++            continue
++
++        # Get YAML line number for error reporting
++        try:
++            yaml_line = examples.lc.item(i)[0] + 2
++        except Exception:
++            yaml_line = 0
++
++        errors = check_example(str(ex), filepath, yaml_line,
++                               show_diff=show_diff)
++        for err in errors:
++            total_errors += 1
++            if yaml_line:
++                print('{}:{}: example {}: {}'.format(
++                    filepath, yaml_line, i, err), file=sys.stderr)
++            else:
++                print('{}: example {}: {}'.format(
++                    filepath, i, err), file=sys.stderr)
++
++    return total_errors
++
++
++def main():
++    ap = argparse.ArgumentParser(
++        description='Check DTS example style in YAML binding files.',
++        fromfile_prefix_chars='@')
++    ap.add_argument('yamlfiles', nargs='+', metavar='yamlfile',
++                    help='YAML binding files to check')
++    ap.add_argument('--diff', action='store_true',
++                    help='Show unified diff of original vs. canonical')
++    args = ap.parse_args()
++
++    total_errors = 0
++    for filepath in args.yamlfiles:
++        total_errors += process_file(filepath, show_diff=args.diff)
++
++    sys.exit(1 if total_errors > 0 else 0)
++
++
++if __name__ == '__main__':
++    main()
 -- 
 2.53.0
