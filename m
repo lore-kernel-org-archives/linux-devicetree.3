@@ -1,247 +1,151 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013058.outbound.protection.outlook.com [40.107.162.58])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B803A1E70;
-	Mon, 20 Apr 2026 14:15:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.58
-ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776694557; cv=fail; b=B0ECkgxmh538e53C8rBADPnTpUfdT8Z0SRLGmqlrf7a7RBQKKI8I03kpa+HNTAUe98DSTKIqoQiMErGZmhESBU8ZxikhE4nouj9Q7ymAgTNCr0zBMoyU1liN3qnECcf2lCJEbJUeyWadzM6T9m+FKiVo8x7uI+3U33lfxMQZIx0=
-ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776694557; c=relaxed/simple;
-	bh=ZArEylO7O0/gLT7U44TR17tjCb0QBsxhaq/I/Qw/XA8=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=R14bZuRjTIIj1MOYOsjhZiHI64xlBs5Vupdx2RMRnY2yI/gqKcIuUxjHAaa6mwE4qCASfggIA9xUVuX2cBNa13fpSbpsEmsZ6Vct6+K6k3YS4ht1jZVONnNl6oBTg1ijU/StwgOhlJrRK+z6hk6sw0QZH0ZwjHs3/4LJRwZZLNM=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Py2QIs2P; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Py2QIs2P; arc=fail smtp.client-ip=40.107.162.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601D03BC691;
+	Mon, 20 Apr 2026 14:18:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776694690; cv=none; b=G4xO9fw84+4b18w0Lzc1PRNeJ6mXQtS2GfuU3q6IS85VMFOXUpt9Jn4g/0MyM3DXoV8C/TIfN4OPPw4S4N1wAzUR4v+Gbl6qroj3EYFERn+6HTGI3kyOZbJaoYGfoR5LLXts7PaluvJNr2xpAXtVuED6acvr2tGoKHtzh5cj+FQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776694690; c=relaxed/simple;
+	bh=37tsDrtCIf1rlMYKMHSMCUMtSQzmnPWSFwykkB1OeRo=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=sjeBsHvmRnXTjV7Bww/xKZMK3R0HMtPcUaz0Lmk6Z3+EW0iQqxgVIpGJXnNRFsgoGhyOD/UDtGc8fLobzhM04ZZj4DpSezLTGgziDNNHVU86M9zsg+LZvFYJq9I1LRIpdzta3a9q8mZqDhW2h6c/M/CgI4IjDCeah/4Kp5V5r1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FldUNaq7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Py2QIs2P";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Py2QIs2P"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=puqXnWaw+CQ+MFPl0qwVoG/mR2Eqb20Fth06ZPjVmXuu8V/miY86Ww6xV16X8GzyACZ+88g7W+Py1nDHS7NXkQivrBv4mBLZC8LErhTZPzXCnKNVs6KkaksWrukkREIS2NWgc1L2TUPEBI6ZdUFVWf/FHXlHG+86wybeECdmxVeqypgysVDmQDVh5pqneAlccrDmvU3DSnjqGXL2VgWApkT7QuBKgbMcsK8Nh4i2gLiqaII3Fb858nZdO9wZFxJa+oXP5waqTwNA+NbZSccn6gkXJ4105eG8lwi+a8mxBIshvnOJKzyyCzIaq4iF9MOP7g4CxofgIVffy/7vShlaow==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0vzXDw5cN4l/e7hGZPif8xxTxtJ/HCzXHiR2OmpIj9c=;
- b=BzCp37vx9NfgDqwv7l6nGdycvxpybiqci7ZigvpcGUMymyYI6Pn9yNMfqT9ql18ocgb/k6MG7+r2Bn1doAWiiWnAVH0CFKjHAnb58IGrQL0oVKeI3Ci7nEszvMEq9MCJnLgpe3FVxm3c1tcSRbt866noH3SUY+HlXxCY6Zhavn/rJWafHj+LGcWxbLY2iZiC5BbI8b2650AfppSzhUVcCVvTXmG51T8LOmQEkU7IQ3L8MpJox03Jd3y7Ioq0OdrEFEE3Q0XPUUBQzPmZgNezd5k52RVzvJCAw32FCS4GjfgblXM/2MgFbmzPJ7gkaoRbgJHJZCpJfmdtnTzBef7u7Q==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=mmpsystems.pl smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0vzXDw5cN4l/e7hGZPif8xxTxtJ/HCzXHiR2OmpIj9c=;
- b=Py2QIs2PsR6QZ3xBJHGk4waFB5besXRnkGBppNvRFsqqf3zS7lybAb5X52oQiwB1JkHZhOLVo3qFynMSesdEAT+PiU5NKJwEC2hDA0Izw2soXXXdLNQqw2PsMoZDwUpaP1DK0sfixLeltHDzYOoOrI9umAv80O5xzS1Wh1d/Jd8=
-Received: from DUZP191CA0047.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:4f8::14)
- by AS8PR08MB6149.eurprd08.prod.outlook.com (2603:10a6:20b:29d::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.32; Mon, 20 Apr
- 2026 14:15:49 +0000
-Received: from DU2PEPF00028D04.eurprd03.prod.outlook.com
- (2603:10a6:10:4f8:cafe::ee) by DUZP191CA0047.outlook.office365.com
- (2603:10a6:10:4f8::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Mon,
- 20 Apr 2026 14:15:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- DU2PEPF00028D04.mail.protection.outlook.com (10.167.242.164) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48
- via Frontend Transport; Mon, 20 Apr 2026 14:15:48 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q7GZXqNuQqZ8y1ijc2xfMgfBA5WrSvbQ2btgZD4XlGzfmC+yJgY1aQ78cLPkWgm/zAIBFU2H2d8TdqV0sIFtSh4RfUQnf+8mZKNEIz9vheoqxfP/1QeUNUZCexxAOkljfLN035amcaVEtSwLjaLxt2eEfIevEpX7eQav5f9TIWj+M9Iu8JTYOMcufQ6hjFfcloeCNPqO0vuYVtp/9y9bnVSmJxxW/hop9BVTC8uaBPA+7AgecpRrpLsGqaL/UOVcDQjHDqO0iIF2O0f4hf0i/4jptpOmGLnvDwrK6sLOzzFlyDWUm9f38gtT+WmOVO0eIs1ofuirHiU3wQxHFohy9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0vzXDw5cN4l/e7hGZPif8xxTxtJ/HCzXHiR2OmpIj9c=;
- b=vOB6Jvtzb7Hr+ovh4ijPj9yN+PYOFTTcOX4KcDSIeCLFEKy42o19I7rqhd1UEPO57z1HxVCgXie5tXLKoqRI8qEdC8TBF9wO27py5xxushXtfJOyg4YTY8l4gBJtHYc5t466Oba9bVk/C2SA59tpUiPaeAskl8cJfbnGUqiwVCDxKl+1a7nsePZeiU0dDDDg8FD0kWYjPERXB/NKcCoigKvjK+WoevMNs3dlRZNbWWuKidfoExkIpiMA/xKnuDByIzN2vr8i+Ptg7rh8CCrvIRfqyz20S0Swixco+6jcUWT0JlJixtV+90mzoLQJwdvkIsz9dY82QqxdqRPfpNxpyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0vzXDw5cN4l/e7hGZPif8xxTxtJ/HCzXHiR2OmpIj9c=;
- b=Py2QIs2PsR6QZ3xBJHGk4waFB5besXRnkGBppNvRFsqqf3zS7lybAb5X52oQiwB1JkHZhOLVo3qFynMSesdEAT+PiU5NKJwEC2hDA0Izw2soXXXdLNQqw2PsMoZDwUpaP1DK0sfixLeltHDzYOoOrI9umAv80O5xzS1Wh1d/Jd8=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from PAVPR08MB8847.eurprd08.prod.outlook.com (2603:10a6:102:2fd::5)
- by DU0PR08MB8187.eurprd08.prod.outlook.com (2603:10a6:10:3ee::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.32; Mon, 20 Apr
- 2026 14:14:46 +0000
-Received: from PAVPR08MB8847.eurprd08.prod.outlook.com
- ([fe80::2913:9fff:5b76:b7b4]) by PAVPR08MB8847.eurprd08.prod.outlook.com
- ([fe80::2913:9fff:5b76:b7b4%6]) with mapi id 15.20.9818.031; Mon, 20 Apr 2026
- 14:14:45 +0000
-Message-ID: <b89c1c8b-2678-4f4f-a63c-03b92cf7617c@arm.com>
-Date: Mon, 20 Apr 2026 16:14:44 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] Add hstimer support for H616 and T113-S3
-To: Michal Piekos <michal.piekos@mmpsystems.pl>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-References: <20260419-h616-t113s-hstimer-v1-0-1af74ebef7c5@mmpsystems.pl>
- <20260419225539.718367e0@ryzen.lan>
- <xlvldmapdoql7nt3swube5vd6fdiosq7rt5afg246xertko5fa@4irmzupkar23>
-Content-Language: en-US
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <xlvldmapdoql7nt3swube5vd6fdiosq7rt5afg246xertko5fa@4irmzupkar23>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BE1P281CA0449.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:81::13) To PAVPR08MB8847.eurprd08.prod.outlook.com
- (2603:10a6:102:2fd::5)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FldUNaq7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AB00C2BCB7;
+	Mon, 20 Apr 2026 14:18:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776694690;
+	bh=37tsDrtCIf1rlMYKMHSMCUMtSQzmnPWSFwykkB1OeRo=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=FldUNaq7fCq74Vt4Lcz/PBrv1Uw9ricTlN1m+HUQl+ZMbTxG9fDxgy1t85/zKttmr
+	 kV5Gtp5yLyr01RbDo0xATWf0oVi8da18tmEXFUycU9gzUNFOAwJiR9Slm2GOk2LJLZ
+	 7GDdTfazZj6Dnp3Wdl9a4a200p/1hLByll53TfgpprHHGACat3K+KStsbVp9vjhYR4
+	 X0xHtllnylADFhQrQMJ9EwDLvErlJrC4NBjojnPNMLqlFSS5FYiRKDg0TXhkS2d6px
+	 b+jWYyldOpJnu4X2VTxjtNe4wiWVwq1h4OKWQVQtAZKK6Esxsn4cYxfqcxqCtPwlJD
+	 q9xfW8xAZjD3A==
+Message-ID: <6f3a890f-3bc3-450e-b3a1-20fa7e84fb8a@kernel.org>
+Date: Mon, 20 Apr 2026 16:18:04 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	PAVPR08MB8847:EE_|DU0PR08MB8187:EE_|DU2PEPF00028D04:EE_|AS8PR08MB6149:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2b577e37-3e40-4565-1ab0-08de9ee7526b
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|10070799003|366016|376014|7416014|1800799024|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info-Original:
- Wrhuee9WblNw2exXpqA0CwZOXIgpVu46MVjRvwzlHnXjN9wbqQLm98xRH3rcvCbDsAH0Kf/nLl0VPFU6zhWkmrNkY17Y+ahg1FVe4DmSyOTmXWaewpELvGNfqTq6nagx84jMf/mOl3DReH78dy4+2NNW22OxEnZgiEzz/WG6+XNVIazc1K4UW1U6aTUC2iQwJVDCj13649qCtNXRGyVYJmncyLBWD1o/iMRmFriKtA9wTcidkFZnX19vxubKqTSBgJITi3VlSRpwP9AJwAZw+qcVJTpaW+/JqIuPocaWNRaaCTfe64ym1NiLszze77H5B3TSxHivUNTVIuYeg+TPErteh0gHlXlS1EcrSuwQE3I8GFSpVDzI2XjRzwO62NS1u/8fPw4BfQ7Eu5qqNdIEHFd5N3IG5EqFdrBYJAf8R00Y1BgY7hz+HEX+DfTpLyIhb9rs6kggUTsimcMlUAedSve2fPFRA7PURadq4HHX+Lyl70OiwIUln7vz78/ykYEqmdPBW1OQmxdi/T0QEqSmxpyFQWR7T47v6tP9TxAfhIVJyMEH0z6snC5UZSunAtRxFp4AOm+YGQwR0DNQNiqGpHxgGUfRDPXcfTrT0OOJW7tiXCynT7Br3Q0A/igCkbpU7xKKM07oGgnr2vsajC4bHlsE1sdtdrmA09+JVmargPSGnMX44a+aBu8ej/9/KORj
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR08MB8847.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(376014)(7416014)(1800799024)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- djlWrNlBPkc3kt4KSujhzBVH5APZBRP8oXiLPTGQCMbF36YqkBOi+odiIQN0XB1fWQmyJuMSbm+4r8jq9hdgRW9zekAA7fONJn+1ulmArrrlhvjNLjoHDGEvozUldqbQLNqDzGIUVbqJoSyMFMtSMK5BRXVHXsezB+k7UIJZ8qNfcpL6uDGuI/7q32Yo8SLoRFYcPsQrhsnJ+PExl7zFlZG2Orb3bEmzahn9/k59DA9Yim6mMBxDYVZyOif9zgGL2laj3l5adxxV377XQLXjIZzO+t5PcFlI0IzY1ohl/kc6c7SjmD3FMyly7F/DP7OKcodip0LfdlyA+cZFu6432w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8187
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DU2PEPF00028D04.eurprd03.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	55d86bf5-2822-40dd-b4f1-08de9ee72c3b
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|376014|7416014|14060799003|82310400026|35042699022|13003099007|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	L2NZWH5IXtv1TSpI7ipBROpk1bv9ufr75f+oiYKOOuBlOFYedZrSP8W7nERd5Ec78pEfjRFTIt/irH8IYlkOtMvsS8v49HZGBKOHZ8eDaKjYuED9EekA3zRUlByc9VnOqXgj4USR8BaFWNU9AT0B2htXR0cEsRzNb75NZPyepmwwodxYZUGIQEcGkiK0CcwAUtKesJte4GwdXuNbZ2HuKFyTQ5nH6hhrWQ+eoH7heXv9UVogSybue7EHsL+eCY57MgS0s5MOcTShhzVedGY4eAuqArKlryjtij5nD8LS43oIOXbZBs2gil2FgGZZjrKHhUcvRka9uuMy8fENfxCPxIWN9lHlTqNE/64rVVPUckE9YxWhKj1cy4XGvVlaH0nW6DdDJFNfO+frMHJFSsEbh++Ll1QOn/JJgYxgO3sq1o4B7xa2/vQhM5H05WeGEQr1snOEzNoLR47q4lLfci83D3a68l7VXjZp1iv0zPs8T7Atec9hJPnLQbkEpQ2sGxf0gkI+74JskxglVscSRDdtEnet9LQKKW2HM3d/D5Jpm7LNOvvtSBMcVmbXbMo/ePAtmYiHj0ReN6sOwzBpxtdq+xAcVyZKow8J6JOxwQV5iRvq6nW7VMoxhzkX8s8GG3v41ETYjt4lz4Yn3PrhPqPIhRl5Muf0WvfIlownbJOcmsoZSVTWf+Jp6IuDuo9cYNfxlJsE5BhkZMMQEWZZw8fybQSAQk5vjMk3dLs88+pMmNg=
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(7416014)(14060799003)(82310400026)(35042699022)(13003099007)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	kwrcBS+/uZwGvVQb+jVB7xHqfQGVTYgL1F/drfT5hDOjPG+MUGVL29AoXorSV6A3oNZ9JfT+rQPpfTeIS3pUSQoiEnkKX8JhcA0go8a7sU2RqtTQDGR9kYivfjNCzLAAw+gWck2FpInAtS2mL8458yXIA8Qu0BMUURNbX5I9FOGUPFHm9wDk1FXwA4KZOz2FdJpzG+c2lPcE6yjrN/BH1cvFA29KkN4TW/+0h8oP3hzkQXnAunjXfR9oM+aKZFZOOsPASJ8KcMPuxzG+yXNJrVIg06hl/i76i40OtXvzkERiCDPZU79jy2vdRyD5SyhibCgalEQRHF92eu46jAxy5WYv1L33jrbuHSGdqRGmDzv6rZPto6PxmmoofCXD9kZoPVr4W2Bwc23jnL6xQv4ETwwofw71hpyHN/afeAFfvA4x4MHuoYNcvXHmb0yYADFT
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 14:15:48.9459
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b577e37-3e40-4565-1ab0-08de9ee7526b
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028D04.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6149
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: bridge: This patch adds new content
+ to the lontium,lt9611.yaml binding file
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
+ rfoss@kernel.org, mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@ideasonboard.com,
+ jonas@kwiboo.se, jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com
+References: <20260420061644.1251070-1-syyang@lontium.com>
+ <20260420061644.1251070-2-syyang@lontium.com>
+ <192f1948-bb9a-4831-a1cd-5ef500cfb413@kernel.org>
+ <20260420-sophisticated-scorpion-from-camelot-b9f326@quoll>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260420-sophisticated-scorpion-from-camelot-b9f326@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Michal,
-
-On 4/20/26 13:27, Michal Piekos wrote:
-> On Sun, Apr 19, 2026 at 10:55:39PM +0200, Andre Przywara wrote:
->> On Sun, 19 Apr 2026 14:46:06 +0200
->> Michal Piekos <michal.piekos@mmpsystems.pl> wrote:
->>
->> Hi Michal,
->>
->>> Add support for Allwinner H616 high speed timer in sun5i hstimer driver
->>> and describe corresponding nodes in dts for H616 and T113-S3.
+On 20/04/2026 16:15, Krzysztof Kozlowski wrote:
+> On Mon, Apr 20, 2026 at 01:33:46PM +0200, Krzysztof Kozlowski wrote:
+>>> -audio
+>>>  1.sample rates of 32~192 KHz and sample sizes
+>>>    of 16~24 bits
+>>>  2.SPDIF interface supports PCM, Dolbydigital, DTS digital audio
+>>>    at up to 192KHz frame rate
 >>>
->>> H616 uses same model as existing driver except register shift compared
->>> to older variants.
->>>
->>> Added register layout abstraction in the driver, extended the binding
->>> with new compatibles and wired up dts nodes for H616 and T113-S3 which
->>> uses H616 as fallback compatible.
+>>> -Miscellaneous
+>>>  1.CSC:RGB<->YUV444<->YUV422
 >>
->> Can you say *why* we need this? IIUC Linux only ever uses one clock
->> source, and selects the (non-optional) Generic Timer (aka arch timer)
->> for that? So can you say what this hstimer clock source adds? I guess
->> higher resolution, but what is your use case, so why would you need the
->> 200 MHz? And does this offset the higher access cost of an MMIO
->> access, compared to the arch timer's sysreg based access? Also, IIUC,
->> people would need to manually select this as the clocksource, why and
->> when would they do so? (Given they even know about it in the first
->> place).
->> Also the hstimer hasn't been used since the A20, so nobody seemed to
->> have missed it meanwhile?
+>> Commit msg is not a datasheet introduction chapter. What does this all
+>> mean for compatibility? What is the benefit of listing all this?
 >>
->> Cheers,
->> Andre
+>> You did not even explain the differences between C, UX and EXD, so all
+>> above is pointless. Explain the differences and why devices are not
+>> compatible.
 >>
-> I took the table from https://linux-sunxi.org/Linux_mainlining_effort as
-> a todo list and wanted to help with it. I do not have own use case for
-> this timer. If it is not needed then I will spin v2 to include your
-> comments and abandon it.
-
-Ah, that's good to know, and thanks for picking things from that list! I 
-don't think there is a particular need to abandon your work, we could as 
-well upstream it. At least the DT changes should be added, so that other 
-DT users could make use of the timers - after all it's a Linux 
-implementation choice to utilise just one timer. But please go ahead and 
-post a complete v2, I don't think it hurts to have HSTIMER support in 
-the kernel.
-And while you are at it: can you figure out what the need is for using 
-two timers? One is a clock source, the other is for clock events? And 
-why do we limit the counters and timers to 32 bit? Even the A13 manual 
-lists them as 56 bits, and a wraparound time of roughly 21 seconds (with 
-32 bit counters) does not sound very long to me.
-
-
-Not sure what your primary motivation for fixing Allwinner support is, 
-but we could probably find more worthwhile targets. Do you have 
-Allwinner boards other than the OrangePi Zero 3? There are not many low 
-hanging fruits on the H616 left (MBUS and LDOs(?) maybe), but the A523 
-has quite some missing drivers still, some of them probably more on the 
-easy side.
-
-If you are stuck with the OpiZero3, then you could just look and check 
-the existing devices, and verify their operation. For instance I think 
-USB-OTG is still broken - across most Allwinner SoCs actually, so it's a 
-sunxi driver issue.
-
-Thanks,
-Andre
-
 > 
-> Michal
+> Also, you have checkpatch errors.
 > 
->>>
->>> Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
->>> ---
->>> Michal Piekos (4):
->>>        dt-bindings: timer: allwinner,sun5i-a13-hstimer: add H616 and T113-S3
->>>        clocksource/drivers/sun5i: add H616 hstimer support
->>>        arm64: dts: allwinner: h616: add hstimer node
->>>        arm: dts: allwinner: t113s: add hstimer node
->>>
->>>   .../timer/allwinner,sun5i-a13-hstimer.yaml         |  8 +++-
->>>   arch/arm/boot/dts/allwinner/sun8i-t113s.dtsi       | 12 +++++
->>>   arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi     |  9 ++++
->>>   drivers/clocksource/timer-sun5i.c                  | 56 +++++++++++++++++++---
->>>   4 files changed, 78 insertions(+), 7 deletions(-)
->>> ---
->>> base-commit: faeab166167f5787719eb8683661fd41a3bb1514
->>> change-id: 20260413-h616-t113s-hstimer-62939948f91c
->>>
->>> Best regards,
->>
->>
 
+... and finally (apologies for making it in three emails, checkpatch
+warnings come from different toolset): your subject is pretty breaking
+every standard rule.
+
+It's redundant, not informative in various ways. It misses proper
+prefix, it misses even basic description WHAT. Everything can be a "new
+content".
+
+Please use subject prefixes matching the subsystem. You can get them for
+example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
+your patch is touching. For bindings, the preferred subjects are
+explained here:
+https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
+
+Please do not use "This commit/patch/change", but imperative mood. See
+longer explanation here:
+https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submitting-patches.rst#L94
+
+Drop second/last, redundant "bindings". The "dt-bindings" prefix is
+already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicetree/bindings/submitting-patches.rst#L18
+
+And obviously "file" is pointless. Can you add content NOT to a file?
+Like add it to a directory?
+
+
+Best regards,
+Krzysztof
