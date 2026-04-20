@@ -1,170 +1,369 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B54F3D6CB4;
-	Mon, 20 Apr 2026 13:23:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D5583E024E;
+	Mon, 20 Apr 2026 13:24:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776691426; cv=none; b=Y+QRsns/eN60qKS9RbQmyGvBy/pNtdFRRCjFPT2pzHEfx0N0byMckdHtTMM3EL55KhS8ZggW/xFx+StseecniptiBeT0IaKnJ3xIGaGdoycqNpt5dgeoAB9W6E8WntwSqC52tD8/9NmbihpE8XwmjeEcSjt0e7jhfGziTv8SDx4=
+	t=1776691469; cv=none; b=dbaOGSigiiqEyRFOH63+SmuLEjzC7ofP7FCJ0gFC9OWO6N4nUce6PjaCGnSQvERLOnsXQ0S4zzMa962In8D9GOPxE9uuZdsCXPc/KPFpmwyr9qDh6f0eV4DxLNeHPjPIQawAcOWoO4JBIG+MiBYHRBAWLpUf/LZ2dsn5+fqYSy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776691426; c=relaxed/simple;
-	bh=ywo/K+m8g61aFuYUwjJngKFcWB+wO9RjNtkZ4THPkfY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TCU9w9VrjpktVfScbb9eDhdirHg4GqvzvpcInOsWbQlV6hbTXqW8GziOc0OmM8r1HzKbcwydVejfUoecf1HGDLciUbLT0BrYc5kpAHDWAijGcem+ovZW8T2cKu3UKdFh5agG6l0SB8rgZtXBWPfCz9Ew8Pla1hVFpH5+AlaZJiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2IllhUI; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776691469; c=relaxed/simple;
+	bh=mdTTLFFRGSvS9pVXxreZEr6WIIMFyUkAMBZmnwnFgGM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qmPPLdyYxtmOrWzJ1g2VVJVSJhrVSU8KKuwvm32ErYVKZL4KjjgY+n7hn4auO4C7Ml9mLrjxlg5sqWM+lLtF25CEHQgmzx154fC1haTgNdgh/VtTKeLfXKErGTK4cafvoUkZJ9RTDliC7wo4o+gkAmf27bgBcwwd7koIOVvBuLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ht8SJa56; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2IllhUI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FBD4C4AF09;
-	Mon, 20 Apr 2026 13:23:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ht8SJa56"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E1D4C2BCB4;
+	Mon, 20 Apr 2026 13:24:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776691426;
-	bh=ywo/K+m8g61aFuYUwjJngKFcWB+wO9RjNtkZ4THPkfY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=j2IllhUII1LeigQu/LhVqMjlicGgoRx0s29c4Rh2H8muX/VKwlTyHTUYdI9YJax2n
-	 F9Mt4ouIcD0BQdEevVWK41HZ+jCyMstdvCyvPqx3Qx3t34y8IsY3cHsrjF5p+PYVCP
-	 fLrIuFZJKDoHavwu+b1wMcXkxvmvssbbruQoFRRU3lVr1n22SG561k1PfXckYWTPLZ
-	 EzCry+M5RLD2ISQnscbPMNJZb2ZN57b8iGw0dxhjCnx4ZjCvyA6iySosXff3BKaolQ
-	 foIw+bN4+DtnR+4A1Z+GrpMlTxq5GUEpvrDFYph6yuRUPNGpAQvJ+1/4DQj5ZsXzFK
-	 K1MffoiFVDUMQ==
-Date: Mon, 20 Apr 2026 15:23:43 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/5] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add
- support for glymur Gen5 x8 bifurcation mode
-Message-ID: <20260420-optimistic-unnatural-stingray-80da35@quoll>
-References: <20260412-glymur_gen5x8_phy_0413-v3-0-affcebc16b8b@oss.qualcomm.com>
- <20260412-glymur_gen5x8_phy_0413-v3-1-affcebc16b8b@oss.qualcomm.com>
- <20260415-wooden-prawn-of-lightning-dc1ddc@quoll>
- <aeBQRStG3imY0cOe@hu-qianyu-lv.qualcomm.com>
- <20260417-awesome-tacky-coot-e59a30@quoll>
- <aeXUZ1uSEJ9InUtw@hu-qianyu-lv.qualcomm.com>
+	s=k20201202; t=1776691468;
+	bh=mdTTLFFRGSvS9pVXxreZEr6WIIMFyUkAMBZmnwnFgGM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Ht8SJa563vBIdvtheNgt9tiBYHMZoa9Hz+7rjpLyO/o+rrpCqTbPDaOLEth6zt5Wu
+	 lWbMnNLYecz90pKu1r5cMtc6Qtf5QqV9nlJl/IclZ/4tZP+/96T97y5H1c8KXTHSR3
+	 6hSq3MuqMlXI8jHcCWrfL6TWY2YzVxrZ7g8+4QqUhZFv6u/Ce9ZydFGnu8Or2W2Hxe
+	 RCMbMB7hHuZI7oq7kx0/txJ8ssEffALSXNvspojoXxnvv8alroxYRtYLD5qTchu44N
+	 fES+MmgaXSc9A2pwlfp9A4sX5lv5kN1yU0OOAZCQNHo/T6JYzLHYJ6tQ+sm+31PZIg
+	 cU1TcKJHqqBaQ==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Thierry Reding <treding@nvidia.com>,
+	Sasha Levin <sashal@kernel.org>,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	thierry.reding@kernel.org,
+	jonathanh@nvidia.com,
+	devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0-6.12] arm64: tegra: Fix snps,blen properties
+Date: Mon, 20 Apr 2026 09:17:21 -0400
+Message-ID: <20260420132314.1023554-47-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
+References: <20260420132314.1023554-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aeXUZ1uSEJ9InUtw@hu-qianyu-lv.qualcomm.com>
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 7.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Apr 20, 2026 at 12:23:19AM -0700, Qiang Yu wrote:
-> On Fri, Apr 17, 2026 at 11:18:08AM +0200, Krzysztof Kozlowski wrote:
-> > On Wed, Apr 15, 2026 at 07:58:13PM -0700, Qiang Yu wrote:
-> > > On Wed, Apr 15, 2026 at 09:50:28AM +0200, Krzysztof Kozlowski wrote:
-> > > > On Sun, Apr 12, 2026 at 11:25:56PM -0700, Qiang Yu wrote:
-> > > > > The Glymur SoC has pcie3a and pcie3b PHYs that can operate in two modes:
-> > > > > 
-> > > > > 1. Independent 4-lane mode: Each PHY operates as a separate PCIe Gen5
-> > > > >    4-lane interface, compatible with qcom,glymur-qmp-gen5x4-pcie-phy
-> > > > > 2. Bifurcation mode (8-lane): pcie3a phy acts as leader and pcie3b phy as
-> > > > >    follower to form a single 8-lane PCIe Gen5 interface
-> > > > > 
-> > > > > In bifurcation mode, the hardware design requires controlling additional
-> > > > > resources beyond the standard pcie3a PHY configuration:
-> > > > > 
-> > > > > - pcie3b's aux_clk (phy_b_aux)
-> > > > > - pcie3b's phy_gdsc power domain
-> > > > > - pcie3b's bcr/nocsr reset
-> > > > > 
-> > > > > Add qcom,glymur-qmp-gen5x8-pcie-phy compatible string to document this
-> > > > > 8-lane bifurcation configuration.
-> > > > 
-> > > > Do you describe PCI3A or PCI3B or something combined PCI3?
-> > > 
-> > > I describe a single x8 PHY with resources from both the pcie3a and pcie3b
-> > > PHY blocks for x8 operation.
-> > > 
-> > > > 
-> > > > > 
-> > > > > The phy_b_aux clock is used as the 6th clock instead of pipediv2,
-> > > > > requiring the clock-names enum to be extended to support both
-> > > > > [phy_b_aux, pipediv2] options at index 5. This follows the existing
-> > > > > pattern used for [rchng, refgen] clocks at index 3.
-> > > > > 
-> > > > > Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
-> > > > > ---
-> > > > >  .../bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml   | 53 ++++++++++++++++++----
-> > > > >  1 file changed, 45 insertions(+), 8 deletions(-)
-> > > > > 
-> > > > > diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
-> > > > > index 3a35120a77ec0ceb814a1cdcacff32fef32b4f7b..14eba5d705b1956c1bb00cc8c95171ed6488299b 100644
-> > > > > --- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
-> > > > > +++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
-> > > > > @@ -18,6 +18,7 @@ properties:
-> > > > >      enum:
-> > > > >        - qcom,glymur-qmp-gen4x2-pcie-phy
-> > > > >        - qcom,glymur-qmp-gen5x4-pcie-phy
-> > > > > +      - qcom,glymur-qmp-gen5x8-pcie-phy
-> > > > 
-> > > > That's the same device as 5x4, no? One device, one compatible and this
-> > > > suggests you will have three PCI phys in the DT - two 5x4 and one 5x8?
-> > > > 
-> > > 
-> > > It is not the same as the 5x4 PHY. In DT, we model three PHY nodes:
-> > > phy_3a (1x4), phy_3b (1x4), and a separate phy_1x8 node for x8 mode.
-> > 
-> > OK, that's what I wanted to hear. And that's what should not be done,
-> > 
-> > You should not have a separate node for the same hardware. First, DTC
-> > will give you a W=1 warning, although warning itself should be moved to
-> > W=2.
-> > 
-> > Second, the warning tells important story - same hardware is described
-> > twice.
-> > 
-> > You only need phy_3a and phy_3b, so only two in total.
-> 
-> We can keep only phy_3a and phy_3b, but still add new compatible
-> qcom,glymur-qmp-gen5x8-pcie-phy in binding, right?
-> 
-> For boards that support pcie3a(1x4) + pcie3b(1x4), DTS would be:
-> 
-> pcie3a_phy { compatible = "qcom,glymur-qmp-gen5x4-pcie-phy"; };
-> pcie3b_phy { compatible = "qcom,glymur-qmp-gen5x4-pcie-phy"; };
-> 
-> For boards that support 1x8, we would override pcie3a_phy with:
-> 
-> pcie3a_phy { compatible = "qcom,glymur-qmp-gen5x8-pcie-phy"; /* additional resources */ };
-> pcie3b_phy { compatible = "qcom,glymur-qmp-gen5x4-pcie-phy"; };
-> 
-> This still uses only two PHY nodes and DTC will not report warning.
+From: Thierry Reding <treding@nvidia.com>
 
-IMO, you do not need another compatible. Device is exactly the same. If
-wiring on the board differs, e.g. you have 8x instead of 4x, you:
-1. disable unused 3B phy.
-2. Add to 3A missing resources or the phandle to companion node.
+[ Upstream commit 51f10c527a63dc4a71bce4b40fc53eee78bbbd52 ]
 
-At least that is what I tought till now, when I opened the HPG/manual
-for Glymur phy.  Someone skipped important information when PCIe PHY was
-upstreamed first and glymur.dtsi already got PHY 3B described.
+The snps,blen property of stmmac-axi-config nodes needs to have 7
+entries in total, with unsupported burst lengths listed as 0.
 
-Reminder: writing bindings asks you explicitly to post COMPLETE
-bindings.
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
 
-If you posted COMPLETE bindings we would question all this and you would
-have to check in user manual that this is actually ONE device.
+LLM Generated explanations, may be completely bogus:
 
-There is no 5x4 phy 3A and 3B, at least HPG is pretty clear here.
+Now I have all the information needed for my analysis.
 
-And you should start with that.
+---
 
-But you posted first incomplete binding, hiding the rest and now you
-have 5x4 merged into DTSI.
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-So let's rephrase based on manual:
-You have only one PCIE phy3. Not 3A + 3B. That one phy3 can be
-configured by consumers (board) differently, e.g. by requesting 8-lane
-or twice 4-lane phys.
+**Step 1.1: Subject Line**
+- Subsystem: `arm64: tegra` (ARM64 device tree, Tegra SoC)
+- Action verb: "Fix" — direct bug fix language
+- Summary: Fix the `snps,blen` DT properties for MGBE Ethernet
+  controllers
+- Record: [arm64: tegra] [fix] [correcting snps,blen DT property to have
+  required 7 entries]
 
-Let me send correction note for glymur.dtsi.
+**Step 1.2: Tags**
+- `Signed-off-by: Thierry Reding <treding@nvidia.com>` — Author is the
+  Tegra platform maintainer at NVIDIA.
+- No Fixes: tag, no Cc: stable, no Reported-by (expected for auto-
+  selection candidates).
+- Record: No notable tags beyond authorship. Author is the subsystem
+  maintainer.
 
-Best regards,
-Krzysztof
+**Step 1.3: Commit Body**
+- States: "The snps,blen property of stmmac-axi-config nodes needs to
+  have 7 entries in total, with unsupported burst lengths listed as 0."
+- This describes a DT schema violation — the property had 4 entries but
+  the driver requires 7.
+- Record: Bug is a malformed DT property that doesn't match the driver's
+  expectation.
+
+**Step 1.4: Hidden Bug Fix Detection**
+- This is NOT a hidden fix — it's explicitly labeled "Fix." The
+  underlying bug is that `of_property_read_u32_array(np, "snps,blen",
+  axi_blen, 7)` fails silently when the property only has 4 entries,
+  leaving the stack buffer uninitialized.
+- Record: Direct bug fix, not disguised.
+
+## PHASE 2: DIFF ANALYSIS
+
+**Step 2.1: Inventory**
+- 1 file changed: `arch/arm64/boot/dts/nvidia/tegra234.dtsi`
+- 3 lines changed (each identical):
+  - `snps,blen = <256 128 64 32>;` → `snps,blen = <256 128 64 32 0 0
+    0>;`
+- Affects MGBE0, MGBE1, MGBE2 stmmac-axi-config nodes.
+- Record: Single DT file, 3 identical one-line changes. Scope:
+  minimal/surgical.
+
+**Step 2.2: Code Flow**
+- Before: DT property has 4 u32 entries.
+- After: DT property has 7 u32 entries (3 trailing zeros for unsupported
+  burst lengths).
+- The stmmac driver calls `of_property_read_u32_array(np, "snps,blen",
+  axi_blen, AXI_BLEN)` where `AXI_BLEN = 7`. With only 4 entries,
+  `of_find_property_value_of_size()` checks `prop->length (16) < min
+  (28)` and returns `-EOVERFLOW`. The stack array `axi_blen[7]` is never
+  written. Then `stmmac_axi_blen_to_mask()` processes uninitialized
+  stack data.
+
+**Step 2.3: Bug Mechanism**
+- Category: **Uninitialized data** / **incorrect DT specification**
+- Mechanism: The DT property is too short, causing
+  `of_property_read_u32_array()` to fail, leaving a stack buffer
+  uninitialized. The uninitialized data is then used to configure the
+  AXI DMA burst length register for network hardware.
+- Record: Uninitialized stack data used for hardware DMA configuration.
+  The fix ensures the property has the correct count.
+
+**Step 2.4: Fix Quality**
+- Obviously correct: all other DT files using `snps,blen` have exactly 7
+  entries (verified by grep across all arm64 DT files).
+- Minimal/surgical: 3 identical one-line changes.
+- Zero regression risk: adding trailing zeros only enables the driver to
+  read the property successfully, and zero entries are explicitly
+  skipped by `stmmac_axi_blen_to_mask()`.
+- Record: Fix is obviously correct, minimal, zero regression risk.
+
+## PHASE 3: GIT HISTORY
+
+**Step 3.1: Blame**
+- The buggy `snps,blen = <256 128 64 32>` was introduced by commit
+  `81695da63b977` ("arm64: tegra: Add AXI configuration for Tegra234
+  MGBE") by Thierry Reding, dated 2024-02-21, merged in v6.9.
+- Record: Bug introduced in v6.9 by the same author who is now fixing
+  it.
+
+**Step 3.2: Fixes tag**
+- No Fixes: tag present. The implicit fix target is `81695da63b977`.
+
+**Step 3.3: File History**
+- Recent changes to `tegra234.dtsi` are mostly DT cleanup/additions. No
+  related fixes.
+- Record: Standalone fix, no prerequisites.
+
+**Step 3.4: Author**
+- Thierry Reding is the Tegra platform maintainer at NVIDIA. He wrote
+  the original buggy commit and is now fixing it.
+- Record: Subsystem maintainer self-fix.
+
+**Step 3.5: Dependencies**
+- None. The fix is a pure DT property value change that applies
+  independently.
+- Record: No dependencies, applies cleanly standalone.
+
+## PHASE 4: MAILING LIST RESEARCH
+
+**Step 4.1: Original Submission**
+- Found via web search: patch is `[PATCH 09/10]` in a series "dt-
+  bindings: Various cleanups for Tegra-related bindings" posted
+  2026-02-23.
+- Part of a v3 cleanup series. While most patches in the series are DT
+  binding cleanups, this specific patch (09/10) is a genuine bug fix.
+- Record: Part of a larger DT cleanup series, but this patch is an
+  independent bug fix.
+
+**Step 4.2: Reviewers**
+- b4 dig found the original commit (81695da63b977) was reviewed and
+  tested by Jon Hunter (NVIDIA Tegra co-maintainer). The fix itself is
+  straightforward enough that formal review was likely implicit.
+- Record: Original buggy code was reviewed by Jon Hunter.
+
+**Step 4.3-4.5: Bug Reports / Stable History**
+- No specific bug report found. Likely discovered by the author during
+  code review / DT validation.
+- No prior stable discussion found.
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+**Step 5.1-5.4: Key Functions**
+- `stmmac_axi_setup()` in `stmmac_platform.c` parses the DT property.
+- Called during stmmac platform driver probe for any device using
+  `snps,axi-config` DT phandle.
+- `stmmac_axi_blen_to_mask()` converts the burst length array to
+  register value.
+- The register value is written to hardware in `dwxgmac2_dma_init()` /
+  `dwmac4_dma_init()` / `dwmac1000_dma_init()`.
+- Impact: Affects AXI DMA configuration for MGBE Ethernet on Tegra234.
+
+**Step 5.5: Similar Patterns**
+- All other arm64 DT files consistently use 7 entries for `snps,blen`.
+  Tegra234 was the ONLY outlier with 4 entries.
+
+## PHASE 6: STABLE TREE ANALYSIS
+
+**Step 6.1: Buggy Code in Stable**
+- Commit `81695da63b977` was introduced in v6.9. It exists in stable
+  trees v6.12.y and any newer LTS branches.
+- It does NOT exist in v6.6.y (confirmed via `git merge-base --is-
+  ancestor`).
+- Record: Bug affects v6.9+ stable trees (v6.12.y at minimum).
+
+**Step 6.2: Backport Complications**
+- Pure DT change with no code dependencies. Should apply cleanly.
+- Record: Clean apply expected.
+
+**Step 6.3: Related Fixes**
+- No prior fix for this issue found in any tree.
+
+## PHASE 7: SUBSYSTEM CONTEXT
+
+**Step 7.1: Subsystem**
+- ARM64 Device Tree for Tegra234 MGBE (Multi-Gigabit Ethernet).
+- Criticality: IMPORTANT — affects Tegra234 network hardware users
+  (NVIDIA Jetson AGX Orin, etc.).
+- Record: [arm64/tegra DT] [IMPORTANT — Jetson platform network
+  hardware]
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+**Step 8.1: Affected Users**
+- Users of NVIDIA Tegra234 platforms (Jetson AGX Orin) using MGBE
+  Ethernet controllers.
+- Platform-specific but widely deployed in industrial/embedded
+  applications.
+
+**Step 8.2: Trigger Conditions**
+- Triggered on every boot when the MGBE driver probes. No special
+  configuration needed.
+- The AXI burst length read fails silently, so uninitialized data
+  configures DMA hardware.
+
+**Step 8.3: Failure Mode**
+- Uninitialized stack data used for DMA hardware configuration.
+- Could result in suboptimal network performance, potential DMA errors,
+  or undefined hardware behavior depending on what stack values happen
+  to be.
+- Severity: **HIGH** (hardware misconfiguration from uninitialized data,
+  affecting network DMA)
+
+**Step 8.4: Risk-Benefit**
+- BENEFIT: High — fixes broken AXI DMA configuration for 3 MGBE Ethernet
+  controllers on Tegra234.
+- RISK: Very low — 3 identical one-line DT property changes, adding
+  trailing zeros, no code change.
+- Record: Very favorable risk-benefit ratio.
+
+## PHASE 9: FINAL SYNTHESIS
+
+**Step 9.1: Evidence Summary**
+
+FOR backporting:
+- Fixes real bug: `of_property_read_u32_array()` fails with only 4/7
+  entries, leading to uninitialized stack data being used for hardware
+  DMA configuration
+- Minimal, surgical fix: 3 identical one-line DT changes
+- Obviously correct: all other DT files use 7 entries
+- Written by subsystem maintainer (Thierry Reding, NVIDIA Tegra
+  maintainer)
+- Zero regression risk: trailing zeros are explicitly handled ("Burst
+  values of zero must be skipped")
+- Applies to v6.12.y+ stable trees
+
+AGAINST backporting:
+- No explicit user report of symptoms (could mean it works by luck with
+  stack data)
+- Part of a larger series (but this patch is independent)
+
+**Step 9.2: Stable Rules Checklist**
+1. Obviously correct? **YES** — all other DT files have 7 entries
+2. Fixes a real bug? **YES** — uninitialized data used for HW
+   configuration
+3. Important issue? **YES** — hardware DMA misconfiguration
+4. Small and contained? **YES** — 3 one-line changes in 1 DT file
+5. No new features? **YES** — pure DT fix
+6. Can apply to stable? **YES** — clean DT-only change
+
+**Step 9.3: Exception Category**
+- DT update fixing existing hardware description — automatic YES
+  category
+
+## Verification
+
+- [Phase 1] Parsed subject: "Fix" verb, arm64 tegra subsystem, snps,blen
+  property
+- [Phase 2] Diff: 3 lines changed in tegra234.dtsi, each adds `0 0 0` to
+  snps,blen property
+- [Phase 2] Verified AXI_BLEN=7 in `include/linux/stmmac.h` line 109
+- [Phase 2] Verified `of_property_read_u32_array()` calls
+  `of_find_property_value_of_size()` with min=28 bytes; property has 16
+  bytes (4 entries), so it returns -EOVERFLOW
+- [Phase 2] Verified `stmmac_axi_blen_to_mask()` skips zero entries
+  ("Burst values of zero must be skipped")
+- [Phase 3] git blame: buggy code from 81695da63b977 (v6.9), author:
+  Thierry Reding
+- [Phase 3] git merge-base: confirmed 81695da63b977 is in v6.12 but not
+  v6.6
+- [Phase 4] b4 dig: found original commit submission at lore (patch-id
+  match)
+- [Phase 4] Web search: fix is PATCH 09/10 of "dt-bindings: Various
+  cleanups for Tegra-related bindings"
+- [Phase 5] Verified all other arm64 DT snps,blen entries have exactly 7
+  values (grep across arch/arm64/boot/dts)
+- [Phase 5] Traced call chain: stmmac_axi_setup →
+  of_property_read_u32_array → of_find_property_value_of_size
+- [Phase 6] Bug exists in v6.9+ stable trees
+- [Phase 8] Failure mode: uninitialized stack data used for AXI DMA
+  register, severity HIGH
+
+**YES**
+
+ arch/arm64/boot/dts/nvidia/tegra234.dtsi | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/nvidia/tegra234.dtsi b/arch/arm64/boot/dts/nvidia/tegra234.dtsi
+index 850c473235e36..04a95b6658caa 100644
+--- a/arch/arm64/boot/dts/nvidia/tegra234.dtsi
++++ b/arch/arm64/boot/dts/nvidia/tegra234.dtsi
+@@ -3621,7 +3621,7 @@ ethernet@6800000 {
+ 			snps,axi-config = <&mgbe0_axi_setup>;
+ 
+ 			mgbe0_axi_setup: stmmac-axi-config {
+-				snps,blen = <256 128 64 32>;
++				snps,blen = <256 128 64 32 0 0 0>;
+ 				snps,rd_osr_lmt = <63>;
+ 				snps,wr_osr_lmt = <63>;
+ 			};
+@@ -3663,7 +3663,7 @@ ethernet@6900000 {
+ 			snps,axi-config = <&mgbe1_axi_setup>;
+ 
+ 			mgbe1_axi_setup: stmmac-axi-config {
+-				snps,blen = <256 128 64 32>;
++				snps,blen = <256 128 64 32 0 0 0>;
+ 				snps,rd_osr_lmt = <63>;
+ 				snps,wr_osr_lmt = <63>;
+ 			};
+@@ -3705,7 +3705,7 @@ ethernet@6a00000 {
+ 			snps,axi-config = <&mgbe2_axi_setup>;
+ 
+ 			mgbe2_axi_setup: stmmac-axi-config {
+-				snps,blen = <256 128 64 32>;
++				snps,blen = <256 128 64 32 0 0 0>;
+ 				snps,rd_osr_lmt = <63>;
+ 				snps,wr_osr_lmt = <63>;
+ 			};
+-- 
+2.53.0
 
