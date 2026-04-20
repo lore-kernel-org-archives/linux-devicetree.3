@@ -1,36 +1,37 @@
 Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD7F388E7C;
-	Mon, 20 Apr 2026 09:42:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E955C389119;
+	Mon, 20 Apr 2026 09:42:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776678152; cv=none; b=ToQ8iWV5loJ3kXhbrxMoWEE6/aYMqi7nsU+tkajeWs66xNkuYVWEY4L3eKRw0XN6U9l+wyJuK7HlXw1nuB416rrldDXWJmzA9HG2RHRRJN2nguQdeV0QIEuw9Q6IFlLaTYsdh2/t+64j6mLTBJn/2YULK+1D21ykwQTrMb4FteU=
+	t=1776678153; cv=none; b=ovgdnSJmnKts8Bs1jC9KY+fRjY/h6oVEx8wJue2nPduVF18qnFJ8ymjNRc9daOu2WzEhQc+/jDHsvMeV5576AEwcQqaiO0cdgsawGExNswBG8RZC1rspMGta69VQIoVIrwGaYp5e+3Ce/pZQFXPKC0ECfN9ZFL6Eq4pKbc4M3Gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776678152; c=relaxed/simple;
-	bh=7ggz8o1NyD5NbLeVTyxCalNMovmWXlJppVm7RC8CuTo=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ShO57TUgimNEx3Tcwy4vQyJcFxq6QKenvJmnEH1gNC9cKSGpcVV9DAv76fu7bk/80zLMdWQ7HfY+H9wPdxt7t+g0r3X0UagiW2aK+r8mAMuKoNzmbd7rYZJ42fN2UFFj5XwChG83O0KuOm1ahvVzHIc19DWqdDUATayM1ynCKKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=j+VPntb/; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=yML6EmGr; arc=none smtp.client-ip=5.75.144.95
+	s=arc-20240116; t=1776678153; c=relaxed/simple;
+	bh=wxDih+S62XS00edvZz5RUzsqEJuy7JKaTFKjK6bFbaI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RIpfd2CNWAHnnbWcZVzsTdwu+inCH+sk1qwnyrv2mijPbUS+dgcVHHI7kokjvgPBgPOJDzpTyqorGHvbFKsxnUEEsmOArmp4wGqz14pGHNbzGPRqFVKQSTitnYcXmoc2+idAnuRRhwWAY+BPiYU478a+chy5Bz6TCqKquBDtr8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=VRGBhjMK; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=mMD1mi/w; arc=none smtp.client-ip=5.75.144.95
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="j+VPntb/";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="yML6EmGr"
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="VRGBhjMK";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="mMD1mi/w"
 DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Date:Subject:From; t=1776678137; bh=X30xwmXxKaGfGe6ofAEIINU
-	ETrsIr1EVdLkXqIT5Ae4=; b=j+VPntb/txodUk1ILwSB3mo3RxYeBCxhTziljqYvLmC2ZG6oti
-	pYnNIHLDFvgMHVFjCp/WPJAH6x0EjNkVKCDELhFwBM+7SN6+GNL6rs7g6qRgAiXLYm0D6wcynYF
-	hHb4WVF23MHB8L0JLZoZlAhI3nbP0oSxV7YI2gurF8S+Q5udg7TokuidyhA5e9wD/YA2q5CnYs8
-	KSGC01mL8f1q0zSXNug/DZkWUE5/EGHyBk4DKIFlqtbDzHFRb6iaHi4FklcMVx6+squflAVF/A9
-	Y8bD+XpMPRukcHOPu+wMPcug6+gpRSnT0uCrP4dIyqVzQ9OpLbjZa6QGZY7uUef2o+g==;
+	h=To:Message-Id:Subject:Date:From; t=1776678139; bh=8vOmtcMT2nIBl4fQ4RvFSh/
+	8uyVbzV2ZFQw1RmR+YFg=; b=VRGBhjMK27vsgd+pnymU2mmb3hm3tIz1U3H/axCErNinGY3II9
+	xbKmYVFne5RbgEeKTslO85wAA30D6eife49PEfFQXbrKlA5PopUmBzVxxL/7ZNP6v374o1YLrTW
+	JkFpJ1gZcfLCHGrT2ufkaJzs7//8J2ZdBkYyEhV9KJv/PU7Wf071BepVr0FRtpGSCk/697qLYNt
+	tHR1hwLVMOVX+QaCc90achQYqK6qXnCCuGZUPHNY9lPr9erXDNEMt9lqBVYo0l8aX7YbEIcgeXy
+	VUEGnxeFtRRN5HwtZ8EOhXAl9Z2W4aRXZORxt0kLH8jdTFTkPa4xn6JZedXwH3RXp0A==;
 DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Date:Subject:From; t=1776678137; bh=X30xwmXxKaGfGe6ofAEIINU
-	ETrsIr1EVdLkXqIT5Ae4=; b=yML6EmGrZURCjaCLG92Mjr8GEA76uqRrVfLmGkQd4DzmfI1jX7
-	iaDTyDPEOEkXXIPml6vkUQlFIU7UY4ieVVDA==;
+	h=To:Message-Id:Subject:Date:From; t=1776678139; bh=8vOmtcMT2nIBl4fQ4RvFSh/
+	8uyVbzV2ZFQw1RmR+YFg=; b=mMD1mi/whk2Vb7/BMR7ZzAKPgTXyG4Zhqbu/d8P3qq5/puVySr
+	cx7ELreB3zIwXiXs1B0B2BfbBhEgKYFIIYDg==;
 From: Nickolay Goppen <setotau@mainlining.org>
-Subject: [PATCH v2 0/3] arm64: dts: qcom: sdm630/660 FastRPC fixes
-Date: Mon, 20 Apr 2026 12:42:08 +0300
-Message-Id: <20260420-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v2-0-f6c7ab3c889a@mainlining.org>
+Date: Mon, 20 Apr 2026 12:42:11 +0300
+Subject: [PATCH v2 3/3] arm64: dts: qcom: sdm630: assign adsp_mem region to
+ ADSP FastRPC node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,11 +40,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAPD05WkC/5WOQQ6CMBREr2K69ptSaImuvIdhUdoC30jB/ko0h
- Lvb4gncTPImk5lZGbmAjtjlsLLgFiScfAJxPDAzaN87QJuYCS4UrwoJTzONQHZUioOxNIPO0mm
- KYTZgI0GHb7Dc6FqVgldSs9Q1B5fsfefW/Jhe7d2ZmMtzYkCKU/jsR5Yi5/7dXArgwMu2qmUrz
- lJW11Gjf6BH35+m0LNm27YvyGCaA/EAAAA=
-X-Change-ID: 20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-d0ca7632045a
+Message-Id: <20260420-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v2-3-f6c7ab3c889a@mainlining.org>
+References: <20260420-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v2-0-f6c7ab3c889a@mainlining.org>
+In-Reply-To: <20260420-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v2-0-f6c7ab3c889a@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -55,54 +54,40 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776678136; l=1698;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776678136; l=1025;
  i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
- bh=7ggz8o1NyD5NbLeVTyxCalNMovmWXlJppVm7RC8CuTo=;
- b=3vP+N7ypi8M/7HrxYU7ZgY7eBZUqQiaNzKAnDu8+eMjRHBiqjKj2PZ3FVgfakFIiPrr5OSIwi
- onbGbK9q1KgBsd1Gp8nRqPamJSBEJeukIr7MLuZXz/CqzpA2CSJ973H
+ bh=wxDih+S62XS00edvZz5RUzsqEJuy7JKaTFKjK6bFbaI=;
+ b=Zi71GPLzqiLrYeR1ETwnrK9oMAEsgkAKJXCzg1JfLgzJBAgmvEZrM4/IS9OJHxfiEJtUo0mrM
+ q/LKNqOGF5+Dr3PPEANveJQkGI/OhEWTnActzjg3PgxZ988IR+WUblo
 X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
  pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
 
-This series introduces fixes that make FastRPC on SDM660 work properly.
-Currently only the calculator_example test passes on both ADSP and 
-CDSP [1].
-Also assign adsp_mem region to the ADSP's FastRPC node.
+Downstream [1] ADSP FastRPC node has the adsp_mem region assigned, so
+assign it to the ADSP FastRPC node.
 
-[1]: https://github.com/qualcomm/fastrpc/issues/269#issuecomment-4232125297
+[1]: https://github.com/xiaomi-sdm660/android_kernel_xiaomi_sdm660/blob/11-EAS/arch/arm/boot/dts/qcom/sdm660.dtsi#L1693
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
 ---
-Changes in v2:
-- Dropped patch that changed adsp_mem to reusable
-- Added vmids to fastrpc subnode of adsp (Ekansh Gupta)
-- Link to v1: https://patch.msgid.link/20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v1-0-03b475b29554@mainlining.org
+ arch/arm64/boot/dts/qcom/sdm630.dtsi | 3 +++
+ 1 file changed, 3 insertions(+)
 
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Nickolay Goppen <setotau@mainlining.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+index 4b47efdb57b2..2dc53814aa55 100644
+--- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+@@ -2455,6 +2455,9 @@ fastrpc {
+ 					compatible = "qcom,fastrpc";
+ 					qcom,glink-channels = "fastrpcglink-apps-dsp";
+ 					label = "adsp";
++					memory-region = <&adsp_mem>;
++					qcom,vmids = <QCOM_SCM_VMID_LPASS
++							  QCOM_SCM_VMID_ADSP_HEAP>;
+ 					qcom,non-secure-domain;
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
 
----
-Nickolay Goppen (3):
-      arm64: dts: qcom: sdm660: set cdsp compute-cbs' regs properly
-      arm64: dts: qcom: sdm630: set adsp compute-cbs' regs properly
-      arm64: dts: qcom: sdm630: assign adsp_mem region to ADSP FastRPC node
-
- arch/arm64/boot/dts/qcom/sdm630.dtsi | 19 +++++++++++--------
- arch/arm64/boot/dts/qcom/sdm660.dtsi | 36 ++++++++++++++++++------------------
- 2 files changed, 29 insertions(+), 26 deletions(-)
----
-base-commit: e6efabc0afca02efa263aba533f35d90117ab283
-change-id: 20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-d0ca7632045a
-
-Best regards,
---  
-Nickolay Goppen <setotau@mainlining.org>
+-- 
+2.53.0
 
