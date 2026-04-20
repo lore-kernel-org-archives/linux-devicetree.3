@@ -1,92 +1,163 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C8B838AC95;
-	Mon, 20 Apr 2026 09:09:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ECEF386551;
+	Mon, 20 Apr 2026 09:13:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776676179; cv=none; b=agGZ6Sm+hcnr6IqLC5HN/o0eKMDY01gn35KVXMfWD7/tYhjL/e9e0iBGw4UNUs3TLYLlHaHbReecF71qz1wqbP+EW0pAUgjetqUZ3u/aevpnUDmT4pabKbwE0PqRq3zl2EzX9JHEEKk8M/39mozYnoHk9Skr4qmkSYl0u1SIPms=
+	t=1776676398; cv=none; b=OpZNSsDeRX5Z5DAKfiQ0PVP5anmS3CWVB9HKsAQaIHV+dZsH+Euw9zkc4Hg3WdtGXIeKZ3XhCLRxp61LKTGF86fYAdQ+hgs53G3red0HPOIL+IV+Hb3oOFCzErMhFC02um6eyrEuZU2Mxoyz7E1lbsuWiLQk7fuHkBh9e53KBmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776676179; c=relaxed/simple;
-	bh=00dCGcB0/P2/wrNA/yA78fISH9yP7ajstHGqOl4WqWw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=izfoOJBv+6pG8uHoDnlEW2TehPadezRqVLkUQZUh2pqLvAjq7dKyn7OCAH1N/7Lwbt2+0bJBbywDJR9H7/Qf8p2CKngnMGZPB1M135up1sEjJCmuBJJjGVTfkA0XLx9WzRRHKDrjMYuHs0m/TcXZPLftAMnuVt7MLEBoYWuZv74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iiTdIBmO; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776676398; c=relaxed/simple;
+	bh=8SBhTU2OOi12EWCM5Hj3umAGo+5riQev7UW56BMZGNg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jAjja/UHdFD8YEXqiRm/iOkxua0t8aRbHSQZewr2JCeJX6YF0zpOxYPYKiKFAJOI8LWS0gF2Vtnxlw+q9BTN1Qbz2Fmb18iuPmAg2fBkUID+7Nt9x3t1xWjKa67o9xqMPGlP6VXGxpNMpwWcYY7G2ZBkg37s8xqsJkdd+KfNruk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nha/IYrH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iiTdIBmO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50287C19425;
-	Mon, 20 Apr 2026 09:09:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nha/IYrH"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E0C22C19425;
+	Mon, 20 Apr 2026 09:13:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776676178;
-	bh=00dCGcB0/P2/wrNA/yA78fISH9yP7ajstHGqOl4WqWw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iiTdIBmOBopOQBmLW8e5mhGYOt/R74btFeB4E1bpiwPzYq3K9nBOZ/9PvNH33tV86
-	 /4h2I1BfQjB/MqFe8ZcsReWS9QYbLcWsTSsP6CUKbUpxklQUqQFc/O/g4k0Ui3Mo42
-	 rcLDWwWUQjnraDnezXojTdqSm14gRno3Iy1TVFWXQndQe5OCRfzR+48zmiuY56l6ST
-	 ICxY75WKWO23g+6FE2bU8fzP7k8VhZSDFablmFSdXkWaKFMm3aPYbZB8SGKw+GSjRq
-	 RmDascB4B4xBiCNxwE8USWaSukL3ix7B+QLzNbuHobkE4MUMtPSkYvoOTM36IKkrUk
-	 GuBLhJtDR4RIg==
-Date: Mon, 20 Apr 2026 09:09:36 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Sandie Cao <sandie.cao@deepcomputing.io>,
-	Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	spacemit@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] dts: riscv: spacemit: k3: only keep spacemit,k1-i2c
-Message-ID: <20260420090936-GKB203300@kernel.org>
-References: <20260420083931.1427703-1-sandie.cao@deepcomputing.io>
- <dfa3f1a7-f4c6-4655-94c0-326f88db3896@kernel.org>
- <87ef529e-b591-49f5-9fc9-3099672e2f0f@kernel.org>
- <DHXUQHVK4XRN.3CVZ3GH75L4L4@linux.spacemit.com>
+	s=k20201202; t=1776676397;
+	bh=8SBhTU2OOi12EWCM5Hj3umAGo+5riQev7UW56BMZGNg=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=nha/IYrHbFVwGUtzDjzng3DAZ/3NXkCFa0JcDHEaGO7gyxSSjvXD1RnQAZABBveLl
+	 yvjGDdriYLSM5x9je8/AyUcOs3Ep4WYsGTgm9wbfFCohum48iS5D41yOEfYodHJ5sH
+	 6cVXuHf+vDTm/vo5yytHpUMNo7M91yc0cPXYSjeF20HwdelLrXw0te7T1FMkqXuCdf
+	 m0BtVTAYqOZIdzZzRKN/k/NQA9umHCnCUJkA2ECzDmkiqH39XNCRjTlb+SL6LapEqz
+	 8+qBSCw1F5yww4Zgl3Fniiij6zWFuESWHgAhAFGhZctAX9YkaTMgoc6tZOIXDNWdU0
+	 E0NcnJvb1hRVA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CF7BBF557E2;
+	Mon, 20 Apr 2026 09:13:17 +0000 (UTC)
+From: Joe Sandom via B4 Relay <devnull+jsandom.axon.com@kernel.org>
+Subject: [PATCH v4 0/5] arm64: dts: qcom: add QCS8550 RB5Gen2 support
+Date: Mon, 20 Apr 2026 10:13:12 +0100
+Message-Id: <20260420-rb5gen2-dts-v4-0-b461909c2de8@axon.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DHXUQHVK4XRN.3CVZ3GH75L4L4@linux.spacemit.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACnu5WkC/23MsQ6DIBSF4VcxzKVBuIh26ns0HQQuylBtwBAb4
+ 7sXnbTpeE7y/QuJGDxGcisWEjD56MchD7gUxPTt0CH1Nm/CGa8YMKBByw4HTu0UaVkzY5FpVVa
+ GZPEO6Py81x7PvHsfpzF89ngqt/d/J5WU0bqRrnYGGnDm3s7jcDXji2yZxI9UnSnP1DKjHIBCV
+ OKHiiNtzlRkqjOphJQWNBzouq5fXjQQ7xsBAAA=
+X-Change-ID: 20260404-rb5gen2-dts-180cde0b716c
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Joe Sandom <jsandom@axon.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776676395; l=4255;
+ i=jsandom@axon.com; s=20260319; h=from:subject:message-id;
+ bh=8SBhTU2OOi12EWCM5Hj3umAGo+5riQev7UW56BMZGNg=;
+ b=bDMGvn5FqPPNXAuR8ddCJxgw39OiLl1cDJUGAF6kBPgBgahhbvSVtx1ChIEESkEEOG1GzgI+g
+ WImeSR97oTUCIxmDzbv2z72udtq5balLem5682xFs3luCWa4Rr+6UmN
+X-Developer-Key: i=jsandom@axon.com; a=ed25519;
+ pk=Q/yflwj2WhkgBVTskrS9Vl5oScD0Bp3vTzDi+OxskTo=
+X-Endpoint-Received: by B4 Relay for jsandom@axon.com/20260319 with
+ auth_id=687
+X-Original-From: Joe Sandom <jsandom@axon.com>
+Reply-To: jsandom@axon.com
 
-Hi Troy,
+This series adds device tree support for the Thundercomm RB5Gen2
+development kit, based on the Qualcomm QCS8550 chipset.
 
-On 16:50 Mon 20 Apr     , Troy Mitchell wrote:
-> On Mon Apr 20, 2026 at 4:44 PM CST, Krzysztof Kozlowski wrote:
-> > On 20/04/2026 10:43, Krzysztof Kozlowski wrote:
-> >> On 20/04/2026 10:39, Sandie Cao wrote:
-> >>> Fix dtcheck issue: compatible:0: 'spacemit,k1-i2c' was expected
-> >> 
-> >> Missing space after main commit msg.
-> >> 
-> >>> Reported-by: kernel test robot <lkp@intel.com>
-> >>> Closes: https://lore.kernel.org/r/202604140259.eKDaxKua-lkp@intel.com/
-> >>>
-> >
-> > Also, the file reported in above warning DOES NOT EXIST (I checked
-> > next-20260414).
-> In Documentation/devicetree/bindings/pinctrl/spacemit,k1-pinctrl.yaml:
-> 
-> properties:
->   compatible:
->     enum:
->       - spacemit,k1-pinctrl
->       - spacemit,k3-pinctrl
-> 
-I think you refer to wrong file, which should be
- Documentation/devicetree/bindings/i2c/spacemit,k1-i2c.yaml
+Patches 1-3 prepares for the RB5gen2 device tree by adding MHI register
+regions and port labels to the PCIe controller nodes, as well as moving
+common IPA properties into sm8550.dtsi. Then update the existing HDK
+and QRD board files accordingly.
 
-> So there's no reason to use k1-i2c. As far as I can tell, while they are the same IP,
-> there are subtle differences between them.
-> 
-But yes, the idea is correct, so NAK to this patch
->                                   - Troy
+Patches 4-5 add the dt-bindings documentation and the board device tree
+for the RB5Gen2. This initial submission covers the main board; the vision
+mezzanine will be supported in a follow-up series.
 
+Product page:
+https://www.thundercomm.com/product/qualcomm-rb5-gen-2-development-kit
+
+Signed-off-by: Joe Sandom <jsandom@axon.com>
+---
+Changes in v4:
+- Renamed LT9611 regulator nodes from lt9611-regulator-* to
+  regulator-lt9611-* to follow standard naming convention
+- Moved pmic-glink node before regulators to match alphabetical
+  ordering used by sm8550-hdk.dts
+- Reordered sound dai-link sub-nodes: codec before cpu
+- Added comma separation between pinctrl-0 phandle references
+  (lt9611 and tc9563 entries)
+- Changed firmware paths from qcom/qcs8550/ to qcom/sm8550/ for
+  adsp, cdsp, modem, IPA and GPU to keep all firmware in the same
+  subdirectory
+- Link to v3: https://lore.kernel.org/r/20260409-rb5gen2-dts-v3-0-be736355d4b4@axon.com
+
+Changes in v3:
+- Reworded MHI commit message to describe actual usage (debugfs
+  link_transition_count) per Neil's feedback
+- Reordered pinctrl-0 before pinctrl-names file-wide per Konrad's
+  feedback
+- Removed output-high from lt9611_rst_pin since the driver handles
+  reset sequencing
+- Reordered tlmm pinctrl entries by GPIO number
+- Changed bias-pull-up to bias-disable for regulator enable pins
+  (upd_1p05_en, upd_3p3_en) since these are active-high enables
+- Added comments for gpio-reserved-ranges explaining GPIOs 32-35
+  are for NFC secure element and 36-39 for fingerprint sensor
+- Removed max-sd-hs-hz override since upstream clock driver already
+  provides the correct 37.5MHz frequency
+- Updated msi-map deletion rationale with root cause: Gunyah limits
+  ITS device mappings to two per root complex on SM8550
+- Link to v2: https://lore.kernel.org/r/20260407-rb5gen2-dts-v2-0-d0c7f447ee73@axon.com
+
+Changes in v2:
+- Lowercase hex in MHI region definitions for pcie0 and pcie1 nodes +
+  vertical alignment
+- Change pcie0 and pcie1 reg-names for one entry per line
+- Ensured pcie port labels + changes to sm8550-hdk.dts and sm8550-qrd.dts
+  are done in a single commit
+- Moved IPA gsi-loader and memory-region to sm8550.dtsi since they are common
+  properties. Reflect changes in sm8550-hdk.dts and sm8550-qrd.dts
+- Removed usbhub_reset since this is not required
+- Added swctrl-gpios property to wcn7850-pmu
+- Split sw_ctrl_default gpio from bt_default grouping and referenced the
+  pinctrl separately
+- Replaced upd_reset regulator-fixed with pinctrl and vddpe-3v3-supply
+  on pcie0
+- Aligned firmware-name values vertically on the quote mark
+- Changed cdsp, adsp and modem remoteprocs to .mbn file type instead of
+  .mdt
+- Added remark in rb5gen2 dts commit explaining the rationale for
+  deleting msi-map in pcie0 and pcie1 nodes
+- Link to v1: https://lore.kernel.org/r/20260404-rb5gen2-dts-v1-0-895f8fc494fc@axon.com
+
+---
+Joe Sandom (5):
+      arm64: dts: qcom: sm8550: add PCIe MHI register regions
+      arm64: dts: qcom: sm8550: add PCIe port labels
+      arm64: dts: qcom: sm8550: move IPA properties to SoC device tree
+      dt-bindings: arm: qcom: document QCS8550 RB5Gen2 board
+      arm64: dts: qcom: qcs8550: add QCS8550 RB5Gen2 board support
+
+ Documentation/devicetree/bindings/arm/qcom.yaml |    6 +
+ arch/arm64/boot/dts/qcom/Makefile               |    1 +
+ arch/arm64/boot/dts/qcom/qcs8550-rb5gen2.dts    | 1573 +++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8550-hdk.dts         |    4 +-
+ arch/arm64/boot/dts/qcom/sm8550-qrd.dts         |    4 +-
+ arch/arm64/boot/dts/qcom/sm8550.dtsi            |   26 +-
+ 6 files changed, 1602 insertions(+), 12 deletions(-)
+---
+base-commit: af241225893ac4933bb8f0615f2dfda8ea2326ce
+change-id: 20260404-rb5gen2-dts-180cde0b716c
+
+Best regards,
 -- 
-Yixun Lan (dlan)
+Joe Sandom <jsandom@axon.com>
+
+
