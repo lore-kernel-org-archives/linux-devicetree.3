@@ -1,85 +1,94 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21072D77EE;
-	Mon, 20 Apr 2026 14:48:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BC931E844;
+	Mon, 20 Apr 2026 14:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776696529; cv=none; b=GaStRGAB58u15UYmfkzzXxwqGzfUqs2uQEYsP8DCr5eERUSrUr0DWzzxvcsO+xzYQf9SX2O1YUfW4JQt62EocQUmS7yHDvocWNZLL4kkB/HyCFRWCGC5XoxPmRd6IHnGHg+2krZnhYUFjFqfOoaQrw7RYT77BPXm+x6pYyf+5rE=
+	t=1776696884; cv=none; b=Wbuf1rZIHzUBua/sB/BpzbcyNy/MLcCPnaeJHBnqzLRe6Y11qZhO14lM/152zmDFmlwlJXYnwpMytDt4jT91OGlb/cPNAJOEQPBBBMpZpFJmoPdHknBg0SfSu09gkHGJet3Jw9Com+50/wowa7dcEKFJV9qWIY/hEqSf8v0QKHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776696529; c=relaxed/simple;
-	bh=cSKan6b0zx/w9plQlbydVNsQaYcl0NWgrRbpHIQDyt4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HqFE0MQKGVEpkS8Q22EB7zZL1NXeehA0kcaznFpPRRK2grQ6RUd6LQt+k+TGten7oI5osZDLMZQjfoAeDzG0n3Og7ZZnZsIwC3nSZ1SWTfDibXfno9znN2O+uI4gvGf6/2MUMNSkn+Wc65TxtH3e/dfRWEJxomq8boDdYMxMgD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
-	 (Exim 4.99)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1wEpvU-000000000GN-0rQq;
-	Mon, 20 Apr 2026 14:48:40 +0000
-Date: Mon, 20 Apr 2026 15:48:36 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Sean Wang <sean.wang@mediatek.com>, linux-crypto@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: rng: mtk-rng: add SMC-based TRNG
- variants
-Message-ID: <aeY8xF82FB7Plu7W@makrotopia.org>
-References: <585fc832e4e5d3656bd25ecee6bafb636993104a.1776600269.git.daniel@makrotopia.org>
- <20260420-flat-rook-of-hail-bbede5@quoll>
- <aeY3HuP01VYl5x6X@makrotopia.org>
- <e747a3c5-1c43-412b-8ff6-f447ee33995c@kernel.org>
+	s=arc-20240116; t=1776696884; c=relaxed/simple;
+	bh=uGL3RkNr80Rb4I0b+dBZzhPVLXURYIOCB1+i0nmoLZ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=c/frIvSjzDzNm1z2vA5AYWQEpZuokeToaf4acqC2n9izGPkmymH4n36ntbJufa0XfWBhGQZrIvkILXwlMulpmsOHiXAJYHN3I2YHPjJGZTyjD28LenjR6TPlk+ltcu/a5Pv3UAzxtY1/zRGBB8BF+oZ6WdU1PsXwAicz+XAytA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vJvL3pB0; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vJvL3pB0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B17CC19425;
+	Mon, 20 Apr 2026 14:54:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776696884;
+	bh=uGL3RkNr80Rb4I0b+dBZzhPVLXURYIOCB1+i0nmoLZ8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=vJvL3pB0ISuKcagfn2khLoIEfExVuzlnvYQvbLVQU+hJ8ZIM7WvF0D8pVgAZZDrLE
+	 hT3GVTuIPbpS28VdyWTu/ocjDuw23i01+7th0sRY8NIyJZBso//GlPfJ5E7IQ6NvRH
+	 JfLHiCGSP+ffLZSwlvrYfMJk11lT3+5jC3EDBYGAoJiDJznyoY7W/5bKvPJEA6w1bG
+	 ehg3SEa5sguXPBQhwTNiUHPG3najL63j16XmDEzXA2xBOKOaQHJX+kWVXFtylaCHcp
+	 J8Ewr2l1iLKC+MqS6uM05BWt/9AX1trUZJY06TVzVcApfFnQsi90cRfYs5ZhVAPlUb
+	 L9E0R7jD8hXhQ==
+Date: Mon, 20 Apr 2026 15:54:34 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+Cc: Jonathan Santos <Jonathan.Santos@analog.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, lars@metafoo.de,
+ Michael.Hennerich@analog.com, nuno.sa@analog.com, andy@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, Krzysztof
+ Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 2/5] dt-bindings: iio: adc: ad4130: Add new supported
+ parts
+Message-ID: <20260420155434.72e35891@jic23-huawei>
+In-Reply-To: <cf4ac074-9098-45f5-9cd6-0eeea0b41179@baylibre.com>
+References: <cover.1774996100.git.Jonathan.Santos@analog.com>
+	<7bf387e8ad20e2f2bb14534fb03608bbadfa47d2.1774996100.git.Jonathan.Santos@analog.com>
+	<cf4ac074-9098-45f5-9cd6-0eeea0b41179@baylibre.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e747a3c5-1c43-412b-8ff6-f447ee33995c@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Apr 20, 2026 at 04:43:00PM +0200, Krzysztof Kozlowski wrote:
-> On 20/04/2026 16:24, Daniel Golle wrote:
-> > On Mon, Apr 20, 2026 at 04:07:33PM +0200, Krzysztof Kozlowski wrote:
-> >> On Sun, Apr 19, 2026 at 01:05:01PM +0100, Daniel Golle wrote:
-> >>> +    rng {
-> >>> +            compatible = "mediatek,mt7981-rng";
-> >>
-> >> I asked at v1. Reminded at v2. Nothing serious, but repeating myself is
-> >> pointless and kind of waste of time.
+On Sat, 11 Apr 2026 14:08:59 -0500
+David Lechner <dlechner@baylibre.com> wrote:
+
+> On 4/1/26 6:58 AM, Jonathan Santos wrote:
+> > Extend driver support for AD4129-4/8, AD4130-4, and AD4131-4/8 ADC
+> > variants.
 > > 
-> > Replying *once* telling what you would actually want, or replying to
-> > me asking back would have helped enormously:
-> > https://patchwork.kernel.org/comment/26880354/
+> > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > Signed-off-by: Jonathan Santos <Jonathan.Santos@analog.com>
+> > ---
+> > Changes in v3:
+> > * None.
 > > 
-> > All I can see is that you concluded "no improvements" without telling
-> > *what it is you would like to see improved*.
+> > Changes in v2:
+> > * None.
+> > ---
+> >  .../devicetree/bindings/iio/adc/adi,ad4130.yaml   | 15 +++++++++++++--
+> >  1 file changed, 13 insertions(+), 2 deletions(-)
 > > 
+> > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4130.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4130.yaml
+> > index fcc00e5cfd54..f4cad68fa04d 100644
+> > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4130.yaml
+> > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4130.yaml
+> > @@ -5,19 +5,30 @@
+> >  $id: http://devicetree.org/schemas/iio/adc/adi,ad4130.yaml#
+> >  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> >  
+> > -title: Analog Devices AD4130 ADC device driver
+> > +title: Analog Devices AD4130 family ADC device driver  
 > 
-> Yes, and then you should go to v1 and read the review. There was only
-> single comment in this spot, so trivial to find.
+> I'm surprised that on one said anything about the word "driver"
+> in a devicetree binding. :-)
 > 
-> AGAIN:
-> 
-> Use four spaces for indentation.
+You could have kept quiet! :)  Anyhow, tweaked here and in the patch title
+to not mention driver.
 
-Thank you, that IS helpful.
+Series applied to the testing branch of iio.git.
 
-I've read the "no improvements" statement as an overall conclusion and
-not even considered it to be specific to any *place* without further
-context.
+Jonathan
 
-Is that the only remaining problem you see in the binding right now?
+
