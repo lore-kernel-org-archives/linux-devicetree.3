@@ -1,417 +1,174 @@
-Received: from mail-244122.protonmail.ch (mail-244122.protonmail.ch [109.224.244.122])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536863D1CC6
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 14:28:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A659369985;
+	Mon, 20 Apr 2026 14:29:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776695299; cv=none; b=hix5wyWM6EC67ks+O7PWw85DcHi8O9RZZzcTRNb6ozdbV8LYVFw4338kAHeGm6QVkh8UNgxPVqG/XGMnhg8GD0a7+OuxrfOKIjMpHqnh+ZG3NiNYyktlMXS6m+D15obHYGNQd9RlCI7cdmOWpC61q65ujsaR88evxv6gHXLw9xw=
+	t=1776695364; cv=none; b=NEJQYWZ+DS3do9S9KPVAVZPtFoSuIuF6JRpG+qAmLFzMSpVcsj3Ov5eBYDE0IJPdmmCGg8M/1mH71Ypm43svr0HFsJ8oSYvSUhtDh7QYdiK912M4xnmRDDJU2pys1fLx0uV6Bf8sFzG+fZMR32jHapaVsd8w8wPik8aZn1ardR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776695299; c=relaxed/simple;
-	bh=9tLbAL/IkJ8RXG3NKCcoFK7v5tgajuxUZOxxl45bQkw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=e+CFHx2mpXjubuDO+wifjEV+FM1ixBX+4F9mkerxlJ1tGIP2MNQvHMC/0iqMZoHgi5F2+zaM7M7pDW6mFQmV4h4N/AT+jdmT+kaGWeTA0rmyJG+VY+B4cxxM+dGx7jqVHDcz7V256RoKtyfjIXnz91l4eMzlegqNz6bwdfkVneY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=VyICU1GJ; arc=none smtp.client-ip=109.224.244.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1776695364; c=relaxed/simple;
+	bh=u6CGPbYIUFBlDeQlxXS9BykZ8po11VxJ9EOIf0MxH8s=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GGtTQiJyS9mqkf0XsPxa07h6dfW0V6UY8OWDBlHEYH6Auj8M9anOWSWvAMAnJonuUUbB+boPbGzTN5vFS4JJUMAvvk4itk89j49mTTkSX1vaO5e1lOZP8/noLopPjw9x+Mto2JfxtMe9wDbBWIMARD7sMmGpu0PDR4lK6bVUxJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKmBLDl/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="VyICU1GJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1776695289; x=1776954489;
-	bh=9tLbAL/IkJ8RXG3NKCcoFK7v5tgajuxUZOxxl45bQkw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=VyICU1GJvjK/5vXjR/YBEZDqfpfOpG4BBXTAD9X6a7UdyoXGwmqi26e45zuxngyd7
-	 oksq9WfdOl/gKg+EhmcCKNilCTrMBFsQdpggmk288VdAnYEz6nAZX7SN/8reNrZ+BO
-	 CTnyZ5Mbg8py+06oZ+P22BWRgqBYa8gRDAa7Zidrojtoxn6nYXu3nLYe/QICKm1EVQ
-	 Rsr4IBNusLiVdR4Wx8uUjsFRQ+8UNZmA2pp1gdJMUad/JZD8gLRzvdWzWPDQLbWXbp
-	 knwXbLcCS/i1fwVJF6WQgJFJ7ORsq0zbaQWkVFf/H95Ow3Pbk/MczGyZhLrqkeYy9O
-	 PnhXRB4/eT/FQ==
-Date: Mon, 20 Apr 2026 14:28:04 +0000
-To: Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH v2 2/2] pinctrl: qcom: eliza: Split up some QUP pin groups
-Message-ID: <20260420-fix-eliza-pinctrl-v2-2-b68329fd6701@pm.me>
-In-Reply-To: <20260420-fix-eliza-pinctrl-v2-0-b68329fd6701@pm.me>
-References: <20260420-fix-eliza-pinctrl-v2-0-b68329fd6701@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 0b36d055a9c635361ef9d952bdef044d3e7cad8a
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKmBLDl/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBCEFC19425;
+	Mon, 20 Apr 2026 14:29:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776695364;
+	bh=u6CGPbYIUFBlDeQlxXS9BykZ8po11VxJ9EOIf0MxH8s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=jKmBLDl/JL0CIZtS0Aig4AtG3f7d3iiY+OBvQswodFGW2rdLw7Xdz1Iy2ol6I10OK
+	 0IXr7PcxXPX1Yj+pfcEzLowXgs6GxNcIZEOZjhRcwWZDu5FCBBj9nIOgg1//CCkv8W
+	 xXidE012VEeXAOI382+gYvsvZNKUTnU71uN00is0UdPfcq+n2GvcED8N9K/fL3IvDn
+	 Rz04Svyv/3uSHiDGJJVgSBL70ppWYLzfey39IIzRzD2soJj/cug6fXt/zYG2N+wYqN
+	 FPKyAasHNC2KZCozLweq2vk2SG9uxfYjPL48B7DZaEeWIst1Ok8FsFQAKC54AtWEkB
+	 pOuDOU5YdADcQ==
+Date: Mon, 20 Apr 2026 15:29:14 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Miclaus, Antoniu" <Antoniu.Miclaus@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, "Sa,
+ Nuno" <Nuno.Sa@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Olivier
+ Moysan <olivier.moysan@foss.st.com>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v8 0/3] iio: adc: ad4080: add support for AD4880
+ dual-channel ADC
+Message-ID: <20260420152914.323238fe@jic23-huawei>
+In-Reply-To: <SN6SPR01MB0090FF0C73500BB51F63D7FB9B232@SN6SPR01MB0090.namprd03.prod.outlook.com>
+References: <20260328114050.46848-1-antoniu.miclaus@analog.com>
+	<20260412193349.6a3fea03@jic23-huawei>
+	<SN6SPR01MB0090FF0C73500BB51F63D7FB9B232@SN6SPR01MB0090.namprd03.prod.outlook.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Multiple QUPs have lanes that can be routed to one of two GPIOs and
-collapsing them prevents devicetrees from requesting specific routing.
+On Thu, 16 Apr 2026 08:51:46 +0000
+"Miclaus, Antoniu" <Antoniu.Miclaus@analog.com> wrote:
 
-For example, a board that wires an I2C SCL line to one of two GPIOs
-cannot request that specific pin with the groups collapsed.
+> --
+> Antoniu Micl=C4=83u=C5=9F
+>=20
+> > -----Original Message-----
+> > From: Jonathan Cameron <jic23@kernel.org>
+> > Sent: Sunday, April 12, 2026 9:34 PM
+> > To: Miclaus, Antoniu <Antoniu.Miclaus@analog.com>
+> > Cc: Lars-Peter Clausen <lars@metafoo.de>; Hennerich, Michael
+> > <Michael.Hennerich@analog.com>; David Lechner <dlechner@baylibre.com>;
+> > Sa, Nuno <Nuno.Sa@analog.com>; Rob Herring <robh@kernel.org>; Krzysztof
+> > Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>;
+> > Olivier Moysan <olivier.moysan@foss.st.com>; linux-iio@vger.kernel.org;
+> > devicetree@vger.kernel.org; linux-kernel@vger.kernel.org
+> > Subject: Re: [PATCH v8 0/3] iio: adc: ad4080: add support for AD4880 du=
+al-
+> > channel ADC
+> >=20
+> > [External]
+> >=20
+> > On Sat, 28 Mar 2026 13:40:47 +0200
+> > Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
+> >  =20
+> > > Add support for the AD4880, a dual-channel 20-bit 40MSPS SAR ADC with
+> > > integrated fully differential amplifiers (FDA).
+> > >
+> > > Architecture notes:
+> > >
+> > > The AD4880 is modeled as a single IIO device rather than two independ=
+ent
+> > > devices because the channels share power supplies, a voltage referenc=
+e,
+> > > the CNV conversion clock, and a single interleaved data output stream.
+> > > Splitting them into separate IIO devices would make synchronized
+> > > dual-channel capture impossible from userspace.
+> > >
+> > > An MFD approach does not apply here either - the channels are not
+> > > functionally distinct sub-devices but identical ADC paths sharing a
+> > > common data interface.
+> > >
+> > > Each channel has fully independent configuration registers accessible
+> > > through separate SPI chip selects, so per-channel regmaps are used wi=
+th
+> > > no locking between them. The data path has no software involvement at
+> > > runtime: the CNV clock triggers simultaneous conversions and the devi=
+ce
+> > > outputs an interleaved bitstream captured directly by the IIO backend
+> > > (FPGA). spi_new_ancillary_device() handles the configuration path;
+> > > the IIO backend handles the data path.
+> > >
+> > > The debugfs_reg_access callback is not exposed for the dual-channel
+> > > variant since the IIO framework provides a single (reg, val) interface
+> > > with no channel parameter, and exposing only one channel would be
+> > > misleading.
+> > >
+> > > The AD4880 is a fairly unique part - having separate SPI config
+> > > interfaces per channel with a shared interleaved data output is not
+> > > a common pattern. =20
+> > I tried applying this and it's not going in cleanly (I didn't check
+> > exactly why).  Please could you send a rebased version.  The togreg
+> > branch should be fine I think, but maybe sanity check it against
+> > my current testing branch as well. =20
+>=20
+> The AD4880 driver has a cross-tree dependency on two SPI patches that are=
+ queued in spi/for-7.1:
+>=20
+> - ffef4123043c ("spi: allow ancillary devices to share parent's chip sele=
+cts")
+> - 463279e58811 ("spi: add devm_spi_new_ancillary_device()")
+>=20
+> The driver uses devm_spi_new_ancillary_device() with multi-CS to create a=
+n ancillary SPI device for the second channel's configuration interface, so=
+ it won't build against togreg alone.
+>=20
+> What approach do you suggest in this situation?
+Ah.  Makes sense.
 
-This change splits them up so devicetrees can request the configuration
-they need.
+Given timing, wait and if I look to have forgotten this ping me around
+rc2 when I should have that 7.1 material in my base tree anyway.
 
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
----
- drivers/pinctrl/qcom/pinctrl-eliza.c | 200 +++++++++++++++++++++++++++++--=
-----
- 1 file changed, 169 insertions(+), 31 deletions(-)
+thanks,
 
-diff --git a/drivers/pinctrl/qcom/pinctrl-eliza.c b/drivers/pinctrl/qcom/pi=
-nctrl-eliza.c
-index c1f756cbcdeb..a1365bcd3bf6 100644
---- a/drivers/pinctrl/qcom/pinctrl-eliza.c
-+++ b/drivers/pinctrl/qcom/pinctrl-eliza.c
-@@ -562,16 +562,39 @@ enum eliza_functions {
- =09msm_mux_qspi_cs,
- =09msm_mux_qup1_se0,
- =09msm_mux_qup1_se1,
--=09msm_mux_qup1_se2,
-+=09msm_mux_qup1_se2_l0,
-+=09msm_mux_qup1_se2_l1,
-+=09msm_mux_qup1_se2_l2_mira,
-+=09msm_mux_qup1_se2_l2_mirb,
-+=09msm_mux_qup1_se2_l3_mira,
-+=09msm_mux_qup1_se2_l3_mirb,
-+=09msm_mux_qup1_se2_l4,
-+=09msm_mux_qup1_se2_l5,
-+=09msm_mux_qup1_se2_l6,
- =09msm_mux_qup1_se3,
- =09msm_mux_qup1_se4,
- =09msm_mux_qup1_se5,
--=09msm_mux_qup1_se6,
--=09msm_mux_qup1_se7,
-+=09msm_mux_qup1_se6_l0,
-+=09msm_mux_qup1_se6_l1_mira,
-+=09msm_mux_qup1_se6_l1_mirb,
-+=09msm_mux_qup1_se6_l2,
-+=09msm_mux_qup1_se6_l3_mira,
-+=09msm_mux_qup1_se6_l3_mirb,
-+=09msm_mux_qup1_se7_l0_mira,
-+=09msm_mux_qup1_se7_l0_mirb,
-+=09msm_mux_qup1_se7_l1_mira,
-+=09msm_mux_qup1_se7_l1_mirb,
-+=09msm_mux_qup1_se7_l2,
-+=09msm_mux_qup1_se7_l3,
- =09msm_mux_qup2_se0,
- =09msm_mux_qup2_se1,
- =09msm_mux_qup2_se2,
--=09msm_mux_qup2_se3,
-+=09msm_mux_qup2_se3_l0_mira,
-+=09msm_mux_qup2_se3_l0_mirb,
-+=09msm_mux_qup2_se3_l1_mira,
-+=09msm_mux_qup2_se3_l1_mirb,
-+=09msm_mux_qup2_se3_l2,
-+=09msm_mux_qup2_se3_l3,
- =09msm_mux_qup2_se4,
- =09msm_mux_qup2_se5,
- =09msm_mux_qup2_se6,
-@@ -977,8 +1000,40 @@ static const char *const qup1_se1_groups[] =3D {
- =09"gpio32", "gpio33", "gpio34", "gpio35",
- };
-=20
--static const char *const qup1_se2_groups[] =3D {
--=09"gpio52", "gpio53", "gpio54", "gpio52", "gpio55", "gpio53", "gpio40", "=
-gpio42", "gpio30",
-+static const char *const qup1_se2_l0_groups[] =3D {
-+=09"gpio52",
-+};
-+
-+static const char *const qup1_se2_l1_groups[] =3D {
-+=09"gpio53",
-+};
-+
-+static const char *const qup1_se2_l2_mira_groups[] =3D {
-+=09"gpio54",
-+};
-+
-+static const char *const qup1_se2_l2_mirb_groups[] =3D {
-+=09"gpio52",
-+};
-+
-+static const char *const qup1_se2_l3_mira_groups[] =3D {
-+=09"gpio55",
-+};
-+
-+static const char *const qup1_se2_l3_mirb_groups[] =3D {
-+=09"gpio53",
-+};
-+
-+static const char *const qup1_se2_l4_groups[] =3D {
-+=09"gpio40",
-+};
-+
-+static const char *const qup1_se2_l5_groups[] =3D {
-+=09"gpio42",
-+};
-+
-+static const char *const qup1_se2_l6_groups[] =3D {
-+=09"gpio30",
- };
-=20
- static const char *const qup1_se3_groups[] =3D {
-@@ -993,12 +1048,52 @@ static const char *const qup1_se5_groups[] =3D {
- =09"gpio132", "gpio133", "gpio134", "gpio135", "gpio34", "gpio35",
- };
-=20
--static const char *const qup1_se6_groups[] =3D {
--=09"gpio40", "gpio42", "gpio54", "gpio42", "gpio40", "gpio55",
-+static const char *const qup1_se6_l0_groups[] =3D {
-+=09"gpio40",
-+};
-+
-+static const char *const qup1_se6_l1_mira_groups[] =3D {
-+=09"gpio42",
-+};
-+
-+static const char *const qup1_se6_l1_mirb_groups[] =3D {
-+=09"gpio54",
-+};
-+
-+static const char *const qup1_se6_l2_groups[] =3D {
-+=09"gpio42",
-+};
-+
-+static const char *const qup1_se6_l3_mira_groups[] =3D {
-+=09"gpio40",
- };
-=20
--static const char *const qup1_se7_groups[] =3D {
--=09"gpio81", "gpio78", "gpio80", "gpio114", "gpio114", "gpio78",
-+static const char *const qup1_se6_l3_mirb_groups[] =3D {
-+=09"gpio55",
-+};
-+
-+static const char *const qup1_se7_l0_mira_groups[] =3D {
-+=09"gpio81",
-+};
-+
-+static const char *const qup1_se7_l0_mirb_groups[] =3D {
-+=09"gpio78",
-+};
-+
-+static const char *const qup1_se7_l1_mira_groups[] =3D {
-+=09"gpio80",
-+};
-+
-+static const char *const qup1_se7_l1_mirb_groups[] =3D {
-+=09"gpio114",
-+};
-+
-+static const char *const qup1_se7_l2_groups[] =3D {
-+=09"gpio114",
-+};
-+
-+static const char *const qup1_se7_l3_groups[] =3D {
-+=09"gpio78",
- };
-=20
- static const char *const qup2_se0_groups[] =3D {
-@@ -1013,8 +1108,28 @@ static const char *const qup2_se2_groups[] =3D {
- =09"gpio8", "gpio9", "gpio10", "gpio11", "gpio16", "gpio17", "gpio18",
- };
-=20
--static const char *const qup2_se3_groups[] =3D {
--=09"gpio79", "gpio116", "gpio97", "gpio100", "gpio100", "gpio116",
-+static const char *const qup2_se3_l0_mira_groups[] =3D {
-+=09"gpio79",
-+};
-+
-+static const char *const qup2_se3_l0_mirb_groups[] =3D {
-+=09"gpio116",
-+};
-+
-+static const char *const qup2_se3_l1_mira_groups[] =3D {
-+=09"gpio97",
-+};
-+
-+static const char *const qup2_se3_l1_mirb_groups[] =3D {
-+=09"gpio100",
-+};
-+
-+static const char *const qup2_se3_l2_groups[] =3D {
-+=09"gpio100",
-+};
-+
-+static const char *const qup2_se3_l3_groups[] =3D {
-+=09"gpio116",
- };
-=20
- static const char *const qup2_se4_groups[] =3D {
-@@ -1235,16 +1350,39 @@ static const struct pinfunction eliza_functions[] =
-=3D {
- =09MSM_PIN_FUNCTION(qspi_cs),
- =09MSM_PIN_FUNCTION(qup1_se0),
- =09MSM_PIN_FUNCTION(qup1_se1),
--=09MSM_PIN_FUNCTION(qup1_se2),
-+=09MSM_PIN_FUNCTION(qup1_se2_l0),
-+=09MSM_PIN_FUNCTION(qup1_se2_l1),
-+=09MSM_PIN_FUNCTION(qup1_se2_l2_mira),
-+=09MSM_PIN_FUNCTION(qup1_se2_l2_mirb),
-+=09MSM_PIN_FUNCTION(qup1_se2_l3_mira),
-+=09MSM_PIN_FUNCTION(qup1_se2_l3_mirb),
-+=09MSM_PIN_FUNCTION(qup1_se2_l4),
-+=09MSM_PIN_FUNCTION(qup1_se2_l5),
-+=09MSM_PIN_FUNCTION(qup1_se2_l6),
- =09MSM_PIN_FUNCTION(qup1_se3),
- =09MSM_PIN_FUNCTION(qup1_se4),
- =09MSM_PIN_FUNCTION(qup1_se5),
--=09MSM_PIN_FUNCTION(qup1_se6),
--=09MSM_PIN_FUNCTION(qup1_se7),
-+=09MSM_PIN_FUNCTION(qup1_se6_l0),
-+=09MSM_PIN_FUNCTION(qup1_se6_l1_mira),
-+=09MSM_PIN_FUNCTION(qup1_se6_l1_mirb),
-+=09MSM_PIN_FUNCTION(qup1_se6_l2),
-+=09MSM_PIN_FUNCTION(qup1_se6_l3_mira),
-+=09MSM_PIN_FUNCTION(qup1_se6_l3_mirb),
-+=09MSM_PIN_FUNCTION(qup1_se7_l0_mira),
-+=09MSM_PIN_FUNCTION(qup1_se7_l0_mirb),
-+=09MSM_PIN_FUNCTION(qup1_se7_l1_mira),
-+=09MSM_PIN_FUNCTION(qup1_se7_l1_mirb),
-+=09MSM_PIN_FUNCTION(qup1_se7_l2),
-+=09MSM_PIN_FUNCTION(qup1_se7_l3),
- =09MSM_PIN_FUNCTION(qup2_se0),
- =09MSM_PIN_FUNCTION(qup2_se1),
- =09MSM_PIN_FUNCTION(qup2_se2),
--=09MSM_PIN_FUNCTION(qup2_se3),
-+=09MSM_PIN_FUNCTION(qup2_se3_l0_mira),
-+=09MSM_PIN_FUNCTION(qup2_se3_l0_mirb),
-+=09MSM_PIN_FUNCTION(qup2_se3_l1_mira),
-+=09MSM_PIN_FUNCTION(qup2_se3_l1_mirb),
-+=09MSM_PIN_FUNCTION(qup2_se3_l2),
-+=09MSM_PIN_FUNCTION(qup2_se3_l3),
- =09MSM_PIN_FUNCTION(qup2_se4),
- =09MSM_PIN_FUNCTION(qup2_se5),
- =09MSM_PIN_FUNCTION(qup2_se6),
-@@ -1316,7 +1454,7 @@ static const struct msm_pingroup eliza_groups[] =3D {
- =09[27] =3D PINGROUP(27, qup2_se4, aoss_cti, mdp_vsync11_out, qup2_se7, gc=
-c_gp1, _, _, _, _, _, _),
- =09[28] =3D PINGROUP(28, qup1_se0, ibi_i3c, _, _, _, _, _, _, _, _, egpio)=
-,
- =09[29] =3D PINGROUP(29, qup1_se0, ibi_i3c, _, _, _, _, _, _, _, _, egpio)=
-,
--=09[30] =3D PINGROUP(30, qup1_se0, qup1_se2, cci_async_in, gcc_gp3, qdss_g=
-pio_tracedata, _, _, _, _, _, egpio),
-+=09[30] =3D PINGROUP(30, qup1_se0, qup1_se2_l6, cci_async_in, gcc_gp3, qds=
-s_gpio_tracedata, _, _, _, _, _, egpio),
- =09[31] =3D PINGROUP(31, qup1_se0, cci_async_in, qdss_gpio_tracedata, _, _=
-, _, _, _, _, _, egpio),
- =09[32] =3D PINGROUP(32, qup1_se1, ibi_i3c, audio_ref_clk, gcc_gp2, qdss_c=
-ti, _, _, _, _, _, _),
- =09[33] =3D PINGROUP(33, qup1_se1, ibi_i3c, host2wlan_sol, gcc_gp3, _, _, =
-_, _, _, _, _),
-@@ -1326,9 +1464,9 @@ static const struct msm_pingroup eliza_groups[] =3D {
- =09[37] =3D PINGROUP(37, qup1_se4, qup1_se4, ibi_i3c, _, _, _, _, _, _, _,=
- _),
- =09[38] =3D PINGROUP(38, _, _, _, _, _, _, _, _, _, _, _),
- =09[39] =3D PINGROUP(39, _, _, _, _, _, _, _, _, _, _, _),
--=09[40] =3D PINGROUP(40, qup1_se6, qup1_se2, qup1_se6, _, qdss_gpio_traced=
-ata, gnss_adc1, ddr_pxi1, _, _, _, _),
-+=09[40] =3D PINGROUP(40, qup1_se6_l0, qup1_se2_l4, qup1_se6_l3_mira, _, qd=
-ss_gpio_tracedata, gnss_adc1, ddr_pxi1, _, _, _, _),
- =09[41] =3D PINGROUP(41, _, _, _, _, _, _, _, _, _, _, _),
--=09[42] =3D PINGROUP(42, qup1_se6, qup1_se2, qup1_se6, qdss_gpio_tracedata=
-, gnss_adc0, ddr_pxi1, _, _, _, _, _),
-+=09[42] =3D PINGROUP(42, qup1_se6_l2, qup1_se2_l5, qup1_se6_l1_mira, qdss_=
-gpio_tracedata, gnss_adc0, ddr_pxi1, _, _, _, _, _),
- =09[43] =3D PINGROUP(43, _, _, _, _, _, _, _, _, _, _, _),
- =09[44] =3D PINGROUP(44, qup1_se3, _, _, _, _, _, _, _, _, _, _),
- =09[45] =3D PINGROUP(45, qup1_se3, _, _, _, _, _, _, _, _, _, _),
-@@ -1338,10 +1476,10 @@ static const struct msm_pingroup eliza_groups[] =3D=
- {
- =09[49] =3D PINGROUP(49, _, _, _, _, _, _, _, _, _, _, _),
- =09[50] =3D PINGROUP(50, sdc2_fb_clk, _, _, _, _, _, _, _, _, _, _),
- =09[51] =3D PINGROUP(51, _, _, _, _, _, _, _, _, _, _, _),
--=09[52] =3D PINGROUP(52, qup1_se2, pcie1_clk_req_n, qup1_se2, ddr_bist_com=
-plete, qdss_gpio_tracedata, _, vsense_trigger_mirnat, _, _, _, _),
--=09[53] =3D PINGROUP(53, qup1_se2, qup1_se2, gcc_gp1, ddr_bist_stop, _, qd=
-ss_gpio_tracedata, _, _, _, _, _),
--=09[54] =3D PINGROUP(54, qup1_se2, qup1_se6, qdss_gpio_tracedata, gnss_adc=
-1, atest_usb, ddr_pxi0, _, _, _, _, _),
--=09[55] =3D PINGROUP(55, qup1_se2, dp0_hot, qup1_se6, _, gnss_adc0, atest_=
-usb, ddr_pxi0, _, _, _, _),
-+=09[52] =3D PINGROUP(52, qup1_se2_l0, pcie1_clk_req_n, qup1_se2_l2_mirb, d=
-dr_bist_complete, qdss_gpio_tracedata, _, vsense_trigger_mirnat, _, _, _, _=
-),
-+=09[53] =3D PINGROUP(53, qup1_se2_l1, qup1_se2_l3_mirb, gcc_gp1, ddr_bist_=
-stop, _, qdss_gpio_tracedata, _, _, _, _, _),
-+=09[54] =3D PINGROUP(54, qup1_se2_l2_mira, qup1_se6_l1_mirb, qdss_gpio_tra=
-cedata, gnss_adc1, atest_usb, ddr_pxi0, _, _, _, _, _),
-+=09[55] =3D PINGROUP(55, qup1_se2_l3_mira, dp0_hot, qup1_se6_l3_mirb, _, g=
-nss_adc0, atest_usb, ddr_pxi0, _, _, _, _),
- =09[56] =3D PINGROUP(56, usb0_hs, tsense_pwm1, tsense_pwm2, tsense_pwm3, t=
-sense_pwm4, _, _, _, _, _, _),
- =09[57] =3D PINGROUP(57, sd_write_protect, _, _, _, _, _, _, _, _, _, _),
- =09[58] =3D PINGROUP(58, _, _, _, _, _, _, _, _, _, _, _),
-@@ -1364,10 +1502,10 @@ static const struct msm_pingroup eliza_groups[] =3D=
- {
- =09[75] =3D PINGROUP(75, cci_i2c_scl, _, phase_flag, _, _, _, _, _, _, _, =
-_),
- =09[76] =3D PINGROUP(76, cci_i2c_sda, cci_timer, prng_rosc2, _, phase_flag=
-, _, _, _, _, _, _),
- =09[77] =3D PINGROUP(77, cci_i2c_scl, jitter_bist, _, _, _, _, _, _, _, _,=
- _),
--=09[78] =3D PINGROUP(78, qup1_se7, qup1_se7, _, phase_flag, _, _, _, _, _,=
- _, _),
--=09[79] =3D PINGROUP(79, qspi0, mdp_vsync, qup2_se3, _, _, _, _, _, _, _, =
-_),
--=09[80] =3D PINGROUP(80, pcie0_clk_req_n, qup1_se7, _, phase_flag, _, _, _=
-, _, _, _, _),
--=09[81] =3D PINGROUP(81, wcn_sw_ctrl, qup1_se7, dbg_out_clk, _, _, _, _, _=
-, _, _, _),
-+=09[78] =3D PINGROUP(78, qup1_se7_l3, qup1_se7_l0_mirb, _, phase_flag, _, =
-_, _, _, _, _, _),
-+=09[79] =3D PINGROUP(79, qspi0, mdp_vsync, qup2_se3_l0_mira, _, _, _, _, _=
-, _, _, _),
-+=09[80] =3D PINGROUP(80, pcie0_clk_req_n, qup1_se7_l1_mira, _, phase_flag,=
- _, _, _, _, _, _, _),
-+=09[81] =3D PINGROUP(81, wcn_sw_ctrl, qup1_se7_l0_mira, dbg_out_clk, _, _,=
- _, _, _, _, _, _),
- =09[82] =3D PINGROUP(82, _, _, _, _, _, _, _, _, _, _, _),
- =09[83] =3D PINGROUP(83, _, _, _, _, _, _, _, _, _, _, _),
- =09[84] =3D PINGROUP(84, uim0_data, _, _, _, _, _, _, _, _, _, _),
-@@ -1383,10 +1521,10 @@ static const struct msm_pingroup eliza_groups[] =3D=
- {
- =09[94] =3D PINGROUP(94, qlink_wmss, _, _, _, _, _, _, _, _, _, _),
- =09[95] =3D PINGROUP(95, qlink_big_request, _, _, _, _, _, _, _, _, _, _),
- =09[96] =3D PINGROUP(96, qlink_big_enable, _, _, _, _, _, _, _, _, _, _),
--=09[97] =3D PINGROUP(97, uim1_data, qspi0, qup2_se3, _, _, _, _, _, _, _, =
-_),
-+=09[97] =3D PINGROUP(97, uim1_data, qspi0, qup2_se3_l1_mira, _, _, _, _, _=
-, _, _, _),
- =09[98] =3D PINGROUP(98, uim1_clk, qspi0, _, _, _, _, _, _, _, _, _),
- =09[99] =3D PINGROUP(99, uim1_reset, qspi0, _, _, _, _, _, _, _, _, _),
--=09[100] =3D PINGROUP(100, uim1_present, qspi0, qup2_se3, coex_uart2_tx, q=
-up2_se3, mdp_vsync, _, _, _, _, _),
-+=09[100] =3D PINGROUP(100, uim1_present, qspi0, qup2_se3_l2, coex_uart2_tx=
-, qup2_se3_l1_mirb, mdp_vsync, _, _, _, _, _),
- =09[101] =3D PINGROUP(101, _, _, _, _, _, _, _, _, _, _, _),
- =09[102] =3D PINGROUP(102, _, _, _, _, _, _, _, _, _, _, _),
- =09[103] =3D PINGROUP(103, _, _, _, _, _, _, _, _, _, _, _),
-@@ -1400,9 +1538,9 @@ static const struct msm_pingroup eliza_groups[] =3D {
- =09[111] =3D PINGROUP(111, coex_uart1_tx, _, _, _, _, _, _, _, _, _, _),
- =09[112] =3D PINGROUP(112, coex_uart1_rx, _, _, _, _, _, _, _, _, _, _),
- =09[113] =3D PINGROUP(113, _, nav_gpio3, _, _, _, _, _, _, _, _, _),
--=09[114] =3D PINGROUP(114, qup1_se7, qup1_se7, _, qdss_gpio_tracedata, _, =
-_, _, _, _, _, _),
-+=09[114] =3D PINGROUP(114, qup1_se7_l2, qup1_se7_l1_mirb, _, qdss_gpio_tra=
-cedata, _, _, _, _, _, _, _),
- =09[115] =3D PINGROUP(115, _, qspi0, cci_async_in, _, _, _, _, _, _, _, _)=
-,
--=09[116] =3D PINGROUP(116, qspi0, coex_uart2_rx, qup2_se3, qup2_se3, _, _,=
- _, _, _, _, _),
-+=09[116] =3D PINGROUP(116, qspi0, coex_uart2_rx, qup2_se3_l3, qup2_se3_l0_=
-mirb, _, _, _, _, _, _, _),
- =09[117] =3D PINGROUP(117, nav_gpio1, _, vfr_1, _, _, _, _, _, _, _, _),
- =09[118] =3D PINGROUP(118, nav_gpio2, _, _, _, _, _, _, _, _, _, _),
- =09[119] =3D PINGROUP(119, nav_gpio0, _, _, _, _, _, _, _, _, _, _),
-
---=20
-2.53.0
-
+Jonathan
+>=20
+> >=20
+> > Whilst this driver is making a few more assumptions about the backend
+> > than I'd ideally like, I think it is reasonable to postpone any handling
+> > for truely separate backends until (maybe) someone needs it.
+> >=20
+> > Thanks,
+> >=20
+> > Jonathan
+> >  =20
+> > >
+> > > Changes in v8:
+> > >   - Drop fwnode_handle cleanup patch (now in jic23/testing)
+> > >   - Clarify backend buffer comment to describe FPGA architecture
+> > >     (two axi_ad408x IP instances with a packer block)
+> > >   - Make filter_type a per-channel array instead of a single variable
+> > >   - Restore debugfs_reg_access for AD4880 (uses channel 0 regmap),
+> > >     based on sashiko's review
+> > >
+> > > Antoniu Miclaus (3):
+> > >   iio: backend: add devm_iio_backend_get_by_index()
+> > >   dt-bindings: iio: adc: ad4080: add AD4880 support
+> > >   iio: adc: ad4080: add support for AD4880 dual-channel ADC
+> > >
+> > >  .../bindings/iio/adc/adi,ad4080.yaml          |  53 +++-
+> > >  drivers/iio/adc/ad4080.c                      | 251 ++++++++++++++--=
+--
+> > >  drivers/iio/industrialio-backend.c            |  53 ++--
+> > >  include/linux/iio/backend.h                   |   1 +
+> > >  4 files changed, 282 insertions(+), 76 deletions(-)
+> > > =20
+>=20
 
