@@ -1,128 +1,187 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37803CF677;
-	Mon, 20 Apr 2026 20:27:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776716857; cv=pass; b=lsAGVj/cIKNsjJEnJYrPRGPZM1TaVbPQ2hrwfZUeCT8CzDHFSl51N4oTAZI/GN0om8K+nfJqCEGyhh/Hl2IFEb0wUKhkh6fy4uQ13p3q/4JhxJKpDinCn+uIhFXxs3gMJ1Fh7Yq7Ahi3ZeQvW2UTcgmmp3vOpAd8NHrK36ujbg4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776716857; c=relaxed/simple;
-	bh=cj3oEJkumEVGjJPTfTJgi0TjxRJ6ug+ReRvXRBKNddM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=itl90VAhYisBcvyfPGYhCHqQwd6EFX7EcmyvzQIkiArBj8fu+eVwlhAZ5gWIz+tY950cGI0EuzaDOX+/Te7/LDqXBe6eNbFXZymjjLX6J6toaYD+YB1uyLr4QhTZaIx0qADaSs0G9YUfFC7+znSsPWVK4O0rKDgYmikj/zliqak=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=iMJAkfjN; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15AF34A79E
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 20:45:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776717937; cv=none; b=qTL2ZXJcmdZlnZc5GlQOTkYvxCy/L2uQfXv3ArsdR2KLx0/+pb1kDV7S/G74NNlzuGu79X4Bp3Objg7FXL0vkG3hho/lHPKqVhms4XcXV6D4ptZjkuxFzB6xs4xT4vPx4a5eISQG8pq0UoqOvQtxCZueCdLfpph0PdAGQ+lJyLA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776717937; c=relaxed/simple;
+	bh=vZOvZ46pt7uJy3xGvIw66QB7EkGKjD412n9UrrKxX3Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TBOUd4ZIBom8wPvCaaGWDqHvoMdAVH3NqvezVanA730HrqpotXUkGQal/93B5+qtjo4BzRUGW+r2pyft0BLZJYdMDr/yxeyLM4c/rakoemVrHvhL8U1kCHedqIUV8uFYOKWgtcN1I0SMdMyhzpJRJ8qSWKx4Y+rbR8hQxeMnmOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=huJUy+T3; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="iMJAkfjN"
-Received: from darkstar.musicnaut.iki.fi (unknown [83.245.248.121])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: aaro.koskinen)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4fzxqh24dhz49PsK;
-	Mon, 20 Apr 2026 23:27:28 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1776716849;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZqGedFnT3teWh1lHSoLCTJEgghEUYXuwf2j/pOcO/3c=;
-	b=iMJAkfjNWMJ/t4l0tl7Skz/7+NxghitzKZ73RRZGdOdocvREghbnFpwaz/dOmd4DFMLRGP
-	GekgwjWoxTR+cIuD62MoZL96Fykm4DO5UUCjPwo2hO6TGpz/XN2fyRXjl1qf6iaCcPXJ7r
-	5yu/oJf2kXJVvVmpNzNv19eNXT7z0gGDTd2O6Uijc6nF65z+Nn7t1H9ErwAtiX/3srx7Rc
-	JHgJV2UX645Q2lcKPvIFUsf0OO9XwAA9gqHBWbe8BwKFx78VfBUUYbnQRoJcV2YFqudRYm
-	2bN7kJaeUsG50Txo8SYj8WB/zh63tg7O5DsEVnZgML/B+KdJ9i0JWkTLBJbcOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1776716849;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZqGedFnT3teWh1lHSoLCTJEgghEUYXuwf2j/pOcO/3c=;
-	b=ikKwXmpmObdgy/1/HFNmvxtjM8TbTeDriMJxEe01qtWMvEgLZgXKxbF0Zxcitcc+Aiylla
-	LQY9DZCdCB2u9TkglHyohmaQu0r7UZXJrGDXzEwBNGEB6wMMkykVPIcBG5zAgxK9eYysSz
-	A0BGTA0Z+uuIbrw5Hwagno5u/AWc7ebqCrEBARxb0NJx+sc2nQpwx9pAu8mvXUepUkjLQ6
-	uFJgOvdqYRhaGUeMjCCDrZLIP1Qmj3meQ8fG+r7xeCGudI29e7jEAJMF1iol454PmJe4tB
-	wnn08QCfAdX8asgB+W+xDpATpwhlZyiqV1w+pLWgmhR86wDJaFuZvzXluYPB6Q==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=aaro.koskinen smtp.mailfrom=aaro.koskinen@iki.fi
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1776716849;
-	b=ZEMTNW0vb+/jCFIKwzM0bjWOt3tzAgJ7lN5hMe4l/Uhn4zKWRV/miVLv8RrEjKp+4fuuRD
-	iVPQVawli0L16/OHiIzRZS7JVbo82k6kTWZ+0OqQO0gMW94ktTIfeiyRYHGnS3GBXogvE3
-	wmLYpiDXvaGNEBhlrw1laoRgqE0FFWYS8I/S1DGvhk33kEnyaWbJ6K+X4cIdfyEgRBYxIz
-	yhsgiPU+Tqy5VjhswqIHf2UvcgaxegnOmvkQr2zILFbfsKunJGBzOamM48GyeygANPhVjz
-	zuRw4qA+6G2H63dDPN+bNjIy6+bYnVEKWJLHUCxSu3Sr/Yk6m/J0vQ2lJnDVxw==
-Date: Mon, 20 Apr 2026 23:27:25 +0300
-From: Aaro Koskinen <aaro.koskinen@iki.fi>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
-	linux-omap@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Paul Walmsley <pjw@kernel.org>
-Subject: Re: [PATCH v2 1/3] MAINTAINERS: Move Peter De Schrijver to CREDITS
-Message-ID: <aeaMLfrDCoyTrWet@darkstar.musicnaut.iki.fi>
-References: <20260417131549.3154534-1-thierry.reding@kernel.org>
- <CAMuHMdWeXS3ytgozp-mSrW4jcMRCW7_tbDTbMoEdXdbVj0dqJA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="huJUy+T3"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-488ba840146so33334895e9.1
+        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 13:45:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776717934; x=1777322734; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=NFxnKBIb4rP9HCGv24zgq2DmExS0pP68iWUHvrzRj3k=;
+        b=huJUy+T3EpARDIkHJo9jKcVq2vxtP+fLKqLc81ziGkvcB71yz1VrvhHlGid8R2KKk0
+         8eNqFiJLh6MllzNBFx09Frnqzs4zpIsHimpvFxumxvqf1dsqt42HArTs2AmRZ0LG2Ge5
+         RNdv+2zMFEqfvmYdJVr28bctDA8/F7NgryJWKuCoQxQrWObN5rnw6gml8+xR9p3/Vzd/
+         WPYNEbjh1te+Gk0GESsUtMMd7JLwUyveXXHBC/tidxFnFt2SUFCZabzjSRttkGcIcQaA
+         t5AR4f2+xxx/RvmPauksLNyqcCYXk9hUH4CRY3ZfLTtLkYuN/1lrid4aXOEYMswnba93
+         93uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776717934; x=1777322734;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NFxnKBIb4rP9HCGv24zgq2DmExS0pP68iWUHvrzRj3k=;
+        b=pJl2Uj5e8H6KOBNjtkHxo9KArgwoptwvSpuzf+cvu81tG6K4/GDLN5aYQ7V584d67j
+         Grm/1Fe97hGSsoaFMe4QKtOJcQY8sxE0agbAtnpKlmRYxLzz985kyQE71P0kcmlqrE1r
+         w7SsfdBSQXHToCvSdyMCdyakF3dSIICfLLIzT7Q1Rl3otQHg6Q7yHrqqdUkpJ0MzamHG
+         yUtOwDrycKzjZLfmPH65S+nWe2tIGFUdjUn61HM++dS3M9YZ2z0itnuXXhMYDULjpdu3
+         m+gEjPBnIvlQfCMnysHXnA7orVYqRDFkPh9tUs1JiX1Y1Lmp0qHDQQsWjIsKHiVfjQsD
+         eDFA==
+X-Forwarded-Encrypted: i=1; AFNElJ+Y5kxENxytGe4fKzn8MiDmwGadOYTnKCb6MS0UlfDHf7l97MynfYbpvHA5R8IC2508oepUlbWdHbak@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywt36LLKmnf2zV3jBYe5ddSc5CYGSdN4nlC5u/wVBqs/dVYEtV/
+	BNfmwEdA459qlgLXWeQG9kBmbbP3TjoFbFcgBUmz+rBpzNPxnolK1GYD
+X-Gm-Gg: AeBDietbn9fihUwLRqiFRKRlgoSnCI6qfoBMcmkzr/Pizma6iFnotiBMKQhmaxlBTOb
+	nslgidk0SUWYS+aPmLVrdugAFBJe5fZmweLGxBQHB7nB6pKsEg2shPoY96a6phCzemZjFECgdJa
+	308wvY3jylXEZT6xL0ah5h7XzVVd8aqapWtlFn+53oGpihzDJZEgqN3Rn5LPPDbe/foFBQsYR3g
+	2cw4K9rU0gXcj0OxqFsPK/a5N5ME7gGF1nFW981O/6baLAOfQ6ytN15YL6crAHKzXYI+8s5TL6Z
+	Tf3uYSLklvHcmAXTD5dDPZwGnINekAq6dqqyHclvadEuQeVW9QvCZwUGeEHxaNRUO8+Ch4R7us0
+	CNC4JFlE6PWbD0R62Kp70reF/w3BevDw+gFM1/Xr1AAd+GZj25DTr56Dgz4OAcXjMJiwbqYaiF+
+	TnokhQs8Nay6fAgZOXP8KMzlyuG8wV0w==
+X-Received: by 2002:a05:600c:8115:b0:488:ac01:72b6 with SMTP id 5b1f17b1804b1-488fb77d7d3mr176918155e9.21.1776717933714;
+        Mon, 20 Apr 2026 13:45:33 -0700 (PDT)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4891c320084sm170344535e9.2.2026.04.20.13.45.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Apr 2026 13:45:33 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] ASoC: dt-bindings: mediatek: Convert mtk-btcvsd-snd to DT Schema
+Date: Mon, 20 Apr 2026 21:44:30 +0100
+Message-ID: <20260420204514.1640995-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdWeXS3ytgozp-mSrW4jcMRCW7_tbDTbMoEdXdbVj0dqJA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Convert the mtk-btcvsd-snd.txt DT binding to DT Schema format.
 
-On Mon, Apr 20, 2026 at 08:50:06AM +0200, Geert Uytterhoeven wrote:
-> Hi Thierry,
-> 
-> On Fri, 17 Apr 2026 at 15:15, Thierry Reding <thierry.reding@kernel.org> wrote:
-> > From: Thierry Reding <treding@nvidia.com>
-> >
-> > Peter sadly passed away a while back. Paul did a much better job at
-> > finding the right words to mourn this loss than I ever could, so I will
-> > leave this link here:
-> >
-> >   https://lore.kernel.org/lkml/alpine.DEB.2.21.999.2407240345480.11116@utopia.booyaka.com/T/#u
-> >
-> > Co-developed-by: Paul Walmsley <pjw@kernel.org>
-> > Co-developed-by: Aaro Koskinen <aaro.koskinen@iki.fi>
-> > Co-developed-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> 
->    "every Co-developed-by: must be immediately
->     followed by a Signed-off-by: of the associated co-author."
-> 
-> https://elixir.bootlin.com/linux/v7.0/source/Documentation/process/submitting-patches.rst#L506
-> 
-> Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+---
+ .../sound/mediatek,mtk-btcvsd-snd.yaml        | 54 +++++++++++++++++++
+ .../bindings/sound/mtk-btcvsd-snd.txt         | 24 ---------
+ 2 files changed, 54 insertions(+), 24 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mtk-btcvsd-snd.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/mtk-btcvsd-snd.txt
 
-You can also change my Reviewed-by: to
+diff --git a/Documentation/devicetree/bindings/sound/mediatek,mtk-btcvsd-snd.yaml b/Documentation/devicetree/bindings/sound/mediatek,mtk-btcvsd-snd.yaml
+new file mode 100644
+index 000000000000..f423e3a02997
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/mediatek,mtk-btcvsd-snd.yaml
+@@ -0,0 +1,54 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/mediatek,mtk-btcvsd-snd.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Mediatek ALSA BT SCO CVSD/MSBC Driver
++
++properties:
++  compatible:
++    const: mediatek,mtk-btcvsd-snd
++
++  reg:
++    items:
++      - description: Register location and size of PKV
++      - description: Register location and size of SRAM_BANK2
++
++  interrupts:
++    items:
++      - description: BT-SCO interrupt
++
++  mediatek,infracfg:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: The phandle of the infracfg controller
++
++  mediatek,offset:
++    description: Array of register offsets and masks
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    items:
++      - description: infra_misc_offset
++      - description: infra_conn_bt_cvsd_mask
++      - description: cvsd_mcu_read_offset
++      - description: cvsd_mcu_write_offset
++      - description: cvsd_packet_indicator_offset
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - mediatek,infracfg
++  - mediatek,offset
++
++additionalProperties: false
++
++examples:
++  - |
++    mtk-btcvsd-snd@18000000 {
++      compatible = "mediatek,mtk-btcvsd-snd";
++      reg = <0 0x18000000 0 0x1000>,
++            <0 0x18080000 0 0x8000>;
++      interrupts = <GIC_SPI 286 IRQ_TYPE_LEVEL_LOW>;
++      mediatek,infracfg = <&infrasys>;
++      mediatek,offset = <0xf00 0x800 0xfd0 0xfd4 0xfd8>;
++    };
+diff --git a/Documentation/devicetree/bindings/sound/mtk-btcvsd-snd.txt b/Documentation/devicetree/bindings/sound/mtk-btcvsd-snd.txt
+deleted file mode 100644
+index 679e44839b48..000000000000
+--- a/Documentation/devicetree/bindings/sound/mtk-btcvsd-snd.txt
++++ /dev/null
+@@ -1,24 +0,0 @@
+-Mediatek ALSA BT SCO CVSD/MSBC Driver
+-
+-Required properties:
+-- compatible = "mediatek,mtk-btcvsd-snd";
+-- reg: register location and size of PKV and SRAM_BANK2
+-- interrupts: should contain BTSCO interrupt
+-- mediatek,infracfg: the phandles of INFRASYS
+-- mediatek,offset: Array contains of register offset and mask
+-    infra_misc_offset,
+-    infra_conn_bt_cvsd_mask,
+-    cvsd_mcu_read_offset,
+-    cvsd_mcu_write_offset,
+-    cvsd_packet_indicator_offset
+-
+-Example:
+-
+-	mtk-btcvsd-snd@18000000 {
+-		compatible = "mediatek,mtk-btcvsd-snd";
+-		reg=<0 0x18000000 0 0x1000>,
+-		    <0 0x18080000 0 0x8000>;
+-		interrupts = <GIC_SPI 286 IRQ_TYPE_LEVEL_LOW>;
+-		mediatek,infracfg = <&infrasys>;
+-		mediatek,offset = <0xf00 0x800 0xfd0 0xfd4 0xfd8>;
+-	};
+-- 
+2.43.0
 
-Signed-off-by: Aaro Koskinen <aaro.koskinen@iki.fi>
-
-if needed.
-
-A.
-
-> > Signed-off-by: Thierry Reding <treding@nvidia.com>
-> > ---
-> > Changes in v2:
-> > - add more missing entries
-> 
-> Thanks!
-> 
-> Gr{oetje,eeting}s,
-> 
->                         Geert
-> 
-> -- 
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-> 
-> In personal conversations with technical people, I call myself a hacker. But
-> when I'm talking to journalists I just say "programmer" or something like that.
->                                 -- Linus Torvalds
