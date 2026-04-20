@@ -1,333 +1,161 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D340C3A4F30;
-	Mon, 20 Apr 2026 12:54:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4501539E182
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 12:57:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776689699; cv=none; b=Y5pYjBKFDadvw8GYPNxrvNwm8qXwRoMu43t5ww8NWnSya1F5k6v4ZhoKqYotLyVLIpwIIYCCNHoWbNzKygrqz/NEV1pwgD3f+VTgW4OOzcF3FX9D/V9MHy9mJRiXMxXL+JaPEYx6lxa48yYfAdG+Dxj/zgb6ozf9cY/T+MT4578=
+	t=1776689856; cv=none; b=Z6oRf9DUxDpS3IqR0IRx1ARPg70WZVnvOHXD42dUtEkBLTQqPOjGekFQGVtaoUJgLn0gWlRQ/NRAP7YrTJGPy1GslbmGL8vblwwLCmiRpV3VKVOWSiBbSeFC6KD5akSC+V7C77bsEu8AvYj2hGkZ8SYAiAes/BcIDes/Ccv1tNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776689699; c=relaxed/simple;
-	bh=8J+VqbKIZnuNKJTfQMG3Tz1bHzMlB/oCigDNqinSXf8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dhEfkIOoQUy+fPRCcWQ9JenI7Lk+ZIse2018rfh5zq0CY+aA8Qpgn/edzpZt43GkF/Jcw6I1Od9kAvuOnZQjh2QZAVSZd3q4AU9Plipjq6FoW2293DIqYlguF9smMcrU+FoJ8QLe0EhkdG7zPX+qUqzg12oLixgIZYtX+x/M63Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Td/n/nE0; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1776689856; c=relaxed/simple;
+	bh=2yuzhsqIoFkC93c8bQUG7uE36plzmoFPEtctfPNZbxo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PPA3rrTb9QCqdyIp3eaqNPy/HIWa/xQz2+R+iQiBfTe8IN/d1UoFxgGdl0r+fQacj51xYAVAmPUwwZyoh9tE+8ULTSsBSKVa4K3DbO9ZbJ7xWSVajzJh0iGn2ek0mLpMmdmouaI8dTGxEp2WHXaAO412fg+InEmL+H6cz8R7MN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DOpVZm/x; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ymy336hn; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Td/n/nE0"
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A6E99312A;
-	Mon, 20 Apr 2026 14:53:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1776689594;
-	bh=8J+VqbKIZnuNKJTfQMG3Tz1bHzMlB/oCigDNqinSXf8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Td/n/nE08rfm0hYZ38+ubC1sbIEphAOIWWncN4EpB1hw4VGnSYA1qmc7jYmZCCRuu
-	 jWmdbt6V29QIrJh9wFHawT9kynBIUaXh71/4mJKQy/+VbBt8pQiffOv2RpK7YRotkr
-	 uVK4/fTWZVSkrENDOhE1ygJovBfe5E97/HdDXl4E=
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Mon, 20 Apr 2026 15:54:22 +0300
-Subject: [PATCH 15/15] arm64: dts: ti: beagley-ai: Enable HDMI display and
- audio
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DOpVZm/x";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ymy336hn"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63K97qG81599885
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 12:57:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=41og4mU1cLDXbt7IUpYZOpMl
+	mqtt4dfz8VnoGJQGa8U=; b=DOpVZm/xN/P2BBvah3VvNjMlOn5xsAXk5r9cx/RR
+	jn/gCp6WiV2dtQpJ/Yf7wGvknOeNQMsM5o+hYsZqh/YbkJWoXgEhy8M8f8OEfW4D
+	AwSpAWaSyrY3Y16RU41RgFqmPLNmWonnyaR833AZsykPu/xrFIjjU9UG4YKl84GX
+	POSpm3vnRPrT6m6MUCPeWKBwfay/VXtkr6So7Z9LCs0LWFXZ2jIIdpgujkoNvu+M
+	HAdBS0emtefdUg7WWDcqyqU8Z4w8JDEtar1FE2my+TpbeWakq/MxNtxQOZ/zlVOi
+	YvPUwUu0PgnumtjcBiYV+ms3B4jGH4jh55GV/ToxoddiIw==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dnh898rbq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 12:57:32 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-127876be621so2677459c88.1
+        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 05:57:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776689851; x=1777294651; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=41og4mU1cLDXbt7IUpYZOpMlmqtt4dfz8VnoGJQGa8U=;
+        b=Ymy336hneZq8kQqKCHEOgaaL+gDp5WbC0Y82vPyUE+ydgIUDpoX1BY19CDVjy+O3Q4
+         Ws7jhbTeOwxEuFJdSYmUgPc5pu1R2UY0POb4bT3LUfVbGYtsCMkxpJjpV8HKf6um/WHL
+         mEN+iBcYcIEuX02OudJIbtaYe3hsY/Oa5VzoI6wBWk/s4bxMNhdzsyByMmzM1hGYF5RV
+         tHxLwHYLat0m1P3CSm5oVZUYiQ/uuWw9NBclB7wzfwBC1ztAoNPxKtzIFjhTn1Ln+5Rd
+         1fipFQUeoDjRNOLwDEmhBXPGdfBs4+dk6UMkpr3kXj1eWi660zJgs0GLz/qP80ZNQYFt
+         BITw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776689851; x=1777294651;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=41og4mU1cLDXbt7IUpYZOpMlmqtt4dfz8VnoGJQGa8U=;
+        b=RBgrKTGAOENS7V0cRO0BeXAEMgn2fRMP4Hm6zry0u03TX9a+7nAzgcF+BpmfrXoudl
+         AEHogorGEj8/QlaDHY6qBZh+yenJE1mtGw3vrknbVzIxuX8mk8m2YLIVK+I/XEsaRfcH
+         DPxe3WYZ5lk5NaceJq8rxGDMV+Z6i7NwjpOUd1Am4EdYHvvXCYEOmyuweX8LuLaglBoF
+         FGsXNVZByGCrtUcNRR8OisQyyNaNfNMnPxCJ0UzK+k5dMS7Q5o/RnsNwbNNXMMW/AmYI
+         pkWJ2R3ZEMMCqQDATrhr94B4QzARGkl52vvYsK27yFtmx65ElHdtMOFI+iSRr/ujh2YF
+         SGHw==
+X-Forwarded-Encrypted: i=1; AFNElJ8xCJ+uJNa+yycXHc+WQUiHlEXW3hiZbOx4fi6EncfdEVt1/8zEkYYUgtNT3Rd1WA6XFOTOgryYQwF4@vger.kernel.org
+X-Gm-Message-State: AOJu0YycKPBuuTkI9Y9nke3Sc7diRlCkGY4D4AX3PktiFmmRJUXfsFze
+	FKRop/xJW8P+nLZOX8vK9kv+mnw5dF3ZHIFurJuK5Nm1bo7J4Ti2+t8g7BL23mOZc7Ryf0J4dkH
+	TO1tI4+lmVlEP+I4KOAeF1VuKIXqhXFaTLkv0GRExP9MfVILAoWZtTa95NUUuM56e
+X-Gm-Gg: AeBDieu7vLIHn+j+6b0tvDoMqWZaKuBfOPY4f00Lkv3UHMcejQYcxKupyL5UrQ/OmzJ
+	e9q4NlFCRLq1g2Oli508iWi8fbhXrQEDOhFhRMl8X6cE+4YVk8HtYmgmmDJlTLSQZ3M26JkX6/9
+	FbLUwEot4RbNmsKX95eRMn5sEQa5Y73hHbCzHkxNOL/ycG3o858KLFrjEN1Np2N8+FE+jclJ4Vv
+	glzssiKw+7fESK46zldb+sXJmAwiK0/cenfnsds6J3JznVKn1RcFeE9WC+3XIMk9iQf55M1Z//Q
+	GORYg6l5eqBT0PdUpWE6sIzkmL64d2QQ7q/y6zz5MXN8fOggdfWM0BktFfIB2ND/Cu+XUhha/aV
+	q55OjqM2FNuZwj5z4br6isP3QDgmxlKgTFIf73UYm+1LlXxP2UxNpQs9oUbPlyG7elnAfHZnTXF
+	0=
+X-Received: by 2002:a05:7022:1281:b0:11c:883d:1ef0 with SMTP id a92af1059eb24-12c73b2c248mr5226096c88.15.1776689851135;
+        Mon, 20 Apr 2026 05:57:31 -0700 (PDT)
+X-Received: by 2002:a05:7022:1281:b0:11c:883d:1ef0 with SMTP id a92af1059eb24-12c73b2c248mr5226067c88.15.1776689850578;
+        Mon, 20 Apr 2026 05:57:30 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12c7b62fe87sm10608117c88.2.2026.04.20.05.57.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Apr 2026 05:57:30 -0700 (PDT)
+Date: Mon, 20 Apr 2026 20:57:23 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: crypto: qcom,inline-crypto-engine: Document
+ Nord ICE
+Message-ID: <aeYis8uC0BcGXB3Z@QCOM-aGQu4IUr3Y>
+References: <20260420073301.1250197-1-shengchao.guo@oss.qualcomm.com>
+ <dd5ee12e-1aac-494f-a8f8-74e236ecb47c@kernel.org>
+ <aeXmOSfAFoxhIAcD@QCOM-aGQu4IUr3Y>
+ <4b074757-ac44-4077-8ab4-5a983d1be50b@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260420-beagley-ai-display-v1-15-f628543dfd14@ideasonboard.com>
-References: <20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com>
-In-Reply-To: <20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
- Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>, 
- Devarsh Thakkar <devarsht@ti.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Andrew Davis <afd@ti.com>
-X-Mailer: b4 0.15-dev-c25d1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7630;
- i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=ef00AEEpZLBoZS13pee46fVX47tvacOEQxIpd0yH3/4=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBp5iIIpMXK+ys3lB6QqFrLhAroXUwaPU9mySplY
- 8qXUHRF3umJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaeYiCAAKCRD6PaqMvJYe
- 9eMYD/4xWdOQUmY/A99L949Yd+Z93eoPbFuQihhQZcI7w8PKRrLRuWKx24XT0uQnocVejlteWlm
- vhQP4xSO2z6hNe/ubS8kuY0/Fk5vpK4sxVCJEsISAq+3cSRgIqJIOcWkxkwC/eg/e40e3kh58cw
- HhtT0y5oeExyLGYTSBUpRRJlA4RQmn6h3ms1oIG7divwDxhWmSdRyf6QnQrYs5MZsoKVn/mx9Ai
- 3AFXhp/23OS4wQpv4m9cADwp4CM5Y7yTUQS5sSWNZUalnmRCdrns4WpieyjTXKofNA6EtxvIat3
- 8oBt21ag+/5tegsclp61rYRZ32Mk36aLOrFf5M3CFBJl6t5IOdUWyFKqlr7CFUG2lVPjzxEBq3M
- kIl6HSUbtZ0iHd7s5WAd8hY37eW1Is6ojHw1jrsBvhU1m6WALQjvpV0fu+dqxfoc0G68T7mMgYx
- boqpvibQPToTGq0NMVA+Rnn4oe4HPMNzbIfDt4ssAFZ2CU3eE/HCfW730zZjaxUdMjksy/ALQ2/
- tVRYRi6d0WyjdgKRJtueh8oJfusN48Z7qZkqYhy0WFrFDqVivU45oTThAnwryvbwp9r4KUdwByZ
- H2NC5lmPI7l8WpdIW7rUfUlV0A4OwmVcgx89e/mgav4AQITo5zUPBxiTeCO/hGDw8+P2KGtl3yM
- Q2lP9PXK93rbRVw==
-X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4b074757-ac44-4077-8ab4-5a983d1be50b@kernel.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDEyNiBTYWx0ZWRfX5W2SKO9O6m4Z
+ NrWPcoEpjUHeB5pTTvOd34Lj9gyinQ6w59jdddxfuz96y5mApu9e/Vh/0sj/lkcy+LKGmo96Tbr
+ qgzlNgt4zolVnOfF4tFRpqvqg1gAYhFYvodMJoSrH0iAbmZTo0bk775mPI8pPESoFH12bzYucpo
+ hGZ/eVV9P/CVboAv0nLEpLj8vsjqs9TZO3w/N/nP9uWIY2GgC7a3Ht7vzaja5Wwr6oJVgKUTrNP
+ REW0yvihkuPoGQENePmCIGFq1d9y6bqS9ayjjbDPk2aecTjF7HgYUVUM8Gvq8tuKLXjRtrqr9ji
+ jYJbZTU4weaByTX3ekFrsTyVvmW4yklg9PbFaV2UmSaU6L+4ZvnPB/bp9v/a+JoCXAUJx5p/r6P
+ qZ+MYt7JUUWFpTWzHjJeomN5Rb2sp0rHXjNyxegPCHQRbts1d1zgJcfwMdLT7hkyYyG4XZ3RSpw
+ hFcLP9xz09qmQSFWUuA==
+X-Authority-Analysis: v=2.4 cv=D6B37PRj c=1 sm=1 tr=0 ts=69e622bc cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=NEAV23lmAAAA:8 a=lIS4hxcDbv2UqGGAmQAA:9 a=CjuIK1q_8ugA:10
+ a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-ORIG-GUID: zYKVesLSbun-2-4H-iaKD0ST72jMr41f
+X-Proofpoint-GUID: zYKVesLSbun-2-4H-iaKD0ST72jMr41f
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-20_02,2026-04-17_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 bulkscore=0 adultscore=0 lowpriorityscore=0
+ malwarescore=0 suspectscore=0 priorityscore=1501 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604200126
 
-From: Andrew Davis <afd@ti.com>
+On Mon, Apr 20, 2026 at 01:56:46PM +0200, Krzysztof Kozlowski wrote:
+> On 20/04/2026 10:39, Shawn Guo wrote:
+> > On Mon, Apr 20, 2026 at 10:27:56AM +0200, Krzysztof Kozlowski wrote:
+> >> On 20/04/2026 09:33, Shawn Guo wrote:
+> >>> Add compatible for Inline Crypto Engine (ICE) on Qualcomm Nord SoC
+> >>> witha fallback on qcom,inline-crypto-engine.
+> >>
+> >> Don't explain what the diff is doing. Explain why. Why do you use fallback?
+> >>
+> >> What is Nord? It's nowhere explained. First posting was 1.5 months ago
+> >> and it did not provide any explanation. I don't see any information
+> >> being posted in the series sent now.
+> > 
+> > I'm still checking internally to see how we can get the best socinfo
+> > patch describing Nord which is a SoC family covering both SA8997P and
+> > IQ10 variant.  Hopefully I will get it soon.
+> 
+> I found the DTS on:
+> https://github.com/qualcomm-linux/kernel-topics/commits/early/hwe/nord/
+> so it should be mentioned somewhere, which I kind of asked when we
+> discussed about adding compatibles used by that DTS. You would solve
+> yourself all my questions from three threads.
 
-Enable HDMI support for BeagleY-AI platform. The display controller used is
-TIDSS and the HDMI bridge used is IT66122.
+Ah, I see.  I thought only patches posted to list count.
 
-Based on DT by: Robert Nelson <robertcnelson@gmail.com>
-Signed-off-by: Andrew Davis <afd@ti.com>
-Signed-off-by: Swamil Jain <s-jain1@ti.com>
-[tomi.valkeinen: cosmetic fixes]
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
----
- arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts | 197 +++++++++++++++++++++++++
- 1 file changed, 197 insertions(+)
+Thanks!
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
-index 5255e04b9ac7..b7bcc90005d7 100644
---- a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
-@@ -146,6 +146,34 @@ led-1 {
- 			default-state = "on";
- 		};
- 	};
-+
-+	hdmi0: connector-hdmi {
-+		compatible = "hdmi-connector";
-+		label = "hdmi";
-+		type = "d";
-+		port {
-+			hdmi_connector_in: endpoint {
-+				remote-endpoint = <&it66122_out>;
-+			};
-+		};
-+	};
-+
-+	sound0: sound {
-+		compatible = "simple-audio-card";
-+		simple-audio-card,name = "it66122 HDMI";
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,bitclock-master = <&hdmi_dailink_master>;
-+		simple-audio-card,frame-master = <&hdmi_dailink_master>;
-+
-+		hdmi_dailink_master: simple-audio-card,cpu {
-+			sound-dai = <&mcasp1>;
-+			system-clock-direction-out;
-+		};
-+
-+		simple-audio-card,codec {
-+			sound-dai = <&it66122>;
-+		};
-+	};
- };
- 
- &main_pmx0 {
-@@ -185,6 +213,20 @@ J722S_IOPAD(0x0240, PIN_INPUT, 7) /* (B24) MMC1_SDCD.GPIO1_48 */
- 		bootph-all;
- 	};
- 
-+	main_i2c1_pins_default: main-i2c1-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_IOPAD(0x01e8, PIN_INPUT_PULLUP, 0) /* (C24) I2C1_SCL */
-+			J722S_IOPAD(0x01ec, PIN_INPUT_PULLUP, 0) /* (A22) I2C1_SDA */
-+		>;
-+		bootph-all;
-+	};
-+
-+	main_gpio0_ioexp_intr_pins_default: main-gpio0-ioexp-intr-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_IOPAD(0x0110, PIN_INPUT, 7) /* (G27) MMC2_DAT1.GPIO0_67 */
-+		>;
-+	};
-+
- 	mdio_pins_default: mdio-default-pins {
- 		pinctrl-single,pins = <
- 			J722S_IOPAD(0x0160, PIN_OUTPUT, 0) /* (AC24) MDIO0_MDC */
-@@ -227,6 +269,47 @@ vdd_3v3_sd_pins_default: vdd-3v3-sd-default-pins {
- 			J722S_IOPAD(0x0254, PIN_OUTPUT, 7) /* (E25) USB0_DRVVBUS.GPIO1_50 */
- 		>;
- 	};
-+
-+	dss1_pins_default: dss1-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_IOPAD(0x0100, PIN_OUTPUT, 0) /* (AB23) VOUT0_VSYNC */
-+			J722S_IOPAD(0x00f8, PIN_OUTPUT, 0) /* (AB24) VOUT0_HSYNC */
-+			J722S_IOPAD(0x0104, PIN_OUTPUT, 0) /* (AC26) VOUT0_PCLK */
-+			J722S_IOPAD(0x00fc, PIN_OUTPUT, 0) /* (AC27) VOUT0_DE */
-+			J722S_IOPAD(0x00b8, PIN_OUTPUT, 0) /* (W27) VOUT0_DATA0 */
-+			J722S_IOPAD(0x00bc, PIN_OUTPUT, 0) /* (W25) VOUT0_DATA1 */
-+			J722S_IOPAD(0x00c0, PIN_OUTPUT, 0) /* (W24) VOUT0_DATA2 */
-+			J722S_IOPAD(0x00c4, PIN_OUTPUT, 0) /* (W23) VOUT0_DATA3 */
-+			J722S_IOPAD(0x00c8, PIN_OUTPUT, 0) /* (W22) VOUT0_DATA4 */
-+			J722S_IOPAD(0x00cc, PIN_OUTPUT, 0) /* (W21) VOUT0_DATA5 */
-+			J722S_IOPAD(0x00d0, PIN_OUTPUT, 0) /* (Y26) VOUT0_DATA6 */
-+			J722S_IOPAD(0x00d4, PIN_OUTPUT, 0) /* (Y27) VOUT0_DATA7 */
-+			J722S_IOPAD(0x00d8, PIN_OUTPUT, 0) /* (AA24) VOUT0_DATA8 */
-+			J722S_IOPAD(0x00dc, PIN_OUTPUT, 0) /* (AA27) VOUT0_DATA9 */
-+			J722S_IOPAD(0x00e0, PIN_OUTPUT, 0) /* (AA25) VOUT0_DATA10 */
-+			J722S_IOPAD(0x00e4, PIN_OUTPUT, 0) /* (AB25) VOUT0_DATA11 */
-+			J722S_IOPAD(0x00e8, PIN_OUTPUT, 0) /* (AA23) VOUT0_DATA12 */
-+			J722S_IOPAD(0x00ec, PIN_OUTPUT, 0) /* (AA22) VOUT0_DATA13 */
-+			J722S_IOPAD(0x00f0, PIN_OUTPUT, 0) /* (AB26) VOUT0_DATA14 */
-+			J722S_IOPAD(0x00f4, PIN_OUTPUT, 0) /* (AB27) VOUT0_DATA15 */
-+			J722S_IOPAD(0x005c, PIN_OUTPUT, 1) /* (AC25) GPMC0_AD8.VOUT0_DATA16 */
-+			J722S_IOPAD(0x0060, PIN_OUTPUT, 1) /* (U26) GPMC0_AD9.VOUT0_DATA17 */
-+			J722S_IOPAD(0x0064, PIN_OUTPUT, 1) /* (V27) GPMC0_AD10.VOUT0_DATA18 */
-+			J722S_IOPAD(0x0068, PIN_OUTPUT, 1) /* (V25) GPMC0_AD11.VOUT0_DATA19 */
-+			J722S_IOPAD(0x006c, PIN_OUTPUT, 1) /* (V26) GPMC0_AD12.VOUT0_DATA20 */
-+			J722S_IOPAD(0x0070, PIN_OUTPUT, 1) /* (V24) GPMC0_AD13.VOUT0_DATA21 */
-+			J722S_IOPAD(0x0074, PIN_OUTPUT, 1) /* (V22) GPMC0_AD14.VOUT0_DATA22 */
-+			J722S_IOPAD(0x0078, PIN_OUTPUT, 1) /* (V23) GPMC0_AD15.VOUT0_DATA23 */
-+		>;
-+	};
-+
-+	main_mcasp1_pins_default: main-mcasp1-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_IOPAD(0x0090, PIN_INPUT, 2) /* (P27) GPMC0_BE0n_CLE.MCASP1_ACLKX */
-+			J722S_IOPAD(0x0098, PIN_INPUT, 2) /* (V21) GPMC0_WAIT0.MCASP1_AFSX */
-+			J722S_IOPAD(0x008c, PIN_INPUT, 2) /* (N23) GPMC0_WEn.MCASP1_AXR0 */
-+		>;
-+	};
- };
- 
- &cpsw3g {
-@@ -284,6 +367,13 @@ J722S_MCU_IOPAD(0x050, PIN_INPUT_PULLUP, 0)	/* (C6) WKUP_I2C1_SDA */
- 		>;
- 		bootph-all;
- 	};
-+
-+	hdmi_gpio_pins_default: hdmi-gpio-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_MCU_IOPAD(0x0038, PIN_INPUT_PULLUP | PIN_DEBOUNCE_CONF6, 7) /* (D8) MCU_MCAN0_RX.MCU_GPIO0_14 HDMI_INTn */
-+			J722S_MCU_IOPAD(0x0034, PIN_OUTPUT_PULLUP, 7) /* (B2) MCU_MCAN0_TX.MCU_GPIO0_13 HDMI_RSTn */
-+		>;
-+	};
- };
- 
- &wkup_uart0 {
-@@ -385,6 +475,63 @@ rtc: rtc@68 {
- 	};
- };
- 
-+&main_i2c1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&main_i2c1_pins_default>;
-+	clock-frequency = <400000>;
-+	bootph-all;
-+
-+	it66122: bridge-hdmi@4c {
-+		compatible = "ite,it66122";
-+		reg = <0x4c>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&hdmi_gpio_pins_default>;
-+		vcn33-supply = <&vdd_3v3>;
-+		vcn18-supply = <&buck2_reg>;
-+		vrf12-supply = <&ldo2_reg>;
-+		reset-gpios = <&mcu_gpio0 13 GPIO_ACTIVE_LOW>;
-+		interrupt-parent = <&mcu_gpio0>;
-+		interrupts = <14 IRQ_TYPE_EDGE_FALLING>;
-+		#sound-dai-cells = <0>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			/*
-+			 * HDMI can be serviced with 3 potential VPs -
-+			 * (DSS0 VP1 / DSS1 VP0 / DSS1 VP1).
-+			 * For now, we will service it with DSS1 VP1.
-+			 */
-+			port@0 {
-+				reg = <0>;
-+
-+				it66122_in: endpoint {
-+					bus-width = <24>;
-+					remote-endpoint = <&dss1_dpi0_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				it66122_out: endpoint {
-+					remote-endpoint = <&hdmi_connector_in>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&main_gpio0 {
-+	status = "okay";
-+};
-+
-+&mcu_gpio0 {
-+	status = "okay";
-+};
-+
- &sdhci1 {
- 	/* SD/MMC */
- 	vmmc-supply = <&vdd_mmc1>;
-@@ -399,4 +546,54 @@ &sdhci1 {
- 	status = "okay";
- };
- 
-+&dss1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&dss1_pins_default>;
-+
-+	clocks = <&k3_clks 232 8>,
-+		 <&k3_clks 232 0>,
-+		 <&k3_clks 232 4>;
-+
-+	assigned-clocks = <&k3_clks 241 0>, /* DSS1-VP0 */
-+			  <&k3_clks 240 0>, /* DSS1-VP1 */
-+			  <&k3_clks 245 0>; /* DPI Output */
-+
-+	assigned-clock-parents = <&k3_clks 241 2>, /* PLL 17 HDMI */
-+				 <&k3_clks 240 1>, /* PLL 18 DSI */
-+				 <&k3_clks 245 2>; /* DSS1-DPI0 */
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		/* DSS1-VP1: DPI/HDMI Output */
-+		port@0 {
-+			reg = <0>;
-+
-+			dss1_dpi0_out: endpoint {
-+				remote-endpoint = <&it66122_in>;
-+			};
-+		};
-+	};
-+};
-+
-+&mcasp1 {
-+	status = "okay";
-+	#sound-dai-cells = <0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&main_mcasp1_pins_default>;
-+	auxclk-fs-ratio = <2177>;
-+	op-mode = <0>; /* MCASP_IIS_MODE */
-+	tdm-slots = <2>;
-+	serial-dir = <  /* 0: INACTIVE, 1: TX, 2: RX */
-+		1 0 0 0
-+		0 0 0 0
-+		0 0 0 0
-+		0 0 0 0
-+	>;
-+	tx-num-evt = <32>;
-+	rx-num-evt = <32>;
-+};
-+
- #include "k3-j722s-ti-ipc-firmware.dtsi"
-
--- 
-2.43.0
-
+Shawn
