@@ -1,171 +1,209 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B0643C345C
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 22:13:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E9A3AEF52
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 22:19:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776723213; cv=none; b=q9NSgIkpIf02S+gcZxAzoVYeYKWCvDeZMsDQZbcHvkBqqPFgi9Nrt8iPr2wenFb2mQjg4HmCz0Fp7fzEuOK3HBle7b0l7GjrzlKDv9VcWmClqxgDelRu7v99ihuDrXj2h3DSVJQTAF2iBiAD6Zjam9kAceyXYgFBkxmZ4u+jNyw=
+	t=1776723559; cv=none; b=lQt2T9NPICSekM9JRj5VhlqNfdTMg4h8RgBgFz4kuOd3TXUtsVh9cLpV+QuvqJTpPoGpWY41wjeQhcU01xgH6Db8+OPKO2/lzZT8kzEUbxYTysLCxs90vomthQeGW3e9BCVPTbvIg3atQZIMbIIPGFGH7JNAhgmJSvWjQTuKksE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776723213; c=relaxed/simple;
-	bh=z9NkR3ZW4vZK6qX1fJftBl0sOBKAjlQ9fow3/geyKVE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=OUOtVQ8eCmhYcZq18u4KUyqJu2ayZBJQxHXo9nCs6YFlsXaDEaRmPuqlSLV2Y0l+orvEZtnx1BJQ2UUdtfn9DVPKRZBv/1D5TVJiNERICfc/9nmAdo5UAGdJOBacqsrw3Tr5w1wPu6dOk/ju3ef2C4VP/hzykWfUJ1a77w++WAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=HA2xoYI7; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1776723559; c=relaxed/simple;
+	bh=Mlm9xOGo953YRVmfw9CUO3wBtbYFiSPHu6Tzu71IRCI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=U2wPOMWDgKF6WvCDVqi+qn2oQDO9NGZHeziRV7WkHt+ErT+9wQsM6bE0tU8lC5VFwz/J33+wypvJMGT7BN+YmTbM+WpZ6NLpZZsHWs32c1Oz52lJ4jIkkJse+XbN4w4x8GP7yf0iV8mC6ZQg5ZIXrq9t7kn1fQoSfPc02iJ45VQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A4XVKAfx; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="HA2xoYI7"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-35fc258aaa4so2186149a91.2
-        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 15:13:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1776723209; x=1777328009; darn=vger.kernel.org;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=cxzSQy02s9Bj8FdW0h2jty6fTQ6PSdmvvyWsuKJqNZM=;
-        b=HA2xoYI7yu5qpxNQdkOkplIGmeRNOso5LHO5I/6jm6keP4tianzDAfJTtL1WXhtOdL
-         1/VcizyId6fiZ5ofcPs0tP3dNGNwJgWIxUBm2agOF6gantHERC3TjsM5IYrwr8GwQg+W
-         HhjQ7KL4mgJtkijCyh2Xx1+Tk09X3NBr92ng2mCr1j39flsRPHo29GgmbmUEmPK8ZcN7
-         K1cGU3GK6eGyAnsZEfOSI/Ro/1vb4P6jQePcmxQf7k6VXIrifSgjq8hXji4HIwD5vdHD
-         3OgYwgb2JDcW51NH1qZOVN/zkd22oCJhp5QSXmV1zEhyKujHt7ghsGRyBeId6+IYVsoV
-         vVCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776723209; x=1777328009;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=cxzSQy02s9Bj8FdW0h2jty6fTQ6PSdmvvyWsuKJqNZM=;
-        b=M8Fh2fvETW4gFOJD/7pcNejPA5mDd7WP4StRWOQwAUXi626+2aJAra7XtRtbmEdS1B
-         bFlEmrO5TlDU32hYR8uypuVZErGsHgQf9V0mxecDZtTvb9YbGKtB8AGPqOKDwzDAgH0U
-         B5Qvc3qOAoKFYvJJqEfyeHCQt6xso0+7xEQnO1yb12b8SiNbT0pYmxEKq9bc3CAPdic5
-         MlWcUin2qA56MUuECzef/Z1uOP+7YqLs4MUb+bwevAxyQCm3E029aBEg6pZ2hZbZAKQm
-         sVVP+PIBznyRk4DiNOIundidvCV+D9wz1uWPcMnvBnRvHaBqOoHSfg0Ho+Gx7S5Dyzbn
-         o7gA==
-X-Forwarded-Encrypted: i=1; AFNElJ9ukPDAV+G5ip+Jy4FWTPLlS90lH87GJwzcQwOu/e4kx8xSz0+V/6n13n8SG1A74LqY4qY7ejnaNstn@vger.kernel.org
-X-Gm-Message-State: AOJu0YzzH7cDKV2fMzf5DBsiDZ/dcGwE5LXbNg7CiSAG4OHMF8ixHo3f
-	S8pTg9303ieUMNOlgFZbF0JdkHGBP/j+8WPK9VPUXloMlAGlhrAsP8YBkxHEsDUKUQk=
-X-Gm-Gg: AeBDieu0E550vmHNpo3mS8osulSKqQBg4F7+/1DDe39LbAtYyC0I6kbKdIEiwwq09yn
-	eVlLV6US3qwlEWXimw8ixgxI1Bti/X1m6GYAs0z8mlREOOJSDUVVx6MmlD0Ao5uaG0C8dnoTzdq
-	/H4/XRMQqo6k+1ZAl6Nz3ubcOc643BCvJI/Jid300ov3AyulPSlZOrBAJh+sgwqXc/+E6OAdi9s
-	urG0mRICO7w4oGxSdVIbJ60m6Hw+aOjVDLREARfQQTan10+Oa2zf2MgzbjKim0Ld3dV+Y2epEQr
-	0oxCr15LFQgZinkUsZs9CvzuX8Ts3dDSRPi1Y3MV/2gjKcORPsEo/Ezuza408Fbz7xdE5vTVRSQ
-	kF1hOujyAnGsDF0WJMzii+taROahRBjsL0L/H9VPOcVzgiOiCqRToMeOespK9yYhurOtWMSt62Y
-	AIGyI9wyQ9O7ZqYI5XLsgwlzy0ADnyAZi4W1bsWTjP
-X-Received: by 2002:a17:90a:d0f:b0:361:45df:114 with SMTP id 98e67ed59e1d1-36145df0462mr8669670a91.19.1776723209365;
-        Mon, 20 Apr 2026 15:13:29 -0700 (PDT)
-Received: from localhost ([97.126.187.42])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36140edb04dsm11668100a91.0.2026.04.20.15.13.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Apr 2026 15:13:28 -0700 (PDT)
-From: Kevin Hilman <khilman@baylibre.com>
-To: Ulf Hansson <ulf.hansson@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 2/3] pmdomain: core: add support for
- power-domains-child-ids
-In-Reply-To: <CAPDyKFrbk8SZs+-WMkbKnh12+OTBtoZ2bwtuASGvAsZwJEd4vQ@mail.gmail.com>
-References: <20260410-topic-lpm-pmdomain-child-ids-v2-0-83396e4b5f8b@baylibre.com>
- <20260410-topic-lpm-pmdomain-child-ids-v2-2-83396e4b5f8b@baylibre.com>
- <CAPDyKFrbk8SZs+-WMkbKnh12+OTBtoZ2bwtuASGvAsZwJEd4vQ@mail.gmail.com>
-Date: Mon, 20 Apr 2026 15:13:28 -0700
-Message-ID: <7hldehqnzr.fsf@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A4XVKAfx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46F0EC2BCC6
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 22:19:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776723559;
+	bh=Mlm9xOGo953YRVmfw9CUO3wBtbYFiSPHu6Tzu71IRCI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=A4XVKAfx/rjoc+y/DD+NSLpk9qUhnYYvjJ98sEvsprRyuCD+M7UmW2nL2ugffQTQT
+	 RrWZQAsChucd34D3NdtcPNmj9m261a2gYfQ5IQ++myG9xozz+b99WDsjROO0A6r8XJ
+	 PfJIy/672PLtAnSTYQM0lhn9bGqDwx4212VqpmvQxcYH0n5QAfeGa9faVoeQzoazhE
+	 mTwFLEDkIPmr/ZHOHnmbY24GkaAbhuSFQFtN4IIHMDR/Mr01F994bEAoUpAgdCxEYi
+	 2RHyjouX2kynyfD8XMBANYCzQHYrNd1kkZdgutlMxTCk70XOylzAKrQF3oa+f6RvcE
+	 BxuXQJYPgO4Pg==
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-671dad7cac8so5037852a12.0
+        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 15:19:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ87ZOm81QBCE/Bk3RkhjWoPn/7sehi1h1BUp+5qkHtrgC52Hl+sBdeFOFaJjV4hFwRWkAnLPxPv57bS@vger.kernel.org
+X-Gm-Message-State: AOJu0YyzGH4imHZqcjhkh4e4IYfvOgsufDMvTzXlEKx/Zf8V+gEOG9CN
+	pEg4PUPcKGsYxeYSp9vEQjvJol+T+sFklMmrs84PHfMROXAyy3BzjkJwsS96O91f2r7R/Ce7WVl
+	QhYpWzBPT/9HwNd5rrQzYEcxPumSo9A==
+X-Received: by 2002:a05:6402:46c5:b0:672:c1d6:6855 with SMTP id
+ 4fb4d7f45d1cf-672c1d66a46mr4967770a12.3.1776723557736; Mon, 20 Apr 2026
+ 15:19:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <Z0NbeyTwxo-M4Lgi@sashalap> <936bf452-3d1f-4940-9a91-69efcdc6985e@collabora.com>
+ <CAGXv+5FLkZbZVHNkfRWuT+OioZ0TG=u2WfaFCx-jZFi73QHnVg@mail.gmail.com>
+ <19ba4910-f909-41b4-ba62-c904bc37d41d@linaro.org> <e77669ea-9edd-4321-8d17-4da40161b59d@linaro.org>
+ <Z0R6myuCR4Jpmc_y@sashalap> <CAL_Jsq+QBweDZ+1=FXq7Hez=+mhiOxOvurr3rP0+3y_FCd49Ew@mail.gmail.com>
+ <20241209092809.GA3246424@google.com> <aeKlYzTiL0OB1y3g@google.com>
+ <CAL_Jsq+UCYbKMXG5m8BRNVRA_03Ki8aGF0uoaDs8HHvOSCZ2Mg@mail.gmail.com> <aeaTSYyaqQjuP29U@google.com>
+In-Reply-To: <aeaTSYyaqQjuP29U@google.com>
+From: Rob Herring <robh@kernel.org>
+Date: Mon, 20 Apr 2026 17:19:06 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+qmHV8VJ1J61nUupNBZSQrqzwCV3oOjkeqc0VFBt2aDQ@mail.gmail.com>
+X-Gm-Features: AQROBzD3ukelB2dat7D7-v2TbiE8tGH1cpyZcJloe_3f9vx9YEb3SZs8T3tqu0M
+Message-ID: <CAL_Jsq+qmHV8VJ1J61nUupNBZSQrqzwCV3oOjkeqc0VFBt2aDQ@mail.gmail.com>
+Subject: Re: [regression] of: mis-parsing Depthcharge's /firmware
+To: Brian Norris <briannorris@chromium.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, Sasha Levin <sashal@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	Matthias Brugger <matthias.bgg@gmail.com>, Doug Anderson <dianders@chromium.org>, 
+	Julius Werner <jwerner@chromium.org>, chrome-platform@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Ulf Hansson <ulf.hansson@linaro.org> writes:
+On Mon, Apr 20, 2026 at 3:57=E2=80=AFPM Brian Norris <briannorris@chromium.=
+org> wrote:
+>
+> Hi Rob,
+>
+> On Mon, Apr 20, 2026 at 07:57:40AM -0500, Rob Herring wrote:
+> > On Fri, Apr 17, 2026 at 4:26=E2=80=AFPM Brian Norris <briannorris@chrom=
+ium.org> wrote:
+> > >
+> > > Hi all,
+> > >
+> > > (New subject; was "Re: [GIT PULL] Devicetree updates for v6.13")
+> > >
+> > > On Mon, Dec 09, 2024 at 05:28:09PM +0800, Chen-Yu Tsai wrote:
+> > > > steelix.dtb is the same, plus the firmware now inserts #address-cel=
+ls
+> > > > and #size-cells under /firmware. This fix has landed for all future
+> > > > ChromeOS devices via our main firmware branch [1].
+> > > >
+> > > > AFAIK they also have a bad FDT END symbol. This was only recently
+> > > > discovered and fixed for future devices [2].
+> > > >
+> > > >
+> > > > ChenYu
+> > > >
+> > > > [1] Gerrit: https://crrev.com/c/6051580
+> > > > [2] Gerrit: https://review.coreboot.org/c/coreboot/+/85462
+> > >
+> > > This all comes back to bite us, since nobody went back to patch the
+> > > existing Chromebook device trees, and now we've added a true regressi=
+on
+> > > on top:
+> > >
+> > > In commit 6e5773d52f4a ("of/address: Fix WARN when attempting
+> > > translating non-translatable addresses") we now reject devices withou=
+t
+> > > '#address-cells', and this breaks the DTs generated by bootloaders
+> > > without Chen-Yu's https://crrev.com/c/6051580 fix (this is ... pretty
+> > > much all Chromebooks). Specifically, Linux now refuses to add 'reg'
+> > > resources to the /firmware/coreboot device, and we fail with:
+> > >
+> > > [   11.886271] coreboot_table firmware:coreboot: probe with driver co=
+reboot_table failed with error -22
+> > >
+> > > This is almost certainly a DTB ABI regression.
+> > >
+> > > This was noticed here (OpenWrt supports some Chromium-based WiFi rout=
+ers
+> > > that use Depthcharge-based bootloaders from many years ago):
+> > >
+> > > https://github.com/openwrt/openwrt/issues/21243
+> > >
+> > > For now, I just patched up the OpenWrt DTS files like so:
+> > > https://github.com/openwrt/openwrt/pull/22951
+> > >
+> > > But what should we do going forward? I note that Rob says "We may
+> > > revisit this later and address with a fixup to the DT itself" in comm=
+it
+> > > 8600058ba28a ("of: Add coreboot firmware to excluded default cells
+> > > list").
+> > >
+> > > That never happened, and a ton of Chromium devices are still broken.
+> >
+> > The above just silenced the warning. If they are broken, then
+> > something else broke them.
+>
+> Right.
+>
+> To be clear, the regression is in commit 6e5773d52f4a, not 8600058ba28a.
+> But 8600058ba28a (and this thread I'm replying to):
+>
+> (a) started the precedent of treating this known-problemtatic DT pattern
+>     specially;
+>
+> (b) started to consider "fixing" those old DTs (but notably, not
+>     reliably/proactively -- even if Google updates official bootloaders,
+>     many devices are far out of Google support; or even if supported,
+>     don't have a systematic way of receiving Google-provided updates
+>     because they run non-Google software); and
+>
+> (c) because (a)/(b) hid the problem partially, it was less noticeable
+>     that commit 6e5773d52f4a *really* broke things a month later, in the
+>     last days of the v6.13 cycle. (Official Google testing probably
+>     didn't notice, because they only tested devices with the latest
+>     Google bootloaders. Only people with old bootloaders / non-Google
+>     software noticed.)
+>
+> > > (They don't have WARNINGs, but /sys/firmware/vpd, etc., is still
+> > > missing.)
+> > >
+> > > Can we patch of_bus_default_match() to accept an empty 'ranges' [1]? =
+Or
+> > > should I go patch every Chromium-device DTS file I can find? So far, =
+I
+> > > think I can get that done in 17 files in the upstream tree...
+> >
+> > Both.
+>
+> To be clear, my options were:
+>
+> 1. fix up kernel parsing to accept these /firmware/coreboot node
+>    structures (with empty ranges / no #{address,size}-cells)
+> 2. add #{address,size}-cells into the kernel-included dts(i) files (this
+>    will merge safely with the DTB modifications patched in by old
+>    bootloaders).
+>
+> I wouldn't call #2 "kernel fixup the DT", personally. I'd call it "fix
+> up the DT source that happens to be provided by the kernel." This
+> assumes no one is using device trees that are exclusively maintained
+> outside the kernel. (I believe that's generally true, except for
+> OpenWrt. And even there, it's still acceptable to patch the DT source,
+> and I've already done so.)
+>
+> > Though I'd rather the kernel fixup the DT rather than relax the
+> > parsing code for everyone. Then we know what platforms need this and
+> > don't let new ones in.
+>
+> I'm not sure how to parse this. This paragraph sounds like a 3rd option:
 
-> On Sat, 11 Apr 2026 at 01:44, Kevin Hilman (TI) <khilman@baylibre.com> wrote:
->>
->> Currently, PM domains can only support hierarchy for simple
->> providers (e.g. ones with #power-domain-cells = 0).
->>
->> Add support for oncell providers as well by adding a new property
->> `power-domains-child-ids` to describe the parent/child relationship.
->>
->> For example, an SCMI PM domain provider has multiple domains, each of
->> which might be a child of diffeent parent domains. In this example,
->> the parent domains are MAIN_PD and WKUP_PD:
->>
->>     scmi_pds: protocol@11 {
->>         reg = <0x11>;
->>         #power-domain-cells = <1>;
->>         power-domains = <&MAIN_PD>, <&WKUP_PD>;
->>         power-domains-child-ids = <15>, <19>;
->>     };
->>
->> With this example using the new property, SCMI PM domain 15 becomes a
->> child domain of MAIN_PD, and SCMI domain 19 becomes a child domain of
->> WKUP_PD.
->>
->> To support this feature, add two new core functions
->>
->> - of_genpd_add_child_ids()
->> - of_genpd_remove_child_ids()
->>
->> which can be called by pmdomain providers to add/remove child domains
->> if they support the new property power-domains-child-ids.
->>
->> The add function is "all or nothing".  If it cannot add all of the
->> child domains in the list, it will unwind any additions already made
->> and report a failure.
->>
->> Signed-off-by: Kevin Hilman (TI) <khilman@baylibre.com>
->> ---
->>  drivers/pmdomain/core.c   | 166 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
->>  include/linux/pm_domain.h |  16 ++++++++++++++++
->>  2 files changed, 182 insertions(+)
->>
->> diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
->> index 61c2277c9ce3..f978477dd546 100644
->> --- a/drivers/pmdomain/core.c
->> +++ b/drivers/pmdomain/core.c
->> @@ -2909,6 +2909,172 @@ static struct generic_pm_domain *genpd_get_from_provider(
->>         return genpd;
->>  }
->>
->> +/**
->> + * of_genpd_add_child_ids() - Parse power-domains-child-ids property
->> + * @np: Device node pointer associated with the PM domain provider.
->> + * @data: Pointer to the onecell data associated with the PM domain provider.
->> + *
->> + * Parse the power-domains and power-domains-child-ids properties to establish
->> + * parent-child relationships for PM domains. The power-domains property lists
->> + * parent domains, and power-domains-child-ids lists which child domain IDs
->> + * should be associated with each parent.
->> + *
->> + * Uses "all or nothing" semantics: either all relationships are established
->> + * successfully, or none are (any partially-added relationships are unwound
->> + * on error).
->> + *
->> + * Returns 0 on success, -ENOENT if properties don't exist, or negative error code.
->> + */
->
-> As I mentioned in my earlier reply for the previous version, returning
-> a specific error code when the property doesn't exist will complicate
-> handling for the caller. Moreover, we also need to make sure we don't
-> returning the same error code (-ENOENT) for a different error further
-> down the execution path in of_genpd_add_child_ids(). Otherwise it
-> would the caller treat the error code in the wrong way.
->
-> To me, there are two better ways to address this. For both options,
-> of_genpd_add_child_ids() should return 0 when
-> "power-domains-child-ids" is missing.
->
-> 1) Add another helper function that checks if
-> "power-domains-child-ids" exists. The caller can then use this to
-> pre-parse the property and decide whether to treat it as an error.
->
-> 2) As I suggested earlier, let of_genpd_add_child_ids() return the
-> number of assigned parents/children, while still using the all or
-> nothing approach, of course.
+Well, not in the sense of pick one of 3 options. It's another option
+in how to fix the kernel. I think we should fix any .dts files we can
+in addition to fixing the kernel.
 
-OK, I like (2) better.  I'll respin with that approach.
+> 3. "kernel fixup the DT" -- sound like you want the kernel to identify
+>    these specific /firmware/coreboot structures, and activtly
+>    modify/patch the FDT at runtime
+>
+> Is that an accurate interpretation? If so, that sounds rather novel, and
+> nothing like "both" (#1 + #2 above). It's certainly possible, but seems
+> like a large lift for this particular incompatibility.
 
-Kevin
+Yes. It's not novel though. The powerpc code is littered with such
+things. Some of them due to the commit in question here. Look at
+commits from me in arch/powerpc.
+
+I started some common infrastructure to apply fixups, but the case in
+particular that needed it ended up not needing it. So it's something I
+have on a branch somewhere. Also it worked on the unflattened tree as
+not all things need to be fixed up early.
+
+Rob
