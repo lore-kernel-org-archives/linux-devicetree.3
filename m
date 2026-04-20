@@ -1,134 +1,336 @@
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDFC21CC5C
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 06:19:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7536E37F019;
+	Mon, 20 Apr 2026 06:19:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=138.232.1.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776665962; cv=none; b=llSMZm22HZZ6gsx3deOcXuR3DKmZRILs6V59HbtNqubB8atLusWwqWCzY9MFhluZ186Wl/FvNBcNp4177EPcCXB5JxylwZG5vvqUNPpxjBwlUTQRsFVKhXZKPR/EWFVBwRsSKjVk7hUAOChZbohFL6gVotutNuLgNONbIb1WIPA=
+	t=1776665974; cv=none; b=NKXijrtIeKL2hDRq8LSSiX4red35352XOxj8WnGxziSJ+lii7a1kiOvl97dvnfic4D4l5M+ulZR0N6yMiwvjBi3AuaY09L7OCX5SPiYkmDMHrnDctoYmf7Fx8SU1e63MG+MOxW3s1BD5NkQI1bx6VoI8mfzVeB/BXR/Aw8Fhsvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776665962; c=relaxed/simple;
-	bh=NK/KEremqEsg/y4Th6xBx2VTX3iGRFmO8oWMqWtIQTU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=OqNI4uzCflv/qQmAyxiWM5uGNeAkjZzbVldCBxLuzPFsUky4ZtENI1rPqm35SjvJqOLQJU7fLYBnM7h5OAC89o5TinLiimEkKD7lNZR7D62ZC+zuHS9BEtWiFUGyBt5Derc0iyT9/qNYpheiIGo4+2DQQEqV4LtnDuHOfLFVbbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=fU/nRDeJ; arc=none smtp.client-ip=74.125.82.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
+	s=arc-20240116; t=1776665974; c=relaxed/simple;
+	bh=jn9kGIhr91UdOLn5LM5LTicWtS4LUAC/I/1hYv3XIF8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=erJGiCTjHx1TMrOP6epWef1AgC0TfiQASZzkWe+9NtYMne/SRi72tBUgPuPD/RKRmXn1gNtPZTnJiO/tMzW8duFrMo53XhUkG314kwg/movbrQcZRAJN6ZJRttfc0rH4H/wfWpsArF4dGL/A/6N3QB9vcmvRfalDZuINEuY6QNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at; spf=pass smtp.mailfrom=student.uibk.ac.at; dkim=pass (1024-bit key) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.b=tRyQ74d7; arc=none smtp.client-ip=138.232.1.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="fU/nRDeJ"
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1279eced0b9so3544096c88.0
-        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 23:19:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1776665959; x=1777270759; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=diJI/psFLqVLbcfwBRYzBEf9frlX+rsEVwW6L4ZaGBo=;
-        b=fU/nRDeJkUWey9zZPekp+0GJU3WCANtCPn6VzXSW2PS6utQAXOFZTWTqSwti9gD4Yw
-         3+cj4pqCblHw+yLdlZA1gV4M0dlobQS4f+aNpd4Kq7pGeG4WLoZL2Dj8b25wCRCzZgmT
-         IA9sZtTcGHf5YeKC2OKXX/P1jdrMrQIOjvfmIDg1RqlAw2FKPqiZJoDcCTUwdst3Fwz9
-         XgRQRt67EmolyXEYgeF+PVtRDHACnH+R8idxAyj2ZKiibKE15vU4loV+eF4BCrNX9L/z
-         sUBheLvt8ytuuTfcwWkISN/IIpaRRoAx/fNBfzUB1M0o6rmbD2xufOmxEGtKa6X+a8xn
-         6EmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776665959; x=1777270759;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=diJI/psFLqVLbcfwBRYzBEf9frlX+rsEVwW6L4ZaGBo=;
-        b=jcRI1xyAL/QfWF1B00xnYp+wtrQJtXNjepAeNd9LFAqIPV5m+ugBOh+xX847VMOAjp
-         lVY65IEKYqN+2WqZAzanU9nIc6QDH5M7e5yCjt3NZfy+GhJLsS01OC4HPX/U8rxWSRUX
-         JOTf2kFSmCUAhmOZDIE2CZcZ7oyiCRy55AP8qI5oEwv/pH+8LN+vgUXRMRKbNaNxQIoB
-         jLAEW1Fo7Uv0mRUMZR4uGZ5zATwUyKyBPyYNQAKAZIXLQpSLcDQtm+ZhIB890o3m9x6B
-         mJ+elUsP+o364BO5RFFKgKZMz65pt/f9/1KBJNATxxlhdWzKrdJP6v7yvR4fytgMrYmg
-         oA3g==
-X-Forwarded-Encrypted: i=1; AFNElJ958Nu2NTh8Q3Gl4nSSRsKwyV1oHUU+/3Y47CF3TncdeHh2s1o1TpzQjvC8/9RIX50LHF0n09e48boO@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyn8dafoblBgyvlMk23RNy4n4LAWPxh3HxYd3a5sHoQ2cFeCM7l
-	CZYr6MZUQ4RsFhMcoamnPrJg2reCftsnxZLNKSp179rqiwtf4Lq9t6vyiqe09ibpwnM=
-X-Gm-Gg: AeBDieu6ildcEZek0V05HDBGKUsUBDRt/moYo8ojsY9sbDYKEnqFeyAxgTkD3m3nsnB
-	9wKmV54EmTNAwkPcz1gK1F5yguoaFfHtTZcnREGsLfbYnNxWjXWTiLLIAhC07mduTDiUxHEu1k9
-	XS9sitFlR+AATuwXqmlRb+bKT5wk9rKxamghyKB6AHwhiliMYH6xFngSEiWEJwI9FtlMSVsdTIq
-	HaNbaQxXJ6WtycPUEoi69G3lXaiW6/qXsFqwzQCGVY6ZSJaDdmO4owSG4W9YHPx00ymVUDz0yt4
-	f3wS0bnM2S33yCqYW9gswWRpzScvCwviXwSZ+d6loIQX2csUKlrIk4XrUoajkJdqggKgwh9i4y+
-	clXMbIRN/m5EqvmdYFehR2ONyABj5PNpAhm4YplV8ZcZR44e7NTv1jcry75LicBVjtAcIOMOElH
-	y78Ni1QXOVg3zhe5RwqOMzgWOj2QD3uSdABmSlhlQtwlXJiA==
-X-Received: by 2002:a05:7022:628c:b0:12a:8ea4:252 with SMTP id a92af1059eb24-12c73f6d5ffmr6084142c88.4.1776665959137;
-        Sun, 19 Apr 2026 23:19:19 -0700 (PDT)
-Received: from sw07.internal.sifive.com ([4.53.31.132])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12c74a18a2bsm19541880c88.10.2026.04.19.23.19.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Apr 2026 23:19:18 -0700 (PDT)
-From: Nick Hu <nick.hu@sifive.com>
-Date: Sun, 19 Apr 2026 23:18:55 -0700
-Subject: [PATCH] dt-bindings: timer: Remove sifive,fine-ctr-bits property
+	dkim=pass (1024-bit key) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.b="tRyQ74d7"
+Received: from surface-pro-5.uibk.ac.at (ydWLT-U1-7-16.uibk.ac.at [172.25.7.16])
+	(authenticated bits=0)
+	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 63K6Ito91297669
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Mon, 20 Apr 2026 08:19:01 +0200
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 63K6Ito91297669
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
+	s=prod24a; t=1776665941;
+	bh=GIuDalBM65fvAKQrdowCem05OwKL8BgkqSsE6e+glsE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=tRyQ74d7/eWqw7khUgi9+YzdVrrPvpn4KBQlKGronKruwLaxlhUwAU53YoL6bpvSx
+	 kyXhvOXzYPnokZWUtY8OD/GBtk8grqPMbRbwPYM0B3wUhDAQqu+aCYFzPbaHp98oe2
+	 1jwFqE73gzDAADiVd7+FzDai6cpQtx/G9PfaKzjA=
+From: christian.koever-draxl@student.uibk.ac.at
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        neil.armstrong@linaro.org, khilman@baylibre.com
+Cc: jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
+        funderscore@postmarketos.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-amlogic@lists.infradead.org,
+        christian.koever-draxl@student.uibk.ac.at
+Subject: [PATCH v2 2/2] arm64: dts: amlogic: add support for X98Q
+Date: Mon, 20 Apr 2026 08:18:54 +0200
+Message-ID: <20260420061854.5421-3-christian.koever-draxl@student.uibk.ac.at>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260420061854.5421-1-christian.koever-draxl@student.uibk.ac.at>
+References: <20260420061854.5421-1-christian.koever-draxl@student.uibk.ac.at>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260419-clintv2-remove-fine-ctr-v1-1-7527f4d45850@sifive.com>
-X-B4-Tracking: v=1; b=H4sIAE7F5WkC/x3MQQqDMBBG4avIrDsQo7Xaq4iLkPzagTbKRIIg3
- t3Q5bd476QEFSR6VycpsiRZY0H9qMh/XFzAEorJGtuZ1gzsvxL3bFnxWzN4lgj2u3J4eofg7Kv
- vGir1ppjl+J/H6bpu8Eli1mkAAAA=
-X-Change-ID: 20260409-clintv2-remove-fine-ctr-d5caeda27863
-To: Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Anup Patel <anup@brainfault.org>
-Cc: Conor Dooley <conor.dooley@microchip.com>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- Nick Hu <nick.hu@sifive.com>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: () -12.0 ALL_TRUSTED,RCV_SMTP_AUTH,RCV_SMTP_UIBK,UIBK_PHI_SUBJ,U_H_APTO_LONG,U_RCPTS_11_PLUS
+X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
 
-The counter width can be inferred from the compatible string, making the
-explicit "sifive,fine-ctr-bits" property redundant. Remove the property
-to simplify the bindings.
+From: Christian Stefan Kövér-Draxl <christian.koever-draxl@student.uibk.ac.at>
 
-Fixes: 0f920690a82c ("dt-bindings: timer: Add SiFive CLINT2")
-Suggested-by: Conor Dooley <conor+dt@kernel.org>
-Link: https://lore.kernel.org/linux-riscv/20260330-relative-hardened-5ce35fe1ef57@spud/
-Signed-off-by: Nick Hu <nick.hu@sifive.com>
+Signed-off-by: Christian Stefan Kövér-Draxl <christian.koever-draxl@student.uibk.ac.at>
 ---
- .../devicetree/bindings/timer/sifive,clint.yaml          | 16 ----------------
- 1 file changed, 16 deletions(-)
+ arch/arm64/boot/dts/amlogic/Makefile          |   1 +
+ .../boot/dts/amlogic/meson-s4-s905w2-x98q.dts | 250 ++++++++++++++++++
+ 2 files changed, 251 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
 
-diff --git a/Documentation/devicetree/bindings/timer/sifive,clint.yaml b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-index 3c16b260db04..051edb1da0d7 100644
---- a/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-+++ b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-@@ -72,22 +72,6 @@ properties:
-     minItems: 1
-     maxItems: 4095
- 
--  sifive,fine-ctr-bits:
--    maximum: 15
--    description: The width in bits of the fine counter.
--
--if:
--  properties:
--    compatible:
--      contains:
--        const: sifive,clint2
--then:
--  required:
--    - sifive,fine-ctr-bits
--else:
--  properties:
--    sifive,fine-ctr-bits: false
--
- additionalProperties: false
- 
- required:
-
----
-base-commit: c1f49dea2b8f335813d3b348fd39117fb8efb428
-change-id: 20260409-clintv2-remove-fine-ctr-d5caeda27863
-
-Best regards,
+diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/Makefile
+index 15f9c817e502..c7752684dea6 100644
+--- a/arch/arm64/boot/dts/amlogic/Makefile
++++ b/arch/arm64/boot/dts/amlogic/Makefile
+@@ -85,6 +85,7 @@ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-ugoos-am3.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-vega-s96.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-wetek-core2.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-s4-s805x2-aq222.dtb
++dtb-$(CONFIG_ARCH_MESON) += meson-s4-s905w2-x98q.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-s4-s905y4-khadas-vim1s.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-sm1-a95xf3-air-gbit.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-sm1-a95xf3-air.dtb
+diff --git a/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts b/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
+new file mode 100644
+index 000000000000..26c60a4c2a43
+--- /dev/null
++++ b/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
+@@ -0,0 +1,250 @@
++
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2026 Christian Stefan Köver-Draxl
++ * Based on meson-s4-s905y4-khadas-vim1s.dts:
++ *  - Copyright (c) 2026 Khadas Technology Co., Ltd.
++ */
++
++/dts-v1/;
++
++#include "meson-s4.dtsi"
++
++/ {
++	model = "Shenzhen Amediatech Technology Co., Ltd X98Q";
++	compatible = "amediatech,x98q", "amlogic,s905w2", "amlogic,s4";
++	interrupt-parent = <&gic>;
++	#address-cells = <2>;
++	#size-cells = <2>;
++
++	aliases {
++		mmc0 = &emmc; /* eMMC */
++		mmc1 = &sd; /* SD card */
++		mmc2 = &sdio; /* SDIO */
++		serial0 = &uart_b;
++	};
++
++	memory@0 {
++		device_type = "memory";
++		reg = <0x0 0x0 0x0 0x40000000>;
++	};
++
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		/* 52 MiB reserved for ARM Trusted Firmware */
++		secmon_reserved: secmon@5000000 {
++			reg = <0x0 0x05000000 0x0 0x3400000>;
++			no-map;
++		};
++	};
++
++	emmc_pwrseq: emmc-pwrseq {
++		compatible = "mmc-pwrseq-emmc";
++		reset-gpios = <&gpio GPIOB_9 GPIO_ACTIVE_LOW>;
++	};
++
++	sdio_32k: sdio-32k {
++		compatible = "pwm-clock";
++		#clock-cells = <0>;
++		clock-frequency = <32768>;
++		pwms = <&pwm_ef 0 30518 0>; /* PWM_E at 32.768KHz */
++	};
++
++	sdio_pwrseq: sdio-pwrseq {
++		compatible = "mmc-pwrseq-simple";
++		reset-gpios = <&gpio GPIOX_6 GPIO_ACTIVE_LOW>;
++		clocks = <&sdio_32k>;
++		clock-names = "ext_clock";
++	};
++
++	main_5v: regulator-main-5v {
++		compatible = "regulator-fixed";
++		regulator-name = "5V";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		regulator-always-on;
++	};
++
++	sd_3v3: regulator-sd-3v3 {
++		compatible = "regulator-fixed";
++		regulator-name = "SD_3V3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&gpio GPIOD_4 GPIO_ACTIVE_LOW>;
++		regulator-always-on;
++	};
++
++	vddio_sd: regulator-vddio-sd {
++		compatible = "regulator-gpio";
++		regulator-name = "VDDIO_SD";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <3300000>;
++		gpios = <&gpio GPIOD_9 GPIO_ACTIVE_HIGH>;
++		gpios-states = <1>;
++		states = <1800000 1 3300000 0>;
++	};
++
++	vddao_3v3: regulator-vddao-3v3 {
++		compatible = "regulator-fixed";
++		regulator-name = "VDDAO_3V3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		vin-supply = <&main_5v>;
++		regulator-always-on;
++	};
++
++	vddio_ao1v8: regulator-vddio-ao1v8 {
++		compatible = "regulator-fixed";
++		regulator-name = "VDDIO_AO1V8";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		vin-supply = <&vddao_3v3>;
++		regulator-always-on;
++	};
++
++	/* SY8120B1ABC DC/DC Regulator. */
++	vddcpu: regulator-vddcpu {
++		compatible = "pwm-regulator";
++
++		regulator-name = "VDDCPU";
++		regulator-min-microvolt = <689000>;
++		regulator-max-microvolt = <1049000>;
++
++		vin-supply = <&main_5v>;
++
++		pwms = <&pwm_ij 1 1500 0>;
++		pwm-dutycycle-range = <100 0>;
++
++		regulator-boot-on;
++		regulator-always-on;
++		/* Voltage Duty-Cycle */
++		voltage-table = <1049000 0>,
++				<1039000 3>,
++				<1029000 6>,
++				<1019000 9>,
++				<1009000 12>,
++				<999000 14>,
++				<989000 17>,
++				<979000 20>,
++				<969000 23>,
++				<959000 26>,
++				<949000 29>,
++				<939000 31>,
++				<929000 34>,
++				<919000 37>,
++				<909000 40>,
++				<899000 43>,
++				<889000 45>,
++				<879000 48>,
++				<869000 51>,
++				<859000 54>,
++				<849000 56>,
++				<839000 59>,
++				<829000 62>,
++				<819000 65>,
++				<809000 68>,
++				<799000 70>,
++				<789000 73>,
++				<779000 76>,
++				<769000 79>,
++				<759000 81>,
++				<749000 84>,
++				<739000 87>,
++				<729000 89>,
++				<719000 92>,
++				<709000 95>,
++				<699000 98>,
++				<689000 100>;
++	};
++};
++
++&emmc {
++	status = "okay";
++	pinctrl-0 = <&emmc_pins>, <&emmc_ds_pins>;
++	pinctrl-1 = <&emmc_clk_gate_pins>;
++	pinctrl-names = "default", "clk-gate";
++
++	bus-width = <8>;
++	cap-mmc-highspeed;
++	mmc-ddr-1_8v;
++	mmc-hs200-1_8v;
++	max-frequency = <200000000>;
++	non-removable;
++	disable-wp;
++
++	mmc-pwrseq = <&emmc_pwrseq>;
++	vmmc-supply = <&vddao_3v3>;
++	vqmmc-supply = <&vddio_ao1v8>;
++};
++
++&ethmac {
++	status = "okay";
++	phy-handle = <&internal_ephy>;
++	phy-mode = "rmii";
++};
++
++&ir {
++	status = "okay";
++	pinctrl-0 = <&remote_pins>;
++	pinctrl-names = "default";
++};
++
++&pwm_ef {
++	status = "okay";
++	pinctrl-0 = <&pwm_e_pins1>;
++	pinctrl-names = "default";
++};
++
++&pwm_ij {
++	status = "okay";
++};
++
++&sd {
++	status = "okay";
++	pinctrl-0 = <&sdcard_pins>;
++	pinctrl-1 = <&sdcard_clk_gate_pins>;
++	pinctrl-names = "default", "clk-gate";
++	bus-width = <4>;
++	cap-sd-highspeed;
++	max-frequency = <50000000>;
++	disable-wp;
++
++	cd-gpios = <&gpio GPIOC_6 GPIO_ACTIVE_LOW>;
++
++	vmmc-supply = <&vddao_3v3>;
++	vqmmc-supply = <&vddao_3v3>;
++};
++
++/*
++* Wireless SDIO Module (Amlogic W150S1)
++* Note: There is no driver for this at the moment.
++*/
++
++&sdio {
++	status = "okay";
++	pinctrl-0 = <&sdio_pins>;
++	pinctrl-1 = <&sdio_clk_gate_pins>;
++	pinctrl-names = "default", "clk-gate";
++	#address-cells = <1>;
++	#size-cells = <0>;
++	bus-width = <4>;
++	cap-sd-highspeed;
++	sd-uhs-sdr50;
++	sd-uhs-sdr104;
++	max-frequency = <200000000>;
++	non-removable;
++	disable-wp;
++
++	no-sd;
++	no-mmc;
++	mmc-pwrseq = <&sdio_pwrseq>;
++	vmmc-supply = <&vddao_3v3>;
++	vqmmc-supply = <&vddio_ao1v8>;
++};
++
++&uart_b {
++	status = "okay";
++};
 -- 
-Nick Hu <nick.hu@sifive.com>
+2.53.0
 
