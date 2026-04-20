@@ -1,194 +1,242 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D4C3A901C
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 17:56:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F4F3A7F51
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 17:57:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776707797; cv=none; b=U+CEtn0SIB3K+moIZxsgKSX4FsPyAhY24kbmGjdrwrh1AnI6hnrBUt3i6VtGdE9rqN2Teu0GAjgP9h7AALlv/rAVb8h6SF8AeSMDNFMQA9SiMwNyOYXrEdwZldkcBPqMvh7CT5qEPf0Ty+nIeyJ7EWm48akQsgjD1aSC1EcQ+vU=
+	t=1776707825; cv=none; b=DWJBqCNzOaF1g9fE4dTlnaILi3nEgHfH/SDdgpE5sf9yPFlMPS/z5asK+RkS4P4wTm0YAVcnEtZvCYhzDMXAoYHYwxzXbJfM4WX2Q5NMIYxt0f+7c4CGnWXU275nCZZpKuCKiMhRRr/bnhBV/SfxVP/uvo6T5Uom5IwqkT6BDZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776707797; c=relaxed/simple;
-	bh=yLVG4BfzCihb3EChTfLSGF+jYW4r8CaXsTi5uL4V6xE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eAEE3w1K9PAx862kI2KpACfM/1s1yOSGaw/YVm46WDzCcwqonuHf4KfQ7zGmiAZIlRARx7xPkEn27QeNluYlca8pJbRZC8rtsavTxL8oeBYyo+T8U/YRKMg3RSCxn6xS5ySVqSJ1XMb1WWGwHVrz9jrF4cMqAtzfH7E4B8cixg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZYs/RC3C; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776707825; c=relaxed/simple;
+	bh=mA0cosl1Y/UKnS5y10aDzdtF+S+d+4NJ48Fw+uJpY+c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ooEManX11j3TjOEwrPE5pFBC593qCSuLk8DtYLQ8Fnz9t4sqqfb+gufMth0LIZDmhfAUjkLmijOAlrzt/ebW792BO+C+PuCIxYWJi5tBYzRnLV2p0YvuYBQl18gxCAk27Fckrt2pdowBuYTd799ZdQBnYFxbPfqPqziyoTd380Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h5fOjvZM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AJZJrkEX; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZYs/RC3C"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-671ab90fc1fso6948544a12.0
-        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 10:56:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h5fOjvZM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AJZJrkEX"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63KG9NRB2980857
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 17:57:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=lJedt12Ka/Xa0EGY392YLMx6
+	0quQ8TyR8f08LkpHbbs=; b=h5fOjvZM2RiFhmgAgBdxV0HPKW05h/nqXsfQJLUh
+	H+EBZDUz4lye5WDJy1bgmO5hZQRuVXOz/BRyIK7cSL7D1qta8SuaBTmtfNn0AZ5e
+	6CzIpb8gxAusOI+IU3x1G4VIiZwLw+genz9RODklxmraGfdgkXzKwXcAEXb4wOJ/
+	++ChKTkj4USBwG3mOTRj1NlWJ46s5LRQiTyxG1UYRkHlOtQmsc1wAADKTb+B6LPk
+	H9hjMNygJ2p1jt1YKBls+krmh4IEnr8dpkc3P3kjRYfe0mVTCjsGbGVVzAG5JVXC
+	1OotTtAuTkNHHBiUDDgj0gAkopVrDgy69Il3p0EZC9xf7A==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dnj2psr4r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 17:57:03 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50d5d1c2289so69767421cf.2
+        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 10:57:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776707794; x=1777312594; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=dOAvT65Iv9zTvx9Y5S7ZxuAZo7YsqnpLZetQ/AQ+B5c=;
-        b=ZYs/RC3CI5tfD3G0kv8h6FH6FoqnbBbQ5l0YyZMWV3V0H4DxpUX4AEMP8UixWBv2RK
-         TMN17r2uJUeuubbT5FjsGCSbepgVrZJVU2ODzFZEnqHWr+66CL3lRJIsVGTSBiHzmCHR
-         GZhg2Wwe5X7ezIx2C9XC2UHmcWXEo+ud0Py7QARcze54S8nlOHL7NJSIh2NvCwW0cgKl
-         tPtVybwf7nH7qRh+itXpQBauR/U3twrieZNAdDV/CKezqJmgsjAzffpJLF3onx+RLFkh
-         EcU31fsHnYlS5ZF1Pmv3muBx1fzuUaw/MsPIAmjp9ALJXCGMsidWUctk8HtJqJAYPgud
-         HJkg==
+        d=oss.qualcomm.com; s=google; t=1776707822; x=1777312622; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=lJedt12Ka/Xa0EGY392YLMx60quQ8TyR8f08LkpHbbs=;
+        b=AJZJrkEX2cpauJnC39eN5OCzqdR3wzvqBmDdrjkKslP0qwGLKl5O1lXafODwHMkNRs
+         1B/FKFPUDVxjrkJvqRPLkIRINYmww0XvJMkOkUm7TbtH06RfKdOnQn2WHdx6JRUJaYUn
+         X+LiZZnc4/HRZIvsHY3qQPYt+O3FI7e9o0P69FWqxsfQ9hrgXj+19SsYo0H1d/EPT3M1
+         DQCfencoFo8QNfZCyNSVu4HkNrOvJZIJx8oKNHwfthpmdaJUf33HIsuugQFbDgVkrDsu
+         CwDyK0txB/dextIlaWLVNEQKpWEyVj4NfHFRfFxHuym+ltUtFMmXx4jx+8Tz7JUAZNc7
+         c54g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776707794; x=1777312594;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=dOAvT65Iv9zTvx9Y5S7ZxuAZo7YsqnpLZetQ/AQ+B5c=;
-        b=gEljFRp/O/KwrkSthrAOgnMWuTAi8YcXPA7O7WT2I937EOtYmpxok0J8a32PGthh9u
-         b9s0ZOyweMdrQg5KdCxXQYj/mB35YeLTDEMFk8XC/4THlSaGMAdCsVHt29A5PRtIsyDc
-         B23/mPiHvHgVR2oTCnJRVVx3bKi2HFqonlxN3ap2uH9SToUXpBx7Inn4ZkdJUhrqrjOC
-         24pD2H+nyouxIx9c0HyZO1AJDx0Jh6ZLJqaGVhss2U80zkMhgDSTfaxF5QcZzuyjVzb6
-         kOZKqZt8VgXlyNutThufw2aJAwTmkLjjbT7PTOr2XM110KydtFNL6oLLgI3nDOrc+fA3
-         m/GA==
-X-Forwarded-Encrypted: i=1; AFNElJ/FeiyHWoPUeVqF91qNcY1b1XGR85pO8jgnZsUpcnfWRg/97u6WiYxo1/OB1J3mUdhsLLtoLAtbKCWj@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+70erPSG/2W8UwzizeKuX523ZyfvxDenDivYEo73zkgb5MAMs
-	tS9zTgemoOQhl3MSTRNbseuOTqDDtS2+R05GK/uReJHqzOopxPvUCAOk
-X-Gm-Gg: AeBDietHqblpmqJR9j+agew4Ba62SGSUbGkzepc3h94az5tAt9wwRVQRnLzyeT65icA
-	j4pbQFibrtixZRtuE3BM5MAMfhlAludY0uMUIj6Hz737UUSrEdu826s/g3nGQGBMYfsvdyWn/Qc
-	fshKR9K19iL6o1MprExZQ40NBOCAi5cnrMqa0v/eqJgjOnwE2sIAJgG1c3tWyN9dtXToleBjTSC
-	JSpgsZjrwfAOs/otVUZ4b6nOiSH5H0tTm6R/dsD+VIDB0uobAbM9uQPnFKFp0Ut1ZdrG/pgXtPA
-	yQP/LrpJOOoi8AyXWKKa8ND66SRYMdD3zCT2oyvAUlMwz5W4AIkWFZlSMDMr5DnYsPmblxZMXNV
-	s96XJcSCsjywcBeWazc09YH7euC2ci2K2Kr/POqs8VCLLdNPbiF1RxqtW32LMjgJHd/FRE8XmFS
-	ei/EFbBLNwE/DWuV/9AEY2PdBu+kmL8XQZsJXSY0YLXDoh22yRAQ==
-X-Received: by 2002:aa7:c3d9:0:b0:66e:6ac4:2c01 with SMTP id 4fb4d7f45d1cf-672bfd8b436mr4725150a12.2.1776707794329;
-        Mon, 20 Apr 2026 10:56:34 -0700 (PDT)
-Received: from [10.43.65.76] ([185.94.190.188])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6744dcdf29fsm1581758a12.30.2026.04.20.10.56.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2026 10:56:32 -0700 (PDT)
-Message-ID: <f3e27db5-d84d-4b6a-9d6f-25fcc9044efc@gmail.com>
-Date: Mon, 20 Apr 2026 19:56:31 +0200
+        d=1e100.net; s=20251104; t=1776707822; x=1777312622;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=lJedt12Ka/Xa0EGY392YLMx60quQ8TyR8f08LkpHbbs=;
+        b=LRrrSG9r41C8SBp2gz9J19x6h15sGqqwxgkn0tJeN9YfZ+H9r05s3d5x7cW8xSutTZ
+         Je3hgx8tS8APy4H9OQCgvihXrTARTIBs7kOFPSe97uUJTOrEayHe8wna+WpQQSO/H9KT
+         85bOPzsTUNnGg5cRYlh9cXRaQ19key+AX3zpcfuOmo74LJhWUeO70rsjR3h/SnEsPOJK
+         s+6xVRbWKSM8jTj8rjiaaCmIZkAs1AXYZrS+Qq+ieLVzqelJ6Oz2K5OljaSHWYG67xVa
+         UtJ1WN0cVM7BVI2e15nGGob6tnPRwLNcn5lX1WjaHOgaTpWIkmiG9nWdDQJfKfBf02rJ
+         JqFg==
+X-Forwarded-Encrypted: i=1; AFNElJ/6VrXQf0DWHQsK0YZzCj65HITNtfg1GYvWMhSnoFzbSpRKosXrQQGD4jVOQKtqCkym5Xh7P2gWaZyn@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzx27f2O4EMo+mr7ZOp51Nlz4BxVZwL10ZlGU+mgrRTn+BfHWqY
+	pvqfGjzJ1PolTiCvx8onI4CHd6P5EcHAxUB559k98Ui2GtKfqmeMSnnKnsWuul/iQTC2x3QTwXG
+	ZiUnOxium/vn6GU+7PGE0YgaUZg99ZEt2WcrWZj+kxSh21HnPE8TUzK3mfQO2IFfp
+X-Gm-Gg: AeBDieuLu9GbCrrJa8oxltC7x4kSW5T6PCjsWhQC9fqhBemcLf+A4tfgG9VisRev5fw
+	A4fbT/0W1LAgI+FtOJjwSPYhWunYziHoGtYeVHRo9rDS52ALxsXv93cNHFLXGAFEVbzrJB8whhW
+	gx7y0Obr1uxL619X89qgoG8WPSx2DtAaI47H/4+w1uYB9TzeyfC7cQJ2ZcGMpCHM0AyQWBappcK
+	3PsuQ7Owib3OFjEtF92FYyS8EXSJA6BBwH+zGw6XLQJxABkvitXgrkTwrDCBbbxVk329K54uZ5m
+	Mu+Xoan/xj/DCgkPY/B44iMWwRSnknwdifGZshkjJ6dfCB9ZFSCs7ojpiigqgDHYHsL8gnPTv8e
+	9XxxLW/5gXi3mocMEU5WCXm7Un2jQRrF/laYc1K2h+YYPlm6/sLHTQ1K6FtT+4em+fzh5lEIUvd
+	iPsq2fvYur+nGoNnHulk6NxCoAlJu01hjYzjAHrWBnMS1yEQ==
+X-Received: by 2002:a05:622a:a64c:b0:50e:5fe2:83aa with SMTP id d75a77b69052e-50e5fe290c0mr48699681cf.12.1776707822363;
+        Mon, 20 Apr 2026 10:57:02 -0700 (PDT)
+X-Received: by 2002:a05:622a:a64c:b0:50e:5fe2:83aa with SMTP id d75a77b69052e-50e5fe290c0mr48699181cf.12.1776707821844;
+        Mon, 20 Apr 2026 10:57:01 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4187eb5f1sm3049040e87.72.2026.04.20.10.57.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Apr 2026 10:57:00 -0700 (PDT)
+Date: Mon, 20 Apr 2026 20:56:58 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, iommu@lists.linux.dev
+Subject: Re: [PATCH 04/11] media: iris: Add helper to create a context bank
+ device on iris vpu bus
+Message-ID: <cucl4m3h2wkosvzuyxdwyjec3v5n6vpa5g3osvo5y4farpewtn@jw6kzf3f3eyj>
+References: <20260414-glymur-v1-0-7d3d1cf57b16@oss.qualcomm.com>
+ <20260414-glymur-v1-4-7d3d1cf57b16@oss.qualcomm.com>
+ <ie6dad3xewm25gdrqqne2fsroopu3jwgrqmu54sfzjliis6mo5@6qsgagvyynwx>
+ <b0ba2172-3f66-c912-29e9-0a48b4480987@oss.qualcomm.com>
+ <sqg2db63gsjg3cxfdfbmndhxibzlprgviarbcl4l6isza36nc3@ljgg23nkuooi>
+ <bab7f899-dc05-7c9d-aed5-fed1910aa32b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: Add clock guard DT description
-To: Conor Dooley <conor@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Vyacheslav Yurkov
- <V.Yurkov.EXT@bruker.com>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260318-feature-clock-guard-v1-0-6137cb4084b7@bruker.com>
- <20260318-feature-clock-guard-v1-2-6137cb4084b7@bruker.com>
- <20260318225510.GA639444-robh@kernel.org>
- <7c7034a7-686a-42c2-bdba-6f31b5179f7c@gmail.com>
- <20260319-yearly-wrongful-883f7fd86a69@spud>
- <b45d9845-2d56-4fdd-a3ac-b0e0e27ba573@gmail.com>
- <20260323-sanctuary-semantic-432089feb1c7@spud>
- <d097826c-3db5-4902-acee-ffcff7436d4e@gmail.com>
- <20260326-lustiness-borrower-530898a5ce28@spud>
-Content-Language: en-US
-From: Vyacheslav Yurkov <uvv.mail@gmail.com>
-In-Reply-To: <20260326-lustiness-borrower-530898a5ce28@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bab7f899-dc05-7c9d-aed5-fed1910aa32b@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: NnH4_Pc5KzWj_zggS_oP-G31Eo3gsyK5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDE3NCBTYWx0ZWRfX/ESB5eU+oS9X
+ a1DubcJw9MY7abM74F0BrA/MOTSCogBm8OWoXyEb80X+Ke1bohfyO0IKtIVcMe/SHuOPaQk12jd
+ WP6VqtNSeeeDKuWZzmRMyghW4DbBwCQmCVgps2C9VeTcM/1T2CienGV5BWCWlaAqkP/Gqfw9dzv
+ 85WceA/iztfnSEPCfOwskgnQwRaVEQf3WOOWUaCcfdAbRy3hFsVTWTwMu+7VCVvW1/GtfsDOU4y
+ +OvZ9PWHFrWSyjIPcGeM6+sy0Oz9iNDp5ANu6XWOe6IssitmJZg+6B+s0BTesMf7bDjCg36d8e+
+ wFKtikTWpnVI27gp7yUMwf/qGItN+HiXxZBRJ/FoSUpE4Bx1b0vT2LkMfXK9l3IfJzPCRIIxc1E
+ EQ0OAoBvEQFI1LaynVhEcY9rCfFAO2T+fss4DCOV+bcmeIDbHmDTxv5BochQlfKNKCJey3aJZUt
+ uU5q3BSocG1aqqGn7og==
+X-Authority-Analysis: v=2.4 cv=XMoAjwhE c=1 sm=1 tr=0 ts=69e668ef cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=XurYlQOUMRzH-DkKxKYA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: NnH4_Pc5KzWj_zggS_oP-G31Eo3gsyK5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-20_03,2026-04-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 phishscore=0 adultscore=0 spamscore=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
+ definitions=main-2604200174
 
-On 26.03.2026 11:44, Conor Dooley wrote:
-> On Thu, Mar 26, 2026 at 10:54:52AM +0100, Vyacheslav Yurkov wrote:
->> On 23.03.2026 21:14, Conor Dooley wrote:
->>
->>>
->>> The binding you've got says "GPIOs used to control or guard the clocks",
->>> which is not what you're saying that is going on in this mail. A more
->>> suitable description would be "GPIOs used to check the status of the
->>> clocks".
->>
->> Agree, the description I provided is not very accurate.
->>
->>> I want to see an example dts user for this please.
->>
->> DTS example:
->>    clock_guard: clock_controller_guard {
->>      compatible = "clock-controller-guard";
->>      #clock-cells = <1>;
->>      clocks = <&h2f_clk 0>, <&clk_fgpa_rx 0>, <clk_fpga_tx 0>;
+On Mon, Apr 20, 2026 at 07:33:01PM +0530, Vishnu Reddy wrote:
 > 
-> Unfortunately, this doesn't contain the part that I wanted to see - who
-> the providers of these clocks here actually are.
-> 
-> To be frank, I am not sure how this block would know that these clocks
-> are enabled but their providers do not. I can think of a few ideas for
-> how this block would know, but I don't understand why the providers
-> themselves don't, and therefore why you need this gpio to tell you.
-> 
->>      clock-names = "h2f_clk0", "clk_fpga_rx", "clk_fpga_tx";
->>      gpios = <&fpga_ip 0 GPIO_ACTIVE_HIGH>, <&fpga_ip 1 GPIO_ACTIVE_HIGH>;
->>      gpio-names = "gpio-input0", "gpio-input1";
->>      clock-output-names = "clkctrl-guard";
->>    };
->>
->>    custom_device {
->>      compatible = "...";
->>      ...
->>      #clock-cells = <1>;
->>      clocks = <&clock_guard 0>;
->>      clock-names = "clock-guard";
->>    };
->>
->> The driver usage exaple:
->>
->> clk = devm_clk_get(dev, "clock-guard");
->> if (IS_ERR(clk))
->> 	return dev_err_probe(dev, PTR_ERR(clk), "failed to get clock\n");
->>
->> ret = clk_prepare_enable(clk);
->> if (ret) {
->> 	dev_warn(dev, "Clock is not ready, %d\n", ret);
->> 	return -EPROBE_DEFER;
->> }
->>
->>
->>> TBH, I don't understand your driver implementation either and why it has
->>>
->>> +static const struct clk_ops clkctrl_guard_ops = {
->>>
->>> +	.enable =	clkctrl_guard_enable,
->>> +	.disable =	clkctrl_guard_disable,
->>> +	.prepare =	clkctrl_guard_prepare,
->>> +	.unprepare =	clkctrl_guard_unprepare,
->>> +	.is_prepared =	clkctrl_guard_is_prepared,
->>>
->>> any of these 4 implemented when you have no control over the clock.
->>> I didn't think it was required to call your parent clocks enables in
->>> your own enable either, thought that was handled by the core recursively
->>> calling clk_enable() on clk->parent. The one thing I would expect you to
->>> have implemented ops wise is is_enabled, which you don't have.
->>> Also no sign of any rate acquisition functions, which I thought were
->>> mandatory.
->>>
->>> +	.get_parent =	clkctrl_guard_get_parent,
->>> +};
->>
->> Good point on .is_enabled, I indeed missed that. As for the rate acquisition
->> functions I referred to this table
->> https://docs.kernel.org/driver-api/clk.html#id4 , and it see that .set_rate
->> is actually optional.
-> 
-> .set_rate is not rate acquisition. .round_rate and .determine_rate are.
-> I thought they were mandatory, but for a gate clock I guess they are not
-> and the parent rate gets used automatically.
+> On 4/17/2026 11:53 PM, Dmitry Baryshkov wrote:
+> > On Fri, Apr 17, 2026 at 08:49:44PM +0530, Vishnu Reddy wrote:
+> >> On 4/14/2026 8:48 PM, Dmitry Baryshkov wrote:
+> >>> On Tue, Apr 14, 2026 at 10:30:00AM +0530, Vishnu Reddy wrote:
+> >>>> From: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
+> >>>>
+> >>>> Add a helper function to allocate and register context bank (CB) device
+> >>>> on the iris vpu bus. The function ID associated with the CB is specified
+> >>>> from the platform data, allowing the bus dma_configure callback to apply
+> >>>> correct stream ID mapping when device is registered.
+> >>>>
+> >>>> Signed-off-by: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
+> >>>> Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
+> >>>> ---
+> >>>>   drivers/media/platform/qcom/iris/iris_resources.c | 33 +++++++++++++++++++++++
+> >>>>   drivers/media/platform/qcom/iris/iris_resources.h |  1 +
+> >>>>   2 files changed, 34 insertions(+)
+> >>>>
+> >>>> diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/media/platform/qcom/iris/iris_resources.c
+> >>>> index 773f6548370a..a25e0f2e9d26 100644
+> >>>> --- a/drivers/media/platform/qcom/iris/iris_resources.c
+> >>>> +++ b/drivers/media/platform/qcom/iris/iris_resources.c
+> >>>> @@ -6,6 +6,7 @@
+> >>>>   #include <linux/clk.h>
+> >>>>   #include <linux/devfreq.h>
+> >>>>   #include <linux/interconnect.h>
+> >>>> +#include <linux/iris_vpu_bus.h>
+> >>>>   #include <linux/pm_domain.h>
+> >>>>   #include <linux/pm_opp.h>
+> >>>>   #include <linux/pm_runtime.h>
+> >>>> @@ -141,3 +142,35 @@ int iris_disable_unprepare_clock(struct iris_core *core, enum platform_clk_type
+> >>>>   	return 0;
+> >>>>   }
+> >>>> +
+> >>>> +static void iris_release_cb_dev(struct device *dev)
+> >>>> +{
+> >>>> +	kfree(dev);
+> >>>> +}
+> >>>> +
+> >>>> +struct device *iris_create_cb_dev(struct iris_core *core, const char *name, const u32 *f_id)
+> >>> Please move into the bus code and make it generic enough.
+> >> Do you suggest to add a wrapper to pass the varying inputs to the generic
+> >> bus, something like this
+> >> struct device* create_and_register_device(dma_mask, parent_dev, *release,
+> >> dev_name,...)
+> > Definitely not the release function. The devname is also not that
+> > important. The rest, yes, you are correct.
+> >
+> >>>> +{
+> >>>> +	struct device *dev;
+> >>>> +	int ret;
+> >>>> +
+> >>>> +	dev = kzalloc_obj(*dev);
+> >>>> +	if (!dev)
+> >>>> +		return ERR_PTR(-ENOMEM);
+> >>>> +
+> >>>> +	dev->release = iris_release_cb_dev;
+> >>>> +	dev->bus = &iris_vpu_bus_type;
+> >>>> +	dev->parent = core->dev;
+> >>>> +	dev->coherent_dma_mask = core->iris_platform_data->dma_mask;
+> >>>> +	dev->dma_mask = &dev->coherent_dma_mask;
+> >>> Would you also need to set the of_node? See
+> >>> device_set_of_node_from_dev()
+> >> It might be needed for FastRPC as they are following sub node approach, Iris
+> >> does not need.
+> > Wouldn't it save you from passing it to of_dma_configure_id()?
+> Iris will pass parent device of_node, setting parent device is enough.
 
-Before I send a v2 I'd like to clarify a few more things:
-- I provided a schematics by means of the URL. I believe there's no 
-unified way to provide something like that in the documentation, is 
-there? So the only way to describe it properly would be to summarize the 
-description from the mailing list, right?
-- I'm going over the Common Clk Framework again, and perhaps I 
-understood it wrong. You mentioned that I have to implement is_enabled, 
-but I implemented is_prepared. It seems that I just have to move my 
-is_prepared implementation to is_enabled. Does that sound correct?
-- In my particular use case I don't need enable/disable ops, but to keep 
-the driver generic, I'd probably want to have the bulk_enable 
-implementation inside, because I don't know which clocks are assigned in 
-a device tree. The clk_core_enable function only enables 1 parent clock, 
-not the the list of parent clocks. Or I'm missing something here?
+Set the of node and pass NULL to of_dma_configure_id.
 
-Thanks,
-Slava
+> >>>> +
+> >>>> +	dev_set_name(dev, "%s", name);
+> >>>> +	dev_set_drvdata(dev, (void *)f_id);
+> >>>> +
+> >>>> +	ret = device_register(dev);
+> >>>> +	if (ret) {
+> >>>> +		put_device(dev);
+> >>>> +		return ERR_PTR(ret);
+> >>>> +	}
+> >>>> +
+> >>>> +	return dev;
+> >>>> +}
+> >>>> diff --git a/drivers/media/platform/qcom/iris/iris_resources.h b/drivers/media/platform/qcom/iris/iris_resources.h
+> >>>> index 6bfbd2dc6db0..4a494627ff23 100644
+> >>>> --- a/drivers/media/platform/qcom/iris/iris_resources.h
+> >>>> +++ b/drivers/media/platform/qcom/iris/iris_resources.h
+> >>>> @@ -15,5 +15,6 @@ int iris_unset_icc_bw(struct iris_core *core);
+> >>>>   int iris_set_icc_bw(struct iris_core *core, unsigned long icc_bw);
+> >>>>   int iris_disable_unprepare_clock(struct iris_core *core, enum platform_clk_type clk_type);
+> >>>>   int iris_prepare_enable_clock(struct iris_core *core, enum platform_clk_type clk_type);
+> >>>> +struct device *iris_create_cb_dev(struct iris_core *core, const char *name, const u32 *f_id);
+> >>>>   #endif
+> >>>>
+> >>>> -- 
+> >>>> 2.34.1
+> >>>>
+
+-- 
+With best wishes
+Dmitry
