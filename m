@@ -1,47 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F13D34B194;
-	Mon, 20 Apr 2026 16:20:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CABD33F597;
+	Mon, 20 Apr 2026 16:21:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776702033; cv=none; b=VYShwmpdQD9B/i2Pe8Ts1281cP+vsUsMGcdF0SVh7Modza6gPWolv9Re3Ht/9Fdj0FU5k4/memRn02qZNwbuyoIaGTkYXEQybmjR0y9uxYde5B1SULaI+A7Ly5KZz2IaSri1Mieqb5A9tthVJGocbtWBwTgGqAcUg56XoASpVgc=
+	t=1776702104; cv=none; b=otygj8vrhGhqyqAD7K+pinFf6oqY48xpW7jipQGbbKpEPMlVA9gg8twvPmlJObhukzc/T/j0kniJfj0JkZRMX0uSUjYiiVWH0aPWQ9AxlIQKBaGr1/nOPe3G0tlBQBIBW3G60jPtvxXAFaQcHbMxP606A9SLK2YoFz90reGp30c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776702033; c=relaxed/simple;
-	bh=yaeFUyTaIJ4lGxWeYfj5hPkiGnv9xe79xqk0yZ+2orU=;
+	s=arc-20240116; t=1776702104; c=relaxed/simple;
+	bh=nmfX6/AshaYubNu33nzp7Oq3mIT9AkbEmqQpS4dhMw8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SkHwG5vJlZWlo7IVFuJe2clbG8ym+QwbxcLxXk9LrWjXKgjoJyyeeE3IVQ+J7Y3R9+CmW6VRwKBVrw819eiXjs2/7diLwbh43zR5Jr1Uf+N/sxsckCnaVhZUVBrpSsXS82ldQd/zgX/Nj8yoNMUkxcAISOoAYHha7IyUjA9q0uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g8IJMzY4; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=kf1xY/W5Qrg/PPoyhPZBNDDeQYSpE1wVMwStkc1XokGOtw7XP72XtlGOWOnqGbQMENQAXKs8ECi1JgQCEuDFWjxRWo/DSyAmE8jTzY3SGjG+pTQWjDdnx0u9a8jIdskPNeSdnKBzCAR/CUlxc9+Tg/uzgo10HdEo5qf/Dl7AK8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sVqBnMsi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g8IJMzY4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75B91C19425;
-	Mon, 20 Apr 2026 16:20:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sVqBnMsi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88A14C19425;
+	Mon, 20 Apr 2026 16:21:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776702032;
-	bh=yaeFUyTaIJ4lGxWeYfj5hPkiGnv9xe79xqk0yZ+2orU=;
+	s=k20201202; t=1776702103;
+	bh=nmfX6/AshaYubNu33nzp7Oq3mIT9AkbEmqQpS4dhMw8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=g8IJMzY42uvZ/EbymiqFTBlh037CdGGWNvAKTerhbc7iwDpjeOJ5fRMDuW//4FXY/
-	 PiRy/Jr3FbYhBatJucQ7E8GBF7Iw7Wmt7i6DmG1AIzztJde24UXGsWUblSS+2egk6l
-	 xKPD61qMGQvfa9nHnIZCBnhqWm13BGSxZRjr8b0KLbg2/7WFZ1MKXkKNM6E0hJwH2M
-	 JPMfwHuczW3q/eozKrW9+3491hPXOdBkmbhjNs0udRmsYCc3AKqgzDr83A8etw1vZd
-	 GvuYDbVFXKbVXW38gbEGdtyJ2aBuxNLMPN/6nTIVkTgSYaUoAkJjMY+DMrKvH0XUjP
-	 q8j5nJrNVqn5A==
-Date: Mon, 20 Apr 2026 17:20:28 +0100
+	b=sVqBnMsi8O56tRjoHgjv541agVfC6vIyEgGmu9sXX3BkZF87yjuY8FU4Ct5VK8uhN
+	 jwnHyS04zs0+o8m7EqN/JXyBxrwJU/bVLt2q7UM0iIzaD4gaPbmhabwk9egItZbYCB
+	 zFZFZB/2hRWm082+7PgAeiZKzQ8FBmKMuGaXGCLcEBRTwCOp1E5FiTuXEHaTKhXDFI
+	 r4yApK460wGpo0Bh5E6M3BIiF91rktoDF4hR7jigdYBne1gtj7Bmcd+3ap8XhSWt9q
+	 vY7vXjJ1rE2kJK1gJM74woMCBMs2QkLES+JCOYkSZTupyizbFuBMM34KYpEhHftRya
+	 eg4+pRYPLCrzA==
+Date: Mon, 20 Apr 2026 17:21:37 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+To: Biju <biju.das.au@gmail.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] dt-bindings: leds: Document TI LM3560 Synchronous
- Boost Flash Driver
-Message-ID: <20260420-affection-ferocious-e28cd29f360a@spud>
-References: <20260419093412.40796-1-clamor95@gmail.com>
- <20260419093412.40796-2-clamor95@gmail.com>
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 2/3] dt-bindings: display: bridge: Document Renesas
+ RZ/G3L LVDS encoder
+Message-ID: <20260420-cost-ocean-11c35168acb5@spud>
+References: <20260417175235.224809-1-biju.das.jz@bp.renesas.com>
+ <20260417175235.224809-3-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,191 +61,39 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="o3ULyILVhK1A+1eP"
+	protocol="application/pgp-signature"; boundary="UcF7L8cDFJ7eoYqW"
 Content-Disposition: inline
-In-Reply-To: <20260419093412.40796-2-clamor95@gmail.com>
+In-Reply-To: <20260417175235.224809-3-biju.das.jz@bp.renesas.com>
 
 
---o3ULyILVhK1A+1eP
+--UcF7L8cDFJ7eoYqW
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Apr 19, 2026 at 12:34:08PM +0300, Svyatoslav Ryhel wrote:
-> Document TI LM3560 Synchronous Boost Flash Driver used for camera flash
-> LEDs.
+On Fri, Apr 17, 2026 at 06:52:29PM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
 >=20
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  .../devicetree/bindings/leds/ti,lm3560.yaml   | 131 ++++++++++++++++++
->  1 file changed, 131 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3560.yaml
+> Document the LVDS encoder IP found on the RZ/G3L SoC. It supports
+> single-link mode. LVDS and the DSI interface share a peripheral clock and
+> the MIPI_DSI_PRESET_N reset signal. However, the LVDS module cannot be
+> used at the same time as MIPI-DSI.
 >=20
-> diff --git a/Documentation/devicetree/bindings/leds/ti,lm3560.yaml b/Docu=
-mentation/devicetree/bindings/leds/ti,lm3560.yaml
-> new file mode 100644
-> index 000000000000..c6c553ad23f9
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/ti,lm3560.yaml
-> @@ -0,0 +1,131 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/leds/ti,lm3560.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: TI LM3560 Synchronous Boost Flash Driver
-> +
-> +maintainers:
-> +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> +
-> +description:
-> +  The LM3560 is a 2-MHz fixed frequency synchronous boost converter with=
- two
-> +  1000-mA constant current drivers for high-current white LEDs. The dual=
- high-
-> +  side current sources allow for grounded cathode LED operation and can =
-be
-> +  tied together for providing flash currents at up to 2 A through a sing=
-le LED.
-> +  An adaptive regulation method ensures the current for each LED remains=
- in
-> +  regulation and maximizes efficiency.
-> +
-> +allOf:
-> +  - $ref: /schemas/leds/common.yaml
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ti,lm3559
-> +      - ti,lm3560
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-What differentiates these devices to the point that fallback compatibles
-are not suitable?
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Cheers,
-Conor.
-
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
-> +  enable-gpios:
-> +    description: GPIO connected to the HWEN pin.
-> +    maxItems: 1
-> +
-> +  vin-supply:
-> +    description: Supply connected to the IN line.
-> +
-> +  flash-max-timeout-us:
-> +    minimum: 32000
-> +    maximum: 1024000
-> +    default: 32000
-> +
-> +  ti,peak-current-microamp:
-> +    description:
-> +      The LM3560 features 4 selectable current limits 1.6A, 2.3A, 3A, an=
-d 3.6A.
-> +      When the current limit is reached, the LM3560 stops switching for =
-the
-> +      remainder of the switching cycle.
-> +    enum: [16000000, 23000000, 30000000, 36000000]
-> +    default: 16000000
-> +
-> +patternProperties:
-> +  '^led@[01]$':
-> +    description: LED control bank nodes.
-> +    $ref: /schemas/leds/common.yaml#
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      reg:
-> +        description: Control bank selection (0 =3D bank A, 1 =3D bank B).
-> +        maximum: 1
-> +
-> +      flash-max-microamp:
-> +        minimum: 62500
-> +        maximum: 1000000
-> +
-> +      led-max-microamp:
-> +        minimum: 31250
-> +        maximum: 250000
-> +
-> +    required:
-> +      - reg
-> +      - flash-max-microamp
-> +      - led-max-microamp
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - '#address-cells'
-> +  - '#size-cells'
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        led-controller@53 {
-> +            compatible =3D "ti,lm3560";
-> +            reg =3D <0x53>;
-> +
-> +            enable-gpios =3D <&gpio 28 GPIO_ACTIVE_HIGH>;
-> +            vin-supply =3D <&vdd_3v3_sys>;
-> +
-> +            flash-max-timeout-us =3D <1024000>;
-> +            ti,peak-current-microamp =3D <16000000>;
-> +
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <0>;
-> +
-> +            led@0 {
-> +                reg =3D <0>;
-> +
-> +                label =3D "white::flash";
-> +                linux,default-trigger =3D "flash";
-> +
-> +                flash-max-microamp =3D <562500>;
-> +                led-max-microamp =3D <156250>;
-> +            };
-> +
-> +            led@1 {
-> +                reg =3D <1>;
-> +
-> +                label =3D "yellow::flash";
-> +                linux,default-trigger =3D "flash";
-> +
-> +                flash-max-microamp =3D <562500>;
-> +                led-max-microamp =3D <156250>;
-> +            };
-> +        };
-> +    };
-> --=20
-> 2.51.0
->=20
-
---o3ULyILVhK1A+1eP
+--UcF7L8cDFJ7eoYqW
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeZSTAAKCRB4tDGHoIJi
-0jCeAP4ncU6FO0TPrY2+FBTkOwE/aJ3G3mFldSmpIB+kliL4qgEAupeLwO678p7X
-hKMnWnq949Wv73JCkKOCJjwQACcoNwU=
-=bKOC
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeZSkQAKCRB4tDGHoIJi
+0qPEAP9pUYTcU8KoPFuGpouNSZCnlUw8AghZWG2NklflqHNNpwEA73qYEerYVFm+
+jYPEq9I0hexnWrBO7vPTyEw26WladgA=
+=yV67
 -----END PGP SIGNATURE-----
 
---o3ULyILVhK1A+1eP--
+--UcF7L8cDFJ7eoYqW--
