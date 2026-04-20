@@ -1,121 +1,273 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C203859FF
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 08:53:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A64E9443;
+	Mon, 20 Apr 2026 09:03:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776675228; cv=none; b=kabSiZKhXdncEkhP644T3mg4vqLe3/lsXghXyB2IL+FQu9CjhF9Q5r0F+tEfjrPA1Ns61GCBo3ahgKvmqVLZ/C/ct3dcLQoTeJomEDos0SyRbHG1svcKoF/kPH9wkun4rD8KKAEi2Rm3BUBmlNoQ3OR2l7Ev6KU0RCgWMhm2JqQ=
+	t=1776675793; cv=none; b=sAG3eGvb/nLDbgDG9JsLRHOUnzLveL11Vw8p1/iamZz2KYkh6GemJMS2hA9MdlwtxfjKVr6ihBYUTlxnlT0P17kSyrhgPXCKqmAvyj6ZankyWknj4ntMZd2yuVUsiJaqK+dYkicdrfVSRkrGnU+SbXZA6267I6wRu3r3gGxmcV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776675228; c=relaxed/simple;
-	bh=eW002aUV/pDc7QNMwK4vUV0AbIjBkQcbKvXG8+FqB3k=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Okqj3GpSqpZM/d5Qg5Srdej2ALoO3SYJVgRJ7523lIaJ+zesNKqD4UoY52dIDeF2+Y+Q4c9YRBUpKkEwTTaxpkq32pTpst/Oi0bGamoAdj+ag/SlXFolzkU4lojZvtSWxen14ATrP0PEtDYLiLoQLUZM9qJhM+3Vucydp/IJoHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QLrHv/Xn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776675793; c=relaxed/simple;
+	bh=67VzqhbKwALZK7Y/a1nS8JCBjL6EyytkhYeRNCAq2JQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lGlTRKwK0wcOS6TkkT3DtAS0ChO3tDbxIx+lvjTQPzKgydSXfAp0OOUufnRPXQT3ctOJmvvC8ceFMK5HUQj9H7MaLht+Nnq5gT6SWdfy1Xmt/5rz4pso/qVnXe0PQprjp9N+DSJgn57bzotF6zBh4CYW8YGwMr9UyInSGTaKh+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gsXVQOFG; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QLrHv/Xn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41005C2BCB6
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 08:53:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776675228;
-	bh=eW002aUV/pDc7QNMwK4vUV0AbIjBkQcbKvXG8+FqB3k=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc:From;
-	b=QLrHv/Xn6HC23/w6nn94mXgnR14YURNJd/57C9ACmoSi28uoI4wvopNGiWNSTISqk
-	 78cnOnCvjzts7uUxlJ2wLNIOuB/P+iqHNtQCc/OkO/HjTM3WjS1b3el4Un5TryA4bk
-	 ak0A/KZuetcg7qYwKr60Uf14N2FzQhz0J42w90uPR/AO5FF+vCbMVMm2UtyEqBvuwi
-	 o9dXFj+bhiZL/cLqBTkswi7Pxo8Kr744fjXAbk/1+1WQMAgmZcoNobJ5/m5b2LInQn
-	 AN+JlgjnbEzosd2ysvOHS5nAWhVq5gmfuCcGskbt65LABl0KazoycZT2Z07/NKgK+7
-	 Clru1DUVQ2tmA==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5a402dea4a5so3168623e87.2
-        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 01:53:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9CQktZdZOc2PxvXac4LsfYD80JqwKIeRtSbc36q2xrRbmkFVBXRbvZjJuy+iHEe2t2YafSxLGUvUSC@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx0W6EzxZVZ9g95EFxTCeCPMP12FOu/2sUXW9lXvAEKSkKfFqf+
-	FHysq7ooZR/VLhma9+4ptQa151w6NADiQW7qyP0dET8+jYrvJH5V7mO4nYrbmJL1cFtCUjoyryg
-	hMcpzTXas6WOt0Qq9jhsBDOUbHVIvkx3f0eJASCDcRg==
-X-Received: by 2002:a05:6512:4142:b0:5a4:e6:8fce with SMTP id
- 2adb3069b0e04-5a4172f609dmr2938573e87.38.1776675226584; Mon, 20 Apr 2026
- 01:53:46 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 20 Apr 2026 10:53:44 +0200
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 20 Apr 2026 10:53:44 +0200
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260416-qcom_ice_power_and_clk_vote-v5-4-5ccf5d7e2846@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gsXVQOFG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1776675792; x=1808211792;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=67VzqhbKwALZK7Y/a1nS8JCBjL6EyytkhYeRNCAq2JQ=;
+  b=gsXVQOFG1U1YvnmkMu2WPF5KOCi+0EypWY6iKikGiuknCYzia3uelgTG
+   1/L8Xn91iQthv2tsLuS1gyxJA421Ny0QqoRYf8VUEomHFIzIiDm6s6x+n
+   sKP9SLOour/UfBC+/i3jO1um2NrNmraMSQ2ZjJ+xdFOrsXNhVklsSBbtX
+   FFR9O5Ro70OkHR+rf8VHmATH52Mmcyd7vMna9SzA0DJ4rlx8nYxONH3R6
+   4OCAW5CiF6TWXmhhFzEMBONj4BAFL8nzhwxuVwiSXSmvY0O8CqE+bPaIx
+   TYgWZFzu+cfH1aZl9yL7RNtCi7suQVAXIfZJuJ9fkpYJMoMen4riyR9Px
+   g==;
+X-CSE-ConnectionGUID: fhKJ9cO4SM2/1FYpM5uggg==
+X-CSE-MsgGUID: gLNOwaIETBq+PxMYttxRCA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="88660178"
+X-IronPort-AV: E=Sophos;i="6.23,189,1770624000"; 
+   d="scan'208";a="88660178"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2026 02:03:11 -0700
+X-CSE-ConnectionGUID: /Jo1DNrzRje9XoL9qUsoLg==
+X-CSE-MsgGUID: f1k6+AIFQ6u+I4GhKmoegg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,189,1770624000"; 
+   d="scan'208";a="230634648"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.90])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2026 02:03:08 -0700
+Date: Mon, 20 Apr 2026 12:03:05 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Piyush Patle <piyushpatle228@gmail.com>
+Cc: jic23@kernel.org, ak@it-klinger.de, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: adc: hx711: add support for HX710B
+Message-ID: <aeXryRD34RLveqDi@ashevche-desk.local>
+References: <20260419174654.683692-1-piyushpatle228@gmail.com>
+ <20260419174654.683692-3-piyushpatle228@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260416-qcom_ice_power_and_clk_vote-v5-0-5ccf5d7e2846@oss.qualcomm.com>
- <20260416-qcom_ice_power_and_clk_vote-v5-4-5ccf5d7e2846@oss.qualcomm.com>
-Date: Mon, 20 Apr 2026 10:53:44 +0200
-X-Gmail-Original-Message-ID: <CAMRc=McE8YHGWuyRmJAt+x2mzMexgfz1zsnck6yYcupt-jcZtA@mail.gmail.com>
-X-Gm-Features: AQROBzACJ6Vdt_y2a3lRfsPW_8wLBcxtRDZ4npozYG3KDFhLtTX7xP1EwaHhPoM
-Message-ID: <CAMRc=McE8YHGWuyRmJAt+x2mzMexgfz1zsnck6yYcupt-jcZtA@mail.gmail.com>
-Subject: Re: [PATCH v5 04/13] arm64: dts: qcom: lemans: Add power-domain and
- iface clk for ice node
-To: Harshal Dev <harshal.dev@oss.qualcomm.com>
-Cc: Brian Masney <bmasney@redhat.com>, Neeraj Soni <neeraj.soni@oss.qualcomm.com>, 
-	Gaurav Kashyap <gaurav.kashyap@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abel.vesa@oss.qualcomm.com>, 
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
-	cros-qcom-dts-watchers@chromium.org, Eric Biggers <ebiggers@google.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>, Tengfei Fan <tengfei.fan@oss.qualcomm.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, David Wronek <davidwronek@gmail.com>, 
-	Luca Weiss <luca.weiss@fairphone.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Melody Olvera <quic_molvera@quicinc.com>, Alexander Koskovich <akoskovich@pm.me>, 
-	Abel Vesa <abelvesa@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260419174654.683692-3-piyushpatle228@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, 16 Apr 2026 13:59:21 +0200, Harshal Dev
-<harshal.dev@oss.qualcomm.com> said:
-> Qualcomm in-line crypto engine (ICE) platform driver specifies and votes
-> for its own resources. Before accessing ICE hardware during probe, to
-> avoid potential unclocked register access issues (when clk_ignore_unused
-> is not passed on the kernel command line), in addition to the 'core' clock
-> the 'iface' clock should also be turned on by the driver. This can only be
-> done if the UFS_PHY_GDSC power domain is enabled. Specify both the
-> UFS_PHY_GDSC power domain and the 'iface' clock in the ICE node for lemans.
->
-> Fixes: 96272ba7103d4 ("arm64: dts: qcom: sa8775p: enable the inline crypto engine")
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Reviewed-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-> Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
+On Sun, Apr 19, 2026 at 11:16:40PM +0530, Piyush Patle wrote:
+> The HX711 uses trailing SCK pulses after each 24-bit conversion to
+> select the channel and gain for the next measurement: 1 pulse gives
+> channel A at gain 128, 2 pulses give channel B at gain 32, and 3 pulses
+> give channel A at gain 64.
+> 
+> The HX710B works differently: gain is fixed at 128 and the trailing
+> pulses select only the channel. One trailing pulse selects the
+> differential input (channel 0, 10 SPS) and two trailing pulses select
+> the DVDD-AVDD supply monitor (channel 1, 40 SPS).
+> 
+> Refactor the driver around a per-chip hx711_chip_info structure so both
+> variants can share the same core. Each chip provides its own
+> iio_chan_spec array and iio_info pointer. The HX710B stores per-channel
+> trailing pulse counts in chan->address (1 for channel 0, 2 for
+> channel 1) instead of a separate array. A bool fixed_gain flag and
+> fixed_gain_val field in hx711_chip_info distinguish the fixed-gain path
+> from the HX711's user-selectable gain path without conflating unrelated
+> properties. The HX710B differential input channel is described with
+> .differential=1 and .channel2=1 as required by the IIO ABI.
+> 
+> Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
 > ---
->  arch/arm64/boot/dts/qcom/lemans.dtsi | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
-> index fe6e76351823..d83cad26a20f 100644
-> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
-> @@ -2758,7 +2758,11 @@ ice: crypto@1d88000 {
->  			compatible = "qcom,sa8775p-inline-crypto-engine",
->  				     "qcom,inline-crypto-engine";
->  			reg = <0x0 0x01d88000 0x0 0x18000>;
-> -			clocks = <&gcc GCC_UFS_PHY_ICE_CORE_CLK>;
-> +			clocks = <&gcc GCC_UFS_PHY_ICE_CORE_CLK>,
-> +				 <&gcc GCC_UFS_PHY_AHB_CLK>;
-> +			clock-names = "core",
-> +				      "iface";
-> +			power-domains = <&gcc UFS_PHY_GDSC>;
->  		};
->
->  		cryptobam: dma-controller@1dc4000 {
->
-> --
-> 2.34.1
->
->
+> Changes in v2:
+> - Fix pulse count bug: hx710b values were {25, 26} (total SCK cycles);
+>   corrected to {1, 2} (trailing-only, hx711_read() clocks 24 data bits)
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Which questions how it was tested...
+
+> - Add .differential = 1 and .channel2 = 1 to HX710B channel 0
+> - Move trailing pulse counts from a separate array to chan->address
+>   (1 for ch0, 2 for ch1); remove chan_pulse_count / num_chan_pulses
+> - Replace chan_pulse_count != NULL tests with dedicated bool fixed_gain
+>   flag; add fixed_gain_val field to hx711_chip_info
+> - Add const struct iio_info *iio_info to hx711_chip_info; probe sets
+>   indio_dev->info = chip_info->iio_info directly
+> - Remove NULL check after device_get_match_data()
+> - Remove reset_channel from hx711_chip_info (always 0; use literal)
+> - Change hx711_reset_read() and hx710b_set_channel() to take
+>   const struct iio_chan_spec * instead of int chan
+> - Revert hx711_data struct member alignment noise
+> - Restore trailing blank line at end of file (unrelated removal reverted)
+> - Sort of_device_id entries alphabetically (hx710b before hx711)
+> - Expand commit message to explain HX711 vs HX710B trailing-pulse model
+> - Restore file header to mention weight sensor modules
+
+...
+
+>  config HX711
+> -	tristate "AVIA HX711 ADC for weight cells"
+> +	tristate "AVIA HX711 and HX710B ADC"
+
+This won't scale. Better to put something like "and compatible".
+Also use plural "ADCs".
+
+>  	depends on GPIOLIB
+>  	select IIO_BUFFER
+>  	select IIO_TRIGGERED_BUFFER
+>  	help
+> -	  If you say yes here you get support for AVIA HX711 ADC which is used
+> -	  for weigh cells
+> +	  If you say yes here you get support for AVIA HX711 and HX710B ADCs
+> +	  which are used for bridge sensors such as weigh cells.
+
+Usually for the less churn in the future we list them one per line. This
+will give easier understanding of what is supported (keep them also sorted).
+
+	  If you say Y here you get support for the following AVIA ADCs:
+	    - HX710B
+	    - HX711
+	  which are used for bridge sensors such as weigh cells.
+
+>  	  This driver uses two GPIOs, one acts as the clock and controls the
+>  	  channel selection and gain, the other one is used for the measurement
+>  	  data
+>  
+> +	  The HX710B is a variant with fixed gain and a different channel
+> +	  selection scheme.
+> +
+>  	  Currently the raw value is read from the chip and delivered.
+>  	  To get an actual weight one needs to subtract the
+>  	  zero offset and multiply by a scale factor.
+
+...
+
+> - * HX711: analog to digital converter for weight sensor module
+> + * HX711/HX710B: ADC driver for weight sensor modules
+
+Use same as in Kconfig:
+
+ * HX711 and compatible ADCs driver for weight sensor modules
+
+ ...
+
+> +/**
+> + * struct hx711_chip_info - per-variant static configuration
+> + * @name: IIO device name
+> + * @channels: channel specification
+> + * @num_channels: number of channels
+> + * @iio_info: IIO info ops for this variant
+> + * @fixed_gain: true if the variant has a fixed ADC gain (e.g. HX710B)
+> + * @fixed_gain_val: the fixed gain value used to compute scale (when fixed_gain)
+> + */
+> +struct hx711_chip_info {
+> +	const char			*name;
+> +	const struct iio_chan_spec	*channels;
+> +	int				num_channels;
+
+Why signed?
+
+> +	const struct iio_info		*iio_info;
+> +	bool				fixed_gain;
+> +	int				fixed_gain_val;
+> +};
+
+...
+
+>  struct hx711_data {
+>  	struct device		*dev;
+>  	struct gpio_desc	*gpiod_pd_sck;
+>  	struct gpio_desc	*gpiod_dout;
+>  	int			gain_set;	/* gain set on device */
+>  	int			gain_chan_a;	/* gain for channel A */
+
+> +	int			channel_set;	/* HX710B current channel */
+> +	int			scale;		/* HX710B fixed scale */
+
+Check if those need to be signed.
+
+> +	const struct hx711_chip_info *chip_info;
+>  	struct mutex		lock;
+
+>  }
+
+...
+
+> -	for (i = 0; i < hx711_get_gain_to_pulse(hx711_data->gain_set); i++)
+> +	for (i = 0; i < trailing_pulses; i++)
+
+If 'i' is used only once here, it can be converted to
+
+	for (unsigned int i = 0; i < trailing_pulses; i++)
+
+>  		hx711_cycle(hx711_data);
+>  
+>  	return value;
+
+...
+
+> +	.num_channels	= ARRAY_SIZE(hx711_chan_spec),
+
+You also probably want to revisit inclusion block. At least follow IWYU in the
+code you added here, exempli gratia include array_size.h and types.h if not yet
+included.
+
+...
+
+>  	hx711_data->clock_frequency = 400000;
+
+Sounds like I2C or SD standard speed :-)
+
+Not sure, but can be also converted to use 400 * HZ_PER_KHZ (from units.h)
+in a separate change.
+
+...
+
+>  	hx711_data->data_ready_delay_ns =
+>  				1000000000 / hx711_data->clock_frequency;
+
+Side note, in a separate change you can use constants from time.h, id est
+NSEC_PER_SEC.
+
+...
+
+>  static const struct of_device_id of_hx711_match[] = {
+> -	{ .compatible = "avia,hx711", },
+> +	{ .compatible = "avia,hx710b", .data = &hx710b_chip },
+
+Please, split this to a separate change. So, first introduce the chip_info,
+then add your device support using given infrastructure.
+
+That said, you also can convert the driver to use guard()() from cleanup.h
+in a separate change.
+
+
+> +	{ .compatible = "avia,hx711",  .data = &hx711_chip  },
+>  	{ }
+>  };
+
+...
+
+> -MODULE_DESCRIPTION("HX711 bitbanging driver - ADC for weight cells");
+
+Ah, this removes crucial information. So, this driver probably just needs to
+use i2c_gpio?
+
+> +MODULE_DESCRIPTION("HX711/HX710B GPIO ADC driver");
+
+Use what is written in Kconfig.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
