@@ -1,34 +1,35 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B44539FCA6;
-	Mon, 20 Apr 2026 12:54:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CAAD39FCD6;
+	Mon, 20 Apr 2026 12:54:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776689680; cv=none; b=TX2oSgC2KfkBTQF8cqNiuojOWNjG3W8SyZjH7885KPnzcixyjNKHLHKnsVRE0isJL3dSoDed0tZLiFLbwDWNcxWZS/z1+VDIv2pt5xOMZ1fM86+LeuOtw2j0jzmTGO7cGe2mS8Mgreal60WEryOYJbCMzjrh5LpZxkEim9Furx4=
+	t=1776689681; cv=none; b=j1B62TJ0/A5D2g5FotXXqRxEPLmw6Nwnb5//Dxv2pfqgJRoEmuv5ZWR7gp6nQw6zIxTrU4drzF8+B3Dda8d2s5opjUmu+AGBWFiEJlqdVZGeJAXN3PZF6gxwZl6JxWqabRYF9zyjcB9T9XSizljM80O7mA6Hgegxwud9dnyFaxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776689680; c=relaxed/simple;
-	bh=fExIAih1V/hUxLXpMt7LVH1DfE+RqN2Y1ycWAegD0uk=;
+	s=arc-20240116; t=1776689681; c=relaxed/simple;
+	bh=Oiz5DcZZ+DuJWvzr1nBXRDeSsfJx63ROnXwUjMVTm5E=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rXeVAGAEpngb5v5+5etfIBUvl3ow835bOKKFuFkh7fOzpRRSNM8pE7CiTuyGAqpZQm0e8hGE8M/EEhcIM0AYB3DWqHqmFDgxBSWOUc/Sw5erb2nHL+DwbTw5FAzh3VEh2ASkMUnGaTQxm1omJ28As6L+wmUUYTaom7ElM+BMY5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=HngQQALN; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=etK/itwule7PgMcnu9KlGE1ruZEYwrVvKVYI+KiFuv5WbLvD5PuBGDkdnoPH5i0e7HJQEAAEnrjMkN3YPjmOiPnN4TFZlpnDbW6nLv8WlE6BEAmn0KVuwVtRBpUNlblyby+rp0ICcfSJcEXbO8KH0j0nw0mSar31OuvQXmcuYgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Z0fQarDf; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="HngQQALN"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Z0fQarDf"
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9C9792677;
-	Mon, 20 Apr 2026 14:52:58 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BC1CF2686;
+	Mon, 20 Apr 2026 14:52:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1776689579;
-	bh=fExIAih1V/hUxLXpMt7LVH1DfE+RqN2Y1ycWAegD0uk=;
+	s=mail; t=1776689580;
+	bh=Oiz5DcZZ+DuJWvzr1nBXRDeSsfJx63ROnXwUjMVTm5E=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=HngQQALN8W5cp1iABKNlfrEY1iO0zLyhduFC0O5EjsjD3ewMFKyYcDmUargaq1OYT
-	 mmwBivFjYsQ4FbaJa5dpfduQiWTuPgEjqZy7VH4TeoBCkTTYpbkuxICCpxgc1xSlaT
-	 E7eZStwzRosl9DuPTBz0Gk+gjMoMQOcFrGA7/Ifw=
+	b=Z0fQarDfz5TN93BteK/73IdldZ9LSM3BkYAPYPyadjRjphF0n0nLgPURDQ+GoCUh0
+	 L6or1eF7gl+byO1t6xYfQw/k3mo9LCDJzsN5X0X116nE46co+zCrka0ogDwDhKFMlo
+	 ItUI1h8rqsgsbE9FQE2iCflhcIRl1rRnxFm4HB0g=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Mon, 20 Apr 2026 15:54:09 +0300
-Subject: [PATCH 02/15] dt-bindings: display: ti,am65x-dss: Simplify binding
+Date: Mon, 20 Apr 2026 15:54:10 +0300
+Subject: [PATCH 03/15] dt-bindings: mfd: syscon: Add
+ ti,am625-dss-dpi0-clk-ctrl compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,7 +38,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260420-beagley-ai-display-v1-2-f628543dfd14@ideasonboard.com>
+Message-Id: <20260420-beagley-ai-display-v1-3-f628543dfd14@ideasonboard.com>
 References: <20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com>
 In-Reply-To: <20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -53,126 +54,91 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.15-dev-c25d1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4076;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3164;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=fExIAih1V/hUxLXpMt7LVH1DfE+RqN2Y1ycWAegD0uk=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBp5iIDVQka58bN3HLS4c+NlZswqixlG/xqmGICs
- ymyuvYjy2uJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaeYiAwAKCRD6PaqMvJYe
- 9aGsD/9n256V6XjrpI6lnUsY3QZ9Uin8/hpZ2dn2RxWzS6WIJkT5ak5+hUNTBUeGgRbAe+7AUvR
- J5L/zug7O2P7r4DCiy6rfGyvvGg72AWaaehgIjfME8pyp4lpBNcDnPDobS1kAjHt7nH8pOIxTs4
- wc+P4yppYNaFuLlBp2gWLrzGLSjZ9cEi1lAf+5LjP15SMqUYmzF3ka0fOjiv9WGFB6huFo8wgtJ
- fhrNybFqE4iDNLvfNY3ZhZwdpoISSQMaV9ZRkDEriGDefrF3dtrc9uI/sGw+Z5whWYHg8GFWkvH
- JmVkCFkFYE9d75hdbuKZvBjwNRwkGKPro0CoJlGqUjg8QFmLUZonasd6atlWrhWwFFUlCSz+Fvm
- rDFwE+WBvZKY/a567XZghGqkUv0ych5zbDp9/ciUGYFaLsDJtBcnS+0bjJJM1j1Ov4OxGveOnCE
- jpoh0zcIvAXrKYII7QArV90f5M/hpS1IuveCPmgxQIXX8MIySviHcRkEJhI+7KwhDPLVgBAhg5f
- XBrEZLCcGn5riJxaI3tyGgl6N9LC0EWRLtgGscs08mbneFGnMuRHvByKi2PGGscoetEULbgwp6z
- k3DHBGtk+fPfp54uO+tpEzRpEzWLBM4BiASygc703zmKVHHeS2xzZvUs7ZBOwuD7rHeltN6GVvI
- 5nYYmydQj26sqzw==
+ bh=Oiz5DcZZ+DuJWvzr1nBXRDeSsfJx63ROnXwUjMVTm5E=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBp5iID3mds9SIGbvEfz3naXxh1VwFLf/K4KaPwa
+ DniCJqKzDCJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaeYiAwAKCRD6PaqMvJYe
+ 9RM2D/99FJ31zzsAadlo21e9gejFxnhb5q1nSdT9HU2ATpl2ylnO+m4rEbuSDHt+W+w/Ivk63Ec
+ ylN4TYhj6N3SfQEabifUg+O1y/Qe50x8Be2MpHa+Vwh6F0+q/ANwHxRd/z9RucYf/xyJSbo7Bau
+ S9koUaHDktjz5200XA2nqTmlGamu4PSWMHqC2z6fkUV0GJkeKQDLY0jp3ulKJDbmsMHl+809IZ+
+ EZP3nw0fJ3m1jN3/LY3pEgFRC5FIQEEreaRstmsszYDJKbopK7o7pkdIgc4hC1ZAkrGoMmvWhGi
+ H8uD1YXL38SRyPYO50IcJaQqAWGirG+G11t2BOEjBGbHKl2si9J05ZOD93jyKOGG9kKgiVbd0OS
+ Aik5EpIOWj5WitSWdWtNNPs5fW1fGrLv4eBZaHbML9Y9MndsVSsJgvCVvOxFKafoG1UEVQM5an3
+ eR7LLDUB5uL6I9qKRbZ8gtEQ4YYo2vvOT16m+V2TmOUlE6xdwhmheu9tatOxG8W0FPeZ+qWFSoC
+ BrijYGMsJYYF6wO4VpUWJEKRoxfJ6XTWHv3Aygijv0b1uMlFPtGAeTuWESTJ+MAAmUramda0ag+
+ 2g4xzVY7NZk5HVGT31A2oPj7BcYhg9+xQSWy1WpskMY4pOK+yX/Y7O9O8VhwP3Y/1Nz0AZfC//J
+ pIZU1A49H0xqAfA==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-In principle the DT binding for the DSS IP should mainly cover the DSS
-IP. The current binding also covers the SoC integration topics outside
-the DSS, mainly via the endpoint related rules and descriptions.
+The DPI output pipeline in K3 SoCs contains the display subsystem (DSS)
+which produces the in-SoC parallel video signal, and a DPI block which
+adjusts the signal to the external MIPI DPI output.
 
-A more recent SoC, AM62P, has two instances of the DSS IP, and while
-both DSS IPs are identical, they are integrated slightly differently
-(e.g. which DSS output goes to an in-SoC DSI bridge, which goes to
-DPI pins, etc.).
+The DSS IP has registers to configure whether the data and sync signals
+are driven on rising or falling clock edge, and on some SoCs these are
+automatically conveyed to the DPI block which needs that configuration
+to properly output the MIPI DPI signal.
 
-To make the bindings usable for both DSS instances, relax the binding
-slightly: remove the explicit endpoint rules, and generalize the
-descriptions.
+However, on some SoCs the DPI block configuration has to be done
+manually, using an extra register outside the DSS, DPI0_CLK_CTRL in
+MAIN_CTRL_MMR_CFG0 block, which controls the DPI block's behavior. Note
+that while the register is named "CLK_CTRL", it's not really related to
+clocks, but the sync and data signals.
 
+Currently the DPI0_CLK_CTRL is never written, so it's always 0, meaning
+the data and sync are always driven on a rising clock edge regardless of
+the DSS configuration.
+
+DPI0_CLK_CTRL register seems to be an independent "quirk" register,
+inside MAIN_CTRL_MMR_CFG0 block, which contains general purpose system
+registers. The registers surrounding DPI0_CLK_CTRL seem to be controlled
+by the system firmware or linux clock drivers. So, it is just this
+single register we can map, and we can't create a syscon node for the
+whole (or big parts of) MAIN_CTRL_MMR_CFG0.
+
+I see two options to handle the register:
+
+1) We could add that single register to the DSS binding as a new reg
+   block. That feels wrong, as it's not a DSS register.
+2) Add it as a syscon node, which can then be used by tidss driver.
+   It is a bit silly to create a syscon node for a single 32-bit
+   register, though.
+
+Neither option feels good, but I do lean towards the latter approach.
+
+Add 'ti,am625-dss-dpi0-clk-ctrl' compatible to syscon.yaml so we can add
+the syscon node for the register.
+
+Original patch from Louis Chauvet <louis.chauvet@bootlin.com>
+
+Link: https://e2e.ti.com/support/processors-group/processors/f/processors-forum/1228207/am62a7-rgb-display-flickering-and-pixel-issue/
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- .../bindings/display/ti/ti,am65x-dss.yaml          | 55 ++++++++--------------
- 1 file changed, 20 insertions(+), 35 deletions(-)
+ Documentation/devicetree/bindings/mfd/syscon.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-index 75d9640398f0..588d72d4ec0d 100644
---- a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-+++ b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-@@ -12,12 +12,21 @@ maintainers:
-   - Tomi Valkeinen <tomi.valkeinen@ti.com>
- 
- description: |
--  The AM625 and AM65x TI Keystone Display SubSystem has two output
--  ports and two video planes. In AM65x DSS, the first video port
--  supports 1 OLDI TX and in AM625 DSS, the first video port output is
--  internally routed to 2 OLDI TXes. The second video port supports DPI
--  format. The first plane is full video plane with all features and the
--  second is a "lite plane" without scaling support.
-+  The Display Subsystem (DSS) used in e.g. AM65x and AM625 SoCs has two output
-+  video ports (VP) and two video planes. The integration varies from SoC to SoC,
-+  affecting the routing of the video ports.
-+
-+  The first plane is full video plane with all features and the second is a
-+  "lite plane" without scaling support.
-+
-+  On AM65x, the first VP has an integrated OLDI TX, thus the first output port
-+  is OLDI output. The second VP is routed to external MIPI DPI pins.
-+
-+  On AM625, the first VP is connected to two OLDI TX instances, and the second
-+  VP is routed to external MIPI DPI pins.
-+
-+  On AM62A7, the first VP is tied off in the SoC, and the second VP is routed to
-+  external MIPI DPI pins.
- 
- properties:
-   compatible:
-@@ -85,34 +94,15 @@ properties:
-     properties:
-       port@0:
-         $ref: /schemas/graph.yaml#/properties/port
--        description:
--          For AM65x DSS, the OLDI output port node from video port 1.
--          For AM625 DSS, the internal DPI output port node from video
--          port 1.
--          For AM62A7 DSS, the port is tied off inside the SoC.
--        properties:
--          endpoint@0:
--            $ref: /schemas/graph.yaml#/properties/endpoint
--            description:
--              For AM625 DSS, VP Connection to OLDI0.
--              For AM65X DSS, OLDI output from the SoC.
--
--          endpoint@1:
--            $ref: /schemas/graph.yaml#/properties/endpoint
--            description:
--              For AM625 DSS, VP Connection to OLDI1.
--
--        anyOf:
--          - required:
--              - endpoint
--          - required:
--              - endpoint@0
--              - endpoint@1
-+        description: |
-+          AM65x: OLDI output from video port 1
-+          AM62A7: Not available, tied off inside the SoC
-+          Other SoCs: Parallel video from video port 1
- 
-       port@1:
-         $ref: /schemas/graph.yaml#/properties/port
-         description:
--          The DSS DPI output port node from video port 2
-+          Parallel video from video port 2
- 
-   ti,am65x-oldi-io-ctrl:
-     $ref: /schemas/types.yaml#/definitions/phandle
-@@ -168,11 +158,6 @@ allOf:
-     then:
-       properties:
-         oldi-transmitters: false
--        ports:
--          properties:
--            port@0:
--              properties:
--                endpoint@1: false
- 
- required:
-   - compatible
+diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
+index e57add2bacd3..415cc21fd328 100644
+--- a/Documentation/devicetree/bindings/mfd/syscon.yaml
++++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
+@@ -126,6 +126,7 @@ select:
+           - ti,am62-opp-efuse-table
+           - ti,am62-usb-phy-ctrl
+           - ti,am625-dss-oldi-io-ctrl
++          - ti,am625-dss-dpi0-clk-ctrl
+           - ti,am62p-cpsw-mac-efuse
+           - ti,am654-dss-oldi-io-ctrl
+           - ti,j784s4-acspcie-proxy-ctrl
+@@ -239,6 +240,7 @@ properties:
+               - ti,am62-opp-efuse-table
+               - ti,am62-usb-phy-ctrl
+               - ti,am625-dss-oldi-io-ctrl
++              - ti,am625-dss-dpi0-clk-ctrl
+               - ti,am62p-cpsw-mac-efuse
+               - ti,am654-dss-oldi-io-ctrl
+               - ti,j784s4-acspcie-proxy-ctrl
 
 -- 
 2.43.0
