@@ -1,86 +1,128 @@
-Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
+Received: from out28-219.mail.aliyun.com (out28-219.mail.aliyun.com [115.124.28.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7545837FF43;
-	Mon, 20 Apr 2026 06:19:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=138.232.1.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104483815F8;
+	Mon, 20 Apr 2026 06:22:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776665976; cv=none; b=JV4bBdumjNb/0A/8kCHR/skctM1oRg6gLybCMMocFYLiQplNysFv2LSOTBVSIx1SxCcy9zSrtUIMFtvxYJB8XaaRE3pCPpmHRKv1Zdo4RPoLXrr9LfCEGS42ROl1Xg/hpfXfVti1kVURYSnzOwARNBiiSr2UIndBXVK/rwrLJz4=
+	t=1776666137; cv=none; b=LY+TW1RBMENJN3wDm6q/dzklVj/ZEA0C0TcrBlGD6QGZzDbND5sW7WzyQdUFWCq64jiJQy94jDkRDzN5TpfZZV8iqJlhYnQ9kxnxeiiXZ/l8R/ARBCiFJZo/yctRALExjQigo8SOSoNWWPMTA4Ogomhel6VtqsJBEeiS9ArsBLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776665976; c=relaxed/simple;
-	bh=9TLHe5jIWPEFNCzIQ5w2v9G5Grh/KlzrW8PTeyzoiaU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=G5m5t3eNoKii75XbTVQCoU22aRM0jkCGpb+u2fuovL79jRbP6NgX0EZF0TnyNUO/qwncTOckzeYWJYcomISO5GKa3kKeCKc0ryGQVWMX09jBx2YwPIjbXKb8czarqhqoTgMJ8XwL//hpXIF+3QEDXsn0HclgYjBY/mkYu+qAk10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at; spf=pass smtp.mailfrom=student.uibk.ac.at; dkim=pass (1024-bit key) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.b=cYvsKqJK; arc=none smtp.client-ip=138.232.1.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
+	s=arc-20240116; t=1776666137; c=relaxed/simple;
+	bh=aSzx8ligpJz+V1IfmgO27fs8nAFy4undncnvBb3GN2M=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=usseVRe9N/lMx7t7ipIgieA1RDGLvKPuOU9KmAuNuSlH9drlj76WP5vzm0fsc2CIB7hK6mX4A9ozpya+fg5G4FKpeDmlHTu9J1c6y8dZXyo8qd5rMOKH/PWVpRiR36IaQSTYzqwfJwpLb/hhnzoHYk7zFkgeJxJSpPlz1QbA3JE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=eywXAyTF; arc=none smtp.client-ip=115.124.28.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.b="cYvsKqJK"
-Received: from surface-pro-5.uibk.ac.at (ydWLT-U1-7-16.uibk.ac.at [172.25.7.16])
-	(authenticated bits=0)
-	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 63K6Ito71297669
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Mon, 20 Apr 2026 08:18:57 +0200
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 63K6Ito71297669
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
-	s=prod24a; t=1776665938;
-	bh=pu7HWhTqWQ7BHlILw0Z+vWuQ8U236tlaz1nProDAHKs=;
-	h=From:To:Cc:Subject:Date;
-	b=cYvsKqJKSLTcwHL9tkPzvzh9V52iR2k44mmV8grFJL983e7DbzToqAJ2ecPio6WhG
-	 8G4Zd8EQnW1nf4K0q5jQYRdBAtlN11cbSw0Ak3HxD5wgB5fCILlJwwN+uTbkF8TOPa
-	 w47mSqGtZ0s7lUECXVgsfL5iveJYFOS5usPWGrwY=
-From: christian.koever-draxl@student.uibk.ac.at
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        neil.armstrong@linaro.org, khilman@baylibre.com
-Cc: jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
-        funderscore@postmarketos.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-amlogic@lists.infradead.org,
-        christian.koever-draxl@student.uibk.ac.at
-Subject: [PATCH v2 0/2] Add support for Amediatech X98Q (Amlogic S905W2)
-Date: Mon, 20 Apr 2026 08:18:52 +0200
-Message-ID: <20260420061854.5421-1-christian.koever-draxl@student.uibk.ac.at>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="eywXAyTF"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=lontium.com; s=default;
+	t=1776666131; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
+	bh=fz8ZCV6KPGHfcgLZir30aImQqrHMaqA6nm9Cs0iqeIw=;
+	b=eywXAyTFf/GUvfoHBQBKwWchBnhWxAdz737vaxzxKZ6T+sf3zoKfrHgZ5Fn16yKj45HX9D//67JnQuhW/Qbs14oc00qtedjn2S0dQQbR08i+bga5dQHoH9Y/wiZMlCzCQu2RrPFsAOLYpk7zWHr5xGgwgR8oD5woVFaRgw+1VAPuJf8AuvQrjf1RZPmfwo/9kPO+dazYeSjZ757ORkWE2HXKpYozEZjdgoo1Y4knEdEpG8JW7MdNlUN0lZQ9utV14Jo2eJzEHi1MJAzRhJNBNGdWKgKtvp3TAgrVmKv9lHDpK4zYyu4EjSTzKg1oTKRUtNIEHnx6eEjXWR19sT4wug==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.09271921|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0545463-0.00504074-0.940413;FP=10089197397812664209|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045220102;MF=syyang@lontium.com;NM=1;PH=DS;RN=19;RT=19;SR=0;TI=SMTPD_---.hFz0LvD_1776665808;
+Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.hFz0LvD_1776665808 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 20 Apr 2026 14:16:50 +0800
+From: syyang@lontium.com
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	dmitry.baryshkov@oss.qualcomm.com,
+	maarten.lankhorst@linux.intel.com,
+	rfoss@kernel.org,
+	mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	tzimmermann@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	yangsunyun1993@gmail.com,
+	xmzhu@lontium.corp-partner.google.com,
+	Sunyun Yang <syyang@lontium.com>
+Subject: [PATCH v3 1/2] dt-bindings: bridge: This patch adds new content  to the lontium,lt9611.yaml binding file
+Date: Mon, 20 Apr 2026 14:16:43 +0800
+Message-Id: <20260420061644.1251070-2-syyang@lontium.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260420061644.1251070-1-syyang@lontium.com>
+References: <20260420061644.1251070-1-syyang@lontium.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0*
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: () -11.0 ALL_TRUSTED,BOGUS_MIME_VERSION,RCV_SMTP_AUTH,RCV_SMTP_UIBK,UIBK_PHI_SUBJ,U_H_APTO_LONG,U_RCPTS_11_PLUS
-X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
 
-From: Christian Stefan Kövér-Draxl <christian.koever-draxl@student.uibk.ac.at>
+From: Sunyun Yang <syyang@lontium.com>
 
-Supported features:
-- 1GB/2GB RAM (via U-Boot memory fixup)
-- 10/100 Ethernet (Internal PHY)
-- eMMC and SD card storage
-- PWM-based CPU voltage regulation
-- UART (Serial console)
+Add lt9611c,lt9611ex,lt9611uxd to the lontium,lt9611.yaml file.
+LT9611C(EX/UXD) is a high performance Single/Dual-Port MIPI to
+HDMI 1.4/2.0 converter:
 
-Changes in v2:
-- Split dt-bindings and dts changes into separate patches.
-- Updated model string to match documented vendor prefix.
-- Put vddio_sd states array in a single line.
-- Added a clarifying comment for the unsupported Amlogic W150S1 Wi-Fi module.
+-Single/Dual-port MIPI DSI Receiver
+ 1. Compliantwith D-PHY1.2&DSI-2 1.0
+ 2. 1/2configurable ports
+ 3. 1 clock lane and 1/2/3/4 configurable data lanes per port
+ 4. 80Mbps~2.5Gbps per data lane
+ 5. Support RGB666, loosely RGB666, RGB888, RGB565,16-bit YCbCr4:2:2
 
-Notes:
-- The console uses uart_b at 921600 baud.
-- Verified memory via /proc/device-tree; U-Boot patches the node to around 2GB.
-- Tested on the 2GB RAM plus 16GB eMMC variant.
+-HDMI 1.4/2.0 Transmitter
+ 1.Data rate up to 6Gbps
+ 2.Support HDCP1.4/2.3
+ 3.Support CEC,HDR10
+ 4.Support lane swap
 
-Christian Stefan Kövér-Draxl (2):
-  dt-bindings: arm: amlogic: add X98Q compatible
-  arm64: dts: amlogic: add support for X98Q
+-audio
+ 1.sample rates of 32~192 KHz and sample sizes
+   of 16~24 bits
+ 2.SPDIF interface supports PCM, Dolbydigital, DTS digital audio
+   at up to 192KHz frame rate
 
- .../devicetree/bindings/arm/amlogic.yaml      |   7 +
- arch/arm64/boot/dts/amlogic/Makefile          |   1 +
- .../boot/dts/amlogic/meson-s4-s905w2-x98q.dts | 250 ++++++++++++++++++
- 3 files changed, 258 insertions(+)
- create mode 100644 arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
+-Miscellaneous
+ 1.CSC:RGB<->YUV444<->YUV422
 
+Signed-off-by: Sunyun Yang <syyang@lontium.com>
+---
+ .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+index 429a06057ae8..a67e63a5c87e 100644
+--- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+@@ -4,19 +4,23 @@
+ $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
++title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI to HDMI Bridge
+ 
+ maintainers:
+   - Vinod Koul <vkoul@kernel.org>
+ 
+ description: |
+-  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
++  The LT9611、LT9611UXC、LT9611C、LT9611EX and LT9611UXD 
++  are bridge devices which convert DSI to HDMI
+ 
+ properties:
+   compatible:
+     enum:
+       - lontium,lt9611
+       - lontium,lt9611uxc
++      - lontium,lt9611c
++      - lontium,lt9611ex
++      - lontium,lt9611uxd
+ 
+   reg:
+     maxItems: 1
 -- 
-2.53.0
+2.34.1
 
