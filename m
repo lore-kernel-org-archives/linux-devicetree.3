@@ -1,97 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D71A22A817;
-	Mon, 20 Apr 2026 15:30:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFBF022A817;
+	Mon, 20 Apr 2026 15:33:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776699042; cv=none; b=RSVS0KTylireCkI1vGGa6tkkSOs8c1HybpcB5lEl5dm4KSAoxA9yKh3iRAyIcnRwYyQDdUmcHA5/E1dQsaPbScghvvySMlv3seUF0mdd6Wgzu5a+YZtp4b3a1Q5GcblDuI5uBxq/kd/SdumvENqT0t2n+p5kSmYpzPKOZJgHedY=
+	t=1776699217; cv=none; b=f65RuExYNbQoXKIvtyb7O0S9AOnb8Qr8zyFnLLvDnrOHzeLo3DgWCUAaewCrHOQ52IsG3yMfIR8ZZbR/UopJah5ll6S1O4hYw5OFomaGRg1MxruDiphAsQqLHfUB//sRC62YwBQcA9PIv84SgUo9jVly49xzQqs0GSyJBKuP2og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776699042; c=relaxed/simple;
-	bh=MW3RsSyElgNabblIUb1Mg6MJ+SH2M6LiGmW1DzajLao=;
+	s=arc-20240116; t=1776699217; c=relaxed/simple;
+	bh=Kjn532amPlaxRPE+ZdGcJATDJi/VPSFQUdv5WzNh3iQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kf1jZmKWo9JFMRP/42UOOP4RwohcCR+q3LX2WOkuQEUx7uwPm3EmoRAGBN2ZNr8FGzc/mch2AW6VJzXZ4o3SumAozy9dsxStNy/NWtUtOxn+mctnP5dCVSazxwjstiQ4k4GvkmCUROUEYcNEogvHkiNFPwJWig02IR/PIQNxVSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CMaiKEv7; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=oyYxSVzSmXBeX+AEfSSmtFWDUoXBl4+XMdI2yH9w+SgzRR4AyH+fqxm83+qdLmHccSziQ5zQ38sHGH/3ls9CLU0qGPdWL6T1usISvRRZXcAw3Uh6HJxBALOOCfnCoQQLTNajlp8NEI3EzJfSaWcdIF4+vY0x026gEMlURJKkkiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J11F5QCY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CMaiKEv7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3EA3C19425;
-	Mon, 20 Apr 2026 15:30:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J11F5QCY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB776C2BCB6;
+	Mon, 20 Apr 2026 15:33:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776699041;
-	bh=MW3RsSyElgNabblIUb1Mg6MJ+SH2M6LiGmW1DzajLao=;
+	s=k20201202; t=1776699217;
+	bh=Kjn532amPlaxRPE+ZdGcJATDJi/VPSFQUdv5WzNh3iQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CMaiKEv7ZS7BLhkT2rfutsuWwbsIUP+7CqHrowUsuIeMLjpw8FNuWiTEcaXO9GHRj
-	 y8prUI/MGvu1AkYouPPi24RYaYnvFDTbwjxAh0UduKAGI6FoJqD7I/jNt0muoFw4zs
-	 2l9sPULFkdIqcPnlW1/spt3hWwyewO7U4pbW3vzw2gIrnhLJVFknG9OmN98jSFRwcX
-	 5Bs3Z46LJGG4aKXQtEHH5JnLSchqYlVKBKSg3Qxq4KzfirPQyMri0BnU6Ku0OScviY
-	 usBUfsO38ng56yaQgw5vbmjXrWwCXyK5pbfo6lcAkLc9ybQJo4gvtGhcYduW+Wst0t
-	 zl4pjlNAjkTpQ==
-Date: Mon, 20 Apr 2026 16:30:36 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Emil Renner Berthing <kernel@esmil.dk>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] riscv: dts: starfive: jh7110: Drop CAMSS node
-Message-ID: <20260420-cheating-boned-565f4c8d1333@spud>
-References: <20260420-starfive_camss_use-v1-1-ec326af71ca7@ideasonboard.com>
+	b=J11F5QCYiqW9f+FhXzUDFhRkgicfaczvTTTau4KaRSn4neTbdcCd30wvVz/YZ1xCe
+	 oqPzbdI7kX/dtrKjpsCniam/m5IYQjV9mnNscDlUPk1jxAJf+XG2db3Q3W0JLWMigt
+	 tCfZHRso3vpYoNYVcPdfu2ZWNzQfmRpdjfabXCibgYFVndLyK+D49fJhW9hd6qbbzn
+	 LZtYOXco0BhQ2tuyTBhBreacs4LEtyimjQIUSdpkiNbl1uQb+WFncUtq/cm78GpJ8L
+	 orroCGJd+BUumTBtViNQ/EByhVV4NsxbKCyR5kzZywq3H5uWtys5+FDxtqotCSOmuk
+	 PquIH7zpKJr8g==
+Date: Mon, 20 Apr 2026 17:33:34 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Minda Chen <minda.chen@starfivetech.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Emil Renner Berthing <emil.renner.berthing@canonical.com>, Rob Herring <robh+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor@kernel.org>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	devicetree@vger.kernel.org
+Subject: Re: [net-next v2 2/5] dt-bindings: net: starfive,jh7110-dwmac: Add
+ JHB100 support
+Message-ID: <20260420-messy-elite-panther-a7ffbc@quoll>
+References: <20260417024523.107786-1-minda.chen@starfivetech.com>
+ <20260417024523.107786-3-minda.chen@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uanZ6hPS9qrdKIWI"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260420-starfive_camss_use-v1-1-ec326af71ca7@ideasonboard.com>
+In-Reply-To: <20260417024523.107786-3-minda.chen@starfivetech.com>
+
+On Fri, Apr 17, 2026 at 10:45:20AM +0800, Minda Chen wrote:
+> Add StarFive JHB100 dwmac support and compatible.
+> The JHB100 dwmac shares the same driver code as the JH7110 dwmac,
+
+Please describe the hardware or programming interface, not driver code.
+
+> which contains 2 SGMII interfaces, 1 RGMII/RMII interface and
+> 1 RMII interface.
+> JHB100 dwmac has only one reset signal and one main interrupt
+> line.
 
 
---uanZ6hPS9qrdKIWI
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Drop all below, not relevant.
 
-On Mon, Apr 20, 2026 at 06:48:07PM +0530, Jai Luthra wrote:
-> The starfive-camss driver and bindings were dropped, as they were no
-> longer being worked upon for destaging.
->=20
-> Drop the relevant node as well to avoid the following build warning:
-> "failed to match any schema with compatible: ['starfive,jh7110-camss']"
->=20
-> Fixes: 644673fc8fb04 ("media: dt-bindings: Drop starfive,jh7110-camss fro=
-m staging")
-> Reported-by: Conor Dooley <conor@kernel.org>
-> Closes: https://lore.kernel.org/all/20260420-very-cartel-645595ffd1c7@spu=
-d/
-> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> 
+> Please refer to below:
+> 
+> JHB100: reset-names = "stmmaceth";
+> 
+> Example usage of JHB100 in the device tree:
+> 
+> gmac0: ethernet@11b80000 {
+>         compatible = "starfive,jhb100-dwmac",
+>                      "snps,dwmac-5.20";
+>         interrupts = <225>;
+>         interrupt-names = "macirq";
+>         ...
+> };
+> 
+> Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
 > ---
-> Ideally this patch should have gone in the original series, before the
-> one that dropped the bindings which is now merged in mainline.
->=20
-> I've added a Fixes tag so it gets picked in the RC cycles for 7.1.
+>  .../devicetree/bindings/net/snps,dwmac.yaml   |  1 +
+>  .../bindings/net/starfive,jh7110-dwmac.yaml   | 23 +++++++++++++++++++
+>  2 files changed, 24 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> index 38bc34dc4f09..85cd3252e8b1 100644
+> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> @@ -115,6 +115,7 @@ properties:
+>          - sophgo,sg2044-dwmac
+>          - starfive,jh7100-dwmac
+>          - starfive,jh7110-dwmac
+> +        - starfive,jhb100-dwmac
+>          - tesla,fsd-ethqos
+>          - thead,th1520-gmac
+>  
+> diff --git a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+> index 0d1962980f57..edc246a71ce3 100644
+> --- a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+> @@ -18,6 +18,7 @@ select:
+>          enum:
+>            - starfive,jh7100-dwmac
+>            - starfive,jh7110-dwmac
+> +          - starfive,jhb100-dwmac
+>    required:
+>      - compatible
+>  
+> @@ -30,6 +31,9 @@ properties:
+>        - items:
+>            - const: starfive,jh7110-dwmac
+>            - const: snps,dwmac-5.20
+> +      - items:
+> +          - const: starfive,jhb100-dwmac
 
-I don't believe this fixes tag is appropriate, so I will drop it on
-application. Doesn't really make sense to cite a binding patch as being
-the problem with a dts.
+So that's an enum in previous "items" list.... but your commit msg said
+your devices are compatible, so confusing.
 
---uanZ6hPS9qrdKIWI
-Content-Type: application/pgp-signature; name="signature.asc"
+Best regards,
+Krzysztof
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeZGmAAKCRB4tDGHoIJi
-0sdxAP43lJ5khIEciJ/TwVWkyDjMFYgzFRZHg0ND+AmOYgV4ngEAvXpTvg9NuAqG
-HtDd38hqYSEG+6nZy4+nt5wCmLTmQwU=
-=+xQP
------END PGP SIGNATURE-----
-
---uanZ6hPS9qrdKIWI--
