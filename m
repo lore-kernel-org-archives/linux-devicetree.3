@@ -1,91 +1,111 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36E8538DF9
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 01:11:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2111A9F9B;
+	Mon, 20 Apr 2026 01:13:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776647498; cv=none; b=tHcgPbVSIItzW3w+outyftUocVRteOujX+HhZz3CmunpYSRKPan8cdN7Hk9aq8y6evn+cXpHBfa7zRnEUkJ/bsTIaNUuElKjIMYNi1VXsyF9jAaWcy/FLe80t3NAShnTHb3cr91Yv8al01PMysIjBRrXSiVaFbg4sSBdRfs5+Z4=
+	t=1776647596; cv=none; b=lbJPy71vLw+4Dmn7xlbt/E0SMoYQaM7afR3sijSznye8tMOPKBY+7uU7/vDTGTNX2dGZLqQo2wvrMGeoVqagSHJTNOO1UuPeUIclF2UQlPh39ukblcnpxRpeYX+NaHWTCESNF6Btkj8C5a/jrCVT45JGW/AJ2bl7tCLLTbONlaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776647498; c=relaxed/simple;
-	bh=C0aW81I3StTCcJXehP69KLFeqWnD+swGwk+Y2hOVrM8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nNqALjFw8FXwMnLU4Z39kKCeXmBFakr2kfoIOzryTamfAtXwCWvE4XARABuotiQOEGDKbS9I3tnzBQRFoezg17zfgmY0IGsn12hDYgIkmUaD3ns/fZOkNansCUURlhIRm+/hq06z2tqY6OLm7KdY/kq8s1UOe9gRjxVvAFei4GQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gompa.dev; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.210.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gompa.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7dc51aa8926so1094221a34.3
-        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 18:11:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776647495; x=1777252295;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=C0aW81I3StTCcJXehP69KLFeqWnD+swGwk+Y2hOVrM8=;
-        b=XpOvUEIUl/75+CnEKLzTXmf6ZWobBSduy/T5SdfoAWbZfDPTywUSVFszXxgRbRt3cn
-         aonpyNVBd4UnJyPGt5kAWXvt2TtN/TUmENeocsZhogpa7sTj91A9tq4UMTbuJs75UPa2
-         DTh3W2uRAmuxEafkTOw5bMQewUYtrGOpreBwL/ilrch+POg+fxcKrGlaiJbaFMzNUIhC
-         pJgCwhyslM1IaewKLrM9E2oq7mBaxqvfWdbsF0JEon/NUSTgU2DFi8MLCnaDPH7Z2A9H
-         R+giN06dSC+/BbwCRhlulsfJNy8cwYgStcSNALTKblBjH5nFWPxhGw4e+l8c3gNjvz7h
-         q9LQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/f7t6bMkkKHKZ2lfk2qB7j1KlelHIGQxFkQcOXi6HVKDHFDspiF0Ny5c0OGWSX6h+1hTH55q0hY4H+@vger.kernel.org
-X-Gm-Message-State: AOJu0YzpIm8wTK1QxmCTpbHD9zUDBn5YDT+YW+TDSRYRjmhADfb5E4tj
-	oaOlSnHACL5llvuU94iVf+p8wwMDjCEkk6Es8Dn0yofowt1c/9TIB+yYeaY0Rw==
-X-Gm-Gg: AeBDietmwF/CcF3EfapuzV6RHvuECwzR3tCWUk3ixRZFZeYylZuX8ZlL8nwIFuKdVNG
-	8VkA1PUzPHaw4RZalYqRQUBM5QHN8UR/5PDwbJlT7MOzZPgG+CKKXExr0PTtUKtN3kA9KGxBNs9
-	JvUxb3al2FfmZaqUqSv45z091PA5RyMZxuwFyO6KYLGfwNgrA8jcufw17f/rZKM1RjaJq4+JzRD
-	ERmS0zPLGO1Or9m2XxhMX9FeqVfznUm2I/qg+d4TH/Rtk6BUyVGnQ2lfNtiRl8XwNWA19RAY602
-	QzfY94P/LsbYzDisgsz8mneY0gbr7zGp2prLQ/cmEMGN+09aAi8vVlftBI7tLFgunbGqAMRYMXb
-	Eeoi7m3vv6699y5hn5TPrCjz7ZTsdmRnE5+2aSwxMcsWp1uATCjmyNiLCogTIN7Ie4z/salW7yH
-	CEzORFp8ginp8RgH1DNxsjeMPlRP0RVJ8LiaW9pGR9QGs0LQPaP1vnTJwPHgAmllrSCTsh/2+kB
-	iFnmThSCMlb5g9OL6SmLTqz/AzKEBlY9T+ccLMSKF8E3HnG3gCDRgYeEbHI+h6NUWHgkdl1Ayq6
-	eSEeJwD6MvyYo/J/KdU=
-X-Received: by 2002:a05:6830:828a:b0:7d7:cdd3:df6b with SMTP id 46e09a7af769-7dc9521f4ecmr7107734a34.14.1776647495608;
-        Sun, 19 Apr 2026 18:11:35 -0700 (PDT)
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com. [209.85.210.51])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7dca6f589d0sm5574500a34.27.2026.04.19.18.11.35
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Apr 2026 18:11:35 -0700 (PDT)
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7dbe437b072so1470351a34.2
-        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 18:11:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+gbJ46WL8UYRAQhbMiR4rTtXbvc97vrXT8Stmx4WO7bm7D4trEol6DGbeOs4J20jcZl8RZ9fcxNiuK@vger.kernel.org
-X-Received: by 2002:a05:6830:828a:b0:7d7:cdd3:df6b with SMTP id
- 46e09a7af769-7dc9521f4ecmr7107720a34.14.1776647494828; Sun, 19 Apr 2026
- 18:11:34 -0700 (PDT)
+	s=arc-20240116; t=1776647596; c=relaxed/simple;
+	bh=xqTJm1fnWUxobvqEOV7IoMV26zSaSXSztSyilAClzCA=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=B8F4WHbebzJts1iE5ZZYCmPFWjzpVoPlUOulMBOcObZEQn1s4rtBcWvhmtKzTKlkH6lw0tQRG3YYDdBp45vlVocNsy8lDjGsssqIIDnyS8czlOTTJZigj8mjRaDSg905sWltmbTfSbWJfHq6Af32x07Z1QOXQWzQfhq82U9ZQiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+	 (Exim 4.99)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1wEdC9-000000002Vw-0ur0;
+	Mon, 20 Apr 2026 01:13:01 +0000
+Date: Mon, 20 Apr 2026 02:12:56 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Arnd Bergmann <arnd@arndb.de>, Cyril Chao <Cyril.Chao@mediatek.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	=?iso-8859-1?Q?N=EDcolas_F=2E_R=2E_A=2E?= Prado <nfraprado@collabora.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Eugen Hristev <eugen.hristev@linaro.org>,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH v2 0/9] ASoC: mediatek: mt2701: HDMI audio support
+Message-ID: <cover.1776646435.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260411-mailmap-v1-0-5a519f7b00b5@chaosmail.tech> <20260411-mailmap-v1-1-5a519f7b00b5@chaosmail.tech>
-In-Reply-To: <20260411-mailmap-v1-1-5a519f7b00b5@chaosmail.tech>
-From: Neal Gompa <neal@gompa.dev>
-Date: Sun, 19 Apr 2026 21:10:58 -0400
-X-Gmail-Original-Message-ID: <CAEg-Je9WStzQj30YsRfJvp-9z1-+qbbGPxTNGkt7Kdj+XjjbUA@mail.gmail.com>
-X-Gm-Features: AQROBzDnYy_QIhsEDV3LeYMU1OQV8X44CvHYlKgDLdrGKHckgRju0mncg5q_5Ow
-Message-ID: <CAEg-Je9WStzQj30YsRfJvp-9z1-+qbbGPxTNGkt7Kdj+XjjbUA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] mailmap: Update Sasha Finkelstein's email address
-To: Sasha Finkelstein <k@chaosmail.tech>
-Cc: Janne Grunau <j@jannau.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>, 
-	asahi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Sat, Apr 11, 2026 at 10:36=E2=80=AFAM Sasha Finkelstein <k@chaosmail.tec=
-h> wrote:
->
-> Add mailmap entry
->
-> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
-> ---
+This series wires up on-chip HDMI audio on MT2701 and MT7623N, from the
+DRM bridge down through the AFE into a small machine driver that binds
+the AFE HDMI BE to the HDMI TX codec already exposed by the
+mediatek-drm-hdmi driver. Bindings, DT and a BananaPi R2 board node
+are included.
 
-Acked-by: Neal Gompa <neal@gompa.dev>
+In order to survive vblank or late hotplug of the monitor, the fix
+submitted separately [1] is required as well.
 
+Everything here was developed for and tested on a BananaPi R2
+(MT7623N), which turns ten years old this year -- a nice occasion to
+finally land HDMI audio for a SoC which was truly ahead of its time.
 
---=20
-=E7=9C=9F=E5=AE=9F=E3=81=AF=E3=81=84=E3=81=A4=E3=82=82=E4=B8=80=E3=81=A4=EF=
-=BC=81/ Always, there's only one truth!
+[1]: https://patchwork.kernel.org/project/linux-mediatek/patch/a3e22cbae528c9a38d854a586d1736b860998d41.1776265222.git.daniel@makrotopia.org/
+
+Changes since v1:
+ * Restrict the four HDMI clocks to mediatek,mt2701-audio only
+   using an allOf/if/then conditional; MT7622 is capped at 34
+   clocks (Krzysztof Kozlowski)
+ * Fix subject prefix to use schema filename (Krzysztof Kozlowski)
+ * Rewrite title and description to describe hardware, not driver
+   (Krzysztof Kozlowski)
+ * Clarify in commit message why this is a separate binding from
+   mediatek,mt2701-audio (Krzysztof Kozlowski)
+ * use named masks and explicitly set BIT_WIDTH_16 when
+   programming AFE_HDMI_OUT_CON0 channel count (Mark Brown)
+ * add AUDIO_TOP_CON3, AFE_HDMI_OUT_CON0, AFE_HDMI_CONN0,
+   AFE_8CH_I2S_OUT_CON to suspend/resume backup list
+   (Mark Brown)
+
+Daniel Golle (9):
+  ASoC: dt-bindings: mt2701-afe-pcm: add HDMI audio path clocks
+  ASoC: dt-bindings: mediatek,mt2701-hdmi-audio: add HDMI audio output
+    binding
+  ASoC: mediatek: mt2701: add AFE HDMI register definitions
+  ASoC: mediatek: mt2701: add optional HDMI audio path clocks
+  ASoC: mediatek: mt2701: add HDMI audio memif, FE and BE DAIs
+  ASoC: mediatek: mt2701: add machine driver for on-chip HDMI codec
+  ARM: dts: mediatek: mt2701: wire HDMI audio path clocks into AFE
+  ARM: dts: mediatek: mt7623: wire HDMI audio path clocks into AFE
+  ARM: dts: mediatek: mt7623n-bananapi-bpi-r2: add HDMI audio machine
+    node
+
+ .../bindings/sound/mediatek,mt2701-audio.yaml |  23 ++
+ .../sound/mediatek,mt2701-hdmi-audio.yaml     |  48 +++
+ arch/arm/boot/dts/mediatek/mt2701.dtsi        |  21 +-
+ arch/arm/boot/dts/mediatek/mt7623.dtsi        |  21 +-
+ .../dts/mediatek/mt7623n-bananapi-bpi-r2.dts  |   7 +
+ sound/soc/mediatek/Kconfig                    |  10 +
+ sound/soc/mediatek/mt2701/Makefile            |   1 +
+ .../mediatek/mt2701/mt2701-afe-clock-ctrl.c   |  22 ++
+ sound/soc/mediatek/mt2701/mt2701-afe-common.h |   6 +
+ sound/soc/mediatek/mt2701/mt2701-afe-pcm.c    | 293 +++++++++++++++++-
+ sound/soc/mediatek/mt2701/mt2701-hdmi.c       | 114 +++++++
+ sound/soc/mediatek/mt2701/mt2701-reg.h        |  35 +++
+ 12 files changed, 590 insertions(+), 11 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mt2701-hdmi-audio.yaml
+ create mode 100644 sound/soc/mediatek/mt2701/mt2701-hdmi.c
+
+-- 
+2.53.0
