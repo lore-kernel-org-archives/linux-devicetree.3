@@ -1,316 +1,147 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022136.outbound.protection.outlook.com [52.101.126.136])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D389F2D738A;
-	Mon, 20 Apr 2026 07:23:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.136
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776669783; cv=fail; b=BL5S5MMOu5urU5FHlzqYRCciWBurUx8/lBrx9dwO+hMvd4TDo7FmdpmAYkye86esQXCe7mBrjDVYHZoTzEIeafMLCxlPcRjjmhwtxzq1ykuBOSGczms3UEjD7+Qf5BtrmMWHF57Rfkx1nA1nTgza2QD7flQIXjX1FrBKg7Vcccg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776669783; c=relaxed/simple;
-	bh=QszABz7taMe5qfYjY6GJXcTRX8XJrY4krhyrc3Ee5z0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=OKSF0y00DjNLLv2VhcouvzJ60GSYJ7BlxrsV6Fn5MUMxYQPhylk5Sxba44IpV6Us0tU29dF0VB41yrA20MwZk4ahRh78y0J5Y6X8jcOQ1CepWLevrcIlntPm6y0bn/dQDvBHSB9kp5u7g1mkZor6r1IFqmtw7ZM6plNrTuh4Rxc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=YRca/6tn; arc=fail smtp.client-ip=52.101.126.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13942D738A
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 07:27:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776670027; cv=none; b=P3IDcVB+epMEWmPl6HCbR8vCW2Jdb2SvqJJdbj1/7re7D/wivXnDU9cgQWS0jVczfk0JYPECQ+5sGlDGsCrWCZKGtJjm5L9ypiTZi07QqYFBn5QyqH7LqtolCddbNVEivWGHqi7tD37itCanifOHUW/0VMpdIZWJf17TgrjSSvU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776670027; c=relaxed/simple;
+	bh=LE4dEHf9dwalaJLqpHPlUnIUnuDQOkACtj0LUMXgkBg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AECNleJr5S4P23tDKSlegB1BwRD72IyELGkNGISBPOLCK4V6p7g4EeWQrBtvW37Ebc3rFkRMV2X3n8cEvIG277IYEPDVmrWKjYX6+EKfq+1JkMM7wbZUm9iJ+Y1ekSIVaGSeAuREojP/1mwNm7uAz4yPdQho48Q3wp6CDidszFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OKm81FNm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eqWgJ2VJ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="YRca/6tn"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uf2B2mlLI69k791S4B+v6JJbifgydOhWLPkmWHDnqUJ3qrFvNEZr+TYWrj+Gu4VBj27Ol0CutytFhk2+IREETyOiRoAcmYnBvk0eurDIpdmJwGzMnjUoivf6+igteT1gZ9H04Iq60S4kVw7pmc2Og8hbYBzQpDr3pJaIBi64LqyRktReGwQDcNYCX4ucRZ7vjpqCVHB0kljlleFnwVngoq7Z87/HBL7j5jyyafXHYuezx8/mI5QLcgRAxFu3nnLT1zLnAg+NybHJQpWWmTc3Cku03vcSP8Y+geSiQt4szkCj2KAZg1EQneL0QLxZAQZW1dnbexwqUzkVvXk23ZhCZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lA1SS64rK86AA89yR52Qj5t6mBiiFO6Jj0e5xY7n8N0=;
- b=oA+EYx+L3HhzPOvKDypr6ks8d3lPAWcHrBLZJxBFApV6Ctt+4KbMqwI8BlGTx4qugTZObAm6eWYU1GvbwFN1ztJx5GO5d80fg+sInr4sJekgSQIu6L4Zyp63yLlz68bbuBmm+nXXQFVa30A47lZVk2mDYdOhbSzkXHHnIg4bdXqEMR9HDANN4wyvcUE2lrEqg6cPcOAdHZ/M4OaQfYdoHTKS8nuHUiJ3clGUS+QA9Atr/i2cCWISCzh1eDUZVHA3m7euQHMBDUw5utEB7bgIHgeA3L4fA7yRNHctW05nKm3/ks4cB24VLEnojtJV3IK3M5Wz2sQzV94sfWznoU9COQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lA1SS64rK86AA89yR52Qj5t6mBiiFO6Jj0e5xY7n8N0=;
- b=YRca/6tnySxc8Ztg/S5QP8Z4dZNQPw9GwtP7oRa8Z9cBp9YVGqhVgcroSGMmTIYZC6Yd7CTpqxA+oUGJdkiwSELuXOqjhCVoAcyWt72ZVNaGGw6tFpMX08ROjdLE4850SqR9N7Snvl0UP45LzTm9RYqbJoRXLEU8NEaZcTg1MOe7b8ColUQWcDv9CSdsdqL5UnK9QCf2dLEQNWoXExOH2cR2V5jKZga8kdL3C482U/ltQ2KfU0EVEJaMJWB6OP+ruAFXI5AG59PRbYuNmqvS7PiEs3L6OA+RMHHsuLSk12umK4UbHM0LfxGrqha0mWFcxQ9p0YoTrVOOk+/X7hF9eA==
-Received: from OSQPR06MB7252.apcprd06.prod.outlook.com (2603:1096:604:29c::6)
- by SEYPR06MB7044.apcprd06.prod.outlook.com (2603:1096:101:1db::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.32; Mon, 20 Apr
- 2026 07:22:57 +0000
-Received: from OSQPR06MB7252.apcprd06.prod.outlook.com
- ([fe80::92af:c9d9:8779:d19]) by OSQPR06MB7252.apcprd06.prod.outlook.com
- ([fe80::92af:c9d9:8779:d19%4]) with mapi id 15.20.9818.031; Mon, 20 Apr 2026
- 07:22:57 +0000
-From: Billy Tsai <billy_tsai@aspeedtech.com>
-To: Conor Dooley <conor@kernel.org>
-CC: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel
- Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, Linus
- Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Ryan Chen
-	<ryan_chen@aspeedtech.com>, Andrew Jeffery <andrew@aj.id.au>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "openbmc@lists.ozlabs.org"
-	<openbmc@lists.ozlabs.org>, "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>
-Subject: Re: [PATCH v7 1/3] dt-bindings: pinctrl: Add
- aspeed,ast2700-soc0-pinctrl
-Thread-Topic: [PATCH v7 1/3] dt-bindings: pinctrl: Add
- aspeed,ast2700-soc0-pinctrl
-Thread-Index: AQHczXLoc0DWafBAUU23YFhFi4LfGrXh15uAgACsm2SAAOlSgIAEIoHU
-Date: Mon, 20 Apr 2026 07:22:57 +0000
-Message-ID:
- <OSQPR06MB7252BD7967D2567AD6DA7A1D8B2F2@OSQPR06MB7252.apcprd06.prod.outlook.com>
-References: <20260416-upstream_pinctrl-v7-0-d72762253163@aspeedtech.com>
- <20260416-upstream_pinctrl-v7-1-d72762253163@aspeedtech.com>
- <20260416-brutishly-saga-ba7168a4cd14@spud>
- <OSQPR06MB7252EB0C2A1A3313DE49406B8B202@OSQPR06MB7252.apcprd06.prod.outlook.com>
- <20260417-anemia-borrower-fb90ac02b417@spud>
-In-Reply-To: <20260417-anemia-borrower-fb90ac02b417@spud>
-Accept-Language: en-US, zh-TW
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OSQPR06MB7252:EE_|SEYPR06MB7044:EE_
-x-ms-office365-filtering-correlation-id: 5d998068-2d00-4c47-66a0-08de9eada53b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|7416014|1800799024|376014|38070700021|56012099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- QQ95Nrz8QBMlWRnZXGg7uhrakBwQzm9aSixPUo0aFsLDSXYSt51wzfu2UQQe0Ks/NSQZrQBjMbJ2ezibtlXz1TnIPdvMw1xRsrnByXCmJf9dWCjpj3zl7c8k0d9kvZhLrUkP6NttmL3y1CpJQO+12hkp6uhJsbc/MZT9qDM1YOXttZnwJApmFePjSYswI3c45KXsBlMcsZI5jz9EXMKMKpYUGLOvV8ng4ftbvTEr2b58ZhhjPCsN0+O91oTiEBV8GPlACGV7Zgwv7fKbB9RI8Qy5kt05YZ/bfz92juYVSMGMI5eRG21Q1gQb2nS80blm+7a+ZGwnw25FPtfAE8pzKnz8JDBp9BwQfHzR6QgZAe+RUUgyFys9o3WUqS8vO2UZb8jX1WC1hPtPEOUyii1ysmCqeaSdjw64Z2GFVVR4o1SRn9DFSjL3bIRe/1RFccfahUUb4bHXxsktj5x59iVKk51hK9cjXyTAJ+ehMe81TppTL6yJLDE6y+W1QmUnEbKq9EP0YiCNc6qvC+WEqi7YRfbV0LeVX0cRJ9lEO/4cZ6a/qTSJ7RnHBbi0ONq0xQazUbabuFTmxv1OGYCRYl5Qiw9hWu6gA66RC8D6bykZoPz6v+U3cL8+CijDOlF+oH3SWW6BShLfO6/WF1AZxVqGzJUtZgSM28SnlbgN3u2SsgdZX5QJ18Yzgo/xKBsSYnc6GQ7FQr+E72WsnitdV4gTHnqt9IMaGi7HRwxhf3jJoj/Prtb3kN0A3uOgFl4FiyggNN/LuZiTp6hjusQ7g4bF2KWGyJJPFxxH303ym2SBanM=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSQPR06MB7252.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(38070700021)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?0iYjePFxEZciiBquxEDqSzZu6z2k07UkvkcswDz7Ab8B8L1xIFHG9Ar0nL?=
- =?iso-8859-1?Q?pH4z5F/SygKQExNjn37qG3XEHEw9BR6tF56LqqGbnj40+ML+QSFTsCQxcH?=
- =?iso-8859-1?Q?75zhCHp+WniQU4BR4Pr80BkhWLPSZz3uzc0mURdWMvLgUS6Ihxg8ecM4FZ?=
- =?iso-8859-1?Q?aUeydy15VCE5oO0rX5DYehbMh/ALq2Vkj2PSCMPRdjDs/zS+2WJ0EtUUED?=
- =?iso-8859-1?Q?RjpcKd/O2wV2ZcLK06+7MEIoFGuqPJ+OddTdeR8JI4P3z+Q/84tY+PEQzP?=
- =?iso-8859-1?Q?jexVZNq419p8/4DAzmA0deRNJJcHx0urY/NiNbK0iPULjsijl+qh7AZBeE?=
- =?iso-8859-1?Q?uh48nfbqPSRBtym9Rz69fByQkkSwvuiOrKeRYkBoyia/d4d+hSpSc8PLVH?=
- =?iso-8859-1?Q?Wky3rfPBSRZkopr7axovJGIB2PzQzdS28mEoKetNVMzuf2LoAZfVAq5+fD?=
- =?iso-8859-1?Q?LdDJH/92Uh1XBUIMB26J/KjbY0nHnHKE9+gjh6CnftrAE3PTl7RxwjNKHd?=
- =?iso-8859-1?Q?kHjKrrk83L0vtEkbBX6UeOPiFCAXeH2HhR8585yL6FjM8y2n8jTJXdLRIH?=
- =?iso-8859-1?Q?TyzOvf6qoLKj0Ysuhjub6iAPAySozV9FI74Q3pKHCP6QIJp9FwcEdWNJ9D?=
- =?iso-8859-1?Q?4puw89qrK+irs6oitk2j7Rz+YAN/ugDbpzbxAEd3b5BimxnHVYcPoUAY8M?=
- =?iso-8859-1?Q?Ms7YnlQGR2jjQq2lTxTHV18CWxr4u0g8pGMPU9kDZme69hx3jcE/KiWId2?=
- =?iso-8859-1?Q?Io4SdB62xrXVSQGBeJpxinbrgleqCRxi7kbqqt0h0Gf2SRA3E/HY0ZY/pw?=
- =?iso-8859-1?Q?EKAtLp9Tx+udxmSu6W97e/YmQ6pEnm+LhgOO/0A2URXRFVj+peHgP9rw3y?=
- =?iso-8859-1?Q?Hm0MNopmcgS1jrtGPvtq93Nn4cG+pZsJDKNl7EWNMQ5v4UvMDMGYmbJ3Ns?=
- =?iso-8859-1?Q?Jjwpg2VgDwI0Td/cu0pRH0jh+otjOCPvpcPSBc8DNYQ2a/n69cjZH9lTF2?=
- =?iso-8859-1?Q?L6T6uCe0x3nMFF0SDCK7EU7omH8tV+TF1nou8NqDaKhYRiYTvPwM0beUo1?=
- =?iso-8859-1?Q?3fddnozvhnaIvhUV4qV7gHzzkuCfXemqhXhOXkJlpfWK7AXWZSsa5PpNLm?=
- =?iso-8859-1?Q?vwol5gIIE5JcqioTvQQwYR+SLMNVRiC8oOSiZ3Yy4VzEKCZYgRdPYkGo+a?=
- =?iso-8859-1?Q?sqU9XwJkjpFmNM+Sq6mnWVZ0PYbDMqi1vvugmbdAkphFmoKWlanTCSNPCU?=
- =?iso-8859-1?Q?ztuUeVY4eq0eBBaVSVAlnkMVziHhnmEhCSgkC/0XWuGwDJtuIghbmrb7Sl?=
- =?iso-8859-1?Q?cVGbK11gloLrX9TuB/JoZtaC0yTrs+P39CO6f/zirepKAuqlZRek/4uluz?=
- =?iso-8859-1?Q?fYYg4Q+Wk0ANwJMVI7VPO2xBfnOfabAPrE4I2lps0LFXXGo6frL6QDMkj4?=
- =?iso-8859-1?Q?6nxOIPzY8eg9g+9vKNZemXyUevzaD7upmyjDvIe5MGGQxPcMZHBUCkO2yi?=
- =?iso-8859-1?Q?QT90DoqP4TFZ4ce5CyyqyAssyGguhopZ7jlGcMgfwXH7w+72KAv5DNqXHH?=
- =?iso-8859-1?Q?VEyy3eOfHTWWJDKWOEnjJZCqzSiwfmbDfwFE3N8Af9rQQDWw679IJLDp+f?=
- =?iso-8859-1?Q?PIB4O7H3aI7IZalMxQpQz/CenZGSdDJbUwNVq0KA4cXzBV3IkjOo3fo9R6?=
- =?iso-8859-1?Q?+1wZlhmnJ1r+nBAmQkXiE9E0a2IQI6AwdSRBEBfluKpmEQIXxr2K6N3zQU?=
- =?iso-8859-1?Q?5i4y7qr41zHjocsnqscDrD5+lAIdVNU1qB/N7ZGbIViVaCqriplAlp7fLE?=
- =?iso-8859-1?Q?QxWCvR7APQ=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OKm81FNm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eqWgJ2VJ"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63K6idEn489719
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 07:27:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=R4BfAV42tyPI6yEMMtx4VRJAMNDAHJoa+Zc
+	H7mz48Yo=; b=OKm81FNmDOLJerlGU+ufPEDiIUVZ3/c99Mq5tjrYOT6AWsHlQLL
+	E2lddF5wrvxZc/J4L+x2HfFSzMsTQn6pc8RTRshoEkB3c86B3GV2sUMTkndm2h+/
+	pDvzLoi9KK4ki6SzoygeIc5+ZBM9v41MpamN8PCHasOz9X9yhWRXWd2Cti1mKNlf
+	cx95Q+lPEre/74pGXQzrSbIVU9xfPADqsBdHjjWwNMV14+YJ8pfNjGrNn5XsvOoZ
+	RnVjgE3Msqtrs6P45y9FCewRQJe37DUy2EryaNt7IVsvbsVd7w8dROz5gzI4a8iZ
+	T0jhPGy7S2huFNuYAkPfpFA0YyymxEiyCDw==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dm1hx4ns6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 07:27:04 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-12c726f4019so2927478c88.1
+        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 00:27:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776670024; x=1777274824; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=R4BfAV42tyPI6yEMMtx4VRJAMNDAHJoa+ZcH7mz48Yo=;
+        b=eqWgJ2VJBsE+vsIjzFk+8Bz3sW851idl4Hly4hmlPwtP9lM24XiLqyAVaul/fzJhaa
+         giPi6Vgvr+Rsm38ZMHOBO5pcYLbj2HNWmrgHyIOstFAbjdfL00KzTV6o7c0Bzz90gJuA
+         v7x57SB9pbR2TYaSQjvND2BlgxMDKNjSSK9yoerMqA9ZI5cIZCul/FDAf8pAobOsvR1J
+         KvV5b1s0lwE7Nv0+Ecfh52XugmCEFm0DPkwi7nzBZshea1qDhR7amHbMfofekYRVINvA
+         3n0RxJCR36/xc7FbyYH0PPWAzm+75mtHygMC/XKw3B2LsMu/cUuHfUpkPAB7HsfzoUep
+         ht1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776670024; x=1777274824;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=R4BfAV42tyPI6yEMMtx4VRJAMNDAHJoa+ZcH7mz48Yo=;
+        b=pkMc9yUyTftY/qhGkx0kAa31IP4RXyLZ6CzZ9JHOGEtDAr/V4fOx7AwBW04oP12p77
+         ORAe/W3AC7yeZaGkazXMCHCfnxFJRMDiA05dcqcqHQiJzPtBiBon+CLmB6IK1TAEilXe
+         jn72T2zGK3JbzrinBe5ki8U93T18Tx3RlNOPi0k6UxpWyDS2S3i4GtySbnpGPgy2bJLj
+         Z2gLQF0foZw5ry56dw4frZGsr9JI9QTRYlGgrstwKjITOQ4LFmkOWLx4AK+v6N/GRF+p
+         6+YY4gq0M57whi3Of1znm3hpSn4J1i6tzZYmUDs7o26aQ1bxtPW6Y3FrMwr3nEi3Hdo1
+         eX6A==
+X-Forwarded-Encrypted: i=1; AFNElJ8pu3Mlk2dlDJzYwfxvgUq5ZK4UT/3P1IZzZyI+jmFGJ9LjQhENbU6HfnHw0UdqzhNutzqkDYjNALu2@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQoSDwW+6XQG/1ncIQdW24Maj4Mp7vgGEUpcl8BMaAIs7jObzE
+	ioCqSVby1IImEL/9XzakQHW1k7G0RjkEqSssyjf/xJAAcvu92AyC3PScYShqMAhWnXlJ6onmti1
+	abc5NTX1F9GuZ2RsmrWXmpGfVDDfQ9JpQUXZpIyyLtWgYFg41LqgSkQgevDxU8Zeu
+X-Gm-Gg: AeBDieu7puuSORTvZiYR0g5TN7CuYT/e5Kt4yZqhSOlYK3XZQmR0EfJCYqWzmomFhDG
+	w69eU/ur+6uuKcuwwW6EsbGDyPxVphO4go86rdbdCVwb4sA2raDxvS03s/DsvkxQak7DTlycRP0
+	xD2/AcRaTe6WAye+sJySsXT2diOTLc+E0Jn5WK0stm45/z5efQ6XtDOyBx6BDAseTvNpdIjm8j/
+	hhLUcVLVcx3wT9ME3xo8MdDWDBjZWEfgUkdhO190S3GLX0+gOa49t5o7reKwqLTM+50rcW+31zS
+	mux/wr69sDYJooRbAwGd3v6uQJcxaZ1JeGJD0NkfqJx3V5kGs/XDNRZ57m4UtqENMOnIQWG2/Dr
+	6AEnTbHzLkcgr6P9MGxO6skMb5HFOdMvJLZL5VI0vzoYOb/owOw1iWQQbAUQxW82HyyAGYYQE+N
+	CAVq6cChU62vzRPhLt
+X-Received: by 2002:a05:7022:2602:b0:128:d23d:81a2 with SMTP id a92af1059eb24-12c73f9ae5cmr5867768c88.29.1776670023668;
+        Mon, 20 Apr 2026 00:27:03 -0700 (PDT)
+X-Received: by 2002:a05:7022:2602:b0:128:d23d:81a2 with SMTP id a92af1059eb24-12c73f9ae5cmr5867734c88.29.1776670023037;
+        Mon, 20 Apr 2026 00:27:03 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12c919266f6sm529413c88.1.2026.04.20.00.26.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Apr 2026 00:27:02 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH 0/2] Add PMAU0102 RPMH regulator support
+Date: Mon, 20 Apr 2026 15:26:37 +0800
+Message-ID: <20260420072639.1249984-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OSQPR06MB7252.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d998068-2d00-4c47-66a0-08de9eada53b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Apr 2026 07:22:57.1828
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4l5JLVY7glv4+hkSBCK9waNvf1O2t60RwmdBYYa+0BO26eBGwz23Uk3/Ehu2LAYOIKjHBqMBc5KVi9yeflbdO8ogzrrmfoqaOWid5kyXEKk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB7044
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: xP7gaOTVyCDjWLLnQ5-4QKChZJgMofjt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDA3MiBTYWx0ZWRfX0W5nqOEkt3kB
+ U/mYoVROTtuh5TAzQ9JB+Fd/d/ZAoaUMaSU8S/viZiuU44ffr7unL2yqQqGC71KqZMOADktGR+f
+ W+Qi+YQxSYqfz3pMdkmz9GR5fuo2TjyZqXcwYsTVcr7Cj69EaJU8/LHdmURTjzhFI2l7sjY+3bt
+ 0W25OcjJu+HjEeRjP5znZSWHV9z7WbwrtsC7TJWYIUOGrc6mQlMc8fYcKRW/C3Jf46YqB2nHem+
+ o237FLYB6fMO7rpTwxNFTE+TWUxK2KLdHsveWxVC4SCFMjhEOVaKzHprFHNAEd0Iv3twxEdRwFZ
+ MD9NKzVIuZ9uVxq3mIOywc61i5BMbWA1lFSUwFcLRDCOZY0izr5wmfssKIW84dZaDRAB2jOyJ2m
+ nPqERZkgTGg5qQ4w5PLwYyDLtbuw4dqKBIz7LFjrMoKVPXUXWkYHErJxPWh3qyV6g3c0Of5al7i
+ H5QNT/YK/2sEvcWAEQw==
+X-Proofpoint-GUID: xP7gaOTVyCDjWLLnQ5-4QKChZJgMofjt
+X-Authority-Analysis: v=2.4 cv=RoX16imK c=1 sm=1 tr=0 ts=69e5d548 cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=rmhsGHOi_XyW5o5IWqkA:9
+ a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-20_01,2026-04-17_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 adultscore=0 spamscore=0 phishscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
+ definitions=main-2604200072
 
-> > > > +=A0=A0=A0 properties:=0A=
-> > > > +=A0=A0=A0=A0=A0 function:=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0 enum:=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMC=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGDDR=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGM0=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGPCIEA=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGPCIEB=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGPSP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGSSP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGTSP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGUSB3A=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGUSB3B=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - PCIERC0PERST=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - PCIERC1PERST=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - TSPRSTN=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - UFSCLKI=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AD0=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AD1=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AH=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AHP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AHPD0=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXH=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXH2B=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXHD1=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXHP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXHP2B=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXHPD1=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BD0=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BD1=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BH=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BHP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BHPD0=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXH=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXH2A=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXHD1=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXHP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXHP2A=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXHPD1=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXH=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXH2B=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXHD=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXHP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXHP2B=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXHPD=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXH=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXH2A=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXHD=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXHP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXHP2A=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXHPD=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - VB=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - VGADDC=0A=
-> > > > +=0A=
-> > > > +=A0=A0=A0=A0=A0 groups:=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0 enum:=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMCCDN=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMCG1=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMCG4=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMCG8=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMCWPN=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAG0=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - PCIERC0PERST=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - PCIERC1PERST=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - TSPRSTN=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - UFSCLKI=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2A=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AAP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2ABP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2ADAP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AH=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AHAP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2B=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BAP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BBP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BDBP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BH=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BHBP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3A=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AAP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3ABP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3B=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BAP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BBP=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - VB0=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - VB1=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - VGADDC=0A=
-> > > > +=A0=A0=A0=A0=A0 pins:=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0 enum:=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AB13=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AB14=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AC13=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AC14=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AD13=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AD14=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AE13=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AE14=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AE15=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AF13=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AF14=0A=
-> > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AF15=0A=
-=0A=
-> > > Why do you have groups and pins?=0A=
-> > > Is it valid in your device to have groups and pins in the same node?=
-=0A=
-=0A=
-> > The intent is to support both group-based mux selection and=0A=
-> > configuration, as well as per-pin configuration.=0A=
-=0A=
-> > In our hardware:=0A=
-> > - `function` + `groups` are used for pinmux selection.=0A=
-> > - `pins` is used for per-pin configuration (e.g. drive strength,=0A=
-> >=A0=A0 bias settings).=0A=
-> > - `groups` may also be used for group-level configuration.=0A=
-=0A=
-> > As a result, both `groups` and `pins` may appear in the same node,=0A=
-> > but they serve different purposes and do not conflict:=0A=
-> > - `groups` selects the mux function and may apply configuration to=0A=
-> >=A0=A0 the entire group.=0A=
-> > - `pins` allows overriding or specifying configuration for individual=
-=0A=
-> >=A0=A0 pins.=0A=
-=0A=
-> > In most cases, only one of them is needed, but both are allowed when=0A=
-> > both group-level and per-pin configuration are required.=0A=
-=0A=
-> To be honest, that sounds like your groups are not sufficiently=0A=
-> granular and should be reduced such that you can use them for pin=0A=
-> settings.=0A=
-=0A=
-The intent was to keep the binding flexible, but in practice the mixed=0A=
-use of `groups` and `pins` in the same node is not expected to be used.=0A=
-=0A=
-Given that, I agree this flexibility is unnecessary and makes the=0A=
-binding semantics less clear. I'll rework the binding to make the=0A=
-expected usage explicit rather than allowing combinations that do not=0A=
-correspond to a real use case.=0A=
-=0A=
-In particular, I'll split the constraints as follows:=0A=
-=0A=
-- For pinmux, the presence of `function` will require `groups`, and=0A=
-  `pins` will not be allowed. This reflects the hardware design, where=0A=
-  the groups are defined by the pins affected by a given mux expression=0A=
-=0A=
-- For pin configuration, exactly one of `groups` or `pins` will be=0A=
-  required (using oneOf), so that configuration is applied either at=0A=
-  group level or per-pin, but not both.=0A=
-=0A=
-=0A=
-- if:=0A=
-    required:=0A=
-      - function=0A=
-  then:=0A=
-    required:=0A=
-      - groups=0A=
-    not:=0A=
-      required:=0A=
-        - pins=0A=
-  else:=0A=
-    oneOf:=0A=
-      - required:=0A=
-          - groups=0A=
-        not:=0A=
-          required:=0A=
-            - pins=0A=
-      - required:=0A=
-          - pins=0A=
-        not:=0A=
-          required:=0A=
-            - groups=0A=
-Does this match what you had in mind?=0A=
-=0A=
-Thanks=0A=
-Billy Tsai=
+This series adds RPMH regulator support for PMAU0102 PMIC found on
+Qualcomm Nord SoC based devices.
+
+Patch 1 adds the PMAU0102 compatible to the dt-bindings for
+qcom,rpmh-regulator, documenting its 8 SMPSes and 3 LDOs.
+
+Patch 2 adds the corresponding vreg data to the rpmh-regulator driver.
+
+Kamal Wadhwa (1):
+  regulator: rpmh-regulator: Add RPMH regulator support for Nord
+
+Shawn Guo (1):
+  regulator: dt-bindings: qcom,rpmh: Add PMAU0102 support
+
+ .../regulator/qcom,rpmh-regulator.yaml        | 11 +++++++++++
+ drivers/regulator/qcom-rpmh-regulator.c       | 19 +++++++++++++++++++
+ 2 files changed, 30 insertions(+)
+
+-- 
+2.43.0
+
