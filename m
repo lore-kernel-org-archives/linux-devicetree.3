@@ -1,121 +1,120 @@
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A60386551;
-	Mon, 20 Apr 2026 09:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632F7386551;
+	Mon, 20 Apr 2026 09:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776676627; cv=none; b=UD57a4RZ7l8LOZXHbFo2H/3hHTgtjWED1w7ZPirzoAUD0a+Zz7rzS4kH+bfMJvTH8l49WhqvfkQf3N+c1KgAXT9Ofqwaa8+85FzL8/uH1xXJipnMXboA4JaGsbTP6IV1Ugwwcz0Iys1YyPW84Jb/N3QveBCCapIvlDq/UqZmF8U=
+	t=1776676696; cv=none; b=R9hb69B2otTeKXJ1vzxoENM07kMfJ0rmU0bERpeYed8EuitVh7fuKQl95Y6ckx6/qbcZTO1UmUxRiElAWkOvJQ51C30wJFS94pzsp+TEohuYCtNdk+azPWUJKHKcU67vYOZ+kQdoWh3NO2taL1vWgGi6fVaWd18WMUOMKluAMfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776676627; c=relaxed/simple;
-	bh=dl5DcX6axaQB08bVzkfm0qYlVYMXHjs5k1QLohyagTg=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=hcwLpOgtFlyQlF9JQIlrNUveVJunx+wdriNrf3JNxlrex8cv4P7gfOMrUBcqyUzW40DGhfhMdgb4b6yP6XQsfwwJSLpZ17N9eS0gdMk12QC8ziGmsyysOfQqVySI/4ragsZ2kmlLd45+aBnfY1ikWNPoNJsohQdJMlnBILAdRTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=TE8Fjf2K; arc=none smtp.client-ip=65.21.61.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+	s=arc-20240116; t=1776676696; c=relaxed/simple;
+	bh=Ews81qwbWTDLy8MrQh7L0w6xh1yIz+OzmwfX9X6ZxTA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kpLokOzhLMGMk5Mz/jnYbPM1KsILyvIPFf0Xdmmtx3kLavI69f8V37MumKYbal8gxKMpHueivhZtnKn+gH1ieuB+j07bfejLW3RGaAPaQhVkuTriIbFNaBcVkQgTjFJf0j4eypHqI2MXdiAwOqS0EEnjbZ/FwXSEl2VzvtXdAJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RgUwpoFr; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="TE8Fjf2K"
-Message-ID: <bb5ebce0-a59a-420c-a860-3cdb6b027372@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
-	s=courrier-s1; t=1776676617;
-	bh=dl5DcX6axaQB08bVzkfm0qYlVYMXHjs5k1QLohyagTg=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=TE8Fjf2KOVteTx9eiWJnuAJfefHqh30xeZHbwNfBd50KHHgITZ3wfIzcGFIlBB34B
-	 KjKIiwxjFIPuGPWRHxggr5RrF1GbszM69AIijwMJ/j5TIzW+PMZlnvsHwy2Z4LI5kU
-	 lqH9tkKhRdCzf2znN0ctIx6VB6ql9/MhiJCkCZJU=
-Date: Mon, 20 Apr 2026 11:16:56 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RgUwpoFr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1776676694; x=1808212694;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Ews81qwbWTDLy8MrQh7L0w6xh1yIz+OzmwfX9X6ZxTA=;
+  b=RgUwpoFr9muuN6zL3r3PmM59rU9jSuf3aAZPe7XtgwQ6nYYeVDj8OXzG
+   JU+TM0OdMxTCvpvDOVSoC13TCGbi5zkTq1/BFW1hdGTO4R8ID7a5OoCq5
+   0R8oStevjxzhd1CKq6tfZAy60wYN3ibhoBkBk3MSpwisBICzbBwVphdz3
+   LWfuGAzlU4yT2tjf08KSEgRcZpzyfAq/FZFTSP1ktzYd6QLSMMjzp2a23
+   rJKGRTFvFv36lc/MZvcWZtSMjcAddD3em1fuGFSfr0TdITn9I8yrdV9Ei
+   XWpz1WLe5Yy+dWLkb0qevImTZzb6tpmaaSNQ9BuTNO9JYzRDGMBvqwFPR
+   w==;
+X-CSE-ConnectionGUID: Wx8+A8GqQhaz8nY9bkaLVQ==
+X-CSE-MsgGUID: fhUWwgo6Qu+HFvE1yrZJ+g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="77601899"
+X-IronPort-AV: E=Sophos;i="6.23,189,1770624000"; 
+   d="scan'208";a="77601899"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2026 02:18:14 -0700
+X-CSE-ConnectionGUID: B8Y1CBUqSsGXj998AkT6CA==
+X-CSE-MsgGUID: 85T12Jz/QYu9Svnq2XYHSg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,189,1770624000"; 
+   d="scan'208";a="236048689"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.90])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2026 02:18:10 -0700
+Date: Mon, 20 Apr 2026 12:18:07 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Hardik Phalet <hardik.phalet@pm.me>
+Cc: gregkh@linuxfoundation.org, jic23@kernel.org, andy@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org,
+	dlechner@baylibre.com, krzk+dt@kernel.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev, me@brighamcampbell.com,
+	nuno.sa@analog.com, robh@kernel.org, skhan@linuxfoundation.org,
+	Hardik Phalet <hardik.phalet@gmail.com>
+Subject: Re: [PATCH v3 0/5] iio: magnetometer: add driver for QST QMC5883P
+Message-ID: <aeXvTwLXeAaB5bvE@ashevche-desk.local>
+References: <20260420-qmc5883p-driver-v3-0-da1e97088f8b@pm.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Subject: Re: [PATCH v2 4/4] arm64: dts: amlogic: t7: Add clk measure support
-To: Jian Hu <jian.hu@amlogic.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-References: <20260415-clkmsr_a1_t7-v2-0-02b6314427e6@amlogic.com>
- <20260415-clkmsr_a1_t7-v2-4-02b6314427e6@amlogic.com>
- <ae61c52d-814c-40fa-b02a-833377d840a8@aliel.fr>
- <64cde9f6-4f28-4ba7-8362-aac28887ff22@amlogic.com>
-Content-Language: en-US
-In-Reply-To: <64cde9f6-4f28-4ba7-8362-aac28887ff22@amlogic.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260420-qmc5883p-driver-v3-0-da1e97088f8b@pm.me>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Jian,
+On Sun, Apr 19, 2026 at 10:32:09PM +0000, Hardik Phalet wrote:
+> This series adds an IIO driver for the QST QMC5883P, a 3-axis
+> anisotropic magneto-resistive (AMR) magnetometer with a 16-bit ADC,
+> communicating over I2C. To my knowledge there is no existing
+> upstream driver for this device (see "Prior-art register-map check"
+> below).
+> 
+> The driver supports:
+>   - Raw magnetic field readings on X, Y and Z axes
+>   - Four full-scale ranges (+/-2 G, +/-8 G, +/-12 G, +/-30 G),
+>     selectable via IIO_CHAN_INFO_SCALE
+>   - Four output data rates (10, 50, 100, 200 Hz), selectable via
+>     IIO_CHAN_INFO_SAMP_FREQ
+>   - Four oversampling ratios (1, 2, 4, 8), selectable via
+>     IIO_CHAN_INFO_OVERSAMPLING_RATIO
+>   - Runtime PM with a 2 s autosuspend delay
+>   - System suspend/resume delegated to the runtime callbacks
+> 
+> Regmap with an rbtree cache is used throughout. CTRL_1 and CTRL_2
 
-On 4/20/26 5:25 AM, Jian Hu wrote:
-> Hi Ronald,
-> 
-> 
-> Thanks for your review.
-> 
-> On 4/17/2026 5:48 PM, Ronald Claveau wrote:
->> [ EXTERNAL EMAIL ]
->>
->> Hello Jian,
->>
->> On 4/15/26 10:33 AM, Jian Hu via B4 Relay wrote:
->>> From: Jian Hu <jian.hu@amlogic.com>
->>>
->>> Add the clock measure device to the T7 SoC family.
->>>
->>> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
->>> ---
->>>   arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 5 +++++
->>>   1 file changed, 5 insertions(+)
->>>
->>> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/
->>> arm64/boot/dts/amlogic/amlogic-t7.dtsi
->>> index 7fe72c94ed62..cec2ea74850d 100644
->>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
->>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
->>> @@ -701,6 +701,11 @@ pwm_ao_cd: pwm@60000 {
->>>                                status = "disabled";
->>>                        };
->>>
->>> +                     clock-measurer@48000 {
->>> +                             compatible = "amlogic,t7-clk-measure";
->>> +                             reg = <0x0 0x48000 0x0 0x1c>;
->>> +                     };
->>> +
->> Can you please order by reg, it should be between pwm_ao_gh and pwm_ab.
->> Thank you.
-> 
-> 
-> According to the "Order of Nodes" chapter in Documentation/devicetree/
-> bindings/dts-coding-style.rst,
-> 
-> nodes of the same type should be grouped together, and this takes higher
-> priority.
-> 
-> So I have placed the clock-measure node after all PWM nodes to avoid
-> splitting the PWM group.
-> 
+I'm not sure this paragraph answers the question "why not maple tree?"
 
-Thanks for your answer.
-
-The documentation says nodes "shall be ordered by unit address" as the
-primary rule.
-The grouping by type is described as an alternative ("Alternatively"),
-applicable to some subarchitectures, not as a rule that takes higher
-priority.
-
-So to me, I understand it as, unless your subarchitecture has an
-established convention of grouping PWM nodes together, ordering by reg
-remains the correct default here. And, in my opinion, sticking to a
-single sorting method improves readability.
-
+> bit fields are accessed via regmap_field to avoid read-modify-write
+> races. The STATUS register is marked precious so regmap never reads
+> it speculatively and clears the DRDY/OVFL bits unexpectedly.
+> 
+> The probe-time init sequence is: soft reset, wait 300 us for POR
+> to complete, deassert reset, drop the register cache so subsequent
+> RMW writes read fresh values, then enter normal mode. 300 us
+> comfortably covers the 250 us POR time given in the datasheet.
+> 
+> Patches:
+>   1/5 - dt-bindings: vendor-prefixes: Add QST Corporation
+>   2/5 - dt-bindings: iio: magnetometer: QSTCORP QMC5883P
+>   3/5 - iio: magnetometer: add driver for QST QMC5883P
+>   4/5 - iio: magnetometer: qmc5883p: add oversampling ratio support
+>   5/5 - iio: magnetometer: qmc5883p: add PM support
+> 
+> Patches 4 and 5 are split out from the main driver so that the core
+> (1-3) can be reviewed and picked independently, per review feedback
+> on v2. 4/5 exposes the CTRL_1 OSR field via
+> IIO_CHAN_INFO_OVERSAMPLING_RATIO. 5/5 adds runtime PM that puts the
+> chip into MODE_SUSPEND when idle and wakes it to MODE_NORMAL on
+> demand.
 
 -- 
-Best regards,
-Ronald
+With Best Regards,
+Andy Shevchenko
+
+
