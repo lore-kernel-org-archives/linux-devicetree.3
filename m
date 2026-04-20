@@ -1,126 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFBF022A817;
-	Mon, 20 Apr 2026 15:33:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B74C832ED40;
+	Mon, 20 Apr 2026 15:36:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776699217; cv=none; b=f65RuExYNbQoXKIvtyb7O0S9AOnb8Qr8zyFnLLvDnrOHzeLo3DgWCUAaewCrHOQ52IsG3yMfIR8ZZbR/UopJah5ll6S1O4hYw5OFomaGRg1MxruDiphAsQqLHfUB//sRC62YwBQcA9PIv84SgUo9jVly49xzQqs0GSyJBKuP2og=
+	t=1776699399; cv=none; b=W88W/NwI32+WViD/gNpilkHwCZSi3X0L5VOYViBKSgkGY35wc2D41fDOcCjIjLaS5apEHAYP+W2P4Cban+GT5DA6IZ+z0PzP6M9X4DEIPsDWvM1kRHEt3dEo75Rk5+HbOFwjKwa/jFQSXHXhgpR/KIvUiJifJBmPtjtAKYEk8A4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776699217; c=relaxed/simple;
-	bh=Kjn532amPlaxRPE+ZdGcJATDJi/VPSFQUdv5WzNh3iQ=;
+	s=arc-20240116; t=1776699399; c=relaxed/simple;
+	bh=AzFmS5Tnu8sMhg8eDHy3LPsdHF0AOqqG0otqcA9EY1E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oyYxSVzSmXBeX+AEfSSmtFWDUoXBl4+XMdI2yH9w+SgzRR4AyH+fqxm83+qdLmHccSziQ5zQ38sHGH/3ls9CLU0qGPdWL6T1usISvRRZXcAw3Uh6HJxBALOOCfnCoQQLTNajlp8NEI3EzJfSaWcdIF4+vY0x026gEMlURJKkkiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J11F5QCY; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=urbwvfMceKcPCXVPiaup2Q0gTsJLGEnyjuhV5ps28wySGF4lG3bDiOepXzfiFT5OtjYr+lEvQmTgcLmuAiqVncyRyCMf3OHSxfqo489nsDeUYA6DSanZLULNsdvM5HL/j+woV9rtLhSPPmV7TjUsO90CMa7PvYSLHmz/7SFNLwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aRrAXzKA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J11F5QCY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB776C2BCB6;
-	Mon, 20 Apr 2026 15:33:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aRrAXzKA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C507C19425;
+	Mon, 20 Apr 2026 15:36:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776699217;
-	bh=Kjn532amPlaxRPE+ZdGcJATDJi/VPSFQUdv5WzNh3iQ=;
+	s=k20201202; t=1776699399;
+	bh=AzFmS5Tnu8sMhg8eDHy3LPsdHF0AOqqG0otqcA9EY1E=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=J11F5QCYiqW9f+FhXzUDFhRkgicfaczvTTTau4KaRSn4neTbdcCd30wvVz/YZ1xCe
-	 oqPzbdI7kX/dtrKjpsCniam/m5IYQjV9mnNscDlUPk1jxAJf+XG2db3Q3W0JLWMigt
-	 tCfZHRso3vpYoNYVcPdfu2ZWNzQfmRpdjfabXCibgYFVndLyK+D49fJhW9hd6qbbzn
-	 LZtYOXco0BhQ2tuyTBhBreacs4LEtyimjQIUSdpkiNbl1uQb+WFncUtq/cm78GpJ8L
-	 orroCGJd+BUumTBtViNQ/EByhVV4NsxbKCyR5kzZywq3H5uWtys5+FDxtqotCSOmuk
-	 PquIH7zpKJr8g==
-Date: Mon, 20 Apr 2026 17:33:34 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Minda Chen <minda.chen@starfivetech.com>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Emil Renner Berthing <emil.renner.berthing@canonical.com>, Rob Herring <robh+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor@kernel.org>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	devicetree@vger.kernel.org
-Subject: Re: [net-next v2 2/5] dt-bindings: net: starfive,jh7110-dwmac: Add
- JHB100 support
-Message-ID: <20260420-messy-elite-panther-a7ffbc@quoll>
-References: <20260417024523.107786-1-minda.chen@starfivetech.com>
- <20260417024523.107786-3-minda.chen@starfivetech.com>
+	b=aRrAXzKAS0bBFun9CQKrTyofiR5UlWY17F+ckg075QcTe2r9+vjrfK++RzMggttkV
+	 q1NTwF7XAvZjmFfZLPpUmtgMYHiDG2drOziCXgfLcWd0Y6nEvjujmTwVZmr5hMl1wU
+	 CpaQ6uFIbL/EpyQ6i/wUmfEaRC4/BNEMMkieXlqICQmUyLAF5aakdEG77cGbUkLmqz
+	 xjBh+OUX0oJ5Fa5DT38dIq0PLIc5seAMFXqe/ETiWMO5q9VvdUgynajX2MEWNsqgBM
+	 AuMqXg2f+PdpqyrfovuxaJ/zCNSe3WpEcIJstH9jBILV0URQE+p5fot3kNejTRHC7U
+	 FmdZfQNqOrUaQ==
+Date: Mon, 20 Apr 2026 16:36:35 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Colin Huang <u8813345@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	colin.huang2@amd.com
+Subject: Re: [PATCH v2 1/3] dt-bindings: arm: aspeed: add Anacapa EVT1 EVT2
+ board
+Message-ID: <20260420-garnet-goal-4a284a8818fc@spud>
+References: <20260409-anacapa-devlop-phase-devicetree-v2-0-68f328671653@gmail.com>
+ <20260409-anacapa-devlop-phase-devicetree-v2-1-68f328671653@gmail.com>
+ <20260409-foster-stability-f77b38c6f7a0@spud>
+ <CAPBH0A_K39218+=QHJuEY+SbFk-nCnM=Z8RQMdHBK7SkCj2QtQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rT7U0ER3rzaPGzgy"
+Content-Disposition: inline
+In-Reply-To: <CAPBH0A_K39218+=QHJuEY+SbFk-nCnM=Z8RQMdHBK7SkCj2QtQ@mail.gmail.com>
+
+
+--rT7U0ER3rzaPGzgy
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260417024523.107786-3-minda.chen@starfivetech.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Apr 17, 2026 at 10:45:20AM +0800, Minda Chen wrote:
-> Add StarFive JHB100 dwmac support and compatible.
-> The JHB100 dwmac shares the same driver code as the JH7110 dwmac,
+On Mon, Apr 20, 2026 at 01:41:30PM +0800, Colin Huang wrote:
+> Conor Dooley <conor@kernel.org> =E6=96=BC 2026=E5=B9=B44=E6=9C=889=E6=97=
+=A5=E9=80=B1=E5=9B=9B =E4=B8=8B=E5=8D=8811:36=E5=AF=AB=E9=81=93=EF=BC=9A
+> >
+> > On Thu, Apr 09, 2026 at 07:40:26PM +0800, Colin Huang wrote:
+> > > Document Anacapa BMC EVT1 and EVT2 compatibles.
+> > >
+> > > Signed-off-by: Colin Huang <u8813345@gmail.com>
+> >
+> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > pw-bot: not-applicable
+>=20
+> Hi
+>   Could anyone let me know, what is my next step which I need to do?
+>   I can't find the changed in for-next branch of
+> https://git.kernel.org/pub/scm/linux/kernel/git/bmc/linux.git .
+>   Thanks.
 
-Please describe the hardware or programming interface, not driver code.
+You wait for the merge window to end and the maintainer to apply your
+patches.
 
-> which contains 2 SGMII interfaces, 1 RGMII/RMII interface and
-> 1 RMII interface.
-> JHB100 dwmac has only one reset signal and one main interrupt
-> line.
+--rT7U0ER3rzaPGzgy
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-Drop all below, not relevant.
+iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeZIAgAKCRB4tDGHoIJi
+0gyRAPih4zXoYopFmAszf/ozsfmpEp1cZspkWl07OnahV3yqAQCD9Sal/PjSSKtW
+PGb84+0XAkYu+zzoDJlWPigE0ykYBw==
+=g4DA
+-----END PGP SIGNATURE-----
 
-> 
-> Please refer to below:
-> 
-> JHB100: reset-names = "stmmaceth";
-> 
-> Example usage of JHB100 in the device tree:
-> 
-> gmac0: ethernet@11b80000 {
->         compatible = "starfive,jhb100-dwmac",
->                      "snps,dwmac-5.20";
->         interrupts = <225>;
->         interrupt-names = "macirq";
->         ...
-> };
-> 
-> Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
-> ---
->  .../devicetree/bindings/net/snps,dwmac.yaml   |  1 +
->  .../bindings/net/starfive,jh7110-dwmac.yaml   | 23 +++++++++++++++++++
->  2 files changed, 24 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> index 38bc34dc4f09..85cd3252e8b1 100644
-> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> @@ -115,6 +115,7 @@ properties:
->          - sophgo,sg2044-dwmac
->          - starfive,jh7100-dwmac
->          - starfive,jh7110-dwmac
-> +        - starfive,jhb100-dwmac
->          - tesla,fsd-ethqos
->          - thead,th1520-gmac
->  
-> diff --git a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
-> index 0d1962980f57..edc246a71ce3 100644
-> --- a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
-> @@ -18,6 +18,7 @@ select:
->          enum:
->            - starfive,jh7100-dwmac
->            - starfive,jh7110-dwmac
-> +          - starfive,jhb100-dwmac
->    required:
->      - compatible
->  
-> @@ -30,6 +31,9 @@ properties:
->        - items:
->            - const: starfive,jh7110-dwmac
->            - const: snps,dwmac-5.20
-> +      - items:
-> +          - const: starfive,jhb100-dwmac
-
-So that's an enum in previous "items" list.... but your commit msg said
-your devices are compatible, so confusing.
-
-Best regards,
-Krzysztof
-
+--rT7U0ER3rzaPGzgy--
