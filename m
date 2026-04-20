@@ -1,120 +1,162 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632F7386551;
-	Mon, 20 Apr 2026 09:18:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B57D383C99
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 09:19:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776676696; cv=none; b=R9hb69B2otTeKXJ1vzxoENM07kMfJ0rmU0bERpeYed8EuitVh7fuKQl95Y6ckx6/qbcZTO1UmUxRiElAWkOvJQ51C30wJFS94pzsp+TEohuYCtNdk+azPWUJKHKcU67vYOZ+kQdoWh3NO2taL1vWgGi6fVaWd18WMUOMKluAMfk=
+	t=1776676765; cv=none; b=rpd5OFV+8Rm2IyjP+DrhFYRMyN1lBvtloaB3VMuBNXCVqu+dpmwS5JTayoO1DGgRhuAKrH4xeQs0KsTJFIjgL0o52+RaBpIPqMZfj4FitPd8JdXemO2sqD5P1wjDWtq+KnipCdeXVHQJFM5G2VdBHkjoOEdlkmmiWzIN5oGUQBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776676696; c=relaxed/simple;
-	bh=Ews81qwbWTDLy8MrQh7L0w6xh1yIz+OzmwfX9X6ZxTA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kpLokOzhLMGMk5Mz/jnYbPM1KsILyvIPFf0Xdmmtx3kLavI69f8V37MumKYbal8gxKMpHueivhZtnKn+gH1ieuB+j07bfejLW3RGaAPaQhVkuTriIbFNaBcVkQgTjFJf0j4eypHqI2MXdiAwOqS0EEnjbZ/FwXSEl2VzvtXdAJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RgUwpoFr; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1776676765; c=relaxed/simple;
+	bh=P24EoD5xGnfBeklnl/2IvyFY8qQQprwNDrVurAnpIhk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=h7ZbLyK6lI/Mr7DXcWIVL60/P4q+H8mgrEsNTqf5v3R4mtSPDskbpuT4k2wuk1h1RKFPnPssDXS0jG1gtAN99WumYZds6k2Kw1RMhl8bogoiu5vhiT9+VROsxmdtcYFYhhuVRJRpLcakO/HYhJsBGTYzArztyEKN6YrZVFyA8fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RDFETQzS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C/E611n+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RgUwpoFr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1776676694; x=1808212694;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Ews81qwbWTDLy8MrQh7L0w6xh1yIz+OzmwfX9X6ZxTA=;
-  b=RgUwpoFr9muuN6zL3r3PmM59rU9jSuf3aAZPe7XtgwQ6nYYeVDj8OXzG
-   JU+TM0OdMxTCvpvDOVSoC13TCGbi5zkTq1/BFW1hdGTO4R8ID7a5OoCq5
-   0R8oStevjxzhd1CKq6tfZAy60wYN3ibhoBkBk3MSpwisBICzbBwVphdz3
-   LWfuGAzlU4yT2tjf08KSEgRcZpzyfAq/FZFTSP1ktzYd6QLSMMjzp2a23
-   rJKGRTFvFv36lc/MZvcWZtSMjcAddD3em1fuGFSfr0TdITn9I8yrdV9Ei
-   XWpz1WLe5Yy+dWLkb0qevImTZzb6tpmaaSNQ9BuTNO9JYzRDGMBvqwFPR
-   w==;
-X-CSE-ConnectionGUID: Wx8+A8GqQhaz8nY9bkaLVQ==
-X-CSE-MsgGUID: fhUWwgo6Qu+HFvE1yrZJ+g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="77601899"
-X-IronPort-AV: E=Sophos;i="6.23,189,1770624000"; 
-   d="scan'208";a="77601899"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2026 02:18:14 -0700
-X-CSE-ConnectionGUID: B8Y1CBUqSsGXj998AkT6CA==
-X-CSE-MsgGUID: 85T12Jz/QYu9Svnq2XYHSg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,189,1770624000"; 
-   d="scan'208";a="236048689"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.90])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2026 02:18:10 -0700
-Date: Mon, 20 Apr 2026 12:18:07 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Hardik Phalet <hardik.phalet@pm.me>
-Cc: gregkh@linuxfoundation.org, jic23@kernel.org, andy@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
-	dlechner@baylibre.com, krzk+dt@kernel.org,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev, me@brighamcampbell.com,
-	nuno.sa@analog.com, robh@kernel.org, skhan@linuxfoundation.org,
-	Hardik Phalet <hardik.phalet@gmail.com>
-Subject: Re: [PATCH v3 0/5] iio: magnetometer: add driver for QST QMC5883P
-Message-ID: <aeXvTwLXeAaB5bvE@ashevche-desk.local>
-References: <20260420-qmc5883p-driver-v3-0-da1e97088f8b@pm.me>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RDFETQzS";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C/E611n+"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63K7Wtho1532093
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 09:19:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	SwwBLlLdW9puTDYK6pG7Oh/PAc0bBf+PodW3Dq7XliM=; b=RDFETQzSXcUq2bv7
+	RyThkN5JjMCPrPmRFs+hv8Fj4srbNQ1rRN4AO8432LGQvQCJ3ivfkY6SKvCRMN/1
+	V8/jyX1WX7MSALoYRj3YiGN0nryJplTA5hOUUlsRvSoqSV0Z/Epvvf9B9UpHokO2
+	o9GaT7+tCgKwhLVFbJZCC8g0rJjbMxDuIrMGGYpuSXBxiJsPzUUrkV0S6H0UZoZ4
+	aUh/OwS8fAt6nph1GQ1zKip0XBuwMTIsIBD3NmDH6ggsm9MrwIF1R66F9cbL0vy6
+	iedUfJX13DhjFkMW2ji7amhXekLVFHX/CvpTnwp/HYtIJ1BS3q/KBzP+a9yfiZRa
+	5ZVZ0Q==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dnfus0q2k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 09:19:23 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-35e5791871fso5486919a91.3
+        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 02:19:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776676763; x=1777281563; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=SwwBLlLdW9puTDYK6pG7Oh/PAc0bBf+PodW3Dq7XliM=;
+        b=C/E611n+IKtYNqzOSAdH6IghtzAzH9azgjlcYZBZJiVF3PYuQW2Q3eFyQ100/bHh2M
+         oIOA09BYQbN7NlIR/4M3oUcmDHgnbxFRdVlY0LUTZc4nNImBNbTgdWvr9GEWKolL0cYS
+         b7CURaUh7eg0inuOZj9RkK7B0u8oy2YKPMBWe6HMdXT1qZDNebA3HlhnWaJEIgmC/Ai6
+         T4p3CB3dBJF3KpewCAEYRFm3VRE9D5OaeopnySqCDuASBcv3c/sKrRBpZPWvwb4I7edZ
+         CbLIc0HXjJLtsYI+/62u2ZEaQWIQpnlMxA6Aamr5tDA1lh8Qev3/3cKsIGe26fpwhEY3
+         Sg2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776676763; x=1777281563;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SwwBLlLdW9puTDYK6pG7Oh/PAc0bBf+PodW3Dq7XliM=;
+        b=DI47nS/cQz54mz/z9fbrrrTUy/9+Bk33stIhjpFlLPaFrnkDJaYHGVXmFmtcxVOBr8
+         OR6MvC5g1obfntaSI7MUu3emQzXe8mIuDd8qZE2Sv3cyLK7toG3j4/P/HoxSa6C3Zcrb
+         WoA1pXeo9PQGocAMCXKs9eKlHWU4rlVhVfHQnXcrGmQf104III0Kgw3A4kQDhKgYnFPA
+         BfZ5FakQan+JbLD4WyCAIygtFhfpTIfyqf3Wf5203ZNxzHcjimtGhH97u7qvHWAwrfHo
+         BCL5otOnoDvFPXe5N1oMCXI8UluBxPkA+Ub4PK0BvwnX7g7PeOQx6jQh5Kbc57L7EEnm
+         TEFw==
+X-Forwarded-Encrypted: i=1; AFNElJ8Vm+3155a/Vs1QBCQmNJnuuhhqE2lkTa6ivIdtx0xSgvPHnq9F+WLb4w+MwvC/5RBOamawcmlXDA8d@vger.kernel.org
+X-Gm-Message-State: AOJu0YyFcoZpBgwdctGVJ9Uxjg4sqOesvtg2yW+4Q/s168TGx//LA0EX
+	qIGQvfSUNNW2uu8ndvVJ/4EGimqxvijkKua66eQ5MpCE9x6KPOu2SfHfLIZXmJCFx7fmJpr0ikW
+	dRW73IXtPjb7T2OOPxzxLbAIMix7wefQx2+BzLbeukqZBZeq1kzMWvkmy6uZOxwlM
+X-Gm-Gg: AeBDieu1nkZiJvCqke0QFYBDaBXanBgEPhJVUf4KotgNL/yEbR6NIGG6ls7fv9u7FiV
+	p9rbdQVdknW+7lOy0WgBRfCzEzBXFJ59Zkh+6MfEX894/EqxEQ7TF0bYdwpBMeXKRRNO3XFpgeb
+	WEuu0/ni2QA+yA5rbGWBiRFtcFAGbnywRR2611roFxqfjFAL52E2GyNfB3Zw2r11w2Y6VKaGrUR
+	3vfKXvl4GiP61jQM3SChlD+dwHGqUpLg3TnH45nzMYqxSCT2U3KrCdsvAsAS/bFC4Dxn1AYWJkm
+	vpqI6uuKwOfr3NDTXqUSBqqhmjTkBINGWjSttmWplA+7ypbpItz6lmfhBa/oDnVo7lzFO0p8Po1
+	easpnCpdE9Rv/i8tLfX6RETniijNJN8NjtxOTMh20G0Te7mPcH55QD+aV8Tfn8KEJ49YYXfJxGs
+	kPiSdBfunqn5jfTrPR6haQ7npcnhK4TsR0IVK555UHqm2IFbw=
+X-Received: by 2002:a17:90b:5583:b0:35b:8d89:7199 with SMTP id 98e67ed59e1d1-36140468a44mr13149854a91.15.1776676762931;
+        Mon, 20 Apr 2026 02:19:22 -0700 (PDT)
+X-Received: by 2002:a17:90b:5583:b0:35b:8d89:7199 with SMTP id 98e67ed59e1d1-36140468a44mr13149827a91.15.1776676762522;
+        Mon, 20 Apr 2026 02:19:22 -0700 (PDT)
+Received: from [10.50.10.19] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36140fc5d94sm12989529a91.2.2026.04.20.02.19.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 20 Apr 2026 02:19:22 -0700 (PDT)
+Message-ID: <a4f6b7f5-6566-4c73-9c4f-e43c3cafa75a@oss.qualcomm.com>
+Date: Mon, 20 Apr 2026 14:49:16 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260420-qmc5883p-driver-v3-0-da1e97088f8b@pm.me>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: thermal: qcom-tsens: Document Nord
+ Temperature Sensor
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260420065409.1249030-1-shengchao.guo@oss.qualcomm.com>
+Content-Language: en-US
+From: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+In-Reply-To: <20260420065409.1249030-1-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDA4OSBTYWx0ZWRfX2tONdN5sqGYu
+ QqBD4IrC9xZ88Zuxn4c5kz1ey0WVd8d5mw8e0FgOZ9xbGc/NdS5KVDNjzxDLOKgqh5xzQLllstL
+ UIO5p9ww7elZ+Kga5DYWWbG3vliO4UgH/Je10TozoVlhjDvEF6tBEqYbMs+wzPqS/dF07d0zf12
+ YpSc94280aVkXBQ9vk2Dy6q6nOVpUEeIuNOuiLoaK3xY0lN4vMzyQt+ElhIPcdMYwjr3alz6Hjv
+ 0CT4HkGgI2fKjs+nw4L3uhE9a2niMWduwKuWBiaU6U91ORHHYD9wyWakrWllZ5d7gYZkonAL0JT
+ FA4w7CHxs8m6/8bLondHaLgLuAtKz+9e+IK07i9JLpMvWJhlLTUejCgwW3hN7+hZru27a8aF0bS
+ /fn2poqmTox51iQRchDv8czQsDs+D3twAZZZUEKGXzdlxTLY0YrD47RytoJ64yFscAeDOnIeMKN
+ c554P8dWo2DBPEJk+mA==
+X-Proofpoint-GUID: iGrE5lijzVW1PkllSmA_CY591_QRCHFR
+X-Authority-Analysis: v=2.4 cv=PMQ/P/qC c=1 sm=1 tr=0 ts=69e5ef9b cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=mF-kcvSE2y_lSODwij8A:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: iGrE5lijzVW1PkllSmA_CY591_QRCHFR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-20_01,2026-04-17_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 impostorscore=0 adultscore=0 lowpriorityscore=0
+ suspectscore=0 priorityscore=1501 clxscore=1015 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604200089
 
-On Sun, Apr 19, 2026 at 10:32:09PM +0000, Hardik Phalet wrote:
-> This series adds an IIO driver for the QST QMC5883P, a 3-axis
-> anisotropic magneto-resistive (AMR) magnetometer with a 16-bit ADC,
-> communicating over I2C. To my knowledge there is no existing
-> upstream driver for this device (see "Prior-art register-map check"
-> below).
+On 4/20/2026 12:24 PM, Shawn Guo wrote:
+> From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
 > 
-> The driver supports:
->   - Raw magnetic field readings on X, Y and Z axes
->   - Four full-scale ranges (+/-2 G, +/-8 G, +/-12 G, +/-30 G),
->     selectable via IIO_CHAN_INFO_SCALE
->   - Four output data rates (10, 50, 100, 200 Hz), selectable via
->     IIO_CHAN_INFO_SAMP_FREQ
->   - Four oversampling ratios (1, 2, 4, 8), selectable via
->     IIO_CHAN_INFO_OVERSAMPLING_RATIO
->   - Runtime PM with a 2 s autosuspend delay
->   - System suspend/resume delegated to the runtime callbacks
+> Add compatible for Temperature Sensor (TSENS) of Nord SoC with
+> a fallback on qcom,tsens-v2.
 > 
-> Regmap with an rbtree cache is used throughout. CTRL_1 and CTRL_2
+> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-I'm not sure this paragraph answers the question "why not maple tree?"
+Reviewed-by: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
 
-> bit fields are accessed via regmap_field to avoid read-modify-write
-> races. The STATUS register is marked precious so regmap never reads
-> it speculatively and clears the DRDY/OVFL bits unexpectedly.
+> ---
+>  Documentation/devicetree/bindings/thermal/qcom-tsens.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> The probe-time init sequence is: soft reset, wait 300 us for POR
-> to complete, deassert reset, drop the register cache so subsequent
-> RMW writes read fresh values, then enter normal mode. 300 us
-> comfortably covers the 250 us POR time given in the datasheet.
-> 
-> Patches:
->   1/5 - dt-bindings: vendor-prefixes: Add QST Corporation
->   2/5 - dt-bindings: iio: magnetometer: QSTCORP QMC5883P
->   3/5 - iio: magnetometer: add driver for QST QMC5883P
->   4/5 - iio: magnetometer: qmc5883p: add oversampling ratio support
->   5/5 - iio: magnetometer: qmc5883p: add PM support
-> 
-> Patches 4 and 5 are split out from the main driver so that the core
-> (1-3) can be reviewed and picked independently, per review feedback
-> on v2. 4/5 exposes the CTRL_1 OSR field via
-> IIO_CHAN_INFO_OVERSAMPLING_RATIO. 5/5 adds runtime PM that puts the
-> chip into MODE_SUSPEND when idle and wakes it to MODE_NORMAL on
-> demand.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+> diff --git a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
+> index 7d34ba00e684..e65ebc6f1698 100644
+> --- a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
+> +++ b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
+> @@ -58,6 +58,7 @@ properties:
+>                - qcom,glymur-tsens
+>                - qcom,kaanapali-tsens
+>                - qcom,milos-tsens
+> +              - qcom,nord-tsens
+>                - qcom,msm8953-tsens
+>                - qcom,msm8996-tsens
+>                - qcom,msm8998-tsens
 
