@@ -1,154 +1,276 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B9EA1A682C
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 04:21:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C0D2D060D
+	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 04:47:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776658896; cv=none; b=Av1K+lxYZRrdYvmQjOJmIW0FZQKyEDxswu2qKm8yv4LchdAZ39g+sFI8NvveFbZerS8kDsYCklmI6uBQyZmW8eLGEREtYZQ2qAE6W6uUI4ZcMX3oUn7t+cwyG0cUsoMDTJ7HOL9qeadlN4bJ2pFZQuSAO0oOsvExJv60KIueAp8=
+	t=1776660467; cv=none; b=ZSdwOBn0La1Wzue13Moxr45qs7FYFqI5nO459PFTao4RUDWi83UrPlORZwQ+unz0cFtV3eVefpv0Cv17NAW3bzMQ1Pt0dRyrY1nVouvLLVJlsVPuKhCgHOlapfTXb9PcddyM+p1PSRNyUoGiM5LSSy9q7vCEtU8cCKeoiSTtP9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776658896; c=relaxed/simple;
-	bh=9zk2e0pX60sa98Q31J8tqnytS6SQBvDq64DeqNlhcuc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HdjJgCDAP5cvE7zU1UCMT86flmG65RHbylGAU9xn0L6LXFUW62Ce8+9wBdaOXzo3jHf6drmHqU6TnlVQqaXdg3i30rZizoF5zU4YXBxJCvtGTj0HAjGzQ+nGXaspaA7zxkR6oIXUZRhEDlr/bwLD0Hvpq4+Tv1ex0pivwjCO9+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CU+o/bLT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GAADn79O; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776660467; c=relaxed/simple;
+	bh=N0DZixZb482dr8MAWmfPkBJHWGDNHO51NAq3Yuahj8E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RibpDgE+PZEbVtt3N/BkLZtILyWpUcJt4GeVPGlTqGR9RdbxZf3yEuyW8zDWdxUYi7ii/QTa/jediIZajFRlBcnsMroZAt1F0puu+A7ThV0dyGxPZIjizHJ5Ng9I+McF3mUV7po4myV1QhU+T1cVuZV1pnqXFLB6TlaCkoeV5Kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XifRW6f2; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CU+o/bLT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GAADn79O"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63JIKBDF382691
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 04:21:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=qaM+GPaTDpokAo4rJuDE8WVmWv/fVcxz9V7
-	7vFiuogw=; b=CU+o/bLTq8+2zcePFRHjj6YzPwmZ7ZGe03zS1B+vq6xSzKYW19S
-	laerRBlOlyDgDGoXovGSCKmp3d+WBabWout3G6aqx9iEJl6cGbgvZvfhj2Sj9xsq
-	3a2e2DC0emqo9lkgiWmw+MJm4Z39i7yyNG6czP1mLcqpCRMA9Fh6e3TonW3Ibd+g
-	Mfc431oClDfbJmimnEKDCkrE2TwslqCoWP/GktMyXCvWz/t5HP6mtiABgr4jn5Un
-	R2H4wJ25p7p5iY86MGdu7uAEBxpBNv+cSS7ng1Wuw4xMh9BqKNs7B/Mxqbzi8OhM
-	sP/2/1MM9BtvAG1YiFOr96hWO92SYlMg4RA==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dm1hx40un-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 04:21:33 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-2cc75e79b97so2437622eec.1
-        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 21:21:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XifRW6f2"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-2bdcf5970cdso2175210eec.0
+        for <devicetree@vger.kernel.org>; Sun, 19 Apr 2026 21:47:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776658892; x=1777263692; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=qaM+GPaTDpokAo4rJuDE8WVmWv/fVcxz9V77vFiuogw=;
-        b=GAADn79OEFpK9OleedY6petIq1FdXfKPI4180ko8UoHGyIbf8ogjB6RoWBeGGhyuuL
-         tgaK196P1w94epDW+41oL7hDqhy7l/zrWcsmPtF6b9cPxeZRhSukZzewPWQwYG9hs+Bq
-         VZgCfve/mkaq4a7OqmIHug2QAy8DyF1CjR109pB2OF6xLEBirBXXueDqIZNnd8A4LlHa
-         GjdGgs8trvHtegZS/xZVqtdsXEjpveSQ5HJBguVeSKHPYvLk4EuM02Zb0ay2fcAEJ8hL
-         IfnVdDAYpFgAatwLB6qF3O51uVaZxqT9RXuvrEFwNMRal9rYQv8woQoUFAfWWA5sWCtv
-         at2A==
+        d=gmail.com; s=20251104; t=1776660465; x=1777265265; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ivIQYtxBKSYYxLWGWSom7fjyGf+pGkpG586CwmF2GsI=;
+        b=XifRW6f2mDXUlY3y76s4DYZxv0HmBWEGyeK8LSSRp+DDdlyM7hoxnRfrDmkP5dHPzv
+         kf3wUpObnM4Kru8BB12DgW0mIxZDaEjyYoAa0HliJn++ZbmaKq7Z93Yqiwb4rrYrNCdJ
+         G/MxdPQVYcgXtI7Qdo5UhBKscNVUECAquQiNETDJu5uyxZ0xJu8KLsN6upl4tRgOHyey
+         tjq0zFH8W1bWIoWVixwc6Iq7zf8B3txuUO5QP1cVRs6b4m1qQbz/9Zh+SdCmTA6ENyAI
+         LQAD5djWj6gggksAei+xRmsdTnJ+v8lmErWIRBVgmxN9hl8ZNONdhSh2lgCbrLsfJ7WZ
+         Ge4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776658892; x=1777263692;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qaM+GPaTDpokAo4rJuDE8WVmWv/fVcxz9V77vFiuogw=;
-        b=cVE8mUG4vVZHyx3H9AINg6s3fb3b+G5Pdsj2MOg3bLmjYfAixpHfa/UMe5BSUZ9t6u
-         7WE6KKutqI/qzecgewGqqQCBXQenlGLKvR8Wm/Bbb1MBOMNZTtXSBm4JEPSjmQIhNmV5
-         uNcLIgT4xVBwrUk9sFVi6R9klNQGo+uqfxuR7dRw73goLGAhTmv2TTmB1znqX65BYeeN
-         OtU33pDdNMKFtv5GScgMG+UcAXFxgP2Ztzl76rUB9f/7ItE8o4Spp0QkHY8bROc04a/n
-         uSRHRQ2k3zTZBnT4EMVFUUTHRyZrFgOV1wS5p5EkAAIbxU2vfBR3f9tm81P4HSyXOc1a
-         Kigg==
-X-Forwarded-Encrypted: i=1; AFNElJ8TboiTgq420kl0zXqQlmeUEdFZHNu6FWDAhatYdUWW6rMhDW8MEuOI5yE5B8/as/Acf/mretCJR8k4@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTRoYV+5MyWPpLrrcnVq6BSF7J+cmol8G5J1+FgpPBHfTiVC77
-	sAPoGwGfgVFS+mnwLq+BHRJUpSihKtfDrCFH7L41iuVd438XMYfpjkfH3cWHJrBiPsXAnDGGbcN
-	pekZDszjABz26vOaBW3LXhCt/fupI5kz72J0lkQPdapDRj3ny1xGL6RPg7Ah1swTE
-X-Gm-Gg: AeBDietG3h3o+lq4Eh4Q3mDKVloOzWDoI7Seqy0kQ3/ytL0JQT1ehinOhgcK0ep4nGy
-	I/HupRe/2sxFP8CUpTZsCtRnduGNGQJOSYsshVHbNtPBte6hQMzo3H0whafxzT1LU0uyHCjkvxl
-	refTBfl6clkfpsmAaZ39Z498vVbdiUej2Ypxhxv7gJfr6FjZ+MwoPZefjhZCqHhL3tlVjMBU18T
-	aj8goZyPw5Bjkw6cnqY5nML4/1l+yMOGOh/SydjyVxRZgNxR/HY06h5IvJ/TiPd2KMRiYOaAEuC
-	NELhcO0n8XGs9oYA0J8fXNyw5Jq7fsu8CDnvhlI11KTbc33Y7kclkUpYKT8xTzABtvMsaTaG1ov
-	b6+XwniTKyLjj/icrDjoeZ85rb7S63kvc6RbJkpaLOUW1dAu1L46g1hY1Hy4ACZvluVlq/OWRmO
-	RX01rnCdnxhlMOXpPf
-X-Received: by 2002:a05:7301:1e8c:b0:2dd:c066:bf7 with SMTP id 5a478bee46e88-2e465772629mr6262855eec.11.1776658892337;
-        Sun, 19 Apr 2026 21:21:32 -0700 (PDT)
-X-Received: by 2002:a05:7301:1e8c:b0:2dd:c066:bf7 with SMTP id 5a478bee46e88-2e465772629mr6262839eec.11.1776658891805;
-        Sun, 19 Apr 2026 21:21:31 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2e53d4bdaf7sm12340216eec.25.2026.04.19.21.21.28
+        d=1e100.net; s=20251104; t=1776660465; x=1777265265;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ivIQYtxBKSYYxLWGWSom7fjyGf+pGkpG586CwmF2GsI=;
+        b=U6MIH0L+IEWvfSv1mSAUbrpWFZbHJqRgh17/sJkqTX3JAmtPoMS/nvcUoQ/gIIOyvO
+         0xx1LomDxL/4gEfi1DTcaaat5iJCxbHwp6JueV6Qt2T/WMBjnCK5GfR9/Hf0V3U+AaYm
+         VS32VWWCMMeIxhRnjk6zGL5ZyxSanAtRqtLSNcS2l1f6FJCqH16XEqCtfiPGMesI06cL
+         5sv2yThm+9+S8ewyDGamZM8InrKW0x6R5MdsHkvyjquAGFbnLs1o8XHXL9BP9CD8RyI5
+         aT8BgXgk/SMkQ9bfdtYXBguK8xY2z4g+vPUvmOCnd38Eh8gGPUOe1Ao4T3K08ppobvBb
+         gVzA==
+X-Forwarded-Encrypted: i=1; AFNElJ9m6fWRfxK8te8zWiuTQHg6KNdOxk9I0uBh9t4XSLNtCrswusqpldyEZFrSnR152cwuR75Q0pRvMsai@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQ0O1JW0wZ4MmVf5cpgYmlBysg+ptHItPbzTs37WJWQfwai2uu
+	+v4/C918VH/rWDdj3coi4u1x/QBIgsQO1yXwhTJqaM2eKqlyk2l/V/ff
+X-Gm-Gg: AeBDietKRzIOTY+ZKwlsMwzFipGhfYGSEX3lf77KChH2PKBJllD36TeWPqnP0OQ8cQz
+	OpLlyDiaSpzvOtNeI9sIXAPLAiasW0rZNPyWnok+eOzEbOy5g9oXenMBu9lQSbwa8KO0/zFZgAs
+	IWPSD+0l0e7k/X9V027R34Sb1lyb5qVWexBtloc7bQTnf/3blgayqxGSMoGfrwAg60ia7gqlq2f
+	qVe/SCYYr1NJLEWGb6B5US8escFAuhitl0w7XQopDAZd/m30zB+UaBPAorStCAAe8xbAlAfRsCt
+	yz7qJOpCTJXRRabn+aMdAzsK/3yOxCRpWn1T52JRzbO9h1QaTIznaj5bSyh1gNipLpCHrR9ST8b
+	/zqzcoQVyXjoO1YETOLAraMyfor9CEdBrKu3HxE+iw9Av2wEpKV623jCymLfNX59mbF3h63ey1h
+	N8IjuPIlrNqY/puJpooHGNXTZhDD/sgp5/Owuybva+jcZpNyxlf/poNCW0n2W0uT6dRpI1xSdJJ
+	8o=
+X-Received: by 2002:a05:7300:72d5:b0:2a4:701a:b9ba with SMTP id 5a478bee46e88-2e42e10aeabmr4580207eec.14.1776660464756;
+        Sun, 19 Apr 2026 21:47:44 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:1a4e:4965:5dff:cdee])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2e53a4a8018sm15897536eec.8.2026.04.19.21.47.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 19 Apr 2026 21:21:31 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH RESEND] dt-bindings: mfd: qcom,tcsr: Add compatible for Nord
-Date: Mon, 20 Apr 2026 12:21:24 +0800
-Message-ID: <20260420042124.1247995-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+        Sun, 19 Apr 2026 21:47:43 -0700 (PDT)
+Date: Sun, 19 Apr 2026 21:47:40 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Hugo Villeneuve <hugo@hugovil.com>
+Cc: robin@protonic.nl, andy@kernel.org, geert@linux-m68k.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	hvilleneuve@dimonoff.com, mkorpershoek@kernel.org, matthias.bgg@gmail.com, 
+	angelogioacchino.delregno@collabora.com, lee@kernel.org, alexander.sverdlin@gmail.com, 
+	marek.vasut@gmail.com, akurz@blala.de, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v5 4/4] Input: charlieplex_keypad: add GPIO charlieplex
+ keypad
+Message-ID: <aeWtDA7snjJmiF9K@google.com>
+References: <20260312180304.3865850-1-hugo@hugovil.com>
+ <20260312180304.3865850-5-hugo@hugovil.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: JH_LwupUsF1s964HtzTI-07_VFMUl5hj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDAzOCBTYWx0ZWRfX1nUnTJn9OYNw
- vy1COv815BICUiPjwS5SVwc/WbSXYQQ6tjZ1W8Yus67XCnd2uXMqmFD6B+jLn6yOTVoGqmN7W3D
- +PofMCzCwoKjAvCtN9NAGCYJzxoLvGNQiF7BUje1HYm7OHSeA91CpwQ+m8qxbLmKE0uq/9h+COA
- qHpy/qqKpOPjcSfDqOrGjZ2J17JwbXt7s5ofP4UMRiU0Gn9E7KpbOQvuIbvNXsJmSZNrxP2RQ+B
- OR0/tx7oR3zKmS3fSIrsJu9sdwP5myY86i9zA9n1aC8ucCcXMS12GoSS79sJMklTQMbZhYcytdV
- 1KyTXfI3pNmKA66kZ4dc0kGg5gdzyrgfMjokvv5ggdIEKPQrX0WNXrv/LMFiAKevQ6t8TDpmy1R
- DFgTAbSxF+jhstiy3E9xIW8b32UzqwyzA+niTy3QgmSlNjubZUR5XdqZ28BjXHyQ1rLaLbxaSG8
- /481JfQ/3maGNE+MrqQ==
-X-Proofpoint-GUID: JH_LwupUsF1s964HtzTI-07_VFMUl5hj
-X-Authority-Analysis: v=2.4 cv=RoX16imK c=1 sm=1 tr=0 ts=69e5a9cd cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=LjGnC7tzK2yCY8HLVSUA:9 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-19_07,2026-04-17_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 adultscore=0 spamscore=0 phishscore=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 suspectscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
- definitions=main-2604200038
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260312180304.3865850-5-hugo@hugovil.com>
 
-From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+Hi Hugo,
 
-Document Top Control and Status Register controller for Qualcomm Nord
-SoC with a fallback on syscon.
+On Thu, Mar 12, 2026 at 02:00:58PM -0400, Hugo Villeneuve wrote:
+> +
+> +static void charlieplex_keypad_report_key(struct input_dev *input)
+> +{
+> +	struct charlieplex_keypad *keypad = input_get_drvdata(input);
+> +	const unsigned short *keycodes = input->keycode;
+> +
+> +	if (keypad->current_code > 0) {
+> +		input_event(input, EV_MSC, MSC_SCAN, keypad->current_code);
+> +		input_report_key(input, keycodes[keypad->current_code], 0);
 
-Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
-Resend to add my SoB.
+This needs input_sync() as otherwise userspace is free to only recognize
+the last MSC_SCAN event.
 
- Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml | 1 +
- 1 file changed, 1 insertion(+)
+> +	}
+> +
+> +	if (keypad->debounce_code) {
+> +		input_event(input, EV_MSC, MSC_SCAN, keypad->debounce_code);
+> +		input_report_key(input, keycodes[keypad->debounce_code], 1);
+> +	}
+> +
+> +	input_sync(input);
+> +	keypad->current_code = keypad->debounce_code;
+> +}
+> +
+> +static void charlieplex_keypad_check_switch_change(struct input_dev *input,
+> +						   int code)
+> +{
+> +	struct charlieplex_keypad *keypad = input_get_drvdata(input);
+> +
+> +	if (code != keypad->debounce_code) {
+> +		keypad->debounce_count = 0;
+> +		keypad->debounce_code = code;
+> +	} else if (keypad->debounce_count < keypad->debounce_threshold) {
 
-diff --git a/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml b/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml
-index 14ae3f00ef7e..23317d1b381c 100644
---- a/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml
-+++ b/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml
-@@ -19,6 +19,7 @@ properties:
-       - enum:
-           - qcom,msm8976-tcsr
-           - qcom,msm8998-tcsr
-+          - qcom,nord-tcsr
-           - qcom,qcm2290-tcsr
-           - qcom,qcs404-tcsr
-           - qcom,qcs615-tcsr
+This does not work if debouncing is disabled (debounce threshold is 0).
+
+> +		keypad->debounce_count++;
+> +
+> +		if (keypad->debounce_count >= keypad->debounce_threshold &&
+> +		    keypad->debounce_code != keypad->current_code)
+> +			charlieplex_keypad_report_key(input);
+> +	}
+> +}
+> +
+> +static void charlieplex_keypad_poll(struct input_dev *input)
+> +{
+> +	struct charlieplex_keypad *keypad = input_get_drvdata(input);
+> +	int code;
+> +
+> +	code = 0;
+> +	for (unsigned int oline = 0; oline < keypad->nlines; oline++) {
+> +		DECLARE_BITMAP(values, MATRIX_MAX_ROWS);
+> +		int err;
+> +
+> +		/* Activate only one line as output at a time. */
+> +		gpiod_direction_output(keypad->line_gpios->desc[oline], 1);
+> +
+> +		if (keypad->settling_time_us)
+> +			fsleep(keypad->settling_time_us);
+> +
+> +		/* Read input on all other lines. */
+> +		err = gpiod_get_array_value_cansleep(keypad->line_gpios->ndescs,
+> +						     keypad->line_gpios->desc,
+> +						     keypad->line_gpios->info, values);
+> +		if (err)
+> +			return;
+
+We need to deactivate the line on error too.
+
+> +
+> +		for (unsigned int iline = 0; iline < keypad->nlines; iline++) {
+> +			if (iline == oline)
+> +				continue; /* Do not read active output line. */
+> +
+> +			/* Check if GPIO is asserted. */
+> +			if (test_bit(iline, values)) {
+> +				code = MATRIX_SCAN_CODE(oline, iline,
+> +							get_count_order(keypad->nlines));
+> +				/*
+> +				 * Exit loop immediately since we cannot detect
+> +				 * more than one key press at a time.
+> +				 */
+> +				break;
+> +			}
+> +		}
+> +
+> +		gpiod_direction_input(keypad->line_gpios->desc[oline]);
+> +
+> +		if (code)
+> +			break;
+> +	}
+> +
+> +	charlieplex_keypad_check_switch_change(input, code);
+> +}
+> +
+> +static int charlieplex_keypad_init_gpio(struct platform_device *pdev,
+> +					struct charlieplex_keypad *keypad)
+> +{
+> +	char **pin_names;
+> +	char label[32];
+> +
+> +	snprintf(label, sizeof(label), "%s-pin", pdev->name);
+> +
+> +	keypad->line_gpios = devm_gpiod_get_array(&pdev->dev, "line", GPIOD_IN);
+> +	if (IS_ERR(keypad->line_gpios))
+> +		return PTR_ERR(keypad->line_gpios);
+> +
+> +	keypad->nlines = keypad->line_gpios->ndescs;
+> +
+> +	if (keypad->nlines > MATRIX_MAX_ROWS)
+> +		return -EINVAL;
+> +
+> +	pin_names = devm_kasprintf_strarray(&pdev->dev, label, keypad->nlines);
+> +	if (IS_ERR(pin_names))
+> +		return PTR_ERR(pin_names);
+> +
+> +	for (unsigned int i = 0; i < keypad->line_gpios->ndescs; i++)
+> +		gpiod_set_consumer_name(keypad->line_gpios->desc[i], pin_names[i]);
+> +
+> +	return 0;
+> +}
+> +
+> +static int charlieplex_keypad_probe(struct platform_device *pdev)
+> +{
+> +	struct charlieplex_keypad *keypad;
+> +	unsigned int debounce_interval_ms;
+> +	unsigned int poll_interval_ms;
+> +	struct input_dev *input_dev;
+> +	int err;
+> +
+> +	keypad = devm_kzalloc(&pdev->dev, sizeof(*keypad), GFP_KERNEL);
+> +	if (!keypad)
+> +		return -ENOMEM;
+> +
+> +	input_dev = devm_input_allocate_device(&pdev->dev);
+> +	if (!input_dev)
+> +		return -ENOMEM;
+> +
+> +	keypad->input_dev = input_dev;
+> +
+> +	device_property_read_u32(&pdev->dev, "poll-interval", &poll_interval_ms);
+> +	device_property_read_u32(&pdev->dev, "debounce-delay-ms", &debounce_interval_ms);
+> +	device_property_read_u32(&pdev->dev, "settling-time-us", &keypad->settling_time_us);
+
+Not all of these are required properties. If they are missing the driver
+will operate on garbage values.
+
+> +
+> +	keypad->current_code = -1;
+> +	keypad->debounce_code = -1;
+> +	keypad->debounce_threshold = DIV_ROUND_UP(debounce_interval_ms, poll_interval_ms);
+
+This will bomb if poll interval is 0.
+
+> +
+> +	err = charlieplex_keypad_init_gpio(pdev, keypad);
+> +	if (err)
+> +		return err;
+> +
+> +	input_dev->name		= pdev->name;
+> +	input_dev->id.bustype	= BUS_HOST;
+> +
+> +	err = matrix_keypad_build_keymap(NULL, NULL, keypad->nlines,
+> +					 keypad->nlines, NULL, input_dev);
+> +	if (err)
+> +		dev_err_probe(&pdev->dev, -ENOMEM, "failed to build keymap\n");
+
+Missing "return".
+
+> +
+> +	if (device_property_read_bool(&pdev->dev, "autorepeat"))
+> +		__set_bit(EV_REP, input_dev->evbit);
+> +
+> +	input_set_capability(input_dev, EV_MSC, MSC_SCAN);
+> +
+> +	err = input_setup_polling(input_dev, charlieplex_keypad_poll);
+> +	if (err)
+> +		dev_err_probe(&pdev->dev, err, "unable to set up polling\n");
+
+Missing "return".
+
+I fixed it up and applied, please take a look in my 'next' branch and
+tell me if I messed up.
+
+Thanks.
+
 -- 
-2.43.0
-
+Dmitry
