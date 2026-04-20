@@ -1,35 +1,34 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BF83A0EA5;
-	Mon, 20 Apr 2026 12:54:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36AB839FCC6;
+	Mon, 20 Apr 2026 12:54:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776689683; cv=none; b=oh3vyEGphGslrhQ9BhcAwNLDVUwHY2t+UPv6N8jOXKNBnRprMaVHvjbEn9v8mcXk30aAC9g1f0k3/9R9EWPsQ8UuOW3G52rHmYgm08SwN0vtdhFibud1U+6ZmvvjuyZgS2aP51K37tCLuHfU9axMDy4oh2yBnFsKSGoMjMgk/Y4=
+	t=1776689684; cv=none; b=JI6RbOJRfWlHDSLoeZ25vdZzW/ebLA4WpANZzuyKrF8Q6F7XAspzSNnWkniRBi++cCyeL6hHkHsKmpWSjQuTN9zFQ4Xj1f6JuZ68KTIgsLce3y3CAQTGMUOxka+N/3EwE/yJxjYD4CuEx+kHuQYepfJu4+A3ThTkceHSy+gkxjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776689683; c=relaxed/simple;
-	bh=496Ou4r/BPNoALXAdud1c1PRkHtqfBUZ0zjiIeQJ4pw=;
+	s=arc-20240116; t=1776689684; c=relaxed/simple;
+	bh=ZmMW7kTwbXZdsvuHYTpzWALj86bAemWeJcSUBZ5t3LY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rwDNgx07qEgZRYkhjJTQFf5rnHxlGaRemlfNCJ9YJCWQAqpXp0Mt2ZkgkiHPNCXqWUHPH83kgJkpfLy9dIICZ1GCq9lyVUvYgZJ+85DBkc6yoRRo06efw4bW2QTVX/Dii1z7rB6ft1N6WSaTFgNLXmdDPrPB3B5PND9hddz6W+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Y9X7gBcd; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=E0KLSHTFd5INQ1iLPqCRwtbTkOdMmYazJ4ksP/ixt20gBDtiXR27U7URSsk70I+2o/l0QDA7RoQ1/KWsxUsJWpCEgYsYgtydMdmKDd2hUX3AdL3PpY8Hl05Y5yIciOW8Ytsh0mbB0tOQrO95YxWyH4ps4ZTTbBG1oT8lvna4W8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=BjDhMJcO; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Y9X7gBcd"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="BjDhMJcO"
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E290B2688;
-	Mon, 20 Apr 2026 14:53:00 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1D12627B7;
+	Mon, 20 Apr 2026 14:53:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1776689581;
-	bh=496Ou4r/BPNoALXAdud1c1PRkHtqfBUZ0zjiIeQJ4pw=;
+	s=mail; t=1776689583;
+	bh=ZmMW7kTwbXZdsvuHYTpzWALj86bAemWeJcSUBZ5t3LY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Y9X7gBcdfDUC1wgT875qXur0+vJlDgYPfD2fM7+DjpPPbEzDCiuSYC6iW0BLIxMeK
-	 6yjuISn/y+TJ3EctL1qW/DIBqa19E4W4HNoyM86k3x3fEQm5fopdimf3EU70KLkd55
-	 WVrxQN3bR/QNF7AfmklJmPERfX+xSQGaLVygnsEQ=
+	b=BjDhMJcOUUCK/DETxWGHTWUtONSfLiYEybxsbvGV532Ph0RVYQqLBqjnHNZ9F3yTf
+	 TFF2YN6aWH61AJ1Dwxuld9woAroemgLGx0iHbxl3cqWK4G+CNsdz0qGMF4Cl/ecXT6
+	 Z1hRvA3chKVubm6pd6aTXernoXEuJhKrmihpTb2A=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Mon, 20 Apr 2026 15:54:11 +0300
-Subject: [PATCH 04/15] dt-bindings: display: ti,am625-oldi: Add optional
- power-domain for OLDI
+Date: Mon, 20 Apr 2026 15:54:12 +0300
+Subject: [PATCH 05/15] dt-bindings: display: ti,am65x-dss: Add AM62P DSS
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,7 +37,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260420-beagley-ai-display-v1-4-f628543dfd14@ideasonboard.com>
+Message-Id: <20260420-beagley-ai-display-v1-5-f628543dfd14@ideasonboard.com>
 References: <20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com>
 In-Reply-To: <20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -54,50 +53,100 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.15-dev-c25d1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=999;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3462;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=496Ou4r/BPNoALXAdud1c1PRkHtqfBUZ0zjiIeQJ4pw=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBp5iIEE4ecTPwz7D5WJfCugnkyTMg+2tfZAPycp
- a+p7muijlyJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaeYiBAAKCRD6PaqMvJYe
- 9SX0D/964x59MD+9qCvn3QOnB2w6FHsfngZ66LYiZxoxDZ6ssPfjSnLVqY3ITfBa5p2aTltDn/5
- Sb+G9HEjVs4Lfydl3mTo1nWwK5TfiT+2Kqg783BZ9NZXtUKyUWCEkNUKm3ZmfSOTQRwGxNK0Gnr
- XmTuR+l5c+Owv9EUZH1Qp9Xs4I1O33dICduvk5Qo82Kh1PkjsID0OguWTRi7LRztDCplr4MsaHm
- G7w9SAUb7Ossh/tA94iKlw0D8h+2UgB/Sy3vsreJjzbTdMwFU9Ryu7wzF3Yvx7ldWTh4uG/4/Ms
- KnrYRTxMOvBSunXa7d0vOb0FX82ZHt8eBmJfYyMcLaFlhZe/1hAFIwVH83B5DA/CZNuBOwvVPKl
- UBjW4kslB5Zf0yk5h7OWlPwUpO1W64p6GZhd1q0yTYQsSA3JTZ87Jt83lh9xRdZrvFv0+QMV9gL
- rJyGLju2ffuqB5s/tupbAj/9xz0wldgwqjaCdwANy+wxon+g1O202UJ2gxvkTUJznxxpjuUPtz3
- dz4kXzqfeGN4JMU8XtHNY0eVAWS848Qq+xtM5O1elRR7dYswXZtxLeSBnIiItfzTq4pODgOFESF
- HycqSbjlwNCxhZAbEk28ROo9L6TAiGcnc5Vdtv/sjis/NYChNeK58n0OALsOHgJBeXjo/Vl2XmM
- 9cfeil6BFktAxQw==
+ bh=ZmMW7kTwbXZdsvuHYTpzWALj86bAemWeJcSUBZ5t3LY=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBp5iIEV2YFa0T86ABDYo8g2j/kYLA0ZEyDdJxsI
+ NugLCCmjCmJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaeYiBAAKCRD6PaqMvJYe
+ 9Z6PD/9cXR4IJWvQthQG8JJGdyAANllzwkUECbNxEatZPk40eF7Yx21lzbGRaNGeoywxR3zXjmN
+ mVOylI3DswTjZ08MgaIN5NMmdyZ3H5Etk8dr3pMaWY3iTEDWpg3lGLRZpwkxIGVS78m+6WdC1KR
+ il5PIq7KD1HntaaLnD9jSC1pIbfkEOQvRaDZYhyA6z+re3TYFlfZWJSDDg8jzUuCBcDz3JBNKSn
+ eNEyPvoRPNqaBYkXxM5Qc2SNsoyI/Wvky6jPgpApIviJ0PYnmQrta+5g1g7VgnTWm/znwDH3vxV
+ NY+xYlXPFHCWXS7IwHo4m/4XfkMTQ3+uYjvRfH1V/tJFX6hNjKfKKNNEHcJK4Ju4O5VFWpL+6Er
+ ab1SLz31Hg62mnZm3cv2MF45DGMx/8AgJSmgxZ8IUSqj5r3qRRAoylHWFoCiCf/52xovzmcGYFW
+ hpsXDqetZ7cbDIJFS/v6QdQZHRXZP0+EObHYv617ZFqMw2QX9WKAmZP/sERhBbpuuJCLulLlkbw
+ K9uojLmYeniXqpmCFA+btEsuJVeMVFK0YuLL09WxqeZ1S4my01iZTvzkTH46ZFzlL3xnemZZ0Ew
+ /uVnZx/p41CkoA62Xs6VMwGElU2o8isuE4v9TcnK870pRKf53V3N4ndP3E0K0B50zZ4fCTHKWQ0
+ x5L7lpc1zG6F91A==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-On some SoCs the OLDI blocks belong to the same power-domain as the main
-DSS block, but on some more recent SoCs the OLDI blocks have a
-controllable power-domain.
+TI's AM62P, J722S and AM67A SoCs contain same implementation of the
+display subsystem (DSS). There are two instances of the DSS (DSS0 and
+DSS1), each with two video ports (VP) and two video planes.
+Additionally the SoCs contain two OLDI TXes (OLDI0 and OLDI1), a MIPI
+DSI TX and a MIPI DPI output path.
 
-Add the power-domain to the DT binding.
+DSS0 supports:
+- VP0: OLDI0 in single-link mode, or OLDI0 and OLDI1 in dual-link or
+  clone mode.
+- VP1: DPI
+
+DSS1 supports:
+- VP0: OLDI1 in single-link mode, or DPI
+- VP1: DPI or DSI
+
+The DSI is only connected to VP1 of DSS1, but OLDI and DPI are shared
+between the DSS instances. Thus only a single VP can output to DPI, and
+a single VP can use an OLDI block. Note that in single-link
+configuration OLDI0 can be used by DSS0, and at the same time OLDI1 can
+be used by DSS1.
+
+The DSS IP itself is compatible with older SoCs. While we could use
+"ti,am625-dss" compatible string, we add a new one "ti,am62p-dss" to be
+on the safe side in case the driver needs to do something special for
+the dual-DSS case in the future.
+
+Original patch by Swamil Jain <s-jain1@ti.com>
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../bindings/display/ti/ti,am65x-dss.yaml          | 27 ++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml b/Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml
-index 8203ec5e5bb3..61c3eb0a0776 100644
---- a/Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml
-+++ b/Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml
-@@ -29,6 +29,10 @@ properties:
-   clock-names:
-     const: serial
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+index 588d72d4ec0d..fe6cbfa7cc8f 100644
+--- a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
++++ b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+@@ -28,11 +28,38 @@ description: |
+   On AM62A7, the first VP is tied off in the SoC, and the second VP is routed to
+   external MIPI DPI pins.
  
-+  power-domains:
-+    maxItems: 1
-+    description: phandle to the associated power domain
++  AM62P SoC contains two instances of the DSS:
++  On AM62P DSS0, the first VP is connected to two OLDI TX instances (the second
++  TX shared with DSS1), the second VP to external MIPI DPI pins (shared with
++  DSS1).
++  On AM62P DSS1, the first VP is connected either to the second OLDI TX, or
++  external MIPI DPI pins. The second VP is connected to either the external MIPI
++  DPI pins or a Cadence DSI TX.
 +
-   ti,companion-oldi:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description:
++  An important note about OLDIs on AM62P:
++
++  There are two OLDI hardware blocks. Each OLDI has certain configuration that
++  has to be done before it can be used. The OLDI blocks get this configuration
++  directly from the DSS block, via DSS registers. However, as a single OLDI
++  block can be used either with DSS0 or DSS1, the source for the configuration
++  changes according to a mux. This mux is set according to the OLDI
++  configuration registers in DSS0. Thus the OLDI control paths change at
++  runtime, and it is not obvious how to structure this in the DT bindings.
++
++  The solution used here is that each DSS node contains the OLDI nodes that can
++  be used with that DSS. Thus the DSS0 node has two OLDI child nodes, OLDI0 and
++  OLDI1, and the DSS1 node has one OLDI child node, OLDI1, so three OLDI DT
++  nodes in total. The two OLDI1 nodes thus refer to the same piece of hardware,
++  and they cannot be used at the same time. The selection which OLDI nodes to
++  use are chosen in the board dts files, so assuming the dts files are correct,
++  no resource conflict can happen.
++
+ properties:
+   compatible:
+     enum:
+       - ti,am625-dss
+       - ti,am62a7-dss
++      - ti,am62p-dss
+       - ti,am65x-dss
+ 
+   reg:
 
 -- 
 2.43.0
