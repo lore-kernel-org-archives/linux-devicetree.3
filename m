@@ -1,192 +1,134 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97D231985D
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 17:32:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776792751; cv=pass; b=S3GMJzmYX8HtY9Y/VsSpFWCUmIKQHOV8BRXcmd5Q5mpq42LDp+JbZfasPXee3F3qBTcV7k406DsSEZkAc5O7KEmeqfWP0cogccUCcQ8TKs1/MxcXitRd0FMKP7o1w2ZjCe+sS97w6SEN1SMje/TmpBdVuamHf+Xcwpv06B6uH6w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776792751; c=relaxed/simple;
-	bh=3opUxn+/WZhxis9gCx5CPLMTFPxNfsZrec7JCcuzKuU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ke0/M5U2C7N09WSW3V2B9G7x925lu4Gvn5TMWQGNuUmNgHNJVHOQFvNdh1QchqPS9P11Vy9BgLXSOEbyn+vWsmhTvpowMBEx0E4QWcTRQDW+x5GR62tXqnhzfYVsh5xPJ9EKTyJ8NEsVTzEeWXW+a5oSvQ7v5OPztRFPHQMt8RQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RXtnpz+v; arc=pass smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0B72EA749;
+	Tue, 21 Apr 2026 17:38:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776793121; cv=none; b=IOeD6g2g7Y37gU3dj+mr3wLTNpHSXtQUMuHnZ5D+EmvZ7zu4i+oSnf3TIrPNO1YGwP1RFmucMs3QUPlrCkw8NX7hMEobLzPLuQZeL/Opu4ZIuwaQRAKl9Fz5ZPNZ9Qyq3fMFaY+RiatM0LQlhZUmcAzjazEJogSrx6E1dTUWDIg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776793121; c=relaxed/simple;
+	bh=xvVeCMS46Knlj7LbuK2fp5ztldwZGUoNK8tMjveYJA4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=MYsbUBK1oWxV6QcFj+dxF4Z2oc4ExnSLzCcXQBKZwKyth3yKa9JYc3vWHYw0MciQA8fqVaMGt+YI9XijU8wmg4q5O5X/0ZY3qbXIRmprQIKl9h2+cWUlBGRkjeLKWfMcjtTPBCALTpYuDjhYL32pv/Hn30XY305kpoxykFThZSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sxWh8HGd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RXtnpz+v"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-43eb012ac4fso2760813f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 10:32:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776792748; cv=none;
-        d=google.com; s=arc-20240605;
-        b=gfMzoKBRySJ782d0O2XQsnVZOOVzHjLFEUXVhEslh4z3POTUV7FQP6PzFjSUX3nOtF
-         ndBkwHy9jxlo6mMAT4nHtZgtO+FpWPOR58AcWbFfIF4h5YeeXU5ZkrDCqQ+B5Y+t5yEq
-         jkQL9kUIo4za7vwPnVv1cbPfC/x5kTET6odC7bK51jlGM3pAjAaq9+g2ZRQwACbmlbO5
-         vcaPJG2r1XcWVYbOwub3nN/kncpkI2YA9cUN5k1p7B0UgC16Qh9BGAKjSJu554PJ9qcT
-         XxG+DF0e3NlpYM6FRB5k/dXcdxu31lQjF2GyOYVs09RKw6NbTCV8YEde+SPEmlM1M1n7
-         HXqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=d9JZP9LdDUJMwW5ThoMrsAh4NFGwSHn55PSCzhU6IQw=;
-        fh=r5UOfUQlCZEen053dUfqTCiTZMQO8i/TdDPS0s8qYw0=;
-        b=TILDfU+gqi7RhLapn3wLh0ny39/9XiCzAo7s4E8HngEK8qIURDqmn7pHKVYwI+y46s
-         6NDGKtOovwVOmdcWibqapYbvppZSfaGIrtShEEWw0MJ7546IF0QFjOwVw91Rq+r2/dVu
-         whUrxb8FsCCcWtLBRmo+azeND1NJ81dddS0IgwHQ5e9Cmi6+HwIQDE7xEShQIF3JD/wP
-         mmf9d5cZpgYakWc/6W2EMHP7GFNjt/GfS9qMPIDz0plmi1fmffjP83FF4OV/LGkr0/RO
-         NXe7DzvJqyk38vUIiPINTpQJXjPnOwOS7Of+clxr71N+gRePEUMgoYxFgqgbe2HA5HN1
-         JxIQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776792748; x=1777397548; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=d9JZP9LdDUJMwW5ThoMrsAh4NFGwSHn55PSCzhU6IQw=;
-        b=RXtnpz+vVsfieKGkBLCT524hhYy58bk1vQvzrpJm5mVTZ+ffZbyMFd5NAvxBUyZ5bz
-         gOtn/3Azbt27XKOtGRA3h9IDU6TDUdg7vSieHeTllDEqapXeZ8tJKuLnCHa7sHBlBXKk
-         Tk9gbWGI8RZDbIthvPRYHBg9cyDsY6RLYyJ3tAN74oCagC/GSRc6jifjdgh0H1DWBQaB
-         Tel9o94nHI7nmE5m8uZ0JHEgNuz8QFieOlSJCPwhsuN7OwSHgsXargSXS6geEARw9fRx
-         MI2h/mEHGZamV4Rsa5x5i1UCt0X40ZuKyRND7fdlLJAAxOyrMVt0MM/sGUKMiMu82xAT
-         hKJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776792748; x=1777397548;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=d9JZP9LdDUJMwW5ThoMrsAh4NFGwSHn55PSCzhU6IQw=;
-        b=EuEzKC4BHzdUaGCXGAg/bxzCp9RMH4D6BYsNhIuMtxd7npoMxnv4IAuaopK50wWlFk
-         2DDjc5FXx3nsNTrmC7AAp3wcnE73za3FxVajm2PUdPhspN1GvZxqV8V0ejF2gHnbPtY7
-         fU4GaRVuiyBAT74Z0OtBPpG4B+XASPQV0gLzLUSyWacoNfccfbd+CECCEGXVoqgmHVod
-         LFKCL87Nt66nEOMyFFXgENZVrGuQ5mgt9T0ChJE+P659xyQFVXZPfCq+ho7rqKqw1riw
-         2DermqT3cj8N3xWNGw2PFkBV7vnbskURMvJCYY+oqjO2trdDlKgvDRTjNLFGxWcoI1Ag
-         9iJg==
-X-Forwarded-Encrypted: i=1; AFNElJ860RcnI0qhVR6gBrOyGs13IQhYtJFEAntcXv9bq+Mhv8iYkjrVAkPSUypAZTVrUWE+ywTxtVppl47p@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzo5SxZMgk1d3lMZDTVf2PSLzkmzuF1WB/yAD40k+yXQCZmWM50
-	rQI6N8RTt4MjAIfK5G4yqzJghItppIVMRAImlRHky7ydHiRH2SLvmaJx0QBaolzzxzLTa9TDFye
-	STw/dY+7TQhFHSF8H2Gg9RMx9S+ANun8=
-X-Gm-Gg: AeBDies3PnSh4bUVcovXo3fa2jjFef1RwQd6YVZzGkJERNSDfHDmZCHrlSC242EdCML
-	CjWVA/cB3GkzZ7RzFq9GjptcEUbMWdZH8hc2+BX/sS4JYoq2ib/6dk8RiArSmv0G1aqw6lQQrlV
-	O3olWio0suTEpS4gBSCM5GKewf9c4D6nU7RI+TFYS+yLP6jspLvOShM52HVo1uBPTgdGlMT6ruu
-	8DaDRzb/E5VCdwKu+b4MZ9nXNOmQZCKuVZBUryoexOawH14Lqq431itPjiIxHt6vOV4fk8YSfBa
-	13WeoNPiS8CTIcEd3Lk=
-X-Received: by 2002:a5d:5f87:0:b0:43d:1c21:ead4 with SMTP id
- ffacd0b85a97d-43fe3dcb248mr30377905f8f.18.1776792747978; Tue, 21 Apr 2026
- 10:32:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sxWh8HGd"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9F480C2BCB0;
+	Tue, 21 Apr 2026 17:38:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776793120;
+	bh=xvVeCMS46Knlj7LbuK2fp5ztldwZGUoNK8tMjveYJA4=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=sxWh8HGdF6Qjc+pUnyGkKUNmnjgvAG86qTiHXVnLFLIQhpG97TncGzX0gW3YOul/7
+	 xIWgtB5icVrwW0B36jCgedCucjqvSMUb03tIJm3Wz21yVJatw6v7Fazt+Xjp6UmhF5
+	 6evD6YBo3VV7bjwCu4RkYWwkLeGh/DOctGuLsNJ3jBWP8Czd/phHJi1ncovRTMot4C
+	 3lyrDp6q8goC7uXT68TPfDrm5eZSwzrosgaCC508HdoyyIMJ4jAjvrLB9t5dhtou32
+	 dBrJLi1Tys+gFatJlXufvs9ZsdZzZoQcyZ8hSNq8E5gg5luygODpnJU7goPtnnca4+
+	 MKXgigUwaGsDQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 93B18F8FA64;
+	Tue, 21 Apr 2026 17:38:40 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Subject: [PATCH v5 0/2] drm/panel: Add panel driver for ChipWealth CH13726A
+ based panels
+Date: Tue, 21 Apr 2026 12:38:36 -0500
+Message-Id: <20260421-ch13726a-v5-0-f7f6f4f30e05@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260419093412.40796-1-clamor95@gmail.com> <20260419093412.40796-6-clamor95@gmail.com>
- <aeepbB72uWDxvnE_@kekkonen.localdomain>
-In-Reply-To: <aeepbB72uWDxvnE_@kekkonen.localdomain>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 21 Apr 2026 20:32:16 +0300
-X-Gm-Features: AQROBzCbB1odtYIeJLEi8nmSeUo4a_e5KdU6vNd6lzpNhb-P2paG9uccQadFGds
-Message-ID: <CAPVz0n1sNoJv=JcAZdv3srRY0vecrRO0spnqg58-VLnYdkfPSw@mail.gmail.com>
-Subject: Re: [PATCH v2 5/5] media: i2c: lm3560: Add support for PM features
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WPy07DMBBFfyXyGqPxOLbHWfEfiIUfY2qJtjQpE
+ VXVf8dNkRLB8o7m3MdVTDxWnsTQXcXIc53q8dCEeepE2oXDO8uamxYIaAERZNop7dAGaXyy1lE
+ 2OpNo758jl/q9WL2+PfTIp6/meH4cRQwTy3Tc7+t56CKz5aAh9eSIWJHuSYMv5BVnCiUW5wBDE
+ tsmQ/fooZwMl4M8pYmMAalsAhetzox2mI24x+/qdD6Ol2XYrJb83w24bpiVBMkGVHatApjw8r4
+ P9eO5lVxMZlxB3UJXEBuIFEJvY8o2w19Qb0DUG1DfE5GiLd4Vpn9gv4I90AbsG+hjVMFHKhr9F
+ rzdbj93t5ZbygEAAA==
+X-Change-ID: 20260220-ch13726a-59c6678d53d8
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>, 
+ Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776793120; l=2550;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=xvVeCMS46Knlj7LbuK2fp5ztldwZGUoNK8tMjveYJA4=;
+ b=3IbrQPi2U0CwfSYEwMtAhjQbaYNgWC7PZoJZGnZrqYC6IuCgVO5NNKjfVaX0WbGFBpyMsZ1FV
+ 4pm71/fk2rIDb4eD6VQaG1G/ET7TrH3Q22ChApUtzrsIPpauDohi8C5
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Reply-To: webgeek1234@gmail.com
 
-=D0=B2=D1=82, 21 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 19:4=
-4 Sakari Ailus <sakari.ailus@linux.intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Hi Shyvatoslav,
->
-> On Sun, Apr 19, 2026 at 12:34:12PM +0300, Svyatoslav Ryhel wrote:
-> > @@ -403,6 +423,60 @@ static int lm3560_init_device(struct lm3560_flash =
-*flash)
-> >       return rval;
-> >  }
-> >
-> > +static void lm3560_power_off(struct lm3560_flash *flash)
-> > +{
-> > +     gpiod_set_value_cansleep(flash->hwen_gpio, 0);
-> > +     regulator_disable(flash->vin_supply);
-> > +}
-> > +
-> > +static int lm3560_power_on(struct lm3560_flash *flash)
-> > +{
-> > +     int rval;
-> > +
-> > +     rval =3D regulator_enable(flash->vin_supply);
-> > +     if (rval < 0) {
-> > +             dev_err(flash->dev, "failed to enable vin power supply\n"=
-);
-> > +             return rval;
-> > +     }
-> > +
-> > +     gpiod_set_value_cansleep(flash->hwen_gpio, 1);
-> > +
-> > +     rval =3D lm3560_init_device(flash);
-> > +     if (rval < 0) {
-> > +             lm3560_power_off(flash);
-> > +             return rval;
-> > +     }
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static int __maybe_unused lm3560_pm_runtime_resume(struct device *dev)
-> > +{
-> > +     struct lm3560_flash *flash =3D dev_get_drvdata(dev);
-> > +
-> > +     return lm3560_power_on(flash);
-> > +}
-> > +
-> > +static int __maybe_unused lm3560_pm_runtime_suspend(struct device *dev=
-)
->
-> Could you change lm3560_power_o{n,ff}() take struct device pointer as the
-> argument?
->
+This driver is based on the one by Teguh Sobirin [0], cut down to only
+support the AYN Thor bottom panel.
 
-What benefit it will bring? Unless you propose to use on/off functions
-in pm directly, I don't see any benefit in this change.
+Due to [1], the AYN vendor description patch has been folded into the
+AYN QCS8550 dt series. Which means this series now depends on said
+series and it must be picked up before this.
 
-> > +{
-> > +     struct lm3560_flash *flash =3D dev_get_drvdata(dev);
-> > +
-> > +     lm3560_power_off(flash);
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static void lm3560_subdev_cleanup(struct lm3560_flash *flash)
-> > +{
-> > +     unsigned int i;
-> > +
-> > +     for (i =3D LM3560_LED0; i < LM3560_LED_MAX; i++) {
->
-> You could define i here.
->
+[0] https://github.com/AYNTechnologies/linux/commit/d0ff75b09e66023c5f88992706dee4601aa7a437
+[1] https://lore.kernel.org/linux-arm-msm/c7fb3f89-6574-4761-9ef2-2fdf6d4801b5@kernel.org
 
-You mean:
- for (unsigned int i =3D LM3560_LED0; i < LM3560_LED_MAX; i++)?
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+Changes in v5:
+- Don't duplicate prepared tracking
+- Use devm_regulator_bulk_get_const() instead of setting names in probe
+- Use devm_drm_panel_alloc() instead of drm_panel_init()
+- Link to v4: https://lore.kernel.org/r/20260408-ch13726a-v4-0-9bb1a9b8f329@gmail.com
 
-If yes, I would like to keep it as is, it looks cleaner to me, and
-this part was transferred from remove as is.
+Changes in v4:
+- Add fallback compatible to bindings doc in patch 1
+- Link to v3: https://lore.kernel.org/r/20260323-ch13726a-v3-0-e28b6f97fe80@gmail.com
 
-> > +             v4l2_device_unregister_subdev(&flash->subdev_led[i]);
-> > +             v4l2_ctrl_handler_free(&flash->ctrls_led[i]);
-> > +             media_entity_cleanup(&flash->subdev_led[i].entity);
-> > +     }
-> > +}
-> > +
-> >  static int lm3560_probe(struct i2c_client *client)
-> >  {
-> >       struct lm3560_flash *flash;
->
-> --
-> Kind regards,
->
-> Sakari Ailus
+Changes in v3:
+- Reword patch 1 commit message for clarity
+- Order properties properly in patch 1
+- Track vendor description dependency series change
+- Link to v2: https://lore.kernel.org/r/20260317-ch13726a-v2-0-28aa46bcd6d0@gmail.com
+
+Changes in v2:
+- Add Neil Armstrong to binding maintainer list
+- Add 120hz mode, which required a minor restructure of the driver
+- Link to v1: https://lore.kernel.org/r/20260222-ch13726a-v1-0-e501d78e105a@gmail.com
+
+---
+Aaron Kling (1):
+      dt-bindings: display: panel: Add ChipWealth CH13726A AMOLED driver
+
+Teguh Sobirin (1):
+      drm/panel: Add panel driver for ChipWealth CH13726A based panels
+
+ .../display/panel/chipwealth,ch13726a.yaml         |  67 +++++
+ drivers/gpu/drm/panel/Kconfig                      |  11 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c  | 333 +++++++++++++++++++++
+ 4 files changed, 412 insertions(+)
+---
+base-commit: bee6ea30c48788e18348309f891ed8afbf7702ac
+change-id: 20260220-ch13726a-59c6678d53d8
+prerequisite-change-id: 20260217-ayn-qcs8550-16c07b63de26:v5
+prerequisite-patch-id: 2b010637c46f5ea0e19a2fa87cc5ccb19bfd9204
+prerequisite-patch-id: d0c633dc17f0aba726a8e8d21fee52b944bf67ff
+prerequisite-patch-id: 76ac126273870a96f05e1bd87f4f31bdc3746440
+prerequisite-patch-id: 76b61799dba520fc7fa3ff39b044e24103337af3
+prerequisite-patch-id: 3844bef2eda3cf59031b1d131eb6ba9295629bb4
+prerequisite-patch-id: 3331648bc6f4ac3bb156f0525aa1ede92bfc57f1
+
+Best regards,
+-- 
+Aaron Kling <webgeek1234@gmail.com>
+
+
