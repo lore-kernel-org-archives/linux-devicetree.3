@@ -1,212 +1,243 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D56B731F99B;
-	Tue, 21 Apr 2026 18:11:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0DD235972;
+	Tue, 21 Apr 2026 18:11:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776795069; cv=none; b=DiwOArlXjuwwIDWwEGdLMJiCgOnKP1px4eksQCUubIjDjo6hmlfmkK4NmqFn55aimUULDIRRCAd5uhi2rRTl/UI6K835tG/euTKHBgvowN2AfMyBhAnENF0JQxfQ+87zI9h8XsESPFkZKUHUPjskEvw8fWvvjwS6y0I+KFEijZQ=
+	t=1776795117; cv=none; b=TtWj3PezT8QRBXdfub8agB0LYgKZfvr7gVv/YR/rlZWc4/oEi1xsN/hymk10C0GNHXj3qYk0VEek+aklwWo8LA3Nq8NoQnRlye/i/9ZjuGE16/mXb/XQhyre28I9/wLTeMGa1dzVhuA7f4cJZ5J/RfHLD6fFhezW+MuRBquaRbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776795069; c=relaxed/simple;
-	bh=3qk+IB3lY1ax5Jo/wlajR8HjBuToQPII40ATciAhAAk=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=nrsfO/ZxWZAQx7t1y45I+i0RaBn17QOv/XiWFQc9OjB+M02K6j028cjvT9OXyB6H5Y6PLS9lbpuyvJzMai4DvBNMRnFk8qz+8BIIHa7MGTUxR9fNZgCJpPH9Nfct3KogfgZfRoEDWVO6ihzsVbZgbCz3iK1rXD5LOyXqJJxYlcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kvZq/9YO; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kvZq/9YO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1776795067; x=1808331067;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version:content-id;
-  bh=3qk+IB3lY1ax5Jo/wlajR8HjBuToQPII40ATciAhAAk=;
-  b=kvZq/9YOX61KDCiGEsarp9CIH7fjDQrZQCiJDSL20r2etLSmv+8UWyQ1
-   qaNw8JtXJWKB+f4WgQq5NOmzYlU5ZBR+x9dOue6Rq2YNTguMOdgQy5VyS
-   T+hNw8cdBJVy8zLB/YIAp3nXLP3ExLLeDepyVoibse29ZL1dCDM0trA4U
-   lrpF1zOgq1w6EnTUMCG+Be2AarShvwwUXITI13YGOgsbBcYJrl9qahKsd
-   IxHi4rup5aht9NMRUh7HRDA3lO1DhIDIqi74DJvefup1ax07FJjEpH0XY
-   590p/aaRdv7UYaP6R215wj/Y72aK67yx33sCFFw1C2Bz0tHG3vmpdvmGR
-   g==;
-X-CSE-ConnectionGUID: NirLTJw0QVOklxporugn7Q==
-X-CSE-MsgGUID: q6dfLff1Tyawak7GzpywRQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11763"; a="77614600"
-X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
-   d="scan'208";a="77614600"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Apr 2026 11:11:06 -0700
-X-CSE-ConnectionGUID: HMdUCqnbRZalMbhRoTkLyA==
-X-CSE-MsgGUID: ayQcjClWTLGdMsS+Iw8ydw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
-   d="scan'208";a="227773900"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.105])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Apr 2026 11:10:59 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 21 Apr 2026 21:10:56 +0300 (EEST)
-To: Markus Probst <markus.probst@posteo.de>
-cc: Hans de Goede <hansg@kernel.org>, 
-    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Lee Jones <lee@kernel.org>, 
-    Pavel Machek <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-    Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-    =?ISO-8859-15?Q?Bj=F6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-    Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-    Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-    Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org, 
-    devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v8 2/2] platform: Add initial synology microp driver
-In-Reply-To: <c4964138177c4455f5eb07d0e23db2dfec40bf9c.camel@posteo.de>
-Message-ID: <e166861c-e75d-d1c2-61e8-f611e6ee1ef2@linux.intel.com>
-References: <20260420-synology_microp_initial-v8-0-7946a9124491@posteo.de>  <20260420-synology_microp_initial-v8-2-7946a9124491@posteo.de>  <6104a5fe-a6e3-4c35-ff4f-731d1a5e4acb@linux.intel.com> <c4964138177c4455f5eb07d0e23db2dfec40bf9c.camel@posteo.de>
+	s=arc-20240116; t=1776795117; c=relaxed/simple;
+	bh=B9nFgKTWR6k7yI984BsM+U9VG2P9hLAU/HsWEzxO+xw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wkmo0Lxiniyt9NvHPaGky2GOZjiGg3NJ3vbQ/lYzXx1jwL3DL6qKPTHxYU2y5gH4CPZx6mI2VHeYIaWJaZkNX5m34CGt7lci0g+KhfrBlypSeSOB0wAjdNNha2tWAANIYEkVGmkFqSJtGqj1Uc2VphYnWxngN2cyswLVFzligdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4D48C2BCB0;
+	Tue, 21 Apr 2026 18:11:52 +0000 (UTC)
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Ulf Hansson <ulfh@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: [PATCH/RFC 00/14] R-Car X5H Ironhide SCMI CPG/MDLC remapping
+Date: Tue, 21 Apr 2026 20:11:33 +0200
+Message-ID: <cover.1776793163.git.geert+renesas@glider.be>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323328-1911329950-1776794494=:972"
-Content-ID: <9de3baa3-50d2-e027-b347-adcf2e0ba0f0@linux.intel.com>
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+	Hi all,
 
---8323328-1911329950-1776794494=:972
-Content-Type: text/plain; CHARSET=ISO-8859-15
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-Content-ID: <6c89e77d-6fd5-9c62-9534-0015dd34db7a@linux.intel.com>
+TL;DR:
 
-On Tue, 21 Apr 2026, Markus Probst wrote:
+    Describe hardware in DT, and perform the mapping to SCMI in Linux.
 
-> On Tue, 2026-04-21 at 14:59 +0300, Ilpo J=E4rvinen wrote:
-> > On Mon, 20 Apr 2026, Markus Probst wrote:
-> >=20
-> > > Add a initial synology microp driver, written in Rust.
-> > > The driver targets a microcontroller found in Synology NAS devices. I=
-t
-> > > currently only supports controlling of the power led, status led, ale=
-rt
-> > > led and usb led. Other components such as fan control or handling
-> > > on-device buttons will be added once the required rust abstractions a=
-re
-> > > there.
-> > >=20
-> > > This driver can be used both on arm and x86, thus it goes into the ro=
-ot
-> > > directory of drivers/platform.
-> > >=20
-> > > Tested successfully on a Synology DS923+.
-> > >=20
-> > > Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> > > ---
-> > >  MAINTAINERS                                        |   6 +
-> > >  drivers/platform/Kconfig                           |   2 +
-> > >  drivers/platform/Makefile                          |   1 +
-> > >  drivers/platform/synology_microp/Kconfig           |  13 +
-> > >  drivers/platform/synology_microp/Makefile          |   3 +
-> > >  drivers/platform/synology_microp/TODO              |   7 +
-> > >  drivers/platform/synology_microp/command.rs        |  54 ++++
-> > >  drivers/platform/synology_microp/led.rs            | 281 +++++++++++=
-++++++++++
-> > >  drivers/platform/synology_microp/model.rs          |  49 ++++
-> > >  .../platform/synology_microp/synology_microp.rs    | 110 ++++++++
-> > >  10 files changed, 526 insertions(+)
-> > >=20
-> > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > index c1c686846cdd..49f08290eed0 100644
-> > > --- a/MAINTAINERS
-> > > +++ b/MAINTAINERS
-> > > @@ -25555,6 +25555,12 @@ F:=09drivers/dma-buf/sync_*
-> > >  F:=09include/linux/sync_file.h
-> > >  F:=09include/uapi/linux/sync_file.h
-> > > =20
-> > > +SYNOLOGY MICROP DRIVER
-> > > +M:=09Markus Probst <markus.probst@posteo.de>
-> >=20
-> > You should probably add:
-> >=20
-> > L:=09platform-driver-x86@vger.kernel.org
-> >=20
-> > Through which tree the patches to this driver are generally expected to=
- be=20
-> > picked up?
->
-> I suppose platform-drivers-x86.
+The Renesas R-Car X5H-based Ironhide board is the first Renesas
+SoC/board combination that implements the ARM System Control and
+Management Interface (SCMI).
 
-Okay (with the platform drivers maintainer hat on). Just don't expect me=20
-to have deep Rust knowledge.
+This means Linux can no longer perform various system operations (e.g.
+clock, power domain, and reset control) by accessing the hardware
+directly.  Instead, these operations are abstracted according to various
+SCMI sub-protocols, and Linux has to send messages to an SCMI-compliant
+firmware running on a System Control Processor (SCP).
+More specifically, the R-Car X5H SCP FW SCMI controls access to:
+  1. Core clocks and module clocks,
+  2. Module resets,
+  3. Power domains,
+  4. System power.
+The latter is not relevant for this discussion.
 
-> The driver itself can be used both on
-> x86 and arm64. Although I also have seen Synology devices with PowerPC
-> (no device with PowerPC is supported in the driver yet).=20
+Using SCMI also has an impact on the board DTS: besides the addition of
+a firmware/scmi node with protocol-specific subnodes, devices using
+SCMI-abstracted system resources now have to refer to these resources
+using resource specifiers containing phandles to the SCMI protocol
+subnodes, and firmware-specific object IDs[1].
 
-In practice platform drivers scope has already expanded beyond x86 so the=
-=20
-platform-drivers-x86 list naming is just a historic artifact.
+Unfortunately we encountered several issues with this:
+  - The clock, reset, and power domain IDs are not stable, and may
+    change from one SCP firmware release to another, causing DTB
+    incompatibilities,
+  - There may be different SCP firmware lineages, e.g. proprietary and
+    certified variants, and FLOSS variants,
+  - SCMI features and quirks may differ across firmware versions,
+  - Not all quirks can be handled as SCMI quirks,
+  - Some core clocks do not support the CLOCK_ATTRIBUTES command, and
+    thus are not accessible to Linux, while Linux may need them,
+    requiring dummy clocks,
+  - Some module clocks are not accessible to Linux, or report a zero
+    clock rate and have no parent, while several existing drivers need
+    to know their clock rates,
+  - SCMI does not support the concept of a clock domain, so existing
+    drivers can no longer rely on Runtime PM, but need to be changed to
+    explicit management of functional clocks,
+  - Some clocks and power domains are critical and must not be disabled,
+    or even touched,
+  - Some module resets are reserved, and operating them returns an
+    error,
+  - U-Boot IPL (Initial Program Loader) needs a proper hardware
+    description in DT, not using SCMI.
 
-> > > +S:=09Maintained
-> > > +F:=09Documentation/devicetree/bindings/embedded-controller/synology,=
-ds1825p-microp.yaml
-> > > +F:=09drivers/platform/synology_microp/
-> > > +
-> > >  SYNOPSYS ARC ARCHITECTURE
-> > >  M:=09Vineet Gupta <vgupta@kernel.org>
-> > >  L:=09linux-snps-arc@lists.infradead.org
+During last OSSJ/LPC, Marek Vasut pondered if we could keep our own ID
+lists stable, and perform a mapping to the IDs used by the actual SCMI
+implementation running on the system.  This was also briefly discussed
+at LPC[2].  After some refining of the initial idea, this series takes a
+slightly different approach, by:
+  1. Describing the actual hardware components in DT, plus a minimum
+     SCMI glue,
+  2. Mapping DT hardware descriptions to SCMI-backed objects (or
+     replacements in case they are unusable), in Linux drivers, based on
+     the detected firmware version.
 
-> > > diff --git a/drivers/platform/synology_microp/TODO b/drivers/platform=
-/synology_microp/TODO
-> > > new file mode 100644
-> > > index 000000000000..1961a33115db
-> > > --- /dev/null
-> > > +++ b/drivers/platform/synology_microp/TODO
-> > > @@ -0,0 +1,7 @@
-> > > +TODO:
-> > > +- add missing components:
-> > > +  - handle on-device buttons (Power, Factory reset, "USB Copy")
-> > > +  - handle fan failure
-> > > +  - beeper
-> > > +  - fan speed control
-> > > +  - correctly perform device power-off and restart on Synology devic=
-es
-> >=20
-> > Is this TODO list really needed within the kernel distribution?
->
-> Not really. Although it indicates the current state of the driver.
->=20
-> > If you planning on add these features (relatively) soon yourself (perha=
-ps=20
-> > depending on when the rust infra required for these features becomes=20
-> > available), the list would not be that useful for other developers at a=
-ll.
->
-> Yes. Also I haven't seen anyone work on input, hwmon, reboot/sysoff
-> rust abstractions yet, so I will likely need to add those as well.
+This has the following advantages:
+  1. The DT ABI is stable,
+  2. Current and future firmware quirks can be handled in driver code,
+  3. If ever needed, the Clock Pulse Generator (CPG) and Module
+     Controller (MDLC) drivers can be extended to program the hardware
+     directly if SCMI is not present,
+  4. U-Boot IPL can use almost the same DTS; it just needs stripping of
+     SCMI-related nodes and properties.
 
-Lets not include the TODO file then.
+This series is based on renesas-drivers-2026-04-14-v7.0, which includes
+a.o. the scmi/for-linux-next branch.  It consists of multiple parts:
+  1. Patches 1-3 add various quirks to the SCMI driver code,
+  2. Patch 4 enables more SCMI protocols on R-Car X5H Ironhide,
+  3. Patches 5-8 add new interfaces needed by the remapping drivers,
+  4. Patches 9-10 add DT bindings for the R-Car X5H Clock Pulse Generator
+     (CPG) and Module Controller (MDLC) blocks,
+  5. Patches 11-12 add remapping drivers for the R-Car X5H Clock Pulse
+     Generator (CPG) and Module Controller (MDLC) blocks,
+  6. Patches 13-14 add DTS description for R-Car X5H Ironhide.
 
-> > > +/// Blink delay measured using video recording on DS923+ for Power a=
-nd Status Led.
-> > > +///
-> > > +/// We assume it is the same for all other leds and models.
-> > > +const BLINK_DELAY: usize =3D 167;
-> >=20
-> > On C side time related consts are required to include the unit in their=
-=20
-> > name. Perhaps Rust code should also follow this convention?
->
-> How about `const BLINK_DELAY: Msecs` ? The unit would be implied
-> through the already existing type alias `kernel::time::Msecs` for u32.
+Dependencies:
+  - Lifting "#define SCMI_MAX_NUM_RATES 16" (e.g. scmi/for-linux-next),
+  - "[PATCH v4 0/3] soc: renesas: add MFIS driver"[3],
+  - R-Car X5H MFIS and Ironhide SCMI DTS enablement (not yet posted).
 
-I don't have opinion on this with my limited Rust knowledge (it just=20
-stuck to my eye how non-specific that original one looked). If Rust=20
-can do things even better as Miguel seems to imply, please look at those=20
-directions.
+For testing, I have pushed this series and its dependencies to the
+topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v1 branch of
+https://git.kernel.org/pub/scm/linux/kernel/git/geert/renesas-drivers.git.
+With this, Ironhide can boot into a serial console shell from a ramdisk,
+without needing any of "clk_ignore_unused" and "pd_ignore_unused".
 
---=20
- i.
---8323328-1911329950-1776794494=:972--
+FTR, alternative locations to do remapping that we considered:
+  - Inside the SCMI clock, reset, and power-domain drivers,
+  - Inside the subsystem driver core (e.g. of_parse_clkspec()),
+  - Inside the OF driver core,
+  - Inside the DTB.
+
+Remapping inside DT is usually done through a nexus node (see Devicetree
+Specification, Section 2.5 Nexus Nodes and Specifier Mapping), using
+"<specifier>-map", "<specifier>-map-mask", and
+"<specifier>-map-pass-thru" properties.  Linux has support for e.g.
+remapping interrupts (open-coded in drivers/of/irq.c), and gpios or pwms
+(using the of_parse_phandle_with_args_map()) helper.  So far there is no
+support for remapping clocks or power domains, but at least for clocks
+patches have been posted[4].  Then the remapping can be done by adding
+e.g. "clocks-map{,-mask,-pass-thru}" properties with translation data
+to the CPG/MDLC DT node, using a DT overlay.  The DT overlay could be
+applied by the firmware or bootloader (e.g. in in fitImage script), or
+even by the CPG/MDLC Linux driver at runtime (based on detected SCP
+firmware version).  Consumer nodes do not need to be modified.
+Note that such translations can only support simple cases.  If e.g. a
+workaround is needed to map a single DT clock to multiple SCMI clocks,
+this cannot be done using a simple translation table.
+While a DT overlay is quite flexible and can also do other fixup, it is
+less user-friendly than doing the remapping in a Linux driver.
+
+Thanks for your comments!
+
+[1] Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+[2] "Firmware ABI stability" at Linux Plumbers Conference 2025
+    https://lpc.events/event/19/contributions/2153/
+[3] "[PATCH v4 0/3] soc: renesas: add MFIS driver"
+    https://lore.kernel.org/20260402112709.13002-1-wsa+renesas@sang-engineering.com/
+[4] "[PATCH] clk: Add support for clock nexus dt bindings"
+     https://lore.kernel.org/20260129201003.288605-1-miquel.raynal@bootlin.com/
+
+Geert Uytterhoeven (14):
+  firmware: arm_scmi: quirk: Handle bad power domains on R-Car X5H
+  firmware: arm_scmi: quirk: Handle bad clocks on R-Car X5H
+  firmware: arm_scmi: quirk: Handle critical clocks on R-Car X5H
+  arm64: dts: renesas: ironhide: Enable SCMI devpd, sys, and reset
+  firmware: arm_scmi: Add scmi_get_base_info()
+  of: property: fw_devlink: Add support for firmware
+  pmdomain: Make genpd_get_from_provider() public
+  reset: Add reset_controller_get_provider()
+  dt-bindings: clock: Document Renesas R-Car X5H Clock Pulse Generator
+  dt-bindings: power: Document Renesas R-Car X5H Module Controller
+  clk: renesas: Add R-Car X5H CPG SCMI remapping driver
+  pmdomain: renesas: Add R-Car X5H MDLC SCMI remapping driver
+  arm64: dts: renesas: r8a78000: Add CPG/MDLC nodes
+  arm64: dts: renesas: ironhide: Add CPG/MDLC firmware properties
+
+ .../bindings/clock/renesas,r8a78000-cpg.yaml  |   62 +
+ .../bindings/power/renesas,r8a78000-mdlc.yaml |   63 +
+ .../boot/dts/renesas/r8a78000-ironhide.dts    |  130 +++
+ arch/arm64/boot/dts/renesas/r8a78000.dtsi     |  300 ++++-
+ drivers/clk/renesas/Kconfig                   |    4 +
+ drivers/clk/renesas/Makefile                  |    1 +
+ drivers/clk/renesas/r8a78000-cpg.c            |  335 ++++++
+ drivers/firmware/arm_scmi/clock.c             |   37 +
+ drivers/firmware/arm_scmi/driver.c            |   31 +
+ drivers/firmware/arm_scmi/power.c             |   20 +
+ drivers/firmware/arm_scmi/quirks.c            |   12 +
+ drivers/firmware/arm_scmi/quirks.h            |    4 +
+ drivers/of/property.c                         |    2 +
+ drivers/pmdomain/core.c                       |    4 +-
+ drivers/pmdomain/renesas/Kconfig              |    4 +
+ drivers/pmdomain/renesas/Makefile             |    1 +
+ drivers/pmdomain/renesas/r8a78000-mdlc.c      | 1021 +++++++++++++++++
+ drivers/reset/core.c                          |   11 +
+ drivers/soc/renesas/Kconfig                   |    1 +
+ .../dt-bindings/clock/renesas,r8a78000-cpg.h  |   15 +
+ .../dt-bindings/power/renesas,r8a78000-mdlc.h |   16 +
+ include/linux/pm_domain.h                     |    7 +
+ include/linux/reset-controller.h              |    6 +
+ include/linux/scmi_protocol.h                 |    8 +
+ 24 files changed, 2068 insertions(+), 27 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/renesas,r8a78000-cpg.yaml
+ create mode 100644 Documentation/devicetree/bindings/power/renesas,r8a78000-mdlc.yaml
+ create mode 100644 drivers/clk/renesas/r8a78000-cpg.c
+ create mode 100644 drivers/pmdomain/renesas/r8a78000-mdlc.c
+ create mode 100644 include/dt-bindings/clock/renesas,r8a78000-cpg.h
+ create mode 100644 include/dt-bindings/power/renesas,r8a78000-mdlc.h
+
+-- 
+2.43.0
+
+Gr{oetje,eeting}s,
+
+						Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+							    -- Linus Torvalds
