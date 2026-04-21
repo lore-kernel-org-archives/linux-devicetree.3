@@ -1,35 +1,33 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF14379973;
-	Tue, 21 Apr 2026 08:32:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44739175A6B;
+	Tue, 21 Apr 2026 08:37:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776760350; cv=none; b=fwmg67d70FK/YweV8Ai8d8NQLh37N5ryNVTX6u5zd2/idNsoVo/jw8O5JL5MvOmpr7UP5Yijy1fY06PaKWoqdFgY/TY1Q7sTe8VOdskOxirhsYZsjrjKs7W+sogDQPwgSrdvCvF2zzvnnf81qYM73YeocpkJhKedlBdgo+zVQZM=
+	t=1776760671; cv=none; b=e/XZnkpVM8LYhLG+ltt8xA27bsJ1UmDpIV4QyThf1zzltIbIWSOhDUKYVW1iDqWRfcYhyRdDk6QteEZvqsXfepvitAiNuicCENmJN7XE45q82WO3xowz6CbekWh1WQLiTh/ezHstmbYJmVXKIjUKkuFc0zdb89jNu2bUOsu1Bs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776760350; c=relaxed/simple;
-	bh=6BHMH8mEr/0NOe6m1qw10Yn/BZF98BlXaap5gN6nvH4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sdScIl4Hh2rY4/w0hZmXqnWYStddOnWEUAzUs7qlDyLaCQHu7bktRZchoAinYrPvkpvLxpHi8gw9LVv3N0Gbpkok1jUfNsHyZSFUGuhtj+z12iLPQlbRgXLD+omLpbFXR8sc3v5HzYYVKO43QFp8yWnf7XGtEExAzd3JBvzkuqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=izYgBXCI; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=p6gVPAhF; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1776760671; c=relaxed/simple;
+	bh=DEdG+u51N2vnfj3FdwNbb3s+2lBM0GeyAaYiWzbX4/U=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=VnnAGkasR+DIzfNRbwAvoJuhnu+b29ZS649EA4Ae88bNrKDbE/8/Ud9ChSG1ML9SoTlFztrPwI7dUJGKZOoBE3nKtNgFbabv8ZEs57149iut1qRm76M/s3GdHfKDAdPFN/Sl/A95bZqnQrvZi2tE7BZYbVz9b+KczT96IwaaUUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sF43Q8wH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="izYgBXCI";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="p6gVPAhF"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1776760331; bh=G7QDpUBwk9YbJvVoe+zZtV5
-	mQuVtlP71VBKXVRm/IQM=; b=izYgBXCI2m9YmXbO45jExsK00zULgY78inxidcx1Y9XQ8iS5n1
-	knL2OxoRPmcIE8aXa9U/TBFEtNf+GTCuY4mCphQdqt4bd8Gnm/rvD+p77gM1d8MyJJqHFRqcvxU
-	v+dHrQIEIW7iMJoK35fvXNEQsBuYW6AY4rCh+fqAcNp3FEaeM38VP6X7vMs17z6ZvUOVXQv8n48
-	I59VvwCFV9ttrE0aM7/ywlh8SwpnOAEI1+NKm2ZzB1roLP5HwBe3/06R4Z5pWqNN4P0v1cvMVfa
-	sM/m+fOy1uMvB/IkEU2JX4LVE09zVCE4wWR5iM+znN1q3r/KN6/hdVEOY0TxhurJpAA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1776760331; bh=G7QDpUBwk9YbJvVoe+zZtV5
-	mQuVtlP71VBKXVRm/IQM=; b=p6gVPAhF7Bgi5JCkIb/5uPFw5ckAzvHkr2dY/iXAeuMmNg3/19
-	3a9TDIMn6TnoVUhMoB/4fceiL6d2DvTEMjDw==;
-Message-ID: <a32fda72-6bf8-479b-bae3-2e551671945a@mainlining.org>
-Date: Tue, 21 Apr 2026 11:32:10 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sF43Q8wH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 262A3C2BCB0;
+	Tue, 21 Apr 2026 08:37:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776760670;
+	bh=DEdG+u51N2vnfj3FdwNbb3s+2lBM0GeyAaYiWzbX4/U=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=sF43Q8wHgFMAE0PtxEA5n++/p1VlGlHGibf60/eM9m1XrkmDcj3L8TVxwASzAdMPj
+	 UE03GfsnedzejSIfhfUY0PefwTxFZWkx4mFj3CsMhpN9BLhvyNroG5WSphJ0K1ACgb
+	 LaJM8ni44KMrB0dWYWINXeZoESQ6q/mnWvmTC5ycfaMqecyonI4pKBpwjSIeQPMfAX
+	 Sz2Jv8+PLjOKiGgnlXpjNcKxfZXqvseaT07DbitE8fbEKYqz3xx6npad/mqrpkg+VW
+	 WI3XftfmNpB4OI7TyYrg9fuDXLnGaxfeT7B723vJW+/8mbb+amSebBnBTXfHYZKXyB
+	 +D8rRQrRdTa1A==
+Message-ID: <11de368c-960d-441f-a0e2-574de444fd1d@kernel.org>
+Date: Tue, 21 Apr 2026 10:37:46 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,106 +35,89 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: sdm630: describe adsp_mem region
- properly
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- quic_chennak@quicinc.com, quic_bkumar@quicinc.com
-References: <20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v1-0-03b475b29554@mainlining.org>
- <20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v1-3-03b475b29554@mainlining.org>
- <70d4dbe7-0e5b-4065-858e-b5a57bbf45e3@oss.qualcomm.com>
- <54b1be0d-1ec3-405c-b1ff-bc759b80e7bc@oss.qualcomm.com>
- <905374e9-1d90-4789-871f-f28e5d7ff8b1@oss.qualcomm.com>
-Content-Language: ru-RU, en-US
-From: Nickolay Goppen <setotau@mainlining.org>
-In-Reply-To: <905374e9-1d90-4789-871f-f28e5d7ff8b1@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v2 2/6] dt-bindings: pinctrl: Document Tegra238 pin
+ controllers
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: pshete@nvidia.com
+Cc: linusw@kernel.org, thierry.reding@kernel.org, jonathanh@nvidia.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ webgeek1234@gmail.com, rosenp@gmail.com, linux-tegra@vger.kernel.org,
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260409131340.168556-1-pshete@nvidia.com>
+ <20260420100601.343707-1-pshete@nvidia.com>
+ <20260420100601.343707-3-pshete@nvidia.com>
+ <20260421-spotted-trout-of-satiation-1dab00@quoll>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260421-spotted-trout-of-satiation-1dab00@quoll>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+On 21/04/2026 10:31, Krzysztof Kozlowski wrote:
+> On Mon, Apr 20, 2026 at 10:05:57AM +0000, pshete@nvidia.com wrote:
+>> From: Prathamesh Shete <pshete@nvidia.com>
+>>
+>> Tegra238 contains two pin controllers. Document their
+>> compatible strings and describe the list of pins and
+>> functions that they provide.
+> 
+> Please wrap code according to the preferred limit expressed in Kernel
+> coding style (checkpatch is not a coding style description, but only a
+> tool).  However don't wrap blindly (see Kernel coding style).
 
-21.04.2026 11:29, Ekansh Gupta wrote:
-> On 17-04-2026 20:45, Ekansh Gupta wrote:
->> On 15-04-2026 15:22, Konrad Dybcio wrote:
->>> On 4/15/26 11:40 AM, Nickolay Goppen wrote:
->>>> Downstream [1] this region is marked as shared and reusable so
->>>> describe it that way.
->>>>
->>>> [1]: https://github.com/xiaomi-sdm660/android_kernel_xiaomi_sdm660/blob/11-EAS/arch/arm/boot/dts/qcom/sdm660.dtsi#L448
->>>>
->>>> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
->>>> ---
->>> +Ekansh some insight, please?
->>>
->>> We're giving away that memory via qcom_scm_assign_mem() anyway
->>> and I would assume that making it not-"no-map" could introduce issues
->>> when the OS tries to access that region
->>>
->> With the current version and the upcoming planned enhancements, I don't
->> see any major benefits of making this as not-"no-map".
->>
->> With posted enhancements[1], the plan is to qcom_scm_assign_mem() the
->> entire memory-region to lpass VMIDs. and un-assign it only during
->> fastrpc_rpmsg_remove(). There have been implementation in downstream
->> where this memory is dumped in case of SSR or audio PDR using minidump,
->> so marking it `reusable` might make sense there, but that dump logic is
->> not added upstream.
->>
->> Upon checking the DT, I see a bigger problem here, this memory-region
->> looks to me unused, it's not added under fastrpc adsp node(ref. [2]).
->> Please correct me if I am wrong about this point.
->>
->> [1]
->> https://lore.kernel.org/all/20260409062617.1182-1-jianping.li@oss.qualcomm.com/
->> [2]
->> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/arch/arm64/boot/dts/qcom/lemans.dtsi#n7500
-> Just had a new finding on this. There is one more reason why it is not
-> added as no-map in downstream. This audio PD carve-out region is not
-> defined for most of the platform's memory-map.
->
-> With a change to qcom_scm the memory during boot-up, issue was observed
-> on RB3Gen2[1], where EFI firmware was loaded in the memory region which
-> was causing boot-up issues.
->
-> So defining it as no-map might not be correct and it might need be
-> changed for all DT files.
-So It needs to be set as not-"no-map"?
-> I don't have a history of why it was added as a "no-map" region on
-> upstream but looks like same has been followed for almost all the
-> platforms. This needs to be modified based on the memory-maps and the
-> region needs to allocate memory in a dynamic manner.
->
-> [1] https://github.com/qualcomm-linux/kernel/pull/487
->
-> //Ekansh
->> //Ekansh
->>> Konrad
->>>
->>>
->>>>   arch/arm64/boot/dts/qcom/sdm630.dtsi | 3 ++-
->>>>   1 file changed, 2 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
->>>> index 4b47efdb57b2..13094b5e9339 100644
->>>> --- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
->>>> +++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
->>>> @@ -495,8 +495,9 @@ venus_region: venus@9f800000 {
->>>>   		};
->>>>   
->>>>   		adsp_mem: adsp-region@f6000000 {
->>>> +			compatible = "shared-dma-pool";
->>>>   			reg = <0x0 0xf6000000 0x0 0x800000>;
->>>> -			no-map;
->>>> +			reusable;
->>>>   		};
->>>>   
->>>>   		qseecom_mem: qseecom-region@f6800000 {
->>>>
--- 
+Heh,
+wrong
+template :(.
+Should
+be:
+
+Please wrap commit message according to Linux coding style / submission
+process (neither too early nor over the limit):
+https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
+
+
 Best regards,
-Nickolay
-
+Krzysztof
