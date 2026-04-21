@@ -1,124 +1,218 @@
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023121.outbound.protection.outlook.com [52.101.127.121])
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022104.outbound.protection.outlook.com [40.107.75.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B2114BF97;
-	Tue, 21 Apr 2026 06:24:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E0319F11B;
+	Tue, 21 Apr 2026 06:40:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.104
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776752659; cv=fail; b=TlPKvG3E9XCst+aLCDZyEF6htNBaN83Qv55dv2A3dvRrzhVKZ5yRUGdzHZiUiBQRUoQxc73rQAnXrheeg4FbxghAXRA0uhsdu+n9qihDbFcJP2isf1NCgjPxaKNgl/gXFaMI40YKnEz81DnaAOE+q8QUNvGYm8oi3tHy1AjcM9g=
+	t=1776753629; cv=fail; b=ky+PH1/JGanutrKFA0FX8r2CLslzOnWL4+TT67qRjlzZ5tQelGg3z0ued2b5oFVQ9cN3DmIoIwSmZXxtb3aVyaPz7aaqRKB0f3KXLAdN5ioubqgAk98XI62tdNnkSEF4iUXvnlaTn1Gc9h3KV+pMiA22sNDqHyBHIDQZGtbMvfE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776752659; c=relaxed/simple;
-	bh=2pqdp2YGm+HN51PF5RNC1EpwYkaQ4i8qKpTFKe6n8RE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=juvIaSlsnPmXl/733GbiaCSF5suwL4XAlNKssdL+G78iHLVQQkHfE0WAYJi3OrvLO+HWTUtrW8GtNujh5uLnEJEXYjjy1IrWD7ewe1G9MyGzS3hyoRoRX1ZTnYhMWhehVsG0TwFnJHtrqsJ6iXHVKGXVMBAzg4/FgGTKgCRzpxg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.127.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+	s=arc-20240116; t=1776753629; c=relaxed/simple;
+	bh=REXpo0aDwZNwGOWjVTGyDE8XpAbeR+F4pHvn3kpRELA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=o+WIvPBekIKCFfUzHbCtTqQX1kTyZwnCzUS3S8NDaOk5648KX8vpfOr6T0NnxBBJ8dIx0yxpuNoCuUEGtCMRmzFPbVzyEEqWPC1UGVeCCURDh46gs/3qX1zh//U8eCHz8D9FBuMr9esp5idonjtp4qJKFuw+i1ct3MGXP1h8c5k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=plr7wMi2; arc=fail smtp.client-ip=40.107.75.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="plr7wMi2"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y03OgOv/LzBcXWDlFTY3OUu1rXuWiiMW71twmi4uTiwl+w2cT2sr1bHtYgcEZ7AK2bCAMXyc0fk5brEbyOVI7XkuWKBR5kPJi1ZLN1tn39l9zBQmG7GDoEi+U9LFBAbequWDjy3Ux3gUKuWCq0dRCTetQ9+M9IatDGsOR0ZXbYbA7vHp/pxmkT+Ibc/g2s8Bgfqgi2mWSBHUF5yg8wdHL3noMsJwjrZUMM60A8T8mMzEQBcY6z8BYkhl24SLCANVrsduxTjuK6ayOlE++X2ZG5QnnmjtKA7c/W4rr9E4nqHihMHVG+W/PoqJXEWmYWaKtlxJn6EtbQ8mLOo/icCKsw==
+ b=HaG3OiaR+9o+J1hCyAVJphPk/+XCsVwRk/nkTaABtqTbCc1RXVFcLNPFX4oEk6rlfiXLhKAO9w2vOcbixdjZGyeCrtWW/rYWNmULTBwyGW61/bnrimE39Sdt5tVtAuQKcjlM200MNBHMtrluApBJZ2BRNsIhaijE6sxCeO70LQRaadZU3hTjtV+BsfPwIKB/5NlkoNX/+V6f8da1Zt1BlBDofBM5YUFhmzTr0IzF5FIJ3+NaCKPtQ2555dAJmHk91bdYcRpApWTgXHzOIiLXSAuWyzJLnqfRnHTEpWMJgW/2GDhikesJnt181cqTzeScricxL5Q0Nwjxw1v+dhPsRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ndkaNkeNpYk4ZBnegT/79anoT+g2F94c2UerE+LttiA=;
- b=ABAP3eQzoY017MUUu62C1y5pVjEKXCg4qcMDXIWJYHYoffjoBX6FQKtBQgMvsP7ZfntHU0FpIvVHHk/ePdPcE2oglaAtgseusr3Sd9ha5ALZ7BDfGVIOoveTnkU8fq0g6q6kL/T/hiKREe79bt1ohvqiv81fEmit3GHpxeqyTvB846Do6XjCstvzOFwWnuiQkE5/qLdK39MIswIcbAHAg9X2mny2R2hNYAOFrQC4ICE2ZRDohJYcwwQn59kcgw2PTxXvQiRqwQiK8KrbJ5SXQphHcOvc1QF6qSlPFMeHLwfTVcRzSPvHVK/4FMzCymgRR9WjSKm+mJsCs6oSGaVhvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arndb.de smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI2PR01CA0002.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::21) by SI3PR06MB8611.apcprd06.prod.outlook.com
- (2603:1096:4:2a9::13) with Microsoft SMTP Server (version=TLS1_2,
+ bh=9+3hwenxWoO1UXiMz01Qcocny8R+VKf5H33kT3ZCz0g=;
+ b=xTcIGu1aAjQ36T5SGf/2yPC+YifxRgugcMJ6zzLQb1r+X8n9KxOC1cVhTqpadLbMpRK9PgU06ZZVoELWZ24Z+iS9desNxa/e4jDPg9bTDXlgdQJxUlxhFKacDs1LsY1wF9IiGgoPbHeVQ5uYjMVad10pAKsmooJQe9tuowS783QtHNpKJ62eaNqP7L7Dh7RDFeKGMsJYC+nxvkEs/287HCMkI5ynEOOLs7wNfCDhgV5+MITLGDDkvqYvljCF+1gHUfx6lf91nSDOB+wlE80xg/XuI8mr6zBqKD/nFkLCiQ8v+IPtUFQrIVmJdI01M9f5zA9z1l5zODQE3VuStxZS8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9+3hwenxWoO1UXiMz01Qcocny8R+VKf5H33kT3ZCz0g=;
+ b=plr7wMi2L7g9QZ2NID7Se7fsGk4GyE/BUwB3cxTy9L3KTXX4nUZ+hajczh3zQVFzXXLEGrpCXqnzPVL/5fZRW71LHOGoxbYGn4KwlpQThVNOosggVlVbiJgV/H2IqLEnHYnj03wYFkmFeAgR9wYxaIu9oRPK4VdI5CumOVioC2hUaIOXY/zbDckwzUAJL4ye1bNxgC4/7z6XJaHSNYvtAbMUOPGBpz0zfYWpVmDIoHC3+OnLsLY9b6jaOXusgbLQ78RSVpX0NBGXsjI2lDRNn7jKGeyoXJcWKo4RbM5cy9TabOLDHuV0yiwdP/C5I2QTQoG/3TFcKESLHKmJQrldVg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com (2603:1096:820:ca::7)
+ by JH0PR03MB7976.apcprd03.prod.outlook.com (2603:1096:990:2f::6) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.33; Tue, 21 Apr
- 2026 06:24:12 +0000
-Received: from SG2PEPF000B66CF.apcprd03.prod.outlook.com
- (2603:1096:4:191:cafe::d3) by SI2PR01CA0002.outlook.office365.com
- (2603:1096:4:191::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Tue,
- 21 Apr 2026 06:24:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG2PEPF000B66CF.mail.protection.outlook.com (10.167.240.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9791.48 via Frontend Transport; Tue, 21 Apr 2026 06:24:12 +0000
-Received: from nchen-desktop (unknown [172.16.64.25])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 0DF38446DB61;
-	Tue, 21 Apr 2026 14:24:10 +0800 (CST)
-Date: Tue, 21 Apr 2026 14:24:06 +0800
-From: Peter Chen <peter.chen@cixtech.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Rob Herring <robh@kernel.org>, krzk+dt@kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Pawel Laszczak <pawell@cadence.com>,
-	Roger Quadros <rogerq@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-	cix-kernel-upstream@cixtech.com
-Subject: Re: [PATCH v3 2/2] usb: cdns3: Add USBSSP platform driver support
-Message-ID: <aecYBkkNTTOhaL8S@nchen-desktop>
-References: <20260421023459.506145-1-peter.chen@cixtech.com>
- <20260421023459.506145-3-peter.chen@cixtech.com>
- <f21d5bab-c79d-4b7d-8aa4-e8188ee11aa8@app.fastmail.com>
+ 2026 06:40:25 +0000
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506]) by KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506%5]) with mapi id 15.20.9818.033; Tue, 21 Apr 2026
+ 06:40:24 +0000
+Message-ID: <49d2e771-a940-4c75-a632-d2e159111c22@amlogic.com>
+Date: Tue, 21 Apr 2026 14:40:22 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] arm64: dts: amlogic: t7: Add clk measure support
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+References: <20260415-clkmsr_a1_t7-v2-0-02b6314427e6@amlogic.com>
+ <20260415-clkmsr_a1_t7-v2-4-02b6314427e6@amlogic.com>
+ <ae61c52d-814c-40fa-b02a-833377d840a8@aliel.fr>
+ <64cde9f6-4f28-4ba7-8362-aac28887ff22@amlogic.com>
+ <f2074119-7b4b-4481-8e39-c822dd67000e@linaro.org>
+From: Jian Hu <jian.hu@amlogic.com>
+In-Reply-To: <f2074119-7b4b-4481-8e39-c822dd67000e@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2PR06CA0017.apcprd06.prod.outlook.com
+ (2603:1096:4:186::15) To KL1PR03MB7149.apcprd03.prod.outlook.com
+ (2603:1096:820:ca::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <f21d5bab-c79d-4b7d-8aa4-e8188ee11aa8@app.fastmail.com>
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CF:EE_|SI3PR06MB8611:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2e97b180-f4d3-4286-067f-08de9f6e9ad0
+X-MS-TrafficTypeDiagnostic: KL1PR03MB7149:EE_|JH0PR03MB7976:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b475b02-bce7-431d-2dad-08de9f70de1b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700016|7416014|1800799024|56012099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|7416014|366016|376014|1800799024|56012099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	Gha7DhZAhibz3L0aMSRy3gJrAW7y9MZ10w2g4lB6kYVJwhNyDTasDhaLhuYpd9euk6kr9BMiwdz8VAidQ5dmB/Vq2vgSGBp4bzUd8SPGiTVDJjT2JHsw8brHfEo5lJ4cyAxiT8H5PmziVHxjXyTH8smi8073Z7uc4fzQQ4e/GTe8Ovs+Y3aiAKKYXK1gCknS9CrSE4BNF6lqTiH3+UhP8z98uWpJ1kaUf7jVmtL3h1ISRp9WZmbDdFmW5bemsvikjPmHo+debW0OEexYGFcLm0cjVf7/WT4iVIhYbdhOCeMvexrx2RrXh5GaqgdVzO2AIwkqX6L2q121UdMBXkAXxhcFONzAetgCtl7MO/JURnnV71uZU67Va4kjjjYmzINId8MG7vDIt9h8dkUS4nGyTcI4y6OZYpcOF+AcfLkyYi5X+etmReykL1gWI3433DKhgMpYgaNhwKK4O5sZd3E2J/XxiUzl+3h+lGwI1/Bt5wGATgg4zNIc66txsKCnKu7TRcgdVRDC9RQNJ6uC0PjyWprCtNt3eVme7/J0tmEQ2hCIbnGKqSEPl0ftozYku9AaQ06DbZH54YMHr74mzfLGvU9l+h4bQlfmIkJ9h8usUAJQ+iW6JfnrTbJBgL8CNaK5Ty6epLauh4gGHnoFidkT65A1EXQEJy9JwxodyIzld+Bey6XCoak34gatQk6AxfjPRQMTi3aodQS8TtpuF3SkV7UwBSEoQPnkrQSZr13pyoTmjxS+/AK0Q+ad+M6oHMSkp4Odkgd90XYLr3rzd+usqw==
+	IwBjoo97BjZEq7B2FW+T3zRsw2UO9MtQ9378Dvw5rui7DFC5J23ES+zNYSO26YdOpCanBxbEzgKYr7C5czEWkjvNCnjWFIOVQmZF2rFdH3aUULXZd550+V/2ADJgWdPq2E0B70PE264KeNyV1H99m96CywXezwhJ0zFr638By3CElMskY05gKF7LnDl501YD1P7CDtf2kBUAoUL/juEK5S8RQB216MFnA5O1E+sErNVMF9lzvTaXjTXHM6qR6nYre83h/qE1VHOiaIW8rLaSHgK+q171VIosbYVel2OabNBtymJvm8VoiQCdm/2WM6QLRAeNxV6dyY7VF3+tFOi9uvG5ZJBxcSqrUfQAPUzqxrNM+sX43aMPb6NQHtmvXx2WX8PU0moP8yImWz9f9dWkRj6Rhcio6RASU8p05yissSNdwFyh7npnBMNA5Gf93E3JVGU7O5y0FJEi2mxdMTylTJiPCfahEO8ori0POeoaZ8GNBmcdJjlekVW9clh9ttmQUp5ePxe9noE4ZUUxwgqjkQhaNqyiXhHL3ka+Ym/5KWrgrVcDwDwQsG93TdSattRiBGh134eZRyBdYi7HyjYNA2Og18wngVAhAl7nSpIGjdyMVv9SVeHBSTCk1ysLg3KUjl+Moung6xGI+gPshjBA9eWu2u2y6wiIWHUfhuon756QJiNkK60jtvFBVEEMOJEVDDJ75D2i8cIRrN5r39M2dgY+9UOr6jXy75TO0pw+2tg=
 X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(7416014)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB7149.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	uXrh5MVkqrzrc8EqYHv0XhMA96pQ8/6ARKfE6nDcot9W2WBPTuX3K57/i5jobRIMvX+kwZqzzEsLz1qkEtZxWnk6iJdFkU8yHe8fnIQ5No5eFcJKHYe9fZz6bw7Zkw5hIx5UIMKuWHM1YLtqA9X9qu++MfV9SK45vsmhd4LvDm2oQQ14rY+gFgt/OM18DpI7MyjLsyTtZ7CFgqPVeuaUbG4HtE+/oIIxXShMCFCoqthB9cSosRSW5kvnp82iGU2cPyAobBnfxhu/KPaPdMnGKHAZnLpuo3fD1L5vtds+zCkqbNsbCRbCeU+BTz/nxCgcH72ggAmDPZc1rS6mMWRm/bwQgXusJTfRucgGLWVsmGu5vMOHyguD6KeO9uxNTPI09vfwSIs9RnONABFL2Ud3mhZuqFwF19xH8i8SykFknLUP1wh4BBSBYqI5S9tNwcE6
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 06:24:12.3876
+	=?utf-8?B?NW9ha0NQRXc3bkdtMlVET2Q4Wklyd1ZRTWp3NzhhWWFqWWdJUGNkVy9tZTA1?=
+ =?utf-8?B?RUkzekRXRVc1NGNNOHE3dzRUbzZxTnFabEVkQlI2cFJXQUdJanZhcGd2ZHNS?=
+ =?utf-8?B?bVNSa1F1Qkg0QkRwVkVubm02a0hIQ1hpdTFOejk0UWErcDBGTldjUktxYm5k?=
+ =?utf-8?B?YlcwNzZkNkpmOTMwSXplME1KTHU3TUtLT1UrVENLaEo2d3NDNVJqYW0xWVQw?=
+ =?utf-8?B?RDk4aUEzdVZlNE9Hb0lqZzNWS2pYVVB2N2svRk5VWUYyMHpSNXZVaW1WWlhh?=
+ =?utf-8?B?YndhNUVUZ0V2VDIyaGhVdDJLdFJWVHV0WGJhWmd5Njk1blhlejhTUE5IVnhD?=
+ =?utf-8?B?ZHZ3UFpvMzg4VzZmWTVkNHFhT1BoY0lMU1JESERiWlF3ZDF6dURXNVNhNi9o?=
+ =?utf-8?B?NVVHMi96Sk94eEI0OUlMK0Y1MUxUd0dsUVl0Ni9iSnBZNkp1TWlKWTlqOWs0?=
+ =?utf-8?B?S0IwbEtjUGZoamJMSEFvSkxrcUo1V09jeVNMcjdqd2JoRFhNNy9Kc1dBeUdv?=
+ =?utf-8?B?L2V3NzFkWXFtck1NRk9yUm1qZEdweFdsUk93dXZMWm9OUE4xb0RNdzYwUjFF?=
+ =?utf-8?B?R1R1OGxybldpRUdJb0lBeW5JOG1Ldi82aGw4WXVxK3dNbGFJVXZOVThtZ0ZE?=
+ =?utf-8?B?Y2xibjdSUkhFUHBBWlRyL1lXU0xWRTdFdFNSaENqRDYzeW92a2NSS211SlFw?=
+ =?utf-8?B?eHJiVEJCZkFhZ3lETXVZT0xRMGFsOTlWcUxuekNRZzNZWld2S2tuTHFNQlgz?=
+ =?utf-8?B?Yy9BK3QzSUVvT2kySnRaZ292bjNXRjBrSHVGTVAzd1lLV1BXTXRLYzFaVGda?=
+ =?utf-8?B?U2pEU2xqdnEveXQyWGR4OWxwVEVzeURGeDgrVlRSckF5NTJSR3FrdFRnUUdX?=
+ =?utf-8?B?czJYVVQ5RmNRaFhUWjVqaUFLQlJkSzZNV1ZqaUxNcStBUS9hZDVYbXQzZ0dr?=
+ =?utf-8?B?TzFQR2Fld2tGSEdsc0pNVS9nOUwzdERNbHJXT1RPYVI1OENIR0tiaWVGQnBr?=
+ =?utf-8?B?bkRVc2JhMG9hQmNGYXlMRUJLNUZiVFZscTN3cmt6eTBDc0QrSkpzaGdySlo4?=
+ =?utf-8?B?ZndkY3ZEZ2hZQzdObjRvNG5IeW9wNUg0ZDR3UE5zZ255UFJGdXdSUjR0NzBt?=
+ =?utf-8?B?RllnTlBPdmlMTDdweHNuVDJyMFlFd3VrakZtS056c09KVDhaR0R1MkFVamlS?=
+ =?utf-8?B?TjlZbTczTXVkeTNXcEcxL0dwRWNxa2hwT3A2N3Erc1dTUWNDeE1NT2hqbjBu?=
+ =?utf-8?B?TEV3eDFSODl5d05UQXVEdHFCZ0J2RmpKbDVqdDFJQXAzU0ptWlBBNkErdytD?=
+ =?utf-8?B?RlRHaVM1Sy9DdlBhUjd6VnJvUW9uNnR6eEg4VFQzS3ZOYlkvKzg1TnZqbE1p?=
+ =?utf-8?B?NVJ1RVdMQzBnTlFIVDB2c21CVSs0bEtBUFk1UVpadGh2ZkdxMUE5ajdwMlZZ?=
+ =?utf-8?B?U25QUUpIUVV1VmwyVStsb0pENlJlcUFXZEFBRkxGZFlTdXVJR0hOblMwdE9M?=
+ =?utf-8?B?Q0I5LzU2Q3N4TjFQK3VvRHVlYmVZemc5UzZZVjM5RkExSkdscFk5QmN5THN0?=
+ =?utf-8?B?TjNwcnJkbW5TemdQMnZOcDlGSmRTQ2RoNlREc1FwYUJqblFubHRBTm1YaVhw?=
+ =?utf-8?B?QWVNUDV5eEdVK1IyQU1ZR1NTb0ZoS1lxcnRKZmN1MkhwMXpJZE9EcStuclEy?=
+ =?utf-8?B?TlA5UVBPL2l2bkdJSUE0dVFOM3EyU2dzWVhCZGdDb1I1RjdTaXRPOHUrcU9h?=
+ =?utf-8?B?RmpVVFh4UWlQYzNCTGVNVGVxS2IydlMvb0RkK3dvbVRIZi9DQThaSEx1Vmdm?=
+ =?utf-8?B?RTdXWUljRXBIQmtKWWpoRmVGSjhOZEZxcnV4cW40WmpLbnUzZTM3N1Z5UHZu?=
+ =?utf-8?B?QTN0M09JNS92R2tTM2Fxc0xZMTRKelFGQzlMZStJVHpLb2pTY0F1aGlSNTdV?=
+ =?utf-8?B?azNLeTZoSTRnS0pyY0VBVjl2U0VmRDJKN0pmR1hVcEk5bEdZUzBTSzBjOEZl?=
+ =?utf-8?B?SVFDRy9CcEZ4UXhYT3FEdU5EQVBPeXFQaGw3S2tKbGt6cmlsRVBUMDlMK2lt?=
+ =?utf-8?B?TzRrWWtaNm8ra0MxWXlHMHFSdG9WVU1iZlp0ZFRrVzMrNkhpeG9Gcnc1c2Jz?=
+ =?utf-8?B?c1dPTWIrLzJzT2VWdTJNV0M5ODUxNEVkNFM3SkVvNXhvVDhGZVEyVGVvb1dm?=
+ =?utf-8?B?VG90aDIxZzNuYXFMckZJMFVUZVNRYWxiTHIvOTUxWHFDQkZ5YU5aVVd2R3lO?=
+ =?utf-8?B?UFBCdFV5SWQwbC84ZGZQeDRqSDZjeXJlNldPVXlaWW1zZm4wU1pFbHR3RDd6?=
+ =?utf-8?B?UXY2UFMxOGcwRWFGclFVWEVraUgyYWlSYTNPSHh3cmxnK0lUWFNqdz09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b475b02-bce7-431d-2dad-08de9f70de1b
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB7149.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 06:40:24.6579
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e97b180-f4d3-4286-067f-08de9f6e9ad0
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG2PEPF000B66CF.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI3PR06MB8611
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4BXsWGD5FqXpKbtgbnbpAcXWynLye/1pa6YFgepNqvE6d1lfIEqNmXb3NWSxJ0z4eD6U676o6UNF6bpkRgBrYQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR03MB7976
 
-On 26-04-21 07:57:25, Arnd Bergmann wrote:
-> > drivers/usb/Makefile: descend into drivers/usb/cdns3/ only when
-> > CONFIG_USB_CDNS_SUPPORT is enabled.
-> >
-> > Assisted-by: Cursor:claude-4.6-opus
-> > Suggested-by: Arnd Bergmann <arnd@arndb.de>
-> > Signed-off-by: Peter Chen <peter.chen@cixtech.com>
-> 
-> This looks fine to me,
-> 
-> Reviewed-by: Arnd Bergmann <arnd@arndb.de>
-> 
-> I've added the patch to my randconfig build setup now, to see if there
-> are any corner cases left that I have missed where it may still
-> get into a build time failure and will let you know if I find any.
-> 
+Hi Ronald and Neil,
 
-Thanks, Arnd.
 
--- 
+Thank you for your patient explanation.
+
+
+On 4/20/2026 4:52 PM, Neil Armstrong wrote:
+> [ EXTERNAL EMAIL ]
+>
+> On 4/20/26 05:25, Jian Hu wrote:
+>> Hi Ronald,
+>>
+>>
+>> Thanks for your review.
+>>
+>> On 4/17/2026 5:48 PM, Ronald Claveau wrote:
+>>> [ EXTERNAL EMAIL ]
+>>>
+>>> Hello Jian,
+>>>
+>>> On 4/15/26 10:33 AM, Jian Hu via B4 Relay wrote:
+>>>> From: Jian Hu <jian.hu@amlogic.com>
+>>>>
+>>>> Add the clock measure device to the T7 SoC family.
+>>>>
+>>>> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+>>>> ---
+>>>>   arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 5 +++++
+>>>>   1 file changed, 5 insertions(+)
+>>>>
+>>>> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi 
+>>>> b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+>>>> index 7fe72c94ed62..cec2ea74850d 100644
+>>>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+>>>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+>>>> @@ -701,6 +701,11 @@ pwm_ao_cd: pwm@60000 {
+>>>>                                status = "disabled";
+>>>>                        };
+>>>>
+>>>> +                     clock-measurer@48000 {
+>>>> +                             compatible = "amlogic,t7-clk-measure";
+>>>> +                             reg = <0x0 0x48000 0x0 0x1c>;
+>>>> +                     };
+>>>> +
+>>> Can you please order by reg, it should be between pwm_ao_gh and pwm_ab.
+>>> Thank you.
+>>
+>>
+>> According to the "Order of Nodes" chapter in 
+>> Documentation/devicetree/bindings/dts-coding-style.rst,
+>>
+>> nodes of the same type should be grouped together, and this takes 
+>> higher priority.
+>>
+>> So I have placed the clock-measure node after all PWM nodes to avoid 
+>> splitting the PWM group.
+>
+> This is not something we ever followed in the past, and I don't think 
+> it makes sens here.
+>
+>
+> """
+> Alternatively for some subarchitectures, nodes of the same type can be
+> grouped together, e.g. all I2C controllers one after another even if this
+> breaks unit address ordering.
+> """
+>
+> This doesn't apply here, so order strictly by address.
+>
+> Neil
+>
+
+Ok, I will order it by address in the next version.
+
 
 Best regards,
-Peter
+
+Jian
+
+
