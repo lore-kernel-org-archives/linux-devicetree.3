@@ -1,93 +1,209 @@
-Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 417FA34D3B2;
-	Tue, 21 Apr 2026 16:50:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A2326E71F;
+	Tue, 21 Apr 2026 17:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776790260; cv=none; b=rmKmHQzrFuarSna+DpPFGYJQxQuxvU49b53NapAPNmNAsUw65LjUt71/zBttK7bDTPXHjGuQIokOwPsnYuTwlED9Q6t9vK7E88iKIQO5jW1SY7UipdQDGa2rHiHFPr4VgU/qKDfiYvqp2xUytAlZz3zCSrRIWb4XrJUp7w/K8vs=
+	t=1776791036; cv=none; b=ei3Zu5H5Ss7AvgahH5OQbU1kwT7oAFdFZ4lHxEW5cUPfG71YI3OsT5+1klw6wlTOPQ2xb3BL0q0j+v5ULQc7cATqiTW4GgNNAg1YSREiGVnqC2N/C5fsxLYpBOZSxgcJftb5i70nRvvLx1dQ++FHRQT8u4h8KNF4KPCJAB8CSvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776790260; c=relaxed/simple;
-	bh=FbU2IvOTeNvy9bey8cf4nfDCn74akoWtK/nq07U1TxA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=szSGba1ZwFpKHUEOwu8j4gwcm8+Ir7qej0yAFwM0CU7FgrtXSbPVDRtKqFioR2iTzYGCfU88YUzI470ol3SMv70OitO57QsCi2czy9H1HfROaings0I2sau3R7vMJG3VKEo1lUv7JJsqTQaueZDNRm0ON7wiffdkGCuCfI3QGrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=FR32Ip3O; arc=none smtp.client-ip=79.135.106.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1776791036; c=relaxed/simple;
+	bh=0vjQ9Y6dD5TiOFno1Q68yXI5D0Y2pLi1DknZIvVD400=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QjxJHqYMC/HimL2RFilLFItU59M2IBLK6NLXQmCml+cGlqvHT1XhJaYh3MADEYjTsplyPV00+z1hgPzJYxVowcfaV1hqTWs+dGm3C/M3kuNk1fD6M1NXG727NxwwMGpwdSIJnNNcfcwsKgCnTNgjLdff/Gb6rUsYQAUuzZ31hho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q1Cut8L5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="FR32Ip3O"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1776790251; x=1777049451;
-	bh=EdX3AvgX/aH6F/p+FwltMFglS9SHJ2o00uCI9YuBjn8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=FR32Ip3OL9/5Mevs56fAmnllDbd+7Iel25HEYYfFftzrY2UnRCoTNmniVMJUpKPIg
-	 SFE2rNsGmd1bMT6c9C11i33WbnJNyLC01tvzQ1wWuqlo6mPndur6b6WUKmbpifwio5
-	 FXBi3dCpcEoj4v6Qc47N1wFg/z9mCqQ5JwWO96F6fY1qbJwV9wH/65JTKr/mrh0leA
-	 5QFY/akXpoq96CSQGz19/2bACrWkYxHd/JNYqABidfb1j9BnXXmmvKW3F0byzd9+tc
-	 boJZCLC4KWMcwozj4ExpieM3kTfvCJMZW1bIEjRrvY2thrXADS6xSx9gqF3gyJq/1h
-	 tsp8W7mFtvTiw==
-Date: Tue, 21 Apr 2026 16:50:47 +0000
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] pinctrl: qcom: eliza: Split up some QUP pin groups
-Message-ID: <Li2-2Zov5lvXZcLfb6l0_7mDAg2QB-ag10-aLD59ulR1pntDBHpNORrd0I5Gg_YGqo-rGdIgil2DmrVw1CoDhgN1S7QLsnId_k2mf4u5DYk=@pm.me>
-In-Reply-To: <cdaf1f7d-72d1-4481-aa3f-4b15990cf6a6@oss.qualcomm.com>
-References: <20260420-fix-eliza-pinctrl-v2-0-b68329fd6701@pm.me> <20260420-fix-eliza-pinctrl-v2-2-b68329fd6701@pm.me> <cdaf1f7d-72d1-4481-aa3f-4b15990cf6a6@oss.qualcomm.com>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: b9430b1ac5c23f3d6d19d159fa48febd6d22a217
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q1Cut8L5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39614C2BCB0;
+	Tue, 21 Apr 2026 17:03:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776791036;
+	bh=0vjQ9Y6dD5TiOFno1Q68yXI5D0Y2pLi1DknZIvVD400=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Q1Cut8L5nPZLACraL34et+ZDudtOmllGmjvGe4FctvAaXredYdyhE7FtLihMVckV1
+	 b3RFRH+oIiaJxvEI8cfHLE1vB3Ug0yMnwTHRY2zZ4FzBhDd+0UaJ1tGYFN1eHeWoEw
+	 P/MO0dwrBEmmChUGpf0a7YOL6h2Ckgi+cLdmEWF1j/K++tV5dsb/0mYIoKix6ELpWv
+	 5ZZAI2FsK6aBzwI9njKh9+wiCDxSb6r3xd+OTDE1HCD/h4enKGjC9w10yd0m7Lewso
+	 DiYpW5YNhU64cbkIPqYBdRNVeTS/TC/Fx+ujxP1TPayZ2YrW44tdOk0GsfrGB8wqk5
+	 hgSRXpnwUhHNw==
+Date: Tue, 21 Apr 2026 18:03:50 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Minda Chen <minda.chen@starfivetech.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@wdc.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Ajay Neeli <ajay.neeli@amd.com>,
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Pedro Sousa <pedrom.sousa@synopsys.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v1 1/3] scsi: ufs: dt-bindings: starfive: Add UFS Host
+ Controller for JHB100 soc
+Message-ID: <20260421-appetite-vowel-ce0837f5625b@spud>
+References: <20260421091215.120632-1-minda.chen@starfivetech.com>
+ <20260421091215.120632-2-minda.chen@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="BeD+x9onsyh/EoOc"
+Content-Disposition: inline
+In-Reply-To: <20260421091215.120632-2-minda.chen@starfivetech.com>
+
+
+--BeD+x9onsyh/EoOc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tuesday, April 21st, 2026 at 9:06 AM, Konrad Dybcio <konrad.dybcio@oss.q=
-ualcomm.com> wrote:
-
-> On 4/20/26 4:28 PM, Alexander Koskovich wrote:
-> > Multiple QUPs have lanes that can be routed to one of two GPIOs and
-> > collapsing them prevents devicetrees from requesting specific routing.
-> >
-> > For example, a board that wires an I2C SCL line to one of two GPIOs
-> > cannot request that specific pin with the groups collapsed.
-> >
-> > This change splits them up so devicetrees can request the configuration
-> > they need.
+On Tue, Apr 21, 2026 at 05:12:13PM +0800, Minda Chen wrote:
+> Add devicetree document for UFS Host Controller StarFive JHB100 SoC.
+> The UFS controller is based on the Synopsys DesignWare UFS controller.
 >=20
-> Please massage the commit message so that it highlights that the issue
-> is that there are multiple functions defined for a given pin, sharing
-> the same name
-
-Will do in v3, also I was looking at how sm8550 handles this with qup2_se0,=
- and
-noticed they don't split every lane in this case, they only split out the
-lanes that have two possible GPIOS:
-
-=09msm_mux_qup2_se0_l0_mira,
-=09msm_mux_qup2_se0_l0_mirb,
-=09msm_mux_qup2_se0_l1_mira,
-=09msm_mux_qup2_se0_l1_mirb,
-=09msm_mux_qup2_se0_l2_mira,
-=09msm_mux_qup2_se0_l2_mirb,
-=09msm_mux_qup2_se0_l3_mira,
-=09msm_mux_qup2_se0_l3_mirb,
-
-For Eliza I split them all out since I figured if I was already splitting s=
-ome
-out for mira/mirb I should just also split the rest, but should I mirror th=
-is?
-
+> Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
+> ---
+>  .../devicetree/bindings/ufs/starfive,ufs.yaml | 76 +++++++++++++++++++
+>  MAINTAINERS                                   |  5 ++
+>  2 files changed, 81 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/ufs/starfive,ufs.ya=
+ml
 >=20
-> Konrad
->=20
+> diff --git a/Documentation/devicetree/bindings/ufs/starfive,ufs.yaml b/Do=
+cumentation/devicetree/bindings/ufs/starfive,ufs.yaml
+> new file mode 100644
+> index 000000000000..c408973dd0ce
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/ufs/starfive,ufs.yaml
+
+Filename should be starfive,jhb100-ufs.
+
+> @@ -0,0 +1,76 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/ufs/starfive,ufs.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Starfive Universal Flash Storage (UFS) Controller
+> +
+> +maintainers:
+> +  - Minda Chen <minda.chen@starfivetech.com>
+> +
+> +allOf:
+> +  - $ref: ufs-common.yaml
+> +
+> +properties:
+> +  compatible:
+> +    const: starfive,jhb100-ufs
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: UFS reference clock
+> +      - description: UFS main enable clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: ref_clk
+
+Think "ref" suffices here.
+
+> +      - const: ufs
+> +
+> +  resets:
+> +    items:
+> +      - description: UFS main reset
+> +      - description: UFS PHY reset
+> +
+> +  reset-names:
+> +    items:
+> +      - const: main
+> +      - const: phy
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  starfive,syscon:
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    description:
+> +      The phandle to System Register Controller syscon node.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - resets
+> +  - reset-names
+> +  - interrupts
+> +  - starfive,syscon
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    ufs@11b10000 {
+> +        compatible =3D "starfive,jhb100-ufs";
+> +        reg =3D <0x11b10000 0x20000>;
+> +        interrupts =3D <105>;
+> +        clocks =3D <&syscrg 4>,
+> +                 <&syscrg 5>;
+> +        clock-names =3D "ref_clk", "ufs";
+> +        freq-table-hz =3D <26000000 26000000>,
+> +                        <100000000 100000000>;
+> +        resets =3D <&syscrg 10>,
+> +                 <&syscrg 7>;
+> +        reset-names =3D "main", "phy";
+> +        starfive,syscon =3D <&syscon>;
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 32bd94a0b94c..3792c51da63c 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -27190,6 +27190,11 @@ L:	linux-scsi@vger.kernel.org
+>  S:	Maintained
+>  F:	drivers/ufs/host/ufs-renesas.c
+> =20
+> +UNIVERSAL FLASH STORAGE HOST CONTROLLER DRIVER STARFIVE
+> +M:	Minda Chen <minda.cheb@starfivetech.com>
+
+Typo in your email address here.
+
+pw-bot: changes-requested
 
 Thanks,
-Alex
+Conor.
 
-> 
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/ufs/starfive,ufs.yaml
+> +
+>  UNIWILL LAPTOP DRIVER
+>  M:	Armin Wolf <W_Armin@gmx.de>
+>  L:	platform-driver-x86@vger.kernel.org
+> --=20
+> 2.17.1
+>=20
+>=20
+
+--BeD+x9onsyh/EoOc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeet9gAKCRB4tDGHoIJi
+0h0hAQD1C2lWY7cSC00wSe7joATUSIpjBI6Cx3TuNjrVrWb06AD/XGUJZEm9k8qw
+mfhfFn0AgmdvixEu6ZccTqYwM6IfrAk=
+=i4yy
+-----END PGP SIGNATURE-----
+
+--BeD+x9onsyh/EoOc--
