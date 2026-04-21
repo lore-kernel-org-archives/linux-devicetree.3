@@ -1,43 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01CDF3D810D;
-	Tue, 21 Apr 2026 13:49:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0B33115A2;
+	Tue, 21 Apr 2026 13:52:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776779393; cv=none; b=gR8g8LvQU35GExwyTQDkv8t35xk00XOeUXP9v5vHaZlt28Oi0vbQjoK3UokscxpM12G3kAtocJqnzeRay6MegS18MiT7QWbQFeSyUPocuVA7nQc9vUxyTJ2B2Nj6+aInRVbLVb3cIBDzGqRPJya2LPpiMwjaJBLKfsY78eGJVg8=
+	t=1776779540; cv=none; b=HizwUOA1CjCgTGAX8wGbofKpNmJoqW6K0K+ukLmnCAr0tfMT4lSA1V8e1l1mTOxI4tJzjJY6QK+9wPQW/7cu75AVqI85Y9UajNXWW+0RQG1dQCe5U+SkU9p0e1yof3pAp5s7WyAtQ/EoXbZtxJTlIbgx2aA0Tk/J0hsvsblYzsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776779393; c=relaxed/simple;
-	bh=yFGp4q9dd69vORspj/F4Kgjs/Fxf0CHEPtkH/U80wYo=;
+	s=arc-20240116; t=1776779540; c=relaxed/simple;
+	bh=hZjlH3OcxSPjJyeaxOnBm2U2CEPno6/ZUqa7aN4sdkk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZxEZ+rVA5f9Eqzz7/jQV4NPGCCxPAXDaqCit5uaHJf6yv65J8+AtYEio8lnjDTvDSdUaUC/Vy0TATiqke51k5vQs/aaSNotOUF3gvALKzY3iXWc4Rv+74qZV2pWEHcW+AfhrzlxE5yoQ/wSUDytzlF+XEsdg57VOeUj1T5rwoGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sL5hElqu; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=fWdd+OxJH3ylVBuZ+0rnIw7bFjQRdanMZyrvojWP9RoGJZ2jhnFQK5SPj5mv356bFq2y1X2YiFlx5p62nzRzPwkM/gwuH/qm5ZiedzwgvMbpvjP5JkkbxlbUVJI1FxXUWlEq6zxnGPUUg/mlNL5vQES/anR4oovuKyA2maNZ6Yo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tchhhpyp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sL5hElqu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72D90C2BCB0;
-	Tue, 21 Apr 2026 13:49:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tchhhpyp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41CAEC2BCB7;
+	Tue, 21 Apr 2026 13:52:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776779392;
-	bh=yFGp4q9dd69vORspj/F4Kgjs/Fxf0CHEPtkH/U80wYo=;
+	s=k20201202; t=1776779540;
+	bh=hZjlH3OcxSPjJyeaxOnBm2U2CEPno6/ZUqa7aN4sdkk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sL5hElquKB/bBDpkBst9KuxNe/vUGmfdKnY1xzsF+gF3YR/LajhF61fFEo+0eM1sA
-	 /ynJ0kntn/yKhTPxKyli4lZ+dfY82uM8r0ADwsXoPbP4ZljFqR6sHUgxo6CC+MoGIQ
-	 ucIK5DU2TqokF5jAF4AD+wbEsM4TD1+gUuFyV/1ICl3Yp7C1xLidR+5iGnbkIPQ1+h
-	 Aj82dL8R1tiDtfwNkgd+3CcZLpWvmP9A8YYR5Vmay+S1PR0fYNKHLssFa5EGAlvuZx
-	 noVkGWnOEdEnD2mS+RdxPnLEJru8a8OtSncEcddiojDjFYakXhOpyIjkyCqxUwdCfZ
-	 erqqxXkxYkBJA==
-Date: Tue, 21 Apr 2026 08:49:49 -0500
+	b=tchhhpypLwxx64yAc3c+6hHvZEVcgsmzsJg+E6+THJj/kIcoOIfRxkvFQzLydi0E2
+	 7e5pEZT+DptSrd0qjtoQcSckh5Ni2XlW7iAryKABFO7UyOvEpaOaya43h57N1rQgfY
+	 XKRF3qOMtb/MB5lpboiyZABTGUe46E0GWhuTrnZijfC8ZLl5fRBgIgKURMjCcXDLYp
+	 2An750bSm899RzCr/udBqs+0GCk5BYtdnE2gobri6zR4zPqxlXENx7n+yJLI/i8yh6
+	 /zolYZUrPrYJdtB59gYH+Xd6hF6WNLQCfL+Gl/vboAeNdwGp+zzHBoqU3sJfMRjfQE
+	 8RtDUTwXduw4Q==
+Date: Tue, 21 Apr 2026 08:52:18 -0500
 From: Rob Herring <robh@kernel.org>
-To: "Kevin Hilman (TI)" <khilman@baylibre.com>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>, linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 1/3] dt-bindings: power: Add power-domains-child-ids
- property
-Message-ID: <20260421134949.GA1045294-robh@kernel.org>
-References: <20260420-topic-lpm-pmdomain-child-ids-v3-0-c2c40bef238c@baylibre.com>
- <20260420-topic-lpm-pmdomain-child-ids-v3-1-c2c40bef238c@baylibre.com>
+To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+Cc: linux-kernel@vger.kernel.org, git@amd.com, shubhrajyoti.datta@gmail.com,
+	Srinivas Neeli <srinivas.neeli@amd.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: gpio: zynq: Sort compatible strings
+ alphabetically
+Message-ID: <20260421135218.GA1048828-robh@kernel.org>
+References: <20260421104358.2496125-1-shubhrajyoti.datta@amd.com>
+ <20260421104358.2496125-2-shubhrajyoti.datta@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,19 +50,11 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260420-topic-lpm-pmdomain-child-ids-v3-1-c2c40bef238c@baylibre.com>
+In-Reply-To: <20260421104358.2496125-2-shubhrajyoti.datta@amd.com>
 
-On Mon, Apr 20, 2026 at 04:51:17PM -0700, Kevin Hilman (TI) wrote:
-> Add binding documentation for the new power-domains-child-ids property,
-> which works in conjunction with the existing power-domains property to
-> establish parent-child relationships between a multi-domain power domain
-> provider and external parent domains.
+On Tue, Apr 21, 2026 at 04:13:56PM +0530, Shubhrajyoti Datta wrote:
+> Sort the compatible string alphabetically.
 > 
-> Each element in the uint32 array identifies the child domain
-> ID (index) within the provider that should be made a child domain of
-> the corresponding phandle entry in power-domains. The two arrays must
-> have the same number of elements.
-> 
-> Signed-off-by: Kevin Hilman (TI) <khilman@baylibre.com>
+> Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
 
-Missing my Reviewed-by.
+Missing Conor's ack.
