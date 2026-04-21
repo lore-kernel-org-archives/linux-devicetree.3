@@ -1,269 +1,182 @@
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5187D3C063E
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 14:50:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD203D904C;
+	Tue, 21 Apr 2026 14:50:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776783054; cv=none; b=Ojg5t0Xlm9iyVQhNEE0uFY/8JWQmWvPwWjtwuerAK4EJarvNIOxDgG5fGHtRxqrVglVMoS+i0H5Tvv+AWotkJES6YMg6mouPK4mGj0ElzMTcvDhWGif2ITWee+LGIsUWOyAUUaBGXpzoarjneuZQuCYvNdZJNMHhB5ObmKst4vU=
+	t=1776783057; cv=none; b=m7foDq4nLMlo0qLRUIbm2nB4rzsMKOI+3mgtvsrM21pu0KMuIp+MCFcXRw/q3qi2uPwlgYXHrhRDIjBqQ7ym8ZdPgzEQTs5TeupDdW5o/tFU65fL8j5eHWWSBlYp6kJtfbG6omeG2EMK1tNxf09ogerTJLW/ao3D7aOPssiorRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776783054; c=relaxed/simple;
-	bh=NqBxCJSSooglSvWmHdF/VUqFh/2b7ZZkADOFhvMlNhU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uJahg+a8H0kZiJijB3vWhm7I84psYrXT0sf9NdQBmoth9cUMKNyNub2XxWZhzv7UYwQt21rdtLK68wH15LLDI1zzx0FUE7QeMDwbqf91rDHb/y5HNJGOkoQ2ti9D084geUHrck+CUdHVbORQ8DYwga84PZ/8VG5ZB87mhFalEWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=o9lw3XhA; arc=none smtp.client-ip=185.67.36.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1776783057; c=relaxed/simple;
+	bh=BMGi9M1H3wYbS7OQ26wY0topQ2jajr8jKH7yXASM19Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MA7dM0LVmcrBD5bspDEc/dFy+YAzJBmISPKSOA8PN93pJa3FFsgfz2aECiXzXYgiK7Uu76vjLhS6EdW9Ub1QMuqETTc3xEN5tTBDaKOxgmuSKacuTptnONSRgCBPzwceyP6b03Lq0W3qlo0tGJLg0iRyHhzV6uAMPZXd6Cv42EA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=REONwhrE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="o9lw3XhA"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id AD96E240028
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 16:50:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
-	t=1776783044; bh=Zk59gK8u1+DLZvTRqE2gaJCXbj9xnsbmFV0JFq9MJoQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=o9lw3XhAgvq775Pn3wdpdbFmiGv2mEWbDdt7ajJGD3frXOgNSO71lyIfhZNDksxf3
-	 1bPZrEQML+glBoIhEusYHzX20xZI3M9Ku7pLhZaYEtn+wGDZgIy392GJ5hapwj4j/M
-	 +yzqwCuSaXXTGczvxcdxZ/1sstTEqnAsZ2NAEZATgwI8zg5bwGNQe/2yB4LjIkxWPB
-	 Xzd8kDByIw2B1+RTABUr6AiWmqhjldd7AtKwC1SmJZmMt8MbD0NrKp9Zcr3Ei0nmVd
-	 CPpAnkb2bozMW265/d++TcsWq4s4tBYRnXHRwnjzcHkQ5f6Hr8m5FVE1aa7x1UnL3N
-	 CecaNlZrQE7Cg==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4g0QJd4ZNvz9rxN;
-	Tue, 21 Apr 2026 16:50:41 +0200 (CEST)
-Message-ID: <26b074972581ff398b5af964ba092c8117855062.camel@posteo.de>
-Subject: Re: [PATCH v8 1/2] dt-bindings: embedded-controller: Add synology
- microp devices
-From: Markus Probst <markus.probst@posteo.de>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Hans de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
- <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue
- <bryan.odonoghue@linaro.org>,  Lee Jones <lee@kernel.org>, Pavel Machek
- <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
- <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?=
- Roy Baron	 <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich
- <dakr@kernel.org>, Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org
-Date: Tue, 21 Apr 2026 14:50:43 +0000
-In-Reply-To: <20260421-just-benevolent-dormouse-2c35ed@quoll>
-References: <20260420-synology_microp_initial-v8-0-7946a9124491@posteo.de>
-	 <20260420-synology_microp_initial-v8-1-7946a9124491@posteo.de>
-	 <20260421-just-benevolent-dormouse-2c35ed@quoll>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=mQINBGiDvXgBEADAXUceKafpl46S35UmDh2wRvvx+UfZbcTjeQOlSwKP7YVJ4JOZrVs93
- qReNLkOWguIqPBxR9blQ4nyYrqSCV+MMw/3ifyXIm6Pw2YRUDg+WTEOjTixRCoWDgUj1nOsvJ9tVA
- m76Ww+/pAnepVRafMID0rqEfD9oGv1YrfpeFJhyE2zUw3SyyNLIKWD6QeLRhKQRbSnsXhGLFBXCqt
- 9k5JARhgQof9zvztcCVlT5KVvuyfC4H+HzeGmu9201BVyihJwKdcKPq+n/aY5FUVxNTgtI9f8wIbm
- fAjaoT1pjXSp+dszakA98fhONM98pOq723o/1ZGMZukyXFfsDGtA3BB79HoopHKujLGWAGskzClwT
- jRQxBqxh/U/lL1pc+0xPWikTNCmtziCOvv0KA0arDOMQlyFvImzX6oGVgE4ksKQYbMZ3Ikw6L1Rv1
- J+FvN0aNwOKgL2ztBRYscUGcQvA0Zo1fGCAn/BLEJvQYShWKeKqjyncVGoXFsz2AcuFKe1pwETSsN
- 6OZncjy32e4ktgs07cWBfx0v62b8md36jau+B6RVnnodaA8++oXl3FRwiEW8XfXWIjy4umIv93tb8
- 8ekYsfOfWkTSewZYXGoqe4RtK80ulMHb/dh2FZQIFyRdN4HOmB4FYO5sEYFr9YjHLmDkrUgNodJCX
- CeMe4BO4iaxUQARAQABtCdNYXJrdXMgUHJvYnN0IDxtYXJrdXMucHJvYnN0QHBvc3Rlby5kZT6JAl
- QEEwEIAD4CGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AWIQSCdBjE9KxY53IwxHM0dh/4561
- D0gUCaIZ9HQIZAQAKCRA0dh/4561D0pKmD/92zsCfbD+SrvBpNWtbit7J9wFBNr9qSFFm2n/65qen
- NNWKDrCzDsjRbALMHSO8nigMWzjofbVjj8Nf7SDcdapRjrMCnidS0DuW3pZBo6W0sZqV/fLx+AzgQ
- 7PAr6jtBbUoKW/GCGHLLtb6Hv+zjL17KGVO0DdQeoHEXMa48mJh8rS7VlUzVtpbxsWbb1wRZJTD88
- ALDOLTWGqMbCTFDKFfGcqBLdUT13vx706Q29wrDiogmQhLGYKc6fQzpHhCLNhHTl8ZVLuKVY3wTT+
- f9TzW1BDzFTAe3ZXsKhrzF+ud7vr6ff9p1Zl+Nujz94EDYHi/5Yrtp//+N/ZjDGDmqZOEA86/Gybu
- 6XE/v4S85ls0cAe37WTqsMCJjVRMP52r7Y1AuOONJDe3sIsDge++XFhwfGPbZwBnwd4gEVcdrKhnO
- ntuP9TvBMFWeTvtLqlWJUt7n8f/ELCcGoO5acai1iZ59GC81GLl2izObOLNjyv3G6hia/w50Mw9MU
- dAdZQ2MxM6k+x4L5XeysdcR/2AydVLtu2LGFOrKyEe0M9XmlE6OvziWXvVVwomvTN3LaNUmaINhr7
- pHTFwDiZCSWKnwnvD2+jA1trKq1xKUQY1uGW9XgSj98pKyixHWoeEpydr+alSTB43c3m0351/9rYT
- TTi4KSk73wtapPKtaoIR3rOFHLQXbWFya3VzLnByb2JzdEBwb3N0ZW8uZGWJAlEEEwEIADsWIQSCd
- BjE9KxY53IwxHM0dh/4561D0gUCaIO9eAIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCR
- A0dh/4561D0oHZEACEmk5Ng9+OXoVxJJ+c9slBI2lYxyBO84qkWjoJ/0GpwoHk1IpyL+i+kF1Bb7y
- Hx9Tiz8ENYX7xIPTZzS8hXs1ksuo76FQUyD6onA/69xZIrYZ0NSA5HUo62qzzMSZL7od5e12R6OPR
- lR0PIuc4ecOGCEq3BLRPfZSYrL54tiase8HubXsvb6EBQ8jPI8ZUlr96ZqFEwrQZF/3ihyV6LILLk
- geExgwlTzo5Wv3piOXPTITBuzuFhBJqEnT25q2j8OumGQ+ri8oVeAzx24g1kc11pwpR0sowfa5MvZ
- WrrBcaIL7uJfR/ig7FyGnTQ1nS3btf3p0v8A3fc4eUu/K2No3l2huJp3+LHhCmpmeykOhSB63Mj3s
- 3Q87LD0HE0HBkTEMwp+sD97ZRpO67H5shzJRanUaDTb/mREfzpJmRT1uuec0X2zItL7a6itgMJvYI
- KG29aJLX3fTzzVzFGPgzVZYEdhu4y53p0qEGrrC1JtKR6DRPE1hb/OdWOkjmJ75+PPLD9U5IuRd6y
- sHJWsEBR1F0wkMPkEofWsvMYJzWXx/rvTWO8N4D6HigTgBXAXNgbc3IHpHlkvKoBJptv6DRVRtIrz
- 0G0cfBY0Sm7he4N2IYDWWdGnPBZ3rlLSdj5EiBU2YWgIgtLrb8ZNJ3ZlhYluGnBJDGRqy2jC9s1jY
- 66sLA9rQZMHhJTzMyIDwweGlvMzJAcG9zdGVvLmV1PokCbQQTAQgAVxYhBIJ0GMT0rFjncjDEczR2
- H/jnrUPSBQJpa71VGxSAAAAAAAQADm1hbnUyLDIuNSsxLjExLDIsMgIbAwULCQgHAgIiAgYVCgkIC
- wIEFgIDAQIeBwIXgAAKCRA0dh/4561D0gKJD/9uOQKYlsDoQX65Gd0LiMT0C+5vXgr3VI0PHDOwcv
- 51fJ3A1vNyPZRFPGrz8+mDEXUQOF/INfnz5Tu1QHwf+iYcWcTGAN/FHgVR6ET6VBNU2hJaKhu+Ggo
- kjYyJTOvyX+3yNRUfSny0GjTjIPuPTErjqmHF+BtjXslpgwqnNMznf3lRIuUjRORupos6p3k1DndE
- 5vzUTmXSvMyXyOD2KhBl/kL76k0bHYyAQytZPag12pltrtFbA/r2phDGN2si8PooDT99bSTJjaM45
- MTAAHbHKJfvgfK41bNFD5mMtpWpL195XRtS0Nrxdg3PaYBxN5gtTG0RyZfpYRlkdEhm+jj/8RxuSG
- i/qdhRdbiI7K2IELWeQVHSNDi9JabR/UzlR4NSnhfAjRIVlRM+eFbUl8XwxwVrAkojF5IraH2qRvg
- VCmuFsHUW07FUlrDrzpjXsD73cKppoFGDCdDR0BHJepXbFLS9+AqkT+guRJlnCTg2p+TQtnbwPgKp
- Vj98JixovCl99zRYTsL2bRNU5+q8iET65VMJ1ydyNanvLd5vI/NqDkXhlXLsGmdaDTtu4R21PkToX
- dQNGrZ91M9nlIBKw8Y7c7xZ4098qX2b8JX/CxD+gC1r4C8vuA3GkhFLx+KlkON7LyiJPkrePp6Qky
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-ouFJPOhX4k+ZvTsduuHi"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="REONwhrE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D6F4C2BCB0;
+	Tue, 21 Apr 2026 14:50:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776783056;
+	bh=BMGi9M1H3wYbS7OQ26wY0topQ2jajr8jKH7yXASM19Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=REONwhrEVyLesl8w0b0qOeoimehD0dZcP0Xpfs9qeznq6IEvnxVUVuLm578geZK+o
+	 b6OhnXPRBNPheVrCO+nhWXNxqfBOamFtVYGLWexK1F33PJk605gAKVHJ+mbykUfbTN
+	 hFx8RV2rGRDutNDgogFmAQ6irrpinpK+sC9hi9yUsvhrijOBNJzXcTFGLn8E+ddtKi
+	 qcF3Tuqvm5OdvdA302x/9VA8fvYxEyu+TcPFNXKBBuS01ec8vm2USaK3zwfr2MCBY1
+	 TBZbCHZOxixXWsVoqt2ECWEdk06mLsKM+l8CD5ETcbohxBTo3BThyBL9QqzUmSAdOC
+	 Kl1GtW1BRFN7w==
+Date: Tue, 21 Apr 2026 16:50:54 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Andrea della Porta <andrea.porta@suse.com>
+Cc: linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Naushir Patuck <naush@raspberrypi.com>, Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com
+Subject: Re: [PATCH v2 2/3] pwm: rp1: Add RP1 PWM controller driver
+Message-ID: <aeeMp1XBDxSZ1qrl@monoceros>
+References: <cover.1775829499.git.andrea.porta@suse.com>
+ <0d99317b9150310dfbd98de1cb2a890f0bffe7cd.1775829499.git.andrea.porta@suse.com>
+ <adkrHkANCzxO8KUP@monoceros>
+ <aeC6U7D6TfWm8JPx@apocalypse>
+ <aeDmk-t5Lc1zpkg9@monoceros>
+ <aeH373a_xmr6fnAy@apocalypse>
+ <aeIGxfQ7AoIVR5n6@monoceros>
+ <aeZUAaQkHGqBL8st@apocalypse>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="opxzx26y76daqdvu"
+Content-Disposition: inline
+In-Reply-To: <aeZUAaQkHGqBL8st@apocalypse>
 
 
---=-ouFJPOhX4k+ZvTsduuHi
-Content-Type: text/plain; charset="UTF-8"
+--opxzx26y76daqdvu
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 2/3] pwm: rp1: Add RP1 PWM controller driver
+MIME-Version: 1.0
 
-On Tue, 2026-04-21 at 09:07 +0200, Krzysztof Kozlowski wrote:
-> On Mon, Apr 20, 2026 at 02:24:20PM +0000, Markus Probst wrote:
-> > Add the Synology Microp devicetree bindings. Those devices are
-> > microcontrollers found on Synology NAS devices. They are connected to a
-> > serial port on the host device.
+Hello Andrea,
+
+On Mon, Apr 20, 2026 at 06:27:45PM +0200, Andrea della Porta wrote:
+> On 12:50 Fri 17 Apr     , Uwe Kleine-K=F6nig wrote:
+> > What happens if sync is asserted while a disabled channel didn't
+> > complete the last period yet?
+>=20
+> The output stops immediately without waiting for the current period to fi=
+nish.
+
+This is a good info for the Limitations block.
+
+> > Maybe it's worth to test the following procedure for updating duty and
+> > period:
 > >=20
-> > Those devices are used to control certain LEDs, fan speeds, a beeper, t=
-o
-> > handle buttons, fan failures and to properly shutdown and reboot the
-> > device.
+> > 	disable channel
+> > 	configure duty
+> > 	configure period
+> > 	enable
+> > 	set update flag
 > >=20
-> > The device has a different feature set depending on the Synology NAS
-> > model, like having different number of fans, buttons and leds. Dependin=
-g
-> > on the architecture of the model, they also need a different system
-> > shutdown behaviour.
+> > Assumint disable is delayed until the end of the currently running
+> > period, the effect of this procedure might be that no glitch happens if
+> > the update flag is asserted before the currently running period ends and
+> > the anormality is reduced to a longer inactive state if the updates are
+> > not that lucky (in contrast to more severe glitches).
+>=20
+> The disable isn't delayed as explained above. Setting just the new period=
+/duty
+> (which do not depend on the sync bit) correctly waits for the end of the =
+current
+> period without noticeable glitches (tested with a scope).
+
+So if you happen to change both and one is done before the end of the
+current period and the other shortly afterwards (which might happen as
+those are configured in two different registers and the update trigger
+isn't used), you get a mixed output for one cycle, right? If yes, please
+also mention that in the Limitations paragraph.
+
+> > > Let's say that teh user want 10 tick period, we have to use
+> > > 9 instead to account for the extra tick at the end, so that the compl=
+ete period
+> > > contains that extra tick?
 > >=20
-> > Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> > ---
-> >  .../synology,ds1825p-microp.yaml                   | 108 +++++++++++++=
-++++++++
-> >  1 file changed, 108 insertions(+)
+> > I would describe that a bit differently, but in general: yes.
 > >=20
-> > diff --git a/Documentation/devicetree/bindings/embedded-controller/syno=
-logy,ds1825p-microp.yaml b/Documentation/devicetree/bindings/embedded-contr=
-oller/synology,ds1825p-microp.yaml
-> > new file mode 100644
-> > index 000000000000..76c671a42fbf
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/embedded-controller/synology,ds=
-1825p-microp.yaml
-> > @@ -0,0 +1,108 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/embedded-controller/synology,ds1825=
-p-microp.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Synology NAS on-board Microcontroller
-> > +
-> > +maintainers:
-> > +  - Markus Probst <markus.probst@posteo.de>
-> > +
-> > +description: |
-> > +  Synology Microp is a microcontroller found in Synology NAS devices.
-> > +  It is connected to a serial port on the host device.
-> > +
-> > +  It is necessary to properly shutdown and reboot the NAS device and
-> > +  provides additional functionality such as led control, fan speed con=
-trol,
-> > +  a beeper and buttons on the NAS device.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    oneOf:
-> > +      - const: synology,ds223-microp
-> > +      - const: synology,ds411p-microp
-> > +      - const: synology,ds1010p-microp
-> > +      - const: synology,ds710p-microp
-> > +      - const: synology,ds723p-microp
-> > +      - const: synology,ds225p-microp
-> > +      - const: synology,rs422p-microp
+> > The more straight forward description is that setting
+> >=20
+> > 	RP1_PWM_RANGE(pwm->hwpwm) :=3D x
+> >=20
+> > results in a period of x + 1 ticks.
 >=20
-> That's one enum.
+> Exactly. So whatever the user request I have to subtract one from the val=
+ue
+> to be written to the RANGE register.
+
+Unless the calculation is already rounded to 0, in that case don't
+subtract 1 and let the tohw callback return 1.
+
+> > > This also means that if we ask for 100% duty cycle, the output wavefo=
+rm will
+> > > have the high part of the signal lasting one tick less than expected.=
+a I guess
+> > > this is the accepted compromise.
+> >=20
+> > I assume you considered something like:
+> >=20
+> > 	RP1_PWM_RANGE(pwm->hwpwm) :=3D 17
+> > 	RP1_PWM_DUTY(pwm->hwpwm) :=3D 18
+> >=20
+> > to get a 100% relative duty?
 >=20
-> > +      - maxItems: 2
-> > +        minItems: 2
+> Ah right! It's working fine and I've got 100% duty. So at hw register lev=
+el
+> the duty can be greater that the period.
+
+In that case please make sure to not use the maximal value for
+RP1_PWM_RANGE(pwm->hwpwm) to ensure that for each (possible) period
+length a 100% relative duty cycle can be configured.
+
+> > My (not so well articulated) point is: Please be stringent about clock
+> > handling to not bank up technical dept more than necessary and such that
+> > the driver can be made unbindable if and when syscons grow
+> > that feature. Optionally wail at the syscon guys :-)
 >=20
-> There is no such syntax foro compatibles. Please use any existing file
-> as example or look at example-schema.
-In the example schema, another device is used as fallback. This is what
-I did here.
+> Hmmm not sure I've understood your point: is it a requirement that the dr=
+iver
+> must be unbindable? In this case I should avoid registering the syscon. Or
+> should I just provide a .remove callback in case there will be a way to
+> unregister the syscon (even if this callback will not be called as of now=
+)?
 
+It's a requirement to properly manage the resources you allocate. If a
+driver isn't unbindable due to restrictions of other subsystems that's
+unfortunate and I don't like it, but I wouldn't block a patch because of
+that.
 
-Other sources suggest, I should add fallbacks that are less specific
-about the device:
+Best regards
+Uwe
 
-e. g.
-- items:
-  - enum:
-    - synology,ds923p-microp
-    - synology,ds723p-microp
-    - synology,ds1522p-microp
-    - synology,rs422p-microp
-  - const: synology,r1000-microp
-  - const: synology,x86-microp
-
-- items:
-  - enum:
-    - synology,ds225p-microp
-    - synology,ds425p-microp
-  - const: synology,geminilakenk-microp
-  - const: synology,x86-microp
-...
-
-
-If thisisn't fine either, replying to my previous message would
-probably the most efficient way to move forward [1].
-
->=20
-> > +        items:
-> > +          enum:
->=20
-> No, why the list is randomly ordered.
->=20
-> > +            - synology,ds923p-microp
-> > +            - synology,ds1522p-microp
->=20
-> And fallback, whichever is that, is not documented alone.
->=20
-> > +      - minItems: 4
-> > +        maxItems: 4
-
-Those are devices with the exactly same known feature set.
-i. e. ds1522p can act as a fallback for ds923p, and ds923p could act as
-a fallback for ds1522p.
-
-Thanks
-- Markus Probst
-
-[1]
-https://lore.kernel.org/all/8c8555b3375375dac47a22fad40080fd5b4228a5.camel@=
-posteo.de/
-
->=20
-> Best regards,
-> Krzysztof
-
---=-ouFJPOhX4k+ZvTsduuHi
+--opxzx26y76daqdvu
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmnnjrIbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSHuEQAIpiqPMRrlkhnm07/QrT
-RLp2ptrq7z2C8MeEyHrkGj4kKb1d9oV0+jMOkUasvHis8lJKEy1KGtOleWDCKseF
-/kiLt9noo9LXEQp82O7RL8zPXjE87X0UusmHjfQSypkYwO7z5OuXVJhWJusLxaO1
-mrvVMeDI0neYn7ZbkRTGCa376gr3Q/tllWwG4sbTMTdhWCPoM+yc1VwqVlJEYzs7
-3bKabYcO+aGk7EtZDFuHWmFCDR7pZfeb0kDfa2wGFT2IwF1v/sO/6ogDm7pfbWh3
-JVBgy9dm99GYZAq8zvFysPPEpiyXk0KecPIPXzzsoNCkV8MUledLTxanxfgjaiss
-u7JN/l1hg0xa89MRDTqhbmW4Q90x/difpaIRktOFWfbp914fhUQgNpW86hr8eHUv
-6vFFmboVIao9q6PQf1+GQ0qrUh1zpfktkIoroG13GSg5FEmg5wtFcp1HN+JL8QpR
-S+CzDKy4u4mNAxKGbY/qwkLip1TJ3zmcBzUbtbVN6nPaq283sRhohPfR3v30ABFT
-bV/h+gCOyBcsytahxfNLdp03AVHkRC+bBrdIB35rWz4ky1a8VIVuU5/THHoq53jn
-hAEC3wD/WVFnfNjZCBigI47mG7tGqJmslwsecZG3rkG9bSFJHvvottrFPsi+FQ6M
-Zksa4a+RKfeCp4yeVj4abaWv
-=ZQCk
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnnjssACgkQj4D7WH0S
+/k6P2gf/WFdiNIbWu5z/n7i8vDSyytpmEL3VfoLW459jfMZEdsbKNezPkFGWf2HU
+3GHi9Xvt48ND7zprcfUfpIMVYgllVxxoCLPk8tpIKssRaBqlWpij/+b6IX+MtiOC
+m/S9JF9BfJLZlrXv3Dn1XXOCEBzBj71O0wUCZoLBIWSQKr3Yr49F1NbbXN0eo92o
+G5FjXk6VVnSNO/qHh2m0RgQHfUae6iUxFa1y5jMv+c0M1e5LZnH55thCxWVjBGAh
+ReYTrGU4npCzRKmgJq3TfJtX8x1vcQQhb/iQa0fRNwLFoQlFwfo7hmfnmGkPSoWf
+7tUT4CPniRXmLRrA/0MxX5Un8dtfVQ==
+=YncQ
 -----END PGP SIGNATURE-----
 
---=-ouFJPOhX4k+ZvTsduuHi--
+--opxzx26y76daqdvu--
