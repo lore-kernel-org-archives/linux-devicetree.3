@@ -1,135 +1,75 @@
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EC3376BD7
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 18:47:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776797236; cv=pass; b=XTixmCAviT7aHK8T8fbBRo0FKGZNJVSCVnBtz0xYpH95UvEeiEBp7xD2UlSvOGqW9KV1CjGehm5R2UnaX+FNT1QbOavuRLLZ/PQw5gYPhNzekqdT1dMfq906ANHT1pl9eWrkLSqA0XWtqWjRwhVM4DLXgY30R1vBNahf2FTf/LU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776797236; c=relaxed/simple;
-	bh=nxMVd9OHSpuGcSYtsfr53tYbcrChA8wOvkQbNhNm+r4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dGFzyATJtLoCMfS/sCrQZNukbBC+xbKYHl+e7egTzpDjD4a01PE2aVjfwyA0bYx4umSg1A1gpwED3BWMZUrzvVq3WX3nc6/ovuFXrgDK0pIeiAJeoSEr2JnKr1gho+WvJpTji9LRV1av/OLed2CODyqBGTULolam9CrqKnxkiXg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lY2hPFkR; arc=pass smtp.client-ip=74.125.82.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD14378833;
+	Tue, 21 Apr 2026 19:04:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776798274; cv=none; b=K091V26c7OjJkRs/DbtKhNSXRnzst0mabz9ma7ujpHErVoRHZpi72yMff20YfDpLXMTHewsLpQVGZFl2gyNp5x1heFVIt/NCKYMkBL76r0DMrIGxZ7izjE1N13Ub+S0Z6nLW3i2NtJza2S3XRB7i4IXwDUK4FWJmDKGlQDbjzAU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776798274; c=relaxed/simple;
+	bh=vGSgEq6cM44uhUC/9silgJZjUUvHJCLOcQcCNCOCDlA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=skQki7hPN9cr3vt6C/hFFFxsfY6tuQmhfSlSFG2/UsnfDCtRYfAJ8b47KLF4S3thSH5mc4jIg+twSEFsYbLyufYwsy8YpQA+QaTNgOxO/jhp5BmP35BUAmc2WzGxb3Yaisw57T9Qp1uLMw5zXvmphQbCo4U0Gq8HbU6/+sBzZzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mhAj1nGu; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lY2hPFkR"
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-12c8ed67dccso181323c88.3
-        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 11:47:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776797233; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Madm0s9wQTzS8Tl0HpBXWsJOt5FzlSQSOIk3lEJPkpbAa372WvhPXamR4xzEH4AleX
-         gco9A8Uhg9e92VcFmlXnQ+OqQtLHg0ZLX8hSI5fBFDDTZWYEyheUA2MNtjbiWZLV/CtC
-         fL1ZEGKgCCYmLRlgW3KLL98TdfIkoCGphh2hGxsim9CHtrqyPVxdZz/bekqd5Vir/Opx
-         R0kkJ/Y/R6NYnIK05H8pjzFON4k6hyiMlgnAHO2gvpXdr60xSzCoeDtLI/lhwcdMU9XH
-         KXFg9mJJTjFqRY+FZoPDaL7YcsbJ1i89/8cplVQ2jpBPcqnB1B7wqARmi0agW2Cb4qDO
-         4MsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nxMVd9OHSpuGcSYtsfr53tYbcrChA8wOvkQbNhNm+r4=;
-        fh=bW2DxGAYWSgV53MtvdtARQay+YfLEZkWNkjd1pxBkis=;
-        b=TeJdA+gVVT5jDwC4znwdkZqHCk2kXvptAKclqtVa7FjziGN2Ubh8j9f7Xq3CjW8Q2H
-         irpmNs+zE0ZFj+Q9MOoRd7gcNwINbnOe3BaUaHuJKV2i7l0WLTU/aJhkh08hlfA6i8jt
-         BbjpmvoknvPr4KgiwB3+92XNubtryj3SOLxp3afHISKihH/AkCqHYp7j+XytBcNcOT9M
-         EwUpuHfoBU4KKTiZFN0FOO4zHhZ9BPzAcM6K/xXYDgxvM9zcsX0zt8hqfIKPvqbfx7VL
-         gtEfsxtiKePpTZFZLiknUwHmMz4LxPqypakdOmFFRfxCik+b2liZKgElTjnqGw63n4Ky
-         Effw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776797233; x=1777402033; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nxMVd9OHSpuGcSYtsfr53tYbcrChA8wOvkQbNhNm+r4=;
-        b=lY2hPFkRzSq0i1RtibAyiaYlSfJT9MCga6ODlOILOzE3hy3pzy1KE1XhdjDDOhFtCy
-         NQpH5CwR6RJu9e67ONSkgrVu8NTubVsEdi25y5VmxyJkAmDCwh+lWkJwaQmPHIwbmroT
-         PS4IrEXF7GZoTZWqGbunpMBr6IcFcqAsNsGGbAXuxhPQOUUpLTcSyyxgyzfvtWBAVjiB
-         kAzh4b7q+msAEnoXUPhvFES/5vrMq69RPJ6eeZX63CsGe/idjCcrOltXmlWosmnUBj7c
-         ppGhVvypCTYjmoWOdwo0EXMZ0PCgmWSB/+ucyZc9i957cNGUmYmalruc9hxNvLd/nHsI
-         kUdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776797233; x=1777402033;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=nxMVd9OHSpuGcSYtsfr53tYbcrChA8wOvkQbNhNm+r4=;
-        b=gqQDdeOXolge8Fc8rI05nBK3ODAz7su0GTWsSASt0he/zL57Xb20vY/FZUNQ1E5uO1
-         hZj70w+fJgk9+3GQjKONfsZTSYKFlqz9DolxqjRRSRmjTWsTDFZ1UVFSbkCjcdrm+j5d
-         MwkkHV7mF1l8KmncWtmXKND24GloZOZKYb+kiGdCPD6F/Qy0vtOqa+0w9tTIXPOy9VLl
-         3LxB69G9QYKpes7UIQVP6lZaqOzFXZG/s8GXIP/qUuye4F/QRplAt/gBpW0lzv74h7yD
-         ydx09GjII97Gwi0n5bhiab62PHkUcsfqhPp07C+OmXZeej133pcZoV9prMVz4Y/Ro9ZQ
-         mQCA==
-X-Forwarded-Encrypted: i=1; AFNElJ8m1Kodsp60UdNF8h1MkINlCUJ5qx9GWv6y9WFPWaVgAS53taFfRDHwUQXbMMZGl9spLlS2jM/xYK6N@vger.kernel.org
-X-Gm-Message-State: AOJu0YzoXYcLxYXu+DEbMtJxvEWNMo+y0AtCg1rSpx9W74gWwOfj371N
-	MA6pQPBIagoWYCahKg2gMhU9ZsX665O0XChUEAWtFUtDHr1o/3i8R+LClCsPhjHr3AMPb/qU+p5
-	6N+HklMZPEEJ3CmfuMQc4O0zAHFRw/3E=
-X-Gm-Gg: AeBDiesn1U1wFCndZz6LtfZZ80pdmWw8FTwvhXjVcVHkywNmtEDLt9ixGTPbZrFDrnD
-	uqjo8iCmiSD49vA29JpQt5YO9bAc+BeOD0yL9Bcy7UP63Zwadm2lP5trEFpBpH9CvvRqs2xnqTh
-	j1kh7AfEOsplLaO1RhVEqYAa2pOdCMkNdXZBH4HhdJtOEi5zOZGLvSgomodYyC46xdx/FA5mP/q
-	uFxFPH1wKqBscNQdHFOKgmOwubJDFTxiIN8jEprW5tT9wQY4idPfWCaBTFLfQ3OyY96uLM0MtK8
-	wMembUOWeUoVpxESqGqNgQrBmK7ylchG5HIIdk1jNStR3G9G3nWPWhWGeWWTsLMqzhD40Y3920G
-	MIXMu2n4bLM7y/KjWc1/BDTdFd2M5Uy6+h8f78MJZ95d9
-X-Received: by 2002:a05:7300:fd07:b0:2cb:8d2f:e235 with SMTP id
- 5a478bee46e88-2e466043efemr3780881eec.1.1776797233495; Tue, 21 Apr 2026
- 11:47:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mhAj1nGu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85788C2BCB0;
+	Tue, 21 Apr 2026 19:04:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776798273;
+	bh=vGSgEq6cM44uhUC/9silgJZjUUvHJCLOcQcCNCOCDlA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mhAj1nGuz6WY7aJUeYuqDmnWbP9IGCnZG/4Ug24MBdaW4laQ72NFSIc6/2yzE6awY
+	 y4y/gOB00aiHLFdTZMcgTwUJbCCoHQcAT0XrdfpEdogNNGwBk1jIsVoWBaN1XrvCy1
+	 c9Yr5ea1cdTRZ+It7R98pEoorAyxPLg/S4LWKCy1fk2HAxTUtWoPs7E2uX9b+ivL0C
+	 Tm0Bc4LgC2gPEew6nQVXckoOfv/T65b7dJTOm0mdUaxD0g/+LpryBtkA8w1PU4mQBK
+	 oKMSNdcXeQQohMnCJPN/pEW8txVzU5pSLd/h4BRDKKZr46Ni+t7mP0T3uAvljLmoXx
+	 gKFZJGmIkSq/w==
+Date: Tue, 21 Apr 2026 14:04:31 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Florian Eckert <fe@dev.tdt.de>
+Cc: Eckert.Florian@googlemail.com, devicetree@vger.kernel.org,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Ajay Agarwal <ajayagarwal@google.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	linux-kernel@vger.kernel.org, ms@dev.tdt.de,
+	Johan Hovold <johan+linaro@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-pci@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>, Sajid Dalvi <sdalvi@google.com>
+Subject: Re: [PATCH v5 7/7] dt-bindings: PCI: intel,lgm-pcie: Add atu resource
+Message-ID: <177679827099.1487027.1375609169442766749.robh@kernel.org>
+References: <20260417-pcie-intel-gw-v5-0-0a2b933fe04f@dev.tdt.de>
+ <20260417-pcie-intel-gw-v5-7-0a2b933fe04f@dev.tdt.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260420-synology_microp_initial-v8-0-7946a9124491@posteo.de>
- <20260420-synology_microp_initial-v8-2-7946a9124491@posteo.de>
- <6104a5fe-a6e3-4c35-ff4f-731d1a5e4acb@linux.intel.com> <c4964138177c4455f5eb07d0e23db2dfec40bf9c.camel@posteo.de>
- <e166861c-e75d-d1c2-61e8-f611e6ee1ef2@linux.intel.com> <1cc39657ac50f3930dfa27de41a1b4605a7167d9.camel@posteo.de>
-In-Reply-To: <1cc39657ac50f3930dfa27de41a1b4605a7167d9.camel@posteo.de>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 21 Apr 2026 20:46:59 +0200
-X-Gm-Features: AQROBzD7jw36OIB5Thxw8iYFM3lU80V29LqkzQd_l1DKXUW04JWxY4nHk4yFQzg
-Message-ID: <CANiq72k=8fmi0fJnNV=GgR5_HO_COWGynKDF-xzoX1nDAdxdrw@mail.gmail.com>
-Subject: Re: [PATCH v8 2/2] platform: Add initial synology microp driver
-To: Markus Probst <markus.probst@posteo.de>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
-	Frederic Weisbecker <frederic@kernel.org>, Lyude Paul <lyude@redhat.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Anna-Maria Behnsen <anna-maria@linutronix.de>, 
-	John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>
-Cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Hans de Goede <hansg@kernel.org>, "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, 
-	Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, platform-driver-x86@vger.kernel.org, 
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
-	LKML <linux-kernel@vger.kernel.org>, rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260417-pcie-intel-gw-v5-7-0a2b933fe04f@dev.tdt.de>
 
-On Tue, Apr 21, 2026 at 8:21=E2=80=AFPM Markus Probst <markus.probst@posteo=
-.de> wrote:
->
-> Delta stores it in nano seconds, so it will require an additional
-> `.as_millis()` call on use. I assume rust will optimize that out, so it
-> will be fine. I will use the `Delta` type like Miguel suggested in the
-> next revision.
 
-I think it should (at least in the 64-bit case -- we do have a
-`bindings::` C call in the 32-bit case, so likely not in that case),
-but please double-check the codegen.
+On Fri, 17 Apr 2026 10:35:51 +0200, Florian Eckert wrote:
+> The 'atu' information is already set in the dwc core, if it is specified
+> in the devicetree. The driver uses its own default, if not set in the
+> devicetree. This information is hardware specific and should therefore be
+> maintained in the devicetree rather than in the source.
+> 
+> To be backward compatible, this field is not mandatory. If 'atu'
+> resource is not specified in the devicetree, the driver’s default value
+> is used.
+> 
+> Signed-off-by: Florian Eckert <fe@dev.tdt.de>
+> ---
+>  Documentation/devicetree/bindings/pci/intel-gw-pcie.yaml | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+> 
 
-In any case, my suggestion wasn't necessarily about using `Delta`,
-which is definitely an option to consider, but rather more generally
-about using newtypes, e.g. it may be that we want to have a few simple
-time unit types (probably with support for `const`) for cases like
-these if people are going to use primitives everywhere to define their
-`const`s -- Cc'ing the timekeeping Rust folks.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Thanks!
-
-Cheers,
-Miguel
