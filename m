@@ -1,107 +1,92 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60252BE644
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 20:07:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776802043; cv=none; b=kYU+sTSeeW5g0B1Ntp0Pbk9mdE0I5m/NnG+1UJcLjm8XqCB97L51wg9ocSHJ9BtxQ2Kb1qWyQcBQfpW+OzKE/PwUmLr3zlzbG84uVtP2t1Fqi36Xd4HrO7rDfxMR4aoKfDh7UTmuh1DSG70BGmoVwMiWIjlhRxexscuUnNZ/Fys=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776802043; c=relaxed/simple;
-	bh=4nGXNP+FFeyOAfKIybOpKVmX6+Eo9BNgkIzpy4p7zWI=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15FBC2264A9;
+	Tue, 21 Apr 2026 20:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776802820; cv=pass; b=I8FOUrtkfTut1LBX3/eBq4au69vHmdLCNVKq0+boFTV4KsagdWRd6Xfk1FMzecTtYKO5vRIIIu5PbXuJ1I/9//dpid7Ggz4mG572Q2OmqcJ3aVSZoMid6NIrg3azYjNwosU2Hkb1ZPs7nmQ73+Ee+AVcYevf9V0xJGWOIs0G7Zs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776802820; c=relaxed/simple;
+	bh=9rRne6dRJmCc69HTJqUW00ZembYBzQxKIVzwxZcCit0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gq0AfA+5SBg95iZiIakRxfA4wJfDfoYLRwAFcLjivMwVU9sLzDpMIdkVln9Hz01EuhNPYQe34Zx/pejF7i2gDnFL24jvS4k60PM1uRQRW/UHvkronQsgnyyy47PARHNLbzoHBtdGGBt+DjviZFlE5ZxHPvLFswXX0/+X5H7pRZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QvezgtRZ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=MHosas3m; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=tA+WRIOB2XcKd+QE5Odlu3Gwv3j6wdqqWsZtTGO1Ub4PyAWzQsc/jY4zB03weYlhYK4v5qSa4js1Bw6D50fX2jaKwy1uB7pdPA3JkU7F2ZxlPV9dKb9scZhzJSuhm0xO6cxKUqhrd63q9krlnWefXVZCHOWaPhoPoYJm5k7SFGI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=YgqFpHEj; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=tcVwfYtr; arc=pass smtp.client-ip=185.185.170.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QvezgtRZ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="MHosas3m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1776802040;
+	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="YgqFpHEj";
+	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="tcVwfYtr"
+Received: from meesny.iki.fi (meesny.iki.fi [IPv6:2001:67c:2b0:1c1::201])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by lahtoruutu.iki.fi (Postfix) with ESMTPS id 4g0Yck0mSrz49PxH;
+	Tue, 21 Apr 2026 23:20:06 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
+	t=1776802806;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=1M8Wy22x3elv2D/+fnXEPtAuCSkz1UNFVYr+3jYCUkE=;
-	b=QvezgtRZvjorCItDceiuYhJOxuZvfoFyvo1UmZN2XTH5d3c7q0rEKTTEfaPQDWh4S2E8Zc
-	ql7I1QYK5ftMdwfeqJSlDhmdyDQhXlO4LDvU6Uef6qGt6LMJgNNJWqggzba8EOlWBSTqoA
-	aZW7GTq4z+5uFzwPlq0TYnN3E26nD7s=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-665-L08PXsGaOw-xYRuzWnaDWg-1; Tue, 21 Apr 2026 16:07:19 -0400
-X-MC-Unique: L08PXsGaOw-xYRuzWnaDWg-1
-X-Mimecast-MFC-AGG-ID: L08PXsGaOw-xYRuzWnaDWg_1776802039
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8a1accb970fso18676766d6.3
-        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 13:07:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1776802039; x=1777406839; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=1M8Wy22x3elv2D/+fnXEPtAuCSkz1UNFVYr+3jYCUkE=;
-        b=MHosas3mb1L69W6BUum5er65QveWeuoSi1fmAZ6Q/ey3aAb2I6m+DcCWq/VWlwBtrz
-         B7mVmpqbgX0MzUad+oO7aMV5VetUeHCIwNDDBKmi3Rjhr08hqooyMxcIz1KTRslxZ3ht
-         IVdcBRBS1sOhSFPSWS8i6yxSiG1l/iTnloBNiw3OIDm8jcJwqmJUKkqMl+kRiK9MnRGk
-         LtbJJszUmqX5YXE8WsxtUFehC/li947xbNWapeXt0LlBxh9HPTMIv6NvbtujiYRnB0fi
-         P0Qvm467GzNeHBWOAK76h0wMgcWzh4e3nbEOSKoIGhjKyxt6F6kxCqPOojnF4NyK7sTv
-         bu5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776802039; x=1777406839;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=1M8Wy22x3elv2D/+fnXEPtAuCSkz1UNFVYr+3jYCUkE=;
-        b=HW/0yHRXeJavArWcaXbOSSg3bWEDvquaKRRaEico4er1JwDm9MKSmWmvgdzG9k1PUB
-         qsXfsBewWq9pndbZWyQBwHjdy61PmXL7iqHsi5B/ecUlfEhaQGmqA7i23LGuLX7j8vWJ
-         V/QXTebi9JJFKSi6plTgiqskcHpugsGnz3HZd3l6lcjdLwMiSYY6wO7fSdeeYOw2LIUm
-         f3BPbdvsN6H5zbS1JQzP8Vg4QNkTtlkPgzF9GfFTDo0v8VZQtMksfJpba7f09wCK1F5s
-         3C6WcC8oF2Z+vKNmjz0dBjNd5LUS9YxoVJZfRyX1m9ZVQNBPAoFZse0eCEDBZJkH8b9s
-         +dBg==
-X-Forwarded-Encrypted: i=1; AFNElJ/18UrXFvUh0u0Cg2IrNgxwGKTXnIQG4RIxSWVjUgdkBO45g+tOGInEPFNfWFTVFMUk9FNdpITIIC7W@vger.kernel.org
-X-Gm-Message-State: AOJu0YzswPJ4erZm5MFmxz/6vrYANUKEfeSAQC+cZwiJ51e399tHpZEI
-	8K92xOVnLYVHJaJfYLHqweEwFraKw9QkMiNUTnxN4K9geCY6HRSFqLxM+A/up1n1y/6dOik7NgR
-	SvR/KbOQgANwURQQPZZgXMlk9TymEXFqJ8oTwdLMcePU8cmFiAPUsZCLgtBCv478=
-X-Gm-Gg: AeBDietrGr5EDBN7IB2oO1PPuVi7at8pD3SI9DUZjFjnSqRu2vSgVHusnQGZETLAY5A
-	j1KPLui0DQO2vzFRv4gj4/mdv+GyZgkZbVCbP/H5SyGa/gJTtqC4tI9ze/uajphTsHNE0n2sgeb
-	9ZM0VkLSOl7Dr4MNwxNMVSKFyY9TWxvHfsiwNchiWWQZPiqrTf0n/iebaHMBeCVuERzJFfigxJ8
-	4bTb9lH3DmdnYP3oh5gd5obLDdjM03pbXNtQschwtu9KH34ex0W4zkjWIUI3T5bWWD8ZIKWMEBT
-	ZTXSrXTDjfuFKeuG2AylSzd4v/J96lu9zJeOptl4S6B3N9qrz00pcOVWlEUNT3FYgm8aCTiyT8r
-	1KLfw6MiIWOn4Yn2ySH873/7yonrlbItkUg37/5iZSw==
-X-Received: by 2002:a05:6214:300c:b0:8a4:5cfe:a204 with SMTP id 6a1803df08f44-8b0280d0e78mr313218196d6.26.1776802038998;
-        Tue, 21 Apr 2026 13:07:18 -0700 (PDT)
-X-Received: by 2002:a05:6214:300c:b0:8a4:5cfe:a204 with SMTP id 6a1803df08f44-8b0280d0e78mr313217376d6.26.1776802038427;
-        Tue, 21 Apr 2026 13:07:18 -0700 (PDT)
-Received: from rh-jkangas-kernel ([2601:1c2:4400:6bf0:7677:bcee:4ef0:e09d])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8b02ae5c4b9sm149503046d6.28.2026.04.21.13.07.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Apr 2026 13:07:18 -0700 (PDT)
-Date: Tue, 21 Apr 2026 13:07:13 -0700
-From: Jared Kangas <jkangas@redhat.com>
-To: jan.petrous@oss.nxp.com
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Chester Lin <chester62515@gmail.com>,
-	Matthias Brugger <mbrugger@suse.com>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	bh=+Quk+6yL5S73tonW0p4lGYqnvA/Kd5ezRnjd7soGbLw=;
+	b=YgqFpHEjKpW13+1K1srIx9i6UFD36B7I23sHlEi77FoKTWNGSLNt5pJkwxoo+FP5navqpN
+	287rSSsxn1XGlEg+mB1S0EOaIKkNxoyKRlSbH8xXV3j4QEWtVnBi1CUc1POYlP+m+xnS3h
+	Jn1oSPYLwDAJNjtJiRSSfcpGsu1xN4cJAFT+UbMHB633lj7Uqc+jy6JUv6bwgoEPeAFJCZ
+	iZSObxBJtEE0g3E4v1v5rA/Ax7JdxgrnEYkV7mDSzHQDynGYoRqrB9Hwd91p2eYVdsYL8G
+	+tmYDyV/kCbe4OJKR9mmYZtL4IK+D9fC08JHgkvhTd5EGhCi84uAeUbgIxfhyA==
+Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sailus)
+	by meesny.iki.fi (Postfix) with ESMTPSA id 4g0YcX0YnszyW5;
+	Tue, 21 Apr 2026 23:19:55 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+	t=1776802796;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+Quk+6yL5S73tonW0p4lGYqnvA/Kd5ezRnjd7soGbLw=;
+	b=tcVwfYtrDRgRhEQHxjznI4Y66v9n3FYtBhwYLXRP8kcWuLkj1LOJ217xq4FYWVxcACx+S4
+	ehXA/jkjCBMfFTQnYXJ83XuPe5bC08p3ry5YE83rEkNIZl7hahXnjcu7gd+Y53DU+NOTWY
+	EZqRIFwbJji6LLZR4F3ZENys6JTnLdI=
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1776802796;
+	b=ui30DNWuWq+AuC6bnS6C4bfy8Ih9olEuW+hH3TTWrRYkLQnVdoAHXHk8sREAXdcpB1zUo7
+	CCF/rn16D3otN7AKVNy0+ZpwbE/tPo5mreY9ztXDUH076UVI8n83DISVL9tOHOsKrpRPtU
+	CqXcplGBaSm6snumctcoQy1IjV+q1Ng=
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=meesny; t=1776802796;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+Quk+6yL5S73tonW0p4lGYqnvA/Kd5ezRnjd7soGbLw=;
+	b=MNa172NSypVTK21I4eYBHWeiltfwOUcBLQ929RvmZOnuJmF7UsyIlhBX2aSsLlUqUQF7fH
+	qQjqgRU5pknnfORFuEDFizL+fh4BP/oeFa/TiwzMleRKO6f3eE2+qY5dJSK9xVJYF6cEgu
+	O/8JLRBrXTGTRTvt0o2aT0swlwy0x+A=
+Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id 72181634C4E;
+	Tue, 21 Apr 2026 23:19:55 +0300 (EEST)
+Date: Tue, 21 Apr 2026 23:19:55 +0300
+From: Sakari Ailus <sakari.ailus@iki.fi>
+To: nekocwd@mainlining.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, devicetree@vger.kernel.org,
-	rmk+kernel@armlinux.org.uk, vladimir.oltean@nxp.com,
-	boon.khai.ng@altera.com
-Subject: Re: [PATCH v11 2/4] arm64: dts: s32: set Ethernet channel irqs
-Message-ID: <aefY8WGCuNr4BQG4@rh-jkangas-kernel>
-References: <20260312-dwmac_multi_irq-v11-0-09621ccb040b@oss.nxp.com>
- <20260312-dwmac_multi_irq-v11-2-09621ccb040b@oss.nxp.com>
+	Conor Dooley <conor+dt@kernel.org>, david@ixit.cz,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+	Vitalii Skorkin <nikroks@mainlining.org>,
+	Antonio Rische <nt8r@protonmail.com>
+Subject: Re: [PATCH v5 2/3] media: i2c: Add driver for LC898217XC VCM
+Message-ID: <aefb61B7QqdByNF4@valkosipuli.retiisi.eu>
+References: <20260411-media-i2c-lc898217xc-initial-driver-v5-0-c71ddcf40bad@mainlining.org>
+ <20260411-media-i2c-lc898217xc-initial-driver-v5-2-c71ddcf40bad@mainlining.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -110,28 +95,390 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260312-dwmac_multi_irq-v11-2-09621ccb040b@oss.nxp.com>
+In-Reply-To: <20260411-media-i2c-lc898217xc-initial-driver-v5-2-c71ddcf40bad@mainlining.org>
 
-On Thu, Mar 12, 2026 at 09:55:28AM +0100, Jan Petrous via B4 Relay wrote:
-> From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+Hi Vasiliy,
+
+Thanks for the set.
+
+On Sat, Apr 11, 2026 at 04:13:09PM +0300, Vasiliy Doylov via B4 Relay wrote:
+> From: Vasiliy Doylov <nekocwd@mainlining.org>
 > 
-> The GMAC Ethernet controller found on S32G2/S32G3 and S32R45
-> contains up to 5 RX and 5 TX channels.
-> It can operate in two interrupt modes:
+> LC898217XC is a 11 bit DAC, designed for linear control
+> of voice coil motor. This driver creates a V4L2 subdevice
+> and provides control to set the desired focus.
 > 
->   1) Sharing IRQ mode: only MAC IRQ line is used
->      for all channels.
+> Tested on Oneplus 6 (oneplus-enchilada)
+
+Missing period.
+
 > 
->   2) Multiple IRQ mode: every channel uses two IRQ lines,
->      one for RX and second for TX.
-> 
-> Specify all IRQ twins for all channels.
-> 
-> Reviewed-by: Matthias Brugger <mbrugger@suse.com>
-> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+> Signed-off-by: Vasiliy Doylov <nekocwd@mainlining.org>
 > ---
+>  drivers/media/i2c/Kconfig      |   9 ++
+>  drivers/media/i2c/Makefile     |   1 +
+>  drivers/media/i2c/lc898217xc.c | 289 +++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 299 insertions(+)
+> 
+> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+> index 8f2ba4121586..346dd4a14105 100644
+> --- a/drivers/media/i2c/Kconfig
+> +++ b/drivers/media/i2c/Kconfig
+> @@ -926,6 +926,15 @@ config VIDEO_DW9807_VCM
+>  	  capability. This is designed for linear control of
+>  	  voice coil motors, controlled via I2C serial interface.
+>  
+> +config VIDEO_LC898217XC
+> +	tristate "LC898217XC lens voice coil support"
+> +	select V4L2_CCI_I2C
+> +	help
+> +	  This is a driver for the LC898217XC camera lens voice coil.
+> +	  LC898217XC is a 11 bit DAC with 110mA output current sink
+> +	  capability. This is designed for linear control of
+> +	  voice coil motors, controlled via I2C serial interface.
+> +
+>  endif
+>  
+>  menu "Flash devices"
+> diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+> index 90b276a7417a..f55c44feca53 100644
+> --- a/drivers/media/i2c/Makefile
+> +++ b/drivers/media/i2c/Makefile
+> @@ -64,6 +64,7 @@ obj-$(CONFIG_VIDEO_IMX415) += imx415.o
+>  obj-$(CONFIG_VIDEO_IR_I2C) += ir-kbd-i2c.o
+>  obj-$(CONFIG_VIDEO_ISL7998X) += isl7998x.o
+>  obj-$(CONFIG_VIDEO_KS0127) += ks0127.o
+> +obj-$(CONFIG_VIDEO_LC898217XC) += lc898217xc.o
+>  obj-$(CONFIG_VIDEO_LM3560) += lm3560.o
+>  obj-$(CONFIG_VIDEO_LM3646) += lm3646.o
+>  obj-$(CONFIG_VIDEO_LT6911UXE) += lt6911uxe.o
+> diff --git a/drivers/media/i2c/lc898217xc.c b/drivers/media/i2c/lc898217xc.c
+> new file mode 100644
+> index 000000000000..cfac7e7ce3d6
+> --- /dev/null
+> +++ b/drivers/media/i2c/lc898217xc.c
+> @@ -0,0 +1,289 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +// Copyright (c) 2025 Vasiliy Doylov <nekocwd@mainlining.org>
+> +
+> +#include <linux/delay.h>
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <media/v4l2-async.h>
+> +#include <media/v4l2-cci.h>
+> +#include <media/v4l2-ctrls.h>
+> +#include <media/v4l2-device.h>
+> +#include <media/v4l2-fwnode.h>
 
-Tested the new channels on an S32G-VNP-RDB3 while testing patch 4/4.
+Do you need this?
 
-Tested-by: Jared Kangas <jkangas@redhat.com>
+> +#include <media/v4l2-subdev.h>
+> +#include <media/v4l2-event.h>
 
+Alphabetical order, please.
+
+> +
+> +#define LC898217XC_NAME "lc898217xc"
+> +/* Actuator has 11 bit resolution */
+> +#define LC898217XC_MAX_FOCUS_POS (2048 - 1)
+> +#define LC898217XC_MIN_FOCUS_POS 0
+> +#define LC898217XC_FOCUS_STEPS 1
+> +#define LC898217XC_DAC_ADDR CCI_REG16(0x84)
+> +
+> +static const char *const lc898217xc_supply_names[] = {
+> +	"vdd",
+> +	"vana",
+> +};
+> +
+> +struct lc898217xc {
+> +	struct regulator_bulk_data supplies[ARRAY_SIZE(lc898217xc_supply_names)];
+> +	struct v4l2_ctrl_handler ctrls;
+> +	struct v4l2_subdev sd;
+> +	struct regmap *regmap;
+> +};
+> +
+> +static inline struct lc898217xc *sd_to_lc898217xc(struct v4l2_subdev *subdev)
+> +{
+> +	return container_of(subdev, struct lc898217xc, sd);
+> +}
+> +
+> +static int lc898217xc_set_dac(struct lc898217xc *lc898217xc, u16 val)
+> +{
+> +	struct i2c_client *client = v4l2_get_subdevdata(&lc898217xc->sd);
+
+Please instead do:
+
+	struct i2c_client *client = to_i2c_client(lc898217->sd.dev);
+
+as in the long run we should get rid of v4l2_get_subdevdata().
+
+> +	int ret;
+> +
+> +	ret = cci_write(lc898217xc->regmap, LC898217XC_DAC_ADDR, val, NULL);
+> +	if (ret)
+> +		dev_err(&client->dev, "failed to set DAC: %d\n", ret);
+> +
+> +	return ret;
+> +}
+> +
+> +static int lc898217xc_power_on(struct lc898217xc *lc898217xc)
+> +{
+> +	int ret;
+> +
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(lc898217xc_supply_names),
+> +				    lc898217xc->supplies);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	usleep_range(8000, 10000);
+> +	return 0;
+> +}
+> +
+> +static int lc898217xc_power_off(struct lc898217xc *lc898217xc)
+> +{
+> +	regulator_bulk_disable(ARRAY_SIZE(lc898217xc_supply_names),
+> +			       lc898217xc->supplies);
+> +	return 0;
+> +}
+> +
+> +static int __maybe_unused lc898217xc_runtime_suspend(struct device *dev)
+> +{
+> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> +	struct lc898217xc *lc898217xc = sd_to_lc898217xc(sd);
+> +
+> +	lc898217xc_power_off(lc898217xc);
+> +	return 0;
+> +}
+> +
+> +static int __maybe_unused lc898217xc_runtime_resume(struct device *dev)
+> +{
+> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> +	struct lc898217xc *lc898217xc = sd_to_lc898217xc(sd);
+> +	int ret;
+> +
+> +	ret = lc898217xc_power_on(lc898217xc);
+> +	if (ret < 0) {
+> +		dev_err(dev, "failed to enable regulators\n");
+> +		return ret;
+> +	}
+> +
+> +	__v4l2_ctrl_handler_setup(&lc898217xc->ctrls);
+> +
+> +	return ret;
+> +}
+> +
+> +static int lc898217xc_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +	struct lc898217xc *lc898217xc = container_of(ctrl->handler,
+> +						     struct lc898217xc, ctrls);
+> +
+> +	if (ctrl->id == V4L2_CID_FOCUS_ABSOLUTE)
+> +		return lc898217xc_set_dac(lc898217xc, ctrl->val);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct v4l2_ctrl_ops lc898217xc_ctrl_ops = {
+> +	.s_ctrl = lc898217xc_set_ctrl,
+> +};
+> +
+> +static int lc898217xc_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
+> +{
+> +	return pm_runtime_resume_and_get(sd->dev);
+> +}
+> +
+> +static int lc898217xc_close(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
+> +{
+> +	pm_runtime_put_autosuspend(sd->dev);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct v4l2_subdev_internal_ops lc898217xc_int_ops = {
+> +	.open = lc898217xc_open,
+> +	.close = lc898217xc_close,
+> +};
+> +
+> +static const struct v4l2_subdev_core_ops lc898217xc_core_ops = {
+> +	.log_status = v4l2_ctrl_subdev_log_status,
+> +};
+> +
+> +static const struct v4l2_subdev_ops lc898217xc_ops = {
+> +	.core = &lc898217xc_core_ops,
+> +};
+> +
+> +static int lc898217xc_init_controls(struct lc898217xc *lc898217xc)
+> +{
+> +	struct v4l2_ctrl_handler *hdl = &lc898217xc->ctrls;
+> +	const struct v4l2_ctrl_ops *ops = &lc898217xc_ctrl_ops;
+> +
+> +	v4l2_ctrl_handler_init(hdl, 1);
+> +
+> +	v4l2_ctrl_new_std(hdl, ops, V4L2_CID_FOCUS_ABSOLUTE,
+> +			  LC898217XC_MIN_FOCUS_POS,
+> +			  LC898217XC_MAX_FOCUS_POS,
+> +			  LC898217XC_FOCUS_STEPS, 0);
+> +
+> +	if (hdl->error)
+> +		return hdl->error;
+> +
+> +	lc898217xc->sd.ctrl_handler = hdl;
+> +
+> +	return 0;
+> +}
+> +
+> +static int lc898217xc_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct lc898217xc *lc898217xc;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	lc898217xc = devm_kzalloc(dev, sizeof(*lc898217xc), GFP_KERNEL);
+> +	if (!lc898217xc)
+> +		return -ENOMEM;
+> +
+> +	lc898217xc->regmap = devm_cci_regmap_init_i2c(client, 8);
+> +	if (IS_ERR(lc898217xc->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(lc898217xc->regmap),
+> +				     "failed to initialize CCI\n");
+> +
+> +	/* Initialize subdev */
+> +	v4l2_i2c_subdev_init(&lc898217xc->sd, client, &lc898217xc_ops);
+> +
+> +	for (i = 0; i < ARRAY_SIZE(lc898217xc_supply_names); i++)
+> +		lc898217xc->supplies[i].supply = lc898217xc_supply_names[i];
+> +
+> +	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(lc898217xc_supply_names),
+> +				      lc898217xc->supplies);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to get regulators\n");
+> +
+> +	ret = lc898217xc_power_on(lc898217xc);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to enable regulators\n");
+> +
+> +	ret = lc898217xc_init_controls(lc898217xc);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to init v4l2 controls\n");
+> +		goto err_power_off;
+> +	}
+> +
+> +	/* Initialize subdev */
+> +	lc898217xc->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+> +	lc898217xc->sd.internal_ops = &lc898217xc_int_ops;
+> +
+> +	ret = media_entity_pads_init(&lc898217xc->sd.entity, 0, NULL);
+> +	if (ret < 0) {
+> +		dev_err_probe(dev, ret, "failed to init media entity pads");
+> +		goto err_free_handler;
+> +	}
+> +
+> +	lc898217xc->sd.entity.function = MEDIA_ENT_F_LENS;
+> +
+> +	/*
+> +	 * Enable runtime PM. As the device has been powered manually, mark it
+> +	 * as active, and increase the usage count without resuming the device.
+> +	 */
+> +	pm_runtime_set_active(dev);
+> +	pm_runtime_get_noresume(dev);
+
+You can drop this...
+
+> +	pm_runtime_enable(dev);
+> +
+> +	ret = v4l2_async_register_subdev(&lc898217xc->sd);
+> +	if (ret < 0) {
+> +		dev_err_probe(dev, ret, "failed to register V4L2 subdev\n");
+> +		goto err_pm;
+> +	}
+> +
+> +	/*
+> +	 * Finally, enable autosuspend and decrease the usage count. The device
+> +	 * will get suspended after the autosuspend delay, turning the power
+> +	 * off.
+> +	 */
+> +	pm_runtime_set_autosuspend_delay(dev, 1000);
+> +	pm_runtime_use_autosuspend(dev);
+> +	pm_runtime_put_autosuspend(dev);
+
+and use
+
+	pm_runtime_idle();
+
+here to achieve the same.
+
+> +
+> +	return 0;
+> +
+> +err_pm:
+> +	pm_runtime_disable(dev);
+> +	pm_runtime_put_noidle(dev);
+
+This can be then also dropped.
+
+> +	media_entity_cleanup(&lc898217xc->sd.entity);
+> +err_free_handler:
+> +	v4l2_ctrl_handler_free(&lc898217xc->ctrls);
+> +err_power_off:
+> +	lc898217xc_power_off(lc898217xc);
+
+A newline would be nice here, as would be empty lines above before labels.
+
+> +	return ret;
+> +}
+> +
+> +static void lc898217xc_remove(struct i2c_client *client)
+> +{
+> +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
+> +	struct lc898217xc *lc898217xc = sd_to_lc898217xc(sd);
+> +	struct device *dev = &client->dev;
+> +
+> +	v4l2_async_unregister_subdev(&lc898217xc->sd);
+> +	v4l2_ctrl_handler_free(&lc898217xc->ctrls);
+> +	media_entity_cleanup(&lc898217xc->sd.entity);
+> +
+> +	/*
+> +	 * Disable runtime PM. In case runtime PM is disabled in the kernel,
+> +	 * make sure to turn power off manually.
+> +	 */
+> +	pm_runtime_disable(dev);
+> +	if (!pm_runtime_status_suspended(dev))
+> +		lc898217xc_power_off(lc898217xc);
+> +	pm_runtime_set_suspended(dev);
+> +}
+> +
+> +static const struct of_device_id lc898217xc_of_table[] = {
+> +	{ .compatible = "onnn,lc898217xc" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, lc898217xc_of_table);
+> +
+> +static const struct dev_pm_ops lc898217xc_pm_ops = {
+> +	SET_RUNTIME_PM_OPS(lc898217xc_runtime_suspend,
+> +			   lc898217xc_runtime_resume, NULL)
+> +};
+> +
+> +static struct i2c_driver lc898217xc_i2c_driver = {
+> +	.driver = {
+> +		.name = LC898217XC_NAME,
+> +		.pm = &lc898217xc_pm_ops,
+> +		.of_match_table = lc898217xc_of_table,
+> +	},
+> +	.probe = lc898217xc_probe,
+> +	.remove = lc898217xc_remove,
+> +};
+> +module_i2c_driver(lc898217xc_i2c_driver);
+> +
+> +MODULE_AUTHOR("Vasiliy Doylov <nekocwd@mainlining.org>");
+> +MODULE_DESCRIPTION("Onsemi LC898217XC VCM driver");
+> +MODULE_LICENSE("GPL");
+> 
+
+-- 
+Kind regards,
+
+Sakari Ailus
