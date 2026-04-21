@@ -1,155 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C032C2DC783;
-	Tue, 21 Apr 2026 08:46:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF70839F165
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 08:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776761219; cv=none; b=d0sti2ODVksXIGP6jyNBl8mLxMc3aO1erY1ehcG6nCqMbu3NIX0C4H0yRnGZGdY1JxGWk1/qmYmCakDPCREA8RLHTYa2K/uprlDS5zylZ1A3T10Hoqx8cb/6Fj1YHLum9FK79lKWPrZJouNn7u7aMDq5afei+i4WUy/3UFrB9ms=
+	t=1776761814; cv=none; b=PxHMjldZWuArVTPVpgJeTvwvXzrcu/vSUh4nqtmFA0xgRbKt5BPcTxa7exVIRdSsiw65ybdi1JFjxbk0X7GzedTkSkWCCvovR0wzUmBUpFJ2Srg3P20nlTyogb645QDZbyhoHTGCLKXSi3AM+a+jQeFk9BWuWPvubkx74rbJVSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776761219; c=relaxed/simple;
-	bh=P2sLB2zT3iVQj9YGkWcLvciVcbDcFv3aDchjxcINyac=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=E9U7G4j+watxxHdBSGyIQ5fEDwb+cR54GigmbBP69PKzDZRHx6D6yIh1xj0KLvNHdlahv5iZlo0KCcOUWIFquU/YC30QRIARY2wIeThlGt/b024ZFx9jVppdFlo1xf8ubyB+u4gaXmZhP9WafctD2vm7mmGiP+kOwiiEUm7F4V4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rDzvRz7A; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776761814; c=relaxed/simple;
+	bh=9iZHTlK6xpfJU/WZl8CV+b5YzH/jAbEAS66ZdJyd3Og=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mTIGjSOaN15co+kvBM6y5A0Dia+sozDNtyxlmWP1HKxLqIiXw4+V26cy2UfgBOQk6wszGLFu5bTUNgrW8ggocGEdnfYOlMi+m7c+xYk7F3yK+87/4/AhUG1QMh+c61nUZLGcPDzfKtILMVazPOcNrJ8lkQ3Qx6d4/eSC4BFyoMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BUV36HeD; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rDzvRz7A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B802C2BCB0;
-	Tue, 21 Apr 2026 08:46:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776761219;
-	bh=P2sLB2zT3iVQj9YGkWcLvciVcbDcFv3aDchjxcINyac=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=rDzvRz7AfjXRGiU9f3gXMmOxNa0qk8ii3PC9+yGieLom9iOlOd9RDAWdsnOyibC3y
-	 jMAWupELQdDjZNNCfhXkxWMHLTrKEZVyQ90DSEnb8lzYO+hGSkCv2RHXNpVybFUMML
-	 qyktilv8tZ8YEV3Q0fMmx2wsgyu5YLfYRf8yGfGiK/F4dzFwRmU+wy8w+KcaezcJr6
-	 O8rqRSDom478LZs284MP/td6yXsumoQkuRJKaDjkjO29gB/hpu1HLruXbqQ/ZH/Pdx
-	 V//p7mBz5sCHSqQNvPC71GiyYG96zrgfzBvvOMnDxEshjovnvUfZKdMbnaStMfchuB
-	 55DQPhfg8etVw==
-Message-ID: <eb1ae818-eb9c-4225-9969-ebbb05304697@kernel.org>
-Date: Tue, 21 Apr 2026 10:46:55 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BUV36HeD"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c7961d7bc09so1445812a12.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 01:56:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776761813; x=1777366613; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=1Ziz7Mrkr+sJ/qW8jpuomIbosBf3JNZS04tKrJ4e8a4=;
+        b=BUV36HeDr4RYgMTAvVaMLVhBy1wL8JU9qH8QWSmBkdPu4LwaD6jb5mG8iUTcZru8k7
+         0gYkvZc6+02oDkDlMYKSgpqchqkFoJ4+rIYphgZ116e5KtFAAVylWeS3t0vtC6iKPbuK
+         HD/y7mDiTctZdaMz8ERdbdTyW4o+vCNgzG/y7HNoKjlcPg1wdCSYWQhPP1lxLIVF2H4b
+         dtiw8rjW102FfIKoR75OFR+1cYkb1RuBqWFwbFH/4NwWucxrKX/zNky3KX7FtNW08bwt
+         4iFziJGxGz4/rGpPl7cC7/pIKQOJq4if5Q9dZklPOtbVVMiYnFlDol/wYJVP4mDiBdS/
+         GIWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776761813; x=1777366613;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1Ziz7Mrkr+sJ/qW8jpuomIbosBf3JNZS04tKrJ4e8a4=;
+        b=WJlpULZWvAVCsFS8s8byDE5vzxCrHtbbBEq9R/TvxJoUOxYnSgYa9mk2c1UJ+pdlic
+         VIFWkym2E0f+ytKi4+3ZbLk0CziCjTr8uUkf6cCb+/15ZB1fS0dqTbCdzwxwy+hpBPXj
+         POBZ6l4fIgN3FjkpqvsCh2peGYzLA492wN/wn5fQhFKTHyHlDccy3aghwkYaR6KCZ+LX
+         upzoNP7R7LvucVjZInrUQugGDYnD7aIRcvkSgejkdo0a5spPChVjucfETl424fhrdqm6
+         Eq0n2OvpC4ZKRisAyTxPOxjdYi9U+NAU7WJwcz9ol4jnuJE7F+dj5665oZsaWc2/nP4U
+         u39w==
+X-Forwarded-Encrypted: i=1; AFNElJ9OAwSVHXdlGb9dAHCWIHFkphut2+ydEOLJm4ljKJZbM/cPCrZuPzBMN/03rGAasSSclu6cndhsapnT@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQ4OjuGlfACIFlpbZLHikBVMFOFAkiU1EXkWplwtf+K/d4bQAE
+	uP6irfBxu25paqMSTZaAcTcNocj5Ow5AkXejOZMRMMpgsKxIusq41pGq
+X-Gm-Gg: AeBDievrUB/iQEMrOksHl5ZQqZV4F71XM5Nmh8d4XpeEj2B7Nu9Ivh5BALDSHd57nF0
+	CqeI0KUdRcoMFxIWxvjJtNbyqeOp/brxndDJbiyNDn5u59roFFmRU5+N/OtmaY7R0JkGUwZajtt
+	wJMjY5JOD2fYWNbUaPYTS4Fuwxhje9IBlIhn9DQP8nR+wq8Tllyg5UHR/UjFgyNLynWnNQss7XF
+	W8m4+ODZi6LBmrCmDZ6cSUr6/woVVcY0H3NjB00OBDX37CsPMegmvqaDEVbcQTnmi8t0DYNL3bH
+	SjACSTHyC2d/hCJ1+KJK8csBSGQXjYvmr+sEfA0hqWX04RCPtmZCZYAWEXPGOOJQFK0V62B3XK1
+	NE5n5tCnHo0VEYx74dcy47kQlm0lKYEAtu0J2oRIEZH8TGdQq4Ila2fEFxzEcrpnH4/3AHS8bY5
+	vXUwwdIzCa1LSSywh27UeQ53RwTVPQA8PLZa33zQbviJsgemh7i9AlOqByMujIZl/xKQ2kCViyi
+	Nr5eCkSZSM=
+X-Received: by 2002:a05:6a21:6d9f:b0:398:b95c:51ed with SMTP id adf61e73a8af0-3a08d8a3490mr19258719637.35.1776761813170;
+        Tue, 21 Apr 2026 01:56:53 -0700 (PDT)
+Received: from chaitanya-virtualbox.. ([103.249.241.52])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c797703ddf8sm9868875a12.28.2026.04.21.01.56.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Apr 2026 01:56:52 -0700 (PDT)
+From: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
+To: Max Filippov <jcmvbkbc@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
+Subject: [PATCH v3] ASoC: dt-bindings: cdns,xtfpga-i2s: Convert to dt-schema
+Date: Tue, 21 Apr 2026 14:26:34 +0530
+Message-ID: <20260421085635.4490-1-chaitanya.msabnis@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] dt-bindings: trivial-devices: add
- toradex,lava-hat-spi
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Conor Dooley <conor@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org
-References: <20260420114537.78160-1-francesco@dolcini.it>
- <20260420114537.78160-2-francesco@dolcini.it>
- <20260420-task-navy-370ea247fe1d@spud>
- <005d96ea-b250-4af8-9c5b-d145bae892e5@kernel.org>
- <20260421083843.GA23508@francesco-nb>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260421083843.GA23508@francesco-nb>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 21/04/2026 10:38, Francesco Dolcini wrote:
-> On Mon, Apr 20, 2026 at 06:10:08PM +0200, Krzysztof Kozlowski wrote:
->> On 20/04/2026 18:02, Conor Dooley wrote:
->>> On Mon, Apr 20, 2026 at 01:45:35PM +0200, Francesco Dolcini wrote:
->>>> From: Francesco Dolcini <francesco.dolcini@toradex.com>
->>>>
->>>> Add a compatible string for the SPI loopback device present on the
->>>> Toradex LAVA HAT test fixture.
->>>>
->>>> The Toradex LAVA HAT is a board used for automated hardware-in-the-loop
->>>> (HIL) testing, it provides several test-related functionalities, and
->>>> exists in multiple variants depending on the board it is mated with. The
->>>> SPI function is implemented with a loopback on the MISO/MOSI signals.
->>>>
->>>> As the device can be fully described using only "compatible" and "reg",
->>>> it is appropriate to list it under trivial-devices.yaml rather than
->>>> introducing a dedicated binding.
->>>>
->>>> The SPI implementation is identical across all Toradex LAVA HAT
->>>> variants, so a single compatible string is sufficient.
->>>>
->>>> Link: https://lore.kernel.org/all/20260310133254.GA51497@francesco-nb/
->>>> Link: https://lore.kernel.org/all/20260316073547.11437-3-francesco@dolcini.it/
->>>> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
->>>
->>> Acked-by: Conor Dooley <conor.dooley@microchip.com>
->>> pw-bot: not-applicable
->>
->>
->> Heh, let's wait. That's a test device, so it won't be ever used in any
->> final product, right? So not in final DTS?
-> 
-> It will be used in various DT overlay, that I plan to send for
-> inclusion in mainline Linux kernel once we have a way forward. So yes,
-> there will be DTB files using it.
+Convert the xtfpga I2S controller plain-text binding documentation
+to standard dt-schema.
 
-Then you need to document it properly and post the DTS.
+The hardware requires exactly one memory region, one interrupt line,
+and one phandle to the master clock. Verified these constraints against
+the driver source in sound/soc/xtensa/xtfpga-i2s.c.
 
-Toradex LAVA hat is way too generic. No, single compatible string is not
-sufficient, please read writing bindings.
+Also explicitly define the '#sound-dai-cells' property, as it is
+required for audio routing but was omitted from the original
+text properties list.
 
-Please define exact model and variants.
+Reviewed-by: Max Filippov <jcmvbkbc@gmail.com>
+Signed-off-by: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
+---
+ .../bindings/sound/cdns,xtfpga-i2s.txt        | 18 -------
+ .../bindings/sound/cdns,xtfpga-i2s.yaml       | 48 +++++++++++++++++++
+ 2 files changed, 48 insertions(+), 18 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.yaml
 
-> 
-> The need is to be able to test SPI with a mainline Linux kernel, so I am
-> looking for a solution that works in mainline Linux.
+diff --git a/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.txt b/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.txt
+deleted file mode 100644
+index 860fc0da39c0..000000000000
+--- a/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.txt
++++ /dev/null
+@@ -1,18 +0,0 @@
+-Bindings for I2S controller built into xtfpga Xtensa bitstreams.
+-
+-Required properties:
+-- compatible: shall be "cdns,xtfpga-i2s".
+-- reg: memory region (address and length) with device registers.
+-- interrupts: interrupt for the device.
+-- clocks: phandle to the clk used as master clock. I2S bus clock
+-  is derived from it.
+-
+-Examples:
+-
+-	i2s0: xtfpga-i2s@d080000 {
+-		#sound-dai-cells = <0>;
+-		compatible = "cdns,xtfpga-i2s";
+-		reg = <0x0d080000 0x40>;
+-		interrupts = <2 1>;
+-		clocks = <&cdce706 4>;
+-	};
+diff --git a/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.yaml b/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.yaml
+new file mode 100644
+index 000000000000..9617acef3f0c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.yaml
+@@ -0,0 +1,48 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/cdns,xtfpga-i2s.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: I2S controller built into xtfpga Xtensa bitstreams
++
++maintainers:
++  - Max Filippov <jcmvbkbc@gmail.com>
++
++allOf:
++  - $ref: dai-common.yaml#
++
++properties:
++  compatible:
++    const: cdns,xtfpga-i2s
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++    description: phandle to the clk used as master clock. I2S bus clock is derived from it.
++
++  "#sound-dai-cells":
++    const: 0
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2s@d080000 {
++        compatible = "cdns,xtfpga-i2s";
++        reg = <0x0d080000 0x40>;
++        interrupts = <2 1>;
++        clocks = <&cdce706 4>;
++        #sound-dai-cells = <0>;
++    };
+-- 
+2.43.0
 
-incomplete devices do not stop you from that.
-
-But you don't get exceptions because you want to mainline your DTS. Your
-need detailed hardware description and precise compatible per each exact
-hat ("exists in multiple variants").
-
-Best regards,
-Krzysztof
