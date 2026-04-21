@@ -1,121 +1,118 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB5531282F
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 22:40:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776811250; cv=pass; b=X8jDV+OlQlgvMbG6rshmF+WZFByD0aNziT+NFA4tEg/9Y3jzXWGG/bZT8FK0c+GZQ0JqNxURB26Xu5cJr75d3xcU9hpO35kmDjRdpldqoxDJddPwzEbS3M3umDcsIuRWZN8HmqYFioE2ke44GFDNCd4PA0p/ovCaH9KKvDFfnjI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776811250; c=relaxed/simple;
-	bh=H/lW5n9AgeEESY4Z8u9EDh1YC1Lu24b5nJUe3QRUpBg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qnE8R5IhUbTNUQh9CdqOH22hsTNjJpj2e6c0Z0Qhw+Xvnho1Wh4ntPfYJ0kHGlBk80k1kCiSce87NZc5m6uFhAPNKCEG/E7JsaTIcD1qy0ebxcESpbZ/Ev9yWSaf2xO0nMMxsM3W53Zfhx4+cS97bjAu77EbEGWGIFMkeE0T+iY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mSGI8apJ; arc=pass smtp.client-ip=209.85.128.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55BA73A641E;
+	Tue, 21 Apr 2026 22:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776811581; cv=none; b=ndHZk/rOjXkCE9zrWGo9FrtkV92792zpTL9Qkn4z/SBLQEKBmOAqlsNrNAzHMG9mhvEO6tiR7/p1JJWyeRc5H3PPYahUYcnCrrkMiIwYNeExPHRvfSMg2qYiONUvQOSllCEnNeCxF1O5ep9piJmqszRV7fa4aISjjHetyhTpiJI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776811581; c=relaxed/simple;
+	bh=ImeOV/+qWBQR8ej9rjQX8S12gzrB5k6E3YmnJIiJSS8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=am9LlATsOEhIXvjmaOsp4GG3zEww0MOXVTbaWSJgK6hlzjuxiz+PrLHd8TseZ3T41pC+V/ZJ9Bc4hYGIDEa6oXv9uTD5kPF/oxEmc5b7QaeZXADLfBkAz3AGbDoy0J0hp5KqsrLDzIG9y0FAA6PI6/jF9DkPAstzb7BMNSk8cho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=d2hOcqqy; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mSGI8apJ"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-7b4ee3a88e1so45393517b3.1
-        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 15:40:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776811249; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Dh6h8yeXkiFm3EMf0EC0UpToh5DnTGiCcoj7le6qC3S2rmxBH+SaAxeZf+crjh7k9+
-         jcMUqMM6oYsGqWqJ4Ja9Jb9fHkp2+XUvKMGhrCMhWNKpp1BW0KwmXeqG102o8EYu/jw+
-         LGgRFecujcILIYCuRX7Eja0CgnuFUm3wkznuurLeZgrCsglV6eLkeP4KGSIEJIgXDrVP
-         /20wHg9+Csp31GAS9htJL1h8P6L6iaKanWW+EmxO200/VefzY5IIR3hURq+KSN6hDrdy
-         UktHcE4f7aKYUz3Qu114MGu2gK6ooRjy5H/vUpbY567WeASL3w29U/kLibcayKwQMbE6
-         3rIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=j5TGRkmJ9uWRpiv0lmeldhRJrZ+cIiXJoGf5IZw7Rj4=;
-        fh=4WZmI0U6Tp40thfyCsgaGJ2gFUhqZhiS6fR8A6wcm7M=;
-        b=CIphBZkaO9/I7tsEAhyLgcfKtyXc+dGXKhktOAeZ+eMQwOiwfSwtLuLQ3MWR8g2W3e
-         TpMGWhQmxEstwUPtYuERVbL1o71UrJ/M34s8Pty3om87mrR7pYJGX7ryNxVp2jcNGoaf
-         hE226NN1oTID3EAEA8TKiQkdk+PrAhvCUa9Fi6I6JM3n14tB/ggvEok7CU7FrfAaQ8tg
-         rxzStfk/fNHltapDoPE1FlCFsBj1wEKxEuB1WViCGxXTaqcQgSVJxl4qjgE4rEY6m3aM
-         +m+1o/D/z6tAV42LmdNlOu2P/lyuIurIDBOK8rBHbOTsDdvIJfHLnrsqVMqpOHGTQNnp
-         MrMA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776811249; x=1777416049; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=j5TGRkmJ9uWRpiv0lmeldhRJrZ+cIiXJoGf5IZw7Rj4=;
-        b=mSGI8apJQChFqL1XdQGWrWYcx3KOor1ZQFHynhDd3nB1jjFike2X0b20L5E2bBV+dj
-         FN+25tgu3wyP1kOjPz1aRpVWGCysLjzCXQu0w6UBK1hbjERCXgHvfehlPSZVRXdeExoM
-         1v1guYmvVQs2pjSNpZPiBIBq8enJR52ppF7gydVYfNIPxLmGM2nlesQMDhzCgjVQM5Z6
-         ifLXGPMzOXjhram/Le7co7dTJyzqjQnXciebe1PEeHkxKB9I1K8c4v7cL+EYBeR2D1aU
-         VzE0tNc/wlH9Laoa6nBdPiNDL71SRO1Uhgxp1zJvtcMFB2IT2rU/OjCbg7P26o5mK6DD
-         kljQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776811249; x=1777416049;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=j5TGRkmJ9uWRpiv0lmeldhRJrZ+cIiXJoGf5IZw7Rj4=;
-        b=b9D/OVyLwthgQ1aT3eoJ0PU5HMu84f6lF9IPD7nWSM67UqB7Z5ikcYNPxudav1GBz6
-         Rl1qkMIvMeMwXx3uvHCu23QvxNpUFtL0tuiGYwZw+S/WeDcFNPUGBJAITWsu9PHY2r0+
-         brb81jAyJWK6qRTSZ0Ta+RL1EWCjjUFCwOSSMKklz0+dMSdEHtYPlkfK4Bo1voo6SZTb
-         EJ/z6R4ZkR/9cmQhl8IhFaMCCne3+PN3H9VYXMin1csAntHzzCM5fWgM8yXWxxwNzfJt
-         pLnCOZLDEPEyxbN7sWvUefBrzy0cCkLyzXIQdFRZVdNQv5c1gDoG+oaCERIkJPTDsbEr
-         b+4g==
-X-Gm-Message-State: AOJu0YxYl1jczSJZ4MX158y7rc5aMDjY8olyL3dGP1I+fC5JMlRUMqQ0
-	PcnN+FEqIdBhASFIeHlnqKFLLJI8bTfd+2+qs7yinHLDLlgjbv6GMXQGQMuomIMvc3u7T6VG3eZ
-	38kmn3ZDFRBv6BE6Ohmcip5ZBVtD8qY3e9bf5
-X-Gm-Gg: AeBDievnzXDIBUtve1xSjdUFBILi6cQGiRgY2TsVfc+O3SFiOBL6MXyXmX9QuLx4Gyx
-	PQ5nCFgYZxIizNrYMs1hl3apfxnDbzUUainvVuI/QBCd5FW/vrgdhHazOgodjkTTpWiY/1th7JH
-	KK6hfIsWGg+eXhcp+fFOr4CNJKg/oNWVzYBnyu5oPlKw3V6lQB/K2S7zR3cg+cP5C3DoPFjzByB
-	/4KH+fRSvlTQg1bP/HVM1WHduZAD+wgamWG0+Qt7KQrgUStRRsICY7JzcHM2jyxmA9IpvpOQdaB
-	KW0K4lhcicR39tE=
-X-Received: by 2002:a05:690c:e682:10b0:7b3:ca3b:84a4 with SMTP id
- 00721157ae682-7b9ecef6d27mr153454607b3.18.1776811248566; Tue, 21 Apr 2026
- 15:40:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="d2hOcqqy"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63LIljX3589903;
+	Tue, 21 Apr 2026 22:46:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=uVv8xeMGu4mFMCnNaO/jcbkxpR4qemBlce3MlgH4u
+	Q0=; b=d2hOcqqy7GAvRWp66J8yPMlzonsrBUv4j0JoVSIvwuJczD+QiP872k9QM
+	ks6T+3Dairvyrvky/IaArXWINggXv/sf2WPLJaC5FSzlfHHH7oZUG+cSJOXuxf+C
+	kWwgNPSWrJT7g/GQJMb6+USExPGAu0DQYyeQY7iWt7/lPvxTxERxCJYX4mMxdSWe
+	pVThpd5rLh799STMElcaiIu7CsFuCCgKU7m+WBIJOJPh/zhbhKuJmrHrxZImM5TS
+	YaARbKffx8N/LOd+eYqTiZDah/XzfQ/hlTJJpRUv5vQKqYzVGQ9NL15MEzsYuFxm
+	JdqkUnCPCTpJ58Je4mUBe/B8+0sUg==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4dpeu20qgb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 21 Apr 2026 22:46:00 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 63LMZPd9013594;
+	Tue, 21 Apr 2026 22:45:59 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4dmnsh2js2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 21 Apr 2026 22:45:59 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 63LMjwJV30737046
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 21 Apr 2026 22:45:58 GMT
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7774058055;
+	Tue, 21 Apr 2026 22:45:58 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D756F5805D;
+	Tue, 21 Apr 2026 22:45:57 +0000 (GMT)
+Received: from pfw153.pfw.tadn.ibm.com (unknown [9.5.7.52])
+	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 21 Apr 2026 22:45:57 +0000 (GMT)
+From: Ninad Palsule <ninad@linux.ibm.com>
+To: eajames@linux.ibm.com, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, joel@jms.id.au, andrew@codeconstruct.com.au,
+        devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: Ninad Palsule <ninad@linux.ibm.com>
+Subject: [PATCH v1 0/7] DTS updates for system1 BMC
+Date: Tue, 21 Apr 2026 17:45:37 -0500
+Message-ID: <20260421224551.1611818-1-ninad@linux.ibm.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260418140420.2221736-1-ekffu200098@gmail.com> <177679993172.1520888.14733708891951658401.robh@kernel.org>
-In-Reply-To: <177679993172.1520888.14733708891951658401.robh@kernel.org>
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-Date: Wed, 22 Apr 2026 07:40:37 +0900
-X-Gm-Features: AQROBzDVEVIfqtQpaJQzlRXTThkeDG_e8vOsxomV-bixCvTyDOYMOjCl9UDlGLw
-Message-ID: <CABFDxMEbEOY4JuFnfTVTBYttsKt1HDVJScwzE46xEfXU5jJeqQ@mail.gmail.com>
-Subject: Re: [PATCH] of/fdt: remove redundant memset in __unflatten_device_tree()
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, saravanak@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: ht2NluW5i7Abk4E84EJHIDn9ejs7EeCG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDIyMiBTYWx0ZWRfX0i4AGE/NHfJ6
+ SX4uzvG/6oCRq+XSEsAf+7WCq9ERcSfvDptaK2QyCsp+9OT9iyfproUDEWlUqTgjaSguqUG0lrb
+ XY9zJijItRy0ZBOv5q44qrZ2sW+FHibM77GdxzmGJ0unACPLCk7txhyLpoRvFj2D16QUxQ+2LEo
+ jx+kmIal0zPjIH/XnwHttV/Oo7N7l8vFbC7t+sWhEqbcuX2vZqrSu4e909XV1IIdnPM+1t47sex
+ C6vSC5KmbnEmWdclT7dLL29BlGtIebtDVUcZozL2fpv/REeExqqvOUOLxQiWaSSjSMvAiKqJnHH
+ /4UwjVoe/NqcEn9Qg+6sXhqb3V1VJ8GsUwIXsdNWGpMu8aSc1h3ZeIHB5wPBJ2wvA3nNnlugZyA
+ b0j0qBtaElRyIPnonxsub8RzCtBT8l9AFS7LLQZ8QIpABA07Im+PDN2A/o/kewp808Hu1eb9gIq
+ Zg+pZaHyZzGT6Ajpnpg==
+X-Authority-Analysis: v=2.4 cv=C8LZDwP+ c=1 sm=1 tr=0 ts=69e7fe28 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=phvD46glpbon8P5KJSkA:9
+X-Proofpoint-ORIG-GUID: ht2NluW5i7Abk4E84EJHIDn9ejs7EeCG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-21_03,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
+ lowpriorityscore=0 clxscore=1011 bulkscore=0 impostorscore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604210222
 
-Hi,
+Hello,
 
-On Wed, Apr 22, 2026 at 4:34=E2=80=AFAM Rob Herring (Arm) <robh@kernel.org>=
- wrote:
->
->
-> On Sat, 18 Apr 2026 23:04:20 +0900, Sang-Heon Jeon wrote:
-> > All dt_alloc callbacks passed to __unflatten_device_tree() already
-> > return zero-initialized memory.
-> >
-> > - kernel_tree_alloc uses kzalloc()
-> > - early_init_dt_alloc_memory_arch() and dt_alloc_memory() both use
-> >   memblock_alloc()
-> >
-> > So remove redundant memset after the allocation. No funtional change.
->
-> That is true now, but it wasn't the case before memblock became used on
-> all arches.
->
-> I've updated the commit message with this info and applied.
+Please review the patch set.
 
-Thanks for spotting that and for your review :)
+Andrew Geissler (1):
+  ARM: dts: aspeed: system1: disable NCSI net port
 
-> Rob
+Manojkiran Eda (2):
+  ARM: dts: aspeed: system1: Enable video engine
+  ARM: dts: aspeed: system1: Add usb virtual hub dev
 
-Best Regards,
-Sang-Heon Jeon
+Ninad Palsule (4):
+  ARM: dts: aspeed: system1: Disable vuart2
+  ARM: dts: aspeed: system1: Enable temp sensors
+  ARM: dts: aspeed: system1: Added status LEDs
+  ARM: dts: aspeed: system1: DTS updates
+
+ .../dts/aspeed/aspeed-bmc-ibm-system1.dts     | 1445 ++++++++++++++++-
+ 1 file changed, 1423 insertions(+), 22 deletions(-)
+
+-- 
+2.51.0
+
