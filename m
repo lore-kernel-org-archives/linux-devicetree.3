@@ -1,102 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84F7285CA4;
-	Tue, 21 Apr 2026 17:17:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2582FB0A3;
+	Tue, 21 Apr 2026 17:22:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776791878; cv=none; b=a0zxFKObD7s84AnHqMmUa5c58objL16k94be4lqifm+gvUXNutCntlSskmwrCgdP70XwkmJTm8NkYnfpA9pWME7a6I+fQUXhjRKSVVFyCiPWbiv7iuvjwzu4dikalMFLR6nyLtVeHsqpZBQcjEBBLxL2jw+jqR7+R08/pv/lzgE=
+	t=1776792157; cv=none; b=mvv3fHve7YQpN+vX5VL7TVyfhM9MAht7W3+4j6F7XjFabQ67842GaW4QaS34oaQsYdhvAIiM1UMiCZOCvkate5VPiDN9uzbY6H5QYjSLvhIwdmDd5IOiGgBT+4sMQPFp+OYIjzgeupz9uAfjsJY9gUjAOR2MZUkfqPMzPsVBT3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776791878; c=relaxed/simple;
-	bh=ZHXUvun2TlKFXNCDSGQdCTzBZQfFlVJtfqEGkFlFT20=;
+	s=arc-20240116; t=1776792157; c=relaxed/simple;
+	bh=3Vs6A64Z/cDlXVKcYXu50l5AsAhPt9hHRpJl6Q5QeDU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W2P3IXIwEtnDWuxax5S+BL9J0aZVc9sN5NpXRWyFBv1gC0gHkFPx5BfvbzHrKk7t5qkfErU1PbLBAHlP1fuNidEdbRRhQWWmZs2D/hym3kUs2N49oxl1dBOa9uogq4a7Hy1oEBsD8PU5aGbPe6VGVqEe58vK1a9fQPxeerV8iFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DJmIYNUG; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=lwFmiBkwE58GyJAuWHjvnkHGuLrlh+WhbNYq3+l+nSETl/fWbjP1LI/6C4DyTIa6256oxx1M16oReudFspL8j6p2ouSzjo75nHh1BSO7woyukfmduRGG28eO5In3VyHHUOen9EbLxP4F+mqS4OFV0PU+tfocxmhO3WUmWkR6TsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oUbVsx0J; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DJmIYNUG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38E1FC2BCB0;
-	Tue, 21 Apr 2026 17:17:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oUbVsx0J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D1E5C2BCB0;
+	Tue, 21 Apr 2026 17:22:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776791878;
-	bh=ZHXUvun2TlKFXNCDSGQdCTzBZQfFlVJtfqEGkFlFT20=;
+	s=k20201202; t=1776792157;
+	bh=3Vs6A64Z/cDlXVKcYXu50l5AsAhPt9hHRpJl6Q5QeDU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DJmIYNUGWE2v3JDEqFV3v8ed2ikp+LWBQZJi36TrGru35KaAVU3pn2FyE/vtqeLm8
-	 +E16BGoVTPxvHJ+eFD+szgxRN2Hoo1mKFZKjEfIs+vt4SfE/7RV3OBETmFyob/q7/U
-	 6zSF+V0JUAZ2+dXydHqUS+EjvqrjPgdFNMy2rLUmtQvSC7DjLbfKxvndaChmvh0bbK
-	 tjgf8ks24gZAIiHsaax69GWY5LV/lCeRFc4eE6YMuVJ4nmN48uU1efR6rylW0SX29W
-	 ztImcTaw2ZxMHhOkmeoVENDqD7WjxTS4nBM3iz9Xs9F5VUZHj8WGpQjxoOs+FZsInY
-	 +YehVknVIJQYQ==
-Date: Tue, 21 Apr 2026 18:17:54 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-Cc: linux-edac@vger.kernel.org, git@amd.com, shubhrajyoti.datta@gmail.com,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-i3c@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] i3c: dw: Add VersalNet compatible string
-Message-ID: <20260421-exorcist-panther-d43470a97cec@spud>
-References: <20260421103059.2484623-1-shubhrajyoti.datta@amd.com>
- <20260421103059.2484623-3-shubhrajyoti.datta@amd.com>
+	b=oUbVsx0JZYXdZIPnb4GcWVt5grZUZ90U/44RRRqtVC6RKcwfR5ET+ZRLDrSeStWCe
+	 YaT9WmEjq0sbNhZGXyBPaFmApEtpdloJOmfbiwi3PuJ0zktT1oGQgE0HalyIV285Hm
+	 46mjd0YYuNXuKLFHtuu333vEk2uqsrOqUaW7UNSX8ou9wgV0iv+dC3i+01ivQF4EI7
+	 UjUJRQrnPTIO61LDHFnHzAcDRRE1j+ZErt6Xh+PYoqxbRTGqrnXsO+GFz+6/ZdDZ3z
+	 wbhPy/ZkMqeeLQaOfRgD/UgYxZBzBoyh3N7Gt1q0Mqotxi7ZeFyId21lkIcorqpUxE
+	 XXVDYhGI3gSFg==
+Date: Tue, 21 Apr 2026 12:22:34 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
+	Ulf Hansson <ulfh@kernel.org>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Subject: Re: [PATCH 1/3] dt-bindings: power: qcom,rpmhpd: Fix whitespace in
+ RPMHPD defines
+Message-ID: <177679215038.1337457.8627312083472225787.robh@kernel.org>
+References: <20260414035909.652992-1-shengchao.guo@oss.qualcomm.com>
+ <20260414035909.652992-2-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dQx2Rh1ek9fvUPx8"
-Content-Disposition: inline
-In-Reply-To: <20260421103059.2484623-3-shubhrajyoti.datta@amd.com>
-
-
---dQx2Rh1ek9fvUPx8
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260414035909.652992-2-shengchao.guo@oss.qualcomm.com>
 
-On Tue, Apr 21, 2026 at 04:00:59PM +0530, Shubhrajyoti Datta wrote:
-> Add amd,versalnet-dw-i3c-master to the of_match table with
-> snps,dw-i3c-master-1.00a as the generic fallback.
->=20
-> Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+
+On Tue, 14 Apr 2026 11:59:07 +0800, Shawn Guo wrote:
+> Some RPMHPD_* defines in the Generic RPMH Power Domain Indexes section
+> were using spaces instead of tabs for alignment. Fix them to be
+> consistent with the rest of the file.
+> 
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 > ---
->=20
->  drivers/i3c/master/dw-i3c-master.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i=
-3c-master.c
-> index d6bdb32397fb..69fef7fdda37 100644
-> --- a/drivers/i3c/master/dw-i3c-master.c
-> +++ b/drivers/i3c/master/dw-i3c-master.c
-> @@ -1845,6 +1845,7 @@ static const struct of_device_id dw_i3c_master_of_m=
-atch[] =3D {
->  	{ .compatible =3D "altr,agilex5-dw-i3c-master",
->  	  .data =3D &altr_agilex5_drvdata,
->  	},
-> +	{ .compatible =3D "amd,versalnet-dw-i3c-master", },
+>  include/dt-bindings/power/qcom,rpmhpd.h | 16 ++++++++--------
+>  1 file changed, 8 insertions(+), 8 deletions(-)
+> 
 
-This shouldn't be needed, you use the snps compatible as a fallback and
-have no driver data.
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
->  	{},
->  };
->  MODULE_DEVICE_TABLE(of, dw_i3c_master_of_match);
-> --=20
-> 2.34.1
->=20
-
---dQx2Rh1ek9fvUPx8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeexQgAKCRB4tDGHoIJi
-0qvGAP9/+7DnoRT1GExnrC2mRyrY3z5Oqr4kZPP0XiqlO/y9ZQD/cPVmHrcfPShs
-JyyvpbZ8/52F8OsKJ6oeweFr59IvKw4=
-=utWa
------END PGP SIGNATURE-----
-
---dQx2Rh1ek9fvUPx8--
