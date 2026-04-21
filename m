@@ -1,200 +1,144 @@
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023140.outbound.protection.outlook.com [40.107.44.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D39B73A6B71;
-	Tue, 21 Apr 2026 07:20:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776756035; cv=none; b=HQwk/TXutgDVH2IV/TtUgVrg/5phNfT568Xops18mE1zksiPGKG01WI5xeptU4ZOUKXm4Ww3jm0z1Tr5axavhbfqwbFKhqUFTWE28w/PzZ8l/gxC/jkYi1ryuJesiE24LQrSO1m3Elx7Fu8BMn/kKKOyKjvVaGVkqEq5oLSw/m8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776756035; c=relaxed/simple;
-	bh=zbgRfmKb31HDgkan9Fy8S+p1BOUmWfaoe9tmTB9hGac=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YmCkupmY54iyR6q8Ay+7sRzLMZUqdHaqPY6am3uDBFbbKqUXdc+XUvEkE9ESUAOnDr15qs3LE60gsklxhVUZyAY02CDwyVVPIUtsolRUMdXm7Vi4f2+OiyKqulD8Yfz31wV3MdUZCsxzdvEkSiUb54xvh2QyC0ngkVhl5LRxqG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=uygkk2Et; arc=none smtp.client-ip=65.21.61.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="uygkk2Et"
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
-	s=courrier-s1; t=1776756032;
-	bh=zbgRfmKb31HDgkan9Fy8S+p1BOUmWfaoe9tmTB9hGac=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=uygkk2EtdmfhzVT3+789ag2/JVQq1lEmx5yBezGZSWxLc36V4YN+iiqMnZyFBd6mp
-	 8P5O5qBW5dkj8+CwyW07evLebn0+Qd9KHFkYAKQA/dC4aLjDtn/pYqEQK9PTq9d3XA
-	 cCfUzpp3E8w3HA7/00wIQlxrBgXJjGmAQrD6L0GM=
-Date: Tue, 21 Apr 2026 09:19:50 +0200
-Subject: [PATCH v3 8/8] arm64: dts: amlogic: t7: khadas-vim4: Add fan
- cooling to thermal zones
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3F3175A6D;
+	Tue, 21 Apr 2026 07:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776756264; cv=fail; b=nYtJ23MejX9WHVI8PcXBDkx9es8mMlCCJKT9nJLp/Cu32rmbo7O9GJ1NVU5eDydTAhBhz/z8fhCYMXkZ4mmZgC7QAz+FMaWiDvegyct2fm37nQddQ4w3iMCP7fNB6h1BsEx8hcg1s3QFD8JOFPHnE260OPUPrPBurwu5ydlNkYM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776756264; c=relaxed/simple;
+	bh=jq3qMsGWqyplXPP16Xg2FeGmoBUA8JVV+FkWnkoBSMY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ab7jMXhAP2e3xUB+sOIrQGifWkhevZ/cs18S8DJBIg7WlSYn/1cUoZn2gag/YMkfnFAkCvw4VtN+lt8dVzhsI6xrRGVYwTT0NiI3eWnPOCNfuA5yb3N5bMqweEuUxayEJOiCrRdvtcNLjFPc6D9H7IvBHvII6r1hqu1FyToJZD8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.44.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FBVVgn76V+apWO7/9IJu/uJOe10tW1ZKZWgJyWd0rFwbEMkNOcXYfky+EAIeWmOGxmAHkgwcUagHkL1Zab6XqgJIF6XjgZ7151SFPS5xGHzz+8rzjEKvosgGB7d9T5B1ISnQhq8fcoL2zQG12Ftah2smDtkcCKJoDhtqJnm38b2RHV81a4vC4xj00GxU8FL+M3aENoV4ovGsR1LErkKhjsiSRrsAft9rAWGN+HC67LYQaq5lWNF8mW9B79/0NYosq+q4421DruUHnWNuEWljH9S4ao4LOZ/wrcdxN3+5TiVmNpzY7HC4G3Lw8SinoGGb+H64Yb/25lFuJ89YGcLPnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/Ehx8b1vGpM+1jTfOm579D4xaYy2lVCgplYViWaypLw=;
+ b=ZXkgJ3zxIDhJQu+r5O619/P7bP93ZB0WtI9vfG6aTXZkwZJfx6iNv89szVa7fxd+ts6Rq0feDnHzfvru/5Bvij4apee5o8iTo8PjLaWuPU8035WtKcLca5cf5d8U9USsygBm+T6fDR4mqO0SlJCVP9tPXAn4wBCKkpB/QK29qFoVJb/Ufq0LCA3jnPDAuYV7fNIICwdR8ehOjSGkiUWaexT7lfitwgd3tf7aWMrdbt6bQWA/JRvqyGQoO5eqBnUNwH43ihG4Oqaqpr8Dsfm+zDbzjFYDId4pBwDVywvoJ2Xk3vrS5fMz9SUq2tT+HcJocuZqsU5L6z/xtZXbtltxqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI1PR02CA0046.apcprd02.prod.outlook.com (2603:1096:4:1f5::14)
+ by KL1PR06MB6886.apcprd06.prod.outlook.com (2603:1096:820:108::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.33; Tue, 21 Apr
+ 2026 07:24:16 +0000
+Received: from SG2PEPF000B66CF.apcprd03.prod.outlook.com
+ (2603:1096:4:1f5:cafe::8d) by SI1PR02CA0046.outlook.office365.com
+ (2603:1096:4:1f5::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Tue,
+ 21 Apr 2026 07:24:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG2PEPF000B66CF.mail.protection.outlook.com (10.167.240.23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9791.48 via Frontend Transport; Tue, 21 Apr 2026 07:24:14 +0000
+Received: from [172.20.96.43] (unknown [172.20.96.43])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 8AFE9446DB61;
+	Tue, 21 Apr 2026 15:24:11 +0800 (CST)
+Message-ID: <932db8ad-a9d8-47ff-bf3c-62a54c42bb76@cixtech.com>
+Date: Tue, 21 Apr 2026 15:24:11 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/2] dma: arm-dma350: enable ANYCH interrupt for shared
+ IRQ wiring
+To: peter.chen@cixtech.com, fugang.duan@cixtech.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, vkoul@kernel.org,
+ ychuang3@nuvoton.com, schung@nuvoton.com, robin.murphy@arm.com,
+ Frank.Li@kernel.org
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20260325112159.663881-1-jun.guo@cixtech.com>
+ <20260325112159.663881-2-jun.guo@cixtech.com>
+Content-Language: en-US
+From: Jun Guo <jun.guo@cixtech.com>
+In-Reply-To: <20260325112159.663881-2-jun.guo@cixtech.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260421-add-thermal-t7-vim4-v3-8-a2e7215ed003@aliel.fr>
-References: <20260421-add-thermal-t7-vim4-v3-0-a2e7215ed003@aliel.fr>
-In-Reply-To: <20260421-add-thermal-t7-vim4-v3-0-a2e7215ed003@aliel.fr>
-To: Guillaume La Roque <glaroque@baylibre.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, 
- Ronald Claveau <linux-kernel-dev@aliel.fr>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openssh-sha256; t=1776756024; l=2874;
- i=linux-kernel-dev@aliel.fr; s=id_ed25519; h=from:subject:message-id;
- bh=zbgRfmKb31HDgkan9Fy8S+p1BOUmWfaoe9tmTB9hGac=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgMGec55oxeeisqykQiUedekMYyOnR9
- BG9E/7rDWyqdNoAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QN4/E0s7WbZdPSpM0peJA+qrRW42bBl7baU+STKvFE8bJDm+AXaM6vUs8u8XnD43UqI8Q7hvTj1
- RzKDl0Dfz8gY=
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openssh;
- fpr=SHA256:kch4osYZ6A1BrPps5AUs6KnfdE2wm4ocMtyTc8TmZMs
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CF:EE_|KL1PR06MB6886:EE_
+X-MS-Office365-Filtering-Correlation-Id: c9131afa-547c-44c6-598e-08de9f76fd88
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|36860700016|7416014|1800799024|921020|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	2HK6hsaQuGJXcmGpbh6PXPXdkEBcYM8ws+uJ2YnQpvTIVCm57K/6fuJghCMSy6OdreKFNZe6dGxkJZ72QDoEHex3X2ntTuEUosf8syKwGj2Xx9VwPExynOQGKNNb8+RikKx8XL5X+5Az/ucRIy9O4t1I6JJLwc1T6Fch6YoSGyozoDMafrub0qTw/iv7jDI7OkUvEw6ifZueWUpKThvIg4omJzmE5MbrSJcMfxjAMajeq8iF/IR+kbTeqDatgKoB5uRRqdlnM9XavaJeTVFG8W1q93EgHavmG5nSPTLwwEhbZYgMSUUtkeuCdm1ROM7+jvZOieHgA8mvnSVDCs5WpEJ806lVgont1fYmjAHzO+BjVbcjXJ+seL0o2nSgrz2p2Llvvq32T3A7gMaWLCMqV+0oPsxQa70Hpp0Pb6xaKw5X+cSFO/LgCzKx/LEcfcDSg7f+xwce446Hh8FVD+0GRRG/SJg/oqmFtmva330xA6bx784NqjDDKbXBGXc9JY87g1HLSXv8nVXmEWVr7iv8Dlr2b4rBNAWm233vwGLulmHvJPhvFRn1pZ4GyXW4oADQTt9fsRVjG5WUnJyeE1dETRh5ZhkuqQLM6n8U7sw8JjZ3WOMdQMP+xfd45awqx+jdyPTkCP3tVnzqu+g8APi0nvXns4gH4cE/PdgDQszWE3RlipRZnTPSxEshu0+76OWnH4lovm36wk/Dod5Ye3INjZ5IRKWhcEPq6ig9l1ELaweRihvbdNP+Z8plirX6WQZyqcLuSy0Xwg+1gtlB+YpBk50MT3fwHiTRfKeVvRXL8+dGyZOdd3h0TcNF00PzlOAT
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(7416014)(1800799024)(921020)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	nC+IrZKDLKQJlmf9hYZwVVVUhLWQ0L4bAFHWjUTGqYGcOUVBQE7sQ+Zj2EiYujRCu5qzQprQgVoqJa7iJLdYNkoqVBpLlk6WFArlHs+uhmqj/8uu3ZWSKRPp7y45cS0qydBLn6cIcSXEeIxQqPBRffrH3Ucdn1nKUh9H4xdnkejC64yzIRhR8Pw02SQzUl024LspVYsb0wXui6cf48+TJa4zjFdHqQZfXEJOGSQcZ16rr9PDR2qh22mpSLiodbCBDP1861+fOYkULaowgJUb0llUpxHzlvnFED4vzLbhqyuhYSiOpCznj9Lw1gg/8Y16LSyrHdsDqxLxEcqrFEtUDeLIL05U8u47hfmVb7SKWsMbGvf3dx/O6Zg4TYO4Ka6m8BQqC3j7J2b1dUWxdiv2gint44Y8tMbLRJ6OUlExo5EUNPyY9m5p+rOBiaRzXfwY
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 07:24:14.0037
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9131afa-547c-44c6-598e-08de9f76fd88
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66CF.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR06MB6886
 
-Add an active trip at 50°C to all six thermal zones and map it to the
-khadas_mcu fan controller, using cooling states 30 to 100.
+Hi Robin,
 
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
----
- .../dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts  | 102 +++++++++++++++++++++
- 1 file changed, 102 insertions(+)
+Just pinging. I’d like to ask if you have any comments on the latest patch?
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-index 5d7f5390f3a66..ba9219073dd0a 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-@@ -157,6 +157,74 @@ wifi32k: wifi32k {
- 	};
- };
- 
-+&a53_thermal {
-+	trips {
-+		a53_active: a53-active {
-+			temperature = <50000>; /* millicelsius */
-+			hysteresis = <2000>; /* millicelsius */
-+			type = "active";
-+		};
-+	};
-+
-+	cooling-maps {
-+		map {
-+			trip = <&a53_active>;
-+			cooling-device = <&khadas_mcu 30 100>;
-+		};
-+	};
-+};
-+
-+&a73_thermal {
-+	trips {
-+		a73_active: a73-active {
-+			temperature = <50000>; /* millicelsius */
-+			hysteresis = <2000>; /* millicelsius */
-+			type = "active";
-+		};
-+	};
-+
-+	cooling-maps {
-+		map {
-+			trip = <&a73_active>;
-+			cooling-device = <&khadas_mcu 30 100>;
-+		};
-+	};
-+};
-+
-+&gpu_thermal {
-+	trips {
-+		gpu_active: gpu-active {
-+			temperature = <50000>; /* millicelsius */
-+			hysteresis = <2000>; /* millicelsius */
-+			type = "active";
-+		};
-+	};
-+
-+	cooling-maps {
-+		map {
-+			trip = <&gpu_active>;
-+			cooling-device = <&khadas_mcu 30 100>;
-+		};
-+	};
-+};
-+
-+&hevc_thermal {
-+	trips {
-+		hevc_active: hevc-active {
-+			temperature = <50000>; /* millicelsius */
-+			hysteresis = <2000>; /* millicelsius */
-+			type = "active";
-+		};
-+	};
-+
-+	cooling-maps {
-+		map {
-+			trip = <&hevc_active>;
-+			cooling-device = <&khadas_mcu 30 100>;
-+		};
-+	};
-+};
-+
- &i2c_m_ao_a {
- 	status = "okay";
- 	pinctrl-0 = <&i2c0_ao_d_pins>;
-@@ -170,6 +238,23 @@ khadas_mcu: system-controller@18 {
- 	};
- };
- 
-+&nna_thermal {
-+	trips {
-+		nna_active: nna-active {
-+			temperature = <50000>; /* millicelsius */
-+			hysteresis = <2000>; /* millicelsius */
-+			type = "active";
-+		};
-+	};
-+
-+	cooling-maps {
-+		map {
-+			trip = <&nna_active>;
-+			cooling-device = <&khadas_mcu 30 100>;
-+		};
-+	};
-+};
-+
- &pwm_ab {
- 	status = "okay";
- 	pinctrl-0 = <&pwm_a_pins>;
-@@ -266,3 +351,20 @@ &uart_a {
- 	clocks = <&xtal>, <&xtal>, <&xtal>;
- 	clock-names = "xtal", "pclk", "baud";
- };
-+
-+&vpu_thermal {
-+	trips {
-+		vpu_active: vpu-active {
-+			temperature = <50000>; /* millicelsius */
-+			hysteresis = <2000>; /* millicelsius */
-+			type = "active";
-+		};
-+	};
-+
-+	cooling-maps {
-+		map {
-+			trip = <&vpu_active>;
-+			cooling-device = <&khadas_mcu 30 100>;
-+		};
-+	};
-+};
-
--- 
-2.49.0
+On 3/25/2026 7:21 PM, Jun Guo wrote:
+> Enable DMANSECCTRL.INTREN_ANYCHINTR during probe so channel
+> interrupts are propagated when integrators wire DMA-350 channels
+> onto a shared IRQ line.
+> 
+> Signed-off-by: Jun Guo <jun.guo@cixtech.com>
+> ---
+>   drivers/dma/arm-dma350.c | 9 +++++++++
+>   1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
+> index 84220fa83029..09403aca8bb0 100644
+> --- a/drivers/dma/arm-dma350.c
+> +++ b/drivers/dma/arm-dma350.c
+> @@ -13,6 +13,11 @@
+>   #include "dmaengine.h"
+>   #include "virt-dma.h"
+>   
+> +#define DMANSECCTRL		0x200
+> +
+> +#define NSEC_CTRL		0x0c
+> +#define INTREN_ANYCHINTR_EN	BIT(0)
+> +
+>   #define DMAINFO			0x0f00
+>   
+>   #define DMA_BUILDCFG0		0xb0
+> @@ -582,6 +587,10 @@ static int d350_probe(struct platform_device *pdev)
+>   	dmac->dma.device_issue_pending = d350_issue_pending;
+>   	INIT_LIST_HEAD(&dmac->dma.channels);
+>   
+> +	reg = readl_relaxed(base + DMANSECCTRL + NSEC_CTRL);
+> +	writel_relaxed(reg | INTREN_ANYCHINTR_EN,
+> +		       base + DMANSECCTRL + NSEC_CTRL);
+> +
+>   	/* Would be nice to have per-channel caps for this... */
+>   	memset = true;
+>   	for (int i = 0; i < nchan; i++) {
 
