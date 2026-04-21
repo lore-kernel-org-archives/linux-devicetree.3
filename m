@@ -1,43 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549F4382F04;
-	Tue, 21 Apr 2026 08:23:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4D6336897;
+	Tue, 21 Apr 2026 08:25:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776759797; cv=none; b=HmBtkHJrftP8bOy3PfiVfpuEckLOZjLaoHqkaiwf00YQNjMbDoqgFxpPno06ZeJYKSChu4cfJAlR6NGwrhdcaaQY6cVL4WFrUQZ4l9qeFXKlBctB+WRQyrg3ga1gOBTzdqp+sTYEiXEm7rx9HEmWBJ3V4dW2hVt0yHZnb0v5z3g=
+	t=1776759911; cv=none; b=m3nk9edOhp+bDmiWsmbC6TpreD28b0iZtJODom8F4CnM1D443oIp3jcVNioT3cfRuLG3wGNd4AZKiHrhTCIJXREjGAj+DDGd3F4XtFWlwQrr2AwELbt9nPw822EBMIMj7AB6gDrrkdS3emFHZXL9mx4o/kkgxCKYPzQHiUU6yvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776759797; c=relaxed/simple;
-	bh=CUWdgVUjk8fsSZY0BYXBcqu/M7mJziD0R8DviS34dkc=;
+	s=arc-20240116; t=1776759911; c=relaxed/simple;
+	bh=dCKi29kxn+H5+pXJX7zj4ijvOAFj8htnt1T6/PZyGus=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RF/j3/gzGbZ9QzZoIl3j8qlVkA/eNTumCxDfywE66rwbRAVnT8yB4bd6TDvK9nCpxCf2gu0cZLEUD5RXkT+Uvec+8lHF7S0iFpif3/5f8pjUYFyQpOwZ4pjDgDBj1JjU2oWbDe/4f8aDhEBjde+gD/iaLZHBEwnpO7Pa3sknuU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j/uJupka; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=PHxfpy9hvtI4b/FMI1GqeumsFQQX1JJOtiCX41kAjtK329AWFb4deqB8rBgcnOCusFtvvdA1NmFkKEnUVj4uQA9idNzsAZMA817ARzjeSBYlcRHe/3ujnPH/8uQWz5npIfljS1qmb6n/9piDzdAehaI3Hg9fxN/rH7/YNxPv+fE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WSsvaQa1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j/uJupka"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 327D0C2BCB0;
-	Tue, 21 Apr 2026 08:23:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WSsvaQa1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACEB3C2BCB0;
+	Tue, 21 Apr 2026 08:25:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776759796;
-	bh=CUWdgVUjk8fsSZY0BYXBcqu/M7mJziD0R8DviS34dkc=;
+	s=k20201202; t=1776759911;
+	bh=dCKi29kxn+H5+pXJX7zj4ijvOAFj8htnt1T6/PZyGus=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=j/uJupka8lwcIQcUmdYiZeodZvAMLHzeWNIVbsLlUaGfAYifT4k4GVUlRTpKJEieT
-	 86+Zjrs5g2fgTiY2Ng0PrXC0exbAiqYgGVbpbH/2vu/j/S9hhjr07ch2Hh+l2P5k3B
-	 Z75qzJ7GRMsk46DHfe29tt1gAihTWYG4aokAUgsEAupkgOtryuZEV8JLOsRAeZ6reY
-	 gRrfM3na14aBVMqVYJM+8Fn3mg5A+IUT31PqJlzyYmesqTyNuUJ6gUV+wlbWiAoKtF
-	 T/YiIFY/zqWgL6wOlK22EvSxaKb1CgG0xd6fpcgNl5lKmM4UQUQBZeCkhi9azcPkYQ
-	 7f+p6n1rB+Ekw==
-Date: Tue, 21 Apr 2026 10:23:14 +0200
+	b=WSsvaQa1F/cLj1HKXJJiBU7s/KQl+cUeZ8s/GFMXgHWbg42JMSGEwArnYlgTG5DrB
+	 P7VAnxheCN00+pG0fM2nOWE31t5F62Hv0SkngjMDz7IbHwrEidSEnvS1JZgFEJUuZE
+	 HAQjDZI9P5SC/vI1+sXnBCtc5xYZzPZatawA65KBbbS3rruU6JiMWqtLGlpaJiJeib
+	 eVYNwnmQqqRTmMw8ahDaHVE+028UrW2pZgS0k2JKMf1gtIO2eVrVmUqbh2gearrQRI
+	 YAhMj+vyHXYh8k28SSKMB4yoTHPchMEuyPydWNNqw5abLpAHaiNGZp0lSu8AUnn+89
+	 w8mUhgWJ3Bekg==
+Date: Tue, 21 Apr 2026 10:25:08 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Piyush Patle <piyushpatle228@gmail.com>
-Cc: jic23@kernel.org, ak@it-klinger.de, dlechner@baylibre.com, 
-	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: avia-hx711: add
- avia,hx710b compatible
-Message-ID: <20260421-heavy-amigurumi-badger-c7ef9f@quoll>
-References: <20260419174654.683692-1-piyushpatle228@gmail.com>
- <20260419174654.683692-2-piyushpatle228@gmail.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] drm/bridge: imx8qxp-pxl2dpi: avoid of_node_put() on
+ ERR_PTR()
+Message-ID: <20260421-godlike-rigorous-lori-23e2df@quoll>
+References: <20260420024559.114664-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,115 +44,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260419174654.683692-2-piyushpatle228@gmail.com>
+In-Reply-To: <20260420024559.114664-1-lgs201920130244@gmail.com>
 
-On Sun, Apr 19, 2026 at 11:16:39PM +0530, Piyush Patle wrote:
->  description: |
-> -  Bit-banging driver using two GPIOs:
-> -  - sck-gpio gives a clock to the sensor with 24 cycles for data retrieval
-> -    and up to 3 cycles for selection of the input channel and gain for the
-> -    next measurement
-> -  - dout-gpio is the sensor data the sensor responds to the clock
-> +  The HX711 is a 24-bit ADC with selectable gain (32/64/128) and two
-> +  differential input channels. Channel A supports gain 64 and 128;
-> +  channel B supports gain 32.
->  
-> -  Specifications about the driver can be found at:
-> -  http://www.aviaic.com/ENProducts.aspx
-> +  The HX710B is a 24-bit ADC with fixed gain of 128. Channel 0 is the
-> +  differential input and channel 1 measures the DVDD-AVDD supply
-> +  voltage difference.
->  
->  properties:
->    compatible:
->      enum:
-> +      - avia,hx710b
->        - avia,hx711
->  
->    sck-gpios:
-> @@ -40,13 +40,45 @@ properties:
->  
->    avdd-supply:
->      description:
-> -      Definition of the regulator used as analog supply
-> +      Analog supply voltage (AVDD). Also serves as the voltage reference on
-> +      both chips; no separate vref-supply is required.
+On Mon, Apr 20, 2026 at 10:45:59AM +0800, Guangshuo Li wrote:
+> imx8qxp_pxl2dpi_get_available_ep_from_port() may return ERR_PTR(-ENODEV)
+> or ERR_PTR(-EINVAL). imx8qxp_pxl2dpi_find_next_bridge() stores that
 
-There is no such thing as vref-supply.
+That's bug there.
 
-> +
-> +  dvdd-supply:
-> +    description:
-> +      Digital supply voltage (DVDD). HX711 only.
-> +
-> +  vsup-supply:
-> +    description:
-> +      Supply voltage for the on-chip regulator (VSUP). HX711 only.
-> +
-> +  rate-gpios:
-> +    description:
-> +      GPIO connected to the RATE pin (HX711 only). When driven low the
-> +      output data rate is 10 SPS; when driven high it is 80 SPS. If
-> +      omitted the RATE pin state is determined by the board wiring.
-> +    maxItems: 1
->  
->    clock-frequency:
-> +    description:
-> +      Controls the SCK bit-bang timing. The value is used to derive the
-> +      delay between SCK edges; keep the SCK high time below 60 us to
-> +      avoid triggering chip power-down mode. Defaults to 400 kHz if not
-> +      specified.
-
-Don't repeat constraints in free form text. Drop last sentence.
-
->      minimum: 20000
->      maximum: 2500000
->      default: 400000
->  
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: avia,hx710b
-> +    then:
-> +      properties:
-> +        vsup-supply: false
-> +        dvdd-supply: false
-> +        rate-gpios: false
-> +
->  required:
->    - compatible
->    - sck-gpios
-> @@ -58,10 +90,19 @@ additionalProperties: false
->  examples:
->    - |
->      #include <dt-bindings/gpio/gpio.h>
-> -    weight {
-> +    weight0 {
-
-Don't change the node names.
-
->          compatible = "avia,hx711";
->          sck-gpios = <&gpio3 10 GPIO_ACTIVE_HIGH>;
->          dout-gpios = <&gpio0 7 GPIO_ACTIVE_HIGH>;
-> +        rate-gpios = <&gpio0 9 GPIO_ACTIVE_HIGH>;
->          avdd-supply = <&avdd>;
->          clock-frequency = <100000>;
->      };
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    weight1 {
-> +        compatible = "avia,hx710b";
-> +        sck-gpios = <&gpio3 11 GPIO_ACTIVE_HIGH>;
-> +        dout-gpios = <&gpio0 8 GPIO_ACTIVE_HIGH>;
-> +        avdd-supply = <&avdd>;
-
-Why no clock-frequency? So basically difference is one property? Then no
-need for new example, less code to maintain.
-
-But OTOH, where is vsup and dvdd?
-
-> +    };
-> -- 
-> 2.43.0
+> value in a __free(device_node) variable and then immediately checks
+> IS_ERR(ep).
 > 
+> On the error path, returning from the function triggers the cleanup
+> handler for __free(device_node). Since the device_node cleanup helper
+> only checks for NULL before calling of_node_put(), this results in
+> of_node_put(ERR_PTR(...)), which may lead to an invalid kobject_put()
+> dereference and crash the kernel.
+> 
+> Fix it by avoiding __free(device_node) for the endpoint pointer and
+> releasing it explicitly after obtaining the remote port parent.
+> 
+> This issue was found by a custom static analysis tool.
+> 
+> Fixes: ceea3f7806a10 ("drm/bridge: imx8qxp-pxl2dpi: simplify put of device_node pointers")
+
+Nope. This is not a fix for buggy driver. Fix buggy driver.
+
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+> v2:
+>   - Fix DEFINE_FREE(device_node, ...) directly
+> 
+>  include/linux/of.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/of.h b/include/linux/of.h
+> index 2b95777f16f6..600a6e8418bb 100644
+> --- a/include/linux/of.h
+> +++ b/include/linux/of.h
+> @@ -135,7 +135,7 @@ static inline struct device_node *of_node_get(struct device_node *node)
+>  }
+>  static inline void of_node_put(struct device_node *node) { }
+>  #endif /* !CONFIG_OF_DYNAMIC */
+> -DEFINE_FREE(device_node, struct device_node *, if (_T) of_node_put(_T))
+> +DEFINE_FREE(device_node, struct device_node *, if (_T && !IS_ERR(_T)) of_node_put(_T))
+
+So you open coded IS_ERR_OR_NULL. No, wrong pattern. Fix buggy pattern
+in the driver.
+
+Best regards,
+Krzysztof
+
