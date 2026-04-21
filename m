@@ -1,101 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B223803E4;
-	Tue, 21 Apr 2026 08:31:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF14379973;
+	Tue, 21 Apr 2026 08:32:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776760318; cv=none; b=IqivSh/F75yGyGcA1WuUxXK1thh5rmbPhvDx59toAddXOXfdzokXmhork6ZvPZY2L783PqVTtOGLyBbrIdUO61xZXqxs/3FnANHSuOHXtQqpoqNUVceuaqjftva5twqSijqdBOGxQvS5YLFVN+ozFCh92VrjrLi9wOiubTHrBiM=
+	t=1776760350; cv=none; b=fwmg67d70FK/YweV8Ai8d8NQLh37N5ryNVTX6u5zd2/idNsoVo/jw8O5JL5MvOmpr7UP5Yijy1fY06PaKWoqdFgY/TY1Q7sTe8VOdskOxirhsYZsjrjKs7W+sogDQPwgSrdvCvF2zzvnnf81qYM73YeocpkJhKedlBdgo+zVQZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776760318; c=relaxed/simple;
-	bh=lSG5mZzz4ZVxjl+XwgMwSpczw/DmjPVqEDVpkCtBrig=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nv0ghByqesTb6/NTAd277gZ7btJwGC9g2Ar1G0II11/aDU1pTDH2bH3xnOadfwucrRMe3uCRCF6n9jPllFTfYVbGRzVOgRztQNVfnbF/FCmKoChrjyGEgxTfn7Z9rvWlL9ZI89ABC6F/XDeU7lB7uH+JCBDRXDb7NwDnyjTp5tQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pjoCr8C4; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776760350; c=relaxed/simple;
+	bh=6BHMH8mEr/0NOe6m1qw10Yn/BZF98BlXaap5gN6nvH4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sdScIl4Hh2rY4/w0hZmXqnWYStddOnWEUAzUs7qlDyLaCQHu7bktRZchoAinYrPvkpvLxpHi8gw9LVv3N0Gbpkok1jUfNsHyZSFUGuhtj+z12iLPQlbRgXLD+omLpbFXR8sc3v5HzYYVKO43QFp8yWnf7XGtEExAzd3JBvzkuqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=izYgBXCI; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=p6gVPAhF; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pjoCr8C4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 343A6C2BCB5;
-	Tue, 21 Apr 2026 08:31:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776760317;
-	bh=lSG5mZzz4ZVxjl+XwgMwSpczw/DmjPVqEDVpkCtBrig=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pjoCr8C4ijUDzBvExFv6FJut8X1ldqhuxZGgnJCGCjMk02dnb++mabrhXLKHofcmu
-	 jXtBRM9TSD9/aJC5XkHRutqj+KxWZwo3hksp8IEAGoE/RLWgRjEWg0iSqoOAPhWUYD
-	 fydjW+Wy0GTGpGXjTwGw6z+Q828uQwWCU8ZGJuCmM1vc/O5xutEzjqtdyvrF8ILf5v
-	 UVdssxPVlMS/ylcnfvfI+AUfdMWEuno0pmFOu911EL72SDpFcUM5Mv6gJasxDO1YqI
-	 2sklmfQnTfy0TMxxR42knhmN8IW2TzdpZQVhAeJzC4o1Am5Mow56epKyjfnOtMfgny
-	 sSR3QghOeFhEw==
-Date: Tue, 21 Apr 2026 10:31:55 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: pshete@nvidia.com
-Cc: linusw@kernel.org, thierry.reding@kernel.org, jonathanh@nvidia.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, webgeek1234@gmail.com, 
-	rosenp@gmail.com, linux-tegra@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] dt-bindings: pinctrl: Document Tegra238 pin
- controllers
-Message-ID: <20260421-spotted-trout-of-satiation-1dab00@quoll>
-References: <20260409131340.168556-1-pshete@nvidia.com>
- <20260420100601.343707-1-pshete@nvidia.com>
- <20260420100601.343707-3-pshete@nvidia.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="izYgBXCI";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="p6gVPAhF"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1776760331; bh=G7QDpUBwk9YbJvVoe+zZtV5
+	mQuVtlP71VBKXVRm/IQM=; b=izYgBXCI2m9YmXbO45jExsK00zULgY78inxidcx1Y9XQ8iS5n1
+	knL2OxoRPmcIE8aXa9U/TBFEtNf+GTCuY4mCphQdqt4bd8Gnm/rvD+p77gM1d8MyJJqHFRqcvxU
+	v+dHrQIEIW7iMJoK35fvXNEQsBuYW6AY4rCh+fqAcNp3FEaeM38VP6X7vMs17z6ZvUOVXQv8n48
+	I59VvwCFV9ttrE0aM7/ywlh8SwpnOAEI1+NKm2ZzB1roLP5HwBe3/06R4Z5pWqNN4P0v1cvMVfa
+	sM/m+fOy1uMvB/IkEU2JX4LVE09zVCE4wWR5iM+znN1q3r/KN6/hdVEOY0TxhurJpAA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1776760331; bh=G7QDpUBwk9YbJvVoe+zZtV5
+	mQuVtlP71VBKXVRm/IQM=; b=p6gVPAhF7Bgi5JCkIb/5uPFw5ckAzvHkr2dY/iXAeuMmNg3/19
+	3a9TDIMn6TnoVUhMoB/4fceiL6d2DvTEMjDw==;
+Message-ID: <a32fda72-6bf8-479b-bae3-2e551671945a@mainlining.org>
+Date: Tue, 21 Apr 2026 11:32:10 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260420100601.343707-3-pshete@nvidia.com>
-
-On Mon, Apr 20, 2026 at 10:05:57AM +0000, pshete@nvidia.com wrote:
-> From: Prathamesh Shete <pshete@nvidia.com>
-> 
-> Tegra238 contains two pin controllers. Document their
-> compatible strings and describe the list of pins and
-> functions that they provide.
-
-Please wrap code according to the preferred limit expressed in Kernel
-coding style (checkpatch is not a coding style description, but only a
-tool).  However don't wrap blindly (see Kernel coding style).
-
-Do not attach (thread) your patchsets to some other threads (unrelated
-or older versions). This buries them deep in the mailbox and might
-interfere with applying entire sets. See also:
-https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
-
-
-Really, just try yourself:
-
-
-b4 diff '20260420100601.343707-3-pshete@nvidia.com'
-Looking up https://lore.kernel.org/all/20260420100601.343707-3-pshete@nvidia.com/
-Checking for older revisions
-Grabbing search results from lore.kernel.org
----
-Analyzing 22 messages in the thread
-WARNING: duplicate messages found at index 1
-   Subject 1: pinctrl: tegra: Export tegra_pinctrl_probe()
-   Subject 2: arm64: tegra: Add pinctrl nodes for Tegra264
-  2 is a reply... replacing existing: arm64: tegra: Add pinctrl nodes for Tegra264
-Looking for additional code-review trailers on lore.kernel.org
-Analyzing 0 code-review messages
-Preparing fake-am for v1: Add Tegra238 and Tegra264 pinctrl support
-  range: 59c488f24a80..90c14406cf64
-Preparing fake-am for v2: pinctrl: tegra: Export tegra_pinctrl_probe()
-ERROR: v2 series incomplete; unable to create a fake-am range
----
-Could not create fake-am range for upper series v2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: sdm630: describe adsp_mem region
+ properly
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ quic_chennak@quicinc.com, quic_bkumar@quicinc.com
+References: <20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v1-0-03b475b29554@mainlining.org>
+ <20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v1-3-03b475b29554@mainlining.org>
+ <70d4dbe7-0e5b-4065-858e-b5a57bbf45e3@oss.qualcomm.com>
+ <54b1be0d-1ec3-405c-b1ff-bc759b80e7bc@oss.qualcomm.com>
+ <905374e9-1d90-4789-871f-f28e5d7ff8b1@oss.qualcomm.com>
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <setotau@mainlining.org>
+In-Reply-To: <905374e9-1d90-4789-871f-f28e5d7ff8b1@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-Can nvidia finally start using normal/expected process? There are tools
-for that for a few years...
-
-Entire Qualcomm, which upstreams magnitude more patches than Nvidia,
-uses b4 (basically "must" use otherwise we will complain). Why it cannot
-happen here?
-
+21.04.2026 11:29, Ekansh Gupta wrote:
+> On 17-04-2026 20:45, Ekansh Gupta wrote:
+>> On 15-04-2026 15:22, Konrad Dybcio wrote:
+>>> On 4/15/26 11:40 AM, Nickolay Goppen wrote:
+>>>> Downstream [1] this region is marked as shared and reusable so
+>>>> describe it that way.
+>>>>
+>>>> [1]: https://github.com/xiaomi-sdm660/android_kernel_xiaomi_sdm660/blob/11-EAS/arch/arm/boot/dts/qcom/sdm660.dtsi#L448
+>>>>
+>>>> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+>>>> ---
+>>> +Ekansh some insight, please?
+>>>
+>>> We're giving away that memory via qcom_scm_assign_mem() anyway
+>>> and I would assume that making it not-"no-map" could introduce issues
+>>> when the OS tries to access that region
+>>>
+>> With the current version and the upcoming planned enhancements, I don't
+>> see any major benefits of making this as not-"no-map".
+>>
+>> With posted enhancements[1], the plan is to qcom_scm_assign_mem() the
+>> entire memory-region to lpass VMIDs. and un-assign it only during
+>> fastrpc_rpmsg_remove(). There have been implementation in downstream
+>> where this memory is dumped in case of SSR or audio PDR using minidump,
+>> so marking it `reusable` might make sense there, but that dump logic is
+>> not added upstream.
+>>
+>> Upon checking the DT, I see a bigger problem here, this memory-region
+>> looks to me unused, it's not added under fastrpc adsp node(ref. [2]).
+>> Please correct me if I am wrong about this point.
+>>
+>> [1]
+>> https://lore.kernel.org/all/20260409062617.1182-1-jianping.li@oss.qualcomm.com/
+>> [2]
+>> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/arch/arm64/boot/dts/qcom/lemans.dtsi#n7500
+> Just had a new finding on this. There is one more reason why it is not
+> added as no-map in downstream. This audio PD carve-out region is not
+> defined for most of the platform's memory-map.
+>
+> With a change to qcom_scm the memory during boot-up, issue was observed
+> on RB3Gen2[1], where EFI firmware was loaded in the memory region which
+> was causing boot-up issues.
+>
+> So defining it as no-map might not be correct and it might need be
+> changed for all DT files.
+So It needs to be set as not-"no-map"?
+> I don't have a history of why it was added as a "no-map" region on
+> upstream but looks like same has been followed for almost all the
+> platforms. This needs to be modified based on the memory-maps and the
+> region needs to allocate memory in a dynamic manner.
+>
+> [1] https://github.com/qualcomm-linux/kernel/pull/487
+>
+> //Ekansh
+>> //Ekansh
+>>> Konrad
+>>>
+>>>
+>>>>   arch/arm64/boot/dts/qcom/sdm630.dtsi | 3 ++-
+>>>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+>>>> index 4b47efdb57b2..13094b5e9339 100644
+>>>> --- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
+>>>> +++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+>>>> @@ -495,8 +495,9 @@ venus_region: venus@9f800000 {
+>>>>   		};
+>>>>   
+>>>>   		adsp_mem: adsp-region@f6000000 {
+>>>> +			compatible = "shared-dma-pool";
+>>>>   			reg = <0x0 0xf6000000 0x0 0x800000>;
+>>>> -			no-map;
+>>>> +			reusable;
+>>>>   		};
+>>>>   
+>>>>   		qseecom_mem: qseecom-region@f6800000 {
+>>>>
+-- 
 Best regards,
-Krzysztof
+Nickolay
 
