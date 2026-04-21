@@ -1,44 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 180B93BC675;
-	Tue, 21 Apr 2026 10:34:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 248FF3A1E7F;
+	Tue, 21 Apr 2026 10:37:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776767676; cv=none; b=kg8mL+A2B14Jup2PUQwZp45B8ttM84acC8+r0mI4mYCkrSatFDZC6QjnhaCeXJHHKxfxLTY3UUMAdr18S4bvkqsxuYOAEisSDotbo3vRd4cYLq4elPeTXkK+2id4O97/Xc9chJWr78yFflA0pJXffrzh0UxA3yox20OzxC+tCi0=
+	t=1776767854; cv=none; b=P1ogiQeiOp3CcmB+JlR3qT/Hflu3mvg73m+T3LLJ4n+h8GO088ApQnbJPwY1HnoUPRv1HnKx6X6XjQS8FM5iskouDbRj6tQSforxkW3XyDaTCnQuQI2OLl4vAEaXgVsPHicZLFllsM9/vUbRt4ru3/kO1cCODZ++7I7+10So2gQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776767676; c=relaxed/simple;
-	bh=SH0mo2WCb7oNgU42k3b2y9Ijw+YMkFgMBinzKGeUkX0=;
+	s=arc-20240116; t=1776767854; c=relaxed/simple;
+	bh=6ZjoCv72143vsfvC/JePc4KpnLy7+o96aAmw/tqD180=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iKTaeYqBGp+mp9u32aiqUmcCRUCTSZ1FwYsZX3fblcxXtkm9I2qdULBCS/nFbVUkeJB3YAW34hhqjykDpsgfu3s1WnFF9ZBCMlWeYy1MUXulPcoansXs23C7ZTpMixuxsnIT74j3Nnv9lQXNvVD32NV+s9pRdEMx27xA3krYnrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u1n/0ujD; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=dW8r8sJk+slIaQTZFtORTKJyNsTfRDC5fJLogPMm1jr+UUm8BJXD2DDtWeL4WUiMLzPKzNJRbvQvIKtz7+esVjqNFro62FJ4/RyaZI5mtUPhFDblC0u4pMsGYtrn0RZTT1u6E2Kqdrt8v7zVjgsfmyozvmB92rH+WNmvN6mfLKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T9OfPvfm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u1n/0ujD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20AB6C2BCB0;
-	Tue, 21 Apr 2026 10:34:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T9OfPvfm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6572CC2BCB0;
+	Tue, 21 Apr 2026 10:37:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776767675;
-	bh=SH0mo2WCb7oNgU42k3b2y9Ijw+YMkFgMBinzKGeUkX0=;
+	s=k20201202; t=1776767853;
+	bh=6ZjoCv72143vsfvC/JePc4KpnLy7+o96aAmw/tqD180=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=u1n/0ujDjpmCFfHUOdrtVH5Z9lNebLKv77Mmhf8H7jZUEUhdUQNlMJMoboXmuCZ4z
-	 7y62RTBCPFwY1ZPX9zWDiJlSe0pCNysjlMCJBHmPsqA/QF18hONzEnl0IKfwUIV29e
-	 SivR2MZNH5LHsEI/Vk80BY5q4VEMCpW/qO1c67ognakwDf9xBLFZBTZBiY06XOnUi+
-	 BrqgDVaQUpmPtXnp1OoeeAyaFw/FTwjkcCqlM5PU9hBUY75+t5vtufjUrbNSQGPQ9E
-	 pJa63LALtAgfmxglTykSFzUCDk8oiB9isZRfms03xPumXJqGpHfpzTW29EIUcYa64N
-	 hgUUExtk0DJmw==
-Date: Tue, 21 Apr 2026 12:34:33 +0200
+	b=T9OfPvfms9roYL+GsVydxP/cqoSjPgXxE0gS86wUq6wCTBQdT4BHVyEtZD6I1lNI+
+	 JieUXuTCT/WHpk6oSrKLe+eMyodQ7XlUhPt8MZI0DhzBtved0E0CZqp1FDIF8eA4Ce
+	 LoBghzeh4xKJOz7sWjcqDJP9YkQe37HvEMA2EA/9yviGT3NPWRvFG5YDy2qa+gwF/h
+	 6M8OJ3mdXleemUP5rDVGXte8zYPHx28yWbdCeMdXKKBR5qB1GZV/KUuUqy+JZ3Ryai
+	 8qJNXuc4sdIpTztbsDidYSYfVt3To9eZb7jtBLkHKyZoRUm/IQWDx2Zfu2tj4iw02s
+	 kjWnDd5O966dQ==
+Date: Tue, 21 Apr 2026 12:37:31 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Praveen Talari <quic_ptalari@quicinc.com>, 
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
 	Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, 
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: serial: Add compatible for Qualcomm Nord SoC
-Message-ID: <20260421-spotted-fiery-crab-4defd7@quoll>
-References: <20260420060524.1248432-1-shengchao.guo@oss.qualcomm.com>
+	Kumar Dwivedi <ram.dwivedi@oss.qualcomm.com>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] scsi: ufs: dt-bindings: Add compatible for SA8797P
+ UFS Host Controller
+Message-ID: <20260421-tiger-of-pastoral-potency-d4502e@quoll>
+References: <20260420100416.1252983-1-shengchao.guo@oss.qualcomm.com>
+ <20260420100416.1252983-3-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,21 +49,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260420060524.1248432-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20260420100416.1252983-3-shengchao.guo@oss.qualcomm.com>
 
-On Mon, Apr 20, 2026 at 02:05:24PM +0800, Shawn Guo wrote:
+On Mon, Apr 20, 2026 at 06:04:16PM +0800, Shawn Guo wrote:
 > From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
 > 
-> Document compatibles for QUP GENI UART controller on Nord SoC with
-> fallback on SA8255P compatibles.
+> SA8797P is the automotive variant of the Nord SoC.  Like SA8255P, its
+> platform firmware implements an SCMI server that manages UFS resources
+> such as the PHY, clocks, regulators and resets via the SCMI power
+> protocol. As a result, the OS-visible DT only describes the controller's
+> MMIO, interrupt, IOMMU and power-domain interfaces, making SA8255P the
+> appropriate fallback compatible.
 > 
 > Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
 > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 > ---
->  .../bindings/serial/qcom,sa8255p-geni-uart.yaml     | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
+>  .../devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml        | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml b/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml
+> index 75fae9f1eba7..f2f3bfc73216 100644
+> --- a/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml
+> +++ b/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml
+> @@ -11,8 +11,11 @@ maintainers:
+>  
+>  properties:
+>    compatible:
+> -    const: qcom,sa8255p-ufshc
+> -
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Do not remove the blank line separating from the next property.
 
 Best regards,
 Krzysztof
