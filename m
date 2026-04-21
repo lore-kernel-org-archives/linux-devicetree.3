@@ -1,138 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8DF2F4A05;
-	Tue, 21 Apr 2026 21:33:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776807212; cv=none; b=Zej1RspqZqcTNA2mbdXSbX5f34XMtajp+x1dAESkweSDIGZiBvs2GJwRm5dygFUMNHxG2JuA3WS/mas+1SnM28kMDbcevNWU61qR5LymuziDZs1YlZ0VrYYGpTtG4oHwlQhteRVSL9vp2banEGXKRf2jbvDaLzD+P1epPWnlAAc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776807212; c=relaxed/simple;
-	bh=vatupuq4WrABpSuEUMYUtujivXgVDiHk3e1MmNVxM+Q=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=e1kkqojvvb7JKiyHcSlbBsam7OTIMBBZQS6ktaBp07FzxRJ+3rBhtw0Dv8FXXsQBEUiwlwc2CLnacNUxdPuAJ5Ocy8zyq/z+XSHghqguR+xsIvSi1ug384x3X+rnZ5AWH85zkZtAcmQlrZes8q6xS7T0aJ1i6xB0cPa0OZWuDlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RfEYijh7; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB5531282F
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 22:40:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776811250; cv=pass; b=X8jDV+OlQlgvMbG6rshmF+WZFByD0aNziT+NFA4tEg/9Y3jzXWGG/bZT8FK0c+GZQ0JqNxURB26Xu5cJr75d3xcU9hpO35kmDjRdpldqoxDJddPwzEbS3M3umDcsIuRWZN8HmqYFioE2ke44GFDNCd4PA0p/ovCaH9KKvDFfnjI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776811250; c=relaxed/simple;
+	bh=H/lW5n9AgeEESY4Z8u9EDh1YC1Lu24b5nJUe3QRUpBg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qnE8R5IhUbTNUQh9CdqOH22hsTNjJpj2e6c0Z0Qhw+Xvnho1Wh4ntPfYJ0kHGlBk80k1kCiSce87NZc5m6uFhAPNKCEG/E7JsaTIcD1qy0ebxcESpbZ/Ev9yWSaf2xO0nMMxsM3W53Zfhx4+cS97bjAu77EbEGWGIFMkeE0T+iY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mSGI8apJ; arc=pass smtp.client-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RfEYijh7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1D63C2BCB0;
-	Tue, 21 Apr 2026 21:33:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776807212;
-	bh=vatupuq4WrABpSuEUMYUtujivXgVDiHk3e1MmNVxM+Q=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=RfEYijh7XhOIIxtCBiZK1gn5IXNLv5qcn5amQw5CqC2XQ0mRjsWMy0SwC/jKxN8Ha
-	 +lGNHgaycbYUVz/8qUQTAV87+keU8WY1I1fe4qL/Cubm0CmcRljTFyT4oCGT3XsCWG
-	 21JAOI+XCTuLyqtAQ0JY89PQj9ztU0bsVRSzsv4sAV4REIQeaAk9EIXe86axCL8Lcv
-	 P49oQppEQE3W5ysKk35W1yekjIPJzFLIHvqS9YHqLVNNeeeAs1gWZnOJuQHTbQ76Mo
-	 fn4ArOBoMvEaOR/5jHbzodnC5RnVkOGNRxUq58/UbFZ0QTUKrwlb9kjzN5QiQ3GPHQ
-	 wuq7UQCA8GLiQ==
-Date: Tue, 21 Apr 2026 16:33:30 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mSGI8apJ"
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-7b4ee3a88e1so45393517b3.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 15:40:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776811249; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Dh6h8yeXkiFm3EMf0EC0UpToh5DnTGiCcoj7le6qC3S2rmxBH+SaAxeZf+crjh7k9+
+         jcMUqMM6oYsGqWqJ4Ja9Jb9fHkp2+XUvKMGhrCMhWNKpp1BW0KwmXeqG102o8EYu/jw+
+         LGgRFecujcILIYCuRX7Eja0CgnuFUm3wkznuurLeZgrCsglV6eLkeP4KGSIEJIgXDrVP
+         /20wHg9+Csp31GAS9htJL1h8P6L6iaKanWW+EmxO200/VefzY5IIR3hURq+KSN6hDrdy
+         UktHcE4f7aKYUz3Qu114MGu2gK6ooRjy5H/vUpbY567WeASL3w29U/kLibcayKwQMbE6
+         3rIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=j5TGRkmJ9uWRpiv0lmeldhRJrZ+cIiXJoGf5IZw7Rj4=;
+        fh=4WZmI0U6Tp40thfyCsgaGJ2gFUhqZhiS6fR8A6wcm7M=;
+        b=CIphBZkaO9/I7tsEAhyLgcfKtyXc+dGXKhktOAeZ+eMQwOiwfSwtLuLQ3MWR8g2W3e
+         TpMGWhQmxEstwUPtYuERVbL1o71UrJ/M34s8Pty3om87mrR7pYJGX7ryNxVp2jcNGoaf
+         hE226NN1oTID3EAEA8TKiQkdk+PrAhvCUa9Fi6I6JM3n14tB/ggvEok7CU7FrfAaQ8tg
+         rxzStfk/fNHltapDoPE1FlCFsBj1wEKxEuB1WViCGxXTaqcQgSVJxl4qjgE4rEY6m3aM
+         +m+1o/D/z6tAV42LmdNlOu2P/lyuIurIDBOK8rBHbOTsDdvIJfHLnrsqVMqpOHGTQNnp
+         MrMA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776811249; x=1777416049; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=j5TGRkmJ9uWRpiv0lmeldhRJrZ+cIiXJoGf5IZw7Rj4=;
+        b=mSGI8apJQChFqL1XdQGWrWYcx3KOor1ZQFHynhDd3nB1jjFike2X0b20L5E2bBV+dj
+         FN+25tgu3wyP1kOjPz1aRpVWGCysLjzCXQu0w6UBK1hbjERCXgHvfehlPSZVRXdeExoM
+         1v1guYmvVQs2pjSNpZPiBIBq8enJR52ppF7gydVYfNIPxLmGM2nlesQMDhzCgjVQM5Z6
+         ifLXGPMzOXjhram/Le7co7dTJyzqjQnXciebe1PEeHkxKB9I1K8c4v7cL+EYBeR2D1aU
+         VzE0tNc/wlH9Laoa6nBdPiNDL71SRO1Uhgxp1zJvtcMFB2IT2rU/OjCbg7P26o5mK6DD
+         kljQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776811249; x=1777416049;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=j5TGRkmJ9uWRpiv0lmeldhRJrZ+cIiXJoGf5IZw7Rj4=;
+        b=b9D/OVyLwthgQ1aT3eoJ0PU5HMu84f6lF9IPD7nWSM67UqB7Z5ikcYNPxudav1GBz6
+         Rl1qkMIvMeMwXx3uvHCu23QvxNpUFtL0tuiGYwZw+S/WeDcFNPUGBJAITWsu9PHY2r0+
+         brb81jAyJWK6qRTSZ0Ta+RL1EWCjjUFCwOSSMKklz0+dMSdEHtYPlkfK4Bo1voo6SZTb
+         EJ/z6R4ZkR/9cmQhl8IhFaMCCne3+PN3H9VYXMin1csAntHzzCM5fWgM8yXWxxwNzfJt
+         pLnCOZLDEPEyxbN7sWvUefBrzy0cCkLyzXIQdFRZVdNQv5c1gDoG+oaCERIkJPTDsbEr
+         b+4g==
+X-Gm-Message-State: AOJu0YxYl1jczSJZ4MX158y7rc5aMDjY8olyL3dGP1I+fC5JMlRUMqQ0
+	PcnN+FEqIdBhASFIeHlnqKFLLJI8bTfd+2+qs7yinHLDLlgjbv6GMXQGQMuomIMvc3u7T6VG3eZ
+	38kmn3ZDFRBv6BE6Ohmcip5ZBVtD8qY3e9bf5
+X-Gm-Gg: AeBDievnzXDIBUtve1xSjdUFBILi6cQGiRgY2TsVfc+O3SFiOBL6MXyXmX9QuLx4Gyx
+	PQ5nCFgYZxIizNrYMs1hl3apfxnDbzUUainvVuI/QBCd5FW/vrgdhHazOgodjkTTpWiY/1th7JH
+	KK6hfIsWGg+eXhcp+fFOr4CNJKg/oNWVzYBnyu5oPlKw3V6lQB/K2S7zR3cg+cP5C3DoPFjzByB
+	/4KH+fRSvlTQg1bP/HVM1WHduZAD+wgamWG0+Qt7KQrgUStRRsICY7JzcHM2jyxmA9IpvpOQdaB
+	KW0K4lhcicR39tE=
+X-Received: by 2002:a05:690c:e682:10b0:7b3:ca3b:84a4 with SMTP id
+ 00721157ae682-7b9ecef6d27mr153454607b3.18.1776811248566; Tue, 21 Apr 2026
+ 15:40:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>, ath11k@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-pci@vger.kernel.org, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, Xu Yang <xu.yang_2@nxp.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, linux-spi@vger.kernel.org, 
- Patrice Chotard <patrice.chotard@foss.st.com>, 
- Rao Mandadapu <quic_srivasam@quicinc.com>, Mark Brown <broonie@kernel.org>, 
- linux-sound@vger.kernel.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>, linux-wireless@vger.kernel.org, 
- Johannes Berg <johannes@sipsolutions.net>, 
- Yang Xiwen <forbidden405@outlook.com>, 
- Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
- Alex Elder <elder@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
- Ulf Hansson <ulf.hansson@linaro.org>, Stephan Gerhold <stephan@gerhold.net>, 
- linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>, 
- Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski <kuba@kernel.org>, 
- linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
- Bjorn Helgaas <bhelgaas@google.com>, Jeff Johnson <jjohnson@kernel.org>, 
- linux-mmc@vger.kernel.org, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Peng Fan <peng.fan@nxp.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, ath10k@lists.infradead.org, 
- netdev@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+References: <20260418140420.2221736-1-ekffu200098@gmail.com> <177679993172.1520888.14733708891951658401.robh@kernel.org>
+In-Reply-To: <177679993172.1520888.14733708891951658401.robh@kernel.org>
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+Date: Wed, 22 Apr 2026 07:40:37 +0900
+X-Gm-Features: AQROBzDVEVIfqtQpaJQzlRXTThkeDG_e8vOsxomV-bixCvTyDOYMOjCl9UDlGLw
+Message-ID: <CABFDxMEbEOY4JuFnfTVTBYttsKt1HDVJScwzE46xEfXU5jJeqQ@mail.gmail.com>
+Subject: Re: [PATCH] of/fdt: remove redundant memset in __unflatten_device_tree()
 To: "Rob Herring (Arm)" <robh@kernel.org>
-In-Reply-To: <20260421195836.1547469-1-robh@kernel.org>
-References: <20260421195836.1547469-1-robh@kernel.org>
-Message-Id: <177680720998.183058.5012840252939438533.robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: Fix phandle-array constraints, again
+Cc: devicetree@vger.kernel.org, saravanak@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi,
 
-On Tue, 21 Apr 2026 14:55:25 -0500, Rob Herring (Arm) wrote:
-> The unfortunately named 'phandle-array' property type is really a matrix
-> with phandle and fixed arg cells entries. A matrix property should have 2
-> levels of items constraints.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
-> Can someone from QCom provide some descriptions for 'qcom,smem-states'
-> properties.
-> ---
->  .../display/rockchip/rockchip,rk3399-cdn-dp.yaml         | 2 ++
->  .../bindings/mmc/hisilicon,hi3798cv200-dw-mshc.yaml      | 7 ++++---
->  Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml | 6 ++++++
->  Documentation/devicetree/bindings/net/qcom,ipa.yaml      | 6 ++++++
->  .../devicetree/bindings/net/wireless/qcom,ath10k.yaml    | 5 ++++-
->  .../devicetree/bindings/net/wireless/qcom,ath11k.yaml    | 5 ++++-
->  .../bindings/net/wireless/qcom,ipq5332-wifi.yaml         | 9 +++++++++
->  .../devicetree/bindings/pci/toshiba,tc9563.yaml          | 5 +++--
->  .../bindings/remoteproc/qcom,msm8916-mss-pil.yaml        | 3 +++
->  .../bindings/remoteproc/qcom,msm8996-mss-pil.yaml        | 3 +++
->  .../devicetree/bindings/remoteproc/qcom,pas-common.yaml  | 4 ++++
->  .../bindings/remoteproc/qcom,qcs404-cdsp-pil.yaml        | 4 ++++
->  .../bindings/remoteproc/qcom,sc7180-mss-pil.yaml         | 3 +++
->  .../bindings/remoteproc/qcom,sc7280-adsp-pil.yaml        | 3 +++
->  .../bindings/remoteproc/qcom,sc7280-mss-pil.yaml         | 3 +++
->  .../bindings/remoteproc/qcom,sc7280-wpss-pil.yaml        | 3 +++
->  .../bindings/remoteproc/qcom,sdm845-adsp-pil.yaml        | 3 +++
->  .../devicetree/bindings/remoteproc/qcom,wcnss-pil.yaml   | 3 +++
->  Documentation/devicetree/bindings/sound/samsung,tm2.yaml | 2 ++
->  .../devicetree/bindings/spi/st,stm32mp25-ospi.yaml       | 5 +++--
->  .../devicetree/bindings/usb/chipidea,usb2-common.yaml    | 2 ++
->  Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml  | 7 ++++---
->  22 files changed, 81 insertions(+), 12 deletions(-)
-> 
+On Wed, Apr 22, 2026 at 4:34=E2=80=AFAM Rob Herring (Arm) <robh@kernel.org>=
+ wrote:
+>
+>
+> On Sat, 18 Apr 2026 23:04:20 +0900, Sang-Heon Jeon wrote:
+> > All dt_alloc callbacks passed to __unflatten_device_tree() already
+> > return zero-initialized memory.
+> >
+> > - kernel_tree_alloc uses kzalloc()
+> > - early_init_dt_alloc_memory_arch() and dt_alloc_memory() both use
+> >   memblock_alloc()
+> >
+> > So remove redundant memset after the allocation. No funtional change.
+>
+> That is true now, but it wasn't the case before memblock became used on
+> all arches.
+>
+> I've updated the commit message with this info and applied.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Thanks for spotting that and for your review :)
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/remoteproc/qcom,qcs404-cdsp-pil.yaml:99:1: [warning] too many blank lines (2 > 1) (empty-lines)
-./Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml:67:1: [warning] too many blank lines (2 > 1) (empty-lines)
+> Rob
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/i2c/i2c-demux-pinctrl.example.dtb: i2c-mux3 (i2c-demux-pinctrl): i2c-parent:0: [2, 3, 4] is too long
-	from schema $id: http://devicetree.org/schemas/i2c/i2c-demux-pinctrl.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/samsung,tm2.example.dtb: sound (samsung,tm2-audio): i2s-controller: [[4294967295], [0], [4294967295], [0]] is too long
-	from schema $id: http://devicetree.org/schemas/sound/samsung,tm2.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260421195836.1547469-1-robh@kernel.org
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Best Regards,
+Sang-Heon Jeon
