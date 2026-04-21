@@ -1,99 +1,241 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3CE2C030E;
-	Tue, 21 Apr 2026 16:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776787956; cv=none; b=CCljStympmwglKJf/+FcWbI75Qm4vB9XEDyQGnDgyxeKpOnMW7OnP48CeFZPclK3DbVJL70AkBMmU8Ks4SEKENwsuahDTTrhyhfB2qIjzeOYbin2pRfgOEr3IsdDvF5O5Shhqff+VBKmQDeo+NiLZY0qPSE/X8ukY1oMDabZGJQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776787956; c=relaxed/simple;
-	bh=SY3KSOzcorJWAw2/d/aJ85FElGX/2fzt0R+jpBBMhAM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JNjp9O6sY7DuMHu4aBLkvQUdQoeG6DjnFY19HCX2kKYnpOHRqTSAhqFtgCLzuVODbgvPnABv6fHtklQXEKB6aqBRpcE8USRumGaJ2wS5xyRPNXJpoDbpehvhsGL5EoR+o4rraMj00zRwLD0FSZd6W6sL6sTdo5UJiVxP4wRC4Sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
-	 (Exim 4.99)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1wFDi2-000000003X7-2yFJ;
-	Tue, 21 Apr 2026 16:12:22 +0000
-Date: Tue, 21 Apr 2026 17:12:17 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Arnd Bergmann <arnd@arndb.de>, Cyril Chao <Cyril.Chao@mediatek.com>,
-	=?iso-8859-1?Q?N=EDcolas_F=2E_R=2E_A=2E?= Prado <nfraprado@collabora.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Eugen Hristev <eugen.hristev@linaro.org>,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v2 5/9] ASoC: mediatek: mt2701: add HDMI audio memif, FE
- and BE DAIs
-Message-ID: <aeeh4TW0IHLU5zB6@makrotopia.org>
-References: <cover.1776646435.git.daniel@makrotopia.org>
- <59f911bb1a855a00c0d9dd4760f10ff0030fedb6.1776646435.git.daniel@makrotopia.org>
- <95e1067c-3c8e-4dd4-997d-f3be9d2cba29@sirena.org.uk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D31731077A
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 16:14:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776788055; cv=pass; b=p5epfv2qvuP3Lc5vTkfW3M2IkHMEgSbk2fsX5e8TqrBRb7g/Ci5ZmdG3KEuOoIW2GbYkAQwi7v//REtHV8nHG4qYD5mxaGeJrbmKudEDOU0kTeVSVT+2/56qj/+a7/8sKnIeuDa7pWT8EO6eShKgWmK1U7zI3fSfgCSWw17BgJA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776788055; c=relaxed/simple;
+	bh=7gVeWo4+oY4Q0kqA2hOQ1OQ3rgGg0MyfM78M7xgQgbs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LqmYJ//Oor1yKIzbR35xpSIXPbJKTR8TUkrla122uFvDDh6lXFHClKrcl4q1ifs5nsWWryA1JF/fjVEj8VwvGfQEA55vpvXYWSZX/XAtRZY5d9vsHYm5RzMxSpxrlz8VgM4i7QGB9eXpvcodwAJnnbfL5eGoFBHyxSkx+zfcdBw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XmNeARGU; arc=pass smtp.client-ip=209.85.167.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XmNeARGU"
+Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-479d593a0c3so1595180b6e.0
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 09:14:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776788051; cv=none;
+        d=google.com; s=arc-20240605;
+        b=FMlZRGqhnYYG9taDRju1wPeLSskw6NIFdUiph6w8kRv9KVVFbLK1xb/Zz67kfMvQbW
+         JriQ0W5t8JhvrS4SOx2fD8REX7Rtss2fH10KExA8Gyok2BWrvEHhzsUhxYY6/vZDRfx+
+         5Bf9Wj89HM7B2GLoNZG+Aq5mReYDQWIWcynCHnNtEaIBv8Rewxp0YWoYWomfruT98Jz9
+         bXfjZPcp0mvpv10cNXSre9gjXTIWvxVJKDZNy2sC1psneihHaJ3w2hnf5BvEjdfRsJy+
+         60skb5tEuFRas9e6l78VYv1qioiHpUMd8JRCv+tmym7oplDJfsleSlSaWWWyjO8KZCo1
+         v+SA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PoH5cen/vhOZ0DzwkKLECtpXsvLoy+/ZJjPSwZrY7fU=;
+        fh=jryZIEZ2GVnXmV/DD0E2tWG01nvW7EeaZfwAwhoYI2s=;
+        b=QPhDeGFF99CQTGHZOawtV1/fIqxlnpU4ov6e9mxfWQ97FWjOFULjN6ktpocuU3Qh0v
+         Mj/4Edu+guI4mFeFiw5/7qrUPssSAQ7dQk5SymCPBz90rVJPrMzeLDoeNycEfZKtIcUu
+         va2SHN/EYSYSBsyTW7N3zpJpWN3RRatzMe3BT9hjoJx9UPkV4Cu1Sgrp7py69vKong4o
+         Vu/5y3ZgfdXBdqtvJM1QcPsLih6UnHQig9REdlbTKiilWzsoDgR6MaGR6ctz+d2/EjCB
+         QAkH+UiFCmQc8id2rufG1k4HFPiWzPJzMxap+jW8fqU3zPJI4slJhXkIsEAgEhVBct8i
+         g2eg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776788051; x=1777392851; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PoH5cen/vhOZ0DzwkKLECtpXsvLoy+/ZJjPSwZrY7fU=;
+        b=XmNeARGUnnlcwiV7BJsr+K+o3w+3YiMZQqFfj+7ZqsnNYnqAgrIOwiCKCjv2sMUEzc
+         yIXQgQVsvy1wz59SjI4n9lDpLWAXiYG1lBi7P/SVw0H7jo9ZH2DrkgJWs9XGGggd1pBK
+         ydVrgiQAa32RvgYHmKrjTAhDkopWTrJpIZXu7XkAy43CbWrTqjwa9Fmp4OgxcWiY5Jxn
+         Lr0Ub7uceLkc4wYDuLot5/7FebWugL3bLRSms8TdtqRrEeQYVTXcbpPhfV4UmUL7OVh4
+         mxjIIvnejg87JaTbIGUxfgXEa2Yps8kcMQUWXU5/EJ305G39DBNAo4UKzJhT3SZPfP5v
+         VFYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776788051; x=1777392851;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=PoH5cen/vhOZ0DzwkKLECtpXsvLoy+/ZJjPSwZrY7fU=;
+        b=IBN0rT5R4a9z4KpW02whQ09Uolt+OeFEsPfzPm5QCMN0cGS9Q556qyW4CRgHqGfR79
+         GVwwpoFbZiOYY2aLZA+ZZJ3dzK96viXRikAFqRbxvi79LlecReXjiQ2U27llQAIlq13m
+         YFE7ou7oeSms1v0Qh0QXQiS1OD33nk3oU7+bLjghji8H+o6DIn0UeyHclaHNm2TCfx29
+         QwsQNamhKvvESIbg6DstoMj0qPgVpZLBPZwdCYfl3DB3123MTUduynZ1Cpi4VdzCyKA8
+         Cm3FE7w8WryQCZIHZi/ilL0YlGWlfwHb3UCrMomV2TUvROJ0bQNG4XsqtuNXRfm9z26w
+         OjUA==
+X-Forwarded-Encrypted: i=1; AFNElJ/Cv3TxKh81Os/D8vI126RoiFUJE+WGxLJVxirzzCxjtkBTPYw80Br08qTFKYRz9oc16weLNwilxpBi@vger.kernel.org
+X-Gm-Message-State: AOJu0YzBAB3bXLNPBG+Jb+DUthV9BrgyOCqoVbemve24QKpXeVeWvnGH
+	tGS3lVhKDBc6sIWG5e0qOZXUfpQg/tggiZoZc4FYloA2ZaxWtwvpVQ9LFoDJyC6NHh8HtS86TdH
+	OBowiC7On5q/MJU4qmAC6DpNqdPoEo0U=
+X-Gm-Gg: AeBDietiRM9Q6ylzRBh2R3XvQK04/fS7oHygB62EQCH/tP/xF3jO8o19S2ttXDB8Qb+
+	zfMUlnLj7xj3R+wO+g1ZhPjWBjfdJOgXjw9uEfidBMQfSAF17djWuosHCNmR+LCxg90clZ/bIJS
+	cZfocTHMS4YoK7Z5WuFKVQidAF7IGt0AVLaYFlRp5qcu9obNtAs9vGo/fPpbP5QrSV8R5Qv5Goz
+	235vFIM/B54hbTANnWdTa2rq5ohYkWbI2SMVqM5KX6YCpyinFLFIAzK673fqA0eAn/Xdl8Pg7dv
+	NLILfh5OiInk39zTRZcY1t8fECQdf/O/kVkbrCWIojTzmgB3NO1ou8jg03Tlb/0KGt1KwEOUteS
+	G6F3A6R/7UftLm8aDqiAf6wMGQ/kvVbfNX8vsK1Fu
+X-Received: by 2002:a05:6808:e68b:b0:479:e826:ccdd with SMTP id
+ 5614622812f47-479e826d1c3mr2175511b6e.5.1776788051231; Tue, 21 Apr 2026
+ 09:14:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="pghGe5VQSM39F6vG"
-Content-Disposition: inline
-In-Reply-To: <95e1067c-3c8e-4dd4-997d-f3be9d2cba29@sirena.org.uk>
-
-
---pghGe5VQSM39F6vG
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260403111516.379795-1-josh.milas@gmail.com> <20260403111516.379795-6-josh.milas@gmail.com>
+In-Reply-To: <20260403111516.379795-6-josh.milas@gmail.com>
+From: Gui-Dong Han <hanguidong02@gmail.com>
+Date: Wed, 22 Apr 2026 00:13:57 +0800
+X-Gm-Features: AQROBzBBI72CSkLDmiqtls647M6PwNy4PB7CMyuLTU7f5ccTrkmAadBqQHw2l3A
+Message-ID: <CALbr=LYJKJREwh8KMqsgcXwd+jx0W7gFFFuBk-izNdgzkQU6Pg@mail.gmail.com>
+Subject: Re: [PATCH v5 5/5] riscv64: dts: sophgo: add initial Milk-V Duo S
+ board support
+To: Joshua Milas <josh.milas@gmail.com>
+Cc: tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	pjw@kernel.org, samuel.holland@sifive.com, unicorn_wang@outlook.com, 
+	inochiama@gmail.com, daniel.lezcano@linaro.org, palmer@dabbelt.com, 
+	aou@eecs.berkeley.edu, alex@ghiti.fr, liujingqi@lanxincomputing.com, 
+	alexander.sverdlin@gmail.com, rabenda.cn@gmail.com, dlan@kernel.org, 
+	chao.wei@sophgo.com, anup@brainfault.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	sophgo@lists.linux.dev, michael.opdenacker@rootcommit.com, 
+	Wang Jiayue <akaieurus@gmail.com>, Yao Zi <me@ziyao.cc>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Apr 20, 2026 at 07:08:01PM +0100, Mark Brown wrote:
-> On Mon, Apr 20, 2026 at 02:13:34AM +0100, Daniel Golle wrote:
->=20
-> > +static int mt2701_afe_hdmi_trigger(struct snd_pcm_substream *substream=
-, int cmd,
-> > +				   struct snd_soc_dai *dai)
-> > +{
-> > +	struct mtk_base_afe *afe =3D snd_soc_dai_get_drvdata(dai);
-> > +
-> > +	switch (cmd) {
-> > +	case SNDRV_PCM_TRIGGER_START:
-> > +	case SNDRV_PCM_TRIGGER_RESUME:
-> > +		/* Ungate HDMI and SPDIF power islands. */
-> > +		regmap_update_bits(afe->regmap, AUDIO_TOP_CON0,
-> > +				   AUDIO_TOP_CON0_PDN_HDMI_CK |
-> > +				   AUDIO_TOP_CON0_PDN_SPDIF_CK, 0);
->=20
-> It looks like we have clock API clocks for HDMI and S/PDIF on this SoC
-> (see clk-mt2701-aud.c) - are there going to be problem with peering
-> directly at the register?  We do manage some clocks via the clock API
-> but not those ones.
+On Fri, Apr 3, 2026 at 7:16=E2=80=AFPM Joshua Milas <josh.milas@gmail.com> =
+wrote:
+>
+> This adds initial riscv support for the Milk-V Duo S board
+> [1] making it possible to boot Linux to the command line.
+>
+> Link: https://milkv.io/duo-s [1]
+>
+> Signed-off-by: Joshua Milas <josh.milas@gmail.com>
 
-Yeah, you are right. That came from a super-old vendor driver and I
-didn't realise the exact same gate bits are alrady driven by the
-clock driver. I'll drop that and prepare v3...
+Great work, thanks Joshua! I really like this board.
 
---pghGe5VQSM39F6vG
-Content-Type: application/pgp-signature; name=signature.asc
+I encountered the same issue Michael Opdenacker saw in v4, but
+enabling the MDIO-related configs resolved it.
 
------BEGIN PGP SIGNATURE-----
+I'll keep using and testing this series and provide further feedback
+if anything comes up. Next, I plan to test the arm64 side and will
+also try developing an efuse driver.
 
-iHUEABEIAB0WIQQ8WXOkSQLJP/KOu5qX7zeyq+FyywUCaeeh3gAKCRCX7zeyq+Fy
-y111AP0QTyLAlHpoP5/XuWLbe7t/+Ru+GlYU61Ygpcl8Nz3O7AD/UuXFl5391unL
-s39J8r1DHhIewBnqoLCXVLsvqeLMKUw=
-=j9TW
------END PGP SIGNATURE-----
+Tested-by: Gui-Dong Han <hanguidong02@gmail.com>
+Reviewed-by: Gui-Dong Han <hanguidong02@gmail.com>
 
---pghGe5VQSM39F6vG--
+> ---
+>  arch/riscv/boot/dts/sophgo/Makefile           |  1 +
+>  .../boot/dts/sophgo/sg2000-milkv-duo-s.dts    | 85 +++++++++++++++++++
+>  2 files changed, 86 insertions(+)
+>  create mode 100644 arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
+>
+> diff --git a/arch/riscv/boot/dts/sophgo/Makefile b/arch/riscv/boot/dts/so=
+phgo/Makefile
+> index 6f65526d4193b..58cc6b70d8de4 100644
+> --- a/arch/riscv/boot/dts/sophgo/Makefile
+> +++ b/arch/riscv/boot/dts/sophgo/Makefile
+> @@ -1,6 +1,7 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  dtb-$(CONFIG_ARCH_SOPHGO) +=3D cv1800b-milkv-duo.dtb
+>  dtb-$(CONFIG_ARCH_SOPHGO) +=3D cv1812h-huashan-pi.dtb
+> +dtb-$(CONFIG_ARCH_SOPHGO) +=3D sg2000-milkv-duo-s.dtb
+>  dtb-$(CONFIG_ARCH_SOPHGO) +=3D sg2002-licheerv-nano-b.dtb
+>  dtb-$(CONFIG_ARCH_SOPHGO) +=3D sg2042-milkv-pioneer.dtb
+>  dtb-$(CONFIG_ARCH_SOPHGO) +=3D sg2042-evb-v1.dtb
+> diff --git a/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts b/arch/ris=
+cv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
+> new file mode 100644
+> index 0000000000000..8632470f43ab0
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
+> @@ -0,0 +1,85 @@
+> +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+> +
+> +/dts-v1/;
+> +
+> +#include "sg2000.dtsi"
+> +
+> +/ {
+> +       model =3D "Milk-V Duo S";
+> +       compatible =3D "milkv,duo-s", "sophgo,sg2000";
+> +
+> +       aliases {
+> +               i2c4 =3D &i2c4;
+> +               mmc0 =3D &sdhci0;
+> +               serial0 =3D &uart0;
+> +               spi3 =3D &spi3;
+> +       };
+> +
+> +       chosen {
+> +               stdout-path =3D "serial0:115200n8";
+> +       };
+> +};
+> +
+> +&osc {
+> +       clock-frequency =3D <25000000>;
+> +};
+> +
+> +&dmac {
+> +       status =3D "okay";
+> +};
+> +
+> +&emmc {
+> +       bus-width =3D <4>;
+> +       no-1-8-v;
+> +       cap-mmc-hw-reset;
+> +       no-sd;
+> +       no-sdio;
+> +       non-removable;
+> +       status =3D "okay";
+> +};
+> +
+> +&gmac0 {
+> +       status =3D "okay";
+> +};
+> +
+> +&i2c4 {
+> +       status =3D "okay";
+> +};
+> +
+> +&mdio {
+> +       status =3D "okay";
+> +};
+> +
+> +&saradc {
+> +       status =3D "okay";
+> +};
+> +
+> +&sdhci0 {
+> +       bus-width =3D <4>;
+> +       no-1-8-v;
+> +       disable-wp;
+> +       status =3D "okay";
+> +};
+> +
+> +&sdhci1 {
+> +       bus-width =3D <4>;
+> +       cap-sdio-irq;
+> +       no-mmc;
+> +       no-sd;
+> +       non-removable;
+> +       status =3D "okay";
+> +};
+> +
+> +&spi3 {
+> +       status =3D "okay";
+> +};
+> +
+> +&uart0 {
+> +       status =3D "okay";
+> +};
+> +
+> +&usb {
+> +       dr_mode =3D "host";
+> +       status =3D "okay";
+> +};
+> +
+> --
+> 2.53.0
+>
