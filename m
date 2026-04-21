@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D5032FC01B;
-	Tue, 21 Apr 2026 15:37:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39C61EB5F8;
+	Tue, 21 Apr 2026 15:37:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776785848; cv=none; b=luYAxPYbHnc1RLqBXalnKGYta7UnLezQFxS+3X3reCahXnD6xjHl6/ucVgt1ZGTCLsqZLUy9yr7ls9IFi2h4ylTkVM4f5YrAlWQEW3NIfyx7UI6SnCCWXY1AMrzTKetFROYvmUamKz1Gibb950w9DrC/fqQ8xHV+oThR6HLFdwk=
+	t=1776785878; cv=none; b=UxBgKPzPim5rltguADaRzcoP9FUK/pGNWX5H3rw/NI9ImQV6gVovi7SUtEVhDgrCVEinnIVoQ7NvjfVmn5LmNU7P2EnzfaBDUgu+PZgGBm4OIVd3bWLg4PUlaeo1ayklasNO02g1rVJt3KNfiajbqtf+BPjJn3yd8XeTUItPK7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776785848; c=relaxed/simple;
-	bh=G2w1sKL3l5wuSUcaAd0p9VSqnfL6gf7sVEeWF7dVURc=;
+	s=arc-20240116; t=1776785878; c=relaxed/simple;
+	bh=4e6PgLsDyxW1VGk7EeVvhUPnJa/KYzVWu/eK2UxQq/E=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nKJzz4vgdnBAXtik/YUfbeiulylGOPfH68SYDk8sjAslZ1BtYg9EDOAJYH0gmZnudBc3eU2rHytl783oqqNe6G4j4MvrcZux1jvW267r7KTNOiZMH9sNvcxzLYEpHZr7GsItQH7PcJW2YLwpCXJAnUGcF7k4vQu/ufImbGh8zuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UcJGNyd1; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=V7IbAS1q/UoKO2F7s15u+XJy3pCGbF3ShEQPFwEHzlQeL6YM0ygTeyfDfWopWIJZ0JFTshVrWxI9Prt0MiSISsmeIumSQ9Nzzdc0Vloey7sEEQSFVebbL5uiG2m1IzlHH3tIJqs6gXr0CY3SbcxMpyWTtYEozBrxCu3rYFH7QL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m1jkhQSh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UcJGNyd1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D26BBC2BCB3;
-	Tue, 21 Apr 2026 15:37:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m1jkhQSh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1B2C2BCB0;
+	Tue, 21 Apr 2026 15:37:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776785846;
-	bh=G2w1sKL3l5wuSUcaAd0p9VSqnfL6gf7sVEeWF7dVURc=;
+	s=k20201202; t=1776785878;
+	bh=4e6PgLsDyxW1VGk7EeVvhUPnJa/KYzVWu/eK2UxQq/E=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=UcJGNyd1GeMtl8O5K3wA+iJ7Ahd+v8AhzHmn6aQhprdsM5L4DBy2ZbggnbxrXw+KF
-	 LORh54xxGxhZxh8GOWKAJhVKt8R3EODpiLk+0lmzNTUrWVMPJ7BgdE+aFjvlm8lWQZ
-	 gemNdmNQF9kZfikAn/CustdjaUpHKRdIAs5ONLviTSIT93cbWGXelKtIN/kL7ge8lw
-	 nOw4ckyOjLxWLSUDOQxDFX6fXHLC6yX7fXAcvPkib3eq9krWpa6am7OParD+Sva7J1
-	 KSctuyRSH6nuQEa6cIGqoVcP/XZHWsZNo2lrn+XQe500ZAkrpdiKW0Qugg6BmJEghl
-	 QVMbDHcCHK3GQ==
-Message-ID: <b2c9158f-ebaa-41b0-b471-22413ed5bc2b@kernel.org>
-Date: Tue, 21 Apr 2026 17:37:21 +0200
+	b=m1jkhQSh1vOuCB3DXfXGmyz0MVyZZT43Y/mp4FY+VOc6Q5DioAcm3wiGKbhni1ukO
+	 xo/FjhYO4qaf7XAPFr2bjco7F5YNOxMThq19PMDbqDT2NF2j/BGK4ine7ijENmPCfJ
+	 xmNGD1sIdI4gI1JTKcXpt4DTozvse6TGdr+Yy5ZttFjZsm5H9PgQQvhGgYov3huUb1
+	 MD53aJKvTQ2WjCP1DcSpm9LDP7Wv3L7iWDrHRGMGkuc/XpxG/ZcAvjDuUqTsDsJ/yx
+	 bPykpjSqEt1D0zucDiA33SNzyvdpc3QkHKwhN89dwbCl8I66XWvBWDdZCOz4qjYvcV
+	 vd7W+w31jFXrg==
+Message-ID: <8438644a-7c9e-4546-b3bc-7f755d02c063@kernel.org>
+Date: Tue, 21 Apr 2026 17:37:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,7 +35,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] soc: qcom: socinfo: Add SoC ID for Nord SA8797P
+Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for Nord
+ SA8797P
 To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -45,7 +46,7 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20260421040231.1256998-1-shengchao.guo@oss.qualcomm.com>
- <20260421040231.1256998-3-shengchao.guo@oss.qualcomm.com>
+ <20260421040231.1256998-2-shengchao.guo@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -91,7 +92,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260421040231.1256998-3-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20260421040231.1256998-2-shengchao.guo@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -102,15 +103,15 @@ On 21/04/2026 06:02, Shawn Guo wrote:
 > Lemans series.  SA8797P is the automotive variant of Nord, where
 > the platform resources such as clocks, regulators, interconnects, etc.
 > are managed by firmware through SCMI.
-
-Binding said it, no need to say the same twice. Binding commit is
-describing the hardware, not the driver commit. Please look at Git
-history for some examples.
-
-With above paragraph dropped:
+> 
+> Add SoC ID for Nord SA8797P.
+> 
+> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>  include/dt-bindings/arm/qcom,ids.h | 1 +
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
 
 Best regards,
 Krzysztof
