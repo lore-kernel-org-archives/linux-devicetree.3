@@ -1,310 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663D83469F5;
-	Tue, 21 Apr 2026 17:57:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D56B731F99B;
+	Tue, 21 Apr 2026 18:11:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776794245; cv=none; b=C6CUSB4xnBoxeoB+j4oJA9xg+e4y/rWqhKW8QusDcdRuudAJuCP/j+ePQUN8fq0waRhkJO8YNOlRljKeynzzgSPpCowtzmxYkcbE5CX+jZjkLpIblhMVCSbz28gzJwLzaUKz4h/q0Z/gV0OuePd6Lj3mJph/EWfqIZvcNp/XNfE=
+	t=1776795069; cv=none; b=DiwOArlXjuwwIDWwEGdLMJiCgOnKP1px4eksQCUubIjDjo6hmlfmkK4NmqFn55aimUULDIRRCAd5uhi2rRTl/UI6K835tG/euTKHBgvowN2AfMyBhAnENF0JQxfQ+87zI9h8XsESPFkZKUHUPjskEvw8fWvvjwS6y0I+KFEijZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776794245; c=relaxed/simple;
-	bh=xPXf7LTENtfyjseOPX2ZzZFz4nnRhDy+MLhipzCmuqg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hlil2J9pPNDwktxi0o0KNilsS3UBEGY7Cnl07eBKoaxzLxG0Dfw6cu6KHZoAVoCl343KG+jkJ2+SGD8hxr9h1/XSkGD2LBPU1Vs2eo02nrP/lZe7kiwqxbyq1nIBw82iq7pQ1EknXPVBBeFaawHbrylqTAcz5NsLOH49ClxPNNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgfqeyUi; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776795069; c=relaxed/simple;
+	bh=3qk+IB3lY1ax5Jo/wlajR8HjBuToQPII40ATciAhAAk=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=nrsfO/ZxWZAQx7t1y45I+i0RaBn17QOv/XiWFQc9OjB+M02K6j028cjvT9OXyB6H5Y6PLS9lbpuyvJzMai4DvBNMRnFk8qz+8BIIHa7MGTUxR9fNZgCJpPH9Nfct3KogfgZfRoEDWVO6ihzsVbZgbCz3iK1rXD5LOyXqJJxYlcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kvZq/9YO; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgfqeyUi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4EEC2BCB0;
-	Tue, 21 Apr 2026 17:57:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776794245;
-	bh=xPXf7LTENtfyjseOPX2ZzZFz4nnRhDy+MLhipzCmuqg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dgfqeyUiTJMOTd4FOP1xIgVEHIDDgHn26SLXHbyk2+09VFA/8aAuxEVwgfeDGCkUZ
-	 Md+qmpTZmx21oSG82v6jjqSBIZk7nN+npw4mFcIy3sPor4SbI91HpVyIz5E3COfpmR
-	 p97rSJ63+NqXvUwGmn1kUaw2q+d6Lu6cfGhanCVp7CtsR9sysh5BLa9hXcghjfwd1s
-	 awKC4R6prDKFylGAbMBYlU23Fa7ku2Ze4u1gHMEaelP4QHjjtsmy6Mp/10uIRzkLg2
-	 NQ8wTHO4szxiTvoFNJ0a0oDDGrW1ZnskidMTOmURswFQbe0gRE4764mvrs6LbKmJkM
-	 QeRs1EtC4HN6w==
-Date: Tue, 21 Apr 2026 18:57:19 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Andrew Jeffery <andrew@aj.id.au>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>
-Subject: Re: [PATCH v7 1/3] dt-bindings: pinctrl: Add
- aspeed,ast2700-soc0-pinctrl
-Message-ID: <20260421-valid-expanse-ae6b5a9289f2@spud>
-References: <20260416-upstream_pinctrl-v7-0-d72762253163@aspeedtech.com>
- <20260416-upstream_pinctrl-v7-1-d72762253163@aspeedtech.com>
- <20260416-brutishly-saga-ba7168a4cd14@spud>
- <OSQPR06MB7252EB0C2A1A3313DE49406B8B202@OSQPR06MB7252.apcprd06.prod.outlook.com>
- <20260417-anemia-borrower-fb90ac02b417@spud>
- <OSQPR06MB7252BD7967D2567AD6DA7A1D8B2F2@OSQPR06MB7252.apcprd06.prod.outlook.com>
- <20260420-footprint-both-967ccd6c120c@spud>
- <OSQPR06MB725251546BFEB158F9AA1C4D8B2C2@OSQPR06MB7252.apcprd06.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kvZq/9YO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1776795067; x=1808331067;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version:content-id;
+  bh=3qk+IB3lY1ax5Jo/wlajR8HjBuToQPII40ATciAhAAk=;
+  b=kvZq/9YOX61KDCiGEsarp9CIH7fjDQrZQCiJDSL20r2etLSmv+8UWyQ1
+   qaNw8JtXJWKB+f4WgQq5NOmzYlU5ZBR+x9dOue6Rq2YNTguMOdgQy5VyS
+   T+hNw8cdBJVy8zLB/YIAp3nXLP3ExLLeDepyVoibse29ZL1dCDM0trA4U
+   lrpF1zOgq1w6EnTUMCG+Be2AarShvwwUXITI13YGOgsbBcYJrl9qahKsd
+   IxHi4rup5aht9NMRUh7HRDA3lO1DhIDIqi74DJvefup1ax07FJjEpH0XY
+   590p/aaRdv7UYaP6R215wj/Y72aK67yx33sCFFw1C2Bz0tHG3vmpdvmGR
+   g==;
+X-CSE-ConnectionGUID: NirLTJw0QVOklxporugn7Q==
+X-CSE-MsgGUID: q6dfLff1Tyawak7GzpywRQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11763"; a="77614600"
+X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
+   d="scan'208";a="77614600"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Apr 2026 11:11:06 -0700
+X-CSE-ConnectionGUID: HMdUCqnbRZalMbhRoTkLyA==
+X-CSE-MsgGUID: ayQcjClWTLGdMsS+Iw8ydw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
+   d="scan'208";a="227773900"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.105])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Apr 2026 11:10:59 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 21 Apr 2026 21:10:56 +0300 (EEST)
+To: Markus Probst <markus.probst@posteo.de>
+cc: Hans de Goede <hansg@kernel.org>, 
+    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Lee Jones <lee@kernel.org>, 
+    Pavel Machek <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+    Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+    =?ISO-8859-15?Q?Bj=F6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+    Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+    Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+    Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org, 
+    devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v8 2/2] platform: Add initial synology microp driver
+In-Reply-To: <c4964138177c4455f5eb07d0e23db2dfec40bf9c.camel@posteo.de>
+Message-ID: <e166861c-e75d-d1c2-61e8-f611e6ee1ef2@linux.intel.com>
+References: <20260420-synology_microp_initial-v8-0-7946a9124491@posteo.de>  <20260420-synology_microp_initial-v8-2-7946a9124491@posteo.de>  <6104a5fe-a6e3-4c35-ff4f-731d1a5e4acb@linux.intel.com> <c4964138177c4455f5eb07d0e23db2dfec40bf9c.camel@posteo.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="e/yrNYrOHY6xz2Ct"
-Content-Disposition: inline
-In-Reply-To: <OSQPR06MB725251546BFEB158F9AA1C4D8B2C2@OSQPR06MB7252.apcprd06.prod.outlook.com>
+Content-Type: multipart/mixed; BOUNDARY="8323328-1911329950-1776794494=:972"
+Content-ID: <9de3baa3-50d2-e027-b347-adcf2e0ba0f0@linux.intel.com>
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
---e/yrNYrOHY6xz2Ct
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--8323328-1911329950-1776794494=:972
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <6c89e77d-6fd5-9c62-9534-0015dd34db7a@linux.intel.com>
 
-Billy, Linus,
+On Tue, 21 Apr 2026, Markus Probst wrote:
 
-On Tue, Apr 21, 2026 at 06:15:44AM +0000, Billy Tsai wrote:
-> > > > > > > +    properties:
-> > > > > > > +      function:
-> > > > > > > +        enum:
-> > > > > > > +          - EMMC
-> > > > > > > +          - JTAGDDR
-> > > > > > > +          - JTAGM0
-> > > > > > > +          - JTAGPCIEA
-> > > > > > > +          - JTAGPCIEB
-> > > > > > > +          - JTAGPSP
-> > > > > > > +          - JTAGSSP
-> > > > > > > +          - JTAGTSP
-> > > > > > > +          - JTAGUSB3A
-> > > > > > > +          - JTAGUSB3B
-> > > > > > > +          - PCIERC0PERST
-> > > > > > > +          - PCIERC1PERST
-> > > > > > > +          - TSPRSTN
-> > > > > > > +          - UFSCLKI
-> > > > > > > +          - USB2AD0
-> > > > > > > +          - USB2AD1
-> > > > > > > +          - USB2AH
-> > > > > > > +          - USB2AHP
-> > > > > > > +          - USB2AHPD0
-> > > > > > > +          - USB2AXH
-> > > > > > > +          - USB2AXH2B
-> > > > > > > +          - USB2AXHD1
-> > > > > > > +          - USB2AXHP
-> > > > > > > +          - USB2AXHP2B
-> > > > > > > +          - USB2AXHPD1
-> > > > > > > +          - USB2BD0
-> > > > > > > +          - USB2BD1
-> > > > > > > +          - USB2BH
-> > > > > > > +          - USB2BHP
-> > > > > > > +          - USB2BHPD0
-> > > > > > > +          - USB2BXH
-> > > > > > > +          - USB2BXH2A
-> > > > > > > +          - USB2BXHD1
-> > > > > > > +          - USB2BXHP
-> > > > > > > +          - USB2BXHP2A
-> > > > > > > +          - USB2BXHPD1
-> > > > > > > +          - USB3AXH
-> > > > > > > +          - USB3AXH2B
-> > > > > > > +          - USB3AXHD
-> > > > > > > +          - USB3AXHP
-> > > > > > > +          - USB3AXHP2B
-> > > > > > > +          - USB3AXHPD
-> > > > > > > +          - USB3BXH
-> > > > > > > +          - USB3BXH2A
-> > > > > > > +          - USB3BXHD
-> > > > > > > +          - USB3BXHP
-> > > > > > > +          - USB3BXHP2A
-> > > > > > > +          - USB3BXHPD
-> > > > > > > +          - VB
-> > > > > > > +          - VGADDC
-> > > > > > > +
-> > > > > > > +      groups:
-> > > > > > > +        enum:
-> > > > > > > +          - EMMCCDN
-> > > > > > > +          - EMMCG1
-> > > > > > > +          - EMMCG4
-> > > > > > > +          - EMMCG8
-> > > > > > > +          - EMMCWPN
-> > > > > > > +          - JTAG0
-> > > > > > > +          - PCIERC0PERST
-> > > > > > > +          - PCIERC1PERST
-> > > > > > > +          - TSPRSTN
-> > > > > > > +          - UFSCLKI
-> > > > > > > +          - USB2A
-> > > > > > > +          - USB2AAP
-> > > > > > > +          - USB2ABP
-> > > > > > > +          - USB2ADAP
-> > > > > > > +          - USB2AH
-> > > > > > > +          - USB2AHAP
-> > > > > > > +          - USB2B
-> > > > > > > +          - USB2BAP
-> > > > > > > +          - USB2BBP
-> > > > > > > +          - USB2BDBP
-> > > > > > > +          - USB2BH
-> > > > > > > +          - USB2BHBP
-> > > > > > > +          - USB3A
-> > > > > > > +          - USB3AAP
-> > > > > > > +          - USB3ABP
-> > > > > > > +          - USB3B
-> > > > > > > +          - USB3BAP
-> > > > > > > +          - USB3BBP
-> > > > > > > +          - VB0
-> > > > > > > +          - VB1
-> > > > > > > +          - VGADDC
-> > > > > > > +      pins:
-> > > > > > > +        enum:
-> > > > > > > +          - AB13
-> > > > > > > +          - AB14
-> > > > > > > +          - AC13
-> > > > > > > +          - AC14
-> > > > > > > +          - AD13
-> > > > > > > +          - AD14
-> > > > > > > +          - AE13
-> > > > > > > +          - AE14
-> > > > > > > +          - AE15
-> > > > > > > +          - AF13
-> > > > > > > +          - AF14
-> > > > > > > +          - AF15
->=20
-> > > > > > Why do you have groups and pins?
-> > > > > > Is it valid in your device to have groups and pins in the same =
-node?
->=20
-> > > > > The intent is to support both group-based mux selection and
-> > > > > configuration, as well as per-pin configuration.
->=20
-> > > > > In our hardware:
-> > > > > - `function` + `groups` are used for pinmux selection.
-> > > > > - `pins` is used for per-pin configuration (e.g. drive strength,
-> > > > >   bias settings).
-> > > > > - `groups` may also be used for group-level configuration.
->=20
-> > > > > As a result, both `groups` and `pins` may appear in the same node,
-> > > > > but they serve different purposes and do not conflict:
-> > > > > - `groups` selects the mux function and may apply configuration to
-> > > > >   the entire group.
-> > > > > - `pins` allows overriding or specifying configuration for indivi=
-dual
-> > > > >   pins.
->=20
-> > > > > In most cases, only one of them is needed, but both are allowed w=
-hen
-> > > > > both group-level and per-pin configuration are required.
->=20
-> > > > To be honest, that sounds like your groups are not sufficiently
-> > > > granular and should be reduced such that you can use them for pin
-> > > > settings.
->=20
-> > > The intent was to keep the binding flexible, but in practice the mixed
-> > > use of `groups` and `pins` in the same node is not expected to be use=
-d.
+> On Tue, 2026-04-21 at 14:59 +0300, Ilpo J=E4rvinen wrote:
+> > On Mon, 20 Apr 2026, Markus Probst wrote:
+> >=20
+> > > Add a initial synology microp driver, written in Rust.
+> > > The driver targets a microcontroller found in Synology NAS devices. I=
+t
+> > > currently only supports controlling of the power led, status led, ale=
+rt
+> > > led and usb led. Other components such as fan control or handling
+> > > on-device buttons will be added once the required rust abstractions a=
+re
+> > > there.
 > > >=20
-> > > Given that, I agree this flexibility is unnecessary and makes the
-> > > binding semantics less clear. I'll rework the binding to make the
-> > > expected usage explicit rather than allowing combinations that do not
-> > > correspond to a real use case.
+> > > This driver can be used both on arm and x86, thus it goes into the ro=
+ot
+> > > directory of drivers/platform.
 > > >=20
-> > > In particular, I'll split the constraints as follows:
+> > > Tested successfully on a Synology DS923+.
 > > >=20
-> > > - For pinmux, the presence of `function` will require `groups`, and
-> > >   `pins` will not be allowed. This reflects the hardware design, where
-> > >   the groups are defined by the pins affected by a given mux expressi=
-on
+> > > Signed-off-by: Markus Probst <markus.probst@posteo.de>
+> > > ---
+> > >  MAINTAINERS                                        |   6 +
+> > >  drivers/platform/Kconfig                           |   2 +
+> > >  drivers/platform/Makefile                          |   1 +
+> > >  drivers/platform/synology_microp/Kconfig           |  13 +
+> > >  drivers/platform/synology_microp/Makefile          |   3 +
+> > >  drivers/platform/synology_microp/TODO              |   7 +
+> > >  drivers/platform/synology_microp/command.rs        |  54 ++++
+> > >  drivers/platform/synology_microp/led.rs            | 281 +++++++++++=
+++++++++++
+> > >  drivers/platform/synology_microp/model.rs          |  49 ++++
+> > >  .../platform/synology_microp/synology_microp.rs    | 110 ++++++++
+> > >  10 files changed, 526 insertions(+)
 > > >=20
-> > > - For pin configuration, exactly one of `groups` or `pins` will be
-> > >   required (using oneOf), so that configuration is applied either at
-> > >   group level or per-pin, but not both.
-> > >=20
-> > >=20
-> > > - if:
-> > >     required:
-> > >       - function
-> > >   then:
-> > >     required:
-> > >       - groups
-> > >     not:
-> > >       required:
-> > >         - pins
-> > >   else:
-> > >     oneOf:
-> > >       - required:
-> > >           - groups
-> > >         not:
-> > >           required:
-> > >             - pins
-> > >       - required:
-> > >           - pins
-> > >         not:
-> > >           required:
-> > >             - groups
-> > > Does this match what you had in mind?
+> > > diff --git a/MAINTAINERS b/MAINTAINERS
+> > > index c1c686846cdd..49f08290eed0 100644
+> > > --- a/MAINTAINERS
+> > > +++ b/MAINTAINERS
+> > > @@ -25555,6 +25555,12 @@ F:=09drivers/dma-buf/sync_*
+> > >  F:=09include/linux/sync_file.h
+> > >  F:=09include/uapi/linux/sync_file.h
+> > > =20
+> > > +SYNOLOGY MICROP DRIVER
+> > > +M:=09Markus Probst <markus.probst@posteo.de>
+> >=20
+> > You should probably add:
+> >=20
+> > L:=09platform-driver-x86@vger.kernel.org
+> >=20
+> > Through which tree the patches to this driver are generally expected to=
+ be=20
+> > picked up?
+>
+> I suppose platform-drivers-x86.
+
+Okay (with the platform drivers maintainer hat on). Just don't expect me=20
+to have deep Rust knowledge.
+
+> The driver itself can be used both on
+> x86 and arm64. Although I also have seen Synology devices with PowerPC
+> (no device with PowerPC is supported in the driver yet).=20
+
+In practice platform drivers scope has already expanded beyond x86 so the=
+=20
+platform-drivers-x86 list naming is just a historic artifact.
+
+> > > +S:=09Maintained
+> > > +F:=09Documentation/devicetree/bindings/embedded-controller/synology,=
+ds1825p-microp.yaml
+> > > +F:=09drivers/platform/synology_microp/
+> > > +
+> > >  SYNOPSYS ARC ARCHITECTURE
+> > >  M:=09Vineet Gupta <vgupta@kernel.org>
+> > >  L:=09linux-snps-arc@lists.infradead.org
+
+> > > diff --git a/drivers/platform/synology_microp/TODO b/drivers/platform=
+/synology_microp/TODO
+> > > new file mode 100644
+> > > index 000000000000..1961a33115db
+> > > --- /dev/null
+> > > +++ b/drivers/platform/synology_microp/TODO
+> > > @@ -0,0 +1,7 @@
+> > > +TODO:
+> > > +- add missing components:
+> > > +  - handle on-device buttons (Power, Factory reset, "USB Copy")
+> > > +  - handle fan failure
+> > > +  - beeper
+> > > +  - fan speed control
+> > > +  - correctly perform device power-off and restart on Synology devic=
+es
+> >=20
+> > Is this TODO list really needed within the kernel distribution?
+>
+> Not really. Although it indicates the current state of the driver.
 >=20
-> > It's an improvement I think, but I am wondering why you cannot do
-> > without pins entirely and apply pinconf stuff at the group level?
-> > Of course that may not be possible with the current groups, but if you
-> > made the groups more granular, would it be possible?
->=20
-> Within a given group, it is not always the case that all pins share the
-> same configuration requirements (e.g. drive strength or bias settings),
-> so applying pinconf purely at the group level would be too restrictive.
+> > If you planning on add these features (relatively) soon yourself (perha=
+ps=20
+> > depending on when the rust infra required for these features becomes=20
+> > available), the list would not be that useful for other developers at a=
+ll.
+>
+> Yes. Also I haven't seen anyone work on input, hwmon, reboot/sysoff
+> rust abstractions yet, so I will likely need to add those as well.
 
-Right. That's pretty normal.
+Lets not include the TODO file then.
 
-> Making the groups more granular to match all possible configuration
-> combinations would not reflect the actual mux granularity and would
-> significantly increase the number of groups.
+> > > +/// Blink delay measured using video recording on DS923+ for Power a=
+nd Status Led.
+> > > +///
+> > > +/// We assume it is the same for all other leds and models.
+> > > +const BLINK_DELAY: usize =3D 167;
+> >=20
+> > On C side time related consts are required to include the unit in their=
+=20
+> > name. Perhaps Rust code should also follow this convention?
+>
+> How about `const BLINK_DELAY: Msecs` ? The unit would be implied
+> through the already existing type alias `kernel::time::Msecs` for u32.
 
->=20
-> For example, we have encountered a timing issue due to the PCB layout,
-> where only the eMMC clock pin requires a different drive strength:
->=20
->   # The EMMCG4 group includes pins AC14, AE15, AD14, AE14, AF14, AB13
->   # AC14: clock
->   # AE15: command
->   # AD14=E2=80=93AB13: data
->=20
->   pinconf_emmc_clk: emmc-clk-pinconf {
->       pins =3D "AC14";
->       drive-strength =3D <8>;
->   };
->=20
-> In this case, applying pin configuration at the group level would affect
-> all pins in the group, which is not desirable. Allowing per-pin
-> configuration via `pins` is therefore necessary.
->=20
-> For this reason, `groups` is used for mux selection, while `pins` is
-> required to express per-pin configuration where needed.
+I don't have opinion on this with my limited Rust knowledge (it just=20
+stuck to my eye how non-specific that original one looked). If Rust=20
+can do things even better as Miguel seems to imply, please look at those=20
+directions.
 
-Right, yeah, I figured your objection to it was because of how
-annoyingly small it would make the groups. I suppose the alternative is
-going without groups and always using pins.
-Having groups and pins seems really suboptimal to me, but there are
-some other bindings where this is done. Linus, what is your take on
-nodes supporting both? I'm biased towards having a more straightforward
-binding but if you think this mix makes sense then I'll defer to your
-vastly greater experience with these devices.
-
-
---e/yrNYrOHY6xz2Ct
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaee6fwAKCRB4tDGHoIJi
-0noaAP9jYP09SYhW2PHzSVQFFiUEdcOsiFAlMGJHXxpV2+SxZgEAzvMeVc+SrBA4
-Ker/dZO9rTEAMa9/23liJlGnUhKVJQA=
-=BQ+S
------END PGP SIGNATURE-----
-
---e/yrNYrOHY6xz2Ct--
+--=20
+ i.
+--8323328-1911329950-1776794494=:972--
