@@ -1,85 +1,85 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5704118C2C
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 11:08:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2AF4231832
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 11:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776769682; cv=none; b=OgwZJ1arehzZ/gvK+njq7tKNASPsNaqGJeAauDAFqYl5mbvfcgx9fXQhIsGqIuC1MJ+qHHUm0LvBjRsSa2VrepfNR7Yy5YoA3+uBW+pJa9Wd6vBitoQgwuifHTbnSDJb5kdLezk20szAaA341kxKTPFYdq0aBVzSMg95e0V3KfA=
+	t=1776770145; cv=none; b=UD3yQ4JE4T5WCcyQHPbZA7nlK/zQSiIUCuzAe85l1JY0PIC30kAowuAON9I1EO5IWhRZJSl0t8sjn5qVu9Muz1cfGUXEX7G+yVb91bJfpJR/kDad0F9ftn5/9Xs3Aq7f1Gj4oBF2jpk2sOyxaIKgz5D5f3GOk+HSTZ3m8hVpIh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776769682; c=relaxed/simple;
-	bh=v0+xwh5bG5XNtm6PpRevp4WJfOcOhO0Y3cSkuhNFXzc=;
+	s=arc-20240116; t=1776770145; c=relaxed/simple;
+	bh=jRDYE4dnzWBf20V1K/O8dhyriAojaxk3fP5/C+/or08=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P/L5SAYJpUSTmhmzgb8s5nH2yGqLSBavL2zg6IQEd4yNHgrd5Ies3sNoWP4Ld4oclbT3JQVwkHTTrUKL+UuyUIRYd5PpcOCQwRhEtnhkesjBYfYeAv8dgCurf6zqWkrXKMzY+CSMSQmLemGzWzUxY5WmcdilIFX6Jw7JvKKmFAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WDZ1x7dA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JRBFnKbt; arc=none smtp.client-ip=205.220.180.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=WG0pRHu/yDgNTcUpaJwrb/6aHzcP2ofNz7yAbUhtji0zN4wPcoVPZyMjGnua1i98qFxw92R/iPdT+/0/YAcXw3AF/q4NxVM1Gs8sQVCK3SFHzVu5igdBCOWtHoGQROuzaKJAR5oW7veMQ8MFyGjwSYFTQ8ApNO2fPDBK1btfTuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CZYW25xK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GLtK8GZB; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WDZ1x7dA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JRBFnKbt"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63L64Xp13257367
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 11:07:59 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CZYW25xK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GLtK8GZB"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63L5hdg71014304
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 11:15:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MSKGPyTIVnf7CS8YuXLCet8XHrDFl5o/w9bZgb2MKfQ=; b=WDZ1x7dAVaEjT8Fk
-	fxK18G72dqrq8lYLZG8C8SDp6HMnCuhl3bOnIaXx446v7AMZ9TT6TnTNNFe3b7EW
-	/t7tPu/4cu2V+V7ZKCiqx0MZQL1aHksPedL6OE+QqdxaTWKwQrPgWHsfB+h842xB
-	PDKz6oq8wfRIL+klKD6uvkpNObGpeleN6OCSU0/qPL8Yhg9CsbuImut9TfSA0mQx
-	JZ94qA47VOguqmACih+Tx9K3rhj25CpaLO6mjPKOWHpLcNvrV0bxx703SFCFbf9B
-	xowDvsql4dxllUnqzELVqpCm1yB7AI1r90sOk6HLhG/QL6MbGtKZfZ4NqMcTwIVV
-	x9AT1g==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dp3na93h0-1
+	raxzNDTJkJQS4LmbFguntO7lYnDRtrcUSBIb/Cy85BI=; b=CZYW25xK1c2pWSK2
+	SlGo8pEU+ZlJFwEvoH7Fy9ykEhbsXOAhAXZkKnWH7j+KWRH1sj1Ss6ZtrhDFEymJ
+	RbFQ7Da/VVe7thBS/FNg+o+xwkQTKohGOYuVCkocPOpwIgzUOaOqpfx1/F0lqHeg
+	Jm+cW+EXG6hXR1Jb+Eb5dpWFyGtxGf2V08c1kf7NMm+3OBwtB1ZfkMJcjbhihjP8
+	goK1K9R+8vHgiFtB1TMNEAVcI6EkXMMDd2LkAcw8wFjhj+lk/xOZeEzwtXHDPn8M
+	igbRWFQiitYNvstoSfxbLPzMhUfTgcK9zH9bvV0JmW688WI5HO+x+B732DsihlMf
+	jvC7Cw==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dnt902vww-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 11:07:59 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-612ef4e6c54so6865951137.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 04:07:59 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 11:15:41 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50fbc70cfbdso344081cf.2
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 04:15:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776769678; x=1777374478; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1776770141; x=1777374941; darn=vger.kernel.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=MSKGPyTIVnf7CS8YuXLCet8XHrDFl5o/w9bZgb2MKfQ=;
-        b=JRBFnKbt1rgFUNvcckquzWJ+D7yy5jxfdJzNvncvpJWef4Z5Aa/eSGMG42oHwxAO+w
-         2me+h2WZ/yNeOPEHc7lZqUf4IdG76Cfz4OMi+ISo2YckU/dH0ImY7k+AYPHgfgR79KoH
-         cv2KRC4mQ0LX33AGix0XVsRxMnifQaI40RK4SS8gA7zsrhlqyCSIJc4OrNyOOELV1CoR
-         TuIiU+bO38PQXg36YflIpQXn5s2JHE+OgmMw1EHPNiwqgUa79uBaDmJVBzh8MROJmubT
-         yuLdKyHdT2AQRONuUbvvuUe47izytfpq5BabzSRNiJYnlDXqcLAvxBlUbG5yrHhrezZM
-         pJlA==
+        bh=raxzNDTJkJQS4LmbFguntO7lYnDRtrcUSBIb/Cy85BI=;
+        b=GLtK8GZBGRBPIgER872wW6/yxeQyk7odUKxQfDa+K+/AtjHVgJXS1L5D5kvZvQtoOB
+         kcDFPgUdzP0xvCffPy7QAimd/SD5hmQKfAClHe0x9F1TIhNPLyK9xXDdpqVlnrHVIphA
+         kSPyLfD5Dmj8y4DYrnpUGu4Wn17w5HN1FCuzgT5HAasy7GbNZNiLvRMq7Ox3dluXZyRx
+         y2rpMLILi4cCRmYhM+5fvXMjYO+oMmsXYmmeYU2vhpyLw26FeUW4rwFSzvXZfVuofqOJ
+         IRqCtkhoJF/jD/mJW9CqKEM202PM6hrDbRMtxv4wqbyhYEv+cAunonMMNYOin2zjaT8i
+         bifg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776769678; x=1777374478;
+        d=1e100.net; s=20251104; t=1776770141; x=1777374941;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=MSKGPyTIVnf7CS8YuXLCet8XHrDFl5o/w9bZgb2MKfQ=;
-        b=nAOqy1DmHjiMQDz2WESnJ0sv0K4Lx1fOt7TiiFG6Qvwsxo3JRhAOoIMcHavU/UbQRZ
-         N+8uHSOMIhSJu5oSM/jYv/Y+UGiSExfL8dlL/aKsdpjss2avssRQm9asWYQgzHuqi5dw
-         KpLlEjiyMz0sZk9FZzppxEEDOdTrzYXElHmS783+k93XwlUUBmnvRU5R5GkrI/X6c44w
-         ItzlMVXO/RhsvMkqGezMtpukvo5unrVUnkX+H7+aCYE1fvJniES3O2Xes8R+NEGr9eq9
-         D7IlMdAerLrKlE9J7yPmXK+lEySqG2RlrIvXD/lBMXgm76RTgNVx8UYN5sIwt32/WrLN
-         3WBQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9f/9Ml2rzXmcoaQVhydMr56pA9/nM7WQCD/zq8x0Sn0xsnwyati62ndokhGqcdRza7oK5mE2WzRIVr@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy4Fweu8T71XPUJMWvDb+jdnYG3hVxDk2EDvH69igbZ1yegKT1c
-	tsJQb3+4vLK0tdmHnEA1O0RTtER1mQocrl3oaBCowbzevW7bg26G53JJhESNrvdZ7HlTK8mTTJ7
-	4HhK8UppdM1FWhAlOMDKq6KSD+PssHyhJOCKmo+LvrLXi1Kt6/ypnEPAJYSpllj9R
-X-Gm-Gg: AeBDiesBS7Wbc9M4Cqja2BwCpRWvQ/d2Lu+cUNYjfth2DYlrWmzOp1DNLhR7dhUxye6
-	XrKaVCrFFZnK8ocNdAZlzagUA+u5QEmUewUdiitomBptxXhjCdKqtTFSkLZRgYrgPHZBgDBjbNq
-	k3atXKP4JV5q8dS8wNFaTs0s3G15IB3Vd6+GjacPTRVfbTAnl9XWZYM//V0+s/LIFUr8daJVIlP
-	r5DwVrHejzRY6dNG5JaMbU82mh+1Wmag5uEHR+H0yRIrUjUHZdq/2Xp4dNc0VA//L4Rf0k3PKl/
-	t++QhCERDzOrFkiJ6Un/R5kgPb9JIxs7RoO1X/ScBvI97h62Wj1U30KUQer9149YucYcadebuU7
-	w8MZ608+QIMW36Msbgv+PX6Hn6CxgcMVNS6Q46ICUveFPLUy0W8vPkx8D/C26FBygjZsWRsFF+3
-	E3/d65WXFY3wOAhJSQU8MBPgwQ60eLhR+Co8154RL7m9f2Uw==
-X-Received: by 2002:a05:6102:5987:b0:602:86a6:9877 with SMTP id ada2fe7eead31-616f68d3997mr7735202137.19.1776769678549;
-        Tue, 21 Apr 2026 04:07:58 -0700 (PDT)
-X-Received: by 2002:a05:6102:5987:b0:602:86a6:9877 with SMTP id ada2fe7eead31-616f68d3997mr7735192137.19.1776769678045;
-        Tue, 21 Apr 2026 04:07:58 -0700 (PDT)
+        bh=raxzNDTJkJQS4LmbFguntO7lYnDRtrcUSBIb/Cy85BI=;
+        b=T5js2BXRv5e911KQIr5q63+wrRy4AWUvKbqykk1+lHXRHhnNGCxpTpcpcnWuMEn+at
+         GJ59Oa2rR+aaPrE14CSuI1iig5ll4yTVJoh2YdBM1AOl7jlHZfH/FmkWCestXWTQSeMa
+         Z5/igniI9w7Pt+aNa0rUmWfwTu3OErEXJIIoSh5cNyaSfFgp5pmNA4bY59NSrHmBzV7h
+         0VElvjzNfHnUyt39t17rhGYwiT3wjCEnVTJ9SrNxfIFKmrxpKiKwgFywyR0WLNq17FZe
+         kfyv3QZffHDDqQzM4MPgU57JIFM9YhJbOK0MbvAx4mvZt2bE+r7hPQn0QmZqAEIGkhRq
+         HyTA==
+X-Forwarded-Encrypted: i=1; AFNElJ9rI8ijjyrVkzsW9KXxAhN+w2kVIHx0ug0gligfxXd1B9ppiknAee2lNa/ml81/ldNozSnGHrl5TqZz@vger.kernel.org
+X-Gm-Message-State: AOJu0YysaBQwFNj0QVrNFNfLlj6Dv4YM8dVrwJN84sWUelhJWs07qsQJ
+	rHNmwoYIJiWIidG0xR+3nYohzVqb+BjMs4TzFb/oFvDdFpYmNXWh72gn/z8RQaM4QnjGFuQFYmY
+	Q5gZ3uux9YoCGC01nJ5kXKqauEkN4/eEsi90GcEbcySNk8hlIQQAYhlp9KT3roIMN
+X-Gm-Gg: AeBDievAWb7RZyHpwlxkJknwwj2HSQsBoKJQvYsyDLts8Yu+BHV8DUD7So6nY5v/N1k
+	e7vtuUyONdqTBsmD1QSjv38UByKCTfloBgSEquAOwNJCAHMZJyInlJzbSohhbcs2oddw6jicjkp
+	ILX7RLGqCwXB37LlMEeYf1RvdT3RPpOLMNjJpZDcMPaB1FIgvZWP5Upn8QIsaPP42pLP8x7zmEE
+	AJs13TLT/0rGVEQ3yfNL1AF8hzHQL6Sz/ishtbgxC1atlPNSreSWEEjzGZbqyVSDyFepLhd7p4L
+	urlGMit+bbJcPb7fWvhduUbb+7xQx861r5L9AM91mYx5hMVL/ktu91T5bRW2koahoqTtruOeJQh
+	mfTL11iT8i9Jgfmgt03ZbPONrP3Cu9Do83mCh5hqZQiNw6Kx2HU3v5N88hO/WpiNBBxoOv1mPWX
+	tUqJpwrTZfgzInvKm6OO5obVDUq4DW+ntjXNA10Fbp5XDZAg==
+X-Received: by 2002:a05:622a:11ca:b0:50d:9192:b9b5 with SMTP id d75a77b69052e-50e36e9b9b4mr263017851cf.32.1776770140730;
+        Tue, 21 Apr 2026 04:15:40 -0700 (PDT)
+X-Received: by 2002:a05:622a:11ca:b0:50d:9192:b9b5 with SMTP id d75a77b69052e-50e36e9b9b4mr263016981cf.32.1776770140132;
+        Tue, 21 Apr 2026 04:15:40 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38ecb73aa8dsm28362761fa.35.2026.04.21.04.07.56
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a41abceab0sm3297476e87.61.2026.04.21.04.15.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Apr 2026 04:07:56 -0700 (PDT)
-Date: Tue, 21 Apr 2026 14:07:55 +0300
+        Tue, 21 Apr 2026 04:15:39 -0700 (PDT)
+Date: Tue, 21 Apr 2026 14:15:37 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: =?utf-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
 Cc: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org,
@@ -90,13 +90,13 @@ Cc: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org,
         jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
         dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
         xmzhu@lontium.corp-partner.google.com, tzimmermann@suse.de,
-        rlyu@lontium.com, xbpeng@lontium.com
-Subject: Re: [PATCH 1/2] dt-bindings:bridge Add LT7911EXC binding
-Message-ID: <p3aruen3h3ddmzlqbdseksuqwuwvxa32qbi66yf4gjwdtb5h2a@xs3dleimg2an>
+        xbpeng@lontium.com, rlyu@lontium.com, xmzhu@lontium.com
+Subject: Re: [PATCH 2/2] drm/bridge: Add LT7911EXC edp to mipi bridge driver
+Message-ID: <ed5u73a5lpsixqvm35zpmooolstjv22ygusorub2owbgz7cwj5@42uq6kl6run7>
 References: <20260420023354.1192642-1-syyang@lontium.com>
- <20260420023354.1192642-2-syyang@lontium.com>
- <CAO9ioeWhWemzyF30t8KDJht6_59b1Y5+GrH9nYCeKuPwddVLHQ@mail.gmail.com>
- <CAFQXuNbyH88Ab_LgfZknRxhK9QzN8Xe-G9NuRMuECZF_SrRpfA@mail.gmail.com>
+ <20260420023354.1192642-3-syyang@lontium.com>
+ <CAO9ioeXDfTdETEBQknoLehk2aiabCgse109sDgJoPHuQ_07nKQ@mail.gmail.com>
+ <CAFQXuNYV+wt2-+8R4m+mtby9TBwcX+vGdqvUvb_6wXkkBg6b=w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -106,190 +106,264 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAFQXuNbyH88Ab_LgfZknRxhK9QzN8Xe-G9NuRMuECZF_SrRpfA@mail.gmail.com>
-X-Proofpoint-GUID: hxnbPjczQ1L3Y1M4qLuZWkb0vxumWQHD
-X-Proofpoint-ORIG-GUID: hxnbPjczQ1L3Y1M4qLuZWkb0vxumWQHD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDExMCBTYWx0ZWRfXxMQzJlkhB1Iz
- FSR9bFQsoe6b/3206ihM+nqfb8TEZjoWh2O4ijRmNnOUSoKhSkxkDX9+pfAeQmFV4Zsv0j92Q4T
- 61ZWA1W6cFe/zWe2GwhcnhWz16NPHWUBWvNcSoMsZIT7X2AIQ6Azz77EOJlyrQz8B0ZycAANrh2
- FrRdIFE2vhztU6YUGcgVw67byPPpH1639D/6TXOS3CCZHlhE71FAJGvMMOZtZiCkm+U03pkYloA
- Rz/AZ4O0gPTYxoDcghPKGIS3gl6e8JELPcqMsuBPsPwyBOFmqRdIWzqLAOG6DPYTs7v6zLQWPig
- NWfeG/cdyyKNizEzKsmuYimd8boEnB6h4GW4ZdZ7yNTSGmOr8f8KANpdO209nTXYpietvoZfjM3
- b+8bn2dJvmUZdwCfUUW8DHXvKTITeLlllqgvriPdawbHT/WQmY8y30X3MN3IwsKh1iA6N0ZfCdE
- NTsgrqaKkyAs8roxrOQ==
-X-Authority-Analysis: v=2.4 cv=O9cJeh9W c=1 sm=1 tr=0 ts=69e75a8f cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+In-Reply-To: <CAFQXuNYV+wt2-+8R4m+mtby9TBwcX+vGdqvUvb_6wXkkBg6b=w@mail.gmail.com>
+X-Authority-Analysis: v=2.4 cv=KfbidwYD c=1 sm=1 tr=0 ts=69e75c5d cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=gEfo2CItAAAA:8
- a=EUspDBNiAAAA:8 a=Kz8-B0t5AAAA:8 a=SyGcD3P3TnKYVP3v8i4A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22 a=sptkURWiP4Gy88Gu7hUp:22
- a=RuZk68QooNbwfxovefhk:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=Kz8-B0t5AAAA:8 a=ycQz9VjxGySVRsFM4MMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22 a=RuZk68QooNbwfxovefhk:22
+X-Proofpoint-ORIG-GUID: 9blM-GGO7ykjH6l3wTYvzp8Rf8LitCv4
+X-Proofpoint-GUID: 9blM-GGO7ykjH6l3wTYvzp8Rf8LitCv4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDExMiBTYWx0ZWRfX8i0hT0+8Sxlq
+ cE3BS/xe+OYHEGr11ColGQFZFByTJKctGRCZ1cgKDzx2MfXD1WyC0z/oVWs6l2Qj5ZJLmV3nw/C
+ jEXL8DDJAK5W8DKvLJKVCW5XW9U/yQZae35ByTHPDNuu8RQBRxxgJmU/8eK1fY5BbOhrkjl+E5j
+ OMxdxItFkpV6jZlrIcSbcTUk/WBZVAJno/C2/V1q5sMH8Lmc+fPj6kfiohpw0ukxM3Pc1HIJXKj
+ sNDnRcBSnnCbJifN/w0jtzyIIVgu9eC3qsiMVGsVAUhBMLcrcKlZWqF23gnAnuKqATnzCgr9bbz
+ AabRMWob1bLG+NAkHTmR6q87s6izCUf7fj/2BJ8yfXbb61zbyUpkvFgVwrGOwylGTSt3HngtdaL
+ nMI+/vfBhXvrRQTdvy1UPkJnfU4l4XlycCxRpmnqC/kb5Uvm8BJHcacLbFJe1eqTXQG1HQW6Yfs
+ saLAgG2b7bgo8rPUx1w==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-21_02,2026-04-20_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 spamscore=0 impostorscore=0 malwarescore=0
- lowpriorityscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0
+ phishscore=0 priorityscore=1501 spamscore=0 suspectscore=0 bulkscore=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 impostorscore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604210110
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604210112
 
-On Tue, Apr 21, 2026 at 09:33:34AM +0800, 杨孙运 wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年4月20日周一 11:12写道：
-> >
-> > ote, your message didn't reach dri-devel. Please check why. You might
-> > need to switch to B4 Web relay submission, if there are any issues
-> > with the SMTP on your side.
+On Tue, Apr 21, 2026 at 11:13:30AM +0800, 杨孙运 wrote:
+> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年4月20日周一 11:57写道：
 > >
 > > On Mon, 20 Apr 2026 at 05:34, <syyang@lontium.com> wrote:
 > > >
 > > > From: Sunyun Yang <syyang@lontium.com>
 > > >
-> > > -binding for lt7911exc.
+> > > LT7911EXC is a high performance  eDP1.4 to MIPI chip for
 > >
-> > Less is more, but here please settle for slightly more information
-> > about the chip.
+> > MIPI what?
 > >
-> 
+> MIPI DSI,
 > It will be modified in the next version.
 > 
+> > > VR/Display application.
+> > >
+> > > -eDP1.4Receiver
+> > >  1.Support SSC
+> > >  2.Support 1/2/4 lanes
+> > >  3.Support up to 4K@60HzRGB/YCbCr4:4:48bpc
+> > >  4.Support lane swap and PN swap
+> > >
+> > > -MIPI Transmitter
+> > >  1.CompliantwithD-PHY1.2&DSI1.1&CSI-22.0；1 clock lane,
+> > >    and1/2/3/4 configurable data lanes:2.5Gbpsperdatalane
+> > >  2.CompliantwithC-PHY1.0&DSI-21.0&CSI-22.0;
+> > >    1/2/3 configurable data trio；2.5Gsps perdatatrio
+> > >  3.Support1/2configurable ports
+> > >  4.DSISupport16/20/24-bit YCbCr4:2:2,16/18/24/30-bit RGB
 > > >
 > > > Signed-off-by: Sunyun Yang <syyang@lontium.com>
 > > > ---
-> > >  .../display/bridge/lontium,lt7911exc.yaml     | 91 +++++++++++++++++++
-> > >  1 file changed, 91 insertions(+)
-> > >  create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+> > >  drivers/gpu/drm/bridge/Kconfig             |  18 +
+> > >  drivers/gpu/drm/bridge/Makefile            |   1 +
+> > >  drivers/gpu/drm/bridge/lontium-lt7911exc.c | 571 +++++++++++++++++++++
+> > >  3 files changed, 590 insertions(+)
+> > >  create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
 > > >
-> > > diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+> > > diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+> > > index c3209b0f4678..bae8cdaea666 100644
+> > > --- a/drivers/gpu/drm/bridge/Kconfig
+> > > +++ b/drivers/gpu/drm/bridge/Kconfig
+> > > @@ -202,6 +202,24 @@ config DRM_LONTIUM_LT8713SX
+> > >           to 3 configurable Type-C/DP1.4/HDMI2.0 outputs
+> > >           Please say Y if you have such hardware.
+> > >
+> > > +config DRM_LONTIUM_LT9611C
+> >
+> > I thought the patch is for LT7911EXC
+> >
+> Yes, it is LT7911EXC, It will be modified in the next version.
+> 
+> > > +       tristate "Lontium LT9611C DSI/HDMI bridge"
+> > > +       select SND_SOC_HDMI_CODEC if SND_SOC
+> > > +       depends on OF
+> > > +       select CRC8
+> > > +       select FW_LOADER
+> > > +       select DRM_PANEL_BRIDGE
+> > > +       select DRM_KMS_HELPER
+> > > +       select DRM_MIPI_DSI
+> > > +       select DRM_DISPLAY_HELPER
+> > > +       select DRM_DISPLAY_HDMI_STATE_HELPER
+> > > +       select REGMAP_I2C
+> > > +       help
+> > > +         Driver for Lontium DSI to HDMI bridge
+> > > +         chip driver that converts dual DSI and I2S to
+> > > +         HDMI signals
+> > > +         Please say Y if you have such hardware.
+> > > +
+> > >  config DRM_ITE_IT66121
+> > >         tristate "ITE IT66121 HDMI bridge"
+> > >         depends on OF
+> > > diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
+> > > index beab5b695a6e..54b293d1663e 100644
+> > > --- a/drivers/gpu/drm/bridge/Makefile
+> > > +++ b/drivers/gpu/drm/bridge/Makefile
+> > > @@ -18,6 +18,7 @@ obj-$(CONFIG_DRM_LONTIUM_LT9211) += lontium-lt9211.o
+> > >  obj-$(CONFIG_DRM_LONTIUM_LT9611) += lontium-lt9611.o
+> > >  obj-$(CONFIG_DRM_LONTIUM_LT9611UXC) += lontium-lt9611uxc.o
+> > >  obj-$(CONFIG_DRM_LONTIUM_LT8713SX) += lontium-lt8713sx.o
+> > > +obj-$(CONFIG_DRM_LONTIUM_LT7911EXC) += lontium-lt7911exc.o
+> >
+> > Keep the list sorted, please.
+> >
+> Where can I see the sorting rules? Please guide me.
+> it is:
+> obj-$(CONFIG_DRM_LONTIUM_LT7911EXC) += lontium-lt7911exc.o
+> obj-$(CONFIG_DRM_LONTIUM_LT8713SX) += lontium-lt8713sx.o
+
+zoom out, check the overall contents, submit a patch fixing the error.
+
+> ?
+> 
+> > >  obj-$(CONFIG_DRM_LVDS_CODEC) += lvds-codec.o
+> > >  obj-$(CONFIG_DRM_MEGACHIPS_STDPXXXX_GE_B850V3_FW) += megachips-stdpxxxx-ge-b850v3-fw.o
+> > >  obj-$(CONFIG_DRM_MICROCHIP_LVDS_SERIALIZER) += microchip-lvds.o
+> > > diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
 > > > new file mode 100644
-> > > index 000000000000..54a73d41635a
+> > > index 000000000000..d1c1d9e073ef
 > > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
-> > > @@ -0,0 +1,91 @@
-> > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/display/bridge/lontium,lt7911exc.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
+> > > @@ -0,0 +1,571 @@
+> > > +// SPDX-License-Identifier: GPL-2.0
+> > > +/*
+> > > + * Copyright (C) 2026 Lontium Semiconductor, Inc.
+> > > + */
 > > > +
-> > > +title: Lontium LT7911EXC eDP to MIPI Bridge
-> > > +
-> > > +maintainers:
-> > > +  - Sunyun Yang <syyang@lontium.com>
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    enum:
-> > > +      - lontium,lt7911exc
-> > > +
-> > > +  reg:
-> > > +    maxItems: 1
-> > > +
-> > > +  reset-gpios:
-> > > +    maxItems: 1
-> > > +    description: GPIO connected to RST_ pin.
-> > > +
-> > > +  vdd-supply:
-> > > +    description: Regulator for 1.2V MIPI phy power.
-> > > +
-> > > +  vcc-supply:
-> > > +    description: Regulator for 3.3V IO power.
-> > > +
-> > > +  ports:
-> > > +    $ref: /schemas/graph.yaml#/properties/ports
-> > > +
-> > > +    properties:
-> > > +      port@0:
-> > > +        $ref: /schemas/graph.yaml#/properties/port
-> > > +        description: Video port for mipi dsi output.
+> > > +#include <linux/crc32.h>
+> > > +#include <linux/firmware.h>
+> > > +#include <linux/gpio/consumer.h>
+> > > +#include <linux/i2c.h>
+> > > +#include <linux/regmap.h>
 > >
-> > MIPI, DSI
+> > I think you use more than that.
 > >
-> It will be use MIPI DSI,  in the next version.
+> It will be modified in the next version.
 > 
+> > > +#include <drm/drm_of.h>
 > > > +
-> > > +      port@1:
-> > > +        $ref: /schemas/graph.yaml#/properties/port
-> > > +        description: Video port for eDP input.
+> > > +#define FW_SIZE (64 * 1024)
+> > > +#define LT_PAGE_SIZE 32
+> > > +#define FW_FILE  "LT7911EXC.bin"
+> > > +#define LT7911EXC_PAGE_CONTROL 0xff
 > > > +
-> > > +    required:
-> > > +      - port@0
-> > > +      - port@1
-> > > +
-> > > +required:
-> > > +  - compatible
-> > > +  - reg
-> > > +  - reset-gpios
-> > > +  - vdd-supply
-> > > +  - vcc-supply
-> > > +  - ports
-> > > +
-> > > +additionalProperties: false
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    #include <dt-bindings/gpio/gpio.h>
-> > > +    i2c {
-> > > +        #address-cells = <1>;
-> > > +        #size-cells = <0>;
-> > > +
-> > > +        mipi-bridge@41 {
-> > > +            compatible = "lontium,lt7911exc";
-> > > +            reg = <0x41>;
-> > > +            reset-gpios = <&gpy8 8 GPIO_ACTIVE_HIGH>;
+> > > +struct lt7911exc {
+> > > +       struct device *dev;
+> > > +       struct i2c_client *client;
+> > > +       struct drm_bridge bridge;
+> > > +       struct drm_bridge *panel_bridge;
 > >
-> > Reset pins are usually active low.
+> > Use next_bridge from struct drm_bridge instead.
 > >
-> if reset pins use active low, lt7911exc_reset function needs to be modified to:
-> static void lt7911exc_reset(struct lt7911exc *lt7911exc)
-> {
->     gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
->     msleep(20);
+> It will be modified in the next version.
 > 
->     gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
->     msleep(20);
-> 
->     gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
->     msleep(400);
-> 
->     dev_dbg(lt7911exc->dev, "lt7911exc reset");
-> }
-> 
-> I think the two are essentially the same. Please confirm whether I
-> need to make the change?
+> > > +       struct regmap *regmap;
+> > > +       /* Protects all accesses to registers by stopping the on-chip MCU */
+> > > +       struct mutex ocm_lock;
+> > > +       struct regulator_bulk_data supplies[2];
+> > > +
+> > > +       struct gpio_desc *reset_gpio;
+> > > +       const struct firmware *fw;
+> >
+> > Do you need to store it during the runtime? If not, please remove from
+> > the data struct.
+> >
+> Don't need  store during the runtime.
+> Can I use the global variable 'fw'?
 
-If the GPIO is active-low in the hardware, it should be declared so in
-DT.
+Of course not.
+
+> Because I need use 'fw' to calculate the CRC32 and burn the firmware.
+
+Sure, but what does it have to do with the field in struct lt7911exc?
 
 > 
-> > > +            vdd-supply = <&lt7911exc_1v2>;
-> > > +            vcc-supply = <&lt7911exc_3v3>;
+> > > +       int fw_version;
+> > > +       u32 fw_crc;
 > > > +
-> > > +            ports {
-> > > +                #address-cells = <1>;
-> > > +                #size-cells = <0>;
-> > > +
-> > > +                port@0 {
-> > > +                    reg = <0>;
-> > > +
-> > > +                    bridge_out: endpoint {
-> > > +                        remote-endpoint = <&panel_in>;
-> > > +                    };
-> > > +                };
-> > > +
-> > > +                port@1 {
-> > > +                    reg = <1>;
-> > > +
-> > > +                    bridge_in: endpoint {
-> > > +                        remote-endpoint = <&edp_out>;
-> > > +                    };
-> > > +                };
-> > > +            };
-> > > +        };
-> > > +    };
+> > > +       bool enabled;
 > >
-> > --
-> > With best wishes
-> > Dmitry
+> > What for?
+> >
+> (bool enabled;) is used as a flag in the code to reduce the frequency
+> of power supply switching.
+
+How does it help to reduce the rate?
+
+> Of course, it can also be removed in the next version.
+> 
+> > > +};
+> > > +
+> > > +static const struct regmap_range_cfg lt7911exc_ranges[] = {
+> > > +       {
+> > > +               .name = "register_range",
+> > > +               .range_min =  0,
+> > > +               .range_max = 0xffff,
+> >
+> > Is it an actual range?
+> >
+> 0xe8ff is actual  range.
+
+Then why?
+
+> 
+> > > +               .selector_reg = LT7911EXC_PAGE_CONTROL,
+> > > +               .selector_mask = 0xff,
+> > > +               .selector_shift = 0,
+> > > +               .window_start = 0,
+> > > +               .window_len = 0x100,
+> > > +       },
+> > > +};
+> > > +
+> > > +static const struct regmap_config lt7911exc_regmap_config = {
+> > > +       .reg_bits = 8,
+> > > +       .val_bits = 8,
+> > > +       .max_register = 0xffff,
+> > > +       .ranges = lt7911exc_ranges,
+> > > +       .num_ranges = ARRAY_SIZE(lt7911exc_ranges),
+> > > +};
+> > > +
+> > > +static u32 cal_crc32_custom(const u8 *data, u64 length)
+> > > +{
+> > > +       u32 crc = 0xffffffff;
+> > > +       u8 buf[4];
+> > > +       u64 i;
+> > > +
+> > > +       for (i = 0; i < length; i += 4) {
+> > > +               buf[0] = data[i + 3];
+> > > +               buf[1] = data[i + 2];
+> > > +               buf[2] = data[i + 1];
+> > > +               buf[3] = data[i + 0];
+> > > +               crc = crc32_be(crc, buf, 4);
+> >
+> > How is it different from crc32_le()?
+> >
+> The implementation differs from crc32_le() in both byte ordering and
+> processing granularity.
+> This function performs a 32-bit word-wise byte swap (little-endian to
+> big-endian) before feeding data into crc32_be(), while crc32_le()
+> processes the input stream directly in little-endian order without
+> transformation.
+> Therefore, the result is not equivalent to crc32_le(), and is required
+> to match the firmware's expected big-endian word-based CRC format.
+
+ack.
+
+> 
+> 
+> > > +MODULE_LICENSE("GPL v2");
+> Should GPL be used here? I got an error during testing: GPL v2;
+
+Which error?
 
 -- 
 With best wishes
