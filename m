@@ -1,483 +1,235 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E685F1CAA6C
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 15:21:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F89826ED3A;
+	Tue, 21 Apr 2026 15:32:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776784877; cv=none; b=BtZETIGmhl/kIpSl39bKMdb9FVvkEYBCp08F/X8txp7MqSykmEVbvL5FmNO4+LGhmI9ZucCSYamrP/z9lPLus2YpFcQgfCtSPrJDYo7KRuMAzf2duo0Vs77ligMdKgPEYK5bTXYZscUawhbYbApezydBqGYpyG6JPzobtUB9QfE=
+	t=1776785541; cv=none; b=raWGwTvHeYlWJ9d2fVno5XGzGNK2CC634K7RKsTmGl9sU99iX6kZMHptyDorY38vqWAWhXmoPIDTRbJPb3Dl1VJXRdNeKISysyQinDllTos20z5JLT1Kvt4J9/QkXD2CMjgRhI2FUdvLlD+36fzA+uEzfAofl9n0rPoLcBH0LT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776784877; c=relaxed/simple;
-	bh=j23MWxMC1Q4KJkN7MQ9ZKHi37ryxlDpsFhX89zDztzs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PKE6qZyck3OP1sMXxQuFgqUeooddMEI/1Eh/EDW51AgK3qg+zWJul+pDEjXcfWRWQBtYHtZNeoYWc7/9/ZtR1q6o3T9beZQHUmnn+0w+3gF0ldIBZleBrJNlfWI8beqUCrVc9DgR5U0rqyN2qnD3vzRmDQ0zb3OyQ2hc2V9qU1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gQEdstuT; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JEQ7KI5T; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1776785541; c=relaxed/simple;
+	bh=ZuSyrZb1B8cDtkgK8u7UnvmCOkmQAraETxeC8RWQue0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jqIa2BqpdQCLTpJkUnsLz2+Bv2xwgB6UP/h4Wp+Qz6++0+RqdODT0l73pwtUWUOzA3Y94Rw4fEOjgdijGmICxM1WITeHCENPHHjJmLyyOAm4Y6xkto9vEdu8a6YXlBKbyeoeQ3v+JYrupH6zzmLgrU6dBjX2npKjKSRuGhbf250=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SDvu0yfC; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gQEdstuT";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JEQ7KI5T"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1776784875;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BUAGAeOp951oYwbZjsZkGTBz5UuBwAzn8+DwAgWxNW4=;
-	b=gQEdstuThEDxtfVY+tJ4pBu23YGOzkBUuSNOpinDSI36ytm77qxY5fOW40CaD5B0dfO5ch
-	VRuIDm1IzcqUZK/hPXAvtD0e7WQcr9kdyY7WTHKvvl9fv1laGiJCY3NVoYq71O79iSLmEJ
-	EB8JjgKVqyD1CyO5k0+toMOmvSMU074=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-482-AhJZdZk9Nye_uSlk7HhbSQ-1; Tue, 21 Apr 2026 11:21:11 -0400
-X-MC-Unique: AhJZdZk9Nye_uSlk7HhbSQ-1
-X-Mimecast-MFC-AGG-ID: AhJZdZk9Nye_uSlk7HhbSQ_1776784871
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-8aca14d1faaso96605466d6.3
-        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 08:21:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1776784871; x=1777389671; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BUAGAeOp951oYwbZjsZkGTBz5UuBwAzn8+DwAgWxNW4=;
-        b=JEQ7KI5TI2wdNTm6KiIvKePs/2vFuNhuUHDbTf5WOKcLHQt9exwPQYkFrSg5hOu2c1
-         WPmw5ChrWIAcq3rfE2xoo8B4lLvzTfTmhbsCv3gwEqD84t5u14J1ge+aElB8FQDtlBlZ
-         Bn8CtbJkq9X0fbxADXemP4H0AUcqdsG1jM7PL7gJPmbYvS5yue0y2Ch6vAAfEkTxhffL
-         /TCiAU/q7P+dFjuHXfQSa09V9WM0zbSXhC4ab8wuBYz6WoRLCSDkJP9JVCjTxf6A8v3D
-         4F+jFGak7m1bDCIYdLksFKyXFXAFHw22EIFQpnh8SgJXM1hN+Bf8XXmD9R1snLO5ho++
-         2b6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776784871; x=1777389671;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=BUAGAeOp951oYwbZjsZkGTBz5UuBwAzn8+DwAgWxNW4=;
-        b=MkYV4pFY1OCnMH3LtrxcjZ/52h7EkzoDwmYylM9m65tzQ2pYaugp89FgWCQizbGcga
-         D7KwzP7ouMJHLPphLUUf3lyMr82itW/Vqu3KpqtvekOhTQJIu4dPsIXgBPWIBbgZpPQf
-         aDgM3Kl7Di+1YCACQnm3oNf7lnKvXjg2OGbO+yGrXXw86mOf++/k6iAvi7V/jpt8PFzT
-         1iRhG/z4kP4Cabg3Cc5WeXq8ueao+vOH9If07jTJuGjvmZs7glCrJwCv6N+kPe/HEEMS
-         Ou8/jynkTHWxUU4b3kgvUJPV05icXV+Tj78gPwbbl9JaMsjnczCFevGNtoZ2fREPXbe7
-         dRJA==
-X-Forwarded-Encrypted: i=1; AFNElJ/iMd3PlTjRXFn4f8VsRFGOqYzP+J8+4juZjM84xrJ+5VVWtO9sfl64sfmeCNXrRLGx10J7I1CYE3Ra@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw9vz6f2I9AX4jkHcdrQfnL1sZNI2qaFZBkPf9xRK0ic3bY53me
-	D9fM2yxMVTOFe72ShnRAth+jEtTapxwIbepMsWqrEVnHchbuQfs0mbHWTHzuAICebMYEQP8HZx5
-	kIZawMLPN5M8At/rvRjqIeSPo9p7B7Ykif6Y6BUBAvZX6f2S+4R0xXU9VQJUPeKw=
-X-Gm-Gg: AeBDiesU7Gv0l2cQzQ40ArEVgR0qwTQd5uKZ7dQQa3a2GicBug/1uaNgAraoQAc9pEz
-	zqXuPZI3CBsuN+Y3PZzk1SkuFAeX5R4Z2lgQo+VBcFOyP6aoM2EtFzHHa/LbD5X7psbRk/bd17W
-	E++p/6CcTqtPsv5HUIUGOc4xXsAllDTc9S+NV6z3cm+MqsHSwRC0c+Lqt8QM9CxmK3Kcj9aFtM/
-	Tn4zOvoZv+eqPVEFu0I/YUp761LnF9KwNek6GIZGKAlb/bt2lplkxLLB2ddBYRz7mS0PSskQ+5Y
-	1eRu6T3slpDO06iOpsFvV7cDMiBLM7ZN6TIsBTJvJRHRtZY0u0wUKgwpnNSLIvbSKGdwDdmaxKo
-	zTGXB2lsl2Kxud7NuPUuFHItGeGa0NdTEjqK0LoMSNz8xoEsQEjYWKmLFoGhe/E88p10=
-X-Received: by 2002:a05:6214:29e9:b0:89c:4cb3:4ea1 with SMTP id 6a1803df08f44-8b0280b40b1mr308736726d6.20.1776784871075;
-        Tue, 21 Apr 2026 08:21:11 -0700 (PDT)
-X-Received: by 2002:a05:6214:29e9:b0:89c:4cb3:4ea1 with SMTP id 6a1803df08f44-8b0280b40b1mr308736026d6.20.1776784870354;
-        Tue, 21 Apr 2026 08:21:10 -0700 (PDT)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8b02ae5ec2dsm109396226d6.29.2026.04.21.08.21.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Apr 2026 08:21:09 -0700 (PDT)
-Date: Tue, 21 Apr 2026 11:21:07 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: dongxuyang@eswincomputing.com
-Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	p.zabel@pengutronix.de, huangyifeng@eswincomputing.com,
-	benoit.monin@bootlin.com, ningyu@eswincomputing.com,
-	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com
-Subject: Re: [PATCH v2 2/3] clk: eswin: Add eic7700 HSP clock driver
-Message-ID: <aeeV44LihyBpCd0T@redhat.com>
-References: <20260420093929.1895-1-dongxuyang@eswincomputing.com>
- <20260420094734.2392-1-dongxuyang@eswincomputing.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SDvu0yfC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA5BBC2BCB0;
+	Tue, 21 Apr 2026 15:32:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776785541;
+	bh=ZuSyrZb1B8cDtkgK8u7UnvmCOkmQAraETxeC8RWQue0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=SDvu0yfC0rvNPHjOmHmLbzIb8mAZFyfEiVvuyrncx2AZvP1UxxJS5n6qmf1JXmZNW
+	 SVbDowtvWTW1PXQdIpqR52lKpU+vtLe4+OdaJj/BDeUUapgdm0vbfZsKNlx3MnlPol
+	 ERaBeZA4kFY//rmwBEXLu3qIRvLTXmG9LH6SNqz8zFwu+jD1Ca9Zav/ELHVMFHu2xS
+	 xb2DnRkjhKrn7qIWoF7xxsYS05/o77TB4xoyNpAIXFvKoBWt0x/A+EjeIwkpgzcogm
+	 n8RacQezs6fKmxd7tVGuG8ofLxBhQaW2BnnIV7xKJtgGdtT4notruGADn0YRzLrCs8
+	 +wJs894vLcPIg==
+Message-ID: <c214f270-571c-4440-919e-99fce5ac1b08@kernel.org>
+Date: Tue, 21 Apr 2026 17:32:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260420094734.2392-1-dongxuyang@eswincomputing.com>
-User-Agent: Mutt/2.3.1 (2026-03-20)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/2] dt-bindings: embedded-controller: Add synology
+ microp devices
+To: Markus Probst <markus.probst@posteo.de>
+Cc: Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org
+References: <20260420-synology_microp_initial-v8-0-7946a9124491@posteo.de>
+ <20260420-synology_microp_initial-v8-1-7946a9124491@posteo.de>
+ <20260421-just-benevolent-dormouse-2c35ed@quoll>
+ <26b074972581ff398b5af964ba092c8117855062.camel@posteo.de>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <26b074972581ff398b5af964ba092c8117855062.camel@posteo.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Xuyang,
+On 21/04/2026 16:50, Markus Probst wrote:
+> On Tue, 2026-04-21 at 09:07 +0200, Krzysztof Kozlowski wrote:
+>> On Mon, Apr 20, 2026 at 02:24:20PM +0000, Markus Probst wrote:
+>>> Add the Synology Microp devicetree bindings. Those devices are
+>>> microcontrollers found on Synology NAS devices. They are connected to a
+>>> serial port on the host device.
+>>>
+>>> Those devices are used to control certain LEDs, fan speeds, a beeper, to
+>>> handle buttons, fan failures and to properly shutdown and reboot the
+>>> device.
+>>>
+>>> The device has a different feature set depending on the Synology NAS
+>>> model, like having different number of fans, buttons and leds. Depending
+>>> on the architecture of the model, they also need a different system
+>>> shutdown behaviour.
+>>>
+>>> Signed-off-by: Markus Probst <markus.probst@posteo.de>
+>>> ---
+>>>  .../synology,ds1825p-microp.yaml                   | 108 +++++++++++++++++++++
+>>>  1 file changed, 108 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/embedded-controller/synology,ds1825p-microp.yaml b/Documentation/devicetree/bindings/embedded-controller/synology,ds1825p-microp.yaml
+>>> new file mode 100644
+>>> index 000000000000..76c671a42fbf
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/embedded-controller/synology,ds1825p-microp.yaml
+>>> @@ -0,0 +1,108 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/embedded-controller/synology,ds1825p-microp.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: Synology NAS on-board Microcontroller
+>>> +
+>>> +maintainers:
+>>> +  - Markus Probst <markus.probst@posteo.de>
+>>> +
+>>> +description: |
+>>> +  Synology Microp is a microcontroller found in Synology NAS devices.
+>>> +  It is connected to a serial port on the host device.
+>>> +
+>>> +  It is necessary to properly shutdown and reboot the NAS device and
+>>> +  provides additional functionality such as led control, fan speed control,
+>>> +  a beeper and buttons on the NAS device.
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    oneOf:
+>>> +      - const: synology,ds223-microp
+>>> +      - const: synology,ds411p-microp
+>>> +      - const: synology,ds1010p-microp
+>>> +      - const: synology,ds710p-microp
+>>> +      - const: synology,ds723p-microp
+>>> +      - const: synology,ds225p-microp
+>>> +      - const: synology,rs422p-microp
+>>
+>> That's one enum.
+>>
+>>> +      - maxItems: 2
+>>> +        minItems: 2
+>>
+>> There is no such syntax foro compatibles. Please use any existing file
+>> as example or look at example-schema.
+> In the example schema, another device is used as fallback. 
 
-On Mon, Apr 20, 2026 at 05:47:34PM +0800, dongxuyang@eswincomputing.com wrote:
-> From: Xuyang Dong <dongxuyang@eswincomputing.com>
+True.
+
+> This is what
+> I did here.
+
+Not true. You have enum and min/maxItems. There is no such syntax for
+compatibles. I repeat.
+
+Instead of just blindly disagreeing and saying "I did that", point me to
+example-schema having compatibles with min/maxItems.
+
+
+
 > 
-> Add driver for the ESWIN EIC7700 high-speed peripherals system
-> clock controller and register an auxiliary device for system
-> reset controller which is named as "hsp-reset".
 > 
-> Signed-off-by: Xuyang Dong <dongxuyang@eswincomputing.com>
-> ---
->  drivers/clk/eswin/Kconfig           |  12 +
->  drivers/clk/eswin/Makefile          |   1 +
->  drivers/clk/eswin/clk-eic7700-hsp.c | 385 ++++++++++++++++++++++++++++
->  3 files changed, 398 insertions(+)
->  create mode 100644 drivers/clk/eswin/clk-eic7700-hsp.c
+> Other sources suggest, I should add fallbacks that are less specific
+
+That's not really discussed here. It all looks like some random schema
+and considering amount of LLM flying on the lists I have now doubts.
+
+You need specific compatibles.
+...
+
 > 
-> diff --git a/drivers/clk/eswin/Kconfig b/drivers/clk/eswin/Kconfig
-> index 0406ec499ec9..e6cc2a407bac 100644
-> --- a/drivers/clk/eswin/Kconfig
-> +++ b/drivers/clk/eswin/Kconfig
-> @@ -13,3 +13,15 @@ config COMMON_CLK_EIC7700
->  	  SoC. The clock controller generates and supplies clocks to various
->  	  peripherals within the SoC.
->  	  Say yes here to support the clock controller on the EIC7700 SoC.
-> +
-> +config COMMON_CLK_EIC7700_HSP
-> +	tristate "EIC7700 HSP Clock Driver"
-> +	depends on ARCH_ESWIN || COMPILE_TEST
-> +	select AUXILIARY_BUS
-> +	select COMMON_CLK_EIC7700
-> +	select RESET_EIC7700_HSP if RESET_CONTROLLER
-> +	help
-> +	  This driver provides support for clock controller on ESWIN EIC7700
-> +	  HSP. The clock controller generates and supplies clocks to high
-> +	  speed peripherals within the SoC.
-> +	  Say yes here to support the clock controller on the EIC7700 HSP.
-> diff --git a/drivers/clk/eswin/Makefile b/drivers/clk/eswin/Makefile
-> index 4a7c2af82164..21a09a3396df 100644
-> --- a/drivers/clk/eswin/Makefile
-> +++ b/drivers/clk/eswin/Makefile
-> @@ -6,3 +6,4 @@
->  obj-$(CONFIG_COMMON_CLK_ESWIN)		+= clk.o
+> If thisisn't fine either, replying to my previous message would
+> probably the most efficient way to move forward [1].
+
+
 > 
->  obj-$(CONFIG_COMMON_CLK_EIC7700)	+= clk-eic7700.o
-> +obj-$(CONFIG_COMMON_CLK_EIC7700_HSP)	+= clk-eic7700-hsp.o
-> diff --git a/drivers/clk/eswin/clk-eic7700-hsp.c b/drivers/clk/eswin/clk-eic7700-hsp.c
-> new file mode 100644
-> index 000000000000..d8f5493b45e7
-> --- /dev/null
-> +++ b/drivers/clk/eswin/clk-eic7700-hsp.c
-> @@ -0,0 +1,385 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright 2026, Beijing ESWIN Computing Technology Co., Ltd..
-> + * All rights reserved.
-> + *
-> + * ESWIN EIC7700 HSP Clock Driver
-> + *
-> + * Authors: Xuyang Dong <dongxuyang@eswincomputing.com>
-> + */
-> +
-> +#include <linux/auxiliary_bus.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/io.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +
-> +#include <dt-bindings/clock/eswin,eic7700-hspcrg.h>
-> +
-> +#include "common.h"
-> +
-> +#define EIC7700_HSP_SATA_REG		0x300
-> +#define EIC7700_HSP_MSHC0_REG		0x510
-> +#define EIC7700_HSP_MSHC1_REG		0x610
-> +#define EIC7700_HSP_MSHC2_REG		0x710
-> +#define EIC7700_HSP_USB0_REG		0x800
-> +#define EIC7700_HSP_USB0_REF_REG	0x83c
-> +#define EIC7700_HSP_USB1_REG		0x900
-> +#define EIC7700_HSP_USB1_REF_REG	0x93c
-> +
-> +#define USB_REF_XTAL24M			0x2a
-> +#define EIC7700_HSP_NR_CLKS		(EIC7700_HSP_CLK_GATE_SATA + 1)
-> +
-> +struct eic7700_hsp_clk_gate {
-> +	struct clk_hw hw;
-> +	unsigned int id;
-> +	void __iomem *reg;
-> +	void __iomem *ref_reg;
-> +	const char *name;
-> +	const struct clk_parent_data *parent_data;
-> +	unsigned long flags;
-> +	unsigned long offset;
-> +	unsigned long ref_offset;
-> +	u8 bit_idx;
-> +	u8 gate_flags;
+>>
+>>> +        items:
+>>> +          enum:
+>>
+>> No, why the list is randomly ordered.
 
-Is this used anywhere?
+Look here
 
-> +	spinlock_t *lock; /* protect register read-modify-write cycle */
-> +};
-> +
-> +/*
-> + * The USB clock gate (hsp_clk_gate_endisable) and the reset driver both
-> + * perform read-modify-write cycles on registers 0x800 and 0x900. Use
-> + * custom regmap lock callbacks so that regmap operations hold data->lock
-> + * with IRQs disabled, the same lock the clock gate path uses, preventing
-> + * concurrent RMW races on those shared registers.
-> + */
-> +struct eic7700_hsp_regmap_lock {
-> +	spinlock_t *lock; /* protect register read-modify-write cycle */
-> +	unsigned long flags;
-> +};
-> +
-> +static void eic7700_hsp_regmap_lock_fn(void *arg)
+>>
+>>> +            - synology,ds923p-microp
+>>> +            - synology,ds1522p-microp
+>>
+>> And fallback, whichever is that, is not documented alone.
+>>
+>>> +      - minItems: 4
+>>> +        maxItems: 4
+> 
+> Those are devices with the exactly same known feature set.
+> i. e. ds1522p can act as a fallback for ds923p, and ds923p could act as
+> a fallback for ds1522p.
 
-You can add an __acquires to the declaration here. See
-dio48e_regmap_lock() in drivers/gpio/gpio-104-dio-48e.c for an example.
+You are not responding to actual comments. Lets focus ONLY on above
+list. ONLY. Point me, where did you document the fallback to be used
+alone? First of course, define what is the fallback.
 
-> +{
-> +	struct eic7700_hsp_regmap_lock *ctx = arg;
-> +
-> +	spin_lock_irqsave(ctx->lock, ctx->flags);
-> +}
-> +
-> +static void eic7700_hsp_regmap_unlock_fn(void *arg)
-> +{
-> +	struct eic7700_hsp_regmap_lock *ctx = arg;
-> +
-> +	spin_unlock_irqrestore(ctx->lock, ctx->flags);
-> +}
-> +
-> +static inline struct eic7700_hsp_clk_gate *to_gate_clk(struct clk_hw *hw)
-> +{
-> +	return container_of(hw, struct eic7700_hsp_clk_gate, hw);
-> +}
-> +
-> +#define EIC7700_HSP_GATE(_id, _name, _pdata, _flags, _offset, _idx,	\
-> +			 _ref_offset)					\
-> +	{								\
-> +		.id		= _id,					\
-> +		.name		= _name,				\
-> +		.parent_data	= _pdata,				\
-> +		.flags		= _flags,				\
-> +		.offset		= _offset,				\
-> +		.ref_offset	= _ref_offset,				\
-> +		.bit_idx	= _idx,					\
-> +	}
-> +
-> +static void hsp_clk_gate_endisable(struct clk_hw *hw, int enable)
-> +{
-> +	struct eic7700_hsp_clk_gate *gate = to_gate_clk(hw);
-> +	u32 reg;
-> +
-> +	guard(spinlock_irqsave)(gate->lock);
-> +
-> +	reg = readl(gate->reg);
-> +
-> +	if (enable)
-> +		reg |= BIT(gate->bit_idx);
-> +	else
-> +		reg &= ~BIT(gate->bit_idx);
-> +
-> +	/*
-> +	 * Hardware bug: The reference clock is 24MHz, but the reference clock
-> +	 * register reset to an incorrect default value.
-> +	 * Workaround: Rewrite the correct value before enabling/disabling
-> +	 * the gate clock.
-> +	 */
-> +	writel(USB_REF_XTAL24M, gate->ref_reg);
-> +	writel(reg, gate->reg);
+None of this matches example schema or any other bindings, none of this
+produces correct constraints for correct DTS.
 
-Does this only needed on the enable path? Or is this still needed on the
-disable path if there are other clocks referencing the parent?
+You need a defined enum of fallbacks and several lists for specific
+fallback+front, like many other bindings in kernel.
 
-> +}
-> +
-> +static int hsp_clk_gate_enable(struct clk_hw *hw)
-> +{
-> +	hsp_clk_gate_endisable(hw, 1);
-> +
-> +	return 0;
-> +}
-> +
-> +static void hsp_clk_gate_disable(struct clk_hw *hw)
-> +{
-> +	hsp_clk_gate_endisable(hw, 0);
-> +}
-> +
-> +static int hsp_clk_gate_is_enabled(struct clk_hw *hw)
-> +{
-> +	struct eic7700_hsp_clk_gate *gate = to_gate_clk(hw);
-> +	u32 reg;
-> +
-> +	reg = readl(gate->reg);
-> +	reg &= BIT(gate->bit_idx);
-> +
-> +	return reg ? 1 : 0;
-
-You can simplify this to:
-
-  return !!(readl(gate->reg) & BIT(gate->bit_idx));                                                                                                                                                 
-
-> +}
-> +
-> +static const struct clk_ops hsp_clk_gate_ops = {
-> +	.enable = hsp_clk_gate_enable,
-> +	.disable = hsp_clk_gate_disable,
-> +	.is_enabled = hsp_clk_gate_is_enabled,
-> +};
-> +
-> +static struct clk_hw *
-> +hsp_clk_register_gate(struct device *dev, unsigned int id, const char *name,
-> +		      const struct clk_parent_data *parent_data,
-> +		      unsigned long flags, void __iomem *reg,
-> +		      void __iomem *ref_reg, u8 bit_idx, u8 clk_gate_flags,
-> +		      spinlock_t *lock)
-> +{
-> +	struct eic7700_hsp_clk_gate *gate;
-> +	struct clk_init_data init = {};
-> +	struct clk_hw *hw;
-> +	int ret;
-> +
-> +	gate = devm_kzalloc(dev, sizeof(*gate), GFP_KERNEL);
-> +	if (!gate)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	init.name = name;
-> +	init.ops = &hsp_clk_gate_ops;
-> +	init.flags = flags;
-> +	init.parent_data = parent_data;
-> +	init.num_parents = 1;
-> +
-> +	gate->id = id;
-> +	gate->reg = reg;
-> +	gate->ref_reg = ref_reg;
-> +	gate->bit_idx = bit_idx;
-> +	gate->gate_flags = clk_gate_flags;
-> +	gate->lock = lock;
-> +	gate->hw.init = &init;
-> +
-> +	hw = &gate->hw;
-> +	ret = devm_clk_hw_register(dev, hw);
-> +	if (ret)
-> +		hw = ERR_PTR(ret);
-> +
-> +	return hw;
-> +}
-> +
-> +static const struct clk_parent_data hsp_cfg[] = {
-> +	{ .index = 0 }
-> +};
-> +
-> +static const struct clk_parent_data hsp_mmc[] = {
-> +	{ .index = 1 }
-> +};
-> +
-> +static const struct clk_parent_data hsp_usb_sata[] = {
-> +	{ .index = 2 }
-> +};
-> +
-> +static struct eswin_fixed_factor_clock eic7700_hsp_factor_clks[] = {
-> +	ESWIN_FACTOR(EIC7700_HSP_CLK_FAC_CFG_DIV2, "factor_hsp_cfg_div2",
-> +		     hsp_cfg, 1, 2, 0),
-> +	ESWIN_FACTOR(EIC7700_HSP_CLK_FAC_CFG_DIV4, "factor_hsp_cfg_div4",
-> +		     hsp_cfg, 1, 4, 0),
-> +	ESWIN_FACTOR(EIC7700_HSP_CLK_FAC_MMC_DIV10, "factor_hsp_mmc_div10",
-> +		     hsp_mmc, 1, 10, 0),
-> +};
-> +
-> +static struct eswin_gate_clock eic7700_hsp_gate_clks[] = {
-> +	ESWIN_GATE(EIC7700_HSP_CLK_GATE_SATA, "gate_clk_hsp_sata", hsp_usb_sata,
-> +		   CLK_SET_RATE_PARENT, EIC7700_HSP_SATA_REG, 28, 0),
-> +	ESWIN_GATE(EIC7700_HSP_CLK_GATE_MSHC0_TMR, "gate_clk_hsp_mshc0_tmr",
-> +		   hsp_mmc, CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC0_REG, 8, 0),
-> +	ESWIN_GATE(EIC7700_HSP_CLK_GATE_MSHC1_TMR, "gate_clk_hsp_mshc1_tmr",
-> +		   hsp_mmc, CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC1_REG, 8, 0),
-> +	ESWIN_GATE(EIC7700_HSP_CLK_GATE_MSHC2_TMR, "gate_clk_hsp_mshc2_tmr",
-> +		   hsp_mmc, CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC2_REG, 8, 0),
-> +};
-> +
-> +static struct eic7700_hsp_clk_gate eic7700_hsp_spec_gate_clks[] = {
-> +	EIC7700_HSP_GATE(EIC7700_HSP_CLK_GATE_USB0, "gate_clk_hsp_usb0",
-> +			 hsp_usb_sata, CLK_SET_RATE_PARENT,
-> +			 EIC7700_HSP_USB0_REG, 28, EIC7700_HSP_USB0_REF_REG),
-> +	EIC7700_HSP_GATE(EIC7700_HSP_CLK_GATE_USB1, "gate_clk_hsp_usb1",
-> +			 hsp_usb_sata, CLK_SET_RATE_PARENT,
-> +			 EIC7700_HSP_USB1_REG, 28, EIC7700_HSP_USB1_REF_REG),
-> +};
-> +
-> +static const struct clk_parent_data mux_mmc_3mux1_p[] = {
-> +	{ .fw_name = "cfg" },
-> +	{ .hw = &eic7700_hsp_factor_clks[0].hw },
-> +	{ .hw = &eic7700_hsp_factor_clks[1].hw },
-> +};
-> +
-> +static const struct clk_parent_data mux_mmc_2mux1_p[] = {
-> +	{ .fw_name = "mmc" },
-> +	{ .hw = &eic7700_hsp_factor_clks[2].hw },
-> +};
-> +
-> +static u32 mux_mmc_3mux1_tbl[] = { 0x0, 0x1, 0x3 };
-> +
-> +static struct eswin_mux_clock eic7700_hsp_mux_clks[] = {
-> +	ESWIN_MUX_TBL(EIC7700_HSP_CLK_MUX_EMMC_3MUX1, "mux_hsp_emmc_3mux1",
-> +		      mux_mmc_3mux1_p, ARRAY_SIZE(mux_mmc_3mux1_p),
-> +		      CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC0_REG, 16, 2, 0,
-> +		      mux_mmc_3mux1_tbl),
-> +	ESWIN_MUX_TBL(EIC7700_HSP_CLK_MUX_SD0_3MUX1, "mux_hsp_sd0_3mux1",
-> +		      mux_mmc_3mux1_p, ARRAY_SIZE(mux_mmc_3mux1_p),
-> +		      CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC1_REG, 16, 2, 0,
-> +		      mux_mmc_3mux1_tbl),
-> +	ESWIN_MUX_TBL(EIC7700_HSP_CLK_MUX_SD1_3MUX1, "mux_hsp_sd1_3mux1",
-> +		      mux_mmc_3mux1_p, ARRAY_SIZE(mux_mmc_3mux1_p),
-> +		      CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC2_REG, 16, 2, 0,
-> +		      mux_mmc_3mux1_tbl),
-> +	ESWIN_MUX(EIC7700_HSP_CLK_MUX_EMMC_CQE_2MUX1, "mux_hsp_emmc_cqe_2mux1",
-> +		  mux_mmc_2mux1_p, ARRAY_SIZE(mux_mmc_2mux1_p),
-> +		  CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC0_REG, 0, 1, 0),
-> +	ESWIN_MUX(EIC7700_HSP_CLK_MUX_SD0_CQE_2MUX1, "mux_hsp_sd0_cqe_2mux1",
-> +		  mux_mmc_2mux1_p, ARRAY_SIZE(mux_mmc_2mux1_p),
-> +		  CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC1_REG, 0, 1, 0),
-> +	ESWIN_MUX(EIC7700_HSP_CLK_MUX_SD1_CQE_2MUX1, "mux_hsp_sd1_cqe_2mux1",
-> +		  mux_mmc_2mux1_p, ARRAY_SIZE(mux_mmc_2mux1_p),
-> +		  CLK_SET_RATE_PARENT, EIC7700_HSP_MSHC2_REG, 0, 1, 0),
-> +};
-> +
-> +static struct eswin_clk_info eic7700_hsp_clks[] = {
-> +	ESWIN_GATE_TYPE(EIC7700_HSP_CLK_GATE_EMMC, "gate_clk_hsp_emmc",
-> +			EIC7700_HSP_CLK_MUX_EMMC_3MUX1,
-> +			CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED,
-> +			EIC7700_HSP_MSHC0_REG, 24, 0),
-> +	ESWIN_GATE_TYPE(EIC7700_HSP_CLK_GATE_SD0, "gate_clk_hsp_sd0",
-> +			EIC7700_HSP_CLK_MUX_SD0_3MUX1,
-> +			CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED,
-> +			EIC7700_HSP_MSHC1_REG, 24, 0),
-> +	ESWIN_GATE_TYPE(EIC7700_HSP_CLK_GATE_SD1, "gate_clk_hsp_sd1",
-> +			EIC7700_HSP_CLK_MUX_SD1_3MUX1,
-> +			CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED,
-> +			EIC7700_HSP_MSHC2_REG, 24, 0),
-> +};
-> +
-> +static int eic7700_hsp_clk_probe(struct platform_device *pdev)
-> +{
-> +	struct eic7700_hsp_regmap_lock *lock_ctx;
-> +	struct device *dev = &pdev->dev;
-> +	struct auxiliary_device *adev;
-> +	struct eswin_clock_data *data;
-> +	struct regmap *regmap;
-> +	struct clk_hw *hw;
-> +	int i, ret;
-> +
-> +	data = eswin_clk_init(pdev, EIC7700_HSP_NR_CLKS);
-> +	if (IS_ERR(data))
-> +		return dev_err_probe(dev, PTR_ERR(data),
-> +				     "failed to get clk data!\n");
-> +
-> +	lock_ctx = devm_kzalloc(dev, sizeof(*lock_ctx), GFP_KERNEL);
-> +	if (!lock_ctx)
-> +		return dev_err_probe(dev, -ENOMEM,
-> +				     "failed to alloc regmap lock ctx\n");
-> +
-> +	lock_ctx->lock = &data->lock;
-> +	const struct regmap_config eic7700_hsp_regmap_config = {
-> +		.reg_bits = 32,
-> +		.val_bits = 32,
-> +		.max_register = 0x1ffc,
-> +		.reg_stride = 4,
-> +		.lock = eic7700_hsp_regmap_lock_fn,
-> +		.unlock = eic7700_hsp_regmap_unlock_fn,
-> +		.lock_arg = lock_ctx,
-> +	};
-
-So this is valid C99 with the const struct declared here. This can't be
-moved outside the probe function because of the lock_ctx. I would drop
-the const, declare eic7700_hsp_regmap_config as a regular variable at
-the top. Similar to what's done in drivers/gpio/gpio-104-dio-48e.c with
-dio48e_regmap_config.
-
-Brian
-
+Best regards,
+Krzysztof
