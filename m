@@ -1,170 +1,167 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034763B7763;
-	Tue, 21 Apr 2026 12:27:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755413C943B;
+	Tue, 21 Apr 2026 12:32:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776774421; cv=none; b=cbuNzfsb2WxMz8IqsfdBvutFHzCIz+5eNwFHbYd6liVnSAKMGmFIumHNH/UfGgzM1noFmxgrnc4lhvY4coadlgBwt2M95GjUmQpQjDDAn+4hTaNAzoedl960Dh3klsmI3ZbBbX7r6gG0yoVRfWwMHfWQp/eeqsBJ2SPsjY0E/M0=
+	t=1776774745; cv=none; b=qFer3IfNAaz/QFhPYrK9zPAyAD5Njs+UUST1SrAJdAIZjGVueNUhbE+6AYke/AsawYtZQ1aP9O+A0YfyFaH8DrQqJfzxaeZq3lt9fR5L3yk5L4UHCUbnc0WsEdXM9lTS/ApohYGGrazTop26tLxB6UhgwcZNRyloH5lBtURnPDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776774421; c=relaxed/simple;
-	bh=ZaGWM8jA4mMH9NwO+YqwAWjdiVWdlYlvmNHObCEIt6k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YyQL/SgHlQewIhWFre1zTnWtjsLseQaqLN7ypMQX6TpGE935s3E34f3C0XGM1EPC5kXYFXx7IBuK3VUMCnZpQBZEUvFaXHALpb9VqUV5eA9dECak7GIk+Xd7FZ/6ccxyl+gDhOIRVMyuz0tBHAolllxqUhkgg7xnQUZ2QY7+Z94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IfI9Jb9g; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776774745; c=relaxed/simple;
+	bh=fHogJFUXtmJ8h9rv9J/W39FCHQRKZiuaR6kEImeePd4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kQawcZPbPYes80frIFet65Rkq4BjMysryAdfvorF7FGNL6dlwKA6nMglY5DXFGJtR+d52fg2iIVQCJ+RNg9J5xb7W0mJoAw6CjHo2tfXExcA/AM1a47Gt7bDHCe/uRDmtMirzwL1oWDBu53FTu7dJ0QwE65G6kigWOlTa+zbUPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lidjiUFB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IfI9Jb9g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5B97C2BCB0;
-	Tue, 21 Apr 2026 12:26:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lidjiUFB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C61D7C2BCB0;
+	Tue, 21 Apr 2026 12:32:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776774420;
-	bh=ZaGWM8jA4mMH9NwO+YqwAWjdiVWdlYlvmNHObCEIt6k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=IfI9Jb9gKqz+z+jxmbqO6X6SzZtsSqVQArsbwBQxWe62W+RTooyaT3ghb7Me8n5V4
-	 z0M2A0w8RDm2rHw2yGhmhcsg02rGaSBg1IJ2xJCeSRULv7XvNbWHgO25wR3yL56Y2m
-	 DYgdPHlTj9+y32EzGWMtZjnfvnL/KH254IDnPgRXGW0Wk+l3HPdwgERwEN4zIui4R3
-	 baXKtsdlysBs0yk13sxZlyF6ed5iih8ie2NzrkDNwF3OzQnOn9rAKOv+pj+iLgM4Bd
-	 wbVrOG5S+xzIHWl/w+oBedgHWZ6eK2eyUazcS9rTqv0QvV6PjNyDoLJvmraSwkXDFh
-	 bwtSbxOIiPvlw==
-Message-ID: <215f12d6-62c1-4837-9f78-ef270684950c@kernel.org>
-Date: Tue, 21 Apr 2026 14:26:35 +0200
+	s=k20201202; t=1776774745;
+	bh=fHogJFUXtmJ8h9rv9J/W39FCHQRKZiuaR6kEImeePd4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lidjiUFBNlGW1ZK0cSZ+MOH/azPjNeQC2ufFrT3Euzuck2WCt3RLjFYrFRp0vfnli
+	 OuUlNVqJtli074ztaXzrFbQ/yRocV1IPcQWnHpns8hQ1NE57s+Sia+dZBi5TdWIkTa
+	 saMQNbkE5vLxG0Jay62Njd1XE4oPW1yWc7aBRs8YZU6awIQy0Yuhf4XkWVbBzy2F1K
+	 A4nPWMje0DwxXeQWCMRKEdOucnglxzzugl582jJbezldoCpkHno8lLygyOz7Ia9P8S
+	 H8bSr0zGdzaRMZRv3UWKdMFouo1Y6N2OwQIsWRisEmT9z48LmNyPoMWI4YzfzDIas8
+	 HLFwNc8s0xsjQ==
+Date: Tue, 21 Apr 2026 18:02:06 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: lumag@kernel.org, robin.clark@oss.qualcomm.com
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+	linux-media@vger.kernel.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+	linux-remoteproc@vger.kernel.org, andersson@kernel.org,
+	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+	akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+	jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+	airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+	dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
+	mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+	trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+	pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+	tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+	srinivas.kandagatla@oss.qualcomm.com,
+	amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+	op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+	skare@qti.qualcomm.com, harshal.dev@oss.qualcomm.com,
+	linux-kernel@vger.kernel.org,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v3 10/15] drm/msm: Switch to generic PAS TZ APIs
+Message-ID: <aeduRrAMOAW4f5TU@sumit-xelite>
+References: <20260327131043.627120-1-sumit.garg@kernel.org>
+ <20260327131043.627120-11-sumit.garg@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] powerpc: Add a typos.toml file
-To: Link Mauve <linkmauve@linkmauve.fr>, linuxppc-dev@lists.ozlabs.org
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Herbert Xu
- <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
- Juergen Gross <jgross@suse.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Geoff Levand <geoff@infradead.org>,
- Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
- Oliver O'Halloran <oohall@gmail.com>, Anatolij Gustschin <agust@denx.de>,
- =?UTF-8?Q?Breno_Leit=C3=A3o?= <leitao@debian.org>,
- Nayna Jain <nayna@linux.ibm.com>,
- Paulo Flabiano Smorigo <pfsmorigo@gmail.com>,
- Eric Biggers <ebiggers@kernel.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>,
- Ard Biesheuvel <ardb@kernel.org>, Thorsten Blum <thorsten.blum@linux.dev>,
- Thomas Huth <thuth@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- David Hildenbrand <david@kernel.org>, Alistair Popple <apopple@nvidia.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Donet Tom <donettom@linux.ibm.com>, Andrew Morton
- <akpm@linux-foundation.org>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@rivosinc.com>, Will Deacon <will@kernel.org>,
- "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, Paul Moore
- <paul@paul-moore.com>, Nam Cao <namcao@linutronix.de>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Sourabh Jain <sourabhjain@linux.ibm.com>,
- Hari Bathini <hbathini@linux.ibm.com>,
- Srikar Dronamraju <srikar@linux.ibm.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>, Jiri Bohac <jbohac@suse.cz>,
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Kees Cook <kees@kernel.org>, Stephen Rothwell <sfr@cab.auug.org.au>,
- Xichao Zhao <zhao.xichao@vivo.com>, Gautam Menghani <gautam@linux.ibm.com>,
- Peter Zijlstra <peterz@infradead.org>,
- K Prateek Nayak <kprateek.nayak@amd.com>,
- Guangshuo Li <lgs201920130244@gmail.com>, Li Chen
- <chenl311@chinatelecom.cn>, Aboorva Devarajan <aboorvad@linux.ibm.com>,
- Petr Mladek <pmladek@suse.com>, Feng Tang <feng.tang@linux.alibaba.com>,
- "Nysal Jan K.A." <nysal@linux.ibm.com>, Aditya Gupta
- <adityag@linux.ibm.com>, Sayali Patil <sayalip@linux.ibm.com>,
- Rohan McLure <rmclure@linux.ibm.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Yeoreum Yun
- <yeoreum.yun@arm.com>, Kevin Brodsky <kevin.brodsky@arm.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Andrew Donnellan <andrew+kernel@donnellan.id.au>,
- "Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
- =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
- Athira Rajeev <atrajeev@linux.ibm.com>, Kajol Jain <kjain@linux.ibm.com>,
- Thomas Gleixner <tglx@kernel.org>, Chen Ni <nichen@iscas.ac.cn>,
- Haren Myneni <haren@linux.ibm.com>,
- Jonathan Greental <yonatan02greental@gmail.com>,
- Ingo Molnar <mingo@kernel.org>, "Yury Norov (NVIDIA)"
- <yury.norov@gmail.com>, Gaurav Batra <gbatra@linux.ibm.com>,
- Nilay Shroff <nilay@linux.ibm.com>, Vivian Wang <wangruikang@iscas.ac.cn>,
- =?UTF-8?Q?Adrian_Barna=C5=9B?= <abarnas@google.com>,
- "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
- Thierry Reding <treding@nvidia.com>, Yury Norov <ynorov@nvidia.com>,
- "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
- Ruben Wauters <rubenru09@aol.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-crypto@vger.kernel.org,
- kvm@vger.kernel.org, virtualization@lists.linux.dev, x86@kernel.org
-References: <20260421121420.26079-1-linkmauve@linkmauve.fr>
- <20260421121420.26079-2-linkmauve@linkmauve.fr>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260421121420.26079-2-linkmauve@linkmauve.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260327131043.627120-11-sumit.garg@kernel.org>
 
-On 21/04/2026 14:14, Link Mauve wrote:
-> This file is used by the typos tool[1] to determine which words to fix,
-> which ones not to fix, and what the target word should be.
+Hey Rob, Dmitry,
+
+On Fri, Mar 27, 2026 at 06:40:38PM +0530, Sumit Garg wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 > 
-> [1] https://github.com/crate-ci/typos
+> Switch drm/msm client drivers over to generic PAS TZ APIs. Generic PAS
+> TZ service allows to support multiple TZ implementation backends like QTEE
+> based SCM PAS service, OP-TEE based PAS service and any further future TZ
+> backend service.
 > 
-> Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
+> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/Kconfig             |  1 +
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  4 ++--
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 11 ++++++-----
+>  3 files changed, 9 insertions(+), 7 deletions(-)
+> 
 
-This typos.toml file does not belong to the kernel, IMO, but that's up
-to PowerPC folks.
+Can I get an ack from you on this change? I expect this complete
+patch-set to land via Qcom SoC tree.
 
-My note here is: please use your real, full name. See submitting patches.
+-Sumit
 
-Best regards,
-Krzysztof
+> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+> index 250246f81ea9..09469d56513b 100644
+> --- a/drivers/gpu/drm/msm/Kconfig
+> +++ b/drivers/gpu/drm/msm/Kconfig
+> @@ -21,6 +21,7 @@ config DRM_MSM
+>  	select SHMEM
+>  	select TMPFS
+>  	select QCOM_SCM
+> +	select QCOM_PAS
+>  	select QCOM_UBWC_CONFIG
+>  	select WANT_DEV_COREDUMP
+>  	select SND_SOC_HDMI_CODEC if SND_SOC
+> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> index ef9fd6171af7..3283852f9a14 100644
+> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> @@ -5,7 +5,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/types.h>
+>  #include <linux/cpumask.h>
+> -#include <linux/firmware/qcom/qcom_scm.h>
+> +#include <linux/firmware/qcom/qcom_pas.h>
+>  #include <linux/pm_opp.h>
+>  #include <linux/nvmem-consumer.h>
+>  #include <linux/slab.h>
+> @@ -653,7 +653,7 @@ static int a5xx_zap_shader_resume(struct msm_gpu *gpu)
+>  	if (adreno_is_a506(adreno_gpu))
+>  		return 0;
+>  
+> -	ret = qcom_scm_set_remote_state(SCM_GPU_ZAP_SHADER_RESUME, GPU_PAS_ID);
+> +	ret = qcom_pas_set_remote_state(SCM_GPU_ZAP_SHADER_RESUME, GPU_PAS_ID);
+>  	if (ret)
+>  		DRM_ERROR("%s: zap-shader resume failed: %d\n",
+>  			gpu->name, ret);
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index d5fe6f6f0dec..047df0393128 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -8,6 +8,7 @@
+>  
+>  #include <linux/ascii85.h>
+>  #include <linux/interconnect.h>
+> +#include <linux/firmware/qcom/qcom_pas.h>
+>  #include <linux/firmware/qcom/qcom_scm.h>
+>  #include <linux/kernel.h>
+>  #include <linux/of_reserved_mem.h>
+> @@ -146,10 +147,10 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
+>  		goto out;
+>  
+>  	/* Send the image to the secure world */
+> -	ret = qcom_scm_pas_auth_and_reset(pasid);
+> +	ret = qcom_pas_auth_and_reset(pasid);
+>  
+>  	/*
+> -	 * If the scm call returns -EOPNOTSUPP we assume that this target
+> +	 * If the pas call returns -EOPNOTSUPP we assume that this target
+>  	 * doesn't need/support the zap shader so quietly fail
+>  	 */
+>  	if (ret == -EOPNOTSUPP)
+> @@ -175,9 +176,9 @@ int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
+>  	if (!zap_available)
+>  		return -ENODEV;
+>  
+> -	/* We need SCM to be able to load the firmware */
+> -	if (!qcom_scm_is_available()) {
+> -		DRM_DEV_ERROR(&pdev->dev, "SCM is not available\n");
+> +	/* We need PAS to be able to load the firmware */
+> +	if (!qcom_pas_is_available()) {
+> +		DRM_DEV_ERROR(&pdev->dev, "Qcom PAS is not available\n");
+>  		return -EPROBE_DEFER;
+>  	}
+>  
+> -- 
+> 2.51.0
+> 
+> 
