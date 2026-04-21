@@ -1,182 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD203D904C;
-	Tue, 21 Apr 2026 14:50:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21AF3D0901
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 14:57:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776783057; cv=none; b=m7foDq4nLMlo0qLRUIbm2nB4rzsMKOI+3mgtvsrM21pu0KMuIp+MCFcXRw/q3qi2uPwlgYXHrhRDIjBqQ7ym8ZdPgzEQTs5TeupDdW5o/tFU65fL8j5eHWWSBlYp6kJtfbG6omeG2EMK1tNxf09ogerTJLW/ao3D7aOPssiorRs=
+	t=1776783474; cv=none; b=J7ICC2gKrYZrjl8cLIcTBQmwFL7uWJulu8KsrZVN6X/ff2Rs+XKstHrU0yse9OfkH9WiciOihD2KovdC/0tFqCTIfCW26mCpTDiCFVSxkG2d9+TYMIx1oSswhlA/o8BImAKQewUGTdIGofvAWRC4RqMRr3MlZKTvqRGuzji7niw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776783057; c=relaxed/simple;
-	bh=BMGi9M1H3wYbS7OQ26wY0topQ2jajr8jKH7yXASM19Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MA7dM0LVmcrBD5bspDEc/dFy+YAzJBmISPKSOA8PN93pJa3FFsgfz2aECiXzXYgiK7Uu76vjLhS6EdW9Ub1QMuqETTc3xEN5tTBDaKOxgmuSKacuTptnONSRgCBPzwceyP6b03Lq0W3qlo0tGJLg0iRyHhzV6uAMPZXd6Cv42EA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=REONwhrE; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776783474; c=relaxed/simple;
+	bh=sI4tU695bTV6TvPOEAsLoW97lOBDjDwkIEx1VlCb8sU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=OhWRuYHBUR1l+zOgpZMbnfEfIDsCeUOrUybv5+WduCLLeFTzqT8r8o8LJvqcQ12o9DTZudvnutruT24cMgKQ6MewL0Nk9X9U47ryTMgvtvW02K2GpVIVVot2ackRb5ObuuXXs0/9QaQtXL8wvvhmFBjGX+7z8JyU6qMpi2qABvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=NqmGB8xJ; arc=none smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="REONwhrE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D6F4C2BCB0;
-	Tue, 21 Apr 2026 14:50:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776783056;
-	bh=BMGi9M1H3wYbS7OQ26wY0topQ2jajr8jKH7yXASM19Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=REONwhrEVyLesl8w0b0qOeoimehD0dZcP0Xpfs9qeznq6IEvnxVUVuLm578geZK+o
-	 b6OhnXPRBNPheVrCO+nhWXNxqfBOamFtVYGLWexK1F33PJk605gAKVHJ+mbykUfbTN
-	 hFx8RV2rGRDutNDgogFmAQ6irrpinpK+sC9hi9yUsvhrijOBNJzXcTFGLn8E+ddtKi
-	 qcF3Tuqvm5OdvdA302x/9VA8fvYxEyu+TcPFNXKBBuS01ec8vm2USaK3zwfr2MCBY1
-	 TBZbCHZOxixXWsVoqt2ECWEdk06mLsKM+l8CD5ETcbohxBTo3BThyBL9QqzUmSAdOC
-	 Kl1GtW1BRFN7w==
-Date: Tue, 21 Apr 2026 16:50:54 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Naushir Patuck <naush@raspberrypi.com>, Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com
-Subject: Re: [PATCH v2 2/3] pwm: rp1: Add RP1 PWM controller driver
-Message-ID: <aeeMp1XBDxSZ1qrl@monoceros>
-References: <cover.1775829499.git.andrea.porta@suse.com>
- <0d99317b9150310dfbd98de1cb2a890f0bffe7cd.1775829499.git.andrea.porta@suse.com>
- <adkrHkANCzxO8KUP@monoceros>
- <aeC6U7D6TfWm8JPx@apocalypse>
- <aeDmk-t5Lc1zpkg9@monoceros>
- <aeH373a_xmr6fnAy@apocalypse>
- <aeIGxfQ7AoIVR5n6@monoceros>
- <aeZUAaQkHGqBL8st@apocalypse>
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="NqmGB8xJ"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-82f6b592fc7so2022636b3a.3
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 07:57:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1776783472; x=1777388272; darn=vger.kernel.org;
+        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=5mjuJmdvwe7PzDVz8q3vHSG4MYXWlbBcdt3fOBIwOXE=;
+        b=NqmGB8xJ5atxCZ6ANMHcZ7HWjhaOT3MghDb/266say1LCjumu2ASpVKA/Pxfo/Rm5e
+         05qcXey7B4aDxUZazeYqcCzdSuZWfmwJoMGW5zH7lHuDCfuUk/Zu4ggFgGCGovFw0ViZ
+         d6qn8KbDUlenmVvUQVFq9LetKA0Fqp1+Z/+UTi7PdBtS8RRt+sedLQss22HSnbvX8/+z
+         YECJ30Ulk7L9QqlpbnANw4T3qTuM9ZDQvdvCiE+Tr72LUJ/zSXAE/iritYuuCX82OsNm
+         SVlqAk1ypEtCF2TvfNHdKV8GnfBpH//mKlUHvWksvJ5MMMWtB8R3u2SHfS3zsExQOzQZ
+         SY8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776783472; x=1777388272;
+        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=5mjuJmdvwe7PzDVz8q3vHSG4MYXWlbBcdt3fOBIwOXE=;
+        b=mkwdc4Eb066ytGmWePZi1BWC4CnyLWvUa/yrHRw9TAHgsdJKRr76YGDEilJ9UNrNUs
+         aoDEBeF8lmjiWYEUsGotZ8oBWK63KRzgIiYvbrY26Uz5/JRZ9w6wLfAACdCp21O4UsK+
+         2WM2IUnQzwK5ReWFocZyz32WP7p/irgwzpIfwkvvQX0mpHXz4wVCXG+j4pd/plIcebsd
+         aVcfbbN9tVHN7aRypIDkevivls2uP5JpnUBGJ5G7H58YwQdhEeRrM+bp1+daktl/Nj42
+         u/hK25jaNY8g4xluZvSY/VdXzIuJbBmuESiO2JxlHKmgJ1cOzMaAqTtIpJuDrFiPaVn/
+         JaBQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/zDB9sCYee7oXzINjzNAFKovcHO85rlfErA7WFlmqyXVKTJEeO3poH6sPcOR0capLirqmrfmI27lMp@vger.kernel.org
+X-Gm-Message-State: AOJu0YzO5oRgvzg0iwd+qlCemth/xlFaCOpEsCV2S0bJ3MEEycYfzk+n
+	jh5/qhrA7FlfuSuEAXTxFX8NBpXBZzfa0hCky1MGu1q8AdcR9VrBGd3Y95hGK7BOw/tY+kYoMEy
+	veRpzxp0=
+X-Gm-Gg: AeBDiesJyT1s+JoliFOfBq4WJlrufZotB3+1Y3ScIdntH9RtCZM6gOm8x0LVqRmftbc
+	D9WQQ6ONV8snfabInqi+mdIUDhHBVymd9UvmhC8F5kKhoJmdtYUewTL2W9lLis0WOWlMtvTPg6w
+	KyJbIm1HwF13stlqc/80z/9Cl6XxW49g525USMcHFTOjpoyf+34GHztwRpQpXTGIrnsemYRj9y8
+	ECOSSXSQQV6LtzRQq8NIiGAYBnkp9hYly4cpd06EAcOCietPO9MB+Dxyfm/qnnfEx0zc9+7jM97
+	sCJo7m3TaIADk5onMO1NkKlIGJZbi1eYnebyt/T28AaLJ6x5GZHysvle/YiaofCozJIm2UeHdtY
+	/fWgC5SuUIJLwZWd9/0iB9ADR+o3CbEjL0jjlfp0+0rVvKk0qLuo9gtiq9M/OL69tzNrgPKSlaF
+	45nWKm0sM2a0AElic8ZGx2ap0M3ZYNtw==
+X-Received: by 2002:a05:6a00:3c86:b0:81f:40e5:34c2 with SMTP id d2e1a72fcca58-82f8c8bee9dmr18805718b3a.32.1776783472262;
+        Tue, 21 Apr 2026 07:57:52 -0700 (PDT)
+Received: from localhost ([97.126.187.42])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8e9819fesm14280551b3a.4.2026.04.21.07.57.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Apr 2026 07:57:51 -0700 (PDT)
+From: Kevin Hilman <khilman@baylibre.com>
+To: Rob Herring <robh@kernel.org>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: power: Add power-domains-child-ids
+ property
+In-Reply-To: <20260421134949.GA1045294-robh@kernel.org>
+References: <20260420-topic-lpm-pmdomain-child-ids-v3-0-c2c40bef238c@baylibre.com>
+ <20260420-topic-lpm-pmdomain-child-ids-v3-1-c2c40bef238c@baylibre.com>
+ <20260421134949.GA1045294-robh@kernel.org>
+Date: Tue, 21 Apr 2026 07:57:51 -0700
+Message-ID: <7hh5p4qs28.fsf@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="opxzx26y76daqdvu"
-Content-Disposition: inline
-In-Reply-To: <aeZUAaQkHGqBL8st@apocalypse>
+Content-Type: text/plain
 
+Rob Herring <robh@kernel.org> writes:
 
---opxzx26y76daqdvu
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 2/3] pwm: rp1: Add RP1 PWM controller driver
-MIME-Version: 1.0
+> On Mon, Apr 20, 2026 at 04:51:17PM -0700, Kevin Hilman (TI) wrote:
+>> Add binding documentation for the new power-domains-child-ids property,
+>> which works in conjunction with the existing power-domains property to
+>> establish parent-child relationships between a multi-domain power domain
+>> provider and external parent domains.
+>> 
+>> Each element in the uint32 array identifies the child domain
+>> ID (index) within the provider that should be made a child domain of
+>> the corresponding phandle entry in power-domains. The two arrays must
+>> have the same number of elements.
+>> 
+>> Signed-off-by: Kevin Hilman (TI) <khilman@baylibre.com>
+>
+> Missing my Reviewed-by.
 
-Hello Andrea,
+Oops, I thought I had grabbed it with b4, but I didn't.  Sorry.
 
-On Mon, Apr 20, 2026 at 06:27:45PM +0200, Andrea della Porta wrote:
-> On 12:50 Fri 17 Apr     , Uwe Kleine-K=F6nig wrote:
-> > What happens if sync is asserted while a disabled channel didn't
-> > complete the last period yet?
->=20
-> The output stops immediately without waiting for the current period to fi=
-nish.
-
-This is a good info for the Limitations block.
-
-> > Maybe it's worth to test the following procedure for updating duty and
-> > period:
-> >=20
-> > 	disable channel
-> > 	configure duty
-> > 	configure period
-> > 	enable
-> > 	set update flag
-> >=20
-> > Assumint disable is delayed until the end of the currently running
-> > period, the effect of this procedure might be that no glitch happens if
-> > the update flag is asserted before the currently running period ends and
-> > the anormality is reduced to a longer inactive state if the updates are
-> > not that lucky (in contrast to more severe glitches).
->=20
-> The disable isn't delayed as explained above. Setting just the new period=
-/duty
-> (which do not depend on the sync bit) correctly waits for the end of the =
-current
-> period without noticeable glitches (tested with a scope).
-
-So if you happen to change both and one is done before the end of the
-current period and the other shortly afterwards (which might happen as
-those are configured in two different registers and the update trigger
-isn't used), you get a mixed output for one cycle, right? If yes, please
-also mention that in the Limitations paragraph.
-
-> > > Let's say that teh user want 10 tick period, we have to use
-> > > 9 instead to account for the extra tick at the end, so that the compl=
-ete period
-> > > contains that extra tick?
-> >=20
-> > I would describe that a bit differently, but in general: yes.
-> >=20
-> > The more straight forward description is that setting
-> >=20
-> > 	RP1_PWM_RANGE(pwm->hwpwm) :=3D x
-> >=20
-> > results in a period of x + 1 ticks.
->=20
-> Exactly. So whatever the user request I have to subtract one from the val=
-ue
-> to be written to the RANGE register.
-
-Unless the calculation is already rounded to 0, in that case don't
-subtract 1 and let the tohw callback return 1.
-
-> > > This also means that if we ask for 100% duty cycle, the output wavefo=
-rm will
-> > > have the high part of the signal lasting one tick less than expected.=
-a I guess
-> > > this is the accepted compromise.
-> >=20
-> > I assume you considered something like:
-> >=20
-> > 	RP1_PWM_RANGE(pwm->hwpwm) :=3D 17
-> > 	RP1_PWM_DUTY(pwm->hwpwm) :=3D 18
-> >=20
-> > to get a 100% relative duty?
->=20
-> Ah right! It's working fine and I've got 100% duty. So at hw register lev=
-el
-> the duty can be greater that the period.
-
-In that case please make sure to not use the maximal value for
-RP1_PWM_RANGE(pwm->hwpwm) to ensure that for each (possible) period
-length a 100% relative duty cycle can be configured.
-
-> > My (not so well articulated) point is: Please be stringent about clock
-> > handling to not bank up technical dept more than necessary and such that
-> > the driver can be made unbindable if and when syscons grow
-> > that feature. Optionally wail at the syscon guys :-)
->=20
-> Hmmm not sure I've understood your point: is it a requirement that the dr=
-iver
-> must be unbindable? In this case I should avoid registering the syscon. Or
-> should I just provide a .remove callback in case there will be a way to
-> unregister the syscon (even if this callback will not be called as of now=
-)?
-
-It's a requirement to properly manage the resources you allocate. If a
-driver isn't unbindable due to restrictions of other subsystems that's
-unfortunate and I don't like it, but I wouldn't block a patch because of
-that.
-
-Best regards
-Uwe
-
---opxzx26y76daqdvu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnnjssACgkQj4D7WH0S
-/k6P2gf/WFdiNIbWu5z/n7i8vDSyytpmEL3VfoLW459jfMZEdsbKNezPkFGWf2HU
-3GHi9Xvt48ND7zprcfUfpIMVYgllVxxoCLPk8tpIKssRaBqlWpij/+b6IX+MtiOC
-m/S9JF9BfJLZlrXv3Dn1XXOCEBzBj71O0wUCZoLBIWSQKr3Yr49F1NbbXN0eo92o
-G5FjXk6VVnSNO/qHh2m0RgQHfUae6iUxFa1y5jMv+c0M1e5LZnH55thCxWVjBGAh
-ReYTrGU4npCzRKmgJq3TfJtX8x1vcQQhb/iQa0fRNwLFoQlFwfo7hmfnmGkPSoWf
-7tUT4CPniRXmLRrA/0MxX5Un8dtfVQ==
-=YncQ
------END PGP SIGNATURE-----
-
---opxzx26y76daqdvu--
+Kevin
