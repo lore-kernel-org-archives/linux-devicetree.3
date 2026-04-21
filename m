@@ -1,212 +1,106 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10FF93806A0
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 06:40:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E604390CB3
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 06:41:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776753640; cv=none; b=gtSMPnwEhXG2wpvvamymTlmg/BjH12wJ55+3lx1O9QyUf+zuPdbZi6mjM7MmcuDYhNDoAD3Zij6OWFg3eYu6zy7eEBeIA4lZf6fUJBWf+wSl/rqZ6Uk47I+XS1HkXtOmL/czOGmBjfUM7NsUz46SIJ6/2XfN4zDmmAnRKwxAnP8=
+	t=1776753675; cv=none; b=Jp8mS4kzTBUHDdy4fOXWJvVUAqHvxGr/aPEh3KAQHQhUfH3dJtcVnmYdZAg834HDDwrWKaXv6vME4yS5Ub9DUbS7K23//FrVwX/y9mSgE2mrJDzY6nbt3fycOJptk7XSLNOIkIhRk9VrZYYcvtcdOHEFhHemh5eqwQQm8rlgGjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776753640; c=relaxed/simple;
-	bh=zr3UdyBhezaEsgw4sxH/uuLEZu8hBR4VSNyGP2cfU74=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AejBjqch5gX1aAWZX9NW5rCLDb5KlXRgclCUomQ2bR7ucfqaXTVR3x6+GadwF53EaBn0GxRT6eamGtTKtdLKu1iJ7H9hXPMj1vEEc/IL4Zg5K2XbF2M47OULTCSaPT5lU/fMLqJjpxmPA2sadotNTzupMMz0T8Q/tzdvWEfAm2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jdx19oz3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bVufKI0c; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776753675; c=relaxed/simple;
+	bh=4csv3KgUsqp6S8xDiKhYe00qaOjZbEpf8B1tr592LPY=;
+	h=From:Mime-Version:Content-Type:To:Cc:Subject:Message-Id:Date; b=QbJnbbze9b3LfCnIqxYeCJW850EDR9fIkVHsSOMAjTEoSZ91nSeq3NIsLmnGIJpAwsRgG5xn5v9I1SJGonEa/r2INKbx0T35BoiTET9wg1V6+ZyRW+ECIvxZkcPuJSjjPdaOm5WDP6+oERT/OxVPjanw9vmvvZvvvT3dF+PgT34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=0AbhKR9o; arc=none smtp.client-ip=209.127.231.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jdx19oz3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bVufKI0c"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63L1eXvA2981499
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 06:40:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rTZNvPu3CkQLQA//20kmssBVoBiBFMz9wD0UA2Eo/Uo=; b=jdx19oz3Zazu+TzH
-	GUvfOXzi6EQTs+/jBASRUde50QST4t/jRM7AP1oaOjVpyLztlz1Ullm/dj2e8NDn
-	VLJNmOT/MCSVJkNID7dzNs27ShUAsDzqY95rdkLkdh3Q+DnRkt0Uwg+5+29NO42Q
-	fRQpixKlru+7plEU7KybeKdeTEhGXUL4uCh5+EO0iXLe93WMNegPrL4VR7Wqn+7e
-	uCOV5kW60/u/6BONNfLzM5J9X46cY4sUmlFyKxZNnDjVv8qzl3OglBvcUY4MiZSh
-	BWy1gIuKEM2Ts+z2YQY2puETP59LE+GiUPTWC2X/6neSfGqVMmVOTvye1Vlm3UmD
-	/prYjA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dnj2pux0e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 06:40:37 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50df4c130dbso62225631cf.1
-        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 23:40:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776753636; x=1777358436; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rTZNvPu3CkQLQA//20kmssBVoBiBFMz9wD0UA2Eo/Uo=;
-        b=bVufKI0cwhH2soue3Zv3tUwnkeOVNRFxZlVvnYzhtiMl5OesqDWJ1si0BzOdFP1P5j
-         gSR6SoAlBRPOmZ2BUN5vJZnMQTJoU9omYo1OWze4ErOxhkg/Io4LIW1HaCXqSjwj0QVb
-         FtvE7y6y386RdIQQzcDvS1f3wymEd5cC3n3/Gak28UQdkE/N12UzRBIH0upzTxOm9MiT
-         utQkYYXVRJhwMlJkBMVVsAcO0aowbIIeQDnpjFcbI3+L9QcavXXCrv88qxlORwAv+cHV
-         wpsQn7bo9Ci52WwJAMeWqJsue2p6TmtBVMefzAFBWOnk0IH4o85lVBaSt4vqdh6tLw6W
-         DeRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776753636; x=1777358436;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rTZNvPu3CkQLQA//20kmssBVoBiBFMz9wD0UA2Eo/Uo=;
-        b=ILw7aGs8PWmaBAzs2XReqhIElnFgk9VsMiodB/J76nLq8Aq0+43KqWc+0Sz1L7lHop
-         oKGm20GBSXcmC4MND4r90UZ3KrWnO6WDZsz3di10IPhODxhL28nqslcW0/7+6VzNUO6J
-         FqJ8cPG4ZnySmFDCDTKkpAzJQJ/ZI+YDiHb9dVaIjLQ9ydyQ8poCS5rEY9iJNPjt5Whh
-         i1k/OBP4KDVLKhzT8ROZsTSgPCRgcgaWLhw2MYrekJgM2Kck8/NtrDQKk5qgAaSv9D2d
-         fbJP/ThYEIweACNzkHW7YZc3zhqQbynDFhYo2tTwlaK5B4wpRwrgJeTG4K8dIQdwJLtL
-         4+KQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8caD11V+U7s1bseMX3/MiVJUMpCjCn6XVcK7RQtRWKxj3BiLEMNJVuU4YTqrv0A4Ved6Rrc2j5mpik@vger.kernel.org
-X-Gm-Message-State: AOJu0YyPHGp8WxJN0ej7Uv0THVEOCz+Jsx/hI8ojTlOzh2MJcK8Ww7h5
-	tsQFxbtpWlhCGbY5odaPL0NMKV9YjMRbg84Cg6ZOkkxbRTHzEgps0rtokHZPOihJrXRwwv0UZXJ
-	NG7kYT9n16V+kRZRvusrK1WyFOGT/lGCg/cSHx+CIae6ktR4MwZpf+JCUCkKv5aA8
-X-Gm-Gg: AeBDievACC5/TxUF1IChqia9c4ZueYmmP6JjuqpwSo7Q0M1zvt1EMexG9nSK4Tlhijd
-	5/EMgSfd7sD1ieYI1fGqf/9dLsPWFwQfVyjaMJuUQauClo3gGnE1CT7AQiicahcKKbJ+PES4E9B
-	2j5rgJKsZAkTTseURO7N6Cm8qon72ciblXWvrYA92c/EN+i5MW9fNXkojSA3TTWuBY+W55EIrXU
-	VlWB7wxui/wJ6FbfS0spWW9PwR/XfR/SQbrM2H06yiAj31icvUUf8LgoZhM/UhX1BqqxaWBkSc5
-	v0dG4n3Dit5OOhPVAJLC8+9quRD6+QlNnqbB/j+e6JSwABezoAG79Wk/FS0RXgJp5kRdY4jyVIN
-	rg10p3d19IUWfkTj28oxMu6kmcmWLFmvmTQB/Si8nIBhYqx1wSoRGdzafuJE=
-X-Received: by 2002:ac8:5a0f:0:b0:50d:a8f5:fa94 with SMTP id d75a77b69052e-50e36738adfmr216375621cf.21.1776753636414;
-        Mon, 20 Apr 2026 23:40:36 -0700 (PDT)
-X-Received: by 2002:ac8:5a0f:0:b0:50d:a8f5:fa94 with SMTP id d75a77b69052e-50e36738adfmr216375431cf.21.1776753636015;
-        Mon, 20 Apr 2026 23:40:36 -0700 (PDT)
-Received: from [192.168.1.29] ([178.197.219.94])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e591cesm46786288f8f.36.2026.04.20.23.40.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Apr 2026 23:40:35 -0700 (PDT)
-Message-ID: <3539dd7d-9f02-4a98-acee-7bcf45a837ba@oss.qualcomm.com>
-Date: Tue, 21 Apr 2026 08:40:33 +0200
+	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="0AbhKR9o"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1776753662;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=bOD3EGcybYF59xsN+7vrNuVhjQ9htAdl90lQIE/I3Uc=;
+ b=0AbhKR9odaVJolw2A8Cc6aTH9iBHe2iV9ySgdqEoYLkOsxcNLtbkyZZFbD1KnEcJiS6nDs
+ Db5BImo4tpprx6TjSylDzjlCErenuu2HsLl9CONIfjcDFfS8qBjmzXUlujv7I6yTVvcN1i
+ KJT0B0Ew5Te8KQs5cqXmPA6THFXZxJW4YsHkhyI42X9SwwHFS6ZCu2O99U2An7fSqHZMgQ
+ Xhdi0Sc3n09RzzqmFFgRcmLD4REx4W2CBTNs7ROmRyt84HmxPlSpRwjPWCngt3SO669b/5
+ 7tvGTOEw3dtrEJ+otweCv/HtQohrP7NHzk6WnftWhIqfHtK/teUCAbeQjWDDOQ==
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: thermal: idle: Complete the example code
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org,
-        Daniel Lezcano <daniel.lezcano@kernel.org>, devicetree@vger.kernel.org,
-        Lukasz Luba <lukasz.luba@arm.com>, Zhang Rui <rui.zhang@intel.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>
-References: <20260407053957.10508-2-krzysztof.kozlowski@oss.qualcomm.com>
- <177559016610.3536304.190890909066170434.robh@kernel.org>
- <67d47859-6481-40ab-b2c6-6d2eaa000ba5@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@oss.qualcomm.com; keydata=
- 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
- cwzYbmi/Et7T2+47PN9NZAOyb771QoVr8A==
-In-Reply-To: <67d47859-6481-40ab-b2c6-6d2eaa000ba5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: tT3J20JvefwlMS8ErNHsdNb8w38oUKq9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDA2MyBTYWx0ZWRfX3l0bs0RUEB/J
- 69XaqsiwA0JaWMA5tmwvgMl/rcMggNXaIbTOPqrtCL35sLmCih2bY7JEuUaJlO0i0UyfkcZ6Q3j
- YXP3uteSz8CP50NRhMmSwdxVd/++RzGw90tAC6+UTzYa0Qin966PA0b7BQ39EoOTxDmT6Z7u1g2
- 5SRA7fG4kq6VPLCRVDGLTjHR3uluX5xa2BtV6RZIXB3gy0Za7KLIgdqzUnj3mR17fVgMTzcP/Iz
- mKVdqVm+9xQA0+LBK2Bv8bg5ODTNU1kdFE9Z7a/im8bhvK4VN0xu8wU1ls/yp5BVNhE3tPiwwWh
- srMpBg1mibdI1HgDk14nVcmqL6UKczZG2lZwefPKdz+WVx5K9muvCip78J6a8272QeVN8jYLdAw
- CcBxHZz2tPUi1pDRoJag0Rk/Oz5IjMiPpnMZWshohcR2kEeUqLZQ1JZdSOnlBqIFWg/pN5UVqRf
- E6Wo/K3p45UiSuR7cWA==
-X-Authority-Analysis: v=2.4 cv=XMoAjwhE c=1 sm=1 tr=0 ts=69e71be5 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=2c6HdTRFV__AsmUE7IEA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: tT3J20JvefwlMS8ErNHsdNb8w38oUKq9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-21_01,2026-04-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 phishscore=0 adultscore=0 spamscore=0
- suspectscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
- definitions=main-2604210063
+X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
+Content-Type: text/plain; charset=UTF-8
+To: "Yixun Lan" <dlan@kernel.org>, 
+	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>
+Cc: "Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
+	"Paul Walmsley" <paul.walmsley@sifive.com>, 
+	"Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>, 
+	"Michael Opdenacker" <michael.opdenacker@rootcommit.com>, 
+	"Alexandre Ghiti" <alex@ghiti.fr>, "Guodong Xu" <guodong@riscstar.com>, 
+	"Hendrik Hamerlinck" <hendrik.hamerlinck@hammernet.be>, 
+	"Yangyu Chen" <cyy@cyyself.name>, <spacemit@lists.linux.dev>, 
+	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Sandie Cao" <sandie.cao@deepcomputing.io>
+Subject: [PATCH v5 0/2] Add DeepComputing FML13V05 board dts
+Message-Id: <20260421064021.1580094-1-sandie.cao@deepcomputing.io>
+Received: from roma-Laptop-12th-Gen-Intel-Core.. ([113.110.140.180]) by smtp.feishu.cn with ESMTPS; Tue, 21 Apr 2026 14:40:58 +0800
+X-Lms-Return-Path: <lba+269e71bfb+777a81+vger.kernel.org+sandie.cao@deepcomputing.io>
+X-Mailer: git-send-email 2.43.0
+Date: Tue, 21 Apr 2026 14:40:21 +0800
 
-On 20/04/2026 20:06, Daniel Lezcano wrote:
-> On 4/7/26 21:29, Rob Herring (Arm) wrote:
->>
->> On Tue, 07 Apr 2026 07:39:58 +0200, Krzysztof Kozlowski wrote:
->>> Thermal bindings expect the node name with all the zones to be named
->>> 'thermal-zones' (hyphen instead of underscore) and thermal zones to end
->>> with '-thermal'.  Also DTS coding style is not to use underscores for
->>> node names.  After using correct names, bindings point warnings for
->>> missing properties, so add also thermal-sensors.  Drop fake top
->>> compatible as it is not useful in this context.
->>>
->>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->>>
->>> ---
->>>
->>> Changes in v2:
->>> 1. Drop top level compatible and other properties
->>> 2. Add thermal-sensors
->>> 3. Rename also trips and cpu-thermal
->>> ---
->>>   .../bindings/thermal/thermal-idle.yaml         | 18 +++++++-----------
->>>   1 file changed, 7 insertions(+), 11 deletions(-)
->>>
->>
->> My bot found errors running 'make dt_binding_check' on your patch:
-> 
-> Hi Krzysztof,
-> 
-> what about this error ?
+This series updates Device Tree related files to introduce the
+FML13V05 board from DeepComputing, which incorporates a Spacemit
+K3 SoC.  This board is designed for use on the Framework Laptop 13
+Chassis, which has (Framework) SKU FRANHQ0001.
 
-It's real and it answers why fake model and compatible properties were
-there in the first place. Please drop the patch from your queue, I will
-prepare v3 at some point but needs a bit more time.
+The series is rebased on next-20260420.
 
-Best regards,
-Krzysztof
+v5:
+rebased on next-20260420.
+
+v4:
+- Patch 1:
+  Add Acked-by Conor Dooley.
+- Patch 2:
+  Copyright begins from 2026.
+Link to v4: https://lore.kernel.org/all/20260413060524.1235982-1-sandie.cao@deepcomputing.io/
+
+v3:
+rebased on k1/dt-for-next.
+- Patch 1:
+   Use formal format user name.
+   Remove Reviewed-by Heinrich Schuchardt from internal system.
+- Patch 2:
+   Use formal format user name.
+   Remove Reviewed-by Heinrich Schuchardt from internal system.
+   Add uart0 pinctrl.
+Link to v3: https://lore.kernel.org/all/20260407055557.1202713-1-sandie.cao@deepcomputing.io/
+ 
+v2 (deprecated):
+Link to v2: https://lore.kernel.org/all/20260331071110.68321-1-sandie.cao@deepcomputing.io/
+
+v1:
+Link to v1: https://lore.kernel.org/all/20260331034423.67142-1-sandie.cao@deepcomputing.io/
+
+Sandie Cao (2):
+  dt-bindings: riscv: spacemit: add deepcomputing,fml13v05
+  riscv: dts: spacemit: add DeepComputing FML13V05 board device tree
+
+ .../devicetree/bindings/riscv/spacemit.yaml   |  1 +
+ arch/riscv/boot/dts/spacemit/Makefile         |  1 +
+ .../spacemit/k3-deepcomputing-fml13v05.dts    | 31 +++++++++++++++++++
+ 3 files changed, 33 insertions(+)
+ create mode 100644 arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+
+
+base-commit: 97e797263a5e963da3d1e66e743fd518567dfe37
+-- 
+2.43.0
