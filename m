@@ -1,215 +1,138 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A2A3DEAF7
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 20:24:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8DF2F4A05;
+	Tue, 21 Apr 2026 21:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776803079; cv=none; b=tm/uTauV2BvnugbHDWpdIdPDKAGC7Z6OS92tmZw578+pid2lIeXfYvFsRGSBjCO2VMVaQhSZ/U73IAtli8L1PgAvJ36UTfsry2PSx0sT1/CwVA/VgsqFinq052khsxBuL9/XvS1pyUJFNQZYXasbtJn/kxyd/SjzinIB+7DzqDY=
+	t=1776807212; cv=none; b=Zej1RspqZqcTNA2mbdXSbX5f34XMtajp+x1dAESkweSDIGZiBvs2GJwRm5dygFUMNHxG2JuA3WS/mas+1SnM28kMDbcevNWU61qR5LymuziDZs1YlZ0VrYYGpTtG4oHwlQhteRVSL9vp2banEGXKRf2jbvDaLzD+P1epPWnlAAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776803079; c=relaxed/simple;
-	bh=JKyBYy0ZVb6KOG4qaXsDDYoua79I9QXXZhqASx+hdt4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LSpI1z5LvYoHxcx+SjVh7OUpATQeAoqJRp1jUfooyS00X3aYIZuaF1pYOpsJ37W7ccYixz+9gawiKYAI5gjhBNpisHt5s1cOEs5X+8UrCmAPnLF9q6jUP6keJboYwAGWR7Yi6j4XbKhfZ1t1onm/76OJywWbfklbWuk9icLN6YQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PZvRaH7U; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776807212; c=relaxed/simple;
+	bh=vatupuq4WrABpSuEUMYUtujivXgVDiHk3e1MmNVxM+Q=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=e1kkqojvvb7JKiyHcSlbBsam7OTIMBBZQS6ktaBp07FzxRJ+3rBhtw0Dv8FXXsQBEUiwlwc2CLnacNUxdPuAJ5Ocy8zyq/z+XSHghqguR+xsIvSi1ug384x3X+rnZ5AWH85zkZtAcmQlrZes8q6xS7T0aJ1i6xB0cPa0OZWuDlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RfEYijh7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PZvRaH7U"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-488a14c31eeso36797345e9.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 13:24:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776803076; x=1777407876; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=44WhVXZvjCMS4S4DPww0qJ5SDrGxnVaZzuAI8zkpcIo=;
-        b=PZvRaH7UKY74vnuvMushXEuI3LObwz8j0Zug5v+Auv+2Ijs4qH/K+GfNaOxggj72h1
-         0NICWHh9lnCJiPbeSp6cKg1Gt0ikxXMu9DO0xbSa5ar8PO2d+SabMGgXqktxEfrOkT8D
-         7/a6w8CdFoal4gJzWt2C+9n6XmK9gxMJyc4fCv+ngwHX1qZkhR2QePZ9znzGaCV+JE5R
-         w+Jyx7yz/YOYNG0XDFdL8IMGp0gXQ4Xwiwq1T7TkS10WEgPEKYlVDadwP30QGUFTvJAD
-         Mk6CYf8ZMJk9xTjCkHyAJj6pYrSMi3ibMTxVipnhcWoFgpzLUIDl2N+kQWdQLf1ilqTc
-         Lp2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776803076; x=1777407876;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=44WhVXZvjCMS4S4DPww0qJ5SDrGxnVaZzuAI8zkpcIo=;
-        b=dLu3TX40/3QPytaRtZ+WlJy8/csybnUEDhvd0vX2sTQbrjWhVs0jgOAo+lCu61Slyf
-         eCPnbfDTUicCZsP9S0wcpRX7aAhoOP6H6ePcd+tXHFFSSA6UP+zE/OvP5UMWUpEw8qWT
-         3lkYUHf9MVwcf3S0zMGxHsXItPlGzlDzYwd3GHsNLEjvBkRlHxx7Iulxf8RfRw4S27ck
-         ag5rY7RdDVrSkcyKxbBKJUgbu9eZfBog+JwU25LH2ZMGiLEUs/SGAtglZGXcoPS393mg
-         jsGsIQZnvv8kkXKnSezpJa5ciW4XMfELaJhh6mP0G/OwYDv3/nT/xM6Wjnwp3JxvRw6p
-         xVIQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+klgxdsfiTLn9VICIT5cc/D+ONJ67iZzzVXY5BNge92WJBD1I+h7Zd94wHDMRgsj61Hj9OmaFNVX5X@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywj6xkZKwBEFJREs4uMfhBva/XWirRWC5FPwLmBDamwpitIfHtC
-	zBhIUnkHDCCboZaxXDN3NUOQNUe/hVsPE9giZsceMNg3IFKRz8WAynbU
-X-Gm-Gg: AeBDiesJj03LuSx56k8256AaSBKoqHjK3gpA/qNCAay6TRo9vjjdYj5NdKPI0o8vVGt
-	MDYD5siJpoQatU9pjctXOiVoNdvPsVn8AyhCK3Gv+C6Sfcbm2j1Yv80m4C8uSm5dKTdYJrBV9p+
-	AZGCxVnX0xndHzlSjrA3gRi5sESZYaFn/0h0mfLLEougROUrhgEs29SQrYd1s4ARogNf4G7pAcr
-	OM66Bhu3PusUoVSBpWi6W37HgQcJ1HdOeNl1GZt+Hlnq60H8TVx9gRv4qp1uF60rU6uh4EO6716
-	VmunkIHOhdgcHouKY5hz3PHYH8SzW8V2+42PVpQ2uteW7KHpDT2RrRaWkBMoj7CJB1KDSrcoFZe
-	4IQY9xweIA95dLIDhDXpUiR19MOtWZ954vUG8AThCaD4xQxLmw1bmKltmgbC4KpgVEMGTZYhukh
-	NqWF2aYgasRBsajjCjm4rT8MTvMVA0+nMoHJM26hlysdYb
-X-Received: by 2002:a05:600c:3150:b0:480:3ad0:93bf with SMTP id 5b1f17b1804b1-488fb7930famr289331985e9.24.1776803075829;
-        Tue, 21 Apr 2026 13:24:35 -0700 (PDT)
-Received: from [192.168.0.2] ([197.250.227.85])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fc0f82bbsm655989805e9.3.2026.04.21.13.24.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Apr 2026 13:24:35 -0700 (PDT)
-From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-Date: Tue, 21 Apr 2026 23:23:16 +0300
-Subject: [PATCH v5 8/8] ARM: defconfig: Add a zx29 defconfig file
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RfEYijh7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1D63C2BCB0;
+	Tue, 21 Apr 2026 21:33:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776807212;
+	bh=vatupuq4WrABpSuEUMYUtujivXgVDiHk3e1MmNVxM+Q=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=RfEYijh7XhOIIxtCBiZK1gn5IXNLv5qcn5amQw5CqC2XQ0mRjsWMy0SwC/jKxN8Ha
+	 +lGNHgaycbYUVz/8qUQTAV87+keU8WY1I1fe4qL/Cubm0CmcRljTFyT4oCGT3XsCWG
+	 21JAOI+XCTuLyqtAQ0JY89PQj9ztU0bsVRSzsv4sAV4REIQeaAk9EIXe86axCL8Lcv
+	 P49oQppEQE3W5ysKk35W1yekjIPJzFLIHvqS9YHqLVNNeeeAs1gWZnOJuQHTbQ76Mo
+	 fn4ArOBoMvEaOR/5jHbzodnC5RnVkOGNRxUq58/UbFZ0QTUKrwlb9kjzN5QiQ3GPHQ
+	 wuq7UQCA8GLiQ==
+Date: Tue, 21 Apr 2026 16:33:30 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260421-send-v5-8-ace038e63515@gmail.com>
-References: <20260421-send-v5-0-ace038e63515@gmail.com>
-In-Reply-To: <20260421-send-v5-0-ace038e63515@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- soc@lists.linux.dev, linux-serial@vger.kernel.org, 
- =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2988;
- i=stefandoesinger@gmail.com; h=from:subject:message-id;
- bh=JKyBYy0ZVb6KOG4qaXsDDYoua79I9QXXZhqASx+hdt4=;
- b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBp59zXRxxeM3L6LvFEMDOBnIMJkPxSOas2y9Hdv
- YIpcJkPyi2JAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCaefc1xsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiLiQBAAiaNU2eJnnUvEamsnIJPjVgniN25uL7S
- Yz5non9ycX+C5T/F5q/bvsnDlJnrp67/GJdSQV/6xw51Wbf76xQKhVCWDajplvbXeoRwEVAXm/z
- bNEXRIrKGFwCpfzOWEeeV5YKbTOvanUR8ihbUD/yyC5v0o8FjKPE1dlQLjKXXpFxe87lGLqMIQv
- 8b5qZZQ7TkXTXRUJF+ewbW0+R+a2DngtivcmR/gyiYp72726qmz8vPgc3FJCRAfikX8CqFDV4BW
- QRGrbyhs1vGvmK1K0dIlozq300idh70L2qHfXaIcJyIsAUYVoEmgX3FEoo93hjLzYDt1+/lVM6o
- jhv0NYcLZY7IlgEqXcwVt5/3qI0CanPXu+Gpt0TeadNgb6bqLFqqHZ0F5OiOI3AbksJtM6SvTR3
- ikgM2RCl+rRsSFm4wj/FrVWP1UUikjbhsZVOdQvG31kpNXH+8ZNikjOjbDHzqhpg9e3IyQ58Zc0
- NMO2ZT0kLeKpRgZLm0f6SHN+1iQeONIkpMVicPQ6lDnmG0B6/F2IhtMQezweQeNFBZPpdsuCuO1
- tydkNzBBPsH/0bd3Ln/4D1lWz5tCnU4UBHva87yQuhrCkbdthOv7M9YjQpj94glLXh5ODR4iLFl
- CZ4xgNN2zsYRGwj6oc8p7fs45yQLWU/ebZ3Fggnl2Wztnt11p1v4=
-X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
- fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>, ath11k@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-pci@vger.kernel.org, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Xu Yang <xu.yang_2@nxp.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, linux-spi@vger.kernel.org, 
+ Patrice Chotard <patrice.chotard@foss.st.com>, 
+ Rao Mandadapu <quic_srivasam@quicinc.com>, Mark Brown <broonie@kernel.org>, 
+ linux-sound@vger.kernel.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Sibi Sankar <sibi.sankar@oss.qualcomm.com>, linux-wireless@vger.kernel.org, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Yang Xiwen <forbidden405@outlook.com>, 
+ Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+ Alex Elder <elder@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+ Ulf Hansson <ulf.hansson@linaro.org>, Stephan Gerhold <stephan@gerhold.net>, 
+ linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>, 
+ Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski <kuba@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
+ Bjorn Helgaas <bhelgaas@google.com>, Jeff Johnson <jjohnson@kernel.org>, 
+ linux-mmc@vger.kernel.org, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Peng Fan <peng.fan@nxp.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, ath10k@lists.infradead.org, 
+ netdev@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+In-Reply-To: <20260421195836.1547469-1-robh@kernel.org>
+References: <20260421195836.1547469-1-robh@kernel.org>
+Message-Id: <177680720998.183058.5012840252939438533.robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: Fix phandle-array constraints, again
 
-This enables existing drivers that already are (UART) or will be (USB,
-GPIO) necessary to operate this board even if they aren't declared in
-the DTS yet.
 
-Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
----
- arch/arm/configs/zx29_defconfig | 89 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 89 insertions(+)
+On Tue, 21 Apr 2026 14:55:25 -0500, Rob Herring (Arm) wrote:
+> The unfortunately named 'phandle-array' property type is really a matrix
+> with phandle and fixed arg cells entries. A matrix property should have 2
+> levels of items constraints.
+> 
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+> Can someone from QCom provide some descriptions for 'qcom,smem-states'
+> properties.
+> ---
+>  .../display/rockchip/rockchip,rk3399-cdn-dp.yaml         | 2 ++
+>  .../bindings/mmc/hisilicon,hi3798cv200-dw-mshc.yaml      | 7 ++++---
+>  Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml | 6 ++++++
+>  Documentation/devicetree/bindings/net/qcom,ipa.yaml      | 6 ++++++
+>  .../devicetree/bindings/net/wireless/qcom,ath10k.yaml    | 5 ++++-
+>  .../devicetree/bindings/net/wireless/qcom,ath11k.yaml    | 5 ++++-
+>  .../bindings/net/wireless/qcom,ipq5332-wifi.yaml         | 9 +++++++++
+>  .../devicetree/bindings/pci/toshiba,tc9563.yaml          | 5 +++--
+>  .../bindings/remoteproc/qcom,msm8916-mss-pil.yaml        | 3 +++
+>  .../bindings/remoteproc/qcom,msm8996-mss-pil.yaml        | 3 +++
+>  .../devicetree/bindings/remoteproc/qcom,pas-common.yaml  | 4 ++++
+>  .../bindings/remoteproc/qcom,qcs404-cdsp-pil.yaml        | 4 ++++
+>  .../bindings/remoteproc/qcom,sc7180-mss-pil.yaml         | 3 +++
+>  .../bindings/remoteproc/qcom,sc7280-adsp-pil.yaml        | 3 +++
+>  .../bindings/remoteproc/qcom,sc7280-mss-pil.yaml         | 3 +++
+>  .../bindings/remoteproc/qcom,sc7280-wpss-pil.yaml        | 3 +++
+>  .../bindings/remoteproc/qcom,sdm845-adsp-pil.yaml        | 3 +++
+>  .../devicetree/bindings/remoteproc/qcom,wcnss-pil.yaml   | 3 +++
+>  Documentation/devicetree/bindings/sound/samsung,tm2.yaml | 2 ++
+>  .../devicetree/bindings/spi/st,stm32mp25-ospi.yaml       | 5 +++--
+>  .../devicetree/bindings/usb/chipidea,usb2-common.yaml    | 2 ++
+>  Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml  | 7 ++++---
+>  22 files changed, 81 insertions(+), 12 deletions(-)
+> 
 
-diff --git a/arch/arm/configs/zx29_defconfig b/arch/arm/configs/zx29_defconfig
-new file mode 100644
-index 000000000000..a78decd1d525
---- /dev/null
-+++ b/arch/arm/configs/zx29_defconfig
-@@ -0,0 +1,89 @@
-+CONFIG_SYSVIPC=y
-+CONFIG_BLK_DEV_INITRD=y
-+# CONFIG_RD_BZIP2 is not set
-+# CONFIG_RD_LZMA is not set
-+# CONFIG_RD_XZ is not set
-+# CONFIG_RD_LZ4 is not set
-+CONFIG_EXPERT=y
-+CONFIG_KALLSYMS_ALL=y
-+CONFIG_MMU=y
-+CONFIG_ARCH_MULTI_V7=y
-+CONFIG_ARCH_ZTE=y
-+CONFIG_SOC_ZX297520V3=y
-+# FIXME: There is no PSCI on this board, but ARM_GIC_V3 depends on it
-+CONFIG_ARM_PSCI=y
-+CONFIG_ARM_APPENDED_DTB=y
-+CONFIG_CMDLINE="console=ttyAMA0 earlyprintk root=/dev/ram rw"
-+# CONFIG_SUSPEND is not set
-+CONFIG_BINFMT_FLAT=y
-+# CONFIG_UEVENT_HELPER is not set
-+# CONFIG_STANDALONE is not set
-+# CONFIG_PREVENT_FIRMWARE_BUILD is not set
-+# CONFIG_ALLOW_DEV_COREDUMP is not set
-+CONFIG_BLK_DEV_RAM=y
-+CONFIG_BLK_DEV_RAM_COUNT=4
-+CONFIG_CPU_FREQ=y
-+CONFIG_CPUFREQ_DT_PLATDEV=y
-+CONFIG_PM=y
-+CONFIG_PM_CLK=y
-+CONFIG_PM_GENERIC_DOMAINS=y
-+CONFIG_NET=y
-+CONFIG_PACKET=y
-+CONFIG_UNIX=y
-+CONFIG_INET=y
-+CONFIG_DEVTMPFS=y       # FIXME: This is specific to my initrd. Remove before upstream
-+CONFIG_DEVTMPFS_MOUNT=y
-+# CONFIG_INPUT_MOUSEDEV is not set
-+CONFIG_KEYBOARD_GPIO_POLLED=y
-+CONFIG_GPIOLIB=y
-+CONFIG_OF_GPIO=y
-+CONFIG_GPIO_GENERIC_PLATFORM=y
-+# CONFIG_INPUT_MOUSE is not set
-+# CONFIG_SERIO is not set
-+CONFIG_VT_HW_CONSOLE_BINDING=y
-+CONFIG_SERIAL_AMBA_PL011=y
-+CONFIG_SERIAL_AMBA_PL011_CONSOLE=y
-+CONFIG_SERIAL_OF_PLATFORM=y
-+CONFIG_SERIAL_DEV_BUS=y
-+CONFIG_SERIAL_DEV_CTRL_TTYPORT=y
-+# CONFIG_HW_RANDOM is not set
-+CONFIG_MFD_SYSCON=y
-+# CONFIG_HID is not set
-+CONFIG_PINCTRL=y
-+CONFIG_GENERIC_PINCTRL_GROUPS=y
-+CONFIG_PINMUX=y
-+CONFIG_GENERIC_PINMUX_FUNCTIONS=y
-+CONFIG_PINCONF=y
-+CONFIG_GENERIC_PINCONF=y
-+CONFIG_RESET_CONTROLLER=y
-+CONFIG_POWER_RESET=y
-+CONFIG_RESET_SIMPLE=y
-+CONFIG_LEDS_GPIO=y
-+CONFIG_USB_DWC2=y
-+CONFIG_USB_GADGET=y
-+CONFIG_MTD=y
-+CONFIG_MTD_OF_PARTS=y
-+CONFIG_MTD_BLKDEVS=y
-+CONFIG_MTD_BLOCK=y
-+CONFIG_MTD_SPI_NAND=y
-+CONFIG_SPI_MASTER=y
-+CONFIG_MMC=y
-+CONFIG_MMC_DW=y
-+CONFIG_MMC_DW_PLTFM=y
-+CONFIG_STMMAC_ETH=y
-+CONFIG_STMMAC_PLATFORM=y
-+CONFIG_MDIO_BUS=y
-+CONFIG_REGULATOR=y
-+CONFIG_REGULATOR_FIXED_VOLTAGE=y
-+CONFIG_SRAM=y
-+CONFIG_MISC_FILESYSTEMS=y
-+CONFIG_JFFS2_FS=y
-+CONFIG_CONFIG_TMPFS=y
-+CONFIG_PRINTK_TIME=y
-+CONFIG_EARLY_PRINTK=y
-+CONFIG_DEBUG_LL=y
-+CONFIG_DEBUG_ZTE_ZX=y
-+CONFIG_DEBUG_LL_INCLUDE="debug/pl01x.S"
-+CONFIG_DEBUG_UART_PL01X=y
-+CONFIG_DEBUG_UART_PHYS=0x01408000
-+CONFIG_DEBUG_UART_VIRT=0xf4708000
+My bot found errors running 'make dt_binding_check' on your patch:
 
--- 
-2.53.0
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/remoteproc/qcom,qcs404-cdsp-pil.yaml:99:1: [warning] too many blank lines (2 > 1) (empty-lines)
+./Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml:67:1: [warning] too many blank lines (2 > 1) (empty-lines)
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/i2c/i2c-demux-pinctrl.example.dtb: i2c-mux3 (i2c-demux-pinctrl): i2c-parent:0: [2, 3, 4] is too long
+	from schema $id: http://devicetree.org/schemas/i2c/i2c-demux-pinctrl.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/samsung,tm2.example.dtb: sound (samsung,tm2-audio): i2s-controller: [[4294967295], [0], [4294967295], [0]] is too long
+	from schema $id: http://devicetree.org/schemas/sound/samsung,tm2.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260421195836.1547469-1-robh@kernel.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
