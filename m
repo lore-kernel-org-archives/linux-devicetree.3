@@ -1,93 +1,85 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42EAE304972
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC09A2C3244
 	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 17:29:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776792557; cv=none; b=OWlFPcO8WI7bfYTF/exVm9QL9rDBCK68F3e4q9evNLIGlsTAmjzuht/kxuMxRJbQXWP0BSMCDYdwTg9c/LeE5vvyiNpuaszPb3vsM0qgh/cYKGfC6kzrQDqawcCU/M8VNCtCRPDWcflJMr4yDhLN4mZih3gDD9CRHrhjNFQRdPg=
+	t=1776792558; cv=none; b=o77wTxkbdlKt8C/yRC5kxHNdOomc/VojRr6/KbwEFispz+jMYR2y8UdoXkR5+JfEZoWLms0o75fGNv1+UEhYOMjXaGFm9SrFqTGDe/+9qCuzE+GonKD3nvrs4axfJLQh4EYt84nJrU2+v+t5p/XMzRzocgxQBsbMQALzEqgs7AU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776792557; c=relaxed/simple;
-	bh=V5Op4Kb9bUj9/1lrNoPhIDD+MuXNuaLvvGNBQgMKUN0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XHgJlDKBGbQzcN2RrupKUbzKjuihbttARgT6/Y0alwNEGXCuVxXaAdQyGYxlq9nib2/EA9yLHUNZDm3SI+hCEvkQKV9CBhBkOseh3QiR2UoNHvH8L6ObpH81IQZ0UK8+AO/6p/xYwNibxJUkwBibnwnQ5Rez6Yos5zmvWf+P+cE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V88MHnj6; arc=none smtp.client-ip=209.85.128.53
+	s=arc-20240116; t=1776792558; c=relaxed/simple;
+	bh=VT6F7pP5zpkVt+Q6oy48vr3dMiUpqgOtr+S2bUDTP+s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IV8QSOO8XHZt/9Jho6PlYVSO/XJ0lgCcEmuSAqZEf8yO123v8RRcR2oeYEWqsoeu1KwDVQN6LkPXo9hSEWDD8zC8ugyzf/7CrMZM1hZyL7ioLuMxz/V5sbeR6F+oDk0JLz8scrzmUQDrVdMVxOou2+CMIUmSVD2O8gXaNctPrCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A+/qwkjI; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V88MHnj6"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-488ab2db91aso60865865e9.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A+/qwkjI"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-48a3e9862f0so14808645e9.1
         for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 10:29:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1776792555; x=1777397355; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=18zwonTTNGSCTnLCCjEENQ9bQwbO5iLEoVwPTzytlbk=;
-        b=V88MHnj62MSvsJPnzYnp/IjswQMVZCajy8prqJUyI6QyGJdOqbSjHiFhY92aXbZe8N
-         ZShtGLbUVKi/qn78hUDsqi0/XgdGiTzmAuOp+MBn+AGsRaiEQrRIU8vSnwEau47O6Vc2
-         lM0gtkL74H4pvV8cV8CS9o9mjGFvDyZqWnsnwcR+ubqAdFahaCf1EWYKJlk1uoeMcpjS
-         9noQG3EqooZlHu1KwtTdwyHIhtxEpuOmu0jp+H0i4wEpD4LqpQWBk3t8gtxNKT9vR3vu
-         64n1FNZ4sKtluFYN+G2KkZlEP+8J/XULzrAFxRAxB2hXF2WBRnHB8yZRpJB7E4q6Wbm7
-         6X2A==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LH2h0hmWtthS7ZoPVC0SQxbSn/Bs9GnEe+2qEICPqmg=;
+        b=A+/qwkjIRSxhjPxF20/zJ827jm/u6U4BKlt42hPjfZulRlfKRrp2TQ+CJwNYNVkOhh
+         Zbq319qujBTv+QNM9nz/budKqx+xVnuJOdEasgSfigqeN21fgnUvn2O4WwWA214/4G/5
+         lkq7y5SZ5aQGIV06nKjHJiIHaisBnA51NeGdefX90DpL8OnM2fXidw/3iD7nlLoXZ0s6
+         pcfO3Aj2qJFpDJAcIVTVehbELzfR3bcXBxTR2srS+uZWTvq0D2QQ3UwxxW9szQJ+/Xsi
+         MOXKNjcXE5Wr43agko72ElD+ue0QHDB1DNaH5Ig8K4erSZOQKAColBJpNlo8HmMIWbIK
+         dDSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1776792555; x=1777397355;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=18zwonTTNGSCTnLCCjEENQ9bQwbO5iLEoVwPTzytlbk=;
-        b=A9dL15YdTMHfuw+fW/SlvDlC07kk6x630HZQfxJ0htNUbItx6p/M5Uzl1RPRkH79BW
-         /F8rVeP1+i6rGXMVF/DMyQ/Ke8FPhftlmyEKcNJDbOf7psoIO/zzo85J48KhOzNfQm2R
-         EmfziVaL6MeC5rpah5zvkpWDIk+pw5oSQ5T4s7nOOoL3SqzopxxzhDjMnmWiYEZaqL8L
-         u4h8We+26AoaqwRgUrJzEZQ88fpD6AC0twSGlAo9w9XDNVfeM7Xs6gq9raN55Am8MHQM
-         MR44F0aajusEj4/e4mljyHhTa/GRBNrswMgxmxFfEESPhd0LyWi6cl594UauhO6I14tD
-         jsrg==
-X-Forwarded-Encrypted: i=1; AFNElJ8jldS2Sk1iQVuTQ7YORVg8RTLmPQNJ/WWlzCTNFTWY+MOeFGD11500KL8+yXR9c6TkywJn3WoMKqv+@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywng3oJKb1p7xghQU9swNjoXV/rqgBGPeOEZRfX1fhFYCkt49/0
-	OhLwD4cwrRajUljbl2OZzib4sMNThU9yKEvLG6aJyWgRKcbvIFyFrdAX
-X-Gm-Gg: AeBDiev/MQXLjOAAlam6hgZx1OhZOK6oBla2PpIr5iHCBvzh1ZTpVQkEzTyl1RtxpuU
-	CC4FzwG1E1EMQfcAWGQglWEmNihjE+A1I7s7hhZodr6OUBVO+Dd4Y2dt5YQoZNBDjJQD8FOk07y
-	aCWIoQ1U+ZGZDGj+WGgYvAHebZ/n1veK4eS79vuYBaFacSRK74cS9PgaTzchBOK5fGmM8f/sIp9
-	k68sAfQ/SByyXdFKo2uy2Dqe9axzd+2Pw10gqC/IQ33LthhcsVyb1N0/LqjKqchWvW7p6R29fwp
-	2salOqnJZ8MdpsqZHblLdqDt0Pf1XQD4UZ6Ln4kRLSXKYCOeWi6/vXEmllJKKVlb2pRkc0zadm/
-	XmKyUnbWQ0JoG3mwS4ReUMK7hFuaNri6cBerC64pV6jrspotWXVnPjKoTUb5+uAHwtgNbbKvj3G
-	uVLzPBItcU5Vpt/NLdRDZ1rS7hfSShGBLQZHFj/vAEvsSdtuaboo94OJRytiY=
-X-Received: by 2002:a05:600c:8908:b0:48a:58e1:6d02 with SMTP id 5b1f17b1804b1-48a58e16eb2mr15879275e9.19.1776792554371;
-        Tue, 21 Apr 2026 10:29:14 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=LH2h0hmWtthS7ZoPVC0SQxbSn/Bs9GnEe+2qEICPqmg=;
+        b=VorueiAG0Q75nhA1Q27YJT6Gm1Axn0lXkLCGU3FCIB6z1WBKMgQkhopqdiYWYhQXYL
+         3JC9vmijhG7nLTJ0HZEDmhT0EVQBS+I0lLGQEgb/6DBdtUvsPmAJwlXqBr+Q7ISEFETY
+         JR2COylxnIleavXx1OpXUPmFdFOvpbU1uD2okX/s1Ch3Bi92yC9yhsFJa14nkqT6A58x
+         SWKW3+pd9RzL/IE3VIzLpP0nc+U5eLIoWHlE+ecylkUyfxE9EKBy0tZ1p1cBzboUKAmD
+         m31413/klYjQRr3BYcJV1Dt+VmI22q8PbXmylSeUhM1tvmDP2L0sDOxO3Efi4XdR/1Uc
+         WZqQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+QLwFIT9K3fIqflFfrjDaJXgb20AMvJxlSaVSNtX8O5KPJ5hD1vqgchmP0TOpLApS+iyKm24jBPW6M@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyqf3KY2T0Fp6jXlC2uSwM7k8081HKPKBbcabki6gmJQFFb2m7a
+	5B4Kn5N8+A3UC7C6uED821vg7dt3mD5j+RbQUKa5ZTzhHyjo+rjGyVyG
+X-Gm-Gg: AeBDieucO4YDiMZaE6QkhrKXCJ9JQcU2NWA1mRRdFT8cUDTd+D8HjRtIyfM1QJBKeMH
+	vdgglCBoEUVaNjCRlUU8P52ppc20gmYjTnQVL/H+vk2JrE34QWpMTBi8Ruxb2SrU7xaGkBqZShJ
+	bCl5tbwerBpWpyDSdX9y12lcaMSQdig3yXXQJhfSLn8INc01pq1b8YrLn4Bj3cX7fZDnByKsM5S
+	FwwzzkBleJCDjIz9xOVLlhv4b4k4c4zCe/QfdRoi/KHl5QpD37UGYzhLuC/rU71ul0dL+aX/2gs
+	y7ZEKxQl2QyTGneXfyt9j6as+yaVLczAnpJUcmGxW1M3rfbATi35Z8u6sbKaFf11m0H/+fSgLNK
+	bsaEbwY6FmWWZu2s74oElGvqRQJKFi7KEYiWGEzjI73LPkU6sThIiIKAtrWPJsjebJPLfHcHF9T
+	dxGypjaJjnPEAL6+Wx9kf7svXhfoYu+WSJg/4WLLneE4TVUm9pcQrAmbKWcws=
+X-Received: by 2002:a05:600c:c112:b0:486:fe83:861c with SMTP id 5b1f17b1804b1-488fb896910mr211023925e9.7.1776792555368;
+        Tue, 21 Apr 2026 10:29:15 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:23c4:a758:8a01:de57:c37d:677b:c772])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a525a0b1asm57445855e9.2.2026.04.21.10.29.13
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a525a0b1asm57445855e9.2.2026.04.21.10.29.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Apr 2026 10:29:14 -0700 (PDT)
+        Tue, 21 Apr 2026 10:29:15 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Lee Jones <lee@kernel.org>,
+To: Lee Jones <lee@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
 	Geert Uytterhoeven <geert+renesas@glider.be>,
 	Magnus Damm <magnus.damm@gmail.com>
 Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-renesas-soc@vger.kernel.org,
 	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v2 0/3] Add support for Renesas RZ/G3L LVDS encoder
-Date: Tue, 21 Apr 2026 18:29:02 +0100
-Message-ID: <20260421172910.218497-1-biju.das.jz@bp.renesas.com>
+	Biju Das <biju.das.au@gmail.com>,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v2 1/3] dt-bindings: mfd: syscon: Document the LVDS_CMN syscon for the RZ/G3L
+Date: Tue, 21 Apr 2026 18:29:03 +0100
+Message-ID: <20260421172910.218497-2-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260421172910.218497-1-biju.das.jz@bp.renesas.com>
+References: <20260421172910.218497-1-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -98,44 +90,34 @@ Content-Transfer-Encoding: 8bit
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Add support for the RZ/G3L LVDS encoder driver. It operates in single-link
-mode with 4 lanes (Data) + 1 lane (Clock) and supports pixel clock rates
-from 25 to 87 MHz. The LVDS module cannot be used at the same time as
-MIPI-DSI. However, LVDS and the DSI interface share a peripheral clock and
-the MIPI_DSI_PRESET_N reset signal. Also, the MIPI_DSI_CMN_RSTB and
-MIPI_DSI_ARESET_N reset signals must be asserted before using the LVDS
-module.
+The RZ/G3{E,L} SoCs have an LVDS Common (LVDS_CMN) region which is common
+to all LVDS channels. The RZ/G3L has single-link, but the RZ/G3E has both
+single and dual-link.
 
+Use the syscon interface to access these registers for scalability.
+
+Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
 v1->v2:
- * Collected the tags for binding patches.
- * Dropped unused function rzg3l_lvds_is_connected() and removed the 
-   corresponding header file rzg3l_lvds.h
- * Dropped next_bridge from struct rzg3l_lvds instead using bridge's
-   next_bridge.
- * Replaced pm_runtime_resume_and_get()->pm_runtime_get_sync() as
-   atomic_enable doesn't fail and for each enable there always will be an
-   atomic_disable() call.
- * Started using DEFINE_RUNTIME_DEV_PM_OPS for PM callback.
- * Replaced rzg3l_lvds_parse_dt() with devm_drm_of_get_bridge() in probe()
- * Started using reset_control_bulk_*() in rzg3l_lvds_pm_runtime_{suspend,
-   resume}().
+ * Collected tag.
+---
+ Documentation/devicetree/bindings/mfd/syscon.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Biju Das (3):
-  dt-bindings: mfd: syscon: Document the LVDS_CMN syscon for the RZ/G3L
-  dt-bindings: display: bridge: Document Renesas RZ/G3L LVDS encoder
-  drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
-
- .../bridge/renesas,r9a08g046-lvds.yaml        | 128 ++++++++
- .../devicetree/bindings/mfd/syscon.yaml       |   1 +
- drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
- drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
- drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 285 ++++++++++++++++++
- .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  26 ++
- 6 files changed, 454 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml
- create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
- create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
-
+diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
+index e22867088063..9c81010d5a74 100644
+--- a/Documentation/devicetree/bindings/mfd/syscon.yaml
++++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
+@@ -221,6 +221,7 @@ properties:
+               - nxp,s32g3-gpr
+               - qcom,apq8064-mmss-sfpb
+               - qcom,apq8064-sps-sic
++              - renesas,r9a08g046-lvds-cmn
+               - rockchip,px30-qos
+               - rockchip,rk3036-qos
+               - rockchip,rk3066-qos
 -- 
 2.43.0
 
