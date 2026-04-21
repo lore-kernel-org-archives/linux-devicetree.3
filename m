@@ -1,117 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39C61EB5F8;
-	Tue, 21 Apr 2026 15:37:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208E826A08F
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 15:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776785878; cv=none; b=UxBgKPzPim5rltguADaRzcoP9FUK/pGNWX5H3rw/NI9ImQV6gVovi7SUtEVhDgrCVEinnIVoQ7NvjfVmn5LmNU7P2EnzfaBDUgu+PZgGBm4OIVd3bWLg4PUlaeo1ayklasNO02g1rVJt3KNfiajbqtf+BPjJn3yd8XeTUItPK7o=
+	t=1776786404; cv=none; b=lIWWzyzc1qD/edRedJNYdZwO3DyPsYA0LmywGpvX80Bdzn7ARtMTTMqvsykjH7Qa3QhPXldRk5huKdmVw3oLDTCVr2aAWst4Zx8n7Ph8SM1eueeRrLUMsNBx/2YKsFflTyXn3i99bI55ZGL5CgYErYz8Qbg0XgZ0ucYfRhmx2yc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776785878; c=relaxed/simple;
-	bh=4e6PgLsDyxW1VGk7EeVvhUPnJa/KYzVWu/eK2UxQq/E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=V7IbAS1q/UoKO2F7s15u+XJy3pCGbF3ShEQPFwEHzlQeL6YM0ygTeyfDfWopWIJZ0JFTshVrWxI9Prt0MiSISsmeIumSQ9Nzzdc0Vloey7sEEQSFVebbL5uiG2m1IzlHH3tIJqs6gXr0CY3SbcxMpyWTtYEozBrxCu3rYFH7QL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m1jkhQSh; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776786404; c=relaxed/simple;
+	bh=KePFdqtxhzIfGgpRbgVIP0PIcNTO7D89nGU8iW1dSUc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BXyBe35aYSHJX9NphgsKLoPccIs7ojccj0RihSo86dGcTHsyIGpnxaELPLCVXEk21gBnjkgnMAmjKlF76HhwMcFuZ18flKUYu+DZ0gRidoTVCi2A13LPZEO5sL7QqJ6wgzMzbV3TkuLvmybV86RkMAimjQQHg434faTcLfmmpZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HIpUZy0I; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m1jkhQSh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1B2C2BCB0;
-	Tue, 21 Apr 2026 15:37:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776785878;
-	bh=4e6PgLsDyxW1VGk7EeVvhUPnJa/KYzVWu/eK2UxQq/E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=m1jkhQSh1vOuCB3DXfXGmyz0MVyZZT43Y/mp4FY+VOc6Q5DioAcm3wiGKbhni1ukO
-	 xo/FjhYO4qaf7XAPFr2bjco7F5YNOxMThq19PMDbqDT2NF2j/BGK4ine7ijENmPCfJ
-	 xmNGD1sIdI4gI1JTKcXpt4DTozvse6TGdr+Yy5ZttFjZsm5H9PgQQvhGgYov3huUb1
-	 MD53aJKvTQ2WjCP1DcSpm9LDP7Wv3L7iWDrHRGMGkuc/XpxG/ZcAvjDuUqTsDsJ/yx
-	 bPykpjSqEt1D0zucDiA33SNzyvdpc3QkHKwhN89dwbCl8I66XWvBWDdZCOz4qjYvcV
-	 vd7W+w31jFXrg==
-Message-ID: <8438644a-7c9e-4546-b3bc-7f755d02c063@kernel.org>
-Date: Tue, 21 Apr 2026 17:37:54 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HIpUZy0I"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-488af96f6b2so56569975e9.0
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 08:46:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776786398; x=1777391198; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Pm67qKOM3Exkx05WtLYkzfFidvA4Ig/U45KGlldfDxA=;
+        b=HIpUZy0IYUP5lCQy7pxb1J0+f0HavkN8rIbhPtyxSRxmH51G6eY2uFwRUquZtGG8ad
+         wy3sHcNvFMdfgblKKb4GfUnvMk9UoP1oXglPvu6PqLF1duOeYwf4/2IEOd8z8M36M+t9
+         E7M/Sbyhvnvc5U+AHgQbAZBE/csgyDFUl43giKg6izGvmKJg7OvX9K9OU2Mu/GltX/v6
+         rsBQZ3Ctq3TgQSx710mgw+rQ9ifI9dYK9w4WLKSp6VL0KGJFom1hT+i1QBEjrihMPhKf
+         GJeUGHWQAQB/Rou9RdbIeqAAKW9S3S10IOU8/JR+/+0eSM9hOWWbqKl9Fv8qfWrs/d9y
+         H5Yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776786398; x=1777391198;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Pm67qKOM3Exkx05WtLYkzfFidvA4Ig/U45KGlldfDxA=;
+        b=NafLEIzw7G9RwlwgvI2cU9K99WnkGGputLKpdOJRGWKovAD0ZpQS1UOvdKoPYfC/Bz
+         5BTZCbXChyW5JQwjsmq7Wi4RTzpNSRp1fJyiq48FnkqApDxnOjxF5WJpsTseX92IWMoJ
+         xblJpIjNSBiBg+6xGlwZFUPd4RZUIGPRDc0nfHRDpKL/62m9Tc3wFfvCUsxa9wEfMJWg
+         7ZVFXckthtQO7bs1/G2Sm89EPN0eo3yVAkIQiKtJtiVtGqP2LG0xXm6xjt7uGnsGP37o
+         x8egeVcKwQog2KMhOiZ883sDiVq7b869uaJI7Shfni0BowNdh6/42i19kcr49ba0+TtH
+         CuZQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/2+E7TIquYqVmKkBAXr9Lrd48gP9W1Uu9CYk9vY3GqGyZ6pAWhG2ftvX5wrTWMdJ0D4e7l3msAb6UG@vger.kernel.org
+X-Gm-Message-State: AOJu0YzvfWudyfhxl9gJuUR5C1ADE72VCqrXxBE+S6w5FDrka4MOnrgr
+	LElrC5d4ABKkk26lH8Scq7TvoZH4L8cqC2dOBOBnhSs9KuC/+MDEZhar
+X-Gm-Gg: AeBDiesjLsgKyHJILvl7vdVY+Vh7h2DTKRrJleHkFvwJZySDzdwFJPKaLylULKyNqtV
+	m7rGEwEYdKHm+Zmg3vmSXYuFrMSeMo7YoqvrZ6oAag1r1Yygz9YaYF0PZVcLXssVWNyI0iBY4RS
+	Eatom7owhlrHBfq4QfJ/0mCEzsn/o/b9YiZF6UBE5REFwqkBLgZtRMPFqZ2JcKWRQYh0CnGxNPB
+	/IeUtznoSwtqfYEe+hsUo9dvfR9MT7ikoz6QUr0jB9MEtxzPYwFFxwJVRHkpwJf1YMnr3EwEOTk
+	q9uNDbK0Touef1MW/qazJoVKIT0HeD2agNeqWOrr70rbyl8TeITg+rszZF4/sasFc/hC+YMTfBI
+	adDuFKXV7ABGz171tbazS4o3k/LYO4tGKKLxu+ovS3qgPhTg25h1PqmrZmHUiCQUCDKTGNmYdL7
+	9V0xFJrqnFKrfvtFRBu31FkUEOTYPUsQ==
+X-Received: by 2002:a05:600c:4ec6:b0:489:1f98:71e3 with SMTP id 5b1f17b1804b1-4891f987487mr114165495e9.28.1776786397946;
+        Tue, 21 Apr 2026 08:46:37 -0700 (PDT)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4891c318636sm174759655e9.7.2026.04.21.08.46.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Apr 2026 08:46:37 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH v2] ASoC: dt-bindings: mediatek: Convert mtk-btcvsd-snd to DT Schema
+Date: Tue, 21 Apr 2026 16:46:07 +0100
+Message-ID: <20260421154619.227039-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for Nord
- SA8797P
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260421040231.1256998-1-shengchao.guo@oss.qualcomm.com>
- <20260421040231.1256998-2-shengchao.guo@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260421040231.1256998-2-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 21/04/2026 06:02, Shawn Guo wrote:
-> From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> 
-> Nord is a SoC family from Qualcomm designed as the next generation of
-> Lemans series.  SA8797P is the automotive variant of Nord, where
-> the platform resources such as clocks, regulators, interconnects, etc.
-> are managed by firmware through SCMI.
-> 
-> Add SoC ID for Nord SA8797P.
-> 
-> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->  include/dt-bindings/arm/qcom,ids.h | 1 +
+Convert the mtk-btcvsd-snd.txt DT binding to DT Schema format.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+---
+Changes in v2:
+- Fixed issues from make dt_binding_check
+- Set myself as maintainer for the binding
 
-Best regards,
-Krzysztof
+ .../sound/mediatek,mtk-btcvsd-snd.yaml        | 60 +++++++++++++++++++
+ .../bindings/sound/mtk-btcvsd-snd.txt         | 24 --------
+ 2 files changed, 60 insertions(+), 24 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mtk-btcvsd-snd.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/mtk-btcvsd-snd.txt
+
+diff --git a/Documentation/devicetree/bindings/sound/mediatek,mtk-btcvsd-snd.yaml b/Documentation/devicetree/bindings/sound/mediatek,mtk-btcvsd-snd.yaml
+new file mode 100644
+index 000000000000..1ec50c7611df
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/mediatek,mtk-btcvsd-snd.yaml
+@@ -0,0 +1,60 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/mediatek,mtk-btcvsd-snd.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Mediatek ALSA BT SCO CVSD/MSBC Driver
++
++maintainers:
++  - Luca Leonardo Scorcia <l.scorcia@gmail.com>
++
++properties:
++  compatible:
++    const: mediatek,mtk-btcvsd-snd
++
++  reg:
++    items:
++      - description: Register location and size of PKV
++      - description: Register location and size of SRAM_BANK2
++
++  interrupts:
++    items:
++      - description: BT-SCO interrupt
++
++  mediatek,infracfg:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: The phandle of the infracfg controller
++
++  mediatek,offset:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    description: Array of register offsets and masks
++    items:
++      - description: infra_misc_offset
++      - description: infra_conn_bt_cvsd_mask
++      - description: cvsd_mcu_read_offset
++      - description: cvsd_mcu_write_offset
++      - description: cvsd_packet_indicator_offset
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - mediatek,infracfg
++  - mediatek,offset
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    mtk-btcvsd-snd@18000000 {
++      compatible = "mediatek,mtk-btcvsd-snd";
++      reg = <0x18000000 0x1000>,
++            <0x18080000 0x8000>;
++      interrupts = <GIC_SPI 286 IRQ_TYPE_LEVEL_LOW>;
++      mediatek,infracfg = <&infrasys>;
++      mediatek,offset = <0xf00 0x800 0xfd0 0xfd4 0xfd8>;
++    };
+diff --git a/Documentation/devicetree/bindings/sound/mtk-btcvsd-snd.txt b/Documentation/devicetree/bindings/sound/mtk-btcvsd-snd.txt
+deleted file mode 100644
+index 679e44839b48..000000000000
+--- a/Documentation/devicetree/bindings/sound/mtk-btcvsd-snd.txt
++++ /dev/null
+@@ -1,24 +0,0 @@
+-Mediatek ALSA BT SCO CVSD/MSBC Driver
+-
+-Required properties:
+-- compatible = "mediatek,mtk-btcvsd-snd";
+-- reg: register location and size of PKV and SRAM_BANK2
+-- interrupts: should contain BTSCO interrupt
+-- mediatek,infracfg: the phandles of INFRASYS
+-- mediatek,offset: Array contains of register offset and mask
+-    infra_misc_offset,
+-    infra_conn_bt_cvsd_mask,
+-    cvsd_mcu_read_offset,
+-    cvsd_mcu_write_offset,
+-    cvsd_packet_indicator_offset
+-
+-Example:
+-
+-	mtk-btcvsd-snd@18000000 {
+-		compatible = "mediatek,mtk-btcvsd-snd";
+-		reg=<0 0x18000000 0 0x1000>,
+-		    <0 0x18080000 0 0x8000>;
+-		interrupts = <GIC_SPI 286 IRQ_TYPE_LEVEL_LOW>;
+-		mediatek,infracfg = <&infrasys>;
+-		mediatek,offset = <0xf00 0x800 0xfd0 0xfd4 0xfd8>;
+-	};
+-- 
+2.43.0
+
