@@ -1,197 +1,144 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-180.mta0.migadu.com (out-180.mta0.migadu.com [91.218.175.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208E826A08F
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 15:46:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C2A2C08CF
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 15:52:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776786404; cv=none; b=lIWWzyzc1qD/edRedJNYdZwO3DyPsYA0LmywGpvX80Bdzn7ARtMTTMqvsykjH7Qa3QhPXldRk5huKdmVw3oLDTCVr2aAWst4Zx8n7Ph8SM1eueeRrLUMsNBx/2YKsFflTyXn3i99bI55ZGL5CgYErYz8Qbg0XgZ0ucYfRhmx2yc=
+	t=1776786779; cv=none; b=bVWKd4MbWZqCy4P0q7gcut4LjalTPrGD0l1dbuvqnbCihfYcxYO0+iR5D1hF3fYCctYkocVSk7GFeDINYG25wONdmWLJg4Qkv+M0z9gHYsuv4ElqacIC5lP2RVx57xaurdHkVEYdZz2uzDQX4yReyl/NE14vEeRKPDgXXchyv/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776786404; c=relaxed/simple;
-	bh=KePFdqtxhzIfGgpRbgVIP0PIcNTO7D89nGU8iW1dSUc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BXyBe35aYSHJX9NphgsKLoPccIs7ojccj0RihSo86dGcTHsyIGpnxaELPLCVXEk21gBnjkgnMAmjKlF76HhwMcFuZ18flKUYu+DZ0gRidoTVCi2A13LPZEO5sL7QqJ6wgzMzbV3TkuLvmybV86RkMAimjQQHg434faTcLfmmpZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HIpUZy0I; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776786779; c=relaxed/simple;
+	bh=ADPTNPcNngsBtU+kO72lu0Cf8uZCTIyjUrmakA9Qf1k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eCjupcVoQNHruXOt7Zy/OIV076X9RRwTwvjy9AqOaj5aVTAT5ISfEC37Xd560O50dDepO+eGTki860BivGQtSyLq5bw0ve8JzMQoTc6XR2LXeniB3rdASC8NQ2yTQersHCFTZXitomqLBUMuETgu8kEDgllNwZxPIFm8djqE778=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=cqcQxAX3; arc=none smtp.client-ip=91.218.175.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HIpUZy0I"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-488af96f6b2so56569975e9.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 08:46:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776786398; x=1777391198; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Pm67qKOM3Exkx05WtLYkzfFidvA4Ig/U45KGlldfDxA=;
-        b=HIpUZy0IYUP5lCQy7pxb1J0+f0HavkN8rIbhPtyxSRxmH51G6eY2uFwRUquZtGG8ad
-         wy3sHcNvFMdfgblKKb4GfUnvMk9UoP1oXglPvu6PqLF1duOeYwf4/2IEOd8z8M36M+t9
-         E7M/Sbyhvnvc5U+AHgQbAZBE/csgyDFUl43giKg6izGvmKJg7OvX9K9OU2Mu/GltX/v6
-         rsBQZ3Ctq3TgQSx710mgw+rQ9ifI9dYK9w4WLKSp6VL0KGJFom1hT+i1QBEjrihMPhKf
-         GJeUGHWQAQB/Rou9RdbIeqAAKW9S3S10IOU8/JR+/+0eSM9hOWWbqKl9Fv8qfWrs/d9y
-         H5Yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776786398; x=1777391198;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Pm67qKOM3Exkx05WtLYkzfFidvA4Ig/U45KGlldfDxA=;
-        b=NafLEIzw7G9RwlwgvI2cU9K99WnkGGputLKpdOJRGWKovAD0ZpQS1UOvdKoPYfC/Bz
-         5BTZCbXChyW5JQwjsmq7Wi4RTzpNSRp1fJyiq48FnkqApDxnOjxF5WJpsTseX92IWMoJ
-         xblJpIjNSBiBg+6xGlwZFUPd4RZUIGPRDc0nfHRDpKL/62m9Tc3wFfvCUsxa9wEfMJWg
-         7ZVFXckthtQO7bs1/G2Sm89EPN0eo3yVAkIQiKtJtiVtGqP2LG0xXm6xjt7uGnsGP37o
-         x8egeVcKwQog2KMhOiZ883sDiVq7b869uaJI7Shfni0BowNdh6/42i19kcr49ba0+TtH
-         CuZQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/2+E7TIquYqVmKkBAXr9Lrd48gP9W1Uu9CYk9vY3GqGyZ6pAWhG2ftvX5wrTWMdJ0D4e7l3msAb6UG@vger.kernel.org
-X-Gm-Message-State: AOJu0YzvfWudyfhxl9gJuUR5C1ADE72VCqrXxBE+S6w5FDrka4MOnrgr
-	LElrC5d4ABKkk26lH8Scq7TvoZH4L8cqC2dOBOBnhSs9KuC/+MDEZhar
-X-Gm-Gg: AeBDiesjLsgKyHJILvl7vdVY+Vh7h2DTKRrJleHkFvwJZySDzdwFJPKaLylULKyNqtV
-	m7rGEwEYdKHm+Zmg3vmSXYuFrMSeMo7YoqvrZ6oAag1r1Yygz9YaYF0PZVcLXssVWNyI0iBY4RS
-	Eatom7owhlrHBfq4QfJ/0mCEzsn/o/b9YiZF6UBE5REFwqkBLgZtRMPFqZ2JcKWRQYh0CnGxNPB
-	/IeUtznoSwtqfYEe+hsUo9dvfR9MT7ikoz6QUr0jB9MEtxzPYwFFxwJVRHkpwJf1YMnr3EwEOTk
-	q9uNDbK0Touef1MW/qazJoVKIT0HeD2agNeqWOrr70rbyl8TeITg+rszZF4/sasFc/hC+YMTfBI
-	adDuFKXV7ABGz171tbazS4o3k/LYO4tGKKLxu+ovS3qgPhTg25h1PqmrZmHUiCQUCDKTGNmYdL7
-	9V0xFJrqnFKrfvtFRBu31FkUEOTYPUsQ==
-X-Received: by 2002:a05:600c:4ec6:b0:489:1f98:71e3 with SMTP id 5b1f17b1804b1-4891f987487mr114165495e9.28.1776786397946;
-        Tue, 21 Apr 2026 08:46:37 -0700 (PDT)
-Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4891c318636sm174759655e9.7.2026.04.21.08.46.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Apr 2026 08:46:37 -0700 (PDT)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH v2] ASoC: dt-bindings: mediatek: Convert mtk-btcvsd-snd to DT Schema
-Date: Tue, 21 Apr 2026 16:46:07 +0100
-Message-ID: <20260421154619.227039-1-l.scorcia@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="cqcQxAX3"
+Message-ID: <c9af4767-da4c-4e65-9e97-47434a893a73@packett.cool>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
+	s=key1; t=1776786766;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rUpEzNKW8mpVwevIJYS1mzUUZaX2RonolbUtkCtLrbs=;
+	b=cqcQxAX3jV2NQtqyPY3WjUylp94HQCuI4o7uEIqwZ9YxUK6bJTBVOz0Ub3wyWP7TLtzlJG
+	ERe42IGUSVr0B+IJht6wGFSiU4B7GKw/v5AE8IrBovscWpg8dVaE5B7d+3GO66UtKzcwkm
+	4P1gm6KC/SXyriMMGhdHCAmVzGCBryUIB16X4CYEwuCzl1OUrkcii5CfEvuBosFKI+fDaK
+	c2V3XJiPSErk3uuOqXiYZlmuItJ4JegjkDFt24/YWbKxTMnyZesARaMBk+I1GuoIiHBZ58
+	9f3a0+f02YPhEOFPIh2zVJykEi4bMmPWN/dJwXXiJnJRmNQustLzFBHRp12uRg==
+Date: Tue, 21 Apr 2026 12:52:37 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Subject: Re: Re: [PATCH] arm64: dts: qcom: kodiak: Add missing clock votes for
+ lpass_tlmm
+To: Bhushan Shah <bhushan.shah@machinesoul.in>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, cros-qcom-dts-watchers@chromium.org,
+ Bharadwaj Raju <bharadwaj.raju@machinesoul.in>,
+ Alexandre Ferrieux <alexandre.ferrieux@orange.com>,
+ Luca Weiss <luca.weiss@fairphone.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260109-kodiak-lpass-tlmm-clocks-v1-1-746112687772@fairphone.com>
+ <6749502.DvuYhMxLoT@antlia> <5976946.DvuYhMxLoT@antlia>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Val Packett <val@packett.cool>
+In-Reply-To: <5976946.DvuYhMxLoT@antlia>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-Convert the mtk-btcvsd-snd.txt DT binding to DT Schema format.
 
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
----
-Changes in v2:
-- Fixed issues from make dt_binding_check
-- Set myself as maintainer for the binding
+On 1/20/26 7:53 AM, Bhushan Shah wrote:
+> On Friday, 9 January 2026 21:08:32 IST Bhushan Shah wrote:
+>> On Friday, 9 January 2026 20:44:34 IST Luca Weiss wrote:
+>>> Without the correct clock votes set, we may be hitting a synchronous
+>>> external abort error when touching the lpi registers.
+>>>
+>>>    Internal error: synchronous external abort: 0000000096000010 [#1]  SMP
+>>>    <...>
+>>>    
+>>>    Call trace:
+>>>     lpi_gpio_read.isra.0+0x2c/0x58 (P)
+>>>     pinmux_enable_setting+0x218/0x300
+>>>     pinctrl_commit_state+0xb0/0x280
+>>>     pinctrl_select_state+0x28/0x48
+>>>     pinctrl_bind_pins+0x1f4/0x2a0
+>>>     really_probe+0x64/0x3a8
+>>>
+>>> Add the clocks to fix that.
+>>>
+>>> Platforms with this SoC using AudioReach won't be impacted due to
+>>> qcs6490-audioreach.dtsi already setting clocks & clock-names for
+>>> q6prmcc. The sc7280-chrome-common.dtsi has also been adjusted to keep
+>>> the behavior the same as they also do not use Elite with q6afecc.
+>>>
+>>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+>> Tested-by: Bhushan Shah <bhushan.shah@machinesoul.in> # On fairphone-fp5
+> As a follow-up;
+>
+> While this fixes original abort, it seems on some coldboots or as such(?); it fails
+> to vote the clocks and then eventually soundcard fails to probe, so there is still
+> some issue that needs to be solved.
+>
+> [   17.944296] Bluetooth: hci0: Frame reassembly failed (-84)
+> [   20.961100] qcom-q6afe aprsvc:service:4:4: AFE failed to vote (3)
+> [   20.961131] Failed to prepare clk 'core': -110
+> [   20.961137] qcom-sc7280-lpass-lpi-pinctrl 33c0000.pinctrl: error -ETIMEDOUT: Can't enable clocks
+> [   20.961144] qcom-sc7280-lpass-lpi-pinctrl 33c0000.pinctrl: probe with driver qcom-sc7280-lpass-lpi-pinctrl failed with error -110
+>
+> So far I was not able to find a precise pattern to this, but doing bunch of coldboots
+> is most easiest way to reproduce I have found.
 
- .../sound/mediatek,mtk-btcvsd-snd.yaml        | 60 +++++++++++++++++++
- .../bindings/sound/mtk-btcvsd-snd.txt         | 24 --------
- 2 files changed, 60 insertions(+), 24 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mtk-btcvsd-snd.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/mtk-btcvsd-snd.txt
+This issue has appeared for a fellow postmarketOS user in the audio 
+chatroom on the sm8250-xiaomi-pipa, the most interesting thing is the 
+error code that was returned:
 
-diff --git a/Documentation/devicetree/bindings/sound/mediatek,mtk-btcvsd-snd.yaml b/Documentation/devicetree/bindings/sound/mediatek,mtk-btcvsd-snd.yaml
-new file mode 100644
-index 000000000000..1ec50c7611df
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/mediatek,mtk-btcvsd-snd.yaml
-@@ -0,0 +1,60 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/mediatek,mtk-btcvsd-snd.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Mediatek ALSA BT SCO CVSD/MSBC Driver
-+
-+maintainers:
-+  - Luca Leonardo Scorcia <l.scorcia@gmail.com>
-+
-+properties:
-+  compatible:
-+    const: mediatek,mtk-btcvsd-snd
-+
-+  reg:
-+    items:
-+      - description: Register location and size of PKV
-+      - description: Register location and size of SRAM_BANK2
-+
-+  interrupts:
-+    items:
-+      - description: BT-SCO interrupt
-+
-+  mediatek,infracfg:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: The phandle of the infracfg controller
-+
-+  mediatek,offset:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description: Array of register offsets and masks
-+    items:
-+      - description: infra_misc_offset
-+      - description: infra_conn_bt_cvsd_mask
-+      - description: cvsd_mcu_read_offset
-+      - description: cvsd_mcu_write_offset
-+      - description: cvsd_packet_indicator_offset
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - mediatek,infracfg
-+  - mediatek,offset
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    mtk-btcvsd-snd@18000000 {
-+      compatible = "mediatek,mtk-btcvsd-snd";
-+      reg = <0x18000000 0x1000>,
-+            <0x18080000 0x8000>;
-+      interrupts = <GIC_SPI 286 IRQ_TYPE_LEVEL_LOW>;
-+      mediatek,infracfg = <&infrasys>;
-+      mediatek,offset = <0xf00 0x800 0xfd0 0xfd4 0xfd8>;
-+    };
-diff --git a/Documentation/devicetree/bindings/sound/mtk-btcvsd-snd.txt b/Documentation/devicetree/bindings/sound/mtk-btcvsd-snd.txt
-deleted file mode 100644
-index 679e44839b48..000000000000
---- a/Documentation/devicetree/bindings/sound/mtk-btcvsd-snd.txt
-+++ /dev/null
-@@ -1,24 +0,0 @@
--Mediatek ALSA BT SCO CVSD/MSBC Driver
--
--Required properties:
--- compatible = "mediatek,mtk-btcvsd-snd";
--- reg: register location and size of PKV and SRAM_BANK2
--- interrupts: should contain BTSCO interrupt
--- mediatek,infracfg: the phandles of INFRASYS
--- mediatek,offset: Array contains of register offset and mask
--    infra_misc_offset,
--    infra_conn_bt_cvsd_mask,
--    cvsd_mcu_read_offset,
--    cvsd_mcu_write_offset,
--    cvsd_packet_indicator_offset
--
--Example:
--
--	mtk-btcvsd-snd@18000000 {
--		compatible = "mediatek,mtk-btcvsd-snd";
--		reg=<0 0x18000000 0 0x1000>,
--		    <0 0x18080000 0 0x8000>;
--		interrupts = <GIC_SPI 286 IRQ_TYPE_LEVEL_LOW>;
--		mediatek,infracfg = <&infrasys>;
--		mediatek,offset = <0xf00 0x800 0xfd0 0xfd4 0xfd8>;
--	};
--- 
-2.43.0
+[ 10.823380] PDR: Indication received from msm/adsp/audio_pd, state: 
+0x1fffffff, trans-id: 1
+[ 10.823413] qcom,apr 
+17300000.remoteproc:glink-edge.apr_audio_svc.-1.-1: Adding APR/GPR dev: 
+aprsvc:service:4:3
+[ 10.823476] qcom,apr 
+17300000.remoteproc:glink-edge.apr_audio_svc.-1.-1: Adding APR/GPR dev: 
+aprsvc:service:4:4
+[ 10.825541] qcom,apr 
+17300000.remoteproc:glink-edge.apr_audio_svc.-1.-1: Adding APR/GPR dev: 
+aprsvc:service:4:7
+[ 10.826034] platform 17300000.remoteproc:glink-edge:apr:service@7:dais: 
+Adding to iommu group 28
+[ 10.826399] qcom,apr 
+17300000.remoteproc:glink-edge.apr_audio_svc.-1.-1: Adding APR/GPR dev: 
+aprsvc:service:4:8
+[ 10.827469] qcom-q6afe aprsvc:service:4:4: cmd = 0x100f4 returned error 
+= 0x16
+[ 10.827512] qcom-q6afe aprsvc:service:4:4: Unknown cmd 0x100f4
+…
+[ 14.052896] qcom-q6afe aprsvc:service:4:4: AFE failed to vote (3)
+[ 14.052934] va_macro 3370000.codec: probe with driver va_macro failed 
+with error -110
 
+
+Uhh, 0x16 is out of the known range of error codes!
+
+q6dsp-errno.h both upstream and downstream ends at 0x15! Wat?!
+
+(Also the "Unknown cmd" error message is confusing, it makes it seem 
+like the ADSP had told us that it doesn't know the cmd, but in reality 
+the *error handler* hit a path where it's an unknown opcode for its 
+processing of the response!)
+
+
+Thanks,
+~val
