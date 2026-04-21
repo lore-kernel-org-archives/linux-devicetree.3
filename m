@@ -1,86 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7273988E4
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 10:56:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 345C93B637E
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 10:56:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776768988; cv=none; b=HWOzFuoG7REmGxPQcdojUJ4IrAjtNjVRZi6sH96PdOjPVRqP882NoKYBo36IQeQFZEtPTIBmfZ9V18TrE7frlSZmOEMkx16n//x1jt8vgEvibdhyM614tDGqy36AkHzZJtgpkjRTAWNvEXMTCHe6CJX0VDOU+qJPfXqMvpt0UTk=
+	t=1776768991; cv=none; b=FRWvTPkHGlaiOe3KRvKZdcKXQaCgVcn7XY2LnOoQUd4lX81lDfFBUxE4llnqqzu5No/H2L29BE23mMNET6RkhtjiPCVLfkzSs7T0avhahQoqXvK7C80lIOzK/6tNq8W/F9K85S/j7ymkFahd11erV9LmQFp58P//mm3cI/lzSrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776768988; c=relaxed/simple;
-	bh=Vx/6zMoZ67at0R9rGbckd2Bbimfp8nN6trPQFzaFmoQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RIvzVowgKvPK2xFS6h1JRFIRUNUCHIYocm/NrW1LoygoVJz8XcZo8y5iCjv59IiNv2xGHDOwp6KyXD1bwyiuzp5pmTXE8DHTxQTicp5Ggk5X6a7GzZD4mAHWBkN9wsEiXX2/YBMO06x/SlDsqCi8AJZq23HpvDB5PZFRZ/ONeXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bpO3vNKr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=W6CQ8nj/; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1776768991; c=relaxed/simple;
+	bh=ckf80wWUcb1qnI0v7q/6ZqqYr3nuJh7ROL35EVLOH7w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=kR0Kr7BWbWYnBYBXnuNVxSGQllHat1048sBQ4pgtBTAO6Vqan/Cw9Oqtn7WkCTBAjVl8YAPzgbDa8ArS/vbHE1QkNBJsz7AlibcABFWijXY4Gd0lfFeDb60HZHhHvcevUcGXuQ4Cz4MfwlyMKik5nXjycZ8FsFh+Fu/T91dL/DI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=frT6FFwt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MQZwZkuu; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bpO3vNKr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W6CQ8nj/"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63L74ChW1538415
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 10:56:26 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="frT6FFwt";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MQZwZkuu"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63L6ePOI3574145
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 10:56:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=l4XZv915+OD8fVF5ebPBbO
-	RlRX1ourZsFmrSJpVSODU=; b=bpO3vNKry4FXrSO5meDczYqrxOQQ7jRu3jdIju
-	f6xbW92P/sqZaJlwbjPZhhNcqMOHlT24SmS94tSTuMVvWzxc5OhMQAbcL/Jell8X
-	ArC7qp1r/pHLXdkA4trcXTxbK7kzqp19zzhOdYC9H6GEUoP/ipKz9o9Zq5zsx3A2
-	xZJRZuq47fWmrlrVtcXI3xiIE2MPga7IwTqGGAlYGGtjGjYR6Liq+ykEWQduOklU
-	w6HOroqFZ6qonGK5yJDlzRKzvkIRH20caATpnJ6HbScL7ERnyVVMfyjJgrkoMhh1
-	F4hdPh/xMFmvW7kuz6U+coG/cD/tf4A/YZW3x4sL1OanGRYg==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dp4haguta-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	aOdpdbZJkeNi3c6n6qEjoFu015+pEeWRTwmOxcPblaY=; b=frT6FFwtwRq2fagi
+	yCMCsmR1P1rleRvNY6MMcT51/wjQxDgyS2GEV2R4dxDtvTc2tQ0eEymz50l2Pjlc
+	jTtxy2v4AaW4wUgZZogfkLZl4PPL5B+ERPZG9/RLPgVsIOQxJVeaf/YDTE4ZAsPc
+	kGgl6RsngDvapEWPrJglv/fVaAuxNyIjdIJ3KZVcDMqklzPRH0/VpYPJMjU+NcqR
+	547SujVR57i8YnwdnGwQw+ZpbOPUgehwDLh6eQk0eE2RQtNZozKrR+0CHq7ruqj9
+	F7D0N4w/EoXaHjYrci6mE3bg/KoHR+6nPnh2HnqN36PNUpA0/ZINLg0m9bWxK0in
+	wKdeag==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dp465gxqj-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 10:56:24 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-82fa2165c3eso2060121b3a.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 03:56:24 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 10:56:29 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-82fa1c94b37so2300974b3a.0
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 03:56:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776768983; x=1777373783; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=l4XZv915+OD8fVF5ebPBbORlRX1ourZsFmrSJpVSODU=;
-        b=W6CQ8nj/c4M6No4/tfPtRBGprmamb9l4npa2zi3gbxpc3WM4YJxoPVZ3l7/fj27g/S
-         jzGExyPjRWt9kau+zZg6t3AnoVh8QVOuqdRE2TzqFsGLjxjUa2x2Reuu0Kkxr7GT7fQV
-         3AdoYZM4BS5TP6pF0ZhVx4CKfZ7lKmtPJVFJqm1wxVhiNIMHTAd4QmiVKvkm8mlW0EFY
-         CvEmnw2RETNy1XKAZ7YgnKk5wX+100Q4iDEUu+hW2Z7B2Lz2Pf7vGz+S5Nwdo1J7cUQx
-         i82VlWRO6N1vuSrC+EmK+9gCSXpAfDypBwXW6pvn7uN5ExC8OGgb2v1cg/CzxZSm9SAf
-         NxOQ==
+        d=oss.qualcomm.com; s=google; t=1776768988; x=1777373788; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=aOdpdbZJkeNi3c6n6qEjoFu015+pEeWRTwmOxcPblaY=;
+        b=MQZwZkuuOCA5n5t0w5wrmsv7Tbd/62+6VskjC+vDkXqL+o5+NXezUDe3T9YyMUUx4K
+         lpQZJ3ZscxfJaqfanXxRCskp60p0zGqXzOkX9CLLqlaeECMNQG3Hn1eWh336LgsSu2r3
+         H9YXNjvcv1v/QM5oFZKovw/RcAtbgPsYoOHmB4FB1JmBuVtVrlBTDRHiJDEavYu1WsXG
+         ha8SAT8pLNbqA27klI5VPWmXsUTFFhJyav/Giym8Necy4iKECNpm+jfBnRQ1qw9HLGAg
+         q1A31fvs1oIC9fNg/F4787B/xwMZmUIs4aMa8xS7NCtHD85K8K1g8OWLU8un1NWt2pUO
+         spjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776768983; x=1777373783;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=l4XZv915+OD8fVF5ebPBbORlRX1ourZsFmrSJpVSODU=;
-        b=OoqCRQzImzY8brH6SaTo0g0vC3W1XeZ+ht9pXRqYoTlR9wGro96jukmOvnQ4mNNpRZ
-         jJyrHQFmYulc1JG8uDp12JauPxWIe58BgHQprCaPCroEYhsyfZSwg5h0tlLE41JjohRl
-         7lYQhUDb/ZOtWXvuVFjY5vG8rLm4C0czhPU97iqmqHYc6V62/2ff+SpDrXFqSvmfquuj
-         m8jiNChG5bJIl+aP034HDF+fG0oIgkRE8weSYUsWV93Ugc21jb4dULuYRiv9xvxwrUz1
-         ASMYppbv+DeuBN11goPENzaxOvakObOz+4OIiu7KGk476XpaCXdrH7/BvStOV41pzGeK
-         5GFA==
-X-Forwarded-Encrypted: i=1; AFNElJ+jydf1uGklN0E3hAAVd1HFZf/u5fZ8UW5qLWh6r7mKiHWKrd5JL2SyltkLH/CkUpvM9f+O4uaNyzrP@vger.kernel.org
-X-Gm-Message-State: AOJu0YyGnFVo0N62qSOeaVnfFOstVv7H8vuCL0ZsvnwWfalv984zeHlD
-	GxukY7WlbagtWP4CzzOF4+NdtvbsiNIB5gWWNW186hrd9YBMUjW1/OTGlgi9FOMomtfjw9dDAsO
-	ItQrkoJ2q+GacN7eAjy9oEnV3yfL1B7A328TTEp1PgDZZpwEzPDor6tHi5im9cUgL
-X-Gm-Gg: AeBDiet8OsqStli66jhdWkCEwJ4hrzFwHnr9+A66qDsbq3gptObiHBeNbPrlOIhNuYl
-	mnDR3UMqthem4Z7O/XnQo9UJrx4oT5lGCSPOKepD+jLUtalxr1LBxv7gOF7B4xItCdPOBzlOTWC
-	z2ZZyff+QrW/JGCNFP4Li8PY9zyZvYzzgIXUlQQ4VXN41NPoIGsvvAt8MoAwD1m5EjLfuZ8Aq2H
-	S7VUwOm4WgUn28z7N25kGaIkua9cWEjR9fRmohU7H4rNsnWrg0GZEPjgaLSUWEEakWoKuL4asUZ
-	oB8NfPYFJtimbVg6n7HKJ0S3P/vO/G5Gfqf1itxJCG7H164YzflQlLCflBgNylPd7KYq9+RgwR9
-	uSa4M+baBVaQPw8Tgr+Sal3sXe5GeMDf8/xzPC8wWAA+Y5IhjJlOAORa8y3GAFL+qtTlCC7hARn
-	so53MAfd/MhwrOeko17x4=
-X-Received: by 2002:a05:6a00:2191:b0:82f:5726:be23 with SMTP id d2e1a72fcca58-82f8c9ed41emr18207791b3a.49.1776768983105;
-        Tue, 21 Apr 2026 03:56:23 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2191:b0:82f:5726:be23 with SMTP id d2e1a72fcca58-82f8c9ed41emr18207760b3a.49.1776768982524;
-        Tue, 21 Apr 2026 03:56:22 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1776768988; x=1777373788;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=aOdpdbZJkeNi3c6n6qEjoFu015+pEeWRTwmOxcPblaY=;
+        b=sbnF/isvVpD4VbzXDV2odQaRtCM6G/pH0yZt90nQDiDnFd5iEl969bC2nCV8DwZsQB
+         MWsS+MBCdJAMSjZ8w0c/ERnyN+A/ZjiONSp0dfiSUNYX9ZQhTqhiEeYKaf/1V2Oo8mYb
+         9NUJvghm2qGMbRmjMLVtCTITEl40hsqz+f9BZ+zBn/Ood+mAnePYtVAqTc6sIx4vKIvf
+         ZMIeNlRt4CfKrYSdVXOjxvmNbdxARRF2igVreAW75HRnWcwyTCDx47h2Ac+JiEv1a8Y2
+         jlyskRMP1yO8UswgmjyIWfftpJjCUbyR/qCH+rBC3BZu5kM1UlZparBoIRitx5mQLueS
+         5Igg==
+X-Forwarded-Encrypted: i=1; AFNElJ8woNeoz8Hm2Vd4uK4+bqgT0X2Cq2/4fikUTvdx7zamvqf6ph/EOBDzqcT5fAdiAlDUwilWaaJK3qyq@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFY0qx6XPWQL6Yqptw39s/83dSKAIK0JyNJK1a8FcGFiiS6hO6
+	HPSeE28x6fL53w+WNi6ajd6/AUQNiiZ8LTCHR2iGNgEGoOjsgKcZym0mqmKAJ1euagvtTXF8EnX
+	6/6BgH061vcN2h41hoLrly2Htq1vjQgIAYiYvi744aZHfMzmvDJlEHXp3K9vD+uq5
+X-Gm-Gg: AeBDieuOmou7pXfHjUxpH8P/a5ffha+7pwdTYM1+kdDTezwMiapyCgA/E5QGkNoT4KU
+	ilE3Csfwbx0aD999vgpEiSa0MdsyWUFRjuwXRu4SGT5CJ8FQx0GIORmw6yZ2WLOTmuf1Yk0RK2v
+	KkZfOZU1+AfiH1+Vh4VSO/uy3GjzVUqDPKtrrqOYZT5zksy4jmkUxbnb2UKwruFx7zvmtZ0aW8i
+	40eyLitilpplxQ9luGrLM3FWgTOmNAcWx+2TW+M056936UDkyiFQayOUtPNGyvTJkm3cJf3AdcQ
+	LkHWcBgSJv5cgNDlegjk8EQlhAhdiTM6PIsaZyij/xLpGv15oqt341Rs8tlEKU1qsmvsPaAd4TZ
+	dBgRVp10fs9Ok84Tic08mFX7wiObMCY+yiS/MqiwkbAdY1Qlu9WXni8i1tCWnxvjs+uouDaGb4j
+	g7hSMzEJMueat36IoZX6w=
+X-Received: by 2002:a05:6a00:4fcc:b0:829:b08f:7353 with SMTP id d2e1a72fcca58-82f8b3861eemr14836823b3a.7.1776768988083;
+        Tue, 21 Apr 2026 03:56:28 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4fcc:b0:829:b08f:7353 with SMTP id d2e1a72fcca58-82f8b3861eemr14836784b3a.7.1776768987579;
+        Tue, 21 Apr 2026 03:56:27 -0700 (PDT)
 Received: from jiegan-gv.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8e982fd3sm17077339b3a.10.2026.04.21.03.56.16
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8e982fd3sm17077339b3a.10.2026.04.21.03.56.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Apr 2026 03:56:22 -0700 (PDT)
+        Tue, 21 Apr 2026 03:56:27 -0700 (PDT)
 From: Jie Gan <jie.gan@oss.qualcomm.com>
-Subject: [PATCH v17 0/7] coresight: ctcu: Enable byte-cntr function for TMC
- ETR
-Date: Tue, 21 Apr 2026 18:55:49 +0800
-Message-Id: <20260421-enable-byte-cntr-for-ctcu-v17-0-9cf36ff55fc0@oss.qualcomm.com>
+Date: Tue, 21 Apr 2026 18:55:50 +0800
+Subject: [PATCH v17 1/7] coresight: core: refactor ctcu_get_active_port and
+ make it generic
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,11 +90,10 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIALdX52kC/43NwQ7CIAwG4FcxnK2hsAHz5HsYD4wVJdGhsC0as
- 3cXPXlQ46XJ/6f9emeZUqDM1os7SzSFHGJfAurlgrmD7fcEoSsFE1woLnkD1Nv2SNDeBgLXDwl
- 8TOAGN4L3RpHCxrTas3J/TuTD9YVvdyUfQh5iur1+TVg963/YsgocHDdGSKqtIbWJOa8uoz26e
- DqtymBPfsL6jUT5k6wLiVprjxV1EptvpHojxW9SFVLbCmUnEFvTfSDneX4A/nD5l3IBAAA=
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260421-enable-byte-cntr-for-ctcu-v17-1-9cf36ff55fc0@oss.qualcomm.com>
+References: <20260421-enable-byte-cntr-for-ctcu-v17-0-9cf36ff55fc0@oss.qualcomm.com>
+In-Reply-To: <20260421-enable-byte-cntr-for-ctcu-v17-0-9cf36ff55fc0@oss.qualcomm.com>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
         James Clark <james.clark@linaro.org>,
         Alexander Shishkin <alexander.shishkin@linux.intel.com>,
@@ -105,340 +106,141 @@ To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
 Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
         linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, Jie Gan <jie.gan@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Mike Leach <mike.leach@arm.com>, Krzysztof Kozlowski <krzk@kernel.org>
+        Mike Leach <mike.leach@arm.com>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776768975; l=12973;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776768975; l=3771;
  i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
- bh=Vx/6zMoZ67at0R9rGbckd2Bbimfp8nN6trPQFzaFmoQ=;
- b=6xuUf+QMgfun9VRU2HhezJR3AkLNWTOJsKHg1GmazRnm8PphCxFshax4jgP+F998I171EFmzK
- WrlBdSdXhmoBCHQqq6w4w0UWd3TbJgPqPxsLS63SsNWxDyh9gsHLUzC
+ bh=ckf80wWUcb1qnI0v7q/6ZqqYr3nuJh7ROL35EVLOH7w=;
+ b=jJqeS412XiAqfCTbtdzyLQXnfDg5+q8/Ah/2X7ff6xs2SFRDsFaqNUfSyRmR3sH54wGIc4VWS
+ x30XByjBve6CxO257mPlnkzyESL2AiiP6g9qvFPG8SB41KM01M0g17l
 X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
  pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
-X-Authority-Analysis: v=2.4 cv=bOQm5v+Z c=1 sm=1 tr=0 ts=69e757d9 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDEwOCBTYWx0ZWRfX76bPTbtL4NjF
+ uOW55rBshixqOE4+jEPcgHehovcVp1ThMkYbvWvWxjCVa4WBf+Ex6a7TpFH9KIf1SJ5luwMKEgN
+ docxEWnx5BPnd0YzVdOqq3FnU3ns2/FixFRV4ZaF6/60YiSipEuK4BbucT2uJPC6OHrpfLUVQca
+ 3BFyMjEcPRCeQXedqEdjwASlGahdc+qkT+hCvduIhsjSCKDmItgHw2AOnbCJU6rxFH3XsQkOc1L
+ kTBpD+fdmAR0jOHei6Xjh88DdMETjgfb4L/mOE37xtL6V1yKRPS6ME1Kdh+LqRIneQPlwlWjl9G
+ 5yfUIV4tjrv/xQvzm/zkcrNalyk/wp58Ti0h9gJ7ZftvWUDCMAtPc8Z3eu2POTBf5RjATpy+icr
+ zLuEOIi65VvRDUAb9Gcd9rW/hdPr34NVIhySemJxCcUAZ0+FJEtahn34XsL5mLh5Od5yEJJNRjp
+ KMU4Dk9rc4F1QSwrvcw==
+X-Proofpoint-ORIG-GUID: DHph0wR6J3wS82jfNgSRBVSDIgtFCntp
+X-Authority-Analysis: v=2.4 cv=YOSvDxGx c=1 sm=1 tr=0 ts=69e757dd cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=7CQSdrXTAAAA:8
- a=KKAkSRfTAAAA:8 a=QyXUC8HyAAAA:8 a=JfrnYn6hAAAA:8 a=sQzbMOkpazfUrT1JE7AA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
- a=TjNXssC_j7lpFel5tvFf:22 a=a-qgeE7W1pNrGK8U0ZQC:22 a=cvBusfyB2V15izCimMoJ:22
- a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-GUID: _gcU6VmI7N31_ffZSzJFIzSue89ag57e
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDEwOCBTYWx0ZWRfXylAkcB0XY3B2
- M+vAL56hsVe0/jg83KpgV9bqyU+XADK+Uksj76zPxYT/Ecp1aDCoA7MZro6v6cP9Fv4UZ912jW4
- iRJByOjFKzgbuRCHrm7/19/6xRkchotBAm4qp+Y8M/zgTd+pAdGbHzpvYiAVCtj4HC1SBa8jqhR
- lGng3MWpZAx/TJ6YHYmU6yAgic/S4pnXJOhBSTHVExqIFQn0q4VDnOgoKib7eJ9hv31YX4EIv+N
- M9ucV/uavXJ++5bsKdkYu3riuCSwR1sWm61hSfTAW/lu8fEBwpGfoXZOC70jPSaav5Ip0/THtnd
- VR3e5NF1xU6plAkgEViFib+7PDthBi0v7ctF4CQpeGOgTHz1Xui+DKk2hZ4F/li7OegxtNQHs1k
- Z1kQxkh/DRfUHvC4Hy5HvuCyRzWa4xkHlOSgnq8Iu9g4WMiMiriyuEgXDCb0nt7sJ6cz7jGeQeA
- hD+hHoS1YHLnR69tr5g==
-X-Proofpoint-ORIG-GUID: _gcU6VmI7N31_ffZSzJFIzSue89ag57e
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=qQZ2XtAyJf2dEkEvaVsA:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: DHph0wR6J3wS82jfNgSRBVSDIgtFCntp
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-21_02,2026-04-20_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 malwarescore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 impostorscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0 clxscore=1015
+ spamscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604210108
 
-The byte-cntr function provided by the CTCU device is used to count the
-trace data entering the ETR. An interrupt is triggered if the data size
-exceeds the threshold set in the BYTECNTRVAL register. The interrupt
-handler counts the number of triggered interruptions.
+Remove ctcu_get_active_port from CTCU module and add it to the core
+framework.
 
-Based on this concept, the irq_cnt can be used to determine whether
-the etr_buf is full. The ETR device will be disabled when the active
-etr_buf is nearly full or a timeout occurs. The nearly full buffer will
-be switched to background after synced. A new buffer will be picked from
-the etr_buf_list, then restart the ETR device.
+The port number is crucial for the CTCU device to identify which ETR
+it serves. With the port number we can correctly get required parameters
+of the CTCU device in TMC module.
 
-The byte-cntr reading functions can access data from the synced and
-deactivated buffer, transferring trace data from the etr_buf to userspace
-without stopping the ETR device.
-
-The byte-cntr read operation has integrated with the file node tmc_etr,
-for example:
-/dev/tmc_etr0
-/dev/tmc_etr1
-
-There are two scenarios for the tmc_etr file node with byte-cntr function:
-1. BYTECNTRVAL register is configured and byte-cntr is enabled -> byte-cntr read
-2. BYTECNTRVAL register is reset or byte-cntr is disabled -> original behavior
-
-Shell commands to enable byte-cntr reading for etr0:
-echo 1 > /sys/bus/coresight/devices/ctcu0/irq_enabled0
-echo 1 > /sys/bus/coresight/devices/tmc_etr0/enable_sink
-echo 1 > /sys/bus/coresight/devices/etm0/enable_source
-cat /dev/tmc_etr0
-
-Reset the BYTECNTR register for etr0:
-echo 0 > /sys/bus/coresight/devices/ctcu0/irq_enabled0
-
-Test Report:
-=== Module setup ===
-  CONFIG_CORESIGHT=y (built-in, no action needed)
-  CONFIG_CORESIGHT_LINK_AND_SINK_TMC=y (built-in, no action needed)
-  coresight-ctcu: not loaded, running modprobe...
-  coresight-ctcu: loaded
-CTCU byte-cntr test
-  CTCU   : ctcu0
-  ETR    : tmc_etr0
-  source : etm0
-  chardev: /dev/tmc_etr0
-  module : coresight-ctcu
-
-=== T1: device presence ===
-  PASS: CTCU device found: ctcu0
-  PASS: TMC ETR device found: tmc_etr0
-
-=== T2: irq_enabled sysfs attributes ===
-  PASS: irq_enabled0 attribute exists
-  PASS: irq_enabled0 readable, value=0
-  PASS: irq_enabled1 attribute exists
-  PASS: irq_enabled1 readable, value=0
-
-=== T3: irq_enabled write/read round-trip ===
-  PASS: irq_enabled0: write 1 -> read back 1
-  PASS: irq_enabled0: write 0 -> read back 0
-  PASS: irq_enabled1: write 1 -> read back 1
-  PASS: irq_enabled1: write 0 -> read back 0
-
-=== T4: byte-cntr read with active trace ===
-  [step] cleanup: byte_cntr_disable
-  [step] enable_source = 0 (etm0)
-  [step] enable_sink = 0 (tmc_etr0)
-  [step] set irq_enabled0 = 0
-  [step] byte_cntr_disable done
-  [step] byte_cntr_enable
-  [step] set irq_enabled0 = 1
-  [step] set buffer_size = 0x2000000
-  [step] enable_sink = 1 (tmc_etr0)
-  [step] enable_source = 1 (etm0)
-  [step] byte_cntr_enable done
-  [step] cat /dev/tmc_etr0 > /tmp/tmc_etr0.bin &
-  [step] sleep 5 (accumulate trace data)
-  [step] byte_cntr_disable
-  [step] enable_source = 0 (etm0)
-  [step] enable_sink = 0 (tmc_etr0)
-  [step] set irq_enabled0 = 0
-  [step] byte_cntr_disable done
-  PASS: T4: cat exited naturally after source disabled (EOF delivered)
-  PASS: byte-cntr read returned 35333968 bytes -> /tmp/tmc_etr0.bin
-  PASS: no kernel warnings/oops after: byte-cntr read
-
-=== T5: EBUSY on concurrent open while byte-cntr reading ===
-  [step] enable_source = 0 (etm0)
-  [step] enable_sink = 0 (tmc_etr0)
-  [step] set irq_enabled0 = 0
-  [step] byte_cntr_disable done
-  [step] set irq_enabled0 = 1
-  [step] set buffer_size = 0x2000000
-  [step] enable_sink = 1 (tmc_etr0)
-  [step] enable_source = 1 (etm0)
-  [step] byte_cntr_enable done
-  PASS: T5: second open correctly refused (EBUSY)
-  [step] enable_source = 0 (etm0)
-  [step] enable_sink = 0 (tmc_etr0)
-  [step] set irq_enabled0 = 0
-  [step] byte_cntr_disable done
-  PASS: no kernel warnings/oops after: concurrent open test
-
-=== T6: rmmod while byte-cntr read is active ===
-  [step] enable_source = 0 (etm0)
-  [step] enable_sink = 0 (tmc_etr0)
-  [step] set irq_enabled0 = 0
-  [step] byte_cntr_disable done
-  [step] set irq_enabled0 = 1
-  [step] set buffer_size = 0x2000000
-  [step] enable_sink = 1 (tmc_etr0)
-  [step] enable_source = 1 (etm0)
-  [step] byte_cntr_enable done
-  PASS: T6: rmmod returned non-zero (device busy), no panic
-  PASS: no kernel warnings/oops after: rmmod while reading
-  [step] enable_source = 0 (etm0)
-  [step] enable_sink = 0 (tmc_etr0)
-  [step] set irq_enabled0 = 0
-  [step] byte_cntr_disable done
-
-=== T7: insmod after rmmod and re-probe sanity ===
-  [step] module still loaded after T6, retrying rmmod
-  PASS: T7: modprobe coresight-ctcu succeeded
-  PASS: T7: CTCU device reappeared: ctcu0
-  PASS: no kernel warnings/oops after: insmod / re-probe
-
-===================================
-===================================
-
-Results: PASS=20  FAIL=0  SKIP=0
----
-Changes in v17:
-1. fix race issue during allocat buffer.
-2. fix user after free issue observed when remove module.
-- Link to v16: https://lore.kernel.org/r/20260323-enable-byte-cntr-for-ctcu-v16-0-7a413d211b8d@oss.qualcomm.com
-
-Changes in v16:
-1. Remove lock/unlock processes in patch "coresight: tmc: add create/clean
-   functions for etr_buf_list" because we are allocating/freeing memory.
-- Link to v15: https://lore.kernel.org/r/20260313-enable-byte-cntr-for-ctcu-v15-0-1777f14ed319@oss.qualcomm.com
-
-Changes in v15:
-1. add lockdep_assert_held in patch "coresight: tmc: add create/clean
-   functions for etr_buf_list"
-2. optimize tmc_clean_etr_buf_list function
-3. optimize the patch "enable byte-cntr for TMC ETR devices" according
-   to Suzuki's comments
-   - call byte_cntr_sysfs_ops from etr_sysfs_ops
-   - optimize the lock usage in all functions
-   - remove the buf_node parameter in etr_drvdata, move it to
-     byte_cntr_data
-   - move the tmc_reset_sysfs_buf function to tmc-etr.c
-   - add a read flag to struct etr_buf_node to allow updating pos while
-     traversing etr_buf_list during data reads.
-Link to v14: https://lore.kernel.org/r/20260309-enable-byte-cntr-for-ctcu-v14-0-c08823e5a8e6@oss.qualcomm.com
-
-Changes in V14:
-1. Drop the patch: integrate byte-cntr's sysfs_ops with tmc sysfs file_ops
-2. Replace tmc_sysfs_ops with byte_cntr_sysfs_ops in byte_cntr_start
-   function and restore etr_sysfs_ops in byte_cntr_unprepare function.
-3. Remove redundant checks in byte‑cntr functions.
-Link to V13: https://lore.kernel.org/all/20260223-enable-byte-cntr-for-ctcu-v13-0-9cb44178b250@oss.qualcomm.com/
-
-Changes in v13:
-1. initilize the byte_cntr_data->raw_spin_lock before using.
-2. replace kzalloc with kzalloc_obj.
-Link to V12: https://lore.kernel.org/all/20260203-enable-byte-cntr-for-ctcu-v12-0-7bf81b86b70e@oss.qualcomm.com/
-
-Changes in v12:
-1. Add a new function for retrieving the CTCU's coresight_dev instead of
-   refactor the existing function.
-Link to v11: https://lore.kernel.org/r/20260126-enable-byte-cntr-for-ctcu-v11-0-c0af66ba15cf@oss.qualcomm.com
-
-Changes in v11:
-1. Correct the description in patch1 for the function coresight_get_in_port.
-2. Renaming the sysfs_ops to tmc_sysfs_ops per Suzuki's suggestion.
-Link to v10: https://lore.kernel.org/r/20260122-enable-byte-cntr-for-ctcu-v10-0-22978e3c169f@oss.qualcomm.com
-
-Changes in v10:
-1. fix a free memory issue that is reported by robot for patch 2.
-Link to v9: https://lore.kernel.org/r/20251224-enable-byte-cntr-for-ctcu-v9-0-886c4496fed4@oss.qualcomm.com
-
-Changes in v9:
-1. Drop the patch: add a new API to retrieve the helper device
-2. Add a new patch to refactor the tmc_etr_get_catu_device function,
-   making it generic to support all types of helper devices associated with ETR.
-3. Optimizing the code for creating irq_threshold sysfs node.
-4. Remove interrupt-name property and obtain the IRQ based on the
-   in-port number.
-Link to v8: https://lore.kernel.org/r/20251211-enable-byte-cntr-for-ctcu-v8-0-3e12ff313191@oss.qualcomm.com
-
-Changes in V8:
-1. Optimizing the patch 1 and patch 2 according to Suzuki's comments.
-2. Combine the patch 3 and patch 4 together.
-3. Rename the interrupt-name to prevent confusion, for example:etr0->etrirq0.
-Link to V7 - https://lore.kernel.org/all/20251013-enable-byte-cntr-for-ctcu-v7-0-e1e8f41e15dd@oss.qualcomm.com/
-
-Changes in V7:
-1. rebased on tag next-20251010
-2. updated info for sysfs node document
-Link to V6 - https://lore.kernel.org/all/20250908-enable-byte-cntr-for-tmc-v6-0-1db9e621441a@oss.qualcomm.com/
-
-Changes in V6:
-1. rebased on next-20250905.
-2. fixed the issue that the dtsi file has re-named from sa8775p.dtsi to
-   lemans.dtsi.
-3. fixed some minor issues about comments.
-Link to V5 - https://lore.kernel.org/all/20250812083731.549-1-jie.gan@oss.qualcomm.com/
-
-Changes in V5:
-1. Add Mike's reviewed-by tag for patchset 1,2,5.
-2. Remove the function pointer added to helper_ops according to Mike's
-   comment, it also results the patchset has been removed.
-3. Optimizing the paired create/clean functions for etr_buf_list.
-4. Remove the unneeded parameter "reading" from the etr_buf_node.
-Link to V4 - https://lore.kernel.org/all/20250725100806.1157-1-jie.gan@oss.qualcomm.com/
-
-Changes in V4:
-1. Rename the function to coresight_get_in_port_dest regarding to Mike's
-comment (patch 1/10).
-2. Add lock to protect the connections regarding to Mike's comment
-(patch 2/10).
-3. Move all byte-cntr functions to coresight-ctcu-byte-cntr file.
-4. Add tmc_read_ops to wrap all read operations for TMC device.
-5. Add a function in helper_ops to check whether the byte-cntr is
-enabkled.
-6. Call byte-cntr's read_ops if byte-cntr is enabled when reading data
-from the sysfs node.
-Link to V3 resend - https://lore.kernel.org/all/20250714063109.591-1-jie.gan@oss.qualcomm.com/
-
-Changes in V3 resend:
-1. rebased on next-20250711.
-Link to V3 - https://lore.kernel.org/all/20250624060438.7469-1-jie.gan@oss.qualcomm.com/
-
-Changes in V3:
-1. The previous solution has been deprecated.
-2. Add a etr_buf_list to manage allcated etr buffers.
-3. Add a logic to switch buffer for ETR.
-4. Add read functions to read trace data from synced etr buffer.
-Link to V2 - https://lore.kernel.org/all/20250410013330.3609482-1-jie.gan@oss.qualcomm.com/
-
-Changes in V2:
-1. Removed the independent file node /dev/byte_cntr.
-2. Integrated the byte-cntr's file operations with current ETR file
-   node.
-3. Optimized the driver code of the CTCU that associated with byte-cntr.
-4. Add kernel document for the export API tmc_etr_get_rwp_offset.
-5. Optimized the way to read the rwp_offset according to Mike's
-   suggestion.
-6. Removed the dependency of the dts patch.
-Link to V1 - https://lore.kernel.org/all/20250310090407.2069489-1-quic_jiegan@quicinc.com/
-
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: Mike Leach <mike.leach@arm.com>
-To: James Clark <james.clark@linaro.org>
-To: Alexander Shishkin <alexander.shishkin@linux.intel.com>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: coresight@lists.linaro.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org
+Reviewed-by: Mike Leach <mike.leach@linaro.org>
 Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
-
 ---
-Jie Gan (7):
-      coresight: core: refactor ctcu_get_active_port and make it generic
-      coresight: tmc: add create/clean functions for etr_buf_list
-      coresight: tmc: introduce tmc_sysfs_ops to wrap sysfs read operations
-      coresight: etr: add a new function to retrieve the CTCU device
-      dt-bindings: arm: add an interrupt property for Coresight CTCU
-      coresight: ctcu: enable byte-cntr for TMC ETR devices
-      arm64: dts: qcom: lemans: add interrupts to CTCU device
+ drivers/hwtracing/coresight/coresight-core.c      | 24 +++++++++++++++++++++++
+ drivers/hwtracing/coresight/coresight-ctcu-core.c | 19 +-----------------
+ drivers/hwtracing/coresight/coresight-priv.h      |  2 ++
+ 3 files changed, 27 insertions(+), 18 deletions(-)
 
- .../ABI/testing/sysfs-bus-coresight-devices-ctcu   |   9 +
- .../bindings/arm/qcom,coresight-ctcu.yaml          |  10 +
- arch/arm64/boot/dts/qcom/lemans.dtsi               |   3 +
- drivers/hwtracing/coresight/Makefile               |   2 +-
- drivers/hwtracing/coresight/coresight-core.c       |  24 ++
- .../hwtracing/coresight/coresight-ctcu-byte-cntr.c | 298 +++++++++++++++++++++
- drivers/hwtracing/coresight/coresight-ctcu-core.c  | 143 ++++++++--
- drivers/hwtracing/coresight/coresight-ctcu.h       |  79 +++++-
- drivers/hwtracing/coresight/coresight-priv.h       |   2 +
- drivers/hwtracing/coresight/coresight-tmc-core.c   |  55 ++--
- drivers/hwtracing/coresight/coresight-tmc-etr.c    | 237 +++++++++++++++-
- drivers/hwtracing/coresight/coresight-tmc.h        |  42 +++
- 12 files changed, 832 insertions(+), 72 deletions(-)
----
-base-commit: 936c21068d7ade00325e40d82bfd2f3f29d9f659
-change-id: 20260309-enable-byte-cntr-for-ctcu-ff86e6198b7f
+diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
+index 46f247f73cf6..221de57ca57b 100644
+--- a/drivers/hwtracing/coresight/coresight-core.c
++++ b/drivers/hwtracing/coresight/coresight-core.c
+@@ -588,6 +588,30 @@ struct coresight_device *coresight_get_sink(struct coresight_path *path)
+ }
+ EXPORT_SYMBOL_GPL(coresight_get_sink);
+ 
++/**
++ * coresight_get_in_port: Find the input port number at @remote where the @csdev
++ * device is connected to.
++ *
++ * @csdev: csdev of the device.
++ * @remote: csdev of the remote device which is connected to @csdev.
++ *
++ * Return: port number upon success or -EINVAL for fail.
++ */
++int coresight_get_in_port(struct coresight_device *csdev,
++			  struct coresight_device *remote)
++{
++	struct coresight_platform_data *pdata = remote->pdata;
++	int i;
++
++	for (i = 0; i < pdata->nr_inconns; ++i) {
++		if (pdata->in_conns[i]->src_dev == csdev)
++			return pdata->in_conns[i]->dest_port;
++	}
++
++	return -EINVAL;
++}
++EXPORT_SYMBOL_GPL(coresight_get_in_port);
++
+ u32 coresight_get_sink_id(struct coresight_device *csdev)
+ {
+ 	if (!csdev->ea)
+diff --git a/drivers/hwtracing/coresight/coresight-ctcu-core.c b/drivers/hwtracing/coresight/coresight-ctcu-core.c
+index 9043cad42f01..e8720026c9e3 100644
+--- a/drivers/hwtracing/coresight/coresight-ctcu-core.c
++++ b/drivers/hwtracing/coresight/coresight-ctcu-core.c
+@@ -116,23 +116,6 @@ static int __ctcu_set_etr_traceid(struct coresight_device *csdev, u8 traceid, in
+ 	return 0;
+ }
+ 
+-/*
+- * Searching the sink device from helper's view in case there are multiple helper devices
+- * connected to the sink device.
+- */
+-static int ctcu_get_active_port(struct coresight_device *sink, struct coresight_device *helper)
+-{
+-	struct coresight_platform_data *pdata = helper->pdata;
+-	int i;
+-
+-	for (i = 0; i < pdata->nr_inconns; ++i) {
+-		if (pdata->in_conns[i]->src_dev == sink)
+-			return pdata->in_conns[i]->dest_port;
+-	}
+-
+-	return -EINVAL;
+-}
+-
+ static int ctcu_set_etr_traceid(struct coresight_device *csdev, struct coresight_path *path,
+ 				bool enable)
+ {
+@@ -145,7 +128,7 @@ static int ctcu_set_etr_traceid(struct coresight_device *csdev, struct coresight
+ 		return -EINVAL;
+ 	}
+ 
+-	port_num = ctcu_get_active_port(sink, csdev);
++	port_num = coresight_get_in_port(sink, csdev);
+ 	if (port_num < 0)
+ 		return -EINVAL;
+ 
+diff --git a/drivers/hwtracing/coresight/coresight-priv.h b/drivers/hwtracing/coresight/coresight-priv.h
+index 1ea882dffd70..5532ec82e82c 100644
+--- a/drivers/hwtracing/coresight/coresight-priv.h
++++ b/drivers/hwtracing/coresight/coresight-priv.h
+@@ -155,6 +155,8 @@ void coresight_remove_links(struct coresight_device *orig,
+ u32 coresight_get_sink_id(struct coresight_device *csdev);
+ void coresight_path_assign_trace_id(struct coresight_path *path,
+ 				   enum cs_mode mode);
++int coresight_get_in_port(struct coresight_device *csdev,
++			  struct coresight_device *remote);
+ 
+ #if IS_ENABLED(CONFIG_CORESIGHT_SOURCE_ETM3X)
+ int etm_readl_cp14(u32 off, unsigned int *val);
 
-Best regards,
 -- 
-Jie Gan <jie.gan@oss.qualcomm.com>
+2.34.1
 
