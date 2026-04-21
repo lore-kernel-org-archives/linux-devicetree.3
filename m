@@ -1,53 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A2326E71F;
-	Tue, 21 Apr 2026 17:03:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89995364038;
+	Tue, 21 Apr 2026 17:05:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776791036; cv=none; b=ei3Zu5H5Ss7AvgahH5OQbU1kwT7oAFdFZ4lHxEW5cUPfG71YI3OsT5+1klw6wlTOPQ2xb3BL0q0j+v5ULQc7cATqiTW4GgNNAg1YSREiGVnqC2N/C5fsxLYpBOZSxgcJftb5i70nRvvLx1dQ++FHRQT8u4h8KNF4KPCJAB8CSvY=
+	t=1776791124; cv=none; b=M1Gmj5WMrvMEJdX9QxNLW5BUOV/oVfz4RJg+buDTfVypAdpf1OMflYj3T5tttGAr0k6BUbdKBPcJiLkATLr3gly+LdwtRc+RmGGFwO4TNcFEqMaUywi/tZXNC49ohI/sogGRntS9co5ZiFDVoEKaSzvtv8HgIoKtNb9i7FBWEEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776791036; c=relaxed/simple;
-	bh=0vjQ9Y6dD5TiOFno1Q68yXI5D0Y2pLi1DknZIvVD400=;
+	s=arc-20240116; t=1776791124; c=relaxed/simple;
+	bh=Z1ylYruYbhjfnpeCNaQ89mNWV1yukc5kkoI0lUofjuY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QjxJHqYMC/HimL2RFilLFItU59M2IBLK6NLXQmCml+cGlqvHT1XhJaYh3MADEYjTsplyPV00+z1hgPzJYxVowcfaV1hqTWs+dGm3C/M3kuNk1fD6M1NXG727NxwwMGpwdSIJnNNcfcwsKgCnTNgjLdff/Gb6rUsYQAUuzZ31hho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q1Cut8L5; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZvJpsmTdxlQF37YoIhbqJ/mSZ3q62rAy28AFS3C47rvYe6yHKo28jAkrlOvoMi6Hlc+Mn2VQOgYO/Kc0AbYPIvmpH6vutKB6RUECRmlS0u+vFKCSLbC5mPbcVBc7Gic/PO/AgEcnX6epLTFdQbSx1HiVugmfuIk1Y09kw99Bwbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AkzXN6rX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q1Cut8L5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39614C2BCB0;
-	Tue, 21 Apr 2026 17:03:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AkzXN6rX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD50C2BCB0;
+	Tue, 21 Apr 2026 17:05:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776791036;
-	bh=0vjQ9Y6dD5TiOFno1Q68yXI5D0Y2pLi1DknZIvVD400=;
+	s=k20201202; t=1776791124;
+	bh=Z1ylYruYbhjfnpeCNaQ89mNWV1yukc5kkoI0lUofjuY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Q1Cut8L5nPZLACraL34et+ZDudtOmllGmjvGe4FctvAaXredYdyhE7FtLihMVckV1
-	 b3RFRH+oIiaJxvEI8cfHLE1vB3Ug0yMnwTHRY2zZ4FzBhDd+0UaJ1tGYFN1eHeWoEw
-	 P/MO0dwrBEmmChUGpf0a7YOL6h2Ckgi+cLdmEWF1j/K++tV5dsb/0mYIoKix6ELpWv
-	 5ZZAI2FsK6aBzwI9njKh9+wiCDxSb6r3xd+OTDE1HCD/h4enKGjC9w10yd0m7Lewso
-	 DiYpW5YNhU64cbkIPqYBdRNVeTS/TC/Fx+ujxP1TPayZ2YrW44tdOk0GsfrGB8wqk5
-	 hgSRXpnwUhHNw==
-Date: Tue, 21 Apr 2026 18:03:50 +0100
+	b=AkzXN6rXLrqbPaKzFrZVA5O7xIxtH4nkHCu15azhXJ0NWdls3ios/GdzaRlM6uE7I
+	 9geCxENEEi/Y633zBDxaLCHopnhQ7PXsohfM6dxswZv88ojXMJ9F0offWnWZmm86hC
+	 5rNODIAwQp14JLnzNM9C/NSRb3sPVtPuqIUyDxox/kG91DWmD5q7/7rdy+C3AdLPBg
+	 UhPgZVbCxc/F5fuLXZeF3AdBtIeTK5AnC5nCKLcNQKi1HqIzHwcEgDMwxa/iUyVu9I
+	 g19f++9oev8llXhdNyq4zP7CEXyqb6TQL86JnASJtgQtmKva7ov213Hbowegv2+Ul2
+	 ICxIejn9MK1Ag==
+Date: Tue, 21 Apr 2026 18:05:18 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Minda Chen <minda.chen@starfivetech.com>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@wdc.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	Ajay Neeli <ajay.neeli@amd.com>,
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Pedro Sousa <pedrom.sousa@synopsys.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Rob Herring <robh+dt@kernel.org>,
+To: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Cc: Guillaume La Roque <glaroque@baylibre.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v1 1/3] scsi: ufs: dt-bindings: starfive: Add UFS Host
- Controller for JHB100 soc
-Message-ID: <20260421-appetite-vowel-ce0837f5625b@spud>
-References: <20260421091215.120632-1-minda.chen@starfivetech.com>
- <20260421091215.120632-2-minda.chen@starfivetech.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 1/8] dt-bindings: thermal: amlogic: Add support for T7
+Message-ID: <20260421-nullify-volley-5ba0e5e8070b@spud>
+References: <20260421-add-thermal-t7-vim4-v3-0-a2e7215ed003@aliel.fr>
+ <20260421-add-thermal-t7-vim4-v3-1-a2e7215ed003@aliel.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,155 +54,46 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="BeD+x9onsyh/EoOc"
+	protocol="application/pgp-signature"; boundary="m1dzShhxAayQS2fO"
 Content-Disposition: inline
-In-Reply-To: <20260421091215.120632-2-minda.chen@starfivetech.com>
+In-Reply-To: <20260421-add-thermal-t7-vim4-v3-1-a2e7215ed003@aliel.fr>
 
 
---BeD+x9onsyh/EoOc
+--m1dzShhxAayQS2fO
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Apr 21, 2026 at 05:12:13PM +0800, Minda Chen wrote:
-> Add devicetree document for UFS Host Controller StarFive JHB100 SoC.
-> The UFS controller is based on the Synopsys DesignWare UFS controller.
+On Tue, Apr 21, 2026 at 09:19:43AM +0200, Ronald Claveau wrote:
+> Add the amlogic,t7-thermal compatible for the Amlogic T7 thermal sensor.
 >=20
-> Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
-> ---
->  .../devicetree/bindings/ufs/starfive,ufs.yaml | 76 +++++++++++++++++++
->  MAINTAINERS                                   |  5 ++
->  2 files changed, 81 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/ufs/starfive,ufs.ya=
-ml
+> Unlike existing variants which use a phandle to the ao-secure syscon,
+> the T7 relies on a secure monitor interface described by a phandle and
+> a sensor index argument.
 >=20
-> diff --git a/Documentation/devicetree/bindings/ufs/starfive,ufs.yaml b/Do=
-cumentation/devicetree/bindings/ufs/starfive,ufs.yaml
-> new file mode 100644
-> index 000000000000..c408973dd0ce
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/ufs/starfive,ufs.yaml
-
-Filename should be starfive,jhb100-ufs.
-
-> @@ -0,0 +1,76 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/ufs/starfive,ufs.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Starfive Universal Flash Storage (UFS) Controller
-> +
-> +maintainers:
-> +  - Minda Chen <minda.chen@starfivetech.com>
-> +
-> +allOf:
-> +  - $ref: ufs-common.yaml
-> +
-> +properties:
-> +  compatible:
-> +    const: starfive,jhb100-ufs
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: UFS reference clock
-> +      - description: UFS main enable clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: ref_clk
-
-Think "ref" suffices here.
-
-> +      - const: ufs
-> +
-> +  resets:
-> +    items:
-> +      - description: UFS main reset
-> +      - description: UFS PHY reset
-> +
-> +  reset-names:
-> +    items:
-> +      - const: main
-> +      - const: phy
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  starfive,syscon:
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    description:
-> +      The phandle to System Register Controller syscon node.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - resets
-> +  - reset-names
-> +  - interrupts
-> +  - starfive,syscon
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    ufs@11b10000 {
-> +        compatible =3D "starfive,jhb100-ufs";
-> +        reg =3D <0x11b10000 0x20000>;
-> +        interrupts =3D <105>;
-> +        clocks =3D <&syscrg 4>,
-> +                 <&syscrg 5>;
-> +        clock-names =3D "ref_clk", "ufs";
-> +        freq-table-hz =3D <26000000 26000000>,
-> +                        <100000000 100000000>;
-> +        resets =3D <&syscrg 10>,
-> +                 <&syscrg 7>;
-> +        reset-names =3D "main", "phy";
-> +        starfive,syscon =3D <&syscon>;
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 32bd94a0b94c..3792c51da63c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -27190,6 +27190,11 @@ L:	linux-scsi@vger.kernel.org
->  S:	Maintained
->  F:	drivers/ufs/host/ufs-renesas.c
-> =20
-> +UNIVERSAL FLASH STORAGE HOST CONTROLLER DRIVER STARFIVE
-> +M:	Minda Chen <minda.cheb@starfivetech.com>
-
-Typo in your email address here.
-
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/ufs/starfive,ufs.yaml
-> +
->  UNIWILL LAPTOP DRIVER
->  M:	Armin Wolf <W_Armin@gmx.de>
->  L:	platform-driver-x86@vger.kernel.org
-> --=20
-> 2.17.1
+> The T7 integrates multiple thermal sensors, all accessed through the
+> same SMC call. The sensor index argument is required to identify which
+> sensor's calibration data the secure monitor should return, as a single
+> SM_THERMAL_CALIB_READ command serves all of them.
 >=20
+> Introduce the amlogic,secure-monitor property as a phandle-array and
+> make amlogic,ao-secure or amlogic,secure-monitor conditionally required
+> depending on the compatible.
 >=20
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
---BeD+x9onsyh/EoOc
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+--m1dzShhxAayQS2fO
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeet9gAKCRB4tDGHoIJi
-0h0hAQD1C2lWY7cSC00wSe7joATUSIpjBI6Cx3TuNjrVrWb06AD/XGUJZEm9k8qw
-mfhfFn0AgmdvixEu6ZccTqYwM6IfrAk=
-=i4yy
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeeuTgAKCRB4tDGHoIJi
+0qYWAQDxAFHuGm57LUVlyryh3ibC8pwBHTnLzI4xPChCJGGMdgEAvu7/hlYMeKT/
+TdukkKtxdAjY7R/Dxiwo8NmDWA850gI=
+=3G3u
 -----END PGP SIGNATURE-----
 
---BeD+x9onsyh/EoOc--
+--m1dzShhxAayQS2fO--
