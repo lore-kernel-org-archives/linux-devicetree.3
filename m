@@ -1,821 +1,487 @@
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012032.outbound.protection.outlook.com [52.101.66.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A72C382373
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 03:27:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED8A40DFA1;
+	Tue, 21 Apr 2026 03:28:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.32
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776742029; cv=pass; b=WZAXRxfWl2oHGibXLZmvPhSMy8JEqMgfJh6UTIAJmWqSdrlffor6khtLj6UimTjmt3AG2auBFiadA++PHTJW/6kqgzK8jW+E6maA6XOou8mdPzgBSuAptS22OEVbaI1Dlh+wSjXfIh9wuhL4CN+VRnq5tu3/G8wz8Dybj+KckF0=
+	t=1776742115; cv=fail; b=tyqrT5nK6XFg2vF2ukn3vJBnLWK1Urzuxzuj4DDoeS3NuTqVd9JlJj1xKpE/E1X0VkJdd1G081YsYk/pmoY+m6Ax3vld7kiDn6NpISkee75JidnsLwk1dvr3DzHx2JZRpWhqudMJeT63uYvPzLh7Y4gQ167oP9Hwi+WBV/j3ygs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776742029; c=relaxed/simple;
-	bh=apun6uaoON5pVDvaxJ/vegUnl0yngnFl1VVd4V4K4WI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VdpYNpEWzXp2civb67QzTko30ZEQMGVtz2I/6FwKL4L/6st/3Z84x51n8YEWAtiIxFEWANqU260K3912sl4+E334XJp0LOpdBiWL3CVq+8htfnEFeV/7D/xAcgV4pYMeT0oRlqFJRkjGt1+q6cfGx+ajWXgGyf7TghTvwwBFOqQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oo1CTyuc; arc=pass smtp.client-ip=209.85.160.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776742115; c=relaxed/simple;
+	bh=QRaTjG30OxUWLOmnLunMnKVG2Z3rOwEMiDR6XHeaP/A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Tz/bedz/GYxJEKzar2ahR18cpXJBWQYZQ9+w6lz6LrRZNaOF7RrBvSmABdcDOzT04DTqi76MITOVHHVzzULGkuVw43VJMpgfxaixq3v5DeSIPX75WpPxlI75MGcnB5QWoOrTWmLRHPViST/SGpw00hbMFrvAIX/FCud6T1aVd0k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=cMq1dqDJ; arc=fail smtp.client-ip=52.101.66.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oo1CTyuc"
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-4243bf9be36so1767444fac.3
-        for <devicetree@vger.kernel.org>; Mon, 20 Apr 2026 20:27:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776742025; cv=none;
-        d=google.com; s=arc-20240605;
-        b=g7HFHvDZcTW/RossGj+QUJIQu6ovE6DEQewb8H87OUqndRpH5fs+iTjFiHk7UPOxiq
-         4Ad+iu9PB4+xsCKOPBoL/sj73BLNuS9FrxZMPHHoBZ4rWo3WwMa8BirVSyybPf7a6mcp
-         KohlWQRj5tK+JyTXFaYFgL3L/2EyZUi+i0FcBlLHTRAIGUw8ADZo8uVWQ/o9wMUtD99V
-         IBQVg6aQKAFqsDObc5RFlfzXJsRS413iwBHOOhlE9LYMYzRZ6aX4SWOWXrEaq9KMgA33
-         u85FzwdMjnK27LKwZJebPBvm3sW9mXH8cjBYnpaY/dCtRKLxxrKe306SA3K11y7QiRre
-         fnlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=loQzKyoRfBT+9jhBHfvlNo2lwndoUWQoswn6Xs4gQ3M=;
-        fh=l1XDa/7baXzPYHeSpnpe1UJfYGqR+8g705dcTLB9nB8=;
-        b=PX8cIpjXrup2JIeEN5wYv5sFmeeZ5f0EkZIEikW9EwM1tB4pxiwJQQ/VPdvXEXu3fk
-         3SdmHUxSnNCHIkV4NrV2Zlsq/8CdMnLYg8E5kQzAA/eV9I8wK50T2CzUkO6LlOQ/1Lg1
-         KQkqq6sG/EJKM7C8nov4/Abvl3AzlFtvQ7lvuXCK32pMHuQ4e9bsc5gpWGtbDqXFxrSd
-         aIkB9a5IA1KdaMbdpOMPHGnIZuMetN+TMSmCHH5PVXlEnjWcWG2mRicSUzvApHWAVrhN
-         057K5OEsYw7cHCe/EoBjZBE6br17gGg+1UPZjE3gNMoNOoauDkQhva9/+lQtvz49ktwt
-         DRWQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776742025; x=1777346825; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=loQzKyoRfBT+9jhBHfvlNo2lwndoUWQoswn6Xs4gQ3M=;
-        b=oo1CTyucYCiauNsvWGIrRYMjFBTKq1IM3itVjFU9ky68iVpBnySedaS2IZ7w4z5cZ0
-         bwy49h32Cfk9G6897IpFaLUCVlIVEGT8bXMXGEtyYoPKaGlz7uHo71fP51w4WUaHY1Y+
-         A9DlItxI90q4JCcdVoahRSeS/AAfJ9pHy7CBOcP1/U/ZUgCQ/SweHx6nVYOaCsz86QVp
-         /mSEfHEF0+nFNsef5OFpfgLiKtBKIsyEHNzvvQfwWy+N+eEbC0x2o+YWmncLMQ3ocVRc
-         gNVJouAGmsnn7IKv/5NCuBYFrIUIjxsnGY2ZAF9yVJtzo4fx/gHYnN7dYVXIkcz1a2M/
-         WA3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776742025; x=1777346825;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=loQzKyoRfBT+9jhBHfvlNo2lwndoUWQoswn6Xs4gQ3M=;
-        b=e/2tWZk/yPhBGHQDnG5D9QSvp6WxmHw0wWWJ4+wrnB3VWftFvu4jSvQZ3/Dbzm5yEw
-         JQYByCnVsZi4e/v0j58llj2h3aCVlDx6f9y0gXeMnZomiqPkzvHlW9a8gPsIIk9jSZy3
-         AF37lfxh5g9Fm2rplw0/w5mSP0Xg8bGlVpIlApQ8R/ojBaM58KIoyQBvMH1EwK7KRLe2
-         3Vjemw9tmKg1tdzZJNADyk/HDyoFLHCflWRFpFzn3Inui4d3Xw3nVSvWJNld7Ncp770N
-         CymJCZYQUnq8PpWgtwmaWWmzSts1Lw3gsXdSFmcj6i41vPq+LeaFR/4K13CmEkFnXmy8
-         m/cg==
-X-Forwarded-Encrypted: i=1; AFNElJ8M2TzC2rasww5QbF/uETCY+c2MRCDZcBv0YMSGq5n3U+Ck+DI1axf5UwTJ+8Eh6R5G5BkYDR8EqhEU@vger.kernel.org
-X-Gm-Message-State: AOJu0YxUlfzYUhffTMEVROPKBgBlif0V8MkGg3LGpMtEHCLi2ONNkHg/
-	fRpfHAKXhX7GlJkAo7RbsJ+GvkqTJmHQHQeut6L8joku8oQhaecYR98gmkwFFyDFtZ2ikRZYKQc
-	cu9MCB5EjsONp9zLqJdHbg+R+656jZbs=
-X-Gm-Gg: AeBDietshf5u88WsyFIeA3zVUqwqLWoi065dk7JQ05a5CHDrEJLVuuxHQaWAZlR8YsO
-	zEVh3q8kVcpFik7qQNqg6PdlMULbRLBZE7bW40Bx5f+4mGYqMKkyC9wikBdn/yHwgKDqXJsGRR+
-	A1cskB7kFjJwWcQrFdWelI9JGt8j0C4m+WmWHrz56ixzOkksCqxSaOgsUtnX0NZZiCw7j868zVi
-	Na3tAhj+H9lva1jV8CwNoEF+g+56daG3lI+LgElOrSepT/VjVlicbIWveXA07x/IIC1N/awU6Kw
-	jlNWi/ALJKU2hpzP7A==
-X-Received: by 2002:a05:6820:2214:b0:694:980c:9610 with SMTP id
- 006d021491bc7-694980c9c43mr562340eaf.21.1776742024793; Mon, 20 Apr 2026
- 20:27:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="cMq1dqDJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=giAinmSxnEHzqbCPPQZhuJocNlzGkE+pYNrDiKE1+ybGym2IZk0puRPbVjnhu5G8ftCpCQpkjLUI0GrHnheGy9RNq0JMen8YWsxL84a/WrHvbkhS8eW5gEn9JWGE4UoSzELd/tf56sDvU6b5eY/GwgiANyd2/d5W5xZtcd+n0PF/VhGO1KKYxfwcCSyMF1ZG15B8EdSwzibM4GCLpse/tW1VhY8oi/jzXcWeWMc/Ym8zTIvdiZqMBSs4hfz03dH+uW0RSx9VTpZ5+P+W1tdFZJt+0OSIIpmuwsATM+UZIRVRNssnMaEm8MzfaroMkU91k2zyVi+1YFYFk8Re+28iMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dbFjU1pUrC15wjZXBS6ubpgYTF848gtiCrNLQ/RG8Oc=;
+ b=Y3qAOMal40nhiE9NOtONjcDg3OQB25XK7wCmtpj9gWJFp5Zl83yfNDopHXo/j+UXL9Wdfhb6U7lyOSVG0BvXkAm99mnFTQPXfblj+67qYBefq3hDOYo8RN6VBUCtAjBfdBFbAiu4nOhZUL0ojrUutMbFUJyew7ouBRzikE/MpOwnLKymf+F4iS/KxWSTosehytNCrJDmvxFNNYEhMo3LMIet/Lnww62rXyD+8ixP8AAQRVmGJrV/xQcLgtfAmSO+eMaGk1tbHiRa10GAmM4e1Ie/LtbtRlG66d4g7gCNqiuQ36j5Rb7X36jJZv5t4iY5EJlcRtLgiizfbDP0mw3EUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dbFjU1pUrC15wjZXBS6ubpgYTF848gtiCrNLQ/RG8Oc=;
+ b=cMq1dqDJbFGySu/nms6O2jQvJReOhk1iZPopWtg+k7gkHgwlCYkKbLuQTgF1tQW20OkCih4JbGL7gQxmQrV9aeXRnEP4GGY/sArG+viIvFpnP1w8AVXCN1dVJHMWngNTvc1s1W501ExXhR0rY0TPtlYakgCrr5JzsNuUQb1jqKVIt+TsxRIiEDgenIZ+hg2OhSQEBCUnDd8XmPQP8O7zaoWMYkTj8UOzwR+Y6H2ij2LAQ/icWqLxUSeQiD5mCBgQ5gzlVt536kir+tAOsXG94CE3tGQhLhsDlv/qqE2+0sZrwDL2HiyIyGnqTuSWJ9g1rCgSjvVz629oN4Sm4tuZwA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by GV2PR04MB11591.eurprd04.prod.outlook.com (2603:10a6:150:2b0::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.33; Tue, 21 Apr
+ 2026 03:28:29 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
+ 03:28:29 +0000
+Date: Mon, 20 Apr 2026 23:28:21 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Lakshay Piplani <lakshay.piplani@nxp.com>
+Cc: linux-kernel@vger.kernel.org, linux-i3c@lists.infradead.org,
+	alexandre.belloni@bootlin.com, krzk+dt@kernel.org, robh@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org, broonie@kernel.org,
+	lee@kernel.org, lgirdwood@gmail.com, vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com, aman.kumarpandey@nxp.com
+Subject: Re: [PATCH v9 6/7] i3c: hub: Add support for the I3C interface in
+ the I3C hub
+Message-ID: <aebu1YNvvdGNVkfq@lizhi-Precision-Tower-5810>
+References: <20260420105222.1562243-1-lakshay.piplani@nxp.com>
+ <20260420105222.1562243-7-lakshay.piplani@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260420105222.1562243-7-lakshay.piplani@nxp.com>
+X-ClientProxiedBy: PH0PR07CA0013.namprd07.prod.outlook.com
+ (2603:10b6:510:5::18) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260420023354.1192642-1-syyang@lontium.com> <20260420023354.1192642-3-syyang@lontium.com>
- <f9753cfc-bfe1-4256-af35-0f262a4e8b81@q-lab.dev>
-In-Reply-To: <f9753cfc-bfe1-4256-af35-0f262a4e8b81@q-lab.dev>
-From: =?UTF-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
-Date: Tue, 21 Apr 2026 11:26:50 +0800
-X-Gm-Features: AQROBzAP4DuRYq83nbm8VaynHay8MV2X06IJgaL7j8wTUmMjsaUrSLBnvwnSkaA
-Message-ID: <CAFQXuNaMsBK51Cj776gaKHCd+0DPMMXhJAaa_uHFBvq4EDwq_g@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/bridge: Add LT7911EXC edp to mipi bridge driver
-To: Quentin Freimanis <quentin@q-lab.dev>
-Cc: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
-	dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com, 
-	rfoss@kernel.org, mripard@kernel.org, Laurent.pinchart@ideasonboard.com, 
-	jonas@kwiboo.se, jernej.skrabec@gmail.com, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	xmzhu@lontium.corp-partner.google.com, tzimmermann@suse.de, xmzhu@lontium.com, 
-	xbpeng@lontium.com, rlyu@lontium.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|GV2PR04MB11591:EE_
+X-MS-Office365-Filtering-Correlation-Id: 58e46c36-2030-4229-1703-08de9f560e21
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|1800799024|376014|7416014|366016|19092799006|38350700014|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	q1v3D2Ck7cwgb6+oRjjKoyIvwkUpAG4fI+BtbjkI88a3HcvbmpBohwuYrlcQ2ztqDssXyEtnJgV5kynpVFoYWiwSW4vltQlngRryLvGnCyRJ6lm0RZCFiRLlDL0tqtyDrSIiDWS7kO4dnjSmKvye748qn/psLqXQ4vzQPe8oz/t6nFG+pC0YHhYSgQwgHtZS1jkX6oQFozGCeP0YeNpaHtAqHGu2eCgXP/7XbcCg8lMxIf5q5/YdmZWqz7ruu6YlMQ/6oCRruA3HX1d09mNj9BuewPGMA7K0qqYm0iQDhKd14huZUJy8W7mE8tDjJ5LRaUc/Y9hHNfKO4sPN7DFWTJvL/cKGZkSJ4G+YIyM5NvzefTfd02UMcy1uAMpoIcHCS30iKAeYXk+DG8wHIH4wbA5tM6Y/vmsws63lkEmCRxc7YW9Q5wpDYdHDqcF4QMCDK+aMievvykLdNGmC1frwwc5BjNugX78AkoEZQ2JFR80D37iwvqoovh18MZuoI7aPuI+fv6Xm0O6bDdevc/d+nslWWUAdzYFsDCe5BGIMpP4jk1XIbJ4bWlza5mBLKpDZJQsyp0YAlGyIK43tUSmBAUg3QFl0AgTM7iQZpvvBPoBtd4EECSZo5kK90s5X5n1IA0wPgL8R4GTtj9BUO8aLiTVJZnZiAx39mqFB40+RjwKo2Hw3SI4PfVIuUkNBB4Seez7zFtjT4Tq2R2MjAZPaySt0UUhpHRwYQovmnlgCaTItGiw4jigXU5F/vGMYk/DGvV/oIH7ZTIY81BJ1ueTKiI2DEMpwIB/kq+MGT00rJX0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(1800799024)(376014)(7416014)(366016)(19092799006)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?03kGAH8nky/3gzAVcQyPmm/peRy07U/9Gm1cu0XkVBso2g2kgyOLbrqPGFdE?=
+ =?us-ascii?Q?1JM3WtBh/DE16AGOyOO9LhJLXAxtLeLQAzL0JHzEfPGZ4PRWgCx5aVpRA9yB?=
+ =?us-ascii?Q?X1TcfeBTExTsXRNJlLC86RIAnF/Q12E9fdBiAygBHTIfu4RgIAQ3AR//1PsF?=
+ =?us-ascii?Q?guWQTr+1x9YgCwA1VnolZNuxKP0/kzejvv5T4NBCodk6YF4NOBjERd66co5q?=
+ =?us-ascii?Q?q8lGmStZz8NRsRip3sL6JjuntWxOL/FbDJUctZRsLuDEaa+qb916gdpuIGp0?=
+ =?us-ascii?Q?0l5Gv9HIiSMspqkqfJ6KWSla+DHvP5J168gkurZAcSamXogKSaOpwos9e4ut?=
+ =?us-ascii?Q?Ys1xfhOnMTwZlo7g8uiAIytII++7MkB06k6kyxvfJNigx9//gRwNDRkHoRil?=
+ =?us-ascii?Q?ZUQwPFQl8JzZk+mcAnngoHGkR611sIVX68TVfkrkk0bH3NOM9WVE9bdcihPL?=
+ =?us-ascii?Q?+ISip+lQ7lVNDzH9ItvJh2vXJWwYFIrvaTiPK3D4PdZKePg8twYx1JzOVwX+?=
+ =?us-ascii?Q?w8EcGBPLR8gsCbqks0mt6PRYh2R0PJlJd+OcyejhfBxudKCU2qsYeC1EvMaH?=
+ =?us-ascii?Q?KZtzQkLVsieQDfpJEZiEvwvhmb9bhl8bwGOEMWOCRGNpc/dYUfeYLaVBXAII?=
+ =?us-ascii?Q?ljYCjN1nw4CIpp7PX+OF0JJnrcJs/2HG6keLRM1HQjEAYE8tgEau/fiJ8jjA?=
+ =?us-ascii?Q?Qm2MZOuUZPIex4lOxPT2vTkVdSjstlNiKQFLzWnQdumJ+xAy/lP7g4ZOLodV?=
+ =?us-ascii?Q?7/gY7QXkB/9kOGf/2ptD1S0+zvzX0YmIFcNwRi/UiaM+kBI3WOohpu65rf2b?=
+ =?us-ascii?Q?4orCw7SZEi0bUmaeUshKmp71+IuOtgN/7Uv5TFrewyRmy7jyEn3162VowbLq?=
+ =?us-ascii?Q?CWPVtAUywgI+2Bh+K4pN0qI4/emgnE9OeSxifNwTnCSDHjy/aSA4z4y/OIWx?=
+ =?us-ascii?Q?32HjmrdD18b1dYjBqsFD8ezrHGHexsMaa+Og0kPN853dWX8iartYxk7ll27o?=
+ =?us-ascii?Q?1M8626+aVyt0uHidEtmpfzDyFa9UvjKVLrSWbR3Oilnq7s5Ao5RnYUg3j3XS?=
+ =?us-ascii?Q?XQ0iPPiGh0flI/UHr/1eEESDkjqtLqzsMP3KbXU3JIhYycpMd4d4UhP2g3Aj?=
+ =?us-ascii?Q?Go8QdkZSg5Lx5wbpK4J3P4WnTN0ayjzgJy70nVtxQLYQaKvl0h2cd4gvJiHV?=
+ =?us-ascii?Q?UymIrSrQzYHiOFdtEhJCwavWO6EGdjmcfP5k0/QXLxPNCgr/L+zku1TpwBCd?=
+ =?us-ascii?Q?WFQdBAMjtLTobNvhwLrexBTRDnFJWOE9k5ZozwHcVpqbe1v3TrY5gzGR2JXo?=
+ =?us-ascii?Q?XFdZsxNqTf0zRnacvfUTrREUOd1nQ2haioMR2ovhmOVkVthORJicya9eJWTl?=
+ =?us-ascii?Q?QQplLIWir0TD6FYANexRm4Jwakw1uuP54kqKikGBDddoM4kW8krQZTG8Z0h5?=
+ =?us-ascii?Q?H+NCb0FJpfGRVn9F3SsuatJsX9+6+ixrUcUFcjMxxpdtljWvlQYmdRg8fuff?=
+ =?us-ascii?Q?bZ+0WtIpBqEYtja3y5kl275DMoESUPMFtCYGZGppNuvdH07PqKRu3H7mnMgl?=
+ =?us-ascii?Q?u/Wrd1echiZogn8OMq8yeEOcKa31M5OvrOxYMms8iXzqmL+DunJgOOLVESp0?=
+ =?us-ascii?Q?XQXvkFFCG3nJbRsaFrMBfksGt6tP81ip56MzQdRVgrTgEBk+w3DLlwk2TS+g?=
+ =?us-ascii?Q?xQa5IMAfSxDTDGJ6V9I4mSqFi6XR4z/nsCPqTsAhOt5El5qN?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58e46c36-2030-4229-1703-08de9f560e21
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 03:28:28.9910
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1tdvpiaSVWzNSF7ks2FjEefBQTk0NIbBo3O+RC4NHs1QsH1QIByeOqIEVfu2QVW8gb0VTkZNgaA0cbXQZXMlmw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11591
 
-Quentin Freimanis <quentin@q-lab.dev> =E4=BA=8E2026=E5=B9=B44=E6=9C=8820=E6=
-=97=A5=E5=91=A8=E4=B8=80 13:06=E5=86=99=E9=81=93=EF=BC=9A
+On Mon, Apr 20, 2026 at 04:22:21PM +0530, Lakshay Piplani wrote:
+> Add virtual I3C bus support for the hub and provide interface to enable
+> or disable downstream ports.
 >
-> On 2026-04-19 7:33 p.m., syyang@lontium.com wrote:
-> > From: Sunyun Yang <syyang@lontium.com>
-> >
-> > LT7911EXC is a high performance  eDP1.4 to MIPI chip for
-> > VR/Display application.
-> >
-> > -eDP1.4Receiver
-> >   1.Support SSC
+> Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
+> Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
 >
-> s/1.Support/1. Supports/
+> ---
+> Changes in v9:
+>  - No change
 >
-it will be fixed  in the next version.
+> Changes in v8:
+>  - No change
+>
+> Changes in v7:
+>  - Convert Kconfig option to tristate
+>  - Fix signedness issue in return value
+>  - Fix kernel-doc warnings
+>
+> Changes in v6:
+>  - Add support for the generic I3C interface in the I3C Hub
+> ---
+> ---
+>  MAINTAINERS             |   2 +
+>  drivers/i3c/Kconfig     |  15 ++
+>  drivers/i3c/Makefile    |   1 +
+>  drivers/i3c/hub.c       | 460 ++++++++++++++++++++++++++++++++++++++++
+>  include/linux/i3c/hub.h | 107 ++++++++++
+>  5 files changed, 585 insertions(+)
+>  create mode 100644 drivers/i3c/hub.c
+>  create mode 100644 include/linux/i3c/hub.h
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index b2119fadef7b..bb3e8e9674c4 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -19274,8 +19274,10 @@ L:	linux-kernel@vger.kernel.org
+>  L:	linux-i3c-owner@lists.infradead.org
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+> +F:	drivers/i3c/hub.c
+>  F:	drivers/mfd/p3h2840.c
+>  F:	drivers/regulator/p3h2840_i3c_hub_regulator.c
+> +F:	include/linux/i3c/hub.h
+>  F:	include/linux/mfd/p3h2840.h
+>
+>  NXP PF5300/PF5301/PF5302 PMIC REGULATOR DEVICE DRIVER
+> diff --git a/drivers/i3c/Kconfig b/drivers/i3c/Kconfig
+> index 626c54b386d5..65304b416bb4 100644
+> --- a/drivers/i3c/Kconfig
+> +++ b/drivers/i3c/Kconfig
+> @@ -21,6 +21,21 @@ menuconfig I3C
+>
+>  if I3C
+>  source "drivers/i3c/master/Kconfig"
+> +
+> +config I3C_HUB
+> +	tristate "I3C Hub Support"
+> +	depends on I3C
+> +	help
+> +	  Enable support for the I3C interface in hub devices.
+> +
+> +	  This option adds virtual I3C bus support for hubs by creating
+> +	  virtual master controllers for downstream ports and forwarding
+> +	  bus operations through the hub device. It also provides an
+> +	  interface used by hub drivers to enable or disable downstream
+> +	  ports during bus transactions.
+> +
+> +	  Say Y here if your platform includes an I3C hub device
+> +
+>  endif # I3C
+>
+>  config I3C_OR_I2C
+> diff --git a/drivers/i3c/Makefile b/drivers/i3c/Makefile
+> index 11982efbc6d9..9ddee56a6338 100644
+> --- a/drivers/i3c/Makefile
+> +++ b/drivers/i3c/Makefile
+> @@ -2,3 +2,4 @@
+>  i3c-y				:= device.o master.o
+>  obj-$(CONFIG_I3C)		+= i3c.o
+>  obj-$(CONFIG_I3C)		+= master/
+> +obj-$(CONFIG_I3C_HUB)		+= hub.o
+> diff --git a/drivers/i3c/hub.c b/drivers/i3c/hub.c
+> new file mode 100644
+> index 000000000000..67c5d2695a61
+> --- /dev/null
+> +++ b/drivers/i3c/hub.c
+> @@ -0,0 +1,460 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright 2026 NXP
+> + * Generic I3C Hub core implementing virtual controller operations.
+> + */
+> +#include <linux/i3c/device.h>
+> +#include <linux/i3c/hub.h>
+> +
+> +#include "internals.h"
+> +
+> +/**
+> + * i3c_hub_master_bus_init() - Bind controller to hub device
+> + * @controller: Virtual controller for a hub port
+> + *
+> + * Associates the virtual controller with the hub device descriptor so that
+> + * transfers are executed through the hub on the parent bus.
+> + */
+> +static int i3c_hub_master_bus_init(struct i3c_master_controller *controller)
+> +{
+> +	struct i3c_hub_controller *hub_controller;
+> +	struct i3c_hub *hub;
+> +
+> +	hub_controller = dev_get_drvdata(&controller->dev);
+> +	if (!hub_controller || !hub_controller->hub)
+> +		return -ENODEV;
+> +
+> +	hub = hub_controller->hub;
+> +
+> +	if (!hub->hub_dev)
+> +		return -ENODEV;
+> +
+> +	controller->this = hub->hub_dev->desc;
+> +	return 0;
+> +}
+> +
+> +static void i3c_hub_master_bus_cleanup(struct i3c_master_controller *controller)
+> +{
+> +	controller->this = NULL;
+> +}
+> +
+> +static int i3c_hub_attach_i3c_dev(struct i3c_dev_desc *dev)
+> +{
+> +	return 0;
+> +}
+> +
+> +static int i3c_hub_reattach_i3c_dev(struct i3c_dev_desc *dev, u8 old_dyn_addr)
+> +{
+> +	return 0;
+> +}
+> +
+> +static void i3c_hub_detach_i3c_dev(struct i3c_dev_desc *dev)
+> +{
+> +}
+> +
+> +/**
+> + * i3c_hub_do_daa() - Perform DAA via hub port
+> + * @hub: Hub instance
+> + * @controller: Virtual controller for a hub port
+> + *
+> + * Enables the port connection, performs DAA on the parent controller,
+> + * then disables the connection.
+> + */
+> +static int i3c_hub_do_daa(struct i3c_hub *hub,
+> +			  struct i3c_master_controller *controller)
+> +{
+> +	int ret;
+> +
+> +	if (!hub || !hub->parent)
+> +		return -ENODEV;
+> +
+> +	i3c_hub_enable_port(controller);
+> +	ret = i3c_master_do_daa(hub->parent);
+> +	i3c_hub_disable_port(controller);
+> +
+> +	return ret;
+> +}
+> +
+> +static bool i3c_hub_supports_ccc_cmd(struct i3c_hub *hub,
+> +				     const struct i3c_ccc_cmd *cmd)
+> +{
+> +	return i3c_master_supports_ccc_cmd(hub->parent, cmd);
+> +}
+> +
+> +/**
+> + * i3c_hub_send_ccc_cmd() - Send CCC through hub port
+> + * @hub: Hub instance
+> + * @controller: Virtual controller
+> + * @cmd: CCC command
+> + *
+> + * Enables the port connection while issuing CCC on the parent controller.
+> + */
+> +static int i3c_hub_send_ccc_cmd(struct i3c_hub *hub,
+> +				struct i3c_master_controller *controller,
+> +				struct i3c_ccc_cmd *cmd)
+> +{
+> +	int ret;
+> +
+> +	if (!hub || !hub->parent)
+> +		return -ENODEV;
+> +
+> +	i3c_hub_enable_port(controller);
+> +	ret = i3c_master_send_ccc_cmd(hub->parent, cmd);
+> +	i3c_hub_disable_port(controller);
+> +
+> +	return ret;
+> +}
+> +
+> +/**
+> + * i3c_hub_master_priv_xfers() - Execute private transfers via hub
+> + * @dev: Target device descriptor
+> + * @xfers: Transfer array
+> + * @nxfers: Number of transfers
+> + * @mode: transfer mode (SDR, HDR, etc.)
+> + *
+> + * Handles address adjustment and forwards private transfers through the hub
+> + * device.
+> + */
+> +static int i3c_hub_master_priv_xfers(struct i3c_dev_desc *dev,
+> +				     struct i3c_xfer *xfers,
+> +				     int nxfers,
+> +				     enum i3c_xfer_mode mode)
+> +{
+> +	struct i3c_master_controller *controller = i3c_dev_get_master(dev);
+> +	struct i3c_hub_controller *hub_controller;
+> +	struct i3c_dev_desc *hub_dev;
+> +	u8 hub_addr, target_addr;
+> +	struct i3c_hub *hub;
+> +	int ret;
+> +
+> +	hub_controller = dev_get_drvdata(&controller->dev);
+> +	if (!hub_controller || !hub_controller->hub)
+> +		return -ENODEV;
+> +
+> +	hub = hub_controller->hub;
+> +
+> +	if (!hub->hub_dev)
+> +		return -ENODEV;
+> +
+> +	hub_dev = hub->hub_dev->desc;
+> +
+> +	i3c_hub_enable_port(controller);
+> +
+> +	hub_addr = hub_dev->info.dyn_addr ?
+> +		   hub_dev->info.dyn_addr : hub_dev->info.static_addr;
+> +
+> +	target_addr = dev->info.dyn_addr ?
+> +		      dev->info.dyn_addr : dev->info.static_addr;
+> +
+> +	if (hub_addr != target_addr) {
+> +		hub_dev->info.dyn_addr = target_addr;
+> +		ret = i3c_master_reattach_i3c_dev(hub_dev, target_addr);
+> +		if (ret)
+> +			goto disable;
+> +	}
+> +
+> +	ret = i3c_device_do_xfers(hub->hub_dev, xfers, nxfers, mode);
+> +
+> +	if (hub_addr != target_addr) {
+> +		hub_dev->info.dyn_addr = hub_addr;
+> +		ret |= i3c_master_reattach_i3c_dev(hub_dev, hub_addr);
+> +	}
+> +
+> +disable:
+> +	i3c_hub_disable_port(controller);
+> +	return ret;
+> +}
+> +
+> +static int i3c_hub_attach_i2c_dev(struct i2c_dev_desc *dev)
+> +{
+> +	return 0;
+> +}
+> +
+> +static void i3c_hub_detach_i2c_dev(struct i2c_dev_desc *dev)
+> +{
+> +}
+> +
+> +static int i3c_hub_i2c_xfers(struct i2c_dev_desc *dev,
+> +			     struct i2c_msg *xfers, int nxfers)
+> +{
+> +	return 0;
+> +}
+> +
+> +static int i3c_hub_master_do_daa(struct i3c_master_controller *controller)
+> +{
+> +	struct i3c_hub_controller *hub_controller;
+> +	struct i3c_hub *hub;
+> +
+> +	hub_controller = dev_get_drvdata(&controller->dev);
+> +	if (!hub_controller || !hub_controller->hub)
+> +		return -ENODEV;
+> +
+> +	hub = hub_controller->hub;
+> +
+> +	return i3c_hub_do_daa(hub, controller);
+> +}
+> +
+> +static int i3c_hub_master_send_ccc_cmd(struct i3c_master_controller *controller,
+> +				       struct i3c_ccc_cmd *cmd)
+> +{
+> +	struct i3c_hub_controller *hub_controller;
+> +	struct i3c_hub *hub;
+> +
+> +	hub_controller = dev_get_drvdata(&controller->dev);
+> +	if (!hub_controller || !hub_controller->hub)
+> +		return -ENODEV;
+> +
+> +	hub = hub_controller->hub;
+> +
+> +	if (!hub->parent)
+> +		return -ENODEV;
+> +
+> +	if (cmd->id == I3C_CCC_RSTDAA(true))
+> +		return 0;
+> +
+> +	return i3c_hub_send_ccc_cmd(hub, controller, cmd);
+> +}
+> +
+> +static bool i3c_hub_master_supports_ccc_cmd(struct i3c_master_controller *controller,
+> +					    const struct i3c_ccc_cmd *cmd)
+> +{
+> +	struct i3c_hub_controller *hub_controller;
+> +	struct i3c_hub *hub;
+> +
+> +	hub_controller = dev_get_drvdata(&controller->dev);
+> +	if (!hub_controller || !hub_controller->hub)
+> +		return false;
+> +
+> +	hub = hub_controller->hub;
+> +
+> +	return i3c_hub_supports_ccc_cmd(hub, cmd);
+> +}
+> +
+> +/**
+> + * i3c_hub_request_ibi() - Request IBI through parent controller
+> + * @desc: Target device descriptor
+> + * @req: IBI setup
+> + *
+> + * Temporarily updates parent controller context to request IBI for a device
+> + * connected through the hub.
+> + */
+> +static int i3c_hub_request_ibi(struct i3c_dev_desc *desc,
+> +			       const struct i3c_ibi_setup *req)
+> +{
+> +	struct i3c_master_controller *controller = i3c_dev_get_master(desc);
+> +	struct i3c_hub_controller *hub_controller;
+> +	struct i3c_master_controller *orig_parent;
+> +	struct i3c_master_controller *parent;
+> +	struct i3c_hub *hub;
+> +	int ret;
+> +
+> +	hub_controller = dev_get_drvdata(&controller->dev);
+> +	if (!hub_controller || !hub_controller->hub)
+> +		return -ENODEV;
+> +
+> +	hub = hub_controller->hub;
+> +
+> +	if (!hub->parent)
+> +		return -ENODEV;
+> +
+> +	parent = hub->parent;
+> +
+> +	orig_parent = i3c_hub_update_desc_parent(&desc->common, parent);
+> +
+> +	ret = i3c_master_direct_attach_i3c_dev(parent, desc);
+> +	if (ret) {
+> +		i3c_hub_restore_desc_parent(&desc->common, orig_parent);
+> +		return ret;
+> +	}
+> +
+> +	mutex_unlock(&desc->ibi_lock);
 
-> >   2.Support 1/2/4 lanes
-> >   3.Support up to 4K@60HzRGB/YCbCr4:4:48bpc
-> >   4.Support lane swap and PN swap
->
-> Same for these
->
-it will be fixed  in the next version.
+why need unlock desc->ibi_lock firstly? If have to do that, need comments
+because it is uncommon and try to avoid this kinds of situation.
 
-> >
-> > -MIPI Transmitter
-> >   1.CompliantwithD-PHY1.2&DSI1.1&CSI-22.0=EF=BC=9B1 clock lane,
-> >     and1/2/3/4 configurable data lanes:2.5Gbpsperdatalane
-> >   2.CompliantwithC-PHY1.0&DSI-21.0&CSI-22.0;
-> >     1/2/3 configurable data trio=EF=BC=9B2.5Gsps perdatatrio
-> >   3.Support1/2configurable ports
-> >   4.DSISupport16/20/24-bit YCbCr4:2:2,16/18/24/30-bit RGB
->
-> Missing spaces, this is hard to read and needs to be cleaned up
->
-it will be fixed  in the next version.
+Frank
 
-> >
-> > Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> > ---
-> >   drivers/gpu/drm/bridge/Kconfig             |  18 +
-> >   drivers/gpu/drm/bridge/Makefile            |   1 +
-> >   drivers/gpu/drm/bridge/lontium-lt7911exc.c | 571 ++++++++++++++++++++=
-+
-> >   3 files changed, 590 insertions(+)
-> >   create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
-> >
-> > diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kc=
-onfig
-> > index c3209b0f4678..bae8cdaea666 100644
-> > --- a/drivers/gpu/drm/bridge/Kconfig
-> > +++ b/drivers/gpu/drm/bridge/Kconfig
-> > @@ -202,6 +202,24 @@ config DRM_LONTIUM_LT8713SX
-> >         to 3 configurable Type-C/DP1.4/HDMI2.0 outputs
-> >         Please say Y if you have such hardware.
-> >
-> > +config DRM_LONTIUM_LT9611C
-> > +     tristate "Lontium LT9611C DSI/HDMI bridge"
-> > +     select SND_SOC_HDMI_CODEC if SND_SOC
-> > +     depends on OF
-> > +     select CRC8
-> > +     select FW_LOADER
-> > +     select DRM_PANEL_BRIDGE
-> > +     select DRM_KMS_HELPER
-> > +     select DRM_MIPI_DSI
-> > +     select DRM_DISPLAY_HELPER
-> > +     select DRM_DISPLAY_HDMI_STATE_HELPER
-> > +     select REGMAP_I2C
-> > +     help
-> > +       Driver for Lontium DSI to HDMI bridge
-> > +       chip driver that converts dual DSI and I2S to
-> > +       HDMI signals
-> > +       Please say Y if you have such hardware.
-> > +
-> >   config DRM_ITE_IT66121
-> >       tristate "ITE IT66121 HDMI bridge"
-> >       depends on OF
-> > diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/M=
-akefile
-> > index beab5b695a6e..54b293d1663e 100644
-> > --- a/drivers/gpu/drm/bridge/Makefile
-> > +++ b/drivers/gpu/drm/bridge/Makefile
-> > @@ -18,6 +18,7 @@ obj-$(CONFIG_DRM_LONTIUM_LT9211) +=3D lontium-lt9211.=
-o
-> >   obj-$(CONFIG_DRM_LONTIUM_LT9611) +=3D lontium-lt9611.o
-> >   obj-$(CONFIG_DRM_LONTIUM_LT9611UXC) +=3D lontium-lt9611uxc.o
-> >   obj-$(CONFIG_DRM_LONTIUM_LT8713SX) +=3D lontium-lt8713sx.o
-> > +obj-$(CONFIG_DRM_LONTIUM_LT7911EXC) +=3D lontium-lt7911exc.o
-> >   obj-$(CONFIG_DRM_LVDS_CODEC) +=3D lvds-codec.o
-> >   obj-$(CONFIG_DRM_MEGACHIPS_STDPXXXX_GE_B850V3_FW) +=3D megachips-stdp=
-xxxx-ge-b850v3-fw.o
-> >   obj-$(CONFIG_DRM_MICROCHIP_LVDS_SERIALIZER) +=3D microchip-lvds.o
-> > diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/d=
-rm/bridge/lontium-lt7911exc.c
-> > new file mode 100644
-> > index 000000000000..d1c1d9e073ef
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
-> > @@ -0,0 +1,571 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * Copyright (C) 2026 Lontium Semiconductor, Inc.
-> > + */
-> > +
-> > +#include <linux/crc32.h>
-> > +#include <linux/firmware.h>
-> > +#include <linux/gpio/consumer.h>
-> > +#include <linux/i2c.h>
-> > +#include <linux/regmap.h>
-> > +#include <drm/drm_of.h>
-> > +
-> > +#define FW_SIZE (64 * 1024)
-> > +#define LT_PAGE_SIZE 32
-> > +#define FW_FILE  "LT7911EXC.bin"
->
-> Other lontium bridge chips use lowercase and a _fw.bin suffix, such as
-> "lt9611uxc_fw.bin". Rename to be consistent
->
-it will be fixed  in the next version.
-
-> > +#define LT7911EXC_PAGE_CONTROL 0xff
-> > +
-> > +struct lt7911exc {
-> > +     struct device *dev;
-> > +     struct i2c_client *client;
-> > +     struct drm_bridge bridge;
-> > +     struct drm_bridge *panel_bridge;
-> > +     struct regmap *regmap;
-> > +     /* Protects all accesses to registers by stopping the on-chip MCU=
- */
-> > +     struct mutex ocm_lock;
-> > +     struct regulator_bulk_data supplies[2];
-> > +
-> > +     struct gpio_desc *reset_gpio;
-> > +     const struct firmware *fw;
-> > +     int fw_version;
-> > +     u32 fw_crc;
-> > +
-> > +     bool enabled;
-> > +};
-> > +
-> > +static const struct regmap_range_cfg lt7911exc_ranges[] =3D {
-> > +     {
-> > +             .name =3D "register_range",
-> > +             .range_min =3D  0,
-> > +             .range_max =3D 0xffff,
-> > +             .selector_reg =3D LT7911EXC_PAGE_CONTROL,
-> > +             .selector_mask =3D 0xff,
-> > +             .selector_shift =3D 0,
-> > +             .window_start =3D 0,
-> > +             .window_len =3D 0x100,
-> > +     },
-> > +};
-> > +
-> > +static const struct regmap_config lt7911exc_regmap_config =3D {
-> > +     .reg_bits =3D 8,
-> > +     .val_bits =3D 8,
-> > +     .max_register =3D 0xffff,
-> > +     .ranges =3D lt7911exc_ranges,
-> > +     .num_ranges =3D ARRAY_SIZE(lt7911exc_ranges),
-> > +};
-> > +
-> > +static u32 cal_crc32_custom(const u8 *data, u64 length)
-> > +{
-> > +     u32 crc =3D 0xffffffff;
-> > +     u8 buf[4];
-> > +     u64 i;
-> > +
-> > +     for (i =3D 0; i < length; i +=3D 4) {
-> > +             buf[0] =3D data[i + 3];
-> > +             buf[1] =3D data[i + 2];
-> > +             buf[2] =3D data[i + 1];
-> > +             buf[3] =3D data[i + 0];
-> > +             crc =3D crc32_be(crc, buf, 4);
-> > +             }
-> > +
-> > +     return crc;
-> > +}
-> > +
-> > +static inline struct lt7911exc *
-> > +             bridge_to_lt7911exc(struct drm_bridge *bridge)
-> > +{
-> > +     return container_of(bridge, struct lt7911exc, bridge);
-> > +}
-> > +
-> > +static int lt7911exc_regulator_enable(struct lt7911exc *lt7911exc)
-> > +{
-> > +     int ret;
-> > +
-> > +     ret =3D regulator_enable(lt7911exc->supplies[0].consumer);
-> > +     if (ret < 0)
-> > +             return ret;
-> > +
-> > +     usleep_range(5000, 10000);
-> > +
-> > +     ret =3D regulator_enable(lt7911exc->supplies[1].consumer);
-> > +     if (ret < 0) {
-> > +             regulator_disable(lt7911exc->supplies[0].consumer);
-> > +             return ret;
-> > +     }
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static int lt7911exc_regulator_disable(struct lt7911exc *lt7911exc)
-> > +{
-> > +     int ret;
-> > +
-> > +     ret =3D regulator_disable(lt7911exc->supplies[1].consumer);
-> > +     if (ret < 0)
-> > +             return ret;
-> > +
-> > +     ret =3D regulator_disable(lt7911exc->supplies[0].consumer);
-> > +     if (ret < 0)
-> > +             return ret;
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static void lt7911exc_reset(struct lt7911exc *lt7911exc)
-> > +{
-> > +     gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
-> > +     msleep(20);
-> > +
-> > +     gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
-> > +     msleep(20);
-> > +
-> > +     gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
-> > +     msleep(400);
-> > +
-> > +     dev_dbg(lt7911exc->dev, "lt7911exc reset");
->
-> missing newline in dev_dbg(), all other calls have it.
->
-it will be fixed  in the next version.
-dev_dbg(lt7911exc->dev, "lt7911exc reset\n");
-
-> > +}
-> > +
-> > +static int lt7911exc_parse_dt(struct lt7911exc *lt7911exc)
-> > +{
-> > +     int ret;
-> > +
-> > +     lt7911exc->supplies[0].supply =3D "vcc";
-> > +     lt7911exc->supplies[1].supply =3D "vdd";
-> > +
-> > +     ret =3D devm_regulator_bulk_get(lt7911exc->dev, 2, lt7911exc->sup=
-plies);
-> > +     if (ret) {
-> > +             dev_err(lt7911exc->dev, "failed get regulator\n");
-> > +             return ret;
-> > +     }
-> > +
-> > +     lt7911exc->reset_gpio =3D devm_gpiod_get(lt7911exc->dev, "reset",=
- GPIOD_OUT_LOW);
-> > +     if (IS_ERR(lt7911exc->reset_gpio)) {
-> > +             dev_err(lt7911exc->dev, "failed to acquire reset gpio\n")=
-;
-> > +             return PTR_ERR(lt7911exc->reset_gpio);
-> > +     }
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static int lt7911exc_read_version(struct lt7911exc *lt7911exc)
-> > +{
-> > +     u8 buf[2];
-> > +     int ret;
-> > +
-> > +     ret =3D regmap_bulk_read(lt7911exc->regmap, 0xe081, buf, 3);
-> > +     if (ret)
-> > +             return ret;
-> > +
-> > +     return (buf[0] << 16) | (buf[1] << 8) | buf[2];
-> > +}
-> > +
-> > +static void lt7911exc_lock(struct lt7911exc *lt7911exc)
-> > +{
-> > +     mutex_lock(&lt7911exc->ocm_lock);
-> > +     regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
-> > +}
-> > +
-> > +static void lt7911exc_unlock(struct lt7911exc *lt7911exc)
-> > +{
-> > +     regmap_write(lt7911exc->regmap, 0xe0ee, 0x00);
-> > +     mutex_unlock(&lt7911exc->ocm_lock);
-> > +}
-> > +
-> > +static int lt7911exc_prepare_firmware_data(struct lt7911exc *lt7911exc=
-)
-> > +{
-> > +     struct device *dev =3D lt7911exc->dev;
-> > +     int ret;
-> > +     u8 *buffer;
-> > +     size_t total_size =3D FW_SIZE - 4;
-> > +
-> > +     ret =3D request_firmware(&lt7911exc->fw, FW_FILE, dev);
-> > +     if (ret) {
-> > +             dev_err(dev, "failed load file '%s', error type %d\n", FW=
-_FILE, ret);
-> > +             return ret;
-> > +     }
-> > +
-> > +     if (lt7911exc->fw->size > total_size) {
-> > +             dev_err(dev, "firmware too large (%zu > %zu)\n", lt7911ex=
-c->fw->size, total_size);
-> > +             release_firmware(lt7911exc->fw);
-> > +             lt7911exc->fw =3D NULL;
-> > +             return -EINVAL;
-> > +     }
-> > +
-> > +     dev_dbg(dev, "firmware size: %zu bytes\n", lt7911exc->fw->size);
-> > +
-> > +     buffer =3D kzalloc(total_size, GFP_KERNEL);
-> > +     if (!buffer) {
-> > +             release_firmware(lt7911exc->fw);
-> > +             lt7911exc->fw =3D NULL;
-> > +             return -ENOMEM;
-> > +     }
-> > +
-> > +     memset(buffer, 0xff, total_size);
-> > +     memcpy(buffer, lt7911exc->fw->data, lt7911exc->fw->size);
-> > +
-> > +     lt7911exc->fw_crc =3D cal_crc32_custom(buffer, total_size);
-> > +     dev_dbg(dev, "firmware crc: 0x%08x\n", lt7911exc->fw_crc);
-> > +
-> > +     kfree(buffer);
-> > +     return 0;
-> > +}
-> > +
-> > +static void lt7911exc_block_erase(struct lt7911exc *lt7911exc)
-> > +{
-> > +     struct device *dev =3D lt7911exc->dev;
-> > +     const u32 addr =3D 0x00;
-> > +
-> > +     const struct reg_sequence seq_write[] =3D {
-> > +             REG_SEQ0(0xe0ee, 0x01),
-> > +             REG_SEQ0(0xe054, 0x01),
-> > +             REG_SEQ0(0xe055, 0x06),
-> > +             REG_SEQ0(0xe051, 0x01),
-> > +             REG_SEQ0(0xe051, 0x00),
-> > +             REG_SEQ0(0xe054, 0x05),
-> > +             REG_SEQ0(0xe055, 0xd8),
-> > +             REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
-> > +             REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
-> > +             REG_SEQ0(0xe05c, addr & 0xff),
-> > +             REG_SEQ0(0xe051, 0x01),
-> > +             REG_SEQ0(0xe050, 0x00),
-> > +     };
-> > +
-> > +     regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(s=
-eq_write));
-> > +
-> > +     msleep(200);
-> > +     dev_dbg(dev, "erase flash done.\n");
-> > +}
-> > +
-> > +static void lt7911exc_prog_init(struct lt7911exc *lt7911exc, u64 addr)
-> > +{
-> > +     const struct reg_sequence seq_write[] =3D {
-> > +             REG_SEQ0(0xe0ee, 0x01),
-> > +             REG_SEQ0(0xe05f, 0x01),
-> > +             REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
-> > +             REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
-> > +             REG_SEQ0(0xe05c, addr & 0xff),
-> > +     };
-> > +
-> > +     regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(s=
-eq_write));
-> > +}
-> > +
-> > +static int lt7911exc_write_data(struct lt7911exc *lt7911exc, u64 addr)
-> > +{
-> > +     struct device *dev =3D lt7911exc->dev;
-> > +     int ret;
-> > +     int page =3D 0, num =3D 0, page_len =3D 0;
-> > +     u64 size, offset;
-> > +     const u8 *data;
-> > +
-> > +     data =3D lt7911exc->fw->data;
-> > +     size =3D lt7911exc->fw->size;
-> > +     page =3D (size + LT_PAGE_SIZE - 1) / LT_PAGE_SIZE;
-> > +     if (page * LT_PAGE_SIZE > FW_SIZE) {
-> > +             dev_err(dev, "firmware size out of range\n");
-> > +             return -EINVAL;
-> > +     }
-> > +
-> > +     dev_dbg(dev, "%u pages, total size %llu byte\n", page, size);
-> > +
-> > +     for (num =3D 0; num < page; num++) {
-> > +             offset =3D num * LT_PAGE_SIZE;
-> > +             page_len =3D (offset + LT_PAGE_SIZE <=3D size) ? LT_PAGE_=
-SIZE : (size - offset);
-> > +             lt7911exc_prog_init(lt7911exc, addr);
-> > +
-> > +             ret =3D regmap_raw_write(lt7911exc->regmap, 0xe05d, &data=
-[offset], page_len);
-> > +             if (ret) {
-> > +                     dev_err(dev, "write error at page %d\n", num);
-> > +                     return ret;
-> > +             }
-> > +
-> > +             if (page_len < LT_PAGE_SIZE) {
-> > +                     regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
-> > +                     regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-> > +                     //hardware requires delay
-> > +                     usleep_range(1000, 2000);
-> > +             }
-> > +
-> > +             regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
-> > +             addr +=3D LT_PAGE_SIZE;
-> > +     }
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static int lt7911exc_write_crc(struct lt7911exc *lt7911exc, u64 addr)
-> > +{
-> > +     u8 crc[4];
-> > +     int ret;
-> > +
-> > +     crc[0] =3D lt7911exc->fw_crc & 0xff;
-> > +     crc[1] =3D (lt7911exc->fw_crc >> 8) & 0xff;
-> > +     crc[2] =3D (lt7911exc->fw_crc >> 16) & 0xff;
-> > +     crc[3] =3D (lt7911exc->fw_crc >> 24) & 0xff;
-> > +
-> > +     regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-> > +     regmap_write(lt7911exc->regmap, 0xe05a, (addr >> 16) & 0xff);
-> > +     regmap_write(lt7911exc->regmap, 0xe05b, (addr >> 8) & 0xff);
-> > +     regmap_write(lt7911exc->regmap, 0xe05c, addr & 0xff);
-> > +
-> > +     ret =3D regmap_raw_write(lt7911exc->regmap, 0xe05d, crc, 4);
-> > +     if (ret)
-> > +             return ret;
->
-> nit: Newline here makes it more readable
->
-it will be fixed  in the next version.
-
-> > +     regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
-> > +     regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-> > +     usleep_range(1000, 2000);
-> > +     regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static int lt7911exc_firmware_upgrade(struct lt7911exc *lt7911exc)
-> > +{
-> > +     struct device *dev =3D lt7911exc->dev;
-> > +     int ret;
-> > +
-> > +     ret =3D lt7911exc_prepare_firmware_data(lt7911exc);
-> > +     if (ret < 0)
-> > +             return ret;
-> > +
-> > +     dev_dbg(dev, "starting firmware upgrade, size: %zu bytes\n", lt79=
-11exc->fw->size);
-> > +
-> > +     lt7911exc_block_erase(lt7911exc);
-> > +
-> > +     ret =3D lt7911exc_write_data(lt7911exc, 0);
-> > +     if (ret < 0) {
-> > +             dev_err(dev, "failed to write firmware data\n");
-> > +             return ret;
-> > +     }
-> > +
-> > +     release_firmware(lt7911exc->fw);
-> > +     lt7911exc->fw =3D NULL;
-> > +
-> > +     ret =3D lt7911exc_write_crc(lt7911exc, FW_SIZE - 4);
-> > +     if (ret < 0) {
-> > +             dev_err(dev, "failed to write firmware crc\n");
-> > +             return ret;
-> > +     }
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static int lt7911exc_upgrade_result(struct lt7911exc *lt7911exc)
-> > +{
-> > +     struct device *dev =3D lt7911exc->dev;
-> > +     u32 read_hw_crc =3D 0;
-> > +     u8 crc_tmp[4];
-> > +     int ret;
-> > +
-> > +     regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
-> > +     regmap_write(lt7911exc->regmap, 0xe07b, 0x60);
-> > +     regmap_write(lt7911exc->regmap, 0xe07b, 0x40);
-> > +     msleep(150);
-> > +     ret =3D regmap_bulk_read(lt7911exc->regmap, 0x22, crc_tmp, 4);
-> > +     if (ret) {
-> > +             dev_err(lt7911exc->dev, "Failed to read CRC: %d\n", ret);
-> > +             return ret;
-> > +     }
-> > +
-> > +     read_hw_crc =3D crc_tmp[0] << 24 | crc_tmp[1] << 16 |
-> > +                             crc_tmp[2] << 8 | crc_tmp[3];
-> > +
-> > +     if (read_hw_crc !=3D lt7911exc->fw_crc) {
-> > +             dev_err(dev, "lt7911exc firmware upgrade failed, expected=
- CRC=3D0x%08x, read CRC=3D0x%08x\n",
-> > +                     lt7911exc->fw_crc, read_hw_crc);
-> > +             return -EIO;
-> > +     }
-> > +
-> > +     dev_dbg(dev, "lt7911exc firmware upgrade success, CRC=3D0x%08x\n"=
-, read_hw_crc);
-> > +     return 0;
-> > +}
-> > +
-> > +static void lt7911exc_pre_enable(struct drm_bridge *bridge)
-> > +{
-> > +     struct lt7911exc *lt7911exc =3D bridge_to_lt7911exc(bridge);
-> > +     int ret;
-> > +
-> > +     if (lt7911exc->enabled)
-> > +             return;
-> > +
-> > +     ret =3D lt7911exc_regulator_enable(lt7911exc);
-> > +     if (ret)
-> > +             return;
-> > +
-> > +     lt7911exc_reset(lt7911exc);
-> > +
-> > +     lt7911exc->enabled =3D true;
-> > +}
-> > +
-> > +static void lt7911exc_disable(struct drm_bridge *bridge)
-> > +{
-> > +     /* Delay after panel is disabled */
-> > +     msleep(20);
-> > +}
-> > +
-> > +static void lt7911exc_post_disable(struct drm_bridge *bridge)
-> > +{
-> > +     struct lt7911exc *lt7911exc =3D bridge_to_lt7911exc(bridge);
-> > +     int ret;
-> > +
-> > +     if (!lt7911exc->enabled)
-> > +             return;
-> > +
-> > +     lt7911exc->enabled =3D false;
-> > +
-> > +     ret =3D lt7911exc_regulator_disable(lt7911exc);
-> > +     if (ret)
-> > +             return;
-> > +
-> > +     gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
-> > +}
-> > +
-> > +static int lt7911exc_attach(struct drm_bridge *bridge,
-> > +                         struct drm_encoder *encoder,
-> > +                         enum drm_bridge_attach_flags flags)
-> > +{
-> > +     struct lt7911exc *lt7911exc =3D bridge_to_lt7911exc(bridge);
-> > +
-> > +     return drm_bridge_attach(lt7911exc->bridge.encoder, lt7911exc->pa=
-nel_bridge,
-> > +                              &lt7911exc->bridge, flags);
-> > +}
-> > +
-> > +static const struct drm_bridge_funcs lt7911exc_bridge_funcs =3D {
-> > +     .pre_enable =3D lt7911exc_pre_enable,
-> > +     .disable =3D lt7911exc_disable,
-> > +     .post_disable =3D lt7911exc_post_disable,
->
-> These are all deprecated, is there any reason to use them and not the
-> atomic_* callbacks?
->
-it will be fixed  in the next version.
-
-> > +     .attach =3D lt7911exc_attach,
-> > +};
-> > +
-> > +static int lt7911exc_probe(struct i2c_client *client)
-> > +{
-> > +     struct device *dev =3D &client->dev;
-> > +     struct lt7911exc *lt7911exc;
-> > +     struct drm_bridge *panel_bridge;
-> > +     bool fw_updated =3D false;
-> > +     int ret;
-> > +
-> > +     if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
-> > +             dev_err(dev, "device doesn't support I2C\n");
-> > +             return -ENODEV;
-> > +     }
-> > +
-> > +     lt7911exc =3D devm_drm_bridge_alloc(dev, struct lt7911exc, bridge=
-,
-> > +                                       &lt7911exc_bridge_funcs);
-> > +     if (IS_ERR(lt7911exc))
-> > +             return PTR_ERR(lt7911exc);
-> > +
-> > +     panel_bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
-> > +     if (IS_ERR(panel_bridge))
-> > +             return PTR_ERR(panel_bridge);
-> > +
-> > +     lt7911exc->panel_bridge =3D panel_bridge;
-> > +     lt7911exc->client =3D client;
-> > +     lt7911exc->dev =3D dev;
-> > +     i2c_set_clientdata(client, lt7911exc);
-> > +     mutex_init(&lt7911exc->ocm_lock);
-> > +
-> > +     lt7911exc->regmap =3D devm_regmap_init_i2c(client, &lt7911exc_reg=
-map_config);
-> > +     if (IS_ERR(lt7911exc->regmap)) {
-> > +             dev_err(dev, "regmap i2c init failed\n");
-> > +             return PTR_ERR(lt7911exc->regmap);
-> > +     }
-> > +
-> > +     ret =3D lt7911exc_parse_dt(lt7911exc);
-> > +     if (ret)
-> > +             return ret;
-> > +
-> > +     ret =3D lt7911exc_regulator_enable(lt7911exc);
-> > +     if (ret)
-> > +             return ret;
-> > +
-> > +     lt7911exc_reset(lt7911exc);
-> > +     lt7911exc->enabled =3D true;
-> > +     lt7911exc_lock(lt7911exc);
-> > +
-> > +retry:
-> > +     lt7911exc->fw_version =3D lt7911exc_read_version(lt7911exc);
-> > +     if (lt7911exc->fw_version < 0) {
-> > +             dev_err(dev, "failed to read FW version\n");
-> > +             lt7911exc_unlock(lt7911exc);
-> > +             goto err_disable_regulators;
-> > +
-> > +     } else if (lt7911exc->fw_version =3D=3D 0) {
-> > +             if (!fw_updated) {
-> > +                     fw_updated =3D true;
-> > +                     ret =3D lt7911exc_firmware_upgrade(lt7911exc);
-> > +                     if (ret < 0) {
-> > +                             lt7911exc_unlock(lt7911exc);
-> > +                             goto err_disable_regulators;
-> > +                     }
-> > +
-> > +                     lt7911exc_reset(lt7911exc);
-> > +
-> > +                     ret =3D lt7911exc_upgrade_result(lt7911exc);
-> > +                     if (ret < 0) {
-> > +                             lt7911exc_unlock(lt7911exc);
-> > +                             goto err_disable_regulators;
-> > +                     }
-> > +
-> > +                     goto retry;
-> > +
-> > +             } else {
-> > +                     dev_err(dev, "fw version 0x%04x, update failed\n"=
-, lt7911exc->fw_version);
-> > +                     ret =3D -EOPNOTSUPP;
-> > +                     lt7911exc_unlock(lt7911exc);
-> > +                     goto err_disable_regulators;
-> > +             }
-> > +     }
-> > +
-> > +     lt7911exc_unlock(lt7911exc);
-> > +
-> > +     lt7911exc->bridge.type =3D DRM_MODE_CONNECTOR_DSI;
-> > +     lt7911exc->bridge.of_node =3D dev->of_node;
-> > +     drm_bridge_add(&lt7911exc->bridge);
-> > +
-> > +     return 0;
-> > +
-> > +err_disable_regulators:
-> > +     regulator_bulk_disable(ARRAY_SIZE(lt7911exc->supplies), lt7911exc=
-->supplies);
-> > +     if (lt7911exc->fw) {
-> > +             release_firmware(lt7911exc->fw);
-> > +             lt7911exc->fw =3D NULL;
-> > +     }
-> > +
-> > +     return ret;
-> > +}
-> > +
-> > +static void lt7911exc_remove(struct i2c_client *client)
-> > +{
-> > +     struct lt7911exc *lt7911exc =3D i2c_get_clientdata(client);
-> > +
-> > +     drm_bridge_remove(&lt7911exc->bridge);
-> > +     mutex_destroy(&lt7911exc->ocm_lock);
-> > +}
-> > +
-> > +static const struct i2c_device_id lt7911exc_i2c_table[] =3D {
-> > +     {"lontium, lt7911exc", 0},
->
-> Extra space here in the device id
->
-  it will be fixed  in the next version.   {"lontium, lt7911exc"},
-
-> > +     { /* sentinel */ }
-> > +};
-> > +
-> > +MODULE_DEVICE_TABLE(i2c, lt7911exc_i2c_table);
-> > +
-> > +static const struct of_device_id lt7911exc_devices[] =3D {
-> > +     {.compatible =3D "lontium,lt7911exc",},
-> > +     {}
-> > +};
-> > +MODULE_DEVICE_TABLE(of, lt7911exc_devices);
-> > +
-> > +static struct i2c_driver lt7911exc_driver =3D {
-> > +     .id_table       =3D lt7911exc_i2c_table,
-> > +     .probe          =3D lt7911exc_probe,
-> > +     .remove         =3D lt7911exc_remove,
-> > +     .driver         =3D {
-> > +             .name   =3D "lt7911exc",
-> > +             .of_match_table =3D lt7911exc_devices,
-> > +     },
-> > +};
-> > +module_i2c_driver(lt7911exc_driver);
-> > +
-> > +MODULE_AUTHOR("SunYun Yang <syyang@lontium.com>");
-> > +MODULE_DESCRIPTION("Lontium lt7911exc edp to mipi dsi bridge driver");
-> > +MODULE_LICENSE("GPL v2");
->
