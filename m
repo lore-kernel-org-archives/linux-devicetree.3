@@ -1,62 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2600D3D0917;
-	Tue, 21 Apr 2026 12:36:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 251FF3D3339;
+	Tue, 21 Apr 2026 12:36:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776775002; cv=none; b=FHngiiR4SxbAzzDuI8zjB0xNLbFy19ccfSVzo1oylC6p8pNsayCOB4NhYmL4+48dySIPaLwyUa4BuQEiWtxKh5b9h60u58uV9Rzw4T/QkMokZBeygRjWpKvu3dRf8+L7AqA5ek9J1c2YEJFTA2+vL2Kmq5CD3hSuQ5u2eZFxxmk=
+	t=1776775011; cv=none; b=uYXI8hnVyqY+34xyGpO5MgBqJ5idzhrjVPn107PLR1QqbOanio3bm1sRsQJ3F+rnKaJtB4c/3lQUSy00ihOdO3TELqAoMohSyiRTidCqa48X15fdI6mCBvEOOx8vC6CkZWSPTaTPnX3dL0vKp/GRnw0l77RE0uVGuK47ExIGzd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776775002; c=relaxed/simple;
-	bh=v2a5WLA+RN6tb/gUePTDGD8H5yF9HruhsXt/Z+eBlFg=;
+	s=arc-20240116; t=1776775011; c=relaxed/simple;
+	bh=ySWjPzjlFWH5Pg0MB91iY6wBTNwzPyo4OILr+iHHSrw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oa2TSDLnVcTlNwEv9oXc7m2ziG/UkLP0mH7LZuCNNm8EApY/QKoj/HRhMve9gQ5FNOR8JYfwqUMJAZH1ojp9WnGJZp/XWkgv3zE2rzsup9rkldp2JhXDos7fvSNspgOi61mdsnYP/xbGWSfjjaP+GszWpCgBF78KEED11+ZeBw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IY2/CR3X; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=tUd5vo3ob6WBlAbVKB9IZgyPAVE/gi7DbMgKMsXWudVNf7ERPOajYn9TINSyz+WyMD/KTzKBkzr/m7L5EKAtWJs++LJVklfj3yA1lpP+mHuSzrRUbF/fQ5x+8+fCRYkbp5Lm/29nE9kMftNQod3ntuMiuESnvsRoAePaq7qbkKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zsdEKXNK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IY2/CR3X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 476E2C2BCB0;
-	Tue, 21 Apr 2026 12:36:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776775001;
-	bh=v2a5WLA+RN6tb/gUePTDGD8H5yF9HruhsXt/Z+eBlFg=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zsdEKXNK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF61EC2BCB3;
+	Tue, 21 Apr 2026 12:36:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1776775010;
+	bh=ySWjPzjlFWH5Pg0MB91iY6wBTNwzPyo4OILr+iHHSrw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IY2/CR3Xju639eRatAjHmwgjJ2TI+jyLHKiKvD9uI8/RHml4/V7glLUlqpz94FiPg
-	 4sXKBHTxegc4fNzdWsBv0XpliFCQulawZ83bnirKyTpkUah90uM7QMdIVdhGgHLxlL
-	 dNYwytY4wN8bUJj5WKQMLSXPkluHP5+vKCKkQs9HLbpjhvH0eQZxbBx1BERsEc9O5O
-	 TYEgt1qZnv+UAx4ePggrzZ2GMyMTdIa7i0oN5S2RRbxUWUllWzwmd32P1CYkSPnQCp
-	 8fYAbxw4WRq4n+3DuTmDuq9KxOmnZRP+cQzzSltBI94jetrhhqlkFJpyU4I3AikMt5
-	 NfPYOC3XRsIjg==
-Date: Tue, 21 Apr 2026 18:06:21 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: bod@kernel.org, vikash.garodia@oss.qualcomm.com,
-	dikshita.agarwal@oss.qualcomm.com
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-	linux-media@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-	linux-remoteproc@vger.kernel.org, andersson@kernel.org,
-	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
-	akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
-	jesszhan0024@gmail.com, marijn.suijten@somainline.org,
-	airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
-	dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
-	mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
-	trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
-	pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
-	tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
-	srinivas.kandagatla@oss.qualcomm.com,
-	amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
-	op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
-	skare@qti.qualcomm.com, harshal.dev@oss.qualcomm.com,
-	linux-kernel@vger.kernel.org,
-	Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v3 11/15] media: qcom: Switch to generic PAS TZ APIs
-Message-ID: <aedvRYCd_mNwwQ5K@sumit-xelite>
-References: <20260327131043.627120-1-sumit.garg@kernel.org>
- <20260327131043.627120-12-sumit.garg@kernel.org>
+	b=zsdEKXNKD7fvHRq62y5AiN4tBfmnY1WFZcHuSz7ZbfjxIPs6tzP2NDjr4ks9nO3XM
+	 AgqA7BOUGjsVibNBa5S+YbiF5Or1yYKaHzBKlWAn57+vZfde6XM5f9lywcmF7Aq7FF
+	 XpvNGt9lMmkKYf0djaTNfh3UbuIXfsmS7BGuEqBQ=
+Date: Tue, 21 Apr 2026 14:36:47 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Link Mauve <linkmauve@linkmauve.fr>
+Cc: linuxppc-dev@lists.ozlabs.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Juergen Gross <jgross@suse.com>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Geoff Levand <geoff@infradead.org>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	Oliver O'Halloran <oohall@gmail.com>,
+	Anatolij Gustschin <agust@denx.de>,
+	Breno =?iso-8859-1?Q?Leit=E3o?= <leitao@debian.org>,
+	Nayna Jain <nayna@linux.ibm.com>,
+	Paulo Flabiano Smorigo <pfsmorigo@gmail.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Thorsten Blum <thorsten.blum@linux.dev>,
+	Thomas Huth <thuth@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	David Hildenbrand <david@kernel.org>,
+	Alistair Popple <apopple@nvidia.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Donet Tom <donettom@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@rivosinc.com>,
+	Will Deacon <will@kernel.org>,
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
+	Paul Moore <paul@paul-moore.com>, Nam Cao <namcao@linutronix.de>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Sourabh Jain <sourabhjain@linux.ibm.com>,
+	Hari Bathini <hbathini@linux.ibm.com>,
+	Srikar Dronamraju <srikar@linux.ibm.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Jiri Bohac <jbohac@suse.cz>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Kees Cook <kees@kernel.org>, Stephen Rothwell <sfr@cab.auug.org.au>,
+	Xichao Zhao <zhao.xichao@vivo.com>,
+	Gautam Menghani <gautam@linux.ibm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Li Chen <chenl311@chinatelecom.cn>,
+	Aboorva Devarajan <aboorvad@linux.ibm.com>,
+	Petr Mladek <pmladek@suse.com>,
+	Feng Tang <feng.tang@linux.alibaba.com>,
+	"Nysal Jan K.A." <nysal@linux.ibm.com>,
+	Aditya Gupta <adityag@linux.ibm.com>,
+	Sayali Patil <sayalip@linux.ibm.com>,
+	Rohan McLure <rmclure@linux.ibm.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Yeoreum Yun <yeoreum.yun@arm.com>,
+	Kevin Brodsky <kevin.brodsky@arm.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Andrew Donnellan <andrew+kernel@donnellan.id.au>,
+	"Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
+	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
+	Athira Rajeev <atrajeev@linux.ibm.com>,
+	Kajol Jain <kjain@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>,
+	Chen Ni <nichen@iscas.ac.cn>, Haren Myneni <haren@linux.ibm.com>,
+	Jonathan Greental <yonatan02greental@gmail.com>,
+	Ingo Molnar <mingo@kernel.org>,
+	"Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
+	Gaurav Batra <gbatra@linux.ibm.com>,
+	Nilay Shroff <nilay@linux.ibm.com>,
+	Vivian Wang <wangruikang@iscas.ac.cn>,
+	Adrian =?utf-8?Q?Barna=C5=9B?= <abarnas@google.com>,
+	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+	Thierry Reding <treding@nvidia.com>, Yury Norov <ynorov@nvidia.com>,
+	"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
+	Ruben Wauters <rubenru09@aol.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-crypto@vger.kernel.org,
+	kvm@vger.kernel.org, virtualization@lists.linux.dev, x86@kernel.org
+Subject: Re: [PATCH 2/2] powerpc: Run typos -w
+Message-ID: <2026042113-shaded-favored-c342@gregkh>
+References: <20260421121420.26079-1-linkmauve@linkmauve.fr>
+ <20260421121420.26079-3-linkmauve@linkmauve.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -65,180 +120,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260327131043.627120-12-sumit.garg@kernel.org>
+In-Reply-To: <20260421121420.26079-3-linkmauve@linkmauve.fr>
 
-Hey Vikash, Dikshita,
+On Tue, Apr 21, 2026 at 02:14:14PM +0200, Link Mauve wrote:
+> diff --git a/arch/powerpc/boot/dts/mpc8308_p1m.dts b/arch/powerpc/boot/dts/mpc8308_p1m.dts
+> index 41f917f97dab..48a98449ecbb 100644
+> --- a/arch/powerpc/boot/dts/mpc8308_p1m.dts
+> +++ b/arch/powerpc/boot/dts/mpc8308_p1m.dts
+> @@ -90,14 +90,14 @@ can@1,0 {
+>  			compatible = "nxp,sja1000";
+>  			reg = <0x1 0x0 0x80>;
+>  			interrupts = <18 0x8>;
+> -			interrups-parent = <&ipic>;
+> +			interrupts-parent = <&ipic>;
+>  		};
+>  
+>  		cpld@2,0 {
+>  			compatible = "denx,mpc8308_p1m-cpld";
+>  			reg = <0x2 0x0 0x8>;
+>  			interrupts = <48 0x8>;
+> -			interrups-parent = <&ipic>;
+> +			interrupts-parent = <&ipic>;
+>  		};
+>  	};
+>  
 
-On Fri, Mar 27, 2026 at 06:40:39PM +0530, Sumit Garg wrote:
-> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> 
-> Switch qcom media client drivers over to generic PAS TZ APIs. Generic PAS
-> TZ service allows to support multiple TZ implementation backends like QTEE
-> based SCM PAS service, OP-TEE based PAS service and any further future TZ
-> backend service.
-> 
-> Along with that pass proper PAS ID to set_remote_state API. As per testing
-> the SCM backend just ignores it while OP-TEE makes use of it to for proper
-> book keeping purpose.
-> 
-> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/Kconfig      | 25 ++++++++++---------
->  .../media/platform/qcom/iris/iris_firmware.c  |  9 ++++---
->  drivers/media/platform/qcom/venus/Kconfig     |  1 +
->  drivers/media/platform/qcom/venus/firmware.c  | 11 ++++----
->  4 files changed, 25 insertions(+), 21 deletions(-)
-> 
+Isn't this going to break a working system?  If not, then was this dts
+file ever correct in the first place?
 
-Can I get an ack from you on this change? I expect this complete
-patch-set to land via Qcom SoC tree.
+thanks,
 
--Sumit
-
-> diff --git a/drivers/media/platform/qcom/iris/Kconfig b/drivers/media/platform/qcom/iris/Kconfig
-> index 3c803a05305a..f54b759c18aa 100644
-> --- a/drivers/media/platform/qcom/iris/Kconfig
-> +++ b/drivers/media/platform/qcom/iris/Kconfig
-> @@ -1,13 +1,14 @@
->  config VIDEO_QCOM_IRIS
-> -        tristate "Qualcomm iris V4L2 decoder driver"
-> -        depends on VIDEO_DEV
-> -        depends on ARCH_QCOM || COMPILE_TEST
-> -        select V4L2_MEM2MEM_DEV
-> -        select QCOM_MDT_LOADER if ARCH_QCOM
-> -        select QCOM_SCM
-> -        select VIDEOBUF2_DMA_CONTIG
-> -        help
-> -          This is a V4L2 driver for Qualcomm iris video accelerator
-> -          hardware. It accelerates decoding operations on various
-> -          Qualcomm SoCs.
-> -          To compile this driver as a module choose m here.
-> +	tristate "Qualcomm iris V4L2 decoder driver"
-> +	depends on VIDEO_DEV
-> +	depends on ARCH_QCOM || COMPILE_TEST
-> +	select V4L2_MEM2MEM_DEV
-> +	select QCOM_MDT_LOADER if ARCH_QCOM
-> +	select QCOM_SCM
-> +	select QCOM_PAS
-> +	select VIDEOBUF2_DMA_CONTIG
-> +	help
-> +	  This is a V4L2 driver for Qualcomm iris video accelerator
-> +	  hardware. It accelerates decoding operations on various
-> +	  Qualcomm SoCs.
-> +	  To compile this driver as a module choose m here.
-> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
-> index 5f408024e967..856fa6a79064 100644
-> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
-> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
-> @@ -4,6 +4,7 @@
->   */
->  
->  #include <linux/firmware.h>
-> +#include <linux/firmware/qcom/qcom_pas.h>
->  #include <linux/firmware/qcom/qcom_scm.h>
->  #include <linux/of_address.h>
->  #include <linux/of_reserved_mem.h>
-> @@ -79,7 +80,7 @@ int iris_fw_load(struct iris_core *core)
->  		return -ENOMEM;
->  	}
->  
-> -	ret = qcom_scm_pas_auth_and_reset(core->iris_platform_data->pas_id);
-> +	ret = qcom_pas_auth_and_reset(core->iris_platform_data->pas_id);
->  	if (ret)  {
->  		dev_err(core->dev, "auth and reset failed: %d\n", ret);
->  		return ret;
-> @@ -93,7 +94,7 @@ int iris_fw_load(struct iris_core *core)
->  						     cp_config->cp_nonpixel_size);
->  		if (ret) {
->  			dev_err(core->dev, "qcom_scm_mem_protect_video_var failed: %d\n", ret);
-> -			qcom_scm_pas_shutdown(core->iris_platform_data->pas_id);
-> +			qcom_pas_shutdown(core->iris_platform_data->pas_id);
->  			return ret;
->  		}
->  	}
-> @@ -103,10 +104,10 @@ int iris_fw_load(struct iris_core *core)
->  
->  int iris_fw_unload(struct iris_core *core)
->  {
-> -	return qcom_scm_pas_shutdown(core->iris_platform_data->pas_id);
-> +	return qcom_pas_shutdown(core->iris_platform_data->pas_id);
->  }
->  
->  int iris_set_hw_state(struct iris_core *core, bool resume)
->  {
-> -	return qcom_scm_set_remote_state(resume, 0);
-> +	return qcom_pas_set_remote_state(resume, core->iris_platform_data->pas_id);
->  }
-> diff --git a/drivers/media/platform/qcom/venus/Kconfig b/drivers/media/platform/qcom/venus/Kconfig
-> index ffb731ecd48c..574172724e8f 100644
-> --- a/drivers/media/platform/qcom/venus/Kconfig
-> +++ b/drivers/media/platform/qcom/venus/Kconfig
-> @@ -6,6 +6,7 @@ config VIDEO_QCOM_VENUS
->  	select OF_DYNAMIC if ARCH_QCOM
->  	select QCOM_MDT_LOADER if ARCH_QCOM
->  	select QCOM_SCM
-> +	select QCOM_PAS
->  	select VIDEOBUF2_DMA_CONTIG
->  	select V4L2_MEM2MEM_DEV
->  	help
-> diff --git a/drivers/media/platform/qcom/venus/firmware.c b/drivers/media/platform/qcom/venus/firmware.c
-> index 1de7436713ed..3c0727ea137d 100644
-> --- a/drivers/media/platform/qcom/venus/firmware.c
-> +++ b/drivers/media/platform/qcom/venus/firmware.c
-> @@ -12,6 +12,7 @@
->  #include <linux/of_reserved_mem.h>
->  #include <linux/platform_device.h>
->  #include <linux/of_device.h>
-> +#include <linux/firmware/qcom/qcom_pas.h>
->  #include <linux/firmware/qcom/qcom_scm.h>
->  #include <linux/sizes.h>
->  #include <linux/soc/qcom/mdt_loader.h>
-> @@ -58,7 +59,7 @@ int venus_set_hw_state(struct venus_core *core, bool resume)
->  	int ret;
->  
->  	if (core->use_tz) {
-> -		ret = qcom_scm_set_remote_state(resume, 0);
-> +		ret = qcom_pas_set_remote_state(resume, VENUS_PAS_ID);
->  		if (resume && ret == -EINVAL)
->  			ret = 0;
->  		return ret;
-> @@ -218,7 +219,7 @@ int venus_boot(struct venus_core *core)
->  	int ret;
->  
->  	if (!IS_ENABLED(CONFIG_QCOM_MDT_LOADER) ||
-> -	    (core->use_tz && !qcom_scm_is_available()))
-> +	    (core->use_tz && !qcom_pas_is_available()))
->  		return -EPROBE_DEFER;
->  
->  	ret = of_property_read_string_index(dev->of_node, "firmware-name", 0,
-> @@ -236,7 +237,7 @@ int venus_boot(struct venus_core *core)
->  	core->fw.mem_phys = mem_phys;
->  
->  	if (core->use_tz)
-> -		ret = qcom_scm_pas_auth_and_reset(VENUS_PAS_ID);
-> +		ret = qcom_pas_auth_and_reset(VENUS_PAS_ID);
->  	else
->  		ret = venus_boot_no_tz(core, mem_phys, mem_size);
->  
-> @@ -259,7 +260,7 @@ int venus_boot(struct venus_core *core)
->  						     res->cp_nonpixel_start,
->  						     res->cp_nonpixel_size);
->  		if (ret) {
-> -			qcom_scm_pas_shutdown(VENUS_PAS_ID);
-> +			qcom_pas_shutdown(VENUS_PAS_ID);
->  			dev_err(dev, "set virtual address ranges fail (%d)\n",
->  				ret);
->  			return ret;
-> @@ -274,7 +275,7 @@ int venus_shutdown(struct venus_core *core)
->  	int ret;
->  
->  	if (core->use_tz)
-> -		ret = qcom_scm_pas_shutdown(VENUS_PAS_ID);
-> +		ret = qcom_pas_shutdown(VENUS_PAS_ID);
->  	else
->  		ret = venus_shutdown_no_tz(core);
->  
-> -- 
-> 2.51.0
-> 
-> 
+greg k-h
