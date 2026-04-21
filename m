@@ -1,128 +1,109 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86B819CCF5;
-	Tue, 21 Apr 2026 12:18:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368913C277F;
+	Tue, 21 Apr 2026 12:22:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776773909; cv=none; b=VANHKSGkt0J6p+VyZQFn0nxI0TKaXPzssvVOTjYBADpWafM0nvydWRqf+9/MGB0nIlRPihcLxF4rZygXPulHUsEkhs/j+JkOai2zp1y+l0qLo4K56dW/yKHImFznVHxMu/uno2SbJZn95DQ/7rr9FZaaQ3S159jS/SmOHD0G48c=
+	t=1776774161; cv=none; b=jTEebs0YEylwjxgR1g50jdh6pIS4KvH5hqQPJsy3SAsoFx5PKXZCG0pQAKxtxWafESD0VwXv2aWkIXAd4TM7qrYYkJpi18v6zejkdjVcwK5+oJ32wViXOmC93amEbZss6XGxslKsMjfJylhyYDwXyo5Hew8NTHWnZ0COMNW77d4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776773909; c=relaxed/simple;
-	bh=PenIqUUnQCpm0dma4EMkb9a/RBxddIPYadbHh0p8JIw=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=UDLkYUIq2JdYTrYYC8P8orfrmy49GXClXCXhzS4oKs0nRFKX5TDoXUPv6uMf3DHspwC9dDuwBsfOujkozzbYwT1IkgICnL0k79vtMgLQYmE9fuzwBwpsqmf0ktLs1OlWAw9Pu9JP27OPqbUqnZtiw0Ry/N5kDL29zE/JdOTl02Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lqf2p4zH; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1776774161; c=relaxed/simple;
+	bh=FjTWTBKyxU9wnoOFIU6eC+Zsg/ak07chnRRJ6hIxvXc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hCuYTkFZJ5lNMw6qGCiWWRzBMh79+4I9ZaTxQmuVydrJW2JMDClZrFq5uMo6DPqXlewjJqfS3WN2urWk1bmydXlqXWPXpYOtYIGndJWyz7wud2w2b2TpgsMbjOpjK/8J8L6PNz8mZnfbmqBWGqXKdyUGU/6DLE8w4v4HS5Yn+Cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pDUCyVwG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lqf2p4zH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1776773907; x=1808309907;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=PenIqUUnQCpm0dma4EMkb9a/RBxddIPYadbHh0p8JIw=;
-  b=lqf2p4zHyK7FdNHdDn/Iu1UiZe+VwjCE8Bzomb0uc3EUMAMlNMiIkdE4
-   Y98VJtSU1tJ0wepul6HNYBo3nBm4v20gp4Bce7aD4Ec/yPsMgZVrXYodE
-   e+rVD9Ks42hCzbbHRUucmz8JKM5pS1XpLsIHy2vk1mf36G44rCr38hF6W
-   5X+yUmDVyro56jSXGoXrdndbVBaIeA0iZiqbJiyxPmji4oboto0Eil5En
-   RgSdQsebhDJzS2lVmLaPJs3lhRWAQ1i7q157g9VuRDW5XkWEMRB3YQwU9
-   OQxNHuSrAG3S6FlwyxdSNfL0YU0pMB8zO4T+2H+ZUYc8Cp6Lho7olVERN
-   Q==;
-X-CSE-ConnectionGUID: c0bqHxaqQ3u1f5jFDr9b6w==
-X-CSE-MsgGUID: oHQVBxIqTGGM5Szsiyg4Hw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="89175859"
-X-IronPort-AV: E=Sophos;i="6.23,191,1770624000"; 
-   d="scan'208";a="89175859"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Apr 2026 05:18:27 -0700
-X-CSE-ConnectionGUID: CEpZVInFQBKIBerpdjfasQ==
-X-CSE-MsgGUID: Jpeca53kSheybGJEYT2xhA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,191,1770624000"; 
-   d="scan'208";a="229347174"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.105])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Apr 2026 05:18:21 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 21 Apr 2026 15:18:18 +0300 (EEST)
-To: Jia Wang <wangjia@ultrarisc.com>
-cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-    Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-    Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
-    linux-serial <linux-serial@vger.kernel.org>, 
-    linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] serial: 8250_dw: Use a fixed CPR value for
- UltraRISC DP1000 UART
-In-Reply-To: <20260421-ultrarisc-serial-v3-2-3d7f09c2420e@ultrarisc.com>
-Message-ID: <979c9543-3ea0-25de-f97b-9c6d2fa3ac61@linux.intel.com>
-References: <20260421-ultrarisc-serial-v3-0-3d7f09c2420e@ultrarisc.com> <20260421-ultrarisc-serial-v3-2-3d7f09c2420e@ultrarisc.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pDUCyVwG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5106C2BCB0;
+	Tue, 21 Apr 2026 12:22:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776774160;
+	bh=FjTWTBKyxU9wnoOFIU6eC+Zsg/ak07chnRRJ6hIxvXc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=pDUCyVwGb8ya/GZDqDieIScgOVrPOl3I/FJS9ccMew51Xp1PwcmYEtedShhwnrxmc
+	 RCa1sJsDGPFZz7l6xh8HYRvZ9j5G0bWWeLPo1qSM5vCkcLDW5wJx2OyFKcOZhGoLOI
+	 YwnWftevNO1eAx5/cWBBv5WlkJhG/5+YfhdJ7vYHIkPT3IgE3VLw8p3NofnqsNgFtH
+	 RYEOsuva6FlMuZC1XmZz9dmSpii3t/okBhMPqO1l7pjE1ED/sH7WZTsW/w8Cyns2AW
+	 HTHIQlNviNnES+NmZ/S8HynmnxRzzgDyzjO6jdJPH1Z83lN19f1bjFMnu8aORK25oM
+	 Z2/yYBPfJux+A==
+Date: Tue, 21 Apr 2026 17:52:22 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+	linux-media@vger.kernel.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+	linux-remoteproc@vger.kernel.org, konradybcio@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	robin.clark@oss.qualcomm.com, sean@poorly.run,
+	akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+	jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+	airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+	dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
+	mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+	trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+	pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+	tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+	srinivas.kandagatla@oss.qualcomm.com,
+	amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+	op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+	skare@qti.qualcomm.com, harshal.dev@oss.qualcomm.com,
+	linux-kernel@vger.kernel.org,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v3 00/15] firmware: qcom: Add OP-TEE PAS service support
+Message-ID: <aedr_gE2Sxs-UvbL@sumit-xelite>
+References: <20260327131043.627120-1-sumit.garg@kernel.org>
+ <adPLx3nCBb8IHz2b@baldur>
+ <adSOFCL26y5qt1Cu@sumit-xelite>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <adSOFCL26y5qt1Cu@sumit-xelite>
 
-On Tue, 21 Apr 2026, Jia Wang wrote:
-
-> The UltraRISC DP1000 UART does not provide the standard CPR register used
-> by 8250_dw to discover port capabilities.
+On Tue, Apr 07, 2026 at 10:24:44AM +0530, Sumit Garg wrote:
+> Hi Bjorn,
 > 
-> Provide a fixed CPR value for the DP1000-specific compatible so the
-> driver can configure the port correctly.
+> On Mon, Apr 06, 2026 at 10:09:27AM -0500, Bjorn Andersson wrote:
+> > On Fri, Mar 27, 2026 at 06:40:28PM +0530, Sumit Garg wrote:
+> > > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > > 
+> > > Qcom platforms has the legacy of using non-standard SCM calls
+> > > splintered over the various kernel drivers. These SCM calls aren't
+> > > compliant with the standard SMC calling conventions which is a
+> > > prerequisite to enable migration to the FF-A specifications from Arm.
+> > > 
+> > 
+> > Please get our colleagues involved in this discussion, because this
+> > non-SCM interface does not match the direction we are taking.
 > 
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-> ---
->  drivers/tty/serial/8250/8250_dw.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+> I thought I have already involved folks from QTEE perspective (Apurupa
+> and Sree) actively working on FF-A implementation aligned to this
+> interface. It would have been better if you could let me know where is
+> the direction mismatch here. In case there is a better alternative
+> design proposal for PAS service with FF-A, I would be happy to hear
+> that.
 > 
-> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-> index 94beadb4024d..ca6dbdf75918 100644
-> --- a/drivers/tty/serial/8250/8250_dw.c
-> +++ b/drivers/tty/serial/8250/8250_dw.c
-> @@ -962,6 +962,12 @@ static const struct dw8250_platform_data dw8250_intc10ee = {
->  	.quirks = DW_UART_QUIRK_IER_KICK,
->  };
->  
-> +static const struct dw8250_platform_data dw8250_ultrarisc_dp1000_data = {
-> +	.usr_reg = DW_UART_USR,
-> +	.cpr_value = 0x00022022,
+> Anyhow for the legacy SoCs like KLMT, we really don't have any
+> alternative but have to stick to existing QTEE PAS design with OP-TEE
+> providing as an alternative backend. Surely we want to support loading
+> of existing signed firmware present in linux-firmware repo for KLMT with
+> OP-TEE being the TZ.
 
-Hi,
+After further offline internal Qcom discussions, the teams are aligned
+on the vision to use and extend generic Qcom PAS layer for all the TZ
+backends whether it's legacy SCM backend based on QTEE, OP-TEE backend
+as proposed by this patch-set or future object invoke (based on
+SMCInvoke) for QTEE.
 
-Please construct the cpr_value by ORing DW_UART_CPR_* defines together.
-For fields, FIELD_PREP_CONST() may be useful.
+I hope with that we can progress to get this patch-set merged in next
+merge window. I will send v4 shortly after merge window closes to
+address misc. comments from Harshal on patch 04/15.
 
-In order to be able to use the DW_UART_CPR_* defines, they need to be 
-moved into 8250_dwlib.h (I'd move all DW_UART register defines in a 
-preparatory patch).
-
-I know the existing Renesas' .cpr_value doesn't follow this convention but 
-that could be converted as well (in another patch, or leave the Renesas 
-entry conversion to me if you don't want to do that).
-
-> +	.quirks = DW_UART_QUIRK_CPR_VALUE,
-> +};
-> +
->  static const struct of_device_id dw8250_of_match[] = {
->  	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
->  	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
-> @@ -969,6 +975,7 @@ static const struct of_device_id dw8250_of_match[] = {
->  	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
->  	{ .compatible = "sophgo,sg2044-uart", .data = &dw8250_skip_set_rate_data },
->  	{ .compatible = "starfive,jh7100-uart", .data = &dw8250_skip_set_rate_data },
-> +	{ .compatible = "ultrarisc,dp1000-uart", .data = &dw8250_ultrarisc_dp1000_data },
->  	{ /* Sentinel */ }
->  };
->  MODULE_DEVICE_TABLE(of, dw8250_of_match);
-> 
-> 
-
--- 
- i.
-
+-Sumit
