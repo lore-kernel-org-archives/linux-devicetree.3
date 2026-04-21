@@ -1,94 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A899246783;
-	Tue, 21 Apr 2026 16:43:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB752BB17;
+	Tue, 21 Apr 2026 16:44:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776789805; cv=none; b=e7mPox3KBgaPcYi50pW+x4nOmXKNVlP1IN4zXNZgoqCcgoBheoU55Dj7e33vL8ciWJ8TqGk7J0H38C0U+YLlt0A+se01CdHysc3JBjSv7zMnDGZ0UgHXU7xP93dWAajxoNDuJC6Dcq4NdIVSYkG0RLFjS/uarpTAWnSqTAcJvPo=
+	t=1776789874; cv=none; b=i4Tz8s6yvglwAhkkOm1VUMb3/JjwzSzryJ6GRThBIIXIDq6oAsPftDNZtF6q+FRChZNZ5pFE7PUTxlmJN5HTiHYpmAB29daKDxaLYGG5BKjC///1RcRtUW/FkogdzuhJ3EBTQPANup2bBQpdxbpQy0yzAWm180liPWTQmP9rg+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776789805; c=relaxed/simple;
-	bh=4DpCwv4bQ34CzEvMEIPOxMEDG8nKZt4dIwwtd1eT0TA=;
+	s=arc-20240116; t=1776789874; c=relaxed/simple;
+	bh=ZMlm3vke/xn/Mo/8udyirPFnry1e8XrjEu/pi9aURw4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MeOwuYJe8jCFjagfVKG3R7hIt9PGuptbjjzZbRTm+HVBPnsT7X5DbHT/AtYzru1GYL4y4k8t2ki/LpCpTpJIvl8gGbbgnBJb29EU6AU9oO+tfvZOgepie4pFuUOK2ayG3p8YAX1Q1ufzL6E+wN8ps1ZNHoWCBUGOobIL/WIDr5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XYcmQyTc; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=CzoSK3PYFWyr3hEImIr4Cz7WUWbGhT12xQLNNQh0UVC4nAnpoZ9INYgcK7L15oma1CbwZnje3iSiTfBHyt8gLXFfIaRdkiHS9svRGfkFszuzYmVKeplIuBm7bdaYRZe/oZql288q+TYhkQytw7JQbgHjufU8DuPN8c39ZS5Ukzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZzPlMaYb; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XYcmQyTc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDCE3C2BCB0;
-	Tue, 21 Apr 2026 16:43:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776789805;
-	bh=4DpCwv4bQ34CzEvMEIPOxMEDG8nKZt4dIwwtd1eT0TA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XYcmQyTctxxAQnBqas4fS5OXWdt3+cIYFVzOS6LqRhwJchFIcfOqEevthO/u/zoP5
-	 J58Yip/BuYyrclfkwD/xsE5GgnlnZoJRP/IdqmkjtAqHOon27ksyVBXIN63HeyPcXg
-	 oRTw/9oYL3Rkjzv2qkECkyVkFVo7eea32DbeoZwEvoL5Z2nI7TLp88P0JO6l4kq9On
-	 Sth+bFQ49EAdchOLov4D12SS8iMuHZKmjpV9I6F8h7lLwnJ7g7h/MmyqOBP/yeHuSC
-	 aqHaeMuCpmGPnzOMDrGd5TlLnCB5ixbStsg5iBYxUo/vKmuDB/KAdWFHyjWZkX9ZKo
-	 1EA12sjsPDBTQ==
-Date: Tue, 21 Apr 2026 17:43:18 +0100
-From: Conor Dooley <conor@kernel.org>
-To: linux-kernel-dev@aliel.fr
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZzPlMaYb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1776789874; x=1808325874;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZMlm3vke/xn/Mo/8udyirPFnry1e8XrjEu/pi9aURw4=;
+  b=ZzPlMaYb+EefMlGsdKm+4FYkLeljyJ/GdyN+BjYWA8G1QNbrbSHMMxX/
+   xk5hME4uD10vbP77YMmwu/H/WLqwGDQbDJZrO6jgsek+Qnofnb3mLEBlp
+   rXVrpJogdPy7N1vlhoZGDZQ42f/4UhIE0Baym9J/347gF8A7RfCMxREEH
+   D2QVcz/DBLHhio6Yt/zOYju1tkr0394x0iRNuLwyBEZmPdaQRzYqCofgG
+   GtRUNMmqRmwzjDMJw01U+mCB5e/G1C9yPNPvDUSRZX4CzjjmjfXSNDU5x
+   9V8qpnlJPW4qE8nsnGqDIUTWxb3WPmt9sB8dnnyUQA1pBg8lqiRKJ6kEL
+   A==;
+X-CSE-ConnectionGUID: AdkmFtGrQ1G/81G+2hOf5g==
+X-CSE-MsgGUID: FlZUgJk3RQatoo+VFk/m0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11763"; a="81598286"
+X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
+   d="scan'208";a="81598286"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Apr 2026 09:44:33 -0700
+X-CSE-ConnectionGUID: 1A287Hd8Qy+B8bKqHBR4qA==
+X-CSE-MsgGUID: E72GOy4kQ6KN0VGoVtXeOA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
+   d="scan'208";a="231946096"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.135])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Apr 2026 09:44:29 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 53E1B120D05;
+	Tue, 21 Apr 2026 19:44:28 +0300 (EEST)
+Date: Tue, 21 Apr 2026 19:44:28 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Beniamino Galvani <b.galvani@gmail.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, linux-amlogic@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v4 1/8] dt-bindings: mfd: khadas: Add new compatible for
- Khadas VIM4 MCU
-Message-ID: <20260421-mayflower-scratch-c861c20ecc11@spud>
-References: <20260421-add-mcu-fan-khadas-vim4-v4-0-447114a28f2d@aliel.fr>
- <20260421-add-mcu-fan-khadas-vim4-v4-1-447114a28f2d@aliel.fr>
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH v2 5/5] media: i2c: lm3560: Add support for PM features
+Message-ID: <aeepbB72uWDxvnE_@kekkonen.localdomain>
+References: <20260419093412.40796-1-clamor95@gmail.com>
+ <20260419093412.40796-6-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vF6WveZDFwhhwK8a"
-Content-Disposition: inline
-In-Reply-To: <20260421-add-mcu-fan-khadas-vim4-v4-1-447114a28f2d@aliel.fr>
-
-
---vF6WveZDFwhhwK8a
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260419093412.40796-6-clamor95@gmail.com>
 
-On Tue, Apr 21, 2026 at 01:49:18PM +0200, Ronald Claveau via B4 Relay wrote:
-> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
->=20
-> The Khadas VIM4 MCU register is slightly different
-> from previous boards' MCU.
-> This board also features a switchable power source for its fan.
->=20
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Hi Shyvatoslav,
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+On Sun, Apr 19, 2026 at 12:34:12PM +0300, Svyatoslav Ryhel wrote:
+> @@ -403,6 +423,60 @@ static int lm3560_init_device(struct lm3560_flash *flash)
+>  	return rval;
+>  }
+>  
+> +static void lm3560_power_off(struct lm3560_flash *flash)
+> +{
+> +	gpiod_set_value_cansleep(flash->hwen_gpio, 0);
+> +	regulator_disable(flash->vin_supply);
+> +}
+> +
+> +static int lm3560_power_on(struct lm3560_flash *flash)
+> +{
+> +	int rval;
+> +
+> +	rval = regulator_enable(flash->vin_supply);
+> +	if (rval < 0) {
+> +		dev_err(flash->dev, "failed to enable vin power supply\n");
+> +		return rval;
+> +	}
+> +
+> +	gpiod_set_value_cansleep(flash->hwen_gpio, 1);
+> +
+> +	rval = lm3560_init_device(flash);
+> +	if (rval < 0) {
+> +		lm3560_power_off(flash);
+> +		return rval;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int __maybe_unused lm3560_pm_runtime_resume(struct device *dev)
+> +{
+> +	struct lm3560_flash *flash = dev_get_drvdata(dev);
+> +
+> +	return lm3560_power_on(flash);
+> +}
+> +
+> +static int __maybe_unused lm3560_pm_runtime_suspend(struct device *dev)
 
---vF6WveZDFwhhwK8a
-Content-Type: application/pgp-signature; name="signature.asc"
+Could you change lm3560_power_o{n,ff}() take struct device pointer as the
+argument?
 
------BEGIN PGP SIGNATURE-----
+> +{
+> +	struct lm3560_flash *flash = dev_get_drvdata(dev);
+> +
+> +	lm3560_power_off(flash);
+> +
+> +	return 0;
+> +}
+> +
+> +static void lm3560_subdev_cleanup(struct lm3560_flash *flash)
+> +{
+> +	unsigned int i;
+> +
+> +	for (i = LM3560_LED0; i < LM3560_LED_MAX; i++) {
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeepIwAKCRB4tDGHoIJi
-0m+GAQDP6Yhk+Ye2KmmQ30PRruDFLVUcEar4ReZCG96CAq3ZqgD/UXwYeykc1wq3
-5TfXvdpglW+/eDOGF8e5A5zNvpB7JgM=
-=SG9m
------END PGP SIGNATURE-----
+You could define i here.
 
---vF6WveZDFwhhwK8a--
+> +		v4l2_device_unregister_subdev(&flash->subdev_led[i]);
+> +		v4l2_ctrl_handler_free(&flash->ctrls_led[i]);
+> +		media_entity_cleanup(&flash->subdev_led[i].entity);
+> +	}
+> +}
+> +
+>  static int lm3560_probe(struct i2c_client *client)
+>  {
+>  	struct lm3560_flash *flash;
+
+-- 
+Kind regards,
+
+Sakari Ailus
