@@ -1,460 +1,310 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D32031F9BF;
-	Tue, 21 Apr 2026 17:38:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663D83469F5;
+	Tue, 21 Apr 2026 17:57:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776793121; cv=none; b=Yu7jvUrjIShPQM7cLP80rfTilloctfoQnXOh4+96BM/G5Jp2F4jQGLGxSgOA47jJ969yRdrkciGLnh51bW/NlJl5+gNEjq9pjPvkYQqxx/FV+fvBvNK2aiU+548l3bVjmPoC5swIp8ay50YfEqLxVhuSz2ZkgY7LThraeXgEGaA=
+	t=1776794245; cv=none; b=C6CUSB4xnBoxeoB+j4oJA9xg+e4y/rWqhKW8QusDcdRuudAJuCP/j+ePQUN8fq0waRhkJO8YNOlRljKeynzzgSPpCowtzmxYkcbE5CX+jZjkLpIblhMVCSbz28gzJwLzaUKz4h/q0Z/gV0OuePd6Lj3mJph/EWfqIZvcNp/XNfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776793121; c=relaxed/simple;
-	bh=La+dsMtKigLbKRdhWtAoDxJD3ki82cNWB5aMHPibp8U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=O46ghBvMI9/bFzGbgF4bhxPwSWwILsXdplt8jALFAGglp9E/JYc2YnjtWzHf4ZOyNWodbwy2zlvABmUl/x1cSP97Fp/yQDnGeEbNNPvi5KvGdhv7DbtaPY0anD1rlR0FX2+O8ciiHiJeaL+kp3tmExxVKl5BVXYPibH3VukfPaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IVrgCufO; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776794245; c=relaxed/simple;
+	bh=xPXf7LTENtfyjseOPX2ZzZFz4nnRhDy+MLhipzCmuqg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hlil2J9pPNDwktxi0o0KNilsS3UBEGY7Cnl07eBKoaxzLxG0Dfw6cu6KHZoAVoCl343KG+jkJ2+SGD8hxr9h1/XSkGD2LBPU1Vs2eo02nrP/lZe7kiwqxbyq1nIBw82iq7pQ1EknXPVBBeFaawHbrylqTAcz5NsLOH49ClxPNNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgfqeyUi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IVrgCufO"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DDB01C2BCB8;
-	Tue, 21 Apr 2026 17:38:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgfqeyUi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4EEC2BCB0;
+	Tue, 21 Apr 2026 17:57:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776793120;
-	bh=La+dsMtKigLbKRdhWtAoDxJD3ki82cNWB5aMHPibp8U=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=IVrgCufOpbWwdcXZPrbeGT6lxD92tSHmG8rrKvlqh1J1sNxQHQ38QZTn7py0hxDTD
-	 ljozgKbbFber9M9wvcMHzR8Qb67ABu+hVTYk7ztxs8ZmDjbVqgrLyCCHS5FNWDNpP1
-	 FlnKgi5MfKPsqHAO0wqehv3VY3Q0lUiguRFdJy8hXj3wcAHNjFvBnFhJLZOY0B5ID4
-	 +wocHg+8PHqtJ/s3gtsQfV4RbuE35I4DPCZeYKOLIz8AtbdtKWftWTe0iWmDx6jiYq
-	 EmHFqTMMvUR1+7ce1LikMJEXtlUHPMn8IxXuqAwOzj8TsCBu6eVBCLj905/YkSGHrp
-	 alVEnR8PSQHZw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B84CDF327DB;
-	Tue, 21 Apr 2026 17:38:40 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Tue, 21 Apr 2026 12:38:38 -0500
-Subject: [PATCH v5 2/2] drm/panel: Add panel driver for ChipWealth CH13726A
- based panels
+	s=k20201202; t=1776794245;
+	bh=xPXf7LTENtfyjseOPX2ZzZFz4nnRhDy+MLhipzCmuqg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dgfqeyUiTJMOTd4FOP1xIgVEHIDDgHn26SLXHbyk2+09VFA/8aAuxEVwgfeDGCkUZ
+	 Md+qmpTZmx21oSG82v6jjqSBIZk7nN+npw4mFcIy3sPor4SbI91HpVyIz5E3COfpmR
+	 p97rSJ63+NqXvUwGmn1kUaw2q+d6Lu6cfGhanCVp7CtsR9sysh5BLa9hXcghjfwd1s
+	 awKC4R6prDKFylGAbMBYlU23Fa7ku2Ze4u1gHMEaelP4QHjjtsmy6Mp/10uIRzkLg2
+	 NQ8wTHO4szxiTvoFNJ0a0oDDGrW1ZnskidMTOmURswFQbe0gRE4764mvrs6LbKmJkM
+	 QeRs1EtC4HN6w==
+Date: Tue, 21 Apr 2026 18:57:19 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Andrew Jeffery <andrew@aj.id.au>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>
+Subject: Re: [PATCH v7 1/3] dt-bindings: pinctrl: Add
+ aspeed,ast2700-soc0-pinctrl
+Message-ID: <20260421-valid-expanse-ae6b5a9289f2@spud>
+References: <20260416-upstream_pinctrl-v7-0-d72762253163@aspeedtech.com>
+ <20260416-upstream_pinctrl-v7-1-d72762253163@aspeedtech.com>
+ <20260416-brutishly-saga-ba7168a4cd14@spud>
+ <OSQPR06MB7252EB0C2A1A3313DE49406B8B202@OSQPR06MB7252.apcprd06.prod.outlook.com>
+ <20260417-anemia-borrower-fb90ac02b417@spud>
+ <OSQPR06MB7252BD7967D2567AD6DA7A1D8B2F2@OSQPR06MB7252.apcprd06.prod.outlook.com>
+ <20260420-footprint-both-967ccd6c120c@spud>
+ <OSQPR06MB725251546BFEB158F9AA1C4D8B2C2@OSQPR06MB7252.apcprd06.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260421-ch13726a-v5-2-f7f6f4f30e05@gmail.com>
-References: <20260421-ch13726a-v5-0-f7f6f4f30e05@gmail.com>
-In-Reply-To: <20260421-ch13726a-v5-0-f7f6f4f30e05@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>, 
- Aaron Kling <webgeek1234@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776793120; l=11291;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=6zJEeAQrGi45qzGSgqVejzQKCslg4CHUh2iZVXemX90=;
- b=ID4W3hY+c+U6xpOwaahWYKoVHFT3uiZKJZVQxNdFw/fpAcQa3EW9LSgiYEtnqCHh1VjYaiOGr
- E8fOnHgo31cAPKmtwq2VnmfgEGfHvLd9rnxPb6dG2UTpMH5GHhpdhvD
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
-Reply-To: webgeek1234@gmail.com
-
-From: Teguh Sobirin <teguh@sobir.in>
-
-This is used by the AYN Thor for the bottom panel.
-
-Signed-off-by: Teguh Sobirin <teguh@sobir.in>
-Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
----
- drivers/gpu/drm/panel/Kconfig                     |  11 +
- drivers/gpu/drm/panel/Makefile                    |   1 +
- drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c | 333 ++++++++++++++++++++++
- 3 files changed, 345 insertions(+)
-
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index d6863b28ddc559..e2c00f08f4507d 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -105,6 +105,17 @@ config DRM_PANEL_BOE_TV101WUM_LL2
- 	  Say Y here if you want to support for BOE TV101WUM-LL2
- 	  WUXGA PANEL DSI Video Mode panel
- 
-+config DRM_PANEL_CHIPWEALTH_CH13726A
-+	tristate "CHIPWEALTH CH13726A-based DSI panel"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	select DRM_DISPLAY_DP_HELPER
-+	select DRM_DISPLAY_HELPER
-+	help
-+	  Say Y here if you want to enable support for ChipWealth
-+	  CH13726A-based display panels.
-+
- config DRM_PANEL_EBBG_FT8719
- 	tristate "EBBG FT8719 panel driver"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index a4291dc3905bed..343d283d1620fb 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -9,6 +9,7 @@ obj-$(CONFIG_DRM_PANEL_BOE_TD4320) += panel-boe-td4320.o
- obj-$(CONFIG_DRM_PANEL_BOE_TH101MB31UIG002_28A) += panel-boe-th101mb31ig002-28a.o
- obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_LL2) += panel-boe-tv101wum-ll2.o
- obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_NL6) += panel-boe-tv101wum-nl6.o
-+obj-$(CONFIG_DRM_PANEL_CHIPWEALTH_CH13726A) += panel-chipwealth-ch13726a.o
- obj-$(CONFIG_DRM_PANEL_DSI_CM) += panel-dsi-cm.o
- obj-$(CONFIG_DRM_PANEL_LVDS) += panel-lvds.o
- obj-$(CONFIG_DRM_PANEL_SIMPLE) += panel-simple.o
-diff --git a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
-new file mode 100644
-index 00000000000000..175f40e752126f
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
-@@ -0,0 +1,333 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * ChipWealth CH13726A MIPI-DSI panel driver
-+ * Copyright (c) 2024, Teguh Sobirin <teguh@sobir.in>.
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+
-+#include <video/mipi_display.h>
-+
-+static const struct regulator_bulk_data ch13726a_supplies[] = {
-+	{ .supply = "vdd1v2", },
-+	{ .supply = "vddio", },
-+	{ .supply = "vdd", },
-+	{ .supply = "avdd", },
-+};
-+
-+struct ch13726a_panel {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct regulator_bulk_data *supplies;
-+	struct gpio_desc *reset_gpio;
-+	struct ch13726a_desc *desc;
-+	enum drm_panel_orientation orientation;
-+};
-+
-+struct ch13726a_desc {
-+	unsigned int width_mm;
-+	unsigned int height_mm;
-+	unsigned int bpc;
-+
-+	const struct drm_display_mode *modes;
-+	unsigned int num_modes;
-+};
-+
-+static inline struct ch13726a_panel *to_ch13726a_panel(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct ch13726a_panel, panel);
-+}
-+
-+static void ch13726a_reset(struct ch13726a_panel *ctx)
-+{
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(10000, 11000);
-+}
-+
-+static int ch13726a_on(struct ch13726a_panel *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf0, 0x50);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb9, 0x00);
-+
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int ch13726a_disable(struct drm_panel *panel)
-+{
-+	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int ch13726a_prepare(struct drm_panel *panel)
-+{
-+	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
-+	struct device *dev = &ctx->dsi->dev;
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ch13726a_supplies), ctx->supplies);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to enable regulators: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ch13726a_reset(ctx);
-+
-+	ret = ch13726a_on(ctx);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to initialize panel: %d\n", ret);
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+		regulator_bulk_disable(ARRAY_SIZE(ch13726a_supplies), ctx->supplies);
-+		return ret;
-+	}
-+
-+	msleep(28);
-+
-+	return 0;
-+}
-+
-+static int ch13726a_unprepare(struct drm_panel *panel)
-+{
-+	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	regulator_bulk_disable(ARRAY_SIZE(ch13726a_supplies), ctx->supplies);
-+
-+	return 0;
-+}
-+
-+static const struct drm_display_mode thor_bottom_modes[] = {
-+	{
-+		/* 120Hz */
-+		.clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 120 / 1000,
-+		.hdisplay = 1080,
-+		.hsync_start = 1080 + 28,
-+		.hsync_end = 1080 + 28 + 4,
-+		.htotal = 1080 + 28 + 4 + 36,
-+		.vdisplay = 1240,
-+		.vsync_start = 1240 + 16,
-+		.vsync_end = 1240 + 16 + 4,
-+		.vtotal = 1240 + 16 + 4 + 8,
-+	},
-+	{
-+		/* 60Hz */
-+		.clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 60 / 1000,
-+		.hdisplay = 1080,
-+		.hsync_start = 1080 + 28,
-+		.hsync_end = 1080 + 28 + 4,
-+		.htotal = 1080 + 28 + 4 + 36,
-+		.vdisplay = 1240,
-+		.vsync_start = 1240 + 16,
-+		.vsync_end = 1240 + 16 + 4,
-+		.vtotal = 1240 + 16 + 4 + 8,
-+	}
-+};
-+
-+static struct ch13726a_desc thor_bottom_desc = {
-+	.modes = thor_bottom_modes,
-+	.num_modes = ARRAY_SIZE(thor_bottom_modes),
-+	.width_mm = 65,
-+	.height_mm = 75,
-+	.bpc = 8,
-+};
-+
-+static int ch13726a_get_modes(struct drm_panel *panel,
-+					struct drm_connector *connector)
-+{
-+	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
-+
-+	for (uint8_t i = 0; i < ctx->desc->num_modes; i++) {
-+		const struct drm_display_mode *m = &ctx->desc->modes[i];
-+		struct drm_display_mode *mode;
-+
-+		mode = drm_mode_duplicate(connector->dev, m);
-+		if (!mode) {
-+			dev_err(&ctx->dsi->dev, "failed to add mode %ux%u@%u\n",
-+				m->hdisplay, m->vdisplay, drm_mode_vrefresh(m));
-+			return -ENOMEM;
-+		}
-+
-+		mode->type = DRM_MODE_TYPE_DRIVER;
-+		if (i == 0)
-+			mode->type |= DRM_MODE_TYPE_PREFERRED;
-+
-+		drm_mode_set_name(mode);
-+		drm_mode_probed_add(connector, mode);
-+	}
-+
-+	connector->display_info.width_mm = ctx->desc->width_mm;
-+	connector->display_info.height_mm = ctx->desc->height_mm;
-+	connector->display_info.bpc = ctx->desc->bpc;
-+
-+	return ctx->desc->num_modes;
-+}
-+
-+static enum drm_panel_orientation ch13726a_get_orientation(struct drm_panel *panel)
-+{
-+	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
-+
-+	return ctx->orientation;
-+}
-+
-+static const struct drm_panel_funcs ch13726a_panel_funcs = {
-+	.prepare = ch13726a_prepare,
-+	.unprepare = ch13726a_unprepare,
-+	.disable = ch13726a_disable,
-+	.get_modes = ch13726a_get_modes,
-+	.get_orientation = ch13726a_get_orientation,
-+};
-+
-+static int ch13726a_bl_update_status(struct backlight_device *bl)
-+{
-+	struct mipi_dsi_device *dsi = bl_get_data(bl);
-+	u16 brightness = backlight_get_brightness(bl);
-+	int ret;
-+
-+	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	ret = mipi_dsi_dcs_set_display_brightness(dsi, brightness);
-+	if (ret < 0)
-+		return ret;
-+
-+	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	return 0;
-+}
-+
-+static const struct backlight_ops ch13726a_bl_ops = {
-+	.update_status = ch13726a_bl_update_status,
-+};
-+
-+static struct backlight_device *
-+ch13726a_create_backlight(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	const struct backlight_properties props = {
-+		.type = BACKLIGHT_RAW,
-+		.brightness = 255,
-+		.max_brightness = 255,
-+	};
-+
-+	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
-+					      &ch13726a_bl_ops, &props);
-+}
-+
-+static int ch13726a_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct ch13726a_panel *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(dev, __typeof(*ctx), panel,
-+				   &ch13726a_panel_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ctx->desc = (struct ch13726a_desc *)of_device_get_match_data(dev);
-+	if (!ctx->desc)
-+		return -ENODEV;
-+
-+	ret = devm_regulator_bulk_get_const(dev,
-+					    ARRAY_SIZE(ch13726a_supplies),
-+					    ch13726a_supplies,
-+					    &ctx->supplies);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Failed to get regulators\n");
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset-gpios\n");
-+
-+	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-+	if (ret < 0) {
-+		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, ret);
-+		return ret;
-+	}
-+
-+	ctx->dsi = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
-+			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ctx->panel.backlight = ch13726a_create_backlight(dsi);
-+	if (IS_ERR(ctx->panel.backlight))
-+		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
-+				     "Failed to create backlight\n");
-+
-+	drm_panel_add(&ctx->panel);
-+
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
-+		drm_panel_remove(&ctx->panel);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void ch13726a_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct ch13726a_panel *ctx = mipi_dsi_get_drvdata(dsi);
-+	int ret;
-+
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
-+
-+	drm_panel_remove(&ctx->panel);
-+}
-+
-+static const struct of_device_id ch13726a_of_match[] = {
-+	{ .compatible = "ayntec,thor-panel-bottom", .data = &thor_bottom_desc },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, ch13726a_of_match);
-+
-+static struct mipi_dsi_driver ch13726a_driver = {
-+	.probe = ch13726a_probe,
-+	.remove = ch13726a_remove,
-+	.driver = {
-+		.name = "panel-ch13726a-amoled",
-+		.of_match_table = ch13726a_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(ch13726a_driver);
-+
-+MODULE_DESCRIPTION("DRM driver for CH13726A DSI panels");
-+MODULE_LICENSE("GPL");
-
--- 
-2.53.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="e/yrNYrOHY6xz2Ct"
+Content-Disposition: inline
+In-Reply-To: <OSQPR06MB725251546BFEB158F9AA1C4D8B2C2@OSQPR06MB7252.apcprd06.prod.outlook.com>
 
 
+--e/yrNYrOHY6xz2Ct
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Billy, Linus,
+
+On Tue, Apr 21, 2026 at 06:15:44AM +0000, Billy Tsai wrote:
+> > > > > > > +    properties:
+> > > > > > > +      function:
+> > > > > > > +        enum:
+> > > > > > > +          - EMMC
+> > > > > > > +          - JTAGDDR
+> > > > > > > +          - JTAGM0
+> > > > > > > +          - JTAGPCIEA
+> > > > > > > +          - JTAGPCIEB
+> > > > > > > +          - JTAGPSP
+> > > > > > > +          - JTAGSSP
+> > > > > > > +          - JTAGTSP
+> > > > > > > +          - JTAGUSB3A
+> > > > > > > +          - JTAGUSB3B
+> > > > > > > +          - PCIERC0PERST
+> > > > > > > +          - PCIERC1PERST
+> > > > > > > +          - TSPRSTN
+> > > > > > > +          - UFSCLKI
+> > > > > > > +          - USB2AD0
+> > > > > > > +          - USB2AD1
+> > > > > > > +          - USB2AH
+> > > > > > > +          - USB2AHP
+> > > > > > > +          - USB2AHPD0
+> > > > > > > +          - USB2AXH
+> > > > > > > +          - USB2AXH2B
+> > > > > > > +          - USB2AXHD1
+> > > > > > > +          - USB2AXHP
+> > > > > > > +          - USB2AXHP2B
+> > > > > > > +          - USB2AXHPD1
+> > > > > > > +          - USB2BD0
+> > > > > > > +          - USB2BD1
+> > > > > > > +          - USB2BH
+> > > > > > > +          - USB2BHP
+> > > > > > > +          - USB2BHPD0
+> > > > > > > +          - USB2BXH
+> > > > > > > +          - USB2BXH2A
+> > > > > > > +          - USB2BXHD1
+> > > > > > > +          - USB2BXHP
+> > > > > > > +          - USB2BXHP2A
+> > > > > > > +          - USB2BXHPD1
+> > > > > > > +          - USB3AXH
+> > > > > > > +          - USB3AXH2B
+> > > > > > > +          - USB3AXHD
+> > > > > > > +          - USB3AXHP
+> > > > > > > +          - USB3AXHP2B
+> > > > > > > +          - USB3AXHPD
+> > > > > > > +          - USB3BXH
+> > > > > > > +          - USB3BXH2A
+> > > > > > > +          - USB3BXHD
+> > > > > > > +          - USB3BXHP
+> > > > > > > +          - USB3BXHP2A
+> > > > > > > +          - USB3BXHPD
+> > > > > > > +          - VB
+> > > > > > > +          - VGADDC
+> > > > > > > +
+> > > > > > > +      groups:
+> > > > > > > +        enum:
+> > > > > > > +          - EMMCCDN
+> > > > > > > +          - EMMCG1
+> > > > > > > +          - EMMCG4
+> > > > > > > +          - EMMCG8
+> > > > > > > +          - EMMCWPN
+> > > > > > > +          - JTAG0
+> > > > > > > +          - PCIERC0PERST
+> > > > > > > +          - PCIERC1PERST
+> > > > > > > +          - TSPRSTN
+> > > > > > > +          - UFSCLKI
+> > > > > > > +          - USB2A
+> > > > > > > +          - USB2AAP
+> > > > > > > +          - USB2ABP
+> > > > > > > +          - USB2ADAP
+> > > > > > > +          - USB2AH
+> > > > > > > +          - USB2AHAP
+> > > > > > > +          - USB2B
+> > > > > > > +          - USB2BAP
+> > > > > > > +          - USB2BBP
+> > > > > > > +          - USB2BDBP
+> > > > > > > +          - USB2BH
+> > > > > > > +          - USB2BHBP
+> > > > > > > +          - USB3A
+> > > > > > > +          - USB3AAP
+> > > > > > > +          - USB3ABP
+> > > > > > > +          - USB3B
+> > > > > > > +          - USB3BAP
+> > > > > > > +          - USB3BBP
+> > > > > > > +          - VB0
+> > > > > > > +          - VB1
+> > > > > > > +          - VGADDC
+> > > > > > > +      pins:
+> > > > > > > +        enum:
+> > > > > > > +          - AB13
+> > > > > > > +          - AB14
+> > > > > > > +          - AC13
+> > > > > > > +          - AC14
+> > > > > > > +          - AD13
+> > > > > > > +          - AD14
+> > > > > > > +          - AE13
+> > > > > > > +          - AE14
+> > > > > > > +          - AE15
+> > > > > > > +          - AF13
+> > > > > > > +          - AF14
+> > > > > > > +          - AF15
+>=20
+> > > > > > Why do you have groups and pins?
+> > > > > > Is it valid in your device to have groups and pins in the same =
+node?
+>=20
+> > > > > The intent is to support both group-based mux selection and
+> > > > > configuration, as well as per-pin configuration.
+>=20
+> > > > > In our hardware:
+> > > > > - `function` + `groups` are used for pinmux selection.
+> > > > > - `pins` is used for per-pin configuration (e.g. drive strength,
+> > > > >   bias settings).
+> > > > > - `groups` may also be used for group-level configuration.
+>=20
+> > > > > As a result, both `groups` and `pins` may appear in the same node,
+> > > > > but they serve different purposes and do not conflict:
+> > > > > - `groups` selects the mux function and may apply configuration to
+> > > > >   the entire group.
+> > > > > - `pins` allows overriding or specifying configuration for indivi=
+dual
+> > > > >   pins.
+>=20
+> > > > > In most cases, only one of them is needed, but both are allowed w=
+hen
+> > > > > both group-level and per-pin configuration are required.
+>=20
+> > > > To be honest, that sounds like your groups are not sufficiently
+> > > > granular and should be reduced such that you can use them for pin
+> > > > settings.
+>=20
+> > > The intent was to keep the binding flexible, but in practice the mixed
+> > > use of `groups` and `pins` in the same node is not expected to be use=
+d.
+> > >=20
+> > > Given that, I agree this flexibility is unnecessary and makes the
+> > > binding semantics less clear. I'll rework the binding to make the
+> > > expected usage explicit rather than allowing combinations that do not
+> > > correspond to a real use case.
+> > >=20
+> > > In particular, I'll split the constraints as follows:
+> > >=20
+> > > - For pinmux, the presence of `function` will require `groups`, and
+> > >   `pins` will not be allowed. This reflects the hardware design, where
+> > >   the groups are defined by the pins affected by a given mux expressi=
+on
+> > >=20
+> > > - For pin configuration, exactly one of `groups` or `pins` will be
+> > >   required (using oneOf), so that configuration is applied either at
+> > >   group level or per-pin, but not both.
+> > >=20
+> > >=20
+> > > - if:
+> > >     required:
+> > >       - function
+> > >   then:
+> > >     required:
+> > >       - groups
+> > >     not:
+> > >       required:
+> > >         - pins
+> > >   else:
+> > >     oneOf:
+> > >       - required:
+> > >           - groups
+> > >         not:
+> > >           required:
+> > >             - pins
+> > >       - required:
+> > >           - pins
+> > >         not:
+> > >           required:
+> > >             - groups
+> > > Does this match what you had in mind?
+>=20
+> > It's an improvement I think, but I am wondering why you cannot do
+> > without pins entirely and apply pinconf stuff at the group level?
+> > Of course that may not be possible with the current groups, but if you
+> > made the groups more granular, would it be possible?
+>=20
+> Within a given group, it is not always the case that all pins share the
+> same configuration requirements (e.g. drive strength or bias settings),
+> so applying pinconf purely at the group level would be too restrictive.
+
+Right. That's pretty normal.
+
+> Making the groups more granular to match all possible configuration
+> combinations would not reflect the actual mux granularity and would
+> significantly increase the number of groups.
+
+>=20
+> For example, we have encountered a timing issue due to the PCB layout,
+> where only the eMMC clock pin requires a different drive strength:
+>=20
+>   # The EMMCG4 group includes pins AC14, AE15, AD14, AE14, AF14, AB13
+>   # AC14: clock
+>   # AE15: command
+>   # AD14=E2=80=93AB13: data
+>=20
+>   pinconf_emmc_clk: emmc-clk-pinconf {
+>       pins =3D "AC14";
+>       drive-strength =3D <8>;
+>   };
+>=20
+> In this case, applying pin configuration at the group level would affect
+> all pins in the group, which is not desirable. Allowing per-pin
+> configuration via `pins` is therefore necessary.
+>=20
+> For this reason, `groups` is used for mux selection, while `pins` is
+> required to express per-pin configuration where needed.
+
+Right, yeah, I figured your objection to it was because of how
+annoyingly small it would make the groups. I suppose the alternative is
+going without groups and always using pins.
+Having groups and pins seems really suboptimal to me, but there are
+some other bindings where this is done. Linus, what is your take on
+nodes supporting both? I'm biased towards having a more straightforward
+binding but if you think this mix makes sense then I'll defer to your
+vastly greater experience with these devices.
+
+
+--e/yrNYrOHY6xz2Ct
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaee6fwAKCRB4tDGHoIJi
+0noaAP9jYP09SYhW2PHzSVQFFiUEdcOsiFAlMGJHXxpV2+SxZgEAzvMeVc+SrBA4
+Ker/dZO9rTEAMa9/23liJlGnUhKVJQA=
+=BQ+S
+-----END PGP SIGNATURE-----
+
+--e/yrNYrOHY6xz2Ct--
