@@ -1,153 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 251FF3D3339;
-	Tue, 21 Apr 2026 12:36:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2665021CFE0
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 12:37:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776775011; cv=none; b=uYXI8hnVyqY+34xyGpO5MgBqJ5idzhrjVPn107PLR1QqbOanio3bm1sRsQJ3F+rnKaJtB4c/3lQUSy00ihOdO3TELqAoMohSyiRTidCqa48X15fdI6mCBvEOOx8vC6CkZWSPTaTPnX3dL0vKp/GRnw0l77RE0uVGuK47ExIGzd4=
+	t=1776775046; cv=none; b=DRpAeO20HtJVU1hrilOXrplz9YJR3t2m14QqqynoKYGXZJmWIxp6baH1FPWbAKiZl8PvhtbEC+G3DByFuqcWuKBTghggH7FtSlphsmzrNoohhjEjHR83mGuzenWJhZnKV3rH7tkQg59mNEQOKOZ3re4zHlUO/D+iOoh0qqhAQ38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776775011; c=relaxed/simple;
-	bh=ySWjPzjlFWH5Pg0MB91iY6wBTNwzPyo4OILr+iHHSrw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tUd5vo3ob6WBlAbVKB9IZgyPAVE/gi7DbMgKMsXWudVNf7ERPOajYn9TINSyz+WyMD/KTzKBkzr/m7L5EKAtWJs++LJVklfj3yA1lpP+mHuSzrRUbF/fQ5x+8+fCRYkbp5Lm/29nE9kMftNQod3ntuMiuESnvsRoAePaq7qbkKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zsdEKXNK; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776775046; c=relaxed/simple;
+	bh=ideP4jrO/m036pXeZo7bcsWjA2k3UgxGXAL0J4EOJJQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Mmcm2vTsCco8UMvjdb6dookGKxFfB6Oyz79EzUUsGKrEIz/ZGJVcZPg/XxPfiugBuYIYOTFp5iLREjp+3EHQdy7p5UvU/6lPOU7RUDC7JYkEIgDMMLGNPt6O/6Z82HVP9g9RLOFdZnjZ4ogWSR36xDuH/eQw8kaQrYubTWPPmMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b2f3wpAg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zsdEKXNK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF61EC2BCB3;
-	Tue, 21 Apr 2026 12:36:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1776775010;
-	bh=ySWjPzjlFWH5Pg0MB91iY6wBTNwzPyo4OILr+iHHSrw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=zsdEKXNKD7fvHRq62y5AiN4tBfmnY1WFZcHuSz7ZbfjxIPs6tzP2NDjr4ks9nO3XM
-	 AgqA7BOUGjsVibNBa5S+YbiF5Or1yYKaHzBKlWAn57+vZfde6XM5f9lywcmF7Aq7FF
-	 XpvNGt9lMmkKYf0djaTNfh3UbuIXfsmS7BGuEqBQ=
-Date: Tue, 21 Apr 2026 14:36:47 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Link Mauve <linkmauve@linkmauve.fr>
-Cc: linuxppc-dev@lists.ozlabs.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Juergen Gross <jgross@suse.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Geoff Levand <geoff@infradead.org>,
-	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	Oliver O'Halloran <oohall@gmail.com>,
-	Anatolij Gustschin <agust@denx.de>,
-	Breno =?iso-8859-1?Q?Leit=E3o?= <leitao@debian.org>,
-	Nayna Jain <nayna@linux.ibm.com>,
-	Paulo Flabiano Smorigo <pfsmorigo@gmail.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Thorsten Blum <thorsten.blum@linux.dev>,
-	Thomas Huth <thuth@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	David Hildenbrand <david@kernel.org>,
-	Alistair Popple <apopple@nvidia.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Donet Tom <donettom@linux.ibm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@rivosinc.com>,
-	Will Deacon <will@kernel.org>,
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-	Paul Moore <paul@paul-moore.com>, Nam Cao <namcao@linutronix.de>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Sourabh Jain <sourabhjain@linux.ibm.com>,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	Srikar Dronamraju <srikar@linux.ibm.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Jiri Bohac <jbohac@suse.cz>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Kees Cook <kees@kernel.org>, Stephen Rothwell <sfr@cab.auug.org.au>,
-	Xichao Zhao <zhao.xichao@vivo.com>,
-	Gautam Menghani <gautam@linux.ibm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Li Chen <chenl311@chinatelecom.cn>,
-	Aboorva Devarajan <aboorvad@linux.ibm.com>,
-	Petr Mladek <pmladek@suse.com>,
-	Feng Tang <feng.tang@linux.alibaba.com>,
-	"Nysal Jan K.A." <nysal@linux.ibm.com>,
-	Aditya Gupta <adityag@linux.ibm.com>,
-	Sayali Patil <sayalip@linux.ibm.com>,
-	Rohan McLure <rmclure@linux.ibm.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Yeoreum Yun <yeoreum.yun@arm.com>,
-	Kevin Brodsky <kevin.brodsky@arm.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Andrew Donnellan <andrew+kernel@donnellan.id.au>,
-	"Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
-	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
-	Athira Rajeev <atrajeev@linux.ibm.com>,
-	Kajol Jain <kjain@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>,
-	Chen Ni <nichen@iscas.ac.cn>, Haren Myneni <haren@linux.ibm.com>,
-	Jonathan Greental <yonatan02greental@gmail.com>,
-	Ingo Molnar <mingo@kernel.org>,
-	"Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
-	Gaurav Batra <gbatra@linux.ibm.com>,
-	Nilay Shroff <nilay@linux.ibm.com>,
-	Vivian Wang <wangruikang@iscas.ac.cn>,
-	Adrian =?utf-8?Q?Barna=C5=9B?= <abarnas@google.com>,
-	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
-	Thierry Reding <treding@nvidia.com>, Yury Norov <ynorov@nvidia.com>,
-	"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
-	Ruben Wauters <rubenru09@aol.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-crypto@vger.kernel.org,
-	kvm@vger.kernel.org, virtualization@lists.linux.dev, x86@kernel.org
-Subject: Re: [PATCH 2/2] powerpc: Run typos -w
-Message-ID: <2026042113-shaded-favored-c342@gregkh>
-References: <20260421121420.26079-1-linkmauve@linkmauve.fr>
- <20260421121420.26079-3-linkmauve@linkmauve.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b2f3wpAg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D984BC2BCC4
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 12:37:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776775045;
+	bh=ideP4jrO/m036pXeZo7bcsWjA2k3UgxGXAL0J4EOJJQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=b2f3wpAgM9QrvFFTlHMpdrImlw7Iplmd1KiU/fQ4R2yhjf+ZmARXrYrCDBaFmScdh
+	 sk+IibBstdbWBgUJmI4mVtd3H6EZIx16B4A3k9epI6JpWYgTOnujYOi8937zmE6NHF
+	 mX3Y+FfGdl/IlDVef6ewRYMxjjsel6D3Zx2bcacm+0nJsiEfowPmsXsq1ycE/53MCy
+	 akU3n/yxpYvz6WB35tcbARG2lm3pqIwHP2ziXyvNZDh2rDlLk3wcZlv2GwlnN2DGy9
+	 zbgI9Migue8IeZxEk7m0kvutVYVWep2TOoGfFb0DEd9eGqlD00H2QpCBG50GHjF4Bp
+	 LPghQRR0ACMNg==
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6634bb959a2so5840385a12.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 05:37:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9QmutARqQ7UQW5rJPN9SiD9zYb4HS9TUV4RZqS3ZJoCdV9ENUb12tyatZ4A2Sioo64qLoQGRws5YqE@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywcqd5/caYcN4933OXM3JB0se819v4/CavfQNbEwwLNmeLZQU/2
+	xV+kGbOYz+dn/4fIcvNZzuSChZm3m9wJxYb9QrV56VGRa8WhS0885Ba4SSbEmyVOFTXlqSxMLAG
+	Zf4HsvNBC7nTYh18KNTajZzNZv+ge2A==
+X-Received: by 2002:a05:6402:e9c:b0:672:523f:1bf4 with SMTP id
+ 4fb4d7f45d1cf-672bfd999d1mr7012282a12.10.1776775044253; Tue, 21 Apr 2026
+ 05:37:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260421121420.26079-3-linkmauve@linkmauve.fr>
+References: <20260417024523.107786-1-minda.chen@starfivetech.com>
+ <20260417024523.107786-4-minda.chen@starfivetech.com> <20260420133930.GA2322456-robh@kernel.org>
+ <BJXPR01MB085573DCF307E33E43FD664AE62C2@BJXPR01MB0855.CHNPR01.prod.partner.outlook.cn>
+In-Reply-To: <BJXPR01MB085573DCF307E33E43FD664AE62C2@BJXPR01MB0855.CHNPR01.prod.partner.outlook.cn>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 21 Apr 2026 07:37:13 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+PEQ7x_3V2173KHyffzY7CzLoYoFDNvTpdn2-Q_eKR-A@mail.gmail.com>
+X-Gm-Features: AQROBzB2M3mNV2WntzVbuyGm-8OM0dCyGRaPWNfGo4jCW3v3OLTBz32FUX-FwZE
+Message-ID: <CAL_Jsq+PEQ7x_3V2173KHyffzY7CzLoYoFDNvTpdn2-Q_eKR-A@mail.gmail.com>
+Subject: Re: [net-next v2 3/5] dt-bindings: net: starfive,jh7110-dwmac: Add
+ JHB100 sgmii rx clk
+To: Minda Chen <minda.chen@starfivetech.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Emil Renner Berthing <emil.renner.berthing@canonical.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor@kernel.org>, 
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"linux-stm32@st-md-mailman.stormreply.com" <linux-stm32@st-md-mailman.stormreply.com>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Apr 21, 2026 at 02:14:14PM +0200, Link Mauve wrote:
-> diff --git a/arch/powerpc/boot/dts/mpc8308_p1m.dts b/arch/powerpc/boot/dts/mpc8308_p1m.dts
-> index 41f917f97dab..48a98449ecbb 100644
-> --- a/arch/powerpc/boot/dts/mpc8308_p1m.dts
-> +++ b/arch/powerpc/boot/dts/mpc8308_p1m.dts
-> @@ -90,14 +90,14 @@ can@1,0 {
->  			compatible = "nxp,sja1000";
->  			reg = <0x1 0x0 0x80>;
->  			interrupts = <18 0x8>;
-> -			interrups-parent = <&ipic>;
-> +			interrupts-parent = <&ipic>;
->  		};
->  
->  		cpld@2,0 {
->  			compatible = "denx,mpc8308_p1m-cpld";
->  			reg = <0x2 0x0 0x8>;
->  			interrupts = <48 0x8>;
-> -			interrups-parent = <&ipic>;
-> +			interrupts-parent = <&ipic>;
->  		};
->  	};
->  
+On Mon, Apr 20, 2026 at 10:39=E2=80=AFPM Minda Chen <minda.chen@starfivetec=
+h.com> wrote:
+>
+>
+>
+>
+> >
+> > On Fri, Apr 17, 2026 at 10:45:21AM +0800, Minda Chen wrote:
+> > > JHB100 SGMII interface tx/rx mac clock is split and require to set
+> > > clock rate in 10M/100M/1000M speed. So dts need to add a new rx clock
+> > > in code, dts and dt binding doc.
+> > >
+> > > Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
+> > > ---
+> > >  .../bindings/net/starfive,jh7110-dwmac.yaml   | 42 ++++++++++++++++-=
+--
+> > >  1 file changed, 36 insertions(+), 6 deletions(-)
+> > >
+> > > diff --git
+> > > a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+> > > b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+> > > index edc246a71ce3..3802cdbf1848 100644
+> > > --- a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yam=
+l
+> > > +++ b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yam=
+l
+> > > @@ -39,20 +39,26 @@ properties:
+> > >      maxItems: 1
+> > >
+> > >    clocks:
+> > > +    minItems: 5
+> > >      items:
+> > >        - description: GMAC main clock
+> > >        - description: GMAC AHB clock
+> > >        - description: PTP clock
+> > >        - description: TX clock
+> > >        - description: GTX clock
+> > > +      - description: SGMII RX clock
+> > >
+> > >    clock-names:
+> > > -    items:
+> > > -      - const: stmmaceth
+> > > -      - const: pclk
+> > > -      - const: ptp_ref
+> > > -      - const: tx
+> > > -      - const: gtx
+> > > +    minItems: 5
+> > > +    maxItems: 6
+> > > +    contains:
+> > > +      enum:
+> > > +       - stmmaceth
+> > > +       - pclk
+> > > +       - ptp_ref
+> > > +       - tx
+> > > +       - gtx
+> > > +       - sgmii_rx
+> >
+> > No, this allows any of the above strings plus any other random strings.
+> >
+> > Rob
+>
+> Got it. Thanks. In JHB100 I will using "oneOf" 5 clocks or 6 clocks. 7100=
+/7100 are const clock names
 
-Isn't this going to break a working system?  If not, then was this dts
-file ever correct in the first place?
+No, based on what you did for 'clocks', you just need:
 
-thanks,
+  clock-names:
+    minItems: 5
+   items:
+      - const: stmmaceth
+      - const: pclk
+      - const: ptp_ref
+      - const: tx
+      - const: gtx
+      - sgmii_rx
 
-greg k-h
+Rob
