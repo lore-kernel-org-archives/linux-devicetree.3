@@ -1,168 +1,124 @@
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3113D1509AB;
-	Tue, 21 Apr 2026 17:07:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.228.1.57
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8425B33F8B4;
+	Tue, 21 Apr 2026 17:11:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776791251; cv=none; b=YoLVRP0rELpxGlS4rxsWEocB5iqK/F4XRFaPLOyRf4qkL5Sj7ocK6fh+ElZ++lxGds/hy8CLE+yK43WPlGS0PzTsN3UYHPPu6wcg3j5oOtq3Gl2bHIeZjP7t7UiIMBnRVG/6t6oP2c6OH6NNZl5hYN47mi99cjxjn2wAUMb1jaQ=
+	t=1776791480; cv=none; b=ak8OlrjTkT6+jbxWJZDSLNbtW1Ti29H2GwYOkITF/CrDdn2y3DMFO0QW5N7F9C0ZIqMgy3BtWUZMEMhH31Da72UAQA2cWZZj9wBhZV0MtXlJgiDEq9exJAfl8exgzIE2+XmEHEeh5Lt2XrHlLC0dEZ7qg7sZxplRKFoUInWCTB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776791251; c=relaxed/simple;
-	bh=BmLatGy8n1zKmv3W1i69jDYO1lD52eKYiSdHSJdTpeE=;
+	s=arc-20240116; t=1776791480; c=relaxed/simple;
+	bh=zMNU29+wUjgpn9Ja3lorEBJU6chv56zxhp13d5Ny4L4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hWmmbShRAnnRWeyuIgfALBggo4xC11vz7zRyTtJodnrjqaCuRUb28Y7iawPTgFYWVitNK4etXALUVQ2BeBV5KeMyrhRlr4p2vuvEMeGLlJ8FerHQlwVTMI6e9/6tnHwitHWvoS/I2zUj8sz1JPQYSlmLpWy70oOUfdDZU4As4Do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.crashing.org; spf=pass smtp.mailfrom=kernel.crashing.org; arc=none smtp.client-ip=63.228.1.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.crashing.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.crashing.org
-Received: from gate.crashing.org (localhost [127.0.0.1])
-	by gate.crashing.org (8.18.1/8.18.1/Debian-2) with ESMTP id 63LH4FuA3771909;
-	Tue, 21 Apr 2026 12:04:15 -0500
-Received: (from segher@localhost)
-	by gate.crashing.org (8.18.1/8.18.1/Submit) id 63LH47sR3771903;
-	Tue, 21 Apr 2026 12:04:07 -0500
-X-Authentication-Warning: gate.crashing.org: segher set sender to segher@kernel.crashing.org using -f
-Date: Tue, 21 Apr 2026 12:04:06 -0500
-From: Segher Boessenkool <segher@kernel.crashing.org>
-To: Link Mauve <linkmauve@linkmauve.fr>
-Cc: linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>,
-        Juergen Gross <jgross@suse.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
-        Alexey Makhalov <alexey.makhalov@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-        Geoff Levand <geoff@infradead.org>,
-        Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-        "Oliver O'Halloran" <oohall@gmail.com>,
-        Anatolij Gustschin <agust@denx.de>,
-        Breno =?iso-8859-1?Q?Leit=E3o?= <leitao@debian.org>,
-        Nayna Jain <nayna@linux.ibm.com>,
-        Paulo Flabiano Smorigo <pfsmorigo@gmail.com>,
-        Eric Biggers <ebiggers@kernel.org>,
-        "Jason A. Donenfeld" <Jason@zx2c4.com>,
-        Ard Biesheuvel <ardb@kernel.org>,
-        Thorsten Blum <thorsten.blum@linux.dev>,
-        Thomas Huth <thuth@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-        David Hildenbrand <david@kernel.org>,
-        Alistair Popple <apopple@nvidia.com>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Donet Tom <donettom@linux.ibm.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@rivosinc.com>,
-        Will Deacon <will@kernel.org>,
-        "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-        Paul Moore <paul@paul-moore.com>, Nam Cao <namcao@linutronix.de>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sourabh Jain <sourabhjain@linux.ibm.com>,
-        Hari Bathini <hbathini@linux.ibm.com>,
-        Srikar Dronamraju <srikar@linux.ibm.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, Jiri Bohac <jbohac@suse.cz>,
-        "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-        "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-        Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Kees Cook <kees@kernel.org>, Stephen Rothwell <sfr@cab.auug.org.au>,
-        Xichao Zhao <zhao.xichao@vivo.com>,
-        Gautam Menghani <gautam@linux.ibm.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        K Prateek Nayak <kprateek.nayak@amd.com>,
-        Guangshuo Li <lgs201920130244@gmail.com>,
-        Li Chen <chenl311@chinatelecom.cn>,
-        Aboorva Devarajan <aboorvad@linux.ibm.com>,
-        Petr Mladek <pmladek@suse.com>,
-        Feng Tang <feng.tang@linux.alibaba.com>,
-        "Nysal Jan K.A." <nysal@linux.ibm.com>,
-        Aditya Gupta <adityag@linux.ibm.com>,
-        Sayali Patil <sayalip@linux.ibm.com>,
-        Rohan McLure <rmclure@linux.ibm.com>,
-        Pasha Tatashin <pasha.tatashin@soleen.com>,
-        Yeoreum Yun <yeoreum.yun@arm.com>,
-        Kevin Brodsky <kevin.brodsky@arm.com>,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-        Andrew Donnellan <andrew+kernel@donnellan.id.au>,
-        "Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
-        Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
-        Athira Rajeev <atrajeev@linux.ibm.com>,
-        Kajol Jain <kjain@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>,
-        Chen Ni <nichen@iscas.ac.cn>, Haren Myneni <haren@linux.ibm.com>,
-        Jonathan Greental <yonatan02greental@gmail.com>,
-        Ingo Molnar <mingo@kernel.org>,
-        "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
-        Gaurav Batra <gbatra@linux.ibm.com>,
-        Nilay Shroff <nilay@linux.ibm.com>,
-        Vivian Wang <wangruikang@iscas.ac.cn>,
-        Adrian =?utf-8?Q?Barna=C5=9B?= <abarnas@google.com>,
-        "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
-        Thierry Reding <treding@nvidia.com>, Yury Norov <ynorov@nvidia.com>,
-        "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
-        Ruben Wauters <rubenru09@aol.com>, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-crypto@vger.kernel.org,
-        kvm@vger.kernel.org, virtualization@lists.linux.dev, x86@kernel.org
-Subject: Re: [PATCH 2/2] powerpc: Run typos -w
-Message-ID: <aeeuBnjhRN7G9gYK@gate>
-References: <20260421121420.26079-1-linkmauve@linkmauve.fr>
- <20260421121420.26079-3-linkmauve@linkmauve.fr>
+	 Content-Type:Content-Disposition:In-Reply-To; b=LF5RWTwUQr9RmXrLz8ocjDEH0uYs6R5utIOmeRf5Svyea03OLRiqxB54msIH4zyFtt+hiI/ZuhGz4AQiGrdxumO6qjvYBHvMPJ9km9F0GvYpmM3/BwoAPtAb52kN5nwV+56d0vLfBP6t8YPCRugcTKS8VBA7ZfBJO8R9P1A+ebY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=T4HGdHmr; arc=none smtp.client-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="T4HGdHmr"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:Reply-To:
+	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
+	bh=VjnkFdeZK7rty5DMcJ7z5EdKxdECkqDgYWJysUP63zQ=; b=T4HGdHmrOrluO2Ljr/dWivyZ/q
+	XEz+F6FFQV9KvN5chUsSMn/90jdUnWIRsl/TcM44S7Dy3dHV6YnkEsuXRIbsP6jk20vj9RHQOoH2O
+	nDN+cdpnUSHl/lZ6RNkDb0eMfHZTOYkqfQbqM2xQfpO06tvvZoUkHJStS8a0CeFISAafOB8YL2qbY
+	osxvAtbGVH7N5b8i/b9nP8mtQgaIYf+4vLO5KvWnEvRmgEvab04CU48qkdvM+WCvnvapYtMWsc2Sc
+	Sq0YXHS/X8f0Iq7bioDgo+IV/lWNUJno4kCUM0K7wsA4JqFa04aGtX2Wvt5YbNzHckZIp6OEroajD
+	Alw1SLTA==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1wFEcx-0000000F5X7-3F74;
+	Tue, 21 Apr 2026 19:11:11 +0200
+Date: Tue, 21 Apr 2026 19:11:11 +0200
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: Shuwei Wu <shuwei.wu@mailbox.org>
+Cc: Anand Moon <linux.amoon@gmail.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] riscv: dts: spacemit: Add cpu scaling for K1 SoC
+Message-ID: <aeevr6Zj3Pwm9wux@aurel32.net>
+Mail-Followup-To: Shuwei Wu <shuwei.wu@mailbox.org>,
+	Anand Moon <linux.amoon@gmail.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, devicetree@vger.kernel.org
+References: <20260410-shadow-deps-v2-0-4e16b8c0f60e@mailbox.org>
+ <20260410-shadow-deps-v2-2-4e16b8c0f60e@mailbox.org>
+ <CANAwSgSNHO3MNewNzpYbhuj4K3NTdfzDC9KPoUHbFH97P4M_UQ@mail.gmail.com>
+ <DHUCL24GMX7D.369IWK9DLPZPX@mailbox.org>
+ <CANAwSgRt5-t_ah=phGc+CQYHG-CdWJuOX-2VTW6xE7n7EnVsFw@mail.gmail.com>
+ <aeaXszeaE62rM6BJ@aurel32.net>
+ <DHYOIIFMGH7J.228ISQ7XYFGKE@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260421121420.26079-3-linkmauve@linkmauve.fr>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <DHYOIIFMGH7J.228ISQ7XYFGKE@mailbox.org>
+User-Agent: Mutt/2.2.13 (2024-03-09)
 
-Hi!
+Hi,
 
-On Tue, Apr 21, 2026 at 02:14:14PM +0200, Link Mauve wrote:
-> diff --git a/arch/powerpc/boot/dts/fsl/ppa8548.dts b/arch/powerpc/boot/dts/fsl/ppa8548.dts
-> index f39838d93994..32558104b3a9 100644
-> --- a/arch/powerpc/boot/dts/fsl/ppa8548.dts
-> +++ b/arch/powerpc/boot/dts/fsl/ppa8548.dts
-> @@ -95,7 +95,7 @@ i2c@3100 {
->  
->  	/*
->  	 * Only ethernet controller @25000 and @26000 are used.
-> -	 * Use alias enet2 and enet3 for the remainig controllers,
-> +	 * Use alias enet2 and enet3 for the remaining controllers,
+On 2026-04-21 16:10, Shuwei Wu wrote:
+> Hi Aurelien,
+>=20
+> Thanks for your addition.
+>=20
+> On Tue Apr 21, 2026 at 5:16 AM CST, Aurelien Jarno wrote:
+> > Hi Anand,
+> >
+> > On 2026-04-16 17:07, Anand Moon wrote:
+> >> After reviewing the Banana Pi F3 schematics, I confirmed that Buck1 an=
+d Buck2
+> >> Both supply the CORE_0V9 with 0.9V=C2=B11% rail. To resolve the restri=
+ction errors,
+> >> I expanded the voltage range in the DTS to 500,000=E2=80=93950,000 =C2=
+=B5V.
+> >>=20
+> >> Additionally, I updated the DTS to map the second CPU cluster (cores 4=
+=E2=80=937)
+> >> to Buck2 to better align with the hardware's power distribution.
+> >
+> > Actually the output of Buck1 and Buck2 are connected together, so they=
+=20
+> > should always be configured with the same output voltage. And both=20
+> > clusters should be mapped to both outputs.
+>=20
+> You are right, I received the same response from the official developers.
+>=20
+> Therefore, I'm wondering if an additional regulator-coupled-with: property
+> definition is also needed here?
 
-Aliases.
+Yes, I think this is the way to go. I even wonder if this shouldn't be a=20
+fix with Cc: stable. This also has to be done for the Milk-V Jupiter=20
+board, I haven't checked the other boards yet, but I guess they all use=20
+the same schematics at that the PMIC level.
 
-> diff --git a/arch/powerpc/boot/dts/mpc8308_p1m.dts b/arch/powerpc/boot/dts/mpc8308_p1m.dts
-> index 41f917f97dab..48a98449ecbb 100644
-> --- a/arch/powerpc/boot/dts/mpc8308_p1m.dts
-> +++ b/arch/powerpc/boot/dts/mpc8308_p1m.dts
-> @@ -90,14 +90,14 @@ can@1,0 {
->  			compatible = "nxp,sja1000";
->  			reg = <0x1 0x0 0x80>;
->  			interrupts = <18 0x8>;
-> -			interrups-parent = <&ipic>;
-> +			interrupts-parent = <&ipic>;
->  		};
+Regards
+Aurelien
 
-interrupt-parent .
-
-All the names of properties have a meaning!  Just as you cannot change
-a function name in C without changing all calls to it as well, you
-really should never change a property name (if you want stuff to keep
-on working, that is ;-) ).
-
-In this case, the property was never actually used (because of the
-typo).  Maybe it wasn't needed?  If you make changes to a DTS, post it
-*separately* from the rest of this series, and test it *thoroughly*.
-Just a "does it boot" test is certainly not enough.
-
-It could well be that fixing the typo (so that the property name becomes
-"interrupt-parent") makes the kernel no longer boot on the systems
-affected, or less obvious problems can show up.
-
-It will need to be tested and evaluated by whoever maintains the DTSes
-in question, really :-/  And you cannot test it works for one DTS and
-then conclude it will work everywhere, heh.
-
-
-Segher
+--=20
+Aurelien Jarno                          GPG: 4096R/1DDD8C9B
+aurelien@aurel32.net                     http://aurel32.net
