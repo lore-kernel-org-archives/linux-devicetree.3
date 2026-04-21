@@ -1,175 +1,71 @@
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FAF17A305
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 16:29:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0EC226C39E
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 16:37:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776788996; cv=none; b=djFzSV1mJf4MwKeRW6MK+7lebB7zHaOO1CD8NMzwS+LVnDBHoXMidggA7aMhKjNH51SYOusy0fytsHEFE7ThnPazlI/tr16C3J4fY+jCt/6fzUo6mvXhLmIx0OJdwAUFeYobUeJvP2AqtoLADpY4+KJ/EZd98l6PC+Igm8RDvyM=
+	t=1776789472; cv=none; b=TzLJV+RwVpgC/o23AYDzeavtSzs6ebKZQY1One7hojPbg6pzlnqJW1W8qW4T4X67q7/ugbR/E5RS2OwLf5XPAODyfPMhAfULZMT2r5ImU5X23rBS1TH2DGp1zgat6sxsCrs9ybT+j8BzvtcQnmaHlpkz3u7mLk+SZRyz4ATteTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776788996; c=relaxed/simple;
-	bh=uWBNbqa5WKE0MqfPGoR0yUspQbrhBWVcvO5ku1Y2xk0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dNySTIF9eqWua1yilh97v7XrODvsR55glgvM+7Q0jkBA1NI42un5HNRdNMNc6IISJso6jZB96NCJ8zLu/TThih3e1Avy5EDGaIGmlCEOQ3wgMevaxw3v0o0cnvu/hJ1t0xwpnHJgNrLFMK+qfb59CJWoAPvH4IaAxiswmwXFLSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=GR+iXHAk; arc=none smtp.client-ip=185.67.36.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1776789472; c=relaxed/simple;
+	bh=ivLgOCQg+w/iR8uXsSkARaRNV6BFG3O81VYilPgyDBA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:Message-ID:
+	 MIME-Version:Content-Type; b=RnE7V1iJWFpTYyXZ4JjO6pTH2qybSmGt26p42YH/EPxyyEulKb6f2I0/H9nGd+t0FAcrcQVc22wQ/mBiBrTVe+xciF7OMuyB6f71MWXBZIVpVbRjuuYjmaWiRZRZzdb8n8KlF9j8Feeo8tJ2N5khfPcbBfQec+1jmVfKoZM3yWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=ORLnEF5q; arc=none smtp.client-ip=95.215.58.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="GR+iXHAk"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id E1609240029
-	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 18:29:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
-	t=1776788993; bh=NqSyv49+hgO5nP72gIJxJRJnsm6fOojsO6RRlXj5248=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=GR+iXHAkce8dDPFP+yaERnmbTzOzJysZuqMSjBXoYlitCh6rZXEJ7gAbsWrmEBXrJ
-	 opwvqg4jogUj6dc0tRyDoqyYPkQgLtJAgPEk5K6HVlnqAATbOSJ5OajaX6IWs3iy9H
-	 9Tp6UBRfmIxONfiEgj4hW8diCYN+4Wm68VbI6fC5TuskVGtXxj1nDaSgvE2qRSZ9T4
-	 n2bNpquHwq/a+XSZ7OsrXT1YE53cyciJvZDyfk+jySKVH22a2xrClsUt2XAX5vqok7
-	 z9rGxNnWofMGJjO2pwdfg7bv03N1TmEE0c+zHRpMY90pNH8jbVIB+BdlRa9fjtMY8A
-	 m15wRyfAEl01A==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4g0SW363qtz6tw1;
-	Tue, 21 Apr 2026 18:29:51 +0200 (CEST)
-Message-ID: <7bb65d98aad028bd4f430985b617d4cb61b31032.camel@posteo.de>
-Subject: Re: [PATCH v8 2/2] platform: Add initial synology microp driver
-From: Markus Probst <markus.probst@posteo.de>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Hans de Goede <hansg@kernel.org>,
-  Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	 <ilpo.jarvinen@linux.intel.com>, Bryan
- O'Donoghue <bryan.odonoghue@linaro.org>,  Lee Jones <lee@kernel.org>, Pavel
- Machek <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
- <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?=
- Roy Baron	 <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich
- <dakr@kernel.org>, Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org
-Date: Tue, 21 Apr 2026 16:29:53 +0000
-In-Reply-To: <00486b10-4c0b-420b-a735-67c3164eeb24@kernel.org>
-References: <20260420-synology_microp_initial-v8-0-7946a9124491@posteo.de>
-	 <20260420-synology_microp_initial-v8-2-7946a9124491@posteo.de>
-	 <00486b10-4c0b-420b-a735-67c3164eeb24@kernel.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-IpSPnhQIWO4AeFAyD3CO"
+	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="ORLnEF5q"
+Date: Tue, 21 Apr 2026 16:33:03 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
+	s=key1; t=1776789467;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OpJV3RY0EbaEZUr7cB+U3AXYZF0kplYNLFyuwZ/YRu4=;
+	b=ORLnEF5qdgVpnRWwe+ZGDZRScEa9amzvTYBVvrDt3C6KffoF3IOiJuAsxNZJRe0OLubZR2
+	0Q5IIYUgUNPmwOfL2EkA7FdYj8YqQHBdIAeNIWGV49DKTgkQv25LkVrwY31tlDT+mxSE0Y
+	5eb0rf1riSjwB3GMibR5G7aQeMUonu+g77nOyI1PO2qk6W7IkD3pKs8ciosWGRDu5R6XRZ
+	pnq+DUpMUcPCy6LwGy3LNvcDF8D7yDzghkqcYI7V3zpBMstJvaqvCmR/fIiPOv7KYDASx4
+	nlHfefVgG8s+ryZbX7mC/CaQE0QRc357miibthjO4rgC3Oq+bEyJSRnO1Ona5g==
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Ferass El Hafidi <funderscore@postmarketos.org>
+To: linux-amlogic@lists.infradead.org, christian.koever-draxl@student.uibk.ac.at, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com
+Cc: jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Christian Stefan K=?UTF-8?B?w7Y=?=v=?UTF-8?B?w6k=?=r-Draxl <christian.koever-draxl@student.uibk.ac.at>
+Subject: Re: [PATCH v3 2/2] arm64: dts: amlogic: add support for X98Q
+References: <20260421155328.26359-1-christian.koever-draxl@student.uibk.ac.at> <20260421155328.26359-3-christian.koever-draxl@student.uibk.ac.at>
+In-Reply-To: <20260421155328.26359-3-christian.koever-draxl@student.uibk.ac.at>
+Message-ID: <tdurii.1o3p0jnn1bsji@postmarketos.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8; format=flowed
+X-Migadu-Flow: FLOW_OUT
 
+On Tue, 21 Apr 2026 15:53, christian.koever-draxl@student.uibk.ac.at wrote:
+>From: Christian Stefan Kövér-Draxl <christian.koever-draxl@student.uibk.ac.at>
+>
+>Add dts enabling core hardware for the Amediatech X98Q.
+>
 
---=-IpSPnhQIWO4AeFAyD3CO
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+You should explain what the Amediatech X98Q is. You did this in the v2's
+cover letter, but it should additionally go in here too so it's visible
+in git commits in the kernel. What hardware does it have? Maybe also what is
+enabled in the DT?
 
-On Tue, 2026-04-21 at 17:33 +0200, Krzysztof Kozlowski wrote:
-> On 20/04/2026 16:24, Markus Probst wrote:
-> > +        // pineview
-> > +        (DeviceId::new(c"synology,ds710p-microp"), Model::new().led_es=
-ata()),
-> > +        (DeviceId::new(c"synology,ds1010p-microp"), Model::new().led_a=
-lert(Color::Orange)),
-> > +        (DeviceId::new(c"synology,ds411p-microp"), Model::new()),
-> > +
-> > +        // r1000
-> > +        (DeviceId::new(c"synology,ds923p-microp"), Model::new()),
-> > +        (DeviceId::new(c"synology,ds723p-microp"), Model::new()),
-> > +        (DeviceId::new(c"synology,ds1522p-microp"), Model::new()),
->=20
-> What is this all doing here? Again, what is the fallback and front
-> compatible?
->=20
-See previous comment. There was no separation between them until now. I
-will fix that.
+>Signed-off-by: Christian Stefan Kövér-Draxl <christian.koever-draxl@student.uibk.ac.at>
+>---
+> arch/arm64/boot/dts/amlogic/Makefile          |   1 +
+> .../boot/dts/amlogic/meson-s4-s905w2-x98q.dts | 249 ++++++++++++++++++
+> 2 files changed, 250 insertions(+)
+> create mode 100644 arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
+><...>
 
-> Why do you keep duplicating all this when I asked to REMOVE
-> the completely unnecessary front compatibles?
-I can't recall you asking that. My apologies if I missed that.
-
-So only keep the fallbacks and only add a front compatible if a
-unexpected difference comes up?
-
-Thanks
-- Markus Probst
-
->=20
-> So it is not only schema which is wrong, but your driver makes no sense
-> with it.
->=20
-> Best regards,
-> Krzysztof
-
---=-IpSPnhQIWO4AeFAyD3CO
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmnnpf8bFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSC6MP/R5ysnQ7psw/bPhKI5Xz
-/Fyvv0hTuESgvMae7SYERG6PjDXYKhgMSGz4OuEj8aoZK9kstYgMqVFIDlZvCrrp
-1/iyx82q68aPTi2Q4PSZrY85bENXGrum4JeyW6H7OHmOsJjHlXRjlECzliYGSkbG
-cpXr+h+Qd0ItibDj6BU4VsHdaQdL9drvbfNennrjOio5sFDNYpfo3QlMBUIjuRqL
-c36+qdGLbzck4fZUJHdlOp5paqQjJ2tPw4ReAP5EcKXA72jS5tOp+ju6ZGUG9y6R
-Ivos5iLibPfh4VkOowIOZkt2BbuthvoiSspIj5620mX64k+fQoegGA1vrK0vx4sw
-MYqjqOurB2k4YMcCUNwRJAivK2VUkFu8mewvApgrJC3arLr9O91wfH7aak6I6Qe7
-Zqn0J9dLGlOlK3ORCxAe1mzKkvbSxVEzwBwoxykfpKLH8D2Ynj029LfcOFzcGNwd
-XxEiZj8bIzul4KRqZZtqoFZCToIHHCgab6R/jsrqtGMc8NPUShUH+vmDgRMPVbCr
-Xqc+0NngWTbnJt3oTKTkWe1WO6QmpSr0pFvTotjR5lAIY5LnMkgokznzlrekA500
-1wbFKcy1nQN3PyzvRLeoVI7uYR/xYHXznJ7YkljxY12eNp+0IH5BRRy2v1XcXZju
-sWwaBMkd68VbwwGEggbMGMnv
-=C+e7
------END PGP SIGNATURE-----
-
---=-IpSPnhQIWO4AeFAyD3CO--
+--
+Best regards,
+Ferass
