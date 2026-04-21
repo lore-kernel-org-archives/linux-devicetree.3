@@ -1,145 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513E03D9DDA;
-	Tue, 21 Apr 2026 20:00:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8F93DD53C
+	for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 20:03:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776801617; cv=none; b=rh9tp3DjZdP3oDA3sa4lxMJEgpMU0OkdPqhQgu9nHbsFPe8JNk4NlGznUXZc43K9GsLR8qwzS2YQAK/100lQcftDISxPQgHH7lOU066Omjtjx3YgoEw8CXWwgfOhqPpHsPIXP5a1fLDilyPW5k5+3EolkPBLMNeeIixx4VErQJo=
+	t=1776801788; cv=none; b=ExZ6PV6LshsFbJ6FR/1ouAGRNEEe3tu63zIUBZJBDwBpP7owQPyXKS7AP6JiIImXsNM06GO4CxxT594Zm1bXx4/1x9id9DaaBXEIAwYEcrehoSU3dJ5gr29WjN2qCUEP4LUOwOUR2jqP2CofaaEOOquC/C3Ef/pTR740Uvb4LJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776801617; c=relaxed/simple;
-	bh=Zlc1xvs7V1MA2mbAbpURS34qCSlGhYRGswgZIBC4UrY=;
+	s=arc-20240116; t=1776801788; c=relaxed/simple;
+	bh=z/yo03AiSA0eCKVwpNdHXlr1nQWbFRacndf5yazbhEk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l7s0wRpKAUaRlTYNweTQaSxXgHpVC+TQoOf8xJjGmK4DfcO3cqS7QSLgdu6QKqE4jKZC7j//X4Qpdpu4onodJ3m9mdjgH55Zz1Pc5qvFuxim0UxMGF4mC82ODfPgqQ0x1zeSgosQ1CPRzUK/l3tijUsZTwLE6KyDMzG3uzgtGRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q3Ls/D6b; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=YywngCJKz6DAnOeaUf2Lkezvwf1uRuJT52WxbFao+4hm7qQ0I2unoYWOy26hP70Gwothi2CXJV0u+b1iI3cFakf4odymJtzWilvOUGs8h33T6tZgzYf77vdkJVM2pFtCQBPRpA5HTh+B7IFF6WuaFum83zSm0SMm3tviRwMQYpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NUOh0Iy6; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Qf5CfghO; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q3Ls/D6b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1E0C2BCB0;
-	Tue, 21 Apr 2026 20:00:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776801617;
-	bh=Zlc1xvs7V1MA2mbAbpURS34qCSlGhYRGswgZIBC4UrY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Q3Ls/D6bQyexm8rodqpy6NEtHra1oMoMVRLg3U9JMkuJrvmpKemOoLsPg8viOmxAA
-	 oqbL97hhSfvKpFblHAkaTwKXjjjZLWkOveAAbzSfAq6JcamM1T1fjT2bPzUSogslAK
-	 +zvD75CC72k7pSEbCjzlxRdWV5d56eR8iYLCZ//CrhVjnarDFCciD4iZ3S+xX53yHk
-	 JTeIP7kLtxMiNbsa1tHstJOkS9fk+Nvrwwvv0ksP1PkgiT2k6Bx4ENQF1dlHWnOOKe
-	 HidJJmzeMoiBAw/SATUP6S23FVd3QT8sw7/HfUkMqBjCCQnnLWyBosurg75kP4c4BR
-	 TJbjwsrX4yqUA==
-Date: Tue, 21 Apr 2026 21:00:06 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Stephan Gerhold <stephan@gerhold.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NUOh0Iy6";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Qf5CfghO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1776801785;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3zuspwqjQXluBmm8BYsT+wPUm5BBdmNQ0nxP766NAw4=;
+	b=NUOh0Iy6C0uf3xQ4nV4W/dMLQmEzQI+6UEDFs5oa+GF7qmEXgEE8DBZNFi4xzizqj/x0Ux
+	3r7isUOUXFpdokJE3hLsbivUO/a80LY2g2loVR21wK9WqUAyRCtFYFRReU6lJ/ldMvmLq3
+	j9+blwwaQL/9CWzDmxv6HD5ehnNvcik=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-694-SqIGVxuENGOOIWITDe4bbQ-1; Tue, 21 Apr 2026 16:03:00 -0400
+X-MC-Unique: SqIGVxuENGOOIWITDe4bbQ-1
+X-Mimecast-MFC-AGG-ID: SqIGVxuENGOOIWITDe4bbQ_1776801779
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8acb26fbbb2so70006176d6.2
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 13:02:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1776801779; x=1777406579; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=3zuspwqjQXluBmm8BYsT+wPUm5BBdmNQ0nxP766NAw4=;
+        b=Qf5CfghOVthZvhlWyx//1FRq1D4MEv2vkPpXuvZRNNKNtZ1GdGI/h3UDhH/WP8brUU
+         2fBYsUlv+FLtOF0MeiwjAgPLHVS9pqRL36VN84uOkdQFlZgwrEfoHFneEW7LnCAOLA2S
+         er7vnuc0kNZAP45MakmSHkbWYikZNlv9FQ2VzVvR9S+UyYgEx+lBS6Xp12Biz30utn6+
+         UHeJnihQXQCoNFe1Zvts8Ht3emDdBPeevdwyiprqTznV5ZvY79KPENwqVcQU5yWwOQzP
+         PWsZGfC74eqZdktTUqT2vAFlxaO0EsVu/WeXm7q/ecwiMDGxEvO2HK03GRaf4tWf6XIC
+         UbyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776801779; x=1777406579;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3zuspwqjQXluBmm8BYsT+wPUm5BBdmNQ0nxP766NAw4=;
+        b=pGnppnigMmZY9ZX3u9oeAEtACBj6oc7uTliLLX3IuSL5gE7587AZxKRG/cWGHoLK9U
+         scD5gvNgSMPTWh6DkY0KGnd7ankzLeYYhFCQIISJwtCxMKTdEQBopoQ6oKyCnQ3M/UeB
+         FpCWj8jPX4sROTyCe83GHMBhtISzJZym7M82l0EcCfoW6u0dWo5DKj91FYOlmcvOKTLE
+         NKRE0cYl+XhNOoKE1Qx6zYGGUS5+Pqiiq5JsJkQoLK6Jn5I3y5IybMehnlGbp/08sRI3
+         vxCUqyjgZ93u9jtmzl4oHbmDZSKMIZQGQzLntUU1q9t78JHBg8H8WGLt7pDZUwRvBvmL
+         R7YQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+nE7UeXzS4Lsxy2jgar+GLIqMz0uPDEn8pbXPPRXBwXrOKEq0Q5rMGns0fH7xpxjyRXJGyesItpSdj@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz8OSMWqy+4GRUYdJp35IBrA8QAhLBxw6iVfqZvyni8goDKmw31
+	mJXEnOdoEGY4bhV0jxbZ9HMgO7N+U6fvQuH92fsy6g47cV+4kbnyEKUbGK6ODabi+GiK+ZTDGsj
+	iqfUKteWJ8tj4Qt/XTo/bedU2Xq77f1ZTm2QxBIqetNqOGYbvhqrHi87C58laDR8=
+X-Gm-Gg: AeBDiet3Rjxq10n/aL7s/AswjsJ48dNxO5JVxR//mGLdfQSKAx03SAD//tQozYXnOHv
+	QwCwaKa4whlh3/SAYc9bOiJ3+jyZNrHQwqk+symBYsUw6rsQ5ja9Gl6194CzYEk9EOZCHU5kfJ7
+	29Ij8Nik+sWGep3tqkLFkLf0HJlIbuJuEQMosmb82EJFsMilEH+ONegM2/FbrqJTYZSlzWXAkIh
+	l4gBwcbLJPQQkiDnxx/3lkGj4AIgZXSUdYvett0UYIiJ2hZg7/3YFzV3LQZ7nGWe38LzmjDZ2P8
+	4XYBhtalUh8+fwP1mg+lPnF5p1yCM7sKCKpW6GOxEhJnzWABXQu8E+Zp12fzxqlX33M1fd88hAG
+	7yedkhFeQQfaei+gI1IvbUjdtyG/WmrKY3xoxGIHnXw==
+X-Received: by 2002:a05:6214:5b87:b0:8ac:a5a0:481 with SMTP id 6a1803df08f44-8b028015984mr335684726d6.4.1776801779260;
+        Tue, 21 Apr 2026 13:02:59 -0700 (PDT)
+X-Received: by 2002:a05:6214:5b87:b0:8ac:a5a0:481 with SMTP id 6a1803df08f44-8b028015984mr335682706d6.4.1776801778111;
+        Tue, 21 Apr 2026 13:02:58 -0700 (PDT)
+Received: from rh-jkangas-kernel ([2601:1c2:4400:6bf0:7677:bcee:4ef0:e09d])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8b02ae5ec2dsm115982646d6.29.2026.04.21.13.02.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Apr 2026 13:02:57 -0700 (PDT)
+Date: Tue, 21 Apr 2026 13:02:52 -0700
+From: Jared Kangas <jkangas@redhat.com>
+To: jan.petrous@oss.nxp.com
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
 	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Yang Xiwen <forbidden405@outlook.com>,
-	Alex Elder <elder@kernel.org>,
-	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	Rao Mandadapu <quic_srivasam@quicinc.com>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
-	ath11k@lists.infradead.org, linux-pci@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-sound@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Fix phandle-array constraints, again
-Message-ID: <ddeb29fc-1292-4191-8963-8ba817410740@sirena.org.uk>
-Mail-Followup-To: "Rob Herring (Arm)" <robh@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Chester Lin <chester62515@gmail.com>,
+	Matthias Brugger <mbrugger@suse.com>,
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+	NXP S32 Linux Team <s32@nxp.com>, Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Stephan Gerhold <stephan@gerhold.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Yang Xiwen <forbidden405@outlook.com>,
-	Alex Elder <elder@kernel.org>,
-	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	Rao Mandadapu <quic_srivasam@quicinc.com>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
-	ath11k@lists.infradead.org, linux-pci@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-sound@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-usb@vger.kernel.org
-References: <20260421195836.1547469-1-robh@kernel.org>
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, devicetree@vger.kernel.org,
+	rmk+kernel@armlinux.org.uk, vladimir.oltean@nxp.com,
+	boon.khai.ng@altera.com
+Subject: Re: [PATCH v11 4/4] stmmac: s32: enable support for Multi-IRQ mode
+Message-ID: <aefX7Ajltzt5EqIR@rh-jkangas-kernel>
+References: <20260312-dwmac_multi_irq-v11-0-09621ccb040b@oss.nxp.com>
+ <20260312-dwmac_multi_irq-v11-4-09621ccb040b@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SlEK5XXQLOw6MldA"
-Content-Disposition: inline
-In-Reply-To: <20260421195836.1547469-1-robh@kernel.org>
-X-Cookie: Jenkinson's Law:
-
-
---SlEK5XXQLOw6MldA
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260312-dwmac_multi_irq-v11-4-09621ccb040b@oss.nxp.com>
 
-On Tue, Apr 21, 2026 at 02:55:25PM -0500, Rob Herring (Arm) wrote:
-> The unfortunately named 'phandle-array' property type is really a matrix
-> with phandle and fixed arg cells entries. A matrix property should have 2
-> levels of items constraints.
+Hi Jan,
 
-Acked-by: Mark Brown <broonie@kernel.org>
+On Thu, Mar 12, 2026 at 09:55:30AM +0100, Jan Petrous via B4 Relay wrote:
+> From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+> 
+> Based on previous changes in platform driver, the vendor
+> glue driver can enable Multi-IRQ mode, if needed.
+> 
+> [...]
+> 
+> If those prerequisites are met, the driver switches to Multi-IRQ mode,
+> using per-queue IRQs for rx/tx data pathr:
+> 
+> [    1.387045] s32-dwmac 4033c000.ethernet: Multi-IRQ mode (per queue IRQs) selected
+> 
+> Now the driver owns all queues IRQs:
+> 
+> root@s32g399aevb3:~# grep eth /proc/interrupts
+>  29:    0    0    0    0    0    0    0    0    GICv3  89 Level   eth0:mac
+>  30:    0    0    0    0    0    0    0    0    GICv3  91 Level   eth0:rx-0
+>  31:    0    0    0    0    0    0    0    0    GICv3  93 Level   eth0:rx-1
+>  32:    0    0    0    0    0    0    0    0    GICv3  95 Level   eth0:rx-2
+>  33:    0    0    0    0    0    0    0    0    GICv3  97 Level   eth0:rx-3
+>  34:    0    0    0    0    0    0    0    0    GICv3  99 Level   eth0:rx-4
+>  35:    0    0    0    0    0    0    0    0    GICv3  90 Level   eth0:tx-0
+>  36:    0    0    0    0    0    0    0    0    GICv3  92 Level   eth0:tx-1
+>  37:    0    0    0    0    0    0    0    0    GICv3  94 Level   eth0:tx-2
+>  38:    0    0    0    0    0    0    0    0    GICv3  96 Level   eth0:tx-3
+>  39:    0    0    0    0    0    0    0    0    GICv3  98 Level   eth0:tx-4
 
---SlEK5XXQLOw6MldA
-Content-Type: application/pgp-signature; name="signature.asc"
+I ran this series' changes on an NXP S32G-VNP-RDB3 (dwmac-s32) and
+confirmed multichannel TX by doing a basic iperf3 throughput test:
 
------BEGIN PGP SIGNATURE-----
+    # dmesg | grep Multi-IRQ
+    [   37.463467] s32-dwmac 4033c000.ethernet: Multi-IRQ mode (per queue IRQs) selected
+    # iperf3 -s
+    [connection logs snipped]
+    # grep end0 /proc/interrupts | column -t
+    29:  0      0  0  0  0  0  0  0  GICv3  89  Level  end0:mac
+    30:  968    0  0  0  0  0  0  0  GICv3  90  Level  end0:tx-0
+    31:  0      3  0  0  0  0  0  0  GICv3  92  Level  end0:tx-1
+    32:  0      0  3  0  0  0  0  0  GICv3  94  Level  end0:tx-2
+    33:  0      0  0  3  0  0  0  0  GICv3  96  Level  end0:tx-3
+    34:  0      0  0  0  3  0  0  0  GICv3  98  Level  end0:tx-4
+    35:  67302  0  0  0  0  0  0  0  GICv3  91  Level  end0:rx-0
+    36:  0      0  0  0  0  0  0  0  GICv3  93  Level  end0:rx-1
+    37:  0      0  0  0  0  0  0  0  GICv3  95  Level  end0:rx-2
+    38:  0      0  0  0  0  0  0  0  GICv3  97  Level  end0:rx-3
+    39:  0      0  0  0  0  0  0  0  GICv3  99  Level  end0:rx-4
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnn10UACgkQJNaLcl1U
-h9C8Vgf/TIh3jOwQkzaSh+ITMEgUCeXAFPb4VUUhIGQS66939JxKIGlaCr8kVeam
-fIS+iyN8BAflGToJHouS473TERLm3pmQaKv4FHy2m/XW3E7aNKl/WZ6nuPJbZzLH
-jN5jU8h19JcMriiidDPn73PPnDdSLZHsxuegwuYvWjjutnanS7pzFFJnvB5FqglH
-DmQVRssnzzYzUBCLII2ARQtKPwTAkv1thWPjVRwXU0AxPSrEWA2+9xpNDedbe86f
-gZJyKDlrKgAXce/tnTDNOJYTUAUwUf66KgGMWLOjfRI+tbwsRV/Z1s6TbSIGgVif
-0AXVOMGUdqpfkYJFeGJGk/8tGGdtZw==
-=Hh8L
------END PGP SIGNATURE-----
+Also tried out multichannel RX by adding 'snps,route-multi-broad' to
+rx-queues-config/queue2 in the devicetree, which showed activity on
+the corresponding rx-2 entry:
 
---SlEK5XXQLOw6MldA--
+    # grep end0 /proc/interrupts | column -t
+    29:  0   0  0   0  0  0  0  0  GICv3  89  Level  end0:mac
+    30:  4   0  0   0  0  0  0  0  GICv3  90  Level  end0:tx-0
+    31:  0   1  0   0  0  0  0  0  GICv3  92  Level  end0:tx-1
+    32:  0   0  1   0  0  0  0  0  GICv3  94  Level  end0:tx-2
+    33:  0   0  0   0  0  0  0  0  GICv3  96  Level  end0:tx-3
+    34:  0   0  0   0  1  0  0  0  GICv3  98  Level  end0:tx-4
+    35:  68  0  0   0  0  0  0  0  GICv3  91  Level  end0:rx-0
+    36:  0   0  0   0  0  0  0  0  GICv3  93  Level  end0:rx-1
+    37:  0   0  91  0  0  0  0  0  GICv3  95  Level  end0:rx-2
+    38:  0   0  0   0  0  0  0  0  GICv3  97  Level  end0:rx-3
+    39:  0   0  0   0  0  0  0  0  GICv3  99  Level  end0:rx-4
+
+I didn't see any regressions with light network usage, and both TX/RX
+appear to function as expected.
+
+Tested-by: Jared Kangas <jkangas@redhat.com>
+
