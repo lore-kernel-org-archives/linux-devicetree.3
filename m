@@ -1,118 +1,79 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98E2399013
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 17:43:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 542B639891F
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 17:59:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776879831; cv=none; b=gEjngCrIFPThLIrck5sxrjiqzvbN3+oA34Q3I7o5Z0lipb132qHmbi65A0i8i7Ef6UypXA7n8DN1Ii4k1a1gcbyimMYCpM1JXP26Z0RfQd26PqSGkxjQoUAOav2Rcnvea7EThLKbOsOwVREiFUaIMXI6/uKqY4gSveoC15voZGA=
+	t=1776880760; cv=none; b=f+3HjsKWlUu9XtHwahrjWOrIWRlR+ltSeJmOpi84Y0wAF4xRU/Or3bYwFGvyc6rWIJjOxSZbVSrkIll3UnSO3MNtvHExN8qO5VSkQ/Lj2NWrNLhhi1D/lBXEpo/5HH+UfESvGNUMY2x+LteP8+BDGMRiT8/ptEU2phV1LN8qP38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776879831; c=relaxed/simple;
-	bh=dm5uSfZjDOFedpZSNeguOS6u06pJ3ye7oJgRqKLiuCU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f45R7h0yfI3me15qsHwAzNM7Z6n5OqbFaTktZn6wdVxzxHEHxOo904DSgZffmryX5QlW5ulAy468m3OwaNZMbf5rUz90SNDV9VWCyd7TC38yr66ZWrtqmGGha5BWcV7txhmC/cTjbuPylv1fleDd5gVQwTSlGNInhTBWDRtRW7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TU01v89I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XGiY2FSN; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776880760; c=relaxed/simple;
+	bh=oSwSjRcqFgmUDNciLfbR3xEQk2X154orQ4R79xVy2bw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VvVU3PQ+3/P4QocWchNzMcz/vsWfU5S/ZQlaZs0wemKjsJc9c1G3CQBwUfgRO5O2RkbNWX6RiBM6ggTHn0D3xVzkXJlw0UKOUDCwzL2E7nI/jyOTkAV7Kux/vfKV0/zn22R1HyhZdZ4d9riNJSeFY70odWlRqqHq2Jm1AT8tgws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lWo4IRsy; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TU01v89I";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XGiY2FSN"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63MFLvkx664102
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 17:43:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Fwn1gPn1dWg
-	exJELw0pYUIt7mZC6V4jRPi84i0yHT1w=; b=TU01v89IQIabdiSY5iA1uoB9Czk
-	tZs1gHp7BPuNH27VG1i95qUUPrmNi5byDdwajUk7Y7gX0Y/DWC9XtGFlQ2w8B6l9
-	9FAPzABojzxLEGVACSfNPAY3lNRLQM717cKNkAJS111fYH3Dj/kH/nxJle0rcwoA
-	FJV3xP4E7oy65WdxhkCCwEr8CbOf2x6ae58LZoNk+t96T/iCIxmIweZrDHUxffFG
-	WyC0MU5UucslyL+EqconSBCeBLoIOxK3rWhTIXIHWMxJW9r/IXNl0EQqUfAXu+uZ
-	IpA/azVOeqZ9yc8R0XIK9R5anVm/A1oSs7kcpRjcZXPqgzv6aQXRPye3MqQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpudgsw2q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 17:43:48 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50fbc70cfbdso43689471cf.2
-        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 10:43:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lWo4IRsy"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c736261ee8dso2155328a12.1
+        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 10:59:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776879828; x=1777484628; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Fwn1gPn1dWgexJELw0pYUIt7mZC6V4jRPi84i0yHT1w=;
-        b=XGiY2FSNuIC6E8H0rmVyEL9VkCaAyx0jExDFHT2sKP1WGp4S2P87HEwDNqUEaiGgbz
-         z+8Kezcm7oC8j0P0KhHg8CWJyM15jHST0J3W61hXXtEB2bQZ/fNpLxtPxBnD2LxYGtmF
-         oVQjwFKO076KPCsBexTQ3JjFQ53jjrvk+/DVDYzXrahl6EMPW7bFpx/XM7lZVzcKvDoZ
-         bLnU7GFid9PlUHmuNzwTOSCwcqtULRkC1kyH1iCxp1RKsSr5AGp4kW8nGG1yP+NJBiLF
-         uqequShoi2LfzdQtnp8Zn1pNilU/hT5CoMCUu4oquEolkKZDAcNFqH2RTIkLi27ztAWb
-         o7+w==
+        d=gmail.com; s=20251104; t=1776880758; x=1777485558; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hzVO1meE1c/JGoIEI9CESvSlvQaIMvGuuQhtTpxCv40=;
+        b=lWo4IRsyCJKInuqAxJxGrDUOZ3h9AS6V8NnuG/98YaJ6uSciaDLhkfjINcP/4avGiu
+         18NX4HY9MDrCoVWz79HpaIV3pWJeOVdB6LRcUNaRBf6f74muZsvNCr70PioXITHA8mzC
+         q2Bjh95BhXSp3UCxQeIqb1W+COoj8OrKUuKCVkqFYpqmepZ/g5CicpY3P9CNZ9naAGn9
+         QnXGbBqs8vha0RTCMjr9u1HyvXSDTBzamona2U70Lz22Qm691UzA7bSTPBqvGf+nnzCJ
+         gjTlJS973NBiNMaz+3+KTxW1VrHCWAncQeyVGQ9FKji2kSYDSqMXAtSztuzwTuUnCtDv
+         NirQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776879828; x=1777484628;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Fwn1gPn1dWgexJELw0pYUIt7mZC6V4jRPi84i0yHT1w=;
-        b=HWqtopkDDW0htfAP0KPBi8QPbkcEp0KrLiLhFp2Zholtp56PHm4h1SlPMpx99htRPE
-         wkFkyd5uyOR5j4MLqqjg3Acm7hFnmfLGeZjzUvG+lcMNQn/bg9j0O0dZ/m/wXSXwu/yx
-         QwF55ATL7KdMHVGNYi2W8RpORXTeh/bP9P4HFs80xgQBgiB2JYIk/xTGtOnJ8MIukFWh
-         b6CzwiypmB+ZPxGU2PfKzaKI3UnvWCxpxB1JENRzeX9qwt2jfaWNbHUhdgR8nshcRYGx
-         XcmAo97EsQisGUFe394zjUaOPX6B1VJUb2BTxjwOCf4rdODBRSXY73Vk2RzsVeRZcVBs
-         fIjQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9Qh/UZrUvW1tiBC6VHvXYVFP7lvnzqbe7e5ymsozxg6AXbRaL7Mz97OIYEYsqJtcq0HSq7LG8v+Eu2@vger.kernel.org
-X-Gm-Message-State: AOJu0YxtA6tCaBoZ/JzE7OO498yiX3gFzBxFgnsC7kKJJlaIPVpD30jM
-	6ukwol5eGciV3Xb8V73k89BjvOfS/ZmrOAiDrH/I0nZfA5rAYCPlMj27nB4HS+W1yIwIaB/cgiK
-	S4kf0HRmzgKZ8ufDT8uw0O05G1cVb6MI03Si0drDHA1UJFx1kG6uq4mF7/UopMF5b
-X-Gm-Gg: AeBDieuo/AOiq6mRze9btVJfnm+VDgOemRzo0AcyZLC3oIS2einxXGotm87Jmael+CV
-	nfi5ebmM80jc7k7V+RW8kXGBbxFGI3x8UkbSIGZFN2FTQ6LY3Lxz+jFNWRX/CPUMrrURAr14nzW
-	kPepTBx1OedFSwncavAluKlixMoXospoKqS/rfQVIPvd5W0bdG8t++kqlZFng3WjcU09Dwl0nEr
-	lDxWOl9vAYf9qpFWjLj3de49NIATsRU1dZp1GEuesHWZkV0Os7VOUxcGD3N8iOmfynQFzYpsfNH
-	DaVUF072/6+Uqy+qAZxJDsFgPVnh7SGxcBqz68Jiy7QoYbYLRSUJYbshl6LrIhqr17cQBf1z7al
-	HtGnMx5/qmDSp8L8BDOS7RNIxxpQdvH/jfBX0yUtMR5aUZLDJBTSlmPRarNCl
-X-Received: by 2002:ac8:7f4e:0:b0:50f:9c32:509d with SMTP id d75a77b69052e-50f9c3258b7mr167401891cf.60.1776879827694;
-        Wed, 22 Apr 2026 10:43:47 -0700 (PDT)
-X-Received: by 2002:ac8:7f4e:0:b0:50f:9c32:509d with SMTP id d75a77b69052e-50f9c3258b7mr167401231cf.60.1776879827142;
-        Wed, 22 Apr 2026 10:43:47 -0700 (PDT)
-Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:ae20:597c:99b8:d161])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fb7a051dsm142511965e9.18.2026.04.22.10.43.45
+        d=1e100.net; s=20251104; t=1776880758; x=1777485558;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hzVO1meE1c/JGoIEI9CESvSlvQaIMvGuuQhtTpxCv40=;
+        b=Jcq8UVRUqoWD42lGJ/yJK/nHHaTdn2s/yQ6gdNxlZRFG6CAHXA8miff67alSfD77l0
+         2p9ZDOgLkyyEmcgeS9zLwwRfZ21V1vU06x/J14lEvyCTM6yuSVqNV7PblNzZladRHgJH
+         LHkApQGeJ4nTaozXYLgv+mOHei92w1wto1mjWbntCISrkpv3Iqvq2FteTUwQgmrh/GRA
+         pVcwVzXBccA1937kvI8mqHOhf2Wf4H1NyFBkDts5Vy4RpAaZmVedxr8XIGfjAAQpoKCl
+         shLy67LDbRy5YIIwu7gbgyLiWsTdyuD1ZaBFmYZciinWVASXBVbv7rM4injLjldDTfub
+         2RRg==
+X-Forwarded-Encrypted: i=1; AFNElJ8kqaJoZkv3stEwkwEBPXwCnDGCc8GMmBtyNd5XOq6Yn2ZuSBN+Z72sn4gmlJXbuhcjzcj2DvRToaBZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YznGtkA5Df7n8yziaJsjVvEoGxTbgYjB/jPkmf4cvj0dLel1a2W
+	t+j1zEgxBdJSPkr4nH8qD9RAG/RxQhZH7E0EE9zJcpwDVZshxml6bpIH
+X-Gm-Gg: AeBDieuM0zNfEUfRpmJFkuuXC9ZBHy5rTsbkPJhgtDNGbhwfKUE+1JqP7D6HS23wMv1
+	0XWuHvcuoZ5THDARitXyPCOqwlG6ZYQ5JXNTpLGH2bT1TkKVpYeiDLGYyYkw4GkkDUlznkmAI0b
+	fCezwt8DRJfQIUb51O2broVFibnGQzkh+PhyQgHTRVQwr3V/czE7vKbcl9EzEItLpNktWRtbj1S
+	AYVnBY8dlbYnzWs1hVrUfGTlHeVK9qg3XkrsDh45kkCIKQ4Y5DqtLDJr2mweKjLx/0uKnC0nxS1
+	Xhehp7ul66+una+kLwAreoaO3nDKwLzPo7PvvKKI6KPMupZxGspyymw5HPrI02nvARxf1BileZv
+	InVtiYqHe7X1qCm0ZJiB8X0HbmVynVqWGtIUIC5/hmwlpVSkkdx1fsoQbtedefKUPrPHAlyTmPX
+	UwWlBpgAL1T2s+31QxhZ2EpQNesCGP9T+vyxCHSjBr7O9yu+QmnDqxK8eiTAoAD7LAF25kWqMUj
+	Of6jJJJTUwSMJPU3Kf4GdQ6Ld1K4BuuEhcIZAW85T/A84LJiEM=
+X-Received: by 2002:a05:6a20:7350:b0:3a2:bd1d:d68c with SMTP id adf61e73a8af0-3a2bd1dd849mr15278903637.50.1776880758180;
+        Wed, 22 Apr 2026 10:59:18 -0700 (PDT)
+Received: from lord-daniel-VivoBook-ASUSLaptop-K3502ZA-S3502ZA.. ([2405:201:31:d01f:48f3:f940:b423:53fc])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c7976f9cacasm15174361a12.8.2026.04.22.10.59.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Apr 2026 10:43:46 -0700 (PDT)
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-To: rafael@kernel.org, daniel.lezcano@kernel.org
-Cc: gaurav.kohli@oss.qualcomm.com, Zhang Rui <rui.zhang@intel.com>,
-        Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        Russell King <linux+etnaviv@armlinux.org.uk>,
-        Christian Gmeiner <christian.gmeiner@gmail.com>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Guenter Roeck <linux@roeck-us.net>, Joel Stanley <joel@jms.id.au>,
-        Andrew Jeffery <andrew@codeconstruct.com.au>,
-        =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-        Benson Leung <bleung@chromium.org>,
-        =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
-        Avi Fishman <avifishman70@gmail.com>,
-        Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
-        Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
-        Benjamin Fair <benjaminfair@google.com>,
-        Heiko Stuebner <heiko@sntech.de>,
-        Thierry Reding <thierry.reding@gmail.com>,
-        Jonathan Hunter <jonathanh@nvidia.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Amit Daniel Kachhap <amit.kachhap@gmail.com>,
-        Viresh Kumar <viresh.kumar@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Amit Kucheria <amitk@kernel.org>, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-        devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
-Subject: [PATCH v2 12/12] dt-bindings: thermal: cooling-devices: Update support for 3 cells cooling device
-Date: Wed, 22 Apr 2026 19:43:01 +0200
-Message-ID: <20260422174305.2899095-13-daniel.lezcano@oss.qualcomm.com>
+        Wed, 22 Apr 2026 10:59:17 -0700 (PDT)
+From: Piyush Patle <piyushpatle228@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Andreas Klinger <ak@it-klinger.de>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/3] iio: adc: hx711: add HX710B support
+Date: Wed, 22 Apr 2026 23:29:07 +0530
+Message-ID: <20260422175910.1258579-1-piyushpatle228@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260422174305.2899095-1-daniel.lezcano@oss.qualcomm.com>
-References: <20260422174305.2899095-1-daniel.lezcano@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -120,96 +81,65 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: UN75KMsV_aOvWYi63rMMwWrvboJwX5MW
-X-Authority-Analysis: v=2.4 cv=c5ibhx9l c=1 sm=1 tr=0 ts=69e908d4 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=A5OVakUREuEA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8 a=WTFSsL86A86x8GNmHn4A:9
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: UN75KMsV_aOvWYi63rMMwWrvboJwX5MW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDE3MSBTYWx0ZWRfX8/4uwnz97kPs
- Nw92kJzcydhlP4m5ky4p9CAxVliHWRcJws1XnDHERHE4YjGfiufRM8ZwU6/zk8WbD321SCtN37Z
- TGW92+rSoxH72eHBWbtL2+3n0zVI2Ef8VOGc0UoJw4lmNj2K7zsfBmFvNOVADGxViGkaJN766/K
- IL27tWCRnlCtu1gHsrlAEjZ5qLWsgNbsyxWGNpePjweyLk0tsQKxnhdIndYL5zeVzOIRooGsEUI
- cLMANF36sJsRabl9ej+ZPVhwz3qED/q3jo1jI9bKGyQn5pyapFiN4iX/IIOolcr/JiULMe3ORHP
- 11ZHmmUgDqSQsOLzjRz7QBmFTNV/vI39n2HAkyET3JZRLcp6q8Gt7FvYmcdNM8YgtV8SJFERnIR
- N1HabjE1ihFkR8/zyg6sQGxVG2bKT+bKHDJFI8rv0ovrXR7GUkiq/y6IpI/DDpNccOsZg6uo2ep
- WRkVssZolhxnzSTBHYA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-22_02,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- adultscore=0 impostorscore=0 phishscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604220171
 
-From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Add support for the HX710B ADC, a variant of the HX711 with the same
+GPIO interface but a different channel and gain model.
 
-Extend the thermal cooling device binding to support a 3 cells specifier
-along with the 2 cells format.
+The first patch updates the devicetree binding to add the
+`avia,hx710b` compatible, document the variant-specific behavior, and
+add chip-specific properties for supplies, the RATE pin, and an allOf
+constraint for HX710B nodes.
+The second patch refactors the driver with per-chip configuration and
+keeps the existing HX711 behavior unchanged.
+The third patch adds HX710B support using that infrastructure, with
+pulse counts stored in chan->address, a dedicated fixed_gain flag, and
+the differential channel descriptor for the HX710B input.
 
-Update #cooling-cells property to enum to support both 2 and 3 arguments.
+Tested on PocketBeagle2 with an HX710B breakout module. The device
+probed successfully, both channels returned stable raw readings, and
+alternating reads confirmed channel switching between the differential
+input and the DVDD-AVDD supply monitor path.
 
-Fix pwm-fan.yaml to restrict the number of cells to 'const: 2'
+Build-tested with:
+- make -s W=1 drivers/iio/adc/hx711.o
+- pahole -C hx711_chip_info drivers/iio/adc/hx711.o
 
-Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/hwmon/pwm-fan.yaml      | 3 ++-
- .../bindings/thermal/thermal-cooling-devices.yaml         | 8 ++++++--
- .../devicetree/bindings/thermal/thermal-zones.yaml        | 3 ++-
- 3 files changed, 10 insertions(+), 4 deletions(-)
+pahole reports hx711_chip_info as 40 bytes with no internal holes. The
+remaining 7 bytes are tail padding from 8-byte alignment.
 
-diff --git a/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml b/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml
-index a84cc3a4cfdc..6a24851fd80d 100644
---- a/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml
-@@ -63,7 +63,8 @@ properties:
-     description: The PWM that is used to control the fan.
-     maxItems: 1
- 
--  "#cooling-cells": true
-+  "#cooling-cells":
-+    const: 2
- 
- required:
-   - compatible
-diff --git a/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml b/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
-index b9022f1613d8..28f5818f1e60 100644
---- a/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
-+++ b/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
-@@ -44,10 +44,14 @@ select: true
- properties:
-   "#cooling-cells":
-     description:
--      Must be 2, in order to specify minimum and maximum cooling state used in
-+      Must be 2 or 3. If 2, specifies minimum and maximum cooling state used in
-       the cooling-maps reference. The first cell is the minimum cooling state
-       and the second cell is the maximum cooling state requested.
--    const: 2
-+      If 3, the first cell specifies the thermal mitigation device specifier
-+      index for devices that support multiple thermal mitigation mechanisms.
-+      The two other cells are respectively the minimum cooling state and the
-+      maximum cooling state.
-+    enum: [2, 3]
- 
- additionalProperties: true
- 
-diff --git a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
-index 0de0a9757ccc..1261ba0e802e 100644
---- a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
-+++ b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
-@@ -214,7 +214,8 @@ patternProperties:
-                   device. Using the THERMAL_NO_LIMIT (-1UL) constant in the
-                   cooling-device phandle limit specifier lets the framework
-                   use the minimum and maximum cooling state for that cooling
--                  device automatically.
-+                  device automatically. If three arguments are specified,
-+                  the first argument is the cooling device specifier.
- 
-               contribution:
-                 $ref: /schemas/types.yaml#/definitions/uint32
+Changes in v3:
+- See individual patch changelogs for full details.
+- dt-bindings: remove vref-supply wording; drop repeated
+  clock-frequency default text; restore example node name; remove the
+  extra HX710B example
+- driver: split the hx711_chip_info refactor from the HX710B support
+  patch; fix signedness; update channel_set only after successful
+  channel switching; keep HX710B scale based on the documented fixed
+  gain of 128; add direct ARRAY_SIZE/types includes; use pahole to
+  verify and improve hx711_chip_info field ordering
+- Reworked Kconfig text to use "HX711 and compatible ADCs" and list
+  supported AVIA ADCs one per line.
+- Restored/updated driver header and module description wording while
+  keeping the bitbanging context.
+
+Changes in v2:
+- See individual patch changelogs for full details.
+- dt-bindings: add dvdd-supply, vsup-supply, rate-gpios; allOf if/then
+  for HX710B; fix clock-frequency description; remove dead vendor URL;
+  clarify AVDD as voltage reference on both chips
+- driver: fix pulse count bug ({25,26}->{1,2}); move counts to
+  chan->address; add fixed_gain flag; add .differential/.channel2;
+  remove NULL check; drop reset_channel; pass iio_chan_spec * directly
+
+Piyush Patle (3):
+  dt-bindings: iio: adc: avia-hx711: add avia,hx710b compatible
+  iio: adc: hx711: refactor to per-chip hx711_chip_info structure
+  iio: adc: hx711: add support for HX710B
+
+ .../bindings/iio/adc/avia-hx711.yaml          |  50 +++-
+ drivers/iio/adc/Kconfig                       |   8 +-
+ drivers/iio/adc/hx711.c                       | 216 ++++++++++++++----
+ 3 files changed, 221 insertions(+), 53 deletions(-)
+
 -- 
 2.43.0
-
