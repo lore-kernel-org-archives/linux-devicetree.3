@@ -1,125 +1,213 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED51A37266E
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 07:36:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776843392; cv=pass; b=UX/VNIr5Am5lWcL1cndGPnCGVOfMwWEPoK+ePNjgNWP288Wh7P/aAVJW7bZJUQN4EzzvttNK1GmQKO877kyjnGQs2pf1rN40ZS6LudguaYH6qyHurN7xvuUTcNIA7dqrTGRX51LO4UCOMBofxK9HTJjBuFw+PYLm+VmmW0azNuw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776843392; c=relaxed/simple;
-	bh=4DzVyri0edtFhAHZfVFYeXT5iqjhOw+QNulxDA24+bw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZfhelhcSkO2vnCNTme9YwtlG3JJyP+1uaBjmOhTbZPI5ldAvZqESe3PKXKToJK6bgYoL09fRF8y5hPr+I8uosqtNxpIzOe/hh9hOKoTkuBkpqf5omlamjPgJTWfHzhVgk886jTrwy6kpsNVj/yvmaTeT9miUMkCzk4AFGGikAYw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=houvkiKV; arc=pass smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9883A3603FC;
+	Wed, 22 Apr 2026 07:37:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776843455; cv=none; b=Y6hthZ3io7dZSh4OKCBcYTI1sXCvKI/ns5vGkzRwU1Km/1KOqYDLlqDKpftXXdVd1K8vxIQNq6qoFIOSUhT2YgWSRYvy5TmXdlWKQceIBIO6z06bBvz25SrYDUmQsuqwFh6jNNBoyX7/K9ct3Tk3x4oKC0KlgT3OXlqXsAMO0aI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776843455; c=relaxed/simple;
+	bh=obqVR0jvrA34R7p1liFllX9ZW6t24tAVPvVaoNRMaX4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mWXlBZXWhJRyT9X/YpBRUdhXENMAzwMfOa1h//u5ib3dXjXaQthunWLhGbqcVePFJ2PAaTDSZbk++y0G8s44z+WXIjCzBlqRsh3lNGfGqm/4O05Mi65ljR7Bz0+tjc/k/9jxDoq1yFQMhCEtiHlvekqZOefGltuhDvPibPAaiDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V8oU9euG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="houvkiKV"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-38ce8a5bc20so55376321fa.1
-        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 00:36:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776843389; cv=none;
-        d=google.com; s=arc-20240605;
-        b=MJUsfL+4Trclox3Xzx4v70Gu2XU9TBuy/chQYORBRDQDFgxv0sIOoUtWiDrjZRv/IC
-         noU6z63SRnHcNBQ6Liwk296TxH87kdQCpwWIwd0/1ShkAdWWYM0fsBLD7cpz5xfklFNP
-         FqlKmuSj9S0CpdwA8Uobygdiltb4LNhHYexpM9H05mhcaKAlrfmsbtfPjhExqFq1ffbk
-         P74bPeotUCmGls1PKVRbEKGIsH7XUvVxj09kHjHnc40N9/DGKxw4tf1h3GcNjkGV0B+l
-         CC4g37+Mwk/eqBR+ad2JNoZMJTdKb0d3QKPNDJGPNB3F4JyEiLQoz5R26PzewYhYORFR
-         JUdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JRhsk8bRbL2KGVeQozHjmCu3DTba9VSOU96UxmUB0aY=;
-        fh=1sCo5QLY0ztBuksyGQdrx/jmY3bntwe0Xdyic08qdr0=;
-        b=hpFHT5EN5QO07ZsgV7vCbFjcSG/4B5jT81C8APyWQspD/k9BgO47mIT1Fd8fFKsbSL
-         kWMynvfDlIA/Ifh9bquwzGrYM0KN/u5C40QD7MXt01lSh8vqWNYvgJR92nCNz04j4Yt+
-         quhJ5iM5IJsu8YmCJRn+b9Jr6Qgn27BmoPvN3suoBGs5yIiSJiJkQ6b6/tnIUxqKaoYl
-         lKpaGVHMZCFg2MVRuWrPa7+9snwHt6qHIqFjEiBwqH+wR/pToe97HFRVE4LvEZ6BNKzR
-         mS3vMUtt0MgjRQFDtX4lxhjeqDNaf3s0e/inBETWYjNLJ0OSBos3Ea72JebiERQWqmw9
-         Gq8w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776843389; x=1777448189; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JRhsk8bRbL2KGVeQozHjmCu3DTba9VSOU96UxmUB0aY=;
-        b=houvkiKV4jWOhoWCzy7Jfc+EPwWRTNG1BTkZ4ULPSLfYD6DGqUttRqNnECeQuzC/dS
-         YZlV8Jmaa3QdbviaBCAYWCVTE/Ajhe/gMVcNDIgD8ejkuVr10mET/Tn85PPJDHOm8FnM
-         urrU50942gmpbkvns/ly3SjK3RVm9IQKDcpphE9Yxwh6hGsJB0fBVSlueEPA/RgJHA0Y
-         sj1JLWhjFbwAcbwOprN00LDHKMM0F9eYswzRHouNMVNyPoWd9RShARUxLgjSvy7+kTSm
-         zXfxFjPfU5XsMVuPjv6qtF/9fREne/4ANYfxVMuvlgI76iXAh/IiX/2EXwQDs7jAnks7
-         MK0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776843389; x=1777448189;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=JRhsk8bRbL2KGVeQozHjmCu3DTba9VSOU96UxmUB0aY=;
-        b=BdFSukxaP8FLCqWxyi9DSxioslyhMWtfqLc9OfPO/9PVEHpqyMV48GtjjqIg7rFANj
-         NrBPmlP1zV5I9u+N6x9YoNFDAO9uWPDNuiyUP+279qB/6XhgKyg1MKuzXpZyRd+Y7QWH
-         aPARkj4SINHnfDp1L36jX4HdhYqffyZz9vq3G4GIVjvX/nw0oAP4GWOv609CzdRJeKsz
-         X34K0VAzoLBnUisIKmpdn4q/qJ8cbuFvDfuQkvgvxm3MwZ8n3uTuBFMh+M+yYtJWZmuy
-         jJ/E31MHX/oFw73TM94gIHsSh7nHiEpIdmh7cHn3bb7v1SZr7b1FsaB//oKb9WE3QNA9
-         Py7A==
-X-Forwarded-Encrypted: i=1; AFNElJ9B/o0hZ7qr95o4x/jBNlP87hSBl+muizLob8J79jEWNoPaVjtjPVRGaz7PhR/mL+/BzjmgS3vShwPp@vger.kernel.org
-X-Gm-Message-State: AOJu0YyLOGtEVQlEaF/qJo0my+7jR2jBuRWAioCHXRO30MigPudxtjBI
-	Bim5t1O2iLT1WJhTNjzzeLhvob0Wu3eYJm6A14aDciKEBLo0qfc/cicxc0t4Qpj4tYdWC07KZAV
-	vFnE4I2TyAQaf+ufxfJXua3njIQOoyWM=
-X-Gm-Gg: AeBDiesJe+Iq8hgneYA7b8WXrCqJpzPZ22rs7tbMSefsSUYb7l5wCa1YmHKkqGlGI/9
-	ZT18uXg+qcF5EkgVIkxoCQBdsETtDXeKgld0Cl6ky8xBoNf+KG9Cnj+9hnAPicr8DpYaN78WlpM
-	MYhQyc3H6RoLTwoyLnJuZ3E2PogRumW/B/E4GP3w7iovtzRKwGqXuRjkZAOfGSkri57df5QLbzw
-	FQiUJqz6QbEhE9naEjzgMoInMYcjN2DfFOIvnHbeO6i5IC5pi/2n5WI7lkOGuHHsb0NHfgiHV3U
-	4K79QUY59PMI6jJhKBqXvZ0MHQiaz+MkHiTJqIjNONPNqQfAgAKYe+OOGAeiIhk5fsgnbN1hoHU
-	wUQM=
-X-Received: by 2002:a2e:bc14:0:b0:38e:23c9:2f77 with SMTP id
- 38308e7fff4ca-38ec7418244mr76801921fa.0.1776843388831; Wed, 22 Apr 2026
- 00:36:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V8oU9euG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5C2FC2BCF4;
+	Wed, 22 Apr 2026 07:37:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776843455;
+	bh=obqVR0jvrA34R7p1liFllX9ZW6t24tAVPvVaoNRMaX4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=V8oU9euGedxV8ZrPLFTsmjtXgKDbHru83MG40BHxelH5qFI9Ztl7zt/cMHeJWTrbp
+	 5NqfNCNuV9AzZwCxhhDwgwNkwj9L3wibK4gYfUYl1X6CIVwackukk67PaAbwHPfeYG
+	 JJuBppOS0Su4StDQdojNRy9jAxdomEdB8ojTEIWig8bF/7Vc/nEs7r2QbfqFARzdDS
+	 GXqH72FAVEMLq0PXYXzdkoev+6RgKTL3d8fQWW5RB932dbxLvedB6Hsl8OBpGDFzu2
+	 juKGyvldR6RvLRL7LvTHGXI8CzMCxlkOJ0vH5UFAsJOiEOJ3CT9w8eg1GiNiTcmlwa
+	 oaS6ud59SZNrQ==
+Date: Wed, 22 Apr 2026 09:37:32 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
+	Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Imran Shaik <imran.shaik@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org, Maulik Shah <maulik.shah@oss.qualcomm.com>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>
+Subject: Re: [PATCH 01/13] dt-bindings: soc: Introduce device bindings for
+ CESTA Resource Manager
+Message-ID: <20260422-prophetic-hog-of-variation-93722c@quoll>
+References: <20260420-cesta-sm870-dispcc-v1-0-eb27d845df9c@oss.qualcomm.com>
+ <20260420-cesta-sm870-dispcc-v1-1-eb27d845df9c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260421-ch13726a-v5-0-f7f6f4f30e05@gmail.com>
- <20260421-ch13726a-v5-1-f7f6f4f30e05@gmail.com> <20260422-resilient-puma-of-excitement-02fee3@quoll>
-In-Reply-To: <20260422-resilient-puma-of-excitement-02fee3@quoll>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Wed, 22 Apr 2026 02:36:17 -0500
-X-Gm-Features: AQROBzBRZGRInIxeMUjKR2PpeDYi3ALSLVHHQxsrJaDloP4zzhaCTJCBGIAsqt4
-Message-ID: <CALHNRZ__HyuWpcTzqq8YG_n=RPZ10kNhHU262=NHEqr_S-pYKg@mail.gmail.com>
-Subject: Re: [PATCH v5 1/2] dt-bindings: display: panel: Add ChipWealth
- CH13726A AMOLED driver
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260420-cesta-sm870-dispcc-v1-1-eb27d845df9c@oss.qualcomm.com>
 
-On Wed, Apr 22, 2026 at 2:05=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On Tue, Apr 21, 2026 at 12:38:37PM -0500, Aaron Kling wrote:
-> > The Chip Wealth Technology CH13726A AMOLED driver is a single chip
-> > solution for MIPI-DSI. This is used for the AYN Thor bottom panel.
-> >
-> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > ---
-> >  .../display/panel/chipwealth,ch13726a.yaml         | 67 ++++++++++++++=
-++++++++
-> >  1 file changed, 67 insertions(+)
-> >
->
-> I don't get it, you use b4 but still drop the tags (b4 gets them
-> automatically). Nothing explains reasons for dropping the tag, so I skip
-> the patch.
+On Mon, Apr 20, 2026 at 09:58:54PM +0530, Jagadeesh Kona wrote:
+> From: Maulik Shah <maulik.shah@oss.qualcomm.com>
+> 
+> Add device binding documentation for Qualcomm Technologies, Inc. (QTI)
+> CESTA (Client State Aggregation) Resource Manager which is responsible
+> for client side management and aggregation of local resources.
+> 
+> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
+> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 
-It's not automatic, you have to run b4 trailers, which I forgot to do.
-Will send another revision after running that.
+A nit, subject: drop second/last, redundant "device bindings for". The
+"dt-bindings" prefix is already stating that these are bindings and they
+cannot be for a "non-device".
+See also:
+https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicetree/bindings/submitting-patches.rst#L18
 
-Aaron
+> ---
+>  .../devicetree/bindings/soc/qcom/qcom,crm.yaml     | 83 ++++++++++++++++++++++
+>  1 file changed, 83 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,crm.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,crm.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..a1485db8b7476b0cb0b4e8a41adc8fb4092b731f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/qcom/qcom,crm.yaml
+
+Filename must match compatible.
+
+> @@ -0,0 +1,83 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/soc/qcom/qcom,crm.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Technologies, Inc. (QTI) CESTA Resource Manager (CRM)
+> +
+> +maintainers:
+> +  - Maulik Shah <maulik.shah@oss.qualcomm.com>
+> +
+> +description:
+> +  Support for communication with the hardened-CRM blocks. A set of SW
+
+What is a hardened-CRM device? How can you harden a block? Are we
+talking about steel manufacturing or software security?
+
+> +  client Direct Resource Voters (DRVs) in CRM provides interface to vote
+> +  desired power state of resources local to a subsystem.
+
+I still don't get what this device is doing.
+
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,sm8750-disp-crm
+> +
+> +  label:
+> +    $ref: /schemas/types.yaml#/definitions/string-array
+> +    oneOf:
+> +      - description: Specifies the name of the CRM.
+> +        items:
+> +          - enum:
+> +              - disp_crm
+
+Nope, same as compatible so pointless.
+
+> +
+> +  reg:
+> +    minItems: 2
+
+There is no such syntax. And if you did run it via internal review tool,
+that tool would probably tell you that.
+
+
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    minItems: 1
+> +    maxItems: 6
+
+Nope. Standard bindings rules - we do not have flexible lists. Please
+follow writing bindings or any of previous DTS speech slides.
+
+> +    description:
+> +      One interrupt for each DRV. The interrupt trips when a message complete/response is
+> +      received from the accelerators for the desired power state. Number of interrupts must
+> +      match number of DRV blocks.
+> +
+> +  qcom,sw-drv-ids:
+
+Drop the property. For sure we do not want drivers in the bindings.
+
+
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    minItems: 1
+> +    maxItems: 6
+> +    items:
+> +      minimum: 0
+> +      maximum: 5
+> +    description:
+> +      List of SW DRV IDs used within kernel. May contain holes as some DRVs can
+> +      be allocated to DSPs / can be spare.
+> +
+> +required:
+> +  - compatible
+> +  - label
+> +  - reg
+> +  - interrupts
+> +  - qcom,sw-drv-ids
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  # Example of Display CRM device with SW DRVs
+
+Drop
+
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+> +    disp_crm: crm@af21000 {
+
+Drop label.
+
+Node names should be generic. See also an explanation and list of
+examples (not exhaustive) in DT specification:
+https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+If you cannot find a name matching your device, please check in kernel
+sources for similar cases or you can grow the spec (via pull request to
+DT spec repo).
+
+
+
+> +      compatible = "qcom,sm8750-disp-crm";
+> +      label = "disp_crm";
+> +      reg = <0x0af21000 0x6000>,
+> +            <0x0af29f00 0x100>;
+> +      power-domains = <&rpmhpd RPMHPD_MMCX>;
+> +      interrupts = <GIC_SPI 703 IRQ_TYPE_EDGE_RISING>,
+> +                   <GIC_SPI 708 IRQ_TYPE_EDGE_RISING>,
+> +                   <GIC_SPI 714 IRQ_TYPE_EDGE_RISING>,
+> +                   <GIC_SPI 68 IRQ_TYPE_EDGE_RISING>,
+> +                   <GIC_SPI 96 IRQ_TYPE_EDGE_RISING>,
+> +                   <GIC_SPI 249 IRQ_TYPE_EDGE_RISING>;
+> +      qcom,sw-drv-ids = <0 1 2 3 4 5>;
+
+Pointless property :/
+
+Run this binding via internal review first, because it does not match
+expected upstream submission quality and YOU ARE expected to have it
+internally reviewed first.
+
+Best regards,
+Krzysztof
+
