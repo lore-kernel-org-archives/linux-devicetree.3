@@ -1,118 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655A13CD8AA;
-	Wed, 22 Apr 2026 11:01:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5138532D438
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 11:04:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776855679; cv=none; b=j+TlezaPvw1DIWa255I7TQ58cJkUuCV4LR41zNenNhcfi1A7H+jM9+56ycXhWGFXuAAlLZwMSaumo3EsS/UPiOUNbzjRY0dpsALKqZYppD84YqECUHtAnkGYuNT6VzvIJjmdE7lpS81CwOEdyqyAoGctzeA4eo0FvUmgA5lpBvI=
+	t=1776855853; cv=none; b=Aim8oGYIo4Y4nqAXjeDbQRY98E+WcAm36v9zZm89immtQHhItQABQ29b4MQ0vK8JOjqY9QLDhN2sO6CgK3+lcTsIrqxn7p9kczBmtQeUnWbUfTEsYRerzv6Luvtn5y5P4dCrZ1w0ZIgx4aZMGalXIIUAHc1GcPfJg0NniGfxsV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776855679; c=relaxed/simple;
-	bh=vSIMzTAhqwYfxZzmpkzPsQ8Ff0fX6ImiRUnKI6RL9s0=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=B6yGsgboStf6BDJh7itwMwY/UmglM74h0BlycucWYHV53LQn5/MiRgWE0Bz9S3eb+UzyJAvhLTcio72nVorupNGsOcDwMkXPA6GKwQF50b3OJf5u2fUSRzezK9PaviwOq5iYWWugBuiSO75MX/ejpNf6sMmhMKckggHj5VyVHuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y7NnjzAE; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y7NnjzAE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FE54C19425;
-	Wed, 22 Apr 2026 11:01:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776855679;
-	bh=vSIMzTAhqwYfxZzmpkzPsQ8Ff0fX6ImiRUnKI6RL9s0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Y7NnjzAEP8ymiska0oK+0usrDU5yq5m93mhIqgFdRBEJm0A046+BL7dOj0chcDPgH
-	 pwIrygNRqZwGsSbMVRChZmrzMnJwaKyXIJB7eUS8kBlpN/5WkPj7K6IrEb6Km60ENd
-	 PAdQUQ6tfvVCjSr4vuI8lGl9lc62r1SVYta2APFmez1gpG+qV+7GfXpWqzqClZUslz
-	 jlpewNHUK2vGxjEBwdfkTgL1v/7QvSxnr2VEuBbDmYvStR9C7RWw29jKkuRcr8FrQ/
-	 xxRrAxyT0hWBvgxPh0QJfMEc6CLKYUEvFdU4R+BhqHfsyzcLZFsfUoIWK6FUY7CTlI
-	 eS7O+vC/FRyIg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wFVKW-0000000DiIq-4Age;
-	Wed, 22 Apr 2026 11:01:17 +0000
-Date: Wed, 22 Apr 2026 12:01:16 +0100
-Message-ID: <86cxzr1coz.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/5] firmware/irqchip: Add FF-A DT interrupt support for donated NS SGIs
-In-Reply-To: <20260412-b4-ffa_ns_sgi_gicv3-v1-0-af61243eb405@kernel.org>
-References: <20260412-b4-ffa_ns_sgi_gicv3-v1-0-af61243eb405@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=arc-20240116; t=1776855853; c=relaxed/simple;
+	bh=+kKnoE3X5myIN/x98gvTEBRPP0ds1FM6+RV8J+/UXuA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XltE70FW2yYx3c61I2OVdNtzdlU/Beufsb1HNpTPTMtNe2IzcO1OC1MBuTMSpB1KomwEmJGWZxucNoj8uqWpkZyTWb7GwT668dbWAI4fpo7yOTRfYoE6Cy5109Y+7O/cFCyJh25dcSb5aT7Xc7Ota3jkMBmthl6T3Ku+7OO/WOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-56dfd007d31so3349819e0c.3
+        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 04:04:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776855851; x=1777460651;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PAq7sn6tmrcy4Xrh4FAud6hbxe2HMMl+qUt+pq72w94=;
+        b=qlPeG7NwbF8l/U6w7yHJQyh4l1lGTbvBRrVCpbb59s8n0xkKcEjENXtpd/7VJBN9Ke
+         OigCb8xhebTW8rjLX8A5HZo9uWVgJpcap8w/cop8YTLVyjdRXtD/tbPsfZaOJx06xdfi
+         m8f1czdy9FBS9V9jjByf9u895ZaGjVS7zIFTsWZpzGYfooZQrDHEmCqr0eQRIQ6kHzE4
+         TQ3JxZSooYQv7pT0LFDGuSxde+vynLBIKzU7r97+hsl3JXlSxvrpg5iLjATHS9C35vmc
+         EQSZ1wz3GdudB1wAoacw3LMzXyULN9E2vsHVrRzmkXWvGLX6xdyC7jNVw6Nj5X+T9zTr
+         H1jg==
+X-Forwarded-Encrypted: i=1; AFNElJ+hRMd2ONRWORkjMm77DumEu6hHCpOqxT2CmOoq124E1cw0F7r0x0rgUJwe5aZA7JQWZxXHZ6XjC3ju@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzm3UOXSgPlG3nduxUk34UpKgT6DaH2Hb/HeSYOsYFQ9MSPnBmN
+	po5GC/F1Bm9Q2SxMTRNhpUljQmwFGHDoDYp3lw5Bb7pY4gvzoRZg9HlvzvBt+LEnjgQ=
+X-Gm-Gg: AeBDies597G+Mi20kOjGpENK1DSzIjDADsdJ0CXNj9LJrKUirmkDGJa+Iz2r4uwie0F
+	m8gm3ksl8iovWYXlejkRPqUzWJqV0EiGMP5NJbm4kKVReHRP+pMn7XvTd3oWwZSHLE6OR/g8tyl
+	ttB6DqXsoA8lTYq77Yil/2ug6T3CWwQ4AqObPbma1B//ZkwukNHv776Xca5r6Vdw+HTHfFADo/6
+	HmiNGIXeR0ntumUtPY7nyQ7mn7irY2EnIJCSTpNtYQS8aMmP9OUcSdsNF9I93oX9f+wYALlPez2
+	eq7hO5/2xq9nSskZA0O57BruX8OPjeXT/QkwrEXdS0GRyj7HmA+649mtcODE5lOEAXd3QFzUyT9
+	hdtSwmL1tNCIDy+el75qFbiVOkwQ1k9f09znPCKsoiQZyD/ptydKwbnywm2o3dP1eOGMPQ4ahYo
+	Q0QlMq47ho4mee6sp2Ibxp0myA7qE1/YUithIsOBKDUiyjwSwCkKE8toE3WGAde238GgLlqSCbu
+	E/CuOnTD5j3hw==
+X-Received: by 2002:a05:6122:3408:b0:566:354d:9f4a with SMTP id 71dfb90a1353d-56fa58132d4mr11658117e0c.1.1776855851106;
+        Wed, 22 Apr 2026 04:04:11 -0700 (PDT)
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com. [209.85.221.182])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9589097ec5csm7585267241.4.2026.04.22.04.04.09
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Apr 2026 04:04:09 -0700 (PDT)
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5675d609621so3946127e0c.2
+        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 04:04:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9Jr0yUQyBk/G8cm3LCLq09nwWR6ZiER0FTzJqP17TA/pWifxvmnBSZ3iHkT6Q6/bqXq/Pz7L4738NH@vger.kernel.org
+X-Received: by 2002:a05:6122:e253:b0:56a:fcbf:8aa4 with SMTP id
+ 71dfb90a1353d-56fa5811e9fmr11350501e0c.2.1776855849546; Wed, 22 Apr 2026
+ 04:04:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: sudeep.holla@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+References: <cover.1775575276.git.tommaso.merciai.xr@bp.renesas.com> <22fb9a500cdbc3272dc23cd5e36bca5fbbec75fc.1775575276.git.tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <22fb9a500cdbc3272dc23cd5e36bca5fbbec75fc.1775575276.git.tommaso.merciai.xr@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 22 Apr 2026 13:03:57 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWDZ98dTwEu0ErX+0eiauNUwDQcWxxfrD=pSo2wA61Cig@mail.gmail.com>
+X-Gm-Features: AQROBzD1uypvoBrb0e6rgYJ6ENObDj8jwDEQe2Y8m7CIn0z6EpqWaIELEZXNRQo
+Message-ID: <CAMuHMdWDZ98dTwEu0ErX+0eiauNUwDQcWxxfrD=pSo2wA61Cig@mail.gmail.com>
+Subject: Re: [PATCH 1/2] arm64: dts: renesas: r9a09g057: Add #mux-state-cells
+ to usb2{0,1}phyrst
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, peda@axentia.se, p.zabel@pengutronix.de, 
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, 12 Apr 2026 18:04:36 +0100,
-Sudeep Holla <sudeep.holla@kernel.org> wrote:
->=20
-> Hi all,
->=20
-> This series wires FF-A notification interrupts up through DT using the
-> standard interrupts property on the arm,ffa node and adds the
-> required GICv3 and binding support for secure-donated non-secure SGIs.
->=20
-> This has been long pending after the discussions here[1][2]. I have been
-> waiting for some ACPI story to shape up for almost an year now, but no
-> progress there. So posting this for now to start discussion on the approa=
-ch
-> taken here instead of waiting for another year to sort out ACPI =F0=9F=98=
-=89.
->=20
-> It:
->=20
-> - documents secure-donated NS SGIs in the GIC DT binding
-> - teaches the GICv3 driver to accept and map those SGIs
-> - adds a DT binding for the arm,ffa firmware node
-> - updates the FF-A driver to use the arm,ffa node interrupt instead of
->   synthesizing its own GIC mapping
-> - adds an FVP DT node using SGI 8 as the FF-A notification interrupt
+On Tue, 7 Apr 2026 at 17:35, Tommaso Merciai
+<tommaso.merciai.xr@bp.renesas.com> wrote:
+> The renesas,rzv2h-usb2phy-reset binding schema defines #mux-state-cells
+> as a required property. Add it to the usb20phyrst and usb21phyrst nodes
+> to fix the following warnings:
 >
-> The FF-A DT lookup expects a single interrupt entry, verifies that it is
-> a per-CPU interrupt via the reported affinity mask, and cross-checks the
-> resolved Linux IRQ hwirq against the interrupt ID returned by
-> FFA_FEATURES.
+> "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dtb: usb20phy-reset@15830000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
+> "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dtb: usb21phy-reset@15840000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
+> "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-emmc.dtb: usb20phy-reset@15830000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
+> "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-emmc.dtb: usb21phy-reset@15840000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
+> "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-sd.dtb: usb20phy-reset@15830000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
+> "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-sd.dtb: usb21phy-reset@15840000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
+>
+> Fixes: 6a1b6f7e56dc ("dt-bindings: reset: renesas,rzv2h-usb2phy: Add '#mux-state-cells' property")
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-I haven't looked at this in any detail, but these are the additional
-issues someone needs to address:
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-fixes for v7.1.
 
-- The GIC(v3) is dead, long live the GIC(v5)! SGIs don't exist in the
-  brave new world, so FFA needs to find new ways to signal interrupts.
+Gr{oetje,eeting}s,
 
-- FFA doesn't necessarily live in secure world, and could be
-  implemented by a hypervisor. In the context of a single security
-  domain machine (that's what a VM is), the guest *owns* all SGIs. So
-  there is absolutely nothing to donate, and this doesn't work. FFA
-  also needs fixing here.
+                        Geert
 
-- All of the above should work with the other firmware description
-  (Avoid Critical Periodic Interrupts). But maybe FFA is not a thing
-  on these machines? If not, it should be made explicit.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Overall, it only indicates that FFA should behave as a device, and
-use interrupts that are valid for a device.
-
-Thanks,
-
-	M.
-
---=20
-Without deviation from the norm, progress is not possible.
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
