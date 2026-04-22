@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5902F2E8B83;
-	Wed, 22 Apr 2026 06:27:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD3917BA2;
+	Wed, 22 Apr 2026 06:27:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776839227; cv=none; b=kxR7eszB6NJm955U+34OFPC+IbyqXEM9raKQ0hAyHbD6a+luffLZ2SPv+qS8RY/gjUk5ksySmRCXl7+p5Aegj78BLL3lHWuQ10svQ2yHd5Bp8w8xg2mfg15tmmRP0Sg9IEjpAUbaIvoe/rq19E5QOqns59cWRl2iNl2855bh3rQ=
+	t=1776839256; cv=none; b=e1OmW3anVzkgRy6+NQxumwZnmLhc84aQ2dH+R3LyAY060yGIeof8+gXijnhaYGSovKI1ZlnQ0Ftt0K/P2i7Nzsf5ixK1l0y16jxB6dxQfe8x9IU5ah1bjWnUaT43N0NzkiKNkZ01yaP0BavGY86SafdEO2g6AIdC8d4MNomaXUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776839227; c=relaxed/simple;
-	bh=6Rb4qSyzBQA/nmJgjgImV5t7kEoEhRWY6UXH+BsuQgk=;
+	s=arc-20240116; t=1776839256; c=relaxed/simple;
+	bh=+SIqJ8k3Ofu+hDR+0W066dLrUyDNulLp2dsa8s7SKmU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OYS57lxgZefl44Z8KyOqbss+AU3K+th+VsE4Qr3jMjrPgwN5pXH98jBszo/ayLMI2AzqLpBL5u/Q1cq4zdqf1GDv0Mf6yeL0vzjFuJP7iEkz9yyI4PryTMAmC99BTCsa6eCNa40DkMIvcweCg/+Vii/kDT97SzTB00GpwkwaO90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c0YYMrmt; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=LW6/DAL2kXnCxL7SEdtlq6VtdvP+S81GPIDbOtu4SCOYVXuhvOgDgCUfBhMz8hrFJS3/GBC6XTCh5c2MnrlbpgO81hvSNiCox3poORDzR/6/JTPbnxX92jZU9byjlPXIjysdL/wwXnKeEz6eYVdStNjyClFofqL9WXRnbeXpj3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pmOmhxlg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c0YYMrmt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B7FEC19425;
-	Wed, 22 Apr 2026 06:27:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pmOmhxlg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5543BC19425;
+	Wed, 22 Apr 2026 06:27:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776839227;
-	bh=6Rb4qSyzBQA/nmJgjgImV5t7kEoEhRWY6UXH+BsuQgk=;
+	s=k20201202; t=1776839256;
+	bh=+SIqJ8k3Ofu+hDR+0W066dLrUyDNulLp2dsa8s7SKmU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=c0YYMrmtpZroghKk9iC30BnaH8PZDEz6otGdJPi4wLMiz7P0mzl53MG71gA7PVuxp
-	 FhyTfusDq2NGPCdFwnqAL04wtSgxv+tPY9mBY8AStfSdcpTWP98rwXjpxcP0cPtXL1
-	 dHcvxMwMUPIeVLDGbYffhaFWjbMhub3/LnpN5s0+Hi9VHd3zUj1iYNmnb/GK7CQYHJ
-	 gGPcVmOTOsN0nrPdfwsC58+r1uDOydrinBqaQ9xRFUaBzqRE6tC6O7SKFHn1dceH1l
-	 zKiZJTjKsqFJeeqLIrDgnRZZPGSLTD+HSsYxoA5K00Wso30qW1GQv1XS8MsiRnIY0L
-	 JVvdN0riJQDHQ==
-Message-ID: <fb6e8d3c-4cb1-4c20-a570-e9f6ae9a651c@kernel.org>
-Date: Wed, 22 Apr 2026 08:27:02 +0200
+	b=pmOmhxlg7Zkis6wJ5Gx11GlCbY48THRYq/sequKTFcEgJUdOYSPZJD2XbTXPc0kAX
+	 9pUB7VPsfHAtc8/tTmI0lJmf6daJZmrZooZk1xFRTeVn5FFjwEZbR5iTCOI8NphLVT
+	 qF72kUEU9TnyaUG//REF6zfn8JUwVfpsF4fbQYSvPT8tnkU6S7ULKdiZVBRt/IK6N2
+	 p1gWH2T+tP2PaSOtNumlj7ZD2CMQCfQnfsdLGDiKn4IknL3XYOSDv6F6GLflw6NdCp
+	 pmVDu9ynrv7gtS69+uFKbVoSEzvhpJWxxUfhSxz/zbrr6uYMi2tmtl0YSjNMYUSoK/
+	 mmGPJMUmPcNHQ==
+Message-ID: <3b21c15e-942a-4a01-a083-8fbe33197690@kernel.org>
+Date: Wed, 22 Apr 2026 08:27:31 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,6 +50,8 @@ References: <20260412-glymur_gen5x8_phy_0413-v3-0-affcebc16b8b@oss.qualcomm.com>
  <20260412-glymur_gen5x8_phy_0413-v3-1-affcebc16b8b@oss.qualcomm.com>
  <20260415-wooden-prawn-of-lightning-dc1ddc@quoll>
  <aeBQRStG3imY0cOe@hu-qianyu-lv.qualcomm.com>
+ <20260417-awesome-tacky-coot-e59a30@quoll>
+ <aeXUZ1uSEJ9InUtw@hu-qianyu-lv.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -95,36 +97,30 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <aeBQRStG3imY0cOe@hu-qianyu-lv.qualcomm.com>
+In-Reply-To: <aeXUZ1uSEJ9InUtw@hu-qianyu-lv.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16/04/2026 04:58, Qiang Yu wrote:
->>>    reset-names:
->>>      minItems: 1
->>>      items:
->>>        - const: phy
->>>        - const: phy_nocsr
->>> +      - const: phy_b
->>> +      - const: phy_b_nocsr
+On 20/04/2026 09:23, Qiang Yu wrote:
+>>> It is not the same as the 5x4 PHY. In DT, we model three PHY nodes:
+>>> phy_3a (1x4), phy_3b (1x4), and a separate phy_1x8 node for x8 mode.
 >>
->> And now I doubt that all the changes here are for duplicated node.
+>> OK, that's what I wanted to hear. And that's what should not be done,
 >>
-> 
-> All the changes here are for 1x8 PHY node.
-> 
->> Maybe just the commit msg is confusing and instead of describing some
->> node which combines two other phys just say what device is here being
->> described.
+>> You should not have a separate node for the same hardware. First, DTC
+>> will give you a W=1 warning, although warning itself should be moved to
+>> W=2.
 >>
+>> Second, the warning tells important story - same hardware is described
+>> twice.
+>>
+>> You only need phy_3a and phy_3b, so only two in total.
 > 
-> Okay, I will focus on describing the required resources. Is the
-> description below clearer?
-> 
-> Glymur has two physical Gen5x4 PCIe PHY blocks: pcie3a phy and pcie3b phy.
+> We can keep only phy_3a and phy_3b, but still add new compatible
+> qcom,glymur-qmp-gen5x8-pcie-phy in binding, right?
 
 
-I just proven you that it is not true.
+No, you cannot. You cannot create fake device nodes.
 
 Best regards,
 Krzysztof
