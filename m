@@ -1,88 +1,84 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C0037B40E;
-	Wed, 22 Apr 2026 08:02:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB50382376
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 08:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776844977; cv=none; b=jlsRnFBIIpQImC1MCK5SurNmMXKznN3XWuRErXWa/B3bF2KJ7GSIBucZ8BSo9+Z5VWan3IzhHIqLAuLU0YxYFWp6dNroCnNSEwH5tx4SYmvq4SFBvgabe87ko84R3eHvf9qQdA3zcb6vjoD/+XCDUvEdS7uTk+iViFSdfxiAbNY=
+	t=1776845301; cv=none; b=ff+d7US/o5r19TvI5jKekpUwIVioWLTc4qPts0rMxO6kyskNzQzbwWK+YhkbQkgHK5zSr/V2UUMVlq0C61FU9O2gTvSX1w8Az7BIu/pP4DBFRuM3/CtMCn5oKDYNs4g8xcsLDKRdOo70myNbyljAzG9ZEfoLDIXlJF4BkDzew6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776844977; c=relaxed/simple;
-	bh=Omg1d/W+ndiF9bFlPfj5R1718GeliZQAVgOpErVhKno=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lBtK4pE5hqGIb/wVdBGSXs66POUmz0vesqUIE9cSVQIcQJFpL8ptNXxE5ffBz2aVGmQ5Wq2UPBzOxvJ9Fzu+6GzO1QkQ2vCcG7TGYLaEnPmhN7cEdWPmzDZXhUwNixlxKFOlIpK+grhvN3rZe4F00+ZdadNE//g3+NGVCRbiIsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g+sXXXUk; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1776845301; c=relaxed/simple;
+	bh=f4NTEKOb0TYPzwx83555aZf8ormuUaXr6ZqLdxM4fGQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=utrsVpzT6uoxi9wFRNi1+iJQVlwvt/LCkvyFE7u2BurwsijRtYkzTlnqwrMJjshHJMskW00DhaDDQho0hoqRwNj4iAJiophYucYTBF/AtfiTzli6MNIaO71PUnIn6/iaoaNHZ94oC6gl70ZBdgPD4mG/R/p+AO1UrmBRc+SrgJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=M/Ss/FQB; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g+sXXXUk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1776844976; x=1808380976;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Omg1d/W+ndiF9bFlPfj5R1718GeliZQAVgOpErVhKno=;
-  b=g+sXXXUkWcfjFdS8xmK0Aa5wlniVnOAhyqHMazof+LpyrK+U/fAKkFFs
-   Qm1ULd5Iyb5PerFwEcVJ114w4mVsQGL5OH1kZZcpbqWhm1vhvw+JduzMS
-   XMF/WaarhnhrkCngDdiUO82FGiF8xrQlbTVfyEC6oNviLyjyPBAXcBgec
-   ka96ylJ8VlFYGqpkN6SVP2wLS2qd2NR/jl846s2tdlyvxl6LKuW6HnZ0T
-   WYf1MH4BffzKAMSrr9NxELAy7YT5wAOiwYeWhC2RBf4cer3l/CS92dBB8
-   STfUuJQcsKS7k5rkh4de6uIJ75zvR9jsnLCpRSpbY58GXK6U7+3nAEr1z
-   A==;
-X-CSE-ConnectionGUID: rMCSCoJZS4GLl9MeECxU5A==
-X-CSE-MsgGUID: IcaKg7BKQq6JBaZszxxoMw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11763"; a="80379608"
-X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
-   d="scan'208";a="80379608"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 01:02:55 -0700
-X-CSE-ConnectionGUID: D4sHSJ+nSHCfYiL2yUWOOA==
-X-CSE-MsgGUID: s1eMzOccSOaEu9y1smyTpA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
-   d="scan'208";a="237325545"
-Received: from dhhellew-desk2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.208])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 01:02:53 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 74643121CC8;
-	Wed, 22 Apr 2026 11:02:51 +0300 (EEST)
-Date: Wed, 22 Apr 2026 11:02:51 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v2 5/5] media: i2c: lm3560: Add support for PM features
-Message-ID: <aeiAq_eep_fqwewN@kekkonen.localdomain>
-References: <20260419093412.40796-1-clamor95@gmail.com>
- <20260419093412.40796-6-clamor95@gmail.com>
- <aeepbB72uWDxvnE_@kekkonen.localdomain>
- <CAPVz0n1sNoJv=JcAZdv3srRY0vecrRO0spnqg58-VLnYdkfPSw@mail.gmail.com>
- <aefXJebe2F4Z193F@kekkonen.localdomain>
- <CAPVz0n111oHa2UdJ9LO8PTYcRuAmUem6tQdPKABRq1YHH8ZDgw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="M/Ss/FQB"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 145144E42AAD;
+	Wed, 22 Apr 2026 08:08:17 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DD026600DD;
+	Wed, 22 Apr 2026 08:08:16 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 50A3210460A3E;
+	Wed, 22 Apr 2026 10:08:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1776845296; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Ok/jDao3QWG80+zWCp1k65124isQJzzQbc2D1YJo5sA=;
+	b=M/Ss/FQBq/QU57FoaB+yrUWa8nP1Z4ZxnvQO2psZ7Wbhqswl57GHd27JnXUpvuyqAMzUMi
+	9NuBBXAv51qpepXszjoSlQbbOWwzCGzvy0pos0FO2fCVICOMjktJHE1zJQwCrxD7z8ZTUb
+	FECM0gD/gh285SVjsm9QygsHvBgj+MPfFIBxsx58hOqYbsz6BCksKqtoo4NcweibazK/r8
+	RovbaHM1aIY/dZREHsuzsCCG9NNykN7WNEJummlJB3av+Hk6CVvy7ghFooWYNPFyd3jdja
+	QgQF5dBZmxeiNyUzBP4nkJ63w1lrD0KJMkPa7vv3d0hTLASfvdZ9+9OauI0vVg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Cheng Ming Lin <linchengming884@gmail.com>
+Cc: richard@nod.at,  vigneshr@ti.com,  robh@kernel.org,  krzk+dt@kernel.org,
+  conor+dt@kernel.org,  linux-mtd@lists.infradead.org,
+  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  alvinzhou@mxic.com.tw,  Cheng Ming Lin <chengminglin@mxic.com.tw>
+Subject: Re: [PATCH v9 2/3] mtd: spi-nand: Add support for randomizer
+In-Reply-To: <20260422070203.698716-3-linchengming884@gmail.com> (Cheng Ming
+	Lin's message of "Wed, 22 Apr 2026 15:02:02 +0800")
+References: <20260422070203.698716-1-linchengming884@gmail.com>
+	<20260422070203.698716-3-linchengming884@gmail.com>
+User-Agent: mu4e 1.12.7; emacs 30.2
+Date: Wed, 22 Apr 2026 10:08:10 +0200
+Message-ID: <87a4uv5set.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPVz0n111oHa2UdJ9LO8PTYcRuAmUem6tQdPKABRq1YHH8ZDgw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Svyatoslav,
+Hi Cheng Ming,
 
-On Wed, Apr 22, 2026 at 09:29:51AM +0300, Svyatoslav Ryhel wrote:
-> Noted. Any changes required into the other patches of the patchset?
+> +static int spinand_randomizer_init(struct spinand_device *spinand)
+> +{
+> +	struct device_node *np =3D spinand->spimem->spi->dev.of_node;
+> +	u32 rand_val;
+> +	int ret;
+> +
+> +	if (!spinand->set_randomizer)
+> +		return 0;
+> +
+> +	ret =3D of_property_read_u32(np, "nand-randomizer", &rand_val);
+> +	if (ret)
+> +		return 0;
+> +
+> +	return spinand->set_randomizer(spinand, rand_val =3D=3D 1);
 
-Please see my reply to the bindings.
+You do not need the "=3D=3D 1" part. rand_val is cast into a boolean, so any
+non zero value will be taken understood as an "enable" and zero will be
+treated as "disable", which is fine.
 
--- 
-Regards,
+The rest looks fine.
 
-Sakari Ailus
+Thanks,
+Miqu=C3=A8l
