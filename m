@@ -1,178 +1,550 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9865936C0CF;
-	Wed, 22 Apr 2026 07:13:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776842034; cv=none; b=HyDQlk0WjIz0+z/FCz0s9JuMr6canKzbUdeS87aOMx5MJ319KuJljkaRtfB+hyVBO88Pf9ABoY1ovCazv0Maw3eW12D/VRji5NWnZOue1qk+bN8C8+zzaL8aWhlIKDMRgntIUT46GdEBIoa3WT5KNy5fUCLNroOOYsTbFZLHyQY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776842034; c=relaxed/simple;
-	bh=2fkao8ArefIYQIbLZPL2ShMrSXc6ICRKryHIhWNINls=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RdhWVpVPN0gXqa9ewLvfF/x25ExStj45vcQQfoOFxPNhhNWPTOp2yli0RYZdzAj9y7ncvUtvnwwOeQ50VnkBc2hY+GLKRh+kUe3sDOBiCThFIi9BRrzksvtqXKHN7ib/VYOl20Ks1IzIojyA8+KpmplUdUPOlQ8e5bWq+wNebBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FeKXi2s+; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695DB36E470
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 07:15:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776842138; cv=pass; b=KVctqQc5ofsVO6ztu2N//eUBJApuRdqgQ67G6RoVRxQmCnoOrABR8ZIWZWMv9znhEbloZvR8W839b65NV3pBdmU7Z12r/xEDD7/27d5ssfFtfzmtb89FHHcil0Bheyj9Tkbmih/RDv0BT+4UW4uIX58ny6so6ycuv3lPTuii4Fk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776842138; c=relaxed/simple;
+	bh=BjK342+jXLLnJrTyNEfczF14UMtW71vDIqGbO0K00NM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XJzdJhkskvJl3TVpEuMvm3kYKLYIovQXjom91dTRJKnrVGwHVptz3lRdyEchsyVdESQubCUS9VAYF7m1puQtQRrHW3FibWIDbP+0QV0TeUVqSITTrK2EyM8n77gb6JVtVYiJiEyLyqVtfgxk8ADPBWwYdr+QaJXiUvYM1B3/iCw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iQdRFujT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YaEO13o2; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FeKXi2s+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1776842033; x=1808378033;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2fkao8ArefIYQIbLZPL2ShMrSXc6ICRKryHIhWNINls=;
-  b=FeKXi2s+sMp35Nb945P/0iuyMIxmDiVq7x1rKFZ/iFxNegKQkya1pFIq
-   IACXZ3h2X4ildyuawqueaFXZ52HvH1u4KfYXXjlQM9EdzC1zKzPfXMd21
-   26kWtub62VnbzFuYIQ8XobxtcKct8O6tRV/xgJhrvKoQNkoDIqgVWCSCW
-   U3LX/xUHkFS0cOTttr0lVANloLbTjrLA6CdkLdHMrSmBnTclbru73Yz6h
-   69yyJ4WgOassZz70JJYx1VutuLwRYC7LF+Tfb2BgAVXa1sbjgu5ltq0GX
-   /8k0lTpjrFRmIoyMqNBBVxnUUuMAc9IL8K1NV70H1MdswliC6P0CIVl37
-   w==;
-X-CSE-ConnectionGUID: /WjouxYHSf2swGr6VJGHjQ==
-X-CSE-MsgGUID: xCP1YMg5QCiUfpgHLpBXfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11763"; a="77491887"
-X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
-   d="scan'208";a="77491887"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 00:13:51 -0700
-X-CSE-ConnectionGUID: 8bjn/CoeRfmR+ZxM9NIV9g==
-X-CSE-MsgGUID: b/tjYM8wT72QHDuE4PxnmQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
-   d="scan'208";a="227681986"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.201])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 00:13:32 -0700
-Date: Wed, 22 Apr 2026 10:13:31 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Link Mauve <linkmauve@linkmauve.fr>, linuxppc-dev@lists.ozlabs.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Juergen Gross <jgross@suse.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Geoff Levand <geoff@infradead.org>,
-	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	Oliver O'Halloran <oohall@gmail.com>,
-	Anatolij Gustschin <agust@denx.de>,
-	Breno =?iso-8859-1?Q?Leit=E3o?= <leitao@debian.org>,
-	Nayna Jain <nayna@linux.ibm.com>,
-	Paulo Flabiano Smorigo <pfsmorigo@gmail.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Thorsten Blum <thorsten.blum@linux.dev>,
-	Thomas Huth <thuth@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	David Hildenbrand <david@kernel.org>,
-	Alistair Popple <apopple@nvidia.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Donet Tom <donettom@linux.ibm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@rivosinc.com>,
-	Will Deacon <will@kernel.org>,
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-	Paul Moore <paul@paul-moore.com>, Nam Cao <namcao@linutronix.de>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Sourabh Jain <sourabhjain@linux.ibm.com>,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	Srikar Dronamraju <srikar@linux.ibm.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Jiri Bohac <jbohac@suse.cz>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Kees Cook <kees@kernel.org>, Stephen Rothwell <sfr@cab.auug.org.au>,
-	Xichao Zhao <zhao.xichao@vivo.com>,
-	Gautam Menghani <gautam@linux.ibm.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Li Chen <chenl311@chinatelecom.cn>,
-	Aboorva Devarajan <aboorvad@linux.ibm.com>,
-	Petr Mladek <pmladek@suse.com>,
-	Feng Tang <feng.tang@linux.alibaba.com>,
-	"Nysal Jan K.A." <nysal@linux.ibm.com>,
-	Aditya Gupta <adityag@linux.ibm.com>,
-	Sayali Patil <sayalip@linux.ibm.com>,
-	Rohan McLure <rmclure@linux.ibm.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Yeoreum Yun <yeoreum.yun@arm.com>,
-	Kevin Brodsky <kevin.brodsky@arm.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Andrew Donnellan <andrew+kernel@donnellan.id.au>,
-	"Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
-	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
-	Athira Rajeev <atrajeev@linux.ibm.com>,
-	Kajol Jain <kjain@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>,
-	Chen Ni <nichen@iscas.ac.cn>, Haren Myneni <haren@linux.ibm.com>,
-	Jonathan Greental <yonatan02greental@gmail.com>,
-	Ingo Molnar <mingo@kernel.org>,
-	"Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
-	Gaurav Batra <gbatra@linux.ibm.com>,
-	Nilay Shroff <nilay@linux.ibm.com>,
-	Vivian Wang <wangruikang@iscas.ac.cn>,
-	Adrian =?utf-8?Q?Barna=C5=9B?= <abarnas@google.com>,
-	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
-	Thierry Reding <treding@nvidia.com>, Yury Norov <ynorov@nvidia.com>,
-	"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
-	Ruben Wauters <rubenru09@aol.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-crypto@vger.kernel.org,
-	kvm@vger.kernel.org, virtualization@lists.linux.dev, x86@kernel.org
-Subject: Re: [PATCH 1/2] powerpc: Add a typos.toml file
-Message-ID: <aeh1GzpdvGjRdMdd@ashevche-desk.local>
-References: <20260421121420.26079-1-linkmauve@linkmauve.fr>
- <20260421121420.26079-2-linkmauve@linkmauve.fr>
- <215f12d6-62c1-4837-9f78-ef270684950c@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iQdRFujT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YaEO13o2"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63M5I8WZ976181
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 07:15:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	KIZhas4bXMR42PNEvpT7xTUpWExbob++Lrqpk2z4bNI=; b=iQdRFujTfM/P/LNZ
+	JIpgabpOv5WJZ3MC6rU+QFjwJG51uGjMPQ0/v+tYbZSy4J2TsZx/HaDmWawwUjec
+	C1/XPuV6xS8m1r5jLFw4rLMN19qSEexfcx4xdvJ/sR2Ajn2x++H34FcNA4Y7BZ/d
+	V8mmy5QMywVJ6QO2Ug9YSbll4nUq56Ih8JjMaGb3cExJPUY3a/NRTTsgl3nEAH+7
+	iAdqG/2BtuL9BHna4O0smOqZXuLaG+ewab3K00ip68RFN/XrP79rEsqjXFQ/z1wo
+	95bjV1eExBF/PDAYBFgm/Uio3ROwijnZNz0303dfwqVmEto9BN8zqBpGoXRDLqBH
+	c2QB7w==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpenea5me-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 07:15:35 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8acafc224a8so133404786d6.1
+        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 00:15:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776842134; cv=none;
+        d=google.com; s=arc-20240605;
+        b=dluThMOQU7nevpkisoHxSzv4rH49VaVZJvvBFe4jznXHMcTBOad8Mi4BxY8fpsO8uy
+         yb9DiKpfp15QEOxUeIfCQ5Q3w9STK/Zgkz5Q4QSdBFJs8VBWOBtg6ux+k/k2oEKnYnNX
+         RJdeJ+v4q8sSwtvozKMNlI9SQThMXWAf2XTVaJyVLkzPNS7eu2z3Us9zBdxwpDrrPzGL
+         cqjaGNrSXafrpyDZM+uyvXq2Iit4pgPpv9S7lCHGbR1mPczEFy2vkVfek0hD38gGZF0W
+         ICN7mXeTQSrO3JOv8Ny+kXlF04qC0Ehj3H//PrIphMPrlbGFOn/QPEHbpcj+E0VmdylB
+         M+yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KIZhas4bXMR42PNEvpT7xTUpWExbob++Lrqpk2z4bNI=;
+        fh=iSOUKalhFZ5A4EY667qiW5AqvF5jS9oxllusfrXnRCw=;
+        b=BoO5jtn0lOqJAjjdfpIsUzbPyaxG4X0BcPuglgzky7/CbDJxTkUKM28NPxENi8vkP0
+         g56rP6P6PBzD5x33ZFGvb1C8TX+jUcWlbsPFXQ6AIzniHIsiDiJ8L8zrTrxzlolXrOiy
+         NepTBMmMBigDhJYe+QNCLXMihBa1BaSjS7UCny+bk+gfzsZftPQ+c9i10Lu2kfZKmmKb
+         swMVkxPEkF+ndkPxQ4kXoxaJAYNv+sK0Dxgib0C6CohP1sGqaT4fbaSVJJHWhB9W2rNM
+         oE2xisu2u0Zjc7CQJHbD9Bc0JSXbVdixVErMdEKylSDZOjBKMHoSsMeL641SbUQjdTbQ
+         /1rQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776842134; x=1777446934; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KIZhas4bXMR42PNEvpT7xTUpWExbob++Lrqpk2z4bNI=;
+        b=YaEO13o2CNQm+EHtsQBk1tvzLlMa4QB/+4fxp+InHHzd7BjuoQRiVbepVS5UO6PdeL
+         rM9ZW+bZ9aHJZAygtqLZUvbFzAdzYkDYPQT8DwWOXb5j26dNL3kb1wItfmOfeb3fU00c
+         9WCxFz4YgLJsYOEJd+VAjzK1evceeUaAfJg/81VjD/QqcGTj/UYRPcLnVI0ZJ6dcTQ68
+         /k1CqoHFiMfM+yy/J/YiRcEgzrD0xADHJqp6oWxTIYoZOUEL91upT5aw4uAtALtG3JVY
+         g9hqB7IWxePMRMKBUUKy8GNFVR2gdzMkvfbp8pBiPe6LkCy47DFhR4zHEN/x/mD3f1cY
+         dPlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776842134; x=1777446934;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=KIZhas4bXMR42PNEvpT7xTUpWExbob++Lrqpk2z4bNI=;
+        b=P5bN5qL+jyFqgT9i7SxnyCbddjd7xE9QJ5Od51r5n942EPGIzNKUbTF/XvEGGRCz6Y
+         k1cNBoKq29ydfI+WAYexjXMEkVO54J+BpXLKJ86q8s903skxwRCPDJkE1TK3uRvLOlzx
+         jRlYjCLW62gnP4q2gmYsk+J9FGSS7e/EQmtE2gYAFg4U9tiUFm6NWtE2w17EeE9RDrYy
+         lDKrTkyu7mVqmhiQezbE4abhjNVSw7oTyxVniuIsP9lSyfbiNFBqM0QIwJycYZhT7sUH
+         9s5higiDCs6pPmrm4QFaQhBx4bG+u833hXymPQKkbFlqYYmFaRYabngHucBzqIaDR+eT
+         7N3A==
+X-Forwarded-Encrypted: i=1; AFNElJ8KUjKsPC8Bh6bMlPXP8oX3EvJxgwS09ktjXPCiCJW0MeNfCrUlJnsLiclRo244qK/8mJangb6ZKlqn@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz35z4KS17XzF0nVELo1s6Zt5+V2Bjeje5h/Sq7FAGFTryfIySC
+	B0xW2u24EO07IaYAzo4lEsxHyiok3qq3QN+qW3dWX4kbRTf9sgNrMOEnaLW/qQ1vIQN4QlhGSTO
+	vKrRLBtD1cY18gNSqUJ/UGDMhUe+ZNcbGq8aulIJURk70TjbuoD7fZ2Qc+xVLF8i1hI/OIgsXSx
+	N4dk9eXsmRFQTpkKC2VmEqAPsDZUmIowjMIeFT3Vg=
+X-Gm-Gg: AeBDiesbrb+PRcO0LH5NNI7k31XCjSm9lp6Bho7YIyACJxTmr0EUU9+ZU/9hCPI4d52
+	hq0n55iLlfstEYnVD1Jo7QolBsxJszUdLKKaD6UsoPA9b1aNtkFVy/bUouGf3cuqVRaYtq9wD5V
+	A+RXmCN+iPE0P/p6OCMjijodCd18bNW1pqFvpqWUt4kHwCvmBLGvXuDj/xHAIo/Fh5wk3Szy6ib
+	bPnfIlLo+/mqMwPIQ==
+X-Received: by 2002:a05:6214:27ee:b0:8a3:8f4c:3b6f with SMTP id 6a1803df08f44-8b02816a235mr332567056d6.51.1776842134421;
+        Wed, 22 Apr 2026 00:15:34 -0700 (PDT)
+X-Received: by 2002:a05:6214:27ee:b0:8a3:8f4c:3b6f with SMTP id
+ 6a1803df08f44-8b02816a235mr332566766d6.51.1776842133943; Wed, 22 Apr 2026
+ 00:15:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <215f12d6-62c1-4837-9f78-ef270684950c@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260417152014.3000797-1-swati.agarwal@oss.qualcomm.com> <5l46jjjywvg2gtkrmazswyprj4vqlwbo54jpbnuh7scc6clesg@zxsnca6uzbev>
+In-Reply-To: <5l46jjjywvg2gtkrmazswyprj4vqlwbo54jpbnuh7scc6clesg@zxsnca6uzbev>
+From: Swati Agarwal <swati.agarwal@oss.qualcomm.com>
+Date: Wed, 22 Apr 2026 12:45:22 +0530
+X-Gm-Features: AQROBzBDk5T1-9xAHAu4xwxwzNvoQF6cvIzMBA9kxtDuGnjZFFEzzltBse2LvBQ
+Message-ID: <CAHz4bYv_gyCU0sPi1RCrB7=x1noW6+QCFuuCXgAXymbTsWgwQA@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: qcom: monaco-evk: Enable primary USB
+ controller in host mode
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDA2NiBTYWx0ZWRfXzhBwE3xnc3+3
+ 2GpWXp0/EEokbQfNwLLPjSXm5xYsvAXfbhUolf4WgfMDSV0KOJOhyDFaN7cFJxidyISYAXhLBBx
+ tG3et9LEqj+ImSo9gjbq5ruN9yCAKhj6cekJ1VAWgi+NpSIyn7AOMPDLW00X/w4GTbaxNnGX7RT
+ ZOVjLzvvf5rCdCnBejPbiqGAYAzKcabskl+imLrPBz8BNib/nBb6t5bMA+kCYtg9gjFWt0tjMxC
+ duTRlWlnmSgaG0WdgJU0hPrWnJ1eeoEgyDhZitobFlMbtWce29u72brXngvG52U+jPI23nQnw8r
+ pRYCVrWEnY8PudMHxJepmVrTgdHqfQiQ8X9kjBfkMQJJZlQkuZQuZGbNlIWXEH9NCfU9xSPnVmz
+ dzYS/gyL7aNhRG8ubIV3kg3Q3UgjEA8lbLvF10dpHP5QRcf14usyocoFSrIduS2Nxs+OT9IjCTh
+ lNKla2zmEVbqpJDj3aQ==
+X-Proofpoint-GUID: JIPXEq0rvT3sV8ceCNV-DrYM9Cloxwth
+X-Proofpoint-ORIG-GUID: JIPXEq0rvT3sV8ceCNV-DrYM9Cloxwth
+X-Authority-Analysis: v=2.4 cv=RoT16imK c=1 sm=1 tr=0 ts=69e87597 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8
+ a=kOHxRchjjdB9CW7pAoAA:9 a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
+ a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-21_03,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 phishscore=0 adultscore=0 bulkscore=0 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604220066
 
-On Tue, Apr 21, 2026 at 02:26:35PM +0200, Krzysztof Kozlowski wrote:
-> On 21/04/2026 14:14, Link Mauve wrote:
-> > This file is used by the typos tool[1] to determine which words to fix,
-> > which ones not to fix, and what the target word should be.
+On Sat, Apr 18, 2026 at 4:10=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> On Fri, Apr 17, 2026 at 08:50:14PM +0530, Swati Agarwal wrote:
+> > Enable primary USB controller in host mode on monaco EVK Platform.
+> >
+> > Primary USB controller is connected to a Genesys Logic USB HUB GL3590
+> > having 4 ports. The ports of hub that are present on lemans EVK standal=
+one
+> > board are used as follows:-
+> > 1) port-1 is connected to HD3SS3220 Type-C port controller.
+> > 2) port-4 is used for the M.2 E key on corekit. Standard core kit uses =
+UART
+> > for Bluetooth. This port is to be used only if user optionally replaces=
+ the
+> > WiFi card with the NFA765 chip which uses USB for Bluetooth.
+> >
+> > Remaining 2 ports will become functional when the interface plus mezzan=
+ine
+> > board is stacked on top of corekit:
+> >
+> > 3) port-2 is connected to another hub which is present on the mezz thro=
+ugh
+> > which 4 type-A ports are connected.
+> > 4) port-3 is used for the M.2 B key for a 5G card when the mezz is
+> > connected.
+> >
+> > Primary USB Controller
+> >           =E2=86=93
+> > GL3590 USB Hub (4 ports)
+> >     |
+> >     |-- Port 1 =E2=86=92 HD3SS3220 Type=E2=80=91C Port Controller =E2=
+=86=92 USB=E2=80=91C Connector
+> >     |
+> >     |-- Port 2 =E2=86=92 Mezzanine USB Hub (when mezz attached)
+> >     |
+> >     |-- Port 3 =E2=86=92 M.2 B=E2=80=91Key Slot (when mezz attached)
+> >     |
+> >     |-- Port 4 =E2=86=92 M.2 E=E2=80=91Key Slot
+> >                          (Default: BT via UART;
+> >                           USB only if NFA765 module is installed)
+> >
+> > Mark the primary USB controller as host only capable and add the HD3SS3=
+220
+> > Type-C port controller along with Type-c connector for controlling vbus
+> > supply.
+> >
+> > In hardware, there are dip switches provided to operate between USB1 po=
+rt 0
+> > and port 1 for primary Type-C USB controller. By default, switches will=
+ be
+> > off operating at USB0 port. After bootup to HLOS, it will be operated i=
+n
+> > USB1 port.
+>
+> Why did you choose this configuration?
+Hi Dmitry,
 
-It's a little too many people in Cc list...
+Thanks for the review.
 
-> > [1] https://github.com/crate-ci/typos
+This configuration follows the Monaco RB4 hardware design and intended
+usage model:
 
-You may do it as Link tag in a form of
+The primary USB controller (USB1) exposes two Type=E2=80=91C ports: USB0 an=
+d USB1.
 
-Link: $URL [1]
+USB0 is intended exclusively for software download and recovery use
+cases (EDL, ramdump, fastboot).
+USB1 is intended for normal runtime operation after booting into HLOS.
 
-> > Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
-> 
-> This typos.toml file does not belong to the kernel, IMO, but that's up
-> to PowerPC folks.
+The hardware provides DIP switches to select between USB0 and USB1 for
+the primary controller. These switches default to the USB0 position to
+support software download mode.
 
-In kernel we use codespell. If we want to have another tool to welcome, we
-need to setup infrastructure in parallel, so it will be `make` option with
-the fixed name and choose the tool based on availability, et cetera.
+To avoid manual intervention, the board also provides GPIO=E2=80=91controll=
+ed
+equivalents of these DIP switches. After booting into HLOS, software
+switches the configuration to USB1, which is the intended runtime
+port.
 
-> My note here is: please use your real, full name. See submitting patches.
+The external USB hub (Genesys Logic GL3590) connected to USB1 is held
+in reset during download mode and is enabled only after the system
+transitions to runtime mode via software=E2=80=91controlled GPIOs.
 
-+1.
+In normal operation:
 
--- 
-With Best Regards,
-Andy Shevchenko
+The secondary USB controller (Micro=E2=80=91USB / USB2) is used for ADB.
+USB0 of the primary controller is reserved for recovery and debug use cases=
+.
+USB1 of the primary controller operates in host=E2=80=91only mode to suppor=
+t
+downstream devices via the USB hub.
+
+This setup ensures reliable access to download and recovery paths
+while allowing the runtime USB topology to be switched automatically
+by software in accordance with the board design.
+
+>
+> > Added support in the software for both HS and SS switches as
+> > usb1_hs_sel_switch and usb1_ss_sel_switch to avoid manually changing th=
+e
+> > dip switch position for USB1 port to function. Also, added usb1_hub_res=
+et
+> > pin for USB1 hub to get detected after bootup as USB1 hub will be in
+> > inactive state before bootup.
+>
+> Nit: imperative language, please.
+I will ACK in the next version.
+
+>
+> > Signed-off-by: Swati Agarwal <swati.agarwal@oss.qualcomm.com>
+> > ---
+> >  .../boot/dts/qcom/monaco-evk-common.dtsi      | 173 +++++++++++++++++-
+> >  1 file changed, 172 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/arch/arm64/boot/dts/qcom/monaco-evk-common.dtsi b/arch/arm=
+64/boot/dts/qcom/monaco-evk-common.dtsi
+> > index 12c847c03757..6316a8270f57 100644
+> > --- a/arch/arm64/boot/dts/qcom/monaco-evk-common.dtsi
+> > +++ b/arch/arm64/boot/dts/qcom/monaco-evk-common.dtsi
+> > @@ -23,6 +23,37 @@ chosen {
+> >               stdout-path =3D "serial0:115200n8";
+> >       };
+> >
+> > +     connector-1 {
+> > +             compatible =3D "usb-c-connector";
+> > +             label =3D "USB1-Type-C";
+> > +             data-role =3D "host";
+> > +             power-role =3D "source";
+> > +
+> > +             vbus-supply =3D <&usb1_vbus>;
+> > +
+> > +             ports {
+> > +                     #address-cells =3D <1>;
+> > +                     #size-cells =3D <0>;
+> > +
+> > +                     port@0 {
+> > +                             reg =3D <0>;
+> > +
+> > +                             usb1_con_hs_ep: endpoint {
+> > +                                     remote-endpoint =3D <&usb_hub_2_1=
+>;
+> > +                             };
+> > +                     };
+> > +
+> > +                     port@1 {
+> > +                             reg =3D <1>;
+> > +
+> > +                             usb1_con_ss_ep: endpoint {
+> > +                                     remote-endpoint =3D <&hd3ss3220_1=
+_in_ep>;
+> > +                             };
+> > +
+> > +                     };
+> > +             };
+> > +     };
+> > +
+> >       connector-2 {
+> >               compatible =3D "gpio-usb-b-connector", "usb-b-connector";
+> >               label =3D "micro-USB";
+> > @@ -77,6 +108,15 @@ dp1_connector_in: endpoint {
+> >               };
+> >       };
+> >
+> > +     usb1_vbus: regulator-usb1-vbus {
+> > +             compatible =3D "regulator-fixed";
+> > +             regulator-name =3D "usb1_vbus";
+> > +             gpio =3D <&expander1 3 GPIO_ACTIVE_HIGH>;
+> > +             regulator-min-microvolt =3D <5000000>;
+> > +             regulator-max-microvolt =3D <5000000>;
+> > +             enable-active-high;
+> > +     };
+> > +
+> >       usb2_vbus: regulator-usb2-vbus {
+> >               compatible =3D "regulator-fixed";
+> >               regulator-name =3D "usb2_vbus";
+> > @@ -445,6 +485,39 @@ lt8713sx_dp1_out: endpoint {
+> >                       };
+> >               };
+> >       };
+> > +
+> > +     usb-typec@47 {
+> > +             compatible =3D "ti,hd3ss3220";
+> > +             reg =3D <0x47>;
+> > +
+> > +             interrupts-extended =3D <&tlmm 45 IRQ_TYPE_EDGE_FALLING>;
+> > +
+> > +             id-gpios =3D <&tlmm 13 GPIO_ACTIVE_HIGH>;
+> > +
+> > +             pinctrl-0 =3D <&usb1_id>, <&usb1_intr>;
+> > +             pinctrl-names =3D "default";
+> > +
+> > +             ports {
+> > +                     #address-cells =3D <1>;
+> > +                     #size-cells =3D <0>;
+> > +
+> > +                     port@0 {
+> > +                             reg =3D <0>;
+> > +
+> > +                             hd3ss3220_1_in_ep: endpoint {
+> > +                                     remote-endpoint =3D <&usb1_con_ss=
+_ep>;
+> > +                             };
+> > +                     };
+> > +
+> > +                     port@1 {
+> > +                             reg =3D <1>;
+> > +
+> > +                             hd3ss3220_1_out_ep: endpoint {
+> > +                                     remote-endpoint =3D <&usb_hub_3_1=
+>;
+> > +                             };
+> > +                     };
+> > +             };
+> > +     };
+> >  };
+> >
+> >  &i2c1 {
+> > @@ -556,6 +629,13 @@ expander5: gpio@3d {
+> >               interrupts-extended =3D <&tlmm 3 IRQ_TYPE_LEVEL_LOW>;
+> >               pinctrl-0 =3D <&expander5_int>;
+> >               pinctrl-names =3D "default";
+> > +
+> > +             gpio5-hog {
+> > +                     gpio-hog;
+> > +                     gpios =3D <5 GPIO_ACTIVE_HIGH>;
+> > +                     output-high;
+> > +                     line-name =3D "usb1_ss_sel_switch";
+> > +             };
+> >       };
+> >
+> >       expander6: gpio@3e {
+> > @@ -742,6 +822,28 @@ expander5_int: expander5-int-state {
+> >               bias-pull-up;
+> >       };
+> >
+> > +     usb1_hub_reset: usb1-hub-reset-state {
+> > +             pins =3D "gpio7";
+> > +             function =3D "gpio";
+> > +             output-enable;
+> > +             output-high;
+> > +             bias-disable;
+> > +     };
+> > +
+> > +     usb1_id: usb1-id-state {
+> > +             pins =3D "gpio13";
+> > +             function =3D "gpio";
+> > +             bias-pull-up;
+> > +     };
+> > +
+> > +     usb1_hs_sel_switch: usb1-hs-sel-switch-state {
+> > +             pins =3D "gpio14";
+> > +             function =3D "gpio";
+> > +             output-enable;
+> > +             output-high;
+> > +             bias-disable;
+> > +     };
+>
+> Why do you use gpio-hog for SS switch, but then you use pinctrl for HS
+> switch?
+Initially, I attempted to model both HS and SS select signals (as well
+as the USB hub reset) uniformly using gpio-hog.
+
+gpio7_hog: gpio7-hog {
+gpio-hog;
+gpios =3D <7 GPIO_ACTIVE_HIGH>;
+output-high;
+line-name =3D "bootup-high-gpio7";
+};
+
+gpio14_hog: gpio14-hog {
+gpio-hog;
+gpios =3D <14 GPIO_ACTIVE_HIGH>;
+output-high;
+line-name =3D "usb1-hs-high-gpio14";
+};
+
+However, placing gpio-hog nodes for HS select and hub reset under the
+TLMM node caused dtbs_check failures, This resulted in schema errors
+such as:
+
+make LLVM=3D-15 ARCH=3Darm64 -j99 CHECK_DTBS=3D1 qcom/monaco-evk.dtb
+  DTC [C] arch/arm64/boot/dts/qcom/monaco-evk.dtb
+/local/mnt/workspace/swatagar/upstream/linux-next/arch/arm64/boot/dts/qcom/=
+monaco-evk.dtb:
+pinctrl@f100000 (qcom,qcs8300-tlmm): Unevaluated properties are not
+allowed ('gpio14-hog', 'gpio7-hog' were unexpected)
+        from schema $id:
+http://devicetree.org/schemas/pinctrl/qcom,qcs8300-tlmm.yaml
+
+To resolve this in a binding=E2=80=91compliant way:
+
+HS select and USB hub reset GPIOs, which are TLMM=E2=80=91controlled SoC pi=
+ns,
+are configured using pinctrl, which is the supported and
+schema=E2=80=91compliant mechanism for TLMM.
+The SS select GPIO resides on a TCA9538 GPIO expander, which does not
+support pinctrl. For this signal, gpio-hog is a binding=E2=80=91compliant
+mechanism.
 
 
+Regards,
+Swati
+>
+> > +
+> >       expander1_int: expander1-int-state {
+> >               pins =3D "gpio16";
+> >               function =3D "gpio";
+> > @@ -784,6 +886,12 @@ expander3_int: expander3-int-state {
+> >               bias-pull-up;
+> >       };
+> >
+> > +     usb1_intr: usb1-intr-state {
+> > +             pins =3D "gpio45";
+> > +             function =3D "gpio";
+> > +             bias-pull-up;
+> > +     };
+> > +
+> >       expander6_int:  expander6-int-state {
+> >               pins =3D "gpio52";
+> >               function =3D "gpio";
+> > @@ -863,9 +971,72 @@ &ufs_mem_phy {
+> >  };
+> >
+> >  &usb_1 {
+> > -     dr_mode =3D "peripheral";
+> > +     dr_mode =3D "host";
+> > +
+> > +     #address-cells =3D <1>;
+> > +     #size-cells =3D <0>;
+> > +
+> > +     pinctrl-names =3D "default";
+> > +     pinctrl-0 =3D <&usb1_hub_reset &usb1_hs_sel_switch>;
+> >
+> >       status =3D "okay";
+> > +
+> > +     usb_hub_2_x: hub@1 {
+> > +             compatible =3D "usb5e3,610";
+> > +             reg =3D <1>;
+> > +
+> > +             peer-hub =3D <&usb_hub_3_x>;
+> > +
+> > +             ports {
+> > +                     #address-cells =3D <1>;
+> > +                     #size-cells =3D <0>;
+> > +
+> > +                     port@1 {
+> > +                             reg =3D <1>;
+> > +
+> > +                             usb_hub_2_1: endpoint {
+> > +                                     remote-endpoint =3D <&usb1_con_hs=
+_ep>;
+> > +                             };
+> > +                     };
+> > +
+> > +                     /*
+> > +                      * Port-4 is connected to M.2 E key connector on =
+corekit.
+> > +                      */
+> > +                     port@4 {
+> > +                             reg =3D <4>;
+> > +
+> > +                             usb_hub_2_4: endpoint {
+> > +                             };
+> > +                     };
+> > +             };
+> > +     };
+> > +
+> > +     usb_hub_3_x: hub@2 {
+> > +             compatible =3D "usb5e3,625";
+> > +             reg =3D <2>;
+> > +
+> > +             peer-hub =3D <&usb_hub_2_x>;
+> > +
+> > +             ports {
+> > +                     #address-cells =3D <1>;
+> > +                     #size-cells =3D <0>;
+> > +
+> > +                     port@1 {
+> > +                             reg =3D <1>;
+> > +
+> > +                             usb_hub_3_1: endpoint {
+> > +                                     remote-endpoint =3D <&hd3ss3220_1=
+_out_ep>;
+> > +                             };
+> > +                     };
+> > +
+> > +                     port@4 {
+> > +                             reg =3D <4>;
+> > +
+> > +                             usb_hub_3_4: endpoint {
+> > +                             };
+> > +                     };
+> > +             };
+> > +     };
+> >  };
+> >
+> >  &usb_1_hsphy {
+> > --
+> > 2.34.1
+> >
+>
+> --
+> With best wishes
+> Dmitry
