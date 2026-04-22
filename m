@@ -1,58 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2600413B7A3;
-	Wed, 22 Apr 2026 07:31:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7C02C3251;
+	Wed, 22 Apr 2026 07:34:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776843063; cv=none; b=Zz8rD+fRKfBHp4R01ZLw4CzTneoJVopvj5FRkkNp7AW2wZx6g8gURxYl+x0LH9mxtp/azaHYAeJAc8fRl0jFH1FKKdnizmtlRwXGCtRqPyAwX6fYx3zXxvSDRMNLd/xyJMJXycILCuavu9iD15x0Gv+auoGJv+Hg1w8fbYnmnDU=
+	t=1776843285; cv=none; b=vDJAazp/3CJJWXHHufzs3xY/h+dnVSFaEgh05ASpuMj4or6fBQk/js9zOIJcPgZ1FTaEe7EwWsCB1q05a6xvkigjinJB26Ou/9KOMOyuJpjDenMZPj7H2CibUC53X85e7yX4CmdNYtFT2q58lJEdz3h8dqj5y4tM1qgFm2LV8lA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776843063; c=relaxed/simple;
-	bh=XDaFV0u6gJo9HpJsXHSQOVbCycMjk91FXKfLUWErfqk=;
+	s=arc-20240116; t=1776843285; c=relaxed/simple;
+	bh=05WxGtzMdmiwqE6XcONX+oUDFFRR6Sb8327INIxDCS0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UAPWnj0eMNDFn6KE4Brk4D4J6tW77D8VhVfb15LtgCh6C2IjXdzKz/XvvDK444H8BgGiB2U0XoatfnXkmipxVcl6Ep3/zmg5OA5sXBzgtc+YcwsCbAdlqX7ZpiMRMdfIcLuV4s7TSoLmb13ARLBEuRI5FoTiL3iQ2VOymr4xaMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QMgZ/YiZ; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=OY7iOY3EBa0aPxGKES7iAcTyCaBxkiSBjvFFuI4oo1GNl8xIhrK6FEfSRKal/CW3rH3XWI1IRN1s4gMOOkni0IENOAfk8qGUkDf3Fmv/GXsW0PvkGaVwH9j4y+DBwXYOft3iwv4IQ/WCRrhHcbsli9+hcJhzQ6Aki0S73hdcTBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aAqD3sKH; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QMgZ/YiZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3808FC2BCB3;
-	Wed, 22 Apr 2026 07:31:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776843062;
-	bh=XDaFV0u6gJo9HpJsXHSQOVbCycMjk91FXKfLUWErfqk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QMgZ/YiZ+7acoIfzHVLUPVxP1tq9X+A3MD4HItYJqISpi1ngosxJDa7U+qAxzkj02
-	 0bB+27eQnxsdZJTYj2AKhkHJU3RSW0mQUIDQXCd7nEcaY2202jMXStgCC6hS1nwepM
-	 BYwzmlruzArOMqzXy0ggqL6hdI6OPBhJONSR34+N9GjcM+ryA2nI3kYrm1j3sY7v5P
-	 l9zn58Rw/oZ7CzQq241qDOtG/DL9yaOGJxRuNJnOkVMSXuI3d0BQYhAIwcXbjG23NN
-	 tRZiWWXASuOYNvt2HdaJKQQ0Gku3tLly8Sj0gmVlBgAdMq+94+DRhhnN7gqJOXJi7u
-	 WMZlpaUC12yTw==
-Date: Wed, 22 Apr 2026 09:31:00 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: rafael@kernel.org, gaurav.kohli@oss.qualcomm.com, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Lucas Stach <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>, 
-	Christian Gmeiner <christian.gmeiner@gmail.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Guenter Roeck <linux@roeck-us.net>, 
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>, Benson Leung <bleung@chromium.org>, 
-	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, Avi Fishman <avifishman70@gmail.com>, 
-	Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>, 
-	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
-	Benjamin Fair <benjaminfair@google.com>, Heiko Stuebner <heiko@sntech.de>, 
-	Thierry Reding <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Amit Daniel Kachhap <amit.kachhap@gmail.com>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Amit Kucheria <amitk@kernel.org>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v1 14/14] dt-bindings: thermal: cooling-devices: Update
- support for 3 cells cooling device
-Message-ID: <20260422-calm-badger-of-courtesy-809761@quoll>
-References: <20260419182203.4083985-1-daniel.lezcano@oss.qualcomm.com>
- <20260419182203.4083985-15-daniel.lezcano@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aAqD3sKH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1776843284; x=1808379284;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=05WxGtzMdmiwqE6XcONX+oUDFFRR6Sb8327INIxDCS0=;
+  b=aAqD3sKHSA1qjQUClm1VaX4wmRf4oWEHWH1KVzLZKVQrZcS0b4USLmGY
+   od8scjJTXMxRuFkylAENV+/GdqIGZP36InsQDSILpK/oqsynwjase0kMj
+   kXB2syfjWWZ9NlxEw+QVSsWjOPAaeXigTm0kruUVddaQ63pCNdpYFoyyG
+   yphdcEyXFcfVF5oWL/nWu/yq5tEQpsY+ySoiJ2CfVdTgx9KDS9jb2j/7i
+   x0ztlv3kRtVToKwljTGAMcCPHGLTMD5Z1tX3cbmnVx2VWhZw90I2OQZU/
+   sp4YsnAL516YXYGyELVxjJ7BU+zDhnnySGtfr1p1zAMeQPRoXxPhfpuJ+
+   w==;
+X-CSE-ConnectionGUID: IepQu+RuT0G4XhtTc2n1Ew==
+X-CSE-MsgGUID: rdXxCXaRQp2A3QQdJzigpQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11763"; a="81655807"
+X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
+   d="scan'208";a="81655807"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 00:34:44 -0700
+X-CSE-ConnectionGUID: znrJKIjGSLSQm1SROwah8w==
+X-CSE-MsgGUID: 5eOc6QXPQkilE0Ihai1hfg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
+   d="scan'208";a="231389757"
+Received: from dhhellew-desk2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.208])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 00:34:41 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 742891201FC;
+	Wed, 22 Apr 2026 10:34:39 +0300 (EEST)
+Date: Wed, 22 Apr 2026 10:34:39 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Conor Dooley <conor@kernel.org>, Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] dt-bindings: leds: Document TI LM3560 Synchronous
+ Boost Flash Driver
+Message-ID: <aeh6DwKm0_8L5GJu@kekkonen.localdomain>
+References: <20260419093412.40796-1-clamor95@gmail.com>
+ <20260419093412.40796-2-clamor95@gmail.com>
+ <20260420-affection-ferocious-e28cd29f360a@spud>
+ <aeZWgcARBqMQatrr@kekkonen.localdomain>
+ <CAPVz0n10Us=zU38v4ieqWXkQ2pXRKi=6M4i3k1Q5bJ4g2QQjgA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -61,32 +73,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260419182203.4083985-15-daniel.lezcano@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPVz0n10Us=zU38v4ieqWXkQ2pXRKi=6M4i3k1Q5bJ4g2QQjgA@mail.gmail.com>
 
-On Sun, Apr 19, 2026 at 08:21:58PM +0200, Daniel Lezcano wrote:
-> diff --git a/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml b/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
-> index b9022f1613d8..28f5818f1e60 100644
-> --- a/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
-> +++ b/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
-> @@ -44,10 +44,14 @@ select: true
->  properties:
->    "#cooling-cells":
->      description:
-> -      Must be 2, in order to specify minimum and maximum cooling state used in
-> +      Must be 2 or 3. If 2, specifies minimum and maximum cooling state used in
->        the cooling-maps reference. The first cell is the minimum cooling state
->        and the second cell is the maximum cooling state requested.
-> -    const: 2
-> +      If 3, the first cell specifies the thermal mitigation device specifier
-> +      index for devices that support multiple thermal mitigation mechanisms.
-> +      The two other cells are respectively the minimum cooling state and the
-> +      maximum cooling state.
-> +    enum: [2, 3]
+Hi Svyatoslav,
 
-In the same commit you need to narrow
-Documentation/devicetree/bindings/hwmon/pwm-fan.yaml
-so it will keep value of '2' (const: 2, like all other bindings).
+On Wed, Apr 22, 2026 at 09:36:16AM +0300, Svyatoslav Ryhel wrote:
+> пн, 20 квіт. 2026 р. о 19:38 Sakari Ailus <sakari.ailus@linux.intel.com> пише:
+> >
+> > Hi Conor,
+> >
+> > On Mon, Apr 20, 2026 at 05:20:28PM +0100, Conor Dooley wrote:
+> > > > +properties:
+> > > > +  compatible:
+> > > > +    enum:
+> > > > +      - ti,lm3559
+> > > > +      - ti,lm3560
+> > >
+> > > What differentiates these devices to the point that fallback compatibles
+> > > are not suitable?
+> >
+> > Good question.
+> >
+> > It seems the currents are different albeit the register values themselves
+> > are the same. The driver doesn't seem to handle that properly right now, so
+> > it's a driver bug.
+> >
+> > I'd keep the compatibles as-is as the current limit applied should be as
+> > specified in DT.
+> >
+> 
+> This is a valid point. Unfortunately, I don't have device with lm3559
+> to adjust driver accordingly and test.
+> 
+> So, Conor, Sakari, what changes if any I should apply here in v3?
 
-Best regards,
-Krzysztof
+I'd mention the different current limit in bindings. The driver would be
+nice to fix but 10 % too low current isn't a grave problem.
 
+-- 
+Regards,
+
+Sakari Ailus
