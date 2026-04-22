@@ -1,118 +1,96 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF71372685;
-	Wed, 22 Apr 2026 20:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D01231EA65;
+	Wed, 22 Apr 2026 20:59:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776889688; cv=none; b=mi5tPVd+09lHVkYpFt0qLa/QQb4ChwzKR8q/qgkdbYD7Q+477gCWMaOFeyO53CdOtoKunaRkq6GVsUGFBIvzf5Mxf5Q/fMNdGmxZQidCC+1tQtJJ4TFMH7OEoK0p7XYLTrwcyogDcX4Ger8gkNwoKg3UTbTmojbvBeY7+Jz8pMs=
+	t=1776891590; cv=none; b=qG/M895ENbjZoKbjoT9wO0m9ZV+/rkIhR321BlAQzFIF1J1jb5gQGfAbG7M5VRS0SW47QyDBsX0sdRDXgcRe5BVyeVGPhHOrwksGKTprBMJQU/CynyC/9enPd9GBQu6Y1GsLGhYUc8IJX+Uz1xjVy6ZXEhmLZwHqX85ZoSDff3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776889688; c=relaxed/simple;
-	bh=nNeRYHOhXQoZprrKwwxdGkcK5H+iTWY8NjFprmFvOps=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NDDxAmNJH7o3ZsR/Uq5J5lI4lRhi+2BPB146XI4K7oJqJpOO/8tEN8ylCMZRi0u3vNKIYbGVxixXe38MO3YP0lD6P3u+tfGZJLJuo44n5qvBxS24MTYXyucWaaNk7vst/QdvhJy8j10bLzHnVdbB+GrgQzvvw1Q2LAfSY3pm6T4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SiJG6fQ0; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1776891590; c=relaxed/simple;
+	bh=M5RsCE0TEqbxoMSQ1p9Ml6g36oMexHF5KHWHyQAkR3k=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=UJXJK3W9kl8asIcRP42p1qAvLTWWLMjg9itDJyU6l2pzSbh7CkMOZewrsYoOCPa6ViLt3zzePp9wz8M7H5dHSbwwqfDUiMjWotgk8irb8mO8IGcw5T11haqBakcVqZBgksS5h8Enjzo6LSR4nSdc9yMn8qEaj5pbhLJjibfyJcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FfY67YR5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SiJG6fQ0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1776889687; x=1808425687;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=nNeRYHOhXQoZprrKwwxdGkcK5H+iTWY8NjFprmFvOps=;
-  b=SiJG6fQ0JavthR/54rYfh2lkK/YZL+5WYsGPrKJVzkxeMjG5K1H2uwjo
-   hYMu9tozwqY5FtE8NSYqSv5wVf7yvhF04ZEpLUta7UeyTDYvtsKs6Qj5y
-   i2IQ+Rsw1zankEe3BR2s075IN8vlDi6oT77zk99JawwJMw4r4XlgTJuFn
-   JTpnp0YrWVWMILF8brd4D2R7nVO+4LGsiZ5h1T9+6eDJO0QpvLs10T5Ah
-   HQhWnh1TlNm4403+/3jQ+AchCfglnUdVMcp/STojSAIAyIeC6siqFb3oj
-   d3VhSCMbTi7MQv5y9uWMSGuEbzy+pRIXbnbitys9+ypqtqNTnGIh79xKu
-   w==;
-X-CSE-ConnectionGUID: AtWfFK2gTQWg10U7FW/pTQ==
-X-CSE-MsgGUID: FxZiRLvYTkutqibYYDxbew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11764"; a="103315023"
-X-IronPort-AV: E=Sophos;i="6.23,193,1770624000"; 
-   d="scan'208";a="103315023"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 13:28:07 -0700
-X-CSE-ConnectionGUID: +i85qFizRXWElbz1ps92OA==
-X-CSE-MsgGUID: g3HNlv3yQz6DCMJMCpGm0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,193,1770624000"; 
-   d="scan'208";a="236452322"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.201])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 13:28:03 -0700
-Date: Wed, 22 Apr 2026 23:28:00 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: rodrigo.alencar@analog.com
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Michael Auchter <michael.auchter@ni.com>,
-	linux-hardening@vger.kernel.org,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Subject: Re: [PATCH 00/22] Extend device support for AD5686 driver
-Message-ID: <aekvUKh2SoAaLKW6@ashevche-desk.local>
-References: <20260422-ad5313r-iio-support-v1-0-ed7dca001d1b@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FfY67YR5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D3B3C19425;
+	Wed, 22 Apr 2026 20:59:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776891590;
+	bh=M5RsCE0TEqbxoMSQ1p9Ml6g36oMexHF5KHWHyQAkR3k=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=FfY67YR5us/+wOBlJz+MTMSd7DGLxtlQF14kKB2cDMQJevscVJ5I5PvNDYKC5ZPRw
+	 M998FrR7No3SgPFuHaJm9EvoDSVJHtD3l9+Ze/HPLw88OmDh0n7SDltmOFtcGKf+b+
+	 ukib9I0MnzV3HWEpB98s5czNGRzFRHnbOqlbVNNwha+KLduFhKB4npQZxN5O5+gG7V
+	 ffW/jI3T+fu9IMj84NHjkkfoIIiuSo56Ifpd17eUPB3DYbMnDJfYxc9O/s1FdMSU7A
+	 cenmF4arot6RRl5KKZIXzz+je6vGqOxWHih5XHyrFBM2Sc2EuCqsstS/0yXL1DmgGD
+	 pHSYFnTukByfA==
+From: Mark Brown <broonie@kernel.org>
+To: tiwai@suse.de, Baojun Xu <baojun.xu@ti.com>
+Cc: andriy.shevchenko@linux.intel.com, 13916275206@139.com, 
+ shenghao-ding@ti.com, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
+ k-yi@ti.com, henry.lo@ti.com, robinchen@ti.com, will-wang@ti.com, 
+ jim.shil@goertek.com, toastcheng@google.com, chinkaiting@google.com
+In-Reply-To: <20260414015441.2439-1-baojun.xu@ti.com>
+References: <20260414015441.2439-1-baojun.xu@ti.com>
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: ti,tas2781: Add TAS5832
+ support
+Message-Id: <177688897222.36226.274253868203239470.b4-ty@b4>
+Date: Wed, 22 Apr 2026 21:16:12 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260422-ad5313r-iio-support-v1-0-ed7dca001d1b@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1216; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=M5RsCE0TEqbxoMSQ1p9Ml6g36oMexHF5KHWHyQAkR3k=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBp6TbCYQbceaFGcfpPamgGKidcFgtztfK2UYdeu
+ sRT5dtLBqKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaek2wgAKCRAk1otyXVSH
+ 0JRIB/9Ouhp9BP2sm72lyUe7xSDx18QBlrILWouiJo89yb6GZ0QzaMaKwh/msx0fpEVa04Zmfof
+ 6Ut0X9eyltMaug3CA9wa17tL3YdZZzhumhReSEe4nY/UImkrUKRJoDtsJXmO+Tq6nags4RGdI2w
+ H/KPcsZQtb14rm0J+0GjSHOmfgauMrwLZ8YsrCtnQFn+7Cz+hCXFTVeppk9aG1N+v58rrm+6Sd0
+ K6M4N9LZg2tgUcckZd0/nxxwEvdZ8XXsw3XrKnp1OAQCuxntS705Acwk5adIq4wsEmMgBLsKcCp
+ PN/sdTm5Ppqi1rbEjqEupFSTPHZWoSztTQpYmPxlE9VOwnPx
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, Apr 22, 2026 at 03:45:34PM +0100, Rodrigo Alencar via B4 Relay wrote:
-> This series adds support for multiple nanoDAC parts, adding triggered
-> buffer and gain control support to the ad5686 DAC driver family, along
-> with a number of driver cleanups and fixes.
-> 
-> Initial patches update the device-tree bindings:
-> - Add compatible entries for missing and new parts;
-> - Add GPIO properties for RESET, GAIN and LDAC pins;
-> - Add missing power supplies properties.
+On Tue, 14 Apr 2026 09:54:40 +0800, Baojun Xu wrote:
+> ASoC: dt-bindings: ti,tas2781: Add TAS5832 support
 
-> Driver cleanups and fixes:
-> - Refactor include headers (IWYU);
-> - Switch to device managed mutex initialization;
-> - Drop enum chip id in favor of per-device chip_info structs;
-> - Fix voltage reference control on single-channel devices;
-> - Fix powerdown control on dual-channel devices;
-> - Introduce bus ops struct with a sync() operation for batching
->   bus transfers.
-> 
-> New functionality:
-> - Device support for: AD5316R, AD5675, AD5697R, AD5313R, AD5317R,
->   AD5674, AD5679, AD5687, AD5687R, AD5689 and AD5689R;
-> - Consume optional reset and new power supplies;
-> - LDAC GPIO handling (active-low, held low when unused);
-> - SPI bus sync() implementation for batching multiple transfers;
-> - Triggered buffer support, leveraging LDAC and sync() to flush
->   all channel writes atomically;
-> - Gain control support through the scale property.
+Applied to
 
-This is rather long series. Please, start from the fixes series first that is
-independent on the features.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.1
 
-I see here ~3 sequential series. Can we rather do them this way?
+Thanks!
 
-Personally I stopped reviewing on patch 12 (without even opening DT stuff)
-because it's exhaustive. Documentation usually suggests the series to be
-limited by ~15 patches IIRC.
+[1/2] ASoC: dt-bindings: ti,tas2781: Add TAS5832 support
+      https://git.kernel.org/broonie/sound/c/6d619f739703
+[2/2] ASoC: tas2781: Add tas5832 support
+      https://git.kernel.org/broonie/sound/c/1f95fdef685e
 
--- 
-With Best Regards,
-Andy Shevchenko
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
