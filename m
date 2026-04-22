@@ -1,129 +1,133 @@
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF65427EFEE
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 06:58:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4254333C52F
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 07:03:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776841102; cv=none; b=GFNSpv/fgJ1TM+CtuvNOCwT3Xa72lcDFh6wChDiLKP1AHip1Yh7lkfacsdsatLFzB5pYdoLIMHxNvdDBjjt4tMIl4qbP8R1AR3DiALkTm9ER2hGfvm91yiaEfDg8o9pDsFYsI5ZiUgOd3X9mye+qTMBKf8sX5H18NNdGLhDG7Pg=
+	t=1776841414; cv=none; b=p0Up37VdemttHVkLg+lWhfJAU8CV57KwkLhafoAb2pK6S/rKmS006nBUna6Udy4oXUZo5P+ZXjchRTrFSAUkw/ZhaHushTmfDzwAc49hjniLFO3mStpFi6bdGp3pPfkwLuFTix5AmkfFBX7XxP5LbdYQLiWszmvD6wOz+vHYbrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776841102; c=relaxed/simple;
-	bh=wpkRjIorbMJMpqwzpLdjkd4Y24lBbCPn4ze08bDnJqE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aKIG3PJ51unYJPIArhMGYQJ+zyVlYNUICMm4u58QS4Yx7clm9rww2S4/9WxmQQmCwyF0HvWbQpYtWsjjejQzToeX17d4S2+jZeM/1d/zQrVbMA7vR6I0DLtI3ZjyRyAswDx3QsujnDq0yQqzFdZ6VdxI+QQOAg6yIOYm6YTmVoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.210.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1776841414; c=relaxed/simple;
+	bh=IwG2wo6BkstFh+qMX/W8nOYuTZdNYDK51l8RlSVJlIk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Wv8cQQptPjGrt9RdN+6pebMoMLyAQYaQKDnQTK4HhhOODYzweHdAobNPDgRYcWWmT/gIQH148jhVeKv1PKB7zciS/CEaoYxk3trf3UQmHMe4NFm/jyPrrNzjmeAxq2+VwaIhgPmxFlklgAhlnJZm1yx8Lsg0aNehpooWZJkTup4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GKcCdnsJ; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-7dcc9b506d9so2228465a34.1
-        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 23:58:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776841100; x=1777445900;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GKcCdnsJ"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-35fc0d7c310so3484135a91.1
+        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 00:03:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776841412; x=1777446212; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EQBlVUrhFqLpmXIMAS6FxW1MbLcWzT++sufCtB36Fh4=;
-        b=M23l5ZWwhKhM2hZEYrM1ALY6Vkv+9fIG3WiTawxSkgZbFPS37sj5TEdT4tkoVFTPv3
-         6rIsUkPwbCHFYl+jl2xAy5TJFUbqD7Qa5b7hF93zpqdUhiyzhbH4IdRT3pWBKRr+Binm
-         G5N4SUe3JE75RSFLoQGb4VnJw+SymA/B7bnDBRQTcBp898ITiD5SbZkYCkNDGZc32POg
-         2kpjOFChlhoNJN64IZS3xhcHs7qRhN/ccl1vR8dGcS0SJVNM1TBQyFMXwxMqV5autE8C
-         Xzj0MWV8Fj9zy4h+EhR0KxxOhoUWyexK7LaDPjaa6oNwPMvIB1+tsM8iUsenmH1sH7fa
-         sTPg==
-X-Forwarded-Encrypted: i=1; AFNElJ+/f10ljv2K6tyzczVxHD8JcRhF+KHbmwynRF96gn/aN4D6luxmF19Zy1LGYvSJZkKzUJTXdD/BFErP@vger.kernel.org
-X-Gm-Message-State: AOJu0YwWRRJ/gowK2O/ZGo5EPuW79T3eZrcHxHS8k1jhjHcYeIqNTii0
-	I6bV9ld9pwN5ozRxYPhF7GZ8x4lYkLKenKvCeuVieCBbgIljHbi4IgaGWDBZwTaDsL0=
-X-Gm-Gg: AeBDieun2IYxhVeAWJjR62uyFHEUhnp39XYkZdDtHCNE3mOmW6nX0QU/AzrnMQjn8zz
-	f9XyhEVQYbdCQmrXH9/PRgf22rY0fVbp4UbwDPEpUOuc6yoiLT9QmnP1zTBZwtTQoA5rqDSex6D
-	B6lTXzf071XKda5VnYd78xujLHsrMl6+is2lBSR2p6e06LQOzrOWiGTyxu37K0Q8AbOrTDEwZXT
-	+fgnKlfBUgijIbeaPD6WXmWJCLv/f1Z/NaJ+wNcCoaHlTQW2gzYk5t2yKSp2X+KFt4GQ7juvEif
-	Tluf3b8JNVoyuXtEWZf7gP2HENSL6Vk4Fml+2wMlHzlwebvsBk1Ff4QdQbxyDsBvD3NY6GFNLLP
-	K1Pe9k52+NyNUMm7GxuFlLlUrSAuvjS2sQcGSiZ4zFYWmfGKVR8Q8RjvcAf583577ZFJC5xihpR
-	jieIQ+TRYGTa7+6f11dxZ7rHoPKUmK82kzMHbl/LQGl2Py3dgKLp3obwMM5aKdEuPTtXa5AEg=
-X-Received: by 2002:a05:6830:34a4:b0:7d7:e142:2ead with SMTP id 46e09a7af769-7dc9523108bmr13257188a34.20.1776841100574;
-        Tue, 21 Apr 2026 23:58:20 -0700 (PDT)
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com. [209.85.160.41])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7dcdbef352bsm3022185a34.10.2026.04.21.23.58.20
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Apr 2026 23:58:20 -0700 (PDT)
-Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-40ee9b945d5so4031576fac.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 23:58:20 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/k5T4v9uLHgocaeAmh8QnA716o8f2lameix7gAlFDhan3IRu8eLrgShki19V8lrrAfExOopxY0V7B5@vger.kernel.org
-X-Received: by 2002:a05:6102:3a0d:b0:60f:f543:232a with SMTP id
- ada2fe7eead31-616f4b50368mr11299488137.2.1776840661908; Tue, 21 Apr 2026
- 23:51:01 -0700 (PDT)
+        bh=Z84dwc2PsPdYxwH32qOj6+DQ+b4iRKtcB2f35wW4+cg=;
+        b=GKcCdnsJA4jAwK4go5WScOVmsFspv1XX2o9elbuNLp0eo1695GAGZ0OjHx9IxD/STT
+         6qG6lfzjDYP5KyPVG8S3T4qPru0A8tkB9W/23G7/abp6svgDtH5lW50vNdJSGSh9sFg+
+         xFSuX0CUZvVh2HJAuqWwyKZ9HcSvj7bW6HfSSPuybDiL0vDmUpXRnNdMd/ahRQ2EVyiW
+         B0AZKdMtvXHIuTjJn6/6r5nQQtOLZxzp0OBGOw/peNVRnwOiEcSWUOi0eq8b320UFuZ4
+         eXcCwCMR6YkD2sU0t3pqGpQN+sn3b0WzqOi7mg4OGX8kXQo+HfuPopdf7h6vEluCXQ1H
+         YPxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776841412; x=1777446212;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Z84dwc2PsPdYxwH32qOj6+DQ+b4iRKtcB2f35wW4+cg=;
+        b=RxJ4pU7YT36Yp3Ai6Tf0rhl/mF/rVPM/HNetftM7Ld8weQR7vby3IXFlbKc5hSD+TL
+         12aPA5lB4Yue5Q3Yi8DCJSltMC0zSMX17l6OwMB9hIVWueUSVFqCK5Tr/8yOLADypI3g
+         M9YWVahUqM0/vzT8x8c+duv6/rZZDUxUWAynExomaPbeHYsqXdCt7JWJOa8hJ+EfaYcU
+         Egf3orgSd0+8eVXn08a3hzM4+AVA2KnB4bjjMEmmHHCgehc37NhlnrDzf5CG+JiXDUMd
+         3VBhwSEIL9wm1RlBPZeOFQYMn7o69Qc+bbmdIC494iYgSRNTZovEcU8r8ia+xafVdSzq
+         2L/Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/DUVzk9E0NsQQbTESGVVDeTEG0vub3Hbk4HYimu08NK6Y1G+WJ/2tQFYaxVFJbtjYpgpWGcrhw7Q27@vger.kernel.org
+X-Gm-Message-State: AOJu0YzfNPgJCC+qx7p58EhnIiUZkAPjFEnbtBRAvEgDtiZs0VQJ5VWL
+	NZr6YIw9EF/FhkkBvYRF4CGSJH9s+Bfk1pMI7DYhB10fvwSk/Xzc4mRp
+X-Gm-Gg: AeBDietQ2vpPyz7ozc7qZGDy1SWcN4udUrNPzpbVNdYxTV/CA5MAa6lwcg0ZDwtvx3B
+	OWgYWEOoYs32s0qdlv0PivUSfwHue+4j41AsZW58watzka+GtQ0uwQG6sOxw3tUfcK7SOOPF158
+	Xsnihz8LI4Ucw6r42sURIlqnKqZBsNsyNhbgQoD/3T6fewXJHz894DjNu4ItNkNf3zMdefmDoVL
+	ragy+ktfwE0GfTyhHi8+2R8Pkx+z34EBPLmyA1uNLzaqcShp1rfInM0avBC9UeC+HlyPBKf5/TL
+	MvOOzpZh6Im9debXp42wYNCZIy3wmR28mcHqLln6FkJ8JOVsSsAgwQ7bHP6XwCNYo8up3yjL5uy
+	PZgLzJzdvuhe6JTFG7NV/X8uOTQSUzDqJoS3dNyxRXcCyN9fSSZbVd9M0pDgjhC01ctHrH+vgOh
+	z5jGpTJP5FlNUTIrECFbqSivR6+Cu0F5MjSyP8FbofRC2RVbki0kMPCiQIi/AnWzuKwoU=
+X-Received: by 2002:a17:903:1b03:b0:2b2:5637:1480 with SMTP id d9443c01a7336-2b5f9ff44d3mr218370865ad.40.1776841411469;
+        Wed, 22 Apr 2026 00:03:31 -0700 (PDT)
+Received: from twhmp6px (mxsmtp211.mxic.com.tw. [211.75.127.162])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5fab0cdd1sm155088635ad.38.2026.04.22.00.03.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Apr 2026 00:03:30 -0700 (PDT)
+Received: from hqs-appsw-a2o.mp600.macronix.com (unknown [172.17.236.67])
+	by twhmp6px (Postfix) with ESMTPS id 21DED416A043;
+	Wed, 22 Apr 2026 15:03:28 +0800 (CST)
+From: Cheng Ming Lin <linchengming884@gmail.com>
+To: miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-mtd@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alvinzhou@mxic.com.tw,
+	Cheng Ming Lin <chengminglin@mxic.com.tw>
+Subject: [PATCH v9 1/3] dt-bindings: mtd: nand: Add nand-randomizer property
+Date: Wed, 22 Apr 2026 15:02:01 +0800
+Message-Id: <20260422070203.698716-2-linchengming884@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260422070203.698716-1-linchengming884@gmail.com>
+References: <20260422070203.698716-1-linchengming884@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1776793163.git.geert+renesas@glider.be> <72e2a0e7a5abda02fe36b3f5851842f7a77b2593.1776793163.git.geert+renesas@glider.be>
-In-Reply-To: <72e2a0e7a5abda02fe36b3f5851842f7a77b2593.1776793163.git.geert+renesas@glider.be>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 22 Apr 2026 08:50:50 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXxEsYuOay0+Tf=4ByTAMp0=iXwcS4YSy7UY9_CE0hb5A@mail.gmail.com>
-X-Gm-Features: AQROBzBFb_WdSQXK0LqlocZWzf5masVqawoXkZ-ffV8evv9b39yVA9knMtYt5TM
-Message-ID: <CAMuHMdXxEsYuOay0+Tf=4ByTAMp0=iXwcS4YSy7UY9_CE0hb5A@mail.gmail.com>
-Subject: Re: [PATCH/RFC 05/14] firmware: arm_scmi: Add scmi_get_base_info()
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Ulf Hansson <ulfh@kernel.org>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, arm-scmi@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, 21 Apr 2026 at 20:12, Geert Uytterhoeven
-<geert+renesas@glider.be> wrote:
-> Currently non-SCMI drivers cannot find out what the specific versions of
-> each SCMI provider implementation on the running system are.
->
-> However, different versions may use different ABIs (e.g. different clock
-> IDs), or behave different, requiring remapping or workarounds in other
-> drivers.
->
-> Add a public function to obtain base protocol information for the
-> selected SCMI provider.  This will be used by the R-Car X5H Clock Pulse
-> Generator and Module Controller drivers.
->
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+From: Cheng Ming Lin <chengminglin@mxic.com.tw>
 
-> --- a/drivers/firmware/arm_scmi/driver.c
-> +++ b/drivers/firmware/arm_scmi/driver.c
-> @@ -3504,6 +3504,37 @@ int scmi_inflight_count(const struct scmi_handle *handle)
->         }
->  }
->
-> +/**
-> + * scmi_get_base_info() - Get SCMI base protocol information
-> + *
-> + * @of_node: pointer to a device node for an SCMI provider
-> + * @version: pointer to write base protocol information
-> + *
-> + * Check if an SCMI device has been instantiated for the passed device node
-> + * pointer, and, if found, return its base info.
-> +
+Add the 'nand-randomizer' property to control the data randomizer
+feature. This is used to improve data reliability by reducing
+cell-to-cell interference.
 
-Missing asterisk, reported by the kernel test robot.
+Depending on the hardware architecture, this property is designed to be
+generic and can apply to either the NAND chip's internal randomizer
+or the hardware randomizer engine embedded in the NAND host controller.
 
-> + * Return: 0 on Success or -ENOENT.
-> + */
+This property is defined as a uint32 enum (0 or 1) instead of a simple
+boolean. This design choice explicitly supports the "not present" case.
+If the property is omitted, the driver will not interfere and will leave
+the randomizer in its current state (e.g., as already configured by the
+bootloader or hardware default).
 
-Gr{oetje,eeting}s,
+Signed-off-by: Cheng Ming Lin <chengminglin@mxic.com.tw>
+---
+ Documentation/devicetree/bindings/mtd/nand-chip.yaml | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-                        Geert
-
+diff --git a/Documentation/devicetree/bindings/mtd/nand-chip.yaml b/Documentation/devicetree/bindings/mtd/nand-chip.yaml
+index 8800d1d07..effdc4f99 100644
+--- a/Documentation/devicetree/bindings/mtd/nand-chip.yaml
++++ b/Documentation/devicetree/bindings/mtd/nand-chip.yaml
+@@ -23,6 +23,15 @@ properties:
+     description:
+       Contains the chip-select IDs.
+ 
++  nand-randomizer:
++    description: |
++      Control the data randomizer feature.
++      0: Disable randomizer.
++      1: Enable randomizer.
++      If absent, the current hardware state is left unchanged.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [0, 1]
++
+ required:
+   - reg
+ 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.25.1
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
