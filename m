@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717923ED5B9;
-	Wed, 22 Apr 2026 14:35:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E885D30B514;
+	Wed, 22 Apr 2026 14:37:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776868558; cv=none; b=cqyqnDR3LADLH0DC95EWIMXmxjKrsSG0esXlKzPG9EASSnFaiPDtpWBotaDcxDbP6+VJqr9dyxF+y2LelAzsD8GJg0WHs4mMBypGrLm9APJ4H9OoiG5qDrjwQ/WoKvxarkMuZclV47yuV94pE6is/wVzWtNEsHPARvlVZOXrAnU=
+	t=1776868629; cv=none; b=Ymudzi6iHUTxVu8FvR5dvLEHrMPeL0kXRqLCMWan3xCoaFwihwXvvHshUVBi2fj/627GcB3WbRQEmJaNL9ijAs/wzGtfFDSBsaCtjOOYB4BgE15d97Fq0t8hFz2uT4ShgfP7dtmGWyZydzNyO+DOtsH8q/0j/rrYdUOiUhnQrvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776868558; c=relaxed/simple;
-	bh=918g+d2n1gZ3b3en+F78Kjb9Bc22HiBNDgwXZh8pCtM=;
+	s=arc-20240116; t=1776868629; c=relaxed/simple;
+	bh=aoanNOEr5f+E432Mdit7VaoB/FUSBppJLnjCmNdlexQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QyS5Q7tBY5Ov3N1GQIqsTrg0w92mKHdEAaO6JJFTo95nTXvcrwxOi/IKVJOp3UKt7uR8Bn8m1nlGNxuQmpI6D/lQedRMhH3saGyhK6MsG62uj85dUu7/lxte5R1bBa9xUDfXCoQ2bLQEwwjARMo74AGPvgzt9vWiz8+bytuQoKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IewqjJ44; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=WfqKLr6awzyQ7Zgh6uigbh+7GKFd1wynHrnX4qt9OgjIbyrBJqytuXHyxSkmcGWLNXgyk026yvc7o3PPJbz0j/D0Z4wKl55mWdscK06DVb8IkidGWV47TZ3yRfM4ys0KOkRkjI1WS+G4VLWb1VmrLsUT3GA5I5hZgv/KP/77sZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qSVcdCPF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IewqjJ44"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09D1AC19425;
-	Wed, 22 Apr 2026 14:35:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qSVcdCPF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82270C19425;
+	Wed, 22 Apr 2026 14:37:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776868558;
-	bh=918g+d2n1gZ3b3en+F78Kjb9Bc22HiBNDgwXZh8pCtM=;
+	s=k20201202; t=1776868628;
+	bh=aoanNOEr5f+E432Mdit7VaoB/FUSBppJLnjCmNdlexQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=IewqjJ44lx4nETXSndhwi8T9tMxnPwRKWd5YTPQw3S4n42Z8LwQ54EeTHO6/mUfPi
-	 lw6OMbH+WHDixw408VKWKad/N94MZr2NaUms29PzHl1bxaOSIaPIxShOfX0TZtF1hH
-	 zQwKsGmN6N20rz7p055krSsxoiemt6kwnd5EQ+xDT3NSZWrjit5oxgaE/nQPiAlaTd
-	 FYG+MeU4GnvxPLFgk1GNfCdBmHoLerNOIDPv6hwCXbzA+vjXmHXEno03+41tgY2DTT
-	 C57oO6n9QFx7/C6aWSUpXPNk3SZRBD2j7TXMslUkF01lYbvNZnuwdcrvd0qutQn6ov
-	 fuVGBzgUrhQwA==
-Message-ID: <19e2dfe5-1e92-483c-9be9-7e109ee052b3@kernel.org>
-Date: Wed, 22 Apr 2026 16:35:54 +0200
+	b=qSVcdCPFy5W0fCCGN0TkPgCUuclGbAjBluSvWj3x3w2t8fZikjerC7bgkqsjGawwz
+	 6kNzpG5PBf3s2ec06C8R7jqsnzM8uVOjV52CUCteAySZ0TIJBKCROHL7Pk2bpsC6Vj
+	 6IyKVzF6Ss3u8Wf0N7dYtL0bXE504k1Ifn3CTVvV6lQP1BGtLU2+MPJeWfxiNT0mDU
+	 RVerBVj+7gQq2LwBHTsX/15WuYioqRUvvGFRPy1wblaks3QiM76NPVfnipLJ2YDjw8
+	 P3infQbb82gtkAUPjcvEttPFuh/w0GA2cXDhBmh494dzjVffYP4eMNxeBIQK46Ax3a
+	 yV5DPmmmUHgaA==
+Message-ID: <42e86a47-fbcf-4964-8dda-acfd1dfab53e@kernel.org>
+Date: Wed, 22 Apr 2026 16:37:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,18 +35,18 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sm8650: fix soundwire ports
- properties
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260420-topic-sm8650-upstream-cpu-props-v2-0-689e07d8ab8c@linaro.org>
- <20260420-topic-sm8650-upstream-cpu-props-v2-3-689e07d8ab8c@linaro.org>
- <923c851b-17b9-4a8c-8b63-1e48fac5d1f4@kernel.org>
- <7df498b6-485d-4997-8e0f-4916935b8eef@linaro.org>
+Subject: Re: [PATCH] dt-bindings: arm-smmu: qcom:: Fix Hawi compatible
+ placement
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Robin Murphy <Robin.Murphy@arm.com>,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260422083329.885979-1-mukesh.ojha@oss.qualcomm.com>
+ <d1d24380-06e8-4833-b893-631c063d77ff@oss.qualcomm.com>
+ <20260422142710.2f6f2oijbsjojbmi@hu-mojha-hyd.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -92,31 +92,35 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <7df498b6-485d-4997-8e0f-4916935b8eef@linaro.org>
+In-Reply-To: <20260422142710.2f6f2oijbsjojbmi@hu-mojha-hyd.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22/04/2026 16:09, Neil Armstrong wrote:
->> So the last port values are marking it as unused (0xff)? Aren't you
->> missing the sixth item instead?
+On 22/04/2026 16:27, Mukesh Ojha wrote:
+>>>            - enum:
+>>>                - qcom,eliza-smmu-500
+>>>                - qcom,glymur-smmu-500
+>>> +              - qcom,hawi-smmu-500
+>>>                - qcom,kaanapali-smmu-500
+>>>                - qcom,milos-smmu-500
+>>>                - qcom,qcm2290-smmu-500
+>>> @@ -93,7 +94,6 @@ properties:
+>>>          items:
+>>>            - enum:
+>>>                - qcom,glymur-smmu-500
+>>> -              - qcom,hawi-smmu-500
+>>
+>> No, why? That's for GPU. Why are you moving GPU compatible to non-GPU place?
 > 
-> I checked against downstream, and the last din IPCM port entry was missing, here's the default table:
-> 
-> 	{3,     0,    0,    0xFF, 0xFF, 1,    0xFF, 0xFF, 1,    0x00, 0x00}, /* HPH/EAR */
-> 	{31,    0,    0,    3,    6,    7,    0,    0xFF, 0,    0x00, 0x02}, /* HPH_CLH */
-> 	{31,    11,   11,   0xFF, 0xFF, 4,    1,    0xFF, 0,    0x00, 0x02}, /* HPH_CMP */
-> 	{7,     9,    0,    0xFF, 0xFF, 0xFF, 0xFF, 1,    0,    0x00, 0x00}, /* LO/AUX */
-> 	{3,     1,    0,    0xFF, 0xFF, 0xFF, 0xFF, 3,    0,    0x00, 0x00}, /* DSD */
-> 	{0xFF,  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}, /* GPPO */
-> 	{0xFF,  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}, /* HAPT */
-> 	{49,    0,    0,    0,    15,   24,   1,    0,    1,    0x00, 0x01}, /* HIFI */
-> 	{0xFF,  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}, /* HPHT */
-> 	{0xFF,  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}, /* CMPT */
-> 	{0xFF,  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}, /* IPCM */
+> Earlier commit was meant for CPUs and not for GPUs, hence moving it Or,
 
-Well, looks good for me!
+OK, but:
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Are you saying do not do the movement and add one for CPUs ?
+
+yeah, because you might need it in this place for the GPU. Therefore I
+would propose to check what compatible you expect for the GPU part and
+just add it.
 
 Best regards,
 Krzysztof
