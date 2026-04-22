@@ -1,136 +1,129 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A944931D366
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 06:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776839791; cv=pass; b=cWqtLc0qMQI6T+E4vV1MU0ZZbgdVJppdvvHqlymjhNwD46B/fIwC2a9YydMNplxe4xggsv41G+0MZAqt3bD+irzBVU+Kn00kv/8R/n6p6JGFCU9D17IFqytQrJ/rtJ+GMLQZ+cqJxZ1+XEgM7Hxx9qZkzUw66FbxrF22N0GZcTU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776839791; c=relaxed/simple;
-	bh=wfavpjAJSZ7hjRrsG7wTFAHndOUYUXOJbTCj7dcdkBU=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF65427EFEE
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 06:58:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776841102; cv=none; b=GFNSpv/fgJ1TM+CtuvNOCwT3Xa72lcDFh6wChDiLKP1AHip1Yh7lkfacsdsatLFzB5pYdoLIMHxNvdDBjjt4tMIl4qbP8R1AR3DiALkTm9ER2hGfvm91yiaEfDg8o9pDsFYsI5ZiUgOd3X9mye+qTMBKf8sX5H18NNdGLhDG7Pg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776841102; c=relaxed/simple;
+	bh=wpkRjIorbMJMpqwzpLdjkd4Y24lBbCPn4ze08bDnJqE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=opzjDKubvs2KvVxKy8ELN24Eh6XsYX/maolcw1BnwzYwNG5wZXOqDGhcaTX5VnwoTMFt4UMh/9919FfdsMbc89p8WlP5H9jxuVAPCqfPF7DSD6EmG1OIizPYyMRNhPcHfO3AygIp+/twiyVbHz1Q35AKdNozYwDQWx2GF5NkhKo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IW9ucfVe; arc=pass smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	 To:Cc:Content-Type; b=aKIG3PJ51unYJPIArhMGYQJ+zyVlYNUICMm4u58QS4Yx7clm9rww2S4/9WxmQQmCwyF0HvWbQpYtWsjjejQzToeX17d4S2+jZeM/1d/zQrVbMA7vR6I0DLtI3ZjyRyAswDx3QsujnDq0yQqzFdZ6VdxI+QQOAg6yIOYm6YTmVoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.210.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IW9ucfVe"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-43fe608cb92so3486714f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 23:36:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776839788; cv=none;
-        d=google.com; s=arc-20240605;
-        b=iIgRue3tWij2nUxuaNYIVzozwvCSwY2eyHFeZxQKEQjgZGC8JOO1bVnW+/9C/MILRL
-         CLFIArPVG2ws+xILrru1+5jJsvNRWM2VK+OszN/l6RG9FA4/2A7mMC4DRM+BMx6hBYdP
-         JBOAyGU9f3zljAlV/f3gRuutlzCdZxSiknP78e4KPhb3W+jNNKiQxEOO0I6+lN4MP666
-         xgnNHQUC5p8+xFRjHv0dtV3XkPpGm9HSSoXkEchVhXIupSPTrwHsmc1TwJRvxdSGmp8v
-         B3t83DLWHU2x69SeoeEnaFON/QxrNHsbcReujUkiidXz5EaayojT2SsU/YTSKQeIlH4n
-         4aZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=eU0mpl2hFzbGd8K+Y1Yf6B7ztWaV8bpKCFESHc+BsSc=;
-        fh=Kyn/EcPy7pzL07WB+brRgibtjsFLW6VxMLjZHF/vkao=;
-        b=kCQKdnAbJ4wuveN2LRSRpCKsSwPYl81+VxX5tVDme5O7vqBa89WT4pyNWyJ+AsIiUm
-         vPjL9P/2OWzU+NmEU3EVKSEVnCaFHLCrh77frTPdqyjurlfMi24Lvp0WYKy9ysQNMveE
-         SVSBuOFINIYZgO1WN2tYs+A8628b1mLyXYDXsjmGFR0HSVs4K2Fp9g6abH6CtgHJGaDL
-         J2VwCOwTISqPNILmM2DvYmt/mUy1d8MTVFyxbDPPvfOS3Nd2EbqNBD1DMFQ/YLphm6Zj
-         CwVI/O6IKS9BA1Mf0X6ld/WetEaQ8EEWsmnPq5B6VhqVpmSfHqgGRC/vn2MlaquOmTuv
-         90SQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776839788; x=1777444588; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eU0mpl2hFzbGd8K+Y1Yf6B7ztWaV8bpKCFESHc+BsSc=;
-        b=IW9ucfVeT/mnGYgdSshb9A6jwQ0aWoPTd+/L0/mNQEziubP9LOAO80jXmXkMiUL8WI
-         kTgrLMbtOFO3k6wNDQ9HWyEebrgoZSfR/ZXLVdqlibRJMXVlG4fZK3+8y9gah3L176Nq
-         CcN1y+yITxuY93trrd1JfELQx+9CRkEr0FgrCyYL0liY9Qb+PoFe/mtbqBDwwelj1pHn
-         IXx4sUuukSvCAvvDqYkhD2XxsWJeKYWr266+Sk0QSjUqOAZtcVkuO1/+2xjRWADy0xT3
-         sujfqm3P7KJZ+UK8i+5hqMgLLiYnpGanQTrlVyP0fDoVD476g8fOwvglnao0htYh+wXj
-         oXxw==
+Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-7dcc9b506d9so2228465a34.1
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 23:58:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776839788; x=1777444588;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=eU0mpl2hFzbGd8K+Y1Yf6B7ztWaV8bpKCFESHc+BsSc=;
-        b=W993D2A2seFAT7KcmiNf4ApDrEQq+j59JxL6lm6nAjmH32F6EZ1y+c42vz5TJTe4qM
-         sHaQXU5+l7uK0PrLiyik8YlVNBUg/iPG02b0loKnHnQ1z3vuVU2gXjubFQDCqkQ4cFPb
-         uomr5YlvUD0dZ7Ux/7OCiAtVwKZuuYZW3qD5vjrV+8gsq+m/oXGSmYxE6uX1pZ9m4GA3
-         b5hvLJt70cYcUpjdDYn5tHx/dY/noU9j9gMVJ5jMGTMd0GQ9kz4d3ziTHpwFosRpOLrl
-         SbImPDfEQtdyBjhLpauHi5JduaZ1apEhkltHloBJTTE8XNPoNAMBN7Qem9snWA86eOdi
-         rF9A==
-X-Forwarded-Encrypted: i=1; AFNElJ8daQZJAdTbxCH5aSVpL7Kb47u45MX6If1lTRbn9BRjrEy580KxEk3pdTugSNqtqErj3tl2x578hKDz@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkOuQ/OlvCNuqB9aolSe2XQ+slmRyn4cbEKd1EKff9ngo+MbAg
-	ODzjNwKc+s+XJSFSzF8RPiWYGUactwiUsLZqgV18cJAuZ/gfrOAP9t+/TjAAgaEx86IJACqgkFe
-	ETk8qZhFAur4FWhV+XOQuZbjNa9qA7r0=
-X-Gm-Gg: AeBDiev/HPzv2YYU6yQk61o+t6svTd7fYpleH/aDfXDUBIUbOgC5Q0roVevJnJpNWSA
-	q23UeP21Fh9Ag/z2535NbZvyYw0j6QWz2zdXNFhjppG8dXDxS/IF8Wd279f0hB7mudpjirj9/GB
-	vqx4SizD+n3nWmepnHuphUCeJw1c45TRV5NtDNMsK/+04ATnvdVySA16VGFyeHfELxLhUbSKhWn
-	pJNRK7Yk+OjWChhqIn0xuo7Uc1z76kdGranU98V7lt4u8f7H5pDmJY5RB3jn0GmDbtw2BZ7sSEw
-	kajHbNIlkTt0+qLFvSQ=
-X-Received: by 2002:a5d:5f92:0:b0:43d:71f4:7ed5 with SMTP id
- ffacd0b85a97d-43fe3dc54famr32939529f8f.17.1776839787814; Tue, 21 Apr 2026
- 23:36:27 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1776841100; x=1777445900;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EQBlVUrhFqLpmXIMAS6FxW1MbLcWzT++sufCtB36Fh4=;
+        b=M23l5ZWwhKhM2hZEYrM1ALY6Vkv+9fIG3WiTawxSkgZbFPS37sj5TEdT4tkoVFTPv3
+         6rIsUkPwbCHFYl+jl2xAy5TJFUbqD7Qa5b7hF93zpqdUhiyzhbH4IdRT3pWBKRr+Binm
+         G5N4SUe3JE75RSFLoQGb4VnJw+SymA/B7bnDBRQTcBp898ITiD5SbZkYCkNDGZc32POg
+         2kpjOFChlhoNJN64IZS3xhcHs7qRhN/ccl1vR8dGcS0SJVNM1TBQyFMXwxMqV5autE8C
+         Xzj0MWV8Fj9zy4h+EhR0KxxOhoUWyexK7LaDPjaa6oNwPMvIB1+tsM8iUsenmH1sH7fa
+         sTPg==
+X-Forwarded-Encrypted: i=1; AFNElJ+/f10ljv2K6tyzczVxHD8JcRhF+KHbmwynRF96gn/aN4D6luxmF19Zy1LGYvSJZkKzUJTXdD/BFErP@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWRRJ/gowK2O/ZGo5EPuW79T3eZrcHxHS8k1jhjHcYeIqNTii0
+	I6bV9ld9pwN5ozRxYPhF7GZ8x4lYkLKenKvCeuVieCBbgIljHbi4IgaGWDBZwTaDsL0=
+X-Gm-Gg: AeBDieun2IYxhVeAWJjR62uyFHEUhnp39XYkZdDtHCNE3mOmW6nX0QU/AzrnMQjn8zz
+	f9XyhEVQYbdCQmrXH9/PRgf22rY0fVbp4UbwDPEpUOuc6yoiLT9QmnP1zTBZwtTQoA5rqDSex6D
+	B6lTXzf071XKda5VnYd78xujLHsrMl6+is2lBSR2p6e06LQOzrOWiGTyxu37K0Q8AbOrTDEwZXT
+	+fgnKlfBUgijIbeaPD6WXmWJCLv/f1Z/NaJ+wNcCoaHlTQW2gzYk5t2yKSp2X+KFt4GQ7juvEif
+	Tluf3b8JNVoyuXtEWZf7gP2HENSL6Vk4Fml+2wMlHzlwebvsBk1Ff4QdQbxyDsBvD3NY6GFNLLP
+	K1Pe9k52+NyNUMm7GxuFlLlUrSAuvjS2sQcGSiZ4zFYWmfGKVR8Q8RjvcAf583577ZFJC5xihpR
+	jieIQ+TRYGTa7+6f11dxZ7rHoPKUmK82kzMHbl/LQGl2Py3dgKLp3obwMM5aKdEuPTtXa5AEg=
+X-Received: by 2002:a05:6830:34a4:b0:7d7:e142:2ead with SMTP id 46e09a7af769-7dc9523108bmr13257188a34.20.1776841100574;
+        Tue, 21 Apr 2026 23:58:20 -0700 (PDT)
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com. [209.85.160.41])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7dcdbef352bsm3022185a34.10.2026.04.21.23.58.20
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 21 Apr 2026 23:58:20 -0700 (PDT)
+Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-40ee9b945d5so4031576fac.0
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 23:58:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/k5T4v9uLHgocaeAmh8QnA716o8f2lameix7gAlFDhan3IRu8eLrgShki19V8lrrAfExOopxY0V7B5@vger.kernel.org
+X-Received: by 2002:a05:6102:3a0d:b0:60f:f543:232a with SMTP id
+ ada2fe7eead31-616f4b50368mr11299488137.2.1776840661908; Tue, 21 Apr 2026
+ 23:51:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260419093412.40796-1-clamor95@gmail.com> <20260419093412.40796-2-clamor95@gmail.com>
- <20260420-affection-ferocious-e28cd29f360a@spud> <aeZWgcARBqMQatrr@kekkonen.localdomain>
-In-Reply-To: <aeZWgcARBqMQatrr@kekkonen.localdomain>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 22 Apr 2026 09:36:16 +0300
-X-Gm-Features: AQROBzCUJhTnbg5bBGAy7L6DdQ6sPnv4p1g7vJBHYljdROCv4p5UQj1SToqiRiM
-Message-ID: <CAPVz0n10Us=zU38v4ieqWXkQ2pXRKi=6M4i3k1Q5bJ4g2QQjgA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/5] dt-bindings: leds: Document TI LM3560 Synchronous
- Boost Flash Driver
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Conor Dooley <conor@kernel.org>, Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+References: <cover.1776793163.git.geert+renesas@glider.be> <72e2a0e7a5abda02fe36b3f5851842f7a77b2593.1776793163.git.geert+renesas@glider.be>
+In-Reply-To: <72e2a0e7a5abda02fe36b3f5851842f7a77b2593.1776793163.git.geert+renesas@glider.be>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 22 Apr 2026 08:50:50 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXxEsYuOay0+Tf=4ByTAMp0=iXwcS4YSy7UY9_CE0hb5A@mail.gmail.com>
+X-Gm-Features: AQROBzBFb_WdSQXK0LqlocZWzf5masVqawoXkZ-ffV8evv9b39yVA9knMtYt5TM
+Message-ID: <CAMuHMdXxEsYuOay0+Tf=4ByTAMp0=iXwcS4YSy7UY9_CE0hb5A@mail.gmail.com>
+Subject: Re: [PATCH/RFC 05/14] firmware: arm_scmi: Add scmi_get_base_info()
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+	Magnus Damm <magnus.damm@gmail.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Ulf Hansson <ulfh@kernel.org>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, arm-scmi@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-=D0=BF=D0=BD, 20 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 19:3=
-8 Sakari Ailus <sakari.ailus@linux.intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+On Tue, 21 Apr 2026 at 20:12, Geert Uytterhoeven
+<geert+renesas@glider.be> wrote:
+> Currently non-SCMI drivers cannot find out what the specific versions of
+> each SCMI provider implementation on the running system are.
 >
-> Hi Conor,
+> However, different versions may use different ABIs (e.g. different clock
+> IDs), or behave different, requiring remapping or workarounds in other
+> drivers.
 >
-> On Mon, Apr 20, 2026 at 05:20:28PM +0100, Conor Dooley wrote:
-> > > +properties:
-> > > +  compatible:
-> > > +    enum:
-> > > +      - ti,lm3559
-> > > +      - ti,lm3560
-> >
-> > What differentiates these devices to the point that fallback compatible=
-s
-> > are not suitable?
+> Add a public function to obtain base protocol information for the
+> selected SCMI provider.  This will be used by the R-Car X5H Clock Pulse
+> Generator and Module Controller drivers.
 >
-> Good question.
->
-> It seems the currents are different albeit the register values themselves
-> are the same. The driver doesn't seem to handle that properly right now, =
-so
-> it's a driver bug.
->
-> I'd keep the compatibles as-is as the current limit applied should be as
-> specified in DT.
->
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-This is a valid point. Unfortunately, I don't have device with lm3559
-to adjust driver accordingly and test.
-
-So, Conor, Sakari, what changes if any I should apply here in v3?
-
-> --
-> Kind regards,
+> --- a/drivers/firmware/arm_scmi/driver.c
+> +++ b/drivers/firmware/arm_scmi/driver.c
+> @@ -3504,6 +3504,37 @@ int scmi_inflight_count(const struct scmi_handle *handle)
+>         }
+>  }
 >
-> Sakari Ailus
+> +/**
+> + * scmi_get_base_info() - Get SCMI base protocol information
+> + *
+> + * @of_node: pointer to a device node for an SCMI provider
+> + * @version: pointer to write base protocol information
+> + *
+> + * Check if an SCMI device has been instantiated for the passed device node
+> + * pointer, and, if found, return its base info.
+> +
+
+Missing asterisk, reported by the kernel test robot.
+
+> + * Return: 0 on Success or -ENOENT.
+> + */
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
