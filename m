@@ -1,117 +1,125 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7C02C3251;
-	Wed, 22 Apr 2026 07:34:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776843285; cv=none; b=vDJAazp/3CJJWXHHufzs3xY/h+dnVSFaEgh05ASpuMj4or6fBQk/js9zOIJcPgZ1FTaEe7EwWsCB1q05a6xvkigjinJB26Ou/9KOMOyuJpjDenMZPj7H2CibUC53X85e7yX4CmdNYtFT2q58lJEdz3h8dqj5y4tM1qgFm2LV8lA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776843285; c=relaxed/simple;
-	bh=05WxGtzMdmiwqE6XcONX+oUDFFRR6Sb8327INIxDCS0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OY7iOY3EBa0aPxGKES7iAcTyCaBxkiSBjvFFuI4oo1GNl8xIhrK6FEfSRKal/CW3rH3XWI1IRN1s4gMOOkni0IENOAfk8qGUkDf3Fmv/GXsW0PvkGaVwH9j4y+DBwXYOft3iwv4IQ/WCRrhHcbsli9+hcJhzQ6Aki0S73hdcTBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aAqD3sKH; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED51A37266E
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 07:36:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776843392; cv=pass; b=UX/VNIr5Am5lWcL1cndGPnCGVOfMwWEPoK+ePNjgNWP288Wh7P/aAVJW7bZJUQN4EzzvttNK1GmQKO877kyjnGQs2pf1rN40ZS6LudguaYH6qyHurN7xvuUTcNIA7dqrTGRX51LO4UCOMBofxK9HTJjBuFw+PYLm+VmmW0azNuw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776843392; c=relaxed/simple;
+	bh=4DzVyri0edtFhAHZfVFYeXT5iqjhOw+QNulxDA24+bw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZfhelhcSkO2vnCNTme9YwtlG3JJyP+1uaBjmOhTbZPI5ldAvZqESe3PKXKToJK6bgYoL09fRF8y5hPr+I8uosqtNxpIzOe/hh9hOKoTkuBkpqf5omlamjPgJTWfHzhVgk886jTrwy6kpsNVj/yvmaTeT9miUMkCzk4AFGGikAYw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=houvkiKV; arc=pass smtp.client-ip=209.85.208.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aAqD3sKH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1776843284; x=1808379284;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=05WxGtzMdmiwqE6XcONX+oUDFFRR6Sb8327INIxDCS0=;
-  b=aAqD3sKHSA1qjQUClm1VaX4wmRf4oWEHWH1KVzLZKVQrZcS0b4USLmGY
-   od8scjJTXMxRuFkylAENV+/GdqIGZP36InsQDSILpK/oqsynwjase0kMj
-   kXB2syfjWWZ9NlxEw+QVSsWjOPAaeXigTm0kruUVddaQ63pCNdpYFoyyG
-   yphdcEyXFcfVF5oWL/nWu/yq5tEQpsY+ySoiJ2CfVdTgx9KDS9jb2j/7i
-   x0ztlv3kRtVToKwljTGAMcCPHGLTMD5Z1tX3cbmnVx2VWhZw90I2OQZU/
-   sp4YsnAL516YXYGyELVxjJ7BU+zDhnnySGtfr1p1zAMeQPRoXxPhfpuJ+
-   w==;
-X-CSE-ConnectionGUID: IepQu+RuT0G4XhtTc2n1Ew==
-X-CSE-MsgGUID: rdXxCXaRQp2A3QQdJzigpQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11763"; a="81655807"
-X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
-   d="scan'208";a="81655807"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 00:34:44 -0700
-X-CSE-ConnectionGUID: znrJKIjGSLSQm1SROwah8w==
-X-CSE-MsgGUID: 5eOc6QXPQkilE0Ihai1hfg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
-   d="scan'208";a="231389757"
-Received: from dhhellew-desk2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.208])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 00:34:41 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 742891201FC;
-	Wed, 22 Apr 2026 10:34:39 +0300 (EEST)
-Date: Wed, 22 Apr 2026 10:34:39 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Conor Dooley <conor@kernel.org>, Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] dt-bindings: leds: Document TI LM3560 Synchronous
- Boost Flash Driver
-Message-ID: <aeh6DwKm0_8L5GJu@kekkonen.localdomain>
-References: <20260419093412.40796-1-clamor95@gmail.com>
- <20260419093412.40796-2-clamor95@gmail.com>
- <20260420-affection-ferocious-e28cd29f360a@spud>
- <aeZWgcARBqMQatrr@kekkonen.localdomain>
- <CAPVz0n10Us=zU38v4ieqWXkQ2pXRKi=6M4i3k1Q5bJ4g2QQjgA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="houvkiKV"
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-38ce8a5bc20so55376321fa.1
+        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 00:36:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776843389; cv=none;
+        d=google.com; s=arc-20240605;
+        b=MJUsfL+4Trclox3Xzx4v70Gu2XU9TBuy/chQYORBRDQDFgxv0sIOoUtWiDrjZRv/IC
+         noU6z63SRnHcNBQ6Liwk296TxH87kdQCpwWIwd0/1ShkAdWWYM0fsBLD7cpz5xfklFNP
+         FqlKmuSj9S0CpdwA8Uobygdiltb4LNhHYexpM9H05mhcaKAlrfmsbtfPjhExqFq1ffbk
+         P74bPeotUCmGls1PKVRbEKGIsH7XUvVxj09kHjHnc40N9/DGKxw4tf1h3GcNjkGV0B+l
+         CC4g37+Mwk/eqBR+ad2JNoZMJTdKb0d3QKPNDJGPNB3F4JyEiLQoz5R26PzewYhYORFR
+         JUdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JRhsk8bRbL2KGVeQozHjmCu3DTba9VSOU96UxmUB0aY=;
+        fh=1sCo5QLY0ztBuksyGQdrx/jmY3bntwe0Xdyic08qdr0=;
+        b=hpFHT5EN5QO07ZsgV7vCbFjcSG/4B5jT81C8APyWQspD/k9BgO47mIT1Fd8fFKsbSL
+         kWMynvfDlIA/Ifh9bquwzGrYM0KN/u5C40QD7MXt01lSh8vqWNYvgJR92nCNz04j4Yt+
+         quhJ5iM5IJsu8YmCJRn+b9Jr6Qgn27BmoPvN3suoBGs5yIiSJiJkQ6b6/tnIUxqKaoYl
+         lKpaGVHMZCFg2MVRuWrPa7+9snwHt6qHIqFjEiBwqH+wR/pToe97HFRVE4LvEZ6BNKzR
+         mS3vMUtt0MgjRQFDtX4lxhjeqDNaf3s0e/inBETWYjNLJ0OSBos3Ea72JebiERQWqmw9
+         Gq8w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776843389; x=1777448189; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JRhsk8bRbL2KGVeQozHjmCu3DTba9VSOU96UxmUB0aY=;
+        b=houvkiKV4jWOhoWCzy7Jfc+EPwWRTNG1BTkZ4ULPSLfYD6DGqUttRqNnECeQuzC/dS
+         YZlV8Jmaa3QdbviaBCAYWCVTE/Ajhe/gMVcNDIgD8ejkuVr10mET/Tn85PPJDHOm8FnM
+         urrU50942gmpbkvns/ly3SjK3RVm9IQKDcpphE9Yxwh6hGsJB0fBVSlueEPA/RgJHA0Y
+         sj1JLWhjFbwAcbwOprN00LDHKMM0F9eYswzRHouNMVNyPoWd9RShARUxLgjSvy7+kTSm
+         zXfxFjPfU5XsMVuPjv6qtF/9fREne/4ANYfxVMuvlgI76iXAh/IiX/2EXwQDs7jAnks7
+         MK0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776843389; x=1777448189;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=JRhsk8bRbL2KGVeQozHjmCu3DTba9VSOU96UxmUB0aY=;
+        b=BdFSukxaP8FLCqWxyi9DSxioslyhMWtfqLc9OfPO/9PVEHpqyMV48GtjjqIg7rFANj
+         NrBPmlP1zV5I9u+N6x9YoNFDAO9uWPDNuiyUP+279qB/6XhgKyg1MKuzXpZyRd+Y7QWH
+         aPARkj4SINHnfDp1L36jX4HdhYqffyZz9vq3G4GIVjvX/nw0oAP4GWOv609CzdRJeKsz
+         X34K0VAzoLBnUisIKmpdn4q/qJ8cbuFvDfuQkvgvxm3MwZ8n3uTuBFMh+M+yYtJWZmuy
+         jJ/E31MHX/oFw73TM94gIHsSh7nHiEpIdmh7cHn3bb7v1SZr7b1FsaB//oKb9WE3QNA9
+         Py7A==
+X-Forwarded-Encrypted: i=1; AFNElJ9B/o0hZ7qr95o4x/jBNlP87hSBl+muizLob8J79jEWNoPaVjtjPVRGaz7PhR/mL+/BzjmgS3vShwPp@vger.kernel.org
+X-Gm-Message-State: AOJu0YyLOGtEVQlEaF/qJo0my+7jR2jBuRWAioCHXRO30MigPudxtjBI
+	Bim5t1O2iLT1WJhTNjzzeLhvob0Wu3eYJm6A14aDciKEBLo0qfc/cicxc0t4Qpj4tYdWC07KZAV
+	vFnE4I2TyAQaf+ufxfJXua3njIQOoyWM=
+X-Gm-Gg: AeBDiesJe+Iq8hgneYA7b8WXrCqJpzPZ22rs7tbMSefsSUYb7l5wCa1YmHKkqGlGI/9
+	ZT18uXg+qcF5EkgVIkxoCQBdsETtDXeKgld0Cl6ky8xBoNf+KG9Cnj+9hnAPicr8DpYaN78WlpM
+	MYhQyc3H6RoLTwoyLnJuZ3E2PogRumW/B/E4GP3w7iovtzRKwGqXuRjkZAOfGSkri57df5QLbzw
+	FQiUJqz6QbEhE9naEjzgMoInMYcjN2DfFOIvnHbeO6i5IC5pi/2n5WI7lkOGuHHsb0NHfgiHV3U
+	4K79QUY59PMI6jJhKBqXvZ0MHQiaz+MkHiTJqIjNONPNqQfAgAKYe+OOGAeiIhk5fsgnbN1hoHU
+	wUQM=
+X-Received: by 2002:a2e:bc14:0:b0:38e:23c9:2f77 with SMTP id
+ 38308e7fff4ca-38ec7418244mr76801921fa.0.1776843388831; Wed, 22 Apr 2026
+ 00:36:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n10Us=zU38v4ieqWXkQ2pXRKi=6M4i3k1Q5bJ4g2QQjgA@mail.gmail.com>
+References: <20260421-ch13726a-v5-0-f7f6f4f30e05@gmail.com>
+ <20260421-ch13726a-v5-1-f7f6f4f30e05@gmail.com> <20260422-resilient-puma-of-excitement-02fee3@quoll>
+In-Reply-To: <20260422-resilient-puma-of-excitement-02fee3@quoll>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Wed, 22 Apr 2026 02:36:17 -0500
+X-Gm-Features: AQROBzBRZGRInIxeMUjKR2PpeDYi3ALSLVHHQxsrJaDloP4zzhaCTJCBGIAsqt4
+Message-ID: <CALHNRZ__HyuWpcTzqq8YG_n=RPZ10kNhHU262=NHEqr_S-pYKg@mail.gmail.com>
+Subject: Re: [PATCH v5 1/2] dt-bindings: display: panel: Add ChipWealth
+ CH13726A AMOLED driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Svyatoslav,
+On Wed, Apr 22, 2026 at 2:05=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On Tue, Apr 21, 2026 at 12:38:37PM -0500, Aaron Kling wrote:
+> > The Chip Wealth Technology CH13726A AMOLED driver is a single chip
+> > solution for MIPI-DSI. This is used for the AYN Thor bottom panel.
+> >
+> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > ---
+> >  .../display/panel/chipwealth,ch13726a.yaml         | 67 ++++++++++++++=
+++++++++
+> >  1 file changed, 67 insertions(+)
+> >
+>
+> I don't get it, you use b4 but still drop the tags (b4 gets them
+> automatically). Nothing explains reasons for dropping the tag, so I skip
+> the patch.
 
-On Wed, Apr 22, 2026 at 09:36:16AM +0300, Svyatoslav Ryhel wrote:
-> пн, 20 квіт. 2026 р. о 19:38 Sakari Ailus <sakari.ailus@linux.intel.com> пише:
-> >
-> > Hi Conor,
-> >
-> > On Mon, Apr 20, 2026 at 05:20:28PM +0100, Conor Dooley wrote:
-> > > > +properties:
-> > > > +  compatible:
-> > > > +    enum:
-> > > > +      - ti,lm3559
-> > > > +      - ti,lm3560
-> > >
-> > > What differentiates these devices to the point that fallback compatibles
-> > > are not suitable?
-> >
-> > Good question.
-> >
-> > It seems the currents are different albeit the register values themselves
-> > are the same. The driver doesn't seem to handle that properly right now, so
-> > it's a driver bug.
-> >
-> > I'd keep the compatibles as-is as the current limit applied should be as
-> > specified in DT.
-> >
-> 
-> This is a valid point. Unfortunately, I don't have device with lm3559
-> to adjust driver accordingly and test.
-> 
-> So, Conor, Sakari, what changes if any I should apply here in v3?
+It's not automatic, you have to run b4 trailers, which I forgot to do.
+Will send another revision after running that.
 
-I'd mention the different current limit in bindings. The driver would be
-nice to fix but 10 % too low current isn't a grave problem.
-
--- 
-Regards,
-
-Sakari Ailus
+Aaron
