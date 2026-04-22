@@ -1,430 +1,196 @@
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB83F3C3C08
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 11:44:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152D93BF67A
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 11:52:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776858253; cv=none; b=HwBu37TYOte53KwmxHiWzqxQklIilhNlRim1Kzfa+SqfR8owZ1kB+YEtKWe50CWbH2zJ4lBogohf2jLp+9teEQVMmcoG8QNetU6DOScw5+9OXqfQKE/8GLOUwsE/V4b/woeVb9J2tKZZiMJshPhSZAn1cKXOWj2f1sXvM9/S0wA=
+	t=1776858776; cv=none; b=BVW6UMZA4kYgKgrDED7WkKSkp+XhOYGpWhKP+deHYKyIH1C/s2ybbcbn3WjxOdzqoq94mc9IINsmXubs0XPAfyBBDdopd/L57wyxEYspq1FPBLfF0Dw5pAlqxl/6T0VMzHrgHltHoBPAMuqcCYpTvce3Ruh+fO8daVByA7IoJuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776858253; c=relaxed/simple;
-	bh=FntQhP/O0Z5WG9KzvwTg0ixC2Hqw3iL4rsA0JE3JrFA=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=Pd2YOrZniJ6cAGUfxy2um5nqSMwkUbX/rhEsZyd+G543LKeNjG/oxeLiaBk2Kd+DVlGMbVmL8ebJgDOVQmfj6a4EJvHruLZSpm9ETWTpVh6do/tTUp/+WathRpzPNdTahjZjGI5O9uZMuXj3YJaOiASu+P0NmcWS4dbiL0VaF/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dwEpXt16; arc=none smtp.client-ip=209.85.208.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776858776; c=relaxed/simple;
+	bh=op2NPRB2c2e74WNCpOsL0DG+SUdRvRWk2wWmkZJCF1g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZSHKKUWOzvQYUkz/zv3qtrFKnEs2jutCSGQNTqtdoDPQMYpY/ymPitY4Rh2jrzw21SJozYpHVsM+DuAWxoCHiSAvHvKIbfUKoadtMMaROR8sxqzDKgUNy8tjM0G+FMXbPBwdsSfQVh3mUFWRZznocvEzdtbRDZ74gEsQPS0ljdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YtHnhO2o; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JY4Kiebn; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dwEpXt16"
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-38dd575bca3so57693881fa.1
-        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 04:44:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YtHnhO2o";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JY4Kiebn"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63M9988K2639615
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 11:52:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=RedL6ESsshJb8pVdNamFEEdb
+	oFazoUv2pug37oGSMPY=; b=YtHnhO2oscHlpIBxmqpPpttQbMqVsxBV+kgg4Dvy
+	0FJRMG4sMzNzic6KTR9chOz48THLGC072G88gbb9KMPHxua6p4OQKUuoMyymn5Se
+	ymRo1SnTZCx0ghOQwa5sjkjjJoRff8ZFtlnu4B2YkpuSXDEEqFBniY8UHDUhnZf7
+	vjQgIGGcjd6x5zYU57c88CZ8DeOdUNd63WjM6tGEm5LnXsu8t7iZM+GYgB1odowZ
+	qchXZ4oHc7inbxLasgCwEdoiKR2xXKtCuFKWc/PWRJgOXuPw4eqGkyBgwTeXD1kB
+	86gn7sElbGOCG3PeV8nuPwxRToMXW+yBJsa3/7TXFO4/hQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpenhb67g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 11:52:53 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50ea1a7a5d0so69901051cf.3
+        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 04:52:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776858250; x=1777463050; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=V9drZOG344fqQoYzPEpzOY3EXzMEq9Xd5LoQQRRgJm0=;
-        b=dwEpXt166DiOWklBtpX7naiSkkvQT+3ltzx54hqo1uP7E19O55Y4u0Zvu+NeayUEQ2
-         KTu7dB5xaSPDmLsUAl0JAUGLD8ZZs9rGOTkTcnXQXNuqyH2+T0m9wWyZViao1kRwwtAs
-         cxMQdIIBgn95/VPWtmlU9aEeJSI+eQO5MS+1AQI/zElgzDJBiH4JM4orrIeP1esqy05p
-         DqSCy5SFXs4W1jK9UHMXWuiMaxf4gYpB7lhHoaAsNKdPDVRUq96uQM/b3AJrwjtJ67BI
-         fxtTFFdFkXg6bG1+nTEdYC9Ne4VMNd8zbX95Of4d7ecYuQt/6aVXEo/kCWAodEXuY8dO
-         1pjA==
+        d=oss.qualcomm.com; s=google; t=1776858773; x=1777463573; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=RedL6ESsshJb8pVdNamFEEdboFazoUv2pug37oGSMPY=;
+        b=JY4KiebnvRDV549XrUG5f0s/DHWL8IkLO7QhFBmEMJdnERep5SruUU5vrkuDUrKg6D
+         zm4AD0pBwVgx2eFk7kaVb7qXQb9l5jjhKj4ReiebE/uPnPk5jtNfwCzbBdSB5yFNcTuF
+         +67xxA0I15M78She6VxvV6Z7iwwxsnNGbf2o2/hN4wZqqHlZxkg5g4hB6CSEtAijUTht
+         LNN3Idn/1R5px9xMSFVjxic+x3nAqXZ7fyQA2jys7lM6rtc4FbNkyXEMyN0Bl3I3PGN+
+         Bt3yTgApcw+id6+WHKo2VWN3bsFNXOY8tiyHlHjvsFDg1ihxHTxfEtDZFTUUgq840do1
+         wwnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776858250; x=1777463050;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=V9drZOG344fqQoYzPEpzOY3EXzMEq9Xd5LoQQRRgJm0=;
-        b=GbciGJ4fy9VC3g2wCEvWBKDogleqMWOc3l6+CQVqfWrvl4rvqA9blWVjYeMK6UUSXH
-         rM6OwBQ7OdrIZhyF7pdxQK0HR+UE/Y1cUKrdW0B1nmQEbqIi1WsYlMp3zpiHNb01z5Ti
-         M7pYaxfznr0XhviYADVbwfB2mhIy9/NxGluaIrJuGT919P2F2GKMj1MQRoliyyYkupS0
-         ZJodKug84PFy+q1mnLT8A+EwvgbE1XzBpDzbZJoLblEbzVPfLLG1mFmqaz5UMj8VyuMc
-         P6MQUdsZj2M382czVNYSjjcD62ZG2wkB/RoNbQqfvaqB2MxgFfj/ewu1o5OT9UKXC2Ee
-         stRA==
-X-Forwarded-Encrypted: i=1; AFNElJ9zB8SiqEs5UuGd3jDmZX7xBJKm9AaAIJYP7x4keVt+59b2Tuy9+3zMjsq6HFSxHwJSa8pzMZtoiazp@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGOmJluUUJNSv6WooEcdYAzAzQci38JHqgUlGCW92i4KGY9M/C
-	2nOpqqhwxIdXzIGO2MQWpLGpSMGWDhWDVjl2XuFgefkNtyMhQ3xBP4GUndWJRA==
-X-Gm-Gg: AeBDievlk3ZWWY4qFo3498hPyV9x3KNJCQcSHAVP2jDG1UlblHYbfWIYxXxBTwGzKi5
-	ixSTl8UlxiK8bgBMLRSaBuq/hF72QqSygAkAifvpclQzb/HSlHXbxD67c4gIQ+n8rqYjM7vQsFX
-	L0RT7lq+F5AbjkyDgoxvMMdfTV2TFk2QuiqTeT8yg0dKptTH8xMmPenB2ZIGJR+GyJtZ2nuk3cy
-	eJkTcgV60IimpV6Xj6Oxly6uk6Z0Y2kIPR/yStsJJtQvtHSvcaAfgylpfLoAa8QeQNyAqPS5e7B
-	ikbzqcRUQ3PP1uHGMUNaT+c7WktMuTONqtYc3cXOCWIx3vNKRUYGkkPMa7DTAlVf/FEuXaw67RG
-	XeIkC5vRcX7tCdmsDQ3M1RyelBD9b4JYYJVDC+QCowQWunYy5Nv/C8+cLomLIeQlARCe9MUrByh
-	FbQaXqaQvNK5GgeKxFwtkCD7O2+QZ4E8fMUtYwRP8Abbpj8cpgSO9aSyL56fqM2u0=
-X-Received: by 2002:a05:6512:3c99:b0:5a4:1b6:dd31 with SMTP id 2adb3069b0e04-5a417299948mr6173524e87.13.1776858249676;
-        Wed, 22 Apr 2026 04:44:09 -0700 (PDT)
-Received: from smtpclient.apple ([87.200.95.144])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4187ec0c2sm4355743e87.82.2026.04.22.04.44.06
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 22 Apr 2026 04:44:08 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
+        d=1e100.net; s=20251104; t=1776858773; x=1777463573;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RedL6ESsshJb8pVdNamFEEdboFazoUv2pug37oGSMPY=;
+        b=iaqUli6adPlOU3a1s2fsiXiB7/Yj82e42JR2/XrMTdQjxRytGM6YDP381jgkwRuhP+
+         vyb21xyaZvZy6SdRib1vTpPFikPrEl8jRbEVHcygy2FIVPUR/4a448i6j6WPExg0Jn1d
+         mYcQkl8MwQsY9cAvymsx7rEDhIwdnW9uN0SuzAGG8PF+Q9my59PYCBGqfpy0hK/M1zg9
+         XdbffnOXuVIN/+0M642SrxEGKRYGZNwJveS/Mqy9EWv0Bf9/s0eCV65c2sZ0ei2eF+IC
+         UGdgWj7n5efXb2yPK9AMVNqgDc8Nl8UV7WeJzd549Qtk39FbWAaciRxOExnyJSzw19ua
+         vz0g==
+X-Forwarded-Encrypted: i=1; AFNElJ/tun14ZT35TBdGTLpgIK+oWInOWNMZMwe6ZBnDgFX2JU4jIQZ9YEuSy6jXrAjeiUEpvA4lWRV5+flF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyeaopgyfu1L0EuzIlrozeEoI3YaWRbX4ROuKHz/IOKFgccfd7z
+	cq+TikomIly/y0vH1XIYX7CibmSEbYu+DyxqzZF6rjA2K0cyu5kGqhP2UwFZ61LWjtmNxwlvNrl
+	l9AY1GisMJWs2VzYIjP7vZDKYmv4IUiazhywfs5BSNe3PvOF8gZiaip3wtohPuu2+
+X-Gm-Gg: AeBDietSo32pL/wkvtLCVtPcNOMwJdYq9ZhVkwowEI7IlR+nLmTjFMjFKu+cAIEERc/
+	5AbKnbSoWF6M1bz9XdsZU9tWqVjq0b8AAf5H5eNKXc9HSub2OBFmY2eRslIRzaSPpiDJrvXs7Y+
+	JoOs1pCOcNNmDlr1gBIEI22lYVpZutiKhvQ5d+wcJrm3RH84ko/lKCHy13sXcZAEjQuaNefmAns
+	vmBwzpNio9iquaX4cT9LUDNkHMvAwPXa6VdWtANJhtoDIWUlR3zV2wTveA5xNMf+Fp3ETkNAp/c
+	1Nx3nRyxehkoKrj/YyNFJXtcsC6dD9fKt6shBYXg8bcziIcgQGzMQ2nLipOW9ghK6nsKKHi1pKO
+	B3LZpBP0gdBft6tFiOsbKP2y+NPXaLQBT/AI9Ats/RM0Dh/zDgL+8TTWkX7GZN8uEeU4LotUxsc
+	0XMyy+hnHt+2i+HNw+SuVSynAzcSTVsNSKKD/AFamxvIvrKw==
+X-Received: by 2002:a05:622a:1e9b:b0:50d:8c24:20f2 with SMTP id d75a77b69052e-50e36c124d0mr345309581cf.30.1776858773037;
+        Wed, 22 Apr 2026 04:52:53 -0700 (PDT)
+X-Received: by 2002:a05:622a:1e9b:b0:50d:8c24:20f2 with SMTP id d75a77b69052e-50e36c124d0mr345309111cf.30.1776858772605;
+        Wed, 22 Apr 2026 04:52:52 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4187e1106sm4391312e87.53.2026.04.22.04.52.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Apr 2026 04:52:51 -0700 (PDT)
+Date: Wed, 22 Apr 2026 14:52:49 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Prashanth K <prashanth.k@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        stable@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: hamoa-iot-evk: Enable retimer on USB0
+ port
+Message-ID: <hctf2vexnfd2lbnggvoanm424rmpzadg6daqq4477audy6mu2e@nwyp3ijbhay3>
+References: <20260422093924.2976069-1-prashanth.k@oss.qualcomm.com>
+ <6c2c5fd6-c032-4658-9a15-039c77074c4b@oss.qualcomm.com>
+ <8cb5e28c-1c6e-450e-855b-32491ee73885@oss.qualcomm.com>
+ <3d50f17c-060a-4a1d-b539-1bea9b3e6cd0@oss.qualcomm.com>
+ <79926b02-a892-4e59-b794-e8534136fe07@oss.qualcomm.com>
+ <efa2da27-79d3-4cbe-ba3c-2446c6252058@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.500.181\))
-Subject: Re: [PATCH v4 2/2] arm64: dts: amlogic: add support for Amediatech
- X98Q
-From: Christian Hewitt <christianshewitt@gmail.com>
-In-Reply-To: <20260422095840.26139-3-christian.koever-draxl@student.uibk.ac.at>
-Date: Wed, 22 Apr 2026 15:43:54 +0400
-Cc: robh@kernel.org,
- krzk+dt@kernel.org,
- conor+dt@kernel.org,
- neil.armstrong@linaro.org,
- khilman@baylibre.com,
- jbrunet@baylibre.com,
- martin.blumenstingl@googlemail.com,
- devicetree@vger.kernel.org,
- linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <08C1AD64-2AA9-48B5-B33E-16844C0111DE@gmail.com>
-References: <20260422095840.26139-1-christian.koever-draxl@student.uibk.ac.at>
- <20260422095840.26139-3-christian.koever-draxl@student.uibk.ac.at>
-To: christian.koever-draxl@student.uibk.ac.at
-X-Mailer: Apple Mail (2.3864.500.181)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <efa2da27-79d3-4cbe-ba3c-2446c6252058@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=HdUkiCE8 c=1 sm=1 tr=0 ts=69e8b695 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
+ a=M998KXd_89pbYZ5RrLQA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDExNCBTYWx0ZWRfX4DyuscRalvi2
+ /u3oDrajiK3scpBoooEmp3WKkxH2begxO8m7/Y8uMwdpgfT+bExhC4b7ZhSH/cVdvzgM0gp4HVg
+ QgQZpdPqrwpDoYFxcJhDGe8tnnxBmjdPNUMezMe0a3eFij2GVAplpAlIEEVeU3l4S2F1RJhLg4n
+ ThOredWxhxcsuf8tKX9PMeElXitbTHIUEJs790NzVPcA42lhuUEuPSMbte0ggq8NHAxF71Y1itn
+ mtc6DDlnuOymOvKfWhGwQAXOc/sGhFfDj9Qs3jo3Og19SZqUu9BqBNeHug7X5SyaKKYgrUjm+TU
+ PMPsM5UNoTuBk13/ci7G2qB2xkNTfDBiRYS3RoiMcc4cWMv8FbL0+yMeCuooRA41/4vGRANbcmq
+ NBEGpGoGVAabK0c+GVgQLJztQKh/82OAZgc7zk6IoCsmYHu/Pnlrpp5UKr3VQYHP2r1v+Jg/puH
+ lCnFMTtsqncg7SG2xiQ==
+X-Proofpoint-ORIG-GUID: jJa7ljsAIorfMcRI9_PH2ZfZAqO25LAp
+X-Proofpoint-GUID: jJa7ljsAIorfMcRI9_PH2ZfZAqO25LAp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-22_01,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 bulkscore=0 spamscore=0
+ clxscore=1015 suspectscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604220114
 
-> On 22 Apr 2026, at 1:58=E2=80=AFpm, =
-christian.koever-draxl@student.uibk.ac.at wrote:
->=20
-> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl =
-<christian.koever-draxl@student.uibk.ac.at>
->=20
-> Add dts enabling core hardware for the Amediatech X98Q TV box.
->=20
-> The board features:
-> - Amlogic S905W2 (Meson S4) SoC
-> - 1 GiB RAM (2 GiB variants exist)
-> - eMMC and microSD card slot
-> - SDIO-based WiFi module (unsupported)
-> - RMII Ethernet with internal PHY
-> - IR receiver and UART console
-> - Status LED
->=20
-> Enabled peripherals:
-> - eMMC (HS200)
-> - SD card interface
-> - SDIO bus (WiFi, no driver yet)
-> - Ethernet (RMII)
-> - UART_B
-> - IR receiver
-> - PWM-controlled CPU regulator
-> - PWM and Fixed regulators for core and IO rails
->=20
-> Known limitations:
-> - No support for the onboard WiFi module
-> - Missing multimedia (HDMI/audio)
->=20
-> Signed-off-by: Christian Stefan K=C3=B6v=C3=A9r-Draxl =
-<christian.koever-draxl@student.uibk.ac.at>
-> ---
-> arch/arm64/boot/dts/amlogic/Makefile          |   1 +
-> .../boot/dts/amlogic/meson-s4-s905w2-x98q.dts | 249 ++++++++++++++++++
-> 2 files changed, 250 insertions(+)
-> create mode 100644 =
-arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
->=20
-> diff --git a/arch/arm64/boot/dts/amlogic/Makefile =
-b/arch/arm64/boot/dts/amlogic/Makefile
-> index 15f9c817e502..c7752684dea6 100644
-> --- a/arch/arm64/boot/dts/amlogic/Makefile
-> +++ b/arch/arm64/boot/dts/amlogic/Makefile
-> @@ -85,6 +85,7 @@ dtb-$(CONFIG_ARCH_MESON) +=3D =
-meson-gxm-ugoos-am3.dtb
-> dtb-$(CONFIG_ARCH_MESON) +=3D meson-gxm-vega-s96.dtb
-> dtb-$(CONFIG_ARCH_MESON) +=3D meson-gxm-wetek-core2.dtb
-> dtb-$(CONFIG_ARCH_MESON) +=3D meson-s4-s805x2-aq222.dtb
-> +dtb-$(CONFIG_ARCH_MESON) +=3D meson-s4-s905w2-x98q.dtb
-> dtb-$(CONFIG_ARCH_MESON) +=3D meson-s4-s905y4-khadas-vim1s.dtb
-> dtb-$(CONFIG_ARCH_MESON) +=3D meson-sm1-a95xf3-air-gbit.dtb
-> dtb-$(CONFIG_ARCH_MESON) +=3D meson-sm1-a95xf3-air.dtb
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts =
-b/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
-> index 000000000000..3eecbc858522
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
-> @@ -0,0 +1,249 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +/*
-> + * Copyright (c) 2026 Christian Stefan K=C3=B6ver-Draxl
-> + * Based on meson-s4-s905y4-khadas-vim1s.dts:
-> + *  - Copyright (c) 2026 Khadas Technology Co., Ltd.
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include "meson-s4.dtsi"
-> +
-> +/ {
-> + model =3D "Shenzhen Amediatech Technology Co., Ltd X98Q";
-> + compatible =3D "amediatech,x98q", "amlogic,s905w2", "amlogic,s4";
-> + interrupt-parent =3D <&gic>;
-> + #address-cells =3D <2>;
-> + #size-cells =3D <2>;
-> +
-> + aliases {
-> + mmc0 =3D &emmc; /* eMMC */
-> + mmc1 =3D &sd; /* SD card */
-> + mmc2 =3D &sdio; /* SDIO */
-> + serial0 =3D &uart_b;
-> + };
-> +
-> + memory@0 {
-> + device_type =3D "memory";
-> + reg =3D <0x0 0x0 0x0 0x40000000>;
-> + };
-> +
-> + reserved-memory {
-> + #address-cells =3D <2>;
-> + #size-cells =3D <2>;
-> + ranges;
-> +
-> + /* 52 MiB reserved for ARM Trusted Firmware */
-> + secmon_reserved: secmon@5000000 {
-> + reg =3D <0x0 0x05000000 0x0 0x3400000>;
-> + no-map;
-> + };
-> + };
-> +
-> + emmc_pwrseq: emmc-pwrseq {
-> + compatible =3D "mmc-pwrseq-emmc";
-> + reset-gpios =3D <&gpio GPIOB_9 GPIO_ACTIVE_LOW>;
-> + };
-> +
-> + sdio_32k: sdio-32k {
-> + compatible =3D "pwm-clock";
-> + #clock-cells =3D <0>;
-> + clock-frequency =3D <32768>;
-> + pwms =3D <&pwm_ef 0 30518 0>; /* PWM_E at 32.768KHz */
-> + };
-> +
-> + sdio_pwrseq: sdio-pwrseq {
-> + compatible =3D "mmc-pwrseq-simple";
-> + reset-gpios =3D <&gpio GPIOX_6 GPIO_ACTIVE_LOW>;
-> + clocks =3D <&sdio_32k>;
-> + clock-names =3D "ext_clock";
-> + };
-> +
-> + main_5v: regulator-main-5v {
-> + compatible =3D "regulator-fixed";
-> + regulator-name =3D "5V";
-> + regulator-min-microvolt =3D <5000000>;
-> + regulator-max-microvolt =3D <5000000>;
-> + regulator-always-on;
-> + };
-> +
-> + sd_3v3: regulator-sd-3v3 {
-> + compatible =3D "regulator-fixed";
-> + regulator-name =3D "SD_3V3";
-> + regulator-min-microvolt =3D <3300000>;
-> + regulator-max-microvolt =3D <3300000>;
-> + gpio =3D <&gpio GPIOD_4 GPIO_ACTIVE_LOW>;
-> + regulator-always-on;
-> + };
-> +
-> + vddio_sd: regulator-vddio-sd {
-> + compatible =3D "regulator-gpio";
-> + regulator-name =3D "VDDIO_SD";
-> + regulator-min-microvolt =3D <1800000>;
-> + regulator-max-microvolt =3D <3300000>;
-> + gpios =3D <&gpio GPIOD_9 GPIO_ACTIVE_HIGH>;
-> + gpios-states =3D <1>;
-> + states =3D <1800000 1 3300000 0>;
-> + };
-> +
-> + vddao_3v3: regulator-vddao-3v3 {
-> + compatible =3D "regulator-fixed";
-> + regulator-name =3D "VDDAO_3V3";
-> + regulator-min-microvolt =3D <3300000>;
-> + regulator-max-microvolt =3D <3300000>;
-> + vin-supply =3D <&main_5v>;
-> + regulator-always-on;
-> + };
-> +
-> + vddio_ao1v8: regulator-vddio-ao1v8 {
-> + compatible =3D "regulator-fixed";
-> + regulator-name =3D "VDDIO_AO1V8";
-> + regulator-min-microvolt =3D <1800000>;
-> + regulator-max-microvolt =3D <1800000>;
-> + vin-supply =3D <&vddao_3v3>;
-> + regulator-always-on;
-> + };
-> +
-> + /* SY8120B1ABC DC/DC Regulator. */
-> + vddcpu: regulator-vddcpu {
-> + compatible =3D "pwm-regulator";
-> +
-> + regulator-name =3D "VDDCPU";
-> + regulator-min-microvolt =3D <689000>;
-> + regulator-max-microvolt =3D <1049000>;
-> +
-> + vin-supply =3D <&main_5v>;
-> +
-> + pwms =3D <&pwm_ij 1 1500 0>;
-> + pwm-dutycycle-range =3D <100 0>;
-> +
-> + regulator-boot-on;
-> + regulator-always-on;
-> + /* Voltage Duty-Cycle */
-> + voltage-table =3D <1049000 0>,
-> + <1039000 3>,
-> + <1029000 6>,
-> + <1019000 9>,
-> + <1009000 12>,
-> + <999000 14>,
-> + <989000 17>,
-> + <979000 20>,
-> + <969000 23>,
-> + <959000 26>,
-> + <949000 29>,
-> + <939000 31>,
-> + <929000 34>,
-> + <919000 37>,
-> + <909000 40>,
-> + <899000 43>,
-> + <889000 45>,
-> + <879000 48>,
-> + <869000 51>,
-> + <859000 54>,
-> + <849000 56>,
-> + <839000 59>,
-> + <829000 62>,
-> + <819000 65>,
-> + <809000 68>,
-> + <799000 70>,
-> + <789000 73>,
-> + <779000 76>,
-> + <769000 79>,
-> + <759000 81>,
-> + <749000 84>,
-> + <739000 87>,
-> + <729000 89>,
-> + <719000 92>,
-> + <709000 95>,
-> + <699000 98>,
-> + <689000 100>;
-> + };
-> +};
-> +
-> +&emmc {
-> + status =3D "okay";
-> + pinctrl-0 =3D <&emmc_pins>, <&emmc_ds_pins>;
-> + pinctrl-1 =3D <&emmc_clk_gate_pins>;
-> + pinctrl-names =3D "default", "clk-gate";
-> +
-> + bus-width =3D <8>;
-> + cap-mmc-highspeed;
-> + mmc-ddr-1_8v;
-> + mmc-hs200-1_8v;
-> + max-frequency =3D <200000000>;
-> + non-removable;
-> + disable-wp;
-> +
-> + mmc-pwrseq =3D <&emmc_pwrseq>;
-> + vmmc-supply =3D <&vddao_3v3>;
-> + vqmmc-supply =3D <&vddio_ao1v8>;
-> +};
-> +
-> +&ethmac {
-> + status =3D "okay";
-> + phy-handle =3D <&internal_ephy>;
-> + phy-mode =3D "rmii";
-> +};
-> +
-> +&ir {
-> + status =3D "okay";
-> + pinctrl-0 =3D <&remote_pins>;
-> + pinctrl-names =3D "default";
-> +};
-> +
-> +&pwm_ef {
-> + status =3D "okay";
-> + pinctrl-0 =3D <&pwm_e_pins1>;
-> + pinctrl-names =3D "default";
-> +};
-> +
-> +&pwm_ij {
-> + status =3D "okay";
-> +};
-> +
-> +&sd {
-> + status =3D "okay";
-> + pinctrl-0 =3D <&sdcard_pins>;
-> + pinctrl-1 =3D <&sdcard_clk_gate_pins>;
-> + pinctrl-names =3D "default", "clk-gate";
-> + bus-width =3D <4>;
-> + cap-sd-highspeed;
-> + max-frequency =3D <50000000>;
-> + disable-wp;
-> +
-> + cd-gpios =3D <&gpio GPIOC_6 GPIO_ACTIVE_LOW>;
-> +
-> + vmmc-supply =3D <&vddao_3v3>;
-> + vqmmc-supply =3D <&vddao_3v3>;
-> +};
-> +
-> +     /*
-> +      * Wireless SDIO Module (Amlogic W150S1)
-> +      * Note: There is no driver for this at the moment.
-> +      */
+On Wed, Apr 22, 2026 at 01:09:22PM +0200, Konrad Dybcio wrote:
+> On 4/22/26 1:04 PM, Prashanth K wrote:
+> > 
+> > 
+> > On 4/22/2026 4:13 PM, Konrad Dybcio wrote:
+> >> On 4/22/26 12:32 PM, Prashanth K wrote:
+> >>>
+> >>>
+> >>> On 4/22/2026 3:56 PM, Konrad Dybcio wrote:
+> >>>> On 4/22/26 11:39 AM, Prashanth K wrote:
+> >>>>> Add the retimer for usb_1_ss0 port (USB0), in order to enable
+> >>>>> super-speed enumeration on that port.
+> >>>>>
+> >>>>> Fixes: c11645afb0e2 ("arm64: dts: qcom: Add base HAMOA-IOT-EVK board")
+> >>>>> Cc: stable@vger.kernel.org
+> >>>>
+> >>>> This is a feature addition, not a fix
+> >>>>
+> >>>> [...]
+> >>>>
+> >>> Sure.
+> >>>>> +		ports {
+> >>>>> +			#address-cells = <1>;
+> >>>>> +			#size-cells = <0>;
+> >>>>> +
+> >>>>> +			port@0 {
+> >>>>> +				reg = <0>;
+> >>>>> +
+> >>>>> +				retimer_ss0_ss_out: endpoint {
+> >>>>> +					remote-endpoint = <&pmic_glink_ss0_ss_in>;
+> >>>>> +				};
+> >>>>> +			};
+> >>>>> +
+> >>>>> +			port@1 {
+> >>>>> +				reg = <1>;
+> >>>>> +
+> >>>>> +				retimer_ss0_ss_in: endpoint {
+> >>>>> +					remote-endpoint = <&usb_1_ss0_qmpphy_out>;
+> >>>>> +				};
+> >>>>> +			};
+> >>>>> +
+> >>>>
+> >>>> Stray \n, but you should really have a @2 port here as well.
+> >>>>
+> >>>> Konrad
+> >>> Can we ad port@2 and leave it empty?
+> >>
+> >> Why would you? Just connect it to port2 of the connector under pmic-glink
+> >>
+> >> Konrad
+> > 
+> > Because the port@2 of pmic-glink (pmic_glink_ss0_sbu) is already
+> > connected to usb-1-ss0-sbu-mux (onn,fsusb42). This is different compared
+> > to other connectors.
+> 
+> Are both the SBU mux and the Parade retimer present on board?
+> 
+> The former is redundant since the retimer already has a superset of its
+> functionality, so that sounds rather odd.
 
-^ drop this comment
+fsusb42 might be also used to switch SBU lines for other purposes (e.g.
+for the debug).
 
-> +
-> +&sdio {
-> + status =3D "okay";
-> + pinctrl-0 =3D <&sdio_pins>;
-> + pinctrl-1 =3D <&sdio_clk_gate_pins>;
-> + pinctrl-names =3D "default", "clk-gate";
-> + #address-cells =3D <1>;
-> + #size-cells =3D <0>;
-> + bus-width =3D <4>;
-> + cap-sd-highspeed;
-> + sd-uhs-sdr50;
-> + sd-uhs-sdr104;
-> + max-frequency =3D <200000000>;
-> + non-removable;
-> + disable-wp;
-> +
-> + no-sd;
-> + no-mmc;
-> + mmc-pwrseq =3D <&sdio_pwrseq>;
-> + vmmc-supply =3D <&vddao_3v3>;
-> + vqmmc-supply =3D <&vddio_ao1v8>;
-
-	sdio: wifi@1 {
-		/* Amlogic W150S1 */
-		reg =3D <1>;
-  	};
-
-^ add this to generically describe the hardware without
-the need for a specific compatible (as done in several of
-the Amlogic reference designs where we cannot guarantee
-which chipset is used). The reg value should be enough to
-result in the downstream driver probing should a distro
-choose to package it; thus avoiding the need for distros
-to forever carry a device-tree patch to add support (as
-Amlogic have no plans to upstream the driver). Should that
-ever change the comment can be replaced with a compatible.
-
-Christian
-
-> +};
-> +
-> +&uart_b {
-> + status =3D "okay";
-> +};
-> --=20
-> 2.53.0
->=20
->=20
-> _______________________________________________
-> linux-amlogic mailing list
-> linux-amlogic@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-amlogic
-
+-- 
+With best wishes
+Dmitry
