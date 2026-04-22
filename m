@@ -1,334 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570CD35F19D;
-	Wed, 22 Apr 2026 14:46:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B2032861F
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 15:25:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776869185; cv=none; b=PgxDGz64cIX/4ngx6ZUXWuf6uHk7ABbqwZ311FhjuBEs5SKmAVRkKldUm8imcI2ZtqtCX+eZNoWhC2y88MdhzXkP93FYQKTF7gQVkxuPp5DdayBohq0OY3/TMSk3UK7BDl5CYbC6MA0vwW/n/s9gHv+gkdsjFbej2XFW3ZN1IK8=
+	t=1776871516; cv=none; b=rU8W4vOrnkCoglPuPkWcaAWgOtcqoY7jdzQ4eOTVGwF0QrbWvRHi6tGRKOF3efRf47OX3HqBMMJ9DjuT9NjKcTRxliyRHDUMi2PsrouBRS4mjZ+wSzRpkrNe+hxfQfpSR18VLTlVhO/5/hL4n7yINpiJMOi7xaJB7NThiBhiCZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776869185; c=relaxed/simple;
-	bh=HGcbT32nNh84iYmZUhGVRdfg3yoExBseX8EJ16yXRFY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eUsKxh9sfnEDvoMFJtZIQGP5HbcA4yYwHpodZVR4fO/p4QG/PF6IsdFww455EW70HtdCDuYvJMNfI1MWFrPvxiy7WbTePWHxmtciS+KURSPLHJMqKxX9wefrOAwK91wEjY2CQW5w5e3OEvnyqv44HFBroiE/y6OJlUzBKTPAurM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X6Me3c56; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776871516; c=relaxed/simple;
+	bh=W/o4CK/M62/W4UaDTIsuYYRjmgttl5pkwqHmlVa8Yao=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uZrFA8fiUpOsHxrU6qVV1ByMmHGdEeNilupUZqOgdgx9vBwhwiHbodS1n6EvTX0ikU0m/kYSkcgrgbMjYPIaRz6IIs+2ULNe2H04fgtTcrM090FPKDxEzPsfS2KimR2LkENTSLSkhREsDfYKcOD2tAG8WW/mvBhtrtw0GftuyjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hPc4kSjK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NxfZXHY0; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X6Me3c56"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2F9C9C2BCF5;
-	Wed, 22 Apr 2026 14:46:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776869185;
-	bh=HGcbT32nNh84iYmZUhGVRdfg3yoExBseX8EJ16yXRFY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=X6Me3c56vJsqV4BIFESreWbPuz3klvdYVSrZARJIF5ltA5eLXZX0/l6bBKFBrzGSh
-	 SkVMVUNXZ9BKxNZmqLNmEAATTOhO0w6j6ejXuZCi3MuZGydzyqxQlBIBJ2lF+xWIeG
-	 S4LmJxEYIyKgwyZguYRVQG9jK4avG4phkTWiIJNVXvoeZz/RWrstB9JhMLoDBo8r33
-	 kJr6TxazPFGAhzqJYkzeDfZp1vN8Q2d2RqEpEG++hFTAr0W1QaxYxK8P7VOsONKLZ3
-	 vvzh5U+Y+q+hBw7FFPMmb8Lti3rB9JmGvy1SdK6ZBFwsZhS2FFpNH8MM+zm43Olf7l
-	 ilEzgO6U5XiCA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 27858F9EDF9;
-	Wed, 22 Apr 2026 14:46:25 +0000 (UTC)
-From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Wed, 22 Apr 2026 15:45:54 +0100
-Subject: [PATCH 20/22] iio: dac: ad5686: implement new sync() op for the
- spi bus
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hPc4kSjK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NxfZXHY0"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63MB5jJY2000983
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 15:25:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=XBjmt240DJA0WcHkbd/6a3tL
+	PkKq8fZWKUi6P5JuDHg=; b=hPc4kSjKwiw6RNRSChLJe7eo/HHjzvGEqUHdedtH
+	nl4KzpMt7sAxWIbK/rQ0fJRn8ydG3l+G+iVgvSMOuOXIQcsz8om4ZjSLva+7heRt
+	aA5OsKjTPn1pp5ICPtPqS2KhkWDyHI7lhZC9KxfhVqO5RIie8oQr4jogB3J3NAfK
+	QZiUEdI9JGeeTmk90huBd4eCK2TwtEh5medWpjOM/stcEC6dVNtDmusDtMk2hx3b
+	YtPC1CrCq8iHecgbwnUkgUQfoKTMKwoxrZ01DaURBiyMiLpggLmpMfBQfRQWhd51
+	ChzuBCPhnk0WvZCjcECD0pFddiE0AZdbTW/bIIoazRFDLw==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpenfc3nu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 15:25:14 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-60ff08dfb37so2714668137.3
+        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 08:25:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776871513; x=1777476313; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=XBjmt240DJA0WcHkbd/6a3tLPkKq8fZWKUi6P5JuDHg=;
+        b=NxfZXHY0ZAy3O+ZzbBbv2uviqlSTIVpYu1YQGSWX2VrQo+uhPNpZlO5tSm/oe1tOHn
+         SVjkh/pEYL4kwnRypH5dEpQvqmEQXXibInyqXtFQwnwjFvwHpfcyomMS8yOTwDLDwgLr
+         xskaktsDcsgdLus5GYq4uFjG4y0XJ5KIHMGBata/XahjtSm+HJo+retFCHJolQY1IBl3
+         wAMgnrCajhJqi/8k8Xl/Jd5jH9yM6RAQNR41+V+AZoQYzZdWdURiJMxO62URbsZV0uTb
+         pNY4cCuww9AhH3fU02zHv/cczyna+MVZOvzDovu2Aby2EFaisjNiEu5gUNsFTTJ3NTxc
+         JeMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776871513; x=1777476313;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=XBjmt240DJA0WcHkbd/6a3tLPkKq8fZWKUi6P5JuDHg=;
+        b=jkm+PAfP2XGkZvI+6D6LC76c5qNAT+4tN1/zpaz4q10ClBTAMsVsr5JnaiMeZNTXOU
+         FNhVa6/HOSRYC+JuVeDq0lqPIJ5+hlxUclIJhrwrIrRTU5Ri3ZWKxyJXLh1zU1z30UYf
+         tJEBSt2qWtkDO6hHH9ncHpEqUOdEPn/ZunsRomr0kXmhgt0H2YhYWFInaqT8u4k21PYN
+         1QpZy1F5bBY2Umyc6ZW8+v45DBK5EslhNTsaJ0ZyKmBIVH0eREkvznv9qUwkCKO+S2Vc
+         dNJKq6yAG1qktxg4qloQmQbLxq6Ut41cLTulyV+CxbsUKTxSXJJqiC3B6c+1CpQ2jm/J
+         46BA==
+X-Forwarded-Encrypted: i=1; AFNElJ9RFix/Y/noB0zljFmnLyNTNNZCpVxNANUDnXlRotfCyFIM3Y6ELnW2/vjVQicu0aMR4zkPh2w3GBJH@vger.kernel.org
+X-Gm-Message-State: AOJu0YyItyfSs9urbEElteGRtJGBYRdSCmaYAIIHWmRHVvP5qJ/FY6n1
+	8rW4ARI3TwEFY23Q/5JklOb4+VX/RuO9O1XJyEDNzUsxo/ugMeb1YR1N/yKyJ1NCnxSs47S7V5Q
+	8VA9CCZWCOUxirgFYol5NUFAKpUjc/pkuyvLP4kp+40uTO8aqATSgjDijfW4v7Bul
+X-Gm-Gg: AeBDiet9MDBhUHspaeJxLEm4vhqQEsiCK+2+l4TcLw+sd3cKuEhcDilkXcHDFcnQkaU
+	hsOIV9Sgylyp/dCJwt2POAekqk14hHS1UnvJe36aKN6kbEYIxEd32npHv3IlZEjZe233yx2HMmq
+	IEGQfpdyhLtx0SM+zSF4dFgAzOk9fEPyPBdwQvZmJOW/CsKUVbMvb6msoJCBki+BOF07mHKdvEc
+	862kURTgyH7FIItIHASFjKA3W2UD6DF7gZoTQglV4QSPrG3PQPFaEmXmNtGzFja5IthxbjdKrCx
+	IGc6/CZDe6FJsBBB/LGO3y4DB5qdcQzh6cZpap+e6sQ8mQEwwMH/HEkkKw/kISO6nZeIuREoY4e
+	eV+seM93W7Jucv+ASSms5wsIveuO7lsxVUzf5AtHpJQdpxyip3eqkXodBA0xpsdbgAys/4CUbcP
+	ASGjtIf7rvkVO9/kHr5c+mWg36D71tXapYxT8E+W1lUPUK9A==
+X-Received: by 2002:a05:6102:5122:b0:608:759a:53bc with SMTP id ada2fe7eead31-616f1c595b4mr9994379137.0.1776871513023;
+        Wed, 22 Apr 2026 08:25:13 -0700 (PDT)
+X-Received: by 2002:a05:6102:5122:b0:608:759a:53bc with SMTP id ada2fe7eead31-616f1c595b4mr9994349137.0.1776871512472;
+        Wed, 22 Apr 2026 08:25:12 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4187ebea2sm4416197e87.76.2026.04.22.08.25.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Apr 2026 08:25:11 -0700 (PDT)
+Date: Wed, 22 Apr 2026 18:25:09 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] interconnect: qcom: Add interconnect provider driver
+ for Nord SoC
+Message-ID: <l2o2g2gci5o5wzfhxln323eym3vb6xfaboff6plfg42re6hc2x@oygjgy6tpxey>
+References: <20260420021351.1239355-1-shengchao.guo@oss.qualcomm.com>
+ <20260420021351.1239355-3-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260422-ad5313r-iio-support-v1-20-ed7dca001d1b@analog.com>
-References: <20260422-ad5313r-iio-support-v1-0-ed7dca001d1b@analog.com>
-In-Reply-To: <20260422-ad5313r-iio-support-v1-0-ed7dca001d1b@analog.com>
-To: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Michael Auchter <michael.auchter@ni.com>, linux-hardening@vger.kernel.org
-Cc: Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Rodrigo Alencar <rodrigo.alencar@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776869181; l=8074;
- i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=25qHTNPh69lU6r2wtccMyMUIekl87dfZK6NbWnQppHc=;
- b=qphIWVok7TmHf2La4HtYhXJDWfppAgGVjCLLMZDJgGxRjEynQm333kNAlOIv/ImHe7UdK2dl6
- n694gf/A4VJB8XrMXI9uzrDpiWs8S6bQdRSQ3vmVsj7OxV7wqvnRx+8
-X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
- pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
-X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
- with auth_id=561
-X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Reply-To: rodrigo.alencar@analog.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260420021351.1239355-3-shengchao.guo@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: 03pmh0qhQT5bjFiVhZlgr0B-ZjGbm3jr
+X-Authority-Analysis: v=2.4 cv=fozsol4f c=1 sm=1 tr=0 ts=69e8e85a cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=wvzT7jLtkUm77yG2w9UA:9 a=CjuIK1q_8ugA:10 a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDE1MCBTYWx0ZWRfXxfkPA5+zLEC5
+ dpPvuQ4WKhCg5Fol5QyZ7dN2ZeXXR6P1soc/kMJgDIZX3afzvdr4DjQ9CP7QPTlvpRVI7AL3ag+
+ dm28SUXM4pwwiAL+xn0a+I4p7Qoy3V2+PIcEh9lb1amdsvgfkTmJR4q5h4zumGZc6ljqOarpfEE
+ ChvJxY91rdB0LWFYY5LSijHSzXz/3M7V3a9FhqeJDCidPjs7ueX87XUzBUe5QCgLx/t/h8rU6Bw
+ Mmp3jh0eNKMpkhZdA5dlgzg33+MfhTurH0vZMaMeXer6+88ve9ICdQygh83Rmoe5aNIEngybcSq
+ jIaVaGKF1h1RKlxhQauZoH5BeiWFHx4DdP3syKim6Yt42KOnETge+zi5pMzApObb/gsJeD+pu14
+ IBULOazuG1CDjHh7Vaa15/gjO38jZ44mni58l38hBjhSziraa1B2vp785sVZaZP/cKtFTKDivr2
+ WAHe2fH1mJ1a3Dak0Yw==
+X-Proofpoint-GUID: 03pmh0qhQT5bjFiVhZlgr0B-ZjGbm3jr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-22_01,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 clxscore=1015 adultscore=0 impostorscore=0
+ spamscore=0 priorityscore=1501 suspectscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604220150
 
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On Mon, Apr 20, 2026 at 10:13:51AM +0800, Shawn Guo wrote:
+> From: Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
+> 
+> Add driver for the Qualcomm interconnect buses found on Nord SoC.
+> The topology consists of several NoCs that are controlled by
+> a remote processor that collects the aggregated bandwidth for each
+> master-slave pair.
+> 
+> Signed-off-by: Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>  drivers/interconnect/qcom/Kconfig  |   11 +
+>  drivers/interconnect/qcom/Makefile |    2 +
+>  drivers/interconnect/qcom/nord.c   | 2682 ++++++++++++++++++++++++++++
+>  3 files changed, 2695 insertions(+)
+>  create mode 100644 drivers/interconnect/qcom/nord.c
+> 
 
-Use of local SPI bus data to manage a collection of SPI transfers and
-flush them to the SPI platform driver with the sync() operation. This
-allows for faster handling of multiple channel DAC writes, avoiding kernel
-overhead per spi_sync() call, which will be helpful when enabling
-triggered buffer support.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
----
- drivers/iio/dac/ad5686-spi.c | 110 +++++++++++++++++++++++++++++++------------
- drivers/iio/dac/ad5686.c     |   4 +-
- drivers/iio/dac/ad5686.h     |   8 +++-
- drivers/iio/dac/ad5696-i2c.c |   2 +-
- 4 files changed, 89 insertions(+), 35 deletions(-)
-
-diff --git a/drivers/iio/dac/ad5686-spi.c b/drivers/iio/dac/ad5686-spi.c
-index ebfc40efa679..bacfb1deab31 100644
---- a/drivers/iio/dac/ad5686-spi.c
-+++ b/drivers/iio/dac/ad5686-spi.c
-@@ -13,57 +13,80 @@
- #include <linux/err.h>
- #include <linux/mod_devicetable.h>
- #include <linux/module.h>
-+#include <linux/overflow.h>
- #include <linux/spi/spi.h>
- 
- #include "ad5686.h"
- 
-+struct ad5686_spi_data {
-+	struct spi_message msg;
-+	unsigned int size;
-+	unsigned int capacity;
-+	struct spi_transfer xfers[] __counted_by(capacity);
-+};
-+
- static int ad5686_spi_write(struct ad5686_state *st,
- 			    u8 cmd, u8 addr, u16 val)
- {
--	struct spi_device *spi = to_spi_device(st->dev);
--	u8 tx_len, *buf;
-+	struct ad5686_spi_data *bus_data = st->bus_data;
-+	struct spi_transfer *xfer;
-+
-+	if (bus_data->size >= bus_data->capacity)
-+		return -E2BIG;
-+
-+	if (bus_data->size)
-+		bus_data->xfers[bus_data->size - 1].cs_change = 1;
-+	else
-+		spi_message_init(&bus_data->msg);
-+
-+	xfer = &bus_data->xfers[bus_data->size];
-+	xfer->rx_buf = NULL;
-+	xfer->cs_change = 0;
- 
- 	switch (st->chip_info->regmap_type) {
- 	case AD5310_REGMAP:
--		st->data[0].d16 = cpu_to_be16(AD5310_CMD(cmd) |
--					      val);
--		buf = &st->data[0].d8[0];
--		tx_len = 2;
-+		st->data[bus_data->size].d16 = cpu_to_be16(AD5310_CMD(cmd) |
-+							   val);
-+		xfer->tx_buf = &st->data[bus_data->size].d8[0];
-+		xfer->len = 2;
- 		break;
- 	case AD5683_REGMAP:
--		st->data[0].d32 = cpu_to_be32(AD5686_CMD(cmd) |
--					      AD5683_DATA(val));
--		buf = &st->data[0].d8[1];
--		tx_len = 3;
-+		st->data[bus_data->size].d32 = cpu_to_be32(AD5686_CMD(cmd) |
-+							   AD5683_DATA(val));
-+		xfer->tx_buf = &st->data[bus_data->size].d8[1];
-+		xfer->len = 3;
- 		break;
- 	case AD5686_REGMAP:
--		st->data[0].d32 = cpu_to_be32(AD5686_CMD(cmd) |
--					      AD5686_ADDR(addr) |
--					      val);
--		buf = &st->data[0].d8[1];
--		tx_len = 3;
-+		st->data[bus_data->size].d32 = cpu_to_be32(AD5686_CMD(cmd) |
-+							   AD5686_ADDR(addr) |
-+							   val);
-+		xfer->tx_buf = &st->data[bus_data->size].d8[1];
-+		xfer->len = 3;
- 		break;
- 	default:
- 		return -EINVAL;
- 	}
- 
--	return spi_write(spi, buf, tx_len);
-+	spi_message_add_tail(xfer, &bus_data->msg);
-+	bus_data->size++;
-+
-+	return 0;
-+}
-+
-+static int ad5686_spi_sync(struct ad5686_state *st)
-+{
-+	struct spi_device *spi = to_spi_device(st->dev);
-+	struct ad5686_spi_data *bus_data = st->bus_data;
-+
-+	bus_data->size = 0; /* always reset, even on sync failure */
-+	return spi_sync(spi, &bus_data->msg);
- }
- 
- static int ad5686_spi_read(struct ad5686_state *st, u8 addr)
- {
--	struct spi_transfer t[] = {
--		{
--			.tx_buf = &st->data[0].d8[1],
--			.len = 3,
--			.cs_change = 1,
--		}, {
--			.tx_buf = &st->data[1].d8[1],
--			.rx_buf = &st->data[2].d8[1],
--			.len = 3,
--		},
--	};
- 	struct spi_device *spi = to_spi_device(st->dev);
-+	struct ad5686_spi_data *bus_data = st->bus_data;
-+	struct spi_transfer *xfer = &bus_data->xfers[0];
- 	u8 cmd = 0;
- 	int ret;
- 
-@@ -84,8 +107,18 @@ static int ad5686_spi_read(struct ad5686_state *st, u8 addr)
- 				      AD5686_ADDR(addr));
- 	st->data[1].d32 = cpu_to_be32(AD5686_CMD(AD5686_CMD_NOOP));
- 
--	ret = spi_sync_transfer(spi, t, ARRAY_SIZE(t));
--	if (ret < 0)
-+	xfer[0].tx_buf = &st->data[0].d8[1];
-+	xfer[0].len = 3;
-+	xfer[0].cs_change = 1;
-+	xfer[1].tx_buf = &st->data[1].d8[1];
-+	xfer[1].rx_buf = &st->data[2].d8[1];
-+	xfer[1].len = 3;
-+	xfer[1].cs_change = 0;
-+
-+	spi_message_init_with_transfers(&bus_data->msg, xfer, 2);
-+
-+	ret = spi_sync(spi, &bus_data->msg);
-+	if (ret)
- 		return ret;
- 
- 	return be32_to_cpu(st->data[2].d32);
-@@ -94,12 +127,27 @@ static int ad5686_spi_read(struct ad5686_state *st, u8 addr)
- static const struct ad5686_bus_ops ad5686_spi_ops = {
- 	.write = ad5686_spi_write,
- 	.read = ad5686_spi_read,
-+	.sync = ad5686_spi_sync,
- };
- 
- static int ad5686_spi_probe(struct spi_device *spi)
- {
--	return ad5686_probe(&spi->dev, spi_get_device_match_data(spi),
--			    spi->modalias, &ad5686_spi_ops);
-+	const struct ad5686_chip_info *info = spi_get_device_match_data(spi);
-+	struct ad5686_spi_data *bus_data;
-+	unsigned int capacity;
-+
-+	/* read operation requires at least 2 transfers */
-+	capacity = max(info->num_channels, 2);
-+	bus_data = devm_kzalloc(&spi->dev,
-+				struct_size(bus_data, xfers, capacity),
-+				GFP_KERNEL);
-+	if (!bus_data)
-+		return -ENOMEM;
-+
-+	bus_data->capacity = capacity;
-+
-+	return ad5686_probe(&spi->dev, info, spi->modalias, &ad5686_spi_ops,
-+			    bus_data);
- }
- 
- static const struct spi_device_id ad5686_spi_id[] = {
-diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-index d37b4902766f..a065c614c874 100644
---- a/drivers/iio/dac/ad5686.c
-+++ b/drivers/iio/dac/ad5686.c
-@@ -508,7 +508,8 @@ EXPORT_SYMBOL_NS_GPL(ad5679r_chip_info, "IIO_AD5686");
- 
- int ad5686_probe(struct device *dev,
- 		 const struct ad5686_chip_info *chip_info,
--		 const char *name, const struct ad5686_bus_ops *ops)
-+		 const char *name, const struct ad5686_bus_ops *ops,
-+		 void *bus_data)
- {
- 	struct reset_control *rstc;
- 	struct iio_dev *indio_dev;
-@@ -523,6 +524,7 @@ int ad5686_probe(struct device *dev,
- 
- 	st->dev = dev;
- 	st->ops = ops;
-+	st->bus_data = bus_data;
- 	st->chip_info = chip_info;
- 
- 	ret = devm_regulator_get_enable_optional(dev, "vdd");
-diff --git a/drivers/iio/dac/ad5686.h b/drivers/iio/dac/ad5686.h
-index 3b7460178632..ff30c96e1730 100644
---- a/drivers/iio/dac/ad5686.h
-+++ b/drivers/iio/dac/ad5686.h
-@@ -24,6 +24,7 @@
- 
- #define AD5686_ADDR_DAC(chan)			(0x1 << (chan))
- #define AD5686_ADDR_ALL_DAC			0xF
-+#define AD5686_MAX_CHANNELS			16
- 
- #define AD5686_CMD_NOOP				0x0
- #define AD5686_CMD_WRITE_INPUT_N		0x1
-@@ -130,6 +131,7 @@ extern const struct ad5686_chip_info ad5679r_chip_info;
-  * @pwr_down_mode:	current power down mode
-  * @use_internal_vref:	set to true if the internal reference voltage is used
-  * @lock:		lock to protect the data buffer during regmap ops
-+ * @bus_data:		bus specific data
-  * @data:		transfer buffers
-  */
- struct ad5686_state {
-@@ -142,6 +144,7 @@ struct ad5686_state {
- 	unsigned int			pwr_down_mode;
- 	bool				use_internal_vref;
- 	struct mutex			lock;
-+	void				*bus_data;
- 
- 	/*
- 	 * DMA (thus cache coherency maintenance) may require the
-@@ -152,13 +155,14 @@ struct ad5686_state {
- 		__be32 d32;
- 		__be16 d16;
- 		u8 d8[4];
--	} data[3] __aligned(IIO_DMA_MINALIGN);
-+	} data[AD5686_MAX_CHANNELS] __aligned(IIO_DMA_MINALIGN);
- };
- 
- 
- int ad5686_probe(struct device *dev,
- 		 const struct ad5686_chip_info *chip_info,
--		 const char *name, const struct ad5686_bus_ops *ops);
-+		 const char *name, const struct ad5686_bus_ops *ops,
-+		 void *bus_data);
- 
- static inline int ad5686_write(struct ad5686_state *st, u8 cmd, u8 addr, u16 val)
- {
-diff --git a/drivers/iio/dac/ad5696-i2c.c b/drivers/iio/dac/ad5696-i2c.c
-index e75c5f8c65aa..41dd4fe8054e 100644
---- a/drivers/iio/dac/ad5696-i2c.c
-+++ b/drivers/iio/dac/ad5696-i2c.c
-@@ -70,7 +70,7 @@ static const struct ad5686_bus_ops ad5686_i2c_ops = {
- static int ad5686_i2c_probe(struct i2c_client *i2c)
- {
- 	return ad5686_probe(&i2c->dev, i2c_get_match_data(i2c),
--			    i2c->name, &ad5686_i2c_ops);
-+			    i2c->name, &ad5686_i2c_ops, NULL);
- }
- 
- static const struct i2c_device_id ad5686_i2c_id[] = {
 
 -- 
-2.43.0
-
-
+With best wishes
+Dmitry
