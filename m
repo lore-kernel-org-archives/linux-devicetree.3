@@ -1,319 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D582609C5;
-	Wed, 22 Apr 2026 07:50:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C0037B40E;
+	Wed, 22 Apr 2026 08:02:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776844226; cv=none; b=b6QOF9WAmOZqhmUWDQqpbGlPjIZqdkCsQAsMSrJZ/ZyvEbwwnSaw4iHYM+7bEAjkN4k1v3xdPyT+WRRO6My1jSsWtKKq6CBkp9lt5aHhqejciqo9vQJMfJrVFtkBAKwxcisqEg6FJDDR0ZC3T/s4yU4pZv3n68vprg9q3iaq3vI=
+	t=1776844977; cv=none; b=jlsRnFBIIpQImC1MCK5SurNmMXKznN3XWuRErXWa/B3bF2KJ7GSIBucZ8BSo9+Z5VWan3IzhHIqLAuLU0YxYFWp6dNroCnNSEwH5tx4SYmvq4SFBvgabe87ko84R3eHvf9qQdA3zcb6vjoD/+XCDUvEdS7uTk+iViFSdfxiAbNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776844226; c=relaxed/simple;
-	bh=d6/6i3xUhPYgQ6s56JeFkRx77F+D3+xkqXOayMXSPEo=;
+	s=arc-20240116; t=1776844977; c=relaxed/simple;
+	bh=Omg1d/W+ndiF9bFlPfj5R1718GeliZQAVgOpErVhKno=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ub4ZUCp2VpbSp+ad4R11JWSV8o1MIHir+Rw7XmMOMq0hFakssjfntW6fZtxHQ7M393HgpAbFiu6few0mUR1eFtwtrP5Ca5P5W9aCaM12Ta9a/3EATuPnGHQFaLA0BjXd2eEgk9cZy5Zc9yhcI92bW/QsvuxAYfh7NYMLx35P0kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j5LdyOLy; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=lBtK4pE5hqGIb/wVdBGSXs66POUmz0vesqUIE9cSVQIcQJFpL8ptNXxE5ffBz2aVGmQ5Wq2UPBzOxvJ9Fzu+6GzO1QkQ2vCcG7TGYLaEnPmhN7cEdWPmzDZXhUwNixlxKFOlIpK+grhvN3rZe4F00+ZdadNE//g3+NGVCRbiIsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g+sXXXUk; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j5LdyOLy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFDC2C19425;
-	Wed, 22 Apr 2026 07:50:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776844226;
-	bh=d6/6i3xUhPYgQ6s56JeFkRx77F+D3+xkqXOayMXSPEo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=j5LdyOLyXIVAF9bJhdJMSobtHL5KNDWOFSDrCv1yDBWHfTURWBySZ8tdBxWOIaLAP
-	 bKvMX2WH0MKJUykNSmKe9KGmNogWzMx06iuySG+42I/1vZTQpxtfh5aJ5DJD2ncLV+
-	 BvXj7vLZzgi+fzB+RUVi7X4TUQYHEvAHgr0K0Jrtn0vV/g5vYDklI9rlqXT46+FrKI
-	 b/1431qCG1UD2/cRuCLzpyZYmggKw0aaHnY9snfYuPR6pa1IduhN9vKoyJ5AIyrUZ+
-	 Kar/ZHwZVFzA0hGioRTq5T5T8UFBvCQbpwO352mAVLacKNCN7RqlTuPj5ppBRqJOCM
-	 Q8kIOmfKmd2zQ==
-Date: Wed, 22 Apr 2026 09:50:23 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
-	Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Imran Shaik <imran.shaik@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, Maulik Shah <maulik.shah@oss.qualcomm.com>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>
-Subject: Re: [PATCH 04/13] soc: qcom: Introduce CESTA resource manager driver
-Message-ID: <20260422-funny-devious-gharial-a5e5c8@quoll>
-References: <20260420-cesta-sm870-dispcc-v1-0-eb27d845df9c@oss.qualcomm.com>
- <20260420-cesta-sm870-dispcc-v1-4-eb27d845df9c@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g+sXXXUk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1776844976; x=1808380976;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Omg1d/W+ndiF9bFlPfj5R1718GeliZQAVgOpErVhKno=;
+  b=g+sXXXUkWcfjFdS8xmK0Aa5wlniVnOAhyqHMazof+LpyrK+U/fAKkFFs
+   Qm1ULd5Iyb5PerFwEcVJ114w4mVsQGL5OH1kZZcpbqWhm1vhvw+JduzMS
+   XMF/WaarhnhrkCngDdiUO82FGiF8xrQlbTVfyEC6oNviLyjyPBAXcBgec
+   ka96ylJ8VlFYGqpkN6SVP2wLS2qd2NR/jl846s2tdlyvxl6LKuW6HnZ0T
+   WYf1MH4BffzKAMSrr9NxELAy7YT5wAOiwYeWhC2RBf4cer3l/CS92dBB8
+   STfUuJQcsKS7k5rkh4de6uIJ75zvR9jsnLCpRSpbY58GXK6U7+3nAEr1z
+   A==;
+X-CSE-ConnectionGUID: rMCSCoJZS4GLl9MeECxU5A==
+X-CSE-MsgGUID: IcaKg7BKQq6JBaZszxxoMw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11763"; a="80379608"
+X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
+   d="scan'208";a="80379608"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 01:02:55 -0700
+X-CSE-ConnectionGUID: D4sHSJ+nSHCfYiL2yUWOOA==
+X-CSE-MsgGUID: s1eMzOccSOaEu9y1smyTpA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
+   d="scan'208";a="237325545"
+Received: from dhhellew-desk2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.208])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 01:02:53 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 74643121CC8;
+	Wed, 22 Apr 2026 11:02:51 +0300 (EEST)
+Date: Wed, 22 Apr 2026 11:02:51 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH v2 5/5] media: i2c: lm3560: Add support for PM features
+Message-ID: <aeiAq_eep_fqwewN@kekkonen.localdomain>
+References: <20260419093412.40796-1-clamor95@gmail.com>
+ <20260419093412.40796-6-clamor95@gmail.com>
+ <aeepbB72uWDxvnE_@kekkonen.localdomain>
+ <CAPVz0n1sNoJv=JcAZdv3srRY0vecrRO0spnqg58-VLnYdkfPSw@mail.gmail.com>
+ <aefXJebe2F4Z193F@kekkonen.localdomain>
+ <CAPVz0n111oHa2UdJ9LO8PTYcRuAmUem6tQdPKABRq1YHH8ZDgw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260420-cesta-sm870-dispcc-v1-4-eb27d845df9c@oss.qualcomm.com>
+In-Reply-To: <CAPVz0n111oHa2UdJ9LO8PTYcRuAmUem6tQdPKABRq1YHH8ZDgw@mail.gmail.com>
 
-On Mon, Apr 20, 2026 at 09:58:57PM +0530, Jagadeesh Kona wrote:
-> From: Maulik Shah <maulik.shah@oss.qualcomm.com>
-> 
-> Add driver for QCOM SoC that have hardware based resource management.
-> 
-> The hardware IP known as CESTA (Client State Aggregation) have different
-> Resource Manager (CESTA Resource Manager) or CRM.
-> 
-> CRM can be of 4 different types,
->   - CRMC is CRM for clocks local to subsystem
->   - CRMB is CRM for bandwidth votes local to subsystem
->   - CRMB_PT is pass through CRM for bandwidth votes global to subsystem
->   - CRMV is CRM for voltage rail / LDO requirements global to subsystem
-> 
-> A set of SW DRVs (Direct Resource Voters) can vote to all/subset of
-> CRMC/CRMB/CRMB_PT which then takes care of the respective resource voting.
-> There is no direct voter on CRMV, rather the CRMC votes picks up the
-> respective voltage from LUTs and scales the voltage accordingly required
-> for clocks or bandwidth votes.
-> 
-> Some important aspects of the CRM communication -
->  - Resource votes can be placed in the form of performance operating
->    levels or bandwidth votes for local/global NoCs
->  - SW DRVs vote can be of the Active / Sleep / Wake type
->  - All the resource votes are in the form of CESTA command
->    (resource id, value) pair.
-> 
-> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
-> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-> ---
->  drivers/soc/qcom/Kconfig     |  10 +
->  drivers/soc/qcom/Makefile    |   2 +
->  drivers/soc/qcom/crm.c       | 996 +++++++++++++++++++++++++++++++++++++++++++
->  drivers/soc/qcom/trace-crm.h | 111 +++++
->  include/soc/qcom/crm.h       |  72 ++++
->  5 files changed, 1191 insertions(+)
-> 
-> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
-> index 2caadbbcf8307ff94f5afbdd1481e5e5e291749f..50f6c3cbf12f87ca2bab183e7996dba7312b9f58 100644
-> --- a/drivers/soc/qcom/Kconfig
-> +++ b/drivers/soc/qcom/Kconfig
-> @@ -26,6 +26,16 @@ config QCOM_COMMAND_DB
->  	  resource on a RPM-hardened platform must use this database to get
->  	  SoC specific identifier and information for the shared resources.
->  
-> +config QCOM_CRM
-> +	tristate "Qualcomm Technologies, Inc. (QTI) CESTA Resource Manager (CRM) driver"
+Hi Svyatoslav,
 
-Just "Qualcomm CESTA Resource Manager (CRM) driver"
+On Wed, Apr 22, 2026 at 09:29:51AM +0300, Svyatoslav Ryhel wrote:
+> Noted. Any changes required into the other patches of the patchset?
 
-Eveyrthing is Qualcomm Technologies, Inc. (QTI) and you make it
-completely unreadable for the menuconfig.
+Please see my reply to the bindings.
 
+-- 
+Regards,
 
-
-> +	depends on QCOM_RPMH && (ARCH_QCOM || COMPILE_TEST)
-
-What do you need from rpmh for compile test?
-
-> +	help
-> +	  Support for communication with the hardened-CRM blocks in
-> +	  Qualcomm Technologies, Inc. (QTI) SoCs. CRM provides interface
-> +	  to vote desired power state of resources local or global to a subsystem.
-> +	  A set of hardware components aggregate requests for these resources and
-> +	  help apply the aggregated power state on the resource.
-> +
->  config QCOM_GENI_SE
->  	tristate "QCOM GENI Serial Engine Driver"
->  	depends on ARCH_QCOM || COMPILE_TEST
-> diff --git a/drivers/soc/qcom/Makefile b/drivers/soc/qcom/Makefile
-> index b7f1d2a5736748b8772c090fd24462fa91f321c6..7f465e86c1b8a4c2657870783a22acc4315a7407 100644
-> --- a/drivers/soc/qcom/Makefile
-> +++ b/drivers/soc/qcom/Makefile
-> @@ -1,9 +1,11 @@
->  # SPDX-License-Identifier: GPL-2.0
-> +CFLAGS_crm.o := -I$(src)
->  CFLAGS_rpmh-rsc.o := -I$(src)
->  CFLAGS_qcom_aoss.o := -I$(src)
->  obj-$(CONFIG_QCOM_AOSS_QMP) +=	qcom_aoss.o
->  obj-$(CONFIG_QCOM_GENI_SE) +=	qcom-geni-se.o
->  obj-$(CONFIG_QCOM_COMMAND_DB) += cmd-db.o
-> +obj-$(CONFIG_QCOM_CRM)	+= crm.o
->  obj-$(CONFIG_QCOM_GSBI)	+=	qcom_gsbi.o
->  obj-$(CONFIG_QCOM_MDT_LOADER)	+= mdt_loader.o
->  obj-$(CONFIG_QCOM_OCMEM)	+= ocmem.o
-> diff --git a/drivers/soc/qcom/crm.c b/drivers/soc/qcom/crm.c
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..9fc4460a65f7f0b4cc262da48f49b769db434082
-> --- /dev/null
-> +++ b/drivers/soc/qcom/crm.c
-> @@ -0,0 +1,996 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/delay.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/iopoll.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_device.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/slab.h>
-> +#include <linux/spinlock.h>
-> +#include <linux/wait.h>
-> +
-> +#include <soc/qcom/crm.h>
-> +
-> +#define CREATE_TRACE_POINTS
-> +#include "trace-crm.h"
-> +
-> +#undef field_get
-> +#define field_get(_mask, _reg) (((_reg) & (_mask)) >> (ffs(_mask) - 1))
-> +
-> +#define MAX_NAME_LENGTH			20
-> +
-> +/* Applicable for SW DRVs BW Registers */
-> +#define PERF_OL_VALUE_BITS		0x7
-> +
-> +/* Applicable for SW DRVs BW Registers */
-> +#define BW_VOTE_VALID			BIT(29)
-> +/* Applicable only for SW DRVs BW PT Registers */
-> +#define BW_PT_VOTE_VALID		BIT(29)
-> +#define BW_PT_VOTE_TRIGGER		BIT(0)
-> +/* Applicable only for SW DRVs BW Registers */
-> +#define BW_VOTE_RESP_REQ		BIT(31)
-> +
-> +/* Set 1 to Enable IRQ for each VCD */
-> +#define IRQ_ENABLE_BIT			BIT(0)
-> +#define IRQ_CLEAR_BIT			BIT(0)
-> +
-> +/* SW DRV has ACTIVE, SLEEP and WAKE PWR STATES */
-> +
-> +#define MAX_SW_DRV_PWR_STATES		3
-> +/* Time out for ACTIVE Only PWR STATE completion IRQ */
-> +#define CRM_TIMEOUT_MS			msecs_to_jiffies(10000)
-> +
-> +/*
-> + * Here's a high level overview of CESTA - Client State Aggregation
-> + *
-> + * - CESTA resource manager (CRM) is used for client side resource management.
-> + *   These local resources can be clocks or NoCs. A vote can be placed by DRVs
-> + *   (Direct Resource Voters) which can be either SW DRV or HW DRV.
-> + *
-> + * - Current driver supports placing votes via SW DRVs.
-> + *
-> + * - A resource vote can be placed by voting to VCD (Virtual Clock Domain) or
-> + *   Node (ND).
-> + *   Vote can be in the form of
-> + *   (1) performance operating level votes - Local clocks scaling
-> + *   (2) bandwidth votes - Local NoCs scaling (Camera / Display NoC)
-> + *   (3) bandwidth pass through votes - Global resource scaling (DDR)
-> + *   Not all CRM can vote via all three forms
-> + *
-> + * - The base crm address is the DRV base of a register space that is used to place votes.
-> + *   Each VCD/ND/PT_ND has IRQ Status/Clear/Enable registers.
-> + *
-> + * - The config crm address is used to find overall configuration of the hardware including
-> + *   version, num_perf_ol_vcds, num_nds and num_nds_pt and no. of SW DRVs.
-
-Wrap the code to match Linux coding style.
-
-...
-
-
-> +static int crm_probe(struct platform_device *pdev)
-> +{
-> +	struct device_node *dn = pdev->dev.of_node;
-
-This is NOT called 'dn', but 'np'. Always. Don't copy buggy rpmh code or
-other weird drivers.
-
-> +	struct crm_drv_top *crm;
-> +	const char *name;
-> +	int ret;
-> +
-> +	crm = devm_kzalloc(&pdev->dev, sizeof(*crm), GFP_KERNEL);
-> +	if (!crm)
-> +		return -ENOMEM;
-> +
-> +	crm->desc = of_device_get_match_data(&pdev->dev);
-> +	if (!crm->desc)
-> +		return -EINVAL;
-> +
-> +	name = of_get_property(dn, "label", NULL);
-> +	if (!name)
-> +		name = dev_name(&pdev->dev);
-> +
-> +	crm->pdev = pdev;
-> +	crm->dev = &pdev->dev;
-> +	scnprintf(crm->name, sizeof(crm->name), "%s", name);
-> +
-> +	crm->base = devm_platform_get_and_ioremap_resource(pdev, 0, NULL);
-> +	if (IS_ERR(crm->base))
-> +		return -ENOMEM;
-> +
-> +	crm->cfg = devm_platform_get_and_ioremap_resource(pdev, 1, NULL);
-> +	if (IS_ERR(crm->cfg))
-> +		return -ENOMEM;
-> +
-> +	if (pdev->dev.pm_domain) {
-> +		ret = devm_pm_runtime_enable(&pdev->dev);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = pm_runtime_resume_and_get(&pdev->dev);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	crm->crm_enabled = readl_relaxed(crm->cfg + crm->desc->cfg_regs[CRM_ENABLE]);
-> +	if (!crm->crm_enabled) {
-> +		dev_err(crm->dev, "%s not enabled, exiting\n", crm->name);
-
-How is this an error? If FW did not enable CRM, it did it on purpose, so
-why are you reporting it as an error to the user? What user should do
-with that? File a bug report for the FW?
-
-> +		ret = -ENODEV;
-> +		goto exit;
-> +	}
-> +
-> +	ret = crm_probe_drvs(crm, dn);
-> +	if (ret)
-> +		goto exit;
-> +
-> +	ret = crm_probe_get_irqs(crm);
-> +	if (ret)
-> +		goto exit;
-> +
-> +	dev_set_drvdata(&pdev->dev, crm);
-> +exit:
-> +	if (pdev->dev.pm_domain)
-> +		pm_runtime_put(&pdev->dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static u32 crm_v2_cfg[] = {
-
-Why isn't this const?
-
-> +	[CRM_VERSION]			= 0x0,
-> +	[MAJOR_VERSION]			= GENMASK(23, 16),
-> +	[MINOR_VERSION]			= GENMASK(15, 8),
-> +	[CRM_CFG_PARAM_1]		= 0x4,
-> +	[NUM_OF_NODES_PT]		= GENMASK(31, 27),
-> +	[NUM_VCD_VOTED_BY_BW]		= GENMASK(26, 24),
-> +	[NUM_SW_DRVS]			= GENMASK(23, 20),
-> +	[NUM_OF_RAILS]			= GENMASK(15, 12),
-> +	[NUM_VCD_VOTED_BY_PERF_OL]	= GENMASK(11, 8),
-> +	[CRM_CFG_PARAM_2]		= 0x8,
-> +	[NUM_OF_NODES]			= GENMASK(30, 26),
-> +	[CRM_ENABLE]			= 0xc,
-> +};
-
-Best regards,
-Krzysztof
-
+Sakari Ailus
