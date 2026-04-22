@@ -1,458 +1,178 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F95374170
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 12:06:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3092863CB
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 12:09:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776859588; cv=none; b=uHBCPS4/emJJIddL/wJXRxa3Bw9X/Ss+euPk3aEQEtH8CkBWWvPwTOynhgkVAdz7KfV7AFGHMBUi9p3ivh/hlKF+OOfLsrva6D7lvn8/Gh/jzW/wTuQSwFzWkmohvw+TytPJeNcbeyhh4w6MJ0SpV4ZsHi1dNOlfsHPm96UJ/GE=
+	t=1776859748; cv=none; b=rZBlUs8LdbrvV7IsX/n3wHuFQbBA9+GhhoLRZcxrwcCWKt1lShWTamrqWBquzK52PoFfZwnlbDR+TK5EPRjHPybf0GO3qykZcuRp6jqihqaOMhyH99Z8buWO02ANMecn2nAc8VvQOpZmkU3whvd37kvQvUFnbSzWGeCZEB/2kJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776859588; c=relaxed/simple;
-	bh=YdWIS+GWYOxF9myOt65lgye4aOYTDmJb1XDgOuFE4hY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FqrK1174gNdLBDXFPVwj2ktnduCVxzMvo7+nGoLY5TloFGNWoqHN2xtsGjRY7ZRzEBbjEgnpRhOE1GxTJq58CHFJlWbU5PPPGyEGaawf2Q5yBCVWJHxohBGP5OxMgkvnSKSKEDPaONgEiPl10Wj8G8DecfJxeEytjYvKHl89+xk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com; spf=fail smtp.mailfrom=inventec.com; dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b=b5qsZW4l; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=inventec.com
+	s=arc-20240116; t=1776859748; c=relaxed/simple;
+	bh=rkpzELTHSMQVWEDTS/DB8PCFWa4LcrJoQ1walneRFuk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a6nooA5YTydpU1ippDy4iPK9i945Lde0RmISOX1SS33JU+gd3E/nWh0tiRNO3KLIZ10G6kQ197Nb5bwGAaWO5psTvIFPm3uOPRusgkvbkZlizDsqrj7mEOQ3+e9js95bq4FwX+nYh1z+xgN+aLy/tY5TTNEnRz0DuvEEYSGa9cE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C7ZzoD4i; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LUHU377+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b="b5qsZW4l"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-82f431c0ab6so2443242b3a.0
-        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 05:06:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C7ZzoD4i";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LUHU377+"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63MAUi8A976177
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 12:09:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	XNk4QN3YW6vbU0Ii//q4orZgJmHzUebQDz2tV23pLlM=; b=C7ZzoD4i+iCJeGr3
+	EyxoR5zOMV1FGS757/lXb4BGExSEINUIRCqojtJhS/8AUAwZVjUXdt8PTBCLWQEC
+	bRUmojTFWldy0DJtgQNWXEy4qz9l/zGIMPHIAhJFj7FWiVUaaFShg01yWHTsT3vq
+	O7jQg3twxfpH6N2AUuR4doDTt6BfFybH6s6kQGx2YYkhjCo9qpiyeg+elR3LlLD5
+	a9w1DJWMbKn9ZCven2YxisPBlx2mRdycqxeZXC4e+uzDw6DiVIOa9OmHT5SR/M5b
+	G2RDh14QTIn3nA3onOLH6aVSOizzlSo5sKWRY+US4ztt5bd1hdImU1yOhz1erHCa
+	Kana0g==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpenebbqg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 12:09:06 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-61060ad8deeso270686137.1
+        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 05:09:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=inventec.com; s=google; t=1776859586; x=1777464386; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KgmCuXwUu4Wzi6ClM7vTGFeIrRj3dmweZd0IGS6MY0s=;
-        b=b5qsZW4lkZ7B08MQAHSrCNf4mLZmco33Gj1a0H/GC26wpfMB1opA46MwGeLtuNKwIv
-         EphhhQwN01nFCy0O35P097VY4CdwtY2Njs17GTWoGKRZF+8FOFWS+/ZxAMJyYgAVEBxX
-         hWSsDU2SWCcNbhblK7PsqFQvukcLWqLB2LSFeDz+27hfIdX5ZY9m7WZ3P73KAHWDvYHe
-         eCgIivsZaPhyA09cWnk+ZU4FKCsK3Dvh3BUGv7y0Xhmo7G/ldOMEJgZK0z08Q49L+OLU
-         60vv29tg9kqPknaHEBzzADaXLrIFSDagzAhJBHUfzBjgKfXGLBE4ubef48xb0C/OA6DN
-         OUWg==
+        d=oss.qualcomm.com; s=google; t=1776859745; x=1777464545; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=XNk4QN3YW6vbU0Ii//q4orZgJmHzUebQDz2tV23pLlM=;
+        b=LUHU377+btEXE8jcD9/+Mzfc8rJ48E9BGXdoyjTHAoinl2krvP8fnJ+YNBhub/MwOM
+         stK8rJharA9G0B/7rA4i4FLd6u1kIgUp7JJXx+X/PHq7LvFcvaQfa8LXYPVBhy2wrjp+
+         WVH1VmfXTh6bGg6ltdn+6210cS8xyOXLhSOMCSgU3W38tQXkLie7e0E1eNzm5+tZ2As3
+         bxI2qO7Cn7NWks2Toee9dIY3zS03G05JEPZny/1u4yR7/sIqct2nf49BQwdqJL3B1i9A
+         hbX6RLT0050KzJsx80Cirfvzttl3YPDNqCofdkj58JKlT/9Dlm+S+KakWqLFzG14RMgy
+         +NhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776859586; x=1777464386;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=KgmCuXwUu4Wzi6ClM7vTGFeIrRj3dmweZd0IGS6MY0s=;
-        b=pI9/DHgRjbi3b1+NtmeW4RktO/x0z3viKAhQgDKvXhtBTFLQmKNFfZXPp11RAZhJHQ
-         jLq0/k+5G6zZLYQLV9VYU9k6UX+T27dOuOybVCOLS4IN+A3j1+B6Pv9zcGU3xhgzHpJJ
-         F2jSW4J9HS6wIAiRVYcd6dmZxSjyOWN15NVEZ5Q5l2WIdqr02fdvU5UcfX8qfFr/YWts
-         1uETcDvaxZ+N6BTBP3VAjsYheiVkDvPXMywUefcNur/vqurGtX/ngaSAhLWyVDLgn++Q
-         6WetPDft+xI01W24DnkpCcxSsm+0/qeFLsv1M/9/kMIDoUevU0uJ7hhRRUdk5BhufmLM
-         XvbQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/fhrJRu5GZ7IQPWHF6s7peE4PcME+mLzzUT2vJaq6WmCstqrSyJnD3qQp4d0EKlhV2rHzMoElSI18K@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw8OeU4Lm39WM5UcPRtrAtSadQF3PFxE0pja6bsBqC9NAhux2nQ
-	SCFmbxUG/GR3Y/FEYCjiKyFe/gTle7iYqy9LcWN+uUy38sLhYXRhypvdfEFSwQCB4rE=
-X-Gm-Gg: AeBDiesMcqEkLRWVVu9NbRGYtTcU5vLOoKd62+1TSGxEiPh7/sZ4fGr/dnie++OQxiR
-	DfOsZWQXZ+pj10v9hTHH1U7me/06jGhH+/bsdvoUgiErG0YALwDpu7pK7GndvAP7dPuGfbRtera
-	lr1ye9fOq8+PO0CiaDvzyHXAqJ5EEKyHY7wie8kc3eyqA2iSyVLouJFKzkRiRsOynuFWUcnoyQJ
-	rraV07Hiewhtmn70WD2CQ9feDXrPQQ1DPcXIKX2oAVjBz75hONkTJxCDGwAV2sVynwDBDDVkh6w
-	4tHQnc6t5UXpfr9t0jheTYiI2kGmQhUA5750OQvGM/boleWTSYaJcnrgT/LskJ2Lc14i+noMXHX
-	37aVFiA+uuc4ZS2a6hLoTlD6lvXK29DpNIyFpn6XBsCJ59p9lrmq4SnVBAxMBlsL5B1fMY/9CfE
-	10ZwvGR4O2JNmSYRwvYED2uIH/UZCTxFZTiDLcq0+wggvTv2OScJeWH5ByYfnJGuWVJ8Ga02/c0
-	b+A
-X-Received: by 2002:a05:6a00:4b4f:b0:82c:6bcc:f3fa with SMTP id d2e1a72fcca58-82f8c94401fmr22326504b3a.35.1776859585837;
-        Wed, 22 Apr 2026 05:06:25 -0700 (PDT)
-Received: from [127.0.1.1] (60-250-242-163.hinet-ip.hinet.net. [60.250.242.163])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8ebb3fa2sm17086636b3a.29.2026.04.22.05.06.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Apr 2026 05:06:25 -0700 (PDT)
-From: Brian Chiang <chiang.brian@inventec.com>
-Date: Wed, 22 Apr 2026 12:06:16 +0000
-Subject: [PATCH 2/2] hwmon: (pmbus/lx1308) Add support for LX1308
+        d=1e100.net; s=20251104; t=1776859745; x=1777464545;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=XNk4QN3YW6vbU0Ii//q4orZgJmHzUebQDz2tV23pLlM=;
+        b=aBEWvX06FrXqi4a2YtB9dDUYL7+qlD70zmO7VhmCMftnDo06lJWslyWlat1A2gs/1J
+         5e8zPLjSU9FwyI00K+l/QMW4jN5aeLXtTviu5JlvC25jYe7led+cp3BOiyuSwmSvx6ZO
+         aWRy7Mxx3g5zefBwzEdGRQDMxQ4IGocXPyPHlZGSjdMXPH1j17mYBi6hiKF1WMzVjHos
+         YmPIHfnZmX4FCz7NOfg82+n71L6OdSy4irj06eQ6ARQrkHzQ1txUrFXxKtQQH2pLSs+J
+         T5JDtMDL52aOSZbYPgihwO2c6jrxJsWsPzTK72vEKIdSyu5fad+scNVIjXbyrDfkcDFS
+         JlAA==
+X-Forwarded-Encrypted: i=1; AFNElJ8DnpuFSQ53U5gvBH9EMiDXBXF9WkZWpnfiYgifaAyMtj0kExaxiJkj9tlxJ23MRzTmcFM0H1skstzH@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy1jH3aQm3uwVzibcWL09BmNj440pXNybK5JrjttKI+BUttrbJp
+	fUvCU29Ab8t2A7kZ0bo0UjziN3MMcn8PiJFyWtV6PpMJLIoJDHxtgmk+Nf8bQu5tavVsJ0SkXDK
+	YA5hXgTfc2+pn8QWnuIT1P2LjuLSYqn4d1JtGcvrgXmO/asSqWJU6j04c9GJD9xo9
+X-Gm-Gg: AeBDietCnmpvu307jO8sZGJx1eMvUxgecZfQqN0rTV/gdZzNMOVFpOWQZsCyXuoz4P3
+	Yw/UAo4Ucv3IiBo5rbaRLlt4548HT3gGRd1GNZIWFY/EBPrJ3D2AbC68CnrbO9SYq00fbBT7wVe
+	6kPOpvkwPdr/arI/xUHzz5Nx6MBi597kVAEhfJmpqesM+G3dy8mh/45R/Fky8IJlSW9gGuJgHet
+	IeaXJQ7GBNwaQ8EO4olGRoigm56DzVPKtmznwADPzD4/HkA9J8hxK2cKqR+w2V3yOSnA3Vx79fI
+	YJ/N9Zdoj5G4Snt5t/r5dlZOpDwnDu6px9vlZ1uugmCMeDBA54mADK/OxVDlg3jSuNStZcj5p2c
+	COwBxt0jsgqf0Nzh2e8Jvx9LtMn2DmdKFvtGbFRAOOvjwtehLzgNKil71zjnert93UXUxYIxOy+
+	bjsytXD77DMaz57A==
+X-Received: by 2002:a05:6102:2274:b0:611:5761:a3dc with SMTP id ada2fe7eead31-616f70f119emr3302739137.5.1776859745403;
+        Wed, 22 Apr 2026 05:09:05 -0700 (PDT)
+X-Received: by 2002:a05:6102:2274:b0:611:5761:a3dc with SMTP id ada2fe7eead31-616f70f119emr3302720137.5.1776859744984;
+        Wed, 22 Apr 2026 05:09:04 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba455046429sm538380666b.50.2026.04.22.05.09.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Apr 2026 05:09:04 -0700 (PDT)
+Message-ID: <a50ad3be-a4d4-42d7-8680-0e7fdf01443f@oss.qualcomm.com>
+Date: Wed, 22 Apr 2026 14:09:01 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: qcom: talos: Add memory-region for audio
+ PD
+To: ekansh.gupta@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, quic_bkumar@quicinc.com,
+        quic_chennak@quicinc.com, dmitry.baryshkov@oss.qualcomm.com
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260419-talosaudio-v2-1-3a3b5dd67dd4@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260419-talosaudio-v2-1-3a3b5dd67dd4@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260422-add-support-lx1308-v1-2-9b8322f45aae@inventec.com>
-References: <20260422-add-support-lx1308-v1-0-9b8322f45aae@inventec.com>
-In-Reply-To: <20260422-add-support-lx1308-v1-0-9b8322f45aae@inventec.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- Brian Chiang <chiang.brian@inventec.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776859578; l=11742;
- i=chiang.brian@inventec.com; s=20260316; h=from:subject:message-id;
- bh=YdWIS+GWYOxF9myOt65lgye4aOYTDmJb1XDgOuFE4hY=;
- b=Bb/ZDIwDLuqQhZqK8G3UAC8/VDlDB3vUXpxFCfYhGSqEMXle1Uqhyuu6esZt3SEHd5ByB37Ha
- WfGjRPIt6jlALKmTBnbH5vTuynivrvApSlrC5yd4CW9ZAnZekRpBX4D
-X-Developer-Key: i=chiang.brian@inventec.com; a=ed25519;
- pk=q+NqJYuJbGpA9KS9941D7f+8PVVW+k7DvaGgFykBiUc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDExNiBTYWx0ZWRfXxFwR5HM0ARwx
+ 686yb20pS1mnL8f3Eg183N2GnjxRicoN1ydjYDZbkPGu8Jqj73RN8Qk8kjysWP0sqOvut5ekFPY
+ o8+F0m/KmyJWbIrEJMGpQTGJOAgsM7nWh5SP2FyhLvt7ewcbiFvKLTzi0xpu0pTnhPhj0WfwG1C
+ GkfJKatJMKFIc3uALzg8ckmPvj6MAkyLKyGanBWTnul8usaqMI/P3WpJYMql7oTehP6Cl91ZRVB
+ a86Gp65PRon1dK/9qd3OYqMQWSricDqn7Gi9g+mu/8RcypM0XpOqOExEnNzVeZyfm7nkoG+Sqjv
+ L5eJmwSxHDAKuzi3PjkMeOdoA4207v9j+hutU/DZVEBEJZEU2CoqjUIT3f4cAYarmuNIydQ1KjP
+ d4+g61hISuuz2iwV9hR0uZn3eDUG7f6oIf5LArGTfBUGbGS0G2pJdWK8bG/Z3/Zl5ribKIoTwL5
+ r2Z08s5cfQXWWZaqT7g==
+X-Proofpoint-GUID: ZBMIbYpZzNlSpmLouA_1ArYakjD0YtAr
+X-Proofpoint-ORIG-GUID: ZBMIbYpZzNlSpmLouA_1ArYakjD0YtAr
+X-Authority-Analysis: v=2.4 cv=RoT16imK c=1 sm=1 tr=0 ts=69e8ba62 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=3lRBOYp6YGeNuEZCnNoA:9 a=QEXdDO2ut3YA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-22_01,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 phishscore=0 adultscore=0 bulkscore=0 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604220116
 
-Add support for the Luxshare LX1308, a high-efficiency 12V 860W
-DC/DC power module. The module operates from 40-60V input voltage.
+On 4/19/26 9:41 AM, Ekansh Gupta via B4 Relay wrote:
+> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> 
+> Reserve memory region for audio PD dynamic loading and remote heap
+> requirements. Add the required VMID list for memory ownership
+> transfers.
+> 
+> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Fixed VMID list alignment.
+> - Link to v1: https://lore.kernel.org/r/20260418-talosaudio-v1-1-585ab22faaf4@oss.qualcomm.com
+> ---
+>  arch/arm64/boot/dts/qcom/talos.dtsi | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qcom/talos.dtsi
+> index ff5afbfce2a4..f71b327c7ddf 100644
+> --- a/arch/arm64/boot/dts/qcom/talos.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/talos.dtsi
+> @@ -11,6 +11,7 @@
+>  #include <dt-bindings/clock/qcom,qcs615-videocc.h>
+>  #include <dt-bindings/clock/qcom,rpmh.h>
+>  #include <dt-bindings/dma/qcom-gpi.h>
+> +#include <dt-bindings/firmware/qcom,scm.h>
+>  #include <dt-bindings/interconnect/qcom,icc.h>
+>  #include <dt-bindings/interconnect/qcom,osm-l3.h>
+>  #include <dt-bindings/interconnect/qcom,qcs615-rpmh.h>
+> @@ -657,6 +658,11 @@ pil_gpu_mem: pil-gpu@97715000 {
+>  			reg = <0x0 0x97715000 0x0 0x2000>;
+>  			no-map;
+>  		};
+> +
+> +		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap@97717000 {
+> +			reg = <0x0 0x97717000 0x0 0x800000>;
+> +			no-map;
+> +		};
 
-Signed-off-by: Brian Chiang <chiang.brian@inventec.com>
----
- Documentation/hwmon/index.rst  |   1 +
- Documentation/hwmon/lx1308.rst |  90 ++++++++++++++++++
- drivers/hwmon/pmbus/Kconfig    |  10 ++
- drivers/hwmon/pmbus/Makefile   |   1 +
- drivers/hwmon/pmbus/lx1308.c   | 204 +++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 306 insertions(+)
+Is this for the QLI-QCS615 memory map, or LA-SM6150? I think it's
+right for the latter, but I'm not super sure.
 
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index b2ca8513cfcd..c86c21554c37 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -145,6 +145,7 @@ Hardware Monitoring Kernel Drivers
-    ltc4261
-    ltc4282
-    ltc4286
-+   lx1308
-    macsmc-hwmon
-    max127
-    max15301
-diff --git a/Documentation/hwmon/lx1308.rst b/Documentation/hwmon/lx1308.rst
-new file mode 100644
-index 000000000000..c1b72e1647c5
---- /dev/null
-+++ b/Documentation/hwmon/lx1308.rst
-@@ -0,0 +1,90 @@
-+.. SPDX-License-Identifier: GPL-2.0-or-later
-+
-+Kernel driver lx1308
-+====================
-+
-+Supported chips:
-+
-+  * Luxshare LX1308
-+
-+    Prefixes: 'lx1308'
-+
-+    Addresses scanned: -
-+
-+    Datasheet: Datasheet is not publicly available.
-+
-+Author: Brian Chiang <chiang.brian@inventec.com>
-+
-+
-+Description
-+-----------
-+
-+The LX1308 is a high-efficiency, non-isolated, regulated 12V, 860W,
-+digital DC/DC power module. The module operates from a 40V to 60V DC
-+primary bus and provides a 12V regulated output voltage. It can deliver
-+up to 860W continuous and 1300W in transient.
-+
-+The module has slow OCP and fast OCP. If the module output current is higher
-+than slow OCP set point and the lasting time is also longer than the delay,
-+the module will shut down and retry 3 time, if the fault still exists then
-+module enter latch mode.
-+
-+If the module output current is higher than fast OCP set point then it shut
-+down and enter latch mode.
-+
-+The driver is a client driver to the core PMBus driver.
-+Please see Documentation/hwmon/pmbus.rst for details on PMBus client drivers.
-+
-+
-+Usage Notes
-+-----------
-+
-+This driver does not auto-detect devices. You will have to instantiate the
-+devices explicitly. Please see Documentation/i2c/instantiating-devices.rst for
-+details.
-+
-+
-+Sysfs entries
-+-------------
-+
-+======================= ======================================================
-+curr1_alarm             Input current alarm
-+curr1_input             Input current (IIN)
-+curr1_label             "iin"
-+curr2_crit              Output over current fault threshold (slow OCP, 60ms delay)
-+curr2_crit_alarm        Output over current fault alarm
-+curr2_input             Output current (IOUT)
-+curr2_label             "iout1"
-+curr2_max               Output over current warning threshold (slow OCP, 60ms delay)
-+curr2_max_alarm         Output over current warning alarm
-+in1_crit                Input over voltage fault threshold
-+in1_crit_alarm          Input over voltage fault alarm
-+in1_input               Input voltage (VIN)
-+in1_label               "vin"
-+in1_lcrit               Input under voltage fault threshold
-+in1_lcrit_alarm         Input under voltage fault alarm
-+in1_max                 Input over voltage warning threshold
-+in1_max_alarm           Input over voltage warning alarm
-+in1_min                 Input under voltage warning threshold
-+in1_min_alarm           Input under voltage warning alarm
-+in2_crit                Output over voltage fault threshold
-+in2_crit_alarm          Output over voltage fault alarm
-+in2_input               Output voltage (VOUT)
-+in2_label               "vout1"
-+in2_lcrit               Output under voltage fault threshold
-+in2_lcrit_alarm         Output under voltage fault alarm
-+in2_max                 Output over voltage warning threshold
-+in2_max_alarm           Output over voltage warning alarm
-+in2_min                 Output under voltage warning threshold
-+in2_min_alarm           Output under voltage warning alarm
-+power1_alarm            Input power alarm
-+power1_input            Input power (PIN)
-+power1_label            "pin"
-+power2_input            Output power (POUT)
-+power2_label            "pout1"
-+temp1_crit              Over temperature fault threshold
-+temp1_crit_alarm        Over temperature fault alarm
-+temp1_input             Module hot spot temperature
-+temp1_max               Over temperature warning threshold
-+temp1_max_alarm         Over temperature warning alarm
-+======================= ======================================================
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index fc1273abe357..1c5dc4294248 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -221,6 +221,16 @@ config SENSORS_ISL68137
- 	  This driver can also be built as a module. If so, the module will
- 	  be called isl68137.
- 
-+config SENSORS_LX1308
-+	tristate "Luxshare LX1308 DC/DC Power Module"
-+	help
-+	  If you say yes here you get hardware monitoring support for
-+	  Luxshare LX1308, a high-efficiency 12V 860W DC/DC power module
-+	  with PMBus interface.
-+
-+	  This driver can also be built as a module. If so, the module will
-+	  be called lx1308.
-+
- config SENSORS_LM25066
- 	tristate "National Semiconductor LM25066 and compatibles"
- 	help
-diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-index d6c86924f887..4861e144c7e7 100644
---- a/drivers/hwmon/pmbus/Makefile
-+++ b/drivers/hwmon/pmbus/Makefile
-@@ -23,6 +23,7 @@ obj-$(CONFIG_SENSORS_IR36021)	+= ir36021.o
- obj-$(CONFIG_SENSORS_IR38064)	+= ir38064.o
- obj-$(CONFIG_SENSORS_IRPS5401)	+= irps5401.o
- obj-$(CONFIG_SENSORS_ISL68137)	+= isl68137.o
-+obj-$(CONFIG_SENSORS_LX1308)	+= lx1308.o
- obj-$(CONFIG_SENSORS_LM25066)	+= lm25066.o
- obj-$(CONFIG_SENSORS_LT3074)	+= lt3074.o
- obj-$(CONFIG_SENSORS_LT7182S)	+= lt7182s.o
-diff --git a/drivers/hwmon/pmbus/lx1308.c b/drivers/hwmon/pmbus/lx1308.c
-new file mode 100644
-index 000000000000..c7a7a1fd4f21
---- /dev/null
-+++ b/drivers/hwmon/pmbus/lx1308.c
-@@ -0,0 +1,204 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include "pmbus.h"
-+
-+#define LX1308_MFR_IOUT_OCP3_FAULT	0xBE
-+#define LX1308_MFR_IOUT_OCP3_WARN	0xBF
-+
-+/*
-+ * Decode a Linear11-encoded word to an integer value.
-+ * Linear11 format: bits[15:11] = signed 5-bit exponent,
-+ * bits[10:0] = signed 11-bit mantissa. Result = mant * 2^exp.
-+ */
-+static inline int linear11_to_int(u16 word)
-+{
-+	s16 exp = ((s16)word) >> 11;
-+	s16 mant = ((s16)((word & 0x7ff) << 5)) >> 5;
-+
-+	return (exp >= 0) ? (mant << exp) : (mant / (1 << (-exp)));
-+}
-+
-+static int lx1308_read_word_data(struct i2c_client *client, int page,
-+				 int phase, int reg)
-+{
-+	int ret;
-+
-+	if (page > 0)
-+		return -ENXIO;
-+
-+	switch (reg) {
-+	/*
-+	 * The LX1308 OCP3 registers (slow OCP, 60ms delay) use a
-+	 * manufacturer-specific U8.0 format. Read the byte value N and present
-+	 * it as a Linear11 word with exponent 0.
-+	 */
-+	case PMBUS_IOUT_OC_FAULT_LIMIT:
-+		ret = i2c_smbus_read_byte_data(client, LX1308_MFR_IOUT_OCP3_FAULT);
-+		if (ret < 0)
-+			break;
-+		ret &= 0x7FF;
-+		break;
-+
-+	case PMBUS_IOUT_OC_WARN_LIMIT:
-+		ret = i2c_smbus_read_byte_data(client, LX1308_MFR_IOUT_OCP3_WARN);
-+		if (ret < 0)
-+			break;
-+		ret &= 0x7FF;
-+		break;
-+
-+	/*
-+	 * The following registers are not implemented by the LX1308. Return
-+	 * -ENXIO to suppress the corresponding sysfs attributes.
-+	 */
-+	case PMBUS_IIN_OC_WARN_LIMIT:
-+	case PMBUS_IIN_OC_FAULT_LIMIT:
-+	case PMBUS_IOUT_UC_FAULT_LIMIT:
-+	case PMBUS_PIN_OP_WARN_LIMIT:
-+	case PMBUS_POUT_OP_WARN_LIMIT:
-+	case PMBUS_UT_WARN_LIMIT:
-+	case PMBUS_UT_FAULT_LIMIT:
-+	case PMBUS_MFR_IIN_MAX:
-+	case PMBUS_MFR_IOUT_MAX:
-+	case PMBUS_MFR_VIN_MIN:
-+	case PMBUS_MFR_VIN_MAX:
-+	case PMBUS_MFR_VOUT_MIN:
-+	case PMBUS_MFR_VOUT_MAX:
-+	case PMBUS_MFR_PIN_MAX:
-+	case PMBUS_MFR_POUT_MAX:
-+	case PMBUS_MFR_MAX_TEMP_1:
-+		ret = -ENXIO;
-+		break;
-+
-+	default:
-+		ret = -ENODATA;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static int lx1308_write_word_data(struct i2c_client *client, int page,
-+				  int reg, u16 word)
-+{
-+	int ret;
-+
-+	if (page > 0)
-+		return -ENXIO;
-+
-+	switch (reg) {
-+	case PMBUS_IOUT_OC_FAULT_LIMIT:
-+		/*
-+		 * Decode Linear11 word from pmbus_core back to a plain integer
-+		 * and write as the U8.0 byte the device expects.
-+		 */
-+		ret = i2c_smbus_write_byte_data(client, LX1308_MFR_IOUT_OCP3_FAULT,
-+						clamp_val(linear11_to_int(word), 0, 255));
-+		break;
-+
-+	case PMBUS_IOUT_OC_WARN_LIMIT:
-+		ret = i2c_smbus_write_byte_data(client, LX1308_MFR_IOUT_OCP3_WARN,
-+						clamp_val(linear11_to_int(word), 0, 255));
-+		break;
-+
-+	default:
-+		ret = -ENODATA;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static struct pmbus_driver_info lx1308_info = {
-+	.pages = 1,
-+	.format[PSC_VOLTAGE_IN] = linear,
-+	.format[PSC_VOLTAGE_OUT] = linear,
-+	.format[PSC_CURRENT_IN] = linear,
-+	.format[PSC_CURRENT_OUT] = linear,
-+	.format[PSC_POWER] = linear,
-+	.format[PSC_TEMPERATURE] = linear,
-+
-+	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
-+		| PMBUS_HAVE_IIN | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
-+		| PMBUS_HAVE_PIN | PMBUS_HAVE_POUT
-+		| PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP
-+		| PMBUS_HAVE_STATUS_INPUT,
-+
-+	.read_word_data  = lx1308_read_word_data,
-+	.write_word_data = lx1308_write_word_data,
-+};
-+
-+static const struct i2c_device_id lx1308_id[] = {
-+	{ "lx1308" },
-+	{ }
-+};
-+
-+MODULE_DEVICE_TABLE(i2c, lx1308_id);
-+
-+static int lx1308_probe(struct i2c_client *client)
-+{
-+	u8 buf[I2C_SMBUS_BLOCK_MAX + 1];
-+	const struct i2c_device_id *mid;
-+	int ret;
-+
-+	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
-+	if (ret < 0)
-+		return dev_err_probe(&client->dev, ret,
-+				     "Failed to read manufacturer id\n");
-+	buf[ret] = '\0';
-+
-+	if (ret != 12 || strncmp(buf, "LUXSHARE", 8))
-+		return dev_err_probe(&client->dev, -ENODEV,
-+				     "Unsupported Manufacturer ID '%s'\n", buf);
-+
-+	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
-+	if (ret < 0)
-+		return dev_err_probe(&client->dev, ret,
-+				     "Failed to read Manufacturer Model\n");
-+	buf[ret] = '\0';
-+
-+	for (mid = lx1308_id; mid->name[0]; mid++) {
-+		if (!strncasecmp(mid->name, buf, strlen(mid->name)))
-+			break;
-+	}
-+	if (!mid->name[0])
-+		return dev_err_probe(&client->dev, -ENODEV,
-+				     "Unsupported Manufacturer Model '%s'\n", buf);
-+
-+	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_REVISION, buf);
-+	if (ret < 0)
-+		return dev_err_probe(&client->dev, ret,
-+				     "Failed to read Manufacturer Revision\n");
-+	buf[ret] = '\0';
-+
-+	if (ret != 12 || buf[0] != 'V')
-+		return dev_err_probe(&client->dev, -ENODEV,
-+				     "Unsupported Manufacturer Revision '%s'\n", buf);
-+	return pmbus_do_probe(client, &lx1308_info);
-+}
-+
-+static const struct of_device_id lx1308_of_match[] = {
-+	{ .compatible = "luxshare,lx1308" },
-+	{ }
-+};
-+
-+MODULE_DEVICE_TABLE(of, lx1308_of_match);
-+
-+static struct i2c_driver lx1308_driver = {
-+	.driver = {
-+		.name = "lx1308",
-+		.of_match_table = lx1308_of_match,
-+	},
-+	.probe = lx1308_probe,
-+	.id_table = lx1308_id,
-+};
-+
-+module_i2c_driver(lx1308_driver);
-+
-+MODULE_AUTHOR("Brian Chiang <chiang.brian@inventec.com>");
-+MODULE_DESCRIPTION("PMBus driver for Luxshare LX1308");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("PMBUS");
+Plus, like we talked in another thread, I'm not sure this matters (dep
+on whether UEFI reserves it?)
 
--- 
-2.43.0
-
+Konrad
