@@ -1,32 +1,32 @@
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81439347FFE;
-	Wed, 22 Apr 2026 21:08:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783623624C3;
+	Wed, 22 Apr 2026 21:08:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776892105; cv=none; b=AJmkzl1exxcLk3VbFEJcgSvHgCFJaMG3rZlm0CdurIBgjuAeR8Y1Wjz0EFJXvPYFNs+zWE8VyZsHud9TSTAj8xsveIdu8l3X7s1qjOhDsOeQS2j3ger2NyIA/yT67GKF7fgBTjb1qyhB6HKhAAtyfZPpTsbM4N3uDfmF+cWrZqM=
+	t=1776892106; cv=none; b=p6H6ntT42s0wmFuRmm6fLGIxRoihEL5KWY8q4wfx2fZgM0IBdYGa+TxdIaBii3xAseyyS+YJkFfubAQVOzDs+aKDzA027tnb3pML0Va0LYf/wU7DqjL65euYC/CXy3Sr0hOvDtX1Rk98//n4ldQiRfcScjDAiU+PGitRo53Dbq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776892105; c=relaxed/simple;
-	bh=opajQm6udq6m/migfOwFNPme8+VZx90YleJev5vmE0I=;
+	s=arc-20240116; t=1776892106; c=relaxed/simple;
+	bh=Xuz+LD3d8qlcjA1FISbHQshUQj95/mw/Z6jngmNWlsY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gEd5+nFJMuYzU+EzCw7PBX2jTghaENnNEBvKJ7hFCZuybbASd8T1vO6lceSLxr2tcj6ZUhVeoOpUE3f/Vx8FHbgEBn2lZvaC/AVAzttGPlnJIoN4tuG0dQvGfmGknHcD1AHxOLWOmRHWXiqMewf7z2Xt/2aZSnk2oSs9IqWmKgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=diigRvAL; arc=none smtp.client-ip=178.251.229.89
+	 MIME-Version; b=hPGmD0HhokCWJRVd4rnILPSf/SwOBEnfCn1/8xgRW5UOaL8/ZwFDPLvbiyrhCbPl1nGmNLVlG2Lk/zyelQIbShySfF5sPSngJPf3SafAZSbhzacl1RjzlUleYER7AhLpIQKPzMNdmnT0Iv9MQp3HTY52kjTPLiuSA/lhSpfTRFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=RkIQ1vH3; arc=none smtp.client-ip=178.251.229.89
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="diigRvAL"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4EE99114B33;
-	Wed, 22 Apr 2026 23:08:20 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="RkIQ1vH3"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CA4D9114B38;
+	Wed, 22 Apr 2026 23:08:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1776892101; h=from:subject:date:message-id:to:cc:mime-version:
+	s=dkim; t=1776892102; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=t6Lu79H5Cv29UG2GxLMMRQLK0gy9NI9/AQURP2Ocdd0=;
-	b=diigRvALxdDTtYxjBj/87TLJ0QTEabZT+UnirpBJJgy2fWOuzeiZkfAVWmT5BlCRHWilfB
-	ZffiVVMLJO1Ws/BQL2k9LNskKNDUHU7BxSU9FnZl/KC0RqUnxR7Oyr3lC9WLSuj2GZiewV
-	jHqaWN975RtAlEIhJVXCuxDcIhgntGkrn//ZR/8esYl5lHX4myxMLVxYvoWxCWY5l8CW4z
-	b8ekMq9GHWd+UvjqBvPmwWkHASBZSN0EDvXTJc1V2MvLBF95H49JeswEJQ83u1pPj3VAdb
-	mpM9+hEtjWy19xo6orbS9kI5CNH688eu3NcRuGOiHrUfYDieEf+Xq3agtBUDdA==
+	bh=NHiqOP2KJ37adFNoTH9HdW5j1eVo4s6FcjSokPSfjvY=;
+	b=RkIQ1vH3ByaNS1tbOeNI3MMUa3MsH/+2xEDYsncuwYc5wW3iP5WKjCXVtET+M0BYMzqm9i
+	/MrhTpRv2mJyrdvNPNAsSZRSCoh+q89G+DXFJekuaHDfgNoKxEQ3ZYIwSUbP3PaH32xRJ4
+	Gt8fRxqX5IPWSA52JPbexMPgaIOO7BttJnB2RqA1pdYoosxub6QbU155cnTHvbfmYxFRoL
+	oBybj7YMJZfAp7xyPrtdjbyB1TD4oT+cFV5dkDg1CpslLdefEPGpWCdsZfLkiCBJKHWYYO
+	tL2St/nPMgpLEYACr6wsApKbh8bKTCVzkeQjsWn1LrYaXDgDlEdWo6PgqDszvw==
 From: Marek Vasut <marex@nabladev.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Marek Vasut <marex@nabladev.com>,
@@ -47,9 +47,9 @@ Cc: Marek Vasut <marex@nabladev.com>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] dt-bindings: display: simple: Document Displaytech DT050BTFT-PTS panel
-Date: Wed, 22 Apr 2026 23:07:24 +0200
-Message-ID: <20260422210806.80948-2-marex@nabladev.com>
+Subject: [PATCH 3/3] drm/panel: simple: Add Displaytech DT050BTFT-PTS panel
+Date: Wed, 22 Apr 2026 23:07:25 +0200
+Message-ID: <20260422210806.80948-3-marex@nabladev.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260422210806.80948-1-marex@nabladev.com>
 References: <20260422210806.80948-1-marex@nabladev.com>
@@ -62,9 +62,9 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Document the Displaytech DT050BTFT-PTS 5.0" (800x480) color TFT LCD
-panel, connected over DPI. The datasheet from 16 Nov 2023 is available
-from Seacomp:
+Add support for the Displaytech DT050BTFT-PTS 5.0" (800x480) color TFT
+LCD panel, connected over DPI. Timings are taken from the datasheet
+from 16 Nov 2023 is available from Seacomp:
 
 https://www.seacomp.com/sites/default/files/datasheets/DT050BTFT-Displaytech-Spec.pdf
 
@@ -89,22 +89,63 @@ Cc: devicetree@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org
 Cc: linux-kernel@vger.kernel.org
 ---
- .../devicetree/bindings/display/panel/panel-simple.yaml         | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/panel/panel-simple.c | 36 ++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-index 3e41ed0ef5d51..9c2faeb47b812 100644
---- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-@@ -97,6 +97,8 @@ properties:
-       - dataimage,fg1001l0dsswmg01
-         # DataImage, Inc. 7" WVGA (800x480) TFT LCD panel with 24-bit parallel interface.
-       - dataimage,scf0700c48ggu18
-+        # Displaytech DT050BTFT-PTS 5.0" 800x480 TFT LCD Panel
-+      - displaytech,dt050btft-pts
-         # DLC Display Co. DLC1010GIG 10.1" WXGA TFT LCD Panel
-       - dlc,dlc1010gig
-         # Emerging Display Technology Corp. 3.5" QVGA TFT LCD panel
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index 236bd56208ccf..9f4c907ae044e 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -1902,6 +1902,39 @@ static const struct panel_desc dataimage_scf0700c48ggu18 = {
+ 	.connector_type = DRM_MODE_CONNECTOR_DPI,
+ };
+ 
++static const struct display_timing displaytech_dt050btft_pts_timing = {
++	/* The TYP pixel clock are recalculated from tV * tH * 60 Hz */
++	.pixelclock = { 30000000, 33264000, 50000000 },
++	.hactive = { 800, 800, 800 },
++	.hfront_porch = { 16, 210, 354 },
++	/* Datasheet Figure 3 indicates, that tHPW is part of tHBP */
++	.hback_porch = { 41, 26, 6 },
++	.hsync_len = { 1, 20, 40 },
++	.vactive = { 480, 480, 480 },
++	.vfront_porch = { 7, 22, 147 },
++	/* Datasheet Figure 2 indicates, that tVPW is part of tVBP */
++	.vback_porch = { 22, 13, 3 },
++	.vsync_len = { 1, 10, 20 },
++	.flags = DISPLAY_FLAGS_HSYNC_LOW | DISPLAY_FLAGS_VSYNC_LOW |
++		 DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_PIXDATA_POSEDGE |
++		 DISPLAY_FLAGS_SYNC_POSEDGE,
++};
++
++static const struct panel_desc displaytech_dt050btft_pts = {
++	.timings = &displaytech_dt050btft_pts_timing,
++	.num_timings = 1,
++	.bpc = 8,
++	.size = {
++		.width = 108,
++		.height = 65,
++	},
++	.bus_format = MEDIA_BUS_FMT_RGB888_1X24,
++	.bus_flags = DRM_BUS_FLAG_DE_HIGH |
++		     DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
++		     DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE,
++	.connector_type = DRM_MODE_CONNECTOR_DPI,
++};
++
+ static const struct display_timing dlc_dlc0700yzg_1_timing = {
+ 	.pixelclock = { 45000000, 51200000, 57000000 },
+ 	.hactive = { 1024, 1024, 1024 },
+@@ -5319,6 +5352,9 @@ static const struct of_device_id platform_of_match[] = {
+ 	}, {
+ 		.compatible = "dataimage,scf0700c48ggu18",
+ 		.data = &dataimage_scf0700c48ggu18,
++	}, {
++		.compatible = "displaytech,dt050btft-pts",
++		.data = &displaytech_dt050btft_pts,
+ 	}, {
+ 		.compatible = "dlc,dlc0700yzg-1",
+ 		.data = &dlc_dlc0700yzg_1,
 -- 
 2.53.0
 
