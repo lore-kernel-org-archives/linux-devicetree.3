@@ -1,170 +1,117 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362BF328B58
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 09:41:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6893179CD;
+	Wed, 22 Apr 2026 09:43:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776850909; cv=none; b=ntxT/z3AniY1148sEMDjwrDVxwF2u1iMTSgJRWMwa+yUgU1lUm82fNH1POXDqqJWQv+lJXgQyuCFqoQoWaCQrP+81h97vjALYw5aodAQVdwwO1jkVcFK4LY171uc7JPiVsZNebNs/F4+o4z1zc659PkEOcglOxny3fevVWmDLh4=
+	t=1776850995; cv=none; b=X6rES6KBPDekoHSfl2Gc6K04mqagtNkhp/by6YzcZZxGhfrW3T3AZ/OSMN3kjU4cQuZEwGGHA/guUGGeVdRGVKl36/PbXGVRuy5vwNOD5UgUjX23U1CBs8dtmo3QtPvGquvJbs9IyKapkxCwTyrZy322/fG/3l7XQp8biVT4exU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776850909; c=relaxed/simple;
-	bh=LOI6/LVQn8SD9yPaKiod2ks4gcbjklJzv3ForOpCgp0=;
+	s=arc-20240116; t=1776850995; c=relaxed/simple;
+	bh=NwhBpvrMjhcZ1QYHuKrPIn3Ne+/ARK1VGhWOT4LsTZc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V7m7xhsUv3NAhNdSIBDkfomo1bKtBVsU/uhjyRp52JxtFe/9k0g0b9v4EaL12mtXkK+XIVISDMtrUPgTMfPPVjXz4dh2cwKyE+mYGtr3fmyeA+1iworY64V5i+P65J9f5JYPS6GQ8S/RdqZEe/hHiMcQ0GYmriKcYxzb1q/TLjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JVS8D586; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VGHM9zTT; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=rJY9UBJgnPheJHpNCVOBw8VD/uqhgD0/7PnHia1ZPv3H2oX6H6tQ/cU7wE6t8Y7X1bXe4Nvpq0fgU8MCIh0I3S91mrgMFZHsKLvTDZ9Y9FAASkB4c+WqJR1AKWPkV5n88gV3UC+EjopIvfXKRoQTpYLLxe+V2JMDhjZk3gRsW8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iCjC5Dgj; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JVS8D586";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VGHM9zTT"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63M52a6u2209073
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 09:41:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=ivQ/kw5qwXuL7FDvBnq+krMg
-	WzBUjO0CAiF6a0jDMEw=; b=JVS8D586Q017LvlnWLsj7Rxje7YwF+SN13N8JdHX
-	nXCEw+NwXRgjaRWExieAgefiKGdycbJGEfeQay5toCel/NXuQt0kBEsitjWGC6JS
-	mqv36WlPuXB2HkRr44wSE0sxBytZsAj0QWmctvkgOuhAeZxEy/oC3WJq9n4AwZpF
-	q4JKWKsBxY/2gSKz71FSZaQ0159t0YcF8180+r1vXeRB7AFYV96bXNyknEf7lQnK
-	iSKQAP5cJc7VuIn4oeVerwTCWaF6NWhmzAya1WqWrojIAmo7M+5D1X4oYnPE2Z/W
-	Eo+wuGuQE6kxIsa7so7WBYyyNPbdstHpNAeMrMcFPZ9bFA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpengar3p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 09:41:47 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50fbc70cfbdso32788901cf.2
-        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 02:41:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776850906; x=1777455706; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ivQ/kw5qwXuL7FDvBnq+krMgWzBUjO0CAiF6a0jDMEw=;
-        b=VGHM9zTTb9xA2DZVIArf8JpNqFk8K4Se/pG2KuJBolXx72aDtSAS4GJiiGNoO6TXBB
-         JGftE2MyOtbWuXbvtfJieMTRsqUJPsLn+pRV3iVxocEp2uW0sjPv+No76i9FFHgyfNRa
-         BOyIGWEvs+SGEgpNcYKK+oBQlWaJkpL9UmvPiejLwpynEBAOSM5sj+RzK6FQsupytxSj
-         G0cxtE/za5gBEGruRhw7PkMLeMOjBZslFrH8NT/JZMN/Wr/9+YECL0XQRbOs3Y33WigM
-         ZAqxbbNLSxvYVFdDEYlhVu7nMUtdR88wSTtr5V2G8vQbBSaXRVEeQWb8DieG0FQT5sc0
-         WhZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776850906; x=1777455706;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ivQ/kw5qwXuL7FDvBnq+krMgWzBUjO0CAiF6a0jDMEw=;
-        b=MYZCHE1P/gi30sx+WFbJZxWATwZ5cA0TvA+V+//M/92pDY6uYvLjcc1jMnRQ2yCpLG
-         U6J1eW3MQKc/HUjhymgOu6sUkmqf6aW8H8P3pJ7RELdqp/fQ5aiBvYTjRhHxPYR9yQiF
-         MGfNodcIyIM5KfhB/6O1aLF4yDyS4PEdmlnKuB2pNKQNOelEV5zY2ynVkZ5x/80VY6uw
-         PqjhMWHxdqbIbQ9rsWvDoOWPYRtotEDUGheg2Y3YRCnBDLMpn5z2umpCHBcOpH0r0mmE
-         OKwTJGjh2OFeA0CGCJDJS7n1mcC0ZVa3GQ/vvFZdyHjjnP+Y19k8WTHqBKqk99AvCZRh
-         6B5g==
-X-Forwarded-Encrypted: i=1; AFNElJ+1mcV200HpOdIc+ojcHQRkl7L5MGUp1ffinTSXt6+P2CGE5H+sSSexI+st0Tb6H8hYDRsO5WCgfgii@vger.kernel.org
-X-Gm-Message-State: AOJu0YxoX/GCkJ34BnnS7IkZR7MtVFra9k2pwXQsvUjdQyFUkDLOECa1
-	XAUbteO/25ApYGoZKcjLVTM/cO97at0tzD1ip0D6hcz3GSXhM4hycF42t7QHCfdF2pkKYIdDMSY
-	xZiQbQvMbhPe78kBwRM3aqq6s2JCURPDh5WHVoyJ/zaxLTFUGYIW0396jHG3s1M9d
-X-Gm-Gg: AeBDietZXDK01XWM6fkCZ+2Vv4l5L1zPHpmzDVvwtMlKFRZZCea52jrStPUWLWG7gjm
-	c9Qhp+lATb4b0r/5XCHwhjS+S38wpXbzD89X2DfypH9RjudUWAx59/kn47hW4LdAU42l9g4XUkM
-	LJKKEHK9OvoFuUvHLdbplaZIU1xdlRIwZRmaCU+TSM9Q7fYS1QZLs0o/dam8aR9CUjWG89WhFMz
-	8w2pFlu6hgvGwEK7wUliu8HxgIH0Mp1noKhjZLLo31QMsoBqkZ9r/qTasA3AnUbCSjHV7hKkRpv
-	gSirEvAj7+C0qF6d9JhrNECpJWeMPwgqB0AnexBwu84u6VPyoqzehryRHoQ2XIPNP98s+6ldAKY
-	DfjsX1mLDisxzyJ0VUSvNykODsd21dg9/O7HHQU2vRALvfBE=
-X-Received: by 2002:ac8:7f4e:0:b0:50f:9c32:509d with SMTP id d75a77b69052e-50f9c3258b7mr141347411cf.60.1776850906362;
-        Wed, 22 Apr 2026 02:41:46 -0700 (PDT)
-X-Received: by 2002:ac8:7f4e:0:b0:50f:9c32:509d with SMTP id d75a77b69052e-50f9c3258b7mr141347241cf.60.1776850905907;
-        Wed, 22 Apr 2026 02:41:45 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a5499b0edsm126575955e9.14.2026.04.22.02.41.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Apr 2026 02:41:44 -0700 (PDT)
-Date: Wed, 22 Apr 2026 12:41:43 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] arm64: dts: qcom: eliza: Describe the ADSP and USB
- related nodes
-Message-ID: <p6duntiwahnmxwit2qgegcmqerv3or3h36y5cel36ekw4vkcfp@exmgriqkkqqb>
-References: <20260331-eliza-adsp-usb-v1-0-d8a251be20c3@oss.qualcomm.com>
- <20260331-eliza-adsp-usb-v1-1-d8a251be20c3@oss.qualcomm.com>
- <69d644bd-d64e-4ef4-b0ca-b47103e84764@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iCjC5Dgj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1776850995; x=1808386995;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=NwhBpvrMjhcZ1QYHuKrPIn3Ne+/ARK1VGhWOT4LsTZc=;
+  b=iCjC5DgjAdaeMbqRCzDGmlYChmnUUrP2Kyn9Qh0hyBOCQFJlNthHE4+B
+   j/fbDSdnhEip6b/hoIu2aTmXDZGNWPoZ/5BznX3JUwKSxlQ7890hQmn9z
+   b8FjndbUw2rG2WZ+mKzRI1APO6dpCL4n9tO1pDiJ/FyR2ZYRU0nwF9Bwa
+   UvGRbbEdiE2lTQXa/kRwAXI9Hr2hLMFC2jtsdj0h8VfBWTnyzMhKgpLTs
+   e/mWI+mjT/ihmS0xoEiibsknNLyqOB0EzvEQ3YlXpYY+nDfDcqTA+v50y
+   TMpkW7zd1d+v3kU7HlMJr+Ps3aKLiC1GEzJ1SVrk0TJu2zTNSw3o5NykM
+   Q==;
+X-CSE-ConnectionGUID: JKQ3LqsGQM6rN3zoU0tXkQ==
+X-CSE-MsgGUID: /Xw4Tns6Qiiz+OlEb2b+Wg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11763"; a="95211709"
+X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
+   d="scan'208";a="95211709"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 02:43:14 -0700
+X-CSE-ConnectionGUID: bgH3XRWkQnamXjtfWhOBSw==
+X-CSE-MsgGUID: wo1U15vESyCRvqZgl38CJA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
+   d="scan'208";a="232172466"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.201])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 02:43:10 -0700
+Date: Wed, 22 Apr 2026 12:43:08 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-serial <linux-serial@vger.kernel.org>,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] serial: 8250_dw: Use a fixed CPR value for
+ UltraRISC DP1000 UART
+Message-ID: <aeiYLLXTprlzmcpF@ashevche-desk.local>
+References: <20260421-ultrarisc-serial-v3-0-3d7f09c2420e@ultrarisc.com>
+ <20260421-ultrarisc-serial-v3-2-3d7f09c2420e@ultrarisc.com>
+ <979c9543-3ea0-25de-f97b-9c6d2fa3ac61@linux.intel.com>
+ <177681947637.2697678.10937675549830278979.b4-reply@b4>
+ <aeiKsv3bFPJ94InI@ashevche-desk.local>
+ <aeiK-350Uozq3pVa@ashevche-desk.local>
+ <177685078199.768471.14774992461649696859.b4-reply@b4>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <69d644bd-d64e-4ef4-b0ca-b47103e84764@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDA5MiBTYWx0ZWRfX3RRfPAEmhxzg
- h1jMyMWSNz/if360jUVlL/skkCQdK/13f+BBNh73HsLcu4hJm7vGaDx3D8GA/b3lDbt0UixPIGK
- MWC/m6JSkeXxp9gRaq9zNUzXLAw3GmLP8kdp0MQmmNbkTRPAwzg903HmwbpsUtKGxJLWc45Ojcs
- f0KvdTGUFV3pjYGxBEFrytMBKSS6Acvg0iyc3ipxNi3l//CTpJ8mg9YJXwiIzWwAFTQHcg6E4dG
- l1Il5NHnU8Geh8WaO8+OT1w4L/zHymg7mTpLuNn3OgO8ib8C7hn8d/vFMrjBbvGxPZbsVmzV53K
- lUQR/NskjPTpt6MiLcuLYXBoSg81wBK8AXWqInZFW2IvqumcDP0HIoEZJvYk+TTVt3H9Q8YGZBe
- izueWTz2rzktpmtxP7qK1vKRA+4nHlFQxJ7FVjArCWPQMqJCzqgxumF1qtmm+cXteWr9Qb/jXIz
- gTo5NKpXasXkcEwMKpw==
-X-Proofpoint-ORIG-GUID: pRZ8tO_Cj0OzNEN4Av5itkQJeLiBCY-o
-X-Authority-Analysis: v=2.4 cv=RYygzVtv c=1 sm=1 tr=0 ts=69e897db cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=EiYrS7xXfcF7w+nkr41hpQ==:17
- a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=CyeY8Pqlq_m8jXTRazsA:9 a=CjuIK1q_8ugA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: pRZ8tO_Cj0OzNEN4Av5itkQJeLiBCY-o
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-22_01,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 malwarescore=0
- suspectscore=0 bulkscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604220092
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <177685078199.768471.14774992461649696859.b4-reply@b4>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 26-03-31 15:37:08, Konrad Dybcio wrote:
-> On 3/31/26 12:37 PM, Abel Vesa wrote:
-> > Describe the ADSP remoteproc node along with its dependencies, including
-> > the IPCC mailbox, AOSS QMP and SMP2P links used for communication.
+On Wed, Apr 22, 2026 at 05:39:41PM +0800, Jia Wang wrote:
+> On 2026-04-22 11:46 +0300, Andy Shevchenko wrote:
+> > On Wed, Apr 22, 2026 at 11:45:44AM +0300, Andy Shevchenko wrote:
+> > > On Wed, Apr 22, 2026 at 08:57:56AM +0800, Jia Wang wrote:
+
+...
+
+> > > > Just to confirm: since you mentioned that the preparatory patch moving
+> > > > the DW_UART register defines is already in place, I don't need to move
+> > > > them again, correct?
+> > > > 
+> > > > I will update my patch to use the DW_UART_CPR_* macros and
+> > > > FIELD_PREP_CONST() accordingly, and I’m happy to add a separate patch in
+> > > > the next revision to convert the Renesas .cpr_value as well.
+> > > 
+> > > My understanding that you want to send a patch series of 3 patches:
+> > > - moving DW_UART_CPR_* values from C-file to h-file
+> > > - modify existing Renesas case
 > > 
-> > The Eliza SoC features a USB 3.1 Gen 2 controller connected to a QMP
-> > combo PHY and an SNPS eUSB2 PHY. Describe them.
+> > - DT binding for new HW (patch 1 of this series)
 > > 
-> > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> > ---
+> > > - add support for your HW (this patch in updated form)
 > 
-> [...]
-> 
-> > +		usb_hsphy: phy@88e3000 {
-> > +			compatible = "qcom,eliza-snps-eusb2-phy",
-> > +				     "qcom,sm8550-snps-eusb2-phy";
-> > +			reg = <0x0 0x088e3000 0x0 0x154>;
-> > +			#phy-cells = <0>;
-> > +
-> > +			clocks = <&rpmhcc RPMH_CXO_CLK>;
-> 
-> This is TCSR_USB2_CLKREF_EN
+> Yes, I will follow this order and resend the series in v4.
 
-Good point. Will fix.
+Thanks, and since Ilpo mentioned, move all DW_UART_* register offsets/bitfields
+to the header file (in patch 1 of a new series).
 
-> 
-> 
-> > +		usb: usb@a600000 {
-> > +			compatible = "qcom,eliza-dwc3", "qcom,snps-dwc3";
-> 
-> Does the device suspend and resume successfully?
+> > And I forgot that you have a DT binging one... So 4 patches after all.
 
-Well, tested with pm_test devices and it does suspend and resume
-successfully, but there is this:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-[   54.584126] dwc3-qcom a600000.usb: port-1 HS-PHY not in L2
-
-But if I'm not mistaken, this is valid accross all SNPS eUSB2 PHYs, on
-all platforms that have them.
-
-Please correct me if I'm wrong.
-
-Sorry for the late reply.
 
