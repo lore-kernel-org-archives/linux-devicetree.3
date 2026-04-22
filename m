@@ -1,194 +1,131 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E0135B63C
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 18:39:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E44D84414;
+	Wed, 22 Apr 2026 18:45:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776883167; cv=none; b=rSFf/WO4CKD3BAf87rG0jv/PPmBcDrdB2Kh4yFuQfRufAaJdiJ9mfM7pxvNenzBfcFY0trpdKkymSp4MqrBUthTaglYMetTOoLMKA0daub99HgJspMafWNJZMAPHOXm/P0OKUcEuO3+NBzX9Ga4TSfEcl0RQo/7eZP9Q3GKtg70=
+	t=1776883552; cv=none; b=qnB4HM3TIf4gYaIQtnH/XsXu0rfuYVHwwGUVKySK4SEUGcLvepX90/gjkrfPSZwQXFcvf/IuZLM9oovDHXYYqW2ykz8d+gD+1rI75/11i53Gpw1uBWJnX610tAusPEOIiqq0Rh+BHPtnY9yllMVYyDN37OylNlrae5/HjGOTQrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776883167; c=relaxed/simple;
-	bh=Byw3HEJI3dZ1MQ7hAoE4nHm94wBBnYmzNPkcwewTFOg=;
+	s=arc-20240116; t=1776883552; c=relaxed/simple;
+	bh=hkA5KjlIl5jwh4GkTXHA4vVNwgDxaznRvBx/RdhhKnA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mkB1+1Vc/dXNtI4ptvcZLj7tKbkaq41yBhuOl7vYaNaXjY1Uv3cigkj8h9ZGASmVJ9/7fPm5m+XfvkmGWH6rEcGFgQbE4C014j65JfOGoc54ZxFeVMpXAuaPJWtSfGIUPVuVyp6KyCCEJ0z/vpvIpgqbV4TGdjJxA0rVCoNcYMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hqWJg5M/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y5w7LUQ6; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=U2UkPGcPkGYL780deNI/v00YzpuJdMWC+O00M2Dm31yfSB5J/FQ5DWb0LWqN1LHYuo81KyjozfP268thAmQ7PHvDhFA00iQk0wL7l21h31TIL3eFD8QJ0q9IZOUgo4+rMR78vYDUhtO40S+dZuUlOS3nErZq1YLXPuoWHaXl+HE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YR5vqQX1; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hqWJg5M/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y5w7LUQ6"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63MG3kjg2012125
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 18:39:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	m2/vpE66mfP4uz2lk0mlRo3rInfiNHI7eH+lPLc4PcM=; b=hqWJg5M/6x/mZMxg
-	7SfUXFlyQ0G0yDUtaUTFyiAdF32HQEy8l4vWAQjMhzkY4/qxfiu21cT0xJFAVLoD
-	t4WBzmefAxtL2XuqPXOe3lEIuaqoGyrkXbj50cdYI9JWuZnAfPhpkoRs1D7ZDm/K
-	c9z6k0s2akjJFRTxtQp3mzONWUzd3/Ly/g+F2KZNmVwy5PBOEiYeR/cNZIgKpDM6
-	vrAY+VvzftcJnqBDP7Tl5vhD1k275VphLgdHBr1sMl+ZFKyZQhrK5buAwJS+prAG
-	OZ+ywHew/K/w0H0pR2H1WC8gy4LNJf0TiRAZ+I+3vuAzZdme3OdOKOcKVsdaDg4k
-	zc1uBA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dq1h78jmh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 18:39:23 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50d812c898cso157219551cf.1
-        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 11:39:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776883163; x=1777487963; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=m2/vpE66mfP4uz2lk0mlRo3rInfiNHI7eH+lPLc4PcM=;
-        b=Y5w7LUQ6zTI/swczFWazwCK+rit/LahYEGmh22BReHe2PSQGR4co3cUIpWiLY9RaNI
-         nzCQVRtCdurcwX26CMjuwEQ4rPuNky0cABQhhiEKmKgyT+ja7faaCv24xdtcG/1HLKm0
-         yjuIArSpqTj4trvoSHrH9iPCdp7oM60MzbEbwDxc4/lCm/R0Ql6lrsVcIXAKA7lLYTdE
-         BdP0qopPUCVQG/lzuIlaVByZJqm/0iMpByJzaXjmiuInguWlnh5E8BBuON1sr8xAEN+I
-         STeItd08G+jyEfQ/H+aHiAWkH2lw7a52n/W6BMJrOnR/Dulhwf5RQAGmt9/ujt516HBo
-         lBZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776883163; x=1777487963;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=m2/vpE66mfP4uz2lk0mlRo3rInfiNHI7eH+lPLc4PcM=;
-        b=ljpjZsn+B4X+PlamynmSNQ1BCCcBPdTQntfEE4QGCC7m51qg/dfr6dPsJl7xL7eu4E
-         tvtiqblGcXORxA9wp+N8M6FL2iomLNHwQ3zIQ5S3j8UK9JB2V/OE1Iacmi3MGJPVa/Bw
-         qSAufKEN45G6DSte1IF+ZCvfpznE4TO4l9keDOxb1fXcU+KoR9CWFQWbBflCufe8Y8mI
-         fSu/bwJtVRIew2y0Wjn3CVBBftAsqmB+mAq8LPNaIqM6xnneLqZ62vnvNWqWnqWgUQzd
-         wa8mV08JQpoX/OHn/+EOtqXqslmThNJ4ncvEhM9fLalhjMjIAdbQ4KZwdIaC6UkYfOZ8
-         mQaA==
-X-Forwarded-Encrypted: i=1; AFNElJ+jNH6wp64Mq/E0PtoHXMFiG//UywWy1hRkjvb3RFhDDReEklJtfniiGR7ec18u/sns15hIuoaN8GbX@vger.kernel.org
-X-Gm-Message-State: AOJu0YypmFKD/8CMdXpGIROatZkgWlZOT6u7+NNFs0ytqNgmVvIAecpY
-	e1MmjwqoI/qaenJwJlxEqydo84oaEsn+UzEQLoMg3v3fO/Ic8IGDXdQFCPEWT4qg+85cgQvlNnn
-	Kl+cagWrG6tiyxNN0pFVbGApp+gwwHZ23tWWN0fFYq+0mlU95CN4tMAp3AlfbfUxX
-X-Gm-Gg: AeBDieu7VEurM6N2Q7zAkcSuzlwC6aHchPIuBTIqnXrF1n2+42tZBtpLHnBlgfi+tV2
-	1v4tuWXUSYqAKM+O2ZUwiJb1RiI2UF96at4NbA4gMkTZx60RgdeEgXocJWfFa0iuSBPEP8cjuu8
-	Hk7UWf7Q8ShmVAB7zs6zpPV3uONCx6CNC+wkTeahY/fmJeTTRuU2BXtocGGi7IgRLAxQl7e6NaG
-	8guqdduEwppJ7+zjFunPD/TeomGG85sWB2iAzqO1MycU7S53ugraQl36Qs7q/SgjQIrs/o3Rsrs
-	d+ts9pL3Fivhb/p8QpjdqCZwWIQG53r7O5iUu/2FM2LH6rJvEKxfHIbec9NfGKygeMJw5xQTArw
-	vsPcP+RctCsOeOJSn98VqGBmm2efeLnERskEIChP/dUt02KBgKdnjti/aB9+vrm77XQAWlDBKLM
-	kpzUmpNR4AANzV9YSpr+GdFnJ8chcpfK2r1yL5SJbXXX2LWw==
-X-Received: by 2002:ac8:5a90:0:b0:50f:b2e4:ec8 with SMTP id d75a77b69052e-50fb2e4127bmr129767271cf.7.1776883163066;
-        Wed, 22 Apr 2026 11:39:23 -0700 (PDT)
-X-Received: by 2002:ac8:5a90:0:b0:50f:b2e4:ec8 with SMTP id d75a77b69052e-50fb2e4127bmr129766761cf.7.1776883162609;
-        Wed, 22 Apr 2026 11:39:22 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4187ebe3dsm4571337e87.74.2026.04.22.11.39.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Apr 2026 11:39:21 -0700 (PDT)
-Date: Wed, 22 Apr 2026 21:39:19 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
-        Ondrej Jirman <megi@xff.cz>,
-        Javier Martinez Canillas <javierm@redhat.com>,
-        Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>,
-        Mark Brown <broonie@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-        Riccardo Mereu <r.mereu@arduino.cc>
-Subject: Re: [PATCH v2 21/21] gpio: add GPIO controller found on Waveshare
- DSI TOUCH panels
-Message-ID: <dovqowg4a3aet2f4gwd5lufh6xqopeq5slgyix2bqbf3v7z4fk@b6pwiyn6ppov>
-References: <20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com>
- <20260411-waveshare-dsi-touch-v2-21-75cdbeac5156@oss.qualcomm.com>
- <CAD++jL=zmd8yto9HuyjC8cmBj1oMgOa7C899yo_toP9Q+QJcDw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YR5vqQX1"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 797ED1E8D;
+	Wed, 22 Apr 2026 11:45:43 -0700 (PDT)
+Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8F7BC3F641;
+	Wed, 22 Apr 2026 11:45:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1776883549; bh=hkA5KjlIl5jwh4GkTXHA4vVNwgDxaznRvBx/RdhhKnA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YR5vqQX1RwlqvU3irJVsmTCjnxjrT6BB9Mobx9TN8DuowUioHwsuy9oU1pnpwNL11
+	 1dlH18U+1iqag2bVyl/WX8QGsNBDr23tbm4Y62yq+fUD39OYy8G20AUnr3jzLYs74m
+	 6vfxb5Ccpxy/4VArdBH/MSuXTFo62aj6EQPD8FS0=
+Date: Wed, 22 Apr 2026 19:45:38 +0100
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Ulf Hansson <ulfh@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH/RFC 05/14] firmware: arm_scmi: Add scmi_get_base_info()
+Message-ID: <aekXUvIPb8nkhdKu@pluto>
+References: <cover.1776793163.git.geert+renesas@glider.be>
+ <72e2a0e7a5abda02fe36b3f5851842f7a77b2593.1776793163.git.geert+renesas@glider.be>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jL=zmd8yto9HuyjC8cmBj1oMgOa7C899yo_toP9Q+QJcDw@mail.gmail.com>
-X-Proofpoint-ORIG-GUID: QDbeCY4Om7CcHJs37aOJHOg6FoY2965a
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDE4MCBTYWx0ZWRfXzjlDL9P1Jeu4
- /kiRmdDjpdZZ98BjgcTxOWL9YIQ+SiNlMYGnOSkOQX0kJ+k3jISfw3QgwqvZwksnRNR753+MTVp
- wNABW0iG+5ch0+hDhUH5+jt08WeCV8EnnPWiWTmDKdgV6H92PstV2cNnJ9wWCGho0rKiiROh9I0
- Btwk3HLWQQuDU490Aga5jafC3EdT618/cvB07h/mz3B9guwIn8qN2mQclrylDWqfKPA9GSilDXy
- jBnEsIdVqK2zXxDX1jwzIEjornSLVYx4fMXTlWeqIMGvXy+A9AG6q9j6zHdmcEAXXJoBQgmOMaH
- Ps0KFKUoPbbbYih7mBEyGQ/yyH1jAgoOReMqAdlv5vSNS2Od1zrHo2DrOrnZxELoqqZnLIwK3x0
- S8NsJdfQ0SJZGkmTKjcOgtI4HSHTG+aRHe8Lw+8Uqza+Lbmk02XtJSUZJR7CNZnSrEixefRgQC+
- oDnSkHEi/5r5zpoGAUA==
-X-Authority-Analysis: v=2.4 cv=UqNT8ewB c=1 sm=1 tr=0 ts=69e915db cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=7GRFYvq2Tdryq9sLJf8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: QDbeCY4Om7CcHJs37aOJHOg6FoY2965a
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-22_02,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 malwarescore=0 spamscore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 lowpriorityscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604220180
+In-Reply-To: <72e2a0e7a5abda02fe36b3f5851842f7a77b2593.1776793163.git.geert+renesas@glider.be>
 
-On Wed, Apr 22, 2026 at 03:20:26PM +0200, Linus Walleij wrote:
-> Hi Dmitry,
-> 
-> On Sat, Apr 11, 2026 at 2:11 PM Dmitry Baryshkov
-> <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> 
-> > The Waveshare DSI TOUCH family of panels has separate on-board GPIO
-> > controller, which controls power supplies to the panel and the touch
-> > screen and provides reset pins for both the panel and the touchscreen.
-> > Also it provides a simple PWM controller for panel backlight. Add
-> > support for this GPIO controller.
-> >
-> > Tested-by: Riccardo Mereu <r.mereu@arduino.cc>
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> (...)
-> 
-> > +static int waveshare_gpio_get(struct waveshare_gpio *state, unsigned int offset)
-> > +{
-> > +       u16 pwr_state;
-> > +
-> > +       guard(mutex)(&state->pwr_lock);
-> > +       pwr_state = state->poweron_state & BIT(offset);
-> 
-> Why is this not just flagging the same register as write-only
-> in the regmap and just re-reading that same register from the
-> regmap cache?
-> 
-> > +
-> > +       return !!pwr_state;
-> > +}
-> 
-> OK so it's write-only.
-> 
-> > +static int waveshare_gpio_set(struct waveshare_gpio *state, unsigned int offset, int value)
-> 
-> This looks like it can be replaced with a few lines of
-> select GPIO_REGMAP
-> #include <linux/gpio/regmap.h>
-> helpers.
-> 
-> Has this not been discussed earlier?
+On Tue, Apr 21, 2026 at 08:11:38PM +0200, Geert Uytterhoeven wrote:
+> Currently non-SCMI drivers cannot find out what the specific versions of
+> each SCMI provider implementation on the running system are.
 
-Yes, it was. Using gpio-regmap would complicate BL code since it
-wouldn't be easy to directly toggle the BL GPIO.
+Hi Geert,
+
+Thanks for your patches....this is not a proper full review of the series,
+BUT this patch catched my eye..
+
+Indeed, yes, it is deliberate that the SCMI version information is NOT
+exposed out of the SCMI world, since being the SCMI an attempt to
+standardize a common FW interface (as in [1] of course), you should not
+know what runs inside the black-box, it should be irrelevant...
+
+...indeed the versioning is used inside the SCMI stack to deal properly
+with different protocol versions implemented by the server OR to apply
+proper quirks when needed, but all the rest should be standard....
+
+...you should NOT really behave differently based on the underneath
+protocol or firmare implementation version...it is the SCMI stack that
+should behave properly, transparently...
+
+Having said that...I understand that at least it could be useful to be able
+to query the SCMI stack to know, even from non-SCMI drivers, WHICH quirks
+have been applied/activated at run time...but anything more than that it
+seems to me dangerous and prone to a number of abuses of the SCMI stack
+itself...
+
+(Also...exposing the versions itself means also tracking that bit of info
+in more than one place: the quirk framework and your drivers.)
 
 > 
-> Yours,
-> Linus Walleij
+> However, different versions may use different ABIs (e.g. different clock
+> IDs), or behave different, requiring remapping or workarounds in other
+> drivers.
 
--- 
-With best wishes
-Dmitry
+...abuse like this indeed :P ... the SCMI server is supposed to be that
+one entity remapping the IDs in the background if the same IDs happen to
+be representing different physical resources across a number of distinct
+platforms all supported by the same firmware blob...so as to present
+a consistent set of contiguos IDs...
+
+Also because this should be one of the selling point of the SCMI stack
+in a virtualized environment: you can ship the same kernel drivers with
+the same DT and you know that ID=<N> will always identify the specific
+resource that is needed by your driver without worrying about the fact
+that in reality in the backstage the effectively managed physical resource
+could be different across different platforms, because that does not matter
+if the SCMI platform server had properly remapped (at build time/run-time ?)
+the resources to your expected ID...alternatively of course you can ship
+with different DTs to describe different hardware...BUT remmapping stuff
+in the drivers themselves guessing on the vendor/subvendor/impl_vers
+seems a dangerous abuse...
+
+I watched a bit of the LPC discussions around this (from Marek I think)
+but sincerely most of those problems had one (not necessarily simple)
+solution: fix your firmwares AND/OR apply quirks in the meantime...
+
+Sorry, I am sure this not a welcomed answer :P ...thoughts ? 
+
+Thanks,
+Cristian
+
+[1]: https://xkcd.com/927/
+
