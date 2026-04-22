@@ -1,172 +1,159 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E55F3F0A88
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 20:04:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC39367F2F;
+	Wed, 22 Apr 2026 20:06:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776888259; cv=none; b=q2tOy81EC3s6owt5Zo8SygyD1fnH+57zKK519MC5NtTxaYx4fsPw3ee8In3xvz5asatOLI+0z/oGHpvVl+ZgpNM0BQlHAcrLMS2p+94qs5BcwErODHSBvQGm4/MCZ6fAnLnugsyMTn+CgQ/1O430TQctyW6pBNcdEO/HLMIEKUU=
+	t=1776888409; cv=none; b=XW8EFiVGcc+9wuOTY2LNBqkgoqcyo3zCQGB6EGDsW938tnelE0DsyUK19/tYCM7ucSm2islxOO/T+1C1s5wEFwRuQE07df+DU9IkU+HZ5n/ZGsOJMFsDA+eK5KfLJLD2YxfVVMuw029wDsrSp2KQVplXnOLwmyEsCCCQ/oNsuMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776888259; c=relaxed/simple;
-	bh=Vw5lbIz93bfPivnPlgZTf922sy3wFpATm4HMbXkasxA=;
+	s=arc-20240116; t=1776888409; c=relaxed/simple;
+	bh=ZIT81DlZ37wtYqn1aWQS5RIPAmNIvyXQ9LiCSNe+AQA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cuTkCx84IalYZQi5fLTTiYJbhzhN8vVCfLJ7VhKIMKlzxMfZflINGO7t/V4lYcuIHjo0dPNX8ftzQZVxp2hoNeQdKFG87uwHyqnGz141MswDufNZY4MUqTkdObuAgyGqPPY0R1BRvqxss6ttmvy2EVfY6kLtKnuJ3t9FaTXgTjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YtLDY9uF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IgovRglL; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=AFCNY54JRhfBnBGXF4fJoLYd8IYi1Qv3OpnzSmbkFgT7rTwsDAse+KmuiqWqjqR4NDZxVmYdiARHrH2+NUlQ83hITrOy93RTtGZoPimFl0JZItVz/KuG78Fpbi1urBAeFfYLJe/RSkPv3cFvsbaSEwjvFRu9+WWI4e3h6fMOVB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KzwOor9+; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YtLDY9uF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IgovRglL"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63MG4kig1587763
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 20:04:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=TWNv/n77xtlQNACjJ3+8jJLY
-	WYV7KxtU3j5KJIFZm9w=; b=YtLDY9uF5xOkCoR8E3Hapt6dWg8lw9y4CViURo4X
-	3sj1xGiBYjfiOlGRP6eA/ix80qQtgSD5BDXQ3OUdZi2TY8vDwvtnHONVZG5N4Mtp
-	Evjab88v4Ddg4qOo+pRr/xWx9Ns8qPgqG9+E9Y5FUY1c+m9NyDi490VZ+5rT9V3X
-	rNy5DzOcpX3JpNZdLuhslsk3tCP+DLqiJIYsqlrsEn3PjEuWX87GqgAERsSGEPLs
-	4Q9NPD4F4ixz33UAUspYkKvlTw16b6m5PgJ3Hig/XunesxrltP8r2sSMMsafu2is
-	qNEkRl9ZPlkFePAbtM2xVw8xZtpC76DJp4eX5vb3NdhhPA==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dq1hq0udm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 20:04:17 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-953f37beed9so7161397241.2
-        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 13:04:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776888256; x=1777493056; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=TWNv/n77xtlQNACjJ3+8jJLYWYV7KxtU3j5KJIFZm9w=;
-        b=IgovRglLjqALlavWRYhryS09AZfjTpUyQgJZvl5VWXz3kRma5ipHqIJlski6CIlXtu
-         4lCkRaR9TqzZxGL9HQaTCtf+5AZsN8okA4UlztxlaRh6pmY9DbJGLPq7gmKzPSoNyo5V
-         qPsROGu4eN6JFKo9Qndiw2Zbf2YnrUlLQPCC8gNJpO9E54KFvVKe8VY7O4AZbP0WcaEm
-         SHBol4kMEsW2iKDBlIiwnmzUAKb2rzp49f1Y/RL8NJ+UA8/4mY+ErZ7WyizGV0U37hJ3
-         eCocGU1RM3QOuh7wHHnNaLDuv43OSkf+j2Tf2elJRQjWPJgo6DjsjHM8DK3o0zwRsrLv
-         In2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776888256; x=1777493056;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=TWNv/n77xtlQNACjJ3+8jJLYWYV7KxtU3j5KJIFZm9w=;
-        b=CDnamNC0CRme/ZKQ7xv7zxV0THUuAufKndOTjopoyRwQ1skA+9K++2aby62k2ARvrd
-         SdizTh1/u5RnYbYpVY8hOqQzTdFS1GjgvdaczLRZY1NFdheT5SF1ud5sdFw7RgdCJaSG
-         PPkL5BGmmNuWIdvkLNu4ASeybtt4V07xIwiFlTKOst7GmQDSrYL/9k6mOb2rUWiMhgLZ
-         hWSI8WZ3T0giIUa4mH/h3k6l6xexiBxaD/rEIGfgty9hGkHiiv1GbvGTp7KLEa2YHuW6
-         csS8q0W82Yj+dndMpyl2bYR8uRvfIGipt2xbPDvh3NN3QiwTnncW9YSNzXpkbeXzyOB6
-         1wvw==
-X-Forwarded-Encrypted: i=1; AFNElJ/qDyGYyc4i//k5tzSGtwBzFFX8Jl/XSbbNNwgzJKwfgrMayk7cefI2jiBMwxjmya+QvSksqd+RVuJc@vger.kernel.org
-X-Gm-Message-State: AOJu0YwRKaocWHoOx6GxGLaWBFWN29jMyE5HomKcWCZ+6l2zUrNGYVm1
-	5GJhNSAyEEfpVYDiMEOIry5Jh1qxhV3Aw8iMuKznwX9RPrBRklH3spGYXRqQsm4ZTOxM3BHVVPu
-	oc2wvDRLSICkDk+a06bdzKjTXvGRqcFMApf4bli/rgAw6/m1O8fdTPFixRIAQzbN0
-X-Gm-Gg: AeBDies4z0V8zlw8WidvyFSKDAaA4LoMCX/rxPJxKzuPCc3nb3HhpQ9p7+AfnHxbuuA
-	GFsGOxUgyo3F1KHNcsytHWVEVsIKeN7HqqJLc9EBJqMwbeicozngtzYtEyoptrR1p4a0HmAqq1v
-	glZSCFKrJ2p6BP7e0mzP++hT4Vtrwfx6bdBxFUJqtcrp5UGuLMwfxbswGJh2V78R8joHSuVaXzs
-	u9715B8kaZkuJ14eOq9CVjHsd8ZZXW01MDSdLqMR0kS+xfez5O+02K+91ve8GosgSKZ1uUTJnvY
-	nld1fDmcBVqnEf3h3JnkG2HPBfXDauEFJrz8wVO7/ePJ3tTPw+LFz+A1/MtQMeym4+Wmrx6C33l
-	iKOhru+EWlt0ngHKZrCb42ngloThSWmjCgXuS5g9ymik5NxNLh0YUwIhT7z1wumicXNvVlKE0g6
-	lXpujzlYkVgQmaBysC0m6zQtfsiP/exSeYJnICIL7tflAWvQ==
-X-Received: by 2002:a05:6102:f9e:b0:609:4d86:77b with SMTP id ada2fe7eead31-616f73fb077mr11984433137.24.1776888256334;
-        Wed, 22 Apr 2026 13:04:16 -0700 (PDT)
-X-Received: by 2002:a05:6102:f9e:b0:609:4d86:77b with SMTP id ada2fe7eead31-616f73fb077mr11984380137.24.1776888255894;
-        Wed, 22 Apr 2026 13:04:15 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4185bc25csm4689196e87.26.2026.04.22.13.04.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Apr 2026 13:04:14 -0700 (PDT)
-Date: Wed, 22 Apr 2026 23:04:12 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Sumit Garg <sumit.garg@kernel.org>
-Cc: lumag@kernel.org, robin.clark@oss.qualcomm.com,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-media@vger.kernel.org, netdev@vger.kernel.org,
-        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-        linux-remoteproc@vger.kernel.org, andersson@kernel.org,
-        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, sean@poorly.run, akhilpo@oss.qualcomm.com,
-        abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
-        marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
-        vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com,
-        bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
-        andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-        kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
-        mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
-        mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
-        jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
-        vignesh.viswanathan@oss.qualcomm.com,
-        srinivas.kandagatla@oss.qualcomm.com,
-        amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
-        op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
-        skare@qti.qualcomm.com, harshal.dev@oss.qualcomm.com,
-        linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v3 10/15] drm/msm: Switch to generic PAS TZ APIs
-Message-ID: <fuypqlwseulyvlsgiq3dnh3kwhernjid2yqljiwmrxufzfuukq@mfy343uq5gs3>
-References: <20260327131043.627120-1-sumit.garg@kernel.org>
- <20260327131043.627120-11-sumit.garg@kernel.org>
- <aeduRrAMOAW4f5TU@sumit-xelite>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KzwOor9+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1776888407; x=1808424407;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=ZIT81DlZ37wtYqn1aWQS5RIPAmNIvyXQ9LiCSNe+AQA=;
+  b=KzwOor9+Gs0IRQ+sLJeBfpNnBro9/fYFN84pRBlFp0uSVOtk8RRStv6f
+   gwfE4bKa3+Yp8EXVwTTsFHAmAfKg3PwKPXq6eG70VDwP5vUDwBCAt8LNz
+   C6DJ8HSFZcMTeC0PAJb6CvZBkS3fU8rqa2qibpjDDzQcZJnJTZobMXJf8
+   REzSZRDcFNdh+6dGNxIavUZ/8DqHpRK+BVVz5oGBb4P2Mtim565kUBB57
+   tsUXa618TB6dQKWZMcWGHVne9/qi41OqgD6fFQYthJgolnJ6kQGfj2IPx
+   AnH86Z2AZxSKPjXo00+UOg2vD+RD3fFx2u/QaWcXlkfsD6OIHrS+qcrNh
+   Q==;
+X-CSE-ConnectionGUID: kEFBrbvMTNCuk3ta12e3Gg==
+X-CSE-MsgGUID: p/4RmfJpQ8ekJNxH7ic9Mw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11764"; a="95267366"
+X-IronPort-AV: E=Sophos;i="6.23,193,1770624000"; 
+   d="scan'208";a="95267366"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 13:06:47 -0700
+X-CSE-ConnectionGUID: tcFLxd7bRouv2J6+oEoLSw==
+X-CSE-MsgGUID: yeoioPuOTLeu9f7RhZcchw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,193,1770624000"; 
+   d="scan'208";a="228108545"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.201])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 13:06:43 -0700
+Date: Wed, 22 Apr 2026 23:06:41 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: rodrigo.alencar@analog.com
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Michael Auchter <michael.auchter@ni.com>,
+	linux-hardening@vger.kernel.org,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Subject: Re: [PATCH 17/22] iio: dac: ad5686: update device list description
+Message-ID: <aekqUXej04Dg8wk2@ashevche-desk.local>
+References: <20260422-ad5313r-iio-support-v1-0-ed7dca001d1b@analog.com>
+ <20260422-ad5313r-iio-support-v1-17-ed7dca001d1b@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <aeduRrAMOAW4f5TU@sumit-xelite>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDE5NCBTYWx0ZWRfX0TXy17Dweq4y
- /mL7XwyoO/MAhCcnUjxsp4C2pJQZr3/cPbXnbD6uMWIVFkxENO2KHMSM4UzSKUwBU45Rys2Vnsx
- TDXj8hg8GEAWliocw7okUKpVWLDYkV/0GDkIPjcHSUwR8mjlIFknhRmbOSVxxw0Chqxn69zagXj
- gLpDwJ9RtExB8AAzw+IV/y3AmeYeCV3ONB99/iVmYs9Dq94bFGMSHse6aHmv3YbQ9Sbj5SZwQgW
- FaGLvMNmaeLCaw9SSNsgULOED3cSUyG5vljt76YjU3VeUZOUlO+XOlFAQRbu6Yr1rIk92yNftBa
- kQ1fehEcrMOOkGpFfL3ukwQS+iUsFGEnZOYPGtrwD7gydUHt36Ht/+VQIgRaexlahOPQJ3AwoW2
- mfSUL/KejZ2rmUfmyZHKSCqy2PNN7Ja7GwoUfQum/8MAIi2PIgBhclDFdxxiRjNb9u6mktsQKIU
- YaFwz83J5I38ijRG4Ww==
-X-Proofpoint-ORIG-GUID: 2QjiUZYZDK3fHOBi6ytB-JBGxI6OOBmb
-X-Proofpoint-GUID: 2QjiUZYZDK3fHOBi6ytB-JBGxI6OOBmb
-X-Authority-Analysis: v=2.4 cv=TJt1jVla c=1 sm=1 tr=0 ts=69e929c1 cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=dgZ2eqGgcVFd7X0fNysA:9 a=CjuIK1q_8ugA:10 a=TOPH6uDL9cOC6tEoww4z:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-22_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 priorityscore=1501 phishscore=0 clxscore=1015
- malwarescore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604220194
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260422-ad5313r-iio-support-v1-17-ed7dca001d1b@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Apr 21, 2026 at 06:02:06PM +0530, Sumit Garg wrote:
-> Hey Rob, Dmitry,
-> 
-> On Fri, Mar 27, 2026 at 06:40:38PM +0530, Sumit Garg wrote:
-> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > 
-> > Switch drm/msm client drivers over to generic PAS TZ APIs. Generic PAS
-> > TZ service allows to support multiple TZ implementation backends like QTEE
-> > based SCM PAS service, OP-TEE based PAS service and any further future TZ
-> > backend service.
-> > 
-> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > ---
-> >  drivers/gpu/drm/msm/Kconfig             |  1 +
-> >  drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  4 ++--
-> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 11 ++++++-----
-> >  3 files changed, 9 insertions(+), 7 deletions(-)
-> > 
-> 
-> Can I get an ack from you on this change? I expect this complete
-> patch-set to land via Qcom SoC tree.
-> 
+On Wed, Apr 22, 2026 at 03:45:51PM +0100, Rodrigo Alencar via B4 Relay wrote:
 
-Acked-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Update device list entries from comment headers for both SPI and I2C
+> driver files and under Kconfig help text. Adjust comment header for the
+> core file as supported devices are listed elsewhere. Also update Copyright
+> notice in comment file headers with the current year.
 
+...
+
+> -	  Say yes here to build support for Analog Devices AD5672R, AD5674R,
+> -	  AD5676, AD5676R, AD5679R, AD5684, AD5684R, AD5684R, AD5685R, AD5686,
+> -	  AD5686R Voltage Output Digital to Analog Converter.
+> +	  Say yes here to build support for Analog Devices AD5310R, AD5313R,
+> +	  AD5317R, AD5672R, AD5674, AD5674R, AD5676, AD5676R, AD5679, AD5679R,
+> +	  AD5681R, AD5682R, AD5683, AD5683R, AD5684, AD5684R, AD5685R, AD5686,
+> +	  AD5686R, AD5687, AD5687R, AD5689, AD5689R Voltage Output
+> +	  Digital to Analog Converter.
+
+Still unscalable and not much readable.
+Can we rather make it groups like by channels, or just by a few numbers?
+(Like the below example, but I am pretty much sure it's still far from the
+ better alternatives)
+
+	  - AD5310R, AD5313R, AD5317R
+	  - AD5672R, AD5674, AD5674R, AD5676, AD5676R, AD5679, AD5679R
+	  - AD5681R, AD5682R, AD5683, AD5683R, AD5684, AD5684R, AD5685R
+	  - AD5686
+
+...
+
+>  /*
+> - * AD5672R, AD5674R, AD5676, AD5676R, AD5679R,
+> - * AD5681R, AD5682R, AD5683, AD5683R, AD5684,
+> - * AD5684R, AD5685R, AD5686, AD5686R
+> + * AD5310R, AD5313R, AD5317R, AD5672R, AD5674, AD5674R, AD5676, AD5676R,
+> + * AD5679, AD5679R, AD5681R, AD5682R, AD5683, AD5683R, AD5684, AD5684R,
+> + * AD5685R, AD5686, AD5686R, AD5687, AD5687R, AD5689, AD5689R
+
+In the same way.
+
+>   * Digital to analog converters driver
+>   *
+> - * Copyright 2018 Analog Devices Inc.
+> + * Copyright 2018-2026 Analog Devices Inc.
+>   */
+
+...
+
+>  /*
+> - * AD5686R, AD5685R, AD5684R Digital to analog converters  driver
+> + * Core driver for AD5686R and similar Digital to analog converters
+>   *
+> - * Copyright 2011 Analog Devices Inc.
+> + * Copyright 2011-2026 Analog Devices Inc.
+>   */
+
+...
+
+>  /*
+> - * AD5338R, AD5671R, AD5673R, AD5675R, AD5677R, AD5691R, AD5692R, AD5693,
+> - * AD5693R, AD5694, AD5694R, AD5695R, AD5696, AD5696R
+> + * AD5311R, AD5316R, AD5338R, AD5671R, AD5673R, AD5675, AD5675R, AD5677R,
+> + * AD5691R, AD5692R, AD5693, AD5693R, AD5694, AD5694R, AD5695R, AD5696,
+> + * AD5696R, AD5697R
+>   * Digital to analog converters driver
+
+Looking at the core description it let me think that that has to be in i2c and
+spi cases as well. One may deduct the list of supported devices from the ID
+table(s). This also increases a lot readability — instead of searaching in the
+monolithic list, the ID tables are ordered and one per line. Much easier to
+find if user's device is supported or not.
+
+>   *
+> - * Copyright 2018 Analog Devices Inc.
+> + * Copyright 2018-2026 Analog Devices Inc.
+>   */
 
 -- 
-With best wishes
-Dmitry
+With Best Regards,
+Andy Shevchenko
+
+
