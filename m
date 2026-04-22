@@ -1,230 +1,492 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011054.outbound.protection.outlook.com [40.107.130.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55AE131E827;
-	Wed, 22 Apr 2026 03:56:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FCF41A8F
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 04:41:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776830219; cv=fail; b=phDKE3FQEj+U+WTapdKp3p9fB7qT6tKNOzvotXeUpR9EyoCGnXkM+ttxOUPCQP1K0rWy82bsVsRdzUsnWIIueDWKGcRhLm2gsgkxDa9V/4qWhLizK2OrGYiNlRpgn7I9l/ppkIjTcAsk6knj3wutTclGJvuMiYOrZbrIlGnt04A=
+	t=1776832888; cv=pass; b=Aa9LDUBYmWoTtYpvLLP1LundlCgyCKoCK0+bASOVt9S2ikZ+KIjxTLrSYaFcBKBLPJoyu8tsBpAWMkPpLyPKIaK36H7BzghNUqLHnKeqfQQHFZl6bZ4DY1iiURWcLFLLrYu46CfLnGpbcbLDTkcPBzepbVNdLtRsXVQhpUw1hOU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776830219; c=relaxed/simple;
-	bh=Pem/NkrrdUD5Vi9HCdRM48+IDIcfrHwBRwatBYWFGCk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=d3DNWKBjCp7ppsUp5eq1xjnJ4pWKjMul7J9/oVL1urp211HG+1vXk/sENfZczctWS+Jf6D9WQAYiuEbsZ4Do81qQiRuCAd6+WglsKaRt2fY6DCVpa6PmbcF1K7IGa6PUog+11hlBYUYf0YqPNwwIWNrxsOzNYqkyOW2LFBrWP4k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=QjFQJEx7; arc=fail smtp.client-ip=40.107.130.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	s=arc-20240116; t=1776832888; c=relaxed/simple;
+	bh=2umzldVIUFT0Y6U900CA5hckNw27iNnjjyUTiyO0AR4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GkpCDjbRueowASuPC9D4uVoyEuIF2q+tnUWSo8P8lm3qxKLLxgDayZl9EI1GKFjoi8ebERxESFEC+T8BfpbkogtnVpIhgnwswA+zi5xav3uR6ecidFFpKx6yxCGfH5Y5tbObuAItTKGZSM2UB55o/JwaLClBzO/fgOqX3tL1aEA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IAW8hvta; arc=pass smtp.client-ip=209.85.161.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="QjFQJEx7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=N5lLv3DJFAsD2z/jUri57AvqWWynOWb27tVaSsmcBhgurJ8sgdx/DTnmcizUssWIG8LUC73uHsJsnLyUvWRtfAdkdVJbGrzSmPfcUfPY5Na3jiG+dAvDjs6MiW4Bvp/qtxgjsSiC2/oNiXxLnyMOmWm6qJvLqhUwOveHlgKS7JHVjdVYE/zvCBDBzUgGQaVXSGmAPxIgT15lG1HHXGt4b0ulvV+8wJ6o90EWVSIWOgJGUKyBEsuBuUBdwOfy5H/znWYHbBGMXTFwCthMg/PaQRLDxt/KMlhht/hB17/2GzSHMBNAKiHIVtU0bqu1gQdmm1BxFhqS0A8zCzxm4NrC+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/LJkj2FvTQ1BNtpVHnwLLKCjNLJTwG1GyevFvLluBU8=;
- b=sSA8N3FkpslN9k9zfVBs+yJf/5/4hj8NZnQWrkrZIsfW+hT9zne4JXPRABaTtAzyZafiSPv0TfkcSChH2CoBKPRwCX/Hv/k9ayUX3v3mXwV1Q0JFZjvvBtyva3oCV23zsuIE/sglFrvd4GjKGN/h0pTls/UCNbcq1o8LXudxHEKrPmg4wYfhhVzXKq7ej0H4BFxGczW4Bq+3xpRos1OXj1rpaTZv9lJuR0NmcEv48pTWaa9IYexkpMLi37onBYs32Lad9P6CMasFknrBCTaw7e6ajf1binqH/x3EMA1+jbs+qVQg7rs2J/NmnHeOVlGPNCp2dUSUzRcr443wdN6DLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/LJkj2FvTQ1BNtpVHnwLLKCjNLJTwG1GyevFvLluBU8=;
- b=QjFQJEx7oo46lVwG+qBL4mEbszXAdNME4im1BTRJb5+GwyFxPXy3tQMW/IMgSpHjbs8X3g25e5C8j6EZ9kJViQleNFeE+dEbAHonFLESjYSCt8CdCzBDCVOQRy9fwXmymB0UB51xEF4FF0YLHtgPiB87+YiNcrVq4cSnO6KRKv1gO32J/DnJw0KWul9iwpJaWuXqiPRd9CHfIxjk2RBApgyWBUYIcmg4NYSLZ4lGZYczq6kahZSEmBoFogDZ8ohxvxlb3dDkk27LprwZOUPgCVJUfrhBgDReqONYNEg6/i8PBnjWB0tlh/Og2CWBKC2JdZrmChcPEyaFcLFgbqlyMA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by DB9PR04MB8378.eurprd04.prod.outlook.com (2603:10a6:10:25f::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.18; Wed, 22 Apr
- 2026 03:56:55 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9846.016; Wed, 22 Apr 2026
- 03:56:55 +0000
-Date: Tue, 21 Apr 2026 23:56:46 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Jacky Bai <ping.bai@nxp.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH v5 3/4] thermal: qoriq: workaround unexpected temperature
- readings from tmu
-Message-ID: <aehG_hBSostFyhNg@lizhi-Precision-Tower-5810>
-References: <20260421-imx93_tmu-v5-0-05ea1969bb9f@nxp.com>
- <20260421-imx93_tmu-v5-3-05ea1969bb9f@nxp.com>
- <aec_TlguJkc4A1qN@lizhi-Precision-Tower-5810>
- <VI1PR04MB6861B0C33CF3030D6C9293B8872C2@VI1PR04MB6861.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <VI1PR04MB6861B0C33CF3030D6C9293B8872C2@VI1PR04MB6861.eurprd04.prod.outlook.com>
-X-ClientProxiedBy: PH8P221CA0048.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:346::29) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IAW8hvta"
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6948fb494a0so1238680eaf.2
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 21:41:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776832885; cv=none;
+        d=google.com; s=arc-20240605;
+        b=MAX4t9iop9i0LBFYNkeEWDcE0rVn6JFOnRzCtN5QXo3XxEYz+IR9CaVWi2tzPaV7my
+         bhe2jhnHgosvGD1L+bWC+O7laQxWTjFHh9NsZTRqnKx4bXFDkQdozcW3IQg+YfAoiMAU
+         43r5mkaOIbeS0OO9kIrXFqVWSqmbZ403xr6M90teAXtBDjMqU+Ma5VeTYUro+qkuVU1n
+         gRei2NEx79p+AXCLWhnbfA/PtOYUsxSi7mod9aZc46waTXNvvrBM1glSSlHVTleqgyjd
+         QJ4918C3V9L1G8yfYG+two8QyuIL7DLhTefYFvYEfisxInGsm33TSkhMhYaOQcYQrTYU
+         XKLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=iqpI2Qga7qV1SoO0DpNYUT1AHnLY7neznziWT82FXjM=;
+        fh=+JpZ32YxKLb6jkcpzvvkYWzUKlSLz2hO40Nm7UqbmkI=;
+        b=K6inhgkfLHAl23tfNLsjUIUV1XfUsQjjVcs7DCC+JRlqvSShSZDPUjtNb4n9eYrvs/
+         nTCkWQkEyArhibXEPaK8REG3VMempsUgFrBs85cuZmXiukVAEV+ai9k8pzv+YjGmYUcV
+         YtPi4O3SxMafJop9MK+8CUWU8cXGqhvWael0QNkEyBTATFzDnsHbVRJzsrb5VmhHsl2h
+         Tr4RDzbMjKCCV4RanbcmiTIRcI0S2U4hZr5JmTV48qJ6oDqF6B/0e/GULBLcH/eeeEkg
+         nKQGxTvJ2jbqw7+u/Fz2EQsyNBHj3twC482oUxvR5BJuEpjIFe44+IKcEBz13H1/JG46
+         VUcw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776832885; x=1777437685; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iqpI2Qga7qV1SoO0DpNYUT1AHnLY7neznziWT82FXjM=;
+        b=IAW8hvtaSZ+VV1ycZSkDepJdH4hKSy+DXfF8S1CSOaxjOXuRQGre4FqGKM+pDZKL/C
+         /cwcXBRUHCjgNesV6ke8j8V2q7YZp3QQZ/VZd67tcVIeBQMVz8BVUDwpJ1rjakWQ5XOF
+         Xjzas7KfPxoXIvma3NDCr1OLgeGtKBteaYtENoG9q00Wr16UkWvJCk66TcDvd9mjE3ga
+         MFM0dT9G1283xLvsbhfTGnRTvvVQpsUGmn6szAD38XyP3sRY4GeIhr/kyv3uF+tcL888
+         gzPJVVtzfyKwqfKpBL/Gv5qEDr9t3sIqwBMWQQEvCA8C7gyV2sBd1t3lPy/65EFZOzdk
+         fiVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776832885; x=1777437685;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=iqpI2Qga7qV1SoO0DpNYUT1AHnLY7neznziWT82FXjM=;
+        b=MSh+MkG3Q7Ya3Uer8YiC0UAZ6JWo11UxCk76tPs4iciWm0fXj0Ahg8cDd+AXbqWaoE
+         4akEDKel9xBa1KmoN9iwp0lG1Ezyvb+H/oM3143JyApRFwdlUmfYK/n7NByA4I2CrHRJ
+         NeImGwl0/WLE2Xxv83MYNWWkUHObPYAObE0Q1fETmjbUawrEPBJuN0h9yF2AnfpxC8pE
+         qXfCEoYoNpX4EOF2bcrRKi4G5eCbuoF1nKCWqcITbmAzaN4ayxWRj7C89zVSpbkvJ5ZI
+         1CrgR4WLyMPb6+QkB+6m6a5aPbbszTZluUnuw8TR18DgECUlkhzojT0T06sK3NykycS8
+         U3+Q==
+X-Forwarded-Encrypted: i=1; AFNElJ9phjmbJkdJiTBAaNhTdUt9x+ospHPoimVMMNaOWR5leYXIchtKn9buTahWayidZPAINCHRU6aCU2b/@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3xFKa9LNbGdnXPbVGHbtYHgIPqJ1FWIwgGtSGBU15HYKtxhom
+	xTB+EGIiaJbZsyORZ4db+PpIPpr+f2zzWetQCOrfYrMLas9dmKFLTJ+euEzW5WKjOBJcCDPiYKZ
+	jXIKqp8P4PZ/FEcx2zyP7xUGRLzIX6JXg+Ku+
+X-Gm-Gg: AeBDiev4ZPVpvAdVfJEUl+XRBfyogaOSSZTEG6VqSe6vFPPP5xw+huu3jen5fG4GSeN
+	g5C70hFFbY/mN8IQTEFXlESRi9nbMJLII+HQrGDtZ3RzasAiUTubefZHLaROzei2+xEctezDy7P
+	0jojXJvNh7hdbI9+YfxCj03ZKUYDAmmokiTY0jZhFDauKc/oba6BF33V1jyu88esd805pDYc5g6
+	d8nZqFtSgSadQVdVcF2AkuZHJzqP3DQC7NWuS1SfvhDpBrf5xO8S2mTphS3duhrx/x2KzQ2BHzR
+	SlXDBtV8CtOdaztx
+X-Received: by 2002:a05:6820:81f:b0:694:9f11:c206 with SMTP id
+ 006d021491bc7-6949f11d12cmr2180362eaf.43.1776832885315; Tue, 21 Apr 2026
+ 21:41:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|DB9PR04MB8378:EE_
-X-MS-Office365-Filtering-Correlation-Id: e72fb94f-9570-4288-96ee-08dea0233185
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|52116014|376014|19092799006|1800799024|366016|11006099003|38350700014|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	8+LKTGAuk6YTVlTUC2FAsrZbMFj9Sz/22fTlO9JzOhlB4p2grS/UwHrddc7QLDeTxrnY2Nt/YyffD8tHNecc8F7AgXcsqOmxSo27HyGHT4Wq6r2hijcXCWtW0BwJJVNtfyAUMYfSwb+37YxVtZdA/JA48rVwj+umeJ2WNLV9sQQ9x+9wu57C8CJIsPpWa+1Qg/rPuIcOsjG3hCEKYKBPs+USBd0/sN9lZ32tBGLx7ylgqVukSReWFq1d9GV6o8oGjzseNUO6GJlsa0nAQW76ugKASB/2CdDoSNWGfXQMpEpGg5zcDU2gYNE7MOmzk/DNZySUkiimp/AJNFti9gsNGd2af2Wk1WuUjcpiLEG3csh8zGiq+TFYI0E84dkhjxpTnJDrn+LDXUWurEba+HLGh7bzXBmC8WUnBBeaJ798CWhjfotBwzoyo0iWNg6Adm/qgqldBYcg/43uADevMZ6y6kS5qKalShkx5VgtNudV/UReJD6aj88WZuYRxsU+0R3Yzj0OH63L48LrdzmT6hW7O6OpGrBi9scQWTze5AI6dKoyrnpSfDSik33JBTUpvzQypxyLYVxdKSPO9QKhHI6b2zLK+zJt6C0TAXLptVaw8BHJVdwN/8jWSK2UY+X/JWF3vcNPLEdEf82sMXHXhjtTOLUnjXx63YRmr5Md4/3HzOA6bVXvG6vTqfruVEHpglXn+syJ9TX0uUMzAHqzb1snyhczp5T2u2DUaD90Tohbz01w3P8M329ZYt1KAi/pX+lptPCBsJExFCEyy9ADYx9Sw5AW+8UP6+CPmdD8L61aoGI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(376014)(19092799006)(1800799024)(366016)(11006099003)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?1HGHpckfymjjq2ZH3nK47IWQGCkrW7Qr1r3sMNUxG1ATomP7QV8DdcYEuwVE?=
- =?us-ascii?Q?pvFIJmmQp789DKILuw8fOz2TpfFdbb1IOI0tF7lFsJj3Pnijt4o7Qp93ZUzM?=
- =?us-ascii?Q?gtfuRhUPyoK6v7eOIqZkQP1koYRzGurOO7bLI3FlwAp8EEvECtNtDldCIRVd?=
- =?us-ascii?Q?I4oGSVkEaKGwNLAMbl6zHGL5rlWO16oetZ7t1SqLyraMa/lqqlgr03a25Dll?=
- =?us-ascii?Q?cSBex7AH/g/M1GBQDXqZK7oE2TnvrPiwwyyLyMVGwhZjNiUk5jqAcDYp9BGX?=
- =?us-ascii?Q?QH0uPO4ZXRxTlLmU5i/nrG6wQs5htdwvOnx63uIz66+Llxuih+ZNGuisZsiY?=
- =?us-ascii?Q?qgSU7Du7DJWGwqr4R9G7Wx4hAqxr3KkKHrQDB0F1kO9/TPaOsMMzuTNWEyTc?=
- =?us-ascii?Q?JyJVxrWBTX18/oohwBp+1bHGqtA5q5j2iUu/7v7JrJraT/n752kuaZwInojv?=
- =?us-ascii?Q?JqLfg96/Hd/xlxbM7mp4Ccp3wKtXbGl5XTa25z0p1Vavw8B/chXKeh38Ea0k?=
- =?us-ascii?Q?qXyFDJgKsUPL3vIIzrlmJAaYiEVoe6cYbk76MU0ZABS65K//JkARPmMehHJr?=
- =?us-ascii?Q?6A+TBCiGhE8NLNqMOhLJWeytXQRTeDsBFUDSeYAEvvTNjfywvt5dBCvimm1f?=
- =?us-ascii?Q?j/aA7q7O807g5W4ONwT6GhVtlidsZqPt/PrVEMkrQWNrVDY3A6RMtASzerNm?=
- =?us-ascii?Q?HUIVfEDBifZeihFFj0dvgoGTi3tfqGi98ir820UmuzrKf2SyoiVVMNEIoap+?=
- =?us-ascii?Q?tKQqxxSmiZBHGCBUzTukXUOswamvf8Ff78GeWVkLEEj5Mt4HJ2rhWOzpUFz0?=
- =?us-ascii?Q?V0npSXdbvEI+sgv9GoAbDvoXcY/9PzC4bqEMNQqJgx4g1ZiweNXZsYxEnhjK?=
- =?us-ascii?Q?VGgl1MNjJukbOVJdbpIOyfS11Qe5wRsiQCEQH/dPDIl+DwCR8JpINHxvnyLU?=
- =?us-ascii?Q?EOtgjaUrS5/jj6UPrXPDO58EIN6idhudjf0AecBqehaQ4Rv3LVQLhXP6mihf?=
- =?us-ascii?Q?l/Wv9ZeTVYgZKrC2SGzG30WESFlYAsem1gmJVUyZan00hCoaC3Hamz9vK18N?=
- =?us-ascii?Q?mVYJKEhIYQ0QPDzThvx3eA9eQevXKxJ1fAKXK4vdOGRp6kKoy8tuTtCEVNrg?=
- =?us-ascii?Q?8/gIrVBae+RPqFy4qYj8GcPAa6ieQ5LVADvP67x7gvRGNnRRSCnyntr+3hb+?=
- =?us-ascii?Q?SuwrzZg1oG6hMjWy8Hq+R1tnNE2Cy9LGvQlI1iRb5m5whxBXjWKlaBmcapAt?=
- =?us-ascii?Q?BaFGkGCoAuwFh3xGxinAmh723cH+XZ5P9K2y2LFluvyqMNsrqM7gBrFaV/3B?=
- =?us-ascii?Q?uINjb6h4wa8NnfRLLQtegJ8vgMtZ+rod91SrzdTeuiBv2iUYm/zxkAkX2ukm?=
- =?us-ascii?Q?/lJ0qU3YDissMzh9uNVMdTpFdU09oCYCi4R+uxqlIWyyJC5TzwV6AFBuarNL?=
- =?us-ascii?Q?v7p5LjTYZNFzsS5x5uk9Z6bqZgZjbm+jAayP8yc53r/0qoua94T2OBq3M96P?=
- =?us-ascii?Q?TSpuBCegJwvH90hJ5cJ4QL18CAZ8lnLLL0x1X1uTXjPafO8ccqIThBXIEBeo?=
- =?us-ascii?Q?q/eejjhZ4DCItQYJ3ktvKKso4W3u9djQGP28bkotGvLSpxAdXKXAQp62fCkL?=
- =?us-ascii?Q?covjNMQAqAzjY+3T/LjwpVSOwr5TZscZbbvctGWBhxWJFRtt3U/U8jPqo2vl?=
- =?us-ascii?Q?J4ZEMEbc4RIwlt6j44QCWq4KZ279dIh8kcMZipwSOO372Qwz7JzHWiXB5rTl?=
- =?us-ascii?Q?mQa/QDP6bg=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e72fb94f-9570-4288-96ee-08dea0233185
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 03:56:54.9696
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o1wJq5UnO1g2+WQgxfdJ4G0mRVFqQDKvBBMO5qZ9e9/f2g3iu/ffUNwqT24tEBKEnPvQ1pq/Ff4hwfHdxmt8Tg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8378
+References: <20260420061644.1251070-1-syyang@lontium.com> <20260420061644.1251070-3-syyang@lontium.com>
+ <stkoeboxioodtki3nyksdglihgze243u25ui7dbyac4tuuobgx@ncl4j6l4vfqh>
+ <CAFQXuNYXP1fiJtUiMb5iBL=jVXTB8HX8JLzto_eGOZvUaeZkfw@mail.gmail.com> <mvthlwcekj6i2h7bi5lns7ycictafjjyninvubp6adgaqxchkz@372c36cxon5t>
+In-Reply-To: <mvthlwcekj6i2h7bi5lns7ycictafjjyninvubp6adgaqxchkz@372c36cxon5t>
+From: =?UTF-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
+Date: Wed, 22 Apr 2026 12:41:11 +0800
+X-Gm-Features: AQROBzCrKn71q3qJQGVrOxF_O3MY_lk3-znik2-XRYtUo-_4CkhOOCaBXWhMwsA
+Message-ID: <CAFQXuNZG-La0YpmHgMA-TZ2ayPDLfEvkbrSJZyW-jFCzXU-mLw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] drm/bridge: This patch add new DRM bridge driver
+ for LT9611C(EX/UXD) chip
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
+	maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org, 
+	Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com, 
+	tzimmermann@suse.de, xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Apr 21, 2026 at 09:56:18AM +0000, Jacky Bai wrote:
-> > Subject: Re: [PATCH v5 3/4] thermal: qoriq: workaround unexpected
-> > temperature readings from tmu
-> >
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
+4=E6=9C=8821=E6=97=A5=E5=91=A8=E4=BA=8C 18:48=E5=86=99=E9=81=93=EF=BC=9A
 >
-> [...]
->
+> On Tue, Apr 21, 2026 at 03:37:52PM +0800, =E6=9D=A8=E5=AD=99=E8=BF=90 wro=
+te:
+> > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=
+=B9=B44=E6=9C=8820=E6=97=A5=E5=91=A8=E4=B8=80 20:18=E5=86=99=E9=81=93=EF=BC=
+=9A
 > > >
-> > > +	/* ERR052243: If a raising or falling edge happens, try later */
-> > > +	if (qoriq_tmu_has_errata(qdata->drvdata, TMU_ERR052243)) {
-> > > +		regmap_read(qdata->regmap, REGS_TIDR, &tidr);
-> > > +		if (tidr & TEMP_RATE_IRQ_MASK) {
-> > > +			regmap_write(qdata->regmap, REGS_TIDR,
-> > TEMP_RATE_IRQ_MASK);
-> > > +			return -EAGAIN;
-> > > +		}
-> > > +	}
-> > > +
-> > >  	if (regmap_read_poll_timeout(qdata->regmap,
-> > >  				     REGS_TRITSR(qsensor->id),
-> > >  				     val,
-> > > @@ -130,6 +159,15 @@ static int tmu_get_temp(struct
-> > thermal_zone_device *tz, int *temp)
-> > >  				     10 * USEC_PER_MSEC))
-> > >  		return -ENODATA;
+> > > On Mon, Apr 20, 2026 at 02:16:44PM +0800, syyang@lontium.com wrote:
+> > > > From: Sunyun Yang <syyang@lontium.com>
+> > > >
+> > > > LT9611C(EX/UXD) is a high performance Single/Dual-Port MIPI to
+> > > > HDMI 1.4/2.0 converter:
+> > > >
+> > > > -Single/Dual-port MIPI DSI Receiver
+> > > >  1. Compliantwith D-PHY1.2&DSI-2 1.0
+> > > >  2. 1/2configurable ports
+> > > >  3. 1 clock lane and 1/2/3/4 configurable data lanes per port
+> > > >  4. 80Mbps~2.5Gbps per data lane
+> > > >  5. Support RGB666, loosely RGB666, RGB888, RGB565,16-bit YCbCr4:2:=
+2
+> > > >
+> > > > -HDMI 1.4/2.0 Transmitter
+> > > >  1.Data rate up to 6Gbps
+> > > >  2.Support HDCP1.4/2.3
+> > > >  3.Support CEC,HDR10
+> > > >  4.Support lane swap
+> > > >
+> > > > -audio
+> > > >  1.sample rates of 32~192 KHz and sample sizes
+> > > >    of 16~24 bits
+> > > >  2.SPDIF interface supports PCM, Dolbydigital, DTS digital audio
+> > > >    at up to 192KHz frame rate
+> > > >
+> > > > -Miscellaneous
+> > > >  1.CSC:RGB<->YUV444<->YUV422
+> > > >
+> > > > Signed-off-by: Sunyun Yang <syyang@lontium.com>
+> > > > ---
+> > > >  drivers/gpu/drm/bridge/Kconfig           |   18 +
+> > > >  drivers/gpu/drm/bridge/Makefile          |    1 +
+> > > >  drivers/gpu/drm/bridge/lontium-lt9611c.c | 1365 ++++++++++++++++++=
+++++
+> > > >  3 files changed, 1384 insertions(+)
+> > > >  create mode 100755 drivers/gpu/drm/bridge/lontium-lt9611c.c
+> > > >
+> > > > diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridg=
+e/Kconfig
+> > > > index c3209b0f4678..32b85a2a65d9 100644
+> > > > --- a/drivers/gpu/drm/bridge/Kconfig
+> > > > +++ b/drivers/gpu/drm/bridge/Kconfig
+> > > > @@ -177,6 +177,24 @@ config DRM_LONTIUM_LT9611
+> > > >         HDMI signals
+> > > >         Please say Y if you have such hardware.
+> > > >
+> > > > +config DRM_LONTIUM_LT9611C
+> > > > +     tristate "Lontium LT9611C DSI/HDMI bridge"
+> > > > +     select SND_SOC_HDMI_CODEC if SND_SOC
+> > > > +     depends on OF
+> > > > +     select CRC8
+> > > > +     select FW_LOADER
+> > > > +     select DRM_PANEL_BRIDGE
+> > > > +     select DRM_KMS_HELPER
+> > > > +     select DRM_MIPI_DSI
+> > > > +     select DRM_DISPLAY_HELPER
+> > > > +     select DRM_DISPLAY_HDMI_STATE_HELPER
+> > > > +     select REGMAP_I2C
+> > > > +     help
+> > > > +       Driver for Lontium DSI to HDMI bridge
+> > > > +       chip driver that converts dual DSI and I2S to
+> > > > +       HDMI signals
+> > > > +       Please say Y if you have such hardware.
+> > > > +
+> > > >  config DRM_LONTIUM_LT9611UXC
+> > > >       tristate "Lontium LT9611UXC DSI/HDMI bridge"
+> > > >       select SND_SOC_HDMI_CODEC if SND_SOC
+> > > > diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/brid=
+ge/Makefile
+> > > > index beab5b695a6e..92688be9692f 100644
+> > > > --- a/drivers/gpu/drm/bridge/Makefile
+> > > > +++ b/drivers/gpu/drm/bridge/Makefile
+> > > > @@ -16,6 +16,7 @@ obj-$(CONFIG_DRM_ITE_IT6505) +=3D ite-it6505.o
+> > > >  obj-$(CONFIG_DRM_LONTIUM_LT8912B) +=3D lontium-lt8912b.o
+> > > >  obj-$(CONFIG_DRM_LONTIUM_LT9211) +=3D lontium-lt9211.o
+> > > >  obj-$(CONFIG_DRM_LONTIUM_LT9611) +=3D lontium-lt9611.o
+> > > > +obj-$(CONFIG_DRM_LONTIUM_LT9611C) +=3D lontium-lt9611c.o
+> > > >  obj-$(CONFIG_DRM_LONTIUM_LT9611UXC) +=3D lontium-lt9611uxc.o
+> > > >  obj-$(CONFIG_DRM_LONTIUM_LT8713SX) +=3D lontium-lt8713sx.o
+> > > >  obj-$(CONFIG_DRM_LVDS_CODEC) +=3D lvds-codec.o
+> > > > diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu=
+/drm/bridge/lontium-lt9611c.c
+> > > > new file mode 100755
+> > > > index 000000000000..a6d11d0bddf5
+> > > > --- /dev/null
+> > > > +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
+> > > > @@ -0,0 +1,1365 @@
+> > > > +// SPDX-License-Identifier: GPL-2.0
+> > > > +/*
+> > > > + * Copyright (C) 2026 Lontium Semiconductor, Inc.
+> > > > + */
+> > > > +
+> > > > +#include <linux/crc8.h>
+> > > > +#include <linux/firmware.h>
+> > > > +#include <linux/gpio/consumer.h>
+> > > > +#include <linux/i2c.h>
+> > > > +#include <linux/interrupt.h>
+> > > > +#include <linux/media-bus-format.h>
+> > > > +#include <linux/module.h>
+> > > > +#include <linux/mutex.h>
+> > > > +#include <linux/of_graph.h>
+> > > > +#include <linux/platform_device.h>
+> > > > +#include <linux/regmap.h>
+> > > > +#include <linux/regulator/consumer.h>
+> > > > +
+> > > > +#include <drm/drm_atomic_helper.h>
+> > > > +#include <drm/drm_bridge.h>
+> > > > +#include <drm/drm_connector.h>
+> > > > +#include <drm/drm_drv.h>
+> > > > +#include <drm/drm_edid.h>
+> > > > +#include <drm/drm_mipi_dsi.h>
+> > > > +#include <drm/drm_modes.h>
+> > > > +#include <drm/drm_of.h>
+> > > > +#include <drm/drm_print.h>
+> > > > +#include <drm/drm_probe_helper.h>
+> > > > +
+> > > > +#include <drm/display/drm_hdmi_audio_helper.h>
+> > > > +#include <drm/display/drm_hdmi_state_helper.h>
+> > > > +#include <sound/hdmi-codec.h>
+> > > > +
+> > > > +#define FW_SIZE (64 * 1024)
+> > > > +#define LT_PAGE_SIZE 256
+> > > > +#define FW_FILE  "LT9611C.bin"
 > > >
-> > > +	/*ERR052243: If a raising or falling edge happens, try later */
-> > > +	if (qoriq_tmu_has_errata(qdata->drvdata, TMU_ERR052243)) {
-> > > +		regmap_read(qdata->regmap, REGS_TIDR, &tidr);
-> > > +		if (tidr & TEMP_RATE_IRQ_MASK) {
-> > > +			regmap_write(qdata->regmap, REGS_TIDR,
-> > TEMP_RATE_IRQ_MASK);
-> > > +			return -EAGAIN;
-> > > +		}
-> > > +	}
-> > > +
+> > > lt9611c_fw.bin
+> > >
+> > will use lt9611c_fw.bin in the next version
 > >
-> > The above two code blocks are the same. Use helper function to avoid
-> > duplicat code. And why need check twice?
+> > > > +#define LT9611C_CRC_POLYNOMIAL 0x31
+> > > > +#define LT9611C_PAGE_CONTROL 0xff
+> > > > +
+> > > > +struct lt9611c {
+> > > > +     struct device *dev;
+> > > > +     struct i2c_client *client;
+> > > > +     struct drm_bridge bridge;
+> > > > +     struct drm_bridge *next_bridge;
+> > >
+> > > Use drm_bridge::next_bridge instead.
+> > >
+> > it will be fixed  in the next version.
 > >
-> > 	ret = qoriq_tmu_err052243()
-> > 	if (ret)
-> > 		return ret;
+> > > > +     struct regmap *regmap;
+> > > > +     /* Protects all accesses to registers by stopping the on-chip=
+ MCU */
+> > > > +     struct mutex ocm_lock;
+> > > > +     struct work_struct work;
+> > > > +     struct device_node *dsi0_node;
+> > > > +     struct device_node *dsi1_node;
+> > > > +     struct mipi_dsi_device *dsi0;
+> > > > +     struct mipi_dsi_device *dsi1;
+> > > > +     struct gpio_desc *reset_gpio;
+> > > > +     struct regulator_bulk_data supplies[2];
+> > > > +     u32 chip_type;
+> > >
+> > > Define a enum. Having if (chip_type =3D=3D 2) doesn't help readabilit=
+y.
+> > >
+> > it will be fixed  in the next version.
 > >
+> > > > +     const struct firmware *fw;
+> > >
+> > > Please drop it from the global struct. It is not necessary once the
+> > > bridge is up and running.
+> > >
+> >  Remove from struct.
+> >  I need use fw  to calculate CRC8 and update the firmware.
+> >  Can I use a global variable for 'fw'?
 >
-> The first check is to make sure no error already happened. if any error, no need
-> to polling read the sensor value from tmu, return early to save time. The secondary
-> check is to make sure the sensor value just read out is still a valid one as the error may
-> happen after the first check.
+> Of course not. You need the struct firmware and CRC only when reflashing
+> the firmware. Pass them within those functions as arguments.
 >
-> It should be ok to remove the first check. As the error only happens in some rare
-> corner case, the sensor read polling delay is acceptable.
->
-> If only keep the secondary check, I think no need to wrap this code block into a helper function?
+ it will be fixed  in the next version.
 
-Yes
-
-Frank
-
->
-> BR
->
-> > Frank
 > >
-> > >  	if (qdata->ver == TMU_VER1) {
-> > >  		*temp = (val & GENMASK(7, 0)) * MILLIDEGREE_PER_DEGREE;
-> > >  	} else {
-> > > @@ -247,6 +285,14 @@ static void qoriq_tmu_init_device(struct
-> > qoriq_tmu_data *data)
-> > >  		regmap_write(data->regmap, REGS_V2_TEUMR(0), teumr0_val);
-> > >  	}
+> > > > +     int fw_version;
+> > > > +     u8 fw_crc;
+> > > > +     bool hdmi_connected;
 > > >
-> > > +	/* ERR052243: Set the raising & falling edge monitor */
-> > > +	if (qoriq_tmu_has_errata(data->drvdata, TMU_ERR052243)) {
-> > > +		regmap_write(data->regmap, TMRTRCTR, TMRTRCTR_EN |
-> > > +			     FIELD_PREP(TMRTRCTR_TEMP_MASK,
-> > TEMP_RATE_THR_LVL));
-> > > +		regmap_write(data->regmap, TMFTRCTR, TMFTRCTR_EN |
-> > > +			     FIELD_PREP(TMFTRCTR_TEMP_MASK,
-> > TEMP_RATE_THR_LVL));
-> > > +
-> > > +	}
-> > >  	/* Disable monitoring */
-> > >  	regmap_write(data->regmap, REGS_TMR, TMR_DISABLE);  } @@
-> > -400,6
-> > > +446,7 @@ static const struct tmu_drvdata imx8mq_tmu_data = {
+> > > You've lost the imortant comment here.
 > > >
-> > >  static const struct tmu_drvdata imx93_data = {
-> > >  	.teumr0 = TEUMR0_V21,
-> > > +	.tmu_errata = TMU_ERR052243,
-> > >  };
+> > comment about hdmi_connected ?
+>
+> Yes.
+>
+it will be fixed in next version
+> >
+> > > > +};
+> > > > +
+> > > > +DECLARE_CRC8_TABLE(lt9611c_crc8_table);
+> > > > +
+> > > > +static const struct regmap_range_cfg lt9611c_ranges[] =3D {
+> > > > +     {
+> > > > +             .name =3D "register_range",
+> > > > +             .range_min =3D  0,
+> > > > +             .range_max =3D 0xffff,
+> > > > +             .selector_reg =3D LT9611C_PAGE_CONTROL,
+> > > > +             .selector_mask =3D 0xff,
+> > > > +             .selector_shift =3D 0,
+> > > > +             .window_start =3D 0,
+> > > > +             .window_len =3D 0x100,
+> > > > +     },
+> > > > +};
+> > > > +
+> > > > +static const struct regmap_config lt9611c_regmap_config =3D {
+> > > > +     .reg_bits =3D 8,
+> > > > +     .val_bits =3D 8,
+> > > > +     .max_register =3D 0xffff,
+> > > > +     .ranges =3D lt9611c_ranges,
+> > > > +     .num_ranges =3D ARRAY_SIZE(lt9611c_ranges),
+> > > > +};
+> > > > +
+> > > > +static int lt9611c_read_write_flow(struct lt9611c *lt9611c, u8 *pa=
+rams,
+> > > > +                                unsigned int param_count, u8 *retu=
+rn_buffer,
+> > > > +                                unsigned int return_count)
+> > > > +{
+> > > > +     int count, i;
+> > > > +     unsigned int temp;
+> > > > +
+> > > > +     regmap_write(lt9611c->regmap, 0xe0de, 0x01);
+> > > > +
+> > > > +     count =3D 0;
+> > > > +     do {
+> > > > +             regmap_read(lt9611c->regmap, 0xe0ae, &temp);
+> > > > +             usleep_range(1000, 2000);
+> > > > +             count++;
+> > > > +     } while (count < 100 && temp !=3D 0x01);
 > > >
-> > >  static const struct of_device_id qoriq_tmu_match[] = {
+> > > read_poll_timeout()
 > > >
-> > > --
-> > > 2.34.1
+> > will use  read_poll_timeout() in the next version.
+>
+> Or a more suitable definition from <linux/iopoll.h>. Please check those
+> and find the most suitable.
+>
+I think regmap_read_poll_timeout is more suitable here.
+
+> >
+> >  > > +
+> > > > +     if (temp !=3D 0x01)
+> > > > +             return -1;
 > > >
+> > > -ETIMEDOUT
+> > >
+> > return value of -1 means the chip did not receive the operation to
+> > write 0x01 to 0xE0DE.
+> > Below:
+> >      if (temp !=3D 0x02)
+> >             return -2;
+> > means the chip did not receive the operation to write 0x02 to 0xE0DE.
+> >
+> > -1 and -2 help us determine where in the code the error occurred.
+> > If both return -ETIMEDOUT, it would be less friendly for debugging
+> > when we encounter issues.
+>
+> Inside the kernel it is expected to use drm_dbg instead of returning a
+> case-specific return codes.
+>
+it will be fixed in next version
+
+
+> > Please confirm whether I should change all of them to return -ETIMEDOUT=
+.
+>
+> Yes
+>
+> > > > +
+> > > > +static int lt9611c_hdmi_clear_audio_infoframe(struct drm_bridge *b=
+ridge)
+> > > > +{
+> > > > +     return 0;
+> > >
+> > > Hmm? What if we need to clear the infoframe?
+> > >
+> > don't need to clear the infoframe.
+> >
+> > can remove.
+>
+> No. We need to be able to stop sending the infoframe. Please implement
+> those.
+>
+it will be fixed in next version.
+
+> >
+> > > > +
+> > > > +static int lt9611c_hdmi_audio_prepare(struct drm_bridge *bridge,
+> > > > +                                   struct drm_connector *connector=
+,
+> > > > +                                   struct hdmi_codec_daifmt *fmt,
+> > > > +                                   struct hdmi_codec_params *hparm=
+s)
+> > > > +{
+> > > > +     struct lt9611c *lt9611c =3D bridge_to_lt9611c(bridge);
+> > > > +     u8 audio_cmd[6] =3D {0x57, 0x48, 0x36, 0x3a};
+> > > > +     u8 data[5];
+> > > > +     int ret;
+> > > > +
+> > > > +     /* Validate sample rate and width (LT9611C auto-detects but w=
+e still check) */
+> > >
+> > > What for? You don't trust ASoC / ALSA core that the rates would match
+> > > HDMI_RATES?
+> >
+> > Chip has limitations on sample_rate, sample_width, and fmt, and cannot
+> > support all formats.
+> > The validation here is to ensure that only the formats supported by
+> > the chip are used.
+>
+> Again, for sample rates, is it different from HDMI_RATES? If not, it is
+> useless protective coding.
+>
+
+I checked the definition of HDMI_RATES and ended up doing a redundant
+validation.
+
+#define HDMI_RATES (SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |\
+SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_88200 |\
+SNDRV_PCM_RATE_96000 | SNDRV_PCM_RATE_176400 |\
+SNDRV_PCM_RATE_192000)
+
+However, if HDMI_RATES is extended in the future to include sample
+rate not supported by LT9611C, this driver would require corresponding
+updates.
+If this is not expected to happen, I can remove the redundant check.
+
+> > >
+> > > > +     switch (hparms->sample_rate) {
+> > > > +     case 32000:
+> > > > +     case 44100:
+> > > > +     case 48000:
+> > > > +     case 88200:
+> > > > +     case 96000:
+> > > > +     case 176400:
+> > > > +     case 192000:
+> > > > +             break;
+> > > > +     default:
+> > > > +             return -EINVAL;
+> > > > +     }
+> > > > +
+> > > > +     switch (hparms->sample_width) {
+> > > > +     case 16:
+> > > > +     case 18:
+> > > > +     case 20:
+> > > > +     case 24:
+> > >
+> > > and no support for 32?
+> > >
+> > no support for 32
+>
+> Then check for that rather than listing all the widths. If you check the
+> hdmi-codec, you can't get 18-bit samples at all.
+>
+You are right, there is no 18-bit support.
+
+same reason with sample rate.
+
+> > > > +MODULE_LICENSE("GPL v2");
+> > >
+> > >
+> > > I think, checkpatch.pl should have flagged this.
+> > >
+> > yes,  it is need use GPL?
+>
+> If it flagged the line, why didn't you fix it? What did checkpatch say?
+>
+Sorry, it is my mistake. i will fix.
+checkpatch say:
+WARNING: Prefer "GPL" over "GPL v2" - see commit bf7fbeeae6db
+("module: Cure the MODULE_LICENSE "GPL" vs. "GPL v2" bogosity")
+#1450: FILE: drivers/gpu/drm/bridge/lontium-lt9611c.c:1364:
+
+
+> > I see that many of the latest code still use GPL v2.
+>
+> --
+> With best wishes
+> Dmitry
