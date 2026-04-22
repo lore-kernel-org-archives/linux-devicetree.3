@@ -1,176 +1,266 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023126.outbound.protection.outlook.com [40.107.44.126])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518DC374759;
-	Wed, 22 Apr 2026 10:33:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.126
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776854039; cv=fail; b=hAE+HxEMDEMgfwFaqmxamClHABs0zB5q0Lg/8deqtos27F2d+wQy9KNgcCrwXIYakNG2SfCG3xNf6CMJFWUYrN1Kf9hMUsU1fUc4DO0nk6Fohjo/4p6hIs8n43WkeIigQFM/6geHN75ETtobIfoYzwfavYBzL2uiG769EHeXqA4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776854039; c=relaxed/simple;
-	bh=lfxvUXvwFVuWcPptvpRzQbreyT2j+9RpNYVOKyJGIbo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VPe3nwy6PCGvp0SBf3mTi9wXKtt79B4EKX/TNmzkJ1e9RfePJS8TdiWFmMuhx6NgK0mZ6Tfs2OeF6YHvEHk9xoFvJyp8pQtw1yeRSiGMEVAqPkFRAz/155UP7cj6cl48Jmyl9gWxW0PgTTOI4iEszdbl8X8PQhF5NvcHpYFs4j0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.44.126
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xw31M+jmdrYJbE2OZ8RN/IlsS40F7fnPO1zLOigProjcJRN8bhAxnFRqs0puUTUhQtsoRKQ2r0Iw8YMOInOaPy280132Mf9OF6UKuf3r3OB4I8pNBQyt8zs4GibBlYrfoS5Kgxg1IjpKLgRE+LDIA8rzPZV6NG2vmhhenWgrb5bSLvSaJ/aX5h+3URMWREqXpnMZBtAXOOasoEahebGRK9vALZKo2wHMJr2dWqdqmTpnO/EMZ9TSJ4rQc6KUIG9SVsJV9Vw+z9o6L6r8rAfpHJjrkAzGOfNQkkaDD6em77eGS2u6cg7sHip2gqgrYAy0yesZjESayTPHKnPG9OtbCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WablyoBFy+gxbiiAwuqgA+V3P4WM6fUiNbf1+c/IFcM=;
- b=lRIhx84J0q1w20qol6wyVHqyoDgb0g0WONw6BpnVpFYWSBtC3icbcD6/jBjturHYDHJZCVtCHQRxKuLnTYBytPqJoUbkT1cRuxSipOQTorE47scgqoabPOTMpI6NlsXCdFBxkO8I56NTlH85tI3FpxtHPVhWl4jxgNTgVxh2pNlczGWks1pkZVHei0WCQPlx/OOtLa87F1C3O6U997wFxk0BSTMFO3awEs+v5vp5+ZPAxZHYYgZxkJ52yJH9Gfi4LBWURx6b+LTGbZxFqqlf9lO7IYNV9GN7kejWvI9N7UzPa7WqRp3EBp3GTg/U5C2AMBSKL5W7kn0uBeYl/DNAzA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SG2P153CA0007.APCP153.PROD.OUTLOOK.COM (2603:1096::17) by
- PUZPR06MB5982.apcprd06.prod.outlook.com (2603:1096:301:112::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Wed, 22 Apr
- 2026 10:33:53 +0000
-Received: from OSA0EPF000000CC.apcprd02.prod.outlook.com
- (2603:1096::cafe:0:0:d) by SG2P153CA0007.outlook.office365.com
- (2603:1096::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.8 via Frontend Transport; Wed,
- 22 Apr 2026 10:33:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- OSA0EPF000000CC.mail.protection.outlook.com (10.167.240.58) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Wed, 22 Apr 2026 10:33:51 +0000
-Received: from [172.20.96.43] (unknown [172.20.96.43])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 37C854126F9A;
-	Wed, 22 Apr 2026 18:33:50 +0800 (CST)
-Message-ID: <1c1025c1-ead7-49fe-b18e-0454119d85f8@cixtech.com>
-Date: Wed, 22 Apr 2026 18:33:49 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD393B27E2;
+	Wed, 22 Apr 2026 10:37:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776854272; cv=none; b=pk89ML/NoSarfbYXdtgabc1FA1aJ93v79F5EB2pfu5grFCnb6W7DPytvJjXV+iiNwaGRcWCdTvyOPlCE0PPTTiBqoGSeXR6y8nadIyKHayYJU4OhYjAygoaryeHDAst7JdeUoTwtTLT1U9Q13ty9fGRL0PMmcK/1e4v/Dlao+Jo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776854272; c=relaxed/simple;
+	bh=xWpDigKY+Mqp0QNsnqMxN5XBsR0RUwgIQEbgjXFLty8=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=TDpq1fz498YuQRny/eX1oK3uXfXtFN3ZIqru5rQUICNvwqRjWminH9tTFpFUZt/XI7JF2JZFmd7hnNUnc2FUY5irJsqF4DNSktCELnlfh4hIqYdqBJLk2stqUGtHd6iYN7pvb5ChIEHJHnPFiHYzie95g0ZPSjaUS9wUffsy7qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=veBpZvMR; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="veBpZvMR"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4g0wfB6CyNz9v1C;
+	Wed, 22 Apr 2026 12:37:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1776854258;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6sdjhyBhlH5eqfCOIKrgMghdQWTDW4fIojwdQkw/6cw=;
+	b=veBpZvMRGxlfD9Rl00PhTcly0LB6QbXCDw5ywa7A1bMPl94W/FqrvYDAZPt/RtPscrY+NI
+	owRV8OnJCoVoBGcayfofwrKbDmjsLmImesrY2VwncSRzQD55t8GS2e66pEctZjj+AegnZx
+	ivP0PDOAggr8+kABJ5vF6zRuaLnOgsAaXbWsGAgVmKzyP64OebKJgkCsWFeHRuDXI1SV5I
+	H9QFT5gIAi8EoTODf83YRmfqAGCmDWR7PsyEW8O/UVS8nlPpFtKC6MqKTJDRytpJ2OvBGE
+	dBZvzkRz0yfmc2skkB0eyLgHQsOXSwpjiBryiyLTIJfSs3B3HKmyrnyPI8Uk/Q==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/2] dma: arm-dma350: enable ANYCH interrupt for shared
- IRQ wiring
-To: Frank Li <Frank.li@nxp.com>
-Cc: peter.chen@cixtech.com, fugang.duan@cixtech.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, vkoul@kernel.org,
- ychuang3@nuvoton.com, schung@nuvoton.com, robin.murphy@arm.com,
- Frank.Li@kernel.org, dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
- linux-arm-kernel@lists.infradead.org
-References: <20260325112159.663881-1-jun.guo@cixtech.com>
- <20260325112159.663881-2-jun.guo@cixtech.com>
- <932db8ad-a9d8-47ff-bf3c-62a54c42bb76@cixtech.com>
- <aeia3uoz4g8tlBaV@lizhi-Precision-Tower-5810>
-Content-Language: en-US
-From: Jun Guo <jun.guo@cixtech.com>
-In-Reply-To: <aeia3uoz4g8tlBaV@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSA0EPF000000CC:EE_|PUZPR06MB5982:EE_
-X-MS-Office365-Filtering-Correlation-Id: f59b8d3d-2c49-4fbe-8e73-08dea05aa5b3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|7416014|376014|1800799024|36860700016|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	qunEvMqNFrMDS/2CWi6RsBVyYLQFdQU8jm2B5bggqaoLFh1af2XWWyAc9iYkHs2mDkdNEYWqUruXyi3ZXNByOlIJ2lXPAk+G1IkEfoZPjk5VRPFIhyurcPRfFW7ESpz+YXCfELK7lY+Fo6zq4auFzigO+vsto+KsC7BwrK70fX80Q7GZoW4XpLNifyJiRVZBXoGcW1F26ZalXOXu51EnPMr7sQOr60m1uK2yttpVGWCdlUWq2IGaeFd0YpVwATMrQfbvaRChRGQ+UYpyf1ZKq4BvCnzFnxwKvnrQ0qvbGNaoY0PvC8PnxiFE75cAet2Qdh0DEh9UgHWNdolEqGGeHi2xXqbkEfplApbUAYwCkXQesPb6DLTm7EtNtkfngxBPHmqn/ksR5D4pG1nHdF0DRv09JHOGTYhoI27ifYi9mtyOz/Qh73a5fzFh61Sxe/OPdxaMWtA+t7Sk7UBia+8qO/TzfYWWcngnvjq9e+566ggliIOk7dclnY3bPKjfUiYB7M99+MAmXvXPtaP6eTS4HHnHR8TyHNhLr+KDilB4ehLdIhp/5xcdt1sq/mYZznB6F9YCBOgZt0mpTks3/LTvqrjBSynDzg99DLNrh+11mcMw3kPzaXAKVwLWRtRQ8kET+h7j2wLGwDyHVJ6ss/26L8MP5tjhSiUJldEWXW/pxS6YRztUtVnDdNF51Y/g8s0UPdK0VYLE/34eewZ7jeuQSAVnhcp8g8j3uwDHA/W/dKfqKtiIQL9Zte3qZKONAVpwwtcWtKT0Sgf/rbkMzzRH/Q==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(376014)(1800799024)(36860700016)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	E6QyIMqtbUeamiLWTTm0mMXVVtExWz7ifIeCVTbFkVs8RmiD5TldJPvmosYyPe9ACXMeVEu6++gjgBjQM/hRyJAMqWoyK0SeaY7fpNx9H4dbz5GLqxPLkqXmu4xncXGU8eJSXwYKF0H/Y7wQBf3Wb+Xxh5MAaybRvE4yiwKK4lU/wIEECtlN50u/SFuhy6AaAn/e+Dau7Jk3A09UrxixQNGy3ZK+Sk73PV1+IH5xBJzrSs8tA6Hgz+kJRjQtwnH9SAqsM1YLbcJ5T0ec3MsAKmIEKPVEpiXVQgw+vJ/m48CwXMYk3vKBG/Qs6/BmxfurLvGvrMz1r6WKlgVZim2dwuhipJqm6pqP6q+PwDqXHZIpYlUblTwM3cxmY4Qg8PMva6eJ7weScr8L+Dem7RHAzGMpE94NvUNz1+6Mn3Jo1ytbSpsBtr8NIo6vxxFuPqgD
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 10:33:51.8241
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f59b8d3d-2c49-4fbe-8e73-08dea05aa5b3
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	OSA0EPF000000CC.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR06MB5982
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 22 Apr 2026 18:37:20 +0800
+Message-Id: <DHZM9D696P6G.NVPMN20XXM3H@mailbox.org>
+From: "Shuwei Wu" <shuwei.wu@mailbox.org>
+To: "Anand Moon" <linux.amoon@gmail.com>, "Shuwei Wu" <shuweiwoo@163.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, "Daniel Lezcano"
+ <daniel.lezcano@linaro.org>, "Zhang Rui" <rui.zhang@intel.com>, "Lukasz
+ Luba" <lukasz.luba@arm.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Yixun Lan" <dlan@gentoo.org>, "Philipp Zabel" <p.zabel@pengutronix.de>,
+ "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
+ "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
+ <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 3/3] riscv: dts: spacemit: Add thermal sensor for K1
+ SoC
+References: <20260119-patchv2-k1-thermal-v3-0-3d82c9ebe8a4@163.com>
+ <20260119-patchv2-k1-thermal-v3-3-3d82c9ebe8a4@163.com>
+ <CANAwSgTOmbb+Vzhck1riVaFM89zYLdMe3dn6DRHrc7p+rkR2DQ@mail.gmail.com>
+In-Reply-To: <CANAwSgTOmbb+Vzhck1riVaFM89zYLdMe3dn6DRHrc7p+rkR2DQ@mail.gmail.com>
+X-MBO-RS-ID: 8c13cdb3ffab5188b99
+X-MBO-RS-META: 8qb7nhuijnrjcpn5ghg44wzykgeabcef
 
+Hi Anand,
 
+Thank you for the careful review.
 
-On 4/22/2026 5:54 PM, Frank Li wrote:
-> [Some people who received this message don't often get email from frank.li@nxp.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> EXTERNAL EMAIL
-> 
-> On Tue, Apr 21, 2026 at 03:24:11PM +0800, Jun Guo wrote:
->> Hi Robin,
+On Wed Apr 22, 2026 at 1:56 PM CST, Anand Moon wrote:
+> Hi Shuwei,
+>
+> On Mon, 19 Jan 2026 at 08:13, Shuwei Wu <shuweiwoo@163.com> wrote:
 >>
->> Just pinging. I’d like to ask if you have any comments on the latest patch?
+>> Include the Thermal Sensor node in the SpacemiT K1 dtsi
+>> with definitions for registers, clocks, and interrupts.
+>> Additionally, configure thermal zones for the soc, package, gpu, and
+>> clusters to enable temperature monitoring via the thermal framework.
 >>
->> On 3/25/2026 7:21 PM, Jun Guo wrote:
->>> Enable DMANSECCTRL.INTREN_ANYCHINTR during probe so channel
->>> interrupts are propagated when integrators wire DMA-350 channels
->>> onto a shared IRQ line.
-> 
-> Your tag is wrong
-> 
-> dmaegine: arm-dma350: enable ANYCH ...	
-Okay, I'll fix this in the next version.
-
-> 
->>>
->>> Signed-off-by: Jun Guo <jun.guo@cixtech.com>
->>> ---
->>>    drivers/dma/arm-dma350.c | 9 +++++++++
->>>    1 file changed, 9 insertions(+)
->>>
->>> diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
->>> index 84220fa83029..09403aca8bb0 100644
->>> --- a/drivers/dma/arm-dma350.c
->>> +++ b/drivers/dma/arm-dma350.c
->>> @@ -13,6 +13,11 @@
->>>    #include "dmaengine.h"
->>>    #include "virt-dma.h"
-> 
-> extra empty line between header file and macro
-The space actually exists in the code, but it is hidden in the review 
-records.
-
-> 
-> 
->>> +#define DMANSECCTRL                0x200
->>> +
->>> +#define NSEC_CTRL          0x0c
-> 
-> why need two layer regiser define, your use DMANSECCTRL + NSEC_CTRL，
-> 
-> why not use one macro for 0x20c
-> 
-DMANSECCTRL is the base address for a set of control registers. 
-Currently, only the NSEC_CTRL register within that set is being used. 
-All other registers in the same group share this same base address, and 
-a similar arrangement applies to DMAINFO.
-> 
->>> +#define INTREN_ANYCHINTR_EN        BIT(0)
->>> +
->>>    #define DMAINFO                   0x0f00
->>>    #define DMA_BUILDCFG0             0xb0
->>> @@ -582,6 +587,10 @@ static int d350_probe(struct platform_device *pdev)
->>>      dmac->dma.device_issue_pending = d350_issue_pending;
->>>      INIT_LIST_HEAD(&dmac->dma.channels);
->>> +   reg = readl_relaxed(base + DMANSECCTRL + NSEC_CTRL);
->>> +   writel_relaxed(reg | INTREN_ANYCHINTR_EN,
->>> +                  base + DMANSECCTRL + NSEC_CTRL);
->>> +
->>>      /* Would be nice to have per-channel caps for this... */
->>>      memset = true;
->>>      for (int i = 0; i < nchan; i++) {
+>> Signed-off-by: Shuwei Wu <shuweiwoo@163.com>
+>> ---
+>> Changes in v2:
+>> - Update compatible to "spacemit,k1-tsensor"
+>> ---
+>>  arch/riscv/boot/dts/spacemit/k1.dtsi | 101 ++++++++++++++++++++++++++++=
++++++++
+>>  1 file changed, 101 insertions(+)
 >>
+>> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/=
+spacemit/k1.dtsi
+>> index 7818ca4979b6..0fe7396ea6e4 100644
+>> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
+>> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
+>> @@ -338,6 +338,96 @@ osc_32k: clock-32k {
+>>                 };
+>>         };
+>>
+> I feel the thermal zones appear to be configured at significantly
+> higher temperatures
+> compared to the thresholds typically used in commercial-grade and
+> industrial-grade device
+> test environments 1.2 Test Environment
+>
+> [1] https://www.spacemit.com/community/document/info?lang=3Den&nodepath=
+=3Dhardware/key_stone/k1/k1_hw/avl_veri_sop.md
 
+The official definition of this temperature range is as follows:
+"The CPU delivers stable and reliable computing power from -40=C2=B0C to 85=
+=C2=B0C,
+complying with the demanding requirements of industrial applications."
+
+[1] https://www.spacemit.com/community/document/info?lang=3Den&nodepath=3Dh=
+ardware/key_stone
+/k1/k1_docs/root_overview.md
+
+Therefore, this does not mean that the chip cannot continue to work above
+this temperature.
+
+The datasheet also defines another temperature, the Junction Temperature,
+which represents the chip's temperature limit. Exceeding this temperature
+may permanently damage the chip.
+
+[2] https://www.spacemit.com/community/document/info?lang=3Den&nodepath=3Dh=
+ardware/key_stone
+/k1/k1_docs/k1_usermanual/4.Electrical_Characteristics.md
+
+>
+> Thermal zones should be defined as part of the SBC board design,
+> with the option to integrate PWM-controlled fan support in the future.
+
+These thermal zones describe fixed hardware properties of the K1 SoC itself=
+,
+and are common for all K1-based boards.
+
+And this is also done in Allwinner D1, StarFive JH7110 and some other chips=
+.
+
+>
+> Thanks
+> -Anand
+>> +       thermal-zones {
+>> +               soc-thermal {
+>> +                       polling-delay-passive =3D <0>;
+>> +                       polling-delay =3D <0>;
+>> +                       thermal-sensors =3D <&thermal 0>;
+>> +
+>> +                       trips {
+>> +                               soc-crit {
+>> +                                       temperature =3D <115000>;
+>> +                                       hysteresis =3D <0>;
+>> +                                       type =3D "critical";
+>> +                               };
+>> +                       };
+>> +               };
+>> +
+>> +               package-thermal {
+>> +                       polling-delay-passive =3D <0>;
+>> +                       polling-delay =3D <0>;
+>> +                       thermal-sensors =3D <&thermal 1>;
+>> +
+>> +                       trips {
+>> +                               package-crit {
+>> +                                       temperature =3D <115000>;
+>> +                                       hysteresis =3D <0>;
+>> +                                       type =3D "critical";
+>> +                               };
+>> +                       };
+>> +               };
+>> +
+>> +               gpu-thermal {
+>> +                       polling-delay-passive =3D <100>;
+>> +                       polling-delay =3D <0>;
+>> +                       thermal-sensors =3D <&thermal 2>;
+>> +
+>> +                       trips {
+>> +                               gpu-alert {
+>> +                                       temperature =3D <85000>;
+>> +                                       hysteresis =3D <2000>;
+>> +                                       type =3D "passive";
+>> +                               };
+>> +
+>> +                               gpu-crit {
+>> +                                       temperature =3D <115000>;
+>> +                                       hysteresis =3D <0>;
+>> +                                       type =3D "critical";
+>> +                               };
+>> +                       };
+>> +               };
+>> +
+>> +               cluster0-thermal {
+>> +                       polling-delay-passive =3D <100>;
+>> +                       polling-delay =3D <0>;
+>> +                       thermal-sensors =3D <&thermal 3>;
+>> +
+>> +                       trips {
+>> +                               cluster0-alert {
+>> +                                       temperature =3D <85000>;
+>> +                                       hysteresis =3D <2000>;
+>> +                                       type =3D "passive";
+>> +                               };
+>> +
+>> +                               cluster0-crit {
+>> +                                       temperature =3D <115000>;
+>> +                                       hysteresis =3D <0>;
+>> +                                       type =3D "critical";
+>> +                               };
+>> +                       };
+>> +               };
+>> +
+>> +               cluster1-thermal {
+>> +                       polling-delay-passive =3D <100>;
+>> +                       polling-delay =3D <0>;
+>> +                       thermal-sensors =3D <&thermal 4>;
+>> +
+>> +                       trips {
+>> +                               cluster1-alert {
+>> +                                       temperature =3D <85000>;
+>> +                                       hysteresis =3D <2000>;
+>> +                                       type =3D "passive";
+>> +                               };
+>> +
+>> +                               cluster1-crit {
+>> +                                       temperature =3D <115000>;
+>> +                                       hysteresis =3D <0>;
+>> +                                       type =3D "critical";
+>> +                               };
+>> +                       };
+>> +               };
+>> +       };
+>> +
+>>         soc {
+>>                 compatible =3D "simple-bus";
+>>                 interrupt-parent =3D <&plic>;
+>> @@ -434,6 +524,17 @@ syscon_apbc: system-controller@d4015000 {
+>>                         #reset-cells =3D <1>;
+>>                 };
+>>
+>> +               thermal: thermal@d4018000 {
+>> +                       compatible =3D "spacemit,k1-tsensor";
+>> +                       reg =3D <0x0 0xd4018000 0x0 0x100>;
+>> +                       clocks =3D <&syscon_apbc CLK_TSEN>,
+>> +                                <&syscon_apbc CLK_TSEN_BUS>;
+>> +                       clock-names =3D "core", "bus";
+>> +                       interrupts =3D <61>;
+>> +                       resets =3D <&syscon_apbc RESET_TSEN>;
+>> +                       #thermal-sensor-cells =3D <1>;
+>> +               };
+>> +
+>>                 i2c6: i2c@d4018800 {
+>>                         compatible =3D "spacemit,k1-i2c";
+>>                         reg =3D <0x0 0xd4018800 0x0 0x38>;
+>>
+>> --
+>> 2.52.0
+>>
+>>
+>> _______________________________________________
+>> linux-riscv mailing list
+>> linux-riscv@lists.infradead.org
+>> http://lists.infradead.org/mailman/listinfo/linux-riscv
+
+--=20
+Best regards,
+Shuwei Wu
