@@ -1,116 +1,151 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26BD2DA76C;
-	Wed, 22 Apr 2026 11:57:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712AB2DA76C
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 11:57:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776859028; cv=none; b=DaDmkv3KEueDAATpKo0FMfUsnhKjVrFU3u3gpA/1ewfLxoVpT+xWyiNuEj/Bn86eFGWqVFCU7CcaWpxJJoIWKzTxUAe9vLG6GSjSvblrl6/o3O1iSYTnG1+HEENJ9KWW5/Rg6SjIKeyc5ZVVGB72pTv5hMDtIA2c5jYVv9czoys=
+	t=1776859069; cv=none; b=Yw+WuAiRgtHHc+Js/dEdOv0klGo5aycfWTc1em7ZUhXkBwTcHF5WmBwjojLcrUzcp4RbLEoERRrMK6WBEIkH424bvlD84sKK8EHdIdStpLE3hZI+kKQwLn9VT0ICU1INIUP+PjF7CVqSmLG43rTAKpCKP2jKo8kbsoQDFeVErL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776859028; c=relaxed/simple;
-	bh=Hb3CUw8MQROEeqK2BSxwMmOlmLrbbi+1eGSjejU2Gfo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=TRwvVjB1GAJWvUYCI6StsKmgXfOrVPMMNzSe4fHFS40XCB2Vs5ueq/E3yQ8D5FI5uIeULHHEPuama5Eei326OolCADRJUBHZlZ7UJ+YO3/UcEwG9OJ+gdxwwYwcX6i7TKMWHUoDbUOgkyZIxi7k/qISzv2GZoTsr+FF52Sz9uyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=xoZocyB+; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1776859069; c=relaxed/simple;
+	bh=WZcQ8IgTTdxHEZHy1H9LTjWO/tGD8l+pU04Q2AgAltQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N51/wYrW8KKMmzraMfCVGoMgcTPPqNWiZvgRpvUZO81KVzdizfNcxwBtmwrIH/NYoL0/C1VJZ5xClwqYTvduIuhpoZajZfD2xENw2zyLlJHZpgrce/Q957ixXPTkqpW1LaVchWqB+ocd4xS8vn4SvGmjVBafnx7L5+JAMUa+D28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PU2hWyNy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XnPLJRk5; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="xoZocyB+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1776859025; x=1808395025;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=Hb3CUw8MQROEeqK2BSxwMmOlmLrbbi+1eGSjejU2Gfo=;
-  b=xoZocyB+bMjhrWUdKlO7UkNXkP4bZHIgms0UTNfQ07Wjuo99Fvr2eSjK
-   vAAfnAuiRr/8v7D8k5J+AiPC4sPCisUjFsSC2Sw/y0KaNTMnSxd6fslRO
-   9fXUP5DS01QiWmt+TtiPSUbwjRmgsWTkQn245utKLL6MfmOCZyHh8l5f+
-   q5lQ30UIzHgwDcbXnEH305Tr6n0LJVJ2eiQafLUDkF5Qp+EiaFK3zjg/+
-   lEo1p44JEcu+gm7hm76cgfkTqSTIHarmQtjnmoWpv/yYbtcE5A3qFBs5f
-   Fu7uRPrtKajn0mp8TDwzkvAJJK/KeSIJfH5jHg9Mq1QdP2hYZzbPXemzP
-   Q==;
-X-CSE-ConnectionGUID: +YVSb0Q1S2y65/P8aia42g==
-X-CSE-MsgGUID: 80srygWZRVe6ojOCAvxmCA==
-X-IronPort-AV: E=Sophos;i="6.23,192,1770620400"; 
-   d="scan'208";a="223710892"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 04:57:04 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.35; Wed, 22 Apr 2026 04:57:05 -0700
-Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex01.mchp-main.com
- (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Wed, 22 Apr 2026 04:57:02 -0700
-From: Ariana Lazar <ariana.lazar@microchip.com>
-Date: Wed, 22 Apr 2026 14:56:59 +0300
-Subject: [PATCH v2] dt-bindings: iio: dac: mcp47feb02: Fix I2C address in
- example
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PU2hWyNy";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XnPLJRk5"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63MALXlh976182
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 11:57:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	PC10pDiG1jjcR+0K11CaN8ksV7qOmFzw+8AOZycWy5Q=; b=PU2hWyNymFdimF+n
+	dpLanGER9FI6kB6O7SXldCo29r3O0JZYCRDWVquVcE04dq263BIHoSjkCPd2SQH8
+	/ViuIbUoH50JPwL2ogQTQm+Quzgmm0bOYFWov2o9GVv2r3omD3Xncq75vBqjtpPM
+	a2yRaQcQ9PmQtgNZAWawiRU/WNlEr4yQIi0qiIEolt2ACbmWNzWlnXSuEsZp9qp1
+	b6R63JIjk4Dv7oyZ9yOlBPZ2+S6byirv7bl37mRjiy1KTYKjA9PCg3oGMsT7/qF1
+	1F66oJigp6pz6Os3E4xXq8VNisFTuegX7SmTwWSotb4wu2o8MUi20J/qrmmMS2+s
+	YgGA9g==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpenebajb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 11:57:46 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50fb0b93e90so7317001cf.3
+        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 04:57:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776859066; x=1777463866; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=PC10pDiG1jjcR+0K11CaN8ksV7qOmFzw+8AOZycWy5Q=;
+        b=XnPLJRk5B0iBA8iaAfQSeZ6zT/BUy8seuzbRM5sZQ7jnaqq4V5GwHP32KAlRHPdnZY
+         vtAu4p249mQPUi0j24LycuPnORnOjzGv8sA+/icFiZdMNufC89uAi+rX4l5jwdcq53Z1
+         7X97yQrS5DuPwJ30hB3+TzpFTDK4DG7kdvR8moFpwsn4N/QFoFATVjq1BvGISKrnXyVi
+         Cg1Nxl/6wdiAFStouQfCrwxVrMFOaORsMXIiCysgMDkoKes527tfE6eeaNU56Wk9RLn2
+         Acj3xexFugHYWK25yePl6cA8tfJwJzLvlfvBWFnGImBxfZ8Pqu7yC4khaS95Sjp/BFke
+         Wgvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776859066; x=1777463866;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PC10pDiG1jjcR+0K11CaN8ksV7qOmFzw+8AOZycWy5Q=;
+        b=kKv/U/uK8qXd333qbmHqb2pmxt7eEP/vCIfXGlz2P3+zlmGvc6q2A143t0DrdxMKAz
+         ItV1ImP2rslemqCoZzg/v9mqqIxJw5Augq7Q9Z/nt/rLeku+A5w6ohCyf/HLliwPAMc1
+         8RuF3xv2W7r7vtVD8H/pjJKohwfW5LrRfIjwvSvgly5LiVJWVC0PGJpnVDLuPjYIL/Ab
+         UF49mYZXzIgiIslOJHcD8LAyO9ooPgxSRqFJPYdPgNFhstJIbYiTfBmcCMGP2ikKjdmE
+         1wIalKj1ZOodGUnTpFDjBU5hL7Fff8p8WxbeDHP/LnlVhXFSy2S8PZ4yswDBAyTfPDff
+         MHtQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9rMhG77FKQ8bwhrFhzFji9tctLzQE0gUfx9pdHAeSA8Vek7D1skKPSehJtSsh0qYdu46USZGMOsU4L@vger.kernel.org
+X-Gm-Message-State: AOJu0YzwBIsIe3Iuzd4LLxSb/QifazTERtExl9+x80R+0V/l11R86SEF
+	dDjSysNxrnznTJRJyNHlr6XAO4CZtOIEt78mad5NjkoAXgc5PFf8cvazoG811B6dZup0kodaO4W
+	kb47N1R68fSpPo0ewJpT3zmNKW+zAbLaoN4giY6/Rjd1yQ0ZsL5mQW5wT33isErgn
+X-Gm-Gg: AeBDies0167XsgbTojs1561Gl/avO3J6HVAg/h9bh1xy8XL65hVmEb35cG4WntOJsuF
+	oIfXohbh26X4Ak9QhnxR1EvlQ0NxIlxokseeBKmm3MhkCWoMzTqUtnA0+QXqeJRlcX87zZJ8mRu
+	IlDVr2hCD6Ra156VLhSFo9wi3jlxkYoJAZuJNKtKeJj0f8GliSqktdFyNctrPMWmNHmO4hjWTXD
+	cbp74C5GQHn7XLkJJFChHTph34l0QuxFbjEyoYArk+0JR4JYJ4JelzxNf5q9isebuP9PWZWCNnG
+	8M0+eF1GnhKY1U4yX85CLxIZdgxmVTAuFxGsX+VlE/4Pj+bAdi1T/Y04vCXEBLgyzrVv2ExGpmB
+	IakIsQOKXTvFe6qWh3+j/6JHhu0ZEl7qMg09KeEPZu6Q4cCRzaZMIpVvhLKUiNfeCMMeTKpzymD
+	CtpfnTzoAYNtJv3g==
+X-Received: by 2002:a05:622a:38e:b0:50d:714d:e966 with SMTP id d75a77b69052e-50e3669e233mr222103331cf.0.1776859065790;
+        Wed, 22 Apr 2026 04:57:45 -0700 (PDT)
+X-Received: by 2002:a05:622a:38e:b0:50d:714d:e966 with SMTP id d75a77b69052e-50e3669e233mr222103061cf.0.1776859065311;
+        Wed, 22 Apr 2026 04:57:45 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba45121109csm546618566b.6.2026.04.22.04.57.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Apr 2026 04:57:44 -0700 (PDT)
+Message-ID: <f578fb1a-5087-442a-845c-db07ce3a9931@oss.qualcomm.com>
+Date: Wed, 22 Apr 2026 13:57:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] interconnect: qcom: Add interconnect provider driver
+ for Nord SoC
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Georgi Djakov <djakov@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260420021351.1239355-1-shengchao.guo@oss.qualcomm.com>
+ <20260420021351.1239355-3-shengchao.guo@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260420021351.1239355-3-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260422-mcp47feb02-fix6-v2-1-4ca4d5cfab07@microchip.com>
-X-B4-Tracking: v=1; b=H4sIAIq36GkC/2WNQQ7CIBBFr9LMWgxDkKKr3sN00cLUzoLSgCGap
- ncXG3cu30v++xtkSkwZbs0GiQpnjksFdWrAzcPyIMG+MiipjNTYiuBW3U40SiUmfhkxemOu2lv
- dXiTU1Zqo+qN47yvPnJ8xvY+Dgl/7ayn51yooUAyEVtqJBkTfBXYpupnXs4sB+n3fP74F3N+yA
- AAA
-X-Change-ID: 20260417-mcp47feb02-fix6-bd6694d84750
-To: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: Conor Dooley <conor.dooley@microchip.com>, Jonathan Cameron
-	<Jonathan.Cameron@huawei.com>, <linux-iio@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Ariana Lazar
-	<ariana.lazar@microchip.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776859021; l=1341;
- i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
- bh=Hb3CUw8MQROEeqK2BSxwMmOlmLrbbi+1eGSjejU2Gfo=;
- b=TzE7OI1f0ywbSxOeOQpT+Op9HlJZQLzJ6/cZyJO2T1mLWTap2vNyqtLct52QrqtHlspr/LcnO
- /yGJd9gRL+5BCQ77aHSQf05tfLZQJlpWzS80sNEmxJG98tAdSvtuNtw
-X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
- pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDExNSBTYWx0ZWRfXyilVar4QQ9Ml
+ QfnqNRBzdeegrOqm9/j7WSdm135PVctja1JOeCddi5pMKGdPpRHvQrk05DFrZh/+gJ6MKN3lOqF
+ j/O78xuBTgGZmNJ2OOp4Px3hyBUIOZrYU5w93YPEC0Llj/knXjq+K4rkHaiOUhruVOAYHWHPOw+
+ s0zLx4/bpfQRlzkBwDvcBWjvy580DMEaXT216nXmBFPTCvUsvwtNuzRq52D5oc9C/aLNKrpx+wo
+ IGPGzUGNUKX5QzguTF8hhyxNG8TeUMZngXsN4UC6yB7EEkRdz0MnKDK2Fs5BtI8H8bHvb3uGKbP
+ O8zNClujacpKfslZ1B8zSAgXmPghlyrPmt5hdWK6K53KgcDFHwV8yNwJzav+F+epx5oFeiAjYsd
+ X8GH+Azz4CUXGt4GvRDVHadHA/ai3rARHsfUD+tBIClbOdi4+oAuIkG3bTfpxUgIsO1LhMYUtYN
+ sNbznOXFTsE94X6XJTQ==
+X-Proofpoint-GUID: PwWLC3tKfpPGBikRxDpIvdWVQKRnkDK6
+X-Proofpoint-ORIG-GUID: PwWLC3tKfpPGBikRxDpIvdWVQKRnkDK6
+X-Authority-Analysis: v=2.4 cv=RoT16imK c=1 sm=1 tr=0 ts=69e8b7ba cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=miiGjHqzieJubTSf79EA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-22_01,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 phishscore=0 adultscore=0 bulkscore=0 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604220115
 
-Change example reg value from 0 to 0x60 in order to use a valid I2C address
+On 4/20/26 4:13 AM, Shawn Guo wrote:
+> From: Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
+> 
+> Add driver for the Qualcomm interconnect buses found on Nord SoC.
+> The topology consists of several NoCs that are controlled by
+> a remote processor that collects the aggregated bandwidth for each
+> master-slave pair.
+> 
+> Signed-off-by: Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
 
-Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
----
-Changes in v2:
-- drop fixes from commit message
-- keep just the address fix
-- Link to v1: https://lore.kernel.org/r/20260420-mcp47feb02-fix6-v1-1-ae1808fea11d@microchip.com
----
- Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
-index d2466aa6bda2106a8b695347a0edf38462294d03..350e80e4dbe05dd10e3c6fb00f74d58c56c54bc8 100644
---- a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
-+++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
-@@ -280,9 +280,9 @@ examples:
- 
-         #address-cells = <1>;
-         #size-cells = <0>;
--        dac@0 {
-+        dac@60 {
-           compatible = "microchip,mcp47feb02";
--          reg = <0>;
-+          reg = <0x60>;
-           vdd-supply = <&vdac_vdd>;
-           vref-supply = <&vref_reg>;
- 
-
----
-base-commit: d2a4ec19d2a2e54c23b5180e939994d3da4a6b91
-change-id: 20260417-mcp47feb02-fix6-bd6694d84750
-
-Best regards,
--- 
-Ariana Lazar <ariana.lazar@microchip.com>
-
+Konrad
