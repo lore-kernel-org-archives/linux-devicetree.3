@@ -1,209 +1,252 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAEE2DF13F
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 18:51:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAFD43EE1C9
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 18:56:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776883919; cv=none; b=OO16U+QrG7KFhsgMYxMaFo+Fpgpg386Qz9IMkJ1wR2Qxw7hQbjV5oXe9S2Big+IPKANkHO4XVwNKg8w9X1dlzDtddnXX4p0nf67XOv2wa0DffIcJ1wtyqQgKzA3WoxB0Ec0gF/43/mYN9H1PJXZ1Oov/wPzB4ZPoEakAdIa3BPI=
+	t=1776884194; cv=none; b=rZwwQQurmM7es+rd2RWe20+B4zkCzIVOf212W2hyJ8F0Mvf+KdOZQnR8zTFjzy4hfejnlz7ffAov/jMKGxSASS0K7lVtUexfnB495zQM1uCJQeTMK4xwY1u4I6+9iKL6y94qfN9zu5UGgVy+qEdnwJuMjTLWntbBWjx+YKZaKCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776883919; c=relaxed/simple;
-	bh=W3gJGhETv1i99hgZ4Qzxlq7+a/rqAi15n3RaJvZubfA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BjNygJYC/F+0maeg9DlWtD7pMmrqyc+KJFTLUDXce8JdrWUg2pUJi08mUWlR5C5ZmGAfxTM+4VLLlak0gxfyP3H9vt8UpwC44eCsJEK8uxvZ9tOmkxOWu2UL2MrVWcIdBv0V7d4yedQP1qnE/gu2f5jsm7MtjHJNCUEl+05pkFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=WoM6PqKc; arc=none smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1776884194; c=relaxed/simple;
+	bh=oW0r30fyl77xiJxllAvgQXaExv6419NWA8lkW6Tbaqs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cSpzGgk/TJASq5zaHsAgDsD6V+2SgKA4oQQnSYtm1qI2W67bG0TrhAR9XbEwAamK+J412Wci2WOUk7mHvj4d71fZCK2XdZNC3noNn13PbDrVlmfTNaDO6wbxk9pAmQNb8t5/ucmqeY9Lk8a9v2Bq6LWDiJWoevujx3X5AVluLhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IiFftyjO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ilcBG76H; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="WoM6PqKc"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6784d08c1bbso207094a12.1
-        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 11:51:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IiFftyjO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ilcBG76H"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63MG6avB872740
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 18:56:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	iSDQlfPYquieSxnq9HkLMCvGbQcXT9UCSCqJ65VN4X8=; b=IiFftyjOoFAJ8qgJ
+	cXVZWSxqrSworbHFUzH+8B3QxtAdLoF+OYWuT7n0RGVeAKlJaP42a9vsOLfJT+ip
+	CbUzLOFY9C/k2A9Guyw/IY5fJJJUCfuSr6uTW6c7h9H+LVEu0LkBxhGwgWvelvzN
+	Uwh1IHgIl3s2wuwxVOx2kU1BNohdnLnz7khz7RcysoaU1o5Cyn8e9+emjQFkeoaM
+	nYenNmxoHx+5ywAIfKd5kWXWrmBuqoyUyQVHiHclqaeJitSgQ52dswNg0OJ+zfUm
+	tN2X/MXI93CxsEoZ2/A5gv0z0/eIZPLKGtxc1OFuv2TBoYtg93DPuA96r97CaC6a
+	C3naCA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dq1jh0kwd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 18:56:26 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50e136aff17so110225631cf.3
+        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 11:56:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1776883912; x=1777488712; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=R4vBmmJ5gC2QCrFlTLiSjZ3SPsY2SAKP5dBxbzswxUI=;
-        b=WoM6PqKcFGAZijsVlYaTV7HUC2SjrXF6WfuOD7YDK++1HOLw0++InBBJO15E0r1t1M
-         NsiZ4iwaOijfnO3ZwXs/vh8PMaG8RLBtlJuJyHSjUuWrMpkk5NeD/42ZFUjpZY4kxjbq
-         MKMOyi64S2J3RRN8WHgdPOhfI8vw6I3q1IRJc=
+        d=oss.qualcomm.com; s=google; t=1776884185; x=1777488985; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=iSDQlfPYquieSxnq9HkLMCvGbQcXT9UCSCqJ65VN4X8=;
+        b=ilcBG76HlO9g8uP9gdH7vzuN9fatNZz9Qe+JB9A6mwHFY4IuKS/uHe9YCEHxBSlUYk
+         bCBF2byQj5s0KUQczJRIKTor4e/8RT6gg1SnDzfGPEJmI2SWIFS3frYEfDmGNEmpJPjm
+         UlgLpvvl9KlX0SLruT6qPS3tTThtdvJxeyPbkZ5oi4tvembFpnLsuojYAEvgTU73OQoe
+         VtH8+Pb4f5DLw6PrV0e11TFzm0pa7n+J5YNqfb4RiL8tdUPQ3ND1hCE0po95RlUZaawj
+         FvPSOHS0XCwHvZUlHOHJ5OSVyHX+S3zEZXVLVBT5hlZhPAOi3QMV26s3AFgax5b117HT
+         8Irg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776883912; x=1777488712;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=R4vBmmJ5gC2QCrFlTLiSjZ3SPsY2SAKP5dBxbzswxUI=;
-        b=eRHkQF6nDgMvsiVp8snJ5THpWAFNKZAynJtPwC7fjPdg+rXc7rEkeggDEF2VpYSErW
-         6TT2+JN4e21YKsbIEzaTo0XNb4oKN3JKAwYHFlAC8g2vSOSU1tkkmUYVWibx8Se9bK61
-         FfNKbY2+ucngn4/zShp1mUxgA8/AIsKX/FF3RoW8eSvGEwS2WYYSO/z0mnZgB+CYi1c0
-         qj5axfydBnzukAE9tjeegUo/22DCIZTATYCpfMipiN39wou96eEOBjr8caKIDz8OAI8q
-         BekCusq+xnj8hKCfX+sBCeWiPgBwux5idohnjzf1XffNoT4FepEl3kSE+4VaMP22vsgj
-         Vr6w==
-X-Forwarded-Encrypted: i=1; AFNElJ902F4d8xgbJtYV8z8v6+tnSceGApwaaS1HX0bHoQeXngMjtCakSPZ6Bm9fkh1gOh16qWGe5mSm88Zo@vger.kernel.org
-X-Gm-Message-State: AOJu0YzeCPUc3pGuFYuUNcqhqv313woRAflQfP1LOZUMjPnPfygpSodw
-	+OdKROo8UGr0iQl9lxi2Twvbg99hMwMvaqG8YnQWNrGgzWc3wBUhgxaNDKo4t+HCnlYe92ohlPl
-	Fct83eg==
-X-Gm-Gg: AeBDievhi18c0OYZAbJnOb8Ouw6uEbOyMz48ALwcjrV/HSy8Q9hbtJh5eDZ/kf4WMHx
-	ghklxIGcSrlhF4an84ZEWfUv79Zfio9csKqeetVSM4ipCtgiskC8ESvXOmILuX67g+/pK1jpdD/
-	wDuq4nQcf+QWczyz3O1jFM4v8crWHxqDVT9E74PvsC9xi3UYKkFN036l7CJTEbWQ/5NqcjmJodC
-	aQy7pLtdlqOlPNtujwQRPQNUSlMcoQlDI+jUW8VUcMLfpwE+SJtN1WYe7ybsi3ZB27hnmE+Em8z
-	V5jYBtg6coyww+aaMBHOrsJFQPFVSyZhFjG/iW0zR9TB7q2qbqHEG7DKINRoZAe4hgtF7CXZpNA
-	NIf4ZSyPCsZBpuzB7vi4F9nl2F5uf0QxvRsoEbbdb2bH5mFqFjNlIG5S+CBjz7mlHt1DbQuVCUt
-	t4hl4NxrJbHoakFxg1O+m4F6GPkGCusbzuEleb7x4pjabpCW59b+kLSwwRVR9lpG1fTuO7P7kj
-X-Received: by 2002:a17:906:f592:b0:ba8:a829:e648 with SMTP id a640c23a62f3a-ba8a82a9a54mr698874466b.24.1776883912302;
-        Wed, 22 Apr 2026 11:51:52 -0700 (PDT)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com. [209.85.221.51])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba455045652sm577500566b.51.2026.04.22.11.51.50
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Apr 2026 11:51:51 -0700 (PDT)
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-43d7213b6ebso3832777f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 11:51:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ81j95Kbd6x65poPIgcrTsRl2bjUDtrjS5gcIVbK45gJ5Wftc8ekH0B8UH7BARtG/Qvz0NvfOeuXhjU@vger.kernel.org
-X-Received: by 2002:a05:6000:2f8a:b0:43d:7a08:a5e6 with SMTP id
- ffacd0b85a97d-43fe3e073c9mr39087653f8f.29.1776883909243; Wed, 22 Apr 2026
- 11:51:49 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1776884185; x=1777488985;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=iSDQlfPYquieSxnq9HkLMCvGbQcXT9UCSCqJ65VN4X8=;
+        b=EdXVwMSxBck8WiWO5Gg9V1RfX5wYcFuftMSP0iV61V+QeYbn50E+Jyo/xnZD4oiHSh
+         if/Jst3e+SkppmXeoR929Bjx/lHZFQc3T9sVvYeFSdpiw9rnmR+zLDlJwi671XCRsav2
+         z8KalTStR4FkTMETSHnHZyj3o2CQeSHNeiSbQRxWYQzCRr19Cz+5NJ0QQo5tiadDi9g9
+         DUIBb3KlRxzyGnfe61D3Cpf3EE7Ywn0MqQywXTdkqNwPcwISraB6D0ybYHTVWivq4UYv
+         50ca+Zhc9LmLzQ8L0UVXyN3LdJlLJ2a0BFwYgEOC+bhbdNVy1a7ypNqVjKI1Q4+W/uaa
+         fHxw==
+X-Forwarded-Encrypted: i=1; AFNElJ8w2QZ7Po4viUWx9tVv4owfsGRgijoQt9l/CKtCWYvPb9NsFQ2nRQQx1FY31PpdS2BhT8Tv/L+208JM@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz12uLzPTT3uS3AeHIdOc4IJXCVULAe13fb65E3FC+QWxbcHXQs
+	Ha4mnS2QMJyLo2N2FGUBPAoKBi9u1HJTnT8CSPFUXmX32T97zRfQQdkcFA1F89KAVscJUF3J8Pg
+	uk7eB8EXcDYG4kntxJ8cdG8JDdLlQ2uBTNu9iWtaj/qbtBbqwK8v13dx803uJxOTl
+X-Gm-Gg: AeBDieuWJNTF6vZTj6XhjBgq9jGDUZ7XdjKNpEd/pabQIMHyXQjmBBDFxUBEaCFbUB8
+	3XE+Ud2Ok+majOOVI1uJGAOoZF1EfzgzwgAjW4WvAPmfUpDuIUXmfW+PE3rOVB7t5L5vX9JCxTw
+	d91A7uWNAp0z0yG3XKB/kf9r3CSdHD7uqsOCALD4QGSuAKfDbCkQEm+zCHEigjdpxXjzYdKCzYN
+	UC1+pGvJBMXsMhvKO1Mqpd4y6LF6vMzHoUMRuCMDNAGgZ3Iukqdeu+tKOZO9K49bf7TsdQAAHZF
+	hCc8/bK0xfb3mYMeNJ9U1Z9lx0xGrp+q680xXGRoKvB/dYJW9I1vcFz7DUu3jrRSs7RkcUReGr2
+	1FagYxTJixinUufuHSsbFOUNFVyPptigNxxc68kL25aqjymqO0UHhL3EvM7FqlYOM9sbFmN8Qkc
+	hmS08KCQAjnbj2k8hGMrKAQzKQDDXkuAj6g15fJhZ3+ym0Zg==
+X-Received: by 2002:a05:622a:4116:b0:50b:48de:5448 with SMTP id d75a77b69052e-50e3681d04dmr335156421cf.6.1776884185019;
+        Wed, 22 Apr 2026 11:56:25 -0700 (PDT)
+X-Received: by 2002:a05:622a:4116:b0:50b:48de:5448 with SMTP id d75a77b69052e-50e3681d04dmr335155911cf.6.1776884184545;
+        Wed, 22 Apr 2026 11:56:24 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4185bc5e5sm4694979e87.27.2026.04.22.11.56.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Apr 2026 11:56:23 -0700 (PDT)
+Date: Wed, 22 Apr 2026 21:56:21 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: =?utf-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
+Cc: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, andrzej.hajda@intel.com,
+        neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+        rfoss@kernel.org, mripard@kernel.org,
+        Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+        jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        xmzhu@lontium.corp-partner.google.com, tzimmermann@suse.de,
+        xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
+Subject: Re: [PATCH v3 2/2] drm/bridge: This patch add new DRM bridge driver
+ for LT9611C(EX/UXD) chip
+Message-ID: <seno7shjhledyrunl5pib323zwgshtyhi455hzyspkhuvbps4m@qb4gwwakfww7>
+References: <20260420061644.1251070-1-syyang@lontium.com>
+ <20260420061644.1251070-3-syyang@lontium.com>
+ <stkoeboxioodtki3nyksdglihgze243u25ui7dbyac4tuuobgx@ncl4j6l4vfqh>
+ <CAFQXuNYXP1fiJtUiMb5iBL=jVXTB8HX8JLzto_eGOZvUaeZkfw@mail.gmail.com>
+ <mvthlwcekj6i2h7bi5lns7ycictafjjyninvubp6adgaqxchkz@372c36cxon5t>
+ <CAFQXuNZG-La0YpmHgMA-TZ2ayPDLfEvkbrSJZyW-jFCzXU-mLw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260325143555.451852-1-herve.codina@bootlin.com>
- <20260325143555.451852-3-herve.codina@bootlin.com> <CAMuHMdU7x7LWFkD9xiq+wyOqnn0bdzr+JLfvbBexoiWyv8kftA@mail.gmail.com>
-In-Reply-To: <CAMuHMdU7x7LWFkD9xiq+wyOqnn0bdzr+JLfvbBexoiWyv8kftA@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 22 Apr 2026 11:51:36 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=UK3NQKQN7FXyG4nGdDKO=LQYhnL4ZweomQ_4R9-EAYag@mail.gmail.com>
-X-Gm-Features: AQROBzAV3w_CPq4qi5veiP_uOv4VWrOsaTYpBbypDAKqTbu6jiZzeNsnLIn0Vds
-Message-ID: <CAD=FV=UK3NQKQN7FXyG4nGdDKO=LQYhnL4ZweomQ_4R9-EAYag@mail.gmail.com>
-Subject: Re: [PATCH v6 02/27] of: dynamic: Fix overlayed devices not probing
- because of fw_devlink
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Herve Codina <herve.codina@bootlin.com>, Andrew Lunn <andrew@lunn.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Kalle Niemi <kaleposti@gmail.com>, Matti Vaittinen <mazziesaccount@gmail.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, Peter Rosin <peda@axentia.se>, 
-	Arnd Bergmann <arnd@arndb.de>, Saravana Kannan <saravanak@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Charles Keepax <ckeepax@opensource.cirrus.com>, 
-	Richard Fitzgerald <rf@opensource.cirrus.com>, David Rhodes <david.rhodes@cirrus.com>, 
-	Linus Walleij <linusw@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>, 
-	Mark Brown <broonie@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Davidlohr Bueso <dave@stgolabs.net>, 
-	Jonathan Cameron <jonathan.cameron@huawei.com>, Dave Jiang <dave.jiang@intel.com>, 
-	Alison Schofield <alison.schofield@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, 
-	Ira Weiny <ira.weiny@intel.com>, Dan Williams <dan.j.williams@intel.com>, 
-	Shawn Guo <shawnguo@kernel.org>, Wolfram Sang <wsa@kernel.org>, linux-kernel@vger.kernel.org, 
-	driver-core@lists.linux.dev, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
-	patches@opensource.cirrus.com, linux-gpio@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-spi@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-cxl@vger.kernel.org, 
-	Allan Nielsen <allan.nielsen@microchip.com>, Horatiu Vultur <horatiu.vultur@microchip.com>, 
-	Steen Hegelund <steen.hegelund@microchip.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Saravana Kannan <saravanak@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAFQXuNZG-La0YpmHgMA-TZ2ayPDLfEvkbrSJZyW-jFCzXU-mLw@mail.gmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDE4MyBTYWx0ZWRfX6s9SnRcJ7glB
+ QBQ8X9eOtw4zmW21dcguyeGJlr9k5uNoywQaJWmhL6IU4Bz+FnfL21l3rXtc6heiYmZrGyDip0E
+ +X7wBKjoZ/28ThVcdtwzFJ0K3v/63yVl/WiRhmRNTDQinJel69K/1l7MRg+K5uwcVTGBs7lZmk2
+ He9YKZa0UfUg/f3MgYxGgO1XX69yqD1F2KAkZx3VmQq/qMgV+HWaBvpm7kFRvQaPmZJtRDzQI6K
+ 2wVejgf00fuZHRHQaxPhNYjUmDI6V0+I/JTZoQYzGo5LC1knC++JN3EyWtmltwaq/y+jfz+8jiC
+ owlf5Gkj8nQK1RuzYSyXjEN1A0KII4VkU8hEI0i6Zcdsw5GYprwMLHzq6WUm4N/rmWt1tO8fMCB
+ yDNqfZro6bg5u4HsrfLK7hJM6BSjgvwsYcAABGUoHymyaMywyrN6AJqEryc4f1h6dEjpgzVuhYT
+ q23s7g5xS9rM0m0EuzA==
+X-Authority-Analysis: v=2.4 cv=OeyoyBTY c=1 sm=1 tr=0 ts=69e919da cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=Kz8-B0t5AAAA:8 a=lrge24zB_DpNgzo6FaYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22 a=RuZk68QooNbwfxovefhk:22
+X-Proofpoint-GUID: gYgrUWEiBs2FU1vzZBVn4DqbTU5_-Ccp
+X-Proofpoint-ORIG-GUID: gYgrUWEiBs2FU1vzZBVn4DqbTU5_-Ccp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-22_02,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 adultscore=0 suspectscore=0 phishscore=0
+ clxscore=1015 spamscore=0 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604220183
 
-Hi,
-
-On Wed, Apr 22, 2026 at 10:44=E2=80=AFAM Geert Uytterhoeven
-<geert@linux-m68k.org> wrote:
->
-> Hi Herv=C3=A9,
->
-> CC Douglas
->
-> On Wed, 25 Mar 2026 at 15:36, Herve Codina <herve.codina@bootlin.com> wro=
-te:
-> > From: Saravana Kannan <saravanak@google.com>
+On Wed, Apr 22, 2026 at 12:41:11PM +0800, 杨孙运 wrote:
+> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年4月21日周二 18:48写道：
 > >
-> > When an overlay is applied, if the target device has already probed
-> > successfully and bound to a device, then some of the fw_devlink logic
-> > that ran when the device was probed needs to be rerun. This allows newl=
-y
-> > created dangling consumers of the overlayed device tree nodes to be
-> > moved to become consumers of the target device.
+> > On Tue, Apr 21, 2026 at 03:37:52PM +0800, 杨孙运 wrote:
+> > > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年4月20日周一 20:18写道：
+> > > >
+> > > > On Mon, Apr 20, 2026 at 02:16:44PM +0800, syyang@lontium.com wrote:
+> > > > > From: Sunyun Yang <syyang@lontium.com>
+> > >
+> > > > > +
+> > > > > +static int lt9611c_hdmi_audio_prepare(struct drm_bridge *bridge,
+> > > > > +                                   struct drm_connector *connector,
+> > > > > +                                   struct hdmi_codec_daifmt *fmt,
+> > > > > +                                   struct hdmi_codec_params *hparms)
+> > > > > +{
+> > > > > +     struct lt9611c *lt9611c = bridge_to_lt9611c(bridge);
+> > > > > +     u8 audio_cmd[6] = {0x57, 0x48, 0x36, 0x3a};
+> > > > > +     u8 data[5];
+> > > > > +     int ret;
+> > > > > +
+> > > > > +     /* Validate sample rate and width (LT9611C auto-detects but we still check) */
+> > > >
+> > > > What for? You don't trust ASoC / ALSA core that the rates would match
+> > > > HDMI_RATES?
+> > >
+> > > Chip has limitations on sample_rate, sample_width, and fmt, and cannot
+> > > support all formats.
+> > > The validation here is to ensure that only the formats supported by
+> > > the chip are used.
 > >
-> > Fixes: 1a50d9403fb9 ("treewide: Fix probing of devices in DT overlays")
-> > Reported-by: Herve Codina <herve.codina@bootlin.com>
-> > Closes: https://lore.kernel.org/lkml/CAMuHMdXEnSD4rRJ-o90x4OprUacN_rJgy=
-o8x6=3D9F9rZ+-KzjOg@mail.gmail.com/
-> > Closes: https://lore.kernel.org/all/20240221095137.616d2aaa@bootlin.com=
-/
-> > Closes: https://lore.kernel.org/lkml/20240312151835.29ef62a0@bootlin.co=
-m/
-> > Signed-off-by: Saravana Kannan <saravanak@google.com>
-> > Link: https://lore.kernel.org/lkml/20240411235623.1260061-3-saravanak@g=
-oogle.com/
-> > [Herve: Rebase on top of recent kernel]
-> > [Herve: Add the call to driver_deferred_probe_trigger()]
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > Tested-by: Kalle Niemi <kaleposti@gmail.com>
-> > Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
->
-> > --- a/drivers/base/core.c
-> > +++ b/drivers/base/core.c
-> > @@ -235,6 +235,79 @@ static void __fw_devlink_pickup_dangling_consumers=
-(struct fwnode_handle *fwnode,
-> >                 __fw_devlink_pickup_dangling_consumers(child, new_sup);
-> >  }
+> > Again, for sample rates, is it different from HDMI_RATES? If not, it is
+> > useless protective coding.
 > >
-> > +static void fw_devlink_pickup_dangling_consumers(struct device *dev)
-> > +{
-> > +       struct fwnode_handle *child;
-> > +
-> > +       guard(mutex)(&fwnode_link_lock);
-> > +
-> > +       fwnode_for_each_available_child_node(dev->fwnode, child)
-> > +               __fw_devlink_pickup_dangling_consumers(child, dev->fwno=
-de);
-> > +       __fw_devlink_link_to_consumers(dev);
-> > +}
-> > +
-> > +/**
-> > + * fw_devlink_refresh_fwnode - Recheck the tree under this firmware no=
-de
-> > + * @fwnode: The fwnode under which the fwnode tree has changed
-> > + *
-> > + * This function is mainly meant to adjust the supplier/consumer depen=
-dencies
-> > + * after a fwnode tree overlay has occurred.
-> > + */
-> > +void fw_devlink_refresh_fwnode(struct fwnode_handle *fwnode)
-> > +{
-> > +       struct device *dev;
-> > +
-> > +       /*
-> > +        * Find the closest ancestor fwnode that has been converted to =
-a device
-> > +        * that can bind to a driver (bus device).
-> > +        */
-> > +       fwnode_handle_get(fwnode);
-> > +       do {
-> > +               if (fwnode->flags & FWNODE_FLAG_NOT_DEVICE)
->
-> After commit f72e77c33e4b5657 ("device property: Make modifications
-> of fwnode "flags" thread safe"), this must be changed to:
->
->     if (fwnode_test_flag(fwnode, FWNODE_FLAG_NOT_DEVICE))
->
-> With this change my DT overlays are working again.
->
-> I guess keeping the FWNODE_FLAG_* names, but changing their values
-> from bit masks to bit numbers was probably not such a good idea,
-> as it fails to catch missing conversions...
+> 
+> I checked the definition of HDMI_RATES and ended up doing a redundant
+> validation.
+> 
+> #define HDMI_RATES (SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |\
+> SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_88200 |\
+> SNDRV_PCM_RATE_96000 | SNDRV_PCM_RATE_176400 |\
+> SNDRV_PCM_RATE_192000)
+> 
+> However, if HDMI_RATES is extended in the future to include sample
+> rate not supported by LT9611C, this driver would require corresponding
+> updates.
+> If this is not expected to happen, I can remove the redundant check.
 
-Crud, I should have thought about that. :( Do you think it's worth it
-to do a rename at this point to catch future problems?
+Updating HDMI_RATES would cause enough issues for the existign drivers
+which don't have this kind of a check.
 
--Doug
+> 
+> > > >
+> > > > > +     switch (hparms->sample_rate) {
+> > > > > +     case 32000:
+> > > > > +     case 44100:
+> > > > > +     case 48000:
+> > > > > +     case 88200:
+> > > > > +     case 96000:
+> > > > > +     case 176400:
+> > > > > +     case 192000:
+> > > > > +             break;
+> > > > > +     default:
+> > > > > +             return -EINVAL;
+> > > > > +     }
+> > > > > +
+> > > > > +     switch (hparms->sample_width) {
+> > > > > +     case 16:
+> > > > > +     case 18:
+> > > > > +     case 20:
+> > > > > +     case 24:
+> > > >
+> > > > and no support for 32?
+> > > >
+> > > no support for 32
+> >
+> > Then check for that rather than listing all the widths. If you check the
+> > hdmi-codec, you can't get 18-bit samples at all.
+> >
+> You are right, there is no 18-bit support.
+> 
+> same reason with sample rate.
+
+Yep. Check for 32-bit, the rest is fine.
+
+> 
+> > > > > +MODULE_LICENSE("GPL v2");
+> > > >
+> > > >
+> > > > I think, checkpatch.pl should have flagged this.
+> > > >
+> > > yes,  it is need use GPL?
+> >
+> > If it flagged the line, why didn't you fix it? What did checkpatch say?
+> >
+> Sorry, it is my mistake. i will fix.
+> checkpatch say:
+> WARNING: Prefer "GPL" over "GPL v2" - see commit bf7fbeeae6db
+> ("module: Cure the MODULE_LICENSE "GPL" vs. "GPL v2" bogosity")
+> #1450: FILE: drivers/gpu/drm/bridge/lontium-lt9611c.c:1364:
+> 
+
+So... If there was a warning, why did you ignore it? Please don't,
+unless you really know what you are doing.
+
+> 
+> > > I see that many of the latest code still use GPL v2.
+> >
+> > --
+> > With best wishes
+> > Dmitry
+
+-- 
+With best wishes
+Dmitry
