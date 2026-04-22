@@ -1,383 +1,228 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023101.outbound.protection.outlook.com [40.107.44.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93EE7233134
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 01:06:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62192233134;
+	Wed, 22 Apr 2026 01:06:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.101
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776819998; cv=pass; b=I/NCbQzmhty5kzes9VxEVLdGW28CG8dHdFLI6nxkV7iBvqyIRMWZxwSr9pYGA0xC0uneMNEDyZNJ2DxL4Gw+xu4I0yV4Vk0VkHUBh13llQBVQWM+FZWz8dLTzbnwDfqmGsq8Rpgnw1BWjYJKzMmJrZt/EBJOHLiFrthBAIo7aCY=
+	t=1776820019; cv=fail; b=Ojv8UMEZhbp/3tfKo64oiW7TW6QTlhzJSIxQ/19V24Ce2VOkIaojOr53zpW8hLLNb8JSj+pwbxbsUwPOKhcUlF6YzY5LKPZchmXuvfyjPSz8Lw0HJ0JmFVA3NU9UfJp6gZPwpOIGtOGHcg5r71ijmVCt5KIHHgSfXBOwfB2pG1o=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776819998; c=relaxed/simple;
-	bh=6N+01bEB/iOETBncJfRoMnnYQ1xW57XfWjGf8tUAxUU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eWe6gxvXLKoYrTqSc+qJOW17jVYkwHqnEJQwIY71rGZrdTYWrcPpLeV126U8JU0RWvZTHFx/k0CwjOkBGnvCLq7O+XAIH4vPQoPlT0Hw3liXyUBFP2NV5qMuV2yVNd9Sr+vgmeZLRXcExVjiA4AI0WQJ780riDd1J1P02+FtcyI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b3uN4B5v; arc=pass smtp.client-ip=209.85.210.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776820019; c=relaxed/simple;
+	bh=76vAiwc4Bf6f+cpkBoU5Ude7k+2Jyv/M21JvcRTJHBk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=XpKhgbfck7+atnwQhua8FejoGxpL6ZIUD1zK5qFYq+o4Kg1VvZO0hMQJyCP0O/A3b7vnXfM9JbIaTbvXKyGJUgyDNBsPIZSKCfnfPL0wnAW8n+lrgWcrjQetbxoSV5HBWD6z/BwkpFBSJmiMQljoiSE6yC7ImyyGXKNthORQ03c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=HLyyoFEu; arc=fail smtp.client-ip=40.107.44.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b3uN4B5v"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7dc35728a57so3769180a34.0
-        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 18:06:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776819995; cv=none;
-        d=google.com; s=arc-20240605;
-        b=fK2I43InoV5d9KYGdtzPTIAr/t9dI5N7sK1g3sVvc18kyPmz3tfdFsmZAexx0OxQLl
-         kjsxQRnU5Vo73epuKxh46hCb5lzmqdcLHoT/KqtijKw+4gQC3QtNSg0v4GAAUQcyTotE
-         npRDtjbiK+fjjgm3aiHTrH4Fl4Ge5nh2MImFEXTjdJvMxtMU/qEZenaum5wiOIxTQzKh
-         rHH8jRQFxQ2M/EGNKrWz6eriYRBgIJVagrJOFn6+77MupxIAJXJoKlks6/LqiNxe/M/e
-         DIN5tegSB5u328+pbLtPl56LaJc/EU/oY/xNLzDyVO0OCjla202yisSK5d+JosPmt5BO
-         oYGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0IRFmArTYLfOKDBhdMLQmn7zlltkZiYQwJVABBk+Y1U=;
-        fh=+nQN4cyS5dXtwNx58Mgxi80gkm2DBOoL+3BwpbwiXQI=;
-        b=M0IbVqX3snuBNoTdTTGF0oxsBhGPXrq9kLUCup/0e7be81liMX9QO/TP4Xc2ZL/E9E
-         DbU2xrXh/CRPXOp+A/B2p7yQxm4hfCQVBrC9hrTrrRlEwpB1Euvv8K6AXsA+V7JbvuoT
-         SUnIwlvQ9e4LB8DWMHM9dinFlIvUWrIHF4O59OMSuQVwT+c7rFAQVkPHcGGSGkw+V3Cj
-         RqQRaKxS+yDcTb3E678sgabXFIOI8HBlP9Ly+xDPJNypWRU1mnKnO5OC8X+Z/t+lpPSd
-         0LHXPltvW7AeL9DjBoXDJOu/o/JJ3doYuzDn/d/9YdwwL+YPYP5qZnQHnaEcH/EgQskX
-         4fbQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776819995; x=1777424795; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0IRFmArTYLfOKDBhdMLQmn7zlltkZiYQwJVABBk+Y1U=;
-        b=b3uN4B5vz6ovqHEDNJhZDL80VC+/ubJedfgLFFh0c+jrjClXDwF4M+Xr42Il1E7BIZ
-         R0nuVDwDyhAAt5L5ftQFA8eSyp3EdMK3WI3iRZl+KRcVL1kCKaL5OZZaSv0TyKpLSuB8
-         UpL51mLdweBeOEGHVnhqi8WitsA+FL94sSMuLn8FYNSUfmstx9Qp9TrdGoUcUD6Pkqam
-         P8eRC/88tyXPvD0r/j5/tgML/Kz2DuM2xbxKzxW09OnIdVLjw3Qv3INWKvmXymnPKZso
-         48kT5hAtvDedYHUG6CTNbI2XAYZ13JL7UenLQH6pCqaYcn8+jDstPB/4Pg/Gg/Jsqfz3
-         e7qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776819995; x=1777424795;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=0IRFmArTYLfOKDBhdMLQmn7zlltkZiYQwJVABBk+Y1U=;
-        b=lcjyKzNqCIeLkt5slzLV5XcCF208KGX79rP86M9J6CGIEWVzVyJj8tHarCHlEx+FDx
-         2/p8tGRN9t2ZgmIrIo0IE1hZtWeq/aq7pKNio9MO+pxTzKwUfVP9jC9t6YUyD+KlMrpO
-         vVU4xbFhVMoXe4xgZS0K++XWkW5IehnKuRBqTbfP5C0Ldl+gC074t3Fn+xPmt9WphZu0
-         v9MK0PPlKYSg0hVCOE2SWlblxF9laG+vh+VXrp+5cjuDxOgvlch5Ec65Cv1hVrDYP1Qe
-         yPJptnmujBOmYM+6jrr28nMehHK/tkob+rLMhCkHguDDAuc91DfnvpUJ1sD3wkZ+3tZt
-         9Snw==
-X-Forwarded-Encrypted: i=1; AFNElJ8+czizTxbfLB/hN6cWDawGvlQ3gXvZ8NBaPO/n9SKM0bPG/jY6nyRxyPqKC2lDqoSdp87BiuOeCLWO@vger.kernel.org
-X-Gm-Message-State: AOJu0YwSiIeR5vfXNI2XnwYjqqXF/zhuhcFvR3ncUyF3QJBH57UpAjau
-	Szn+rWJ+VzMqYqr9o0iGboROG3LNda+xy72B/kjPzHChKKmfdPn9m9Pt9z6xachdcFbESgH0gE7
-	os/3zMCvz5Pp+UT2VbtlgjobplD3YGiM=
-X-Gm-Gg: AeBDievZg1e9m4NiglOhtd3BAQGP4Fn+V20ylLDd+wCYkLA8XTztUpFLkqEleQ/y/Ae
-	2eyuG81BA6zmiHzxD2YKWV83+XX16lj3FG2Z9CX49AEj2/aA6JoXcGLH38V+PKYRIJZNMQqDYSl
-	aqndn8Rua5FiVz2VpSKWQOds1YTL/pvY/GTxZMaOh9BWqaDxWGkpIxSrRNnxyaVdFCd+Sdr5u2w
-	whdhUNYf/tJGCupAHMU1T2tXFp/aQsr3AeRnsB6l2sD4bb5OY03vXBIsfI/Cynk1FzMVxtottkK
-	5+RqBZb1BEhyrb7aCw==
-X-Received: by 2002:a05:6820:f015:b0:694:8428:dfd8 with SMTP id
- 006d021491bc7-6948428e120mr5659420eaf.34.1776819995375; Tue, 21 Apr 2026
- 18:06:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="HLyyoFEu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gx5YNCGZ9e2ebzbpBy+7rzuVzS/BN/0qBujAwkp2gPShlrw3BWcng2T27dwHCSgZ1uDr2KOQmR78FcXXMgg1YtDGJNFNnGtRyMyxplA4WaY1uJ0FXVVnxJ/DPdFN89x3pD5G//j/gq9biQoo0htHEDIOJ9aYp9zvfTB+kf7rfH7Tzlpb9mVWJcZoJyDz9zsURfNBwEPWOb2N8CsGJFdcWhTN8l6YVAnLUnQDeF5t5/YviH9Xmpp0KP3K0C4Az4zprNQ4XS6HIq6QnBSKN0OqSt9RW3zaajnhOGmEcJS1p/Uqsz4TGD6X7gl/kDNnNI2DoKHOsr6CpjmzNAUhTaec+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qT+3XuDhs7GULl5YDK7pOHQ5KZP/iSv4ZOfPNIpO21o=;
+ b=Y7FA6R8zmZ4JB/3N96Rk4p+lRlsiqZgsYKHJFBZp3oybeXN1R3KiK3zPBE+AYPj8OQuB6KRY4KsBtlcjP/7cueoC89ye7tumNGOuFigvaqMQyk0B8fjreMzyS9UjBHU6oyvIrzvs1OS+WYm99klzyUalcEcwHhe1L1aC/YZXWSwBy5noQceItjNssBrX/k6dK6TB+fsISK53DURgZt+qI7ceXwZOj5vCltLnbqzYBdFRrvHXFhc4FGafprynUS9uumarSbu1Xe52Q0dAK3VgW01WGDECuaKtATjnRmgzeSWx/+Vn0+iUaNBh1CbpgPG/Br3RHFyK8jiM5e37f7Wawg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qT+3XuDhs7GULl5YDK7pOHQ5KZP/iSv4ZOfPNIpO21o=;
+ b=HLyyoFEuUXe2d+R0wnsPrigKzNlSny5Fvv0hUS1RFIPkEpvj/E+kUI63DQ8N6rcxdggYs1VZrfq8RpMym46W0wiK2XZawPLO0yanHjH1cnpm4ElAAcWMVGaOUHQpHANxIStQA+Y5y42+R+x8Y7ajExtbs+6mWIGue2H8PK3/Amp0GE/KDnfynuXJdrp2CINYm6jqt+tVJbwdlHbZRMxWwX6ZxcCd2NLf935/ra5W6dXKHxLIdhrM/xDko2raOvPha/qWjtXaR7Izmn3eOrAkcEH+EHBzWNXoXDYKUK1mBTHbL1YMSj+UE723oCKAN4DiEC+txhxOOhv+zAL7rA6syw==
+Received: from OSQPR06MB7252.apcprd06.prod.outlook.com (2603:1096:604:29c::6)
+ by SEZPR06MB5272.apcprd06.prod.outlook.com (2603:1096:101:7b::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.32; Wed, 22 Apr
+ 2026 01:06:53 +0000
+Received: from OSQPR06MB7252.apcprd06.prod.outlook.com
+ ([fe80::92af:c9d9:8779:d19]) by OSQPR06MB7252.apcprd06.prod.outlook.com
+ ([fe80::92af:c9d9:8779:d19%4]) with mapi id 15.20.9846.016; Wed, 22 Apr 2026
+ 01:06:53 +0000
+From: Billy Tsai <billy_tsai@aspeedtech.com>
+To: Rob Herring <robh@kernel.org>
+CC: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, Andrew
+ Jeffery <andrew@codeconstruct.com.au>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>,
+	Andrew Jeffery <andrew@aj.id.au>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
+	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "openbmc@lists.ozlabs.org"
+	<openbmc@lists.ozlabs.org>, "linux-gpio@vger.kernel.org"
+	<linux-gpio@vger.kernel.org>, "linux-clk@vger.kernel.org"
+	<linux-clk@vger.kernel.org>
+Subject: Re: [PATCH v7 2/3] dt-bindings: mfd: aspeed,ast2x00-scu: Describe
+ AST2700 SCU0
+Thread-Topic: [PATCH v7 2/3] dt-bindings: mfd: aspeed,ast2x00-scu: Describe
+ AST2700 SCU0
+Thread-Index: AQHczXLpJStwR9kHuky/e4RlVSXKhLXp4ZiAgABrV74=
+Date: Wed, 22 Apr 2026 01:06:52 +0000
+Message-ID:
+ <OSQPR06MB725203E4A4D3FBC113AE8D408B2D2@OSQPR06MB7252.apcprd06.prod.outlook.com>
+References: <20260416-upstream_pinctrl-v7-0-d72762253163@aspeedtech.com>
+ <20260416-upstream_pinctrl-v7-2-d72762253163@aspeedtech.com>
+ <20260421183955.GA1448377-robh@kernel.org>
+In-Reply-To: <20260421183955.GA1448377-robh@kernel.org>
+Accept-Language: en-US, zh-TW
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: OSQPR06MB7252:EE_|SEZPR06MB5272:EE_
+x-ms-office365-filtering-correlation-id: ac4fd618-b9fe-4d23-9eca-08dea00b70bd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|1800799024|38070700021|18002099003|56012099003|22082099003;
+x-microsoft-antispam-message-info:
+ SfnlGPe0vR2JpKqaSi5v3t2O3I7MWVozGX1MuvlQSV2dEwDlAlZRuwUvBbBCoeur3W9gfHAVHO3eijQqus8o8Sjq50PxXsfWfTwpeMla+dwFZiiXxFEj4LfJ5S63XPRkTLcZNl3JH7jBhqhs+paBFDop1ZsqGt8uzTXI+/XagoEhJr1EpEihPl1c2CgMjbjYtZ6Hilct73KqGQrsBMk6rRnh1VaqZLkN7ynMYCV0VxBRtN/6phCNxKRBcwkaNJUdBEPR3XsmZHn6/LUJlUfsToRWP39sS7Ouy7QZ1wHTXgD9eyX0K7hPOlpMhOX0eYBYcOxC10/wSQmMevGMstVfbBtizhkXVVDuGM8x+3o2q7aMsWMTAkqt7w+ZXhbuzfz1VGlqjQCpcZirdVziYceUOPL2fs2NDAJwOGfnlpI4yHk4n/fA7oc4YEA0qD0OMJXcosXf7bqSHZGjep2+iQ3geJDmF2VcymiWMGrmcx4evQ0T9bvyAE5bjM2P4Zr4rmov5lmaD7ShhplY+DRon19Ka91qudkiB4+U2MJbhfLeJZZ2qAkPr1ICKaD3Wmmqr2YhOUL85LE6JApbzAnVahYsy8UDaRVve4HUZemtv8XBmFd9LNEGIZxR0A/tjK0g3nHAKN3tf8r3cFE6x4s84T4GThvAN0k7HmvgJrQy2XZVIOAXv1GNvBxkxlqWAR9shERRTHHlLVXqbrd30/gi1VpaFP8OkwiGJtCp4F6fdfsRGQ04aYC8B+KFj1ysJUMk+Lh08c7bCJHQkhHepWBBXOp91LIwrQTkikpAI2iANstZVN0=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSQPR06MB7252.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(38070700021)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?Windows-1252?Q?/aMN9nBmlCLq5t73G1gnRS9caD7pss+QppBvGyPmc90UsAWsfKGjoH4s?=
+ =?Windows-1252?Q?cCPBkFaT09ZCPwRj6xcg13zORdIg58/UklZj2+pmRXBKK3BXGzkEL551?=
+ =?Windows-1252?Q?+iycvmJHvQlspOy4vG7fSCA3XZnzBr2R9yHKVj6rF87Yc1q7ccxSXVap?=
+ =?Windows-1252?Q?jgygoExBeoAfJBR4uKFu0NvqDWu19rdsmczQUIPe+YBaEOvnX8SkXSxZ?=
+ =?Windows-1252?Q?lXjAKkeaxuSInGGHgboko3lif7HbinYJMth+/DGxdh1E3FedJPCAqgn9?=
+ =?Windows-1252?Q?p13JsFAikmTke3FAMN4Qex6mm5QMLCi1bxa2LtGDRA5QiG7tYVbavj9Z?=
+ =?Windows-1252?Q?X9l/3Klqlsuq8o5+zT257DxPZ58DYAjRcWAtCGhkfrrWn5ZRaViss4Jj?=
+ =?Windows-1252?Q?O4628yaWGBY+dQdM8oRsqXdGjYnouqdtndvcM/V3nrzSsUYa6ez7d9OT?=
+ =?Windows-1252?Q?mlsNCFJDdFZZKm5h0OWHGRWBDhe1dZiFhJ/tn93V2RgfvoDDbG9UfFjY?=
+ =?Windows-1252?Q?3K16cV/BB0pUpP2JvOV9e5+PRhysPNcOQ2pOC1sSNq1DiXmBcK7Rxjrs?=
+ =?Windows-1252?Q?TxEiKJMTmoqbTU/Q+5byhx3oHTVKyfleNyhcPLWHYs9HrltE0ExGEiid?=
+ =?Windows-1252?Q?j5etkd1TWCmA+tRpZivGeNoGoZiaQYcFCZ1PMDSyrCB1wDg2kU6d4mr4?=
+ =?Windows-1252?Q?bgiHQYdxEJQLI3WoIUUWJj5ppriC8yiVv3kQCCcKdGN6zdwZmUn1da2p?=
+ =?Windows-1252?Q?P7CJH450wCAdrPkUxUjDrHJBoQrHAJQhhDbmmpTFeLDmpR1TAlcd6Xvm?=
+ =?Windows-1252?Q?88zDetkaW977HUhmkhkzrShdtmlcTgB++h+hiESIPTYIh2+OgLFc88O6?=
+ =?Windows-1252?Q?bDpiGOv5Li3g6alvgTilap/XniubnJpsVOw119jPV4QB7c+QmhOVSsWj?=
+ =?Windows-1252?Q?YV+8GcAaHUMzNvdmC46c7QDsR4JklWZZf6G61ByDO45R5o0w2JqcgvaV?=
+ =?Windows-1252?Q?TBZI6kjqLLC4qh4QEzVYmnvfg8/lC8f1uf2JfZlYDJgGVl6O8/vp3wZ/?=
+ =?Windows-1252?Q?2Cxkib5xMRiXsJVfyGeUZEuD2y0d4TR/nFeiHBguBWzKKvub3KZv39+i?=
+ =?Windows-1252?Q?WKOBTD1DJPAgWgQFSuZv1+KcwhVi95f333HKKDzW7SDiQCJM/JZyziI0?=
+ =?Windows-1252?Q?wcBScWwl3pzBESZ400Aj9/EEbB8ffu3xqTNduuLQ+fsDUQQWhTkACxOi?=
+ =?Windows-1252?Q?iJYy4YwR3AvvPfcAwEJPUWoRVHZpQ84eKlEwWORANIdGOtYIJWLCm1tF?=
+ =?Windows-1252?Q?9WGpd988KtUOlVv6Az0IYJdnJz43fMT1/AwEXr9vei8st1GVC2Ke+p5G?=
+ =?Windows-1252?Q?skkqlFRalAIdPm73dkMXraYN4tWUbYP7CmmbJ1FDGc4EUd3NxiyYhsRA?=
+ =?Windows-1252?Q?0Bwt6NZ6scAlPdJLUmyJBOHJZxGjwSM/7yPRdZRm3DJeogwA2YHddz4I?=
+ =?Windows-1252?Q?LIsiWfqHBvDuqEW/0T6YduBOwnD4AW9lWgnnenVrFEYc7HWe8g2frUJn?=
+ =?Windows-1252?Q?Cb42QJH5CUISNeMRoHwsQxO70OrzUsooc5eR9D1FCNDVuAd6pZy4o/5M?=
+ =?Windows-1252?Q?319EddphbPuL4U6oNFzDgxlZaFO6f8ayaf8rYCgBl5sWxxjyMPK+Xy3p?=
+ =?Windows-1252?Q?sGqFQiTup2C7dX27GE1qxZjU7DfhmI2D4bj39cVw35kcHqWSogA+RUYC?=
+ =?Windows-1252?Q?2wOtQRtGeC1aSb3//Amd9TWA2UV0lEAF9kDl/JxyJBboXcL6TQaf1qde?=
+ =?Windows-1252?Q?pVkKucTnfoCBs9UcWAgG+S3wE+6/g9Z4kVO3VKH8vU1dFmnOQiyi2L+P?=
+ =?Windows-1252?Q?jOR3vR8Lr1BEXw=3D=3D?=
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260420023354.1192642-1-syyang@lontium.com> <20260420023354.1192642-3-syyang@lontium.com>
- <CAO9ioeXDfTdETEBQknoLehk2aiabCgse109sDgJoPHuQ_07nKQ@mail.gmail.com>
- <CAFQXuNYV+wt2-+8R4m+mtby9TBwcX+vGdqvUvb_6wXkkBg6b=w@mail.gmail.com> <ed5u73a5lpsixqvm35zpmooolstjv22ygusorub2owbgz7cwj5@42uq6kl6run7>
-In-Reply-To: <ed5u73a5lpsixqvm35zpmooolstjv22ygusorub2owbgz7cwj5@42uq6kl6run7>
-From: =?UTF-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
-Date: Wed, 22 Apr 2026 09:06:22 +0800
-X-Gm-Features: AQROBzBaNDUxhxDS0HVaopMbG0cmT-p3eH7E1MY-UMTymB_tTXik718agZAW4Cs
-Message-ID: <CAFQXuNZXe0vXAr+dN4LQfC95pvJ5C+Z+b+AuSGZnG4Ui+Nbjww@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/bridge: Add LT7911EXC edp to mipi bridge driver
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
-	maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org, 
-	Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com, 
-	tzimmermann@suse.de, xbpeng@lontium.com, rlyu@lontium.com, xmzhu@lontium.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: OSQPR06MB7252.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac4fd618-b9fe-4d23-9eca-08dea00b70bd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Apr 2026 01:06:52.9606
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: pLHVn7ujdm02cTMXe8+N9zWHUhVS2164E0c7my1WoB27ihTvAJ32+UALlYHU+Xz+8BVP+4ndQSdcScm/ILDGQCl9lAlCsG+yy1Gve6U8lZ8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB5272
 
-Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
-4=E6=9C=8821=E6=97=A5=E5=91=A8=E4=BA=8C 19:15=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Tue, Apr 21, 2026 at 11:13:30AM +0800, =E6=9D=A8=E5=AD=99=E8=BF=90 wro=
-te:
-> > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=
-=B9=B44=E6=9C=8820=E6=97=A5=E5=91=A8=E4=B8=80 11:57=E5=86=99=E9=81=93=EF=BC=
-=9A
-> > >
-> > > On Mon, 20 Apr 2026 at 05:34, <syyang@lontium.com> wrote:
-> > > >
-> > > > From: Sunyun Yang <syyang@lontium.com>
-> > > >
-> > > > LT7911EXC is a high performance  eDP1.4 to MIPI chip for
-> > >
-> > > MIPI what?
-> > >
-> > MIPI DSI,
-> > It will be modified in the next version.
-> >
-> > > > VR/Display application.
-> > > >
-> > > > -eDP1.4Receiver
-> > > >  1.Support SSC
-> > > >  2.Support 1/2/4 lanes
-> > > >  3.Support up to 4K@60HzRGB/YCbCr4:4:48bpc
-> > > >  4.Support lane swap and PN swap
-> > > >
-> > > > -MIPI Transmitter
-> > > >  1.CompliantwithD-PHY1.2&DSI1.1&CSI-22.0=EF=BC=9B1 clock lane,
-> > > >    and1/2/3/4 configurable data lanes:2.5Gbpsperdatalane
-> > > >  2.CompliantwithC-PHY1.0&DSI-21.0&CSI-22.0;
-> > > >    1/2/3 configurable data trio=EF=BC=9B2.5Gsps perdatatrio
-> > > >  3.Support1/2configurable ports
-> > > >  4.DSISupport16/20/24-bit YCbCr4:2:2,16/18/24/30-bit RGB
-> > > >
-> > > > Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> > > > ---
-> > > >  drivers/gpu/drm/bridge/Kconfig             |  18 +
-> > > >  drivers/gpu/drm/bridge/Makefile            |   1 +
-> > > >  drivers/gpu/drm/bridge/lontium-lt7911exc.c | 571 +++++++++++++++++=
-++++
-> > > >  3 files changed, 590 insertions(+)
-> > > >  create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
-> > > >
-> > > > diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridg=
-e/Kconfig
-> > > > index c3209b0f4678..bae8cdaea666 100644
-> > > > --- a/drivers/gpu/drm/bridge/Kconfig
-> > > > +++ b/drivers/gpu/drm/bridge/Kconfig
-> > > > @@ -202,6 +202,24 @@ config DRM_LONTIUM_LT8713SX
-> > > >           to 3 configurable Type-C/DP1.4/HDMI2.0 outputs
-> > > >           Please say Y if you have such hardware.
-> > > >
-> > > > +config DRM_LONTIUM_LT9611C
-> > >
-> > > I thought the patch is for LT7911EXC
-> > >
-> > Yes, it is LT7911EXC, It will be modified in the next version.
-> >
-> > > > +       tristate "Lontium LT9611C DSI/HDMI bridge"
-> > > > +       select SND_SOC_HDMI_CODEC if SND_SOC
-> > > > +       depends on OF
-> > > > +       select CRC8
-> > > > +       select FW_LOADER
-> > > > +       select DRM_PANEL_BRIDGE
-> > > > +       select DRM_KMS_HELPER
-> > > > +       select DRM_MIPI_DSI
-> > > > +       select DRM_DISPLAY_HELPER
-> > > > +       select DRM_DISPLAY_HDMI_STATE_HELPER
-> > > > +       select REGMAP_I2C
-> > > > +       help
-> > > > +         Driver for Lontium DSI to HDMI bridge
-> > > > +         chip driver that converts dual DSI and I2S to
-> > > > +         HDMI signals
-> > > > +         Please say Y if you have such hardware.
-> > > > +
-> > > >  config DRM_ITE_IT66121
-> > > >         tristate "ITE IT66121 HDMI bridge"
-> > > >         depends on OF
-> > > > diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/brid=
-ge/Makefile
-> > > > index beab5b695a6e..54b293d1663e 100644
-> > > > --- a/drivers/gpu/drm/bridge/Makefile
-> > > > +++ b/drivers/gpu/drm/bridge/Makefile
-> > > > @@ -18,6 +18,7 @@ obj-$(CONFIG_DRM_LONTIUM_LT9211) +=3D lontium-lt9=
-211.o
-> > > >  obj-$(CONFIG_DRM_LONTIUM_LT9611) +=3D lontium-lt9611.o
-> > > >  obj-$(CONFIG_DRM_LONTIUM_LT9611UXC) +=3D lontium-lt9611uxc.o
-> > > >  obj-$(CONFIG_DRM_LONTIUM_LT8713SX) +=3D lontium-lt8713sx.o
-> > > > +obj-$(CONFIG_DRM_LONTIUM_LT7911EXC) +=3D lontium-lt7911exc.o
-> > >
-> > > Keep the list sorted, please.
-> > >
-> > Where can I see the sorting rules? Please guide me.
-> > it is:
-> > obj-$(CONFIG_DRM_LONTIUM_LT7911EXC) +=3D lontium-lt7911exc.o
-> > obj-$(CONFIG_DRM_LONTIUM_LT8713SX) +=3D lontium-lt8713sx.o
->
-> zoom out, check the overall contents, submit a patch fixing the error.
->
-It will be fixed in the next version
-
-> >
-> > > >  obj-$(CONFIG_DRM_LVDS_CODEC) +=3D lvds-codec.o
-> > > >  obj-$(CONFIG_DRM_MEGACHIPS_STDPXXXX_GE_B850V3_FW) +=3D megachips-s=
-tdpxxxx-ge-b850v3-fw.o
-> > > >  obj-$(CONFIG_DRM_MICROCHIP_LVDS_SERIALIZER) +=3D microchip-lvds.o
-> > > > diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/g=
-pu/drm/bridge/lontium-lt7911exc.c
-> > > > new file mode 100644
-> > > > index 000000000000..d1c1d9e073ef
-> > > > --- /dev/null
-> > > > +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
-> > > > @@ -0,0 +1,571 @@
-> > > > +// SPDX-License-Identifier: GPL-2.0
-> > > > +/*
-> > > > + * Copyright (C) 2026 Lontium Semiconductor, Inc.
-> > > > + */
-> > > > +
-> > > > +#include <linux/crc32.h>
-> > > > +#include <linux/firmware.h>
-> > > > +#include <linux/gpio/consumer.h>
-> > > > +#include <linux/i2c.h>
-> > > > +#include <linux/regmap.h>
-> > >
-> > > I think you use more than that.
-> > >
-> > It will be modified in the next version.
-> >
-> > > > +#include <drm/drm_of.h>
-> > > > +
-> > > > +#define FW_SIZE (64 * 1024)
-> > > > +#define LT_PAGE_SIZE 32
-> > > > +#define FW_FILE  "LT7911EXC.bin"
-> > > > +#define LT7911EXC_PAGE_CONTROL 0xff
-> > > > +
-> > > > +struct lt7911exc {
-> > > > +       struct device *dev;
-> > > > +       struct i2c_client *client;
-> > > > +       struct drm_bridge bridge;
-> > > > +       struct drm_bridge *panel_bridge;
-> > >
-> > > Use next_bridge from struct drm_bridge instead.
-> > >
-> > It will be modified in the next version.
-> >
-> > > > +       struct regmap *regmap;
-> > > > +       /* Protects all accesses to registers by stopping the on-ch=
-ip MCU */
-> > > > +       struct mutex ocm_lock;
-> > > > +       struct regulator_bulk_data supplies[2];
-> > > > +
-> > > > +       struct gpio_desc *reset_gpio;
-> > > > +       const struct firmware *fw;
-> > >
-> > > Do you need to store it during the runtime? If not, please remove fro=
-m
-> > > the data struct.
-> > >
-> > Don't need  store during the runtime.
-> > Can I use the global variable 'fw'?
->
-> Of course not.
->
-It will use local variable in the next version
-
-> > Because I need use 'fw' to calculate the CRC32 and burn the firmware.
->
-> Sure, but what does it have to do with the field in struct lt7911exc?
->
-You are correct, and I will fix according to your suggestions.
-
-> >
-> > > > +       int fw_version;
-> > > > +       u32 fw_crc;
-> > > > +
-> > > > +       bool enabled;
-> > >
-> > > What for?
-> > >
-> > (bool enabled;) is used as a flag in the code to reduce the frequency
-> > of power supply switching.
->
-> How does it help to reduce the rate?
->
-The enabled flag is used to track the hardware power state. In
-lt7911exc_pre_enable(), we check if (lt7911exc->enabled) return; to
-avoid redundant regulator enabling and reset pulses when the DRM
-framework calls pre_enable multiple times.
-
-Similarly, lt7911exc_post_disable() uses it to prevent multiple
-power-down sequences. This reduces unnecessary power supply switching
-and potential side effects.
-
-However, if you consider this optimization unnecessary, I can remove
-the flag and the related checks in the next version. Please let me
-know your preference.
-
-> > Of course, it can also be removed in the next version.
-> >
-> > > > +};
-> > > > +
-> > > > +static const struct regmap_range_cfg lt7911exc_ranges[] =3D {
-> > > > +       {
-> > > > +               .name =3D "register_range",
-> > > > +               .range_min =3D  0,
-> > > > +               .range_max =3D 0xffff,
-> > >
-> > > Is it an actual range?
-> > >
-> > 0xe8ff is actual  range.
->
-> Then why?
->
-The actual valid register address ends at 0xe8ff. I mistakenly set
-range_max to 0xffff.
-I will fix it to 0xe8ff in the next version. Thank you for catching this.
-
-> >
-> > > > +               .selector_reg =3D LT7911EXC_PAGE_CONTROL,
-> > > > +               .selector_mask =3D 0xff,
-> > > > +               .selector_shift =3D 0,
-> > > > +               .window_start =3D 0,
-> > > > +               .window_len =3D 0x100,
-> > > > +       },
-> > > > +};
-> > > > +
-> > > > +static const struct regmap_config lt7911exc_regmap_config =3D {
-> > > > +       .reg_bits =3D 8,
-> > > > +       .val_bits =3D 8,
-> > > > +       .max_register =3D 0xffff,
-> > > > +       .ranges =3D lt7911exc_ranges,
-> > > > +       .num_ranges =3D ARRAY_SIZE(lt7911exc_ranges),
-> > > > +};
-> > > > +
-> > > > +static u32 cal_crc32_custom(const u8 *data, u64 length)
-> > > > +{
-> > > > +       u32 crc =3D 0xffffffff;
-> > > > +       u8 buf[4];
-> > > > +       u64 i;
-> > > > +
-> > > > +       for (i =3D 0; i < length; i +=3D 4) {
-> > > > +               buf[0] =3D data[i + 3];
-> > > > +               buf[1] =3D data[i + 2];
-> > > > +               buf[2] =3D data[i + 1];
-> > > > +               buf[3] =3D data[i + 0];
-> > > > +               crc =3D crc32_be(crc, buf, 4);
-> > >
-> > > How is it different from crc32_le()?
-> > >
-> > The implementation differs from crc32_le() in both byte ordering and
-> > processing granularity.
-> > This function performs a 32-bit word-wise byte swap (little-endian to
-> > big-endian) before feeding data into crc32_be(), while crc32_le()
-> > processes the input stream directly in little-endian order without
-> > transformation.
-> > Therefore, the result is not equivalent to crc32_le(), and is required
-> > to match the firmware's expected big-endian word-based CRC format.
->
-> ack.
->
-> >
-> >
-> > > > +MODULE_LICENSE("GPL v2");
-> > Should GPL be used here? I got an error during testing: GPL v2;
->
-> Which error?
->
-Sorry, is  warning:
-WARNING: Prefer "GPL" over "GPL v2" - see commit bf7fbeeae6db
-("module: Cure the MODULE_LICENSE "GPL" vs. "GPL v2" bogosity")
-#649: FILE: drivers/gpu/drm/bridge/lontium-lt7911exc.c:571:
-+MODULE_LICENSE("GPL v2");
-
- It will be fixed in the next version.
-
-> --
-> With best wishes
-> Dmitry
+> > AST2700 consists of two interconnected SoC instances, each with its own=
+=0A=
+> > System Control Unit (SCU). The SCU0 provides pin control, interrupt=0A=
+> > controllers, clocks, resets, and address-space mappings for the=0A=
+> > Secondary and Tertiary Service Processors (SSP and TSP).=0A=
+> >=0A=
+> > Describe the SSP/TSP address mappings using the standard=0A=
+> > memory-region and memory-region-names properties.=0A=
+> >=0A=
+> > Disallow legacy child nodes that are not present on AST2700, including=
+=0A=
+> > p2a-control and smp-memram. The latter is unnecessary as software can=
+=0A=
+> > access the scratch registers via the SCU syscon.=0A=
+> >=0A=
+> > Also allow the AST2700 SoC0 pin controller to be described as a child=
+=0A=
+> > node of the SCU0, and add an example illustrating the SCU0 layout,=0A=
+> > including reserved-memory, interrupt controllers, and pinctrl.=0A=
+> >=0A=
+> > Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>=0A=
+> > ---=0A=
+> >  .../bindings/mfd/aspeed,ast2x00-scu.yaml           | 113 +++++++++++++=
+++++++++=0A=
+> >  1 file changed, 113 insertions(+)=0A=
+> >=0A=
+> > diff --git a/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.y=
+aml b/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml=0A=
+> > index a87f31fce019..215ff59b38ea 100644=0A=
+> > --- a/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml=0A=
+> > +++ b/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml=0A=
+> > @@ -46,6 +46,17 @@ properties:=0A=
+> >    '#reset-cells':=0A=
+> >      const: 1=0A=
+> >=0A=
+> > +  memory-region:=0A=
+> > +    items:=0A=
+> > +      - description: Region mapped through the first SSP address windo=
+w.=0A=
+> > +      - description: Region mapped through the second SSP address wind=
+ow.=0A=
+> > +      - description: Region mapped through the TSP address window.=0A=
+=0A=
+> blank line=0A=
+=0A=
+Got it.=0A=
+=0A=
+> > +  memory-region-names:=0A=
+> > +    items:=0A=
+> > +      - const: ssp-0=0A=
+> > +      - const: ssp-1=0A=
+> > +      - const: tsp=0A=
+> > +=0A=
+> >  patternProperties:=0A=
+> >    '^p2a-control@[0-9a-f]+$':=0A=
+> >      description: >=0A=
+> > @@ -87,6 +98,7 @@ patternProperties:=0A=
+> >              - aspeed,ast2400-pinctrl=0A=
+> >              - aspeed,ast2500-pinctrl=0A=
+> >              - aspeed,ast2600-pinctrl=0A=
+> > +            - aspeed,ast2700-soc0-pinctrl=0A=
+> >=0A=
+> >      required:=0A=
+> >        - compatible=0A=
+> > @@ -156,6 +168,30 @@ required:=0A=
+> >    - '#clock-cells'=0A=
+> >    - '#reset-cells'=0A=
+> >=0A=
+> > +allOf:=0A=
+> > +  - if:=0A=
+> > +      properties:=0A=
+> > +        compatible:=0A=
+> > +          contains:=0A=
+> > +            anyOf:=0A=
+> > +              - const: aspeed,ast2700-scu0=0A=
+> > +              - const: aspeed,ast2700-scu1=0A=
+=0A=
+> More simply expressed as:=0A=
+> =0A=
+> contains:=0A=
+>   enum:=0A=
+>     - aspeed,ast2700-scu0=0A=
+>     - aspeed,ast2700-scu1=0A=
+=0A=
+=0A=
+Thanks, I=92ll follow this simpler approach.=0A=
+=0A=
+Billy Tsai=
