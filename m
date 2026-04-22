@@ -1,199 +1,215 @@
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBC339891D
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 17:43:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98E2399013
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 17:43:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776879827; cv=none; b=bEFdd43bh0ALN+h0S02RriZKaulZsSJNOfh52XWkV2Wx19CYtR0G8bGSew9rGII0i2z6ikvPYINDKE1Sz6PMPhoAzzhc9YadyN2mkZe7ZLiYsfx10mKUNgyI9iVahuAstg2lmgpaxvvvW9PRi44XADnfy26kFsjVdxFqkGD1Rd0=
+	t=1776879831; cv=none; b=gEjngCrIFPThLIrck5sxrjiqzvbN3+oA34Q3I7o5Z0lipb132qHmbi65A0i8i7Ef6UypXA7n8DN1Ii4k1a1gcbyimMYCpM1JXP26Z0RfQd26PqSGkxjQoUAOav2Rcnvea7EThLKbOsOwVREiFUaIMXI6/uKqY4gSveoC15voZGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776879827; c=relaxed/simple;
-	bh=PEC67Z72ISCMHUutb9qe1/Y1CIJmRcte33AN4p2R2vs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JDTmVGglYJ/68cSLcUuCZGeg2xl7R4P56/V/BrRlR1GpoBCanDmuYYfCqNQm9V14HFFL9lCqrS88WwO9BbqIz4BD8vdNCKZt1/rHafs5C8Orj5V+7tC7ngiJFpykS7WsVdmb/9wS5xGZlFqTmOJO+cbFB3fhHAc/qIQnvlUPt2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.167.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-59e4a04f059so6594485e87.2
-        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 10:43:45 -0700 (PDT)
+	s=arc-20240116; t=1776879831; c=relaxed/simple;
+	bh=dm5uSfZjDOFedpZSNeguOS6u06pJ3ye7oJgRqKLiuCU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=f45R7h0yfI3me15qsHwAzNM7Z6n5OqbFaTktZn6wdVxzxHEHxOo904DSgZffmryX5QlW5ulAy468m3OwaNZMbf5rUz90SNDV9VWCyd7TC38yr66ZWrtqmGGha5BWcV7txhmC/cTjbuPylv1fleDd5gVQwTSlGNInhTBWDRtRW7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TU01v89I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XGiY2FSN; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TU01v89I";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XGiY2FSN"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63MFLvkx664102
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 17:43:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=Fwn1gPn1dWg
+	exJELw0pYUIt7mZC6V4jRPi84i0yHT1w=; b=TU01v89IQIabdiSY5iA1uoB9Czk
+	tZs1gHp7BPuNH27VG1i95qUUPrmNi5byDdwajUk7Y7gX0Y/DWC9XtGFlQ2w8B6l9
+	9FAPzABojzxLEGVACSfNPAY3lNRLQM717cKNkAJS111fYH3Dj/kH/nxJle0rcwoA
+	FJV3xP4E7oy65WdxhkCCwEr8CbOf2x6ae58LZoNk+t96T/iCIxmIweZrDHUxffFG
+	WyC0MU5UucslyL+EqconSBCeBLoIOxK3rWhTIXIHWMxJW9r/IXNl0EQqUfAXu+uZ
+	IpA/azVOeqZ9yc8R0XIK9R5anVm/A1oSs7kcpRjcZXPqgzv6aQXRPye3MqQ==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpudgsw2q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 17:43:48 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50fbc70cfbdso43689471cf.2
+        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 10:43:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776879828; x=1777484628; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Fwn1gPn1dWgexJELw0pYUIt7mZC6V4jRPi84i0yHT1w=;
+        b=XGiY2FSNuIC6E8H0rmVyEL9VkCaAyx0jExDFHT2sKP1WGp4S2P87HEwDNqUEaiGgbz
+         z+8Kezcm7oC8j0P0KhHg8CWJyM15jHST0J3W61hXXtEB2bQZ/fNpLxtPxBnD2LxYGtmF
+         oVQjwFKO076KPCsBexTQ3JjFQ53jjrvk+/DVDYzXrahl6EMPW7bFpx/XM7lZVzcKvDoZ
+         bLnU7GFid9PlUHmuNzwTOSCwcqtULRkC1kyH1iCxp1RKsSr5AGp4kW8nGG1yP+NJBiLF
+         uqequShoi2LfzdQtnp8Zn1pNilU/hT5CoMCUu4oquEolkKZDAcNFqH2RTIkLi27ztAWb
+         o7+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776879824; x=1777484624;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+        d=1e100.net; s=20251104; t=1776879828; x=1777484628;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=XycB5P8XTGXaeVGqnVmOVfspQ1laZv9fkJpPGtynpSA=;
-        b=qiTgrTaAuOkfTuu1zxOqqQMFKgr+h84VZBf3Fklm2Vf41/NF0lcZ60/SZVQf7rx3U1
-         uTpPRPaXWga4AoUTio1Z39yMahMdfTBAbMxdmvQyzeb5fNc0vkT2XViTGpCaivF6RJKw
-         82K0+P/nJ/FQcEANvldAeLAtgHK9mMpC0vlHMTx/qPl1h9beQbN0xYN7MxEFlpMCsgDJ
-         n2/IQitcTkp7mbmvXv7tgZOsPTF6Gqve8r4khFLauWV1XroxTJkDNeBe4owTIrZ4KfzX
-         25gQJ7/f8y6fvOC9Lc5GKhrt3pn//hS4QAmbFBqnIE/50dyCc0NVD1oVB1qFBEkRiv9g
-         9XoA==
-X-Forwarded-Encrypted: i=1; AFNElJ8TXmB7+Fo8eBoBovDHVfk2q9Ms5/YNw+1DLkuFEFS3keI+XDR2LV+o6xdhF3Z4ycgoqJV8pHbwCo2l@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw6Ar5JPJUWakjx2Qbp+4FUADaU0nWpIulMvUz7hduUeXjmOG3q
-	9wA02ISUUhlRVmnNiumH6Fl7FEhCr+fjV53/ab0cKtlBn0vYdXScNVw24XUuOtZ4HzM=
-X-Gm-Gg: AeBDieuH91x6xwlo0GKotAckxqru7Bu9t2wgtiWJNzq6eNE3dbP2c5DCopNxfHSg+wH
-	r4hHEQwAbXGum2rFszM/VB5FRcIwUzfg4/OZuhPtz1BaVkGSTSS/tO9qdsp2Q4aLJNQ0w1S/dVC
-	US922ejN7q7+tUsAeXqXUNIGilpslG7N/G6jqNLUDUAIK1ZOVK7ZL8yaSDs+gAuslg4B/k2OuFu
-	3ODD+NC41YwMwubb2RTU4jeDe5mJGvPUlwICVlUtrjczlRFkvbEOjaMp6EyOPMyedy7m60CZwDx
-	RzlUi1mfaoTMbCTd6EX8CexJoiQY6e5CiV9fj0FZIHJY40AEb5AJxQQYvgAPzm0d0JIe/HFoWXC
-	NI+Bbi7lvq9OuX965kCrKNc9QwtVvDoIhRtPuHBk8jnTaAfCDKPgd5KJz7wnFJJzZZfBqk2r1Mn
-	XTwFxIGi3PgiMJ2jO2DaLOVhbDxIS1n51ZqujkGwwSCEKFwT6kO6gZussVO/yc9HbarSR3Xt4=
-X-Received: by 2002:a05:6512:61a2:b0:5a3:ffdc:1d22 with SMTP id 2adb3069b0e04-5a4172e4ffamr7799943e87.36.1776879824000;
-        Wed, 22 Apr 2026 10:43:44 -0700 (PDT)
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com. [209.85.167.49])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4187e147bsm4568193e87.52.2026.04.22.10.43.43
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Apr 2026 10:43:43 -0700 (PDT)
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-59e4a04f059so6594451e87.2
-        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 10:43:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ83eK4VqeLJva9gI8THVBGVZjQVZleE+mQHeHbkX3d9ENjI7SpwzEIQHrsabztYGCM4cXE+AEYK5FNA@vger.kernel.org
-X-Received: by 2002:a17:907:7295:b0:ba7:3d21:c136 with SMTP id
- a640c23a62f3a-ba73d3108d8mr812474966b.18.1776879429078; Wed, 22 Apr 2026
- 10:37:09 -0700 (PDT)
+        bh=Fwn1gPn1dWgexJELw0pYUIt7mZC6V4jRPi84i0yHT1w=;
+        b=HWqtopkDDW0htfAP0KPBi8QPbkcEp0KrLiLhFp2Zholtp56PHm4h1SlPMpx99htRPE
+         wkFkyd5uyOR5j4MLqqjg3Acm7hFnmfLGeZjzUvG+lcMNQn/bg9j0O0dZ/m/wXSXwu/yx
+         QwF55ATL7KdMHVGNYi2W8RpORXTeh/bP9P4HFs80xgQBgiB2JYIk/xTGtOnJ8MIukFWh
+         b6CzwiypmB+ZPxGU2PfKzaKI3UnvWCxpxB1JENRzeX9qwt2jfaWNbHUhdgR8nshcRYGx
+         XcmAo97EsQisGUFe394zjUaOPX6B1VJUb2BTxjwOCf4rdODBRSXY73Vk2RzsVeRZcVBs
+         fIjQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9Qh/UZrUvW1tiBC6VHvXYVFP7lvnzqbe7e5ymsozxg6AXbRaL7Mz97OIYEYsqJtcq0HSq7LG8v+Eu2@vger.kernel.org
+X-Gm-Message-State: AOJu0YxtA6tCaBoZ/JzE7OO498yiX3gFzBxFgnsC7kKJJlaIPVpD30jM
+	6ukwol5eGciV3Xb8V73k89BjvOfS/ZmrOAiDrH/I0nZfA5rAYCPlMj27nB4HS+W1yIwIaB/cgiK
+	S4kf0HRmzgKZ8ufDT8uw0O05G1cVb6MI03Si0drDHA1UJFx1kG6uq4mF7/UopMF5b
+X-Gm-Gg: AeBDieuo/AOiq6mRze9btVJfnm+VDgOemRzo0AcyZLC3oIS2einxXGotm87Jmael+CV
+	nfi5ebmM80jc7k7V+RW8kXGBbxFGI3x8UkbSIGZFN2FTQ6LY3Lxz+jFNWRX/CPUMrrURAr14nzW
+	kPepTBx1OedFSwncavAluKlixMoXospoKqS/rfQVIPvd5W0bdG8t++kqlZFng3WjcU09Dwl0nEr
+	lDxWOl9vAYf9qpFWjLj3de49NIATsRU1dZp1GEuesHWZkV0Os7VOUxcGD3N8iOmfynQFzYpsfNH
+	DaVUF072/6+Uqy+qAZxJDsFgPVnh7SGxcBqz68Jiy7QoYbYLRSUJYbshl6LrIhqr17cQBf1z7al
+	HtGnMx5/qmDSp8L8BDOS7RNIxxpQdvH/jfBX0yUtMR5aUZLDJBTSlmPRarNCl
+X-Received: by 2002:ac8:7f4e:0:b0:50f:9c32:509d with SMTP id d75a77b69052e-50f9c3258b7mr167401891cf.60.1776879827694;
+        Wed, 22 Apr 2026 10:43:47 -0700 (PDT)
+X-Received: by 2002:ac8:7f4e:0:b0:50f:9c32:509d with SMTP id d75a77b69052e-50f9c3258b7mr167401231cf.60.1776879827142;
+        Wed, 22 Apr 2026 10:43:47 -0700 (PDT)
+Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:ae20:597c:99b8:d161])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fb7a051dsm142511965e9.18.2026.04.22.10.43.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Apr 2026 10:43:46 -0700 (PDT)
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+To: rafael@kernel.org, daniel.lezcano@kernel.org
+Cc: gaurav.kohli@oss.qualcomm.com, Zhang Rui <rui.zhang@intel.com>,
+        Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Lucas Stach <l.stach@pengutronix.de>,
+        Russell King <linux+etnaviv@armlinux.org.uk>,
+        Christian Gmeiner <christian.gmeiner@gmail.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Guenter Roeck <linux@roeck-us.net>, Joel Stanley <joel@jms.id.au>,
+        Andrew Jeffery <andrew@codeconstruct.com.au>,
+        =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+        Benson Leung <bleung@chromium.org>,
+        =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+        Avi Fishman <avifishman70@gmail.com>,
+        Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
+        Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+        Benjamin Fair <benjaminfair@google.com>,
+        Heiko Stuebner <heiko@sntech.de>,
+        Thierry Reding <thierry.reding@gmail.com>,
+        Jonathan Hunter <jonathanh@nvidia.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Amit Daniel Kachhap <amit.kachhap@gmail.com>,
+        Viresh Kumar <viresh.kumar@linaro.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Amit Kucheria <amitk@kernel.org>, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+        devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
+Subject: [PATCH v2 12/12] dt-bindings: thermal: cooling-devices: Update support for 3 cells cooling device
+Date: Wed, 22 Apr 2026 19:43:01 +0200
+Message-ID: <20260422174305.2899095-13-daniel.lezcano@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260422174305.2899095-1-daniel.lezcano@oss.qualcomm.com>
+References: <20260422174305.2899095-1-daniel.lezcano@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260325143555.451852-1-herve.codina@bootlin.com> <20260325143555.451852-3-herve.codina@bootlin.com>
-In-Reply-To: <20260325143555.451852-3-herve.codina@bootlin.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 22 Apr 2026 19:36:55 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdU7x7LWFkD9xiq+wyOqnn0bdzr+JLfvbBexoiWyv8kftA@mail.gmail.com>
-X-Gm-Features: AQROBzDRSuCo9KZmmr5oDnyHv4O1KWNwiPD4Dqbl5BIkN4nUOYnL3G8AwjYfgqE
-Message-ID: <CAMuHMdU7x7LWFkD9xiq+wyOqnn0bdzr+JLfvbBexoiWyv8kftA@mail.gmail.com>
-Subject: Re: [PATCH v6 02/27] of: dynamic: Fix overlayed devices not probing
- because of fw_devlink
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Kalle Niemi <kaleposti@gmail.com>, Matti Vaittinen <mazziesaccount@gmail.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, Peter Rosin <peda@axentia.se>, 
-	Arnd Bergmann <arnd@arndb.de>, Saravana Kannan <saravanak@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Charles Keepax <ckeepax@opensource.cirrus.com>, 
-	Richard Fitzgerald <rf@opensource.cirrus.com>, David Rhodes <david.rhodes@cirrus.com>, 
-	Linus Walleij <linusw@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>, 
-	Mark Brown <broonie@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Davidlohr Bueso <dave@stgolabs.net>, 
-	Jonathan Cameron <jonathan.cameron@huawei.com>, Dave Jiang <dave.jiang@intel.com>, 
-	Alison Schofield <alison.schofield@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, 
-	Ira Weiny <ira.weiny@intel.com>, Dan Williams <dan.j.williams@intel.com>, 
-	Shawn Guo <shawnguo@kernel.org>, Wolfram Sang <wsa@kernel.org>, linux-kernel@vger.kernel.org, 
-	driver-core@lists.linux.dev, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
-	patches@opensource.cirrus.com, linux-gpio@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-spi@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-cxl@vger.kernel.org, 
-	Allan Nielsen <allan.nielsen@microchip.com>, Horatiu Vultur <horatiu.vultur@microchip.com>, 
-	Steen Hegelund <steen.hegelund@microchip.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Saravana Kannan <saravanak@google.com>, 
-	Douglas Anderson <dianders@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: UN75KMsV_aOvWYi63rMMwWrvboJwX5MW
+X-Authority-Analysis: v=2.4 cv=c5ibhx9l c=1 sm=1 tr=0 ts=69e908d4 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=A5OVakUREuEA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8 a=WTFSsL86A86x8GNmHn4A:9
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-GUID: UN75KMsV_aOvWYi63rMMwWrvboJwX5MW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDE3MSBTYWx0ZWRfX8/4uwnz97kPs
+ Nw92kJzcydhlP4m5ky4p9CAxVliHWRcJws1XnDHERHE4YjGfiufRM8ZwU6/zk8WbD321SCtN37Z
+ TGW92+rSoxH72eHBWbtL2+3n0zVI2Ef8VOGc0UoJw4lmNj2K7zsfBmFvNOVADGxViGkaJN766/K
+ IL27tWCRnlCtu1gHsrlAEjZ5qLWsgNbsyxWGNpePjweyLk0tsQKxnhdIndYL5zeVzOIRooGsEUI
+ cLMANF36sJsRabl9ej+ZPVhwz3qED/q3jo1jI9bKGyQn5pyapFiN4iX/IIOolcr/JiULMe3ORHP
+ 11ZHmmUgDqSQsOLzjRz7QBmFTNV/vI39n2HAkyET3JZRLcp6q8Gt7FvYmcdNM8YgtV8SJFERnIR
+ N1HabjE1ihFkR8/zyg6sQGxVG2bKT+bKHDJFI8rv0ovrXR7GUkiq/y6IpI/DDpNccOsZg6uo2ep
+ WRkVssZolhxnzSTBHYA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-22_02,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
+ adultscore=0 impostorscore=0 phishscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604220171
 
-Hi Herv=C3=A9,
+From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
 
-CC Douglas
+Extend the thermal cooling device binding to support a 3 cells specifier
+along with the 2 cells format.
 
-On Wed, 25 Mar 2026 at 15:36, Herve Codina <herve.codina@bootlin.com> wrote=
-:
-> From: Saravana Kannan <saravanak@google.com>
->
-> When an overlay is applied, if the target device has already probed
-> successfully and bound to a device, then some of the fw_devlink logic
-> that ran when the device was probed needs to be rerun. This allows newly
-> created dangling consumers of the overlayed device tree nodes to be
-> moved to become consumers of the target device.
->
-> Fixes: 1a50d9403fb9 ("treewide: Fix probing of devices in DT overlays")
-> Reported-by: Herve Codina <herve.codina@bootlin.com>
-> Closes: https://lore.kernel.org/lkml/CAMuHMdXEnSD4rRJ-o90x4OprUacN_rJgyo8=
-x6=3D9F9rZ+-KzjOg@mail.gmail.com/
-> Closes: https://lore.kernel.org/all/20240221095137.616d2aaa@bootlin.com/
-> Closes: https://lore.kernel.org/lkml/20240312151835.29ef62a0@bootlin.com/
-> Signed-off-by: Saravana Kannan <saravanak@google.com>
-> Link: https://lore.kernel.org/lkml/20240411235623.1260061-3-saravanak@goo=
-gle.com/
-> [Herve: Rebase on top of recent kernel]
-> [Herve: Add the call to driver_deferred_probe_trigger()]
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> Tested-by: Kalle Niemi <kaleposti@gmail.com>
-> Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Update #cooling-cells property to enum to support both 2 and 3 arguments.
 
-> --- a/drivers/base/core.c
-> +++ b/drivers/base/core.c
-> @@ -235,6 +235,79 @@ static void __fw_devlink_pickup_dangling_consumers(s=
-truct fwnode_handle *fwnode,
->                 __fw_devlink_pickup_dangling_consumers(child, new_sup);
->  }
->
-> +static void fw_devlink_pickup_dangling_consumers(struct device *dev)
-> +{
-> +       struct fwnode_handle *child;
-> +
-> +       guard(mutex)(&fwnode_link_lock);
-> +
-> +       fwnode_for_each_available_child_node(dev->fwnode, child)
-> +               __fw_devlink_pickup_dangling_consumers(child, dev->fwnode=
-);
-> +       __fw_devlink_link_to_consumers(dev);
-> +}
-> +
-> +/**
-> + * fw_devlink_refresh_fwnode - Recheck the tree under this firmware node
-> + * @fwnode: The fwnode under which the fwnode tree has changed
-> + *
-> + * This function is mainly meant to adjust the supplier/consumer depende=
-ncies
-> + * after a fwnode tree overlay has occurred.
-> + */
-> +void fw_devlink_refresh_fwnode(struct fwnode_handle *fwnode)
-> +{
-> +       struct device *dev;
-> +
-> +       /*
-> +        * Find the closest ancestor fwnode that has been converted to a =
-device
-> +        * that can bind to a driver (bus device).
-> +        */
-> +       fwnode_handle_get(fwnode);
-> +       do {
-> +               if (fwnode->flags & FWNODE_FLAG_NOT_DEVICE)
+Fix pwm-fan.yaml to restrict the number of cells to 'const: 2'
 
-After commit f72e77c33e4b5657 ("device property: Make modifications
-of fwnode "flags" thread safe"), this must be changed to:
+Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/hwmon/pwm-fan.yaml      | 3 ++-
+ .../bindings/thermal/thermal-cooling-devices.yaml         | 8 ++++++--
+ .../devicetree/bindings/thermal/thermal-zones.yaml        | 3 ++-
+ 3 files changed, 10 insertions(+), 4 deletions(-)
 
-    if (fwnode_test_flag(fwnode, FWNODE_FLAG_NOT_DEVICE))
+diff --git a/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml b/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml
+index a84cc3a4cfdc..6a24851fd80d 100644
+--- a/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml
++++ b/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml
+@@ -63,7 +63,8 @@ properties:
+     description: The PWM that is used to control the fan.
+     maxItems: 1
+ 
+-  "#cooling-cells": true
++  "#cooling-cells":
++    const: 2
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml b/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
+index b9022f1613d8..28f5818f1e60 100644
+--- a/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
++++ b/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
+@@ -44,10 +44,14 @@ select: true
+ properties:
+   "#cooling-cells":
+     description:
+-      Must be 2, in order to specify minimum and maximum cooling state used in
++      Must be 2 or 3. If 2, specifies minimum and maximum cooling state used in
+       the cooling-maps reference. The first cell is the minimum cooling state
+       and the second cell is the maximum cooling state requested.
+-    const: 2
++      If 3, the first cell specifies the thermal mitigation device specifier
++      index for devices that support multiple thermal mitigation mechanisms.
++      The two other cells are respectively the minimum cooling state and the
++      maximum cooling state.
++    enum: [2, 3]
+ 
+ additionalProperties: true
+ 
+diff --git a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+index 0de0a9757ccc..1261ba0e802e 100644
+--- a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
++++ b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+@@ -214,7 +214,8 @@ patternProperties:
+                   device. Using the THERMAL_NO_LIMIT (-1UL) constant in the
+                   cooling-device phandle limit specifier lets the framework
+                   use the minimum and maximum cooling state for that cooling
+-                  device automatically.
++                  device automatically. If three arguments are specified,
++                  the first argument is the cooling device specifier.
+ 
+               contribution:
+                 $ref: /schemas/types.yaml#/definitions/uint32
+-- 
+2.43.0
 
-With this change my DT overlays are working again.
-
-I guess keeping the FWNODE_FLAG_* names, but changing their values
-from bit masks to bit numbers was probably not such a good idea,
-as it fails to catch missing conversions...
-
-> +                       continue;
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
