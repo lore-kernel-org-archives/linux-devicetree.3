@@ -1,126 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD3917BA2;
-	Wed, 22 Apr 2026 06:27:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776839256; cv=none; b=e1OmW3anVzkgRy6+NQxumwZnmLhc84aQ2dH+R3LyAY060yGIeof8+gXijnhaYGSovKI1ZlnQ0Ftt0K/P2i7Nzsf5ixK1l0y16jxB6dxQfe8x9IU5ah1bjWnUaT43N0NzkiKNkZ01yaP0BavGY86SafdEO2g6AIdC8d4MNomaXUA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776839256; c=relaxed/simple;
-	bh=+SIqJ8k3Ofu+hDR+0W066dLrUyDNulLp2dsa8s7SKmU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LW6/DAL2kXnCxL7SEdtlq6VtdvP+S81GPIDbOtu4SCOYVXuhvOgDgCUfBhMz8hrFJS3/GBC6XTCh5c2MnrlbpgO81hvSNiCox3poORDzR/6/JTPbnxX92jZU9byjlPXIjysdL/wwXnKeEz6eYVdStNjyClFofqL9WXRnbeXpj3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pmOmhxlg; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B501DE2D8
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 06:30:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776839407; cv=pass; b=HVjbP2rOkd16Ox9GZBPTnXH6krC3pSjiAlJTDPPoCRyHWiynV7ghwXPemjHfYPy+jGa/uf2wQAziZN6P4+QUYIcLNYiFUcjFF+kCrYHCAik0Ofcs1gB85lzF9zfZM8WPBPYwhI0HYdPG5A6gjaWPZJg3rWIXrRvfmZLXaenEkBo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776839407; c=relaxed/simple;
+	bh=N/aab0P1/zcuAtJ05K8PuDPEsKQcK5U1IySWx7B6g7w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QyuQM40Ivpylbnk3ouC8guVXVcGKEu37gxZk72fdQqDD42eKiKjziFxKi4sgBQE7gf5WCG+M1HOHIMcrjVuV2SNwWgXL7ruSCXFBJY+uIkANUA4huymDPA0vW/D/uWWkzWOCX/IWGGxj5yiE5b7ztp4Zwm6kNeiPhsJCXxy4RKo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G7J8FV05; arc=pass smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pmOmhxlg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5543BC19425;
-	Wed, 22 Apr 2026 06:27:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776839256;
-	bh=+SIqJ8k3Ofu+hDR+0W066dLrUyDNulLp2dsa8s7SKmU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=pmOmhxlg7Zkis6wJ5Gx11GlCbY48THRYq/sequKTFcEgJUdOYSPZJD2XbTXPc0kAX
-	 9pUB7VPsfHAtc8/tTmI0lJmf6daJZmrZooZk1xFRTeVn5FFjwEZbR5iTCOI8NphLVT
-	 qF72kUEU9TnyaUG//REF6zfn8JUwVfpsF4fbQYSvPT8tnkU6S7ULKdiZVBRt/IK6N2
-	 p1gWH2T+tP2PaSOtNumlj7ZD2CMQCfQnfsdLGDiKn4IknL3XYOSDv6F6GLflw6NdCp
-	 pmVDu9ynrv7gtS69+uFKbVoSEzvhpJWxxUfhSxz/zbrr6uYMi2tmtl0YSjNMYUSoK/
-	 mmGPJMUmPcNHQ==
-Message-ID: <3b21c15e-942a-4a01-a083-8fbe33197690@kernel.org>
-Date: Wed, 22 Apr 2026 08:27:31 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G7J8FV05"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-43d734223e4so3432190f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 23:30:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776839404; cv=none;
+        d=google.com; s=arc-20240605;
+        b=GBUvCTOPcKrtEbxAvUu4A3fHpEcjL+9RRKrDSSPDRhgw8VeuYzRRg8P0QnKa0Csscn
+         lXrBq+0qzJo/x54xURzNCAPoB3F7/EHs0IqcibJhk/xVBHe2ryPPN6sUh9/h9rgI0hX/
+         7JaLQgMBY8FlwwwpptuNW8FE9QMfP3Wn7rIhsFkT3aidN/dVdPI1HZ6HTiuMsL4/u9yI
+         r4vyBJoBNE7aG7onjnItaTuo5XuubYK1D6OrlkuBMf7cfPMk6JH4cmylyoJ7/Nc1/GdP
+         49FRAXHqTuEOLfTf+dFB47A40AeLJq9+wZdywyQm4z1xZyEUqWlvCxs7E/6e3jDvm41P
+         vJ6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uA6c/hB6ZpWWtCuvOFBMWF6uspzTjy9pMfgJw70A3Jc=;
+        fh=ow7de8NqO48zwVLVY4jeCks5YgvtEqW5m6kvDUgyV0w=;
+        b=dmiLSNuhZ9tqWbQBp8evfGhpaur8dPy2NlJhFQOnAM3K/dLDvzifDJEw30tayoanyM
+         IIvOTYRSAfIokWOEY6bLeZUZF+0Nnf0Ij/imSACzCxKjOviQ1XqfW7QuigApX9bWjfW7
+         bv+4IoAJ2Fh9z5YIxD7hCnKXJ02845p3Jlra8S3JbRZwoloOLh63xbRstZK4DWhxRTMK
+         3SWaXHonToB0YMPJvrshOfaDbuEksdemGz2p+h0Pw+dKLC9Tfb+e9HvsTQzmXYEUt9F5
+         /lOvB9wodK/mlznrVkpEDRtE1GT0gFBzu1LnEHdh5dN57IS2d/f8C1V+8yTACDzzVolS
+         V6nw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776839404; x=1777444204; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uA6c/hB6ZpWWtCuvOFBMWF6uspzTjy9pMfgJw70A3Jc=;
+        b=G7J8FV05RLy8+mWTi/dsxyKZPUPWLk2/zBOM/1xz8ByLwT/ghF4XexMUttDdX+XgfC
+         IqHfpN4yhFHKSk9uJpCNM59gLroeIzTCygttourgcoCTwqyMCNXW2bVGA6I+c03QyMOF
+         KDpozqQ4nO/8H/jgbaweAUqxMZHdWoZOXsiW0AelQLIU7NwBCv3aoxZVDIPuFFkS77CO
+         A5Aw7+OlXLsf4kUagEH0lgIXwSqqG/yWfZPoHbBGsY5YPrYgsOPNF8NVjS3usCE51oA9
+         /iwoCjwdYp1PGriYuiPuHXbdNldErYfp9FN4zxvgvnhAONLKXG/cA1dngTbi3l95PzPn
+         vDVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776839404; x=1777444204;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=uA6c/hB6ZpWWtCuvOFBMWF6uspzTjy9pMfgJw70A3Jc=;
+        b=DzkcInkDrmvoh6gWJU4VxnP8JMTn3oaAKhmKZu5gDgN/f9NliLWtDU7zz56AZDbnV3
+         NSKw8V7ZGxbTfQ+hnL4t4Eu/Luh5XZG394OF+lb189uRSgGb7ZpRZd8dBtbUWd1BHIco
+         5ClzfVG/nJ45UA/JNbSF9LLx3qKXWtOgmQDcpvg0yqSM7nluPWvkRPgjIPMjjS3T9V5e
+         stHS/mAch4zpDeG1QboBHhgl9tdRldXFlnmo2GGEjBLbOIBY5HR0SGn3MJt/pipRayyC
+         gTjW3MOKPV9fYY5ehhqbAXI4UwQVibC4ppQjxOsirjXQhSeDmD6wZ7XgNnslQwsAVL6J
+         fH9A==
+X-Forwarded-Encrypted: i=1; AFNElJ+q51KgOC7oQXl/AKNdoMuRzl0IKKH4EGY8uy9YEsltmM/4y/rJGLFRrZV+eQVNP+UoNOJtFuCnbm4S@vger.kernel.org
+X-Gm-Message-State: AOJu0YzZATSDuOmGXRrlIY85n7rZNOzyZ/Sc/PuOyq3adClWo7Rz5XcG
+	g13OPSkb3u0RHXO6DpgivE3IQvSoyNFlQ3rK2jDNXr5F/uIovfFjTKOFQx3mLn25+7YjcaG1CvL
+	v8dKC+8NzoZHufiVo/gk9DUeUwnrbGoVZCBR2
+X-Gm-Gg: AeBDiesv514ZT+V72loMkln1gMdBRWw5bsFB6ocCxI1IyaDgSwyuB3IsIM/fWbfZnW7
+	2x/xbDxWMpTVcbA9WaANqXjpVlcL45sHOl/ci38spPJ36XiIkwX+v++779npoAgGLUCsLUx+bud
+	I+qWUUgIIPDF7XYmmxKOsxvRGYq+sONUDzEvcNuz0D7KapkgiBD5MkfiQCn68AGq/TzAmDun5sM
+	1ePXq++Pv8yfZjrL4nh17U/AojJFaCenVeCWtFKVDVMNmZUt0nTmkOUE6vYVpiouLXv39VZMvlA
+	RdkooEr0NAmDPXpR3Do=
+X-Received: by 2002:a05:6000:208a:b0:43e:531f:720c with SMTP id
+ ffacd0b85a97d-43fe407383cmr31782916f8f.11.1776839403432; Tue, 21 Apr 2026
+ 23:30:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add
- support for glymur Gen5 x8 bifurcation mode
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260412-glymur_gen5x8_phy_0413-v3-0-affcebc16b8b@oss.qualcomm.com>
- <20260412-glymur_gen5x8_phy_0413-v3-1-affcebc16b8b@oss.qualcomm.com>
- <20260415-wooden-prawn-of-lightning-dc1ddc@quoll>
- <aeBQRStG3imY0cOe@hu-qianyu-lv.qualcomm.com>
- <20260417-awesome-tacky-coot-e59a30@quoll>
- <aeXUZ1uSEJ9InUtw@hu-qianyu-lv.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <aeXUZ1uSEJ9InUtw@hu-qianyu-lv.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260419093412.40796-1-clamor95@gmail.com> <20260419093412.40796-6-clamor95@gmail.com>
+ <aeepbB72uWDxvnE_@kekkonen.localdomain> <CAPVz0n1sNoJv=JcAZdv3srRY0vecrRO0spnqg58-VLnYdkfPSw@mail.gmail.com>
+ <aefXJebe2F4Z193F@kekkonen.localdomain>
+In-Reply-To: <aefXJebe2F4Z193F@kekkonen.localdomain>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 22 Apr 2026 09:29:51 +0300
+X-Gm-Features: AQROBzAhN7JR2HJrSfb1mWoH-p2DrxcB5H5ma8lTP3SIqR0-3wJUIBxxFdGDYh4
+Message-ID: <CAPVz0n111oHa2UdJ9LO8PTYcRuAmUem6tQdPKABRq1YHH8ZDgw@mail.gmail.com>
+Subject: Re: [PATCH v2 5/5] media: i2c: lm3560: Add support for PM features
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 20/04/2026 09:23, Qiang Yu wrote:
->>> It is not the same as the 5x4 PHY. In DT, we model three PHY nodes:
->>> phy_3a (1x4), phy_3b (1x4), and a separate phy_1x8 node for x8 mode.
->>
->> OK, that's what I wanted to hear. And that's what should not be done,
->>
->> You should not have a separate node for the same hardware. First, DTC
->> will give you a W=1 warning, although warning itself should be moved to
->> W=2.
->>
->> Second, the warning tells important story - same hardware is described
->> twice.
->>
->> You only need phy_3a and phy_3b, so only two in total.
-> 
-> We can keep only phy_3a and phy_3b, but still add new compatible
-> qcom,glymur-qmp-gen5x8-pcie-phy in binding, right?
+=D0=B2=D1=82, 21 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 22:5=
+9 Sakari Ailus <sakari.ailus@linux.intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Hi Svyatoslav,
+>
+> On Tue, Apr 21, 2026 at 08:32:16PM +0300, Svyatoslav Ryhel wrote:
+> > =D0=B2=D1=82, 21 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
+19:44 Sakari Ailus <sakari.ailus@linux.intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > Hi Shyvatoslav,
+> > >
+> > > On Sun, Apr 19, 2026 at 12:34:12PM +0300, Svyatoslav Ryhel wrote:
+> > > > @@ -403,6 +423,60 @@ static int lm3560_init_device(struct lm3560_fl=
+ash *flash)
+> > > >       return rval;
+> > > >  }
+> > > >
+> > > > +static void lm3560_power_off(struct lm3560_flash *flash)
+> > > > +{
+> > > > +     gpiod_set_value_cansleep(flash->hwen_gpio, 0);
+> > > > +     regulator_disable(flash->vin_supply);
+> > > > +}
+> > > > +
+> > > > +static int lm3560_power_on(struct lm3560_flash *flash)
+> > > > +{
+> > > > +     int rval;
+> > > > +
+> > > > +     rval =3D regulator_enable(flash->vin_supply);
+> > > > +     if (rval < 0) {
+> > > > +             dev_err(flash->dev, "failed to enable vin power suppl=
+y\n");
+> > > > +             return rval;
+> > > > +     }
+> > > > +
+> > > > +     gpiod_set_value_cansleep(flash->hwen_gpio, 1);
+> > > > +
+> > > > +     rval =3D lm3560_init_device(flash);
+> > > > +     if (rval < 0) {
+> > > > +             lm3560_power_off(flash);
+> > > > +             return rval;
+> > > > +     }
+> > > > +
+> > > > +     return 0;
+> > > > +}
+> > > > +
+> > > > +static int __maybe_unused lm3560_pm_runtime_resume(struct device *=
+dev)
+> > > > +{
+> > > > +     struct lm3560_flash *flash =3D dev_get_drvdata(dev);
+> > > > +
+> > > > +     return lm3560_power_on(flash);
+> > > > +}
+> > > > +
+> > > > +static int __maybe_unused lm3560_pm_runtime_suspend(struct device =
+*dev)
+> > >
+> > > Could you change lm3560_power_o{n,ff}() take struct device pointer as=
+ the
+> > > argument?
+> > >
+> >
+> > What benefit it will bring? Unless you propose to use on/off functions
+> > in pm directly, I don't see any benefit in this change.
+>
+> You get rid of two redundant wrappers.
+>
 
+Noted. Any changes required into the other patches of the patchset?
 
-No, you cannot. You cannot create fake device nodes.
-
-Best regards,
-Krzysztof
+> >
+> > > > +{
+> > > > +     struct lm3560_flash *flash =3D dev_get_drvdata(dev);
+> > > > +
+> > > > +     lm3560_power_off(flash);
+> > > > +
+> > > > +     return 0;
+> > > > +}
+> > > > +
+> > > > +static void lm3560_subdev_cleanup(struct lm3560_flash *flash)
+> > > > +{
+> > > > +     unsigned int i;
+> > > > +
+> > > > +     for (i =3D LM3560_LED0; i < LM3560_LED_MAX; i++) {
+> > >
+> > > You could define i here.
+> > >
+> >
+> > You mean:
+> >  for (unsigned int i =3D LM3560_LED0; i < LM3560_LED_MAX; i++)?
+> >
+> > If yes, I would like to keep it as is, it looks cleaner to me, and
+> > this part was transferred from remove as is.
+>
+> Works for me.
+>
+> --
+> Regards,
+>
+> Sakari Ailus
