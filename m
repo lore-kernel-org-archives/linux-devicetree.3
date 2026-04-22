@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91ECB3491D0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F7D36A02F;
 	Wed, 22 Apr 2026 07:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776843821; cv=none; b=kjCAT4IDkM3607k5YbsSXsF4tqmwyAKFkbGBIJSkn6fwc2LfJaJ/ACNcYNVOm2VCZ5fvFMJozErc6tVrCEg0p/rd2Gd1Jq3qMWZpj/zTbKT9HvteTQ/npNqXIytvWbQKd1S/o3oapqceb91A1Z5ZXBo55LaHIsJbcsLczrrhrlI=
+	t=1776843821; cv=none; b=nFDrAfv1OYDJsODXGZiM+/UBC4tSaMCR6HTkePIkSZmstjXCIMLreTwvC0k5/fhpMYuj/29vreFLzBeIixNMjQGjwgvE00mM1xjzncWJbl71c4qemnXJ8BfejEWMG0HxCus1RTsfF9bqH/I5Z5QYSEUHzdvQcnBFtCgbYw+6V7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1776843821; c=relaxed/simple;
-	bh=yF5vtNI4rT6BiL2Y7UF7MFh6FNbB7HXVaTHOlFHns4c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=our2mMNBCm86VWN/OQt4gYR7xA2IJEbcDVCvW55zEvwTqVC22nw8P3p7HyJcHXJAkId3n8rh7j8hM4MBotJ0+U3IqDQU71bxEpyrdNwDUFkp/1Uy+JifllSz0Dj5VJLclsWqNeOzFGs0p/cu/+6SRMBqWpYD++cZZChWjkZtVyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o69cDy8t; arc=none smtp.client-ip=10.30.226.201
+	bh=IZr7RTAdxhkJ/lgF3S2u0E922vN1YnMMh25lXatpibc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=oXbOT2ptJZUhVpUfmj1abbETM8GUp9SkeBzDzyA5zB1Goy7bug5irE6qVclsn788x53IZ8BPoWxsp4hxH0329aP89Yh56BDMm/j2Cx+SF1FuQYD4GxTenM24nJF/8z1BzGN9z5Z34297Wn76GIRfliGBmK1dA6uVLBUhnpC8V8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MQT+ZjnW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o69cDy8t"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4B8EBC2BCB4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MQT+ZjnW"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3AA91C19425;
 	Wed, 22 Apr 2026 07:43:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1776843821;
-	bh=yF5vtNI4rT6BiL2Y7UF7MFh6FNbB7HXVaTHOlFHns4c=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=o69cDy8tbQ/rFk2g7ooDbwdUZlK9kaYqr7t0KOEyl67f9BTunm98an7/ahUgblUDC
-	 Fw5r/gkMQR6+j1ycjxUF3M2d9mosgb95bLGlMvKF4H2BrjiQUtIw8ZZGoWT2Tto+ii
-	 FZAn4XGIq0mDpLTT614MNM2z8ZIZEan1LiJMaV04J9bU+EjUuMskeytQ3y43u7RDLi
-	 39MYXyh/Ko1gD2OcxkfX8MjsuYQBl+5/QllvdpxmRycqk2g434DkdQF93mWZqMYPgE
-	 GvwuQi3Np+wPKLmFYK8uneoZxYW1J1zs5hW+cEkyuqh+R39Jl5S1Mri6JG4VT4lnA1
-	 8MtST4jY6JmLQ==
+	bh=IZr7RTAdxhkJ/lgF3S2u0E922vN1YnMMh25lXatpibc=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=MQT+ZjnWNRF2kQeI9RLeUwtlp9JZm8eaNplTuPOpqz6Sqqd9ndWNJS7F+Fh3BYtsj
+	 2dhBlqpNopiDD4zJL0Lx2xfvMff2cId1F4o1gIdTmB3wyAoXDd0tMzjQHD1TEDzzcp
+	 sVhQGQ1TRyie8uAk79vDweECJAFvAzvFvTtCMlYNyBVxisxBHLsxVYlJZUqL9of8Ob
+	 aeMrCYyeX+eJ00sCyrMMvIytCnTNBru6vDTm/CNkI1Uu4+zlFQm1/rrn1MDzHDrjrY
+	 BP2E8iD7LPyOp0sj90UFs+kJquby2kXHUmutTOq62puuJ7wNVXQoSOl3+FkASZniFc
+	 gA3ILGE4+P9EA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BE0CF94CD8;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 28EE1F94CDC;
 	Wed, 22 Apr 2026 07:43:41 +0000 (UTC)
 From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Wed, 22 Apr 2026 02:43:24 -0500
-Subject: [PATCH v6 1/2] dt-bindings: display: panel: Add ChipWealth
- CH13726A AMOLED driver
+Subject: [PATCH v6 0/2] drm/panel: Add panel driver for ChipWealth CH13726A
+ based panels
+Date: Wed, 22 Apr 2026 02:43:23 -0500
+Message-Id: <20260422-ch13726a-v6-0-03680d6673ff@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,9 +41,13 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260422-ch13726a-v6-1-03680d6673ff@gmail.com>
-References: <20260422-ch13726a-v6-0-03680d6673ff@gmail.com>
-In-Reply-To: <20260422-ch13726a-v6-0-03680d6673ff@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XPTW7DIBAF4KtYrEs1DAbGXvUeVRf8DAlSEzd2a
+ jWKcvcSp5KtdDmIb96bq5h4LDyJvrmKkecyleFYB/vSiLj3xx3LkuosENACIsi4V9qh9dJ00Vp
+ HyehEon7/GjmXn2XV+8djHvn0XTeeH48i+IllHA6Hcu6bwGzZa4gtOSJWpFvS0GXqFCfyOWTnA
+ H0U2yZ98+ihnPSXozzFiYwBqWwEF6xOjLafjbjH78t0HsbLctislvy/G3C9YVYSJBtQydUKYPz
+ b7uDL52stuSyZcYW6hq4QK0TyvrUhJpvgGeoNRL2B+p6IFGzuXGb6B9sVtkAb2FbYhaB8Fyhr7
+ J6h2UBUG2gqzC7b3GYNDGYLb7fbL1cZfL8DAgAA
+X-Change-ID: 20260220-ch13726a-59c6678d53d8
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -56,11 +60,11 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  Aaron Kling <webgeek1234@gmail.com>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776843820; l=2305;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776843820; l=2679;
  i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=PeipF7stSlnB3KSvVvobRqzG1vhA7mb7CLIfwJcYi7Y=;
- b=YPGy5wjPhjJBDLIYh9AnykNVDs7Ik0t7MYZR0gVn1BuQBmmFqgQyIock7Ug313egE9eNrwkuM
- fYlMJSJLS8pDhcB2FshZd71C7zikw5yx6cB1CshC+ThfGhTqkuSH9X6
+ bh=IZr7RTAdxhkJ/lgF3S2u0E922vN1YnMMh25lXatpibc=;
+ b=uFXcjC0ouNG/Zv4BGaGP4EHRfyB4e8yCSJ3ew9FYHuH8qsQ68qUGLJjbkNdi6LHlsHEs6YB4f
+ PNXUefb/1LgAnBUdltvpY3tLDdQcvjeTv29CrkWOYhhREE5ThrLsy0N
 X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
  pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
 X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
@@ -68,92 +72,68 @@ X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
 X-Original-From: Aaron Kling <webgeek1234@gmail.com>
 Reply-To: webgeek1234@gmail.com
 
-From: Aaron Kling <webgeek1234@gmail.com>
+This driver is based on the one by Teguh Sobirin [0], cut down to only
+support the AYN Thor bottom panel.
 
-The Chip Wealth Technology CH13726A AMOLED driver is a single chip
-solution for MIPI-DSI. This is used for the AYN Thor bottom panel.
+Due to [1], the AYN vendor description patch has been folded into the
+AYN QCS8550 dt series. Which means this series now depends on said
+series and it must be picked up before this.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+[0] https://github.com/AYNTechnologies/linux/commit/d0ff75b09e66023c5f88992706dee4601aa7a437
+[1] https://lore.kernel.org/linux-arm-msm/c7fb3f89-6574-4761-9ef2-2fdf6d4801b5@kernel.org
+
 Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 ---
- .../display/panel/chipwealth,ch13726a.yaml         | 67 ++++++++++++++++++++++
- 1 file changed, 67 insertions(+)
+Changes in v6:
+- Add trailers from v4
+- Link to v5: https://lore.kernel.org/r/20260421-ch13726a-v5-0-f7f6f4f30e05@gmail.com
 
-diff --git a/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml b/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml
-new file mode 100644
-index 00000000000000..c8d7b61037e622
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml
-@@ -0,0 +1,67 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/chipwealth,ch13726a.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Chip Wealth Technology CH13726A AMOLED driver
-+
-+maintainers:
-+  - Neil Armstrong <neil.armstrong@linaro.org>
-+
-+description:
-+  Chip Wealth Technology CH13726A is a single-chip solution
-+  for AMOLED connected using a MIPI-DSI video interface.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: ayntec,thor-panel-bottom
-+      - const: chipwealth,ch13726a
-+
-+  reg:
-+    maxItems: 1
-+    description: DSI virtual channel
-+
-+  vdd-supply: true
-+  vddio-supply: true
-+  vdd1v2-supply: true
-+  avdd-supply: true
-+
-+  port: true
-+  reset-gpios: true
-+  rotation: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+  - vddio-supply
-+  - vdd1v2-supply
-+  - avdd-supply
-+  - reset-gpios
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        panel@0 {
-+            compatible = "ayntec,thor-panel-bottom", "chipwealth,ch13726a";
-+            reg = <0>;
-+            vdd1v2-supply = <&vreg_l11b_1p2>;
-+            vddio-supply = <&vdd_disp_1v8>;
-+            vdd-supply = <&vreg_l13b_3p0>;
-+            avdd-supply = <&vdd_disp2_2v8>;
-+            reset-gpios = <&tlmm 133 GPIO_ACTIVE_HIGH>;
-+        };
-+    };
-+
-+...
+Changes in v5:
+- Don't duplicate prepared tracking
+- Use devm_regulator_bulk_get_const() instead of setting names in probe
+- Use devm_drm_panel_alloc() instead of drm_panel_init()
+- Link to v4: https://lore.kernel.org/r/20260408-ch13726a-v4-0-9bb1a9b8f329@gmail.com
 
+Changes in v4:
+- Add fallback compatible to bindings doc in patch 1
+- Link to v3: https://lore.kernel.org/r/20260323-ch13726a-v3-0-e28b6f97fe80@gmail.com
+
+Changes in v3:
+- Reword patch 1 commit message for clarity
+- Order properties properly in patch 1
+- Track vendor description dependency series change
+- Link to v2: https://lore.kernel.org/r/20260317-ch13726a-v2-0-28aa46bcd6d0@gmail.com
+
+Changes in v2:
+- Add Neil Armstrong to binding maintainer list
+- Add 120hz mode, which required a minor restructure of the driver
+- Link to v1: https://lore.kernel.org/r/20260222-ch13726a-v1-0-e501d78e105a@gmail.com
+
+---
+Aaron Kling (1):
+      dt-bindings: display: panel: Add ChipWealth CH13726A AMOLED driver
+
+Teguh Sobirin (1):
+      drm/panel: Add panel driver for ChipWealth CH13726A based panels
+
+ .../display/panel/chipwealth,ch13726a.yaml         |  67 +++++
+ drivers/gpu/drm/panel/Kconfig                      |  11 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c  | 333 +++++++++++++++++++++
+ 4 files changed, 412 insertions(+)
+---
+base-commit: bee6ea30c48788e18348309f891ed8afbf7702ac
+change-id: 20260220-ch13726a-59c6678d53d8
+prerequisite-change-id: 20260217-ayn-qcs8550-16c07b63de26:v5
+prerequisite-patch-id: 2b010637c46f5ea0e19a2fa87cc5ccb19bfd9204
+prerequisite-patch-id: d0c633dc17f0aba726a8e8d21fee52b944bf67ff
+prerequisite-patch-id: 76ac126273870a96f05e1bd87f4f31bdc3746440
+prerequisite-patch-id: 76b61799dba520fc7fa3ff39b044e24103337af3
+prerequisite-patch-id: 3844bef2eda3cf59031b1d131eb6ba9295629bb4
+prerequisite-patch-id: 3331648bc6f4ac3bb156f0525aa1ede92bfc57f1
+
+Best regards,
 -- 
-2.53.0
+Aaron Kling <webgeek1234@gmail.com>
 
 
