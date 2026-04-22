@@ -1,242 +1,80 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C64A3E9F96
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 13:08:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE4A3E95B8;
+	Wed, 22 Apr 2026 13:15:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776863332; cv=none; b=QvFKvFMscs+JtNyl0xrTCx6NNccJ3MjEGGT0XiDuweRsCAdJPJblH76MArqfRENaAFWbRepFdmqwGKST3d+WhuhRGj78QaxJBipT+ftmBpsR2icFLCHa7qCIKAdoK13RlvBfY+jQNMAtbId7i1PeIrv6/8x6iltPJtHSwG/hq4U=
+	t=1776863702; cv=none; b=io1xSPyLoDz1oqBPcS7YqAuDny7PZHWGIULqzT+8TR+O22QmPc3ArkKEu4YgDGal8aai6wFTHnCw6kv2FPClhbTNu65kopTCZ+oGFdrBYtcw5dmEPfJCH9ga/yiOCjPn+bmxbk4xe0/ezz+50xR0o8YWir2UDzo1QFMqnEYy5Bw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776863332; c=relaxed/simple;
-	bh=jh2jMSSXcTJXd8vlLLS/y4BWbI+0DSavjwWgrZsTuSc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Tdzv5r3W4AlTwW/TV2ew/jeNOM8C37KPtw1eDY+AT5epraxSbYkp6Tz1npcEGVY89Wcp7reva4KOkP5UfTbbNA1fArlcrH3/KsLg4Ygh2XIAnkdaMPluZxurRWSio5C8cgBEuhNo9yhzQdbghrm56kgCvCzXPhd/XPb15dQKBZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pkmxffez; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZnnnEo63; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776863702; c=relaxed/simple;
+	bh=lPu3GoSSEkW1pgq2UWSEc9hfVOWBRgqDIAJWcVT/hBI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B7saKQcVcQZSjgTEP0KJZ0gGHabqT9uKKWDDpRSUlNrt8LFFY24d15QN1hfZ1KTgIwZjHghuxog9lgjFSBeVXQa0D59c44mg/qxlzHiEVL7LSoEN7SYvn7IfXDy1hjH1RyDTAwAjeD0iLsuBLvgr/nljH+6PRTCA/f8wiJrdH7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OcEYcD3r; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pkmxffez";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZnnnEo63"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63MAEaHd2000621
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 13:08:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	w1qZsMsy9aONVEYgOFeg+h83ww+M66WJpHobjGnH/38=; b=pkmxffeznbTdM1my
-	AfJ0umve6g/Ir7lEe3X85lY0rdPLT5PyGNTkztHTdTZsJxRi2oSBLDZALDcoJj2f
-	9gp5VkWzYMQ7xts+yaz7olSdmqbToXO8ubNfz/iSutO5y8PyPkX5EWlfI/fdMfaC
-	pGtBsBMerPN33Hg9gkt9DXi3MdRCa+NiWRs7gHvetZKAJUbW+GK1Oea5J4PycXKx
-	28SnOJzlZYBiofUooOzCZT1FMhDDka2xf0LF0h6+8pyvWKLbG6L5xDptaSEjDAHk
-	/9gmfKbtEFgsgOG0vq0RSlRhU6AU0U/I1PIE2j+DGfuqTkk273CxM/42Vr8oj8YV
-	fnA8pw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpenfbjbm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 13:08:48 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-8ee23ab9f14so38505785a.2
-        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 06:08:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776863328; x=1777468128; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=w1qZsMsy9aONVEYgOFeg+h83ww+M66WJpHobjGnH/38=;
-        b=ZnnnEo63O3eEMcYWQXfgsyyzdZuq00EtwNqBPTxBdom1vF8fdgvOHxq4jIYjfZUyjg
-         gb2AY97N9imZ9GCYSNWcjE5Wef8YA5YC8Okp8UAKoOGSgHO53lhexnnWI3/53NwScyXT
-         DxLk/g7QepTHtCi9xkp9ojP8tqZOE8fMeY1Qwplb2BBSzgFmfGpoIahTWSFFd6Z6E4Y0
-         94n/ji+nK2tZZeckaUEr+NwsVFEHH62hsivAkU8eUoxlFjCAMQT/tmpDfdXzOfNTdnLA
-         s+PkDbFIipnftS4+hxLUUEdiIm3Y0sVMuSgvKcrEqb8LkSbtyZwjA0GgrdRDvVi2ytbZ
-         iPDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776863328; x=1777468128;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=w1qZsMsy9aONVEYgOFeg+h83ww+M66WJpHobjGnH/38=;
-        b=UAJHhiyp6GHfWgL9CccdLZKaEJpZBoE3atSnwyQBNqEVyWSPTQCEQQgHyLasTSRswo
-         QxV4mRKHdiIBgq/+HFQLKl8ErflF4WHDhRugHx7tHnulVcXuBHdk20dlHP5NouiR51ay
-         tUWYyZf7PIqB8gLzS4HoE1ZPY4NHS6JW0SH/hGP7ED5G1D2pZu54tI9JNNIg2fR8p8+j
-         eTsMAgRuXwnHuuFT8yjfQRpSBC/fzjtIkVC6weUSIG3Iw+EJx5kBcIzGeJe3wMVgRvje
-         UVWBQFZZjf0jw1TtOS99InjmDc3f3otP8RFjN9wichz/iGvQVbZU2wGf4wSpwB0W6e4W
-         3YMA==
-X-Forwarded-Encrypted: i=1; AFNElJ+A0xjunyKEcYNo6RkhkO26nSDOW7fR2fXbMNDYzwOYIJ6/78Fuld9spSZ1qtthb6ml7seI/Wccq3NB@vger.kernel.org
-X-Gm-Message-State: AOJu0YzwzsFpruHKJMN2GNUfjyrzu11wI3a6JSlNCKaOl36PfZYTl6Xc
-	3/Xgz4IDPKzanjTo7Al+KryO7YzUmieu8JuVioVpqCBFhhwB99SqkoGt1CcXZ2qOsztFBbY5ts9
-	/1HN8yotrviWqTDoeSFYTZkT37wnexWyMO1tkP2vPmJW8usoZuOXOPwsyBNFpVJPe
-X-Gm-Gg: AeBDieunSMTPUsbnN4P020pk+j3PwZTY024d1czhJaSn1+YTFR1+6kNxy41aZUgoL1R
-	ADAtiodI6YiDsEcgiEw85GbL0osKqn476istwHqBzpE9hNeuFLkzXWTeRkP6vwvuZ02Xp8y3Q+1
-	XQeMh9sc+g8RnGf+SSzTq+xAA9pu3HKzsEpFb6czxxGjM3SYPYAhv05Gdemn90/Tg6P95Ll83ie
-	035b15w54UZi+i7S+9V9ha/r6wIrqiuAfIWDfrkeQ00XGRHdB3k+EV2JCCCsGxssbQrTXI+b/4N
-	8HevTjqe4p1rYbsHlJw2ccupqgzgyzLJajAuZOFo57+QOAEtmbMzqHgi5nDW2F48i6E41KutYPh
-	+XJneyBzTxBQrwPaYuCoA3WAqhdE6UD7b63zdMosHVgg+ixq5E/iOfuFp26wRXeVcNWdTsb6CCM
-	dfrBbIDLyGhcCraQ==
-X-Received: by 2002:a05:620a:4002:b0:8f0:7516:daa9 with SMTP id af79cd13be357-8f07516e2fbmr70756085a.4.1776863326042;
-        Wed, 22 Apr 2026 06:08:46 -0700 (PDT)
-X-Received: by 2002:a05:620a:4002:b0:8f0:7516:daa9 with SMTP id af79cd13be357-8f07516e2fbmr70741785a.4.1776863324003;
-        Wed, 22 Apr 2026 06:08:44 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-672c47fe8a0sm3291152a12.5.2026.04.22.06.08.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Apr 2026 06:08:42 -0700 (PDT)
-Message-ID: <d661ca5c-4d98-4dde-a275-d4e6b9eebfbb@oss.qualcomm.com>
-Date: Wed, 22 Apr 2026 15:08:38 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OcEYcD3r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BD17C19425;
+	Wed, 22 Apr 2026 13:14:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776863701;
+	bh=lPu3GoSSEkW1pgq2UWSEc9hfVOWBRgqDIAJWcVT/hBI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OcEYcD3rlThooXTr3Lagc6MTmXNxnOSyvTMPpC4DVpujticfv5RV81ic1uJzOm5OL
+	 Uz/xUPypdRKMswvgFitMlT2BOkt6yuM83hcsBfRvzsPktWvPcRHqQwySVCsodYylwC
+	 zO0krOyR4AsE8qyBvosBZ1c341gx4SXCu/s/EWRjO5FwdWYhFo8K0RSw0PP/YLx1JT
+	 3fIXdcDoeFVJ5N7gQiaRu69xbIeasTPSswcfrNcKk1nlFLAwOJVTg1MxGSDHddQU3g
+	 X82j8bdWC2s8PgUH74JF/Pwplg9QwPcUSMP/uMRSn1Y2ACQnbbvAGsnGXWPsL5FcFr
+	 2uYhFu4M8qbGg==
+Date: Wed, 22 Apr 2026 14:14:56 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH RFC 2/2] clk: scmi: Add support for two #clock-cells to
+ pass rate rounding mode
+Message-ID: <20260422-huge-kiwi-of-tornado-4fce89@sudeepholla>
+References: <20260306-scmi-clk-round-v1-0-61e2a5df9051@nxp.com>
+ <20260306-scmi-clk-round-v1-2-61e2a5df9051@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] arm64: dts: qcom: sm6350: add LPASS LPI pin
- controller
-To: Luca Weiss <luca.weiss@fairphone.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Linus Walleij
- <linusw@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-References: <20260128-sm6350-lpi-tlmm-v1-0-36583f2a2a2a@fairphone.com>
- <20260128-sm6350-lpi-tlmm-v1-4-36583f2a2a2a@fairphone.com>
- <d3upp33rbn66ioxpc65n7uqwz32kxghzue2n3dkd5k4lch3iwg@qgcppndlte5a>
- <DG0XMT4TZKCH.HPXGS9YTG9FA@fairphone.com>
- <91812db8-9774-468e-8a8b-10699a63310c@oss.qualcomm.com>
- <DHRWGKASOFM8.15ZNMEOJJK9F5@fairphone.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <DHRWGKASOFM8.15ZNMEOJJK9F5@fairphone.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: WQllMsH1Ko2kTSoVzZPAcWL6yku7ov12
-X-Authority-Analysis: v=2.4 cv=fozsol4f c=1 sm=1 tr=0 ts=69e8c860 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=W6naqKN7AAAA:8 a=6H0WHjuAAAAA:8 a=EUspDBNiAAAA:8 a=WRoefMb1mtoobpndLnoA:9
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=Xp8b5NkTPdl8jt_qJiRs:22
- a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDEyNiBTYWx0ZWRfX/FeGEWynubvF
- +M+XEMToizm3EpkxTPZVaZgaGTB7A4y/CcwZ8yF0qeRUuw8bKgoHEqRx28NAxGb81ikT3u090XW
- 9JSV8BEsBiMt2YJcl7wYpZ5TmaZTRmofMbuSb+k49tG953hHWTCYc3vJwofYX828T8eCzguIZrY
- rpu1W2LLAL2vMTc/5YyTs/SgaIqNde60d7ZaUbnTnp2WwQd2Xs6TpC8toIBrOs6fyn2RgX2Fpr8
- Aozh3MhboDcBU0t5RaJOC2cT9VzhtPFX9H8p2/Ho9bmAjWD/SzYFwf2fGGf8qUkx6bYNOPLCJnb
- rdHCUlRJHtjPPvtxWXUDTQfP1YByWrcxXM3KHT4kDgegqWWciAH5RDBNa6V3fh9bruJOdbAXV86
- JoFBuibW5kyeCHo2zPiCxPuTftD1ASvZD7hTCyJyvyMns9usm0KDqzN4Rs3pwsPK3kKHSe0VG3g
- ttstUMQ5e5rCzTlcB6A==
-X-Proofpoint-GUID: WQllMsH1Ko2kTSoVzZPAcWL6yku7ov12
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-22_01,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 clxscore=1015 adultscore=0 impostorscore=0
- spamscore=0 priorityscore=1501 suspectscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604220126
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260306-scmi-clk-round-v1-2-61e2a5df9051@nxp.com>
 
-On 4/13/26 10:55 AM, Luca Weiss wrote:
-> Hi Konrad,
+On Fri, Mar 06, 2026 at 02:20:13PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
 > 
-> On Thu Jan 29, 2026 at 12:19 PM CET, Konrad Dybcio wrote:
->> On 1/29/26 9:32 AM, Luca Weiss wrote:
->>> On Wed Jan 28, 2026 at 11:16 PM CET, Dmitry Baryshkov wrote:
->>>> On Wed, Jan 28, 2026 at 01:26:52PM +0100, Luca Weiss wrote:
->>>>> Add LPASS LPI pinctrl node required for audio functionality on SM6350.
->>>>>
->>>>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->>>>> ---
->>>>>  arch/arm64/boot/dts/qcom/sm6350.dtsi | 66 ++++++++++++++++++++++++++++++++++++
->>>>>  1 file changed, 66 insertions(+)
->>>>>
->>>>> diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
->>>>> index 9f9b9f9af0da..b1fb6c812da7 100644
->>>>> --- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
->>>>> +++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
->>>>> @@ -1448,6 +1448,72 @@ compute-cb@5 {
->>>>>  			};
->>>>>  		};
->>>>>  
->>>>> +		lpass_tlmm: pinctrl@33c0000 {
->>>>> +			compatible = "qcom,sm6350-lpass-lpi-pinctrl";
->>>>> +			reg = <0x0 0x033c0000 0x0 0x20000>,
->>>>> +			      <0x0 0x03550000 0x0 0x10000>;
->>>>> +			gpio-controller;
->>>>> +			#gpio-cells = <2>;
->>>>> +			gpio-ranges = <&lpass_tlmm 0 0 15>;
->>>>> +
->>>>> +			clocks = <&q6afecc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
->>>>> +				 <&q6afecc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
->>>>> +			clock-names = "core",
->>>>> +				      "audio";
->>>>> +
->>>>> +			i2s1_active: i2s1-active-state {
->>>>> +				clk-pins {
->>>>> +					pins = "gpio6";
->>>>> +					function = "i2s1_clk";
->>>>> +					drive-strength = <8>;
->>>>> +					bias-disable;
->>>>> +					output-high;
->>>>
->>>> This looks suspicious for the clock pin.
->>>>
->>>>> +				};
->>>>> +
->>>>> +				ws-pins {
->>>>> +					pins = "gpio7";
->>>>> +					function = "i2s1_ws";
->>>>> +					drive-strength = <8>;
->>>>> +					bias-disable;
->>>>> +					output-high;
->>>>
->>>> The same
->>>>
->>>>> +				};
->>>>> +
->>>>> +				data-pins {
->>>>> +					pins = "gpio8", "gpio9";
->>>>> +					function = "i2s1_data";
->>>>> +					drive-strength = <8>;
->>>>> +					bias-disable;
->>>>> +					output-high;
->>>>
->>>> And here.
->>>
->>> I've taken this pinctrl from downstream lagoon-lpi.dtsi. There the
->>> active config for these pins have "output-high;" set.
->>>
->>> And fwiw this pinctrl works fine at runtime for driving the speaker.
->>
->> I tried to find an answer.
->>
->> A doc for this SoC says that i2s clock pins should be at output-low
->> (2 mA) when muxed to the i2s_xxx function, with no information about
->> bias settings (perhaps bias-disable), and in sleep they should be the
->> same (minus the drive strength note, but 2mA is the lowest setting)
->>
->> I am further confused because the output-enable bit in the cfg
->> register specifically says "when in GPIO mode"
+> SCMI CLOCK_RATE_SET allows the caller to specify the rounding behaviour
+> when setting a clock rate. The previously added dt-bindings header
+> defines three modes:
 > 
-> Thanks for checking.
+>   ROUND_DOWN / ROUND_UP / ROUND_AUTO
 > 
-> What should we do here now? Follow what you found in the docs, or follow
-> what downstream is doing (8ma output-high)?
+> To enable device tree clients to select a rounding mode, extend the
+> SCMI clock provider to support "#clock-cells = <2>", where the second
+> cell encodes the desired rounding mode. The default remains
+> ROUND_DOWN for backwards compatibility with existing device trees.
 > 
-> https://gerrit-public.fairphone.software/plugins/gitiles/kernel/msm-extra/devicetree/+/refs/heads/int/15/fp4/qcom/lagoon-lpi.dtsi#219
-> 
-> I think apart from this question, this patchset should be ready to land.
 
-I think I'm OK with following downstream. If we make any discoveries wrt
-docs, we'll likely need a mass fixup anyway, so
+Where is the binding update documented ? It's not in 1/2.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Also if it can be static in the device tree, why can't it be
+autonomously handled in the platform firmware ? I think I know the
+answer for this but I want to make sure it is a valid use-case and
+gets documented here as part of binding updates.
 
-adding +Srini for awareness
-
-Konrad
+-- 
+Regards,
+Sudeep
