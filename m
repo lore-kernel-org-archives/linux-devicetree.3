@@ -1,70 +1,460 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535C4306D2A;
-	Wed, 22 Apr 2026 07:41:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E2E40DFAC;
+	Wed, 22 Apr 2026 07:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776843711; cv=none; b=pBQHdE4Eb27olO1v5rPRpqdRwcqpdyT8VilSxI0E68t9iRYOwCRvL/NoGD/r1sjgn7U5kfLeopsRzQl3XMNPelWLjQ2j7ixQQUSdiyPFbPjcy+dcepnfhO0V+kTlRZs5Bs5PcQs4pMspaYNqR2rUCeTRRn7UtV4JQvlRs5arbPI=
+	t=1776843821; cv=none; b=hJ+9TBWfn4KVfAEhMlbqPDMd5lJPNW8oVyi61UZKnpILWzeLulMhBVD7AhCeWpw6HeopxhzDxCcZDJ+KKHoxL9sA9Ai5F1C86ozjdGdvPoOj2/6wGgMixfdshLYFqlCL5c08jOS6Sr2HJR/1s6WqEHfVSu0v6APzb1K1V/uaVJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776843711; c=relaxed/simple;
-	bh=MT6k3Q8ZZzow3nqeVqoJJUPcXBo3aekhSuJbE4SAZWM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C0iMsSzWKlOGj84JAYSOmFMgn0rImdCcov5h6j//1vKGKxrD5A5DNdHSsHUnZN/jcs7t8IKfrOtacEv49eWb003PhpHb0nK/fQR8x7P6840Ika5v8G/wxJEiPs+62mEqpbXYnuXL8s7NgbeLzmbFGUsr/pXxfKL8SmQ8cn4SKq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=egXy5pXo; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776843821; c=relaxed/simple;
+	bh=La+dsMtKigLbKRdhWtAoDxJD3ki82cNWB5aMHPibp8U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=sEBfcDUTcLWqaaNFt+osrlrgqC3uHqYPJd2Gc4B1B2CjRVtlysUR8/pUMlge+FIRyJ1LfVJ8TSNMPKh4STpKXOPI5NXV7Itl8ntpYUOfWM3rCY8uJ55/0lFas63Aljwhq+f83Nq35sXqEpFuNR9bd6ri2Tt2Rf6NR6XVH6nhoTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=svFo0nU8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="egXy5pXo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E59EC19425;
-	Wed, 22 Apr 2026 07:41:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="svFo0nU8"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5D513C2BCB8;
+	Wed, 22 Apr 2026 07:43:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776843710;
-	bh=MT6k3Q8ZZzow3nqeVqoJJUPcXBo3aekhSuJbE4SAZWM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=egXy5pXoN4WuKrznFtVsH4ww92ARuQRcPkdl26CHQCobtvcFUq4xh3S3D2qqduVjA
-	 TuzCZUT3wUllLPSWfdKgpECi2Jf5skgowdLGOQl3myOLuphmawTagzg7762bBulTz+
-	 gstzXXlSHJcwdWMU+40hNYdlMgrTyTSGRH4RZYhGsr4mIGB4R2TQVwYtvWTjRKQpVz
-	 VJvjCmHpwHoIOPuSnL2B7SHgZpPaPEImsLu8mczwywH5W5uH2jGr560IdGZOrc+Q1K
-	 4Jvzci8+XPJIs40oyuqdQGI67bWsBiMldkRRnZiS83UdUK/aMtcPSELswxa5KipI7i
-	 Br3vc6qB3RzCQ==
-Date: Wed, 22 Apr 2026 09:41:48 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
-	Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Imran Shaik <imran.shaik@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, Maulik Shah <maulik.shah@oss.qualcomm.com>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>
-Subject: Re: [PATCH 02/13] dt-bindings: clock: qcom,sm8550-dispcc: Add
- display CESTA support on SM8750
-Message-ID: <20260422-savvy-wolverine-of-chivalry-9ae6fc@quoll>
-References: <20260420-cesta-sm870-dispcc-v1-0-eb27d845df9c@oss.qualcomm.com>
- <20260420-cesta-sm870-dispcc-v1-2-eb27d845df9c@oss.qualcomm.com>
+	s=k20201202; t=1776843821;
+	bh=La+dsMtKigLbKRdhWtAoDxJD3ki82cNWB5aMHPibp8U=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=svFo0nU89jY4KaGYzLBDLTqKmFO/ugQsVsz7/9rP/oHgpJ36DmGr/cELPzcxX+z6Y
+	 bFnMrRTnQz9XXEdEHLgpP0syNBcA3E9WdCSOfiEiF0Re9PtXSVIAl0HwowdlIyhWEa
+	 DLqu2XB5pEAqY6v1U4gy2Py80/JhTa41BRkm+sojfTnoTrPg37n3YtSFkGQW/iNTpZ
+	 +5avw/lsVIJN+OcOaJ8osFBjAMpgMHqCvITaevcL/1oJIl42zichmj7QwPe8AsSPHe
+	 csMDp0Gb14k1Dy/KPFi7vEoITY714Lx1oKycAxlKbZi1arXBu9b5nzBqYIXyVsaybO
+	 N0lSXtNuyKCkA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E583F94CDE;
+	Wed, 22 Apr 2026 07:43:41 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Wed, 22 Apr 2026 02:43:25 -0500
+Subject: [PATCH v6 2/2] drm/panel: Add panel driver for ChipWealth CH13726A
+ based panels
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260420-cesta-sm870-dispcc-v1-2-eb27d845df9c@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260422-ch13726a-v6-2-03680d6673ff@gmail.com>
+References: <20260422-ch13726a-v6-0-03680d6673ff@gmail.com>
+In-Reply-To: <20260422-ch13726a-v6-0-03680d6673ff@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>, 
+ Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776843820; l=11291;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=6zJEeAQrGi45qzGSgqVejzQKCslg4CHUh2iZVXemX90=;
+ b=eHyYS02UynJpM8aSk5F1foHzYFvvKnvQuFd7sK7QPtUgyR1i9tfk6JpqyoSrihKM82x0U8UgF
+ M/7DIJwGdimDvSnLXNaCBYbqfMSrgpJdxtpoYHtltkdn25tEnAaE4ai
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Reply-To: webgeek1234@gmail.com
 
-On Mon, Apr 20, 2026 at 09:58:55PM +0530, Jagadeesh Kona wrote:
-> On SM8750, a subset of DISPCC clocks is controlled by the display CESTA
-> (Client State Aggregator) hardware. These clocks can be scaled to the
-> desired frequency by sending votes to the display CRM(CESTA Resource
-> manager) instead of programming DISPCC registers directly.
+From: Teguh Sobirin <teguh@sobir.in>
 
-This looks like completely new, vendor clock API, so no.
+This is used by the AYN Thor for the bottom panel.
 
-Resource voting or clock scaling is nothing new and you do not get a
-vendor phandle to do it. That's like basic upstreaming 101: we do not
-want another vendor re-implementation of common or typical solutions.
+Signed-off-by: Teguh Sobirin <teguh@sobir.in>
+Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+ drivers/gpu/drm/panel/Kconfig                     |  11 +
+ drivers/gpu/drm/panel/Makefile                    |   1 +
+ drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c | 333 ++++++++++++++++++++++
+ 3 files changed, 345 insertions(+)
 
-Best regards,
-Krzysztof
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index d6863b28ddc559..e2c00f08f4507d 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -105,6 +105,17 @@ config DRM_PANEL_BOE_TV101WUM_LL2
+ 	  Say Y here if you want to support for BOE TV101WUM-LL2
+ 	  WUXGA PANEL DSI Video Mode panel
+ 
++config DRM_PANEL_CHIPWEALTH_CH13726A
++	tristate "CHIPWEALTH CH13726A-based DSI panel"
++	depends on OF
++	depends on DRM_MIPI_DSI
++	depends on BACKLIGHT_CLASS_DEVICE
++	select DRM_DISPLAY_DP_HELPER
++	select DRM_DISPLAY_HELPER
++	help
++	  Say Y here if you want to enable support for ChipWealth
++	  CH13726A-based display panels.
++
+ config DRM_PANEL_EBBG_FT8719
+ 	tristate "EBBG FT8719 panel driver"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index a4291dc3905bed..343d283d1620fb 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -9,6 +9,7 @@ obj-$(CONFIG_DRM_PANEL_BOE_TD4320) += panel-boe-td4320.o
+ obj-$(CONFIG_DRM_PANEL_BOE_TH101MB31UIG002_28A) += panel-boe-th101mb31ig002-28a.o
+ obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_LL2) += panel-boe-tv101wum-ll2.o
+ obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_NL6) += panel-boe-tv101wum-nl6.o
++obj-$(CONFIG_DRM_PANEL_CHIPWEALTH_CH13726A) += panel-chipwealth-ch13726a.o
+ obj-$(CONFIG_DRM_PANEL_DSI_CM) += panel-dsi-cm.o
+ obj-$(CONFIG_DRM_PANEL_LVDS) += panel-lvds.o
+ obj-$(CONFIG_DRM_PANEL_SIMPLE) += panel-simple.o
+diff --git a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
+new file mode 100644
+index 00000000000000..175f40e752126f
+--- /dev/null
++++ b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
+@@ -0,0 +1,333 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * ChipWealth CH13726A MIPI-DSI panel driver
++ * Copyright (c) 2024, Teguh Sobirin <teguh@sobir.in>.
++ */
++
++#include <linux/backlight.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/regulator/consumer.h>
++
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_panel.h>
++
++#include <video/mipi_display.h>
++
++static const struct regulator_bulk_data ch13726a_supplies[] = {
++	{ .supply = "vdd1v2", },
++	{ .supply = "vddio", },
++	{ .supply = "vdd", },
++	{ .supply = "avdd", },
++};
++
++struct ch13726a_panel {
++	struct drm_panel panel;
++	struct mipi_dsi_device *dsi;
++	struct regulator_bulk_data *supplies;
++	struct gpio_desc *reset_gpio;
++	struct ch13726a_desc *desc;
++	enum drm_panel_orientation orientation;
++};
++
++struct ch13726a_desc {
++	unsigned int width_mm;
++	unsigned int height_mm;
++	unsigned int bpc;
++
++	const struct drm_display_mode *modes;
++	unsigned int num_modes;
++};
++
++static inline struct ch13726a_panel *to_ch13726a_panel(struct drm_panel *panel)
++{
++	return container_of(panel, struct ch13726a_panel, panel);
++}
++
++static void ch13726a_reset(struct ch13726a_panel *ctx)
++{
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	usleep_range(10000, 11000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(10000, 11000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	usleep_range(10000, 11000);
++}
++
++static int ch13726a_on(struct ch13726a_panel *ctx)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf0, 0x50);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb9, 0x00);
++
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
++
++	return dsi_ctx.accum_err;
++}
++
++static int ch13726a_disable(struct drm_panel *panel)
++{
++	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 50);
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
++
++	return dsi_ctx.accum_err;
++}
++
++static int ch13726a_prepare(struct drm_panel *panel)
++{
++	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
++	struct device *dev = &ctx->dsi->dev;
++	int ret;
++
++	ret = regulator_bulk_enable(ARRAY_SIZE(ch13726a_supplies), ctx->supplies);
++	if (ret < 0) {
++		dev_err(dev, "Failed to enable regulators: %d\n", ret);
++		return ret;
++	}
++
++	ch13726a_reset(ctx);
++
++	ret = ch13726a_on(ctx);
++	if (ret < 0) {
++		dev_err(dev, "Failed to initialize panel: %d\n", ret);
++		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++		regulator_bulk_disable(ARRAY_SIZE(ch13726a_supplies), ctx->supplies);
++		return ret;
++	}
++
++	msleep(28);
++
++	return 0;
++}
++
++static int ch13726a_unprepare(struct drm_panel *panel)
++{
++	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
++
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	regulator_bulk_disable(ARRAY_SIZE(ch13726a_supplies), ctx->supplies);
++
++	return 0;
++}
++
++static const struct drm_display_mode thor_bottom_modes[] = {
++	{
++		/* 120Hz */
++		.clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 120 / 1000,
++		.hdisplay = 1080,
++		.hsync_start = 1080 + 28,
++		.hsync_end = 1080 + 28 + 4,
++		.htotal = 1080 + 28 + 4 + 36,
++		.vdisplay = 1240,
++		.vsync_start = 1240 + 16,
++		.vsync_end = 1240 + 16 + 4,
++		.vtotal = 1240 + 16 + 4 + 8,
++	},
++	{
++		/* 60Hz */
++		.clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 60 / 1000,
++		.hdisplay = 1080,
++		.hsync_start = 1080 + 28,
++		.hsync_end = 1080 + 28 + 4,
++		.htotal = 1080 + 28 + 4 + 36,
++		.vdisplay = 1240,
++		.vsync_start = 1240 + 16,
++		.vsync_end = 1240 + 16 + 4,
++		.vtotal = 1240 + 16 + 4 + 8,
++	}
++};
++
++static struct ch13726a_desc thor_bottom_desc = {
++	.modes = thor_bottom_modes,
++	.num_modes = ARRAY_SIZE(thor_bottom_modes),
++	.width_mm = 65,
++	.height_mm = 75,
++	.bpc = 8,
++};
++
++static int ch13726a_get_modes(struct drm_panel *panel,
++					struct drm_connector *connector)
++{
++	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
++
++	for (uint8_t i = 0; i < ctx->desc->num_modes; i++) {
++		const struct drm_display_mode *m = &ctx->desc->modes[i];
++		struct drm_display_mode *mode;
++
++		mode = drm_mode_duplicate(connector->dev, m);
++		if (!mode) {
++			dev_err(&ctx->dsi->dev, "failed to add mode %ux%u@%u\n",
++				m->hdisplay, m->vdisplay, drm_mode_vrefresh(m));
++			return -ENOMEM;
++		}
++
++		mode->type = DRM_MODE_TYPE_DRIVER;
++		if (i == 0)
++			mode->type |= DRM_MODE_TYPE_PREFERRED;
++
++		drm_mode_set_name(mode);
++		drm_mode_probed_add(connector, mode);
++	}
++
++	connector->display_info.width_mm = ctx->desc->width_mm;
++	connector->display_info.height_mm = ctx->desc->height_mm;
++	connector->display_info.bpc = ctx->desc->bpc;
++
++	return ctx->desc->num_modes;
++}
++
++static enum drm_panel_orientation ch13726a_get_orientation(struct drm_panel *panel)
++{
++	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
++
++	return ctx->orientation;
++}
++
++static const struct drm_panel_funcs ch13726a_panel_funcs = {
++	.prepare = ch13726a_prepare,
++	.unprepare = ch13726a_unprepare,
++	.disable = ch13726a_disable,
++	.get_modes = ch13726a_get_modes,
++	.get_orientation = ch13726a_get_orientation,
++};
++
++static int ch13726a_bl_update_status(struct backlight_device *bl)
++{
++	struct mipi_dsi_device *dsi = bl_get_data(bl);
++	u16 brightness = backlight_get_brightness(bl);
++	int ret;
++
++	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	ret = mipi_dsi_dcs_set_display_brightness(dsi, brightness);
++	if (ret < 0)
++		return ret;
++
++	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	return 0;
++}
++
++static const struct backlight_ops ch13726a_bl_ops = {
++	.update_status = ch13726a_bl_update_status,
++};
++
++static struct backlight_device *
++ch13726a_create_backlight(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	const struct backlight_properties props = {
++		.type = BACKLIGHT_RAW,
++		.brightness = 255,
++		.max_brightness = 255,
++	};
++
++	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
++					      &ch13726a_bl_ops, &props);
++}
++
++static int ch13726a_probe(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	struct ch13726a_panel *ctx;
++	int ret;
++
++	ctx = devm_drm_panel_alloc(dev, __typeof(*ctx), panel,
++				   &ch13726a_panel_funcs,
++				   DRM_MODE_CONNECTOR_DSI);
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
++
++	ctx->desc = (struct ch13726a_desc *)of_device_get_match_data(dev);
++	if (!ctx->desc)
++		return -ENODEV;
++
++	ret = devm_regulator_bulk_get_const(dev,
++					    ARRAY_SIZE(ch13726a_supplies),
++					    ch13726a_supplies,
++					    &ctx->supplies);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Failed to get regulators\n");
++
++	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(ctx->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
++				     "Failed to get reset-gpios\n");
++
++	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
++	if (ret < 0) {
++		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, ret);
++		return ret;
++	}
++
++	ctx->dsi = dsi;
++	mipi_dsi_set_drvdata(dsi, ctx);
++
++	dsi->lanes = 4;
++	dsi->format = MIPI_DSI_FMT_RGB888;
++	dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
++			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
++
++	ctx->panel.prepare_prev_first = true;
++
++	ctx->panel.backlight = ch13726a_create_backlight(dsi);
++	if (IS_ERR(ctx->panel.backlight))
++		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
++				     "Failed to create backlight\n");
++
++	drm_panel_add(&ctx->panel);
++
++	ret = mipi_dsi_attach(dsi);
++	if (ret < 0) {
++		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
++		drm_panel_remove(&ctx->panel);
++		return ret;
++	}
++
++	return 0;
++}
++
++static void ch13726a_remove(struct mipi_dsi_device *dsi)
++{
++	struct ch13726a_panel *ctx = mipi_dsi_get_drvdata(dsi);
++	int ret;
++
++	ret = mipi_dsi_detach(dsi);
++	if (ret < 0)
++		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
++
++	drm_panel_remove(&ctx->panel);
++}
++
++static const struct of_device_id ch13726a_of_match[] = {
++	{ .compatible = "ayntec,thor-panel-bottom", .data = &thor_bottom_desc },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, ch13726a_of_match);
++
++static struct mipi_dsi_driver ch13726a_driver = {
++	.probe = ch13726a_probe,
++	.remove = ch13726a_remove,
++	.driver = {
++		.name = "panel-ch13726a-amoled",
++		.of_match_table = ch13726a_of_match,
++	},
++};
++module_mipi_dsi_driver(ch13726a_driver);
++
++MODULE_DESCRIPTION("DRM driver for CH13726A DSI panels");
++MODULE_LICENSE("GPL");
+
+-- 
+2.53.0
+
 
