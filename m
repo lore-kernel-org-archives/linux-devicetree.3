@@ -1,208 +1,136 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436A846B5;
-	Wed, 22 Apr 2026 06:34:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776839670; cv=none; b=r35vR43iMigKAHdOMv12AC3QLdKTD1fej9VUOsTFiSx1hHtQcvgy0w68Q0fJRutTJVLtoAvKADYPTLf6jxHJrhNmz2fTITKsFdMSwOCAbFVbPZRRvVNLsyCFC7YNz8FTGpvS0NibNqrmoD4jXfgdGKBuW1nvhg8CW08tPB3tWZ4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776839670; c=relaxed/simple;
-	bh=3UiWzTAOfmaFlB4TBcCF2Hwx0NljPLMsEQtkG/B1gHA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pUjmruyiq2rUuGpuFY5pvE42KWthmCnIZpgDXvvI+uiW4xVqBPCe04M/DQeQURR0+/t1qL0Zi2y9h+lnh0B1sbw70EUPOVaI6oHdE27VasNj7ZWIa4fZgPlB17sHEZ/G9FvYo8nKpZhOgDQt23tdDKT2RUs4TbD/6iu8j/v37hI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=o3+g7ic2; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A944931D366
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 06:36:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776839791; cv=pass; b=cWqtLc0qMQI6T+E4vV1MU0ZZbgdVJppdvvHqlymjhNwD46B/fIwC2a9YydMNplxe4xggsv41G+0MZAqt3bD+irzBVU+Kn00kv/8R/n6p6JGFCU9D17IFqytQrJ/rtJ+GMLQZ+cqJxZ1+XEgM7Hxx9qZkzUw66FbxrF22N0GZcTU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776839791; c=relaxed/simple;
+	bh=wfavpjAJSZ7hjRrsG7wTFAHndOUYUXOJbTCj7dcdkBU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=opzjDKubvs2KvVxKy8ELN24Eh6XsYX/maolcw1BnwzYwNG5wZXOqDGhcaTX5VnwoTMFt4UMh/9919FfdsMbc89p8WlP5H9jxuVAPCqfPF7DSD6EmG1OIizPYyMRNhPcHfO3AygIp+/twiyVbHz1Q35AKdNozYwDQWx2GF5NkhKo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IW9ucfVe; arc=pass smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="o3+g7ic2"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63LImEb8679540;
-	Wed, 22 Apr 2026 06:33:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=lv3/WB
-	INCsdmPFzZQfz8PwjDQ4gZCVFc1WMMhCu0iso=; b=o3+g7ic2JjjTwhjfYy0GuU
-	L8A46XYlRpfu4uyGD54Sc8R+cEXnryWWm6JDjDiIeFgqDTxVi7kvnMUfjK1excpH
-	aUHwpANa7C3YQygHyolguQajmPDHjBC803o6oYJg8ekmz3kZF9klumVTPKmc6djp
-	5WftRRztZ/4LyK2+m1IWj41wPiVKTPd8uLrvoMBu8zS62yAtKt/HBo+GJtCDV5pU
-	/AD0z7Dt+BosnmW8xl5DIq201/N5GXH+SFim2YqedwY2xulS+tOyxOZLSVv7phkL
-	S//9fz7eb1rxiy4FkJSxk55GD9D1dwylSc3Yg8UOWwpa6Pe7OLlW2wF89OzJX/3w
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4dpeu7hv9b-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 22 Apr 2026 06:33:48 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 63M6KLh8008798;
-	Wed, 22 Apr 2026 06:33:47 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4dpjky13dq-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 22 Apr 2026 06:33:47 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 63M6Xhqb30147220
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 22 Apr 2026 06:33:43 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8C5822004E;
-	Wed, 22 Apr 2026 06:33:43 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DE5D020040;
-	Wed, 22 Apr 2026 06:33:25 +0000 (GMT)
-Received: from [9.39.30.99] (unknown [9.39.30.99])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 22 Apr 2026 06:33:25 +0000 (GMT)
-Message-ID: <c0bd0fd5-5c30-4d2c-bcf6-5dabe59fa5b8@linux.ibm.com>
-Date: Wed, 22 Apr 2026 12:03:24 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IW9ucfVe"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-43fe608cb92so3486714f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 23:36:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776839788; cv=none;
+        d=google.com; s=arc-20240605;
+        b=iIgRue3tWij2nUxuaNYIVzozwvCSwY2eyHFeZxQKEQjgZGC8JOO1bVnW+/9C/MILRL
+         CLFIArPVG2ws+xILrru1+5jJsvNRWM2VK+OszN/l6RG9FA4/2A7mMC4DRM+BMx6hBYdP
+         JBOAyGU9f3zljAlV/f3gRuutlzCdZxSiknP78e4KPhb3W+jNNKiQxEOO0I6+lN4MP666
+         xgnNHQUC5p8+xFRjHv0dtV3XkPpGm9HSSoXkEchVhXIupSPTrwHsmc1TwJRvxdSGmp8v
+         B3t83DLWHU2x69SeoeEnaFON/QxrNHsbcReujUkiidXz5EaayojT2SsU/YTSKQeIlH4n
+         4aZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eU0mpl2hFzbGd8K+Y1Yf6B7ztWaV8bpKCFESHc+BsSc=;
+        fh=Kyn/EcPy7pzL07WB+brRgibtjsFLW6VxMLjZHF/vkao=;
+        b=kCQKdnAbJ4wuveN2LRSRpCKsSwPYl81+VxX5tVDme5O7vqBa89WT4pyNWyJ+AsIiUm
+         vPjL9P/2OWzU+NmEU3EVKSEVnCaFHLCrh77frTPdqyjurlfMi24Lvp0WYKy9ysQNMveE
+         SVSBuOFINIYZgO1WN2tYs+A8628b1mLyXYDXsjmGFR0HSVs4K2Fp9g6abH6CtgHJGaDL
+         J2VwCOwTISqPNILmM2DvYmt/mUy1d8MTVFyxbDPPvfOS3Nd2EbqNBD1DMFQ/YLphm6Zj
+         CwVI/O6IKS9BA1Mf0X6ld/WetEaQ8EEWsmnPq5B6VhqVpmSfHqgGRC/vn2MlaquOmTuv
+         90SQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776839788; x=1777444588; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eU0mpl2hFzbGd8K+Y1Yf6B7ztWaV8bpKCFESHc+BsSc=;
+        b=IW9ucfVeT/mnGYgdSshb9A6jwQ0aWoPTd+/L0/mNQEziubP9LOAO80jXmXkMiUL8WI
+         kTgrLMbtOFO3k6wNDQ9HWyEebrgoZSfR/ZXLVdqlibRJMXVlG4fZK3+8y9gah3L176Nq
+         CcN1y+yITxuY93trrd1JfELQx+9CRkEr0FgrCyYL0liY9Qb+PoFe/mtbqBDwwelj1pHn
+         IXx4sUuukSvCAvvDqYkhD2XxsWJeKYWr266+Sk0QSjUqOAZtcVkuO1/+2xjRWADy0xT3
+         sujfqm3P7KJZ+UK8i+5hqMgLLiYnpGanQTrlVyP0fDoVD476g8fOwvglnao0htYh+wXj
+         oXxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776839788; x=1777444588;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=eU0mpl2hFzbGd8K+Y1Yf6B7ztWaV8bpKCFESHc+BsSc=;
+        b=W993D2A2seFAT7KcmiNf4ApDrEQq+j59JxL6lm6nAjmH32F6EZ1y+c42vz5TJTe4qM
+         sHaQXU5+l7uK0PrLiyik8YlVNBUg/iPG02b0loKnHnQ1z3vuVU2gXjubFQDCqkQ4cFPb
+         uomr5YlvUD0dZ7Ux/7OCiAtVwKZuuYZW3qD5vjrV+8gsq+m/oXGSmYxE6uX1pZ9m4GA3
+         b5hvLJt70cYcUpjdDYn5tHx/dY/noU9j9gMVJ5jMGTMd0GQ9kz4d3ziTHpwFosRpOLrl
+         SbImPDfEQtdyBjhLpauHi5JduaZ1apEhkltHloBJTTE8XNPoNAMBN7Qem9snWA86eOdi
+         rF9A==
+X-Forwarded-Encrypted: i=1; AFNElJ8daQZJAdTbxCH5aSVpL7Kb47u45MX6If1lTRbn9BRjrEy580KxEk3pdTugSNqtqErj3tl2x578hKDz@vger.kernel.org
+X-Gm-Message-State: AOJu0YzkOuQ/OlvCNuqB9aolSe2XQ+slmRyn4cbEKd1EKff9ngo+MbAg
+	ODzjNwKc+s+XJSFSzF8RPiWYGUactwiUsLZqgV18cJAuZ/gfrOAP9t+/TjAAgaEx86IJACqgkFe
+	ETk8qZhFAur4FWhV+XOQuZbjNa9qA7r0=
+X-Gm-Gg: AeBDiev/HPzv2YYU6yQk61o+t6svTd7fYpleH/aDfXDUBIUbOgC5Q0roVevJnJpNWSA
+	q23UeP21Fh9Ag/z2535NbZvyYw0j6QWz2zdXNFhjppG8dXDxS/IF8Wd279f0hB7mudpjirj9/GB
+	vqx4SizD+n3nWmepnHuphUCeJw1c45TRV5NtDNMsK/+04ATnvdVySA16VGFyeHfELxLhUbSKhWn
+	pJNRK7Yk+OjWChhqIn0xuo7Uc1z76kdGranU98V7lt4u8f7H5pDmJY5RB3jn0GmDbtw2BZ7sSEw
+	kajHbNIlkTt0+qLFvSQ=
+X-Received: by 2002:a5d:5f92:0:b0:43d:71f4:7ed5 with SMTP id
+ ffacd0b85a97d-43fe3dc54famr32939529f8f.17.1776839787814; Tue, 21 Apr 2026
+ 23:36:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] powerpc: Add a typos.toml file
-To: Link Mauve <linkmauve@linkmauve.fr>, linuxppc-dev@lists.ozlabs.org
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Herbert Xu
- <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>,
-        Juergen Gross <jgross@suse.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
-        Alexey Makhalov <alexey.makhalov@broadcom.com>,
-        Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
-        Geoff Levand <geoff@infradead.org>,
-        Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-        "Oliver O'Halloran" <oohall@gmail.com>,
-        Anatolij Gustschin <agust@denx.de>,
-        =?UTF-8?Q?Breno_Leit=C3=A3o?= <leitao@debian.org>,
-        Nayna Jain <nayna@linux.ibm.com>,
-        Paulo Flabiano Smorigo <pfsmorigo@gmail.com>,
-        Eric Biggers <ebiggers@kernel.org>,
-        "Jason A. Donenfeld" <Jason@zx2c4.com>,
-        Ard Biesheuvel <ardb@kernel.org>,
-        Thorsten Blum <thorsten.blum@linux.dev>,
-        Thomas Huth <thuth@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-        David Hildenbrand <david@kernel.org>,
-        Alistair Popple <apopple@nvidia.com>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Donet Tom <donettom@linux.ibm.com>,
-        Andrew Morton
- <akpm@linux-foundation.org>,
-        =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@rivosinc.com>,
-        Will Deacon <will@kernel.org>,
-        "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-        Paul Moore
- <paul@paul-moore.com>, Nam Cao <namcao@linutronix.de>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sourabh Jain <sourabhjain@linux.ibm.com>,
-        Hari Bathini <hbathini@linux.ibm.com>,
-        Srikar Dronamraju <srikar@linux.ibm.com>, Jiri Bohac <jbohac@suse.cz>,
-        "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-        "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Kees Cook <kees@kernel.org>, Stephen Rothwell <sfr@cab.auug.org.au>,
-        Xichao Zhao <zhao.xichao@vivo.com>,
-        Gautam Menghani <gautam@linux.ibm.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        K Prateek Nayak <kprateek.nayak@amd.com>,
-        Guangshuo Li <lgs201920130244@gmail.com>,
-        Li Chen
- <chenl311@chinatelecom.cn>,
-        Aboorva Devarajan <aboorvad@linux.ibm.com>,
-        Petr Mladek <pmladek@suse.com>,
-        Feng Tang <feng.tang@linux.alibaba.com>,
-        "Nysal Jan K.A." <nysal@linux.ibm.com>,
-        Aditya Gupta
- <adityag@linux.ibm.com>,
-        Sayali Patil <sayalip@linux.ibm.com>,
-        Rohan McLure <rmclure@linux.ibm.com>,
-        Pasha Tatashin <pasha.tatashin@soleen.com>,
-        Yeoreum Yun
- <yeoreum.yun@arm.com>,
-        Kevin Brodsky <kevin.brodsky@arm.com>,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-        Andrew Donnellan <andrew+kernel@donnellan.id.au>,
-        "Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
-        =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-        Athira Rajeev <atrajeev@linux.ibm.com>,
-        Kajol Jain <kjain@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>,
-        Chen Ni <nichen@iscas.ac.cn>, Haren Myneni <haren@linux.ibm.com>,
-        Jonathan Greental <yonatan02greental@gmail.com>,
-        Ingo Molnar <mingo@kernel.org>,
-        "Yury Norov (NVIDIA)"
- <yury.norov@gmail.com>,
-        Gaurav Batra <gbatra@linux.ibm.com>,
-        Nilay Shroff <nilay@linux.ibm.com>,
-        Vivian Wang <wangruikang@iscas.ac.cn>,
-        =?UTF-8?Q?Adrian_Barna=C5=9B?= <abarnas@google.com>,
-        "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
-        Thierry Reding <treding@nvidia.com>, Yury Norov <ynorov@nvidia.com>,
-        "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
-        Ruben Wauters <rubenru09@aol.com>, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-crypto@vger.kernel.org,
-        kvm@vger.kernel.org, virtualization@lists.linux.dev, x86@kernel.org
-References: <20260421121420.26079-1-linkmauve@linkmauve.fr>
- <20260421121420.26079-2-linkmauve@linkmauve.fr>
- <215f12d6-62c1-4837-9f78-ef270684950c@kernel.org>
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <215f12d6-62c1-4837-9f78-ef270684950c@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: 4EaM1Y0bvhcFaO8pxVl2Od4VPvv4qd_j
-X-Authority-Analysis: v=2.4 cv=Ksp9H2WN c=1 sm=1 tr=0 ts=69e86bcd cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=NEAV23lmAAAA:8
- a=YFAi04RA3zjlIS0kzIUA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: wxrhwpGYQgEkSGVFqfHgj6jxXBwEWO3w
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDA1NyBTYWx0ZWRfX5/ArlEsGNSKD
- /9hFZpzk/tBrQnVBDmXiF4w1FvzvkI5FYebPR4H6fK6rtGBtQvh5Tbt/QZr3WMDy+6R0noufnH6
- Ya+wACPpOZFQJ09FYoTudgl5+q/PV7gmmAV9NPezJXdrAxHur1mG8YzhTK9VRbWhJwkgxq3LsPk
- ffWHlNMh03TTaqUGZnsGBKN42ZF2SD0q0NadhTGxwm168iEa2MRPxSZawS2Aw9hlkqZ9FOIGnaq
- 2kciRJS8MdAoGjE59gmcgOQT6j/TVxpPgu9Pntm8o89A6QtjwmLm6VUuk22OG3ajrGUfVzkChFa
- GbkQ1ofav43aIkl/ufNxjJLZ1so6fkhvQr7RvNXLZE2zakfeViXv1oyWiyhQxGizn9RldP9mbN5
- RrefFQMDKwAImETMEeDhBW8vQlxZ1arpQuX6h/yYSDlnxl3v9+qH0tOe3tdsjrKIxpFe05AjSLr
- Bwv3zJRpcTPd94rsX8Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-21_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0 priorityscore=1501
- lowpriorityscore=0 clxscore=1011 adultscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604220057
+References: <20260419093412.40796-1-clamor95@gmail.com> <20260419093412.40796-2-clamor95@gmail.com>
+ <20260420-affection-ferocious-e28cd29f360a@spud> <aeZWgcARBqMQatrr@kekkonen.localdomain>
+In-Reply-To: <aeZWgcARBqMQatrr@kekkonen.localdomain>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 22 Apr 2026 09:36:16 +0300
+X-Gm-Features: AQROBzCUJhTnbg5bBGAy7L6DdQ6sPnv4p1g7vJBHYljdROCv4p5UQj1SToqiRiM
+Message-ID: <CAPVz0n10Us=zU38v4ieqWXkQ2pXRKi=6M4i3k1Q5bJ4g2QQjgA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/5] dt-bindings: leds: Document TI LM3560 Synchronous
+ Boost Flash Driver
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Conor Dooley <conor@kernel.org>, Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+=D0=BF=D0=BD, 20 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 19:3=
+8 Sakari Ailus <sakari.ailus@linux.intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Hi Conor,
+>
+> On Mon, Apr 20, 2026 at 05:20:28PM +0100, Conor Dooley wrote:
+> > > +properties:
+> > > +  compatible:
+> > > +    enum:
+> > > +      - ti,lm3559
+> > > +      - ti,lm3560
+> >
+> > What differentiates these devices to the point that fallback compatible=
+s
+> > are not suitable?
+>
+> Good question.
+>
+> It seems the currents are different albeit the register values themselves
+> are the same. The driver doesn't seem to handle that properly right now, =
+so
+> it's a driver bug.
+>
+> I'd keep the compatibles as-is as the current limit applied should be as
+> specified in DT.
+>
 
+This is a valid point. Unfortunately, I don't have device with lm3559
+to adjust driver accordingly and test.
 
-On 4/21/26 5:56 PM, Krzysztof Kozlowski wrote:
-> On 21/04/2026 14:14, Link Mauve wrote:
->> This file is used by the typos tool[1] to determine which words to fix,
->> which ones not to fix, and what the target word should be.
->>
->> [1] https://github.com/crate-ci/typos
->>
->> Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
-> 
-> This typos.toml file does not belong to the kernel, IMO, but that's up
-> to PowerPC folks.
-> 
+So, Conor, Sakari, what changes if any I should apply here in v3?
 
-Right, Also there is nothing specific to arch/powerpc here.
-
-IMO, This file should be part of the tool's repo. Not part of 
-arch/powerpc kernel tree.
+> --
+> Kind regards,
+>
+> Sakari Ailus
