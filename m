@@ -1,358 +1,185 @@
-Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D653CAE92;
-	Wed, 22 Apr 2026 09:59:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=138.232.1.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB63358360
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 10:06:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776851999; cv=none; b=JEs76EeWi4VCCY0PY8JzUgbrcUFLAwyTDOR6CfXRi2GE13R0EHn0/LAh0i8TY6FyPAZ7geJujort5Kl8v5w4gbzypxnqn1lxgDxokP9VJSI1e2KlCv4dkZbnxR84tbFo7EKH9cehuwWM83ETR0meELQ6b0KO7lUYbRIMBdyMc/c=
+	t=1776852395; cv=none; b=POKRMHjPVK8slFJPhLgGjYa8fzoznliuSabG9mwox1e18mFkjM8xOtnBoh4IPvApUnslmyahHkk2x2cluqWQ++YdVw5d5V1k9XN6RQivVW7I7W5fO1OEWHKja7KW4efQzN3WQDcyxs5zdEdqG3kSLInxDPd6g3ezkWepst0dO14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776851999; c=relaxed/simple;
-	bh=G/MmvhG96OuCjmhGl9RZBnwj8B+IdANKCd+Vhl3D0W0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tOekpyrArNiFNJwz23gV0KnspYYNCSDh8+pB+XU71bMQQCYvDQsb32MqYu5AbzJxdpsldjuxXM/zeKeKZocCM4GuScL2W6MYPaUWG2I5k9bt2iMAE1JZv6HTktpdRsRAru3dQyBjUoTEKF+XOeer3AvIQGpPUIvHQGSRo93ZRzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at; spf=pass smtp.mailfrom=student.uibk.ac.at; dkim=pass (1024-bit key) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.b=ca19KtYa; arc=none smtp.client-ip=138.232.1.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
+	s=arc-20240116; t=1776852395; c=relaxed/simple;
+	bh=F2miv3VN1E5bBVzs28VciCLl3pdFG9c3gR1nAApTKMY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WP5jazTInpB8X1d0kU+pQWJ05JIrB2MLDIJwt6/3LTD5oQLiDLBViYUCy7qbEapc98AgRubP+TkZ7Plun/C2xEHgpwPDGXuGhSzPItHf8HcDzjlMFLUdKjY1O704N5cZY2j13oHfowbBjyQynpOQFXWzSW76DfZJH33F/HeQyVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZxzASiXL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jFg7fqQd; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.b="ca19KtYa"
-Received: from surface-pro-5 (77.119.189.253.wireless.dyn.drei.com [77.119.189.253])
-	(authenticated bits=0)
-	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 63M9xVO53161132
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 22 Apr 2026 11:59:40 +0200
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 63M9xVO53161132
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
-	s=prod24a; t=1776851981;
-	bh=8rSPH1Ufpn7dxM923OsHjQmIEJkfB369DwjgRRG4exM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ca19KtYaqE3O5ti2qH6QuNKOVOVA47RI1IUySoWa17nsJSYBoKRff7ikVECiW7xpF
-	 pcTcGTalmiXuaQCbja45gfDdpnGASsveEc2OiIa5l8rw6iti2a0K/zjLRKs5Cqf2Jd
-	 HrDmyjsjGXPsBFjd07h69VotgO6ycu7WvR4B1ecg=
-From: christian.koever-draxl@student.uibk.ac.at
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        neil.armstrong@linaro.org, khilman@baylibre.com
-Cc: jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
-        devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        =?UTF-8?q?Christian=20Stefan=20K=C3=B6v=C3=A9r-Draxl?= <christian.koever-draxl@student.uibk.ac.at>
-Subject: [PATCH v4 2/2] arm64: dts: amlogic: add support for Amediatech X98Q
-Date: Wed, 22 Apr 2026 11:58:40 +0200
-Message-ID: <20260422095840.26139-3-christian.koever-draxl@student.uibk.ac.at>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260422095840.26139-1-christian.koever-draxl@student.uibk.ac.at>
-References: <20260422095840.26139-1-christian.koever-draxl@student.uibk.ac.at>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZxzASiXL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jFg7fqQd"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63M99EuK1443728
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 10:06:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	E7dhqIXNT+osSd+4CR+kMtKfRz1bj+2wyCzp2NKZcx8=; b=ZxzASiXLj94Eh0NF
+	7y43PtYpG3BWFT24Fcer0gOJBkXiwhm28xGzc98EM4f/oOMScyR/C7BJEHlROYLv
+	E/PiJK8uoZnNxrNlfiB0nAUttIQfsZPyPLlH05fMviMgk/Lwtd4WW1ORlzxAvAjl
+	S8VXA/PgIXI0UBuyXiM94+h6FT9grpMpzdurfNddqyOBnhrTe6J8MXeszuAyBWSe
+	c4oCInioFy+SbMUzCGNuqh9tY3ommcSBJ+KNvw/TPuPVuvo2HTr4gr4SzuTQwAKt
+	AlgF1ZbUtAr5n2Kx2SBkwC+mckyEZQNpmm2DiklX4Dc776qx9/qS1dMbieF+xuDh
+	TvLotg==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpenftsq2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 10:06:32 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8aca4966fe6so16398896d6.2
+        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 03:06:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776852392; x=1777457192; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=E7dhqIXNT+osSd+4CR+kMtKfRz1bj+2wyCzp2NKZcx8=;
+        b=jFg7fqQdhendR8EkJKDymreAWf6KrVyQYTa6g2SvPyiiifimNJngdTFZC7qIDJs6O6
+         rp6nF7AfnNQOqVHSFZI5pjFOmEaUlIk9AUwrMv9tVAu/9ZZUgMhYZlyBmJYvkrVzaN57
+         LYxcCaNr7i+LlWabWYnW0QX4s5bUXQsZWYt4xGbH9Utcx0qgFbBZdTzBTbBnOWi3aUYV
+         J1FQG1lPLvzz3gte0jQ2Uu+KX413tQ9Utn/JMCko3p3Dp9AAmnmhPrLJAf/+lI75x9oq
+         MnzIBDwOkb4YACDmCJLJ4NoV2j4uHuSZduCIAVo09EYi3ee+4blnrdVf6ZHHa7JDpD1u
+         DnIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776852392; x=1777457192;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=E7dhqIXNT+osSd+4CR+kMtKfRz1bj+2wyCzp2NKZcx8=;
+        b=AgIC+yTk45qjq8R05dFmDrygYZxYMeeo6SMtoWdJ7RSYIjlcqp4UDOlChodf9RcccT
+         Yy4Gtd8BGCrJ6X3Z5ENNA0oxETYtiA4QL1jnJgXZNHdO+6YhqYn2zMjS6Q2VgXjL1Os1
+         2H5rRZxj+euZvCGT1y4cfvC7Pe1dxQIebX6qD+UJeNP6qVhc7x/zedoF2iJA/ilWH1tj
+         5fXkAsVex8aLW6B61jlstkhLG5vPISRzs8godGJSZlllsMNTi1LcmkbjQgYp1I4A/o8/
+         NZCJzB0vMZCV2WRKfljPO7gxQ96iop7g0ZDCpc4mYnrasp3soJDEiJWchIychTngHBaA
+         HYUw==
+X-Forwarded-Encrypted: i=1; AFNElJ+92nzLL7PFQ5hioRPG8hUlbUNZbFwSVOTdSCvXaXQRKwrai8DEQSh3Z6EvpGiqDe3WHbguRC39u5fk@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1/NAj0t+0+tFKlS3cWniOYxXXr0FspEux3WmO/kvwsnPJD/LZ
+	zNplz0G8LgBPzSEXgUBbejgi3MWiWuipq/Dhmq0iz9yui9BvXHGjW9YirECfaqE7D/+8CkL8bU3
+	+O4hKohbY4+c9rbP1COy0B+a+ZUiTj9tHpbsnB37e0I0idRB7e1DAogVDawVpPg0v
+X-Gm-Gg: AeBDievL1jxyeNnY5b7TitSuJM4fCI9pd0RiMIWoiA4hSGXA2VsnfPsH6u6lMuvMH0A
+	NBOBMYkvz7k36MwYX5Yw8fl7CnyKboiO700heoQGyc+3VDowogDY+BWLaIEg/sCQVvmZpZGQEQ2
+	tIQk5BvJbLaafHRUCuMvtyPA1z3ilQYkDf+fl2A0yBHLY97QiyMHsu7DaiGpS7nCBycfWEZ56XN
+	fJT5PFEZensCPbwNIFPqOTCKSQ/2It5JerFhR3sUaBfPsyVypEY8HFHOHbQJmI2jpn11Gzz+FQa
+	QcmSQqzauXbwgN0KOdze9OzqWSnQRXRfwdIlnkPJcaAnv7GEtqc7OQQvD8YXDYsSxijSwPQdIxS
+	iATS9CO6ZMdRP9X/1QeN4r8FX3n+R9v1h4SkKN/FDVkFsBaSyInUFhPac94grOt6pj3lxos0Q27
+	poTuaGTTaI9detyA==
+X-Received: by 2002:a05:6214:2521:b0:8ac:a205:f118 with SMTP id 6a1803df08f44-8b0281997b8mr227504176d6.8.1776852391815;
+        Wed, 22 Apr 2026 03:06:31 -0700 (PDT)
+X-Received: by 2002:a05:6214:2521:b0:8ac:a205:f118 with SMTP id 6a1803df08f44-8b0281997b8mr227503966d6.8.1776852391406;
+        Wed, 22 Apr 2026 03:06:31 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba4517ee077sm538493266b.18.2026.04.22.03.06.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Apr 2026 03:06:30 -0700 (PDT)
+Message-ID: <3526a6ec-20ab-41d0-9130-8dd6d5b76f49@oss.qualcomm.com>
+Date: Wed, 22 Apr 2026 12:06:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] phy: qualcomm: qmp-combo: update DP PHY PLL programming
+ on Glymur
+To: Mahadevan P <mahadevan.p@oss.qualcomm.com>, Vinod Koul
+ <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+        Abel Vesa
+ <abelvesa@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+References: <20260419-glymur_dp-v1-1-ad1067a8e8ae@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260419-glymur_dp-v1-1-ad1067a8e8ae@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: () -12.0 ALL_TRUSTED,RCV_SMTP_AUTH,RCV_SMTP_UIBK,UIBK_PHI_SUBJ,U_H_APTO_LONG,U_RCPTS_11_PLUS
-X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: IwqrYDrfy5MwhUZbgIykvY2L0aOBSknx
+X-Authority-Analysis: v=2.4 cv=YJuvDxGx c=1 sm=1 tr=0 ts=69e89da8 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=PVKFNgOZ47auAR9NjogA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDA5NiBTYWx0ZWRfXwHYoMd2LMARy
+ p0klgnYc+vkzOmNKSCSUcjABD8D+T+Dj4hKfH5Tx1iJw/8pjnr9IsI1jrs+zCH7VjcsAj9NUoCs
+ oP8LGibTTPWYMiFw0GxThs0iYeF+EF/0LWc7hbx/+oZqxtC3B6ntrzw5utTs1wJfbwIAZ2/3V+H
+ f6h1DhX/8cHa97pwqnwO6nPln/aINdhSQ9G3pwIyuu38miUIj1LLIobh+xd/6gf6NCCMGTupU76
+ bQjrATq9J784gCte8c37en3GlCfn/2OHfh5tVec/LM6d4qksSLgixwxYQwJjnqGJoNFxBhw6LUn
+ KKIoMbe2bFj2I757DYTMcpuM3hUpj+4KVhniqKcBCe87vA5Yq9de7KFuO5khIp2wxNwG9rkRg16
+ ZiSKgrCgM5hkTvwCF4ue1ojfBZUuYHhwHA86vZkHxRwB7p7aB7gNLLdYWNCF4ybHb31pyAIeGud
+ F77BA65i1rkRowIs2lQ==
+X-Proofpoint-ORIG-GUID: IwqrYDrfy5MwhUZbgIykvY2L0aOBSknx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-22_01,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 lowpriorityscore=0 adultscore=0 spamscore=0
+ malwarescore=0 impostorscore=0 priorityscore=1501 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604220096
 
-From: Christian Stefan Kövér-Draxl <christian.koever-draxl@student.uibk.ac.at>
+On 4/19/26 12:15 PM, Mahadevan P wrote:
+> The existing DP PHY PLL and AUX configuration for the Glymur platform
+> does not fully follow the Hardware Programming Guide requirements for
+> DP over Type-C, which results in DP link bring-up failures.
 
-Add dts enabling core hardware for the Amediatech X98Q TV box.
+[...]
 
-The board features:
-- Amlogic S905W2 (Meson S4) SoC
-- 1 GiB RAM (2 GiB variants exist)
-- eMMC and microSD card slot
-- SDIO-based WiFi module (unsupported)
-- RMII Ethernet with internal PHY
-- IR receiver and UART console
-- Status LED
+> @@ -283,8 +283,8 @@ static const unsigned int qmp_v8_n3_usb43dpphy_regs_layout[QPHY_LAYOUT_SIZE] = {
+>  	[QPHY_DP_AON_TOGGLE_ENABLE]		= QPHY_V8_PCS_AON_DP_AON_TOGGLE_ENABLE,
+>  
+>  	[QPHY_COM_RESETSM_CNTRL]		= QSERDES_V8_COM_RESETSM_CNTRL,
+> -	[QPHY_COM_C_READY_STATUS]		= QSERDES_V8_COM_C_READY_STATUS,
+> -	[QPHY_COM_CMN_STATUS]			= QSERDES_V8_COM_CMN_STATUS,
+> +	[QPHY_COM_C_READY_STATUS]		= QSERDES_V8_COM_C_READY_STATUS_N3,
 
-Enabled peripherals:
-- eMMC (HS200)
-- SD card interface
-- SDIO bus (WiFi, no driver yet)
-- Ethernet (RMII)
-- UART_B
-- IR receiver
-- PWM-controlled CPU regulator
-- PWM and Fixed regulators for core and IO rails
+This register is in the DP_QSERDES region, not in COM.
 
-Known limitations:
-- No support for the onboard WiFi module
-- Missing multimedia (HDMI/audio)
+The updates to the reg addreses themselves seem to match the hw description.
 
-Signed-off-by: Christian Stefan Kövér-Draxl <christian.koever-draxl@student.uibk.ac.at>
----
- arch/arm64/boot/dts/amlogic/Makefile          |   1 +
- .../boot/dts/amlogic/meson-s4-s905w2-x98q.dts | 249 ++++++++++++++++++
- 2 files changed, 250 insertions(+)
- create mode 100644 arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
+[...]
+> +static bool qmp_v8_combo_configure_dp_mode(struct qmp_combo *qmp)
+> +{
+> +	bool reverse = (qmp->orientation == TYPEC_ORIENTATION_REVERSE);
+> +	const struct phy_configure_opts_dp *dp_opts = &qmp->dp_opts;
+> +	u32 val;
+> +
+> +	val = DP_PHY_PD_CTL_PWRDN | DP_PHY_PD_CTL_AUX_PWRDN |
+> +		DP_PHY_PD_CTL_LANE_0_1_PWRDN | DP_PHY_PD_CTL_LANE_2_3_PWRDN |
+> +		DP_PHY_PD_CTL_PLL_PWRDN | DP_PHY_PD_CTL_DP_CLAMP_EN;
 
-diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/Makefile
-index 15f9c817e502..c7752684dea6 100644
---- a/arch/arm64/boot/dts/amlogic/Makefile
-+++ b/arch/arm64/boot/dts/amlogic/Makefile
-@@ -85,6 +85,7 @@ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-ugoos-am3.dtb
- dtb-$(CONFIG_ARCH_MESON) += meson-gxm-vega-s96.dtb
- dtb-$(CONFIG_ARCH_MESON) += meson-gxm-wetek-core2.dtb
- dtb-$(CONFIG_ARCH_MESON) += meson-s4-s805x2-aq222.dtb
-+dtb-$(CONFIG_ARCH_MESON) += meson-s4-s905w2-x98q.dtb
- dtb-$(CONFIG_ARCH_MESON) += meson-s4-s905y4-khadas-vim1s.dtb
- dtb-$(CONFIG_ARCH_MESON) += meson-sm1-a95xf3-air-gbit.dtb
- dtb-$(CONFIG_ARCH_MESON) += meson-sm1-a95xf3-air.dtb
-diff --git a/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts b/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
-index 000000000000..3eecbc858522
---- /dev/null
-+++ b/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
-@@ -0,0 +1,249 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (c) 2026 Christian Stefan Köver-Draxl
-+ * Based on meson-s4-s905y4-khadas-vim1s.dts:
-+ *  - Copyright (c) 2026 Khadas Technology Co., Ltd.
-+ */
-+
-+/dts-v1/;
-+
-+#include "meson-s4.dtsi"
-+
-+/ {
-+	model = "Shenzhen Amediatech Technology Co., Ltd X98Q";
-+	compatible = "amediatech,x98q", "amlogic,s905w2", "amlogic,s4";
-+	interrupt-parent = <&gic>;
-+	#address-cells = <2>;
-+	#size-cells = <2>;
-+
-+	aliases {
-+		mmc0 = &emmc; /* eMMC */
-+		mmc1 = &sd; /* SD card */
-+		mmc2 = &sdio; /* SDIO */
-+		serial0 = &uart_b;
-+	};
-+
-+	memory@0 {
-+		device_type = "memory";
-+		reg = <0x0 0x0 0x0 0x40000000>;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		/* 52 MiB reserved for ARM Trusted Firmware */
-+		secmon_reserved: secmon@5000000 {
-+			reg = <0x0 0x05000000 0x0 0x3400000>;
-+			no-map;
-+		};
-+	};
-+
-+	emmc_pwrseq: emmc-pwrseq {
-+		compatible = "mmc-pwrseq-emmc";
-+		reset-gpios = <&gpio GPIOB_9 GPIO_ACTIVE_LOW>;
-+	};
-+
-+	sdio_32k: sdio-32k {
-+		compatible = "pwm-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+		pwms = <&pwm_ef 0 30518 0>; /* PWM_E at 32.768KHz */
-+	};
-+
-+	sdio_pwrseq: sdio-pwrseq {
-+		compatible = "mmc-pwrseq-simple";
-+		reset-gpios = <&gpio GPIOX_6 GPIO_ACTIVE_LOW>;
-+		clocks = <&sdio_32k>;
-+		clock-names = "ext_clock";
-+	};
-+
-+	main_5v: regulator-main-5v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "5V";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-always-on;
-+	};
-+
-+	sd_3v3: regulator-sd-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "SD_3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpio = <&gpio GPIOD_4 GPIO_ACTIVE_LOW>;
-+		regulator-always-on;
-+	};
-+
-+	vddio_sd: regulator-vddio-sd {
-+		compatible = "regulator-gpio";
-+		regulator-name = "VDDIO_SD";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpios = <&gpio GPIOD_9 GPIO_ACTIVE_HIGH>;
-+		gpios-states = <1>;
-+		states = <1800000 1 3300000 0>;
-+	};
-+
-+	vddao_3v3: regulator-vddao-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VDDAO_3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&main_5v>;
-+		regulator-always-on;
-+	};
-+
-+	vddio_ao1v8: regulator-vddio-ao1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VDDIO_AO1V8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		vin-supply = <&vddao_3v3>;
-+		regulator-always-on;
-+	};
-+
-+	/* SY8120B1ABC DC/DC Regulator. */
-+	vddcpu: regulator-vddcpu {
-+		compatible = "pwm-regulator";
-+
-+		regulator-name = "VDDCPU";
-+		regulator-min-microvolt = <689000>;
-+		regulator-max-microvolt = <1049000>;
-+
-+		vin-supply = <&main_5v>;
-+
-+		pwms = <&pwm_ij 1 1500 0>;
-+		pwm-dutycycle-range = <100 0>;
-+
-+		regulator-boot-on;
-+		regulator-always-on;
-+		/* Voltage Duty-Cycle */
-+		voltage-table = <1049000 0>,
-+				<1039000 3>,
-+				<1029000 6>,
-+				<1019000 9>,
-+				<1009000 12>,
-+				<999000 14>,
-+				<989000 17>,
-+				<979000 20>,
-+				<969000 23>,
-+				<959000 26>,
-+				<949000 29>,
-+				<939000 31>,
-+				<929000 34>,
-+				<919000 37>,
-+				<909000 40>,
-+				<899000 43>,
-+				<889000 45>,
-+				<879000 48>,
-+				<869000 51>,
-+				<859000 54>,
-+				<849000 56>,
-+				<839000 59>,
-+				<829000 62>,
-+				<819000 65>,
-+				<809000 68>,
-+				<799000 70>,
-+				<789000 73>,
-+				<779000 76>,
-+				<769000 79>,
-+				<759000 81>,
-+				<749000 84>,
-+				<739000 87>,
-+				<729000 89>,
-+				<719000 92>,
-+				<709000 95>,
-+				<699000 98>,
-+				<689000 100>;
-+	};
-+};
-+
-+&emmc {
-+	status = "okay";
-+	pinctrl-0 = <&emmc_pins>, <&emmc_ds_pins>;
-+	pinctrl-1 = <&emmc_clk_gate_pins>;
-+	pinctrl-names = "default", "clk-gate";
-+
-+	bus-width = <8>;
-+	cap-mmc-highspeed;
-+	mmc-ddr-1_8v;
-+	mmc-hs200-1_8v;
-+	max-frequency = <200000000>;
-+	non-removable;
-+	disable-wp;
-+
-+	mmc-pwrseq = <&emmc_pwrseq>;
-+	vmmc-supply = <&vddao_3v3>;
-+	vqmmc-supply = <&vddio_ao1v8>;
-+};
-+
-+&ethmac {
-+	status = "okay";
-+	phy-handle = <&internal_ephy>;
-+	phy-mode = "rmii";
-+};
-+
-+&ir {
-+	status = "okay";
-+	pinctrl-0 = <&remote_pins>;
-+	pinctrl-names = "default";
-+};
-+
-+&pwm_ef {
-+	status = "okay";
-+	pinctrl-0 = <&pwm_e_pins1>;
-+	pinctrl-names = "default";
-+};
-+
-+&pwm_ij {
-+	status = "okay";
-+};
-+
-+&sd {
-+	status = "okay";
-+	pinctrl-0 = <&sdcard_pins>;
-+	pinctrl-1 = <&sdcard_clk_gate_pins>;
-+	pinctrl-names = "default", "clk-gate";
-+	bus-width = <4>;
-+	cap-sd-highspeed;
-+	max-frequency = <50000000>;
-+	disable-wp;
-+
-+	cd-gpios = <&gpio GPIOC_6 GPIO_ACTIVE_LOW>;
-+
-+	vmmc-supply = <&vddao_3v3>;
-+	vqmmc-supply = <&vddao_3v3>;
-+};
-+
-+     /*
-+      * Wireless SDIO Module (Amlogic W150S1)
-+      * Note: There is no driver for this at the moment.
-+      */
-+
-+&sdio {
-+	status = "okay";
-+	pinctrl-0 = <&sdio_pins>;
-+	pinctrl-1 = <&sdio_clk_gate_pins>;
-+	pinctrl-names = "default", "clk-gate";
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	bus-width = <4>;
-+	cap-sd-highspeed;
-+	sd-uhs-sdr50;
-+	sd-uhs-sdr104;
-+	max-frequency = <200000000>;
-+	non-removable;
-+	disable-wp;
-+
-+	no-sd;
-+	no-mmc;
-+	mmc-pwrseq = <&sdio_pwrseq>;
-+	vmmc-supply = <&vddao_3v3>;
-+	vqmmc-supply = <&vddio_ao1v8>;
-+};
-+
-+&uart_b {
-+	status = "okay";
-+};
--- 
-2.53.0
+The Hamoa (v6) HSR suggests we can use this broader value there too.
+And same for e.g. Makena (v4), but not sdm845 (v3) (perhaps we could
+use do it either way?).
 
+With my response to Dmitry's comment in mind, the diff in this function
+against qmp_combo_configure_dp_mode() should either be broadened to
+other platforms, or the function should just be the same for all targets
+
+[...]
+
+>  
+> +static int qmp_v8_helper_configure_dp_phy(struct qmp_combo *qmp)
+
+This function would then be the same (except your v8 impl returns earlier
+than the existing one, skipping a 0x19 write to QSERDES_DP_PHY_CFG and
+QPHY_DP_PHY_STATUS reads)
+
+Konrad
