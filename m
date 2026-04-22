@@ -1,159 +1,279 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010062.outbound.protection.outlook.com [52.101.228.62])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC54E259CB9;
-	Tue, 21 Apr 2026 23:13:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.62
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE1EC13A244
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 00:46:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776813184; cv=fail; b=l8sVFHY9yAMqmFfOq0nOzzcnJ7PlTbpFvlIhJKMdsb9JCw1RN/pltp5To8t3tO9fsLcq+Cpf0okCkQdfrQ/Evpmx0So6dIiisPbo43eghfRLZir7+JZtAHsyqTwNO3xwlos6MrcyTDoJ4X1vBO1AOFsGDiJoG9GHTc3tRi27W3M=
+	t=1776818809; cv=pass; b=UeXqjookUQGbhT1ykl/TMiymleLsGGuM8YXr4pR2oLXi3BS/r/uIwdCuWnDBxqqjUbR+Dv1I/HTM7HLXMdK4SQhX0/rSlzlWgO2A/Iv7e0QwqfaYMaV5pP+Ayd//78NubDCjI8Bj59PK9/3nRB970DO0xJLczZMaa42G/HsXBug=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776813184; c=relaxed/simple;
-	bh=V7hp7UwqiI/hyBBN2GjfaSNikwQEyObme1gIUVB3O6w=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=MrOlHeYzpoOTzThhw80NFdN0q/Q1dJgCrmdyhsC+vxL59iwWA0MBRYy/vwyblxQzjMR1eK/lvD8vBXdAQgNN59DlgVreCm2al27rda0+u3qQw1eH0cuwv5AD0ibNo0HDLhDAmRdjDlEmNvaX4wBGKkDctnsXx5lc4gaM/RcJSLg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=ZdxvnqMo; arc=fail smtp.client-ip=52.101.228.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	s=arc-20240116; t=1776818809; c=relaxed/simple;
+	bh=sNq95F03njBKjp3TAiMqjY5GRbUECNZPUlT7T5uzkJI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=djLSW9q3BSCNT2xmgFUVb7W9u7+00paNAm8PBkt5dffWQCa5nnAAtZ8uQmczt0YDnfeEbdzw3nBR8temJPJapZ7fpaEjSGihPD26nSjRMXRuBGEkck0zICNtvuduuih5lCtTCXpniEz5Ky/sa6/0kzkCPLmF+9yhk2o5iSwTTIU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CClgh+lb; arc=pass smtp.client-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="ZdxvnqMo"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CMEO8EVVjS93wvuO7T+e9NVBKjsZoKBvAX3oqzmM8hw87GUaCKE4AnlOsh0AifoqqwzoQfJ2h71mcUi2JKTkOYzPkN09zQ39D3qUf9Irmk+aKwvD8+7Bc9YVl43Jy2Bme+wflE88lv/GSjAq7O/pVe6o9iNI8TaStWL49D5Rwt75+KN2Omvik/tS3Oos2yUBc35JljHaUwFEqi/7DdS7Fx5Wjq6nMgO17ds7AuK5Kpv0g6SFrRslCRYO6aIEhmi13qbqdyaYI/D8vUJYt5wAvwag0eUqUpzlSXwZkIEiJ7K50DEdbSGSVlymsr4/3Lk68S2ErJWFJgeYMtD8HUHxZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KKPxupuQ1Q3wQpPc7KNifpb4yvbOYaNn+d20QrYaLy0=;
- b=qexHZXkG5aF+JMfpEZc8yX43nqbg6c8KJvU8OA4+70F5INEGZWg9bkDWIufkYPEuqxlCdGO4RoG3gEETZOJFkJANCGYTOmm0Xe6d62EsMe2h7OJ0fwrW1csfOiIPeDrJh6891Ocm6k74OtNhqAq9Bdg5YasUAhRZ2jdCqJ3HNYkiwxF6EzWuH9zjFl1duF8jYeyLeY52A1BgSEg4N2B+LLHuOLZEPVkO+IqIlxLTo1fDQ/ADDNtZzHH7xbTFqPru4I5JLxVNMJa82A1UggqVVmCJ4z7N7oKQUQ/k9HMY/RTDpx2zHrELmJdX+CcbFKHet9sFXqM7ELythZ4SrzrQNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KKPxupuQ1Q3wQpPc7KNifpb4yvbOYaNn+d20QrYaLy0=;
- b=ZdxvnqMoyyuuish3YP6qANMpEDcmt7Y2Ok5O1aasFjFZgHXdr67Fvq2FRpQcoJ8YpPJKDJ5jPaTnpKFsMSZSphPrVuKJe9hK/aQAdcrYD6aJxkmD1fnZ6MT8XeQdKXo2ecjoVRnTscgTKccpGQzBz3r6ahFrdq9XRxHIopAW+v4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com (2603:1096:400:373::8)
- by TY3PR01MB11890.jpnprd01.prod.outlook.com (2603:1096:400:406::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.18; Tue, 21 Apr
- 2026 23:12:58 +0000
-Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com
- ([fe80::1868:c915:c230:a383]) by TY3PR01MB11797.jpnprd01.prod.outlook.com
- ([fe80::1868:c915:c230:a383%5]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
- 23:12:58 +0000
-Message-ID: <87mryvkivh.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: John Madieu <john.madieu@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-sound@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	John Madieu <john.madieu.xa@bp.renesas.com>
-Subject: Re: [PATCH v5 13/14] ASoC: rsnd: Support unprefixed DT node names for RZ/G3E
-In-Reply-To: <20260417225249.mvi7sygew77wf374@labcsmart-sqy>
-References: <20260415124731.3684773-1-john.madieu.xa@bp.renesas.com>
-	<20260415124731.3684773-14-john.madieu.xa@bp.renesas.com>
-	<87h5paz1w6.wl-kuninori.morimoto.gx@renesas.com>
-	<20260417225249.mvi7sygew77wf374@labcsmart-sqy>
-User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Tue, 21 Apr 2026 23:12:57 +0000
-X-ClientProxiedBy: OS0PR01CA0073.jpnprd01.prod.outlook.com
- (2603:1096:604:99::20) To TY3PR01MB11797.jpnprd01.prod.outlook.com
- (2603:1096:400:373::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CClgh+lb"
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-67c22b05346so2522183eaf.2
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 17:46:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776818807; cv=none;
+        d=google.com; s=arc-20240605;
+        b=jCKk9pmUwDek1ubRjL7ZR8xC55e+AqhsO5hmlY6RRDVu1CRQwgpUIXBJC3zdfehLRl
+         tQjlaiC0G6yH4t2SRX4fnCBHAig7BacQ9/OCyyDJVP5UNEq7ZisYZ5gU1Bqy1EQKi7Ot
+         szFI51PLqg3r0SaiiQjmyrL9/iBrN9DFKMa1b/8lrezQnUo9Fo3mfcTY+85hqnEYSJRI
+         ws0K+5GqkshR5ht8Ysb8wVaEm5xr1sChO8SZ+q687/twCi07sy95xMB4dGlEs8YPsMtq
+         iiAx2XqBaCKu8gtt/KaNwwX2iHnaJMs/1eAy9wdpqf73e9TeU8ypZIygL17kYpGeJWAb
+         Vq/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mSe58fOFaOjHqfOKP37Pb/hThMA88xjGpfgXKdNEDJs=;
+        fh=XT3eTNSzZhUgHhhcfPuMw/UyU+YjVlG2ONWiEXibSqg=;
+        b=AhlDu+1Qe7NoAqwXry4nmMOD6ePfoXLjQNCtCVfxmiPKChVgfrg9PptXPedbfXZhA1
+         mxblTJpiKgNKlQElBHFKvQlr8y9KJBKHZDCC50gGkng+zK1moKQEw58544xqoBqWn1oR
+         LwCzUVvEL1XeCYnXchu11u7mFxWDgYc7ytWp37WoKfetnrOv7L9PdE87x9+PyXQ83CcG
+         3/C0/AVTz3wYXb1W4vzKYnujRWNSPvwIWScEnZF8sTzRGFtu62TdjmXjD2MeidkZbX/6
+         GPs6sJ/sfOmqwbn+XtHgnGHvHRGWVDtPy2OTt307KW++865Le05FMOhCdaqPAY/5hBeK
+         tiJA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776818807; x=1777423607; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mSe58fOFaOjHqfOKP37Pb/hThMA88xjGpfgXKdNEDJs=;
+        b=CClgh+lbh4D5vQnRQbsXFOXcqC+MCZ2WOkq/70qKLm/5+ae8rRflcdc9JHup98cHAr
+         mE3sgVoMhACNt1R5t8TMn+g4cEqJ6GM0KKcOg9GcBtsJ3NsYysn9FIKNdeO/ynvaN3Gc
+         LrDRX/2BXxKOAtTxgx/8hht7dhm3He0FvP2utF24J4cB4aw4eLO2ywFmvncqi5zIo/JX
+         j7AT+N3vqsIjnyHKONxnMSjR+DvJD5h3IYvFSaeSTFkkE95HMXdqsV9bqHvxIezSIfgH
+         rRIhn37LKueJ/TtT6OxDRfiN/pLNk4PTGNUAnM1Gzm8SbuyMucdMFqC3yvjcFEk7/RiD
+         l7WQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776818807; x=1777423607;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=mSe58fOFaOjHqfOKP37Pb/hThMA88xjGpfgXKdNEDJs=;
+        b=UUiPyzPgT/mSuq/IgYIkUZtvPybKELs1/oHSWdpgpipSBeBx6K2eTTfEJLYCCnH/me
+         bdoQBNJjTsHVh4gHtcFj884rL5DRjzDUbqth5bHfEk0z1xBG6/WymAd/k0rUZUVUTCqB
+         53zOi/Sx0lXM8SFWFaaAuuPMoZ5t3dO8NComZ7ZW4IaD2ijrs7pEUYV/7KGaGPaOonBt
+         clauRQN1xtabl5gc43iHhs6zymss8UCQXKDvZZ3ozc/5IuESE8BGtdjRNwiSiXyatoOZ
+         YpC85KT8N5KzkP8JQzpDEf0zyiYFkZe92UwdpUB+vinZXJRlceBI95xR1SRDrwIIVDA+
+         a/pw==
+X-Forwarded-Encrypted: i=1; AFNElJ/C5HVmqZnTBo72ClVUqbbLixshzU0Xr53HiJOsiVMn51T7T3krJA3ujdJwBlKqbCCxPaflMaOovsIx@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7ZYlWKldXGj6tpbNBw+5RhThLIV5twoPOtSGRoGyIdLoWvMpE
+	WkME7kcHBVreJQGw9PNdSs7578R/hMW3d87/J8Isx5nb2SxYMotumrcdKHrjZK41oi9VTSTAc2J
+	Bg9VtgKtPs+MgWahcjzXBs5dfiWE5aHQ=
+X-Gm-Gg: AeBDieuQGeEJr7YfuNeWGpX6GDXNEVJXkfTg51hEL8HoVMLJaAroL0A5Lx4Htu0drQr
+	QQZmpJruvvmnUdNH6ktXQW27xo4M7P3iZrhyngHfNhDvxPJPxlJZcdwvDFhpllV1gRfEmUZ3iOf
+	998JscO8BCxlW7yntyyw330wFrMENuFZrdUJ3VBWNMRScUIYvXkxMgYfTFP8ekwK4JL0ovflGVP
+	uDiepuBycEQxG1f2A2Nje0QckTw+UEoL++7AlLKAjMu3SGFETJh+rJs22tJgKpy/pYacacX36GY
+	6ALGcBFYJiENkhNaXg==
+X-Received: by 2002:a05:6820:1f03:b0:68b:bc93:1de with SMTP id
+ 006d021491bc7-69462ef7d6emr11074951eaf.35.1776818806817; Tue, 21 Apr 2026
+ 17:46:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY3PR01MB11797:EE_|TY3PR01MB11890:EE_
-X-MS-Office365-Filtering-Correlation-Id: 026dc71c-934c-4963-2d90-08de9ffb86b2
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|52116014|1800799024|366016|38350700014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	tU2wHiBTL39vW5vaGRk1wKEzZakU7KmKvbivJHA5JMfdanfaWgDwxy/DRYUm8AsKJmnBrTRAJcxEwreoX7bz7jYP8YYTMiteGspxSRznDVx20jLoM657aKyMsVbUPWWauCz6VyD0fnc3HkbWATzNPC8iFiliD2t0yNhjlAZUMZDc4xAeFJN4SZHsXv79+GKjz8IeJlwukT3NrKZlGq9jFi6e9iPkGTySMXIc6kSnNaMK+IPj3cSMlGArBv9r96QiAZSctu4sD0iK7CDkp5/qKNfieq+kox7jEgDOWYXuy/ECin3GzV5x5qw8rKtJhJO3Fx+8sdLGcpXWLuVfmD0+XDIUdR29u95R3AuQ1n7n/yD5V9AavaVBUdyc98oPhaugPgUhEVbs5UU+0TxtvglxrpSpydLW3ny0WNOabXamAVp7I/VHmS8yx2vyH2EPcv1ClB9tiHafrGxbR1Cv6NNJlITF2JUvAAKzSfdLE1vWmILuawAM56SgIu9ZIL+r31NNkti+sau7/Q8o73x1TELM8Bza8oKZIYiRiAfVvWRuuEtm6Rrndg2/tp91BBa47fC1uhGu+cCWmxqvU1cqWl1aZXUybCt59EDMAsVDSDXBZdJ+LTjH6rEypZrmG4E+mB3SzG4mmf7fTLiIOeKtW75GxBRXz4bZqEX1gxfGu59tfNAS5kl+Dhn0947bdNiYphJh+GovEwI095TKlQ6toMt+FqBkgPZjZ3se+lq2uV1Dzgl4vmKiOF0Sq/AJ9iZk/qv8Qbj1nAn/m5VLKyGB3yTkGFxmKr1yfKMhwjTLpgCogJQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11797.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(52116014)(1800799024)(366016)(38350700014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?8i+80KChHy9mxrsc9uHXECkOXImOqSG3kFjlN+jCeNKg/C5Bn2tmX8ZCMVAD?=
- =?us-ascii?Q?hg1uZQRLqIx0guZwMl+BIgB/RAKMBW7ynRrwa2hZZUg5oERTwwp2Z2FrsjoU?=
- =?us-ascii?Q?96r1Wr+kdnFNshckIFCbt5zWNglDoMx1o6y2QtRH5Af6nrj8hOe3nHs+6DJp?=
- =?us-ascii?Q?vdeoNl+c/Q+XgIgrFBvjiTVI649bqHIUlJPicnEABBPJSHuz74TJdIgGyl8r?=
- =?us-ascii?Q?Dzw9tP6bPMRSKpUIMzuHdNSm7WNLpRaTtm8XSDDKMs9QeUaKi9l5nodcC7R1?=
- =?us-ascii?Q?ljPT5oigtveUMTGG65369N6PT/gSkOXIpYHz0R2vOR30pojH/zVKfm864LAG?=
- =?us-ascii?Q?kHrAfWaE3XLAirWoFgCE7wMF+a9g+pduIvKS5OpJqQrxsOtFy9WcTFaQeDFH?=
- =?us-ascii?Q?7wJmft0FNu6eIon+si/1lOVplvmqCZxfC7l/APlAr3FjcNPNRPPDlJ67P/+J?=
- =?us-ascii?Q?akJqYVLGOsTvqbzNNHtAtRZAZObOHaNLFlntt6n9TG94DgxD0Z2S3D+XkN+k?=
- =?us-ascii?Q?WfFuUX+drfOfq/ITuEHRqPHgn3iEz8jHnoM8QHyMJXt2dx6pmZIuGefdi/sc?=
- =?us-ascii?Q?t6E0vXzDriUY39Ii/I4yiLel6UH2YdvWqjWURvM++ZP+/ggj8+10a/6WZyxV?=
- =?us-ascii?Q?Lw6+S4+QlkjuvkEcuZ90+S7yC1zxnMUta/FT++IehjQLRLhVy4tcRt7xaHQl?=
- =?us-ascii?Q?2RMWUSsWu4SFZdg8C/NGPe6X/+08tuZJiiGgGQDMkAVT089UmyyAwOyrEvqy?=
- =?us-ascii?Q?1FsbrQYGymqWZzqKD+VsoIoNHWQgLPJBkmcFzllcFOSxJ9YqzRB47u0Ho8Rr?=
- =?us-ascii?Q?w2B2xNMQGDAAj/CxDKuem82DPKkk6ZoSL1qexBtUM2MWBykQ1ofhgbnTzVpj?=
- =?us-ascii?Q?Dozu4uekvGnouiM3NlxQzdE8uP34Kxmc/aKJ0k6Pz6ZoYZ4K8UO5JBizkh7C?=
- =?us-ascii?Q?plbfTYQMo3/s0PHy4Lr2WbjbzJrrUB/ABrktqSduaWgtS0NhbKyxQ3N9tk/+?=
- =?us-ascii?Q?uWhO8dWYqWVFPTjH8WBz3+xXGxPWNzqpZh/bvFMuDOtdok42sPcl7jiyTSTx?=
- =?us-ascii?Q?piZ4JSVQqx820zMPPIp/B6Q/CL2+jrFpaKXWyp+CgPBUgKhIWrSc1Id0y1L+?=
- =?us-ascii?Q?eAg/l5JDsi7dRa7yw29PQNzz6uX2dt9GlsoivzSH+5e09PhedNwvxYSS/aGP?=
- =?us-ascii?Q?ey5Zrum4UYhQkAs3WYv88D3ezuj8rX18Rkogi90N9boLA/GivMQhrlXgMN8X?=
- =?us-ascii?Q?TOrlnaAX5Nr4Fw7xxT4RgiDk2TH3jN8IC/fXhbdF7eaMZfD7DR0d3OjRF0Pg?=
- =?us-ascii?Q?52RB7EIWdCBKrJvEdhfMcXywsv65udgbo7ORT1n77n5PSaJ3Wpi8YxJ9o4E8?=
- =?us-ascii?Q?XUzj1eHy6ZhRLqWRHKy5Tyh0mQtAwWUMJqztNT0WOX5tIZjVuLJhMIwFVrTu?=
- =?us-ascii?Q?Cf1KUcd8Sr+jH2DwmA95uhM///jTZSPUlWgUHlSJsv0ZjOrurFPc4ZP9deqx?=
- =?us-ascii?Q?KfKc9JD/SUtz4H3HFP6Msp4bF4YPEIZ/LuQ5zORv9cvJcIjr2cI1qgf0fiFL?=
- =?us-ascii?Q?CVQvz6D+O8aiVSYm1LDsSTA4wcZ6H2fvQE37otWuESqDPIDUGArYLNatoEL/?=
- =?us-ascii?Q?InwdY5oG97jWdBmiWRkvqX1r00LoEa7ho1VUOV+hD1JZKV5jUZgGXKBuvPTg?=
- =?us-ascii?Q?+ldpvh/m0KCv8nzacabdeEj47l7smzgw9oRhDWlHdxJ3cwaCUP3BgQ7bnrSJ?=
- =?us-ascii?Q?kqTwA9Ru9JK851WJ+q9j8r/J0wPU6UtcOsbNHffbnw4eYl6veCiA?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 026dc71c-934c-4963-2d90-08de9ffb86b2
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11797.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 23:12:58.1506
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: J16RT1EVNUSf4Bukw9IXEpibYTje2Ux8662Zyc9Vbe4Ppg+wwsUf1cnFP7/cIESw9LaExaoxXhFezyjcgZHqzRZdWXJjOpL9P6li93yxSBcce5AUT2/JRKPbxkrOMqSk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB11890
+References: <20260420023354.1192642-1-syyang@lontium.com> <20260420023354.1192642-2-syyang@lontium.com>
+ <CAO9ioeWhWemzyF30t8KDJht6_59b1Y5+GrH9nYCeKuPwddVLHQ@mail.gmail.com>
+ <CAFQXuNbyH88Ab_LgfZknRxhK9QzN8Xe-G9NuRMuECZF_SrRpfA@mail.gmail.com> <p3aruen3h3ddmzlqbdseksuqwuwvxa32qbi66yf4gjwdtb5h2a@xs3dleimg2an>
+In-Reply-To: <p3aruen3h3ddmzlqbdseksuqwuwvxa32qbi66yf4gjwdtb5h2a@xs3dleimg2an>
+From: =?UTF-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
+Date: Wed, 22 Apr 2026 08:46:33 +0800
+X-Gm-Features: AQROBzDc9IJyF3Xn3lpEIA-y1LhWtZTKb7TWhaYpenzuvNRvda7Iutpwgc3w54M
+Message-ID: <CAFQXuNaHLzvSKkNo+ZNxRiYMtP98php=Qa0i3r1XMDA2b16gjQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings:bridge Add LT7911EXC binding
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
+	maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org, 
+	Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com, 
+	tzimmermann@suse.de, rlyu@lontium.com, xbpeng@lontium.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
+4=E6=9C=8821=E6=97=A5=E5=91=A8=E4=BA=8C 19:08=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Tue, Apr 21, 2026 at 09:33:34AM +0800, =E6=9D=A8=E5=AD=99=E8=BF=90 wro=
+te:
+> > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=
+=B9=B44=E6=9C=8820=E6=97=A5=E5=91=A8=E4=B8=80 11:12=E5=86=99=E9=81=93=EF=BC=
+=9A
+> > >
+> > > ote, your message didn't reach dri-devel. Please check why. You might
+> > > need to switch to B4 Web relay submission, if there are any issues
+> > > with the SMTP on your side.
+> > >
+> > > On Mon, 20 Apr 2026 at 05:34, <syyang@lontium.com> wrote:
+> > > >
+> > > > From: Sunyun Yang <syyang@lontium.com>
+> > > >
+> > > > -binding for lt7911exc.
+> > >
+> > > Less is more, but here please settle for slightly more information
+> > > about the chip.
+> > >
+> >
+> > It will be modified in the next version.
+> >
+> > > >
+> > > > Signed-off-by: Sunyun Yang <syyang@lontium.com>
+> > > > ---
+> > > >  .../display/bridge/lontium,lt7911exc.yaml     | 91 +++++++++++++++=
+++++
+> > > >  1 file changed, 91 insertions(+)
+> > > >  create mode 100644 Documentation/devicetree/bindings/display/bridg=
+e/lontium,lt7911exc.yaml
+> > > >
+> > > > diff --git a/Documentation/devicetree/bindings/display/bridge/lonti=
+um,lt7911exc.yaml b/Documentation/devicetree/bindings/display/bridge/lontiu=
+m,lt7911exc.yaml
+> > > > new file mode 100644
+> > > > index 000000000000..54a73d41635a
+> > > > --- /dev/null
+> > > > +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt79=
+11exc.yaml
+> > > > @@ -0,0 +1,91 @@
+> > > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > > > +%YAML 1.2
+> > > > +---
+> > > > +$id: http://devicetree.org/schemas/display/bridge/lontium,lt7911ex=
+c.yaml#
+> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > +
+> > > > +title: Lontium LT7911EXC eDP to MIPI Bridge
+> > > > +
+> > > > +maintainers:
+> > > > +  - Sunyun Yang <syyang@lontium.com>
+> > > > +
+> > > > +properties:
+> > > > +  compatible:
+> > > > +    enum:
+> > > > +      - lontium,lt7911exc
+> > > > +
+> > > > +  reg:
+> > > > +    maxItems: 1
+> > > > +
+> > > > +  reset-gpios:
+> > > > +    maxItems: 1
+> > > > +    description: GPIO connected to RST_ pin.
+> > > > +
+> > > > +  vdd-supply:
+> > > > +    description: Regulator for 1.2V MIPI phy power.
+> > > > +
+> > > > +  vcc-supply:
+> > > > +    description: Regulator for 3.3V IO power.
+> > > > +
+> > > > +  ports:
+> > > > +    $ref: /schemas/graph.yaml#/properties/ports
+> > > > +
+> > > > +    properties:
+> > > > +      port@0:
+> > > > +        $ref: /schemas/graph.yaml#/properties/port
+> > > > +        description: Video port for mipi dsi output.
+> > >
+> > > MIPI, DSI
+> > >
+> > It will be use MIPI DSI,  in the next version.
+> >
+> > > > +
+> > > > +      port@1:
+> > > > +        $ref: /schemas/graph.yaml#/properties/port
+> > > > +        description: Video port for eDP input.
+> > > > +
+> > > > +    required:
+> > > > +      - port@0
+> > > > +      - port@1
+> > > > +
+> > > > +required:
+> > > > +  - compatible
+> > > > +  - reg
+> > > > +  - reset-gpios
+> > > > +  - vdd-supply
+> > > > +  - vcc-supply
+> > > > +  - ports
+> > > > +
+> > > > +additionalProperties: false
+> > > > +
+> > > > +examples:
+> > > > +  - |
+> > > > +    #include <dt-bindings/gpio/gpio.h>
+> > > > +    i2c {
+> > > > +        #address-cells =3D <1>;
+> > > > +        #size-cells =3D <0>;
+> > > > +
+> > > > +        mipi-bridge@41 {
+> > > > +            compatible =3D "lontium,lt7911exc";
+> > > > +            reg =3D <0x41>;
+> > > > +            reset-gpios =3D <&gpy8 8 GPIO_ACTIVE_HIGH>;
+> > >
+> > > Reset pins are usually active low.
+> > >
+> > if reset pins use active low, lt7911exc_reset function needs to be modi=
+fied to:
+> > static void lt7911exc_reset(struct lt7911exc *lt7911exc)
+> > {
+> >     gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
+> >     msleep(20);
+> >
+> >     gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
+> >     msleep(20);
+> >
+> >     gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
+> >     msleep(400);
+> >
+> >     dev_dbg(lt7911exc->dev, "lt7911exc reset");
+> > }
+> >
+> > I think the two are essentially the same. Please confirm whether I
+> > need to make the change?
+>
+> If the GPIO is active-low in the hardware, it should be declared so in
+> DT.
+>
+It will use active-low  in the next version.
 
-Hi John
-
-> I agree that having the "try prefixed, fall back to unprefixed" rule
-> spelled out at multiple call sites is a consistency problem, and I'll
-> fix that in v6.
-(snip)
-> This way the "rcar_sound," prefix convention lives in exactly one
-> place, and each call site keeps its natural operation (fetch vs.
-> compare) without redundant lookups.
-> 
-> Does this work for you, or would you still prefer the node-based
-> getter?
-
-Yeah, something like that
-
-Thank you for your help !!
-
-Best regards
----
-Kuninori Morimoto
+> >
+> > > > +            vdd-supply =3D <&lt7911exc_1v2>;
+> > > > +            vcc-supply =3D <&lt7911exc_3v3>;
+> > > > +
+> > > > +            ports {
+> > > > +                #address-cells =3D <1>;
+> > > > +                #size-cells =3D <0>;
+> > > > +
+> > > > +                port@0 {
+> > > > +                    reg =3D <0>;
+> > > > +
+> > > > +                    bridge_out: endpoint {
+> > > > +                        remote-endpoint =3D <&panel_in>;
+> > > > +                    };
+> > > > +                };
+> > > > +
+> > > > +                port@1 {
+> > > > +                    reg =3D <1>;
+> > > > +
+> > > > +                    bridge_in: endpoint {
+> > > > +                        remote-endpoint =3D <&edp_out>;
+> > > > +                    };
+> > > > +                };
+> > > > +            };
+> > > > +        };
+> > > > +    };
+> > >
+> > > --
+> > > With best wishes
+> > > Dmitry
+>
+> --
+> With best wishes
+> Dmitry
