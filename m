@@ -1,116 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF7836AB72;
-	Wed, 22 Apr 2026 07:11:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9865936C0CF;
+	Wed, 22 Apr 2026 07:13:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776841880; cv=none; b=WhIjrLf6DxURdD/MiLuwxo3I59BelJq54nMq5cY3d/2AcC4ko9g/A13r6IXtY4Hb6GQyoWc8y2voojCtbEsFhouZXjZZ7ilRieCqL4ETbkLH9A6iiuuDrBosqiUxBQH6YJ3ckHfUAEGR3GFpWztl1oKSuX8JTwea0qufFKBEqBs=
+	t=1776842034; cv=none; b=HyDQlk0WjIz0+z/FCz0s9JuMr6canKzbUdeS87aOMx5MJ319KuJljkaRtfB+hyVBO88Pf9ABoY1ovCazv0Maw3eW12D/VRji5NWnZOue1qk+bN8C8+zzaL8aWhlIKDMRgntIUT46GdEBIoa3WT5KNy5fUCLNroOOYsTbFZLHyQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776841880; c=relaxed/simple;
-	bh=C+ZIFQGO6IIipplvaFVwfFmnH7di1rMfJ4vr9kKP6vw=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=p5WqKxhHie/wr1GYBgTIWtjjvV36qwv0Wvwhv+2W+gFYKW8JxflDPmwR9Rxas8azPpWGLAzWN4NsxNRqyhh10rjwoNrpEuFF5AN3jHPP+wOrP1mGdcni2MXzWVPLn6XDdJt7JoldZoSI9gbtTSWup30j5FCmL3IiJWM5qpY1BFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=We6GPOQ+; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776842034; c=relaxed/simple;
+	bh=2fkao8ArefIYQIbLZPL2ShMrSXc6ICRKryHIhWNINls=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RdhWVpVPN0gXqa9ewLvfF/x25ExStj45vcQQfoOFxPNhhNWPTOp2yli0RYZdzAj9y7ncvUtvnwwOeQ50VnkBc2hY+GLKRh+kUe3sDOBiCThFIi9BRrzksvtqXKHN7ib/VYOl20Ks1IzIojyA8+KpmplUdUPOlQ8e5bWq+wNebBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FeKXi2s+; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="We6GPOQ+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B275BC2BCB3;
-	Wed, 22 Apr 2026 07:11:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776841879;
-	bh=C+ZIFQGO6IIipplvaFVwfFmnH7di1rMfJ4vr9kKP6vw=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=We6GPOQ+Gsen+g6Po+85sn0p/JZefnOpJTl2+zfosLO6NHkAuuKDtOrmf718TIphg
-	 FY/pbpFzEv81yZuNEs7MeEBRhmNtoPqWgQq/aZKydy0XtQmwX1p4dgMsB4ZeS4rkD4
-	 4iF1esV981DecT3LzKVPLhkzm3wgNnVC5/bhQgncdBrxW8Eyh+CFTDrpnwb1iE5rLy
-	 fhTb6JOApffO2T5WPFw4eNHYQyEf9D9vmV1qm68o3tbWQdpPpqjob6KQSqNtlqNuSN
-	 u6kVcBqOzGc0qY5tuPS3I78qakEkK7MsmG7jbR5vtLyu5JEKvQ+O0IcXMADyAW5V2B
-	 fvUNxdLsNUOoQ==
-Message-ID: <105cd533-802c-4047-8383-807b4730b2b8@kernel.org>
-Date: Wed, 22 Apr 2026 09:11:13 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FeKXi2s+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1776842033; x=1808378033;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=2fkao8ArefIYQIbLZPL2ShMrSXc6ICRKryHIhWNINls=;
+  b=FeKXi2s+sMp35Nb945P/0iuyMIxmDiVq7x1rKFZ/iFxNegKQkya1pFIq
+   IACXZ3h2X4ildyuawqueaFXZ52HvH1u4KfYXXjlQM9EdzC1zKzPfXMd21
+   26kWtub62VnbzFuYIQ8XobxtcKct8O6tRV/xgJhrvKoQNkoDIqgVWCSCW
+   U3LX/xUHkFS0cOTttr0lVANloLbTjrLA6CdkLdHMrSmBnTclbru73Yz6h
+   69yyJ4WgOassZz70JJYx1VutuLwRYC7LF+Tfb2BgAVXa1sbjgu5ltq0GX
+   /8k0lTpjrFRmIoyMqNBBVxnUUuMAc9IL8K1NV70H1MdswliC6P0CIVl37
+   w==;
+X-CSE-ConnectionGUID: /WjouxYHSf2swGr6VJGHjQ==
+X-CSE-MsgGUID: xCP1YMg5QCiUfpgHLpBXfQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11763"; a="77491887"
+X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
+   d="scan'208";a="77491887"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 00:13:51 -0700
+X-CSE-ConnectionGUID: 8bjn/CoeRfmR+ZxM9NIV9g==
+X-CSE-MsgGUID: b/tjYM8wT72QHDuE4PxnmQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; 
+   d="scan'208";a="227681986"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.201])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Apr 2026 00:13:32 -0700
+Date: Wed, 22 Apr 2026 10:13:31 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Link Mauve <linkmauve@linkmauve.fr>, linuxppc-dev@lists.ozlabs.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Juergen Gross <jgross@suse.com>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Geoff Levand <geoff@infradead.org>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	Oliver O'Halloran <oohall@gmail.com>,
+	Anatolij Gustschin <agust@denx.de>,
+	Breno =?iso-8859-1?Q?Leit=E3o?= <leitao@debian.org>,
+	Nayna Jain <nayna@linux.ibm.com>,
+	Paulo Flabiano Smorigo <pfsmorigo@gmail.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Thorsten Blum <thorsten.blum@linux.dev>,
+	Thomas Huth <thuth@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	David Hildenbrand <david@kernel.org>,
+	Alistair Popple <apopple@nvidia.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Donet Tom <donettom@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@rivosinc.com>,
+	Will Deacon <will@kernel.org>,
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
+	Paul Moore <paul@paul-moore.com>, Nam Cao <namcao@linutronix.de>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Sourabh Jain <sourabhjain@linux.ibm.com>,
+	Hari Bathini <hbathini@linux.ibm.com>,
+	Srikar Dronamraju <srikar@linux.ibm.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Jiri Bohac <jbohac@suse.cz>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Kees Cook <kees@kernel.org>, Stephen Rothwell <sfr@cab.auug.org.au>,
+	Xichao Zhao <zhao.xichao@vivo.com>,
+	Gautam Menghani <gautam@linux.ibm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Li Chen <chenl311@chinatelecom.cn>,
+	Aboorva Devarajan <aboorvad@linux.ibm.com>,
+	Petr Mladek <pmladek@suse.com>,
+	Feng Tang <feng.tang@linux.alibaba.com>,
+	"Nysal Jan K.A." <nysal@linux.ibm.com>,
+	Aditya Gupta <adityag@linux.ibm.com>,
+	Sayali Patil <sayalip@linux.ibm.com>,
+	Rohan McLure <rmclure@linux.ibm.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Yeoreum Yun <yeoreum.yun@arm.com>,
+	Kevin Brodsky <kevin.brodsky@arm.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Andrew Donnellan <andrew+kernel@donnellan.id.au>,
+	"Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
+	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
+	Athira Rajeev <atrajeev@linux.ibm.com>,
+	Kajol Jain <kjain@linux.ibm.com>, Thomas Gleixner <tglx@kernel.org>,
+	Chen Ni <nichen@iscas.ac.cn>, Haren Myneni <haren@linux.ibm.com>,
+	Jonathan Greental <yonatan02greental@gmail.com>,
+	Ingo Molnar <mingo@kernel.org>,
+	"Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
+	Gaurav Batra <gbatra@linux.ibm.com>,
+	Nilay Shroff <nilay@linux.ibm.com>,
+	Vivian Wang <wangruikang@iscas.ac.cn>,
+	Adrian =?utf-8?Q?Barna=C5=9B?= <abarnas@google.com>,
+	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+	Thierry Reding <treding@nvidia.com>, Yury Norov <ynorov@nvidia.com>,
+	"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
+	Ruben Wauters <rubenru09@aol.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-crypto@vger.kernel.org,
+	kvm@vger.kernel.org, virtualization@lists.linux.dev, x86@kernel.org
+Subject: Re: [PATCH 1/2] powerpc: Add a typos.toml file
+Message-ID: <aeh1GzpdvGjRdMdd@ashevche-desk.local>
+References: <20260421121420.26079-1-linkmauve@linkmauve.fr>
+ <20260421121420.26079-2-linkmauve@linkmauve.fr>
+ <215f12d6-62c1-4837-9f78-ef270684950c@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 7/8] ARM: dts: Declare UARTs on zx297520v3 boards
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: =?UTF-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, soc@lists.linux.dev, linux-serial@vger.kernel.org
-References: <20260421-send-v5-0-ace038e63515@gmail.com>
- <20260421-send-v5-7-ace038e63515@gmail.com>
- <20260422-vigorous-beautiful-peacock-4ac41b@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260422-vigorous-beautiful-peacock-4ac41b@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <215f12d6-62c1-4837-9f78-ef270684950c@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 22/04/2026 09:10, Krzysztof Kozlowski wrote:
-> On Tue, Apr 21, 2026 at 11:23:15PM +0300, Stefan Dösinger wrote:
->> Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
->>
->> ---
->>
+On Tue, Apr 21, 2026 at 02:26:35PM +0200, Krzysztof Kozlowski wrote:
+> On 21/04/2026 14:14, Link Mauve wrote:
+> > This file is used by the typos tool[1] to determine which words to fix,
+> > which ones not to fix, and what the target word should be.
+
+It's a little too many people in Cc list...
+
+> > [1] https://github.com/crate-ci/typos
+
+You may do it as Link tag in a form of
+
+Link: $URL [1]
+
+> > Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
 > 
-> Same comments about subject and squashing. This cannot be a separate
-> commit.
-> 
+> This typos.toml file does not belong to the kernel, IMO, but that's up
+> to PowerPC folks.
 
-Heh, and with empty commit msg!
+In kernel we use codespell. If we want to have another tool to welcome, we
+need to setup infrastructure in parallel, so it will be `make` option with
+the fixed name and choose the tool based on availability, et cetera.
 
-Best regards,
-Krzysztof
+> My note here is: please use your real, full name. See submitting patches.
+
++1.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
