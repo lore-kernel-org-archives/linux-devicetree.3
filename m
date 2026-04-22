@@ -1,46 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4B72D060B;
-	Wed, 22 Apr 2026 07:05:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2473C2C08D0;
+	Wed, 22 Apr 2026 07:06:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776841533; cv=none; b=Kx0ZrzaD72qFAIWC21FVkJunOZCF4XRjq9Sk5dADrLJKq1tPi7qHcOrVEFBKUmpazX3U0ZMedAwj2s6rmftqQTwk3nIJJEXgo3G6e2A2Q+H5KvmegC8vUHF7cyJ2VrG7C4y3GgEXFmA5tME6K6KGsPkVuERjybTSk3eBQ+p2hlo=
+	t=1776841594; cv=none; b=WSMcl29dirEiO1ZR1k37xIs3ZmRr6zOmnZqeVjQD6OQS7E3gNiAaMxu8DVEgjcPwdZekOBs7kR0vPgtFG/yG1+6cO7UpqM37xJjJXriUPRIXI5RlYGcBiQuw+Novl2wCWPTyqLwWmrrVLho8RrDUN/6JkLEUprHBTafYoI8fdmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776841533; c=relaxed/simple;
-	bh=AlSwSDDgeC2hF4Q929lxXrzS9wWZ7U+8Ajj4sHAJpTE=;
+	s=arc-20240116; t=1776841594; c=relaxed/simple;
+	bh=s/4NNvvbT5+1meXDTAtsXuKvs/oS52CCo22GJtQKNQw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S6W2edemuA9xAQJe2ggTYXa0Z0uLGOp5xLPMbkn5Tn6iD04LcXwJt/A67UKbqjJ2dFwY0KT+fYGOGVOVQQRKgWftHg/wl7fuC/r+Y0TW8hYTQO4j6lwYYqo5UnXIpVV56M+RIfq1kANJOrwkryo18Gft2AnQlnjvkSK89QPKw3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tm0DYXei; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=UZbANAD3Vgsd+Oh+JwwuKAqOHe3RsWCOpwVj2KCcJov0i33doYqn4O2d6RUvdWeixR3XKisQoFz5S9qf6Xr/6eOGZfirbhgzqyuETJLKKyUKi/F4ruocKh3ex2/kMjCW3GLX0n1OaDv4o6x+u3byZVtihkeZoMLuHNpK61rClno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K64fVnx1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tm0DYXei"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13ADDC19425;
-	Wed, 22 Apr 2026 07:05:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K64fVnx1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 722D9C2BCB3;
+	Wed, 22 Apr 2026 07:06:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776841532;
-	bh=AlSwSDDgeC2hF4Q929lxXrzS9wWZ7U+8Ajj4sHAJpTE=;
+	s=k20201202; t=1776841593;
+	bh=s/4NNvvbT5+1meXDTAtsXuKvs/oS52CCo22GJtQKNQw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tm0DYXeiKP8RKdgpE0RxD+0PgxkKswX4FJoL2B8beXJ+RB9sd5AD0D/cU5W65VUNO
-	 a542dS8zGBpm3SdvK7zosVQmi+1aC0/VRLw43puOF7mNDWZ/S00dBXHtBxSEekcBJX
-	 oSmS2z98VsFpCBseVSVgTZ+vGH8+Ak93sEoOcxEp8T0tThgjGZIXXmHd2Q8ZTfAQ/f
-	 me1FZzVto49G9r86XYOeRQf9F69tWD6ZX78gsxowMbrBhWDHVN8waphqJIBfZbSbi2
-	 9EqOtn0huLwpXm0WYbbVXF92O+aG/LGtTE6MCe+YtOukTcTXsuFWqXFKSPMIASYWvj
-	 RhOznfX//y16g==
-Date: Wed, 22 Apr 2026 09:05:30 +0200
+	b=K64fVnx16SQRlS4Mz4UJ7/0RCDVkH/6btgMbI7FAh2FQBBjQIUc/OzDaLVpUUm+TA
+	 3tw5MUA+1uUN5X4bWep7PIlDZHSL+k4pJWYituxnZAwD4827mfEMsraCHBio9sW3XS
+	 dIR9KNbheVIr72lM0z5QzH08K3vwgwenV1vDxru2TT0VU2eG4fuGjlHmB3HAQKxuT7
+	 tEfmTQETXL9/EZE07kNovpUQEf1Jy8VXV5YAb+pRyQ8wpqqsMQiry1C5iLTASy5szK
+	 JivJ8u0khCIO2nSntYi3XdZZMQ5udZ16c3CkY8AQ5O+y+PwIv02BJm/ihKg7RBL4z3
+	 7zbfFXhmzoYyQ==
+Date: Wed, 22 Apr 2026 09:06:31 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Aaron Kling <webgeek1234@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Teguh Sobirin <teguh@sobir.in>
-Subject: Re: [PATCH v5 1/2] dt-bindings: display: panel: Add ChipWealth
- CH13726A AMOLED driver
-Message-ID: <20260422-resilient-puma-of-excitement-02fee3@quoll>
-References: <20260421-ch13726a-v5-0-f7f6f4f30e05@gmail.com>
- <20260421-ch13726a-v5-1-f7f6f4f30e05@gmail.com>
+To: Stefan =?utf-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Russell King <linux@armlinux.org.uk>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, 
+	Drew Fustini <fustini@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, soc@lists.linux.dev, 
+	linux-serial@vger.kernel.org
+Subject: Re: [PATCH v5 2/8] dt-bindings: arm: Add zx297520v3 board binding
+Message-ID: <20260422-majestic-rabbit-of-jest-c4df6c@quoll>
+References: <20260421-send-v5-0-ace038e63515@gmail.com>
+ <20260421-send-v5-2-ace038e63515@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,21 +50,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260421-ch13726a-v5-1-f7f6f4f30e05@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260421-send-v5-2-ace038e63515@gmail.com>
 
-On Tue, Apr 21, 2026 at 12:38:37PM -0500, Aaron Kling wrote:
-> The Chip Wealth Technology CH13726A AMOLED driver is a single chip
-> solution for MIPI-DSI. This is used for the AYN Thor bottom panel.
-> 
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> ---
->  .../display/panel/chipwealth,ch13726a.yaml         | 67 ++++++++++++++++++++++
->  1 file changed, 67 insertions(+)
-> 
+On Tue, Apr 21, 2026 at 11:23:10PM +0300, Stefan D=C3=B6singer wrote:
+> +maintainers:
+> +  - Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+> +
+> +properties:
+> +  $nodename:
+> +    const: "/"
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - dlink,dwr932m
+> +              - hgsd,r310
+> +              - tecno,tr118
+> +              - zte,k10
 
-I don't get it, you use b4 but still drop the tags (b4 gets them
-automatically). Nothing explains reasons for dropping the tag, so I skip
-the patch.
+Where are users of these bindings? We do not need unused ABI.
 
 Best regards,
 Krzysztof
