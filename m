@@ -1,237 +1,383 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C474B1E7660
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 00:59:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776819590; cv=none; b=dUYn9ZSSjzQWKQ6ExuqIE47IjhIY9+7lWUGheo0mLyX44+TqgytqTJhJvZVSJPpCVr0Bd9z9xgPFGO/iXiZzDOtF6+g1QjQDdyR2bJAXS6P62LN13sXg1qzvuiuMxlwrGLDCpgq+vo5GvzvTtBYMtRiWnu+c5EesXeMu2L81s2c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776819590; c=relaxed/simple;
-	bh=lm+XVm4LjnA8m8Tpd4f94amRR/VqY8aEivvhQWHxa20=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rKJdWTQcED/Q5Io3PxREBOXhqVYjb/V9zxE7AAAwr+R3SP821upaOfg6csaYNCnki534Z24p/Lgeerb284v1NMg3fN7/TKE3OXH/IpzF2l7PzLlanMucjJ0+xYT9DSDDDP5N9Gya9M5cPpXlb9dEFiuH1Yt01Roy8nSaJFzSqR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mHyuQXwW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i3VqAByc; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93EE7233134
+	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 01:06:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776819998; cv=pass; b=I/NCbQzmhty5kzes9VxEVLdGW28CG8dHdFLI6nxkV7iBvqyIRMWZxwSr9pYGA0xC0uneMNEDyZNJ2DxL4Gw+xu4I0yV4Vk0VkHUBh13llQBVQWM+FZWz8dLTzbnwDfqmGsq8Rpgnw1BWjYJKzMmJrZt/EBJOHLiFrthBAIo7aCY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776819998; c=relaxed/simple;
+	bh=6N+01bEB/iOETBncJfRoMnnYQ1xW57XfWjGf8tUAxUU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eWe6gxvXLKoYrTqSc+qJOW17jVYkwHqnEJQwIY71rGZrdTYWrcPpLeV126U8JU0RWvZTHFx/k0CwjOkBGnvCLq7O+XAIH4vPQoPlT0Hw3liXyUBFP2NV5qMuV2yVNd9Sr+vgmeZLRXcExVjiA4AI0WQJ780riDd1J1P02+FtcyI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b3uN4B5v; arc=pass smtp.client-ip=209.85.210.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mHyuQXwW";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i3VqAByc"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63LIZmv92123571
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 00:59:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=cDtdgFx/StWBvO59JHE0x9HU
-	NUeMZHcq/ZWbreMj7zI=; b=mHyuQXwWo8yIC8ppdpSmRNIyZiWKlMoXtghSX7Tp
-	IClA6DEnVPUXlISYKl96XjpgHOb9fF2FZu9AMA1wiu6+M8Mf5zNXerq58LZTMJsw
-	euL1GszBidd73T8k+czLdYGEatHpRzEzMkSI1xw5JTvnm3T2N0Na35GRGELP2OeV
-	oegcjCFw4m/jyTsVKyGsWhSv6c/hGwvnBI5FU5mVovnJxJIQmmgEuNZvqx84AjZB
-	vjixcHzzWD7wpXDJozry3BQD0UP7OqPgZ+fAtfsV9flQiYWpoRHzYhnM+85E6Lv3
-	5bk0QSZI+D8p5SjqXAXV7nwotgCGYjowss8a6YfLl8MI4Q==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpenfs01y-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 00:59:47 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8acb0aa51c6so29544496d6.1
-        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 17:59:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b3uN4B5v"
+Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7dc35728a57so3769180a34.0
+        for <devicetree@vger.kernel.org>; Tue, 21 Apr 2026 18:06:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776819995; cv=none;
+        d=google.com; s=arc-20240605;
+        b=fK2I43InoV5d9KYGdtzPTIAr/t9dI5N7sK1g3sVvc18kyPmz3tfdFsmZAexx0OxQLl
+         kjsxQRnU5Vo73epuKxh46hCb5lzmqdcLHoT/KqtijKw+4gQC3QtNSg0v4GAAUQcyTotE
+         npRDtjbiK+fjjgm3aiHTrH4Fl4Ge5nh2MImFEXTjdJvMxtMU/qEZenaum5wiOIxTQzKh
+         rHH8jRQFxQ2M/EGNKrWz6eriYRBgIJVagrJOFn6+77MupxIAJXJoKlks6/LqiNxe/M/e
+         DIN5tegSB5u328+pbLtPl56LaJc/EU/oY/xNLzDyVO0OCjla202yisSK5d+JosPmt5BO
+         oYGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0IRFmArTYLfOKDBhdMLQmn7zlltkZiYQwJVABBk+Y1U=;
+        fh=+nQN4cyS5dXtwNx58Mgxi80gkm2DBOoL+3BwpbwiXQI=;
+        b=M0IbVqX3snuBNoTdTTGF0oxsBhGPXrq9kLUCup/0e7be81liMX9QO/TP4Xc2ZL/E9E
+         DbU2xrXh/CRPXOp+A/B2p7yQxm4hfCQVBrC9hrTrrRlEwpB1Euvv8K6AXsA+V7JbvuoT
+         SUnIwlvQ9e4LB8DWMHM9dinFlIvUWrIHF4O59OMSuQVwT+c7rFAQVkPHcGGSGkw+V3Cj
+         RqQRaKxS+yDcTb3E678sgabXFIOI8HBlP9Ly+xDPJNypWRU1mnKnO5OC8X+Z/t+lpPSd
+         0LHXPltvW7AeL9DjBoXDJOu/o/JJ3doYuzDn/d/9YdwwL+YPYP5qZnQHnaEcH/EgQskX
+         4fbQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776819586; x=1777424386; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=cDtdgFx/StWBvO59JHE0x9HUNUeMZHcq/ZWbreMj7zI=;
-        b=i3VqABycCsQVBhGWbxuuLrtzoD2NRlZIWtDJ5Ozo/ZzY3h5s0vw0jN+3m0bXSTNk+t
-         2uEg1l5ZFSo60885b12D3qbouDDH+AcQtjJ9gEnJCw+ZsXJXDDAu2s6l0iULOte5NOEi
-         8rTs3heF+TovqsieqHd8jvggg0Lae1qBF/pwk+F4Derl+q8vHX2SSAHhy+d+bheK9AkF
-         djAQzKJO9l8KJzHvIGC5ReRQAzdA9ZL5CjlkdYW+aaukQmdMEpax0yeTWGNLwsgMkMC6
-         4Cb+ndy9/mKxw7Wck10lTOfWMU++7USplOL18G3b5sIRJGT5N+tqxIx7h/EEI/e6KVzq
-         rrFQ==
+        d=gmail.com; s=20251104; t=1776819995; x=1777424795; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0IRFmArTYLfOKDBhdMLQmn7zlltkZiYQwJVABBk+Y1U=;
+        b=b3uN4B5vz6ovqHEDNJhZDL80VC+/ubJedfgLFFh0c+jrjClXDwF4M+Xr42Il1E7BIZ
+         R0nuVDwDyhAAt5L5ftQFA8eSyp3EdMK3WI3iRZl+KRcVL1kCKaL5OZZaSv0TyKpLSuB8
+         UpL51mLdweBeOEGHVnhqi8WitsA+FL94sSMuLn8FYNSUfmstx9Qp9TrdGoUcUD6Pkqam
+         P8eRC/88tyXPvD0r/j5/tgML/Kz2DuM2xbxKzxW09OnIdVLjw3Qv3INWKvmXymnPKZso
+         48kT5hAtvDedYHUG6CTNbI2XAYZ13JL7UenLQH6pCqaYcn8+jDstPB/4Pg/Gg/Jsqfz3
+         e7qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776819586; x=1777424386;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=cDtdgFx/StWBvO59JHE0x9HUNUeMZHcq/ZWbreMj7zI=;
-        b=WsKTRgSMaRq79toPUPmyqLnyY/cUdgkytnxpAdE7GrlWT+wnmXCXSp5PihjeBELEdN
-         XjpupgSLZfvY3esp/m82Y09NCH/G40qkD5m1bcN7YZGwsQVjNKaMa1KMO/2NZGn+C/rE
-         A/ctb6Mt55ntsdAuXF1GPreym0oHtcScMI4C6OtQ0Pl23a9IFPTVY4wp8yKPyPTXjoD1
-         tzosdpmX4rpfvKu20PKTCMbeMWkPeuupA9F0dn4td8y0YJkqFtYVPz8fmu7LVcBWP15E
-         9u7plZ4Cs4irEBbePcXbgFy75J98XJ5E/KrVR+FjAiVAB479I0Zti6Qy8c0zvcfqCzjW
-         eW1w==
-X-Forwarded-Encrypted: i=1; AFNElJ8ZdqOwceu5VRGwypLfA61HhzuBJ63SDi4GwKY4riX+IzhKdui4zD9g1o5EEwla+Mxs6tdKDWX+jiGf@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyle0R26V6lRgyST7MO/jmQj9dT0V1frmnb2UI3J70gzzLquYAe
-	e2hSwCOj3RzBpOcS9FTWXEwUbjBiRyDEAyoBRWEzsMsICFKG11W7O3laQWxH7+UTDmBqcr26KnS
-	oL0L1uLRQq/4Wm/fmgxXZP4oA1cOqK/KWl2fYOXhz415MwLXCo9yvMh3aJ1dtmfIM
-X-Gm-Gg: AeBDiesaiih2QCPrU3ar7Zc5BB1WqbRyO4/NiMlbq8dyRSqmYYbGpInKL8yOfOeMjpv
-	4C7O57o08sMRJEj/QTx0Zf6ONvOYJspdmvMei9s+aeepCFRSvO1rwEMEtwUPqoRbBMk8gE6SvHr
-	Nf1/tY6az3ilCUlP3uLpDLQw5B0kJDyBna0VsbRt3XXc+++6dgtOS+Ep0UhL25aOIplYlEG1oJw
-	r+YDDn/R5lG0kB59Rum0yAlCt+n3uNMCvCbVbb1toYkNmOMLc+rPWea1mIgLhf+LyToYImO8+i1
-	PxfMbiBIRb0aXxUxg10FUnEAszJ5uqu7YX9K8lMeBD2jI9y6VXmO0/dkId4+Gk8QRzXHtJIa13t
-	WXTuJNzytHUPavwhTVRuG8VyLvDPX8F/tJzDF/5d+XlMpnSQm+qyCLcTkP7Drzy6kYgEuGNjLrl
-	JWMW1o7kbzkCnbXiTk7tnEVx/MBM+t/LWJuTg6EVyvy0s5lQ==
-X-Received: by 2002:a05:6214:4986:b0:8ac:bb62:fe65 with SMTP id 6a1803df08f44-8b0287959cdmr316609306d6.23.1776819586092;
-        Tue, 21 Apr 2026 17:59:46 -0700 (PDT)
-X-Received: by 2002:a05:6214:4986:b0:8ac:bb62:fe65 with SMTP id 6a1803df08f44-8b0287959cdmr316608956d6.23.1776819585633;
-        Tue, 21 Apr 2026 17:59:45 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4185ad138sm4064885e87.9.2026.04.21.17.59.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Apr 2026 17:59:43 -0700 (PDT)
-Date: Wed, 22 Apr 2026 03:59:41 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: contact@alex-min.fr
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        MyungJoo Ham <myungjoo.ham@samsung.com>,
-        Chanwoo Choi <cw00.choi@samsung.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Linus Walleij <linusw@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Kees Cook <kees@kernel.org>,
-        Tony Luck <tony.luck@intel.com>,
-        "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-        iommu@lists.linux.dev
-Subject: Re: [PATCH 4/8] iommu/msm: Look up masters per IOMMU instance
-Message-ID: <g5jfi6d4e3osqe3255v4fzr3eqduaxss42dodogfsn6rji3znn@dlk3tey3p6un>
-References: <20260421-mainline-send-v1-sending-v1-0-bcb0857724de@alex-min.fr>
- <20260421-mainline-send-v1-sending-v1-4-bcb0857724de@alex-min.fr>
+        d=1e100.net; s=20251104; t=1776819995; x=1777424795;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=0IRFmArTYLfOKDBhdMLQmn7zlltkZiYQwJVABBk+Y1U=;
+        b=lcjyKzNqCIeLkt5slzLV5XcCF208KGX79rP86M9J6CGIEWVzVyJj8tHarCHlEx+FDx
+         2/p8tGRN9t2ZgmIrIo0IE1hZtWeq/aq7pKNio9MO+pxTzKwUfVP9jC9t6YUyD+KlMrpO
+         vVU4xbFhVMoXe4xgZS0K++XWkW5IehnKuRBqTbfP5C0Ldl+gC074t3Fn+xPmt9WphZu0
+         v9MK0PPlKYSg0hVCOE2SWlblxF9laG+vh+VXrp+5cjuDxOgvlch5Ec65Cv1hVrDYP1Qe
+         yPJptnmujBOmYM+6jrr28nMehHK/tkob+rLMhCkHguDDAuc91DfnvpUJ1sD3wkZ+3tZt
+         9Snw==
+X-Forwarded-Encrypted: i=1; AFNElJ8+czizTxbfLB/hN6cWDawGvlQ3gXvZ8NBaPO/n9SKM0bPG/jY6nyRxyPqKC2lDqoSdp87BiuOeCLWO@vger.kernel.org
+X-Gm-Message-State: AOJu0YwSiIeR5vfXNI2XnwYjqqXF/zhuhcFvR3ncUyF3QJBH57UpAjau
+	Szn+rWJ+VzMqYqr9o0iGboROG3LNda+xy72B/kjPzHChKKmfdPn9m9Pt9z6xachdcFbESgH0gE7
+	os/3zMCvz5Pp+UT2VbtlgjobplD3YGiM=
+X-Gm-Gg: AeBDievZg1e9m4NiglOhtd3BAQGP4Fn+V20ylLDd+wCYkLA8XTztUpFLkqEleQ/y/Ae
+	2eyuG81BA6zmiHzxD2YKWV83+XX16lj3FG2Z9CX49AEj2/aA6JoXcGLH38V+PKYRIJZNMQqDYSl
+	aqndn8Rua5FiVz2VpSKWQOds1YTL/pvY/GTxZMaOh9BWqaDxWGkpIxSrRNnxyaVdFCd+Sdr5u2w
+	whdhUNYf/tJGCupAHMU1T2tXFp/aQsr3AeRnsB6l2sD4bb5OY03vXBIsfI/Cynk1FzMVxtottkK
+	5+RqBZb1BEhyrb7aCw==
+X-Received: by 2002:a05:6820:f015:b0:694:8428:dfd8 with SMTP id
+ 006d021491bc7-6948428e120mr5659420eaf.34.1776819995375; Tue, 21 Apr 2026
+ 18:06:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260421-mainline-send-v1-sending-v1-4-bcb0857724de@alex-min.fr>
-X-Authority-Analysis: v=2.4 cv=OdioyBTY c=1 sm=1 tr=0 ts=69e81d83 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=qBQ8OOdg5lpXHOzljU0A:9
- a=CjuIK1q_8ugA:10 a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-ORIG-GUID: ej3g-TcCuxgjI9jyDyD0MWMG0iQYJwp1
-X-Proofpoint-GUID: ej3g-TcCuxgjI9jyDyD0MWMG0iQYJwp1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDAwNyBTYWx0ZWRfX7kBaH61TFrwj
- 8/Ied0P8JJF3zHZd6wjwwiDtEIXnGKpaVGOHZGitrXuGUA40CWIs6p/GrpEbBpYou7MSnuQnLpc
- /mcX3t7T7fHnyjdKAPRB7aEqPJhHDgi4KxXkh3y/x68PVq3Vaijq5JnWFbWVWHgRAi3ExtswBFx
- LyfBZWOxCGvGlztzh9c1/awKv0bCJPGztEH2GMmZXiRiD/IsPyrwEhELqgPr+M3EbmJkwN1hCon
- a41guCrYGfP57EgLT8XzKP9WRWfE2zelahXU1OuQWETVtaIACDwCrLfNhUQVch9jQd4/ZiH6UwS
- gmuZvhMc4cb2SxLz4Sef1Y7fC3VuKj5//JZRNyVDe/MAZt+52DARWuS9fe8FeIBUqbg2TFwRjwC
- NRHxr17Z27C0cBkwEAKb9Fg4mvn1KuUL29mctlOVOxTcMnkL4OWgRCPzPm/Pppp3PCw+9PdZ1Fo
- VzhMtzuRf7BVh08VRSg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-21_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 malwarescore=0 phishscore=0 adultscore=0
- clxscore=1015 priorityscore=1501 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604220007
+References: <20260420023354.1192642-1-syyang@lontium.com> <20260420023354.1192642-3-syyang@lontium.com>
+ <CAO9ioeXDfTdETEBQknoLehk2aiabCgse109sDgJoPHuQ_07nKQ@mail.gmail.com>
+ <CAFQXuNYV+wt2-+8R4m+mtby9TBwcX+vGdqvUvb_6wXkkBg6b=w@mail.gmail.com> <ed5u73a5lpsixqvm35zpmooolstjv22ygusorub2owbgz7cwj5@42uq6kl6run7>
+In-Reply-To: <ed5u73a5lpsixqvm35zpmooolstjv22ygusorub2owbgz7cwj5@42uq6kl6run7>
+From: =?UTF-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
+Date: Wed, 22 Apr 2026 09:06:22 +0800
+X-Gm-Features: AQROBzBaNDUxhxDS0HVaopMbG0cmT-p3eH7E1MY-UMTymB_tTXik718agZAW4Cs
+Message-ID: <CAFQXuNZXe0vXAr+dN4LQfC95pvJ5C+Z+b+AuSGZnG4Ui+Nbjww@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/bridge: Add LT7911EXC edp to mipi bridge driver
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
+	maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org, 
+	Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com, 
+	tzimmermann@suse.de, xbpeng@lontium.com, rlyu@lontium.com, xmzhu@lontium.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Apr 21, 2026 at 11:45:10AM +0200, Alexandre MINETTE via B4 Relay wrote:
-> From: Alexandre MINETTE <contact@alex-min.fr>
-> 
-> MSM IOMMU stores context descriptors on each IOMMU instance. Looking up
-> the descriptor through dev_iommu_priv_get() is not sufficient because a
-> device can reference multiple IOMMU provider nodes.
-> 
-> Look up the master from the target IOMMU ctx_list instead, and use the
-> same helper when probing and attaching devices. This avoids dereferencing
-> a NULL master when an IOMMU already has context entries for another
-> device, and keeps separate context descriptors for separate IOMMU
-> instances.
-> 
-> This is required to boot APQ8064 boards using multiple IOMMU contexts.
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
+4=E6=9C=8821=E6=97=A5=E5=91=A8=E4=BA=8C 19:15=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Tue, Apr 21, 2026 at 11:13:30AM +0800, =E6=9D=A8=E5=AD=99=E8=BF=90 wro=
+te:
+> > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=
+=B9=B44=E6=9C=8820=E6=97=A5=E5=91=A8=E4=B8=80 11:57=E5=86=99=E9=81=93=EF=BC=
+=9A
+> > >
+> > > On Mon, 20 Apr 2026 at 05:34, <syyang@lontium.com> wrote:
+> > > >
+> > > > From: Sunyun Yang <syyang@lontium.com>
+> > > >
+> > > > LT7911EXC is a high performance  eDP1.4 to MIPI chip for
+> > >
+> > > MIPI what?
+> > >
+> > MIPI DSI,
+> > It will be modified in the next version.
+> >
+> > > > VR/Display application.
+> > > >
+> > > > -eDP1.4Receiver
+> > > >  1.Support SSC
+> > > >  2.Support 1/2/4 lanes
+> > > >  3.Support up to 4K@60HzRGB/YCbCr4:4:48bpc
+> > > >  4.Support lane swap and PN swap
+> > > >
+> > > > -MIPI Transmitter
+> > > >  1.CompliantwithD-PHY1.2&DSI1.1&CSI-22.0=EF=BC=9B1 clock lane,
+> > > >    and1/2/3/4 configurable data lanes:2.5Gbpsperdatalane
+> > > >  2.CompliantwithC-PHY1.0&DSI-21.0&CSI-22.0;
+> > > >    1/2/3 configurable data trio=EF=BC=9B2.5Gsps perdatatrio
+> > > >  3.Support1/2configurable ports
+> > > >  4.DSISupport16/20/24-bit YCbCr4:2:2,16/18/24/30-bit RGB
+> > > >
+> > > > Signed-off-by: Sunyun Yang <syyang@lontium.com>
+> > > > ---
+> > > >  drivers/gpu/drm/bridge/Kconfig             |  18 +
+> > > >  drivers/gpu/drm/bridge/Makefile            |   1 +
+> > > >  drivers/gpu/drm/bridge/lontium-lt7911exc.c | 571 +++++++++++++++++=
+++++
+> > > >  3 files changed, 590 insertions(+)
+> > > >  create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
+> > > >
+> > > > diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridg=
+e/Kconfig
+> > > > index c3209b0f4678..bae8cdaea666 100644
+> > > > --- a/drivers/gpu/drm/bridge/Kconfig
+> > > > +++ b/drivers/gpu/drm/bridge/Kconfig
+> > > > @@ -202,6 +202,24 @@ config DRM_LONTIUM_LT8713SX
+> > > >           to 3 configurable Type-C/DP1.4/HDMI2.0 outputs
+> > > >           Please say Y if you have such hardware.
+> > > >
+> > > > +config DRM_LONTIUM_LT9611C
+> > >
+> > > I thought the patch is for LT7911EXC
+> > >
+> > Yes, it is LT7911EXC, It will be modified in the next version.
+> >
+> > > > +       tristate "Lontium LT9611C DSI/HDMI bridge"
+> > > > +       select SND_SOC_HDMI_CODEC if SND_SOC
+> > > > +       depends on OF
+> > > > +       select CRC8
+> > > > +       select FW_LOADER
+> > > > +       select DRM_PANEL_BRIDGE
+> > > > +       select DRM_KMS_HELPER
+> > > > +       select DRM_MIPI_DSI
+> > > > +       select DRM_DISPLAY_HELPER
+> > > > +       select DRM_DISPLAY_HDMI_STATE_HELPER
+> > > > +       select REGMAP_I2C
+> > > > +       help
+> > > > +         Driver for Lontium DSI to HDMI bridge
+> > > > +         chip driver that converts dual DSI and I2S to
+> > > > +         HDMI signals
+> > > > +         Please say Y if you have such hardware.
+> > > > +
+> > > >  config DRM_ITE_IT66121
+> > > >         tristate "ITE IT66121 HDMI bridge"
+> > > >         depends on OF
+> > > > diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/brid=
+ge/Makefile
+> > > > index beab5b695a6e..54b293d1663e 100644
+> > > > --- a/drivers/gpu/drm/bridge/Makefile
+> > > > +++ b/drivers/gpu/drm/bridge/Makefile
+> > > > @@ -18,6 +18,7 @@ obj-$(CONFIG_DRM_LONTIUM_LT9211) +=3D lontium-lt9=
+211.o
+> > > >  obj-$(CONFIG_DRM_LONTIUM_LT9611) +=3D lontium-lt9611.o
+> > > >  obj-$(CONFIG_DRM_LONTIUM_LT9611UXC) +=3D lontium-lt9611uxc.o
+> > > >  obj-$(CONFIG_DRM_LONTIUM_LT8713SX) +=3D lontium-lt8713sx.o
+> > > > +obj-$(CONFIG_DRM_LONTIUM_LT7911EXC) +=3D lontium-lt7911exc.o
+> > >
+> > > Keep the list sorted, please.
+> > >
+> > Where can I see the sorting rules? Please guide me.
+> > it is:
+> > obj-$(CONFIG_DRM_LONTIUM_LT7911EXC) +=3D lontium-lt7911exc.o
+> > obj-$(CONFIG_DRM_LONTIUM_LT8713SX) +=3D lontium-lt8713sx.o
+>
+> zoom out, check the overall contents, submit a patch fixing the error.
+>
+It will be fixed in the next version
 
-Which cores / devices? Could you please add a (trimmed) backtrace? Also
-a Fixes tag would be nice.
+> >
+> > > >  obj-$(CONFIG_DRM_LVDS_CODEC) +=3D lvds-codec.o
+> > > >  obj-$(CONFIG_DRM_MEGACHIPS_STDPXXXX_GE_B850V3_FW) +=3D megachips-s=
+tdpxxxx-ge-b850v3-fw.o
+> > > >  obj-$(CONFIG_DRM_MICROCHIP_LVDS_SERIALIZER) +=3D microchip-lvds.o
+> > > > diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/g=
+pu/drm/bridge/lontium-lt7911exc.c
+> > > > new file mode 100644
+> > > > index 000000000000..d1c1d9e073ef
+> > > > --- /dev/null
+> > > > +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
+> > > > @@ -0,0 +1,571 @@
+> > > > +// SPDX-License-Identifier: GPL-2.0
+> > > > +/*
+> > > > + * Copyright (C) 2026 Lontium Semiconductor, Inc.
+> > > > + */
+> > > > +
+> > > > +#include <linux/crc32.h>
+> > > > +#include <linux/firmware.h>
+> > > > +#include <linux/gpio/consumer.h>
+> > > > +#include <linux/i2c.h>
+> > > > +#include <linux/regmap.h>
+> > >
+> > > I think you use more than that.
+> > >
+> > It will be modified in the next version.
+> >
+> > > > +#include <drm/drm_of.h>
+> > > > +
+> > > > +#define FW_SIZE (64 * 1024)
+> > > > +#define LT_PAGE_SIZE 32
+> > > > +#define FW_FILE  "LT7911EXC.bin"
+> > > > +#define LT7911EXC_PAGE_CONTROL 0xff
+> > > > +
+> > > > +struct lt7911exc {
+> > > > +       struct device *dev;
+> > > > +       struct i2c_client *client;
+> > > > +       struct drm_bridge bridge;
+> > > > +       struct drm_bridge *panel_bridge;
+> > >
+> > > Use next_bridge from struct drm_bridge instead.
+> > >
+> > It will be modified in the next version.
+> >
+> > > > +       struct regmap *regmap;
+> > > > +       /* Protects all accesses to registers by stopping the on-ch=
+ip MCU */
+> > > > +       struct mutex ocm_lock;
+> > > > +       struct regulator_bulk_data supplies[2];
+> > > > +
+> > > > +       struct gpio_desc *reset_gpio;
+> > > > +       const struct firmware *fw;
+> > >
+> > > Do you need to store it during the runtime? If not, please remove fro=
+m
+> > > the data struct.
+> > >
+> > Don't need  store during the runtime.
+> > Can I use the global variable 'fw'?
+>
+> Of course not.
+>
+It will use local variable in the next version
 
-> 
-> Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
-> ---
->  drivers/iommu/msm_iommu.c | 28 ++++++++++++++++------------
->  1 file changed, 16 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/iommu/msm_iommu.c b/drivers/iommu/msm_iommu.c
-> index 0ad5ff431d5b..9c03878d0d2c 100644
-> --- a/drivers/iommu/msm_iommu.c
-> +++ b/drivers/iommu/msm_iommu.c
-> @@ -357,17 +357,25 @@ static int msm_iommu_domain_config(struct msm_priv *priv)
->  	return 0;
->  }
->  
-> +static struct msm_iommu_ctx_dev *find_iommu_master(struct msm_iommu_dev *iommu,
-> +						   struct device *dev)
-> +{
-> +	struct msm_iommu_ctx_dev *master;
-> +
-> +	list_for_each_entry(master, &iommu->ctx_list, list)
-> +		if (master->of_node == dev->of_node)
-> +			return master;
-> +
-> +	return NULL;
-> +}
-> +
->  /* Must be called under msm_iommu_lock */
->  static struct msm_iommu_dev *find_iommu_for_dev(struct device *dev)
->  {
->  	struct msm_iommu_dev *iommu, *ret = NULL;
-> -	struct msm_iommu_ctx_dev *master;
->  
->  	list_for_each_entry(iommu, &qcom_iommu_devices, dev_node) {
-> -		master = list_first_entry(&iommu->ctx_list,
-> -					  struct msm_iommu_ctx_dev,
-> -					  list);
-> -		if (master->of_node == dev->of_node) {
-> +		if (find_iommu_master(iommu, dev)) {
->  			ret = iommu;
->  			break;
->  		}
-> @@ -405,10 +413,7 @@ static int msm_iommu_attach_dev(struct iommu_domain *domain, struct device *dev,
->  
->  	spin_lock_irqsave(&msm_iommu_lock, flags);
->  	list_for_each_entry(iommu, &qcom_iommu_devices, dev_node) {
-> -		master = list_first_entry(&iommu->ctx_list,
-> -					  struct msm_iommu_ctx_dev,
-> -					  list);
-> -		if (master->of_node == dev->of_node) {
-> +		if (find_iommu_master(iommu, dev)) {
->  			ret = __enable_clocks(iommu);
->  			if (ret)
->  				goto fail;
-> @@ -601,10 +606,10 @@ static int insert_iommu_master(struct device *dev,
->  				struct msm_iommu_dev **iommu,
->  				const struct of_phandle_args *spec)
->  {
-> -	struct msm_iommu_ctx_dev *master = dev_iommu_priv_get(dev);
-> +	struct msm_iommu_ctx_dev *master = find_iommu_master(*iommu, dev);
->  	int sid;
->  
-> -	if (list_empty(&(*iommu)->ctx_list)) {
-> +	if (!master) {
->  		master = kzalloc_obj(*master, GFP_ATOMIC);
->  		if (!master) {
->  			dev_err(dev, "Failed to allocate iommu_master\n");
-> @@ -612,7 +617,6 @@ static int insert_iommu_master(struct device *dev,
->  		}
->  		master->of_node = dev->of_node;
->  		list_add(&master->list, &(*iommu)->ctx_list);
-> -		dev_iommu_priv_set(dev, master);
->  	}
->  
->  	for (sid = 0; sid < master->num_mids; sid++)
-> 
-> -- 
-> 2.43.0
-> 
-> 
+> > Because I need use 'fw' to calculate the CRC32 and burn the firmware.
+>
+> Sure, but what does it have to do with the field in struct lt7911exc?
+>
+You are correct, and I will fix according to your suggestions.
 
--- 
-With best wishes
-Dmitry
+> >
+> > > > +       int fw_version;
+> > > > +       u32 fw_crc;
+> > > > +
+> > > > +       bool enabled;
+> > >
+> > > What for?
+> > >
+> > (bool enabled;) is used as a flag in the code to reduce the frequency
+> > of power supply switching.
+>
+> How does it help to reduce the rate?
+>
+The enabled flag is used to track the hardware power state. In
+lt7911exc_pre_enable(), we check if (lt7911exc->enabled) return; to
+avoid redundant regulator enabling and reset pulses when the DRM
+framework calls pre_enable multiple times.
+
+Similarly, lt7911exc_post_disable() uses it to prevent multiple
+power-down sequences. This reduces unnecessary power supply switching
+and potential side effects.
+
+However, if you consider this optimization unnecessary, I can remove
+the flag and the related checks in the next version. Please let me
+know your preference.
+
+> > Of course, it can also be removed in the next version.
+> >
+> > > > +};
+> > > > +
+> > > > +static const struct regmap_range_cfg lt7911exc_ranges[] =3D {
+> > > > +       {
+> > > > +               .name =3D "register_range",
+> > > > +               .range_min =3D  0,
+> > > > +               .range_max =3D 0xffff,
+> > >
+> > > Is it an actual range?
+> > >
+> > 0xe8ff is actual  range.
+>
+> Then why?
+>
+The actual valid register address ends at 0xe8ff. I mistakenly set
+range_max to 0xffff.
+I will fix it to 0xe8ff in the next version. Thank you for catching this.
+
+> >
+> > > > +               .selector_reg =3D LT7911EXC_PAGE_CONTROL,
+> > > > +               .selector_mask =3D 0xff,
+> > > > +               .selector_shift =3D 0,
+> > > > +               .window_start =3D 0,
+> > > > +               .window_len =3D 0x100,
+> > > > +       },
+> > > > +};
+> > > > +
+> > > > +static const struct regmap_config lt7911exc_regmap_config =3D {
+> > > > +       .reg_bits =3D 8,
+> > > > +       .val_bits =3D 8,
+> > > > +       .max_register =3D 0xffff,
+> > > > +       .ranges =3D lt7911exc_ranges,
+> > > > +       .num_ranges =3D ARRAY_SIZE(lt7911exc_ranges),
+> > > > +};
+> > > > +
+> > > > +static u32 cal_crc32_custom(const u8 *data, u64 length)
+> > > > +{
+> > > > +       u32 crc =3D 0xffffffff;
+> > > > +       u8 buf[4];
+> > > > +       u64 i;
+> > > > +
+> > > > +       for (i =3D 0; i < length; i +=3D 4) {
+> > > > +               buf[0] =3D data[i + 3];
+> > > > +               buf[1] =3D data[i + 2];
+> > > > +               buf[2] =3D data[i + 1];
+> > > > +               buf[3] =3D data[i + 0];
+> > > > +               crc =3D crc32_be(crc, buf, 4);
+> > >
+> > > How is it different from crc32_le()?
+> > >
+> > The implementation differs from crc32_le() in both byte ordering and
+> > processing granularity.
+> > This function performs a 32-bit word-wise byte swap (little-endian to
+> > big-endian) before feeding data into crc32_be(), while crc32_le()
+> > processes the input stream directly in little-endian order without
+> > transformation.
+> > Therefore, the result is not equivalent to crc32_le(), and is required
+> > to match the firmware's expected big-endian word-based CRC format.
+>
+> ack.
+>
+> >
+> >
+> > > > +MODULE_LICENSE("GPL v2");
+> > Should GPL be used here? I got an error during testing: GPL v2;
+>
+> Which error?
+>
+Sorry, is  warning:
+WARNING: Prefer "GPL" over "GPL v2" - see commit bf7fbeeae6db
+("module: Cure the MODULE_LICENSE "GPL" vs. "GPL v2" bogosity")
+#649: FILE: drivers/gpu/drm/bridge/lontium-lt7911exc.c:571:
++MODULE_LICENSE("GPL v2");
+
+ It will be fixed in the next version.
+
+> --
+> With best wishes
+> Dmitry
