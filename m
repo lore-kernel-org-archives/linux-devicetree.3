@@ -1,39 +1,43 @@
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C279C382374
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 04:43:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBF63BC66C
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 04:43:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776919409; cv=none; b=Ozt7jp1UrXR78/7bIi0sMgQ6zW1AF4nbb7QqTv55XAmYSJS+GgcxaQe6rGIjRLGNaZZsYGtmpz2fuNd99r8a0kwllFKb+PSAuhw0XK9JeWmjRxYrvpi3znnr2rK5D2g1SFG/t8UbIkCIh3HL86lcnp+mYaNMaQoWdQlILlUkPvw=
+	t=1776919414; cv=none; b=dGi8PZYKk3Qa4xyb+4DlEn9BO3zBy9Fs1e9h5q3EUK3Wf5JgL1ipaRLcKaXrgcPbg3XbO11Xp8RsSbdMNTKiebgWBTdtOXpeuaCToYri66IhyGmomrucQVs7u2mEZ0ytN2yJBtBccDKRoWqJYNoY85eAbSK3jID+h/wfTxoOViw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776919409; c=relaxed/simple;
-	bh=AsBjo9G6XCBgU9iaZo6xvX9NeAmRhMKLBfe3zu26hr8=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=YzYwykjLSsF+V1U6l4Uv0swk4A6PryzwwSX4XvURetXy2kbL8Lv7y8JzbwN57creOiQnfiMGbixFZiLkAjTcO5l1yGL0OQEJ7MGQcFkP5UQZ1aWkBwQsVqpzxJ3FvTEvB5toQYtDx32rTaJ1xPVXahQHGeded0AY4Kcz/uochZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=oixfULkC; arc=none smtp.client-ip=79.135.106.118
+	s=arc-20240116; t=1776919414; c=relaxed/simple;
+	bh=9YTHEvkeFZ+qth4YK9gjEe2ZN9Wcna7fcSLY4EhtMlY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ShWlQaaRh4A2QEiexeDRu3kytoKCbXVwCrLq7NpPdkcTCH8tQ/Iltjtgb2HYDTvyOAM4jPgWfMb6929fGpA8vVyjas0/cP1zK+GrlbYGWuCD1DNBWVxX7Tq+6B2384t0GZKJAdlbQH8vNzsJcNIAz8Z71A7G9NJys6acitbnFT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Upn6giTC; arc=none smtp.client-ip=109.224.244.121
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="oixfULkC"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Upn6giTC"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1776919397; x=1777178597;
-	bh=7kM6wcohx5ePIqW7kIjBx9vneYoeALYmh0GKIfF/bxU=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=oixfULkCDLKpTBRqFtRxYABnON0vxEza9DYV6vxfO0hy2YW0qinFyUb7cEMInzOEo
-	 2UItP5tSVeLpl7rFpHtdxrUVsx9D1q1RmzqPlfnBexluARyjvbtFAIaUN0tknNpzz3
-	 JmXTKdSKbi8Q9s6sbcdTa43sGFiOiSCCzAIXxxNmPCx1FRyiAjDGKX61x8r45JKQb4
-	 tGGkNDNfVhgvmr4ClD5mC6RF54rkswdbQirLqqfXgvaYTBjSSXEwd1RoO6fkBiIt9X
-	 fV84Fp9gqefuMuuQeM4508c9bwG0qY5mp0j4MU0E3nPvX0ul6uwq4ES5k9RmFMhEm+
-	 gEBh7sJSx5VfA==
-Date: Thu, 23 Apr 2026 04:43:11 +0000
+	s=protonmail3; t=1776919405; x=1777178605;
+	bh=ZpoZxI1iv6Hm6E5vmoDrPM6e7FDQ9kxew8Rq9lidrKs=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Upn6giTCZAD3/96YqFfm1KwHteTlVNrwXQP7kph1hmJcjkS/J3zUg99u0ecq/kM21
+	 hEk55DcVXD+OV5hoR3Yi4XLRDvsborzTqqWSXKAP1Zj1TgK+xyE6eAyLIMPsIKdyzZ
+	 Fwox7xn2T66RHfHwI/1QEPnBnlsHDZt4lu356HIcJrE8MUI3CpFDkIWH+FsNxIf1z9
+	 pQWxlYeHpNaT6s2NMwQOUSbPzHjHrNgw6AmsgOPJGdbpJRFZcbNoexuA8wI6wsgehA
+	 s27vQ2RkEZiUPPktyOiJXW5XN9qDL+NPFoM7cBvleQUD2VF42ujohGKOb6EWd43fG/
+	 nH6GokLCMQD6Q==
+Date: Thu, 23 Apr 2026 04:43:19 +0000
 To: Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 From: Alexander Koskovich <akoskovich@pm.me>
 Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH v3 0/4] pinctrl: qcom: eliza: Split up some QUP function groups
-Message-ID: <20260423-fix-eliza-pinctrl-v3-0-68b24893ae63@pm.me>
+Subject: [PATCH v3 1/4] dt-bindings: pinctrl: qcom,eliza-tlmm: Split QUP lane mirror alternates
+Message-ID: <20260423-fix-eliza-pinctrl-v3-1-68b24893ae63@pm.me>
+In-Reply-To: <20260423-fix-eliza-pinctrl-v3-0-68b24893ae63@pm.me>
+References: <20260423-fix-eliza-pinctrl-v3-0-68b24893ae63@pm.me>
 Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 73b9b35bce1a74c753d196c609e1c893784ee197
+X-Pm-Message-ID: 67941d019ba801c353964fadd296df3f09d47d16
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,44 +47,59 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Problem with previous representation of some QUP functions in pingroups
-was that if they had the same name as another function on multiple
-slots on a pin, the latter one was effectively unselectable.
+Several QUP lanes have MIRA/MIRB mirror routings that let the same lane
+be muxed out on alternative GPIOs. On Eliza these were all collapsed
+under the base function name (e.g. qup1_se6), which prevented boards
+from selecting the mirror variants.
 
-This series splits them up and allows boards to specify exact routing.
+Add explicit function names for each mirror lane, matching the pattern
+already established by qcom,sm8550-tlmm and related bindings.
 
 Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
-Changes in v3
-- Clarify commit message(s)
-- Also split qup1_se4 (has same issue)
-- Don't unsplit lanes that don't need to be unsplit from base group
-- Link to v1: https://lore.kernel.org/r/20260420-fix-eliza-pinctrl-v2-0-b68=
-329fd6701@pm.me
+ .../bindings/pinctrl/qcom,eliza-tlmm.yaml          | 25 +++++++++++++-----=
+----
+ 1 file changed, 15 insertions(+), 10 deletions(-)
 
-Changes in v2:
-- Update bindings to reflect new split functions
-- Link to v1: https://lore.kernel.org/r/20260418-fix-eliza-pinctrl-v1-1-864=
-bf95ac83b@pm.me
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,eliza-tlmm.yaml=
+ b/Documentation/devicetree/bindings/pinctrl/qcom,eliza-tlmm.yaml
+index 282650426487..be7b4680045f 100644
+--- a/Documentation/devicetree/bindings/pinctrl/qcom,eliza-tlmm.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,eliza-tlmm.yaml
+@@ -86,16 +86,21 @@ $defs:
+                 qdss_gpio_tracectl, qdss_gpio_tracedata, qlink_big_enable,
+                 qlink_big_request, qlink_little_enable,
+                 qlink_little_request, qlink_wmss, qspi0, qspi_clk,
+-                qspi_cs, qup1_se0, qup1_se1, qup1_se2, qup1_se3, qup1_se4,
+-                qup1_se5, qup1_se6, qup1_se7, qup2_se0, qup2_se1,
+-                qup2_se2, qup2_se3, qup2_se4, qup2_se5, qup2_se6,
+-                qup2_se7, resout_gpio, sd_write_protect, sdc1, sdc2,
+-                sdc2_fb_clk, tb_trig_sdc1, tb_trig_sdc2, tmess_prng0,
+-                tmess_prng1, tmess_prng2, tmess_prng3, tsense_pwm1,
+-                tsense_pwm2, tsense_pwm3, tsense_pwm4, uim0_clk,
+-                uim0_data, uim0_present, uim0_reset, uim1_clk, uim1_data,
+-                uim1_present, uim1_reset, usb0_hs, usb_phy, vfr_0, vfr_1,
+-                vsense_trigger_mirnat, wcn_sw_ctrl ]
++                qspi_cs, qup1_se0, qup1_se1, qup1_se2, qup1_se2_l2_mira,
++                qup1_se2_l2_mirb, qup1_se2_l3_mira, qup1_se2_l3_mirb,
++                qup1_se3, qup1_se4, qup1_se5, qup1_se6, qup1_se6_l1_mira,
++                qup1_se6_l1_mirb, qup1_se6_l3_mira, qup1_se6_l3_mirb,
++                qup1_se7, qup1_se7_l0_mira, qup1_se7_l0_mirb,
++                qup1_se7_l1_mira, qup1_se7_l1_mirb, qup2_se0, qup2_se1,
++                qup2_se2, qup2_se3, qup2_se3_l0_mira, qup2_se3_l0_mirb,
++                qup2_se3_l1_mira, qup2_se3_l1_mirb, qup2_se4, qup2_se5,
++                qup2_se6, qup2_se7, resout_gpio, sd_write_protect, sdc1,
++                sdc2, sdc2_fb_clk, tb_trig_sdc1, tb_trig_sdc2,
++                tmess_prng0, tmess_prng1, tmess_prng2, tmess_prng3,
++                tsense_pwm1, tsense_pwm2, tsense_pwm3, tsense_pwm4,
++                uim0_clk, uim0_data, uim0_present, uim0_reset, uim1_clk,
++                uim1_data, uim1_present, uim1_reset, usb0_hs, usb_phy,
++                vfr_0, vfr_1, vsense_trigger_mirnat, wcn_sw_ctrl ]
+     required:
+       - pins
+=20
 
----
-Alexander Koskovich (4):
-      dt-bindings: pinctrl: qcom,eliza-tlmm: Split QUP lane mirror alternat=
-es
-      dt-bindings: pinctrl: qcom,eliza-tlmm: Split QUP1_SE4 lanes
-      pinctrl: qcom: eliza: Split QUP lane mirror alternates
-      pinctrl: qcom: eliza: Split QUP1_SE4 lanes
-
- .../bindings/pinctrl/qcom,eliza-tlmm.yaml          |  26 ++--
- drivers/pinctrl/qcom/pinctrl-eliza.c               | 162 +++++++++++++++++=
-+---
- 2 files changed, 154 insertions(+), 34 deletions(-)
----
-base-commit: 90700e10d2ad61c13a5117cfa5e08d9f2e497dcc
-change-id: 20260418-fix-eliza-pinctrl-b6e66dd92766
-
-Best regards,
 --=20
-Alexander Koskovich <akoskovich@pm.me>
+2.53.0
 
 
