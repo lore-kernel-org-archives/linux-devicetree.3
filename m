@@ -1,241 +1,147 @@
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 259C216F288;
-	Thu, 23 Apr 2026 15:19:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741CB326930
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 15:20:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776957553; cv=none; b=RRyMvzXydJEVHUdVYe3OTkYiyize2bXJMBQ7aXU1aostD6wlkuaKkA2z29fhYiMHHP922/xpBppfi/6lrscwQcTPGzlbt1IQwnwKCH2/NOFpSzFf/hcD/IxEyaZ8WKSPRaUmDIlneecAzzyJD2rWl8W4DipFan+3Rk0pXDTSI+s=
+	t=1776957645; cv=none; b=cEG9f6ulfr1UwY/YZz0DxkEyuZR6kFyyruToo9TQUC9esNeN4UTtW/qjMSWaWVdIs9fIIxMSk76RHs/EXNypXcoemZyHHY1Ak8WMpet0ipuY2NwDngjVZwNMtyvDI7XGEbMqCll9j5Zq1XjfqPXWcGgNFj3kPlnq11+ZzFU5lkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776957553; c=relaxed/simple;
-	bh=piKDcOgjcm+FqKMFf8GBg3CE1PJohOeelaXmkED6UDY=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=cIFkrcPV6SbzQw+YAhMTCjFqQt6j1truN1xV+WkZvWylamGVJ8sBzNMN0WLOtxfcVBZZDp7YUElHwnGEvKrTfvwaASsDSZzI3SPFsEhutyPs+3z061KFSVwRirTvzyN+JqikPqdC7b+F9B9/zjfUQAikNQgJHO7bbqa6S+dJe4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=L8gvUVSO; arc=none smtp.client-ip=65.21.61.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+	s=arc-20240116; t=1776957645; c=relaxed/simple;
+	bh=Braew1XveMAGlyFC2s/mzZ41yr7jUS4QWkO2xuBRjyE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E+hnZ0+U2Ll3COmJFCHGFWAEEYPlBM2Xvm/vIUaBynI1UO9QfGd578T8iOeczNz4xrEW9wC9wV3CJNePLfPU80HDFGIfFYzEvUvn1EKa7sVu4l9/QoDLL/Wyohta9A/YChWC2HGB+mC4hKSweSEYN0PxAUt3aOauoJ0GbxWcR6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Iw84djJy; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=LNACJnJz; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="L8gvUVSO"
-Message-ID: <19d70883-21db-4963-841d-7c00505e0d9e@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
-	s=courrier-s1; t=1776956983;
-	bh=piKDcOgjcm+FqKMFf8GBg3CE1PJohOeelaXmkED6UDY=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=L8gvUVSOu4mCjW2Z+XaVEo7qANhshywZdZSvqUUiHdnmrsSpdRvMKPifgNJvjoBDD
-	 nae1D0LMx8ahyMvlnDEzZAqJ13YZWcr+0HlKIt+hkF0bXwa6cxf9+fpPYsvNAew3zG
-	 aWSqvQk3Ufo4S+Cntm3dcU8+FYHoJ+Ruxs/anKkM=
-Date: Thu, 23 Apr 2026 17:09:41 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Iw84djJy";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="LNACJnJz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1776957643;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iQf/P7hvHt9A1fs4c4DenfrxwjfBH28w3+BhoS4FuwU=;
+	b=Iw84djJymNIk6+G3cRW7Q4xhD4jtMzvt0YeI6KS8xVLizLZD257++7PxemfwsDwWCcDOp3
+	ekWT8agTwTndycj68bNsCm9AVjXs+qZaomvtoimiZT0o8UoawQ6YopeM/xC4A/FWSGqvp9
+	e2d7cyHXkBzVjwAmqSHWf8Y43rvXVv4=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-371-h2DzTwQ-MTuHf_ixbh4NkQ-1; Thu, 23 Apr 2026 11:20:42 -0400
+X-MC-Unique: h2DzTwQ-MTuHf_ixbh4NkQ-1
+X-Mimecast-MFC-AGG-ID: h2DzTwQ-MTuHf_ixbh4NkQ_1776957641
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50d5d1c2289so146542321cf.2
+        for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 08:20:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1776957641; x=1777562441; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=iQf/P7hvHt9A1fs4c4DenfrxwjfBH28w3+BhoS4FuwU=;
+        b=LNACJnJz28uaWH8nXZUMxS045YJzSwXA8m7SsOppr3w/cerL0OTOINBm+7I8Nua98c
+         fNTvQl4rswH/Yj25YHZEXod1gZj85Rnm0gcgvnB/GYDoIjfJAALh8xu7EC13oL2GM21R
+         usi4dX5Vu1bGH9SywLXoMJgNMk1co4pEtryAE0koj6FDaj5Fx5r4nkTQWOqN1lukP9Tl
+         1X85VVo2ki46aVNfhB9WlIBDBYgglsBftK9vReQ2A/bgiFFUOE4NN9adUVtdMJR49NYJ
+         Eq8NC+qAmLC6DPnqWXHeAB7FrzFqCgkTnQhLFQiYnZ9yXaU3dAuQldiet3D1gxxEiHeS
+         02hQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776957641; x=1777562441;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=iQf/P7hvHt9A1fs4c4DenfrxwjfBH28w3+BhoS4FuwU=;
+        b=l9I81JQal6muTpacDDxTAZfLB1HVE2mqR3rJbLGWnA1G3rgk6Ouv7Qf9oQEZRdcwc5
+         Ve2Xl6HB5WL16pTXmTflVtY3q6Ioop2Kl+EywFGL7/r1HVkEiW+I/ORLlZVcBVyi1OkW
+         /QbF65vm61i5uHv+4NXfEZHLED4YUAMEER2/CGjvzFpeKTRDAs2Pcc2KXg7GNCkqM0oQ
+         bXDdVnsx/fpkVTzsiVb+X3gXh6nj1RNuolKTBkbpTfLQogRa0ZHmqycpY62ipD7GElf4
+         hntZy1kflTjuqID/MxIrNnNoQstg3+HCpJRFXOMgnL2WYi3tdJnAScJzELprpS1erfnU
+         AMSQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8pt+Av2OEUtdkfmKIOlXfNl9ceG+B9ydhWSXG7slR8ct3iBIuVgwmBfjDsjQMZND/DdFwYXSNp+vm7@vger.kernel.org
+X-Gm-Message-State: AOJu0YysbsIrKKlVhZ/l3nfUxV2BIoCwtF3FQG2Rr20vNkPz5Esr1ZhL
+	4yNN9xVwvIdeyr4jHKesqM9RrdWDAjB5AdtMphqHpppqFyhFxqeRXr02jQmgjqgIXltm44FOHSe
+	4TIDTkpbtBoREuR9All6HYHIezFOsUaF3+MsGFXZKt/ycMTSA+3Z3TME96QhF6AM=
+X-Gm-Gg: AeBDietn3k7IDe0cvxPPoQlzLrB347JBH2SGiFADVF4ASEy2petAoJnjf7YpDq1yNZx
+	ftNO59hcOrcQ1fa/o5Rsc+OoLsUpvNcnftuC/CImRwkGODbGFQMF8zGKRAUXT7eDXDq+8a4OVPu
+	b7uenhSDXb2efGJjKuGsCkRqDY3or2AM2aaYzNEK1F3vC9VQAxHMJZZ3UZxp+0m8XJFWj4lryoE
+	UXiERRG5P25IShbzHdFgUB2nTwmatpHQEHWabGCS6QK9NxJEiUbVHvvBRvCtcX/83bELdmmckMj
+	IbgwesFF7grpHzS6GlA0FzzjI4CpEr1ic9KRp16FTD/V+361w3fP7UY93vWczRkLhmG6k908yd1
+	WhfDaR6BwzdPunR8pzJYWMml1WwcWEOWbTiP3DTr3XA==
+X-Received: by 2002:a05:622a:1390:b0:50f:b076:43dd with SMTP id d75a77b69052e-50fb0764918mr197598101cf.36.1776957640952;
+        Thu, 23 Apr 2026 08:20:40 -0700 (PDT)
+X-Received: by 2002:a05:622a:1390:b0:50f:b076:43dd with SMTP id d75a77b69052e-50fb0764918mr197597111cf.36.1776957640401;
+        Thu, 23 Apr 2026 08:20:40 -0700 (PDT)
+Received: from rh-jkangas-kernel ([2601:1c2:4400:6bf0:7677:bcee:4ef0:e09d])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-50e5f5cc439sm105170541cf.17.2026.04.23.08.20.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Apr 2026 08:20:39 -0700 (PDT)
+Date: Thu, 23 Apr 2026 08:20:34 -0700
+From: Jared Kangas <jkangas@redhat.com>
+To: jan.petrous@oss.nxp.com
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Chester Lin <chester62515@gmail.com>,
+	Matthias Brugger <mbrugger@suse.com>,
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+	NXP S32 Linux Team <s32@nxp.com>, Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, devicetree@vger.kernel.org,
+	rmk+kernel@armlinux.org.uk, vladimir.oltean@nxp.com,
+	boon.khai.ng@altera.com
+Subject: Re: [PATCH net-next v12 2/4] arm64: dts: s32: set Ethernet channel
+ irqs
+Message-ID: <aeo4wlrSinKUsdrZ@rh-jkangas-kernel>
+References: <20260313-dwmac_multi_irq-v12-0-b5c9d0aa13d6@oss.nxp.com>
+ <20260313-dwmac_multi_irq-v12-2-b5c9d0aa13d6@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Subject: Re: [PATCH v3 4/8] thermal: amlogic: Add support for secure monitor
- calibration readout
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Guillaume La Roque <glaroque@baylibre.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-References: <20260421-add-thermal-t7-vim4-v3-0-a2e7215ed003@aliel.fr>
- <20260421-add-thermal-t7-vim4-v3-4-a2e7215ed003@aliel.fr>
- <7aaa7873-9274-48d8-a6fe-cff4239b03b4@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <7aaa7873-9274-48d8-a6fe-cff4239b03b4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260313-dwmac_multi_irq-v12-2-b5c9d0aa13d6@oss.nxp.com>
 
-Hi Daniel,
+On Fri, Mar 13, 2026 at 08:13:33AM +0100, Jan Petrous via B4 Relay wrote:
+> From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+> 
+> The GMAC Ethernet controller found on S32G2/S32G3 and S32R45
+> contains up to 5 RX and 5 TX channels.
+> It can operate in two interrupt modes:
+> 
+>   1) Sharing IRQ mode: only MAC IRQ line is used
+>      for all channels.
+> 
+>   2) Multiple IRQ mode: every channel uses two IRQ lines,
+>      one for RX and second for TX.
+> 
+> Specify all IRQ twins for all channels.
+> 
+> Reviewed-by: Matthias Brugger <mbrugger@suse.com>
+> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+> ---
 
-Thanks for your feedback.
+I missed that there was a net-next rebase and ended up sending a T-b to
+v11 instead of here ([1], [2]), sorry about that.
 
-On 4/23/26 12:25 PM, Daniel Lezcano wrote:
-> 
-> Hi Ronald,
-> 
-> On 4/21/26 09:19, Ronald Claveau wrote:
->> Some SoCs (e.g. T7) expose thermal calibration data through the secure
->> monitor rather than a directly accessible eFuse register. Add a use_sm
->> flag to amlogic_thermal_data to select this path, and retrieve the
->> firmware handle and tsensor_id from the "amlogic,secure-monitor" DT
->> phandle with one fixed argument.
->>
->> Also introduce the amlogic,t7-thermal compatible using this new path.
->>
->> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
->> ---
->>   drivers/thermal/amlogic_thermal.c | 58 +++++++++++++++++++++++++++++
->> ++++++----
->>   1 file changed, 53 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/thermal/amlogic_thermal.c b/drivers/thermal/
->> amlogic_thermal.c
->> index 5448d772db12a..11e3948cc0669 100644
->> --- a/drivers/thermal/amlogic_thermal.c
->> +++ b/drivers/thermal/amlogic_thermal.c
->> @@ -25,6 +25,7 @@
->>   #include <linux/platform_device.h>
->>   #include <linux/regmap.h>
->>   #include <linux/thermal.h>
->> +#include <linux/firmware/meson/meson_sm.h>
->>     #include "thermal_hwmon.h"
->>   @@ -84,12 +85,14 @@ struct amlogic_thermal_soc_calib_data {
->>    * @u_efuse_off: register offset to read fused calibration value
->>    * @calibration_parameters: calibration parameters structure pointer
->>    * @regmap_config: regmap config for the device
->> + * @use_sm: read data from secure monitor instead of efuse
->>    * This structure is required for configuration of amlogic thermal
->> driver.
->>    */
->>   struct amlogic_thermal_data {
->>       int u_efuse_off;
->>       const struct amlogic_thermal_soc_calib_data
->> *calibration_parameters;
->>       const struct regmap_config *regmap_config;
->> +    bool use_sm;
->>   };
->>     struct amlogic_thermal {
->> @@ -100,6 +103,8 @@ struct amlogic_thermal {
->>       struct clk *clk;
->>       struct thermal_zone_device *tzd;
->>       u32 trim_info;
->> +    struct meson_sm_firmware *sm_fw;
->> +    u32 tsensor_id;
->>   };
->>     /*
->> @@ -138,6 +143,12 @@ static int amlogic_thermal_initialize(struct
->> amlogic_thermal *pdata)
->>       int ret = 0;
->>       int ver;
->>   +    if (pdata->data->use_sm) {
->> +        return meson_sm_get_thermal_calib(pdata->sm_fw,
->> +                          &pdata->trim_info,
->> +                          pdata->tsensor_id);
->> +    }
->> +
->>       regmap_read(pdata->sec_ao_map, pdata->data->u_efuse_off,
->>               &pdata->trim_info);
->>   @@ -226,6 +237,12 @@ static const struct amlogic_thermal_data
->> amlogic_thermal_a1_cpu_param = {
->>       .regmap_config = &amlogic_thermal_regmap_config_g12a,
->>   };
->>   +static const struct amlogic_thermal_data amlogic_thermal_t7_param = {
->> +    .use_sm            = true,
->> +    .calibration_parameters    = &amlogic_thermal_g12a,
->> +    .regmap_config        = &amlogic_thermal_regmap_config_g12a,
->> +};
->> +
->>   static const struct of_device_id of_amlogic_thermal_match[] = {
->>       {
->>           .compatible = "amlogic,g12a-ddr-thermal",
->> @@ -239,6 +256,10 @@ static const struct of_device_id
->> of_amlogic_thermal_match[] = {
->>           .compatible = "amlogic,a1-cpu-thermal",
->>           .data = &amlogic_thermal_a1_cpu_param,
->>       },
->> +    {
->> +        .compatible = "amlogic,t7-thermal",
->> +        .data = &amlogic_thermal_t7_param,
->> +    },
->>       { /* sentinel */ }
->>   };
->>   MODULE_DEVICE_TABLE(of, of_amlogic_thermal_match);
->> @@ -271,11 +292,38 @@ static int amlogic_thermal_probe(struct
->> platform_device *pdev)
->>       if (IS_ERR(pdata->clk))
->>           return dev_err_probe(dev, PTR_ERR(pdata->clk), "failed to
->> get clock\n");
->>   -    pdata->sec_ao_map = syscon_regmap_lookup_by_phandle
->> -        (pdev->dev.of_node, "amlogic,ao-secure");
->> -    if (IS_ERR(pdata->sec_ao_map)) {
->> -        dev_err(dev, "syscon regmap lookup failed.\n");
->> -        return PTR_ERR(pdata->sec_ao_map);
->> +    if (pdata->data->use_sm) {
->> +        struct device_node *sm_np;
->> +        struct of_phandle_args ph_args;
->> +
->> +        ret = of_parse_phandle_with_fixed_args(pdev->dev.of_node,
->> +                               "amlogic,secure-monitor",
->> +                               1, 0, &ph_args);
->> +        if (ret)
->> +            return ret;
->> +
->> +        sm_np = ph_args.np;
->> +        if (!sm_np) {
->> +            dev_err(dev,
->> +                "Failed to parse secure monitor phandle\n");
->> +            return -ENODEV;
->> +        }
->> +
->> +        pdata->sm_fw = meson_sm_get(sm_np);
->> +        of_node_put(sm_np);
->> +        if (!pdata->sm_fw) {
->> +            dev_err(dev, "Failed to get secure monitor firmware\n");
->> +            return -EPROBE_DEFER;
->> +        }
->> +
->> +        pdata->tsensor_id = ph_args.args[0];
->> +    } else {
->> +        pdata->sec_ao_map = syscon_regmap_lookup_by_phandle
->> +            (pdev->dev.of_node, "amlogic,ao-secure");
->> +        if (IS_ERR(pdata->sec_ao_map)) {
->> +            dev_err(dev, "syscon regmap lookup failed.\n");
->> +            return PTR_ERR(pdata->sec_ao_map);
->> +        }
->>       }
-> 
-> I suggest to separate these two routines into functions. That will help
-> the readability.
-> 
+To give more details on my testing around this specific patch since the
+driver patch was merged: I configured RX queues 1-4 with
+'snps,route-multi-broad' across several different boots and verified
+that interrupts showed for all TX/RX channels in /proc/interrupts.
 
-Sure, I will do that.
+Tested-by: Jared Kangas <jkangas@redhat.com>
 
->>       pdata->tzd = devm_thermal_of_zone_register(&pdev->dev
-> 
-> The thermal zone is registered before calling
-> amlogic_thermal_initialize(), thus pdata->trim_info is not initialized.
-> When a thermal zone is registered the thermal framework reads the
-> temperature, so it reads an invalid value because:
-> 
-> devm_thermal_of_zone_register()
->  -> thermal_of_zone_register()
->    -> thermal_zone_device_register_with_trips()
->    -> thermal_zone_device_enable()
->       -> __thermal_zone_device_update()
->         -> __thermal_zone_get_temp()
->           -> amlogic_thermal_get_temp()
->              -> amlogic_thermal_code_to_millicelsius()
->                  [ Use of uninitialized pdata->trim_info ]
-> 
-> Right ?
-> 
+[1]: https://lore.kernel.org/all/aefX7Ajltzt5EqIR@rh-jkangas-kernel/
+[2]: https://lore.kernel.org/all/aefY8WGCuNr4BQG4@rh-jkangas-kernel/
 
-Yes, I will move the initialize before the register.
-
-> IIUC, amlogic_thermal_initialize() can be also split and moved the
-> corresponding blocks to the functions to be created in the comment above.
-> 
-
-The SM and syscon setup will be extracted into two functions.
-amlogic_thermal_initialize() itself is kept as-is but moved before
-devm_thermal_of_zone_register().
-Let me know if you'd prefer a different approach.
-
-> 
->>
-> 
-
-
--- 
-Best regards,
-Ronald
