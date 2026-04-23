@@ -1,169 +1,167 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013066.outbound.protection.outlook.com [40.107.162.66])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868933EF0B7;
-	Thu, 23 Apr 2026 13:09:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.66
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776949787; cv=fail; b=rX205Nvr28qAhYsZov0PQ28BBqDyZ1V8ZCXsB/8ALCsyz88nUEtH3csrPyP64wpGf4XnJXfpt0wRLIQB3IrkJl/doARjdBHDb/5CPHk2BysgDZ424VmNnd5dkQWsBJonIISxcsaUpO1aCem/lfLVj60WZWibNrscgY2DtNf6A2s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776949787; c=relaxed/simple;
-	bh=1C+TugTbAGT4waMlxbZchwMeQPKKt+RgfSBXRR2HLVU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=YQYOjNNwI76bFhXw2F9WGfFhbkV2WDLHXD5ihvo8DpgtpTm5fbv7kWm2xOsf8obM0dPUOFZSmB5AVeYxVqMwJkwMfnVL2pa+tFBsvYBlbGuMUTTSypSZPwc/MYws5RrKDO0haBIv42a61guxarudd0CQ4nPslGYw1pbKVanLtBI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=G+Zt2opk; arc=fail smtp.client-ip=40.107.162.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25783EFD0E;
+	Thu, 23 Apr 2026 13:14:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776950049; cv=none; b=rBRtl7gy+PQ43Llt0AmEinOm6UwnuY6L3kAKqancwXSYFyWajbDN1pylS79I/937hCks2z04uRvAvDq3/fk5WUBAofpkznf1pmCpY+BaUOtzHfF9ViNaKdoU4rQPB1jbKNb6cWpJIZsZElZcjve7q3dt8KBmhqzh6x/40d2JtP8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776950049; c=relaxed/simple;
+	bh=697hZt/97xj+j/jNJgsvVflZiqyozxVF/O6b3UJ9pzY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=toezPQAhZ2mRO7f618E1L2bG0KY+OIc4K7cqdJKBzqhxqTt6FuYHEHBzJdG/wYqRjz6okyq8gefPvNcojM9PQE3agvIfbjTIMH5dVs7mZbAEeOu2djiIcn0hIl9RCNffh7S6IQi5nGsT8EWuNu8c4UnYQAHAyc2krAJ3ntm78uI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=CgmW5i6y; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="G+Zt2opk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MT2V6StmZ9SKAdkdTLRXNh2J4YkN2ZR/L8iwMgeAIAue1HwMua/azs9uWj8t+qaUU8Q6AdkOXWHlcN+043lEUqyps4XW+EYQF+7Ja53a+14fJUv9VSHodiAAvHb/X70hfiwUab8CFmSHUaZusfR8xe5t+b2luS21dIWPOKcy3Oge7AUCbs/H4UL97C7/QIGlxPyRCe5iSNz2QjS83r072gzGc84PH81kXfFJLrGsU3CR6d1+e/uVCVIV3uVQSe1ZYypVfLG5avdF26fuqxzYcaQIKD55OVZrmiCvXn0HVfDbNCnrP/dLRtqHWhBNUhvxtppO0VXNv3c93JtrHfg84g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CHuuNz6ptgQ8XmEhDBsMJrqEkVn/WMuAEJkDEJl0uyw=;
- b=k44Xctt2f2Ckh9Ah/W2SUr94yWwZfVuVYpmwW0735IifU9YiMBVp0p2Guv2HprfXCjGDQZH+kyxeo/fLiqwiXH3YccEmB2917PlMjYrHIHjPjI+qiwsM6ZS+ItuSL4BmzWgVnpOAkXNCGIRcje792s5iYLuUaA6xGfv8q/HcPbLe13ElGHg8ByrByr8LWKFsapNBIwmc3UfXLN2SRw5qfnx2ptHyZ9/62kDso3L4hrgx+0gyv2lcesyyArgn+VCdBPrtOU/x+mdngf7W4Kx0uNvXSPFhya4WTKWFgadDZPkeEig4zCcjbwEOu37gKiznASy/K6IrpzWia916MtZ7iw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CHuuNz6ptgQ8XmEhDBsMJrqEkVn/WMuAEJkDEJl0uyw=;
- b=G+Zt2opkKRpi/rT9hRd/I554xayWluLVOFPJmIzoZ+nOTwekCpGZiKfywFfjcgenOCqDArwFlCPZg3qWF0q61wkLpY6KuBeNYZNyrlViv6xI4kTY4OmaSAdiyMt2HsKWfAACh2qFq4mNhMDkscQObrN4g4QlepPH0P43VHmPqSW+sW4Y75pEdhlhpUMafyIZrerMjBqUzZD6MjjKUtFIiHcTKB0DJcsP4dRjpbwLRiesjLWhv/E/hOT2nSaimo/joTGHmz7vl9GmAITS076QpYBmEliWJOuwOzkz/vdYVIpmwr5kIemalMceMp0q5JVCXVVSVf3Oju1DsQ5Y0IYB4Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB8459.eurprd04.prod.outlook.com (2603:10a6:102:1da::15)
- by PAWPR04MB9935.eurprd04.prod.outlook.com (2603:10a6:102:387::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.18; Thu, 23 Apr
- 2026 13:09:43 +0000
-Received: from PAXPR04MB8459.eurprd04.prod.outlook.com
- ([fe80::4972:7eaa:b9f6:7b5e]) by PAXPR04MB8459.eurprd04.prod.outlook.com
- ([fe80::4972:7eaa:b9f6:7b5e%3]) with mapi id 15.20.9846.021; Thu, 23 Apr 2026
- 13:09:43 +0000
-Date: Thu, 23 Apr 2026 21:12:13 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH RFC 2/2] clk: scmi: Add support for two #clock-cells to
- pass rate rounding mode
-Message-ID: <aeoarZHOTrinRELb@shlinux89>
-References: <20260306-scmi-clk-round-v1-0-61e2a5df9051@nxp.com>
- <20260306-scmi-clk-round-v1-2-61e2a5df9051@nxp.com>
- <20260422-huge-kiwi-of-tornado-4fce89@sudeepholla>
- <aejUd6L1AfbsflxR@shlinux89>
- <20260422-satisfied-rough-mongrel-aabca1@sudeepholla>
- <aelzO5W2HD8zAgxf@shlinux89>
- <20260423-pompous-hissing-tanuki-16c5f6@sudeepholla>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260423-pompous-hissing-tanuki-16c5f6@sudeepholla>
-X-ClientProxiedBy: SI2PR01CA0001.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::13) To PAXPR04MB8459.eurprd04.prod.outlook.com
- (2603:10a6:102:1da::15)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="CgmW5i6y"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id EC3C09A4;
+	Thu, 23 Apr 2026 15:12:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1776949942;
+	bh=697hZt/97xj+j/jNJgsvVflZiqyozxVF/O6b3UJ9pzY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=CgmW5i6ysH8IIAidxmPA7LxR0ZPFTCeEghs/6YcxdChi7Qo+gm2pHeXKukWZf8Rjt
+	 LyT/oYpDd8rQMU16BuBryCN8EoikylnL6jzdOlSN2WmPPDPJFEkeGuXcD5akYNDvvs
+	 YlZaJnOe31aRgjkgYXo3DrokHTVq///w7casohV8=
+Message-ID: <ced05a92-06b4-4f6f-95b6-c3dc104c35f3@ideasonboard.com>
+Date: Thu, 23 Apr 2026 16:13:57 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB8459:EE_|PAWPR04MB9935:EE_
-X-MS-Office365-Filtering-Correlation-Id: 64d22997-d1eb-41cf-7b43-08dea139958f
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|52116014|7416014|1800799024|366016|19092799006|38350700014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	yBPx7MxO96rBNtyFZ9TTpCGsH05oxfFjdPVWkb2CvZbKiIbqG10kyhYvePIgfPp//XV++GvT73ws1OwXJepFzIGoA7AAzKe412KpHts9AyCdEB1fiQUcO1PUr5r1o0ryFa4Yb9g71PS1mq3XwzP2Oil1izlJr821x5aILDw9xxt72lPrOvzbuqb3ZD2ycfhPwaV29xznJkKC3GvkfdPZTW9zW1rIz9kZIJC03TBp09W8uguwEI8nIVOobH8YPoi6ge0x9lcXSlcMxd3GCyd9uV66Xw1bGCZNh9ekKWdbODlM6MD7i3fVREVG9zvGZcLxCCL8Ya/MG+KhDlXiePUtZdIFwiSXiZJV3uPTtRPxag6Bdua520Vl/O5x9NBSWAzBLicwoTqewO0vmhwlefyjY/VVlB45ygMgIks8Inck+KiKq9gSNe2Kp9vCDNyZRdNuRS4QzVfkBHShc1rtbWaxxjosZXpuTf1uzDjAWq4vKClQUVF56ac/PBg00uhvXYwba27SXYZwGTS1L3L9w8CHXPpOhj8cEUVg5j+BLSrGIegSG0wh6WWBLDM8UVpF04zP9EYRgXx/OSdgYbQu1EWuUSL6Q9Xwh/g+ZPxzp4vwscOi32l6RDM3QdPTIi8q7TNG5BheQKGcOPtj9iw0U+z5gFZCnr8bmmtzKHNkyB5IZX8gAXrYrv82M54noGPZ1Xd1hFjSVH6wq3d+6ZUcJc5SncG95ZeD4IceidqAx8jiIPy+lwN6yhPAovX9ia94+9r8vCOvJhlkbMHdVGPhhiFu1GQYk6HGt0csbYqsQMtcpmI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB8459.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(7416014)(1800799024)(366016)(19092799006)(38350700014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?rLVnOLVhk8Cjj+yhIlHlnr0S2okvHhJ393GOzx04YIukG/fu/hCPFKIQ30eP?=
- =?us-ascii?Q?J7y+4kdxxvYxwiiwAE8gbkxts47BEjKgmi1enOem7fVKVrjnN1M7oYeT74I9?=
- =?us-ascii?Q?2wada5mc75j+vcuZCD5fMrZv3tdgxX2kMQgCMp9Wnzf1ToocqDBftxF5EYRI?=
- =?us-ascii?Q?iK2WG31g6BGyRmQLedcu80s1/wwlb8uxKD9mDMWyKyW0Q/5DUetEm5gfbQEr?=
- =?us-ascii?Q?faoCcXjilI62WgqcXYrDGukpxOXT/ez/F8rVTIpKmlapzrGfujeye5CeFWkg?=
- =?us-ascii?Q?rD79qZTGbWX7dfmd+ZdUmBO9CT2Lz3rf8hB82UgY88/XBktsQfk3gscR1kia?=
- =?us-ascii?Q?DJAvrXGrjpPG574nMl7NUF9zVuAZfLQPulzvJbG616HGyz/ItrAO+MoI57Uk?=
- =?us-ascii?Q?e1IkUAqY7ca8CApW/mNZ3+OW6D53kYhNgb7Or6o7GjkkdJq0XMwNBsaheuUU?=
- =?us-ascii?Q?xVukn79kQorqLm3+bDHa5QanOBT3+6Sh9LOoYq04f00qRk26/ml4334EA4M8?=
- =?us-ascii?Q?gkDXOyel697Efx3nlJ3QFUgauQ8nWA7BE9FFRcXjJ+iGoAdqZbkQCEMIRqM7?=
- =?us-ascii?Q?58+60NWrPphx2/cDhqqZwuaTGBY74GXzehcKQSVLeCaZuz0CH1aeWPgfpLyq?=
- =?us-ascii?Q?usPQa+kWq3nxwMct5er1QtXDRMDVfrRn8fu0rYNl1hQMrit+BaW4Fttrf7+w?=
- =?us-ascii?Q?ofq0vRVNssGFdgIdJs02yBV6JP1kz9vTYVc/QpQtN8SLnVdjEEU7jRIlFbvE?=
- =?us-ascii?Q?gF3S8AkGNG2v24RFg5T5fr+FjiRiWpMehZMYfYHPkIhH6BVQfwosxEVR2fEk?=
- =?us-ascii?Q?GZvq/i1nUxX1Ka8tDe+5fVre07rr1FBFJeFrrIeD1P174APnXEKXki8dyB+K?=
- =?us-ascii?Q?+eySykNCExggfGsKD26ObMjpIqXaAzQLnVpgGfKj/S05zjlixi3Mw1Q4SIrq?=
- =?us-ascii?Q?HthVLg3MjXihmZZ6+5LePlLhej7oikv1Y2ysIyJm3kwpZjDhAXTpnzM8hEr0?=
- =?us-ascii?Q?Uqtz93hvuFepca7WTNsOwYuf8tG3HE5kcv0/jHSQ3arr6jRPX3vjf/sOXnpQ?=
- =?us-ascii?Q?tv3fp7TuBXbp0GDWldjaBLSxntSUlGehEETDpNxxfUZKT/dwdinmYq4U+Knm?=
- =?us-ascii?Q?jEvcxSka32TydbFp0RPo+yIQgtBF/VLz4DaNlcbErdFMsT7D00CPy1E7+aSc?=
- =?us-ascii?Q?zE289ciIZzMwOcP98nPUJq5pL37SLEJ7AX4TBA4L6Op1VfAIAw8176TY28/h?=
- =?us-ascii?Q?IY40EI4NHM7h9uRPDjVnsPbFzOJ2uvE6eLEqkmUoHPGmCKXepsUnD7xQ4JTI?=
- =?us-ascii?Q?huFdvniJPTUUW7+v+8k3Bgl52EKMRYDLyGuAN9pFGBW+U6HIaUa6RtuQ4lXn?=
- =?us-ascii?Q?pT38F8Sibg06PeEm8s+l06U19zWbYc95cCwAt+x8fIz4KZ/dft02fEBIa1AM?=
- =?us-ascii?Q?y36cxntXQWaWQq61hye/r+yyIumLRt+f7s9jW6FXWQBufI9pCNsKwNFNVRCb?=
- =?us-ascii?Q?6w85eBsgYqeB1tyQpvw2b44NWnEq9i3OQKkAba9t5vCW/oURpKZJk04X0D+8?=
- =?us-ascii?Q?pQ1o1pJIJIwOdO/3nzxO7ByX8BMy0tyBRAG30ocVpStSy7DlMjDEkHdOU1oH?=
- =?us-ascii?Q?1Dmhn72YcrTRjF4gaC5UJ+XjO4LRKVEjmKRAZcn0sfewC6AwHu3eZfuiuf6p?=
- =?us-ascii?Q?nUdGDQbfJarZV07gMb4inAANNO3Ul65Bq6/Dx/noUqmHb65hkN8Y/Or64wbw?=
- =?us-ascii?Q?0JKFGs3WpQ=3D=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64d22997-d1eb-41cf-7b43-08dea139958f
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8459.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 13:09:43.1091
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rOWRM59NDEYLVJ2o5vVY/phiy6E8m7XcJqg1EvJxhrQYV1hK7PGONbZ0D7VyNxnhcOYTeStQ5Tau7H0KazFR4Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB9935
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/panel: simple: Add timings for Raspberry Pi 7"
+ panel
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260420-rpi-7inch-v1-0-e68d5c9c44bc@ideasonboard.com>
+ <20260420-rpi-7inch-v1-2-e68d5c9c44bc@ideasonboard.com>
+ <3z3u5mbngmbzsch3mzs3twlh3aec6r7jokstzv3ghxyusrzt6b@jqvdnuiapx6e>
+ <af71183d-70b8-4a41-8466-67123e7aab02@ideasonboard.com>
+ <20260423-kickass-fat-boa-209f68@houat>
+ <72c2cd94-0a8b-46c8-981b-4ad4a3222e59@ideasonboard.com>
+ <CAO9ioeVX6OChRTgUrUdgrPF+3s2_7vme7m0yb85pjYtH1MFskw@mail.gmail.com>
+Content-Language: en-US
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+In-Reply-To: <CAO9ioeVX6OChRTgUrUdgrPF+3s2_7vme7m0yb85pjYtH1MFskw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Apr 23, 2026 at 09:25:42AM +0100, Sudeep Holla wrote:
->On Thu, Apr 23, 2026 at 09:17:47AM +0800, Peng Fan wrote:
-[...]
->> 
->> My question is: if the firmware were to select divider 3 and produce
->> 96,333,333 Hz (only ~0.13% higher than the request), would that be
->> considered a violation of ROUND_DOWN semantics, or is ROUND_DOWN intended
->> to select the closest achievable output frequency rather than enforcing
->> a strict inequality against the requested rate?
->> 
->
->We can change the driver to default to ROUND_AUTO if that helps. I fully
->understand the default ROUND_DOWN is not good but if firmware can't handle
->your use case with ROUND_AUTO, it is firmware issue.
+Hi,
 
-Thanks for the suggestion.
+On 23/04/2026 15:33, Dmitry Baryshkov wrote:
+> On Thu, 23 Apr 2026 at 15:28, Tomi Valkeinen
+> <tomi.valkeinen@ideasonboard.com> wrote:
+>>
+>> Hi,
+>>
+>> On 23/04/2026 15:14, Maxime Ripard wrote:
+>>> Hi,
+>>>
+>>> On Thu, Apr 23, 2026 at 03:01:51PM +0300, Tomi Valkeinen wrote:
+>>>> On 22/04/2026 22:22, Dmitry Baryshkov wrote:
+>>>>> On Mon, Apr 20, 2026 at 04:13:36PM +0300, Tomi Valkeinen wrote:
+>>>>>> Add timings for the panel used in Raspberry Pi 7" DSI Display module:
+>>>>>> https://www.raspberrypi.com/products/raspberry-pi-touch-display/
+>>>>>>
+>>>>>> This has been tested with version v1.1 of the display module.
+>>>>>>
+>>>>>> The panel is very strict about the back-porch values, they must be
+>>>>>> exactly 46 for hbp and 23 for vbp. Other timings can be defined quite
+>>>>>> freely.
+>>>>>>
+>>>>>> The panel is exclusive to Raspberry Pi, and different versions of the
+>>>>>> display module can have panels from different vendors which are fully
+>>>>>> compatible. Also, as the panel vendors are not public, the compatible
+>>>>>> string used is "raspberrypi,7inch-dsi".
+>>>>>>
+>>>>>> Note that while the display module has a DSI connector, and the
+>>>>>> compatible has "dsi" in it, we use DRM_MODE_CONNECTOR_DPI as the panel
+>>>>>> itself is a parallel video panel. The display module (as of v1.1) uses
+>>>>>> TC358762 DSI-to-DPI bridge to do the conversion.
+>>>>>>
+>>>>>> We could use DRM_MODE_CONNECTOR_DSI here, which would have the benefit
+>>>>>> of showing a "DSI-1" connector to the userspace. However, the panel IS a
+>>>>>> DPI panel, and gets its input from a DSI-to-DPI bridge, and the
+>>>>>> panel-simple.c behaves differently depending on the connector type used,
+>>>>>> so, DRM_MODE_CONNECTOR_DPI it is.
+>>>>>>
+>>>>>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+>>>>>> ---
+>>>>>>     drivers/gpu/drm/panel/panel-simple.c | 32 ++++++++++++++++++++++++++++++++
+>>>>>>     1 file changed, 32 insertions(+)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+>>>>>> index 91ab280869ba..e75eb20301f2 100644
+>>>>>> --- a/drivers/gpu/drm/panel/panel-simple.c
+>>>>>> +++ b/drivers/gpu/drm/panel/panel-simple.c
+>>>>>> @@ -4208,6 +4208,35 @@ static const struct panel_desc rocktech_rk043fn48h = {
+>>>>>>             .connector_type = DRM_MODE_CONNECTOR_DPI,
+>>>>>>     };
+>>>>>> +static const struct display_timing raspberrypi_7inch_timing = {
+>>>>>> +  .pixelclock = { 10000000, 30000000, 50000000 },
+>>>>>> +  .hactive = { 800, 800, 800 },
+>>>>>> +  .hfront_porch = { 16, 72, 354 },
+>>>>>> +  .hsync_len = { 1, 32, 40 },
+>>>>>> +  .hback_porch = { 46, 46, 46 },
+>>>>>> +  .vactive = { 480, 480, 480 },
+>>>>>> +  .vfront_porch = { 7, 21, 147 },
+>>>>>> +  .vsync_len = { 1, 2, 20 },
+>>>>>> +  .vback_porch = { 23, 23, 23 },
+>>>>>> +  .flags = DISPLAY_FLAGS_VSYNC_HIGH | DISPLAY_FLAGS_HSYNC_HIGH,
+>>>>>> +  /* Note: the rest of the flags are defined below in bus_flags */
+>>>>>> +};
+>>>>>
+>>>>> This looks pretty close to powertip panels that have been used before
+>>>>> hand in those modules. Are you sure that powertip,ph800480t013-idf02
+>>>>> or powertip,ph800480t032-zhc19 don't work for you?
+>>>>
+>>>> I haven't tested those, but the hbp and vbp do not seem to be the same. For
+>>>> me, they had to be exactly as they are here. This was also confirmed from
+>>>> Raspberry Pi, the panel datasheet had min/typ/max values (i.e. not ranges)
+>>>> of 46 and 23 for back porches.
+>>>>
+>>>> Where did the information come from that powertip,ph800480t013-idf02 or
+>>>> powertip,ph800480t032-zhc19 are used in the display modules? Or did you mean
+>>>> that while those models are not used in the Raspberry display module, people
+>>>> have used them successfully?
+> 
+> For the zhc19 it's a wild guess, but for the idf02 it more of a certainity:
+> 
+> commit d69de69f2be105b2474c05a5ca4827aac3e80ad3
+> Author: Marek Vasut <marex@denx.de>
+> Date:   Tue Jul 28 14:12:46 2020 +0200
+> 
+>      drm/panel: simple: Add Powertip PH800480T013 panel
+> 
+>      Add support for Powertip PH800480T013 800x480 parallel LCD, this
+>      one is used in the Raspberry Pi 7" touchscreen display unit.
+> 
+> In the past I used this panel compat instead of the
+> panel-raspberrypi-touchscreen.c and it worked.
+> IIRC Marek splitted the multi-function module into a regulator and the
+> panel description.
+Ok... Indeed https://pip.raspberrypi.com/categories/651-pcn lists 
+PH800480T013 as one of the panels used. Although two variants are 
+listed, and also a third panel model, possibly from another vendor.
 
-Switching the default to ROUND_AUTO could indeed resolve the video clock
-configuration issue we are seeing.
+My module is v1.1, and I think it has the PH800480T013-IAC21 
+D/5624/KIT-LC variant.
 
-I understand the concern that if firmware cannot handle a given use-case
-correctly with ROUND_AUTO, then it is fundamentally a firmware issue rather
-than something to be worked around in the OS.
+  Tomi
 
-I will check internally with our firmware team to confirm whether using
-ROUND_AUTO as the default is safe and applicable for all clocks supported
-on our platforms.
-
-Thanks,
-Peng
-
->
->-- 
->Regards,
->Sudeep
