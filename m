@@ -1,194 +1,162 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013000.outbound.protection.outlook.com [40.107.162.0])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06CBB3EFD2C;
-	Thu, 23 Apr 2026 13:16:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776950204; cv=none; b=swZCJ77RWyUvlt7fUVNWxgCGuYODnD+PQ3R9cVQv6vEA5P94oQGxz9Z5UCnRJs1yV7u7Y3x6tywXxPjUa8qWVt7kk7BEUr/BixAwRCqCs5p3V7oeQoDSyXVYCiZuCByzjV9y6br69YjGjgMoiEpKBvfoKthntaNAJTfMbMUNULo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776950204; c=relaxed/simple;
-	bh=g0tfRCWfNS80U1BG80fTONyoMqk2OH2q2gq5EU3XOxE=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=iEJDOQFwwSEq3I+YkWwoUhF4Q0VF2g6Y4M/Z2KjHETiqbp7AMgr/vKUN4XgGiOSMuoxKN9U8bJXMLaho13HQELW/cM3p1CDf5YnZm9KgFNp7uBpkQQjww1tZp36eYCniqaSHZm1aM6HPRxy9oJIBthlsCC9xplGG5AMtt6HJmdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=jRt2M6R7; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD83E3EFD13;
+	Thu, 23 Apr 2026 13:18:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.0
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776950284; cv=fail; b=YMGTGFplP//Bjd3k5+W+voDZMrFkYfETfT70fPlpcIzORptqDNWpl1caRi0A4X0YxgzLEGBncmAh1qEpWX2thdfYRtpEycF5wKt6li64PJcRiRmabZU1SVYjodkI7qBrClY+G1C/zBTBywnH8KTFKZUYgKXOiAXW2aaawLVjZsk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776950284; c=relaxed/simple;
+	bh=HHOQ4I+Tr6PRmdkPRAlFArKZjJUQkkhnGpRtICvEWno=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=LgoUMWvrs43/BkEsm+1OWQYywv279NWogn7UACqnzbdGNHrslAbhpXC6w1yPJZ3j9WMdwBL6x+TjqmQDawVaGwDlSKLDzpQt0+fDpRZ5jBtN02yEhURkzSdCCIYV6poAXGv5cuD/nD77B1ZYWueyTIBPHzx87HshuE/ROhOqvTs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=YoiXQSLB; arc=fail smtp.client-ip=40.107.162.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="jRt2M6R7"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1D2BD9A4;
-	Thu, 23 Apr 2026 15:14:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1776950099;
-	bh=g0tfRCWfNS80U1BG80fTONyoMqk2OH2q2gq5EU3XOxE=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=jRt2M6R7ch4AN89uPIbi678C1fbUwm1eWdNNWNj5xcIwsqYjIm9wf3NuYmng7EYTN
-	 7wO+h4ZMYV9fgYF8hknnBrkEq7JfxQJZTAVhOkQqwR4Ba4A1xvDsJgM9ajCNWYLzVH
-	 yn69OFGEjWxOE/1rqCwz0KHcpF7SowBiVBJUPSWQ=
-Message-ID: <b24c428f-5752-4544-a8b4-77e91d7bc158@ideasonboard.com>
-Date: Thu, 23 Apr 2026 16:16:34 +0300
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="YoiXQSLB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XzUdemp/boLaPAc6vyYY0Y6eY6d+L1O9/93K355Gw5AURtoQenwPoMEQsKEqEMXDVUIs4OtorEVgxgyitihjy+Ac6+7JTE+IgVwZA4C0T0/xHHxQbbz5nBqtw5IiPnxG66kH6r8FHM2tyU+cl2mdcxdK0tIP1i7Ko496HvHdtie8ySt7bD0HrIVqnYp0tmULCuBH9XI7dR9ZQp0qP6+aiiqoVkmVvYP/VlDW0bdcvSLU+z01zE48HfgCUVu/aJ2BUm/scGbMQ3TlgdkUnu0MuAWNffzD7M9x1yevYkwmqrKk1/AE0C3wlgh8soOyzeegiH4vjb6dHXnCN4EnR4Yccw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8VyXU45pOzjUcHAaO1D/2fWjQFVnlofQkdJKmS+AU8U=;
+ b=Pl7KJ1x12gSPSx4duDwstUJMPadzYCIvQKED9JX0afSCqHPhjb2hiYLRie9wJN7Oboqa5gwslHWSGuKA29phYoRepLJgD637pjJ76rh1YsUo4OmX6qiCzdLRKFxcp7/i6LbilaUke3asC6sjNHYEY2henrg/bAnRKOC6zTmtG5/tFWC5eMdhxi1QSk4H9lbw/gm0Jcm7zlVDQon4/YgjE8InC0EnrWagBsATAsxQw8xowiFrkj5Qxtvh0SBFF/VrHskhmuITCFkEMMVm8mgrpYkRryvxnc2RWZA+gci1QfZ+J8OQTnfR/j3Zaw10AGzBFmZ/mHL8IiO2FlkfyLvvUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8VyXU45pOzjUcHAaO1D/2fWjQFVnlofQkdJKmS+AU8U=;
+ b=YoiXQSLBCvRQweJw8pPwqLRMd10X4EuDr2A2Eyz8bPm1swEESw+hLLhTHpxGrz4bugTDXxf0GC6oMhGcL1P/vImBe6EvVoDFbLIngj7cHa9gJbKcshXP0YFMxA2jW2Ys9iILBKfNdd1OIUXkQPyLWBf/bOtjCw/vOmseTZa5H7qkzJvFUvDu8EIHNeBbHsnEvZmOv8QmcOzcWwRADK/6m04q1U168+1ZSQtQGBM6g0PbqZ0rfzt7J3ZBTG7vqbMa9qMqNW7CEngaQHIJi+ZP+DKgpQd8b+R8di4TNsmOJ9QwNKPrOYRfS25lfLur3HWsIfZho3BOQyljwiBre9WBAg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from DU2PR04MB8822.eurprd04.prod.outlook.com (2603:10a6:10:2e1::11)
+ by GVXPR04MB11586.eurprd04.prod.outlook.com (2603:10a6:150:2c2::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.21; Thu, 23 Apr
+ 2026 13:17:57 +0000
+Received: from DU2PR04MB8822.eurprd04.prod.outlook.com
+ ([fe80::c67b:71cd:6338:9dce]) by DU2PR04MB8822.eurprd04.prod.outlook.com
+ ([fe80::c67b:71cd:6338:9dce%5]) with mapi id 15.20.9846.021; Thu, 23 Apr 2026
+ 13:17:57 +0000
+Date: Thu, 23 Apr 2026 21:17:12 +0800
+From: Xu Yang <xu.yang_2@nxp.com>
+To: Peng Fan <peng.fan@nxp.com>
+Cc: Frank Li <frank.li@nxp.com>, "robh@kernel.org" <robh@kernel.org>, 
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
+	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, "kernel@pengutronix.de" <kernel@pengutronix.de>, 
+	"festevam@gmail.com" <festevam@gmail.com>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"imx@lists.linux.dev" <imx@lists.linux.dev>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	Jun Li <jun.li@nxp.com>
+Subject: Re: [PATCH 2/4] arm64: dts: imx95: switch usb3 controller to
+ flattened model
+Message-ID: <xw4shqsgxjns527ya7diagwlhohnan3wbfxauyxzxqjavdca4o@y62gcvxkwj6w>
+References: <20260421105503.1416566-1-xu.yang_2@nxp.com>
+ <20260421105503.1416566-2-xu.yang_2@nxp.com>
+ <aehGKE8qLXiBKvvB@lizhi-Precision-Tower-5810>
+ <cfyvip6atz6hh57iga5gvkzrdxeorv4tuxontvzixflqn36h7h@2awtzkxkn45c>
+ <PAXPR04MB845957613BCD5E86D96FA4E3882A2@PAXPR04MB8459.eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <PAXPR04MB845957613BCD5E86D96FA4E3882A2@PAXPR04MB8459.eurprd04.prod.outlook.com>
+X-ClientProxiedBy: FR4P281CA0293.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e7::6) To DU2PR04MB8822.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::11)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/panel: simple: Add timings for Raspberry Pi 7"
- panel
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Marek Vasut <marex@denx.de>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260420-rpi-7inch-v1-0-e68d5c9c44bc@ideasonboard.com>
- <20260420-rpi-7inch-v1-2-e68d5c9c44bc@ideasonboard.com>
- <3z3u5mbngmbzsch3mzs3twlh3aec6r7jokstzv3ghxyusrzt6b@jqvdnuiapx6e>
- <af71183d-70b8-4a41-8466-67123e7aab02@ideasonboard.com>
- <20260423-kickass-fat-boa-209f68@houat>
- <72c2cd94-0a8b-46c8-981b-4ad4a3222e59@ideasonboard.com>
- <CAO9ioeVX6OChRTgUrUdgrPF+3s2_7vme7m0yb85pjYtH1MFskw@mail.gmail.com>
- <ced05a92-06b4-4f6f-95b6-c3dc104c35f3@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <ced05a92-06b4-4f6f-95b6-c3dc104c35f3@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8822:EE_|GVXPR04MB11586:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49eb53a2-cb5c-48af-4879-08dea13abc8a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|52116014|7416014|19092799006|56012099003|18002099003|22082099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	tb/THEGLfxF+FeSCUsNuM+LQT8S+sEODnLSySQRu1BtIKO6GbnEdzcOwYwjanqe+GZFbcVRqFZBzpo7Vc5MioFAQowvE8Vsko/bLor+6fle4vI5hCTCQbo3egbm38hNGudJV3MCHrgn9Qh31LaRTwAsPkEZ0tvIzjsZk/T1nfmI1T7Od7PaEhAEDuiHIZRZ+7/WU48clUt2Bg4McFHytDCof0od8kn0Pgt/Kx/HpK4Y/C2n4pyRDiow0VJbcu6RvDP5Df5Qm9TWCphNNjMoDLVAtRbG+UKrJEteusBqnpeFxT5umKWcJeLVc1ohcmp1qGzYjX4iP/wfBcA49HVJTcZdujFvW3U93BMJXDfxFw5paisBJpxxqZmBeWP0QsdaTL1Ajw+prGuSb8MDy6UNXCzWjbEdQBzmIYjKzsHNfMT8lZ+SSAzLs4fo6Opy6MBILAgvbESLQY4S+pl5lucBfl69XZiVcjTChX+LsZYy4jqO32XDJoWHWdWILOf07lG8pKn4hdpeQQwkOEznrx6VFYoYEJqvzqghEoZswck4xDqtuFAIbOzzTjdMS8FtYNSOlqffJdoR3xudF869RHLQTlW7mF0+z9r/FcwkaSczraybEy/KLsSr0pPBz/eF5e70H8jG5KKvMErIyMfEGvmjl8JC15bpFFLl9aLLixtwq1QeCHTNWW3hvamk7vnemPN1H0hDwMzjwMEoy73hxUvwFJ/+XB+Iu2rVxKDQUIKHPkuMVHG4QxKAm2RfdPD418rBgyW62z71AQRhUjsCAJfMHSMVFCP7/IggxawgZHkVg90k=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8822.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(52116014)(7416014)(19092799006)(56012099003)(18002099003)(22082099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?G2eMDB4WlTxf5pBOe5Gi6FqU19B/bVN81c/uNzYVBShXnKBvE3t8Hr5Q/L/K?=
+ =?us-ascii?Q?kO68ge7dwxdInj1BzTKY7/S4SKYptNpCHEL/vn+iNkpRFeKn20z3Z8t9SWg2?=
+ =?us-ascii?Q?BOeEYeGHOq3jGmrsMMPLZ5g5cSoHtKvsAbtSq5WAM2+RqCEGQmkNltxlb072?=
+ =?us-ascii?Q?+3KcqHlYr93Jt/m0ioE76Hk/wjI1nBgfsFTLo9TsFEo3/K6Xqv9ie40qhZia?=
+ =?us-ascii?Q?Z3Sq3ZsS2GsGBdv2/PN8RxLKPw/I1H9Sp9SxBcq8/SkQwY/IEUvPphY8tDJ+?=
+ =?us-ascii?Q?zIAWPANQ+V5drTjI19Uj4OTLoZz6OyaDUV7FQDSQ2fNKbK0KX8BobXriJ3ym?=
+ =?us-ascii?Q?O6boydnm8OroR0/m9JIFcZtSWebr6v2Udsu7DEumjS88K2UG0BDWZkth9ZHI?=
+ =?us-ascii?Q?337kltUkrPoJu876/af1RJ2rSYdhY343gSUa/yC84LuwoW1Dv5gJfcZw7jgN?=
+ =?us-ascii?Q?AT1z3TsuLsSFGdZh9kv955aVRMLPKMlfKPXWgdyFg83jtO4XlBRqFKSMJDvL?=
+ =?us-ascii?Q?Ri7VviPs83EaseTsmi3bvqS8Qi3d+BzReZojswQxE6QP7fJC+tvnfDxf2Gb5?=
+ =?us-ascii?Q?WktoYQJGPGy8Of+yJQUA9eH+eJG8K2xZvwdbWvp98aLdV0E8kMR5Qr1epoRz?=
+ =?us-ascii?Q?1dPSfBr3KafAPQ7PmqPleWeFBWUk3ZIlBXTJIHJXIUvsg2nef+GWweGF1xne?=
+ =?us-ascii?Q?tVLUmJtIfGP3qBaKt3yNroDKGCIUXCrDxS/MxOBpXfshGvFBer1j7IZ8BBcs?=
+ =?us-ascii?Q?qKEpfbAIHtW1SjRnpu857Ug8c6NWBl0buBVU2c+xe8JySzGSjiP1YSG7dGag?=
+ =?us-ascii?Q?8uau7BeXcgdQ9jC/DU5lU79v+0X3C00CnX0JpK7zVD83n69w9Hliw08Q6kxK?=
+ =?us-ascii?Q?LuDDiCHy2ewY/w9hy6uEyw3fvShlYZBgwnvLL0/a7YtcRWajGx/ewBo6OxXb?=
+ =?us-ascii?Q?Ae9HhupM9a/WqoUZGn2r6K6swGMtcxlYpYhzs5fTOf7bfq5QX3ovnjQd/GYZ?=
+ =?us-ascii?Q?WMjKXwz/zZiQa8pWLgYqa3+uA0GtmpYRKWS5miToXX0geiXBFguGUPO/uOAh?=
+ =?us-ascii?Q?37HcN/VxvTO11ljYUoM1xmwB6kLyq8kU5oGcOllItYvi4FRsQzBE1+Is39H6?=
+ =?us-ascii?Q?zCKcYMlgFjHO2ROTbOtqxud2qgirPnhYakcT9PL9lpQGCwTxh+vLXltagzyW?=
+ =?us-ascii?Q?xC3pAJpERdiIg7S2Gs+BUVWDcC7mAAtmFy+//qUXbDIbjWyYRJxz415EJ8HF?=
+ =?us-ascii?Q?pGZVFq0sU03XvIIGt6lJLcXVq3w3jOfdwGEo6cgi+A9G4janelMna1AEQJz8?=
+ =?us-ascii?Q?Ke4WOJkttnwJyZu9Gqx7sgZZIuNYzaHKCKINT+u680S5nB/8PxLl+HAPpKU0?=
+ =?us-ascii?Q?45+pthgKZNzfCWW+5gGHhkI19Y5S5qyB3F6VjCmc5dSoIIwl4EvaM4vS99kC?=
+ =?us-ascii?Q?SL7dT/+oT2DsuhCA6MU9dFECW0vMSDJZXYBfWo0bU8ASFzxs7mvLy/UXSgpZ?=
+ =?us-ascii?Q?l8+boKXBxcmHHu/EZ7kweZznpqTKudARfQpxCh2U60RbeXcxomyOIeT8My5i?=
+ =?us-ascii?Q?y4El5yjWsmLSfwAN+0adoB4XZahxFndrI68/lQbEF+2MeVGamKxjw8gG7O4o?=
+ =?us-ascii?Q?2HkHxknV7gESWkD0xnI5g4IYUoXnMYXD0jMA0BFXQepEjdmkuwyi8y70HoA1?=
+ =?us-ascii?Q?1XKBWJ7O6/iCEqV6iZ1qi/aL6IeViofaz4ZW7GJ+TeD4whw0IkgFxIKXoZja?=
+ =?us-ascii?Q?CQYD+2yZNg=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49eb53a2-cb5c-48af-4879-08dea13abc8a
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8822.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 13:17:57.7982
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lSj3hPrD02rWw2aykG1G8Snl4NNJEqtGIHqEjMCLerbza1cMxJMwOGKGPzGX4ZOh9PTzoffhyJpS1X3JXZm7kw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB11586
 
-Hi Marek,
-
-On 23/04/2026 16:13, Tomi Valkeinen wrote:
-> Hi,
+On Thu, Apr 23, 2026 at 12:07:42PM +0000, Peng Fan wrote:
+> > Subject: Re: [PATCH 2/4] arm64: dts: imx95: switch usb3 controller to
+> > flattened model
+> > 
+> > On Tue, Apr 21, 2026 at 11:53:12PM -0400, Frank Li wrote:
+> > > On Tue, Apr 21, 2026 at 06:55:01PM +0800, Xu Yang wrote:
+> > > > Switch to use flattened model for USB3 controller. To enable USB
+> > > > controller with restricted DMA access range to work correctly, add
+> > a
+> > > > pseudo simple-bus to constrain the dma address.
+> > >
+> > > i.mx95 should fix >4G dma space's problem. Does it impact other no-
+> > nxp
+> > > boards?
+> > 
+> > Yes, i.MX95 has fixed >3G address DMA access problem.
+> > 
+> > It's another issue. HSIO domain only support 36 bit bus access. If not
+> > use smmu, no any issue. If use smmu, it will allocate memory space of
+> > 36 bit < iova < 48bit.
+> > HSIO can't handle this case.
 > 
-> On 23/04/2026 15:33, Dmitry Baryshkov wrote:
->> On Thu, 23 Apr 2026 at 15:28, Tomi Valkeinen
->> <tomi.valkeinen@ideasonboard.com> wrote:
->>>
->>> Hi,
->>>
->>> On 23/04/2026 15:14, Maxime Ripard wrote:
->>>> Hi,
->>>>
->>>> On Thu, Apr 23, 2026 at 03:01:51PM +0300, Tomi Valkeinen wrote:
->>>>> On 22/04/2026 22:22, Dmitry Baryshkov wrote:
->>>>>> On Mon, Apr 20, 2026 at 04:13:36PM +0300, Tomi Valkeinen wrote:
->>>>>>> Add timings for the panel used in Raspberry Pi 7" DSI Display 
->>>>>>> module:
->>>>>>> https://www.raspberrypi.com/products/raspberry-pi-touch-display/
->>>>>>>
->>>>>>> This has been tested with version v1.1 of the display module.
->>>>>>>
->>>>>>> The panel is very strict about the back-porch values, they must be
->>>>>>> exactly 46 for hbp and 23 for vbp. Other timings can be defined 
->>>>>>> quite
->>>>>>> freely.
->>>>>>>
->>>>>>> The panel is exclusive to Raspberry Pi, and different versions of 
->>>>>>> the
->>>>>>> display module can have panels from different vendors which are 
->>>>>>> fully
->>>>>>> compatible. Also, as the panel vendors are not public, the 
->>>>>>> compatible
->>>>>>> string used is "raspberrypi,7inch-dsi".
->>>>>>>
->>>>>>> Note that while the display module has a DSI connector, and the
->>>>>>> compatible has "dsi" in it, we use DRM_MODE_CONNECTOR_DPI as the 
->>>>>>> panel
->>>>>>> itself is a parallel video panel. The display module (as of v1.1) 
->>>>>>> uses
->>>>>>> TC358762 DSI-to-DPI bridge to do the conversion.
->>>>>>>
->>>>>>> We could use DRM_MODE_CONNECTOR_DSI here, which would have the 
->>>>>>> benefit
->>>>>>> of showing a "DSI-1" connector to the userspace. However, the 
->>>>>>> panel IS a
->>>>>>> DPI panel, and gets its input from a DSI-to-DPI bridge, and the
->>>>>>> panel-simple.c behaves differently depending on the connector 
->>>>>>> type used,
->>>>>>> so, DRM_MODE_CONNECTOR_DPI it is.
->>>>>>>
->>>>>>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
->>>>>>> ---
->>>>>>>     drivers/gpu/drm/panel/panel-simple.c | 32 +++++++++++++++++++ 
->>>>>>> +++++++++++++
->>>>>>>     1 file changed, 32 insertions(+)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/ 
->>>>>>> drm/panel/panel-simple.c
->>>>>>> index 91ab280869ba..e75eb20301f2 100644
->>>>>>> --- a/drivers/gpu/drm/panel/panel-simple.c
->>>>>>> +++ b/drivers/gpu/drm/panel/panel-simple.c
->>>>>>> @@ -4208,6 +4208,35 @@ static const struct panel_desc 
->>>>>>> rocktech_rk043fn48h = {
->>>>>>>             .connector_type = DRM_MODE_CONNECTOR_DPI,
->>>>>>>     };
->>>>>>> +static const struct display_timing raspberrypi_7inch_timing = {
->>>>>>> +  .pixelclock = { 10000000, 30000000, 50000000 },
->>>>>>> +  .hactive = { 800, 800, 800 },
->>>>>>> +  .hfront_porch = { 16, 72, 354 },
->>>>>>> +  .hsync_len = { 1, 32, 40 },
->>>>>>> +  .hback_porch = { 46, 46, 46 },
->>>>>>> +  .vactive = { 480, 480, 480 },
->>>>>>> +  .vfront_porch = { 7, 21, 147 },
->>>>>>> +  .vsync_len = { 1, 2, 20 },
->>>>>>> +  .vback_porch = { 23, 23, 23 },
->>>>>>> +  .flags = DISPLAY_FLAGS_VSYNC_HIGH | DISPLAY_FLAGS_HSYNC_HIGH,
->>>>>>> +  /* Note: the rest of the flags are defined below in bus_flags */
->>>>>>> +};
->>>>>>
->>>>>> This looks pretty close to powertip panels that have been used before
->>>>>> hand in those modules. Are you sure that powertip,ph800480t013-idf02
->>>>>> or powertip,ph800480t032-zhc19 don't work for you?
->>>>>
->>>>> I haven't tested those, but the hbp and vbp do not seem to be the 
->>>>> same. For
->>>>> me, they had to be exactly as they are here. This was also 
->>>>> confirmed from
->>>>> Raspberry Pi, the panel datasheet had min/typ/max values (i.e. not 
->>>>> ranges)
->>>>> of 46 and 23 for back porches.
->>>>>
->>>>> Where did the information come from that powertip,ph800480t013- 
->>>>> idf02 or
->>>>> powertip,ph800480t032-zhc19 are used in the display modules? Or did 
->>>>> you mean
->>>>> that while those models are not used in the Raspberry display 
->>>>> module, people
->>>>> have used them successfully?
->>
->> For the zhc19 it's a wild guess, but for the idf02 it more of a 
->> certainity:
->>
->> commit d69de69f2be105b2474c05a5ca4827aac3e80ad3
->> Author: Marek Vasut <marex@denx.de>
->> Date:   Tue Jul 28 14:12:46 2020 +0200
->>
->>      drm/panel: simple: Add Powertip PH800480T013 panel
->>
->>      Add support for Powertip PH800480T013 800x480 parallel LCD, this
->>      one is used in the Raspberry Pi 7" touchscreen display unit.
->>
->> In the past I used this panel compat instead of the
->> panel-raspberrypi-touchscreen.c and it worked.
->> IIRC Marek splitted the multi-function module into a regulator and the
->> panel description.
-> Ok... Indeed https://pip.raspberrypi.com/categories/651-pcn lists 
-> PH800480T013 as one of the panels used. Although two variants are 
-> listed, and also a third panel model, possibly from another vendor.
-> 
-> My module is v1.1, and I think it has the PH800480T013-IAC21 D/5624/KIT- 
-> LC variant.
-A question to Marek: Where did you get the timings for PH800480T013? Did 
-you find a datasheet?
+> If using smmu, iova will be in range {36bit, 48bit}? How?
 
-  Tomi
+Yes, if use smmu and not set dma-range:
 
+[    3.139529] dwc3 4c100000.usb: dwc3_alloc_one_event_buffer evt->dma:0x0000fffffffff000 len:4096
+
+if use smmu and set dma-range:
+
+[    3.136849] dwc3 4c100000.usb: dwc3_alloc_one_event_buffer evt->dma:0x0000000ffffff000 len:4096
+
+Thanks,
+Xu Yang
