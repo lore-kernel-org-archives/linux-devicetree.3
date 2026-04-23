@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FED13E51E9;
-	Thu, 23 Apr 2026 09:38:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C25138490;
+	Thu, 23 Apr 2026 09:42:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776937126; cv=none; b=hg/4URxfF/OKrPf/XTJQ8xg29UOvWi6i8wc3+irQnKiGZxwZ8m/ioYgDcDnzLehnh06PIwpYw3Y8MvNrHDBhxfpIlK3hOgRuR7RYd689t0u8yp7d31DqJ5mncVpky4rz3IAyktIf7tHqBDQKlXfIdDtEOPfyDQ4HmdEiMXF1pZM=
+	t=1776937373; cv=none; b=QOs4y/wsitz8JB7gAPXT0QCN3dSyFjoNUCfEGGf1BxWue89S5KAJFVqrYK840qTyhaCH2PIDuIEvY36QE+Kba9cqzWL0vn1ZLpH3MZxFnxTqbpa1L28Y6+2KIQPU0M0hYUcU3bG1PbmT58oLFVT14lBM/auIvt5MB2O76G8rJTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776937126; c=relaxed/simple;
-	bh=pR3C1D+6wR2WoE/inF7jted1Bt91lKJKOYNIUAkUitM=;
+	s=arc-20240116; t=1776937373; c=relaxed/simple;
+	bh=EvxtMElyT2G2TE1i6FcyvgyTwgSXyzeHW5Zbuvp0AGw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aLW21EGmwPX/mEhFEx0/AxiqPuqrozAtofNcMdNVZJlpZDa9uPWDppM5hv1qlj/UVwFTN5Hi2NqbB2udlsk1x+uOutj+1vESYDfxL2Dp1RASv9rlKmvWO0scnhbKSjjH46phCtRs5e20rlKhnNXH8CJYP6NBQZzfXRJy8GaS1D8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vLTxPh64; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=vEPkxJyPOzuNtlqOvxZhNx7qGAuzHmTA1SQ35K8pnVr499AFENQBeSbsA9L5vhpP+S62n0EEuPjNC3EKpLAyMFaLFy7Hc8LuYJvmylbWq/Rc8kyMRG8fa0RrjLSii+2sk1Ju5VgxcN/LO2N92tkXQ6o9jZPuuCR50TU1GxOhz2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E2bs8TrC; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vLTxPh64"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F7A8C2BCAF;
-	Thu, 23 Apr 2026 09:38:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E2bs8TrC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18BB8C2BCAF;
+	Thu, 23 Apr 2026 09:42:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776937124;
-	bh=pR3C1D+6wR2WoE/inF7jted1Bt91lKJKOYNIUAkUitM=;
+	s=k20201202; t=1776937373;
+	bh=EvxtMElyT2G2TE1i6FcyvgyTwgSXyzeHW5Zbuvp0AGw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=vLTxPh64NrRNvXik3wdYgr+rgZYWizNAEqeZ0QJ6VGt87Dg97ioCSHdpR22y4K43J
-	 ToA7p/wDg1ER1zEaU1WNwBlx0LcMhWc2xAy2KM+AslSGhFen3M4ur8gZzKm9aMNZjF
-	 15Q+be7EUPGbdUJQbHSt6hfAOfwcPoXD6fWvl54rhXu7dLJzJTKBdmS+7f2bS5Tlp7
-	 /SHXLCbqGAxCvewtrbGyr5e2BOKTsOjmSNNASfUJrAy6gg8MEWCn8C5YERbQa9RAGd
-	 O+EoSD6g0T7GrmRZ8UmcGhvt8pPbA8aSQcly4ftnjP4IGnoJxYTFwuMNJm2/SXbsnn
-	 7LN0ke32qjXmw==
-Message-ID: <0e7020cd-361e-4f9c-a120-ee093beea10f@kernel.org>
-Date: Thu, 23 Apr 2026 11:38:37 +0200
+	b=E2bs8TrCJK4acmmu8lFIn/uH6qOFCjPEh9G4i3SFuhcI6BhoRV8ZilIzoR2+ioZMw
+	 vMkjRgUge5XWq5jIxi4ULPhtWPxu0uclW4+jkmqNZTCyhXe5WPsmUqtYO80KTM7Irw
+	 HI8dDosKFu81jETnP5HSM1GLlCUXG1Pf5pkzfuZAhMiJ/xaWIQXFKJR7WemXOWlwGl
+	 sXxxbkhs8ZlKUorBoUWktzIm85e/LGZbbfpiFd/eOH707XETERB+V2cW8zBto8YE1Y
+	 9/X0K5GnhM13DLmn4AE8W8iugAA/CgokDgTzo28H2blhyS8b+GFHXDYPb90OSgjqCe
+	 Df2A0Lp6hq48Q==
+Message-ID: <dd570628-f93d-42c1-b240-391ae31a300a@kernel.org>
+Date: Thu, 23 Apr 2026 11:42:49 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,29 +35,18 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: embedded-controller: Add synology
- microp devices
-To: Markus Probst <markus.probst@posteo.de>
-Cc: Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Lee Jones <lee@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: eliza: Add IMEM node
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Alexander Koskovich <akoskovich@pm.me>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org
-References: <20260420-synology_microp_initial-v8-0-7946a9124491@posteo.de>
- <20260420-synology_microp_initial-v8-1-7946a9124491@posteo.de>
- <20260421-just-benevolent-dormouse-2c35ed@quoll>
- <26b074972581ff398b5af964ba092c8117855062.camel@posteo.de>
- <c214f270-571c-4440-919e-99fce5ac1b08@kernel.org>
- <33e04947d6d55035fe310935281a4f0b9e87ae08.camel@posteo.de>
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20260416-eliza-imem-v2-0-fb7a71123451@pm.me>
+ <20260416-eliza-imem-v2-3-fb7a71123451@pm.me>
+ <9592f205-7467-462b-874e-7fc599e5277a@kernel.org>
+ <098ad1e8-1ad3-458e-93dd-859457cc58c9@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -103,169 +92,31 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <33e04947d6d55035fe310935281a4f0b9e87ae08.camel@posteo.de>
+In-Reply-To: <098ad1e8-1ad3-458e-93dd-859457cc58c9@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21/04/2026 18:25, Markus Probst wrote:
+On 16/04/2026 12:19, Konrad Dybcio wrote:
+>>> +			#address-cells = <1>;
+>>> +			#size-cells = <1>;
+>>> +
+>>> +			pilreloc-sram@94c {
+>>> +				compatible = "qcom,pil-reloc-info";
+>>> +				reg = <0x94c 0xc8>;
+>>> +			};
+>>> +
+>>> +			ipa_modem_tables: modem-tables-sram@3000 {
+>>> +				reg = <0x3000 0x2000>;
 >>
->> Not true. You have enum and min/maxItems. There is no such syntax for
->> compatibles. I repeat.
->>
->> Instead of just blindly disagreeing and saying "I did that", point me to
->> example-schema having compatibles with min/maxItems.
-> It is supposed to minimize the schema, otherwise
+>> I don't think these two should be in the main SoC DTSI. The non-modem
+>> version obviously does not have modem-tables.
 > 
-> - minItems: 3
->   maxItems: 3
->   items:
->     enum:
->     - synology,ds223j-microp
->     - synology,ds124-microp
->     - synology,ds118-microp
+> That's not quite right, IMEM is partitioned to have it either way, even
+> if it stays unused. You'll notice this slice is there even on platforms
+> that were designed with no modem in any SKU
 > 
-> would have been
-> 
-> - items:
->     - const: synology,ds223j-microp
->     - const: synology,ds124-microp
->     - const: synology,ds118-microp
-> 
-> - items:
->     - const: synology,ds124-microp
->     - const: synology,ds223j-microp
->     - const: synology,ds118-microp
-> 
-> - items:
->     - const: synology,ds118-microp
->     - const: synology,ds223j-microp
->     - const: synology,ds124-microp
 
-Only one device is the fallback for given groyp, not each of them.
-
-There is no such syntax in the kernel, nowhere. Please do not invent own
-stuff.
-
-> .
-> 
-> In the case of dts validation, this is the same, with the exception of
-> allowing any order. See below why the order does not matter.
-> 
-> And yes, the example schema didn't use min/maxItems.
-
-Yep. It is also explained why in writing-bindings - list is STRICTLY
-ordered. Not flexible. And example reflects that. BTW, other bindings as
-well, so recent EC patches is good way to learn:
-(although I understand that in-tree patches do not cover your case)
-
-https://lore.kernel.org/all/20260327-add-driver-for-ec-v7-1-7684c915e42c@oss.qualcomm.com/
-
-from:
-https://lore.kernel.org/all/?q=dfn%3Abindings%2Fembedded-controller%2F
-
-
->>
->>
->>
->>>
->>>
->>> Other sources suggest, I should add fallbacks that are less specific
->>
->> That's not really discussed here. It all looks like some random schema
->> and considering amount of LLM flying on the lists I have now doubts.
-> I am not using an LLM for coding. But it is the first device tree
-> schema I try to write.
->>
->> You need specific compatibles.
->> ...
->>
->>>
->>> If thisisn't fine either, replying to my previous message would
->>> probably the most efficient way to move forward [1].
->>
->>
->>>
->>>>
->>>>> +        items:
->>>>> +          enum:
->>>>
->>>> No, why the list is randomly ordered.
->>
->> Look here
-> Was answered below. They have the exactly same known feature set, thus
-> the order does not matter. i. e. there is no known difference.
-> 
->>
->>>>
->>>>> +            - synology,ds923p-microp
->>>>> +            - synology,ds1522p-microp
->>>>
->>>> And fallback, whichever is that, is not documented alone.
->>>>
->>>>> +      - minItems: 4
->>>>> +        maxItems: 4
->>>
->>> Those are devices with the exactly same known feature set.
->>> i. e. ds1522p can act as a fallback for ds923p, and ds923p could act as
->>> a fallback for ds1522p.
->>
->> You are not responding to actual comments. Lets focus ONLY on above
->> list. ONLY. Point me, where did you document the fallback to be used
->> alone? First of course, define what is the fallback.
-> In this schema, I defined ds923p as fallback for ds1522p, and ds1522p
-
-You did not define ds923p as fallback. It is used as front compatible as
-well. Fallback cannot be used in some contexts at front:
-
-+        items:
-+          enum:
-+            - synology,ds923p-microp
-+            - synology,ds1522p-microp
-
-> as fallback for ds923p. There was no separation of front and fallback
-> until now. See below.
-> 
->>
->> None of this matches example schema or any other bindings, none of this
->> produces correct constraints for correct DTS.
->>
->> You need a defined enum of fallbacks and several lists for specific
->> fallback+front, like many other bindings in kernel.
-> So now I can imagine what schema you want to see.
-> 
-> i. e.
-> - items:
->     - enum:
->       - front1
->       - front2
->       - front3
->     - const: fallback1
-> - items:
->     - enum:
->       - front4
->       - front5
->       - front6
->     - const: fallback2
-> - enum:
->   - fallback1
->   - fallback2
-
-Yes
-
-> 
-> But I am unsure how to determine which devices are the fallback and
-> which are the front devices, given some of them have the same feature
-> set. The oldest device as fallback each?
-
-You can open your v1 or other versions. They were quite clear about
-fallback: it did not matter for you which device is used as fallback at
-v1, because you treated each device as the same programming model. I
-assume you treated them the same, because you did not know the
-differences (which is fine), so it should not matter that much now.
-
-If unsure, choose oldest device, less features or eventually smallest
-number.
-
+OK, seems fine to me.
 
 Best regards,
 Krzysztof
