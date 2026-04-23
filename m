@@ -1,87 +1,33 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2C23E51DE
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 09:28:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FED13E51E9;
+	Thu, 23 Apr 2026 09:38:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776936530; cv=none; b=pCHzP6ahk7huErxq+3hX7sZBprjR52I8MV8igwEPrSHB0xog3M1a52cHU4LglFa+T3OifPegafRa7oDJ3hrH6dvtvx+QodX7ndt4OsYbItlNiQRWb2NQj6HDZUcCiNWxjlefk7+cG40cc6+a5T3kM1+34uRvEdKf5i7Eo+B0MmM=
+	t=1776937126; cv=none; b=hg/4URxfF/OKrPf/XTJQ8xg29UOvWi6i8wc3+irQnKiGZxwZ8m/ioYgDcDnzLehnh06PIwpYw3Y8MvNrHDBhxfpIlK3hOgRuR7RYd689t0u8yp7d31DqJ5mncVpky4rz3IAyktIf7tHqBDQKlXfIdDtEOPfyDQ4HmdEiMXF1pZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776936530; c=relaxed/simple;
-	bh=43DjspOXiNHJdI9+IMUXLQ/SDPiADg6BB3xMniQey/E=;
+	s=arc-20240116; t=1776937126; c=relaxed/simple;
+	bh=pR3C1D+6wR2WoE/inF7jted1Bt91lKJKOYNIUAkUitM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qjJjpRbEgOXdihZen5BGGm0WgwqsVkeCCMNGB+nogDsMQFjaVcxh1n/qTzh0e1/I261z0QymeRPw+YSKrM5DuznOmzzffa0Mw6+x41fp8Nx92uA9Yg7j5oTpGj8PZEG2a9Jt/Vgd5D1Xtpfwk5RpVjTVzmDaEtQ+Xh65ymZ3hrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZxzltWmX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VFTctlXq; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=aLW21EGmwPX/mEhFEx0/AxiqPuqrozAtofNcMdNVZJlpZDa9uPWDppM5hv1qlj/UVwFTN5Hi2NqbB2udlsk1x+uOutj+1vESYDfxL2Dp1RASv9rlKmvWO0scnhbKSjjH46phCtRs5e20rlKhnNXH8CJYP6NBQZzfXRJy8GaS1D8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vLTxPh64; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZxzltWmX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VFTctlXq"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63N8uE6L3044060
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 09:28:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	cU1Q1HOzpIyUGlSrwwBjkIMi/d4z2yNRQMRgG7Now8M=; b=ZxzltWmXw4ICOBcz
-	unYL27aCSC/a6M3nFeo15xeAxZzDj+UqL1/N56WvbMXXAT8pcsNfuNbX5jSV3SRL
-	Z8PBbMuPmUr3eiTGt4ScScbszbs5RKph5ScdaEb44Ogr7RFQJS87G8muDdk03oVF
-	qe5hG0pYCIWWY1wZuohhvukf2qhXCrspjE2GOqLOsqQqrCCW4QQtym9kBpOnmWPX
-	nX4Gr+2yU9JBHrU/AweVDavcVmkFtdVldKLGWFIY0lnp3xPuWP03++3rfvPl5EkF
-	y85RrOYUO8bAGHbiNwkz3CpzD+Y4fguHCkaIXhv3cAM1dEY2Cp1BW2r8unhylz0G
-	TrQlnw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dq1jh368d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 09:28:47 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5073ed1ec6fso19224441cf.1
-        for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 02:28:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776936527; x=1777541327; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=cU1Q1HOzpIyUGlSrwwBjkIMi/d4z2yNRQMRgG7Now8M=;
-        b=VFTctlXq46X3PvKkeC7ZDwTCapzB4ANjqJbd3QYWNzPYF9vdcj14RxIr3DgD472WYf
-         AFk62OpoIVD4AKndfYdJsu9FZMJRqF1mjke52w00G/LJzQ3TtBUtiC9SLDNAK05dp5Ua
-         LPCTb3q1bgaX07Ju3d/GvOWTr3ZZgV4JM/RV5/2CZ16DvYnQMOurgniLJbdBLYFtair6
-         wFnJmovn4/IOyCOxblLiGTMXSF0BJiLdz2H/GLtK9asNlNGQC4gCg8i8ZO3Ysq2udJ0H
-         adyMj+S6BrLsuTNnIbGL2hRoV2lTX9UoYXRRNo/wUL/tmvaWMs1PheLk74UaIE/Iq+vC
-         np6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776936527; x=1777541327;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=cU1Q1HOzpIyUGlSrwwBjkIMi/d4z2yNRQMRgG7Now8M=;
-        b=Pg3HCGqj03uNxtPxRBTKrnH/fYDAcEJFds0F6GwgJ7LIQYN4+vFbNqqWMx6bHisRjf
-         5EvYrtAunBVMW5fU9AnGt/eTl4Fka/vXQPOhgUc8M131/WHxtD8+2BmSE0INAqhbKm+a
-         CSUbiOTJDsx4CCWOtp4r7qdP5SBzg260ucm+49+ktCPlZblLFGSZpFQ5pHjl21jdxefd
-         Q+34MaM4U8z7stNllVv4hR1IQeG9vvJzkJlm3v1EakTZPOKHhMV5hnIuorq0OXl2u8Mi
-         O+boWSp9EpZSWUacMzRCS2y3/ZThZ8EeouLi3Y2dQ7ymNccF5cRuEMuqg6zLZn0UtT9D
-         G47g==
-X-Forwarded-Encrypted: i=1; AFNElJ/AXSmM9kcc1fqspZHEAlKefrEPq9gOj/YEdyDn79cr4/Pja6du/caFfHnpZiIzh3S/HSDELdW4aA4x@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx2T0Kcpg9uvO0lpRlJcy88ar0INuHhZC8Q6zXcwekoqg9ckAXh
-	W5zhd7ZPp7GpzWvn8Y47HaYFGOKoUnqiqZo85Pupes1f4c8uH4MSiSr8usIitmWJS3RWPlbebGa
-	jkFiNdMV/WYSubAO8DN44HxrZ/392umxq5tGMORC/4/9oQ8yf9TwmXehWHTkvcuvj
-X-Gm-Gg: AeBDievk3f6PXw5gDBPNcpmALT2z2Id67XbOdVvtjfOOdNo9hVd4x4gc4SCWt2gNGhN
-	QgNajaeg+QRsFtTdeijmvJhot/7V+jnrPL32rNXjVzX5Mo2O8DWvI/fatevdfHbKPds4aW1VB9Y
-	QGqlvENymh2Y3Y1eyxxh9pjDiNO7xFuhVzrEAdm/PE9dXUEKgAHVktaBE8P9KAziVeY9sWYfCvy
-	KJbX13wglU5u17x/zaO5Q2D/LKs8hwgL7aFu7nq7UbHrmGUL5mLI3RREiYOfVBy791rJ4NmTImw
-	72SVECTVgpbESrwUXWux7ffqClBXpdhG4PsnRcSqdt/priQL/oWySy2XagHf+rJIodsytYFwA8S
-	Tuz3h/movgdwifd2r4837QeRAVIiyrgnf5iJVXDWmiN0rJWZGiW4MAyGGBc9YkgAM0FsccVJi9F
-	0vWX20Sp0gh1+S3Q==
-X-Received: by 2002:a05:622a:1b09:b0:50d:a92e:fead with SMTP id d75a77b69052e-50e36c1d215mr287662711cf.3.1776936526596;
-        Thu, 23 Apr 2026 02:28:46 -0700 (PDT)
-X-Received: by 2002:a05:622a:1b09:b0:50d:a92e:fead with SMTP id d75a77b69052e-50e36c1d215mr287662471cf.3.1776936526109;
-        Thu, 23 Apr 2026 02:28:46 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba454d1bd24sm627840666b.32.2026.04.23.02.28.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Apr 2026 02:28:45 -0700 (PDT)
-Message-ID: <fd49a3be-bc15-49c8-b006-d0c34048fa32@oss.qualcomm.com>
-Date: Thu, 23 Apr 2026 11:28:42 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vLTxPh64"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F7A8C2BCAF;
+	Thu, 23 Apr 2026 09:38:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776937124;
+	bh=pR3C1D+6wR2WoE/inF7jted1Bt91lKJKOYNIUAkUitM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=vLTxPh64NrRNvXik3wdYgr+rgZYWizNAEqeZ0QJ6VGt87Dg97ioCSHdpR22y4K43J
+	 ToA7p/wDg1ER1zEaU1WNwBlx0LcMhWc2xAy2KM+AslSGhFen3M4ur8gZzKm9aMNZjF
+	 15Q+be7EUPGbdUJQbHSt6hfAOfwcPoXD6fWvl54rhXu7dLJzJTKBdmS+7f2bS5Tlp7
+	 /SHXLCbqGAxCvewtrbGyr5e2BOKTsOjmSNNASfUJrAy6gg8MEWCn8C5YERbQa9RAGd
+	 O+EoSD6g0T7GrmRZ8UmcGhvt8pPbA8aSQcly4ftnjP4IGnoJxYTFwuMNJm2/SXbsnn
+	 7LN0ke32qjXmw==
+Message-ID: <0e7020cd-361e-4f9c-a120-ee093beea10f@kernel.org>
+Date: Thu, 23 Apr 2026 11:38:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,104 +35,237 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: kodiak: avoid EFI overlap for ADSP
- remote heap
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        Jianping Li <jianping.li@oss.qualcomm.com>, andersson@kernel.org,
-        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@kernel.org
-References: <20260423063502.484-1-jianping.li@oss.qualcomm.com>
- <e3b38ded-a323-48aa-b0c2-a9a3d5d364c9@oss.qualcomm.com>
- <49a3cee4-fcdf-4653-bd54-72db73f80bf0@oss.qualcomm.com>
+Subject: Re: [PATCH v8 1/2] dt-bindings: embedded-controller: Add synology
+ microp devices
+To: Markus Probst <markus.probst@posteo.de>
+Cc: Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org
+References: <20260420-synology_microp_initial-v8-0-7946a9124491@posteo.de>
+ <20260420-synology_microp_initial-v8-1-7946a9124491@posteo.de>
+ <20260421-just-benevolent-dormouse-2c35ed@quoll>
+ <26b074972581ff398b5af964ba092c8117855062.camel@posteo.de>
+ <c214f270-571c-4440-919e-99fce5ac1b08@kernel.org>
+ <33e04947d6d55035fe310935281a4f0b9e87ae08.camel@posteo.de>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <49a3cee4-fcdf-4653-bd54-72db73f80bf0@oss.qualcomm.com>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <33e04947d6d55035fe310935281a4f0b9e87ae08.camel@posteo.de>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIzMDA5MSBTYWx0ZWRfX/uhQcmXzCGAy
- g2a/lNhDsySy0p1fGxCpONb8F5XZZ6l9nNldHEMouBEZBMjucG4ghPHhYf0OiVJobliXM2qZ6N/
- rx/ztvbEirKm4KbT4Voj/wnYY5Gm//XNoFBulGaQfhf4q0y2W80XFVEja0EB9m2xCbOjiegK3cy
- 751gEVu4mDzVg9CQg7h4UaPz1kH8iFXY+w2W2woHg6yYFdNhYWH3c47MqbwJzddeUeEapLqeaco
- EAq6ajG6OQ35W2kuPDiN35rRXeRqJRVbb5GDJSKSO+TsZqIvPH16U4ho9afWrOIjzZVbIiVuvRC
- YQ9gAj24P1xe9jpfstqNI57zmrIV6oq2hoZS1rq9e9BXnD2W1rcAgYO0L+FLOuFm9KGRUwQX1St
- oz6/onwpOIRp7SiKzS4v8I6tuPqR9ENcEQ1R2QR8U1CBUtYv/2Rc8P6C04jrDf8XemmallQxAZ5
- nrVUkyd0JSCGMgqy6TA==
-X-Authority-Analysis: v=2.4 cv=OeyoyBTY c=1 sm=1 tr=0 ts=69e9e64f cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=WDzp8sBBVq6D_D8kXeUA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: M3Wykyqd7xsU3QhT8pwEuuD50qHDXHS9
-X-Proofpoint-ORIG-GUID: M3Wykyqd7xsU3QhT8pwEuuD50qHDXHS9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-23_02,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 adultscore=0 suspectscore=0 phishscore=0
- clxscore=1015 spamscore=0 lowpriorityscore=0 malwarescore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604230091
 
-On 4/23/26 11:19 AM, Ekansh Gupta wrote:
-> On 23-04-2026 14:20, Konrad Dybcio wrote:
->> On 4/23/26 8:35 AM, Jianping Li wrote:
->>> On KODIAK platforms boot can fail when the DT "adsp-rpc-remote-heap"
->>> reserved-memory region overlaps with firmware allocations (UEFI/EFI
->>> runtime). The kernel then reports failure to reserve the region and
->>> subsequent EFI runtime activity may trigger aborts.
->>>
->>> The remote heap node was described as a fixed "no-map" region, which
->>> turns it into a hard carveout. Replace it with a "shared-dma-pool"
->>> reserved memory region with reusable CMA-backed allocation, specifying
->>> alignment and size.
->>>
->>> This avoids hard carveouts and reduces the chance of conflicting with
->>> firmware memory maps while keeping an explicit pool for ADSP remote
->>> heap usage.
->>>
->>> Fixes: 90a58ffa9c55 ("arm64: dts: qcom: kodiak: Add memory region for audiopd")
->>> Cc: stable@kernel.org
->>> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
->>> ---
->>>  arch/arm64/boot/dts/qcom/kodiak.dtsi | 9 ++++++---
->>>  1 file changed, 6 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
->>> index 988ca5f7c8a0..420219823496 100644
->>> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
->>> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
->>> @@ -191,9 +191,12 @@ rmtfs_mem: rmtfs@9c900000 {
->>>  			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
->>>  		};
->>>  
->>> -		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap@9cb80000 {
->>> -			reg = <0x0 0x9cb80000 0x0 0x800000>;
->>> -			no-map;
->>> +		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap {
->>> +			compatible = "shared-dma-pool";
->>> +			alloc-ranges = <0x0 0x00000000 0x0 0xffffffff>;
+On 21/04/2026 18:25, Markus Probst wrote:
 >>
->> Since DRAM starts at 0x8000_0000, is it intended to only allow this
->> region to be in the lower 2 gigs?
+>> Not true. You have enum and min/maxItems. There is no such syntax for
+>> compatibles. I repeat.
 >>
->> (it may very well be for some historical reasons)
-> yes, this is intentional. ADSP supports 32-bit address.
+>> Instead of just blindly disagreeing and saying "I did that", point me to
+>> example-schema having compatibles with min/maxItems.
+> It is supposed to minimize the schema, otherwise
+> 
+> - minItems: 3
+>   maxItems: 3
+>   items:
+>     enum:
+>     - synology,ds223j-microp
+>     - synology,ds124-microp
+>     - synology,ds118-microp
+> 
+> would have been
+> 
+> - items:
+>     - const: synology,ds223j-microp
+>     - const: synology,ds124-microp
+>     - const: synology,ds118-microp
+> 
+> - items:
+>     - const: synology,ds124-microp
+>     - const: synology,ds223j-microp
+>     - const: synology,ds118-microp
+> 
+> - items:
+>     - const: synology,ds118-microp
+>     - const: synology,ds223j-microp
+>     - const: synology,ds124-microp
 
-Okay, so I think this should be one of:
+Only one device is the fallback for given groyp, not each of them.
 
-<0x0 0x80000000 0x0 0x80000000>;
+There is no such syntax in the kernel, nowhere. Please do not invent own
+stuff.
 
-(where we directly specify the DRAM start, which may just be form
-over function)
+> .
+> 
+> In the case of dts validation, this is the same, with the exception of
+> allowing any order. See below why the order does not matter.
+> 
+> And yes, the example schema didn't use min/maxItems.
 
-or:
+Yep. It is also explained why in writing-bindings - list is STRICTLY
+ordered. Not flexible. And example reflects that. BTW, other bindings as
+well, so recent EC patches is good way to learn:
+(although I understand that in-tree patches do not cover your case)
 
-<0x0 0x00000000 0x1 0x00000000>;
+https://lore.kernel.org/all/20260327-add-driver-for-ec-v7-1-7684c915e42c@oss.qualcomm.com/
 
-to cover 0x0000_0000 - 0xffff_ffff
+from:
+https://lore.kernel.org/all/?q=dfn%3Abindings%2Fembedded-controller%2F
 
-Konrad
+
+>>
+>>
+>>
+>>>
+>>>
+>>> Other sources suggest, I should add fallbacks that are less specific
+>>
+>> That's not really discussed here. It all looks like some random schema
+>> and considering amount of LLM flying on the lists I have now doubts.
+> I am not using an LLM for coding. But it is the first device tree
+> schema I try to write.
+>>
+>> You need specific compatibles.
+>> ...
+>>
+>>>
+>>> If thisisn't fine either, replying to my previous message would
+>>> probably the most efficient way to move forward [1].
+>>
+>>
+>>>
+>>>>
+>>>>> +        items:
+>>>>> +          enum:
+>>>>
+>>>> No, why the list is randomly ordered.
+>>
+>> Look here
+> Was answered below. They have the exactly same known feature set, thus
+> the order does not matter. i. e. there is no known difference.
+> 
+>>
+>>>>
+>>>>> +            - synology,ds923p-microp
+>>>>> +            - synology,ds1522p-microp
+>>>>
+>>>> And fallback, whichever is that, is not documented alone.
+>>>>
+>>>>> +      - minItems: 4
+>>>>> +        maxItems: 4
+>>>
+>>> Those are devices with the exactly same known feature set.
+>>> i. e. ds1522p can act as a fallback for ds923p, and ds923p could act as
+>>> a fallback for ds1522p.
+>>
+>> You are not responding to actual comments. Lets focus ONLY on above
+>> list. ONLY. Point me, where did you document the fallback to be used
+>> alone? First of course, define what is the fallback.
+> In this schema, I defined ds923p as fallback for ds1522p, and ds1522p
+
+You did not define ds923p as fallback. It is used as front compatible as
+well. Fallback cannot be used in some contexts at front:
+
++        items:
++          enum:
++            - synology,ds923p-microp
++            - synology,ds1522p-microp
+
+> as fallback for ds923p. There was no separation of front and fallback
+> until now. See below.
+> 
+>>
+>> None of this matches example schema or any other bindings, none of this
+>> produces correct constraints for correct DTS.
+>>
+>> You need a defined enum of fallbacks and several lists for specific
+>> fallback+front, like many other bindings in kernel.
+> So now I can imagine what schema you want to see.
+> 
+> i. e.
+> - items:
+>     - enum:
+>       - front1
+>       - front2
+>       - front3
+>     - const: fallback1
+> - items:
+>     - enum:
+>       - front4
+>       - front5
+>       - front6
+>     - const: fallback2
+> - enum:
+>   - fallback1
+>   - fallback2
+
+Yes
+
+> 
+> But I am unsure how to determine which devices are the fallback and
+> which are the front devices, given some of them have the same feature
+> set. The oldest device as fallback each?
+
+You can open your v1 or other versions. They were quite clear about
+fallback: it did not matter for you which device is used as fallback at
+v1, because you treated each device as the same programming model. I
+assume you treated them the same, because you did not know the
+differences (which is fine), so it should not matter that much now.
+
+If unsure, choose oldest device, less features or eventually smallest
+number.
+
+
+Best regards,
+Krzysztof
