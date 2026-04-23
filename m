@@ -1,35 +1,33 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26A6356A0A;
-	Thu, 23 Apr 2026 15:00:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B05A285CA4;
+	Thu, 23 Apr 2026 15:02:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776956454; cv=none; b=B+uyeiK8mzyYqqTMIOIFtWXeoyUnz4+VdShCRjHAPd0ISR5Q1huR2IcHuM8Hgdff3hSfei5cGCSXd6uFhCp1vfdjwEinXFxbfSi0mg1SEoczD5lMr2RtUtwEsL4S/RwWTwjng5rETboTNUx0sia+8rOyRgT9mlMFVHjzEohmnXI=
+	t=1776956522; cv=none; b=ISSfhoKk+b1mz/J9Vrdg0Y0ujWIM0DnoHeEqm4O9RieH4xl9UlclmBVsCV+mFgzuVJyQgmf6tgVQgtbX+rvZMV/q8u05V85CopOfEWBSlNnh5y5L/XiQ7xwG7ZO0XBwMKQGl76SEQE00I9DDcX1q0dKoQ8Blgeer6quWzI/Blkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776956454; c=relaxed/simple;
-	bh=2l3rTPexjafIVGeQo/DBMOtwsxaQACO7NLqJAnr+pAk=;
+	s=arc-20240116; t=1776956522; c=relaxed/simple;
+	bh=PPqnjiPUXR1jFV5RDIv+mYtA4/prS2yGlfk/ZnkqGLU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qak0uEqMagp7Asmtux4vSMBzaOf4VOv/t+c39oClCwWNpTsQuVejJx3zwo9p9rGJKBHlX85BFKFua1hWRGvBdquj0oFmA8/7Ow/G29hsbC9NAWpFNxfiS+vf7l+oERpSaSMNMLvFP5fUqJnr0ej/rf9SkKgrnWZb1tWQvKO1KcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Fnr1ehOv; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=kXUbMxxZ; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	 In-Reply-To:Content-Type; b=LSHkRbWb6ztNRDzcVQgkfWRkH9RW/s8+idz+Eyr9AmH1LlGV0e+5NU0k6b/olPLn10MlSCBPUF3t4IgDmtpLQQ3BgaAaKU2A4vkjCrB01q6juUJ/log5i3SzVuzlBi6go60AgbGIwfcB3UdiDxobe1DwByFuiJdlmCeSAi6YaoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=NRGIDgU5; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Fnr1ehOv";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="kXUbMxxZ"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1776956450; bh=yxRTbkH0ThQD7GDjv6mAYBb
-	BxFNanB4TidxxS4bJLiQ=; b=Fnr1ehOvpzvlGVlhSuQZ2lIiyx5N+okiCtov23RjY5ylGQUJ0J
-	EmgnAcD/wUpINPIsHFvmmBiigmL+AqN/TJX5DPL2OnQ8heIkbbNc/iYHYGn9Mzbb5GqTbBk6Vn4
-	b6QNrcIV+DuOzbndWiUO6UzLg4L+pYEZU/Dg8JAA8Uvjnu0BiqopvPjNoV2mQSRv52TO+lttgUK
-	iOhPG4/U0PAOuESYcDgePz6thl/LhD66mdZ0a/DuLm0AynrZJCCkayNtrfAet82e8wv1ZtNl+Mm
-	Tzrb0o29IICoOJiBdLpXUGcPV6heifjSg9XIe+oAsSbVBQW/GUK5yR6AJlKgVK80jyw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1776956450; bh=yxRTbkH0ThQD7GDjv6mAYBb
-	BxFNanB4TidxxS4bJLiQ=; b=kXUbMxxZM3O+jzwTe/YIni7repEf5/w6EqTqAoRwG+jhnACnSs
-	jlqHzPUmAItRW9HCzNO6nRGcFBeaKBsDoXBQ==;
-Message-ID: <7ca1a729-b8c5-428f-8785-287c5c7c73b3@mainlining.org>
-Date: Thu, 23 Apr 2026 18:00:49 +0300
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="NRGIDgU5"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 64DA9BCA;
+	Thu, 23 Apr 2026 17:00:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1776956419;
+	bh=PPqnjiPUXR1jFV5RDIv+mYtA4/prS2yGlfk/ZnkqGLU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=NRGIDgU5Jl3mS8c3JwCit43p8MAVJNt+N64yuU5i+IIvH7BW2L2Y0yrX4bZdvAA59
+	 pRzNA3Sg4b83UxB6g21hO9vVjHvbAwRWdfEpBpqrGmBkrpVa14PuGHZxz9uG7wn5Lh
+	 HW5yA5qvAT9fvhIVVZ2aJwPXd1ZJLKonuhqXPsds=
+Message-ID: <103f94d0-2599-497d-ae37-d88922b9f669@ideasonboard.com>
+Date: Thu, 23 Apr 2026 18:01:54 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,91 +35,87 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] arm64: dts: qcom: sdm630: assign adsp_mem region
- to ADSP FastRPC node
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+Subject: Re: [PATCH 2/2] drm/panel: simple: Add timings for Raspberry Pi 7"
+ panel
+To: Marek Vasut <marex@nabladev.com>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260422-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v3-0-274ba3715db0@mainlining.org>
- <20260422-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v3-4-274ba3715db0@mainlining.org>
- <0d411167-caad-4f6e-b52b-de7caeaf2333@oss.qualcomm.com>
- <e0c2c127-9f27-4d8e-802f-bdf1acfa960c@mainlining.org>
- <94a977a4-0664-48f2-9aae-821119581d6b@oss.qualcomm.com>
- <af584db7-8d21-4dc1-aae8-0496be27fe17@mainlining.org>
- <22faffca-b4bc-4e43-b33f-2c5a7152a218@oss.qualcomm.com>
-Content-Language: ru-RU, en-US
-From: Nickolay Goppen <setotau@mainlining.org>
-In-Reply-To: <22faffca-b4bc-4e43-b33f-2c5a7152a218@oss.qualcomm.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260420-rpi-7inch-v1-0-e68d5c9c44bc@ideasonboard.com>
+ <20260420-rpi-7inch-v1-2-e68d5c9c44bc@ideasonboard.com>
+ <3z3u5mbngmbzsch3mzs3twlh3aec6r7jokstzv3ghxyusrzt6b@jqvdnuiapx6e>
+ <af71183d-70b8-4a41-8466-67123e7aab02@ideasonboard.com>
+ <20260423-kickass-fat-boa-209f68@houat>
+ <72c2cd94-0a8b-46c8-981b-4ad4a3222e59@ideasonboard.com>
+ <CAO9ioeVX6OChRTgUrUdgrPF+3s2_7vme7m0yb85pjYtH1MFskw@mail.gmail.com>
+ <ced05a92-06b4-4f6f-95b6-c3dc104c35f3@ideasonboard.com>
+ <b24c428f-5752-4544-a8b4-77e91d7bc158@ideasonboard.com>
+ <da6bdb78-7fe8-4f51-b9e6-444748ebc319@nabladev.com>
+Content-Language: en-US
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+In-Reply-To: <da6bdb78-7fe8-4f51-b9e6-444748ebc319@nabladev.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
+Hi,
 
-23.04.2026 17:39, Ekansh Gupta пишет:
-> On 23-04-2026 19:18, Nickolay Goppen wrote:
->> 23.04.2026 16:08, Konrad Dybcio пишет:
->>> On 4/23/26 3:06 PM, Nickolay Goppen wrote:
->>>> 23.04.2026 14:05, Konrad Dybcio пишет:
->>>>> On 4/22/26 5:39 PM, Nickolay Goppen wrote:
->>>>>> Downstream [1] ADSP FastRPC node has the adsp_mem region assigned, so
->>>>>> assign it to the ADSP FastRPC node.
->>>>>>
->>>>>> [1]: https://github.com/xiaomi-sdm660/android_kernel_xiaomi_sdm660/
->>>>>> blob/11-EAS/arch/arm/boot/dts/qcom/sdm660.dtsi#L1693
->>>>>>
->>>>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>>>>> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
->>>>>> ---
->>>>>>     arch/arm64/boot/dts/qcom/sdm630.dtsi | 3 +++
->>>>>>     1 file changed, 3 insertions(+)
->>>>>>
->>>>>> diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/
->>>>>> boot/dts/qcom/sdm630.dtsi
->>>>>> index 36b419dea153..af2bc29ccdad 100644
->>>>>> --- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
->>>>>> +++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
->>>>>> @@ -2458,6 +2458,9 @@ fastrpc {
->>>>>>                         compatible = "qcom,fastrpc";
->>>>>>                         qcom,glink-channels = "fastrpcglink-apps-dsp";
->>>>>>                         label = "adsp";
->>>>>> +                    memory-region = <&adsp_mem>;
->>>>>> +                    qcom,vmids = <QCOM_SCM_VMID_LPASS
->>>>>> +                              QCOM_SCM_VMID_ADSP_HEAP>;
->>>>> Please double-check that, the VMID used to be different on
->>>>> older SoCs
->>>> Do you know how to check that?
->>> The least painful way is probably to add debug prints to what downstream
->>> calls hyp_assign_phys()
->> I've found in drivers/soc/qcom/qdsp6v2/msm_audio_ion.c the following vmids:
->>
->> VMID_HLOS= 0x3
->> VMID_CP_ADSP_SHARED33
-> This VMID looks correct.
->
-> Just had a look at the downstream fastrpc driver code in the same tree.
-> The fastrpc node in DT[1] is adding a "qcom,fastrpc-vmid-heap-shared"
-> property. For this property, the VMID is getting set as
-> "VMID_CP_ADSP_SHARED" in the downstream fastrpc driver[2]. The
-> hyp_assign is happening during daemon attach call[3] with srcVM being
-> "VMID_HLOS".
->
-> Thanks Konrad for highlighting this difference in VMID.
->
-> [1]
-> https://github.com/xiaomi-sdm660/android_kernel_xiaomi_sdm660/blob/11-EAS/arch/arm/boot/dts/qcom/sdm660.dtsi#L1699
-> [2]
-> https://github.com/xiaomi-sdm660/android_kernel_xiaomi_sdm660/blob/11-EAS/drivers/char/adsprpc.c#L3602
-> [3]
-> https://github.com/xiaomi-sdm660/android_kernel_xiaomi_sdm660/blob/11-EAS/drivers/char/adsprpc.c#L1999
-Didn't find the "VMID_CP_ADSP_SHARED 0x33" in the upstream bindings. 
-Does it need to be added to the bindings?
->>> Konrad
+On 23/04/2026 16:54, Marek Vasut wrote:
+> On 4/23/26 3:16 PM, Tomi Valkeinen wrote:
+> 
+> Hello Tomi,
+> 
+>>>> In the past I used this panel compat instead of the
+>>>> panel-raspberrypi-touchscreen.c and it worked.
+>>>> IIRC Marek splitted the multi-function module into a regulator and the
+>>>> panel description.
+>>> Ok... Indeed https://pip.raspberrypi.com/categories/651-pcn lists 
+>>> PH800480T013 as one of the panels used. Although two variants are 
+>>> listed, and also a third panel model, possibly from another vendor.
+>>>
+>>> My module is v1.1, and I think it has the PH800480T013-IAC21 D/5624/ 
+>>> KIT- LC variant.
+>> A question to Marek: Where did you get the timings for PH800480T013? 
+>> Did you find a datasheet?
+> Search engine first link:
+> 
+> https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/5337/ 
+> PH800480T013-IHC09.pdf
 
--- 
-Best regards,
-Nickolay
+I tested the "powertip,ph800480t013-idf02". I'm using BeagleY-AI here, 
+and it didn't work at all. After some testing, I figured out these:
+
+HSW of 2 is much too small. But this could be an issue on the display 
+controller or the DSI encoder side. HWS of around 8 starts to work ok. 
+Below that, I don't get anything on the screen.
+
+The syncs are interesting. I set them to DISPLAY_FLAGS_VSYNC_HIGH | 
+DISPLAY_FLAGS_HSYNC_HIGH, Marek to DRM_MODE_FLAG_NVSYNC | 
+DRM_MODE_FLAG_NHSYNC. But I have sent the TC358762 series, which fixes 
+the syncs that the bridge sends 
+(20260327-tc358762-fixes-v2-0-3589d3c45f4a@ideasonboard.com).
+
+Flipping the syncs might explain why I used 46 and 23 as the 
+backporches, Marked used 46-hsw and 23-vsw for backporches (well, 
+Marek's vbp was off by one as I mentioned).
+
+But now I'm getting unsure if my TC358762 fixed the syncs correctly... 
+I'm pretty sure I measured those with my scope, though.
+
+The fps is different, too. I aimed for 60fps, Marek for 50fps (I think, 
+it doesn't match exactly).
+
+In any case... I think I have to dig out my scope again and validate 
+that I see exactly what I have in the driver. Btw, reviews for the 
+TC358762 series is appreciated!
+
+  Tomi
 
