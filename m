@@ -1,45 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 484203644C7;
-	Thu, 23 Apr 2026 08:07:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5513826ADC
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 08:13:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776931635; cv=none; b=Mjm2c6e2313vTMlqwCU7sAdv9bbTXUC7KXfOUCHJQUv1Zstit8mh6lxt2CY1PZl8Pd+JLhF19pLHw/MSRbDV58XF+FfepR3WeYeYDxGjlfBTQkANI+xHFka+whgMPZsnF6f4AupH/1zZZA+MBMwod7VYYOSD8gyhc+3lYIGz/dY=
+	t=1776931990; cv=none; b=NpP536yZV1pY+CFUiqX3o36070fxdq2rH6Rj1gGa/5LI9DEAkJB7G1nFP67fibOwfu3kLuPU+/XWDajaLwVc0YY7Ry8UpQLy/B1F+z82b7EemwSk7bq42UuZrnKZX3pfPMNXYZisScyD583OnagcwZkuYU/8DGjQoHBffThxxv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776931635; c=relaxed/simple;
-	bh=KZdY/I2SIdWIVd5t4gmBWX2mobEjxJUEQlkg/Ig4yiI=;
+	s=arc-20240116; t=1776931990; c=relaxed/simple;
+	bh=LnSlgQumZUymdbffnu2vKTkuUg/jqjTtpU53P+tI4/4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dkAgWOSglHp8Nht/b1pF9DfCJ/JMzooT2e8VukPAQ94DgvnJuAOE6OwNvpiUSm17FMBtdjEO3hSFP/mEY12WL6WJNSHATiVL6Ri5c9Plc0AWCLNMLKzOSMcOoVNARqzb05bFcVhnOITMPDyQFZfaReIJ0mW/bp1BD8pH9uuGRGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KNnt9Y5I; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=LJ07KjUeYjjSP3YEQllqwLC+q73yVDlGTyqPRY6DNt4KbfWkaEPqVitYL+WLHXK1v1rx3xfui8dOpw+A0ttj8dTey7eLxXvqWkEslnFgaElb3ppY6mkfMpSG1otf6rDjrt1y1lFw2Ktu3ct7BE5v57eImjtvL5pRv0up3ea3dw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HzewHmE8; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KNnt9Y5I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55597C2BCB5;
-	Thu, 23 Apr 2026 08:07:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776931634;
-	bh=KZdY/I2SIdWIVd5t4gmBWX2mobEjxJUEQlkg/Ig4yiI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KNnt9Y5IygthZXCcpl9lfkbzwiHIB4ys9vOe57tc8ql0sHaJaeXU4/+R+0pcwEKjx
-	 qX3lvOp2LHZb6oK34KgmJjwewUlUDGqiw36VNNihx6Q2Nat8BMzpVAqtPa1IERmmhD
-	 SHGpTaWrVKqNpjJefMP/zs2IfVmBWg4n7nPlTJbbqjlqqbRW5mRjJ9JNMu1gJSTIPR
-	 07Tyzt966yT7bjukdElu4QjX7uprEWnDVvJpB23TIK8Rk829N+n0cdKrHpkeKHE+R8
-	 InYEki9H8nnHgAVzUjGgghYeq6s66duOqLxrgxcWP4RlXrI5gG2hZ/DY1Ii7SyWcmB
-	 6wT+CgTJRhHqA==
-Date: Thu, 23 Apr 2026 10:07:12 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Alexander Koskovich <akoskovich@pm.me>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Abel Vesa <abel.vesa@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: pinctrl: qcom,eliza-tlmm: Split QUP
- lane mirror alternates
-Message-ID: <20260423-wise-zircon-shellfish-ccfc40@quoll>
-References: <20260423-fix-eliza-pinctrl-v3-0-68b24893ae63@pm.me>
- <20260423-fix-eliza-pinctrl-v3-1-68b24893ae63@pm.me>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HzewHmE8"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-48374014a77so82903975e9.3
+        for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 01:13:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776931984; x=1777536784; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=TJ/DBvdc9fYsH91lLLkmQGITtRq+02I8omXtrs2jaHE=;
+        b=HzewHmE88QfzJe5H8u7jpQ9L32urpkszkqUX7kZb83fDqw12zm3MQ5qRLHIkWFehkC
+         b6JtwqSubFjuZAZCoZalERm03pCc2syyDbUwQg/CQJmgcZW4fNofqKBiUZDLD0AzvMfZ
+         ZIiL1/36bZ3+jSD2Lsyp5OwzSf6Du9eGUw4KXevieTB1MrXEb3nEtt/424neKKaQHiHq
+         g9HqqJsq464f1gs1twntie7bepbsyFIMtZqL8YAKS9Rcs4eWcB+67JLpPdfhKl1Ky7eM
+         4uny3ylFz9R0ucfO0b63dC1RAgWgGub2zTlzlFPboIt00yHEwc3Q3qK1VL1QKs9klw1P
+         W8MQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776931984; x=1777536784;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=TJ/DBvdc9fYsH91lLLkmQGITtRq+02I8omXtrs2jaHE=;
+        b=OiV35Qw47rmy3jV1E/tYR1HqPlRlvRtkyyM0k1BRGqfJmkU1HLhp9xDiXx419LEGGM
+         YPg7PPcYwCI/SDDPZ/BgpKPVvfy/pqcqJaBt+ESRzWRv37uBfccU++uxLq2OSNKVEv2R
+         IQbCaK3AB6fyBiWRPpG8mJT7zQpPbtRlFENsCPXzEq1SE1qkInd8JvkHvVbSdqLnv2EL
+         Z4mJOVM0X8oQy30QVZyV1GIPRX2tDAkB2eZPjEAY8jqXDAa0n2x9I8PZnugg4T8U1TyG
+         ohXzlFdR5ON/+nVtTecmNYG7pinLOyOI+XOwsfSIdlKFevwNSLHoZn1caUvmw3mdc2wD
+         l7pQ==
+X-Forwarded-Encrypted: i=1; AFNElJ//VyIaMNkAU8biQRzUEVqOzzgkw8HmfxA9K437/FYLverEiXh1CKYUYqwtmPDg8b/R6TZto8k4Zv5E@vger.kernel.org
+X-Gm-Message-State: AOJu0YzKNdbbSOTCjrgAP+uBPlUvqDdWF5B7W/8kEn6wcUpSJxZwL7ds
+	jQ7dGB13/E0lXZxl3OczB5WpTlk21ZPgwnj4SfYSvfJzCTIsB5OQa9FD
+X-Gm-Gg: AeBDievqXeKnPjO8J117K4ons/ZzkhGjJuGjRfitZoxYWfKHXfOCOPRFmqOQX/lD9aa
+	ONuhiFbF7QyJ1a5A1AkpkV9kjLZOJZUC5VvTXd1ZXmTiwV7lu1BE35QpYTmxyXvnFDRmOS+YhOS
+	9slKKWfatPDA9oWr9LtbVfIFmydl3W3i0IvUP2UEfsL1FRx8DgAI2sk1gKiOlf5fZy2jS5igfip
+	KbtQrYu/RJvZfpRt0UKnhm1uT41thDJeHFKbhwBE+QPfpkXmAYvGpJ1YxRUv+gAPUoNMRqUPjmg
+	wE260/R31kcxxqlkprrMuYuB0VVjTjetp9V2s3jmBDNR0fO5eEh7uUdtbOvAt7O15wRL3s4rVaq
+	XjMh6kuTFD4hYrenKJMTbm1njyqUTaaMK/+bKHqB2nQlmLj7WhdW1ZMZzC1ObkGse116hZI/JZa
+	It80YhJH9pv4J05BuNdjBN97Tt
+X-Received: by 2002:a05:600d:10:b0:489:1b0c:8b43 with SMTP id 5b1f17b1804b1-4891b0c8c48mr201117645e9.1.1776931984093;
+        Thu, 23 Apr 2026 01:13:04 -0700 (PDT)
+Received: from nsa ([45.94.208.131])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fc100162sm517098165e9.5.2026.04.23.01.13.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Apr 2026 01:13:03 -0700 (PDT)
+Date: Thu, 23 Apr 2026 09:13:54 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: rodrigo.alencar@analog.com
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Michael Auchter <michael.auchter@ni.com>, linux-hardening@vger.kernel.org, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Subject: Re: [PATCH 13/22] iio: dac: ad5686: fix input raw value check
+Message-ID: <aenUZEkeDGaovVir@nsa>
+References: <20260422-ad5313r-iio-support-v1-0-ed7dca001d1b@analog.com>
+ <20260422-ad5313r-iio-support-v1-13-ed7dca001d1b@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,24 +80,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260423-fix-eliza-pinctrl-v3-1-68b24893ae63@pm.me>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260422-ad5313r-iio-support-v1-13-ed7dca001d1b@analog.com>
 
-On Thu, Apr 23, 2026 at 04:43:19AM +0000, Alexander Koskovich wrote:
-> Several QUP lanes have MIRA/MIRB mirror routings that let the same lane
-> be muxed out on alternative GPIOs. On Eliza these were all collapsed
-> under the base function name (e.g. qup1_se6), which prevented boards
-> from selecting the mirror variants.
+On Wed, Apr 22, 2026 at 03:45:47PM +0100, Rodrigo Alencar via B4 Relay wrote:
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 > 
-> Add explicit function names for each mirror lane, matching the pattern
-> already established by qcom,sm8550-tlmm and related bindings.
+> Use in_range() to fix range check for input raw value, which is off by
+> one, i.e., for a 10-bit DAC the max valid value is 1023, but 1 << 10
+> equals 1024, which passes the previous check, allowing an out-of-range
+> write.
 > 
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 > ---
->  .../bindings/pinctrl/qcom,eliza-tlmm.yaml          | 25 +++++++++++++---------
->  1 file changed, 15 insertions(+), 10 deletions(-)
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+I'll reply just to this one but it seems to apply to all "fixes"
+patches. They look like a real fix so I would expect to see a Fixes tag
+(as Andy suggested) and see those commits coming first in the series.
 
-Best regards,
-Krzysztof
+Other than that, code looks good (for those patches)
 
+- Nuno Sá
+>  drivers/iio/dac/ad5686.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
+> index 19d791c655b7..07a944311f0e 100644
+> --- a/drivers/iio/dac/ad5686.c
+> +++ b/drivers/iio/dac/ad5686.c
+> @@ -185,7 +185,7 @@ static int ad5686_write_raw(struct iio_dev *indio_dev,
+>  
+>  	switch (mask) {
+>  	case IIO_CHAN_INFO_RAW:
+> -		if (val > (1 << chan->scan_type.realbits) || val < 0)
+> +		if (!in_range(val, 0, 1 << chan->scan_type.realbits))
+>  			return -EINVAL;
+>  
+>  		mutex_lock(&st->lock);
+> 
+> -- 
+> 2.43.0
+> 
+> 
