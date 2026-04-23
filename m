@@ -1,137 +1,169 @@
-Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E01031E0E14;
-	Thu, 23 Apr 2026 04:44:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1FAF37F8A6
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 06:29:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776919444; cv=none; b=JlpYyv+gyz6YwZ3YmrGb0iMN5iQTDpFvbEdk2CV3tvvJHpdkY8TMyLeICN2NEMNC23BZQQu3ZAJC1g1V2/1BAg9IpJQkrsHH/0KA0Ha1WM1g+9vdtGSKQqrgjIIlekvgFRpe86jhzJYMzbJMI8Ji82gwVny+3upmU1zW34tzzVs=
+	t=1776925792; cv=none; b=sCl+H7vChu/QhzkwFkU3uGAHxcuQeZ2B2BthCw8AAUe4yt++zYheqTD65ZTgKslmMUG95XfOBlkohkw/WuenE/MIP4R5GLAcLo+4YLqYtqU2MSmAw+W3XWqzDVYSS+MM1P10NuW838byo8z0tzTu4cv1ozcPq5f1G3xxfUq+u3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776919444; c=relaxed/simple;
-	bh=tsb3VmFovTma25ROmHyZX3mhVbxmykCkGGat9WGW/6o=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eFfsd9XOFFmh+L+4h8AHTmVEWBiYoGcztwMhLdE3oY2MvZSHrVUrhXnq6UccXRjEBqy+zvfhMDTw34AvY6W/xNhkq8k8if94Zht0bj6ytxIXGwdpTZzhMVn9YMGljOKK6lXC3QuQiHMjesEIbBQLjDmchPwyhjUgRlqmmL/F+FI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=NTkmatSH; arc=none smtp.client-ip=85.9.206.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1776925792; c=relaxed/simple;
+	bh=lWfyMIyMoRLJG7qsDI8i7QMbJoMWcg8Yp81uHSrvvIQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MJNIn3x8nOno0OFSfXNQBQ+qsin+KF39WFpX00OI/HacwbdYT4uBUFVipaYRCKXzsVkVpz8qQK0s8jbO/6V5/WsWVewCwzHm56NW+5angG1dbaC5UEZDw3mx8kF/iYEksgJ8Lji8H5/ZmhvXmJVS1W7FA3QFom1MOEOcWnjYOp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UTdwJ5uH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LzzRsL+6; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="NTkmatSH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1776919432; x=1777178632;
-	bh=tsb3VmFovTma25ROmHyZX3mhVbxmykCkGGat9WGW/6o=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=NTkmatSH/yAbQN4EFXiHy7Gbq3936wvC7h13ce3+gSH0BKGqVXthyDKhKW/J/pK4k
-	 dFLBQyQ2tJZ2dsEdHNzY5GJijemJWgNMovNFN0lUu0+xSKSaDk9ZM9OaPQvFml+wXa
-	 1cmyWT1mfl0PAUOYTNK+I+tpeGftZks30Z4NuofY71jot7/zCWkNRKvEMofhiGBwRI
-	 j6v+0/1bjIBI/oPY+KYCbOCJdZk5r+QK+r7pQH4ZKon5DytP3v3UGqezPKbU6Y2BuR
-	 H0+sKxOflXjXqK2F51QdENyDEfXzIRYSGa4WKfKd3Uu4CHwdAwZCYBaGWA90vS0IXT
-	 oy/cMRmLydvQw==
-Date: Thu, 23 Apr 2026 04:43:46 +0000
-To: Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH v3 4/4] pinctrl: qcom: eliza: Split QUP1_SE4 lanes
-Message-ID: <20260423-fix-eliza-pinctrl-v3-4-68b24893ae63@pm.me>
-In-Reply-To: <20260423-fix-eliza-pinctrl-v3-0-68b24893ae63@pm.me>
-References: <20260423-fix-eliza-pinctrl-v3-0-68b24893ae63@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 6fc27e899e2f21e55cca2b0cf463bea3fc3983cf
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UTdwJ5uH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LzzRsL+6"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63N6RQYH4037434
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 06:29:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=UyC7CCp74qUg3I7ppKeAkn+Q
+	uNwtibiTJOLMOe0x83c=; b=UTdwJ5uHi7EFiJct6qZhLrJTPF0QIOPWLsIcVYZe
+	0aKVJJZIfcYM8QFm7xrbf23iQS963VZ7vLiJ30E72yEdRMMFyJPSwapB+Ax/9qJx
+	LJXgFCfEf+0204HAApwp+G0nP1fbs8/ok766QeHjqDYLoWfQrVIdBTc7h3nIsJw8
+	rArQD22m1iTazGCcUe4DSRTDWhCyzSvqEvZHg2O7f4EjS60ifLSLOlvpU9EPMzMc
+	cNHkWrAIQYH5wX7VYPUkDLCJiUqW/2irnqUNXJKigiZT8pSuNx1iiKVvliALeomg
+	76/hy+lOYXL6E2YnrE62Gl0iHHC7qOaPZysuHp12sHufTQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dqe62g06k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 06:29:50 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-2ba9a744f7dso8233719eec.0
+        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 23:29:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776925790; x=1777530590; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=UyC7CCp74qUg3I7ppKeAkn+QuNwtibiTJOLMOe0x83c=;
+        b=LzzRsL+6H1EDuSeD54qpG2EBgOhJQvILmL4GWw1ihH41c1bwpbwan38FzmkTOlaha3
+         9YFZ9cYzVnIgZ+4hx1ldMlixtcq51X4aEoRf5qoAAoKH/dBO5uA0nVauNCDq5AqwVbW2
+         5C70o5pUSLN0GqRfDeo3LjmBYrq18l2v8TrgLpzG5vs7K9AkZjRBP15PzNuVMOhbCDRq
+         hgGALj10/AZH5yLnfCtHBgBrIXOp4Rw7PHt5zxgvWGK1e49WcupqBMXgcNjr09cOTbXy
+         Y/1Xx8/MGP30rKYzTsB67vsg85XKMluXfk5D6o9l1OJT1BF8T4YhoI09Quk3tkJRw6TB
+         htbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776925790; x=1777530590;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=UyC7CCp74qUg3I7ppKeAkn+QuNwtibiTJOLMOe0x83c=;
+        b=mcrn8GE3ryi5XST2GokKWC9CbyAO4PeAiTDmyqf99F0PIHBZKkQlu6X+gfp70+fNH2
+         YmfewgNU+yDboVUPdmxQSkIiIPIBM/JU0MMNjQ19U/Kcmma2I+T+Efzn2+dSxuY3DthW
+         l8gMfgcFNdhWc9LjBosG2IBoxuhU6/XKPvwxRuD42ERRIFmTWkDun7DuI/9al3H0Y8ZR
+         YXdYrufsaUG82BSehieUvfANNp8+ZXi4rUcUCbICjShbw3oSJ9CmzQuvqWllWz+GEV4+
+         vI+vVgGjSX1L6Jp0BYTAbQrjAeC7gg2HraZPVH2MvEs1ThsSSGvu4mFSEpJqC0SogXr2
+         vdJQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8cW6OMsnfphHyJK24pyznSvPNQBxeQXPF/N+LEESwoYYf5agSTcxRpGdUKzPhGrUVKOtxQSvDiGcvb@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3Hw4iD62xpq4IMfKPl6zK0kfiLyrwVG9ThgYWLIldp6SAIOrL
+	QXRh+njJuCeUkAHS9vn+pVeEL+gu8Kg8lRiLgwFHm86zg8v0yAVFYCRALZ8YELf90sHfL90Nn2n
+	dlQ4ba3pGYk1B+2cNVmZ/dtZwJGmBOL6pmjBbhnL4+U6Lu2EjVnhgGwMQkjljHbue
+X-Gm-Gg: AeBDievtkOzcQlA4KiLpgZyoxCuXJ0Akq2GQvp5rOHBubE/QRaOsXLABY8NLb/NSYZN
+	KNRC60QS+NmCGJPUXorUxnq6x9pTTAt0u4EG/uX24jx8cWoJb9uiACSswTtiXQoNMFrhpM/ZwI0
+	BarN/7ZeGx4XnpedFmDOmTeZWrcGd8FdKk5m2so8n2wI8+G7Zzl5i7Tx3vzvXmPCNMo5stc4220
+	JzYDs4g0m8aY1vwN1utT0bSgh5cv1/0JTdZE+g91wZDggPkwcB4eJD7ARxVhaTO1qHsRbXLs2rp
+	hLXlIEbqpk+qTVlV47vqzuET9A8WaIUoofQaMLc1f7Ibss/pV636DJBgMYrb9W5imJl4qiFUOYo
+	THS5B2JYy+XgKd+eWcLriJkuS7H9LYrt3Vmxs+dASe1T2XFjuHtVRjN0ub1Ww8aGsrkJ3I8mpPs
+	HEb1M=
+X-Received: by 2002:a05:693c:310b:b0:2dd:649d:751d with SMTP id 5a478bee46e88-2e46538dc17mr12387000eec.8.1776925790175;
+        Wed, 22 Apr 2026 23:29:50 -0700 (PDT)
+X-Received: by 2002:a05:693c:310b:b0:2dd:649d:751d with SMTP id 5a478bee46e88-2e46538dc17mr12386981eec.8.1776925789616;
+        Wed, 22 Apr 2026 23:29:49 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2e53ac84c38sm26929968eec.13.2026.04.22.23.29.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Apr 2026 23:29:49 -0700 (PDT)
+Date: Wed, 22 Apr 2026 23:29:47 -0700
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/5] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add
+ support for glymur Gen5 x8 bifurcation mode
+Message-ID: <aem8W+tV6POa9VRF@hu-qianyu-lv.qualcomm.com>
+References: <20260412-glymur_gen5x8_phy_0413-v3-0-affcebc16b8b@oss.qualcomm.com>
+ <20260412-glymur_gen5x8_phy_0413-v3-1-affcebc16b8b@oss.qualcomm.com>
+ <20260415-wooden-prawn-of-lightning-dc1ddc@quoll>
+ <aeBQRStG3imY0cOe@hu-qianyu-lv.qualcomm.com>
+ <fb6e8d3c-4cb1-4c20-a570-e9f6ae9a651c@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fb6e8d3c-4cb1-4c20-a570-e9f6ae9a651c@kernel.org>
+X-Proofpoint-GUID: SDLyCs3rb1IK7d54vljSH6wECBCfimQ0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIzMDA1OSBTYWx0ZWRfX/mkBLiezSjs7
+ fIMA5wz7aGJnTdXSF0p2kBgR9dhsUBFqRNuHNyyPuBtPx+x4i5Q3DKQnXvdqYMwqAB5qJeYclqi
+ hjaWqS7BBCQEmpzhCV/jWDsHEdVvdbZ1GZsmWiKaoSuJhPy8hmf0Ob68iP0ICM5kES1KXW62eKf
+ A4XySgRKnxDHi6ifGOmQ237+QM1t3SH9M2Rm0nQsvBcTJvCFb/MRRMqyE3+PxQBAFa4Nr/9YpH2
+ RW/ufSeJ3Bv+k5VbOGWbCOsNYF8vRLXj62yuJNVGlV4PUAPBBRU2OFiEwo3suAqvk0jqB9fkZ9M
+ SiMb27JpZC9MzO1wT8NWMpEjnH8bdNWBSyXXjvO5t09hI4W43Cpy6Z+3Kqc1jmnp1nitqwaqV6Z
+ 2iQFqc+n5Xs58K7LdoC0ePT6bd1ULlEmEJeWuqgOhCijjLSWq6/Xo7PScepN7y/qamRjfZ/YQNn
+ d8njSEI5JJ7LUCzp2dg==
+X-Proofpoint-ORIG-GUID: SDLyCs3rb1IK7d54vljSH6wECBCfimQ0
+X-Authority-Analysis: v=2.4 cv=Nv7htcdJ c=1 sm=1 tr=0 ts=69e9bc5e cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=sVFJkvLo0iv11KXttJkA:9 a=CjuIK1q_8ugA:10 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-23_01,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 adultscore=0 phishscore=0 malwarescore=0
+ clxscore=1015 bulkscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604230059
 
-QUP1_SE4 shares GPIO_36 & GPIO_37 for both L0/L1 and L3/L2 so the
-function name cannot be the same or the alternate function cannot
-be selected.
+On Wed, Apr 22, 2026 at 08:27:02AM +0200, Krzysztof Kozlowski wrote:
+> On 16/04/2026 04:58, Qiang Yu wrote:
+> >>>    reset-names:
+> >>>      minItems: 1
+> >>>      items:
+> >>>        - const: phy
+> >>>        - const: phy_nocsr
+> >>> +      - const: phy_b
+> >>> +      - const: phy_b_nocsr
+> >>
+> >> And now I doubt that all the changes here are for duplicated node.
+> >>
+> > 
+> > All the changes here are for 1x8 PHY node.
+> > 
+> >> Maybe just the commit msg is confusing and instead of describing some
+> >> node which combines two other phys just say what device is here being
+> >> described.
+> >>
+> > 
+> > Okay, I will focus on describing the required resources. Is the
+> > description below clearer?
+> > 
+> > Glymur has two physical Gen5x4 PCIe PHY blocks: pcie3a phy and pcie3b phy.
+> 
+> 
+> I just proven you that it is not true.
+>
 
-Split them up into individual lane functions so boards can specify.
+Yeah, I see it. I have to say you are right. It is a 1x8 PHY. We can set
+the phy-cell to 1 and controller driver use different args to determine it
+requires 1x4_a, 1x4_b or 1x8.
 
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
----
- drivers/pinctrl/qcom/pinctrl-eliza.c | 30 ++++++++++++++++++++++++------
- 1 file changed, 24 insertions(+), 6 deletions(-)
+- Qiang Yu
 
-diff --git a/drivers/pinctrl/qcom/pinctrl-eliza.c b/drivers/pinctrl/qcom/pi=
-nctrl-eliza.c
-index 8f74756771b8..40e263e35b45 100644
---- a/drivers/pinctrl/qcom/pinctrl-eliza.c
-+++ b/drivers/pinctrl/qcom/pinctrl-eliza.c
-@@ -568,7 +568,10 @@ enum eliza_functions {
- =09msm_mux_qup1_se2_l3_mira,
- =09msm_mux_qup1_se2_l3_mirb,
- =09msm_mux_qup1_se3,
--=09msm_mux_qup1_se4,
-+=09msm_mux_qup1_se4_l0,
-+=09msm_mux_qup1_se4_l1,
-+=09msm_mux_qup1_se4_l2,
-+=09msm_mux_qup1_se4_l3,
- =09msm_mux_qup1_se5,
- =09msm_mux_qup1_se6,
- =09msm_mux_qup1_se6_l1_mira,
-@@ -1017,8 +1020,20 @@ static const char *const qup1_se3_groups[] =3D {
- =09"gpio44", "gpio45", "gpio46", "gpio47",
- };
-=20
--static const char *const qup1_se4_groups[] =3D {
--=09"gpio36", "gpio37", "gpio37", "gpio36",
-+static const char *const qup1_se4_l0_groups[] =3D {
-+=09"gpio36",
-+};
-+
-+static const char *const qup1_se4_l1_groups[] =3D {
-+=09"gpio37",
-+};
-+
-+static const char *const qup1_se4_l2_groups[] =3D {
-+=09"gpio37",
-+};
-+
-+static const char *const qup1_se4_l3_groups[] =3D {
-+=09"gpio36",
- };
-=20
- static const char *const qup1_se5_groups[] =3D {
-@@ -1321,7 +1336,10 @@ static const struct pinfunction eliza_functions[] =
-=3D {
- =09MSM_PIN_FUNCTION(qup1_se2_l3_mira),
- =09MSM_PIN_FUNCTION(qup1_se2_l3_mirb),
- =09MSM_PIN_FUNCTION(qup1_se3),
--=09MSM_PIN_FUNCTION(qup1_se4),
-+=09MSM_PIN_FUNCTION(qup1_se4_l0),
-+=09MSM_PIN_FUNCTION(qup1_se4_l1),
-+=09MSM_PIN_FUNCTION(qup1_se4_l2),
-+=09MSM_PIN_FUNCTION(qup1_se4_l3),
- =09MSM_PIN_FUNCTION(qup1_se5),
- =09MSM_PIN_FUNCTION(qup1_se6),
- =09MSM_PIN_FUNCTION(qup1_se6_l1_mira),
-@@ -1418,8 +1436,8 @@ static const struct msm_pingroup eliza_groups[] =3D {
- =09[33] =3D PINGROUP(33, qup1_se1, ibi_i3c, host2wlan_sol, gcc_gp3, _, _, =
-_, _, _, _, _),
- =09[34] =3D PINGROUP(34, qup1_se1, qup1_se5, tb_trig_sdc1, ddr_bist_start,=
- qdss_gpio_tracedata, _, _, _, _, _, _),
- =09[35] =3D PINGROUP(35, qup1_se1, qup1_se5, tb_trig_sdc2, gcc_gp2, qdss_g=
-pio_tracedata, _, _, _, _, _, _),
--=09[36] =3D PINGROUP(36, qup1_se4, qup1_se4, ibi_i3c, _, _, _, _, _, _, _,=
- _),
--=09[37] =3D PINGROUP(37, qup1_se4, qup1_se4, ibi_i3c, _, _, _, _, _, _, _,=
- _),
-+=09[36] =3D PINGROUP(36, qup1_se4_l0, qup1_se4_l3, ibi_i3c, _, _, _, _, _,=
- _, _, _),
-+=09[37] =3D PINGROUP(37, qup1_se4_l1, qup1_se4_l2, ibi_i3c, _, _, _, _, _,=
- _, _, _),
- =09[38] =3D PINGROUP(38, _, _, _, _, _, _, _, _, _, _, _),
- =09[39] =3D PINGROUP(39, _, _, _, _, _, _, _, _, _, _, _),
- =09[40] =3D PINGROUP(40, qup1_se6, qup1_se2, qup1_se6_l3_mira, _, qdss_gpi=
-o_tracedata, gnss_adc1, ddr_pxi1, _, _, _, _),
-
---=20
-2.53.0
-
-
+> Best regards,
+> Krzysztof
