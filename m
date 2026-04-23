@@ -1,114 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186741A3029;
-	Thu, 23 Apr 2026 11:52:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4568437646B;
+	Thu, 23 Apr 2026 12:01:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776945163; cv=none; b=uKEvKuGW8mpFDUjSyofPegiQyLq2ax3AraGVBSChpcQwLCtQIkWM55gP8mMvSum9WcwNItjJaQHwYcx1v1Ebk+01XGK332WNvYEiO27KQgOGCYcZDYThdkmH0jsGeXLAfGkVO254HyKKh1SgIATD/Kv26oLSvUEVEbGVr7Rnefk=
+	t=1776945721; cv=none; b=PuHnLkLe7l6/+OVXyOPQxIfINXdmKJPOpWEQ8iw4bSY4mQhyq9v/sLErJww5wqHVzxIbLu9jP7VdmkLdzZPwzrRwNBLVVB38fO7Vi1YLs0WD/+TUsLJrxnp6onjUuXAdiX9jVgZfi1pQI/pvkJfM8ZPLDHOdrQaSQX2HNxKDU+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776945163; c=relaxed/simple;
-	bh=khu9hCGRWwD6P5ATFBgT/SxBupxKRfuGObzWbF9YMd8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=igFclj3wSU3m8SNcpAOQY+piT6eIcCLyIVE0IWXJmdZov9gvqEf/JlrK1rDB6UiZ3850o5X6GbQFn4Z1FJe+00UlcyO3hzpfZV1pq2eUC8O9RhGhWPtj+SOYVViDSLiNuZ2NeF3kn5z2B9KXEtDGVJRQGNky2Ie21JJrJ9pzC/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ug/wc//u; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776945721; c=relaxed/simple;
+	bh=Fx938U2Vfj0K/y5jh7enFEPw/OYujGES1OBKTsXTLso=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WGipBoJpwrxkYhyYqxTukU1MuSLS8uj24GxGcHDIYf1Z/n+V3/8g1SzQxLNB1NqexKqmM48pbgNr2KxiHLIyl3XbcSdod1gRW7eJ8kgstXaUS1o2jxZ9FI9wYfsgzalXfypMuSniPkWGADinK5/V7m/Oxmo3+t036Bx6BSyCvSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=hYU+Rth/; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ug/wc//u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E2DCC2BCB3;
-	Thu, 23 Apr 2026 11:52:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776945162;
-	bh=khu9hCGRWwD6P5ATFBgT/SxBupxKRfuGObzWbF9YMd8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ug/wc//uDsfM07EOJTntKPjUWKDYJb9g4EuqFSuAZDa5NPLOwUWgPIMp9hsbQoZ0Y
-	 8mz5b7Up60NgQ2kzIRH8j91jOfvgRKmr1mrWSU4AB98RPwtzYY+LPnrMQzkWj5Y9qY
-	 34pB+P6TdorIutGVzBEDP9Rvar3e+gPNFCld6aSZ7aq0ZbOhCpZN49o/u6e+hPwgMR
-	 3Jg47Wo5CLf2ubqln3bYzE/4/El+fbP+hckE7gmzpF1dCRFBZRsBTJ1LTaZ1epLUdt
-	 IUCAMwLQ7eVqMEkoC5wgjN8UU8d/Kw/qPiUhfcQpDAVvqJGFkl9Jz8jT39OmUSafmB
-	 C2XpYVpk/0w3A==
-Date: Thu, 23 Apr 2026 11:52:39 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Sandie Cao <sandie.cao@deepcomputing.io>
-Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Michael Opdenacker <michael.opdenacker@rootcommit.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Guodong Xu <guodong@riscstar.com>,
-	Hendrik Hamerlinck <hendrik.hamerlinck@hammernet.be>,
-	Yangyu Chen <cyy@cyyself.name>, spacemit@lists.linux.dev,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/2] Add DeepComputing FML13V05 board dts
-Message-ID: <20260423115239-GKA3186731@kernel.org>
-References: <20260421064021.1580094-1-sandie.cao@deepcomputing.io>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="hYU+Rth/"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 030669A4;
+	Thu, 23 Apr 2026 14:00:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1776945617;
+	bh=Fx938U2Vfj0K/y5jh7enFEPw/OYujGES1OBKTsXTLso=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=hYU+Rth/LWlUi09SWn3C1ojFeB3bob/ROPmYmxTjEC+TzCblfv6fwLHZ97Aoxhp8q
+	 KK8aYt7qWstD46FDSAt3LHGL8oq4RUzkmxaXoMS6iHzRJTHxKBVlJJ4rXcZ+UltJ3o
+	 0oDuaK1K8Wnvw9XxASotvt1EjrM5algZ1YOzfjdY=
+Message-ID: <af71183d-70b8-4a41-8466-67123e7aab02@ideasonboard.com>
+Date: Thu, 23 Apr 2026 15:01:51 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260421064021.1580094-1-sandie.cao@deepcomputing.io>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/panel: simple: Add timings for Raspberry Pi 7"
+ panel
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Thierry Reding
+ <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260420-rpi-7inch-v1-0-e68d5c9c44bc@ideasonboard.com>
+ <20260420-rpi-7inch-v1-2-e68d5c9c44bc@ideasonboard.com>
+ <3z3u5mbngmbzsch3mzs3twlh3aec6r7jokstzv3ghxyusrzt6b@jqvdnuiapx6e>
+Content-Language: en-US
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+In-Reply-To: <3z3u5mbngmbzsch3mzs3twlh3aec6r7jokstzv3ghxyusrzt6b@jqvdnuiapx6e>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Sandie,
+Hi,
 
-On 14:40 Tue 21 Apr     , Sandie Cao wrote:
-> This series updates Device Tree related files to introduce the
-> FML13V05 board from DeepComputing, which incorporates a Spacemit
-> K3 SoC.  This board is designed for use on the Framework Laptop 13
-> Chassis, which has (Framework) SKU FRANHQ0001.
+On 22/04/2026 22:22, Dmitry Baryshkov wrote:
+> On Mon, Apr 20, 2026 at 04:13:36PM +0300, Tomi Valkeinen wrote:
+>> Add timings for the panel used in Raspberry Pi 7" DSI Display module:
+>> https://www.raspberrypi.com/products/raspberry-pi-touch-display/
+>>
+>> This has been tested with version v1.1 of the display module.
+>>
+>> The panel is very strict about the back-porch values, they must be
+>> exactly 46 for hbp and 23 for vbp. Other timings can be defined quite
+>> freely.
+>>
+>> The panel is exclusive to Raspberry Pi, and different versions of the
+>> display module can have panels from different vendors which are fully
+>> compatible. Also, as the panel vendors are not public, the compatible
+>> string used is "raspberrypi,7inch-dsi".
+>>
+>> Note that while the display module has a DSI connector, and the
+>> compatible has "dsi" in it, we use DRM_MODE_CONNECTOR_DPI as the panel
+>> itself is a parallel video panel. The display module (as of v1.1) uses
+>> TC358762 DSI-to-DPI bridge to do the conversion.
+>>
+>> We could use DRM_MODE_CONNECTOR_DSI here, which would have the benefit
+>> of showing a "DSI-1" connector to the userspace. However, the panel IS a
+>> DPI panel, and gets its input from a DSI-to-DPI bridge, and the
+>> panel-simple.c behaves differently depending on the connector type used,
+>> so, DRM_MODE_CONNECTOR_DPI it is.
+>>
+>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+>> ---
+>>   drivers/gpu/drm/panel/panel-simple.c | 32 ++++++++++++++++++++++++++++++++
+>>   1 file changed, 32 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+>> index 91ab280869ba..e75eb20301f2 100644
+>> --- a/drivers/gpu/drm/panel/panel-simple.c
+>> +++ b/drivers/gpu/drm/panel/panel-simple.c
+>> @@ -4208,6 +4208,35 @@ static const struct panel_desc rocktech_rk043fn48h = {
+>>   	.connector_type = DRM_MODE_CONNECTOR_DPI,
+>>   };
+>>   
+>> +static const struct display_timing raspberrypi_7inch_timing = {
+>> +	.pixelclock = { 10000000, 30000000, 50000000 },
+>> +	.hactive = { 800, 800, 800 },
+>> +	.hfront_porch = { 16, 72, 354 },
+>> +	.hsync_len = { 1, 32, 40 },
+>> +	.hback_porch = { 46, 46, 46 },
+>> +	.vactive = { 480, 480, 480 },
+>> +	.vfront_porch = { 7, 21, 147 },
+>> +	.vsync_len = { 1, 2, 20 },
+>> +	.vback_porch = { 23, 23, 23 },
+>> +	.flags = DISPLAY_FLAGS_VSYNC_HIGH | DISPLAY_FLAGS_HSYNC_HIGH,
+>> +	/* Note: the rest of the flags are defined below in bus_flags */
+>> +};
 > 
-> The series is rebased on next-20260420.
-> 
-Looks good, likely will take it once v7.1-rc1 tagged.. Thanks
+> This looks pretty close to powertip panels that have been used before
+> hand in those modules. Are you sure that powertip,ph800480t013-idf02
+> or powertip,ph800480t032-zhc19 don't work for you?
 
-Reviewed-by: Yixun Lan <dlan@kernel.org>
+I haven't tested those, but the hbp and vbp do not seem to be the same. 
+For me, they had to be exactly as they are here. This was also confirmed 
+from Raspberry Pi, the panel datasheet had min/typ/max values (i.e. not 
+ranges) of 46 and 23 for back porches.
 
-> v5:
-> rebased on next-20260420.
-> 
-> v4:
-> - Patch 1:
->   Add Acked-by Conor Dooley.
-> - Patch 2:
->   Copyright begins from 2026.
-> Link to v4: https://lore.kernel.org/all/20260413060524.1235982-1-sandie.cao@deepcomputing.io/
-> 
-> v3:
-> rebased on k1/dt-for-next.
-> - Patch 1:
->    Use formal format user name.
->    Remove Reviewed-by Heinrich Schuchardt from internal system.
-> - Patch 2:
->    Use formal format user name.
->    Remove Reviewed-by Heinrich Schuchardt from internal system.
->    Add uart0 pinctrl.
-> Link to v3: https://lore.kernel.org/all/20260407055557.1202713-1-sandie.cao@deepcomputing.io/
->  
-> v2 (deprecated):
-> Link to v2: https://lore.kernel.org/all/20260331071110.68321-1-sandie.cao@deepcomputing.io/
-> 
-> v1:
-> Link to v1: https://lore.kernel.org/all/20260331034423.67142-1-sandie.cao@deepcomputing.io/
-> 
-> Sandie Cao (2):
->   dt-bindings: riscv: spacemit: add deepcomputing,fml13v05
->   riscv: dts: spacemit: add DeepComputing FML13V05 board device tree
-> 
->  .../devicetree/bindings/riscv/spacemit.yaml   |  1 +
->  arch/riscv/boot/dts/spacemit/Makefile         |  1 +
->  .../spacemit/k3-deepcomputing-fml13v05.dts    | 31 +++++++++++++++++++
->  3 files changed, 33 insertions(+)
->  create mode 100644 arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> 
-> 
-> base-commit: 97e797263a5e963da3d1e66e743fd518567dfe37
-> -- 
-> 2.43.0
+Where did the information come from that powertip,ph800480t013-idf02 or 
+powertip,ph800480t032-zhc19 are used in the display modules? Or did you 
+mean that while those models are not used in the Raspberry display 
+module, people have used them successfully?
 
--- 
-Yixun Lan (dlan)
+  Tomi
+
