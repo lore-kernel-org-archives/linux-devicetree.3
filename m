@@ -1,33 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034702D97B5;
-	Thu, 23 Apr 2026 14:00:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A3730E821;
+	Thu, 23 Apr 2026 14:05:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776952817; cv=none; b=I4aXHji+ff9NR0ErbBjwzrTdELJw4jx3yAmzPXYeeI2tB0cLrYrFcbCkPemtDcHAS1cBjZfxKbKltk2H3/h6vf/CyzyvtiBjm7W3J5GuRwk6JPFE20Y80Dw6QXWK8fqYu4o4lQwdGq1kS9rrfOymTxO4990iwk+uzYwM0XXTaJ4=
+	t=1776953143; cv=none; b=CpEx8isHP9fkzH9th4BGnlvPXrA5buqKygS45fvKlmiyM+vszmaTqWr0bPINfuO5asp4zudt+jB151W2unRt001RQvyZCmz3bDDNf6knPwAICZo1IkvzY8vd1V+zJ7i7ba81gYwIpPUeBdsaSHHY6BOLQX6CfQmS183Muar0Ijs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776952817; c=relaxed/simple;
-	bh=gAF07G8B2uHeaLptvD9362chq95iSNE3H8glhYG1ClY=;
+	s=arc-20240116; t=1776953143; c=relaxed/simple;
+	bh=wqniVq9yEq7QN1zP9YpKxgcUq4s7oP2llFTuHjHuy04=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oGtBFgKm7F3ATuDakVEcvClYLi+rvpAcLIaapQkMbotD8erhFnMaplss7/BPn04Z8lrobcFSb0htTRj4KvWxVxjv9ihwcglA7b/3wg/VXYWmMGGXaM2z9a9sAPSPQuKYX7WnIH6TFs/pd4Rh/Rnc59lFgyjSFxeenu3k701F1bI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lXZR9jVG; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=HCrwtHiecO25j/bpBzmUwy4MV7eoVlU/m7CKF5yz8HFG2uEeno0HWnbseQ7HfKaLfPiRQanmLNWBWzA1ocj26R73VfWJrfYhqLWy+mO6Pou8aRsbJi4+qOvRyyvkn5JtQqk26WhOLYwaX8gzu8McRFVm/ob3uNK0oyGAdJms5wA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=MnFDp/Go; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lXZR9jVG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6949FC2BCAF;
-	Thu, 23 Apr 2026 14:00:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776952816;
-	bh=gAF07G8B2uHeaLptvD9362chq95iSNE3H8glhYG1ClY=;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="MnFDp/Go"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B9819227;
+	Thu, 23 Apr 2026 16:03:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1776953040;
+	bh=wqniVq9yEq7QN1zP9YpKxgcUq4s7oP2llFTuHjHuy04=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lXZR9jVGAsT15SXcfhcItqcD2U5uOWQfuQ7WbB2L1LuhC0fl6nl5sCw6bw2uxRE7Y
-	 gtrDUoCTyhHfvcIFgOXz/9lHbVjytiOU8YBgtASSu5Og2jDCZnKJfXT0XfJ/sTg8ah
-	 pqNiFnrQgKHmp6RWsaXJg0gltHeWD6WmIDMIeJkxMDu7V+TVG18emd1VRqPr4H8MT2
-	 s+camVh3Kd6GONtMWsYbBKNGbU0vNzWwz/uMVXYSSW/ok11CePeMmyF71LdMhfiQTC
-	 qxksLtI+/9efjoXCUywQLy0vSQMuAPDV6pqKbQqHm0aXrb/pywdJfQ1eUWLsOfOnxe
-	 8aCKi/O+NkwRw==
-Message-ID: <d246edd2-5f9d-4e95-850d-abff175088a6@kernel.org>
-Date: Thu, 23 Apr 2026 16:00:11 +0200
+	b=MnFDp/GocbhxsUcToEMstatKOCP67wZpMIU3CSf2ZxhYNGDr7UVKluUnbOyKIACV6
+	 OGF4pmKbFOdMaKDo2o9cs0EP8bcghzwPCBJCw1ZVo574ntEdJB1L/r7XpFKhRjNqwo
+	 2IjxOOY2TR0Hk8vDHobycLW2DT32EfEjlQ2cOx6M=
+Message-ID: <a5f67f4d-cfbf-4726-980b-0dbcb47255a9@ideasonboard.com>
+Date: Thu, 23 Apr 2026 17:05:35 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,121 +35,71 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] ARM: dts: renesas: r8a7740: Add ZT/ZTR trace clock
- on R-Mobile A1
-To: Marek Vasut <marek.vasut@mailbox.org>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm
- <magnus.damm@gmail.com>, Michael Turquette <mturquette@baylibre.com>,
- Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-References: <20260415233300.457892-1-marek.vasut+renesas@mailbox.org>
- <20260415233300.457892-4-marek.vasut+renesas@mailbox.org>
- <20260421-cherubic-urban-beluga-49ee00@quoll>
- <0f933506-c196-4503-844f-2a375e2cf690@mailbox.org>
- <161eb29f-2d07-455a-bd74-4f22061b5dfb@kernel.org>
- <c9ef9d73-6f1b-42ea-b5f0-09fcf904c78e@mailbox.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH 2/2] drm/panel: simple: Add timings for Raspberry Pi 7"
+ panel
+To: Marek Vasut <marex@nabladev.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260420-rpi-7inch-v1-0-e68d5c9c44bc@ideasonboard.com>
+ <20260420-rpi-7inch-v1-2-e68d5c9c44bc@ideasonboard.com>
+ <3z3u5mbngmbzsch3mzs3twlh3aec6r7jokstzv3ghxyusrzt6b@jqvdnuiapx6e>
+ <af71183d-70b8-4a41-8466-67123e7aab02@ideasonboard.com>
+ <20260423-kickass-fat-boa-209f68@houat>
+ <72c2cd94-0a8b-46c8-981b-4ad4a3222e59@ideasonboard.com>
+ <CAO9ioeVX6OChRTgUrUdgrPF+3s2_7vme7m0yb85pjYtH1MFskw@mail.gmail.com>
+ <ced05a92-06b4-4f6f-95b6-c3dc104c35f3@ideasonboard.com>
+ <b24c428f-5752-4544-a8b4-77e91d7bc158@ideasonboard.com>
+ <da6bdb78-7fe8-4f51-b9e6-444748ebc319@nabladev.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <c9ef9d73-6f1b-42ea-b5f0-09fcf904c78e@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+In-Reply-To: <da6bdb78-7fe8-4f51-b9e6-444748ebc319@nabladev.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 23/04/2026 12:00, Marek Vasut wrote:
-> On 4/23/26 11:26 AM, Krzysztof Kozlowski wrote:
->> On 23/04/2026 01:33, Marek Vasut wrote:
->>> On 4/21/26 10:02 AM, Krzysztof Kozlowski wrote:
->>>> On Thu, Apr 16, 2026 at 01:31:40AM +0200, Marek Vasut wrote:
->>>>> Add ZT trace bus and ZTR trace clock on the R-Mobile A1.
->>>>>
->>>>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->>>>> ---
->>>>> Cc: Conor Dooley <conor+dt@kernel.org>
->>>>> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
->>>>> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
->>>>> Cc: Magnus Damm <magnus.damm@gmail.com>
->>>>> Cc: Michael Turquette <mturquette@baylibre.com>
->>>>> Cc: Rob Herring <robh@kernel.org>
->>>>> Cc: Stephen Boyd <sboyd@kernel.org>
->>>>> Cc: devicetree@vger.kernel.org
->>>>> Cc: linux-clk@vger.kernel.org
->>>>> Cc: linux-kernel@vger.kernel.org
->>>>> Cc: linux-renesas-soc@vger.kernel.org
->>>>> ---
->>>>> V2: Add ztr/zt clock at the end of the list to match bindings
->>>>> ---
->>>>>    arch/arm/boot/dts/renesas/r8a7740.dtsi    | 2 +-
->>>>
->>>>>    include/dt-bindings/clock/r8a7740-clock.h | 2 ++
->>>>
->>>> This goes to the binding patch.
->>>>
->>>> Didn't you have also a checkpatch warning?
->>> I only got this warning, but the docs 1/4 and includes 3/4 are a
->>> separate patch in this series:
->>>
->>> "
->>> WARNING: DT binding docs and includes should be a separate patch. See:
->>> Documentation/devicetree/bindings/submitting-patches.rst
->>
->> So you did not implement it... Include goes with the binding. Always.
->> Look at other commits.
-> The warning says the exact opposite thing , does it not ?
+Hi,
+
+On 23/04/2026 16:54, Marek Vasut wrote:
+> On 4/23/26 3:16 PM, Tomi Valkeinen wrote:
 > 
-> Maybe the warning text needs to be updated ?
+> Hello Tomi,
+> 
+>>>> In the past I used this panel compat instead of the
+>>>> panel-raspberrypi-touchscreen.c and it worked.
+>>>> IIRC Marek splitted the multi-function module into a regulator and the
+>>>> panel description.
+>>> Ok... Indeed https://pip.raspberrypi.com/categories/651-pcn lists 
+>>> PH800480T013 as one of the panels used. Although two variants are 
+>>> listed, and also a third panel model, possibly from another vendor.
+>>>
+>>> My module is v1.1, and I think it has the PH800480T013-IAC21 D/5624/ 
+>>> KIT- LC variant.
+>> A question to Marek: Where did you get the timings for PH800480T013? 
+>> Did you find a datasheet?
+> Search engine first link:
+> 
+> https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/5337/ 
+> PH800480T013-IHC09.pdf
 
-The warning is shown for patches mixing stuff, like DTSI+header, so for
-this context the AND means binding doc plus header are separate FROM
-this patch. Not separate from each other.
+Thanks. That's not exactly the same variant, though (IHC09 vs IAC21). 
+Even so, that datasheet also lists the backporches as 46 and 23, which 
+are not the same as in d69de69f2be105b2474c05a5ca4827aac3e80ad3.
 
-To me it is clear, so I don't feel like finding different text. If you
-find it unclear or confusing, you should propose something better.
+But oddly the datasheet pic shows that the backporch times would include 
+the sync time. Taken that way, the commit's hsw=2 and hbp=44 would 
+match, but the vsw=2 and vbp=22 still wouldn't.
 
-Best regards,
-Krzysztof
+I'll test my HW with the PH800480T013 compatible at some point and see 
+how it behaves.
+
+  Tomi
+
