@@ -1,223 +1,79 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5DEF35A3A5;
-	Thu, 23 Apr 2026 21:15:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590A23BF695
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 21:24:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776978932; cv=none; b=Uo4RgvZUIoCxqYxBF14QSCHMDyDGUeFO4fP8PI30HFKGKgB2GtC49SZnw61CwpmoBq2MMFXUYNuFWWl1vOodF4z0cFhfB0xRyoTrvBk9uNFuO0F1ryOT0OCNyX65tgg4w5o4M3E2zay/M/t5Rh1uc4jW7+qOKDrKJxLftTSu8l0=
+	t=1776979486; cv=none; b=p2tlqI7EF5qqavRkpDwfl47SoF4TxC1Xfh+jz+SB90M2NO4POS+TQw5yN8+XGis05Er8BnqGM+IIG6jYzIXnE7nA3zzlDWJRBeGZxOXieMSk7O8fBXC2H+1tfFAC5BkM4PfiVkR8O+m6h109U8vzTONrujsFn3SwoSDD0RI/bvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776978932; c=relaxed/simple;
-	bh=huhIXe5LzTuSdn4x/eDx9x97adSs7l5TQbXWOlsR6Ss=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Hf7MGUupmPbpNM2txM7avXefDn90vTG0zOnJ1fYoZQ0btdcuS8VsFpHk9fgp+5gypIMPQmdk2vy7NjgY2HsCIZUBsPQ1aYBNDfEoMOU5ukWeFgVw2Vrcn3iiT0XiCxQqokdydIPiGseTdP2nTZ9Q4SrvcDn54QGRgKP94S2zAUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=timmermann.space; spf=pass smtp.mailfrom=timmermann.space; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=timmermann.space
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=timmermann.space
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4g1plj03ssz9vM4;
-	Thu, 23 Apr 2026 23:15:29 +0200 (CEST)
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of linux@timmermann.space designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=linux@timmermann.space
-From: Lukas Timmermann <linux@timmermann.space>
-Date: Thu, 23 Apr 2026 23:14:41 +0200
-Subject: [PATCH 5/5] ARM: dts: exynos: Add display support for
- exynos5250-manta
+	s=arc-20240116; t=1776979486; c=relaxed/simple;
+	bh=bwLbQ5NviOj/bY0u6od11N2GNC6P5OodS0ixTy9vUk8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FwxoQpJPE91adWKheOXismCmd9H8wjczrRdEO23ErOl9TZPbUV0ucP8kVUPXJN+qb/YVK6CAM7Gqr8tTWXMtKZT5JQbDUkv5bOfOsKLO63jW1IkOEqDyDN3ExGCLhLfdfb2APPC7N6anBxh+hnDg1S3uxkQ1sjQBzQDYZ+I4cBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pr5rX5+i; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pr5rX5+i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1A9AC2BCB2
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 21:24:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776979485;
+	bh=bwLbQ5NviOj/bY0u6od11N2GNC6P5OodS0ixTy9vUk8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=Pr5rX5+iSOtoDmywesPolyZqj/RoYZzXZzqAKOCPXaAPVbQy181gcY4KqmWelL3xe
+	 iI8OxPQrJC/OTrH/ZLz0rOUiOTVtcX+tgL8fQldFAyifEXq4Ro7X9rCkCPHaEon8lf
+	 78I3H6UHjrVSc0vZ/rmfbV584lCxPbmjMUsEw20EYHIC1m11yOmA53E7zZ9iwFFwMY
+	 h1y3TQiPQ/Mn6Lkn2GPmkG1BtNNIAudFgaxnIc/Wmh/3c8UYfH/tzhp03vDl1Esv5z
+	 JNQTUBvUtjQZhZCzy7NjdstndEvcCFBbiVJ8BrVj/ubjrTdizCo6szD4gaROtGlr3Q
+	 7rfjwEOk7fYLQ==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5a3af1b7549so8994024e87.1
+        for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 14:24:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9k5NJkrJzUq3JxRyXmGeqzd2NWv9jSHiKoahdP2c2Uok+RiQAWxQ5c3aJQ23F9usrup9vQy8WlXQ2H@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzryj+G5ePG+lZLaHd6lq70whsekMOPSquFhXo5qaBPm7kYT4ql
+	iP5v3QD0Z0YVExkr6GZk5j2i2f+/XK2TiPW8XoBQVGyUOwg4BO9G4Km38zoKiM+6WXDkIIH9orb
+	AP4v4NPFeIm7sxg3TEPrpCN+kl4aCLhY=
+X-Received: by 2002:a05:6512:118b:b0:5a2:8568:826a with SMTP id
+ 2adb3069b0e04-5a4172eece0mr8397088e87.34.1776979484421; Thu, 23 Apr 2026
+ 14:24:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-manta-display-v1-5-196f80c5673a@timmermann.space>
-References: <20260423-manta-display-v1-0-196f80c5673a@timmermann.space>
-In-Reply-To: <20260423-manta-display-v1-0-196f80c5673a@timmermann.space>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Douglas Anderson <dianders@chromium.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Sylwester Nawrocki <s.nawrocki@samsung.com>, 
- Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Lukas Timmermann <linux@timmermann.space>, 
- Alexandre Marquet <tb@a-marquet.fr>
-X-Rspamd-Queue-Id: 4g1plj03ssz9vM4
+References: <20260413-waveshare-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com> <20260413-waveshare-dsi-touch-v3-17-3aeb53022c32@oss.qualcomm.com>
+In-Reply-To: <20260413-waveshare-dsi-touch-v3-17-3aeb53022c32@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 23 Apr 2026 23:24:32 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnsVc3xqKfhuZo08wQFkGrgDiw+OAhTOfUi7vD5ZFY2_g@mail.gmail.com>
+X-Gm-Features: AQROBzCz31PGPdHjUDpQGU0MKBOAMjnGwCLXEjwbbDFHz8TqNnaOCqTWhFhlvZ4
+Message-ID: <CAD++jLnsVc3xqKfhuZo08wQFkGrgDiw+OAhTOfUi7vD5ZFY2_g@mail.gmail.com>
+Subject: Re: [PATCH v3 17/21] drm/panel: ilitek-ili9881c: support Waveshare
+ 7.0" DSI panel
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Cong Yang <yangcong5@huaqin.corp-partner.google.com>, Ondrej Jirman <megi@xff.cz>, 
+	Javier Martinez Canillas <javierm@redhat.com>, Jagan Teki <jagan@edgeble.ai>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Jie Gan <jie.gan@oss.qualcomm.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Adds the necessary entries for panel and backlight as
-well as the fimd controller.
+On Mon, Apr 13, 2026 at 4:06=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
 
-Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
-Signed-off-by: Lukas Timmermann <linux@timmermann.space>
----
- arch/arm/boot/dts/samsung/exynos5250-manta.dts | 99 ++++++++++++++++++++++++++
- 1 file changed, 99 insertions(+)
+> Enable support for Waveshare 7.0" DSI TOUCH-A panel. It requires
+> additional voltage regulator, iovcc.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-diff --git a/arch/arm/boot/dts/samsung/exynos5250-manta.dts b/arch/arm/boot/dts/samsung/exynos5250-manta.dts
-index 76d3657eb22f..eb97a28ff4e3 100644
---- a/arch/arm/boot/dts/samsung/exynos5250-manta.dts
-+++ b/arch/arm/boot/dts/samsung/exynos5250-manta.dts
-@@ -25,6 +25,29 @@ aliases {
- 		mmc1 = &mmc_1; /* WiFi */
- 	};
- 
-+	backlight: backlight {
-+		compatible = "pwm-backlight";
-+		pwms = <&pwm 0 1000000 0>;
-+
-+		brightness-levels = <2 255>; /* TODO */
-+		num-interpolated-steps = <254>; /* TODO */
-+		default-brightness-level = <102>; /* TODO */
-+		post-pwm-on-delay-ms = <97>; /* TODO */
-+
-+		power-supply = <&backlight_reg>;
-+		enable-gpios = <&gpg0 5 GPIO_ACTIVE_HIGH>;
-+
-+		pinctrl-0 = <&led_bl_reset &pwm0_out>;
-+		pinctrl-names = "default";
-+	};
-+
-+	backlight_reg: regulator-backlight {
-+		compatible = "regulator-fixed";
-+		regulator-name = "APS_EN_18V";
-+		pinctrl-0 = <&aps_en_18v>;
-+		pinctrl-names = "default";
-+	};
-+
- 	/* Voltage source unknown */
- 	bmp180_vdda_reg: regulator-bmp180-vdda {
- 		compatible = "regulator-fixed";
-@@ -105,6 +128,28 @@ multi-led {
- 		leds = <&status_red>, <&status_green>, <&status_blue>, <&status_white>;
- 	};
- 
-+	panel {
-+		compatible = "samsung,ltl101dl02-002";
-+
-+		backlight = <&backlight>;
-+		power-supply = <&panel_reg>;
-+		enable-gpios = <&gph1 7 GPIO_ACTIVE_HIGH>;
-+		pinctrl-0 = <&lcd_en>;
-+		pinctrl-names = "default";
-+		no-hpd;
-+
-+		port {
-+			panel: endpoint {
-+				remote-endpoint = <&dp_out>;
-+			};
-+		};
-+	};
-+
-+	panel_reg: regulator-panel {
-+		compatible = "regulator-fixed";
-+		regulator-name = "LCD_EN";
-+	};
-+
- 	pwrseq: mmc1-pwrseq {
- 		compatible = "mmc-pwrseq-simple";
- 
-@@ -146,10 +191,36 @@ &cpu1 {
- 	cpu-supply = <&buck2_reg>;
- };
- 
-+&dp {
-+	status = "okay";
-+
-+	samsung,color-space = <0>;
-+	samsung,color-depth = <1>;
-+	samsung,link-rate = <0x0a>;
-+	samsung,lane-count = <4>;
-+	samsung,dynamic-range = <0>;
-+	samsung,ycbcr-coeff = <0>;
-+
-+	ports {
-+		port {
-+			dp_out: endpoint {
-+				remote-endpoint = <&panel>;
-+			};
-+		};
-+	};
-+};
-+
- &ehci {
- 	status = "disabled";
- };
- 
-+&fimd {
-+	status = "okay";
-+
-+	assigned-clocks = <&clock CLK_MOUT_FIMD1>, <&clock CLK_MOUT_VPLL>;
-+	assigned-clock-parents = <&clock CLK_MOUT_VPLL>;
-+};
-+
- &i2c_1 {
- 	status = "okay";
- 
-@@ -396,6 +467,12 @@ ldo25_reg: LDO25 {
- 	};
- };
- 
-+&mali {
-+	status = "okay";
-+
-+	mali-supply = <&buck4_reg>;
-+};
-+
- &mixer {
- 	status = "okay";
- };
-@@ -489,6 +566,14 @@ wlan_irq: wlan-irq-pins {
- };
- 
- &pinctrl_1 {
-+	aps_en_18v: aps-en-18v-pins {
-+		samsung,pins = "gph1-6";
-+		samsung,pin-function = <EXYNOS_PIN_FUNC_OUTPUT>; /* TODO */
-+		samsung,pin-con-pdn = <EXYNOS_PIN_PDN_INPUT>; /* TODO */
-+		samsung,pin-pud-pdn = <EXYNOS_PIN_PULL_UP>; /* TODO */
-+		samsung,pin-val = <0>; /* TODO */
-+	};
-+
- 	bh1721fvc_reset: bh1721fvc-reset-pins {
- 		samsung,pins = "gph1-2";
- 		samsung,pin-function = <EXYNOS_PIN_FUNC_OUTPUT>;
-@@ -509,6 +594,20 @@ bt_wake: bt-wake-pins {
- 		samsung,pin-pud-pdn = <EXYNOS_PIN_PULL_NONE>;
- 	};
- 
-+	lcd_en: lcd-en-pins {
-+		samsung,pins = "gph1-7";
-+		samsung,pin-function = <EXYNOS_PIN_FUNC_OUTPUT>; /* TODO */
-+		samsung,pin-val = <0>;
-+	};
-+
-+	led_bl_reset: led-bl-rst-pins {
-+		samsung,pins = "gpg0-5";
-+		samsung,pin-function = <EXYNOS_PIN_FUNC_OUTPUT>; /* TODO */
-+		samsung,pin-con-pdn = <EXYNOS_PIN_PDN_PREV>; /* TODO */
-+		samsung,pin-pud-pdn = <EXYNOS_PIN_PULL_NONE>; /* TODO */
-+		samsung,pin-val = <0>; /* TODO */
-+	};
-+
- 	msense_reset: msense-reset-pins {
- 		samsung,pins = "gpg2-0";
- 		samsung,pin-function = <EXYNOS_PIN_FUNC_OUTPUT>;
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
--- 
-2.53.0
-
+Yours,
+Linus Walleij
