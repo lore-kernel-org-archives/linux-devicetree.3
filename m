@@ -1,86 +1,86 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B36223DCE
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 13:30:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F97118A6CF
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 13:30:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776951018; cv=none; b=oG84NGsK61CVK7B7DHQoaZ9m+PhO6cWsXOOSorQKTCUixy6546Wfk0CXwWWlfNP5UO3q5sArux0SeFzKUU+ku4K90IvB+soXE3XFQ/Dmwf6JYYici1kd+5EQheyLUGgBO32InC9PJ30zVezfm1hN3Aa6bgdbE/R9/Gn8zMVHVfo=
+	t=1776951029; cv=none; b=aEqwPFCi0xMg5WrWTUqdKcHmrTc6z0YnXKI3xMX+wcfV3BKMQyPq512m6zULJb3DbnY2lXK3uMBCADO8tadBD4DuedvSH7aZ3AP1yLN0cxKubtJvb7IBALuSJ8bzX0rV5qTt9ZQUAUQ6Nw1kDNX2g07jL3ZhzrmoakuBc5cLl4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776951018; c=relaxed/simple;
-	bh=IQk9tf8jtI734WVYY1gXH96FiyZAYSnp0pjs1ZGk6Dw=;
+	s=arc-20240116; t=1776951029; c=relaxed/simple;
+	bh=Y0zyByaU5r9q2V9Qz/hj7ehLyQOPReW9OMOlFcYfif0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ABDa0hc9ZRNvBXe5d/KY62+CS4lnv1h/dCZwyCGpkhVzsGcx/dLXdth3P9bL+FkStM43eNZol3H/E11PyPSzUFxRvS1zlRB+hLtE3L3GCm0Uv1YVfcZ5+TijAeY3LxK859e2abmygkcNIYZDdekjArvqEp1uYZ3hklYugPL2j8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=W83kJCb9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HnsKjtIQ; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=Iu1lfDsMlvuwKTWt1wFCEOkqpIiDH72FcaX+JrVAOp9LFyQS6+vOvs3+rW/r5+jt4qMM2RtRsWiuPo3CrlnSIQwq568YVG316Zi4HfMZhd827vJxanrm3FkXAJCiZeGkQaRLniJ4vAYg3MULEfM4CQvC+iU9qrYMK4Unk+KWrFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ghjhN4sM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Nk6Qqv1a; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="W83kJCb9";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HnsKjtIQ"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63N96Wtf1204781
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 13:30:16 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ghjhN4sM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Nk6Qqv1a"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63N8trfx028818
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 13:30:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	oFs1RbQ0XkUdAOvZ3WrAthRL+JhVyLKMhXKejRMG50Q=; b=W83kJCb90RXTWXsv
-	+N4MsWO5j3J1l018/9HTuTnXyck6N5sO3sEEcmhS6D/J1UM/Numbte+0JLmFIG7Y
-	fDB8QyPCUSsSLwS8LDR933AUrLI7bmggaJMItyAr9c89SwvCR68I0DTo74N1nMPR
-	mUyAUDvVEp8wWry2YPw3McZb9pj9zoLi+oijVtIH/sCL4RxmiT9PSj5zHM7B96YU
-	8Wk+xoeVo6mf5vdmbRsDNU1TM8zC+h2Q0oj+OnIVF4Tb1JyUEKvEI3BRvZWV+Ajz
-	1atvVcHB4z+RISev0c0n14GFqxUk7VkRYeozQfZ2qqh1VZnXh5sZqMLtyfM5Peup
-	5+72rQ==
+	JgwjwFdvvj5l++UKF5Dcssi0Wo7kEhu0ad5cAFD1lJs=; b=ghjhN4sMDwiDYsIQ
+	Re09rM5kmTRK4/3Qs5o8Ji8YmRTsBUq2t7Qb2gEZLqiU9+xly3MT5TtnIbklDNFq
+	IrAvAhTNA4BG5Mmj1FpoOQ0wy2qQVyK8nNQcIt+dr4lU96qulA0KvwXofmMt44Is
+	02PGvYX2JezK5VsRpXVpdZTgBvgYbt0rLLSBUWn7nN5gOLpgpPCYRDrlrfcZyd1c
+	g7YSy7jOMNNwQJQH3L+pjRk3J/tr7pNtifMrkpLAbZjWeu7W1SqLw0XJFSzJ7y6e
+	c6qyezTNDPdO4iQEgIB9RwVRtwpMMHCZ56uPJo5BZBIOv3VrYLnUVsiaYlMaKlVd
+	B0pYig==
 Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dqggn91ba-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dqdjm1qra-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 13:30:15 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2b2ead99f5dso84212865ad.0
-        for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 06:30:15 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 13:30:25 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2b2eba42b8dso60099335ad.0
+        for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 06:30:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776951015; x=1777555815; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1776951025; x=1777555825; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=oFs1RbQ0XkUdAOvZ3WrAthRL+JhVyLKMhXKejRMG50Q=;
-        b=HnsKjtIQp1p0pIkHzGrUR8cXxpLeaEE93TYXK+1K0N7hnVuKIu4UBYjtKCONCRilLy
-         pJV0SwGAwRU0kTvEl+Vps3rlVQO27EQ1b7mUzEZygji60mHO8/1crVs2y6DYDEIWJzPt
-         dNEbGLWBgssBbFtVU7RF2hwqNDr89FANxN9Yw1wg2sUbf9EvLZs44FVnktDSmGhw1NNH
-         MNYGeRTLZlA5i22ohQo5Xe/qPVN9YtgInibaiLh3Upsj0oOjTUdfdqgf62hBjyv9K2CI
-         ks3+D5UbGq5v144CZXN4RkzXHCCd3T0YQ4V8nhGanZQ8DGeMN3yTLttZfZcEptqgd5Nm
-         qqOQ==
+        bh=JgwjwFdvvj5l++UKF5Dcssi0Wo7kEhu0ad5cAFD1lJs=;
+        b=Nk6Qqv1aZV7ZNFbaxNosooiFNQTt7tk5Jd/yntzLGZ1WMA6eLStxt78wa+6ezF9nu8
+         Xd+BRbrYSo92T4+M7ynj4V7pARKzU5YfdXB6LVdQfa9Dk79Y2GTIFV0cjD5bfArOzSHC
+         Ufhf5gOjVSxp3w/ae/QJBcnPPlokX7zbeEwBQUtBjZ3a75zuR47l+ThTF4fGaDboQsLf
+         pESM4kNHGiANqTj2M0cxEEcU/cOlqfnzNeCMSZgZfRAOqO1b5noCpXzdUM7oGOyjCflM
+         lZft8s+3W2HEW9uoOouIGgHFx3DoukBtdAfikcEJ1jxCDiSob1UxCVEsgAZbAl9O+agu
+         pxZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776951015; x=1777555815;
+        d=1e100.net; s=20251104; t=1776951025; x=1777555825;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=oFs1RbQ0XkUdAOvZ3WrAthRL+JhVyLKMhXKejRMG50Q=;
-        b=aEAVyYO6ULjwNy61hAlZ4SCnikFPhr1DqubEjxsIsg+ZZmlgR+nsga3v7UNN46ajbi
-         TrJgWsy9U0v4a1GOzyzsgokIieadkN9s/KRrM0BLsRlyVh0tV9pBrrzKYDk5e34dL2x8
-         0v4DKBKvK5R1+zmdmlPmXKq4CXl8oRMufwAkL+RiCNLsPeonRg7qN5do8u5TvgRrVTJh
-         XjzLHjE9W80GDQxONbcg9/KiF3R4pWLl9uULU8X/9wj/jJX8JoenCK8++/SY8hxKO9h1
-         el7/ras8/OVhccCKNURTFL51efBj+5MV9Lx8AALRnKm3lmtJFkWHRDvmU33TOzSuLp+B
-         7KYg==
-X-Forwarded-Encrypted: i=1; AFNElJ9H65LTasQZg+LDw/3vnW54sjfFdMb2LFSS9A4735OZNnFLr8emAIZ9dcWGNfuZEhsaZ5DEDm35O7O9@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJDHwoY0e5Yl88xOcWMGM0u0bTRUzuQq0/O4DFmyGEa5/MDdlt
-	qLYDS2KduEjVR2m2K7+bcVLK/0n7nxpu2cJQz1GyQS4a+YQqoYLMT8lW0Luk9B2Q09qpk8OXzHU
-	hW0kEXkZ5zYgMK7p9mpKC9cL26sjUctf/RfG/YbwTW5wZvcWY1O0KsSGks1T2oJRG
-X-Gm-Gg: AeBDieunMz28VOrGafI/bJD3iNBauRTEWwjRvLa5w0cABfYNnASjbf4jCJ9bwYse1pk
-	k5L+4ACn3KOnWGkj9msPFZpBZy09pmzYF/7C++Ki+EOwTYqiV9jVZH0o2fISrRKCgyBeXfyq9T6
-	Fza0qEQ7Mx3++JDIo+3itoxXrEXqlisLh87zWD7YefdVUqPMQNgF+BayLEbXPU8CGINY4T1SFiR
-	MHOod5Z1lh0KTHRRr5mxs0WlBZU0B+R6tC+Exroa+a6/PWoF8Gezxb5KPrsrxptbe31Wjlg1yvY
-	/f3t9tVwvwRmwWLr4DBCROW94mwLBZeYCkWT0C1L62Ai+n6uCsjfWEXsGUGxAtGGIS7oGs2UzsI
-	EDGu1cgi7F/xD4V4d2G8fyLqEp/eGHLcVHn4TuOJKmRU31LV9TVhkkMrTJZZoGTNaBg==
-X-Received: by 2002:a17:903:1104:b0:2b4:6529:7b9f with SMTP id d9443c01a7336-2b5f9f37032mr302686925ad.26.1776951014852;
-        Thu, 23 Apr 2026 06:30:14 -0700 (PDT)
-X-Received: by 2002:a17:903:1104:b0:2b4:6529:7b9f with SMTP id d9443c01a7336-2b5f9f37032mr302686055ad.26.1776951014097;
-        Thu, 23 Apr 2026 06:30:14 -0700 (PDT)
+        bh=JgwjwFdvvj5l++UKF5Dcssi0Wo7kEhu0ad5cAFD1lJs=;
+        b=geKEq/WKYuQgfhmGfGJQDHfen0E4c9UEF2xdgXbNXvi+4OXf3uq5lD6r+3te+id/bo
+         Iq+1li4oUqGW0IJ7hCnIn//jRL/tYxLUsAGQHz83MK5SGRr0yj5buIYCFH/yWCys5Bj2
+         Q4ONgOzE+o3TxaSjXNC/XmIhHXS2gZkPCYtc6q0n82LjKLVguXvduOJCD3oIh23yQhfc
+         NFpflOiqbrF7tf4O6IKITZD6Sd5AukNHGrpqWeIzyYfaTIhc4bf5JVQMJw6HnAavjgI/
+         +Dq5vRVkxpv9Yl90aj/CyZ0IepIYIjjugFE3n3DWZfVHNJ10L/+YNhhOfHywaBAbaSUj
+         XPgA==
+X-Forwarded-Encrypted: i=1; AFNElJ/8iHgAV58UR/pnbjB7V+6ZV1txK5Bi8yYUY+qHjM4Q+mlg/4x0f2PFThzBIQzWxvY3CPqDQJaowCnC@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMo5xO+vKNprs7FiMJ1OelrwZ850FnhKs5RGbRS9le0cB8A5vy
+	tArTtF9NycZnBTOTviRJT8Cx3D8c9r0bQOsribFdL5kCBIfO+E00lgkabzKDQichUuC6YIXBPuA
+	/5FxN3/5YmNDqxfyW0s3NmiXGZn5rm2IYPGv1I+G0gYswrgkfKqDSQi8ALZ+H0dqV
+X-Gm-Gg: AeBDieuyuL9QzZQuYyouKyKuWP3JoyNsaYq6jxsbhPaWjG4uRVZ/ypGi1aSqnIlBTlJ
+	mM6dXLIZQMXK+z8CQUDXmaHoa6Gcu0OXwEsEaCvPW3mDC3P+qEorSdw6d0899UpYOWqidlcoPYs
+	EdYEmKhLd0PoSN75bpJOEyD/TdHSX7klAxRhoZ99Y67aqXG+IONE+gZpkzQ+T9Jw23mwFLvuXXL
+	7L4UjEZ/ikAee8A5i7wbFwTguAjHYcZYfk1ACcKkciFuVp1tAchQF18qcwus1GZBVfdogqM9uMr
+	PY3vWGg3h5W4H+NNL2KFu8gLnT2OrItldaR08e0bYbEnT4WoPFSroTzbeuZT99IkQ9Rt844s446
+	Up+HAQUNNoclFGkVhtdOWI3arZjSE7tSdSTi1w2fl5tZivOrq2Dq1r5+YJRm7F+syZg==
+X-Received: by 2002:a17:902:ea12:b0:2b0:6e4a:32d0 with SMTP id d9443c01a7336-2b5f9fbbdacmr283588645ad.35.1776951024360;
+        Thu, 23 Apr 2026 06:30:24 -0700 (PDT)
+X-Received: by 2002:a17:902:ea12:b0:2b0:6e4a:32d0 with SMTP id d9443c01a7336-2b5f9fbbdacmr283587505ad.35.1776951023495;
+        Thu, 23 Apr 2026 06:30:23 -0700 (PDT)
 Received: from hu-bvisredd-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5fab0cbaasm198795635ad.54.2026.04.23.06.30.05
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5fab0cbaasm198795635ad.54.2026.04.23.06.30.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Apr 2026 06:30:13 -0700 (PDT)
+        Thu, 23 Apr 2026 06:30:23 -0700 (PDT)
 From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Date: Thu, 23 Apr 2026 18:59:31 +0530
-Subject: [PATCH v2 02/13] drivers: base: Add generic dma context bus
+Date: Thu, 23 Apr 2026 18:59:32 +0530
+Subject: [PATCH v2 03/13] gpu: host1x: Migrate to generic dma context bus
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,7 +89,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-glymur-v2-2-0296bccb9f4e@oss.qualcomm.com>
+Message-Id: <20260423-glymur-v2-3-0296bccb9f4e@oss.qualcomm.com>
 References: <20260423-glymur-v2-0-0296bccb9f4e@oss.qualcomm.com>
 In-Reply-To: <20260423-glymur-v2-0-0296bccb9f4e@oss.qualcomm.com>
 To: Bryan O'Donoghue <bod@kernel.org>,
@@ -117,210 +117,321 @@ Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         iommu@lists.linux.dev, driver-core@lists.linux.dev,
         dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
         Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776950985; l=5182;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776950985; l=9125;
  i=busanna.reddy@oss.qualcomm.com; s=20260216; h=from:subject:message-id;
- bh=m9Ev3cg1dRS/apkqmuIWrlLItkWfgL3nCRaQ+GTJ4d8=;
- b=a0MO/i8o4a8De0o+pVmxc5nct6busfcAWycf0+sRmWbw7J9/KUDBhEJPpZ7lySVphzTFDiOk0
- lCbAAc8uQyBCNukA9WgkyrwbsxQ7npM3UxMTlbG7g7ze+2dYMgz8VVH
+ bh=KAZGJcms8W81ZmK2zjFmjrcOZ1HBohJzHFPq/diKVJY=;
+ b=G6RcIQ17RYpJWR8JDM591/LpwoVkQ6XZG36hL1jc+jg2eaqYSNxbMR/xAkW6nsA4aDE06Ugnh
+ G6EQkaClw2AAJ756RAnNV8DDM78rg/FXf7UziboAh2VUdY6eWdWtwwA
 X-Developer-Key: i=busanna.reddy@oss.qualcomm.com; a=ed25519;
  pk=9vmy9HahBKVAa+GBFj1yHVbz0ey/ucIs1hrlfx+qtok=
-X-Proofpoint-ORIG-GUID: QkU21feqmIDVZ2zj0ZBq9aD6CRhMGK8H
-X-Authority-Analysis: v=2.4 cv=YZeNIQRf c=1 sm=1 tr=0 ts=69ea1ee7 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=EZn4hvmC c=1 sm=1 tr=0 ts=69ea1ef1 cx=c_pps
  a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=nxtABoNUPiTGfhWLCFsA:9 a=QEXdDO2ut3YA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=smED1w4oCYVFD8D0vxMA:9 a=QEXdDO2ut3YA:10
  a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIzMDEzNCBTYWx0ZWRfX2f4Ain9JsrQh
- Um+wcMUSsuY9Ysz0rhkIR2/y+n3himn7gVruKtNgLgOSJ3bbT1/Lv3THpgSX5widD8IqBonWSdI
- M/PBv/KBO9QVIhukjdyJTVlGTOf7vzcKg6YpGv4vbwx7ACWgLG7KDCPJli33nJ8ty/fKk9tSwgF
- bleltxEChcQ66gXAZAtfJwv9LTjNnHrU4oVbQnpzB1PD2cNNUeAqZOLGpANYqVOS3aSToji0tkQ
- 6I0bzvBA6BaDW4GMItR0AREr4UwmB6/yABhNgGmJkFJhHqMIvM8PTeglIAwphjH2GfiVVb5W+fs
- smpgIt9AWSaJnjLnkKqNH1EgtG4ucmVn+q5fw2VudrCwYlPId35m5Fx4uL37uKzH1C4EBR2G5yC
- 6MYgSojuWecLgDiNades2OueabdaQcsEYc61FjQA3363pxBYSyOZWUvEWDf4XdPpxW5VdWKkwPi
- l1Cj/cO7zEpNq1qDSqg==
-X-Proofpoint-GUID: QkU21feqmIDVZ2zj0ZBq9aD6CRhMGK8H
+X-Proofpoint-GUID: JBgiRJCm01M1SAtUOAkRMhbmO6bFwnfD
+X-Proofpoint-ORIG-GUID: JBgiRJCm01M1SAtUOAkRMhbmO6bFwnfD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIzMDEzNCBTYWx0ZWRfX18gg6DRM3UUE
+ LEwj+yoTHvZzyrXUsctA9e7O9LhN/Fh+hPoBRBanRMyWbQ38kWeHbV+JGvBPhqemMDmi7CcdZNN
+ EvqEPlKCCH9zeNtOR6bdorASkde6JPUYrw0lRPOYLyiWWUtj5EUHqN+dhAcYn/RTxzx7K6PdBO8
+ W9FZLPDxWSfqFumETMlVIX4eB5sam34rVuMKNsMissf49oSXu/7bmGDAnoASRz9UbhOBX3cd/dp
+ JNvZaXSzspvSOYJc5N2g3HC7krFUY7GQrpjpWNm3XBK84rvr1+7lsQmhWx8MYCO0b/V3hndal1N
+ 7C1mbP9hjMPM7UdxQsXLjAR0kCs7848MDuME6RToOvw9CJDsFVSiYL5WH6iho58pjAWrjOZoazW
+ SNPfnvB88BX++lWqx0VLSTgSi9T0cYTsIJh8dIfmnAIBPmolzgzF2hskt7gwjoRgHIHMNPJPuVN
+ n8UlQJLaPUGLP6j6SRw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-23_03,2026-04-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 bulkscore=0 phishscore=0 suspectscore=0
- malwarescore=0 impostorscore=0 priorityscore=1501 lowpriorityscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604230134
+ suspectscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0 bulkscore=0
+ spamscore=0 clxscore=1015 impostorscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604230134
 
 From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-When a driver needs to create virtual device at runtime and map it to
-an IOMMU context for memory isolation, there is no common bus available
-for this purpose. Each driver ends up implementing its own bus type,
-leading to duplicated logic across multiple drivers.
+The host1x driver creates context bank devices to map IOMMU contexts
+for memory isolation. Previously, this required a host1x-specific bus
+type with its own device setup and IOMMU configuration logic.
 
-host1x driver implemented its own bus type to attach an IOMMU context to
-a dynamically created device. The Iris VPU driver now has the same
-requirement. Rather than duplicating the same bus logic again, a shared
-bus type is introduced under drivers/base that multiple drivers can use
-directly.
+A generic "dma-context-bus" is now available in the driver core that
+handles this for any driver. Replace the host1x-specific bus with this
+shared generic bus. This removes the private bus registration, device
+setup, and of_dma_configure_id() from host1x, as the generic bus handles
+all of this internally.
 
-The bus takes care of creating a device and attaching the IOMMU context
-to it based on the client inputs.
+The IOMMU subsystem is also updated to reference the generic bus instead
+of the host1x-specific one.
 
-Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 ---
- drivers/base/Kconfig            |  3 ++
- drivers/base/Makefile           |  1 +
- drivers/base/dma_context_bus.c  | 77 +++++++++++++++++++++++++++++++++++++++++
- include/linux/dma_context_bus.h | 26 ++++++++++++++
- 4 files changed, 107 insertions(+)
+ drivers/gpu/drm/tegra/uapi.c       |  2 +-
+ drivers/gpu/host1x/Kconfig         |  5 +---
+ drivers/gpu/host1x/Makefile        |  1 -
+ drivers/gpu/host1x/context.c       | 47 ++++++++++++--------------------------
+ drivers/gpu/host1x/context.h       |  3 +--
+ drivers/gpu/host1x/context_bus.c   | 26 ---------------------
+ drivers/iommu/iommu.c              |  6 ++---
+ include/linux/host1x.h             |  2 +-
+ include/linux/host1x_context_bus.h | 15 ------------
+ 9 files changed, 21 insertions(+), 86 deletions(-)
 
-diff --git a/drivers/base/Kconfig b/drivers/base/Kconfig
-index f7d385cbd3ba..499ea92dd88f 100644
---- a/drivers/base/Kconfig
-+++ b/drivers/base/Kconfig
-@@ -4,6 +4,9 @@ menu "Generic Driver Options"
- config AUXILIARY_BUS
- 	bool
+diff --git a/drivers/gpu/drm/tegra/uapi.c b/drivers/gpu/drm/tegra/uapi.c
+index c0ac6b45f2d7..9547725a6c3c 100644
+--- a/drivers/gpu/drm/tegra/uapi.c
++++ b/drivers/gpu/drm/tegra/uapi.c
+@@ -215,7 +215,7 @@ int tegra_drm_ioctl_channel_map(struct drm_device *drm, void *data, struct drm_f
+ 	kref_init(&mapping->ref);
  
-+config DMA_CONTEXT_BUS
-+	bool
-+
- config UEVENT_HELPER
- 	bool "Support for uevent helper"
+ 	if (context->memory_context)
+-		mapping_dev = &context->memory_context->dev;
++		mapping_dev = context->memory_context->dev;
+ 	else
+ 		mapping_dev = context->client->base.dev;
+ 
+diff --git a/drivers/gpu/host1x/Kconfig b/drivers/gpu/host1x/Kconfig
+index e6c78ae2003a..0539ff057a51 100644
+--- a/drivers/gpu/host1x/Kconfig
++++ b/drivers/gpu/host1x/Kconfig
+@@ -1,13 +1,10 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ 
+-config TEGRA_HOST1X_CONTEXT_BUS
+-	bool
+-
+ config TEGRA_HOST1X
+ 	tristate "NVIDIA Tegra host1x driver"
+ 	depends on ARCH_TEGRA || COMPILE_TEST
+ 	select DMA_SHARED_BUFFER
+-	select TEGRA_HOST1X_CONTEXT_BUS
++	select DMA_CONTEXT_BUS
+ 	select IOMMU_IOVA
  	help
-diff --git a/drivers/base/Makefile b/drivers/base/Makefile
-index 8074a10183dc..348e69695e55 100644
---- a/drivers/base/Makefile
-+++ b/drivers/base/Makefile
-@@ -8,6 +8,7 @@ obj-y			:= component.o core.o bus.o dd.o syscore.o \
- 			   topology.o container.o property.o cacheinfo.o \
- 			   swnode.o faux.o
- obj-$(CONFIG_AUXILIARY_BUS) += auxiliary.o
-+obj-$(CONFIG_DMA_CONTEXT_BUS) += dma_context_bus.o
- obj-$(CONFIG_DEVTMPFS)	+= devtmpfs.o
- obj-y			+= power/
- obj-$(CONFIG_ISA_BUS_API)	+= isa.o
-diff --git a/drivers/base/dma_context_bus.c b/drivers/base/dma_context_bus.c
-new file mode 100644
-index 000000000000..c2ac189ce08d
---- /dev/null
-+++ b/drivers/base/dma_context_bus.c
-@@ -0,0 +1,77 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#include <linux/dma_context_bus.h>
-+#include <linux/of_device.h>
-+
-+static atomic_t dma_context_bus_device_id = ATOMIC_INIT(0);
-+
-+static int dma_context_bus_device_configure(struct device *dev)
-+{
-+	const u32 *iommu_fid = dev_get_drvdata(dev);
-+	struct device_node *of_node = dev->of_node;
-+
-+	if (!of_node)
-+		of_node = dev->parent->of_node;
-+
-+	return of_dma_configure_id(dev, of_node, true, iommu_fid);
-+}
-+
-+const struct bus_type dma_context_bus_type = {
-+	.name = "dma-context-bus",
-+	.dma_configure = dma_context_bus_device_configure,
-+};
-+EXPORT_SYMBOL_GPL(dma_context_bus_type);
-+
-+static void release_dma_context_bus_device(struct device *dev)
-+{
-+	kfree(dev);
-+}
-+
-+struct device *create_dma_context_bus_device(struct device *parent_device,
-+					     struct device_node *of_node,
-+					     u64 dma_mask, const u32 *iommu_fid)
-+{
+ 	  Driver for the NVIDIA Tegra host1x hardware.
+diff --git a/drivers/gpu/host1x/Makefile b/drivers/gpu/host1x/Makefile
+index fead483af0b4..2ccd9a5f1c65 100644
+--- a/drivers/gpu/host1x/Makefile
++++ b/drivers/gpu/host1x/Makefile
+@@ -23,4 +23,3 @@ host1x-$(CONFIG_IOMMU_API) += \
+ 	context.o
+ 
+ obj-$(CONFIG_TEGRA_HOST1X) += host1x.o
+-obj-$(CONFIG_TEGRA_HOST1X_CONTEXT_BUS) += context_bus.o
+diff --git a/drivers/gpu/host1x/context.c b/drivers/gpu/host1x/context.c
+index d50d41c20561..ab7b156ab002 100644
+--- a/drivers/gpu/host1x/context.c
++++ b/drivers/gpu/host1x/context.c
+@@ -13,16 +13,12 @@
+ #include "context.h"
+ #include "dev.h"
+ 
+-static void host1x_memory_context_release(struct device *dev)
+-{
+-	/* context device is freed in host1x_memory_context_list_free() */
+-}
+-
+ int host1x_memory_context_list_init(struct host1x *host1x)
+ {
+ 	struct host1x_memory_context_list *cdl = &host1x->context_list;
+ 	struct device_node *node = host1x->dev->of_node;
+ 	struct host1x_memory_context *ctx;
 +	struct device *dev;
-+	int dev_id, ret;
+ 	unsigned int i;
+ 	int err;
+ 
+@@ -44,42 +40,27 @@ int host1x_memory_context_list_init(struct host1x *host1x)
+ 
+ 		ctx->host = host1x;
+ 
+-		device_initialize(&ctx->dev);
+-
+ 		/*
+ 		 * Due to an issue with T194 NVENC, only 38 bits can be used.
+ 		 * Anyway, 256GiB of IOVA ought to be enough for anyone.
+ 		 */
+ 		ctx->dma_mask = DMA_BIT_MASK(38);
+-		ctx->dev.dma_mask = &ctx->dma_mask;
+-		ctx->dev.coherent_dma_mask = ctx->dma_mask;
+-		dev_set_name(&ctx->dev, "host1x-ctx.%d", i);
+-		ctx->dev.bus = &host1x_context_device_bus_type;
+-		ctx->dev.parent = host1x->dev;
+-		ctx->dev.release = host1x_memory_context_release;
+-
+-		ctx->dev.dma_parms = &ctx->dma_parms;
+-		dma_set_max_seg_size(&ctx->dev, UINT_MAX);
+-
+-		err = device_add(&ctx->dev);
+-		if (err) {
 +
-+	dev = kzalloc_obj(*dev);
-+	if (!dev)
-+		return ERR_PTR(-ENOMEM);
-+
-+	dev->release = release_dma_context_bus_device;
-+	dev->bus = &dma_context_bus_type;
-+	dev->parent = parent_device;
-+	dev->coherent_dma_mask = dma_mask;
-+	dev->dma_mask = &dev->coherent_dma_mask;
-+	dev->of_node = of_node;
-+
-+	dev_id = atomic_inc_return(&dma_context_bus_device_id);
-+	dev_set_name(dev, "dma-context-bus-%d", dev_id);
-+	dev_set_drvdata(dev, (void *)iommu_fid);
-+
-+	ret = device_register(dev);
-+	if (ret) {
-+		put_device(dev);
-+		return ERR_PTR(ret);
-+	}
-+
-+	return dev;
-+}
-+EXPORT_SYMBOL_GPL(create_dma_context_bus_device);
-+
-+static int __init dma_context_bus_init(void)
-+{
-+	int err;
-+
-+	err = bus_register(&dma_context_bus_type);
-+	if (err) {
-+		pr_err("dma-context-bus registration failed: %d\n", err);
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+postcore_initcall(dma_context_bus_init);
-diff --git a/include/linux/dma_context_bus.h b/include/linux/dma_context_bus.h
-new file mode 100644
-index 000000000000..3d89594fbce4
---- /dev/null
-+++ b/include/linux/dma_context_bus.h
-@@ -0,0 +1,26 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#ifndef _LINUX_DMA_CONTEXT_BUS_H
-+#define _LINUX_DMA_CONTEXT_BUS_H
-+
-+#include <linux/device.h>
-+
++		dev = create_dma_context_bus_device(host1x->dev, NULL, ctx->dma_mask, &i);
++		if (IS_ERR(dev)) {
++			err = PTR_ERR(dev);
+ 			dev_err(host1x->dev, "could not add context device %d: %d\n", i, err);
+-			put_device(&ctx->dev);
+ 			goto unreg_devices;
+ 		}
+ 
+-		err = of_dma_configure_id(&ctx->dev, node, true, &i);
+-		if (err) {
+-			dev_err(host1x->dev, "IOMMU configuration failed for context device %d: %d\n",
+-				i, err);
+-			device_unregister(&ctx->dev);
+-			goto unreg_devices;
+-		}
++		ctx->dev = dev;
++		ctx->dev->dma_parms = &ctx->dma_parms;
++		dma_set_max_seg_size(ctx->dev, UINT_MAX);
+ 
+-		if (!tegra_dev_iommu_get_stream_id(&ctx->dev, &ctx->stream_id) ||
+-		    !device_iommu_mapped(&ctx->dev)) {
++		if (!tegra_dev_iommu_get_stream_id(ctx->dev, &ctx->stream_id) ||
++		    !device_iommu_mapped(ctx->dev)) {
+ 			dev_err(host1x->dev, "Context device %d has no IOMMU!\n", i);
+-			device_unregister(&ctx->dev);
++			device_unregister(ctx->dev);
+ 
+ 			/*
+ 			 * This means that if IOMMU is disabled but context devices
+@@ -96,7 +77,7 @@ int host1x_memory_context_list_init(struct host1x *host1x)
+ 
+ unreg_devices:
+ 	while (i--)
+-		device_unregister(&cdl->devs[i].dev);
++		device_unregister(cdl->devs[i].dev);
+ 
+ 	kfree(cdl->devs);
+ 	cdl->devs = NULL;
+@@ -110,7 +91,7 @@ void host1x_memory_context_list_free(struct host1x_memory_context_list *cdl)
+ 	unsigned int i;
+ 
+ 	for (i = 0; i < cdl->len; i++)
+-		device_unregister(&cdl->devs[i].dev);
++		device_unregister(cdl->devs[i].dev);
+ 
+ 	kfree(cdl->devs);
+ 	cdl->len = 0;
+@@ -132,7 +113,7 @@ struct host1x_memory_context *host1x_memory_context_alloc(struct host1x *host1x,
+ 	for (i = 0; i < cdl->len; i++) {
+ 		struct host1x_memory_context *cd = &cdl->devs[i];
+ 
+-		if (cd->dev.iommu->iommu_dev != dev->iommu->iommu_dev)
++		if (cd->dev->iommu->iommu_dev != dev->iommu->iommu_dev)
+ 			continue;
+ 
+ 		if (cd->owner == pid) {
+diff --git a/drivers/gpu/host1x/context.h b/drivers/gpu/host1x/context.h
+index 3e03bc1d3bac..558638c457d6 100644
+--- a/drivers/gpu/host1x/context.h
++++ b/drivers/gpu/host1x/context.h
+@@ -8,13 +8,12 @@
+ #ifndef __HOST1X_CONTEXT_H
+ #define __HOST1X_CONTEXT_H
+ 
++#include <linux/dma_context_bus.h>
+ #include <linux/mutex.h>
+ #include <linux/refcount.h>
+ 
+ struct host1x;
+ 
+-extern struct bus_type host1x_context_device_bus_type;
+-
+ struct host1x_memory_context_list {
+ 	struct mutex lock;
+ 	struct host1x_memory_context *devs;
+diff --git a/drivers/gpu/host1x/context_bus.c b/drivers/gpu/host1x/context_bus.c
+deleted file mode 100644
+index 7cd0e1a5edd1..000000000000
+--- a/drivers/gpu/host1x/context_bus.c
++++ /dev/null
+@@ -1,26 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * Copyright (c) 2021, NVIDIA Corporation.
+- */
+-
+-#include <linux/device.h>
+-#include <linux/of.h>
+-
+-const struct bus_type host1x_context_device_bus_type = {
+-	.name = "host1x-context",
+-};
+-EXPORT_SYMBOL_GPL(host1x_context_device_bus_type);
+-
+-static int __init host1x_context_device_bus_init(void)
+-{
+-	int err;
+-
+-	err = bus_register(&host1x_context_device_bus_type);
+-	if (err < 0) {
+-		pr_err("bus type registration failed: %d\n", err);
+-		return err;
+-	}
+-
+-	return 0;
+-}
+-postcore_initcall(host1x_context_device_bus_init);
+diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+index 61c12ba78206..5d0fad1402eb 100644
+--- a/drivers/iommu/iommu.c
++++ b/drivers/iommu/iommu.c
+@@ -16,7 +16,7 @@
+ #include <linux/export.h>
+ #include <linux/slab.h>
+ #include <linux/errno.h>
+-#include <linux/host1x_context_bus.h>
++#include <linux/dma_context_bus.h>
+ #include <linux/iommu.h>
+ #include <linux/iommufd.h>
+ #include <linux/idr.h>
+@@ -173,8 +173,8 @@ static const struct bus_type * const iommu_buses[] = {
+ #ifdef CONFIG_FSL_MC_BUS
+ 	&fsl_mc_bus_type,
+ #endif
+-#ifdef CONFIG_TEGRA_HOST1X_CONTEXT_BUS
+-	&host1x_context_device_bus_type,
 +#ifdef CONFIG_DMA_CONTEXT_BUS
-+extern const struct bus_type dma_context_bus_type;
-+
-+struct device *create_dma_context_bus_device(struct device *parent_device,
-+					     struct device_node *of_node,
-+					     u64 dma_mask, const u32 *iommu_f_id);
-+#else
-+static inline struct device *create_dma_context_bus_device(struct device *parent_device,
-+							   struct device_node *of_node,
-+							   u64 dma_mask, const u32 *iommu_f_id)
-+{
-+	return NULL;
-+}
-+#endif
-+
-+#endif /* _LINUX_DMA_CONTEXT_BUS_H */
++	&dma_context_bus_type,
+ #endif
+ #ifdef CONFIG_CDX_BUS
+ 	&cdx_bus_type,
+diff --git a/include/linux/host1x.h b/include/linux/host1x.h
+index 1f5f55917d1c..30dbb3a71828 100644
+--- a/include/linux/host1x.h
++++ b/include/linux/host1x.h
+@@ -462,7 +462,7 @@ struct host1x_memory_context {
+ 	struct pid *owner;
+ 
+ 	struct device_dma_parameters dma_parms;
+-	struct device dev;
++	struct device *dev;
+ 	u64 dma_mask;
+ 	u32 stream_id;
+ };
+diff --git a/include/linux/host1x_context_bus.h b/include/linux/host1x_context_bus.h
+deleted file mode 100644
+index c928cb432680..000000000000
+--- a/include/linux/host1x_context_bus.h
++++ /dev/null
+@@ -1,15 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-or-later */
+-/*
+- * Copyright (c) 2021, NVIDIA Corporation. All rights reserved.
+- */
+-
+-#ifndef __LINUX_HOST1X_CONTEXT_BUS_H
+-#define __LINUX_HOST1X_CONTEXT_BUS_H
+-
+-#include <linux/device.h>
+-
+-#ifdef CONFIG_TEGRA_HOST1X_CONTEXT_BUS
+-extern const struct bus_type host1x_context_device_bus_type;
+-#endif
+-
+-#endif
 
 -- 
 2.34.1
