@@ -1,178 +1,166 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1427340273
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 16:50:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88D3CA5A
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 17:17:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776963047; cv=none; b=s8UYRQHjx15Xr69Tr4Bl+lJyFqoyLKO9MhvmskNfTn+BFt6g13w7wOZHKuLtQeonBgOKJzFcqJS1kNaa6Nxb2I0tACFxRdUegP0zS/zqyQnxiA2R7y2szJ3Jt2uHE0u9J0KSOhIuM3qpHK8ku5Hksewo7mIODOT9J6tBZSfbSWA=
+	t=1776964672; cv=none; b=GT61VaUBafpwUN/dSNiVzuniarFPYU0BfeLCehZ119bGjHmA5jyXFfhehPat4F1MCY20gYiF5zMrW2WN3f+nZQaAL9hWAmBqt1Px8mNV+TQz4iT4wib/idsQCdQ/9Ikdq+2tmJqWUacpe3F4MSDpOC0mj3zT/gYeRB8LhoiFdec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776963047; c=relaxed/simple;
-	bh=rS4hUoC/4HYht4I0BMRV5/JcGv4WplCHyNyNQb8pSqY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=NhwHXY7WyyCu6uqweY0cM26on8ZpxbWoy8UXZN786ZlR7Yv/HMZmBgW7nZyYlkuyWqSqPZq++jdkkxyxiHBGIpalUSYYtIQiLJAm1/CxiUCL084IQAhNNInGwb2vIySQbmQmxYFBlcWxF/niFbyrVtNeVIFs3+40o74JkiEtvRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=CL5aZxjB; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
+	s=arc-20240116; t=1776964672; c=relaxed/simple;
+	bh=+GOblQzyAJodv9b6rNOw50K4n/xTVlzZw8d3VUVRDrw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GnoQwYMwmHsIcsdnqhujSIKMwYw7PUi3RYTycj9Q6cPSuHPnAbRWa6mw7eZ+vbutchbJalPYLu2N3/diQmxZCLXpNhMuoRDEibOF6mrXZOqNBUKsliU00oBA98iU7KlX2I7CfzBBIV/l2PeSlpKTqQ4rWugHyOgmawAJ3mZMDNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=hSY7fo1O; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="CL5aZxjB"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-43d734223e4so4762791f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 09:50:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="hSY7fo1O"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3567e2b4159so4823660a91.0
+        for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 10:17:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=imd-tec.com; s=google; t=1776963044; x=1777567844; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=2EeSdYfWoTiuD63VKetL3V9sK1DuMijL8TRltuUAE/E=;
-        b=CL5aZxjBzuPYhKSXsiBispFbtuzQHLWcYj07yGKOJ2IH0ZeO3JAVf2wKDCOrtH1oQy
-         +Oc1tX+7qWUvnrEBsKCkGDfhLMCPOL4Tq5Sl3HVIBEs3VODLBaSquDsASvKNFr0TUNzf
-         N+KcXf1yrWNXYw6NcDAI2bKLZIj+G9EuSBMgihO4Ea4CkPa30FS/XTYRi8/9yQT0en1M
-         4v/ukH3DL1ILWSOC9lujRYjcFxNuENvvoYi2b0YLs3Ayz/dbIKYH9j3k4qc0R9T4d4j0
-         RR6c+AnpzGkVWU8f/+kv+0NIx32oZcYQLfh5aBtthYAz/0qfXbejP6Gjz1JKnBWOHXH9
-         9oKw==
+        d=linaro.org; s=google; t=1776964670; x=1777569470; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=bsUocZL2Bn6GCAa3hABSmeuNfrbPhRDBHVb9kanPFaA=;
+        b=hSY7fo1OuMlHryfNMYfA167b1YFMb03SUlaMVL6909Bzlj5NCbwABrk/48JVfg41qD
+         1wfMpgcRsmdN3vA3jc2g8IR4DXyEx3DKo7mglV/pHuXhhFIqXFvnyf607jjn8TwM4y6M
+         9RVLmn8WafHdVx8o8cnJcO8DtgJ2NgwKIgh64wjyw/6kREbyX4dHHsDm009YqYqwq+9V
+         JfNuCQQxdNNtg+/QMND6ElHpNravVJFCekKnjhH0lfNKRMBlyzWgbe9rf6T7Zm4bfpLh
+         z+rd+/6+Qp7xc58713a7GlgtLGCL2ZhJNnUY9FIkyo6H1NzVF3NCa0c0j8qfYVzUj+JH
+         ArdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776963044; x=1777567844;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2EeSdYfWoTiuD63VKetL3V9sK1DuMijL8TRltuUAE/E=;
-        b=jJ4NNFAoPgnBOQuK7VxqGy3XYRZecx1Udihy8U8qO7nu3ty+w1lzQEY8SNmRmAqFB6
-         Sf4SgdkMN2wB0VR73UpypNKEAey6cavKMIJigu2OjQA08P0UkpzWRkZoDmF1PrWqVU2x
-         vs286spWlZszmZnXjYeBMws+9I+3q64uWe2jRlHHEtYIsmBge73HMQcbMrh2rtS6KJxX
-         FUOagcgPv0ShYFB9WqNEpj05jVjMLR6D2JS5435vk5eYM4jfHLslCZaGUaPXpAbizSZr
-         RcduNPdlVstagLrcpDAkyExnnXcAFs4fmncWIpgmifxIsUXJ9vPf/QjCBo+HVtGYKatk
-         wTrQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8TWrY3lwEDwEa784KiQW2j4UpNjc505aeEpb+o+CgZh7dhQDGMmUARhESK8/lLYZZgJJ0CgmDtDKsS@vger.kernel.org
-X-Gm-Message-State: AOJu0YxB+wVSFjz/u34o8iyOaInNVONT+uGXLL8xBs1ssxHdPrjCNWtk
-	t9hgy8QX9sdB83V9uvdLLOly7VCRqQAaDk7hfD2xf+IU5f3qiuvUi6s1ud18+KiLy+4=
-X-Gm-Gg: AeBDietCZqO1bzyzr1xJrXVw5J1Oj1xzMmJFOctoO9gYYI4z6aicpvV9QxqRgndOKGU
-	0RWOmXKVzkgyOf1oQIeOQLuQmZti5b4o1HCIOnOX1d13CYvnCi827jV25qHoUydUJeuPb4Yk6Xw
-	GFVPtC4pfTA/6jfBKNzRyouOtv499UGtItwr8ssp0pFw15gbRQYb5DLOWWwiNt74UZBCMnY0bz2
-	zuD+p3H0Fqb5fpkpb9tYZDkAlsczKGeWdPgXrEGXebMdtdoVj/1088BUBVKbpEj6xOdilLJcxus
-	5uOKanH3W3ikdZPu4cuIRybrDnvAgZOTeSyD42W3BAYp3mtWPx+Oyr6t3fDlJcljd5BzQFjhEke
-	01Wo3pzoBnY9D8t6/0oShdCmzoTjby8OmT7PE6tInvuAAC/9sV+6+TF/uGbGDMdF3jVgwPhUXuQ
-	r5SOj6EpvfEh6NTkwhO8WKBSr3KQMUI4A3TSg86AzzHqxL4dHVK7eNkR+X+U37AO8PkAyJvzO+Y
-	nn6NkduKfhDeZHIjP63pvVZrkn3dtatGg==
-X-Received: by 2002:a05:6000:208a:b0:43e:531f:720c with SMTP id ffacd0b85a97d-43fe407383cmr42200378f8f.11.1776963043960;
-        Thu, 23 Apr 2026 09:50:43 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:23c6:2736:8e01:ecb5:414:3f67:410b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e46471sm52418423f8f.28.2026.04.23.09.50.42
+        d=1e100.net; s=20251104; t=1776964670; x=1777569470;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=bsUocZL2Bn6GCAa3hABSmeuNfrbPhRDBHVb9kanPFaA=;
+        b=GSHpVQ8LCQ8kGMa8jrDGbuGUaib+xaFGJLO+qzVjb0QljjrWJP9hjRADN/CDyYCOnH
+         yXR81rnr2EuKCp8vGUTVs35wm2HhSr1Vl+rMzDSZxt2+XfByaDPHVqzbfZiXfkpJS3Bc
+         DQEXWCWpR3Xyf1XkIBibJfRN0ZUg75OWw78UwXVimx382aGtOz38JOVchfX/B8LcV078
+         H9XI/htnXjp4UyG0trv9SlSzu1t1+PFH5/F35wndWNq3dH0GKl4A0UiJK2nTfG6IhEJU
+         qcy9fykoeloKJNobfw/WSYCFfzXVzno0CbW5Yi1BauYRi3w5oLbcdS0CTcrqDuDw4ESE
+         tf3A==
+X-Forwarded-Encrypted: i=1; AFNElJ9suFhORSXInlbA7jwWmhKgHn7J14gv0BJ5GMs+9LiirNJfLxTb7zbKkVAlH7AlU0+FaCYIUDVyNxz4@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOmOA4EvN3OjugBmwNRN/X4JvihU/Dvpcy+UFkSZqjJLco0QJr
+	pGBYhB77NYAtSuArFnXxCCW60bId5ZIX/f61nFJEP+coh1ygMiiCnEGvQfncEqKnlfc=
+X-Gm-Gg: AeBDievke1XTuyoRsXwKM3AF3DwXXT8qPEwHi02qdAP0aYJ5oZ0pwCoYTe/BZSj2Ars
+	pitXjnceEEbvM7c19hfqWmJASgc6S/sDUtlNilUk9xBdae9tmPQE08QrBjOmyaeGaM91hM6nAls
+	7JY1jCJiyxLn4igDhxSHYI0mwC5tjRru4eEPIoM8RkgkHH94P/8VlrZP1p64h/z8Uo9us2sFHcB
+	md4B9B4OcXXBHZB5dA/ezZ/XY4bBmLyGwSf4tulWpisIReXfPn7UtarjWMSAXrLiiIbFDUXuJlm
+	QajxI2VPecU3j8iDBnoAb78fl6r/vGueKUDlNhx13S4f7hJ9MIk8tWT8OX1BDlV5hP/CmApx2Zl
+	b1hJOhG6g3fiL5uyzSQ3354GsiJnSEmigNnzNPoRis5bY4cDwjPoOu77YT5xaQv5/upqiCZW9AV
+	TWIXMiYZuSncvDuUdVVM3QZ7rq4/Rm3wKcIUQmkQ==
+X-Received: by 2002:a17:902:f78d:b0:2b2:67ca:5ff9 with SMTP id d9443c01a7336-2b5f9d888e8mr278593665ad.0.1776964669767;
+        Thu, 23 Apr 2026 10:17:49 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:54c0:dbdd:6b84:4488])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5fab20c4fsm250035145ad.59.2026.04.23.10.17.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Apr 2026 09:50:43 -0700 (PDT)
-From: William Bright <william.bright@imd-tec.com>
-Date: Thu, 23 Apr 2026 17:50:07 +0100
-Subject: [PATCH] arm64: dts: qcom: sm8550: add SDHC4 controller node
+        Thu, 23 Apr 2026 10:17:49 -0700 (PDT)
+Date: Thu, 23 Apr 2026 11:17:46 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v3 0/3] Add i.MX94 remoteproc support and reset vector
+ handling improvements
+Message-ID: <aepUOjXBOWK-0wt9@p14s>
+References: <20260415-imx943-rproc-v3-0-9fa7528db8ca@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-sm8550-sdhc4-support-v1-1-93fd81fea5d9@imd-tec.com>
-X-B4-Tracking: v=1; b=H4sIAL5N6mkC/yXMQQqEMAxA0atI1gZqbUW8irjQGscMqKWxw4B4d
- 6su3+L/A4QCk0CTHRDox8LbmlDkGbi5Xz+EPCaDVrpSRpcoS22tQhlnZ1Ci91vYsbT1MOnKOGU
- IUuoDTfx/tm33WuLwJbffLzjPCzpZMpl4AAAA
-X-Change-ID: 20260423-sm8550-sdhc4-support-358bf264c04e
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ram Boukobza <ram@imd-tec.com>, 
- Tendai Makumire <tendai.makumire@imd-tec.com>, 
- William Bright <william.bright@imd-tec.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260415-imx943-rproc-v3-0-9fa7528db8ca@nxp.com>
 
-Add the SDC4 SDHCI controller node for the SM8550 SoC.
+On Wed, Apr 15, 2026 at 03:50:37PM +0800, Peng Fan (OSS) wrote:
+> This series adds remoteproc support for the i.MX94 family, including the
+> CM70, CM71, and CM33S cores, and derive the hardware reset vector for
+> Cortex‑M processors whose ELF entry point does not directly correspond to
+> the actual reset address.
+> 
+> Background:
+> Cortex‑M processors fetch their initial SP and PC from a fixed reset vector
+> table. While ELF images embed the entry point (e_entry), this value is
+> not always aligned to the hardware reset address. On platforms such as
+> i.MX94 CM33S, masking is required to compute the correct reset vector
+> address before programming the SoC reset registers.
+> 
+> Similarly, on i.MX95, the existing implementation always programs a reset
+> vector of 0x0, which only works when executing entirely from TCM. When
+> firmware is loaded into DDR, the driver must pass the correct reset vector
+> to the SM CPU/LMM interfaces.
+> 
+> Summary of patches:
+> [1]dt-bindings: remoteproc: imx-rproc: Introduce fsl,reset-vector-mask
+> Adds a new DT property allowing SoCs to specify a mask for deriving the
+> hardware reset vector from the ELF entry point.
+> 
+> [2]remoteproc: imx_rproc: Program non-zero SM CPU/LMM reset vector
+> Ensures the correct reset vector is passed to SM APIs by introducing a
+> helper (imx_rproc_sm_get_reset_vector()) that applies the reset‑vector
+> mask.
+> 
+> [3]remoteproc: imx_rproc: Add support for i.MX94 remoteproc
+> Adds address translation tables and configuration data for CM70, CM71,
+> and CM33S, enabling full remoteproc operation on i.MX94.
+> 
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+> Changes in v3:
+> - Patch 2: 
+>   Drop R-b because of changes in V3
+> 
+>   Following suggestion from Mathieu that apply reset vector in
+>   scmi_imx_[cpu,lmm]_reset_vector_set(), not change the meaning of
+>   rproc->bootaddr, add helper imx_rproc_sm_get_reset_vector() to get reset
+>   vector and use the hlper in scmi_imx_[cpu,lmm]_reset_vector_set().
+> 
+>   Add reset-vector-mask for i.MX95 CM7 to avoid breaking i.MX95 CM7
+>   boot.
+> 
+> - Link to v2: https://lore.kernel.org/r/20260327-imx943-rproc-v2-0-a547a3588730@nxp.com
+> 
+> Changes in v2:
+> - Drop fsl,reset-vector-mask by using fixed value in driver for per device
+> - Add R-b for i.MX94 dt-binding
+> - Update commit log to include dev addr and sys addr
+> - Link to v1: https://lore.kernel.org/r/20260312-imx943-rproc-v1-0-3e66596592a8@nxp.com
+> 
+> ---
+> Peng Fan (3):
+>       dt-bindings: remoteproc: imx-rproc: Support i.MX94
+>       remoteproc: imx_rproc: Program non-zero SM CPU/LMM reset vector
+>       remoteproc: imx_rproc: Add support for i.MX94
+> 
+>  .../bindings/remoteproc/fsl,imx-rproc.yaml         |  3 +
+>  drivers/remoteproc/imx_rproc.c                     | 98 +++++++++++++++++++++-
+>  drivers/remoteproc/imx_rproc.h                     |  2 +
+>  3 files changed, 101 insertions(+), 2 deletions(-)
 
-SMMU stream ID 0x80 was sourced from the UEFI bootloader IORT tables,
-as SDCC stream IDs are not documented in the register reference manual.
-Unlike SDC2, the data path is routed via aggre1_noc, matching
-MASTER_SDCC_4 in drivers/interconnect/qcom/sm8550.c.
+Much better - I'll pick this up when 7.1-rc1 comes out.
 
-Tested on the IMDT QCS8550 SBC at high-speed (HS) mode. UHS modes were
-masked out as they failed to initialise; the root cause has not yet
-been determined. This board is not currently supported in-tree.
+Thanks,
+Mathieu
 
-Co-developed-by: Tendai Makumire <tendai.makumire@imd-tec.com>
-Signed-off-by: Tendai Makumire <tendai.makumire@imd-tec.com>
-Signed-off-by: William Bright <william.bright@imd-tec.com>
-Tested-by: William Bright <william.bright@imd-tec.com>
----
- arch/arm64/boot/dts/qcom/sm8550.dtsi | 54 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 54 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-index 912525e9bca6..5abbe519781b 100644
---- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-@@ -3280,6 +3280,60 @@ opp-202000000 {
- 			};
- 		};
- 
-+		sdhc_4: mmc@8844000 {
-+			compatible = "qcom,sm8550-sdhci", "qcom,sdhci-msm-v5";
-+			reg = <0 0x08844000 0 0x1000>;
-+
-+			interrupts = <GIC_SPI 261 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 227 IRQ_TYPE_LEVEL_HIGH 0>;
-+			interrupt-names = "hc_irq", "pwr_irq";
-+
-+			clocks = <&gcc GCC_SDCC4_AHB_CLK>,
-+				 <&gcc GCC_SDCC4_APPS_CLK>,
-+				 <&bi_tcxo_div2>;
-+			clock-names = "iface", "core", "xo";
-+			iommus = <&apps_smmu 0x80 0>;
-+			qcom,dll-config = <0x0007642c>;
-+			qcom,ddr-config = <0x80040868>;
-+			power-domains = <&rpmhpd RPMHPD_CX>;
-+			operating-points-v2 = <&sdhc4_opp_table>;
-+
-+			interconnects = <&aggre1_noc MASTER_SDCC_4 QCOM_ICC_TAG_ALWAYS
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-+					<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &config_noc SLAVE_SDCC_4 QCOM_ICC_TAG_ACTIVE_ONLY>;
-+			interconnect-names = "sdhc-ddr", "cpu-sdhc";
-+			bus-width = <4>;
-+			max-sd-hs-hz = <37500000>;
-+			dma-coherent;
-+
-+			status = "disabled";
-+
-+			sdhc4_opp_table: opp-table {
-+				compatible = "operating-points-v2";
-+
-+				opp-19200000 {
-+					opp-hz = /bits/ 64 <19200000>;
-+					required-opps = <&rpmhpd_opp_min_svs>;
-+				};
-+
-+				opp-50000000 {
-+					opp-hz = /bits/ 64 <50000000>;
-+					required-opps = <&rpmhpd_opp_low_svs>;
-+				};
-+
-+				opp-100000000 {
-+					opp-hz = /bits/ 64 <100000000>;
-+					required-opps = <&rpmhpd_opp_svs>;
-+				};
-+
-+				opp-202000000 {
-+					opp-hz = /bits/ 64 <202000000>;
-+					required-opps = <&rpmhpd_opp_svs_l1>;
-+				};
-+			};
-+		};
-+
- 		iris: video-codec@aa00000 {
- 			compatible = "qcom,sm8550-iris";
- 
-
----
-base-commit: 4f5b4b748ac75683d61c304ee3ee0db235e8f312
-change-id: 20260423-sm8550-sdhc4-support-358bf264c04e
-
-Best regards,
---  
-William Bright <william.bright@imd-tec.com>
-
+> ---
+> base-commit: 724699d8d0523909da51fda8d1e10c1ff867b280
+> change-id: 20260311-imx943-rproc-2050e00b65f7
+> 
+> Best regards,
+> -- 
+> Peng Fan <peng.fan@nxp.com>
+> 
