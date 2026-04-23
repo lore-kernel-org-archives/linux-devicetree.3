@@ -1,45 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0AA1D6DB5;
-	Thu, 23 Apr 2026 17:30:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64E642AA6;
+	Thu, 23 Apr 2026 17:32:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776965452; cv=none; b=cCjPSpm1BqmNrpP0M52xM1Vzp1bDkhwXdMey18RM1S4ebb3izmiZ7RpnBcXduNt5qLXSTJiBbzem1XVftTsKyF/YQaRxChi9gkrEYnTHzTjUaVNCHKrrwwSEfWc1EX6GSSNUUdAejgYOcEITdebo4ncwDLatuJWLmW1Dkjzos/4=
+	t=1776965566; cv=none; b=Xv8VJ1f5Oyk1yTLmoVQA6IfqQYsf01zJ1vEn6WmrvY1DxceEENPqS00Q2SKzqP9xnR+yfWzl+LCcDwfnoYyEWHsPs5mzXa/eoteZg9oi9fz2hpmzSeWNMQfACD6Tfeeiry0taH72yKJoj97Y6lcGvCPjrKlMceqiP7DPeMIQNRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776965452; c=relaxed/simple;
-	bh=GTND1Ycvcov57U/LCP6zxwu5n+6TXmKmS7CxyVPvXW8=;
+	s=arc-20240116; t=1776965566; c=relaxed/simple;
+	bh=vkPOFYfSPifxKhUNTdyucTn5zfeEOsAW2W7a4O0DrdU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oy14baHcjCdcj8Kn/+E4p6zP6jvp9vjx5vIuOal17D8wQ9xuYtAjTQinP5xadtKLPwccOQxTj9TE5TSctnHnfBgM7BSZe8OL1/l2uw0IOmXxIxUFeWHCgqzL2PHgiFBHMKrjHeBlRjieDEZDeJN4ItC2saL3V36n0dEj5eI4em0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M8bIPJCu; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=RtAzuqUtPpZaQj7jkkkjVjQISUSnaEKP7GOeLOIjhdtoPT3WspjGDjsBlsbOLrOB9b/vR2FzdfuvdRrK9CPFSGaGU1PTsPdvSOzWH9NNDVCqDYqnROCunS6Wn/1rL5txpc3ugGTEXQebLwMC4O1+L5mht5UHI4Yc1Wea/eG6beo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e3TXmBV2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M8bIPJCu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48497C2BCAF;
-	Thu, 23 Apr 2026 17:30:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e3TXmBV2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E22AC2BCAF;
+	Thu, 23 Apr 2026 17:32:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776965452;
-	bh=GTND1Ycvcov57U/LCP6zxwu5n+6TXmKmS7CxyVPvXW8=;
+	s=k20201202; t=1776965566;
+	bh=vkPOFYfSPifxKhUNTdyucTn5zfeEOsAW2W7a4O0DrdU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=M8bIPJCu4NO+rJckavr78vqTxV23Se6NSBzU1JZFMlHgshRVDRmU9jqMYwaE7Jb5o
-	 z8KhIFGWK8gBUyxr44pzM0mLUfXkLDEUOdGsUXZIqgDSNXciPu5/ZHve/OBMeuE7rf
-	 ZfhSdm4skqb+HMwMzxj1674F2morgEJFDwh/IdAnxa5uC9sd7tUypDNfJrRc+AdsH+
-	 o3JD7A5yCBSuSowC6ZralfQ9BIZaY8tu8vc8mrvnHKlA+GnBTqXazSf+bDKkOquUrD
-	 tm+EqOp9M2JJZqgv79qInO54l6g4BR24WS1WMwx+JN1l3h8wb6aARDlEXWaYNXqxQx
-	 qeAJp5LWcHv5w==
-Date: Thu, 23 Apr 2026 18:30:46 +0100
+	b=e3TXmBV2HXKD1XIf+dWiJDo7nYZa6ycLviyKIziJO2BxrR8s2SG9OYlzfaKmaUZ+m
+	 sfP7kVAuPX/iloUkq7xDG7JXkcht5XbcxyeFI+dKxNzCVRVla1F7s7fqvvDDl+jKvO
+	 3UaNIMQh0xyqlH6eGiDRTi/7Pmozru7bj1JLW6HoRKszwfjMHvPSZMtp03bdZhoWQV
+	 Ic0s25DPadINY4CBDMHg2nyrOqm74+5I0/P0SRqndNKzxqA/92xmjV2lom4QL6L5qf
+	 L368nCP1uTMeW833YKLFUEXVqEB/R2+Db3vTDgs7NSmRF+cwzuFkxvH3fVtC/V1304
+	 KySfK7t1XTbDA==
+Date: Thu, 23 Apr 2026 18:32:40 +0100
 From: Conor Dooley <conor@kernel.org>
-To: dongxuyang@eswincomputing.com
-Cc: ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
-	p.zabel@pengutronix.de, linux-pwm@vger.kernel.org,
+To: rodrigo.alencar@analog.com
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ningyu@eswincomputing.com, linmin@eswincomputing.com,
-	xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com
-Subject: Re: [PATCH v5 1/2] dt-bindings: pwm: dwc: add optional reset
-Message-ID: <20260423-reformist-humpback-38a087567cb2@spud>
-References: <20260423083644.1168-1-dongxuyang@eswincomputing.com>
- <20260423083731.1226-1-dongxuyang@eswincomputing.com>
+	Michael Auchter <michael.auchter@ni.com>,
+	linux-hardening@vger.kernel.org,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Subject: Re: [PATCH 06/22] dt-bindings: iio: dac: ad5686: rework on power
+ supplies
+Message-ID: <20260423-revenue-sensation-c62f759e457a@spud>
+References: <20260422-ad5313r-iio-support-v1-0-ed7dca001d1b@analog.com>
+ <20260422-ad5313r-iio-support-v1-6-ed7dca001d1b@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,114 +53,91 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="UfISgeyQ1QZtmGZk"
+	protocol="application/pgp-signature"; boundary="0YNEvVT2+/MPyOSF"
 Content-Disposition: inline
-In-Reply-To: <20260423083731.1226-1-dongxuyang@eswincomputing.com>
+In-Reply-To: <20260422-ad5313r-iio-support-v1-6-ed7dca001d1b@analog.com>
 
 
---UfISgeyQ1QZtmGZk
+--0YNEvVT2+/MPyOSF
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 23, 2026 at 04:37:31PM +0800, dongxuyang@eswincomputing.com wro=
-te:
-> From: Xuyang Dong <dongxuyang@eswincomputing.com>
+On Wed, Apr 22, 2026 at 03:45:40PM +0100, Rodrigo Alencar via B4 Relay wrot=
+e:
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 >=20
-> The DesignWare PWM includes separate reset signals dedicated to each clock
-> domain:
-> The presetn signal resets logic in pclk domain.
-> The timer_N_resetn signal resets logic in the timer_N_clk domain.
-> The resets are active-low.
+> Add supplies for VDD, VLOGIC and VREF input voltage pins. The vcc-supply
+> property is deprecated. Certain devices require vref-supply to be
+
+Why is it deprecated? Is the naming incorrect?
+
+> available once an internal reference voltage is absent. Still, this patch
+> does not add those as 'required' so that the ABI is not broken.
 >=20
-> EIC7700 use DesignWare IP for PWM controllers. Add ESWIN EIC7700 support
->  in snps,dw-apb-timers-pwm2.yaml
->=20
-> Signed-off-by: Xuyang Dong <dongxuyang@eswincomputing.com>
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 > ---
->  .../bindings/pwm/snps,dw-apb-timers-pwm2.yaml | 29 ++++++++++++++++---
->  1 file changed, 25 insertions(+), 4 deletions(-)
+>  .../devicetree/bindings/iio/dac/adi,ad5686.yaml      | 20 ++++++++++++++=
+++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
 >=20
-> diff --git a/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm=
-2.yaml b/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml
-> index 7523a89a1773..d9685fdd72a7 100644
-> --- a/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml
-> +++ b/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml
-> @@ -20,12 +20,11 @@ description:
->    instead of having to encode the IP version number in the device tree
->    compatible.
-> =20
-> -allOf:
-> -  - $ref: pwm.yaml#
-> -
->  properties:
->    compatible:
-> -    const: snps,dw-apb-timers-pwm2
-> +    enum:
-> +      - snps,dw-apb-timers-pwm2
-> +      - eswin,eic7700-pwm
-> =20
+> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5686.yaml b/=
+Documentation/devicetree/bindings/iio/dac/adi,ad5686.yaml
+> index 543ee181f7b3..3292d5190b70 100644
+> --- a/Documentation/devicetree/bindings/iio/dac/adi,ad5686.yaml
+> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5686.yaml
+> @@ -40,8 +40,22 @@ properties:
 >    reg:
 >      maxItems: 1
-> @@ -43,6 +42,12 @@ properties:
->        - const: bus
->        - const: timer
 > =20
-> +  resets:
-> +    minItems: 1
-> +    items:
-> +      - description: Interface bus reset
-> +      - description: PWM timer logic reset
+> +  vdd-supply:
+> +    description: Input power supply.
 > +
->    snps,pwm-number:
->      $ref: /schemas/types.yaml#/definitions/uint32
->      description: The number of PWM channels configured for this instance
-> @@ -54,6 +59,22 @@ required:
->    - clocks
->    - clock-names
+> +  vlogic-supply:
+> +    description:
+> +      Digital power supply. If not supplied, it is assumed to be the sam=
+e as
+> +      vdd-supply. VLOGIC may be hardwired to VDD in some board designs or
+> +      internally connected in small packages.
+> +
+> +  vref-supply:
+> +    description:
+> +      Reference voltage supply. If not supplied the internal reference i=
+s used.
+> +
+>    vcc-supply:
+> -    description: If not supplied the internal reference is used.
+> +    deprecated: true
+> +    description: Use vref-supply instead.
 > =20
-> +allOf:
-> +  - $ref: pwm.yaml#
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: eswin,eic7700-pwm
-> +    then:
-
-> +      properties:
-> +        resets:
-> +          items:
-> +            - description: Interface bus reset
-
-This doesn't do anything, I don't think.
-Drop it, and just keep the required.
-
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
-> +      required:
-> +        - resets
-> +
->  additionalProperties: false
-> =20
->  examples:
+>    reset-gpios:
+>      description: Active-low RESET pin to reset the device.
+> @@ -89,7 +103,9 @@ examples:
+>          dac@0 {
+>              reg =3D <0>;
+>              compatible =3D "adi,ad5310r";
+> -            vcc-supply =3D <&dac_vref0>;
+> +            vdd-supply =3D <&dac_vdd>;
+> +            vlogic-supply =3D <&dac_vlogic>;
+> +            vref-supply =3D <&dac_vref>;
+>              reset-gpios =3D <&gpio0 0 GPIO_ACTIVE_LOW>;
+>              ldac-gpios =3D <&gpio0 1 GPIO_ACTIVE_LOW>;
+>          };
+>=20
 > --=20
-> 2.34.1
+> 2.43.0
+>=20
 >=20
 
---UfISgeyQ1QZtmGZk
+--0YNEvVT2+/MPyOSF
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaepXQwAKCRB4tDGHoIJi
-0l63AP4ycP0afs7TwMLUo++yGtNXvxVBFX6hdfYmANqipvFjwwEA/eV6zaED8sb+
-JdySiKyDQORTMKWdoWMaBYxuJiJlEgM=
-=+1Of
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaepXuAAKCRB4tDGHoIJi
+0p3dAPkBqSMXCX2CsYMrapm//aUW6NgaJWVhTVD9bnHV26zYngD/XFHL/z2OqDIT
+KLIZFuJfsoLbnfvH6CMg5RNJ7DsocQ8=
+=fNjo
 -----END PGP SIGNATURE-----
 
---UfISgeyQ1QZtmGZk--
+--0YNEvVT2+/MPyOSF--
