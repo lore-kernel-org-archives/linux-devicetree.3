@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3ADB3A6405;
-	Thu, 23 Apr 2026 17:23:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EE3307AF0;
+	Thu, 23 Apr 2026 17:26:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776965019; cv=none; b=jfEBxBTzWLgRZc5qlI5R6SrQ9puYUIExPgcNkvU4fYOUtF+0RDpa/RsukyVPnaPoqfN+U9fh17lEdNyUlGsA612pVDEqoHOYt/Uknei102l1wcX44Y1O056uIsTlVvreUajHFrxq+2r20F21uKCye8G24S7UltB4+Z50f8J0Z78=
+	t=1776965205; cv=none; b=lPRDwP1dgZ9cyrGZY+C2C2IebQNMVFKj8g8NV79F0iUnHRqZW+DaBLZdb2D9G/f5UjocZwtia/qmn7Lj5qMRYHzSYy84jeJoAKodbZUJ6hUlyW9iu3fViZpYBc2sQxq2VXruhsQZs4a6PbrgE2yBCCntfgRJYH3VQwtHr6ZdZEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776965019; c=relaxed/simple;
-	bh=6qiTCFBekbEukx9JfkfSWRidIG3l0Sf4ObiHCmgi/Kg=;
+	s=arc-20240116; t=1776965205; c=relaxed/simple;
+	bh=5O8Pu9rzdsB9K+KmJxOw52mdQijp38BM1eFTkjsoGqg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d6RE9atuCvGVpomHgdHFOM6q/iDpNykZewcGxBCrCJI30JZYAl7NpfCYYjZeq/I0uC9W0fyk+GrF3aoXqQ6No8CSEZKn9cAqDbhn3Z1014HRcy3Ri5xNI1Gnc3n9yaHkjYAYs8Qw7GDh4QbSb9lXdjifOQfxmv4xUcQ2HzOjJQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bSgVVBco; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=sgzH3Ws+Y7PbJxGGgzTUfjZhaVgHeFl+aKv8JPhJIm+4X0gu9aJEe0wHE/jINPGZkXA4WfltTFyoCd9gIME7+UpJtZNER5O7GCJAV8Ry5gxydp3DJHhcvaG9u8JFqTxWd0JUcaMUYpJJ/3INtCqIq9IqUtdnJPdLhyRTVcHcQCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ba1U/IaJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bSgVVBco"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C46CC2BCAF;
-	Thu, 23 Apr 2026 17:23:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ba1U/IaJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8622DC2BCAF;
+	Thu, 23 Apr 2026 17:26:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776965019;
-	bh=6qiTCFBekbEukx9JfkfSWRidIG3l0Sf4ObiHCmgi/Kg=;
+	s=k20201202; t=1776965205;
+	bh=5O8Pu9rzdsB9K+KmJxOw52mdQijp38BM1eFTkjsoGqg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bSgVVBcoSjGfQWdoQGUgNVRmbEtszAJdVo8yA9r8LNJeE/ofyC5Gnsz79m4V0lX46
-	 pa/y5gsB3zlZluABRrjxKSOwbYMXUHO+MotXEazWDiQOCe1yTrqWRHPV4zMj0LwjKQ
-	 5M2y1kvileHCF6iwNABYr27e4apDnYbkN1V0/UhpKmDTgze2Qlp8vEJPOpipM0hdaF
-	 5vFAbX7aYCuF/Kn3hy0r1zpktd5e0OEoDF9glBkGw9wkYyEXY2EG6qnrIoxwq1IeDv
-	 4km4kfenW5XJsDNbsAvN0gM7swo4NnRXLNKgjHVyLL2FI7yo+t36QrFeotbRrVVc+5
-	 swQ532De8vksQ==
-Message-ID: <fe8a9d66-99d9-4e2f-9ddc-d1e1dbbaa10a@kernel.org>
-Date: Thu, 23 Apr 2026 19:23:35 +0200
+	b=Ba1U/IaJlcZ1l/JeSrnr4NIDGkzgFc4g9l3Rq8qG/Mpz3XYh/h1keBamOAAsQjun7
+	 ZrHHcZuzZi2suKArogvaKvWzhmLI5GOd2wuN29XyeNbcs9f+zC9dut6LhKnX2xzuOC
+	 a4XqA4njK+f19ul4q195AaL65RpkpCsuYBFj0LIcTHlm0u9vIBxWtl+pYHt8WPeKbC
+	 my8w3fZksi5tFPBHflIFaQDWSfwKTJmDH4pY14Rjw72fDGaWWl45MeSY10a61ZXKWW
+	 DObElYhaPnbOL5KFO81BjonhDQKy9AVFi7E0qAJ9r2WDZbFvcfA7ewT/l+L3eitQ8+
+	 qQ6fEW3ORbL+Q==
+Message-ID: <eac0f387-c38a-44eb-aed4-6c4022f01777@kernel.org>
+Date: Thu, 23 Apr 2026 19:26:40 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,16 +35,17 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: mmc: st,sdhci: convert to DT schema
-To: Charan Pedumuru <charan.pedumuru@gmail.com>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
- linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: xlnx: add auto boot feature
+To: tanmay.shah@amd.com
+Cc: andersson@kernel.org, mathieu.poirier@linaro.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, michal.simek@amd.com,
+ ben.levinsky@amd.com, linux-remoteproc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-References: <20260409-st-mmc-v1-1-4c54321c3535@gmail.com>
- <20260416-merciful-bug-of-fantasy-f08d00@quoll>
- <4cbda428-ba64-434a-836d-9356980326ea@gmail.com>
+References: <20260422202558.2362971-1-tanmay.shah@amd.com>
+ <20260422202558.2362971-2-tanmay.shah@amd.com>
+ <20260423-stimulating-markhor-of-masquerade-aac0a7@quoll>
+ <2351c698-cf08-4037-9777-0820448a14d8@amd.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,32 +91,85 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <4cbda428-ba64-434a-836d-9356980326ea@gmail.com>
+In-Reply-To: <2351c698-cf08-4037-9777-0820448a14d8@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23/04/2026 17:26, Charan Pedumuru wrote:
+On 23/04/2026 17:14, Shah, Tanmay wrote:
+> Hello,
 > 
+> Thanks for reviews. Please see my comments below.
 > 
-> On 16-04-2026 14:48, Krzysztof Kozlowski wrote:
->> On Thu, Apr 09, 2026 at 07:43:16AM +0000, Charan Pedumuru wrote:
->>> +properties:
->>> +  compatible:
->>> +    oneOf:
->>> +      - const: st,sdhci
->>> +      - items:
->>> +          - const: st,sdhci-stih407
->>> +          - const: st,sdhci
->>> +
->>> +  reg:
->>> +    minItems: 1
->>> +    maxItems: 2
+> On 4/23/2026 4:09 AM, Krzysztof Kozlowski wrote:
+>> On Wed, Apr 22, 2026 at 01:25:57PM -0700, Tanmay Shah wrote:
+>>> Add auto-boot property to notify that remote processor is setup and
+>>> ready to boot. Linux can attempt to boot or attach to already running
+>>> remote processor. "firmware-name" property is used to mention default
+>>> firmware to boot when linux starts the remote processor.
+>>>
+>>> Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
+>>> ---
+>>>  .../devicetree/bindings/remoteproc/xlnx,zynqmp-r5fss.yaml | 8 ++++++++
+>>>  1 file changed, 8 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/remoteproc/xlnx,zynqmp-r5fss.yaml b/Documentation/devicetree/bindings/remoteproc/xlnx,zynqmp-r5fss.yaml
+>>> index ee63c03949c9..0d27260e3baa 100644
+>>> --- a/Documentation/devicetree/bindings/remoteproc/xlnx,zynqmp-r5fss.yaml
+>>> +++ b/Documentation/devicetree/bindings/remoteproc/xlnx,zynqmp-r5fss.yaml
+>>> @@ -135,6 +135,14 @@ patternProperties:
+>>>            - description: vring1
+>>>          additionalItems: true
+>>>  
+>>> +      auto-boot:
 >>
->> replace maxItems with a list with description
+>> Last months, I have been asking AMD to follow writing-bindings doc or
+>> other DT guidelines way too many times.
+>>
+>> Or you just sent us downstream... Do you see anywhere such property?
+>> What properties do you see? How are they named?
+>>
 > 
-> maxItems is required, dt_check fails without it and I can add the description.
+> I should have put note about this. Current auto-boot properties are
+> named like st,auto-boot fsl,auto-boot etc. but nothing vendor specific
+> there. Can we have a common auto-boot property? Similar to
+> firmware-name? If we agree to it then what's the correct location? New
+> file remoteproc.yaml is okay?
 
-No, constraints are required and list with items provides such.
+Common properties go to dtschema, so it would need to go there, but the
+point is that it's way too generic - every component with FW could be
+called "auto-boot". This should stay vendor property, IMO.
+
+> 
+>>> +        type: boolean
+>>> +        description: remote core is either already running or ready to boot
+>>
+>> And why is this property of a board?
+>>
+> 
+> Not sure what indicates it is? The property is under remoteproc child
+> device that is SOC level property. Remote core is on same SOC wher linux
+> core is running.
+
+So it is implied by SoC compatible? Please provide some arguments why it
+cannot be implied by the SoC compatible. I gave you one way out, but if
+you disagree then no problem.
+
+> 
+>>> +
+>>> +      firmware-name:
+>>> +        maxItems: 1
+>>> +        description: default firmware to load
+>>
+>> Can you load non-default firmware later? IOW, why adding description
+>> here, what is special?
+>>
+> 
+> The rootfs contains other firmware demos, and it is possible to stop the
+> default firmware, load other fw elf and re-run the remote core.
+> I don't have strong preference on the description part, I will remove it
+> if redundant.
+
+No, it's fine, I wanted to be sure that such use case makes sense.
 
 Best regards,
 Krzysztof
