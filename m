@@ -1,81 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30EE336D9E0
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 21:27:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F9F29C35A
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 21:50:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776979652; cv=none; b=M5Rk4KQG14wTct3hZO43QS4QcrAtLyG4uL7hm8AdeOPJKCZ7hXPo1pCNwk1+AnescDrKu+3kZXf1BINOEmpjDVSUOmAtl1TsC1h6dNYGBTIkG3MG8NDE6/TTcOk2lw6WBqWcUg86ZFDDI33XOKIiJEHCC8TPgOuIUbAZJVoWmIs=
+	t=1776981014; cv=none; b=qyNCzcD/AJRWHyN0py+p45JyDzGAFpxRNUdJJRGib6cZYZ/mYFVxvRa/eUjfUAvFmw4oEDDR399TjT5jtfwbnY2TU+Pdo2G5ov67awNbovccUiY6B2L5aVylf2dqYkxSTuOkH+wN9Q9YqaMJE03blNgP86GwK/ZuHHiP/5FJBTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776979652; c=relaxed/simple;
-	bh=LHGK+gI0n/9OErq8+42i/9GhBphDgJzvi2yvX7jJL5g=;
+	s=arc-20240116; t=1776981014; c=relaxed/simple;
+	bh=LSRVDpEOamzQs0THbHW6eRIUrSeuuslIY0FvfldgvzA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nakqOJ3aGqJStXXNfh1EVJDLHc0rQww3ZzKzi8eax2Dq93d9s0eAcOnppg0bdVdGhHwY0PUK97Q4OhRmgzjAe8jV0VU/a9HWtZeFlX1FhlEaaBEAaNWlUcuATAjbGce4tkvjN9W54i4/IJF0rN6P3oRVWbjvazVXQwEf8ejc/zs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HJMpeSbQ; arc=none smtp.client-ip=10.30.226.201
+	 To:Cc:Content-Type; b=NNUjCjJnYPnD87lZUXg4JC/qbdjnvOI9iOapWAtmbtvvOGXgEz5aqkq0z1sCYPBtJbP+XaBMOpwxw5wvbbKiKFAmMxUvHMYF8atOGXHKl/K4mlJlA1836TRqPY8fRHhVCQFj7MsPOE4i4gAA0Q1zt99Qd14OZUO6/xxAvZfkN7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=WqJ9v8hC; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HJMpeSbQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E65FDC4AF10
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 21:27:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776979651;
-	bh=LHGK+gI0n/9OErq8+42i/9GhBphDgJzvi2yvX7jJL5g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=HJMpeSbQIM60Q3d53I9Zwep4hwpP5Ebj0iU2PC74N58EP5/6NIVNKKG7GctKJQpnQ
-	 orw8/2S/YvWvrXs0+mPtAvvgSiRs4hbftCaKNIom/RpDnEsCDD04XIpjBTCErtKrUz
-	 6EoZ0o2E6hSCzfrDQ5rg9YSYidB8h4aUT6tvnKtOq2LGHno9pHOgsKuVpGPUwiw82q
-	 ofkhkA3IvfZrwq63MJPIEg3AmiblkTzxP7qUwJjet679saisdrDu9xWiUWvrV8FaQy
-	 5VUndRjUC2Al6Om+tKLKavGyq63B8mbboH99/v6ajPWepNQJ4NYYsWhGcsAlou4yY8
-	 lfC3EcDPAbJoQ==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-38eab6cf7d8so68856751fa.1
-        for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 14:27:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/mRn6euExjFL0E4VRKgMROe+ojoJVff7Ok6cW9Wyjw/1d8qPErPUXv1cqH5rcaqITJ8UpzPwaqgJmn@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6oXNc9/h8rMzdkALgJhpEb1DfalNN6YTCDmISQB4/709v34nc
-	tezcWoZJEfEEwUKuDTvx+TDp1/4jZ0T+CuJCkvBsOjnzKHckMHrgCjknA+xB5SnLWA7qZFxI9M1
-	5+THBypogS15bhnwOFLQ9Re8gx+TX2xw=
-X-Received: by 2002:a05:6512:6d2:b0:5a2:9b44:1cb with SMTP id
- 2adb3069b0e04-5a4172c0fabmr8827159e87.2.1776979650648; Thu, 23 Apr 2026
- 14:27:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="WqJ9v8hC"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-ba3115fe0d5so1353102366b.1
+        for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 14:50:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1776981007; x=1777585807; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=G1fiSCPkq0DML3luJPuVMp7dn80QlXb/vZ8XRZ+msWc=;
+        b=WqJ9v8hCG+MuP9NTx7ASrbPEDvgw2mjcWm9XbCwM0MRIXL7LJl7rlhEUE2tgrBngKc
+         0ouVF8BsX0hEDfZQPtwT6oEJYRvXOj6oXGZFRu1x+XfUE7kD3i0XP94Jakgai0n4QZGs
+         qGj7T6mRiVei7q1It+OfObJS7eGxNeHOHGi3M=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776981007; x=1777585807;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=G1fiSCPkq0DML3luJPuVMp7dn80QlXb/vZ8XRZ+msWc=;
+        b=N3PpOrwSlfpuSa+I2psYmlbKokk7WJ/b9kvCQKV3IAzPSNjxeJT5aAAJ16nRwnR3zu
+         nMOsibnMYlQBkQCuzHVOTxmjHNCd7tpY4NRbtI7NnvV3hrwgkrEUyt8m1f50bUBBVo8a
+         lzXREGlKb1KB0ZJX5pyr/Tb0ZCSGmC9Pl+rcgYaE01FiYKAiOweVSGMqn8njKo3AyBO7
+         tt1S4NprN373Tu4fKD5fhxlkKARTqD85poe5KKx/gUXKqhHSidCoIKSW0ej7Tj6gTZOZ
+         fz5SeGRgF3UUggC7gi/xb8HLiuBrfWZ3FM06e/52Fy6S2yKIXM2e2lMST3pTk55ZsyRT
+         XfxA==
+X-Forwarded-Encrypted: i=1; AFNElJ8MyUyz60T4RibBdD4FdE0tfAd3LpD5qftmPVAEb1+uU74O8F6WSvXp66iYylsEd35ksQR+A1lik+vr@vger.kernel.org
+X-Gm-Message-State: AOJu0YydKLnX0CcTw5nKKkx3mYS1QKe8UoVBHX92VPCx3aDV69HZWY+C
+	VI1ohuT40C0va2AFQHm/izLy67WoVvcBO+c8XrfXNpBCi6ChjqtQ8BSorVK+hmpFz4VPbq3Ci/k
+	K8N0CmQ==
+X-Gm-Gg: AeBDieuZpySkHjws3QU1r6iSD6/D0VdZJ7xW53tbls9n2iJW9CTYcfM4LNjRchqp5Rb
+	OzGzyQ0AYYwyxH5U/12aQKdIkhXLJ4hE7RMIiXKnWVYsXIbt+rmv/B/sTjXC0/8EilllZzfZ0T3
+	EaXfCPQJ1oMzJBwg/p/vDYNwVrmPS++p8I3udilWKdT8zUsaDdtCTNgkKJrGzvsCew8ISflaeRx
+	ZQZUUk6/WYQD4HJyW8+dxW/tyRSOyuwdMb6xTkcY6jUjDF69ZrSC8vwEtBwAyjIlKYe1KKFHtfh
+	7rDELxG4IOtOWCJ+O1fMljvtgOsPNUwbfLe+IqXkUSjA0DOyaiXCJPwxMvzZouOoHoNTaUPd1Vx
+	hVPfLMmw7RmU1cda545hy2mRuPmiSiQ4qyE2E7rf+lQJ/6SHR4+VuGNhg6BxmTlMbTrswE0wpfB
+	jIQowdRWy5s40AMAiMCk1hDs/Wk9pHRSz5M5qFuv2ZFf3SSYHffqEYTpUWplt2bNXakWkNaz7p
+X-Received: by 2002:a17:907:7241:b0:ba7:79ef:8694 with SMTP id a640c23a62f3a-ba779ef8ea0mr955166366b.14.1776981007259;
+        Thu, 23 Apr 2026 14:50:07 -0700 (PDT)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com. [209.85.221.53])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba4555398f8sm700177266b.59.2026.04.23.14.50.05
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 23 Apr 2026 14:50:06 -0700 (PDT)
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-441209fb77eso2474986f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 14:50:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/SkrbvDvAxEwb0mWMNzefsPsyu5uEx3L+E6J1c7Rcqn0oOJDdXDFrT1o3k7SIjl497eIZ1xIJlBK5Z@vger.kernel.org
+X-Received: by 2002:a05:6000:208a:b0:43e:531f:720c with SMTP id
+ ffacd0b85a97d-43fe407383cmr43673395f8f.11.1776981004287; Thu, 23 Apr 2026
+ 14:50:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260413-waveshare-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com> <20260413-waveshare-dsi-touch-v3-16-3aeb53022c32@oss.qualcomm.com>
-In-Reply-To: <20260413-waveshare-dsi-touch-v3-16-3aeb53022c32@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 23 Apr 2026 23:27:19 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk6Bt1ocd9nbrDPg3tRnKkZdG=otB=CPv6iuY_Que5HcQ@mail.gmail.com>
-X-Gm-Features: AQROBzBgvARcF3IK5AHeLBYYiVQtCKareEdSCXulR4gFnM4VD2cDpl4FLI87TaU
-Message-ID: <CAD++jLk6Bt1ocd9nbrDPg3tRnKkZdG=otB=CPv6iuY_Que5HcQ@mail.gmail.com>
-Subject: Re: [PATCH v3 16/21] drm/panel: jadard-jd9365da-h3: support Waveshare
- 720p DSI panels
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260423-manta-display-v1-0-196f80c5673a@timmermann.space> <20260423-manta-display-v1-2-196f80c5673a@timmermann.space>
+In-Reply-To: <20260423-manta-display-v1-2-196f80c5673a@timmermann.space>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 23 Apr 2026 14:49:53 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=VNvPtG_f1W942SKJfM4ptK8Wvd-nZs4geBCG3bO_A0BA@mail.gmail.com>
+X-Gm-Features: AQROBzBZ12eQ8JPtoHklunZA7baGhpheKR11CnReOtZ62TdnznxZp2PUusIRrN4
+Message-ID: <CAD=FV=VNvPtG_f1W942SKJfM4ptK8Wvd-nZs4geBCG3bO_A0BA@mail.gmail.com>
+Subject: Re: [PATCH 2/5] drm/panel-edp: Add support for Samsung LTL101DL02-002 panel
+To: Lukas Timmermann <linux@timmermann.space>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Cong Yang <yangcong5@huaqin.corp-partner.google.com>, Ondrej Jirman <megi@xff.cz>, 
-	Javier Martinez Canillas <javierm@redhat.com>, Jagan Teki <jagan@edgeble.ai>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Jie Gan <jie.gan@oss.qualcomm.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+	Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
 	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Riccardo Mereu <r.mereu@arduino.cc>
+	linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Alexandre Marquet <tb@a-marquet.fr>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Apr 13, 2026 at 4:06=E2=80=AFPM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
+Hi,
 
-> Add configuration for Waveshare 9.0" and 10.1" 720p DSI panels using
-> JD9365 controller.
+On Thu, Apr 23, 2026 at 2:15=E2=80=AFPM Lukas Timmermann <linux@timmermann.=
+space> wrote:
 >
-> Tested-by: Riccardo Mereu <r.mereu@arduino.cc>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> From: Alexandre Marquet <tb@a-marquet.fr>
+>
+> Add a panel entry for the Samsung LTL101DL02-002 panel, as found in
+> Samsung Manta (Google Nexus 10).
+>
+> Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
+> Signed-off-by: Lukas Timmermann <linux@timmermann.space>
+> ---
+>  drivers/gpu/drm/panel/panel-edp.c | 31 +++++++++++++++++++++++++++++++
+>  1 file changed, 31 insertions(+)
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Adding new panels like this is discouraged these days. Is there a
+reason you can't use the generic "edp-panel" compatible? I know that
+the exynos5 driver is pretty old, but a quick glance shows that it's
+based on the same analogix-dp core that "rockchip,analogix-dp" is, and
+that seems to have support for aux-bus...
 
-Yours,
-Linus Walleij
+-Doug
