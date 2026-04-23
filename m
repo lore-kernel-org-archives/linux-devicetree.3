@@ -1,166 +1,254 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681C83793B8;
-	Thu, 23 Apr 2026 16:08:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A123793B8
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 16:09:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776960491; cv=none; b=pSdUAnFqbeh6bEnrBV71QV6QZQZOfN3GXxHYJRAwypD3RquyMH2imCOlqsbp1bjypK17WzYLOJSBXP7BKGyg8AmyyM+yvWq6NqL5wujFyBu3ZSHqQXdKHBenkxFN1Udu/E70zzsoyGQ+52X4+vUbEz6ttYTqbhZ1MGDDuiN7aWs=
+	t=1776960597; cv=none; b=eiUzrQgpvhDrjt/0CM71hlbKWB2ihTqXMrYvkfKmCzj69CTjHO2nQNSY52jhBAIb0Yw0intFPTMLaCSyz07lDSleMefisMOoyLRPwYaW4eWkkEn8Z4UFCjUYXOY4UlvCSv2cmxbbA2bFB/It8nJAg2FXssaoqKHhDW2OCe4cNvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776960491; c=relaxed/simple;
-	bh=ppNpmKpIg/LkrchRD2fchGkO1iZ6NOOF+2pVJoyViMc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QN7NwgX3twMo4kvITze2qw3LLini01fXA3+A2h6/aRgR8WMs+Ir89qYrGEL6lfwAZZjvFsBBflnKnbSJM4NE+njTQnkz/nshuoFv2u3li2E390uVZS8lTe9ZkQlwG2pkLFQTgTIoPgYfBDnCw/2jbNjYV75SgrJP5rPH7kerjrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YzhjQhTf; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YzhjQhTf"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 31700C2BCC4;
-	Thu, 23 Apr 2026 16:08:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776960491;
-	bh=ppNpmKpIg/LkrchRD2fchGkO1iZ6NOOF+2pVJoyViMc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=YzhjQhTfs4Fuk8ceWHI/AJlwj/SS49f4PBUt8nYNb0l13qHafiDTFAvybKBga+hR3
-	 HswKi4Q12OAzsF9cgQ/nMAp2u2kkay9ioKr3Sp87BA0pvhMPj3l5sSvQi6K7EQjT77
-	 3f2WTTOK71zeD33qrwiiSG8w+s5YUO0SVGhe/xyuhejG+UVYAY6dH8Fy82v/q08kso
-	 0OzxUc5ElJ0y8Fja3IyR3WocmFJfh076FAT1kuPISWY9d0fkrzMwfHaZUUK5rVWlYj
-	 5x/7HY2lwHcgQKnsMY2GapZtXiBC9xLKel0gil5Gr+6BtCl4zZ3r3mBG/FgFViftLg
-	 v/SKrxpa4O8uQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 287D3FAD3FB;
-	Thu, 23 Apr 2026 16:08:11 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Thu, 23 Apr 2026 18:07:21 +0200
-Subject: [PATCH v4 6/8] arm64: dts: amlogic: t7: Add thermal sensor nodes
+	s=arc-20240116; t=1776960597; c=relaxed/simple;
+	bh=QR2FBrQ7+O1/AjKHDPRgUEXZFnVLrbPdh8YK/Bk1VoY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=tP3HXUPD13CShlzTyu0anHYfpIjazFu12DWLloMqBnRSlXlbXMcdXH6LC/QCAfHru4gnEskNbI1DYHde2Ini6YlL1G4SoJBKtNjjEP5Vvy6w6o82ifjb8DhOXV1YcqzPJ5rOKWh5j01ZoDycXygwGDJXtnZcrqijoJTxEn9BL7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wFwcS-0005mU-0N; Thu, 23 Apr 2026 18:09:36 +0200
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wFwcQ-006r1f-23;
+	Thu, 23 Apr 2026 18:09:34 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wFwcQ-00000000Epg-2IBb;
+	Thu, 23 Apr 2026 18:09:34 +0200
+Message-ID: <60dfdfbd334fcc26344a1648cdc811543b5fc84b.camel@pengutronix.de>
+Subject: Re: [PATCH v3 3/3] reset: eswin: Add eic7700 HSP reset driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: dongxuyang@eswincomputing.com, mturquette@baylibre.com,
+ sboyd@kernel.org, 	robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, 	linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ huangyifeng@eswincomputing.com, 	benoit.monin@bootlin.com,
+ bmasney@redhat.com
+Cc: ningyu@eswincomputing.com, linmin@eswincomputing.com, 
+	pinkesh.vaghela@einfochips.com
+Date: Thu, 23 Apr 2026 18:09:34 +0200
+In-Reply-To: <20260423091256.2542-1-dongxuyang@eswincomputing.com>
+References: <20260423090904.2108-1-dongxuyang@eswincomputing.com>
+	 <20260423091256.2542-1-dongxuyang@eswincomputing.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-add-thermal-t7-vim4-v4-6-d4c1528d5044@aliel.fr>
-References: <20260423-add-thermal-t7-vim4-v4-0-d4c1528d5044@aliel.fr>
-In-Reply-To: <20260423-add-thermal-t7-vim4-v4-0-d4c1528d5044@aliel.fr>
-To: Guillaume La Roque <glaroque@baylibre.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, 
- Ronald Claveau <linux-kernel-dev@aliel.fr>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3074;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=qZ6yxPYtU0rtSpNUw/qC8lVKNvJcNRQzOAUadiZgg5o=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ+Yr56cbU0+GrzIKaHC71Rf/pzM2VcW5anFvVsXBis5lZ
- oxRPBM6SlkYxLgYZMUUWfrnWp54d/noma971FNg5rAygQxh4OIUgIkwOTEyPExNsjYUfJlu4P/W
- u8qTda2pi7VU/1fTi5cO9NucZLtdx/BX8Ou5H1Orpk20mF/yYavEEy9T9vDrduwVbsZid7uz6jK
- 4AQ==
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+On Do, 2026-04-23 at 17:12 +0800, dongxuyang@eswincomputing.com wrote:
+> From: Xuyang Dong <dongxuyang@eswincomputing.com>
+>=20
+> Add auxiliary driver to support ESWIN EIC7700 high-speed peripherals
+> system. The reset controller is created using the auxiliary device
+> framework and set up in the clock driver.
+>=20
+> Signed-off-by: Xuyang Dong <dongxuyang@eswincomputing.com>
+> ---
+>  drivers/reset/Kconfig             |  11 +++
+>  drivers/reset/Makefile            |   1 +
+>  drivers/reset/reset-eic7700-hsp.c | 118 ++++++++++++++++++++++++++++++
+>  3 files changed, 130 insertions(+)
+>  create mode 100644 drivers/reset/reset-eic7700-hsp.c
+>=20
+> diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+> index d009eb0849a3..f63e89ed6a4e 100644
+> --- a/drivers/reset/Kconfig
+> +++ b/drivers/reset/Kconfig
+> @@ -83,6 +83,17 @@ config RESET_EIC7700
+>  	  The driver supports eic7700 series chips and provides functionality f=
+or
+>  	  asserting and deasserting resets on the chip.
+> =20
+> +config RESET_EIC7700_HSP
+> +	tristate "EIC7700 HSP Reset controller"
+> +	depends on ARCH_ESWIN || COMPILE_TEST
+> +	select AUXILIARY_BUS
+> +	help
+> +	  This enables the HSP reset controller driver for ESWIN SoCs. This
+> +	  driver is specific to ESWIN SoCs and should only be enabled if using
+> +	  such hardware.
+> +	  The driver supports EIC7700 series chips and provides functionality
+> +	  for asserting and deasserting resets on the chip.
+> +
+>  config RESET_EYEQ
+>  	bool "Mobileye EyeQ reset controller"
+>  	depends on EYEQ || COMPILE_TEST
+> diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+> index 3e52569bd276..a75af831ef58 100644
+> --- a/drivers/reset/Makefile
+> +++ b/drivers/reset/Makefile
+> @@ -15,6 +15,7 @@ obj-$(CONFIG_RESET_BERLIN) +=3D reset-berlin.o
+>  obj-$(CONFIG_RESET_BRCMSTB) +=3D reset-brcmstb.o
+>  obj-$(CONFIG_RESET_BRCMSTB_RESCAL) +=3D reset-brcmstb-rescal.o
+>  obj-$(CONFIG_RESET_EIC7700) +=3D reset-eic7700.o
+> +obj-$(CONFIG_RESET_EIC7700_HSP) +=3D reset-eic7700-hsp.o
+>  obj-$(CONFIG_RESET_EYEQ) +=3D reset-eyeq.o
+>  obj-$(CONFIG_RESET_GPIO) +=3D reset-gpio.o
+>  obj-$(CONFIG_RESET_HSDK) +=3D reset-hsdk.o
+> diff --git a/drivers/reset/reset-eic7700-hsp.c b/drivers/reset/reset-eic7=
+700-hsp.c
+> new file mode 100644
+> index 000000000000..dde1f9bffa61
+> --- /dev/null
+> +++ b/drivers/reset/reset-eic7700-hsp.c
+> @@ -0,0 +1,118 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright 2026, Beijing ESWIN Computing Technology Co., Ltd..
+> + * All rights reserved.
+> + *
+> + * ESWIN EIC7700 HSP Reset Driver
+> + *
+> + * Authors: Xuyang Dong <dongxuyang@eswincomputing.com>
+> + */
+> +
+> +#include <linux/auxiliary_bus.h>
+> +#include <linux/device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/reset-controller.h>
+> +
+> +#include <dt-bindings/reset/eswin,eic7700-hspcrg.h>
+> +
+> +/**
+> + * struct eic7700_hsp_reset_data - reset controller information structur=
+e
+> + * @rcdev: reset controller entity
+> + * @regmap: regmap handle containing the memory-mapped reset registers
+> + */
+> +struct eic7700_hsp_reset_data {
+> +	struct reset_controller_dev rcdev;
+> +	struct regmap *regmap;
+> +};
+> +
+> +struct eic7700_hsp_reg {
+> +	u32 reg;
+> +	u32 bit;
+> +	bool active_low;
+> +};
+> +
+> +static inline struct eic7700_hsp_reset_data *
+> +to_eic7700_hsp_reset(struct reset_controller_dev *rcdev)
+> +{
+> +	return container_of(rcdev, struct eic7700_hsp_reset_data, rcdev);
+> +}
+> +
+> +static const struct eic7700_hsp_reg eic7700_hsp_reset[] =3D {
+> +	[EIC7700_HSP_RST_SATA_P0]	=3D {0x340, BIT(0), false},
+> +	[EIC7700_HSP_RST_SATA_PHY]	=3D {0x340, BIT(1), false},
+> +	[EIC7700_HSP_RST_USB0]		=3D {0x800, BIT(24), true},
+> +	[EIC7700_HSP_RST_USB1]		=3D {0x900, BIT(24), true},
+> +	[EIC7700_HSP_RST_USB0_PHY]	=3D {0x800, BIT(25), false},
+> +	[EIC7700_HSP_RST_USB1_PHY]	=3D {0x900, BIT(25), false},
+> +};
+> +
+> +static int eic7700_hsp_reset_assert(struct reset_controller_dev *rcdev,
+> +				    unsigned long id)
+> +{
+> +	struct eic7700_hsp_reset_data *data =3D to_eic7700_hsp_reset(rcdev);
+> +	int ret;
+> +
+> +	ret =3D regmap_assign_bits(data->regmap, eic7700_hsp_reset[id].reg,
+> +				 eic7700_hsp_reset[id].bit,
+> +				 !eic7700_hsp_reset[id].active_low);
+> +
+> +	return ret;
 
-Add six temperature sensor nodes using the amlogic,t7-thermal compatible:
-a73, a53, gpu, nna, vpu, and hevc. Each sensor retrieves its calibration
-data from the secure monitor via the amlogic,secure-monitor phandle with
-the corresponding tsensor_id argument.
+You can drop the temporary variable, just return
+regmap_assign_bits(...) directly.
 
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
----
- arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 58 +++++++++++++++++++++++++++++
- 1 file changed, 58 insertions(+)
+> +}
+> +
+> +static int eic7700_hsp_reset_deassert(struct reset_controller_dev *rcdev=
+,
+> +				      unsigned long id)
+> +{
+> +	struct eic7700_hsp_reset_data *data =3D to_eic7700_hsp_reset(rcdev);
+> +	int ret;
+> +
+> +	ret =3D regmap_assign_bits(data->regmap, eic7700_hsp_reset[id].reg,
+> +				 eic7700_hsp_reset[id].bit,
+> +				 eic7700_hsp_reset[id].active_low);
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct reset_control_ops eic7700_hsp_reset_ops =3D {
+> +	.assert =3D eic7700_hsp_reset_assert,
+> +	.deassert =3D eic7700_hsp_reset_deassert,
+> +};
+> +
+> +static int eic7700_hsp_reset_probe(struct auxiliary_device *adev,
+> +				   const struct auxiliary_device_id *id)
+> +{
+> +	struct eic7700_hsp_reset_data *data;
+> +	struct device *dev =3D &adev->dev;
+> +
+> +	data =3D devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	data->regmap =3D dev_get_regmap(dev->parent, NULL);
+> +	if (!data->regmap)
+> +		return dev_err_probe(dev, -EINVAL, "failed to get regmap!\n");
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-index 7aec65f036a9c..62f259b2b17d2 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-@@ -656,6 +656,24 @@ sec_ao: ao-secure@10220 {
- 				amlogic,has-chip-id;
- 			};
- 
-+			a73_tsensor: temperature-sensor@20000 {
-+				compatible = "amlogic,t7-thermal";
-+				reg = <0x0 0x20000 0x0 0x50>;
-+				interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&clkc_periphs CLKID_TS>;
-+				#thermal-sensor-cells = <0>;
-+				amlogic,secure-monitor = <&sm 1>;
-+			};
-+
-+			a53_tsensor: temperature-sensor@22000 {
-+				compatible = "amlogic,t7-thermal";
-+				reg = <0x0 0x22000 0x0 0x50>;
-+				interrupts = <GIC_SPI 30 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&clkc_periphs CLKID_TS>;
-+				#thermal-sensor-cells = <0>;
-+				amlogic,secure-monitor = <&sm 2>;
-+			};
-+
- 			pwm_ao_ef: pwm@30000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x30000 0x0 0x24>;
-@@ -770,6 +788,46 @@ sd_emmc_c: mmc@8c000 {
- 				assigned-clock-parents = <&xtal>;
- 				status = "disabled";
- 			};
-+
-+			gpu_tsensor: temperature-sensor@94000 {
-+				compatible = "amlogic,t7-thermal";
-+				reg = <0x0 0x94000 0x0 0x50>;
-+				interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&clkc_periphs CLKID_TS>;
-+				power-domains = <&pwrc PWRC_T7_MALI_TOP_ID>;
-+				#thermal-sensor-cells = <0>;
-+				amlogic,secure-monitor = <&sm 3>;
-+			};
-+
-+			nna_tsensor: temperature-sensor@96000 {
-+				compatible = "amlogic,t7-thermal";
-+				reg = <0x0 0x96000 0x0 0x50>;
-+				interrupts = <GIC_SPI 84 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&clkc_periphs CLKID_TS>;
-+				power-domains = <&pwrc PWRC_T7_NNA_TOP_ID>;
-+				#thermal-sensor-cells = <0>;
-+				amlogic,secure-monitor = <&sm 4>;
-+			};
-+
-+			vpu_tsensor: temperature-sensor@98000 {
-+				compatible = "amlogic,t7-thermal";
-+				reg = <0x0 0x98000 0x0 0x50>;
-+				interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&clkc_periphs CLKID_TS>;
-+				power-domains = <&pwrc PWRC_T7_VPU_HDMI_ID>;
-+				#thermal-sensor-cells = <0>;
-+				amlogic,secure-monitor = <&sm 6>;
-+			};
-+
-+			hevc_tsensor: temperature-sensor@9a000 {
-+				compatible = "amlogic,t7-thermal";
-+				reg = <0x0 0x9a000 0x0 0x50>;
-+				interrupts = <GIC_SPI 86 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&clkc_periphs CLKID_TS>;
-+				power-domains = <&pwrc PWRC_T7_DOS_HEVC_ID>;
-+				#thermal-sensor-cells = <0>;
-+				amlogic,secure-monitor = <&sm 5>;
-+			};
- 		};
- 
- 	};
+-ENODEV seems to be more commonly used for this.
 
--- 
-2.49.0
+> +
+> +	data->rcdev.owner =3D THIS_MODULE;
+> +	data->rcdev.ops =3D &eic7700_hsp_reset_ops;
+> +	data->rcdev.of_node =3D dev->parent->of_node;
+> +	data->rcdev.dev =3D dev;
+> +	data->rcdev.nr_resets =3D ARRAY_SIZE(eic7700_hsp_reset);
+> +
+> +	return devm_reset_controller_register(dev, &data->rcdev);
+> +}
+> +
+> +static const struct auxiliary_device_id eic7700_hsp_reset_dt_ids[] =3D {
 
+Drop the "_dt".
 
+> +	{ .name =3D "clk_eic7700_hsp.hsp-reset", },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(auxiliary, eic7700_hsp_reset_dt_ids);
+> +
+> +static struct auxiliary_driver eic7700_hsp_reset_driver =3D {
+> +	.probe	=3D eic7700_hsp_reset_probe,
+> +	.id_table =3D eic7700_hsp_reset_dt_ids,
+> +};
+> +
+> +module_auxiliary_driver(eic7700_hsp_reset_driver);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Xuyang Dong <dongxuyang@eswincomputing.com>");
+> +MODULE_DESCRIPTION("ESWIN EIC7700 HSP Reset Controller Driver");
+
+With that,
+
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+
+regards
+Philipp
