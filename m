@@ -1,154 +1,235 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A57C3E8698
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 11:27:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19421FC8
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 11:33:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776943673; cv=none; b=Eo0GWfWQBRbNlrA5+zVgnEwLmM4yvUqaMU9q7qwjLtNzSQmFpKrPsa2cW1FdWJkwIHw8Z/8/M4CgztE89nyD0YRYXxAyhYhZkTougjnj4LNdvPHyH8wDuxw8Qx6uuF2OAQHadgG+fclssVMzDkilnG58ow1U77ilgNVBQD/TUHY=
+	t=1776943983; cv=none; b=oIZvMkxe64Ch1LZAoPLE9KxnsfeyCRzPRFVCkotVhV6Cklsp5e+NcJ0cy0/FcCg3jP+wJA9VI2RsBEFAhqmT7K7WcSCxt/7WvnGnT5AV4Xr2DfivBel8l0V6K5wYu25hmsPLA5fP1RyU46ZiSLgCIk1OkwDUMheArIF1F/tKCVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776943673; c=relaxed/simple;
-	bh=97LBoeTlSSpR1cD+GmwGTnk8fuaoiwUW19iK7puwAWU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WLbWK88q+eS5NCCyzwZ362U18MlaQVT7JnAuoDuTTh42T0NLov5IN14yuWaZVO6MH8A8BaKd5GkbxhXtQm9r2AO/CjYE3KNqIh6O25TlSDVjOGeDt4KFB1s5VIPMC2fixIfWsKzzESofRgJNsdjI4EDm5POKDSdwBAp8lB3NiBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OUvT6d3d; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bPTt+HPw; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776943983; c=relaxed/simple;
+	bh=YyGy7Nz+meoRupCqGJY5hq1blew2HM7LN+pW6cuNtXU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ucrk6iINSrnYSohqYNfA1f/7d/SnE92++miwxRv5U2PsIVrv2wSdg1il9BncOPqZFslPDYOlbG+aV5xwI1rtDBbRZlWsxAiedHrJs8Eeogy+HKQDlh0wR0+qxmgkdXc3C8rtG1rsUxvHugAM7EdEPa6t8qA1BJH5VyKAr1zMVGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NJT5hK4R; arc=none smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OUvT6d3d";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bPTt+HPw"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63N8twC2028926
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 11:27:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	97LBoeTlSSpR1cD+GmwGTnk8fuaoiwUW19iK7puwAWU=; b=OUvT6d3d0uZmeeCx
-	gGFhtwB95RxMMWqGeE0TbnekCbnJoKeQSaYNn2YJqvcNAuyCaV4mZLec7snm0hOl
-	A1mPGZ8DozFrhGzZVwVITxkrjb56H4708VoZrK+wNvomClRM6+hD7AM79SCkI+6M
-	Zod2F2HOcpJ5AD8Hzj+HwnvRrxgHT31N8dMNmwiFSbwteoukE6wFqTmoFlB/rzCL
-	zo4shYkxqJcBv/WclGjv3bmBvt+ntO98gSTI7zJaU1HcOgpVqAlDL28NWEgfCIWG
-	YCx8Ofo5nCDMXnK5+zODyPKKNVnTlPwRkxxdv2IvjORcNkpR0zGKJV1RPnx1j+Ig
-	Hw9z3Q==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dqdjm17je-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 11:27:51 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50edf0245b0so92711241cf.1
-        for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 04:27:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NJT5hK4R"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-82fb2d0c5d1so2832662b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 04:33:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776943670; x=1777548470; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=97LBoeTlSSpR1cD+GmwGTnk8fuaoiwUW19iK7puwAWU=;
-        b=bPTt+HPwQD2lvmnQCuP03hRgXGm+szTQDzJLNA/LNJ3NZH6i9P00nDdVb3f4pb8aSA
-         apbzl+OnD0iT9JYzvI4f1sdiYMVcWV6zmZhNbSxp5ixHwc7Lps+y9fPKIvjtKTBxLGcK
-         Xi5Cw41IksXWBkSwI1k5agH+pnPGGdsdfOE8CvVv+2F6CoMFphZkDq8NS4uHD8w0Dl6D
-         EsInjwdX9007ZSLJnsWG95o0JwrwFlJf0awbRszJkocCKuSIvY41QK6I/TtLQ8MmyovE
-         nJ9TU1V06oh3lNpM+AvgG23ZZ0nHZp0oGaLxqwoUkneN/FUuDCJZryW6lDfQS3zPD1d/
-         CUfQ==
+        d=gmail.com; s=20251104; t=1776943981; x=1777548781; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=A1/0ObLzF5Tu7uxQ0BCDGvfJPatFkVDRZlOHYx521ak=;
+        b=NJT5hK4Rv2+4RK508J2cUcmaYh3zHohRl6Y14CsjQwUFdedUjG4Uq4ua7+IIcLTsKt
+         AMOJTZBqavjwU0TYP4Q2t3s+4ZyrFRzlOFw7DEweCf5hvSGODQ/vR4OtdLOnFlGRh92T
+         Htgy0CLL2Hg/xEuYEgiysF/Gk7A/vR4WQQwUD3xE74ENVwGbAeM8XArM0aGBRmaOINBI
+         wpriN9s75lXFzo9Lwo//ZPwGv7t3k/gEoKzkXDMkbOLaMS5Wp0keDwC16QYWy2EB5fc5
+         kLEcl5wXjaYp7NZr5aTYoLAykG2+VAXKCtE92H5LppVzoIG0QyCMXb8Yn1xKOv9aWdGL
+         u1JQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776943670; x=1777548470;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=97LBoeTlSSpR1cD+GmwGTnk8fuaoiwUW19iK7puwAWU=;
-        b=C+MWgtkNXi3FNnf1RiKf3XLXeHSuB4ZUAAGDxPLjGhHlnR/MNHR08d5HE/U8cmTIkJ
-         YAo7s4tsE4GuK5VnVv6hEpJ8iW/zbqmFlMA+EFpLZxiOtzD3eNywMEb1A+Re0BPuax3A
-         AVY396ap75kKwyJA2ICr2FrSirwX2h88Rv7FFwilI8Z6T+T/azonm68+oa+5h3r0PQZ+
-         9Dh/s1d7Gucha3QHuGpInJbClmIVwIvnZP6UTrWMh37ZuWG/gTT806rfKiV1tBXHhyZz
-         H2E/TXa2ENFGW1oZtOr5OUwbM2eHHF6fNpELjtAG15jowr6q5LFKKbbsoIgwORWbSzpE
-         eTSw==
-X-Forwarded-Encrypted: i=1; AFNElJ+F29oHkqvxCys+WcVEE501FkNEsns5IdrplbabyniFGOED0/y/6q1aynaTgX2IaVPZfhDI+YxM5R/5@vger.kernel.org
-X-Gm-Message-State: AOJu0YxrCxlgHJvkMLw4TLq9qQnax02VtlNzx82H80fd0poMJP5bzHem
-	/T/GWVyQFhDe2zGC4GChFAT0QQlfBnGUQCpr2wPXwgIwAyhKlRUeIS4W7K7clIDbVOVxGMilGVb
-	081/uv2J8IDYqwdpCKmzz15G7tHGzcsGAXE9etJoCaXiAvFZ2gi0NndGZ8Op849kz
-X-Gm-Gg: AeBDietcckW/9G87elOF7eke2U/8CXptReT2HQRQmOhYnPBbUNg2F3wKIkmFf6RdEyk
-	w6lQPFspfAXcGEzugiHUdLRM0QFnzl7JEj/6OECCDOtNpoPbA3FcK4m5M+IQ66VDy5to/TQIVGM
-	Q96A3PLqFHEd8lC5dCL48zfT/+0tdnpmu54PGw3thyMPrV+kRYsj/zCk6YDbNxQ5KNR6JpbYesh
-	Yco9RxZ8JEPQDXW1/5wvY16fI+LrpeFJvf2ZIJZwCvSTM9sM/VoOdwjyJBGek2TNUNAmWcx95Mj
-	LISKgiaoKNgF7kyG9d9FcYJatu6z3dKqAPhGeaj4mS41XCrAHWnePtlDBJ0z8slwWaOSmMdZHzy
-	HjlFemaEAL7K/TCW5G9BK1nRhpth/4RJUddlWhlLIZ/e2MUEKRs+lJEMVohBSbkOYr+IRzRHfwN
-	AW7z1XYdavZZocMrQCRrk=
-X-Received: by 2002:a05:622a:4a18:b0:50f:783f:31a6 with SMTP id d75a77b69052e-50f783f364fmr209899291cf.38.1776943670402;
-        Thu, 23 Apr 2026 04:27:50 -0700 (PDT)
-X-Received: by 2002:a05:622a:4a18:b0:50f:783f:31a6 with SMTP id d75a77b69052e-50f783f364fmr209898881cf.38.1776943669948;
-        Thu, 23 Apr 2026 04:27:49 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:ae20:597c:99b8:d161? ([2a05:6e02:1041:c10:ae20:597c:99b8:d161])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a52583fe7sm221213495e9.13.2026.04.23.04.27.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Apr 2026 04:27:48 -0700 (PDT)
-Message-ID: <b036d5ce-c6fb-4e8d-8baf-b580c8c952c7@oss.qualcomm.com>
-Date: Thu, 23 Apr 2026 13:27:47 +0200
+        d=1e100.net; s=20251104; t=1776943981; x=1777548781;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=A1/0ObLzF5Tu7uxQ0BCDGvfJPatFkVDRZlOHYx521ak=;
+        b=hNV4Ub21L0cKuz83SmSyDt6s2qkeNVgkX/jifZwW9bVZd854rEf9cmZ4d4HgRv7uZ7
+         Ox0UTMxlNGBDye6WksHdzf9MdavVMma7qqRVsCDc5kL/Fv1X5WwXnXWk50T8bCjo92oM
+         bEnU1jw211UglUw51px+BEcNe1+kAVoNmf8C4dVS91eTVebLgedWStwIMQnXwVDK9nyP
+         2YP/UvUFO1GXBxMvale5BGZEh9VnA/sMDkaLo5EHNBa9WbZjswUS4VHqYXnL7DdRnoSX
+         bEl0CgbokdpHb5ZYKxZt7LVjFyuW7REJg8WWFx66K0ntGQGkBa0MHZ8EQibJB5ndjgiS
+         JkYg==
+X-Gm-Message-State: AOJu0YzrnMrGOQVLuKniwPkAEL2rBnKnWMrMCBM0YzqPCQOsGYxYOtib
+	XCYnAJ0ZBUdyNn2JzbaE1bZn0ShWoN8ycZrSq1xxUe4p4B+qe4U8G/vxLt8vcV73
+X-Gm-Gg: AeBDievJL+5KBUxU2B1P+rqk5Js8xPBMcf0iH1wZWcqlV+94Pp+pTbbURaRzoHrPFqz
+	xH2xvDpRRnZ+wsE7C9s42qxotRwcokEb03Kd7iDLOatPHBW0u12Frn9es3LXaZrtiPq1AhGEUvr
+	UpFoLnErwsBFL6Qecz9KGH5fGiYmgCyVrTbSm66zXkpCC4GhdK0SE5RjyDN6P18HQOUJh1JicjX
+	vjV6lGE4aIv6T0oi7oOTV6momzRW76QUbG8IOMwCj2xLqrwlK7CkWVcK6GnN59rCeOZvW49+Cs5
+	yijn1k2eWofuPRiqrsHMk6JtHayk/f3k4UR1EfgYwoIFNNJwluZA/gg7Ar//Zx1PNyB2moPjwKh
+	YFLADHCgZ70SGvNUIjFFZnYCPwNSHq6qkAZw/4Kkv5zVZKyCZDsIMehAJF+X1Pj9ooF8IgaZbuq
+	zFGk+9libf2dp7yym9TZ5b2puX0d3Tpo49c5MyQB2Sys4gHN/Z7/CBcYq7fYRpG4bGZmihx8EQv
+	Pk=
+X-Received: by 2002:a05:6a20:3c89:b0:3a2:cbd1:11f with SMTP id adf61e73a8af0-3a2cbd1126dmr15313526637.5.1776943981135;
+        Thu, 23 Apr 2026 04:33:01 -0700 (PDT)
+Received: from fedora ([103.74.236.136])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c79770512afsm15535646a12.31.2026.04.23.04.32.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Apr 2026 04:33:00 -0700 (PDT)
+From: Shaunak Datar <shaunakkdatar@gmail.com>
+To: lee@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: devicetree@vger.kernel.org,
+	daniel.lezcano@kernel.org,
+	Shaunak Datar <shaunakkdatar@gmail.com>
+Subject: [PATCH v2] dt-bindings: mfd: hisilicon,hi655x-pmic: Convert to DT schema
+Date: Thu, 23 Apr 2026 17:02:37 +0530
+Message-ID: <20260423113237.260652-1-shaunakkdatar@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260422200200.126728-1-shaunakkdatar@gmail.com>
+References: <20260422200200.126728-1-shaunakkdatar@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/5] dt-bindings: timer: Add StarFive JHB100 clint
-To: Conor Dooley <conor@kernel.org>,
-        Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-        Samuel Holland <samuel.holland@sifive.com>,
-        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
-        Alexandre Ghiti <alex@ghiti.fr>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Emil Renner Berthing <kernel@esmil.dk>, Yixun Lan <dlan@kernel.org>,
-        Joel Stanley <jms@oss.tenstorrent.com>,
-        Drew Fustini <dfustini@oss.tenstorrent.com>,
-        Darshan Prajapati <darshan.prajapati@einfochips.com>,
-        Guodong Xu <guodong@riscstar.com>, Michal Simek <michal.simek@amd.com>,
-        Junhui Liu <junhui.liu@pigmoral.tech>,
-        Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
-        E Shattow <e@freeshell.de>, Icenowy Zheng <uwu@icenowy.me>,
-        Anup Patel <anup@brainfault.org>, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-        Ji Sheng Teoh <jisheng.teoh@starfivetech.com>,
-        Hal Feng <hal.feng@starfivetech.com>,
-        Ley Foon Tan <leyfoon.tan@starfivetech.com>,
-        Michael Zhu <michael.zhu@starfivetech.com>
-References: <20260402084019.440708-1-changhuang.liang@starfivetech.com>
- <20260402084019.440708-3-changhuang.liang@starfivetech.com>
- <20260407-unedited-overlying-f6df47c67bb8@spud>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20260407-unedited-overlying-f6df47c67bb8@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=EZn4hvmC c=1 sm=1 tr=0 ts=69ea0237 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=XYAwZIGsAAAA:8
- a=5mgP7XhCOcSXvvpaiZsA:9 a=QEXdDO2ut3YA:10 a=2twJjXCMuRUA:10
- a=dawVfQjAaf238kedN5IG:22 a=E8ToXWR_bxluHZ7gmE-Z:22
-X-Proofpoint-GUID: qnyuU5_Lags1n3-RXFvoKv1tXKVfrtT4
-X-Proofpoint-ORIG-GUID: qnyuU5_Lags1n3-RXFvoKv1tXKVfrtT4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIzMDExMyBTYWx0ZWRfX9PhvRUi/IueE
- nemvWa7/4fzbkgU2qFESyqsw8Jr2b4qEiQqBve+csOj23dWe95x2M912ZFco4nnukd2h5UelPdx
- oLuUBwB2oLRNUsl/DtdD1R+M8HoHj/FG2FRyyKvqFTJ3RdSums89j7e+p1tBZv4sIWPi1GaChPj
- iIpq6+UhPORnKQ6OGNRifKsBQ4q5LQS+xCPFFnmNAkh0Xx5NB39p+VHflywS9hsIdGxtt8togRV
- FYK5jtn08U+ISzH43JrBMjBEsarlgv5ftejlyc1rg26+fEK1JnAizkEXDiRX6tPA7pj1qsWVze+
- HdrB/JykhDqnETdp0cB9tqI/AzjG0RcoHsgno90GSBZR+4fGUv+8dhOPGcSQ9W6CHr0B7GwnF8e
- PTi+gLIywZ+AobFAfyF8wVtPgVeL6T+XIsM2MSfomaWq+KIaHNPs/eLaJFU6nuS404+A7//Rf3B
- n6gUf9RUPHYc4yUprmQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-23_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0 bulkscore=0
- spamscore=0 clxscore=1015 impostorscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604230113
+Content-Transfer-Encoding: 8bit
 
-On 4/7/26 17:56, Conor Dooley wrote:
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> pw-bot: not-applicable
+Convert the Hisilicon Hi655x PMIC binding from the text format to DT schema
+to enable dtbs_check validation.
 
-Applied, thanks
+The 'regulators' child node is added based on existing usage in
+arch/arm64/boot/dts/hisilicon/hi6220-hikey.dts, which defines child
+regulator nodes not documented in the original .txt binding.
+
+The uppercase LDO names are retained to match existing DTS usage.
+
+Signed-off-by: Shaunak Datar <shaunakkdatar@gmail.com>
+---
+Changes in v2:
+- Drop the $nodename property
+- Constrain LDO according to actual hardware regulators
+- Drop 'regulators' from required list
+- Drop example root node wrapper and use 1 address/size cell.
+- Elaborate about 'regulators' addition and uppercase LDO naming in the
+  commit message
+
+ .../bindings/mfd/hisilicon,hi655x-pmic.yaml   | 80 +++++++++++++++++++
+ .../bindings/mfd/hisilicon,hi655x.txt         | 33 --------
+ 2 files changed, 80 insertions(+), 33 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mfd/hisilicon,hi655x-pmic.yaml
+ delete mode 100644 Documentation/devicetree/bindings/mfd/hisilicon,hi655x.txt
+
+diff --git a/Documentation/devicetree/bindings/mfd/hisilicon,hi655x-pmic.yaml b/Documentation/devicetree/bindings/mfd/hisilicon,hi655x-pmic.yaml
+new file mode 100644
+index 000000000000..6f28f472e0f5
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mfd/hisilicon,hi655x-pmic.yaml
+@@ -0,0 +1,80 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mfd/hisilicon,hi655x-pmic.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Hisilicon Hi655x Power Management Integrated Circuit
++
++maintainers:
++  - Chen Feng <puck.chen@hisilicon.com>
++  - Daniel Lezcano <daniel.lezcano@kernel.org>
++
++description:
++  The hardware layout for access PMIC Hi655x from AP SoC Hi6220.
++  Between PMIC Hi655x and Hi6220, the physical signal channel is SSI.
++  We can use memory-mapped I/O to communicate.
++
++properties:
++  compatible:
++    const: hisilicon,hi655x-pmic
++
++  reg:
++    maxItems: 1
++
++  interrupt-controller: true
++
++  '#interrupt-cells':
++    const: 2
++
++  pmic-gpios:
++    maxItems: 1
++    description: The GPIO used by PMIC IRQ
++
++  '#clock-cells':
++    const: 0
++
++  clock-output-names:
++    maxItems: 1
++
++  regulators:
++    type: object
++    additionalProperties: false
++
++    patternProperties:
++      '^LDO(2|7|10|13|14|15|17|19|21|22)$':
++        type: object
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - interrupt-controller
++  - '#interrupt-cells'
++  - pmic-gpios
++  - '#clock-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    pmic: pmic@f8000000 {
++        compatible = "hisilicon,hi655x-pmic";
++        reg = <0xf8000000 0x1000>;
++        #clock-cells = <0>;
++        interrupt-controller;
++        #interrupt-cells = <2>;
++        pmic-gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>;
++
++        regulators {
++            ldo2: LDO2 {
++                regulator-name = "LDO2_2V8";
++                regulator-min-microvolt = <2500000>;
++                regulator-max-microvolt = <3200000>;
++                regulator-enable-ramp-delay = <120>;
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/mfd/hisilicon,hi655x.txt b/Documentation/devicetree/bindings/mfd/hisilicon,hi655x.txt
+deleted file mode 100644
+index 9630ac0e4b56..000000000000
+--- a/Documentation/devicetree/bindings/mfd/hisilicon,hi655x.txt
++++ /dev/null
+@@ -1,33 +0,0 @@
+-Hisilicon Hi655x Power Management Integrated Circuit (PMIC)
+-
+-The hardware layout for access PMIC Hi655x from AP SoC Hi6220.
+-Between PMIC Hi655x and Hi6220, the physical signal channel is SSI.
+-We can use memory-mapped I/O to communicate.
+-
+-+----------------+             +-------------+
+-|                |             |             |
+-|    Hi6220      |   SSI bus   |   Hi655x    |
+-|                |-------------|             |
+-|                |(REGMAP_MMIO)|             |
+-+----------------+             +-------------+
+-
+-Required properties:
+-- compatible:           Should be "hisilicon,hi655x-pmic".
+-- reg:                  Base address of PMIC on Hi6220 SoC.
+-- interrupt-controller: Hi655x has internal IRQs (has own IRQ domain).
+-- pmic-gpios:           The GPIO used by PMIC IRQ.
+-- #clock-cells:		From common clock binding; shall be set to 0
+-
+-Optional properties:
+-- clock-output-names: From common clock binding to override the
+-  default output clock name
+-
+-Example:
+-	pmic: pmic@f8000000 {
+-		compatible = "hisilicon,hi655x-pmic";
+-		reg = <0x0 0xf8000000 0x0 0x1000>;
+-		interrupt-controller;
+-		#interrupt-cells = <2>;
+-		pmic-gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>;
+-		#clock-cells = <0>;
+-	}
+-- 
+2.53.0
+
