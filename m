@@ -1,105 +1,166 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F033EB7F1
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 12:08:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD262FE071;
+	Thu, 23 Apr 2026 12:14:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776946108; cv=none; b=Jb/BmkAPuWpxHvUZTCAWIw+OaRb964aKDaZaEPgnfkQMKAtQ8Vdm5O4yQHQveXL6rdMVhJguHA4tMnfgOaIJA00fhbiibKoBJG+UgKvlV9uVmR8UwFd7iaJUcOCFyA/G4URICQdkfdy6ts5A3g78VhgCCiLHb+gMnTm6egIwzaU=
+	t=1776946450; cv=none; b=nVzWzS0N+Mz+u8ZY8ioaX/d+Fbr7ZL6Tiwxv1yPFc0BsmkxoQh0whSZ7yLIsskooDzecoeci/sKGcXwMw/XbGQKbF673dVjcQB1mRilpimkpM5hrSYgjVkqlrn1oRN3pmX6LcBQcOozExPAp4pCmeMbkBVoJhZit62dPC6Pqg/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776946108; c=relaxed/simple;
-	bh=BfONIHy16Ipxg1IXnNR9yugmB457uA3kR5bfe4zDonc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EEb1lYjWqjuUSb+g+SjFNy18ZzYW5TnmcbY3FBKFTYW/KLrvEhReJhX3x9bjU9uCJ4+WOZd/LQOh5T7l9pVdefRlXJvQ47HQ/fl86JR0yHGdVR6CLf5PhZx8dpZP67AM5XQNgT9/Rm5aMP5bGRyf8xlTixpedQb/i3aS6juC5FQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ebeN/1N7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776946450; c=relaxed/simple;
+	bh=fwfsOCUr0TcQkp7tEbYBpDWspQA1NJ42HA1HzS41bhE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gyoVXcPJJNp418oFZq+savQbqCjSZwf+1i1RYDShlySr+IvaXiYQ7lbkHoEAPZDs09o3pRu7ltW3B9hJ0msYGkRxI6GhSrywUFPzp48kUdX3EtdtCEkx7ZpqHcOBaKNtZADiNMqxC2eKR+7JaMolm9o1dxUrbI7yRJ5AtWVu4HA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uci2kGEe; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ebeN/1N7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E2E8C2BCC4
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 12:08:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uci2kGEe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCC0DC2BCB4;
+	Thu, 23 Apr 2026 12:14:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776946108;
-	bh=BfONIHy16Ipxg1IXnNR9yugmB457uA3kR5bfe4zDonc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=ebeN/1N7ceT4R8As5sBeYi2hTFPtWgc7sh1c5egzwCvdx6+V/Cl8sUDYrvMPLFpqA
-	 EKZ/zmXslzcItu/SwnWE+9hQesQh6X/QsbBks1YJ9AWZuqhjCMrtRsdJT/vRmwXkd5
-	 zMm4eiX1V9k+5Sb0VH4rMWIKWgUNiglivVaaQLlfrupyq7DoOoshmDluHMn0k4A0ob
-	 0Kl8kgkbsP9rxgrfksuQpNBLLNofKEvgDocZ+W8eQCMUe12S+lPZ+wdodsWGSkZC73
-	 IT7oA4aug+3lbkfq+sLoR94xP5IIsNXd1Mi6/4G+NHyYpHV2QVAqXWzF7o2HD5TyxN
-	 wSiENfVIFsRkQ==
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-671d60ef9c6so8659232a12.2
-        for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 05:08:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ946ntAeS8oc5+2sSGXoOtqZUgaOieLuoJ28Go9RyoBMR2/5PjAP1TkiwsJRVHnJJLX2vDiIXUGJVgL@vger.kernel.org
-X-Gm-Message-State: AOJu0YxFY0brL5KS08IQDKAA5fYEgoTxXMRZvDSHhYHu13KwHqhzN2B2
-	emTou4YuLMaWRzFrgMPB5urEKOItkAdSkXaafEMmX03dK7Y7FDEiWIS9dEkGbL8yFJtrxjMx/AD
-	vqW4CSnEfoAB3sc3wlXcJHKJhUjRaEw==
-X-Received: by 2002:a05:6402:234f:b0:676:9caa:f070 with SMTP id
- 4fb4d7f45d1cf-6769caaf0ecmr5743709a12.14.1776946106998; Thu, 23 Apr 2026
- 05:08:26 -0700 (PDT)
+	s=k20201202; t=1776946450;
+	bh=fwfsOCUr0TcQkp7tEbYBpDWspQA1NJ42HA1HzS41bhE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Uci2kGEeHACqNZt9VivFf/9FMudT22tazrokBtrF/957ZIkHz37JHkiBDbprO/n6o
+	 g6fleyuvbpUR1arqjsSJ8rVUu72Q3dWhE1e6MIbiFkjR/Rj/AfwUiD4YW+gwzzg+Pv
+	 Z2Y52o3iyfgZZbm54k3br+du44sTX3BKsSQR30vYbUHZjjLy8M1fMJnZrX39IwUw+j
+	 bEYnMi/jO2q4GAqosJEJWg9uKg7q4OQxIa2gd5aMulaX2dsZ9iBlQFmzDO+5uxsQhW
+	 n+No12ayuMBF8eBZERNyDvmal9mjaA6jE5B2HvpyeWoifJ5tKMXh7RHz3x0w9DdeSJ
+	 5JqA8hwgXWj0Q==
+Date: Thu, 23 Apr 2026 14:14:07 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] drm/panel: simple: Add timings for Raspberry Pi 7"
+ panel
+Message-ID: <20260423-kickass-fat-boa-209f68@houat>
+References: <20260420-rpi-7inch-v1-0-e68d5c9c44bc@ideasonboard.com>
+ <20260420-rpi-7inch-v1-2-e68d5c9c44bc@ideasonboard.com>
+ <3z3u5mbngmbzsch3mzs3twlh3aec6r7jokstzv3ghxyusrzt6b@jqvdnuiapx6e>
+ <af71183d-70b8-4a41-8466-67123e7aab02@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260420064401.1248833-1-shengchao.guo@oss.qualcomm.com> <aen9U_3jMRagJwgp@QCOM-aGQu4IUr3Y>
-In-Reply-To: <aen9U_3jMRagJwgp@QCOM-aGQu4IUr3Y>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 23 Apr 2026 07:08:15 -0500
-X-Gmail-Original-Message-ID: <CAL_Jsq+2oJF4GG=PDsW1y6Cz7-+Qp2DUz1jXEXxD54PoO9zRRQ@mail.gmail.com>
-X-Gm-Features: AQROBzDOEHYMcP_fobtmzNWkOna3yytzRuWeEAsjmBv9P_klDeF0bmBrntE6rjs
-Message-ID: <CAL_Jsq+2oJF4GG=PDsW1y6Cz7-+Qp2DUz1jXEXxD54PoO9zRRQ@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: qcom: geni-se-qup: Add compatible for Nord SoC
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Praveen Talari <quic_ptalari@quicinc.com>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, linux-serial@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="l42rpwgug4qvdd4g"
+Content-Disposition: inline
+In-Reply-To: <af71183d-70b8-4a41-8466-67123e7aab02@ideasonboard.com>
+
+
+--l42rpwgug4qvdd4g
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/2] drm/panel: simple: Add timings for Raspberry Pi 7"
+ panel
+MIME-Version: 1.0
 
-On Thu, Apr 23, 2026 at 6:07=E2=80=AFAM Shawn Guo
-<shengchao.guo@oss.qualcomm.com> wrote:
->
-> On Mon, Apr 20, 2026 at 02:44:01PM +0800, Shawn Guo wrote:
-> > From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> >
-> > Add compatibles for GENI Serial Engine QUP Wrapper Controller on Nord S=
-oC
-> > with fallback on SA8255P compatibles.
-> >
-> > Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> > ---
-> >  .../soc/qcom/qcom,sa8255p-geni-se-qup.yaml    | 20 +++++++++++++++----
-> >  1 file changed, 16 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,sa8255p-ge=
-ni-se-qup.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,sa8255p-ge=
-ni-se-qup.yaml
-> > index 352af3426d34..d73f9edcbbdb 100644
-> > --- a/Documentation/devicetree/bindings/soc/qcom/qcom,sa8255p-geni-se-q=
-up.yaml
-> > +++ b/Documentation/devicetree/bindings/soc/qcom/qcom,sa8255p-geni-se-q=
-up.yaml
-> > @@ -19,7 +19,12 @@ description:
-> >
-> >  properties:
-> >    compatible:
-> > -    const: qcom,sa8255p-geni-se-qup
-> > +    oneOf:
-> > +      - enum:
-> > +          - qcom,sa8255p-geni-se-qup
-> > +      - items:
-> > +          - const: qcom,nord-auto-geni-se-qup
->
-> AUTO variant of Nord is SA8797P, so it makes more sense to use
-> 'qcom,sa8797p-geni-se-qup' which is more consistent to
-> 'qcom,sa8255p-geni-se-qup'.  Will update in the next version.
+Hi,
 
-I thought QCom moved to these codenames because the chips are the same
-with different part#'s by market/application.
+On Thu, Apr 23, 2026 at 03:01:51PM +0300, Tomi Valkeinen wrote:
+> On 22/04/2026 22:22, Dmitry Baryshkov wrote:
+> > On Mon, Apr 20, 2026 at 04:13:36PM +0300, Tomi Valkeinen wrote:
+> > > Add timings for the panel used in Raspberry Pi 7" DSI Display module:
+> > > https://www.raspberrypi.com/products/raspberry-pi-touch-display/
+> > >=20
+> > > This has been tested with version v1.1 of the display module.
+> > >=20
+> > > The panel is very strict about the back-porch values, they must be
+> > > exactly 46 for hbp and 23 for vbp. Other timings can be defined quite
+> > > freely.
+> > >=20
+> > > The panel is exclusive to Raspberry Pi, and different versions of the
+> > > display module can have panels from different vendors which are fully
+> > > compatible. Also, as the panel vendors are not public, the compatible
+> > > string used is "raspberrypi,7inch-dsi".
+> > >=20
+> > > Note that while the display module has a DSI connector, and the
+> > > compatible has "dsi" in it, we use DRM_MODE_CONNECTOR_DPI as the panel
+> > > itself is a parallel video panel. The display module (as of v1.1) uses
+> > > TC358762 DSI-to-DPI bridge to do the conversion.
+> > >=20
+> > > We could use DRM_MODE_CONNECTOR_DSI here, which would have the benefit
+> > > of showing a "DSI-1" connector to the userspace. However, the panel I=
+S a
+> > > DPI panel, and gets its input from a DSI-to-DPI bridge, and the
+> > > panel-simple.c behaves differently depending on the connector type us=
+ed,
+> > > so, DRM_MODE_CONNECTOR_DPI it is.
+> > >=20
+> > > Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> > > ---
+> > >   drivers/gpu/drm/panel/panel-simple.c | 32 +++++++++++++++++++++++++=
++++++++
+> > >   1 file changed, 32 insertions(+)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/p=
+anel/panel-simple.c
+> > > index 91ab280869ba..e75eb20301f2 100644
+> > > --- a/drivers/gpu/drm/panel/panel-simple.c
+> > > +++ b/drivers/gpu/drm/panel/panel-simple.c
+> > > @@ -4208,6 +4208,35 @@ static const struct panel_desc rocktech_rk043f=
+n48h =3D {
+> > >   	.connector_type =3D DRM_MODE_CONNECTOR_DPI,
+> > >   };
+> > > +static const struct display_timing raspberrypi_7inch_timing =3D {
+> > > +	.pixelclock =3D { 10000000, 30000000, 50000000 },
+> > > +	.hactive =3D { 800, 800, 800 },
+> > > +	.hfront_porch =3D { 16, 72, 354 },
+> > > +	.hsync_len =3D { 1, 32, 40 },
+> > > +	.hback_porch =3D { 46, 46, 46 },
+> > > +	.vactive =3D { 480, 480, 480 },
+> > > +	.vfront_porch =3D { 7, 21, 147 },
+> > > +	.vsync_len =3D { 1, 2, 20 },
+> > > +	.vback_porch =3D { 23, 23, 23 },
+> > > +	.flags =3D DISPLAY_FLAGS_VSYNC_HIGH | DISPLAY_FLAGS_HSYNC_HIGH,
+> > > +	/* Note: the rest of the flags are defined below in bus_flags */
+> > > +};
+> >=20
+> > This looks pretty close to powertip panels that have been used before
+> > hand in those modules. Are you sure that powertip,ph800480t013-idf02
+> > or powertip,ph800480t032-zhc19 don't work for you?
+>=20
+> I haven't tested those, but the hbp and vbp do not seem to be the same. F=
+or
+> me, they had to be exactly as they are here. This was also confirmed from
+> Raspberry Pi, the panel datasheet had min/typ/max values (i.e. not ranges)
+> of 46 and 23 for back porches.
+>=20
+> Where did the information come from that powertip,ph800480t013-idf02 or
+> powertip,ph800480t032-zhc19 are used in the display modules? Or did you m=
+ean
+> that while those models are not used in the Raspberry display module, peo=
+ple
+> have used them successfully?
 
-Rob
+It also looks like we have panel-raspberrypi-touchscreen.c and raspberrypi,=
+dsi-7inch in
+panel-ilitek-ili9881c.c.
+
+There's clearly more than one "7-inch rpi panel" so clarifying how it
+compares to the other two drivers would help.
+
+Maxime
+
+--l42rpwgug4qvdd4g
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaeoNCgAKCRAnX84Zoj2+
+dhsWAX9AHrU2W2fFm/uveFasTWet7GE1drDNeX7LmFmoHRFj3yuOcmq0yX3kwvt3
+AMZFopwBgIzJ95+EcE5i5ONE+nfqbyrDhIBSmdkZLMzc0si4yQtmVS/s4235D7SS
+dYCczWlFyQ==
+=03EF
+-----END PGP SIGNATURE-----
+
+--l42rpwgug4qvdd4g--
