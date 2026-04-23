@@ -1,257 +1,159 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013002.outbound.protection.outlook.com [40.107.162.2])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6760830E0FD;
-	Thu, 23 Apr 2026 01:15:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776906920; cv=fail; b=axAVQA3j5MmEN5NXZil+EuXVI5MkQ2Dl/VUnlx9O+9af7yeD7ybby537hkh6tO7LDvvtg+eBnT1P7frQYztZl8cw6tpLVB0iOy2pHd2i7Njyg0EGjHdYVckAPYQR/z6Srsiiq5zbTdOWFNaKfZ2wAQddmLhAiUR5ifHRlOxfbZw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776906920; c=relaxed/simple;
-	bh=I4YTk0OUoQCeLLHKaABN/93W8T4TtJgCIOXCg0VtrbY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=b64TcK49xCESsdQzldMjVYIMBAL5tMQ0rGYKlcg4kHbvYYblfmShBNdtqY7MonC0nqQd6cQBEeohp7Yc/NwQTMj4nXsqHzxGMwx/MCTM57QfwVip2mbY180P3Iazyw5dFaMueXH0YP9adzskmbuxX3Nt0fPHzeKRZHjcVwqn3MA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=LqvVIh0Q; arc=fail smtp.client-ip=40.107.162.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A59431E845
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 01:16:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776907003; cv=none; b=aAHlPTjc7VLcYIbrQkxJYJVVsDgdcod8AhM1TsawdwDZF7xVeVkIrCCyN1eNiJHSFFxJbY7Ak38oCM0UEsRmN/SJtMCZriMShuLRheFiiX5ns+sBDgf6Wy0N5XY7FgeRYZhEfHjCoaaoo2dBA9zlbv/5hExlLje7AWS6Y2aMlGk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776907003; c=relaxed/simple;
+	bh=DxOf+L6yiotlxOV6augFzgLDWPsdWfK9kuJES/ulFPE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YPYp0r6qqOOcml4VdjPJtZWgTqkQM/LKh8BpPrVy+pxRdCAwcDecw0BIJ9l+oF2OingRLW1ruBfP3gr7Q6X0f0iBw33ZYhB/iY4dV2lYMhFjqy8eZKDBpaR9esPHCA5JAABfOwG5JHaOBcjBz8+6sPZPPlyUVRxAH7IbxDYV4W0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YSdneA9P; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=czk/Mlhe; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="LqvVIh0Q"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Car8Zte3vNNltUOvwc0dpeTIrh8Y1AFJLQsg3G4OBw6x/f5nh6HrLAjXtnDthMBrGrnYOSXV1pOmG1SpgwCDfySF8nToI+nRN5jP0GfGXvjzeiKEnhkj6SKiGzZSLjVcuZrh3N7WEO3M65YcSACysoy7os1ZWEYykoDLHs7BXgVz5//t0nwd0FABdFaQR01BLrbMcu+PDmpwCOXKRo3D0VX6ZK0w2qmf+AgN4PyvjPTVFWKTuuVNuEpHAI+xttNcycib7C6NE0ctVe8jqFtZOvt0t8nVzxD2AE/Npi27TvRuTezuujkkDgqEshH4oTsn9w1qcK81y5Q7uu4khE/eEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vKTZKoybUW6GqMrjGD6CcnixvCD66i4x8vcCiQcZcAM=;
- b=oUbPqVAcd/b47HAlv1g3bsF0rAWtq9vOZlG+JNvUVEcHY022arpG20/oVuJRqSE/W4hsTPXifJBrJmYLT4LJan+NaJ3lTaMjYBaK/dwVCet4o9c3cUr5qRm2LWD/ssxfNm0xi8XSmIzlA/saWhICb3/8Q546ksXaiCQ75NCx3Ed8ccLPpkni4PbR7Lf7CqbE9JsafGYeiaqwDK0b4oNnz5+e2zQzpF7amV4XI5jdyy7OEwMUWCO+HIGxTQnYF+kmUT6jv8WQVzYXM1wATAktBSl7xdvd2EN4C4wbEVJyHwd/tP+mEZIuGic9j+O7b4iI97G0SLk8q+FtqhGEkU4VTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vKTZKoybUW6GqMrjGD6CcnixvCD66i4x8vcCiQcZcAM=;
- b=LqvVIh0QTN5dD8ugJrjsTctWSA5qGZ3JTAx1uuO1uMDdDlP699By5hilZtOBFuUI4lPkmKrsjsA9rfr+7YGQfzkBmid3TLEXF5xyR/Mp25/V8bc8kodIWgpEXhu1A4lb6OhrnaKHjODesIPG+nOSCknmLnYd0e39kk25vkt4a4M+AZqau3LHp29ZKNydzqVL6/l+pC7jwZ6kUM4hybhYyiGwuos9WQJhpBYMBk8pZn5gp4hCPSxuXPBLzY0hPu8CMSbGKgAs+nbWaBNb2ajOEcvgEd60BiTtW4kdeG4G7IC9Ty7LbzWJZU1fA2K+dvvC0h50Jj4rS3nGUTYP63Lgyg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB8459.eurprd04.prod.outlook.com (2603:10a6:102:1da::15)
- by AS1PR04MB9384.eurprd04.prod.outlook.com (2603:10a6:20b:4d8::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.17; Thu, 23 Apr
- 2026 01:15:14 +0000
-Received: from PAXPR04MB8459.eurprd04.prod.outlook.com
- ([fe80::4972:7eaa:b9f6:7b5e]) by PAXPR04MB8459.eurprd04.prod.outlook.com
- ([fe80::4972:7eaa:b9f6:7b5e%3]) with mapi id 15.20.9846.021; Thu, 23 Apr 2026
- 01:15:14 +0000
-Date: Thu, 23 Apr 2026 09:17:47 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH RFC 2/2] clk: scmi: Add support for two #clock-cells to
- pass rate rounding mode
-Message-ID: <aelzO5W2HD8zAgxf@shlinux89>
-References: <20260306-scmi-clk-round-v1-0-61e2a5df9051@nxp.com>
- <20260306-scmi-clk-round-v1-2-61e2a5df9051@nxp.com>
- <20260422-huge-kiwi-of-tornado-4fce89@sudeepholla>
- <aejUd6L1AfbsflxR@shlinux89>
- <20260422-satisfied-rough-mongrel-aabca1@sudeepholla>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260422-satisfied-rough-mongrel-aabca1@sudeepholla>
-X-ClientProxiedBy: SI2P153CA0021.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:190::20) To PAXPR04MB8459.eurprd04.prod.outlook.com
- (2603:10a6:102:1da::15)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YSdneA9P";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="czk/Mlhe"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63MG4ke91587773
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 01:16:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=doS0fD4+OOQ9XqikyXcImBcj
+	iIDXJMyeF1hsrvrQhrA=; b=YSdneA9P2bF/vTwIYiXmrPaBd9+RRK17sb7+CVcA
+	Gw9E3FF6HI01Tr5qwPOZ1/XbL8ne+F7VuA0wcShkO+pfeQD5VD11Op7nogFl3u1I
+	H22vCBzNnJiexi2nfWfRhK+zoOLylh0QHHE0N7SL2TVQSgwRf3I6GXoQ/8oerUzN
+	J/h4Yj3DB6uAreZHEs02zkKKzMJyQ1uVyWsUtLGjrz6dcmKqOod/7sSgnyTXAqjW
+	ayS8aK53nidzOKiuuMePQ8TGrbqN8iTD47mjQxc4RL713UQrRE1NPU3U+1S6sP2a
+	eDRBL1JJJ/Y1Y28NUZ0z+Ozazn4y3/5iNkbWmwP/njcoag==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dq1hq1kfn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 01:16:41 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-12c8ccc7593so6268303c88.1
+        for <devicetree@vger.kernel.org>; Wed, 22 Apr 2026 18:16:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776907000; x=1777511800; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=doS0fD4+OOQ9XqikyXcImBcjiIDXJMyeF1hsrvrQhrA=;
+        b=czk/MlheuqK9du0/NAKhS+67a5sOXCh9Z39RTkYXMyBAypZE02zqjwGTENaMrzJf6p
+         RnXKFg2QeOuFfU2j2/8AUi3M3EGmAuzE19jy0LLiXfuU3g81yrac/UHq2Df/xibXl575
+         Z28a4cAjKjM8UHECwwK1/bjc0r+lgcaI1o3n8sMpPFjZPAry3uExTWgZPc5teHtFZwwM
+         u1tj51SyMSpVIkqNSvNprEYKuIySsku9CxLwxnpww2n1SolOkXMdasOa+jQBX1rYo2Sw
+         yF35R9pRP8Q0LUA4NZld7fvRve+Q8j150IDWZk6bua1+B+zry2MIZQNsNINCiP+yKwqg
+         I2+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776907000; x=1777511800;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=doS0fD4+OOQ9XqikyXcImBcjiIDXJMyeF1hsrvrQhrA=;
+        b=b0ZhW30rmV+rf287AYWRY7ZUnE2+adL74bjoHL0tLU76Wo/tHJA79+qlik3EsySkYT
+         N3s5c64543VBJfxG17HUWhcp4Adgbgm+U//qMWPxBw7JzTLokctJbSUvG1CvJvZKZP54
+         bM3jPhtERuJu4Y8kKLIcXjg5UVYe4eqbt7ywT8mt4iPx6KxnBooRRUpImNuH7YJsw9C+
+         hc5mhpKSqYmTOxvfOZNoe1Bm/Y3S20BESZjH41qjYG5oji1nDXYdi9edX+GoM/W2R2gT
+         +Ag1uN54Weqs7E18PU9KXyHByLBYIy3iuzfZDGJJzhcToprDqc/66RjfhJdDbHLkbyh6
+         LQ2Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8nHtKxDhBcPJcaOJsNp10uiJrHcD+sg5tzIXyrXAPvg79TxOPKVKF+tLmc5s9eYbJgO0ILrYFwseb7@vger.kernel.org
+X-Gm-Message-State: AOJu0YwqatgYFyC+q4uDStdQ321CigWmpeQ19nKc/3JyuTM/qbzJbPAg
+	09504lCyMOguHN5B7CVh2ZR02DG2KuUOBPwO16/q1cN6xf7TH6GdXrE3VeJ3mI1FE1iqrKCrrO3
+	FyMgMjXvZ/0yeSfnJlj568ok5gtgLl8vWRKfY94MMQhAmtYwqshBoQeTijdDIFJgz
+X-Gm-Gg: AeBDietCnCf3HI1adr7GKO7d667RKcQROCs6R0jdaOq23w30HyWY9c0sfWKxEWrAoS+
+	bFkXhrcVcsyXax56m1KUus/iCuG5hvvFiBhjbCe658ZM4/+daHDgTVvj4+TYf1VB/rkyduMg/lQ
+	NBFW0AncaAIctm+BnuuD5W1t324GmXIS46Xdfz6MbD1Qmaz8mM0+bFiosZT/5TEHFaFZjCZd1a1
+	2nS/EhuuRpUVWXliexTw2goBlk4ovcopm4247gC+Ck9RA+9Bg5txK1YSnuCeKyLZtRMBAw9kNV5
+	rOf8hsMlxh4i7tdd8g39k5Ppq2Ky/sHl2pwmsEhANEEhfDJ5xgwU2a3bIpGTAAbb6Nd4z2yM0/l
+	/LYR8zuiiQ14ohUHh+l0qmkwevzDnd7c/B6nZitp0F3DkkH3RdGTx7IiEjo6zI5/maN3WQtYqyE
+	M=
+X-Received: by 2002:a05:7022:793:b0:12c:8cd7:d438 with SMTP id a92af1059eb24-12c8cd7dd7cmr7691456c88.9.1776907000113;
+        Wed, 22 Apr 2026 18:16:40 -0700 (PDT)
+X-Received: by 2002:a05:7022:793:b0:12c:8cd7:d438 with SMTP id a92af1059eb24-12c8cd7dd7cmr7691432c88.9.1776906999499;
+        Wed, 22 Apr 2026 18:16:39 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12c749c422csm26381425c88.3.2026.04.22.18.16.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Apr 2026 18:16:39 -0700 (PDT)
+Date: Thu, 23 Apr 2026 09:16:33 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: crypto: qcom,prng: Document TRNG on Nord SoC
+Message-ID: <aely8W3Tve-fhMzz@QCOM-aGQu4IUr3Y>
+References: <20260420025732.1240525-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB8459:EE_|AS1PR04MB9384:EE_
-X-MS-Office365-Filtering-Correlation-Id: c8499fe8-764c-4eb0-5d23-08dea0d5c5fe
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|52116014|7416014|19092799006|366016|38350700014|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	7L+UX373xOl1ebdDwnmS67n8AogHrQXSKvfu5WsGeqhuG2f22PTBsKB0hlbG7F43jndpYeaZ0CJDCqe5T7MxThqM0Rgol9pX3z5FyQrV0yKGWS0qrK33+77mK0TgW9ZmNWdmlNMtk4nAcyAWas2wUF0lnx3nk4aDBtxaFhncbvKbUv2+zZzgdGufaPCkaK+b6BD+LKDjpdIeXtkT4BLc4OtrzOOcmlfT3wox1CuPFleSzmiEo4iCS6wnUd2ka3VppXQ64uPEPB2wYTVDEqTlXBbmDt/LKZ6JUl0tHGS3s6Kkbd5/VDnP8qJvNkhqcG1OV2lFbmoru/XJOcLKFfQ8DMmNopFYP18K7jTz84nP8ztC/ahZ8oolo6T0F3aC/PTx9mFCZtQGlb3fIbKbiB2lhtsXDosSFVc2tEZepenBlF2Tyys36gWXx+WryYypWYNYH3Qq596I37IKI4nGvv7rOMh81/ESM3po4TtCmb/xKiGsyODLLVRuDFPFw5IwKOcpSFcoNzBzknOuWcTQj8mNTnuxE+9cokuQAaM/KeqOH8qEoq+km0EQ9l1jBtgfYoE4uqDjY1rG2BLAT+8bTr7ffs33m4C/XdgGb5CklnHee6PKrAysoFNyqLoNJ3KAuzc7dYKhPGDHdri9l/JmgHlcSC8dSYqkYuEJrpdd21Zqqgi5UL8/5ag20LTOTz0r0nQmrhpy2Chm5UeRccPLnWmNSgLm9ngY990sBz+rWa/O4nKNL3ZfARg4rgZZj5K+yN3iBUDylWwx8mk8ouK9otA22X3WcpPgP7Voef1jT5m3T5o=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB8459.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(52116014)(7416014)(19092799006)(366016)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CaK+neef+dCRWLk7SkNiYZiWCV4Yo+tMU5JLPogEvH1frmEVdh8JRAGbX4mk?=
- =?us-ascii?Q?v0VDPTWmTOZRq0KLKSs2t5pLAMVX6g5lrvMVNDDTIE8c/tlF2eVq9AcW6PEf?=
- =?us-ascii?Q?y+7m2As5zXIPK9md+d9pDYlhPS1+BBTWsZ2SZF+qkPGAKpLmNay7ejSiCR1Z?=
- =?us-ascii?Q?IyQcYxpslWfvCGW8DrT7RTTQrjWjL3FTRk8tcNefWmUEH4HdLA/6o5KOSXNQ?=
- =?us-ascii?Q?dVEt+SpPgoQBudvztjW5nNTWiZLE9vPCW+MzIaKLyXSvOr7qrf/8r3Mdo6St?=
- =?us-ascii?Q?5iC8idpoPFKLaNwlKN/1OoXh+YrcWcQwPlQ25ixNjrsYDeSNqklmIM+0CTkY?=
- =?us-ascii?Q?vk4qpY1RXRWIF/w4HssqfcR7Sg+8wHrbztPRyg/W0gtXMHaeJcBb4of/nWk0?=
- =?us-ascii?Q?LqeYzSUaM/Fb7ETd1n2TrT7jCTEYkRhd91crHZP8cxNzPquJE5Wwo1h1cEaO?=
- =?us-ascii?Q?IwQTUpndIBffSii/8RdFMmexH6tlT6uA1+riu8huKaZPP5F1rclDQ6be1lfc?=
- =?us-ascii?Q?1hw6y/TK0wG9qcz3FE+aewFPJIfHZccQIIAZNzylFtNhmN9dr4+rh37cGTR5?=
- =?us-ascii?Q?oQWmOy1N6WXNO/XZ8zodcUGqlZk6Jy73e6LPFAhOV/E2Lp+S6ESW1YgaQnUk?=
- =?us-ascii?Q?I79M/FKILhFP6uNTKcJc9ZrVuwmnLkwU4pepNM4suz+kd4+woomjfUFU7JLn?=
- =?us-ascii?Q?m/AWSPTuPFx3L7eqazkmpZYqXPexo8W5hOEPTOwClT8E7Cq20ite8fFucCRr?=
- =?us-ascii?Q?hkt7NhaxTbpiAaJKzrQeYOaxQi/wxfq6AmLwnXq98oBp+sw/8Smq8cYiRK3B?=
- =?us-ascii?Q?8dTNVT1J0Auxvs8Yw1G+pCMXV0AV4UcZZ0YsKvx+mWLNaqdDANZselPalaYO?=
- =?us-ascii?Q?iyY5Xn2EzbRou4CGoyqk0p1KpRLb4gk/ldE9X9c74Rb3/dHz65IDH/x4KCc5?=
- =?us-ascii?Q?UfEdbrc0NQYug76Gx4Kcrz07keAs3UlWlRfw0IZ/qrk1frpzYDb3Kg4FkcJL?=
- =?us-ascii?Q?YyArRj/iG6Pd5TClLgYjTHS4nxm0Yw7zJ6qw2dJ+3lkmSwxEELMhQr5EOtv7?=
- =?us-ascii?Q?Jo3VPGLEM0tZ61OC5I23wxUTrFOXw+9c8RHhZ5iQ/ExigOK3L7uVIQBBs8OK?=
- =?us-ascii?Q?iIjLypl3qN6LzfwIkMtybybXnsUUbAM8y0ugvBKmvxk/hXfctx/C6R0nItw3?=
- =?us-ascii?Q?VyeB1F6ijoiPcJ1h9lR6OcrEUjwqEZhDM25lfwWP+iaE/wlZiAzwZUEiI80W?=
- =?us-ascii?Q?94Fmus5iopw19+pe8OQO7+w8dK4Q7hKz1T4kRrWjvJIKFbk4ygU1s/8woCRo?=
- =?us-ascii?Q?gtEH5oamJFY42DSYH442tIhHApZJtLfGsylO3DjWKBPQv41cEwMwohzt1tKG?=
- =?us-ascii?Q?xrKJpbYGaha3EHuwXRYhPrqoXM38xaW6k+s7hOGBZfCpR6/ApJB+Iu0txCJg?=
- =?us-ascii?Q?oWsEd8g7Q31Oo+UG973Ls+83UslALHEEym2q8d5yNCIdu5xfDH66n0/hqjFn?=
- =?us-ascii?Q?dYsnDvQ3h/x1Vboiv5u7/D71Ch87l7Rt7VNxC8xxdh83OrLl22ZPSHzhAOtI?=
- =?us-ascii?Q?guWwz3gTVnism43zI1xe01FeU27XceNNh6v8/SVAp7XkW6spSJB5cJqsRiJ8?=
- =?us-ascii?Q?teP/EH/ilp15CJuY2VieVfnMLMjrnQs4lX5XcIhkWy00zHkPxEM3lBFaTStb?=
- =?us-ascii?Q?nIYgOScUWBfKcQvm18Bv58BLep5oSgQ9wxYN4W54ytmw7frAeB04UmdFr+sk?=
- =?us-ascii?Q?9WDpK5yDhw=3D=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8499fe8-764c-4eb0-5d23-08dea0d5c5fe
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8459.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 01:15:14.7301
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jhmX27TaP9F7CcXrrYNi/2WFfTEQSz32rSNe8Ksu4FppousQCHaWehKVKoAhV/HbOTEOlYLFVTiSDVzzqthrqg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9384
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260420025732.1240525-1-shengchao.guo@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIzMDAwOSBTYWx0ZWRfX4BvIKlZXt5It
+ ROZ81A9c3S2oB/AeehKJx3V6H5pa+MMf7SnKW9zVIZ4X90cErMgLkma7rxYplCQHDjd1aYgPKaA
+ dV8VNc+0n1HFxnkiLBlxtY4Mj//ygjR+veFuAsDlCO1NJuPrmpROntJTxIBuj9e8ZFAOrUriMzR
+ mpccc5BuxWmFYot7P3F1jeCPM+c8MA9ziD8e3dZr2bY52VGoBM/c1xZNY16OpqmYbmYHHmXRq4P
+ EvXDAfPquGpGa8f6Y6GIa3uhV6nc+4kYmc1yF0RP+gfmt9hxhgXS7PJATQ+TlHH6E99Ck9qeXxl
+ DH6P2yXjMLL4yjao+8qrS9odSMYIaYX54zxou7Wb2hjUyq56sucocVzKdwZxqhy4JW8yHMnBvR4
+ tq+pMD3OSexXeHmIpeIfkoOiYOidWIQaFqRzFm7xdbwylh6d1IRaurMAFIs9Xy8+J0GWBGW3RPr
+ Br3ZTT9qqiicmY/AJJg==
+X-Proofpoint-ORIG-GUID: Q2BOOFWeEQuHMyoSAjnVx8CG2A5z-1CB
+X-Proofpoint-GUID: Q2BOOFWeEQuHMyoSAjnVx8CG2A5z-1CB
+X-Authority-Analysis: v=2.4 cv=TJt1jVla c=1 sm=1 tr=0 ts=69e972f9 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=R-84wXamayB7cy0xVmkA:9 a=CjuIK1q_8ugA:10
+ a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-22_04,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 priorityscore=1501 phishscore=0 clxscore=1015
+ malwarescore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604230009
 
-On Wed, Apr 22, 2026 at 07:51:03PM +0100, Sudeep Holla wrote:
->On Wed, Apr 22, 2026 at 10:00:23PM +0800, Peng Fan wrote:
->> Hi Sudeep,
->> 
->> Thanks for giving a look.
->> 
->> On Wed, Apr 22, 2026 at 02:14:56PM +0100, Sudeep Holla wrote:
->> >On Fri, Mar 06, 2026 at 02:20:13PM +0800, Peng Fan (OSS) wrote:
->> >> From: Peng Fan <peng.fan@nxp.com>
->> >> 
->> >> SCMI CLOCK_RATE_SET allows the caller to specify the rounding behaviour
->> >> when setting a clock rate. The previously added dt-bindings header
->> >> defines three modes:
->> >> 
->> >>   ROUND_DOWN / ROUND_UP / ROUND_AUTO
->> >> 
->> >> To enable device tree clients to select a rounding mode, extend the
->> >> SCMI clock provider to support "#clock-cells = <2>", where the second
->> >> cell encodes the desired rounding mode. The default remains
->> >> ROUND_DOWN for backwards compatibility with existing device trees.
->> >> 
->> >
->> >Where is the binding update documented ? It's not in 1/2.
->> 
->> This was missed in this patchset, I will fix in new version, if this
->> patchset does not have big design flaw.
->> 
->> >
->> >Also if it can be static in the device tree, why can't it be
->> >autonomously handled in the platform firmware ? I think I know the
->> 
->> Linux passes ROUND_DOWN, SCMI firmware uses round down for clk calculation.
->> 
->> >answer for this but I want to make sure it is a valid use-case and
->> >gets documented here as part of binding updates.
->> 
->> Per info from our video software team.
->> We have some video modes where the best pixel clock rate is slightly above the
->> nominal rate, and the default round down rule (CLOCK_ROUND_RULE_CEILING in SM
->> firmware) can cause the resulting clock rate to be much lower than expected.
->> 
->> disp1pix = 96200000 Hz (desired pixel clock rate)
->> 
->> The MIPI DPHY cannot hit the exact frequency of 288600000 Hz needed for this
->> pixel clock rate, so the next best DPHY PLL frequency is 289000000 Hz. This
->> corresponds to a pixel clock frequency of 96333333 Hz, which is slightly higher
->> than the nominal rate of 96200000 Hz the video mode specifies.
->> 
->> Setting the VIDEOPLL (disp1pix parent) to 289000000 Hz should divide down to
->> the adjusted disp1pix frequency of 96333333 Hz, but here is what happens in the
->> SM firmware:
->> 
->> quotient = 289000000 / (96200000 + 1) = 3.004 => 3 (notice that the SM always
->> receives the nominal clock rate, not the adjusted rate)
->> 
->> If the rounding rule is round down (CLOCK_ROUND_RULE_CEILING),
->> quotient = quotient + 1. Therefore, quotient becomes 4.
->> 
->> disp1pix = 289000000 / 4 = 72250000, which is nowhere close to the target of
->> 96333333.
->> 
->
->I do not think this is the correct interpretation of `CLOCK_ROUND_DOWN/UP`.
->
->`CLOCK_ROUND_DOWN/UP` should apply to the requested `disp1pix` rate itself,
->not to the divider choice in a way that forces selection of the next integer
->divisor and produces a much lower output clock.
->
->Here, the requested `disp1pix` is `96,200,000 Hz`, and the parent rate is
->`289,000,000 Hz`. The achievable child rates nearby are:
->
->`289,000,000 / 3 = 96,333,333 Hz`
->`289,000,000 / 4 = 72,250,000 Hz`
->
->Given those options, the firmware should be able to round the request
->autonomously to the nearest supported `disp1pix` rate, which is `96,333,333
->Hz` (`289,000,000 / 3`).
->
->Under that interpretation:
->
->`CLOCK_ROUND_UP` would permit choosing `96,333,333`
->`CLOCK_ROUND_AUTO` would also likely choose `96,333,333`
->Choosing `/4` and ending up at `72,250,000` does not look like a meaningful
->rounding of `96,200,000`
->
->So the issue appears to be that the firmware is applying the rounding rule to
->divider selection rather than to the resulting `disp1pix` frequency.
+On Mon, Apr 20, 2026 at 10:57:32AM +0800, Shawn Guo wrote:
+> From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+> 
+> Add compatible for True Random Number Generator of Nord SoC with
+> a fallback on qcom,trng.
+> 
+> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
 
-User requests 96.2 MHz with ROUND_DOWN semantics, expecting the closest
-achievable frequency that does not meaningfully deviate from the request.
+Sorry for missing my SoB.  Will update.
 
-Firmware evaluates the parent rate of 289,000,000 Hz and computes:
+Shawn
 
-    289,000,000 / 3 = 96,333,333 Hz
-
-Since this resulting frequency is slightly higher than the requested
-96.2 MHz, the firmware, applying a strict `output <= requested` rule,
-rejects divider 3 and selects divider 4 instead, producing:
-
-    289,000,000 / 4 = 72,250,000 Hz
-
-This leads to an output frequency that is much farther from the requested
-value.
-
-My question is: if the firmware were to select divider 3 and produce
-96,333,333 Hz (only ~0.13% higher than the request), would that be
-considered a violation of ROUND_DOWN semantics, or is ROUND_DOWN intended
-to select the closest achievable output frequency rather than enforcing
-a strict inequality against the requested rate?
-
-Thanks,
-Peng
-
->
->> However, if we can use `ROUND_AUTO` the SM firmware would select a quotient of 3
->> in this case, and `disp1pix` would match our target: `289000000 / 3 = 96333333`.
->
->Given the explanation above, I would not support this approach. `ROUND_AUTO`
->should be sufficient for this case if the firmware is making a sensible
->selection.
->
->-- 
->Regards,
->Sudeep
->
+> ---
+>  Documentation/devicetree/bindings/crypto/qcom,prng.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/crypto/qcom,prng.yaml b/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
+> index 41402599e9ab..1362a8b748a7 100644
+> --- a/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
+> +++ b/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
+> @@ -22,6 +22,7 @@ properties:
+>                - qcom,ipq9574-trng
+>                - qcom,kaanapali-trng
+>                - qcom,milos-trng
+> +              - qcom,nord-trng
+>                - qcom,qcs615-trng
+>                - qcom,qcs8300-trng
+>                - qcom,sa8255p-trng
+> -- 
+> 2.43.0
+> 
+> 
