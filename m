@@ -1,148 +1,94 @@
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F69310645
-	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 20:34:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189502F6931;
+	Thu, 23 Apr 2026 21:14:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776976474; cv=none; b=HHRLKbeeeMcoH5ooEzvImKl3ee+hwO+bZE7YIJTia6FwP/OD3E98EhOFzvBAFWZI+UiFsqdbVWIK2STM2NFH9GJiki0FFRVqNTLO+obtRyRjJBTtEotD70lTeNTXtENNbdsnL2O9efMvyvx5oox5G6Yqt+fGzLdWjM6TDkqar3E=
+	t=1776978898; cv=none; b=io9CNpvitTy7SvXGa3re/N2//9XEUf9v7Ya27a7+RQnc71XYeffiYEQFoWAQ8yjMrp0OoGELntEDsv+42I5J0QHH/EubpE3Gc2pzY8d0idjwGEH8/RMY4fC2y/BoIyDWkn5IOMhFQpMPsknIJjBQhD7NKNWdMPiWO1z27u/yuNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776976474; c=relaxed/simple;
-	bh=tGtGh8LHhCpfw4P5NPtnBbIVXU6pxxNKs0P+PDjh1ME=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ujwBkQG2ajSXKxqPGUIEw1bPI4hD5bojLeqlHh7lD6TJJRZgznU4UJc8v3NHj37e+4NP1hyKPMDkfm9agxPk/4WztxtRlVUqNoVzWj7aEOBu4h3vvc4wBV8eBJF6XV31TxSBLLPolAeTXJw6b4J393xWg0Q7qpFFCgQdLv0Nl9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=gNcE76g7; arc=none smtp.client-ip=79.135.106.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="gNcE76g7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1776976463; x=1777235663;
-	bh=G/daCJIfnhGdXQISec5Nc7m2347M1zLsULfaxHx3oG8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=gNcE76g7YofdTje7Aer6qNs/kz0XY0pThZiRLQj9QDZU3DpUB8Imy/yX1WAWrCc/l
-	 i31sGjdYaMYJdaqad7az7w7NApoOyuP32NSP5JmgvxDBhwgxoe4yJvoh4rdtUJ2R1q
-	 vsuNxEM4/OOK3nm3ZxSmN/9H0maRocDqFM+s9JN21oGBIITlDk7HX+CXsWzusCpo7e
-	 TtSo8ov1acLag2y+OtRfPNUQ5H4fmZ1wlbJ+Jbblibhz4PS3Jkchyy4iXxWZshCeHT
-	 3vn5wscno1YvVAcpjV7h9YYG8QpM06TfIYlRbW2mk3GdKQea8BqBtPn7VmhyC3+hho
-	 8YyzH9E3hBqoQ==
-Date: Thu, 23 Apr 2026 20:34:17 +0000
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC v4 6/7] drm/msm/adreno: add Adreno 810 GPU support
-Message-ID: <oka0Q911ixJLZzAbfWBx54dOmxbQAre36QqHUX4iDZoH3TE5jD-IqTAHspti6B8kfpLQ-OTnuWjFdXtsqJM-CUC8G9R3x_9vFI--LnpppiA=@pm.me>
-In-Reply-To: <23fbb36e-56b4-4ecf-94e9-4038c6311b31@oss.qualcomm.com>
-References: <20260416-adreno-810-v4-0-61676e073f8a@pm.me> <20260416-adreno-810-v4-6-61676e073f8a@pm.me> <23fbb36e-56b4-4ecf-94e9-4038c6311b31@oss.qualcomm.com>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 65a8b8efc4ce8f33e838f483cd77361e1348e288
+	s=arc-20240116; t=1776978898; c=relaxed/simple;
+	bh=CgdXWrbrAHb92IHWVgD9jZSu0Js7paRIRX2/vSjqQIY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JSaI3YnCePr9H3wcYFIpHYy0NKtnnLo0imdULG3EgXQALwoyN9EiLAw6ne9Y1ft8CjGPrjDiKGGVOSbD34w38jCV+ZmUUrMWxuiX5Cbx5se8vXsc7ebM6OJ7Ez17WrlPddW+srvFGryomTPspIi0gL0DNwcZcz1AYZBhcgtRwzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=timmermann.space; spf=pass smtp.mailfrom=timmermann.space; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=timmermann.space
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=timmermann.space
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4g1pl14JdCz9t9D;
+	Thu, 23 Apr 2026 23:14:53 +0200 (CEST)
+From: Lukas Timmermann <linux@timmermann.space>
+Subject: [PATCH 0/5] Google Nexus 10 display support
+Date: Thu, 23 Apr 2026 23:14:36 +0200
+Message-Id: <20260423-manta-display-v1-0-196f80c5673a@timmermann.space>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDEyNj3dzEvJJE3ZTM4oKcxEpdU1NzC0MDY8u0JIMUJaCegqLUtMwKsHn
+ RsRB+cWlSVmpyCcgQpdpaAHB6MUFxAAAA
+X-Change-ID: 20260423-manta-display-55781039fb0d
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ Douglas Anderson <dianders@chromium.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Lukas Timmermann <linux@timmermann.space>, 
+ Alexandre Marquet <tb@a-marquet.fr>
 
-On Wednesday, April 22nd, 2026 at 9:04 AM, Konrad Dybcio <konrad.dybcio@oss=
-.qualcomm.com> wrote:
+This patch series adds display support to the
+Nexus 10 (google-manta) tablet. 
 
-> On 4/16/26 1:05 PM, Alexander Koskovich wrote:
-> > Add catalog entry and register configuration for the Adreno 810
-> > found in Qualcomm SM7635 (Milos) based devices.
-> >
-> > Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> > ---
->=20
-> [...]
->=20
-> > +static const uint32_t a810_pwrup_reglist_regs[] =3D {
-> > +=09REG_A6XX_UCHE_MODE_CNTL,
-> > +=09REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
-> > +=09REG_A8XX_UCHE_GBIF_GX_CONFIG,
-> > +=09REG_A8XX_UCHE_CACHE_WAYS,
-> > +=09REG_A8XX_UCHE_CCHE_MODE_CNTL,
-> > +=09REG_A8XX_UCHE_CCHE_CACHE_WAYS,
-> > +=09REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN,
-> > +=09REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN + 1,
-> > +=09REG_A8XX_UCHE_CCHE_TRAP_BASE,
-> > +=09REG_A8XX_UCHE_CCHE_TRAP_BASE + 1,
-> > +=09REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE,
-> > +=09REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE + 1,
-> > +=09REG_A8XX_UCHE_WRITE_THRU_BASE,
-> > +=09REG_A8XX_UCHE_WRITE_THRU_BASE + 1,
-> > +=09REG_A8XX_UCHE_TRAP_BASE,
-> > +=09REG_A8XX_UCHE_TRAP_BASE + 1,
-> > +=09REG_A8XX_UCHE_CLIENT_PF,
-> > +=09REG_A8XX_VSC_BIN_SIZE,
->=20
-> This REG_A8XX_VSC_BIN_SIZE is removed from all lists for all chips
-> in newer kgsl
->=20
-> > +=09REG_A8XX_RB_CMP_NC_MODE_CNTL,
-> > +=09REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
-> > +=09REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN,
-> > +=09REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN + 1,
-> > +=09REG_A7XX_SP_READ_SEL,
->=20
-> Somewhat similarly,
->=20
-> TPL1_NC_MODE_CNTL
-> TPL1_DBG_ECO_CNTL
-> TPL1_DBG_ECO_CNTL1
->=20
-> should be preempt+ifpc for all targets, it seems
->=20
-> [...]
->=20
-> > +static const u32 a810_ifpc_reglist_regs[] =3D {
-> > +=09REG_A8XX_RBBM_NC_MODE_CNTL,
-> > +=09REG_A8XX_RBBM_PERFCTR_CNTL,
->=20
-> This list matches the expectations, modulo this RBBM_PERFCTR_CNTL
+The panel can be used with the panel-edp 
+driver and just had to be added.
 
-Note on this, added this shortly before submitting this series as requested=
- by Akhil:
-https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/40613#note_339530=
-8
+Also needed for display output were two clocks which had to be defined.
 
-Though, I've seen some perfctr stuff on list so not sure if this should be
-removed soon...
+This patch series depends on previous patches which are
+currently only found in linux-next.
+See: https://lore.kernel.org/all/177214038655.341086.4114348823043257597.b4-ty@kernel.org/
 
-> and the registers I mentioned above that should be moved to the
-> first list
->=20
-> [...]
-> > +static const struct adreno_reglist_pipe a810_dyn_pwrup_reglist_regs[] =
-=3D {
-> > +=09{ REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> > +=09{ REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> > +=09{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) =
-},
-> > +=09{ REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> > +=09{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> > +=09{ REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
->=20
-> + RB_CCU_DBG_ECO_CNTL to BR
->=20
-> [...]
->=20
-> > +=09=09.speedbins =3D ADRENO_SPEEDBINS(
-> > +=09=09=09{ 0,   0 },
-> > +=09=09=09{ 242, 1 },
-> > +=09=09=09{ 221, 2 },
-> > +=09=09),
->=20
-> The DTs I have all point to SMEM-based SKU checks. Did you find these
-> numbers empirically?
+Signed-off-by: Lukas Timmermann <linux@timmermann.space>
+---
+Alexandre Marquet (2):
+      dt-bindings: display: panel: Document Samsung LTL101DL02-002 panel
+      drm/panel-edp: Add support for Samsung LTL101DL02-002 panel
 
-Yes, and I used speedbin instead as upstream doesn't support the SKU checks
-downstream does. Utilizing GPU_CC_FREQ_LIMIT_VAL to serve as speedbin
-on this platform.
+Lukas Timmermann (3):
+      dt-bindings: clock: samsung: Add fimd1 and vpll muxes
+      clk: samsung: exynos5250: Define more clocks
+      ARM: dts: exynos: Add display support for exynos5250-manta
 
->=20
-> Konrad
-> 
+ .../bindings/display/panel/panel-simple.yaml       |  2 +
+ arch/arm/boot/dts/samsung/exynos5250-manta.dts     | 99 ++++++++++++++++++++++
+ drivers/clk/samsung/clk-exynos5250.c               |  6 +-
+ drivers/gpu/drm/panel/panel-edp.c                  | 31 +++++++
+ include/dt-bindings/clock/exynos5250.h             |  2 +
+ 5 files changed, 137 insertions(+), 3 deletions(-)
+---
+base-commit: 6d130a71abb393ce99b081e78783581bd3b5985b
+change-id: 20260423-manta-display-55781039fb0d
+
+Best regards,
+--  
+Lukas Timmermann <linux@timmermann.space>
+
