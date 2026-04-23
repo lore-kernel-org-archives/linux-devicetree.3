@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA653783B0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7405537C915;
 	Thu, 23 Apr 2026 16:08:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776960491; cv=none; b=Td6Tcyik/FKEHb8QlnvWCsCyvv0ncgVz4sjsxHmkLOZEaMabwqH7LjBlFs2EgZSnlq6SnetGCj8/YMyftZgAPJRmEIXycs+luA1vIIaQkePqNplQpkbiXRKVz9zCHA2f2rw0ACByx5EhAJ068S3yOp4kZN1MGql08mngnZWnAMc=
+	t=1776960491; cv=none; b=Y9FtRZDJF3gSJclozNOqyMhvc/ozpj0HnuhFNJBEMScngMZ0Fn3e/QiwEW61tU5oe8hkwLq7imASTyjEACtJ+7xdXwC/VpKg/i+9+cgFOFlA4I6OGL6DyuUI0UWYkuYv2kGS/0KJX7ud6rb9SqJosjBwOLm0cNp9tUy1qyqtC3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1776960491; c=relaxed/simple;
-	bh=+Ba/0p0exztxBZJCXH18p2/KEK4pBqeXoGLCbhprcaI=;
+	bh=REA0gNXQwhTgCiXosbKBoReZLjNSpbkwmsoqkYdMspE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YdUpy2ill7NvQNszAzCBhzDAB8WziMUPgehBPJR/b1/KmLTXwXJnaT6hZ0bnP2sRfZP4CXJfqVhQ/CBX54DBRBieT1XvYNQQ3oiZNJYnLXj02FuWs/muSFyw3Dcj7k7mPbttuPhRydaqNElS3l0e/fpXRHNVb1HvU0TzjbXIXAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZxSftGga; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=BowPBFwNIVEP+6o7v7AJfyzfwF7DuclqsKo5s6AnB9j68nHzevB7B38C20ufp16vFOnz0F6SLAX0ozrDHBiePPv5fyQIan3QhbVRDO4OtPj3wFcedmgTrbhLQGog0XZYkJ/hi51WJ+8oX3sjBlDQuK+t34DYZzRcEL0baQxx7HE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uxx9nzwl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZxSftGga"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 201BAC2BCF5;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uxx9nzwl"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 534BBC2BCFD;
 	Thu, 23 Apr 2026 16:08:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1776960491;
-	bh=+Ba/0p0exztxBZJCXH18p2/KEK4pBqeXoGLCbhprcaI=;
+	bh=REA0gNXQwhTgCiXosbKBoReZLjNSpbkwmsoqkYdMspE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ZxSftGgaoh0hvr4luYh6DavMzdMLs0OtjyfmHfPzoYF0G+P2V4C4Ti5PuThRhBa8W
-	 JtvqzkML2+OVC1VPM5Y7VoT+larg1JlqAHqbZsOc0P38pyeAnz9WEzMqM5yoNkEXZA
-	 e//TPkUnykIHC/Uxdb0t3LPuEAFRaXb6pWzr9SBtsJW5lmqGPCspRgLb6lU5/usE2f
-	 WZ8H3DbsF7kXUJjQqfKcWpe1J6fe0sCU4tZ/zvmsgifO4eomdUfDMtaoyq7kedV1CG
-	 trdnDnPihTPhHs364pwKNl8LOKxJ1MbtZrC65Wa/tenZxxGDdAe4nUEa+w80FMNyhK
-	 SQ0G8877NDV1g==
+	b=uxx9nzwlxousgqAuQESJz5CCiKeNPP5ordUUqhTuqSOfJYPceHLhJNOTsAZYHgnOv
+	 jAczcQohHh79Ch8GPQ50X6PWVYdw/VdZzfrzOvFk1U4c8a+DO2PKqjOuKTAdJ5JuTr
+	 ZD2bzQYsZIN3I8aFKnzGg+VSE9Y26SnuhqeEaItDf24v7K/pHWuHKEbLeVz1l11FGQ
+	 E4hJlgAc09OBUtd8plwTb/ptnQDc08Lg6132mRzKUvo8pThuV+llFRB4uBam9rx2aA
+	 zGFVcCfhLb8I58OA0LXLGdyYCQ0oszL5JjNo4sDDdDMcajzYJcQE3AcmXvFNTovjAY
+	 AZz/OyyliW7oA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18697F589DF;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B498FC0360;
 	Thu, 23 Apr 2026 16:08:11 +0000 (UTC)
 From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Thu, 23 Apr 2026 18:07:20 +0200
-Subject: [PATCH v4 5/8] arm64: dts: amlogic: t7: Add cooling cells to all
- CPUs
+Date: Thu, 23 Apr 2026 18:07:23 +0200
+Subject: [PATCH v4 8/8] arm64: dts: amlogic: t7: khadas-vim4: Add fan
+ cooling to thermal zones
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,8 +40,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-add-thermal-t7-vim4-v4-5-d4c1528d5044@aliel.fr>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260423-add-thermal-t7-vim4-v4-8-d4c1528d5044@aliel.fr>
 References: <20260423-add-thermal-t7-vim4-v4-0-d4c1528d5044@aliel.fr>
 In-Reply-To: <20260423-add-thermal-t7-vim4-v4-0-d4c1528d5044@aliel.fr>
 To: Guillaume La Roque <glaroque@baylibre.com>, 
@@ -58,13 +58,13 @@ Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, 
  Ronald Claveau <linux-kernel-dev@aliel.fr>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2093;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2874;
  i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=WdROqCoECVugDQijrfKUvfX+9RIJRisOOsFej55YKwg=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ+Yr5yeeqzn2iaepn511bYG0mlymX4JSgURKcW16R9Gun
- NezH8/qKGVhEONikBVTZOmfa3ni3eWjZ77uUU+BmcPKBDKEgYtTACbyzpbhf7XenzkFh09Wzcl4
- ZlZnFHNA0flVbgnjBamrqf4H9C5nCjIy3BBJ2tgz76WjQuvcteZsF75zBcxefLm7R3SG17/cfpF
- tvAA=
+ bh=zbgRfmKb31HDgkan9Fy8S+p1BOUmWfaoe9tmTB9hGac=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ+Yr5xflybeZjF97/jKcsPDNNNUFOfG/L6VGLSyOu3FYw
+ I7R7nx7RykLgxgXg6yYIkv/XMsT7y4fPfN1j3oKzBxWJpAhDFycAjCR79sY/vuzcdw5ksW24vr2
+ fZfURadVXE+XnBp1JXnNohcOnVNmPJrAyLDG8ozr0qcxP+bN85hn4yJ2RiyfN2NR+CURSWdbkQ9
+ ec3gB
 X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
  fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
 X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
@@ -74,82 +74,138 @@ Reply-To: linux-kernel-dev@aliel.fr
 
 From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Add #cooling-cells = <2> to all CPU nodes (both little and big cluster)
-to allow them to be used as cooling devices in thermal zone mappings.
+Add an active trip at 50°C to all six thermal zones and map it to the
+khadas_mcu fan controller, using cooling states 30 to 100.
 
 Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 ---
- arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ .../dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts  | 102 +++++++++++++++++++++
+ 1 file changed, 102 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-index 560c9dce35266..7aec65f036a9c 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-@@ -63,6 +63,7 @@ cpu100: cpu@100 {
- 			i-cache-size = <0x8000>;
- 			i-cache-sets = <32>;
- 			next-level-cache = <&l2_cache_l>;
-+			#cooling-cells = <2>;
- 		};
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+index 5d7f5390f3a66..ba9219073dd0a 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
++++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+@@ -157,6 +157,74 @@ wifi32k: wifi32k {
+ 	};
+ };
  
- 		cpu101: cpu@101 {
-@@ -77,6 +78,7 @@ cpu101: cpu@101 {
- 			i-cache-size = <0x8000>;
- 			i-cache-sets = <32>;
- 			next-level-cache = <&l2_cache_l>;
-+			#cooling-cells = <2>;
- 		};
++&a53_thermal {
++	trips {
++		a53_active: a53-active {
++			temperature = <50000>; /* millicelsius */
++			hysteresis = <2000>; /* millicelsius */
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map {
++			trip = <&a53_active>;
++			cooling-device = <&khadas_mcu 30 100>;
++		};
++	};
++};
++
++&a73_thermal {
++	trips {
++		a73_active: a73-active {
++			temperature = <50000>; /* millicelsius */
++			hysteresis = <2000>; /* millicelsius */
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map {
++			trip = <&a73_active>;
++			cooling-device = <&khadas_mcu 30 100>;
++		};
++	};
++};
++
++&gpu_thermal {
++	trips {
++		gpu_active: gpu-active {
++			temperature = <50000>; /* millicelsius */
++			hysteresis = <2000>; /* millicelsius */
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map {
++			trip = <&gpu_active>;
++			cooling-device = <&khadas_mcu 30 100>;
++		};
++	};
++};
++
++&hevc_thermal {
++	trips {
++		hevc_active: hevc-active {
++			temperature = <50000>; /* millicelsius */
++			hysteresis = <2000>; /* millicelsius */
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map {
++			trip = <&hevc_active>;
++			cooling-device = <&khadas_mcu 30 100>;
++		};
++	};
++};
++
+ &i2c_m_ao_a {
+ 	status = "okay";
+ 	pinctrl-0 = <&i2c0_ao_d_pins>;
+@@ -170,6 +238,23 @@ khadas_mcu: system-controller@18 {
+ 	};
+ };
  
- 		cpu102: cpu@102 {
-@@ -91,6 +93,7 @@ cpu102: cpu@102 {
- 			i-cache-size = <0x8000>;
- 			i-cache-sets = <32>;
- 			next-level-cache = <&l2_cache_l>;
-+			#cooling-cells = <2>;
- 		};
- 
- 		cpu103: cpu@103 {
-@@ -105,6 +108,7 @@ cpu103: cpu@103 {
- 			i-cache-size = <0x8000>;
- 			i-cache-sets = <32>;
- 			next-level-cache = <&l2_cache_l>;
-+			#cooling-cells = <2>;
- 		};
- 
- 		cpu0: cpu@0 {
-@@ -119,6 +123,7 @@ cpu0: cpu@0 {
- 			i-cache-size = <0x10000>;
- 			i-cache-sets = <64>;
- 			next-level-cache = <&l2_cache_b>;
-+			#cooling-cells = <2>;
- 		};
- 
- 		cpu1: cpu@1 {
-@@ -133,6 +138,7 @@ cpu1: cpu@1 {
- 			i-cache-size = <0x10000>;
- 			i-cache-sets = <64>;
- 			next-level-cache = <&l2_cache_b>;
-+			#cooling-cells = <2>;
- 		};
- 
- 		cpu2: cpu@2 {
-@@ -147,6 +153,7 @@ cpu2: cpu@2 {
- 			i-cache-size = <0x10000>;
- 			i-cache-sets = <64>;
- 			next-level-cache = <&l2_cache_b>;
-+			#cooling-cells = <2>;
- 		};
- 
- 		cpu3: cpu@3 {
-@@ -161,6 +168,7 @@ cpu3: cpu@3 {
- 			i-cache-size = <0x10000>;
- 			i-cache-sets = <64>;
- 			next-level-cache = <&l2_cache_b>;
-+			#cooling-cells = <2>;
- 		};
- 
- 		l2_cache_l: l2-cache-cluster0 {
++&nna_thermal {
++	trips {
++		nna_active: nna-active {
++			temperature = <50000>; /* millicelsius */
++			hysteresis = <2000>; /* millicelsius */
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map {
++			trip = <&nna_active>;
++			cooling-device = <&khadas_mcu 30 100>;
++		};
++	};
++};
++
+ &pwm_ab {
+ 	status = "okay";
+ 	pinctrl-0 = <&pwm_a_pins>;
+@@ -266,3 +351,20 @@ &uart_a {
+ 	clocks = <&xtal>, <&xtal>, <&xtal>;
+ 	clock-names = "xtal", "pclk", "baud";
+ };
++
++&vpu_thermal {
++	trips {
++		vpu_active: vpu-active {
++			temperature = <50000>; /* millicelsius */
++			hysteresis = <2000>; /* millicelsius */
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map {
++			trip = <&vpu_active>;
++			cooling-device = <&khadas_mcu 30 100>;
++		};
++	};
++};
 
 -- 
 2.49.0
