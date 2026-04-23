@@ -1,162 +1,467 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013000.outbound.protection.outlook.com [40.107.162.0])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD83E3EFD13;
-	Thu, 23 Apr 2026 13:18:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776950284; cv=fail; b=YMGTGFplP//Bjd3k5+W+voDZMrFkYfETfT70fPlpcIzORptqDNWpl1caRi0A4X0YxgzLEGBncmAh1qEpWX2thdfYRtpEycF5wKt6li64PJcRiRmabZU1SVYjodkI7qBrClY+G1C/zBTBywnH8KTFKZUYgKXOiAXW2aaawLVjZsk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776950284; c=relaxed/simple;
-	bh=HHOQ4I+Tr6PRmdkPRAlFArKZjJUQkkhnGpRtICvEWno=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=LgoUMWvrs43/BkEsm+1OWQYywv279NWogn7UACqnzbdGNHrslAbhpXC6w1yPJZ3j9WMdwBL6x+TjqmQDawVaGwDlSKLDzpQt0+fDpRZ5jBtN02yEhURkzSdCCIYV6poAXGv5cuD/nD77B1ZYWueyTIBPHzx87HshuE/ROhOqvTs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=YoiXQSLB; arc=fail smtp.client-ip=40.107.162.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A322222580;
+	Thu, 23 Apr 2026 13:25:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776950712; cv=none; b=oKU6zQcEm5Y5/oYRjIX1ooX7SXOjMMfyDfdXzk8ageWK63zmPNEx5kI1aXVQD8+gjx8cjU7UY+LEtdGFDgcIuzrazwXOx3ang/ONnfa+tF2UnSwy99ah84OnNgLWf65KmjmkMIKNIDR41PFNa3tGwAZiGL1RSQK+sekRuPIiPiQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776950712; c=relaxed/simple;
+	bh=JoKC7abK0zYTLANNJhtgcSK5I7VibFOKQkmDYtPkK70=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hg243O06ClboQWKRVEahS/RggoMj8s76jTGOTS9PRUF1TVfleSZHg5lgQUtKR3TPv20rWOB689dJ015m/SN+63NnxicoXa5SJcTIkKfIz+yAiMvoL21nS7kzl9y37rURjvcCCvKpgoUM72h6q0rk6nzbI3l6+FKMvdyU1vMzz40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QAXRSA3z; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="YoiXQSLB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XzUdemp/boLaPAc6vyYY0Y6eY6d+L1O9/93K355Gw5AURtoQenwPoMEQsKEqEMXDVUIs4OtorEVgxgyitihjy+Ac6+7JTE+IgVwZA4C0T0/xHHxQbbz5nBqtw5IiPnxG66kH6r8FHM2tyU+cl2mdcxdK0tIP1i7Ko496HvHdtie8ySt7bD0HrIVqnYp0tmULCuBH9XI7dR9ZQp0qP6+aiiqoVkmVvYP/VlDW0bdcvSLU+z01zE48HfgCUVu/aJ2BUm/scGbMQ3TlgdkUnu0MuAWNffzD7M9x1yevYkwmqrKk1/AE0C3wlgh8soOyzeegiH4vjb6dHXnCN4EnR4Yccw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8VyXU45pOzjUcHAaO1D/2fWjQFVnlofQkdJKmS+AU8U=;
- b=Pl7KJ1x12gSPSx4duDwstUJMPadzYCIvQKED9JX0afSCqHPhjb2hiYLRie9wJN7Oboqa5gwslHWSGuKA29phYoRepLJgD637pjJ76rh1YsUo4OmX6qiCzdLRKFxcp7/i6LbilaUke3asC6sjNHYEY2henrg/bAnRKOC6zTmtG5/tFWC5eMdhxi1QSk4H9lbw/gm0Jcm7zlVDQon4/YgjE8InC0EnrWagBsATAsxQw8xowiFrkj5Qxtvh0SBFF/VrHskhmuITCFkEMMVm8mgrpYkRryvxnc2RWZA+gci1QfZ+J8OQTnfR/j3Zaw10AGzBFmZ/mHL8IiO2FlkfyLvvUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8VyXU45pOzjUcHAaO1D/2fWjQFVnlofQkdJKmS+AU8U=;
- b=YoiXQSLBCvRQweJw8pPwqLRMd10X4EuDr2A2Eyz8bPm1swEESw+hLLhTHpxGrz4bugTDXxf0GC6oMhGcL1P/vImBe6EvVoDFbLIngj7cHa9gJbKcshXP0YFMxA2jW2Ys9iILBKfNdd1OIUXkQPyLWBf/bOtjCw/vOmseTZa5H7qkzJvFUvDu8EIHNeBbHsnEvZmOv8QmcOzcWwRADK/6m04q1U168+1ZSQtQGBM6g0PbqZ0rfzt7J3ZBTG7vqbMa9qMqNW7CEngaQHIJi+ZP+DKgpQd8b+R8di4TNsmOJ9QwNKPrOYRfS25lfLur3HWsIfZho3BOQyljwiBre9WBAg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DU2PR04MB8822.eurprd04.prod.outlook.com (2603:10a6:10:2e1::11)
- by GVXPR04MB11586.eurprd04.prod.outlook.com (2603:10a6:150:2c2::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.21; Thu, 23 Apr
- 2026 13:17:57 +0000
-Received: from DU2PR04MB8822.eurprd04.prod.outlook.com
- ([fe80::c67b:71cd:6338:9dce]) by DU2PR04MB8822.eurprd04.prod.outlook.com
- ([fe80::c67b:71cd:6338:9dce%5]) with mapi id 15.20.9846.021; Thu, 23 Apr 2026
- 13:17:57 +0000
-Date: Thu, 23 Apr 2026 21:17:12 +0800
-From: Xu Yang <xu.yang_2@nxp.com>
-To: Peng Fan <peng.fan@nxp.com>
-Cc: Frank Li <frank.li@nxp.com>, "robh@kernel.org" <robh@kernel.org>, 
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
-	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, "kernel@pengutronix.de" <kernel@pengutronix.de>, 
-	"festevam@gmail.com" <festevam@gmail.com>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"imx@lists.linux.dev" <imx@lists.linux.dev>, 
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	Jun Li <jun.li@nxp.com>
-Subject: Re: [PATCH 2/4] arm64: dts: imx95: switch usb3 controller to
- flattened model
-Message-ID: <xw4shqsgxjns527ya7diagwlhohnan3wbfxauyxzxqjavdca4o@y62gcvxkwj6w>
-References: <20260421105503.1416566-1-xu.yang_2@nxp.com>
- <20260421105503.1416566-2-xu.yang_2@nxp.com>
- <aehGKE8qLXiBKvvB@lizhi-Precision-Tower-5810>
- <cfyvip6atz6hh57iga5gvkzrdxeorv4tuxontvzixflqn36h7h@2awtzkxkn45c>
- <PAXPR04MB845957613BCD5E86D96FA4E3882A2@PAXPR04MB8459.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <PAXPR04MB845957613BCD5E86D96FA4E3882A2@PAXPR04MB8459.eurprd04.prod.outlook.com>
-X-ClientProxiedBy: FR4P281CA0293.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e7::6) To DU2PR04MB8822.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::11)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QAXRSA3z"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E1D7DC2BCAF;
+	Thu, 23 Apr 2026 13:25:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776950712;
+	bh=JoKC7abK0zYTLANNJhtgcSK5I7VibFOKQkmDYtPkK70=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=QAXRSA3zNmJ99uOXQWHLdYKTyC0RbiIcCC3/5Wa6aaHggfn5sHhZqFHdLtPioLC2g
+	 W26e4YDl2EPctIhSCoInNl2aCCTgE87ZA8F1C6ogrQW7W1viStZ6pzlKpo4bQs73HA
+	 OCts5cObO7PBHtdO/v1MoAFQ5t3h15HILvUT+m102t7HdLfmgfV+1swIfFufJg5/yR
+	 wohdJjrBKoluZD1rlHV7ncys6CD/pk407eRLhCujf8iJSIRGw2INeye5HFyx/3nzk6
+	 Q5Z10j+xLpibTBGBvmPk7S9KzCiSGUSeYd74+oNNgxZxwQIrF4oBGMDpC39ScHRGIz
+	 G95h7+iD/DbYQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D2274F589D4;
+	Thu, 23 Apr 2026 13:25:11 +0000 (UTC)
+From: David Wales via B4 Relay <devnull+daviewales.disroot.org@kernel.org>
+Date: Thu, 23 Apr 2026 23:24:51 +1000
+Subject: [PATCH 2/2] ARM: dts: qcom: Support Motorola Moto G2 (2014)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8822:EE_|GVXPR04MB11586:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49eb53a2-cb5c-48af-4879-08dea13abc8a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|52116014|7416014|19092799006|56012099003|18002099003|22082099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	tb/THEGLfxF+FeSCUsNuM+LQT8S+sEODnLSySQRu1BtIKO6GbnEdzcOwYwjanqe+GZFbcVRqFZBzpo7Vc5MioFAQowvE8Vsko/bLor+6fle4vI5hCTCQbo3egbm38hNGudJV3MCHrgn9Qh31LaRTwAsPkEZ0tvIzjsZk/T1nfmI1T7Od7PaEhAEDuiHIZRZ+7/WU48clUt2Bg4McFHytDCof0od8kn0Pgt/Kx/HpK4Y/C2n4pyRDiow0VJbcu6RvDP5Df5Qm9TWCphNNjMoDLVAtRbG+UKrJEteusBqnpeFxT5umKWcJeLVc1ohcmp1qGzYjX4iP/wfBcA49HVJTcZdujFvW3U93BMJXDfxFw5paisBJpxxqZmBeWP0QsdaTL1Ajw+prGuSb8MDy6UNXCzWjbEdQBzmIYjKzsHNfMT8lZ+SSAzLs4fo6Opy6MBILAgvbESLQY4S+pl5lucBfl69XZiVcjTChX+LsZYy4jqO32XDJoWHWdWILOf07lG8pKn4hdpeQQwkOEznrx6VFYoYEJqvzqghEoZswck4xDqtuFAIbOzzTjdMS8FtYNSOlqffJdoR3xudF869RHLQTlW7mF0+z9r/FcwkaSczraybEy/KLsSr0pPBz/eF5e70H8jG5KKvMErIyMfEGvmjl8JC15bpFFLl9aLLixtwq1QeCHTNWW3hvamk7vnemPN1H0hDwMzjwMEoy73hxUvwFJ/+XB+Iu2rVxKDQUIKHPkuMVHG4QxKAm2RfdPD418rBgyW62z71AQRhUjsCAJfMHSMVFCP7/IggxawgZHkVg90k=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8822.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(52116014)(7416014)(19092799006)(56012099003)(18002099003)(22082099003)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?G2eMDB4WlTxf5pBOe5Gi6FqU19B/bVN81c/uNzYVBShXnKBvE3t8Hr5Q/L/K?=
- =?us-ascii?Q?kO68ge7dwxdInj1BzTKY7/S4SKYptNpCHEL/vn+iNkpRFeKn20z3Z8t9SWg2?=
- =?us-ascii?Q?BOeEYeGHOq3jGmrsMMPLZ5g5cSoHtKvsAbtSq5WAM2+RqCEGQmkNltxlb072?=
- =?us-ascii?Q?+3KcqHlYr93Jt/m0ioE76Hk/wjI1nBgfsFTLo9TsFEo3/K6Xqv9ie40qhZia?=
- =?us-ascii?Q?Z3Sq3ZsS2GsGBdv2/PN8RxLKPw/I1H9Sp9SxBcq8/SkQwY/IEUvPphY8tDJ+?=
- =?us-ascii?Q?zIAWPANQ+V5drTjI19Uj4OTLoZz6OyaDUV7FQDSQ2fNKbK0KX8BobXriJ3ym?=
- =?us-ascii?Q?O6boydnm8OroR0/m9JIFcZtSWebr6v2Udsu7DEumjS88K2UG0BDWZkth9ZHI?=
- =?us-ascii?Q?337kltUkrPoJu876/af1RJ2rSYdhY343gSUa/yC84LuwoW1Dv5gJfcZw7jgN?=
- =?us-ascii?Q?AT1z3TsuLsSFGdZh9kv955aVRMLPKMlfKPXWgdyFg83jtO4XlBRqFKSMJDvL?=
- =?us-ascii?Q?Ri7VviPs83EaseTsmi3bvqS8Qi3d+BzReZojswQxE6QP7fJC+tvnfDxf2Gb5?=
- =?us-ascii?Q?WktoYQJGPGy8Of+yJQUA9eH+eJG8K2xZvwdbWvp98aLdV0E8kMR5Qr1epoRz?=
- =?us-ascii?Q?1dPSfBr3KafAPQ7PmqPleWeFBWUk3ZIlBXTJIHJXIUvsg2nef+GWweGF1xne?=
- =?us-ascii?Q?tVLUmJtIfGP3qBaKt3yNroDKGCIUXCrDxS/MxOBpXfshGvFBer1j7IZ8BBcs?=
- =?us-ascii?Q?qKEpfbAIHtW1SjRnpu857Ug8c6NWBl0buBVU2c+xe8JySzGSjiP1YSG7dGag?=
- =?us-ascii?Q?8uau7BeXcgdQ9jC/DU5lU79v+0X3C00CnX0JpK7zVD83n69w9Hliw08Q6kxK?=
- =?us-ascii?Q?LuDDiCHy2ewY/w9hy6uEyw3fvShlYZBgwnvLL0/a7YtcRWajGx/ewBo6OxXb?=
- =?us-ascii?Q?Ae9HhupM9a/WqoUZGn2r6K6swGMtcxlYpYhzs5fTOf7bfq5QX3ovnjQd/GYZ?=
- =?us-ascii?Q?WMjKXwz/zZiQa8pWLgYqa3+uA0GtmpYRKWS5miToXX0geiXBFguGUPO/uOAh?=
- =?us-ascii?Q?37HcN/VxvTO11ljYUoM1xmwB6kLyq8kU5oGcOllItYvi4FRsQzBE1+Is39H6?=
- =?us-ascii?Q?zCKcYMlgFjHO2ROTbOtqxud2qgirPnhYakcT9PL9lpQGCwTxh+vLXltagzyW?=
- =?us-ascii?Q?xC3pAJpERdiIg7S2Gs+BUVWDcC7mAAtmFy+//qUXbDIbjWyYRJxz415EJ8HF?=
- =?us-ascii?Q?pGZVFq0sU03XvIIGt6lJLcXVq3w3jOfdwGEo6cgi+A9G4janelMna1AEQJz8?=
- =?us-ascii?Q?Ke4WOJkttnwJyZu9Gqx7sgZZIuNYzaHKCKINT+u680S5nB/8PxLl+HAPpKU0?=
- =?us-ascii?Q?45+pthgKZNzfCWW+5gGHhkI19Y5S5qyB3F6VjCmc5dSoIIwl4EvaM4vS99kC?=
- =?us-ascii?Q?SL7dT/+oT2DsuhCA6MU9dFECW0vMSDJZXYBfWo0bU8ASFzxs7mvLy/UXSgpZ?=
- =?us-ascii?Q?l8+boKXBxcmHHu/EZ7kweZznpqTKudARfQpxCh2U60RbeXcxomyOIeT8My5i?=
- =?us-ascii?Q?y4El5yjWsmLSfwAN+0adoB4XZahxFndrI68/lQbEF+2MeVGamKxjw8gG7O4o?=
- =?us-ascii?Q?2HkHxknV7gESWkD0xnI5g4IYUoXnMYXD0jMA0BFXQepEjdmkuwyi8y70HoA1?=
- =?us-ascii?Q?1XKBWJ7O6/iCEqV6iZ1qi/aL6IeViofaz4ZW7GJ+TeD4whw0IkgFxIKXoZja?=
- =?us-ascii?Q?CQYD+2yZNg=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49eb53a2-cb5c-48af-4879-08dea13abc8a
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8822.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 13:17:57.7982
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lSj3hPrD02rWw2aykG1G8Snl4NNJEqtGIHqEjMCLerbza1cMxJMwOGKGPzGX4ZOh9PTzoffhyJpS1X3JXZm7kw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB11586
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260423-device-motorola-titan-mainline-v1-2-e1813a028cc8@disroot.org>
+References: <20260423-device-motorola-titan-mainline-v1-0-e1813a028cc8@disroot.org>
+In-Reply-To: <20260423-device-motorola-titan-mainline-v1-0-e1813a028cc8@disroot.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, David Wales <daviewales@disroot.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9111;
+ i=daviewales@disroot.org; h=from:subject:message-id;
+ bh=Pso6mnHMePzlz73ajKH9CQ4GAdeq67YB7T/4eugpYsU=;
+ b=owEBbQGS/pANAwAKAW1jV4FG9KFmAcsmYgBp6h21DTVu2ydkLkljItoAOUkFjIPvncbYhynNR
+ 84MChmUg1aJATMEAAEKAB0WIQTXikd3yUPmOPWSLPJtY1eBRvShZgUCaeodtQAKCRBtY1eBRvSh
+ Zvs3B/9CIWC4fkDFZL92lUp0b584FPfEZL+N64Bmml6obk4dflvNKsG6Urk0A4OyaPD1N/4Jm0g
+ 0USbcdpeCf9crglQeg6icpziwSqh2HJuA3ko49vHCpvDsdB9xZ91h9OUUVc0iH6u/0WHxc+DX7b
+ Yb/baIncvwu2qvxOhqsDXxtS6Oa6aQ49YZ9T/0+DISurG49uo/SMwtbLpjD+b+rRcp/OdZQQwQC
+ xQX5WN/UZriyQmJa2keXsTrSdAyYltANF+59jfTCPrQlBI7C3T4nYcgdMzQ7OFcJhW9uX12I92A
+ INQ74zN47KidKJ3Ommuuz20ydKpUHa+nVVPveCTW4wntxQgs
+X-Developer-Key: i=daviewales@disroot.org; a=openpgp;
+ fpr=8F5BAFB15444A769DC3B61684022B817D275D037
+X-Endpoint-Received: by B4 Relay for daviewales@disroot.org/default with
+ auth_id=737
+X-Original-From: David Wales <daviewales@disroot.org>
+Reply-To: daviewales@disroot.org
 
-On Thu, Apr 23, 2026 at 12:07:42PM +0000, Peng Fan wrote:
-> > Subject: Re: [PATCH 2/4] arm64: dts: imx95: switch usb3 controller to
-> > flattened model
-> > 
-> > On Tue, Apr 21, 2026 at 11:53:12PM -0400, Frank Li wrote:
-> > > On Tue, Apr 21, 2026 at 06:55:01PM +0800, Xu Yang wrote:
-> > > > Switch to use flattened model for USB3 controller. To enable USB
-> > > > controller with restricted DMA access range to work correctly, add
-> > a
-> > > > pseudo simple-bus to constrain the dma address.
-> > >
-> > > i.mx95 should fix >4G dma space's problem. Does it impact other no-
-> > nxp
-> > > boards?
-> > 
-> > Yes, i.MX95 has fixed >3G address DMA access problem.
-> > 
-> > It's another issue. HSIO domain only support 36 bit bus access. If not
-> > use smmu, no any issue. If use smmu, it will allocate memory space of
-> > 36 bit < iova < 48bit.
-> > HSIO can't handle this case.
-> 
-> If using smmu, iova will be in range {36bit, 48bit}? How?
+From: David Wales <daviewales@disroot.org>
 
-Yes, if use smmu and not set dma-range:
+Add device tree for Motorola Moto G2 (2014) (motorola-titan) smartphone
+based on the Qualcomm MSM8226 SoC.
 
-[    3.139529] dwc3 4c100000.usb: dwc3_alloc_one_event_buffer evt->dma:0x0000fffffffff000 len:4096
+Initially supported features:
+  - Buttons (Volume Down/Up, Power)
+  - eMMC
+  - Hall Effect Sensor
+  - Simple framebuffer display
+  - Vibrator
 
-if use smmu and set dma-range:
+Based on device tree for similar device msm8226-motorola-falcon.
+Initial commit for falcon notes that dhob and shob reserved-memory
+regions seem to be related to a Motorola specific mechanism. [1]
 
-[    3.136849] dwc3 4c100000.usb: dwc3_alloc_one_event_buffer evt->dma:0x0000000ffffff000 len:4096
+[1] https://github.com/LineageOS/android_kernel_motorola_msm8226/blob/cm-14.1/Documentation/devicetree/bindings/misc/hob_ram.txt
 
-Thanks,
-Xu Yang
+Signed-off-by: David Wales <daviewales@disroot.org>
+---
+ arch/arm/boot/dts/qcom/Makefile                   |   1 +
+ arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts | 351 ++++++++++++++++++++++
+ 2 files changed, 352 insertions(+)
+
+diff --git a/arch/arm/boot/dts/qcom/Makefile b/arch/arm/boot/dts/qcom/Makefile
+index c7873dcef154..de311293ce16 100644
+--- a/arch/arm/boot/dts/qcom/Makefile
++++ b/arch/arm/boot/dts/qcom/Makefile
+@@ -1,6 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+ dtb-$(CONFIG_ARCH_QCOM) += \
+ 	msm8226-motorola-falcon.dtb \
++	msm8226-motorola-titan.dtb \
+ 	qcom-apq8016-sbc.dtb \
+ 	qcom-apq8026-asus-sparrow.dtb \
+ 	qcom-apq8026-huawei-sturgeon.dtb \
+diff --git a/arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts b/arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts
+new file mode 100644
+index 000000000000..9abb4738749d
+--- /dev/null
++++ b/arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts
+@@ -0,0 +1,351 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2026, David Wales <daviewales@disroot.org>
++ */
++
++/dts-v1/;
++
++#include "qcom-msm8226.dtsi"
++#include "pm8226.dtsi"
++
++/delete-node/ &smem_region;
++
++/ {
++	model = "Motorola Moto G2 (2014)";
++	compatible = "motorola,titan", "qcom,msm8226";
++	chassis-type = "handset";
++
++	aliases {
++		mmc0 = &sdhc_1; /* eMMC */
++	};
++
++	chosen {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		framebuffer@3200000 {
++			compatible = "simple-framebuffer";
++			reg = <0x03200000 0x800000>;
++			width = <720>;
++			height = <1280>;
++			stride = <(720 * 3)>;
++			format = "r8g8b8";
++			vsp-supply = <&reg_lcd_pos>;
++			vsn-supply = <&reg_lcd_neg>;
++			vddio-supply = <&vddio_disp_vreg>;
++
++			clocks = <&mmcc MDSS_AHB_CLK>,
++				 <&mmcc MDSS_AXI_CLK>,
++				 <&mmcc MDSS_BYTE0_CLK>,
++				 <&mmcc MDSS_ESC0_CLK>,
++				 <&mmcc MDSS_MDP_CLK>,
++				 <&mmcc MMSS_MISC_AHB_CLK>,
++				 <&mmcc MDSS_PCLK0_CLK>,
++				 <&mmcc MDSS_VSYNC_CLK>;
++			power-domains = <&mmcc MDSS_GDSC>;
++		};
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		event-hall-sensor {
++			label = "Hall Effect Sensor";
++			gpios = <&tlmm 109 GPIO_ACTIVE_LOW>;
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_LID>;
++			linux,can-disable;
++		};
++
++		key-volume-down {
++			label = "Volume Down";
++			gpios = <&tlmm 107 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_VOLUMEDOWN>;
++			debounce-interval = <15>;
++		};
++
++		key-volume-up {
++			label = "Volume Up";
++			gpios = <&tlmm 106 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_VOLUMEUP>;
++			debounce-interval = <15>;
++		};
++	};
++
++	vddio_disp_vreg: regulator-vddio-disp {
++		compatible = "regulator-fixed";
++		regulator-name = "vddio_disp";
++
++		gpio = <&tlmm 10 GPIO_ACTIVE_HIGH>;
++		startup-delay-us = <300>;
++		enable-active-high;
++		regulator-boot-on;
++	};
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		framebuffer@3200000 {
++			reg = <0x03200000 0xfa0000>;
++			no-map;
++		};
++
++		dhob@f500000 {
++			reg = <0x0f500000 0x40000>;
++			no-map;
++		};
++
++		shob@f540000 {
++			reg = <0x0f540000 0x2000>;
++			no-map;
++		};
++
++		smem_region: smem@fa00000 {
++			reg = <0x0fa00000 0x100000>;
++			no-map;
++		};
++
++		reserved@fb00000 {
++			reg = <0x0fb00000 0x400000>;
++			no-map;
++		};
++	};
++};
++
++&blsp1_i2c4 {
++	status = "okay";
++
++	regulator@3e {
++		compatible = "ti,tps65132";
++		reg = <0x3e>;
++
++		pinctrl-0 = <&reg_lcd_default>;
++		pinctrl-names = "default";
++
++		reg_lcd_pos: outp {
++			regulator-name = "outp";
++			regulator-min-microvolt = <5400000>;
++			regulator-max-microvolt = <5600000>;
++			regulator-active-discharge = <1>;
++			regulator-boot-on;
++			enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
++		};
++
++		reg_lcd_neg: outn {
++			regulator-name = "outn";
++			regulator-min-microvolt = <5400000>;
++			regulator-max-microvolt = <5600000>;
++			regulator-active-discharge = <1>;
++			regulator-boot-on;
++			enable-gpios = <&tlmm 13 GPIO_ACTIVE_HIGH>;
++		};
++	};
++};
++
++&pm8226_vib {
++	status = "okay";
++};
++
++&rpm_requests {
++	regulators {
++		compatible = "qcom,rpm-pm8226-regulators";
++
++		pm8226_s3: s3 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1300000>;
++		};
++
++		pm8226_s4: s4 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2200000>;
++		};
++
++		pm8226_s5: s5 {
++			regulator-min-microvolt = <1150000>;
++			regulator-max-microvolt = <1150000>;
++		};
++
++		pm8226_l1: l1 {
++			regulator-min-microvolt = <1225000>;
++			regulator-max-microvolt = <1225000>;
++		};
++
++		pm8226_l2: l2 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++		};
++
++		pm8226_l3: l3 {
++			regulator-min-microvolt = <750000>;
++			regulator-max-microvolt = <1337500>;
++		};
++
++		pm8226_l4: l4 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++		};
++
++		pm8226_l5: l5 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++		};
++
++		pm8226_l6: l6 {
++			/* Hall effect sensor */
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-always-on;
++		};
++
++		pm8226_l7: l7 {
++			regulator-min-microvolt = <1850000>;
++			regulator-max-microvolt = <1850000>;
++		};
++
++		pm8226_l8: l8 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8226_l9: l9 {
++			regulator-min-microvolt = <2050000>;
++			regulator-max-microvolt = <2050000>;
++		};
++
++		pm8226_l10: l10 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8226_l12: l12 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8226_l14: l14 {
++			regulator-min-microvolt = <2750000>;
++			regulator-max-microvolt = <2750000>;
++		};
++
++		pm8226_l15: l15 {
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <2800000>;
++		};
++
++		pm8226_l16: l16 {
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3350000>;
++		};
++
++		pm8226_l17: l17 {
++			regulator-min-microvolt = <2950000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8226_l18: l18 {
++			regulator-min-microvolt = <2950000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8226_l19: l19 {
++			regulator-min-microvolt = <2850000>;
++			regulator-max-microvolt = <2850000>;
++		};
++
++		pm8226_l20: l20 {
++			regulator-min-microvolt = <3075000>;
++			regulator-max-microvolt = <3075000>;
++		};
++
++		pm8226_l21: l21 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2950000>;
++			regulator-allow-set-load;
++		};
++
++		pm8226_l22: l22 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8226_l23: l23 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8226_l24: l24 {
++			regulator-min-microvolt = <1300000>;
++			regulator-max-microvolt = <1350000>;
++		};
++
++		pm8226_l25: l25 {
++			regulator-min-microvolt = <1775000>;
++			regulator-max-microvolt = <2125000>;
++		};
++
++		pm8226_l26: l26 {
++			regulator-min-microvolt = <1225000>;
++			regulator-max-microvolt = <1225000>;
++		};
++
++		pm8226_l27: l27 {
++			regulator-min-microvolt = <2050000>;
++			regulator-max-microvolt = <2050000>;
++		};
++
++		pm8226_l28: l28 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <3400000>;
++			regulator-boot-on;
++		};
++
++		pm8226_lvs1: lvs1 {
++			/* Pull-up for I2C lines */
++			regulator-always-on;
++		};
++	};
++};
++
++&sdhc_1 {
++	vmmc-supply = <&pm8226_l17>;
++	vqmmc-supply = <&pm8226_l6>;
++	bus-width = <8>;
++	non-removable;
++
++	status = "okay";
++};
++
++&smbb {
++	qcom,fast-charge-safe-current = <2000000>;
++	qcom,fast-charge-current-limit = <1900000>;
++	qcom,fast-charge-safe-voltage = <4400000>;
++	qcom,minimum-input-voltage = <4300000>;
++
++	status = "okay";
++};
++
++&usb {
++	extcon = <&smbb>;
++	dr_mode = "peripheral";
++
++	status = "okay";
++};
++
++&usb_hs_phy {
++	extcon = <&smbb>;
++	v1p8-supply = <&pm8226_l10>;
++	v3p3-supply = <&pm8226_l20>;
++};
++
++&tlmm {
++	reg_lcd_default: reg-lcd-default-state {
++		pins = "gpio12", "gpio13";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++		output-high;
++	};
++};
+
+-- 
+2.53.0
+
+
