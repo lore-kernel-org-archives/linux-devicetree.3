@@ -1,166 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B415E3DE450;
-	Thu, 23 Apr 2026 08:41:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D393DE457
+	for <devicetree@vger.kernel.org>; Thu, 23 Apr 2026 08:42:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776933681; cv=none; b=oS/7DgMoyBe9HUXWCtuyIqFLWBCVCybJzj2GF1OmpSRdnSEXeQNPUkbgctqRl8Qe+A8yQH7SWOd/MCGuEp2QvevVTzCvhZaTnuCwlQ8QuNmhN9lMpMb5ByuG51nMtSD6Qg0gxDn4Gmw8tgaYoIql7A31EY7o2pF0oa9uGDrgVT8=
+	t=1776933728; cv=none; b=YCb5IJrxvmsUgH+lePmA8H8cggM2BjBdeTOtTSSC7ojuJqt7WHtqgz3fwvbBmXQMcu9K20qdfE0Ny/m7jZ+S9U4nU9nLOFNBHcO1bb+dFBlTCG9+PbXd2cSPOGx/eFf3Q/bu0tg5YGquHfkh3rgOCHiXLnjYOvB225qnwpJF3jI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776933681; c=relaxed/simple;
-	bh=agRKMXy9ctCLpZ9fGvDgyOD6rYo42OEd3ThhJ4Q04bk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tya8ixUkGyrnN/OvyMTKXceX2B4GCGCYtcMwR3bifZ+7n8m9ICryTd+Ov1WENRx8uxPktnKiVTA6fGKhh0Uh1LOz3z4XBRk/6JSiAsFJdGUf4LSvfHuyNNXcS2TXliz5S/We05+Kq7fHguN8BwCxt24+Yo8MuDyX5II6ASogPW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JQjaZBUU; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776933728; c=relaxed/simple;
+	bh=qbmvRxNwjPJySkdRlLxR16VTUeX6pN7MhszSZBGGJgE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=D3tUTt9qSDMJaZSePrLeWPO5cHTCK6kviLMSarFalOXb8j2mo3mY4AiizQgdqh9SgrRfWiLVbyBL1E1aBDZoGJ0zEnZmSNraVl9eciqhzlCNTmrpE66wMkt6Gt1cv7PdLfDxLjfypRWEcUweYQ2t+OiY/1tMXGyw6xSGg96H/80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=RHSMPu0z; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JQjaZBUU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0E95C2BCB2;
-	Thu, 23 Apr 2026 08:41:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776933681;
-	bh=agRKMXy9ctCLpZ9fGvDgyOD6rYo42OEd3ThhJ4Q04bk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JQjaZBUUtqKHPNlTTYgFy5n0o1FPGzfq7ltWypaNPOyL9zejUOFQoj+D+kZ5pYSl/
-	 FGe5w26o2AatKyGdvpzyMpSN8hGZNoEZhspkDRRy34qC4LHz7/pXzrT5lqeJW/nQH9
-	 d/gLn9vY+/SoU20F9z/VxJIyKZ9+OzR4B/TUz0cyBG5y4UfIxBT7vQycFPJnyFik2r
-	 oOBBCmoPKLQptbVYYR2NBar7xkyAJ6fiqx93u0W8U2XBYW/lGpeEwepZBoshJEHKpI
-	 4bO5BThkM5TRh4Acy+5Oc7b1HlW0rlgsmT8xOp1biJ121rjk/8wGyDqEaFd0yOzori
-	 v5l93rPPreT/Q==
-Date: Thu, 23 Apr 2026 10:41:18 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Brian Chiang <chiang.brian@inventec.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: (pmbus/lx1308) Add LX1308 support
-Message-ID: <20260423-free-blond-boobook-ceae7e@quoll>
-References: <20260422-add-support-lx1308-v1-0-9b8322f45aae@inventec.com>
- <20260422-add-support-lx1308-v1-1-9b8322f45aae@inventec.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="RHSMPu0z"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 9DCC54E42AC8;
+	Thu, 23 Apr 2026 08:42:04 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 62E8960495;
+	Thu, 23 Apr 2026 08:42:04 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E551910460B49;
+	Thu, 23 Apr 2026 10:41:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1776933721; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=hpnJk/yJbY+uVhKNecCDBid6JdXHXsFWMSbXliiAR00=;
+	b=RHSMPu0z0hSdt3mn4ffe5+6hUm/ZCjtCUZUKE3rWKy/r3VhfZhbKf1a9Ulxwtthkq/Wtgh
+	ronPMyU1B2CxZw6JMN3u3wI3DLWBsdkToYIBM80eaHi7YgAeDyH1Z2ue1q/847GcERxQOk
+	g0JXmw3tYv6IvZXdp7pb5HMp5Kl7KsJKyYniqOHUilIBM3mmL0cJgDls1/VLPGNufaZTfw
+	v2x1SEkJspkHM37hhCeIXdZLX8dFFZdF2oY0Y3ytw9DTXzpHCHxarn2MoEkQvoK+911wsc
+	ELgVc4CKa9SO2hHeYBProWT6SvtWBufgTUp8YNP4tGFwdFM5Ild9qV3eo9YpxA==
+Date: Thu, 23 Apr 2026 10:41:39 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Doug Anderson <dianders@chromium.org>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Andrew Lunn <andrew@lunn.ch>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Kalle Niemi <kaleposti@gmail.com>, Matti
+ Vaittinen <mazziesaccount@gmail.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha
+ Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
+ <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Michael
+ Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Andi
+ Shyti <andi.shyti@kernel.org>, Wolfram Sang
+ <wsa+renesas@sang-engineering.com>, Peter Rosin <peda@axentia.se>, Arnd
+ Bergmann <arnd@arndb.de>, Saravana Kannan <saravanak@kernel.org>, Bjorn
+ Helgaas <bhelgaas@google.com>, Charles Keepax
+ <ckeepax@opensource.cirrus.com>, Richard Fitzgerald
+ <rf@opensource.cirrus.com>, David Rhodes <david.rhodes@cirrus.com>, Linus
+ Walleij <linusw@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>, Mark
+ Brown <broonie@kernel.org>, Len Brown <lenb@kernel.org>, Daniel Scally
+ <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron
+ <jonathan.cameron@huawei.com>, Dave Jiang <dave.jiang@intel.com>, Alison
+ Schofield <alison.schofield@intel.com>, Vishal Verma
+ <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>, Shawn Guo
+ <shawnguo@kernel.org>, Wolfram Sang <wsa@kernel.org>,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-gpio@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-cxl@vger.kernel.org, Allan Nielsen <allan.nielsen@microchip.com>,
+ Horatiu Vultur <horatiu.vultur@microchip.com>, Steen Hegelund
+ <steen.hegelund@microchip.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v6 02/27] of: dynamic: Fix overlayed devices not probing
+ because of fw_devlink
+Message-ID: <20260423104139.0246ca0a@bootlin.com>
+In-Reply-To: <CAMuHMdUDCQrQ2Z9D7-ZOKiuDznDJVf2R_b_8P9+Xhk4RiJ3vdw@mail.gmail.com>
+References: <20260325143555.451852-1-herve.codina@bootlin.com>
+	<20260325143555.451852-3-herve.codina@bootlin.com>
+	<CAMuHMdU7x7LWFkD9xiq+wyOqnn0bdzr+JLfvbBexoiWyv8kftA@mail.gmail.com>
+	<CAD=FV=UK3NQKQN7FXyG4nGdDKO=LQYhnL4ZweomQ_4R9-EAYag@mail.gmail.com>
+	<aekg_IELc65BFrWp@ashevche-desk.local>
+	<CAD=FV=XTvvq11y7kxmrfBe3dZsKro7N9=i-Hj9aqsLBay2Q9Rw@mail.gmail.com>
+	<CAMuHMdUDCQrQ2Z9D7-ZOKiuDznDJVf2R_b_8P9+Xhk4RiJ3vdw@mail.gmail.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260422-add-support-lx1308-v1-1-9b8322f45aae@inventec.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Apr 22, 2026 at 12:06:15PM +0000, Brian Chiang wrote:
-> Add device tree bindings for the Luxshare LX1308, a high-efficiency
-> 12V 860W DC/DC power module with PMBus interface.
+Hi Geert, Doug,
+
+On Thu, 23 Apr 2026 08:53:33 +0200
+Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+
+> Hi Doug,
 > 
-> Signed-off-by: Brian Chiang <chiang.brian@inventec.com>
-> ---
->  .../bindings/hwmon/pmbus/luxshare,lx1308.yaml      | 49 ++++++++++++++++++++++
->  .../devicetree/bindings/vendor-prefixes.yaml       |  2 +
->  MAINTAINERS                                        |  8 ++++
->  3 files changed, 59 insertions(+)
+> On Wed, 22 Apr 2026 at 21:40, Doug Anderson <dianders@chromium.org> wrote:
+> > On Wed, Apr 22, 2026 at 12:27 PM Andy Shevchenko
+> > <andriy.shevchenko@linux.intel.com> wrote:  
+> > > On Wed, Apr 22, 2026 at 11:51:36AM -0700, Doug Anderson wrote:  
+> > > > On Wed, Apr 22, 2026 at 10:44 AM Geert Uytterhoeven
+> > > > <geert@linux-m68k.org> wrote:  
+> > > > > On Wed, 25 Mar 2026 at 15:36, Herve Codina <herve.codina@bootlin.com> wrote:  
+> > >
+> > > ...
+> > >  
+> > > > > > +               if (fwnode->flags & FWNODE_FLAG_NOT_DEVICE)  
+> > > > >
+> > > > > After commit f72e77c33e4b5657 ("device property: Make modifications
+> > > > > of fwnode "flags" thread safe"), this must be changed to:
+> > > > >
+> > > > >     if (fwnode_test_flag(fwnode, FWNODE_FLAG_NOT_DEVICE))
+> > > > >
+> > > > > With this change my DT overlays are working again.
+> > > > >
+> > > > > I guess keeping the FWNODE_FLAG_* names, but changing their values
+> > > > > from bit masks to bit numbers was probably not such a good idea,
+> > > > > as it fails to catch missing conversions...  
+> > > >
+> > > > Crud, I should have thought about that. :( Do you think it's worth it
+> > > > to do a rename at this point to catch future problems?  
 > 
-> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/luxshare,lx1308.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/luxshare,lx1308.yaml
-> new file mode 100644
-> index 000000000000..a8d92447508d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/luxshare,lx1308.yaml
-> @@ -0,0 +1,49 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +
+> I am afraid it is too late (it is already in Linus' tree), and would
+> add only more to the confusion.  We just have to take care when this
+> patch (and 01/27) is backported to stable.  Fortunately the reverse
+> is caught, as the fwnode_*_flag() helpers did not exist before.
+> 
+> > > You can try locally with allyesconfig / allmodconfig and see the outcome.
+> > > If there are missed cases, and their amount reasonably low, I won't bother
+> > > in this case.  
+> >
+> > I believe I caught all of them at the time of my CL, but the problem
+> > is in-flight stuff, right? I think the problem Geert is pointing out
+> > isn't something I missed in my original patch but rather an
+> > interaction between my patch and this in-flight patch.  
+> 
+> There are no unconverted cases in upstream or linux-next
+> (I checked yesterday, and rechecked this morning).
+> 
 
-Drop blank line here
+Thanks for having pointed out this modification.
+It will save some debug hours on my side when I test the next iteration. 
 
-> +$id: http://devicetree.org/schemas/hwmon/pmbus/luxshare,lx1308.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Luxshare LX1308 Digital DC/DC Power Module
-> +
-> +maintainers:
-> +  - Brian Chiang <chiang.brian@inventec.com>
-> +
-> +description: |
-
-Do not need '|' unless you need to preserve formatting.
-
-> +  The LX1308 is a high-efficiency, non-isolated, regulated 12V, 860W,
-> +  digital DC/DC power module. The module operates from a 40V to 60V DC
-> +  primary bus and provides a 12V regulated output voltage. It can deliver
-> +  up to 860W continuous and 1300W in transient.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - luxshare,lx1308lch
-> +      - luxshare,lx1308nch
-> +      - luxshare,lx1308sch
-> +      - luxshare,lx1308ldh
-> +      - luxshare,lx1308ndh
-> +      - luxshare,lx1308sdh
-> +      - luxshare,lx1308
-
-What are all these devices? What are the differences?
-
-Especially, what is the difference between lx1308sdh and lx1308?
-
-> +
-> +  reg:
-> +    maxItems: 1
-
-No properties? Looks like suitable for trivial bundings.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      power-module@60 {
-> +        compatible = "luxshare,lx1308";
-> +        reg = <0x60>;
-> +      };
-> +    };
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> index ee7fd3cfe203..67fb1592daaa 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -967,6 +967,8 @@ patternProperties:
->      description: Shenzhen Luckfox Technology Co., Ltd.
->    "^lunzn,.*":
->      description: Shenzhen Lunzn Technology Co., Ltd.
-> +  "^luxshare,.*":
-> +    description: Luxshare-ICT Co., Ltd.
->    "^luxul,.*":
->      description: Lagrand | AV
->    "^lwn,.*":
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c3fe46d7c4bc..58fa595cff6a 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -15175,6 +15175,14 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/light/liteon,ltr390.yaml
->  F:	drivers/iio/light/ltr390.c
->  
-> +LUXSHARE LX1308 PMBUS DRIVER
-> +M:	Brian Chiang <chiang.brian@inventec.com>
-> +L:	linux-hwmon@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/hwmon/pmbus/luxshare,lx1308.yaml
-
-
-> +F:	Documentation/hwmon/lx1308.rst
-> +F:	drivers/hwmon/pmbus/lx1308.c
-
-There are no such files
+For this in-flight series, I will use new accessors introduced in
+f72e77c33e4b5657 ("device property: Make modifications of fwnode "flags"
+thread safe")
 
 Best regards,
-Krzysztof
+Hervé
 
