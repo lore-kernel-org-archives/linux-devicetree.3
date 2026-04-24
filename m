@@ -1,112 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948CB390219;
-	Fri, 24 Apr 2026 12:14:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38F92139C9;
+	Fri, 24 Apr 2026 12:14:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777032851; cv=none; b=W070sOT8FhkkpdR3PXXA/kavyiVQ4CxEiKHDWeCNoIvNe8Y99QOPgrqlyJ+EwmuBvO1jh5xho3MROvh3SpMLrXslzbap1E8B5tI4ThJF27e2lzugfTD7lu7OSuvN1Ek0QPW7/4H/cq3BcvybmzsK1BhuCB5V9tKQ5UrRCjFszks=
+	t=1777032896; cv=none; b=m5jmCR0Pvg7vU5SLm176Q3HH52p0U73T0mPGA9he4nfwvko7mAkCL/Ogv5Ux4HlfhK5xiiMZ6F1xyQlvNb6DlI5QeeOzlXp7MgjaMSGrjnsA992Dtlg80NTMUwcDS+h8Z2pJY5mVOqHu4YdSEr9Ax31Y8NDI5/pmE7ruyItDZQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777032851; c=relaxed/simple;
-	bh=ZO9aEtxmQmqiOcUh+KVKA2CRIyUJT/YOpr6ZLOkTSx8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=H0Svy5DCRsydsxoLPYxOls6O1cTVROnODa2ovZ9sVMRH3jBEdZpY7XL/qvhd2SK2KP1KDxRd+7Xy7RZJ/D4UsT+ge2vrOD3dDz67wbfloqodPFePWDj4cdLnM1O+t5BwtSdGcCopNB1m6ib3MPrOHfDhW6PIlZW3Z5+vodi1/aQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=caZp/jxR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777032896; c=relaxed/simple;
+	bh=3NQ1vHWhMftn1IYKu0JMtVhpOTKltPCykRKZOIMhdRo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y6LMZyfoT3cWSNwsq8SN6MJaxFjnNwvrEEaIwhzJbMnADJT/0wUSze6PnCTNFWlLe0evLTGV4z7Ny56pzZTtTuyCO36srqypX9Qwk0nVPdTCKqejIwBKJQXBp9QmPThpXFYB797YwCxNyH/wtTrX5G9vHI/ghIyZc1Ndbmqxlss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nsykInhT; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="caZp/jxR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92257C19425;
-	Fri, 24 Apr 2026 12:14:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777032851;
-	bh=ZO9aEtxmQmqiOcUh+KVKA2CRIyUJT/YOpr6ZLOkTSx8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=caZp/jxRCJ2YGfckxgsVL4azsFonMiBQ9WYTxr+jdtdpvk9HcuiM+1I4Flyp73/y4
-	 YKTIbF0/9ar8/8DDMvtSs9/XYatVezqMeNwbffL1oaRjLEZBJWYmvj2f7AEuBgTjNw
-	 wMgTaN3EcbSt0d2aKscFwEyKvLwtnvNBmNZN6qWTI8n8UXN9mqmLvC6NBxaXTUZOkj
-	 58Q2FjM5dva/eYpUVuEOv0EA0VCIMLG/7N+4KzETmZizDpQ7QWA2VJjEfNe4fqlgaD
-	 YFEiRm07wOilKdLinDJyZkGpD2eaKC+LbDtDbCs96UID7vDMZRNyW3HB3PXjOPda0B
-	 5M6B2bAxMBphQ==
-Date: Fri, 24 Apr 2026 13:14:01 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Piyush Patle <piyushpatle228@gmail.com>
-Cc: Andreas Klinger <ak@it-klinger.de>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] iio: adc: hx711: refactor to per-chip
- hx711_chip_info structure
-Message-ID: <20260424131401.707ba1cd@jic23-huawei>
-In-Reply-To: <20260422175910.1258579-3-piyushpatle228@gmail.com>
-References: <20260422175910.1258579-1-piyushpatle228@gmail.com>
-	<20260422175910.1258579-3-piyushpatle228@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nsykInhT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777032893; x=1808568893;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=3NQ1vHWhMftn1IYKu0JMtVhpOTKltPCykRKZOIMhdRo=;
+  b=nsykInhT0/CG/jbLRxuDMJm0+VkBxaPrZfc2nK7DhEDjtbyp1tCfD9BA
+   2eznidXhxCAVb9s36kvZBuSJZ32u74HieizYsLYwvQg+jxSxOyYJgU36e
+   lb4qf7EXDvya8syrRtG+pV7c1GPfhgg8Hqwpz/lZsxq8PUmfgPuSpXEbJ
+   TmuKwdp6UObjp6phkeD5owiKfqO4YJyMRl1ZEPRcCEsyrSeElBrLLyJtw
+   yug4ESFhoMWuQg6WydgSUeycvUdPFV5za2VSAhCtWmuvVNeqVKiXdbro1
+   kwfhmo5brmrcPpo/mwbA829zyVU5xAcHunhArvTJQb+46aPOG9WZrE/Vx
+   A==;
+X-CSE-ConnectionGUID: FE72tDejR8yWTmFwYVJAYA==
+X-CSE-MsgGUID: NCFiulFiQwanQCesfUCLiw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="77714867"
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; 
+   d="scan'208";a="77714867"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 05:14:53 -0700
+X-CSE-ConnectionGUID: uX0SI5zbS7CLQUbDwfa2hA==
+X-CSE-MsgGUID: sH8xp8+aSY2wihZHUJJHtw==
+X-ExtLoop1: 1
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.56])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 05:14:50 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 33F3D11F7D2;
+	Fri, 24 Apr 2026 15:14:50 +0300 (EEST)
+Date: Fri, 24 Apr 2026 15:14:50 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+Cc: laurent.pinchart@ideasonboard.com,
+	Tarang Raval <tarang.raval@siliconsignals.io>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+	Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
+	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+	Svyatoslav Ryhel <clamor95@gmail.com>, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/3] media: i2c: Add os02g10 camera sensor driver
+Message-ID: <aeteuimzPdmE1rTB@kekkonen.localdomain>
+References: <20260424092554.26130-1-elgin.perumbilly@siliconsignals.io>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260424092554.26130-1-elgin.perumbilly@siliconsignals.io>
 
-On Wed, 22 Apr 2026 23:29:09 +0530
-Piyush Patle <piyushpatle228@gmail.com> wrote:
+Hi Elgin,
 
-> Introduce hx711_chip_info to hold per-variant static configuration:
-> device name, IIO channel spec, channel count, and iio_info pointer.
-> Store a chip_info pointer in hx711_data and populate indio_dev fields
-> from it at probe instead of hardcoding them.
-> 
-> Pass trailing pulse count directly to hx711_read() instead of
-> computing it inside the function, and change hx711_reset_read() to
-> take a const struct iio_chan_spec * instead of an integer channel
-> index so callers can pass the full channel descriptor.
-> 
-> Use device_get_match_data() to look up the chip_info from the
-> of_device_id table. No functional change for existing HX711 users.
-> 
-> Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
-Couple of things sashiko raised on this...
+On Fri, Apr 24, 2026 at 02:55:44PM +0530, Elgin Perumbilly wrote:
+> Patch 1/3:
+> - Drop the fixed data-lanes property, as the sensor supports only a 2-lane MIPI interface.
 
-One about hx711_gain_to_scale() is an existing driver bug.
-Need to take a per instance copy of that so as to support
-more than one sensor.  Ideally fix that whilst you are touching the
-driver (as a precursor patch - maybe we'll backport it) but if you
-want to leave it for another day then just say that in the cover letter.
+Does it really say that in the datasheet? To me this looks like a driver
+property.
 
-The other one about matching via non DT routes is an interesting corner
-that i suspect applies to other drivers.  The module alias in this
-driver is also rather odd.
+-- 
+Regards,
 
-
->  
-> @@ -571,7 +602,6 @@ static struct platform_driver hx711_driver = {
->  module_platform_driver(hx711_driver);
->  
->  MODULE_AUTHOR("Andreas Klinger <ak@it-klinger.de>");
-> -MODULE_DESCRIPTION("HX711 bitbanging driver - ADC for weight cells");
-> +MODULE_DESCRIPTION("HX711 and compatible bitbanging ADC driver");
->  MODULE_LICENSE("GPL");
->  MODULE_ALIAS("platform:hx711-gpio");
-So Sashiko thinks (and it's plausible) that this module alias is a problem
-as if the driver match is against it might be possible to probe the
-driver without the match data getting set.  I think it's referring to
-the final driver match fallback path
-https://elixir.bootlin.com/linux/v7.0/source/drivers/base/platform.c#L1370
-
-Whilst unlikely anyone would get to this, I guess the fix is to ensure
-we get a match by having a platform_device_id table for legacy matching
-and making sure that covers such a match and provides data.
-
-We don't (I think) currently have an equivalent of the catch all matching
-functions that exist for i2c and spi.
-Bit ugly for platform data as I think you need to get it via
-platform_get_device_id()
-
-Maybe we just check if device_get_match_data() returns NULL and fail instead.
-
-> -
-
+Sakari Ailus
