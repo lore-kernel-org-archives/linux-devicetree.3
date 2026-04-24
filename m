@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C27B39A063;
-	Fri, 24 Apr 2026 19:21:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA04F2BB1D;
+	Fri, 24 Apr 2026 19:21:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777058499; cv=none; b=luCIgO/FOv65oJylPrNOK4nK0q5X26mSGsjvy2FU/Gk72xJr5yYcu9+kaXtlCMT9VIbGynhmOxbEZntKV+S/rsfSJm21YZYibOtAjMciP8LscC6EzWZ2RPms56pMoSx7V5ZJbiDnPoqgN4r94+mz6cv/XSVPZGnvWMlLvQ7S4Kg=
+	t=1777058505; cv=none; b=oGDy0YpCu5+2O43DgnNfmFiIYvjANIgK9leZt2OOlbAWeQhIxcySOaGWlNPWxHm0Fg2J00rW3MkhjTuNlD5A1+wp40UqGvacl0J5wAfV+EYb79R6E2yLRNWZCGVAZ9xVY77N7Pm+005znCFLVHAmr/a4CbDLsUTgPVifbxFZ/r4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777058499; c=relaxed/simple;
-	bh=CDfuH2SmmN+K4WcmOTWBN1VqRl4QabbTNxYayYalR8c=;
+	s=arc-20240116; t=1777058505; c=relaxed/simple;
+	bh=i6qFgr4BdGt7bca1DzWlDakJS74x3G3JFyTvjzdSAes=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XRQwPM6Id8NpCCWsyQpkW7yR0JKCvBM2JmWIODaHS9H/YaJrPMNOeDM/vcp3NfyG/Rci7riu6IN/33XpF8Uw7cc43u40sK+/u2M6HAY4mjLXYa9nJ9T3pkCAbT20awwYV9DSiaHtPh1XhgzMVFCRXRzQdg3NDF61DCGONVSMuZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PsSCmXlt; arc=none smtp.client-ip=192.198.163.18
+	 MIME-Version; b=gz3/U57PeFr5n7gVYJW12AKy0PUx9BxlQZIOBzqDPlT947wqz+no9gjbwnYVJgsDQy85I7Lctrl5llbx2pmPvuUd4omMOXreMy+VxoTlaoJAstNltFIZLcHzK0JUTixv6zVTTndkcoqs0X241V2fD9WOkwLMMVHHGW/LNfq3vnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Dx+uoDlq; arc=none smtp.client-ip=192.198.163.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PsSCmXlt"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Dx+uoDlq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777058498; x=1808594498;
+  t=1777058503; x=1808594503;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=CDfuH2SmmN+K4WcmOTWBN1VqRl4QabbTNxYayYalR8c=;
-  b=PsSCmXltqccWUYMCjnTc2dKX5Czb/md8CP01gkAgQMHNEg9ixghNtncJ
-   GY7OQSZOMjey/ZrFAO8W85Xyn6Y7JN8Zj7jA2q97vpuAjMZ+SxI+UrZ5f
-   OGga1Vyvkk4uZ7NkIQVwOyDVDCluvWjTEHw4pznHV4qjKHdHys/5nEeCR
-   N/RG0Lnz6AQCOn8uOwi5IRr6tpYlxKl8gDcDvq4XyA/lq8n2W5IiQt/B2
-   ZwfPxhtIrEYJLSR6FIdBf4f46j+eLLlqSCxFTU1NBAiDAAbTVXA5H//NZ
-   6rACQhgMAnoLfPl2ubLmZqkcXX9vp07bPeBcWllNTooubTY3dKCQYi6De
-   w==;
-X-CSE-ConnectionGUID: uYNhbIWLRp+KYOlTL9idQA==
-X-CSE-MsgGUID: ud506sVPQAWV5hFFBzAbEQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11766"; a="77208284"
+  bh=i6qFgr4BdGt7bca1DzWlDakJS74x3G3JFyTvjzdSAes=;
+  b=Dx+uoDlqYFZVPhq+rM7mpPIltuE9InHC1TAbvNkwfrVaJ+nFWKh9pse1
+   jfT/8kb3mJSV+BNMenPsUyr7wkscZuJyRpxu+nr80cGFos62xC8ImFlqc
+   5o7aK4qXwVdvY+v810GuifvpqBaxSrNR1G/k/4223NKXjLzYyZi4G3c60
+   fP5OYtYq6qQWoJXDnT9hpxBuQ/XhhBUj4t0d57HHkFqc6aYT9R7DzeaZD
+   6R2lkq6cf/c8X3rcLkjr9wpgt2Ofhj7UMY1s+wMPKGLHeA2nXm/pp4vSt
+   iX5jWfof3z6WWTk72keDAhT1QhtEhwbV8cp8U/VH9OqXF0OMluGB1kOKL
+   A==;
+X-CSE-ConnectionGUID: pvQRwN6cSme6+6ee2XHVUg==
+X-CSE-MsgGUID: bNHIyp/+Snmu/FCVuWxWmQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11766"; a="77208291"
 X-IronPort-AV: E=Sophos;i="6.23,197,1770624000"; 
-   d="scan'208";a="77208284"
+   d="scan'208";a="77208291"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 12:21:38 -0700
-X-CSE-ConnectionGUID: maz5UlhaQjSklYtwVIvBww==
-X-CSE-MsgGUID: 8ypUnF/8QDiCDFus7CbLLQ==
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 12:21:43 -0700
+X-CSE-ConnectionGUID: Vwc3PpAlRdeK88HXvq8J4w==
+X-CSE-MsgGUID: 8rWdw2j+R3ypnvJ12arYeA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,197,1770624000"; 
-   d="scan'208";a="232040496"
+   d="scan'208";a="232040512"
 Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 12:21:35 -0700
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 12:21:40 -0700
 From: Dawid Glazik <dawid.glazik@linux.intel.com>
 To: Lee Jones <lee@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -55,10 +55,11 @@ Cc: devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	dawid.glazik@linux.intel.com,
-	maciej.lawniczak@intel.com
-Subject: [PATCH v4 2/3] dt-bindings: mfd: syscon: add aspeed,ast2600-i3c-global compatible
-Date: Fri, 24 Apr 2026 22:21:00 +0200
-Message-ID: <41d66492e1a1d42f6888459288311094c8b7bc51.1777058942.git.dawid.glazik@linux.intel.com>
+	maciej.lawniczak@intel.com,
+	Jeremy Kerr <jk@codeconstruct.com.au>
+Subject: [PATCH v4 3/3] ARM: dts: aspeed-g6: Add nodes for i3c controllers
+Date: Fri, 24 Apr 2026 22:21:01 +0200
+Message-ID: <7a94a5f4cf84c11c7fba7485e666ecbaddfbe5cf.1777058942.git.dawid.glazik@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1777058942.git.dawid.glazik@linux.intel.com>
 References: <cover.1777058942.git.dawid.glazik@linux.intel.com>
@@ -71,34 +72,128 @@ MIME-Version: 1.0
 Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
 Content-Transfer-Encoding: 8bit
 
-Add aspeed,ast2600-i3c-global to the syscon binding compatible
-lists to document the AST2600 I3C global register syscon node.
+Add the i3c controller devices to the ast2600 g6 common dts. We add all
+6 busses to the common g6 definition, but leave disabled through the
+status property, to be enabled per-platform.
 
+Suggested-by: Jeremy Kerr <jk@codeconstruct.com.au>
 Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
 ---
- Documentation/devicetree/bindings/mfd/syscon.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+v4:
+ - removed i3c aliases
+ - renamed i3c-global node name to generic: syscon
+v3:
+ - add i3c aliases
+ - rebase on top of latest tree and solve conflicts
+ - as agreed with Jeremy off-list, he said I can take authorship of this going forward
+v2:
+ - use inline bus representation, without the i3c: label
+---
+ arch/arm/boot/dts/aspeed/aspeed-g6.dtsi | 91 +++++++++++++++++++++++++
+ 1 file changed, 91 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
-index e57add2bacd3..50c07038122f 100644
---- a/Documentation/devicetree/bindings/mfd/syscon.yaml
-+++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
-@@ -49,6 +49,7 @@ select:
-           - apm,xgene-mcb
-           - apm,xgene-rb
-           - apm,xgene-scu
-+          - aspeed,ast2600-i3c-global
-           - atmel,sama5d2-sfrbu
-           - atmel,sama5d3-nfc-io
-           - atmel,sama5d3-sfrbu
-@@ -161,6 +162,7 @@ properties:
-               - apm,xgene-mcb
-               - apm,xgene-rb
-               - apm,xgene-scu
-+              - aspeed,ast2600-i3c-global
-               - atmel,sama5d2-sfrbu
-               - atmel,sama5d3-nfc-io
-               - atmel,sama5d3-sfrbu
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
+index f5641128614f..51a6a4157f1b 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
++++ b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
+@@ -1066,6 +1066,97 @@ i2c15: i2c@800 {
+ 				};
+ 			};
+ 
++			bus@1e7a0000 {
++				compatible = "simple-bus";
++				#address-cells = <1>;
++				#size-cells = <1>;
++				ranges = <0 0x1e7a0000 0x8000>;
++
++				i3c_global: syscon@0 {
++					compatible = "aspeed,ast2600-i3c-global", "syscon";
++					reg = <0x0 0x1000>;
++					resets = <&syscon ASPEED_RESET_I3C_DMA>;
++				};
++
++				i3c0: i3c@2000 {
++					compatible = "aspeed,ast2600-i3c";
++					reg = <0x2000 0x1000>;
++					#address-cells = <3>;
++					#size-cells = <0>;
++					clocks = <&syscon ASPEED_CLK_GATE_I3C0CLK>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i3c1_default>;
++					interrupts = <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>;
++					aspeed,global-regs = <&i3c_global 0>;
++					status = "disabled";
++				};
++
++				i3c1: i3c@3000 {
++					compatible = "aspeed,ast2600-i3c";
++					reg = <0x3000 0x1000>;
++					#address-cells = <3>;
++					#size-cells = <0>;
++					clocks = <&syscon ASPEED_CLK_GATE_I3C1CLK>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i3c2_default>;
++					interrupts = <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
++					aspeed,global-regs = <&i3c_global 1>;
++					status = "disabled";
++				};
++
++				i3c2: i3c@4000 {
++					compatible = "aspeed,ast2600-i3c";
++					reg = <0x4000 0x1000>;
++					#address-cells = <3>;
++					#size-cells = <0>;
++					clocks = <&syscon ASPEED_CLK_GATE_I3C2CLK>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i3c3_default>;
++					interrupts = <GIC_SPI 104 IRQ_TYPE_LEVEL_HIGH>;
++					aspeed,global-regs = <&i3c_global 2>;
++					status = "disabled";
++				};
++
++				i3c3: i3c@5000 {
++					compatible = "aspeed,ast2600-i3c";
++					reg = <0x5000 0x1000>;
++					#address-cells = <3>;
++					#size-cells = <0>;
++					clocks = <&syscon ASPEED_CLK_GATE_I3C3CLK>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i3c4_default>;
++					interrupts = <GIC_SPI 105 IRQ_TYPE_LEVEL_HIGH>;
++					aspeed,global-regs = <&i3c_global 3>;
++					status = "disabled";
++				};
++
++				i3c4: i3c@6000 {
++					compatible = "aspeed,ast2600-i3c";
++					reg = <0x6000 0x1000>;
++					#address-cells = <3>;
++					#size-cells = <0>;
++					clocks = <&syscon ASPEED_CLK_GATE_I3C4CLK>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i3c5_default>;
++					interrupts = <GIC_SPI 106 IRQ_TYPE_LEVEL_HIGH>;
++					aspeed,global-regs = <&i3c_global 4>;
++					status = "disabled";
++				};
++
++				i3c5: i3c@7000 {
++					compatible = "aspeed,ast2600-i3c";
++					reg = <0x7000 0x1000>;
++					#address-cells = <3>;
++					#size-cells = <0>;
++					clocks = <&syscon ASPEED_CLK_GATE_I3C5CLK>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_i3c6_default>;
++					interrupts = <GIC_SPI 107 IRQ_TYPE_LEVEL_HIGH>;
++					aspeed,global-regs = <&i3c_global 5>;
++					status = "disabled";
++				};
++			};
++
+ 			fsim0: fsi@1e79b000 {
+ 				#interrupt-cells = <1>;
+ 				compatible = "aspeed,ast2600-fsi-master";
 -- 
 2.43.0
 
