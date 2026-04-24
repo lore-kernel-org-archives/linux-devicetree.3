@@ -1,84 +1,89 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B3733E346;
-	Fri, 24 Apr 2026 17:04:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19443264E6;
+	Fri, 24 Apr 2026 17:04:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777050251; cv=none; b=Zxy5TuyHn1a6pOfCJRrfkxX/WZvmcSgytqyptc6z7wBqNXc2vwwGO1riV3epzoA8WW6qumOjeKPyGN56P+kPKAmvpFd2wQxcVDLcOwBbB8VrVOt80cMfWDMxEZAcx8m9gRwYlJH7rrlGXjYsQBWjGkmyi6HJ4ms4FpTxUAWbG2o=
+	t=1777050265; cv=none; b=UNlaRgwHy3njBe+myjUAz4wkeZuU3pK9F0ecW6x8pexXuAhUE3XNwziG8o0mMaKb2BQHPTdDuao0Xl4qvubfJI4LZaPOpPQ/LKWy/9YmP8B82DM4W4t5SoOizxVuKqd/aoPCUtMazMnVzx63eUWMgnIiN9mhF/h2Ut34fXjvprg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777050251; c=relaxed/simple;
-	bh=H5tHFyISA/0brrNnyaE2kzW6wQFAU93vXx+COSGJ2Qw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BlXrC10sgdB7bMtxxcQai/ak8nmxEjRMeTpoGTtZ/w5TOT13k2ZS332wIGJlo8mUuiQ0oJprMW+zHgnNpIJ7WbRqC9JOrTPMxDKuJKBc/7vZr8s4eM0VjfPBMUB/3k5DHHtay7bjLw4I6WwSQhOJG8ej+jaKHShtoAVHfrqmzEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=XiAHcg/N; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1777050265; c=relaxed/simple;
+	bh=fgDUC+a18hY1qJbTl0Ow07f99fugS8GWyc5w2OTuH6M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jdz4JE9Lw9bKxaWNncVbk+Q4UtYrmX9ZrrI/6K5rcKb0spVwrRvEUGdk0N7nSIHKabXRgWXLAiGBAOupaT+tqcbxNdu1f1e8sWlRbS8ioV+uFN2kAKmvxI7kUWH1t0huCKBfJt/hY2CMbjwYbwqUY06meD8bZijZRwmxvHBr3Qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P3ttbWSV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="XiAHcg/N"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id ABD1D1A96;
-	Fri, 24 Apr 2026 19:02:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1777050147;
-	bh=H5tHFyISA/0brrNnyaE2kzW6wQFAU93vXx+COSGJ2Qw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XiAHcg/NYff3donuXTxSvj6CvLhyxI2BBomH4dXRaejocQyrdW7dv7FtdpgHaZF2n
-	 nET9x2w9HxMtb50x46PRDFf8rgWRFM+gEK8h7iTqsLD/ZXzE3fKbHbemOoeXal04c1
-	 sLLz4bAF2drrLzX/PlU3F2Yc8iDiFqYHpilDPpRE=
-Message-ID: <cb19eafe-6c25-4a2a-bd31-9fb280837623@ideasonboard.com>
-Date: Fri, 24 Apr 2026 20:04:03 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P3ttbWSV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE5A1C19425;
+	Fri, 24 Apr 2026 17:04:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777050265;
+	bh=fgDUC+a18hY1qJbTl0Ow07f99fugS8GWyc5w2OTuH6M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=P3ttbWSVSBRruP5aod7T5/0aJTlIipUtHXg8nH86dDFW8AvCzG3Pa9nWqQUCInyl1
+	 6aUKNmK4DmauNS+7pyGdQehssKKnx1mvHinLp6M6Wx8dxD1JlA5inbls25jFaHxYSZ
+	 KJUzotqWzJPxPShlaE2DBVFKNqW0ZwBM16xJUKbK0PDc0g7sGV62gZx26E6v9pdwlQ
+	 A22WXlah2xkEx9FUWNsQVqSV5buynp5lsrKcCi1XG+1IWjoBEq5ZqPvpu0tj1MxIHW
+	 ZTF/UL3mSYbHyHfqccfAvzrDiVJtUftfrXs/geNdANgIbCFu24KcQjj6jL7XkUlJud
+	 NJ4ZNtmG+Cd4w==
+Date: Fri, 24 Apr 2026 18:04:19 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v12 1/2] media: dt-bindings: nxp,imx8-isi: Drop
+ fsl,blk-ctrl requirement for i.MX8ULP
+Message-ID: <20260424-crushing-synthesis-46c5c423fa9d@spud>
+References: <20260424-csi2_imx8ulp-v12-0-da148eabc035@oss.nxp.com>
+ <20260424-csi2_imx8ulp-v12-1-da148eabc035@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 15/15] arm64: dts: ti: beagley-ai: Enable HDMI display and
- audio
-To: Robert Nelson <robertcnelson@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>,
- Devarsh Thakkar <devarsht@ti.com>, Louis Chauvet
- <louis.chauvet@bootlin.com>, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Andrew Davis <afd@ti.com>
-References: <20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com>
- <20260420-beagley-ai-display-v1-15-f628543dfd14@ideasonboard.com>
- <CAOCHtYjJgqomKreDxLUiVbUtpeh36f0bL-jA6P-6rsoJrweshQ@mail.gmail.com>
-Content-Language: en-US
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-In-Reply-To: <CAOCHtYjJgqomKreDxLUiVbUtpeh36f0bL-jA6P-6rsoJrweshQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Cz7yp52ESwv+fNtV"
+Content-Disposition: inline
+In-Reply-To: <20260424-csi2_imx8ulp-v12-1-da148eabc035@oss.nxp.com>
 
-Hi,
 
-On 24/04/2026 19:16, Robert Nelson wrote:
-> On Mon, Apr 20, 2026 at 8:04 AM Tomi Valkeinen
-> <tomi.valkeinen@ideasonboard.com> wrote:
->>
->> From: Andrew Davis <afd@ti.com>
->>
->> Enable HDMI support for BeagleY-AI platform. The display controller used is
->> TIDSS and the HDMI bridge used is IT66122.
->>
->> Based on DT by: Robert Nelson <robertcnelson@gmail.com>
->> Signed-off-by: Andrew Davis <afd@ti.com>
->> Signed-off-by: Swamil Jain <s-jain1@ti.com>
->> [tomi.valkeinen: cosmetic fixes]
->> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> 
-> Tested-by: Robert Nelson <robertcnelson@gmail.com>
-> 
-> Thank you for getting the display back end working on j722s family!
-What displays did you test? I don't have OLDI panel...
+--Cz7yp52ESwv+fNtV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-  Tomi
+On Fri, Apr 24, 2026 at 02:49:50PM +0800, Guoniu Zhou wrote:
+> The i.MX8ULP variant does not require the fsl,blk-ctrl property. Add
+> fsl,imx8ulp-isi to the exception list alongside fsl,imx91-isi.
+>=20
+> Fixes: 288517a3c6c9 ("dt-bindings: media: nxp,imx8-isi: Add i.MX8ULP ISI =
+compatible string")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+--Cz7yp52ESwv+fNtV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeuikwAKCRB4tDGHoIJi
+0ls9AQC6Gvq6+BRlx+Okq2Qt/M1Gp1lBdnB7GKqtHiJVu6E5sgD+NW0d7/6n4ySn
+ApgOHeb+OcQPSagNXpd6UIKjKXMuQAo=
+=GRqU
+-----END PGP SIGNATURE-----
+
+--Cz7yp52ESwv+fNtV--
