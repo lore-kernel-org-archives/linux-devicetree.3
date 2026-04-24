@@ -1,270 +1,139 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023115.outbound.protection.outlook.com [40.107.44.115])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2100.outbound.protection.partner.outlook.cn [139.219.17.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D3CBA3D;
-	Fri, 24 Apr 2026 04:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94234D531;
+	Fri, 24 Apr 2026 04:53:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.100
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777005370; cv=fail; b=Qj+BFo8Oi3DhJKDVA9asBtcM+spCskplgcxxEYX5jUA4ozvksJX6r5e3nuajwYkaaMkiwuBqLACRbRNWeuI5rAERdihoAFgeEUzzpKcTsvQivSkxTzHUBlhlKziLroNRoQQ3BqIvzPaPM0KVHPHsK07MFzWg/eKDxiKWN8zpnVA=
+	t=1777006429; cv=fail; b=dP2MaUxBN3y9T1+TpEOl3uJQ3Iv9tCnGLoIHvmdDw7+Fizf2+xJgdjWG0ZpgI87o5OJebe18eexfpxZMtcWk14tgEJV3v93uqudunJ/5qhJ08bPoyU4U9TF3chaXIY40O00EJQkZuYW6AQ3yoQlU5dnC0/y+frcI+ya5Va8y3zE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777005370; c=relaxed/simple;
-	bh=Dul6zFE90qBxGc4Z56SS6GKK+mU5thvc2BIbSWzLTM0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=tqYrAYyOf5S/XaAGcEtFHJm01KfzHd/lXL/jfp5nCz8MBiogdLIRNLmUTFFVI9ZM5pyFCXsq0Cd47GrUCrSGT+ljpzSO9AnSfn8plR087/VHmo99Hcxb7e27LFGKhdQvZo7Hx/sK0JHIA7t9HDjC4pUtKaPYrjuYwC0yNt8RfbQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.44.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GFR36WgZF4m2eDEZKB7tQuGlAnIxGlMCrULGNQn2cTOvlNpGZTfaH5L2oFky18VhlwTpmtwkGBpNOqchv8nlpuSqEB8z1k6iR9ryI63njI+gTlZFqw0U3vwn8X3Fc6EcdFN9KdmZzqOPunBgKe+bkzCIBOdCUWzZYS0diP2x/nggWLkNxXCPBG9rSdJgiRee1SNz0DDMXa/BkXydYnKHbAob28coER4fKhBWK5FzrsSIaVqyG7UgvaQMCzRzK+PZaOtQmsjLU0yaZOmKLQ6q+G43iOHxce6N9NwWJ0WaopNpArDwlE2aETr6BH0A30COtRMHQfPxIbY1R5yZ9wR+AA==
+	s=arc-20240116; t=1777006429; c=relaxed/simple;
+	bh=C++9BFbILSdS4m1XG1HFJmLLgUWjXTqtAhaCNmECAPU=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=ivkauGoi40Dgi22hW5PnLSmEq7Wmm0eCDjufhVCsMHKpPjhm77D1UtrI9q5QyWdF9kWGDn+7P2OMOFcbp8q68Sp8iMkdhdRPUTUr5fQEbjcRVjpWgipy+lhoDDHratVa1kPmBWduG3tbfK7vDXzlX4MNsp0AFzVM1TAYDVN1PDA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jixvBSqhdBESKYaYByPtR3DsOxl5HWS0MwDW6i9vt4yXKJhV33iwyKEy1RMbi2FFfpt5mRJTecLOWKyXazZ1DaBzjWZLiplCtzjdgiQieg5uxthsez0lTt6JVkWhqDTUjk6OrNZK/31jikRaP/Qv8R2c0UHDbl8XjU6dn2ImMXOzCoc1qGzvMB+JUGBFSXHFjwcE5zrF9JZCN/BOIDmf1MSV+WP2e3irFek7GeKyq+fF1E+NBPtOs9+VF6bwLFe18njAlvWtNeKigkRXZjWhrmwCY+IBxABBnYbYyqH5BUZKmx27QHBOtNNvamcjdeB8xrPNQ8dZ1m/PxtdqDplFpQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
+ s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pxgxQyyKWqZBx7IdmmZQX+12pRTGINVK28rje9OnCZM=;
- b=bMKq3pCJG+D6w3CpX4bEVnvGG+uQZ7Pj6TQOjqbGs/OP/Z3fnqvU8NEC743res1jdOibtfAGvWCL3Wru8fQf2z3b72g4kU6S0tXcsx4nMlsMU5FkzgaJetRtsanATZCZTDrPckH25AFTEW9cxn+gcZPaLavOvTPtItY8c7lqDngQZ7T6UEaG/UjizvYblbLpTcqOuTv4c6cT5xSgVKzxclq4FMCNayFAAjbsz3t8R6mv7L5ZC83+mF+dYd10VOYyYJGI6e6dp7dBJE5Adc4fYYzKi7/2hrcUfXP0Vw2DiWRNtAhC4/0ZMyY00PMGKZNRSqTvqhrbccgG3rc4SymOLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from OS0PR01CA0150.jpnprd01.prod.outlook.com (2603:1096:604:27::25)
- by KU4PR06MB8411.apcprd06.prod.outlook.com (2603:1096:d10:7c::15) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=b0KR6ZEwGloTK2eVPMWfSHBgsLQNx+STCgYgMhUYS+E=;
+ b=Jz/Ni8JI2pZNw4YhAhC+h5Wfe9cD/4vVoY+xzH+bSRp7RgY5dTv9f0VS1lpM/8iXNBL772ocCudv9gclRb+Tj0RqMNnMK0z72WGjDalZjuHrulgNJBUDjHeoRlDme8y8xW4TTJS4l0hLMPTIqV+/w3eXGVm5/3xuI7zxfnqoYORp9mbA6QmqJ2gCBbj5UGmP9FSv++vqqdhMgA6eYnuWOumLCbnv1916U7VVrxbQZLX2F7N2JYw34HZGMy4BlBviU4zfr27Jv4St8NXQTjhMFXMJ/PwoZEyEzzS57oOH+KMrMhids6OaIecFOvqsqTfH+7oewpoDqne5WQdXjqeR7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:8::10) by NTZPR01MB0970.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:b::10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
- 2026 04:36:03 +0000
-Received: from OSA0EPF000000C7.apcprd02.prod.outlook.com
- (2603:1096:604:27:cafe::66) by OS0PR01CA0150.outlook.office365.com
- (2603:1096:604:27::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.22 via Frontend Transport; Fri,
- 24 Apr 2026 04:36:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- OSA0EPF000000C7.mail.protection.outlook.com (10.167.240.53) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Fri, 24 Apr 2026 04:36:02 +0000
-Received: from local (unknown [172.16.64.130])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id C0E5942D9460;
-	Fri, 24 Apr 2026 12:36:01 +0800 (CST)
-From: Devin Li <Devin.Li@cixtech.com>
-To: peter.chen@cixtech.com,
-	fugang.duan@cixtech.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	cix-kernel-upstream@cixtech.com
-Cc: linux-arm-kernel@lists.infradead.org,
+ 2026 03:20:35 +0000
+Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
+ ([fe80::d8e2:3f39:6ae7:bdf2]) by
+ NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn ([fe80::d8e2:3f39:6ae7:bdf2%6])
+ with mapi id 15.20.9846.021; Fri, 24 Apr 2026 03:20:35 +0000
+From: Xingyu Wu <xingyu.wu@starfivetech.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Xingyu Wu <xingyu.wu@starfivetech.com>,
+	Mason Huo <mason.huo@starfivetech.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	guoyin.chen@cixtech.com,
-	robin.wang@cixtech.com,
-	hong.guo@cixtech.com,
-	Devin.Li@cixtech.com
-Subject: [PATCH v1] arm64: dts: cix: Add CPU idle states for Sky1
-Date: Fri, 24 Apr 2026 12:34:36 +0800
-Message-ID: <20260424043436.162009-1-Devin.Li@cixtech.com>
-X-Mailer: git-send-email @GIT_VERSION@
+	linux-remoteproc@vger.kernel.org
+Subject: [PATCH v1 0/2] Add hwspinlock driver for StarFive JHB100 SoC
+Date: Fri, 24 Apr 2026 11:20:24 +0800
+Message-Id: <20260424032026.62301-1-xingyu.wu@starfivetech.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BJSPR01CA0010.CHNPR01.prod.partner.outlook.cn
+ (10.43.34.150) To NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn (10.2.8.138)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSA0EPF000000C7:EE_|KU4PR06MB8411:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 82b3b829-b132-43a1-73a8-08dea1bafdf0
+X-MS-TrafficTypeDiagnostic: NTZPR01MB0956:EE_|NTZPR01MB0970:EE_
+X-MS-Office365-Filtering-Correlation-Id: c42b1ddc-5b85-49c5-e585-08dea1b072f4
 X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|376014|18002099003|56012099003;
+	BCL:0;ARA:13230040|366016|1800799024|52116014|376014|18002099003|38350700014|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	hI6S1LUloO6ukXxGXj3aeiyIu5oV7MX+ENLI3167lhNT9CEAlB/0rrBhIwGoKLt/EJ5Orv9BDD5l9nFA64cSfmbRKHXcfggtvITCEyfDCVZoxSkm7iKREYWx1X8a+U3xCrk9eJHLGlNgTyUzAdi/J89Wv1Npq9aitoi8tov647bdFLOJs7cXZ3hKh5SRRCS10KN3dGoT3WbbjPF6UKDcvvwZBfvXWN2uC98RdT2EyhE4dtZaJLGx5NgI1bHEkXIHEs0M/Fy76fq7GN4fWGlv9o5sXbkUm8X2qsmaHHx5ffguyPNFvnWpHB5AkqFEAVt0dXOKks11ibbwQeI6DjetoxG0AgQTyOHIWLuHEJhN7OhQbrVz3RGB7MTV0Ow6/kBKVIdOtGZ6BHezus3uU8RMyI9IXIPVrMEtcWv/S3Gl8+efwd3hr3VAEwDYYlW+UlJ15FzqbPU7j5WBXIHb23vC+cbZRJTwhit63/HRu7IpMx6gq2xOQ3GE5eTlEqw0SpsTGjSCGraIXHj7ZX4+AINROYKZz7vE5/GNJafVwOUIwqk8exoFkEvPeBfAQEOUVobz/YSqkD1n4amvPQ2QEp5zxALI3ZYHhqI6/cinV7+6qjjX6aQz++R51fc+UgZntcWd05E6YnlANe0L8ml4W/vjjbvJDXGodBake5tIN+ccyq5oTX/i1TKqa6Qe4IVnCG9SP+qsZqWdcdjZ0yvIBFO+Wvf3MjRO6V1IVU/YuS/Wu2bZT8OiHPuZSRzeJkoKaG+BY3PH9M2MbTFqD0Ew6bBssQ==
+	RtVqeb2RKuN6Pj/e0pKUBae3s7yYBUjusocFokNgkNmPZ3/g/vTla+xjOI8K4JpB/LTxEj0EBCFvmy6+FxPU1Eq0YztEDeORVxLKR7b25hfhHJ7lX5pIAdh8jiO3oRU6kl6Okg4hQImV2lTMKVS0pT2XNyqWz1bZK3FgXNsppIrfJ+XQGoCdKpI3tM444hJrvDjRJ3uQ1jg7a6boXwm/y31pCBrWrMDk+9vLe0WZ53vQHJ/o2p376JPE1C5C+pVs9fwvTOlM2TMFq7tcSA/t0s+II3RB0hUZR88lTymljhYA8YdbbfoO6pfKSCc6gsSIoC0LP+LbcMiqPefxoTPYq7NMxjCsLxP1Jj16iDtQstYWvL4Lr/IZF6tjmPUHEppMdNHHGGrklXXisCq5AOMJQmyWdc7VFnDySaJJCM/5QwxkOCyxq9Tuc8L/iQSBgUM/2MWKmT3gWpyHaEQjvGdQFkVHsxwVWZhDSBN+m9/BdEI86N038FiwHuZNPo18QgSYVfQmFL3dNNIBZ3SiWnLWeQ6id13bz47iG+E9xMoFoytRwcq5pd5irSINuNx2bQZEHSeGiW0dJZGyfa0iYK+VZ1d5U2PH/V6nq3e2B754hho=
 X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(18002099003)(56012099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(376014)(18002099003)(38350700014)(56012099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	k4e6ER95WTxYrosmFjbDBNMK3vR7E5ycKJFCymtF3wvHzFSu0LSUduvJ6LrR66/znPdb1f4luQUFbMY/4gmo0GSIdzhdmBINsbL7qXUJS/D0PW9Zvtq2ZGEXWsVjh1VG+5HedE9QAtzI2XnOUCoK4Y0yUqAi6kYxyR2YTmwBGDwoGcd2lnAkSJICuihfOJ/hBjaSpr54NnVAkipCNZSfpwJ50ccQWGbflxPZ04k+IF2Tvd12+5iXRLwCbIhbVixoHTwIwCHfc1hMdC/JctYhL67aaoOKud0a5Y0uoInFKNsOZMiyNsFeLPA8TS2+2oGTTykciamY9GZfZd0C1DT6z34PRBIE91M25hMXYb8hT1pYHJNaaI/L+iGSdXnl9wyiQo+mEfpfEmVsMc8DYKvDUwTUAqrlBGjaYhMgbk4becHzJMP1MnUdrfbCncXGc/n0
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 04:36:02.6656
+	=?us-ascii?Q?vXuGsM874JlXcQ/dpjaThbqE4/SUrcVC8BukyNSf02YzxmDXG1+IQNHkII8S?=
+ =?us-ascii?Q?32AHeCYksisC1U7GOEdYRxTwchumXRDo5Aw7GdNsRr0uOcnIi7H3v+ei2zeH?=
+ =?us-ascii?Q?2fTHRvBni3gdbYy9aZwuwffFWVYZHGzRXblIQFRUHAC8vkDIs8eON8O13p97?=
+ =?us-ascii?Q?YydVHt2/ddM9uMTdtmLRDx3JSsCXZ4e9pgu8O3cHQoS0dAe/c9edw+KRcQnM?=
+ =?us-ascii?Q?jGRC9TYYIHExbKUJSy+n0VWxICQVadNXVv9hrS8CnW78Rkx1EcCxTbqWpT50?=
+ =?us-ascii?Q?omwz/pHDAdjrphJh+nEHOxqwkl6labboIb+NLo3VsnphQcy21CtQ81RAu31e?=
+ =?us-ascii?Q?RCW6h7zTdkbi/EHFLIEkJF9vbs+Lb8HZg6dfB+5JIW4gYKvcjOsxTHnKO1dr?=
+ =?us-ascii?Q?KJIaMkOsXW2t5CjZ4DD6bYhnAqdyd9ejMKZ89iQsxZj7Al5DS0O5U3y48RGr?=
+ =?us-ascii?Q?W5k+oW0ACskn1RDnxsdCnMtp0Deh+dkWYh/445YZ/OmcBmScUiiID8d8sdQT?=
+ =?us-ascii?Q?vR/V3GtNgvVKnSwffl1gEZ8tCS6wsI7/yfl/3GfHV6/nwhicy1+rwq0a7pqA?=
+ =?us-ascii?Q?ogezOcha0/Aki52WkAvx5S9hdR9MW3/LXA+JtUDCGaKac0k1Oklp6BxGylYW?=
+ =?us-ascii?Q?smdbirSKTIKDnuWUHrA/N2iC77HLAgC+qChEMmhKa6DhinrY0ZtBCgceOpsG?=
+ =?us-ascii?Q?QdkAiQt2hi6A8pfdPZLWufS4stsD5VFGonLtVXviBoPWOYYJJuPvRCPLzCMf?=
+ =?us-ascii?Q?EdFmW9qucNc5MKqh9HD7UyNpfXlr1n41Ky6QzFs40xCV6Mg5buNfUzMqLku1?=
+ =?us-ascii?Q?TEc7wwYiUGdXlXBxHgI9jxJCpwcoJ51qZDRRJe1z4mQVejsMAgQz9OHdcfDd?=
+ =?us-ascii?Q?AroJsOD/Nqjo+ermsEROvJhrlvRd42GEBtVwXdKqrkdT09BT8gbJUkUox6CP?=
+ =?us-ascii?Q?GX27EWtcROCx8rlIXijUVy+5L/zznRfNebDBwJ5OWjePcr6yHQ21uQibcTXn?=
+ =?us-ascii?Q?EyuTOByyqj/5xyzVkir+KBfCaE3ze8P6c/FyPfvlxSQ0lzK+/rN4RwOU/7hD?=
+ =?us-ascii?Q?tAmMcCL+DWKKqLXvmPba+IXv57Q0wDIGa5KxFZrycUqpKLgg50uXWWxGvGOB?=
+ =?us-ascii?Q?UovJh6kfUBlmEdrG/8JhCCg7DJdYDvrta9G/7ZpKrJCrNhCimOagbeo0wyGF?=
+ =?us-ascii?Q?1lJ88eSlWHYFrafiR4ZWu/RhSPSsf9ictg98WH3Qhg9gyD7ZNfhuz56A7m3F?=
+ =?us-ascii?Q?GTjxQGpBTgFXlUeysEioGfeAy8twnWgaUIqdWq1Nl6ItGoZjs6tZj2pyOdXP?=
+ =?us-ascii?Q?ue/8HgCDPfFralAt/pSo+o2qg5XN73qbtVs6oBTU/SHMIrfHfjDjL9flxtpN?=
+ =?us-ascii?Q?oq08Z7Q//fYNORpMLr/8MKV+ahakh0OzPFkNs5lb3pMICygq2w59zi4CvezH?=
+ =?us-ascii?Q?EoQypGPr4oJcA6jlkG2XzLScVx8Rz3yZ9bCksS4r8WCzfDoHH2TJei9KTCog?=
+ =?us-ascii?Q?mnqyNtF6tBVWZY3jozAV72kkHG+jEwozYPHpK2rXca1ymLU51ZvJA9p16Fk1?=
+ =?us-ascii?Q?BaXrkfOwkEP2vZpjXV6B+LWIx3uoTj+isdCW+5l3L9Pm3Kl1bAhCjReMD645?=
+ =?us-ascii?Q?h1oOvkhGUpKJGwDYjOWcMu9jJg2C73ciDEJnOq9Zd3BoQeL4QXTyAE7mYuy3?=
+ =?us-ascii?Q?psALONrEvGlPeRo54//xhdBHLue7gwXt3fkcrm1i2FwaXz9NVgC8KDR9rqKD?=
+ =?us-ascii?Q?KwXvYMe/WkXVxRAz+45irvrG1s86Lek=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c42b1ddc-5b85-49c5-e585-08dea1b072f4
+X-MS-Exchange-CrossTenant-AuthSource: NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 03:20:35.0757
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82b3b829-b132-43a1-73a8-08dea1bafdf0
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	OSA0EPF000000C7.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KU4PR06MB8411
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NVEphXB6Sq2el06mA9HRD6/O45ay4DkRSu7a0LAd4XWhLtqk7PRDNxQAc21Jd5m8MJenM7Q/rrdqvx6M6idkMab7TtERlp0mpYuhiCTRHMA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NTZPR01MB0970
 
-From: "devin.li" <Devin.Li@cixtech.com>
+This patch serises are to add hardware spinlock driver for the StarFive
+JHB100 SoC. The first patch adds documentation for StarFive Hardware
+Spinlock. The subsequent patch adds hwspinlock driver and support JHB100
+SoC.
 
-Add PSCI-based CPU idle state definitions for the Sky1 SoC,
-enabling core and cluster level power management through
-ARM PSCI firmware.
+The StarFive hwspinlock supports 16 channels for using by secur core and
+AP core to restrict access and protect the memory area.
 
-Three idle states are defined:
+Xingyu Wu (2):
+  dt-bindings: hwlock: Add the support of HWspinlock for StarFive JHB100
+  hwspinlock: Add StarFive hwspinlock device
 
-- CPU_SLEEP_0: Core idle state for A520 cores
-  (psci-suspend-param 0x0010000), entry-latency 34us,
-  exit-latency 100us
+ .../hwlock/starfive,jhb100-hwspinlock.yaml    |  40 ++++++
+ MAINTAINERS                                   |   6 +
+ drivers/hwspinlock/Kconfig                    |   8 ++
+ drivers/hwspinlock/Makefile                   |   1 +
+ drivers/hwspinlock/starfive_hwspinlock.c      | 130 ++++++++++++++++++
+ 5 files changed, 185 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwlock/starfive,jhb100-hwspinlock.yaml
+ create mode 100644 drivers/hwspinlock/starfive_hwspinlock.c
 
-- CPU_SLEEP_1: Core idle state for A720 cores
-  (psci-suspend-param 0x10000), entry-latency 31us,
-  exit-latency 79us
-
-- CLUSTER_SLEEP_0: Cluster idle state shared by all cores
-  (psci-suspend-param 0x1010000), entry-latency 41us,
-  exit-latency 104us
-
-A520 cores (cpu0-3) reference CPU_SLEEP_0 and CLUSTER_SLEEP_0,
-while A720 cores (cpu4-11) reference CPU_SLEEP_1 and
-CLUSTER_SLEEP_0.
-
-Signed-off-by: devin.li <Devin.Li@cixtech.com>
----
- arch/arm64/boot/dts/cix/sky1.dtsi | 41 +++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
-index bb5cfb1f2113..0611098b5f05 100644
---- a/arch/arm64/boot/dts/cix/sky1.dtsi
-+++ b/arch/arm64/boot/dts/cix/sky1.dtsi
-@@ -23,6 +23,7 @@ cpu0: cpu@0 {
- 			reg = <0x0 0x0>;
- 			device_type = "cpu";
- 			capacity-dmips-mhz = <403>;
-+			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
- 		};
- 
- 		cpu1: cpu@100 {
-@@ -31,6 +32,7 @@ cpu1: cpu@100 {
- 			reg = <0x0 0x100>;
- 			device_type = "cpu";
- 			capacity-dmips-mhz = <403>;
-+			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
- 		};
- 
- 		cpu2: cpu@200 {
-@@ -39,6 +41,7 @@ cpu2: cpu@200 {
- 			reg = <0x0 0x200>;
- 			device_type = "cpu";
- 			capacity-dmips-mhz = <403>;
-+			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
- 		};
- 
- 		cpu3: cpu@300 {
-@@ -47,6 +50,7 @@ cpu3: cpu@300 {
- 			reg = <0x0 0x300>;
- 			device_type = "cpu";
- 			capacity-dmips-mhz = <403>;
-+			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
- 		};
- 
- 		cpu4: cpu@400 {
-@@ -55,6 +59,7 @@ cpu4: cpu@400 {
- 			reg = <0x0 0x400>;
- 			device_type = "cpu";
- 			capacity-dmips-mhz = <1024>;
-+			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
- 		};
- 
- 		cpu5: cpu@500 {
-@@ -63,6 +68,7 @@ cpu5: cpu@500 {
- 			reg = <0x0 0x500>;
- 			device_type = "cpu";
- 			capacity-dmips-mhz = <1024>;
-+			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
- 		};
- 
- 		cpu6: cpu@600 {
-@@ -71,6 +77,7 @@ cpu6: cpu@600 {
- 			reg = <0x0 0x600>;
- 			device_type = "cpu";
- 			capacity-dmips-mhz = <1024>;
-+			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
- 		};
- 
- 		cpu7: cpu@700 {
-@@ -79,6 +86,7 @@ cpu7: cpu@700 {
- 			reg = <0x0 0x700>;
- 			device_type = "cpu";
- 			capacity-dmips-mhz = <1024>;
-+			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
- 		};
- 
- 		cpu8: cpu@800 {
-@@ -87,6 +95,7 @@ cpu8: cpu@800 {
- 			reg = <0x0 0x800>;
- 			device_type = "cpu";
- 			capacity-dmips-mhz = <1024>;
-+			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
- 		};
- 
- 		cpu9: cpu@900 {
-@@ -95,6 +104,7 @@ cpu9: cpu@900 {
- 			reg = <0x0 0x900>;
- 			device_type = "cpu";
- 			capacity-dmips-mhz = <1024>;
-+			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
- 		};
- 
- 		cpu10: cpu@a00 {
-@@ -103,6 +113,7 @@ cpu10: cpu@a00 {
- 			reg = <0x0 0xa00>;
- 			device_type = "cpu";
- 			capacity-dmips-mhz = <1024>;
-+			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
- 		};
- 
- 		cpu11: cpu@b00 {
-@@ -111,6 +122,7 @@ cpu11: cpu@b00 {
- 			reg = <0x0 0xb00>;
- 			device_type = "cpu";
- 			capacity-dmips-mhz = <1024>;
-+			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
- 		};
- 
- 		cpu-map {
-@@ -153,6 +165,35 @@ core11 {
- 				};
- 			};
- 		};
-+
-+		idle-states {
-+			CPU_SLEEP_0: cpu-sleep-0 {
-+				compatible = "arm,idle-state";
-+				arm,psci-suspend-param = <0x0010000>;
-+				local-timer-stop;
-+				entry-latency-us = <34>;
-+				exit-latency-us = <100>;
-+				min-residency-us = <3000>;
-+			};
-+
-+			CPU_SLEEP_1: cpu-sleep-1 {
-+				compatible = "arm,idle-state";
-+				arm,psci-suspend-param = <0x0010000>;
-+				local-timer-stop;
-+				entry-latency-us = <31>;
-+				exit-latency-us = <79>;
-+				min-residency-us = <3000>;
-+			};
-+
-+			CLUSTER_SLEEP_0: cluster-sleep-0 {
-+				compatible = "arm,idle-state";
-+				arm,psci-suspend-param = <0x1010000>;
-+				local-timer-stop;
-+				entry-latency-us = <41>;
-+				exit-latency-us = <104>;
-+				min-residency-us = <4000>;
-+			};
-+		};
- 	};
- 
- 	firmware {
 -- 
-2.49.0
+2.34.1
 
