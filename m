@@ -1,155 +1,115 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013019.outbound.protection.outlook.com [52.101.83.19])
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA80282F2E;
-	Fri, 24 Apr 2026 02:42:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776998568; cv=fail; b=QLPkeOB4mqYGluUwL68jjbZS6uwOmQmoL93Fwgr/FwMwQ1Xomvkvvof73eNECa8BxB9q9KwAlPIqyWgD/rzWyF8ir3z66z/Pcn9FoBmPGfm24KbExogz2HPfYTyWtfoVbJBB4elJ3oZZ8a+LEkEqa7sPh6+idPuc6/XVd/ENc+4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776998568; c=relaxed/simple;
-	bh=zLmMfH6KmoJjyH8l9UINLZTrXIqJjVGkZBkTurel3a0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=fqHJjLS6sLZ8MRl1SzDFmcDOCIuOLuFaOCnwJYCs+x1wV6fkL7y3grrVKbR014rXcroehqTCSXr236ENCEak3NaomoFw42WyZWr5CsxRzKseKS241ePpSUBcOI/IvcGE3tMqUgojFAiZLsAvlsI/iZCDGmHnPb5kgIUgHk5HlBI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=leCQaBdq; arc=fail smtp.client-ip=52.101.83.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="leCQaBdq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u3E/FI9Qu3nS6fNp25/d+ko6n4H/yFOJYmGN4UeG7u3tWc0I2hMMx/2F/El7PGmNRuRe2mhJrzCQZ9rAV07XQW5Ka4f4nVVO8M6fSsskZytpDRilFHJUyO4+oaRCy0PoSDX7bD/g2n6WJlSCLLknwvB+l0KlwQFdFssSLcNci9ZWHd49vmOSrK/7fzT0SjstizzUD5VgTVZ2F6g14TKKsgDgFVCWZkn2s8n3/esdLqmr/rUPVIzUQaH1n5WA0FKDm+qyoZD9O6QAfOzGPad0LSVUewbjgFZhqLcDNxFXURGZ9phGZlh9+/oxFsc5ayQS3++fs5gEwqiLmKiPg0uhQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zLmMfH6KmoJjyH8l9UINLZTrXIqJjVGkZBkTurel3a0=;
- b=uVgmhbcpECoN5eLcdVTKHHEUGADD6HCc86JrGapH91XL+BcJ++pLkaLUd6N9Jd4LGBKYwoLu/QhpmIURq9lzxbF9fbmLYuJNipmAZA4YpFbIc/WE3m4msYBcQ6/b7AyZhP+9virDD/zDJnjP85GFL4Wh419jzT2wraE6RD5BEHmyNq11JCJyZVk6yNLrfIl+o7SJ/r3dgSsAnzRkQfANB9Gd7tNR2EnY9UfN3zoXGHqkyMC4VB7WlCtcNwyBL1ZuMPXQIuSqaXCESvWD/K6QdHjlw6WdtEBZC2Hiv9BnnrpR83Mq+2CpUSzyg/J6HheIu7y+oCL86zqyIc8W9ETsog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zLmMfH6KmoJjyH8l9UINLZTrXIqJjVGkZBkTurel3a0=;
- b=leCQaBdqhsZl5rGa2rKng5M9XJ24a6G56Z3JAHM2eZ+vQ2sXULA34LI8rNCalRvej5pUhHemzD+y+YJ/aVG0SRX9TXUff3Hm2/d5YjvCITfjQVrFrZM7/o4sN6GZk3ddaem2vmxsmdbziyhKcyAE1poZVrb3ANisCsJiqPJqk8/2ZeStjZuuP74/9/tZPBCH3Nq7VvxAvGSUfIw+oITthfHZ/aIspFKwq4yaawYztdaImFmKkzKyHcJhZYMKyl0/bl+5xT1aUQQpQk8RS45iuviJQY8HARzXjNBvaCOe37SllU4rzS04l4iDIKpzQIbS0TooAn/3js+nBhGxCVIoVg==
-Received: from AS4PR04MB9362.eurprd04.prod.outlook.com (2603:10a6:20b:4e7::9)
- by PAXPR04MB9255.eurprd04.prod.outlook.com (2603:10a6:102:2bb::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.21; Fri, 24 Apr
- 2026 02:42:42 +0000
-Received: from AS4PR04MB9362.eurprd04.prod.outlook.com
- ([fe80::abe7:4a6e:a51:baf0]) by AS4PR04MB9362.eurprd04.prod.outlook.com
- ([fe80::abe7:4a6e:a51:baf0%6]) with mapi id 15.20.9846.016; Fri, 24 Apr 2026
- 02:42:42 +0000
-From: Lakshay Piplani <lakshay.piplani@nxp.com>
-To: "alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
-	"linux-rtc@vger.kernel.org" <linux-rtc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"wim@linux-watchdog.org" <wim@linux-watchdog.org>, "linux@roeck-us.net"
-	<linux@roeck-us.net>, "linux-watchdog@vger.kernel.org"
-	<linux-watchdog@vger.kernel.org>
-CC: Vikash Bansal <vikash.bansal@nxp.com>, Priyanka Jain
-	<priyanka.jain@nxp.com>
-Subject: RE: [PATCH v4 1/5] dt-bindings: rtc: nxp,pcf85363: add timestamp mode
- config
-Thread-Topic: [PATCH v4 1/5] dt-bindings: rtc: nxp,pcf85363: add timestamp
- mode config
-Thread-Index: AQHcWuAAR8BPN5MBkUWbSOAo/I/sE7XucZvA
-Date: Fri, 24 Apr 2026 02:42:42 +0000
-Message-ID:
- <AS4PR04MB93628F4BEFE9293FC6E457C6FB2B2@AS4PR04MB9362.eurprd04.prod.outlook.com>
-References: <20251121121137.3043764-1-lakshay.piplani@nxp.com>
-In-Reply-To: <20251121121137.3043764-1-lakshay.piplani@nxp.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS4PR04MB9362:EE_|PAXPR04MB9255:EE_
-x-ms-office365-filtering-correlation-id: cfdb4d85-d4ca-4fa5-1344-08dea1ab2846
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|19092799006|376014|7416014|366016|1800799024|18002099003|921020|38070700021|56012099003|22082099003;
-x-microsoft-antispam-message-info:
- x7cdvFfyB4GVbAn4FRX9eJ4dAxhCsXOAg0qOnGMBNwFZYCH+L97VmUHSkaEsfpepYLRs6MMhRMzci0g/p19UyQ14WfR+Pxe5bK9PvgD2sCqe5Bks1cp1mwAjLs7q8PiM4pHk9Ys6yUwX7uOiee78KfeJr9XKuB/d+WgevmezrJAOVC2JoNQntHlNAGxtgDxe/DTud+D5Ui4Ndnuk97nNHzeU5hq9iHWpFo7C/tiz2qSTmv3Vwrg0hidO+2UbyRWHOq5QxMdDPqdSGrPigswrR75QpI8I4hMf+MhKHSsRSwU4h56iYgL7xPWjwI2W6mXMPkmTCDR8SEJVRW0jpDINbUUq5Sx0l/rYBmboyw9tgRx8M6j1rRNnDpZ8bKTSq03voHotir7JN29LrIPKhFWhASZEL/bg9bhMAs0hm2POP4FFXMREP8JO/SXbUsucDKa1FFJyVL9Ujw/29APeg4a8+U5aeg3i7dT6fi2Rlnsn7RwBqTein6aHPgMVHAx9exY3aCXMIAN9jaO9Rrv6uIwIRYHq719OKnb539Y6L+nbfQ9w/qYkR2oxmkTU0Ec09oLBvGU5s4IoE3jyhPjGcBiiM3YrxPOJHq5iZysmr5aRhjT545Vqlbjm2v6PaaH9NTVfy77oouYkdHUPxAlcvnZEYilgUmCoizhSh8U+Ln0WY9aXtNnSX9RYlYhKhUmc1UuuQ6IVT4mWVVfhk/M0cxzTwvU98bJXOhqvlwv8L1zHlvjesqd4/rTRI7JSD1gXdRdDYotGfw7rjp9oVXbiOJ/CLWvjLFqRur6egO2d6D/iW7EznpyOgfjCt5YOkP6RVE2D
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9362.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(7416014)(366016)(1800799024)(18002099003)(921020)(38070700021)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?fIWUu6wnvh7tJRa3CEFh9MqFBcLV2nS8kIsnhki1ZEQlAlE1yb0MlLrRuiXG?=
- =?us-ascii?Q?xibWVGxVLpU0Mthuve59fpRAzAwQt4MmXPUMK4ydsHs9zW0jrQojDUg65Ys2?=
- =?us-ascii?Q?0BGdvwiHboh0rPCDiwuBdCz+kkjjTQJkXo4o7M0Y73Pc/II8dq3mL8I1PHUv?=
- =?us-ascii?Q?GiQpCmPBoZuJMMyXQl2bDnFd+A6yY2guezgBQMBtQ1hHYL3dlYWWXvunX0YI?=
- =?us-ascii?Q?qgOGBJZ0T5K13S/W2e07+8TIuwEcUZtVKJNkEom5n89qXqb9X19KTEkwNgRu?=
- =?us-ascii?Q?vZoLFzuGxBkvZI1mWT9H8EbYI5iYXXfgm76yE9tcMAD+/fbl7yZmrZisLbxA?=
- =?us-ascii?Q?/1zpr+O32h5+wvm/VjZWEz7HSpA8XgMWY/cpXqUtX9v6a22e+qobTBztAFMQ?=
- =?us-ascii?Q?AnAC9OEIVpYoQ7FmT35NOB1YPC/32TfojWuil84bU+MMs2xyp1UeBCa9fC8d?=
- =?us-ascii?Q?O7z8jr0IKT46a5f9fkyQXu31+lh/2JYLSzjffB1um9otEkJUg7ZpWguR0a3D?=
- =?us-ascii?Q?sKxxIky6JsgjLg+3BFpnunnNvojnDoYgmfjTzRNOGV51Ebsk9EP0bVto60rn?=
- =?us-ascii?Q?fhnK2TYzSOUqqZtKlwDI5WMW7j0lDBj9NClUL7L6Qmd8AclCvJ4dz2VBrD3s?=
- =?us-ascii?Q?sNKo60bfOONXtKpXge8qiRCGw5gfiAWoZ1xilA3AbKomcfNDE/aWOdkuattX?=
- =?us-ascii?Q?puyhlDl5VPED8q+GqSkS5656Lg2lPYpGggXa7SQ3AGtmpyIzFRAab6i4qdHx?=
- =?us-ascii?Q?qKtJ0lHtjQlxvKmxR7Uzm9zV5ypnl2hWpXriYDRkht7fy/Le92KeQyC2v2Sw?=
- =?us-ascii?Q?yB7VcpG7eM71IhvFol3pxXyeeaeSEFIZwOaX1QsWDzwz8tXU0qpxWz855XZz?=
- =?us-ascii?Q?Ov6+CK6rRTr2SN98PrygKiEtWu3TVy+Iw9QZGPQ3k8i4ik+1CrjMVlc7pKfh?=
- =?us-ascii?Q?Sav+92MNYDWVWjfjUy2/mkmUWfAYNfn+2hrptW72TxRRb1JR5g7aaWLePkZx?=
- =?us-ascii?Q?NnZ6yNnPMN1xw8W7QDjpe46m3bKlR9Sroc/o7a/z6iGdN0T7c4Bfp1F0u9x/?=
- =?us-ascii?Q?DhsgOFtPKjIucNiMY7nA410s/DRHOqfpVRH8Uit6MCjjDiijDHllXoWdEXCU?=
- =?us-ascii?Q?Y7uJtB9FWiPn3mnKRIXhkYYsH7/ricggnQMdWzGGGNno3+NzjA/u8Mt/ZrIN?=
- =?us-ascii?Q?bI8rXdNSVUdYXOFF8QalZE89bfcdiAO90iy3LMiqkfj1TK+47vzwj76sSQV1?=
- =?us-ascii?Q?smr6c4W0dN0u9uUgtaZjGJVypBbzKjLPZGrpOq+Gyk9Gs9J5Hyam8SLj9eaG?=
- =?us-ascii?Q?AFmDbXTih/GCck8hmqzobVHdrLkSeDlCrR5rfi/SunaO4Zao7amJ5b6AStue?=
- =?us-ascii?Q?lMSjj+bkL9MCHAh8MA8cmQ7uY2TgqiBnEDgO7/hfiJjM87qg2ozftGgddXZU?=
- =?us-ascii?Q?QomiatDjWEj0t7t3Ov1Gj46CpbOiqe9wl2xOCfqwPFoMlALZZjvov1JgD0xQ?=
- =?us-ascii?Q?ZIGkrcZGqwUZ9WZpoC1wcSXQkEFYKJvcDD8nU7WMwewAgA8j26c3CDwNdyCx?=
- =?us-ascii?Q?fRV3u6maqSzopRpN4vXvGp1R+cfPQtspip42ntr5xllJUusjVPAXKH/gC9fN?=
- =?us-ascii?Q?HWZuhLKZi+KDzuo6I8vVrR+T3QjKeoLKa0/M76cJp/Yg0M/pFMFrO9cTRI1l?=
- =?us-ascii?Q?pQ3Xc6HQa1LXxQNj24TQYtU2ojHJxfb8mg+76pJ0WipL4ZNylMdo60DR9D4G?=
- =?us-ascii?Q?J4cBlu8mVw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 199BC33E7;
+	Fri, 24 Apr 2026 02:48:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776998940; cv=none; b=D1+Bvy3lPYvyNkIadaImTqucYLseTPkfsfPt8eIYeJrXKzK2fYEfhmiAfnDEsVoO5KuIBdORM/+sF3Cj/JYycGjUiwz5fksoiGJhGrmdH4xhLRqgseojwPA4OPP0pdBqsElV9ucXHAIq3+YCi8SB0Utz9/mNxSuTDeO5pzB0/AQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776998940; c=relaxed/simple;
+	bh=FBI3pcwVPL3yzcDpYNuqqnzLmf/xJqQS3HsHUCTkH2o=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=cTESAPe38n/UuHlcFpO3gMwt8hUJaAeADW45wKop0T73RrMABaDfqP67axS6vOxyYOAmoBaBtT9mH8+FSpvMmeBfgU2OBNsgs0XlLgnzfmQpU7LDvjeJHNBboFzox68eqA0Tn8+0D0OygmtpADLdNmjCx3piRKQdCJW1OTpuUPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+	 (Exim 4.99)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1wG6ar-000000002MP-2gbT;
+	Fri, 24 Apr 2026 02:48:37 +0000
+Date: Fri, 24 Apr 2026 03:48:29 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Cyril Chao <Cyril.Chao@mediatek.com>, Arnd Bergmann <arnd@arndb.de>,
+	=?iso-8859-1?Q?N=EDcolas_F=2E_R=2E_A=2E?= Prado <nfraprado@collabora.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Eugen Hristev <eugen.hristev@linaro.org>,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH v3 0/9] ASoC: mediatek: mt2701: HDMI audio support
+Message-ID: <cover.1776998727.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9362.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfdb4d85-d4ca-4fa5-1344-08dea1ab2846
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Apr 2026 02:42:42.0232
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DiMbwfNP/PUElfpJqRmqoRoKiuWfo/90CyKQgYfrHo9pVKkVHkwWRuvOi/YvKQvTlfZLW3Qj150N5nVA2zgR6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9255
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> +/* TSR3 modes */
-> +#define PCF85363_TSR3_NONE 0x00
-> +#define PCF85363_TSR3_FB 0x01
-> +#define PCF85363_TSR3_LB 0x02
-> +#define PCF85363_TSR3_LV 0x03
-> +
-> +#endif /* _DT_BINDINGS_RTC_PCF85363_TSR_H */
-> --
-> 2.25.1
+This series wires up on-chip HDMI audio on MT2701 and MT7623N, from the
+DRM bridge down through the AFE into a small machine driver that binds
+the AFE HDMI BE to the HDMI TX codec already exposed by the
+mediatek-drm-hdmi driver. Bindings, DT and a BananaPi R2 board node
+are included.
 
-Hi,
+In order to survive vblank or late hotplug of the monitor, the fix
+submitted separately [1] is required as well.
 
-This is a gentle follow up on the patch series I submitted in November
-(regarding the v4 of PCF85363 RTC driver). I haven't seen any review feedba=
-ck
-Yet. So, I wanted to check whether you might have had a chance to look at
-the series.
+Everything here was developed for and tested on a BananaPi R2
+(MT7623N), which turns ten years old this year -- a nice occasion to
+finally land HDMI audio for a SoC which was truly ahead of its time.
 
-Please let me know if there is anything further is needed from my side.
+[1]: https://patchwork.kernel.org/project/linux-mediatek/patch/a3e22cbae528c9a38d854a586d1736b860998d41.1776265222.git.daniel@makrotopia.org/
 
-Thanks,
-Lakshay Piplani
+Changes since v2:
+ * allOf goes before additionalProperties
+ * remove now unused clk bits
+ * remove redundant clock un-gating via regmap access
 
+Changes since v1:
+ * Restrict the four HDMI clocks to mediatek,mt2701-audio only
+   using an allOf/if/then conditional; MT7622 is capped at 34
+   clocks (Krzysztof Kozlowski)
+ * Fix subject prefix to use schema filename (Krzysztof Kozlowski)
+ * Rewrite title and description to describe hardware, not driver
+   (Krzysztof Kozlowski)
+ * Clarify in commit message why this is a separate binding from
+   mediatek,mt2701-audio (Krzysztof Kozlowski)
+ * use named masks and explicitly set BIT_WIDTH_16 when
+   programming AFE_HDMI_OUT_CON0 channel count (Mark Brown)
+ * add AUDIO_TOP_CON3, AFE_HDMI_OUT_CON0, AFE_HDMI_CONN0,
+   AFE_8CH_I2S_OUT_CON to suspend/resume backup list
+   (Mark Brown)
+
+Daniel Golle (9):
+  ASoC: dt-bindings: mt2701-afe-pcm: add HDMI audio path clocks
+  ASoC: dt-bindings: mediatek,mt2701-hdmi-audio: add MT2701 HDMI audio
+  ASoC: mediatek: mt2701: add AFE HDMI register definitions
+  ASoC: mediatek: mt2701: add optional HDMI audio path clocks
+  ASoC: mediatek: mt2701: add HDMI audio memif, FE and BE DAIs
+  ASoC: mediatek: mt2701: add machine driver for on-chip HDMI codec
+  ARM: dts: mediatek: mt2701: wire HDMI audio path clocks into AFE
+  ARM: dts: mediatek: mt7623: wire HDMI audio path clocks into AFE
+  ARM: dts: mediatek: mt7623n-bananapi-bpi-r2: add HDMI audio machine
+    node
+
+ .../bindings/sound/mediatek,mt2701-audio.yaml |  23 ++
+ .../sound/mediatek,mt2701-hdmi-audio.yaml     |  48 +++
+ arch/arm/boot/dts/mediatek/mt2701.dtsi        |  21 +-
+ arch/arm/boot/dts/mediatek/mt7623.dtsi        |  21 +-
+ .../dts/mediatek/mt7623n-bananapi-bpi-r2.dts  |   7 +
+ sound/soc/mediatek/Kconfig                    |  10 +
+ sound/soc/mediatek/mt2701/Makefile            |   1 +
+ .../mediatek/mt2701/mt2701-afe-clock-ctrl.c   |  22 ++
+ sound/soc/mediatek/mt2701/mt2701-afe-common.h |   6 +
+ sound/soc/mediatek/mt2701/mt2701-afe-pcm.c    | 284 +++++++++++++++++-
+ sound/soc/mediatek/mt2701/mt2701-hdmi.c       | 114 +++++++
+ sound/soc/mediatek/mt2701/mt2701-reg.h        |  29 ++
+ 12 files changed, 575 insertions(+), 11 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mt2701-hdmi-audio.yaml
+ create mode 100644 sound/soc/mediatek/mt2701/mt2701-hdmi.c
+
+-- 
+2.54.0
