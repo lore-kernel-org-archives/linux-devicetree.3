@@ -1,133 +1,358 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333EC3624C1;
-	Fri, 24 Apr 2026 10:10:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9F81ACEDF;
+	Fri, 24 Apr 2026 10:13:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777025426; cv=none; b=dF+cvJKkymE1LmVkm0krPurNJC85gLNzr4Z4bhvrZ2kslqRy/vvjtY9EnhpZqxJ56yYnhWL3GiSERXzL8Mz5p/hvKcTLLGsR71AMykty+F9Ae3jnsKvRTBl6j9CnWofYLa1abu3k2kOhUxkXheO0CqUY7P137m8czax4+sso3WU=
+	t=1777025637; cv=none; b=EQRzyDwsMxnJTFxEPCivISENod4qPsrnSXBXkftoz0tjuONLbbYHRXlwzNziApZHxPWJGpwYz1yAscNZ+EY+UOEs1VOG6+5tH40rlZE43IB5pjUtlpg6uJXiQ5xxQIblcMjqKs5i37zCzvDJed7HG85FJTd5//rxpik5pJD/9uI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777025426; c=relaxed/simple;
-	bh=xrHLf5eNpGYCZJw6uXjVC8/WzVIrBBKC5TwvXGATU7k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=XtZKBqhY504uITS3AbyWwhzzvjPA8NrijAy5v9guRgpAbhK2R/SMvwGPPZmX88MiO5sxNIKZ8wOSh3beSCcjextZVyFFAtOqFt6zE4ODSMdSroq38vU302KYHs86pRuZ5REmPxaBtrc9REGAtKpTcnrIBmyZDeZWAKjRi4qVf0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lnX7JgX0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777025637; c=relaxed/simple;
+	bh=t177GNxpYQx3XFWvysW1fq+ESjiafp+KZ6iHk2sP/ig=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cm0o6+mJlhLRhJbZWgt0dbjMX9oswJudqPFY0S6uEdCkCFz37StF2SUpU6Bn+ocByjJhLhmK0d0NMimeLWCGt83fUYLYuVMJSLWdtE7bI9fJnRfC6WKur/o+Th6Qnar+6zPhjFPW9QObzbznGjVc/7WjY48FpkMEaYn9iZrOIcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=geGxdJvA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lnX7JgX0"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C7D0AC2BCB5;
-	Fri, 24 Apr 2026 10:10:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="geGxdJvA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AFE9C19425;
+	Fri, 24 Apr 2026 10:13:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777025425;
-	bh=xrHLf5eNpGYCZJw6uXjVC8/WzVIrBBKC5TwvXGATU7k=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=lnX7JgX0aV9XrVrCk0f/EJbKoYmvaUsDoaQMrvRKiJL7IuzB5krcmuOKFva7KbEHq
-	 PsnryT+vI8uQ2ALelOoi5YbbYSPZIb/+wze/3+SUqQ2jG0gEU+CHPamnntVy4SCbp5
-	 6ZqoJlgDxuSL6phCAunVw5oU58/KJR9lwXRxQe3ESabvzVD9zofjuRDu+J2aIU3CtJ
-	 YsHCgeXCMwH8ZavGf03EazV1h7TUaUtskFihr4mIK6KX7Xmymssjaii4dEICtkbgRQ
-	 44U+oQqfJ7zbJrENi8HJBo/274DDvoCLkOSuRenPRbzAiD5Bwl2uDGwHuPVfbqnW5o
-	 U8oKCPf/wKXDw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B45C9FE51FF;
-	Fri, 24 Apr 2026 10:10:25 +0000 (UTC)
-From: Ekansh Gupta via B4 Relay <devnull+ekansh.gupta.oss.qualcomm.com@kernel.org>
-Date: Fri, 24 Apr 2026 15:40:22 +0530
-Subject: [PATCH v3] arm64: dts: qcom: talos: Add memory-region for audio PD
+	s=k20201202; t=1777025636;
+	bh=t177GNxpYQx3XFWvysW1fq+ESjiafp+KZ6iHk2sP/ig=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=geGxdJvA75Bs5geXi6ICsODk213tDp+XcM60ceWfPa9pAtQylvHYnR7byDMcwpc8g
+	 moFP4rRQ+EBNAr8xjLH+ITLCgWngWZJQa8F+y7XiIGxjnGzIh28EjhQAcRsVdgQeQu
+	 r6djFhH8ksjUJzEglfG1ZCwAEiPtfwxH2WqCLIgakpV+gj/esKAQ5j90c3c5TvZiV9
+	 Ct2FXphWI2laTQvbhaXSHPrnJWM6az8v7VHWDyhJ2Nujki5/11Q6VsqLH236IO7i94
+	 g2GCwQK8ayjM6VbMdiaeA+Yvjuh9yN1MpO9p1gvIwNxoTV1gYBT0jq2wdR31VxvS6N
+	 vWe67+b/45dUw==
+Date: Fri, 24 Apr 2026 12:13:54 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Aleksandr Shubin <privatesub2@gmail.com>
+Cc: linux-kernel@vger.kernel.org, 
+	Brandon Cheo Fusi <fusibrandon13@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Lukas Schmid <lukas.schmid@netcube.li>, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v13 2/3] pwm: Add Allwinner's D1/T113-S3/R329 SoCs PWM
+ support
+Message-ID: <aes2BuCaAUgelKGy@monoceros>
+References: <20260221183609.95403-1-privatesub2@gmail.com>
+ <20260221183609.95403-3-privatesub2@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260424-talosaudio-v3-1-9e2ad5d78a2e@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAI5B62kC/23MQQ6DIBCF4auYWRcjoBa76j2aLgaBSqLSgpI2x
- rsXXbWJm0n+Sd63QNDe6gCXbAGvow3WjSn4KYO2w/GhiVWpgRWsLkoqyIS9Czgr64gUujVCNkg
- lhzR4em3se8du99SdDZPzn92OdPseMpESSipRoWTMIJry6kLIXzP2rRuGPB3YtMh+heZPYEngy
- GWlVH1W6khY1/ULhq2KtO0AAAA=
-X-Change-ID: 20260418-talosaudio-b8ecf8b9a1b3
-To: konrad.dybcio@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, quic_bkumar@quicinc.com, 
- quic_chennak@quicinc.com, dmitry.baryshkov@oss.qualcomm.com
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777025424; l=2086;
- i=ekansh.gupta@oss.qualcomm.com; s=20260223; h=from:subject:message-id;
- bh=BMQhN87MOW3Bin4ZVjUzWQxUOWRhdvvp1i+NLcdrruM=;
- b=AZSk/nnoNK1O+zaH16pGtagQAZwKk0vhXw+p0ekjNHu6e5j9UK9UM1bQTzBZEP1WF31mtDx2f
- z754EqRI2xlBOMYhrWaV+hAfPDlB+kOOPR+Gg2S+qurnJEdSh7cuAbD
-X-Developer-Key: i=ekansh.gupta@oss.qualcomm.com; a=ed25519;
- pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
-X-Endpoint-Received: by B4 Relay for ekansh.gupta@oss.qualcomm.com/20260223
- with auth_id=647
-X-Original-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Reply-To: ekansh.gupta@oss.qualcomm.com
-
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-
-Reserve memory region for audio PD dynamic loading and remote heap
-requirements. Add the required VMID list for memory ownership
-transfers.
-
-Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
----
-Changes in v3:
-- Use shared-dma-pool representation for adsp_rpc_remote_heap_mem.
-- Link to v2: https://lore.kernel.org/r/20260419-talosaudio-v2-1-3a3b5dd67dd4@oss.qualcomm.com
-
-Changes in v2:
-- Fixed VMID list alignment.
-- Link to v1: https://lore.kernel.org/r/20260418-talosaudio-v1-1-585ab22faaf4@oss.qualcomm.com
----
- arch/arm64/boot/dts/qcom/talos.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qcom/talos.dtsi
-index ff5afbfce2a4..c230d46616ea 100644
---- a/arch/arm64/boot/dts/qcom/talos.dtsi
-+++ b/arch/arm64/boot/dts/qcom/talos.dtsi
-@@ -11,6 +11,7 @@
- #include <dt-bindings/clock/qcom,qcs615-videocc.h>
- #include <dt-bindings/clock/qcom,rpmh.h>
- #include <dt-bindings/dma/qcom-gpi.h>
-+#include <dt-bindings/firmware/qcom,scm.h>
- #include <dt-bindings/interconnect/qcom,icc.h>
- #include <dt-bindings/interconnect/qcom,osm-l3.h>
- #include <dt-bindings/interconnect/qcom,qcs615-rpmh.h>
-@@ -657,6 +658,14 @@ pil_gpu_mem: pil-gpu@97715000 {
- 			reg = <0x0 0x97715000 0x0 0x2000>;
- 			no-map;
- 		};
-+
-+		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap {
-+			compatible = "shared-dma-pool";
-+			alloc-ranges = <0x0 0x80000000 0x0 0x80000000>;
-+			reusable;
-+			alignment = <0x0 0x400000>;
-+			size = <0x0 0x800000>;
-+		};
- 	};
- 
- 	soc: soc@0 {
-@@ -5100,6 +5109,9 @@ fastrpc {
- 					compatible = "qcom,fastrpc";
- 					qcom,glink-channels = "fastrpcglink-apps-dsp";
- 					label = "adsp";
-+					memory-region = <&adsp_rpc_remote_heap_mem>;
-+					qcom,vmids = <QCOM_SCM_VMID_LPASS
-+						      QCOM_SCM_VMID_ADSP_HEAP>;
- 					#address-cells = <1>;
- 					#size-cells = <0>;
- 
-
----
-base-commit: c7275b05bc428c7373d97aa2da02d3a7fa6b9f66
-change-id: 20260418-talosaudio-b8ecf8b9a1b3
-
-Best regards,
--- 
-Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ch74tvkiwmuhhpsw"
+Content-Disposition: inline
+In-Reply-To: <20260221183609.95403-3-privatesub2@gmail.com>
 
 
+--ch74tvkiwmuhhpsw
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v13 2/3] pwm: Add Allwinner's D1/T113-S3/R329 SoCs PWM
+ support
+MIME-Version: 1.0
+
+On Sat, Feb 21, 2026 at 09:35:52PM +0300, Aleksandr Shubin wrote:
+> Allwinner's D1, T113-S3 and R329 SoCs have a quite different PWM
+> controllers with ones supported by pwm-sun4i driver.
+>=20
+> This patch adds a PWM controller driver for Allwinner's D1,
+> T113-S3 and R329 SoCs. The main difference between these SoCs
+> is the number of channels defined by the DT property.
+>=20
+> Co-developed-by: Brandon Cheo Fusi <fusibrandon13@gmail.com>
+> Signed-off-by: Brandon Cheo Fusi <fusibrandon13@gmail.com>
+> Signed-off-by: Aleksandr Shubin <privatesub2@gmail.com>
+> ---
+>  drivers/pwm/Kconfig     |  10 +
+>  drivers/pwm/Makefile    |   1 +
+>  drivers/pwm/pwm-sun8i.c | 393 ++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 404 insertions(+)
+>  create mode 100644 drivers/pwm/pwm-sun8i.c
+>=20
+> diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+> index 6f3147518376..44d844eba589 100644
+> --- a/drivers/pwm/Kconfig
+> +++ b/drivers/pwm/Kconfig
+> @@ -736,6 +736,16 @@ config PWM_SUN4I
+>  	  To compile this driver as a module, choose M here: the module
+>  	  will be called pwm-sun4i.
+> =20
+> +config PWM_SUN8I
+> +	tristate "Allwinner D1/T113s/R329 PWM support"
+> +	depends on ARCH_SUNXI || COMPILE_TEST
+> +	depends on COMMON_CLK
+> +	help
+> +	  Generic PWM framework driver for Allwinner D1/T113s/R329 SoCs.
+> +
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called pwm-sun8i.
+> +
+>  config PWM_SUNPLUS
+>  	tristate "Sunplus PWM support"
+>  	depends on ARCH_SUNPLUS || COMPILE_TEST
+> diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
+> index 0dc0d2b69025..ba2e0ec7fc17 100644
+> --- a/drivers/pwm/Makefile
+> +++ b/drivers/pwm/Makefile
+> @@ -67,6 +67,7 @@ obj-$(CONFIG_PWM_STM32)		+=3D pwm-stm32.o
+>  obj-$(CONFIG_PWM_STM32_LP)	+=3D pwm-stm32-lp.o
+>  obj-$(CONFIG_PWM_STMPE)		+=3D pwm-stmpe.o
+>  obj-$(CONFIG_PWM_SUN4I)		+=3D pwm-sun4i.o
+> +obj-$(CONFIG_PWM_SUN8I)		+=3D pwm-sun8i.o
+>  obj-$(CONFIG_PWM_SUNPLUS)	+=3D pwm-sunplus.o
+>  obj-$(CONFIG_PWM_TEGRA)		+=3D pwm-tegra.o
+>  obj-$(CONFIG_PWM_TH1520)	+=3D pwm_th1520.o
+> diff --git a/drivers/pwm/pwm-sun8i.c b/drivers/pwm/pwm-sun8i.c
+> new file mode 100644
+> index 000000000000..6e196f31314b
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-sun8i.c
+> @@ -0,0 +1,393 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * PWM Controller Driver for sunxi platforms (D1, T113-S3 and R329)
+> + *
+> + * Limitations:
+> + * - When the parameters change, the current running period is not compl=
+eted
+> + *   and new settings are applied immediately.
+> + * - The PWM output goes to a HIGH-Z state when the channel is disabled.
+> + * - Changing the clock configuration (SUN8I_PWM_CLK_CFG)
+> + *   may cause a brief output glitch.
+> + *
+> + * Copyright (c) 2023 Aleksandr Shubin <privatesub2@gmail.com>
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+> +#include <linux/err.h>
+> +#include <linux/io.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pwm.h>
+> +#include <linux/reset.h>
+> +
+> +#define SUN8I_PWM_CLK_CFG(pair)			(0x20 + ((pair) * 0x4))
+
+A word about the range of `pair` would be good. Something like:
+
+/*
+ * Shared clock register. SUN8I_PWM_CLK_CFG(pair) configures the settings
+ * for channels 2=C2=B7pair and 2=C2=B7pair+1. Maximal value for pair is ha=
+rdware
+ * dependant, it cannot be bigger than 8.
+ */
+
+> +#define SUN8I_PWM_CLK_CFG_SRC			GENMASK(8, 7)
+> +#define SUN8I_PWM_CLK_SRC_HOSC			0x0
+> +#define SUN8I_PWM_CLK_SRC_BUS			0x1
+
+SUN8I_PWM_CLK_SRC_HOSC and SUN8I_PWM_CLK_SRC_BUS are values for
+SUN8I_PWM_CLK_CFG_SRC, right? It would be great if they were named
+SUN8I_PWM_CLK_CFG_SRC_HOSC and SUN8I_PWM_CLK_CFG_SRC_BUS then.
+And then it might be sensible to define it to
+	FIELD_PREP(SUN8I_PWM_CLK_CFG_SRC, 1)
+(and 0 respectively).
+
+I hope there is no conflict with the reference manual.
+
+Speaking of the reference manual: Is there a public one? If yes, adding
+a link to it would be awesome.
+
+> +#define SUN8I_PWM_CLK_CFG_DIV_M			GENMASK(3, 0)
+> +#define SUN8I_PWM_CLK_DIV_M_MAX			8
+> +
+> +#define SUN8I_PWM_CLK_GATE			0x40
+> +#define SUN8I_PWM_CLK_GATE_BYPASS(chan)		BIT((chan) + 16)
+> +#define SUN8I_PWM_CLK_GATE_GATING(chan)		BIT(chan)
+> +
+> +#define SUN8I_PWM_ENABLE			0x80
+> +#define SUN8I_PWM_ENABLE_EN(chan)		BIT(chan)
+> +
+> +#define SUN8I_PWM_CTL(chan)			(0x100 + (chan) * 0x20)
+> +#define SUN8I_PWM_CTL_ACT_STA			BIT(8)
+> +#define SUN8I_PWM_CTL_PRESCAL_K			GENMASK(7, 0)
+> +#define SUN8I_PWM_CTL_PRESCAL_K_MAX		field_max(SUN8I_PWM_CTL_PRESCAL_K)
+> +
+> +#define SUN8I_PWM_PERIOD(chan)			(0x104 + (chan) * 0x20)
+> +#define SUN8I_PWM_PERIOD_ENTIRE_CYCLE		GENMASK(31, 16)
+> +#define SUN8I_PWM_PERIOD_ACT_CYCLE		GENMASK(15, 0)
+> +
+> +#define SUN8I_PWM_PCNTR_SIZE			BIT(16)
+
+This is unused (apart from the comment below). I'm unsure if this is a
+bit field, if so to which register? Does it need a comment? Or should it
+be dropped? From the discussion below, should this be
+field_max(SUN8I_PWM_PERIOD_ACT_CYCLE)?  (The value is different then
+the calculations below needed some adaption if that is chosen.)
+
+> +/*
+> + * SUN8I_PWM_MAGIC is used to quickly compute the values of the clock di=
+viders
+> + * div_m (SUN8I_PWM_CLK_CFG_DIV_M) & prescale_k (SUN8I_PWM_CTL_PRESCAL_K)
+> + * without using a loop. These dividers limit the # of cycles in a period
+> + * to SUN8I_PWM_PCNTR_SIZE (65536) by applying a scaling factor of
+> + * 1 / (div_m * (prescale_k + 1)) to the clock source.
+
+Here div_m is a plain divider, ...
+
+> + *
+> + * SUN8I_PWM_MAGIC is derived by solving for div_m and prescale_k
+> + * such that for a given requested period,
+> + *
+> + * i) div_m is minimized for any prescale_k =E2=89=A4 SUN8I_PWM_CTL_PRES=
+CAL_K_MAX,
+> + * ii) prescale_k is minimized.
+> + *
+> + * The derivation proceeds as follows, with val =3D # of cycles for requ=
+ested
+> + * period:
+> + *
+> + * for a given value of div_m we want the smallest prescale_k such that
+> + *
+> + * (val >> div_m) // (prescale_k + 1) =E2=89=A4 65536 (=3D SUN8I_PWM_PCN=
+TR_SIZE)
+
+=2E.. and here it is a shift. I assume that above 1 << div_m is actually
+meant, right?
+
+> + * This is equivalent to:
+> + *
+> + * (val >> div_m) =E2=89=A4 65536 * (prescale_k + 1) + prescale_k
+> + * =E2=9F=BA (val >> div_m) =E2=89=A4 65537 * prescale_k + 65536
+> + * =E2=9F=BA (val >> div_m) - 65536 =E2=89=A4 65537 * prescale_k
+> + * =E2=9F=BA ((val >> div_m) - 65536) / 65537 =E2=89=A4 prescale_k
+> + *
+> + * As prescale_k is integer, this becomes
+> + *
+> + * ((val >> div_m) - 65536) // 65537 =E2=89=A4 prescale_k
+> + *
+> + * And is minimized at
+> + *
+> + * ((val >> div_m) - 65536) // 65537
+> + *
+> + * Now we pick the smallest div_m that satifies prescale_k =E2=89=A4 255
+> + * (i.e SUN8I_PWM_CTL_PRESCAL_K_MAX),
+> + *
+> + * ((val >> div_m) - 65536) // 65537 =E2=89=A4 255
+> + * =E2=9F=BA (val >> div_m) - 65536 =E2=89=A4 255 * 65537 + 65536
+> + * =E2=9F=BA val >> div_m =E2=89=A4 255 * 65537 + 2 * 65536
+> + * =E2=9F=BA val >> div_m < (255 * 65537 + 2 * 65536 + 1)
+> + * =E2=9F=BA div_m =3D fls((val) / (255 * 65537 + 2 * 65536 + 1))
+> + *
+> + * Suggested by Uwe Kleine-K=C3=B6nig
+> + */
+> +#define SUN8I_PWM_MAGIC				(255 * 65537 + 2 * 65536 + 1)
+> +#define SUN8I_PWM_DIV_CONST			65537
+> [...]
+> +static int sun8i_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+> +			    const struct pwm_state *state)
+> +{
+> +	struct sun8i_pwm_chip *sun8i_chip =3D to_sun8i_pwm_chip(chip);
+> +	u64 bus_rate, hosc_rate, val, ent_cycle, act_cycle;
+> +	u32 clk_gate, clk_cfg, pwm_en, ctl, reg_period;
+> +	u32 prescale_k, div_m;
+> +	u64 clk_src_rate;
+> +	u8 clk_src;
+> +
+> +	pwm_en =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_ENABLE);
+> +	clk_gate =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_CLK_GATE);
+> +
+> +	if (!state->enabled) {
+> +		if (state->enabled !=3D pwm->state.enabled) {
+
+Can we make this
+
+		if (pwm_en & SUN8I_PWM_ENABLE_EN(pwm->hwpwm)) {
+
+? Then it depends on the hardware settings instead of cached state. Same
+for the other usage of pwm->state below.
+
+> +			clk_gate &=3D ~SUN8I_PWM_CLK_GATE_GATING(pwm->hwpwm);
+> +			pwm_en &=3D ~SUN8I_PWM_ENABLE_EN(pwm->hwpwm);
+> +			sun8i_pwm_writel(sun8i_chip, pwm_en, SUN8I_PWM_ENABLE);
+> +			sun8i_pwm_writel(sun8i_chip, clk_gate, SUN8I_PWM_CLK_GATE);
+> +		}
+> +		return 0;
+> +	}
+> +
+> +	ctl =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_CTL(pwm->hwpwm));
+> +	clk_cfg =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_CLK_CFG(pwm->hwpwm / =
+2));
+> +	hosc_rate =3D clk_get_rate(sun8i_chip->clk_hosc);
+> +	bus_rate =3D clk_get_rate(sun8i_chip->clk_apb);
+> +
+> [...]
+> +static int sun8i_pwm_probe(struct platform_device *pdev)
+> +{
+> +	struct pwm_chip *chip;
+> +	struct sun8i_pwm_chip *sun8i_chip;
+> +	struct clk *clk_bus;
+> +	struct reset_control *rst;
+> +	u32 npwm;
+> +	int ret;
+> +
+> +	ret =3D of_property_read_u32(pdev->dev.of_node, "allwinner,npwms", &npw=
+m);
+> +	if (ret < 0)
+> +		return dev_err_probe(&pdev->dev, ret,
+> +				     "Failed to get allwinner,npwms\n");
+
+I failed to reply to your question about a non-vendored name for this in
+v10
+(https://lore.kernel.org/linux-pwm/CAF4idNmDMQpFppUvCBbC1=3DSNMQBrTOqmFO60S=
+MvKvaHvNJy=3DBg@mail.gmail.com).
+
+"npwms" would be good.
+
+> +	if (npwm < 1 || npwm > 16)
+> +		return dev_err_probe(&pdev->dev, -EINVAL,
+> +				     "Invalid allwinner,npwms\n");
+
+I think there is a corner case if npwm is odd. In that case the last
+channel must not check for hwpwm ^ 1 being enabled in .apply(). So
+either .apply() should be more clever, or only even values for npwm
+should be supported.
+
+> +	chip =3D devm_pwmchip_alloc(&pdev->dev, npwm, sizeof(*sun8i_chip));
+> +	if (IS_ERR(chip))
+> +		return PTR_ERR(chip);
+> +	sun8i_chip =3D to_sun8i_pwm_chip(chip);
+> +
+> +	sun8i_chip->base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(sun8i_chip->base))
+> +		return PTR_ERR(sun8i_chip->base);
+> [...]
+
+Best regards
+Uwe
+
+--ch74tvkiwmuhhpsw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnrQl8ACgkQj4D7WH0S
+/k6scAgAn/0pDIYz2bAwUkDKaKeuPSiZvM+qmY6SFJ1w+GckDDKQbRMKqM5uDrEY
+EWS7ubhDZ9I2MNSIB/AIKMsM/7CkCtE8Vpfh3JSM9f5GzDhJ0vIF6V9zBH4tc9OV
+yCmIdHET/SPl6v9I1kszOG/+JK5jx+VelmPkIFbuhIxQhcg/P3iuG4EE1TKsRrNh
+OZu0sT9zHz/1Lh7hyQRx1K6dA6RQat35CnYLHah9JG0E5iIwS4XZ5S3OFwNrm1Ji
+1gX8GgGM7cgovSIx5sZzwHDxtSiregtnbtg9pEhguwEsDMuhVDeT5BM+EIoIZFjR
+jE24yAph4qmJMavKIQYVft3Rd754Kw==
+=AWnj
+-----END PGP SIGNATURE-----
+
+--ch74tvkiwmuhhpsw--
