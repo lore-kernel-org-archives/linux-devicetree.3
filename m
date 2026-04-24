@@ -1,104 +1,99 @@
-Received: from out-173.mta1.migadu.com (out-173.mta1.migadu.com [95.215.58.173])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 013403E5EDC
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 19:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E4D36AB5B;
+	Fri, 24 Apr 2026 19:21:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777057702; cv=none; b=TY5uakm4OOXW4kyMtn9A/vsNKKyuh9nNHCTPFUPSLUfWJ0lulnyLCzdKCwbrb+eJgaiDtAReNlFPDqbcd8uX6ugiAyGQ0qxyF9uYrEwWT3q7qk+U1InM23xGUg/ejuqxKm4VGHIvqfggqme/KcLv9eK81v5T8mCBeOaD2Cm2PfM=
+	t=1777058484; cv=none; b=DhdprnPj+QQfrudilKmSLQ6+R82DrR6fSDQpxgwqtB1KJEe08ZV88SneuTQlhwGIs26+kHgbbwBUU+KfHLcH3nKBE22tEcRS/BAdPwCHqnvJ/957Xe2j+7L9MCHqAzNeu6wTvxRoHiCMyJrd613H35aH2lE/bbZyKtZmuciM7aQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777057702; c=relaxed/simple;
-	bh=8A6x/gwvigokDWQHjH1XTTPUpJb98Mhg/r0z4VARm4Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pdaHv0TegBu1aoPULuJCUIVw40yOT7eNLwXON1k//NaC6urg4QgjNrHGNbcWSiaeIdjqxR9Iy7QWFW0Bwnnvy39zHsMHyL7AGNRsqgof8VhMNJhFvcUA455Qn5u09o1n3z1WL1othEE21DZQIsmYRStu+XW34k5eaWIlCzDktx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=nnt1cmrY; arc=none smtp.client-ip=95.215.58.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	s=arc-20240116; t=1777058484; c=relaxed/simple;
+	bh=vtA3a8VJttJ/RUgugzEUJjXVC/tqXxTv7XGOrZdWfp8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cu86z+x9jvzEn+jh8hG7BAkjLCqN2EXZdCUX2IWF+GLLzGzxftrDXP1QmKi9faRnSFUKFVGE9zPax70TvFRRx0n/VnK5ciS0tmUsIXOa4u07cjN+20rI445vHbZSRawQnEri8B0KmxAg6IECZevv4kJR90llJ3TMsZLpZIVLCm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WPMZYDcQ; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="nnt1cmrY"
-Message-ID: <c3b833d8-2e8a-4418-9043-6cd04d9901e1@packett.cool>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
-	s=key1; t=1777057689;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/Q7AY28qlHBjgzfWhhXsEAsuWHcEKhugX23O64AEQqA=;
-	b=nnt1cmrYKgqViG1liVRq6/0f4EejzGYfXen3cebO9qtTfbXXcCQm7vSo3J/ezkwa1y1Huj
-	yuEhv5AQt9otPdCsyU5Si1H+ksvzqUjbHms01qDdVFCGwSYpnMkJQ5N8epX1tab+xAO4/G
-	vz0B/vHMxyRIHTeAxHIvhXQD/5e2r3gy/cVkFvTUbSqwfMeUKqL4bIgfYr1vFyVfTWGLb1
-	FOwQHBlzAxLRyq4Pho8rDP6u2W1W42Yf6R5Op7z9JzR/sM2fZLT3XWXfKQTxjk4rJ1uNZz
-	tXuapn2aXf9bId8MCU6aT1JfKrUHgu0GpKyNf/R0irr3cfRjvi4KIR+j5BMtXg==
-Date: Fri, 24 Apr 2026 16:07:56 -0300
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WPMZYDcQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777058482; x=1808594482;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=vtA3a8VJttJ/RUgugzEUJjXVC/tqXxTv7XGOrZdWfp8=;
+  b=WPMZYDcQxyNZWUYf15ubRUazQ8XnfTpXH1jWT4iv1UrEcOUYaL0tnb6x
+   lp9K0zX1bQ1JVhuweVqNZmGu6x18EMsANUdKxTLt5ZnQtP5B415VntiFH
+   F4PnpDp9vEQuYzEa68xn8iQWqHcs2Uq5nFSzrDBHiH/kxfO1TACGbjjZA
+   uTvI/IjKLOk6HN54746XLm9AeU0QY0giWih16lgpXrOLJkIV/X0GUQoFb
+   dItNG+UdaS0ep3bC7NhXl1Lz7VaarRLjrP4DkS5qF62PTEK8hzAa0Hn47
+   2U0wc19JIADUj2lS+AzWWLz7JNhSCvNrcHVE4jp+AoGHGDFbe+Ty32y2A
+   Q==;
+X-CSE-ConnectionGUID: Gfg4fQF8RjSlM5cKqKy8UA==
+X-CSE-MsgGUID: AvkEuGBrQgqaItw38vFKvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11766"; a="77208264"
+X-IronPort-AV: E=Sophos;i="6.23,197,1770624000"; 
+   d="scan'208";a="77208264"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 12:21:21 -0700
+X-CSE-ConnectionGUID: u9JzOGFZSP+X9N/OTCGh6Q==
+X-CSE-MsgGUID: pms+UV2zQ9G5cpUtbEqmNw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,197,1770624000"; 
+   d="scan'208";a="232040479"
+Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 12:21:18 -0700
+From: Dawid Glazik <dawid.glazik@linux.intel.com>
+To: Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	linux-aspeed@lists.ozlabs.org
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	dawid.glazik@linux.intel.com,
+	maciej.lawniczak@intel.com
+Subject: [PATCH v4 0/3] ARM: dts: aspeed-g6: add AST2600 I3C nodes and bindings
+Date: Fri, 24 Apr 2026 22:20:58 +0200
+Message-ID: <cover.1777058942.git.dawid.glazik@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 12/12] arm64: dts: qcom: qcs6490-radxa-dragon-q6a: add
- LPASS CPU audio variant
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Xilin Wu <sophon@radxa.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Judy Hsiao <judyhsiao@chromium.org>,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-sound@vger.kernel.org
-References: <20260407-dragon-q6a-feat-fixes-v1-0-14aca49dde3d@radxa.com>
- <20260407-dragon-q6a-feat-fixes-v1-12-14aca49dde3d@radxa.com>
- <29a7dd01-7513-4fe5-8546-d57757b3b2d0@oss.qualcomm.com>
- <88B7BBB9133FBAD1+ccb025ea-4999-4701-bb18-c57a42cabe2f@radxa.com>
- <2f830f17-4bc5-4ebd-a66b-8068a14a871a@oss.qualcomm.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Val Packett <val@packett.cool>
-In-Reply-To: <2f830f17-4bc5-4ebd-a66b-8068a14a871a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Transfer-Encoding: 8bit
+
+This series reworks and resubmits AST2600 I3C DTS updates that were
+originally posted in 2024, but stalled without further upstream
+progress.[1] The series was rebased onto the current tree and merge
+conflicts were resolved.
+
+The patches first move I2C controller nodes under the APB simple-bus
+for layout consistency, then document aspeed,ast2600-i3c-global in
+the syscon binding, and finally add AST2600 I3C controller nodes in
+aspeed-g6.dtsi.
+
+Jeremy agreed in a separate email thread that I can continue this
+series under my authorship.
+
+Link: https://lore.kernel.org/all/9d8c03d742fa9767f30e23d75ddf0baf4296c88e.1714647917.git.jk@codeconstruct.com.au/
+
+Dawid Glazik (3):
+  ARM: dts: aspeed-g6: move i2c controllers directly into apb node
+  dt-bindings: mfd: syscon: add aspeed,ast2600-i3c-global compatible
+  ARM: dts: aspeed-g6: Add nodes for i3c controllers
+
+ .../devicetree/bindings/mfd/syscon.yaml       |   2 +
+ arch/arm/boot/dts/aspeed/aspeed-g6.dtsi       | 543 ++++++++++--------
+ 2 files changed, 318 insertions(+), 227 deletions(-)
 
 
-On 4/24/26 9:28 AM, Konrad Dybcio wrote:
-> On 4/8/26 11:47 AM, Xilin Wu wrote:
->> On 4/8/2026 5:06 PM, Konrad Dybcio wrote:
->>> On 4/7/26 5:20 PM, Xilin Wu wrote:
->>>> Add a qcs6490-radxa-dragon-q6a-lpass-cpu.dts variant for debugging and
->>>> bring-up of the host-controlled LPASS audio path on the Radxa Dragon
->>>> Q6A.
->>>>
->>>> This variant enables the LPASS blocks and codec macros needed by the
->>>> lpass-cpu driver, wires WCD9380 playback/capture and DisplayPort audio
->>>> to the LPASS CDC DMA and DP interfaces, and disables remoteproc_adsp so
->>>> that the audio hardware is owned directly by Linux.
->>>>
->>>> This DTB is an optional configuration for systems booted with the kernel
->>>> running at EL2, where direct CPU access to the LPASS hardware is
->>>> available. It is useful for users who need low-latency and fully
->>>> controllable audio.
->>> I believe on Chrome platforms it was done this way because at some point
->>> it was determined that they would specifically like not to use the DSP.
->>>
->>> I think this is more of a hack than anything else.. but at the end of the
->>> commit message you mention low latency - is the impact actually measurable?
->>>
->> Some of our users also specifically prefer not to use the DSP [1] :)
->>
->> Based on their testing, the AudioReach/ADSP path imposes a minimum scheduling interval of 10 ms, which is much higher than the 0.67 ms they can get on a Raspberry Pi 5 with direct I2S/DMA.
-> We passed on this feedback.
->
->> Since the lpass-cpu setup works properly, I would not consider this a hack.
-> Well yeah it works, but I was really hoping it would be made
-> unnecessary and available for removal sooner or later..
->
-> But since there's a genuine usecase, perhaps not.
-
-lpass-cpu is also great from a "I don't want my pure libre operating 
-system to touch dirty proprietary binary blobs" perspective, but you can 
-definitely argue that that's not a genuine use case :)
-
-~val
+base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
+-- 
+2.43.0
 
