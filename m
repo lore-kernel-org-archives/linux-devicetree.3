@@ -1,91 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 259D8238166;
-	Fri, 24 Apr 2026 13:17:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A45B736164B;
+	Fri, 24 Apr 2026 13:28:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777036642; cv=none; b=rTxQYEy7CvQDGJKHmdf8ZmtQFQ/JSN6AHxcB78/aI59pPYqHcefmjcduBgj5oEe+tomfcBvD+WLunrbeIrQpuDU/z6EuQ3m8ZeOOIdzOtssMwMcT3HrZ8eVd4QzPB1JMBQu+L+8SZ9w0DZTt92cjdHDauUv6iXlGPzfwXd6KRNc=
+	t=1777037283; cv=none; b=j3HrJis4qsuPmKghbAkkuiKh29Zun1Peh+ca9vy1xY4bVxMmLXx3dmUaXDhCOKy6xGUiQHCU5ng8NPuDPi2lCWec/lhQbT0nib4XLM5m9iu6xPwEYx4NGEAAIgtIWBo9XnmQ41iLlvZFbgVw1M1gwg+kpG7vuuWN4kiKrVMFbNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777036642; c=relaxed/simple;
-	bh=ybYWfkYopakx2x/H9iLMUuFNckKVrkrunJzGWNRPBPw=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=PGcdtfwfKqrRlxriiwa1s0vsN9d6WZzF7fZdOX+KgBu4L1W7fv/RHwDjaVQ50sjwVaxoqABv4GTWMhrT6iQFsntO14fDzwqbWduRhjX2qjnkCmo/ILqNYH0yveTbZmrh/ItjNsd5F8AdZLM2ly/fkI3ZKWduTEMibo6wJ3vhOv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MYbGyF7Z; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777037283; c=relaxed/simple;
+	bh=TgBvaySXJAlZGQpJKL99VsTHVkEs72ypMcQq2IoSJQs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GatBoqErzr5Esyc/tCJMgiR2KZ6gko9/5tgLFPqskYovWR6sdKLMp1FtxAW371VP8DsQk201EJoZIOXylRm4D1v9pd5Cf+FQRjGnXH3tCcjsNyXKKgttRDKeXRuQ5KXC382z5AqRGA7177PtpNkbeykTppSvtnxixn2lzQuBeTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N3GfRH2K; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MYbGyF7Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDA5DC19425;
-	Fri, 24 Apr 2026 13:17:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777036642;
-	bh=ybYWfkYopakx2x/H9iLMUuFNckKVrkrunJzGWNRPBPw=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=MYbGyF7ZKB0B0T2ST0hSVrw6H53j9rp3+/VXCTELXocoSQ2yHnKefjWCXlymyiiR/
-	 96CIXSwsKl8xUwfhcdxeWNna84uz0TursRhUw1rdZzujWCK13OMr78211ZRv/oydyF
-	 StrM1723kFoXeybwKQUPxnZlJ70bVZeVcRuGXKQpa3+Lz5CiGX7Ois1iqRPqsJ+dY8
-	 +LxKO0X16rS4ctu/9bLwetR9PajyI6YQqHyTfE6SwxCWc9kN03QwTITLfesJ3CcbVE
-	 GRaZxXdyYWLAKxRjc89GbcFXPDg8nRnvlh6XBTK8UywaweOMXrMygs+IFbOZOenp8K
-	 lRivV19PiZhEA==
-Date: Fri, 24 Apr 2026 08:17:19 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N3GfRH2K"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777037282; x=1808573282;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=TgBvaySXJAlZGQpJKL99VsTHVkEs72ypMcQq2IoSJQs=;
+  b=N3GfRH2Ke0Oa0a8IN46v5zy7Ivfq1lwDFsWMAaecyxtiwMZ1iQX6Qd5s
+   7/6WgFCtHYYP4OHHw9HwxdmGvrN1j/5x8DYQFtH8WkapkqdfhgxoqfzeQ
+   d62HHt2HAUpWadPM7BCaZrU11mB+pA+S3rQcGxvQfFT9/6b4Xjx3XxWeE
+   fN4AKF2egsy+CSSnQpMdM0RKA03ynVnwIKS3Q39jMIKG3oHbZtrZOsezc
+   uA/AaQ0eVKWFraXVCjEp6gYo89FBGAfVdrI2zKwoqEyEsniJ65U+ZMi7K
+   q0N6JKR/0r0X87ZvCC45FGds/xMnpDLtybBT5K4GSLHB647V6WMsNprA4
+   g==;
+X-CSE-ConnectionGUID: dVuz3aSxSnilsh085K2e0A==
+X-CSE-MsgGUID: iGt7+xeYQySKGlA1G7aQwA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="78072896"
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; 
+   d="scan'208";a="78072896"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 06:28:01 -0700
+X-CSE-ConnectionGUID: UJWsomBYR4K6abvvtjBnPw==
+X-CSE-MsgGUID: Cyj4oll4QMqvdi8CvLbxNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; 
+   d="scan'208";a="231946987"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.71])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 06:27:57 -0700
+Date: Fri, 24 Apr 2026 16:27:54 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Jia Wang <wangjia@ultrarisc.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-serial <linux-serial@vger.kernel.org>,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 2/4] serial: 8250_dw: build Renesas RZN1 CPR value
+ from DW_UART_CPR_* definitions
+Message-ID: <aetv2ljDOpH_Hs4s@ashevche-desk.local>
+References: <20260424-ultrarisc-serial-v4-0-1765a0b4c4a0@ultrarisc.com>
+ <20260424-ultrarisc-serial-v4-2-1765a0b4c4a0@ultrarisc.com>
+ <4548483c-cbba-899e-6b1a-1290d36b59cd@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Emil Renner Berthing <kernel@esmil.dk>, 
- Alexandre Ghiti <alex@ghiti.fr>, Conor Dooley <conor+dt@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org, 
- Linus Walleij <linusw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>, 
- linux-riscv@lists.infradead.org, linux-gpio@vger.kernel.org
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-In-Reply-To: <20260424111330.702272-14-changhuang.liang@starfivetech.com>
-References: <20260424111330.702272-1-changhuang.liang@starfivetech.com>
- <20260424111330.702272-14-changhuang.liang@starfivetech.com>
-Message-Id: <177703663942.3732468.14128027555396661004.robh@kernel.org>
-Subject: Re: [PATCH v1 13/20] dt-bindings: pinctrl: Add
- starfive,jhb100-per2-pinctrl
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4548483c-cbba-899e-6b1a-1290d36b59cd@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Fri, Apr 24, 2026 at 02:38:56PM +0300, Ilpo Järvinen wrote:
+> On Fri, 24 Apr 2026, Jia Wang wrote:
 
-On Fri, 24 Apr 2026 04:13:23 -0700, Changhuang Liang wrote:
-> Add pinctrl bindings for StarFive JHB100 SoC Peripheral-2(per2) pinctrl
-> controller.
-> 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  .../pinctrl/starfive,jhb100-per2-pinctrl.yaml | 178 ++++++++++++++++++
->  1 file changed, 178 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per2-pinctrl.yaml
-> 
+...
 
-My bot found errors running 'make dt_binding_check' on your patch:
+> Hmm, maybe there should also be macro also for this one which takes the 
+> fifosize as input and converts it to CPR field vlaue (effectively, the 
+> macro is an inverse of DW_UART_CPR_FIFO_SIZE()). It would be more readable 
+> than the literal.
 
-yamllint warnings/errors:
+But this can be done separately, right?
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/renesas,ether.example.dtb: ethernet-phy@1 (ethernet-phy-id0022.1537): compatible: ['ethernet-phy-id0022.1537', 'ethernet-phy-ieee802.3-c22'] is too long
-	from schema $id: http://devicetree.org/schemas/net/micrel.yaml
+> Also include BUILD_BUG_ON(!IS_ALIGNED(fifosize, 16) + bounds checks) 
+> inside that macro to catch invalid fifo sizes (+ don't forget the 
+> necessary headers for those two new things).
 
-doc reference errors (make refcheckdocs):
+Hmm... Some devices may have FIFO = 8 or 4 bytes (Intel Quark IIRC has less
+than 16 and it's DW IP).
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260424111330.702272-14-changhuang.liang@starfivetech.com
+-- 
+With Best Regards,
+Andy Shevchenko
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
 
