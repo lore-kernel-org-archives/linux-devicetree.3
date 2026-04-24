@@ -1,103 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E45305057;
-	Fri, 24 Apr 2026 10:26:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A8E371897
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 10:31:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777026409; cv=none; b=S0+dptC9cS+D3gy1bdrVIe9SkEG4x3qcu5n7Ix1GKYNesO5TtbXdCsnQ4e/65P19lJHq0a8jGZeaJFFbx0ndelLqwyX+GW0uRu7KXYT8OPdjqzJRC0K8HtFsRtmfu04yKNe4Ixn6XAhhehjSkjrtmotWXx1oWF5frTT+coxFNTQ=
+	t=1777026683; cv=none; b=Z5baWNmhMjPXORwk1SyiqclJsD1UuaCrGy3hJfsdwjRtMmK1EABRhhFXyP4m5Dw7D1Eyb6yt/aPR5KY3/4chQJ7KukWtt5cT7uzQiJNsE3RGzyu/lZptHu1xNaYfeTeVmYyUFB5+UlHaAr39gp7QW5hruh49vJULtVVlvEH6B4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777026409; c=relaxed/simple;
-	bh=6qdpYOEwgLxns6uy+l3iZ48fFOnItLJCDfEcMjKyDwQ=;
+	s=arc-20240116; t=1777026683; c=relaxed/simple;
+	bh=PN79pQYU0En1xYe9D+IRKMbvoUqMajBOh8B1Txg8eHg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ri8f8CIGBSqVdG0MnvZCOy50Kgsg9APHC9cog44+fiK3aH5/tur3VY4Hdwzs8IUs+oH909aGHWlHy0L+x6YlB6q8k1+5fY9JUGd/ubWuTdWuhYLd4ZjD0UqV8fdi6XW8lC3VP/relFrdfinWtcK1RxQntkrvynoaB634fwU+9Hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SqWxIIF8; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=IheKN0SelRZHHPNwcoSEBxSC8VB211krpYxCmh3qD1XjSjZwGXEao483UhkYzsY+S7/7mq8GnTjY30Ej9txFBL9if74mLRGodPA5OOBd5O92rXVRunU1FpHqATW+mjfwSRolGXpwm9qBqL3lJ4zY1WAt/9now+jldRzCVt8haQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FLr0pvz5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RH9WzZ8t; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SqWxIIF8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09FC1C19425;
-	Fri, 24 Apr 2026 10:26:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777026409;
-	bh=6qdpYOEwgLxns6uy+l3iZ48fFOnItLJCDfEcMjKyDwQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SqWxIIF8IkQAlamNjybivRzR2oqo2uWMyT27bW2+eeH2feqVExPH6SkmOHTDCajrX
-	 kwvzpt5dUfEDtlC2Iz8UEuhVw7GUIZibf26c+b8Tkj4HPiPa1tz2ZakERzglgXau+R
-	 l9BJ+a4hKWVNpxMQazgIZEjDpAqHXs4zSm4tZ97xocyrAaDFhNisDEr4q4RDgBOjRv
-	 r25ottLx3ENqpUsssrQtFYxFGtsbfd8vF2mmw30v/JsvrAcDzgruIaN9djKuNIbbdE
-	 W9ZhmjycZ92cJW5v0kaZVoMEDcSCg7lREeic4LAfdeamPEQWkHfCMT2+ta+ZDKLysE
-	 tyfw2DbIyn1cA==
-Date: Fri, 24 Apr 2026 12:26:46 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Ben Zong-You Xie <ben717@andestech.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/3] pwm: add support for Andes platform
-Message-ID: <aetCpymy9iYE-wE-@monoceros>
-References: <20260330-andes-pwm-v5-0-01c59a659d2c@andestech.com>
- <aercn3iIcMvd3CPB@swlinux02>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FLr0pvz5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RH9WzZ8t"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63O7ZG8h4167976
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 10:31:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=7eORED+9/+BslFSauOCIHw6f
+	S43tga0F3hzdxbVP/sU=; b=FLr0pvz5chPV0cdTmlj4y5X1fDorKDx6GiftLL7R
+	ON5xQIL66MM/chO7m8Qiy7FOs4iOeq94VBQj09JTqXjRz392+Zf6YWe5VlbwrHYw
+	/tyWwx8iGlreukydk+ZURNKenGyDIfC1Q4mhSb++NF5jq0zq7m0/x4X4PpLEfOec
+	HGPpkI+hpT8lQrLWx67UEmrm2zdLoD0fcn+SX64/nY65xes2R4QzVzJ5ubXcF1Ga
+	VQ7fL/TSESk8YYugd7lQd8eZ+AWZkgD5Vp75/zPFoy3VZFAJ/1RaaEz624eCkqqJ
+	kXQT3s8a73Mp0qJupJ1Saw0SnKFLfkH7TPwVUyZr6q5TSg==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dr48n0stk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 10:31:21 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-56eeaefec9bso7466959e0c.2
+        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 03:31:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1777026681; x=1777631481; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=7eORED+9/+BslFSauOCIHw6fS43tga0F3hzdxbVP/sU=;
+        b=RH9WzZ8t2yQRySoewkzQ7KSqwDkCwc2i5DdH9C1Lz0Og+fm0CewNpOkodeGQOuL6h+
+         DSXzl+tuub944moI6YEFdoZqb1on6IncTkHGmD8LIQ7sR4zobj+TzuhNoBhED07j8AsP
+         kMzWvFX8s0zxmbREBLMnLCEAeT532zUS4GCbfr04sgUgynxhFmEOxK3wAo1LvzrmqfP9
+         wdxhKsvMbd/pxeab2OEnkjYDPSre2LT2Qa8GolUs30ot7C05v5TyteTZX4orVTnPonEL
+         qBhi3QzwrFw0U6qtz+EUWCkLEqqiumu02b4r7DqsPKNjhxKR5HCoLS+GHH1eh3L+9Q5U
+         F7lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777026681; x=1777631481;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=7eORED+9/+BslFSauOCIHw6fS43tga0F3hzdxbVP/sU=;
+        b=G8ZVzvdEyybpzt1ADg6z9GLz5l48+rFDsJEyWAWjhtP4E73YVNYcdupa+TbcxJLmiz
+         WfDzGDjontFsRHHnt4IS/Ke9rSL58XBQO/UVNqvzWJQn4Paww/AY3ygsGl0IsNz6prh5
+         Nv6qR89JJM0qy+3L5dfNU/satvBVoCBDqH8I39X0BGzpbQ0DssvzmxgyDNhdjTqARkMu
+         Ot9P/BveB0UfwnNaKQdRyxx2nAtYKZFbzWoPgLEqxeoWRihzQc4RyEW/t/JBl+AUHQXU
+         xEdYm1wZoQhswrdx/H+xBah1f4yrMNBRzPPXWvvSQ2wnRyWIYzF9whJMvZU5yq3Tvq+G
+         W5kA==
+X-Forwarded-Encrypted: i=1; AFNElJ/rCidW8/n7tjd7QJA63+4M35YmBMzC23CRq7iDBoVlVnWb3R2O/fZ8pQOMwwmM0YiU9iReg8Ykg1Mh@vger.kernel.org
+X-Gm-Message-State: AOJu0YxOKijAf9SNy5XVWc/QkjO3ztDRGaPZY+JTDMS1hBOfBN92CCvd
+	8/6F3vR/XKsVZsb2v1OF6Gk+ZV8dHJDHA0Z8GBe9W7LnlT5a/isHJBBVJOCcEHCsH0BcorqrOOr
+	Msf7hwtPcKrpsnjGQnwPykxFxBknpiBfm8rojubyqGKo2ojzFuwxkTrDycKvSM4Tv
+X-Gm-Gg: AeBDievp4m92XjMJUPYBxGpF81JZk14QS/uBW062wU/pXwJDf6E+w4H2AGiIMdM5Pkh
+	5YxAF6wh5hnw8EQhEWSjsRX4XALwGNNTZskn8E953u3AX01Hbk878edZ9BlJ48jMh0ku7s46WS9
+	Pd9kWeQWRCaaXA8VuNRNh43Q9wtgZ3CBUbPyoaeV5pcVoTP0Wp4zl4yeyEVYeNmSdjUkB8prYKt
+	qs4PlWm0jZOEgW9F5ySX5Dzc/V+17ctQxCLBZLzts5JDAhigzbSt2H9Ru9HlLbnyoSUEMrhRRm4
+	XoztLQN8eteOAG5iGjTuCuCosAvoI+Eb9a/uTxkYQgGoejoc43SS9g3f0BWF5y4V7ky/njfdtm+
+	M9hGQk5KDeP6Z5/LZBvE9vxlAMyd9pBCWWOn/oUcXmlBLGu4=
+X-Received: by 2002:a05:6122:8b8b:b0:56c:ddbf:57e2 with SMTP id 71dfb90a1353d-56fc6816e2amr11361006e0c.11.1777026680931;
+        Fri, 24 Apr 2026 03:31:20 -0700 (PDT)
+X-Received: by 2002:a05:6122:8b8b:b0:56c:ddbf:57e2 with SMTP id 71dfb90a1353d-56fc6816e2amr11360971e0c.11.1777026680323;
+        Fri, 24 Apr 2026 03:31:20 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.213])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fb75a913sm177753365e9.12.2026.04.24.03.31.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Apr 2026 03:31:19 -0700 (PDT)
+Date: Fri, 24 Apr 2026 13:31:17 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Sai Prakash Ranjan <quic_saipraka@quicinc.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH 6/6] arm64: dts: qcom: sm8650: Add missing CX power
+ domain to GCC
+Message-ID: <5vwqco2zbhzb7phdtkvirytj6p34ig3ab7nm2x7jlsj6domoa4@7exxwqsyxpss>
+References: <20260424-topic-sm8x50-tie-gcc-to-cx-v1-0-4b6e09d532ce@linaro.org>
+ <20260424-topic-sm8x50-tie-gcc-to-cx-v1-6-4b6e09d532ce@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dguxxe7wwxovvkw5"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aercn3iIcMvd3CPB@swlinux02>
+In-Reply-To: <20260424-topic-sm8x50-tie-gcc-to-cx-v1-6-4b6e09d532ce@linaro.org>
+X-Proofpoint-GUID: 1ShubBQF9kxMDT0N7zcbleEHI3xJ9VZT
+X-Authority-Analysis: v=2.4 cv=VOjtWdPX c=1 sm=1 tr=0 ts=69eb4679 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=gcnggjyPzmaCdwFRn6A1TQ==:17
+ a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=Fkf1F6wwXAJK7cocUXQA:9 a=CjuIK1q_8ugA:10
+ a=hhpmQAJR8DioWGSBphRh:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: 1ShubBQF9kxMDT0N7zcbleEHI3xJ9VZT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI0MDA5OSBTYWx0ZWRfX8ITjSiIFgIiw
+ /zKLApmFgI0lOAmv4D+JQTkjgQdThIIJPrNhNwghJpEZiOtSi7/D983VkiQl7PoauNkPgQypisA
+ SiupdlHM2WBP2qgul3g4ogkcJDxXQwgOTXUHA2VBRcCXF7VhvOIyXGAYe81+2pbvnaTiLUlp3y5
+ qKHyeS+jDFfB9hqA3JNkZTWphJBrqE1YC3V26g/0Whv9gk1EneWKNOjI1u5jsS2cXhhgfcKN73C
+ QhoHQDgMFffZewfybBQQJhFd+bWHRlaHHn319agaITbEZpTp1Q4v85wtmyYWOKwmBhGsNFTHKnm
+ q3MuYKjDWlXimeep6c6yQhjRNpVPV1VsmkQn4MXB9VoK1zijcG1lyrEH+wp7p18oHLMesJgysdg
+ SJ+t+s41xxnLJFAZLiwnFKZBcaPO074ye7ac9bFS5/5k5YAjZOim7vYoSOJpKb0M+kDSfa8BZhA
+ jmDgl4okt/K2Om0QDIw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-23_03,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ priorityscore=1501 bulkscore=0 suspectscore=0 malwarescore=0 clxscore=1015
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604240099
 
+On 26-04-24 11:08:00, Neil Armstrong wrote:
+> Unless CX is declared as the power-domain of GCC, votes (power and
+> performance) on the GDSCs it provides will not propagate to the CX,
+> which might result in under-voltage conditions.
+> 
+> Add the missing power-domains property to associate GCC with RPMHPD_CX.
+> 
+> Fixes: d2350377997f ("arm64: dts: qcom: add initial SM8650 dtsi")
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 
---dguxxe7wwxovvkw5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5 0/3] pwm: add support for Andes platform
-MIME-Version: 1.0
-
-Hello Ben,
-
-On Fri, Apr 24, 2026 at 10:59:43AM +0800, Ben Zong-You Xie wrote:
-> Gentle ping on this series =E2=80=94 it's been ~4 weeks with no review on=
- the
-> PWM side. Patch 1 (binding) has Conor's ack; patch 2 (driver) has not
-> received any feedback yet.
-
-Unfortunately there is a conflict between wanting to do a detailed
-review and my time available for doing that. As long as your patch is
-listed on https://patchwork.ozlabs.org/project/linux-pwm/list/ I havn't
-forgotten about it and will review it when I find the time for it
-(typically in a rough first-come-first-serve order, though I try to give
-simpler and urgent patches a preference.)
-
-So the obvious things you can do to speed up my processing are:
-
- - Look at the patches that are still before yours in the queue, find
-   issues in them to kick them out of my queue :-)
- - With
-   https://lore.kernel.org/all/7ia4o6kmpj5s.fsf@castle.c.googlers.com/
-   in place since you sent your v5, feel free to send a v6 and look
-   through the feedback by Sashiko. It's an AI and not specifically
-   trained to the things I care about, so only adapt to the points where
-   you agree. The feedback it provided for other series as far as I
-   skimmed it contains some good points.
-
-Best regards
-Uwe
-
---dguxxe7wwxovvkw5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnrRWMACgkQj4D7WH0S
-/k5aZQgAq0AIXrRmD2GZhd1ZgZCcs8Sce1N/uQ23PAKGDmq2PmvAkcN9re7EZ2BV
-4Pl9SEWKZw1U0eMAPjHO+WaQrL0A3WQPOph8Pyinp+93agUK9klK06/UnFyTlxJP
-MmSE6BQKYYJUM61/1RgjnidWZdbvM9x9qd2W/0Fzoy77GcZA+aKv2Z2/NSIYoz1I
-6C+OfF8QL2xv77rhDIbVRdbot8PxWE92nYB5WWt9sJrHwl0Nr6pt7wQc//JsLvGW
-P9SqDo4GeR9jqLKLGTA6P97jeWISwMKazC05rC89TQTLdJU7hO0aVxE+Izyn3ZUj
-Kvhmr07fSy5lUgx6//KgVHkFEXaYwA==
-=gE+6
------END PGP SIGNATURE-----
-
---dguxxe7wwxovvkw5--
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
