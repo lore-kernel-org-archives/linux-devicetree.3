@@ -1,192 +1,142 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010033.outbound.protection.outlook.com [52.101.46.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE1922D4D3;
-	Fri, 24 Apr 2026 17:52:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979A13EF646
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 18:27:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777053167; cv=fail; b=TVZfO387WFmAIRk32txok30STBRQY1A6azQ95SKaaqYPMmk5Ahgk8TMuvycCyCrUtonVVrLQKz4D54JL+QiajBBrp99aYZp2yWNwKXiz30ewG9UkJkVxL9gfzjrFXs97ciKHc5eLpqcFT11p6LgfJTB096Su/S2VyGD/H220/ic=
+	t=1777055247; cv=pass; b=W0I1SDTZPlqqPkvwlOrFcc1bS6qDq6+CDuwJQqSeksdCP/n5NoTr9CS1fxGDp4Z0tavjDjoLLSJol0DTkoaMtefS9kgl8xdRmPhyyjyz0OVdqYmnY4OrhLXsgSt3iRINlDpFdDM5Ex0WJC+eZTs+Cv7dVfA1VN+2fSreDQvKLYA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777053167; c=relaxed/simple;
-	bh=1IL+AnXHYrheUyharUFGOdS7Po7B99GG/wyl/pgp9cQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=KtMr7dqaVnBqvDL9C6GDQoY8Kkr5EwVnuQMSvh0jbMkRF5SsVX4CxqCNVFhyFca7zDmotaLIqHauQ1SoxVjdhiGJSBBb9phCBqa1SOmzCar9P3P1dR8JBmfjxvMAO3R6OZ6GlXrHxr9jdhJQySE3oI87rdbBexkYcLRee2lok8M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=GzQ7vSQb; arc=fail smtp.client-ip=52.101.46.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1777055247; c=relaxed/simple;
+	bh=7CTY68bsyrtSiDtxKuvOUa8EF73ypzAgDBPbmxeJO2I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Dg+7hKgEQFGxf/XTEeA0/CwH7J0wnpNJiGM/uWEyXw28j/aHFmBbKeQsN8e6P1PT83uNM9f71ineOwAOpMWokSzeyaf4EA3QYygDrec9tD69b5LwXl4Av2r+87eEn//gEgrNqr8YXj9FYZP72OK0Zs6Jrj2LVUid5shBfrUi0d4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kc9g6edp; arc=pass smtp.client-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="GzQ7vSQb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p6FBLjnnKavamL6K4BDuThl7pK9atjW6zvOklciZY+GZYfheeqwV85c3+HXeAe3R5xmlwaYvEh/eO26Aj1jsuNx4WyyZpNQ5HYbZTKas7eabrobo/puS13Qw5AZURCKClO8LXTQZjKBtOVaZ7WFo3tw0FtOeeRbAFqrs9J9MXVYjB4KtJbjkhLIDp3xNjA2lIHfb1keQdXMBn4pfGTGVE1VFLJVstli9fSQM4ZOslcjkMUHe/YsY+fi+kBpecBGJFZ9frB9cIZfgq4oa6ooNTQ4xXMunlFduX9pMI1k0Wt0j6hYUA/PAoo+++VAwTlTejWFwDJuyQ50l4YVGaE3D+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VTrOXIGxwARZQ/F2F1skxkGyUQQ9uha5q6tsKJdavrA=;
- b=rUmk7k7+85eX3rPoB6HW9XmHePjh/GPA7+lK6ahAsJfYRQD4ubSGlol/9j7hjGginZuoZ46HfD0UmSkboEEKUPkETyOaNVlRmatrTi2aq1gXOahi+nMM1XfdVd5vBOioMliMeVUsTcgE3QXL0lD8up/YJblWnB16Jd3BMKIBG/6tyoBzLMXLvdhJaYB0E9m8ObQL5Xke7aWgs/kDkMAQ5nr5OMkUUaS3v5r1Q38nPIaHqVxBAaBnCjfJ2FofXRECjY5rG3n+RhGN1wDPzTIIT9q3aZdtbFbXtD6DYnRrRflfE2eyjo7ISVO2/8wPDu5DIz2nbgcIL45ClJq8weUVFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VTrOXIGxwARZQ/F2F1skxkGyUQQ9uha5q6tsKJdavrA=;
- b=GzQ7vSQbFXMT1++jC0yI9zr7cAxH2QprQ4GMn34a6fT3zUughM3HbYlYU3tpV2HkTDjHrhqVo4W2+FVnLXZbp0J9X2I/EAqzYVxatd+NnW3ykt3/duY1rGF+PpeRwxnaA4MTSaNxD82MTygOO20fL/Z1KN18MOLYN0oCndmOwqw=
-Received: from SA0PR13CA0020.namprd13.prod.outlook.com (2603:10b6:806:130::25)
- by DS0PR12MB7584.namprd12.prod.outlook.com (2603:10b6:8:13b::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
- 2026 17:52:41 +0000
-Received: from SA2PEPF00003AE8.namprd02.prod.outlook.com
- (2603:10b6:806:130:cafe::1c) by SA0PR13CA0020.outlook.office365.com
- (2603:10b6:806:130::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.22 via Frontend Transport; Fri,
- 24 Apr 2026 17:52:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SA2PEPF00003AE8.mail.protection.outlook.com (10.167.248.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Fri, 24 Apr 2026 17:52:41 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 24 Apr
- 2026 12:52:40 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 24 Apr
- 2026 12:52:40 -0500
-Received: from [10.254.48.177] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 24 Apr 2026 12:52:39 -0500
-Message-ID: <09928c66-f041-479d-954f-56dcfcfa1c13@amd.com>
-Date: Fri, 24 Apr 2026 12:52:40 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kc9g6edp"
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-12c6df0b9bbso5169512c88.1
+        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 11:27:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777055246; cv=none;
+        d=google.com; s=arc-20240605;
+        b=URZW8cmW4popy43Hl/ebqP2CWSwx/VCYUSHdA6hK5WDgrl07mN+qN2/V+ta73qOdiV
+         IAS9FEvvfg9Fk3o7LXaNP/ZXbH6CTmyy+VufMTrrO0QqZrAekKLQytkVXfBxibj+Me7D
+         NMqrB8o5dnsm4zs5x5l0DSzeKMIlVpCP9gWTl8bO/v76u0aWnV4k6L82FlFycDvBOSnQ
+         wUwHFRC4xc6kSlAKYkmHrWCBy7GAFb7TjehCzjiQL+b7WPuToMx+z4y95k5OdUrEFCGo
+         vynulLb3k7yWN40Ydl1CifYOMNxFkGf38+OI01y9A8F875lin1LkdEWO5tZub4mc112W
+         20Sg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8fKE6uWynXvOQK+WQLf5kO4iqhFOCsKdnL+aW04mVOs=;
+        fh=IboPf02Awh11RtmxbbErItV5GgbXB3wBsiItzggS6T0=;
+        b=ZoeSHBN5mBIBYeQ30Gkqza4xj6bVCaQfyPcqZu7WDkiI/E/e92VwMkKSw/YvlhZAam
+         NMHfbLWpUiYEBtCUSI4fKMMt/yiOv0xIzWZS4nRCbECB+F5ukXQT/tqiPDt7PxOt6NeK
+         uqH9J25+GJkv/kzZ4G7s4HIp9fjHrjWnkjMWupRaW9VtK5Ld7ZUDJqt51r9grsmY3TMk
+         6iytRZMbBTg+6x4Dy93ddoJSvaV6i1DSKIOgJL9lZIELgY6oTVP3UpNj6kv6On56xzH7
+         2yG3ej5VGn7KTZ6iTgoisQFQct2u/ICTM7rAlLgAUscIWdOMYmuH7M03xm9r/5Nac5SN
+         qNqQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777055246; x=1777660046; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8fKE6uWynXvOQK+WQLf5kO4iqhFOCsKdnL+aW04mVOs=;
+        b=kc9g6edpyga1WnwY5RnE2ST6qQSFVa614XzYl7PbL83QzymsDZ7jyQxFs4AIGI/Pb6
+         MLZVUdSIJvdnzq/Oar2W2pdBBOYtHOcPg79qzaQv7HeQmqrHZWoMnN5UzsNMDh97yZRT
+         VHObSjWGc2YRoUw0rpUurpCahZ6OJ085r4Z+VHO6OjsZLAxXTjH7Rle6dGQ26SicX/cI
+         CxBJZSR99AastWlKFD1ZCVw7PUHLQiVK9S2NR698ry/R7hO6jF6c589t5XOTtWZVRGSh
+         F1I7NXM/RH3xp5FwhtPhLV9cv/RnvoDFVmgLQIk6GkrM9i+0XoCnvzFDmnrE8fRUQWJu
+         arUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777055246; x=1777660046;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=8fKE6uWynXvOQK+WQLf5kO4iqhFOCsKdnL+aW04mVOs=;
+        b=LhiaCssNEKbqhNkRJSNio3rliXFANxWMDo3YolwonJyso24heJfZVqoHKDUVjy6GyM
+         EFtE2PLkh26m7CtCMhRwBGoHslxUhQi5MkAyDD3gNDFE3MHym9fHRy+X8+eAunauwk2w
+         HMJSpT/2GM82k2adUbag9Iv0v89uwCqUsl5A4+fLDpb9B4/LGGgNjLQcnBu8JGN4dJBd
+         5udn9fndOEeTowLwM4mtzOgaAldfNUBTjkDl65so+j8HN+P42qu7QoSKjdG4W8M9vRHg
+         5jBjMnEAxY8b9hNaABNnh/wccG5kgDVEg1fL5QGsEWwmVoS4WqBaRQz/R0cfxDBM/Lc7
+         Hazg==
+X-Forwarded-Encrypted: i=1; AFNElJ82W+2SPfRgf08yyyMBAo2ir076dqMMD52t/pqyQ2q9vUVR3OdlAy4kkK6uhEK4+l//sYHPF8rihs+B@vger.kernel.org
+X-Gm-Message-State: AOJu0YwXGB8e9a4yMEOmLKNMtg8lKQifYpPUPjw8vN5JHsQAIspmeJNo
+	412+JZxfRXznvnUVdXDPkwMFlfC7MQSTjpNPY/3EdhGJ+W6e70wUWiXZsk++ZcoiX/uFotw7w2I
+	hSS9q6Y48RNpu6lqHJZxKBDYAD5dl3gw=
+X-Gm-Gg: AeBDieuXTYsmr7hwUKk00o2aOmscisarAUAoAVq/HT12/Bd9YmqQM+NSTY0Qoj+/8CT
+	h/RMyJM/zyTxQKbNm3ug+KhLuS8t0PSyXKdOoR508h5FqnO3Xa/Vnr4Pcm+VidNvoHrF4K0kfW0
+	y+NRrHdTh76siTAxsoi+VQkOhE5XPVYP2zo53HhGEyP3mBFsLEong0k7nRxbKU0pMy61YQcAJwJ
+	w9bQBQW7Y0ZroLi/8h0Dj/l6W9yDupI3spWaO1UauPE4f2oBLN1sapDs1Qms+GTVTga+fi0xc+3
+	PxvimuUmUWgQV/NSNalex/gyNkNT/uqB3b1lOL997q5VUEOVuDLMlJDDzn7rX2y14//MTNKhn/6
+	MmqbwGrDlFxdzUTa6iuzPbtAE/bAx8b/CBiRyyw==
+X-Received: by 2002:a05:7022:383:b0:12a:6fb7:87e3 with SMTP id
+ a92af1059eb24-12c73fac0cbmr19164773c88.31.1777055245496; Fri, 24 Apr 2026
+ 11:27:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: <tanmay.shah@amd.com>
-Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: xlnx: add auto boot feature
-To: Krzysztof Kozlowski <krzk@kernel.org>, <tanmay.shah@amd.com>
-CC: <andersson@kernel.org>, <mathieu.poirier@linaro.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <michal.simek@amd.com>,
-	<ben.levinsky@amd.com>, <linux-remoteproc@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20260422202558.2362971-1-tanmay.shah@amd.com>
- <20260422202558.2362971-2-tanmay.shah@amd.com>
- <20260423-stimulating-markhor-of-masquerade-aac0a7@quoll>
- <2351c698-cf08-4037-9777-0820448a14d8@amd.com>
- <eac0f387-c38a-44eb-aed4-6c4022f01777@kernel.org>
- <faef3c54-2292-4470-be6a-4c347ca65453@amd.com>
- <67f442f7-377d-46f3-82bc-86053e34c277@kernel.org>
-Content-Language: en-US
-From: "Shah, Tanmay" <tanmays@amd.com>
-In-Reply-To: <67f442f7-377d-46f3-82bc-86053e34c277@kernel.org>
+References: <20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com>
+ <20260420-beagley-ai-display-v1-15-f628543dfd14@ideasonboard.com>
+ <CAOCHtYjJgqomKreDxLUiVbUtpeh36f0bL-jA6P-6rsoJrweshQ@mail.gmail.com> <cb19eafe-6c25-4a2a-bd31-9fb280837623@ideasonboard.com>
+In-Reply-To: <cb19eafe-6c25-4a2a-bd31-9fb280837623@ideasonboard.com>
+From: Robert Nelson <robertcnelson@gmail.com>
+Date: Fri, 24 Apr 2026 13:26:57 -0500
+X-Gm-Features: AQROBzDdYR96fKz8FXyueV-T0huFl-SkTA_xyoSbvkzAGH098Vzr3EpRVRVzohg
+Message-ID: <CAOCHtYgQ=71GtnUFkwhoVTkWma9rrbjp3xyKYUGVv1dG63m0Dw@mail.gmail.com>
+Subject: Re: [PATCH 15/15] arm64: dts: ti: beagley-ai: Enable HDMI display and audio
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Andrei Aldea <andrei@ti.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Lee Jones <lee@kernel.org>, Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>, 
+	Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>, 
+	Louis Chauvet <louis.chauvet@bootlin.com>, devicetree@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Andrew Davis <afd@ti.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE8:EE_|DS0PR12MB7584:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5151434-2e40-48f5-d235-08dea22a47e9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|82310400026|36860700016|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	jOkk52CHa42W74300W0M/0B3LwhpV0JUmkrGuEQzzehYGKpvBRPxShX/GegwoPBaIC8b78OWzfAexISJhFKEyzOOC5ZTkuYSjG2nhzp7C7szL8wmPp8QsTMe+BHnsucnNdB9ro0lKn/Yp6jISSqP2mdmHr3X9fHh85P+o3oOVuS5HZeobqFkZZa3Y5JFbXZKL7+N01fU+ykMVzTAOlmCpbnT2MZSKVKjYyzOxONUNDEnhj/0zJ7sS+D37Cql71ZbRAsomHvhw+7hFSenlhhn999rt6NDOJlcskkaHkcJlxtQPOLD1KSA3gMuhWYDKaybv07umSDyxFwNtq4EzjYss4Inb1VbXpsGLmU3CorjI8TfYUxnfWfBi8SAsSm+iPPVPwlBC5l7ggwXvaT4sCFEUrOrDF5Pecg3mHg5ziwJ1KzwX6Dza4oJV+K4PeQZa5ZLyhItLCJ2KDdQYzIJXJnuuX38v2jwpD18Qaq+ZIMtcC8QNjm4cHAsXDLIz0c6/qUlHc+NmP2ct4LzuAlcria+7VM7anTzcaWabxK042OxzfbFHUKztvGPwpYm+gCegBswJavlWqI08uOItvbALn8TtswKmT6SxcebbBSVDGKXp1RSCyTts1IPr5TEv+HuVcuDvYzKpcqafsJ7UATbvkPsZbx+HF4oyjACILrobEp+5iBbUm9sab1cEustyPJ9fInRs2o9G6MLKdWNa9jrMTvZHJ6L7+pZeAcAPGd3Pd3zrgl3ZZfWGrwIOhJP7HjMOvW9tQ4QOV7xakRxJ3pdPF1XJw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(82310400026)(36860700016)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	l/Yv6oPZ1a4gZFcGyoXHxvdhweYQewKUNCJ5jWV+9KVtLrKSoKqr63Hb+k5qeegcwQNSxY4qcRVqPckUNoubhDFJ8gJp1epA7ZS+6kHYzcGDCYLssfJt5AaaOVMhntEykg1Fv9ayLbIKroHhKQMwJsUuHlF7cajsIqotDyjcA4HkiPT3fNW6VI440lPBdF5eWbDxYI4QSO71lwu4nr+uym9kNvrOZsykZVhLh5Khed1dW++bywXPGsiymRRxFmmtsCRAMGp3CDWD4rD9QNzjNloE5iAI7P0nIea2Utb9Rrzrs54a5ugJj7nvnNcKDsRQgfWncJg3+GLr1MDC8jk8ftImObcpf748EtVNLMMv64wVPdS0fvYFgdDfQVpmfhGxpaDXPWhGK+5Nnz+AkaHRhA7qzIdNMhAg7TJzqxRsXascvC1pTa/7CHtNDVxRDgjI
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 17:52:41.1393
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5151434-2e40-48f5-d235-08dea22a47e9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003AE8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7584
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Apr 24, 2026 at 12:04=E2=80=AFPM Tomi Valkeinen
+<tomi.valkeinen@ideasonboard.com> wrote:
+>
+> Hi,
+>
+> On 24/04/2026 19:16, Robert Nelson wrote:
+> > On Mon, Apr 20, 2026 at 8:04=E2=80=AFAM Tomi Valkeinen
+> > <tomi.valkeinen@ideasonboard.com> wrote:
+> >>
+> >> From: Andrew Davis <afd@ti.com>
+> >>
+> >> Enable HDMI support for BeagleY-AI platform. The display controller us=
+ed is
+> >> TIDSS and the HDMI bridge used is IT66122.
+> >>
+> >> Based on DT by: Robert Nelson <robertcnelson@gmail.com>
+> >> Signed-off-by: Andrew Davis <afd@ti.com>
+> >> Signed-off-by: Swamil Jain <s-jain1@ti.com>
+> >> [tomi.valkeinen: cosmetic fixes]
+> >> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> >
+> > Tested-by: Robert Nelson <robertcnelson@gmail.com>
+> >
+> > Thank you for getting the display back end working on j722s family!
+> What displays did you test? I don't have OLDI panel...
+
+I was buggin @Andrei Aldea to get you one. I also don't have the
+'special' Lincoln tech display or the TI cloned panel that works on
+OLDI..  Right now just HDMI as i decided to tackle cc33xx wifi again
+today on mainline..
 
 
+Regards,
 
-On 4/24/2026 11:53 AM, Krzysztof Kozlowski wrote:
-> On 23/04/2026 19:59, Shah, Tanmay wrote:
->> Ack, I will rename it to xlnx,auto-boot.
->>
->>>>
->>>>>> +        type: boolean
->>>>>> +        description: remote core is either already running or ready to boot
->>>>>
->>>>> And why is this property of a board?
->>>>>
->>>>
->>>> Not sure what indicates it is? The property is under remoteproc child
->>>> device that is SOC level property. Remote core is on same SOC wher linux
->>>> core is running.
->>>
->>> So it is implied by SoC compatible? Please provide some arguments why it
->>> cannot be implied by the SoC compatible. I gave you one way out, but if
->>> you disagree then no problem.
->>>
->>
->> So on some SoC, the bootloader supports loading and starting of the
->> remote processor. But it is totally user's choice. User can choose to
->> load & start one core of a cluster via bootloader and leave another core
->> powered-off.
->> That is why it is not possible to decide based on SoC compatible.
-> 
-> OK. The problem is that "user" is a bit vague and usually user choice
-> goes to user-space.
-> 
-> The property will be set or unset for ALL of given boards. So all of the
-> DTS->DTB. That's why it should be clear why all such boards should
-> behave like you described. If this is truly user, as in user-space,
-> choice, then DT is not the way.
-> 
-
-Okay 'user' may not be the right choice of word. I should say 'hardware
-configuration'. On same SoC, some cores can be configured to boot
-automatically before Linux boots, and some won't. So if device-tree is
-about hardware configuration, then we need a way to show which core is
-configured to boot before linux. This configuration is board agnostic.
-So I think auto-boot in device-tree makes sense.
-
-The only advantage on this platform is, it has a way to detect if the
-core is running or not runtime and don't have to rely on device-tree.
-
-> 
->>
->> If we don't want to make it a device-tree property then I can implement
->> in a different way. New way will detect if the remote is running or not
->> via EMMI/SCMI call to the firmware, and take a decision based on that.
->> If this new way works, then I don't think we need auto-boot property at all.
->>
->> Let me know your thoughts.
-> 
-> This works for me and solves my questions from DT point of view, but I
-> cannot judge whether this makes sense for you.
-> 
-
-I say I will keep it open ended for now. I will avoid introducing
-auto-boot in the device-tree for now, and send a patch without it. In
-future if for some other reason this property is needed, will send new
-patch later.
-
-Thanks,
-Tanmay
-
-> 
-> Best regards,
-> Krzysztof
-
+--
+Robert Nelson
+https://rcn-ee.com/
