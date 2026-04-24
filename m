@@ -1,161 +1,161 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9181435F196;
-	Fri, 24 Apr 2026 10:03:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D0AF1A8F97
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 10:04:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777024983; cv=none; b=WVWyj68ceKKywXKvZayjNcdBprIedEpvvx5b63uVgH6GPcGEo5EGRxYH/nonbahHie9w7CC6BNnartaUCf/1D/WrOBOLW+9R8gMNb0oxZjR+1EIHmSSNxhS0pgMG6HTlnfXnBvQsNJtBD44mBc25fqHZkZjww45eUDtRoqhVCis=
+	t=1777025093; cv=none; b=A74nR7muFlcKM244Oc43MYdX6Nsvi+3ag//IK6McRQq1cQxIzrh6sKp4aqq9lXoP5MZaEzdWiLReN07A8NYJrTWcQMWindWXNaIlWpOwwCKW/q226i5YNH9cKc0tyTuHYsAZHTMYXT7U/n/vMw4RS0TdbfiCTnHeSB20cG5j0Bs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777024983; c=relaxed/simple;
-	bh=3O0hkOr0ra+XwzgaJg/mBljF+oLjMea8qTbme5+LGj8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PL6Xjyjer44XZfJb8usz1Zvc4wzPYJw5mYmqiYxetLAKPX00fteWQXsVa+Dfnz6YDme8oK1udOdj9Wi9teacnUWvCzvj9fkpoFNMSWnd8CiP4ccy/vIQibgCW7YKWb73jRQDeAgVuQWZCQzWvrewGkdfWS/pUYkcnyIJLtKWqlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ReVvdAbB; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1777025093; c=relaxed/simple;
+	bh=lx6kgDS2TwaC2kw6Q2t+J1XNN+VZ4542KT4N9sNj904=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=hxktANDwSTNKD78qc9v4V5IxyfCLgo5Yi9H4Vha2zzOuZs4G+kOUidt//2iaOvYTr29KKzZsqQGZ9TUq8tZmWBb4Y5RbzqTpvoonEd7R693ufnosHT6L8u5BGIbD4kaNz53Q/Ks4ymPQ+M0qDOXgYY6lve7AbepFROtJbl/4RkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ophBn+wk; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ReVvdAbB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777024982; x=1808560982;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=3O0hkOr0ra+XwzgaJg/mBljF+oLjMea8qTbme5+LGj8=;
-  b=ReVvdAbBkfwfzD6GUE/LdvDFTeDHmbMrrE9jbDRNZ0hQMNjv1NE7JnQX
-   QOBTf3zgOHTFt7ChCprBdEUOPcA9vxy6uNm1O1EOdQJPxSjgymPOjxRlj
-   NzjY8vi9zApWuNA1lTMm2tAwwCGz3szlfF3Lz2ipOqAJw+4BSdMbfpa7G
-   qy99lyf3yrGYVsMoc+5xwHwO5NVN29itl44ek7hgVcUezCOYfIWnejJ+l
-   4Vw+3pQcNVVDYo6CgUVCWyrji+Dj3HJXD20hy+FcqpLZdB4LdJ1pn7r/x
-   lcUujJ2hy/QLtBRg1bG0WrxRvGdbTvcqW4kKbItPslJp5iO6ZdvGJk8ER
-   w==;
-X-CSE-ConnectionGUID: 5MiYr+iAR6SxHRw3SYHwYQ==
-X-CSE-MsgGUID: tskzL2qgQYq3zRjK+LYTxw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="81610832"
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; 
-   d="scan'208";a="81610832"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 03:03:01 -0700
-X-CSE-ConnectionGUID: ukFTa7PlSa2Zz1lCOXIFZw==
-X-CSE-MsgGUID: +82JyomrSpmxCXnW6i7e8A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; 
-   d="scan'208";a="237970033"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.71])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 03:02:58 -0700
-Date: Fri, 24 Apr 2026 13:02:55 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 1/4] serial: 8250_dwlib: move DesignWare register
- definitions to header
-Message-ID: <aes_zx9GdaXnDNqG@ashevche-desk.local>
-References: <20260424-ultrarisc-serial-v4-0-1765a0b4c4a0@ultrarisc.com>
- <20260424-ultrarisc-serial-v4-1-1765a0b4c4a0@ultrarisc.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ophBn+wk"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-43d03db7f87so5210680f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 03:04:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1777025091; x=1777629891; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=zh4cO1Jd848Orxw87E3q8qfUwzpksTw/eGdTo6fgVGY=;
+        b=ophBn+wk3jSgAF3Eni/uK1GslDMETq62Vi7Ggs6GaMKDws4xbkjYECsjkUpdEv7nFk
+         9LlSngRL+puIb37lB7ZTyBcV5o11ZtQhWFW6DGA0BFU1/3I4dtMYRA8JZf9Mk8mSimVj
+         wdTW0D+hhAFpiG3ug0SdHrjB8azTXKQAZ314dFIRLHSX5jfz3KQZpbRxVgeD4UsjUSpZ
+         jjb9hl4feoQWAaV4jxRuYJ1FUeo6397qVH6jy3vmr71tdLFFLDI/rvmvhGTbuZ5K5z2Y
+         RyJ15sGpyniFIDaDuXmqJGo6/7XspQmq0EISnZZAp1qKWTH+uPaFQL0qyNylGWfv+brr
+         r3BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777025091; x=1777629891;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=zh4cO1Jd848Orxw87E3q8qfUwzpksTw/eGdTo6fgVGY=;
+        b=MCx6dK3gFzAaXfUtbPbuJ8DKWB2Xcf9sNHaMkCMJSqWRjKratxcJnZGvdSJqpexsQX
+         bbPZcymY/1Ac38cBueY68/9XycEh75tkgUWpDtrFlFvni3Mowxox/ESgz4oJ7kBd7g5H
+         +JOHJJ4y6Tnfr7lvzM0HLQDdHuCnhHw/crVbJlGwqTnbyZna1Xrt5Ig4vSFBP/wQTwEm
+         Q1BZuxpTzisMee3e9kRGReb8noEQGDn7ddyZ2cdGqOXcgcOO99ivQJiO1itQOBzLWCes
+         GEJwtJekDMhhCKuh0PuSLVDYe4UqagPOYm18MAPiqzE0en2Epk9/I/hQ6ZmTR8mUYqvY
+         ATLQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8hMCJgGzp6oEia2c8CEpDy7BR2lWlbMcrkiO9jSUzB2rhWfxBnDtY+PEKFncWB76KC6wpWPh2b7MtW@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz2QkhcO3OIwGoaciq/rwBxLOBwJdbLhwzvAz2C+nIZlNH09foy
+	SwwC0qEfVasPiDrx1r4a9IWdZbf5jl06G+EvqOIwYWrpwG6cu68+NnDZCUfxCSf25gY=
+X-Gm-Gg: AeBDievU08SlQOz82zSlp4r3NkyLtcuIq47UxYr89csteizHY658kPanXZjgffxwtv8
+	Yn50AywW2pEiKDA8C1A3EKO3T91oh2P7k0Fr/xuQPeVAtjSwNFjocB/fZfukCIV2nT5bs0AroLw
+	COXNWlAAEK0BNcFe+xTCuZrYYQjRUNreTNBHYTUoVlV1Gvqnbvn0/fpi2MwZsbSXXkBR3YSUn9x
+	rCKyH63z9YRzzU49wulair0Jo5GZWvtWL0OlpF8mmcC0WgN00WgWqON9xA9OuVvO0CvMDL4my5v
+	fKtRo1bmmleLuv/LmOp4czeW8uIx4L7sVq91QXUYD706rnX/FYUxmJP0w1AqQPeQz7MPRzt65JP
+	Sbrtj0pUY3Dbf4jXhfiPk3j9FUX20O2Vse/HN1xldUnlOdOzIrLCffnY37Ad4WW8CrMnJhN+63K
+	Io4RGWyMVaYHet9sR32QFptJqEjJSXxCDksAYK8Gs32dC2OzIakfydhzviBPvVkSY5hOjDAEBfi
+	eHBqAFgDk26sdDR/Q==
+X-Received: by 2002:a05:6000:26cf:b0:43f:dfbc:8c71 with SMTP id ffacd0b85a97d-43fe3dfbd89mr47455531f8f.25.1777025090737;
+        Fri, 24 Apr 2026 03:04:50 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:79e1:f56b:445c:ca9c? ([2a01:e0a:106d:1080:79e1:f56b:445c:ca9c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4cc375dsm53197398f8f.14.2026.04.24.03.04.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 24 Apr 2026 03:04:50 -0700 (PDT)
+Message-ID: <c4543cc3-4093-481e-b737-4ab9f7f6802e@linaro.org>
+Date: Fri, 24 Apr 2026 12:04:49 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260424-ultrarisc-serial-v4-1-1765a0b4c4a0@ultrarisc.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v4 4/4] arm64: dts: amlogic: t7: khadas-vim4: Enable
+ Bluetooth
+To: Ronald Claveau <linux-kernel-dev@aliel.fr>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260420-add-bluetooth-t7-vim4-v4-0-9505df0e7016@aliel.fr>
+ <20260420-add-bluetooth-t7-vim4-v4-4-9505df0e7016@aliel.fr>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260420-add-bluetooth-t7-vim4-v4-4-9505df0e7016@aliel.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Apr 24, 2026 at 01:39:28PM +0800, Jia Wang wrote:
-> Move the DW_UART_* register offsets and CPR bit/field definitions from
-> 8250_dwlib.c into 8250_dwlib.h so they can be shared by 8250_dw and
-> 8250_dwlib users.
+On 4/20/26 15:54, Ronald Claveau wrote:
+> Enable UART C on the Khadas VIM4 board and attach the BCM43438
+>   compatible Bluetooth controller to it. The node configures the RTS/CTS
+> hardware flow control, the associated pinmux, the power supplies (vddao_3v3
+> and vddao_1v8), the 32 kHz LPO clock shared with the wifi32k fixed
+> clock, and the GPIO lines used for host wakeup, device wakeup and
+> shutdown.
 > 
-> Add an include guard for 8250_dwlib.h.
-
-...
-
-> -/* DesignWare specific register fields */
-> -#define DW_UART_IIR_IID			GENMASK(3, 0)
-> -
-> -#define DW_UART_MCR_SIRE		BIT(6)
-> -
-> -#define DW_UART_USR_BUSY		BIT(0)
-> -
-
-One nit-pick, though, these three need the similar comments in the header and a
-blank line between them.
-
-...
-
-> +/* Offsets for the DesignWare specific registers */
-> +#define DW_UART_USR	0x1f /* UART Status Register */
-> +#define DW_UART_DMASA	0xa8 /* DMA Software Ack */
-> +#define DW_UART_TCR	0xac /* Transceiver Control Register (RS485) */
-> +#define DW_UART_DE_EN	0xb0 /* Driver Output Enable Register */
-> +#define DW_UART_RE_EN	0xb4 /* Receiver Output Enable Register */
-> +#define DW_UART_DLF	0xc0 /* Divisor Latch Fraction Register */
-> +#define DW_UART_RAR	0xc4 /* Receive Address Register */
-> +#define DW_UART_TAR	0xc8 /* Transmit Address Register */
-> +#define DW_UART_LCR_EXT	0xcc /* Line Extended Control Register */
-> +#define DW_UART_CPR	0xf4 /* Component Parameter Register */
-> +#define DW_UART_UCV	0xf8 /* UART Component Version */
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> ---
+>   .../dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts     | 19 +++++++++++++++++++
+>   1 file changed, 19 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+> index 3227ab27de107..8ea7ae609fbd5 100644
+> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+> @@ -251,3 +251,22 @@ &sd_emmc_c {
+>   &uart_a {
+>   	status = "okay";
+>   };
 > +
-> +/* Receive / Transmit Address Register bits */
-> +#define DW_UART_ADDR_MASK		GENMASK(7, 0)
-
-> +/* Line Status Register bits */
-> +#define DW_UART_LSR_ADDR_RCVD		BIT(8)
-
-Like this one, the IIR. MCR, and USR bits should be commented. Also preserve
-the sorting by the register offset, so the groups of bits follow the above list
-of registers, where USR bits, for example, should go before TCR.
-
-> +/* Transceiver Control Register bits */
-> +#define DW_UART_TCR_RS485_EN		BIT(0)
-> +#define DW_UART_TCR_RE_POL		BIT(1)
-> +#define DW_UART_TCR_DE_POL		BIT(2)
-> +#define DW_UART_TCR_XFER_MODE		GENMASK(4, 3)
-> +#define DW_UART_TCR_XFER_MODE_DE_DURING_RE	FIELD_PREP(DW_UART_TCR_XFER_MODE, 0)
-> +#define DW_UART_TCR_XFER_MODE_SW_DE_OR_RE	FIELD_PREP(DW_UART_TCR_XFER_MODE, 1)
-> +#define DW_UART_TCR_XFER_MODE_DE_OR_RE		FIELD_PREP(DW_UART_TCR_XFER_MODE, 2)
+> +&uart_c {
+> +	status = "okay";
+> +	pinctrl-0 = <&uart_c_pins>;
+> +	pinctrl-names = "default";
+> +	uart-has-rtscts;
 > +
-> +/* Line Extended Control Register bits */
-> +#define DW_UART_LCR_EXT_DLS_E		BIT(0)
-> +#define DW_UART_LCR_EXT_ADDR_MATCH	BIT(1)
-> +#define DW_UART_LCR_EXT_SEND_ADDR	BIT(2)
-> +#define DW_UART_LCR_EXT_TRANSMIT_MODE	BIT(3)
-> +
-> +/* Component Parameter Register bits */
-> +#define DW_UART_CPR_ABP_DATA_WIDTH	GENMASK(1, 0)
-> +#define DW_UART_CPR_AFCE_MODE		BIT(4)
-> +#define DW_UART_CPR_THRE_MODE		BIT(5)
-> +#define DW_UART_CPR_SIR_MODE		BIT(6)
-> +#define DW_UART_CPR_SIR_LP_MODE		BIT(7)
-> +#define DW_UART_CPR_ADDITIONAL_FEATURES	BIT(8)
-> +#define DW_UART_CPR_FIFO_ACCESS		BIT(9)
-> +#define DW_UART_CPR_FIFO_STAT		BIT(10)
-> +#define DW_UART_CPR_SHADOW		BIT(11)
-> +#define DW_UART_CPR_ENCODED_PARMS	BIT(12)
-> +#define DW_UART_CPR_DMA_EXTRA		BIT(13)
-> +#define DW_UART_CPR_FIFO_MODE		GENMASK(23, 16)
+> +	bluetooth {
+> +		compatible = "brcm,bcm43438-bt";
+> +		shutdown-gpios = <&gpio GPIOX_17 GPIO_ACTIVE_HIGH>;
+> +		host-wakeup-gpios = <&gpio GPIOX_18 GPIO_ACTIVE_HIGH>;
+> +		device-wakeup-gpios = <&gpio GPIOX_19 GPIO_ACTIVE_HIGH>;
+> +		max-speed = <3000000>;
+> +		clocks = <&wifi32k>;
+> +		clock-names = "lpo";
+> +		vbat-supply = <&vddao_3v3>;
+> +		vddio-supply = <&vddao_1v8>;
+> +	};
+> +};
+> 
 
-> +/* DesignWare specific register fields */
-> +#define DW_UART_IIR_IID			GENMASK(3, 0)
-> +#define DW_UART_MCR_SIRE		BIT(6)
-> +#define DW_UART_USR_BUSY		BIT(0)
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-I.o.w. uncouple these as per above.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks,
+Neil
