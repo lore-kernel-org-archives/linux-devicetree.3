@@ -1,177 +1,1008 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011029.outbound.protection.outlook.com [40.107.130.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FCF3939A5
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 10:59:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777028343; cv=none; b=K7AT/AVIvjtA0tg+AVzZxb44iq5AF52pwLHIeDe23KzEN0xlGKstNru01UNPOVbsYxMyWBl1IWL/+LzWtOMz6s4qrGpjSwIkdNHnnwvuI61LZvcXVkG94go5lLuxPnEDlySXANFipb/zLbKXq8HsKASIMzD4J4TsEwYFZWkNul4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777028343; c=relaxed/simple;
-	bh=YKWVo4hTTh2VVnID18YaPKZMYn8hdTJn/00Ifsbtxek=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dqB0EX/lKVC/Mx/h+GtZdOqWzOBDSZAKvXLptFYMDwSeylUK8z2uR/ZMwiiQgnibdtF4omRNKZWz/uPUK1cW3bgvyVldLPGvfjcpx5B13BwLiWm146i30LjXixPpk0LdZ/7RyhMMLBdjsPg5pdnOPSFaDHPfqRUVhgwa7MIlOPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Bbv8eb4a; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IVoUOVON; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C27439B958;
+	Fri, 24 Apr 2026 11:08:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777028884; cv=fail; b=aSH/85yx6NIWmtiqcMp3egx7lT8ZJSaMKRq7xBQ88o6UfMglNbeEJRjUDBJp7Lrz3LnT+EOvvNPuLpIrXNvrwjZ3Np+VBom4EqA2ZJ/sNY5gE3DmlN8+Q1xILwCE7aXmIAAuoERGp0g/n+xZnk7g8iFzS8ZCMTdJTAOfgRGLx+w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777028884; c=relaxed/simple;
+	bh=fbiNMF5ZUklFkqfiPRkmxyrVSVFt0sPNJ+Ry9RR70Ug=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Tcp7fo08UjjN7Ns7Dqb/D+ON/nVpa8lf7KFiKFFgXXf76F0f4IwCudH5iCSKliELPZA5zmpbtbkS0hCk3RuTFbuw2PQfKTQs+joWNZbZy2PJGjZw5OKxejcWWFr4oYJfsmT7ezRC3TEY9YUrV/65tU+xKDvN7CmBN9sC72NJVOk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=tE06mVPj; arc=fail smtp.client-ip=40.107.130.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Bbv8eb4a";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IVoUOVON"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63O8l7X72710328
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 10:59:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	53ASJo1GxCRSOJhL4iV96kkrerGgRf8DfIhzfgftXTg=; b=Bbv8eb4aR4PzFDVW
-	hrnB6W5hD/XfzoBWLEGDhbgX0bf67OPnAlaWWuo3HNYFCWI7FIQI7hD7mTDsHMFM
-	YBgztv39+nm7ngkigwPmx24Y79MKgUnAe9YvxkoDv+X2NBfmZ8TVmdXftqLkXBTt
-	KHo+tcaNqapDVTtflDcBWz3l/+dhz3U/6RWft/wOQyCDCDvR4I9VuNHktF1uufoS
-	9w4HMVZcLHwY0GJTlwK6Zma2mxwI2WouWq5axKJpLYp9dn2xiybXtO4jPYJW/stf
-	2h3DmiNI5+mE9lfW3lYM57iRntvHCf6zJOBCfkO7NEGdSXBsLnbghwXXCJF9n+1w
-	yJYMgQ==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dqqu9urge-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 10:59:01 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8a5bf7ee420so21234056d6.0
-        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 03:59:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777028340; x=1777633140; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=53ASJo1GxCRSOJhL4iV96kkrerGgRf8DfIhzfgftXTg=;
-        b=IVoUOVONkQE+TDwX4tmMOrTp3W5vfIC1F+7M1y+KztIFKJpzKu/r4ZV9YlB0n17CKM
-         xn8SriOWJ5EIivKb0fkxYtf2OFs/FCtEgoXODwkkeCawOiBwfOGHJZXiufwi+I5WyJrw
-         6KNOaM2lpxxuqIraZ2jQHOyK4LJ2PBnzG4I6hbsIEsN+q72kDUXNHKxacP77G+adeDAE
-         u6JrF0Lqqz7ZvZxcedpZJsYQUy0nbJ1NnLfdfgR6l/oMgwzJf4pNcN4qcbtpHuRud4xf
-         ZHTj8qOrb9V6GB/9T0a+Fo7BO0Evzli82BtGcNSKhUcS4oWLBX1Yhw6+QRY5InIoNj/Z
-         HF+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777028340; x=1777633140;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=53ASJo1GxCRSOJhL4iV96kkrerGgRf8DfIhzfgftXTg=;
-        b=jJ6QP5A7lAR02kR6O2+3JU+QT9698gMx9Ui4TNyGLN0o6IaJNs4T1mT0HAMLSD0wdO
-         Yuq/9xihN8rxSwHv4+ojkD2tDkJV4Coczw88kB4/VAq+7tVLHqjS7PMPgCClFNyTE0Vp
-         B/aMRtl4CJHUj+pJrv2G6fzzDviGphnmIf5K+61wOZmTB0hDih8me/OhAjExWmEBzlCM
-         IiQozAZrfzQd2At7TZkTXaHXDC0Ldhwfvjq370yfzRP4SI2Xj16tSNjXmwAlKFYy8hsr
-         I+vQaID3Z2n+9Bvw9LwZb1ryiKvC4KF53KpsHRCpP1K2Ke8vfhIlI7UwRZiHqAVfDW28
-         JI4g==
-X-Forwarded-Encrypted: i=1; AFNElJ881yag+mOdWmjeTcWDYXTMUMN0r+etypmi9lr8KhXMWoInErwHGVWdzH0k8INkIdm6pqETV4uI6/sJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzFCxSoPBVuL1USOMQfagQjXSaS7F9TMtZCC8LU/75HiXKuSGGm
-	sztlhnjrJgKDnNq/V2QhSW0dPCOm03FvJUosAcXrf2auvQTb3bd/1fhHn9ijFKFPimXBua4gzcI
-	5OPeHHoan/jDHyzKC3TA6D/hHJ95Ys51mxvHnlCSANGo5UJUx/CdZm9NLlzW2070U
-X-Gm-Gg: AeBDievBB2cfjiN8PwaoZD8nwePCR6XJy2mnzRGwbCbepoo+bvdHLc24mxKv9oad9nm
-	beXC02srsYEToXwfmH1P48TZQ6QdhYHCQBywgPpixKOZZvR8svIbnPa4/8XQhMNZ1/4cq0F+H5h
-	ZRcEPKk40DuY33pgt1g9w5A9YF0ir1b7QSLThrBCnunm9fTOQMiR3aokKfR8sfiF73khRNjdG3S
-	S0BirBvOu1PG5mAccGwDz7d97ZiOgDRUyNnkQDTNwOU769Lce72HocfTrWkQlHNC56j031Hjup3
-	9kdqX/7SMgbcPL6tT7qjdUT4BIeGX+C9INItxa/eJZaToBBN9hb1XB6WreoUra4PwqL0N5kyu95
-	QHQndaWlzvjlGHklcCRulLd67JPJj8dwhAtej88aLM1aVynMZ6cCcv2+KVgQSakigG3h++7oFjQ
-	4mrpQxKFnHDj4Z5w==
-X-Received: by 2002:ad4:4eab:0:b0:89c:5159:ea52 with SMTP id 6a1803df08f44-8b028181327mr343234326d6.7.1777028340478;
-        Fri, 24 Apr 2026 03:59:00 -0700 (PDT)
-X-Received: by 2002:ad4:4eab:0:b0:89c:5159:ea52 with SMTP id 6a1803df08f44-8b028181327mr343234056d6.7.1777028339983;
-        Fri, 24 Apr 2026 03:58:59 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba451210e26sm772516066b.8.2026.04.24.03.58.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 24 Apr 2026 03:58:59 -0700 (PDT)
-Message-ID: <22b97f4d-ea71-4838-98cc-470dbca728c6@oss.qualcomm.com>
-Date: Fri, 24 Apr 2026 12:58:56 +0200
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="tE06mVPj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZQr0Lf6vYEByJELfPkARLi5MLzb5qxk5JpfvnCPh8HU+xHCbN2WXYZrATHU6L+UNdR/AEJ9QZJnQJzYg5c2bMercZ4TjW4UgMF6CQNVQit54itYn3siYhTFI9MXbibXVkXB/c/XT7s41WZyUuGVq+xmEQ1NjDeSsPOxmNT+bNmDhO6Nfn1CAjaB6CxfbOl/5zplBOjwoIUWE5ADSAd+C2J/6Teiy86lzS24hkopG6wri/v1TyHjhGTkx7CwxIm67kyWeBK5SAMlxoLAcHtcRtXjxWD5Ke7amZzFZ6AoMCnOzPPfUlZxCtB3qgERurfX19+F5yypP1Pvcrg6E+W34qA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Xm3hcidFSe2dYQj0VwDoZAxdvBOBOszSMBkqI2+xyi4=;
+ b=Wzr73HDNl3+ncclE0HpEkCHDPF+qxAg6ZtlXudZ04h4ghcRw5n7NWJRAZXz0ZJA5WO9qVIBnfpXkHU7kfKY4EXBU5HES/pzUdC9JW0LM81idnSUouLDaiUc3WBXkaBREVv3zx0wboGJN4Jr4sITMTgpQ4wEYE//dnKU81fkY8aKf4T0TxnuSmvocgDB1zMXFrvnZWZMJuDXy9XtWthUBMtXG1Y7szpJPpV+1Hd4b+U0dYWjsFQJqQp5FBGGr1HApW3UdUfv06HiTbHVG0Jm8PovFhilB4yYendtg7ADFEYaLg/n94JKvmwWGHIsDVZkDg8ZeT5w7+UsU9ZMDNDKBMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Xm3hcidFSe2dYQj0VwDoZAxdvBOBOszSMBkqI2+xyi4=;
+ b=tE06mVPjfWPieTPVjaKizKNrxv7TRa7PRx0YM1/GhgwM+RSdvDzLE4o4h4+rs0WhMetsAL1WlBWHjpPoAMXWl9Vyhv5KuthsLmFee2EaNaY+IMIEjiXc3a3r6OBduxo9OqrCbBUMaOYPVnqSKN9HIBJ3IMotH1olueXV2I5dOjrF6OQX5Eadh/t+/1HGRNBLKFlYy586cRTSY1U8Dd9RV1+LSTi/XMqa9YcxxbAePSPjuS6P7n7LRHBCzifWpv9mvC+45/SHzBZgcwW8wey4XhiZPGc0OuHET25IKQ3XUFmwxE8pnK20aEGllScXhB9q6dmT+z5jk26JUnoHpxbt1w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV1PR04MB9135.eurprd04.prod.outlook.com (2603:10a6:150:26::19)
+ by PAXPR04MB9279.eurprd04.prod.outlook.com (2603:10a6:102:2b7::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
+ 2026 11:07:57 +0000
+Received: from GV1PR04MB9135.eurprd04.prod.outlook.com
+ ([fe80::3826:2706:1e81:c9e2]) by GV1PR04MB9135.eurprd04.prod.outlook.com
+ ([fe80::3826:2706:1e81:c9e2%5]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
+ 11:07:57 +0000
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Parshuram Thombare <pthombar@cadence.com>,
+	Swapnil Jakhade <sjakhade@cadence.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Nikhil Devshatwar <nikhil.nd@ti.com>,
+	Jayesh Choudhary <j-choudhary@ti.com>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux@ew.tq-group.com,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Ying Liu <victor.liu@nxp.com>
+Subject: [PATCH v22 1/8] soc: cadence: Create helper functions for Cadence MHDP
+Date: Fri, 24 Apr 2026 11:07:14 +0000
+Message-ID: <20260424-dcss-hdmi-upstreaming-v22-1-30a28f89298d@oss.nxp.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260424-dcss-hdmi-upstreaming-v22-0-30a28f89298d@oss.nxp.com>
+References: <20260424-dcss-hdmi-upstreaming-v22-0-30a28f89298d@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AM0PR02CA0164.eurprd02.prod.outlook.com
+ (2603:10a6:20b:28d::31) To GV1PR04MB9135.eurprd04.prod.outlook.com
+ (2603:10a6:150:26::19)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] phy: qcom: qmp-pcie: Add PCIe Gen5 8-lane bifurcation
- support for Glymur
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-        Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260304-glymur_gen5x8_phy-v1-0-849e9a72e125@oss.qualcomm.com>
- <42a9dd4d-eb96-42c0-b836-dcd7cb9405ff@oss.qualcomm.com>
- <aaqdv7Zx5AODzg6P@hu-qianyu-lv.qualcomm.com>
- <fb75023e-8fac-49c1-a8b7-2eb8b70fda3e@linaro.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <fb75023e-8fac-49c1-a8b7-2eb8b70fda3e@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 8lsxgH54V5wNPMWgtgJJRXdwCVxztNWp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI0MDEwMyBTYWx0ZWRfX1rIJBcijAplB
- /opzVlLdgOJ905wi/231z9HeGyYZMvnWkVzGLWQQEhGf9nKLdO4mqR2LQTNf1zz7syeJ0IKInsJ
- LuBl8mAE2QOdM3q3HICsRJuRsBBs9JWBn0MJbLqgiu5dZpXh+gGxpsQ6xOxSjYTzcsv551DEqdz
- 3j/rz1ZxpzlJM4ul6inI55EU5Q+lhGHVfMQfofm83Dil6nBFR0waEy0bmRvokHqozFwtx0uGUdb
- e5wUTSzxdLbgYhZq9cvHOy0AVmj8T1lKucGNQgwUTmxqEe+SNr8dm1B+te1xSx1hslF/l4c7blc
- DrF+Do0e5duC7rSMS2KkELMijQMizlqYVCRC9vHXbZuuhaTFcMgW3+tD1U1edd0NIbfdujMJPKQ
- QT1ueCXaa6Ep/l/UXH6070rspEsVFsf+zo9/VTpwd4SJrNFFv3XqbeLHaS2ivLOv9I+sGx9iEmD
- 7U0cFHIK1kSkDBEUVzQ==
-X-Proofpoint-ORIG-GUID: 8lsxgH54V5wNPMWgtgJJRXdwCVxztNWp
-X-Authority-Analysis: v=2.4 cv=QJNYgALL c=1 sm=1 tr=0 ts=69eb4cf5 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=Btiq9F5UgLBRDrkW77oA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-23_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 bulkscore=0 malwarescore=0 adultscore=0
- impostorscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604240103
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV1PR04MB9135:EE_|PAXPR04MB9279:EE_
+X-MS-Office365-Filtering-Correlation-Id: 81908f00-7b73-48c3-87ae-08dea1f1bd8b
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|366016|7416014|376014|19092799006|1800799024|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+ mycXUE744kx+/Vmhmlh/Las54S6EbV6RHTWn2JyDgIBHmHrRbWPeqk47RjJ+NbHKtNH9/RQWwDraib3H7jq5SYFyFXYDIuTgewTjb5Igel8Ol4DpeoawfGqO+Yzev6HpHvc+gSpUXG3loqafyCNtnD4onjXJ50fNR7QoU6BTwf8zJRR8E7Io5M6In5xcw0RlBxcsEG89WhFWuFx3RwVb05r9jF3DWhB/PwCGgBfOaiB6axjRm2Gr6OAdRbLyvjl5bnBFwhQyoOD7pR0VVGeO3gKcr0B7CREnVkgjAgXhtR5ud3o55Q2huy5B9lMz2XbWlZ6dRLR7zjB+GVJoDDQI9AX9qKRD+PPfkKcT48gP9fXyyFuyS6NkVRYs1tHhBcmd9F6OVCt3q5dxR89uYycmfGBNWMfaijU7JLW8APHXqWjHlF+NWnJTLmRcZRudS11J+McJ/1pC6BoZkztJFdCBogB44AGV19/5zsuzCUrJncflBQ9WYNJq8NQG35VwRnkFf1nJaMOeADIvcsNgKUeUHBedfLJu82D/h5wJEM1urqHZ+ANiNJPcj9+P4fJ11GLNmHY7UglwEUuumO/NADQMnkeZ2sadULz5FSrSB/GjsB+rPo6hl7RpDkOOhE0AvO4+D/EPXTwlgYMBd/xBpDO37uIf/PkfowieAoQ22SfUw4MVXhM/SayOISV5VPj0AYPMrxuoY6wPBI+GhBj9F50xDQGXZ39EWAgKB+LwL9E0bRM=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR04MB9135.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(19092799006)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?VXB1UDY5MEZEa2REVDkzaGk2c2QzNVJGL3lYMm9oNFpacDM5dEdhUExEZFB2?=
+ =?utf-8?B?RndsSDZpbFMxM20xbzdlQ3ArOWNxeE9CMnhHc3pFWjNod3F0OUZBWDRjalhD?=
+ =?utf-8?B?SmJXZVl2YkxHWkRtY2tMbEdIejY3c3VDVjVab3U0MTQ4eTlpUktxN21jTSth?=
+ =?utf-8?B?elV0Q2N5c09waXhrMEhkSVRYRlpDOGs2VWZ0c05TTG4rdlZJR1FxOWQvdGNh?=
+ =?utf-8?B?Sm1lZ2UyZzBuL2JmVFY0cHRUWGFlRWZ2M0VSTVlJSlIycDZLQ1NEQnNOdmlh?=
+ =?utf-8?B?TVVndG1hZmxtN1JTWVVjREFHM0JZL25nMlZEWTFYdHc4N1kwVEpNWTB0SENx?=
+ =?utf-8?B?RGI0S2puT2hkVk0vS3BWWi9LQ2Y3ZHV6cXB3V1UyUXhtNUVSS3FVakhYMVJH?=
+ =?utf-8?B?UnJjYThMZEQyV1JhMG1qb3Q3aElPNFFyR2l3bHR2UjduUTNLbmVIbVhEa3Vm?=
+ =?utf-8?B?akcvL000MklvNkR3OUhMcGhZSzNOaEloOGdMb0FpMzNZaFJrUDFRRk9iaUZY?=
+ =?utf-8?B?cXEyQkZhN1BVcWZsSHFNNlF6ZlJmMXhYNUV2M200L0I5NlBCd203b0NoY0FE?=
+ =?utf-8?B?YVdJQXZSYXMxQ0pPWWlENHZnb29qdzBXcFNkd2RzdC80eVdFYVRFZTVIbFoy?=
+ =?utf-8?B?aHNQL0N1bHJ3R1A1dEZ5NmFSWnBwM3Y2a1hKY29qdzVGOFpDWFlNdm52T1Ar?=
+ =?utf-8?B?VkNCZ3ZjOGpWbjVJaDhOOHU5ZXN1U2diU1p6UUlBdUx0SlZFRUNXMnBnTTFZ?=
+ =?utf-8?B?bkc5Wjc5ZXkvRGFTdXMzbFV4WnZJVWI3UDBKRXdMN0VnQk9kQms2bThZekpv?=
+ =?utf-8?B?SDU5anpJVHo0T09YMG10cmlxMTUwY1EvdGdRVVlMSUZ6QmdRaG8yVkIrbTlH?=
+ =?utf-8?B?TTJJWS81QXI3R1NPZG1tbGZFM3JvK0wyZGRjOFlSblFtWk05ekVPOG91V1g3?=
+ =?utf-8?B?QUE1eURQdVQ5eVBpcGZxWm5HT3RESXI0bFNCWnpybnJGQk1iajlYa2REa2Nk?=
+ =?utf-8?B?L1J6eWZJa21sUjdUSHB2U21ZaXU0NVdXdXBhQ0Zya3cwQnlTUE51cnlwTG5z?=
+ =?utf-8?B?dTNPQmczTjl2emZsd1NoUVFyMG4yODBZNFJIYXg2bGtRb3AwVE5LSnZtZHBK?=
+ =?utf-8?B?UnlQRDVNdkdXRGVlTDE5QnQzalJXeWJRODlyZmpTUHpuMzVHV3VpOHBsQVRS?=
+ =?utf-8?B?WEJra05Jemh0eGZ3UlpxNDk3M0VSWVpqZ3N1eEhoYzArUVErRlBxb2VLRHVK?=
+ =?utf-8?B?T1ByRW9KZjFyMzg4Q0hWOG80bGJPKzNyZnFNdE1wL2ZuOTNFbEJLTmg0ekJq?=
+ =?utf-8?B?MEtnOStKSFNWYWQ0U1JuMVVRM21WWkxiaTZnd21jbnM0WmlhUWw5bTF3amhM?=
+ =?utf-8?B?cTZScEVsOXJ3NmIrNTA2UFdQKzBaeFNFNjkzUDVGWStwMEhTSnNWdUVRY3NV?=
+ =?utf-8?B?U3I5R2ZzMkZ0TFVESjFpVlREdGhQY2drdWZINkZVMjBTRkV1MXZoOTZEN0Zi?=
+ =?utf-8?B?OEQ3ZW5wc25IeXFNQ0Fib1AzVDVrM3lCMlRjb09jcjNjOW8zellGZEVYS0I4?=
+ =?utf-8?B?ckNSNXEyNUo3VlZ4NnNXaGRzWTJJUVVTTjdFZHNGMDUxdFI5NlkweGRTNFRT?=
+ =?utf-8?B?RC93Qmg3UGh2cEJUZU5jRVh1NzkvNVd2SXp6QlBqbk1DYTJLbTcxblhFZkNw?=
+ =?utf-8?B?V2N5MVJBRHhmU1dMazdTams1M0V0SVo5L2lrM1FQQ0g5eFRVZ1VuY21oU0dO?=
+ =?utf-8?B?K2ZxbnVPQkhFMEdodThkSXNKOHdKMEIxRWNVUUcvUmdBTVBWMDl3anhYMjNh?=
+ =?utf-8?B?dHU3YlpQZ1hWTUF1Smpqem5DVmJvVzRXTzR6U0p3UzQya2xnVkdWQk1JQ2FK?=
+ =?utf-8?B?L0dDdFNSMStVZE1mYzFLU1RtSWhic0ZlSlVhYUhsZzl5OXBVSDB5aTUxZzNC?=
+ =?utf-8?B?K1pPTGxVemYwSGhnUnRhVXhaclZsVVErRm9OTWJQcXZCeC9sbGxseVJGZGNt?=
+ =?utf-8?B?UHZMRVptMitIRit6eW1CNk9aUlEvRXRmNXZiYmdCSzNuTUlTMmFhVUlIRUNk?=
+ =?utf-8?B?aGZaYjNyWXRGaHBLQzBQY1dNdERFN0pFdHpaLzNYeUdhcVk4WDFGeDM0NXY5?=
+ =?utf-8?B?UUxURHlFMXdwcTE3Mzl6TzlaenlNb2E4QU91aHNaVFhYQkI3K08rbmROQkIz?=
+ =?utf-8?B?ZWdlSVZYNE41aGNTYXVoWThycm9RRXVXWmFoajVHN1FZRDJPV2lYWUswb2Rx?=
+ =?utf-8?B?bFN3SzhndUlaR3o4emN6RjNYczNXL29OeThjUEZHb3dpdDJ3YkpndjJHcEZQ?=
+ =?utf-8?B?K1JKSUZwaFUxRlF4bzk5SzdRdGpad1M5UUdqT0ZQNHoxZkJYWUFLMnUxK2l5?=
+ =?utf-8?Q?/TX//cFoKlCHOOl4=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81908f00-7b73-48c3-87ae-08dea1f1bd8b
+X-MS-Exchange-CrossTenant-AuthSource: GV1PR04MB9135.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 11:07:57.4927
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uGpPJd964ZXYsUa0y+UsudazgCzXvTAN0n1P1BrYrpjqsve/a2wRP+qNhZhezJOsnhgboAthL5phfQcuYnJaPg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9279
 
-On 3/6/26 11:34 AM, Neil Armstrong wrote:
-> On 3/6/26 10:26, Qiang Yu wrote:
->> On Thu, Mar 05, 2026 at 10:14:05AM +0100, Konrad Dybcio wrote:
->>> On 3/4/26 9:21 AM, Qiang Yu wrote:
->>>> This patch series adds support for PCIe Gen5 8-lane bifurcation mode on
->>>> the Glymur SoC's third PCIe controller. In this configuration, pcie3a PHY
->>>> acts as leader and pcie3b PHY as follower to form a single 8-lane PCIe
->>>> Gen5 interface.
->>>>
->>>> To support 8-lanes mode, this patch series add multiple power domain and
->>>> multi nocsr reset infrastructure as the hardware programming guide
->>>> specifies a strict initialization sequence for bifurcation mode that
->>>> requires coordinated multi-PHY resource management:
->>>>
->>>> 1. Turn on both pcie3a_phy_gdsc and pcie3b_phy_gdsc power domains
->>>> 2. Assert both pcie3a and pcie3b nocsr resets, then deassert them together
->>>> 3. Enable all pcie3a PHY clocks and pcie3b PHY aux clock (bifur_aux)
->>>> 4. Poll for PHY ready status
->>>
->>> I think we never concluded the discussion where I suggested the
->>> bifurcated PHY may be better expressed as a single node with
->>> #phy-cells = <1>, removing the need for duplicated resource references
-> 
-> DT requires strict hardware description, no abstraction for HW, so if there's
-> 2 PHYs, then add 2 separate phys and reference them from the PCie controller.
+From: Sandor Yu <Sandor.yu@nxp.com>
 
-A single device *is* the strict HW description here. There's a single
-shared top-level set of controls (mostly in the "COM[mon]" block) and
-8 PCIe lanes that are (roughly speaking) unaware of what configuration
-they're in
+Cadence MHDP IP includes a firmware. Driver and firmware communicate
+through a mailbox. The basic mailbox access functions in this patch are
+derived from the DRM bridge MHDP8546 driver.  New mailbox access
+functions have been created based on different mailbox return values and
+security types, making them reusable across different MHDP driver
+versions and SOCs.
 
-This is very much analogous to the USB3+DP combo PHY, where the USB and
-DP parts are reasonably separate (you can turn the USB or the DP part off
-independently), but those are building blocks that are sort of just two
-"front-ends" to the rest of the QMPPHY hardware, that process data from
-the otherwise unaware pairs of lanes in one configuration or another
+These helper fucntions will be reused in both the DRM bridge driver
+MDHP8501 and the i.MX8MQ HDPTX PHY driver.
 
-Konrad
+Six mailbox access helper functions are introduced.
+Three for non-secure mailbox access:
+ - cdns_mhdp_mailbox_send()
+ - cdns_mhdp_mailbox_send_recv()
+ - cdns_mhdp_mailbox_send_recv_multi()
+The other three for secure mailbox access:
+ - cdns_mhdp_secure_mailbox_send()
+ - cdns_mhdp_secure_mailbox_send_recv()
+ - cdns_mhdp_secure_mailbox_send_recv_multi()
 
+All MHDP commands that need to be passed through the mailbox
+should be rewritten using these new helper functions.
+
+The register read/write and DP DPCD read/write command functions
+are also included in this new helper driver.
+
+Signed-off-by: Sandor Yu <Sandor.yu@nxp.com>
+Co-developed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+
+---
+To: Parshuram Thombare <pthombar@cadence.com>
+To: Swapnil Jakhade <sjakhade@cadence.com>
+To: Dmitry Baryshkov <lumag@kernel.org>
+To: Nikhil Devshatwar <nikhil.nd@ti.com>
+To: Jayesh Choudhary <j-choudhary@ti.com>
+---
+ drivers/soc/Kconfig                    |   1 +
+ drivers/soc/Makefile                   |   1 +
+ drivers/soc/cadence/Kconfig            |   9 +
+ drivers/soc/cadence/Makefile           |   3 +
+ drivers/soc/cadence/cdns-mhdp-helper.c | 611 +++++++++++++++++++++++++++++++++
+ include/soc/cadence/cdns-mhdp-helper.h | 143 ++++++++
+ 6 files changed, 768 insertions(+)
+
+diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
+index a2d65adffb805..8f2114b9a6b7d 100644
+--- a/drivers/soc/Kconfig
++++ b/drivers/soc/Kconfig
+@@ -6,6 +6,7 @@ source "drivers/soc/apple/Kconfig"
+ source "drivers/soc/aspeed/Kconfig"
+ source "drivers/soc/atmel/Kconfig"
+ source "drivers/soc/bcm/Kconfig"
++source "drivers/soc/cadence/Kconfig"
+ source "drivers/soc/canaan/Kconfig"
+ source "drivers/soc/cirrus/Kconfig"
+ source "drivers/soc/fsl/Kconfig"
+diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
+index c9e689080ceb7..33612ccdf5c47 100644
+--- a/drivers/soc/Makefile
++++ b/drivers/soc/Makefile
+@@ -7,6 +7,7 @@ obj-y				+= apple/
+ obj-y				+= aspeed/
+ obj-$(CONFIG_ARCH_AT91)		+= atmel/
+ obj-y				+= bcm/
++obj-y				+= cadence/
+ obj-$(CONFIG_ARCH_CANAAN)	+= canaan/
+ obj-$(CONFIG_EP93XX_SOC)        += cirrus/
+ obj-$(CONFIG_ARCH_DOVE)		+= dove/
+diff --git a/drivers/soc/cadence/Kconfig b/drivers/soc/cadence/Kconfig
+new file mode 100644
+index 0000000000000..d4a8e8e751882
+--- /dev/null
++++ b/drivers/soc/cadence/Kconfig
+@@ -0,0 +1,9 @@
++# SPDX-License-Identifier: GPL-2.0
++
++config CDNS_MHDP_HELPER
++	tristate
++	help
++	  Enable Cadence MHDP helpers for mailbox, HDMI and DP.
++	  This driver provides a foundational layer of mailbox communication for
++	  various Cadence MHDP IP implementations, such as HDMI and DisplayPort.
++
+diff --git a/drivers/soc/cadence/Makefile b/drivers/soc/cadence/Makefile
+new file mode 100644
+index 0000000000000..a1f42e1936ca5
+--- /dev/null
++++ b/drivers/soc/cadence/Makefile
+@@ -0,0 +1,3 @@
++# SPDX-License-Identifier: GPL-2.0-only
++
++obj-$(CONFIG_CDNS_MHDP_HELPER) += cdns-mhdp-helper.o
+diff --git a/drivers/soc/cadence/cdns-mhdp-helper.c b/drivers/soc/cadence/cdns-mhdp-helper.c
+new file mode 100644
+index 0000000000000..5657e88131ba1
+--- /dev/null
++++ b/drivers/soc/cadence/cdns-mhdp-helper.c
+@@ -0,0 +1,611 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2023, 2024 NXP Semiconductor, Inc.
++ *
++ */
++#include <linux/dev_printk.h>
++#include <linux/module.h>
++#include <soc/cadence/cdns-mhdp-helper.h>
++
++/* Mailbox helper functions */
++static int mhdp_mailbox_read(struct cdns_mhdp_base *base)
++{
++	int ret, empty;
++
++	lockdep_assert_held(&base->mailbox_mutex);
++
++	ret = readx_poll_timeout(readl, base->regs + CDNS_MAILBOX_EMPTY,
++				 empty, !empty, MAILBOX_RETRY_US,
++				 MAILBOX_TIMEOUT_US);
++	if (ret < 0)
++		return ret;
++
++	return readl(base->regs + CDNS_MAILBOX_RX_DATA) & 0xff;
++}
++
++static int mhdp_mailbox_write(struct cdns_mhdp_base *base, u8 val)
++{
++	int ret, full;
++
++	lockdep_assert_held(&base->mailbox_mutex);
++
++	ret = readx_poll_timeout(readl, base->regs + CDNS_MAILBOX_FULL,
++				 full, !full, MAILBOX_RETRY_US,
++				 MAILBOX_TIMEOUT_US);
++	if (ret < 0)
++		return ret;
++
++	writel(val, base->regs + CDNS_MAILBOX_TX_DATA);
++
++	return 0;
++}
++
++static int mhdp_mailbox_read_secure(struct cdns_mhdp_base *base)
++{
++	int ret, empty;
++
++	lockdep_assert_held(&base->mailbox_mutex);
++
++	ret = readx_poll_timeout(readl, base->sapb_regs + CDNS_MAILBOX_EMPTY,
++				 empty, !empty, MAILBOX_RETRY_US,
++				 MAILBOX_TIMEOUT_US);
++	if (ret < 0)
++		return ret;
++
++	return readl(base->sapb_regs + CDNS_MAILBOX_RX_DATA) & 0xff;
++}
++
++static int mhdp_mailbox_write_secure(struct cdns_mhdp_base *base, u8 val)
++{
++	int ret, full;
++
++	lockdep_assert_held(&base->mailbox_mutex);
++
++	ret = readx_poll_timeout(readl, base->sapb_regs + CDNS_MAILBOX_FULL,
++				 full, !full, MAILBOX_RETRY_US,
++				 MAILBOX_TIMEOUT_US);
++	if (ret < 0)
++		return ret;
++
++	writel(val, base->sapb_regs + CDNS_MAILBOX_TX_DATA);
++
++	return 0;
++}
++
++static int mhdp_mailbox_recv_header(struct cdns_mhdp_base *base,
++				    u8 module_id, u8 opcode,
++				    u16 req_size, bool secure)
++{
++	u32 mbox_size, i;
++	u8 header[4];
++	int ret;
++
++	/* read the header of the message */
++	for (i = 0; i < sizeof(header); i++) {
++		if (secure)
++			ret = mhdp_mailbox_read_secure(base);
++		else
++			ret = mhdp_mailbox_read(base);
++		if (ret < 0)
++			return ret;
++
++		header[i] = ret;
++	}
++
++	mbox_size = get_unaligned_be16(header + 2);
++
++	/*
++	 * If the message in mailbox is not what we want, we need to
++	 * clear the mailbox by reading its contents.
++	 * Response data length for HDCP TX HDCP_TRAN_IS_REC_ID_VALID depend on
++	 * case.
++	 */
++	if (opcode != header[0] ||
++	    module_id != header[1] ||
++	   (opcode != HDCP_TRAN_IS_REC_ID_VALID && req_size != mbox_size)) {
++		for (i = 0; i < mbox_size; i++) {
++			if (secure)
++				ret = mhdp_mailbox_read_secure(base);
++			else
++				ret = mhdp_mailbox_read(base);
++			if (ret < 0)
++				break;
++		}
++
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int mhdp_mailbox_recv_data(struct cdns_mhdp_base *base,
++				  u8 *buff, u16 buff_size, bool secure)
++{
++	u32 i;
++	int ret;
++
++	for (i = 0; i < buff_size; i++) {
++		if (secure)
++			ret = mhdp_mailbox_read_secure(base);
++		else
++			ret = mhdp_mailbox_read(base);
++		if (ret < 0)
++			return ret;
++
++		buff[i] = ret;
++	}
++
++	return 0;
++}
++
++static int mhdp_mailbox_send(struct cdns_mhdp_base *base, u8 module_id,
++			     u8 opcode, u16 size, u8 *message, bool secure)
++{
++	u8 header[4];
++	int ret, i;
++
++	header[0] = opcode;
++	header[1] = module_id;
++	put_unaligned_be16(size, header + 2);
++
++	for (i = 0; i < sizeof(header); i++) {
++		if (secure)
++			ret = mhdp_mailbox_write_secure(base, header[i]);
++		else
++			ret = mhdp_mailbox_write(base, header[i]);
++		if (ret)
++			return ret;
++	}
++
++	for (i = 0; i < size; i++) {
++		if (secure)
++			ret = mhdp_mailbox_write_secure(base, message[i]);
++		else
++			ret = mhdp_mailbox_write(base, message[i]);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
++/**
++ * cdns_mhdp_mailbox_send - Sends a message via the MHDP mailbox.
++ *
++ * This function sends a message via the MHDP mailbox.
++ *
++ * @base: Pointer to the CDNS MHDP base structure.
++ * @module_id: ID of the module to send the message to.
++ * @opcode: Operation code of the message.
++ * @size: Size of the message data.
++ * @message: Pointer to the message data.
++ *
++ * Returns: 0 on success, negative error code on failure.
++ */
++int cdns_mhdp_mailbox_send(struct cdns_mhdp_base *base, u8 module_id,
++			   u8 opcode, u16 size, u8 *message)
++{
++	guard(mutex)(&base->mailbox_mutex);
++
++	return mhdp_mailbox_send(base, module_id, opcode, size, message, false);
++}
++EXPORT_SYMBOL_GPL(cdns_mhdp_mailbox_send);
++
++/**
++ * cdns_mhdp_mailbox_send_recv - Sends a message and receives a response.
++ *
++ * This function sends a message via the mailbox and then receives a response.
++ *
++ * @base: Pointer to the CDNS MHDP base structure.
++ * @module_id: ID of the module to send the message to.
++ * @opcode: Operation code of the message.
++ * @msg_size: Size of the message data.
++ * @msg: Pointer to the message data.
++ * @resp_size: Size of the response buffer.
++ * @resp: Pointer to the response buffer.
++ *
++ * Returns: 0 on success, negative error code on failure.
++ */
++int cdns_mhdp_mailbox_send_recv(struct cdns_mhdp_base *base,
++				u8 module_id, u8 opcode,
++				u16 msg_size, u8 *msg,
++				u16 resp_size, u8 *resp)
++{
++	int ret;
++
++	guard(mutex)(&base->mailbox_mutex);
++
++	ret = mhdp_mailbox_send(base, module_id, opcode, msg_size, msg, false);
++	if (ret) {
++		dev_err(base->dev, "ModuleID=%d, CMD=%d send failed: %d\n",
++			module_id, opcode, ret);
++		return ret;
++	}
++
++	ret = mhdp_mailbox_recv_header(base, module_id, opcode, resp_size, false);
++	if (ret) {
++		dev_err(base->dev, "ModuleID=%d, CMD=%d recv header failed: %d\n",
++			module_id, opcode, ret);
++		return ret;
++	}
++
++	ret = mhdp_mailbox_recv_data(base, resp, resp_size, false);
++	if (ret)
++		dev_err(base->dev, "ModuleID=%d, CMD=%d recv data failed: %d\n",
++			module_id, opcode, ret);
++	return ret;
++}
++EXPORT_SYMBOL_GPL(cdns_mhdp_mailbox_send_recv);
++
++/**
++ * cdns_mhdp_mailbox_send_recv_multi - Sends a message and receives multiple
++ * responses.
++ *
++ * This function sends a message to a specified module via the MHDP mailbox and
++ * then receives multiple responses from the module.
++ *
++ * @base: Pointer to the CDNS MHDP base structure.
++ * @module_id: ID of the module to send the message to.
++ * @opcode: Operation code of the message.
++ * @msg_size: Size of the message data.
++ * @msg: Pointer to the message data.
++ * @opcode_resp: Operation code of the response.
++ * @resp1_size: Size of the first response buffer.
++ * @resp1: Pointer to the first response buffer.
++ * @resp2_size: Size of the second response buffer.
++ * @resp2: Pointer to the second response buffer.
++ *
++ * Returns: 0 on success, negative error code on failure.
++ */
++int cdns_mhdp_mailbox_send_recv_multi(struct cdns_mhdp_base *base,
++				      u8 module_id, u8 opcode,
++				      u16 msg_size, u8 *msg,
++				      u8 opcode_resp,
++				      u16 resp1_size, u8 *resp1,
++				      u16 resp2_size, u8 *resp2)
++{
++	int ret;
++
++	guard(mutex)(&base->mailbox_mutex);
++
++	ret = mhdp_mailbox_send(base, module_id, opcode, msg_size, msg, false);
++	if (ret) {
++		dev_err(base->dev, "ModuleID=%d, CMD=%d send failed: %d\n",
++			module_id, opcode, ret);
++		return ret;
++	}
++
++	ret = mhdp_mailbox_recv_header(base, module_id, opcode_resp,
++				       resp1_size + resp2_size, false);
++	if (ret) {
++		dev_err(base->dev, "ModuleID=%d, Resp_CMD=%d recv header failed: %d\n",
++			module_id, opcode_resp, ret);
++		return ret;
++	}
++
++	ret = mhdp_mailbox_recv_data(base, resp1, resp1_size, false);
++	if (ret) {
++		dev_err(base->dev, "ModuleID=%d, Resp_CMD=%d recv data1 failed: %d\n",
++			module_id, opcode_resp, ret);
++		return ret;
++	}
++
++	ret = mhdp_mailbox_recv_data(base, resp2, resp2_size, false);
++	if (ret)
++		dev_err(base->dev, "ModuleID=%d, Resp_CMD=%d recv data2 failed: %d\n",
++			module_id, opcode_resp, ret);
++	return ret;
++}
++EXPORT_SYMBOL_GPL(cdns_mhdp_mailbox_send_recv_multi);
++
++/**
++ * cdns_mhdp_secure_mailbox_send - Sends a secure message via the mailbox.
++ *
++ * This function sends a secure message to a specified module via the MHDP
++ * mailbox.
++ *
++ * @base: Pointer to the CDNS MHDP base structure.
++ * @module_id: ID of the module to send the message to.
++ * @opcode: Operation code of the message.
++ * @size: Size of the message data.
++ * @message: Pointer to the message data.
++ *
++ * Returns: 0 on success, negative error code on failure.
++ */
++int cdns_mhdp_secure_mailbox_send(struct cdns_mhdp_base *base, u8 module_id,
++				  u8 opcode, u16 size, u8 *message)
++{
++	guard(mutex)(&base->mailbox_mutex);
++
++	return mhdp_mailbox_send(base, module_id, opcode, size, message, true);
++}
++EXPORT_SYMBOL_GPL(cdns_mhdp_secure_mailbox_send);
++
++/**
++ * cdns_mhdp_secure_mailbox_send_recv - Sends a secure message and receives a
++ * response.
++ *
++ * This function sends a secure message to a specified module via the mailbox
++ * and then receives a response from the module.
++ *
++ * @base: Pointer to the CDNS MHDP base structure.
++ * @module_id: ID of the module to send the message to.
++ * @opcode: Operation code of the message.
++ * @msg_size: Size of the message data.
++ * @msg: Pointer to the message data.
++ * @resp_size: Size of the response buffer.
++ * @resp: Pointer to the response buffer.
++ *
++ * Returns: 0 on success, negative error code on failure.
++ */
++int cdns_mhdp_secure_mailbox_send_recv(struct cdns_mhdp_base *base,
++				       u8 module_id, u8 opcode,
++				       u16 msg_size, u8 *msg,
++				       u16 resp_size, u8 *resp)
++{
++	int ret;
++
++	guard(mutex)(&base->mailbox_mutex);
++
++	ret = mhdp_mailbox_send(base, module_id, opcode, msg_size, msg, true);
++	if (ret) {
++		dev_err(base->dev, "ModuleID=%d, CMD=%d send failed: %d\n",
++			module_id, opcode, ret);
++		return ret;
++	}
++
++	ret = mhdp_mailbox_recv_header(base, module_id, opcode, resp_size, true);
++	if (ret) {
++		dev_err(base->dev, "ModuleID=%d, CMD=%d recv header failed: %d\n",
++			module_id, opcode, ret);
++		return ret;
++	}
++
++	ret = mhdp_mailbox_recv_data(base, resp, resp_size, true);
++	if (ret)
++		dev_err(base->dev, "ModuleID=%d, CMD=%d recv data failed: %d\n",
++			module_id, opcode, ret);
++	return ret;
++}
++EXPORT_SYMBOL_GPL(cdns_mhdp_secure_mailbox_send_recv);
++
++/**
++ * cdns_mhdp_secure_mailbox_send_recv_multi - Sends a secure message and
++ * receives multiple responses.
++ *
++ * This function sends a secure message to a specified module and receives
++ * multiple responses.
++ *
++ * @base: Pointer to the CDNS MHDP base structure.
++ * @module_id: ID of the module to send the message to.
++ * @opcode: Operation code of the message.
++ * @msg_size: Size of the message data.
++ * @msg: Pointer to the message data.
++ * @opcode_resp: Operation code of the response.
++ * @resp1_size: Size of the first response buffer.
++ * @resp1: Pointer to the first response buffer.
++ * @resp2_size: Size of the second response buffer.
++ * @resp2: Pointer to the second response buffer.
++ *
++ * Returns: 0 on success, negative error code on failure.
++ */
++int cdns_mhdp_secure_mailbox_send_recv_multi(struct cdns_mhdp_base *base,
++					     u8 module_id, u8 opcode,
++					     u16 msg_size, u8 *msg,
++					     u8 opcode_resp,
++					     u16 resp1_size, u8 *resp1,
++					     u16 resp2_size, u8 *resp2)
++{
++	int ret;
++
++	guard(mutex)(&base->mailbox_mutex);
++
++	ret = mhdp_mailbox_send(base, module_id, opcode, msg_size, msg, true);
++	if (ret) {
++		dev_err(base->dev, "ModuleID=%d, CMD=%d send failed: %d\n",
++			module_id, opcode, ret);
++		return ret;
++	}
++
++	ret = mhdp_mailbox_recv_header(base, module_id, opcode_resp,
++				       resp1_size + resp2_size, true);
++	if (ret) {
++		dev_err(base->dev, "ModuleID=%d, Resp_CMD=%d recv header failed: %d\n",
++			module_id, opcode_resp, ret);
++		return ret;
++	}
++
++	ret = mhdp_mailbox_recv_data(base, resp1, resp1_size, true);
++	if (ret) {
++		dev_err(base->dev, "ModuleID=%d, Resp_CMD=%d recv data1 failed: %d\n",
++			module_id, opcode_resp, ret);
++		return ret;
++	}
++
++	/*
++	 * Response data length for HDCP TX HDCP_TRAN_IS_REC_ID_VALID depend on
++	 * the number of HDCP receivers in resp1[0].
++	 * 1 for regular case, more can be in repeater.
++	 */
++	if (module_id == MB_MODULE_ID_HDCP_TX &&
++	    opcode == HDCP_TRAN_IS_REC_ID_VALID)
++		ret = mhdp_mailbox_recv_data(base, resp2, 5 * resp1[0], true);
++	else
++		ret = mhdp_mailbox_recv_data(base, resp2, resp2_size, true);
++	if (ret)
++		dev_err(base->dev, "ModuleID=%d, Resp_CMD=%d recv data2 failed: %d\n",
++			module_id, opcode_resp, ret);
++	return ret;
++}
++EXPORT_SYMBOL_GPL(cdns_mhdp_secure_mailbox_send_recv_multi);
++
++/**
++ * cdns_mhdp_reg_read - Reads a general register value.
++ *
++ * This function reads the value from a general register
++ * using the mailbox.
++ *
++ * @base: Pointer to the CDNS MHDP base structure.
++ * @addr: Address of the register to read.
++ * @value: Pointer to store the read value.
++ *
++ * Returns: 0 on success, negative error code on failure.
++ */
++int cdns_mhdp_reg_read(struct cdns_mhdp_base *base, u32 addr, u32 *value)
++{
++	u8 msg[4], resp[8];
++	int ret;
++
++	put_unaligned_be32(addr, msg);
++
++	ret = cdns_mhdp_mailbox_send_recv(base, MB_MODULE_ID_GENERAL,
++					  GENERAL_REGISTER_READ,
++					  sizeof(msg), msg, sizeof(resp), resp);
++	if (ret)
++		goto out;
++
++	/* Returned address value should be the same as requested */
++	if (memcmp(msg, resp, sizeof(msg))) {
++		ret = -EINVAL;
++		goto out;
++	}
++
++	*value = get_unaligned_be32(resp + 4);
++out:
++	if (ret) {
++		dev_err(base->dev, "Failed to read register\n");
++		*value = 0;
++	}
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(cdns_mhdp_reg_read);
++
++/**
++ * cdns_mhdp_reg_write - Writes a value to a general register.
++ *
++ * This function writes a value to a general register using the mailbox.
++ *
++ * @base: Pointer to the CDNS MHDP base structure.
++ * @addr: Address of the register to write to.
++ * @val: Value to write to the register.
++ *
++ * Returns: 0 on success, negative error code on failure.
++ */
++int cdns_mhdp_reg_write(struct cdns_mhdp_base *base, u32 addr, u32 val)
++{
++	u8 msg[8];
++
++	put_unaligned_be32(addr, msg);
++	put_unaligned_be32(val, msg + 4);
++
++	return cdns_mhdp_mailbox_send(base, MB_MODULE_ID_GENERAL,
++				     GENERAL_REGISTER_WRITE,
++				     sizeof(msg), msg);
++}
++EXPORT_SYMBOL_GPL(cdns_mhdp_reg_write);
++
++/* DPTX helper functions */
++/**
++ * cdns_mhdp_dp_reg_write_bit - Writes a bit field to a DP register.
++ *
++ * This function writes a specific bit field within a DP register
++ * using the MHDP mailbox.
++ *
++ * @base: Pointer to the CDNS MHDP base structure.
++ * @addr: Address of the DP register.
++ * @start_bit: Starting bit position within the register.
++ * @bits_no: Number of bits to write.
++ * @val: Value to write to the bit field.
++ *
++ * Returns: 0 on success, negative error code on failure.
++ */
++int cdns_mhdp_dp_reg_write_bit(struct cdns_mhdp_base *base, u16 addr,
++			       u8 start_bit, u8 bits_no, u32 val)
++{
++	u8 field[8];
++
++	put_unaligned_be16(addr, field);
++	field[2] = start_bit;
++	field[3] = bits_no;
++	put_unaligned_be32(val, field + 4);
++
++	return cdns_mhdp_mailbox_send(base, MB_MODULE_ID_DP_TX,
++				      DPTX_WRITE_FIELD, sizeof(field), field);
++}
++EXPORT_SYMBOL_GPL(cdns_mhdp_dp_reg_write_bit);
++
++/**
++ * cdns_mhdp_dpcd_read - Reads data from a DPCD register.
++ *
++ * This function reads data from a specified DPCD register
++ * using the MHDP mailbox.
++ *
++ * @base: Pointer to the CDNS MHDP base structure.
++ * @addr: Address of the DPCD register to read.
++ * @data: Buffer to store the read data.
++ * @len: Length of the data to read.
++ *
++ * Returns: 0 on success, negative error code on failure.
++ */
++int cdns_mhdp_dpcd_read(struct cdns_mhdp_base *base,
++			u32 addr, u8 *data, u16 len)
++{
++	u8 msg[5], reg[5];
++
++	put_unaligned_be16(len, msg);
++	put_unaligned_be24(addr, msg + 2);
++
++	return cdns_mhdp_mailbox_send_recv_multi(base,
++						 MB_MODULE_ID_DP_TX,
++						 DPTX_READ_DPCD,
++						 sizeof(msg), msg,
++						 DPTX_READ_DPCD,
++						 sizeof(reg), reg,
++						 len, data);
++}
++EXPORT_SYMBOL_GPL(cdns_mhdp_dpcd_read);
++
++/**
++ * cdns_mhdp_dpcd_write - Writes data to a DPCD register.
++ *
++ * This function writes data to a specified DPCD register
++ * using the MHDP mailbox.
++ *
++ * @base: Pointer to the CDNS MHDP base structure.
++ * @addr: Address of the DPCD register to write to.
++ * @value: Value to write to the register.
++ *
++ * Returns: 0 on success, negative error code on failure.
++ */
++int cdns_mhdp_dpcd_write(struct cdns_mhdp_base *base, u32 addr, u8 value)
++{
++	u8 msg[6], reg[5];
++	int ret;
++
++	put_unaligned_be16(1, msg);
++	put_unaligned_be24(addr, msg + 2);
++	msg[5] = value;
++
++	ret = cdns_mhdp_mailbox_send_recv(base, MB_MODULE_ID_DP_TX,
++					  DPTX_WRITE_DPCD,
++					  sizeof(msg), msg, sizeof(reg), reg);
++	if (ret) {
++		dev_err(base->dev, "dpcd write failed: %d\n", ret);
++		return ret;
++	}
++
++	if (addr != get_unaligned_be24(reg + 2)) {
++		dev_err(base->dev,
++			"Invalid response: expected address 0x%06x, got 0x%06x\n",
++			addr, get_unaligned_be24(reg + 2));
++		return -EINVAL;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(cdns_mhdp_dpcd_write);
++
++MODULE_DESCRIPTION("Cadence MHDP Helper driver");
++MODULE_AUTHOR("Sandor Yu <Sandor.yu@nxp.com>");
++MODULE_LICENSE("GPL");
+diff --git a/include/soc/cadence/cdns-mhdp-helper.h b/include/soc/cadence/cdns-mhdp-helper.h
+new file mode 100644
+index 0000000000000..7e2ceb848fc2d
+--- /dev/null
++++ b/include/soc/cadence/cdns-mhdp-helper.h
+@@ -0,0 +1,143 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2023-2024 NXP Semiconductor, Inc.
++ */
++#ifndef __CDNS_MHDP_HELPER_H__
++#define __CDNS_MHDP_HELPER_H__
++
++#include <linux/iopoll.h>
++#include <linux/mutex.h>
++#include <linux/unaligned.h>
++
++/* mailbox regs offset */
++#define CDNS_MAILBOX_FULL			0x00008
++#define CDNS_MAILBOX_EMPTY			0x0000c
++#define CDNS_MAILBOX_TX_DATA			0x00010
++#define CDNS_MAILBOX_RX_DATA			0x00014
++
++#define MAILBOX_RETRY_US			1000
++#define MAILBOX_TIMEOUT_US			2000000
++
++/* Module ID Code */
++#define MB_MODULE_ID_DP_TX			0x01
++#define MB_MODULE_ID_HDMI_TX			0x03
++#define MB_MODULE_ID_HDCP_TX			0x07
++#define MB_MODULE_ID_HDCP_RX			0x08
++#define MB_MODULE_ID_HDCP_GENERAL		0x09
++#define MB_MODULE_ID_GENERAL			0x0A
++
++/* General Commands */
++#define GENERAL_MAIN_CONTROL			0x01
++#define GENERAL_TEST_ECHO			0x02
++#define GENERAL_BUS_SETTINGS			0x03
++#define GENERAL_TEST_ACCESS			0x04
++#define GENERAL_REGISTER_WRITE			0x05
++#define GENERAL_WRITE_FIELD			0x06
++#define GENERAL_REGISTER_READ			0x07
++#define GENERAL_GET_HPD_STATE			0x11
++
++/* DPTX Commands */
++#define DPTX_SET_POWER_MNG			0x00
++#define DPTX_SET_HOST_CAPABILITIES		0x01
++#define DPTX_GET_EDID				0x02
++#define DPTX_READ_DPCD				0x03
++#define DPTX_WRITE_DPCD				0x04
++#define DPTX_ENABLE_EVENT			0x05
++#define DPTX_WRITE_REGISTER			0x06
++#define DPTX_READ_REGISTER			0x07
++#define DPTX_WRITE_FIELD			0x08
++#define DPTX_TRAINING_CONTROL			0x09
++#define DPTX_READ_EVENT				0x0a
++#define DPTX_READ_LINK_STAT			0x0b
++#define DPTX_SET_VIDEO				0x0c
++#define DPTX_SET_AUDIO				0x0d
++#define DPTX_GET_LAST_AUX_STAUS			0x0e
++#define DPTX_SET_LINK_BREAK_POINT		0x0f
++#define DPTX_FORCE_LANES			0x10
++#define DPTX_HPD_STATE				0x11
++#define DPTX_ADJUST_LT				0x12
++
++/* HDMI TX Commands */
++#define HDMI_TX_READ				0x00
++#define HDMI_TX_WRITE				0x01
++#define HDMI_TX_UPDATE_READ			0x02
++#define HDMI_TX_EDID				0x03
++#define HDMI_TX_EVENTS				0x04
++#define HDMI_TX_HPD_STATUS			0x05
++
++/* HDCP TX Commands */
++#define HDCP_TRAN_CONFIGURATION			0x00
++#define HDCP2X_TX_SET_PUBLIC_KEY_PARAMS		0x01
++#define HDCP2X_TX_SET_DEBUG_RANDOM_NUMBERS	0x02
++#define HDCP2X_TX_RESPOND_KM			0x03
++#define HDCP1_TX_SEND_KEYS			0x04
++#define HDCP1_TX_SEND_RANDOM_AN			0x05
++#define HDCP_TRAN_STATUS_CHANGE			0x06
++#define HDCP2X_TX_IS_KM_STORED			0x07
++#define HDCP2X_TX_STORE_KM			0x08
++#define HDCP_TRAN_IS_REC_ID_VALID		0x09
++#define HDCP_TRAN_RESPOND_RECEIVER_ID_VALID	0x0a
++#define HDCP_TRAN_TEST_KEYS			0x0b
++#define HDCP2X_TX_SET_KM_KEY_PARAMS		0x0c
++#define HDCP_NUM_OF_SUPPORTED_MESSAGES		0x0d
++
++/**
++ * struct cdns_mhdp_base - Base structure for CDNS MHDP devices
++ * @dev: Pointer to the device structure
++ * @regs: Base address of the regular register space
++ * @sapb_regs: Base address of the secure APB register space
++ * @mailbox_mutex: Mutex to protect mailbox communications with firmware
++ *
++ * This structure contains the base resources needed for CDNS MHDP helper
++ * functions. Each device instance should have its own cdns_mhdp_base structure
++ * to ensure proper isolation of mailbox operations between multiple devices.
++ */
++struct cdns_mhdp_base {
++	struct device *dev;
++	void __iomem *regs;
++	void __iomem *sapb_regs;
++	struct mutex mailbox_mutex;
++};
++
++/* Mailbox helper functions */
++int cdns_mhdp_mailbox_send(struct cdns_mhdp_base *base,
++			   u8 module_id, u8 opcode,
++			   u16 size, u8 *message);
++int cdns_mhdp_mailbox_send_recv(struct cdns_mhdp_base *base,
++				u8 module_id, u8 opcode,
++				u16 msg_size, u8 *msg,
++				u16 resp_size, u8 *resp);
++int cdns_mhdp_mailbox_send_recv_multi(struct cdns_mhdp_base *base,
++				      u8 module_id, u8 opcode,
++				      u16 msg_size, u8 *msg,
++				      u8 opcode_resp,
++				      u16 resp1_size, u8 *resp1,
++				      u16 resp2_size, u8 *resp2);
++
++/* Secure mailbox helper functions */
++int cdns_mhdp_secure_mailbox_send(struct cdns_mhdp_base *base,
++				  u8 module_id, u8 opcode,
++				  u16 size, u8 *message);
++int cdns_mhdp_secure_mailbox_send_recv(struct cdns_mhdp_base *base,
++				       u8 module_id, u8 opcode,
++				       u16 msg_size, u8 *msg,
++				       u16 resp_size, u8 *resp);
++int cdns_mhdp_secure_mailbox_send_recv_multi(struct cdns_mhdp_base *base,
++					     u8 module_id, u8 opcode,
++					     u16 msg_size, u8 *msg,
++					     u8 opcode_resp,
++					     u16 resp1_size, u8 *resp1,
++					     u16 resp2_size, u8 *resp2);
++
++/* General commands helper functions */
++int cdns_mhdp_reg_read(struct cdns_mhdp_base *base, u32 addr, u32 *value);
++int cdns_mhdp_reg_write(struct cdns_mhdp_base *base, u32 addr, u32 val);
++
++/* DPTX commands helper functions */
++int cdns_mhdp_dp_reg_write_bit(struct cdns_mhdp_base *base, u16 addr,
++			       u8 start_bit, u8 bits_no, u32 val);
++int cdns_mhdp_dpcd_read(struct cdns_mhdp_base *base,
++			u32 addr, u8 *data, u16 len);
++int cdns_mhdp_dpcd_write(struct cdns_mhdp_base *base, u32 addr, u8 value);
++
++#endif /* __CDNS_MHDP_HELPER_H__ */
+
+-- 
+2.51.0
