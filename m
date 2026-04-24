@@ -1,143 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443B338425D;
-	Fri, 24 Apr 2026 10:43:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CEC0F36404E;
+	Fri, 24 Apr 2026 10:45:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777027412; cv=none; b=q0VHUnJT+oDMWHnIAqRQK9VyNnQQFYN/byeB4pRnf5KuIBJLDXNVDbuXU+g9Qg0cHyc7BWP3wgHpPM8Sonvy7fA3yNBdn8+5JhDLuC823gHvsDCmFN/432kdZtqvB7pistNvnOaGdwKDl/75GDg0tuckyc++N+JOeRAHokmKm6A=
+	t=1777027515; cv=none; b=twlk9aMjFWOvyAyRKZ/bLjBg9RSkz2o+BaZB3E1/LUmq1Dwgqb7RWYOnbHZk3JpxOy6Efaa0NlBrM1Sgp1MXeco40uoQX3a40IgYJA+/wkt62D7GP1u3jU4xHudC1v+0bXstuYOKiNTmLoCo31oW/Hl6lreULD+lLaq3MoZtQlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777027412; c=relaxed/simple;
-	bh=kknDDv9TuvxwgtonleSpBC/+VyXVDvyX2AE+3GnIAw4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rRueYZwAfUAjnYSyKKmQhrxJgIfCm3bLevRgHKnQzl2B2+Sl60Luba/B9g2xrcp/v1i2W45tf/H9Aq4gD1VJ9A9MWJEPNuZyOuKw9s2ERaGxi028/OF1qt3cd7xfzFW9G5fx22KqZnELQ+F7qk0jqhca23vrh1N1g0IYaMBR3o8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SDMQHrfz; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SDMQHrfz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E2B3C19425;
-	Fri, 24 Apr 2026 10:43:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777027411;
-	bh=kknDDv9TuvxwgtonleSpBC/+VyXVDvyX2AE+3GnIAw4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SDMQHrfzRkuh92o/aG4I5AFMn1snndSnL+7WSnv5nef9ruDSGgGHKYWXEj7SPnJRm
-	 LY24+LVI4JMn1/V+jz/EXg2ysR8wksLiEdHrEs4oDg2Sg77Yv95DdREYTz1A6MHlbm
-	 zahdprpJZ8p9EDrFlUBQYhcXq4HLG3Th+yEgwKzPFS4yBqgKcaW0Hsg5UewY116SPo
-	 /UW4PgZfJUoJBxnt0rZHnVuSWp1AVHunPk5zviLN7TnXoiGy9WO8r5RAPu5LgZ0YNi
-	 yt01acpjkuo++DRtrv2I/a5YrVDa3/WsYv1ERETrMb6GtLkE+eGYnzouqLWZH2mPGZ
-	 x4CrRrJbSwWVw==
-Date: Fri, 24 Apr 2026 12:43:29 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Lee Jones <lee@kernel.org>, 
-	William Breathitt Gray <wbg@kernel.org>, Damon Ding <damon.ding@rock-chips.com>, kernel@collabora.com, 
-	Alexey Charkov <alchark@gmail.com>, linux-rockchip@lists.infradead.org, linux-pwm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v5 0/6] Add Rockchip RK3576 PWM Support Through MFPWM
-Message-ID: <aetFgdIUlDG0AiMn@monoceros>
-References: <20260420-rk3576-pwm-v5-0-ae7cfbbe5427@collabora.com>
- <20260421165656.168fe262@jic23-huawei>
- <dB_doorKQsK5TdJ40Tv8Lw@collabora.com>
+	s=arc-20240116; t=1777027515; c=relaxed/simple;
+	bh=VWipcZOs40/Z2pcQcWZXZZarxOkQaGPxu3pCfjnoN1g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=bf9dOJMqVPPxcL8dVOI07AXFg5Qj2OZ3PQXziLurd3sdn2n/+WTCMFcDJRLmUZqmM5LdtwLhQuioxeOZg9H0/Bv8aDlKfCKz0lsyQPaw9tte2TjiirU1T2QQsy0BphDQkG6W2j6DEjOVkuoNUJoTtKzjj0ifLN2zKsMzVftEEwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
+ ajax-webmail-app2 (Coremail) ; Fri, 24 Apr 2026 18:44:49 +0800 (GMT+08:00)
+Date: Fri, 24 Apr 2026 18:44:49 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
+To: "Brian Masney" <bmasney@redhat.com>
+Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de, huangyifeng@eswincomputing.com,
+	benoit.monin@bootlin.com, ningyu@eswincomputing.com,
+	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com
+Subject: Re: Re: [PATCH v3 2/3] clk: eswin: Add eic7700 HSP clock driver
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <aeo8nn-eigzlojWx@redhat.com>
+References: <20260423090904.2108-1-dongxuyang@eswincomputing.com>
+ <20260423091114.2326-1-dongxuyang@eswincomputing.com>
+ <aeo8nn-eigzlojWx@redhat.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nqpklusenoeywtel"
-Content-Disposition: inline
-In-Reply-To: <dB_doorKQsK5TdJ40Tv8Lw@collabora.com>
+Message-ID: <4e5c887.5a31.19dbf179fb6.Coremail.dongxuyang@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:TQJkCgAHHaChSetpJFMUAA--.4097W
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAgEHAmnqSg4jX
+	QABs+
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VW3Jw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-
---nqpklusenoeywtel
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5 0/6] Add Rockchip RK3576 PWM Support Through MFPWM
-MIME-Version: 1.0
-
-[Dropped Jonas Karlman from Cc:, their email bounced for me in the past]
-
-Hello Nicolas,
-
-On Wed, Apr 22, 2026 at 01:31:14PM +0200, Nicolas Frattaroli wrote:
-> On Tuesday, 21 April 2026 17:56:56 Central European Summer Time Jonathan =
-Cameron wrote:
-> > On Mon, 20 Apr 2026 15:52:37 +0200
-> > Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
-> >=20
-> > > This series introduces support for some of the functions of the new P=
-WM
-> > > silicon found on Rockchip's RK3576 SoC. Due to the wide range of
-> > > functionalities offered by it, including many parts which this series'
-> > > first iteration does not attempt to implement for now. The drivers are
-> > > modelled as an MFD, with no leakage of the MFD-ness into the binding,=
- as
-> > > it's a Linux implementation detail.
-> >=20
-> > Just thought I'd point out that as this includes the linux-iio
-> > list sashiko took a look at it.  Quite a few things and at least
-> > the first one I looked at was valid (a dereference before a validity
-> > check)
-> >=20
-> > https://sashiko.dev/#/patchset/20260420-rk3576-pwm-v5-0-ae7cfbbe5427%40=
-collabora.com
-> >=20
-> > Whilst this tool does generate some false positives, it also finds
-> > quite a few things it seems us humans fail to spot.
-> >=20
-> > Jonathan
-> >=20
->=20
-> While I'm not entirely opposed to this, I do think reviews should happen
-> on-list when possible. Sashiko is a Google service, so it has about a 50%
-> chance of still being around in 2 years time. One of the benefits of the
-> kernel development workflow is that discussion going back decades is still
-> accessible.
-
-I mostly agree to your point. A possibility that I would consider
-compatible with on-list review is looking through what Sashiko found and
-address that on the list. Something like
-https://lore.kernel.org/all/20260420204647.1713944-2-u.kleine-koenig@baylib=
-re.com/
-
-> The reason why these aren't posted to list goes into the other thing
-> that I currently am not stoked about, which is that I'd have to act as
-> a filter for a Bring-Your-Own-Brain noise generator to pick out the
-> parts that aren't convincing lies.
-
-I didn't look through the complete feedback, but the part that I looked
-at (I'd say the rough half) seems to be legitimate.
-
-I'm also have reservations about AI, but my (little) experience with
-this one seems to show that it's in the better half of the scale between
-helpful and useless time consumer. So when I come around to review your
-series I will for sure look through their feedback in more detail. That
-means that if I'm too slow for you, looking through the feedback
-yourself and addressing that (or deciding against it) might be a good
-way to spend the waiting time and maybe even making it easier for me.
-
-Best regards
-Uwe
-
---nqpklusenoeywtel
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnrSU4ACgkQj4D7WH0S
-/k5RbwgAosunTIJtGGwUzsLZV8Zw2wd/vePOh4BvI6BFVJqacUQI3GU2p7tDClfB
-CdyBjNdiFYBInb1IzLr2sBOr089SEgf6BzpuZn/ZHATI8hGw+ZeAUkJDfVkeJtno
-qRd6UZuLbzftwQqGudASQBbgc4/mTSqFC9kL7GriORrJ3FJNhtZdoLfUpglbCP65
-G6q2RWvEGqhht5UMfc7cjUk8l67cMru0ctOP32tzCQVBXGpZdbM3cBdcs8ZtBwN0
-KouApV1mbrQhFVXtvCPFTYTosXBb+rsRnq/mO8UWBeOVboAxVASK9PhP1eHJgutn
-Tk3r77pzRnSnrSTnagBFPlKU45DHOg==
-=/p0a
------END PGP SIGNATURE-----
-
---nqpklusenoeywtel--
+PiA+IAo+ID4gQWRkIGRyaXZlciBmb3IgdGhlIEVTV0lOIEVJQzc3MDAgaGlnaC1zcGVlZCBwZXJp
+cGhlcmFscyBzeXN0ZW0KPiA+IGNsb2NrIGNvbnRyb2xsZXIgYW5kIHJlZ2lzdGVyIGFuIGF1eGls
+aWFyeSBkZXZpY2UgZm9yIHN5c3RlbQo+ID4gcmVzZXQgY29udHJvbGxlciB3aGljaCBpcyBuYW1l
+ZCBhcyAiaHNwLXJlc2V0Ii4KPiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogWHV5YW5nIERvbmcgPGRv
+bmd4dXlhbmdAZXN3aW5jb21wdXRpbmcuY29tPgo+IAo+IFJldmlld2VkLWJ5OiBCcmlhbiBNYXNu
+ZXkgPGJtYXNuZXlAcmVkaGF0LmNvbT4KPiAKPiBUaGVyZSdzIG9uZSBtaW5vciBiaXQgSSBhbSBu
+b3Qgc3VyZSBvZi4KPiAKPiA+ICtzdGF0aWMgdm9pZCBlaWM3NzAwX2hzcF9yZWdtYXBfbG9jayh2
+b2lkICphcmcpCj4gPiArX19hY3F1aXJlcyhsb2NrX2N0eC0+bG9jaykKPiA+ICt7Cj4gPiArCXN0
+cnVjdCBlaWM3NzAwX2hzcF9yZWdtYXBfbG9jayAqY29uc3QgbG9ja19jdHggPSBhcmc7Cj4gPiAr
+CXVuc2lnbmVkIGxvbmcgZmxhZ3M7Cj4gPiArCj4gPiArCXNwaW5fbG9ja19pcnFzYXZlKGxvY2tf
+Y3R4LT5sb2NrLCBmbGFncyk7Cj4gPiArCWxvY2tfY3R4LT5mbGFncyA9IGZsYWdzOwo+ID4gK30K
+PiAKPiBJIGRvbid0IGtub3cgaWYgdGhlIF9fYWNxdWlyZXMoKSBpcyBhY2N1cmF0ZSBzeW50YXgu
+IElmIGl0IG5lZWRzIHRvCj4gYmUgYXJnLCBsb2NrX2N0eC0+bG9jaywgb3IgKChzdHJ1Y3QgZWlj
+NzcwMF9oc3BfcmVnbWFwX2xvY2sgKilhcmcpLT5sb2NrLgo+IAo+IEl0IGxvb2tzIGxpa2UgdGhp
+cyBjb2RlIGlzIHRyaWdnZXJlZCB3aXRoIGNsYW5nLCBhbmQgSSB0cmllZCBjb21waWxpbmcKPiB0
+aGlzIGRyaXZlciB3aXRoOgo+IAo+IG1ha2UgTExWTT0xIEtDRkxBR1M9Ii1mZXJyb3ItbGltaXQ9
+MTAwMDAgLURXQVJOX0NPTlRFWFRfQU5BTFlTSVMgLVd0aHJlYWQtc2FmZXR5IiBcCj4gICAgICAg
+ICBkcml2ZXJzL2Nsay9lc3dpbi9jbGstZWljNzcwMC1oc3Aubwo+IAo+IEkgYWxzbyB0cmllZCB3
+aXRoICdtYWtlIEM9MicgYW5kIEkgZG9uJ3Qgc2VlIGFueSBsb2NraW5nIG1lc3NhZ2VzIGZyb20K
+PiB0aGlzIGRyaXZlci4KPiAKCkhpIEJyaWFuLAoKVGhhbmtzIGZvciB0aGUgZmVlZGJhY2suwqBJ
+IGRpZCBzb21lIHJlc2VhcmNoIGJhc2VkIG9uIHlvdXIgY29tbWVudHMuCgpsb2NrX2N0eCBpcyBh
+IGxvY2FsIHZhcmlhYmxlIGRlY2xhcmVkIGluc2lkZSB0aGUgZnVuY3Rpb24gYm9keS4gSXQgaXMg
+bm90wqAKaW4gc2NvcGUgYXQgdGhlIGF0dHJpYnV0ZSBzaXRlLiBUaGUgYXR0cmlidXRlIGV4cGFu
+ZHMgdG/CoApfX2F0dHJpYnV0ZV9fKChhY3F1aXJlX2NhcGFiaWxpdHkobG9ja19jdHgtPmxvY2sp
+KSksIGFuZCBzaW5jZSBsb2NrX2N0eMKgCmRvZXNuJ3QgZXhpc3QgYXQgdGhlIGRlY2xhcmF0aW9u
+IHBvaW50LCBjbGFuZydzIGFuYWx5c2lzIGNhbm5vdCByZXNvbHZlIGl0wqAKYW5kIHNpbGVudGx5
+IGRyb3BzIHRoZSBhbm5vdGF0aW9uLiBUaGF0J3Mgd2h5IHlvdSBzZWUgbm8gd2FybmluZ3MgZnJv
+bcKgCm1ha2UgQz0yIG9yIC1XdGhyZWFkLXNhZmV0eS4KCldoeSAtV3RocmVhZC1zYWZldHkgcHJv
+ZHVjZXMgbm8gb3V0cHV0ClR3byByZWFzb25zOgrCoCAxLiBUaGUgbG9ja19jdHgtPmxvY2sgZXhw
+cmVzc2lvbiBpcyB1bnJlc29sdmFibGUgYXQgdGhlIGF0dHJpYnV0ZSBzaXRlLMKgCsKgIHNvIGNs
+YW5nIGRyb3BzIHRoZSBhbm5vdGF0aW9uIHNpbGVudGx5IOKAlCBubyBhY3F1aXJlL3JlbGVhc2Ug
+dHJhY2tpbmcswqAKwqAgbm8gd2FybmluZ3MuwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqDCoArCoCAyLiBFdmVuIGlmIHRoZSBleHByZXNzaW9uIHdlcmUg
+cmVzb2x2YWJsZSwgc3BpbmxvY2tfdCBpbiB0aGlzIGRyaXZlciBpc8KgCsKgIGEgcGxhaW4gcG9p
+bnRlciBmaWVsZCAoc3BpbmxvY2tfdCAqbG9jaykgYWNjZXNzZWQgdGhyb3VnaCBhIHZvaWQgKsKg
+CsKgIGNhbGxiYWNrIOKAlCB0aGUgYW5hbHlzaXMgY2FuJ3QgdHJhY2sgbG9jayBzdGF0ZSB0aHJv
+dWdoIHRoYXQgaW5kaXJlY3Rpb24uwqAgwqAgwqAgwqAgwqAgwqAgwqDCoAoKVGhlIGNsb3Nlc3Qg
+Y29ycmVjdCBleHByZXNzaW9uIHdvdWxkIGJlOgpfX2FjcXVpcmVzKCgoc3RydWN0IGVpYzc3MDBf
+aHNwX3JlZ21hcF9sb2NrICopYXJnKS0+bG9jaynCoApCdXQgdGhhdCBhbHNvIHdvbid0IHdvcms6
+IGFyZyBpcyB2b2lkICosIGFuZCBjbGFuZydzIHRocmVhZC1zYWZldHnCoAphbmFseXNpcyBpcyB0
+eXBlLWJhc2VkLiBJdCBjYW4ndCB0cmFjZSB0aHJvdWdoIGEgdm9pZCBwb2ludGVyIGNhc3QgdG/C
+oApkZXRlcm1pbmUgd2hpY2ggc3BpbmxvY2tfdCBpbnN0YW5jZSBpcyBiZWluZyBhY3F1aXJlZC4g
+VGhlIGFuYWx5c2lzwqAKd291bGQgc3RpbGwgc2lsZW50bHkgaWdub3JlIGl0LgoKRm9yIHZvaWQg
+KiByZWdtYXAgY2FsbGJhY2tzLCB0aGVyZSBpcyBubyBjbGVhbiB3YXkgdG8gbWFrZSBfX2FjcXVp
+cmVzKCnCoAp3b3JrLCBiZWNhdXNlIHRoZSBsb2NrIGlzIGFsd2F5cyBoaWRkZW4gYmVoaW5kIHRo
+ZSBvcGFxdWUgcG9pbnRlci7CoApUaGUgYW5ub3RhdGlvbnMgc2hvdWxkIGJlIGRyb3BwZWQuCgpC
+YXNlZCBvbiB0aGUgYWJvdmUgYW5hbHlzaXMsIEkgc3VnZ2VzdCByZW1vdmluZyB0aGUgYW5ub3Rh
+dGlvbnMgZW50aXJlbHkuwqAKSG93ZXZlciwgSSdkIGxpa2UgdG8gaGVhciB5b3VyIHRob3VnaHRz
+IG9uIHRoaXMgYXBwcm9hY2guCgpCZXN0IHJlZ2FyZHMsClh1eWFuZyBEb25nCg==
