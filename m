@@ -1,182 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D1A3845CB;
-	Fri, 24 Apr 2026 14:02:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD5A3644A2;
+	Fri, 24 Apr 2026 14:09:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777039343; cv=none; b=QwqGNvsoSkUbh19EmdDdmaeoYvUoiFqmJalbYArGGi1ky/NKHmOFA5XpmrNn20EgTLQXs0O4ue+OccyvgLDTEll0zbWjxD/40o4wlMHkjI/mFjcRvb6H1PMqm+nfw25nejI88ZBRZeWNQ4uEGTrcskgIlmNwYuzwkGldAWI1mj4=
+	t=1777039797; cv=none; b=ZVurE/Uoua5EO2XCpOy8LKnCFkaoDlNpbZZucmw7Jy7ciwRKZ9JX01VsaFrHXEXUlL8XRpE6hRmWGBOxgmPTTTo8JVLg0G5w21moNm7ZJlV4K2GTM1Wh0/F0owVIobltResZFLz3Ppa/kKtlOcmyrTiYjXFWNtkwareHpjrmF6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777039343; c=relaxed/simple;
-	bh=ack7mYbip6ZcuORQPpGdCVHFIO+2WE0qOIuDR99tjcI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sRoOebb+MrJ65ce4GV1vlcQOxqpjMMYEex+ohRjF59lHBiYNqKWetpbbNSIUlPv+gONPHAXDBQqsS2m63cSsxFnD56Zfh1qFcM3ba/54O9Ogj3/YxVYnmP0q1SNU1fBS7HbvC4abiRkLgDVyXm5kYHm3re82Qpg3Sp0zSXleqGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eVrbBPSa; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777039797; c=relaxed/simple;
+	bh=CXW/N769EENkYazHiZUEH9F4WWwQnrYKB/iViMQHhk4=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=IgKP4ArIZ1TxxjG6E/eAuOugiZJnl220kOZ+nMAV8wqcpV/ViHsO+QPzHkT0/sSki032LztDhr4IfQII8g0WYkErW3c2LLtszEuMMnFU6DBfVkG+P6m5zKbpKcHl2auIWXWw7Xk2jSKl+KeNgxDAqci3YJwfu4aCP+hNQiuX/bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n5MH/1v5; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eVrbBPSa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300E0C19425;
-	Fri, 24 Apr 2026 14:02:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1777039342;
-	bh=ack7mYbip6ZcuORQPpGdCVHFIO+2WE0qOIuDR99tjcI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=eVrbBPSay5lsKqpmLH1QRqkLYOnAbpPXdwffDswEX5wCx3OM8YNgFVoAszeWet41J
-	 N7en7QHUFyw55uVogTj/9asNhK9JcorV9woWHwY6p95kzbYb9NwfRCbUQ+iccUgFGa
-	 1atSKUuBQu1QGh/D5JqOoasZsOzablfgD/xYZz5k=
-Date: Fri, 24 Apr 2026 15:34:38 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Stefan Schmidt <stefan.schmidt@linaro.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-	driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
-	linux-tegra@vger.kernel.org,
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v2 02/13] drivers: base: Add generic dma context bus
-Message-ID: <2026042442-luxurious-antonym-f20c@gregkh>
-References: <20260423-glymur-v2-0-0296bccb9f4e@oss.qualcomm.com>
- <20260423-glymur-v2-2-0296bccb9f4e@oss.qualcomm.com>
- <2026042346-trustable-register-095a@gregkh>
- <06c04947-e72e-679b-493b-e112d693f391@oss.qualcomm.com>
- <2026042422-deem-chemist-8d0f@gregkh>
- <4c3fa710-f61a-4aad-622d-54909190cb9e@oss.qualcomm.com>
- <2026042428-blemish-helpline-7d8d@gregkh>
- <1e039dd5-da3f-19b2-ef98-29e64fdd925d@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n5MH/1v5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777039796; x=1808575796;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=CXW/N769EENkYazHiZUEH9F4WWwQnrYKB/iViMQHhk4=;
+  b=n5MH/1v5bN3SZLFhMu1Joj8kN00LGjLlzLz01WJlR297/tAdazbjGsRs
+   7Rtn5w/EhWVNux22H5UhjLmeLaY3bTGRzrB0eDkedPGnxMgBJPV+88eie
+   5eXpBy9sqgiDJ85RMOqqvulmlc1cvS8VeAqyc+brwKHBL659DoZ2+wkqN
+   HZVAqfWujoB5K2NMh1pwtxr99wUBHjP8b0KFQbFepz9/m5ExFoeiM5M2F
+   9ZdjLHdFBkolLgeQbia5vPjMDxD2Hn49NwAXkoNWsbuAaAKNEVgO8aHbi
+   sRnu/1KROaFfDSBx8g9MYqK+eWakJaviJVdGsufrqa9G4Z+L4x76eEMy0
+   Q==;
+X-CSE-ConnectionGUID: GNoI1CaZR3axmbi+WIG+ew==
+X-CSE-MsgGUID: uFbX3veSRTerdN2WRYdmEw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="103482503"
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; 
+   d="scan'208";a="103482503"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 07:09:55 -0700
+X-CSE-ConnectionGUID: EcNEermSRsqeTayQSmKK5w==
+X-CSE-MsgGUID: EDkeemBFRn2yA3w5F4NG/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; 
+   d="scan'208";a="263368955"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.120])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 07:09:50 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 24 Apr 2026 17:09:46 +0300 (EEST)
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+cc: Jia Wang <wangjia@ultrarisc.com>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+    Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+    Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, 
+    linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 2/4] serial: 8250_dw: build Renesas RZN1 CPR value
+ from DW_UART_CPR_* definitions
+In-Reply-To: <aetv2ljDOpH_Hs4s@ashevche-desk.local>
+Message-ID: <363a636d-f014-cc29-6be4-ec3041f43855@linux.intel.com>
+References: <20260424-ultrarisc-serial-v4-0-1765a0b4c4a0@ultrarisc.com> <20260424-ultrarisc-serial-v4-2-1765a0b4c4a0@ultrarisc.com> <4548483c-cbba-899e-6b1a-1290d36b59cd@linux.intel.com> <aetv2ljDOpH_Hs4s@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1e039dd5-da3f-19b2-ef98-29e64fdd925d@oss.qualcomm.com>
+Content-Type: multipart/mixed; boundary="8323328-2024444435-1777039786=:958"
 
-On Fri, Apr 24, 2026 at 06:12:09PM +0530, Vishnu Reddy wrote:
-> 
-> On 4/24/2026 5:25 PM, Greg Kroah-Hartman wrote:
-> > On Fri, Apr 24, 2026 at 05:15:02PM +0530, Vishnu Reddy wrote:
-> >> On 4/24/2026 4:43 PM, Greg Kroah-Hartman wrote:
-> >>> On Fri, Apr 24, 2026 at 04:01:13PM +0530, Vishnu Reddy wrote:
-> >>>> On 4/23/2026 7:07 PM, Greg Kroah-Hartman wrote:
-> >>>>> On Thu, Apr 23, 2026 at 06:59:31PM +0530, Vishnu Reddy wrote:
-> >>>>>> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> >>>>>>
-> >>>>>> When a driver needs to create virtual device at runtime and map it to
-> >>>>>> an IOMMU context for memory isolation, there is no common bus available
-> >>>>>> for this purpose. Each driver ends up implementing its own bus type,
-> >>>>>> leading to duplicated logic across multiple drivers.
-> >>>>>>
-> >>>>>> host1x driver implemented its own bus type to attach an IOMMU context to
-> >>>>>> a dynamically created device. The Iris VPU driver now has the same
-> >>>>>> requirement. Rather than duplicating the same bus logic again, a shared
-> >>>>>> bus type is introduced under drivers/base that multiple drivers can use
-> >>>>>> directly.
-> >>>>>>
-> >>>>>> The bus takes care of creating a device and attaching the IOMMU context
-> >>>>>> to it based on the client inputs.
-> >>>>>>
-> >>>>>> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> >>>>>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> >>>>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> >>>>>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> >>>>>> ---
-> >>>>>>  drivers/base/Kconfig            |  3 ++
-> >>>>>>  drivers/base/Makefile           |  1 +
-> >>>>>>  drivers/base/dma_context_bus.c  | 77 +++++++++++++++++++++++++++++++++++++++++
-> >>>>>>  include/linux/dma_context_bus.h | 26 ++++++++++++++
-> >>>>>>  4 files changed, 107 insertions(+)
-> >>>>> as you can not have a device on multiple busses at the same time, this
-> >>>>> makes no sense to me at all.  "dma context" is a bus-specific thing, so
-> >>>>> please add it to the bus that you are wanting it for.  It can't be a
-> >>>>> generic bus as that just doesn't work.
-> >>>>>
-> >>>>> Or what am I missing here?
-> >>>>>
-> >>>>> And why is DMA somehow "special" here from any other hardware attribute?
-> >>>> Let me give brief information which was discussed, in the initial series,
-> >>>> the iris VPU used platform bus for dynamically created devices and we got
-> >>>> the comment/suggestion from Robin to implement a proper bus_type with a
-> >>>> .dma_configure callback.
-> >>>>
-> >>>> https://lore.kernel.org/all/02b3d0f5-f94c-43cd-93af-97cfcf7751b1@arm.com/
-> >>>>
-> >>>> based on the discussion, implemented the dma_context_bus and used for iris
-> >>>> VPU devices instead of platform bus.
-> >>> Why not make a irus_vpu_bus where you can do what you want?
-> >> Initially iris_vpu_bus was introduced, and it was made generic based on the
-> >> discussion,
-> >>
-> >> https://lore.kernel.org/all/20260227-kaanapali-iris-v2-3-850043ac3933@oss.qualcomm.com/
-> > I don't really see that request here, I see a "make this better and more
-> > generic for other busses" but that does not mean "dump it into
-> > drivers/bus/ for someone else to maintain" :)
-> >
-> >>>> Here, the device have only one bus (dma_context_bus), not multiple buses.
-> >>>>
-> >>>> Regarding the "DMA" naming, the core operation of this bus is its
-> >>>> .dma_configure callback, which calls of_dma_configure_id() to map the device
-> >>>> to a corresponding IOMMU stream ID. The name "dma_context" reflects this
-> >>>> purpose.
-> >>>>
-> >>>> I am open to suggestions from you or Robin or anyone else, if there is a
-> >>>> better or preferred way to achieve this, I am happy to consider it and
-> >>>> rework the implementation accordingly.
-> >>> As there is only one user, just make this your own bus please and do all
-> >>> of the needed bus operations for your devices there (i.e. don't hang an
-> >>> "empty" device off of it.)
-> >> The reasoning behind to make it generic was to have more users - host1x,
-> >> Iris VPU, QDA on the generic context bus, instead of each of them having
-> >> their own. Let me know if you suggest to have the iris_vpu_bus.
-> > But you did not add such users here, so how would we know this?
-> >
-> > And still, I have no idea what this bus really is doing.  Is it dynamic?
-> > Is it self-describing?  Why not just use aux-bus?  What is it supposed
-> > to be doing and used for?
-> 
-> This bus will allow users to create a dynamic device and map to IOMMU stream
-> ID via .dma_configure callback which calls the of_dma_confgure_id() based on
-> the user inputs. This bus is under the iommu_buses list to register for bus
-> notifier callbacks for iommu_probe_device() and iommu_release_device() during
-> add and remove.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-But a device is nothing on its own.  You can not just have a random
-'struct device' hanging out there that does nothing but iommu, right?
-It should be doing something else that is very "bus" specific.
+--8323328-2024444435-1777039786=:958
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Again, why not create a bus for your hardware type and have that control
-the bindings of drivers to the devices, like it should be done.  You
-better not be creating platform devices for these things :)
+On Fri, 24 Apr 2026, Andy Shevchenko wrote:
 
-> auxilary bus don't have the .dma_callback and bus notifier callbacks where it
-> can do iommu_probe_device() and iommu_release_device(). iommu_release_device(),
-> being a static api, need to be called from bus notifier callbacks which should
-> be under the list of iommu_buses.
+> On Fri, Apr 24, 2026 at 02:38:56PM +0300, Ilpo J=E4rvinen wrote:
+> > On Fri, 24 Apr 2026, Jia Wang wrote:
+>=20
+> ...
+>=20
+> > Hmm, maybe there should also be macro also for this one which takes the=
+=20
+> > fifosize as input and converts it to CPR field vlaue (effectively, the=
+=20
+> > macro is an inverse of DW_UART_CPR_FIFO_SIZE()). It would be more reada=
+ble=20
+> > than the literal.
+>=20
+> But this can be done separately, right?
 
-True, because aux bus devices don't do that directly, they are "sharing"
-resources with their parent device and something has to mediate for it.
-So yes, you are right, that is not a good idea.  Make a custom bus type
-instead please.
+It's logically part of the cpr_value literal to defines conversion (of=20
+course one could introduce it in own patch without users but I don't see=20
+much benefit from that).
 
-thanks,
+> > Also include BUILD_BUG_ON(!IS_ALIGNED(fifosize, 16) + bounds checks)=20
+> > inside that macro to catch invalid fifo sizes (+ don't forget the=20
+> > necessary headers for those two new things).
+>=20
+> Hmm... Some devices may have FIFO =3D 8 or 4 bytes (Intel Quark IIRC has =
+less
+> than 16 and it's DW IP).
 
-greg k-h
+Perhaps but according the DW databook I've at hand, there are no values in=
+=20
+FIFO_MODE field for such FIFO sizes. So what would CPR contain in those
+cases for FIFO_MODE field?
+
+--=20
+ i.
+
+--8323328-2024444435-1777039786=:958--
