@@ -1,138 +1,253 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2100.outbound.protection.partner.outlook.cn [139.219.17.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94234D531;
-	Fri, 24 Apr 2026 04:53:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.100
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777006429; cv=fail; b=dP2MaUxBN3y9T1+TpEOl3uJQ3Iv9tCnGLoIHvmdDw7+Fizf2+xJgdjWG0ZpgI87o5OJebe18eexfpxZMtcWk14tgEJV3v93uqudunJ/5qhJ08bPoyU4U9TF3chaXIY40O00EJQkZuYW6AQ3yoQlU5dnC0/y+frcI+ya5Va8y3zE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777006429; c=relaxed/simple;
-	bh=C++9BFbILSdS4m1XG1HFJmLLgUWjXTqtAhaCNmECAPU=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=ivkauGoi40Dgi22hW5PnLSmEq7Wmm0eCDjufhVCsMHKpPjhm77D1UtrI9q5QyWdF9kWGDn+7P2OMOFcbp8q68Sp8iMkdhdRPUTUr5fQEbjcRVjpWgipy+lhoDDHratVa1kPmBWduG3tbfK7vDXzlX4MNsp0AFzVM1TAYDVN1PDA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jixvBSqhdBESKYaYByPtR3DsOxl5HWS0MwDW6i9vt4yXKJhV33iwyKEy1RMbi2FFfpt5mRJTecLOWKyXazZ1DaBzjWZLiplCtzjdgiQieg5uxthsez0lTt6JVkWhqDTUjk6OrNZK/31jikRaP/Qv8R2c0UHDbl8XjU6dn2ImMXOzCoc1qGzvMB+JUGBFSXHFjwcE5zrF9JZCN/BOIDmf1MSV+WP2e3irFek7GeKyq+fF1E+NBPtOs9+VF6bwLFe18njAlvWtNeKigkRXZjWhrmwCY+IBxABBnYbYyqH5BUZKmx27QHBOtNNvamcjdeB8xrPNQ8dZ1m/PxtdqDplFpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b0KR6ZEwGloTK2eVPMWfSHBgsLQNx+STCgYgMhUYS+E=;
- b=Jz/Ni8JI2pZNw4YhAhC+h5Wfe9cD/4vVoY+xzH+bSRp7RgY5dTv9f0VS1lpM/8iXNBL772ocCudv9gclRb+Tj0RqMNnMK0z72WGjDalZjuHrulgNJBUDjHeoRlDme8y8xW4TTJS4l0hLMPTIqV+/w3eXGVm5/3xuI7zxfnqoYORp9mbA6QmqJ2gCBbj5UGmP9FSv++vqqdhMgA6eYnuWOumLCbnv1916U7VVrxbQZLX2F7N2JYw34HZGMy4BlBviU4zfr27Jv4St8NXQTjhMFXMJ/PwoZEyEzzS57oOH+KMrMhids6OaIecFOvqsqTfH+7oewpoDqne5WQdXjqeR7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:8::10) by NTZPR01MB0970.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:b::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
- 2026 03:20:35 +0000
-Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
- ([fe80::d8e2:3f39:6ae7:bdf2]) by
- NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn ([fe80::d8e2:3f39:6ae7:bdf2%6])
- with mapi id 15.20.9846.021; Fri, 24 Apr 2026 03:20:35 +0000
-From: Xingyu Wu <xingyu.wu@starfivetech.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Xingyu Wu <xingyu.wu@starfivetech.com>,
-	Mason Huo <mason.huo@starfivetech.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org
-Subject: [PATCH v1 0/2] Add hwspinlock driver for StarFive JHB100 SoC
-Date: Fri, 24 Apr 2026 11:20:24 +0800
-Message-Id: <20260424032026.62301-1-xingyu.wu@starfivetech.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BJSPR01CA0010.CHNPR01.prod.partner.outlook.cn
- (10.43.34.150) To NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn (10.2.8.138)
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A9A3E18DB35;
+	Fri, 24 Apr 2026 05:40:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777009228; cv=none; b=WED6PS3p2xKVbzIRW5Z6HOkhyFUpy5qj0wq9N3Jfx3hHM03+SI5YAemPv0MpuY9bBfZYLTBSAs0zK7dLbsnvxNaOANYinCbZnK+fAPST+ASMa43PTcvdVa/p0cYbM3PB9k8d4SGramZxBD9thKD+/VsHGOI12bgks9mIm35NnmQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777009228; c=relaxed/simple;
+	bh=1EJ+15mmRD/oeHglBVGEUf+8kQPiJcsHUEUYYNgLwiA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=d+0EhpN8aYKtULZ44FVneLxeZwObbEwfVGur0CzC536JtQABo8EU3rRN26c4PF/f2jDbFMI9R72kkmYzW0PzxoK9eVeZ4Z7Tg58fj5ZqQ3cXsN+gwSJnZUtYheDL1Zw8kMC/bY/l+g3Y32LnjRja1i/QQPIqRXJRj/5pxOBCjIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=Cq2lORS0; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="Cq2lORS0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:From:Date:Subject:
+	MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	References:In-Reply-To:To:Cc; bh=n+Mra1RI8A32LCU/hPXltc+TQ6Q646Q
+	yx9RcVRBugnk=; b=Cq2lORS0qBdbfGxNvoAgK2H9SP4QdVJFdoJ75LRMvIdIvAO
+	JunCLhx+ynyfQHl8oI8fZcuBGOhEKSdq47A3l0Qcc4O7vjLVWE89c05AXTZVSfn7
+	rgfX0trQt0eGSFUvVDuB9Sto43KvjHqked/b7PPcWZ/3fV1qDhF43XJhAaPg=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnYUJlAutpm8gCAA--.1607S3;
+	Fri, 24 Apr 2026 13:40:57 +0800 (CST)
+From: Jia Wang <wangjia@ultrarisc.com>
+Date: Fri, 24 Apr 2026 13:39:28 +0800
+Subject: [PATCH v4 1/4] serial: 8250_dwlib: move DesignWare register
+ definitions to header
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: NTZPR01MB0956:EE_|NTZPR01MB0970:EE_
-X-MS-Office365-Filtering-Correlation-Id: c42b1ddc-5b85-49c5-e585-08dea1b072f4
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|52116014|376014|18002099003|38350700014|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	RtVqeb2RKuN6Pj/e0pKUBae3s7yYBUjusocFokNgkNmPZ3/g/vTla+xjOI8K4JpB/LTxEj0EBCFvmy6+FxPU1Eq0YztEDeORVxLKR7b25hfhHJ7lX5pIAdh8jiO3oRU6kl6Okg4hQImV2lTMKVS0pT2XNyqWz1bZK3FgXNsppIrfJ+XQGoCdKpI3tM444hJrvDjRJ3uQ1jg7a6boXwm/y31pCBrWrMDk+9vLe0WZ53vQHJ/o2p376JPE1C5C+pVs9fwvTOlM2TMFq7tcSA/t0s+II3RB0hUZR88lTymljhYA8YdbbfoO6pfKSCc6gsSIoC0LP+LbcMiqPefxoTPYq7NMxjCsLxP1Jj16iDtQstYWvL4Lr/IZF6tjmPUHEppMdNHHGGrklXXisCq5AOMJQmyWdc7VFnDySaJJCM/5QwxkOCyxq9Tuc8L/iQSBgUM/2MWKmT3gWpyHaEQjvGdQFkVHsxwVWZhDSBN+m9/BdEI86N038FiwHuZNPo18QgSYVfQmFL3dNNIBZ3SiWnLWeQ6id13bz47iG+E9xMoFoytRwcq5pd5irSINuNx2bQZEHSeGiW0dJZGyfa0iYK+VZ1d5U2PH/V6nq3e2B754hho=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(376014)(18002099003)(38350700014)(56012099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?vXuGsM874JlXcQ/dpjaThbqE4/SUrcVC8BukyNSf02YzxmDXG1+IQNHkII8S?=
- =?us-ascii?Q?32AHeCYksisC1U7GOEdYRxTwchumXRDo5Aw7GdNsRr0uOcnIi7H3v+ei2zeH?=
- =?us-ascii?Q?2fTHRvBni3gdbYy9aZwuwffFWVYZHGzRXblIQFRUHAC8vkDIs8eON8O13p97?=
- =?us-ascii?Q?YydVHt2/ddM9uMTdtmLRDx3JSsCXZ4e9pgu8O3cHQoS0dAe/c9edw+KRcQnM?=
- =?us-ascii?Q?jGRC9TYYIHExbKUJSy+n0VWxICQVadNXVv9hrS8CnW78Rkx1EcCxTbqWpT50?=
- =?us-ascii?Q?omwz/pHDAdjrphJh+nEHOxqwkl6labboIb+NLo3VsnphQcy21CtQ81RAu31e?=
- =?us-ascii?Q?RCW6h7zTdkbi/EHFLIEkJF9vbs+Lb8HZg6dfB+5JIW4gYKvcjOsxTHnKO1dr?=
- =?us-ascii?Q?KJIaMkOsXW2t5CjZ4DD6bYhnAqdyd9ejMKZ89iQsxZj7Al5DS0O5U3y48RGr?=
- =?us-ascii?Q?W5k+oW0ACskn1RDnxsdCnMtp0Deh+dkWYh/445YZ/OmcBmScUiiID8d8sdQT?=
- =?us-ascii?Q?vR/V3GtNgvVKnSwffl1gEZ8tCS6wsI7/yfl/3GfHV6/nwhicy1+rwq0a7pqA?=
- =?us-ascii?Q?ogezOcha0/Aki52WkAvx5S9hdR9MW3/LXA+JtUDCGaKac0k1Oklp6BxGylYW?=
- =?us-ascii?Q?smdbirSKTIKDnuWUHrA/N2iC77HLAgC+qChEMmhKa6DhinrY0ZtBCgceOpsG?=
- =?us-ascii?Q?QdkAiQt2hi6A8pfdPZLWufS4stsD5VFGonLtVXviBoPWOYYJJuPvRCPLzCMf?=
- =?us-ascii?Q?EdFmW9qucNc5MKqh9HD7UyNpfXlr1n41Ky6QzFs40xCV6Mg5buNfUzMqLku1?=
- =?us-ascii?Q?TEc7wwYiUGdXlXBxHgI9jxJCpwcoJ51qZDRRJe1z4mQVejsMAgQz9OHdcfDd?=
- =?us-ascii?Q?AroJsOD/Nqjo+ermsEROvJhrlvRd42GEBtVwXdKqrkdT09BT8gbJUkUox6CP?=
- =?us-ascii?Q?GX27EWtcROCx8rlIXijUVy+5L/zznRfNebDBwJ5OWjePcr6yHQ21uQibcTXn?=
- =?us-ascii?Q?EyuTOByyqj/5xyzVkir+KBfCaE3ze8P6c/FyPfvlxSQ0lzK+/rN4RwOU/7hD?=
- =?us-ascii?Q?tAmMcCL+DWKKqLXvmPba+IXv57Q0wDIGa5KxFZrycUqpKLgg50uXWWxGvGOB?=
- =?us-ascii?Q?UovJh6kfUBlmEdrG/8JhCCg7DJdYDvrta9G/7ZpKrJCrNhCimOagbeo0wyGF?=
- =?us-ascii?Q?1lJ88eSlWHYFrafiR4ZWu/RhSPSsf9ictg98WH3Qhg9gyD7ZNfhuz56A7m3F?=
- =?us-ascii?Q?GTjxQGpBTgFXlUeysEioGfeAy8twnWgaUIqdWq1Nl6ItGoZjs6tZj2pyOdXP?=
- =?us-ascii?Q?ue/8HgCDPfFralAt/pSo+o2qg5XN73qbtVs6oBTU/SHMIrfHfjDjL9flxtpN?=
- =?us-ascii?Q?oq08Z7Q//fYNORpMLr/8MKV+ahakh0OzPFkNs5lb3pMICygq2w59zi4CvezH?=
- =?us-ascii?Q?EoQypGPr4oJcA6jlkG2XzLScVx8Rz3yZ9bCksS4r8WCzfDoHH2TJei9KTCog?=
- =?us-ascii?Q?mnqyNtF6tBVWZY3jozAV72kkHG+jEwozYPHpK2rXca1ymLU51ZvJA9p16Fk1?=
- =?us-ascii?Q?BaXrkfOwkEP2vZpjXV6B+LWIx3uoTj+isdCW+5l3L9Pm3Kl1bAhCjReMD645?=
- =?us-ascii?Q?h1oOvkhGUpKJGwDYjOWcMu9jJg2C73ciDEJnOq9Zd3BoQeL4QXTyAE7mYuy3?=
- =?us-ascii?Q?psALONrEvGlPeRo54//xhdBHLue7gwXt3fkcrm1i2FwaXz9NVgC8KDR9rqKD?=
- =?us-ascii?Q?KwXvYMe/WkXVxRAz+45irvrG1s86Lek=3D?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c42b1ddc-5b85-49c5-e585-08dea1b072f4
-X-MS-Exchange-CrossTenant-AuthSource: NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 03:20:35.0757
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NVEphXB6Sq2el06mA9HRD6/O45ay4DkRSu7a0LAd4XWhLtqk7PRDNxQAc21Jd5m8MJenM7Q/rrdqvx6M6idkMab7TtERlp0mpYuhiCTRHMA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: NTZPR01MB0970
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260424-ultrarisc-serial-v4-1-1765a0b4c4a0@ultrarisc.com>
+References: <20260424-ultrarisc-serial-v4-0-1765a0b4c4a0@ultrarisc.com>
+In-Reply-To: <20260424-ultrarisc-serial-v4-0-1765a0b4c4a0@ultrarisc.com>
+To: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
+ Jia Wang <wangjia@ultrarisc.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777009209; l=7179;
+ i=wangjia@ultrarisc.com; s=20260309; h=from:subject:message-id;
+ bh=1EJ+15mmRD/oeHglBVGEUf+8kQPiJcsHUEUYYNgLwiA=;
+ b=tmMxvaIfQOKnIu7Q2yyAAL3YeamV0Bjy7J3CDnd9cB2kHTdmgTnh09LI3Y7Fej9DsKQO2lvOh
+ 2O2cwiX9WWmCqv1zCBH5fGWnR9j++1AFtAZ59BpIWDcrbtbJVyqZqXr
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=XvYkrelqJIIzobY7j+nIg8rsfv5kzaOzuc1UPhd087U=
+X-CM-TRANSID:AQAAfwAnYUJlAutpm8gCAA--.1607S3
+X-Coremail-Antispam: 1UD129KBjvJXoW3WF48GFWfur4rZry8tr1rCrg_yoW3GF48pr
+	1FkFZ8tF1qya13W34xtFW3tr4xXFWxGw109ry3W3yDtFW8A34ktFyYvFW3tr4DXryrArWU
+	JF1UAw1Yga4I9r7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_UUUUUUUUU==
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAHEWnq6L8ACQABsL
 
-This patch serises are to add hardware spinlock driver for the StarFive
-JHB100 SoC. The first patch adds documentation for StarFive Hardware
-Spinlock. The subsequent patch adds hwspinlock driver and support JHB100
-SoC.
+Move the DW_UART_* register offsets and CPR bit/field definitions from
+8250_dwlib.c into 8250_dwlib.h so they can be shared by 8250_dw and
+8250_dwlib users.
 
-The StarFive hwspinlock supports 16 channels for using by secur core and
-AP core to restrict access and protect the memory area.
+Add an include guard for 8250_dwlib.h.
 
-Xingyu Wu (2):
-  dt-bindings: hwlock: Add the support of HWspinlock for StarFive JHB100
-  hwspinlock: Add StarFive hwspinlock device
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+---
+ drivers/tty/serial/8250/8250_dw.c    | 11 -------
+ drivers/tty/serial/8250/8250_dwlib.c | 49 ----------------------------
+ drivers/tty/serial/8250/8250_dwlib.h | 63 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 63 insertions(+), 60 deletions(-)
 
- .../hwlock/starfive,jhb100-hwspinlock.yaml    |  40 ++++++
- MAINTAINERS                                   |   6 +
- drivers/hwspinlock/Kconfig                    |   8 ++
- drivers/hwspinlock/Makefile                   |   1 +
- drivers/hwspinlock/starfive_hwspinlock.c      | 130 ++++++++++++++++++
- 5 files changed, 185 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/hwlock/starfive,jhb100-hwspinlock.yaml
- create mode 100644 drivers/hwspinlock/starfive_hwspinlock.c
+diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+index 94beadb4024d..467755bf0092 100644
+--- a/drivers/tty/serial/8250/8250_dw.c
++++ b/drivers/tty/serial/8250/8250_dw.c
+@@ -34,22 +34,11 @@
+ 
+ #include "8250_dwlib.h"
+ 
+-/* Offsets for the DesignWare specific registers */
+-#define DW_UART_USR	0x1f /* UART Status Register */
+-#define DW_UART_DMASA	0xa8 /* DMA Software Ack */
+-
+ #define OCTEON_UART_USR	0x27 /* UART Status Register */
+ 
+ #define RZN1_UART_TDMACR 0x10c /* DMA Control Register Transmit Mode */
+ #define RZN1_UART_RDMACR 0x110 /* DMA Control Register Receive Mode */
+ 
+-/* DesignWare specific register fields */
+-#define DW_UART_IIR_IID			GENMASK(3, 0)
+-
+-#define DW_UART_MCR_SIRE		BIT(6)
+-
+-#define DW_UART_USR_BUSY		BIT(0)
+-
+ /* Renesas specific register fields */
+ #define RZN1_UART_xDMACR_DMA_EN		BIT(0)
+ #define RZN1_UART_xDMACR_1_WORD_BURST	(0 << 1)
+diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
+index b055d89cfb39..8859e66d2d71 100644
+--- a/drivers/tty/serial/8250/8250_dwlib.c
++++ b/drivers/tty/serial/8250/8250_dwlib.c
+@@ -13,55 +13,6 @@
+ 
+ #include "8250_dwlib.h"
+ 
+-/* Offsets for the DesignWare specific registers */
+-#define DW_UART_TCR	0xac /* Transceiver Control Register (RS485) */
+-#define DW_UART_DE_EN	0xb0 /* Driver Output Enable Register */
+-#define DW_UART_RE_EN	0xb4 /* Receiver Output Enable Register */
+-#define DW_UART_DLF	0xc0 /* Divisor Latch Fraction Register */
+-#define DW_UART_RAR	0xc4 /* Receive Address Register */
+-#define DW_UART_TAR	0xc8 /* Transmit Address Register */
+-#define DW_UART_LCR_EXT	0xcc /* Line Extended Control Register */
+-#define DW_UART_CPR	0xf4 /* Component Parameter Register */
+-#define DW_UART_UCV	0xf8 /* UART Component Version */
+-
+-/* Receive / Transmit Address Register bits */
+-#define DW_UART_ADDR_MASK		GENMASK(7, 0)
+-
+-/* Line Status Register bits */
+-#define DW_UART_LSR_ADDR_RCVD		BIT(8)
+-
+-/* Transceiver Control Register bits */
+-#define DW_UART_TCR_RS485_EN		BIT(0)
+-#define DW_UART_TCR_RE_POL		BIT(1)
+-#define DW_UART_TCR_DE_POL		BIT(2)
+-#define DW_UART_TCR_XFER_MODE		GENMASK(4, 3)
+-#define DW_UART_TCR_XFER_MODE_DE_DURING_RE	FIELD_PREP(DW_UART_TCR_XFER_MODE, 0)
+-#define DW_UART_TCR_XFER_MODE_SW_DE_OR_RE	FIELD_PREP(DW_UART_TCR_XFER_MODE, 1)
+-#define DW_UART_TCR_XFER_MODE_DE_OR_RE		FIELD_PREP(DW_UART_TCR_XFER_MODE, 2)
+-
+-/* Line Extended Control Register bits */
+-#define DW_UART_LCR_EXT_DLS_E		BIT(0)
+-#define DW_UART_LCR_EXT_ADDR_MATCH	BIT(1)
+-#define DW_UART_LCR_EXT_SEND_ADDR	BIT(2)
+-#define DW_UART_LCR_EXT_TRANSMIT_MODE	BIT(3)
+-
+-/* Component Parameter Register bits */
+-#define DW_UART_CPR_ABP_DATA_WIDTH	GENMASK(1, 0)
+-#define DW_UART_CPR_AFCE_MODE		BIT(4)
+-#define DW_UART_CPR_THRE_MODE		BIT(5)
+-#define DW_UART_CPR_SIR_MODE		BIT(6)
+-#define DW_UART_CPR_SIR_LP_MODE		BIT(7)
+-#define DW_UART_CPR_ADDITIONAL_FEATURES	BIT(8)
+-#define DW_UART_CPR_FIFO_ACCESS		BIT(9)
+-#define DW_UART_CPR_FIFO_STAT		BIT(10)
+-#define DW_UART_CPR_SHADOW		BIT(11)
+-#define DW_UART_CPR_ENCODED_PARMS	BIT(12)
+-#define DW_UART_CPR_DMA_EXTRA		BIT(13)
+-#define DW_UART_CPR_FIFO_MODE		GENMASK(23, 16)
+-
+-/* Helper for FIFO size calculation */
+-#define DW_UART_CPR_FIFO_SIZE(a)	(FIELD_GET(DW_UART_CPR_FIFO_MODE, (a)) * 16)
+-
+ /*
+  * divisor = div(I) + div(F)
+  * "I" means integer, "F" means fractional
+diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
+index 7dd2a8e7b780..5026a123cf42 100644
+--- a/drivers/tty/serial/8250/8250_dwlib.h
++++ b/drivers/tty/serial/8250/8250_dwlib.h
+@@ -1,11 +1,72 @@
+ /* SPDX-License-Identifier: GPL-2.0+ */
+ /* Synopsys DesignWare 8250 library header file. */
+ 
++#ifndef _SERIAL_8250_DWLIB_H_
++#define _SERIAL_8250_DWLIB_H_
++
++#include <linux/bitfield.h>
++#include <linux/bits.h>
+ #include <linux/io.h>
+ #include <linux/types.h>
+ 
+ #include "8250.h"
+ 
++/* Offsets for the DesignWare specific registers */
++#define DW_UART_USR	0x1f /* UART Status Register */
++#define DW_UART_DMASA	0xa8 /* DMA Software Ack */
++#define DW_UART_TCR	0xac /* Transceiver Control Register (RS485) */
++#define DW_UART_DE_EN	0xb0 /* Driver Output Enable Register */
++#define DW_UART_RE_EN	0xb4 /* Receiver Output Enable Register */
++#define DW_UART_DLF	0xc0 /* Divisor Latch Fraction Register */
++#define DW_UART_RAR	0xc4 /* Receive Address Register */
++#define DW_UART_TAR	0xc8 /* Transmit Address Register */
++#define DW_UART_LCR_EXT	0xcc /* Line Extended Control Register */
++#define DW_UART_CPR	0xf4 /* Component Parameter Register */
++#define DW_UART_UCV	0xf8 /* UART Component Version */
++
++/* Receive / Transmit Address Register bits */
++#define DW_UART_ADDR_MASK		GENMASK(7, 0)
++
++/* Line Status Register bits */
++#define DW_UART_LSR_ADDR_RCVD		BIT(8)
++
++/* Transceiver Control Register bits */
++#define DW_UART_TCR_RS485_EN		BIT(0)
++#define DW_UART_TCR_RE_POL		BIT(1)
++#define DW_UART_TCR_DE_POL		BIT(2)
++#define DW_UART_TCR_XFER_MODE		GENMASK(4, 3)
++#define DW_UART_TCR_XFER_MODE_DE_DURING_RE	FIELD_PREP(DW_UART_TCR_XFER_MODE, 0)
++#define DW_UART_TCR_XFER_MODE_SW_DE_OR_RE	FIELD_PREP(DW_UART_TCR_XFER_MODE, 1)
++#define DW_UART_TCR_XFER_MODE_DE_OR_RE		FIELD_PREP(DW_UART_TCR_XFER_MODE, 2)
++
++/* Line Extended Control Register bits */
++#define DW_UART_LCR_EXT_DLS_E		BIT(0)
++#define DW_UART_LCR_EXT_ADDR_MATCH	BIT(1)
++#define DW_UART_LCR_EXT_SEND_ADDR	BIT(2)
++#define DW_UART_LCR_EXT_TRANSMIT_MODE	BIT(3)
++
++/* Component Parameter Register bits */
++#define DW_UART_CPR_ABP_DATA_WIDTH	GENMASK(1, 0)
++#define DW_UART_CPR_AFCE_MODE		BIT(4)
++#define DW_UART_CPR_THRE_MODE		BIT(5)
++#define DW_UART_CPR_SIR_MODE		BIT(6)
++#define DW_UART_CPR_SIR_LP_MODE		BIT(7)
++#define DW_UART_CPR_ADDITIONAL_FEATURES	BIT(8)
++#define DW_UART_CPR_FIFO_ACCESS		BIT(9)
++#define DW_UART_CPR_FIFO_STAT		BIT(10)
++#define DW_UART_CPR_SHADOW		BIT(11)
++#define DW_UART_CPR_ENCODED_PARMS	BIT(12)
++#define DW_UART_CPR_DMA_EXTRA		BIT(13)
++#define DW_UART_CPR_FIFO_MODE		GENMASK(23, 16)
++
++/* DesignWare specific register fields */
++#define DW_UART_IIR_IID			GENMASK(3, 0)
++#define DW_UART_MCR_SIRE		BIT(6)
++#define DW_UART_USR_BUSY		BIT(0)
++
++/* Helper for FIFO size calculation */
++#define DW_UART_CPR_FIFO_SIZE(a)	(FIELD_GET(DW_UART_CPR_FIFO_MODE, (a)) * 16)
++
+ struct dw8250_port_data {
+ 	/* Port properties */
+ 	int			line;
+@@ -38,3 +99,5 @@ static inline void dw8250_writel_ext(struct uart_port *p, int offset, u32 reg)
+ 	else
+ 		writel(reg, p->membase + offset);
+ }
++
++#endif /* _SERIAL_8250_DWLIB_H_ */
 
 -- 
 2.34.1
