@@ -1,192 +1,179 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A163C5DBE
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 12:17:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0E53AD510;
+	Fri, 24 Apr 2026 12:19:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777033034; cv=none; b=B3YYQg2VK9OBhdAfgHvCbRJNcEsW6xqNTQ3fMDIcl8LJ0+JBBIYDL/IiTXqiXQnp3cVY4j02/0hAtq+g/n7/5p+ylpx3GXsgzCcXnbFqfIcUaD0z7MW/CHj6gTarZHPZ2nywFf0Nnm02IpFwhH7MgNIZgZtn4LFwXjQW+aV+Z9Q=
+	t=1777033194; cv=none; b=SjDH3V89Bnk6ZnL7h5ZduGAINlDn7HPRkeoicEjiBl79wH7+3lIXRD9C1WPWLANA5dDlcY6ea2x5gdJA+hdNH2A4bTRCEasyCdAuu97siPYuCyzD9rRaKrs81O0zcMe6BOJanHV1ttg6yHt8AhSUNA1Eubb1pFTydOL9mFVg5hE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777033034; c=relaxed/simple;
-	bh=pPuoFRQxJfAFFUeV5WPhraCPAwF1U+Vv1E+a3uywyL4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aCl4V2Dz6BcEJUZulGQl/PynUyC+4fTMsSGZi7HdGP7k1CU6jBW7wchg91IuT1xED5ZBF/MZAdkF9lroNzf3Xrfau0ubsMiEaia3XJ4hKc/BQpGGw9FRzU3fHrOXF+HPY7vE9BlbGH1BusY9jjmhLGgo5WLin8K54y+uv0+p9h4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UOjw4hBc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=crYLlpWb; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777033194; c=relaxed/simple;
+	bh=CsecgF1/GUFtSh1YUWC9TyARCKfxXXkkoRGFBnQyl5M=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Vpi2p02bm87GkUAv3scGGVbomoDHRqnotj4gU/O1056gGqb/jfwonP3yoTFW7fdo9rbKzfTKrOKGWF6zUYIQxx7TRjL7NAPrC5RWryF2uJYa7rgFFbtwuQpMZpgJeOek5JsC7Bx9LPi0zq5Z47YRiAcSuwiysvNPVBGE4U+z79c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SF+cSHli; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UOjw4hBc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="crYLlpWb"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63O7Z9MK4167705
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 12:17:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZzWcgJ/Dtl8c/5T8awq70D37ra01xcQo1QTV/P6feBk=; b=UOjw4hBcPoQ6FuiV
-	PNOfrnC+gUlQe/TO9OlDKMNpqaKtlvwbdazOBbPqS6AXQhS7D/S8ca4dSV515zJ3
-	TYEBOI7cdm4Q4LcC5SXoM6OL/XBtMVu+OZjgW0X2hvxWkCgrUUMzJLEPtuTzz5ph
-	zAdZTau9MeITlbH4h2t4HyY4a2OdHQHGHbrsTGmMprFYcLOuyte4NEGv63X2phr7
-	awCROwPDJln4aJ6jeQgQWSOO3jqX2zxQsLK3NPl86rvqqg+Ra/FqVJ+K+EHnMcIC
-	iBANg3KahC8MLXKACxEKjvHpisOZbW1mS2Jg1RCdv6bYN05Bsul6ndBH/P6fBKu4
-	05dBBg==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dr48n1c07-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 12:17:10 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8aca281aaa4so13488496d6.1
-        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 05:17:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777033030; x=1777637830; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ZzWcgJ/Dtl8c/5T8awq70D37ra01xcQo1QTV/P6feBk=;
-        b=crYLlpWbjZWTiT99w92oHWBLByonn9NrMXOcgu3Zsm7N+ljk9O7v7OBKWTSUM31yLc
-         KFam9qw/AzCmIwWzvnLDDW6TyC6T3Ob++ZYIzelPh760zQRARaw5aEWf+5RTljQSKByD
-         gMZtVT+Q836f2gB4zV1QhWPHh1ojphq2pOdSD0akVBs+9pn+7sWPD0jh47DIQcL1FoHZ
-         3ZgN6uEfwi9hiiL8TxdIi/1ZSH1ng/IDWBZYgFz+MKHl1Z6Z5Jpamtcd/sErHbzJYcNf
-         992Xclh0zeYfDWZm8+fAPMvs5/YszXzej/KbyA41uC3Vx3u6x2HBaphstHMNF70lSCVs
-         aKsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777033030; x=1777637830;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ZzWcgJ/Dtl8c/5T8awq70D37ra01xcQo1QTV/P6feBk=;
-        b=okACyze/0IeJGxa4lG/QNVQjdEhOX1+O5flXJbCu1X+gDGh4RQDfv76LeQzK9hLDgW
-         Dtsnafs4MHfPoKNbgEwVGX99N/yIXxaRjpPDiCJQgEpt6JAmGj/M9p5CkR1ZuFmylqaA
-         zaM3p6DRopgoyselCT8pT+erwZjTu6fnOtRP/r+oEfmn4K1x+vfXy1JU8v1x569iuIe/
-         5M6BkPh3hBgghNEwnFAwECmO3z/xxelivDeDap1ixjxut5/BeSDJ/5AnuxUqp4YBKWnp
-         otrnRB43WN7SFuTLxERWfCAQQRuz928gbAKQn5kDyP7sSwiS7VyjkGJBC36/QQMhUVUa
-         kzng==
-X-Forwarded-Encrypted: i=1; AFNElJ8q9XS3k6tgIPIC+x028hYsLkkGCKCaCTl40Hzk81Xz5C41UZOt4EYXqGTj/F/Sbz+M3u1zap6KQxqi@vger.kernel.org
-X-Gm-Message-State: AOJu0YyTr8iq7BPC5zMjYXX0H//6spnSr3xBJY8FAxH+vgB+zyvmPKiA
-	mbVHPXHnn3kDObI8AkC4qSaoLA8OWKdKlWcgccOR1DasoMUEAzTIRY4lfjAn+e/xTX5UgSt1pY7
-	CunJTCZhnwLuSceLOp4LLriDdyIozQeSFG1q8JnB/6cK0IeHjRoWO3/4jgnYhCSya
-X-Gm-Gg: AeBDievzEOGY5kp7+BR0e3h5yBm5HyKifBgf8fhB7BS0nd3ETYri1Z5f8fAvpM82y0a
-	3UUueTQZOdPXjX3ykeHufH+8plPmmKUO+pjcSSKp7vapOxjlWTHORhse/nYzqXdAQy5a5YRCiQU
-	FUyor8Lv7N+PSxEn+wDaXI9xcybnwdoFPqAqLow/rcRqtn2io+O/SJ3IoUn8xGgFVJvtuTpr5Cf
-	cpHZnOFtqu8vGrgTMGIFpVKUu6ZKadaSx/VhHXyxezKYPzOZjp5PkeFZvVdZA2IRErIanp7mDW1
-	p8IDH6UGZ553wvgJyzZmGxWVHzzxvggSXhEaRE/e3uocYdj8919jdNlCd87KkW6tQ9F3mjYRI/I
-	ZguLScT+VXORx1QpOTLm7tnvihe4bAOJZYD1m2h/Gz8WYqsz0Sqw8JDh0crSnC3oTt8vg1j8sT8
-	QhHu/pvAgC+9ew+g==
-X-Received: by 2002:a05:6214:2466:b0:8ac:8337:ca0e with SMTP id 6a1803df08f44-8b0281d5f4cmr340871556d6.6.1777033029604;
-        Fri, 24 Apr 2026 05:17:09 -0700 (PDT)
-X-Received: by 2002:a05:6214:2466:b0:8ac:8337:ca0e with SMTP id 6a1803df08f44-8b0281d5f4cmr340871116d6.6.1777033029158;
-        Fri, 24 Apr 2026 05:17:09 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba454d1b694sm784657366b.29.2026.04.24.05.17.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 24 Apr 2026 05:17:08 -0700 (PDT)
-Message-ID: <1397ecd5-89a6-4666-bfe9-014ff8553a97@oss.qualcomm.com>
-Date: Fri, 24 Apr 2026 14:17:05 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SF+cSHli"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B26F4C19425;
+	Fri, 24 Apr 2026 12:19:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777033194;
+	bh=CsecgF1/GUFtSh1YUWC9TyARCKfxXXkkoRGFBnQyl5M=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=SF+cSHliPB4SvfQjguZ43xEG+INGHvBi0zmQ2p7rQDSbZyi0q2++TzoYvU3lLu9xx
+	 0Qc7Et5wUqL8g+7OkzYJOoQzeXXtaWOcc1T2EzrEkQbXferX/MKyl+bps3NYp1PQXn
+	 6/pw/eoqN80x5U/3YTkccdVG0N7EOCrMs2JpOfayfeU1KkMXTQmlYdXIYQUyHiDced
+	 0Q8Z3/fPgfhC8zVwaKfZPunL+skYhafXewmWJdPQGbfiUY/XryfBcoRgBELlqwh9bR
+	 nzZsr80eFH+Oa9THBeYNZpcEPPnRUnClU8FJrLGVL5Lb+gFBTj9ad+1BeUAsZjgqpS
+	 XVc32awPf6f2g==
+Date: Fri, 24 Apr 2026 13:19:48 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Piyush Patle <piyushpatle228@gmail.com>
+Cc: Andreas Klinger <ak@it-klinger.de>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] iio: adc: hx711: add support for HX710B
+Message-ID: <20260424131948.178323be@jic23-huawei>
+In-Reply-To: <20260422175910.1258579-4-piyushpatle228@gmail.com>
+References: <20260422175910.1258579-1-piyushpatle228@gmail.com>
+	<20260422175910.1258579-4-piyushpatle228@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/9] remoteproc: qcom_q6v5_wcss: add native ipq9574
- support
-To: "Alex G." <mr.nuke.me@gmail.com>, andersson@kernel.org, krzk+dt@kernel.org,
-        mturquette@baylibre.com, linux-remoteproc@vger.kernel.org
-Cc: mathieu.poirier@linaro.org, robh@kernel.org, conor+dt@kernel.org,
-        konradybcio@kernel.org, sboyd@kernel.org, p.zabel@pengutronix.de,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-References: <20260109043352.3072933-1-mr.nuke.me@gmail.com>
- <4814455.tdWV9SEqCh@nukework.gtech>
- <577d547e-6311-49b3-9c74-84797b281447@oss.qualcomm.com>
- <27098742.6Emhk5qWAg@nukework.gtech>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <27098742.6Emhk5qWAg@nukework.gtech>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: haDfbtv2-mLzDNno1q6VzTV35TmD3YRf
-X-Authority-Analysis: v=2.4 cv=VOjtWdPX c=1 sm=1 tr=0 ts=69eb5f46 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=-XRhzjy3v26zEYFifkcA:9 a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-ORIG-GUID: haDfbtv2-mLzDNno1q6VzTV35TmD3YRf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI0MDExNyBTYWx0ZWRfX4QbAltlemSC6
- Vs+SxOepNd/Ebgc64/8PPMywOObh6nkenceOjazbFEEbbW1IaamWcSk/exkJEMg86HWv3FIAIbh
- VJCK39Yak8Kp3NM0htUS+72c1wUOcSe5no8h9pTcRd+KfYqNM31Ylu3NhEgR5b4vDC7ooPTUsx1
- scBLEXs9MaIMari0G/DRtMvE7f5t0nmoGajhXQQH7S4j0RKc2QsN/agIFFC7TwzNFWx1ax4AyLN
- dfLxXqbGJwIIxGbc+hy4JYxpFR47c7S4VCPTkxSm0kH5zB1l94Gf4Z6fL6nuT5qFbAcadVjCB8z
- TL+PbnG8VQ88k6rVq3no9XqeNUGkMVV0eU9qYGiuf45roDEZCimBCWKW1Sz8hEmPO/8BBeHBFJD
- P314M4GBzh+ot/dYnJKaCxhCaVZnbOFexRN1CJ4Gq/a637dyMfxTbbZUAX1maWya3dKqx0Z3SAy
- f/QAg5PRUHyL7njxlsw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-23_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
- priorityscore=1501 bulkscore=0 suspectscore=0 malwarescore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604240117
 
-On 1/15/26 6:27 AM, Alex G. wrote:
-> On Wednesday, January 14, 2026 4:26:36 AM CST Konrad Dybcio wrote:
->> On 1/14/26 4:54 AM, Alex G. wrote:
->>> On Tuesday, January 13, 2026 8:28:11 AM CST Konrad Dybcio wrote:
->>>> On 1/9/26 5:33 AM, Alexandru Gagniuc wrote:
->>>>> Support loading remoteproc firmware on IPQ9574 with the qcom_q6v5_wcss
->>>>> driver. This firmware is usually used to run ath11k firmware and enable
->>>>> wifi with chips such as QCN5024.
->>>>>
->>>>> When submitting v1, I learned that the firmware can also be loaded by
->>>>> the trustzone firmware. Since TZ is not shipped with the kernel, it
->>>>> makes sense to have the option of a native init sequence, as not all
->>>>> devices come with the latest TZ firmware.
->>>>>
->>>>> Qualcomm tries to assure us that the TZ firmware will always do the
->>>>> right thing (TM), but I am not fully convinced
->>>>
->>>> Why else do you think it's there in the firmware? :(
->>>
->>> A more relevant question is, why do some contributors sincerely believe
->>> that the TZ initialization of Q6 firmware is not a good idea for their
->>> use case?
->>>
->>> To answer your question, I think the TZ initialization is an afterthought
->>> of the SoC design. I think it was only after ther the design stage that
->>> it was brought up that a remoteproc on AHB has out-of-band access to
->>> system memory, which poses security concerns to some customers. I think
->>> authentication was implemented in TZ to address that. I also think that
->>> in order to prevent clock glitching from bypassing such verification,
->>> they had to move the initialization sequence in TZ as well.
->>
->> I wouldn't exactly call it an afterthought.. Image authentication (as in,
->> verifying the signature of the ELF) has always been part of TZ, because
->> doing so in a user-modifiable context would be absolutely nonsensical
->>
->> qcom_scm_pas_auth_and_reset() which configures and powers up the rproc
->> has been there for a really long time too (at least since the 2012 SoCs
->> like MSM8974) and I would guesstimate it's been there for a reason - not
->> all clocks can or should be accessible from the OS (from a SW standpoint
->> it would be convenient to have a separate SECURE_CC block where all the
->> clocks we shouldn't care about are moved, but the HW design makes more
->> sense as-is, for the most part), plus there is additional access control
->> hardware on the platform that must be configured from a secure context
->> (by design) which I assume could be part of this sequence, based on
->> the specifics of a given SoC
+On Wed, 22 Apr 2026 23:29:10 +0530
+Piyush Patle <piyushpatle228@gmail.com> wrote:
+
+> Add support for the AVIA HX710B ADC, which shares the HX711 GPIO
+> interface but has a fixed gain of 128 and uses trailing PD_SCK pulses
+> to select between the differential input and the DVDD-AVDD supply
+> monitor.
 > 
-> What was the original use case for the Q6 remoteproc? I see today's use case 
-> is as a conduit for ath11k firmware to control PCIe devices. Was that always 
-> the case? I imagine a more modern design would treat the remoteproc as 
-> untrusted by putting it under a bridge or IOMMU with more strict memory access 
-> control, so that firmware couldn't access OS memory.
+> Model the HX710B with its own channel specification and iio_info.
+> Store the HX710B trailing pulse counts in chan->address and add
+> fixed-gain handling so the HX711 selectable-gain path remains
+> separate from the HX710B fixed-gain path.
+> 
+> The HX710B datasheet documents a single fixed PGA gain of 128 and
+> does not provide configurable gain selection like the HX711.
+> 
+> Order hx711_chip_info as pointers first, then unsigned int fields, then
+> bool. pahole then reports no internal holes in the structure; the
+> remaining padding is tail padding from 8-byte alignment.
+> 
+> Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
+> ---
+> Changes in v3:
+> - Add HX710B support on top of the separate hx711_chip_info refactor.
+> - Update channel_set only after hx711_read() and hx711_wait_for_ready()
+>   both succeed.
+> - Keep a single HX710B fixed-gain scale based on the datasheet's fixed
+>   PGA gain of 128; do not apply the HX711 channel-B gain of 32 to the
+>   HX710B supply monitor path.
 
-There is an SMMU on this SoC.
+Just to confirm - you verified this?  It does seem very odd as that
+might well take a large value.
 
-I don't know the original backstory, but if anything, the through-Q6
-approach is probably *more* secure, since there's additional access
-control hardware inbetween
 
-Konrad
+> diff --git a/drivers/iio/adc/hx711.c b/drivers/iio/adc/hx711.c
+> index a444a2872257..d7050bec53b4 100644
+> --- a/drivers/iio/adc/hx711.c
+> +++ b/drivers/iio/adc/hx711.c
+
+> +static const struct iio_info hx710b_iio_info = {
+> +	.read_raw		= hx711_read_raw,
+> +};
+> +
+>  static const struct iio_chan_spec hx711_chan_spec[] = {
+>  	{
+>  		.type = IIO_VOLTAGE,
+> @@ -474,6 +522,48 @@ static const struct iio_chan_spec hx711_chan_spec[] = {
+>  	IIO_CHAN_SOFT_TIMESTAMP(2),
+>  };
+>  
+> +/*
+> + * HX710B channels.
+> + * Channel 0: differential input (IN+ vs IN-), 10 SPS, 1 trailing pulse.
+> + * Channel 1: DVDD-AVDD supply monitor,         40 SPS, 2 trailing pulses.
+> + * .address holds the trailing pulse count used by hx710b_set_channel().
+> + */
+> +static const struct iio_chan_spec hx710b_chan_spec[] = {
+> +	{
+> +		.type = IIO_VOLTAGE,
+> +		.differential = 1,
+> +		.channel = 0,
+> +		.channel2 = 1,
+> +		.indexed = 1,
+> +		.address = 1,
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE),
+> +		.scan_index = 0,
+> +		.scan_type = {
+> +			.sign = 'u',
+> +			.realbits = 24,
+> +			.storagebits = 32,
+> +			.endianness = IIO_CPU,
+> +		},
+> +	},
+> +	{
+> +		.type = IIO_VOLTAGE,
+> +		.channel = 1,
+Sashiko is winning today.   See it's comment on the indexing wich is
+spot on.
+
+https://sashiko.dev/#/patchset/20260422175910.1258579-1-piyushpatle228%40gmail.com
+
+This should be channel = 2 or given it's actually a differential measurement, maybe
+invent channels 2 and 3 so you can represent it as that. If useful label
+can be used to provide info on this magic channel to userspace.
+
+> +		.indexed = 1,
+> +		.address = 2,
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE),
+> +		.scan_index = 1,
+> +		.scan_type = {
+> +			.sign = 'u',
+> +			.realbits = 24,
+> +			.storagebits = 32,
+> +			.endianness = IIO_CPU,
+> +		},
+> +	},
+> +	IIO_CHAN_SOFT_TIMESTAMP(2),
+> +};
+
+...
+
+> +
+>  static int hx711_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev = &pdev->dev;
+> @@ -540,12 +639,16 @@ static int hx711_probe(struct platform_device *pdev)
+>  	/* we need 10^-9 mV */
+>  	ret *= 100;
+>  
+> -	for (i = 0; i < HX711_GAIN_MAX; i++)
+> -		hx711_gain_to_scale[i].scale =
+> -			ret / hx711_gain_to_scale[i].gain / 1678;
+> +	if (chip_info->fixed_gain) {
+> +		hx711_data->scale = ret / chip_info->fixed_gain_val / 1678;
+> +	} else {
+> +		for (i = 0; i < HX711_GAIN_MAX; i++)
+> +			hx711_gain_to_scale[i].scale =
+> +				ret / hx711_gain_to_scale[i].gain / 1678;
+
+Just to point it out, this is the update of the global variable I mentioned
+Sashiko spotting as broken in my reply to previous patch.
+
+>  
+
