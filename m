@@ -1,115 +1,133 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD5A3644A2;
-	Fri, 24 Apr 2026 14:09:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6753C3439;
+	Fri, 24 Apr 2026 14:20:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777039797; cv=none; b=ZVurE/Uoua5EO2XCpOy8LKnCFkaoDlNpbZZucmw7Jy7ciwRKZ9JX01VsaFrHXEXUlL8XRpE6hRmWGBOxgmPTTTo8JVLg0G5w21moNm7ZJlV4K2GTM1Wh0/F0owVIobltResZFLz3Ppa/kKtlOcmyrTiYjXFWNtkwareHpjrmF6s=
+	t=1777040410; cv=none; b=Klq5inPgZcsgNASkGhIozuW/hOFveTk+7j2UkDIWHV4mMeCM8/YQi1qmYhTO6e9x4FOY92m0n+UAwr5QHvQP31qoedhWdVvzO9dQN9lwBuz/F0FMoL5itxXqAUZPegvxwzx2cbR0RSSDOknFPHe0M2f4DLG9Znu1H6pAbmKiDJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777039797; c=relaxed/simple;
-	bh=CXW/N769EENkYazHiZUEH9F4WWwQnrYKB/iViMQHhk4=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=IgKP4ArIZ1TxxjG6E/eAuOugiZJnl220kOZ+nMAV8wqcpV/ViHsO+QPzHkT0/sSki032LztDhr4IfQII8g0WYkErW3c2LLtszEuMMnFU6DBfVkG+P6m5zKbpKcHl2auIWXWw7Xk2jSKl+KeNgxDAqci3YJwfu4aCP+hNQiuX/bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n5MH/1v5; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1777040410; c=relaxed/simple;
+	bh=KQ2jlEW1eOaS76algkR9vPolQCqOkVsbm0MXBmfkdXw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GQKQDScxrdO6Di9VniKT5zK8tzY/TqyUT/hIptDeTD14u+gv5VrBNuV+UUmBAyWXcGMQUpZX6QpuSlpRGaZLbHGJYfNBrfKdMYqBej26h/FRUGNJLfkYBUkKouM7FDJWmfb6Kt150tEr/MkRr35o6k4yhBM1jN9JakLHhhyxzaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HTFy1o7F; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n5MH/1v5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777039796; x=1808575796;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=CXW/N769EENkYazHiZUEH9F4WWwQnrYKB/iViMQHhk4=;
-  b=n5MH/1v5bN3SZLFhMu1Joj8kN00LGjLlzLz01WJlR297/tAdazbjGsRs
-   7Rtn5w/EhWVNux22H5UhjLmeLaY3bTGRzrB0eDkedPGnxMgBJPV+88eie
-   5eXpBy9sqgiDJ85RMOqqvulmlc1cvS8VeAqyc+brwKHBL659DoZ2+wkqN
-   HZVAqfWujoB5K2NMh1pwtxr99wUBHjP8b0KFQbFepz9/m5ExFoeiM5M2F
-   9ZdjLHdFBkolLgeQbia5vPjMDxD2Hn49NwAXkoNWsbuAaAKNEVgO8aHbi
-   sRnu/1KROaFfDSBx8g9MYqK+eWakJaviJVdGsufrqa9G4Z+L4x76eEMy0
-   Q==;
-X-CSE-ConnectionGUID: GNoI1CaZR3axmbi+WIG+ew==
-X-CSE-MsgGUID: uFbX3veSRTerdN2WRYdmEw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="103482503"
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; 
-   d="scan'208";a="103482503"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 07:09:55 -0700
-X-CSE-ConnectionGUID: EcNEermSRsqeTayQSmKK5w==
-X-CSE-MsgGUID: EDkeemBFRn2yA3w5F4NG/A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; 
-   d="scan'208";a="263368955"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.120])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Apr 2026 07:09:50 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 24 Apr 2026 17:09:46 +0300 (EEST)
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-cc: Jia Wang <wangjia@ultrarisc.com>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-    Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-    Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
-    linux-serial <linux-serial@vger.kernel.org>, 
-    linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 2/4] serial: 8250_dw: build Renesas RZN1 CPR value
- from DW_UART_CPR_* definitions
-In-Reply-To: <aetv2ljDOpH_Hs4s@ashevche-desk.local>
-Message-ID: <363a636d-f014-cc29-6be4-ec3041f43855@linux.intel.com>
-References: <20260424-ultrarisc-serial-v4-0-1765a0b4c4a0@ultrarisc.com> <20260424-ultrarisc-serial-v4-2-1765a0b4c4a0@ultrarisc.com> <4548483c-cbba-899e-6b1a-1290d36b59cd@linux.intel.com> <aetv2ljDOpH_Hs4s@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HTFy1o7F"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E3B1FC2BCB5;
+	Fri, 24 Apr 2026 14:20:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777040410;
+	bh=KQ2jlEW1eOaS76algkR9vPolQCqOkVsbm0MXBmfkdXw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=HTFy1o7FdQbHOLrpzCrgUNMtug7Nt2QQKCgK+I9GRMzxa/P1lb+TmQH4rgQhwECwU
+	 rp/Oii1Tro3FD7iMD6TeJb8koh4wcmmIZlOrhcB5pakVm4QH2fPoIpWG7PJ0Eh6oHh
+	 CHJYmSYAo5puJ4KhtsryCWun3vOfV09eMF11blR5AOS95xJBC0oi/uX5sRv3v75KND
+	 9QDMWa15oOhfvQLPcKw6M713gwQBpcY8G+G2Vzi8pvjaciXCYX54FJ4YPOYfMsq0V/
+	 Ef/DdmmF0Ku8urqI6f5nioJSZj0mEKCi6RrlTjNu9fVDaA4Xd3R3v7IoheJjohfBRi
+	 ExsiJfZQwZCsg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D196CFED3CC;
+	Fri, 24 Apr 2026 14:20:09 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Fri, 24 Apr 2026 16:17:32 +0200
+Subject: [PATCH v5 1/8] dt-bindings: mfd: khadas: Add new compatible for
+ Khadas VIM4 MCU
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-2024444435-1777039786=:958"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260424-add-mcu-fan-khadas-vim4-v5-1-afcfa7157b23@aliel.fr>
+References: <20260424-add-mcu-fan-khadas-vim4-v5-0-afcfa7157b23@aliel.fr>
+In-Reply-To: <20260424-add-mcu-fan-khadas-vim4-v5-0-afcfa7157b23@aliel.fr>
+To: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Beniamino Galvani <b.galvani@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1479;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=eCKy2chdqFWw8sHr2BRKBa6cnfiYWQdTnn103pMuJ+4=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ+brGr6UkrenLluc+XxnU/vsnVp/+y9H+VvdfinYVDHHt
+ l7g2I3mjlIWBjEuBlkxRZb+uZYn3l0+eubrHvUUmDmsTCBDGLg4BWAiIgcZ/rulnb75uzR6+sey
+ fKNVfzKkPxT9lmx1+lh6YMbmyXq3JawZGZZdNI6auPBAigiTt13+PaGLizYsNTqxYvJSr57EnP8
+ qBnwA
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
---8323328-2024444435-1777039786=:958
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+The Khadas VIM4 MCU register is slightly different
+from previous boards' MCU.
+This board also features a switchable power source for its fan.
 
-On Fri, 24 Apr 2026, Andy Shevchenko wrote:
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+---
+ Documentation/devicetree/bindings/mfd/khadas,mcu.yaml | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-> On Fri, Apr 24, 2026 at 02:38:56PM +0300, Ilpo J=E4rvinen wrote:
-> > On Fri, 24 Apr 2026, Jia Wang wrote:
->=20
-> ...
->=20
-> > Hmm, maybe there should also be macro also for this one which takes the=
-=20
-> > fifosize as input and converts it to CPR field vlaue (effectively, the=
-=20
-> > macro is an inverse of DW_UART_CPR_FIFO_SIZE()). It would be more reada=
-ble=20
-> > than the literal.
->=20
-> But this can be done separately, right?
+diff --git a/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml b/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml
+index 084960fd5a1fd..1f135618e3b6f 100644
+--- a/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml
++++ b/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml
+@@ -18,6 +18,7 @@ properties:
+   compatible:
+     enum:
+       - khadas,mcu # MCU revision is discoverable
++      - khadas,vim4-mcu # Different MCU variant, not discoverable
+ 
+   "#cooling-cells": # Only needed for boards having FAN control feature
+     const: 2
+@@ -25,10 +26,27 @@ properties:
+   reg:
+     maxItems: 1
+ 
++  fan-supply:
++    description: Phandle to the regulator that powers the fan.
++    $ref: /schemas/types.yaml#/definitions/phandle
++
+ required:
+   - compatible
+   - reg
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: khadas,vim4-mcu
++    then:
++      required:
++        - fan-supply
++    else:
++      properties:
++        fan-supply: false
++
+ additionalProperties: false
+ 
+ examples:
 
-It's logically part of the cpr_value literal to defines conversion (of=20
-course one could introduce it in own patch without users but I don't see=20
-much benefit from that).
+-- 
+2.49.0
 
-> > Also include BUILD_BUG_ON(!IS_ALIGNED(fifosize, 16) + bounds checks)=20
-> > inside that macro to catch invalid fifo sizes (+ don't forget the=20
-> > necessary headers for those two new things).
->=20
-> Hmm... Some devices may have FIFO =3D 8 or 4 bytes (Intel Quark IIRC has =
-less
-> than 16 and it's DW IP).
 
-Perhaps but according the DW databook I've at hand, there are no values in=
-=20
-FIFO_MODE field for such FIFO sizes. So what would CPR contain in those
-cases for FIFO_MODE field?
-
---=20
- i.
-
---8323328-2024444435-1777039786=:958--
