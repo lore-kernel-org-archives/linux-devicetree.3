@@ -1,142 +1,104 @@
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-173.mta1.migadu.com (out-173.mta1.migadu.com [95.215.58.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979A13EF646
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 18:27:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777055247; cv=pass; b=W0I1SDTZPlqqPkvwlOrFcc1bS6qDq6+CDuwJQqSeksdCP/n5NoTr9CS1fxGDp4Z0tavjDjoLLSJol0DTkoaMtefS9kgl8xdRmPhyyjyz0OVdqYmnY4OrhLXsgSt3iRINlDpFdDM5Ex0WJC+eZTs+Cv7dVfA1VN+2fSreDQvKLYA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777055247; c=relaxed/simple;
-	bh=7CTY68bsyrtSiDtxKuvOUa8EF73ypzAgDBPbmxeJO2I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Dg+7hKgEQFGxf/XTEeA0/CwH7J0wnpNJiGM/uWEyXw28j/aHFmBbKeQsN8e6P1PT83uNM9f71ineOwAOpMWokSzeyaf4EA3QYygDrec9tD69b5LwXl4Av2r+87eEn//gEgrNqr8YXj9FYZP72OK0Zs6Jrj2LVUid5shBfrUi0d4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kc9g6edp; arc=pass smtp.client-ip=74.125.82.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 013403E5EDC
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 19:08:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777057702; cv=none; b=TY5uakm4OOXW4kyMtn9A/vsNKKyuh9nNHCTPFUPSLUfWJ0lulnyLCzdKCwbrb+eJgaiDtAReNlFPDqbcd8uX6ugiAyGQ0qxyF9uYrEwWT3q7qk+U1InM23xGUg/ejuqxKm4VGHIvqfggqme/KcLv9eK81v5T8mCBeOaD2Cm2PfM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777057702; c=relaxed/simple;
+	bh=8A6x/gwvigokDWQHjH1XTTPUpJb98Mhg/r0z4VARm4Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pdaHv0TegBu1aoPULuJCUIVw40yOT7eNLwXON1k//NaC6urg4QgjNrHGNbcWSiaeIdjqxR9Iy7QWFW0Bwnnvy39zHsMHyL7AGNRsqgof8VhMNJhFvcUA455Qn5u09o1n3z1WL1othEE21DZQIsmYRStu+XW34k5eaWIlCzDktx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=nnt1cmrY; arc=none smtp.client-ip=95.215.58.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kc9g6edp"
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-12c6df0b9bbso5169512c88.1
-        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 11:27:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777055246; cv=none;
-        d=google.com; s=arc-20240605;
-        b=URZW8cmW4popy43Hl/ebqP2CWSwx/VCYUSHdA6hK5WDgrl07mN+qN2/V+ta73qOdiV
-         IAS9FEvvfg9Fk3o7LXaNP/ZXbH6CTmyy+VufMTrrO0QqZrAekKLQytkVXfBxibj+Me7D
-         NMqrB8o5dnsm4zs5x5l0DSzeKMIlVpCP9gWTl8bO/v76u0aWnV4k6L82FlFycDvBOSnQ
-         wUwHFRC4xc6kSlAKYkmHrWCBy7GAFb7TjehCzjiQL+b7WPuToMx+z4y95k5OdUrEFCGo
-         vynulLb3k7yWN40Ydl1CifYOMNxFkGf38+OI01y9A8F875lin1LkdEWO5tZub4mc112W
-         20Sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8fKE6uWynXvOQK+WQLf5kO4iqhFOCsKdnL+aW04mVOs=;
-        fh=IboPf02Awh11RtmxbbErItV5GgbXB3wBsiItzggS6T0=;
-        b=ZoeSHBN5mBIBYeQ30Gkqza4xj6bVCaQfyPcqZu7WDkiI/E/e92VwMkKSw/YvlhZAam
-         NMHfbLWpUiYEBtCUSI4fKMMt/yiOv0xIzWZS4nRCbECB+F5ukXQT/tqiPDt7PxOt6NeK
-         uqH9J25+GJkv/kzZ4G7s4HIp9fjHrjWnkjMWupRaW9VtK5Ld7ZUDJqt51r9grsmY3TMk
-         6iytRZMbBTg+6x4Dy93ddoJSvaV6i1DSKIOgJL9lZIELgY6oTVP3UpNj6kv6On56xzH7
-         2yG3ej5VGn7KTZ6iTgoisQFQct2u/ICTM7rAlLgAUscIWdOMYmuH7M03xm9r/5Nac5SN
-         qNqQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777055246; x=1777660046; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8fKE6uWynXvOQK+WQLf5kO4iqhFOCsKdnL+aW04mVOs=;
-        b=kc9g6edpyga1WnwY5RnE2ST6qQSFVa614XzYl7PbL83QzymsDZ7jyQxFs4AIGI/Pb6
-         MLZVUdSIJvdnzq/Oar2W2pdBBOYtHOcPg79qzaQv7HeQmqrHZWoMnN5UzsNMDh97yZRT
-         VHObSjWGc2YRoUw0rpUurpCahZ6OJ085r4Z+VHO6OjsZLAxXTjH7Rle6dGQ26SicX/cI
-         CxBJZSR99AastWlKFD1ZCVw7PUHLQiVK9S2NR698ry/R7hO6jF6c589t5XOTtWZVRGSh
-         F1I7NXM/RH3xp5FwhtPhLV9cv/RnvoDFVmgLQIk6GkrM9i+0XoCnvzFDmnrE8fRUQWJu
-         arUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777055246; x=1777660046;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=8fKE6uWynXvOQK+WQLf5kO4iqhFOCsKdnL+aW04mVOs=;
-        b=LhiaCssNEKbqhNkRJSNio3rliXFANxWMDo3YolwonJyso24heJfZVqoHKDUVjy6GyM
-         EFtE2PLkh26m7CtCMhRwBGoHslxUhQi5MkAyDD3gNDFE3MHym9fHRy+X8+eAunauwk2w
-         HMJSpT/2GM82k2adUbag9Iv0v89uwCqUsl5A4+fLDpb9B4/LGGgNjLQcnBu8JGN4dJBd
-         5udn9fndOEeTowLwM4mtzOgaAldfNUBTjkDl65so+j8HN+P42qu7QoSKjdG4W8M9vRHg
-         5jBjMnEAxY8b9hNaABNnh/wccG5kgDVEg1fL5QGsEWwmVoS4WqBaRQz/R0cfxDBM/Lc7
-         Hazg==
-X-Forwarded-Encrypted: i=1; AFNElJ82W+2SPfRgf08yyyMBAo2ir076dqMMD52t/pqyQ2q9vUVR3OdlAy4kkK6uhEK4+l//sYHPF8rihs+B@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXGB8e9a4yMEOmLKNMtg8lKQifYpPUPjw8vN5JHsQAIspmeJNo
-	412+JZxfRXznvnUVdXDPkwMFlfC7MQSTjpNPY/3EdhGJ+W6e70wUWiXZsk++ZcoiX/uFotw7w2I
-	hSS9q6Y48RNpu6lqHJZxKBDYAD5dl3gw=
-X-Gm-Gg: AeBDieuXTYsmr7hwUKk00o2aOmscisarAUAoAVq/HT12/Bd9YmqQM+NSTY0Qoj+/8CT
-	h/RMyJM/zyTxQKbNm3ug+KhLuS8t0PSyXKdOoR508h5FqnO3Xa/Vnr4Pcm+VidNvoHrF4K0kfW0
-	y+NRrHdTh76siTAxsoi+VQkOhE5XPVYP2zo53HhGEyP3mBFsLEong0k7nRxbKU0pMy61YQcAJwJ
-	w9bQBQW7Y0ZroLi/8h0Dj/l6W9yDupI3spWaO1UauPE4f2oBLN1sapDs1Qms+GTVTga+fi0xc+3
-	PxvimuUmUWgQV/NSNalex/gyNkNT/uqB3b1lOL997q5VUEOVuDLMlJDDzn7rX2y14//MTNKhn/6
-	MmqbwGrDlFxdzUTa6iuzPbtAE/bAx8b/CBiRyyw==
-X-Received: by 2002:a05:7022:383:b0:12a:6fb7:87e3 with SMTP id
- a92af1059eb24-12c73fac0cbmr19164773c88.31.1777055245496; Fri, 24 Apr 2026
- 11:27:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="nnt1cmrY"
+Message-ID: <c3b833d8-2e8a-4418-9043-6cd04d9901e1@packett.cool>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
+	s=key1; t=1777057689;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/Q7AY28qlHBjgzfWhhXsEAsuWHcEKhugX23O64AEQqA=;
+	b=nnt1cmrYKgqViG1liVRq6/0f4EejzGYfXen3cebO9qtTfbXXcCQm7vSo3J/ezkwa1y1Huj
+	yuEhv5AQt9otPdCsyU5Si1H+ksvzqUjbHms01qDdVFCGwSYpnMkJQ5N8epX1tab+xAO4/G
+	vz0B/vHMxyRIHTeAxHIvhXQD/5e2r3gy/cVkFvTUbSqwfMeUKqL4bIgfYr1vFyVfTWGLb1
+	FOwQHBlzAxLRyq4Pho8rDP6u2W1W42Yf6R5Op7z9JzR/sM2fZLT3XWXfKQTxjk4rJ1uNZz
+	tXuapn2aXf9bId8MCU6aT1JfKrUHgu0GpKyNf/R0irr3cfRjvi4KIR+j5BMtXg==
+Date: Fri, 24 Apr 2026 16:07:56 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com>
- <20260420-beagley-ai-display-v1-15-f628543dfd14@ideasonboard.com>
- <CAOCHtYjJgqomKreDxLUiVbUtpeh36f0bL-jA6P-6rsoJrweshQ@mail.gmail.com> <cb19eafe-6c25-4a2a-bd31-9fb280837623@ideasonboard.com>
-In-Reply-To: <cb19eafe-6c25-4a2a-bd31-9fb280837623@ideasonboard.com>
-From: Robert Nelson <robertcnelson@gmail.com>
-Date: Fri, 24 Apr 2026 13:26:57 -0500
-X-Gm-Features: AQROBzDdYR96fKz8FXyueV-T0huFl-SkTA_xyoSbvkzAGH098Vzr3EpRVRVzohg
-Message-ID: <CAOCHtYgQ=71GtnUFkwhoVTkWma9rrbjp3xyKYUGVv1dG63m0Dw@mail.gmail.com>
-Subject: Re: [PATCH 15/15] arm64: dts: ti: beagley-ai: Enable HDMI display and audio
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Andrei Aldea <andrei@ti.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Lee Jones <lee@kernel.org>, Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>, 
-	Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>, 
-	Louis Chauvet <louis.chauvet@bootlin.com>, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Andrew Davis <afd@ti.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 12/12] arm64: dts: qcom: qcs6490-radxa-dragon-q6a: add
+ LPASS CPU audio variant
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Xilin Wu <sophon@radxa.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Judy Hsiao <judyhsiao@chromium.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-sound@vger.kernel.org
+References: <20260407-dragon-q6a-feat-fixes-v1-0-14aca49dde3d@radxa.com>
+ <20260407-dragon-q6a-feat-fixes-v1-12-14aca49dde3d@radxa.com>
+ <29a7dd01-7513-4fe5-8546-d57757b3b2d0@oss.qualcomm.com>
+ <88B7BBB9133FBAD1+ccb025ea-4999-4701-bb18-c57a42cabe2f@radxa.com>
+ <2f830f17-4bc5-4ebd-a66b-8068a14a871a@oss.qualcomm.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Val Packett <val@packett.cool>
+In-Reply-To: <2f830f17-4bc5-4ebd-a66b-8068a14a871a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-On Fri, Apr 24, 2026 at 12:04=E2=80=AFPM Tomi Valkeinen
-<tomi.valkeinen@ideasonboard.com> wrote:
+
+On 4/24/26 9:28 AM, Konrad Dybcio wrote:
+> On 4/8/26 11:47 AM, Xilin Wu wrote:
+>> On 4/8/2026 5:06 PM, Konrad Dybcio wrote:
+>>> On 4/7/26 5:20 PM, Xilin Wu wrote:
+>>>> Add a qcs6490-radxa-dragon-q6a-lpass-cpu.dts variant for debugging and
+>>>> bring-up of the host-controlled LPASS audio path on the Radxa Dragon
+>>>> Q6A.
+>>>>
+>>>> This variant enables the LPASS blocks and codec macros needed by the
+>>>> lpass-cpu driver, wires WCD9380 playback/capture and DisplayPort audio
+>>>> to the LPASS CDC DMA and DP interfaces, and disables remoteproc_adsp so
+>>>> that the audio hardware is owned directly by Linux.
+>>>>
+>>>> This DTB is an optional configuration for systems booted with the kernel
+>>>> running at EL2, where direct CPU access to the LPASS hardware is
+>>>> available. It is useful for users who need low-latency and fully
+>>>> controllable audio.
+>>> I believe on Chrome platforms it was done this way because at some point
+>>> it was determined that they would specifically like not to use the DSP.
+>>>
+>>> I think this is more of a hack than anything else.. but at the end of the
+>>> commit message you mention low latency - is the impact actually measurable?
+>>>
+>> Some of our users also specifically prefer not to use the DSP [1] :)
+>>
+>> Based on their testing, the AudioReach/ADSP path imposes a minimum scheduling interval of 10 ms, which is much higher than the 0.67 ms they can get on a Raspberry Pi 5 with direct I2S/DMA.
+> We passed on this feedback.
 >
-> Hi,
+>> Since the lpass-cpu setup works properly, I would not consider this a hack.
+> Well yeah it works, but I was really hoping it would be made
+> unnecessary and available for removal sooner or later..
 >
-> On 24/04/2026 19:16, Robert Nelson wrote:
-> > On Mon, Apr 20, 2026 at 8:04=E2=80=AFAM Tomi Valkeinen
-> > <tomi.valkeinen@ideasonboard.com> wrote:
-> >>
-> >> From: Andrew Davis <afd@ti.com>
-> >>
-> >> Enable HDMI support for BeagleY-AI platform. The display controller us=
-ed is
-> >> TIDSS and the HDMI bridge used is IT66122.
-> >>
-> >> Based on DT by: Robert Nelson <robertcnelson@gmail.com>
-> >> Signed-off-by: Andrew Davis <afd@ti.com>
-> >> Signed-off-by: Swamil Jain <s-jain1@ti.com>
-> >> [tomi.valkeinen: cosmetic fixes]
-> >> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> >
-> > Tested-by: Robert Nelson <robertcnelson@gmail.com>
-> >
-> > Thank you for getting the display back end working on j722s family!
-> What displays did you test? I don't have OLDI panel...
+> But since there's a genuine usecase, perhaps not.
 
-I was buggin @Andrei Aldea to get you one. I also don't have the
-'special' Lincoln tech display or the TI cloned panel that works on
-OLDI..  Right now just HDMI as i decided to tackle cc33xx wifi again
-today on mainline..
+lpass-cpu is also great from a "I don't want my pure libre operating 
+system to touch dirty proprietary binary blobs" perspective, but you can 
+definitely argue that that's not a genuine use case :)
 
+~val
 
-Regards,
-
---
-Robert Nelson
-https://rcn-ee.com/
