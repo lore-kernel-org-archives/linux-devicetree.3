@@ -1,339 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC62033C1AD;
-	Fri, 24 Apr 2026 17:01:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE15333987E;
+	Fri, 24 Apr 2026 17:02:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777050118; cv=none; b=PVTXc/FOIpWTeQmCTBzxFWKEwsGEgvikJzTLP4ui3674RNVbAgr4GO9pH7sJwcyzh3RowuG+e+v/PnxcuzeUtu7xjH59E0KtiKhsTQXguoWnREz34I7pXuIZEZW9UyQDXdLoFr0EYpuEuDA5ROU45vt6CAwayjxH9Vv9remnN8U=
+	t=1777050166; cv=none; b=iFriZ5jqAKnZkfaUEW7PXlKsoPJNm4YSirLvOnMZMWoKg/OUVyn+XpFblu9qrXh8TbX0eGleyJzG/t+KsPWc3inCWlIPEPh8Fj7ftdeDkx9kdQeKwWrv96cGQqh0X/rNwA2Bgz28n5TfKgOfynzEswrAmO7Lv48yjVbalpn3S7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777050118; c=relaxed/simple;
-	bh=2GVsFCx4KosclkJej36I7xIXKXkZWqFz2ettm9BJffQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EDNxG5ot3Y01tCYANzVR8X0LLDVy63PlUmMHYrUg76iq8zym6MHGHDDeG5e9pwlmQV2j+ClHNBEWZWeC36LHnR8ga9i//JX2glRjYyeLpXWcd1H71Au5cwXoBOMSAa16Jq5AXVT4lZOIBokMUoHE8SiRNvHIn4r8i0orIOEaLb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ONhycMRj; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777050166; c=relaxed/simple;
+	bh=uqzsbccj3Dgkca8d0rOxX0X6qxKogMm1MwQifoj5s+0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PJDsYksAdTqX5F7oMl+m8yWWdrcInHEx9BoXqG93cr8EW35ZgFKGXKSkH7fgCOTOw8GWmW1/6iBDwBnuJTG+o0NRi3D/M9DnsrprsGjNm8CAw9ov1abxGcW2Msa7zZROB15VANsFNRxv1p6Pkg3dJm0Fy+M8yMCtRaOTZQcRRf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U91G8c1d; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ONhycMRj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41ABAC2BCB5;
-	Fri, 24 Apr 2026 17:01:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U91G8c1d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1A3C19425;
+	Fri, 24 Apr 2026 17:02:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777050118;
-	bh=2GVsFCx4KosclkJej36I7xIXKXkZWqFz2ettm9BJffQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ONhycMRjKSNjYrHo7khtfvuuklElvJ8jLdxrHDsOSYsKQdV5nHhA32gUQzj7h42oD
-	 qAtiTBJrhco9B4oEPpIUN/vDgAgjvfD3Z+x9AiqRDMm/Acj0NlHSmjmj0v/nDHYIYX
-	 m2t1GZ7FgGckj2+bSUOKmtOIIwWdrYtHoiptiHAkz1pqcxAMt+eTzrH4kFnITDep20
-	 y9YF2x9wRrq5KeBen38NHfBk2VTPY+NGLzqTqCUyntys8/K8rKfxUcS3mpcnJ39FkK
-	 asW2bMAQAIDqdN9CQdQ2BTvjnMt4jXhuZgibSKZEO4aFN27aQH6+G2cQbHPVupE7ur
-	 iCEGgJDiqqZog==
-Date: Fri, 24 Apr 2026 18:01:52 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Subject: Re: [PATCH v1 20/20] riscv: dts: starfive: jhb100: Add pinctrl nodes
-Message-ID: <20260424-bok-storm-4f4583686777@spud>
-References: <20260424111330.702272-1-changhuang.liang@starfivetech.com>
- <20260424111330.702272-21-changhuang.liang@starfivetech.com>
+	s=k20201202; t=1777050166;
+	bh=uqzsbccj3Dgkca8d0rOxX0X6qxKogMm1MwQifoj5s+0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=U91G8c1dElZdqg38sSti1bxHVAUCMGBVP6aenc+n4DABi+M2jKLTMDYKLCI1RyRC9
+	 mvvI3iyXIDvDPyQwA+84qbpnMFEhT1ilX13xScPgYpDAUL/KC+tAf3EKQMsVOU7pU8
+	 LLWZALhMWrvBMx6QNxp8PWh/WL+T3jyutQSdN+PZ4S62zyuATLed1Kf8daqYb+V4EO
+	 rvhFLXbQgpXk4rAKGl2VGpmc6msgCRSGIo1Vsu1Z2C07HldKBs3Orv67xS+p8VvMSG
+	 RhozLzdNIgxyGdQCEJq/4drQYFTaVq+BwBf7XJWLIC1qq0aAlMleJsfN7962sv2YsZ
+	 rgYnRp+3+uj2A==
+Date: Fri, 24 Apr 2026 18:02:35 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>,
+ rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Michael Auchter
+ <michael.auchter@ni.com>, linux-hardening@vger.kernel.org, Lars-Peter
+ Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kees
+ Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Subject: Re: [PATCH 20/22] iio: dac: ad5686: implement new sync() op for the
+ spi bus
+Message-ID: <20260424180235.22bdf98c@jic23-huawei>
+In-Reply-To: <umhebqm7nwcg6h5y77egrh7nirtpjpin5t42oxifo5em4jmsyj@gavxnwsadyuh>
+References: <20260422-ad5313r-iio-support-v1-0-ed7dca001d1b@analog.com>
+	<20260422-ad5313r-iio-support-v1-20-ed7dca001d1b@analog.com>
+	<20260423191833.0de9fb8c@jic23-huawei>
+	<umhebqm7nwcg6h5y77egrh7nirtpjpin5t42oxifo5em4jmsyj@gavxnwsadyuh>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DqhoXpfq+UgDU/hi"
-Content-Disposition: inline
-In-Reply-To: <20260424111330.702272-21-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Fri, 24 Apr 2026 09:58:39 +0100
+Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
 
---DqhoXpfq+UgDU/hi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> On 26/04/23 07:18PM, Jonathan Cameron wrote:
+> > On Wed, 22 Apr 2026 15:45:54 +0100
+> > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> >   
+> > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > 
+> > > Use of local SPI bus data to manage a collection of SPI transfers and
+> > > flush them to the SPI platform driver with the sync() operation. This
+> > > allows for faster handling of multiple channel DAC writes, avoiding kernel
+> > > overhead per spi_sync() call, which will be helpful when enabling
+> > > triggered buffer support.
+> > > 
+> > > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>  
+> > Interesting approach to potentially optimise for SPI.  Do you have
+> > perf numbers or similar to support it being worth the effort?  
+> 
+> Short answer is no, I can try to produce some benchmarks, but I am not sure it
+> is needed. The implementation here prepares the ground for triggered buffer support,
+> which adds the capability of implementing a control loop in userspace that updates
+> all the enabled channels at once. That will happen in a trigger handler, then we want
+> that to be as fast as possible, so it can be prepared for the next trigger event.
+> It is not really about calling a function once rather than multiple times, but the
+> problem happens when the device is sharing the spi bus with other devices and how busy the
+> system is in general, so there may be context switches in the spi platform driver with
+> one or two mutex acquire/release operations, which may add bigger delays between
+> transfers, which depends on what the other devices are doing. I suppose that devices with
+> high channel count like 8 or 16 can benefit with this.
 
-On Fri, Apr 24, 2026 at 04:13:30AM -0700, Changhuang Liang wrote:
-> Add pinctrl nodes for starfive JHB100 SoC. They contain
-> pinctrl_per0/pinctrl_per1/pinctrl_per2/pinctrl_per2pok/pinctrl_per3/
-> pinctrl_sys0/pinctrl_sys0h/pinctrl_sys1/pinctrl_sys2.
->=20
-> Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Fair enough.  There is enough complexity here that maybe a perf
+number would strengthen the argument.  I'm reasonably happy with
+that complexity anyway so this would be if anyone else pushed back.
 
-What did Lianfeng do? A signoff alone suggests something is incorrectly
-attributed here.
+> 
+> > Otherwise a few minor comments inline.  
+> 
+> ...
+> 
+> > > @@ -84,8 +107,18 @@ static int ad5686_spi_read(struct ad5686_state *st, u8 addr)
+> > >  				      AD5686_ADDR(addr));
+> > >  	st->data[1].d32 = cpu_to_be32(AD5686_CMD(AD5686_CMD_NOOP));
+> > >  
+> > > -	ret = spi_sync_transfer(spi, t, ARRAY_SIZE(t));
+> > > -	if (ret < 0)
+> > > +	xfer[0].tx_buf = &st->data[0].d8[1];
+> > > +	xfer[0].len = 3;
+> > > +	xfer[0].cs_change = 1;
+> > > +	xfer[1].tx_buf = &st->data[1].d8[1];
+> > > +	xfer[1].rx_buf = &st->data[2].d8[1];
+> > > +	xfer[1].len = 3;
+> > > +	xfer[1].cs_change = 0;
+> > > +
+> > > +	spi_message_init_with_transfers(&bus_data->msg, xfer, 2);  
+> > 
+> > Why not carry on using spi_sync_transfer() here?
+> > We'll end up with an spi message the stack but I suspect that's
+> > not a significant performance cost.  
+> 
+> True, it would be around 200 extra bytes in the stack, and read operations
+> would not happen concurrently with writes, so why not reuse resources
+> (message and transfer structs) that is now available in the bus data?
+> To me, it allows for consistency in this implementation. 
+> 
+Reusing transfers makes sense.  I was a little less clear on reusing the
+message because we can't then use the helper (which is all spi_sync_transfer()
+really is).  Not particularly important either way.
+> > > +
+> > > +	ret = spi_sync(spi, &bus_data->msg);
+> > > +	if (ret)
+> > >  		return ret;
+> > >  
+> > >  	return be32_to_cpu(st->data[2].d32);  
+> 
 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  .../boot/dts/starfive/jhb100-evb1-eth.dts     |  27 +++++
->  arch/riscv/boot/dts/starfive/jhb100-evb1.dtsi |   4 +
->  .../boot/dts/starfive/jhb100-pinctrl.dtsi     |  19 ++++
->  arch/riscv/boot/dts/starfive/jhb100.dtsi      | 107 ++++++++++++++++++
->  4 files changed, 157 insertions(+)
->  create mode 100644 arch/riscv/boot/dts/starfive/jhb100-pinctrl.dtsi
->=20
-> diff --git a/arch/riscv/boot/dts/starfive/jhb100-evb1-eth.dts b/arch/risc=
-v/boot/dts/starfive/jhb100-evb1-eth.dts
-> index 62cd046e1224..f7e82f9d0ff1 100644
-> --- a/arch/riscv/boot/dts/starfive/jhb100-evb1-eth.dts
-> +++ b/arch/riscv/boot/dts/starfive/jhb100-evb1-eth.dts
-> @@ -4,3 +4,30 @@
->   */
-> =20
->  #include "jhb100-evb1.dtsi"
-> +
-> +&pinctrl_per0 {
-> +	gpioe-i3c0-vref =3D <JHB100_PINVREF_3_3V>; /* VREF for GPIOB8-11, 32-33=
- */
-> +	gpioe-i3c1-vref =3D <JHB100_PINVREF_3_3V>; /* VREF for GPIOB12-15, 34-3=
-5 */
-> +	gpioe-i3c2-vref =3D <JHB100_PINVREF_3_3V>; /* VREF for GPIOB16-23 */
-> +	gpioe-i3c4-vref =3D <JHB100_PINVREF_3_3V>; /* VREF for GPIOB36-43 */
-> +};
-> +
-> +&pinctrl_per1 {
-> +	gpioe-spi-vref =3D <JHB100_PINVREF_3_3V>; /* VREF for GPIOC0-4 */
-> +	gpioe-qspi0-vref =3D <JHB100_PINVREF_3_3V>; /* VREF for GPIOC5-11 */
-> +	gpioe-qspi1-vref =3D <JHB100_PINVREF_3_3V>; /* VREF for GPIOC12-19 */
-> +	gpioe-qspi2-vref =3D <JHB100_PINVREF_3_3V>; /* VREF for GPIOC20-27 */
-> +};
-> +
-> +&pinctrl_per2 {
-> +	gpionw-vref =3D <JHB100_PINVREF_1_8V>; /* VREF for GPIOD19-30 */
-> +};
-> +
-> +&pinctrl_per3 {
-> +	gpios-vref =3D <JHB100_PINVREF_1_8V>; /* VREF for GPIOE0-10 */
-> +};
-> +
-> +&pinctrl_sys2 {
-> +	gpiow-vref =3D <JHB100_PINVREF_3_3V>; /* VREF for GPIOA36-39 */
-> +	gpiow-inner-vref =3D <JHB100_PINVREF_3_3V>; /* VREF for GPIOA40-43 */
-> +};
-> diff --git a/arch/riscv/boot/dts/starfive/jhb100-evb1.dtsi b/arch/riscv/b=
-oot/dts/starfive/jhb100-evb1.dtsi
-> index 462b6fb7953b..acd5949bcfdb 100644
-> --- a/arch/riscv/boot/dts/starfive/jhb100-evb1.dtsi
-> +++ b/arch/riscv/boot/dts/starfive/jhb100-evb1.dtsi
-> @@ -3,7 +3,9 @@
->   * Copyright (c) 2024-2026 StarFive Technology Co., Ltd.
->   */
-> =20
-> +#include "jhb100-pinfunc.h"
->  #include "jhb100.dtsi"
-> +#include "jhb100-pinctrl.dtsi"
-> =20
->  / {
->  	model =3D "StarFive JHB100 EVB-1";
-> @@ -29,4 +31,6 @@ memory@40000000 {
-> =20
->  &uart6 {
->  	status =3D "okay";
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&uart6_pins>;
->  };
-> diff --git a/arch/riscv/boot/dts/starfive/jhb100-pinctrl.dtsi b/arch/risc=
-v/boot/dts/starfive/jhb100-pinctrl.dtsi
-> new file mode 100644
-> index 000000000000..d12b79376521
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/starfive/jhb100-pinctrl.dtsi
-> @@ -0,0 +1,19 @@
-> +// SPDX-License-Identifier: GPL-2.0 OR MIT
-> +/*
-> + * Copyright (c) 2025-2026 StarFive Technology Co., Ltd.
-> + */
-> +
-> +&pinctrl_sys2 {
-> +	uart6_pins: uart6-grp {
-> +		uart6-tx-pins {
-> +			pinmux =3D <PINMUX(PADNUM_SYS2_GPIO_A38,
-> +					 FUNC_SYS2_UART6_TX)>;
-> +		};
-> +
-> +		uart6-rx-pins {
-> +			pinmux =3D <PINMUX(PADNUM_SYS2_GPIO_A39,
-> +					 FUNC_SYS2_UART6_RX)>;
-> +			input-enable;
-> +		};
-> +	};
-> +};
-
-Could we get some more examples, to exercise each pin controller?
-Is that impossible without adding more peripherals other than uart?
-
-Cheers,
-Conor.
-
-> diff --git a/arch/riscv/boot/dts/starfive/jhb100.dtsi b/arch/riscv/boot/d=
-ts/starfive/jhb100.dtsi
-> index 700d00f800bc..74d427d7f2df 100644
-> --- a/arch/riscv/boot/dts/starfive/jhb100.dtsi
-> +++ b/arch/riscv/boot/dts/starfive/jhb100.dtsi
-> @@ -425,6 +425,18 @@ per0crg: clock-controller@11a08000 {
->  				#reset-cells =3D <1>;
->  			};
-> =20
-> +			pinctrl_per0: pinctrl@11a0a000 {
-> +				compatible =3D "starfive,jhb100-per0-pinctrl";
-> +				reg =3D <0x0 0x11a0a000 0x0 0x1000>;
-> +				resets =3D <&per0crg JHB100_PER0RST_GPIO_IOMUX_PRESETN>;
-> +				interrupts =3D <60>;
-> +				interrupt-controller;
-> +				#interrupt-cells =3D <2>;
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				gpio-ranges =3D <&pinctrl_per0 0 0 60>;
-> +			};
-> +
->  			per1crg: clock-controller@11b40000 {
->  				compatible =3D "starfive,jhb100-per1crg";
->  				reg =3D <0x0 0x11b40000 0x0 0x1000>;
-> @@ -440,6 +452,18 @@ per1crg: clock-controller@11b40000 {
->  				#reset-cells =3D <1>;
->  			};
-> =20
-> +			pinctrl_per1: pinctrl@11b42000 {
-> +				compatible =3D "starfive,jhb100-per1-pinctrl";
-> +				reg =3D <0x0 0x11b42000 0x0 0x800>;
-> +				resets =3D <&per1crg JHB100_PER1RST_IOMUX_PRESETN>;
-> +				interrupts =3D <61>;
-> +				interrupt-controller;
-> +				#interrupt-cells =3D <2>;
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				gpio-ranges =3D <&pinctrl_per1 0 0 36>;
-> +			};
-> +
->  			per2crg: clock-controller@11bc0000 {
->  				compatible =3D "starfive,jhb100-per2crg";
->  				reg =3D <0x0 0x11bc0000 0x0 0x1000>;
-> @@ -461,6 +485,30 @@ per2crg: clock-controller@11bc0000 {
->  				#reset-cells =3D <1>;
->  			};
-> =20
-> +			pinctrl_per2: pinctrl@11bc2000 {
-> +				compatible =3D "starfive,jhb100-per2-pinctrl";
-> +				reg =3D <0x0 0x11bc2000 0x0 0x400>;
-> +				resets =3D <&per2crg JHB100_PER2RST_IOMUX_PRESETN>;
-> +				interrupts =3D <62>;
-> +				interrupt-controller;
-> +				#interrupt-cells =3D <2>;
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				gpio-ranges =3D <&pinctrl_per2 0 0 31>;
-> +			};
-> +
-> +			pinctrl_per2pok: pinctrl@11bc2400 {
-> +				compatible =3D "starfive,jhb100-per2pok-pinctrl";
-> +				reg =3D <0x0 0x11bc2400 0x0 0x400>;
-> +				resets =3D <&per2crg JHB100_PER2RST_POK_IOMUX_PRESETN>;
-> +				interrupts =3D <63>;
-> +				interrupt-controller;
-> +				#interrupt-cells =3D <2>;
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				gpio-ranges =3D <&pinctrl_per2pok 0 0 18>;
-> +			};
-> +
->  			per3crg: clock-controller@11c40000 {
->  				compatible =3D "starfive,jhb100-per3crg";
->  				reg =3D <0x0 0x11c40000 0x0 0x1000>;
-> @@ -480,6 +528,18 @@ per3crg: clock-controller@11c40000 {
->  				#reset-cells =3D <1>;
->  			};
-> =20
-> +			pinctrl_per3: pinctrl@11c42000 {
-> +				compatible =3D "starfive,jhb100-per3-pinctrl";
-> +				reg =3D <0x0 0x11c42000 0x0 0x1000>;
-> +				resets =3D <&per3crg JHB100_PER3RST_IOMUX_PRESETN>;
-> +				interrupts =3D <64>;
-> +				interrupt-controller;
-> +				#interrupt-cells =3D <2>;
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				gpio-ranges =3D <&pinctrl_per3 0 0 11>;
-> +			};
-> +
->  			sys0crg: clock-controller@13000000 {
->  				compatible =3D "starfive,jhb100-sys0crg";
->  				reg =3D <0x0 0x13000000 0x0 0x4000>;
-> @@ -513,6 +573,53 @@ sys2crg: clock-controller@13008000 {
->  				#clock-cells =3D <1>;
->  				#reset-cells =3D <1>;
->  			};
-> +
-> +			pinctrl_sys0: pinctrl@13080000 {
-> +				compatible =3D "starfive,jhb100-sys0-pinctrl";
-> +				reg =3D <0x0 0x13080000 0x0 0x800>;
-> +				resets =3D <&sys0crg JHB100_SYS0RST_SYS0_IOMUX_PRESETN>;
-> +				interrupts =3D <56>;
-> +				interrupt-controller;
-> +				#interrupt-cells =3D <2>;
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				gpio-ranges =3D <&pinctrl_sys0 0 0 4>;
-> +			};
-> +
-> +			pinctrl_sys0h: pinctrl@13080800 {
-> +				compatible =3D "starfive,jhb100-sys0h-pinctrl";
-> +				reg =3D <0x0 0x13080800 0x0 0x800>;
-> +				resets =3D <&sys0crg JHB100_SYS0RST_SYS0H_IOMUX_PRESETN>;
-> +				interrupts =3D <57>;
-> +				interrupt-controller;
-> +				#interrupt-cells =3D <2>;
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				gpio-ranges =3D <&pinctrl_sys0h 0 0 12>;
-> +			};
-> +
-> +			pinctrl_sys1: pinctrl@13081000 {
-> +				compatible =3D "starfive,jhb100-sys1-pinctrl";
-> +				reg =3D <0x0 0x13081000 0x0 0x1000>;
-> +				resets =3D <&sys1crg JHB100_SYS1RST_SYS1_IOMUX_PRESETN>;
-> +				interrupts =3D <58>;
-> +				interrupt-controller;
-> +				#interrupt-cells =3D <2>;
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				gpio-ranges =3D <&pinctrl_sys1 0 0 8>;
-> +			};
-> +
-> +			pinctrl_sys2: pinctrl@13082000 {
-> +				compatible =3D "starfive,jhb100-sys2-pinctrl";
-> +				reg =3D <0x0 0x13082000 0x0 0x1000>;
-> +				interrupts =3D <59>;
-> +				interrupt-controller;
-> +				#interrupt-cells =3D <2>;
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				gpio-ranges =3D <&pinctrl_sys2 0 0 37>;
-> +			};
->  		};
->  	};
->  };
-> --=20
-> 2.25.1
->=20
-
---DqhoXpfq+UgDU/hi
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeuiAAAKCRB4tDGHoIJi
-0rW5AP9ktwCVW5LRPVXVFklvVpQefHXwVkUhNzJjPS0ZMNA0LgEA9Imph0GBt+JF
-fE6HN543JjjqciJ8ylRkVmuxVwhtpgQ=
-=Y7fR
------END PGP SIGNATURE-----
-
---DqhoXpfq+UgDU/hi--
