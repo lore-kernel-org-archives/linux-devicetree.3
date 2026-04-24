@@ -1,187 +1,174 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011020.outbound.protection.outlook.com [40.107.208.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C612D2488
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 09:47:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777024074; cv=none; b=HwY8PIsfO5bZVMrcmbLQ39dlISaj+pENXX6qq2Q9ugMrB2FTNk45p7sckLfjWicfTlaQcEuJEQzG8aP+2JYYTB2b8PbnvNFIt7V8twocXWibmeJ56TKifvNvCnMaPCN8D2WzavpWOyRO8Ndl5bHyP0z0bXhzNUABbAhKYe7fZ8o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777024074; c=relaxed/simple;
-	bh=vaGTJ5tzUPJhD2ZETg3sJdRRIS4DbouAp3GQJsTd2MU=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=m7rgWxW7PaDsB0p6h6UD5AaDrzwuQ9aaNaPeaRtk65MBJePMsdqxn+kF4ipK5A0Rgzl3UQA8NCdarkcbr8cWdCuGEEh4czArFtW9jcq3cFddt2dFdhZWLQ8U1LJ801hDPFglu0T4AlZTanuaB9Iyt2ssQpPmXaGm+S//5nMbn40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=w1vKwBy9; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBF4C3009CB;
+	Fri, 24 Apr 2026 09:49:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777024173; cv=fail; b=k6MOnRAEoWgI4CCZHnsrvoJ4tqWkcqd1bZynwTGoLzsH5iIEscHnS5HGJMDz7WkilhQv3NqcKN92DrK4Fmb95TtscUoclwtRe7y+PhAWkGj2p47hKGklTHIh29lkKFo1wteRZwihrZ+je6aPE+t7Yl8aD+ZDGfSH2nhTrDmTSXc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777024173; c=relaxed/simple;
+	bh=mgDW3OszFvmj+ShexVkPK3w68uj5oEbSM+suaf0+6d4=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=rnpm9kWl7Fw4zUabcbM0VzZUqW2KYkt0a/rn9fSHmlB9wehuLs/5PsFsSTF9bYfjyHOLFIe9js0KH91H66sweLboI9cCMQouqPjh5a0IUIO5h1b49uiX7CsrsnLNsppNpS/KQ1wdKJqe1h+HSZyCUYkfrHfFMtL7TMcBDBCDFmM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=kP9uXE2G; arc=fail smtp.client-ip=40.107.208.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="w1vKwBy9"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4896c22fcbaso48064755e9.0
-        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 02:47:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777024071; x=1777628871; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=zyyE/r/iA1MwYNHXAS7P+Cj4G1v9/C9w7YzUp4f7iBc=;
-        b=w1vKwBy9PI6dxwYGmiTHQ5UEGFt/XcVA9NGEgQBsw6HcdBxRntX/2e44BaXr87aFee
-         ybK5Ourrfnw8PkQ4GfVHJY+VQ0opEELBdRfGLhW4s395C0zbc3FePNnaH/Qj0MMEGJ4/
-         T9phmbtanqGUHOfd71zowDJSo9sNSbbBek7HjPHQ285Gk13N6oHs6dzT6CVAGDNnwOuN
-         DV83OG6HVIPLNyvabfU173pjV+rRITw65IGvyBYrSJSVUDW9taTNpbF0hKaF+N96RIGW
-         ER/1OFg8+frjq1vbJ9DCvc966cxm/ENailAqnJj99HWWa+8Kc3MK+E7iYS3B3NyA1UhF
-         n2rQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777024071; x=1777628871;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=zyyE/r/iA1MwYNHXAS7P+Cj4G1v9/C9w7YzUp4f7iBc=;
-        b=Qasc4WNbT76/PS3Mbz2c//OQ6PIjp5zJvGsBQR9dIrQeptwDQfzarOp/V+dRGbg7K1
-         56HPL0XauZ4ah9bd8lBQwk/h2qoHRTfT5c1HbsPV7FuWvh6aWcNabzZrmUT8v/Jokc0r
-         8hfV7xr0Kr9uDyC4LyOGSE9H9p78EDQvlldAlybKsjqhMSsHpwgOgd3NgPY+dcpbCqYv
-         vWLAE+URuxyO3dZnFVRgDSCbBD6I6mEXs1lB/cDQzDyvtcfZP3/uP7vVgbdSouP8P+l8
-         VtmTbf6vBwRJnbh9TznGdSYy7YuiB1qn5ofMYpuSqcQEbtdNL2CO3dKJUfV5u7I3KQlj
-         UeEw==
-X-Forwarded-Encrypted: i=1; AFNElJ8qZi2yC32LqnLe9k8EXkhJBzDsTeNBa6AORQVu/HV+QtIOC3cl52BlHOOJSROh43/7sNqlGmxqil/g@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyt7+e+APirjqnJd7vGP1m0G98qn50WiE1G0fu+fBvykWg9Cft6
-	bcWxXi9+mrp8EBLoNMWAnNml/ruTBgzJTyz2WfIOi6xEzsYAjjx0+JUbPdAvYhwoUiE=
-X-Gm-Gg: AeBDietBfNuPlVLoKZTu2MKgVcMqJWoglsKKpcLD/s4KQ7vQP7ID6iVEpFbGhrDMrKo
-	E518A1qnrRzGB+LwqLj5Gg73KcP1JJadpRegvA4VBTk14A6AF5rH7MSaejTroa7lD4oJpcOKDRG
-	AJIU2nd/BrjPaz9XsyH4rpreqYto9r3WJ9852+puEMqzTo2N46ihHj07xOUuPsYLJxEqNuLdC7c
-	U+EBzzOktO2L5pu6wClemFz3RpAwgTwG/LeftCK51aQsqFxZ6ER8+X8Sg6a/Uaxda4k7JH/jGzu
-	lSVjzZMQm7qSw6zXwEMfgifCMNdFYgyFLzii3ujyRUl5RCJeAFiMfh7Dm75mOwwu4U9cRKzWxrh
-	NHouncteO3kO2EtAxllYxLm67EN7bBn6iB0xpSB0J76IDjtzsOzNfZYMHBgOc3XseVPppxa8PoD
-	C3aeA6MDMtY2gFz1DhId43l1llkiS0t9lFJ9SXvBMzGtx0HbaDzkcVyexOMS6faHdDU5FCkYdJ2
-	QzeuWiZYWy0et3hyg==
-X-Received: by 2002:a05:600c:c4a2:b0:488:c078:bfda with SMTP id 5b1f17b1804b1-488fb78eebdmr426779015e9.26.1777024070744;
-        Fri, 24 Apr 2026 02:47:50 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:79e1:f56b:445c:ca9c? ([2a01:e0a:106d:1080:79e1:f56b:445c:ca9c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fb75ab25sm179552435e9.11.2026.04.24.02.47.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 24 Apr 2026 02:47:50 -0700 (PDT)
-Message-ID: <fe284566-5a71-4b9e-940b-a36c58cb94a5@linaro.org>
-Date: Fri, 24 Apr 2026 11:47:49 +0200
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="kP9uXE2G"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZpPP0p+pvKc+GSNmZ10E1o0daOl96x4oHRZXSfeTOMJ0rTJ0qeRQ5saSTu7NItRlNaAyenl6taPDKIK3ZB/IfaoDWEsxD7hIwJP3e437f7dtDhnGYH1umTZtIZD7PSFPWrStUfccsTMKvZuIcpSh/RPgEstoVpqjrub5C9CFbQf1axpKX4qVsrylJG3UmUgk27uYJ72PYiOvr09CdUVaPYCfyZWUu3GhUU6CrStepYp8OFi1O3hv+C/fl84tq290190Z11XJlT9pcvg5FG5MlSrXNMbVnO/EKXda4msmLCHe8gkhwfxOA+OCxo9SaMjZrNbD93IW9P3IFBty5UhvbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k0reCs67zh0alHTML9PFnSvh7jMcANjWEKk6Q1YXgPY=;
+ b=DnHReahmlDFlCSIbhG9Y0JZlKDjG3P0xlaGVeIwnj1G5P87QhcFhBms0wEhnSrb5yeKNwq/NiJRo6ifGs1Neo0/dFgYLBkY8t7uxEH3XGyp2mds2+kTGn8zt0cCxAl1543Pv4vxhJd8npZWuvTmBBzjlKJBMMXK6YsCpj54brZgSk0hR/gOGCwk6ZKxTKroUBTwaPQaXw0eOoOzK96bsJzdCgtEpmExgMzvBzDQeD9x1H1AlNNwY1FEsA9v5amXbvVkfJdx9RqZW0KwTxHRUMFFoogS4ZXDRn78K2VfIB1O8z1+nnTRglhBZHOOQXxEV016VVeUGX1d5kBUIVFcRqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k0reCs67zh0alHTML9PFnSvh7jMcANjWEKk6Q1YXgPY=;
+ b=kP9uXE2G/ItDzDRxow6+Rxbm38VpOHAfWE8UAvCkiRg3HaABjc0DxD16iwNZ6tMVmiTfUS/KvF6Lgi2CgE7RqkrsXLu8NYZb65Y7DMr2dZrUpGF41yLVFrOrM/JI6kYTLpKJX0NdVq32fboKX6tNlP14IB6bLBTdB/qO2aR9QpP4rVW9yamQnP0li92GIpZVm39dq2CHvKcR/KlGwfC1V/qQjBpPeOkoDHQPLVcO3DpG1jmZ99IcLEn4T0zSas5y50uB31zJvQF5HINKl/7sOMIkkWx4V6wn25peznD/P8xQfx9k99XRhorzorcEJc0IuGoNtARF3JbWTUcntyJgrQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SA1PR03MB6498.namprd03.prod.outlook.com (2603:10b6:806:1c5::7)
+ by DM4PR03MB5982.namprd03.prod.outlook.com (2603:10b6:5:389::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.21; Fri, 24 Apr
+ 2026 09:49:29 +0000
+Received: from SA1PR03MB6498.namprd03.prod.outlook.com
+ ([fe80::feea:da58:faeb:9ebc]) by SA1PR03MB6498.namprd03.prod.outlook.com
+ ([fe80::feea:da58:faeb:9ebc%4]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
+ 09:49:28 +0000
+From: Mahesh Vaidya <mahesh.vaidya@altera.com>
+To: joyce.ooi@intel.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	robh@kernel.org,
+	bhelgaas@google.com,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	subhransu.sekhar.prusty@altera.com,
+	dinguyen@kernel.org,
+	Mahesh Vaidya <mahesh.vaidya@altera.com>
+Subject: [PATCH 0/3] PCI: altera: Add Agilex 5 PCIe Root Port support
+Date: Fri, 24 Apr 2026 02:49:10 -0700
+Message-Id: <20260424094913.522123-1-mahesh.vaidya@altera.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR02CA0014.apcprd02.prod.outlook.com
+ (2603:1096:4:194::19) To SA1PR03MB6498.namprd03.prod.outlook.com
+ (2603:10b6:806:1c5::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v4 3/8] firmware: meson: sm: Add thermal calibration SMC
- call
-To: linux-kernel-dev@aliel.fr, Guillaume La Roque <glaroque@baylibre.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260423-add-thermal-t7-vim4-v4-0-d4c1528d5044@aliel.fr>
- <20260423-add-thermal-t7-vim4-v4-3-d4c1528d5044@aliel.fr>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260423-add-thermal-t7-vim4-v4-3-d4c1528d5044@aliel.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR03MB6498:EE_|DM4PR03MB5982:EE_
+X-MS-Office365-Filtering-Correlation-Id: bbdff407-c34c-4226-d2bf-08dea1e6c6f0
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|1800799024|55112099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	048l80FESAfdXqz4PfeiJXaMha7AikCYLvHRiRVJsrQTziwQAl5DxCgyNik0EDqUNDIDIoFGlN1yY6DGVZdkVZ+qMfond0swFul78R6sRhRh7RWrWhK16EDAOV3WXeT6sjF1hCz+WQ3saQwJwyRfGkE8bmVaSAljQgAxiDq+V1CRV7c05wCNdLorE3ovljdcEji34INm6wZOn4VYmY1KrbskVHF1hjEpx20O0wf56oYPqjB+WaYz0gx03mweGEF243Wtu4B0eqmLP8SiQomBWKhaDVocBFr22hPx6Kmro6pq5zKil5/1sorvLe5gR3usp1xU2yGYbASg/WOlIMkBroImGeOn+8ekwDL55PBVcVjKRmtmfItF69rJ+MSVMqaO203l2qFMmkX7d6XLYopFPfprStcIHcK+T5isrz4DH9w2+c4vbQD0Szgo3RSM5dzr+S61/qohXNAdOWjiMClDwAvB4VXpoKBzGMIfev61tEHXmKU/fWmdTQGCoKzXbyvIIiKXt3/mD3kMMoNmDk0HTjYh9xlhCJ7D07Ppkj6wG410yLdmYzagOVQ8AkFEP4MnoIUeDIrSOvK3aNTcG04VC2LcWBuQDRnBymcyCF68KxZrSonC+Xi1aEH/6Z6ExV1kKsroxmdEMpWVtB6JGsh9ll753QxYAm09B7sZyabzRYfgc7YDnwmVnOUpgruoNV4atgKgS5sm2VEX7K2hGHlcZM0wzlhu2Q+1BqNbIFTq+iQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR03MB6498.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(55112099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?2izHpRqsLn4l3iDxcI1ghnfIN2pZ5wbfaYAu6FClMrT1K7SsUobKGB+/Lzkt?=
+ =?us-ascii?Q?lj9Wou5vTMWhMZFDN5527AOQDQ9QHMLMZ9rB1HhPRIacTbTR+NIE/zCTSVFi?=
+ =?us-ascii?Q?cxCpkZGDRC33yB/mCyM76xcpr2s1SpYWwLmedDOypnW3rku1j5xBKyhme/9z?=
+ =?us-ascii?Q?HCQLBNPg3zQ6g93Mf59orQ2kWr0agYu/JMc6x3M0nOXnafI9ilBj4T0HRwWX?=
+ =?us-ascii?Q?dtWfPHWj6Jv1p2qv0R6kUykFYIPIn46+mPuiNESkjeyDG9mj2vnA4s3hCV8f?=
+ =?us-ascii?Q?Qp/tbgoVISPod1fP98ck9MUMbjucK0iTtMVc0P70ptpZIC2R0J8NnFryqurG?=
+ =?us-ascii?Q?Tl9F4PfN9F3J1cSKY0i78hopsTUsCgdWxR++goLBbhkdq2t9Ye/fhkaxoGZJ?=
+ =?us-ascii?Q?TRsaVgvER0IMfZpFlY1wqBoBC1GmwpdSWRDmzzNBGOGF6lpzq6Nz+MYd7siM?=
+ =?us-ascii?Q?z7rI27SncGWiSko1afkh0cgL0ITMLUXhOJg9LI4RwIkmpLK19HKFm5vcIL1E?=
+ =?us-ascii?Q?FkrHSDGq2SnAYe/IAOCblchWdTyT7Pstar3pIznVPbWQeFCrE+8WpaLqHXgv?=
+ =?us-ascii?Q?Bg/+4P7Kzn4RXyvYdGa4zX022NX4xK0dN4tjy2hbnuGCBV+sVYzg+57PDAeo?=
+ =?us-ascii?Q?kU8wPr2WMGK4fsRLPyZENpdEnSM1ed0EZuWjrlnIAx1L+o7ntnGgLMD1eKC8?=
+ =?us-ascii?Q?3t6Ry3PsSuwacfAeh6gzxnnsBudfXNQQGUfFYP++QHMBiZuVH/Uo1AwLUTxd?=
+ =?us-ascii?Q?RGkGXUajHLU6OHgX5qOmURYRwVTLIpCrVD1TaFMolhQ0Ec1Sdm0czAX2pKMT?=
+ =?us-ascii?Q?1MPlbws69RR1qBpiAoxruWtn0hy7ljh2mGSD276kkwb2g6fWlH+QDmvQFW6F?=
+ =?us-ascii?Q?atg9p72kobk1L7QzUoyBR3IBnssmQm5nr1/J8qATRSN6ArDwh5h2UKXVisYO?=
+ =?us-ascii?Q?XbMPDPFA+UYgFnL9bJnJdbd1kRLLWH7/MgICDNBZd5y0qnID/wOtK1qPNsSR?=
+ =?us-ascii?Q?ow8wsfNyhi4WlDfJDcaHvgo/afnAVCWIPXvC41z9gCjSakjBKTrAy8Nsy4yt?=
+ =?us-ascii?Q?fg2xEortRxPaXyvAtxcVf7zQR+1jYkbj0iKbVogEW4DU8WLftiFfA9mKn8s0?=
+ =?us-ascii?Q?+B50WuandCbCz2ag8eqB02BZoq4Dw4ZCD3bwgGw1JV4pO+bBtr6yYxfWxueo?=
+ =?us-ascii?Q?BBYv1s1mgRYJTyh9YEmgkIiCt6dKtLTknREa+LJeZJ6kMnSPHkmg2XuUzv8J?=
+ =?us-ascii?Q?u1E5E5vaiC+qfPWKVOUJtQRWBQlvufTpUkc07n6opMe/LX2sFzMUY4ibs3QU?=
+ =?us-ascii?Q?iRg8PnYTIyOZ43e/J9qTL+k9bpjPBhvJ05raQWv65lOlju6Q4v5zkxcupOAr?=
+ =?us-ascii?Q?TrhDN4D1Ttr5rDdyyMiM0jHN/yDQsuBVHTe877WPSnF1nUyfop7QNnsN3MP2?=
+ =?us-ascii?Q?ijKLALIiDS6cvx89sS5F8lBR2BOkznLVtwnuyW2DdQVUkGimfx/0JJHEUcc5?=
+ =?us-ascii?Q?/x8p5kVx++3yMCx54Yaz8VvlOTHyXw6vTRj7JWqi/NwnejGqNeXhSijYNp4i?=
+ =?us-ascii?Q?bOQRTxY1MkRT75YYe1enePp/56g0AcqcSYqQxkB0Sjjl7vZfZ7pFZWf5rpOD?=
+ =?us-ascii?Q?Adc84WJZaKbKWzNttphXN4+wEe42QdX0MgOYiQW4AAXslJGQsfcMpeWECUou?=
+ =?us-ascii?Q?G/otfuiqXtgv96CpLb0HiW/AX0AYLUmd/JhtdIcz31Q1h8ui8Uzrro9lT2cE?=
+ =?us-ascii?Q?aW+kSCraFlI5HIwjRWEdsqQSgNdlC90=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bbdff407-c34c-4226-d2bf-08dea1e6c6f0
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR03MB6498.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 09:49:28.9076
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8nSqsVNF03/e5vN36vq8T574d8/KZwSpQwFPDr/x0hwvl7g9wDOWDVHKFzETc4I6LwGGKt1gCyBexfK+tB8uNBUn6nCm4XAasLuz+LZQWpc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB5982
 
-On 4/23/26 18:07, Ronald Claveau via B4 Relay wrote:
-> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> 
-> Add SM_THERMAL_CALIB_READ at SMC ID 0x82000047 in the command
-> table and implement meson_sm_get_thermal_calib(), which forwards the
-> tsensor_id argument to the secure monitor and returns the calibration data.
-> 
-> Also realign the CMD() column to improve readability.
-> 
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> ---
->   drivers/firmware/meson/meson_sm.c | 29 ++++++++++++++++++++++++-----
->   1 file changed, 24 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/firmware/meson/meson_sm.c b/drivers/firmware/meson/meson_sm.c
-> index 3ab67aaa9e5da..4e57986724212 100644
-> --- a/drivers/firmware/meson/meson_sm.c
-> +++ b/drivers/firmware/meson/meson_sm.c
-> @@ -41,12 +41,13 @@ static const struct meson_sm_chip gxbb_chip = {
->   	.cmd_shmem_in_base	= 0x82000020,
->   	.cmd_shmem_out_base	= 0x82000021,
->   	.cmd = {
-> -		CMD(SM_EFUSE_READ,	0x82000030),
-> -		CMD(SM_EFUSE_WRITE,	0x82000031),
-> +		CMD(SM_EFUSE_READ,		0x82000030),
-> +		CMD(SM_EFUSE_WRITE,		0x82000031),
->   		CMD(SM_EFUSE_USER_MAX,	0x82000033),
-> -		CMD(SM_GET_CHIP_ID,	0x82000044),
-> -		CMD(SM_A1_PWRC_SET,	0x82000093),
-> -		CMD(SM_A1_PWRC_GET,	0x82000095),
-> +		CMD(SM_GET_CHIP_ID,		0x82000044),
-> +		CMD(SM_THERMAL_CALIB_READ,	0x82000047),
-> +		CMD(SM_A1_PWRC_SET,		0x82000093),
-> +		CMD(SM_A1_PWRC_GET,		0x82000095),
->   		{ /* sentinel */ },
->   	},
->   };
-> @@ -245,6 +246,24 @@ struct meson_sm_firmware *meson_sm_get(struct device_node *sm_node)
->   }
->   EXPORT_SYMBOL_GPL(meson_sm_get);
->   
-> +/**
-> + *
-> + * meson_sm_get_thermal_calib - Read thermal sensor calibration data.
-> + * @fw:		Pointer to secure-monitor firmware.
-> + * @trim_info:	Pointer to store the returned calibration data.
-> + * @tsensor_id:	Sensor index to identify which sensor's calibration data
-> + *		to retrieve
-> + *
-> + * Return: 0 on success, negative error code on failure.
-> + */
-> +int meson_sm_get_thermal_calib(struct meson_sm_firmware *fw, u32 *trim_info,
-> +			       u32 tsensor_id)
-> +{
-> +	return meson_sm_call(fw, SM_THERMAL_CALIB_READ, trim_info, tsensor_id,
-> +			     0, 0, 0, 0);
-> +}
-> +EXPORT_SYMBOL_GPL(meson_sm_get_thermal_calib);
-> +
->   #define SM_CHIP_ID_LENGTH	119
->   #define SM_CHIP_ID_OFFSET	4
->   #define SM_CHIP_ID_SIZE		12
-> 
+This series adds PCIe Root Port controller support for the Intel
+Agilex 5 family of SoC FPGAs to the existing pcie-altera driver.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+The Agilex 5 PCIe Hard IP reuses the same config-space access path
+as Agilex 7 (V3). Root port and endpoint configuration reads/writes
+use direct MMIO to the HIP and CRA regions.
 
-Thanks,
-Neil
+The difference is in the HIP port-level registers (IRQ status and IRQ
+enable). On V3 these are directly mapped through the Hip MMIO window.
+On V4 these registers are only reachable through an indirect access
+mailbox (CFG REG IA CTRL) in the PCIe Subsystem AXI-Lite interface,
+documented in the GTS AXI Streaming IP for PCIe User Guide.
+
+The indirect access sequence writes the target address and control
+bits to the mailbox registers, polls for completion, then reads the
+result. Since the chained IRQ handler runs in hardirq context,
+readl_poll_timeout_atomic is used with a 1ms timeout.
+
+Tested on an Agilex 5 E-series Premium Development Kit with an
+NVMe endpoint. Verified:
+  - PCIe link-up at the expected width and speed
+  - NVMe endpoint enumeration and binding to the nvme driver
+  - NVMe read/write I/O via fio with no errors or timeouts
+  - MSI interrupt delivery observed via /proc/interrupts during I/O
+
+Patch 1 adds the DT binding compatible string for Agilex 5.
+Patch 2 fixes pre-existing resource leaks in the probe error path,
+        which the Agilex 5 support patch depends on.
+Patch 3 adds the V4 driver support: indirect register access helpers,
+        the chained IRQ handler, and the platform data.
+
+Mahesh Vaidya (3):
+  dt-bindings: PCI: altera: add binding for Agilex 5
+  PCI: altera: fix resource leaks on probe failure
+  PCI: altera: add Agilex 5 support
+
+ .../bindings/pci/altr,pcie-root-port.yaml     |  37 ++--
+ drivers/pci/controller/pcie-altera.c          | 173 +++++++++++++++++-
+ 2 files changed, 190 insertions(+), 20 deletions(-)
+
+
+base-commit: 4224e91fea5695a89843b4c38283016616946307
+-- 
+2.34.1
+
