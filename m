@@ -1,162 +1,139 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B0730DD00
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 11:23:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E63F38425D
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 11:28:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777029831; cv=none; b=qvRm3RUAJdqFQ0UwOYrWolB27AvmhPLGvc+Vx7zNwTLw8qBpniKf4R2NzfhCxDwKIgo2ypQwXztnvSfqzhM+tlYqaW6fyNhwfMlQKirugSGGxI7LzmZRkiEzGgQQduxPsdAsF2dCRdl0/isXW3S2/wlWPY5QH2a8yJK84/lARkQ=
+	t=1777030101; cv=none; b=PrShOb4ZT62t1q47WXCc/exmC/ivbedRI+e4eD8cuPWHkxf1WC9Q/r685HEaIP9cIufe3okq3KuC4ixktXG32j8f3JsNuO0j4xyJaHhUWvYjGlii45pj1LNxDcC97Fy0LrV4WL8WgujNYjz1An7i0upgID7qKanIakUfY7re05U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777029831; c=relaxed/simple;
-	bh=CRAdYzX9+jNsTYs4h8ctNWZTdaCBBbrpEXxcu4w9zCQ=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=GoAPLrys1r/EM7KolvZZx96+tGQ7BKjGzEZCs4buWkdyTzVP3OvkdIArrNpwOc7VO12852ELN1AQ+oys0tq5bAlEP3tj+Cfk65dXp/5YV5ZDMDpUjn2ouYKcRbCcjceCJXvGFb9FBCw1VNa3z6g/S8P29sug94fUFZOYnKDF190=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hobNOn+j; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1777030101; c=relaxed/simple;
+	bh=NrNB0Z4JheJ9/gWbOMPohCnZWZtAqhLPKDbrHylRWo0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=d9zMVcgeKd0itvyfG+Ymb33Ch6yv7CcjMz6vWKvO6CQn8OE/rrwVt9IaY82hILaQCYE4T/PYhFvYP3hSri9Ocs1gDu/e8iXFu+vzPRd/XtjSL+2NK4lNomuCZXK20230okAnIYwo5Q0378OX7KrG/OTet5JK3tW0Lj0vkQnW6pM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hobNOn+j"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-43d76dd4ee8so7010001f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 04:23:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777029828; x=1777634628; darn=vger.kernel.org;
-        h=to:references:message-id:cc:date:in-reply-to:from:subject
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=+t+DJdjmBiSqlx1/PpjPe0tKhCBDYlA3fqYW1n4w00o=;
-        b=hobNOn+jNnkILFM0B2lWuWoYhwhZrFxY9Geg77nhWKIxfnXfF8/kdCXUqF3IAH6N85
-         +MnXX+X/ryx3Bsb6GDGsnU+E7gsrj0IJK8lZwR8RlhREjSRMJ/+Qt3zcDdkIFIWaTjFD
-         2KBPkIHZyxjw8xEjD+3KFJm4otmxlu+Dn1hPLmAPSw7NNGBzdT7P3K0buEHgORui9RC5
-         fBO+PBMgPIhhQCJ8Yay1I9UptXXghC2VGHRzgaS9ncV7xSj+i+cSKniM8nvvEqnLqnDp
-         CxNPHUOaxAc63WJRXFxdlW/xuJ9/fDR33uXVXIiqCTPauSSSLmEoEGo/B+t28aL6Yc5r
-         zAaQ==
+Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-56f660d9a51so4961762e0c.2
+        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 04:28:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777029828; x=1777634628;
-        h=to:references:message-id:cc:date:in-reply-to:from:subject
+        d=1e100.net; s=20251104; t=1777030099; x=1777634899;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+t+DJdjmBiSqlx1/PpjPe0tKhCBDYlA3fqYW1n4w00o=;
-        b=gs/LbntujE9tFF/33MHO8rZyAQ6XsoTUjpJf7YNUHJubi642Y2J8o+JYw/KXqECbNa
-         ZPUiims5uGs3ZzuC+RFzfLkEet5K9XCGMk4eA1MwUfjCgEmBsvsnX7jkbroDqo5TNO3J
-         0fFgrh1w9FYAfbJfgXoNjg+iGAs0ctHjq2OFUMgpjb9aR7RdmOyyTifXTWd8NsdhO13U
-         /xe6EKHZyNZKVEfIkm7Vdo2rmhwQCfHWCYEAehjgNgdstikgeXcxUM6GMDmTM1ktt8JV
-         D9O409DX1SgWTiA9nVMUUoGnqiczSsstUffQbp6to9CTmM9g2iCFFVKRsF35+SkH/fXl
-         CW9g==
-X-Forwarded-Encrypted: i=1; AFNElJ+rsgiz6jKEZXJ8pYg9eufyMTSAO2nHGQbRzniCUJYs+RiQhwcgKqpbJ46iGDUX9zKOFMSxtmwHO6jf@vger.kernel.org
-X-Gm-Message-State: AOJu0YzLb8t7XAx8oxThltuj28Oo0FmdsJfO0IWzpPm1KUfxQhY+v1gZ
-	h9kXzsWhD7rt342Ntuli5/jMzkOwTq4q47BGithta4ZSSuhMl+DOX5wt
-X-Gm-Gg: AeBDieuo2H8jGBw60zHDsLN62e+2P7nUxk/WJV0dMoyR+1TdfkGLpeD4gSrS97FeOg6
-	1CNuJ39k05aOzhcnE1fFFngJO+2qoN+BJhTBK9x9gDnBGYtvaBIG4ohqBs5RafCQW0HbuFuJn+Y
-	sf1xZEjIz3hL2xgKQGYvCfjnj/TvznNH1I2vwssZKnsohGTWxD3X+GEzDaktUOXjk4OozyhVMdZ
-	z4XOdtx2eX7S2PXTCNcMcK2BaJ1w9n980ARDc4USAbCeSMtt9juDsbTeGsA10DBUBx8ijMR2GwV
-	jJwpB3sAxhSMA55YSZg1OavQV78Nl+ju9FmjN5AiuxAF/xYKv73/okxxNVM6hEAM89DgMkpml5P
-	YmQQpLLoDtC81VrIbVqmX9ckXSw4hnfbFN936mKjfyD6JtJnSiaA9tVynazI46Y0rkD3/w2vvY4
-	gRlPapuizwzLVgamNO7OxE6of7kJppsvgegDev5a5H6Ocy
-X-Received: by 2002:a05:6000:240e:b0:439:ae2a:755e with SMTP id ffacd0b85a97d-43fe3e0b606mr48159269f8f.23.1777029828055;
-        Fri, 24 Apr 2026 04:23:48 -0700 (PDT)
-Received: from smtpclient.apple ([197.250.51.46])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4cb1365sm63645843f8f.7.2026.04.24.04.23.43
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 24 Apr 2026 04:23:47 -0700 (PDT)
-Content-Type: multipart/signed;
-	boundary="Apple-Mail=_EE2E18C8-0A52-4302-9DA1-BBDF2F1ACD26";
-	protocol="application/pgp-signature";
-	micalg=pgp-sha256
+        bh=eTjTO3Vp0zB9Wc0GJptJYSFqlnWOG96HJNT3Sm1YIxY=;
+        b=WkdnT7d8eZrOuMAYDhLrqBk/DOVROWkpqDoMYL89srDFjmpqSGxdEaswgWByVVDpTK
+         4X8IpUK8ncIWw8qczlwCvQAEQGj3/WkEQH+jda4BNB4kvbq7wNNle0g+jqaCm5j+RIZz
+         SN2wb5EM6PCpUuiPZv+eS75m7JJe2ya7b8yuozUNclN6+wv0tYuY7c9MVnDlsh37KVy8
+         sovuLwSf6MNZXtklnlm2wha6ysxzmdE2f7+qrx7TvaOnT6ghgiKxjE8WP1pDkrz3HpEY
+         XTqlJ3Qsfhxb+659Vl4kSimz4qUvWKYgGta3azhpgV2Nl4608njseq9PR5GzzYmdy6nS
+         9YQw==
+X-Forwarded-Encrypted: i=1; AFNElJ/AiI0hK88QNKgF/Ifujc/5qSXARoeAdntnyw6CivEI/TioqDpK13x5ouT71/50twPdSI4J/5ga5sLC@vger.kernel.org
+X-Gm-Message-State: AOJu0YwkaQgEf26E6Qb39Hrfz6fu3yr7/D9GCNzGvWnuEnCsq27soe89
+	hyCU1j7BWYQOHwPYP0ZmOqmOWZQdfy+/8BudPigfZedLZeZIbPlXieulj4kP88xzIkk=
+X-Gm-Gg: AeBDietZNHXrak70FVYGA81bCcXxtaWMPy9LnqkprCkxzeNmthftp1N+rXWUk2Na4UB
+	x8qDyl0bo9DLXBOcs5ljh3Wj84Hy2pad63ugRWtQZguhObUuLKnVHx7xtEaK8K7Yx18XK8krG5N
+	9KxrXZhEyQjKahBy4dEJOhx4OVfmB8wRJjQNqRU2Vh5ceysyRqDTu991SbbvwJRDgKtmnjxKKud
+	N2681zAsqaOuJ/z3gzMU0vuf6/HKVU3AkusH+X0Krp6EeH2NOz1FbYvgT3oNYGe1fph1g3qZ5Jm
+	l+dEGKV9sbtpiPnnjg3JSHw5e5NnHHfbB5jTpTBHZEPAZx1C2jsmlp7rPX6ndZ/46oAOG4FVPts
+	jZyF+WbppBoRbcRa7kcR78c9FPZqF3BV45zvtORIq0myUJoJxn4Ohro3xItprdm8rWwZRsce25D
+	c9rZzcAWit4L3HKhZMwbthcbkJh/q7ZE7HGtLqb4F+T3RyltJaw4rml1UVg9C7m1gp+6azjvE=
+X-Received: by 2002:a05:6122:2888:b0:56d:439d:d055 with SMTP id 71dfb90a1353d-56fa585ecf0mr17605648e0c.4.1777030099534;
+        Fri, 24 Apr 2026 04:28:19 -0700 (PDT)
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com. [209.85.217.49])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56fa93253aesm13114846e0c.14.2026.04.24.04.28.19
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 24 Apr 2026 04:28:19 -0700 (PDT)
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-605a3cff8d0so4654219137.3
+        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 04:28:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/Iz4dJYTEJZdPfRdQob7r9uaMDA2/pQIUvt7ueBzEQa/X9sbArQfhIE8amDsQIFf1OfTw6U2J3rLHd@vger.kernel.org
+X-Received: by 2002:a05:6102:292a:b0:60a:cd0e:5cee with SMTP id
+ ada2fe7eead31-616f4f84fdamr16386481137.12.1777030099174; Fri, 24 Apr 2026
+ 04:28:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.500.181\))
-Subject: Re: [PATCH v5 1/8] ARM: zte: Add zx297520v3 platform support
-From: =?utf-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-In-Reply-To: <CAD++jL=am0f+sgBSFYQCdcFOvFWgPETn_pSgVdzETJ3_yUNqgw@mail.gmail.com>
-Date: Fri, 24 Apr 2026 14:23:29 +0300
-Cc: Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Russell King <linux@armlinux.org.uk>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Drew Fustini <fustini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
- linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org,
- soc@lists.linux.dev,
- linux-serial@vger.kernel.org
-Message-Id: <BF5EABA2-3168-48A2-AE2D-D8EE2CF88E9F@gmail.com>
-References: <20260421-send-v5-0-ace038e63515@gmail.com>
- <20260421-send-v5-1-ace038e63515@gmail.com>
- <CAD++jL=am0f+sgBSFYQCdcFOvFWgPETn_pSgVdzETJ3_yUNqgw@mail.gmail.com>
-To: Linus Walleij <linusw@kernel.org>
-X-Mailer: Apple Mail (2.3864.500.181)
+MIME-Version: 1.0
+References: <cover.1776793163.git.geert+renesas@glider.be> <7hcxzqr4qi.fsf@baylibre.com>
+In-Reply-To: <7hcxzqr4qi.fsf@baylibre.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 24 Apr 2026 13:28:06 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdU=3AN8wHbnO2Cx4WsLuYWhv_fRfTA50fmrqyREO3nrbQ@mail.gmail.com>
+X-Gm-Features: AQROBzBE70P7irgYnQUYx63AIUadZqGfMGlPrac0wi4EECHihh00jV8ht_DYoMI
+Message-ID: <CAMuHMdU=3AN8wHbnO2Cx4WsLuYWhv_fRfTA50fmrqyREO3nrbQ@mail.gmail.com>
+Subject: Re: [PATCH/RFC 00/14] R-Car X5H Ironhide SCMI CPG/MDLC remapping
+To: Kevin Hilman <khilman@baylibre.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Ulf Hansson <ulfh@kernel.org>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, arm-scmi@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Kevin,
 
---Apple-Mail=_EE2E18C8-0A52-4302-9DA1-BBDF2F1ACD26
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
+On Thu, 23 Apr 2026 at 00:48, Kevin Hilman <khilman@baylibre.com> wrote:
+> Geert Uytterhoeven <geert+renesas@glider.be> writes:
+> > TL;DR:
+> >
+> >     Describe hardware in DT, and perform the mapping to SCMI in Linux.
+> >
+> > The Renesas R-Car X5H-based Ironhide board is the first Renesas
+> > SoC/board combination that implements the ARM System Control and
+> > Management Interface (SCMI).
+> >
+> > This means Linux can no longer perform various system operations (e.g.
+> > clock, power domain, and reset control) by accessing the hardware
+> > directly.  Instead, these operations are abstracted according to various
+> > SCMI sub-protocols, and Linux has to send messages to an SCMI-compliant
+> > firmware running on a System Control Processor (SCP).
+> > More specifically, the R-Car X5H SCP FW SCMI controls access to:
+> >   1. Core clocks and module clocks,
+> >   2. Module resets,
+> >   3. Power domains,
+>
+> I'm very curious how power domain hierarchy is described on this SoC,
+> because one more issue to add to your list is that hierarchy cannot be
+> described for power domains in SCMI.
 
+So far I had no need for such a description. AFAIK, this is handled
+inside the SCMI firmware, which does know the hierarchy.  Hence the
+firmware can power up a domain when any of its children is powered up,
+and power it down when the last of its children is powered down?
 
+I think the clue lies in having a PSCI top-level domain, cfr. what
+you wrote in [1]:
 
-> Am 24.04.2026 um 10:06 schrieb Linus Walleij <linusw@kernel.org>:
->=20
-> On Tue, Apr 21, 2026 at 10:24=E2=80=AFPM Stefan D=C3=B6singer
-> <stefandoesinger@gmail.com> wrote:
->=20
->> This SoC is used in low end LTE-to-WiFi routers, for example some =
-D-Link
->> DWR 932 revisions, ZTE K10, ZLT S10 4G, but also models that are =
-branded
->> and sold by ISPs themselves. They are widespread in Africa, China,
->> Russia and Eastern Europe.
->>=20
->> This SoC is a relative of the zx296702 and zx296718 that had some
->> upstream support until commit 89d4f98ae90d ("ARM: remove zte zx
->> platform"). My eventual goal is to enable OpenWRT to run on these
->> devices.
->>=20
->> Signed-off-by: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
->=20
-> Didn't I review this already? I don't remember, anyway:
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
+   "But... how do I describe the relationship of this hierarchy? In
+    particular, when the SCMI-controlled PDs are actually subdomains of a
+    top-level, non-SCMI PD."
 
-Yes, you did, but the previous version, and after I sent this one.
+Or am I missing something?
 
-And if I understand the b4 docs correctly, the Reviewed-by tags are sort =
-of handled client side: I have to tell b4 to fetch trailers, and then it =
-will add it when I send my v6 with Krzysztof's request to squash =
-patches.
+So far I have used only a few devices on R-Car X5H, and e.g. the
+serial ports are in the always-on domain.  I did experiment with
+a dummy UFS driver, as UFS is inside a real power domain, and that
+seemed to work fine.
 
+[1] https://lore.kernel.org/arm-scmi/7hecy3h7ky.fsf@baylibre.com/
 
---Apple-Mail=_EE2E18C8-0A52-4302-9DA1-BBDF2F1ACD26
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename=signature.asc
-Content-Type: application/pgp-signature;
-	name=signature.asc
-Content-Description: Message signed with OpenPGP
+Gr{oetje,eeting}s,
 
------BEGIN PGP SIGNATURE-----
+                        Geert
 
-iQIzBAEBCAAdFiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmnrUrEACgkQPRO8yFRP
-GiKRrQ//d0i3JtN4eqnwGJS0KDoAetBNQXiNUwHJGszPaUlMzi1beDOdsTFk7Who
-t8GNv9VvwjuR7Agxy+B9vNltnZanU6djJKQhm1+Qd7AvlC86ueKD2tGZUxpmuipl
-37Poxi+E1zUTG68RTaJz1p0utLhaZkiCjVJzmTQgJJq3mAfYp8ycFI29IgdGHJCN
-612a3nSFm1l6vz8a+qSX9kQG1UnTYQjsavu1ACxQp9Kk1Xga1G+atLgfXTTY3Aav
-LjzHpAl+B0szQ84Zb05ZpJ1jiZYnMrDrIlNu1hv9/PTddXHyL2ISI+0um5OCvJ6n
-61iXnVpyJlrscV1Iqs23VwxKx+y3rnV1JIlf/j4n1nwkJ5LQLxRWuYUpmK71uwKt
-8WtiK3AD9VxnQvfVtAn2ltUaCLeeE+pZpSwnOvI31AOrwwZQ3ckSqkYRYVwnxVZZ
-hkYMk1IfqjRPdMgMjyAqKEPZ5hOqYC5eqd68uM0HAXpYnUT/FNxGw/+sV7oX3qyY
-eVho0WqhoeBEAezLTQ+GeCNlLirDpHwT2Y8NHYxSTlIQuwhwClwRPjdXCyS9adcF
-eCz32rEZFS75z0LG701LB+MlMhblYEkGiAm3DEsFo4778ft7kfWC5N3GJLbu31SX
-1/xC0sqkBY5zF5gvLXwtw0kEniW7PzEgc3oc2N3T37x4mk/WGfo=
-=+4QJ
------END PGP SIGNATURE-----
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
---Apple-Mail=_EE2E18C8-0A52-4302-9DA1-BBDF2F1ACD26--
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
