@@ -1,131 +1,186 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAE7A30E853
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 08:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 07E64357A3E;
+	Fri, 24 Apr 2026 08:08:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777017783; cv=none; b=GlsoIg90gSpdZ3YAhEaKm2DoVClZ56KpqOWI55oEOTJHEHfKS5dpgXvn83iZev/quAcPDnJ0AMzYshNuKCb5/P1Z3iEIgrTjJJPq3d64t7HjP5bla/Ifd+CIgWIvBK+WNxjEr2G8q80hB3yh75VEeOKeMmQXgEtM/BP+EBnsnLQ=
+	t=1777018119; cv=none; b=j6y7UqmURo4wSMLnde3QF3LLk4dz6C3AUXuXf+kfCZArqCLT/HzYsyX26ZtFBvWwkD8+m+C/VyO56PLQA9GUNjnyt9YH3HShoj+PoJE1jeZHh+30G0ssgYA9ebfnbGvNK3H7rrOrVO+M+j49wAM7KIKgFXafKLNy7WHYJynJ4SU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777017783; c=relaxed/simple;
-	bh=Hj1tOHvncsJQ+78/m2uGWzzPNp6G6CHf+6pvVXpzTcg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fjy2na3d9wscMYAPyazhDhoSuljCN1FRoGpxy+IyP9722boa/zezQR9t13/1Yi4FT3nDZLTsnKAOmSqCI+3jz9hxxS/lOkJ6mviN+fZrNUyPeAwcR12/SwFvz2N9ho5VSh+3fZvQ612dW0ILp5UiSn4Bqpq2UZwDKmigQXiYG1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NjIpbkR7; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777018119; c=relaxed/simple;
+	bh=2TaKfA1MO3gCCHPa6GQ5SKhvOw5Nx4IuQUaFMqsRiB4=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=Q2bki0Dnf2LbSP5rgd/zCbjBBPtBKqwalrqAzFQfI4vfPvkaTt5lOkHtiEtXR3N1WhBKWN7IarUW3v2eng6eeEtFOZ6bOaIV/IEuEH3iGa3NqRBEMxeT/kdTgTJRmJzUY4GhOTvAatLpFxQ8cehiUa7mLcrcErOti4Sx2qhAkNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=nRF8tvkV; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NjIpbkR7"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4852b81c73aso62329095e9.3
-        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 01:03:00 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="nRF8tvkV"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777017779; x=1777622579; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Itef6o5U+8hhDJZnzY0W0DUQufh1131w2DOWcXoqxCE=;
-        b=NjIpbkR7tt9BS/Uj3eRrp2RnlbW6toliQsFDAOaFhI1Hu9CjpROKHavE1MnzsSavXo
-         3bILRojtAHSNpnvdxBgTarU1383dF2CgDJ9qNG3VRti+zSzGac97/lUC6FMVm8Y45iOg
-         lnrnaNHZ2//R3+tSnDogDDqIeOFtX9LF6KVELfwux1fa+wZ2MMhx2/Ip8jZnG9TgqJvh
-         5dAuD9Az8N9WUFv4/f3dcLr9n0nTM8tsABBd3pUU8OYXeP7wwS4uZ38xnmVvdqKaot9V
-         5B/J/Tl+S1J22ZdxNprUOhSpw3UgK8M4x6qCZJwLqEgsBKrBYc+M/oe4+stt1OQ8zx22
-         jREA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777017779; x=1777622579;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Itef6o5U+8hhDJZnzY0W0DUQufh1131w2DOWcXoqxCE=;
-        b=pS87wsFXoUqUFjkmpGwb6Pktx7wNxdxRf97dtPwAzcaIk6y2jALIl9vOB672Ke2/ti
-         xjOYck1NQtLeAOVUk3IFgUsAQPGRD+Cf9S8DVYyVhtyZCP24bVpoSC6enSOej68ZNcdC
-         4bduCOkIvc4B47jomw0nKVZ8ed//Nk1qTkEvNoROVj26H5hgMm/sHM8IsOEAW2Yka79c
-         tuWhsuMczfCGMfWShXz99vbmgzBkAxPKRsDOoqrY5ek4GXd87lW0bpL580HfetpDL4v0
-         eMESsrRTiZ2rC6cLBViPsqT0pPeqSjBMsUniJeproTr5tGL4DmLQNY1vjSNoQ97Nwbzf
-         ZY4g==
-X-Forwarded-Encrypted: i=1; AFNElJ82JkIY6pXv8dsXnB6mNR+XRXpznrmbn4GGYFBCUfZTbFelYUXBw11YaTMg0rIT86I1XDEjWGzJRAWw@vger.kernel.org
-X-Gm-Message-State: AOJu0YxJTmSkMRfti3JDGGmwJOZzOU+nd7I2DH2KDlopD3wT/YsYJ2fY
-	UwgnSDm7ocxnMZa8e8u0YbaB4S4NZCzKRh4xMRVI89M2r2bPfJidaaCj
-X-Gm-Gg: AeBDietKrVpX6ssj0eq8CISwxAehUKVdCcTVxBHH8CF6QJ+4sCeyusMJuzg3xSyH9n3
-	d3ryfmjUXjEszFdFNwYpZ3X4eXDk18VusOOLpshaBnyDPu6a8fc5J4MuZkKklAJLsdKq/4J2eVB
-	XZHBZ+wzDdtIg03qWBK515oAisHk3kBCHgICqcxv9TJ40JHhFw5zs6diQZaJ3r8nVg+NKAxYRts
-	W4XVT+bc8Zrnw4q701zwqGELVvZ/GpoYNtS3ZTV7pboBIf4BJQQ/Zpsp6AqO+/5zxBZTugL8i5O
-	zV+YDBhS1+VOZ0bQSVCnjkAiC183C7jfN1/HyIw53Id5I6aNUPVnPslGv7091qHk353/qXLNZI/
-	4F7fFNDyimjIuCBXmL4SD+H9umX6tbrSwrUTgQd2ViSHj/tYoYPOXQDjwlBhr5KJr4oRoy4toju
-	taSJiKYt8SK4qM7hMzwznehsI=
-X-Received: by 2002:a05:600c:3110:b0:487:243f:dc3e with SMTP id 5b1f17b1804b1-488fb739cf6mr445107995e9.6.1777017779044;
-        Fri, 24 Apr 2026 01:02:59 -0700 (PDT)
-Received: from nsa ([185.128.9.42])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e4d5b1sm62272531f8f.30.2026.04.24.01.02.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Apr 2026 01:02:58 -0700 (PDT)
-Date: Fri, 24 Apr 2026 09:03:49 +0100
-From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, 
-	rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Michael Auchter <michael.auchter@ni.com>, 
-	linux-hardening@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Subject: Re: [PATCH 13/22] iio: dac: ad5686: fix input raw value check
-Message-ID: <aesjWjs1i6rd1HaB@nsa>
-References: <20260422-ad5313r-iio-support-v1-0-ed7dca001d1b@analog.com>
- <20260422-ad5313r-iio-support-v1-13-ed7dca001d1b@analog.com>
- <20260423190302.338ecdbe@jic23-huawei>
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=eTJGPHVC+FHEwbvDrrf6WzRnGbVhSBhMK
+	KfoizHRA4g=; b=nRF8tvkVgIBhni7R7TB0byk3ixZnyLuhUb4oZqDsYaste+bWm
+	2F2LhmtTRMyy/NwKD3TezMwgsKijDmXULScjMsK2ZdH9MJSrdN1gGULovCprVUrN
+	8jtE56/Ims7IDktux+CTt6rNOmQUJm2JDE0HB/QUVV4XNlnd+1U+IhIrms=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwA3cUISJetpHssCAA--.1691S2;
+	Fri, 24 Apr 2026 16:08:50 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260423190302.338ecdbe@jic23-huawei>
+Subject: Re: [PATCH v3 3/3] PCI: ultrarisc: Add UltraRISC DP1000 PCIe Root
+ Complex driver
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Jia Wang <wangjia@ultrarisc.com>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Jingoo Han <jingoohan1@gmail.com>, 
+ Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-riscv@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
+ devicetree@vger.kernel.org
+In-Reply-To: <yqxyjv2q4lp5ymb6mjzpldjp2folqsvu4qneaihapbchrcithl@tcj4gu3ez3wh>
+References: <20260415-ultrarisc-pcie-v3-0-73f06e972616@ultrarisc.com>
+ <20260415-ultrarisc-pcie-v3-3-73f06e972616@ultrarisc.com>
+ <7n5b44ynbem2xve3twofaqunqlkw4aijatuuemujrfq5yd5mzq@5qnikt7ximd3>
+ <177693928812.2917474.4251479012132866533.b4-reply@b4>
+ <yqxyjv2q4lp5ymb6mjzpldjp2folqsvu4qneaihapbchrcithl@tcj4gu3ez3wh>
+Date: Fri, 24 Apr 2026 16:08:06 +0800
+Message-Id: <177701808603.4074358.3746548668378362054.b4-reply@b4>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777018086; l=3701;
+ i=wangjia@ultrarisc.com; s=20260309; h=from:subject:message-id;
+ bh=2TaKfA1MO3gCCHPa6GQ5SKhvOw5Nx4IuQUaFMqsRiB4=;
+ b=I/9P90g2nhfwDMBKNn12m4VK/5/jAxo0LqnT2YIPypNbuHWxsf1jb8N+po2XAdN/NlSDoLaS8
+ eA9zCU1hyvGBaNXmbtzDxb81W/SS6FgQf0Cv4g4nV9kQJvesw/kFyDw
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=XvYkrelqJIIzobY7j+nIg8rsfv5kzaOzuc1UPhd087U=
+X-CM-TRANSID:AQAAfwA3cUISJetpHssCAA--.1691S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGw4UKF1kAw13Jry5Cr45ZFb_yoW5trWxpF
+	W5GayjkF1vqFy0qr10qw48A3ZFyan5GF4j9rn8t34UAws8K3WIqr4DtF4Y9as7CryFkr1I
+	vr1jqrWagFn8AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_UUUUUUUUU==
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAHEWnq6L8ACQATsZ
 
-On Thu, Apr 23, 2026 at 07:03:02PM +0100, Jonathan Cameron wrote:
-> On Wed, 22 Apr 2026 15:45:47 +0100
-> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+On 2026-04-23 18:34 +0530, Manivannan Sadhasivam wrote:
+> On Thu, Apr 23, 2026 at 06:14:48PM +0800, Jia Wang wrote:
 > 
-> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > 
-> > Use in_range() to fix range check for input raw value, which is off by
-> > one, i.e., for a 10-bit DAC the max valid value is 1023, but 1 << 10
-> > equals 1024, which passes the previous check, allowing an out-of-range
-> > write.
-> > 
-> > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > ---
-> >  drivers/iio/dac/ad5686.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-> > index 19d791c655b7..07a944311f0e 100644
-> > --- a/drivers/iio/dac/ad5686.c
-> > +++ b/drivers/iio/dac/ad5686.c
-> > @@ -185,7 +185,7 @@ static int ad5686_write_raw(struct iio_dev *indio_dev,
-> >  
-> >  	switch (mask) {
-> >  	case IIO_CHAN_INFO_RAW:
-> > -		if (val > (1 << chan->scan_type.realbits) || val < 0)
-> > +		if (!in_range(val, 0, 1 << chan->scan_type.realbits))
+> [...]
 > 
-> Might just be me, but I do find in range a bit weird when the offset is 0.
+> > > > +	int ret;
+> > > > +
+> > > > +	pcie = devm_kzalloc(dev, sizeof(*pcie), GFP_KERNEL);
+> > > > +	if (!pcie)
+> > > > +		return -ENOMEM;
+> > > > +
+> > > > +	pci = devm_kzalloc(dev, sizeof(*pci), GFP_KERNEL);
+> > > > +	if (!pci)
+> > > > +		return -ENOMEM;
+> > > > +
+> > > > +	pci->dev = dev;
+> > > > +	pci->ops = &dw_pcie_ops;
+> > > > +
+> > > > +	/* Set a default value suitable for at most 16 in and 16 out windows */
+> > > > +	pci->atu_size = SZ_8K;
+> > > > +	pci->max_link_speed = 4;
+> > > 
+> > > Get this from DT please... This can change between SoC revisions.
+> > >
+> > 
+> > During the v2 DT binding review, Krzysztof pointed out that since the
+> > properties are fixed for this hardware, they are deducible from the
+> > compatible string and should be dropped from the DT bindings.
+> > 
+> > The v2 discussion is here:
+> > https://lore.kernel.org/all/c60a712e-ecf3-4926-9947-0e593cdb921d@kernel.org/
+> > 
+> > I then moved them into the driver for v3. If future SoC revisions introduce
+> > variations, I'll update the driver to handle them accordingly.
+> > 
+> > Does this make sense?
+> > 
 > 
-> I'd be tempted to just make the check >=
+> There are two uses of this property:
+> 
+> 1. To provide default Max Link Speed of the Root Port(s) if the hardware default
+> value is wrong.'
+> 
+> 2. To override the hardware default to workaround the hardware issues like
+> broken PCB routing etc...
+> 
+> For the first usecase, you need to check if this value different from
+> PCI_EXP_LNKCAP_SLS field of LNKCAP register? If not, you don't need to set it
+> in soc.dtsi/dt-binding and the DWC core will extract this value from the DBI
+> register.
+> 
+> For the second case, you don't need to define it in your controller dt-binding
+> with a default value and also in your soc.dtsi. Since this property is defined
+> in the dtschema [1], you can just include the property in board DTS file to
+> workaround hardware issues (board specific) and dtbs_check will not complain.
+> 
+> NOTE: For both cases, you don't need driver changes, since DWC core will handle
+> it.
+> 
+> - Mani
+> 
+> [1] https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/pci/pci-bus-common.yaml#L117
+>
 
-FWIW, I also don't love the fact that we need to define the range instead
-of pure min/max. But in this case, given that "min" is 0 it actually
-works without extra defines :)
+Thanks for the detailed explanation, Mani.
 
-Having said the above, no preferences on my side.
+That makes perfect sense. I have confirmed that the hardware default value
+for our SoC is correct and there is currently no need for board-level
+overrides.
 
-- Nuno Sá
->  
-> >  			return -EINVAL;
-> >  
-> >  		mutex_lock(&st->lock);
+Following your suggestion, I will remove the hardcoded max-link-speed from
+the driver in v4 and rely on the DWC core to handle it. If a board-level
+workaround becomes necessary in the future, we can add the property in the
+board DTS file without touching the driver.
+
+> > > > +	pcie->pci = pci;
+> > > > +
+> > > > +	pp = &pci->pp;
+> > > > +
+> > > > +	platform_set_drvdata(pdev, pcie);
+> > > > +
+> > > > +	pp->irq = platform_get_irq(pdev, 1);
+> > > > +	if (pp->irq < 0)
+> > > > +		return pp->irq;
+> > > 
+> > > Who is requesting this IRQ?
+> > > 
 > > 
+> > Not needed. Will remove it in v4.
+> > 
+> > > > +
+> > > > +	pp->num_vectors = MAX_MSI_IRQS;
+> > > 
+> > > Are you sure your controller supports 256 MSIs with one SPI interrupt? It is
+> > > possible, but want to make sure it is the case.
+> > > 
+> > 
+> > Yes. The controller implements 8 MSI control blocks (i = 0..7), each
+> > providing 32 vectors, so 256 MSIs are supported. This is documented in the
+> > controller IP specification.
+> >
 > 
+> Ok, thanks for confirming.
+> 
+> - Mani
+> 
+> -- 
+> மணிவண்ணன் சதாசிவம்
+> 
+
+Best Regards,
+Jia Wang
+
+
