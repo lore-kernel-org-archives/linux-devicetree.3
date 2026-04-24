@@ -1,342 +1,161 @@
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F43C3783AF
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 07:22:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233A432AAC6
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 07:26:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777015377; cv=none; b=N+q5p9Rwt59tsLfcjovf0igkBSmTWLx2iD6Y7WYH9h9cWO8oX9yFzblWkgXWcKG3aw4XdZauQBzsKZ1T4FDOISzJhs2QfhkD8D7LbqWQ84MxP+IBTe0vHfgO6FAMSkShdNwTnDJqqYIQDSmr4VXzTxCZ8KMftELHXAM2i5o9uTA=
+	t=1777015594; cv=none; b=jWLkBK1e8G49ipsdnFZRWVOCgbZohG3hn8L77dyt31GOwPbA77THHLSu1rlZNLKdrZ3/sEUMho8Tpom0h8xpSUYepoi3M2FP5EbYWQa/n+z1Eb8cWtj/Vp4/PBOSp22b1WcVGXHPLvQG+VQOJImJyXd4THRur9RvEgATaBCtpMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777015377; c=relaxed/simple;
-	bh=uYzCO2a7lwvw6rXeiwoe9LzLhm1VKeGalP4isbTrZz4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M52km8Hm6DuyKvqlyGPXV0Nj/qZo3+Qb39irk5UJK3iy/keF+rn4tj/l5+mi5Fa5TeCwteqjgxn6pfFpEzZX0lppCPCq+ftLvNkhRZicj0/8YPdt40Q9KYun/5llMBrJcRSEQctbPuEU650oApJ8Hj4Tmg4H/BxvPGtsmQpWTkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a3xwtS0q; arc=none smtp.client-ip=209.85.167.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777015594; c=relaxed/simple;
+	bh=m3OnOKNjVkQfvjbC8vrwVb5oJK6foDK0Kguq8tXWdSo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=i4Z7TEg/T7UF3cgTExareRrrinQip74H+mNNG737tcy0UZdQHWbbgIdrBoLOw4+DprzYC4I3oWp0hKtkebWCKf6BLcaAqgiB0Wro4Ay+OoBPmyKU8mGvPsfh8NycMXj4Fip0ur2Ahk5LwwisTsg7NeU94ncjcgjCGdKvNddWlBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e11Bde3d; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a3xwtS0q"
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5a402dea4a5so8036951e87.2
-        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 00:22:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777015374; x=1777620174; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MTjooS0n+OLO5qAqY+PpCTXsi3phlO0GRX2wY3bD3Wo=;
-        b=a3xwtS0qEv1Yk0Q2l1h/TXs7UHC6TE4jpBd/SumvBs179pIlmJrjECan/LhKI/3tRP
-         1quI+kDms/a+8FPdZLjBBH6C6PltS02SrSlNOXhdcpq+rK2BbYWUhcweXMd0u2HEN1MJ
-         Zai/4mnKBmOAEf4NrzmI6dCfEOCcwkydWCBpAfOfcd6b+rCQTyPUOOTxM3xlX44hpV7q
-         OgVxi7ZaQZ3hvsAtiNlTncB0zNCGmu2irZU4kzzI7/2ZN+B/6BZ2boYuiuP8xeV545ea
-         k35JHAjR5xeGstzePAdsyJUcSAijaB/Gh3I3yVIvt5voQfGlJJPixW7F77r+sbJSUk63
-         T57g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777015374; x=1777620174;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=MTjooS0n+OLO5qAqY+PpCTXsi3phlO0GRX2wY3bD3Wo=;
-        b=iDEpnJei3S0k44nzNB0+Ksb46FLeisXb49f4HP11R5XlUpYhcJ3h5IuJgiXxFanjTS
-         ZlZ554WTaZYy4wErFShCpDT+wdiborPblYqqtVS+KuvIMG8QeMChkJfgCALRfmeMLvFs
-         xBSnic4T2u9b4MOHs/XAp1Swc4CA9sIQAWlux2xArTTanPQ8/2FfsFL2ZLLYB9QCpYJt
-         gYVVbGGPinNctuWVp95w2KY7xEq4Urqkf+nK1hkzwMgREsyoXyx5aDXPJF0fkYrlQdRc
-         mqL0aSp8Tr1i8JGkN3RWaKcrpj/ZO9Wq1jQbdShy2HV3ByDAsdeNvp+d8LzBVaaAGNpQ
-         9rag==
-X-Forwarded-Encrypted: i=1; AFNElJ+Qx39qmywVBE4kpPMOBJTdyOfsXK/h8jVZ8gJ3nSLEoblErgOovqOAucPOut/pnk9I0fkUcdU2jeqx@vger.kernel.org
-X-Gm-Message-State: AOJu0YxEKt4NOqy5EIr3Mh4M5hx6NDf+ZZwt7CTsDNHeJVUwmEF8agP4
-	W6e9mcSRYpA+lD3v6t2l8zVWOb1Uc2lQRzpsHEtBQZ+4s62dfk9V3oEX
-X-Gm-Gg: AeBDiesCQlsyLKHU9uO7GEwsWOy9Z2zG9AP5NERjMfjXRi4xShQzJtcx8Uv49+FOUSl
-	Get8bITRNAX83+u1ned9SbLnJeg1u8r0ACJTrpeuHX/TGdFD/U9BSjYRLkRkYx7VGLF0fmeG0lB
-	NEcjtBtde/JpmghnUr0xF/VzPR2LH41IkN5QzbmUmlUPV2IAcL8NmZ4izBp6PpLkvtFmpgerZ6l
-	6B4f8nRgYrZuxIMIfV1J9U4MYsQqdlqlnvEA54gMKalR9VPhd7kBT07T6gS310lpWeYvvL/fezE
-	+/5YanKABhH23AsqL4NjAnZy5Xd117p3CmyT5Xb/N/M4C/YJ4YCf5UFjlSt/Lq7O9GMGUJlSY/O
-	dN9CqwPeEaW1xwd8m0Yxsig9GuCGMongretVNK+qE3frLQv0iUPTIGnAoIF3GiwbbXTM5TExjgR
-	U8PvI/BT6/aGQ0T0FMcYmv2WE=
-X-Received: by 2002:a05:6512:39c7:b0:5a2:a703:969 with SMTP id 2adb3069b0e04-5a4172f61e8mr11674232e87.40.1777015373466;
-        Fri, 24 Apr 2026 00:22:53 -0700 (PDT)
-Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a41a238563sm5612550e87.55.2026.04.24.00.22.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Apr 2026 00:22:53 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: [PATCH v3 5/5] media: i2c: lm3560: Add support for PM features
-Date: Fri, 24 Apr 2026 10:22:30 +0300
-Message-ID: <20260424072230.90354-6-clamor95@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260424072230.90354-1-clamor95@gmail.com>
-References: <20260424072230.90354-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e11Bde3d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB7C8C2BCC9
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 07:26:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777015593;
+	bh=m3OnOKNjVkQfvjbC8vrwVb5oJK6foDK0Kguq8tXWdSo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=e11Bde3dkLLbc0SCXq7yrsallptlVV4pT7hOvAZ9EQdzToIQzZv7oNhx6TJXA7DY/
+	 9QrcDG9bjBKqhxqUI/PPyJPHvSslG0BPu0KL6OnPNardT++2KXIgJ1LQJfXCmvwobN
+	 /r/vOHl+6hxWWFark0qRvXcTcCTukHcfYHfu/hbWFg3/HRhbloHfX/H4foY49ACqTL
+	 VvljpCWKZa7NnBa8FM87h/y+yJkEBTLGqoeHP8ZkqkrO2G9yD4V7AibjBa7N22rMab
+	 xcKyF/koJ4YpSigvP3ylBQ5Zch6sec+weo+rWWvZMAMszOFIwbYPHQW0mjqgD0Aehp
+	 OQ3tchQtpW/SQ==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5a10d130b37so7492406e87.0
+        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 00:26:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9fxy3mFKhAj1tcSgM5oivPr55g/TjcvhPwtOY9/TjDw/ucMOZJ/QlrjIgxjUcG6H3NLbDCkcQWtvTl@vger.kernel.org
+X-Gm-Message-State: AOJu0YxmXqSLWMj6jukVscpAm2lf/hhF7v65CQ+VmF0drlE79N7j8UpM
+	FaVRViB/B9uovOYM4g7jGp21dft5MCP4NwXGjW92wYGudMmb8RTVx0Z29/RBzZATnSe/XWSu8b8
+	m6o+bxOn+1oZ4Zq3unR30m8e1MlvB8bM=
+X-Received: by 2002:a05:6512:3a86:b0:5a2:9b98:f280 with SMTP id
+ 2adb3069b0e04-5a4172ac06fmr10262099e87.22.1777015592508; Fri, 24 Apr 2026
+ 00:26:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260414-axiado-ax3000-sgpio-controller-v1-0-b5c7e4c2e69b@axiado.com>
+ <20260414-axiado-ax3000-sgpio-controller-v1-1-b5c7e4c2e69b@axiado.com>
+In-Reply-To: <20260414-axiado-ax3000-sgpio-controller-v1-1-b5c7e4c2e69b@axiado.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 24 Apr 2026 09:26:18 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=yc4rmNELLKUpreUqRbQ1Krg95C-o1xSrnD9Aicm4wgw@mail.gmail.com>
+X-Gm-Features: AQROBzCvj1UqvLHeNE2eWeWx72NKzjKr6xPICatDGA6Oq4KfxHHermVnTdGUct0
+Message-ID: <CAD++jL=yc4rmNELLKUpreUqRbQ1Krg95C-o1xSrnD9Aicm4wgw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] dt-bindings: gpio: add Axiado SGPIO controller
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: Tzu-Hao Wei <twei@axiado.com>, Swark Yang <syang@axiado.com>, 
+	Prasad Bolisetty <pbolisetty@axiado.com>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Harshit Shah <hshah@axiado.com>, SriNavmani A <srinavmani@axiado.com>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add support for power management features to better control the LM3560
-within the media framework. To achieve the desired PM support, the HWEN
-GPIO and VIN power supply were added and configured into power on/off
-sequences. Media device deregistration helpers were grouped into a
-separate function to simplify the probe/remove process. Added PM
-operations along with the PM configuration setup.
+Hi Petar,
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/media/i2c/lm3560.c | 123 +++++++++++++++++++++++++++++++++----
- 1 file changed, 111 insertions(+), 12 deletions(-)
+thanks for your patch!
 
-diff --git a/drivers/media/i2c/lm3560.c b/drivers/media/i2c/lm3560.c
-index 022a6a76befb..ebb30d45fdfe 100644
---- a/drivers/media/i2c/lm3560.c
-+++ b/drivers/media/i2c/lm3560.c
-@@ -11,12 +11,15 @@
- 
- #include <linux/delay.h>
- #include <linux/module.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/slab.h>
- #include <linux/mod_devicetable.h>
- #include <linux/mutex.h>
-+#include <linux/pm_runtime.h>
- #include <linux/property.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/videodev2.h>
- #include <media/i2c/lm3560.h>
- #include <media/v4l2-ctrls.h>
-@@ -47,6 +50,8 @@ enum led_enable {
-  * @dev: pointer to &struct device
-  * @regmap: reg. map for i2c
-  * @lock: muxtex for serial access.
-+ * @hwen_gpio: line connected to HWEN pin
-+ * @vin_supply: line connected to IN supply (2.5V - 5.5V)
-  * @led_mode: V4L2 LED mode
-  * @ctrls_led: V4L2 controls
-  * @subdev_led: V4L2 subdev
-@@ -60,6 +65,9 @@ struct lm3560_flash {
- 	struct regmap *regmap;
- 	struct mutex lock;
- 
-+	struct gpio_desc *hwen_gpio;
-+	struct regulator *vin_supply;
-+
- 	enum v4l2_flash_led_mode led_mode;
- 	struct v4l2_ctrl_handler ctrls_led[LM3560_LED_MAX];
- 	struct v4l2_subdev subdev_led[LM3560_LED_MAX];
-@@ -172,12 +180,17 @@ static int lm3560_get_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
- 	struct lm3560_flash *flash = to_lm3560_flash(ctrl, led_no);
- 	int rval = -EINVAL;
- 
-+	if (!pm_runtime_get_if_in_use(flash->dev))
-+		return 0;
-+
- 	if (ctrl->id == V4L2_CID_FLASH_FAULT) {
- 		s32 fault = 0;
- 		unsigned int reg_val;
- 		rval = regmap_read(flash->regmap, REG_FLAG, &reg_val);
--		if (rval < 0)
-+		if (rval < 0) {
-+			pm_runtime_put(flash->dev);
- 			return rval;
-+		}
- 		if (reg_val & FAULT_SHORT_CIRCUIT)
- 			fault |= V4L2_FLASH_FAULT_SHORT_CIRCUIT;
- 		if (reg_val & FAULT_OVERTEMP)
-@@ -187,6 +200,8 @@ static int lm3560_get_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
- 		ctrl->cur.val = fault;
- 	}
- 
-+	pm_runtime_put(flash->dev);
-+
- 	return rval;
- }
- 
-@@ -196,6 +211,9 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
- 	u8 tout_bits;
- 	int rval = -EINVAL;
- 
-+	if (!pm_runtime_get_if_in_use(flash->dev))
-+		return 0;
-+
- 	switch (ctrl->id) {
- 	case V4L2_CID_FLASH_LED_MODE:
- 		flash->led_mode = ctrl->val;
-@@ -241,6 +259,8 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
- 		break;
- 	}
- 
-+	pm_runtime_put(flash->dev);
-+
- 	return rval;
- }
- 
-@@ -403,6 +423,49 @@ static int lm3560_init_device(struct lm3560_flash *flash)
- 	return rval;
- }
- 
-+static int lm3560_power_off(struct device *dev)
-+{
-+	struct lm3560_flash *flash = dev_get_drvdata(dev);
-+
-+	gpiod_set_value_cansleep(flash->hwen_gpio, 0);
-+	regulator_disable(flash->vin_supply);
-+
-+	return 0;
-+}
-+
-+static int lm3560_power_on(struct device *dev)
-+{
-+	struct lm3560_flash *flash = dev_get_drvdata(dev);
-+	int rval;
-+
-+	rval = regulator_enable(flash->vin_supply);
-+	if (rval < 0) {
-+		dev_err(flash->dev, "failed to enable vin power supply\n");
-+		return rval;
-+	}
-+
-+	gpiod_set_value_cansleep(flash->hwen_gpio, 1);
-+
-+	rval = lm3560_init_device(flash);
-+	if (rval < 0) {
-+		lm3560_power_off(dev);
-+		return rval;
-+	}
-+
-+	return 0;
-+}
-+
-+static void lm3560_subdev_cleanup(struct lm3560_flash *flash)
-+{
-+	unsigned int i;
-+
-+	for (i = LM3560_LED0; i < LM3560_LED_MAX; i++) {
-+		v4l2_device_unregister_subdev(&flash->subdev_led[i]);
-+		v4l2_ctrl_handler_free(&flash->ctrls_led[i]);
-+		media_entity_cleanup(&flash->subdev_led[i].entity);
-+	}
-+}
-+
- static int lm3560_probe(struct i2c_client *client)
- {
- 	struct lm3560_flash *flash;
-@@ -423,6 +486,17 @@ static int lm3560_probe(struct i2c_client *client)
- 	flash->dev = &client->dev;
- 	mutex_init(&flash->lock);
- 
-+	flash->hwen_gpio = devm_gpiod_get_optional(&client->dev, "enable",
-+						   GPIOD_OUT_LOW);
-+	if (IS_ERR(flash->hwen_gpio))
-+		return dev_err_probe(&client->dev, PTR_ERR(flash->hwen_gpio),
-+				     "failed to get hwen gpio\n");
-+
-+	flash->vin_supply = devm_regulator_get(&client->dev, "vin");
-+	if (IS_ERR(flash->vin_supply))
-+		return dev_err_probe(&client->dev, PTR_ERR(flash->vin_supply),
-+				     "failed to get vin-supply\n");
-+
- 	flash->peak = LM3560_PEAK_1600mA;
- 	rval = device_property_read_u32(flash->dev,
- 					"ti,peak-current-microamp", &peak_ua);
-@@ -450,10 +524,13 @@ static int lm3560_probe(struct i2c_client *client)
- 				 &flash->max_flash_timeout);
- 	flash->max_flash_timeout /= 1000;
- 
--	rval = lm3560_init_device(flash);
-+	rval = lm3560_power_on(flash->dev);
- 	if (rval < 0)
- 		return rval;
- 
-+	pm_runtime_set_active(flash->dev);
-+	pm_runtime_enable(flash->dev);
-+
- 	device_for_each_child_node(flash->dev, node) {
- 		fwnode_property_read_u32(node, "reg", &reg);
- 
-@@ -467,30 +544,52 @@ static int lm3560_probe(struct i2c_client *client)
- 						 &flash->max_torch_brt[reg]);
- 
- 			rval = lm3560_subdev_init(flash, reg, node);
--			if (rval < 0)
--				return dev_err_probe(flash->dev, rval,
--						    "failed to register led%d\n",
--						    reg);
-+			if (rval < 0) {
-+				dev_err(flash->dev,
-+					"failed to register led%d\n", reg);
-+				goto error_clean;
-+			}
- 		}
- 	}
- 
- 	i2c_set_clientdata(client, flash);
- 
-+	pm_runtime_set_autosuspend_delay(flash->dev, 1000);
-+	pm_runtime_use_autosuspend(flash->dev);
-+	pm_runtime_idle(flash->dev);
-+
- 	return 0;
-+
-+error_clean:
-+	pm_runtime_disable(flash->dev);
-+	pm_runtime_set_suspended(flash->dev);
-+	lm3560_subdev_cleanup(flash);
-+	lm3560_power_off(flash->dev);
-+
-+	return rval;
- }
- 
- static void lm3560_remove(struct i2c_client *client)
- {
- 	struct lm3560_flash *flash = i2c_get_clientdata(client);
--	unsigned int i;
- 
--	for (i = LM3560_LED0; i < LM3560_LED_MAX; i++) {
--		v4l2_device_unregister_subdev(&flash->subdev_led[i]);
--		v4l2_ctrl_handler_free(&flash->ctrls_led[i]);
--		media_entity_cleanup(&flash->subdev_led[i].entity);
-+	lm3560_subdev_cleanup(flash);
-+
-+	/*
-+	 * Disable runtime PM. In case runtime PM is disabled in the kernel,
-+	 * make sure to turn power off manually.
-+	 */
-+	pm_runtime_disable(&client->dev);
-+	if (!pm_runtime_status_suspended(&client->dev)) {
-+		lm3560_power_off(&client->dev);
-+		pm_runtime_set_suspended(&client->dev);
- 	}
- }
- 
-+static const struct dev_pm_ops lm3560_pm_ops = {
-+	SET_RUNTIME_PM_OPS(lm3560_power_off, lm3560_power_on, NULL)
-+};
-+
- static const struct of_device_id lm3560_of_match[] = {
- 	{ .compatible = "ti,lm3559" },
- 	{ .compatible = "ti,lm3560" },
-@@ -509,7 +608,7 @@ MODULE_DEVICE_TABLE(i2c, lm3560_id_table);
- static struct i2c_driver lm3560_i2c_driver = {
- 	.driver = {
- 		   .name = LM3560_NAME,
--		   .pm = NULL,
-+		   .pm = &lm3560_pm_ops,
- 		   .of_match_table = lm3560_of_match,
- 		   },
- 	.probe = lm3560_probe,
--- 
-2.51.0
+On Tue, Apr 14, 2026 at 3:49=E2=80=AFPM Petar Stepanovic <pstepanovic@axiad=
+o.com> wrote:
 
+> Add device tree binding for the Axiado SGPIO controller.
+>
+> The SGPIO controller provides a serialized interface for
+> controlling multiple GPIO signals over a limited number of
+> physical lines. It supports configurable data direction and
+> interrupt handling.
+>
+> The binding describes the properties required to instantiate
+> the controller and register it as a GPIO provider.
+>
+> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
+
+(...)
+
+> +description: |
+> +  The SGPIO controller provides a serialized interface for controlling
+> +  multiple GPIO signals over a limited number of physical lines.
+> +  It supports configurable data direction and interrupt handling.
+
+This is pretty generic, can you write some details on how this happens?
+
+> +  '#gpio-cells':
+> +    const: 2
+
+Are you sure you don't want to use 3 here instead and split the 128
+GPIOs into 4 "banks" second cell being the bank number?
+<&gpio 2 4>; ?
+
+Maybe this also solves the 512 GPIO by grouping the GPIOs into
+8 banks...?
+
+> +  '#interrupt-cells':
+> +    const: 2
+
+Same there.
+
+> +  design-variant:
+> +    description: SGPIO design variant size in bits (e.g. 128 or 512).
+> +    enum: [128, 512]
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+
+Just use two different compatible strings and infer the variant from
+that string instead.
+
+> +  ngpios:
+> +    description: The number of gpios this controller has.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+
+Same here, certainly the 128 variant has 128 gpios and
+the 512 has 512 GPIOs? Just use the compatible string
+to infer this.
+
+> +  bus-frequency:
+> +    description: The SGPIO shift clock frequency in Hz.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+
+Don't you want to use the clock bindings and a clk property
+for this?
+
+> +  apb-frequency:
+> +    description: The APB bus frequency in Hz.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+
+Dito.
+
+> +  dout-init:
+> +    description: Initial values for the dout registers.
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    minItems: 4
+> +    maxItems: 4
+
+In:
+Documentation/devicetree/bindings/gpio/nxp,pcf8575.yaml
+
+you find:
+
+  lines-initial-states:
+    $ref: /schemas/types.yaml#/definitions/uint32
+    description:
+      Bitmask that specifies the initial state of each line.
+      When a bit is set to zero, the corresponding line will be initialized=
+ to
+      the input (pulled-up) state.
+      When the  bit is set to one, the line will be initialized to the
+      low-level output state.
+      If the property is not specified all lines will be initialized to the
+      input state.
+
+If this is what you want, use this standard binding instead.
+
+Yours,
+Linus Walleij
