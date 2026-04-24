@@ -1,186 +1,136 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 07E64357A3E;
-	Fri, 24 Apr 2026 08:08:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096363845D4
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 08:08:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777018119; cv=none; b=j6y7UqmURo4wSMLnde3QF3LLk4dz6C3AUXuXf+kfCZArqCLT/HzYsyX26ZtFBvWwkD8+m+C/VyO56PLQA9GUNjnyt9YH3HShoj+PoJE1jeZHh+30G0ssgYA9ebfnbGvNK3H7rrOrVO+M+j49wAM7KIKgFXafKLNy7WHYJynJ4SU=
+	t=1777018122; cv=none; b=PUwkGFzaKzZOeW2Ok8/56+lMBFR7OA8d+Qf+HablBEYNSxObDxdizDW8fDuhQGRhHGf5YVZGiaCPnd3C2HONiEDn4CERRIu1BThaFPdcaf60eGTheIGRTc6SgK+jTf9P/+Xj/GMYzyltF7NMuD3lq4urbZK8/Nfd4m2UmN6Cb9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777018119; c=relaxed/simple;
-	bh=2TaKfA1MO3gCCHPa6GQ5SKhvOw5Nx4IuQUaFMqsRiB4=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=Q2bki0Dnf2LbSP5rgd/zCbjBBPtBKqwalrqAzFQfI4vfPvkaTt5lOkHtiEtXR3N1WhBKWN7IarUW3v2eng6eeEtFOZ6bOaIV/IEuEH3iGa3NqRBEMxeT/kdTgTJRmJzUY4GhOTvAatLpFxQ8cehiUa7mLcrcErOti4Sx2qhAkNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=nRF8tvkV; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1777018122; c=relaxed/simple;
+	bh=7FiijmYu3Dj8mlC564v1KV2nBi9KBlwe5DUSdSCtYYc=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JXTBDCr6txp60FLltz5+w2iVqF6mtq21H6brb5kkDRMnuHIU0DzmprhLRhT5yIL7JoPiVu2BcAzQaldu4AdCXXMcAvnzRc3fJcZIsAiDQtcKvN2NGHuSQ2xaaTdQmNeZBo+T2ZUNyjp9cbFLyLSdNEG2dijKnMDqXFTon3Bl7eI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UJ38r0Kx; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="nRF8tvkV"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UJ38r0Kx"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4852a9c6309so69421495e9.0
+        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 01:08:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=eTJGPHVC+FHEwbvDrrf6WzRnGbVhSBhMK
-	KfoizHRA4g=; b=nRF8tvkVgIBhni7R7TB0byk3ixZnyLuhUb4oZqDsYaste+bWm
-	2F2LhmtTRMyy/NwKD3TezMwgsKijDmXULScjMsK2ZdH9MJSrdN1gGULovCprVUrN
-	8jtE56/Ims7IDktux+CTt6rNOmQUJm2JDE0HB/QUVV4XNlnd+1U+IhIrms=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwA3cUISJetpHssCAA--.1691S2;
-	Fri, 24 Apr 2026 16:08:50 +0800 (CST)
+        d=gmail.com; s=20251104; t=1777018118; x=1777622918; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=qyquCGe5ofz0hi3dMWSPP6IFFimcOu7be/w7dUl/RaE=;
+        b=UJ38r0Kx7SEdEShhcakqmlL9+v5z+oG5vq50iW1JlKxQQXQQ4RpUPhjJKUv0s+K4US
+         hsI+zIl98wSflLz1EoWNlwD+iifrIqlv6Pf0kvQZ0goZhNRc8Ftl2J48NGTUdsruwbm6
+         KPV4sRYa4fKdsWcBHV5DlsV9L53DIwmIetEEPAj60L172ljUVIt6GJueakiJQSlCM09u
+         soVBbHll8XNBhzOZT9czd2BwCTVFNJ8CLm4uR7uFM0K7HSvuym4jW6mXg9EQxpV4dj+g
+         3+lgCaHN1ZgUnKO93Ydjwewy7sOYY8y99YliOOxtxkGhUJ51PBBWsCrxkVD/MAaozOfi
+         xsOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777018118; x=1777622918;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=qyquCGe5ofz0hi3dMWSPP6IFFimcOu7be/w7dUl/RaE=;
+        b=pToHeTh0U0RfffeD3V+PkUFujSAHqWfpqGzPWfqri5cPepMyqdb3ctdc925vncswf3
+         0d0GqS6Xof9HOxXgZP2fg2f0Qua4cVIRE+FaPEs9GFGllNJPJBCC5lNqVpF3//V7Uhhc
+         qf+VCvMUDi2ynbqBOgSNfCHphhpCrBxLBsw0Zh/T7mIQf75SgS5BgEjJGz5r+0IJMPGz
+         N9iKv5a1XUni2gi7d553gVVUGONI+8cCrOXyLa0I+QdFm45I2gof3H31tcAx68m6IOhb
+         PqBoQvnYl8b3uudnra1lbbBo/XmuK5x9HSb+fkreuTRHmx2WbKD9FdrtcEihTQJkAI+L
+         oPwA==
+X-Forwarded-Encrypted: i=1; AFNElJ/eEEEFmxJHDI7wTwEPGlwszhu06l9fvqnrsu0bsQtQ894cGy2BADqkXJzXRRBzFYsz0/FXCSPjk94t@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx79PbxGArSlobH16+8+L2hXxlqkXivskoWfQQ4JEbvR21z8PDl
+	pYcNxG5A+l3pu99QwZS76Gje6rRvwKVKYOAq+g0h0JNa8yo1r8cgi87a
+X-Gm-Gg: AeBDievCUz4EKZpAidIZBPMTB8F/d4ynCZNZfEz75UgB/JFN5xm7004PsUMBW5FOhRF
+	LSnA5JAZvbCeWYOamEul0ZjGB15TN/R9LmRRUlHfwbEUkWkr7Fy/L5CZmWF0VG42wEmLyoht93d
+	ZJpwv5sH+vpK1lLoDIILvGvBLzYge+wFvytB8nh7utpBYaerdi10htymwbgIwtqVcdE5UdcyClv
+	hsOkJ1s3TlUBFaJy1OMn2u/1aWICNHeLoXsbHzpzZxVCnxa5MavIr5Nk3qnvwxNPBN9nA5Uy5JE
+	mxDAOwK9q/bRYYf3/GXv4Fq8ubolxSvN+1jfqb+nGN+is74LZWKVlm4/VFu13YMaTbb0RabkbOr
+	zeOyc9p/E8VPFjH9IcllKinQS4CNlthI3z8EbxZ10bvTj8dlT6qmsc5FSAOlOdSFijkQJPBy5+H
+	EZNQNzlU2H/7yWkcOR9ZxviCP3lXbH6f6t5Ep+lEqhmofIUsPJ46+mKcGkIrCb/VwihDbaHIPRY
+	/4JBXeg60wlK6d8SQhi4OdCXg/+z4Ou6vSJ6yukDX6Xr+NMPHl8MRQ2tNNyfg==
+X-Received: by 2002:a05:600c:3006:b0:487:1108:48b8 with SMTP id 5b1f17b1804b1-488fb739f86mr239225625e9.2.1777018118104;
+        Fri, 24 Apr 2026 01:08:38 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fc18bccfsm521542255e9.8.2026.04.24.01.08.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Apr 2026 01:08:37 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Fri, 24 Apr 2026 09:08:30 +0100
+To: Jonathan Cameron <jic23@kernel.org>, 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Michael Auchter <michael.auchter@ni.com>, linux-hardening@vger.kernel.org, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Subject: Re: [PATCH 14/22] iio: dac: ad5686: add support for missing power
+ supplies
+Message-ID: <mr2roj56empkjsfmeptr4iemblzca4myxohcieobk7bx5ikpy4@5a2j52x7x7lo>
+References: <20260422-ad5313r-iio-support-v1-0-ed7dca001d1b@analog.com>
+ <20260422-ad5313r-iio-support-v1-14-ed7dca001d1b@analog.com>
+ <20260423190524.12ef4acb@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v3 3/3] PCI: ultrarisc: Add UltraRISC DP1000 PCIe Root
- Complex driver
-From: Jia Wang <wangjia@ultrarisc.com>
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Jia Wang <wangjia@ultrarisc.com>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Jingoo Han <jingoohan1@gmail.com>, 
- Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
- devicetree@vger.kernel.org
-In-Reply-To: <yqxyjv2q4lp5ymb6mjzpldjp2folqsvu4qneaihapbchrcithl@tcj4gu3ez3wh>
-References: <20260415-ultrarisc-pcie-v3-0-73f06e972616@ultrarisc.com>
- <20260415-ultrarisc-pcie-v3-3-73f06e972616@ultrarisc.com>
- <7n5b44ynbem2xve3twofaqunqlkw4aijatuuemujrfq5yd5mzq@5qnikt7ximd3>
- <177693928812.2917474.4251479012132866533.b4-reply@b4>
- <yqxyjv2q4lp5ymb6mjzpldjp2folqsvu4qneaihapbchrcithl@tcj4gu3ez3wh>
-Date: Fri, 24 Apr 2026 16:08:06 +0800
-Message-Id: <177701808603.4074358.3746548668378362054.b4-reply@b4>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777018086; l=3701;
- i=wangjia@ultrarisc.com; s=20260309; h=from:subject:message-id;
- bh=2TaKfA1MO3gCCHPa6GQ5SKhvOw5Nx4IuQUaFMqsRiB4=;
- b=I/9P90g2nhfwDMBKNn12m4VK/5/jAxo0LqnT2YIPypNbuHWxsf1jb8N+po2XAdN/NlSDoLaS8
- eA9zCU1hyvGBaNXmbtzDxb81W/SS6FgQf0Cv4g4nV9kQJvesw/kFyDw
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=XvYkrelqJIIzobY7j+nIg8rsfv5kzaOzuc1UPhd087U=
-X-CM-TRANSID:AQAAfwA3cUISJetpHssCAA--.1691S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGw4UKF1kAw13Jry5Cr45ZFb_yoW5trWxpF
-	W5GayjkF1vqFy0qr10qw48A3ZFyan5GF4j9rn8t34UAws8K3WIqr4DtF4Y9as7CryFkr1I
-	vr1jqrWagFn8AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_UUUUUUUUU==
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAHEWnq6L8ACQATsZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260423190524.12ef4acb@jic23-huawei>
 
-On 2026-04-23 18:34 +0530, Manivannan Sadhasivam wrote:
-> On Thu, Apr 23, 2026 at 06:14:48PM +0800, Jia Wang wrote:
+On 26/04/23 07:05PM, Jonathan Cameron wrote:
+> On Wed, 22 Apr 2026 15:45:48 +0100
+> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 > 
-> [...]
-> 
-> > > > +	int ret;
-> > > > +
-> > > > +	pcie = devm_kzalloc(dev, sizeof(*pcie), GFP_KERNEL);
-> > > > +	if (!pcie)
-> > > > +		return -ENOMEM;
-> > > > +
-> > > > +	pci = devm_kzalloc(dev, sizeof(*pci), GFP_KERNEL);
-> > > > +	if (!pci)
-> > > > +		return -ENOMEM;
-> > > > +
-> > > > +	pci->dev = dev;
-> > > > +	pci->ops = &dw_pcie_ops;
-> > > > +
-> > > > +	/* Set a default value suitable for at most 16 in and 16 out windows */
-> > > > +	pci->atu_size = SZ_8K;
-> > > > +	pci->max_link_speed = 4;
-> > > 
-> > > Get this from DT please... This can change between SoC revisions.
-> > >
+> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 > > 
-> > During the v2 DT binding review, Krzysztof pointed out that since the
-> > properties are fixed for this hardware, they are deducible from the
-> > compatible string and should be dropped from the DT bindings.
-> > 
-> > The v2 discussion is here:
-> > https://lore.kernel.org/all/c60a712e-ecf3-4926-9947-0e593cdb921d@kernel.org/
-> > 
-> > I then moved them into the driver for v3. If future SoC revisions introduce
-> > variations, I'll update the driver to handle them accordingly.
-> > 
-> > Does this make sense?
-> > 
-> 
-> There are two uses of this property:
-> 
-> 1. To provide default Max Link Speed of the Root Port(s) if the hardware default
-> value is wrong.'
-> 
-> 2. To override the hardware default to workaround the hardware issues like
-> broken PCB routing etc...
-> 
-> For the first usecase, you need to check if this value different from
-> PCI_EXP_LNKCAP_SLS field of LNKCAP register? If not, you don't need to set it
-> in soc.dtsi/dt-binding and the DWC core will extract this value from the DBI
-> register.
-> 
-> For the second case, you don't need to define it in your controller dt-binding
-> with a default value and also in your soc.dtsi. Since this property is defined
-> in the dtschema [1], you can just include the property in board DTS file to
-> workaround hardware issues (board specific) and dtbs_check will not complain.
-> 
-> NOTE: For both cases, you don't need driver changes, since DWC core will handle
-> it.
-> 
-> - Mani
-> 
-> [1] https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/pci/pci-bus-common.yaml#L117
->
+> > Get optional regulators for vdd, vlogic and vref input power pins. vdd is
+> > the input power supply, while vlogic powers the digital side. vref is
+> > replacing vcc, which is being deprecated, but still supported. The value
+> > of vref_mv is checked so that a device without internal voltage reference
+> > cannot proceed without an explicit supply. Error report uses
+> > dev_err_probe(), which helps debugging an init issue.
 
-Thanks for the detailed explanation, Mani.
+...
 
-That makes perfect sense. I have confirmed that the hardware default value
-for our SoC is correct and there is currently no need for board-level
-overrides.
+> > -	ret = devm_regulator_get_enable_read_voltage(dev, "vcc");
+> > +	ret = devm_regulator_get_enable_optional(dev, "vdd");
+> > +	if (ret && ret != -ENODEV)
+> > +		return dev_err_probe(dev, ret, "failed to enable vdd supply\n");
+> vdd is very rarely optional.  Can we not rely on the stub regulator
+> that will be provided if there isn't one in DT?
 
-Following your suggestion, I will remove the hardcoded max-link-speed from
-the driver in v4 and rely on the DWC core to handle it. If a board-level
-workaround becomes necessary in the future, we can add the property in the
-board DTS file without touching the driver.
+Corret, vdd should not be optional, but I havent made it required in the dt-binding
+doc. Should I be concerned on breaking existing dts in the driver implementation?
 
-> > > > +	pcie->pci = pci;
-> > > > +
-> > > > +	pp = &pci->pp;
-> > > > +
-> > > > +	platform_set_drvdata(pdev, pcie);
-> > > > +
-> > > > +	pp->irq = platform_get_irq(pdev, 1);
-> > > > +	if (pp->irq < 0)
-> > > > +		return pp->irq;
-> > > 
-> > > Who is requesting this IRQ?
-> > > 
-> > 
-> > Not needed. Will remove it in v4.
-> > 
-> > > > +
-> > > > +	pp->num_vectors = MAX_MSI_IRQS;
-> > > 
-> > > Are you sure your controller supports 256 MSIs with one SPI interrupt? It is
-> > > possible, but want to make sure it is the case.
-> > > 
-> > 
-> > Yes. The controller implements 8 MSI control blocks (i = 0..7), each
-> > providing 32 vectors, so 256 MSIs are supported. This is documented in the
-> > controller IP specification.
-> >
-> 
-> Ok, thanks for confirming.
-> 
-> - Mani
-> 
-> -- 
-> மணிவண்ணன் சதாசிவம்
-> 
+> > +
+> > +	ret = devm_regulator_get_enable_optional(dev, "vlogic");
+> Also doesn't sound very optional.
 
-Best Regards,
-Jia Wang
+The same way, that is not required in the dt-binding doc. Also, there are different
+packaging for the same device, on which vlogic is internally connected to vdd and only
+vdd is exposed. Some board designs may also do the same externally.
 
+> > +	if (ret && ret != -ENODEV)
+> > +		return dev_err_probe(dev, ret, "failed to enable vlogic supply\n");
+> > +
+> > +	ret = devm_regulator_get_enable_read_voltage(dev, "vref");
+> > +	if (ret == -ENODEV) /* vcc-supply is deprecated, but supported still */
+> > +		ret = devm_regulator_get_enable_read_voltage(dev, "vcc");
+> >  	if (ret < 0 && ret != -ENODEV)
+> > -		return ret;
+> > +		return dev_err_probe(dev, ret, "failed to read vref voltage\n");
+> >  
 
+-- 
+Kind regards,
+
+Rodrigo Alencar
