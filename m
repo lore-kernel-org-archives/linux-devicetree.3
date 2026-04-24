@@ -1,165 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4958F2D877D;
-	Fri, 24 Apr 2026 15:56:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777046211; cv=none; b=SNOioDa4DmFtg8IKIH0axR+FfB9PkBu1ZhgvwgLREaxk4iOvksa1F3fQ9oD1QwmBeXC0gJyG8pfHCcAockh2aY2T+zxYDjUhao8/0fY6+aTpL9bHGskKb4eg+tJ/SDUAYDjgUEGdoyD5YGB+yMhgx92cN/tHgOh/JWq/5ysNkL8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777046211; c=relaxed/simple;
-	bh=4jOeEhJHSxvScUoA4/Jq/m4Wd4dXC6sMjhiOXdg/wxc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gm65SA58lIij71YHRxlqvIAYXmIfngZCczlgqCTkkNUrBzTye5pFeAzMq7EPGhk9MyViE/QYEuWuMhB+gzHGw0VUR59iidrU+pVlcAHRPqZ19hfVE8P1JSsN6nZOtRbZQt5yHoZ1p4LK/RBaCfISB0AJa9G/fQVhrLij91IbIqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t1bb+Nwv; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBF703385B6
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 16:01:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777046484; cv=pass; b=CB/u/XvgM1LdlydBZgZ/MhWt48HWA1rbOF0MVHjNNuEh7mjavPY9KGoC38ZrgBuGhKKWpLSiXW8WFFNXCs84a6YkYsC6x6nGgYRcpWSj1tLWUGF1mhvTQX8SH3cmgoXK0DuK1/fzOlyJZGqdpafEDrJT6eroWQN9RHLg0Tt1rqc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777046484; c=relaxed/simple;
+	bh=IhksofQUr74ZsxiIixsYA9xW8rryL44gahMx0PQ5N/Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=e5/FyA2RGQh3xE+OWxucHHrnhWljabo0DVD7P+93+arIaeyqLdgzPrA2oPNdAWf0yfIjYWAQj2NifB2XmqCloR0ooZ2S1y7Y9aq9PFUIaIrAi5l4djsAYb70v7ktncGECFeZ+x2IMnOBbKvQV7VW8RCfx/aUP3ZpJFy27qcjs+k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J+UKFEdH; arc=pass smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t1bb+Nwv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBAC1C19425;
-	Fri, 24 Apr 2026 15:56:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777046211;
-	bh=4jOeEhJHSxvScUoA4/Jq/m4Wd4dXC6sMjhiOXdg/wxc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=t1bb+NwvxAxODvOTkYyJiEuVp7CSB3exkuf3wAn/SzLrRcYGNO/7v8ANwnREWsxf0
-	 OLY7ALi/UVz8dng3hKITRr4wboSzI7AS3dy9ATi17qHgpYLUDpglnKoNNDe0/Y8Xjs
-	 827IDUoaIbKMJHb1TlM5nJ9c1m8TKSf80AyHqPrJSHe+VkjwWyP+GdTisLDceGj4i4
-	 BAVfldmHx1uDuXMynxsQGAxUM9uKIE4rxLxnXdakaTt3Bq/Nz7GBv7yw+PujJ+1aX/
-	 b+SbazxYB4No71B8zXChvRgvDrlGIMdUg/B9oUstlxffSZKNlspRDsBjvcmhdgBPWq
-	 g/Eox6Je73cIQ==
-Date: Fri, 24 Apr 2026 16:56:45 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Neo Chang <YLCHANG2@nuvoton.com>
-Cc: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, robh@kernel.org,
-	krzk+dt@kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
-	neo.chang70@gmail.com, kchsu0@nuvoton.com, sjlin0@nuvoton.com
-Subject: Re: [PATCH 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
- amplifier
-Message-ID: <a76fe4d7-5726-41a9-b569-e676ad94f353@sirena.org.uk>
-References: <20260424033953.280520-1-YLCHANG2@nuvoton.com>
- <20260424033953.280520-3-YLCHANG2@nuvoton.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J+UKFEdH"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-670ab084a39so12188966a12.3
+        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 09:01:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777046481; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Z6z/c1UFiBYS4KyOUSEmEyWcZkjjvddwDi8rJWzObwlTuUEDaNAWRJtYS2fWsScMHt
+         WJb3uzc1FfvcazAS8B8/NV+RhHiZ/dOJolWB0UjGTKaj5mBCNtlDwfVPvR0mltxr9yDq
+         mLe23d4c2XGHAYAC4i83i5yByzXZiHxBO3RpVSYx2gCq6Ulcx7NRFVlplffR3uIpnPjV
+         WxzXVmug/DTfX3LojkWDuI/MRhzBFz+JW+NAJd+m5P6+wCG3dEBHBMX4hkujSPmbuz2r
+         HW3vSYEU21gs5Gw2VPUqchfa69k7n0Omtz4CTlG32G+spMxOex+mlrDwYWVKPTNpx+ji
+         ADww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IhksofQUr74ZsxiIixsYA9xW8rryL44gahMx0PQ5N/Q=;
+        fh=X56aajxXwqJV3XPpd24kaDkIe1ufh46GXpuKO1gpBXI=;
+        b=JGLvEmsM6j1wLXvoZFg4Vw01AdBPViq16Gi0klQ16CmQVM7l9LZNzGve1G1oxIVXHp
+         9NVYnzeWBLzfHflVWASa5fT6FJCc+4Bk9dnRG1zGe09IrV5EHu6V5XIADqi3NEEse718
+         ic7R1w70PT5LbHsTc00PNBVczzjsRFs50WkChG21zWmTECu2WrF4TwxGTFkH07se2B2l
+         N/2ZNhYtk5U679hC7l0k2/XuUbAR2i/o8UN3WnEWWGC/NQ+USS4ryXc1hU9Mrs/IVbZ4
+         vPvIX6dz76o8s2B8ZCQqr5R1xJCAFpMM4TmC4UN5FKlIy258XvJtyFO3oIzVxZD1hhyC
+         JDQw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777046481; x=1777651281; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IhksofQUr74ZsxiIixsYA9xW8rryL44gahMx0PQ5N/Q=;
+        b=J+UKFEdH4Hl+bApboyrnPrZrSb+FjwkbhbHvqHIKWeZFKONM67U46eDgAvc+Ejswap
+         +I0lW/NUWlDdIXMG1D+vOusSYhOZW1kqa2JGcyS+3XcGCPZ9cztfLmMy0DejHzzEKMzx
+         g6O1E7ZE3NQhl2DE01M+KT5wi3mX/+m72kT7mDPyZ4Lh5eB6OyGujS+ZTUMsnxDkPROZ
+         sOYI94IWbzvtmWCexhJt57zr/behzq2bQeSFEqqIlmx6+5nmSoLHueGEzJ3Cu8mOWgN6
+         M2uUgy71y0xLGo3VrFOu39n8ExhE6Uea0J5sboEcJgu/6QDbAfR2GGc3bJlECVMtXYFy
+         mweA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777046481; x=1777651281;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=IhksofQUr74ZsxiIixsYA9xW8rryL44gahMx0PQ5N/Q=;
+        b=m0WTCwDRPQBSHjosS38gqmzZ8+RpZ9FFnPACa6FHIhDvuipOA+dRJoDdYRTX2hnEmW
+         v+TM7TWwvUz+sAODYdv/3awAhkOp7OzLH1fjz46yHDSjMHwxENdJUxVlXfeQpEy++G8a
+         TQuQxhvdHFAvh1X2tjRQy8eWJhkHs16PVg4DUMwTccyGta25Esy3koTwkPk3NRkmLUfS
+         BDddZvNwIWNQ9Z825eMEYGjlCY4LOIj9lKKl2erBz8aPH1/TlsRLrZYIsWB+gd90aqza
+         CHRzQZsfTQBapTEQQpR5it5fE9fn4lx4H4hhZWvFkD2Fop+4Hc1v60NtRvg7LMqXrgEW
+         QgQQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8vWfYuE03xLWaiSVEHXfK4VfmnEbOnLRT14YLCkSOnEH1tlEk4eGeYrkWsnY0cHMM6+WkfWqR7SVLc@vger.kernel.org
+X-Gm-Message-State: AOJu0YyqkqtJz9rZlkjhWjvo2/W6oFCKBSw4ShAz8vnukc7b2ZAg3i1a
+	p3F/WMISrrYBfa0V0lxCT81X/mGolwvLGFvo4ILu5BmDHEaYiGNsxppH+HyIrXzwb6nuLS3oAUm
+	3xb6oWl/afqknIdhqcT5e8DSx+k0jfRzbmfXl
+X-Gm-Gg: AeBDies6Ftd83zTPeZDZBGGSYCXGacn6WQTxSeMIhJPZc/EHjKWY0Q0wHLw+dPvda7V
+	WWICfQgjPOSDcXnbwV84tZscPZURRFFe8Lf1EuHIrjeu/uz56Mi1x32dA7Hdfl7EdVOv6DEPAIm
+	/BHhFD/cYMWO3VbruP8rZfoQ+w0SOZ/7ceNJpEQ1IfPQMBVdXk0pp3Ovcl15Nxx0/ivo/P0Hdxa
+	GFdyygeRqtveylI96zrmg9wm1ydSrHePWtLegc+SZlUq0U835un0dbsJFgNgYH5X+jFsETeJ0Va
+	67zIRXBSdlxMVxRHs6qQ6XFj85opZg==
+X-Received: by 2002:a17:907:d38c:b0:b9c:3d56:e4ec with SMTP id
+ a640c23a62f3a-ba41a91de15mr1571230666b.24.1777046480779; Fri, 24 Apr 2026
+ 09:01:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="A7/8Ezd/UpblK7y8"
-Content-Disposition: inline
-In-Reply-To: <20260424033953.280520-3-YLCHANG2@nuvoton.com>
-X-Cookie: I can't drive 55.
+References: <20260424071305.89503-1-clamor95@gmail.com> <20260424071305.89503-3-clamor95@gmail.com>
+ <aeuMn2w3kSUl-wxF@google.com>
+In-Reply-To: <aeuMn2w3kSUl-wxF@google.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Fri, 24 Apr 2026 19:01:08 +0300
+X-Gm-Features: AQROBzA4BNjbA3iaTiG29FMhO3DarZS80TQsSo5ZGABEE-PRS6jsddYwfXqqpLA
+Message-ID: <CAPVz0n1POe_YuA+RyvLLUdO2D526hb_YQUXJb72Y1h6mW8M6kQ@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] Input: isa1200 - new driver for Imagis ISA1200
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+=D0=BF=D1=82, 24 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 18:3=
+1 Dmitry Torokhov <dmitry.torokhov@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Fri, Apr 24, 2026 at 10:13:05AM +0300, Svyatoslav Ryhel wrote:
+> > From: Linus Walleij <linusw@kernel.org>
+> >
+> > The ISA1200 is a haptic feedback unit from Imagis Technology using two
+> > motors for haptic feedback in mobile phones. Used in many mobile device=
+s
+> > c. 2012 including Samsung Galxy S Advance GT-I9070 (Janice), Samsung Be=
+am
+> > GT-I8350 (Gavini), LG Optimus 4X P880 and LG Optimus Vu P895.
+> >
+> > The exact datasheet for the ISA1200 is not available; all data was mode=
+led
+> > based on available downstream kernel sources for various devices and
+> > fragments of information scattered across the internet.
+> >
+> > Signed-off-by: Linus Walleij <linusw@kernel.org>
+> > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+>
+> There are a bunch of valid sashiko comments, please address them:
+>
+> https://sashiko.dev/#/patchset/20260424071305.89503-1-clamor95%40gmail.co=
+m
+>
+> Thanks.
+>
 
---A7/8Ezd/UpblK7y8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Acknowledged, thank you.
 
-On Fri, Apr 24, 2026 at 11:39:53AM +0800, Neo Chang wrote:
-
-> Add support for the Nuvoton NAU83G60 audio codec. The NAU83G60 is a
-> stereo 30W+30W smart amplifier with an integrated low-latency
-> Advanced Audio DSP.
-
-> +static int nau8360_peq_coeff_put(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *cp = snd_kcontrol_chip(kcontrol);
-> +	struct soc_bytes_ext *params = (void *)kcontrol->private_value;
-> +	int i, ret, reg = nau8360_peq_regaddr(kcontrol->id.name);
-> +	__be16 *data;
-
-> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_TEST,
-> +		NAU8360_HW1_MEM_TEST);
-> +	for (i = 0; i < params->max / sizeof(u16); i++)
-> +		snd_soc_component_write(cp, reg + i, be16_to_cpu(*(data + i)));
-> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_TEST, 0);
-> +
-> +	kfree(data);
-> +
-> +	return 0;
-
-This should return 1 if the value was changed to generate notifications.
-
-> +/**
-> + * nau8360_set_tdm_slot - configure DAI TDM.
-> + * @tx_mask: 4-bits value representing each active TX slots. Range: 0 (skip), 1~8. Ex.
-> + *	bit 0-3 for left AEC output channel selection
-> + *	bit 4-7 for right AEC output channel selection
-> + *	bit 8-11 for left Isense output channel selection
-> + *	bit 12-15 for right Isense output channel selection
-> + *	bit 16-19 for left Vsense output channel selection
-> + *	bit 20-23 for right Vsense output channel selection
-> + *	bit 24-27 for Junction Temperature (Tj) data output channel selection
-> + *	bit 28-31 for VBAT measured data output channel selection
-> + * @rx_mask: Bitmask representing active RX slots. Ex.
-> + *	bit 0-7 for left DAC channel source selection
-> + *	bit 8-15 for right DAC channel source selection
-> + *	bit 16-23 for left ANC channel source selection
-> + *	bit 24-31 for right ANC channel source selection
-> + *
-> + * Configures a DAI for TDM operation. Only support 8 slots TDM.
-> + */
-> +static int nau8360_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mask,
-> +	unsigned int rx_mask, int slots, int slot_width)
-
-That's not the way the API is supposed to work, the mask should be which
-slots are active as a bitmask.  It looks like what you want here is a
-series of muxes which control the routing to some AIF widgets
-representing the TDM slots.
-
-> +static const struct regmap_config nau8360_regmap_config = {
-> +	.reg_bits = NAU8360_REG_ADDR_LEN,
-> +	.val_bits = NAU8360_REG_DATA_LEN,
-> +
-> +	.max_register = NAU8360_REG_MAX,
-> +	.readable_reg = nau8360_readable_reg,
-> +	.writeable_reg = nau8360_writeable_reg,
-> +	.volatile_reg = nau8360_volatile_reg,
-> +	.reg_read = nau8360_reg_read,
-> +	.reg_write = nau8360_reg_write,
-> +
-> +	.cache_type = REGCACHE_RBTREE,
-
-Use REGCACHE_MAPLE unless you've got a particular reason to use
-something else, it's a more modern data structure than _RBTREE and makes
-choices more suited to current hardware.
-
-> +	/* DAC gain setting 0dB by changing current cell current. */
-> +	regmap_update_bits(regmap, NAU8360_R6E_DAC_CFG0, NAU8360_DAC_CUR_MASK,
-> +		NAU8360_DAC_CUR_0DB);
-
-Things like gains should normally be user visible and left at the chip
-defaults, that way we're not making use case specific decisions.
-
-> +static void nau8360_read_device_properties(struct nau8360 *nau8360)
-> +{
-
-> +	nau8360->pbtl_enable = device_property_read_bool(dev, "nuvoton,pbtl-enable");
-
-This is missing from the binding documentation.
-
-> +static int nau8360_i2c_probe(struct i2c_client *i2c)
-> +{
-
-> +	return snd_soc_register_component(dev, &soc_comp_dev_nau8360, &nau8360_dai, 1);
-> +}
-
-Nothing unregisters this, you should use devm_snd_soc_register_component()
-
---A7/8Ezd/UpblK7y8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnrkr0ACgkQJNaLcl1U
-h9CjSQf/cZ04HFQR88XQ9gJA41BhpWc7kggrPzkfx9oEbEOrcokpEMkcGfTz1llx
-kMCEO8SyxewbTrx2TH0SnWdUQ4zQSOSfSG+vqwbZO5L2IK1s/hsCOPrRJCKC0ks7
-MYB7Q4Qt7isiJ6lpt6HaLusGMH+hCDDjrFxTz1FEn+bUgTqQetb2lds4sLB0h9mN
-tfjlBi0K+5953PAG6qGKRMpl1KnngkqN1VhKyQaaZw8eDFMiyM3lC7Xl4lAHMfvd
-z5EfPxIJzJqXyI9VJaNiDmxVeFwVuS7V0wN5o5Zxq5h5fCOMdK5DqVGHgY24bXNn
-Zb+hYQ2KYnotab4bK4swar5W390z6w==
-=rmd2
------END PGP SIGNATURE-----
-
---A7/8Ezd/UpblK7y8--
+> --
+> Dmitry
