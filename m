@@ -1,63 +1,63 @@
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E218370D47
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 07:22:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D024371CE4
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 07:22:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777015374; cv=none; b=bvvjkJ/tohdTMQMTMBGiebclSgRjoTT/sO/R24eNB+BbadKvcQXt8ZvW2HbVfDQQS34dxkjkF6lB34Ef6RfpXNxTZkm5Yc0Zz1CN1nIqpmyMMjNvPE2M7Oumx+Luou+2WeKLOl7kGGJOX77fUWKdRI8e/Ew/VRgtq0jQshvioQs=
+	t=1777015375; cv=none; b=jBbKe/28r9fopO2JDWG4y8ERT4UZB4LfP6h6bJd9Yr8fZQgHOn5R5+04eKI8l7BRepmPOj6n96fjC3yjS9dedhPAUOuBisXDZUn4vzwUrFCOrjp9CdmbQvucyei2+EkO3RwPik2tMpnj9hN3dtZv1S9xIndUlKyj6kxMrwNgIMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777015374; c=relaxed/simple;
-	bh=NnTZhLTZnNfRAZTpInLPnO6pd8hHUs/jOhkVX7vXeK4=;
+	s=arc-20240116; t=1777015375; c=relaxed/simple;
+	bh=DPuU9UKzjNveL2Uy3y9tUPnjY6ZhEX35Z5uqTrDGofg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LLVAKnSu7ugeIpxq4HYCtIad8dSo9vM0mFLz/inVnwh7dHHuxVAso/ROJmRAMwwZWGltSSHloB8CBvygO3K19YdX4UyUU8jVYnk0XDFbCaoBjfPw0nZdHDtwSn5K6j1rzOhUc7eT1zHJm4MgiM9pJcqWsLyLcheFz2GjB81Q/ds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rDn4JFzR; arc=none smtp.client-ip=209.85.167.54
+	 MIME-Version; b=HBvnqkMvv4bdQ1uJ2zzDO66VVaESfTmpVlzGIv5JToDi45yp2ieiLGq8sSB3YJvB3ZviRyRhVidYohjbue8bIzGKnzx7XWYEEDiziFjzymZResS79qLDvBbtw7QMlkHzc8j0V+CBYPROJNOpt36JV4MGV4MRsbNx1anB6G+u6Uk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SwT+e/dt; arc=none smtp.client-ip=209.85.167.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rDn4JFzR"
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5a3af1b7549so9451895e87.1
-        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 00:22:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SwT+e/dt"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5a2c77c62d7so8229668e87.0
+        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 00:22:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777015371; x=1777620171; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1777015372; x=1777620172; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=d0a97i72KVR1eeUiCzxnD93bJZC8Qqjf+srt6bZebIg=;
-        b=rDn4JFzRu2B+Ntr7IzOp2eSJ0UR30SsYAbEH962Iq+huak/sOJKRNI3gyMQe8Q8DpS
-         8WNSJH6VVa9d3AP3i60m+lks9JPVzrbptvpx2qKw1JA8jYXkG+FoDAy08+zBtPeJ4zYN
-         G6GooWMQCbwg9JYb4LZUpBQ+dQv5kKePE0QmKOxDwLcpQEYldOMZwUxGKvCjOATf+kvq
-         QB0QPCPKGS3XdUmIbCL3syLP40iLJdZeKBL1oqQeYeVi0x+e62/o+lkWGxecvsKUwqVh
-         4eKrASH3s70BQjLJyxY5Z7N9aVZSxXYtyR+9qwCFpVKXTH1XPFRdTAfGkXBz7xRvz8WT
-         wdKA==
+        bh=WwldWTVNb+Q/QpXo1IdPnwyyFuA7X8MQ9JBz50beleY=;
+        b=SwT+e/dtnF+HXvdlrQmeEZC0tlVMo9xLCeK2S8w+Bz6R6s4CSOfgxIkfESvU71nkhZ
+         1P4mHnh84BRTv8JjHhZx7wu4uuFB98c+Gayvq+NeP6+5/hxZ+q7pE6Hv/6Ji/ckT3knR
+         zQ08CcaB/EEz+VSkTvUF1G3jpK4XB2pRkb6Gyuzrrq/2cZLvP3dKuhDZ+KzNBuK6nZ6k
+         LCdBFj1D3xlr9ox0vjcxj13hbye14vQpngehoMZVb9wiDFwIavEp5qJqW6kOJnHlfjzE
+         ZE3pUPDfOh+I8vjMnYcP79740hukY9EqGyF1NznXlg8oKs804BirRCAbXLyoeU+/vS+W
+         fY9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777015371; x=1777620171;
+        d=1e100.net; s=20251104; t=1777015372; x=1777620172;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=d0a97i72KVR1eeUiCzxnD93bJZC8Qqjf+srt6bZebIg=;
-        b=hmnJTjcianxQztr3W+Gbcg9HAhUthJdEviAVQk/NDQJqSyE6ucBkmBBlwrSJKbhLeF
-         qHRM8eZE4B0OrNOsmyzm23xVEgRZxypoR+EskBxHNS6poG/C5NUuyWNi/TmjLc6iagET
-         zxA1ax/s3ImRO6ambAQswFF9V6oMx4qHPEX4jcjev+NbVCnuzdjrZMSdUmapGstXRRnl
-         vJgki98HhXX911c/QXQlwGfy9pSo9UzgPm9yOENEHslWrl4CxBLpiT0ByH92ZEHZ/rW3
-         35tklqnXC6AlUT0LwKJOHS3IvsboJd8VGmOxZOlfaiVCVoQiDhIwQxJFknXLIftRwZQM
-         75AA==
-X-Forwarded-Encrypted: i=1; AFNElJ8qpAx7xBn1iO+CtSpdY6vEK1sfAZ2KzJ2ZPFKV6S07n32ZalnijJHDdO/Xq3NKM8QGc5z9lRyDrQwx@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxq2aDIm+OiLGuRjsePTupFktZpJ4b35GraUOYpaW+DKNX7HgNY
-	Nd0s4qvDLhb0K9CHCdWW0dk7wT4RIY8XWq0wEcWbCIkfSMWr3olVx5f5
-X-Gm-Gg: AeBDievS+bbIREYdXtZuOFfyU/L4inBlzyJNINY/9jEvDOWYINVQbzJi7TrshhWMIYE
-	WMXn1vKL3LW3hdSgc10+zcKBIyaLjCFuoZE8dGpcukfLxVADi73clLU7/pNf3vDZ/gwDaINZonK
-	l9d4UlHnzh00Ae92c/S5iDN8Tx9lJN2RtyZxC3HzC+W+5H+MGT8EVPrSbDNE7QWzGs5+mBcxbej
-	bVQ1vsADgjivrP0Lv6ohHb6G3TUW/yZWmURRe7FJ4dfe3TrK2TGAsAbqlU7b6kqQxGTlpXcPNVn
-	EIKeMNeZ9R2nEtLbl9IqbzLvExWwIMi4T32yS5JvQFp+/K6pp0OMR0zF8ETcOTnj9OtbCSyEhas
-	AmJ2IVtMJf9XH1tqxLmzFKO5++4FvJigch77xxAHgDDnSFjGmPtF5NXgsv1wOfHqPf8VuXyLOab
-	dkXIihN0wDK8eDUxTdF+GcNCI=
-X-Received: by 2002:ac2:4c4b:0:b0:5a4:b0:a072 with SMTP id 2adb3069b0e04-5a4172ca655mr9466333e87.4.1777015370516;
-        Fri, 24 Apr 2026 00:22:50 -0700 (PDT)
+        bh=WwldWTVNb+Q/QpXo1IdPnwyyFuA7X8MQ9JBz50beleY=;
+        b=SaELMvH9FqBaFdilgOK2eLCyDJjMPtuPp21DO8qH5ku6XfbQpLSHlu67FIWUpWNk/W
+         Yj/8109f8kawoyY3XaTn4G09SmUWsbhy8T9Ew9UyGizPGURsaZVORfDXtz2yDSnkNg1g
+         zCexYeke1ePhqcSaI8ENbw+2PNDMkqUAGSyxRTeVTuu6/U/4AooU8p/QjI/G+ugpAPGW
+         IrbPXeKXaZiAcJDRyEXYE/P/HiGdcq2iSYVruB/FL7LoWCzequA1XI/owmR3wEmQGyun
+         zcjFcBvEMznBORD2tlfBfFtkhAdKAJeeMlWxqn+b4IKq3arHtn/cv0gxWznFDAoq9voQ
+         ixNA==
+X-Forwarded-Encrypted: i=1; AFNElJ9q7GHQUJW0X0ymlPsjwR93zg3qRB/Vrj9BA2DhuUZmcLaU/MPOX2x/S//VET/cDAsnNIrh3SDvpgBG@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywea8tWOs52Vyu2EoxFsEWznamthEekSfpkOoRgs3IutXkrBGLn
+	Pk/1oOfvuofudkpPdbbgejcgQX+wX6YIBC3khAvSHKfNWfaKsiuY2yfH
+X-Gm-Gg: AeBDiesEOyC92k/1a/YcV9KtiP8SMnxa/UqfyMslNIipVjzODet9PNG5I1TBXSvFxe4
+	qY9o0nJBxR7V7ZJjjaa8cLhnrW31GGS+RzpM56ZJYgAqHKmkL0qFtwylWYONSdJOkZGfEDfOIxE
+	efwuHqhTP/6evdgk8L+9R79hORGa2N9t1J07Df3mqG/hrVtxZh10t0tjxk4lm0ChIExZrFVIfIn
+	kfyORcpRkX/vv6/xdxix5dGTREBk0pkdeKPckSdt8E5RqbD0rlOqjK0/2vgJegOJdHMnDYL/RXs
+	ajdtygv8QJfGj4Tw1MMieQ1v7355Wv4UjWMZ7uLi4fusyZZ0/vul3UXL4X1dWSfWxG/ZZMvP2Eh
+	YWqrwttZraeFGYfFVxFncOsJq6Fb0SurUeMEX7NVmSK/Px/PEMr2BCN84FkGZnKCpZJ762VzHlG
+	Ry1EF40RMmt/PvNyvb6VXD7OQ=
+X-Received: by 2002:a05:6512:8005:20b0:5a4:1904:b1fb with SMTP id 2adb3069b0e04-5a41904b214mr6711948e87.40.1777015371479;
+        Fri, 24 Apr 2026 00:22:51 -0700 (PDT)
 Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a41a238563sm5612550e87.55.2026.04.24.00.22.49
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a41a238563sm5612550e87.55.2026.04.24.00.22.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Apr 2026 00:22:50 -0700 (PDT)
+        Fri, 24 Apr 2026 00:22:51 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Lee Jones <lee@kernel.org>,
 	Pavel Machek <pavel@kernel.org>,
@@ -71,9 +71,9 @@ Cc: linux-leds@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org
-Subject: [PATCH v3 2/5] media: i2c: lm3560: Fix v4l2 subdev registration
-Date: Fri, 24 Apr 2026 10:22:27 +0300
-Message-ID: <20260424072230.90354-3-clamor95@gmail.com>
+Subject: [PATCH v3 3/5] media: i2c: lm3560: Optimize mutex lock usage
+Date: Fri, 24 Apr 2026 10:22:28 +0300
+Message-ID: <20260424072230.90354-4-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260424072230.90354-1-clamor95@gmail.com>
 References: <20260424072230.90354-1-clamor95@gmail.com>
@@ -85,36 +85,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The existing driver does not call media subdev registration, making it
-invisible to the media framework. Since the LM3560 supports two
-independent LEDs, register each LED as a separate media entity.
+Pass the device's own mutex lock to the control handler so that the media
+framework can handle control access instead of managing it manually. The
+lock must be common to both sub-devices, so the individual sub-device
+locks will not work here.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/media/i2c/lm3560.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/media/i2c/lm3560.c | 18 +++++-------------
+ 1 file changed, 5 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/media/i2c/lm3560.c b/drivers/media/i2c/lm3560.c
-index f4cc844f4e3c..085a0ef70e39 100644
+index 085a0ef70e39..5cd22c2fbb64 100644
 --- a/drivers/media/i2c/lm3560.c
 +++ b/drivers/media/i2c/lm3560.c
-@@ -364,8 +364,15 @@ static int lm3560_subdev_init(struct lm3560_flash *flash,
- 		goto err_out;
- 	flash->subdev_led[led_no].entity.function = MEDIA_ENT_F_FLASH;
+@@ -162,14 +162,12 @@ static int lm3560_get_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
+ 	struct lm3560_flash *flash = to_lm3560_flash(ctrl, led_no);
+ 	int rval = -EINVAL;
  
--	return rval;
-+	rval = v4l2_async_register_subdev(&flash->subdev_led[led_no]);
-+	if (rval < 0) {
-+		dev_err(flash->dev, "failed to register V4L2 subdev");
-+		goto error_out_media;
-+	}
+-	mutex_lock(&flash->lock);
+-
+ 	if (ctrl->id == V4L2_CID_FLASH_FAULT) {
+ 		s32 fault = 0;
+ 		unsigned int reg_val;
+ 		rval = regmap_read(flash->regmap, REG_FLAG, &reg_val);
+ 		if (rval < 0)
+-			goto out;
++			return rval;
+ 		if (reg_val & FAULT_SHORT_CIRCUIT)
+ 			fault |= V4L2_FLASH_FAULT_SHORT_CIRCUIT;
+ 		if (reg_val & FAULT_OVERTEMP)
+@@ -179,8 +177,6 @@ static int lm3560_get_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
+ 		ctrl->cur.val = fault;
+ 	}
  
-+	return rval;
-+error_out_media:
-+	media_entity_cleanup(&flash->subdev_led[led_no].entity);
- err_out:
- 	v4l2_ctrl_handler_free(&flash->ctrls_led[led_no]);
+-out:
+-	mutex_unlock(&flash->lock);
  	return rval;
+ }
+ 
+@@ -190,8 +186,6 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
+ 	u8 tout_bits;
+ 	int rval = -EINVAL;
+ 
+-	mutex_lock(&flash->lock);
+-
+ 	switch (ctrl->id) {
+ 	case V4L2_CID_FLASH_LED_MODE:
+ 		flash->led_mode = ctrl->val;
+@@ -202,14 +196,12 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
+ 	case V4L2_CID_FLASH_STROBE_SOURCE:
+ 		rval = regmap_update_bits(flash->regmap,
+ 					  REG_CONFIG1, 0x04, (ctrl->val) << 2);
+-		if (rval < 0)
+-			goto err_out;
+ 		break;
+ 
+ 	case V4L2_CID_FLASH_STROBE:
+ 		if (flash->led_mode != V4L2_FLASH_LED_MODE_FLASH) {
+ 			rval = -EBUSY;
+-			goto err_out;
++			break;
+ 		}
+ 		flash->led_mode = V4L2_FLASH_LED_MODE_FLASH;
+ 		rval = lm3560_mode_ctrl(flash);
+@@ -218,7 +210,7 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
+ 	case V4L2_CID_FLASH_STROBE_STOP:
+ 		if (flash->led_mode != V4L2_FLASH_LED_MODE_FLASH) {
+ 			rval = -EBUSY;
+-			goto err_out;
++			break;
+ 		}
+ 		flash->led_mode = V4L2_FLASH_LED_MODE_NONE;
+ 		rval = lm3560_mode_ctrl(flash);
+@@ -239,8 +231,6 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
+ 		break;
+ 	}
+ 
+-err_out:
+-	mutex_unlock(&flash->lock);
+ 	return rval;
+ }
+ 
+@@ -332,6 +322,8 @@ static int lm3560_init_controls(struct lm3560_flash *flash,
+ 		return hdl->error;
+ 
+ 	flash->subdev_led[led_no].ctrl_handler = hdl;
++	flash->subdev_led[led_no].ctrl_handler->lock = &flash->lock;
++
+ 	return 0;
+ }
+ 
 -- 
 2.51.0
 
