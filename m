@@ -1,147 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4971D33E34C;
-	Fri, 24 Apr 2026 17:04:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B5B33E355;
+	Fri, 24 Apr 2026 17:05:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777050288; cv=none; b=QRrv+9RJzmUXgbWhFVXvic66GFHljD/6wHeTfE74lksfEI1F3w5Pr0jrNQ3e1IwTtRrBbG4NYGa8pgFL5tIelef1TZe4iRnxjzjhEmQY0roWbu6I0Dg8+WJHuzgrh2En5TTJk5e5VtTpPvh3JNms4p9AC5wFtLuMc8r40tljjG8=
+	t=1777050329; cv=none; b=XXq4yFvJtOc1eCAyBXV+4nwZdDKJe/lIpZskHCxaxIyScYOUPClQOeHWIMIRpWN/1mznR6E9zQb29GNBBmSE1S8z0VNYYoDTTOM3ENXy/4eRcTX+jOZuBKdsnG6T1U3G9z+znM1rJaTbXQqfLISXtHb74fxJAtf92rkmAg7OZhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777050288; c=relaxed/simple;
-	bh=fjDu/mnC+1ECscvmaAHzDugmAtICITz9ijc9sTxrptU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eLtIS4+Atx/4svnBOetNHs9q4XFC3f24dzmuSMJ9jbgSu6712H0TdOCp40CIqHtyW6BcS22lT4dL4NH31YNi4BfR5k2dfz8smPCtgx8PBqhmXiPmDmvflXFx0bepqhiVDcNEF0HLaMTcDptAiZjou1HNNc08FvZ88VoVVJCbqoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BlUMvdU0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777050329; c=relaxed/simple;
+	bh=Inc4atWINJoIRMkC4cpTPYRpwZxTCdKIkqwzJazDSFY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m/0zhcNIvWD3pgYCYLSYlgql6oHy9FGWXdrR6QZPpV++Q/ni17W8WcaZ6RxUG/BVOlWQBBTY6BmXJjd3qmMNri8q0BggV27shoot9UuIJ96Rp5UcdwoLpEDteJ0vI1kAIffylKI5xBgTKiXN8R8m/3adV8LhZqWazt6r1XarX3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZleVoXaE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BlUMvdU0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A5C7C2BCB2;
-	Fri, 24 Apr 2026 17:04:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZleVoXaE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB18CC19425;
+	Fri, 24 Apr 2026 17:05:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777050287;
-	bh=fjDu/mnC+1ECscvmaAHzDugmAtICITz9ijc9sTxrptU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=BlUMvdU0LWN/zizjRxBsqPek5wICbHxttHFypwL1gPQUAHSK/BVyqIJiI8ORZi/1n
-	 KcGCThTbrcPYZ5ucD06T6X4i0KBHb0bvpoNbefhGqehu4u4uqyR8knaNqnDmUj9eck
-	 c/s5CiCQbqItjqxyABtBc6mRa/898xgV7yd+3+fbCevWOsN2fvISSUKtkogIQFHpKV
-	 nwGBBYVHMmJu0E4sd1usu3xJtFwfyvivZkK2anoWVgyDEW2uLT6tyZn039u4yTBh/o
-	 Q+mieUDgW0Z8QJSwqQnLhqMuuxOMUK7cr8/3o0ruxNG2mcPWRmJ60PFSkxCKDFe38Z
-	 PeQuOUhP0iXIA==
-Date: Fri, 24 Apr 2026 18:04:36 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>,
- rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Michael Auchter
- <michael.auchter@ni.com>, linux-hardening@vger.kernel.org, Lars-Peter
- Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kees
- Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Subject: Re: [PATCH 03/22] dt-bindings: iio: dac: ad5696: rework on power
- supplies
-Message-ID: <20260424180436.674fc09e@jic23-huawei>
-In-Reply-To: <g5a3zky54agp5juxbpn4yy6abhugazgzbyfau5va6r5bmrebxz@o4c5kf6ki24h>
-References: <20260422-ad5313r-iio-support-v1-0-ed7dca001d1b@analog.com>
-	<20260422-ad5313r-iio-support-v1-3-ed7dca001d1b@analog.com>
-	<20260423184723.54ddbd67@jic23-huawei>
-	<g5a3zky54agp5juxbpn4yy6abhugazgzbyfau5va6r5bmrebxz@o4c5kf6ki24h>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20201202; t=1777050328;
+	bh=Inc4atWINJoIRMkC4cpTPYRpwZxTCdKIkqwzJazDSFY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZleVoXaEMpQIofIQrgERXrN67GeL8TC64JTUnu9gRI2IEc4CJ3Z7k5YlFMO4NFozP
+	 mQReSJaBac3f9t9rd3IEBKAzBvNJibUzZkAb2FlJ9PHw1pVSO9wW8P46VWkOLBCSUV
+	 +PG3bG09xFS0q4pPAuEFUqlN0hUJNXF8DHtl28zN3+yfjtBQjwxYlZI0Ui1UJRsS/k
+	 SHvKb+rNqHkkFPPPN1OWu6ibbd6T3fWXRj8W10+ZU+S3GPwxlCFINyZzhPK6gnIGN9
+	 1OUcltRf3yrWppep+QU5aetNd6eGyckqPqc7FGJbcnAsg4RFsqEx4Z6lQpuQRyX6Hn
+	 YRVZx6nt9Bsog==
+Date: Fri, 24 Apr 2026 18:05:24 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Xingyu Wu <xingyu.wu@starfivetech.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mason Huo <mason.huo@starfivetech.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] dt-bindings: hwlock: Add the support of
+ HWspinlock for StarFive JHB100
+Message-ID: <20260424-corsage-strict-026754e5f045@spud>
+References: <20260424032026.62301-1-xingyu.wu@starfivetech.com>
+ <20260424032026.62301-2-xingyu.wu@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ws5Ee19j9hlkwfNQ"
+Content-Disposition: inline
+In-Reply-To: <20260424032026.62301-2-xingyu.wu@starfivetech.com>
 
-On Fri, 24 Apr 2026 08:44:21 +0100
-Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
 
-> On 26/04/23 06:47PM, Jonathan Cameron wrote:
-> > On Wed, 22 Apr 2026 15:45:37 +0100
-> > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> >   
-> > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > > 
-> > > Add supplies for VDD, VLOGIC and VREF input voltage pins. The vcc-supply
-> > > property is deprecated.  
-> > 
-> > Please provide some information on why? Was it always just wrong and that
-> > naming was never used for any of the supported parts?  
-> 
-> yes, vcc does not exist, none of the devices describe any power input with
-> that name. The name is also misleading as it sounds like the input power
-> supply. It is being used as an external voltage reference, which is called
-> vref. Will add some of that to the commit message.
-> 
-> vdd should be required, but that would break the dt-binding ABI.
+--ws5Ee19j9hlkwfNQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-If it's required to correct operation I'm not bothered about breaking that
-backwards compatibility (as long as the driver keeps working with older
-dts).  We just need to state that clearly in the patch description.
+On Fri, Apr 24, 2026 at 11:20:25AM +0800, Xingyu Wu wrote:
+> Add the new documentation of hardware spinlock for the StarFive JHB100 So=
+C.
+>=20
+> Signed-off-by: Xingyu Wu <xingyu.wu@starfivetech.com>
+> ---
+>  .../hwlock/starfive,jhb100-hwspinlock.yaml    | 40 +++++++++++++++++++
+>  1 file changed, 40 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/hwlock/starfive,jhb=
+100-hwspinlock.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/hwlock/starfive,jhb100-hws=
+pinlock.yaml b/Documentation/devicetree/bindings/hwlock/starfive,jhb100-hws=
+pinlock.yaml
+> new file mode 100644
+> index 000000000000..b1b27fafe9bc
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwlock/starfive,jhb100-hwspinlock=
+=2Eyaml
+> @@ -0,0 +1,40 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/hwlock/starfive,jhb100-hwspinlock.yam=
+l#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: StarFive Hardware Spinlock
+> +
+> +maintainers:
+> +  - Xingyu Wu <xingyu.wu@starfivetech.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: starfive,jhb100-hwspinlock
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  "#hwlock-cells":
+> +    const: 1
 
-> Also, vref
-> should be required for parts that does not have an internal voltage reference
-> (the one with no 'R' in the end of the device name), but that would break
-> the ABI too.
+Does this peripheral not have a clock?
+Seems unlikely to me that it doesnt.
 
-Likewise.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - resets
+> +  - "#hwlock-cells"
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    hwspinlock@13012000 {
+> +        compatible =3D "starfive,jhb100-hwspinlock";
+> +        reg =3D <0x13012000 0x400>;
+> +        resets =3D <&sys0crg 0>;
+> +        #hwlock-cells =3D <1>;
+> +    };
+> --=20
+> 2.34.1
+>=20
+>=20
 
->  
-> > > Certain devices require vref-supply to be
-> > > available once an internal reference voltage is absent. Still, this patch
-> > > does not add those as 'required' so that the ABI is not broken.
-> > > 
-> > > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > > ---
-> > >  .../devicetree/bindings/iio/dac/adi,ad5696.yaml     | 21 ++++++++++++++++++---
-> > >  1 file changed, 18 insertions(+), 3 deletions(-)
-> > > 
-> > > diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml b/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
-> > > index f286e5072abc..21b80fe597d1 100644
-> > > --- a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
-> > > +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
-> > > @@ -38,9 +38,22 @@ properties:
-> > >    reg:
-> > >      maxItems: 1
-> > >  
-> > > +  vdd-supply:
-> > > +    description: Input power supply.
-> > > +
-> > > +  vlogic-supply:
-> > > +    description:
-> > > +      Digital power supply. If not supplied, it is assumed to be the same as
-> > > +      vdd-supply. VLOGIC may be hardwired to VDD in some board designs or
-> > > +      internally connected in small packages.
-> > > +
-> > > +  vref-supply:
-> > > +    description:
-> > > +      Reference voltage supply. If not supplied the internal reference is used.
-> > > +
-> > >    vcc-supply:
-> > > -    description: |
-> > > -      The regulator supply for DAC reference voltage.
-> > > +    deprecated: true
-> > > +    description: Use vref-supply instead.
-> > >  
-> > >    reset-gpios:
-> > >      description: Active-low RESET pin to reset the device.
-> > > @@ -88,7 +101,9 @@ examples:
-> > >        ad5696: dac@0 {
-> > >          compatible = "adi,ad5696";
-> > >          reg = <0>;
-> > > -        vcc-supply = <&dac_vref>;
-> > > +        vdd-supply = <&dac_vdd>;
-> > > +        vlogic-supply = <&dac_vlogic>;
-> > > +        vref-supply = <&dac_vref>;
-> > >          ldac-gpios = <&gpio0 1 GPIO_ACTIVE_LOW>;
-> > >        };
-> > >      };
-> > >   
-> >   
-> 
+--ws5Ee19j9hlkwfNQ
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeui1AAKCRB4tDGHoIJi
+0lX4AP9I0ki7wfjl+Gacih/5jCNWey2bv0Cl0SRH01mw9ST9igEAqTpOVGaDMlgH
+KjESD6Z8K7DB8lcaXTzm4W5KAGwU2QA=
+=GV8i
+-----END PGP SIGNATURE-----
+
+--ws5Ee19j9hlkwfNQ--
