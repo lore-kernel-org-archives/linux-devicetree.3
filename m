@@ -1,184 +1,162 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6803AE6E4
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 11:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B0730DD00
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 11:23:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777029686; cv=none; b=AVXUTbgA34ASBG97hcT7M84luBpJEdevhcCOuBXnl7cWV521VdWyhe/0fjAAcOfv++WvKePawHURjtlj5Jwt0AYJbTyFwAOA5CyjDyL//AGDfrfCDAAFoMLuO5x6KoK68056VulDQ9N0/cONxzn9b8Po6fxHUMcKN/Yi+1NAthg=
+	t=1777029831; cv=none; b=qvRm3RUAJdqFQ0UwOYrWolB27AvmhPLGvc+Vx7zNwTLw8qBpniKf4R2NzfhCxDwKIgo2ypQwXztnvSfqzhM+tlYqaW6fyNhwfMlQKirugSGGxI7LzmZRkiEzGgQQduxPsdAsF2dCRdl0/isXW3S2/wlWPY5QH2a8yJK84/lARkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777029686; c=relaxed/simple;
-	bh=im+ChalGIaIVInsXlQT3TLTeUv86lRyOTZVE+XwuvnQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a1ooN3uppKkg4ygbal0mT/ZHJcfbYhGco4EynJTc/GdyApVONXUGDuy7PSKvud5WuGoHUDcoYRoRBuSBTyMOUQ/Dym2IV8w9/ujyTCpoSyB4swkSjvauQ4EehXjYVFuINGw3wkgmXVo3+FnCrYdRBin+RgzgnaK3NkxPXK6xIMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XUJPaVKt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=btUL+M4+; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777029831; c=relaxed/simple;
+	bh=CRAdYzX9+jNsTYs4h8ctNWZTdaCBBbrpEXxcu4w9zCQ=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=GoAPLrys1r/EM7KolvZZx96+tGQ7BKjGzEZCs4buWkdyTzVP3OvkdIArrNpwOc7VO12852ELN1AQ+oys0tq5bAlEP3tj+Cfk65dXp/5YV5ZDMDpUjn2ouYKcRbCcjceCJXvGFb9FBCw1VNa3z6g/S8P29sug94fUFZOYnKDF190=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hobNOn+j; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XUJPaVKt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="btUL+M4+"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63O7txXM1888413
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 11:21:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZOyWIhZnTkiSHFsoDNOHhOGlTc1oeJnm+zi9QOeWcMU=; b=XUJPaVKtUKnR+iqX
-	KFQiAHCD0hrZ/wlhcX5zRqEAGt/mbhARaMY/aETODhc1/DTLcm2auEJtgvYcps7X
-	whrxG/qw0bCKugjhe5716Epupme2uMw8yV27sWPsiHkvHtLisBmAPV5BuXv+Eymn
-	Jc5/yyCBdpOtfJZTmEYAjrvcwaS82mz80KhCKZ8ckeO1Eu7FR7uYQHqDlecm3p3g
-	i0Anm8vo8+P0ILeh1Q3GtdpfbQ5If5iBZrswSfKTxOgSQ/DYS6GBUaXVAg+J/Ywh
-	6tWRkNtO6iPY0aADjaI/qPyXTEBBx/6+/+e0DVgmHTzNht9ytjE7ld91OJ1tE+TO
-	TY6+xw==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dqp9dvb1u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 11:21:23 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8954b9b5da7so19635606d6.2
-        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 04:21:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hobNOn+j"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-43d76dd4ee8so7010001f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 04:23:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777029683; x=1777634483; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ZOyWIhZnTkiSHFsoDNOHhOGlTc1oeJnm+zi9QOeWcMU=;
-        b=btUL+M4+6pEYO2qwQrDTDgCBqIw/mgu9pEfZUN2dyuv3n2xOnmNa/HUpyiMK6FGqLU
-         0JTG84FwkJh3by4/IfbMMrzLrXqM7spVjszkLnyP5agOe2VzrOITboGkUBHYiv+fDspg
-         7aVtWYwmOUW9+H+MP0C1B1bZGkZEozgY9Rj4Cw+IrRckIY3fwxK58u09iD/wZ94NXjRw
-         0K9yHjhCKy4WzP1DQmi4DeFmPluXc3GnVcuuC28wHMIIt5NfhBj+iZ1v56QjcIH178/Y
-         Q8PfjzW6q6kZT26nULqkhVdaBU9cK7zR7Nf1dUiD/g6LLt/O7G+ZKz0IViEwg8MxF3uJ
-         hniw==
+        d=gmail.com; s=20251104; t=1777029828; x=1777634628; darn=vger.kernel.org;
+        h=to:references:message-id:cc:date:in-reply-to:from:subject
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=+t+DJdjmBiSqlx1/PpjPe0tKhCBDYlA3fqYW1n4w00o=;
+        b=hobNOn+jNnkILFM0B2lWuWoYhwhZrFxY9Geg77nhWKIxfnXfF8/kdCXUqF3IAH6N85
+         +MnXX+X/ryx3Bsb6GDGsnU+E7gsrj0IJK8lZwR8RlhREjSRMJ/+Qt3zcDdkIFIWaTjFD
+         2KBPkIHZyxjw8xEjD+3KFJm4otmxlu+Dn1hPLmAPSw7NNGBzdT7P3K0buEHgORui9RC5
+         fBO+PBMgPIhhQCJ8Yay1I9UptXXghC2VGHRzgaS9ncV7xSj+i+cSKniM8nvvEqnLqnDp
+         CxNPHUOaxAc63WJRXFxdlW/xuJ9/fDR33uXVXIiqCTPauSSSLmEoEGo/B+t28aL6Yc5r
+         zAaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777029683; x=1777634483;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ZOyWIhZnTkiSHFsoDNOHhOGlTc1oeJnm+zi9QOeWcMU=;
-        b=C+OX/Q5HTOLO+EzGqidSCWo6AOSZmQiyXoUWj3bee4jVz1f7TPU7ovZfMpSunZgDe1
-         dmBW5xXCbxr69mqfp7+gwJTN473lltXhMnTivulcmONt2P8IY6VYgJ7vz5YPlfQSVTVC
-         U2/016COMKYHiftbPNeGFYBZn4tavOc/gDZJUqYr0xXrIsg3f/GSoTvAsIcZg0Nu/oZg
-         Km20NOYFQdLQBrtZYBLVeIB93J1fwXEmWAFEc9CGFUyUiHxZiRD273MbOrmPzn+HL6DC
-         EsT6WnlHX1KFllPASgjHjDqY/euBC1wVNNloWuJPt0HVMjD/6IYnA+jR8M+lQoF/8WIm
-         86hg==
-X-Forwarded-Encrypted: i=1; AFNElJ9RyurmS/kEhOliBFxIUDfcC14JzTi3obYZtL/lqyXpW0kjoQPTqnICN7xD1q6Mj2wFLCjJweUowzQq@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKQtQBeBGD9g7l4ikv1w60Hom6LVJf3EAy2Tx3R/0UT1UbSXFw
-	Vd7xO3dXrbtOTYln+mctBw3PWUeHzr3dKSt2lxM0idrb6HbQjydgPNOI0xqyx24Ltnq8POvYbaB
-	ET3zGbhp819rGR5EMnzyttNCwCd16ak8DWzbnd44icFBSkUd2ARCE6L4XjyWYx5MI
-X-Gm-Gg: AeBDieuZnHvHHi9SWc/d8uJDqeUi5ebTM+2aRisjSLN2MLwI3Z7MBBrC3Nvvc+gFtuA
-	zvmJhj1Uz7UIZVLzHNBOApn7irM8rgiDGtBf7GeBiqa9mOfpDQV0OxRdApHhB4h/rs3q+nB4fMm
-	UmLdcImmv2yzCU0kAdcIA5BTewSKYR0YNM/NRcBhZ0uDprbg1B5i7Tybcq3S6zG/DvH3gjEseTD
-	z4Qyv90fcQYmO12r6TVoeF24Ro6bFYdQVOEUEjVEwBM4PQPNs008ElvmI3tMmCJtMkOGkM0kUIe
-	kZGw18filssyMJpnbyFmpG8vnH0AWuvYA9u1+97Tu4s+U5vCEucbAS+YSdbhK7YLNnnXfHPy/NJ
-	9FQeXy5ugSGZySaN7YSUbgcSSN1wvP2ET+nKbdG6f9i/zDjm59W/2c2SgigO2dB91MNwJkEMxez
-	D3lrLI7xFHs0YLEQ==
-X-Received: by 2002:a05:6214:501d:b0:8ae:65b7:1b0a with SMTP id 6a1803df08f44-8b02806738dmr324767536d6.2.1777029682735;
-        Fri, 24 Apr 2026 04:21:22 -0700 (PDT)
-X-Received: by 2002:a05:6214:501d:b0:8ae:65b7:1b0a with SMTP id 6a1803df08f44-8b02806738dmr324767396d6.2.1777029682325;
-        Fri, 24 Apr 2026 04:21:22 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba538429115sm720116366b.15.2026.04.24.04.21.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 24 Apr 2026 04:21:21 -0700 (PDT)
-Message-ID: <10af8a5a-45b5-4a87-be4e-2501464ee827@oss.qualcomm.com>
-Date: Fri, 24 Apr 2026 13:21:19 +0200
+        d=1e100.net; s=20251104; t=1777029828; x=1777634628;
+        h=to:references:message-id:cc:date:in-reply-to:from:subject
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+t+DJdjmBiSqlx1/PpjPe0tKhCBDYlA3fqYW1n4w00o=;
+        b=gs/LbntujE9tFF/33MHO8rZyAQ6XsoTUjpJf7YNUHJubi642Y2J8o+JYw/KXqECbNa
+         ZPUiims5uGs3ZzuC+RFzfLkEet5K9XCGMk4eA1MwUfjCgEmBsvsnX7jkbroDqo5TNO3J
+         0fFgrh1w9FYAfbJfgXoNjg+iGAs0ctHjq2OFUMgpjb9aR7RdmOyyTifXTWd8NsdhO13U
+         /xe6EKHZyNZKVEfIkm7Vdo2rmhwQCfHWCYEAehjgNgdstikgeXcxUM6GMDmTM1ktt8JV
+         D9O409DX1SgWTiA9nVMUUoGnqiczSsstUffQbp6to9CTmM9g2iCFFVKRsF35+SkH/fXl
+         CW9g==
+X-Forwarded-Encrypted: i=1; AFNElJ+rsgiz6jKEZXJ8pYg9eufyMTSAO2nHGQbRzniCUJYs+RiQhwcgKqpbJ46iGDUX9zKOFMSxtmwHO6jf@vger.kernel.org
+X-Gm-Message-State: AOJu0YzLb8t7XAx8oxThltuj28Oo0FmdsJfO0IWzpPm1KUfxQhY+v1gZ
+	h9kXzsWhD7rt342Ntuli5/jMzkOwTq4q47BGithta4ZSSuhMl+DOX5wt
+X-Gm-Gg: AeBDieuo2H8jGBw60zHDsLN62e+2P7nUxk/WJV0dMoyR+1TdfkGLpeD4gSrS97FeOg6
+	1CNuJ39k05aOzhcnE1fFFngJO+2qoN+BJhTBK9x9gDnBGYtvaBIG4ohqBs5RafCQW0HbuFuJn+Y
+	sf1xZEjIz3hL2xgKQGYvCfjnj/TvznNH1I2vwssZKnsohGTWxD3X+GEzDaktUOXjk4OozyhVMdZ
+	z4XOdtx2eX7S2PXTCNcMcK2BaJ1w9n980ARDc4USAbCeSMtt9juDsbTeGsA10DBUBx8ijMR2GwV
+	jJwpB3sAxhSMA55YSZg1OavQV78Nl+ju9FmjN5AiuxAF/xYKv73/okxxNVM6hEAM89DgMkpml5P
+	YmQQpLLoDtC81VrIbVqmX9ckXSw4hnfbFN936mKjfyD6JtJnSiaA9tVynazI46Y0rkD3/w2vvY4
+	gRlPapuizwzLVgamNO7OxE6of7kJppsvgegDev5a5H6Ocy
+X-Received: by 2002:a05:6000:240e:b0:439:ae2a:755e with SMTP id ffacd0b85a97d-43fe3e0b606mr48159269f8f.23.1777029828055;
+        Fri, 24 Apr 2026 04:23:48 -0700 (PDT)
+Received: from smtpclient.apple ([197.250.51.46])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4cb1365sm63645843f8f.7.2026.04.24.04.23.43
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 24 Apr 2026 04:23:47 -0700 (PDT)
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_EE2E18C8-0A52-4302-9DA1-BBDF2F1ACD26";
+	protocol="application/pgp-signature";
+	micalg=pgp-sha256
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] arm64: dts: qcom: add IPQ9650 SoC and rdp488 board
- support
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260415-ipq9650_boot_to_shell-v1-0-b37eb4c3a1d1@oss.qualcomm.com>
- <20260415-ipq9650_boot_to_shell-v1-4-b37eb4c3a1d1@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260415-ipq9650_boot_to_shell-v1-4-b37eb4c3a1d1@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.500.181\))
+Subject: Re: [PATCH v5 1/8] ARM: zte: Add zx297520v3 platform support
+From: =?utf-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+In-Reply-To: <CAD++jL=am0f+sgBSFYQCdcFOvFWgPETn_pSgVdzETJ3_yUNqgw@mail.gmail.com>
+Date: Fri, 24 Apr 2026 14:23:29 +0300
+Cc: Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Drew Fustini <fustini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>,
+ linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org,
+ soc@lists.linux.dev,
+ linux-serial@vger.kernel.org
+Message-Id: <BF5EABA2-3168-48A2-AE2D-D8EE2CF88E9F@gmail.com>
+References: <20260421-send-v5-0-ace038e63515@gmail.com>
+ <20260421-send-v5-1-ace038e63515@gmail.com>
+ <CAD++jL=am0f+sgBSFYQCdcFOvFWgPETn_pSgVdzETJ3_yUNqgw@mail.gmail.com>
+To: Linus Walleij <linusw@kernel.org>
+X-Mailer: Apple Mail (2.3864.500.181)
+
+
+--Apple-Mail=_EE2E18C8-0A52-4302-9DA1-BBDF2F1ACD26
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
+
+
+
+> Am 24.04.2026 um 10:06 schrieb Linus Walleij <linusw@kernel.org>:
+>=20
+> On Tue, Apr 21, 2026 at 10:24=E2=80=AFPM Stefan D=C3=B6singer
+> <stefandoesinger@gmail.com> wrote:
+>=20
+>> This SoC is used in low end LTE-to-WiFi routers, for example some =
+D-Link
+>> DWR 932 revisions, ZTE K10, ZLT S10 4G, but also models that are =
+branded
+>> and sold by ISPs themselves. They are widespread in Africa, China,
+>> Russia and Eastern Europe.
+>>=20
+>> This SoC is a relative of the zx296702 and zx296718 that had some
+>> upstream support until commit 89d4f98ae90d ("ARM: remove zte zx
+>> platform"). My eventual goal is to enable OpenWRT to run on these
+>> devices.
+>>=20
+>> Signed-off-by: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+>=20
+> Didn't I review this already? I don't remember, anyway:
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+
+Yes, you did, but the previous version, and after I sent this one.
+
+And if I understand the b4 docs correctly, the Reviewed-by tags are sort =
+of handled client side: I have to tell b4 to fetch trailers, and then it =
+will add it when I send my v6 with Krzysztof's request to squash =
+patches.
+
+
+--Apple-Mail=_EE2E18C8-0A52-4302-9DA1-BBDF2F1ACD26
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: wo-u9P5E7MdRNQw3X_4n6tNDv1LzSETN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI0MDEwOCBTYWx0ZWRfX02HtSTL/1xsP
- k+ttyguzAkVjd6D6hsMpoxmzrRTx/W24Lryk8H4IW4XnmY/etYkquFafy4BOQTMjBdr83p2TNhJ
- YkOAbXVJq+vfcNrkWHYDjNsf5wiepVfw305m7cPazJOMmPgMk88uv6gHz2F+lDr3rCj8imwS2Au
- dusY0gWYhnmMT4zOXd//Wyt9c80zTsMVoWptM2AyRyt1SV9WKDlzlv+rIE9s4Yhoq4rMwumagIE
- 4KxOWEIYoXdu/XJP9RK1f0XfUg3/SD4uipeCgRFIFDwnRd6vu3zAlXZ5QYSx6Iu36ZRcxR5AZ/g
- SAmOg5jKXwAd/kOEMU0ra4KXJmkvPayjvEbwpLzEz8lDi6cnZETgdPWnAefzUp0DwTnBlc5+V2V
- amQbTUPKiwJm25j621xrcXE9td00vhgpt0mJDM9qBIPe71v1WmpeSFgQFD+S6o/nCAKG64KDXJ7
- FjaA2VFVG6UFqvd5u5A==
-X-Authority-Analysis: v=2.4 cv=fP4JG5ae c=1 sm=1 tr=0 ts=69eb5233 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=_KEJFKjczNoHN30lDmMA:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-GUID: wo-u9P5E7MdRNQw3X_4n6tNDv1LzSETN
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-23_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 priorityscore=1501 adultscore=0 suspectscore=0
- impostorscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604240108
+Content-Disposition: attachment;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP
 
-On 4/15/26 3:33 PM, Kathiravan Thirumoorthy wrote:
-> Add initial device tree support for the Qualcomm IPQ9650 SoC and
-> rdp488 board.
-> 
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-> ---
+-----BEGIN PGP SIGNATURE-----
 
-Overall looks good, just a couple comments
+iQIzBAEBCAAdFiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmnrUrEACgkQPRO8yFRP
+GiKRrQ//d0i3JtN4eqnwGJS0KDoAetBNQXiNUwHJGszPaUlMzi1beDOdsTFk7Who
+t8GNv9VvwjuR7Agxy+B9vNltnZanU6djJKQhm1+Qd7AvlC86ueKD2tGZUxpmuipl
+37Poxi+E1zUTG68RTaJz1p0utLhaZkiCjVJzmTQgJJq3mAfYp8ycFI29IgdGHJCN
+612a3nSFm1l6vz8a+qSX9kQG1UnTYQjsavu1ACxQp9Kk1Xga1G+atLgfXTTY3Aav
+LjzHpAl+B0szQ84Zb05ZpJ1jiZYnMrDrIlNu1hv9/PTddXHyL2ISI+0um5OCvJ6n
+61iXnVpyJlrscV1Iqs23VwxKx+y3rnV1JIlf/j4n1nwkJ5LQLxRWuYUpmK71uwKt
+8WtiK3AD9VxnQvfVtAn2ltUaCLeeE+pZpSwnOvI31AOrwwZQ3ckSqkYRYVwnxVZZ
+hkYMk1IfqjRPdMgMjyAqKEPZ5hOqYC5eqd68uM0HAXpYnUT/FNxGw/+sV7oX3qyY
+eVho0WqhoeBEAezLTQ+GeCNlLirDpHwT2Y8NHYxSTlIQuwhwClwRPjdXCyS9adcF
+eCz32rEZFS75z0LG701LB+MlMhblYEkGiAm3DEsFo4778ft7kfWC5N3GJLbu31SX
+1/xC0sqkBY5zF5gvLXwtw0kEniW7PzEgc3oc2N3T37x4mk/WGfo=
+=+4QJ
+-----END PGP SIGNATURE-----
 
-[...]
-
-> +		CPU0: cpu@0 {
-
-Labels should be lowercase
-
-> +			device_type = "cpu";
-> +			compatible = "arm,cortex-a55";
-> +			reg = <0x0>;
-> +			enable-method = "psci";
-> +			next-level-cache = <&l2_0>;
-
-You likely want to add #cooling-cells = <2> 
-
-[...]
-
-> +	pmu-a55 {
-> +		compatible = "arm,cortex-a55-pmu";
-> +		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_LOW>;
-
-You'll need to do something like:
-
-9ce52e908bd5 ("arm64: dts: qcom: sm8650: switch to interrupt-cells 4 to add PPI partitions")
-2c06e0797c32 ("arm64: dts: qcom: sm8650: add PPI interrupt partitions for the ARM PMUs")
-
-[...]
-
-> +			uart1: serial@1a98000 {
-> +				compatible = "qcom,geni-debug-uart";
-> +				reg = <0x0 0x01a98000 0x0 0x4000>;
-> +				clocks = <&gcc GCC_QUPV3_WRAP_SE6_CLK>;
-> +				clock-names = "se";
-> +				interrupts = <GIC_SPI 380 IRQ_TYPE_LEVEL_HIGH>;
-> +				status = "disabled";
-
-nit: please keep a \n above status
-
-Konrad
+--Apple-Mail=_EE2E18C8-0A52-4302-9DA1-BBDF2F1ACD26--
