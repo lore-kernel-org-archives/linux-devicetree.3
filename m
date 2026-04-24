@@ -1,130 +1,275 @@
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC4619CCF5
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 16:16:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777047390; cv=pass; b=IDdqjeH9ZrRIM4qBpKjEEr+VTUWE9iOCY/F//EfesCVguPc7Rih85pHaBwjxBO8Zg20S9n5m8IwUHzGYR+c+J9HWAtXIrZbKFAKcAd9mKHVqBf1z1jLYNT0sdykWYcpCa1qCXslM/uEjDHQPcnUAEW0wpjmY6RxFClCh7vjXFD0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777047390; c=relaxed/simple;
-	bh=+kaxdmfqBq8C2utWlphEm5LcRzpCJfnzuzdOC3D6RHM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=T1dKMTR1qBaAI2w5F2pxmphCtSegKUlUR7LpZ+3ey/xFX6WtqjI8LSj3X/Xo0ikcPjSoHMG+1n7YMWBTjvLegPhkpKqBD4IremD8BdhfdShH/Y7m9fLnlQPvD6oyV7OxzNH7pgoJhmfUB1Y0Ed4SxLR+uP6s8S2VA9LPpRC7P1M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U9k0RaUr; arc=pass smtp.client-ip=74.125.82.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782FB19CCF5
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 16:41:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777048878; cv=none; b=t2u/RbtDRGDxUxZjmUsdCrOE5CpEpTwBKsIuxt35diDdaKCusV06GJCbX1WnsnBz2+CK6wVOZz6rWrJfGCrMGxXuMg+yeBWdlJxDKUhHhIsnTGeDSs/Bpx2Lnm/NYj+a5uMzLIzQVy+pFfFhibUJBeJeVNZM771XS7N8I2L1f/Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777048878; c=relaxed/simple;
+	bh=jQ/5iV3NcxNIjNq4NJAWgTrBlzhII3dS9XKJUKy6PHE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mkF+tZcSezq4gKQ1UksyehNmuDdug+zUZVojlSzdsnr996D3+sCqt38l6Vl39uPh33hL8EZKojIQyWl0R83wAh1hTVihztmkOPD/0PIsLLJ7daWmEz8zFw+9AuFgPSPRT0jxBO47WhgUaunM5FH9RGGwr47yZ8x1Q2L1zIf1AkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dTSqdamw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=H0R/qiQ/; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U9k0RaUr"
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-12c565476d7so4091201c88.1
-        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 09:16:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777047389; cv=none;
-        d=google.com; s=arc-20240605;
-        b=DBl8jyqaVN36lhhJg99uxjK8oExQbfzQYqiaWLSUSxP8yQwLOKkOE0w8xa3upBLSrm
-         QSDNDD2RWHfzqUBjNWunE2VvgTcbDcQ/1xHx4H0bZAqpSiIjbCfdLPFcqsl4Eh2uChKp
-         TiEz2ydT0D8rFsgxT/q+kW+YJegCLaB3VCV4y1iYU2/yOlqI8dcM++PTm0jwD1Y8Tpw2
-         lRUJjyxpQjY4QA/FoNy34cSuU01Ppei/cq7+xrZjXH9ge0xsCODTjkTyITSSeatzljue
-         jkwNMwgcqw32SRIq8gNobqUzKAlACpvsTJLMSArbD6VHN8E93jK2pNUfq04ye4aZcKzl
-         VCeg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+kaxdmfqBq8C2utWlphEm5LcRzpCJfnzuzdOC3D6RHM=;
-        fh=q2DxLs0lsZForl3QfsM0FNOBXUVG8d2tUK23JoznxxU=;
-        b=eg0tTJRGxsAcFTJNGOaSSTRtiqh244v0ao+9fpNlClfY0NbMnIXX664tILGjdfPiNM
-         GjH5ErsYqp5SQwerpOgf51qq+Pg6puz1+DvhO1nLNo0Mk+pR3Xuy+5u+t2IjPqQnd17x
-         FjNrP0WAJ0LCuhEfS8CnLwEdAWNqIFgb1NIcITOUWHmKbg5EYiWcwP4BZWVHS8xqvgCr
-         r5s1g4n7LvSift5LGWb8e1H4eOAud1/ZfOKkKPIbBsdDkd/fJsDKywtGBcOwnAcR/Iaz
-         DL902NuLGXEAvj5G67bzsXx9KQ489hIHe1/hVLsRHJ7oBhLZqYo5zNEPB5hfYsxTgztF
-         uI5Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dTSqdamw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="H0R/qiQ/"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63OGB0Uq518493
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 16:41:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	eltpKz/vHGzdVltnYjt3RwZNW4ucKi/6/+2SCBIudcA=; b=dTSqdamwixelTx2H
+	ATfV1RW82rZYb+yMxshg5gurfKGBenY2S+4490x+DvVDwjno5hT+bINhtZv2zuoa
+	p4bcdkR0uUEO7w8JRUTXuJM+V12dn/3GD7bRVab9LrGH4IrbzLrmtTQ9qRh93+cJ
+	YJFuTzbrYPF2155OeQXvoesjaP0q58uxifPK1za+Ir5D4a3/XGwGZN7tw9HBdrcv
+	6I+DtZdenGYWnjAKYHNvgAENWGMNyHXFWayBdyFZxRDAm4C6XJIk1Kopu0jw3yDJ
+	QbU+kCBkpiSDoYyO03JXXlrnvby0iizFtV0/mlrtBr0Mgbf1WwtnE/CGsC+bF1rV
+	UjCBUg==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dr0fnk27g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 16:41:14 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-354c44bf176so9595833a91.0
+        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 09:41:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777047389; x=1777652189; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+kaxdmfqBq8C2utWlphEm5LcRzpCJfnzuzdOC3D6RHM=;
-        b=U9k0RaUriVJSSfCv8YnR/AyCiIQ8z3JBEaYMEGnpAI0DMoFfC0nwxZwm8HN28cPd0I
-         RHiBYcge2NxGgrfsONOGf+UX43VSHbNbJejm/DWXb/yxvxAx6CNswcfxvU/I53/LGm8J
-         RFLjUnTBureXVVt+4oGTtQsuNXjeyR0sa/MRD1JlxgyL39Ca7+YxxrLj8LxDe82gh9RR
-         UBfzVMTg3HYx+DMKdbQW6q1AdVrBnyWS89uHwZAU6suSO+AfcRYORroQ2g6qmcRffyT4
-         bKo8RP16tlOMmtdzQQ+4SCOQerS5nH3AOJX5QZ87CcWRw8WL4cPLWo7qNaFXitQNNa26
-         c3eg==
+        d=oss.qualcomm.com; s=google; t=1777048874; x=1777653674; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=eltpKz/vHGzdVltnYjt3RwZNW4ucKi/6/+2SCBIudcA=;
+        b=H0R/qiQ/UFr4+5Le8JpgtFHjPSlwlYCaaVQShxX+Lr6AirgA9PaIZYmmN2cyLUChW4
+         IN7yjqjcCsgCr7MDeaQZDmGcLMguWfR+KtYHGjuTT4WVvcDolGSSAphTtxIfejY6a/b7
+         3HILALXkjffRjIdOe2hJVD5HhcTHipr7+QhzD4vBpaMztAIOTQrgGNXDRh5E5srGZvY+
+         v1V6zXahYpMLMWVHMLHY5uVMkXvlzxll9nojs/olF7u/ZAuipWLAkBTjNytkHgeQ8mVe
+         Hl+u+HXIEb55gxZvi7eSUe+13gRlL93bmBkE+hN3TXVBIjRPIPf2pPXmlO+qvi46ak4z
+         szRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777047389; x=1777652189;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=+kaxdmfqBq8C2utWlphEm5LcRzpCJfnzuzdOC3D6RHM=;
-        b=tTY4iGWzDOYkwuxXcpnXnc+s/0TzEdqQRdUyJ0Y1ajP548daCKk/4xVmYyPSHtFvNV
-         Lg5ksSZr+2NCs5w+h15tckhe3gH9n16OGye7FD4gto4GiWSXYu8+vthslE4cL2EqK1Cx
-         DCeT01fzgVSDh3iidLn0ViXHrELc0QDLd4u7DE7WjFs+fJzaFXtNdIdd35FsH7HV4Qck
-         /R0w3E54RdVHIQK7UQFsylvY+4HNRJciU+xxfnDDmpaX7+eMyHCQUr+MuuCVll1osgb9
-         jQNklBirki0KoAO7nhI/70TUIs2Hmf5l3YDCQ9A3V3787pot6il9LPdIAr87oYUeipad
-         iNUA==
-X-Forwarded-Encrypted: i=1; AFNElJ/zdpH6degooMlZFC3PrgwGLaXqMTWOof/cbexM5ksrp9l58hbi10Ho+Y6NQAF6KQKXjCzcIOzhmymv@vger.kernel.org
-X-Gm-Message-State: AOJu0YzxuMQoyEbB9yMyOkJyQEaW39GGf4tWhBvPy2mNaMW9aP871sll
-	oyZWP6x4AETkFldj5p2eTHenQprtP48oHCgxUtQoMgzhLRW8/bXARoMWjZWTr7VgkC64FmOf+JG
-	5dv0406KUy2DYXuB9jDnFm8Lr5FXZk/0=
-X-Gm-Gg: AeBDieskXe43246wyXLEoI8NCQ6KHOKIwB+XvLyzLCi4Xwc/M9EdQnwFuhD22Z0mrCO
-	P+hQCtAqBPgBZpoZ2XT5L8Io6crol7cOkWAjrPR9BLrAgTdXuQzEYhOXtsVuZCDW4KaD6hOl/Ei
-	lFZu8bKvzRbd26VTGnLglaMBCY9jsoabjVV/RxhVl9SAbwwAfUiJpOJ5CxoIyul1PeSnoZrwvnN
-	OjGaR8M24k9LyeHNJ2t0+v9QBfVDz93YgkavLARqyqHD/eZBuDYesyOEuAy6YETY15NPhew+2zg
-	94G2xN/RvuYOFb9XIvsr4Q3gN7UfZTe1TK2lY45w4abYdUpaMunQvnWUCnwhQLJM4cq51JXbdxk
-	kOXkCbudIxnq58Fj5EliiPZwVHHzuSG8lrXqaKg==
-X-Received: by 2002:a05:7022:f016:b0:128:d4be:7438 with SMTP id
- a92af1059eb24-12c73fad42amr16965861c88.30.1777047388527; Fri, 24 Apr 2026
- 09:16:28 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1777048874; x=1777653674;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=eltpKz/vHGzdVltnYjt3RwZNW4ucKi/6/+2SCBIudcA=;
+        b=s+nycjDAwf+NFnFWaFP6o6c1HjMNckXlDgPY8nkzIFiV7c4B7G/Qf59Uok+ldMRbN6
+         QhM5HWw6Em5Yohpe/uJA9+gU8leLuemjQbAbOmnmZRo9tk+DBM6DN4zhKifq3pk4E9Rz
+         msyRk+dk4GqiUCA6cnA15fu5hlwedFN1nxLuQU6xAKTV+aKcvEGXrqNMHiwXOcI+IAvZ
+         D8xHhHAvAZDVqmjcfwWos98S85LA5aHl6BjB/l1EsKK3tMbP8SdrkIIPDraQz1eGDOWK
+         YlDPCEo5xfEQ4Wd18ZFzyVn0o8n2ewZDS/L1l+PpmqQIeBpJw21QAEfLW2+MfXkLn1+F
+         6UpQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+mQ3G0XrprCifXnK6rfBCMWTdzxnWXfVphYU1uhkP7Pa7RoJP6zOBcRgp006gKhIWeBaMJijfL5cmF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw2zVX0lXEKjsVaMo9OxctEm2nWevEhkfY53D2ZzsIuIMrTQdxo
+	2U4tlW5HeDnaq0k2RnLIQIKN8Ik3AI6hPkTaAKWiDMi6Qx+Y8N5UV0LO0SGtBxhbjuq8Gb2Lvol
+	avKJS97thEGzD6Ng9qTZf5efMUoPTxcarqbeZn52xYilvpTJx889cp9QC3NaQ2LBl
+X-Gm-Gg: AeBDievovXvV1t3F3uyjV4V4/Q782ZAKGbqQcABUjaP2HOQrFpQSErF2lxyu0Nuk7J5
+	bjuS0E6LE7tUOn0+zk8UQcQsTgQ3QXCS8gmAv2Y+nZlXoq/dSFML23DpLhgJSClbHKI6O5JYlX5
+	FrWWKmKuRN91aksX1lzUGFlFkH35pakQp+QfCn39N3vin/xQxUxG+GQJZKL1QdmvDCKJd7vfuVZ
+	RxpCd7xUilULUVm4kDouO8MBzBjwZKjt7+g7Xs2Hd5PP6uLR5nzHEZGhsAFWizvFnxuNA7xdHu+
+	55e9Rboj4XJnt6paN172nnk+p7UvXvSeYkQTvw2Z2BiYPQewErjzPXrGb9pkkSIrqRD6juMT+JG
+	X5vf9brGEi4n4wMRYla/mGAcx2GjTNOumnjiI6RW0UD+za/FQE7UwQG2fXy5X8X1i
+X-Received: by 2002:a17:90b:3c0f:b0:359:87a8:e65c with SMTP id 98e67ed59e1d1-3614046c9f7mr32840180a91.17.1777048874067;
+        Fri, 24 Apr 2026 09:41:14 -0700 (PDT)
+X-Received: by 2002:a17:90b:3c0f:b0:359:87a8:e65c with SMTP id 98e67ed59e1d1-3614046c9f7mr32840139a91.17.1777048873514;
+        Fri, 24 Apr 2026 09:41:13 -0700 (PDT)
+Received: from [10.239.60.18] ([106.192.26.241])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-361418c3944sm30414672a91.8.2026.04.24.09.40.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 24 Apr 2026 09:41:13 -0700 (PDT)
+Message-ID: <eceae566-93da-a0e2-cac0-1f5abdbbe661@oss.qualcomm.com>
+Date: Fri, 24 Apr 2026 22:10:09 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com> <20260420-beagley-ai-display-v1-15-f628543dfd14@ideasonboard.com>
-In-Reply-To: <20260420-beagley-ai-display-v1-15-f628543dfd14@ideasonboard.com>
-From: Robert Nelson <robertcnelson@gmail.com>
-Date: Fri, 24 Apr 2026 11:16:01 -0500
-X-Gm-Features: AQROBzA6ToQMdPNxQfm-1s1rL8nfgq-Z1E4rbqFRJtKj9KT9hbDXQ7tUBkUOYMM
-Message-ID: <CAOCHtYjJgqomKreDxLUiVbUtpeh36f0bL-jA6P-6rsoJrweshQ@mail.gmail.com>
-Subject: Re: [PATCH 15/15] arm64: dts: ti: beagley-ai: Enable HDMI display and audio
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Lee Jones <lee@kernel.org>, Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>, 
-	Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>, 
-	Louis Chauvet <louis.chauvet@bootlin.com>, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Andrew Davis <afd@ti.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v2 02/13] drivers: base: Add generic dma context bus
+Content-Language: en-US
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Thierry Reding <thierry.reding@kernel.org>,
+        Mikko Perttunen <mperttunen@nvidia.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+        driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
+        linux-tegra@vger.kernel.org,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260423-glymur-v2-0-0296bccb9f4e@oss.qualcomm.com>
+ <20260423-glymur-v2-2-0296bccb9f4e@oss.qualcomm.com>
+ <2026042346-trustable-register-095a@gregkh>
+ <06c04947-e72e-679b-493b-e112d693f391@oss.qualcomm.com>
+ <2026042422-deem-chemist-8d0f@gregkh>
+ <4c3fa710-f61a-4aad-622d-54909190cb9e@oss.qualcomm.com>
+ <2026042428-blemish-helpline-7d8d@gregkh>
+ <1e039dd5-da3f-19b2-ef98-29e64fdd925d@oss.qualcomm.com>
+ <2026042442-luxurious-antonym-f20c@gregkh>
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <2026042442-luxurious-antonym-f20c@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=LfYMLDfi c=1 sm=1 tr=0 ts=69eb9d2a cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=K3jt3zD9TrcZs+Uyli2v9A==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=TCXhiZJuOe0p4lytgSYA:9
+ a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI0MDE2MiBTYWx0ZWRfX9CwsaTZw5CgP
+ NN0kjUOrbJ3jXKqytZRSEyd3nFNgWWUF3v5wU0c/lU2xwuH20qDoiFw9oofW09MXvLiuyA2rqq4
+ N07ZynhyqrrH/UB80wCycXJ5lNrSszshr0T7D3viiibyDUEo9uK9kfZCFTkAONUa4jJGhDQlkbp
+ afawP5qpjBVi0boYCHuI1qZFgu1lO6I+uH+AZr7R0qDpUZQqIqmBRSQDEZf1TOLGpsnlXAJrK1r
+ 45wWcJcPNWDx5sCLpo9tGLRpkM/EejahCMT+zLTeUx8g7Vbaq3mzpyBowLu1yip00hjVuxr3p4o
+ f62ixvEAjzBfummzNn0klhiTYorr3e+R++CTcGxWhXou/jrc/4BSqjCdx/bKosvUdz6i/OFS886
+ e6y1C0dfrkdpQiBhxy4xfvsQ0x+Vmib/C8giDnkQH10jqOfLHL9Qw/DE1A+c74ic3rqsj9FPa+u
+ U33pQyC4XGFlsUfFtGQ==
+X-Proofpoint-ORIG-GUID: 5c9fN0C4OyuMcrSnx-dMJvNVU1m-XOgF
+X-Proofpoint-GUID: 5c9fN0C4OyuMcrSnx-dMJvNVU1m-XOgF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-24_02,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
+ malwarescore=0 clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604240162
 
-On Mon, Apr 20, 2026 at 8:04=E2=80=AFAM Tomi Valkeinen
-<tomi.valkeinen@ideasonboard.com> wrote:
+
+On 4/24/2026 7:04 PM, Greg Kroah-Hartman wrote:
+> On Fri, Apr 24, 2026 at 06:12:09PM +0530, Vishnu Reddy wrote:
+>> On 4/24/2026 5:25 PM, Greg Kroah-Hartman wrote:
+>>> On Fri, Apr 24, 2026 at 05:15:02PM +0530, Vishnu Reddy wrote:
+>>>> On 4/24/2026 4:43 PM, Greg Kroah-Hartman wrote:
+>>>>> On Fri, Apr 24, 2026 at 04:01:13PM +0530, Vishnu Reddy wrote:
+>>>>>> On 4/23/2026 7:07 PM, Greg Kroah-Hartman wrote:
+>>>>>>> On Thu, Apr 23, 2026 at 06:59:31PM +0530, Vishnu Reddy wrote:
+>>>>>>>> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+>>>>>>>>
+>>>>>>>> When a driver needs to create virtual device at runtime and map it to
+>>>>>>>> an IOMMU context for memory isolation, there is no common bus available
+>>>>>>>> for this purpose. Each driver ends up implementing its own bus type,
+>>>>>>>> leading to duplicated logic across multiple drivers.
+>>>>>>>>
+>>>>>>>> host1x driver implemented its own bus type to attach an IOMMU context to
+>>>>>>>> a dynamically created device. The Iris VPU driver now has the same
+>>>>>>>> requirement. Rather than duplicating the same bus logic again, a shared
+>>>>>>>> bus type is introduced under drivers/base that multiple drivers can use
+>>>>>>>> directly.
+>>>>>>>>
+>>>>>>>> The bus takes care of creating a device and attaching the IOMMU context
+>>>>>>>> to it based on the client inputs.
+>>>>>>>>
+>>>>>>>> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>>>>>>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+>>>>>>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>>>>>>>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+>>>>>>>> ---
+>>>>>>>>  drivers/base/Kconfig            |  3 ++
+>>>>>>>>  drivers/base/Makefile           |  1 +
+>>>>>>>>  drivers/base/dma_context_bus.c  | 77 +++++++++++++++++++++++++++++++++++++++++
+>>>>>>>>  include/linux/dma_context_bus.h | 26 ++++++++++++++
+>>>>>>>>  4 files changed, 107 insertions(+)
+>>>>>>> as you can not have a device on multiple busses at the same time, this
+>>>>>>> makes no sense to me at all.  "dma context" is a bus-specific thing, so
+>>>>>>> please add it to the bus that you are wanting it for.  It can't be a
+>>>>>>> generic bus as that just doesn't work.
+>>>>>>>
+>>>>>>> Or what am I missing here?
+>>>>>>>
+>>>>>>> And why is DMA somehow "special" here from any other hardware attribute?
+>>>>>> Let me give brief information which was discussed, in the initial series,
+>>>>>> the iris VPU used platform bus for dynamically created devices and we got
+>>>>>> the comment/suggestion from Robin to implement a proper bus_type with a
+>>>>>> .dma_configure callback.
+>>>>>>
+>>>>>> https://lore.kernel.org/all/02b3d0f5-f94c-43cd-93af-97cfcf7751b1@arm.com/
+>>>>>>
+>>>>>> based on the discussion, implemented the dma_context_bus and used for iris
+>>>>>> VPU devices instead of platform bus.
+>>>>> Why not make a irus_vpu_bus where you can do what you want?
+>>>> Initially iris_vpu_bus was introduced, and it was made generic based on the
+>>>> discussion,
+>>>>
+>>>> https://lore.kernel.org/all/20260227-kaanapali-iris-v2-3-850043ac3933@oss.qualcomm.com/
+>>> I don't really see that request here, I see a "make this better and more
+>>> generic for other busses" but that does not mean "dump it into
+>>> drivers/bus/ for someone else to maintain" :)
+>>>
+>>>>>> Here, the device have only one bus (dma_context_bus), not multiple buses.
+>>>>>>
+>>>>>> Regarding the "DMA" naming, the core operation of this bus is its
+>>>>>> .dma_configure callback, which calls of_dma_configure_id() to map the device
+>>>>>> to a corresponding IOMMU stream ID. The name "dma_context" reflects this
+>>>>>> purpose.
+>>>>>>
+>>>>>> I am open to suggestions from you or Robin or anyone else, if there is a
+>>>>>> better or preferred way to achieve this, I am happy to consider it and
+>>>>>> rework the implementation accordingly.
+>>>>> As there is only one user, just make this your own bus please and do all
+>>>>> of the needed bus operations for your devices there (i.e. don't hang an
+>>>>> "empty" device off of it.)
+>>>> The reasoning behind to make it generic was to have more users - host1x,
+>>>> Iris VPU, QDA on the generic context bus, instead of each of them having
+>>>> their own. Let me know if you suggest to have the iris_vpu_bus.
+>>> But you did not add such users here, so how would we know this?
+>>>
+>>> And still, I have no idea what this bus really is doing.  Is it dynamic?
+>>> Is it self-describing?  Why not just use aux-bus?  What is it supposed
+>>> to be doing and used for?
+>> This bus will allow users to create a dynamic device and map to IOMMU stream
+>> ID via .dma_configure callback which calls the of_dma_confgure_id() based on
+>> the user inputs. This bus is under the iommu_buses list to register for bus
+>> notifier callbacks for iommu_probe_device() and iommu_release_device() during
+>> add and remove.
+> But a device is nothing on its own.  You can not just have a random
+> 'struct device' hanging out there that does nothing but iommu, right?
+> It should be doing something else that is very "bus" specific.
 >
-> From: Andrew Davis <afd@ti.com>
+> Again, why not create a bus for your hardware type and have that control
+> the bindings of drivers to the devices, like it should be done.  You
+> better not be creating platform devices for these things :)
+
+Creating a dedicated bus for iris_vpu is indeed possible, and we had actually
+explored this direction in a one of the series. A patch implementing an
+iris_vpu bus was posted earlier here,
+https://lore.kernel.org/all/20260313-kaanapali-iris-v3-3-9c0d1a67af4b@oss.qualcomm.com/
+
+I'll bring back that approach. Before that, I'll wait a few days to gather any
+further opinions or suggestions from anyone else. Then, I'll proceed with
+posting the next revision with the iris_vpu bus in place.
+
+>> auxilary bus don't have the .dma_callback and bus notifier callbacks where it
+>> can do iommu_probe_device() and iommu_release_device(). iommu_release_device(),
+>> being a static api, need to be called from bus notifier callbacks which should
+>> be under the list of iommu_buses.
+> True, because aux bus devices don't do that directly, they are "sharing"
+> resources with their parent device and something has to mediate for it.
+> So yes, you are right, that is not a good idea.  Make a custom bus type
+> instead please.
 >
-> Enable HDMI support for BeagleY-AI platform. The display controller used =
-is
-> TIDSS and the HDMI bridge used is IT66122.
+> thanks,
 >
-> Based on DT by: Robert Nelson <robertcnelson@gmail.com>
-> Signed-off-by: Andrew Davis <afd@ti.com>
-> Signed-off-by: Swamil Jain <s-jain1@ti.com>
-> [tomi.valkeinen: cosmetic fixes]
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-
-Tested-by: Robert Nelson <robertcnelson@gmail.com>
-
-Thank you for getting the display back end working on j722s family!
-
-After this goes in, I need to submit the usb/usb-hub changes to enable
-USB support...
-
-Regards,
-
---=20
-Robert Nelson
-https://rcn-ee.com/
+> greg k-h
