@@ -1,190 +1,157 @@
-Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E40F6299AB1;
-	Fri, 24 Apr 2026 09:46:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6656D298CAF
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 09:47:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777023976; cv=none; b=BNOoq4YmSf3c19nkmaDhySqe6O13LKWBLLJHfAZ0rCZJyMDfS5NzjeMe8ceRaDGr840B4BfyZj0kXcywbuser/IGmSJq5w168CPQhhTX0Gf3LHF6McQM+SeEZjkLQkVRv8dsBV23TgZKu7UNwlLT/YrvlcNLcjTUkhWqRMf46uA=
+	t=1777024052; cv=none; b=RWsQucyo1PoR15yfcHLlVjBDEhY70gcB0DWIGPn8THokEn6/WqGwJrO+xHf9tKdjxV837iv2OsTFrkfPdWhjYXIDAl6v4AbfY9mg9MlDL/qEoigyy2u8e97ZVGpeIqYBUpJGE1/3ejW2oDsDZeyorVXSHRib08v8NdLyWaIyl4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777023976; c=relaxed/simple;
-	bh=Sn3D37GAgGchiJZ5RnlRQ/jMCdPZMKl3bDcfaqJRm8s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=I854wN6X7bLXGxNWWNkMQXrFCn8pQqWFLmG9jTr4k/UhWVhJYxhPHYwS4rXia92ufrOmib6+IkSUrfCQtyz3/JkkqcOKe9HVbA8XBwGhTkoL+9WRkcNEeeKeykOFxjwxgH66h3Beb+JESABw/Jec/qx797arxYLE1u268p5ZGH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=206.189.21.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
-	by app1 (Coremail) with SMTP id TAJkCgB3DHG_O+tpllcUAA--.11719S2;
-	Fri, 24 Apr 2026 17:45:47 +0800 (CST)
-From: dongxuyang@eswincomputing.com
-To: ukleinek@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ben-linux@fluff.org,
-	ben.dooks@codethink.co.uk,
-	p.zabel@pengutronix.de,
-	linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ningyu@eswincomputing.com,
-	linmin@eswincomputing.com,
-	xuxiang@eswincomputing.com,
-	wangguosheng@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com,
-	Xuyang Dong <dongxuyang@eswincomputing.com>
-Subject: [PATCH v6 0/2] Update designware pwm driver
-Date: Fri, 24 Apr 2026 17:45:29 +0800
-Message-Id: <20260424094529.1691-1-dongxuyang@eswincomputing.com>
-X-Mailer: git-send-email 2.31.1.windows.1
+	s=arc-20240116; t=1777024052; c=relaxed/simple;
+	bh=9r7mDfMvhAeVGI9/OtMtccMrtDzPQz+MyGD9CQhVa/8=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Vx2Bnd329NP+1EeM+ViLSpqIl9hekNLLxZXsiQ8UWgpLnyAOshwtaPN7eWMymfoShqy/BOyTTeodw1AwcXNqXzovJ/jAe+TZNS7PQqPUS7kue40dkbrJkvwXS2aeCCl2OZ7cIDonzx/h0swDoYhBAGvCQ7ZtlIjlBC4V91oEH1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=k8JggPqM; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="k8JggPqM"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-43cfce3a195so4425382f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 02:47:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1777024049; x=1777628849; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=1cXOyeqVZTuYmkbP/VNEswETXiZyV/j1DeIymNd6Gck=;
+        b=k8JggPqM+k09/Fhg7CNSfXmlfn4DYS+GY4eGn+u9BizDCgAiZRdRGpFBgjkKg0ngLS
+         dpmEr8wDPCDCS+9O2I6z10Or68sAY0dJJKyt7CAJPPNR5ULB4rDQyxvNDz3gMESg6E70
+         X9FQZ/n4tl26SdeGlFZZM/P0W/L1/HzAZzFAKDUN3TiU/aTTWPYY8PUyWuXMDCi2BKqO
+         GQO9VoyoNSqNgilS3/MEn6oGe00qWmuNbT4gL3/13NZcUcbYU18Wb1IqzyhtU0bMhxLR
+         kRL9aF73qeh6fOMQc7+DVTQBpW5WydbfwhR1atZ3Mdsufjlze+tNsaOuw0eN4l+lFIja
+         uoTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777024049; x=1777628849;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=1cXOyeqVZTuYmkbP/VNEswETXiZyV/j1DeIymNd6Gck=;
+        b=dnwrw2w9ePyNUvMU5A5ubKrwLIKtLNqmupnb6mABbHauk2m+iB8imJ+80+SV2V8X45
+         RfBK8naU6/ddCD0s1wUUelcWaoTzq0qNGK52QtJXUbfhApDBSbW3P9Gij3BfGLjZYFNc
+         vjj+yuU8G5S2mVMEBXAb8/wW+y90aHxn6234J6grnucLtlefUVZHxUWELPS+MDxubxh7
+         JDD9egnq6YznLBM9UNDfEqHUIUDTqUsWx+Pk8Fv0G9fbnZ93MqLCaugNejxuuulRpKnz
+         G0J5QWHqsTkohEK4e362wX6T9qBDCvtfhO5i0hOcDXXtxK6D9Ma1EPYcrZDfOWrfybjD
+         mVxA==
+X-Forwarded-Encrypted: i=1; AFNElJ/Sdji4Y+kqhEk7Oncs5GgE/OhhVbqic/U674K5MN8FiC5C03eZVCE3k0u1zXqllAw5kV588C8oow4o@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyw4oKEpnCRKmwqPvd0VtaaXoshU8FQcRmEe1k3YlRx7AcRiOfj
+	qK9u8VyJv5JdOMrF99Pa+Es4Co48Koy/XrUqIslaLYER1nL5zh1F5uho+08iatfV5I0=
+X-Gm-Gg: AeBDiesX5tlXISabiVjJQ+CwzMbwsv1BwiA3/9XywJa11SPQPEE/f5x3iW+dg0WZa6Z
+	n09FA+puK67bOVnUJV3MtkcZRe0K6ViPLhu2SuFxmuSM3NRivcxPoaOKPX7wqH2+k0LmsHRcomP
+	Lhi5ob97WsUBByOuwFjTiY9LMpWPLONKXQi4lx1R3m6+NtOaWHfS+tVQwdwoR082UYID4cRJYFe
+	E6QJs5ufVFy+fwxUdIEVHC/sAp0n2Q/S+aw2HesS9wt76CzmZwDV75nWbAfRzhgRSQGXmTEskXP
+	9dU1HD2nuFtZBagakGHJmgBrUBS21vd51NDdaex67DLI3eE/rWMJN958LM2/2NEGuLuvebm6MkC
+	/DLZ71YLvrd6GL3IQNA6DNhoIg9qKKzqncfwEgIkj4qpOLaOU2QOibGxBpQEmXs9gs3StqwPMMI
+	O94yjcyLdpuJLLaDDyAaFPIQJ9SDoUt6XgeZu+NYFgNl93AYCcDth5TkIC14JLAMNAJrytbor72
+	WhZxbX3qdVzVQrCNkYR/At7mS4/
+X-Received: by 2002:a05:6000:288c:b0:43e:a69b:d804 with SMTP id ffacd0b85a97d-43fe3df26b1mr48732901f8f.29.1777024048585;
+        Fri, 24 Apr 2026 02:47:28 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:79e1:f56b:445c:ca9c? ([2a01:e0a:106d:1080:79e1:f56b:445c:ca9c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4cb1176sm60412901f8f.3.2026.04.24.02.47.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 24 Apr 2026 02:47:28 -0700 (PDT)
+Message-ID: <86adec56-2234-44c0-b165-71fa91b17e96@linaro.org>
+Date: Fri, 24 Apr 2026 11:47:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TAJkCgB3DHG_O+tpllcUAA--.11719S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxKFyUArW8Ary5XFW8Ary7Jrb_yoW7CF4DpF
-	W8GryakrWkWryIgan7X3W8uFyYqan3JF4UKwn5J3W7Zwn0y3yUXrZY9F15tFyqvr4kWryY
-	ya4fG3W2ka4YyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBv14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04
-	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
-	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
-	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l
-	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUXJ5wUUUUU=
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v4 2/8] firmware: meson: sm: Thermal calibration read via
+ secure monitor
+To: linux-kernel-dev@aliel.fr, Guillaume La Roque <glaroque@baylibre.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260423-add-thermal-t7-vim4-v4-0-d4c1528d5044@aliel.fr>
+ <20260423-add-thermal-t7-vim4-v4-2-d4c1528d5044@aliel.fr>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260423-add-thermal-t7-vim4-v4-2-d4c1528d5044@aliel.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Xuyang Dong <dongxuyang@eswincomputing.com>
+On 4/23/26 18:07, Ronald Claveau via B4 Relay wrote:
+> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> 
+> Add SM_THERMAL_CALIB_READ to the secure monitor command enum and
+> introduce meson_sm_get_thermal_calib() to allow drivers to retrieve
+> thermal sensor calibration data through the firmware interface.
+> 
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> ---
+>   include/linux/firmware/meson/meson_sm.h | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/include/linux/firmware/meson/meson_sm.h b/include/linux/firmware/meson/meson_sm.h
+> index 8eaf8922ab020..3ebc2bd9a9760 100644
+> --- a/include/linux/firmware/meson/meson_sm.h
+> +++ b/include/linux/firmware/meson/meson_sm.h
+> @@ -12,6 +12,7 @@ enum {
+>   	SM_EFUSE_WRITE,
+>   	SM_EFUSE_USER_MAX,
+>   	SM_GET_CHIP_ID,
+> +	SM_THERMAL_CALIB_READ,
+>   	SM_A1_PWRC_SET,
+>   	SM_A1_PWRC_GET,
+>   };
+> @@ -27,5 +28,7 @@ int meson_sm_call_read(struct meson_sm_firmware *fw, void *buffer,
+>   		       unsigned int bsize, unsigned int cmd_index, u32 arg0,
+>   		       u32 arg1, u32 arg2, u32 arg3, u32 arg4);
+>   struct meson_sm_firmware *meson_sm_get(struct device_node *firmware_node);
+> +int meson_sm_get_thermal_calib(struct meson_sm_firmware *fw, u32 *trim_info,
+> +			       u32 tsensor_id);
+>   
+>   #endif /* _MESON_SM_FW_H_ */
+> 
 
-There is already a patch [1] for the DesignWare PWM driver,
-which is posted by Ben and still under review.
-Based on this patch, this series is a continuation of [1]
-to add support for IP versions 2.11a and later, which
-includes support for "Pulse Width Modulation with 0%
-and 100% Duty Cycle".
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Supported chips:
-ESWIN EIC7700 series SoC.
-
-Test:
-Tested this patch on the Sifive HiFive Premier P550 (which uses the EIC7700
-SoC).
-
-[1] https://lore.kernel.org/lkml/20230907161242.67190-1-ben.dooks@codethink.co.uk/
-
-Updates:
-  Changes in v6:
-  - YAML:
-    - Drop the resets property and its items description for eswin,eic7700-pwm.
-      Keep the required.
-
-  - Link to v5: https://lore.kernel.org/all/20260423083644.1168-1-dongxuyang@eswincomputing.com/
-
-  Changes in v5:
-  - YAML:
-    - Add 'eswin,eic7700-pwm' compatible string.
-    - Add the items description for the resets property and set minItems to 1.
-    - Require resets property with exactly 1 reset for eswin,eic7700-pwm compatible.
-  - Driver:
-    - Add support for 'eswin,eic7700-pwm' compatible.
-    - Add structure dwc_pwm_plat_data to manage the API for obtaining resets.
-
-  - Link to v4: https://lore.kernel.org/all/20260415094908.1539-1-dongxuyang@eswincomputing.com/
-
-  Changes in v4:
-  - YAML:
-    - Change maxItems from 1 to 2. As there is a corresponding reset signal
-      for each clock domain, the effective maxItems of the resets property
-      is set to 2.
-    - Update the YAML commit message to describe the hardware.
-  - Driver:
-    - Replace devm_reset_control_get_optional_exclusive() with
-      devm_reset_control_array_get_optional_exclusive(). Since the number
-      of reset signals has increased from one to two, we need to use the
-      array API to acquire them.
-
-  - Link to v3: https://lore.kernel.org/all/20260402091718.1608-1-dongxuyang@eswincomputing.com/
-
-  Changes in v3:
-  - YAML:
-    - Added a clear justification for the optional resets property. It is
-      required to support proper controller initialization when no PWM
-      channel is active at boot time, while allowing the driver to skip
-      reset deassertion if any channel is already enabled.
-  - Driver:
-    - Update the boundary value check of tmp in __dwc_pwm_configure_timer()
-      for DWC_TIM_CTRL_0N100PWM_EN.
-    - Replace 'sizeof(struct dwc_pwm_drvdata)' with
-      'struct_size(data, chips, 1)'.
-    - Drop devm_clk_get_enabled() in favor of devm_clk_get() with explicit
-      clk_prepare_enable() and clk_disable_unprepare() allowing runtime PM
-      to manage clock state.
-    - Replace devm_reset_control_get_optional_exclusive_deasserted() with
-      devm_reset_control_get_optional_exclusive() and issue a full reset via
-      reset_control_reset() only when no PWM channel is active at probe time.
-    - Detect bootloader-enabled PWM channels by reading the enable bit, and
-      initialize runtime PM as active for those channels by calling
-      pm_runtime_set_active() and pm_runtime_get_noresume().
-    - Remove autosuspend as it is not required for this driver.
-    - Use explicit pm_runtime_enable() and pm_runtime_disable() instead of
-      the managed devm_pm_runtime_enable() variant to ensure correct cleanup.
-    - On device removal, recheck the channel enable status. If any channel
-      remains active, call pm_runtime_put_noidle() before disabling clocks
-      via clk_disable_unprepare().
-      Resume device before register access during removal if it is runtime
-      suspended, and re-suspend it afterward.
-    - If device is suspended, resume it before register access during system
-      resume/suspend.
-    - Use pm_ptr() instead of pm_sleep_ptr() for correct PM operation.
-
-  - Link to v2: https://lore.kernel.org/all/20260306093000.2065-1-dongxuyang@eswincomputing.com/
-
-  Changes in v2:
-  - YAML:
-    - Remove eswin,eic7700-pwm.yaml. Use snps,dw-apb-timers-pwm2.yaml.
-      The description in snps,dw-apb-timers-pwm2.yaml is better.
-    - Add the resets property as optional, as defined in the databook.
-    - Remove snps,pwm-full-range-enable as no additional property is needed.
-  - Driver:
-    - Change the file from pwm-dwc-eic7700.c to pwm-dwc-of.c from [1].
-    - Define DWC_TIM_VERSION_ID_2_11A 2.11a as the baseline version.
-    - Enable the 0% and 100% duty cycle mode by setting dwc->feature if
-      the version read from the TIMERS_COMP_VERSION register is later
-      than or equal to DWC_TIM_VERSION_ID_2_11A.
-    - Use the DIV_ROUND_UP_ULL() to calculate width in the .apply and
-      .get_state.
-    - Additionally, Power Management (PM) support has been added to the
-      pwm-dwc-of.c driver.
-    - Drop the headers that are not used.
-    - Use devm_clk_get_enabled() instead of devm_clk_get().
-    - Drop of_match_ptr.
-    - Fix build error with 1ULL << 32.
-      Reported-by: kernel test robot <lkp@intel.com>
-      Closes: https://lore.kernel.org/oe-kbuild-all/202512061720.j31AsgM7-lkp@intel.com/
-
-  - Link to v1: https://lore.kernel.org/all/20251205090411.1388-1-dongxuyang@eswincomputing.com/
-  - Link to v9: https://lore.kernel.org/lkml/20230907161242.67190-1-ben.dooks@codethink.co.uk/
-
-Xuyang Dong (2):
-  dt-bindings: pwm: dwc: add optional reset
-  pwm: dwc: add of/platform support
-
- .../bindings/pwm/snps,dw-apb-timers-pwm2.yaml |  25 +-
- drivers/pwm/Kconfig                           |  10 +
- drivers/pwm/Makefile                          |   1 +
- drivers/pwm/pwm-dwc-core.c                    | 101 +++--
- drivers/pwm/pwm-dwc-of.c                      | 346 ++++++++++++++++++
- drivers/pwm/pwm-dwc.h                         |  25 +-
- 6 files changed, 475 insertions(+), 33 deletions(-)
- create mode 100644 drivers/pwm/pwm-dwc-of.c
-
---
-2.34.1
-
+Thanks,
+Neil
