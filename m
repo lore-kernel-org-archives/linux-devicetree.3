@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B5B33E355;
-	Fri, 24 Apr 2026 17:05:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD419339875;
+	Fri, 24 Apr 2026 17:06:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777050329; cv=none; b=XXq4yFvJtOc1eCAyBXV+4nwZdDKJe/lIpZskHCxaxIyScYOUPClQOeHWIMIRpWN/1mznR6E9zQb29GNBBmSE1S8z0VNYYoDTTOM3ENXy/4eRcTX+jOZuBKdsnG6T1U3G9z+znM1rJaTbXQqfLISXtHb74fxJAtf92rkmAg7OZhg=
+	t=1777050383; cv=none; b=hM4GqrJQOciDG+l6MsWqfYrPYOBMU5j3j+rrDG30tXVDzpVNAMKR9odZjQKpSl1Fx/XODR+cxvEXo0WEiuvcf8oKmbje6vGC3cCmW9oNNff8Ta5R4Exf6Kad4ZqcGlYaFS7jDQClx0fC2RgvFzLteS3W8d01N8yW5QYfF4GJQQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777050329; c=relaxed/simple;
-	bh=Inc4atWINJoIRMkC4cpTPYRpwZxTCdKIkqwzJazDSFY=;
+	s=arc-20240116; t=1777050383; c=relaxed/simple;
+	bh=xCE79Wvi8Mkp+ZGDctaw2DzfjgrYbScCrXQDDCMokJA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m/0zhcNIvWD3pgYCYLSYlgql6oHy9FGWXdrR6QZPpV++Q/ni17W8WcaZ6RxUG/BVOlWQBBTY6BmXJjd3qmMNri8q0BggV27shoot9UuIJ96Rp5UcdwoLpEDteJ0vI1kAIffylKI5xBgTKiXN8R8m/3adV8LhZqWazt6r1XarX3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZleVoXaE; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=FEGOkgyGta+JcJykrFhwJx4E38qTRG8QctMceRlqeilK+Sc8K1o75FxN+izyoSk/0fghJP0ppg3Nw3QVSdQAPG26AIU6CGSt2Yg+n/1N0Lv1yLSxjcjSoEuWPoCu9JBCZpkxBvRWwwMwCqJc2Q4J7UBjh2GfZxJmmvDgD8W32f8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=soS8YKrq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZleVoXaE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB18CC19425;
-	Fri, 24 Apr 2026 17:05:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="soS8YKrq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36EAFC2BCB2;
+	Fri, 24 Apr 2026 17:06:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777050328;
-	bh=Inc4atWINJoIRMkC4cpTPYRpwZxTCdKIkqwzJazDSFY=;
+	s=k20201202; t=1777050383;
+	bh=xCE79Wvi8Mkp+ZGDctaw2DzfjgrYbScCrXQDDCMokJA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZleVoXaEMpQIofIQrgERXrN67GeL8TC64JTUnu9gRI2IEc4CJ3Z7k5YlFMO4NFozP
-	 mQReSJaBac3f9t9rd3IEBKAzBvNJibUzZkAb2FlJ9PHw1pVSO9wW8P46VWkOLBCSUV
-	 +PG3bG09xFS0q4pPAuEFUqlN0hUJNXF8DHtl28zN3+yfjtBQjwxYlZI0Ui1UJRsS/k
-	 SHvKb+rNqHkkFPPPN1OWu6ibbd6T3fWXRj8W10+ZU+S3GPwxlCFINyZzhPK6gnIGN9
-	 1OUcltRf3yrWppep+QU5aetNd6eGyckqPqc7FGJbcnAsg4RFsqEx4Z6lQpuQRyX6Hn
-	 YRVZx6nt9Bsog==
-Date: Fri, 24 Apr 2026 18:05:24 +0100
+	b=soS8YKrqJfBO4XBWAY/r3mngcqtyBkbOm8Ya3Dw6bovRKTuOlbOKpmFdFqTA4EhkC
+	 Q2hn+QQD8fqQwASYJb94Fkf8BPk2sYBXuPW0Vj/3xVdAs1OUii1XE/NRBRHAkPWUMK
+	 moriP1FVBiXjoiD8txVJ3H1nnoUharRuugzbvcdOSIBlPiPfyFZRWp1U3r0N1OEZe6
+	 7LnXlI3tyzqrRLYC6aY36nGLdPOFsn2McuvsBW+ahjgMbgsB4Yu8J5LyeU6ixWMcEe
+	 RiEij5Wajx0XvZE5elE8qSGz7+cJIXmaAL9fuOGkP0bWGFw0d30q6I5ONPPBh09vS0
+	 johWnH51n3CAw==
+Date: Fri, 24 Apr 2026 18:06:18 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Xingyu Wu <xingyu.wu@starfivetech.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mason Huo <mason.huo@starfivetech.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] dt-bindings: hwlock: Add the support of
- HWspinlock for StarFive JHB100
-Message-ID: <20260424-corsage-strict-026754e5f045@spud>
-References: <20260424032026.62301-1-xingyu.wu@starfivetech.com>
- <20260424032026.62301-2-xingyu.wu@starfivetech.com>
+To: Richard Zhu <hongxing.zhu@nxp.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	bhelgaas@google.com, frank.li@nxp.com, l.stach@pengutronix.de,
+	lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
+	linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/3] dt-bindings: PCI: imx6q-pcie: Add intr, aer and
+ pme interrupts
+Message-ID: <20260424-sinless-unfiled-d1087a894da5@spud>
+References: <20260424025735.1490772-1-hongxing.zhu@nxp.com>
+ <20260424025735.1490772-2-hongxing.zhu@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,95 +48,69 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ws5Ee19j9hlkwfNQ"
+	protocol="application/pgp-signature"; boundary="H0L8i4gwKKUpxCZw"
 Content-Disposition: inline
-In-Reply-To: <20260424032026.62301-2-xingyu.wu@starfivetech.com>
+In-Reply-To: <20260424025735.1490772-2-hongxing.zhu@nxp.com>
 
 
---ws5Ee19j9hlkwfNQ
+--H0L8i4gwKKUpxCZw
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Apr 24, 2026 at 11:20:25AM +0800, Xingyu Wu wrote:
-> Add the new documentation of hardware spinlock for the StarFive JHB100 So=
-C.
+On Fri, Apr 24, 2026 at 10:57:33AM +0800, Richard Zhu wrote:
+> Add optional 'intr', 'aer', and 'pme' interrupt entries to the i.MX6Q
+> PCIe binding to support PCIe event-based interrupts for general
+> controller events, Advanced Error Reporting, and Power Management Events
+> respectively.
 >=20
-> Signed-off-by: Xingyu Wu <xingyu.wu@starfivetech.com>
+> Signed-off-by: Richard Zhu <hongxing.zhu@nxp.com>
 > ---
->  .../hwlock/starfive,jhb100-hwspinlock.yaml    | 40 +++++++++++++++++++
->  1 file changed, 40 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/hwlock/starfive,jhb=
-100-hwspinlock.yaml
+
+This binding supports lots of devices. Do they all have these additional
+interrupts?
+
+>  Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
 >=20
-> diff --git a/Documentation/devicetree/bindings/hwlock/starfive,jhb100-hws=
-pinlock.yaml b/Documentation/devicetree/bindings/hwlock/starfive,jhb100-hws=
-pinlock.yaml
-> new file mode 100644
-> index 000000000000..b1b27fafe9bc
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwlock/starfive,jhb100-hwspinlock=
-=2Eyaml
-> @@ -0,0 +1,40 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/hwlock/starfive,jhb100-hwspinlock.yam=
-l#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: StarFive Hardware Spinlock
-> +
-> +maintainers:
-> +  - Xingyu Wu <xingyu.wu@starfivetech.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: starfive,jhb100-hwspinlock
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  "#hwlock-cells":
-> +    const: 1
-
-Does this peripheral not have a clock?
-Seems unlikely to me that it doesnt.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - resets
-> +  - "#hwlock-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    hwspinlock@13012000 {
-> +        compatible =3D "starfive,jhb100-hwspinlock";
-> +        reg =3D <0x13012000 0x400>;
-> +        resets =3D <&sys0crg 0>;
-> +        #hwlock-cells =3D <1>;
-> +    };
+> diff --git a/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml b/=
+Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml
+> index 9d1349855b422..badc7fcbd556c 100644
+> --- a/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml
+> +++ b/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml
+> @@ -58,12 +58,18 @@ properties:
+>      items:
+>        - description: builtin MSI controller.
+>        - description: builtin DMA controller.
+> +      - description: PCIe event interrupt.
+> +      - description: builtin AER SPI standalone interrupter line.
+> +      - description: builtin PME SPI standalone interrupter line.
+> =20
+>    interrupt-names:
+>      minItems: 1
+>      items:
+>        - const: msi
+>        - const: dma
+> +      - const: intr
+> +      - const: aer
+> +      - const: pme
+> =20
+>    reset-gpio:
+>      description: Should specify the GPIO for controlling the PCI bus dev=
+ice
 > --=20
-> 2.34.1
->=20
+> 2.37.1
 >=20
 
---ws5Ee19j9hlkwfNQ
+--H0L8i4gwKKUpxCZw
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeui1AAKCRB4tDGHoIJi
-0lX4AP9I0ki7wfjl+Gacih/5jCNWey2bv0Cl0SRH01mw9ST9igEAqTpOVGaDMlgH
-KjESD6Z8K7DB8lcaXTzm4W5KAGwU2QA=
-=GV8i
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeujCQAKCRB4tDGHoIJi
+0sbBAP9Y8BcAd/MDAAh/RMkRDbsa5ilgaKCx0jwcHj/+rWm2twD+N71s+zgqihzj
+hrfWyfc3pLzNgNi0wFP5B7kAHGteAg8=
+=fyjc
 -----END PGP SIGNATURE-----
 
---ws5Ee19j9hlkwfNQ--
+--H0L8i4gwKKUpxCZw--
