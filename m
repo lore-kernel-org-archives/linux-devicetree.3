@@ -1,157 +1,203 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDDD63D090B
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 12:55:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777035322; cv=none; b=NOi8x5P89Ym2nP6WfcIs8hv8lv7TSPzR5GNMIAXaINu9PIQDkgtwwe2I8A4kWX4blCkGCYw8TIYlPmQ4VxAoaun/C13wpGfuETy+gzve5o7BnOFErhBmLG0j/0ej3OycZm/RlSfXwkLgT377orZTLl4A1no9+OguSfRk4AH4puo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777035322; c=relaxed/simple;
-	bh=SMWFUGavbE0VkV3fmehSGnnelO+VQoVhuLxrVUV1NJU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bBhMS1+oM1m9SkKaSY3Mj/kWreVAe6ROQ+hVp6PKPN8QhM60Q5fnAB/rPI+8K8jTg/8oF5WVLuE8Fxk/b2yfZYhHWiQsVnVff6vV8awmW+jZQFJMA1XN++brdWcLaN6sAkrx/PIss2rMxKaSl7lVCL75NuUSyaO3TVKl/n4qf0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h7H627hj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LMMMyiab; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D063D34B5
+	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 12:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777035541; cv=pass; b=DIF+mxPev4ubSkVsLCfXhVNUJmQh6tfGvuiLtUtymrt/UDZiYzW+6bDJd9S2RDjYYCVkW13dDDoEo4NFHyG8H/zFnFMw/pRQ+FvtIcio76FuFEWCNsKL2EmJBS6citydghGPeV5b+HESgpCrBV8vhcxezO28r7FmI7F/EKRGJvo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777035541; c=relaxed/simple;
+	bh=ChMklle/g4BHeag6UQCkoA0kKv0IAhf6rxUmuITbmqc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IcGZZfsG7OL6Isf9Aa9OA18Uv/lkRoAvrPHinXbEMIJY+VVzgOHrBtO5NkEMQNAxKvAdwkUHa5uV4xe71iM9mi3Ez79g75ZFRLn8BOC4TssHmvTGsgY7ODfJlW25Dw8hY10cJgsBz6vOCIfagFkme4V/Mp1j8RgxtdWLJJYySOg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gFyF8nEz; arc=pass smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h7H627hj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LMMMyiab"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63OCgkUo1822923
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 12:55:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=zpLKuxXcZNSD9Vho3/l2L+f7
-	A1uq769GitjtFC6qSuk=; b=h7H627hjnNzIT4c2kGVLnScxEsMoBp4avuK/E/Vq
-	nHgRCQvHezOfYS2SpWo+6rP514C5dJCbGn6ryWrCF9l+VPYy+ukb5wUlUq13Q3RO
-	Xr7cNqADfWiwTGzQJ9PoUupLwtNoLe1W9Y/SFZ4XBCyNiBTUBc7OfannRQUj4xWB
-	tNk3aPmZ1+0zEJWl4QieEdBNTgxYK404wsALEvtUW4TmkisADwN0ej8yuVji+EyS
-	00CmK8xulfKpL3QoVszjG0Ta9r2J3Qh0I+bDCScT1oCmt7kP7V78xuSLOQhjp6WB
-	aYQhUGAcHINZLr5ZBylrVowY7OWf83qmj82YktxH6aoNZw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dqv5ru3f4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 12:55:15 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-2c0f6593ef5so9585722eec.1
-        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 05:55:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gFyF8nEz"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-43cfd1f9fd1so4831713f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 05:58:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777035526; cv=none;
+        d=google.com; s=arc-20240605;
+        b=FthMw1lJUyeYnb8kNQE0PvoOc/E0telqMfy7kHwlL6nJIh/cSqsBlVAGhH4Aovc9le
+         Hi+Ky1Gu+FPifdAncZ85+M0MdwfYjJzCjM2TdKEXyvyBbdx27BbqHIyThsrg9FJgBdaQ
+         ki+tzw3rySOtz2V7GZvDAsuiERX8XhcK99cJlm9yYOZStk/r0n8Y2+I+OZmVEnqPNiHP
+         ceiO44vzj44tON+VVS4soGv/8RTA0g2YXpfVplaKVZ0oUpRV95f80pU8oYsFIUYV2YE/
+         MgH8Z8fKMZ+P2oW1TfWpn1+RrkVDJEUAhcxULDytcnNRJL0y798oqIg41UpGb32PIfLP
+         0h6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wFsKGWNGgInqejR3E/bOc4DWytiIehmTO4wKF2AyXZI=;
+        fh=Kt2YG55e0GpaWBrsj6CcoIDnZsQHkVOazhlhIqdghqM=;
+        b=iTt3rorlljGestBB2bp4b4AwPF/Iy8rzETYeVcujQ7S872D7Y4EjpbDMU9JeCptBVf
+         tjOlATKNxA0U/c8vO8tKDke0Sll8016gQ+8LQMZYC0ZOUO2Q7n9C/fCKgIg1hSS6QIa1
+         OnUzdM6ZbtsUU1tDeplaswaawEeoYNRcjhm8DtbdsV8HLQyMqs/3YXP9w1CHLnbEjkSQ
+         J9jCW8nW7xrk8SSe1BcPWlwIaqTnlv/7NOVSnOAjbj3ndjQk0/peZz6MwIcSQwRxUvA0
+         IM6b2kFIGA+Zco0eKtA0D7c8k5DVW9DLDRJL5j/ch6d5XOvqgOrp+MyylC6WEUYrcYm2
+         WCTg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777035315; x=1777640115; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=zpLKuxXcZNSD9Vho3/l2L+f7A1uq769GitjtFC6qSuk=;
-        b=LMMMyiabSEcuqx09Bo3e3mEzAahpzlydP70Nw6bUedv92Rx6Un3lH6zdHIFyOcsc4S
-         CsHsNQDFj4lFzoRQtw+xtKZ8SKdKtcCMTOA2UCt0TsfVM+I10YHUoq+8k/O2/rhatkEb
-         UuMCnMk7E+b7vWIA0WjFIxSuG2PheAaJIJeInjofZOwk6Xrmt5yXeS2nvPWsoTcfjV/H
-         Vydu1EEyxUeR9L7sUzp6krox42spVl8Lc9zdO5ZLgCYT0RjCsfP/T4eDTLClHRhNq54T
-         ijKVG/AE5RrBmgHcu4OolpfpJ3ibRFtF/Aa4XlBCn9zUzVGcK8b8rxcvuAP8SL1722hT
-         XlLA==
+        d=gmail.com; s=20251104; t=1777035526; x=1777640326; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wFsKGWNGgInqejR3E/bOc4DWytiIehmTO4wKF2AyXZI=;
+        b=gFyF8nEzzJN/laq3H+355n9mb1550gG8CdafiGl8gzvzI8Li8mnXMHivpPxrcf9P/x
+         WizW+CKJnkSU6R9KobQmnMcv0k/ujLM0a2wn5YQEGIlY25GrBJhrA3uiCRg8zjA1gkHz
+         bkjM8DFtX9JarnOcr7PgE7oS9QUpM1a3UfjFtFkoaK0ZBjMCV/1TTOa2Zw3KrmAm6Wxo
+         lVBJqwHofZmwtTT0YPWiA5/LTSVEKe1gmy60E1/zsnOuBo82AeCVXjezudKPqLUXB8Sh
+         rO7l1oyZG4j3fxcOjY8XHmdqMnUMCjsymPR7HVQLG+6Ki8lR0pBKqNiiiD3B+5D/pqJF
+         nPKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777035315; x=1777640115;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=zpLKuxXcZNSD9Vho3/l2L+f7A1uq769GitjtFC6qSuk=;
-        b=SHnqcj9zWlVyOlXMqhxWYR6B/kKZCiAG8rFQPpPkGH7vk6MSZrKnpZGFdwUVj/ppV+
-         m1aq70P9KGMDC1944VpFBohhpxqYKpUvQ2cpA4qBm8ByHYbEPVc/JaYpCSwX5vCyJBWi
-         HxCMINAqQpJcFqqiTErAjmgc70EqO1N/8w0501PcrPTUMotdCgqhZRycwIpPYgvF9CSL
-         yogX3xgq4ZAf6N7fsyWnf9F+Lj5YL2JAzXD6YHwbFVHC4Gvf6tmztZTvQ00fIUecGfem
-         z1ZZp8ta4b/GbE7R51IQJU+0vsBS3LJDgOYTGR8TkejxA/rPWOlPwPxAIK0xwBK8+opw
-         kS8Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/9hMQ+9jHX2/WkFthla70J/isM2d8D1eT+v4YZymAiGu+Q3NFg6SBhwwHOiFBzOO1+BMch70SVGZYA@vger.kernel.org
-X-Gm-Message-State: AOJu0YxWrnrAvkWkRwEU2OiYTA8q+5moCgCnTWbYRiA3jS/2pW3Ka3ot
-	Rfa+R//crRGF7yRqSfm36qEUFSZlnzo+g7sUDlToO7Q2Wi3DRQAGyzGAW3r8cz/dK86Xu8+DAe6
-	F29kw1pgxCs0A1kkY8oW+foQ8cKvQiGk98KFK3I9YYQOM4JbpnIAYKtnfXBFjsK8Z
-X-Gm-Gg: AeBDieuxRJy3Pl5XcBECcgtv7nJFY0Sjl0AzJs+X7bU7yEE9GDdX8tBgNel0YQa/rqq
-	WPDg6xxeTXaSh141qJMmP+2GrIl33Qs5ntbU4NPTCfOMdNhfcwE5topxhf/9PO0Y0wcUeLIlEHg
-	ElqZjhAtwVoli6QotEtOND4uUOZq7BiAg0DP7OHFq44R6WbC2aZtgwDg1ZMiuQgIEocJ427KFJg
-	oXexX2aBtyScI49LchPjv9vfYK9LKl4KIidqYwrj5SJ7yhmXGYGHHj84Q7b65vYwzBwRderIgpA
-	H/hoUgje6Pffq7uxKjSEfGTARE2x7ymoGqHbYlC8IqiKvo3wsKS/fSeCUNc4/ZpT++SmbcxIWt3
-	IQE0vhRqD05fV6eaSgUFXrb/H8Ocy7FXCgq5GQi8x+xhu0vTU/EPFvAVI7EpVAxnEjHCJDxzTk8
-	0=
-X-Received: by 2002:a05:7301:168a:b0:2d1:815f:19c1 with SMTP id 5a478bee46e88-2e479c0427dmr15313620eec.15.1777035314743;
-        Fri, 24 Apr 2026 05:55:14 -0700 (PDT)
-X-Received: by 2002:a05:7301:168a:b0:2d1:815f:19c1 with SMTP id 5a478bee46e88-2e479c0427dmr15313604eec.15.1777035314221;
-        Fri, 24 Apr 2026 05:55:14 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2e53d8b944bsm31824043eec.28.2026.04.24.05.55.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Apr 2026 05:55:13 -0700 (PDT)
-Date: Fri, 24 Apr 2026 20:55:08 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, linux-pm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: thermal: qcom-tsens: Document Nord
- Temperature Sensor
-Message-ID: <aetoLNvH5jeK3Cmo@QCOM-aGQu4IUr3Y>
-References: <20260420065409.1249030-1-shengchao.guo@oss.qualcomm.com>
- <a4f6b7f5-6566-4c73-9c4f-e43c3cafa75a@oss.qualcomm.com>
- <68723e33-53ca-4a66-8777-945cdcfce6fa@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1777035526; x=1777640326;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=wFsKGWNGgInqejR3E/bOc4DWytiIehmTO4wKF2AyXZI=;
+        b=COH/KQwQWGAVSRKLBXAs7Yd7eCc0TnsHZjqtKWuzbdKV6Od0HithbFI/mDT5hV+0es
+         nboKkYYWIuT2pGWXLku7Vij1OIOSriDLvIQfDhRvZtlYM3kkjQZA1Gkgig3iuVoG4bkv
+         S1E05AThI23IH4pKOnjO4U2eo3Ai88lD9KRvM8sPT+L16qNLk8sKzOaYjBiStkAFn2Hk
+         Eww5Ix9+Ikj1BbTO8HWsl/6F89Bqu2GBD0osAcLxNheWjhnrH+ebIzW2OrLZlY4s4pTk
+         5whYNkqVdFjJBVA82e7KhuwkAKHfMVM7w5CR9qKvFH7Pdt7CGTkAnyJQc6EpdIPGtRLL
+         QiKA==
+X-Forwarded-Encrypted: i=1; AFNElJ8nzQGLnEmn0PFhDgBKWQscbjnE4Lo3BTB5nuwYznTLMXiJibZArRf6wLyOJiBuyxZh+GiwI4yHwFfT@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw4GhMfBhpQFYgfERMdCQ23hQxHOhFVo5ewyIh4r+YPrpDMQxC6
+	2rju7IlKpKWBqk3gIR4PttLERGZZ7eIPF0qnX5ujxmx/h8OVAIG2dGtsxCT8OMT+Crotj2T1MGf
+	LkjcNMz9hU5sCzNnXZyPOGVQKV4uEHeY=
+X-Gm-Gg: AeBDiet13BhGxVMw1TBVnvp3SBgy3OvJ65Os2s6cFOYAp/pERIBSVsPlzNrM+/hKnKN
+	Nkjg+pYnmCfgO3x2Vl7IpIXoH08OoFmT666P7fXulCEdqbQpXWmprtkstSya9RNJrfJcm7CDTs7
+	lE2zXaYJXQP8gqK285b9oRuuKl8MDUb5klIhgzD8u3lXtHnTWHI0xOLYYQ6LoDTnieCeMWbXCOm
+	GPz8c5Ug3d5S2OT9iJ73U8pf3YRTsbXdZey2HiHf1NODEO73Fq7CyopcYFT534JsUYfE7R6Mwcc
+	0+Kz4Mz05Ryar6hYufA=
+X-Received: by 2002:a05:6000:1886:b0:43d:7e11:1b72 with SMTP id
+ ffacd0b85a97d-43fe3dbece0mr46576017f8f.9.1777035525465; Fri, 24 Apr 2026
+ 05:58:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <68723e33-53ca-4a66-8777-945cdcfce6fa@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=LqiiDHdc c=1 sm=1 tr=0 ts=69eb6833 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=Uo6MfCy8GOolxduyRh8A:9 a=CjuIK1q_8ugA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-ORIG-GUID: diQMBO-10PIYCSzAKrXL6EyAVm9LXJZe
-X-Proofpoint-GUID: diQMBO-10PIYCSzAKrXL6EyAVm9LXJZe
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI0MDExOSBTYWx0ZWRfXxpRLr01FZkMj
- PwHuzuwqmEnhbiMXQwXVx5op4hYVJCkAa0rvJjDwVFOCu2d1TbFij8boItzjnjARMluMF0s8+Cz
- x5oLascY6G4ocpssjyehbi9pSbF0VQkaD2LI5JsLRnRgFNgGoFM0E9qKvaorrV80PZzTfBRUNwp
- CgM2KE+U8B212xelVlwMIKYfaXgg61IJ6XBHNrwTmB/XaRJMTy5RI44HrE61U8xsj5OhYRRBx1J
- HUt3YMSg9W0bYaW32eHf5arqbrXPWa3Wd0HENfDhvhKwCekcSYrwINduCojeq8YkQeDTa3p1NNC
- I/6vfiorhYe3A4GSSL17SZCN6c3Ng+FHEwq3bIHIF/BOkxETv0gPqbO14dAo2unmVPyGNuDi2j4
- HO7MLfsz8wquSO5HvJILWZpmWFGpBbH2egVCJESZAPapfzjq98i2zKciAYnFNjDPwL9chFaE2NZ
- 5txMNsflZrs8hXZ4fJg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-24_01,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
- malwarescore=0 suspectscore=0 adultscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604240119
+References: <20260424071305.89503-1-clamor95@gmail.com> <20260424071305.89503-2-clamor95@gmail.com>
+ <177701943440.2848156.923810545023102522.robh@kernel.org> <CAPVz0n3Wxk=9YpmU0nXsOQdtxBhoTBv8283+OHhUr-TKxkAb5A@mail.gmail.com>
+ <CAL_Jsq+dekx_vVFXxLb3oFQ7MM6xkPSSB7vyTV0YWh9BPLhEDw@mail.gmail.com>
+In-Reply-To: <CAL_Jsq+dekx_vVFXxLb3oFQ7MM6xkPSSB7vyTV0YWh9BPLhEDw@mail.gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Fri, 24 Apr 2026 15:58:34 +0300
+X-Gm-Features: AQROBzAJjSjFj8WjNqd-oMltJq7zQMurtPb02KET3uiSv0VX_tvTiMnlwtA6iIc
+Message-ID: <CAPVz0n1Pmq+fKFw5sPG7Gxjxs59jsA2s64ChnWt2SqkjGon2Aw@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] dt-bindings: input: Document Imagis ISA1200 haptic
+ motor driver
+To: Rob Herring <robh@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, devicetree@vger.kernel.org, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Apr 24, 2026 at 02:12:44PM +0200, Daniel Lezcano wrote:
-> On 4/20/26 11:19, Pankaj Patil wrote:
-> > On 4/20/2026 12:24 PM, Shawn Guo wrote:
-> > > From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> > > 
-> > > Add compatible for Temperature Sensor (TSENS) of Nord SoC with
-> > > a fallback on qcom,tsens-v2.
-> > > 
-> > > Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> > > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> > 
-> > Reviewed-by: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-> > 
-> > > ---
-> 
-> Krzystof,
-> 
-> are you ok with this change ?
+=D0=BF=D1=82, 24 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 14:5=
+5 Rob Herring <robh@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Fri, Apr 24, 2026 at 3:57=E2=80=AFAM Svyatoslav Ryhel <clamor95@gmail.=
+com> wrote:
+> >
+> > =D0=BF=D1=82, 24 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
+11:30 Rob Herring (Arm) <robh@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > >
+> > > On Fri, 24 Apr 2026 10:13:04 +0300, Svyatoslav Ryhel wrote:
+> > > > Document the Imagis ISA1200 haptic motor driver, used primarily in =
+mobile
+> > > > handheld devices and capable of supporting up to two motors.
+> > > >
+> > > > The exact datasheet for the ISA1200 is not available; all data was =
+modeled
+> > > > based on available downstream kernel sources for various devices an=
+d
+> > > > fragments of information scattered across the internet.
+> > > >
+> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > ---
+> > > >  .../bindings/input/imagis,isa1200.yaml        | 145 ++++++++++++++=
+++++
+> > > >  include/dt-bindings/input/isa1200.h           |  16 ++
+> > > >  2 files changed, 161 insertions(+)
+> > > >  create mode 100644 Documentation/devicetree/bindings/input/imagis,=
+isa1200.yaml
+> > > >  create mode 100644 include/dt-bindings/input/isa1200.h
+> > > >
+> > >
+> > > My bot found errors running 'make dt_binding_check' on your patch:
+> > >
+> > > yamllint warnings/errors:
+> > >
+> > > dtschema/dtc warnings/errors:
+> > > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindin=
+gs/input/imagis,isa1200.example.dtb: haptic-engine@49 (imagis,isa1200): ena=
+ble-gpios: [[4294967295, 22, 0], [4294967295, 23, 0]] is too long
+> > >         from schema $id: http://devicetree.org/schemas/gpio/gpio-cons=
+umer-common.yaml
+> > >
+> > > doc reference errors (make refcheckdocs):
+> > >
+> > > See https://patchwork.kernel.org/project/devicetree/patch/20260424071=
+305.89503-2-clamor95@gmail.com
+> > >
+> > > The base for the series is generally the latest rc1. A different depe=
+ndency
+> > > should be noted in *this* patch.
+> > >
+> > > If you already ran 'make dt_binding_check' and didn't see the above
+> > > error(s), then make sure 'yamllint' is installed and dt-schema is up =
+to
+> > > date:
+> > >
+> > > pip3 install dtschema --upgrade
+> > >
+> > > Please check and re-submit after running the above command yourself. =
+Note
+> > > that DT_SCHEMA_FILES can be set to your schema file to speed up check=
+ing
+> > > your schema. However, it must be unset to test all examples with your=
+ schema.
+> > >
+> >
+> > I am not sure what is going on here. I have installed dtschema-2026.4
+> > which seems to be the latest. Running the check with this schema gives
+> > a clean result, no errors produced.
+> >
+> >   SCHEMA  Documentation/devicetree/bindings/processed-schema.json
+> >   CHKDT   ./Documentation/devicetree/bindings
+> >   LINT    ./Documentation/devicetree/bindings
+> >   DTEX    Documentation/devicetree/bindings/input/imagis,isa1200.exampl=
+e.dts
+> >   DTC [C] Documentation/devicetree/bindings/input/imagis,isa1200.exampl=
+e.dtb
+>
+> Let me guess, you have DT_SCHEMA_FILES set? Then you are only
+> validating against the schemas that match and not all of them. There's
+> a single binding target now. See commit 400fbf4b5870 ("dt-bindings:
+> kbuild: Support single binding targets"). Of course, changes in this
+> schema could affect any other example, so you ultimately have to check
+> everything with just 'make dt_binding_check'.
+>
 
-Hi Daniel,
+Thank you for explanation. That is unfortunate.
 
-I plan to improve the commit log per Krzystof's comment on another Nord
-binding patch.  Hopefully he will ack the new version.
+> The issue here is enable-gpios is defined as a standard property name
+> with 1 GPIO. I don't think we want to extend that because with more
+> than 1 you have to know what each signal is and the relationship
+> between them which will vary.
+>
 
-Shawn
+Is it still possible to use enable-gpios for 2 gpios in local cases
+(like this one) or I have to use some non-standard naming like
+en-gpios or control-gpios etc.? This device has 2 pins called hen and
+len, usually they are hooked to a single gpio, but that is not
+universally true.
+
+> Rob
