@@ -1,219 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409B235AC16;
-	Fri, 24 Apr 2026 10:19:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E45305057;
+	Fri, 24 Apr 2026 10:26:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777025972; cv=none; b=e77yZgWdxo1ybqxfVLc/TujpkRpdByhcsONFz+oSIyg2bwRVaH+atqFI6XcRJ0Ch6TAYEgpP52MGjLd96NJaDwle3DCsXWEcdaPYG3SEda6PWm5LeH1mN8CsqUVkTYOVOTsIhjV3QdxPLC56oBYrNN6153IlpOD0iw+uXJlkY3U=
+	t=1777026409; cv=none; b=S0+dptC9cS+D3gy1bdrVIe9SkEG4x3qcu5n7Ix1GKYNesO5TtbXdCsnQ4e/65P19lJHq0a8jGZeaJFFbx0ndelLqwyX+GW0uRu7KXYT8OPdjqzJRC0K8HtFsRtmfu04yKNe4Ixn6XAhhehjSkjrtmotWXx1oWF5frTT+coxFNTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777025972; c=relaxed/simple;
-	bh=P2pla1sM51CYkSlZsoqlf8hEG7bXgz8AtvubVSOWwW4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=neFB9STjP8+6jWfXGnUHRQNVL+avHbfK0UMFV1y5OmjLeG1YAv/JeKP9bru3vwXZgN7TMnWwjocpQqyjFifLeBSo+daPLMyqAn12EJFeWUSlxbvn5XDwSkABKjA38GqoHU/YpDBQJvVECtzaRBi4PBHEa6Azfmyl7QX65ex4hzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VdmwKl/S; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777026409; c=relaxed/simple;
+	bh=6qdpYOEwgLxns6uy+l3iZ48fFOnItLJCDfEcMjKyDwQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ri8f8CIGBSqVdG0MnvZCOy50Kgsg9APHC9cog44+fiK3aH5/tur3VY4Hdwzs8IUs+oH909aGHWlHy0L+x6YlB6q8k1+5fY9JUGd/ubWuTdWuhYLd4ZjD0UqV8fdi6XW8lC3VP/relFrdfinWtcK1RxQntkrvynoaB634fwU+9Hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SqWxIIF8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VdmwKl/S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5812AC2BCC7;
-	Fri, 24 Apr 2026 10:19:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SqWxIIF8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09FC1C19425;
+	Fri, 24 Apr 2026 10:26:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777025970;
-	bh=P2pla1sM51CYkSlZsoqlf8hEG7bXgz8AtvubVSOWwW4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=VdmwKl/SmIyMDLoZHUgQrf7uqb9frBgjTrdA+fgJpzUGWC0QMVmn4OPZ8jISLcgAa
-	 ZepPiRjDd7l4YaIIM3LHOtb11QNAGZtmm/fbJ0Kw2gVUnJgfqcBkIdAumd9Wu3tl4w
-	 BmWwBUNMCs5bg+UAayYnw+OQyZjApTb5tbki0azV6kSdo3TlA2hh3uvjA8LUMSb5xg
-	 P4YwGx4zSDPacgpzNVMDZaE2mCnqRe69qDj8gbQIkOouQNsUsMpF8R/cLD4Z0EeW26
-	 5kmQR+100otBP5hXWBFvVH6QpbYUZkz1/t2Imu+KaKzgNQsoYL5r2+XhjUWzx79wgH
-	 38TH8gK4R6Ihw==
-Date: Fri, 24 Apr 2026 11:19:20 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: <Ariana.Lazar@microchip.com>
-Cc: <dlechner@baylibre.com>, <nuno.sa@analog.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <robh@kernel.org>, <linux-kernel@vger.kernel.org>, <andy@kernel.org>,
- <krzk+dt@kernel.org>, <conor+dt@kernel.org>
-Subject: Re: [PATCH 2/2] iio: dac: add support for Microchip MCP48FEB02
-Message-ID: <20260424111920.61765602@jic23-huawei>
-In-Reply-To: <f7f45b4327c9ce5c806cd878bd9b53e8fcbf7785.camel@microchip.com>
-References: <20260212-mcp48feb02-v1-0-ce5843db65db@microchip.com>
-	<20260212-mcp48feb02-v1-2-ce5843db65db@microchip.com>
-	<20260215175857.4085bc2c@jic23-huawei>
-	<f7f45b4327c9ce5c806cd878bd9b53e8fcbf7785.camel@microchip.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20201202; t=1777026409;
+	bh=6qdpYOEwgLxns6uy+l3iZ48fFOnItLJCDfEcMjKyDwQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SqWxIIF8IkQAlamNjybivRzR2oqo2uWMyT27bW2+eeH2feqVExPH6SkmOHTDCajrX
+	 kwvzpt5dUfEDtlC2Iz8UEuhVw7GUIZibf26c+b8Tkj4HPiPa1tz2ZakERzglgXau+R
+	 l9BJ+a4hKWVNpxMQazgIZEjDpAqHXs4zSm4tZ97xocyrAaDFhNisDEr4q4RDgBOjRv
+	 r25ottLx3ENqpUsssrQtFYxFGtsbfd8vF2mmw30v/JsvrAcDzgruIaN9djKuNIbbdE
+	 W9ZhmjycZ92cJW5v0kaZVoMEDcSCg7lREeic4LAfdeamPEQWkHfCMT2+ta+ZDKLysE
+	 tyfw2DbIyn1cA==
+Date: Fri, 24 Apr 2026 12:26:46 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Ben Zong-You Xie <ben717@andestech.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/3] pwm: add support for Andes platform
+Message-ID: <aetCpymy9iYE-wE-@monoceros>
+References: <20260330-andes-pwm-v5-0-01c59a659d2c@andestech.com>
+ <aercn3iIcMvd3CPB@swlinux02>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dguxxe7wwxovvkw5"
+Content-Disposition: inline
+In-Reply-To: <aercn3iIcMvd3CPB@swlinux02>
+
+
+--dguxxe7wwxovvkw5
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v5 0/3] pwm: add support for Andes platform
+MIME-Version: 1.0
 
-On Fri, 24 Apr 2026 08:01:17 +0000
-<Ariana.Lazar@microchip.com> wrote:
+Hello Ben,
 
-> Hi Jonathan,
->=20
-> > > +
-> > > +static int mcp48feb02_init_ctrl_regs(struct mcp48feb02_data *data)
-> > > +{
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int i, vref_ch, gain_ch, pd_ch;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 int ret;
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D regmap_read(data->regmap, MCP48FEB0=
-2_VREF_REG_ADDR,
-> > > &vref_ch);
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 if (ret)
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 return ret;
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D regmap_read(data->regmap,
-> > > MCP48FEB02_GAIN_CTRL_STATUS_REG_ADDR, &gain_ch);
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 if (ret)
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 return ret;
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D regmap_read(data->regmap,
-> > > MCP48FEB02_POWER_DOWN_REG_ADDR, &pd_ch);
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 if (ret)
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 return ret;
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 gain_ch =3D gain_ch & MCP48FEB02_GAIN_BITS_=
-MASK;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 for_each_set_bit(i, &data->active_channels_=
-mask, data- =20
-> > > >phys_channels) { =20
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 struct device *dev =3D regmap_get_device(data->regmap);
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 unsigned int pd_tmp;
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 data->chdata[i].ref_mode =3D (vref_ch >> (2 * i)) &
-> > > MCP48FEB02_DAC_CTRL_MASK;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 data->chdata[i].use_2x_gain =3D (gain_ch >> i)=C2=A0 &
-> > > MCP48FEB02_GAIN_BIT_MASK;
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 /*
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 * Inform the user that the current voltage reference
-> > > read from the volatile
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 * register of the chip is different from the one
-> > > specified in the device tree.
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 * Considering that the user cannot have an external
-> > > voltage reference connected
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 * to the pin and select the internal Band Gap at the
-> > > same time, in order to avoid
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 * miscofiguring the reference voltage, the volatile
-> > > register will not be written. =20
-> >=20
-> > Spell check comments.=C2=A0 misconfiguring
-> >  =20
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 * In order to overwrite the setting from volatile
-> > > register with the one from the
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 * device tree, the user needs to write the chosen
-> > > scale. =20
-> >=20
-> > I'm a little unsure of why we need this extra gate on updating things
-> > to match
-> > the device tree provided config.=C2=A0 Why should the volatile register=
- at
-> > this point
-> > match what DT says?=C2=A0 If it does seems to me we should be noisier
-> > about it than dev_dbg()
-> >=20
-> >  =20
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 */
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 switch (data->chdata[i].ref_mode) {
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 case MCP48FEB02_INTERNAL_BAND_GAP:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (data->phys_chann=
-els >=3D 4 && (i % 2) &&
-> > > data->use_vref1) {
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(dev, "ch[%u]: was configured
-> > > to use internal band gap", i);
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(dev, "ch[%u]: reference
-> > > voltage set to VREF1", i);
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ((data->phys_chan=
-nels < 4 || (data- =20
-> > > >phys_channels >=3D 4 && !(i % 2))) && =20
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 data->use_vref) {
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(dev, "ch[%u]: was configured
-> > > to use internal band gap", i);
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_dbg(dev, "ch[%u]: reference
-> > > voltage set to VREF", i);
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } =20
-> >  =20
->=20
->=20
-> The device restores its EEPROM configuration (or writes default values
-> for the part numbers without EEPROM) into the volatile registers at
-> startup, so during probe we may have a valid Vref/gain state that does
-> not match current DT. The driver should report any mismatch to the user
-> because the Vref/gain selection is changed only through the scale
-> attribute of each channel. The DT only describes available resources on
-> the board for determining the available scales.
->=20
-> I can update the messages to describe the behavior better and use
-> dev_info() instead of dev_dbg().
+On Fri, Apr 24, 2026 at 10:59:43AM +0800, Ben Zong-You Xie wrote:
+> Gentle ping on this series =E2=80=94 it's been ~4 weeks with no review on=
+ the
+> PWM side. Patch 1 (binding) has Conor's ack; patch 2 (driver) has not
+> received any feedback yet.
 
-The statement above about it not being possible to use the internal band gap
-if a vref is wired leaves me with more questions about this.
+Unfortunately there is a conflict between wanting to do a detailed
+review and my time available for doing that. As long as your patch is
+listed on https://patchwork.ozlabs.org/project/linux-pwm/list/ I havn't
+forgotten about it and will review it when I find the time for it
+(typically in a rough first-come-first-serve order, though I try to give
+simpler and urgent patches a preference.)
 
-I'm a bit concerned about cases like:
+So the obvious things you can do to speed up my processing are:
 
-Vref is wired and eeprom is set for internal reference.   Should we
-be very careful to not enable vref until that situation is resolved?
-It might be on anyway but we can at least make sure we are reponsible
-for turning it on.
+ - Look at the patches that are still before yours in the queue, find
+   issues in them to kick them out of my queue :-)
+ - With
+   https://lore.kernel.org/all/7ia4o6kmpj5s.fsf@castle.c.googlers.com/
+   in place since you sent your v5, feel free to send a v6 and look
+   through the feedback by Sashiko. It's an AI and not specifically
+   trained to the things I care about, so only adapt to the points where
+   you agree. The feedback it provided for other series as far as I
+   skimmed it contains some good points.
 
-Maybe the chip has sufficient protective elements to cope with that
-though obviously it won't give sensible output whilst this is true.
+Best regards
+Uwe
 
-If all those are fine, dev_info() makes sense to me.
-I wonder if we should return -EBUSY for attempts to read the voltage
-back whilst in this state as well?  Might provide some additional
-indication something is mismatched and we don't expect the device to work
-correctly.
+--dguxxe7wwxovvkw5
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Jonathan
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnrRWMACgkQj4D7WH0S
+/k5aZQgAq0AIXrRmD2GZhd1ZgZCcs8Sce1N/uQ23PAKGDmq2PmvAkcN9re7EZ2BV
+4Pl9SEWKZw1U0eMAPjHO+WaQrL0A3WQPOph8Pyinp+93agUK9klK06/UnFyTlxJP
+MmSE6BQKYYJUM61/1RgjnidWZdbvM9x9qd2W/0Fzoy77GcZA+aKv2Z2/NSIYoz1I
+6C+OfF8QL2xv77rhDIbVRdbot8PxWE92nYB5WWt9sJrHwl0Nr6pt7wQc//JsLvGW
+P9SqDo4GeR9jqLKLGTA6P97jeWISwMKazC05rC89TQTLdJU7hO0aVxE+Izyn3ZUj
+Kvhmr07fSy5lUgx6//KgVHkFEXaYwA==
+=gE+6
+-----END PGP SIGNATURE-----
 
-> Best regards,
-> Ariana
->=20
->=20
-
+--dguxxe7wwxovvkw5--
