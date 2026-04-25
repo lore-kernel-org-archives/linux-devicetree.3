@@ -1,62 +1,62 @@
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7D9371D0B
-	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 18:20:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6129374758
+	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 18:20:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777141203; cv=none; b=T2cLirP45YdQi/PHYKBEafszmkgtrWyBOvYFXPEkL9ToKUcmnYmfW1zq7kWiNMRHI9xz5rBVZN82gLL5rPuIiNprfKx6Hfm5zkuURfxPqqOMILch+9XdXtmCRMpoQ7nrqrsWbG0j8vYg8Ri/999n5CXNEumNwvHEzhFsAmXmzk8=
+	t=1777141205; cv=none; b=OeCCVy9BjjilueayqYwGB042m9ejz3YkNVaSKF1hkvjVaw57iKYXievFeppEzGA+PFCry4fcf0UrV4Q0VPri0gq/j7fuD6It+Amh8ebUH0ib1X+mA1hQaAc+xIJ8mLeL+wQ+6B7w5vPfhkqvaF1rX8rKtKNofXgEIr/JY4cGPhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777141203; c=relaxed/simple;
-	bh=+gXx26kToc5Qsn+X5xpx5KaXlfJuV83OpMJgOHZcMo4=;
+	s=arc-20240116; t=1777141205; c=relaxed/simple;
+	bh=ovJEPROnI8oh4UHcj7s+NPF18CGcWd83JDwVTZ1XfAw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qzS1869hHLo01bqsOzbFGaVubPuhUOz0XuC5/NADLHF63VTI4M9Aw8Eq2OvLEWZaQ/6H/JVwbMlt/X+VOYYVIxdpgkapXJudEjTyRXib2i+IW7ASX1WQdYcibKFAPvaswba+KXDiTrs93zS6AjgiYHypGtCrMEFnsQY5MldhTV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=opgvh6ff; arc=none smtp.client-ip=209.85.167.44
+	 MIME-Version:Content-Type; b=cOMzZSjiNcepccNhT8JaVm3bVvZZGlb3hWyQg8xt91xbC0z/1Pr/uWW/4jQJ1FM9LHJRomXMHZHJ2JQ/nVRqsgrejs2ScbzOL2L/XPldE2z5XVNHmBv/hVgfBMHmKXxVhDWhMXhs4QhQr6MHKupROh0L59JlPf4BUo1TAAz6W3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dz27hceA; arc=none smtp.client-ip=209.85.167.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="opgvh6ff"
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5a2c7427ad9so8613765e87.1
-        for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 11:20:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dz27hceA"
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5a40d02b58bso7729227e87.3
+        for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 11:20:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777141199; x=1777745999; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1777141201; x=1777746001; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pFgTexS82Aes4S2KA8waYF2yU7gR1eiSJ6BQPR26m30=;
-        b=opgvh6ffORU3cLe/1PaQ+favvlB7G4jQIe586uew3y1GJCK4KNz5+y0yfY5dRoyT3d
-         JeOnmNscJg4pwE31ro848Lt0BH71viwmQq/bvPeZ87UT7UoVw5eLDeNQQ+pLEVd+QrMl
-         i8eLLWA1xQR3lBjnY3lRQCX7tQ3x53k0v87q8YVr2+QsCesXDt6YzFE4/yFCHm7mMVgQ
-         vsP9RwFZZF7vy68aWEihSudVUvfR+rJe9LO5WZSK02Bm9utHAW7K/8EWxVypGVxQ25v1
-         B/0rAekKxvjTaKc4I852cbiPJDFGf11PmBjjXpMHMgUrOksLBRVKmYbfm2Mw2pUlW/bs
-         z85g==
+        bh=fZxkYKD9FUW7bYFOXcNc8k+x6ZwaHjKGNbEr5Wj6tBU=;
+        b=Dz27hceADMEJf/tetEocfZGFDQ9KMGeHetM+d6E+t62XxixDPreiVh7Ge6POZTRUEA
+         BOT8sG3ZW3XPRHBFPVdXDNRSi70opc65JyhkksK+Y5l8+9ZsCVyzKrTn8CgeF9C7advy
+         Cb2teYgCdD4EhPs2/9W43hrPmFDukkHimqRDEifZkEY8bO5nYPGLaXJAtWNbQeDiagHb
+         OKJ4Od4d71VlwCFDRowy8SXQmON4S+2+Tysp86ei1tDwPm0kMbe0jk05ZJ1XmSNdJOQM
+         8JuNEZAYokNCD1J6zYhi85aFrcO1WoOhHoxTHYGv6Ls4WPSeLSNMOQUdejgu1p8GShvu
+         rYOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777141199; x=1777745999;
+        d=1e100.net; s=20251104; t=1777141201; x=1777746001;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=pFgTexS82Aes4S2KA8waYF2yU7gR1eiSJ6BQPR26m30=;
-        b=prsDwfgF5XprAFYW9GnnR0i01YAZCgrBamTz2FUsr0rxdq+YhFTZjm48+2A0wAtcR3
-         vzZg+X89t8ODKLEKfSTgM5ass5PhvGwWU4PU9gwFE8WpvpWuVcLOgUFHT7Jr4re6xA7H
-         DOpG9R38mvg4G1MX6QL9jAu6oZTqaK8QT3j0/q/fLWleWznAdEIb5k4znHHPD4uLR40R
-         RC856ocvNGojFCvDQytzZb2rGz6s5CpwIeR1cKx6xRpiPvhSTDANq1DrbURlVpgVAl6A
-         6BlxrObRihFVtusyy+z0XK8qVvv03wPmfBWYxujZlAiwiycu5JftRUTL4+BfjOcm5VEA
-         yvvQ==
-X-Gm-Message-State: AOJu0YzUABuXKE8lbkQ7sz3OsO03NdaKGthtIwuM+5UCUdylfubfckWA
-	jzeVtLEaQ7smd8It2Ef1wzvi9hmtNdf+Tkx4SpFkiDZ7D7a50V7ykL1t
-X-Gm-Gg: AeBDiev8Qc285kLdXbbge0D4H8MBJ15TUFXmwfiTRL6cbeqt/KSWTmNIMnWLPNAjBz3
-	GO65ft9ggcU+dMk1pWbscLWeZFmCJW7nA+Gj1S3Xn5UYj/jBTXJ3IQPX0+umB+WoY1Gy0m4zq6i
-	KAMhQxAm5sIVBVNSDeKfgLI5+YTIYk/XAL8ihdS2iacKekNxZgIfxD5NG2/RPyQZKW5Gx//C087
-	c12lktT36H52edUj3yj7EsrZbhak4X2tsyS7E36mxB0IGVzSGy9AaGj5GD5tj3mFgf4c7ngKPur
-	6G8QdH8B33SKRSb5K9l5vxUWgWY7ldqhhn50C6AuWJuBea6PbLlRlcNM7lv/puFpiyvJcs17pNZ
-	jxwuFwm2ROdvDjVtECRd2CIqx8LdcJTuQeWC8HKAspRbXIsrZKkv5r6Tq2xRxFzj+HsiMJdWBSD
-	1vJRBUqeL33o1cCL7KObVHpq0=
-X-Received: by 2002:a05:6512:3b25:b0:5a2:a8ab:ab4d with SMTP id 2adb3069b0e04-5a4172daacfmr11631274e87.22.1777141199206;
-        Sat, 25 Apr 2026 11:19:59 -0700 (PDT)
+        bh=fZxkYKD9FUW7bYFOXcNc8k+x6ZwaHjKGNbEr5Wj6tBU=;
+        b=BeGIPTU+trIGakBOg1Y/rQloZuwKY1vmMIIjRK78e0UFOm53cRq8nXxpFBwbQgRHTG
+         VbdFN60nN4fV99DlB0Bk/sYIGygVMSfd2oJyLeBRYzVljPIKhgziW0xnyEYw6GXJtrDk
+         lp5cjlC1iD3kI8rNe+HUnx+CtAz3YW8khMRP03VhDkPSWX0TSaTcqd/XrQZFclC26xhO
+         BRMyeyfjdhPkYNfdXc01qCXAm4UZFLOu1vIeksU/UNyDpA7GcI1CUzd73Lrqjya9bKqS
+         Tc1RqsG+GrHkfpsYjjWtcrJ6iZoH/IyjSjr8N/VkNdpK3Rl+K7nWaysyWMvCRi4D0vdn
+         hHLA==
+X-Gm-Message-State: AOJu0YyVVYHc74gPFAeVxtZ0ACrRvsjJDCi+qsqzhncC+108cGBW+gHO
+	HMrBIqsGRKR9BFhtO5NnCjlAZf/fBuLvSN77RNxH1beZspiYBRmwu5sx
+X-Gm-Gg: AeBDies+PT0VSyX1I8Lg26bwuwRVJKcDAZe+2yL4WbRsgSEvKdEWEuf+eH9LrFv0qcr
+	1pN7X28ocAZIjemMEbSPL94t/WPA4xthxV4k0ZQ/1L6z5bVUWSu82O6jOX1zOlkWZw7hapvSLlZ
+	T6sd7U3Ix2Fh+XRGyF9yAzTXt08Wxd7paJ0W2ogk/64NBvo/wzskp9AxoYeEMraOvMth3ddpK+S
+	diqKDsZY+LkRA7n7M+KXhaJeqlL0PtcZGD/ghY/aXr+hLsChRmC5kBHNQXK5FZjjmDyI1n0NZ69
+	H2XfIAUdyN4TGwD2mXqE6RL5fWn6gw7s3/rP4V2oU2CcCgZcrWlVKeQu50oMqwZAFb41TCuKzVQ
+	p7ioTo0qxPNvgLKCas4NZbzSJXVbgzye9tnX1R19YxFHR1Ohzh1W6YNqwxTHGuFyBOEbbyyLxIi
+	q7ZQRupNWWlZL7uPKSNuzRF0k=
+X-Received: by 2002:a05:6512:3ba5:b0:5a3:c690:b4a6 with SMTP id 2adb3069b0e04-5a4172b71f6mr12764580e87.7.1777141200435;
+        Sat, 25 Apr 2026 11:20:00 -0700 (PDT)
 Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4187e7ad0sm6836577e87.58.2026.04.25.11.19.58
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4187e7ad0sm6836577e87.58.2026.04.25.11.19.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Apr 2026 11:19:58 -0700 (PDT)
+        Sat, 25 Apr 2026 11:19:59 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -67,9 +67,9 @@ To: Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-pm@vger.kernel.org
-Subject: [PATCH v1 1/2] dt-bindings: embedded-controller: Document Surface RT EC
-Date: Sat, 25 Apr 2026 21:19:35 +0300
-Message-ID: <20260425181940.144028-2-clamor95@gmail.com>
+Subject: [PATCH v1 2/2] power: supply: Add support for Surface RT battery and charger
+Date: Sat, 25 Apr 2026 21:19:36 +0300
+Message-ID: <20260425181940.144028-3-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260425181940.144028-1-clamor95@gmail.com>
 References: <20260425181940.144028-1-clamor95@gmail.com>
@@ -82,84 +82,478 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Document Embedded Controller used in Microsoft Surface RT tablets for
-monitoring battery properties and charger status.
+From: Jonas Schwöbel <jonasschwoebel@yahoo.de>
 
+Add support for Embedded Controller found in the Microsoft Surface RT and
+used to monitor battery cell and charger input status and properties.
+Controller works both for UEFI and APX booting.
+
+[wmjb: added POWER_SUPPLY_PROP_CHARGE_NOW support]
+Signed-off-by: wmjb <jethrob@hotmail.com>
+Signed-off-by: Jonas Schwöbel <jonasschwoebel@yahoo.de>
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../microsoft,surface-rt-ec.yaml              | 63 +++++++++++++++++++
- 1 file changed, 63 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/embedded-controller/microsoft,surface-rt-ec.yaml
+ drivers/power/supply/Kconfig         |  11 +
+ drivers/power/supply/Makefile        |   1 +
+ drivers/power/supply/surface-rt-ec.c | 415 +++++++++++++++++++++++++++
+ 3 files changed, 427 insertions(+)
+ create mode 100644 drivers/power/supply/surface-rt-ec.c
 
-diff --git a/Documentation/devicetree/bindings/embedded-controller/microsoft,surface-rt-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/microsoft,surface-rt-ec.yaml
+diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
+index 4d04de6586ae..13661d3d39b4 100644
+--- a/drivers/power/supply/Kconfig
++++ b/drivers/power/supply/Kconfig
+@@ -1168,6 +1168,17 @@ config BATTERY_UG3105
+ 	  device is off or suspended, the functionality of this driver is
+ 	  limited to reporting capacity only.
+ 
++config BATTERY_CHARGER_SURFACE_RT
++	tristate "Battery & Charger driver for Microsoft Surface RT"
++	depends on I2C && GPIOLIB
++	help
++	  UEFI/APX driver for the 1st-generation Microsoft Surface RT
++	  battery. Driver supports reading battery properties and
++	  charger status.
++
++	  This driver can also be built as a module. If so, the module
++	  will be called surface-rt-ec.
++
+ config CHARGER_QCOM_SMB2
+ 	tristate "Qualcomm PMI8998 PMIC charger driver"
+ 	depends on MFD_SPMI_PMIC
+diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
+index 3959b974ec84..ebd3beef4c84 100644
+--- a/drivers/power/supply/Makefile
++++ b/drivers/power/supply/Makefile
+@@ -129,6 +129,7 @@ obj-$(CONFIG_RN5T618_POWER)	+= rn5t618_power.o
+ obj-$(CONFIG_BATTERY_ACER_A500)	+= acer_a500_battery.o
+ obj-$(CONFIG_BATTERY_SURFACE)	+= surface_battery.o
+ obj-$(CONFIG_CHARGER_SURFACE)	+= surface_charger.o
++obj-$(CONFIG_BATTERY_CHARGER_SURFACE_RT) += surface-rt-ec.o
+ obj-$(CONFIG_BATTERY_UG3105)	+= ug3105_battery.o
+ obj-$(CONFIG_CHARGER_QCOM_SMB2)	+= qcom_smbx.o
+ obj-$(CONFIG_FUEL_GAUGE_MM8013)	+= mm8013.o
+diff --git a/drivers/power/supply/surface-rt-ec.c b/drivers/power/supply/surface-rt-ec.c
 new file mode 100644
-index 000000000000..0fee574a3015
+index 000000000000..30e3cc0dc258
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/embedded-controller/microsoft,surface-rt-ec.yaml
-@@ -0,0 +1,63 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/embedded-controller/microsoft,surface-rt-ec.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/power/supply/surface-rt-ec.c
+@@ -0,0 +1,415 @@
++// SPDX-License-Identifier: GPL-2.0+
 +
-+title: Microsoft Surface RT fuel gauge and charger EC
++#include <linux/devm-helpers.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/interrupt.h>
++#include <linux/module.h>
++#include <linux/property.h>
++#include <linux/power_supply.h>
++#include <linux/types.h>
 +
-+maintainers:
-+  - Jonas Schwöbel <jonasschwoebel@yahoo.de>
-+  - Svyatoslav Ryhel <clamor95@gmail.com>
++/* Register Addresses (B=byte; W=word; S=string) */
++#define REGB_STATUS			0x02
++#define REGW_VOLTAGE_NOW		0x20
++#define REGW_CURRENT_NOW		0x24
++#define REGW_CAPACITY			0x28
++#define REGW_CHARGE_NOW			0x2a
++#define REGW_CHARGE_FULL		0x2c
++#define REGW_CYCLE_COUNT		0x3a
++#define REGW_CHARGE_FULL_DESIGN		0x3c
++#define REGW_VOLTAGE_MAX_DESIGN		0x3e
++#define REGW_SERIAL_NUMBER		0x44
++#define REGS_MANUFACTURER		0x46
++#define REGS_MODEL_NAME			0x52
++#define REGS_TECHNOLOGY			0x5a
++#define REGB_ONLINE			0x67
 +
-+description:
-+  An Embedded Controller used in Microsoft Surface RT for monitoring
-+  battery properties and charger status.
++struct srt_ec_device {
++	struct i2c_client *client;
 +
-+allOf:
-+  - $ref: /schemas/power/supply/power-supply.yaml#
++	struct power_supply *bat;
++	struct power_supply *psy;
 +
-+properties:
-+  compatible:
-+    const: microsoft,surface-rt-ec
++	struct gpio_desc *enable_gpiod;
++	struct delayed_work poll_work;
 +
-+  reg:
-+    maxItems: 1
++	unsigned int technology;
++	unsigned int capacity;
 +
-+  interrupts:
-+    maxItems: 1
++	const char *serial;
++	char manufacturer[13];
++	char model_name[10];
++};
 +
-+  enable-gpios:
-+    maxItems: 1
++static const enum power_supply_property srt_bat_power_supply_props[] = {
++	POWER_SUPPLY_PROP_CAPACITY,
++	POWER_SUPPLY_PROP_CHARGE_NOW,
++	POWER_SUPPLY_PROP_CHARGE_FULL,
++	POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN,
++	POWER_SUPPLY_PROP_CURRENT_NOW,
++	POWER_SUPPLY_PROP_CYCLE_COUNT,
++	POWER_SUPPLY_PROP_MANUFACTURER,
++	POWER_SUPPLY_PROP_MODEL_NAME,
++	POWER_SUPPLY_PROP_ONLINE,
++	POWER_SUPPLY_PROP_PRESENT,
++	POWER_SUPPLY_PROP_SERIAL_NUMBER,
++	POWER_SUPPLY_PROP_STATUS,
++	POWER_SUPPLY_PROP_TECHNOLOGY,
++	POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN,
++	POWER_SUPPLY_PROP_VOLTAGE_NOW,
++};
 +
-+  monitored-battery: true
++static const enum power_supply_property srt_psy_power_supply_props[] = {
++	POWER_SUPPLY_PROP_ONLINE,
++	POWER_SUPPLY_PROP_PRESENT,
++};
 +
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - enable-gpios
++static int srt_bat_get_string(struct i2c_client *client, char *buf, u8 reg)
++{
++	struct i2c_msg msg[2];
 +
-+additionalProperties: false
++	msg[0].addr = client->addr;
++	msg[0].flags = 0;
++	msg[0].buf = &reg;
++	msg[0].len = 1;
 +
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
++	msg[1].addr = client->addr;
++	msg[1].flags = I2C_M_RD;
++	msg[1].buf = buf;
 +
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++	switch (reg) {
++	case REGS_MANUFACTURER:
++		msg[1].len = 12;
++		break;
 +
-+        embedded-controller@a {
-+            compatible = "microsoft,surface-rt-ec";
-+            reg = <0x0a>;
++	case REGS_MODEL_NAME:
++		msg[1].len = 9;
++		break;
 +
-+            interrupt-parent = <&gpio>;
-+            interrupts = <74 IRQ_TYPE_EDGE_RISING>;
++	case REGS_TECHNOLOGY:
++		msg[1].len = 4;
++		break;
 +
-+            enable-gpios = <&gpio 88 GPIO_ACTIVE_HIGH>;
-+            monitored-battery = <&battery>;
-+        };
-+    };
-+...
++	default:
++		return -EINVAL;
++	}
++
++	return i2c_transfer(client->adapter, msg, 2);
++}
++
++static int srt_bat_get_value(struct i2c_client *client, int reg, int *val)
++{
++	int ret;
++
++	switch (reg) {
++	case REGW_CHARGE_NOW:
++	case REGW_CHARGE_FULL_DESIGN:
++	case REGW_CHARGE_FULL:
++	case REGW_VOLTAGE_MAX_DESIGN:
++	case REGW_VOLTAGE_NOW:
++		ret = i2c_smbus_read_word_data(client, reg);
++		if (ret < 0)
++			return ret;
++
++		*val = ret * 1000;
++		break;
++
++	case REGW_CURRENT_NOW:
++		ret = i2c_smbus_read_word_data(client, reg);
++		if (ret < 0)
++			return ret;
++
++		*val = (s16)ret * 1000;
++		break;
++
++	case REGW_CAPACITY:
++	case REGW_CYCLE_COUNT:
++		ret = i2c_smbus_read_word_data(client, reg);
++		if (ret < 0)
++			return ret;
++
++		*val = ret;
++		break;
++
++	case REGB_STATUS:
++		ret = i2c_smbus_read_byte_data(client, reg);
++		if (ret < 0)
++			return ret;
++
++		if (ret & BIT(0))
++			*val = POWER_SUPPLY_STATUS_CHARGING;
++		else
++			*val =  POWER_SUPPLY_STATUS_DISCHARGING;
++		break;
++
++	case REGB_ONLINE:
++		ret = i2c_smbus_read_byte_data(client, reg);
++		if (ret < 0)
++			return ret;
++
++		*val = (ret & BIT(1)) >> 1;
++		break;
++
++	default:
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int srt_bat_power_supply_get_property(struct power_supply *psy,
++					     enum power_supply_property psp,
++					     union power_supply_propval *val)
++{
++	struct srt_ec_device *srt = power_supply_get_drvdata(psy);
++	struct i2c_client *client = srt->client;
++	int ret = 0;
++
++	switch (psp) {
++	case POWER_SUPPLY_PROP_MANUFACTURER:
++		val->strval = srt->manufacturer;
++		break;
++	case POWER_SUPPLY_PROP_MODEL_NAME:
++		val->strval = srt->model_name;
++		break;
++	case POWER_SUPPLY_PROP_SERIAL_NUMBER:
++		val->strval = srt->serial;
++		break;
++	case POWER_SUPPLY_PROP_CAPACITY:
++		ret = srt_bat_get_value(client, REGW_CAPACITY, &val->intval);
++		break;
++	case POWER_SUPPLY_PROP_CHARGE_NOW:
++		ret = srt_bat_get_value(client, REGW_CHARGE_NOW, &val->intval);
++		break;
++	case POWER_SUPPLY_PROP_CHARGE_FULL:
++		ret = srt_bat_get_value(client, REGW_CHARGE_FULL, &val->intval);
++		break;
++	case POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN:
++		ret = srt_bat_get_value(client, REGW_CHARGE_FULL_DESIGN,
++					&val->intval);
++		break;
++	case POWER_SUPPLY_PROP_CURRENT_NOW:
++		ret = srt_bat_get_value(client, REGW_CURRENT_NOW, &val->intval);
++		break;
++	case POWER_SUPPLY_PROP_CYCLE_COUNT:
++		ret = srt_bat_get_value(client, REGW_CYCLE_COUNT, &val->intval);
++		break;
++	case POWER_SUPPLY_PROP_PRESENT:
++		val->intval = 1;
++		break;
++	case POWER_SUPPLY_PROP_ONLINE:
++		ret = srt_bat_get_value(client, REGB_ONLINE, &val->intval);
++		break;
++	case POWER_SUPPLY_PROP_STATUS:
++		if (srt->capacity < 100)
++			ret = srt_bat_get_value(client, REGB_STATUS, &val->intval);
++		else
++			val->intval = POWER_SUPPLY_STATUS_FULL;
++		break;
++	case POWER_SUPPLY_PROP_TECHNOLOGY:
++		val->intval = srt->technology;
++		break;
++	case POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN:
++		ret = srt_bat_get_value(client, REGW_VOLTAGE_MAX_DESIGN,
++					&val->intval);
++		break;
++	case POWER_SUPPLY_PROP_VOLTAGE_NOW:
++		ret = srt_bat_get_value(client, REGW_VOLTAGE_NOW, &val->intval);
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return ret;
++}
++
++static int srt_psy_power_supply_get_property(struct power_supply *psy,
++					     enum power_supply_property psp,
++					     union power_supply_propval *val)
++{
++	struct srt_ec_device *srt = power_supply_get_drvdata(psy);
++	struct i2c_client *client = srt->client;
++	int ret;
++
++	switch (psp) {
++	case POWER_SUPPLY_PROP_ONLINE:
++	case POWER_SUPPLY_PROP_PRESENT:
++		ret = i2c_smbus_read_byte_data(client, REGB_ONLINE);
++		if (ret < 0)
++			return ret;
++
++		val->intval = ret & BIT(0);
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static void srt_bat_poll_work(struct work_struct *work)
++{
++	struct srt_ec_device *srt =
++		container_of(work, struct srt_ec_device, poll_work.work);
++	int ret, capacity;
++
++	ret = srt_bat_get_value(srt->client, REGW_CAPACITY, &capacity);
++	if (!ret && capacity != srt->capacity) {
++		srt->capacity = capacity;
++		power_supply_changed(srt->bat);
++	}
++
++	/* continuously send uevent notification */
++	schedule_delayed_work(&srt->poll_work, 30 * HZ);
++}
++
++static irqreturn_t srt_psy_detect_irq(int irq, void *dev_id)
++{
++	struct srt_ec_device *srt = dev_id;
++
++	power_supply_changed(srt->psy);
++
++	return IRQ_HANDLED;
++}
++
++static const struct power_supply_desc srt_bat_power_supply_desc = {
++	.name = "surface-rt-battery",
++	.type = POWER_SUPPLY_TYPE_BATTERY,
++	.properties = srt_bat_power_supply_props,
++	.num_properties = ARRAY_SIZE(srt_bat_power_supply_props),
++	.get_property = srt_bat_power_supply_get_property,
++	.external_power_changed = power_supply_changed,
++};
++
++static const struct power_supply_desc srt_psy_power_supply_desc = {
++	.name = "surface-rt-ac-adapter",
++	.type = POWER_SUPPLY_TYPE_MAINS,
++	.properties = srt_psy_power_supply_props,
++	.num_properties = ARRAY_SIZE(srt_psy_power_supply_props),
++	.get_property = srt_psy_power_supply_get_property,
++};
++
++static char *battery_supplied_to[] = { "surface-rt-battery" };
++
++static int srt_ec_probe(struct i2c_client *client)
++{
++	struct power_supply_config bat_cfg = {};
++	struct power_supply_config psy_cfg = {};
++	struct device *dev = &client->dev;
++	struct srt_ec_device *srt;
++	char str_buf[4];
++	int ret;
++
++	srt = devm_kzalloc(dev, sizeof(*srt), GFP_KERNEL);
++	if (!srt)
++		return -ENOMEM;
++
++	i2c_set_clientdata(client, srt);
++	srt->client = client;
++
++	srt->enable_gpiod = devm_gpiod_get(dev, "enable", GPIOD_OUT_HIGH);
++	if (IS_ERR(srt->enable_gpiod))
++		return dev_err_probe(dev, PTR_ERR(srt->enable_gpiod),
++				     "failed to get enable gpio\n");
++
++	/* wait till EC is ready */
++	usleep_range(1000, 1500);
++
++	ret = i2c_smbus_read_word_data(client, REGW_SERIAL_NUMBER);
++	if (ret < 0)
++		return ret;
++
++	srt->serial = devm_kasprintf(dev, GFP_KERNEL, "%04x", ret);
++
++	ret = srt_bat_get_string(client, srt->manufacturer, REGS_MANUFACTURER);
++	if (ret < 0)
++		return ret;
++
++	ret = srt_bat_get_string(client, srt->model_name, REGS_MODEL_NAME);
++	if (ret < 0)
++		return ret;
++
++	ret = srt_bat_get_string(client, str_buf, REGS_TECHNOLOGY);
++	if (ret < 0)
++		return ret;
++
++	if (!strncmp(str_buf, "LION", 4))
++		srt->technology = POWER_SUPPLY_TECHNOLOGY_LION;
++	else
++		srt->technology = POWER_SUPPLY_TECHNOLOGY_UNKNOWN;
++
++	bat_cfg.drv_data = srt;
++	bat_cfg.fwnode = dev_fwnode(dev);
++
++	srt->bat = devm_power_supply_register(dev, &srt_bat_power_supply_desc,
++					      &bat_cfg);
++	if (IS_ERR(srt->bat))
++		return dev_err_probe(dev, PTR_ERR(srt->bat),
++				     "failed to register battery power supply\n");
++
++	psy_cfg.drv_data = srt;
++	psy_cfg.fwnode = dev_fwnode(dev);
++	psy_cfg.supplied_to = battery_supplied_to;
++	psy_cfg.num_supplicants = ARRAY_SIZE(battery_supplied_to);
++
++	srt->psy = devm_power_supply_register(dev, &srt_psy_power_supply_desc,
++					      &psy_cfg);
++	if (IS_ERR(srt->psy))
++		return dev_err_probe(dev, PTR_ERR(srt->psy),
++				     "failed to register AC power supply\n");
++
++	ret = devm_request_threaded_irq(dev, client->irq, NULL, srt_psy_detect_irq,
++					IRQF_ONESHOT, client->name, srt);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "failed to request interrupt\n");
++
++	ret = devm_delayed_work_autocancel(dev, &srt->poll_work, srt_bat_poll_work);
++	if (ret < 0)
++		return ret;
++
++	schedule_delayed_work(&srt->poll_work, HZ);
++
++	return 0;
++}
++
++static int srt_ec_suspend(struct device *dev)
++{
++	struct srt_ec_device *srt = dev_get_drvdata(dev);
++
++	cancel_delayed_work_sync(&srt->poll_work);
++
++	return 0;
++}
++
++static int srt_ec_resume(struct device *dev)
++{
++	struct srt_ec_device *srt = dev_get_drvdata(dev);
++
++	schedule_delayed_work(&srt->poll_work, HZ);
++
++	return 0;
++}
++
++static DEFINE_SIMPLE_DEV_PM_OPS(srt_ec_pm_ops, srt_ec_suspend, srt_ec_resume);
++
++static const struct of_device_id srt_ec_of_match[] = {
++	{ .compatible = "microsoft,surface-rt-ec" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, srt_ec_of_match);
++
++static struct i2c_driver srt_ec_driver = {
++	.driver = {
++		.name = "surface-rt-ec",
++		.of_match_table = srt_ec_of_match,
++		.pm = &srt_ec_pm_ops,
++	},
++	.probe = srt_ec_probe,
++};
++module_i2c_driver(srt_ec_driver);
++
++MODULE_AUTHOR("Jonas Schwöbel <jonasschwoebel@yahoo.de>");
++MODULE_DESCRIPTION("Surface RT Embedded Controller driver");
++MODULE_LICENSE("GPL");
 -- 
 2.51.0
 
