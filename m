@@ -1,89 +1,86 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4F4352C28
-	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 11:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E5B36074D
+	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 11:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777116231; cv=none; b=lNenEwNMPHqxFqDNvk3lqDKW+jHFUqL36KI5cih6fp6fEz/A84x1/kQy7xrXw5nLEfBlkV4AY34qMZ00077PxPdns6SDOHYHXKOWYqYddMPmzkSLLg5BdVHjp5UFUbDjveM/RqzVL/9UgklNz84oPijIzpYC/b7atrXOjR8Nt0U=
+	t=1777116444; cv=none; b=gSL4icSQcxKeRye/sTc9tXCz8LH+4R2IqTfrbLofMba3cqt2UIw9jrvMvmHzBekk6BhsTv2gJyFtsFEyZNeXxeywKKpp/FasfPV1UQqJ6mBCXozPzqjjd5ee303G8v7veTg5FQkndh+82Nng5/rhIvIg7rz98A7MDA85faPOdho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777116231; c=relaxed/simple;
-	bh=34c0hEvFTLJTAz90CQGX9s6Hvt09sv0pDHtaKmeta5U=;
+	s=arc-20240116; t=1777116444; c=relaxed/simple;
+	bh=Z4onE+DqINXfgEc1uDHkjT+qinu6KrIeHMSFCHHMHyY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gzw0HK4pQDUlVqkPZwUCP4CnSQowbHwdS60SxLghJ7dBW99bJt5/pGQTiw9ue7tnu21KojwnJ3nnELknnaIH59V8VcrFEfhN3dUH0EiQTPNyJoK4dIel15Xm5+/9OXMG5yYOG9H1vbv6+kvzKGHcg//Fst2jRrKPUvMW2hnvKPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BQMfRPhJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b+RdeZny; arc=none smtp.client-ip=205.220.180.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=dlyJV1fxqXgOsl++bpLdlTQtXdVhOshVvx4KVhZPT4WLvfIwpgIMN6Br1zDxie0kpk5iGS2+M1FOVo001WnjQRsZWhtpzCdO2NCUBP4qS+Ia1MQ0hmT7GG5Awl1YLRcMfwF3vfzDsrNM/40iLJ9NUdWKhF36KC67KeplUWWL9N4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oVUs1NDl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aGoq6xGQ; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BQMfRPhJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b+RdeZny"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63P3Pkoa2365855
-	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 11:23:47 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oVUs1NDl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aGoq6xGQ"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63P4lZFu3843016
+	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 11:27:22 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fH7QGZwbDCoLyO1bwt3VrYsmvxr//vAEUJI0SlOWzQU=; b=BQMfRPhJ6Od33set
-	Eg/xsxtIu1Nq+/EPAJqY30KFa79LysRlUM3qSMP/ZqD0OuW3gBZk+TeDTwrwkhBD
-	T6IjzSGwyRupreTPxrVeKhtvm5wE/TH6YX1vWk1ezY2iiR9yOlenKCqtQysT8sH/
-	7YSLYQgsK1ACgEPuOp9qG7hN0lYzDPJCMwKcTGYHrQSyNUTjKExPXYaazh4x0r8V
-	n+MtQgFkfBxGhPuPU0G0ry14QOJ3vDhXZK9RTsvKbKC/9s3sinkRfG+CVGmZSWQ2
-	np4BY42cA52P4Y0rUOyxPsD4mabwETf2RzU1+IeMVPCLMY4lqJokY2FVJFTesJf0
-	mZON5w==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drnpw0sjb-1
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=fmLIjn9rXrvUt58W7li1vLjk
+	EXxPp633KH6ZWld0lpg=; b=oVUs1NDli2CZHbhP0Uzwp/lzSspjG7iwolA1Ftv0
+	cIyuUL/XS+pJmXPUA9igxQftAdMKvZwJ4xVC62pGFz+41u+LhtAeHEuh6DfF/7je
+	Ll3Q59Qmg+4dR/2AUfp8Pa6noxqRVs6u7ApIgsFHNdZTk4H502X7KmIjge7yX1MB
+	6g+GmriWruNXdAwPoqSYr1vwWnN7CkdVzEPA/SU3mcXQ6uz/MdFUBhKQMpMd9YjR
+	pr4m35HQzFtF8RB+/oweJKngb8vw9wsDJMQ/0qL6pnMy9eQzOq7HlaV4JkKbomh1
+	strOYyCSKNmBiAhs78AmmfpTCtBsGX7P8BVb7T7dKGfBcA==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drpw98n9w-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 11:23:47 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50d826ed6f9so106006591cf.1
-        for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 04:23:47 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 11:27:22 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-605e5d95cccso7007086137.3
+        for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 04:27:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777116227; x=1777721027; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=fH7QGZwbDCoLyO1bwt3VrYsmvxr//vAEUJI0SlOWzQU=;
-        b=b+RdeZnyyze++zpnjU0Zs6KE8Cb9QVTMsSkMXM1FtwYvl8U10nt6pVsq2HI0UO8tZk
-         nX97+sFW1PY5Vog9xIWO+GR5FD+pL7vu6LkZHElzFxDiOT3YMnH5xYI8BeJ7YHrOABly
-         hCep7B/pa3rvAYtGSHcqyhxw7AkmFSodKAOqiCbyV3LYdeQelkEdP7pJlPNvsNFsqBZd
-         lbyQ5lmiKWyAj9PIUOCRDanLtbRUzVgSnRFbeXFAOAdiFjuP7xhnzdVAZ0JOyFMmJei3
-         PacN/ITRbYwijCtwEduq+9lLxx9s+9+796HGnRVjpVbLSVKO5q/MH2gAOV6YFB0YKWvX
-         7Ibg==
+        d=oss.qualcomm.com; s=google; t=1777116441; x=1777721241; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=fmLIjn9rXrvUt58W7li1vLjkEXxPp633KH6ZWld0lpg=;
+        b=aGoq6xGQuSmpUbOUEsLhwr+pdkJ+VIVetPsQKbssbJ+b02bDOKfvyPjrxXgtajERgR
+         4/on5oSdEsG6MHN5T7AYV03okhqKxc+NHU6PwC+WYG0N8D89vGWY0bOnNk7K0WqmCAtz
+         6QD9+GLNk6eRJ+7qehU60/HCBXX8joQzhkpamkT28oy10WERqa8XgYr9wN3xhUfw/Gv0
+         WqmWf0AvIZQCA+t052jK3Zp9kL0QWks0ZfwgZaIuesOkEVA7lF8uFFdV70F/0UzpRawN
+         1yxOY8pwx9qI9RncFqtcLjQ6sFlO2yHwt0ZIZOiyCSCuxn1CD9u0COUpfRVsWzOPCkGt
+         6+GQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777116227; x=1777721027;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fH7QGZwbDCoLyO1bwt3VrYsmvxr//vAEUJI0SlOWzQU=;
-        b=jS6QCueHWlld7f1Y8vZaCRgy4klxsOTP/6Pwjn+DrsVnVhGUFo18JJredBj7S4EdzT
-         bQRN4f3aktaSw9TjrEdon/BX+UuqOBtnrCs3toMF7AK1ntWi0WIPS+ZFbg8F2gPgIWru
-         VyVA9yA+fncYk2DznKIkXMc7CIcVlHlBwvW/FqwgXJpT9wo6UuglMpX4KD9sKEIjluFn
-         vKgiWPp5/0De+cBvjpy4110iwuoNNpI2Nic33WG8A5RbsUZiGawAo6HhFuRIecyVREzW
-         KOeHzuVbFdXhyXkHOizWvbJOfZfd8BCOkrh2Z8lOL+M4yJIYh8VH7yNf+u4sE5RCClKZ
-         W0oA==
-X-Forwarded-Encrypted: i=1; AFNElJ8oDXgPdrmKgLuMkbqzZKFUVa2E1zRu37NX9u6untC1ncFVqtCn6KaSOUtMVLUMpsua5SMb7cn8q4vK@vger.kernel.org
-X-Gm-Message-State: AOJu0YzEYK2pmtQUagY36eGVipEnawPuGL3EWkw7r5hB7ZjziNcoFDUx
-	Cdz62vxkD75WFOU8GfLECzmzFE4ORR1WBisefw7EKwssCVyfLYf3h4f788jhSiL4mnfvCwYNYAL
-	5CSXj0nuZg8UXKwpx/MqAOKv0DiUu0Uw3rKvQF1SFngioCy4/KkN82plO9pXj1XCG
-X-Gm-Gg: AeBDies/9lRrd7kqCegUWJynCZKzX21DctDxnKB80TMCLwf7zCGkHX3qgiEBL4UeVw4
-	ChVg22mE55cPKBeCFiZ8vzS0kKsJ8MMUyp0eFCJSkgxaSSUdGTS9bX166Abr5sDUTTcpv+d0L29
-	PtIgr/U4F5yv0ZN6nQGDjIV1qA6BrexRzDOc0vUjeSfXXY+kTKx54hSA/I/3bnn04pYQnOF9/uz
-	1ZoVupLPGfV4eJwjPwEReYpJdbSjADAbAEpnl6fPXBBgp89/0WxzVzjihbpVuwODj5AxgUDyIhx
-	WxAqU2qAaCX4+NwBIj72+Gf8pYQWs7moAP0MCNcRTSshJhXFjLhOSOaE80Gd+gJwW00YaXnDmkm
-	SSROK/Eysu8oQ8rpNwV5xtxuEnADU0cC5Z8+pvJuhumgiE3+4detLYbUY15ehrNPmcDUdLFeKhQ
-	Vqpdr4qrxqP7NO9iPgGeaQ7lZ5JSypc94kLNTVUkZmTlDgsA==
-X-Received: by 2002:ac8:5988:0:b0:50d:9cfd:b01f with SMTP id d75a77b69052e-50e367967e3mr442519731cf.32.1777116226876;
-        Sat, 25 Apr 2026 04:23:46 -0700 (PDT)
-X-Received: by 2002:ac8:5988:0:b0:50d:9cfd:b01f with SMTP id d75a77b69052e-50e367967e3mr442519461cf.32.1777116226424;
-        Sat, 25 Apr 2026 04:23:46 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1777116441; x=1777721241;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=fmLIjn9rXrvUt58W7li1vLjkEXxPp633KH6ZWld0lpg=;
+        b=CykGi1eXMFwH7aKWLRz8NKy1hThkegKQ7BJlN2RAGLkrA0i9+CXRlhTIkY+QLRNDwY
+         rvw0cUhk3xrtfxR/moVXsHbIXO4DnEs88SM//YcOn90fg6usroI6RNkv+LbkxygVTrxP
+         MPv8OuNFO8+c+TsGkH2q6rHcSSTcvhWF9tvcoxTm9GU3YfqBcYeLj5wF2kcCuEYc1RDy
+         iJm2r8p8dYQMxXPctohOv+LAeYe/FtN1t42y/wAcdFaBvKFPvsmqiIQA/a1P5E2zkxJy
+         5J5b53OGmCRx2Atf7k89YqMvunhpgzoPj8E1pKf3m5PY0skrYgT/MjcXLuf18+wHzC/u
+         Wu9g==
+X-Forwarded-Encrypted: i=1; AFNElJ84gg5nHHIqJQS+Pu0B2CoJsd4DA9VtO+N1E+753kS8UXYYN9je0/6gKdM1VTmMEMOILf3VbjCcXzh7@vger.kernel.org
+X-Gm-Message-State: AOJu0YxM+3OGRUr5nfPUIWeB2mK85FGhelxF552xfsUwm5QKGDDzbMm0
+	dccjb8AlN1U0+Nx1WfxbWu5Hgd71IyMQrgUz0sMGFWo2s6Hk9zYXI6IimD0siXKSkeRETzbGvTf
+	+Ld81CsraqFl02OgRNqGA7eM0ryDeZ7N5c/7M+XdO9M1jjWoSvcLmQ/ZJ6J6NpQXc
+X-Gm-Gg: AeBDiet5uCxmcmdqSYmjbhZfDZHt+Cv0R26HeKivRp4uolvHTaaf/HXmMQFXQcoxt7C
+	BL8O6lQYgFv1RctMg/NCKH00PR+yp5JupVI7XW1WtFH8b18WYoUcoU85Kj1ldhzJd6tvcb5FfOf
+	6Ne89IOH4E7sb7XjTFn15FsC6Au67EHqo0yoYkl9pGqRvpQ+ARFEyfd655K3SxV5eosbQiWexzU
+	e/p53bvEMBUNFxxCUZPE+acftIDRIcnKDuLtZzoenP7hPyN1OvSMZ4N6OYcd+nA5hEidhSANJat
+	nHKH0vJ5eKWYdpEJXRlJpooisOfDkgCkoIBSORWFNifNPRx/InFJJAsXex5KrSKKSs03taOxKT0
+	OTq1nD2r7h154joD2idpI8jNz2ZdCofxL3TrtU7Ss0vGbRA1fiUCfWt1YuLIm9NmMgEkNTn7sfd
+	s7Kgs2AEAjyP2UVYMqXW2uxOVw4st0KHUhea9WwKFa+16LwA==
+X-Received: by 2002:a05:6102:3e0f:b0:605:19ce:9ccf with SMTP id ada2fe7eead31-616f58af7d9mr18831233137.13.1777116440669;
+        Sat, 25 Apr 2026 04:27:20 -0700 (PDT)
+X-Received: by 2002:a05:6102:3e0f:b0:605:19ce:9ccf with SMTP id ada2fe7eead31-616f58af7d9mr18831208137.13.1777116440223;
+        Sat, 25 Apr 2026 04:27:20 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a41abceab0sm6416323e87.61.2026.04.25.04.23.43
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38ecb4f5035sm55448141fa.4.2026.04.25.04.27.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Apr 2026 04:23:44 -0700 (PDT)
-Date: Sat, 25 Apr 2026 14:23:42 +0300
+        Sat, 25 Apr 2026 04:27:18 -0700 (PDT)
+Date: Sat, 25 Apr 2026 14:27:16 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Doug Anderson <dianders@chromium.org>
-Cc: Lukas Timmermann <linux@timmermann.space>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
+To: Lukas Timmermann <linux@timmermann.space>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
         Jessica Zhang <jesszhan0024@gmail.com>,
         Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
         Maxime Ripard <mripard@kernel.org>,
@@ -93,7 +90,9 @@ Cc: Lukas Timmermann <linux@timmermann.space>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
         Thierry Reding <thierry.reding@gmail.com>,
-        Sam Ravnborg <sam@ravnborg.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+        Sam Ravnborg <sam@ravnborg.org>,
+        Douglas Anderson <dianders@chromium.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
         Sylwester Nawrocki <s.nawrocki@samsung.com>,
         Chanwoo Choi <cw00.choi@samsung.com>,
         Alim Akhtar <alim.akhtar@samsung.com>,
@@ -103,72 +102,212 @@ Cc: Lukas Timmermann <linux@timmermann.space>,
         linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
         linux-arm-kernel@lists.infradead.org,
         Alexandre Marquet <tb@a-marquet.fr>
-Subject: Re: [PATCH 2/5] drm/panel-edp: Add support for Samsung
- LTL101DL02-002 panel
-Message-ID: <ughwlscd4iksf45rdxwcoavtzpusslu4afphfp5gr5rrrmdtu5@7eu65pg7hp2p>
+Subject: Re: [PATCH 5/5] ARM: dts: exynos: Add display support for
+ exynos5250-manta
+Message-ID: <4hbwdx7xfdko4pmmjq55ttfmiszjbtx56wb4io3p7dhq2dydh3@j4dgwilyumg2>
 References: <20260423-manta-display-v1-0-196f80c5673a@timmermann.space>
- <20260423-manta-display-v1-2-196f80c5673a@timmermann.space>
- <CAD=FV=VNvPtG_f1W942SKJfM4ptK8Wvd-nZs4geBCG3bO_A0BA@mail.gmail.com>
+ <20260423-manta-display-v1-5-196f80c5673a@timmermann.space>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD=FV=VNvPtG_f1W942SKJfM4ptK8Wvd-nZs4geBCG3bO_A0BA@mail.gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI1MDExMyBTYWx0ZWRfXzzyPNl/KsAf1
- kdnTUtIvDexrfCdG5lYahXLDODebtDS7utghozXm7caxFVaGJDWfNGbuxtNRkzlj3LRfBRf1JbQ
- C2h1xy0SshHTk99L7PqRiYv0jKQ2Mde87RwGSeKu2BX15yL6Dizu0Ku07nhfdpBHnxPTbAaFj2M
- NifsKH+C49Ub/W1zFffjTpXltjX1PEP0KsFiOu0WSXJvLMAg3C3Tp19tHi0tbMVeLoR/Ftu1FpR
- l6ULIjdBfdCC+gMAmWLmua4/cxr5tVWtqGx1nwSspkzmRZmWn58QQ7z7Y/bU7jGLjZg/416hQR1
- NBjjLsyzRbBLNrDlxC1KBMU/syZU+4yM12ObNnOb8zyYBMVY13zIhfv7k2631nBZ26cDv15o7p9
- IC4WkP/YT+ffijsrDICF/3lVE0Fh9nVEGOtKha8JZxoDcXSoI0dtAQkcroaQyHvuoarjEdevyVm
- e4h4psPMHvuJEkxU6uw==
-X-Proofpoint-ORIG-GUID: csKX-8dy-JOTmiFlFJVdFdsnAldzfUxM
-X-Authority-Analysis: v=2.4 cv=RaGgzVtv c=1 sm=1 tr=0 ts=69eca443 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+In-Reply-To: <20260423-manta-display-v1-5-196f80c5673a@timmermann.space>
+X-Proofpoint-GUID: 9aFvpYF1DXaU2-B-BJHjcnRHl99RueTs
+X-Authority-Analysis: v=2.4 cv=H67rBeYi c=1 sm=1 tr=0 ts=69eca51a cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=bsQV_sbQVq-5e8UBBKAA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: csKX-8dy-JOTmiFlFJVdFdsnAldzfUxM
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=5VA55DBcQVjzkzcLKVwA:9
+ a=CjuIK1q_8ugA:10 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI1MDExNCBTYWx0ZWRfX2jZUFM7s4KBx
+ chUsSLSmBgCG8OtdSnid9aM9RRcX65C6IlD9nTN3J0xZNX8TmIljFISJMfaTXzErKO5OGzXxAZ3
+ nd8nhBeLhkMUWBUJFwq2/3mkqhvlbtw4zmXuSYCLabC+gseS/eQctFfpWB9uGAX7wfWUm6SLCj1
+ P6CvVpDlGNOccT2Jo7yFsQFCDAl5+6BvVf8zBeSaJbsp1uQPdWPgQl3bVCxoA+Xs5zhDsycy4Ad
+ WaK8cFQSr+mDht8b4FiGN5WsyEQrSuTPDg8wo2qojq78Gn7Ep1ieXzVIxagsUed4EjHTQr8kOMp
+ u7BwC9JfmMKQv2xsRxNHdxTfIDchtvVbEIK5li0zkzEBlwSfXvCA52x6W79TlGNaPGmrUmjDjRu
+ xsM49mPvJiiYqdN9tI8aZMWf0R2L1MgNsHc+j2RMnn7YZxvw8NVE4qX3ShGHRE9KMdsbIzNi5RO
+ a85WpxZA7pmEN8GnfeA==
+X-Proofpoint-ORIG-GUID: 9aFvpYF1DXaU2-B-BJHjcnRHl99RueTs
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-25_02,2026-04-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- lowpriorityscore=0 phishscore=0 spamscore=0 clxscore=1015 suspectscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604250113
+ lowpriorityscore=0 bulkscore=0 adultscore=0 suspectscore=0 phishscore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604250114
 
-On Thu, Apr 23, 2026 at 02:49:53PM -0700, Doug Anderson wrote:
-> Hi,
+On Thu, Apr 23, 2026 at 11:14:41PM +0200, Lukas Timmermann wrote:
+> Adds the necessary entries for panel and backlight as
+> well as the fimd controller.
 > 
-> On Thu, Apr 23, 2026 at 2:15 PM Lukas Timmermann <linux@timmermann.space> wrote:
-> >
-> > From: Alexandre Marquet <tb@a-marquet.fr>
-> >
-> > Add a panel entry for the Samsung LTL101DL02-002 panel, as found in
-> > Samsung Manta (Google Nexus 10).
-> >
-> > Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
-> > Signed-off-by: Lukas Timmermann <linux@timmermann.space>
-> > ---
-> >  drivers/gpu/drm/panel/panel-edp.c | 31 +++++++++++++++++++++++++++++++
-> >  1 file changed, 31 insertions(+)
+> Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
+> Signed-off-by: Lukas Timmermann <linux@timmermann.space>
+> ---
+>  arch/arm/boot/dts/samsung/exynos5250-manta.dts | 99 ++++++++++++++++++++++++++
+>  1 file changed, 99 insertions(+)
 > 
-> Adding new panels like this is discouraged these days. Is there a
-> reason you can't use the generic "edp-panel" compatible? I know that
-> the exynos5 driver is pretty old, but a quick glance shows that it's
-> based on the same analogix-dp core that "rockchip,analogix-dp" is, and
-> that seems to have support for aux-bus...
+> diff --git a/arch/arm/boot/dts/samsung/exynos5250-manta.dts b/arch/arm/boot/dts/samsung/exynos5250-manta.dts
+> index 76d3657eb22f..eb97a28ff4e3 100644
+> --- a/arch/arm/boot/dts/samsung/exynos5250-manta.dts
+> +++ b/arch/arm/boot/dts/samsung/exynos5250-manta.dts
+> @@ -25,6 +25,29 @@ aliases {
+>  		mmc1 = &mmc_1; /* WiFi */
+>  	};
+>  
+> +	backlight: backlight {
+> +		compatible = "pwm-backlight";
+> +		pwms = <&pwm 0 1000000 0>;
+> +
+> +		brightness-levels = <2 255>; /* TODO */
+> +		num-interpolated-steps = <254>; /* TODO */
+> +		default-brightness-level = <102>; /* TODO */
+> +		post-pwm-on-delay-ms = <97>; /* TODO */
+> +
+> +		power-supply = <&backlight_reg>;
+> +		enable-gpios = <&gpg0 5 GPIO_ACTIVE_HIGH>;
+> +
+> +		pinctrl-0 = <&led_bl_reset &pwm0_out>;
+> +		pinctrl-names = "default";
+> +	};
+> +
+> +	backlight_reg: regulator-backlight {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "APS_EN_18V";
+> +		pinctrl-0 = <&aps_en_18v>;
+> +		pinctrl-names = "default";
+> +	};
+> +
+>  	/* Voltage source unknown */
+>  	bmp180_vdda_reg: regulator-bmp180-vdda {
+>  		compatible = "regulator-fixed";
+> @@ -105,6 +128,28 @@ multi-led {
+>  		leds = <&status_red>, <&status_green>, <&status_blue>, <&status_white>;
+>  	};
+>  
+> +	panel {
+> +		compatible = "samsung,ltl101dl02-002";
+> +
+> +		backlight = <&backlight>;
+> +		power-supply = <&panel_reg>;
+> +		enable-gpios = <&gph1 7 GPIO_ACTIVE_HIGH>;
+> +		pinctrl-0 = <&lcd_en>;
+> +		pinctrl-names = "default";
+> +		no-hpd;
+> +
+> +		port {
+> +			panel: endpoint {
+> +				remote-endpoint = <&dp_out>;
+> +			};
+> +		};
+> +	};
 
-I'd also prefer to NAK this change. If the driver can't cope with the
-"edp-panel", the driver must be modified rather than pushing more and
-more legacy panel compatibile strings.
+No, the panel is not just being attached to the device. I asumme it is
+controlled over the AUX bus, so it shoud be a child device of the
+AUX bus.
+
+> +
+> +	panel_reg: regulator-panel {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "LCD_EN";
+> +	};
+> +
+>  	pwrseq: mmc1-pwrseq {
+>  		compatible = "mmc-pwrseq-simple";
+>  
+> @@ -146,10 +191,36 @@ &cpu1 {
+>  	cpu-supply = <&buck2_reg>;
+>  };
+>  
+> +&dp {
+> +	status = "okay";
+> +
+> +	samsung,color-space = <0>;
+> +	samsung,color-depth = <1>;
+> +	samsung,link-rate = <0x0a>;
+> +	samsung,lane-count = <4>;
+> +	samsung,dynamic-range = <0>;
+> +	samsung,ycbcr-coeff = <0>;
+> +
+> +	ports {
+> +		port {
+> +			dp_out: endpoint {
+> +				remote-endpoint = <&panel>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+>  &ehci {
+>  	status = "disabled";
+>  };
+>  
+> +&fimd {
+> +	status = "okay";
+> +
+> +	assigned-clocks = <&clock CLK_MOUT_FIMD1>, <&clock CLK_MOUT_VPLL>;
+> +	assigned-clock-parents = <&clock CLK_MOUT_VPLL>;
+> +};
+> +
+>  &i2c_1 {
+>  	status = "okay";
+>  
+> @@ -396,6 +467,12 @@ ldo25_reg: LDO25 {
+>  	};
+>  };
+>  
+> +&mali {
+> +	status = "okay";
+> +
+> +	mali-supply = <&buck4_reg>;
+> +};
+> +
+>  &mixer {
+>  	status = "okay";
+>  };
+> @@ -489,6 +566,14 @@ wlan_irq: wlan-irq-pins {
+>  };
+>  
+>  &pinctrl_1 {
+> +	aps_en_18v: aps-en-18v-pins {
+> +		samsung,pins = "gph1-6";
+> +		samsung,pin-function = <EXYNOS_PIN_FUNC_OUTPUT>; /* TODO */
+> +		samsung,pin-con-pdn = <EXYNOS_PIN_PDN_INPUT>; /* TODO */
+> +		samsung,pin-pud-pdn = <EXYNOS_PIN_PULL_UP>; /* TODO */
+> +		samsung,pin-val = <0>; /* TODO */
+> +	};
+> +
+>  	bh1721fvc_reset: bh1721fvc-reset-pins {
+>  		samsung,pins = "gph1-2";
+>  		samsung,pin-function = <EXYNOS_PIN_FUNC_OUTPUT>;
+> @@ -509,6 +594,20 @@ bt_wake: bt-wake-pins {
+>  		samsung,pin-pud-pdn = <EXYNOS_PIN_PULL_NONE>;
+>  	};
+>  
+> +	lcd_en: lcd-en-pins {
+> +		samsung,pins = "gph1-7";
+> +		samsung,pin-function = <EXYNOS_PIN_FUNC_OUTPUT>; /* TODO */
+> +		samsung,pin-val = <0>;
+> +	};
+> +
+> +	led_bl_reset: led-bl-rst-pins {
+> +		samsung,pins = "gpg0-5";
+> +		samsung,pin-function = <EXYNOS_PIN_FUNC_OUTPUT>; /* TODO */
+> +		samsung,pin-con-pdn = <EXYNOS_PIN_PDN_PREV>; /* TODO */
+> +		samsung,pin-pud-pdn = <EXYNOS_PIN_PULL_NONE>; /* TODO */
+> +		samsung,pin-val = <0>; /* TODO */
+> +	};
+> +
+>  	msense_reset: msense-reset-pins {
+>  		samsung,pins = "gpg2-0";
+>  		samsung,pin-function = <EXYNOS_PIN_FUNC_OUTPUT>;
+> 
+> -- 
+> 2.53.0
+> 
 
 -- 
 With best wishes
