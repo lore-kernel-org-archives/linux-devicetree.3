@@ -1,63 +1,63 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F953932D8
-	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 10:56:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AF3393DE3
+	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 10:56:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777114603; cv=none; b=e0Gamt3QaeKBjxgjduwHmCJrfzhZS/uK1EGE7hBM5GO42T+MJ38Jz3lUbDQqbup0TvavV6DTXtEyfkiPVs1j0ZAty/3suuMUxRIDUnMWz2VG1FWRcPx0UjJzl/p8MsSVBJnzCPvenEdVGQ7TcLN205DRItq69P2iJiowyq61z8E=
+	t=1777114613; cv=none; b=jXZJk87IgZucfN4eUhSw9NVJNR+fnVUHjnrdxTHgJVmTCBxOCQ9WpBMhsJ7sR4UwYQ30RnQ/WgwjD6HT+zsSdTPb1cM39CLksyqBzFxAWDMKWCCH4HSjkTkYYtnrZEI3MJyn8o3i7VVOENaR7S6DCuijJpY4b9pLSR6fN4EWsJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777114603; c=relaxed/simple;
-	bh=G8vVfNfEog92l5bB0QaSDlC5S4L8KtRUiECZfYd7jNk=;
+	s=arc-20240116; t=1777114613; c=relaxed/simple;
+	bh=j92iOYgKQ7RjjOLofBQE3Vd++tZ0z/woMt8SEp8QCZo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WbcxXv54jAnYAt3kAUKLGk1z/iWbIBPHxcR7B7AV4QJ0QljWxBN/tR+o/CGcQsagVpE/cbC7O7tuu73YVdpz67Ax0S2TFhAE81lgLo26ly1ng1bP+gDcXaCa82S7OahbRbF1yOvlAVSoAzAkjjRc/+0sRXEujTMTBEu7R+HDye8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dkcJXycG; arc=none smtp.client-ip=209.85.214.171
+	 MIME-Version; b=j6qBPPjjng7TmGiuBWGPuh2CwHAtKOg8guoiQqoJq68wskTwatqJrUHSeiEU3lhIRVsfuvOOci1ltExgK5e342wlpz+rXZf5sOD7f13Kxag8i6T30wi9XDC0dmjTFhkOjwvjmelzg57xQ00nb2NlHDKkJhA4U8x2pM6m0fXAr5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cy/T4de0; arc=none smtp.client-ip=209.85.214.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dkcJXycG"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ad9a9be502so54602635ad.0
-        for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 03:56:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cy/T4de0"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2a871daa98fso57125765ad.1
+        for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 03:56:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777114601; x=1777719401; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1777114611; x=1777719411; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=n09TuySP0iJDtxFxYcR0L3xSG7A7SGVHN224gUHuUN0=;
-        b=dkcJXycGhAbKAjTG2EFXBRakFC5BQLHhN7UYIwTllD03hbqxn6JBqbIc/uMNicOeXz
-         BQdC/4RrCtwBf/cOBB1am0UAxkXnW2FIknAml6gQV4x+L58zCcW02B/WLtqWfXrCwYND
-         sYCuMz2FSF9AnpJmxg/ahXcwfiFu5gHB5aTA9txO2be3hUXUHX2E8VuFray79wBZIqDt
-         ai3H3JYKJFgjmzdNvpwM7Zrvef+BpGic/DkU1Ded3PRxDVSYLAR8jFUdFaSeDSYk69ar
-         Lb5i+ahbbjwsgg55rp/53oupUpQ/qlaZAMrpPQ8hiiYcQdmvLqi+FSXDUwAZw4Ho2zTF
-         WfIQ==
+        bh=hXgloxp5cdGXbJc9mmRLA5BQUt4nlOpF3BcjxCU2IHU=;
+        b=Cy/T4de0glMoZvobRKvlj9PMd914hdEQHtP/N/WaVTSjrZLyFeN6v/o8Km+MEAOQBg
+         Ml2qsU8mFNBt0c1eUIukhrEhk2n/5cvK/A/NR6lXcvdouM2hl/8SzXkO/D+AhtCFS8x0
+         4H4GU8HRjZ+bKEzVe0Q/O7B4TDXDIdUCL6xWuCQqeRPSDus/AOTWnSo+6ArEyqJr4LAN
+         OoTkIFA0xpCMH3OxLdAu7E2Mk8y+dNl5DyPaOm5aFUJGBzLOqSI9GUX7pUM4TotC7x61
+         5w2IQ1WuH3iczDo8Pmj12x2QlyO3g7T/aUYQgMHQUZmafMxWrtPxPlNASs7H9aQ7aTip
+         IvpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777114601; x=1777719401;
+        d=1e100.net; s=20251104; t=1777114611; x=1777719411;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=n09TuySP0iJDtxFxYcR0L3xSG7A7SGVHN224gUHuUN0=;
-        b=itX6E6TNTezwvYYwpDemxUISPEFXPZR0+bbWFQ0wH9zJuTFQhnWUcDme5yCrW72uFs
-         ybr/q0+lHcm4o0XF1kARxba7rRm7XqjrT+mMX2eUcqygdTqOkW41jKkX1ty23FpK4FUr
-         c0UAnM6/L+FsOLvkrZDjSjXRBKYtdWSekamrrHbMdAr7A5In2lvMEao2CeaHwvWpV61f
-         BSBpISBYhIxE8PrwMFhUZg3hsFzIrhkBe5qQqciilyfm2/2dcayeg/75WRr1ExH1O8EQ
-         UuDd6NWohgf6IrIwhplmLLKJWIWA+XTLevi5X5mLWvr+PLGdjduekoTpS8Cc9YBpLm4a
-         RPPg==
-X-Forwarded-Encrypted: i=1; AFNElJ/AkWoG6kLQApBvp30mBLszAmJd6ivZYkuXC0yjMKBmJLSV9K0xGrI9PmZuguixxmvHAOd9Y8eohNAn@vger.kernel.org
-X-Gm-Message-State: AOJu0YxyRsvBr4S1S9XB0gixQ1QBbxINrD4XAFaL8lyJx20E8tQqDA2o
-	ywQNwDh0KV0bPRsHA4wCwpSEx9n9JLakydl+tJEUSE3aR9Qryfo9w6fU
-X-Gm-Gg: AeBDieu1rjgP+vbv/4yFBCIWLxTw4kamyVAhjshloWwNPwbjNTDPONKvLgbfxFVTFda
-	B9xj9ikOK4csZe+frIVy+6bB4mMJdefFgmemQ4zYhwfSFLdb39zXJtQLWQcKHjaROOaZxC3WiKf
-	3UY6hf+JLGQc7DCHF+N5t+f/CPip01c+EzYb+u+um9iWwglz8JIqe5OM6bVHWTpmTGXHl5DvVtm
-	JapqT0q1JkKUHTM6qkcD5HFmUmNa9Za+Q9Az+RzyUIy5DOEy9lWobvSI9CxvUj0c3NBrntgOgTA
-	5OzpRD7C3BO9gbm/17O4YDza6hvDQdBRFabqYH+JE6pyCx+BIiBPqxcO8oCt0V1ZsicGwwqq3z3
-	FQ1gEMQjCrvgsAxGaKtFkGketcObdLtlkNoKZELMAE2IDns/qPNREj9xMwvKpKX7ltyx+iQG3xb
-	i2OnhDEEMK5vWGGYyaXlII//gQH9kY18OtFZ4O0PM=
-X-Received: by 2002:a17:902:ca8f:b0:2b2:4cd2:e162 with SMTP id d9443c01a7336-2b5f9f61d80mr253247955ad.34.1777114601035;
-        Sat, 25 Apr 2026 03:56:41 -0700 (PDT)
+        bh=hXgloxp5cdGXbJc9mmRLA5BQUt4nlOpF3BcjxCU2IHU=;
+        b=X5rMWk+dLy7Yg6FWu6bIh0wKnsKz7yyRQSRKk5ATi7fmJJfQWFwsl+wPA8t5xBvzqc
+         sfERFGtraNFa5yql0kA9l3lweaZH7u7WrBkWkXiIXCDSYUfekR4FbbWXMOEp7gS4QMq1
+         uKP4GwmDld54JRwl/UpQtW0dgjJLMdYuBkZ1XcIothxHI9O0XtfRoPdFdpS9+YR4fCR8
+         L2NK18myLX+uDGD+E4L/ZzPzdVgzXB1ylXUzevtiXgA1UXNtzn1yff7+EDX6oLYiWcTy
+         xiU4HE5trG9972MERpNlOX5O4i8x41gdf2fVI1Xg5aHHrfM/StI57hXmG0UxwdYfBL/m
+         ZTzA==
+X-Forwarded-Encrypted: i=1; AFNElJ8oEjW3oFyX/Vj0Clqmh9ecmo9YE4iztXm22caJ/ulwxuguI6J51X2jh0hyptk2Ay75dEHPnOuxC4mu@vger.kernel.org
+X-Gm-Message-State: AOJu0YxYBJAX+n29b9Wcc+XAsoW8MEw0+uq7TyO8irkCGqZrvRNjVkD5
+	gCvIeGVxkkuB7ZdNCZvMxtxu+WBg63k3poh8LC8BW6H5G/eeSMK0tlNQ
+X-Gm-Gg: AeBDietEl08ovFntYvgsuicXOHSutppPJ8jO1WMw0I6waFfc+up68fIDtULONBrrV2K
+	Vn3JzmkGLtr7e3OWQwfL8zxfmCi5gDSKWr8m2QOG2gn5Wt718nUMimEk/eTbHKCXhYq2DIME8lD
+	DcB3I6NxEopitm+DSrwjGVXnc9eaMDgfDULjTj3DsoJzHvrhlK+K3Td8zMrf6SYbRnpbI0MYr7j
+	FnLPR2esdcx1uplowQU6yL7M6DSFOjgkIor7gGvgXJi4nXoVYIvtPD/FrnpnvSGEfPEs4/wEdg3
+	DqP5MxxTgg5RwvQ2aZXE6fAgyWkF7MaQK9POQMwdu1ZbGQu0erCrxPa/uh8dSZ+2RSuJPNIqmVq
+	c4RdyoOZBvI3rvG1nyZaiziwENytxRJYQeTRmZAy7E5nLDwlvdn0GwJlHKYtTdwbW6f23ivgtZ1
+	zmbZpIMrERcnYpcIh+5ejQOyu5Sngp
+X-Received: by 2002:a17:902:a516:b0:2b2:4f43:b48c with SMTP id d9443c01a7336-2b5f9ea55d1mr247155295ad.14.1777114611051;
+        Sat, 25 Apr 2026 03:56:51 -0700 (PDT)
 Received: from nuvole ([144.202.86.13])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5faa33486sm303832345ad.33.2026.04.25.03.56.31
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5faa33486sm303832345ad.33.2026.04.25.03.56.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Apr 2026 03:56:40 -0700 (PDT)
+        Sat, 25 Apr 2026 03:56:50 -0700 (PDT)
 From: Pengyu Luo <mitltlatltl@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -74,9 +74,9 @@ Cc: linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH 3/4] arm64: dts: qcom: sc8280xp: gaokun3: add front camera sensor node
-Date: Sat, 25 Apr 2026 18:52:59 +0800
-Message-ID: <20260425105300.745044-4-mitltlatltl@gmail.com>
+Subject: [PATCH 4/4] arm64: dts: qcom: sc8280xp: gaokun3: describe rear camera module information as musch as possible
+Date: Sat, 25 Apr 2026 18:53:00 +0800
+Message-ID: <20260425105300.745044-5-mitltlatltl@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260425105300.745044-1-mitltlatltl@gmail.com>
 References: <20260425105300.745044-1-mitltlatltl@gmail.com>
@@ -88,188 +88,216 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi846 is found on my Gaokun3, descripting it.
+The rear sensor is S5K3L6, describing it but dropping compatible
+string, since there is no upstream driver. A funcitonal downstream
+driver is in comment.
 
-Note that it seems that only Goakun3(3.0GHz) version is equipped with
-Hi846. Goakun3(2.69GHz) version is equipped with S5K4H7.
+The VCM is dw9714, describe it.
 
 Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
 ---
- .../boot/dts/qcom/sc8280xp-huawei-gaokun3.dts | 128 ++++++++++++++++++
- 1 file changed, 128 insertions(+)
+Please take this patch as a RFC, I am not sure, how much I am allowed
+to add without a sensor driver.
+---
+ .../boot/dts/qcom/sc8280xp-huawei-gaokun3.dts | 129 +++++++++++++++++-
+ 1 file changed, 123 insertions(+), 6 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-index 9819454abe13..39e559e91289 100644
+index 39e559e91289..76b1ecb3819d 100644
 --- a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
 +++ b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-@@ -15,6 +15,7 @@
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/input/gpio-keys.h>
- #include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- #include <dt-bindings/phy/phy.h>
+@@ -22,12 +22,18 @@
+ #include "sc8280xp.dtsi"
+ #include "sc8280xp-pmics.dtsi"
  
-@@ -27,6 +28,7 @@ / {
++/* remove due to gpio pins collision, skip 2nd instance won't break things */
++/delete-node/ &cci1_i2c1;
++/delete-node/ &cci1_i2c1_default;
++/delete-node/ &cci1_i2c1_sleep;
++
+ / {
+ 	chassis-type = "tablet";
+ 	model = "Matebook E Go";
  	compatible = "huawei,gaokun3", "qcom,sc8280xp";
  
  	aliases {
-+		i2c2 = &cci2_i2c1;
++		i2c1 = &cci1_i2c0;
+ 		i2c2 = &cci2_i2c1;
  		i2c4 = &i2c4;
  		i2c15 = &i2c15;
- 		serial1 = &uart2;
-@@ -47,6 +49,21 @@ framebuffer0: framebuffer@c6200000 {
- 		};
- 	};
+@@ -52,9 +58,17 @@ framebuffer0: framebuffer@c6200000 {
+ 	leds {
+ 		compatible = "gpio-leds";
  
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		pinctrl-0 = <&cam_indicator_en>;
-+		pinctrl-names = "default";
-+
-+		privacy_led: privacy-led {
-+			function = LED_FUNCTION_INDICATOR;
+-		pinctrl-0 = <&cam_indicator_en>;
++		pinctrl-0 = <&cam_indicator_en>, <&camera_flash_en>;
+ 		pinctrl-names = "default";
+ 
++		camera_flash: led {
++			function = LED_FUNCTION_FLASH;
 +			color = <LED_COLOR_ID_WHITE>;
-+			gpios = <&tlmm 34 GPIO_ACTIVE_HIGH>;
++			gpios = <&tlmm 93 GPIO_ACTIVE_HIGH>;
++			linux,default-trigger = "none";
 +			default-state = "off";
-+			panic-indicator;
 +		};
-+	};
 +
- 	wcd938x: audio-codec {
- 		compatible = "qcom,wcd9380-codec";
- 
-@@ -98,6 +115,20 @@ switch-mode {
- 		};
+ 		privacy_led: privacy-led {
+ 			function = LED_FUNCTION_INDICATOR;
+ 			color = <LED_COLOR_ID_WHITE>;
+@@ -129,6 +143,18 @@ vreg_camf_1p2: regulator-camf-1p2 {
+ 		pinctrl-names = "default";
  	};
  
-+	vreg_camf_1p2: regulator-camf-1p2 {
++	vreg_camr: regulator-camr {
 +		compatible = "regulator-fixed";
 +
-+		regulator-name = "vreg_camf_1p2";
-+		regulator-min-microvolt = <1200000>;
-+		regulator-max-microvolt = <1200000>;
++		regulator-name = "vreg_camr";
 +
-+		gpio = <&tlmm 44 GPIO_ACTIVE_HIGH>;
++		gpio = <&tlmm 92 GPIO_ACTIVE_HIGH>;
 +		enable-active-high;
 +
-+		pinctrl-0 = <&camf_1p2_reg_en>;
++		pinctrl-0 = <&camr_reg_en>;
 +		pinctrl-names = "default";
 +	};
 +
  	vreg_misc_3p3: regulator-misc-3p3 {
  		compatible = "regulator-fixed";
  
-@@ -462,6 +493,13 @@ vreg_l8c: ldo8 {
- 						   RPMH_REGULATOR_MODE_HPM>;
+@@ -387,8 +413,8 @@ vreg_l1b: ldo1 {
+ 
+ 		vreg_l2b: ldo2 {
+ 			regulator-name = "vreg_l2b";
+-			regulator-min-microvolt = <1904000>;
+-			regulator-max-microvolt = <1904000>;
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2800000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
  		};
  
-+		vreg_l11c: ldo11 {
-+			regulator-name = "vreg_l11c";
+@@ -433,10 +459,9 @@ vreg_l6b: ldo6 {
+ 
+ 		vreg_l7b: ldo7 {
+ 			regulator-name = "vreg_l7b";
+-			regulator-min-microvolt = <1800000>;
+-			regulator-max-microvolt = <1800000>;
 +			regulator-min-microvolt = <2800000>;
 +			regulator-max-microvolt = <2800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
- 		vreg_l12c: ldo12 {
- 			regulator-name = "vreg_l12c";
- 			regulator-min-microvolt = <1800000>;
-@@ -577,6 +615,66 @@ vreg_l10d: ldo10 {
- 	};
- };
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-			regulator-boot-on;
+ 		};
  
-+&camss {
-+	vdda-phy-supply = <&vreg_l6b>;
-+	vdda-pll-supply = <&vreg_l3b>;
-+
-+	status = "okay";
-+
-+	ports {
-+		port@3 {
-+			csiphy3_ep: endpoint@0 {
+ 		vreg_l9b: ldo9 {
+@@ -622,6 +647,16 @@ &camss {
+ 	status = "okay";
+ 
+ 	ports {
++		port@0 {
++			csiphy0_ep: endpoint@0 {
 +				reg = <0>;
 +
 +				clock-lanes = <7>;
 +				data-lanes = <0 1 2 3>;
-+				remote-endpoint = <&hi846_ep>;
++				remote-endpoint = <&s5k3l6_ep>;
 +			};
 +		};
-+	};
-+};
 +
-+&cci2 {
+ 		port@3 {
+ 			csiphy3_ep: endpoint@0 {
+ 				reg = <0>;
+@@ -634,6 +669,58 @@ csiphy3_ep: endpoint@0 {
+ 	};
+ };
+ 
++&cci1 {
 +	status = "okay";
 +};
 +
-+&cci2_i2c1 {
-+	/* On Goakun3(2.69GHz), S5K4H7@2d, image quality is better than hi846 */
-+	camera_front: camera@20 {
-+		compatible = "hynix,hi846";
-+		reg = <0x20>;
++&cci1_i2c0 {
++	voice_coil_motor: vcm@c {
++		compatible = "dongwoon,dw9714";
++		reg = <0xc>;
++		vcc-supply = <&vreg_l7b>; /* FIXME: require l2c on first */
++	};
 +
-+		pinctrl-0 = <&camf_rgb_default>;
++	/*
++	 * https://source.puri.sm/Librem5/linux/-/blob/pureos/latest/drivers/media/i2c/s5k3l6xx.c
++	 *
++	 * This sensor has never been detected on Goakun3(2.69GHz)
++	 */
++	camera_rear: camera@10 {
++		reg = <0x10>;
++
++		pinctrl-0 = <&camr_rgb_default>;
 +		pinctrl-names = "default";
 +
-+		clocks = <&camcc CAMCC_MCLK3_CLK>;
++		clocks = <&camcc CAMCC_MCLK4_CLK>;
++		clock-names = "mclk";
++		clock-frequency = <24000000>;
 +
-+		assigned-clocks = <&camcc CAMCC_MCLK3_CLK>;
-+		assigned-clock-rates = <24000000>;
++		rstn-gpios = <&tlmm 7 GPIO_ACTIVE_LOW>;
 +
-+		reset-gpios = <&tlmm 15 GPIO_ACTIVE_LOW>;
-+		vddio-supply = <&vreg_l2c>;
-+		vdda-supply = <&vreg_l11c>;
-+		vddd-supply = <&vreg_camf_1p2>;
++		vddio-supply = <&vreg_camr>;
++		vdda-supply = <&vreg_l2b>;
++		vddd-supply = <&vreg_l2c>;
 +
++		/* &camera_flash can't be enabled directly for now */
 +		leds = <&privacy_led>;
 +		led-names = "privacy";
 +
-+		orientation = <0>;	/* Front facing */
-+		rotation = <0>;
++		lens-focus = <&voice_coil_motor>;
++
++		orientation = <1>;
++		rotation = <180>;
 +
 +		port {
-+			hi846_ep: endpoint {
++			s5k3l6_ep: endpoint {
 +				data-lanes = <1 2 3 4>;
-+				link-frequencies = /bits/ 64 <80000000 144000000 200000000 288000000>;
-+				remote-endpoint = <&csiphy3_ep>;
++				remote-endpoint = <&csiphy0_ep>;
 +			};
 +		};
 +	};
 +
-+	/* actuator???@58, Goakun3(2.69GHz) only, eeprom@50 */
++	/* eeprom@50/51 */
 +};
 +
- &dispcc0 {
+ &cci2 {
  	status = "okay";
  };
-@@ -1318,6 +1416,36 @@ hstp-sw-ctrl-pins {
+@@ -1423,6 +1510,13 @@ cam_indicator_en: cam-indicator-en-state {
+ 		bias-disable;
+ 	};
+ 
++	camera_flash_en: camera-flash-en-state {
++		pins = "gpio93";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
+ 	camf_1p2_reg_en: camf-1p2-reg-en-state {
+ 		pins = "gpio44";
+ 		function = "gpio";
+@@ -1446,6 +1540,29 @@ sc-rgb-xshut-n-pins {
  		};
  	};
  
-+	cam_indicator_en: cam-indicator-en-state {
-+		pins = "gpio34";
++	camr_reg_en: camr-reg-en-state {
++		pins = "gpio92";
 +		function = "gpio";
 +		drive-strength = <2>;
 +		bias-disable;
 +	};
 +
-+	camf_1p2_reg_en: camf-1p2-reg-en-state {
-+		pins = "gpio44";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	camf_rgb_default: camf-rgb-default-state {
++	camr_rgb_default: camr-rgb-default-state {
 +		mclk-pins {
-+			pins = "gpio17";
++			pins = "gpio6";
 +			function = "cam_mclk";
 +			drive-strength = <6>;
 +			bias-disable;
 +		};
 +
 +		sc-rgb-xshut-n-pins {
-+			pins = "gpio15";
++			pins = "gpio7";
 +			function = "gpio";
 +			drive-strength = <2>;
 +			bias-disable;
