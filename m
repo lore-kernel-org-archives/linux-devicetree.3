@@ -1,44 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C98383C63;
-	Sat, 25 Apr 2026 09:40:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7029335F5F4;
+	Sat, 25 Apr 2026 09:42:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777110003; cv=none; b=NQIiTO6+v5T2ihdoMS/OTxuH4S7H8o1xxYecYN5Ydn3Agh6i8wAMElDN9+Mw79pm/XVg0D9z17wguvPBTV+y6hffkm2Y9mUw5K8UjGMPEO6+2FoPRDL+6bwrptQQxxcGEyiOhUhFqh3L7yil7AmmfXoKxehgnJHx7O/Dj5UyzFA=
+	t=1777110142; cv=none; b=IFAFaia+TdvmSJCb63h3lVrOtKCUXF0CynTh3t7Iu8F6GpQjN0NKqx+MDTSqMZRSabrrvM0tZ7TyPCiFYOR1v22Ep9r4rRLGKYq8dJB5hTXpq6c8e0QOWAFE/EomFDcoilU/rWw264uIf52FmsMuI1bpaJxqPVze81YOYQYHaPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777110003; c=relaxed/simple;
-	bh=hadfq1e14Gw0z8hl3xYnUIRAy4eOpTXE+uwQc3E3bUo=;
+	s=arc-20240116; t=1777110142; c=relaxed/simple;
+	bh=iNjb9NKjwNxC358P/kLiEG6TCoz/9jcBB1BaIFlAJqk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JNiSZezd3vQnbN7dihrKI50TdY9mG7ISNTQo/A+vUCUvTmaJiYOaO9fsSG2r7kUeZ81xlKZXwwh0McRJkg7TsOVL7Gpuj6aiwfwOOVTYZ67sPH1xfTy4XJb44PssR550SMJA+h1Lm8xv3o7vezN9VZYLcC7F64uXksf2rxyORyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tur0dzb5; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=i67jbpvbUiULqOfpCVH13qvNE70H3dsUmmChzj3gxWlHZHMhfct+OFKQGtmzpepYKDGJnjxfP5NWaGbsTOcFUZaVBeFn2Kniz22MbAtb2kcRGfdJXoLCrF5pn3vyVhaBsEJ0CJGRxrVipeogCRnU5zEO1/22QXk4aKanC0HvloY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nfSbxSxp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tur0dzb5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECBC6C2BCB0;
-	Sat, 25 Apr 2026 09:40:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nfSbxSxp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B169C2BCB0;
+	Sat, 25 Apr 2026 09:42:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777110002;
-	bh=hadfq1e14Gw0z8hl3xYnUIRAy4eOpTXE+uwQc3E3bUo=;
+	s=k20201202; t=1777110142;
+	bh=iNjb9NKjwNxC358P/kLiEG6TCoz/9jcBB1BaIFlAJqk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Tur0dzb51y8TATb8JDT+pezGHhqTSQBt0Swj6mLygDhBhkbd2DnhODtFMYJ82MVx9
-	 67VHfvDOqkcVDstMrTyeUX70NeYCpcu4Ww1heMSvW5SHvZO3tkmyEOLBS1eIXaARjZ
-	 lv2HNVtOXaQryKd/1TlYTClu6RK3QWHkc1WuU9P13UoQ3CXuIp0z2V0PQr/rtq+hkw
-	 S67KgSGLqr9nHDCKlm/gHjYOr5RQMOM5vohrQhcxidoc/AnRtbbI42QZsg7qou01o2
-	 q9z4kJCONakyfU6UlSdYxZ8gHX3Xwx0tZSb8QPAA4zjEVy2CEHJMDaopmaPWfwbVlq
-	 AaODB8KgAVpow==
-Date: Sat, 25 Apr 2026 11:40:00 +0200
+	b=nfSbxSxpfe9ssXCqlU9jtADH+iwewVwwlZYNBEvfnTHmOdRPQ67uGL7HQT6ATM3l/
+	 6NGUMqVZiup4Ces+N6KGEJM4/d2gSJaxplJKc+pWgixOQG0fua541JkYb1RhVWTLdv
+	 V0EMML++DgIhMa4iLGcxcZVxQqwjZS4uOo+rUr86EXAhkAcGeGs8LWtHy+NsvzNXO7
+	 KZzuQtgZyL6dFZwMd5CmcFa9cKwbQhKSURNvrEOa5vMD1KBmnL9/l/s78hsjGoAPYM
+	 vp2SaDGTgYERfLrcu86RSxJnRpzLECaR1hrn05kj4nVyFg5j5DifrLOmLuGeZb30sQ
+	 X/aUJZVFMOemg==
+Date: Sat, 25 Apr 2026 11:42:19 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Dawid Glazik <dawid.glazik@linux.intel.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	"laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>, Tarang Raval <tarang.raval@siliconsignals.io>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	linux-aspeed@lists.ozlabs.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, maciej.lawniczak@intel.com
-Subject: Re: [PATCH v4 2/3] dt-bindings: mfd: syscon: add
- aspeed,ast2600-i3c-global compatible
-Message-ID: <20260425-poised-accomplished-hyena-d2c1a0@quoll>
-References: <cover.1777058942.git.dawid.glazik@linux.intel.com>
- <41d66492e1a1d42f6888459288311094c8b7bc51.1777058942.git.dawid.glazik@linux.intel.com>
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Mehdi Djait <mehdi.djait@linux.intel.com>, 
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>, 
+	Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>, Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>, 
+	Svyatoslav Ryhel <clamor95@gmail.com>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 0/3] media: i2c: Add os02g10 camera sensor driver
+Message-ID: <20260425-stalwart-albatross-of-efficiency-22f1cd@quoll>
+References: <20260424092554.26130-1-elgin.perumbilly@siliconsignals.io>
+ <aeteuimzPdmE1rTB@kekkonen.localdomain>
+ <MA0P287MB2178960461C59823080DD463882B2@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,18 +53,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <41d66492e1a1d42f6888459288311094c8b7bc51.1777058942.git.dawid.glazik@linux.intel.com>
+In-Reply-To: <MA0P287MB2178960461C59823080DD463882B2@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
 
-On Fri, Apr 24, 2026 at 10:21:00PM +0200, Dawid Glazik wrote:
-> Add aspeed,ast2600-i3c-global to the syscon binding compatible
-> lists to document the AST2600 I3C global register syscon node.
-> 
-> Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
-> ---
->  Documentation/devicetree/bindings/mfd/syscon.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+On Fri, Apr 24, 2026 at 01:28:43PM +0000, Elgin Perumbilly wrote:
+> Hi Sakari,
+>  
+> > On Fri, Apr 24, 2026 at 02:55:44PM +0530, Elgin Perumbilly wrote:
+> > > Patch 1/3:
+> > > - Drop the fixed data-lanes property, as the sensor supports only a 2-lane MIPI interface.
+> >
+> > Does it really say that in the datasheet? To me this looks like a driver
+> > property.
+>  
+> Yes, I have checked this. The sensor supports only a 2-lane MIPI interface.
+>  
+> There is no explicit statement in the datasheet saying that 1-lane mode is
+> unsupported. However, after reviewing all available registers, I did not find
+> any configuration that allows switching to a 1-lane mode.
+>  
+> Additionally, the datasheet provides no indication or guidance for 1-lane
+> operation. Based on this, I conclude that the sensor does not support a
+> 1-lane configuration.
+>  
+> If you still prefer, I can keep the data-lanes property as is and not drop it.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To me it feels like only 2-lane is supported, so fine by me.
 
 Best regards,
 Krzysztof
