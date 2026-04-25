@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B2B208D0;
-	Sat, 25 Apr 2026 10:13:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34CD29898F;
+	Sat, 25 Apr 2026 10:15:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777111990; cv=none; b=U/7MwM40doQP4fOw5ipok1qrQiKgzpDxOGuaaMcySH+bNjtpcCBwKe/DewipFNlg67BYlFmpJlMBwVN4/u6lxQATRZNfCPfOBc3qTLGP33BxcjMrJEAm1mNPVaN6GgZBSnTM0GgkhtSxhKW0gFKb7l0IL4g8ziOH6B93gLBl4CY=
+	t=1777112157; cv=none; b=Nii20xYWqLvxNCQcdcYMeBRm4qr8Z4jBVWboHnTI4sUO2T5F6FpBMj/P/cZRimm9h1SKb3V6Xan5rb7mU7+jS53pxvU0wEm8hkgBG1owuZHkBA4NugKV6DM7dp9G/9JysBenejKYDIx3Q3FLP7ytweUkrJRJe7lXRTdjjAXrPFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777111990; c=relaxed/simple;
-	bh=EepHaXvMJ/59V6jWWeqgUAmVIm+clJcqk9UfSMrlJlg=;
+	s=arc-20240116; t=1777112157; c=relaxed/simple;
+	bh=/Fi4KBZSuwahGziSSvfPYbgoDm2sFpiwbfvgpYBAR1Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OKCXSPRbCGVrJBKElpxKcoY+r2JgOB3I1ChOuse0NS5sT/Heoe49f2us+GwrJGu8eLHGsFAW19DxQ7tDgCtdQWy3WNhGuXhxtlLCPxzaymWOA6bUtpNrO8RDfVVMFe8Myx8mmHf3fUjLNMf1G9Q9gGktYTZk5e0Emkdzg/9Jrd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N5TBSE4B; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=nP0U4XLAYIcgSOD+kqv560BUawe9HZorHykp+vPgM7qc2HB0zNIkcfM5ZXpcNOl3dxJ8e7vLG5DAGmAovBtgzhdIY9CGR54Gr58Tf5Catu4UjJMfJDm78IuLmOtmra5I4b0Encag65f/GrLTVjT8QtEQXQErKORAk/FoW4I91Fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=roPFzf6o; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N5TBSE4B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE28CC2BCB0;
-	Sat, 25 Apr 2026 10:13:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="roPFzf6o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19A2C2BCB0;
+	Sat, 25 Apr 2026 10:15:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777111990;
-	bh=EepHaXvMJ/59V6jWWeqgUAmVIm+clJcqk9UfSMrlJlg=;
+	s=k20201202; t=1777112157;
+	bh=/Fi4KBZSuwahGziSSvfPYbgoDm2sFpiwbfvgpYBAR1Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=N5TBSE4B5vVOuDr/JjNoX54tMYOeFhArGRhrcTR//MUVefJldVtXafFzVn0P4W+yK
-	 pLPXh6bdHW1Yf7awJPsQScYP3ybZTYVHyAZQEhXg5efpdxGWEMgnWuXtAKj9bl04wa
-	 uNJF6ieuDZCOPgU2AXu7ysxMUpRKaHEjTk60PgdvtEJDt24LGjmNbpynVaZO3G0gfe
-	 tXcKhyouQtlPhdSeWuX6jx9DpTMZKbLTTggalK+uDXCUudeG6OfUdxG14phYXZU+cp
-	 ypDohHcZPHRL5bZ+WkaPtSSFach3dUizG6j169Uchr8sZaSB/uKF1EgBt58v9FuS3m
-	 9DoOvh0Ig4JyQ==
-Date: Sat, 25 Apr 2026 12:13:07 +0200
+	b=roPFzf6o21rr2/JZVPfx7lp7MWWRoO4MZhz9oFvFZky+6i91/TvU3F1rkZP0/NgUN
+	 wjOjZvD6++l8fvjsJ6dGEaRijQkWLnGQYVDx1+UHhyS5+0B5aeWY9i8vuz31OARIG3
+	 bHl7w/gtLS469M0vGRqeFTefxQ1DN3bsMT+e6bkK79RdlbftUJzuHyGI9teESzmtr2
+	 3MGcqPhcAzKwO6pa3RItpd5sRmbAh4zsp0ppcfvKttL819ooy7ZqNnwO4LuAz0wbW9
+	 k0ziPBo7CrWtqQ/FOtR0pMFc/hjzFdPK2WRagfgzR45F1JdiuNC7A4k41YiloJC3/L
+	 9/N1SewPCQ2LQ==
+Date: Sat, 25 Apr 2026 12:15:54 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Neo Chang <YLCHANG2@nuvoton.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, 
-	tiwai@suse.com, robh@kernel.org, krzk+dt@kernel.org, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, alsa-devel@alsa-project.org, neo.chang70@gmail.com, 
-	kchsu0@nuvoton.com, sjlin0@nuvoton.com
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: nuvoton,nau8360: Add bindings for
- NAU83G60
-Message-ID: <20260425-independent-puzzling-pigeon-a3fd84@quoll>
-References: <20260424033953.280520-1-YLCHANG2@nuvoton.com>
- <20260424033953.280520-2-YLCHANG2@nuvoton.com>
+To: Xingyu Wu <xingyu.wu@starfivetech.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mason Huo <mason.huo@starfivetech.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] dt-bindings: hwlock: Add the support of
+ HWspinlock for StarFive JHB100
+Message-ID: <20260425-didactic-junglefowl-of-science-096e34@quoll>
+References: <20260424032026.62301-1-xingyu.wu@starfivetech.com>
+ <20260424032026.62301-2-xingyu.wu@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,179 +47,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260424033953.280520-2-YLCHANG2@nuvoton.com>
+In-Reply-To: <20260424032026.62301-2-xingyu.wu@starfivetech.com>
 
-On Fri, Apr 24, 2026 at 11:39:52AM +0800, Neo Chang wrote:
-> Add device tree bindings documentation for the Nuvoton NAU83G60
-> audio amplifier.
+On Fri, Apr 24, 2026 at 11:20:25AM +0800, Xingyu Wu wrote:
+> Add the new documentation of hardware spinlock for the StarFive JHB100 SoC.
+
+Simplify the subject. You cannot add here support for a device, you just
+add a device simply.
+
+"Add StarFive JHB100 HW lock"
+
 > 
-> Signed-off-by: Neo Chang <YLCHANG2@nuvoton.com>
-
-A nit, subject: drop second/last, redundant "bindings for". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicetree/bindings/submitting-patches.rst#L18
-
+> Signed-off-by: Xingyu Wu <xingyu.wu@starfivetech.com>
 > ---
->  .../bindings/sound/nuvoton,nau8360.yaml       | 115 ++++++++++++++++++
->  1 file changed, 115 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/nuvoton,nau8360.yaml
+>  .../hwlock/starfive,jhb100-hwspinlock.yaml    | 40 +++++++++++++++++++
+>  1 file changed, 40 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/hwlock/starfive,jhb100-hwspinlock.yaml
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/nuvoton,nau8360.yaml b/Documentation/devicetree/bindings/sound/nuvoton,nau8360.yaml
+> diff --git a/Documentation/devicetree/bindings/hwlock/starfive,jhb100-hwspinlock.yaml b/Documentation/devicetree/bindings/hwlock/starfive,jhb100-hwspinlock.yaml
 > new file mode 100644
-> index 000000000000..29b10155c4f9
+> index 000000000000..b1b27fafe9bc
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/nuvoton,nau8360.yaml
-> @@ -0,0 +1,115 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +++ b/Documentation/devicetree/bindings/hwlock/starfive,jhb100-hwspinlock.yaml
+> @@ -0,0 +1,40 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/sound/nuvoton,nau8360.yaml#
+> +$id: http://devicetree.org/schemas/hwlock/starfive,jhb100-hwspinlock.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: Nuvoton NAU83G60 Stereo Class-D Amplifier with DSP
-> +
-> +description: |
-> +  Stereo Class-D Amplifier with DSP and I/V-sense driver.
+> +title: StarFive Hardware Spinlock
 
-If "driver" as in "Linux driver" then please drop the word.
+StarFive JHB100?
 
-> +  This device supports I2C.
 > +
 > +maintainers:
-> +  - Neo Chang <YLCHANG2@nuvoton.com>
+> +  - Xingyu Wu <xingyu.wu@starfivetech.com>
 > +
 > +properties:
 > +  compatible:
-> +    enum:
-> +      - nuvoton,nau8360
+> +    const: starfive,jhb100-hwspinlock
 > +
 > +  reg:
 > +    maxItems: 1
-> +    description: |
-> +      The I2C address of the device. The address is determined by the external
-> +      hardware configuration of GPIO1 and GPIO2 pins:
-> +       - 0x1a (GPIO2=Low, GPIO1=Low)
-> +       - 0x1b (GPIO2=Low, GPIO1=High)
-> +       - 0x4a (GPIO2=High, GPIO1=Low)
-> +       - 0x4b (GPIO2=High, GPIO1=High)
 > +
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  clocks:
+> +  resets:
 > +    maxItems: 1
 > +
-> +  clock-names:
-> +    const: mclk
-> +
-> +  nuvoton,dsp-bypass:
-> +    type: boolean
-> +    description: |
-
-Do not need '|' unless you need to preserve formatting.
-
-> +      Forcibly disable/bypass DSP path.
-
-Why would that be hard-coded for given board?
-
-> +
-> +  nuvoton,low-latency:
-> +    type: boolean
-> +    description: |
-> +      Enable low latency mode.
-> +      Please note the feature helps sensing performance
-> +      but worsens power consumption.
-
-I could imagine that low-latency needed for certain use-cases, like
-realtime audio, thus not really board-level DT configuration, but
-runtime.
-
-> +
-> +  nuvoton,anc-enable:
-> +    type: boolean
-> +    description: |
-> +      Enable ANC (Active Noise Cancellation) feature.
-
-This as well.
-
-> +      NAU83G60 provides configurable low latency ANC path to Advanced DSP through TDM-RX.
-> +      To reduce latency, the ANC path only supports 48 kHz sample rates.
-> +
-> +  nuvoton,aec-enable:
-> +    type: boolean
-> +    description: |
-> +      Enable AEC (Acoustic Echo Cancellation) feature.
-
-As well.
-
-> +      NAU83G60 provides Advanced DSP processed audio data as AEC reference through TDM-TX.
-> +      The AEC path only supports 48 kHz sample rates.
-> +
-> +  nuvoton,pbtl-enable:
-> +    type: boolean
-> +    description: |
-> +      NAU83G60 supports PBTL mode for mono output.
-> +
-> +  nuvoton,vbat-microvolt:
-> +    minimum: 8000000 # 8V
-> +    maximum: 24000000 # 24V
-> +    description: |
-> +      VBAT supply voltage in microvolts.
-
-This device does not have any supply, so how could you set its voltage?
-Plus, regulator bindings define it, not per-device propeties. Drop the property.
-
-Also, add missing supply.
-
-> +      This is the analog power supply, provided by an external power source
-> +      or battery, and must be between 8V and 24V.
-> +
-> +  nuvoton,tdm-channel-length:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [16, 24, 32]
-> +    description: |
-> +      Assign TDM channel length.
-> +      The length must be 16, 24, or 32.
-> +
-> +  nuvoton,dsp-fw-names:
-> +    $ref: /schemas/types.yaml#/definitions/string-array
-> +    minItems: 2
-> +    maxItems: 2
-> +    description: |
-> +      Assign firmware filenames for left and right DSP cores.
-
-Please use standard properties. This is the second one you re-implement.
-If there is one single thing which upstream kernel hates is the
-reimplementation of standard things by each vendor.
-
-firmware-name:
-(and see other examples how to write it - items: with descriptions)
-
+> +  "#hwlock-cells":
+> +    const: 1
 > +
 > +required:
 > +  - compatible
 > +  - reg
+> +  - resets
+> +  - "#hwlock-cells"
 > +
-> +allOf:
-> +  - $ref: dai-common.yaml#
-> +
-> +unevaluatedProperties: false
+> +additionalProperties: false
 > +
 > +examples:
 > +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        codec@1a {
-> +            #sound-dai-cells = <0>;
-> +            compatible = "nuvoton,nau8360";
-> +            reg = <0x1a>;
-> +            nuvoton,dsp-bypass;
-> +            nuvoton,vbat-microvolt = <12000000>;
+> +    hwspinlock@13012000 {
 
-Add the rest of properties o make this complete.
+name: hwlock
 
 Best regards,
 Krzysztof
