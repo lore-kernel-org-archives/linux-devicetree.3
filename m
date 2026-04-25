@@ -1,312 +1,175 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AF3393DE3
-	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 10:56:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4F4352C28
+	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 11:23:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777114613; cv=none; b=jXZJk87IgZucfN4eUhSw9NVJNR+fnVUHjnrdxTHgJVmTCBxOCQ9WpBMhsJ7sR4UwYQ30RnQ/WgwjD6HT+zsSdTPb1cM39CLksyqBzFxAWDMKWCCH4HSjkTkYYtnrZEI3MJyn8o3i7VVOENaR7S6DCuijJpY4b9pLSR6fN4EWsJ0=
+	t=1777116231; cv=none; b=lNenEwNMPHqxFqDNvk3lqDKW+jHFUqL36KI5cih6fp6fEz/A84x1/kQy7xrXw5nLEfBlkV4AY34qMZ00077PxPdns6SDOHYHXKOWYqYddMPmzkSLLg5BdVHjp5UFUbDjveM/RqzVL/9UgklNz84oPijIzpYC/b7atrXOjR8Nt0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777114613; c=relaxed/simple;
-	bh=j92iOYgKQ7RjjOLofBQE3Vd++tZ0z/woMt8SEp8QCZo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j6qBPPjjng7TmGiuBWGPuh2CwHAtKOg8guoiQqoJq68wskTwatqJrUHSeiEU3lhIRVsfuvOOci1ltExgK5e342wlpz+rXZf5sOD7f13Kxag8i6T30wi9XDC0dmjTFhkOjwvjmelzg57xQ00nb2NlHDKkJhA4U8x2pM6m0fXAr5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cy/T4de0; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777116231; c=relaxed/simple;
+	bh=34c0hEvFTLJTAz90CQGX9s6Hvt09sv0pDHtaKmeta5U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gzw0HK4pQDUlVqkPZwUCP4CnSQowbHwdS60SxLghJ7dBW99bJt5/pGQTiw9ue7tnu21KojwnJ3nnELknnaIH59V8VcrFEfhN3dUH0EiQTPNyJoK4dIel15Xm5+/9OXMG5yYOG9H1vbv6+kvzKGHcg//Fst2jRrKPUvMW2hnvKPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BQMfRPhJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b+RdeZny; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cy/T4de0"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2a871daa98fso57125765ad.1
-        for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 03:56:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BQMfRPhJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b+RdeZny"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63P3Pkoa2365855
+	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 11:23:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	fH7QGZwbDCoLyO1bwt3VrYsmvxr//vAEUJI0SlOWzQU=; b=BQMfRPhJ6Od33set
+	Eg/xsxtIu1Nq+/EPAJqY30KFa79LysRlUM3qSMP/ZqD0OuW3gBZk+TeDTwrwkhBD
+	T6IjzSGwyRupreTPxrVeKhtvm5wE/TH6YX1vWk1ezY2iiR9yOlenKCqtQysT8sH/
+	7YSLYQgsK1ACgEPuOp9qG7hN0lYzDPJCMwKcTGYHrQSyNUTjKExPXYaazh4x0r8V
+	n+MtQgFkfBxGhPuPU0G0ry14QOJ3vDhXZK9RTsvKbKC/9s3sinkRfG+CVGmZSWQ2
+	np4BY42cA52P4Y0rUOyxPsD4mabwETf2RzU1+IeMVPCLMY4lqJokY2FVJFTesJf0
+	mZON5w==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drnpw0sjb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 11:23:47 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50d826ed6f9so106006591cf.1
+        for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 04:23:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777114611; x=1777719411; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hXgloxp5cdGXbJc9mmRLA5BQUt4nlOpF3BcjxCU2IHU=;
-        b=Cy/T4de0glMoZvobRKvlj9PMd914hdEQHtP/N/WaVTSjrZLyFeN6v/o8Km+MEAOQBg
-         Ml2qsU8mFNBt0c1eUIukhrEhk2n/5cvK/A/NR6lXcvdouM2hl/8SzXkO/D+AhtCFS8x0
-         4H4GU8HRjZ+bKEzVe0Q/O7B4TDXDIdUCL6xWuCQqeRPSDus/AOTWnSo+6ArEyqJr4LAN
-         OoTkIFA0xpCMH3OxLdAu7E2Mk8y+dNl5DyPaOm5aFUJGBzLOqSI9GUX7pUM4TotC7x61
-         5w2IQ1WuH3iczDo8Pmj12x2QlyO3g7T/aUYQgMHQUZmafMxWrtPxPlNASs7H9aQ7aTip
-         IvpQ==
+        d=oss.qualcomm.com; s=google; t=1777116227; x=1777721027; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=fH7QGZwbDCoLyO1bwt3VrYsmvxr//vAEUJI0SlOWzQU=;
+        b=b+RdeZnyyze++zpnjU0Zs6KE8Cb9QVTMsSkMXM1FtwYvl8U10nt6pVsq2HI0UO8tZk
+         nX97+sFW1PY5Vog9xIWO+GR5FD+pL7vu6LkZHElzFxDiOT3YMnH5xYI8BeJ7YHrOABly
+         hCep7B/pa3rvAYtGSHcqyhxw7AkmFSodKAOqiCbyV3LYdeQelkEdP7pJlPNvsNFsqBZd
+         lbyQ5lmiKWyAj9PIUOCRDanLtbRUzVgSnRFbeXFAOAdiFjuP7xhnzdVAZ0JOyFMmJei3
+         PacN/ITRbYwijCtwEduq+9lLxx9s+9+796HGnRVjpVbLSVKO5q/MH2gAOV6YFB0YKWvX
+         7Ibg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777114611; x=1777719411;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=hXgloxp5cdGXbJc9mmRLA5BQUt4nlOpF3BcjxCU2IHU=;
-        b=X5rMWk+dLy7Yg6FWu6bIh0wKnsKz7yyRQSRKk5ATi7fmJJfQWFwsl+wPA8t5xBvzqc
-         sfERFGtraNFa5yql0kA9l3lweaZH7u7WrBkWkXiIXCDSYUfekR4FbbWXMOEp7gS4QMq1
-         uKP4GwmDld54JRwl/UpQtW0dgjJLMdYuBkZ1XcIothxHI9O0XtfRoPdFdpS9+YR4fCR8
-         L2NK18myLX+uDGD+E4L/ZzPzdVgzXB1ylXUzevtiXgA1UXNtzn1yff7+EDX6oLYiWcTy
-         xiU4HE5trG9972MERpNlOX5O4i8x41gdf2fVI1Xg5aHHrfM/StI57hXmG0UxwdYfBL/m
-         ZTzA==
-X-Forwarded-Encrypted: i=1; AFNElJ8oEjW3oFyX/Vj0Clqmh9ecmo9YE4iztXm22caJ/ulwxuguI6J51X2jh0hyptk2Ay75dEHPnOuxC4mu@vger.kernel.org
-X-Gm-Message-State: AOJu0YxYBJAX+n29b9Wcc+XAsoW8MEw0+uq7TyO8irkCGqZrvRNjVkD5
-	gCvIeGVxkkuB7ZdNCZvMxtxu+WBg63k3poh8LC8BW6H5G/eeSMK0tlNQ
-X-Gm-Gg: AeBDietEl08ovFntYvgsuicXOHSutppPJ8jO1WMw0I6waFfc+up68fIDtULONBrrV2K
-	Vn3JzmkGLtr7e3OWQwfL8zxfmCi5gDSKWr8m2QOG2gn5Wt718nUMimEk/eTbHKCXhYq2DIME8lD
-	DcB3I6NxEopitm+DSrwjGVXnc9eaMDgfDULjTj3DsoJzHvrhlK+K3Td8zMrf6SYbRnpbI0MYr7j
-	FnLPR2esdcx1uplowQU6yL7M6DSFOjgkIor7gGvgXJi4nXoVYIvtPD/FrnpnvSGEfPEs4/wEdg3
-	DqP5MxxTgg5RwvQ2aZXE6fAgyWkF7MaQK9POQMwdu1ZbGQu0erCrxPa/uh8dSZ+2RSuJPNIqmVq
-	c4RdyoOZBvI3rvG1nyZaiziwENytxRJYQeTRmZAy7E5nLDwlvdn0GwJlHKYtTdwbW6f23ivgtZ1
-	zmbZpIMrERcnYpcIh+5ejQOyu5Sngp
-X-Received: by 2002:a17:902:a516:b0:2b2:4f43:b48c with SMTP id d9443c01a7336-2b5f9ea55d1mr247155295ad.14.1777114611051;
-        Sat, 25 Apr 2026 03:56:51 -0700 (PDT)
-Received: from nuvole ([144.202.86.13])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5faa33486sm303832345ad.33.2026.04.25.03.56.41
+        d=1e100.net; s=20251104; t=1777116227; x=1777721027;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=fH7QGZwbDCoLyO1bwt3VrYsmvxr//vAEUJI0SlOWzQU=;
+        b=jS6QCueHWlld7f1Y8vZaCRgy4klxsOTP/6Pwjn+DrsVnVhGUFo18JJredBj7S4EdzT
+         bQRN4f3aktaSw9TjrEdon/BX+UuqOBtnrCs3toMF7AK1ntWi0WIPS+ZFbg8F2gPgIWru
+         VyVA9yA+fncYk2DznKIkXMc7CIcVlHlBwvW/FqwgXJpT9wo6UuglMpX4KD9sKEIjluFn
+         vKgiWPp5/0De+cBvjpy4110iwuoNNpI2Nic33WG8A5RbsUZiGawAo6HhFuRIecyVREzW
+         KOeHzuVbFdXhyXkHOizWvbJOfZfd8BCOkrh2Z8lOL+M4yJIYh8VH7yNf+u4sE5RCClKZ
+         W0oA==
+X-Forwarded-Encrypted: i=1; AFNElJ8oDXgPdrmKgLuMkbqzZKFUVa2E1zRu37NX9u6untC1ncFVqtCn6KaSOUtMVLUMpsua5SMb7cn8q4vK@vger.kernel.org
+X-Gm-Message-State: AOJu0YzEYK2pmtQUagY36eGVipEnawPuGL3EWkw7r5hB7ZjziNcoFDUx
+	Cdz62vxkD75WFOU8GfLECzmzFE4ORR1WBisefw7EKwssCVyfLYf3h4f788jhSiL4mnfvCwYNYAL
+	5CSXj0nuZg8UXKwpx/MqAOKv0DiUu0Uw3rKvQF1SFngioCy4/KkN82plO9pXj1XCG
+X-Gm-Gg: AeBDies/9lRrd7kqCegUWJynCZKzX21DctDxnKB80TMCLwf7zCGkHX3qgiEBL4UeVw4
+	ChVg22mE55cPKBeCFiZ8vzS0kKsJ8MMUyp0eFCJSkgxaSSUdGTS9bX166Abr5sDUTTcpv+d0L29
+	PtIgr/U4F5yv0ZN6nQGDjIV1qA6BrexRzDOc0vUjeSfXXY+kTKx54hSA/I/3bnn04pYQnOF9/uz
+	1ZoVupLPGfV4eJwjPwEReYpJdbSjADAbAEpnl6fPXBBgp89/0WxzVzjihbpVuwODj5AxgUDyIhx
+	WxAqU2qAaCX4+NwBIj72+Gf8pYQWs7moAP0MCNcRTSshJhXFjLhOSOaE80Gd+gJwW00YaXnDmkm
+	SSROK/Eysu8oQ8rpNwV5xtxuEnADU0cC5Z8+pvJuhumgiE3+4detLYbUY15ehrNPmcDUdLFeKhQ
+	Vqpdr4qrxqP7NO9iPgGeaQ7lZ5JSypc94kLNTVUkZmTlDgsA==
+X-Received: by 2002:ac8:5988:0:b0:50d:9cfd:b01f with SMTP id d75a77b69052e-50e367967e3mr442519731cf.32.1777116226876;
+        Sat, 25 Apr 2026 04:23:46 -0700 (PDT)
+X-Received: by 2002:ac8:5988:0:b0:50d:9cfd:b01f with SMTP id d75a77b69052e-50e367967e3mr442519461cf.32.1777116226424;
+        Sat, 25 Apr 2026 04:23:46 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a41abceab0sm6416323e87.61.2026.04.25.04.23.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Apr 2026 03:56:50 -0700 (PDT)
-From: Pengyu Luo <mitltlatltl@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Martin Kepplinger <martin.kepplinger@puri.sm>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH 4/4] arm64: dts: qcom: sc8280xp: gaokun3: describe rear camera module information as musch as possible
-Date: Sat, 25 Apr 2026 18:53:00 +0800
-Message-ID: <20260425105300.745044-5-mitltlatltl@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260425105300.745044-1-mitltlatltl@gmail.com>
-References: <20260425105300.745044-1-mitltlatltl@gmail.com>
+        Sat, 25 Apr 2026 04:23:44 -0700 (PDT)
+Date: Sat, 25 Apr 2026 14:23:42 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Lukas Timmermann <linux@timmermann.space>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Thierry Reding <thierry.reding@gmail.com>,
+        Sam Ravnborg <sam@ravnborg.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+        Sylwester Nawrocki <s.nawrocki@samsung.com>,
+        Chanwoo Choi <cw00.choi@samsung.com>,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, dri-devel@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        Alexandre Marquet <tb@a-marquet.fr>
+Subject: Re: [PATCH 2/5] drm/panel-edp: Add support for Samsung
+ LTL101DL02-002 panel
+Message-ID: <ughwlscd4iksf45rdxwcoavtzpusslu4afphfp5gr5rrrmdtu5@7eu65pg7hp2p>
+References: <20260423-manta-display-v1-0-196f80c5673a@timmermann.space>
+ <20260423-manta-display-v1-2-196f80c5673a@timmermann.space>
+ <CAD=FV=VNvPtG_f1W942SKJfM4ptK8Wvd-nZs4geBCG3bO_A0BA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD=FV=VNvPtG_f1W942SKJfM4ptK8Wvd-nZs4geBCG3bO_A0BA@mail.gmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI1MDExMyBTYWx0ZWRfXzzyPNl/KsAf1
+ kdnTUtIvDexrfCdG5lYahXLDODebtDS7utghozXm7caxFVaGJDWfNGbuxtNRkzlj3LRfBRf1JbQ
+ C2h1xy0SshHTk99L7PqRiYv0jKQ2Mde87RwGSeKu2BX15yL6Dizu0Ku07nhfdpBHnxPTbAaFj2M
+ NifsKH+C49Ub/W1zFffjTpXltjX1PEP0KsFiOu0WSXJvLMAg3C3Tp19tHi0tbMVeLoR/Ftu1FpR
+ l6ULIjdBfdCC+gMAmWLmua4/cxr5tVWtqGx1nwSspkzmRZmWn58QQ7z7Y/bU7jGLjZg/416hQR1
+ NBjjLsyzRbBLNrDlxC1KBMU/syZU+4yM12ObNnOb8zyYBMVY13zIhfv7k2631nBZ26cDv15o7p9
+ IC4WkP/YT+ffijsrDICF/3lVE0Fh9nVEGOtKha8JZxoDcXSoI0dtAQkcroaQyHvuoarjEdevyVm
+ e4h4psPMHvuJEkxU6uw==
+X-Proofpoint-ORIG-GUID: csKX-8dy-JOTmiFlFJVdFdsnAldzfUxM
+X-Authority-Analysis: v=2.4 cv=RaGgzVtv c=1 sm=1 tr=0 ts=69eca443 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=bsQV_sbQVq-5e8UBBKAA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: csKX-8dy-JOTmiFlFJVdFdsnAldzfUxM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-25_02,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ lowpriorityscore=0 phishscore=0 spamscore=0 clxscore=1015 suspectscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604250113
 
-The rear sensor is S5K3L6, describing it but dropping compatible
-string, since there is no upstream driver. A funcitonal downstream
-driver is in comment.
+On Thu, Apr 23, 2026 at 02:49:53PM -0700, Doug Anderson wrote:
+> Hi,
+> 
+> On Thu, Apr 23, 2026 at 2:15 PM Lukas Timmermann <linux@timmermann.space> wrote:
+> >
+> > From: Alexandre Marquet <tb@a-marquet.fr>
+> >
+> > Add a panel entry for the Samsung LTL101DL02-002 panel, as found in
+> > Samsung Manta (Google Nexus 10).
+> >
+> > Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
+> > Signed-off-by: Lukas Timmermann <linux@timmermann.space>
+> > ---
+> >  drivers/gpu/drm/panel/panel-edp.c | 31 +++++++++++++++++++++++++++++++
+> >  1 file changed, 31 insertions(+)
+> 
+> Adding new panels like this is discouraged these days. Is there a
+> reason you can't use the generic "edp-panel" compatible? I know that
+> the exynos5 driver is pretty old, but a quick glance shows that it's
+> based on the same analogix-dp core that "rockchip,analogix-dp" is, and
+> that seems to have support for aux-bus...
 
-The VCM is dw9714, describe it.
+I'd also prefer to NAK this change. If the driver can't cope with the
+"edp-panel", the driver must be modified rather than pushing more and
+more legacy panel compatibile strings.
 
-Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
----
-Please take this patch as a RFC, I am not sure, how much I am allowed
-to add without a sensor driver.
----
- .../boot/dts/qcom/sc8280xp-huawei-gaokun3.dts | 129 +++++++++++++++++-
- 1 file changed, 123 insertions(+), 6 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-index 39e559e91289..76b1ecb3819d 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-@@ -22,12 +22,18 @@
- #include "sc8280xp.dtsi"
- #include "sc8280xp-pmics.dtsi"
- 
-+/* remove due to gpio pins collision, skip 2nd instance won't break things */
-+/delete-node/ &cci1_i2c1;
-+/delete-node/ &cci1_i2c1_default;
-+/delete-node/ &cci1_i2c1_sleep;
-+
- / {
- 	chassis-type = "tablet";
- 	model = "Matebook E Go";
- 	compatible = "huawei,gaokun3", "qcom,sc8280xp";
- 
- 	aliases {
-+		i2c1 = &cci1_i2c0;
- 		i2c2 = &cci2_i2c1;
- 		i2c4 = &i2c4;
- 		i2c15 = &i2c15;
-@@ -52,9 +58,17 @@ framebuffer0: framebuffer@c6200000 {
- 	leds {
- 		compatible = "gpio-leds";
- 
--		pinctrl-0 = <&cam_indicator_en>;
-+		pinctrl-0 = <&cam_indicator_en>, <&camera_flash_en>;
- 		pinctrl-names = "default";
- 
-+		camera_flash: led {
-+			function = LED_FUNCTION_FLASH;
-+			color = <LED_COLOR_ID_WHITE>;
-+			gpios = <&tlmm 93 GPIO_ACTIVE_HIGH>;
-+			linux,default-trigger = "none";
-+			default-state = "off";
-+		};
-+
- 		privacy_led: privacy-led {
- 			function = LED_FUNCTION_INDICATOR;
- 			color = <LED_COLOR_ID_WHITE>;
-@@ -129,6 +143,18 @@ vreg_camf_1p2: regulator-camf-1p2 {
- 		pinctrl-names = "default";
- 	};
- 
-+	vreg_camr: regulator-camr {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "vreg_camr";
-+
-+		gpio = <&tlmm 92 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&camr_reg_en>;
-+		pinctrl-names = "default";
-+	};
-+
- 	vreg_misc_3p3: regulator-misc-3p3 {
- 		compatible = "regulator-fixed";
- 
-@@ -387,8 +413,8 @@ vreg_l1b: ldo1 {
- 
- 		vreg_l2b: ldo2 {
- 			regulator-name = "vreg_l2b";
--			regulator-min-microvolt = <1904000>;
--			regulator-max-microvolt = <1904000>;
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2800000>;
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 		};
- 
-@@ -433,10 +459,9 @@ vreg_l6b: ldo6 {
- 
- 		vreg_l7b: ldo7 {
- 			regulator-name = "vreg_l7b";
--			regulator-min-microvolt = <1800000>;
--			regulator-max-microvolt = <1800000>;
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
--			regulator-boot-on;
- 		};
- 
- 		vreg_l9b: ldo9 {
-@@ -622,6 +647,16 @@ &camss {
- 	status = "okay";
- 
- 	ports {
-+		port@0 {
-+			csiphy0_ep: endpoint@0 {
-+				reg = <0>;
-+
-+				clock-lanes = <7>;
-+				data-lanes = <0 1 2 3>;
-+				remote-endpoint = <&s5k3l6_ep>;
-+			};
-+		};
-+
- 		port@3 {
- 			csiphy3_ep: endpoint@0 {
- 				reg = <0>;
-@@ -634,6 +669,58 @@ csiphy3_ep: endpoint@0 {
- 	};
- };
- 
-+&cci1 {
-+	status = "okay";
-+};
-+
-+&cci1_i2c0 {
-+	voice_coil_motor: vcm@c {
-+		compatible = "dongwoon,dw9714";
-+		reg = <0xc>;
-+		vcc-supply = <&vreg_l7b>; /* FIXME: require l2c on first */
-+	};
-+
-+	/*
-+	 * https://source.puri.sm/Librem5/linux/-/blob/pureos/latest/drivers/media/i2c/s5k3l6xx.c
-+	 *
-+	 * This sensor has never been detected on Goakun3(2.69GHz)
-+	 */
-+	camera_rear: camera@10 {
-+		reg = <0x10>;
-+
-+		pinctrl-0 = <&camr_rgb_default>;
-+		pinctrl-names = "default";
-+
-+		clocks = <&camcc CAMCC_MCLK4_CLK>;
-+		clock-names = "mclk";
-+		clock-frequency = <24000000>;
-+
-+		rstn-gpios = <&tlmm 7 GPIO_ACTIVE_LOW>;
-+
-+		vddio-supply = <&vreg_camr>;
-+		vdda-supply = <&vreg_l2b>;
-+		vddd-supply = <&vreg_l2c>;
-+
-+		/* &camera_flash can't be enabled directly for now */
-+		leds = <&privacy_led>;
-+		led-names = "privacy";
-+
-+		lens-focus = <&voice_coil_motor>;
-+
-+		orientation = <1>;
-+		rotation = <180>;
-+
-+		port {
-+			s5k3l6_ep: endpoint {
-+				data-lanes = <1 2 3 4>;
-+				remote-endpoint = <&csiphy0_ep>;
-+			};
-+		};
-+	};
-+
-+	/* eeprom@50/51 */
-+};
-+
- &cci2 {
- 	status = "okay";
- };
-@@ -1423,6 +1510,13 @@ cam_indicator_en: cam-indicator-en-state {
- 		bias-disable;
- 	};
- 
-+	camera_flash_en: camera-flash-en-state {
-+		pins = "gpio93";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	camf_1p2_reg_en: camf-1p2-reg-en-state {
- 		pins = "gpio44";
- 		function = "gpio";
-@@ -1446,6 +1540,29 @@ sc-rgb-xshut-n-pins {
- 		};
- 	};
- 
-+	camr_reg_en: camr-reg-en-state {
-+		pins = "gpio92";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	camr_rgb_default: camr-rgb-default-state {
-+		mclk-pins {
-+			pins = "gpio6";
-+			function = "cam_mclk";
-+			drive-strength = <6>;
-+			bias-disable;
-+		};
-+
-+		sc-rgb-xshut-n-pins {
-+			pins = "gpio7";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
-+
- 	i2c4_default: i2c4-default-state {
- 		pins = "gpio171", "gpio172";
- 		function = "qup4";
 -- 
-2.54.0
-
+With best wishes
+Dmitry
