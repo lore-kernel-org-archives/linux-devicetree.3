@@ -1,113 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCBF4A07;
-	Sat, 25 Apr 2026 16:40:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD64A40DFCF;
+	Sat, 25 Apr 2026 17:03:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777135233; cv=none; b=o8S7p5xhOE4ZxwNkobvXRsM9DcHPz75N0Hj/iJAwbP3dTcRgOgKlerjCy802EiGCNfNTomplPAr0oiHB3ob765pYQQ0uD1tPeAlVgzFFbhaGwrJKmoNzmAiXsUH7eP1teHzvfc3cmqXWkBtEZbWxE9neNnJ24WvcTVujbS8a7zg=
+	t=1777136631; cv=none; b=Csg+pGeYDDAjVYw1Ln5yZR+WqN3Xvhb2gwACjZRGeLyPUXM9C1jftjLXI2A1RdTPH5qykZvlUSKPOKtxrqyA1ohbw+gyqRhr7RxZ0w/dflcAYJwx7U5f0oFWsvXRGJLb9N/ts3rwL7HhOJ/KXJEEHmEpW2pb2dQhFu+8qIEKJno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777135233; c=relaxed/simple;
-	bh=BQt+8EYpwF0VE3VbmyyQcqzXuxK9+TLYXM4VynjhgXE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RPQaB5LhjV4s3gD73v/bXZiMYQPch9ivSngUWQqhrQ9ngwxt/gT41C6FTlmixKCei22b6henCINs6mGrdvhMTjdxXI2RCG/6DAvCQVaqUvGRxoBXwyTc5eAKWmAK9xRD3Y4n9ShvKbFzX6AtE2NbgTOgMl/gNE6raKw4QoIfeN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=braZCck+; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777136631; c=relaxed/simple;
+	bh=ODFP+i2oEkBlLUBrhXb9K0Ao6WjgGBH8TfXySBaOfeg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=n1FhA+lE//pju/VyKq+7DY+wJX03J+Z6ecIEfHNIRPMn1UNZ0Pu4yp57lQoJUUIXgjmrl2Cm3WzU/45nhGoo92/8dYm9/mUPOFSwsZ3hj6P1HXTCxdjlvjvA2InfYjc3aDRCxZq7jvkthSnD2Cjkg3PTmAjf2fsM7J2IBUyVQ48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=T2cDReam; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="braZCck+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33229C2BCB0;
-	Sat, 25 Apr 2026 16:40:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777135232;
-	bh=BQt+8EYpwF0VE3VbmyyQcqzXuxK9+TLYXM4VynjhgXE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=braZCck+EHwnhwmm7F462k80ZGZsnbS9S7EqfAK2KBGE5D0myN30ZJ3p878YPELR/
-	 1G7JESsTEFKXGZSbN88C1/ViL8wb+sID4/JB8469r4o1ix+iePIaTqIqfio/gnjPAq
-	 elQsjHBZxQIlrDgZLpO4CkZTuhLs0vl5WBJs6Po9LVIxZIwz48nxWxgRPRhD2jyPrM
-	 qWrzayYzwG15CoF8sfYH5OkLZ6/lQYNaBUwLqTkrF9X3v7XA0uqSBu+SzEpUPG2eDA
-	 djVch2fKk4OqFsMLq3asA08iSNv6GLAzrw8n9paqvJOmIxu4tYVEIgJ3R45q9WJCyb
-	 7Tk9kmlMkV/hg==
-Date: Sat, 25 Apr 2026 17:40:22 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-doc@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Andrew Morton
- <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, Steven Rostedt
- <rostedt@goodmis.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky
- <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v10 10/11] docs: iio: add documentation for adf41513
- driver
-Message-ID: <20260425174022.0d1a6bd9@jic23-huawei>
-In-Reply-To: <20260415-adf41513-iio-driver-v10-10-df61046d5457@analog.com>
-References: <20260415-adf41513-iio-driver-v10-0-df61046d5457@analog.com>
-	<20260415-adf41513-iio-driver-v10-10-df61046d5457@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="T2cDReam"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 14D221EAE92;
+	Sat, 25 Apr 2026 19:03:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1777136625; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=ZBGrKF64afHmhXrSaDo+ek9+EFFN0jMYF5rAjSpYwrY=;
+	b=T2cDReamUTG9cUUSHENBWu11lyBJAaH4/hsxU58MFhChGcpdtv+sHj4dXaj1Sg0kjwaBWl
+	t4rY61ngXArikGIfODNqTZ1F/cUG9eyhJCLiyz4GBnTDZS1lSvNvreTuFVuI5ecSoNhALy
+	nOun2gJCxiADMhAaINatN+1fAY1E0GnDqOgU37TEGqt9fARKfZScKlaXf+wUpu5EyY4jN8
+	2WcWoZcXckgNM+jNtV6PaV/LoXzbeuRSDi1ihIpBux/VSwM2TfIszC3MQiF42xBsZVadi9
+	sXFcD42G3TYWCz+1mqB8pFY8HDOsaQ0e6zgx5jAd+9uEfdMeUI2o8F8dapRkiw==
+Message-ID: <4d50bb7a-7aac-49ed-a5ef-816f3d0ad8b3@cjdns.fr>
+Date: Sat, 25 Apr 2026 19:03:41 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH 1/2] dt-bindings: interrupt-controller: econet: Add CPU
+ interrupt mapping
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: tglx@kernel.org, conor+dt@kernel.org, linux-mips@vger.kernel.org,
+ krzk+dt@kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260425123531.270548-1-cjd@cjdns.fr>
+ <20260425123531.270548-2-cjd@cjdns.fr>
+ <177712370148.1527749.7565214035200790095.robh@kernel.org>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <177712370148.1527749.7565214035200790095.robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, 15 Apr 2026 10:51:53 +0100
-Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> My bot found errors running 'make dt_binding_check' on your patch:
+>
+Gonna blame this on not doing `pip3 install dtschema --upgrade` often 
+enough.
 
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> Add documentation for ADF41513 driver, which describes the device
-> driver files and shows how userspace may consume the ABI for various
-> tasks.
-> 
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> ---
->  Documentation/iio/adf41513.rst | 199 +++++++++++++++++++++++++++++++++++++++++
->  Documentation/iio/index.rst    |   1 +
->  MAINTAINERS                    |   1 +
->  3 files changed, 201 insertions(+)
-> 
-> diff --git a/Documentation/iio/adf41513.rst b/Documentation/iio/adf41513.rst
-> new file mode 100644
-> index 000000000000..4193c825b532
-> --- /dev/null
-> +++ b/Documentation/iio/adf41513.rst
-> @@ -0,0 +1,199 @@
-
-> +2. Device attributes
-> +====================
-> +
-> +The ADF41513 driver provides the following IIO extended attributes for
-> +frequency control and monitoring:
-> +
-> +Each IIO device has a device folder under ``/sys/bus/iio/devices/iio:deviceX``,
-> +where X is the IIO index of the device. Under these folders reside a set of
-> +device files that provide access to the synthesizer's functionality.
-> +
-> +The following table shows the ADF41513 related device files:
-> +
-> ++----------------------+-------------------------------------------------------+
-> +| Device file          | Description                                           |
-> ++======================+=======================================================+
-> +| frequency            | RF output frequency control and readback (Hz)         |
-> ++----------------------+-------------------------------------------------------+
-> +| frequency_resolution | Target frequency resolution control (Hz)              |
-> ++----------------------+-------------------------------------------------------+
-> +| powerdown            | Power management control (0=active, 1=power down)     |
-> ++----------------------+-------------------------------------------------------+
-> +| phase                | RF output phase adjustment and readback (radians)     |
-> ++----------------------+-------------------------------------------------------+
-
-These seem to be truncated as the out_altvoltage0_ prefix isn't mentioned.
-Fine to do that but add a note to say that more clearly.
-I briefly read this as 'new ABI' though the examples a at the end of the file
-make it clear that we are simply missing the prefix.
+Fixed but will re-send in a couple of days so in case of other notes, 
+all can be addressed together.
 
 
+Thanks,
+
+Caleb
 
