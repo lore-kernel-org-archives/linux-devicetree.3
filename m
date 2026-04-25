@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70045393DE9;
-	Sat, 25 Apr 2026 10:22:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1BB22F2607;
+	Sat, 25 Apr 2026 10:23:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777112541; cv=none; b=sgo3scEdaWg2HXqG6+GMC7KrW23j7nKmluYM8HMG/KOADZ+XjUJyIs0KHe9hz0txhOBMfqtEL/aGlECHMoEpknV/6U+Rczeq8WRmEHUI/lONK3V+/S0VWvr2XHM8GRntICUBricJwriYGL/YhlCJF2W1jql+ZE4RmmnmfOpxTCE=
+	t=1777112624; cv=none; b=qy/t9PQnvMr1P1gvtG1K0029QiZiwrglo0xPWYZjM/B5RnKM0ZBK8Q1qtGAGWFmIVhMckXcgA1LJAdU/3RsbEyU4aCAXcLVHQaZ2juAjM0WvTcSi3C3i/AYCiKlxtm30Ng82XAcyh8Pnh/vv9+Pfvnwa1FboxjxdjcWq9o6lZ4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777112541; c=relaxed/simple;
-	bh=ZUPPhFVZQbljNA332u3LYRTprpkVR+YVWiGn+DzoKto=;
+	s=arc-20240116; t=1777112624; c=relaxed/simple;
+	bh=zwCFJtmeAUbii235fTcLlj5zP/eaa8Auc9w7sbkO2dQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iYh3ka2sBXRkqDqMTSuXaiZrDv+yGjxOIard560DPbFZv1Ii8xvLbOPCHtnC7CVEipLEcpUEuurIUTcXTJSSDRUKlMNnQcKRSM0gC14m9M2EA5Hj3vTIQ96OfAqBpS/QprEXWkrglcOSHQH7gU9EY4gKayCLSwFSX2W6t8JhWc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WVigzOjT; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=h+GX7tOeau0dIW2Q7yfN0KNdUHA6KEuezLiGvXYz3DwegWTJhOKwpR2oI+k7VSNnTe/hBbas4k/k4UiORAK8fHjNKoMf7U1gCDG1PGAI+pay0LL/lSVmO3+1Y61wuJ2FSOxVJ9H3MYmUyTGvCPHR/3McFarcgR1CJvUxgJKTcbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GCCPoSXl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WVigzOjT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77D4DC2BCB0;
-	Sat, 25 Apr 2026 10:22:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GCCPoSXl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFB9EC2BCB0;
+	Sat, 25 Apr 2026 10:23:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777112541;
-	bh=ZUPPhFVZQbljNA332u3LYRTprpkVR+YVWiGn+DzoKto=;
+	s=k20201202; t=1777112623;
+	bh=zwCFJtmeAUbii235fTcLlj5zP/eaa8Auc9w7sbkO2dQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WVigzOjTrHYv7Ua8lBOX9q+n9FsWYiyPo6WTeju8Fq6eKONInM+g4ZnN+90LbTky9
-	 2E7Ch0CVEOC36VYM3o/VzOL3wrryEfnGTxKVS4YrFG2aW2wYcRkNMdejOnDonyJOt/
-	 n7jc2UAa2zZwgnV0HLAabusZcazKhRuT+cJB7f3Br1q2gwdrAMs9Q3DX6929DvjSWc
-	 s610BDZRiB6gjdqJWlpk6Ne2XkUsKNXl/vKMwKHeeh2HCdAHAmCKdWvulItHY+aJNo
-	 cbS7XMDADiW9k5cz3Ah6opxkaWex5RW0dugONUJ7Te69LHUgs287Cx2H8RUd8X/NJV
-	 1Ca7YP7W2leig==
-Date: Sat, 25 Apr 2026 12:22:19 +0200
+	b=GCCPoSXlP3bKNK40bIBroSzsXszNSouGd+DinWM8KD7ByNimt3mbRkDTEesRHxwfm
+	 ta/U4EHh1oQL4/D4wQx4VRjvhiqmF8TR1/cR1KZpMk/JQxTKI33Iaghi4Fps9MJiNV
+	 HLa8+XVJJtJwdXBHj+4NQVv7AfQXFQYxjbMK/Zrx9cmX43KdaLC5gsq7nn90LRWLfB
+	 20lMZGraR0J1A98/jEbfheJ/PXD4JAAWhI1i9v5EkjMUWz+OLuHz4sZ0yRwO7ZNl6N
+	 sEVkhv+01U0Q2Bxmizv5Iyc8z7+00kpoxAP+D4ZFox9q86/xt3PwTq3yfc/VQVdUA1
+	 fu7Bk7K+UpXyw==
+Date: Sat, 25 Apr 2026 12:23:41 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mahesh Vaidya <mahesh.vaidya@altera.com>
-Cc: joyce.ooi@intel.com, lpieralisi@kernel.org, kwilczynski@kernel.org, 
-	mani@kernel.org, robh@kernel.org, bhelgaas@google.com, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, subhransu.sekhar.prusty@altera.com, dinguyen@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: PCI: altera: add binding for Agilex 5
-Message-ID: <20260425-witty-heron-of-perfection-cedddd@quoll>
-References: <20260424094913.522123-1-mahesh.vaidya@altera.com>
- <20260424094913.522123-2-mahesh.vaidya@altera.com>
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Harshal Dev <harshal.dev@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: dma: qcom: bam-dma: Add support for
+ kaanapali BAM v2.0.0
+Message-ID: <20260425-handsome-papaya-porcupine-d42df7@quoll>
+References: <20260424-knp_qce-v1-0-813e18f8f355@oss.qualcomm.com>
+ <20260424-knp_qce-v1-1-813e18f8f355@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,70 +48,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260424094913.522123-2-mahesh.vaidya@altera.com>
+In-Reply-To: <20260424-knp_qce-v1-1-813e18f8f355@oss.qualcomm.com>
 
-On Fri, Apr 24, 2026 at 02:49:11AM -0700, Mahesh Vaidya wrote:
->      enum:
->        - altr,pcie-root-port-1.0
-> @@ -25,20 +26,15 @@ properties:
->        - altr,pcie-root-port-3.0-f-tile
->        - altr,pcie-root-port-3.0-p-tile
->        - altr,pcie-root-port-3.0-r-tile
-> +      - altr,pcie-root-port-4.0
->  
->    reg:
-> -    items:
-> -      - description: TX slave port region
-> -      - description: Control register access region
-> -      - description: Hard IP region
+On Fri, Apr 24, 2026 at 05:04:15PM +0530, Kuldeep Singh wrote:
+> Kaanapali support newer BAM v2.0.0 version.
+> Document the compatible string and update example along with it.
 
-I don't understand why you are removing this.
+And why v2.0.0 is not compatible with v1.7.0? Or what is not compatible?
 
->      minItems: 2
-> +    maxItems: 3
->  
->    reg-names:
-> -    items:
-> -      - const: Txs
-> -      - const: Cra
-> -      - const: Hip
->      minItems: 2
-> +    maxItems: 3
->  
->    interrupts:
->      maxItems: 1
-> @@ -80,18 +76,25 @@ allOf:
->      then:
->        properties:
->          reg:
-> -          maxItems: 2
-> -
-> +          items:
-> +            - description: TX slave port region
-> +            - description: Control register access region
->          reg-names:
-> -          maxItems: 2
-> -
-> +          items:
-> +            - const: Txs
-> +            - const: Cra
->      else:
->        properties:
->          reg:
-> -          minItems: 3
-> -
-> +          items:
-> +            - description: TX slave port region
-> +            - description: Control register access region
-> +            - description: Hard IP region
->          reg-names:
-> -          minItems: 3
-> +          items:
-> +            - const: Txs
-> +            - const: Cra
-> +            - const: Hip
+> 
+> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/dma/qcom,bam-dma.yaml       | 21 +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml b/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
+> index 6493a6968bb4..0923fb189ada 100644
+> --- a/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
+> +++ b/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
+> @@ -23,6 +23,8 @@ properties:
+>            - qcom,bam-v1.4.0
+>            # MSM8916, SDM630
+>            - qcom,bam-v1.7.0
+> +          # Kaanapali
+> +          - qcom,bam-v2.0.0
+>        - items:
+>            - enum:
+>                # SDM845, SM6115, SM8150, SM8250 and QCM2290
+> @@ -118,4 +120,23 @@ examples:
+>          #dma-cells = <1>;
+>          qcom,ee = <0>;
+>      };
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
 
-So it's the same... Confusing or I miss here something.
+Drop the example, no need for difference in compatible.
 
 Best regards,
 Krzysztof
