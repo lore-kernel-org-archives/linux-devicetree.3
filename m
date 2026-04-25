@@ -1,75 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2DAE38B146;
-	Sat, 25 Apr 2026 09:56:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E51A3932EE
+	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 09:57:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777110967; cv=none; b=pArtNnRB5LfHuBPBmEAufkISrq5sPG3Gmb6rr9zODJCQxIsuxa0wUKK78snx6UZTf6vwgVZ/vFuic7s8PzxREVO0yAWgF9Xk9A41gMzeUJ/IDJ626EbYJFEyeK6WX1SqK/vFUIPTX2AVwDDscW31teo5RyEMiBnIWR1qLZW1mjk=
+	t=1777111032; cv=none; b=Ue7R4RLUeYZKvVbgOwqbLEqIr9MQnKuQFmNk8TVSwBiRftQy4S1jNkSFiM8j+ARC0xvbBURGytdAAnIGbDI4HundFSHLnj3GTXvxQaOC/xyCEdRXahnQL4FBMcsRTikbGDyRtq9ZrqB7YBbAWohRyfbGXMNUSHLmrvDlXHRiXmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777110967; c=relaxed/simple;
-	bh=WJcc1NZETmbddcBcUKF7rrXIoSuykV0QJB1jUEB7vEQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gd9YMU6HSieenwh8kpKVYpiQa5JqwDxRY0EXxOa6O80m6RlpEWkPmbiPkdsJhNLXujPsmZmRz64BB09ZhoGJWiv/BA4kWX/bXD3lR0UESs8KjIr+hWiBeqqlU8FXQKfEToEKVeDCyrDOFnkARYo5ylO7PNiQha14x/1FFbz9fJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YQaav5Vz; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777111032; c=relaxed/simple;
+	bh=GZbR2ACVh9+gp+nilqqxNsrf904ahFQUCCu4bpKzwYQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=agYg8Z6Tj+RlBoV/LT7v/eC1/d4mCv6qT0BY/qGozP5Wr0PGv4OtNETywpXtVKCMsfNnsK0n9n786YOkunainOT4WgxPPc+OViLHXHuxgESFbGmBbPbjQ3OmpiA/kWIlSaMHM4iJQWh5KDz5K6qVDKqhrDnsdh2hYR6dMSzDAKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OzUj1w8Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Kevyq22w; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YQaav5Vz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1EA9C2BCB0;
-	Sat, 25 Apr 2026 09:56:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777110966;
-	bh=WJcc1NZETmbddcBcUKF7rrXIoSuykV0QJB1jUEB7vEQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YQaav5VzbXA3ZKzDIAcL2FZVk7pFwk4MWSaisn9CqO/T5tbx63RhH0O0/4h/UuDz2
-	 J1HRbdWoue6NAxI5kU4UT9sL9c/e48aJlD5tb/ZEGds0rkTjaZJ+mU8cNgvx+IxSz3
-	 Q10QxMOHtnmdz2CaVydUMd7IknbArXP8sqkcfI9yGr8wRyHuif6QPeJqlk4ofFIAgH
-	 cpVJlKKDpZ6Z34sjVh4PBguEwDuwJ4R5vcXkMUNUnzSbNc3xOvsLmbn6lBciwJtdxj
-	 4OGgw7wdjWGnINf5OSVMmxNO/zJD/pPfWMZ1gTcQCOZ8q8aeMYKqIMYGiiPjp/safH
-	 XMPzpaERlmqyg==
-Date: Sat, 25 Apr 2026 11:56:04 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Lukas Timmermann <linux@timmermann.space>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
-	Douglas Anderson <dianders@chromium.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>, 
-	Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 3/5] dt-bindings: clock: samsung: Add fimd1 and vpll muxes
-Message-ID: <20260425-uncovered-otter-of-sunshine-d00ed0@quoll>
-References: <20260423-manta-display-v1-0-196f80c5673a@timmermann.space>
- <20260423-manta-display-v1-3-196f80c5673a@timmermann.space>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OzUj1w8Q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Kevyq22w"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63P4dsfY1555765
+	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 09:57:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	AZExIZavOwKLJirxIZDH3BFh2jY1Vt1v0FLp3r7lz1g=; b=OzUj1w8Q2ssnZpj3
+	HLB3WZSeCEilZsnigNWyXXkh2qTKpaa2IkdQCRhjOIUUAWvrBAqoSEUC/rQ9/4qj
+	doNf0Ue666/ghX/bdSgXlNM0VGqXwWpU/D2bCrbQN9qXTw5SOzJmzjEm5wJidG22
+	o/DuhbsmWOY2hqgjSysxpSkQg9ZvcjYFB1V615nULS1UvlujcZWe6HHD4xEZqG/o
+	1cBWGGkWjxRTxn35TktvymcPnVMi1y5QtfzKmovJ8cgtjdAHoBjrp30TfspJIuGd
+	B0KR7OJcUmVFQNklk3+zaIkkHMrtCo6kA0GE+k9zRO1L6nYxacv2F6QzfFmhJMA2
+	Zd6KxA==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drpsgrh9m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 09:57:10 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-82fa7c6699fso9392421b3a.1
+        for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 02:57:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1777111030; x=1777715830; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=AZExIZavOwKLJirxIZDH3BFh2jY1Vt1v0FLp3r7lz1g=;
+        b=Kevyq22wK/2NJzygX8mYwyb+npRGoR+l0DaZXybh+GxmHarCUrxbTUpS3LeCCuHDvx
+         JyvUH/BZ9mHtBjlxGdQmHuaPNIwI4CP68SzLa6JsvlsxgV0DsdqZ63pzkZMMjBLzCoQS
+         jFMCYPtsWjS5upnaFEC1ujg7/2lEjwNIKSq51Lb9jCYIskXkzn2CjzV6ub6WlRBOr4Yh
+         tcVsZ+NfxqnrC8p5KAT6mZrYaRPb/kYX4DO6b861+B4zvY8TCVRXKKlZ7i1rMt0/wZVY
+         I5vLrhv+1ZumluYXou2UTa8G2R+mUQDlY/XKiJWRbZkZ9WOK9INVsSCw9naHypL8EV7v
+         rsKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777111030; x=1777715830;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=AZExIZavOwKLJirxIZDH3BFh2jY1Vt1v0FLp3r7lz1g=;
+        b=ZuVRSIkKtJgUJM7YEyADD1acu0ZmzDzxccb5uyUZuDWMsEtnprwJxxRiI9wkogT7jb
+         xrW39+fpneutn7lxOni3otlg/csLTYzdVodBCzm4//BuKXk/VdUaJcOU+QQeOr4gKv/4
+         uoJ7sOfw9dUOY46dZfowGCx1QmI9+Hos5o2d6dD3bsrkjhIYwpC8tg/u3KdigIdOtzJ9
+         ++pQG7N1KESrgrkJRSYvhlkRcjEPij2L6VGSZOGTPob0TNAR1Y+Zud2uB7LH7yCmZ+oL
+         YjFPKJ0qcAK0mRZvYQwCnO/9ftudl6qGTpXDTbCPmX2XwyHJSpSQiS4vzfj3P8PVUByy
+         6Spw==
+X-Forwarded-Encrypted: i=1; AFNElJ+s8rscWIY2ZtDe9YLSr2xCoN561caHwcb7omNdjsGhoypCfDVUptSSoNxyVr1a1ERscBRuUb+BAYYP@vger.kernel.org
+X-Gm-Message-State: AOJu0YzRfeeyhqMjKdavhVwWv3+zTEoTfJsBsGXrQrWlDre0pxU3LDc3
+	zWZscCNsA8JqX18smfIeqWbY2N2qggf6q0KfhT5aUSlesMPgtb3F7FActuO067dHV8lruVzdN3I
+	wZtu0Xrn59zvGEQwqpRy0zAT5HH5mi8yZdQDbKMqHJnRmG60p6in7ApkrezTCSywh
+X-Gm-Gg: AeBDievb7yWPQKZhm6j7532x+ToHa2PqeWjloMwTahMV4Ja8SNO63XghOQcjWJyJAu1
+	/xMJKp8QryFTVaOPpNBkyp9zwz7mdyt4RVn6l9ayPLaAWYcyJfx0z++aW5tb+Nn03MsOnG1wtMi
+	qUA/jwvus8819Mzxv79CAVEIhcAKuWMVhi4ZVytV2T5XWy2GiY5ySTyrjEtiKP/+xojjjVhqROE
+	Hy1MOt4hrGdRYOYTa/VNuFB2XMQx3vqT4+yuLIZ2Xp4vjYiWubjNQDh+ChtQ8TxmJYR17VvZRJX
+	xT3tmYpmFNb6KPkpJMdzpnLly8GMzQ7rtDTqvOpEpHeYgl+CMLGbpDeKaBAsFC/hCqCyXBvPHCx
+	HtymdVwfrdoB/j8xBKF69afNlpuUuYzuvx4gGFTX7EeywvxHYqJwmhnEJkofC163uGw==
+X-Received: by 2002:a05:6a00:2da2:b0:829:8942:2c85 with SMTP id d2e1a72fcca58-82f8c86b594mr36379977b3a.17.1777111029804;
+        Sat, 25 Apr 2026 02:57:09 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2da2:b0:829:8942:2c85 with SMTP id d2e1a72fcca58-82f8c86b594mr36379925b3a.17.1777111029289;
+        Sat, 25 Apr 2026 02:57:09 -0700 (PDT)
+Received: from [192.168.202.18] ([106.192.38.78])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8ec037e1sm31035140b3a.54.2026.04.25.02.56.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 25 Apr 2026 02:57:08 -0700 (PDT)
+Message-ID: <b89eabd9-3d0d-0128-eb56-99ab2ead2257@oss.qualcomm.com>
+Date: Sat, 25 Apr 2026 15:26:51 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260423-manta-display-v1-3-196f80c5673a@timmermann.space>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v2 04/13] dt-bindings: media: qcom,glymur-iris: Add glymur
+ video codec
+To: Krzysztof Kozlowski <krzk@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Thierry Reding <thierry.reding@kernel.org>,
+        Mikko Perttunen <mperttunen@nvidia.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Jonathan Hunter <jonathanh@nvidia.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        iommu@lists.linux.dev, driver-core@lists.linux.dev,
+        dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
+References: <20260423-glymur-v2-0-0296bccb9f4e@oss.qualcomm.com>
+ <20260423-glymur-v2-4-0296bccb9f4e@oss.qualcomm.com>
+ <a9cacc9d-c7da-4803-8950-97511f8d927a@kernel.org>
+Content-Language: en-US
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <a9cacc9d-c7da-4803-8950-97511f8d927a@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: o_DgnvRWXYAZQyiFsSjdTsLeeVTV4x70
+X-Proofpoint-ORIG-GUID: o_DgnvRWXYAZQyiFsSjdTsLeeVTV4x70
+X-Authority-Analysis: v=2.4 cv=Y+fIdBeN c=1 sm=1 tr=0 ts=69ec8ff6 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=zt2h8jT1BUEQU1rgsTrZfQ==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=yXM0pRxr-LgjvrZoWBMA:9 a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI1MDA5OCBTYWx0ZWRfX8wKQZr/sOYFr
+ EBTooeHZB6LevCC4JpS3KTh2HguDkCbAifkDBCf7SExC8sxX3/y2E+QcWOKFgurFCttzS10zPvQ
+ 8scXLGqOnpal9kjSipicCPfhN0dh1MrO8ZpaoLLq+DvbQp77O6Pw2Phzh2hi/kK89evgL2Xc/2I
+ jjgrUjOYJw3c+3fvHwrI07KOBBhNMK1azQM5oT2m5MRLP7kYrQHze5jH6Dh/TQ+MjVqvhf0i/oV
+ PZaka8/wzPrCqoqV4uwgAvO6i9xEVdKBs5UT2TtLwN/j3EEp7EVbeHPwUHJSmw8JAQ77vGMGsJK
+ o0q3iOhfgbtT5dPhcICEissllh9c3WtMlYr5859rpv7QHx0R+PqiFLwobu7goXXai7/Cf1Ai9gO
+ IUR1ILAesKR2Rr0Toq/xOiU/CJ5A+ACUH6FaSuo5RZxRO1GwB8WH0AyRSuxnxcc+xH4Hu4rd6U2
+ 8fLo2bAC0jMGvP2ik0A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-25_02,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 suspectscore=0 phishscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604250098
 
-On Thu, Apr 23, 2026 at 11:14:39PM +0200, Lukas Timmermann wrote:
-> Add two clocks necessary for the google-manta board
-> display.
-> 
-> Signed-off-by: Lukas Timmermann <linux@timmermann.space>
-> ---
->  include/dt-bindings/clock/exynos5250.h | 2 ++
->  1 file changed, 2 insertions(+)
+
+On 4/24/2026 10:39 PM, Krzysztof Kozlowski wrote:
+> On 23/04/2026 15:29, Vishnu Reddy wrote:
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - clocks
+>> +  - clock-names
+>> +  - dma-coherent
+>> +  - interconnects
+>> +  - interconnect-names
+>> +  - interrupts
+>> +  - iommus
+>> +  - memory-region
+>> +  - power-domains
+>> +  - power-domain-names
+>> +  - resets
+>> +  - reset-names
+>> +
+>> +unevaluatedProperties: false
+>> +
+> I think I commented around here but probably not specific enough. You
+> miss here either reference to venus or usage of additionalProperties
+> instead of unevaluatedProperties.
 >
+> If you intend not to use qcom,venus-common.yaml, then explain WHY in
+> commit msg and switch to additionalProperties: false.
+>
+> Otherwise, you miss $ref.
+>
+> Rest looked good.
 
-If there is going to be any new version, better to split this and send
-all SoC patches (clk + DTS) separately from DRM.
+Iris glymur platform have more clocks and power domains, which exceed
+the maxItems limits defined in qcom,venus-common.yaml. Inheriting from
+it would cause dt-schema validation failures, so I have chosen not to
+reference it.
 
-No need to resend just for that, I will pick up Samsung SoC things after
-the merge window.
+I will add this information in the commit message explaining this, and
+switch from unevaluatedProperties: false to additionalProperties: false
+as you suggested. Will address in the next version.
 
-Best regards,
-Krzysztof
+Thanks,
+Vishnu Reddy.
 
+>
+> Best regards,
+> Krzysztof
