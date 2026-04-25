@@ -1,198 +1,204 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E51A3932EE
-	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 09:57:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 661562D5432;
+	Sat, 25 Apr 2026 09:58:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777111032; cv=none; b=Ue7R4RLUeYZKvVbgOwqbLEqIr9MQnKuQFmNk8TVSwBiRftQy4S1jNkSFiM8j+ARC0xvbBURGytdAAnIGbDI4HundFSHLnj3GTXvxQaOC/xyCEdRXahnQL4FBMcsRTikbGDyRtq9ZrqB7YBbAWohRyfbGXMNUSHLmrvDlXHRiXmQ=
+	t=1777111129; cv=none; b=kBAHFeajjCqYwIvv7cLw3k2v/3dtBR7naTGbqVCNjW24Ktn8u+4R7m6k8JTkN3bWHWvI2jl50s85arnDZGL3U8NXP/R3k4f+IPS0dqQscjgbNqv+KePLtL2ZKjT5IDvcKNgt4gqlggZ05UReTyjOIzfqeBfDSvzwmJf8Yx3Sj2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777111032; c=relaxed/simple;
-	bh=GZbR2ACVh9+gp+nilqqxNsrf904ahFQUCCu4bpKzwYQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=agYg8Z6Tj+RlBoV/LT7v/eC1/d4mCv6qT0BY/qGozP5Wr0PGv4OtNETywpXtVKCMsfNnsK0n9n786YOkunainOT4WgxPPc+OViLHXHuxgESFbGmBbPbjQ3OmpiA/kWIlSaMHM4iJQWh5KDz5K6qVDKqhrDnsdh2hYR6dMSzDAKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OzUj1w8Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Kevyq22w; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777111129; c=relaxed/simple;
+	bh=aazaLXG8kSAJ5nNWCvS05sFQTG0KWyaoWFm3XFwT0qE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NTXoQOXHK3Tja2xzRv7CK+iwtqwvr6Hj+pcrIQQyUj0Jio38AmtZ7b0Dw/qMqVWOBLYShExIJP6aQXTiSGlxw/mZXKE2hBVnyca/dv7qQrjo2AhleEvtg5ui6/gyd9AjIiQlL0F9vbXwwkzlmI6ogIoobVhR4VceuvflFw3chfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mBUxTg39; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OzUj1w8Q";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Kevyq22w"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63P4dsfY1555765
-	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 09:57:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	AZExIZavOwKLJirxIZDH3BFh2jY1Vt1v0FLp3r7lz1g=; b=OzUj1w8Q2ssnZpj3
-	HLB3WZSeCEilZsnigNWyXXkh2qTKpaa2IkdQCRhjOIUUAWvrBAqoSEUC/rQ9/4qj
-	doNf0Ue666/ghX/bdSgXlNM0VGqXwWpU/D2bCrbQN9qXTw5SOzJmzjEm5wJidG22
-	o/DuhbsmWOY2hqgjSysxpSkQg9ZvcjYFB1V615nULS1UvlujcZWe6HHD4xEZqG/o
-	1cBWGGkWjxRTxn35TktvymcPnVMi1y5QtfzKmovJ8cgtjdAHoBjrp30TfspJIuGd
-	B0KR7OJcUmVFQNklk3+zaIkkHMrtCo6kA0GE+k9zRO1L6nYxacv2F6QzfFmhJMA2
-	Zd6KxA==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drpsgrh9m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 09:57:10 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-82fa7c6699fso9392421b3a.1
-        for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 02:57:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777111030; x=1777715830; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=AZExIZavOwKLJirxIZDH3BFh2jY1Vt1v0FLp3r7lz1g=;
-        b=Kevyq22wK/2NJzygX8mYwyb+npRGoR+l0DaZXybh+GxmHarCUrxbTUpS3LeCCuHDvx
-         JyvUH/BZ9mHtBjlxGdQmHuaPNIwI4CP68SzLa6JsvlsxgV0DsdqZ63pzkZMMjBLzCoQS
-         jFMCYPtsWjS5upnaFEC1ujg7/2lEjwNIKSq51Lb9jCYIskXkzn2CjzV6ub6WlRBOr4Yh
-         tcVsZ+NfxqnrC8p5KAT6mZrYaRPb/kYX4DO6b861+B4zvY8TCVRXKKlZ7i1rMt0/wZVY
-         I5vLrhv+1ZumluYXou2UTa8G2R+mUQDlY/XKiJWRbZkZ9WOK9INVsSCw9naHypL8EV7v
-         rsKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777111030; x=1777715830;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=AZExIZavOwKLJirxIZDH3BFh2jY1Vt1v0FLp3r7lz1g=;
-        b=ZuVRSIkKtJgUJM7YEyADD1acu0ZmzDzxccb5uyUZuDWMsEtnprwJxxRiI9wkogT7jb
-         xrW39+fpneutn7lxOni3otlg/csLTYzdVodBCzm4//BuKXk/VdUaJcOU+QQeOr4gKv/4
-         uoJ7sOfw9dUOY46dZfowGCx1QmI9+Hos5o2d6dD3bsrkjhIYwpC8tg/u3KdigIdOtzJ9
-         ++pQG7N1KESrgrkJRSYvhlkRcjEPij2L6VGSZOGTPob0TNAR1Y+Zud2uB7LH7yCmZ+oL
-         YjFPKJ0qcAK0mRZvYQwCnO/9ftudl6qGTpXDTbCPmX2XwyHJSpSQiS4vzfj3P8PVUByy
-         6Spw==
-X-Forwarded-Encrypted: i=1; AFNElJ+s8rscWIY2ZtDe9YLSr2xCoN561caHwcb7omNdjsGhoypCfDVUptSSoNxyVr1a1ERscBRuUb+BAYYP@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRfeeyhqMjKdavhVwWv3+zTEoTfJsBsGXrQrWlDre0pxU3LDc3
-	zWZscCNsA8JqX18smfIeqWbY2N2qggf6q0KfhT5aUSlesMPgtb3F7FActuO067dHV8lruVzdN3I
-	wZtu0Xrn59zvGEQwqpRy0zAT5HH5mi8yZdQDbKMqHJnRmG60p6in7ApkrezTCSywh
-X-Gm-Gg: AeBDievb7yWPQKZhm6j7532x+ToHa2PqeWjloMwTahMV4Ja8SNO63XghOQcjWJyJAu1
-	/xMJKp8QryFTVaOPpNBkyp9zwz7mdyt4RVn6l9ayPLaAWYcyJfx0z++aW5tb+Nn03MsOnG1wtMi
-	qUA/jwvus8819Mzxv79CAVEIhcAKuWMVhi4ZVytV2T5XWy2GiY5ySTyrjEtiKP/+xojjjVhqROE
-	Hy1MOt4hrGdRYOYTa/VNuFB2XMQx3vqT4+yuLIZ2Xp4vjYiWubjNQDh+ChtQ8TxmJYR17VvZRJX
-	xT3tmYpmFNb6KPkpJMdzpnLly8GMzQ7rtDTqvOpEpHeYgl+CMLGbpDeKaBAsFC/hCqCyXBvPHCx
-	HtymdVwfrdoB/j8xBKF69afNlpuUuYzuvx4gGFTX7EeywvxHYqJwmhnEJkofC163uGw==
-X-Received: by 2002:a05:6a00:2da2:b0:829:8942:2c85 with SMTP id d2e1a72fcca58-82f8c86b594mr36379977b3a.17.1777111029804;
-        Sat, 25 Apr 2026 02:57:09 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2da2:b0:829:8942:2c85 with SMTP id d2e1a72fcca58-82f8c86b594mr36379925b3a.17.1777111029289;
-        Sat, 25 Apr 2026 02:57:09 -0700 (PDT)
-Received: from [192.168.202.18] ([106.192.38.78])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8ec037e1sm31035140b3a.54.2026.04.25.02.56.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 25 Apr 2026 02:57:08 -0700 (PDT)
-Message-ID: <b89eabd9-3d0d-0128-eb56-99ab2ead2257@oss.qualcomm.com>
-Date: Sat, 25 Apr 2026 15:26:51 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mBUxTg39"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59CA4C2BCB0;
+	Sat, 25 Apr 2026 09:58:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777111129;
+	bh=aazaLXG8kSAJ5nNWCvS05sFQTG0KWyaoWFm3XFwT0qE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mBUxTg39e9CZyczDYRqwGcgbPCh/BoMhGud0fopjSmq4R2Afd5tLXFscbvNuxc3hd
+	 1OV0C6BGTSDPHkWYJE7ERJAfMnapL6dRWD2lqxi3XWY2MkyViqdc7WbG7H33RO0xlu
+	 2zLYvjj5NMWbn3I75KSbOWy9V7HMIutompkR+h+pWBpA10Aoxae9TOmk4C+bTEMsPQ
+	 Qy4rdeCl2uAWGDcJVxRGxJ0MhNKvLtlgGaR57v1jUrScs1SwIbwlPqeWqRaZJKSNYG
+	 HIzrAWwdodtzkQlLWtI1zcwxZ2xccx/PO+CHK9smSdmYa2+U+K3MJaLJ4XeLzm/bXe
+	 dh7MqIUdG1IPw==
+Date: Sat, 25 Apr 2026 11:58:47 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Lukas Timmermann <linux@timmermann.space>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+	Douglas Anderson <dianders@chromium.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+	Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Alexandre Marquet <tb@a-marquet.fr>
+Subject: Re: [PATCH 5/5] ARM: dts: exynos: Add display support for
+ exynos5250-manta
+Message-ID: <20260425-eccentric-amiable-fossa-fa1cae@quoll>
+References: <20260423-manta-display-v1-0-196f80c5673a@timmermann.space>
+ <20260423-manta-display-v1-5-196f80c5673a@timmermann.space>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v2 04/13] dt-bindings: media: qcom,glymur-iris: Add glymur
- video codec
-To: Krzysztof Kozlowski <krzk@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Thierry Reding <thierry.reding@kernel.org>,
-        Mikko Perttunen <mperttunen@nvidia.com>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jonathan Hunter <jonathanh@nvidia.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        iommu@lists.linux.dev, driver-core@lists.linux.dev,
-        dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
-References: <20260423-glymur-v2-0-0296bccb9f4e@oss.qualcomm.com>
- <20260423-glymur-v2-4-0296bccb9f4e@oss.qualcomm.com>
- <a9cacc9d-c7da-4803-8950-97511f8d927a@kernel.org>
-Content-Language: en-US
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <a9cacc9d-c7da-4803-8950-97511f8d927a@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: o_DgnvRWXYAZQyiFsSjdTsLeeVTV4x70
-X-Proofpoint-ORIG-GUID: o_DgnvRWXYAZQyiFsSjdTsLeeVTV4x70
-X-Authority-Analysis: v=2.4 cv=Y+fIdBeN c=1 sm=1 tr=0 ts=69ec8ff6 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=zt2h8jT1BUEQU1rgsTrZfQ==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=yXM0pRxr-LgjvrZoWBMA:9 a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI1MDA5OCBTYWx0ZWRfX8wKQZr/sOYFr
- EBTooeHZB6LevCC4JpS3KTh2HguDkCbAifkDBCf7SExC8sxX3/y2E+QcWOKFgurFCttzS10zPvQ
- 8scXLGqOnpal9kjSipicCPfhN0dh1MrO8ZpaoLLq+DvbQp77O6Pw2Phzh2hi/kK89evgL2Xc/2I
- jjgrUjOYJw3c+3fvHwrI07KOBBhNMK1azQM5oT2m5MRLP7kYrQHze5jH6Dh/TQ+MjVqvhf0i/oV
- PZaka8/wzPrCqoqV4uwgAvO6i9xEVdKBs5UT2TtLwN/j3EEp7EVbeHPwUHJSmw8JAQ77vGMGsJK
- o0q3iOhfgbtT5dPhcICEissllh9c3WtMlYr5859rpv7QHx0R+PqiFLwobu7goXXai7/Cf1Ai9gO
- IUR1ILAesKR2Rr0Toq/xOiU/CJ5A+ACUH6FaSuo5RZxRO1GwB8WH0AyRSuxnxcc+xH4Hu4rd6U2
- 8fLo2bAC0jMGvP2ik0A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-25_02,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 suspectscore=0 phishscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604250098
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260423-manta-display-v1-5-196f80c5673a@timmermann.space>
+
+On Thu, Apr 23, 2026 at 11:14:41PM +0200, Lukas Timmermann wrote:
+> Adds the necessary entries for panel and backlight as
+> well as the fimd controller.
+> 
+> Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
+> Signed-off-by: Lukas Timmermann <linux@timmermann.space>
+> ---
+>  arch/arm/boot/dts/samsung/exynos5250-manta.dts | 99 ++++++++++++++++++++++++++
+>  1 file changed, 99 insertions(+)
+> 
+> diff --git a/arch/arm/boot/dts/samsung/exynos5250-manta.dts b/arch/arm/boot/dts/samsung/exynos5250-manta.dts
+> index 76d3657eb22f..eb97a28ff4e3 100644
+> --- a/arch/arm/boot/dts/samsung/exynos5250-manta.dts
+> +++ b/arch/arm/boot/dts/samsung/exynos5250-manta.dts
+> @@ -25,6 +25,29 @@ aliases {
+>  		mmc1 = &mmc_1; /* WiFi */
+>  	};
+>  
+> +	backlight: backlight {
+> +		compatible = "pwm-backlight";
+> +		pwms = <&pwm 0 1000000 0>;
+> +
+> +		brightness-levels = <2 255>; /* TODO */
+> +		num-interpolated-steps = <254>; /* TODO */
+> +		default-brightness-level = <102>; /* TODO */
+> +		post-pwm-on-delay-ms = <97>; /* TODO */
+> +
+> +		power-supply = <&backlight_reg>;
+> +		enable-gpios = <&gpg0 5 GPIO_ACTIVE_HIGH>;
+> +
+> +		pinctrl-0 = <&led_bl_reset &pwm0_out>;
+> +		pinctrl-names = "default";
+> +	};
+> +
+> +	backlight_reg: regulator-backlight {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "APS_EN_18V";
+> +		pinctrl-0 = <&aps_en_18v>;
+> +		pinctrl-names = "default";
+
+No enable GPIO? No voltage?
+
+> +	};
+> +
+>  	/* Voltage source unknown */
+>  	bmp180_vdda_reg: regulator-bmp180-vdda {
+>  		compatible = "regulator-fixed";
+> @@ -105,6 +128,28 @@ multi-led {
+>  		leds = <&status_red>, <&status_green>, <&status_blue>, <&status_white>;
+>  	};
+>  
+> +	panel {
+> +		compatible = "samsung,ltl101dl02-002";
+> +
+> +		backlight = <&backlight>;
+> +		power-supply = <&panel_reg>;
+> +		enable-gpios = <&gph1 7 GPIO_ACTIVE_HIGH>;
+> +		pinctrl-0 = <&lcd_en>;
+> +		pinctrl-names = "default";
+> +		no-hpd;
+> +
+> +		port {
+> +			panel: endpoint {
+> +				remote-endpoint = <&dp_out>;
+> +			};
+> +		};
+> +	};
+> +
+> +	panel_reg: regulator-panel {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "LCD_EN";
+
+That's incomplete. You should have at least voltage.
+
+> +	};
+> +
+>  	pwrseq: mmc1-pwrseq {
+>  		compatible = "mmc-pwrseq-simple";
+>  
+> @@ -146,10 +191,36 @@ &cpu1 {
+>  	cpu-supply = <&buck2_reg>;
+>  };
+>  
+> +&dp {
+> +	status = "okay";
+> +
+> +	samsung,color-space = <0>;
+> +	samsung,color-depth = <1>;
+> +	samsung,link-rate = <0x0a>;
+> +	samsung,lane-count = <4>;
+> +	samsung,dynamic-range = <0>;
+> +	samsung,ycbcr-coeff = <0>;
+> +
+> +	ports {
+> +		port {
+> +			dp_out: endpoint {
+> +				remote-endpoint = <&panel>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+>  &ehci {
+>  	status = "disabled";
+>  };
+>  
+> +&fimd {
+> +	status = "okay";
+> +
+> +	assigned-clocks = <&clock CLK_MOUT_FIMD1>, <&clock CLK_MOUT_VPLL>;
+> +	assigned-clock-parents = <&clock CLK_MOUT_VPLL>;
+> +};
+> +
+>  &i2c_1 {
+>  	status = "okay";
+>  
+> @@ -396,6 +467,12 @@ ldo25_reg: LDO25 {
+>  	};
+>  };
+>  
+> +&mali {
+> +	status = "okay";
+> +
+> +	mali-supply = <&buck4_reg>;
+> +};
+> +
+>  &mixer {
+>  	status = "okay";
+>  };
+> @@ -489,6 +566,14 @@ wlan_irq: wlan-irq-pins {
+>  };
+>  
+>  &pinctrl_1 {
+> +	aps_en_18v: aps-en-18v-pins {
+> +		samsung,pins = "gph1-6";
+> +		samsung,pin-function = <EXYNOS_PIN_FUNC_OUTPUT>; /* TODO */
+
+TODO why? IOW, what are you missing here? Was this tested?
+
+TODO note can stay, but I would prefer to see short comment explaining
+why.
 
 
-On 4/24/2026 10:39 PM, Krzysztof Kozlowski wrote:
-> On 23/04/2026 15:29, Vishnu Reddy wrote:
->> +required:
->> +  - compatible
->> +  - reg
->> +  - clocks
->> +  - clock-names
->> +  - dma-coherent
->> +  - interconnects
->> +  - interconnect-names
->> +  - interrupts
->> +  - iommus
->> +  - memory-region
->> +  - power-domains
->> +  - power-domain-names
->> +  - resets
->> +  - reset-names
->> +
->> +unevaluatedProperties: false
->> +
-> I think I commented around here but probably not specific enough. You
-> miss here either reference to venus or usage of additionalProperties
-> instead of unevaluatedProperties.
->
-> If you intend not to use qcom,venus-common.yaml, then explain WHY in
-> commit msg and switch to additionalProperties: false.
->
-> Otherwise, you miss $ref.
->
-> Rest looked good.
+Best regards,
+Krzysztof
 
-Iris glymur platform have more clocks and power domains, which exceed
-the maxItems limits defined in qcom,venus-common.yaml. Inheriting from
-it would cause dt-schema validation failures, so I have chosen not to
-reference it.
-
-I will add this information in the commit message explaining this, and
-switch from unevaluatedProperties: false to additionalProperties: false
-as you suggested. Will address in the next version.
-
-Thanks,
-Vishnu Reddy.
-
->
-> Best regards,
-> Krzysztof
