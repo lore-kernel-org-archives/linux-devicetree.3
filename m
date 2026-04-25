@@ -1,115 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEDC30DD1B;
-	Sat, 25 Apr 2026 10:24:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FFA5392C2C;
+	Sat, 25 Apr 2026 10:28:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777112685; cv=none; b=tl4FMHb8W0rsz5rMz20oUaorvF+dD2lWynb2lybz7ZiYbPLDn9xaOPYsrBu59Wod8farwQWIK6G8ZPunSMnzBNNVHhKWoDOM3DhcC9FSWX6E2fIHQqmZgEld9ztgtbrSTkIfv5mU/iOMIbztbE7vevlgxgm6BwtNJIsVMLgs4JQ=
+	t=1777112899; cv=none; b=dmavtmVk/3IHcc7f5EYcdx4GHq8WxoVWtfKMJnaOxn0GO9zW62u+KuaUgvb9KJ4pSi2gpBwrN5dqz3B0NjoMkKjpi+6UzxfzHR6Z4szz4vsOonR1/q7SgFm2rvvTFpV8jyTG10l109qpzPhNS0QX99OPC+uOXCnMUC0jSAW5uUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777112685; c=relaxed/simple;
-	bh=jYzRYJJMiYwq6z/U4GOl4BDxWx8OghK0A8aRsDv2lns=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=dIDDW27E+QNCoUxVGqEEs9nfROEzYoX8mEcktpkwJKAE4QZQHIMfwyEnPy4dYRmFfGkFikk+4uGAudDlr8tkt5kJ6CQGDYTEn//Xk4A5SG80lX/UaWRXP7dhwGifJwu920qT86zjurQGKm6In+6ks8+4Ui+qxlUOTNVgpXFNEsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ONzxiOHZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777112899; c=relaxed/simple;
+	bh=WlYDlFfUUzFaRHeGD4iH6v+lOpnT6yZ/E73ow4hkmvA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gzebeSvNJN3GmOtUL73at3ZEsxA2XydMNFoHIISAw8bAYF9SONXynftYJruMxKAHN/hDaINuBCDqHycZ0f+eco8+0JNZS2Lk5PqYrKRfMDaBEo8GZmPXHY97EF5X+NDEevLtFNzUkY2gIU8ISWUQ3Q5ktSREIH3d7UrLbNrq8cU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NG5qN5p1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ONzxiOHZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F2D2C2BCB0;
-	Sat, 25 Apr 2026 10:24:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NG5qN5p1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 609B2C2BCB0;
+	Sat, 25 Apr 2026 10:28:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777112685;
-	bh=jYzRYJJMiYwq6z/U4GOl4BDxWx8OghK0A8aRsDv2lns=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=ONzxiOHZkYvJNpAzJVTEyBxPc4WcZaFIPUJ1hxhXLcDXSIkQiNJ9HREkUYUax1m8+
-	 2xjz33uDh3E/lC4TRYv/zmYJ6kangey8GFbZmDgAJCwTtyM7SftTaB1z1Nrdh29eEU
-	 JWyDMe5NrIgyjf9VgBsIWeVEVhLHQaVsVz8doQgp69G5Ucuak8WqtRacAQYCAi1uhq
-	 6VCtKbJtt4Cq9gX91bLu3P0HG50ppyNqG80D+ootIlx/4dnrcCObWqfAEIbANtxcUb
-	 O40xTSG2NVZLsJFtwdhg+mI6IXgqxfOpEvSTsQnXKKd2VvUwTUN6zciwCkh5gO9Yja
-	 JosZfl9L+XxcQ==
-Message-ID: <19600dfe-00e7-49be-9879-95cf662e1604@kernel.org>
-Date: Sat, 25 Apr 2026 12:24:40 +0200
+	s=k20201202; t=1777112899;
+	bh=WlYDlFfUUzFaRHeGD4iH6v+lOpnT6yZ/E73ow4hkmvA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NG5qN5p1YOXTbi8hrAatRnVtI9aDmhk1wURWmX+P/VtTeHp3J2OaeET1sF8r5oSkL
+	 HKNj2Fga+ghyFspQOtAJVd7AiX/tr4J+bmDJVRDkl57yOCz060IQp0ZrYRgE6EfPcU
+	 tOOJBPQVlm6zD/g2nkRuumH+NwWyip0yk1faFpkqQxq4KqXB5CfWYQvj5Nlj4Sbhcj
+	 3p8+bahZJItL2yYREYmM+rCFneP5rcvE2XVTTAuYl0v5qRhAQeG0eqhFDDcqs6qBhW
+	 uke4r2M7WrsmbOhKB+jYKL6e8CKmW78yWmsyvDK8I6/77+yCZRmGJzIUXvxIyHK05L
+	 D/BfE+q20oq1A==
+Date: Sat, 25 Apr 2026 12:28:17 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: Re: [PATCH v1 07/20] dt-bindings: pinctrl: Add
+ starfive,jhb100-sys2-pinctrl
+Message-ID: <20260425-excellent-radiant-weasel-9f99be@quoll>
+References: <20260424111330.702272-1-changhuang.liang@starfivetech.com>
+ <20260424111330.702272-8-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: dma: qcom: bam-dma: Add support for
- kaanapali BAM v2.0.0
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Harshal Dev <harshal.dev@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260424-knp_qce-v1-0-813e18f8f355@oss.qualcomm.com>
- <20260424-knp_qce-v1-1-813e18f8f355@oss.qualcomm.com>
- <20260425-handsome-papaya-porcupine-d42df7@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260425-handsome-papaya-porcupine-d42df7@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260424111330.702272-8-changhuang.liang@starfivetech.com>
 
-On 25/04/2026 12:23, Krzysztof Kozlowski wrote:
-> On Fri, Apr 24, 2026 at 05:04:15PM +0530, Kuldeep Singh wrote:
->> Kaanapali support newer BAM v2.0.0 version.
->> Document the compatible string and update example along with it.
-> 
-> And why v2.0.0 is not compatible with v1.7.0? Or what is not compatible?
-> 
->>
+On Fri, Apr 24, 2026 at 04:13:17AM -0700, Changhuang Liang wrote:
+> +description: |
+> +  Pinctrl bindings for JHB100 RISC-V SoC from StarFive Technology Ltd.
+> +
+> +  The JHB100 SoC has 13 pinctrl domains - sys0, sys0h, sys1, sys2, per0, per1,
+> +  per2, per2pok, per3, adc0, adc1, emmc, and vga.
+> +  This document provides an overview of the "sys2" pinctrl domain.
+> +
+> +  The "sys2" domain has a pin controller which provides
+> +  - function selection for GPIO pads.
+> +  - GPIO pad configuration.
+> +  - GPIO interrupt handling.
+> +
+> +  In the SYS2 Pin Controller, there are 37 multi-function GPIO_PADs. Each of them can be
+> +  multiplexed to different hardware blocks through function selection. Each iopad has a maximum
+> +  of up to 4 functions - 0, 1, 2, and 3. Function 0 is the default function which is the GPIO
+> +  function. Function 1, 2, and 3 are the alternate functions or peripheral signals that can be
+> +  routed to the iopad. The function selection can be carried out by writing the function number
+> +  to the iopad function select register.
+> +  Each iopad is configurable with parameters such as input-enable, internal pull-up/pull-down
+> +  bias, drive strength, schmitt trigger, slew rate, and debounce width.
+> +
+> +  This domain contains an IO group which support voltage levels 1.8V and 3.3V
+> +  1. gpiow - comprises PAD_GPIO_A36 through PAD_GPIO_A39.
+> +  2. gpiow-inner - comprises PAD_GPIO_A40 through PAD_GPIO_A43.
+> +
+> +  This IO group must be configured with a voltage setting that matches the external voltage level
+> +  provided to the IO group.
 
+Wrap at 80.
 
-Ah, and drop redundant "support for". Write concise subjects and binding
-cannot "support" something.
+Please wrap code according to the preferred limit expressed in Kernel
+coding style (checkpatch is not a coding style description, but only a
+tool).  However don't wrap blindly (see Kernel coding style).
 
 Best regards,
 Krzysztof
+
