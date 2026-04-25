@@ -1,63 +1,63 @@
-Received: from mail-dy1-f228.google.com (mail-dy1-f228.google.com [74.125.82.228])
+Received: from mail-dl1-f99.google.com (mail-dl1-f99.google.com [74.125.82.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75686381B16
-	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 03:10:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53DAB381AFC
+	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 03:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777086623; cv=none; b=akJj3aG+y1O6PGT76lHa0iuNgHr/m526OVJaT8j5b9ay6yQkM0+h88f6pevyLtM3haHbiuAUm9kpU23lf2KePrMM81K1Gqi1/neypeQscCfko6gZGi15P/OrUJQYw+uTBFwlbgkeDiKDyphIa7mDg8kPaEKNZpEbPc42WmUtcM4=
+	t=1777086627; cv=none; b=HwLOB5pv6fHFMql/qCrs5z7OshoFv0JHk2Rohu547IZrukH2nj16munkLUAc/akqQOKnxR7+XIMPPT/SRRz+A6HzWyV3NjLprmtHmdT/plOeVgPR4On7QH/zGqi4zqZtBYiBTzU2LGvcqkP5IZnCjTcPChSrEYvHO7ipdHhTITM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777086623; c=relaxed/simple;
-	bh=EomO8GUvelqLXDubCER1A+Vz7KxB3mVjAIPw5M5syiQ=;
+	s=arc-20240116; t=1777086627; c=relaxed/simple;
+	bh=62FA32n6ghYjgwrgVV2bEZChmkiSaw7eix9dVTqzEhU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A4iCzThkDdLmvFdk3qUbgpheHJNTwkc78uJ/jw6QOWkXSJuGgUzfG43YB7MmMs5yyNgKnBLPqFlpT10jodZGWoRJdP9nEmnYmvTYzy3lDTt55550NZDtjudlUyF9jCiuNfdSeeSlmfuKQSx/WQXu1VMZfY1pvLVPsnOJUMiUiJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ausil.us; spf=pass smtp.mailfrom=ausil.us; dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b=dXAgOZHa; arc=none smtp.client-ip=74.125.82.228
+	 MIME-Version; b=uFFgTFW6hptdMBlfmFSUCLuAeVW/WA5LHYc17vugWjPcCk84sMJNxOq+e2CX4/IM8a/yeMcJs97OYzRFVMTd+5OzoFXt4J47BY7xvmtOlfIx7+nug9T0gW35NQ/uwvN+2Akm5lnB24idJN+APfnSOa74Hry5rJTxNyQ+/Er7fNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ausil.us; spf=pass smtp.mailfrom=ausil.us; dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b=iu8jYynY; arc=none smtp.client-ip=74.125.82.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ausil.us
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ausil.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b="dXAgOZHa"
-Received: by mail-dy1-f228.google.com with SMTP id 5a478bee46e88-2de831d2b20so2211775eec.1
-        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 20:10:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b="iu8jYynY"
+Received: by mail-dl1-f99.google.com with SMTP id a92af1059eb24-12dca45ca21so1012242c88.1
+        for <devicetree@vger.kernel.org>; Fri, 24 Apr 2026 20:10:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ausil.us; s=google; t=1777086621; x=1777691421; darn=vger.kernel.org;
+        d=ausil.us; s=google; t=1777086623; x=1777691423; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=B2siy8AgvZkarnaqQ1iRlbYdPe6np7TX5Kc2BXRw5Y4=;
-        b=dXAgOZHaavoh+OAf9gG5bmmEXVw09BzzrG+qqrYS+8DcXh3mymEvoDtub6tVb29o/+
-         u/9M1pmWuf3nLs/D4pxiRt3Hsi9VLVUqc/UZn86F55P33426TngfFcNd9z2wmGROm/ul
-         bEIe0q1HymmJthvFnyo/gno2ATA6azVukTXprQHjDHnjIFSXFTsny10sypW9hrq/uwLW
-         pnuujENaSQ1oX4EFVW0Hi6VknnN4zGetk6srxMsk48rRb6o7lm7Np7loOrJpV4LhF465
-         PAewmT54dzTuLnE2QI964CyCYB1XFgB2kbuqcl1j4NlFpdVlKhOj6hZdm3nV3EcmEe3M
-         exdg==
+        bh=5Q87q408S6kD03eCdhgkumlXWLlyzkrJl5PR3laXuXk=;
+        b=iu8jYynYGZj1oNHaIMBunbTynJanhZQ9YdbjR/A9teaF35Q7mAvLik1mYb/fdmK+UF
+         q66eDsNhT3EHRuGfEJtD7gRlCEm3TunhZ8ke+miHpUodt3Dyt9EidHLVdEDqZi8cmZ71
+         wdtKpkqDXWzt68Hz1HlV1IkgjbNk/0ihWd4er6W1D5WjXMgrDD3zZ4pYNHBpNm2iYRk4
+         N7XtP9DEZSsRjSHK2CWZVJfETKynzG+3btKqF1asuduTDZneJZplE79obdsPJUClLmTf
+         ffaotX+DVyKfIGJE66sez5GfMqwrfEUTt5+UVqhZ3BvdZI2ek0IvBPahTqiyYsMD5fIg
+         opDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777086621; x=1777691421;
+        d=1e100.net; s=20251104; t=1777086623; x=1777691423;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=B2siy8AgvZkarnaqQ1iRlbYdPe6np7TX5Kc2BXRw5Y4=;
-        b=LaK2YX83231wNP+Xkh/2x0ELjK7IDT+M4f6wXbkfZ+sln/I8MUx6PPc9cyCkRc/GDW
-         KsqY1sg5fEeCy1QFnfKUvd6WKsRpEm84CdZvPoFctHkw2YpC6Dmv193Pb4Qy0wPLHWDA
-         A9bJ+v+010Pwdif6xI4PMcSftC/aqNyT/7ce7O90T7KykvdoBNUmpQZ/i++ONuJ1K+CN
-         w5n+3BXMbCaLE1CmhTvr5LiRZf4b9vDZsXgHns3yXKCJ+nLn5Zn1ZGRF6TSaH2rsIJeS
-         j8z2e3Ug/o8ypZOlLo1Mw9IIL5jT5du5dLSpoIbh/z14RWdLCMq3iWndHbq7faSuUPF+
-         OMYg==
-X-Forwarded-Encrypted: i=1; AFNElJ+L3zXOJ0XK63jKTRYAgu4hPfyk8c7SZmERGUXqThI+uERBsBRHliq41nUy+Y7q2GCvCxDVNrhC8/MC@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKB9f2fRYw84wNWSrAaH5h68HV1GlZRFu732RendynLdafaIDX
-	QRqyTGiayvQFymq1WwcXNf5CjC9YIYFhP6ylI0Edk0eQ1qnNp3OvUbX9sw35+Ag2Z2jJdG7hWIu
-	/ujj0Cor8UuqRlQx1Afi9UNdN2fJJ5qRU2eBy
-X-Gm-Gg: AeBDievRkx+hlg5TrcUJIONB5U4eY12eyby1H6pqyEJ4naYnFPX4WVIwOj5if3HS38v
-	tLj4GNGOSH+z9sqo1cyT0MStMBr4Sj9cHn78/ICxkZXZwBNeU+1gCtWyyg2Q2Qmlia2S1QcNsO4
-	xLQpCdwi9f/oXWOqXdzJOxn6U4Jhw2GEhMJMSDGhACnzlynJ6K8xA/gqZ4UO/8OYblbDFPGSl4q
-	jMEUKndQWfnoDVXkguyJ7rk/LNraxFLilfiMePCw7+hUCwK+bb2U1ofZa/9EAEVocWmwIkTHNd2
-	dLwtwMQo3bRNSgHiZVyq3BQ7c+3JEhl/3rcbYagk90sPdMAp0fneXlYI7Yx309uDnGHFHyr+as8
-	gzvImnQjxyCVIERGoHuxGhzAZxSq6kRifvp911/yhBQsQa3dcCZOBr5Q=
-X-Received: by 2002:a05:7301:1693:b0:2d2:129a:1682 with SMTP id 5a478bee46e88-2e4786460f9mr18795386eec.16.1777086621591;
-        Fri, 24 Apr 2026 20:10:21 -0700 (PDT)
+        bh=5Q87q408S6kD03eCdhgkumlXWLlyzkrJl5PR3laXuXk=;
+        b=HdHttbKaK5T+jSRDQPclaKxvofqtG0ZwjErqQ2K8W49Yv9UV2DhbJhv6Q85v7v7CwU
+         /+IbQxCKOEPgNAmp7cevQxdsfX8Q2S89qdV/RzrHVxf1ObnXR9hvhEqhFhfozYEFmFqE
+         U1OqcvORnNogQMQAM6as0b/v83PY2gdPuh0I0yg2UtjMUD2xYxwKrJHYBqQ/cuBB8f/y
+         WrmzPv25GamDruFK+iBFphajbd2iPRQ/1L5uEmnONyG0XqmeFn1ytA9jq0A7cPIzIn+K
+         RuL7sizxF2Gy5BKJTUKSqhWsANiQaw+Z1SZ5vQaGp4Ko4hV/+VRWsBYT8n5ZUbJ01JRO
+         5vFQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+qDMFAzp1izv7jUB/405KNyrwN0QyJJCm2EVM+G71OE3DYq0FREHRCK1YvWyovdVBUlM2gNTeYuADL@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz64cbK8xnACPdnOtb0Mc/zAxsiHjLCeFygldph94Bw7bKrIACJ
+	1rKQALYjOSnGoywjuF9E/cWlHh/MJud0y3GBFAJDOI4hSKa8aMWQ/PN4qjd6B58MIq+a7P1UiNh
+	zfWvGMVkl+kWPTvAk+wnF3gan8tOgNQ7BtyNl
+X-Gm-Gg: AeBDiesogcnsRq69bLLftB6RJhsAAq8sMKMvjMoxrdbfpNZAUg4notV9HVMJG5pyBRD
+	nsuI1BMxfF2aQsvS2Q10MB95NdGc0EHJB5aFj204Su82qtbXSlmKLejwydIrtTahY6NbBfPqJyh
+	GWOn6qcXVB3cOOySzUB3TSNas0nx43nfSCB/l50TS3xMfImSF+440K2qW9EU59Uf0wLWprT5REn
+	+BVu3B5uYKnFxDHAK3p4nfw1QsEVwB2rdb0rHHOn2wjDbSVypUSTjgKtTlPeQJ+Q0FuzganiiJf
+	M+lWemcmXWpC3tcg8MkqqLdh0rwc+6oMYaaDF50Y7AIkryF6HFo+lWsXGqhipe6Zw/LRSOjuurc
+	dl2CUl4abcLG4hSfClPomQHg0NEJlVz91TiWtPABiyA3EzuEkFZx6p20=
+X-Received: by 2002:a05:693c:4011:b0:2e6:e916:70ff with SMTP id 5a478bee46e88-2e6e916770cmr11635454eec.28.1777086623456;
+        Fri, 24 Apr 2026 20:10:23 -0700 (PDT)
 Received: from ryac.ausil.us (207-179-239-100.mtco.net. [207.179.239.100])
-        by smtp-relay.gmail.com with ESMTPS id 5a478bee46e88-2e53a3ae691sm1728646eec.11.2026.04.24.20.10.19
+        by smtp-relay.gmail.com with ESMTPS id 5a478bee46e88-2e53a3ae691sm1728646eec.11.2026.04.24.20.10.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Apr 2026 20:10:21 -0700 (PDT)
+        Fri, 24 Apr 2026 20:10:23 -0700 (PDT)
 X-Relaying-Domain: ausil.us
 From: Dennis Gilmore <dennis@ausil.us>
 To: Heiko Stuebner <heiko@sntech.de>,
@@ -77,11 +77,10 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	Dennis Gilmore <dennis@ausil.us>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v8 3/6] drm/bridge: simple: Add the Lontium LT8711UXD DP-to-HDMI bridge
-Date: Fri, 24 Apr 2026 22:10:08 -0500
-Message-ID: <20260425031011.2529364-4-dennis@ausil.us>
+	Dennis Gilmore <dennis@ausil.us>
+Subject: [PATCH v8 4/6] arm64: dts: rockchip: rk3588s-orangepi-5: rename PLDO regulator labels to match schematic
+Date: Fri, 24 Apr 2026 22:10:09 -0500
+Message-ID: <20260425031011.2529364-5-dennis@ausil.us>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260425031011.2529364-1-dennis@ausil.us>
 References: <20260425031011.2529364-1-dennis@ausil.us>
@@ -93,32 +92,95 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Lontium LT8711UXD is a high performance two lane Type-C/DP1.4
-to HDMI2.0 converter, designed to connect a USB Type-C source or
-a DP1.4 source to an HDMI2.0 sink.
+The Orange Pi 5, 5B and 5 Pro schematics label the RK806 PLDO outputs
+using the pattern VCC_*_S0 / VCCA_*_S0 / VDDA_*_S0. Rename the base
+dtsi regulator labels (and the es8388 supply references) to match:
+
+  pldo-reg1: avcc_1v8_s0 -> vcc_1v8_s0
+  pldo-reg2: vcc_1v8_s0  -> vcca_1v8_s0
+  pldo-reg3: avdd_1v2_s0 -> vdda_1v2_s0
+  pldo-reg4: vcc_3v3_s0  -> vcca_3v3_s0
+
+Also update the saradc vref-supply reference to track the pldo-reg1
+rename. No functional change.
 
 Signed-off-by: Dennis Gilmore <dennis@ausil.us>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/bridge/simple-bridge.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ .../boot/dts/rockchip/rk3588s-orangepi-5.dtsi | 26 +++++++++----------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
-index 8aa31ca3c72d..42c1f3d5ba0c 100644
---- a/drivers/gpu/drm/bridge/simple-bridge.c
-+++ b/drivers/gpu/drm/bridge/simple-bridge.c
-@@ -270,6 +270,11 @@ static const struct of_device_id simple_bridge_match[] = {
- 		.data = &(const struct simple_bridge_info) {
- 			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
- 		},
-+	}, {
-+		.compatible = "lontium,lt8711uxd",
-+		.data = &(const struct simple_bridge_info) {
-+			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
-+		},
- 	}, {
- 		.compatible = "parade,ps185hdm",
- 		.data = &(const struct simple_bridge_info) {
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
+index dafad29f9854..fd5c6a025cd1 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
+@@ -274,10 +274,10 @@ es8388: audio-codec@10 {
+ 		compatible = "everest,es8388", "everest,es8328";
+ 		reg = <0x10>;
+ 		clocks = <&cru I2S1_8CH_MCLKOUT>;
+-		AVDD-supply = <&vcc_3v3_s0>;
+-		DVDD-supply = <&vcc_1v8_s0>;
+-		HPVDD-supply = <&vcc_3v3_s0>;
+-		PVDD-supply = <&vcc_3v3_s0>;
++		AVDD-supply = <&vcca_3v3_s0>;
++		DVDD-supply = <&vcca_1v8_s0>;
++		HPVDD-supply = <&vcca_3v3_s0>;
++		PVDD-supply = <&vcca_3v3_s0>;
+ 		assigned-clocks = <&cru I2S1_8CH_MCLKOUT>;
+ 		assigned-clock-rates = <12288000>;
+ 		#sound-dai-cells = <0>;
+@@ -441,7 +441,7 @@ &rknn_mmu_2 {
+ };
+ 
+ &saradc {
+-	vref-supply = <&avcc_1v8_s0>;
++	vref-supply = <&vcc_1v8_s0>;
+ 	status = "okay";
+ };
+ 
+@@ -666,8 +666,8 @@ regulator-state-mem {
+ 				};
+ 			};
+ 
+-			avcc_1v8_s0: pldo-reg1 {
+-				regulator-name = "avcc_1v8_s0";
++			vcc_1v8_s0: pldo-reg1 {
++				regulator-name = "vcc_1v8_s0";
+ 				regulator-always-on;
+ 				regulator-boot-on;
+ 				regulator-min-microvolt = <1800000>;
+@@ -678,8 +678,8 @@ regulator-state-mem {
+ 				};
+ 			};
+ 
+-			vcc_1v8_s0: pldo-reg2 {
+-				regulator-name = "vcc_1v8_s0";
++			vcca_1v8_s0: pldo-reg2 {
++				regulator-name = "vcca_1v8_s0";
+ 				regulator-always-on;
+ 				regulator-boot-on;
+ 				regulator-min-microvolt = <1800000>;
+@@ -691,8 +691,8 @@ regulator-state-mem {
+ 				};
+ 			};
+ 
+-			avdd_1v2_s0: pldo-reg3 {
+-				regulator-name = "avdd_1v2_s0";
++			vdda_1v2_s0: pldo-reg3 {
++				regulator-name = "vdda_1v2_s0";
+ 				regulator-always-on;
+ 				regulator-boot-on;
+ 				regulator-min-microvolt = <1200000>;
+@@ -703,8 +703,8 @@ regulator-state-mem {
+ 				};
+ 			};
+ 
+-			vcc_3v3_s0: pldo-reg4 {
+-				regulator-name = "vcc_3v3_s0";
++			vcca_3v3_s0: pldo-reg4 {
++				regulator-name = "vcca_3v3_s0";
+ 				regulator-always-on;
+ 				regulator-boot-on;
+ 				regulator-min-microvolt = <3300000>;
 -- 
 2.53.0
 
