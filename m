@@ -1,92 +1,102 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FA078F3A
-	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 14:14:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1337346AD7
+	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 14:24:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777126483; cv=none; b=PZJmn8kOumraCqwlC/yP3R+39BXAP6xVXTcUprwA99BL11EoyWwUm1cB2u8I+5A2ivFUxVF51AtB7mai9F27ZMtAsu61PMyLqjmNu2LwXXhmatuffZJYu54E5qWzvKoyqZWHn/+zuhtVq/3/IBz3Jp2ieSQEbCJRSrNLMEzRDS8=
+	t=1777127070; cv=none; b=Kx9sbcol2kWGeB9lFwAb+TnpeWnIiLV3YhinciOvs09qiatDD79sO+8253m4tvxo5apNOShVHPeHTf9QK1gCBm7X07VNqbJwtpHFfzLS7tZpn6NeEimKSStP0GBqF4Ix9OGZfjcx+nfQMQda9gTtsqxZAcTLm3IvHP2YZxq1faI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777126483; c=relaxed/simple;
-	bh=eYGL9lE3JVIqwAAW9KWYWS5tFK2BAmUw9UAz50Q8GqI=;
+	s=arc-20240116; t=1777127070; c=relaxed/simple;
+	bh=9OLKZiD0LziQgnO4g6u7E1A17+jLJuOlpxuaeaCg2EY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XyABIpfCXvaFPwwws7U7Et/vVj9liVeScZ+zTgnxJsm94ISqMRpW8oLhizRc+VtOan9OQNcL/yMbIensJ0FlqIdCXi//hIjFMMHdF+fq8EujepUb++ScEvqbd+pW2njkzAjXAB8caOhTnQDbgnSNNc/9e4zk1ecIykzBP6GQb70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=p7BFeiVc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WD+sPSlj; arc=none smtp.client-ip=205.220.180.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=j8twxI7vyZTuJsqvamq5C2ACX2d2tgD4l+6tgmRrroHjDwXr3PFEmIcZJrbAMAwtIfeqE3i2uvjTl7ixR5GX+u7l/pQMtdoFEK/Q/NsF2TF1PvWGb5Kkl02k1EZM5SrcfxFBoZg3XllWTQSOFo2ky1Ui3wwDsuJiGf9HTkbBnn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LV84CZbJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MDOwsV3c; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="p7BFeiVc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WD+sPSlj"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63P3jpbh1016133
-	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 14:14:41 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LV84CZbJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MDOwsV3c"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63P4n5tT3846108
+	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 14:24:28 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=yVmaNDoZQRpaL1NHPS2XxDq3
-	ywskpFtbeygHqbfYChg=; b=p7BFeiVc9Z5CU6IjeCOro7SJoS6zJvMvFwSkup6+
-	wWZtrdCXIrWt/6eBAeG7bMd94GcQCXdEFUr1L9+fCe5WlLRj4hKk6EJkzs+ii60p
-	l/u2KAkO5WZvDBkq8KOuUa5MTHEX1ir1V/IYDV1vNKh8juyV1LHqhUSEm3bs/+ET
-	aGoiKfF9nJCP9fA/erswePhZBO4lIcdTdPkjXerir0e1f/LbSkJko5KzvBEEdpXd
-	DlDMXO8xHhPbEZ57m/0UV5EaFjgTTe9SG3r2qHkDV9VvBz7WexsbhzxDc/xRWOAG
-	ByRfE0k5ese/ulT48rY58uvuoQex+J81/7bd99frzOT+gA==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drp07h2fa-1
+	:references:subject:to; s=qcppdkim1; bh=ixUuUGkcS1ogu+Ork+yFuS7W
+	ctoV+chAiSQKyR8/7As=; b=LV84CZbJ73kJp0FekAB/P5MFtE8cPCFmomVJgA8/
+	HltgsE2+S3s8RndEDZoWzufhFPhHv9rrTgYsJVLsGLo9EfW4ZKo8Uy/7t5E2xpL9
+	r/Ul/d435zV2Ukr6cwrKZi7VfHBAROBA35u8rKTxC95sVgHDQ5UeGZssUWcjIoal
+	IkKHCnmJZJZA9T/XMO6yG8pOqkkf5cyJC04dmRMJTe+iyDuiAPrcutLRx2ixA91i
+	nfrv/Mh/xsbRLLxxbY9tErJ8BxDhdbPMPHU36B9/DROKtbLukDyzJNwhu/SofGbU
+	E0sK/QMRT0pTpQgi6e5k19Jh+GTVN3UScVIEEyLx3+Ef+A==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drpw98y17-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 14:14:41 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-611740c0b8fso3927387137.1
-        for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 07:14:41 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 14:24:28 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50d84b5f73bso25100221cf.0
+        for <devicetree@vger.kernel.org>; Sat, 25 Apr 2026 07:24:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777126481; x=1777731281; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1777127067; x=1777731867; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=yVmaNDoZQRpaL1NHPS2XxDq3ywskpFtbeygHqbfYChg=;
-        b=WD+sPSljP5cSQ5Aho/aDe04A0V9QsXvqhSGMHCs7I3ehS/1DSgy2VhdC0g6bUBJqcp
-         gJAlGlnJe/Dc4rkiVylR85TsDRafjLex4R6vWEoZBipQOGEhoTyOd/m2XnxnpaNTx69i
-         1Sz0+FRwqhfNKYnEKGAdxZsIScT1WBVoOkrA21pletGicDLtJRCZRufNoNk2SjmlFtcr
-         2kovaWoYs/HSgCxV+joZYXxKLaoPIQJtOqhTjqLkGMLlK6yL8urORXhsiVX+IUPXs763
-         XrHV1ct97pwuRdiIX8O04VsD7739hEcyOSzSN2M+p5h7kEnpGYVLLUBPR/Ifhnv56eYz
-         V7OA==
+        bh=ixUuUGkcS1ogu+Ork+yFuS7WctoV+chAiSQKyR8/7As=;
+        b=MDOwsV3cXY87DzG45/vPbpJDI834pDazdsi9y6v1gGbdOwl9hYbFvLln/iuX/rELzm
+         UQErF4MrCbWHum7V4mWerfyToGxJHbiuSjiwHklgpqysr+RE3DtA9x5cLg42DB6kO/gp
+         lKo7YLTulcacXbOY/Et+2trK63dGwrPpUJRg8kpIuqR7zRSv3DEhB+8wivQ14X49A2Ik
+         s5VSW5KZj6CEZ+yWbJNinNvOlsqhYXEEjEDCKc/xjtynzE7NAVG3aGy6XLbLIQJwkjgU
+         t11EXJAKaIzNEW1FqbCZ5ohXqYHYH9m4NMfWrNcvoExrPahGvH7axEiJloApow4OvJVg
+         Q00w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777126481; x=1777731281;
+        d=1e100.net; s=20251104; t=1777127067; x=1777731867;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=yVmaNDoZQRpaL1NHPS2XxDq3ywskpFtbeygHqbfYChg=;
-        b=QIASzs7Piuu28LCqotbvBLjhmdxUkAbiyynpA4nULsO6uSsh81+PPYXhaRNKJLfyK1
-         rseq7VXSI+1kJxpRiOlwGC8u3eTQHQqvMtFaMYsU7VpmNI2e7JaKdDldrh/EssMi/xiH
-         Y304aXoeYiNkmD1B/WgBtrsp6m/C+OBpuUrPjyCSE0DiaRnH4RGMgoz9266snLIpgBnK
-         eZ34qpRV4WEyXyeP3mCVXKvuaBkSQjD0tV0lUhfjGK0TO2+9lwWqqQkzSV/kPHH65TT/
-         EGBhtqX1vm0pAPXYULqO5rwbeI7GoLEQq7HdnxMU5+cUq/Hyse1zxGiBDr0ybN9FeGJ9
-         pwPA==
-X-Forwarded-Encrypted: i=1; AFNElJ+2NmdyDJVyFYCxSuMNvbRxF9exKFvXFH6sY1A2/G6IxAfWtOL0DavzBfAczJifUmgxBDpDwT5y4L/G@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy2Dh9o4uLj5UR8+pWx7yDZAw2Y9xvgeTFxe5E8IbCMka9CiIGS
-	viqh+a02cue7t1MwfLQa7sQeuZQRe/+s5vV5iq3S7Iy2M+n32mVP+peDOghwU7euP/2T5SJTAVJ
-	aCoXUJV2jAvpmI4aHTliIqvOoKnFSFWxKgkHrA3Od84akSRLmocX8FHMUQJnWZ15c
-X-Gm-Gg: AeBDieuMtnvAIiShb4KIWisbCCcNOx4zwn0pPDT9WYydhwpQDX+oPBvO0WY/qWrDb/F
-	v2rrDLj7T7brSKpTk+F/5zxR5ouJFZKvMmCDaLaM6F41yXuVnuAhnlNkdpnlk9SRPh9RVgJT0uB
-	hYtiiohoXpPUrn3dr4GbFTCJFsveUpkt0UQMMQb/GdNeH5Mqzz7R6SbgC2KuqNoTscFtn7qqJL9
-	GIL2w2FQ/LXpjlzq7THbqjLUoCV64eWByAI/AzW0HxNWuD23FAlvKFdvbrZ+kue8XyZudLbP2im
-	6757AnzvkEdV40niwmBG4Bl8AoCYI6RjOBRcW+/8cpZIgWXQ7Q8hgcgxfwZrSifA71FA8nYEBv6
-	cD4iVi07k1py9M84OQGqh5XPDH8nfpzo8CFR5+h17rL5TNtk4abGQYD0g9yiCyDZImYojdiDPYe
-	/3XPaKTbc+MjJFW7QFS5wOzzKpJm1fmyNOJWdb7+uTlootkA==
-X-Received: by 2002:a05:6102:8022:b0:611:e0c2:1604 with SMTP id ada2fe7eead31-616f68d76e4mr17012911137.19.1777126480753;
-        Sat, 25 Apr 2026 07:14:40 -0700 (PDT)
-X-Received: by 2002:a05:6102:8022:b0:611:e0c2:1604 with SMTP id ada2fe7eead31-616f68d76e4mr17012898137.19.1777126480264;
-        Sat, 25 Apr 2026 07:14:40 -0700 (PDT)
+        bh=ixUuUGkcS1ogu+Ork+yFuS7WctoV+chAiSQKyR8/7As=;
+        b=mNZSqOya4j0az6zMs2mE7tPAp/PXoNAYxMK+VbcA5MKxd6J/2CiJNGLVObUXLJ+JhF
+         EMJn1m12MfRfiP3OQfFPuzTmGmWWxkoYCDQJnr9K6abrkpWN44Vgu+lMZeMQZUuzEuwX
+         4yLxT+xVsqNhdMed6961AvGqMa1N5JnOZbts9Oq1AhgotaOeEmyx06xZg1LskDVMBBIJ
+         9PlMXDdHA+tmHvAxq//7qFN4lgXs9PJe77jfandXrmYRCCB26ugeIXFaH5iqWBCrkUaa
+         vZqM28cSZJehTQKcSjvq/YdZr4viRI/u4/Yt7VB/YpftmJuNQxuf1hyPyhEHQ8G2INL2
+         q07A==
+X-Forwarded-Encrypted: i=1; AFNElJ/usOTEHzVwmZHEDKRYfZmuF2iud/asxdYDb09zHQ7eaup9oEk7QiKTc9JnEeLmpHL/pJAkjKC0wfo7@vger.kernel.org
+X-Gm-Message-State: AOJu0YyCF1711z8wOmpDN7UFhK97R7v5vgXx7yRb/soQYimrQQb/J89n
+	6EvhBM7acutXJ/n/E+rNHcfRgmmT78ytOb6DJ9hqLY1EN3aqrtDeYcH9N/KfU8X+ilcIY+8x1gN
+	0jMJA02gjRi3o1H3CT8mFe0OkPp6LVfq2bd+kseQWyX0aXEnsru5SUFJVKzQZNa+y
+X-Gm-Gg: AeBDieuzVC49k+zkwHXVQt1OJYXBTQhRkELZfv8j0vXAG5Xs6HkdnafESAmQOWADGxd
+	NRY8TxOF9Fn2sjwJcSpkgdsqBZ1chPwdQmw9C567l7VJ5E2WH2JGKh3JiQA1jNUGIiHwqZ29VMt
+	iAekuHFr4oor9lcXMiHFIeVfBiLYXse3pvkp9rvwMNtG0B6dKkiqnnlsBbdgOzjmZnlabbGsYBv
+	Hg1wD6wkkETRkR6GvN4CdUMJT8wPm7hYJQ9MnSUflin9uRkLprs9AmZkKOD+n2yy0jL1LCnFFiA
+	Kkqr0QRt+YVJhEqxTVL/BiQZIpQZLUsIMgQCcW3xoEHsbe4EkIFrd5qmPd+EeSxtA8sPSKuk9Xf
+	+TTVAN+7zEh1gfDzPVdzNYwiJiiYPN/WKSKkPyr5OFBMKjPWB7KunIFC8zafpU5wimULW5jJtMb
+	n/oe3Pj8LRnvNjUFJ1keM7fUZvmRIHv5sORs/ZDAKO113XVA==
+X-Received: by 2002:ac8:5dd1:0:b0:509:965f:888f with SMTP id d75a77b69052e-50e3669f7a7mr531573871cf.0.1777127067118;
+        Sat, 25 Apr 2026 07:24:27 -0700 (PDT)
+X-Received: by 2002:ac8:5dd1:0:b0:509:965f:888f with SMTP id d75a77b69052e-50e3669f7a7mr531573301cf.0.1777127066688;
+        Sat, 25 Apr 2026 07:24:26 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3905419b4f2sm34022761fa.6.2026.04.25.07.14.38
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4187e1116sm6909552e87.54.2026.04.25.07.24.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Apr 2026 07:14:39 -0700 (PDT)
-Date: Sat, 25 Apr 2026 17:14:37 +0300
+        Sat, 25 Apr 2026 07:24:25 -0700 (PDT)
+Date: Sat, 25 Apr 2026 17:24:23 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Qian Zhang <qian.zhang@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v0] arm64: dts: qcom: Add fixed regulators for WLAN
- supplies
-Message-ID: <ymi3o5tdtcojobsgeqn7mlelcr23bchuhi4jvh6fp6obi4siu6@7h2idqhhrolk>
-References: <20260425031712.3800662-1-qian.zhang@oss.qualcomm.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Dennis Gilmore <dennis@ausil.us>, Heiko Stuebner <heiko@sntech.de>,
+        Andrzej Hajda <andrzej.hajda@intel.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Robert Foss <rfoss@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+        Jernej Skrabec <jernej.skrabec@gmail.com>,
+        Maxime Ripard <mripard@kernel.org>, Alexey Charkov <alchark@gmail.com>,
+        devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
+        linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 3/6] drm/bridge: simple: Add the Lontium LT8711UXD
+ DP-to-HDMI bridge
+Message-ID: <45evt7lkzuykoqsc2z27hsvm7fasmn6sr6gbjtdnme54jauehf@dmvon2o5emzd>
+References: <20260425031011.2529364-1-dennis@ausil.us>
+ <20260425031011.2529364-4-dennis@ausil.us>
+ <20260425112844.GB2964234@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -95,45 +105,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260425031712.3800662-1-qian.zhang@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=K8QS2SWI c=1 sm=1 tr=0 ts=69eccc51 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260425112844.GB2964234@killaraus.ideasonboard.com>
+X-Proofpoint-GUID: sBHVH3E9--R74QUPQrHXk89olGVG7TkA
+X-Authority-Analysis: v=2.4 cv=H67rBeYi c=1 sm=1 tr=0 ts=69ecce9c cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=XZbvWPK6OdUBLnbwwvwA:9 a=CjuIK1q_8ugA:10 a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-ORIG-GUID: leKVf1ntfNR89QgW1bXQXysfI1WdCJfy
-X-Proofpoint-GUID: leKVf1ntfNR89QgW1bXQXysfI1WdCJfy
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI1MDE0NSBTYWx0ZWRfX/pht9e/aYoXC
- b1EgqX3Q7kAnPWj7xgsGrT9E64ssGr3kDHMD6kuaJ52VJegHD+XvRegGnDaj1HLbvzLWrjemTBU
- N7lwQZTRLUO04COC5GOYm1GymYdr8yASCZ9MWYUPTNih4MyEZoFUQkMhNPwZjt40xQMDAoeSh2T
- PBxyhAqvpXY8kAgqYoj4wl0VKxgriNW69K0yxql0aXth1NaZxkRDRanJDpOlid5JbSd6DV0TQ6N
- jP82/esxxL6l6FxTu4gMmUKMp1H02wq/rpRvI5tbiowyR4Xbr4xRhRbZ3y83wg5fHQbPsaIm+ex
- kMOUKTqLO9+/Ri3UcTq7h7zps7Emra50VaQ8Cyu67kEBh5XdBGZcW9sOVyoA8dIVnKSC/ja5YWr
- NdteNf82DFZSVYjJp38N0UAW8MTvvwXDGTSC+sv9YaDHvfDlrPIL2iMa+H30Ekpd04b2Cm2/HEY
- SG7SiFlu5eh+roboR1A==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=ssO-rxKZoUVbP6lRNB8A:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI1MDE0NyBTYWx0ZWRfX6nH/Y19xV9iN
+ zynBiWwK8csuIwIP47bW5sEXGFnd+JcBRsV1z4ayAplJFV7nt/7lQgwRzsuiM3Qr6RhPuCUtO1C
+ SeVyK09ug7kDW7QAbu6R/ww4qheo5TeL39VERI0jxpee1pvWBj00vzKEeJtZ+uG/Yg2nI8Zpfik
+ 4yGNgS1X75ylRg1MC0pO8bwe1C8vaZbvt1qU3MXe1UWGxy+pXh4VpKD3i0+MCQDj+mYBLee3aYW
+ CQV2c9cLgJVTmLImSOpR04azVZrru9JM1vHrpmd4B3X8csnYPEqR1ru8g7VIW3iL1fGIVA5P+XN
+ OaNI9QXUiLV6F1hQFNyxlf32rAcgdtQtZp2rpp6WLmZEQEQDAB6Ym6oZiWT0G8536cBOzoCmqax
+ s7Cz9KdHE4w6EX1u3IaQ7MaanivU4RJz2YcIV8ye4kF2SGx9S5oeKHBCp+/4DGumPME2JUvtUoW
+ jzQZkIGuo+YYPrzNijQ==
+X-Proofpoint-ORIG-GUID: sBHVH3E9--R74QUPQrHXk89olGVG7TkA
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-25_03,2026-04-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 spamscore=0 malwarescore=0 phishscore=0
- priorityscore=1501 adultscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
+ lowpriorityscore=0 bulkscore=0 adultscore=0 suspectscore=0 phishscore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 clxscore=1015 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604250145
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604250147
 
-On Sat, Apr 25, 2026 at 11:17:12AM +0800, Qian Zhang wrote:
-> Add GPIO-controlled fixed regulators providing WLAN 3.3V and 1.8V
-> power rails for the Arduino VENTUNO Q board. The regulators are
-> enabled at boot to support WLAN initialization.
+On Sat, Apr 25, 2026 at 02:28:44PM +0300, Laurent Pinchart wrote:
+> Hi Dennis,
+> 
+> Thank you for the patch.
+> 
+> On Fri, Apr 24, 2026 at 10:10:08PM -0500, Dennis Gilmore wrote:
+> > The Lontium LT8711UXD is a high performance two lane Type-C/DP1.4
+> > to HDMI2.0 converter, designed to connect a USB Type-C source or
+> > a DP1.4 source to an HDMI2.0 sink.
+> 
+> As far as I can tell, the LT8711UXD has an I2C control interface.
+> Shouldn't it be an I2C device ?
 
-Tell us something, how is the WiFi wired and powered up? Is there a
-correspoding BT, which isn't mentioned here?
+From the datasheet:
+
+The device is capable of automatic operation which is
+enabled by an integrated microprocessor that uses an
+embedded SPI flash for firmware storage. System control
+is also available through the use of a dedicated
+configuration I2C slave interface.
+
+My guess was that it can either be an I2C device or it can function as a
+simple platdev with no I2C controls. Please correct me if my
+understanding was wrong.
+
+But now looking at the schematics, it seems to be connected to I2C6.
+Which means that it should be desribed (and bound) as such.
 
 > 
-> Signed-off-by: Qian Zhang <qian.zhang@oss.qualcomm.com>
-> ---
->  .../boot/dts/qcom/monaco-arduino-monza.dts    | 21 +++++++++++++++++++
->  1 file changed, 21 insertions(+)
+> > Signed-off-by: Dennis Gilmore <dennis@ausil.us>
+> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> >  drivers/gpu/drm/bridge/simple-bridge.c | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
+> > index 8aa31ca3c72d..42c1f3d5ba0c 100644
+> > --- a/drivers/gpu/drm/bridge/simple-bridge.c
+> > +++ b/drivers/gpu/drm/bridge/simple-bridge.c
+> > @@ -270,6 +270,11 @@ static const struct of_device_id simple_bridge_match[] = {
+> >  		.data = &(const struct simple_bridge_info) {
+> >  			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
+> >  		},
+> > +	}, {
+> > +		.compatible = "lontium,lt8711uxd",
+> > +		.data = &(const struct simple_bridge_info) {
+> > +			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
+> > +		},
+> >  	}, {
+> >  		.compatible = "parade,ps185hdm",
+> >  		.data = &(const struct simple_bridge_info) {
 > 
+> -- 
+> Regards,
+> 
+> Laurent Pinchart
 
 -- 
 With best wishes
