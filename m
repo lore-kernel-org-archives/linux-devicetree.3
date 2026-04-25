@@ -1,206 +1,144 @@
-Received: from poodle.tulip.relay.mailchannels.net (poodle.tulip.relay.mailchannels.net [23.83.218.249])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8983815DC;
-	Sat, 25 Apr 2026 22:34:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.218.249
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777156474; cv=pass; b=CNG+EEr00yO9RAnIVIuJ6pd4J6OxSF7vEWR91cTgUMc1z7RNRU5GHCWErdV/Wt0bAVGpH6GoJ4KLTa8rTajUvbqS710xf2Oy6W8ie8PmUQ/Vcc6p9fgQowHcwRUNNuv5Vk9ME8T0Yh2+J15fzRFg8jvVhulMh3DKAxKMdQfZ2jg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777156474; c=relaxed/simple;
-	bh=2kQmxlb8BgKVi+ppWDkfkQFCm07KUJ6IFEQXjXKxS8I=;
-	h=From:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc:Date; b=grIQgYgdjgFWN5ZAtKwpprsyZcu0QFUHT0wXnGdxcli+aToJCKb/2nu4Ktu9MkaxcARS9tkbqWnvX6lnw8ttMZTblHYr7Dv4deExjvMgQeea9HnqjLNiCa6wXRCvheAyAJdiEMqGDiCa82hcuB92h7h1N8Ra7Gq+6zh4/a826wc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=c4fMM8oG; arc=pass smtp.client-ip=23.83.218.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A732DB7B7;
+	Sat, 25 Apr 2026 23:48:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777160932; cv=none; b=iUypgG0FryzOqO0Vo8uDXnJojR6x2b13yoecCL8xrdOH3x3Bf9qpOF90mtWRcN+GB7m1pS76+g2IMg3yvvpKGa9Ge1OHegBQHPzkRzLeNF/Oj4A7EuyRpA4XUzowm0AszrLXiviyH0wSj62gq5dIfpPYaMLbi0zw7D7w3Iz2/g0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777160932; c=relaxed/simple;
+	bh=Bp8RyEnQL0UxPw7eElHX5mckH3F8+ELKhrN2JVsixec=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IOLqPhgsnXiEipodCpuKXFksMOx+17naBbveefCiOZSlpC9G9KbuXqERU6YN945NsloNcfzR12cz7ysDKAt7y22nY1Zb/dcJVTv0l78v53KLSwuZm2z3G06uJvMEPJYOthYTfcmcPJ1/ZS1UJgqsxeHIIxRTcWJBo8GYFmWrVgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=aBosJ+CP; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="c4fMM8oG"
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 44106640B10;
-	Sat, 25 Apr 2026 20:39:34 +0000 (UTC)
-Received: from de-fra-smtpout8.hostinger.io (100-96-8-215.trex-nlb.outbound.svc.cluster.local [100.96.8.215])
-	(Authenticated sender: hostingeremail)
-	by relay.mailchannels.net (Postfix) with ESMTPA id CAD04640633;
-	Sat, 25 Apr 2026 20:39:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
-	t=1777149571;
-	b=maeEf4YCgBA0hcwBHPlyfdg+lUOvhEv87ukcntAkgbx0MnGdaqfwCRm9pUV3LMAFFVYLAd
-	dTKAWyVxBG5ipYgRxNAMlorwB0sBI0+0Z7mia3kQxEudYVBZop/s/ngbmUW54N/yHb6P9A
-	zm7N7e8dEUevPeGHnzgK5oHK5n5aTdhPgHY6aQA4vgHOLKYP3JXbpDd/gp0yrnCGsEn5g+
-	s0z720Mo99nwiREvzPJH4CbKZ1vXPleSTM8fwSQq8FuIXYHL+3ubi2w2skLKGYtZROtSbe
-	xyf5hoG0WkXlFfg35++HBioMHGusXclJlrkNHYccc7LMO2/tv0gc2llqpHELZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1777149571;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=7x5MPLBpCjrlQSMNjnQmpxxE0D27q9DgnQslRKfozkw=;
-	b=HUTrvcWmNZsmPJZyQFHWp259hnXNqUy3z+HmCzTNEU6Cs5QtN2/liNatOE27aLQT+oJPzI
-	F4a0cbe1x6jrArMEO6iT/lOF4ZJxNo4AeTbV3+VaE+r884TIiAeCh0LtrSqOjnz1YyO18r
-	spnOcmgy8z1VUr8ah+8Z9c9EHvkGWAaQawgzM25RlPSS26Cc2accb9jg2S9FfGU0g4oNwc
-	tNxX7LHHzM/1oPPVm0SG/MeQ3W+vGZIwM0GxnGy5r5X9PwvTnHKetnAN9H8BJorzh+Epnh
-	kX0v5Q9+8PA+ZiFx/zbGQO6Ujj5NM8X3TSbA96duiqGXVgTolfWWiOYJQrZYRA==
-ARC-Authentication-Results: i=1;
-	rspamd-b9d4fc544-8wftt;
-	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
-X-MailChannels-Auth-Id: hostingeremail
-X-Stupid-Cellar: 13b5704f117a4d6e_1777149574188_817764407
-X-MC-Loop-Signature: 1777149574188:1714138304
-X-MC-Ingress-Time: 1777149574188
-Received: from de-fra-smtpout8.hostinger.io (de-fra-smtpout8.hostinger.io
- [148.222.55.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.96.8.215 (trex/7.1.5);
-	Sat, 25 Apr 2026 20:39:34 +0000
-Received: from [172.17.0.2] (unknown [36.79.100.152])
-	(Authenticated sender: linux@smankusors.com)
-	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4g31s7650Wz3wkN;
-	Sat, 25 Apr 2026 20:39:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
-	s=hostingermail-a; t=1777149566;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7x5MPLBpCjrlQSMNjnQmpxxE0D27q9DgnQslRKfozkw=;
-	b=c4fMM8oGxWrTTBDedVw5avMdRr+SHaXWcwSi4554KbRHsw3wrX54XwihGEQcY3+zfxpskS
-	ykJ+neVMs/y/9eB6w/TKtd/Bp/XDw4348xOwZOUdrRNU/0hOvgDw3HCziTdm3duO64Rfg4
-	jgWlK8N3KRSFo4iAsy9UeRqN2l5db0BadSU6Lp/PcDK8weg+mG6+Kz3BsGDtUdDi5mhy44
-	OQrcc6XMefzCScqFdN4KmBycGmKeWkZKLHYdnCfziYM7oFGVK0ZhB7qbQqnxxvpZ3l9giY
-	EIhtycGKMKazrTULnn9O7Qjwk5oyXwxiGrf/P8kVUxsB+rp9UMVyNj/jWRWs6w==
-From: Antony Kurniawan Soemardi <linux@smankusors.com>
-Subject: [PATCH v4 4/4] iio: adc: qcom-pm8xxx-xoadc: add support for
- reading channel labels
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="aBosJ+CP"
+Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A956F1544;
+	Sun, 26 Apr 2026 01:47:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1777160826;
+	bh=Bp8RyEnQL0UxPw7eElHX5mckH3F8+ELKhrN2JVsixec=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aBosJ+CPRWpbzNhjnEakqNIWx8v6lvj20KVcTdhjJHN+Ndm/UNWPtYyXx6WQQbise
+	 L8hXN5SGvJ/awHLT9vgqFhYtYGLwhcvKW6IpH+xHcG2egbT8THwrLcbcNhFYgXfQdc
+	 j4ji2Tag7R41Gax3AEIZ/M90dRFcVrQECrMOoRD0=
+Date: Sun, 26 Apr 2026 02:48:45 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Dennis Gilmore <dennis@ausil.us>, Heiko Stuebner <heiko@sntech.de>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Alexey Charkov <alchark@gmail.com>, devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 3/6] drm/bridge: simple: Add the Lontium LT8711UXD
+ DP-to-HDMI bridge
+Message-ID: <20260425234845.GC2964234@killaraus.ideasonboard.com>
+References: <20260425031011.2529364-1-dennis@ausil.us>
+ <20260425031011.2529364-4-dennis@ausil.us>
+ <20260425112844.GB2964234@killaraus.ideasonboard.com>
+ <45evt7lkzuykoqsc2z27hsvm7fasmn6sr6gbjtdnme54jauehf@dmvon2o5emzd>
+ <CAABkxwt1=n=CnrVfCcw+EHjqjfsLkp67POk451fV8Gqw4vdnQw@mail.gmail.com>
+ <ur7mow4lw47ylxj3uigwwasrfywe6n42zb2to7ygeyjlkcgfkf@guzkembyy5hc>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260426-pm8xxx-xoadc-label-v4-4-0ec782362615@smankusors.com>
-References: <20260426-pm8xxx-xoadc-label-v4-0-0ec782362615@smankusors.com>
-In-Reply-To: <20260426-pm8xxx-xoadc-label-v4-0-0ec782362615@smankusors.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
- phone-devel@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Antony Kurniawan Soemardi <linux@smankusors.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777149546; l=3457;
- i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
- bh=2kQmxlb8BgKVi+ppWDkfkQFCm07KUJ6IFEQXjXKxS8I=;
- b=L049fNn3rRDqH4UdlBNt6adMYVng4/vuXu2/RDChfjZ/Cp+UkRTOMVxh7i0b2Qdq2nZ/eG2TR
- oXHGjMJJCYtDPZKyKG4H9wYKwhMPMmBC651/6Ejbtkn7vLXQzyKn0is
-X-Developer-Key: i=linux@smankusors.com; a=ed25519;
- pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
-Date: Sat, 25 Apr 2026 20:39:23 +0000 (UTC)
-X-CM-Envelope: MS4xfEgSBdcRKUsXT+S9ykGYEVVzsr9COH2gtEBzrZew2HJHqfVBDW/1b3js0GrZTXCw2Ph05GJCbnSYWi//iI3MoMKbEBvG4kAYGI6tXKbqf4GLZMuNYO3W rgXRQkvU2sfJNtid5M/5St3TuTC4FQT24Hv3bdt15+UMkrneW/ucqKlL4gTjzGfhMNXAVcAeJ+jwO6putCXkCl57p1B8cWFJRLWbd6R25jKMxR4S5G6soxDN 15XtjG/4f8bnJdllI9oIhisMkGuQzW6EwjyGw1HTcIB3IguJigZtIoQqFfdgfiqGIHcpv+RYbR6hN3aMV2dPdVv7xFGxcW/8bG5wQVwEEGcT5Oh/jem93OFZ xnjFiHsHsCm4G8a8xrF1Mu++aNvzDJdBTuP0lf8NBCduYTKGmXSLuuAoxJWDDRSo7oj+mCZ2axFyzHGArkRMVvTj73GB3rLfan2KYFZulEcVgeVBPQ7F94VE Lx7COUuy4zDVMVTd+h0caKIGEyIln3WdM8eIldJVz9hrwUZnTBGVLiqCOYYIyc8E0g2lk6U8kSjuQqzBpCeyLcVReG91tOl33A26ryRaOR/nIbFkXtaSbT4s /Jnia068RlxcunugepPnM37EdEhWMjiB9bhfmxlA7AXpW2XWMiOVJ7AYNJRYwqLjdg9Ulb92oU3URiUquG4jelU/JNq8uuzZgyeMRHc+HMeiPw==
-X-CM-Analysis: v=2.4 cv=ALriHGRn c=1 sm=1 tr=0 ts=69ed267e a=ivwHvKELjomHP5eB21RdOw==:117 a=ivwHvKELjomHP5eB21RdOw==:17 a=IkcTkHD0fZMA:10 a=EUspDBNiAAAA:8 a=wxLWbCv9AAAA:8 a=RWyRNVyMI2VXGFIsuXIA:9 a=QEXdDO2ut3YA:10 a=QJY96suAAestDpCc5Gi9:22
-X-AuthUser: linux@smankusors.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ur7mow4lw47ylxj3uigwwasrfywe6n42zb2to7ygeyjlkcgfkf@guzkembyy5hc>
 
-Implement the .read_label callback to allow userspace to identify ADC
-channels via the "label" property in the device tree. The name field in
-pm8xxx_chan_info is renamed to label to better reflect its purpose. If
-no label is provided in the device tree, it defaults to the hardware
-datasheet name.
+On Sun, Apr 26, 2026 at 12:44:59AM +0300, Dmitry Baryshkov wrote:
+> On Sat, Apr 25, 2026 at 01:10:02PM -0500, Dennis Gilmore wrote:
+> > On Sat, Apr 25, 2026 at 9:24 AM Dmitry Baryshkov wrote:
+> > > On Sat, Apr 25, 2026 at 02:28:44PM +0300, Laurent Pinchart wrote:
+> > > > Hi Dennis,
+> > > >
+> > > > Thank you for the patch.
+> > > >
+> > > > On Fri, Apr 24, 2026 at 10:10:08PM -0500, Dennis Gilmore wrote:
+> > > > > The Lontium LT8711UXD is a high performance two lane Type-C/DP1.4
+> > > > > to HDMI2.0 converter, designed to connect a USB Type-C source or
+> > > > > a DP1.4 source to an HDMI2.0 sink.
+> > > >
+> > > > As far as I can tell, the LT8711UXD has an I2C control interface.
+> > > > Shouldn't it be an I2C device ?
+> > >
+> > > From the datasheet:
+> > >
+> > > The device is capable of automatic operation which is
+> > > enabled by an integrated microprocessor that uses an
+> > > embedded SPI flash for firmware storage. System control
+> > > is also available through the use of a dedicated
+> > > configuration I2C slave interface.
+> > >
+> > > My guess was that it can either be an I2C device or it can function as a
+> > > simple platdev with no I2C controls. Please correct me if my
+> > > understanding was wrong.
+> > >
+> > > But now looking at the schematics, it seems to be connected to I2C6.
+> > > Which means that it should be desribed (and bound) as such.
+> > 
+> > Hi Dmitry and Laurent,
+> > 
+> > While the schematic shows that it can use I2C and has been wired up,
+> > it also shows that both MODE_SEL and I2C_ADDR have unpopulated 10k
+> > resistors; as a result, MODE_SEL is connected directly to GND, putting
+> > the bridge in autonomous mode. I confirmed this by running `i2cdetect
+> > -r -y 6`, with the only device on the bus being the HYM8563 RTC at
+> > 0x51. Without reworking the board, the device is not directly
+> > controllable and just runs autonomously.
+> 
+> I think it would be nice to mention:
+> - In the commit for the bindings, that the device can be running
+>   uncontrolled or it can be attached over I2C, bindings describe the
+>   uncontrolled mode.
+> - In this commit message, the same.
+> - In the commit message for the board DT mention your findings about the
+>   board, mention soldering R9 or R17 (which one?) and R27.
 
-The change has been tested on Sony Xperia SP (PM8921).
+Additionally, how are we going to handle boards where the device
+operates in I2C mode ? Will we use a different compatible string (maybe
+"lontium,lt8711uxd-i2c") ? If DT maintainers are fine with that, I have
+no objection to this patch.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
----
- drivers/iio/adc/qcom-pm8xxx-xoadc.c | 24 +++++++++++++++++++-----
- 1 file changed, 19 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/iio/adc/qcom-pm8xxx-xoadc.c b/drivers/iio/adc/qcom-pm8xxx-xoadc.c
-index 2ee080b27d93..fbb58b340241 100644
---- a/drivers/iio/adc/qcom-pm8xxx-xoadc.c
-+++ b/drivers/iio/adc/qcom-pm8xxx-xoadc.c
-@@ -369,7 +369,7 @@ static const struct xoadc_channel pm8921_xoadc_channels[] = {
- 
- /**
-  * struct pm8xxx_chan_info - ADC channel information
-- * @name: name of this channel
-+ * @label: label of this channel from device tree (defaults to datasheet name if not specified)
-  * @hwchan: pointer to hardware channel information (muxing & scaling settings)
-  * @calibration: whether to use absolute or ratiometric calibration
-  * @decimation: 0,1,2,3
-@@ -377,7 +377,7 @@ static const struct xoadc_channel pm8921_xoadc_channels[] = {
-  * calibration: 0, 1, 2, 4, 5.
-  */
- struct pm8xxx_chan_info {
--	const char *name;
-+	const char *label;
- 	const struct xoadc_channel *hwchan;
- 	enum vadc_calibration calibration;
- 	u8 decimation:2;
-@@ -446,7 +446,7 @@ static int pm8xxx_read_channel_rsv(const struct pm8xxx_xoadc *adc,
- 	u8 lsb, msb;
- 
- 	dev_dbg(adc->dev, "read channel \"%s\", amux %d, prescale/mux: %d, rsv %d\n",
--		ch->name, ch->hwchan->amux_channel, ch->hwchan->pre_scale_mux, rsv);
-+		ch->label, ch->hwchan->amux_channel, ch->hwchan->pre_scale_mux, rsv);
- 
- 	mutex_lock(&adc->lock);
- 
-@@ -717,8 +717,21 @@ static int pm8xxx_fwnode_xlate(struct iio_dev *indio_dev,
- 	return -EINVAL;
- }
- 
-+static int pm8xxx_read_label(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan, char *label)
-+{
-+	const struct pm8xxx_xoadc *adc = iio_priv(indio_dev);
-+	const struct pm8xxx_chan_info *ch;
-+
-+	ch = pm8xxx_get_channel(adc, chan->address);
-+	if (!ch)
-+		return -EINVAL;
-+	return sysfs_emit(label, "%s\n", ch->label);
-+}
-+
- static const struct iio_info pm8xxx_xoadc_info = {
- 	.fwnode_xlate = pm8xxx_fwnode_xlate,
-+	.read_label = pm8xxx_read_label,
- 	.read_raw = pm8xxx_read_raw,
- };
- 
-@@ -762,7 +775,8 @@ static int pm8xxx_xoadc_parse_channel(struct device *dev,
- 			pre_scale_mux, amux_channel);
- 		return -EINVAL;
- 	}
--	ch->name = name;
-+	ch->label = hwchan->datasheet_name;
-+	fwnode_property_read_string(fwnode, "label", &ch->label);
- 	ch->hwchan = hwchan;
- 	/* Everyone seems to use absolute calibration except in special cases */
- 	ch->calibration = VADC_CALIB_ABSOLUTE;
-@@ -804,7 +818,7 @@ static int pm8xxx_xoadc_parse_channel(struct device *dev,
- 
- 	dev_dbg(dev,
- 		"channel [PRESCALE/MUX: %02x AMUX: %02x] \"%s\" ref voltage: %d, decimation %d prescale %d/%d, scale function %d\n",
--		hwchan->pre_scale_mux, hwchan->amux_channel, ch->name,
-+		hwchan->pre_scale_mux, hwchan->amux_channel, ch->label,
- 		ch->amux_ip_rsv, ch->decimation, hwchan->prescale.numerator,
- 		hwchan->prescale.denominator, hwchan->scale_fn_type);
- 
+> > > > > Signed-off-by: Dennis Gilmore <dennis@ausil.us>
+> > > > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > > > > ---
+> > > > >  drivers/gpu/drm/bridge/simple-bridge.c | 5 +++++
+> > > > >  1 file changed, 5 insertions(+)
+> > > > >
+> > > > > diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
+> > > > > index 8aa31ca3c72d..42c1f3d5ba0c 100644
+> > > > > --- a/drivers/gpu/drm/bridge/simple-bridge.c
+> > > > > +++ b/drivers/gpu/drm/bridge/simple-bridge.c
+> > > > > @@ -270,6 +270,11 @@ static const struct of_device_id simple_bridge_match[] = {
+> > > > >             .data = &(const struct simple_bridge_info) {
+> > > > >                     .connector_type = DRM_MODE_CONNECTOR_HDMIA,
+> > > > >             },
+> > > > > +   }, {
+> > > > > +           .compatible = "lontium,lt8711uxd",
+> > > > > +           .data = &(const struct simple_bridge_info) {
+> > > > > +                   .connector_type = DRM_MODE_CONNECTOR_HDMIA,
+> > > > > +           },
+> > > > >     }, {
+> > > > >             .compatible = "parade,ps185hdm",
+> > > > >             .data = &(const struct simple_bridge_info) {
 
 -- 
-2.34.1
+Regards,
 
+Laurent Pinchart
