@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D3F35F5F4;
-	Sat, 25 Apr 2026 09:37:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C98383C63;
+	Sat, 25 Apr 2026 09:40:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777109853; cv=none; b=BjsyvTDDXuj6fyG/CPHdBEqx4/UADbfSjxePN1ZUUa330h3WTsAtvl+6SUA9KPuzN/e63dl6bLqrFm9v8BmfPY8UaMsIr4GteXCTqkXIbk776rjwM0kfMlH+DhcVQ2zdOocsh1zmnBtXpw/h9Oy0rnbn97XTCHPWtd74WDFTpnM=
+	t=1777110003; cv=none; b=NQIiTO6+v5T2ihdoMS/OTxuH4S7H8o1xxYecYN5Ydn3Agh6i8wAMElDN9+Mw79pm/XVg0D9z17wguvPBTV+y6hffkm2Y9mUw5K8UjGMPEO6+2FoPRDL+6bwrptQQxxcGEyiOhUhFqh3L7yil7AmmfXoKxehgnJHx7O/Dj5UyzFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777109853; c=relaxed/simple;
-	bh=qQjOfwhSQJKzlQ73dUloc3PjvNSBmV5ChNWqZlToFwo=;
+	s=arc-20240116; t=1777110003; c=relaxed/simple;
+	bh=hadfq1e14Gw0z8hl3xYnUIRAy4eOpTXE+uwQc3E3bUo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DQZkIzlRU3ciwYyqFYToB5bAYpT3h5mIpOwMi1uOUEwMALkfTdVcxdDZUW5i5JG3n4gzDxyXcDwRW9fn/2MJs1JsN2jNNqxvgIlWsvm8aGh9csqowEGgyR9WhndD+9vggtAytMuuN/pWU5TLMKzcF+PlA2MAQ306NXnbZfJ7eN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CFrCfDBa; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=JNiSZezd3vQnbN7dihrKI50TdY9mG7ISNTQo/A+vUCUvTmaJiYOaO9fsSG2r7kUeZ81xlKZXwwh0McRJkg7TsOVL7Gpuj6aiwfwOOVTYZ67sPH1xfTy4XJb44PssR550SMJA+h1Lm8xv3o7vezN9VZYLcC7F64uXksf2rxyORyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tur0dzb5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CFrCfDBa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBB33C2BCB0;
-	Sat, 25 Apr 2026 09:37:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tur0dzb5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECBC6C2BCB0;
+	Sat, 25 Apr 2026 09:40:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777109853;
-	bh=qQjOfwhSQJKzlQ73dUloc3PjvNSBmV5ChNWqZlToFwo=;
+	s=k20201202; t=1777110002;
+	bh=hadfq1e14Gw0z8hl3xYnUIRAy4eOpTXE+uwQc3E3bUo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CFrCfDBaEQPt2oIFN1rSPs6fOz5Bdzihu55SByUAD4NzXTUVWyT9nrhm2LHJsMk9k
-	 Ee3xm7RhFUGlq9eTrjc5nLB8kGx9GB4c7jCfblQ6ZaTJFdlLbUmrjdKCTZRSsz2B/M
-	 5vBSIsx5CEeFsY6FyiLGVIHm5y6nXBS25xv6pIti7zG+UgCtMeAprK0JyR2qv+aQgH
-	 3gmuJSQKRbA1RSHbm4vnzpzj32Ve91+B/vILFyEiMCoaSILfrTo2hHLDpvPznpgWcX
-	 JHGPr4s8yLIjj4j/DaNIoKs59eX1R/DPg7AAcAe1TPXOVBSdYf/C+Q4VpbRr1XCH63
-	 KgvugRSxGWNpw==
-Date: Sat, 25 Apr 2026 11:37:31 +0200
+	b=Tur0dzb51y8TATb8JDT+pezGHhqTSQBt0Swj6mLygDhBhkbd2DnhODtFMYJ82MVx9
+	 67VHfvDOqkcVDstMrTyeUX70NeYCpcu4Ww1heMSvW5SHvZO3tkmyEOLBS1eIXaARjZ
+	 lv2HNVtOXaQryKd/1TlYTClu6RK3QWHkc1WuU9P13UoQ3CXuIp0z2V0PQr/rtq+hkw
+	 S67KgSGLqr9nHDCKlm/gHjYOr5RQMOM5vohrQhcxidoc/AnRtbbI42QZsg7qou01o2
+	 q9z4kJCONakyfU6UlSdYxZ8gHX3Xwx0tZSb8QPAA4zjEVy2CEHJMDaopmaPWfwbVlq
+	 AaODB8KgAVpow==
+Date: Sat, 25 Apr 2026 11:40:00 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nickolay Goppen <setotau@mainlining.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Dawid Glazik <dawid.glazik@linux.intel.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Konrad Dybcio <konradybcio@gmail.com>
-Subject: Re: [PATCH v4 4/5] dt-bindings: firmware: qcom: scm: add
- CP_ADSP_SHARED VMID
-Message-ID: <20260425-vivacious-cobra-of-tolerance-4bf591@quoll>
-References: <20260424-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v4-0-ee5257646472@mainlining.org>
- <20260424-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v4-4-ee5257646472@mainlining.org>
+	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+	linux-aspeed@lists.ozlabs.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, maciej.lawniczak@intel.com
+Subject: Re: [PATCH v4 2/3] dt-bindings: mfd: syscon: add
+ aspeed,ast2600-i3c-global compatible
+Message-ID: <20260425-poised-accomplished-hyena-d2c1a0@quoll>
+References: <cover.1777058942.git.dawid.glazik@linux.intel.com>
+ <41d66492e1a1d42f6888459288311094c8b7bc51.1777058942.git.dawid.glazik@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,20 +47,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260424-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v4-4-ee5257646472@mainlining.org>
+In-Reply-To: <41d66492e1a1d42f6888459288311094c8b7bc51.1777058942.git.dawid.glazik@linux.intel.com>
 
-On Fri, Apr 24, 2026 at 02:13:06PM +0300, Nickolay Goppen wrote:
-> CP_ADSP_SHARED is used in FastRPC driver for older SoC's such as sdm660
-> for interacting with ADSP memory region [1]
+On Fri, Apr 24, 2026 at 10:21:00PM +0200, Dawid Glazik wrote:
+> Add aspeed,ast2600-i3c-global to the syscon binding compatible
+> lists to document the AST2600 I3C global register syscon node.
 > 
-> [1]: https://github.com/xiaomi-sdm660/android_kernel_xiaomi_sdm660/blob/11-EAS/drivers/char/adsprpc.c#L3602
-> 
-> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+> Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
 > ---
->  include/dt-bindings/firmware/qcom,scm.h | 1 +
->  1 file changed, 1 insertion(+)
+>  Documentation/devicetree/bindings/mfd/syscon.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
