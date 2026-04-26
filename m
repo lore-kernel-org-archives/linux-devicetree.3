@@ -1,111 +1,133 @@
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C172517AC
-	for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 16:28:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777220907; cv=none; b=IA9siUqILDq/Jq7i7qrMNfe17bCX/OtQNROue13ubwYK35j61kNzTXbpGXgGI2zQvlxWXa03rXka6B9Ag9rlNGF5IGREcdrhjelTkNMSIJ9csucvD0Vskh2phWu+1GgbCtzepZU80kcLs0mmxK5ilqCCIbEM0TQBlLjP5iOO19w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777220907; c=relaxed/simple;
-	bh=2KQ6yAkhhoo89EXa6FHNEhTJ1HeUSHJLWXWhUzB1cy4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=c5b54kMDJ0AOZNgpiX0WQjqyVCyJhIXrH6pnLYIPpiUwhfqpXc3WtgKAoaokJR4YzlzD0WeEo5p60JziVdcknAXhXQzGx80wY+3ctetUQMdTJnuH2fr9zImnvhiPfc+wDNeakMcodKtxA2GqJzITJz/5BqXZNSAEKTxeVzwwQEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=l+VdvHV5; arc=none smtp.client-ip=209.85.167.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6F6274B5F
+	for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 16:44:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777221872; cv=pass; b=K3Fy+HMFQlv5mURctLU4uTWWT7iXgNy/r2Cy0CZil742hLrg2HFiml6lmlcrURZiIY08wxKj6jV0JK6t41JeM/CYPBunXMfXH3EXCbgIZxmB2a8kBwJC344N6GwGw1SIowMUbgHDp3Su44KIRkxuYnDw3oR9m9EInbbm2hKbh0w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777221872; c=relaxed/simple;
+	bh=wmZ8Dpe7vWo4FjUXWm2XsIppLlcGoz8XQcj0Stb2G6c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rF8uI+WL6XR8l1DTVv9R87qE5/Lg+Y6T+fsMH/eQUsemCYC27SPhZ9vTPCVZJKO2v4/cofE9aiASnnGMFl8NOu5zJtZooAZ5sKBUwl57Lht8B0lo/3TAT2OFuLm8JxApKuCQzbu8A0i8OZwDpkMYC22IVnj5SJuDnl1XtGfGtoY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IJ7sT9pP; arc=pass smtp.client-ip=209.85.208.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="l+VdvHV5"
-Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-479d37e7d7fso2244091b6e.1
-        for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 09:28:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IJ7sT9pP"
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-38def541b0bso81356931fa.1
+        for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 09:44:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777221870; cv=none;
+        d=google.com; s=arc-20240605;
+        b=XZnHntSrFqtPOy06OW9JBucK3x8kLvBzLTkCmOlZ9FP/XP7QCQD8uOj7sptq9zIgnS
+         DXH5PULZtVoeRdmaWC5B4uBmcZbX2Jeo0rHitNkCaOTXhVEp6+zGRCRNii0ptmJ3AiO2
+         PPQmue0ZvmgN5G4K1hrpKEfidiKieqXauxYB+90C+BxLIUIYtojIgjRRIbRgpPBjj10r
+         PtGNeLQ9BhBp778cY4AmQlXNc4YdTNWNHTodi8CRv+zC4rmIwBhE2tCFj63r0/NQxPfW
+         AwFpWUC688c7/ZHkp6DdgikOH+nWnDaIvL84t+BQkmammMQ9kxhr10vSdBjqBMxRfcQT
+         v3KQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gF0s3Zdd9y3ounVULddivCvOaPAIz7AmO/Iu2YOKL5U=;
+        fh=zkY8qPNiEF0JK36Fi79Bfdm7xo7sbEFIsxQjUsOJ/KY=;
+        b=byPpAeUDAJUSa9xEFk+3Q8syp0s0D8XUlyPsV4JgdjCiJG73pzGLLgNIfEll2H9Gxg
+         E+Xh/zKfX/wTjsD949aLdw70fORQf+FZGPFrCheQmoYhqms8Ypy/f0ESTzemNAEkaUvK
+         y16ruspfpyyH/5RBDnSC1iRd13KmQfi0R6R0nZUwDsRGaLJh/XbZx2SZ76w1KpDb2QtV
+         UmmUrSeQlFQkpXEYWgP85k7U5Pq5870R8bhe7zwWa4nsvOXoIxo3Y3X0642OY8HsFHd0
+         X8dQWVZcy9w5HPAFwQw6Y6va3zLNYMzliVcPl4Rhni3GttD397pPL83uML/EnEJ6ywfA
+         GGAw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777220904; x=1777825704; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=bzopt2jCiz/zJ9WJxFMTXHhvJ2SCEeZiL7oHCE6Ie/Y=;
-        b=l+VdvHV5qn/2K12d7kjXlCfoXkUqq9X/74YhBFbWbxzvDl/bk8zzKqRYCyKGna1j2U
-         N3Z3lJD+J1ISsRJMQXxWmNUVJH1QdiRiyr8Eeu8vM/eTvLfAxbcB4Oi3fpUIDwOo1d16
-         NfiUkg6o9cYf3cP6NFh/IuGT0rUwjzD2XjbgfbNedzZI4XvvBiOfhgEfBqRC4uj3s0Nk
-         a8IwwCYMJiXGh7hHzZHwlYtWct4zw7U3XpuzMBn/18SG2H8ME7eMELJHM3dFXcFOAdmr
-         Jbpl5ypaZUhvxwas2AdsgURyWjradMNC5kccFUpeMgc3crk8yf96Kzsjo5XMEoxXgWg5
-         oyeQ==
+        d=gmail.com; s=20251104; t=1777221870; x=1777826670; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gF0s3Zdd9y3ounVULddivCvOaPAIz7AmO/Iu2YOKL5U=;
+        b=IJ7sT9pPKLTF/cuj5jo8WzqD7Z39d84p5lXTsOvGJMqGU7kULgw48akrtTjTgLj73F
+         33tqlxYYESAr1tXmHcu3GuqM6PGEsKBAOjKt37GGk7OTl9yIMh8w5opKJMy5U3vEh8gS
+         Pjc6tVvhK4ueLOIHvMOohqI4CPzwsmRHUYIBtT1MLAHo5gVTaPj5UQHbfwZFI7A8IqJO
+         +QI2u0+9Iq5M5QYVl2ko2YlekqObn6X5ndmINJpwYDtHBgJCJLQGKuILDhOGNhoFEzTc
+         kv1mZXnpVupMkbndC8VCEczPnaRi2UNXyig+Jp8YVZDNNQLpVcqEUZHNkqZn5IZ09M/+
+         mPWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777220904; x=1777825704;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=bzopt2jCiz/zJ9WJxFMTXHhvJ2SCEeZiL7oHCE6Ie/Y=;
-        b=kL+0/KHFm4CKf+ZPQ27kaiFfgy02bT5uteMyiV7LkNXUnMwIqF/8sPnVA9VI72c4GF
-         S6FiErxGmUlQr8KeK+p6SXJOTjBDyVhUa994fFLCwIbOfy6Ce1EEZMU/4J4KS6JkJnJY
-         HA5om6eaolhUN5v7NhtN1stTX7JYbz033s97dkSj6GWeYYC6aItfO+Tm3XTlbI7bV7Rm
-         fKCp62aq9VwAqCI1WhyFwnPskxcbtDNxIF0AZZgT/2WVxB8ZPiCMIiKVFbKUWwgs1i5/
-         SzkGN1WKiAjgXT7Z9ZsCsrNmUw3HLJsAyuCzCHi40Ng4Z0MymqyY8FTfEyjdkIj6+dc9
-         0Xrw==
-X-Forwarded-Encrypted: i=1; AFNElJ98GOHJlW70TWcH5aySGfeD1Z2US8X6JMQ2xqpMLvtturM8AZ8/vpQRwZTT7B+csEfAPBfzi3wlqGL9@vger.kernel.org
-X-Gm-Message-State: AOJu0Yznl2jzNutx/FWkcIdjjZZ0X6kJpKnmbS4MSZ9tbDCiLyqWQgUy
-	/7WYZVD5WpQGaONh9I7EhUa7akgsP7axiNiOBc1R+AGaVQhFR3OneygBaMDcbzNN6yg=
-X-Gm-Gg: AeBDiesf5QLrJmwPSDXmI5x3YpReETydmnkyZD/z+ots4SglPOlbDwhgEiddxsA4mov
-	RtqEtPyMVJ2mPXt0NjiI3/3yrG72xeNDbwyURY09EpC5Sa2HSHWsziZv3POJAjVcBdxBtcPe6PT
-	52f7914v0scMsM+khcdzlYMox6pjYYGK6kARFxvr1e2NDKXlg6p1Gl3Vwu4WEFNkOlnW9lq0+AK
-	5bqyX5T8Ojt4YMyYswIS1WLZzfmxXK8vgXJpaMaK91MDy+dSsv0hbqB05vPi0xy4ddrRCGnaB/N
-	ekSBT7KciGu15C7JmHTHiQE7qsstXtzS2flZvjPVVcnFXLrri+wxvtvBkYcIdopuZl4w3bBugPr
-	ZxLMQrP+3PHAVZkDAbir4Bc1SlUtICbf2KvmQGZiGPhXBPbmNUtYB0Jb9IgP1GAZBqJH41VA0vg
-	hY/IMGIrxidMCNgWWDBAAK7ZNNDbaphlmzoB19GWQHvwtnnWsN+hJfrwgsuFO6Dcr5G1RPd70yP
-	HRpuJeSgrK1
-X-Received: by 2002:a05:6808:2013:20b0:479:ae1d:fff7 with SMTP id 5614622812f47-479ae1e08e2mr12603387b6e.4.1777220903677;
-        Sun, 26 Apr 2026 09:28:23 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:81f8:ef7d:a711:d99a? ([2600:8803:e7e4:500:81f8:ef7d:a711:d99a])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4799feaabf2sm19106674b6e.4.2026.04.26.09.28.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 26 Apr 2026 09:28:22 -0700 (PDT)
-Message-ID: <78aa1551-2dc6-432d-9d44-ecef0198e1d3@baylibre.com>
-Date: Sun, 26 Apr 2026 11:28:21 -0500
+        d=1e100.net; s=20251104; t=1777221870; x=1777826670;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=gF0s3Zdd9y3ounVULddivCvOaPAIz7AmO/Iu2YOKL5U=;
+        b=LIjpaJviSkRGWDt/hvgCe3ony87/Ic9LO6Muiw3YjBRTPx7QBmckmlmWG4/txcpvVw
+         LjB/JL6RNs1+IA3EQ4LKxqh0aiwqIA9KLtlFHkMItEhciTMhtMOkIhVsPI0xebgN2tEa
+         m5VgUYHqdD16UhIzHVNRrMtUA053DsndisIMmfKT+fHjaiDh3J0Z8o6PAcxNJx9Aft1S
+         f+YxySw9jHyDx3BtWcMwTybDPy+W2MmR6BA7STGfTDsqJMsAjhRuDQgKlM4Ya5IzkqFD
+         lXPLYSkVPdTThd3SLRlhuKIyNBFfsTOO0x6QjBFY8x97lBLUr/JN6V3cGVI1ajJuYv3s
+         dvvQ==
+X-Forwarded-Encrypted: i=1; AFNElJ94EUFFAFfkB42F88ip//Xkca/5+KcInOAQ+vG13Hvdbagfrpl2WLKSoP6ddLGJKzK9HtoeShXjp1Fj@vger.kernel.org
+X-Gm-Message-State: AOJu0YymrdTsuD7lq9JabXcKMboXZPNbWlSuaauI6LL0XUHqQ0pTYTi3
+	xF39Pm9YyRVVHmOcf2LcbaoNqCEHV2WYuTQ6RVmO49fSRlxt133MLwjClZgfNKKSkZ04/DuKrE9
+	LrDP0NbHwYI//uop27D/Tz4XIgdEKOYk=
+X-Gm-Gg: AeBDievrxuwkdnBEFPDahXx5RhHsaWCbogPws1U2VffJKCiR8b+OUP/LZLPKpy4hNOz
+	0ZD8use9oeta/Yo0+GEU0mahQiPEWnmCVL//UJI983E2I6cYJI5V3mouJxlIOdluz21l6t5P8Vi
+	SQHkoffZxaX8QbK8G9VCHoCqNzZwP9+KqxkhooY2r69s9hbF35BDI86/2MyXB0cnfOWLyJN8sTl
+	Sv0btNfTLSH+3rLBEKC7GQHBbRkMB9vaDjjfHaHeFG1nsJEtsMEHOlPg0dyq0bcVIKraxYzl6Wk
+	TowtAjeVfPUbFGDTUj8bTMrtTOgfAK3mEODduloyKoKeW32kQtCS0l+GuZbM76ugYCc9kX1WjPs
+	S2ZSX5gc/OnDfiw4=
+X-Received: by 2002:a2e:8a9c:0:b0:38f:f6a2:a5dc with SMTP id
+ 38308e7fff4ca-38ff6a2a783mr88016101fa.32.1777221869275; Sun, 26 Apr 2026
+ 09:44:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] dt-bindings: iio: adc: avia-hx711: add avia,hx710b
- compatible
-To: Piyush Patle <piyushpatle228@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>, Andreas Klinger <ak@it-klinger.de>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@intel.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20260422175910.1258579-1-piyushpatle228@gmail.com>
- <20260422175910.1258579-2-piyushpatle228@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260422175910.1258579-2-piyushpatle228@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <20260422175910.1258579-2-piyushpatle228@gmail.com> <78aa1551-2dc6-432d-9d44-ecef0198e1d3@baylibre.com>
+In-Reply-To: <78aa1551-2dc6-432d-9d44-ecef0198e1d3@baylibre.com>
+From: Piyush Patle <piyushpatle228@gmail.com>
+Date: Sun, 26 Apr 2026 22:13:51 +0530
+X-Gm-Features: AQROBzCaiysL2a2QMEYBOq53qTpzqm7ui1GlIeNHbpCurNM0rkHZyNxj2hgt9PE
+Message-ID: <CAMB+xkaOc=y8t9VHSNKkRRxsxLR-Af_GonwiaY6Tmtapkabo0Q@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] dt-bindings: iio: adc: avia-hx711: add avia,hx710b compatible
+To: David Lechner <dlechner@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Andreas Klinger <ak@it-klinger.de>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 4/22/26 12:59 PM, Piyush Patle wrote:
-> The HX710B shares the same two-wire interface as the HX711 but differs
-> in its channel and gain model: gain is fixed at 128 and the number of
-> trailing PD_SCK pulses selects the input channel rather than the gain.
-> 
-> Add avia,hx710b to the compatible enum. Document the chip differences
-> in the description and add chip-specific supply properties (dvdd-supply,
-> vsup-supply) for the HX711, a rate-gpios property for the HX711 RATE
-> pin, and an allOf constraint that forbids HX711-only properties on
-> HX710B nodes. Clarify the clock-frequency description to reflect its
-> actual purpose: controlling the SCK bit-bang timing.
-> 
-> Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
-> ---
-> Changes in v3:
-> - Drop the vref-supply mention from avdd-supply; no such binding
->   property exists.
+On Sun, Apr 26, 2026 at 9:58=E2=80=AFPM David Lechner <dlechner@baylibre.co=
+m> wrote:
+>
+> On 4/22/26 12:59 PM, Piyush Patle wrote:
+> > The HX710B shares the same two-wire interface as the HX711 but differs
+> > in its channel and gain model: gain is fixed at 128 and the number of
+> > trailing PD_SCK pulses selects the input channel rather than the gain.
+> >
+> > Add avia,hx710b to the compatible enum. Document the chip differences
+> > in the description and add chip-specific supply properties (dvdd-supply=
+,
+> > vsup-supply) for the HX711, a rate-gpios property for the HX711 RATE
+> > pin, and an allOf constraint that forbids HX711-only properties on
+> > HX710B nodes. Clarify the clock-frequency description to reflect its
+> > actual purpose: controlling the SCK bit-bang timing.
+> >
+> > Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
+> > ---
+> > Changes in v3:
+> > - Drop the vref-supply mention from avdd-supply; no such binding
+> >   property exists.
+>
+> Why is there no vref-supply?
+>
+> HX710B has a VREF pin for a reference voltage input.
+>
 
-Why is there no vref-supply? 
+In v4 I will add vref-supply as an HX710B property and update the
+allOf block accordingly.
 
-HX710B has a VREF pin for a reference voltage input.
-
+Regards,
+Piyush Patle
