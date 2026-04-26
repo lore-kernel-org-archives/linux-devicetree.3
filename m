@@ -1,43 +1,67 @@
-Received: from sender4-pp-o94.zoho.com (sender4-pp-o94.zoho.com [136.143.188.94])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9567323ED6A;
-	Sun, 26 Apr 2026 15:49:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.94
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777218563; cv=pass; b=XQeYreKt7ntrycOIRKffU/uMnog3XSa/Na1TtEAMIACMZJKSL/AFURdr+91M1KTyHVei/E64zfGwGijnCteE8Dp8pwBxcjoXVbm6fEN0SqkrWMjRlPRf26o8KXK+eBBK38DLT4sYlD+/UXo4G9o1c+K0/Li5t9H4cCWsrCmMX6Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777218563; c=relaxed/simple;
-	bh=miZJFmIaoD2f34f1/bDTsn++d/crun+m6B5eKilkWes=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C172517AC
+	for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 16:28:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777220907; cv=none; b=IA9siUqILDq/Jq7i7qrMNfe17bCX/OtQNROue13ubwYK35j61kNzTXbpGXgGI2zQvlxWXa03rXka6B9Ag9rlNGF5IGREcdrhjelTkNMSIJ9csucvD0Vskh2phWu+1GgbCtzepZU80kcLs0mmxK5ilqCCIbEM0TQBlLjP5iOO19w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777220907; c=relaxed/simple;
+	bh=2KQ6yAkhhoo89EXa6FHNEhTJ1HeUSHJLWXWhUzB1cy4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b5Cr8/2VxpTykjqUVBb1HpXeaXZb3pu7l/42wScsseRREMPm/1gQw7gsE1JlanhCX1h2NsgZIwulUw35GomR9vodN63UbMbjTPvK6tN7ErHRqYlUt9BypOjh9olxg5E/p4hy7+PHV+4LLQEkL18BEH1Wk9Ekzx6VLcDlC1CDIFc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=kingxukai@zohomail.com header.b=Lg2tSHVd; arc=pass smtp.client-ip=136.143.188.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+	 In-Reply-To:Content-Type; b=c5b54kMDJ0AOZNgpiX0WQjqyVCyJhIXrH6pnLYIPpiUwhfqpXc3WtgKAoaokJR4YzlzD0WeEo5p60JziVdcknAXhXQzGx80wY+3ctetUQMdTJnuH2fr9zImnvhiPfc+wDNeakMcodKtxA2GqJzITJz/5BqXZNSAEKTxeVzwwQEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=l+VdvHV5; arc=none smtp.client-ip=209.85.167.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=kingxukai@zohomail.com header.b="Lg2tSHVd"
-ARC-Seal: i=1; a=rsa-sha256; t=1777218553; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=eusy37RyBqcYCrTiIGOI7oMxxsrqhWTdh5aqKAAVdFrkygGnAkdC7+kcAxjLBOQBnHPq0OYda2WcAarmvowW9mOZub3o+6WAX5IEsI9Bxxagmy+rwbObgWj8Y+gEnFPyKnHdwNcXoBK27xUj+3+xtVTuHIBdRoIDwbUuyl05wNU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1777218553; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=225jQ2aZE0zJUqGYQ2cOjzPbygimV8PqMJIo/1GJfVs=; 
-	b=ejqS2XvPfuWBb+Y60pbGjdvJpPuQFKcchuaVLB+wJjbpv+qRNwQtEfADONeMrFezIKy2l48WFiZORM8CchQhxBSZaFEN8NBV7plVF3jkS8q07fOY0zTPzt+PyZ0HwcUX2Mm1oFCI04W45XLP3Bf0tQXJ3n0gXuYBz5S+FkN3jaw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=kingxukai@zohomail.com;
-	dmarc=pass header.from=<kingxukai@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777218553;
-	s=zm2022; d=zohomail.com; i=kingxukai@zohomail.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
-	bh=225jQ2aZE0zJUqGYQ2cOjzPbygimV8PqMJIo/1GJfVs=;
-	b=Lg2tSHVdzI3V+D6iN6FxISGL3gUfN5xN8NwU5NjXeohs350juU7WMgeES+JzkgAH
-	Y1zIVeluYsK45his3puP/62q+OlAH1LxSdSn2A18elWmwor4YdLBjEagK3av5PYXGHA
-	jSn/oZTgvvWa46fiKGN+oUJQlcaSxrnJZslpCo3Q=
-Received: by mx.zohomail.com with SMTPS id 1777218550868245.7951303663433;
-	Sun, 26 Apr 2026 08:49:10 -0700 (PDT)
-Message-ID: <987e30f5-fad8-4e76-89ba-8a1162bd70a3@zohomail.com>
-Date: Sun, 26 Apr 2026 23:49:03 +0800
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="l+VdvHV5"
+Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-479d37e7d7fso2244091b6e.1
+        for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 09:28:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777220904; x=1777825704; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=bzopt2jCiz/zJ9WJxFMTXHhvJ2SCEeZiL7oHCE6Ie/Y=;
+        b=l+VdvHV5qn/2K12d7kjXlCfoXkUqq9X/74YhBFbWbxzvDl/bk8zzKqRYCyKGna1j2U
+         N3Z3lJD+J1ISsRJMQXxWmNUVJH1QdiRiyr8Eeu8vM/eTvLfAxbcB4Oi3fpUIDwOo1d16
+         NfiUkg6o9cYf3cP6NFh/IuGT0rUwjzD2XjbgfbNedzZI4XvvBiOfhgEfBqRC4uj3s0Nk
+         a8IwwCYMJiXGh7hHzZHwlYtWct4zw7U3XpuzMBn/18SG2H8ME7eMELJHM3dFXcFOAdmr
+         Jbpl5ypaZUhvxwas2AdsgURyWjradMNC5kccFUpeMgc3crk8yf96Kzsjo5XMEoxXgWg5
+         oyeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777220904; x=1777825704;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=bzopt2jCiz/zJ9WJxFMTXHhvJ2SCEeZiL7oHCE6Ie/Y=;
+        b=kL+0/KHFm4CKf+ZPQ27kaiFfgy02bT5uteMyiV7LkNXUnMwIqF/8sPnVA9VI72c4GF
+         S6FiErxGmUlQr8KeK+p6SXJOTjBDyVhUa994fFLCwIbOfy6Ce1EEZMU/4J4KS6JkJnJY
+         HA5om6eaolhUN5v7NhtN1stTX7JYbz033s97dkSj6GWeYYC6aItfO+Tm3XTlbI7bV7Rm
+         fKCp62aq9VwAqCI1WhyFwnPskxcbtDNxIF0AZZgT/2WVxB8ZPiCMIiKVFbKUWwgs1i5/
+         SzkGN1WKiAjgXT7Z9ZsCsrNmUw3HLJsAyuCzCHi40Ng4Z0MymqyY8FTfEyjdkIj6+dc9
+         0Xrw==
+X-Forwarded-Encrypted: i=1; AFNElJ98GOHJlW70TWcH5aySGfeD1Z2US8X6JMQ2xqpMLvtturM8AZ8/vpQRwZTT7B+csEfAPBfzi3wlqGL9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yznl2jzNutx/FWkcIdjjZZ0X6kJpKnmbS4MSZ9tbDCiLyqWQgUy
+	/7WYZVD5WpQGaONh9I7EhUa7akgsP7axiNiOBc1R+AGaVQhFR3OneygBaMDcbzNN6yg=
+X-Gm-Gg: AeBDiesf5QLrJmwPSDXmI5x3YpReETydmnkyZD/z+ots4SglPOlbDwhgEiddxsA4mov
+	RtqEtPyMVJ2mPXt0NjiI3/3yrG72xeNDbwyURY09EpC5Sa2HSHWsziZv3POJAjVcBdxBtcPe6PT
+	52f7914v0scMsM+khcdzlYMox6pjYYGK6kARFxvr1e2NDKXlg6p1Gl3Vwu4WEFNkOlnW9lq0+AK
+	5bqyX5T8Ojt4YMyYswIS1WLZzfmxXK8vgXJpaMaK91MDy+dSsv0hbqB05vPi0xy4ddrRCGnaB/N
+	ekSBT7KciGu15C7JmHTHiQE7qsstXtzS2flZvjPVVcnFXLrri+wxvtvBkYcIdopuZl4w3bBugPr
+	ZxLMQrP+3PHAVZkDAbir4Bc1SlUtICbf2KvmQGZiGPhXBPbmNUtYB0Jb9IgP1GAZBqJH41VA0vg
+	hY/IMGIrxidMCNgWWDBAAK7ZNNDbaphlmzoB19GWQHvwtnnWsN+hJfrwgsuFO6Dcr5G1RPd70yP
+	HRpuJeSgrK1
+X-Received: by 2002:a05:6808:2013:20b0:479:ae1d:fff7 with SMTP id 5614622812f47-479ae1e08e2mr12603387b6e.4.1777220903677;
+        Sun, 26 Apr 2026 09:28:23 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:81f8:ef7d:a711:d99a? ([2600:8803:e7e4:500:81f8:ef7d:a711:d99a])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4799feaabf2sm19106674b6e.4.2026.04.26.09.28.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 26 Apr 2026 09:28:22 -0700 (PDT)
+Message-ID: <78aa1551-2dc6-432d-9d44-ecef0198e1d3@baylibre.com>
+Date: Sun, 26 Apr 2026 11:28:21 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,70 +69,43 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 0/3] riscv: canaan: Add support for K230 clock
-To: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Conor Dooley <conor@kernel.org>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- Samuel Holland <samuel.holland@sifive.com>,
- Troy Mitchell <TroyMitchell988@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260425-b4-k230-clk-v12-0-7d5ced1f5da8@zohomail.com>
-From: Xukai Wang <kingxukai@zohomail.com>
+Subject: Re: [PATCH v3 1/3] dt-bindings: iio: adc: avia-hx711: add avia,hx710b
+ compatible
+To: Piyush Patle <piyushpatle228@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>, Andreas Klinger <ak@it-klinger.de>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260422175910.1258579-1-piyushpatle228@gmail.com>
+ <20260422175910.1258579-2-piyushpatle228@gmail.com>
 Content-Language: en-US
-In-Reply-To: <20260425-b4-k230-clk-v12-0-7d5ced1f5da8@zohomail.com>
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260422175910.1258579-2-piyushpatle228@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Feedback-ID: zu08011227bfa9a87d9c06a1670fe9c154000061a6e6a4751e0fd6b41258f8d3cd1069e437580c845e8cc2fc:ZohoMail
-X-Zoho-CM-AccountID: 2ee5dd3c83366259b2ba1e9826250ffebed1ef2dd213857d649ad25aba73b429
-X-ZohoMailClient: External
 
-
-On 2026/4/25 17:29, Xukai Wang wrote:
-> This patch series adds clock controller support for the Canaan Kendryte
-> K230 SoC. The K230 SoC includes an external 24MHz OSC, 4 internal
-> PLLs and an external pulse input, with the controller managing these
-> sources and their derived clocks.
->
-> The clock tree and hardware-specific definition can be found in the
-> vendor's DTS [1],
-> and this series is based on the K230 initial series [2].
->
-> Link: https://github.com/ruyisdk/linux-xuantie-kernel/blob/linux-6.6.36/arch/riscv/boot/dts/canaan/k230_clock_provider.dtsi [1]
-> Link: https://lore.kernel.org/linux-clk/tencent_F76EB8D731C521C18D5D7C4F8229DAA58E08@qq.com/ [2]
->
-> Co-developed-by: Troy Mitchell <TroyMitchell988@gmail.com>
-> Signed-off-by: Troy Mitchell <TroyMitchell988@gmail.com>
-> Signed-off-by: Xukai Wang <kingxukai@zohomail.com>
->
+On 4/22/26 12:59 PM, Piyush Patle wrote:
+> The HX710B shares the same two-wire interface as the HX711 but differs
+> in its channel and gain model: gain is fixed at 128 and the number of
+> trailing PD_SCK pulses selects the input channel rather than the gain.
+> 
+> Add avia,hx710b to the compatible enum. Document the chip differences
+> in the description and add chip-specific supply properties (dvdd-supply,
+> vsup-supply) for the HX711, a rate-gpios property for the HX711 RATE
+> pin, and an allOf constraint that forbids HX711-only properties on
+> HX710B nodes. Clarify the clock-frequency description to reflect its
+> actual purpose: controlling the SCK bit-bang timing.
+> 
+> Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
 > ---
-> Changes in v12:
-> - Rebase onto linux-next (next-20260421).
-> - Migrate from deprecated round_rate() clk_ops to determine_rate() API.
-> - dt-bindings: Drop redundant "bindings for" in commit subject.
-> - Link to v11: https://lore.kernel.org/r/20260214-b4-k230-clk-v11-0-6de365489b89@zohomail.com
-Hi Stephen,
+> Changes in v3:
+> - Drop the vref-supply mention from avdd-supply; no such binding
+>   property exists.
 
-I hope this email finds you well. I am writing to politely inquire about
-the status of the Canaan K230 clock controller driver patch series.
+Why is there no vref-supply? 
 
-It has been approximately one and a half years since I first submitted
-this series, and it has now reached version 12. Most of the intermediate
-versions contained only minor adjustments and rebases, and I have been
-resending it periodically without receiving any review feedback.
-
-I would greatly appreciate it if you could let me know whether this
-series is ready for merging, or if there are any specific issues that
-need to be addressed. I am ready to make any required changes immediately.
-
-I apologize for the intrusion and thank you for your time and hard work
-maintaining the clock subsystem.
-
--- 
-Best regards,
-Xukai Wang
+HX710B has a VREF pin for a reference voltage input.
 
