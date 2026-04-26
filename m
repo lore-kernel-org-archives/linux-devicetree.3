@@ -1,308 +1,142 @@
-Received: from mail-m49224.qiye.163.com (mail-m49224.qiye.163.com [45.254.49.224])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E0F19E819;
-	Sun, 26 Apr 2026 08:46:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.224
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4622DA768;
+	Sun, 26 Apr 2026 09:55:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777193200; cv=none; b=PYhHTJFhP/2muvCLH8Sw02QLvBCwO4vmod391gajuZt63paxqmmJqyHQE/VKcY5Lm2/52tK+pAx2Uurn2BVDD5eNRLe6TFLA1rG5M3rHtmGRORWy/tdaE48yodVmAbQDSR6Tz1kqbE5LPRmHQyWcpqMbOKiK7pjmKyklseE1rwo=
+	t=1777197328; cv=none; b=YkmUrGMkZXr4AtWrtX1efI2d/pwHMScQvA+CKSD3dDEcttAaNNBSpLt5redeNRpIrF7tZUmYW13ACrnJqq1t9tN5R3aVuEdoquLKqFZXQOrYqp7ltJ+KYoZkDc/yVY3iBKW1CBMP/ENtmgcLv7ILj27FZzHV/JD7foB481382kI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777193200; c=relaxed/simple;
-	bh=L2lmvLBo7kwQqnoKMMibhJ38HixexXwMyjLfJZAqF+M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fEg8bYmDAlkofuEvjicocq/FIaiybeQRVRrR3uaw4aBPX8xiTPuS9C3QMVYh7BNFoI4uL50p3Y+N1ArVKanN8mbMvUPIM6gFSGNLRDyQUXMRTINgup7K6gTcnrWXw495jie07t9QMF1VGUNwzGmLPK+WyNqdKtdZ+Q3xECxGbpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=IbFrEF5A; arc=none smtp.client-ip=45.254.49.224
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1777197328; c=relaxed/simple;
+	bh=/j2U8GHgnU3IUfAQqLUXZNxR7oh2Ut6KIWp2xiiUyCg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uY2Xz3a8q7DyY0CZDEo8rKbj4+QAIwnnOzmQrQYCVo+Tzlmfv8cdBwSpH+BC0U5t+LAFm9Cj1KbTTDxnEVlN2BjACTF29OkXDgaCR562lhudh63X4H/sOU6CS9fQv3Y6Qyv7F3yFSx29pOzzKgFMZ91REAhc8imHOmy3xrKfzBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=m/RnLxP8; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="IbFrEF5A"
-Received: from [172.16.12.43] (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3c2a404a3;
-	Sun, 26 Apr 2026 15:30:35 +0800 (GMT+08:00)
-Message-ID: <7e55f270-5422-4696-987d-e2a2ab16240b@rock-chips.com>
-Date: Sun, 26 Apr 2026 15:30:35 +0800
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="m/RnLxP8"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=gV5QBlTsgLILU6JSw4kpZ5JoHyOHW2i+WmDaIwIjC9Q=; b=m/RnLxP8B4FG5gPj38wYUIyKCA
+	CC9/YsFqeiKmTnfNyo7aW4aoT4sLU56ys9nX+rf3mmRGcIk95Zmoj7uIITMPpqNZYNasOQR3JINNa
+	oA1x4aBNMQ5de6+rzVQYTtYpttYYN5AtwRuOJRzBGhhYZ+FORvC0OBhC9uN9J9aScekucU3ilfD9x
+	AASX62TJqQ89SmONeYN2mK/FmwomBNMVo6Lamdpz0JOLIGnEuQEVnyouxtcPYWcZZL3gPW8+oYaT2
+	SrwklFlVqsgB0qJgBWw4wKal98Mpm+EG7Qv2fJPMwDIFS3sXUZ3Q+bc8+uHmsWTQQSXDs95H/WPQ1
+	frCIgW1g==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Dennis Gilmore <dennis@ausil.us>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, Alexey Charkov <alchark@gmail.com>,
+ devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH v8 3/6] drm/bridge: simple: Add the Lontium LT8711UXD DP-to-HDMI
+ bridge
+Date: Sun, 26 Apr 2026 11:54:57 +0200
+Message-ID: <6519122.LvFx2qVVIh@phil>
+In-Reply-To: <20260425234845.GC2964234@killaraus.ideasonboard.com>
+References:
+ <20260425031011.2529364-1-dennis@ausil.us>
+ <ur7mow4lw47ylxj3uigwwasrfywe6n42zb2to7ygeyjlkcgfkf@guzkembyy5hc>
+ <20260425234845.GC2964234@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/6] arm64: dts: rockchip: add PWM nodes to RK3576 SoC
- dtsi
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Lee Jones <lee@kernel.org>, William Breathitt Gray <wbg@kernel.org>
-Cc: kernel@collabora.com, Jonas Karlman <jonas@kwiboo.se>,
- Alexey Charkov <alchark@gmail.com>, linux-rockchip@lists.infradead.org,
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org
-References: <20260420-rk3576-pwm-v5-0-ae7cfbbe5427@collabora.com>
- <20260420-rk3576-pwm-v5-5-ae7cfbbe5427@collabora.com>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260420-rk3576-pwm-v5-5-ae7cfbbe5427@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9dc8b282f103a3kunm5e5a610713ec55
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGUIdH1ZIGUlJQ0pPSx
-	8dQh9WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=IbFrEF5AZwgTn9ILKm7PdjZuml/51hPqi9yF563W+xC4TVPGo4y99OxqEX1Wj8x7+IPz6bTT46VYGLM/kXqYcO94cJ3wBGZC+kPSmMjJj1pQuka2tuZf0pWSwRRgjIlXUSjZgIzhsWZhvL66UGkXrQI9oNIAm+fa3tg0gtFiq2k=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=cvKBY+c+iYjGsEpoYL9NRwD1uu5gqclMVNxmGMDvE7c=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Hi Nicolas,
+Am Sonntag, 26. April 2026, 01:48:45 Mitteleurop=C3=A4ische Sommerzeit schr=
+ieb Laurent Pinchart:
+> On Sun, Apr 26, 2026 at 12:44:59AM +0300, Dmitry Baryshkov wrote:
+> > On Sat, Apr 25, 2026 at 01:10:02PM -0500, Dennis Gilmore wrote:
+> > > On Sat, Apr 25, 2026 at 9:24=E2=80=AFAM Dmitry Baryshkov wrote:
+> > > > On Sat, Apr 25, 2026 at 02:28:44PM +0300, Laurent Pinchart wrote:
+> > > > > Hi Dennis,
+> > > > >
+> > > > > Thank you for the patch.
+> > > > >
+> > > > > On Fri, Apr 24, 2026 at 10:10:08PM -0500, Dennis Gilmore wrote:
+> > > > > > The Lontium LT8711UXD is a high performance two lane Type-C/DP1=
+=2E4
+> > > > > > to HDMI2.0 converter, designed to connect a USB Type-C source or
+> > > > > > a DP1.4 source to an HDMI2.0 sink.
+> > > > >
+> > > > > As far as I can tell, the LT8711UXD has an I2C control interface.
+> > > > > Shouldn't it be an I2C device ?
+> > > >
+> > > > From the datasheet:
+> > > >
+> > > > The device is capable of automatic operation which is
+> > > > enabled by an integrated microprocessor that uses an
+> > > > embedded SPI flash for firmware storage. System control
+> > > > is also available through the use of a dedicated
+> > > > configuration I2C slave interface.
+> > > >
+> > > > My guess was that it can either be an I2C device or it can function=
+ as a
+> > > > simple platdev with no I2C controls. Please correct me if my
+> > > > understanding was wrong.
+> > > >
+> > > > But now looking at the schematics, it seems to be connected to I2C6.
+> > > > Which means that it should be desribed (and bound) as such.
+> > >=20
+> > > Hi Dmitry and Laurent,
+> > >=20
+> > > While the schematic shows that it can use I2C and has been wired up,
+> > > it also shows that both MODE_SEL and I2C_ADDR have unpopulated 10k
+> > > resistors; as a result, MODE_SEL is connected directly to GND,
 
-On 4/20/2026 9:52 PM, Nicolas Frattaroli wrote:
-> The RK3576 SoC features three distinct PWM controllers, with variable
-> numbers of channels. Add each channel as a separate node to the SoC's
-> device tree, as they don't really overlap in register ranges.
-> 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
->   arch/arm64/boot/dts/rockchip/rk3576.dtsi | 208 +++++++++++++++++++++++++++++++
->   1 file changed, 208 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-> index e12a2a0cfb89..55d6b103c329 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-> @@ -1032,6 +1032,32 @@ uart1: serial@27310000 {
->   			status = "disabled";
->   		};
->   
-> +		pwm0_2ch_0: pwm@27330000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x27330000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PMU1PWM>, <&cru PCLK_PMU1PWM>,
-> +				 <&cru CLK_PMU1PWM_OSC>, <&cru CLK_PMU1PWM_RC>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm0m0_ch0>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
-> +		pwm0_2ch_1: pwm@27331000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x27331000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PMU1PWM>, <&cru PCLK_PMU1PWM>,
-> +				 <&cru CLK_PMU1PWM_OSC>, <&cru CLK_PMU1PWM_RC>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm0m0_ch1>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
->   		pmu: power-management@27380000 {
->   			compatible = "rockchip,rk3576-pmu", "syscon", "simple-mfd";
->   			reg = <0x0 0x27380000 0x0 0x800>;
-> @@ -2630,6 +2656,188 @@ uart9: serial@2adc0000 {
->   			status = "disabled";
->   		};
->   
-> +		pwm1_6ch_0: pwm@2add0000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x2add0000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PWM1>, <&cru PCLK_PWM1>,
-> +				 <&cru CLK_OSC_PWM1>, <&cru CLK_RC_PWM1>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm1m0_ch0>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
-> +		pwm1_6ch_1: pwm@2add1000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x2add1000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PWM1>, <&cru PCLK_PWM1>,
-> +				 <&cru CLK_OSC_PWM1>, <&cru CLK_RC_PWM1>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm1m0_ch1>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
-> +		pwm1_6ch_2: pwm@2add2000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x2add2000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PWM1>, <&cru PCLK_PWM1>,
-> +				 <&cru CLK_OSC_PWM1>, <&cru CLK_RC_PWM1>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 104 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm1m0_ch2>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
-> +		pwm1_6ch_3: pwm@2add3000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x2add3000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PWM1>, <&cru PCLK_PWM1>,
-> +				 <&cru CLK_OSC_PWM1>, <&cru CLK_RC_PWM1>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 105 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm1m0_ch3>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
-> +		pwm1_6ch_4: pwm@2add4000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x2add4000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PWM1>, <&cru PCLK_PWM1>,
-> +				 <&cru CLK_OSC_PWM1>, <&cru CLK_RC_PWM1>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 106 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm1m0_ch4>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
-> +		pwm1_6ch_5: pwm@2add5000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x2add5000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PWM1>, <&cru PCLK_PWM1>,
-> +				 <&cru CLK_OSC_PWM1>, <&cru CLK_RC_PWM1>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 107 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm1m0_ch5>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
-> +		pwm2_8ch_0: pwm@2ade0000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x2ade0000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
-> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 108 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm2m0_ch0>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
-> +		pwm2_8ch_1: pwm@2ade1000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x2ade1000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
-> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 109 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm2m0_ch1>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
-> +		pwm2_8ch_2: pwm@2ade2000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x2ade2000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
-> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm2m0_ch2>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
-> +		pwm2_8ch_3: pwm@2ade3000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x2ade3000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
-> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm2m0_ch3>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
-> +		pwm2_8ch_4: pwm@2ade4000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x2ade4000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
-> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 112 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm2m0_ch4>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
-> +		pwm2_8ch_5: pwm@2ade5000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x2ade5000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
-> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 113 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm2m0_ch5>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
-> +		pwm2_8ch_6: pwm@2ade6000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x2ade6000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
-> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm2m0_ch6>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
-> +		pwm2_8ch_7: pwm@2ade7000 {
-> +			compatible = "rockchip,rk3576-pwm";
-> +			reg = <0x0 0x2ade7000 0x0 0x1000>;
-> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
-> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
-> +			clock-names = "pwm", "pclk", "osc", "rc";
-> +			interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&pwm2m0_ch7>;
-> +			#pwm-cells = <3>;
-> +			status = "disabled";
-> +		};
-> +
->   		saradc: adc@2ae00000 {
->   			compatible = "rockchip,rk3576-saradc", "rockchip,rk3588-saradc";
->   			reg = <0x0 0x2ae00000 0x0 0x10000>;
-> 
+looking at the schematics linked in the board patch, I somehow see
+both R9 (mode_sel -> vcc3v3_io) but also R17 (mode_sel -> gnd) marked
+as 10K.nc ?
 
-According to the RK3576 TRM, the register base address, clocks and 
-interrupt configuration of the PWM node are all correct
 
-Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
+> > > putting
+> > > the bridge in autonomous mode. I confirmed this by running `i2cdetect
+> > > -r -y 6`, with the only device on the bus being the HYM8563 RTC at
+> > > 0x51. Without reworking the board, the device is not directly
+> > > controllable and just runs autonomously.
+> >=20
+> > I think it would be nice to mention:
+> > - In the commit for the bindings, that the device can be running
+> >   uncontrolled or it can be attached over I2C, bindings describe the
+> >   uncontrolled mode.
+> > - In this commit message, the same.
+> > - In the commit message for the board DT mention your findings about the
+> >   board, mention soldering R9 or R17 (which one?) and R27.
+>=20
+> Additionally, how are we going to handle boards where the device
+> operates in I2C mode ? Will we use a different compatible string (maybe
+> "lontium,lt8711uxd-i2c") ? If DT maintainers are fine with that, I have
+> no objection to this patch.
 
-Best regards,
-Damon
+I would assume it'd be more the dt-maintainers objecting?
+I.e. the two different bindings for the same hardware and leaking Linux
+implementation-specifics into the binding.
+
+I'm don't have deep insight into the i2c framework, but I guess the i2c
+device probe does not need to talk to an i2c device due to resources
+needing setup. Does the i2c core need to talk to the device at all?
+
+Because otherwise, you could just do a regular i2c device (the routing
+for everything is there afterall), add a lontium,automatic-mode; flag
+to the node to denote mode.
+
+And if for whatever reason a variant appears with the lines connected
+you can just modifiy the DT via an overlay?
+
+
+Heiko
+
 
