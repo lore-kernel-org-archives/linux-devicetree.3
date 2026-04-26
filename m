@@ -1,158 +1,194 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3ACA191;
-	Sun, 26 Apr 2026 13:27:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5396B34677D;
+	Sun, 26 Apr 2026 13:59:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777210046; cv=none; b=j6YD1W6EvSn3xdoNBfrJN0UpgpUMrbA1rqSODQMs7mvncKzOc97W+sLlG3xJrSEWkY77p1a9qteL50yxnpa2C5lZykTUVfGz7wO7u15D0GFD1uoAvce5f0cfP6PujXDhk5IqYb6qYA3v2nU7nIcxjpqHBVEWXpL+n1YJqnAaVWc=
+	t=1777211964; cv=none; b=fmXEkAV5AuObe3rR75yWZhDDxUw78F94NoV82EQd8GwWNjeWIZXYo0/iMSgCohV3ilztIGUgGjepALGGDM53x/jCRTnRfvjmdjBJTT7PBOBZtnoe1gTQVhQzJn4lv1xUKiHoCVERbXf8yO1Dq7TDFmCgWYL3i2LcvK5WZK+KCoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777210046; c=relaxed/simple;
-	bh=AImdYVRVxu5KDaS0wYHMilfThx6b/J7M7IYbo4FUIic=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LSTq4Yu/T58dgJ2MajQHFkQOPvqG2gbY/iJhuhaqBvOqIyaVsA2L6Vh3lQuNFiYPXXcCzlMe8svw6DX5Jny8A+YOD2sJk9tZgS0Kfp8I9bH87/ZI2NnnKNVGBD4uWAIiBAYy/qKYXUsOr49VfAGdLHRIUtHFkOozW6RwGc1LnVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=V4Lgyvz+; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1777211964; c=relaxed/simple;
+	bh=psjHpO3qaHhZHbh8NOXMhopQx2RB+XiGJCoc+eUoEPI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s8T+3WPqK4FjpFYTh2sxkCzERaWyGAFRmBQXCU5i8EBTutIjkA1E8ZpkCspcscJfLwSPoK273N7+BNWIWjrdd8XMGoXQ9q/0DTdTKV6b2CbxBD9TAmvvaPWeGDksQR4/+S2VHBZtUJv/RKSGZ02qor9xxOu85smNC3ZYPtni5Iw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=hendrik-noack@gmx.de header.b=FSVZjFmX; arc=none smtp.client-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="V4Lgyvz+"
-Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 36BCF6A6;
-	Sun, 26 Apr 2026 15:25:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1777209939;
-	bh=AImdYVRVxu5KDaS0wYHMilfThx6b/J7M7IYbo4FUIic=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=V4Lgyvz+LZ/B8NucZ0Tq9FVaEOSNosKAzOGtypyt0aopXlHtPJ5LgFoqccCr2/Ebk
-	 05wMugBV4SQYdxtJ4jryIdOh5QNeSC5BhErZRAvpDAdYVz6v5ePwa04f6HAA2YihYf
-	 t2MstkfWay9RaYZcKTRJ2Jf64UeuJlD0IavR7VGU=
-Date: Sun, 26 Apr 2026 16:27:19 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Dennis Gilmore <dennis@ausil.us>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=hendrik-noack@gmx.de header.b="FSVZjFmX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1777211960; x=1777816760; i=hendrik-noack@gmx.de;
+	bh=PRdFGqtl2GihYY24KMvFfz94uBnoMK1MROt4yVCQKzs=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=FSVZjFmX5IwzlWqUV1ZCcVySqqM7OojgKkTRVyXoi8wg8DdvK66eifl82U9AXK/9
+	 ziu2DLyflRYcAd/8dIdcyZWZup9r+VLZNjRqxMfxLHrLXqANp+ziwciAj/4JyMR2B
+	 NlYJTfpur4LUP3AsfUZFNcfj/CvOlNfyhblXDFbWCRLylwu+doeLJClYlSbVfCsMV
+	 /hzZEeoo3kMYbBtS+3flTJi1Jh3/YnYuaU0wsYmJp+e4NKZeKwfs/r0AzH5e8EmL8
+	 dZUieJ1FsumkLsFgS6JBUxlAitmxAjBAFcxUBfQF7FrUtg3m/LjIj4UqnPVyX45Tt
+	 YdQ+yMVt2eJOMH0pDg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1N3siG-1vHe1I0cwy-00yGWk; Sun, 26
+ Apr 2026 15:59:20 +0200
+From: Hendrik Noack <hendrik-noack@gmx.de>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Alexey Charkov <alchark@gmail.com>, devicetree@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 3/6] drm/bridge: simple: Add the Lontium LT8711UXD
- DP-to-HDMI bridge
-Message-ID: <20260426132719.GD2964234@killaraus.ideasonboard.com>
-References: <20260425031011.2529364-1-dennis@ausil.us>
- <ur7mow4lw47ylxj3uigwwasrfywe6n42zb2to7ygeyjlkcgfkf@guzkembyy5hc>
- <20260425234845.GC2964234@killaraus.ideasonboard.com>
- <6519122.LvFx2qVVIh@phil>
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Hendrik Noack <hendrik-noack@gmx.de>,
+	Ferass El Hafidi <funderscore@postmarketos.org>,
+	linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 0/2] Add support for Wacom W9000-series penabled touchscreens
+Date: Sun, 26 Apr 2026 15:52:30 +0200
+Message-ID: <20260426135232.371272-1-hendrik-noack@gmx.de>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6519122.LvFx2qVVIh@phil>
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:i1Z1T7ljQ3AUsVQBFXiDh02RZ0Vz2YFL+HBm85U9Uyp/lPg4B+6
+ 3D0LYXVqp+9O5Kqd/wWfYhUwSz9Pg7LqSzt8Yco3/J7Jg3CUFvL4jZgUKYLnxRE6POVVQZU
+ 3fZQJ6JHyxjoWmk4ar54Td9+AwvadKRW7pbsmSjhU16myLzaG22oZym+kLQrG7dxAjRTHQE
+ nqLIN+TXiy1VkBfZWxoOQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:NHCd3rsJW0E=;qpXGdBbkqjXQsoU/wHCEacvlZep
+ 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
+ kYPfdLhwGabe0WFs2YXMiGZf/jOyDxy8WbE4=
 
-On Sun, Apr 26, 2026 at 11:54:57AM +0200, Heiko Stuebner wrote:
-> Am Sonntag, 26. April 2026, 01:48:45 Mitteleuropäische Sommerzeit schrieb Laurent Pinchart:
-> > On Sun, Apr 26, 2026 at 12:44:59AM +0300, Dmitry Baryshkov wrote:
-> > > On Sat, Apr 25, 2026 at 01:10:02PM -0500, Dennis Gilmore wrote:
-> > > > On Sat, Apr 25, 2026 at 9:24 AM Dmitry Baryshkov wrote:
-> > > > > On Sat, Apr 25, 2026 at 02:28:44PM +0300, Laurent Pinchart wrote:
-> > > > > > Hi Dennis,
-> > > > > >
-> > > > > > Thank you for the patch.
-> > > > > >
-> > > > > > On Fri, Apr 24, 2026 at 10:10:08PM -0500, Dennis Gilmore wrote:
-> > > > > > > The Lontium LT8711UXD is a high performance two lane Type-C/DP1.4
-> > > > > > > to HDMI2.0 converter, designed to connect a USB Type-C source or
-> > > > > > > a DP1.4 source to an HDMI2.0 sink.
-> > > > > >
-> > > > > > As far as I can tell, the LT8711UXD has an I2C control interface.
-> > > > > > Shouldn't it be an I2C device ?
-> > > > >
-> > > > > From the datasheet:
-> > > > >
-> > > > > The device is capable of automatic operation which is
-> > > > > enabled by an integrated microprocessor that uses an
-> > > > > embedded SPI flash for firmware storage. System control
-> > > > > is also available through the use of a dedicated
-> > > > > configuration I2C slave interface.
-> > > > >
-> > > > > My guess was that it can either be an I2C device or it can function as a
-> > > > > simple platdev with no I2C controls. Please correct me if my
-> > > > > understanding was wrong.
-> > > > >
-> > > > > But now looking at the schematics, it seems to be connected to I2C6.
-> > > > > Which means that it should be desribed (and bound) as such.
-> > > > 
-> > > > Hi Dmitry and Laurent,
-> > > > 
-> > > > While the schematic shows that it can use I2C and has been wired up,
-> > > > it also shows that both MODE_SEL and I2C_ADDR have unpopulated 10k
-> > > > resistors; as a result, MODE_SEL is connected directly to GND,
-> 
-> looking at the schematics linked in the board patch, I somehow see
-> both R9 (mode_sel -> vcc3v3_io) but also R17 (mode_sel -> gnd) marked
-> as 10K.nc ?
-> 
-> > > > putting
-> > > > the bridge in autonomous mode. I confirmed this by running `i2cdetect
-> > > > -r -y 6`, with the only device on the bus being the HYM8563 RTC at
-> > > > 0x51. Without reworking the board, the device is not directly
-> > > > controllable and just runs autonomously.
-> > > 
-> > > I think it would be nice to mention:
-> > > - In the commit for the bindings, that the device can be running
-> > >   uncontrolled or it can be attached over I2C, bindings describe the
-> > >   uncontrolled mode.
-> > > - In this commit message, the same.
-> > > - In the commit message for the board DT mention your findings about the
-> > >   board, mention soldering R9 or R17 (which one?) and R27.
-> > 
-> > Additionally, how are we going to handle boards where the device
-> > operates in I2C mode ? Will we use a different compatible string (maybe
-> > "lontium,lt8711uxd-i2c") ? If DT maintainers are fine with that, I have
-> > no objection to this patch.
-> 
-> I would assume it'd be more the dt-maintainers objecting?
+Add devicetree bindings and a driver for the Wacom W9000-series penabled
+touchscreens.
 
-Yes, probably :-) My main concern here is making sure we're not
-cornering ourselves.
+The driver currently only contains the information for the W9002 and
+W9007A, which I or Ferass could test on devices. It should also work with
+other chips, such as W9001 or W9010. However, I couldn't test it on these
+and the message length would need to be added.
 
-> I.e. the two different bindings for the same hardware and leaking Linux
-> implementation-specifics into the binding.
-> 
-> I'm don't have deep insight into the i2c framework, but I guess the i2c
-> device probe does not need to talk to an i2c device due to resources
-> needing setup. Does the i2c core need to talk to the device at all?
-> 
-> Because otherwise, you could just do a regular i2c device (the routing
-> for everything is there afterall), add a lontium,automatic-mode; flag
-> to the node to denote mode.
+Signed-off-by: Hendrik Noack <hendrik-noack@gmx.de>
+=2D--
+Changes in v2:
+- remove pdct-gpios, as it's unnecessary
+- fix devicetree example
+- adopt to kernel coding style
 
-That would work in this case, but if we have a board where the I2C lines
-are really not routed, we would have to invent a fake connection to an
-I2C controller. That's not very nice.
+=2D--
+Changes in v3:
+- fix missing include (thanks lkp@intel.com)
 
-There seem to be precedents for devices that can be controlled through
-either I2C or SPI. See for instance
-Documentation/devicetree/bindings/net/nfc/st,st-nci.yaml that defines
-two compatible strings for the same device, "st,st21nfcb-i2c" and
-"st,st21nfcb-spi". I don't know if that's the best practice recommended
-by the DT maintainers, or a hack that slipped through.
+=2D--
+Changes in v4:
+- adopt to feedback (thanks dmitry.torokhov@gmail.com)
+- add W9002 support (thanks funderscore@postmarketos.org)
+- add reset-gpios, necessary for some chips
+- remove R-b from krzk due to changes in dt-bindings
 
-> And if for whatever reason a variant appears with the lines connected
-> you can just modifiy the DT via an overlay?
+=2D--
+Changes in v5:
+- adopt dt-bindings format to suggestion (thanks krzk@kernel.org)
+- remove pen-inserted functionality as suggested (thanks dmitry.torokhov@g=
+mail.com)
 
--- 
-Regards,
+=2D--
+Changes in v6:
+- add info on difference between variants
+- add A-b from conor
+- add warning for out of range pressure
 
-Laurent Pinchart
+=2D--
+Hendrik Noack (2):
+  dt-bindings: Input: Add Wacom W9000-series penabled touchscreens
+  Input: Add support for Wacom W9000-series penabled touchscreens
+
+ .../input/touchscreen/wacom,w9007a-lt03.yaml  |  73 +++
+ drivers/input/touchscreen/Kconfig             |  12 +
+ drivers/input/touchscreen/Makefile            |   1 +
+ drivers/input/touchscreen/wacom_w9000.c       | 438 ++++++++++++++++++
+ 4 files changed, 524 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/touchscreen/wa=
+com,w9007a-lt03.yaml
+ create mode 100644 drivers/input/touchscreen/wacom_w9000.c
+
+=2D-=20
+2.43.0
+
