@@ -1,112 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B3B361DCA;
-	Sun, 26 Apr 2026 13:24:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3ACA191;
+	Sun, 26 Apr 2026 13:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777209884; cv=none; b=EZ2Y+nSCJU+ZyIgCAFiAlflHy7DfcDPoKBm+0AW8a2NWMt7YjEWLTY9Neb208Qcg1SGafd7YzLxlMDVlQOmiH+VNC4ELSujFR6ok8LD8xpZvxIjtCyP7ApsMjaNOyDem3C81jDkghJ+O0Cf/KW4kiVefvzguDFmGPbGyCrayHeY=
+	t=1777210046; cv=none; b=j6YD1W6EvSn3xdoNBfrJN0UpgpUMrbA1rqSODQMs7mvncKzOc97W+sLlG3xJrSEWkY77p1a9qteL50yxnpa2C5lZykTUVfGz7wO7u15D0GFD1uoAvce5f0cfP6PujXDhk5IqYb6qYA3v2nU7nIcxjpqHBVEWXpL+n1YJqnAaVWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777209884; c=relaxed/simple;
-	bh=nFBOyJnmtVWgeJ1x8PETIvoT2Rkk0GN/0bvqZOX2iMk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dR56wX+pdhxYT0Tx3z3cc2ivkWAfdYg3GCPCul16boVUortcykfqztU7ux8iXDzzmU+NlJQHCM2pXBJnI/xz4kKyDO3/uJG7frPY6U8J9GPrI/VNG/m0ErFNAWaWbOp8cd87lmKIiolHndqMy4J31QVNo7Q6Iq27jRWoTitUeFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UfJ1650U; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777210046; c=relaxed/simple;
+	bh=AImdYVRVxu5KDaS0wYHMilfThx6b/J7M7IYbo4FUIic=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LSTq4Yu/T58dgJ2MajQHFkQOPvqG2gbY/iJhuhaqBvOqIyaVsA2L6Vh3lQuNFiYPXXcCzlMe8svw6DX5Jny8A+YOD2sJk9tZgS0Kfp8I9bH87/ZI2NnnKNVGBD4uWAIiBAYy/qKYXUsOr49VfAGdLHRIUtHFkOozW6RwGc1LnVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=V4Lgyvz+; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UfJ1650U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4C5DC2BCAF;
-	Sun, 26 Apr 2026 13:24:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777209884;
-	bh=nFBOyJnmtVWgeJ1x8PETIvoT2Rkk0GN/0bvqZOX2iMk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=UfJ1650Ubn22q1FmfUfZ6Kq16AzHRVqpeFHwyiw4KlNJd1aC8tlrUVb1UU0AX4Lh8
-	 CzP1wfVCyDUPL883vRf5BDMQEchWBFIpb0hD0db4K3tVq4rt9WUwm/H6Gu1vr7Rp9x
-	 hlA89oO7ZgbmCtm/w9LYYrmqehKvWa9LCCAKVwtFh4ELhWP5Oq5/gIZO3Huojzp7+O
-	 Lww2okFjdkDHwSncYxl10+GCObKCpSt6mvqDTT3YeP7uT13aI7GJQJs3Aqnlzon5+J
-	 QwQNs2FS+NvF2ggLSGfgLQMSwnBilQuSfkZ7/Fl8XPJGO1L5u4L3abnW2qV4fNV8nj
-	 RYb2me4wZvJ8Q==
-Date: Sun, 26 Apr 2026 14:24:34 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Antony Kurniawan Soemardi <linux@smankusors.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
- <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
- phone-devel@vger.kernel.org, Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v4 0/4] iio: adc: qcom-pm8xxx-xoadc: add support for
- reading channel labels from DT
-Message-ID: <20260426142434.08412f47@jic23-huawei>
-In-Reply-To: <20260426142137.61072daf@jic23-huawei>
-References: <20260426-pm8xxx-xoadc-label-v4-0-0ec782362615@smankusors.com>
-	<20260426142137.61072daf@jic23-huawei>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="V4Lgyvz+"
+Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 36BCF6A6;
+	Sun, 26 Apr 2026 15:25:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1777209939;
+	bh=AImdYVRVxu5KDaS0wYHMilfThx6b/J7M7IYbo4FUIic=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=V4Lgyvz+LZ/B8NucZ0Tq9FVaEOSNosKAzOGtypyt0aopXlHtPJ5LgFoqccCr2/Ebk
+	 05wMugBV4SQYdxtJ4jryIdOh5QNeSC5BhErZRAvpDAdYVz6v5ePwa04f6HAA2YihYf
+	 t2MstkfWay9RaYZcKTRJ2Jf64UeuJlD0IavR7VGU=
+Date: Sun, 26 Apr 2026 16:27:19 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Dennis Gilmore <dennis@ausil.us>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Alexey Charkov <alchark@gmail.com>, devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 3/6] drm/bridge: simple: Add the Lontium LT8711UXD
+ DP-to-HDMI bridge
+Message-ID: <20260426132719.GD2964234@killaraus.ideasonboard.com>
+References: <20260425031011.2529364-1-dennis@ausil.us>
+ <ur7mow4lw47ylxj3uigwwasrfywe6n42zb2to7ygeyjlkcgfkf@guzkembyy5hc>
+ <20260425234845.GC2964234@killaraus.ideasonboard.com>
+ <6519122.LvFx2qVVIh@phil>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6519122.LvFx2qVVIh@phil>
 
-On Sun, 26 Apr 2026 14:21:37 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+On Sun, Apr 26, 2026 at 11:54:57AM +0200, Heiko Stuebner wrote:
+> Am Sonntag, 26. April 2026, 01:48:45 Mitteleuropäische Sommerzeit schrieb Laurent Pinchart:
+> > On Sun, Apr 26, 2026 at 12:44:59AM +0300, Dmitry Baryshkov wrote:
+> > > On Sat, Apr 25, 2026 at 01:10:02PM -0500, Dennis Gilmore wrote:
+> > > > On Sat, Apr 25, 2026 at 9:24 AM Dmitry Baryshkov wrote:
+> > > > > On Sat, Apr 25, 2026 at 02:28:44PM +0300, Laurent Pinchart wrote:
+> > > > > > Hi Dennis,
+> > > > > >
+> > > > > > Thank you for the patch.
+> > > > > >
+> > > > > > On Fri, Apr 24, 2026 at 10:10:08PM -0500, Dennis Gilmore wrote:
+> > > > > > > The Lontium LT8711UXD is a high performance two lane Type-C/DP1.4
+> > > > > > > to HDMI2.0 converter, designed to connect a USB Type-C source or
+> > > > > > > a DP1.4 source to an HDMI2.0 sink.
+> > > > > >
+> > > > > > As far as I can tell, the LT8711UXD has an I2C control interface.
+> > > > > > Shouldn't it be an I2C device ?
+> > > > >
+> > > > > From the datasheet:
+> > > > >
+> > > > > The device is capable of automatic operation which is
+> > > > > enabled by an integrated microprocessor that uses an
+> > > > > embedded SPI flash for firmware storage. System control
+> > > > > is also available through the use of a dedicated
+> > > > > configuration I2C slave interface.
+> > > > >
+> > > > > My guess was that it can either be an I2C device or it can function as a
+> > > > > simple platdev with no I2C controls. Please correct me if my
+> > > > > understanding was wrong.
+> > > > >
+> > > > > But now looking at the schematics, it seems to be connected to I2C6.
+> > > > > Which means that it should be desribed (and bound) as such.
+> > > > 
+> > > > Hi Dmitry and Laurent,
+> > > > 
+> > > > While the schematic shows that it can use I2C and has been wired up,
+> > > > it also shows that both MODE_SEL and I2C_ADDR have unpopulated 10k
+> > > > resistors; as a result, MODE_SEL is connected directly to GND,
+> 
+> looking at the schematics linked in the board patch, I somehow see
+> both R9 (mode_sel -> vcc3v3_io) but also R17 (mode_sel -> gnd) marked
+> as 10K.nc ?
+> 
+> > > > putting
+> > > > the bridge in autonomous mode. I confirmed this by running `i2cdetect
+> > > > -r -y 6`, with the only device on the bus being the HYM8563 RTC at
+> > > > 0x51. Without reworking the board, the device is not directly
+> > > > controllable and just runs autonomously.
+> > > 
+> > > I think it would be nice to mention:
+> > > - In the commit for the bindings, that the device can be running
+> > >   uncontrolled or it can be attached over I2C, bindings describe the
+> > >   uncontrolled mode.
+> > > - In this commit message, the same.
+> > > - In the commit message for the board DT mention your findings about the
+> > >   board, mention soldering R9 or R17 (which one?) and R27.
+> > 
+> > Additionally, how are we going to handle boards where the device
+> > operates in I2C mode ? Will we use a different compatible string (maybe
+> > "lontium,lt8711uxd-i2c") ? If DT maintainers are fine with that, I have
+> > no objection to this patch.
+> 
+> I would assume it'd be more the dt-maintainers objecting?
 
-> On Sat, 25 Apr 2026 20:39:06 +0000 (UTC)
-> Antony Kurniawan Soemardi <linux@smankusors.com> wrote:
->=20
-> > This series adds support for reading channel labels from the device tree
-> > in the Qualcomm PM8xxx XOADC driver, along with the corresponding DT
-> > updates for the PM8921 PMIC. Also removes the redundant error logs when
-> > reading values, as returning -EINVAL and -ETIMEDOUT are sufficient to
-> > report failures.
-> >=20
-> > This series also includes minor refactors such as remove redundant
-> > error logging and constifying pointers where applicable.
-> >=20
-> > Tested on Sony Xperia SP (PM8921): =20
-> > > cat /sys/bus/iio/devices/iio\:device0/in_voltage7_label   =20
-> > usb_vbus =20
-> > > cat /sys/bus/iio/devices/iio\:device0/in_temp12_label   =20
-> > ref_muxoff =20
-> > > sensors   =20
-> > iio_hwmon-isa-0000
-> > Adapter: ISA adapter
-> > vbat:        267.86 V
-> > dcin:          4.82 kV
-> > ...
-> > chg_temp:    +1071.4=C2=B0C
-> >=20
-> > Note: the sensor readings above are incorrect due to pending calibration
-> > fixes are not included in this series. This patch only addresses label
-> > visibility. The values are expected to be wrong until the calibration
-> > fixes lands separately. =20
->=20
-> > ---
-> > Changes in v4:
-> > - Constify pointers in read operations =20
-> Whilst I can't say I care that much about whether we mark everything we
-> could const, it does no harm.
->=20
-> Applied patches 2-4 to the testing branch of iio.git. I'll rebase that
-> on rc1 once available and push out as togreg which linux-next will pick u=
-p.
->=20
+Yes, probably :-) My main concern here is making sure we're not
+cornering ourselves.
 
-Backed out as this constification results in masses of discarded const
-marking warnings given some of these are passed into core code that
-isn't marked up.  Keep any constifying to stuff that is isolated to this
-driver.
+> I.e. the two different bindings for the same hardware and leaking Linux
+> implementation-specifics into the binding.
+> 
+> I'm don't have deep insight into the i2c framework, but I guess the i2c
+> device probe does not need to talk to an i2c device due to resources
+> needing setup. Does the i2c core need to talk to the device at all?
+> 
+> Because otherwise, you could just do a regular i2c device (the routing
+> for everything is there afterall), add a lontium,automatic-mode; flag
+> to the node to denote mode.
 
-J
-> Thanks,
->=20
-> Jonathan
->=20
+That would work in this case, but if we have a board where the I2C lines
+are really not routed, we would have to invent a fake connection to an
+I2C controller. That's not very nice.
 
+There seem to be precedents for devices that can be controlled through
+either I2C or SPI. See for instance
+Documentation/devicetree/bindings/net/nfc/st,st-nci.yaml that defines
+two compatible strings for the same device, "st,st21nfcb-i2c" and
+"st,st21nfcb-spi". I don't know if that's the best practice recommended
+by the DT maintainers, or a hack that slipped through.
+
+> And if for whatever reason a variant appears with the lines connected
+> you can just modifiy the DT via an overlay?
+
+-- 
+Regards,
+
+Laurent Pinchart
