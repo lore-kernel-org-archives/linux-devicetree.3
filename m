@@ -1,832 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210521DE894;
-	Sun, 26 Apr 2026 11:42:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95796318ED2
+	for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 11:54:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777203758; cv=none; b=c72N0D4ntLXTNG5od3qTwWb6mRlrG3M45CrkaI3dztXvZ0cp+dVj27JLxnlwoW4kETmxnvNYP4wf44YUL0tgKQGOxC2c5F6yfvbgmHAxSLJtUMyHfQVIdqQhQ6PR4W0l4KUYV5QRTAjAojz8nQMYmadZlIejaDIGzSl1olgDZyQ=
+	t=1777204487; cv=none; b=MfGDkuKDvOtIFXqZPUSfO29SXvydO9MwOpFpJG9D5A4EngCE93FObkxvqJJMcHPsD84kHAtDNfQQ3r2cIKOHEJEaE9m4JqowKXMr5Mli9fNBID4rRo+uLHsOzhdlAigxFduWZmgToFrRs6stKWg2SaC1MMso5IlDbaXww+wy+ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777203758; c=relaxed/simple;
-	bh=K/n2PJBYI3jQQZkrg48S/03UUmoG7V16gc/fvI167qM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=L3w8qEvWZEgUD7Qc9O7DN0tnWM14/FYCk0DiSic/emqNjcW0P8MPTw8omElI14gNqOY+EGsAafIh0g/kNC8xadoPHhYDq5U5D/ipFqcDgmPTGKChZeOI5jgSi4zstf+MRdwglypdgzeHXTogtHsrBmRJ1JAG7znCuZ5cLATWZ7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nzb901Oq; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777204487; c=relaxed/simple;
+	bh=177MnobEW4AW8zxVOoT5YiyKBdemluGYegbd8Mp3tz8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nyoJ9OD0OK1DIeSeTdu44UIp/2+IchdV1Caes092WA8jZaqB+XxHxZMl2W88v6xEPRD6ExC27EQfcUliBcyhQr1RjLwwSmZTAiyrzqcbhMN3Uefp63uPehauIH8qUS0+/IxzzOypsYdlFI5yz2QqNQXKGkXuu8LCwNAdl9lTYl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jm69J2k/; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nzb901Oq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC67CC2BCAF;
-	Sun, 26 Apr 2026 11:42:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777203757;
-	bh=K/n2PJBYI3jQQZkrg48S/03UUmoG7V16gc/fvI167qM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Nzb901OqQ4oySmq4Yk7BnUpGfB17eFjiw3ZQrVE/at93/snBXlZwLt6PLBc7Zu0cD
-	 e0BXlBuFwyBNWSL1WW/T5igQns9Dd81wei12RMLRfzMKU95F8rXZ8rmM4PQdJbHw/K
-	 DgTzYiilf5evIgcY/PGmeJzP6IX8404GdNgI049zLM958q6GyJ/UtVkg/+UvL+0rLN
-	 NZOJnqMyScnwzUvfWTbRgTeJ/KV/vy/4R5uY7UovzygG366iAPQDI+T1tjXHg7YzOL
-	 vKc3f3h+Ahi7Fnh6RVaMGn9e4UeBkYEihrq/cS7/RCB+dRKtebBr8xQiabp0ZovIqC
-	 1sElI5+jgqk1Q==
-Date: Sun, 26 Apr 2026 12:42:26 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
- Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
- Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
- R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH RFC v3 2/9] iio: frequency: ad9910: initial driver
- implementation
-Message-ID: <20260426124226.5e21458f@jic23-huawei>
-In-Reply-To: <20260417-ad9910-iio-driver-v3-2-29b93712a228@analog.com>
-References: <20260417-ad9910-iio-driver-v3-0-29b93712a228@analog.com>
-	<20260417-ad9910-iio-driver-v3-2-29b93712a228@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jm69J2k/"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4891e86fabeso97387725e9.1
+        for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 04:54:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777204484; x=1777809284; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Izl2nx9ZI1GiQgBb28dSYIy+N6GwTm8NILzzFVKNNVo=;
+        b=Jm69J2k/bmobPQHrve652/+Gy5PTAYWrtj1HAeMIPSV7oQz1Jk9EI5IdMGBD8zbAZy
+         0dBVx4NhLHJGD/AAJl347tf0ueDyzEZnb9UEamQxd4ynBR+nvlDp3X2GBZCJ4+ugU/em
+         wXB3Tgmpx5ukK1ijcdOl+WGtKAsEXXaC8xCSzLJYIFN9w21z0yiEfw3K9LxcISzVgTqL
+         JV+jRUfal6o4Z/CMEfIlAs/TXLUG7jv3xfhVb8HCLWT7IOC0Y1SeX0+RctjDRQLhOItf
+         I4e+D2lUi9zR5iC8AT6sSZKMrhzHaWEtgNtWInQwwRtMcNRhkQc2gQZReE1M0zsF0jRY
+         lMHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777204484; x=1777809284;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Izl2nx9ZI1GiQgBb28dSYIy+N6GwTm8NILzzFVKNNVo=;
+        b=E3ltl8vXiwffexbJqkCW9ZRDwQaUWfc9hK+NrUsq3/ZUeLcwbWuYR0ajbHYy/yIeyP
+         85UNOoAYIs7V0ciaHSN3ykqZRLkAgW3jMsrygS9/PBJHgKLOCx7JdqPgCI0176csQy1e
+         JI0nJiWGhqUeqVIN3spWjKaLODuk3JH2fm+uy6f5PX27y9yzTHHdPIZmBlUm/iHnl/sk
+         fUK7B8NeOL4Gx8HZtl4jewn/MOX9u6jw1ngFX4hN8/0PcEuHHxdbzNGQHCbClVlQyShZ
+         7z19PWyYoxvla42wawxnQylDHQN3LF6usQa8MKOtphuNbhw95qiUGZGlUxVhCChpHKXd
+         ZZnw==
+X-Forwarded-Encrypted: i=1; AFNElJ+qGDl1NF2S2RyFxI8Y1JuuiM48Sz7gCRmOiBc0v543ir+qPO4AhiinSHpux2gwdm7G9IPjHQm/OUSH@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWMwnygiJqZWKbGzbQ1ld3eODyiEpZLZETfM52olYRZFT1AG8N
+	9f7CZtzxi1JbdvFLhETFhM5hieSGThFhcf8YFClsMtNIAU1YDylLhgey
+X-Gm-Gg: AeBDiesJtgYteL3Hk+btmsVxSsaPsrcMCbiw8tBozKslAiPdoeANUc9jTfjjuVn3J7b
+	7fsnBuC0tsk0pA7lwJiTSTznH0PrGvmBW09dvRR9TKcAWT+urxtVuJxscn2NYFfcf8ol0HMsoSt
+	XX/BaSSa2BnQKcfo4IMmCUiUF6FsMWIJ2r+cayV0fAnm3bgKUKeczywE/aAvn/yCEUMBluKVztk
+	jz1HVp8w7EESqY/OsXVunvNPKZHN55TPTBGCYKLWEliwSwrlLeTAnnILTH8NlIfYAdotc5Tsc1s
+	voRX4lA9fvIetqb6hiVh9O+ZpzXBrfVV5xRiyEqrB4G0sn7hpUjD/Zi3apF54H3sOTxBXdx8RJc
+	K7BjGOGU9vlak3+5zswk5aJn8nU7KNjCCTAJncapeaUGNxP7bbM9BRtjffEgNrh4Olt4RRFLOTa
+	EPTXWcLmJf+PpzNnDE1as6GIIhCUiGrndB7MTQyw7poTjgWXa5uBw=
+X-Received: by 2002:a05:600c:1f83:b0:488:8840:e5ae with SMTP id 5b1f17b1804b1-488fb787afemr547647045e9.24.1777204483792;
+        Sun, 26 Apr 2026 04:54:43 -0700 (PDT)
+Received: from [192.168.0.2] ([197.250.51.46])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4891df9e50asm424018575e9.0.2026.04.26.04.54.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 26 Apr 2026 04:54:43 -0700 (PDT)
+From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+Subject: [PATCH v6 0/6] Add support for ZTE zx297520v3
+Date: Sun, 26 Apr 2026 14:54:13 +0300
+Message-Id: <20260426-send-v6-0-d49efa72bb09@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-
-On Fri, 17 Apr 2026 09:17:31 +0100
-Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> Add the core AD9910 DDS driver infrastructure with single tone mode
-> support. This includes SPI register access, profile management via GPIO
-> pins, PLL/DAC configuration from firmware properties, and single tone
-> frequency/phase/amplitude control through IIO attributes.
-> 
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Hi Rodrigo
-
-Minor stuff inline.  This looks pretty clean on the whole.
-I'll leave ABI discussion for documentation patches.
-
-Thanks,
-
-Jonathan
-
-> diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
-> new file mode 100644
-> index 000000000000..e9005037db1a
-> --- /dev/null
-> +++ b/drivers/iio/frequency/ad9910.c
-...
-
-
-> +struct ad9910_state {
-> +	struct spi_device *spi;
-> +	struct clk *refclk;
-> +
-> +	struct gpio_desc *gpio_pwdown;
-> +	struct gpio_desc *gpio_update;
-> +	struct gpio_descs *gpio_profile;
-> +
-> +	/* cached registers */
-> +	union ad9910_reg reg[AD9910_REG_NUM_CACHED];
-> +
-> +	/* Lock for accessing device registers and state variables */
-> +	struct mutex lock;
-> +
-> +	struct ad9910_data data;
-> +	u8 profile;
-> +
-> +	union {
-> +		__be64 be64;
-> +		__be32 be32;
-> +		__be16 be16;
-> +	} rx_buf;
-By tweaking the macros a little you should be able to use a suitably sized
-__bexx on the stack instead of messing around with a union in here.
-I think that'll end up simpler.
-
-> +	/*
-> +	 * RAM loading requires a reasonable amount of bytes, at the same time
-> +	 * DMA capable SPI drivers requires the transfer buffers to live in
-> +	 * their own cache lines.
-> +	 */
-> +	u8 tx_buf[AD9910_SPI_MESSAGE_LEN_MAX] __aligned(IIO_DMA_MINALIGN);
-> +};
-> +
-> +/**
-> + * ad9910_rational_scale() - Perform scaling of input given a reference.
-> + * @input: The input value to be scaled.
-> + * @scale: The numerator of the scaling factor.
-> + * @reference: The denominator of the scaling factor.
-> + *
-> + * Closest rounding with mul_u64_add_u64_div_u64
-> + *
-> + * Return: The scaled value.
-> + */
-> +#define ad9910_rational_scale(input, scale, reference) ({	\
-> +	u64 _tmp = (reference);					\
-> +	mul_u64_add_u64_div_u64(input, scale, _tmp >> 1, _tmp);	\
-
-Why a macro?  I'd just do a helper function and let the compiler figure
-out if it should inline.
-
-> +})
-> +
-> +static int ad9910_io_update(struct ad9910_state *st)
-> +{
-> +	if (st->gpio_update) {
-> +		gpiod_set_value_cansleep(st->gpio_update, 1);
-> +		udelay(1);
-> +		gpiod_set_value_cansleep(st->gpio_update, 0);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static inline int ad9910_spi_read(struct ad9910_state *st, u8 reg, size_t len)
-> +{
-> +	st->tx_buf[0] = AD9910_SPI_READ_MSK |
-> +			FIELD_PREP(AD9910_SPI_ADDR_MSK, reg);
-
-Given spi_write_then_read() bounces everything might as well use a local u8 on
-the stack for tx.
-
-> +	return spi_write_then_read(st->spi, st->tx_buf, 1, &st->rx_buf, len);
-> +}
-> +
-> +static inline int ad9910_spi_write(struct ad9910_state *st, u8 reg, size_t len,
-> +				   bool update)
-> +{
-> +	int ret;
-> +
-> +	st->tx_buf[0] = FIELD_PREP(AD9910_SPI_ADDR_MSK, reg);
-> +	ret = spi_write(st->spi, st->tx_buf, AD9910_SPI_DATA_IDX + len);
-> +	if (!ret && update)
-> +		return ad9910_io_update(st);
-	if (ret)
-		return ret;
-
-	if (!update)
-		return 0;
-
-	return ad9910_io_update(st);
-
-Takes more lines but easier to follow. Tweak the !update bit to go the 
-other way if that makes more sense once more of this series is applied.
-
-> +
-> +	return ret;
-> +}
-
-> +static int ad9910_set_dac_current(struct ad9910_state *st, bool update)
-> +{
-> +	u32 fsc_code;
-> +
-> +	/* FSC = (86.4 / Rset) * (1 + CODE/256) where Rset = 10k ohms */
-> +	fsc_code = DIV_ROUND_CLOSEST(st->data.dac_output_current, 90) - 96;
-> +	fsc_code &= 0xFFU;
-
-Given it's so small why is the U helpful? It's not going to get sign extended
-anyway (unless I need more coffee).
-
-> +
-> +	return ad9910_reg32_write(st, AD9910_REG_AUX_DAC, fsc_code, update);
-> +}
-> +
-> +static int ad9910_set_sysclk_freq(struct ad9910_state *st, u32 freq_hz,
-> +				  bool update)
-> +{
-> +	u32 sysclk_freq_hz, refclk_freq_hz = clk_get_rate(st->refclk);
-> +	u32 tmp32, vco_sel;
-> +	int ret;
-> +
-> +	if (st->data.pll_enabled) {
-> +		if (refclk_freq_hz < AD9910_PLL_IN_MIN_FREQ_HZ ||
-> +		    refclk_freq_hz > AD9910_PLL_IN_MAX_FREQ_HZ) {
-> +			dev_err(&st->spi->dev,
-
-Use a local struct device as several copies of this in the function.
-
-> +				"REF_CLK frequency %u Hz is out of PLL input range\n",
-> +				refclk_freq_hz);
-> +			return -ERANGE;
-> +		}
-> +
-> +		tmp32 = DIV_ROUND_CLOSEST(freq_hz, refclk_freq_hz);
-> +		tmp32 = clamp(tmp32, AD9910_PLL_MIN_N, AD9910_PLL_MAX_N);
-> +		sysclk_freq_hz = refclk_freq_hz * tmp32;
-> +
-> +		if (sysclk_freq_hz < AD9910_PLL_OUT_MIN_FREQ_HZ ||
-> +		    sysclk_freq_hz > AD9910_PLL_OUT_MAX_FREQ_HZ) {
-> +			dev_err(&st->spi->dev,
-> +				"PLL output frequency %u Hz is out of range\n",
-> +				sysclk_freq_hz);
-> +			return -ERANGE;
-> +		}
-> +
-> +		if (sysclk_freq_hz <= AD9910_VCO0_RANGE_AUTO_MAX_HZ)
-> +			vco_sel = 0;
-> +		else if (sysclk_freq_hz <= AD9910_VCO1_RANGE_AUTO_MAX_HZ)
-> +			vco_sel = 1;
-> +		else if (sysclk_freq_hz <= AD9910_VCO2_RANGE_AUTO_MAX_HZ)
-> +			vco_sel = 2;
-> +		else if (sysclk_freq_hz <= AD9910_VCO3_RANGE_AUTO_MAX_HZ)
-> +			vco_sel = 3;
-> +		else if (sysclk_freq_hz <= AD9910_VCO4_RANGE_AUTO_MAX_HZ)
-> +			vco_sel = 4;
-> +		else
-> +			vco_sel = 5;
-> +
-> +		ret = ad9910_reg32_update(st, AD9910_REG_CFR3,
-> +					  AD9910_CFR3_N_MSK | AD9910_CFR3_VCO_SEL_MSK,
-> +					  FIELD_PREP(AD9910_CFR3_N_MSK, tmp32) |
-> +					  FIELD_PREP(AD9910_CFR3_VCO_SEL_MSK, vco_sel),
-> +					  update);
-> +		if (ret)
-> +			return ret;
-> +	} else {
-> +		tmp32 = DIV_ROUND_CLOSEST(refclk_freq_hz, freq_hz);
-> +		tmp32 = clamp(tmp32, 1, 2);
-> +		sysclk_freq_hz = refclk_freq_hz / tmp32;
-> +		tmp32 = FIELD_PREP(AD9910_CFR3_REFCLK_DIV_BYPASS_MSK, tmp32 % 2);
-> +		ret = ad9910_reg32_update(st, AD9910_REG_CFR3,
-> +					  AD9910_CFR3_REFCLK_DIV_BYPASS_MSK,
-> +					  tmp32, update);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	st->data.sysclk_freq_hz = sysclk_freq_hz;
-> +
-> +	return 0;
-> +}
-
-> +
-> +static int ad9910_powerdown_set(struct ad9910_state *st, bool enable)
-
-I'd just put the gpio call in line.
-If not rename this a little as at one place where this is used I thought
-it was checking if it was set rather than setting it.  set_powerdown
-would be fine.
-
-> +{
-> +	return gpiod_set_value_cansleep(st->gpio_pwdown, enable);
-> +}
-> +
-> +static ssize_t ad9910_ext_info_read(struct iio_dev *indio_dev,
-> +				    uintptr_t private,
-> +				    const struct iio_chan_spec *chan,
-> +				    char *buf)
-> +{
-> +	struct ad9910_state *st = iio_priv(indio_dev);
-> +	int val;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	switch (private) {
-> +	case AD9910_POWERDOWN:
-> +		val = !!FIELD_GET(AD9910_CFR1_SOFT_POWER_DOWN_MSK,
-> +				  st->reg[AD9910_REG_CFR1].val32);
-
-I think Linus came out against the magic !! a few years ago in favour
-of a ternary.  Whilst we have a lot of !! in IIO ? 1 : 0; is probably
-the slightly better way to go.
-
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	return iio_format_value(buf, IIO_VAL_INT, 1, &val);
-> +}
-> +
-> +static ssize_t ad9910_ext_info_write(struct iio_dev *indio_dev,
-> +				     uintptr_t private,
-> +				     const struct iio_chan_spec *chan,
-> +				     const char *buf, size_t len)
-> +{
-> +	struct ad9910_state *st = iio_priv(indio_dev);
-> +
-
-Why this blank line?
-
-> +	u32 val32;
-> +	int ret;
-> +
-> +	ret = kstrtou32(buf, 10, &val32);
-> +	if (ret)
-> +		return ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	switch (private) {
-> +	case AD9910_POWERDOWN:
-> +		val32 = val32 ? AD9910_CFR1_SOFT_POWER_DOWN_MSK : 0;
-> +		ret = ad9910_reg32_update(st, AD9910_REG_CFR1,
-> +					  AD9910_CFR1_SOFT_POWER_DOWN_MSK,
-> +					  val32, true);
-> +		break;
-
-I'd prefer a check here on ret then unconditional return of len below.
-It's nice to know on error path that nothing else is to be done. Tends to
-scale better as code grows.
-
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	return ret ?: len;
-> +}
-> +
-> +#define AD9910_EXT_INFO_TMPL(_name, _ident, _shared, _fn_desc) { \
-> +	.name = _name, \
-> +	.read = ad9910_ ## _fn_desc ## _read, \
-> +	.write = ad9910_ ## _fn_desc ## _write, \
-> +	.private = _ident, \
-> +	.shared = _shared, \
-> +}
-> +
-> +#define AD9910_EXT_INFO(_name, _ident, _shared) \
-> +	AD9910_EXT_INFO_TMPL(_name, _ident, _shared, ext_info)
-> +
-> +static const struct iio_chan_spec_ext_info ad9910_phy_ext_info[] = {
-> +	AD9910_EXT_INFO("powerdown", AD9910_POWERDOWN, IIO_SEPARATE),
-
-I haven't checked yet, but if any of these macros are only used once or
-twice, just squash the definition inline.  Every time these are used
-they mean looking at what the implementation is.  If there are loads
-of uses then fair enough.
-
-> +	{ }
-> +};
-> +
-> +#define AD9910_PROFILE_CHAN(idx) {				\
-> +	.type = IIO_ALTVOLTAGE,					\
-> +	.indexed = 1,						\
-> +	.output = 1,						\
-> +	.channel = AD9910_CHANNEL_PROFILE_ ## idx,		\
-> +	.address = AD9910_CHAN_IDX_PROFILE_ ## idx,		\
-> +	.scan_index = -1,					\
-
-Normally we only bring .scan_index in at all on adding buffered / chrdev
-support.  So I'd drop it for now as it ends up being confusing to
-indicate a channel is not being used with the buffered interface that
-doesn't exist (yet)
-
-
-> +	.info_mask_separate = BIT(IIO_CHAN_INFO_ENABLE) |	\
-> +			      BIT(IIO_CHAN_INFO_FREQUENCY) |	\
-> +			      BIT(IIO_CHAN_INFO_PHASE) |	\
-> +			      BIT(IIO_CHAN_INFO_SCALE),		\
-> +}
-> +
-> +static const struct iio_chan_spec ad9910_channels[] = {
-> +	[AD9910_CHAN_IDX_PHY] = {
-> +		.type = IIO_ALTVOLTAGE,
-> +		.indexed = 1,
-> +		.output = 1,
-> +		.channel = AD9910_CHANNEL_PHY,
-> +		.address = AD9910_CHAN_IDX_PHY,
-> +		.scan_index = -1,
-
-As above.
-
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_SAMP_FREQ),
-> +		.ext_info = ad9910_phy_ext_info,
-> +	},
-> +	[AD9910_CHAN_IDX_PROFILE_0] = AD9910_PROFILE_CHAN(0),
-> +	[AD9910_CHAN_IDX_PROFILE_1] = AD9910_PROFILE_CHAN(1),
-> +	[AD9910_CHAN_IDX_PROFILE_2] = AD9910_PROFILE_CHAN(2),
-> +	[AD9910_CHAN_IDX_PROFILE_3] = AD9910_PROFILE_CHAN(3),
-> +	[AD9910_CHAN_IDX_PROFILE_4] = AD9910_PROFILE_CHAN(4),
-> +	[AD9910_CHAN_IDX_PROFILE_5] = AD9910_PROFILE_CHAN(5),
-> +	[AD9910_CHAN_IDX_PROFILE_6] = AD9910_PROFILE_CHAN(6),
-> +	[AD9910_CHAN_IDX_PROFILE_7] = AD9910_PROFILE_CHAN(7),
-> +};
-> +
-> +static int ad9910_read_raw(struct iio_dev *indio_dev,
-> +			   struct iio_chan_spec const *chan,
-> +			   int *val, int *val2, long info)
-> +{
-> +	struct ad9910_state *st = iio_priv(indio_dev);
-> +	u64 tmp64;
-> +	u32 tmp32;
-
-Similar to the write_raw() comment below. If you can give these
-more useful names than tmp that would be good.
-
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	switch (info) {
-> +	case IIO_CHAN_INFO_ENABLE:
-> +		switch (chan->channel) {
-> +		case AD9910_CHANNEL_PROFILE_0 ... AD9910_CHANNEL_PROFILE_7:
-> +			tmp32 = (chan->channel - AD9910_CHANNEL_PROFILE_0);
-
-No need for brackets on that one - particularly as it is locally inconsistent.
-
-> +			*val = (tmp32 == st->profile);
-> +			break;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_FREQUENCY:
-> +		switch (chan->channel) {
-> +		case AD9910_CHANNEL_PROFILE_0 ... AD9910_CHANNEL_PROFILE_7:
-> +			tmp32 = chan->channel - AD9910_CHANNEL_PROFILE_0;
-> +			tmp32 = FIELD_GET(AD9910_PROFILE_ST_FTW_MSK,
-> +					  st->reg[AD9910_REG_PROFILE(tmp32)].val64);
-> +			break;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +		tmp64 = (u64)tmp32 * st->data.sysclk_freq_hz;
-> +		*val = tmp64 >> 32;
-> +		*val2 = ((tmp64 & GENMASK_ULL(31, 0)) * MICRO) >> 32;
-> +		return IIO_VAL_INT_PLUS_MICRO;
-> +	case IIO_CHAN_INFO_PHASE:
-> +		switch (chan->channel) {
-> +		case AD9910_CHANNEL_PROFILE_0 ... AD9910_CHANNEL_PROFILE_7:
-> +			tmp32 = chan->channel - AD9910_CHANNEL_PROFILE_0;
-> +			tmp64 = FIELD_GET(AD9910_PROFILE_ST_POW_MSK,
-> +					  st->reg[AD9910_REG_PROFILE(tmp32)].val64);
-> +			tmp32 = (tmp64 * AD9910_MAX_PHASE_MICRORAD) >> 16;
-> +			*val = tmp32 / MICRO;
-> +			*val2 = tmp32 % MICRO;
-> +			return IIO_VAL_INT_PLUS_MICRO;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +	case IIO_CHAN_INFO_SCALE:
-> +		switch (chan->channel) {
-> +		case AD9910_CHANNEL_PROFILE_0 ... AD9910_CHANNEL_PROFILE_7:
-> +			tmp32 = chan->channel - AD9910_CHANNEL_PROFILE_0;
-> +			tmp64 = FIELD_GET(AD9910_PROFILE_ST_ASF_MSK,
-> +					  st->reg[AD9910_REG_PROFILE(tmp32)].val64);
-> +			*val = 0;
-> +			*val2 = tmp64 * MICRO >> 14;
-> +			return IIO_VAL_INT_PLUS_MICRO;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		switch (chan->channel) {
-> +		case AD9910_CHANNEL_PHY:
-> +			*val = st->data.sysclk_freq_hz;
-> +			return IIO_VAL_INT;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int ad9910_write_raw(struct iio_dev *indio_dev,
-> +			    struct iio_chan_spec const *chan,
-> +			    int val, int val2, long info)
-> +{
-> +	struct ad9910_state *st = iio_priv(indio_dev);
-> +	u64 tmp64;
-> +	u32 tmp32;
-
-Seems tmp32 is always some type of index, perhaps we can
-use naming to reflect that?
-
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	switch (info) {
-> +	case IIO_CHAN_INFO_ENABLE:
-> +		switch (chan->channel) {
-> +		case AD9910_CHANNEL_PROFILE_0 ... AD9910_CHANNEL_PROFILE_7:
-> +			tmp32 = chan->channel - AD9910_CHANNEL_PROFILE_0;
-> +			if (!val) {
-> +				if (tmp32 != st->profile)
-> +					return 0;
-> +
-> +				tmp32 = (tmp32 + 1) % AD9910_NUM_PROFILES;
-
-This is a little odd looking. Perhaps a comment on why we are rolling by 1?
-
-> +			}
-> +
-> +			return ad9910_profile_set(st, tmp32);
-> +		default:
-
-
-> +
-> +static int ad9910_debugfs_reg_read(struct ad9910_state *st, bool high32,
-> +				   unsigned int reg, unsigned int *readval)
-> +{
-> +	union ad9910_reg tmp;
-> +	int ret;
-> +
-> +	switch (reg) {
-> +	case AD9910_REG_DRG_LIMIT:
-> +	case AD9910_REG_DRG_STEP:
-> +	case AD9910_REG_PROFILE0 ... AD9910_REG_PROFILE7:
-> +		ret = ad9910_reg64_read(st, reg, &tmp.val64);
-> +		if (ret)
-> +			return ret;
-> +		*readval = high32 ? upper_32_bits(tmp.val64) :
-> +				    lower_32_bits(tmp.val64);
-> +		return 0;
-> +	case AD9910_REG_POW:
-> +		ret = ad9910_reg16_read(st, reg, &tmp.val16);
-> +		if (ret)
-> +			return ret;
-> +		*readval = tmp.val16;
-> +		return 0;
-> +	default:
-> +		ret = ad9910_reg32_read(st, reg, &tmp.val32);
-> +		if (ret)
-> +			return ret;
-> +		*readval = tmp.val32;
-> +		return 0;
-> +	}
-> +}
-> +
-> +static int ad9910_debugfs_reg_write(struct ad9910_state *st, bool high32,
-> +				    unsigned int reg, unsigned int writeval)
-> +{
-> +	switch (reg) {
-> +	case AD9910_REG_DRG_LIMIT:
-> +	case AD9910_REG_DRG_STEP:
-> +	case AD9910_REG_PROFILE0 ... AD9910_REG_PROFILE7:
-> +		if (high32)
-> +			return ad9910_reg64_update(st, reg, GENMASK_ULL(63, 32),
-> +						   FIELD_PREP(GENMASK_ULL(63, 32), writeval),
-> +						   true);
-> +
-> +		return ad9910_reg64_update(st, reg, GENMASK_ULL(31, 0),
-> +					   writeval, true);
-> +	case AD9910_REG_POW:
-> +		return ad9910_reg16_write(st, reg, writeval, true);
-> +	default:
-> +		return ad9910_reg32_write(st, reg, writeval, true);
-> +	}
-> +}
-> +
-> +static int ad9910_debugfs_reg_access(struct iio_dev *indio_dev,
-> +				     unsigned int reg, unsigned int writeval,
-> +				     unsigned int *readval)
-> +{
-> +	bool high32 = FIELD_GET(AD9910_REG_HIGH32_FLAG_MSK, reg);
-> +	struct ad9910_state *st = iio_priv(indio_dev);
-> +
-> +	/*
-> +	 * REG_HIGH32_FLAG is only used for regiter access to indicate upper 32
-> +	 * bits of 64-bit registers. It is a workaround for debugfs_reg_access()
-> +	 * limitation which only supports 32-bit values.
-
-Feels like we should just fix this rather than papering over it.
-Add a new callback to the the core to handle larger registers and then
-use it here. I'm not a huge fan of the debugfs interface in general
-but given we have it, why not make it work for ever use case?
-
-
-> +	 */
-> +	reg &= ~AD9910_REG_HIGH32_FLAG_MSK;
-> +	if (reg >= AD9910_REG_RAM)
-> +		return -EINVAL;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	if (readval)
-> +		return ad9910_debugfs_reg_read(st, high32, reg, readval);
-> +	else
-> +		return ad9910_debugfs_reg_write(st, high32, reg, writeval);
-> +}
-
-> +static int ad9910_cfg_sysclk(struct ad9910_state *st, bool update)
-> +{
-> +	u32 tmp32, cfr3 = AD9910_CFR3_OPEN_MSK;
-
-Don't mix declarations with assignment with those that don't assign.
-
-It isn't great for readability.
-
-> +
-> +	cfr3 |= AD9910_CFR3_VCO_SEL_MSK |
-> +		FIELD_PREP(AD9910_CFR3_DRV0_MSK, st->data.refclk_out_drv);
-> +
-> +	if (st->data.pll_enabled) {
-> +		tmp32 = st->data.pll_charge_pump_current - AD9910_ICP_MIN_uA;
-> +		tmp32 = DIV_ROUND_CLOSEST(tmp32, AD9910_ICP_STEP_uA);
-> +		cfr3 |= FIELD_PREP(AD9910_CFR3_ICP_MSK, tmp32) |
-> +			AD9910_CFR3_PLL_EN_MSK;
-> +	} else {
-> +		cfr3 |= AD9910_CFR3_REFCLK_DIV_RESETB_MSK |
-> +			AD9910_CFR3_PFD_RESET_MSK;
-> +	}
-> +	st->reg[AD9910_REG_CFR3].val32 = cfr3;
-> +
-> +	return ad9910_set_sysclk_freq(st, AD9910_PLL_OUT_MAX_FREQ_HZ, update);
-> +}
-> +
-> +static int ad9910_parse_fw(struct ad9910_state *st)
-> +{
-> +	static const char * const refclk_out_drv0[] = {
-> +		"disabled", "low", "medium", "high",
-> +	};
-> +	struct device *dev = &st->spi->dev;
-> +	u32 tmp;
-> +	int ret;
-> +
-> +	st->data.pll_enabled = device_property_read_bool(dev, "adi,pll-enable");
-> +	if (st->data.pll_enabled) {
-> +		tmp = AD9910_ICP_MIN_uA;
-> +		device_property_read_u32(dev, "adi,charge-pump-current-microamp", &tmp);
-> +		if (tmp < AD9910_ICP_MIN_uA || tmp > AD9910_ICP_MAX_uA)
-> +			return dev_err_probe(dev, -ERANGE,
-> +					     "invalid charge pump current %u\n", tmp);
-> +		st->data.pll_charge_pump_current = tmp;
-> +
-> +		st->data.refclk_out_drv = AD9910_REFCLK_OUT_DRV_DISABLED;
-Given the array stuff means you aren't reading directly into here having this
-preset to default doesn't make much sense - instead I'd have this as...
-> +		ret = device_property_match_property_string(dev,
-> +							    "adi,refclk-out-drive-strength",
-> +							    refclk_out_drv0,
-> +							    ARRAY_SIZE(refclk_out_drv0));
-> +		if (ret >= 0)
-
-		if (ret < 0)
-			st->data.refclk_out_drv = AD9910_REFCLK_OUT_DRV_DISABLED;
-		else
-			st->data.refclk_out_drv = ret;
-
-
-
-> +			st->data.refclk_out_drv = ret;
-> +	}
-> +
-> +	tmp = AD9910_DAC_IOUT_DEFAULT_uA;
-> +	device_property_read_u32(dev, "adi,dac-output-current-microamp", &tmp);
-> +	if (tmp < AD9910_DAC_IOUT_MIN_uA || tmp > AD9910_DAC_IOUT_MAX_uA)
-> +		return dev_err_probe(dev, -ERANGE,
-> +				     "Invalid DAC output current %u uA\n", tmp);
-> +	st->data.dac_output_current = tmp;
-> +
-> +	return 0;
-> +}
-> +
-> +static int ad9910_setup(struct ad9910_state *st, struct reset_control *dev_rst)
-> +{
-> +	u32 reg32;
-> +	int ret;
-> +
-> +	ret = reset_control_deassert(dev_rst);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ad9910_reg32_write(st, AD9910_REG_CFR1,
-> +				 AD9910_CFR1_SDIO_INPUT_ONLY_MSK, false);
-> +	if (ret)
-> +		return ret;
-
-I assume this is the the point where the stuff undone in ad9910_release()
-is set as soft powerdown is cleared.
-
-If so, it's here that you should be registering the devm action,
-or you should be undoing this in any error path later in this function
-so that it has no side effects.
-
-> +
-> +	reg32 = AD9910_CFR2_AMP_SCALE_SINGLE_TONE_MSK |
-> +		AD9910_CFR2_SYNC_TIMING_VAL_DISABLE_MSK |
-> +		AD9910_CFR2_DRG_NO_DWELL_MSK |
-> +		AD9910_CFR2_DATA_ASM_HOLD_LAST_MSK |
-> +		AD9910_CFR2_SYNC_CLK_EN_MSK |
-> +		AD9910_CFR2_PDCLK_ENABLE_MSK;
-> +	ret = ad9910_reg32_write(st, AD9910_REG_CFR2, reg32, false);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ad9910_cfg_sysclk(st, false);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ad9910_set_dac_current(st, false);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return ad9910_io_update(st);
-> +}
-> +
-> +static void ad9910_release(void *data)
-> +{
-> +	struct ad9910_state *st = data;
-> +
-> +	if (!ad9910_powerdown_set(st, true))
-> +		return;
-> +
-> +	ad9910_reg32_update(st, AD9910_REG_CFR1,
-> +			    AD9910_CFR1_SOFT_POWER_DOWN_MSK,
-> +			    AD9910_CFR1_SOFT_POWER_DOWN_MSK,
-> +			    true);
-> +}
-> +
-> +static int ad9910_probe(struct spi_device *spi)
-> +{
-> +	static const char * const supplies[] = {
-> +		"dvdd-io33", "avdd33", "dvdd18", "avdd18",
-> +	};
-> +	struct reset_control *dev_rst;
-> +	struct gpio_desc *io_rst_gpio;
-> +	struct device *dev = &spi->dev;
-> +	struct iio_dev *indio_dev;
-> +	struct ad9910_state *st;
-> +	int ret;
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	st = iio_priv(indio_dev);
-> +	st->spi = spi;
-> +
-> +	st->refclk = devm_clk_get_enabled(dev, "ref_clk");
-> +	if (IS_ERR(st->refclk))
-> +		return dev_err_probe(dev, PTR_ERR(st->refclk),
-> +				     "Failed to get reference clock\n");
-> +
-> +	ret = devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(supplies), supplies);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to get regulators\n");
-> +
-> +	ret = devm_mutex_init(dev, &st->lock);
-> +	if (ret)
-> +		return ret;
-> +
-> +	indio_dev->name = "ad9910";
-> +	indio_dev->info = &ad9910_info;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +	indio_dev->channels = ad9910_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(ad9910_channels);
-> +
-> +	dev_rst = devm_reset_control_get_optional_exclusive(dev, NULL);
-> +	if (IS_ERR(dev_rst))
-> +		return dev_err_probe(dev, PTR_ERR(dev_rst),
-> +				     "failed to get device reset control\n");
-> +
-> +	/*
-> +	 * The IO RESET pin is not used in this driver, as we assume that all
-> +	 * SPI transfers are complete, but if it is wired up, we need to make
-> +	 * sure it is not floating. We can use either a reset controller or a
-> +	 * GPIO for this.
-> +	 */
-> +	io_rst_gpio = devm_gpiod_get_optional(dev, "io-reset", GPIOD_OUT_LOW);
-> +	if (IS_ERR(io_rst_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(io_rst_gpio),
-> +				     "failed to get io reset gpio\n");
-> +
-> +	st->gpio_pwdown = devm_gpiod_get_optional(dev, "powerdown",
-> +						  GPIOD_OUT_LOW);
-> +	if (IS_ERR(st->gpio_pwdown))
-> +		return dev_err_probe(dev, PTR_ERR(st->gpio_pwdown),
-> +				     "failed to get powerdown gpio\n");
-
-So at this point you've powered up the chip.  That's fine but I think
-the matching power down (assuming the unwind of this doesn't do it - 
-and I think it doesn't?) is not registered until you add the
-ad9910_release devm action below.  It should be immediately after this
-- hence it needs it's own devm action.
-
-
-> +
-> +	st->gpio_update = devm_gpiod_get_optional(dev, "update", GPIOD_OUT_LOW);
-> +	if (IS_ERR(st->gpio_update))
-> +		return dev_err_probe(dev, PTR_ERR(st->gpio_update),
-> +				     "failed to get update gpio\n");
-> +
-> +	st->gpio_profile = devm_gpiod_get_array_optional(dev, "profile",
-> +							 GPIOD_OUT_LOW);
-> +	if (IS_ERR(st->gpio_profile))
-> +		return dev_err_probe(dev, PTR_ERR(st->gpio_profile),
-> +				     "failed to get profile gpios\n");
-> +
-> +	ret = ad9910_parse_fw(st);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ad9910_setup(st, dev_rst);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "device setup failed\n");
-> +
-> +	ret = devm_add_action_or_reset(dev, ad9910_release, st);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to add release action\n");
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAOX87WkC/12MQQ6CMBBFr0Jmbc20tA115T2MC2xHmETAtKbRE
+ O5uIS6Iy/fz35shUWRKcKpmiJQ58TQWsIcKfN+OHQkOhUGhsqilFYnGIIzHhtAZMt5BuT4j3fm
+ 9ZS7Xwj2n1xQ/WzXrdf0LZC1QkHQB1c1pTf7cDS0/jn4aYA1ks5OU/EmmSK0nrBuytZFmLy3L8
+ gX2YWVzzQAAAA==
+X-Change-ID: 20260416-send-5c08e095e5c9
+To: Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ soc@lists.linux.dev, linux-serial@vger.kernel.org, 
+ =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4719;
+ i=stefandoesinger@gmail.com; h=from:subject:message-id;
+ bh=177MnobEW4AW8zxVOoT5YiyKBdemluGYegbd8Mp3tz8=;
+ b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBp7fz+zJK87ZzFTWeE6ZPEmJKpc5rt9HdkrkwJn
+ cKb/Epf+nWJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCae38/hsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiI6HQ//V2CFvqcKUo8t2sbKt1+Udb0dTFGutWw
+ 6qPFskqk9n9FU5I46MswNt0vr/xH5AzLBcs0aY9ECAf7La1JBKkrMmi1byZfW0uIP+6EJSVNIik
+ PvOE8inm72tdmMbIUvIgVNBgbzRKmiLOQnd6owWDm9EeCcDI1BoBYl4Nxg/RWXcxLtZn099Ffle
+ Yj1Obf8hPu25jrcIyN2IqvtAZ9YDIP/WpO3WPE9YqZvpCyrUwdyE4ebrdreAStgLVqE/SnNbKp8
+ iBGLGoywv18GWY1dSmW/ElT1DvISt3XKa2cYap67qYC5UCak0AXL+++0bk5ci1LD9tFjVPE4JvW
+ +sRQfQZ2MJFy8/3X4611CtOWNyIIBdN6PJUclj/Vr7Q4CqMrMO/3JHmx7YoecdhiuAug0inyum9
+ iG13sUBMbQ5OyxLeElvUOTGuZpKQeBUIbSulpMzP+t9pvY2la2PbM8e5Zed82ea0vkITq19ymHg
+ M7sAulSk+4OiEDyhq0LrW2iHLmdnttFKXGGk+TA/IgBTLXwoHmm8svZrRdiphyMfs+i7dy7Zy01
+ hhRM+j2dT0qWnPYDdzVcFZF7x0vEhkC0h05wt9PRwltat7Q+zhfI8J8/ZUq6xyWvt9GNqVSlv+L
+ YeQoRyHXOWIllF3vBTgU1J7Pns/Gnn83bQCO/PmkJHb9wvVvgtGg=
+X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
+ fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
+
+Hi,
+
+This is a follow-up on my RFC patches from January [0] for ZTE's 
+zx297520v3 chipset. This chipset is popular in cheap LTE-to-wifi routers
+sold in developing countries. My goal is to run OpenWRT on them. I made 
+more progress in more work on this SoC and it is time to get serious 
+about code review and upstreaming.
+
+Since my version in January I managed to get more hardware running: SPI, 
+I2C, PMIC with real time clock and voltage regulators, Watchdog. LTE is 
+not working yet, but I am able to start the coprocessor that handles it 
+and talk to it via mailbox + shared memory. Wifi is working on a few 
+more devices. Since WiFi, USB and Ethernet are working, the devices can 
+have actual use with OpenWRT even without LTE.
+
+Another hacker created a free software program to talk to the USB loader 
+[1] and boot U-Boot and Linux without modifying the on disk files. At 
+the moment it needs a proprietary blob, so my documentation is 
+emphasising booting with the on-device U-Boot.
+
+This patchset here is mostly unmodified from the version I sent in 
+January. It is the bare minimum to get an interactive shell working on 
+the UART. Future patches can be found on my git repository [2] for those 
+curious to peek ahead. The first 30 patches are in reasonable shape, but 
+the further you go the more cleanup is necessary. I expect all of the 
+patches go require a few rounds of feedback though.
+
+My plan for upstreaming is largly this:
+
+1) This bare minimum boot patchset
+2) Add clock and pinctrl drivers
+3) Add standard hardware to the device tree
+4) Add zx29 specific drivers one by one: Watchdog, spi, i2c, DMA, PMIC, 
+battery
+5) SDIO backend for rtl8xxxu
+6) rproc, mailbox and rpmsg
+
+I am willing to maintain support for the SoC within reason. My patches 
+add myself as maintainer. This is a hobby project for me though, keep 
+that in mind if you want to ship a commercial product with these SoCs 
+and upstreaming Linux.
+
+Cheers,
+Stefan
+
+0: https://lists.infradead.org/pipermail/linux-arm-kernel/2026-January/1099306.html
+1: https://github.com/zx297520v3-mainline/zx297520v3-loader
+2: https://gitlab.com/stefandoesinger/zx297520-kernel/
+
+Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
+---
+Patch changelog:
+
+Changes in v6:
+Squashed DT commits into one
+Removed for-now unused board DT bindings
+Add "zte" to DT patch subject
+Regenerate the defconfig with make savedefconfig
+- Link to v5: https://lore.kernel.org/r/20260421-send-v5-0-ace038e63515@gmail.com
+
+v5:
+Spelling fixes
+Renamed dlink-dwr-932m.dts to zx297520v3-dlink-dwr932m.dts
+DT binding indentation fixes
+Use a manufacturer 0x8b for the UART, fix patch prefix
+Declare all UARTs, remove uart aliases for now
+Consistent license declarations. I made every new file except the DT 
+binding GPL-2.0-only but I don't particularly mind GPL-2.0-or-later 
+either.
+- Link to v4: https://lore.kernel.org/r/20260416-send-v4-0-e19d02b944ec@gmail.com
+
+v4: rename zx29.yaml to zte.yaml and add board enums
+v3: Remove [RFC] tag, add defconfig
+v2: checkpatch.pl fixes
+
+---
+Stefan Dösinger (6):
+      dt-bindings: arm: zte: Add D-Link DWR932M board based on zx297520v3 SoC
+      ARM: zte: Add zx297520v3 platform support
+      ARM: zte: Add support for zx29 low level debug
+      amba/serial: amba-pl011: Bring back zx29 UART support
+      ARM: dts: zte: Add D-Link DWR-932M support
+      ARM: zte: defconfig: Add a zx29 defconfig file
+
+ Documentation/arch/arm/zte/zx297520v3.rst          | 158 +++++++++++++++++++++
+ Documentation/devicetree/bindings/arm/zte.yaml     |  26 ++++
+ MAINTAINERS                                        |   7 +
+ arch/arm/Kconfig                                   |   2 +
+ arch/arm/Kconfig.debug                             |  12 ++
+ arch/arm/Makefile                                  |   1 +
+ arch/arm/boot/dts/Makefile                         |   1 +
+ arch/arm/boot/dts/zte/Makefile                     |   3 +
+ arch/arm/boot/dts/zte/zx297520v3-dlink-dwr932m.dts |  22 +++
+ arch/arm/boot/dts/zte/zx297520v3.dtsi              | 103 ++++++++++++++
+ arch/arm/configs/zx29_defconfig                    |  54 +++++++
+ arch/arm/include/debug/pl01x.S                     |   7 +
+ arch/arm/mach-zte/Kconfig                          |  26 ++++
+ arch/arm/mach-zte/Makefile                         |   2 +
+ arch/arm/mach-zte/zx297520v3.c                     |  19 +++
+ drivers/tty/serial/amba-pl011.c                    |  42 ++++++
+ 16 files changed, 485 insertions(+)
+---
+base-commit: 028ef9c96e96197026887c0f092424679298aae8
+change-id: 20260416-send-5c08e095e5c9
+
+Best regards,
+-- 
+Stefan Dösinger <stefandoesinger@gmail.com>
 
