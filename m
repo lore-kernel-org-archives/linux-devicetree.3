@@ -1,110 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1844026A08A;
-	Sun, 26 Apr 2026 23:21:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FAE71A073F
+	for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 23:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777245717; cv=none; b=q59/RTkgNdAReF+gmkTPV8kXmWIBjZAShTSzr2BiEA755mwllkjp39XyT8Gpwd7c3u9WOhCuZ31alXCsr09YbseYpf1r7s+8O89viyXv6jb2ia/bX8zDUUOV5XUrzzUa8uEwq1pbH/T0QNWXPvTGU9YrixbAhzUERx54cjJWQaA=
+	t=1777246844; cv=none; b=GGGXkMjBJdc9lfAwgdJxDyzoXGj9WonMfTeogi6zmhzk5PM7iCoLr5VCTL1lZkKfhV6gTcCv3p60NJcSp/pVs/Y3PyqF1x6xu1pLyx3O+pYqOG1jgYGvn5dsBVm5mIZtYzSjn3cfguKt2GtFjsxnVpjRMeE/7tcl/sXeLmet2Vg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777245717; c=relaxed/simple;
-	bh=rA86lA0g7W/+V7BO/FVvGSvEuTg3X2fgF21kbHGVYgo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Nh+Pd8hwszb7v5+EkWO7HnUPa86jKfS0mB1tQJHjlNeORPuSTubZbyjYzokSHiMzSWJigKxnDVHF4/YZw7jPHVxG+BTq2R75hSKdATsOfNHjloRHbO1egEZIuV2l3eBSd2yK8Vn9wBuPClGj0xYCvzSbJQjNmeoMeylfUvsNYng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JoCrGdD3; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777246844; c=relaxed/simple;
+	bh=2JZbIC1j1ZT07IZeXZn2PsOsR4I8cDLN4cHjVdNpjzk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H5D2dL99VOsVicBCIHxMUgq8ozXFVY9es5/tiZe9vzL+ctM1+TYg66ylsQhIbSfG2aOt1uL+iB8H56fUVOTgmyAP8msbal+04b0PmHxr/1RgTz241zkKmC46VDFiymZCWuFpxAfIkU0D7Ly5eNj4j567SNGHAId2p/dLj+dsXqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=og1bhdDa; arc=none smtp.client-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JoCrGdD3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D66EC2BCAF;
-	Sun, 26 Apr 2026 23:21:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777245716;
-	bh=rA86lA0g7W/+V7BO/FVvGSvEuTg3X2fgF21kbHGVYgo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=JoCrGdD3YOaO1Yk1P3J7IOlXL66bvP/5+YTJhI2rldp6s2OaEPH1R6XjYzQmMTuH/
-	 HH45cpNz7VrG+fuzWz8by4DqC0JZWyPmKFt4hRJUaZa8ZddGLFD8hhGmnmyhGRtXmJ
-	 uLRoUZ3wiHX9kwMqCSHiDuAO+VEhm9CCu+j2vNArLuxvItw0mb9qbReQhC3gdie3Z9
-	 FS04F0t93/kUZb7Ifz+LriW83o2y584m2Vjn8369M9No6m0nbg1nI0/kYoT1teMAUb
-	 Z/MQh19RP6WpAHseo88+dGKMbnv5tXGsh0mKC1LvLVSLYA2vYjiG5ykDxk/RE49QGq
-	 YCDOLXJKF0+pg==
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Gene Chen <gene_chen@richtek.com>, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org
-In-Reply-To: <20260414-mtk-g1200-pmic-cleanup-v1-0-2a7193ed4e93@collabora.com>
-References: <20260414-mtk-g1200-pmic-cleanup-v1-0-2a7193ed4e93@collabora.com>
-Subject: Re: (subset) [PATCH 0/3] Mediatek Genio 1200-EVK: MT6315/MT6360
- PMIC regulator supply cleanup
-Message-Id: <177724330298.266775.14132313883869438377.b4-ty@b4>
-Date: Mon, 27 Apr 2026 07:41:42 +0900
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="og1bhdDa"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-2d891442388so17376323eec.0
+        for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 16:40:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777246841; x=1777851641; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=DVQAh1zH0R/yT84bvoM6C71cA7nJPq6N2ZR3XUe5gac=;
+        b=og1bhdDaSIzYPPikiiqc1MhamfXTzr6yIojrurMuSTsyBBgxvw2Fbgy6BX3s/JizXW
+         gRHpQYAF8wIOTr6G1eSe2oBpkKEpvwe2m9wRWrWv6yiN6fjl4hxXeaV8P4eLpKHYvbVQ
+         gdrJJJMXrprSOSiXqa0U4VKoLNWm3HE0OQlKFHAlGuqgTtgrm9kQQ/SgQf/2T/9rqeoE
+         OC/isuq8SGA938d10kksX3b+eFPIyC6FOdlCv6qiBROuwv1PSg/tVpNQ0xUY9VsBOM+H
+         u/lG1kfXoFqCkMhWmhC9d/ZgdN0JkE6Up6iyily/Aa1eOsGjxNJvmePVfPBNGzlsaPHQ
+         nMpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777246841; x=1777851641;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=DVQAh1zH0R/yT84bvoM6C71cA7nJPq6N2ZR3XUe5gac=;
+        b=HRbinpkdTthen7/lfR0yY+pwBdIbtgN2/VuEM54HZ7JEe3ETL+9vQ/0KNmAKkLa1nq
+         r8QuXIyIizeJM64wj0S7yU1pZTNxJF0r2RfaTJLAqyIrDOVJtTgTYsNnNpZsr5Py04dk
+         bWbPsqxBMxSWA5e1onkccZP3DeX3y4QmMspOHxAX/1p2BTpmwueb+dDJ6o6vltuvA2S9
+         dQxbnRFOD4udhtLFazmKjys/j545uegOlR2wlsEX7C75aZ0tf1FOBvv39yt7yoCyJgox
+         E3fNJgL5aZuWRW5TR76ZIP4qYJ6FFurtm3seRXGP0rdBj/uERES1HX6OH+CmhlOI0pq9
+         DCng==
+X-Forwarded-Encrypted: i=1; AFNElJ9YHKXL3drtjXb3KnidKBUa/IZ0HJmFvOUNAsqHb8GkDySXyAtshz9cnjmj6P6PJ/BH9mk9yrNluFPy@vger.kernel.org
+X-Gm-Message-State: AOJu0YyuJ1r5nbQUIPZTLwsN0YDGRi5d20zwjc+2vtAlb/9WX+nsXnmA
+	tbtlkLqb5eCBv3y28vW3YFJ3F68/RKPyMQHC00bAtAMChNl2MNhHaPJv
+X-Gm-Gg: AeBDietwaYakEYBPLK8mVEXXVlq/2Tr/GZBOoOs6bwpZvoVtAAlDK3wnMloqejzzcZ1
+	s4HFlp6qBGu3VGUNi+QWZugZYX7gyGdi5A294QihVC5UjY0sxbBP9ChcuefV5XSbRsu4tjxkpvn
+	tg8sLivwtc7X8sDYjzRvYf4yZZmTN43Q+Y7CY2z8savdssojGW72gSZ4Al9trKvFNXOepPX4Pbr
+	mLkjV2SDEvZ3deY6BIfJnerFevpKSTWPpazAxjXmvnJ0u0BvwDpi9GidnlroFury0Gnx7XGrDbZ
+	UyLb/fEAcpMiLhwdEswWQnyo8859U1bcJQHckguv64nPI42Da/dSyh03da1viV4sDLkIrXnV/wj
+	ygCRdGrMJXRHJKkArsB50cVPVQiRQemrkoidufWO6/dxjbkypkjKxKlGxjLYDxnmJGSR54Lt85d
+	+xApbjZao5AdlyYGlCCtn/s6w/cGC1p6NjhhzgnEuJOxOefSNQRdcv9u6B/lIyC4QuCCSg4YA7S
+	g==
+X-Received: by 2002:a05:7300:fd18:b0:2c5:b972:b436 with SMTP id 5a478bee46e88-2e478c1ff84mr21648118eec.23.1777246841412;
+        Sun, 26 Apr 2026 16:40:41 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:da2b:741f:93fe:403])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2e53ccce0f5sm41133434eec.17.2026.04.26.16.40.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 26 Apr 2026 16:40:40 -0700 (PDT)
+Date: Sun, 26 Apr 2026 16:40:38 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Hendrik Noack <hendrik-noack@gmx.de>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Ferass El Hafidi <funderscore@postmarketos.org>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/2] Input: Add support for Wacom W9000-series
+ penabled touchscreens
+Message-ID: <ae6iPsVrMhSFrqPm@google.com>
+References: <20260426135232.371272-1-hendrik-noack@gmx.de>
+ <20260426135232.371272-3-hendrik-noack@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1756; i=broonie@kernel.org;
- h=from:subject:message-id; bh=rA86lA0g7W/+V7BO/FVvGSvEuTg3X2fgF21kbHGVYgo=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBp7p4RN+O47GpsvyrSWQ01EVchEW48pBlZVoTbr
- uiw1p0XiXyJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCae6eEQAKCRAk1otyXVSH
- 0CRAB/wL2SMaWjRhWwuhdNYcG4TzAg1zkfTQqVHM79iM+l9cygxMo2mcBEhZ1Cc2/VJGxgPxQ6d
- irFFH+YlHSWmH8ReXi/9AQshr6NRvVfpVG3+bbko9WweZdMVCSuyNChqShzZz890FZOxFkIrmBn
- z9mpTTcvOdpmrRS4d6jzYUlnSzPZ/IZLbRLO7vrcY1GrVpp/Yf4PvGtJlx0IkSAwczvpsb6r7ur
- p9r73MUc6r3oLH9LPk5NnFs/yNpV7dxWvUApOKHQ0mnMKjzlApi3wdMIxgaRyFm8ztAmZ1mzji+
- 4Ms8Dwn/lELwQu7M6xOleeg+qrcbQ5eknSANDHyd54uMaayA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260426135232.371272-3-hendrik-noack@gmx.de>
 
-On Tue, 14 Apr 2026 13:44:09 +0200, Louis-Alexis Eyraud wrote:
-> Mediatek Genio 1200-EVK: MT6315/MT6360 PMIC regulator supply cleanup
+Hi Hendrik,
+
+On Sun, Apr 26, 2026 at 03:52:32PM +0200, Hendrik Noack wrote:
+> Add driver for Wacom W9002 and two Wacom W9007A variants. These are
+> penabled touchscreens supporting passive Wacom Pens and use I2C.
 > 
-> This series goal is to cleanup the power supplies of MT6315 and MT6360
-> PMIC regulators, that are either missing or incorrect in the Mediatek
-> Genio 1200-EVK board devicetree.
-> 
-> Patch 1 completes the MT6360 dt-bindings by adding the missing power
-> supply descriptions for its buck regulators, that already handled by
-> the mt6360 regulator driver.
-> Patch 2 adds for the board the MT6315 regulator supply properties, that
-> were added in the dt-bindings by [1].
-> Patch 3 adds for the board the MT6360 regulator supply properties and
-> fixes the existing one.
-> 
-> [...]
+> Co-developed-by: Ferass El Hafidi <funderscore@postmarketos.org>
+> Signed-off-by: Ferass El Hafidi <funderscore@postmarketos.org>
+> Signed-off-by: Hendrik Noack <hendrik-noack@gmx.de>
 
-Applied to
+Some of sashiko's comments sem valid, please address them:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.2
+https://sashiko.dev/#/patchset/20260426135232.371272-1-hendrik-noack@gmx.de
 
-Thanks!
+Thanks.
 
-[1/3] regulator: dt-bindings: mt6360: add buck regulator supplies
-      https://git.kernel.org/broonie/regulator/c/a8fccc792f42
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+-- 
+Dmitry
