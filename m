@@ -1,117 +1,308 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-m49224.qiye.163.com (mail-m49224.qiye.163.com [45.254.49.224])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F6822A4E1
-	for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 08:36:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E0F19E819;
+	Sun, 26 Apr 2026 08:46:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777192584; cv=none; b=GFclHCu9Maos9a0aS1S+/6nDFI/u3ukP/r0XxjlxKOKsaMo7VoTVzEPQCuzoagjqgLxbu5z5qqErJ9NzC/vnh80/uyIxoXpCnY8gpRZZ6gG3z1Mfye4nsBthFmikffGs3AqDQH8JwrgwBLsO2I5FaxtE/aIE1xCd/9EVMW99ep4=
+	t=1777193200; cv=none; b=PYhHTJFhP/2muvCLH8Sw02QLvBCwO4vmod391gajuZt63paxqmmJqyHQE/VKcY5Lm2/52tK+pAx2Uurn2BVDD5eNRLe6TFLA1rG5M3rHtmGRORWy/tdaE48yodVmAbQDSR6Tz1kqbE5LPRmHQyWcpqMbOKiK7pjmKyklseE1rwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777192584; c=relaxed/simple;
-	bh=1/6VvyfAL9R5vjxY+AXLp9W1S3GtT0OmLzFLKCWtrJs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bOz6fDOB82Jsxh/zD1QHWu0e0ea3E9GEOZWbCr5WXHruK6JR7kaiYASn4IXEkxOhG5Bz5752ZGjaSqhU8+Pi6uOisrgdShBVBFpQaMDVQMg7JG//h7a5GoWO4v6PSZBbr5MFyCF82az2C6/UmfgEm6EzKzJnTpA14t0BHgvCkUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=udhCOe34; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777193200; c=relaxed/simple;
+	bh=L2lmvLBo7kwQqnoKMMibhJ38HixexXwMyjLfJZAqF+M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fEg8bYmDAlkofuEvjicocq/FIaiybeQRVRrR3uaw4aBPX8xiTPuS9C3QMVYh7BNFoI4uL50p3Y+N1ArVKanN8mbMvUPIM6gFSGNLRDyQUXMRTINgup7K6gTcnrWXw495jie07t9QMF1VGUNwzGmLPK+WyNqdKtdZ+Q3xECxGbpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=IbFrEF5A; arc=none smtp.client-ip=45.254.49.224
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="udhCOe34"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57174C4AF09
-	for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 08:36:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777192584;
-	bh=1/6VvyfAL9R5vjxY+AXLp9W1S3GtT0OmLzFLKCWtrJs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=udhCOe34rIDWmvzUvt0BIz8XQXO3Ah4sQFGkkX3txna2RL/uzF1YSHOZGrEFHbp7N
-	 P7xdh8tvzx8Pue6FVNHREXMJg5PtfVLFHsfgv0LKmBrERoK31FuhdXj8+AHzXUmknX
-	 3EjvWzIMKNn+8h6+CNjVXg4+TmYeUwuxWjZgIuQf/nIlDsKbrFACQAPT7PhhvykvSX
-	 GxfrgV+aaBmvSK1hqvswcWgiQ1vQZ5UVlpAtjML60BRgLLgTkzEUIf5jqUUTdeI8q2
-	 C3Gnp8wugat1zOs1JYEHKloHiMmu6ZUfqzd/4zFqRY5mFUSmF+lpkjIM7qKJadZOYG
-	 VYo8pB8jbbCTQ==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5a283c44478so15066831e87.3
-        for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 01:36:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8ni8oPZctRibLh60z90zuZVZMaP0b6MAKLhWX2HSHxHOsYHhdg0yoBcnkACwTMVvQuw4TB6ymq9BVX@vger.kernel.org
-X-Gm-Message-State: AOJu0YxL+ehPUuFfAF+sfNipcqhEXWYRzrwe241b9ss9V4HQ5Rb+upiP
-	TwkIir6dBl9REO8+qFOHvqCGG7KYAtKv6InrIKQB6QHrCl4loASxURDkfqu+BFlHTNl5F1iMvob
-	kYjuoHoTNt7QPtaeSbUqmZgfryzTXoKs=
-X-Received: by 2002:a05:6512:3ca0:b0:5a2:b979:4b06 with SMTP id
- 2adb3069b0e04-5a4172b7ae4mr12820186e87.4.1777192583057; Sun, 26 Apr 2026
- 01:36:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="IbFrEF5A"
+Received: from [172.16.12.43] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3c2a404a3;
+	Sun, 26 Apr 2026 15:30:35 +0800 (GMT+08:00)
+Message-ID: <7e55f270-5422-4696-987d-e2a2ab16240b@rock-chips.com>
+Date: Sun, 26 Apr 2026 15:30:35 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260424-ds90ub953-v6-0-7a84efbab316@oss.nxp.com> <20260424-ds90ub953-v6-1-7a84efbab316@oss.nxp.com>
-In-Reply-To: <20260424-ds90ub953-v6-1-7a84efbab316@oss.nxp.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 26 Apr 2026 10:36:11 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmi1Q4sGeY6vK7fxw8AdCmiiW-8kdEi4OFkV1xep=Od_A@mail.gmail.com>
-X-Gm-Features: AVHnY4JPq-BE7FCv42DA9knJSs0rb0sCy7jk1s9CJjtuaDpy_xLU0YkpPQu4V6Y
-Message-ID: <CAD++jLmi1Q4sGeY6vK7fxw8AdCmiiW-8kdEi4OFkV1xep=Od_A@mail.gmail.com>
-Subject: Re: [PATCH v6 1/4] dt-bindings: media: ti,ds90ub953: Add support for
- remote GPIO data source
-To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Vladimir Zapolskiy <vz@mleia.com>, Bartosz Golaszewski <brgl@kernel.org>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
-	linux-gpio@vger.kernel.org, Guoniu Zhou <guoniu.zhou@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 5/6] arm64: dts: rockchip: add PWM nodes to RK3576 SoC
+ dtsi
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Lee Jones <lee@kernel.org>, William Breathitt Gray <wbg@kernel.org>
+Cc: kernel@collabora.com, Jonas Karlman <jonas@kwiboo.se>,
+ Alexey Charkov <alchark@gmail.com>, linux-rockchip@lists.infradead.org,
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org
+References: <20260420-rk3576-pwm-v5-0-ae7cfbbe5427@collabora.com>
+ <20260420-rk3576-pwm-v5-5-ae7cfbbe5427@collabora.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260420-rk3576-pwm-v5-5-ae7cfbbe5427@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9dc8b282f103a3kunm5e5a610713ec55
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGUIdH1ZIGUlJQ0pPSx
+	8dQh9WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=IbFrEF5AZwgTn9ILKm7PdjZuml/51hPqi9yF563W+xC4TVPGo4y99OxqEX1Wj8x7+IPz6bTT46VYGLM/kXqYcO94cJ3wBGZC+kPSmMjJj1pQuka2tuZf0pWSwRRgjIlXUSjZgIzhsWZhvL66UGkXrQI9oNIAm+fa3tg0gtFiq2k=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=cvKBY+c+iYjGsEpoYL9NRwD1uu5gqclMVNxmGMDvE7c=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi Guoniu,
+Hi Nicolas,
 
-thanks for your patch!
-
-n Fri, Apr 24, 2026 at 3:40=E2=80=AFAM Guoniu Zhou <guoniu.zhou@oss.nxp.com=
-> wrote:
-
-> The DS90UB953 supports four pins, GPIO0 through GPIO3. When enabled as an
-> output, it can be programed to output local data or remote data coming
-> from the remote compatible deserializer.
->
-> Add GPIO flag in second cell to select remote GPIO data source.
->
-> Signed-off-by: Guoniu Zhou <guoniu.zhou@nxp.com>
-(...)
+On 4/20/2026 9:52 PM, Nicolas Frattaroli wrote:
+> The RK3576 SoC features three distinct PWM controllers, with variable
+> numbers of channels. Add each channel as a separate node to the SoC's
+> device tree, as they don't really overlap in register ranges.
+> 
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 > ---
-> Changes in v6:
-> - Added GPIO_DATA_SOURCE_REMOTE flag to dt-bindings/gpio/gpio.h
+>   arch/arm64/boot/dts/rockchip/rk3576.dtsi | 208 +++++++++++++++++++++++++++++++
+>   1 file changed, 208 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> index e12a2a0cfb89..55d6b103c329 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> @@ -1032,6 +1032,32 @@ uart1: serial@27310000 {
+>   			status = "disabled";
+>   		};
+>   
+> +		pwm0_2ch_0: pwm@27330000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x27330000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PMU1PWM>, <&cru PCLK_PMU1PWM>,
+> +				 <&cru CLK_PMU1PWM_OSC>, <&cru CLK_PMU1PWM_RC>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm0m0_ch0>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+> +		pwm0_2ch_1: pwm@27331000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x27331000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PMU1PWM>, <&cru PCLK_PMU1PWM>,
+> +				 <&cru CLK_PMU1PWM_OSC>, <&cru CLK_PMU1PWM_RC>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm0m0_ch1>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+>   		pmu: power-management@27380000 {
+>   			compatible = "rockchip,rk3576-pmu", "syscon", "simple-mfd";
+>   			reg = <0x0 0x27380000 0x0 0x800>;
+> @@ -2630,6 +2656,188 @@ uart9: serial@2adc0000 {
+>   			status = "disabled";
+>   		};
+>   
+> +		pwm1_6ch_0: pwm@2add0000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x2add0000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PWM1>, <&cru PCLK_PWM1>,
+> +				 <&cru CLK_OSC_PWM1>, <&cru CLK_RC_PWM1>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm1m0_ch0>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+> +		pwm1_6ch_1: pwm@2add1000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x2add1000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PWM1>, <&cru PCLK_PWM1>,
+> +				 <&cru CLK_OSC_PWM1>, <&cru CLK_RC_PWM1>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm1m0_ch1>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+> +		pwm1_6ch_2: pwm@2add2000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x2add2000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PWM1>, <&cru PCLK_PWM1>,
+> +				 <&cru CLK_OSC_PWM1>, <&cru CLK_RC_PWM1>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 104 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm1m0_ch2>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+> +		pwm1_6ch_3: pwm@2add3000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x2add3000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PWM1>, <&cru PCLK_PWM1>,
+> +				 <&cru CLK_OSC_PWM1>, <&cru CLK_RC_PWM1>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 105 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm1m0_ch3>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+> +		pwm1_6ch_4: pwm@2add4000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x2add4000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PWM1>, <&cru PCLK_PWM1>,
+> +				 <&cru CLK_OSC_PWM1>, <&cru CLK_RC_PWM1>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 106 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm1m0_ch4>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+> +		pwm1_6ch_5: pwm@2add5000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x2add5000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PWM1>, <&cru PCLK_PWM1>,
+> +				 <&cru CLK_OSC_PWM1>, <&cru CLK_RC_PWM1>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 107 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm1m0_ch5>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+> +		pwm2_8ch_0: pwm@2ade0000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x2ade0000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
+> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 108 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm2m0_ch0>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+> +		pwm2_8ch_1: pwm@2ade1000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x2ade1000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
+> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 109 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm2m0_ch1>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+> +		pwm2_8ch_2: pwm@2ade2000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x2ade2000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
+> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm2m0_ch2>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+> +		pwm2_8ch_3: pwm@2ade3000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x2ade3000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
+> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm2m0_ch3>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+> +		pwm2_8ch_4: pwm@2ade4000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x2ade4000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
+> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 112 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm2m0_ch4>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+> +		pwm2_8ch_5: pwm@2ade5000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x2ade5000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
+> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 113 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm2m0_ch5>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+> +		pwm2_8ch_6: pwm@2ade6000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x2ade6000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
+> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm2m0_ch6>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+> +		pwm2_8ch_7: pwm@2ade7000 {
+> +			compatible = "rockchip,rk3576-pwm";
+> +			reg = <0x0 0x2ade7000 0x0 0x1000>;
+> +			clocks = <&cru CLK_PWM2>, <&cru PCLK_PWM2>,
+> +				 <&cru CLK_OSC_PWM2>, <&cru CLK_RC_PWM2>;
+> +			clock-names = "pwm", "pclk", "osc", "rc";
+> +			interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&pwm2m0_ch7>;
+> +			#pwm-cells = <3>;
+> +			status = "disabled";
+> +		};
+> +
+>   		saradc: adc@2ae00000 {
+>   			compatible = "rockchip,rk3576-saradc", "rockchip,rk3588-saradc";
+>   			reg = <0x0 0x2ae00000 0x0 0x10000>;
+> 
 
-(...)
-> +/*
-> + * Bit 24 indicates the GPIO data source is from a remote device.
-> + * This is used in serializer/deserializer setups where the GPIO pin
-> + * on the local device (e.g., TI DS90UB953 serializer) reflects the
-> + * state of a GPIO on the remote device (e.g., TI DS90UB960 deserializer=
-).
-> + */
-> +#define GPIO_DATA_SOURCE_REMOTE                0x01000000
+According to the RK3576 TRM, the register base address, clocks and 
+interrupt configuration of the PWM node are all correct
 
-So this is added to all GPIO controllers ever in existance as something
-fundamental about GPIO that may need its own flag.
+Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
 
-I doubt this.
+Best regards,
+Damon
 
-I understand that the driver needs to deal with this in a per-gpio-line
-basis though, have you considered:
-
-1. Just hard-coding this into the driver based on the .compatible
-  string, if the remote GPIOs are always the same for this TI thing?
-
-2. If it is just for one particular system, you *could* actually have
-  a table/mask inside the driver for this:
-  if (of_machine_is_compatible("my-funky-system")) which will
-  kick in only on that very machine,
-
-3. If you really want to store the information in the media i2c
-  device node, add some custom property like this:
-  ti,remote-sources =3D <0x0000001f>;
-  where a bit is set to 1 for each GPIO which is remote.
-
-Putting flags on the GPIO lines themselves seems too complex
-and system-specific.
-
-Yours,
-Linus Walleij
