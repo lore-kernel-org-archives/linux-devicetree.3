@@ -1,657 +1,219 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+Received: from sender4-pp-o94.zoho.com (sender4-pp-o94.zoho.com [136.143.188.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB1BF18871F;
-	Sun, 26 Apr 2026 14:31:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.22
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777213872; cv=none; b=py1MCiWM6uqEXsEFr/jlYTfo5URq4y2CqqPc8nw+NWlv1ZvfeisO+vbf65InMhVV/31FR/sdXBLUsdkzP11YPnzfvN+QDqpzQKpXqVTUtJbKZZCqUdiHcP6Ac9AZBeiOgVYaxHAGF3w1WHjYesOa4xKlE97RTTy9meW83EX3yeE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777213872; c=relaxed/simple;
-	bh=1UdhukUtwsXwWKGcTzcs4ZBRkls9PPk6X+OcWqorjSc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qC5ujf/FwZxia0seHFV3JN/8I8ivW2kRRTxw1A539BkxqBXCE4vNRM1z/BmpvZmL+nf6HPd/x1LL785nGGeVy+7cVOYc8FLtcoWP9cD4CnHWU3OkSCLiYy8oM6tgDeDx3ZLpEgux34rtJKPJCiNmIkWBP1nCF5XAxZQ1BHQ0LvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=hendrik-noack@gmx.de header.b=gNvZPJ7A; arc=none smtp.client-ip=212.227.17.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38C823ED6A;
+	Sun, 26 Apr 2026 15:48:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777218535; cv=pass; b=Qv8aKj5fGaFmWEhNe+XjVcUhhLWSFDDOEWKW4s1AoBNA0H2bIgT83X0Nvb5zlHZnw6UmotABpkVoTH0jZr2yWaHv3lQCnw25hYX+v9B42CKi9Ft/KhXx+XW2Bz0GZiySwniobgHdtqVA9UtGg1W+s05BGuO7LELtJ8XEvBrKTv4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777218535; c=relaxed/simple;
+	bh=yoYfzf58sRjZKrl8mS8TnVn4FWNBE4yMA33oFOMS0Yw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Mv9HTfuV5+g+ym3zKcC4PiKH1EbRG78lPK9XPbJkNaUlclG01lserXQ3H6n+mQPLZpB4tXXzD1/JgJLDvwf7DaptA/hZUoj7Zs4E75O9wKJhi2G4wyIfRCT6HAfxC3ZSVcCs4tJf0wBXnagc3b93yIqd1KCMxf6y8hDwkK0Ir/M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=kingxukai@zohomail.com header.b=SKIFxUuY; arc=pass smtp.client-ip=136.143.188.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=hendrik-noack@gmx.de header.b="gNvZPJ7A"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1777213867; x=1777818667; i=hendrik-noack@gmx.de;
-	bh=dc4KxtVUnKK91G+RwN0o2AusaZ9YjLYJWDuHjF7I9bY=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=gNvZPJ7AX15FsKihY46YVA4pR0gQCdLNLHk9KIq3gBeqX3GpkUUqXfHTKHSBgq9w
-	 zBJDiQ2Mz2UEQTC3kUby4CQVpfRU00q+mHDc//xkw6Xim6C0VzbYvf8JfUNR824c9
-	 ciYX18Op4jqI5sBlSrkxj/9YgF/pLoETVa0qKnSdIbnLV7/7mNT01z9B+0Voak3eO
-	 zbwpezuNo4YKRH3a9DhMAE3rCJPcVYvKVOffdbTC1t/rAR65X2fat0+/u3LNUP26G
-	 xGQRf6WzK62vTJ0FWmW8Anv+BOuhYuq+6ZgS/E2CjMDc2Ca4uCOjuyEndEEvi6zMk
-	 oFg1hmve/fNwrBlWjQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N3KPq-1vH2Dp2aME-00vgU2; Sun, 26
- Apr 2026 16:31:07 +0200
-From: Hendrik Noack <hendrik-noack@gmx.de>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Hendrik Noack <hendrik-noack@gmx.de>,
-	Ferass El Hafidi <funderscore@postmarketos.org>,
-	linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 2/2] Input: Add support for Wacom W9000-series penabled touchscreens
-Date: Sun, 26 Apr 2026 15:52:32 +0200
-Message-ID: <20260426135232.371272-3-hendrik-noack@gmx.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260426135232.371272-1-hendrik-noack@gmx.de>
-References: <20260426135232.371272-1-hendrik-noack@gmx.de>
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=kingxukai@zohomail.com header.b="SKIFxUuY"
+ARC-Seal: i=1; a=rsa-sha256; t=1777218519; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=JjibXD4sygWMo+Df6YqQusPH4UQWQxa0cfZ92AWP2cOIrfJjzWNZSGck5GXrBPUVFL6kXaaMKaLBcs0RJ8yI3POyONVfeosKmuO1iyd4A3WjssyY7FJ/qCxsgpC1Scn63Cs9etCAmKoyJxihlnbnCQOW370m/bNgfM8LBlItfwM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1777218519; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Ijb+gmFHkCxXaaFAPSl6qTeoZPHOS1bdIoKGk2/fFEQ=; 
+	b=PH7LUDD7OTn9IqspVS8DnuazrrhOmvpEtGeugbQUf3hl7+XQR+iKC2I67vc2cqB5JhWV9h8h5u50/2GraCrKCLEQVI3M7v5EyIwH9+uHRHHbBlUeZmqokbmuXqBcIfhm30iel2QcF8hkshY4OlVFil961B2zDk5/w+q8PYGA7zk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=kingxukai@zohomail.com;
+	dmarc=pass header.from=<kingxukai@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777218519;
+	s=zm2022; d=zohomail.com; i=kingxukai@zohomail.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=Ijb+gmFHkCxXaaFAPSl6qTeoZPHOS1bdIoKGk2/fFEQ=;
+	b=SKIFxUuYoBnyuJv7aUzdbDmNu8IIssTdNx2WpfupC7FoxuR8le/p4OK4bt1mGej9
+	YSTKbh7HvQ0CGLld8haJbTyNQ1YPFQnclM7XrvqdZhDAEdZ3rNlLi84f5m0KAc5snqF
+	5RO9d234fj3mq7kMUzPgR0ZlacvhBYrvjPzoyZAw=
+Received: by mx.zohomail.com with SMTPS id 1777218517046578.5353745649002;
+	Sun, 26 Apr 2026 08:48:37 -0700 (PDT)
+Message-ID: <6e17bfeb-8cc6-4eca-8a94-983444aaef35@zohomail.com>
+Date: Sun, 26 Apr 2026 23:48:28 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:4sys3xu7+z0xy3IBKPmyciUO6oxgbfCBI2iVLjaWL2E24VvLLZI
- mk/lG2YMCzcpnwjgrrVF62wKGab/cybzeilGT+XI4zxNU3mh5R9zlnE7cvK1ULP7GHaDmxZ
- 10Hk0WwM2ozcaZ1rIDpvN8fb+nvVCqCfLOKxOL+oxUJQfBHuRX8rBEPk4PgpGEI0vOSCYrJ
- qpfvISrQgaFwQKUQq5tVw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:bfCts1nBhsY=;JaFNh8pEm3BuCmOHBO2zeHryjEA
- PZdJPYLCHV4+XH/4OPFIkpeyQHI86hn3S8E8Vvm1fp4ilfpiReT3HhtifHpD2njMrP1VIOcaz
- GIRs/7SFIXpAVq+0PduMTsuQmTyHqrcjpl+0HBiyF9Rb3G50yIATcjh2X/tFVMdr3yXZxTf/x
- 8SOqAriw29Ma0lnM2jn0qvf6hsDImErt+Wbf8RQUuyrMI6zZ8g1ItMIRApaBjbptOiEyHasPF
- nLZ0PMYv836X+wDzzZNiSahFdR7Op93ImLduozBf0RkAp9l+raYKtuG+RQzg0iRTprezu0Chh
- TPQaTRrCyUhSUIWCAFQB7OlpS889II2VspjZOC3FWKCwVWrAaoDaJIUku1B4HaOjo9Qc9/TY4
- 3DHaXmhiBLq8C0HVjRE34rupTXOPtjXmP+WTehi5iWY9DJRqXEwZ1K7z8MwZ0Si8N0qn6u/kw
- G+JYDh6z12dtQ09bRFQJzoVC7WKTKmknpek1iWyH6uXcii2AJME8SyfN1UxiyuuyxVICpE7UM
- gLawV2COAmH7IMcwsKTC4BAhz959S6790eE1E93ntIgB0xxKiyKBrENZSPYi099iHTdC0+3IE
- tqSB/FtDjefuqXEnqdHUqRkPQ8oNLJHUeCJKp/WSQa1JtKc2Yn4C8HzaqPZncD9tDh5z4wEOE
- xhLts08i9zmbXUhXAugEknmKTQduUQTK1NXAeMdMrFt+Q+XzK3n5hNgXv3MqnZaNmSE7+U73q
- qq/Q89u5lf5txVpQ0brjs9XF1F9tgTyIxpZ8tNQv8bXy17TsvCWhsgxJPjMefb9x8sMXzNVoe
- KVXBPLEkm6m2x54wZSReNO9pNPS8BZTr8SqIpJ85kj6TSjGqfA6na19XD8F8uUIjTBOwJ/4JA
- EkbOPg6BQXXE0bqgerB57XNC/vyzTW9qj4LODkqFxLSZo5b4i5qK9UW2NFssuLCUAu/Gr4y/p
- NwGEnhyBnY1V5JpWyNGapuLUj3SSWZcHlTv5wDBgeF9dPpI1JfGOD/IO1jpg7mJb3Cz9bk/R0
- KXfjZ0a7g67BQrsQ+IaElB189lzNAk1YgQNH7/Z3Sz+m2NGXRc8dvZdw4rEqU1z29Cf3XJcXS
- roKAK8A/Q+3yGpLcNfUPvGbVJbnnVFCGltmLQ7BgRdoB2P8UA+9FPoyEidewE6KOisc3MVnCT
- KBD565HZCSsR2FuxrWlRnrCSeHAEI5KrY1ai93XjPjnKYNNKuTyw4wEcgTCvteBm8gbP5bt+2
- 57f9esEW56n5P1bDkf4AkHwZllxDoA/i3gpjqMLn4g0Mlp1pzxNlpfQHCQrspyMMyj2VYL4PM
- oPnRYi5remoD+DMi1mKkcRaRjBzZHqh2UCroTD9o8by4pIIgbFASe36+DRVcuG1SY+SBs4w0C
- cgCvXOEOVvQEukgx8eugj0LBCdcn/ppgQepQVAmwBjs07pYE00hFx5rfQ5h7F4yFMrMDLlgay
- DGCPbnFTSe8b/z9wBfiraYp9wLAUlLIfACMvM970J8GVfLgVMIahkFEh4c9ViCwL1Y8JZUq2/
- 9Vg5ezkDvqeNXcyovZKj3A1NPukIugOvntUonYNfPalfVQTWUL73Mfx4urtq09MemBDd7gKyD
- QpeONlY5xI43ehpx0BFOYS7athWDICDqbvovzFMTktt26ByDWFa2/xJr/26+kyqdN/AvKlOhi
- ka/3sZcWEWHGu7JPif+cKwYdJvvZrws07CyN6zDfqcAUVUFzoDCBntcYSq6/lsWz85iYpSgPq
- NgHE/Zz94JOmGfGSsxubKghQW5iUHt4LtV6Si/BnIw5OYhgZdConDTpKu/V5wtV7/m8T8GIzY
- 4aXRT94N4I2afbUey1UJ48EDbak7faFHLrI9IGJZ4zqF3SeKdl9Yn/k2+PKvpopbvVkXfSUOe
- K5bmifuYtHvcYmv3R5FfbdUSMCmgHlxEfyPh0r3mpRbcSpAg/AE73PoumB1mvXuW5hKgEkfQe
- 1HcQrPbZP+Ke+T8oL6QUzffPRyarr2VbxKdJiXTmnhl3djKpZxCVKlckigA/S5irezeynHF8y
- kVACsLWX67orX7UoAL2PP6MSRjYNoP7ozRu5gC9M+SlIjpVS4O18Q+XfM9Az6x4M7+1pWGbZQ
- 1gIT2pdVuiM9QnR3zm8rAX1Sa13zkYjBYq6dEY3VZi6OiaZjOaH8t0QlVjenqx1DxLwCoilHG
- hihrMCngUWIhV5SKSOn3fUpoiBaWGkCnjgrdu3SSrF+IVgF9Hj19Q1NDQ7I5V+u2f4a8MeM7b
- 4z/+OQ7ucJ/bu1EbFKIPPvSUCjdfGHSe6EQ5yAvxw0V32F86yIJlar1fkQQPoyzb8HQ3jMzPx
- t0j7Egdnw1nX8arp/iPGHvCa6FMSLaFmjO116YSxtwAhx6tesRZyP5X32nKPSenHkQbfAK91G
- WOdwUduBYIZATsDtxAah/bbtHtJjBWypnDNPnIGIFz0Bx5w+OakpjRdK9vKd3YiShx7rlx5uP
- YQyeO5fQQMppK9YaNQWLmbwK1EeMEScrz4q+43ChCJN3xx9v5V7tjWc6vvD7PDD7d00S8E2ek
- VDgvGBa5RIQ3AYDSnJlXHAIj1gnZnNoe92r8omhdvmoGKb8cFuYXcxiXa9LFbCQ9600MP5QKA
- ahuroGNmQpxXxC8857HErRYDAcTCX1C39EKVn8g6JdUARTmyAakHyCgC2fKSI7n54JDcvPeh/
- 91I3OKpnnduToycWJYang1kZ0G/uU+jr+juPJ45YKDkxSFgvs9Fur22lezMx0KnYbyuufQbp1
- cuN5Y9GFOX24cHWIyEyvpD2K6Pb0MGsjdMioR9kJlXDoyPGmfF2BAS0cWxpVJsLaEfZTdUtjC
- iiuKUq4xJb5dPnYZIdqHz6aVX8tCXJcloAiwZuj7XyrTXFl1fog9PIDP5m6Rjy4n6KFH4yZ41
- 5yFpThohbppJNPdQ2D6V3iipwUKtO5pCcsw1f54Y9x6LmPYxpKpyqz8PohW4chKYTRa2SeN6a
- /2WN+kYtiAr7BD/iHD0Kkr/8LvNQHMCeF46SxUmAhS+t09fyC+l7yrP/lyh1qu7F7lgp1RLXO
- PmT+L2z0GDdu9BQZsYUq9W7KAMG91g0il21K0Z4OwQIbq5S29VzjDlvuE9JKPJnzIbpX/ESil
- V4P+zJDTPUBVKEBY1RJNNZP1extS2Do2CGQ7RpLoVSRr1fOMFU4vJMtPTSjyJp/JHF3FXqkOG
- R7xK72Va8Nl0RSjkZerlhGSn4TMrfY5J19cZqjz99b0u5kzkBjyi99PQ7xDAGjlqeQraVUwSF
- XsDu28CxtKPAE0h+g1eZNIw/bZA3LHOv1qmAPwrwWtt7dohzD2247wW/UC6F8KVEB6/oGOj0i
- d4W8uyrBddzJH7jkC1INM+awSlQePIRS+5MwMZXLbAq1GxywbMXLwim2kGojMqz0YUBhH+Nvt
- SxE7MEpPYw55zKbdDeE7/47NjIXujmc9SqphpfYu+C8ce9+ZI709gQkp+z3A07G8Dz0m/L7jN
- NMMWwgz1aZqvwXC+etecEaURzTdPh6pEC/No5wyNbZF6AtrrYFe3Hk92Ts8ieUciQ0wnZtjds
- 3VyMLswUpHN10xBlL4cCoMqpW0/w+KhlVmleMv8IUnTFSfZU28Md4tMpXq3NJUxjfWFDC9Cfo
- f65lRBm9K5i4GjIPMgDy/NjJ5n1O+9hcxGMFUqWxLhFN1b8K1gzUKLe60WGJxHoKy/dVY/FKD
- tUCmL88RmchG6bgyydUDAdpjyS3PlRcUYnigC7W3+VpdbXqiqK174jAO+NEWzQXQzEWp0jr+m
- qVQtVJSqdM8d7k6S2j2DMW56MLD8sAv11sIoSg7lhsNVJuzePhkxEwPFbk60SZT84e9nIp4Wc
- d+UaaWsUxpbOO+TGUgNJ0NsLlL7pe+SAwNAJmGw0W9Du16EQvkH6kKNbRmM08jSQeZX+D4QNk
- PN3KdmTmBprhALayJ2a6NTQEwz1lqVxAwrVw6vTZ1Hpi56d0sbQmnhmbhK7JDDk3SDPQJ7rBN
- 7glhODH1J05H2eXwygFt2FMdkM6LLB5kDsJP+pn4WRH/uc8L4RHX2wPQe/uoj6bqDkleyZhaC
- oxojZw9lT6+LxkDXWYxVuRX8uj3BazcH8gRiFmHsmNv7Ul52XUwx/g1SLazLd0iv/mSilCu1z
- 75rahwZ4pZLZOgxyvgm8799J/HmpTyLEPCR9QYFUlb/mHAJ54oHz65HkUr8Bdl+H0hYV2mwCF
- KRPCIFo0l8HEk5dbbN+u0F5psTTVtGQ2fQFnzkVWATJS2LukMwLG9ITvoO0u+GOHc50kYz3qE
- kGHrqk5U3yzf/zz5FmOb5+8Pgp1yddCvkgajfuzWfJsGQxYhmFI9wyc+S9u77Bi0ZcU0RKBGY
- qUmzpRCtqrWKwnshfn8rtT6B1/TvrsKLq9vbR0NYDfurzEm0TELGzFDgs/DglTt9Iw4bIb6dU
- wTUFRZ/GN9uKFgWdhwMbZ7laGfDZaFmGh2grInSSVSfN42Dj1Tfx3DRa4BbTq6GO1F1MV0Egq
- ubvjPVcvwRbjYwNUoG7JGvV4qM7jX7Q50Zwbg6/b/Hi/XJG2W3+UkZjYqiD5TtkXftoI0u9nq
- FwYN6a0D6P+7p4Lf8SOuTlYfol1gnV6lt4pzz+PcdwDj4wiAQYAzgFXM8dxEJSl1Zf8xc3v+L
- u3t9B64D1UTao8nzfyu+eindp9O4R29iXzI3PcAMhKKPkCDvVK3MUhJKReX99MAOHcI3csGd7
- paBrIgk7HtLsjcuX2nH9aXxPEqpQD3MMjfApzFEPh7VtHHx5NNUz9waN0G6YS5fKL3EaL1I6u
- I5TO+rMciYGdOJNlmoLb+HpgmzGneEUVJ0Ze5EjXHprDj2IHGdgvwrx3QEAefG/c02PIcDaj8
- pyf9a8XyhjImqjbvmSKxkHm2EZUxNfn71wPwM2csV1QRPU3JhxZYpyT/j1Pn1Z/3OEsr4qwpb
- jbaTnmpYBXcXiHjzVr5l0wvGQqxd3umJDb4x4NTW1DQ2zizQWHybxVl+E9AaNFF3lLB5uFKcs
- UckO9pkxVo+2/tSpQ1iknOn3aki5Hdu8asOsZ+A+R0MFFueXtljJRcaoHbf5Mu5f/vsFXl5F7
- 34XJYkhgWqeRVkb2lzEEEgNSX5HU/HzaZZ2ukXnjGoR79uNjNar40wtPir/lTQrex0YgYwVGl
- sk8PegLBuBlRef+u7DnHr9XIwrTV4VgsEDJg9zEeZb4MU/55FY3GCGbvqMktGGsr2gFVXZjO7
- TAFWanKt6UZburVYfX804r1qEa33uPwOfa0voWZwRmXOU7239cN3SGF80d8W7VbY1XhCrMjGF
- N0wvHyPsfFej174zRwBEm+Ss5t1csIbKVpWE8i54sIGTCnsROazL8F6oOwjoEPCSls79up7Kk
- E1o63nS3Ug9SADOPyDJZidc+hEx82WHOzsCnbUiqQ6D8e/QBbxNkS8Ss3StioU0gydt2cqme3
- og8lN0BewB+JrnL2IH+LRIUaMv0oFCZRHVviQ2dnKPbkgF7FCXqrSdDPIs/cUXqo/ADB/Mnnf
- tfgxZwLDrY7E65S1G9xeF2Td/6lpA3e8LILFtL5x8BgJ9f2oCY/bL6pvUuFoRqUGiWLkZXjIU
- R+HLk6DJJmfGqLBeQ+m0JMUEtBeGApXAF5+szohH4hkqirM0pxECPWDtZNPxtJ9x+nZlJA==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 0/3] riscv: canaan: Add support for K230 clock
+To: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Conor Dooley <conor@kernel.org>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ Samuel Holland <samuel.holland@sifive.com>,
+ Troy Mitchell <TroyMitchell988@gmail.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+References: <20260425-b4-k230-clk-v12-0-7d5ced1f5da8@zohomail.com>
+From: Xukai Wang <kingxukai@zohomail.com>
+Content-Language: en-US
+In-Reply-To: <20260425-b4-k230-clk-v12-0-7d5ced1f5da8@zohomail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Feedback-ID: zu08011227633b5f713e3a517a8598a0a9000010364e0b41babe00eb9193364f041af476389543d9a6119019:ZohoMail
+X-Zoho-CM-AccountID: 2ee5dd3c83366259b2ba1e9826250ffebed1ef2dd213857d649ad25aba73b429
+X-ZohoMailClient: External
 
-Add driver for Wacom W9002 and two Wacom W9007A variants. These are
-penabled touchscreens supporting passive Wacom Pens and use I2C.
 
-Co-developed-by: Ferass El Hafidi <funderscore@postmarketos.org>
-Signed-off-by: Ferass El Hafidi <funderscore@postmarketos.org>
-Signed-off-by: Hendrik Noack <hendrik-noack@gmx.de>
-=2D--
- drivers/input/touchscreen/Kconfig       |  12 +
- drivers/input/touchscreen/Makefile      |   1 +
- drivers/input/touchscreen/wacom_w9000.c | 438 ++++++++++++++++++++++++
- 3 files changed, 451 insertions(+)
- create mode 100644 drivers/input/touchscreen/wacom_w9000.c
+On 2026/4/25 17:29, Xukai Wang wrote:
+> This patch series adds clock controller support for the Canaan Kendryte
+> K230 SoC. The K230 SoC includes an external 24MHz OSC, 4 internal
+> PLLs and an external pulse input, with the controller managing these
+> sources and their derived clocks.
+>
+> The clock tree and hardware-specific definition can be found in the
+> vendor's DTS [1],
+> and this series is based on the K230 initial series [2].
+>
+> Link: https://github.com/ruyisdk/linux-xuantie-kernel/blob/linux-6.6.36/arch/riscv/boot/dts/canaan/k230_clock_provider.dtsi [1]
+> Link: https://lore.kernel.org/linux-clk/tencent_F76EB8D731C521C18D5D7C4F8229DAA58E08@qq.com/ [2]
+>
+> Co-developed-by: Troy Mitchell <TroyMitchell988@gmail.com>
+> Signed-off-by: Troy Mitchell <TroyMitchell988@gmail.com>
+> Signed-off-by: Xukai Wang <kingxukai@zohomail.com>
+>
+> ---
+> Changes in v12:
+> - Rebase onto linux-next (next-20260421).
+> - Migrate from deprecated round_rate() clk_ops to determine_rate() API.
+> - dt-bindings: Drop redundant "bindings for" in commit subject.
+> - Link to v11: https://lore.kernel.org/r/20260214-b4-k230-clk-v11-0-6de365489b89@zohomail.com
+Hi Stephen,
 
-diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen=
-/Kconfig
-index aeaf9a9cbb41..6714c1e451a6 100644
-=2D-- a/drivers/input/touchscreen/Kconfig
-+++ b/drivers/input/touchscreen/Kconfig
-@@ -610,6 +610,18 @@ config TOUCHSCREEN_WACOM_I2C
- 	  To compile this driver as a module, choose M here: the module
- 	  will be called wacom_i2c.
-=20
-+config TOUCHSCREEN_WACOM_W9000
-+	tristate "Wacom W9000-series penabled touchscreen (I2C)"
-+	depends on I2C
-+	help
-+	  Say Y here if you have a Wacom W9000-series penabled I2C touchscreen.
-+	  This driver supports models W9002 and W9007A.
-+
-+	  If unsure, say N.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called wacom_w9000.
-+
- config TOUCHSCREEN_LPC32XX
- 	tristate "LPC32XX touchscreen controller"
- 	depends on ARCH_LPC32XX
-diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscree=
-n/Makefile
-index f2b002abebe8..6db05b4a2ee5 100644
-=2D-- a/drivers/input/touchscreen/Makefile
-+++ b/drivers/input/touchscreen/Makefile
-@@ -101,6 +101,7 @@ tsc2007-$(CONFIG_TOUCHSCREEN_TSC2007_IIO)	+=3D tsc2007=
-_iio.o
- obj-$(CONFIG_TOUCHSCREEN_TSC2007)	+=3D tsc2007.o
- obj-$(CONFIG_TOUCHSCREEN_WACOM_W8001)	+=3D wacom_w8001.o
- obj-$(CONFIG_TOUCHSCREEN_WACOM_I2C)	+=3D wacom_i2c.o
-+obj-$(CONFIG_TOUCHSCREEN_WACOM_W9000)	+=3D wacom_w9000.o
- obj-$(CONFIG_TOUCHSCREEN_WDT87XX_I2C)	+=3D wdt87xx_i2c.o
- obj-$(CONFIG_TOUCHSCREEN_WM831X)	+=3D wm831x-ts.o
- obj-$(CONFIG_TOUCHSCREEN_WM97XX)	+=3D wm97xx-ts.o
-diff --git a/drivers/input/touchscreen/wacom_w9000.c b/drivers/input/touch=
-screen/wacom_w9000.c
-new file mode 100644
-index 000000000000..3ef32dba35ab
-=2D-- /dev/null
-+++ b/drivers/input/touchscreen/wacom_w9000.c
-@@ -0,0 +1,438 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Wacom W9000-series penabled I2C touchscreen driver
-+ *
-+ * Copyright (c) 2026 Hendrik Noack <hendrik-noack@gmx.de>
-+ *
-+ * Partially based on vendor driver:
-+ *	Copyright (C) 2012, Samsung Electronics Co. Ltd.
-+ */
-+
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/input.h>
-+#include <linux/input/touchscreen.h>
-+#include <linux/unaligned.h>
-+
-+/* Some chips have flaky firmware that requires many retries before respo=
-nding. */
-+#define CMD_QUERY_RETRIES	8
-+
-+/* Message length */
-+#define CMD_QUERY_NUM_MAX	9
-+#define MSG_COORD_NUM_MAX	12
-+
-+/* Commands */
-+#define CMD_QUERY		0x2a
-+
-+struct wacom_w9000_variant {
-+	const unsigned int cmd_query_num;
-+	const unsigned int msg_coord_num;
-+	const char *name;
-+};
-+
-+struct wacom_w9000_data {
-+	struct i2c_client *client;
-+	struct input_dev *input_dev;
-+	const struct wacom_w9000_variant *variant;
-+	unsigned int fw_version;
-+
-+	struct touchscreen_properties prop;
-+	unsigned int max_pressure;
-+
-+	struct regulator *regulator;
-+	bool powered;
-+
-+	struct gpio_desc *flash_mode_gpio;
-+	struct gpio_desc *reset_gpio;
-+
-+	unsigned int irq;
-+
-+	bool pen_proximity;
-+};
-+
-+static int wacom_w9000_read(struct i2c_client *client, u8 command, int le=
-n, char *data)
-+{
-+	int error, res;
-+	struct i2c_msg msg[] =3D {
-+		{
-+			.addr =3D client->addr,
-+			.flags =3D 0,
-+			.buf =3D &command,
-+			.len =3D sizeof(command),
-+		}, {
-+			.addr =3D client->addr,
-+			.flags =3D I2C_M_RD,
-+			.buf =3D data,
-+			.len =3D len,
-+		}
-+	};
-+
-+	res =3D i2c_transfer(client->adapter, msg, ARRAY_SIZE(msg));
-+	if (res !=3D ARRAY_SIZE(msg)) {
-+		error =3D res < 0 ? res : -EIO;
-+		dev_err(&client->dev, "%s: i2c transfer failed: %d (%d)\n", __func__, e=
-rror, res);
-+		return error;
-+	}
-+
-+	return 0;
-+}
-+
-+static int wacom_w9000_query(struct wacom_w9000_data *wacom_data)
-+{
-+	struct i2c_client *client =3D wacom_data->client;
-+	struct device *dev =3D &wacom_data->client->dev;
-+	int error;
-+	int retry =3D 0;
-+	u8 data[CMD_QUERY_NUM_MAX];
-+
-+	for (; retry < CMD_QUERY_RETRIES; retry++) {
-+		error =3D wacom_w9000_read(client, CMD_QUERY, wacom_data->variant->cmd_=
-query_num,
-+					 data);
-+
-+		if (!error && (data[0] =3D=3D 0x0f))
-+			break;
-+	}
-+
-+	if (error)
-+		return error;
-+
-+	dev_dbg(dev, "query: %*ph, %d\n", wacom_data->variant->cmd_query_num, da=
-ta, retry);
-+
-+	wacom_data->prop.max_x =3D get_unaligned_be16(&data[1]);
-+	wacom_data->prop.max_y =3D get_unaligned_be16(&data[3]);
-+	wacom_data->max_pressure =3D get_unaligned_be16(&data[5]);
-+	wacom_data->fw_version =3D get_unaligned_be16(&data[7]);
-+
-+	dev_dbg(dev, "max_x:%d, max_y:%d, max_pressure:%d, fw:%#x", wacom_data->=
-prop.max_x,
-+		wacom_data->prop.max_y, wacom_data->max_pressure,
-+		wacom_data->fw_version);
-+
-+	return 0;
-+}
-+
-+/* Must be called with wacom_data->input_dev->mutex held */
-+static int wacom_w9000_power_on(struct wacom_w9000_data *wacom_data)
-+{
-+	int error;
-+
-+	if (wacom_data->powered)
-+		return 0;
-+
-+	error =3D regulator_enable(wacom_data->regulator);
-+	if (error) {
-+		dev_err(&wacom_data->client->dev, "Failed to enable regulators: %d\n", =
-error);
-+		return error;
-+	}
-+
-+	msleep(200);
-+
-+	gpiod_set_value_cansleep(wacom_data->reset_gpio, 0);
-+	enable_irq(wacom_data->irq);
-+
-+	wacom_data->powered =3D true;
-+
-+	return error;
-+}
-+
-+/* Must be called with wacom_data->input_dev->mutex held */
-+static int wacom_w9000_power_off(struct wacom_w9000_data *wacom_data)
-+{
-+	if (!wacom_data->powered)
-+		return 0;
-+
-+	disable_irq(wacom_data->irq);
-+	gpiod_set_value_cansleep(wacom_data->reset_gpio, 1);
-+	regulator_disable(wacom_data->regulator);
-+
-+	wacom_data->powered =3D false;
-+
-+	return 0;
-+}
-+
-+static void wacom_w9000_coord(struct wacom_w9000_data *wacom_data)
-+{
-+	struct i2c_client *client =3D wacom_data->client;
-+	struct device *dev =3D &wacom_data->client->dev;
-+	int error;
-+	u8 data[MSG_COORD_NUM_MAX];
-+	bool touch, rubber, side_button;
-+	u16 x, y, pressure;
-+	u8 distance =3D 0;
-+
-+	error =3D i2c_master_recv(client, data, wacom_data->variant->msg_coord_n=
-um);
-+	if (error !=3D wacom_data->variant->msg_coord_num) {
-+		if (error >=3D 0)
-+			error =3D -EIO;
-+		dev_err(dev, "%s: i2c receive failed (%d)\n", __func__, error);
-+		return;
-+	}
-+
-+	dev_dbg(dev, "data: %*ph", wacom_data->variant->msg_coord_num, data);
-+
-+	if (data[0] & BIT(7)) {
-+		wacom_data->pen_proximity =3D true;
-+
-+		touch =3D !!(data[0] & BIT(4));
-+		side_button =3D !!(data[0] & BIT(5));
-+		rubber =3D !!(data[0] & BIT(6));
-+
-+		x =3D get_unaligned_be16(&data[1]);
-+		y =3D get_unaligned_be16(&data[3]);
-+		pressure =3D get_unaligned_be16(&data[5]);
-+
-+		if (wacom_data->variant->msg_coord_num > 7)
-+			distance =3D data[7];
-+
-+		if (x > wacom_data->prop.max_x || y > wacom_data->prop.max_y) {
-+			dev_warn(dev, "Coordinates out of range x=3D%d, y=3D%d", x, y);
-+			return;
-+		}
-+
-+		if (pressure > wacom_data->max_pressure) {
-+			dev_warn(dev, "Pressure out of range %d", pressure);
-+			return;
-+		}
-+
-+		touchscreen_report_pos(wacom_data->input_dev, &wacom_data->prop, x, y, =
-false);
-+		input_report_abs(wacom_data->input_dev, ABS_PRESSURE, pressure);
-+
-+		if (wacom_data->variant->msg_coord_num > 7)
-+			input_report_abs(wacom_data->input_dev, ABS_DISTANCE, distance);
-+
-+		input_report_key(wacom_data->input_dev, BTN_STYLUS, side_button);
-+		input_report_key(wacom_data->input_dev, BTN_TOUCH, touch);
-+		input_report_key(wacom_data->input_dev, BTN_TOOL_PEN, !rubber);
-+		input_report_key(wacom_data->input_dev, BTN_TOOL_RUBBER, rubber);
-+		input_sync(wacom_data->input_dev);
-+	} else if (wacom_data->pen_proximity) {
-+		input_report_abs(wacom_data->input_dev, ABS_PRESSURE, 0);
-+
-+		if (wacom_data->variant->msg_coord_num > 7)
-+			input_report_abs(wacom_data->input_dev, ABS_DISTANCE, 255);
-+
-+		input_report_key(wacom_data->input_dev, BTN_STYLUS, 0);
-+		input_report_key(wacom_data->input_dev, BTN_TOUCH, 0);
-+		input_report_key(wacom_data->input_dev, BTN_TOOL_PEN, 0);
-+		input_report_key(wacom_data->input_dev, BTN_TOOL_RUBBER, 0);
-+		input_sync(wacom_data->input_dev);
-+
-+		wacom_data->pen_proximity =3D false;
-+	}
-+}
-+
-+static irqreturn_t wacom_w9000_interrupt(int irq, void *dev_id)
-+{
-+	struct wacom_w9000_data *wacom_data =3D dev_id;
-+
-+	wacom_w9000_coord(wacom_data);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int wacom_w9000_open(struct input_dev *dev)
-+{
-+	struct wacom_w9000_data *wacom_data =3D input_get_drvdata(dev);
-+
-+	return wacom_w9000_power_on(wacom_data);
-+}
-+
-+static void wacom_w9000_close(struct input_dev *dev)
-+{
-+	struct wacom_w9000_data *wacom_data =3D input_get_drvdata(dev);
-+
-+	wacom_w9000_power_off(wacom_data);
-+}
-+
-+static int wacom_w9000_probe(struct i2c_client *client)
-+{
-+	struct device *dev =3D &client->dev;
-+	struct wacom_w9000_data *wacom_data;
-+	struct input_dev *input_dev;
-+	int error;
-+	u32 val;
-+
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
-+		dev_err(dev, "i2c_check_functionality error\n");
-+		return -EIO;
-+	}
-+
-+	wacom_data =3D devm_kzalloc(dev, sizeof(*wacom_data), GFP_KERNEL);
-+	if (!wacom_data)
-+		return -ENOMEM;
-+
-+	wacom_data->variant =3D i2c_get_match_data(client);
-+
-+	if (wacom_data->variant->cmd_query_num > CMD_QUERY_NUM_MAX ||
-+	    wacom_data->variant->msg_coord_num > MSG_COORD_NUM_MAX) {
-+		dev_err(dev, "Length of message for %s exceeds the maximum\n",
-+			wacom_data->variant->name);
-+		return -EINVAL;
-+	}
-+
-+	if (wacom_data->variant->msg_coord_num < 7) {
-+		dev_err(dev, "Length of coordinates message for %s too short\n",
-+			wacom_data->variant->name);
-+		return -EINVAL;
-+	}
-+
-+	wacom_data->client =3D client;
-+
-+	input_dev =3D devm_input_allocate_device(dev);
-+	if (!input_dev)
-+		return -ENOMEM;
-+
-+	wacom_data->input_dev =3D input_dev;
-+	input_set_drvdata(input_dev, wacom_data);
-+
-+	wacom_data->irq =3D client->irq;
-+	i2c_set_clientdata(client, wacom_data);
-+
-+	wacom_data->regulator =3D devm_regulator_get(dev, "vdd");
-+	if (IS_ERR(wacom_data->regulator))
-+		return dev_err_probe(dev, PTR_ERR(wacom_data->regulator),
-+				     "Failed to get regulators\n");
-+
-+	wacom_data->flash_mode_gpio =3D devm_gpiod_get_optional(dev, "flash-mode=
-", GPIOD_OUT_LOW);
-+	if (IS_ERR(wacom_data->flash_mode_gpio))
-+		return dev_err_probe(dev, PTR_ERR(wacom_data->flash_mode_gpio),
-+				     "Failed to get flash-mode gpio\n");
-+
-+	wacom_data->reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_O=
-UT_HIGH);
-+	if (IS_ERR(wacom_data->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(wacom_data->reset_gpio),
-+				     "Failed to get reset gpio\n");
-+
-+	error =3D regulator_enable(wacom_data->regulator);
-+	if (error)
-+		return dev_err_probe(dev, error, "Failed to enable regulators\n");
-+
-+	msleep(200);
-+
-+	gpiod_set_value_cansleep(wacom_data->reset_gpio, 0);
-+
-+	error =3D wacom_w9000_query(wacom_data);
-+
-+	gpiod_set_value_cansleep(wacom_data->reset_gpio, 1);
-+	regulator_disable(wacom_data->regulator);
-+
-+	wacom_data->powered =3D false;
-+
-+	if (error)
-+		return dev_err_probe(dev, error, "Failed to query\n");
-+
-+	input_dev->name =3D wacom_data->variant->name;
-+	input_dev->id.bustype =3D BUS_I2C;
-+	input_dev->dev.parent =3D dev;
-+	input_dev->id.vendor =3D 0x56a;
-+	input_dev->id.version =3D wacom_data->fw_version;
-+	input_dev->open =3D wacom_w9000_open;
-+	input_dev->close =3D wacom_w9000_close;
-+
-+	input_set_capability(input_dev, EV_KEY, BTN_TOUCH);
-+	input_set_capability(input_dev, EV_KEY, BTN_TOOL_PEN);
-+	input_set_capability(input_dev, EV_KEY, BTN_TOOL_RUBBER);
-+	input_set_capability(input_dev, EV_KEY, BTN_STYLUS);
-+
-+	input_set_abs_params(input_dev, ABS_X, 0, wacom_data->prop.max_x, 4, 0);
-+	input_set_abs_params(input_dev, ABS_Y, 0, wacom_data->prop.max_y, 4, 0);
-+	input_set_abs_params(input_dev, ABS_PRESSURE, 0, wacom_data->max_pressur=
-e, 0, 0);
-+
-+	if (wacom_data->variant->msg_coord_num > 7)
-+		input_set_abs_params(input_dev, ABS_DISTANCE, 0, 255, 0, 0);
-+
-+	touchscreen_parse_properties(input_dev, false, &wacom_data->prop);
-+
-+	dev_info(dev, "%s size X%uY%u\n", wacom_data->variant->name,
-+		 wacom_data->prop.max_x, wacom_data->prop.max_y);
-+
-+	error =3D device_property_read_u32(dev, "touchscreen-x-mm", &val);
-+	if (!error)
-+		input_abs_set_res(input_dev, ABS_X, wacom_data->prop.max_x / val);
-+	error =3D device_property_read_u32(dev, "touchscreen-y-mm", &val);
-+	if (!error)
-+		input_abs_set_res(input_dev, ABS_Y, wacom_data->prop.max_y / val);
-+
-+	error =3D devm_request_threaded_irq(dev, wacom_data->irq, NULL, wacom_w9=
-000_interrupt,
-+					  IRQF_ONESHOT | IRQF_NO_AUTOEN, client->name, wacom_data);
-+	if (error)
-+		return dev_err_probe(dev, error, "Failed to register interrupt\n");
-+
-+	error =3D input_register_device(wacom_data->input_dev);
-+	if (error)
-+		return dev_err_probe(dev, error, "Failed to register input device\n");
-+
-+	return 0;
-+}
-+
-+static int wacom_w9000_suspend(struct device *dev)
-+{
-+	struct i2c_client *client =3D to_i2c_client(dev);
-+	struct wacom_w9000_data *wacom_data =3D i2c_get_clientdata(client);
-+
-+	guard(mutex)(&wacom_data->input_dev->mutex);
-+
-+	return wacom_w9000_power_off(wacom_data);
-+}
-+
-+static int wacom_w9000_resume(struct device *dev)
-+{
-+	struct i2c_client *client =3D to_i2c_client(dev);
-+	struct wacom_w9000_data *wacom_data =3D i2c_get_clientdata(client);
-+
-+	guard(mutex)(&wacom_data->input_dev->mutex);
-+
-+	return wacom_w9000_power_on(wacom_data);
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(wacom_w9000_pm, wacom_w9000_suspend, waco=
-m_w9000_resume);
-+
-+static const struct wacom_w9000_variant w9002 =3D {
-+	.cmd_query_num  =3D 9,
-+	.msg_coord_num  =3D 7,
-+	.name =3D "Wacom W9002 Digitizer",
-+};
-+
-+static const struct wacom_w9000_variant w9007a_lt03 =3D {
-+	.cmd_query_num	=3D 9,
-+	.msg_coord_num	=3D 8,
-+	.name =3D "Wacom W9007A LT03 Digitizer",
-+};
-+
-+static const struct wacom_w9000_variant w9007a_v1 =3D {
-+	.cmd_query_num	=3D 9,
-+	.msg_coord_num	=3D 12,
-+	.name =3D "Wacom W9007A V1 Digitizer",
-+};
-+
-+static const struct of_device_id wacom_w9000_of_match[] =3D {
-+	{ .compatible =3D "wacom,w9002", .data =3D &w9002 },
-+	{ .compatible =3D "wacom,w9007a-lt03", .data =3D &w9007a_lt03, },
-+	{ .compatible =3D "wacom,w9007a-v1", .data =3D &w9007a_v1, },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, wacom_w9000_of_match);
-+
-+static const struct i2c_device_id wacom_w9000_id[] =3D {
-+	{ .name =3D "w9002", .driver_data =3D (kernel_ulong_t)&w9002 },
-+	{ .name =3D "w9007a-lt03", .driver_data =3D (kernel_ulong_t)&w9007a_lt03=
- },
-+	{ .name =3D "w9007a-v1", .driver_data =3D (kernel_ulong_t)&w9007a_v1 },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, wacom_w9000_id);
-+
-+static struct i2c_driver wacom_w9000_driver =3D {
-+	.driver =3D {
-+		.name	=3D "wacom_w9000",
-+		.of_match_table =3D wacom_w9000_of_match,
-+		.pm	=3D pm_sleep_ptr(&wacom_w9000_pm),
-+	},
-+	.probe		=3D wacom_w9000_probe,
-+	.id_table	=3D wacom_w9000_id,
-+};
-+module_i2c_driver(wacom_w9000_driver);
-+
-+/* Module information */
-+MODULE_AUTHOR("Hendrik Noack <hendrik-noack@gmx.de>");
-+MODULE_DESCRIPTION("Wacom W9000-series penabled touchscreen driver");
-+MODULE_LICENSE("GPL");
-=2D-=20
-2.43.0
+I hope this email finds you well. I am writing to politely inquire about
+the status of the Canaan K230 clock controller driver patch series.
+
+It has been approximately one and a half years since I first submitted
+this series, and it has now reached version 12. Most of the intermediate
+versions contained only minor adjustments and rebases, and I have been
+resending it periodically without receiving any review feedback.
+
+I would greatly appreciate it if you could let me know whether this
+series is ready for merging, or if there are any specific issues that
+need to be addressed. I am ready to make any required changes immediately.
+
+I apologize for the intrusion and thank you for your time and hard work
+maintaining the clock subsystem.
+>
+> Changes in v11:
+> - Rename hs_hclk_high_src to hs_hclk_high and hs_hclk_src to hs_hclk.
+> - Rebase base-commit to linux-next.
+> - Update prerequisite-patch-id.
+> - Link to v10: https://lore.kernel.org/r/20260116-b4-k230-clk-v10-0-de59033c5d30@zohomail.com
+>
+> Changes in v10:
+> - Drop clock node: cpu1_apb_rate.
+> - Rename hs_ospi_src to hs_ssi0.
+> - Rename fixed clocks format in dts.
+> - Fix missing clk member registration in driver.
+> - Fix incorrect clk ID: k230_cpu1_src_rate → K230_CPU1_SRC_RATE.
+> - Fix bit index of hs_hclk_src_gate: 1 → 0.
+> - Add CLK_IS_CRITICAL to CPU-related gate clocks.
+> - Update parent clocks: display_clkext_rate, sec_apb_gate, ai_axi_gate,
+> cpu1_src_mux and hs_sd_card_src_rate.
+> - Link to v9: https://lore.kernel.org/r/20251127-b4-k230-clk-v9-0-3aa09e17faf5@zohomail.com
+>
+> Changes in v9:
+> - Rebase base-commit to v6.18-rc1
+> - Simplified PLL field extraction with FIELD_GET() macro
+> - Drop MODULE_DEVICE_TABLE for k230_clk_ids
+> - Replace k230_clk_find_approximate_mul_div's step with
+>   Rational_best_approximation
+> - Reorder declaration and defination for clk_ops
+> - Link to v8: https://lore.kernel.org/r/20250905-b4-k230-clk-v8-0-96caa02d5428@zohomail.com
+>
+> Changes in v8:
+> - Rename dts node name "timer_pulse_in" to "clock-50m"
+> - Drop redundant comment and 'minItems' of hardware in dt-binding.
+> - Link to v7: https://lore.kernel.org/r/20250730-b4-k230-clk-v7-0-c57d3bb593d3@zohomail.com
+>
+> Changes in v7:
+> - Rename K230_PLL_STATUS_MASK to K230_PLL_LOCK_STATUS_MASK
+> - Add clkdev for PLLs to register lookup
+> - Add macros to generate repeat variables definition
+> - Refine the definitions of k230 clocks
+> - Split composite clks into rate, gate, mux, fixed_factor clk
+> - Replace k230_clk_hw_onecell_get with of_clk_hw_onecell_get for
+>   clock provider
+> - Drop k230_sysclk and use clk_mux, clk_gate and clk_fixed_factor
+>   as the data structures.
+> - Replace one loop registration with individual registration for
+>   each type.
+> - Link to v6: https://lore.kernel.org/r/20250415-b4-k230-clk-v6-0-7fd89f427250@zohomail.com
+>
+> Changes in v6:
+> - Remove some redundant comments in struct declaration.
+> - Replace the Vendor's code source link with a new one.
+> - Link to v5: https://lore.kernel.org/r/20250320-b4-k230-clk-v5-0-0e9d089c5488@zohomail.com
+>
+> Changes in v5:
+> - Fix incorrect base-commit and add prerequisite-patch-id.
+> - Replace dummy apb_clk with real ones for UARTs.
+> - Add IDs of UARTs clock and DMA clocks in the binding header.
+> - Replace k230_clk_cfgs[] array with corresponding named variables.
+> - Remove some redundant checks in clk_ops.
+> - Drop the unnecessary parenthesis and type casts.
+> - Modify return value handling in probe path to avoid redundant print.
+> - Link to v4: https://lore.kernel.org/r/20250217-b4-k230-clk-v4-0-5a95a3458691@zohomail.com
+>
+> Changes in v4:
+> - Remove redundant onecell_get callback and add_provider function
+> for pll_divs.
+> - Modify the base-commit in cover letter.
+> - Link to v3: https://lore.kernel.org/r/20250203-b4-k230-clk-v3-0-362c79124572@zohomail.com
+>
+> Changes in v3:
+> - Reorder the defination and declaration in drivers code.
+> - Reorder the properties in dts node.
+> - Replace global variable `k230_sysclk` with dynamic memory allocation.
+> - Rename the macro K230_NUM_CLKS to K230_CLK_NUM.
+> - Use dev_err_probe for error handling.
+> - Remove unused includes.
+> - Link to v2: https://lore.kernel.org/r/20250108-b4-k230-clk-v2-0-27b30a2ca52d@zohomail.com
+>
+> Changes in v2:
+> - Add items and description.
+> - Rename k230-clk.h to canaan,k230-clk.h
+> - Link to v1: https://lore.kernel.org/r/20241229-b4-k230-clk-v1-0-221a917e80ed@zohomail.com
+>
+> ---
+> Xukai Wang (3):
+>       dt-bindings: clock: Add Canaan K230 clock controller
+>       clk: canaan: Add clock driver for Canaan K230
+>       riscv: dts: canaan: Add clock definition for K230
+>
+>  .../devicetree/bindings/clock/canaan,k230-clk.yaml |   59 +
+>  arch/riscv/boot/dts/canaan/k230-canmv.dts          |   11 +
+>  arch/riscv/boot/dts/canaan/k230-evb.dts            |   11 +
+>  arch/riscv/boot/dts/canaan/k230.dtsi               |   26 +-
+>  drivers/clk/Kconfig                                |    6 +
+>  drivers/clk/Makefile                               |    1 +
+>  drivers/clk/clk-k230.c                             | 2452 ++++++++++++++++++++
+>  include/dt-bindings/clock/canaan,k230-clk.h        |  220 ++
+>  8 files changed, 2778 insertions(+), 8 deletions(-)
+> ---
+> base-commit: af98e93c5c39e6d0b87b42f0a32dd3066f795718
+> change-id: 20241206-b4-k230-clk-925f33fed6c2
+> prerequisite-patch-id: 9a2d01f55574b538dad572e193f81c44661f0853
+>
+> Best regards,
+> --  
+> Xukai Wang <kingxukai@zohomail.com>
+>
+-- 
+Best regards,
+Xukai Wang
 
