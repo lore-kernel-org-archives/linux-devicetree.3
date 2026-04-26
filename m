@@ -1,100 +1,159 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FAE71A073F
-	for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 23:40:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777246844; cv=none; b=GGGXkMjBJdc9lfAwgdJxDyzoXGj9WonMfTeogi6zmhzk5PM7iCoLr5VCTL1lZkKfhV6gTcCv3p60NJcSp/pVs/Y3PyqF1x6xu1pLyx3O+pYqOG1jgYGvn5dsBVm5mIZtYzSjn3cfguKt2GtFjsxnVpjRMeE/7tcl/sXeLmet2Vg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777246844; c=relaxed/simple;
-	bh=2JZbIC1j1ZT07IZeXZn2PsOsR4I8cDLN4cHjVdNpjzk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H5D2dL99VOsVicBCIHxMUgq8ozXFVY9es5/tiZe9vzL+ctM1+TYg66ylsQhIbSfG2aOt1uL+iB8H56fUVOTgmyAP8msbal+04b0PmHxr/1RgTz241zkKmC46VDFiymZCWuFpxAfIkU0D7Ly5eNj4j567SNGHAId2p/dLj+dsXqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=og1bhdDa; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F64D2750E6
+	for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 23:40:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777246850; cv=pass; b=tJOt73O/06d++Brp5SVHBnI8SpgH8G7nnGf07dq7FWYaeCu+ZhC6faCJikPQ9kBST+or5otcM7Cjq48knlziZuevC2CNnmiC9cpxCgvElbMI5/p4jRCPzNOhXfiSjuOxIhqO9K8tWf/Xic32+M9Z93lM5gAitaDXjh9XGCBKne0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777246850; c=relaxed/simple;
+	bh=X0R+smGYEcUcLNPqU5xk6J7XACJYnkvYN5xGy2f4apQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=a1wahi1BiRaySr+WgkvY1JRVI1okQJEDyTa9XQNV69xPzOa/CEV6wAR1ngf/ftx/z+cZkszLqGP4+u0c46aiHn21xAEe4bCAX7iAiZBlHlEWjstJeiYjzLLSZUkAbQQFiaph0g1Tlp8q33/9ASnw2VmY3X3fsINOrrNG7AZ6i+k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qmTRfpii; arc=pass smtp.client-ip=209.85.215.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="og1bhdDa"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-2d891442388so17376323eec.0
-        for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 16:40:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qmTRfpii"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c70f91776fcso3643272a12.0
+        for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 16:40:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777246849; cv=none;
+        d=google.com; s=arc-20240605;
+        b=IjBNkVaurV4pNFuZ9y+EnLOjINURdlJpyIAyYHPoM0quYti3hUKRJrYc1J76Nj+kJk
+         ZtOxAQDFEgRO8+OHu74pItIQ4zivdQTtezSW9/9jBcwudRxaxWTUKfWRFwrHkik8GXgK
+         ndXWbaPejR5TTRpi7tHuMTJdjygNobXnnk/Pl+zJUZtcBvY56iUtsW1dSV/WZCsFTSmL
+         uAye588D2IKsKAkFtnFA8k0O0tzAFW8GnnlJs+IXUo4drBC/xnbf6MfsftYKmIkv/KBH
+         Q9n4T2Lay4Ajv6ARyzHBpftEBvTAi2Vk266w0aJTdu0u1ZUbGTmbGgenVHlsDXTOqR/8
+         O8Lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Y0mG82ZqnbNgU5UbwCZHANJfxcxBs7X3CB8+aFRbO3g=;
+        fh=4AYeKdjbOiD3SWc+/p1SWXJvawxhxr6Gu8T1f53v1T8=;
+        b=iGzkYMKRKVY9X0Je3WtAeCJ1r/N4h4N4n7ZEiUKlwNhl40pETpsGqzk+y0EGS8wKI6
+         htBvLRAaaV9HrUyE/NMJ/r3jqrrth9+76RQk+IzTjs3Os8YfGWI/S+bNuq4Ev6oQiw8J
+         hePVgNurJlhr2F1f1xgtH67xTxbDyFNxBAbuCGS+Pyi3S7lceyEWApY/7yqcCqV7Ytb/
+         W/PQI0f8IOHWpiBKW0IKFMrbCIVK3Nq9fKhm6M4mKTqjCFH0m6W4bv/slv96n6aw9nj1
+         g5d7tcUpISnsPvDsfAQtAOADopc3OrKm/SrEn2iR2DFrLauMyU+y5zY57LTHR4yzsAla
+         xK4g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777246841; x=1777851641; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=DVQAh1zH0R/yT84bvoM6C71cA7nJPq6N2ZR3XUe5gac=;
-        b=og1bhdDaSIzYPPikiiqc1MhamfXTzr6yIojrurMuSTsyBBgxvw2Fbgy6BX3s/JizXW
-         gRHpQYAF8wIOTr6G1eSe2oBpkKEpvwe2m9wRWrWv6yiN6fjl4hxXeaV8P4eLpKHYvbVQ
-         gdrJJJMXrprSOSiXqa0U4VKoLNWm3HE0OQlKFHAlGuqgTtgrm9kQQ/SgQf/2T/9rqeoE
-         OC/isuq8SGA938d10kksX3b+eFPIyC6FOdlCv6qiBROuwv1PSg/tVpNQ0xUY9VsBOM+H
-         u/lG1kfXoFqCkMhWmhC9d/ZgdN0JkE6Up6iyily/Aa1eOsGjxNJvmePVfPBNGzlsaPHQ
-         nMpQ==
+        d=gmail.com; s=20251104; t=1777246848; x=1777851648; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Y0mG82ZqnbNgU5UbwCZHANJfxcxBs7X3CB8+aFRbO3g=;
+        b=qmTRfpiin/w29+GB+htBgs3zJWgka1CUu8RvQ+P4tiRy0g85vfg0LR3aBVTm7ISu2e
+         0YWl/ZHyH059cSZkWkSrUl/OSn04GuRxsfDwPiOMrvD6oYY4V3Fu6TTqDRw5bWp20/5s
+         K8DLoki6sFLlWCLfdg+02vR697XlzPai6WFfrU7TMFUbMNNk6cJgUc9SHtbb8voIxzXM
+         6GPbi4wOrZPboxBmOazvjnO6htFPSSHwRhTnS8w742sVAvflCOaiFVmTpJpdWexokKcO
+         iYUkCpcYlsSkkPG6zjv36MZMMnRPBEcUwht8b4Ah+qQpfCJzATn6UHbEcraB97+iLI/t
+         FQqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777246841; x=1777851641;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=DVQAh1zH0R/yT84bvoM6C71cA7nJPq6N2ZR3XUe5gac=;
-        b=HRbinpkdTthen7/lfR0yY+pwBdIbtgN2/VuEM54HZ7JEe3ETL+9vQ/0KNmAKkLa1nq
-         r8QuXIyIizeJM64wj0S7yU1pZTNxJF0r2RfaTJLAqyIrDOVJtTgTYsNnNpZsr5Py04dk
-         bWbPsqxBMxSWA5e1onkccZP3DeX3y4QmMspOHxAX/1p2BTpmwueb+dDJ6o6vltuvA2S9
-         dQxbnRFOD4udhtLFazmKjys/j545uegOlR2wlsEX7C75aZ0tf1FOBvv39yt7yoCyJgox
-         E3fNJgL5aZuWRW5TR76ZIP4qYJ6FFurtm3seRXGP0rdBj/uERES1HX6OH+CmhlOI0pq9
-         DCng==
-X-Forwarded-Encrypted: i=1; AFNElJ9YHKXL3drtjXb3KnidKBUa/IZ0HJmFvOUNAsqHb8GkDySXyAtshz9cnjmj6P6PJ/BH9mk9yrNluFPy@vger.kernel.org
-X-Gm-Message-State: AOJu0YyuJ1r5nbQUIPZTLwsN0YDGRi5d20zwjc+2vtAlb/9WX+nsXnmA
-	tbtlkLqb5eCBv3y28vW3YFJ3F68/RKPyMQHC00bAtAMChNl2MNhHaPJv
-X-Gm-Gg: AeBDietwaYakEYBPLK8mVEXXVlq/2Tr/GZBOoOs6bwpZvoVtAAlDK3wnMloqejzzcZ1
-	s4HFlp6qBGu3VGUNi+QWZugZYX7gyGdi5A294QihVC5UjY0sxbBP9ChcuefV5XSbRsu4tjxkpvn
-	tg8sLivwtc7X8sDYjzRvYf4yZZmTN43Q+Y7CY2z8savdssojGW72gSZ4Al9trKvFNXOepPX4Pbr
-	mLkjV2SDEvZ3deY6BIfJnerFevpKSTWPpazAxjXmvnJ0u0BvwDpi9GidnlroFury0Gnx7XGrDbZ
-	UyLb/fEAcpMiLhwdEswWQnyo8859U1bcJQHckguv64nPI42Da/dSyh03da1viV4sDLkIrXnV/wj
-	ygCRdGrMJXRHJKkArsB50cVPVQiRQemrkoidufWO6/dxjbkypkjKxKlGxjLYDxnmJGSR54Lt85d
-	+xApbjZao5AdlyYGlCCtn/s6w/cGC1p6NjhhzgnEuJOxOefSNQRdcv9u6B/lIyC4QuCCSg4YA7S
-	g==
-X-Received: by 2002:a05:7300:fd18:b0:2c5:b972:b436 with SMTP id 5a478bee46e88-2e478c1ff84mr21648118eec.23.1777246841412;
-        Sun, 26 Apr 2026 16:40:41 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:da2b:741f:93fe:403])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2e53ccce0f5sm41133434eec.17.2026.04.26.16.40.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Apr 2026 16:40:40 -0700 (PDT)
-Date: Sun, 26 Apr 2026 16:40:38 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Hendrik Noack <hendrik-noack@gmx.de>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Ferass El Hafidi <funderscore@postmarketos.org>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 2/2] Input: Add support for Wacom W9000-series
- penabled touchscreens
-Message-ID: <ae6iPsVrMhSFrqPm@google.com>
-References: <20260426135232.371272-1-hendrik-noack@gmx.de>
- <20260426135232.371272-3-hendrik-noack@gmx.de>
+        d=1e100.net; s=20251104; t=1777246848; x=1777851648;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Y0mG82ZqnbNgU5UbwCZHANJfxcxBs7X3CB8+aFRbO3g=;
+        b=iljklL2ZOkdQuRTyMD0BT+3SmLuyHuQeMgPYCF3zyHL2jodBCX6ENAJ47PaahliE/6
+         rj2JYXym6jQpQSpglhQ9luwxjYsmfpm0Gg/FN4cix2T2UYq0dzKXw1Pp9hyBD5qoMabd
+         lqVz0tFebYnREpTT9kHNr13ibhG/4Yeis/0cLQLO5afU13/GzCTIZtWtdmYPoZitBXG6
+         DdP2SY25cFHQFmTxBN1KrnVyGydmDTdsACE8f8WH2JYxAk4jpm9Wbkl6sSAL8IB+xdmz
+         d3sLnwGdarjFRE144E/e76yWyMZttF7NwTjQ3WfFFzfoi8n7RJ9mVYhekVHxNdTo943c
+         Jg+w==
+X-Forwarded-Encrypted: i=1; AFNElJ9IYEBzldsbIqsPsULmdlGhsFfHQ/rkcjFdqz6BicTjw5mr2GadyXwyPzfJuCMJ9OKmWsEHpYNvAPRb@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOQrP3xjhREG6vGFvCSuwl53ctp57uHYrsch2IexLfgKCGTFPn
+	ttLWeKU3gZ4DTV5TI+o2u+4Zckgftpwj1ZP/Jok6G4CMdP2AJfzRVvVlbPp7tJ6HUzP38MlTD19
+	Smfd45+ZHFCOTSE7UXVOfRIIK30Nm/9Y=
+X-Gm-Gg: AeBDietXhL2jwJTutt8DpUKQZua1oORho8nEcNwhGfoQ1w8jCUesZd87sjFTx7yhRCM
+	fi53t48UMWXEMO0nbus9tNepSjvu8csBrQT1CN77k/lHLuTeaaaBzRYVL1AHVtBMT+ZpXW1aJAI
+	TvG+XCQErRwme7CazoaPZgbBNllHnnG3FR1UipLMWbJVcu2dT9AEJqdDafVYmnlMGGTTokN7zMw
+	dhwMsBvELMwqTvcmQTiEJTmbg08gIl1ByIWRUbDaW64aqnfB7/RQJYMVI9YymQ+XipXSoNZAe/f
+	ygpTTUWlNO02K1ttUSMbExOsSpJcRvbdwSHOgcpRGnwepac=
+X-Received: by 2002:a05:6300:6d8f:20b0:398:8870:b531 with SMTP id
+ adf61e73a8af0-3a08d70a1famr25303284637.14.1777246848558; Sun, 26 Apr 2026
+ 16:40:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260426135232.371272-3-hendrik-noack@gmx.de>
+References: <20260423042831.21114-1-phucduc.bui@gmail.com> <20260423042831.21114-2-phucduc.bui@gmail.com>
+ <20260423-ingenious-psychedelic-jaybird-40bb4d@quoll>
+In-Reply-To: <20260423-ingenious-psychedelic-jaybird-40bb4d@quoll>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Mon, 27 Apr 2026 06:40:31 +0700
+X-Gm-Features: AQROBzALmqPDt_24g1IGVKGMMWkAGDfkR70trABOv_7t1jBQYK1ibQPH5H_P7bg
+Message-ID: <CAABR9nGH4yZcgyzm=wNYVHB2vLhojZJSHKOC6dSeQPm0rbh4KQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ASoC: dt-bindings: drop redundant wakeup-source definitions
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Mark Brown <broonie@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Joseph Chen <chenjh@rock-chips.com>, 
+	Chris Zhong <zyw@rock-chips.com>, Zhang Qing <zhangqing@rock-chips.com>, 
+	David Rau <David.Rau.opensource@dm.renesas.com>, 
+	Animesh Agarwal <animeshagarwal28@gmail.com>, devicetree@vger.kernel.org, 
+	linux-sound@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Hendrik,
+Hi,
 
-On Sun, Apr 26, 2026 at 03:52:32PM +0200, Hendrik Noack wrote:
-> Add driver for Wacom W9002 and two Wacom W9007A variants. These are
-> penabled touchscreens supporting passive Wacom Pens and use I2C.
-> 
-> Co-developed-by: Ferass El Hafidi <funderscore@postmarketos.org>
-> Signed-off-by: Ferass El Hafidi <funderscore@postmarketos.org>
-> Signed-off-by: Hendrik Noack <hendrik-noack@gmx.de>
+> > The 'wakeup-source' property already has its type defined in the core
 
-Some of sashiko's comments sem valid, please address them:
 
-https://sashiko.dev/#/patchset/20260426135232.371272-1-hendrik-noack@gmx.de
+> TYPES. It is plural.
 
-Thanks.
 
--- 
-Dmitry
+Thank you for pointing that out. That was a mistake in my wording.
+Regarding the two data types, I=E2=80=99m already aware of this and have
+discussed it in a previous patch.
+
+https://lore.kernel.org/all/CAABR9nH3hr+Y5ksD0cn3Gd9XUvmb07X7zJw0b4k_yVbnAu=
+z9=3Dw@mail.gmail.com/
+
+> > -  wakeup-source:
+
+> > -    type: boolean
+
+> > -    description:
+
+> > -      Flag to indicate this device can wake system (suspend/resume).
+
+> > +  wakeup-source: true
+
+>
+
+> That's wrong. Commit msg is making here false statements that it is
+
+> redundant. I checked (and you should too!) and driver does clearly
+
+> device_property_read_bool() thus the property CANNOT be the second type.
+
+I think Device Tree bindings should describe the hardware capability.
+If the hardware supports wakeup functionality,
+referencing the core schema is sufficient. Hardware description should
+not be constrained by the current driver implementation
+( e.g. the use of device_property_read_bool() ).
+Bindings should remain stable and generic, while drivers can evolve over ti=
+me.
+
+Re-defining the type locally duplicates the core definition. If the
+core schema evolves,
+this approach would require touching many bindings instead of updating
+one central place.
+
+This follows the recent cleanups suggested by Rob
+
+https://lore.kernel.org/all/177628888260.592110.11727813820499601669.robh@k=
+ernel.org/
+https://lore.kernel.org/all/177679687272.1458365.1328485324673928433.robh@k=
+ernel.org/
+
+Best regards,
+Phuc
