@@ -1,67 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8915017C211;
-	Sun, 26 Apr 2026 12:12:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9BF194AE6
+	for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 12:16:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777205574; cv=none; b=DBWlEPShBJ1zePVUcvy/zv520RGLah/gaQA18GPNCRAZowkX43zOiS8zoygUKbZ7An69ebamNdE6M0+8tgXBCjW1cykfa8gaYnH8QQhoYImbBAVjJExwQW3/ZkptduKbLYP4jrOpQ5FfUgwAibE+9rNtJvPGjJ4WGH7Ee709hus=
+	t=1777205769; cv=none; b=KeGiYMaVpP1tweLkn6Gcf3/dj8FLQRor1gKt8T3Zp80FkejntM7g9K8O1FljBDeqs1svt2V53nBjE9NMAYiXCPGzAExsSAHYiydLBHKl2wbjYaiv4UbxOPP6+Yx9LCheeNlEV1yu2TD/4VuD3xFJLjw9Uu2w8c82T49bToFXaOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777205574; c=relaxed/simple;
-	bh=P3bikrqi6kfMr6S9y79ceYVSgRZdxT9Zmg4rc+nCbqc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ckIRSKVlTkF2UPXsRcJm5MetUsacRCszQGyAH9avln4j6YbPXEDCXIml9mbEez+pL+RxU1VKnvb3SNcrgID63/xucwUtam9YW+dVBzCTd8/XiZfxJHw6sTpc4apBpINwbP1zsxLKZQfQrHHJRqaX/vHQVY1C4AmYFJIxLmaAn/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qht5GOBD; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777205769; c=relaxed/simple;
+	bh=sTH6zrHiQgzJ2dn9yyu9ZpKb/zzGMOU6idxjmTf2X0Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mZaNWcMQpv6k5Tm1HrVPBSbHXf98YxfjfpwNl7Khw2aQB3lz1iTCmHS4HWA4Hwe+C/h1/Dv+Mbzivr+RkAxSxOddHaurTtpwg3vJVWs/gxvecifFMMzBcTm9SMn1IvhaqAuN20ZabxZpHUEu9kPenvgEUxaOjMmSN7EcpiB4o80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eBbizPPP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=D3OT+idH; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qht5GOBD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16401C2BCAF;
-	Sun, 26 Apr 2026 12:12:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777205573;
-	bh=P3bikrqi6kfMr6S9y79ceYVSgRZdxT9Zmg4rc+nCbqc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Qht5GOBDsJKIkOVbzLeaeij/zPClOv+t07OmuH+t8k08Cm6kIjexA9dUY0e+LAQZm
-	 4sU3ksBL+PP38nokofYDyCprUihsnsAmRPlKbN2hDc/zUE+GZG7YAVq0x4K9SCLqSq
-	 QGll8xGZu81Xs5mk35WhPdyXt3jCR0fTUUOZHyqcViYzvW12SrCH5Q/oB87Z7MVG4m
-	 uCILQVTDGeReL0TYiQjdzGCGb0hDlBS9VD5rENxf3AsXKd929sZOIKgAFz/WEHrmGu
-	 iM5mVRD7aK0tYrHKpXffFnmlFhhkKViKvph0V+fvNO7bQz/UgdEWCOg95ORR44neSd
-	 xuK35XpkzPUlQ==
-Date: Sun, 26 Apr 2026 13:12:41 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
- Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
- Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
- R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH RFC v3 7/9] iio: frequency: ad9910: add channel labels
-Message-ID: <20260426131241.7db970e1@jic23-huawei>
-In-Reply-To: <20260417-ad9910-iio-driver-v3-7-29b93712a228@analog.com>
-References: <20260417-ad9910-iio-driver-v3-0-29b93712a228@analog.com>
-	<20260417-ad9910-iio-driver-v3-7-29b93712a228@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eBbizPPP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D3OT+idH"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63Q7i7UP2612412
+	for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 12:16:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Eu9oH6bIm++6Uod9f6mbJENn
+	f42CEvq9lNDJEscrW7U=; b=eBbizPPPtjcY6DIrYbD6qYZQ/8+0igrIAyTfcwSC
+	2yLd3BCGUJpCMiKlxy6zams0+3OjqFHBp0aJjN33GRaonbx/5ebBPOzM+6SzH0Aw
+	GMwo/fZHT7+NbrFqpRPXJ9vdPQwqOa9NDGIMFenynmAgcuqgrZJ2YB+/EzpYloN8
+	ldDQhuRtuxGtRWGbST7ny9qWjUaTWIi9KYCFCENx1i5M911mk2ig4aYJoy3uWZDp
+	6OEm3uysW64A8vJFyXbz1ssVSD7ubC8zOvTikyMqDvt5Zd8gkqa2GExmeVtJrbj0
+	Hdkd+dRKBDngFXPSJlkB0z5Ng1h8QTm1Su7eQ85XiJn1kA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drnqrjs4d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 12:16:06 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50fb3c7b989so101178231cf.0
+        for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 05:16:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1777205766; x=1777810566; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Eu9oH6bIm++6Uod9f6mbJENnf42CEvq9lNDJEscrW7U=;
+        b=D3OT+idHBAxyfW5zXjkvqe6vijS34m8/J4evv0uYu9S+YRS2ThybQrUXsEUI/G7Sdi
+         Un5/OJesTN5+Knm5H9S3KatmtCJvy8ynUFR2NSzFvRi4Z6m6V8Il5xZG2t8eqC6Mr/Af
+         6x2S+GsQZpsaYmdgiSWtxGLOG9hDw8MDvtW/6LtvCvuT3WgjJw+S8onBdFRRUijmngRQ
+         USEGsdYhSjVkb5aER1aV7E+uvbFYSQuPQeNP/o/CKova4SP3EWRN+5xuLnthnVSVJhEy
+         Ps1NWtGb4+suHYDpNSQ/ESTb+yXxPeOpVfBqMLvSlu87+Kyqkczn1dmbZB0pkt/VB8pt
+         9Wjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777205766; x=1777810566;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Eu9oH6bIm++6Uod9f6mbJENnf42CEvq9lNDJEscrW7U=;
+        b=r2+oXfJDUu/rRrBaij/IHZ/wu+6oZGvT/YAEHd74NmeCFB+w4/DXhH0xm4/STdM2A7
+         kUd2DdFD2WdzPgPY31oqhz/KEaNa0Dhi0dDb7wzKDRzKKT+ReI4w2eo1GSr4VWZ+XAlQ
+         ERf/bAuGuv1ip4q3ptf8cjuhEhUUIfNg/wSIGVlvv7vzowzr/COtsgzWfFPiZ1cXJIvZ
+         dbqJ23iWgLcFLda5fVQLPoG7C3mdXAuLCAIb2oH07qCvZd6ecbcJDcuGS/mUuJRhrd4k
+         9W1McvP2zsaAIRiwAxaQM/RSAn6F42ib7vkCdOzBavVEn4HQOD4kbmgQKuLL3TG7FhVn
+         IyNw==
+X-Forwarded-Encrypted: i=1; AFNElJ/xwksPqOM+WorcvSO+wkAtKzAfZFXzExOuhbBnZ5HtFlAg4Bg6ar2UXXmpbbsjJRA649R0jmYTJQeH@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw4cIrekvvLRq8HrPxtbvbcD1iANTUsgUICHSX3UYAv5KFOE31o
+	IxYIJMLdcgTB7sAPLYkYHH1dhtM4oww2D3NmuE/sa1PBpiW8n1qBSBykupGnoPoGQEAuh5V4274
+	z9wZUo8kQck5nFWFBG10J3F+2U/Y2p5rAk+bm/aJQTQM7lJClgLITeIddJljdRWIj
+X-Gm-Gg: AeBDieutDB+mEn3cddrJnZH/19ogNJ1GlOnjuIfWNLhPW/p1maK1IpfHapKoMRjgl6K
+	4MivczhK2qUpWtiL7vj1yVyFic+M9rCVZuiKi9a7fzeV3OPcYgCRHoxVl0eRvd+BfjutWr8GQUH
+	2PkL0G7y6sXsY0cswWYq01UHC548Ge9IynrtIq+bN7WuBan3NuOJPD/zmEJMi1UFA5nam2A/Z0B
+	6hi57mZ8qXZIugXLxAYAAMwH2c8xMXLTKVRbzllVXlBdhXQVnbl63pteabdhGn28X23tuX8BX2W
+	0hQNS6w4pielzx3zfeXYeoLxQclZprTGIrIoOwZef4KclAOBM7PQdTESys78TxTA1hClW5Cc1kw
+	AfDWmIkV180J0tJ9/MkJzj+H5Wu/Zsl7YgAIHiQCvHkQmaLDLEMrlaRWBix6qjsMoRuzr1hhJfh
+	p1f3zDhCeK1DuPiXSNR4tMYNSFzJCa02ECp0I4byHXD5jpzA==
+X-Received: by 2002:a05:622a:698f:b0:50e:5de8:6458 with SMTP id d75a77b69052e-50e5de873a3mr285408551cf.57.1777205765929;
+        Sun, 26 Apr 2026 05:16:05 -0700 (PDT)
+X-Received: by 2002:a05:622a:698f:b0:50e:5de8:6458 with SMTP id d75a77b69052e-50e5de873a3mr285408211cf.57.1777205765441;
+        Sun, 26 Apr 2026 05:16:05 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a4187ebfd6sm7326187e87.78.2026.04.26.05.16.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 26 Apr 2026 05:16:04 -0700 (PDT)
+Date: Sun, 26 Apr 2026 15:16:02 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Thierry Reding <thierry.reding@kernel.org>,
+        Mikko Perttunen <mperttunen@nvidia.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+        driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
+        linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v2 11/13] media: iris: Select DMA_CONTEXT_BUS to create
+ firmware device
+Message-ID: <atmot2aw26hrystaxpnjtc6fmep2lsjdbarlfocysghl7db5gc@yrdyk6i6zd2p>
+References: <20260423-glymur-v2-0-0296bccb9f4e@oss.qualcomm.com>
+ <20260423-glymur-v2-11-0296bccb9f4e@oss.qualcomm.com>
+ <2026042305-pungent-urban-c681@gregkh>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026042305-pungent-urban-c681@gregkh>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI2MDEzMyBTYWx0ZWRfX89KJwAqlEpRc
+ FBf065uGxqHQX74df2u9gEAc+rScF98LAFjHNsckb1qVu74g0hjG3G2kkShZUchLl3hNMJNjdxK
+ kZjgk+BwvwZBb4GPaWbpcn0UB6yfMmb1FQcGAedH9dfbOSU9SoVkyfWAuCbIh0PYLHsvR8Q0/rF
+ JptwrfVkaUEFlVdmFpv2Db2fXWoNs1MWdEMd20IJEznkl0o/gUWgZG69xQVrx8Cgcc+zD5iF0rj
+ C9Tz0hWDpd8PbYUzkkpSUDLsSHwfFc7J4LZn6W7YVcOHeRi6WX1le5rcgOV0txbRxOJ02VvUc6b
+ OIGq6sws9n1Fq32bqWv86M1LrT7goN1CdPGf0vRvv6Vt63HarWpez6Kma9dQpXCnb2/y/Yy+35l
+ gtKlvFFiKValV/thOLvdCDQC6pGqS3Rsc3XKhrIaVt5llomswvH1FEHS9MSx4jWnbezgqYlkjA0
+ 3iaW7C+BjxhNenfB9+A==
+X-Proofpoint-ORIG-GUID: Jwjj3ol4XWmOwb_MGSPXSw4O-cJOGrkN
+X-Proofpoint-GUID: Jwjj3ol4XWmOwb_MGSPXSw4O-cJOGrkN
+X-Authority-Analysis: v=2.4 cv=UcthjqSN c=1 sm=1 tr=0 ts=69ee0206 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=FZe96GFAMPEOsOiVEGMA:9
+ a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-26_04,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 spamscore=0 lowpriorityscore=0 impostorscore=0
+ adultscore=0 priorityscore=1501 bulkscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604260133
 
-On Fri, 17 Apr 2026 09:17:36 +0100
-Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On Thu, Apr 23, 2026 at 03:38:25PM +0200, Greg Kroah-Hartman wrote:
+> On Thu, Apr 23, 2026 at 06:59:40PM +0530, Vishnu Reddy wrote:
+> > Iris need a firmware device to enable secure PAS (peripheral
+> > authentication service) support in case of non-Gunyah.
 > 
-> Add human-readable labels for all AD9910 IIO channels via the read_label
-> callback.
-Given how important they are for this driver, I'd add the labels as you
-go along rather than doing it at the end like this.
+> As gunyah isn't ever going upstream, why is this an issue here for us at
+> all?
 
+Vishnu, this is a nice example of why we are always asking for the
+complete commit message, describing the problem that you are solving.
+You gave zero context for people outside of your group who don't have
+a knowledge of your issue.
+
+Please start thinking from the reviewers point of view. Or consider
+yourself being an engineer in 5 years wishing to change that code and
+trying to understand, would you break something if you do this or that.
+You need to explain, explain and explain things.
+
+For example (please correct it, it is based on my incomplete
+understanding):
+
+If Linux is run under the Gunyah control, the hypervisor will set up the
+SMMU SID for loading the firware (and protect it from being touched by
+te OS). If Linux is running in EL2 without Gunyah in play, it needs to
+take care of that setup. Since loading the firmware requires separate
+address mapping, corresponding SID is describing in DT as one of the
+functions inside the iommu-map property. Create the child device that
+will be used for allocating DMA buffers for the firmware and mapping
+them to the correct SID.
+
+Please review all your commit messages from this position and adjust /
+rewrite them as necessary.
+
+-- 
+With best wishes
+Dmitry
