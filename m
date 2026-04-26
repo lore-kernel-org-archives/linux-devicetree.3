@@ -1,107 +1,183 @@
-Received: from s106b.cyber-folks.pl (s106b.cyber-folks.pl [195.78.66.88])
+Received: from mail-m1973184.qiye.163.com (mail-m1973184.qiye.163.com [220.197.31.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6B4155C82;
-	Sun, 26 Apr 2026 10:16:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.78.66.88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A0B30DEA6;
+	Sun, 26 Apr 2026 10:26:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777198582; cv=none; b=IF+si+rDxWZUv2yByNoySUIQ722BZ5C1nFrH6sN4L0c5MjnxB7qbI5vhIuqo9NbUM77wXHU12N7YVYu+HucolsY7z6/Qs/pXxX5sYmyMSLKsM/JugQQ/NRmwlA8Xu7sT7V3cVCFRnNPKqO+z+qskFjrtjClXgwWDUnDbUHi/4gg=
+	t=1777199191; cv=none; b=d4WamQpt+1J9p7Cf+k3kn1ncO4MDtpiVIiKcQOtOV20LMtSUPPekynGFJ+RaOutV/FLoc2tqeWGab9snOeKPb0FSSwVsuks2em7GxXgbvDwC9zj2CxvE0/pOYOmoVY1JOT7CXG+4XKTITZJwvn/gnpjkRuWVhvcvF/AeQEZeYGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777198582; c=relaxed/simple;
-	bh=WB+FLCQ1pB6/hLLpL8qe5azyJH79mgJP5EWQCmjzLQg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=d9bv6iSt0tHlysjbIfsnMJxTQg0jcrIDazKN5mrYg3Ih4A163mV4wVYStAD5qZStMSacBHTWLl7mLrNpnkRSB0lY33GduzI4IZsBRxE52aIpJEj5uVEE6JQqzladdfwiPtTjlfvfm/IddjWsmB4fikzxnO/KCzH4yJl0Ry+98IE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mmpsystems.pl; spf=pass smtp.mailfrom=mmpsystems.pl; dkim=pass (2048-bit key) header.d=mmpsystems.pl header.i=@mmpsystems.pl header.b=f5UJfnpd; arc=none smtp.client-ip=195.78.66.88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mmpsystems.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mmpsystems.pl
+	s=arc-20240116; t=1777199191; c=relaxed/simple;
+	bh=NU+3pI4S3vTdc99oasSjbBJ8xb5MfMfeWxgKJ05r3B8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CH0CcRw+tncosI+paglJbSA4KrjJSCE6WfiG0ejcYvZWtd5H2C0KXj2n/bpSZ/FhojqmHbjSbZiM1A/PgZLZ39v42zQwMo5sltWQKIewlbJTkUksATe27hP0lOYg07br1gOyhlxyOB9TgFqpB6LCC4c0yVgeYWtXm7C1JS6SnuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=eb4I3kZa; arc=none smtp.client-ip=220.197.31.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mmpsystems.pl header.i=@mmpsystems.pl header.b="f5UJfnpd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=mmpsystems.pl; s=x; h=Cc:To:In-Reply-To:References:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
-	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
-	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=As6ZBk4C50Ztj8e2ha9+tle4FDPExjLzugeDmo/Ec94=; b=f5UJfnpd7FZcEGzV2AC7OMV8WB
-	S4yt0NRE3YMUidrW1HwK7eW6undC6fVyAb5FVBs9cT+6W/pLU16cloakIgBCjvodd2nMiQKRFRodK
-	g+9ckC3cS6W3KlVdybbGfoT2sUJLzvSGoF1rWba94MmsKulXAM47swBT8t6E7rOGRKdRcUwwv2Pik
-	VP0zyPnjv294W2rhebOcFraZuoIc4bulGHMSI9tT4LeCO9G7L+8xrO679v/+Uk1jNLx2WND9o+I31
-	/7KrXU40g+hmab1IlPst2V/TpHZPJI4U4TLbLxpxm9moge3sEQMVyf8qb6Bd6BTHOF+9yswh/8cRg
-	OeXeDx5A==;
-Received: from user-188-33-36-99.play-internet.pl ([188.33.36.99] helo=localhost)
-	by s106.cyber-folks.pl with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <michal.piekos@mmpsystems.pl>)
-	id 1wGwX9-0000000CBP1-12M6;
-	Sun, 26 Apr 2026 12:16:15 +0200
-From: Michal Piekos <michal.piekos@mmpsystems.pl>
-Date: Sun, 26 Apr 2026 12:15:28 +0200
-Subject: [PATCH v2 3/4] arm: dts: allwinner: t113s: add hstimer node
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="eb4I3kZa"
+Received: from [172.16.12.43] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3c2b8e6e5;
+	Sun, 26 Apr 2026 18:09:58 +0800 (GMT+08:00)
+Message-ID: <544c8d66-b242-4895-b8de-2f1dfdd0c7b4@rock-chips.com>
+Date: Sun, 26 Apr 2026 18:09:59 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260426-h616-t113s-hstimer-v2-3-e65e9dc0c9da@mmpsystems.pl>
-References: <20260426-h616-t113s-hstimer-v2-0-e65e9dc0c9da@mmpsystems.pl>
-In-Reply-To: <20260426-h616-t113s-hstimer-v2-0-e65e9dc0c9da@mmpsystems.pl>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- Michal Piekos <michal.piekos@mmpsystems.pl>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777198529; l=1131;
- i=michal.piekos@mmpsystems.pl; s=20260301; h=from:subject:message-id;
- bh=WB+FLCQ1pB6/hLLpL8qe5azyJH79mgJP5EWQCmjzLQg=;
- b=mpfCT2u6GufWLMtPwwuQchKqLEF/UtLqs0dd8cGyVMPhzR78lkFYR71DSiYs0yI0tGb529pND
- Pnmsyt39wvFA6Sh4fCGWO2Mpx3MFBSLa1pkvRfSc605LHb8LXd1O6b7
-X-Developer-Key: i=michal.piekos@mmpsystems.pl; a=ed25519;
- pk=Aixyx03If7ZDamiKKN0lsa+0mtA+WjIuIf2ZQVYNBqg=
-X-Authenticated-Id: michal.piekos@mmpsystems.pl
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/6] pwm: Add rockchip PWMv4 driver
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Lee Jones <lee@kernel.org>, William Breathitt Gray <wbg@kernel.org>
+Cc: kernel@collabora.com, Jonas Karlman <jonas@kwiboo.se>,
+ Alexey Charkov <alchark@gmail.com>, linux-rockchip@lists.infradead.org,
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org
+References: <20260420-rk3576-pwm-v5-0-ae7cfbbe5427@collabora.com>
+ <20260420-rk3576-pwm-v5-3-ae7cfbbe5427@collabora.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260420-rk3576-pwm-v5-3-ae7cfbbe5427@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9dc9446f9103a3kunm6b0f68e1145d79
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQh5KTlZPHh0aGBkaTU
+	MdQhpWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=eb4I3kZaySR2+F0gMBqA+RVFFlrWOKdh4b1SAYLJKcnbvJzdFS3sxr68WQO9M8q2IYHeje3rvXLc0fvoKnlmY70h3B0YqxEyL/k1lwEJe3P43wERT4kvuBmCEXLea3V6AmnaLYA6wjfjEaWn+q21PmIEP8kRvTgW6DbdSnvdcoQ=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=sxbl4epg48KUX2MzjpAavq4/tG2sfpxD57DOODEbyl0=;
+	h=date:mime-version:subject:message-id:from;
 
-Describe high speed timer block on Allwinner T113-S3.
+Hi Nicolas，
 
-Tested on LCPI-PC-T113/F113:
-- hstimer is registered as clocksource
-- switching clocksource at runtime works
-- after rating increase hstimer operates as a broadcast clockevent device
+On 4/20/2026 9:52 PM, Nicolas Frattaroli wrote:
+> The Rockchip RK3576 brings with it a new PWM IP, in downstream code
+> referred to as "v4". This new IP is different enough from the previous
+> Rockchip IP that I felt it necessary to add a new driver for it, instead
+> of shoehorning it in the old one.
+> 
+> Add this new driver, based on the PWM core's waveform APIs. Its platform
+> device is registered by the parent mfpwm driver, from which it also
+> receives a little platform data struct, so that mfpwm can guarantee that
+> all the platform device drivers spread across different subsystems for
+> this specific hardware IP do not interfere with each other.
+> 
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> ---
+>   MAINTAINERS                   |   1 +
+>   drivers/pwm/Kconfig           |  11 ++
+>   drivers/pwm/Makefile          |   1 +
+>   drivers/pwm/pwm-rockchip-v4.c | 383 ++++++++++++++++++++++++++++++++++++++++++
+>   4 files changed, 396 insertions(+)
+> 
+......
+> diff --git a/drivers/pwm/pwm-rockchip-v4.c b/drivers/pwm/pwm-rockchip-v4.c
+> new file mode 100644
+> index 000000000000..b7de72c433c5
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-rockchip-v4.c
+> @@ -0,0 +1,383 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2025 Collabora Ltd.
+> + *
+> + * A Pulse-Width-Modulation (PWM) generator driver for the generators found in
+> + * Rockchip SoCs such as the RK3576, internally referred to as "PWM v4". Uses
+> + * the MFPWM infrastructure to guarantee exclusive use over the device without
+> + * other functions of the device from different drivers interfering with its
+> + * operation while it's active.
+> + *
+> + * Technical Reference Manual: Chapter 31 of the RK3506 TRM Part 1, a SoC which
+> + * uses the same PWM hardware and has a publicly available TRM.
+> + * https://opensource.rock-chips.com/images/3/36/Rockchip_RK3506_TRM_Part_1_V1.2-20250811.pdf
+> + *
+> + * Authors:
+> + *     Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> + *
+> + * Limitations:
+> + * - The hardware supports both completing the currently running period
+> + *   on disable (by switching to oneshot mode with a single repetition and
+> + *   only disable when the complete irq fires), and abrupt disable (freeze).
+> + *   Only the latter is implemented in the driver.
+> + * - When the output is disabled, the pin will remain driven to whatever state
+> + *   it last had.
 
-Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
----
- arch/arm/boot/dts/allwinner/sun8i-t113s.dtsi | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+This limitation exists because after disabling the PWM output via 
+registers, the actual shutdown only happens after the current period 
+completes.
 
-diff --git a/arch/arm/boot/dts/allwinner/sun8i-t113s.dtsi b/arch/arm/boot/dts/allwinner/sun8i-t113s.dtsi
-index 424f4a2487e2..40e76cfc8a1d 100644
---- a/arch/arm/boot/dts/allwinner/sun8i-t113s.dtsi
-+++ b/arch/arm/boot/dts/allwinner/sun8i-t113s.dtsi
-@@ -34,6 +34,17 @@ cpu1: cpu@1 {
- 		};
- 	};
- 
-+	soc {
-+		hstimer@3008000 {
-+			compatible = "allwinner,sun20i-d1-hstimer";
-+			reg = <0x03008000 0x1000>;
-+			interrupts = <GIC_SPI 55 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_HSTIMER>;
-+			resets = <&ccu RST_BUS_HSTIMER>;
-+		};
-+	};
-+
- 	gic: interrupt-controller@1c81000 {
- 		compatible = "arm,gic-400";
- 		reg = <0x03021000 0x1000>,
+Therefore, the better approach is to add a delay of one full period
+before disabling &rockchip_mfpwm_func.core.
 
--- 
-2.43.0
+> + * - Adjustments to the duty cycle will only take effect during the next period.
+> + * - Adjustments to the period length will only take effect during the next
+> + *   period.
+> + * - The hardware only supports offsets in [0, period - duty_cycle]
+> + */
+> +
+......
+> +
+> +	if (wfhw->rate) {
+> +		if (!was_enabled) {
+> +			dev_dbg(&chip->dev, "Enabling PWM output\n");
+> +			ret = clk_enable(pc->pwmf->core);
+> +			if (ret)
+> +				goto err_mfpwm_release;
+> +			ret = clk_set_rate_exclusive(pc->pwmf->core, wfhw->rate);
+> +			if (ret) {
+> +				clk_disable(pc->pwmf->core);
+> +				goto err_mfpwm_release;
+> +			}
+> +
+> +			/*
+> +			 * Output should be on now, acquire device to guarantee
+> +			 * exclusion with other device functions while it's on.
+> +			 *
+> +			 * It's highly unlikely that this fails, as mfpwm has
+> +			 * already been acquired before, and this is just a
+> +			 * usage counter increase. Not worth the added
+> +			 * complexity of clearing the PWMV4_REG_ENABLE again,
+> +			 * especially considering the CTRL_UPDATE_EN behaviour.
+> +			 */
+> +			ret = mfpwm_acquire(pc->pwmf);
+> +			if (ret) {
+> +				clk_rate_exclusive_put(pc->pwmf->core);
+> +				clk_disable(pc->pwmf->core);
+> +				goto err_mfpwm_release;
+> +			}
+> +		}
+> +	} else if (was_enabled) {
+> +		dev_dbg(&chip->dev, "Disabling PWM output\n");
+
+Delay for one full PWM period before disabling the dclk.
+
+Although this may introduce some latency for disable -> re-enable 
+operations, it ensures that the state after shutdown aligns with the 
+actual polarity configuration.
+
+> +		clk_rate_exclusive_put(pc->pwmf->core);
+> +		clk_disable(pc->pwmf->core);
+> +		/* Output is off now, extra release to balance extra acquire */
+> +		mfpwm_release(pc->pwmf);
+> +	}
+> +
+> +err_mfpwm_release:
+> +	mfpwm_release(pc->pwmf);
+> +
+> +	return ret;
+> +}
+> +
+> 
+
+Best regards,
+Damon
 
