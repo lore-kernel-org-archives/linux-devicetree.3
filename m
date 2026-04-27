@@ -1,75 +1,94 @@
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A08FC30DD3C;
-	Mon, 27 Apr 2026 11:56:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777290999; cv=none; b=a8IXED9DUQv0LyWW8PRtlBKSal5XP+dJ9B0vaX8StrbhjimtoBT5BCLG4s96sC36Ub0YuUKaEOQ+N+FFloOlu1B02mWOOVEGiEaXYdHFvFxqsTaknnl6i0P/34+2JEItbNJhzChxQahIV7MvYbdgzGJtUHzWtcBksMHBJfughpE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777290999; c=relaxed/simple;
-	bh=HS/qE5mobVfCUPKiSltjkwD69aPeYCoTkfTUr7sMf6E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=onBOLnv3v4C2eKznBp2UXkQB6rabh7jo8WTruV7wdlYZt1sagmNclucQZwvnOEVxl//A34gYpKt+vAR4PQwNsrME01hDEbrQ/HRIcRK4+GQOiQVUo3JUCH2eXfMdUrnKSVZ1J/5BX8BNvNQ8JWE+RrlwqbQ5SDoqse/pj2iPWiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; dkim=pass (2048-bit key) header.d=8bytes.org header.i=@8bytes.org header.b=sxqrjmUP; arc=none smtp.client-ip=85.214.250.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=8bytes.org header.i=@8bytes.org header.b="sxqrjmUP"
-Received: from 8bytes.org (p4ffe051a.dip0.t-ipconnect.de [79.254.5.26])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id 8B3902007D2;
-	Mon, 27 Apr 2026 13:56:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=8bytes.org;
-	s=default; t=1777290996;
-	bh=HS/qE5mobVfCUPKiSltjkwD69aPeYCoTkfTUr7sMf6E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sxqrjmUPjWrbltZlVk9Ta0RHRrPfv0rqPnWQIE1XQbA4tasjmy6RqcaDeh3vA7NQL
-	 fhuZmQqkOofCKrTWwrVZSee/g4rZDR8QKJTT20ADU0znD01MKp0L0KimdeRhWGaaS0
-	 TkMF7R4ydUK4eCSwD5z/0aH1gXH90fRsfoRemWxKKuxNM+K0QXiaD05xEm49pyeCDF
-	 3YbUDwEaoilYeB2UPgqBD4TksOz+In/MjBWuvIXK2MrRz/bfAnJ7Z3mNQJ7cqpLy9U
-	 n4In4sglcuCZ4jh1pOA3xSMMLj7LecjWI0b45UzBitZ8fWBcplZTOEHOsN9gozF9Ub
-	 rLo5/ySjDwkTA==
-Date: Mon, 27 Apr 2026 13:56:33 +0200
-From: Joerg Roedel <joro@8bytes.org>
-To: Drew Fustini <fustini@kernel.org>
-Cc: Joel Stanley <joel@jms.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	devicetree@vger.kernel.org, Tomasz Jeznach <tjeznach@rivosinc.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Michael Ellerman <mpe@oss.tenstorrent.com>
-Subject: Re: [RFC PATCH 1/1] dt-bindings: iommu: riscv: Add bindings for
- Tenstorrent RISC-V IOMMU
-Message-ID: <hf4ffzfm6xezskq5gakl57pm5bgxuq3hneqfafixvxocojw2u3@qmk7pm7bbtmv>
-References: <20260310003850.3837030-1-npiggin@gmail.com>
- <CACPK8Xc=imZXXPp-CYY39=Ww4oVDdXPS5My_R1qODzGhOD2qnw@mail.gmail.com>
- <ac7TByN3oQGSUpyq@x1>
- <5tr5kacx27a4g4udx43vemqvwhr4iaflacdrkz3d5tnd6vcldo@s6l34e2xyg5k>
- <ad6U/PmOawRXCClF@x1>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF22F245019;
+	Mon, 27 Apr 2026 12:01:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777291282; cv=none; b=LILbai2Ik9USfP0rZRmiDJssBja638mD+tFKFIQ5xp3c3edA4+SPG9lbAhnMZvFBjgrrx+gofd9WzqvFOLkguWRJv+CepQ8ylL/I15HkmDyvfwjBMjlOX21G13D6ej0tPMeBdOJhfVP8Iz/Ukq4p2bVsLjRBWVnFXzxsLy3wyZo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777291282; c=relaxed/simple;
+	bh=WA6HPDoviELoYRjQzhoauUvWQNqDbfvQwwMY5zW5K1I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YYcSxwWBOWqqw0sj57yRQmKmB0Heccs46IDsNCXPx663rCMtU1x2j078590TjIN5dZLdR4RRtgM/YAdooKXLvFvfqYnsNr9PU3VpSzLeDxqY5L6fHu0Uv9s9gSOg2NsAVuCurmt+9oRbxMN9jNtBASu1/6AMLjzLWjP3SvzX6y8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=lQae2axz; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=x64osPUg; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="lQae2axz";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="x64osPUg"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1777291260; bh=rtQIjtjrkXvPPABantBiHRJ
+	QKSN/s0PTs+hrHLm1si8=; b=lQae2axzY41G/cIIe3eT/WyCxIQjESlFN71Yjc+Dz3iQ17Rrng
+	GPKrzZnD+NJFeLQqtsoncn5vwWNqXoTuoE6DO2LNqa2SZE1iMhGr5usJ0f1Ef/NKhNwEMYiriMi
+	D2dr1jKf6EnUO0QLHYgpbJnyMoDaLUjnV3Zx5AqvGC2XQnxFeYumfg3WI/4AbxkFYfoBbs0Jd8I
+	ubPXZRyQuRrrQR10xt2ugyo6uvc/mtjyDhiW6HfOyjVNl1/goxFKOL7RJBQazq7o+RXAYrbcAPb
+	lWLeA/aJeNPgAuZcg5nTlbrPHoXJvcrD+paTWr6yMyNyiNjTRlAUkw2iHElqTXyFbyA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1777291260; bh=rtQIjtjrkXvPPABantBiHRJ
+	QKSN/s0PTs+hrHLm1si8=; b=x64osPUg9YIvVBjx/AYlGC6HEzFCWw14dGKZGcjygSs8Dpfj+Y
+	3CEoq3eiOouWgqEDqSR2ePq9erFH3c0WShAQ==;
+Message-ID: <6b936613-4859-4f73-8593-92180aed16e7@mainlining.org>
+Date: Mon, 27 Apr 2026 15:00:59 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ad6U/PmOawRXCClF@x1>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: sdm630: describe adsp_mem region
+ properly
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
+References: <20260422-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v3-0-274ba3715db0@mainlining.org>
+ <20260422-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v3-3-274ba3715db0@mainlining.org>
+ <337d362d-93de-4e81-8141-a51fa75d615c@oss.qualcomm.com>
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <setotau@mainlining.org>
+In-Reply-To: <337d362d-93de-4e81-8141-a51fa75d615c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Apr 14, 2026 at 12:26:52PM -0700, Drew Fustini wrote:
-> On Mon, Apr 13, 2026 at 01:37:32PM +0200, Joerg Roedel wrote:
-> > On Thu, Apr 02, 2026 at 01:35:19PM -0700, Drew Fustini wrote:
-> > > I think it would go through Joerg's iommu tree, but I could if Joerg can
-> > > an Ack.
-> > 
-> > I do not have the original patch in my inbox, but looking at it via lore it
-> > lgtm.
-> > 
-> > Acked-by: Joerg Roedel <joerg.roedel@amd.com>
-> 
-> Is it okay for me to take it through tenstorrent-dt-for-next or would
-> you like to take it through iommu tree?
 
-My Ack means you can take it through your tree :)
+27.04.2026 14:49, Konrad Dybcio пишет:
+> On 4/22/26 5:39 PM, Nickolay Goppen wrote:
+>> Downstream [1] this region is marked as shared, reusable and dynamic so
+>> describe it that way.
+>>
+>> [1]: https://github.com/xiaomi-sdm660/android_kernel_xiaomi_sdm660/blob/11-EAS/arch/arm/boot/dts/qcom/sdm660.dtsi#L448
+>>
+>> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+>> ---
+>>   arch/arm64/boot/dts/qcom/sdm630.dtsi | 9 ++++++---
+>>   1 file changed, 6 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+>> index 4b47efdb57b2..36b419dea153 100644
+>> --- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+>> @@ -494,9 +494,12 @@ venus_region: venus@9f800000 {
+>>   			no-map;
+>>   		};
+>>   
+>> -		adsp_mem: adsp-region@f6000000 {
+>> -			reg = <0x0 0xf6000000 0x0 0x800000>;
+>> -			no-map;
+>> +		adsp_mem: adsp-region {
+>> +			compatible = "shared-dma-pool";
+>> +			alloc-ranges = <0x0 0x00000000 0x0 0xffffffff>;
+> Please make this = <0x0 0x80000000 0x0 0x80000000>; instead, since the RAM
+Maybe you meant <0x0 0x80000000 0x0 0x8fffffff>?
+> starts at 0x80000000
+>
+> Konrad
+
+-- 
+Best regards,
+Nickolay
+
