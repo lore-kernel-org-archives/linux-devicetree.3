@@ -1,166 +1,354 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6506025F7B9
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 01:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 12A441E1DF0;
+	Mon, 27 Apr 2026 01:32:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777253500; cv=none; b=QkABpp0ZZvDnnh1qXYPAQGXsuuZCMRG27n780CpDxN2OF1aScOZK+kQq0uyIraV3LbDbdV4Kt76P1hYXngZXFivQNRKRJNr+hfipxknQ1lYQ+/biSwqwJJjZz8ZGctmJKAwqXg3njz8XutjZOkqMV5OGNQCiT8uS+H4msZF80aE=
+	t=1777253564; cv=none; b=GV7cz2+E2Ec47qGxw1jmkKl5uQwjJm2UxZI5i48w6OYTXXaaSymxTSG4iEJpPT0Uh4+eVKnLvshnxB4tOuZxfrOBPRi/M5N1PEE2357Ic2EKnVrOIqZL44hrk7SGG2d2iBsap6toXaf/XW36Hv/NL+qiS9TLr9J10rq3omiC7Cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777253500; c=relaxed/simple;
-	bh=GMmcn+CVvliit5mGd6Y0/iKeyYddLwRd3s2aVazKWbc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OF+6psmov61/cgYHDTb0hr8078LJSdO2c9G8BeBHnL6Wtzxjvr3bjaSHdUxu+tf8P2PeICsAQPhJWOawgerpctQCMr8a13UfAdSQSvGCwX6nlILcSWyWc7BEvN/jWp2d+5nyQxIZG9Y5dfdL9WsGZHrXhbFDv0bvSg4N6RQcsko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lYQwuzsl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OJhVawof; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777253564; c=relaxed/simple;
+	bh=U8QOcBbqZJil6LNv6DcJUSMqT5HAMW7+nNt0ahHRxEc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=t22cErdLowxtjHjOUH6WiOCoRWGXrwcj6l+ddFC6RN40DkBkbO/+SP8c0iDk3ruUDFWDM2nf7KwmTO65fitVUtEJffrA9SO4kX91vNJT127dwYVpkoPEzj331iYTo/xC2uj0ia7ExbHasHr+/mQutghpfac8KyXRITxc0zR//mQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=LhJQWT+G; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lYQwuzsl";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OJhVawof"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63QKg2V72552128
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 01:31:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=11+wJCVGbqH
-	Fg8+Qau8Gh/1gOG6th05BId0D3j7ZQ8g=; b=lYQwuzslmgwiNHpn7lMKv5N/KwQ
-	xRudwaUKa2kiEqtaEQ/leO7Bvrs/irnoMBCJZea8EfAgxUR4S64Gyq4/S14PdOsc
-	ftA0EdC52vZ4qhr3qWBtJeuWkkZQQNGx60farJf4+kk7JurlVrVh506s+WU5q1xD
-	dkpuJByIOBFNfcbyhX5F/LtMY7Iz4/SvEEQYzKtQbkYtEfAGgylvK93toRiyclBG
-	11COuDIAknIJAuv6QfwbaoYycUD6J2JHsllu6XkjsuDV9aAgoPOh+btgHlk4dhrx
-	FCjMI6xl0OUtM+u9i2BSeUqlWygH32+i8b2Et8if6WnILLCncqdpgJyrAeA==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drnkxbxqn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 01:31:38 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-2bda35eab74so8662674eec.0
-        for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 18:31:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="LhJQWT+G"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777253497; x=1777858297; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=11+wJCVGbqHFg8+Qau8Gh/1gOG6th05BId0D3j7ZQ8g=;
-        b=OJhVawofm/S4BMWClAc5MsAN3CfqK+wecIhKkZnWFNQWnaVy2X0FMpKGpakGASUBiJ
-         ykw1tD7p6Hu6zSUudWmfuyTci/CnkkOz5XyQgh/tEOX/LA2pA6hMowaYPx0yeqzPCKVF
-         v2tefHOtZzzcmxTPmweu6zsLl318D9D87NAPTBfhli40ugZ1A3sgA9h7Aoj+AGypNtCt
-         b0Zm64DOOQ5lRw0ccPq6j8UZmsv0D+/a6Wn42uTMnBPYCjIxQmh/pmOYitZC2GCVFA0Y
-         ah3sFaRsNQprBubXVwbdYUUB61ddwO1p31ytET7SrPNc+Xwm8nrA2KRTPUPYjtrIuKZt
-         /j9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777253497; x=1777858297;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=11+wJCVGbqHFg8+Qau8Gh/1gOG6th05BId0D3j7ZQ8g=;
-        b=LQitnPzGQkBDUy547KMCOUx7ZeNKEXIPJJSYuwb76yxsL8uV6u0S2w2YgrkT/l4/2Q
-         LzPv3Tzss8gDiV7w/HiJ3Tz/2VDPgWHtCWQTooe2EOCRKYuCVhXmrBPE7TyjRmXEu6OY
-         LDR5a/VHOvw7m9JU6RgDSP+R+2ByIhL2Q/77ck0U2HTBcdQBHC1Y1oWf1DclTZOb7Lsa
-         8o1Dd4hLssMKrKfDP+BZ7Wng7K/kor6/AFI0LGgRdA3TLm3Ag8gPtvLWAr09OyxDdK6B
-         m/EzCbT1UKylkfjcn+gwZ3t7/vmiwQjG5aoqMjO8E8YSFb4py1EFJiv8B5wHs1YK3Eod
-         z5Wg==
-X-Forwarded-Encrypted: i=1; AFNElJ/Pr+jYTG59dV3v94hCTZoUt1Ci9Q1YYMYJ6wsUaYadnhNVimEqi0KDYaxSz8YT2h690HFLnBPDo1Yt@vger.kernel.org
-X-Gm-Message-State: AOJu0YyeTe/gQPyX5KaPzddGmxDtTNflMdFgqFB5UFykJWYCLk+7IZiT
-	NEnO+wu9QLBedH3sj6gNO1uu10vxkkQQma3EkhYlFqjdorJ2stcbANw1e4kDLfsotNSDGGy4ySH
-	PWYyQL41E+12E7e4Vm9T8hUQzpi6atNoZ1kkSZAClv2of/ZOQt4q9v3qmLUrAubp/
-X-Gm-Gg: AeBDietXxnVdg9MJ1EttS53Lw24g8PXCd8pzA4DrLHXe6mHwNkBzVn6sqWXLVE5hv3w
-	YWf9qjxmskDI/7dRJa1F/VEYjTIZgP3oKebpka6aTvRQtG8eOb54o2hPXaVvecV1in7g0d/Xhuz
-	sJil3EBTGWa4xeqrMwN1R9U/+/J5GHWh+XEOl7KkcaQj2k18hU1DUrsler2r3zfbTkXdSo1iaJL
-	PPXS+XT8qNnDpnCa1a+jTYIZvsGqEO6DcUoXgdRoIPJxhzRYUxI9CxoomsC9eMi0h8Ea5jBWfPj
-	OqHNrZblAVk4yA+VJ/kFW4OA+hv5P/roHqMOgFKHvkyRuabZbODFnxUmVYxlggieV5Akn3kE0OT
-	LScz1VHMCW1onE1C3jjHxz4bo758W/dV6O24OwPUFfhu4CFPBmRKCr7giwll2PiNMh2UFs5u71m
-	w0ASGtLyN8OWa8O3lr
-X-Received: by 2002:a05:7300:5711:b0:2c5:c532:1fe1 with SMTP id 5a478bee46e88-2e42c15ceacmr18576866eec.3.1777253497366;
-        Sun, 26 Apr 2026 18:31:37 -0700 (PDT)
-X-Received: by 2002:a05:7300:5711:b0:2c5:c532:1fe1 with SMTP id 5a478bee46e88-2e42c15ceacmr18576852eec.3.1777253496801;
-        Sun, 26 Apr 2026 18:31:36 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2e53a4a8018sm52749042eec.8.2026.04.26.18.31.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Apr 2026 18:31:36 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: "Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Kumar Dwivedi <ram.dwivedi@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v2 2/2] scsi: ufs: dt-bindings: Add compatible for SA8797P UFS Host Controller
-Date: Mon, 27 Apr 2026 09:31:15 +0800
-Message-ID: <20260427013115.231731-3-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260427013115.231731-1-shengchao.guo@oss.qualcomm.com>
-References: <20260427013115.231731-1-shengchao.guo@oss.qualcomm.com>
+	d=ultrarisc.com; s=dkim; h=Received:From:Date:Subject:
+	MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	References:In-Reply-To:To:Cc; bh=tSB1zZB8u7tuX0u2+hRQ1ZVE/Lhv5+H
+	AhexMuCTJPV4=; b=LhJQWT+GZheRT5kV2cyambfBiKrFCvk0zmj6FYNvcHpOmWI
+	1/FBVMZqHWSuKKEquaQ5BtqjTpPfuqplRn7iDut7Bay+2aH6RF+sGb+pA7x3V+Sm
+	jVohUY4pJ34brLQXta8q+IElNRNdD5SPj0+AYcNYA6/CG5JQDBegiBF369Y8=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwA3cULPvO5ps_0CAA--.1758S5;
+	Mon, 27 Apr 2026 09:33:08 +0800 (CST)
+From: Jia Wang <wangjia@ultrarisc.com>
+Date: Mon, 27 Apr 2026 09:32:12 +0800
+Subject: [PATCH v4 3/3] PCI: ultrarisc: Add UltraRISC DP1000 PCIe Root
+ Complex driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: SA-EYt4QHrIHyf99Sh_aQHkGU-0tGPdv
-X-Proofpoint-ORIG-GUID: SA-EYt4QHrIHyf99Sh_aQHkGU-0tGPdv
-X-Authority-Analysis: v=2.4 cv=TuPWQjXh c=1 sm=1 tr=0 ts=69eebc7a cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=VwQbUJbxAAAA:8 a=ld1VxiVWUvbaCiqNsT4A:9 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDAxNCBTYWx0ZWRfX1CRLgAbziOtQ
- xPiFLrFtHLpKJfUwDqehZOC4PhvXY7sMjf9tqLnjUdcMML/n57bjLO1k7bPaA+wS4ahKLgNAymI
- laa3Pgq01VOnR2rvsZ8R1Wr9a4yg8xWzbswQ3jVuhF5nHTVP9yUKgWlNr9HkX9i6z0p1jSsMf0Q
- l+RAizD4gcu7k+jdefi1DJAQVxYJXiqOL2qG7w0jMrcreaXZTFO+FWtY0IATEHRuj3BEWn7nZA8
- RHph8mu0V+ta4c6RlArH88U7jxsYqh/jnQEDFu4pi1mlTFRCMnoFHnD04eptxJrWQ/CcjYWcik0
- ZSUzfL8vBPwRWBmuMWpo1hwyWCmd++ojQZyJ/pdCYjavOT17+dEM32vJGrImq+gJSpILTeHJua1
- T/4M0lnQncLsoyvER+XltQs/SnYtUTUjbtYwjVzRQtmcn+OhqdFpTc2AVL+tzg0ST9gRrFaz3nH
- cPA07U2qfpF2Uy2kWCQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-26_07,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
- impostorscore=0 clxscore=1015 suspectscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270014
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260427-ultrarisc-pcie-v4-3-98935f6cdfb5@ultrarisc.com>
+References: <20260427-ultrarisc-pcie-v4-0-98935f6cdfb5@ultrarisc.com>
+In-Reply-To: <20260427-ultrarisc-pcie-v4-0-98935f6cdfb5@ultrarisc.com>
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Jingoo Han <jingoohan1@gmail.com>, 
+ Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+ Jia Wang <wangjia@ultrarisc.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777253539; l=9133;
+ i=wangjia@ultrarisc.com; s=20260309; h=from:subject:message-id;
+ bh=pEEmEszYk+Wwemr9LH9I5Z0OFr07mXJ55nbPQpUoxLw=;
+ b=kHFtH1VZanxix+cZOxd643Wi5ZsvL2zlmni3SZJZgSTUdHya3UXdCw8DVnQUVVNNGMIG55cAY
+ cQqXkJVpeAMD01/Nk1aGjYl+2hjJ2JEf5xjWVMoTzfn/8NJw7WHJRi4
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=XvYkrelqJIIzobY7j+nIg8rsfv5kzaOzuc1UPhd087U=
+X-CM-TRANSID:AQAAfwA3cULPvO5ps_0CAA--.1758S5
+X-Coremail-Antispam: 1UD129KBjvJXoW3JFyktr4fuF47Gry5JrWfuFg_yoWfZFykpa
+	15CFWFyF4UJF45ua1Skas5uF1aq3ZxArWUGa9Fgw1293ZxAryUXFyvq34ayFn7GF4UWrya
+	kw1jya4UGa15XwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_UUUUUUUUU==
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAKEWnti78ACQAAsj
 
-From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+From: Xincheng Zhang <zhangxincheng@ultrarisc.com>
 
-SA8797P is the automotive variant of the Nord SoC. Like SA8255P, its
-platform firmware implements an SCMI server that manages UFS resources
-such as the PHY, clocks, regulators and resets via the SCMI power
-protocol. As a result, the OS-visible DT only describes the controller's
-MMIO, interrupt, IOMMU and power-domain interfaces, making SA8255P the
-appropriate fallback compatible.
+Add DP1000 SoC PCIe Root Complex driver.
 
-Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+The controller only supports 32-bit aligned configuration space accesses.
+
+Signed-off-by: Xincheng Zhang <zhangxincheng@ultrarisc.com>
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
 ---
- .../devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml         | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ MAINTAINERS                                  |   1 +
+ drivers/pci/controller/dwc/Kconfig           |  12 ++
+ drivers/pci/controller/dwc/Makefile          |   1 +
+ drivers/pci/controller/dwc/pcie-designware.h |  22 ++++
+ drivers/pci/controller/dwc/pcie-ultrarisc.c  | 175 +++++++++++++++++++++++++++
+ 5 files changed, 211 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml b/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml
-index 75fae9f1eba7..db165a235cb6 100644
---- a/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml
-+++ b/Documentation/devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml
-@@ -11,7 +11,11 @@ maintainers:
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 818685933541..16203b804c16 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -20589,6 +20589,7 @@ M:	Jia Wang <wangjia@ultrarisc.com>
+ L:	linux-pci@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
++F:	drivers/pci/controller/dwc/pcie-ultrarisc.c
  
- properties:
-   compatible:
--    const: qcom,sa8255p-ufshc
-+    oneOf:
-+      - const: qcom,sa8255p-ufshc
-+      - items:
-+          - const: qcom,sa8797p-ufshc
-+          - const: qcom,sa8255p-ufshc
+ PCIE ENDPOINT DRIVER FOR QUALCOMM
+ M:	Manivannan Sadhasivam <mani@kernel.org>
+diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
+index d0aa031397fa..06f7d98259cd 100644
+--- a/drivers/pci/controller/dwc/Kconfig
++++ b/drivers/pci/controller/dwc/Kconfig
+@@ -548,4 +548,16 @@ config PCIE_VISCONTI_HOST
+ 	  Say Y here if you want PCIe controller support on Toshiba Visconti SoC.
+ 	  This driver supports TMPV7708 SoC.
  
-   reg:
-     maxItems: 1
++config PCIE_ULTRARISC
++	tristate "UltraRISC PCIe host controller"
++	depends on ARCH_ULTRARISC || COMPILE_TEST
++	select PCIE_DW_HOST
++	select PCI_MSI
++	default y if ARCH_ULTRARISC
++	help
++	  Enables support for the PCIe controller in the UltraRISC SoC.
++	  This driver supports UR-DP1000 SoC.
++	  By default, this symbol is enabled when ARCH_ULTRARISC is active,
++	  requiring no further configuration on that platform.
++
+ endmenu
+diff --git a/drivers/pci/controller/dwc/Makefile b/drivers/pci/controller/dwc/Makefile
+index 67ba59c02038..884c46b78e01 100644
+--- a/drivers/pci/controller/dwc/Makefile
++++ b/drivers/pci/controller/dwc/Makefile
+@@ -38,6 +38,7 @@ obj-$(CONFIG_PCIE_RCAR_GEN4) += pcie-rcar-gen4.o
+ obj-$(CONFIG_PCIE_SPACEMIT_K1) += pcie-spacemit-k1.o
+ obj-$(CONFIG_PCIE_STM32_HOST) += pcie-stm32.o
+ obj-$(CONFIG_PCIE_STM32_EP) += pcie-stm32-ep.o
++obj-$(CONFIG_PCIE_ULTRARISC) += pcie-ultrarisc.o
+ 
+ # The following drivers are for devices that use the generic ACPI
+ # pci_root.c driver but don't support standard ECAM config access.
+diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
+index ae6389dd9caa..88dcb0e7943a 100644
+--- a/drivers/pci/controller/dwc/pcie-designware.h
++++ b/drivers/pci/controller/dwc/pcie-designware.h
+@@ -69,6 +69,8 @@
+ 
+ /* Synopsys-specific PCIe configuration registers */
+ #define PCIE_PORT_FORCE			0x708
++/* Bit[7:0] LINK_NUM: Link Number. Not used for endpoint */
++#define PORT_LINK_NUM_MASK		GENMASK(7, 0)
+ #define PORT_FORCE_DO_DESKEW_FOR_SRIS	BIT(23)
+ 
+ #define PCIE_PORT_AFR			0x70C
+@@ -96,6 +98,26 @@
+ #define PCIE_PORT_LANE_SKEW		0x714
+ #define PORT_LANE_SKEW_INSERT_MASK	GENMASK(23, 0)
+ 
++/*
++ * PCIE_TIMER_CTRL_MAX_FUNC_NUM: Timer Control and Max Function Number
++ * Register.
++ * This register holds the ack frequency, latency, replay, fast link
++ * scaling timers, and max function number values.
++ * Bit[30:29] FAST_LINK_SCALING_FACTOR: Fast Link Timer Scaling Factor.
++ *   0x0 (SF_1024):Scaling Factor is 1024 (1ms is 1us).
++ *     When the LTSSM is in Config or L12 Entry State, 1ms
++ *     timer is 2us, 2ms timer is 4us and 3ms timer is 6us.
++ *   0x1 (SF_256): Scaling Factor is 256 (1ms is 4us)
++ *   0x2 (SF_64): Scaling Factor is 64 (1ms is 16us)
++ *   0x3 (SF_16): Scaling Factor is 16 (1ms is 64us)
++ */
++#define PCIE_TIMER_CTRL_MAX_FUNC_NUM	0x718
++#define PORT_FLT_SF_MASK	GENMASK(30, 29)
++#define PORT_FLT_SF_VAL_1024	0x0
++#define PORT_FLT_SF_VAL_256	0x1
++#define PORT_FLT_SF_VAL_64	0x2
++#define PORT_FLT_SF_VAL_16	0x3
++
+ #define PCIE_PORT_DEBUG0		0x728
+ #define PORT_LOGIC_LTSSM_STATE_MASK	0x3f
+ #define PORT_LOGIC_LTSSM_STATE_L0	0x11
+diff --git a/drivers/pci/controller/dwc/pcie-ultrarisc.c b/drivers/pci/controller/dwc/pcie-ultrarisc.c
+new file mode 100644
+index 000000000000..7326bd446590
+--- /dev/null
++++ b/drivers/pci/controller/dwc/pcie-ultrarisc.c
+@@ -0,0 +1,175 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * DWC PCIe RC driver for UltraRISC SoCs
++ *
++ * Copyright (C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
++ */
++
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/of_device.h>
++#include <linux/pci.h>
++#include <linux/platform_device.h>
++#include <linux/resource.h>
++
++#include "pcie-designware.h"
++
++#define PCIE_CUS_CORE          0x400000
++
++#define LTSSM_ENABLE           BIT(7)
++#define FAST_LINK_MODE         BIT(12)
++#define HOLD_PHY_RST           BIT(14)
++#define L1SUB_DISABLE          BIT(15)
++
++#define ULTRARISC_PCIE_COMP_TIMEOUT_65_210MS	0x6
++
++static struct pci_ops ultrarisc_pci_ops = {
++	.map_bus = dw_pcie_own_conf_map_bus,
++	.read = pci_generic_config_read32,
++	.write = pci_generic_config_write32,
++};
++
++static int ultrarisc_pcie_host_init(struct dw_pcie_rp *pp)
++{
++	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
++	struct pci_host_bridge *bridge = pp->bridge;
++	u8 cap_exp;
++	u32 val;
++
++	bridge->ops = &ultrarisc_pci_ops;
++
++	if (dw_pcie_link_up(pci))
++		return 0;
++
++	val = dw_pcie_readl_dbi(pci, PCIE_CUS_CORE);
++	val &= ~FAST_LINK_MODE;
++	dw_pcie_writel_dbi(pci, PCIE_CUS_CORE, val);
++
++	val = dw_pcie_readl_dbi(pci, PCIE_TIMER_CTRL_MAX_FUNC_NUM);
++	FIELD_MODIFY(PORT_FLT_SF_MASK, &val, PORT_FLT_SF_VAL_64);
++	dw_pcie_writel_dbi(pci, PCIE_TIMER_CTRL_MAX_FUNC_NUM, val);
++
++	cap_exp = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
++	val = dw_pcie_readl_dbi(pci, cap_exp + PCI_EXP_LNKCTL2);
++	FIELD_MODIFY(PCI_EXP_LNKCTL2_TLS, &val, PCI_EXP_LNKCTL2_TLS_16_0GT);
++	dw_pcie_writel_dbi(pci, cap_exp + PCI_EXP_LNKCTL2, val);
++
++	val = dw_pcie_readl_dbi(pci, PCIE_PORT_FORCE);
++	FIELD_MODIFY(PORT_LINK_NUM_MASK, &val, 0);
++	dw_pcie_writel_dbi(pci, PCIE_PORT_FORCE, val);
++
++	val = dw_pcie_readl_dbi(pci, cap_exp + PCI_EXP_DEVCTL2);
++	FIELD_MODIFY(PCI_EXP_DEVCTL2_COMP_TIMEOUT, &val,
++		     ULTRARISC_PCIE_COMP_TIMEOUT_65_210MS);
++	dw_pcie_writel_dbi(pci, cap_exp + PCI_EXP_DEVCTL2, val);
++
++	val = dw_pcie_readl_dbi(pci, PCIE_CUS_CORE);
++	val &= ~(HOLD_PHY_RST | L1SUB_DISABLE);
++	dw_pcie_writel_dbi(pci, PCIE_CUS_CORE, val);
++
++	return 0;
++}
++
++static void ultrarisc_pcie_pme_turn_off(struct dw_pcie_rp *pp)
++{
++	/*
++	 * DP1000 does not support sending PME_Turn_Off from the RC.
++	 * Keep this callback empty to skip the generic MSG TLP path.
++	 */
++}
++
++static const struct dw_pcie_host_ops ultrarisc_pcie_host_ops = {
++	.init = ultrarisc_pcie_host_init,
++	.pme_turn_off = ultrarisc_pcie_pme_turn_off,
++};
++
++static int ultrarisc_pcie_start_link(struct dw_pcie *pci)
++{
++	u32 val;
++
++	val = dw_pcie_readl_dbi(pci, PCIE_CUS_CORE);
++	val |= LTSSM_ENABLE;
++	dw_pcie_writel_dbi(pci, PCIE_CUS_CORE, val);
++
++	return 0;
++}
++
++static const struct dw_pcie_ops dw_pcie_ops = {
++	.start_link = ultrarisc_pcie_start_link,
++};
++
++static int ultrarisc_pcie_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct dw_pcie_rp *pp;
++	struct dw_pcie *pci;
++	int ret;
++
++	pci = devm_kzalloc(dev, sizeof(*pci), GFP_KERNEL);
++	if (!pci)
++		return -ENOMEM;
++
++	pci->dev = dev;
++	pci->ops = &dw_pcie_ops;
++
++	/* Set a default value suitable for at most 16 in and 16 out windows */
++	pci->atu_size = SZ_8K;
++
++	pp = &pci->pp;
++
++	platform_set_drvdata(pdev, pci);
++
++	pp->num_vectors = MAX_MSI_IRQS;
++	/* No L2/L3 Ready indication is available on this platform. */
++	pp->skip_l23_ready = true;
++	pp->ops = &ultrarisc_pcie_host_ops;
++
++	ret = dw_pcie_host_init(pp);
++	if (ret) {
++		dev_err(dev, "Failed to initialize host\n");
++		return ret;
++	}
++
++	return 0;
++}
++
++static int ultrarisc_pcie_suspend_noirq(struct device *dev)
++{
++	struct dw_pcie *pci = dev_get_drvdata(dev);
++
++	return dw_pcie_suspend_noirq(pci);
++}
++
++static int ultrarisc_pcie_resume_noirq(struct device *dev)
++{
++	struct dw_pcie *pci = dev_get_drvdata(dev);
++
++	return dw_pcie_resume_noirq(pci);
++}
++
++static const struct dev_pm_ops ultrarisc_pcie_pm_ops = {
++	NOIRQ_SYSTEM_SLEEP_PM_OPS(ultrarisc_pcie_suspend_noirq,
++				  ultrarisc_pcie_resume_noirq)
++};
++
++static const struct of_device_id ultrarisc_pcie_of_match[] = {
++	{
++		.compatible = "ultrarisc,dp1000-pcie",
++	},
++	{},
++};
++MODULE_DEVICE_TABLE(of, ultrarisc_pcie_of_match);
++
++static struct platform_driver ultrarisc_pcie_driver = {
++	.driver = {
++		.name	= "ultrarisc-pcie",
++		.of_match_table = ultrarisc_pcie_of_match,
++		.suppress_bind_attrs = true,
++		.pm = &ultrarisc_pcie_pm_ops,
++	},
++	.probe = ultrarisc_pcie_probe,
++};
++module_platform_driver(ultrarisc_pcie_driver);
++
++MODULE_DESCRIPTION("UltraRISC DP1000 DWC PCIe host controller");
++MODULE_LICENSE("GPL");
+
 -- 
-2.43.0
+2.34.1
 
