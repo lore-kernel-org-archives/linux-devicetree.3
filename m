@@ -1,159 +1,644 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CEC3B47FF
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:30:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43EA130AD0B
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:31:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777285858; cv=none; b=UUiHCTYsdtVyYT4mzaBQ+QzRjcfJbxt5ohNIzLzleLbYogowaS3BUbs/idA9XeMa4cnhOzVQSLfJ/aGx+vnU1bJ3AeagQgPGiYz3/2A7CWpX+5wQx3D9S6QGiaupa+8SQ2hGLV/CGjrfyY+gCX6Brc8yl+CGzaU+8yC66b0tAH0=
+	t=1777285867; cv=none; b=c6u/Jku3cFx2PsX29f4ZN/j0O3PiZesn9yjiwekTyPorEa73U+dH6tdVXxvLoh93Lo225KiGPhtWm0rqDJvv+84vhTNyaAKlQFGYPwTFWjbzN9odcVeQ2pR6pEVIDmtjIsR+kG4FIBrkCOlLRM9/jAeU9VRcCqhRXWvN8QxcVj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777285858; c=relaxed/simple;
-	bh=xdBoUnvTDWHO9sEx2ME9vk0lNpYrxR1F0k+T/dobLLE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o26gp1XKlZg1oW+8LNb5WoutGdx/U5m3X4Qg2iYFgahkScaBiJyxbMD6BDygVbdgqQdpHAzIDXIcSoBL4hZ07j2S5Dx0Zg1pDwsbmvjgDqqkU56/P6ayt7IUdcnKz6ub4++AWya7J3F0bGfQECp+E2rVh3RPXAzRsbrv1TTMdkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZAqqMFeV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kvBA1vf6; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777285867; c=relaxed/simple;
+	bh=aAv5jUiB+Wp4U4fgkGv7SOn4rPkelRxrrjo/Ku0wFwQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lzh1vdERZyjfwVz2CkU/U0pMGEg+FIXIhioORsgwV1pZz1AMXzMitTF4uDepFqjGEvP1BeXWGnxkMeoJgpFVBcA4AwUUbxNy4FtVd+TsDxcFXzyUHvIW2CEZtYt3gO2+2M2lzF7VlwOuHZ/gNIcmwqCzvtZHHJWAkJilLRmwUg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HS9is79R; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZAqqMFeV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kvBA1vf6"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63R8T9Qh1762094
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:30:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Hribx3Te2zGhpwNccaQ0/B4nggOh01mXDEMzMU2RzM8=; b=ZAqqMFeVbWvp3N76
-	xshBvYocfLZXIdyiltnKdHegAs1tSBQs4ss/RBz8LnhAKhkjo8X5bfvMORkV+3Pb
-	HiCF+Nzb+sTIzisqgzC5iBmKA818F0bKVMxrKncz2HUMHijnmRqNqv2BQtLM77WP
-	kjWkV2bxnFO71WBwqVUk0OwpAT48CFdfiZa95CKhY8Sx1vnuIImMwP5l9BP1F0c3
-	2cqQ9wbRUBB1sFTLXqGojp0F1YWbsSm2+pKjBUm+B4EmZwA8Io4L+tUmJYseAuOt
-	DNiUd1cOUOzfbWlZewuPkkzcn61wz8yM1W3JWWokz1OmbXX73OEuygQr+x7J4WGR
-	JtU66w==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drpw9dn79-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:30:56 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50fb0b93e90so22172891cf.3
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 03:30:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HS9is79R"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4891e86fabeso109198855e9.1
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 03:31:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777285855; x=1777890655; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Hribx3Te2zGhpwNccaQ0/B4nggOh01mXDEMzMU2RzM8=;
-        b=kvBA1vf6u1ao8ePuhOs8wU4HSCDp7g71vQgsmrix+URjPhApobIXhzR10OUSw/FMrl
-         Xp5BeNiU/JWWUC2pSRyWbIBBAyWsT35nUZ9ltYQzjvrrShaaE/SCoTzoUxPQ+GtVZlDg
-         dgoB4TNgrJC/NUi6m6dnYTW0BI3RVpxNPy8ipx7+5Kwx9vs+5oWtD1ikPFbqQ1cDF7i1
-         N3C420XyV1vZcwlvSZC0KT/r5VTjPF7YA2cM+2rSf7DmT3X4kmnbVDTq/kayVBtx3GxE
-         vZ7h5Kvc8yyi04gFU/8/VLlM+0lk37PTQFgsaGVQfFanyI8d3grXNTD1eH/OGq7SWIgw
-         EVOA==
+        d=gmail.com; s=20251104; t=1777285864; x=1777890664; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=dIBpdHuTRdqE1U2MLOJkakEUzbVx89JvVp76s0Bbu2M=;
+        b=HS9is79RSwXCqRdXlAo7KH3BwwAh+AXDEyW7zcmUYfduECRQn2mBRsKenLGJlCIjR9
+         IE/Gfix7DKuSI2bIecn/fHNl4ZXWFM0T7+6K9bifTIu+aGc8jqR4/Ao0xvs7FkiKCTnw
+         Bb9NwH18nOOtZdYeeBDIYbL9m6IXmLIdCbAIOcXNxPjgaC3MwdfTSyv0D1eFYLvuNruS
+         znTVwyD9OTKwWtuczFZmqkYf3bV5KbJHhueR6VGa1pbYAXqF4zFhgF/KdTqJHPr4a0Pn
+         qc3tsYpkuF8bz/rkO/x7ozPhB34+T+U7CITqVdZtFe/Ilfz18xYCnZiYzXhGPjWSBOlr
+         rwTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777285855; x=1777890655;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Hribx3Te2zGhpwNccaQ0/B4nggOh01mXDEMzMU2RzM8=;
-        b=pzwsDFmxfpvXO27cnIA/EpT8CpNyk6I5+ggT7Xd6rJ6XLPHZb9GBoqaf+x58Q/AnJv
-         xJisT0WWKLl7VB90LMWVPNewcvqQgW5MeAukIO83ILd+y3bboo9mCn1/7sDJ7VYo8soA
-         oyEaDvjut9ocVj6oqcgRunBNgu5sD24taqFSXdYtKaH0aLk3t//wDMyb27dpR/cJgSk/
-         KMscQlgahbzsoqwiHS0J6t1fvcgkD9r1LGJUUrVHs3bfQ4T2CBFWWPEI3PGxLm4tfQ7z
-         EXrF93ZivSjZuOBPrbpFF1n+sCenqDpBBk7hBt3yfZ8SXN17J4SE8GHPDnb2inLL2bJp
-         mQvg==
-X-Forwarded-Encrypted: i=1; AFNElJ8j6FW9XnRvB9GiQZUBwdvyUMLvQ+XlqpELd5olYtmYFXyV5LkjxuUGrUYzPSOu7TSFMZOZ5tzf0FF0@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxw+x9ruDGTU3ZsomxUfR8Lf42NDwyM0dfYSGMkyUJvS82pke+C
-	ffgSSIeWyfYQmpw4J4d6aUV8cWGeUtye3wDwTVSY4FRv9RmHbJbyoZkYPelejLLZWl+sX0GSHzy
-	Qt58DkEujmzYCmWjMJKf3omZjC4OoCvh/zB/6EgTiipEXZIsS76Qdehv28qE2cZRu
-X-Gm-Gg: AeBDiesQXQ0ha/T1xun6Tl5UCh0pHVdftBukF7N0orVzCk21KO2tb8JdUgNEFnofgMo
-	1zqyHCpqhOZ7jilz1cwaGTdZZZrPiiNd83e704Y4vTpThO0+SCuK2uMoG3L7vNoJ79hrBN+tenT
-	4T3A0U2eSnubA893FhxO0MzB7/A0w/GgO/PANIt5kPJwSvFVJ4vS9sXN90+pfbpzcfoYs681gZb
-	yCn+zGP9j5nQ1IW3VJ9NLUToFRJK6Xwx7r5g4z/cgjAn4LKKYO2ahhsp4QlJdo4A/Q0VWybRiJG
-	E8XMdya8aevu6fMosdwYfSE5/4WbmZcmt98c7cPbaEnTGR9PY8wE3WutQog5WwQzBJozzXv4Vy2
-	tKajf0bEfxx0/o/TNBkldE6HaGMPbsQfT4JhWyI2hmUvRh22QGXHdmFtFbvesPOmRJp7qV7hepD
-	s5jF85SWeJ+qyqhg==
-X-Received: by 2002:a05:622a:38e:b0:50d:714d:e966 with SMTP id d75a77b69052e-50e3669e233mr422782661cf.0.1777285855454;
-        Mon, 27 Apr 2026 03:30:55 -0700 (PDT)
-X-Received: by 2002:a05:622a:38e:b0:50d:714d:e966 with SMTP id d75a77b69052e-50e3669e233mr422782261cf.0.1777285854850;
-        Mon, 27 Apr 2026 03:30:54 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba455046223sm1097310966b.49.2026.04.27.03.30.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Apr 2026 03:30:54 -0700 (PDT)
-Message-ID: <5522e3fb-4140-4c64-9ff4-f0897b85cfaf@oss.qualcomm.com>
-Date: Mon, 27 Apr 2026 12:30:51 +0200
+        d=1e100.net; s=20251104; t=1777285864; x=1777890664;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=dIBpdHuTRdqE1U2MLOJkakEUzbVx89JvVp76s0Bbu2M=;
+        b=ZjVMWgvHOqT5vecYOJv2WIzZ3wP3TXe/tmBC24ttHmjbV7R396+yoyGANBbzpwX0oN
+         69ufnWZUEDJxpntRXJti5nzNTjs7Cbq54lwN2bCQ8gt7O/UJTMXVwrmhL3e6Y0VUOaGn
+         GX6r5UqPfHxhRk9fLzAWPF2LltUZI2ZLqk98JlDWO4sR9JwGf5qIMcFYe9zNvf2VTyHN
+         PLg1rO/QtGKyMaroVzQe6uFk8ZM1AgIjCmoKQ3kfjMmmdDA/cq/ytxWaWdVcv1UMzeH2
+         6Bh+/ncJe5sSS/wlyM8Gt1bDfjFzhcCyZptJZCWdAiJR4ngi/PxhY29UsI+qDPtJrHfu
+         0S3Q==
+X-Forwarded-Encrypted: i=1; AFNElJ+KNZlL/I7LHoaexzPVDPhZtV3nsO0Y5s5OhqeqFlekQrJS6/8PZ47c4WdhYcYAJDbTpZVFeaii/PQl@vger.kernel.org
+X-Gm-Message-State: AOJu0YxsTransgVg6IGsZoTssY9EXPcjG8dUiH875DZZjtpqXMRthr4Z
+	SJDYS/42vRokHWPjuBdS/ljuV4cnMZBfG1KPkQM792P5lAr/Go3lyQnV
+X-Gm-Gg: AeBDietbVyahZsencrIq0O3kWeVFoaiUf6COK8ZD3EceJsqICNOXjDthcpSEP+GSnvr
+	Jg9MPLWA0g/p+M8+x5HG84Cbbuh2HmZ1Xcef6AIXKhAsIRoCdyG3fXorf9VjaVzcdvswcRZS6/2
+	SxlpXfJ/CZlLk2zM3bgP4ANICtLzvjQ1j6TYDd2AeROZi5TlNe2CxQCEQRa+AlpaRkDnXQbHhVh
+	rceO7OPhHh93cJTTb/EJwsFKmkZA3/nEZaL+FYdj53G4EkMrvXGVlosZfX7J5cmq7PtDRUqGFA4
+	9g/p6mvfp32vn97IilVwubOb/tG2yRnLw3+UIP6lQsbBsAB8uTadmQqCb/JI1mgx9FcNp9amV9O
+	mcZ/EY11/0boxqP1cP9qJgTYT/quUeiElu3dSU5R6nduetWzLjy2W7Sevn8QcQiFP8EEeeuBLL9
+	V8mBk0T1ACzU13Pcnfx/lLZo/tRbl5vKwADPmt
+X-Received: by 2002:a05:600c:c10e:b0:488:8185:e672 with SMTP id 5b1f17b1804b1-488fb792e84mr484299455e9.30.1777285863199;
+        Mon, 27 Apr 2026 03:31:03 -0700 (PDT)
+Received: from nsa ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-489201cde98sm540295565e9.7.2026.04.27.03.31.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Apr 2026 03:31:02 -0700 (PDT)
+Date: Mon, 27 Apr 2026 11:31:54 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>, 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH RFC v3 9/9] docs: iio: add documentation for ad9910 driver
+Message-ID: <ae84112jP9UcsHYG@nsa>
+References: <20260417-ad9910-iio-driver-v3-0-29b93712a228@analog.com>
+ <20260417-ad9910-iio-driver-v3-9-29b93712a228@analog.com>
+ <20260426141007.345c76e4@jic23-huawei>
+ <lkvrmc6y2z45b4qsmaxg3c2iaiar6hjmim3hdbkxqx3536yx3p@o6h7de4ire2d>
+ <20260427104608.7819a134@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] mailbox: qcom-cpucp: Add support for Nord CPUCP
- mailbox controller
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Jassi Brar <jassisinghbrar@gmail.com>
-Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring
- <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org
-References: <20260427005236.230106-1-shengchao.guo@oss.qualcomm.com>
- <20260427005236.230106-3-shengchao.guo@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260427005236.230106-3-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: muZG4he8kiXkd-PcSXnNBMlifpWqud1u
-X-Authority-Analysis: v=2.4 cv=H67rBeYi c=1 sm=1 tr=0 ts=69ef3ae0 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=yOHyN-RScyqsYvXzJDoA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDExMSBTYWx0ZWRfXzbVt/Zj+oeWv
- 0wguajp5YI+REuA2L537VBeBsRJJcv8g+2vEkOgAypBCAPsDN4veb1W5DFkhHBKIAROBd9d+rST
- 1k+77j+wbp21IY+8QiwePUmEQMTDQPQXdLjN/spbo5q/+0c1dao2gKnh7VF7xCAs1jaGUFXuDkS
- /TwGpuh+tcVHdVZ3VLGnc4rWU5u6nh0Cpt2l9EtH/NMNzFLH0Ia8tP+1/XtyYQXpwgxeeQEdnkE
- mvSktk4iOrFAPj7XoI1TpSwYeDahp8kDn5scQCufwxQ1UI7+M0ylg66vE6F6zyRFMxUPNdiXToE
- w+0AUdgwWyWp6lD3oEGHuUToAnNHeS1ErejLN2irdBJDSItE9MkP99YLnHPe08r/MH+GNP47iH8
- IFggp+4dH9PbJU8LGR7pZQ8ncHrvbXycD3nNxmXCczdPzmuOBQEJ/9DTeN3l8OCcgKZU0onwy3k
- gJJyw14ha+2nr7MAvAQ==
-X-Proofpoint-ORIG-GUID: muZG4he8kiXkd-PcSXnNBMlifpWqud1u
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-27_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 adultscore=0 suspectscore=0 phishscore=0
- priorityscore=1501 spamscore=0 impostorscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270111
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260427104608.7819a134@jic23-huawei>
 
-On 4/27/26 2:52 AM, Shawn Guo wrote:
-> From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+On Mon, Apr 27, 2026 at 10:46:08AM +0100, Jonathan Cameron wrote:
+> On Sun, 26 Apr 2026 21:42:15 +0100
+> Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
 > 
-> The Nord SoC CPUCP mailbox supports 16 IPC channels, compared to 3 on
-> x1e80100. The existing driver hardcodes the channel count via a
-> compile-time constant (APSS_CPUCP_IPC_CHAN_SUPPORTED), making it
-> impossible to support hardware with a different number of channels.
+> > On 26/04/26 02:10PM, Jonathan Cameron wrote:
+> > > On Fri, 17 Apr 2026 09:17:38 +0100
+> > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> > >   
+> > > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > > 
+> > > > Add documentation for the AD9910 DDS IIO driver, which describes channels,
+> > > > DDS modes, attributes and ABI usage examples.
+> > > > 
+> > > > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>  
+> > > 
+> > > Hi Rodrigo,
+> > > 
+> > > I think this is getting close to something workable subject to some tweaks
+> > > to not make the priority thing visible and use rate of change parameters
+> > > so /Sec rather than steps.  
+> > 
+> > I am not sure about this one. Getting the value into units per seconds will
+> > increase the range of values by a lot, e.g., for the frequency case the step
+> > size can range from a few Hz up to the entire supported range (hundreds of
+> > MHz), and if you consider that one would often have the sampling_frequency
+> > at 250 MHz... an attribute frequency_roc could have an order of 10^17 Hz/s,
+> > and I am not sure how practical is that, although it can have a physical meaning,
+> > like a "chirp slope".
 > 
-> Introduce a qcom_cpucp_mbox_data per-hardware configuration struct that
-> carries the channel count, and retrieve it via of_device_get_match_data()
-> at probe time. Switch the channel array from a fixed-size member to a
-> dynamically allocated buffer sized from the hardware data. Update the
-> x1e80100 entry to supply its own data struct, and add a new Nord entry
-> with num_chans = 16.
+> That scaling is indeed a bit of a pain though it will go in a 64 bit int
+> however, seems likely we'll get higher frequency devices one day that will
+> limb even faster.
 > 
-> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
+> Maybe wait and see if anyone else has input on this.	
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+If we think things like RF DACs (which internally - typically - make use
+of things like DDS), we can already go to the GHz "world".
 
-Konrad
+Not saying we already have such a device that would map the new ABI with
+bigger values (we might have but nothing I'm aware of from the top of my
+head) but just saying the above is, indeed, very likely to pop up at some
+time.
+
+Just something to bear in mind :)
+
+- Nuno Sá
+
+> > 
+> > > 
+> > > Given this defines the ABI for a whole class of new devices that are
+> > > rather complex, one concern is whether whatever we define here is general
+> > > enough to be useful.  
+> > > 
+> > > Do you have any other DDS in your queue to upstream? Maybe it's worth
+> > > sanity checking the ABI against them to see if it is fit for purpose?  
+> > 
+> > Not really, still the only DDS. Other DDS of the same family have a similar
+> > Digital Ramp Generator with controls over ramp limits, rates and step. 
+> 
+> There are two in staging that have been there a very long time... 
+> ad9832 and ad9834.  I haven't looked at how they correspond to this.
+> 
+> We should think hard about whether to bring them inline with this
+> and out of staging, or just delete them.
+> 
+> > 
+> > ...
+> > 
+> > > > +DDS modes
+> > > > +=========
+> > > > +
+> > > > +The AD9910 supports multiple modes of operation that can be configured
+> > > > +independently or in combination. Such modes and their corresponding IIO channels
+> > > > +are described in this section. The following tables are extracted from the
+> > > > +AD9910 datasheet and summarizes the control parameters for each mode and their
+> > > > +priority when multiple sources are enabled simultaneously:  
+> > > 
+> > > Maybe add a bit on what priority means.  Does it mean that only the highest
+> > > priority one is acted on?  If so why do we need to expose that others are
+> > > enabled? Just report only the highest priority one as enabled.
+> > > 
+> > > I can see the hardware needs to do priority so it knows where to go when
+> > > a given source is disabled but from a software point of view that
+> > > can be controlled by us enabling that next item (and the driver does
+> > > things in the right order to get the appropriate transition)
+> > > 
+> > > That may mean that if all modes are disabled, we have to disable any output
+> > > but seems doable.  
+> > 
+> > That is a bit complicated, as you can see, this part has modes that target
+> > one DDS parameter or multiple (destinations: phase, frequency, amplitude).
+> > Also, multiple modes can coexist, when they target different parameters/destination.
+> > At the same time, RAM mode complicates everything because even though it targets
+> > one specific parameter, once it is enabled influences the base mode for the
+> > other parameters because single-tone is off. I have ordered the mode channels so
+> > that higher index have higher priority, so that can be a bit clearer.
+> > 
+> > Right now, all the controls are provided, what might be missing is a way
+> > to query which level of those priorities is currently active, but those levels
+> > are not the same thing as the controls. If we turn the priority levels into the
+> > controls themselves it would be a different ABI and it would get a lot messy.
+> > That is why I am dumping this priority table in this document! =(
+> 
+> I understand (at least some) of the hardware complexity but I don't like
+> the fact this is effectively exposing it to userspace. + I really don't want
+> more ABI to indicate whether a mode is actively doing anything or not.
+> Whilst I agree the code will be more complex, having clarity on what is
+> enabled at any given time is definitely something we ant to aim for.
+> 
+> Can we work out a transition diagram?  That might make it easier to
+> tell whether it's possible to map it as single enables at a time and
+> incorporate weird corners like the RAM one.  Maybe not needed if the
+> RAM one is the only real oddity and otherwise it's just going up
+> and down the priority lists.
+> 
+> One complexity I can see with single enables is that they'd need
+> to be separate for each of frequency, phase and amplitude to reflect
+> the transitions that can occur.
+> 
+> Also the fun of profiles, where those profile pins are basically picking
+> symbols - could be used for multi level PSK or FSK for example if wired
+> up to an external symbol source.  I'd be a bit surprised if those are
+> always wired up to a host CPU.
+> 
+> *sigh* I'm talking my self around to needing ABI to indicate a channel
+> is active.  The symbol stuff gets us some of the way there (and would
+> work for the tones) but doesn't cover the added complexity of RAM etc.
+> So 'maybe' new ABI for _isactive or something like that?
+> 
+> Perhaps the boundary we put on this is the ABI should be such that
+> simple choices such as enabling a single tone, or single RAM mode
+> setting are intuitive. 
+> 
+> Why do we only have one ram channel? I'd kind of expect the firmware
+> to fill all 8 RAM profiles because of that 'external' profile pins
+> use case.
+> 
+> 
+> > 
+> > > > +
+> > > > +.. flat-table:: DDS Frequency Control
+> > > > +   :header-rows: 1
+> > > > +
+> > > > +   * - Priority
+> > > > +     - Data Source
+> > > > +     - Conditions
+> > > > +
+> > > > +   * - Highest Priority
+> > > > +     - RAM
+> > > > +     - RAM enabled and data destination is frequency
+> > > > +
+> > > > +   * -
+> > > > +     - DRG
+> > > > +     - DRG enabled and data destination is frequency
+> > > > +
+> > > > +   * -
+> > > > +     - Parallel data and FTW (frequency_offset)
+> > > > +     - Parallel data port enabled and data destination is frequency
+> > > > +
+> > > > +   * -
+> > > > +     - FTW (frequency)
+> > > > +     - RAM enabled and data destination is not frequency
+> > > > +
+> > > > +   * -
+> > > > +     - FTW (frequency) in single tone channel for the active profile
+> > > > +     - DRG enabled and data destination is not frequency
+> > > > +
+> > > > +   * -
+> > > > +     - FTW (frequency) in single tone channel for the active profile
+> > > > +     - Parallel data port enabled and data destination is not frequency
+> > > > +
+> > > > +   * - Lowest Priority
+> > > > +     - FTW (frequency) in single tone channel for the active profile
+> > > > +     - None  
+> > >   
+> > > > +
+> > > > +Single tone mode
+> > > > +----------------
+> > > > +
+> > > > +Single tone is the baseline operating mode. The ``profile[Y]`` channels
+> > > > +provides enable, frequency, phase and amplitude control:
+> > > > +
+> > > > +.. flat-table::
+> > > > +   :header-rows: 1
+> > > > +
+> > > > +   * - Attribute
+> > > > +     - Unit
+> > > > +     - Description
+> > > > +
+> > > > +   * - ``en``
+> > > > +     - boolean
+> > > > +     - Enable/disable profile Y. Only one profile can be active at a
+> > > > +       time. Then enabling a profile disables the current active profile.
+> > > > +       Disabling an active profile enables the next profile in ascending order,
+> > > > +       wrapping around from 7 to 0.  
+> > > 
+> > > That passing on to the next one seems rather non user friendly.  Can we just
+> > > disable the whole unit under those conditions instead?  As above that may mean
+> > > turning of the output entirely.  So to change mode it would always be transition
+> > > to the one that is enabled.  A disable of a given channel results in no output.  
+> > 
+> > Yes, I can go for the software powerdown in that case! and the powerdown attribute
+> > could be removed?
+> 
+> Yes, I think that works.  If all sources are disabled, then powerdown.
+> Maybe we keep the powerdown as well though as that's standard DAC ABI.
+> 
+> > 
+> > >   
+> > > > +
+> > > > +   * - ``frequency``
+> > > > +     - Hz
+> > > > +     - Output frequency. Range [0, SYSCLK/2). Stored in the profile's frequency
+> > > > +       tuning word (FTW).
+> > > > +
+> > > > +   * - ``phase``
+> > > > +     - rad
+> > > > +     - Phase offset. Range [0, 2*pi). Stored in the profile's phase offset word
+> > > > +       (POW).
+> > > > +
+> > > > +   * - ``scale``
+> > > > +     - fractional
+> > > > +     - Amplitude scale factor. Range [0, 1]. Stored in the profile's amplitude
+> > > > +       scale factor (ASF).
+> > > > +
+> > > > +Profile switching is allowed while RAM mode is enabled. In that case single tone
+> > > > +parameters are stored in a shadow register and are not written to hardware until
+> > > > +RAM mode is disabled.  
+> > > 
+> > > This is only visible to userspace because of the priority thing?  If we hide
+> > > that away to transition from RAM to this mode would just mean enabling this mode.  
+> > 
+> > Partially, but the real reason is that single-tone and RAM shares the same profile
+> > registers. So I have things cached, which allows user to change single-tone stuff
+> > while RAM is enabled.
+> 
+> Ah. So there is no smooth (e.g. race free) path to transition from RAM mode to
+> single tone? That is annoying.
+> 
+> > 
+> > ...
+> > 
+> > > > +Digital ramp generator (DRG)
+> > > > +----------------------------
+> > > > +
+> > > > +The DRG produces linear frequency, phase or amplitude sweeps using dedicated
+> > > > +hardware. It is controlled through three channels: a parent control channel
+> > > > +(``digital_ramp_generator``) and two child ramp channels
+> > > > +(``digital_ramp_up``, ``digital_ramp_down``). DRG destination is set when
+> > > > +ramp attributes are written, i.e. writing to ``frequency`` or ``frequency_step``
+> > > > +sets the destination to frequency.
+> > > > +
+> > > > +Control channel attributes
+> > > > +^^^^^^^^^^^^^^^^^^^^^^^^^^
+> > > > +
+> > > > +.. flat-table::
+> > > > +   :header-rows: 1
+> > > > +
+> > > > +   * - Attribute
+> > > > +     - Unit
+> > > > +     - Description
+> > > > +
+> > > > +   * - ``en``
+> > > > +     - boolean
+> > > > +     - Enable/disable the DRG.
+> > > > +
+> > > > +Ramp channel attributes
+> > > > +^^^^^^^^^^^^^^^^^^^^^^^^
+> > > > +
+> > > > +The ``digital_ramp_up`` and ``digital_ramp_down`` channels share the same
+> > > > +attribute set but configure ascending and descending ramp parameters
+> > > > +independently:
+> > > > +
+> > > > +.. flat-table::
+> > > > +   :header-rows: 1
+> > > > +
+> > > > +   * - Attribute
+> > > > +     - Unit
+> > > > +     - Description
+> > > > +
+> > > > +   * - ``en``
+> > > > +     - boolean
+> > > > +     - Enable/disable the ramp no-dwell behavior. Enabling both creates a
+> > > > +       bidirectional continuous ramp (Triangular pattern). Other configurations
+> > > > +       creates a single-shot ramp at the trasition of the DRCTL pin: ramp-up  
+> > > 
+> > > transition
+> > >   
+> > > > +       only, ramp-down only or bidirectional with dwell at the limits.  
+> > > 
+> > > Feels a little unintuitive to use the generic enable for this.
+> > > We might need a specific control for this one.   
+> > 
+> > How about dwell_en, but it might not sound that generic. I used "enable" because:
+> > - no-dwell high means a ramp-up pattern (only enabling the ramp-up channel)
+> > - no-dwell low means a ramp-down pattern (only enabling the ramp-down channel)
+> > - both no-dwell is a continuous ramp that goes up and down. (both enabled)
+> > The last case is a bit off though, when both are disabled we get the normal mode, which
+> > is also a ramps up and down, but dwelling in the limits.
+> >  
+> > > > +
+> > > > +   * - ``frequency``
+> > > > +     - Hz
+> > > > +     - Frequency ramp limit. Range [0, SYSCLK/2).
+> > > > +
+> > > > +   * - ``phase``
+> > > > +     - rad
+> > > > +     - Phase ramp limit. Range [0, 2*pi).
+> 
+> Looking at this again, how do we set the DRG mode?  E.g. if it effects
+> only phase? 
+> 
+> > > > +
+> > > > +   * - ``scale``
+> > > > +     - fractional
+> > > > +     - Amplitude scale ramp limit. Range [0, 1).
+> > > > +
+> > > > +   * - ``sampling_frequency``
+> > > > +     - Hz
+> > > > +     - Ramp clock rate: SYSCLK / (4 * divider).
+> > > > +
+> > > > +   * - ``frequency_step``
+> > > > +     - Hz
+> > > > +     - Per-tick frequency increment/decrement. Range [0, SYSCLK/2).  
+> > > 
+> > > So this was the bit I referred to earlier.  Normally we do
+> > > rate of change measurements for this stuff rather than what happens on
+> > > each tick (based on how we handle things like ROC events)
+> > > 
+> > > So could we make these
+> > > 	``frequency_roc`` units HZ/Sec
+> > > etc?  Then from the mix configured would need to work out the optimum
+> > > tick to deliver it.
+> > > 
+> > > I suppose it's possible that someone might want a stepped frequency
+> > > though which would break this approach?  Does anyone actually do that?
+> > > If so we'd need to keep the samping_frequency but then control _roc
+> > > with that in mind.  
+> > 
+> > yeah... frequency steps would make sense when the user controls when to
+> > perform the updates, or when it comes from certain events.
+> 
+> You've lost me here.  How can they do that?  Some external clocking
+> or event?
+> 
+> > 
+> > sampling frequency defines the timing and this roc attr would
+> > also depend on timing... there would be two options:
+> > * ignore updating ramp step when sampling freq is updated. Here roc
+> >   would have a different value when readback.
+> > * cache the "requested" roc and use it update ramp step when sampling
+> >   freq is updated, so roc remains with the value initially configured. 
+> 
+> If we do end up going the roc route both are valid ABI, but the second is
+> nicer from useability point of view. 
+> 
+> > 
+> > >   
+> > > > +
+> > > > +   * - ``phase_step``
+> > > > +     - rad
+> > > > +     - Per-tick phase increment/decrement. Range [0, 2*pi).
+> > > > +
+> > > > +   * - ``scale_step``
+> > > > +     - fractional
+> > > > +     - Per-tick amplitude scale increment/decrement. Range [0, 1).
+> > > > +
+> > > > +Usage examples
+> > > > +^^^^^^^^^^^^^^
+> > > > +
+> > > > +Configure a frequency sweep from 40 MHz to 60 MHz at a 1 kHz step:
+> > > > +
+> > > > +.. code-block:: bash
+> > > > +
+> > > > +	# Enable both no-dwell modes for a bidirectional ramp
+> > > > +	echo 1 > /sys/bus/iio/devices/iio:device0/out_altvoltage121_en
+> > > > +  echo 1 > /sys/bus/iio/devices/iio:device0/out_altvoltage122_en  
+> > > 
+> > > Fix indents as mix of tabs and spaces.  As above I think using this enable
+> > > for no dwell is not going to generalize well.  I think we need new ABI for this
+> > > though I'm open to anyone suggesting something we can reuse.  
+> > 
+> > I suggested dwell_en, and I am not sure what else could be used here.
+> > Something like hold_en could work and sounds more generic.. not sure. 
+> 
+> likewise :(
+>  
+> > 
+> > > > +
+> > > > +	# Set ramp limits
+> > > > +	echo 60000000 > /sys/bus/iio/devices/iio:device0/out_altvoltage121_frequency
+> > > > +	echo 40000000 > /sys/bus/iio/devices/iio:device0/out_altvoltage122_frequency
+> > > > +
+> > > > +	# Set ramp step size to 1 kHz
+> > > > +	echo 1000 > /sys/bus/iio/devices/iio:device0/out_altvoltage121_frequency_step
+> > > > +	echo 1000 > /sys/bus/iio/devices/iio:device0/out_altvoltage122_frequency_step
+> > > > +
+> > > > +	# Set ramp rate at 25 MHz
+> > > > +	echo 25000000 > /sys/bus/iio/devices/iio:device0/out_altvoltage121_sampling_frequency
+> > > > +  echo 25000000 > /sys/bus/iio/devices/iio:device0/out_altvoltage122_sampling_frequency
+> > > > +
+> > > > +	# Enable the DRG
+> > > > +	echo 1 > /sys/bus/iio/devices/iio:device0/out_altvoltage120_en
+> > > > +
+> > > > +RAM mode
+> > > > +--------
+> > > > +
+> > > > +The AD9910 contains a 1024 x 32-bit RAM that can be loaded with waveform data
+> > > > +and played back to modulate frequency, phase, amplitude, or polar (phase +
+> > > > +amplitude) parameters.
+> > > > +
+> > > > +RAM control channel attributes
+> > > > +^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> > > > +
+> > > > +.. flat-table::
+> > > > +   :header-rows: 1
+> > > > +
+> > > > +   * - Attribute
+> > > > +     - Unit
+> > > > +     - Description
+> > > > +
+> > > > +   * - ``en``
+> > > > +     - boolean
+> > > > +     - Enable/disable RAM playback. Toggling swaps profile registers between
+> > > > +       single tone and RAM configurations across all 8 profiles.  
+> > > 
+> > > So this might be a fly in the ointment of my previous comment about using
+> > > enable of profile to turn off ram.  I guess disabling RAM drops into the
+> > > matched number tone profile?  That's a pain but not disastrous. We'd have
+> > > to only allow transitions by enabling the match number tone profile.
+> > > 
+> > > So transitions allowed would be
+> > > 
+> > > 	tone_profileX -> ram_profileX
+> > > 	tone_profileX -> tone_profileY
+> > > 	ram_profileX -> tone_profileX
+> > > 	ram_profileX -> ram_profileY
+> > > 
+> > > But not
+> > > 	tone_profileX -> ram_profileY
+> > > where X!=Y  
+> > 
+> > No, there is only one RAM enable bit, once it is on, all single tone
+> > profiles go away (all profile registers are repurposed for RAM mode
+> > usage).
+> 
+> I'd missed the repurposing that basically means you never transition from
+> tone to RAM without going via some intermediate point (maybe power down).
+> 
+> > 
+> > > > +
+> > > > +   * - ``frequency``
+> > > > +     - Hz
+> > > > +     - Frequency tuning word used as the single tone frequency when
+> > > > +       RAM destination is not ``frequency``. Range [0, SYSCLK/2).
+> > > > +
+> > > > +   * - ``phase``
+> > > > +     - rad
+> > > > +     - Phase offset word used as the single tone phase when RAM destination
+> > > > +       is not ``phase``. Range [0, 2*pi).
+> > > > +
+> > > > +   * - ``sampling_frequency``
+> > > > +     - Hz
+> > > > +     - RAM playback step rate of the active profile, which controls how fast the
+> > > > +       address counter advances: SYSCLK / (4 * step_rate).  
+> > > 
+> > > Why do we care what the sysclk relationship is? It's ticking in HZ.  
+> > 
+> > Can be removed, but just to point out that the configured value will adjust to the
+> > value where the divider is an integer. Maybe the user should be aware of that.
+> 
+> If you keep it just add something to note that it takes discrete values
+> according to that formula.  I was reading more into it than that and
+> getting confused to where step_rate was coming from!
+> 
+> > 
+> > > > +
+> > > > +Output shift keying (OSK)  
+> > > This is a new one on me...   
+> > > > +-------------------------
+> > > > +
+> > > > +OSK controls the output amplitude envelope, allowing the output to be ramped
+> > > > +on/off rather than switched abruptly.  
+> > >   
+> > > > +
+> > > > +.. flat-table::
+> > > > +   :header-rows: 1
+> > > > +
+> > > > +   * - Attribute
+> > > > +     - Unit
+> > > > +     - Description
+> > > > +
+> > > > +   * - ``en``
+> > > > +     - boolean
+> > > > +     - Enable/disable OSK.
+> > > > +
+> > > > +   * - ``scale``
+> > > > +     - fractional
+> > > > +     - Target amplitude for the OSK ramp. 14-bit ASF field. Range [0, 1).
+> > > > +
+> > > > +   * - ``sampling_frequency``
+> > > > +     - Hz
+> > > > +     - OSK ramp rate: SYSCLK / (4 * divider).
+> > > > +
+> > > > +   * - ``pinctrl_en``
+> > > > +     - boolean
+> > > > +     - Enable manual external pin control. When enabled, the OSK pin directly
+> > > > +       gates the output on/off instead of using the automatic ramp.  
+> > > 
+> > > I wonder if we should split the various OSK modes into different channels given
+> > > only some properties apply to each of automatic and manual modes. Also I think
+> > > automatic mode is meaningless without pinctrl_en (so that can be replaced
+> > > by simply enabling that mode).  I have no idea if anyone cares about pin ctrl
+> > > with manual mode or not?  That one seems even more odd.  
+> > 
+> > OSK is either in manual or auto:
+> > * In manual mode the OSK pin enables and disables the output based on its level.
+> > * In auto, the OSK pin controls the direction the amplitude updates. 
+> > 
+> > If we enable RAM mode, and other modes do not target amplitude, the only way to
+> > manually configure the amplitude in software (i.e. without using an OSK gpio)
+> > is going manual mode (scale_step == 0), disable this pinctrl_en and then set the
+> > scale property (ASF register). That is the only reason I added this property.
+> 
+> Ah.  Maybe we hide that away and make the amplitude a property of RAM channel?
+> It can do this magic under the hood. I don't mind the attributes for OSK changing
+> if this trick is in use (they won't be active anyway).
+> 
+> > 
+> > > > +
+> > > > +   * - ``scale_step``
+> > > > +     - fractional
+> > > > +     - Automatic OSK amplitude step. Writing non-zero enables automatic OSK
+> > > > +       and sets the per-tick increment. Writing ``0`` disables it. Rounded to
+> > > > +       nearest hardware step: 0.000061, 0.000122, 0.000244 or 0.000488.  
+> > > 
+> > > Similar thing about rate of change of amplitude fitting better with current ABI
+> > > than step does.  
+> > 
+> > ok... and this one is still missing the correspondent available attr.
+> 
+> Available is a bit tricky when there is an inverse relationship involved in the maths
+> as what do we put the step as.  Maybe we should add a note on that to the ABI
+> docs.  [min step max] where step gives the minimum step that due to non linearity
+> may not be applicable between discrete values that may be taken away from that
+> minimum granularity base value.  If that occurs the driver will round to the
+> nearest possible value.
+> 
+> Something like that.
+> 
+> J
+> > 
+> 
