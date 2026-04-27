@@ -1,506 +1,298 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D5532F5A29
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 14:33:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2679527FD49;
+	Mon, 27 Apr 2026 14:34:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777300436; cv=none; b=uoZ666QiokuSugNls+PA+OCHk3mRZiSz7VQ5NacxNKqs1tyccDpKStI3w6WUzcr+5Mvu5grvcCJu3KQcQ587Siwib+DzIlgqesvhrSnnMXzH9fJ9PH3auTYbcZlOKebnps30cG2ypSUL3a6PJWjafD9tEXN+D3agRmHxUSrL3uY=
+	t=1777300493; cv=none; b=DdYo8FKWqXHFYOYx6C5xh9Ee5n5MunU/itZuvKYSUs6ZKVHSoVHDF+i0/AOhuNdnB/H2TLmFRT+iVSXksVmGzmvB1rLof4kdyPEUmT84+OfjePrnpEbwW6quyTi5fTIWI9rfCTmXI8IbWahDjKajV+1vU3K7xuSkTFZHOWGYzMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777300436; c=relaxed/simple;
-	bh=OdxGEVLDGfCzmwySpRONhPp8fjCDJ1uuCN5VyQfhs+c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PaqK0C58aa8HdgfFF1Xn6BQAzDJi6YwimMdrh76TyWtdwqZFttziCL+I7R6BtRxrLiH7X7NP9aFkbPkBOg8yK8cgOH0QtTDZ++aiprSsvtwRElhnDZsFl2XaNIQ6jyIcQtmuaaRBAmj5Alm0GezrGeEJn3yIukyrVKZ6LA3jdtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AXb6nIL/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777300493; c=relaxed/simple;
+	bh=9EA5BQaltMfSm6WKlTqEDSoKvc40GGMtQgJywLfcVmo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ul0GhWsPgjA2AeO2Vl0J/lAFgEWnzMYh1LcEhcB90aW6D38qLKXE5BhtklFRJFEQn4tjMIqzgTEN+O04OrIN2nq+RUzhhWD6HFHd+oZSPaLtd7CzF9mSsDVZbD5iFpnfXwdIQIXQwzii1K99YGwD2pTrdUXlKKjiKUG6Dv4JBOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=j34Tq4Dv; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AXb6nIL/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3880C2BCB9
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 14:33:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777300435;
-	bh=OdxGEVLDGfCzmwySpRONhPp8fjCDJ1uuCN5VyQfhs+c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=AXb6nIL/V9deiNyfHKYoHjUxG5bmvVSJAhJWG25ethngUmuzHwX9WxPVm7jLW7NZQ
-	 uZc1fRuYtaZwIbsFl/6J2KGB3uJb2i0/kIVypWrtsuq8LU5KSeQ/d5KrYZLzvwmI+A
-	 4GQc/JhOXUUALSu/8DDvchf0yJIegCgT5h16XfFWUGH4o/CndAER8VcydB34y6kXk8
-	 F9JZhMmfxpcNyTryaisy1Di/0xZJ/6Ztfjz+fKKX0A+D4h4JkMf3EFaVonRDLLEQVK
-	 giVzD2Dq+/glTb9W2CwV18eNjrHBcywbceHELSrcxp4ZLHlqW0slAyduvVC7pX8XDC
-	 yLhMsSL2iETVg==
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-67893fba9c3so8175402a12.2
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 07:33:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+1BRuQwGjx9lNi1YrGHwLJYkQOQptW6hL/jl3iW9t9/qym2zXEl7I+kFvWe8XjbNdGL+TSMxv48p6I@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy1pP39UrewR/Um3q54aQ21lRmBNOHX0aTXPKhBW/T8MyqQY0m1
-	7G/HkRQVxA9IMlBUwohQY/U4xVhd978MZ+e15hRBKNP1FAPr7fUlJIrdYuOzw4ffPLOuG0ZsiAP
-	PilK3cxEPfhyaeUQJZb4yMH8nmDW9Yw==
-X-Received: by 2002:a05:6402:2804:b0:672:f7a:1e7 with SMTP id
- 4fb4d7f45d1cf-672bfdca2b4mr20198931a12.17.1777300434403; Mon, 27 Apr 2026
- 07:33:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="j34Tq4Dv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777300492; x=1808836492;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9EA5BQaltMfSm6WKlTqEDSoKvc40GGMtQgJywLfcVmo=;
+  b=j34Tq4Dv4eUGZC3W31tN9Aydm/SQrfVHJ/M/E/pgDMYAXIT7p5335zGR
+   1d/e4Wd5CGDCmxpLp7YFi7ZkUUsjBhKJchtfbKzXi4SAzXqfRQZ01SeK2
+   2r7CvbERnJ8BQjVxTg3whwMEefkgbthb0/1iHOP0iZo7jahRv7rRQjH67
+   qcDkbM29nI8mSuOOTBc2kstfTO15jGHShXdvifetYiHm/J+hSEY4oSAZQ
+   Z83g8dzS+t7QLdXCwnwL6bOEhAst9Dfq79k96n3UUw0e8R24+zKyZCmiS
+   QGRabRzjrveax5E2bxKjswv6vc2FV42mttu5htKvMxNd+Q973Cnkx7hCe
+   Q==;
+X-CSE-ConnectionGUID: wQaqHaUaQrCs6Y5NTwXy1Q==
+X-CSE-MsgGUID: UzfCdC20RO6pP3fBqYuACQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="82038722"
+X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; 
+   d="scan'208";a="82038722"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Apr 2026 07:34:51 -0700
+X-CSE-ConnectionGUID: HcE8Dt3mTYCCnQRxc3Sp+Q==
+X-CSE-MsgGUID: aDT+VsBnQOiOXPvNhu8pQA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; 
+   d="scan'208";a="238643765"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.2])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Apr 2026 07:34:48 -0700
+Date: Mon, 27 Apr 2026 17:34:46 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Piyush Patle <piyushpatle228@gmail.com>
+Cc: ak@it-klinger.de, jic23@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 7/7] iio: adc: hx711: add support for HX710B
+Message-ID: <ae90BqnY6_dhRn1F@ashevche-desk.local>
+References: <20260427100950.33936-1-piyushpatle228@gmail.com>
+ <20260427100950.33936-8-piyushpatle228@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260224121948.25218-1-linux.amoon@gmail.com> <20260224121948.25218-2-linux.amoon@gmail.com>
- <20260306004333.GA863798-robh@kernel.org> <CANAwSgS7RhZ1D-zPR8LpvrQJVp+1be9ALC5HcE1XhouyNOS6Jg@mail.gmail.com>
-In-Reply-To: <CANAwSgS7RhZ1D-zPR8LpvrQJVp+1be9ALC5HcE1XhouyNOS6Jg@mail.gmail.com>
-From: Rob Herring <robh@kernel.org>
-Date: Mon, 27 Apr 2026 09:33:42 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJY2Wv5YFVmW5P7dTmNK5QVdfxZZsMFt-Zn4i-ubPkf3Q@mail.gmail.com>
-X-Gm-Features: AVHnY4KbfNzxvVk_fcwP_CGe9fDgzTP7yX99CVzMt3_OyekAOqH2-F6dcA50sp0
-Message-ID: <CAL_JsqJY2Wv5YFVmW5P7dTmNK5QVdfxZZsMFt-Zn4i-ubPkf3Q@mail.gmail.com>
-Subject: Re: [PATCH v3 1/5] dt-bindings: PCI: Convert nvidia,tegra-pcie to DT schema
-To: Anand Moon <linux.amoon@gmail.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Aaron Kling <webgeek1234@gmail.com>, 
-	"open list:PCI DRIVER FOR NVIDIA TEGRA" <linux-tegra@vger.kernel.org>, 
-	"open list:PCI DRIVER FOR NVIDIA TEGRA" <linux-pci@vger.kernel.org>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260427100950.33936-8-piyushpatle228@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Mar 11, 2026 at 1:46=E2=80=AFAM Anand Moon <linux.amoon@gmail.com> =
-wrote:
->
-> Hi Rob,
->
-> Thanks for your review comments. Sorry for the late reply.
->
-> On Fri, 6 Mar 2026 at 06:13, Rob Herring <robh@kernel.org> wrote:
-> >
-> > On Tue, Feb 24, 2026 at 05:48:57PM +0530, Anand Moon wrote:
-> > > Convert the existing text-based DT bindings documentation for the
-> > > NVIDIA Tegra PCIe host controller to a DT schema format.
-> >
-> > I just reviewed the same thing from Thierry... This one looks a bit
-> > better for overall structure (fewer if/then schemas), but I think misse=
-s
-> > some things like deprecated supplies. Please resolve the differences
-> > between the 2 and coordinate who is going to send the next version.
-> >
-> Ok, I checked this, but couldn't find the deprecated supplies.
->
-> The drive code maps SoC-supplied regulators to an array for the buck regu=
-lators.
-> [1] https://github.com/torvalds/linux/blob/master/drivers/pci/controller/=
-pci-tegra.c#L1929-L2078
->
-> I will fix it if I need to.
-> > >
-> > > Also update the MAINTAINERS file to reflect this change.
-> > >
-> > > Cc: Jon Hunter <jonathanh@nvidia.com>
-> > > Signed-off-by: Anand Moon <linux.amoon@gmail.com>
-> > > ---
-> > > v3: Tried to address the issues Krzysztof pointed out.
-> > >    Added missing regulator binding as suggeested by Jon.
-> > > v2: Tried to address the isssue Rob pointed
-> > > [1] https://lkml.org/lkml/2025/9/26/704
-> > > improve the $suject and commit message
-> > > drop few examples only nvidia,tegra20-pcie and nvidia,tegra210-pcie
-> > >
-> > > $ make dt_binding_check DT_SCHEMA_FILES=3DDocumentation/devicetree/bi=
-ndings/pci/nvidia,tegra-pcie.yaml
-> > > ---
-> > >  .../bindings/pci/nvidia,tegra-pcie.yaml       | 528 ++++++++++++++
-> > >  .../bindings/pci/nvidia,tegra20-pcie.txt      | 670 ----------------=
---
-> > >  MAINTAINERS                                   |   2 +-
-> > >  3 files changed, 529 insertions(+), 671 deletions(-)
-> > >  create mode 100644 Documentation/devicetree/bindings/pci/nvidia,tegr=
-a-pcie.yaml
-> > >  delete mode 100644 Documentation/devicetree/bindings/pci/nvidia,tegr=
-a20-pcie.txt
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/pci/nvidia,tegra-pcie.=
-yaml b/Documentation/devicetree/bindings/pci/nvidia,tegra-pcie.yaml
-> > > new file mode 100644
-> > > index 000000000000..0675bec205e8
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/pci/nvidia,tegra-pcie.yaml
-> > > @@ -0,0 +1,528 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/pci/nvidia,tegra-pcie.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: NVIDIA Tegra PCIe Controller
-> > > +
-> > > +maintainers:
-> > > +  - Jon Hunter <jonathanh@nvidia.com>
-> > > +  - Thierry Reding <treding@nvidia.com>
-> > > +
-> > > +description:
-> > > +  PCIe controller found on NVIDIA Tegra SoCs which supports multiple
-> > > +  root ports and platform-specific clock, reset, and power supply
-> > > +  configurations.
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    enum:
-> > > +      - nvidia,tegra20-pcie
-> > > +      - nvidia,tegra30-pcie
-> > > +      - nvidia,tegra124-pcie
-> > > +      - nvidia,tegra210-pcie
-> > > +      - nvidia,tegra186-pcie
-> > > +
-> > > +  reg:
-> > > +    items:
-> > > +      - description: PADS registers
-> > > +      - description: AFI registers
-> > > +      - description: Configuration space region
-> > > +
-> > > +  reg-names:
-> > > +    items:
-> > > +      - const: pads
-> > > +      - const: afi
-> > > +      - const: cs
-> > > +
-> > > +  interrupts:
-> > > +    items:
-> > > +      - description: Controller interrupt
-> > > +      - description: MSI interrupt
-> > > +
-> > > +  interrupt-names:
-> > > +    items:
-> > > +      - const: intr
-> > > +      - const: msi
-> > > +
-> > > +  clocks:
-> > > +    minItems: 3
-> > > +    items:
-> > > +      - description: PCIe clock
-> > > +      - description: AFI clock
-> > > +      - description: PLL_E clock
-> > > +      - description: Optional CML clock
-> > > +
-> > > +  clock-names:
-> > > +    description: Names of clocks used by the PCIe controller
-> > > +    minItems: 3
-> > > +    items:
-> > > +      - const: pex
-> > > +      - const: afi
-> > > +      - const: pll_e
-> > > +      - const: cml
-> > > +
-> > > +  resets:
-> > > +    items:
-> > > +      - description: PCIe reset
-> > > +      - description: AFI reset
-> > > +      - description: PCIe-X reset
-> > > +
-> > > +  reset-names:
-> > > +    items:
-> > > +      - const: pex
-> > > +      - const: afi
-> > > +      - const: pcie_x
-> > > +
-> > > +  power-domains:
-> > > +    maxItems: 1
-> > > +
-> > > +  interconnects:
-> > > +    minItems: 1
-> > > +    maxItems: 2
-> > > +
-> > > +  interconnect-names:
-> > > +    items:
-> > > +      - const: dma-mem
-> > > +      - const: write
-> > > +
-> > > +  pinctrl-names:
-> > > +    items:
-> > > +      - const: default
-> > > +      - const: idle
-> > > +
-> > > +  pinctrl-0: true
-> > > +  pinctrl-1: true
-> > > +
-> > > +  operating-points-v2:
-> > > +    description:
-> > > +      Defines operating points with required frequency and voltage v=
-alues,
-> > > +      and the opp-supported-hw property.
-> > > +
-> > > +  iommus:
-> > > +    maxItems: 1
-> > > +
-> > > +  avdd-pex-supply:
-> > > +    description: Power supply for analog PCIe logic. Must supply 1.0=
-5 V.
-> > > +
-> > > +  vdd-pex-supply:
-> > > +    description: Power supply for digital PCIe I/O. Must supply 1.05=
- V.
-> > > +
-> > > +  avdd-pex-pll-supply:
-> > > +    description: Power supply for dedicated (internal) PCIe PLL. Mus=
-t supply 1.05 V.
-> > > +
-> > > +  avdd-plle-supply:
-> > > +    description: Power supply for PLLE, which is shared with SATA. M=
-ust supply 1.05 V.
-> > > +
-> > > +  vddio-pex-clk-supply:
-> > > +    description: Power supply for PCIe clock. Must supply 3.3 V.
-> > > +
-> > > +  vddio-pex-ctl-supply:
-> > > +    description: Power supply for PCIe control I/O partition. Must s=
-upply 1.8 V.
-> > > +
-> > > +  hvdd-pex-supply:
-> > > +    description: High-voltage supply for PCIe I/O and PCIe output cl=
-ocks. Must supply 3.3 V.
-> > > +
-> > > +  avdd-pexa-supply:
-> > > +    description: Power supply for analog PCIe logic. Must supply 1.0=
-5 V.
-> > > +
-> > > +  vdd-pexa-supply:
-> > > +    description: Power supply for digital PCIe I/O. Must supply 1.05=
- V.
-> > > +
-> > > +  avdd-pexb-supply:
-> > > +    description: Power supply for analog PCIe logic. Must supply 1.0=
-5 V.
-> > > +
-> > > +  vdd-pexb-supply:
-> > > +    description: Power supply for digital PCIe I/O. Must supply 1.05=
- V.
-> > > +
-> > > +  avddio-pex-supply:
-> > > +    description: Power supply for analog PCIe logic. Must supply 1.0=
-5 V.
-> > > +
-> > > +  dvddio-pex-supply:
-> > > +    description: Power supply for digital PCIe I/O. Must supply 1.05=
- V.
-> > > +
-> > > +  hvddio-pex-supply:
-> > > +    description: High-voltage supply for PCIe I/O and PCIe output cl=
-ocks. Must supply 1.8 V.
-> > > +
-> > > +  dvdd-pex-supply:
-> > > +    description: Power supply for digital PCIe I/O. Must supply 1.05=
- V.
-> > > +
-> > > +  hvdd-pex-pll-supply:
-> > > +    description: High-voltage supply for PLLE (shared with USB3). Mu=
-st supply 1.8 V.
-> > > +
-> > > +  vddio-pexctl-aud-supply:
-> > > +    description: Power supply for PCIe side band signals. Must suppl=
-y 1.8 V.
-> > > +
-> > > +patternProperties:
-> > > +  "^pci@[0-9a-f]+(,[0-9a-f]+)?$":
-> > > +    type: object
-> > > +    allOf:
-> >
-> > Don't need allOf.
-> Ok.
-> >
-> > > +      - $ref: /schemas/pci/pci-pci-bridge.yaml#
-> > > +    properties:
-> > > +      reg:
-> > > +        maxItems: 1
-> > > +
-> > > +      nvidia,num-lanes:
-> > > +        description: Number of lanes used by this PCIe port
-> > > +        $ref: /schemas/types.yaml#/definitions/uint32
-> > > +        enum: [1, 2, 4]
-> > > +
-> > > +      phys:
-> > > +        description: Phandles to PCIe PHYs
-> > > +        items:
-> > > +          maxItems: 1
-> >
-> > How many cells a phy entry has depends on the provider, which is outsid=
-e
-> > the scope of this binding.
-> Ok, actually, phys and phys-name are not part of patternProperties.
->
-> phys and phy-name are required properties for Tegra124 and later.
->
-> [2] https://github.com/torvalds/linux/blob/master/Documentation/devicetre=
-e/bindings/pci/nvidia%2Ctegra20-pcie.txt#L153-L158
->
-> And the board's example is as follows.
->
-> [3] https://github.com/torvalds/linux/blob/master/arch/arm64/boot/dts/nvi=
-dia/tegra210-p2371-2180.dts#L11-L32
->
-> [4] https://github.com/torvalds/linux/blob/master/arch/arm64/boot/dts/nvi=
-dia/tegra210-p3450-0000.dts#L36-L63
-> >
-> > > +        minItems: 1
-> > > +        maxItems: 4
-> >
-> So I have modified the device tree binding as follows.
-> -----8<----------8<----------8<----------8<----------8<----------8<-----
->
-> $ git diff .
-> diff --git a/Documentation/devicetree/bindings/pci/nvidia,tegra-pcie.yaml
-> b/Documentation/devicetree/bindings/pci/nvidia,tegra-pcie.yaml
-> index 0675bec205e8..73af8d2895a8 100644
-> --- a/Documentation/devicetree/bindings/pci/nvidia,tegra-pcie.yaml
-> +++ b/Documentation/devicetree/bindings/pci/nvidia,tegra-pcie.yaml
-> @@ -103,6 +103,18 @@ properties:
->    iommus:
->      maxItems: 1
->
-> +  phys:
-> +    description: Phandles to PCIe PHYs
-> +    minItems: 1
-> +    maxItems: 4
-> +
-> +  phy-names:
-> +    description: Names of PCIe PHYs
-> +    items:
-> +      pattern: "^pcie(-[0-3])?$"
-> +    minItems: 1
-> +    maxItems: 4
-> +
->    avdd-pex-supply:
->      description: Power supply for analog PCIe logic. Must supply 1.05 V.
->
-> @@ -157,8 +169,8 @@ properties:
->  patternProperties:
->    "^pci@[0-9a-f]+(,[0-9a-f]+)?$":
->      type: object
-> -    allOf:
-> -      - $ref: /schemas/pci/pci-pci-bridge.yaml#
-> +    $ref: /schemas/pci/pci-pci-bridge.yaml#
-> +
->      properties:
->        reg:
->          maxItems: 1
-> @@ -168,20 +180,6 @@ patternProperties:
->          $ref: /schemas/types.yaml#/definitions/uint32
->          enum: [1, 2, 4]
->
-> -      phys:
-> -        description: Phandles to PCIe PHYs
-> -        items:
-> -          maxItems: 1
-> -        minItems: 1
-> -        maxItems: 4
-> -
-> -      phy-names:
-> -        description: Names of PCIe PHYs
-> -        items:
-> -          pattern: "^pcie(-[0-3])?$"
-> -        minItems: 1
-> -        maxItems: 4
-> -
->      required:
->        - nvidia,num-lanes
->
-> @@ -274,6 +272,33 @@ allOf:
->          - pinctrl-0
->          - pinctrl-1
->
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - nvidia,tegra124-pcie
-> +              - nvidia,tegra210-pcie
-> +    then:
-> +      required:
-> +        - phys
-> +        - phy-names
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - nvidia,tegra20-pcie
-> +              - nvidia,tegra30-pcie
-> +              - nvidia,tegra186-pcie
-> +    then:
-> +      properties:
-> +        phys:
-> +          deprecated: true
-> +        phy-names:
-> +          deprecated: true
-> +
->    - if:
->        properties:
->          compatible:
-> @@ -495,34 +520,19 @@ examples:
->              dvddio-pex-supply =3D <&reg_pex_1v05>;
->              vddio-pex-ctl-supply =3D <&reg_pexctl_1v8>;
->
-> -            status =3D "okay";
-> -
->              pci@1,0 {
-> -                device_type =3D "pci";
-> -                assigned-addresses =3D <0x82000800 0 0x01000000 0 0x1000=
->;
-> -                reg =3D <0x000800 0 0 0 0>;
-> -                bus-range =3D <0x00 0xff>;
-> +                phys =3D <&{/padctl@7009f000/pads/pcie/lanes/pcie-0}>,
-> +                    <&{/padctl@7009f000/pads/pcie/lanes/pcie-1}>,
-> +                    <&{/padctl@7009f000/pads/pcie/lanes/pcie-2}>,
-> +                    <&{/padctl@7009f000/pads/pcie/lanes/pcie-3}>;
-> +                phy-names =3D "pcie-0", "pcie-1", "pcie-2", "pcie-3";
->                  status =3D "okay";
-> -
-> -                #address-cells =3D <3>;
-> -                #size-cells =3D <2>;
-> -                ranges;
-> -
-> -                nvidia,num-lanes =3D <4>;
->              };
->
->              pci@2,0 {
-> -                device_type =3D "pci";
-> -                assigned-addresses =3D <0x82001000 0 0x01001000 0 0x1000=
->;
-> -                reg =3D <0x001000 0 0 0 0>;
-> -                bus-range =3D <0x00 0xff>;
-> +                phys =3D <&{/padctl@7009f000/pads/pcie/lanes/pcie-4}>;
-> +                phy-names =3D "pcie-0";
->                  status =3D "okay";
-> -
-> -                #address-cells =3D <3>;
-> -                #size-cells =3D <2>;
-> -                ranges;
-> -
-> -                nvidia,num-lanes =3D <1>;
->              };
->          };
->      };
->
-> -----8<----------8<----------8<----------8<----------8<----------8<-----
->
-> But I am not able to resolve the build error
->
-> $ make -j$(nproc) dt_binding_check DT_SCHEMA_FILES=3Dnvidia,tegra-pcie.ya=
-ml
->   DTC [C] Documentation/devicetree/bindings/pci/nvidia,tegra-pcie.example=
-.dtb
-> Documentation/devicetree/bindings/pci/nvidia,tegra-pcie.example.dts:179.2=
-5-186.19:
-> Warning (unit_address_vs_reg): /example-1/bus/pcie@1003000/pci@1,0:
-> node has a unit name, but no reg or ranges property
-> Documentation/devicetree/bindings/pci/nvidia,tegra-pcie.example.dts:188.2=
-5-192.19:
-> Warning (unit_address_vs_reg): /example-1/bus/pcie@1003000/pci@2,0:
-> node has a unit name, but no reg or ranges property
+On Mon, Apr 27, 2026 at 03:39:38PM +0530, Piyush Patle wrote:
+> Add support for the AVIA HX710B ADC, which shares the HX711 GPIO
+> interface but has a fixed gain of 128 and uses trailing PD_SCK pulses
+> to select the active channel rather than the gain.
+> 
+> The HX710B has three operating modes controlled by the trailing pulse
+> count after the 24 data bits (Table 3 in the HX710B datasheet):
+>   25 pulses (1 trailing): differential input at 10 SPS
+>   26 pulses (2 trailing): DVDD-AVDD supply monitor at 40 SPS
+>   27 pulses (3 trailing): differential input at 40 SPS
+> 
+> Model the HX710B with its own hx710b_chan_spec[] and hx710b_iio_info.
+> Store the trailing pulse count in chan->address so hx710b_set_channel()
+> can switch channels without a separate lookup table. The supply monitor
+> uses .channel = 2 to avoid aliasing the channel2 terminal (index 1) of
+> the differential pair.
+> 
+> The HX710B has a dedicated VREF pin for the ADC reference voltage. The
+> driver tries vref-supply first; if absent it falls back to avdd-supply
+> (for boards where VREF is tied to AVDD). The HX711 uses AVDD as its
+> reference and is unaffected.
+> 
+> Add fixed_gain and fixed_gain_val fields to hx711_chip_info to carry the
+> gain into the scale calculation. Store a per-instance scale in
+> hx711_data for HX710B and use it in hx711_read_raw() when fixed_gain is
+> set. Update hx711_reset() to reset channel_set on HX710B after a
+> power-down cycle.
+> 
+> Enlarge the trigger buffer from 2 to 3 channels plus a pad word to keep
+> the timestamp naturally aligned; HX711 continues to use only the first
+> two slots.
 
-PCI nodes have to have a 'reg' entry. Otherwise, how do we match a
-node to a device?
+So, missed types.h should be in this patch.
 
-> FATAL ERROR: Can't generate fixup for reference to path
-> &{/padctl@7009f000/pads/pcie/lanes/pcie-0}
+...
 
-You can't use paths that don't exist. You can only use labels which
-don't exist. The examples are built as overlays to allow that.
+>  /**
+>   * struct hx711_chip_info - per-variant static configuration
+> - * @name:         IIO device name
+> - * @channels:     channel specification array
+> - * @iio_info:     IIO info ops for this variant
+> - * @num_channels: number of entries in @channels
+> + * @name:          IIO device name
+> + * @channels:      channel specification array
+> + * @iio_info:      IIO info ops for this variant
+> + * @num_channels:  number of entries in @channels
+> + * @fixed_gain_val: fixed PGA gain (used when @fixed_gain is true)
+> + * @fixed_gain:    true if the variant has a fixed ADC gain (e.g. HX710B)
 
-Rob
+No, make sure there will be no '-' lines here.
+
+>   */
+
+...
+
+>  struct hx711_data {
+
+>  	int			gain_set;	/* gain set on device */
+>  	int			gain_chan_a;	/* gain for channel A */
+>  	int			gain_scale[HX711_GAIN_MAX];
+
+> +	unsigned int		channel_set;	/* HX710B active channel */
+>  	const struct hx711_chip_info	*chip_info;
+> +	unsigned int		scale;		/* HX710B fixed-gain scale */
+
+Semantically the scale is closer to the above gain_* ones AFAICS.
+
+>  	struct mutex		lock;
+>  	/*
+>  	 * triggered buffer
+> -	 * 2x32-bit channel + 64-bit naturally aligned timestamp
+> +	 * up to 3x32-bit channels + pad + 64-bit naturally aligned timestamp
+>  	 */
+>  	struct {
+> -		u32 channel[2];
+> +		u32 channel[3];
+> +		u32 pad;
+>  		aligned_s64 timestamp;
+>  	} buffer;
+>  	/*
+
+...
+
+>  static int hx711_reset(struct hx711_data *hx711_data)
+>  {
+> +	const struct hx711_chip_info *info = hx711_data->chip_info;
+>  	int val = hx711_wait_for_ready(hx711_data);
+>  
+>  	if (val) {
+
+The rule of thumb is to split definition and assignment for the variables that
+are going to be validated.
+
+Here I expect to see
+
+	int val;
+
+	val = hx711_wait_for_ready(hx711_data);
+	if (val) {
+
+But since it's not related directly to this change, make a preparatory patch.
+Because now with two variables this looks worse and adds more potential to be
+mistaken in the future.
+
+
+> +static int hx710b_set_channel(struct hx711_data *hx711_data,
+> +			      const struct iio_chan_spec *chan)
+> +{
+> +	int ret;
+> +
+> +	if (hx711_data->channel_set == (unsigned int)chan->channel)
+> +		return 0;
+> +
+> +	ret = hx711_read(hx711_data, chan->address);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = hx711_wait_for_ready(hx711_data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	hx711_data->channel_set = chan->channel;
+> +
+> +	return 0;
+> +}
+
+...
+
+> -	ret = hx711_set_gain_for_channel(hx711_data, chan->channel);
+> -	if (ret < 0)
+> -		return ret;
+
+> +		ret = hx711_set_gain_for_channel(hx711_data, chan->channel);
+> +		if (ret < 0)
+> +			return ret;
+> +		trailing_pulses = hx711_get_gain_to_pulse(hx711_data->gain_set);
+> +	}
+>  
+> -	trailing_pulses = hx711_get_gain_to_pulse(hx711_data->gain_set);
+>  	return hx711_read(hx711_data, trailing_pulses);
+
+Instead of the above, first split these lines to a helper
+
+static int hx711_set_hx711_channel(..., *tp)
+{
+	int ret;
+
+	ret = hx711_set_gain_for_channel(hx711_data, chan->channel);
+	if (ret < 0)
+		return ret;
+
+	*tp = hx711_get_gain_to_pulse(hx711_data->gain_set);
+	return 0;
+}
+
+And name your new function something like
+
+hx711_set_hx710b_channel()
+
+...
+
+> +	/*
+> +	 * The HX710B uses the VREF pin as the ADC reference; try vref-supply
+> +	 * first and fall back to avdd-supply when VREF is tied to AVDD on the
+> +	 * board.  The HX711 uses AVDD as its reference.
+
+I think we use a single space in the comment, but double check that.
+The rule of thumb is to keep the original driver style and change it
+separately if required.
+
+> +	 */
+
+...
+
+>  	/*
+>  	 * with
+
+While at it, with --> With.
+
+> -	 * full scale differential input range: AVDD / GAIN
+> +	 * full scale differential input range: VREF / GAIN
+>  	 * full scale output data: 2^24
+>  	 * we can say:
+> -	 *     AVDD / GAIN = 2^24
+> +	 *     VREF / GAIN = 2^24
+>  	 * therefore:
+> -	 *     1 LSB = AVDD / GAIN / 2^24
+> -	 * AVDD is in uV, but we need 10^-9 mV
+> +	 *     1 LSB = VREF / GAIN / 2^24
+> +	 * VREF is in uV, but we need 10^-9 mV
+>  	 * approximately to fit into a 32 bit number:
+> -	 * 1 LSB = (AVDD * 100) / GAIN / 1678 [10^-9 mV]
+> +	 * 1 LSB = (VREF * 100) / GAIN / 1678 [10^-9 mV]
+>  	 */
+
+...
+
+> -	for (i = 0; i < HX711_GAIN_MAX; i++)
+> -		hx711_data->gain_scale[i] =
+> -			ret / hx711_gain_to_scale[i].gain / 1678;
+> +	if (chip_info->fixed_gain) {
+> +		hx711_data->scale = ret / chip_info->fixed_gain_val / 1678;
+> +	} else {
+> +		for (i = 0; i < HX711_GAIN_MAX; i++)
+> +			hx711_data->gain_scale[i] =
+> +				ret / hx711_gain_to_scale[i].gain / 1678;
+>  
+> -	hx711_data->gain_set = 128;
+> -	hx711_data->gain_chan_a = 128;
+> +		hx711_data->gain_set = 128;
+> +		hx711_data->gain_chan_a = 128;
+> +	}
+
+Looking at this I'm wondering wouldn't be easier just to have the array, but
+feel it with the same data.
+
+...
+
+> -	{ .compatible = "avia,hx711", .data = &hx711_chip },
+
+> +	{ .compatible = "avia,hx711",  .data = &hx711_chip  },
+
+Why?! This is stray change.
+
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
