@@ -1,113 +1,126 @@
-Received: from mail.eswincomputing.com (mail.eswincomputing.com [123.124.195.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A22536AB77;
-	Mon, 27 Apr 2026 07:27:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=123.124.195.78
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 27BE12DB7BD;
+	Mon, 27 Apr 2026 07:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777274852; cv=none; b=XYOEBFeytwRzIETNYijJnb7aRHXHVuSpUvDqj30ALFPvjswoSV9iGc8HOZb7O/DDcOGEOidX0tbp8HsqiTJtA5It9y8Qf3EJmkinNWtBZOBN1OTxFyGmt/QWVflxL1ntiWo5Vmuji4rHXLvh0V6qldCAZiINAV4zfonPk4ayQ1Q=
+	t=1777275139; cv=none; b=MIjAqhgmsGUCCUZvnT7j7AtQsn6mJx3luJh7jMasq3i1LjpmoHOhurnfAqRjl9Wm8i9vP6zu4MCTDH2iIb3XelQp9XomadutZ6lVSBn79b6KS85GEmKS1OkPWFBDukwh+Cj1CKMiLTODbjWNBPbv83Ax6dHjqYuY8S62puONgig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777274852; c=relaxed/simple;
-	bh=VWbHMN/Vau/n/YZ4U9o4rE+X3k0yJff0Gk73WPb7DrY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XiuIyAN+SSBcCBhV/uz/n0H9V+ekbcLvWPD66si/rCOwzfhg3GQjl61s6v5R92jvg27v4JYgO1bJ3FLiVwR5yvFBrOoOGUCQJco8+CFPyAN+FJdkfFeGxBqRgpi/R6j1N3in6L2Z/QgG8uW2WQqTrv1Mg4yrcW1IjV9l124bnK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=123.124.195.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
-	by app1 (Coremail) with SMTP id TAJkCgDHXHF3D+9pgxAVAA--.17532S2;
-	Mon, 27 Apr 2026 15:25:44 +0800 (CST)
-From: lizhi2@eswincomputing.com
-To: devicetree@vger.kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	rmk+kernel@armlinux.org.uk,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	linux-riscv@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	maxime.chevallier@bootlin.com
-Cc: ningyu@eswincomputing.com,
-	linmin@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com,
-	pritesh.patel@einfochips.com,
-	weishangjuan@eswincomputing.com,
-	horms@kernel.org,
-	Zhi Li <lizhi2@eswincomputing.com>
-Subject: [PATCH net-next v7 3/4] dt-bindings: mfd: syscon: add ESWIN EIC7700 compatible
-Date: Mon, 27 Apr 2026 15:25:41 +0800
-Message-ID: <20260427072541.1174-1-lizhi2@eswincomputing.com>
-X-Mailer: git-send-email 2.52.0.windows.1
-In-Reply-To: <20260427072353.1114-1-lizhi2@eswincomputing.com>
-References: <20260427072353.1114-1-lizhi2@eswincomputing.com>
+	s=arc-20240116; t=1777275139; c=relaxed/simple;
+	bh=z6STT3pmp/kQBgHhBzbeymcDt4gyan7Jmn4OwjXUfv8=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=jxwHjPhIGIE07UymaSj3bg21z4f0FcGS+xqKlMOvLf8cWbFPNMqSoSe9JaSTbzq7AHnA7oE6hH7hL7dJevk7tuBSqzvvmfQSWsR+Rg1gvc0HpIEPufUhJPUhLsY8cCkplydMZ97yZAN4QgrO5B+y1oYP4NaR7meYFgTQZq6/P5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=N7sMJ2Qg; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="N7sMJ2Qg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=9daiWUd7+mDFWppd/lLOASVmD/eZMAIDQ
+	fi0EwUbB8o=; b=N7sMJ2QgL6XBV0wtW5cpZ/1rA44oP2O5kQW3qtOPXgfkfKsSx
+	S2URw5PtkEw/GLM8DaBQbdzuEFHvZwM/CHROGElWD9aTstZzMlKAminWXNn9eSVo
+	nmjU3P0DqjyRjjvyUt5O34BimApD/WqcOvMhySMbTr0Dd39nW4yVJO+t/8=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwDXEEIcEe9pwwEDAA--.1554S2;
+	Mon, 27 Apr 2026 15:32:45 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TAJkCgDHXHF3D+9pgxAVAA--.17532S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Gw4UtF48uw13KF1kZFW5KFg_yoWDuFgE9r
-	17urn8A39xAFW0g3yvvrZ7JF4fA3WSkr1kZ39ruF1vy34Fv3W5XF97J345Ar47uFs7ur1r
-	W3WkXrW7t3ZrGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb68FF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwAKzVCY07xG64k0F24lc7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK6svPMxAIw2
-	8IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4l
-	x2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrw
-	CI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1U
-	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
-	8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7sRiWrW5UUUUU==
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
+Subject: Re: [PATCH v4 2/4] serial: 8250_dw: build Renesas RZN1 CPR value
+ from DW_UART_CPR_* definitions
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Jia Wang <wangjia@ultrarisc.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
+ linux-serial <linux-serial@vger.kernel.org>, 
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
+In-Reply-To: <aeuJTMqADw8J0x0u@ashevche-desk.local>
+References: <20260424-ultrarisc-serial-v4-0-1765a0b4c4a0@ultrarisc.com>
+ <20260424-ultrarisc-serial-v4-2-1765a0b4c4a0@ultrarisc.com>
+ <4548483c-cbba-899e-6b1a-1290d36b59cd@linux.intel.com>
+ <aetv2ljDOpH_Hs4s@ashevche-desk.local>
+ <363a636d-f014-cc29-6be4-ec3041f43855@linux.intel.com>
+ <aeuJTMqADw8J0x0u@ashevche-desk.local>
+Date: Mon, 27 Apr 2026 15:32:00 +0800
+Message-Id: <177727512077.1796253.17951689513534549167.b4-reply@b4>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777275121; l=1960;
+ i=wangjia@ultrarisc.com; s=20260309; h=from:subject:message-id;
+ bh=z6STT3pmp/kQBgHhBzbeymcDt4gyan7Jmn4OwjXUfv8=;
+ b=Zmk7cQzNqKX2aQZQQyrNt5HXRMNdjrAcbrEgt4ShlWIw9e2VNfgYrlj6XxHuyq4nBzzOfBOmT
+ rcay0btFWpBDRxDF7nT33gZad7L1/8UktLaSjW/pLS0coTWS7LZ0xcn
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=XvYkrelqJIIzobY7j+nIg8rsfv5kzaOzuc1UPhd087U=
+X-CM-TRANSID:AQAAfwDXEEIcEe9pwwEDAA--.1554S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7trWxtw13GFW8XryDZryDAwb_yoW8Cr1Dpr
+	W3Wa4jqFZ7KrnrAr4kt3WFqF4rtFs8JFyDXrn8Xry8AFZF9r1agrW8tFWYkF9rZrn3Aw1U
+	Aa1UXa9xu34vvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_UUUUUUUUU==
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAKEWnti78ACwAHsm
 
-From: Zhi Li <lizhi2@eswincomputing.com>
+On 2026-04-24 18:16 +0300, Andy Shevchenko wrote:
+> On Fri, Apr 24, 2026 at 05:09:46PM +0300, Ilpo Järvinen wrote:
+> > On Fri, 24 Apr 2026, Andy Shevchenko wrote:
+> > > On Fri, Apr 24, 2026 at 02:38:56PM +0300, Ilpo Järvinen wrote:
+> > > > On Fri, 24 Apr 2026, Jia Wang wrote:
+> 
+> ...
+> 
+> > > > Hmm, maybe there should also be macro also for this one which takes the 
+> > > > fifosize as input and converts it to CPR field vlaue (effectively, the 
+> > > > macro is an inverse of DW_UART_CPR_FIFO_SIZE()). It would be more readable 
+> > > > than the literal.
+> > > 
+> > > But this can be done separately, right?
+> > 
+> > It's logically part of the cpr_value literal to defines conversion (of 
+> > course one could introduce it in own patch without users but I don't see 
+> > much benefit from that).
+> 
+> No objections.
+> 
+> > > > Also include BUILD_BUG_ON(!IS_ALIGNED(fifosize, 16) + bounds checks) 
+> > > > inside that macro to catch invalid fifo sizes (+ don't forget the 
+> > > > necessary headers for those two new things).
+> > > 
+> > > Hmm... Some devices may have FIFO = 8 or 4 bytes (Intel Quark IIRC has less
+> > > than 16 and it's DW IP).
+> > 
+> > Perhaps but according the DW databook I've at hand, there are no values in 
+> > FIFO_MODE field for such FIFO sizes. So what would CPR contain in those
+> > cases for FIFO_MODE field?
+> 
+> On real HW it returns 0s for all registers above 0x07 (multiplied by 4 as
+> a stride). But I also checked the values of xmit_fifo_size and it shows 16.
+> What 8 is it is the DMA max_burst. Hence the proposed assertion should work.
+> 
 
-Document ESWIN EIC7700 SoC compatible for syscon registers.
+Thanks for the discussion and clarification. I'll add the macro
+DW_UART_CPR_FIFO_MODE_FROM_SIZE() in 8250_dwlib.h (in patch 2) with the
+suggested build‑time checks (using BUILD_BUG_ON_ZERO for bounds validation),
+ and update patch 4 to use it.
 
-Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
----
- Documentation/devicetree/bindings/mfd/syscon.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
+> 
 
-diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
-index e22867088063..7d3365601249 100644
---- a/Documentation/devicetree/bindings/mfd/syscon.yaml
-+++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
-@@ -62,6 +62,7 @@ select:
-           - cirrus,ep7209-syscon3
-           - cnxt,cx92755-uc
-           - econet,en751221-chip-scu
-+          - eswin,eic7700-syscfg
-           - freecom,fsg-cs2-system-controller
-           - fsl,imx93-aonmix-ns-syscfg
-           - fsl,imx93-wakeupmix-syscfg
-@@ -175,6 +176,7 @@ properties:
-               - cirrus,ep7209-syscon3
-               - cnxt,cx92755-uc
-               - econet,en751221-chip-scu
-+              - eswin,eic7700-syscfg
-               - freecom,fsg-cs2-system-controller
-               - fsl,imx93-aonmix-ns-syscfg
-               - fsl,imx93-wakeupmix-syscfg
--- 
-2.25.1
+Best Regards,
+Jia Wang
+
+
 
