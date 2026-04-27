@@ -1,85 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B593B3B8BB2;
-	Mon, 27 Apr 2026 11:28:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6552C11E7;
+	Mon, 27 Apr 2026 11:41:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777289334; cv=none; b=oQ0Qg6fbisYQeWPrfxbrG2wcGt3YKX1Itv8Uz8qlmCjZFCt9Uh4JeRQSyAcyZOAGrlWAk0ijvcJUgKLBUGo7004QBIoiBDdi+T5B/X9Ti1jGlG0UdDwZ3pZOpSzdtAsFHIldC/woqwViKKxnLIshI0bAprh7bAG9saNxb9UAHw0=
+	t=1777290096; cv=none; b=WbwtWnhaWoHNhbZlRxdxDVRBIye3WzuDztJ9jx5NC8j2Z7eiqbCmmIr7qQ6Nbno4LxqxqOaIWeBUHtwrYTb5hO4M3gSNLSDB3cG9TCTk0VNYNrL6Q4nhE9jwaBEdIYRAZdafyAUYeQzqflQ+zyd/fiTpAL6m1k+OEAusyHfL2OY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777289334; c=relaxed/simple;
-	bh=qqYiNYscYR+g3VL5uDHvMgMHV/pf8DMOn6VnzrdrXGY=;
+	s=arc-20240116; t=1777290096; c=relaxed/simple;
+	bh=KMB876ik0w6xgl7pJ5idP+hGjhYfwwCmNCvxpvKgAh0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ye2ll5Vd/4on5IOqcBiWIiFuW8LV5x2FbPJfX10xKs/el76gPVK3ITpfBRKfebx1GZ2Z1r2aVmH85mVN+QXiUb6qw7qjcQbQFV02VaSZ/BwoE63/1uNkSrqJHFlELgtWkYdGLtXfQq6ZnyDmqF6Wwn+Osd/ZyBBjETR81T5ZBls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bm12jgGb; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=Pm9lyNJOO0fj7Ackrv7YKpB+81Mzq4dGVgfv83b/tXqNPXYC76OibR/PiEA4ST2sJ+oYIM6y6om4bbjYEJykgf3Kait1bqn2GwGi8XhwBH0aqfQTSUqQd4ITcZuGYiLhwtwVLLV5uHbJ7sHkEpd8+Cbk74yop63XzleiCkNnhBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=DG3hGznG; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bm12jgGb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55E77C19425;
-	Mon, 27 Apr 2026 11:28:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777289334;
-	bh=qqYiNYscYR+g3VL5uDHvMgMHV/pf8DMOn6VnzrdrXGY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=bm12jgGb8Xax59SGFx+LwxQX3jpNu+KJzDxwsrn9PiAhhd4G8F2NGuEU1wnSNKea2
-	 dzM5tsQBMutHYaZvXXhTOAPNiuEsid5q0Cb4No6tedvM9V5whuGHSvHqDXEkl1lOU0
-	 IwOEczPxcjzi7Kd6nnpLWOgYD/T+Wtke2Yu52e4qFUoNorkBYV3RpNfPCylgMFKheQ
-	 uXMW5YadhkRXn8jDbjDdTO67kmFnHchuoaOF1ZB8mZtSFkFZ9Mvb6LpO1sLtpuLtLn
-	 e7X8Y6u3T+EXEOU8aTlqzaOe2nc7eDL5Uj9Ofmfc36STt+o5o01whZIOm3Grm/Eqgw
-	 jR+3xbFgajgbA==
-From: Sumit Garg <sumit.garg@kernel.org>
-To: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org
-Cc: andersson@kernel.org,
-	konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	bsatish@qti.qualcomm.com,
-	akhiverm@qti.qualcomm.com,
-	nicolas.dechesne@oss.qualcomm.com,
-	Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: [PATCH 2/2] arm64: dts: qcom: qrb2210-arduino-imola: Drop modem support
-Date: Mon, 27 Apr 2026 16:58:33 +0530
-Message-ID: <20260427112833.1160332-2-sumit.garg@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260427112833.1160332-1-sumit.garg@kernel.org>
-References: <20260427112833.1160332-1-sumit.garg@kernel.org>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="DG3hGznG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=eeePnVv+YslUA1tdZWBh3CRQb3jVb+oSpxOE0TqYCFo=; b=DG3hGznGy33YluhslljvE9HRgx
+	6LCBBDX1MCOA+cThYGvqf7VHFGm24WvhEBb0GIEauW74rHzWqbgQa0KyfrY3GIHcfB/jdZQfuASkY
+	9noS6ydajlQOjwuOpewAm+GYATxNCl2vw8DHUDyaOOWWkCQ1swnKdlxmEbozDVA4n+dJjvY+KRWC5
+	XfVDimk6F4g3U9KNCo5yJUL2kHovw7mrIejEGgCD4FkMwC9r4EjOnL61p/eN2JAR0rXEuBTQfMfXW
+	7iSAszUY55zOofrwoyhCYbLaC6ywLRT2bd8VQR2k6NyKualnHTkXYouQjqQLpFQKDabRrvG4W6Rhc
+	W0CqMA7Q==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: guoweix <2298701336@qq.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ f.kardame@manjaro.org, pgwipeout@gmail.com, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, guoweix <2298701336@qq.com>
+Subject:
+ Re: [PATCH] arm64: dts: rockchip: fix rk809 interrupt pin on rk3566-roc-pc
+Date: Mon, 27 Apr 2026 13:41:24 +0200
+Message-ID: <26138973.6Emhk5qWAg@phil>
+In-Reply-To: <tencent_CF3170E7191769F8FB22C55A0F952E82E105@qq.com>
+References: <tencent_CF3170E7191769F8FB22C55A0F952E82E105@qq.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Hi,
 
-QRB2210 has modem fused out as it's only available on the mobile variant
-which is QCM2290. So let's disable modem support from Arduino Imola/UNO-Q.
+Am Mittwoch, 8. April 2026, 17:09:44 Mitteleurop=C3=A4ische Sommerzeit schr=
+ieb guoweix:
+> The RK809 PMIC interrupt pin on the Firefly ROC-RK3566-PC (Station M2)
+> is physically connected to GPIO0_A3 (RK_PA3) according to the board's
+> schematic.
+>=20
+> Currently, the PMIC node incorrectly specifies RK_PA7 for the interrupt,
+> which prevents the PMIC from correctly signaling interrupts. (Note that
+> the pinctrl node 'pmic_int' correctly configures RK_PA3).
+>=20
+> Fix this by updating the interrupts property to use RK_PA3.
+>=20
+> Fixes: 30ac9b4e25d8 ("arm64: dts: rockchip: add dts for Firefly Station M=
+2 rk3566")
+>=20
+> Signed-off-by: guoweix <2298701336@qq.com>
 
-Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts | 6 ------
- 1 file changed, 6 deletions(-)
+Could you use the more standard naming of "given name + surname" please?
+=46or example with:
+	git commit --amend --author=3D"givenname surname <2298701336@qq.com>"
 
-diff --git a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-index 5266f89feaaf..34f8bef222be 100644
---- a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-+++ b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-@@ -343,12 +343,6 @@ &remoteproc_adsp {
- 	status = "okay";
- };
- 
--&remoteproc_mpss {
--	firmware-name = "qcom/qcm2290/modem.mbn";
--
--	status = "okay";
--};
--
- &rpm_requests {
- 	regulators {
- 		compatible = "qcom,rpm-pm2250-regulators";
--- 
-2.51.0
+Or setting user.name in your .gitconfig.
+
+Patch otherwise looks good.
+
+
+Thanks a lot
+Heiko
+
+
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3566-roc-pc.dts | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3566-roc-pc.dts b/arch/arm64/=
+boot/dts/rockchip/rk3566-roc-pc.dts
+> index 7e499064e035..985770e3a5e2 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3566-roc-pc.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3566-roc-pc.dts
+> @@ -245,7 +245,7 @@ rk809: pmic@20 {
+>  		compatible =3D "rockchip,rk809";
+>  		reg =3D <0x20>;
+>  		interrupt-parent =3D <&gpio0>;
+> -		interrupts =3D <RK_PA7 IRQ_TYPE_LEVEL_LOW>;
+> +		interrupts =3D <RK_PA3 IRQ_TYPE_LEVEL_LOW>;
+>  		clock-output-names =3D "rk808-clkout1", "rk808-clkout2";
+>  		assigned-clocks =3D <&cru I2S1_MCLKOUT_TX>;
+>  		assigned-clock-parents =3D <&cru CLK_I2S1_8CH_TX>;
+>=20
+
+
+
 
