@@ -1,180 +1,148 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BAB4223DE7
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:10:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A85E3B47CF
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:10:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777284604; cv=none; b=gw1MdtMhinSQeKH5hyzO6WITx1OhAXKszZVvU3HNOqZEwzCOCc+wpFQGXq/fbn9rWVvytT8RkmYD+DB6BMrA7zZ9XAjnHZoB8Ux9EFH/iRYTM+tTwI8iiHnU99qXaTsllU6O5kDq4n+JbWuaj4oxdx3fwFpquB6oUdDHN906lAo=
+	t=1777284606; cv=none; b=cnTxoNOhjN2kMrO77WAEeemLSz4f1hkJX3P77QCUV40WK9nAmjoaj2+Akn/VeLVvriHazeUHqW1L93Eg198RQ2PI0lgh+k2/3NqBUaCA9uc9PAxn9c+ueCI3Mx3gteDE7LKZfFKaLmQdCPzpiUZMic4M1WeYEvLdh3xr7PksCwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777284604; c=relaxed/simple;
-	bh=PFD2iL3lpSvNkhMI6YUePwdFN+Bl2X+7rN4+GU/fR9o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ixcQt9xq8QMu1GQgkIr615C7iG1+F2+yT7H+3L1P1dyJ7duLNYXMPvZ3IFfevd1R4lD6U8XWv7Yiq3zLjBmgEjmmsWA3prVmZGUEzfcQtLxKhxesfOMyk8aEUVRi1niBcMUdHAGn2RK4UT3QcZ6V+0D9frDImkv3pJwEzVllx9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c6LtIQii; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777284606; c=relaxed/simple;
+	bh=df59Xk7yR3KlM3Nop9TG33Euc01Wqj3JKaFTj1LdW1k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Cflv3ER6Cnm4vZm+IMLcQwo0iodY8loJs70rGHoTF6HgUSE1P9dkDA3nLSRTvnK4U85xRLwAmBvultHISk7aDF8qDcok8/sG+TEu5kCgM4mAU8t+k68/mpLIiUDuvQPyLMlqcOLlzXlg2krxc6luN+Om271zI2lrF16BkFtv9ho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ocljP44C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KCOEhINc; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c6LtIQii"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-82fbf5d4dc2so6163992b3a.1
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 03:10:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ocljP44C";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KCOEhINc"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63R8T7OQ3639521
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:10:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	UySfCgJ955LJs37rWuiTegFDYRglF9oeDO5PYw8FEcs=; b=ocljP44CtJkbAB/z
+	Qoc3gQ2MQ4o2ZXOenOsn5fH363WaY0ST/PXBY0+G4x34isCBAIRNRPi54/JwyJa8
+	jtzTY9KXk0y6NuxAMGRSno/IKvfs/Tbn4R9zIK4HqSet5q871lBYyVtX5g/AK/Cc
+	gKZkidEgo/MafZTvBt6klXYjBevbgH317qh/JdAj0yPxeipu5ZziF6ggaY+9vAAL
+	9G4ueM07g5Wid80WUS7twQfaxU+gjldcZD3hE/FxHcT2vSWx0H/EGJMnGSZeJnMZ
+	sRa3XS2Rd/j8Ea2o91urF5K7LA9XBa4F3HtSG96PHtIaIt3d6EJewfT1zc5oM8uJ
+	j7t5dw==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dsya01k8b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:10:03 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50fb0b93e90so22141861cf.3
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 03:10:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777284601; x=1777889401; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=MVjZJGi1bRfvcXa1V21Dt9zuEIBVC1nCvcLpxsqr/7I=;
-        b=c6LtIQiiyUSLjyzovRZmBcso1MrYhtU88fvm9ZAxe2EiNnr/8LRBm6jchPjaRPTxVX
-         TvfHPN3X53GjixhJhWH4XeTglM+sNB3Hr4Eg/a1dEcb0lMyv0NJAPkBMzqWHKL3W1duU
-         zbY9fXrcG7RdfVicXCNY1JDbEJAwNQ3zJkYsiVuMtTYhCx6yQgzaelImyzVh7E789fK4
-         GZrGK/NWG9yzKPXBZ/O50KifPIp1GTchNVv5JyTFqHjAFqvhGjC304mzk5Sr8baBM7b/
-         KlXn2p0VjWeuirEILWcK+NlhpC0+2Db6egPxvKz0oMdi1mG9aQZtpZKKULyjaNY11CUH
-         zgzA==
+        d=oss.qualcomm.com; s=google; t=1777284603; x=1777889403; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=UySfCgJ955LJs37rWuiTegFDYRglF9oeDO5PYw8FEcs=;
+        b=KCOEhINcDEqXQndDzbf4Z7MdxHN3KYKnk/HMQFy9x6E8YeGKwyDL6SdMKCDW0FrfGh
+         k5U5T6w6fKmYedeJWKUBy/4GGQ3NtITTw0CDHr9uLW5d+sRdgzQ/lnW6lwFSq70AwiWI
+         gqMfA8V0cHBvCUTGnmHQHuQEZoBZaNN883s+vp8RDH/iJFT4cIhLEKXNz+nFHqOLyoxE
+         J7NrzzM9bXCTeZjd5ibDkFmiqKH13M/CCauKnbwKIICkq//Kc8F494RAnbH0O2fEve/D
+         3pC+A/uaoX+Q6KDS1cU1yRye1Djwr8b8TJ4sIoHHBaIlMhyT/ONYZAkcDditMtQ0BxD+
+         w2Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777284601; x=1777889401;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MVjZJGi1bRfvcXa1V21Dt9zuEIBVC1nCvcLpxsqr/7I=;
-        b=jySBZEtf83upzj5dnfktqKJwvhALOvo49bMLP7HoROGtCPUkl4Oc3HYQjSH3MI9xAs
-         hbGoN8+taAo/vgzGVfkCRxQYCY4yzvK2HMyjh1ebxn/V8+1Hj9UgnLahhGAwxceVBrBh
-         Zs2D5tT99X1iCIBwcFWleWLMNY0I8JEVD1WuQN7cUFGpeHaj4oGcPgEoGNlP8y12zMG5
-         nWKagykVxDcUnCdvGm3ZF9lrtbsBxaj/G3JlpTCbQZgv/zUEL5Wic+DnHCbfZUb4TxoF
-         UqKYNB59XfP5hrWaSxMlGtzksWH+a/cGAHu9ntKjQFueW1KnNBaTdztfmj7q9M4MbjT+
-         NDEg==
-X-Forwarded-Encrypted: i=1; AFNElJ+aIiXd2pQjY2hExBgq9MRGw41QqOWOiriVCUdYYOAkuXyxmvKMmOpR5RxUyCSIDdG+J4daBb8B8Snc@vger.kernel.org
-X-Gm-Message-State: AOJu0YznapO8s+M4F+usTOvMqBk3tyW1akfH9V0CcxwU6OjQ0iaN+idZ
-	iu2Hop7N7fVCgjhsLzl9QWb+VXIV2tX7uNKY7QgGcrhwY+OO+ncHOtMp
-X-Gm-Gg: AeBDieuwVEARlhRXWcX6/aXHMehDBVib1NmIkdAJYD2+48CdToT/K/c3W7lRR+hUnuM
-	0ic3gUiHUXp/tB0tIeqNWpkj6KNCOuPxUhaEfWp32ovt4vRg4MqOeb04lnL5S1ec0udirEOYqUe
-	1L01hiyZcvlhsQem6ls7hOohBpBeJUOaHeRA/+Ii6dmoYotO/1Vm4bhYJi3BCxRzEaEvS206LJX
-	475w7axeRYCcdxKY86dhs9Lk8pRMAIWXVNqX/YGcf0E/dOAL1Ht5pO8fVrdNL2nTexOHSxpJBN/
-	VxXGjjGd7yTORe/A080E3eEEyjRnp6nd/9IXc161yM7rcJzmNOt1xjvC/OzAPQl44cCq3tUViqG
-	ed0AS4W9SJSdAX27va+ptRIH4eG/zon3+BEQpa846R5oX7VYjZpxqR6TGal2ZCh+tAkX9lm53jL
-	ysMYQBYFj/RUhbGHIYOZ83+f7SGPbBaVX6uetvCy+0WShieylw9b6fEtwJcuPqqRrhmbvxFJ+g6
-	HafwXF1rSHb+Ow9Ca2t4zZN/wn6pQU0WITSEbUILL8jcDf5/w==
-X-Received: by 2002:a05:6a00:4186:b0:82c:21b8:4a1f with SMTP id d2e1a72fcca58-82f8c7dd163mr46226289b3a.5.1777284601404;
+        d=1e100.net; s=20251104; t=1777284603; x=1777889403;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=UySfCgJ955LJs37rWuiTegFDYRglF9oeDO5PYw8FEcs=;
+        b=qvx3VvbX7KgDb1Va2uKfQeZj45Em58wl8iuta8A1iDhhwvvEqjHnqT7ppoIOmxlwX0
+         8LkwTs6uHZ/QmfisalsmsPdIfOOM1mLJyIH/s/ApeiRVuF3sBwAuDLQmvhNaW6265J8u
+         iNUcSJh6Zs7w537p9xVYiqvJxM3czc4UNIEeDjjx3l/OoiFzhOwmn/CdoTjo/RE/+h5x
+         qb2I588mkOsgthZo0hr2Yj9EF8vypZDWgmcodE753ScOKniiRX+/78IRFp9JpT2yLJ+e
+         7tBlL8CDF4zUe1ugGmQKOa7HaMW21gkNP5HT5p6w+T0+LR+AheTS2GoYmbkvc3A219v2
+         +RMQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9b5ZRnuQZtnXASSNytjzCm9o67ePv5HEbMfhgNZ0Lt/wq+gJbnhiDb//RdHOG4byiESyGWBL51OpJz@vger.kernel.org
+X-Gm-Message-State: AOJu0YwTJ9a+6UqTWWPGl6Yb/efCfO6yYQIh5rMHK4NWdjLwlzYd8WxC
+	0kCHBgKSElQi4SGg2633YtjQduRjt9h1w/lvFy44/jJKG8apEtg9dnTlR1tkywWN2HZA7GbMbkU
+	YDlSfgj+pnajiT7NVnnT44a2xsAOBbT28wlX4Oi0Sf2XIm6oxIErKltnXpi4nDq9L
+X-Gm-Gg: AeBDieuzCzJU+44Qz89UJK7iphS65DmCVuuZvFddJFS7xTP2Tq7RrdG9bZZVYHEp/Wn
+	gh+CvLaZieK4ZZSc2rYlVKv0tFDdp2Cf2jl4B6KB4SMoHj99mcwd4tS1p4H1Mwi4kcj36/wPAWQ
+	90IE64vCx3/nuLEww8u12lmTW58eoeQFW/897pwjnoTIYc1umJSLcy5MA73B6FFfitPABK7EgvI
+	AbZ29PDZmbB2/mjYKM9X90U98w/V7wHch8pfP/qwi/i79GEiP7BVuUj0eaK8HyZCLr8Sx/KwwUk
+	xYBtgufmMjWD3OHvw8gQ+aYKRYHOjiEAkfmhGNZ6Q3RKpT35SFolh6JcW5thO/7j3adGkLJ+3Ga
+	vKMi1ajVXkg9fzOn6ONCIpinpVeZJEkk/QQk23ljO6DA8xBrZNx5QgDxHQSRd7wXGOesR4ocPlX
+	EW0WXNbgxfZMfBjg==
+X-Received: by 2002:a05:622a:a06:b0:50e:5cc3:6f59 with SMTP id d75a77b69052e-50fad4a0f81mr303493201cf.5.1777284603363;
+        Mon, 27 Apr 2026 03:10:03 -0700 (PDT)
+X-Received: by 2002:a05:622a:a06:b0:50e:5cc3:6f59 with SMTP id d75a77b69052e-50fad4a0f81mr303492691cf.5.1777284602682;
+        Mon, 27 Apr 2026 03:10:02 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba451cdd2b8sm1107652966b.25.2026.04.27.03.10.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
         Mon, 27 Apr 2026 03:10:01 -0700 (PDT)
-Received: from lord-daniel-VivoBook-ASUSLaptop-K3502ZA-S3502ZA.. ([2405:201:31:d016:e577:22da:dc9:7f6c])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8ebba485sm39534225b3a.38.2026.04.27.03.09.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Apr 2026 03:10:00 -0700 (PDT)
-From: Piyush Patle <piyushpatle228@gmail.com>
-To: ak@it-klinger.de,
-	jic23@kernel.org
-Cc: dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/7] iio: adc: hx711: add HX710B support
-Date: Mon, 27 Apr 2026 15:39:31 +0530
-Message-ID: <20260427100950.33936-1-piyushpatle228@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Message-ID: <97c230b5-167c-41d4-9f36-e62b97ff202d@oss.qualcomm.com>
+Date: Mon, 27 Apr 2026 12:09:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: monaco: fix wrong connection for the
+ replicator
+To: Jie Gan <jie.gan@oss.qualcomm.com>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260427-fix-monaco-coresight-dt-v1-1-1707017f20c5@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260427-fix-monaco-coresight-dt-v1-1-1707017f20c5@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: ye-DBj2FuNzkMl0CFgf0CXGu3xq_wRex
+X-Proofpoint-ORIG-GUID: ye-DBj2FuNzkMl0CFgf0CXGu3xq_wRex
+X-Authority-Analysis: v=2.4 cv=DZEnbPtW c=1 sm=1 tr=0 ts=69ef35fb cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=TcQrU0szjGiQgjDi6ycA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDEwNSBTYWx0ZWRfX4JIPhsr8op0l
+ 0xbSPTWvHUj7hE1dIMYLbDQ0NWUTzV/JM9HeRN2ghXcQ0a7M9IOozPAHDEKlIa7va7MsdoxwSGo
+ ShnqAb0mTvDjhvjIakEjy3pz9Lib/tNx9Jl8+bPs3JD4J1kSZ5hk/1HyZ0tKKTF/6qSToIALQDQ
+ JaZ+e0AMg7sajSWrP+HxSxk00vK2XUQymfhOsPvoRwBCFhfQUSL+WgxJY5N9GBv6Ti9ctaChZuk
+ nIjJjlXt+R/1gSvxjJFcOpAyUme0GeJ5qQrarud5z2MFCqEucfo7OAUAf7z79NME+uWO5hCaVSP
+ cEHYkzbkO5h9vf4++VlaoTnUJfU+LsR3SQX26OXolsnZt8z6aKbSPa0Q9SUMk1Z0oZyxooZCwOq
+ I9rUpHalmJMxorttuvyRTU5WVFkmMGuxAittxUv97mLN7ZkjwMch8aeYSchtMBqg2tSHCsoGOeD
+ O45jBAqLRyvWWpGlZEw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-27_03,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 spamscore=0 adultscore=0 bulkscore=0
+ lowpriorityscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604270105
 
-Add support for the HX710B ADC, a variant of the HX711 with the same
-GPIO interface but a different channel and gain model.
+On 4/27/26 6:33 AM, Jie Gan wrote:
+> Fix the wrong connection for the qdss replicator device.
+> 
+> Fixes: 0f43254763b3 ("arm64: dts: qcom: qcs8300: Add coresight nodes")
+> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+> ---
 
-The first patch updates the devicetree binding to add the
-`avia,hx710b` compatible, document the variant-specific hardware
-behaviour, and add chip-specific supply properties (avdd-supply,
-dvdd-supply, vsup-supply, vref-supply), the RATE pin for the HX711, and
-allOf constraints forbidding HX711-only properties on HX710B nodes and
-vice versa.
+I'm afraid this patch will miss-apply since the visible context is not
+very telling.
 
-The second patch fixes a pre-existing bug: hx711_gain_to_scale[].scale
-is a global array overwritten on each probe call, which breaks multiple
-sensor instances that have different AVDD supplies. This is fixed by
-moving the scale into a per-device array.
+Try setting `git config diff.context 20` (you can revert to the previous/
+default value later because usually the default is reasonable)
 
-Patches 3-6 split the v3 refactor into smaller independent steps as
-requested by Andy Shevchenko: text cleanup (Kconfig, header,
-MODULE_DESCRIPTION), chip_info introduction, trailing-pulse
-parametrisation of hx711_read(), and iio_chan_spec * signature for
-hx711_reset_read().
-
-The final patch adds HX710B support using that infrastructure. Trailing
-pulse counts from Table 3 of the HX710B datasheet are stored in
-chan->address. Three channels are exposed: two differential inputs
-(10 SPS and 40 SPS) and a DVDD-AVDD supply monitor (40 SPS). The driver
-probes vref-supply first for the ADC reference and falls back to
-avdd-supply when the VREF pin is tied to AVDD on the board.
-
-Tested on PocketBeagle2 with an HX710B breakout module. The device
-probed successfully, all three channels returned stable raw readings, and
-alternating reads confirmed channel switching between the differential
-input and the DVDD-AVDD supply monitor path.
-
-Build-tested with:
-- make -s W=1 drivers/iio/adc/hx711.o
-- pahole -C hx711_chip_info drivers/iio/adc/hx711.o
-
-pahole reports hx711_chip_info as 40 bytes with no internal holes. The
-remaining 7 bytes are tail padding from 8-byte pointer alignment.
-
-Changes in v4:
-- Fix pre-existing global scale mutation bug (new patch 2).
-- Split the v3 refactor patch into four independent patches (patches
-  3-6) as requested by Andy Shevchenko.
-- Keep hx711_chip_info fields in their final order from introduction;
-  the HX710B patch only appends new fields without reordering.
-- Add vref-supply binding and probe path for HX710B VREF pin.
-- Add a third HX710B channel (27 pulses, differential 40 SPS) from
-  Table 3 of the datasheet.
-- Use .channel = 2 for the supply monitor to avoid indexing clash with
-  .channel2 = 1 of the differential pair.
-- Remove dvdd-supply from the HX710B forbidden list in the binding; the
-  HX710B has a DVDD supply and the DVDD-AVDD channel relies on it.
-- Add NULL guard on device_get_match_data() return value.
-- Fix checkpatch alignment in multi-line hx711_read() calls.
-
-Changes in v3:
-- See individual patch changelogs for full details.
-- dt-bindings: remove vref-supply wording; drop repeated
-  clock-frequency default text; restore example node name; remove the
-  extra HX710B example
-- driver: split the hx711_chip_info refactor from the HX710B support
-  patch; fix signedness; update channel_set only after successful
-  channel switching; keep HX710B scale based on the documented fixed
-  gain of 128; add direct ARRAY_SIZE/types includes; use pahole to
-  verify and improve hx711_chip_info field ordering
-- Reworked Kconfig text to use "HX711 and compatible ADCs" and list
-  supported AVIA ADCs one per line.
-- Restored/updated driver header and module description wording while
-  keeping the bitbanging context.
-
-Changes in v2:
-- See individual patch changelogs for full details.
-- dt-bindings: add dvdd-supply, vsup-supply, rate-gpios; allOf if/then
-  for HX710B; fix clock-frequency description; remove dead vendor URL;
-  clarify AVDD as voltage reference on both chips
-- driver: fix pulse count bug ({25,26}->{1,2}); move counts to
-  chan->address; add fixed_gain flag; add .differential/.channel2;
-  remove NULL check; drop reset_channel; pass iio_chan_spec * directly
-
-Piyush Patle (7):
-  dt-bindings: iio: adc: avia-hx711: add avia,hx710b compatible
-  iio: adc: hx711: move scale computation to per-device storage
-  iio: adc: hx711: update Kconfig, module description and file header
-  iio: adc: hx711: introduce hx711_chip_info per-variant structure
-  iio: adc: hx711: pass trailing pulse count into hx711_read()
-  iio: adc: hx711: pass iio_chan_spec to hx711_reset_read()
-  iio: adc: hx711: add support for HX710B
-
- .../bindings/iio/adc/avia-hx711.yaml          |  82 +++++-
- drivers/iio/adc/Kconfig                       |   8 +-
- drivers/iio/adc/hx711.c                       | 278 ++++++++++++++----
- 3 files changed, 297 insertions(+), 71 deletions(-)
-
--- 
-2.43.0
-
+Konrad
