@@ -1,204 +1,193 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5022A39A071;
-	Mon, 27 Apr 2026 11:22:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E3839A7F9
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 11:25:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777288929; cv=none; b=pJaZ2mkOGDDRSpPulbiLe5Z+6QS9UXGjpG8uihEkyPO1nnAWGyUmmLHshTsuGz3ypVunQqxDmUjhtrU5MJChz0z+pK8uRaIEkX4fZbVSeroST8wV345AIJo6/oNKtRZ+pd/vWMhL89N5fRjtolpEt5oHrMHuCrgU/UarvXGMdnY=
+	t=1777289132; cv=none; b=EIUNxa4raIocLlGSNpVyX4VzYqCmushsuyRnSCAQofwHQ+FVvaAMtTwia+t1AtAy5mPrHmA5n86mR1K/AjwMSIrv69ht/H/IuIn+6Qc3L2J46c7SnXYRPFNXUD2CiaKE++R8Fg4NlMODbYcuCF+cUdYYBvfOUkEOThcHeYHMbgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777288929; c=relaxed/simple;
-	bh=cEKPIMBt3bjUK0s4tAwqSfB0I6rn/WHzM1iwD1j0E1U=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=V+4fTqicSDQ23oz4+u/ucqV0l6f9blEyOaPf6ens+Xw9+z6ZZq5i5IH1vhkYxlNWxLokZnFazDMZrFiNWHvVde5DtatrEIIxMF/j3FmxsOZHK+iW4Nhhh9Hx946Sxl4Y5bcEQuLwEuqw+H4vlnuljSq9LY1BjNhNNaPF99k42Tg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=oSHbBolw; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1777289132; c=relaxed/simple;
+	bh=36ylXDXSIJmKrupKE39SKH2uABtoGcwA1RY3pukZQYQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gQ0FuYeGg+ROkLII2Skd/gPzfCpTTQnJ5lKxREQ1yzYgQtKH+p/6PLZq6P2tP6Oq6NDtPg9NSTTpmx7impc4O8NlVRmSzE/J/gKCqscFZjmVmIVTfWgI60rXY45S9mbpoVD9jWFl6Sp47qBM97jGeeRm0Y7OOQXPsfAFtMU7K/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=BvLZvC18; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="oSHbBolw"
-X-UUID: 4f7e9aaa422b11f19a16598d5ca7f8ec-20260427
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=WVMP13AqW+8vsvNiprb+sLTerRElQjeibUZgvRaskGQ=;
-	b=oSHbBolwiwbRE0o0oIt7HzrnPSS6EXuuITyM2sUwbCduIsRi4+6jJWFMFcedBZxz43tKwmk2G0SvxbAzyHk3hsDZCaZaYXeFQMR/AmirrO5PGKH6AbY+vbB+M33vSy8Gk+ZuLuvI3tapqxonYw1F9fi6WzqEqw5OqztMkfkXLmc=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:422f8e24-eccd-4ba2-bdc9-709977d10da2,IP:0,U
-	RL:0,TC:0,Content:0,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:e7bac3a,CLOUDID:848b82be-65a8-4b41-ac18-3671578a914d,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|865|888|898,TC:-5,Cont
-	ent:0|15|50,EDM:2,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,
-	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 4f7e9aaa422b11f19a16598d5ca7f8ec-20260427
-Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw02.mediatek.com
-	(envelope-from <jay.liu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 589868566; Mon, 27 Apr 2026 19:22:00 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- MTKMBS09N2.mediatek.inc (172.21.101.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 27 Apr 2026 19:21:59 +0800
-Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
- mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Mon, 27 Apr 2026 19:21:58 +0800
-From: Jay Liu <jay.liu@mediatek.com>
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias
- Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-mediatek@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, Jay Liu <jay.liu@mediatek.com>, CK Hu
-	<ck.hu@mediatek.com>
-Subject: [PATCH v5 6/6] drm/mediatek: Add TDSHP component support for MT8196
-Date: Mon, 27 Apr 2026 19:20:20 +0800
-Message-ID: <20260427112131.23423-7-jay.liu@mediatek.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20260427112131.23423-1-jay.liu@mediatek.com>
-References: <20260427112131.23423-1-jay.liu@mediatek.com>
+	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="BvLZvC18"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4411e1eba51so6812429f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 04:25:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=imd-tec.com; s=google; t=1777289128; x=1777893928; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=NQu+gLeRF62Qtcp0mVuCqBaFzWftxOyfVqPR71FypOY=;
+        b=BvLZvC18CYxRMec2L3AL8UwJUApTHn1BT74V0uB8GpPZTCTtNVm5dmMUPWj5bqDKc7
+         lk7aWzINXP7qqQfaPo4umaToT/1WMr1ZOlTRTnqO9FLm4ICyPtgXOrzJKk3ycih+crqg
+         1e9acxYVhtq/6DY1LG0I8HH5V6caNjcmetlbwUb+YC55qQ3Qd+YAORxpK5DLCOUOAFvE
+         3LrIrpMonEvinbwV+sjwtEn2xO53aaUpeRoBFZ+okFs+jjVxFBU7I0b/spyNqnhQy1lK
+         O89zuEeh4D25GtVE63uIM6KXEa+fL+McoEsr8glHiYjxMLu/Ach+P+Sl0Aju0EyAamr7
+         1THw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777289128; x=1777893928;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NQu+gLeRF62Qtcp0mVuCqBaFzWftxOyfVqPR71FypOY=;
+        b=hg5B/cIyyrKv0Cp2P+Hk+VCoBNibhtG+90KxVX5WuvIcAf6Y2ZSQHm7yJVgFvTsG6C
+         LfvNin08xkFIXn3Cp5c4XSgmVvZ2+w7cm4SUzS1KroLFOe5Fwz9a7qP9xCreQ1TOGzrU
+         Jh0WEWMpzez67yJj0hY76ViKlUSgIDAUVzUlKKfsuV8IjqB+rClgEOpW7Kf8T8+kPWTx
+         TzzmYDcFov5X0my10aHNBuTuch255HGubjZJC//7qY/+qdsABzedKc5iO/Bzh6R/RoRP
+         U6BFZ7wiWfz4sV1AQUY9hL9hDsm0FTvTvRCWAd8Lgz19Mw0HyxEUHQ+trTQZXyhPfJ88
+         Hixg==
+X-Forwarded-Encrypted: i=1; AFNElJ9NslubuZfUvOijXbBZzy/2dDle50uwwRR7lUF2nsmceU4LPEuvgoZA2/0o5+qJhxgsOwcPxWRHBPYX@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0wip9JhtJ7JOEo/urdyclB8QZo4NZ6s0MEvbcfYjgbVstiSjz
+	YwTYLe6YzfW9douSbLMN+avpAlgxBBd7cZuT8RZ/fWq1c+zsS0E6fxSV7Ta/SuBSEKQ=
+X-Gm-Gg: AeBDietwoJhC0Wsfpj4Nnu0R/HSU9O52X7/9Cr+GnDcm2ujEuRR9LJDJhGCvBFyQid2
+	qe8/mizv7FXMCPcOs2PIsilalWjL20BbkQTQrVGv6fD9E5iXHI2qgrujqEdea2F23ZtwkvZMiEK
+	eY+bYD67bYSjCMBGB/AAgIMmlJZ+BlCNtuMLXB//6uoiGnNonPRt1a7tOnH+o3wW0yOMFT5vjdd
+	WJSgwULSiyjHdloTDnwlzUFqGrdAVy8yVpQjogz6xnyodg1zluAGqx2Vv8rpjrt613Lz30HQwzM
+	/aT4rfkQPvhal7rUWpJTxT4WvqGWdPx3xUA773L4KzTNJsiVp3m4+f+VUp5QyIXIvZ7j/P/KAZI
+	QaILqOVASBYq3/R5wB4rKBJbLaP91Zi0chDJhL9P2FkyzIxTAt2eoOXAKGbV/rs6HzOXRcCjeGa
+	kNYdRwj9pweZCQz21DRT4wcuyUslDklYIfqzZbDHLDQGKrRpYLlradZkdSDTxf59gLO48YesR33
+	9apvBrag8SYrXCD/RHTja8DYxcMx5vgw+JlYVf0
+X-Received: by 2002:a05:6000:2212:b0:43d:68dc:9ca6 with SMTP id ffacd0b85a97d-43fe3dc7b4bmr63708040f8f.18.1777289127740;
+        Mon, 27 Apr 2026 04:25:27 -0700 (PDT)
+Received: from [127.0.1.1] ([82.71.135.85])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e3a7b4sm74459748f8f.22.2026.04.27.04.25.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Apr 2026 04:25:27 -0700 (PDT)
+From: William Bright <william.bright@imd-tec.com>
+Date: Mon, 27 Apr 2026 12:24:51 +0100
+Subject: [PATCH v2] arm64: dts: qcom: sm8550: add SDHC4 controller node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260427-sm8550-sdhc4-support-v2-1-a4241f43ecd5@imd-tec.com>
+X-B4-Tracking: v=1; b=H4sIAIJH72kC/4WNQQ6DIBBFr2JYdxpAMNpV79G4UBgqTRTCoGljv
+ HvVHqDLl7z//soIk0dit2JlCRdPPkw7yEvBzNBNTwRvd2aSy4orWQKNtdYcyA5GAc0xhpSh1HX
+ vZKUMV8j2aUzo/PvMPtof09y/0OSjdRiDpxzS5/xdxOH9uVgECGhKZ2vhsNO2ufvRQkZzNWFk7
+ bZtX6f4i1rMAAAA
+X-Change-ID: 20260423-sm8550-sdhc4-support-358bf264c04e
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ram Boukobza <ram@imd-tec.com>, 
+ Tendai Makumire <tendai.makumire@imd-tec.com>, 
+ William Bright <william.bright@imd-tec.com>
+X-Mailer: b4 0.15.2
 
-Add TDSHP component support for MT8196.
-TDSHP is a hardware module designed to enhance the sharpness and
-clarity of displayed images by analyzing and improving edges and
-fine details in frames.
+Add the SDC4 SDHCI controller node for the SM8550 SoC.
 
-Reviewed-by: CK Hu <ck.hu@mediatek.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Jay Liu <jay.liu@mediatek.com>
+SMMU stream ID 0x80 was sourced from the UEFI bootloader IORT tables,
+as SDCC stream IDs are not documented in the register reference manual.
+Unlike SDC2, the data path is routed via aggre1_noc, matching
+MASTER_SDCC_4 in drivers/interconnect/qcom/sm8550.c.
+
+The SDHCI capabilities register on this SoC advertises SDR104
+and SDR50 but these UHS-I modes are broken on SDHC4.
+Mask them via sdhci-caps-mask, this keeps the bus in HS mode,
+which initialises reliably.
+
+Tested on the IMDT QCS8550 SBC. This board is not currently
+supported in-tree.
+
+Co-developed-by: Tendai Makumire <tendai.makumire@imd-tec.com>
+Signed-off-by: Tendai Makumire <tendai.makumire@imd-tec.com>
+Signed-off-by: William Bright <william.bright@imd-tec.com>
 ---
- drivers/gpu/drm/mediatek/mtk_ddp_comp.c | 49 +++++++++++++++++++++++++
- drivers/gpu/drm/mediatek/mtk_ddp_comp.h |  1 +
- drivers/gpu/drm/mediatek/mtk_drm_drv.c  |  2 +
- 3 files changed, 52 insertions(+)
+Changes in v2:
+- Drop qcom,dll-config and qcom,ddr-config; these properties are not
+  valid for this SDC instance (Konrad Dybcio)
+- Reduce the OPP table to a single 75 MHz / low_svs entry matching the
+  SDCC4 operating point on this SoC (Konrad Dybcio)
+- Forbid SDR104/SDR50 via sdhci-caps-mask, matching the previously
+  existing sdhc_2 workaround in the same file.
+  The SDHCI capabilities register on this SoC advertises SDR50/SDR104
+  modes that are broken on sdhc_4; without masking them the MMC
+  core selects SDR50 and fails DLL tuning with
+  -ETIMEDOUT during SDIO card initialisation.
+- Rework the commit message to reflect the above understanding and
+  drop the "root cause not yet determined" note
+- Drop self Tested-by tag (Konrad Dybcio)
+- Link to v1: https://patch.msgid.link/20260423-sm8550-sdhc4-support-v1-1-93fd81fea5d9@imd-tec.com
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-index 5cbc4b995d66..bd2b288938bf 100644
---- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-@@ -57,6 +57,14 @@
- #define POSTMASK_RELAY_MODE				BIT(0)
- #define DISP_REG_POSTMASK_SIZE			0x0030
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ arch/arm64/boot/dts/qcom/sm8550.dtsi | 40 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+index 912525e9bca6..07161a873b2d 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+@@ -3280,6 +3280,46 @@ opp-202000000 {
+ 			};
+ 		};
  
-+#define DISP_REG_TDSHP_CTRL			0x0100
-+#define DISP_TDSHP_CTRL_EN			BIT(0)
-+#define DISP_REG_TDSHP_CFG			0x0110
-+#define DISP_TDSHP_RELAY_MODE			BIT(0)
-+#define DISP_REG_TDSHP_INPUT_SIZE		0x0120
-+#define DISP_REG_TDSHP_OUTPUT_OFFSET		0x0124
-+#define DISP_REG_TDSHP_OUTPUT_SIZE		0x0128
++		sdhc_4: mmc@8844000 {
++			compatible = "qcom,sm8550-sdhci", "qcom,sdhci-msm-v5";
++			reg = <0 0x08844000 0 0x1000>;
 +
- #define DISP_REG_UFO_START			0x0000
- #define UFO_BYPASS				BIT(2)
++			interrupts = <GIC_SPI 261 IRQ_TYPE_LEVEL_HIGH 0>,
++				     <GIC_SPI 227 IRQ_TYPE_LEVEL_HIGH 0>;
++			interrupt-names = "hc_irq", "pwr_irq";
++
++			clocks = <&gcc GCC_SDCC4_AHB_CLK>,
++				 <&gcc GCC_SDCC4_APPS_CLK>,
++				 <&bi_tcxo_div2>;
++			clock-names = "iface", "core", "xo";
++			iommus = <&apps_smmu 0x80 0>;
++			power-domains = <&rpmhpd RPMHPD_CX>;
++			operating-points-v2 = <&sdhc4_opp_table>;
++
++			interconnects = <&aggre1_noc MASTER_SDCC_4 QCOM_ICC_TAG_ALWAYS
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
++					<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &config_noc SLAVE_SDCC_4 QCOM_ICC_TAG_ACTIVE_ONLY>;
++			interconnect-names = "sdhc-ddr", "cpu-sdhc";
++			bus-width = <4>;
++			max-sd-hs-hz = <37500000>;
++			dma-coherent;
++
++			/* Forbid SDR104/SDR50 broken hw! */
++			sdhci-caps-mask = <0x3 0>;
++
++			status = "disabled";
++
++			sdhc4_opp_table: opp-table {
++				compatible = "operating-points-v2";
++
++				opp-75000000 {
++					opp-hz = /bits/ 64 <75000000>;
++					required-opps = <&rpmhpd_opp_low_svs>;
++				};
++			};
++		};
++
+ 		iris: video-codec@aa00000 {
+ 			compatible = "qcom,sm8550-iris";
  
-@@ -261,6 +269,37 @@ static void mtk_postmask_stop(struct device *dev)
- 	writel_relaxed(0x0, priv->regs + DISP_REG_POSTMASK_EN);
- }
- 
-+static void mtk_disp_tdshp_config(struct device *dev, unsigned int w,
-+				  unsigned int h, unsigned int vrefresh,
-+				  unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
-+{
-+	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(dev);
-+
-+	mtk_ddp_write(cmdq_pkt, w << 16 | h, &priv->cmdq_reg, priv->regs,
-+		      DISP_REG_TDSHP_INPUT_SIZE);
-+	mtk_ddp_write(cmdq_pkt, w << 16 | h, &priv->cmdq_reg, priv->regs,
-+		      DISP_REG_TDSHP_OUTPUT_SIZE);
-+	mtk_ddp_write(cmdq_pkt, 0x0, &priv->cmdq_reg, priv->regs,
-+		      DISP_REG_TDSHP_OUTPUT_OFFSET);
-+
-+	mtk_ddp_write(cmdq_pkt, DISP_TDSHP_RELAY_MODE, &priv->cmdq_reg,
-+		      priv->regs, DISP_REG_TDSHP_CFG);
-+}
-+
-+static void mtk_disp_tdshp_start(struct device *dev)
-+{
-+	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(dev);
-+
-+	writel(DISP_TDSHP_CTRL_EN, priv->regs + DISP_REG_TDSHP_CTRL);
-+}
-+
-+static void mtk_disp_tdshp_stop(struct device *dev)
-+{
-+	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(dev);
-+
-+	writel(0, priv->regs + DISP_REG_TDSHP_CTRL);
-+}
-+
- static void mtk_ufoe_start(struct device *dev)
- {
- 	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(dev);
-@@ -268,6 +307,14 @@ static void mtk_ufoe_start(struct device *dev)
- 	writel(UFO_BYPASS, priv->regs + DISP_REG_UFO_START);
- }
- 
-+static const struct mtk_ddp_comp_funcs ddp_tdshp = {
-+	.clk_enable = mtk_ddp_clk_enable,
-+	.clk_disable = mtk_ddp_clk_disable,
-+	.config = mtk_disp_tdshp_config,
-+	.start = mtk_disp_tdshp_start,
-+	.stop = mtk_disp_tdshp_stop,
-+};
-+
- static const struct mtk_ddp_comp_funcs ddp_aal = {
- 	.clk_enable = mtk_aal_clk_enable,
- 	.clk_disable = mtk_aal_clk_disable,
-@@ -441,6 +488,7 @@ static const char * const mtk_ddp_comp_stem[MTK_DDP_COMP_TYPE_MAX] = {
- 	[MTK_DISP_POSTMASK] = "postmask",
- 	[MTK_DISP_PWM] = "pwm",
- 	[MTK_DISP_RDMA] = "rdma",
-+	[MTK_DISP_TDSHP] = "tdshp",
- 	[MTK_DISP_UFOE] = "ufoe",
- 	[MTK_DISP_WDMA] = "wdma",
- 	[MTK_DP_INTF] = "dp-intf",
-@@ -496,6 +544,7 @@ static const struct mtk_ddp_comp_match mtk_ddp_matches[DDP_COMPONENT_DRM_ID_MAX]
- 	[DDP_COMPONENT_RDMA1]		= { MTK_DISP_RDMA,		1, &ddp_rdma },
- 	[DDP_COMPONENT_RDMA2]		= { MTK_DISP_RDMA,		2, &ddp_rdma },
- 	[DDP_COMPONENT_RDMA4]		= { MTK_DISP_RDMA,		4, &ddp_rdma },
-+	[DDP_COMPONENT_TDSHP0]		= { MTK_DISP_TDSHP,		0, &ddp_tdshp },
- 	[DDP_COMPONENT_UFOE]		= { MTK_DISP_UFOE,		0, &ddp_ufoe },
- 	[DDP_COMPONENT_WDMA0]		= { MTK_DISP_WDMA,		0, NULL },
- 	[DDP_COMPONENT_WDMA1]		= { MTK_DISP_WDMA,		1, NULL },
-diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.h b/drivers/gpu/drm/mediatek/mtk_ddp_comp.h
-index 7244b55f6732..cf79b6f689d0 100644
---- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.h
-+++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.h
-@@ -38,6 +38,7 @@ enum mtk_ddp_comp_type {
- 	MTK_DISP_POSTMASK,
- 	MTK_DISP_PWM,
- 	MTK_DISP_RDMA,
-+	MTK_DISP_TDSHP,
- 	MTK_DISP_UFOE,
- 	MTK_DISP_WDMA,
- 	MTK_DPI,
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index c86a3f54f35b..1006834780e4 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -794,6 +794,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_RDMA },
- 	{ .compatible = "mediatek,mt8195-disp-rdma",
- 	  .data = (void *)MTK_DISP_RDMA },
-+	{ .compatible = "mediatek,mt8196-disp-tdshp",
-+	  .data = (void *)MTK_DISP_TDSHP },
- 	{ .compatible = "mediatek,mt8173-disp-ufoe",
- 	  .data = (void *)MTK_DISP_UFOE },
- 	{ .compatible = "mediatek,mt8173-disp-wdma",
--- 
-2.46.0
+
+---
+base-commit: 4f5b4b748ac75683d61c304ee3ee0db235e8f312
+change-id: 20260423-sm8550-sdhc4-support-358bf264c04e
+
+Best regards,
+--  
+William Bright <william.bright@imd-tec.com>
 
