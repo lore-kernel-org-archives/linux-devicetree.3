@@ -1,70 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75B73D091D;
-	Mon, 27 Apr 2026 13:52:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882303C945A;
+	Mon, 27 Apr 2026 13:58:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777297928; cv=none; b=epk84vDL5IZjiVCtPG/arvu9/U1UDN5NGt669EVViw0YjmDwnL50lpCgKgnXV8fmZ2sihItiKjZC+s5uSw+bYdIc6COBpnV2Gfy67jSTZY5XdIhFSvKlgbLSSiPusla3HqKPBikrNQLTH/GIye6c/lBBVdoHii0NMRNvVJVXMm0=
+	t=1777298290; cv=none; b=IKQpGHDQsmgJtT6FQsxLV+werze6l2mIpUr7g5PPFUH6qzc76aFsmzWV/mdH0X9wRmDduhG3mkAjtAorkkSwrH2wQ3k6ZNua9M16T+geQbjRNXdoE3SYIuP571mN/Ck3xjwk9SekQr0NTVrTxyACDNMSArWyco9Na/YYidioJbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777297928; c=relaxed/simple;
-	bh=lsJOmTUcAu0z5/TAAJg5YU30Hd+zFvlOGUzZYlCCFVk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=bc+TiU0Fr9RfGp+5xseTYFI14+xA4T19JRJU5SLkLJh86adLcJhG1DizII4FdvgDPLJ3kCstnrsDdecFpJ4BoVRIYs2fDwngVZCZvxMmZu6wVn79Iv8NeEnwgdvN/KPaphqZ3Q0/fbrhHT4a6W+dI3+1OEfj7SczAaTW+RDphFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M9wasWs+; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777298290; c=relaxed/simple;
+	bh=hsrZUKNChwuYVCJzhmaqBiOTMO8wTQFrYuMPa82iCxI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L0nWv+/UOoUIDwdiauEGPAlUNHJar2nBAE7WO79UdpQMA0aAQh0qjHvsFrU2Ly4cNvUFEmauq29xAYQb/tPmq8xikoOdeM6vCsdeKbIcrcUN+JjzW4utPJUc1x/20vUko8gKpuyzE5KBMb5BacUWQfW5/KVqpQylarAXja/qOLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=j/LqEJEo; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M9wasWs+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 447BFC19425;
-	Mon, 27 Apr 2026 13:52:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777297928;
-	bh=lsJOmTUcAu0z5/TAAJg5YU30Hd+zFvlOGUzZYlCCFVk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=M9wasWs+kX1157BtlmeT/XCUGBiBfBcx7VM19UG0pPhERJucZ1KbNYesnSwTdPtNo
-	 aCkDdFb4NbnO/v9JZcC/ObluckiS6MM+aHwILzKI6lR5n0HkKPN78lhxssnGCvLly6
-	 KPH2upNo+AM3S9++DAYqQaxAKmqmoPV92xXeW46IFAGjrKs7vZJTsuJeFyM66F0EfP
-	 3vYYvrjm5QSXwFFzA/0BE42ag38guhXggh5F5W8qp2Co7PP6ep51xembSFQ7VvEL1e
-	 IhRgbmY7twggmNHs50CykkTIIkXp2ZdggfXYC7DY6ZFXW40LsU8u+eKGdX8iAB/Buj
-	 8zGIJ+uTehw7A==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sam Protsenko <semen.protsenko@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Alexey Klimov <alexey.klimov@linaro.org>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260325-exynos850-poweroff-v1-1-34c19c06e74d@linaro.org>
-References: <20260325-exynos850-poweroff-v1-1-34c19c06e74d@linaro.org>
-Subject: Re: [PATCH] arm64: dts: exynos850: Add syscon-poweroff node
-Message-Id: <177729792499.37277.15065378345942727553.b4-ty@b4>
-Date: Mon, 27 Apr 2026 15:52:04 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="j/LqEJEo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777298289; x=1808834289;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=hsrZUKNChwuYVCJzhmaqBiOTMO8wTQFrYuMPa82iCxI=;
+  b=j/LqEJEogD/J8dSl+BKiROTbi0GCpuupqq2uue8Ibp0bltl7OlXlkRhx
+   0mjUZnC4cgniXLbIFFPu9L8z1XV3oFlXPwQg5NhZNeMOhA8G+szoGDwHo
+   7VLaotxtREmbbezeZGHNNL4j/540dtggw7KsOrVjW0nXIzElsVzBEEFVO
+   Pz+X2Fqbcmwj52gM9Nq627T+e0J7c3ap78/ncTR3242+vGyBnprSn11Tr
+   QFPAfzBjmqKop2a35c+psjzpB7JNKiFd6JCOOlayJYKp4Fvrci+BTFifh
+   rN+TsG1lvFen8kiHgOoz86KjmpjUr2+O/7Iv22EW15NSctQoBPBX7XCeg
+   w==;
+X-CSE-ConnectionGUID: slz3iEgFQFOiIgoh8+hjuQ==
+X-CSE-MsgGUID: OigC4juyR7qpamdeYCBmoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="77891145"
+X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; 
+   d="scan'208";a="77891145"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Apr 2026 06:58:09 -0700
+X-CSE-ConnectionGUID: k/SezTGpRPGnLj1zSawNCg==
+X-CSE-MsgGUID: 1ChPpiPeRTiBM4Serrwapg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; 
+   d="scan'208";a="235408838"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.2])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Apr 2026 06:58:05 -0700
+Date: Mon, 27 Apr 2026 16:58:03 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Piyush Patle <piyushpatle228@gmail.com>
+Cc: ak@it-klinger.de, jic23@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 3/7] iio: adc: hx711: update Kconfig, module
+ description and file header
+Message-ID: <ae9rayYbr1UbYIQD@ashevche-desk.local>
+References: <20260427100950.33936-1-piyushpatle228@gmail.com>
+ <20260427100950.33936-4-piyushpatle228@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260427100950.33936-4-piyushpatle228@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-
-On Wed, 25 Mar 2026 00:26:32 +0000, Alexey Klimov wrote:
-> Without poweroff node Exynos850-based board continue to draw current
-> (around ~60 mA with my test setup) after poweroff. Kernel also reports
-> different lockup problems and RCU stalls warnings continuosly after
-> last kernel messages about hardware being switched off.
-> Turns out we missed a write to PMU's PS_HOLD_CONTROL (PMU + 0x30c)
-> register that actually switches the SoC off.
+On Mon, Apr 27, 2026 at 03:39:34PM +0530, Piyush Patle wrote:
+> Update the Kconfig entry to "AVIA HX711 and compatible ADCs" and list
+> supported chips one per line to make it easy to extend when new variants
+> are added. Change the module description and file header to match.
 > 
-> [...]
+> Add direct includes for linux/array_size.h and linux/types.h rather than
+> relying on transitive includes pulled in by other headers.
 
-Applied, thanks!
+Obviously something went wrong. First of all, I have told that MODULE_*()
+changes doesn't belong to the refactoring patch. Second, I meant that the
+Kconfig help text to go to a separate patch.
 
-[1/1] arm64: dts: exynos850: Add syscon-poweroff node
-      https://git.kernel.org/krzk/linux/c/47d4dc90181c8ffa9ebcbd058e312873a46aeaca
+Header inclusions should be taken care when it's required. It doesn't belong
+here.
 
-Best regards,
+Looking at this again, most of it probably should be folded into the new HW
+support patch where you add a new chip_info.
+
 -- 
-Krzysztof Kozlowski <krzk@kernel.org>
+With Best Regards,
+Andy Shevchenko
+
 
