@@ -1,44 +1,47 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C443B895A
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 12:23:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD3B3B6BE4;
+	Mon, 27 Apr 2026 12:23:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777292617; cv=none; b=qh8eX3Kwl6y9ivuXJn47yXMJbaprWPcZpKG67JAFf9eA++N0n5VgC5VbeqaPTYGomoMKmEW9639dHOrwTRxG9BuKD0SrJFtcVFmJjOaJnCbjLp4XAdosQfJWozBt8rEMwFkVfoXKDzqmlgGYB9ODgJu3ZGP9vzljHT69TZpp6EM=
+	t=1777292623; cv=none; b=TjmGN6+FyhJfP3XPKy69u6ayNHh5ET1IX2xOuIczO5gt5svH7iuvFCG3P1fJE+ah6juUC08WIr26CFiXkzXY4gHEr3Rq9OyoTDx4mN+Z/7HtT4DfBhvrTD9s1t3weDVAuWn6CEFuqxhxjMM2MSxATCaDcL33jPnh79bR5f2hKsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777292617; c=relaxed/simple;
-	bh=urZWKUzxY3iuGJwbAElm0a7R7sHpJ1yS+m5X7xo6Y+w=;
+	s=arc-20240116; t=1777292623; c=relaxed/simple;
+	bh=knmh3yY+I/ih9eGk7DS8BGnjt57mgXG1uGiFPY7N51M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZNbAvuymDbigbO0M3+kLyDmhmvDp5FWApt9eLhUwDdcFIhVBl9KKhlKiJnRvFG4iH9tKgd1tOXZXl6Mlz/b2/MkGCgQ7pEzBWtIkzfR7LG4DUZsV77aSF+OriFHyl5LYlKgAKCTWAOdgfqrv7Peq5rckXvyCijlnDKYM08BVGMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=xVqKCCv0; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version:Content-Type; b=oy6i13utw7TB9rsn8nSi3lRMApiOdaueeRokfgvEE/yar4BpoiVtCl8oVCumCpA65KblqF6Qq7fxml+XO+zZfZ6cvw5wd2suqqArdmBexDJ51AwiZClMkmryBro+UX2HoNbboRpB5QdREq6P4bnaYuwFbcgr2qaBoYj3o0xIpoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=wgaVrAQr; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="xVqKCCv0"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="wgaVrAQr"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=zeFeA8nEaH9kZMfpZm5xXYFixMSDmpxZ1xCx9TDqN/E=; b=xVqKCCv0kMcDlK/inDVgAbW1YR
-	20JvsPAQYBkVM7N5YR0qQPvhtes7iF0iIWlVgns9h7P/1LjmTqkGesWUyzLYbDQf2BpX8F5tBmjPI
-	wCF94ze3RmwhTUAs5cEnkd+9e6Jx1WYKMhiqEJVyDBVuqSyY2LtjntQa8qjOnI1rKUAwfBTniQV+C
-	MZN1JATxA5l/uT0iMzOQfko3Sbpejn3KBOEP+E7oFTxWW2/tB0UySMaq9p86xztSGOMZSAkVoRqG2
-	JTYn8if6oy9n1D4YkE3ik2wn/HuYAfvnPGrSgYJ8CS6IeKD3Wb2/cvpi4wrPExY/mK4Rk0SF8+Xkk
-	dIcw3fMg==;
+	bh=sHPMBhXxp+6B9raEClgP4b7fTnQR4Zw3lXf5NCEnyIo=; b=wgaVrAQrH8VPCzvKDJo4DzshHu
+	qkAyTfXB/yMJi9kt3mYX0z2VjWxxlYCtTJxj0McUmAqDVzlhXu7Qp6GN8v/In3DF2sR9A9WgKxwlA
+	pqaG3A1qpg256pAuEoQXXxqAVZo7CttBb0OnM5R4uLcG8hqGt5lEi/+yN/3v2V3tDETvf5TNHgogx
+	GndMKNt5qL+DtkBxNkvNvUc8OMghQDAvW+28PljPoJacwsXpk4xablegJ5nPQUT+gqZiisz0h0jcf
+	Xoum0h8DF7yDgqV3pMOL+DKBEheWsi+2zy+p0zVdoRIJZIwdo9viA4zwA2dU14+gdSC3SiN7kQqkP
+	C2VIyYBw==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: MidG971 <midgy971@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Diederik de Haas <diederik@cknow-tech.com>
 Cc: Heiko Stuebner <heiko@sntech.de>,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
+	Arnd Bergmann <arnd@arndb.de>,
 	devicetree@vger.kernel.org,
-	shawn.lin@rock-chips.com,
-	jonas@kwiboo.se
-Subject: Re: [PATCH v6] arm64: dts: rockchip: rock-3b: Model PI6C20100 as gated-fixed-clock
-Date: Mon, 27 Apr 2026 14:23:22 +0200
-Message-ID: <177729258234.1866089.15459100278998354452.b4-ty@sntech.de>
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH 0/2] Improve gmac0 DT config for NanoPi R5S
+Date: Mon, 27 Apr 2026 14:23:17 +0200
+Message-ID: <177729258226.1866089.4215675452095780346.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260327091128.2458-1-midgy971@gmail.com>
-References: <20260327091128.2458-1-midgy971@gmail.com>
+In-Reply-To: <20260401131551.734456-1-diederik@cknow-tech.com>
+References: <20260401131551.734456-1-diederik@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,23 +52,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 27 Mar 2026 10:11:28 +0100, MidG971 wrote:
-> The Radxa ROCK 3B uses a PI6C20100 PCIe reference clock buffer to
-> provide a 100MHz reference clock to the PCIe 3.0 PHY and controllers.
-> This chip is currently modeled only as a fixed regulator
-> (vcc3v3_pi6c_03), with no clock output representation.
+On Wed, 01 Apr 2026 15:11:37 +0200, Diederik de Haas wrote:
+> These 2 patches contain a fix for an incorrect pinctlr definition and
+> replaces several deprecated snps,reset* properties with their
+> non-deprecated replacements.
 > 
-> The PI6C20100 is a clock generator, not a power supply. Model it
-> properly as a gated-fixed-clock, following the pattern established
-> for the Rock 5 ITX and other boards with similar PCIe clock buffer
-> chips.
+> Diederik de Haas (2):
+>   arm64: dts: rockchip: Fix gmac0 reset pin for NanoPi R5S
+>   arm64: dts: rockchip: Replace deprecated snps,* props for NanoPi R5S
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: rockchip: rock-3b: Model PI6C20100 as gated-fixed-clock
-      commit: 8df9160f6a50dbdae8ec287d429efc9d2d9001bd
+[1/2] arm64: dts: rockchip: Fix gmac0 reset pin for NanoPi R5S
+      commit: c83c4a09d4c01c91d6c52d6d4d77a06892a3e83b
 
 Best regards,
 -- 
