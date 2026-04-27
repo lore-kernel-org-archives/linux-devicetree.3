@@ -1,75 +1,89 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010061.outbound.protection.outlook.com [52.101.201.61])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C86C3A75BB;
-	Mon, 27 Apr 2026 16:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777307249; cv=fail; b=Szw309JMeU/RcL+PM24eUP7VV+/oiRRPSbrq5DbI3ts+WT/LIKS1EK6O3pU+ya3Z2qYOWfBQvavZ7hgb2zeoRYoHLciKVKxkAxmbS7m25UXHmjE0e7P4S1HKCr/RMcXn4BQM+fc5iz1WXJ4uerjkEHDzAr/MlUPgIxOdtdGnjuI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777307249; c=relaxed/simple;
-	bh=cfyVsswlRl2w+9lNQDO7oN7NUC3yTVDhXVyAEI4kfQw=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gjD5xr+y32OMzaFXEZRIC6y1w1jejfKLYzxJeIRI+k6Ew/CDhhhkjgmboKSnYsL1ETo7tis+nIdG72Z40HOZvZsVeBfnkhvI5YUPef6G7cJadDaxke+eKu0+kOadAG4xxtFoN9l1bnegH6R56Fc7yNdH9X3GfdSSwPAgGBgOCJY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=3QFwlV+b; arc=fail smtp.client-ip=52.101.201.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B300339708
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 17:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777309516; cv=none; b=Wx8sn2//TEd/Xccz8wywgnILdloSOAiI93V3zcqVi15254bPj27zUjgT+b/q4Ng4Uajib450OxnQE8+3zihw4cKtr5/M0dF6ZAqpj+i2THt4Uy+S81lMUW2FNVWd8abPh0jjnEK2BLg1q5NjNZZEvir14fBQez1gdC2C6DFl0Z4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777309516; c=relaxed/simple;
+	bh=Zn+quWISx8wdQgasUcyf/jemL/P1NgshIDgkVf7rrUw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eXwGjvGHtRlqKidp+f+PgHNilIbtsfgT+83WMfxc+GicHbjh7/jnhYy5cRFE+3PMSvdf+GBoPbWivimfEb5Ov2cmQgkiI/sbRzCgS2YUzSfriQkQWtRA2SXtQq77tFmpPO1YMnwZRMPnMBc4ApSgqMZcroPdnZA6b7X9InbUFGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Z+1Jmvjw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P+EZymF0; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="3QFwlV+b"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LpzX+GZkF5Ptdaz9wIXsa3Cioh0ho9JAo1kPG8/jwlOZ7Wl9KZS6mlSMG9UQ1aua+yehk1NkAlI7cmE3BvXk/tnhNyWfPdJ78PviNInX8+bn3nRBI4jmrR9ssWRrMnuHfzcZIIT5SZIaBZHeTd5IHcT8457WZku5En+achbk4i7k/25BvNEh93oHG+cQL8VI3ItXJh6A8SAwyFmuFeDXgt6b77rJCNgmzcH/ZvRhJeeBY6vwrNa2e/1IQvUZncqf+6WoCSdFQwbVeozVwlqdoxEkJG8kx+f+WHYJ8Ybjt47TYNqvRzzj9tbwi+lcTsB8t6j/ttxjfIMapt6Q/FKZmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YVnL8hFNETBRO2zgn3n1hUXK1AMH68s77ynzaZoOt+4=;
- b=IHbwvevzQHsZCCaVSr3+SJRetX0v8ZSy2ruCf89GikhKEt9/33jLp7MXwb0FU4vi3rOvJOIfBaiL1fe7dddxnvsq+DY0S/0d+vM/XviUs3CJMsly6/FiLmQxUhL6BSojSrlpWTW0GT5oX5qs3CBy9paB4N33MUsjCUURe4WP1eFJD9jKNF1uD2npkCjEvf3CHCX4wnjieCmLK3J5Vhnm7s/DbwPKdRTxguHXyTEpwyoyFfIK2LbOAdkhDfqw/cMOlJFubyclAaT1wB89WSBrCNa5esjOiFZaEAqV2VG7hu7RohkcGt85jD/DqnkVlP1MlAk/+W7zf7Y0r6SVSfs3qQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YVnL8hFNETBRO2zgn3n1hUXK1AMH68s77ynzaZoOt+4=;
- b=3QFwlV+bhQVw4bEwA4CDothvtX1WdV/t/S7RCgKILFTkcA6bdFrfvgmnRYUtwf/g+awTNu7q6OSKV/9RP5W1Q6nu+VyEFx5+4Yc/h13RlkLr8nWKCv5AUwPCCuwlynO+36mSOCXbZLM7NbNRqWLlhgYuhQGH1YUJdyGCk0BMu0E=
-Received: from BL1PR13CA0155.namprd13.prod.outlook.com (2603:10b6:208:2bd::10)
- by DS0PR12MB8813.namprd12.prod.outlook.com (2603:10b6:8:14e::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Mon, 27 Apr
- 2026 16:27:11 +0000
-Received: from BN2PEPF000044AC.namprd04.prod.outlook.com
- (2603:10b6:208:2bd:cafe::7a) by BL1PR13CA0155.outlook.office365.com
- (2603:10b6:208:2bd::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.26 via Frontend Transport; Mon,
- 27 Apr 2026 16:27:11 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN2PEPF000044AC.mail.protection.outlook.com (10.167.243.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Mon, 27 Apr 2026 16:27:11 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 27 Apr
- 2026 11:27:10 -0500
-Received: from xsjblevinsk51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 27 Apr 2026 11:27:09 -0500
-From: Ben Levinsky <ben.levinsky@amd.com>
-To: <andersson@kernel.org>, <mathieu.poirier@linaro.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<linux-remoteproc@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <michal.simek@amd.com>, <tanmay.shah@amd.com>, <ben.levinsky@amd.com>
-Subject: [PATCH v2 2/2] remoteproc: add AMD BRAM-based remote processor driver
-Date: Mon, 27 Apr 2026 09:27:03 -0700
-Message-ID: <20260427162703.1644103-3-ben.levinsky@amd.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Z+1Jmvjw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P+EZymF0"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63RC5ajM2006188
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 17:05:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=0STSTfIUJw33bLSHMvbgvTD8SvlnnlxK6m1
+	VbziWVaU=; b=Z+1JmvjwNgkQ30b/3P/sGwOmJ2/Fq+tzD4s1/Sczg+aDNq8IScs
+	vDyI7t3znUUkWS1d+a67Jf39ofN4rf22U9JbH2vc/oO1mdPOJulbPn8qKxkXKj7U
+	t0WWdPpuu4ItnKuVbOQzMXrZMOK3pZdSAx6c9+XdRV/gxD7nbUgRFa4IQOdecshL
+	D40adoLjGadSgRi5L4mzuGLSJVfJSzefybi34lrPLa0MoO+q3UGcxcAZnCqj9lKs
+	bdgtLAknzg6CnanGoi2OMS6vMXKXxdzcasy5lDRafYsWDr9HRQNnBz6sZ3fXqUFD
+	mAIA0Z9jK87l8RBvtJ7skDBuqwmXpOrULNg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dt7gkh4bu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 17:05:12 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3586513febcso4610241a91.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:05:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1777309511; x=1777914311; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0STSTfIUJw33bLSHMvbgvTD8SvlnnlxK6m1VbziWVaU=;
+        b=P+EZymF0pPnnh+vH96Ao+N1bMLYS8pDcy4B0HbY+PdmG4orDqR8wZbVbe82ntEqr13
+         yqoQ9jal3KqS4r5WRzVEswr2sY4D3FWakJZYljzmf8z7y+ciySFywOd4JEZ/5+naWZue
+         2yiCww25QQevkmqD5DU5TnobGxqAFHpMQcJReVbqflzsx934/m9AdsB5HEsgShoIdQJy
+         499VU2bixXc0IjG/U1iZbQdizOFcaS4kKvedcjMl2z/+DS9TooxhqAFpVLd+YFCb/R67
+         3WtCHUJ1Oiss0i4jipCCglF98Mn0xG0jP/7I6kimUMphCxYvANnVgfgLUIeD46RDGJWq
+         qC5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777309511; x=1777914311;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0STSTfIUJw33bLSHMvbgvTD8SvlnnlxK6m1VbziWVaU=;
+        b=qXWqmbL4DGKOIes4NZ//Ke2BePaYXm3vE9Ddzo4v2pw68SnBqgPKxxQeyn4xaePkKe
+         CUY79AfE1u5oik45i926PYUOe9S2hn6R5vWfasO+hBh+8kg4a7lUiA6PYlhkttR0xt0o
+         zjuqtktfHDDJhAmROvfCCYOZQapzIYReh785Lzjz0XnYo4R+g4QO0FKdvmWIaMUVJjlC
+         PGi4iDb6BeiAQ2dXxvy8x5313Wo88KEDTLJdMvg2y3dT8NM/ZX/YbIMAUpdsWl0S8dbY
+         5cpS0F5JaDQMbghaIrJ8DogDpfuvwZS6N/ZgrAtvcyBUxhPZAL/Xx122jgUoHETcIiIJ
+         Wxxw==
+X-Forwarded-Encrypted: i=1; AFNElJ9qfDeiYX6EKVnyiU/K3yuqGi4RiqqNnps6Dw3ihrj0SnvsI8uBUIwYr9KiIuv+pCKPlxFA4ibbR18P@vger.kernel.org
+X-Gm-Message-State: AOJu0YxBmPF28C9c34V22/D1fuNT5bk6vL5W+gUfZ+3OeNBTdjGvfKgS
+	mmDlBqrYHRxchtoh3WaLEAveuWY2bS7lpqDciPAj45HIG+CIeDlBJfaB9GC3Jf5jmzpAMSU1XAr
+	/tYWlm3POeWkINvreEZMZEW4rHP5A8tR/cZWF5I4Bio5lBiartKznyuEq6EHZc73L
+X-Gm-Gg: AeBDietjAGQzYzyQMJoKPbK/WjpKM1wpIndZhQ5hsHKmNExmOlUI4P/HXSp3+oGen5D
+	VGkS7EsvwRzRBF4WPwsGW+Bc6AM0fglTj5gq4d0dS61EdcoeKCVl5uHS22DqH6IYMZngipFe83J
+	sU4gkZYwvuO063VcCl8IBJueARkeBo+A3NcW+ZvVqj0csgNMeWWjHbvrtNu0sHhbS/WhPd7Nx3O
+	/OdqQPEQPMRtA41g/MgtLt3gtz3cqMw0o+HTybK82k3tN4/47FiWpPOlzabqed9r3hqhiRj0EWc
+	k9wqnfMJglaa5NRchWZbbMYVxaVJP0w0EH5kF30olI2auqoyRpI6qth7R0F1rvlzIuN3c0dgEqC
+	hDUoQ/p2jrGpmR8bXGVHk7pOy6r/nNoUCUYvmxU4c334nOCWM3eWVUoS4SkPjGY4=
+X-Received: by 2002:a17:90b:224c:b0:362:bc8a:9c1a with SMTP id 98e67ed59e1d1-362bc8a9d80mr16809742a91.8.1777309511281;
+        Mon, 27 Apr 2026 10:05:11 -0700 (PDT)
+X-Received: by 2002:a17:90b:224c:b0:362:bc8a:9c1a with SMTP id 98e67ed59e1d1-362bc8a9d80mr16809697a91.8.1777309510623;
+        Mon, 27 Apr 2026 10:05:10 -0700 (PDT)
+Received: from hu-uchheda-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36490025d98sm99313a91.4.2026.04.27.10.05.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Apr 2026 10:05:10 -0700 (PDT)
+From: Umang Chheda <umang.chheda@oss.qualcomm.com>
+To: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, richardcochran@gmail.com
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, umang.chheda@oss.qualcomm.com
+Subject: [PATCH v4 0/4] arm64: dts: qcom: Introduce support for monaco-ac-evk
+Date: Mon, 27 Apr 2026 22:35:01 +0530
+Message-Id: <20260427170505.1494703-1-umang.chheda@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260427162703.1644103-1-ben.levinsky@amd.com>
-References: <20260427162703.1644103-1-ben.levinsky@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -77,367 +91,85 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044AC:EE_|DS0PR12MB8813:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0ce62062-6101-4d0a-0928-08dea479d576
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	1TUvTDtsiM7tlLXiGq+HRElmKEX0rYq63oOWSiNbo0VoRF9vnSnOjxKFVT2dG2LAE1UiEHubXifJWOD94+sUIA97PKGY1bzjp3hPr3JuAbywvxX63ENFhE/YJMkk/drEVLayXJmEdrqvtkAumX+jsuVAsfLUEMlZpyL1IobuvB8bVH4ufcyKLsuDzvJXmS1uPZ6uoiJFkTaY547E4sd+4MVczvrPZ5p8QYLtCa+uXrtUAuY+Cvh7gIzt/txissse5by23P6GQifKIyfI3AOXo1PHzRQbNK4s0IUhDlBi5vdlOkdCb4Drd5mL0zBVtWjOFVUBrCn4W5dOodvgohZUtczmowpv1ILv3ohMouJN8wvg/U69LsBjQ2BrMIqyJ5guThoB6KewdHHR31Is4Bgo8dFGtJ/FChDnCoro/el1BYzRDkL47KFFUpaw0x1wyV8tR7YryGeZmQH+lcHY2kZ9CSo/FhYboA12wfO/yD+N3ZHYhkJ5VEK2+LTFdFWpfi7d1qlPEL2JURmxx8WLwZdlovbgkSfArUwWt1fgw57YiS1e3ySDk6cyzPXnit2NyVOcVnxmQ77AXWhicCdo6LQCeJTy4Ie3RnZYj7RIl9LtLMBS1XJPE5GNgTgTHZshZw1heWcS19FiUYtGdo1V7yYq8lJjvu8CXMYHd0C7hE5+nAK0IgG3PL46xaS9gl3Ypf18Fl8ZeC9hGpZJyxYHs1uYFsi9s2CKZaAfTRYNG2QYzkK+Vm/PHMcBembz2F8zUv4Ptf8ln0k/fRp396+qFkbT8g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	1nOc+W/q2MqWxk00pUPBGHvF+fNW9xJJDG8r+W4YrBhwFKy/ezczxQ4s59ZnVf9xOPX19j26RyTLIeUQDt0/4iUnb4QTUYMNwz7cT4mF61tJye7/8/yEgvsQ74TRnmnUc7OdL6ye78ew0Cn1J/MOGlcS/NUnSb96en5Aj/0kwB3v5zeX0S/A/We9vV0sbkfLz5shh1cdQCdVHP6E8MlUx3fYYPn7lzUmoCaYmm+eAS9eVitTT3CxmYjo/gEuusPOJmznz5ua05Pp99nmsPW/DTdB2mpn07UvV/nTgyByrssaZoL7UaOm15YqP9V9wOum6Ss7/bmpAoCHj6sN5D6iBTjaiLg6oDH5OYASR4WWaXVrPDIQ4oL9lKnAO7m8egS7mqfqbrBm1eRRznbcQN6Bw2T1IWZSoxRK4eedc+kjERDnL5v5NH4z38aZ4DMrss3g
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 16:27:11.2041
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ce62062-6101-4d0a-0928-08dea479d576
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000044AC.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8813
+X-Proofpoint-GUID: 5rqlu0ghrgcJ5y9UoRgAmcQAwF4JWl0D
+X-Proofpoint-ORIG-GUID: 5rqlu0ghrgcJ5y9UoRgAmcQAwF4JWl0D
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDE4MSBTYWx0ZWRfXyV/K4g4svd+L
+ 1vLNtmRqdWk9lnjCnqAtP67Vua8eK0lyJGw3TbQUW3g2P9Srwj8jL9ZE7EYFE3tPvKsZGSE39VY
+ WmfIoP94TYJSAAyUioHm595QACwjxWTYCbY7Q28bq3HoEkegYfMJBaJLcGArXIe+MCMi7MEpyGq
+ zL3O6gyqqkEb995DQVol1au0yd4XG6f4Rw0VjyE2wQUSj8ocld8s9hSatQDDtxjr02lodMykwlF
+ RKFolozjmYQl4rLx0XWlDfdnE0Drjza1TBWCnIsAGIOAfioQNINBvMjOqu9+gKDDqjbv6SuLLhU
+ cMPJTH7QEMJZxgBv9tVsCIxv/yB8+PsZ5wmWkKoIjVKxlgFuVDv/CKzXn9uzXAAKOgS8dWiVS4r
+ FylWr4ZzOIxupC88EEPiGVCFBY6a59PYPzYJo4aIGiyakkLHg+w8WAvj6R7A/ELC9l1bW9XuwGj
+ DjBmPr9W5Iy9CoU8s4w==
+X-Authority-Analysis: v=2.4 cv=bJsm5v+Z c=1 sm=1 tr=0 ts=69ef9748 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=Li8ycNgQwKCU7nWBN7QA:9
+ a=mQ_c8vxmzFEMiUWkPHU9:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-27_04,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 adultscore=0 suspectscore=0 malwarescore=0
+ spamscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270181
 
-Add a remoteproc driver for AMD soft-core processor subsystems
-instantiated in programmable logic and using dual-port BRAM for
-firmware storage and execution.
+Add support for Qualcomm's monaco-ac Evaluation Kit (EVK) without
+safety monitoring feature of Safety Island(SAIL) subsystem.
+This board is based on Qualcomm's QCS8300-AC variant SoC.
 
-The driver parses the firmware memory window from the remoteproc device
-node's reg property, interprets that address and size in the
-processor-local address space, and then uses standard devicetree
-address translation through the parent bus ranges property to obtain
-the corresponding Linux-visible system physical address.
+Monaco-ac EVK board is a single board computer (SBC) that supports various
+industrial applications, including factory automation, industrial
+robots, drones, edge AI boxes, machine vision, autonomous mobile
+robots (AMRs), and industrial gateways.
 
-The resulting translated region is registered as the executable
-remoteproc carveout and coredump segment.
+Compared to Monaco EVK (monaco-aa):
+  - monaco-ac delivers 20 TOPS of NPU performance vs 40 TOPS on
+    monaco-aa variant.
+  - The power delivery network is simplified from a 4-PMIC arrangement
+    (2x PM8654AU + Maxim MAX20018 + TI TPS6594) to 2 PMICs(2x PM8654AU)
 
-The processor is controlled through an active-low reset GPIO and a
-subsystem clock. The clock is enabled before reset is released, and the
-processor is kept in reset until firmware loading completes.
+Since the two boards share the vast majority of their device tree, this
+series first refactors monaco-evk.dts to extract the common hardware
+description into monaco-evk-common.dtsi, then introduces monaco-ac-evk.dts.
 
-The firmware-name property is optional, allowing the firmware image to
-be assigned later. Firmware images without a resource table are also
-accepted.
+Also, monaco-ac-evk board supports monaco-evk-ifp-mezzanine attach, Add
+support for combined dtb "monaco-ac-evk-ifp-mezzanine" as well, which
+overlays monaco-evk-ifp-mezzanine on top of monaco-ac-evk DT.
 
-Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
+Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
 ---
- MAINTAINERS                         |   7 +
- drivers/remoteproc/Kconfig          |  14 ++
- drivers/remoteproc/Makefile         |   1 +
- drivers/remoteproc/amd_bram_rproc.c | 243 ++++++++++++++++++++++++++++
- 4 files changed, 265 insertions(+)
- create mode 100644 drivers/remoteproc/amd_bram_rproc.c
+Changes in v4:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c871acf2179c..172539971950 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1037,6 +1037,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/w1/amd,axi-1wire-host.yaml
- F:	drivers/w1/masters/amd_axi_w1.c
- 
-+AMD BRAM REMOTEPROC DRIVER
-+M:	Ben Levinsky <ben.levinsky@amd.com>
-+L:	linux-remoteproc@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
-+F:	drivers/remoteproc/amd_bram_rproc.c
-+
- AMD CDX BUS DRIVER
- M:	Nipun Gupta <nipun.gupta@amd.com>
- M:	Nikhil Agarwal <nikhil.agarwal@amd.com>
-diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
-index ee54436fea5a..9a2a887ede8a 100644
---- a/drivers/remoteproc/Kconfig
-+++ b/drivers/remoteproc/Kconfig
-@@ -23,6 +23,20 @@ config REMOTEPROC_CDEV
- 
- 	  It's safe to say N if you don't want to use this interface.
- 
-+config AMD_BRAM_REMOTEPROC
-+	tristate "AMD BRAM-based remoteproc support"
-+	depends on OF && COMMON_CLK && (GPIOLIB || COMPILE_TEST)
-+	help
-+	  Say y or m here to support a BRAM-based remote processor managed
-+	  through the remoteproc framework.
-+
-+	  This driver matches designs where executable firmware memory is
-+	  described in the BRAM-local address space and translated to
-+	  the system physical address space with standard devicetree address
-+	  translation.
-+
-+	  If unsure, say N.
-+
- config IMX_REMOTEPROC
- 	tristate "i.MX remoteproc support"
- 	depends on ARCH_MXC
-diff --git a/drivers/remoteproc/Makefile b/drivers/remoteproc/Makefile
-index 1c7598b8475d..5c39664b50c3 100644
---- a/drivers/remoteproc/Makefile
-+++ b/drivers/remoteproc/Makefile
-@@ -11,6 +11,7 @@ remoteproc-y				+= remoteproc_sysfs.o
- remoteproc-y				+= remoteproc_virtio.o
- remoteproc-y				+= remoteproc_elf_loader.o
- obj-$(CONFIG_REMOTEPROC_CDEV)		+= remoteproc_cdev.o
-+obj-$(CONFIG_AMD_BRAM_REMOTEPROC)	+= amd_bram_rproc.o
- obj-$(CONFIG_IMX_REMOTEPROC)		+= imx_rproc.o
- obj-$(CONFIG_IMX_DSP_REMOTEPROC)	+= imx_dsp_rproc.o
- obj-$(CONFIG_INGENIC_VPU_RPROC)		+= ingenic_rproc.o
-diff --git a/drivers/remoteproc/amd_bram_rproc.c b/drivers/remoteproc/amd_bram_rproc.c
-new file mode 100644
-index 000000000000..aa346b80e84c
---- /dev/null
-+++ b/drivers/remoteproc/amd_bram_rproc.c
-@@ -0,0 +1,243 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * AMD BRAM-based Remote Processor driver
-+ *
-+ * Copyright (C) 2026 Advanced Micro Devices, Inc.
-+ *
-+ * This driver supports soft-core processors (MicroBlaze, MicroBlaze-V, or
-+ * similar) instantiated in AMD programmable logic, using dual-port BRAM
-+ * for firmware storage and execution.
-+ *
-+ * The firmware memory (BRAM) is described in the processor-local address
-+ * space and translated to the Linux-visible system physical address with
-+ * standard devicetree address translation.
-+ *
-+ * Reset is controlled via GPIO connected to Processor System Reset IP.
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_address.h>
-+#include <linux/platform_device.h>
-+#include <linux/remoteproc.h>
-+
-+#include "remoteproc_internal.h"
-+
-+/**
-+ * struct amd_bram_rproc - AMD BRAM-based remoteproc private data
-+ * @dev: device pointer
-+ * @reset: GPIO descriptor for reset control (active-low)
-+ * @clk: processor clock
-+ */
-+struct amd_bram_rproc {
-+	struct device *dev;
-+	struct gpio_desc *reset;
-+	struct clk *clk;
-+};
-+
-+static int amd_bram_rproc_mem_map(struct rproc *rproc,
-+				  struct rproc_mem_entry *mem)
-+{
-+	void __iomem *va;
-+
-+	va = ioremap_wc(mem->dma, mem->len);
-+	if (!va)
-+		return -ENOMEM;
-+
-+	mem->va = (__force void *)va;
-+	mem->is_iomem = true;
-+
-+	return 0;
-+}
-+
-+static int amd_bram_rproc_mem_unmap(struct rproc *rproc,
-+				    struct rproc_mem_entry *mem)
-+{
-+	iounmap((void __iomem *)mem->va);
-+
-+	return 0;
-+}
-+
-+static int amd_bram_rproc_prepare(struct rproc *rproc)
-+{
-+	struct amd_bram_rproc *priv = rproc->priv;
-+	struct rproc_mem_entry *mem;
-+	struct resource res;
-+	u64 da, size;
-+	int ret;
-+
-+	ret = of_property_read_reg(priv->dev->of_node, 0, &da, &size);
-+	if (ret) {
-+		dev_err(priv->dev, "failed to parse executable memory reg\n");
-+		return ret;
-+	}
-+
-+	if (!size || size > U32_MAX) {
-+		dev_err(priv->dev, "invalid executable memory size\n");
-+		return -EINVAL;
-+	}
-+
-+	if (da > U32_MAX) {
-+		dev_err(priv->dev, "invalid executable memory address\n");
-+		return -EINVAL;
-+	}
-+
-+	ret = of_address_to_resource(priv->dev->of_node, 0, &res);
-+	if (ret) {
-+		dev_err(priv->dev, "failed to translate executable memory reg\n");
-+		return ret;
-+	}
-+
-+	mem = rproc_mem_entry_init(priv->dev, NULL, (dma_addr_t)res.start,
-+				   (size_t)size, da,
-+				   amd_bram_rproc_mem_map,
-+				   amd_bram_rproc_mem_unmap,
-+				   dev_name(priv->dev));
-+	if (!mem)
-+		return -ENOMEM;
-+
-+	rproc_add_carveout(rproc, mem);
-+	rproc_coredump_add_segment(rproc, da, (size_t)size);
-+
-+	return 0;
-+}
-+
-+static int amd_bram_rproc_start(struct rproc *rproc)
-+{
-+	struct amd_bram_rproc *priv = rproc->priv;
-+	int ret;
-+
-+	/* Enable clock before releasing reset */
-+	ret = clk_prepare_enable(priv->clk);
-+	if (ret) {
-+		dev_err(priv->dev, "failed to enable clock: %d\n", ret);
-+		return ret;
-+	}
-+
-+	/* Deassert reset and let the processor run. */
-+	ret = gpiod_set_value_cansleep(priv->reset, 0);
-+	if (ret) {
-+		dev_err(priv->dev, "failed to deassert reset: %d\n", ret);
-+		clk_disable_unprepare(priv->clk);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int amd_bram_rproc_stop(struct rproc *rproc)
-+{
-+	struct amd_bram_rproc *priv = rproc->priv;
-+	int ret;
-+
-+	/* Assert reset before disabling the processor clock. */
-+	ret = gpiod_set_value_cansleep(priv->reset, 1);
-+	if (ret) {
-+		dev_err(priv->dev, "failed to assert reset: %d\n", ret);
-+		return ret;
-+	}
-+
-+	/* Disable clock after asserting reset */
-+	clk_disable_unprepare(priv->clk);
-+
-+	return 0;
-+}
-+
-+static int amd_bram_rproc_parse_fw(struct rproc *rproc,
-+				   const struct firmware *fw)
-+{
-+	int ret;
-+
-+	ret = rproc_elf_load_rsc_table(rproc, fw);
-+	if (ret == -EINVAL) {
-+		dev_dbg(&rproc->dev, "no resource table found\n");
-+		return 0;
-+	}
-+
-+	return ret;
-+}
-+
-+static const struct rproc_ops amd_bram_rproc_ops = {
-+	.prepare	= amd_bram_rproc_prepare,
-+	.start		= amd_bram_rproc_start,
-+	.stop		= amd_bram_rproc_stop,
-+	.load		= rproc_elf_load_segments,
-+	.sanity_check	= rproc_elf_sanity_check,
-+	.get_boot_addr	= rproc_elf_get_boot_addr,
-+	.parse_fw	= amd_bram_rproc_parse_fw,
-+};
-+
-+static int amd_bram_rproc_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct amd_bram_rproc *priv;
-+	const char *fw_name = NULL;
-+	struct rproc *rproc;
-+	int ret;
-+
-+	ret = rproc_of_parse_firmware(dev, 0, &fw_name);
-+	if (ret < 0 && ret != -EINVAL)
-+		return dev_err_probe(dev, ret,
-+				     "failed to parse firmware-name property\n");
-+
-+	rproc = devm_rproc_alloc(dev, dev_name(dev), &amd_bram_rproc_ops,
-+				 fw_name, sizeof(*priv));
-+	if (!rproc)
-+		return -ENOMEM;
-+
-+	priv = rproc->priv;
-+	priv->dev = dev;
-+
-+	/* Get the processor clock */
-+	priv->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(priv->clk))
-+		return dev_err_probe(dev, PTR_ERR(priv->clk),
-+				     "failed to get clock\n");
-+
-+	/*
-+	 * Keep the processor in reset until remoteproc has finished loading
-+	 * firmware into the executable memory window described by reg and
-+	 * translated through the parent bus ranges property.
-+	 */
-+	priv->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(priv->reset))
-+		return dev_err_probe(dev, PTR_ERR(priv->reset),
-+				     "failed to get reset gpio\n");
-+
-+	rproc->auto_boot = false;
-+
-+	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to set DMA mask\n");
-+
-+	platform_set_drvdata(pdev, rproc);
-+
-+	ret = devm_rproc_add(dev, rproc);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to register rproc\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id amd_bram_rproc_of_match[] = {
-+	{ .compatible = "amd,bram-rproc" },
-+	{ /* sentinel */ },
-+};
-+MODULE_DEVICE_TABLE(of, amd_bram_rproc_of_match);
-+
-+static struct platform_driver amd_bram_rproc_driver = {
-+	.probe = amd_bram_rproc_probe,
-+	.driver = {
-+		.name = "amd-bram-rproc",
-+		.of_match_table = amd_bram_rproc_of_match,
-+	},
-+};
-+module_platform_driver(amd_bram_rproc_driver);
-+
-+MODULE_DESCRIPTION("AMD BRAM-based Remote Processor driver");
-+MODULE_AUTHOR("Ben Levinsky <ben.levinsky@amd.com>");
-+MODULE_LICENSE("GPL");
--- 
+- Add support for combined DTB "monaco-ac-evk-ifp-mezzanine" which
+  overlays monaco-evk-ifp-mezzanine DTBO on top of monaco-ac-evk DT.
+- Link to v3: https://lore.kernel.org/lkml/20260413114819.3894307-1-umang.chheda@oss.qualcomm.com/
+
+Changes in v2:
+- Drop keyword "sku" from the compatible string of board bindings
+  - Krzysztof.
+- Wrap commit text of dt-bindings change based on upstream guidelines
+  - Krzysztof.
+- Link to v1: https://patch.msgid.link/20260328-monaco-evk-ac-sku-v1-0-79d166fa5571@oss.qualcomm.com
+
+Umang Chheda (4):
+  arm64: dts: qcom: monaco-evk: Extract common EVK hardware into shared
+    dtsi
+  dt-bindings: arm: qcom: Add monaco-ac-evk support
+  arm64: dts: qcom: monaco: Add monaco-ac EVK board
+  arm64: dts: qcom: monaco-ac-evk: Add IFP mezzanine overlay
+
+ .../devicetree/bindings/arm/qcom.yaml         |   1 +
+ arch/arm64/boot/dts/qcom/Makefile             |   4 +
+ arch/arm64/boot/dts/qcom/monaco-ac-evk.dts    |  31 +
+ .../boot/dts/qcom/monaco-evk-common.dtsi      | 900 ++++++++++++++++++
+ arch/arm64/boot/dts/qcom/monaco-evk.dts       | 894 +----------------
+ 5 files changed, 937 insertions(+), 893 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/monaco-ac-evk.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/monaco-evk-common.dtsi
+
+--
 2.34.1
+
