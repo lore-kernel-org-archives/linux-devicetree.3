@@ -1,46 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA903E3159;
-	Mon, 27 Apr 2026 19:14:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1496A2E414;
+	Mon, 27 Apr 2026 19:14:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777317241; cv=none; b=SJyltE3X3Zot9//ddboisA+FueSgLdRRpYsKnYZJS+ozz34Dtv41zYQD+x+0PvLEoIedrH21lFGE0httx7PUjtMttqKDp56axgvRLGGVyMZy/2OJkAOc/o9yE9cjwkOudQdr28631ZKp+T9bu9krxbkeevR2ABK+j6OWzSRo5Ak=
+	t=1777317298; cv=none; b=Z6/7EC/qTMHHnfZaSIIKg8l6hwXqFNqfs9/mIdBBKQeTpY6JbG/k9+0aNXO8Udn1m1lKIJNzGCJBQsUqZGVA00e06mecN+ZxC5pJPr36SDsl7I8z0b/Th+O4s31BRuwNA33GXtbdGowof7gEOjb43YmKL3ODyT1AIRcmkAmL4Yc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777317241; c=relaxed/simple;
-	bh=FNoY1C0U6boXclOEA8AD1sZ7Ixfc5mVFp0nECyezhGw=;
+	s=arc-20240116; t=1777317298; c=relaxed/simple;
+	bh=PdnuyTvuhoQMGMeBVnQLbG5IqfTvFPutVB/bI+WpAOw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=H37vQ4sJKUfcBmq07mFcQG3Uy2GTlcvvWCFvuCUIBDdj5rwhKFQX0UW+3QpM/s3Lu24p1M04JW84hMSJVKBod3/8YXdYgh86Ucek9/c7wB8EcxyQHNwJXXWg2NYdj4ZHbqt+0PHOMj7YqZjqrmYK2w0pBD1tl3I2TOuVEXA2x9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ifxkMyCU; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=MOwviJV9nTIPVhLhE9xm+xAvedphYaEu+MDnGyKZdjLAUs0ug0hPLqosUgxiRt8t94HvMmqqnG3hFA76tX0XPzZLGhRpWe+XI6HfGrVpoAiW9eY3TY1nDbgoEY/dYnD1oaZr7qImPPRRL+PV41oI+9JSOxPAU3SBG2UhJV3nNoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B8ZAI2pM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ifxkMyCU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58C36C19425;
-	Mon, 27 Apr 2026 19:13:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B8ZAI2pM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 616D0C19425;
+	Mon, 27 Apr 2026 19:14:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777317241;
-	bh=FNoY1C0U6boXclOEA8AD1sZ7Ixfc5mVFp0nECyezhGw=;
+	s=k20201202; t=1777317297;
+	bh=PdnuyTvuhoQMGMeBVnQLbG5IqfTvFPutVB/bI+WpAOw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ifxkMyCUqNLKS7bPGeOXGNZhFevu5edwAj7O1Ig9HeAwR8DnvPJq2EpbkejRmTmok
-	 mBMC/No/dpGsWRMx1KUoMD16UY08744MqqNxtL/58ysOrWLzohcy1m8Bs8Q7iuZLtv
-	 TdyLu4MPqRs0neyfcVmM/bv5XBjFwYM0W7NCQs+B3sNkfjn1C8iuEMIxODF2LOsUbk
-	 g4Dy/3+OnA9QWEMotMjQWjGYZWsjYoUpoFxf/wtY23yJ464yd15do3H/hzVAbG9EoD
-	 tQY2MnZsEZwWHuUIQSYz7rb4VeyMkO2FBFeZ2/nQn73Nfiz/ZgTM2gYIr5IJUZY9Lb
-	 IwqJh+B7L7K1Q==
+	b=B8ZAI2pMW/5vuMO0eg2as3bzLndbw80bRRuTBzEWC+xrIPfSh7bSGwyYZ3Mr755oV
+	 4Hw7xQYBsQI38cnWWDMjX82epPl1HajS9Vr4fCigkrSS7GBs/DENYlMNZEuK1ZeeKI
+	 fR3BuEH6GRZAbUUqQ7toEfn5kd5G/52nIATFlJbEyZgWM+w2kK9kdcwbaCaxXaSJIY
+	 iyq4MU7ynSq7KJcZI9VX+BONqCBFXWK3cuA6SkKXUhHJbnU//Sf5ByL5F5Pz50Iz2s
+	 SPI/aodPsGbfVwcmgBslMDYsTYeT+JS//wdtJChEZ3IQQjS/5du+ahPU5vAzmtn3dQ
+	 YJHM2vNdtl1Cw==
 From: Conor Dooley <conor@kernel.org>
-To: linux-riscv@lists.infradead.org,
-	Conor Dooley <conor@kernel.org>
-Cc: Conor Dooley <conor.dooley@microchip.com>,
-	Daire McNamara <daire.mcnamara@microchip.com>,
+To: Emil Renner Berthing <kernel@esmil.dk>,
+	Conor Dooley <conor@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	linux-riscv@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] riscv: dts: microchip: fix icicle i2c pinctrl configuration
-Date: Mon, 27 Apr 2026 20:13:54 +0100
-Message-ID: <20260427-ambulance-mushy-f159dd1abcec@spud>
+Subject: Re: [PATCH] riscv: dts: starfive: jh7110: Drop CAMSS node
+Date: Mon, 27 Apr 2026 20:14:22 +0100
+Message-ID: <20260427-coherent-slimness-133d28f2cba0@spud>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260420-blinking-unselect-955dfecfa26c@spud>
-References: <20260420-blinking-unselect-955dfecfa26c@spud>
+In-Reply-To: <20260420-starfive_camss_use-v1-1-ec326af71ca7@ideasonboard.com>
+References: <20260420-starfive_camss_use-v1-1-ec326af71ca7@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,32 +58,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1070; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=Dg4dywRqTrnpI4j+vS3SL6FZpIx3omqFNmOsxnBKuXQ=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDJnvtxbyy1f8Tjn6r+zwPZPpd3bLXOExcZji+sg45mrah CJzp49WHaUsDGJcDLJiiiyJt/tapNb/cdnh3PMWZg4rE8gQBi5OAZjIdCNGhlepFXKnVwWtua5q VSxYvMhS/W/T6cKj/afWnJl47VB5Rx/Df+evCXc0i9cz1srFvf08YeN743X60eLf9HI5ly9b5Mf CyQYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=501; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=09O818Y59SMVVItRNPa3fOedSa/QBLcndxc5e/T2S+8=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDJnvt/aKbir1fVW7RsAivnfOsR0HWhpeS56w8d1Ze+Fqb TRP2h3hjlIWBjEuBlkxRZbE230tUuv/uOxw7nkLM4eVCWQIAxenAEzkfAQjw4FzJx56ugSEbZp1 Sbz2srxM0OmksglsC/n2t7rEfsrarcDwT5V7k+eX8nX72Qu3XJshwzz5cs65P7+qdk7c0SSsYPv rNysA
 X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
 Content-Transfer-Encoding: 8bit
 
 From: Conor Dooley <conor.dooley@microchip.com>
 
-On Mon, 20 Apr 2026 12:14:31 +0100, Conor Dooley wrote:
-> Unfortunately, an erratum with engineering sample that I was not aware
-> of was exposed by adding pinctrl configuration to the icicle kit.
-> When routed to MSS IOs, i2c signals are never anything other than tied
-> low. Being an FPGA, a Libero workaround for this problem was created,
-> that involves routing i2c signals to the FPGA fabric when the MSS IO
-> option is selected in the configurator and then back to the intended pin
-> using the debug "fabric test" capability. This is invisible to user
-> facing information in the tooling and not mentioned in reference designs
-> documentation. It manifests solely in the .xml output from the MSS
-> configuration that the HSS firmware uses to configure the device, which
-> Linux now overwrites using the pinctrl information. As a result, I never
-> noticed this.
+On Mon, 20 Apr 2026 18:48:07 +0530, Jai Luthra wrote:
+> The starfive-camss driver and bindings were dropped, as they were no
+> longer being worked upon for destaging.
+> 
+> Drop the relevant node as well to avoid the following build warning:
+> "failed to match any schema with compatible: ['starfive,jh7110-camss']"
+> 
 > 
 > [...]
 
-Applied to riscv-dt-fixes, thanks!
+Applied to riscv-dt-fixes, thanks! I did drop the Fixes tag in the end, but
+since this is going on -fixes, your goal with it has been achieved regardless.
 
-[1/1] riscv: dts: microchip: fix icicle i2c pinctrl configuration
-      https://git.kernel.org/conor/c/0df8aa2b9aec
+[1/1] riscv: dts: starfive: jh7110: Drop CAMSS node
+      https://git.kernel.org/conor/c/3e256d4c4074
 
 Thanks,
 Conor.
