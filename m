@@ -1,107 +1,81 @@
-Received: from mail-m49224.qiye.163.com (mail-m49224.qiye.163.com [45.254.49.224])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F840371063;
-	Mon, 27 Apr 2026 06:31:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.224
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B530737104E;
+	Mon, 27 Apr 2026 06:35:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777271492; cv=none; b=FdfzOCUiMP5aYVnO1Pu9LyjzNItZy0qkvX7OIe2IAy+QcjARhdRgAUM88dz/gzvncAdLv61lA2IoVUF/Z9P5CE85NNK+Hqbxca9vzhR1gt7dpBsOjhpR6eZFcif61+1kqngO0wrtVV5A0pKL7WZdA7ooPLwk0C1F86QPeqwXYwA=
+	t=1777271727; cv=none; b=nghQx6tKewAZQ9U4vUB8O0XMeu4yi0Dl4IldpPcBWw3wT4q3UznTnt3xs+HvlWDngxRjdExNF+aqqgPhF280vnu3gfLLbcXBgC+Sv0MlSOXyQCKIdqY8HlEQYGeEuACTAP092bSL4oNTNmsOFUpZc29gyB/2VyAnDbhLYTHbtJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777271492; c=relaxed/simple;
-	bh=qwW76CLWmNRGsuW0SKRXiavxkeIgUMY4k8Ecx+1HzmQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K986hs25+DeJW1gpPj/rLKSiTXkpDg1YWHaEfs2N50px4/CSbEHe+m9kgBH6JT72m9uz/H2k/8g3Odx9tSkhI0tsE1UTmvlB6R2caaB4ucJIDi0f2EUM046ynlAzrbN+sO4nJ6YqxdVsCjpWd8aTG86egiSkVZmQc+Tj2yxQeEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=Kuu5lkdK; arc=none smtp.client-ip=45.254.49.224
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1777271727; c=relaxed/simple;
+	bh=0pyENmb/HQwmaYVpGR5rXZtsc4oxwHYbzRginezGzZA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VFwjOhfnLPy8NBNe3OcSmOuDYud+qijUvaO5Xc56vmBvBQenu6YQ5sQ7vjOZHaaiLL+lKVEfEEBdIIPNpREPqe24XS9gXMP1WL2U17Ko8e+T/8OHbF6F4geBMHLh0m9ePSSW7eN4PVk4BMpiAgeWSh7RBd1lL8+IC4wRs5izX0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BSsyHOTM; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="Kuu5lkdK"
-Received: from albert-OptiPlex-7080.. (unknown [112.65.126.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3c3fc5fce;
-	Mon, 27 Apr 2026 13:56:00 +0800 (GMT+08:00)
-From: Albert Yang <yangzh0906@thundersoft.com>
-To: gordon.ge@bst.ai,
-	krzk@kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	conor+dt@kernel.org,
-	arnd@arndb.de,
-	catalin.marinas@arm.com,
-	will@kernel.org
-Cc: bst-upstream@bstai.top,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v8 2/2] arm64: defconfig: enable BST SDHCI controller
-Date: Mon, 27 Apr 2026 13:55:55 +0800
-Message-ID: <20260427055555.3693459-3-yangzh0906@thundersoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260427055555.3693459-1-yangzh0906@thundersoft.com>
-References: <20260427055555.3693459-1-yangzh0906@thundersoft.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BSsyHOTM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777271726; x=1808807726;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0pyENmb/HQwmaYVpGR5rXZtsc4oxwHYbzRginezGzZA=;
+  b=BSsyHOTMRy/Aq1lFXxEYvf0bjNzbcu4oyOvIklN0CPAoS87U97OOwSsG
+   9gueUz2n8bODydAac6VgChaVYTaFzBgBJpq0mW9lut4rOVXNhptm70Mzh
+   mPOdPQu+JSMvm1Ngq6nr7lR7d+ygsLmCxAb7N1/KlDRJl6nqpH8dqOJoV
+   KIQbRbYSiPa4USZbY0sFudDHcIfdNznrHOgkrxPgRZ6E2iAFtI0NgQdON
+   rk52+f6imuhr6cKrKjHRMZSXcdwO9PDgcXPIphntRMx7vA3D5WLh7ZmAf
+   IWAiqaNfJk8qmUR09S0rWH2Uox5ZashGaajfscKbzkdMqAAaRPxQI1F8O
+   w==;
+X-CSE-ConnectionGUID: EwKrm6SARTmvLhvniX9qbQ==
+X-CSE-MsgGUID: eH5qV53CRdSeV8tYOWOLtw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11768"; a="77176415"
+X-IronPort-AV: E=Sophos;i="6.23,201,1770624000"; 
+   d="scan'208";a="77176415"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Apr 2026 23:35:25 -0700
+X-CSE-ConnectionGUID: SVQM0icQSv60/me0RqDkIg==
+X-CSE-MsgGUID: D3j6rEvBSbWyWkT10b2UoQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,201,1770624000"; 
+   d="scan'208";a="271676692"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.26])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Apr 2026 23:35:23 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 9760611FA44;
+	Mon, 27 Apr 2026 09:35:26 +0300 (EEST)
+Date: Mon, 27 Apr 2026 09:35:26 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Lee Jones <lee@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH v3 0/5] media: lm3560: convert to use OF bindings
+Message-ID: <ae8Drq6IUy_M-jVq@kekkonen.localdomain>
+References: <20260424072230.90354-1-clamor95@gmail.com>
+ <CAPVz0n3osf5=013w7=EhJKNeYmrRNg_JT2s9a9_tKWL_teQm-A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9dcd8248e109cckunme57a9fd319e3fa
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSEsdVkwYSk1MTkxIGBpCHlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSklVTU5VSklNVUpNSVlXWRYaDxIVHRRZQVlPS0hVSk
-	tJT09PSFVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=Kuu5lkdKdKM269xwry/SLvIJKaR5qnrWABY71iKaA6SkihE/22gAeCG8o+RBMkREPGrfdrAeYGITmShVY5Hz3qBxQC6Df1YSaFiCC5L3XxupC8ShQTa9zpdYkNKbsqY3OCYzShmKAVr1FomEq0jIlvMPYIv7ftPsrEo4/KRnlb8=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=zLe/JUqnW5/3GA47FWix+U9BvqXd61kPAp78FpLV5z8=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPVz0n3osf5=013w7=EhJKNeYmrRNg_JT2s9a9_tKWL_teQm-A@mail.gmail.com>
 
-Enable CONFIG_MMC_SDHCI_BST to support eMMC on Black Sesame
-Technologies C1200 boards.
+On Fri, Apr 24, 2026 at 07:14:06PM +0300, Svyatoslav Ryhel wrote:
+> Hello Sakari! May you please not yet pick this patchset if you had
+> such intention. It has a few slight flaws I would like to address in
+> v4 next week. Thank you.
 
-Signed-off-by: Albert Yang <yangzh0906@thundersoft.com>
-Acked-by: Gordon Ge <gordon.ge@bst.ai>
----
-Changes for v8:
-- Collected Acked-by: Gordon Ge <gordon.ge@bst.ai>
-- Rebased onto v7.1-rc1
-- No code changes
+Ack, thanks for the info!
 
-Changes for v7:
-- No code changes; resend with corrected recipients
-
-Changes for v6:
-- Fix CONFIG_MMC_SDHCI_BST ordering to match Kconfig position
-  (between CONFIG_MMC_SDHCI_TEGRA and CONFIG_MMC_SDHCI_F_SDH30)
-  as pointed out by Krzysztof Kozlowski. Confirmed via savedefconfig.
-
-Changes for v5:
-- Split from platform series per Arnd's feedback
-
-Changes for v4:
-- Move CONFIG_MMC_SDHCI_BST before CONFIG_MMC_SDHCI_F_SDH30
-
-Changes for v3:
-- Split from arm64: dts patch
-
-Changes for v2:
-- Initial defconfig change included in DTS patch
----
- arch/arm64/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index d905a0777f93..304e12c80af9 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -1292,6 +1292,7 @@ CONFIG_MMC_SDHCI_OF_SPARX5=y
- CONFIG_MMC_SDHCI_CADENCE=y
- CONFIG_MMC_SDHCI_ESDHC_IMX=y
- CONFIG_MMC_SDHCI_TEGRA=y
-+CONFIG_MMC_SDHCI_BST=y
- CONFIG_MMC_SDHCI_F_SDH30=y
- CONFIG_MMC_MESON_GX=y
- CONFIG_MMC_SDHCI_MSM=y
 -- 
-2.43.0
-
+Sakari Ailus
