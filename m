@@ -1,193 +1,81 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E3839A7F9
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 11:25:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9463B8D58;
+	Mon, 27 Apr 2026 11:28:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777289132; cv=none; b=EIUNxa4raIocLlGSNpVyX4VzYqCmushsuyRnSCAQofwHQ+FVvaAMtTwia+t1AtAy5mPrHmA5n86mR1K/AjwMSIrv69ht/H/IuIn+6Qc3L2J46c7SnXYRPFNXUD2CiaKE++R8Fg4NlMODbYcuCF+cUdYYBvfOUkEOThcHeYHMbgg=
+	t=1777289329; cv=none; b=rboEW9M5uBgTuFUEfVQdQM1FQRxlSSskUMa3OCwq48e/cBNS5sSaSK3dOXtwSaHNfI9CjQKr+3mqOdCOrsF3wFNx+sBb+9jBrjRnwub11PHEa7zDjVAG/i0IvIwInzBRAJfUkK8Bo/Wqusu7w2HY8nxnJpLOuEan9weunXg1e5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777289132; c=relaxed/simple;
-	bh=36ylXDXSIJmKrupKE39SKH2uABtoGcwA1RY3pukZQYQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gQ0FuYeGg+ROkLII2Skd/gPzfCpTTQnJ5lKxREQ1yzYgQtKH+p/6PLZq6P2tP6Oq6NDtPg9NSTTpmx7impc4O8NlVRmSzE/J/gKCqscFZjmVmIVTfWgI60rXY45S9mbpoVD9jWFl6Sp47qBM97jGeeRm0Y7OOQXPsfAFtMU7K/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=BvLZvC18; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
+	s=arc-20240116; t=1777289329; c=relaxed/simple;
+	bh=aKwNjt53lo5/NgoBL0pDnhoHYvwnxyOpOxm+WJsPP9w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MkZbhvSr17fbgXyK1Dpny8sJ2E+TSjVMRoGfjaXnozrUBEIaPdXe2OIAg/gRW650CnLKdYWtSBNZMXP+DCh2XQHfMxE9uMZ9nhLE2uKRhmWJohGTBDNy4xHaU4lmXIkOg89xTyhVenUWIyAdIgBZUKaWKOXhaxnKkM6pK9JPg50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lRS3yNwF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="BvLZvC18"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4411e1eba51so6812429f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 04:25:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=imd-tec.com; s=google; t=1777289128; x=1777893928; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=NQu+gLeRF62Qtcp0mVuCqBaFzWftxOyfVqPR71FypOY=;
-        b=BvLZvC18CYxRMec2L3AL8UwJUApTHn1BT74V0uB8GpPZTCTtNVm5dmMUPWj5bqDKc7
-         lk7aWzINXP7qqQfaPo4umaToT/1WMr1ZOlTRTnqO9FLm4ICyPtgXOrzJKk3ycih+crqg
-         1e9acxYVhtq/6DY1LG0I8HH5V6caNjcmetlbwUb+YC55qQ3Qd+YAORxpK5DLCOUOAFvE
-         3LrIrpMonEvinbwV+sjwtEn2xO53aaUpeRoBFZ+okFs+jjVxFBU7I0b/spyNqnhQy1lK
-         O89zuEeh4D25GtVE63uIM6KXEa+fL+McoEsr8glHiYjxMLu/Ach+P+Sl0Aju0EyAamr7
-         1THw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777289128; x=1777893928;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NQu+gLeRF62Qtcp0mVuCqBaFzWftxOyfVqPR71FypOY=;
-        b=hg5B/cIyyrKv0Cp2P+Hk+VCoBNibhtG+90KxVX5WuvIcAf6Y2ZSQHm7yJVgFvTsG6C
-         LfvNin08xkFIXn3Cp5c4XSgmVvZ2+w7cm4SUzS1KroLFOe5Fwz9a7qP9xCreQ1TOGzrU
-         Jh0WEWMpzez67yJj0hY76ViKlUSgIDAUVzUlKKfsuV8IjqB+rClgEOpW7Kf8T8+kPWTx
-         TzzmYDcFov5X0my10aHNBuTuch255HGubjZJC//7qY/+qdsABzedKc5iO/Bzh6R/RoRP
-         U6BFZ7wiWfz4sV1AQUY9hL9hDsm0FTvTvRCWAd8Lgz19Mw0HyxEUHQ+trTQZXyhPfJ88
-         Hixg==
-X-Forwarded-Encrypted: i=1; AFNElJ9NslubuZfUvOijXbBZzy/2dDle50uwwRR7lUF2nsmceU4LPEuvgoZA2/0o5+qJhxgsOwcPxWRHBPYX@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0wip9JhtJ7JOEo/urdyclB8QZo4NZ6s0MEvbcfYjgbVstiSjz
-	YwTYLe6YzfW9douSbLMN+avpAlgxBBd7cZuT8RZ/fWq1c+zsS0E6fxSV7Ta/SuBSEKQ=
-X-Gm-Gg: AeBDietwoJhC0Wsfpj4Nnu0R/HSU9O52X7/9Cr+GnDcm2ujEuRR9LJDJhGCvBFyQid2
-	qe8/mizv7FXMCPcOs2PIsilalWjL20BbkQTQrVGv6fD9E5iXHI2qgrujqEdea2F23ZtwkvZMiEK
-	eY+bYD67bYSjCMBGB/AAgIMmlJZ+BlCNtuMLXB//6uoiGnNonPRt1a7tOnH+o3wW0yOMFT5vjdd
-	WJSgwULSiyjHdloTDnwlzUFqGrdAVy8yVpQjogz6xnyodg1zluAGqx2Vv8rpjrt613Lz30HQwzM
-	/aT4rfkQPvhal7rUWpJTxT4WvqGWdPx3xUA773L4KzTNJsiVp3m4+f+VUp5QyIXIvZ7j/P/KAZI
-	QaILqOVASBYq3/R5wB4rKBJbLaP91Zi0chDJhL9P2FkyzIxTAt2eoOXAKGbV/rs6HzOXRcCjeGa
-	kNYdRwj9pweZCQz21DRT4wcuyUslDklYIfqzZbDHLDQGKrRpYLlradZkdSDTxf59gLO48YesR33
-	9apvBrag8SYrXCD/RHTja8DYxcMx5vgw+JlYVf0
-X-Received: by 2002:a05:6000:2212:b0:43d:68dc:9ca6 with SMTP id ffacd0b85a97d-43fe3dc7b4bmr63708040f8f.18.1777289127740;
-        Mon, 27 Apr 2026 04:25:27 -0700 (PDT)
-Received: from [127.0.1.1] ([82.71.135.85])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e3a7b4sm74459748f8f.22.2026.04.27.04.25.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Apr 2026 04:25:27 -0700 (PDT)
-From: William Bright <william.bright@imd-tec.com>
-Date: Mon, 27 Apr 2026 12:24:51 +0100
-Subject: [PATCH v2] arm64: dts: qcom: sm8550: add SDHC4 controller node
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lRS3yNwF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2598C2BCB4;
+	Mon, 27 Apr 2026 11:28:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777289329;
+	bh=aKwNjt53lo5/NgoBL0pDnhoHYvwnxyOpOxm+WJsPP9w=;
+	h=From:To:Cc:Subject:Date:From;
+	b=lRS3yNwFzWBIpclmbzOo5eBBvRCcYsSy0AhQwSOLIwzenjHXyMwb2oqvJd3JIMgo7
+	 LtFXcowlQUkkgquCK2mvY38tqKHXz/Ph2IJWh4jeVxn2z+GAKaGjAsqdo+05fh2COK
+	 jYbr0cgvKMF2tkTKX7OE3YDiYfon5Kxh87izqgAEiOI5rNziRp0kEQgFg7IaxCTKD0
+	 bX8Ncn7nEJIKfzdBk2OycEL8fm4RCGVUqY5BX2ACwwfq3BTv32Yq7GuiYgWo6ueuQI
+	 yvuZNm0+KI0+7MJl+jG1/4+P9uXHdFnu/sWXOOxo7AraVfv6HeAz2zZaal9EMbqRPy
+	 WLUKQ8NJ4MwvQ==
+From: Sumit Garg <sumit.garg@kernel.org>
+To: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: andersson@kernel.org,
+	konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	bsatish@qti.qualcomm.com,
+	akhiverm@qti.qualcomm.com,
+	nicolas.dechesne@oss.qualcomm.com,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: [PATCH 1/2] arm64: dts: qcom: qrb2210-rb1: Drop modem support
+Date: Mon, 27 Apr 2026 16:58:32 +0530
+Message-ID: <20260427112833.1160332-1-sumit.garg@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260427-sm8550-sdhc4-support-v2-1-a4241f43ecd5@imd-tec.com>
-X-B4-Tracking: v=1; b=H4sIAIJH72kC/4WNQQ6DIBBFr2JYdxpAMNpV79G4UBgqTRTCoGljv
- HvVHqDLl7z//soIk0dit2JlCRdPPkw7yEvBzNBNTwRvd2aSy4orWQKNtdYcyA5GAc0xhpSh1HX
- vZKUMV8j2aUzo/PvMPtof09y/0OSjdRiDpxzS5/xdxOH9uVgECGhKZ2vhsNO2ufvRQkZzNWFk7
- bZtX6f4i1rMAAAA
-X-Change-ID: 20260423-sm8550-sdhc4-support-358bf264c04e
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ram Boukobza <ram@imd-tec.com>, 
- Tendai Makumire <tendai.makumire@imd-tec.com>, 
- William Bright <william.bright@imd-tec.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Add the SDC4 SDHCI controller node for the SM8550 SoC.
+From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-SMMU stream ID 0x80 was sourced from the UEFI bootloader IORT tables,
-as SDCC stream IDs are not documented in the register reference manual.
-Unlike SDC2, the data path is routed via aggre1_noc, matching
-MASTER_SDCC_4 in drivers/interconnect/qcom/sm8550.c.
+QRB2210 has modem fused out as it's only available on the mobile variant
+which is QCM2290. So let's disable modem support from RB1.
 
-The SDHCI capabilities register on this SoC advertises SDR104
-and SDR50 but these UHS-I modes are broken on SDHC4.
-Mask them via sdhci-caps-mask, this keeps the bus in HS mode,
-which initialises reliably.
-
-Tested on the IMDT QCS8550 SBC. This board is not currently
-supported in-tree.
-
-Co-developed-by: Tendai Makumire <tendai.makumire@imd-tec.com>
-Signed-off-by: Tendai Makumire <tendai.makumire@imd-tec.com>
-Signed-off-by: William Bright <william.bright@imd-tec.com>
+Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 ---
-Changes in v2:
-- Drop qcom,dll-config and qcom,ddr-config; these properties are not
-  valid for this SDC instance (Konrad Dybcio)
-- Reduce the OPP table to a single 75 MHz / low_svs entry matching the
-  SDCC4 operating point on this SoC (Konrad Dybcio)
-- Forbid SDR104/SDR50 via sdhci-caps-mask, matching the previously
-  existing sdhc_2 workaround in the same file.
-  The SDHCI capabilities register on this SoC advertises SDR50/SDR104
-  modes that are broken on sdhc_4; without masking them the MMC
-  core selects SDR50 and fails DLL tuning with
-  -ETIMEDOUT during SDIO card initialisation.
-- Rework the commit message to reflect the above understanding and
-  drop the "root cause not yet determined" note
-- Drop self Tested-by tag (Konrad Dybcio)
-- Link to v1: https://patch.msgid.link/20260423-sm8550-sdhc4-support-v1-1-93fd81fea5d9@imd-tec.com
+ arch/arm64/boot/dts/qcom/qrb2210-rb1.dts | 5 -----
+ 1 file changed, 5 deletions(-)
 
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- arch/arm64/boot/dts/qcom/sm8550.dtsi | 40 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-index 912525e9bca6..07161a873b2d 100644
---- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-@@ -3280,6 +3280,46 @@ opp-202000000 {
- 			};
- 		};
+diff --git a/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts b/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts
+index da46e9d65528..7c5e0cf18131 100644
+--- a/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts
++++ b/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts
+@@ -453,11 +453,6 @@ &remoteproc_adsp {
+ 	status = "okay";
+ };
  
-+		sdhc_4: mmc@8844000 {
-+			compatible = "qcom,sm8550-sdhci", "qcom,sdhci-msm-v5";
-+			reg = <0 0x08844000 0 0x1000>;
-+
-+			interrupts = <GIC_SPI 261 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 227 IRQ_TYPE_LEVEL_HIGH 0>;
-+			interrupt-names = "hc_irq", "pwr_irq";
-+
-+			clocks = <&gcc GCC_SDCC4_AHB_CLK>,
-+				 <&gcc GCC_SDCC4_APPS_CLK>,
-+				 <&bi_tcxo_div2>;
-+			clock-names = "iface", "core", "xo";
-+			iommus = <&apps_smmu 0x80 0>;
-+			power-domains = <&rpmhpd RPMHPD_CX>;
-+			operating-points-v2 = <&sdhc4_opp_table>;
-+
-+			interconnects = <&aggre1_noc MASTER_SDCC_4 QCOM_ICC_TAG_ALWAYS
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-+					<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &config_noc SLAVE_SDCC_4 QCOM_ICC_TAG_ACTIVE_ONLY>;
-+			interconnect-names = "sdhc-ddr", "cpu-sdhc";
-+			bus-width = <4>;
-+			max-sd-hs-hz = <37500000>;
-+			dma-coherent;
-+
-+			/* Forbid SDR104/SDR50 broken hw! */
-+			sdhci-caps-mask = <0x3 0>;
-+
-+			status = "disabled";
-+
-+			sdhc4_opp_table: opp-table {
-+				compatible = "operating-points-v2";
-+
-+				opp-75000000 {
-+					opp-hz = /bits/ 64 <75000000>;
-+					required-opps = <&rpmhpd_opp_low_svs>;
-+				};
-+			};
-+		};
-+
- 		iris: video-codec@aa00000 {
- 			compatible = "qcom,sm8550-iris";
- 
-
----
-base-commit: 4f5b4b748ac75683d61c304ee3ee0db235e8f312
-change-id: 20260423-sm8550-sdhc4-support-358bf264c04e
-
-Best regards,
---  
-William Bright <william.bright@imd-tec.com>
+-&remoteproc_mpss {
+-	firmware-name = "qcom/qcm2290/modem.mbn";
+-	status = "okay";
+-};
+-
+ &rpm_requests {
+ 	regulators {
+ 		compatible = "qcom,rpm-pm2250-regulators";
+-- 
+2.51.0
 
