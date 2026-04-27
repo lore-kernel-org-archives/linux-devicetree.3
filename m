@@ -1,47 +1,50 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BB73B6C0A;
-	Mon, 27 Apr 2026 12:23:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D749F3B894A;
+	Mon, 27 Apr 2026 12:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777292615; cv=none; b=rrAdEK3Kd/aIy1o7w/9vz/fhYurh4eueZVowsfKoR8Fyvmx+/mJ9ZqKK3486yA+covzM6rUiVRgPls3Gb4NBgirKaT6Bh7Ue4mTHdXkbvkA05rQQj2UD2eC7nVcn5HX9Jevw/DHUBkmLQeQd/qIDh+kIXkvDwDIS++4f6a1nOjE=
+	t=1777292616; cv=none; b=pO8STWCdhXir8JkdSzIHj0NX1y/Sq96f+jcsQYDj9Winqy2xnReVNc+I48cfrRbSMT8MXbguyC1f0rLrx0csjJS36K3cLeM2zvC0B7hbubOr/S9jTtpkeWDka8mQ38/CRJh/hRuNMWi+RVbmvZDbDyhp2n8tupwJeBEEUPEIElY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777292615; c=relaxed/simple;
-	bh=VITAVfvq3dKWQuAAtKsUXprh7wavqu/q0c1XJJCDg4k=;
+	s=arc-20240116; t=1777292616; c=relaxed/simple;
+	bh=wHwgwUHjFL+DaHaQ7+2+TRjloCkt1nTGqE101j5LmC8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Kug0QnAKaHySIplsrs3uxsjeiPH5CxIspZiwFgXqGMyelGY5Ck1iSteC9vJlPRmVDtUwmSPzPq4X49dhGzPL1O/fmmH5Gxzz2pdnH1i5Xi2B6/gCq6M/bwIS40XTYGZSqDuS4F6omqM2qFOqbGRjCwOYpfH9nwY8UiNSs03PaT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=zGl6EttV; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version:Content-Type; b=mrvhX/bZisY1KDjXvQ5jmXa9DS5hnS00bDwo1kvCSPl4+yeCisK9VP2gxVvsw+BkrnxN5p1hidOs2YG/GAZAg/7O2DbLbR3wBVEABZOhq2SAJeWz5UOHHNof3C0+HZRxbmzOY5UHcYF0ibYmfLw5bYjdhUgcstrsE20irz8e6Q0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=UYzELeGy; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="zGl6EttV"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="UYzELeGy"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=iREvix3JcsTfQWQTKWPlT4HwL/HpIqdr7S6OUO9s+6o=; b=zGl6EttV+9ZMroLhwiCaM58v4J
-	KpJoVaGbRlLp6A2HR1Yy3GKSDmOuKUH87Jm4g3pbBhpVsnNI3OCTzbsabIxNlm+0eqcWHzXiGsEiL
-	RrRl8T1JRNGGr+9qoW5jI+ogY4x7KfIJYOg73Ymu8iFM6Vxhj+o8ZzNhJG2PcdFMYQxMqPQUG9qpS
-	jQaR0oHlua4tlbPhhZowwr4adxXrR0fICK7qGH9A43jn8xv/utjy8M5Fqcf1Swluma6KdlNrURhMB
-	mvvi4C15FLT/I3Wy1tBkqtMkry0P0G7ZLVhsyqrEguF+7vnontteZcwyBYdbSNmFTzPnFiIDlf6Jq
-	rJYuo0ZA==;
+	bh=rSa4DsT5RHn/LdrwfWnRLn67k6i1+NfLB6ROGNloCyo=; b=UYzELeGymE59QPg89eSJu+qECD
+	6mqObrTNGCj4NLoYQNA/Q3HgnAIl1clnfFZiJPFl0oY0nEbUGEhVoLcoN3QunicBTxe++VzPdizGL
+	0x9TFsEhxGeiWwnoUl3FbTezFHK5BmDRCyWeqgHdmHHJ4gD8xgMRHhuO30bLkBPBdA+vhX16dIO5M
+	ZgNcNcrWx4/+1SUMSXKoXD/HgOgGLnbg/wQu5JOw+S61WY673LcD6ykWOahZmccHrKM0/bhEelTxg
+	bhPrABLndzFbmv+jUZD8d/luHby8kKUAev3Bota6q2DGYrVtrFcb9Uks5r25lJopooGZoTGyL+NDM
+	d6OMEPcg==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: Fabio Estevam <festevam@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Quentin Schulz <foss+kernel@0leil.net>
 Cc: Heiko Stuebner <heiko@sntech.de>,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiko Stuebner <heiko.stuebner@cherry.de>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Fabio Estevam <festevam@nabladev.com>
-Subject: Re: [PATCH] ARM: dts: rockchip: Remove invalid properies from rk3288-veyron-analog-audio
-Date: Mon, 27 Apr 2026 14:23:18 +0200
-Message-ID: <177729258232.1866089.9184760635267258389.b4-ty@sntech.de>
+	Quentin Schulz <quentin.schulz@cherry.de>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] arm64: dts: rockchip: fix Ethernet PHY on Theobroma PX30 devices
+Date: Mon, 27 Apr 2026 14:23:19 +0200
+Message-ID: <177729258224.1866089.13274076466595011566.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260404195008.1951910-1-festevam@gmail.com>
-References: <20260404195008.1951910-1-festevam@gmail.com>
+In-Reply-To: <20260421-px30-eth-phy-v2-0-68c375b120fd@cherry.de>
+References: <20260421-px30-eth-phy-v2-0-68c375b120fd@cherry.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,20 +55,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sat, 04 Apr 2026 16:50:08 -0300, Fabio Estevam wrote:
-> The 'rockchip,mic-det-gpios' property is not documented anywhere.
+On Tue, 21 Apr 2026 11:45:04 +0200, Quentin Schulz wrote:
+> This removes the reliance on the bootloader setting up the Ethernet PHY
+> for the Linux kernel to be able to use Ethernet.
 > 
-> The 'rockchip,hp-det-gpios' property is not a valid property for the
-> 'rockchip,rockchip-audio-max98090' compatible.
-> 
-> Remove both invalid properties.
+> This is due to the HW default of the PHY reset line being active and the
+> MDIO auto-detection mechanism not controlling a PHY's reset line such
+> that we need to hardcode the PHY ID in the compatible property for it to
+> be usable by the kernel, regardless of what the bootloader is doing.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] ARM: dts: rockchip: Remove invalid properies from rk3288-veyron-analog-audio
-      commit: 44a024778eeba377d7ac882d15e27ba784e0f647
+[1/2] arm64: dts: rockchip: fix Ethernet PHY not found on PX30 Cobra
+      commit: 6598ed3586a4b1cc79423666e66b9861631a6c7e
+[2/2] arm64: dts: rockchip: fix Ethernet PHY not found on PX30 Ringneck
+      commit: ae653cb854f36d1555681ce70ca3d80d0ec73516
 
 Best regards,
 -- 
