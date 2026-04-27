@@ -1,44 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C001340DB9;
-	Mon, 27 Apr 2026 19:04:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C5193ED121;
+	Mon, 27 Apr 2026 19:05:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777316685; cv=none; b=kc/0EL4X77cEf+yUgFwb3pSmXVzWN5wBzX3m1cuY6FdUe3P+IMHupF/SkEd82Hae3fTfbVZRFQk6gWByLZFIeQRQFKwfrLSnA2lR6PcjoQPAHxHJhKqjgLSPJhi1vDX+McCLHLm0ov0kk6OyCDPpP17gDjPQ562BO5liJHx66JE=
+	t=1777316736; cv=none; b=Z2RRfq+g88U8QR5EAM3dhey5bvWY6KoThRjSPAUqHuwKDwtBObp1krZYtdJ7PkqPhwpbsOdc//QDn8RtABnWVvwmpG1DU4da7uB+K0rWeT7Caphns+AcA5Ae6YzXKsD/Pf70coAgxWWXWx4BRMPWN2WDL8toEtqSwQPJGm1duOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777316685; c=relaxed/simple;
-	bh=OJrbnfGJEPIUh+ucwhHYqPmjXNvaqvhxFElCFUXGCzo=;
+	s=arc-20240116; t=1777316736; c=relaxed/simple;
+	bh=Mhyohh1HXnwBgAR4BR6g6L0ve+gccVeyspOB5HMBrqE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=REKDu2Vx1FLNWJkbf/oqdqv/Q1tHlvT/ywA+H1roNMRLJLhxTzLkmW8O21CvSb6zRSuKoNbOqV9hxmTs8yzNBkXh1OjWBDgkyF1UNyP9UOAhXCnuc121z9rGepMDiaWcXBNawEDWgBqgBFiajOHN3KlA6+FKD8K1rr2eRZBisGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NRAddl/q; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=aj44NPzZfiJFDECV8OiC5oh9ERsIFsfrudcoE11BXKnrrlkJTQx+O1CUxdO8r0dFrXq7h9dLBbCBY9tz9kUrXPMMCThUC2WiwkyG0+31koilqOXvNoy/OfFELCuWD8EunlEB31Usd9SwN9NTdfVs630y3D8MYj+vN5HYDhm4wLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ff5NIzK1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NRAddl/q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5789C19425;
-	Mon, 27 Apr 2026 19:04:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ff5NIzK1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D481CC19425;
+	Mon, 27 Apr 2026 19:05:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777316684;
-	bh=OJrbnfGJEPIUh+ucwhHYqPmjXNvaqvhxFElCFUXGCzo=;
+	s=k20201202; t=1777316736;
+	bh=Mhyohh1HXnwBgAR4BR6g6L0ve+gccVeyspOB5HMBrqE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NRAddl/q0eGUui/2hM0nNNGtvGYL2HdDs5HgB52G2rrXG7AyM6GsjFbFOBlEx0qpz
-	 X17Miiz9EjEYBvppwAyEeHfOrMxEs3Q69My2we2EUUCu/r83kb0BLcUIPkAopar91a
-	 Dttqqa7rPzf38vTceviLIeG1QuBu2MtEpfYImPfUQR7Qkrl6/JqY+/5ZpAkU0dS+uN
-	 pMASmA/I6zFOnGB/WZTDUuanxvQQIQ3kjkZ+jM/5l2yycqLRlHj9wEuVa3Ui3LE3tF
-	 oKIHVNuNnKk6jx9ASUcyqsk2ftjz2B+7omrBvO/NJZwmhh5CqtCM3taiOpHD4eIazA
-	 QkpJGGxYuiLDA==
-Date: Mon, 27 Apr 2026 20:04:40 +0100
+	b=Ff5NIzK13KiJmVmOM3rZi1ac7+0JpRvDmH5OHP5nlmXfpnhV4Iq4ORa/QLeJlvrHY
+	 gkOAFcnYCsoH/hPEmAwwRVcFmLCtpOeP3f4r93F2faU/r+0YOK41sESQt7IIt74eet
+	 zn0Dtot5BhoZDnaTwANDDnTAuq5awt5aV41Km0sLJ0K4Q4FgyZKeeR2sDsc8YVkqTN
+	 YlOYgYvJdmyoop5+FijncqYibMuXcd4zadOeqymCj8b789e8B5ppCgtgqJS4o8EMFY
+	 xCiX42i8UETm724S1c+2ut5F7kdswn1ZsZZd1QY2yKftofnBP+8qQ00Wqb1bP94tjs
+	 ijbgbTTV0R2yQ==
+Date: Mon, 27 Apr 2026 20:05:28 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Alexander Shiyan <eagle.alexander923@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Subject: Re: [PATCH] dt-bindings: regulator: fcs,fan53555: Remove vsel-gpios
- property
-Message-ID: <20260427-smartly-sullen-509e3d5e1967@spud>
-References: <20260427115443.3224840-1-eagle.alexander923@gmail.com>
+To: lizhi2@eswincomputing.com
+Cc: devicetree@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org,
+	pabeni@redhat.com, mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com, rmk+kernel@armlinux.org.uk,
+	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	alex@ghiti.fr, linux-riscv@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	maxime.chevallier@bootlin.com, ningyu@eswincomputing.com,
+	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com,
+	pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com,
+	horms@kernel.org
+Subject: Re: [PATCH net-next v7 3/4] dt-bindings: mfd: syscon: add ESWIN
+ EIC7700 compatible
+Message-ID: <20260427-skewed-thigh-40baec89fbaf@spud>
+References: <20260427072353.1114-1-lizhi2@eswincomputing.com>
+ <20260427072541.1174-1-lizhi2@eswincomputing.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,77 +54,35 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="M8XCgCKVrwRDqKCi"
+	protocol="application/pgp-signature"; boundary="El0eEiK729PJ8197"
 Content-Disposition: inline
-In-Reply-To: <20260427115443.3224840-1-eagle.alexander923@gmail.com>
+In-Reply-To: <20260427072541.1174-1-lizhi2@eswincomputing.com>
 
 
---M8XCgCKVrwRDqKCi
+--El0eEiK729PJ8197
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Apr 27, 2026 at 02:54:43PM +0300, Alexander Shiyan wrote:
-> The vsel-gpios property is currently documented in the binding but
-> is not used by the driver. The FAN53555 family of regulators supports
-> two voltage selector registers (VSEL0/VSEL1), and the selection between
-> them is intended to be controlled by an external hardware pin (VSEL).
-> However, the driver does not support dynamic toggling of this pin via
-> a GPIO, it only uses the fcs,suspend-voltage-selector property to
-> statically assign which register is used for runtime voltage and which
-> for suspend voltage.
-> Remove the vsel-gpios property from the binding to prevent incorrect DT
-> usage and to reflect the actual hardware description supported by the
-> driver.
-
-=46rom the wording/justification here, I disagree with this patch. The
-binding should document what the hardware can do, not what the driver
-can.
-
-Maybe instead you should make fcs,suspend-voltage-selector mutually
-exclusive with vsel-gpios?
-
-
-Cheers,
-Conor.
-pw-bot: changes-requested
+On Mon, Apr 27, 2026 at 03:25:41PM +0800, lizhi2@eswincomputing.com wrote:
+> From: Zhi Li <lizhi2@eswincomputing.com>
 >=20
-> Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
-> ---
->  .../devicetree/bindings/regulator/fcs,fan53555.yaml          | 5 -----
->  1 file changed, 5 deletions(-)
+> Document ESWIN EIC7700 SoC compatible for syscon registers.
 >=20
-> diff --git a/Documentation/devicetree/bindings/regulator/fcs,fan53555.yam=
-l b/Documentation/devicetree/bindings/regulator/fcs,fan53555.yaml
-> index 69bae90fc4b2..7f3b74ccf8db 100644
-> --- a/Documentation/devicetree/bindings/regulator/fcs,fan53555.yaml
-> +++ b/Documentation/devicetree/bindings/regulator/fcs,fan53555.yaml
-> @@ -43,11 +43,6 @@ properties:
->    vin-supply:
->      description: Supply for the vin pin
-> =20
-> -  vsel-gpios:
-> -    description: Voltage Select. When this pin is LOW, VOUT is set by the
-> -      VSEL0 register. When this pin is HIGH, VOUT is set by the VSEL1 re=
-gister.
-> -    maxItems: 1
-> -
->  required:
->    - compatible
->    - reg
-> --=20
-> 2.52.0
->=20
+> Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
 
---M8XCgCKVrwRDqKCi
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+--El0eEiK729PJ8197
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCae+zSAAKCRB4tDGHoIJi
-0qjQAQCKcZkqhhMHPtv/OnIJa7IQNsuzLw9gRJ5aSd7PUhkzxQD/UVpYUHlPj3BI
-a/MHz+sAAAInKB9dxy4w7AYYOjTtkQ0=
-=DMlS
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCae+zeAAKCRB4tDGHoIJi
+0mlTAP9T1H4VVCoPrBVkVi5B+2V2Nkk0PL+jONjju6Vk9eFLiQEAtsSo/+ncqagi
+Rjbg6nd17U+wXLIrzq8nY1sOlp9TkQk=
+=nVjP
 -----END PGP SIGNATURE-----
 
---M8XCgCKVrwRDqKCi--
+--El0eEiK729PJ8197--
