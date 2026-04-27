@@ -1,174 +1,105 @@
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88920355F36
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 22:39:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777329547; cv=pass; b=t5iPDd93zo6YUJDscglBJMKhXxZhhmaG9GYIhgWv4ZWusfM2INh4m+OSJEvmwCnuPWWnQlFBE4qtu+b16inihpIu0OITAvDpcYC0QPuYTybgMWGryDwpTN6hM4dBC03p/SuLdhyC5Pfp6Ntr84DHCSDL0mJFzlQcFA9BZaVJsiA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777329547; c=relaxed/simple;
-	bh=1lyRXw2Br8iVqp8I+jWo0tncE5X7WAQeoUM0ZQ6/GT4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eJC9YObRgZAIbGhTibbOD4Q24pvReszXzRGvuXupWgP7PetIzOzsp3aaQw9NCapLoGnRbTF2pNcCQYAzpZj999fBJRONBvhgxQjpQ4/jHgSf23C6GZFjSR+EZlU22mvnI8DiXBp+rfDIj9grVgMycOazFFzSFnVEqcxu7DXP+r4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YWZuTjM4; arc=pass smtp.client-ip=209.85.167.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E49D3191C8
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 22:42:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777329729; cv=none; b=UT+SdBFsRD67ZT5zHKinE71O1yenGQ1i+7hwUzmCFV66qGp4WQhAffGlhz+Ee24LoSRdQi4yT74xsDBVwg4+MOq2VjO6GQx1mWDw5sRsM5OSJtlsAG6WJwQSQerVt735RcbRjM2lbg3h5M6xkSHqH8ycf4ci5Z00UmhBdVjwPAQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777329729; c=relaxed/simple;
+	bh=DcS0xIbaiVfhw1uFxeAC+bBD9SzyqlKecFBf13wLMw0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fth3uyffe/tI1llocbJb6GBGNP7S4zAMlvIqm+kaJF/dIoG6Cx0DT6bPFXB4BNZ3Wb8lhygyt5amUwNk3t/xNiVxlSzYsHiU8ewhrj3VVlR0IQSeIPU3B8bcxOVrc3HyESizBxMJ+epIcrfiSW8yBRvkUH4qToHfcWJq2SUVtcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HYe5Oy+Q; arc=none smtp.client-ip=209.85.222.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YWZuTjM4"
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5a4113ab355so11597763e87.1
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 15:39:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777329544; cv=none;
-        d=google.com; s=arc-20240605;
-        b=gO5lQS5rDPkaoW4Oa8+OhCtpkF+NMZYmtSrHFSzqw7JlLa32M0aWg4VJxO1HOGZKsS
-         vEv15i+E6THBO2dEah782lQWRqyD8aG7E+66vtsISM4lW+nIFFa6A/2DTm6hQmof/wRQ
-         0/B2ulAJYL00twJgJFk2kRrCQQG/+/LCQqUHP+E/VOhG6zH4ymgpUFPS75WapPH9tJnw
-         sJfSGckO94SvB2keQJCUvBaF3ctTebloH1DFAHT6SAvyPhOwuXuCAAq9THB3lTV2VNgZ
-         aEtblHXkoucJ4ACmGysEurW0G08mY3LeeMuBzT0NoYVpvnhrM3QCYQ2srJk0IafWKU8z
-         PuKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3vYwwmAdm5UCPWDH/Mw/jP5EYuNFOTrm/hsQP5z9qgM=;
-        fh=mQPZaqPOXX07ZrGBCl1WMnVgEoWiPAoa/0sKCYeN9ME=;
-        b=jQ9GosVbiCaONGMlroAbQE9JxfckcjNG1MqVZ0I0xx9BPe0FadiRFSAyMEj9qXsJjf
-         X+jfCIQSJtTVrZYjc+QKNyAJxd9ZunkxYx5aOvynciZnIS0U+gr20cMf/lod20FxdGQW
-         5zRqGiAiKTpS9amSyZ5Ja8CRKymV2XB7AeIhOzd6ulJDYqh2cqrurRMc3I1HUs+zf6uL
-         jJ8IzirobIFbTjAXciqbVr6Aax6L2bAOqEnTCuRrjkPHAV0afwICS53skhK5AKPWACYk
-         tgHMaw7SaL9V04OVb4PNoAYW3LCHCWcVEacmjeU6evq3/3VPWCPHWtzuXwC1KnmNUTVS
-         BhnA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HYe5Oy+Q"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-8cbc593a67aso985012985a.2
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 15:42:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777329544; x=1777934344; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3vYwwmAdm5UCPWDH/Mw/jP5EYuNFOTrm/hsQP5z9qgM=;
-        b=YWZuTjM4Cqcw7P+Y8GF1ctCxITbWKkW7slbZmfsJ7Hu1hBKikqAJhi4+KLbjvG7B6a
-         IqHEoJMMlBalDPsc80f7OC9bxz0tQB1Z6EvHFElA3cp2UL0qOtm0X9uMKo4vEA3tNri2
-         oNFQ/wyIy+wkUfzcGgp8bNd9LDq1PH7KsRuUMg5QxSrF6sQU41m+NZUkTKnAnUNAOrSr
-         lTHusN6KpUFchZf9W6iyTS1wkJaILycazYfc8RaPH9s+XWZIpif9jTWbpMD6R794vX61
-         XZ8OfhvBkcMkfEjfxOodcOJ7js4pOxRjUR9f1kATV8oBBUQpL+ZOTVxhsOEzC+ySUnNh
-         E+Bg==
+        d=gmail.com; s=20251104; t=1777329727; x=1777934527; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=eiuuIIQgB/ng72B2X5qMWHFySgXXLT4/yH9F0w6bPag=;
+        b=HYe5Oy+Q5CrNfEqUGc8pyz6CeloeJ8LMAhLSLkIhshbRXzxDKXFsuGAG6j4UYvNePR
+         evRrqYPnHFuKsTFjY4D5u7pJ9iphnT612p1tY+tdnB9bUgFdYTOT7NAD6MgEwHmjNBd1
+         nMFRHnxsQFngtNSfO0AwGcLdw0ZR7opTH83ANbs/OPM/64+mOIHWxjl8OpmhJ9Cxj9/f
+         tiob6Niq366GgZ2SPveewOVaRc/Ej9sDx2SCd9744eS98y+t5ZmO5sOlAmw7lTe2p76Q
+         uWbZMp+cjmPPWVEaNpkYu2ufekSGrATxdXFv85G7KxGIcu+71/72pZR3AiezN51Kn9kB
+         girg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777329544; x=1777934344;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=3vYwwmAdm5UCPWDH/Mw/jP5EYuNFOTrm/hsQP5z9qgM=;
-        b=ZkIYoWMpG4RE9f6c5sjE27r4bffRP0sYdNpB3DYni2fclHwQjGdLhNDivwuGqb2mQh
-         SKBLeijYLMKnqVCfUqCrViNGFF4gSvVg7L1dT1TpjP0mddpElu/smg1s3A8ldemrPcfX
-         8l/Q6Fb+kT06iTVp3GuKBGQR6hVy8d0OZbipVVpxMPuPLl5nSYGzmSDb+Nrl0dJQ+eOp
-         2m4gO0SbzU/CKhsyaDRziJFtT1BYIk8FNDyC1ssvpZ6RffuTUiFkwTV/pskL6pfFWIBE
-         Lb/wWRi6mYZ0mPxwyQWYUmCrcIbwx1GtZUBhkCEVmN4jar6IhO7vsP0e0Xt5YSXDATf3
-         iwtA==
-X-Forwarded-Encrypted: i=1; AFNElJ/cHDda7NqbVbHeSLGiKMroQGZXoxdEzu69jhfS29Vg2vQqvpcy4bUbHnJa7ODWRrAogThlzyK7R4vD@vger.kernel.org
-X-Gm-Message-State: AOJu0YxoM3qeZtrEX7OyMc/eUCCUWvv6wujUFL6NMvSWPp8lE8BD9AH0
-	pCEFgw4OyRDu+SnK4GWhQyvj7pDEGx+VlemXJYxfaAcunuhOxZBthMvwxTl6eoEcx9cpAEH4AA5
-	AbjB4Z2o6CD2JD4iL0UdAwuMlJ/2maow=
-X-Gm-Gg: AeBDiesmZlskqsJlHDhLfQ9mFq78EC8b3gal0hnBflTbvRP/0azgyd20rZ70HabQMNx
-	/WcaTVsgCfexnuflhjXAqSykfOkYaoo1FSQ5Eyc8KuglELRkpx3W0I/aI5YcZMThH+Y3Aog8fei
-	KXLDZLMEZGlEuIqelI7jFQ1Eqfx+1abmOZttcTCD2JFj+z5ZGFiylxexUv3nRI0f2DD2sXGGWOY
-	EdJnCWkuxl9VHOAFRINwIKW4IejPptjAFZZ8D6JOnU3Q3jQmuvm37IxX2zq0PgWDyoGdykaMh6r
-	1XOD41+E0mJbUUp2hNxThs0VQE3xZsaeBUz9/xFc3YEiMXzriSKWiHZm4jHJdjQEItY6yMXMYOF
-	FtkA=
-X-Received: by 2002:a05:6512:1396:b0:5a2:864a:bebb with SMTP id
- 2adb3069b0e04-5a74660ed88mr188878e87.20.1777329543300; Mon, 27 Apr 2026
- 15:39:03 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1777329727; x=1777934527;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=eiuuIIQgB/ng72B2X5qMWHFySgXXLT4/yH9F0w6bPag=;
+        b=OOWAwJhV7r3caxpygNDuzbo9Ov/6K6dX0TYrg6s+1/fRhr4K5q48G2m/+C7HPMDHBc
+         wpussEgsXaJhKVCusCSDeNnOxJ9gUxzlQvzyx5wM5rjGY3cqGDOCZjbhKQ2Oexdot7UA
+         impOSZBXfcCnreq+RSF2V9v7ymCmUr28/1jaFXp9qJtekioCusTCHXN8gBQGHntLAqYj
+         gVc4lnAHlPKCrlywRO/1ZX4WS/NUUn8MuNp+pkiF014foSBsqcY310yJKTVEuCc6piN1
+         SWWKt+ft3IUaPERTw0OjB9VXdsssBmcDXxV6l2qeRk5IxbW0LPz3HQKXA+GViXfH2VWS
+         daxw==
+X-Forwarded-Encrypted: i=1; AFNElJ9QHDfnnB3/+bIeYHPB4fARGupiGRETHLZuw5M/x6FDuGW6RAVtULhXfCXgwjy6NXr/R5gi5sdkjrXI@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx4BNtank+Xc/kGZm6DrC1TJsrIIAoy12xV/HltJkiuonJxBWji
+	a2O+IIYx6MjKh4UXyz3YcaxbkDtG1q6OetQv1EIKohMalvAt1bnUge2V
+X-Gm-Gg: AeBDiesF8eejVqNmA2rcVPp6IbgBNAnl0OQNL5tq6GFFnS4cHCOiBUjRCuRIJLa/sqp
+	dONXCOdpI/uRvykpw/fL/CALZWQdo4Eynib/OQbnCTIR/qJOZRDfKQIaoTjgQ72rc6Mfca2ysnP
+	pdp6ZU73Z8GpvW/LnMIduU4PND49OoldM7o6xGTaquKe8VjOYP7CPn3iZJ6B3+JFsh1FiSf2OBJ
+	aqSd9QDxSIkmKhPO8xvAbhr/Qdd3hKWhChclc9ZXqFOy/94J5hYprtuh699RxcN7Dw3goLAfwyr
+	fYrVF9wxbrxH0TJVIDjaJ0XgzXvLsvjwzBXyM+izmMLxQXEH8/h1fZt+DOqSYyqU3yO5ZGGgTHN
+	vsSQiZFlEYuzlRYiXy98ENVUGY0unP7CeQFxRMvQ7hdx+EDOou6qS1girq5L9061UhguKpSy/UB
+	s3gd3eLSqoaSf4TR0c5mNge9aZX5pM/TTfCp6Z
+X-Received: by 2002:a05:620a:4504:b0:8cf:c0c9:bca with SMTP id af79cd13be357-8f7d78342e7mr91392185a.17.1777329727373;
+        Mon, 27 Apr 2026 15:42:07 -0700 (PDT)
+Received: from localhost ([184.144.58.243])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8f7c50b7537sm48163785a.18.2026.04.27.15.42.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Apr 2026 15:42:06 -0700 (PDT)
+Date: Mon, 27 Apr 2026 18:42:48 -0400
+From: Richard Acayan <mailingradian@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Sam Ravnborg <sam@ravnborg.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	Yifei Zhan <yifei@zhan.science>
+Subject: Re: [PATCH v3 0/5] Support for the Pixel 3a XL with the Tianma panel
+Message-ID: <ae_maHh5IMxQWxbM@rdacayan>
+References: <20260310002606.16413-1-mailingradian@gmail.com>
+ <ae-yXomgNWLd8IcE@baldur>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260427100950.33936-1-piyushpatle228@gmail.com>
- <20260427100950.33936-3-piyushpatle228@gmail.com> <ae9sZonxK7HTXsUT@ashevche-desk.local>
-In-Reply-To: <ae9sZonxK7HTXsUT@ashevche-desk.local>
-From: Piyush Patle <piyushpatle228@gmail.com>
-Date: Tue, 28 Apr 2026 04:08:26 +0530
-X-Gm-Features: AVHnY4L2tKQeEwjE2kh5QapimnpeLQ3gAeOSo8vfc9e1zowXkFqUOwFxPYY8pQo
-Message-ID: <CAMB+xkZQS4qZTafrqJBkZZWR=M4W_L1+1WezgL=Wq8yrXL7W1w@mail.gmail.com>
-Subject: Re: [PATCH v4 2/7] iio: adc: hx711: move scale computation to
- per-device storage
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: ak@it-klinger.de, jic23@kernel.org, dlechner@baylibre.com, 
-	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ae-yXomgNWLd8IcE@baldur>
 
-On Mon, Apr 27, 2026 at 7:32=E2=80=AFPM Andy Shevchenko
-<andriy.shevchenko@intel.com> wrote:
->
-> On Mon, Apr 27, 2026 at 03:39:33PM +0530, Piyush Patle wrote:
-> > The gain-to-scale table hx711_gain_to_scale[] is a global array whose
-> > .scale fields are overwritten in hx711_probe() using the AVDD voltage
-> > read at probe time. When two HX711 sensors are connected to supplies at
-> > different voltages, the second probe call overwrites the scale values
-> > computed for the first sensor, silently corrupting its readings.
-> >
-> > Fix this by removing the .scale field from the global table, making the
-> > table const, and adding a per-instance gain_scale[] array to hx711_data=
-.
-> > Populate gain_scale[] in hx711_probe() using the device's own AVDD
-> > regulator voltage. Update hx711_get_gain_to_scale() and
-> > hx711_get_scale_to_gain() to take the per-instance array as a parameter=
-,
-> > and update hx711_scale_available_show() to retrieve it via iio_priv().
-> >
-> > No functional change for single-sensor configurations.
->
-> ...
->
-> >  /*
-> >   * .scale depends on AVDD which in turn is known as soon as the regula=
-tor
-> > - * is available
-> > - * therefore we set .scale in hx711_probe()
-> > + * is available; it is stored per device in hx711_data.gain_scale[]
-> >   *
-> >   * channel A in documentation is channel 0 in source code
-> >   * channel B in documentation is channel 1 in source code
-> >   */
-> > -static struct hx711_gain_to_scale hx711_gain_to_scale[HX711_GAIN_MAX] =
-=3D {
-> > -     { 128, 1, 0, 0 },
-> > -     {  32, 2, 0, 1 },
-> > -     {  64, 3, 0, 0 }
-> > +static const struct hx711_gain_to_scale hx711_gain_to_scale[HX711_GAIN=
-_MAX] =3D {
-> > +     { 128, 1, 0 },
-> > +     {  32, 2, 1 },
-> > +     {  64, 3, 0 }
->
-> I would leave trailing comma, as it is semantically is not the terminator=
- entry.
->
-Will add trailing commas to all three initializer lines.
+On Mon, Apr 27, 2026 at 02:02:39PM -0500, Bjorn Andersson wrote:
+> On Mon, Mar 09, 2026 at 08:26:01PM -0400, Richard Acayan wrote:
+> > This expands Pixel 3a support to the Pixel 3a XL, starting with one of
+> > the panel variants. The Pixel 3a XL has two variants with panels from
+> > Samsung or from Tianma/Novatek.
+> > 
+> > This series depends on the IMX355 front camera devicetree patches
+> > (https://lore.kernel.org/r/20260217002738.133534-1-mailingradian@gmail.com).
+> 
+> Please resubmit the DeviceTree patches once this dependency has been
+> resolved.
 
-> >  };
->
-> ...
->
-> >  {
-> >       struct iio_dev_attr *iio_attr =3D to_iio_dev_attr(attr);
-> >       int channel =3D iio_attr->address;
-> > +     struct hx711_data *hx711_data =3D
-> > +                             iio_priv(dev_to_iio_dev(dev));
->
-> First of all, please preserve the reversed xmas tree order.
-> Second, it's more than enough room to have it a single line.
-Works , will do in v5
+Actually, did anyone see v12 of the front camera patches? I'll just
+rebase this on the revision of the camera patches that get applied.
 
->
->         struct hx711_data *hx711_data =3D iio_priv(dev_to_iio_dev(dev));
->
-> >       int i, len =3D 0;
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+https://lore.kernel.org/r/20260331194437.41041-1-mailingradian@gmail.com
