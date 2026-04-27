@@ -1,122 +1,110 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A3C3CCA05
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 13:49:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777297761; cv=pass; b=DFxuxd9NZR+jVPj21vEvVgi+OQuA0COb7aHpaMC0dPpTpc05VFqyKBQhdWSwIiCqh+Sa73/+Uh2XdT1Y30mQF57VUPJ0e0fgGogXwPlEHC6bF7+Oi/g2lmwDMnQtCaKv7M73nrZNfQQY0dHg3numvkVQMtPBC4n+omIuPfbOVy8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777297761; c=relaxed/simple;
-	bh=UV6buHEG1uLq/GfdgoXUKW/clHKcaNwLCNlf2Vw2HEA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N65nJUByUl2n0jVQ9vn47m86MMu5Qu1lK0t2lpKJe5xYzn8tm/T3OW2vx+nPNDBZzGBtgfk/1geaWHD4FGkKHxIve47tIpL/53LvRNyca50XjZof/Il++9RjeWqxWxpuinUah8H9lsDYnCcQ3baSxVbjR6ChIbZh3T5IXCVEj3c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BSGYKirK; arc=pass smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00C293CF042;
+	Mon, 27 Apr 2026 13:49:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777297781; cv=none; b=DycOS2/KA55N96qiwUNAT3gEHkoLTy/g3zlwWYKARq63qb3m+lTk9MGZ+143Rv4MATz8ZddRdgYoo5no1zVTZ/0cBo1U/++EbbAJx6tZ/NJQOTLC9YHKZhLGuCBi7TsqohktTzoG5eJtbvBQ39+LS3bjPY0I5sHgrt4URX3v5T8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777297781; c=relaxed/simple;
+	bh=2KbPCo8VutnDTEndrERxI94xuQqQo17zeysownFnBZc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jib2RFUnjJi5FOPKHO4fDaxcDDlHU1P06BEc+WtAwT2suObbDAeDM/C/SKZrx/x5i6r2V1aangXXRRPvQZ9Oyh0zg1tHSXLgUFKUhBlf7QZRj4wfXv8XwarFxvz7BH4PXAJrlGlOQbl4APlqgQ0fRPUqFvra8gh8qYR3ewi6ECw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XJzGZrfq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BSGYKirK"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4852b81c73aso85876135e9.3
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 06:49:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777297759; cv=none;
-        d=google.com; s=arc-20240605;
-        b=avKR2PeW6BY6p6jbZ8nVeBsZiqa1pZhN3gHS+AbxDZSDVkNTbD+9Y40eLmdFIyABFj
-         Vke0YHvaXV+0BMnt6aLBolN6NuuZH4mTp5yMwTTSmFxT3TKOp4jJqdrGNmHNy5X7WkIe
-         CaKoqgGE5oy/eaE8CTvIJhDIE7rUWcgPNbtQhROWejdTCQ9Ls/GAb4YHCKX+E4Aj+cgZ
-         qK4evwsgVeYfVoVltN+2FshMI3lqfN5ZoS95LAb2zS7jIrKkkr+ufUs0PLM0AyfSJl5J
-         Iga9g9Bz8XHi7MgMqu9eh65TMUtexEI7rgx42aUsD4eI/HG94WWw7C9IudykkoXz8qp2
-         A4nQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=3dd6fL4hXmVroT8xOXA2tc/R3AHUcKZxKFu4hjGHfCs=;
-        fh=W+JMDo3d7smZcc63gzKFbtqGCQJ2ChetRRZMET81tRE=;
-        b=EpoqfuQeN9AfoYNsjq18XE38WR5WAM8Y/FgPvZM+sRIgcqvff1ztRel6jMKqzY0LLh
-         pv14urYcju6S2a9Na7EgG5t6LLwYicCOS9UljV8mEXhiGsutWHoScSfotjg/GLufMdRy
-         /nBfgBfC5VmLuLlwK1IF1JB1K7YUSL0CanP1DiL3JADxBQa0I80HqOjwzZf00fBWFM2j
-         Gux/0pOtxxpnVrjBpGCs54Q5Ec16r/n1nhdu/NNYyiadUaEM0G5FRelBKaf0Cl+KHhvB
-         4CejtbGW1A6+kL4fsube7whNIpKAHNZv815FCPs93LfQi664y5iibTOuzumanoINGDyU
-         XMPQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777297759; x=1777902559; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=3dd6fL4hXmVroT8xOXA2tc/R3AHUcKZxKFu4hjGHfCs=;
-        b=BSGYKirKaJyvo+qLEEyqMYnA5PJv+DRbqYwQEx9O2tlGeKx0E4Jsc3UJXo3djI28tc
-         gGYyXDQGFIpHm5MNu1bDI06H90bqmi6Vdia6OmetfTcWYKtvwWm1gZdCecSa80wcqgxx
-         wYVmhkMhZSw4dL8PhYs6qXXLjSa4S9ZtWwU3zIx+j3OEG/MKknxnjwJ9RrKzBRzjFNlK
-         a4i+BDu0MbfIaN+Pjx6ynDf0rjB2c+hPpRLgumdd2RJ/uMck+4NYAd3ZDirwWquTYqW1
-         vxqWQiqE3X0VR39/3t6p0oOuMln64lksUEC3lNwJuULHz/62zgTLP2bI2X6ztjpT5/oB
-         ZsPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777297759; x=1777902559;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3dd6fL4hXmVroT8xOXA2tc/R3AHUcKZxKFu4hjGHfCs=;
-        b=h1s6qcoL1ixQzp1mrZFx9iQkQB3hJDI5a5WR/BST++ZMMMcQGB5zKW8DjmQuHTijmH
-         9tfFpQX59C03TPvX1ZOt1vP4sb3CmppDSPV3zeQOljt6hlWvu7ztRf9sYhcqGEEQHvvc
-         WLVdR+bqtJ/oIuhiIwoDkNb+k+zotZwmdOR7FcvGayVIcHDNoZ1lZYyNc2tlxk2Hs/7z
-         5YU2DJh4C2MoDZlIu/TJJGb0vR7VprcNGyectJ5lpxjOLyr+iGYc2aINygkc9/VUtwpF
-         MMgJVygb3aohe79PKfJp8NKxw9rzgdPd2AezmAyqbsIt9cWgKzAJ5RR9eYkVJ9gtw6rO
-         CThQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+r56I/CUdi7EpU4yOChgRijFBcKQxkjpeWb4/KTLMTG6dcmKB8cIbCcAu3Ki5QVZmvVoeMrE67LiAF@vger.kernel.org
-X-Gm-Message-State: AOJu0YxRXok2Eekbb8bGQhM22TC0TRy6fUVwyXIJ/n3xeGRJSxcnB0SV
-	h9Pq4NOvHRuspu15pThvXvAVU0sKVMBdb+QKY2toL+YtNy46jmaag5/AM1kfdntU7+E6dsivjRZ
-	WXXddgBCObo1z2N1CWEUMITQrKNCBPJ8=
-X-Gm-Gg: AeBDietLf1Bylaqwp8/+10Q3H3AGtxTMqbOVdiCnEcGZb4Dy08V6blsVOScpJWUBQiK
-	EFuCJ15y+O0yBdEZek7lbGSkHyU0GnWFkPPn+uax8zvT3xY4hx4S2ML92XgD+yQLPZ22LjZepGm
-	5LInE1wEYX3d3PRc0leNS1S632OK36AAP4XfANVO0Vq8MWbJeCBlJNLJ3Tpx/a7wCCbUm6keOgL
-	t59IXP07VlKoquLVZ2HWQlx5fAL1nWMuzjRSizhAagwicmoXRy6ON6t9kCQ1VUw/+g/4xq1LXS3
-	mSW0hObgWFmotVwzIuuqpNVvR1b2CT+7ojB5jo724fGkyYhTAYngUQK0pos5fbPIVopYcZL89xv
-	lC+Y474m7dJbj2bnBrLvNfhUjxx6j+OXDJBIQwx5pVw8Fjn4b7MfxNtBdhoXxsMzw/lDZ8IWRJr
-	NCPQY0YDLPd3+w3UrS
-X-Received: by 2002:a5d:5f92:0:b0:43d:14ae:1340 with SMTP id
- ffacd0b85a97d-43fe3df259cmr61667732f8f.23.1777297758511; Mon, 27 Apr 2026
- 06:49:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XJzGZrfq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A63BC19425;
+	Mon, 27 Apr 2026 13:49:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777297780;
+	bh=2KbPCo8VutnDTEndrERxI94xuQqQo17zeysownFnBZc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XJzGZrfqkSXA4TaKEkh/H8cEoEiqZ8zSpRr92I27XRWfFJpUB/G9kRStVL+ZdDVKR
+	 eGm4vav3ym5AGqihXaN3pLwa7ywxJIEOI+xL1cK1MO/D8A/bupQ66Lr9oYhcIImVEp
+	 ju3+svof8MKf33p1G0K1woBltLEM4hJxDET3Qo364gPAZP3v/Pu6QybgMm/WWQPvUH
+	 H/2U2ScU+OF/L4F8aqoz0+G2Y7DMSxXm4pddc+WdpNn+jIBOD99Svaj/H3+cJJa07C
+	 uR+hY7itAVtovNf+Xu/FQMKVsE3V9M49WxivrKUyG/SgrSTjSN4sCHL5XuW0xwiEPA
+	 Hr3nSMhWZHa/w==
+Message-ID: <653b640e-8b61-4c60-a455-63a400b308e7@kernel.org>
+Date: Mon, 27 Apr 2026 15:49:34 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260427100950.33936-1-piyushpatle228@gmail.com>
- <20260427100950.33936-4-piyushpatle228@gmail.com> <CALoEA-wAUpZ7_2_3kB33mNB_Y_DAc_p7QwPR9a5pxL1iET_cdw@mail.gmail.com>
- <ae9otn7HuPKVtzsk@ashevche-desk.local>
-In-Reply-To: <ae9otn7HuPKVtzsk@ashevche-desk.local>
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-Date: Mon, 27 Apr 2026 15:49:06 +0200
-X-Gm-Features: AVHnY4IWXn4KPlMOkGFs9kf4VC_aZGi8atIaaiqwtdhfJnUvsWgAsLSy90uFeKE
-Message-ID: <CALoEA-w=giUoevbAh+i66ATKfXCr9WUE0R6G6DOMq2xE8cibEA@mail.gmail.com>
-Subject: Re: [PATCH v4 3/7] iio: adc: hx711: update Kconfig, module
- description and file header
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Piyush Patle <piyushpatle228@gmail.com>, ak@it-klinger.de, jic23@kernel.org, 
-	dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ARM: dts: exynos: Add bluetooth support to manta
+To: Lukas Timmermann <linux@timmermann.space>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Alexandre Marquet <tb@a-marquet.fr>
+References: <20260408-manta-bluetooth-v1-1-b7658e78359a@timmermann.space>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260408-manta-bluetooth-v1-1-b7658e78359a@timmermann.space>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 27 Apr 2026 at 15:46, Andy Shevchenko
-<andriy.shevchenko@intel.com> wrote:
->
-> On Mon, Apr 27, 2026 at 12:26:53PM +0200, Joshua Crofts wrote:
-> > On Mon, 27 Apr 2026 at 12:23, Piyush Patle <piyushpatle228@gmail.com> wrote:
->
-> ...
->
-> > > +         which are used for bridge sensors such as weigh cells.
-> >
-> > Typo here.
->
-> It's better if you point exactly what the typo is.
-> I think you meant "weigh" that should be "weight"?
+On 08/04/2026 13:56, Lukas Timmermann wrote:
+> Enable the bcm4330-bt device for manta boards on serial0.
+> Also adds the necessary pin definitions and interrupt handling for
+> wakeup.
+> 
+> Signed-off-by: Lukas Timmermann <linux@timmermann.space>
+> Co-developed-by: Alexandre Marquet <tb@a-marquet.fr>
+> Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
 
-Yep, that's it, my mistake.
+Incomplete/incorrect DCO chain. Please do not reorder tags. Git does
+them correctly, so you HAD to change them manually.
 
--- 
-Kind regards
+You send the patch or you apply the patch so you must commit with sign off.
 
-CJD
+Best regards,
+Krzysztof
