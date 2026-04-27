@@ -1,246 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFFF43E3D96;
-	Mon, 27 Apr 2026 19:09:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777316997; cv=none; b=nE/FjHZyo/7B1Kl6KLqabye5+ykAGEGX+6bVCh5wATOyXxDG3rNnVPP0dGc3fv2qKlgU8NtSgN9GpjGrOAXPMNw5WfNpORgy390O9YVuiXBIX85NbhRFK57XshapHK9OPMo7WmYUw+Yrin3Aev13Ji5f0HpbpXKMrHTZcblrZno=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777316997; c=relaxed/simple;
-	bh=S2QFyYO98/VeGN/skPl8gjEfWZ0lmpn91ZH1v5evmfc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZzSCgTgyNCtvnFyxjVmeKIg3+yVbEJSo76rbDY4g7ip7l2aaN7kTWXcUI/qVoVmgnZcvgjgdm7DA5i3EOzeWiqaosUr9jty7WpgcBl/b0t8r6FvFa5lk1RleUX5TioZhWfu4OfPo7OOo9mlbMR6rxJFcYgVOOkZxwEbEjlNOox0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oy1TTQza; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A83A3D75A6
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 19:10:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777317008; cv=pass; b=J6Il+B9/t9CSCF/cM3DaO40hAcCLnc6wTVOqDNNpTq+tj+p1ZdACtqwgsTgwO/lNdk8RbeAJk9VPnH7X+HZeqeOAKxpxmzl09fIuY48ioVN0guqCkFrKZRdw6o2es49WnxXeJSj7ZRiRvDTpGeH1m7TUqYkLqhRWqqvhtd3ZKn0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777317008; c=relaxed/simple;
+	bh=3fMZwSB6yeTz6IO9hqO0yo8wNfXO4Sj4anHGhDxgOT4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fSHVlfAueeypOmgIqYEXw5DYSvP7q7bDO1b64hpvy3wixRZhj1zJZx1zVM6ZoYS7jI81L/DoLrdBB8w6U6zbjFzr1O+dz14TT/cA/hwXVlUeauIofxYnTy2r/rPsq7cy/vtdJMTEbq1NHXDvXYfuIiFzJPzXxZNErq6FeryqLi4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aCT3LFAG; arc=pass smtp.client-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oy1TTQza"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB534C19425;
-	Mon, 27 Apr 2026 19:09:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777316997;
-	bh=S2QFyYO98/VeGN/skPl8gjEfWZ0lmpn91ZH1v5evmfc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oy1TTQzabSaSuoEPs9nMY1DcOZHjLDMVdinWJwVSlLiubHWfCdGTVDrBoiffUnV42
-	 4lR3iRcdRoRm6WmErZB7xmwE+o0aok1TZr1gwQZZcMF/yREI/KReJwtBaDBanAXqWX
-	 TfhlFacma5zyeE/lMesNtd8p1bGd0mlgCuYcBVgQKiBOZuO5gLxEp2OxhkJ8/ui9We
-	 1EHCy0xQa2AOpklCXJB1L/n/Ayy5PTYKEtFKHBzU4E8+TgcW9+pFZ4yNaV0pCoERhj
-	 XNq7M8lMiRHMiGR0gSTnuKUyaqDXJruookoppjFCDKseviChNfSmsd40xnEbV7T3hs
-	 /TvYi7Y59+Oqw==
-Date: Mon, 27 Apr 2026 20:09:51 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: devicetree@vger.kernel.org, Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	"open list:MEDIATEK MT76 WIRELESS LAN DRIVER" <linux-wireless@vger.kernel.org>,
-	"open list:ARM/Mediatek SoC support" <linux-kernel@vger.kernel.org>,
-	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>,
-	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
-	"open list:MIPS" <linux-mips@vger.kernel.org>
-Subject: Re: [PATCH 3/3] wifi: mt76: remove mt76_get_of_data_from_mtd
-Message-ID: <20260427-hug-baboon-d60bb8fdfa51@spud>
-References: <20260427034427.881389-1-rosenp@gmail.com>
- <20260427034427.881389-4-rosenp@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aCT3LFAG"
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-12c637089ccso1580339c88.1
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 12:10:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777317006; cv=none;
+        d=google.com; s=arc-20240605;
+        b=CztZlJe+Rhg5RXUpKcNo/ig078qDEzFQsW2/NC9jGsIiaQVi9rcQT6DtRkLmqlci4T
+         3ccZgHtP1Km375uiSg7yBe3z5GYj5yIX2Q43rVlBt6PkqKEB01ccsiWHxoxtY844vhYC
+         EXAsROKXPg6rJeWt682NjI8hm3TruqYb2LXwoRiBsL3vPevBNC3CAWAMFDqFQIYA83ym
+         HZmzuwUf3YkuIOuqdXK2s2xAiMeZMb5mNqSd+BGGJ1f25P+ms6keI7DvyKpReKocZ0L0
+         GylbQLzVibTj4RUfxPnGXn4Qbv36GyqZZQ4MR6jhIMEELgcl/01fQlzDaemcjsaeAXAM
+         Afyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=3fMZwSB6yeTz6IO9hqO0yo8wNfXO4Sj4anHGhDxgOT4=;
+        fh=s+4CUl95W7Fh+G7wqMaBpyWR2LGddW1ZQcqA8DmdVQM=;
+        b=AfShg/t9vNolkRfUMfxkoDYwDXf0v1F82UjKe/HIDMthfVFCHVR6xmSUdXZjiaDhza
+         H13EtjQ3vtny1hN+5k/Nkb15n2xzFt53UDd/Yb+eQUeWmHUYCHUzuaZej5k94CMzyEEn
+         UkSvpS07U7su90gBdx1Yu1Wg/9+XDHblDPImip9hkQSaoKPOB7YHGZtD53IRLwn9/up7
+         l52QM9Iy7Ze8SQUE0ehF9YfcBkAF+hkVSmr5jjG58tDlVR2iJl6UypMdX/z/CYZ0mRSH
+         mGRC68QQ8ajsZvs6J6CYislxteYHZo+UWUnPl3q5WtyVhM7rulH/YFNqKs1xczM2K9ZP
+         3sZQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777317006; x=1777921806; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=3fMZwSB6yeTz6IO9hqO0yo8wNfXO4Sj4anHGhDxgOT4=;
+        b=aCT3LFAGvTHRgzs0Z/copgVnDVeHC+NGE6WsCS/XQ9sGBvA4eSxFJmeGLYxsLF3lIt
+         e0ozJzMNsr99ulzChi5qUwxDoxdI/VQZnAtDGQH0s7TBBNk+bZYL7Ac01l7EbE6L0stg
+         kEaqhd92y5sgGqIZ4SOcqulzn4Ri0hlHS0TzQVvhxSQGKEI9equcfKa1cfw8koYl71zc
+         N+cMrT6NnvCh2niYqnM6G+lHMn6bihNuuF18MOPd38Bt1QRUxukunWUZoNVPU1OmuK0Q
+         mEIitC/FwiPyCi5HZDpotutS6dqCXqMAtETyrTZyOLrY9kupBAdKO3rwFeWxmtLste7b
+         xLSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777317006; x=1777921806;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3fMZwSB6yeTz6IO9hqO0yo8wNfXO4Sj4anHGhDxgOT4=;
+        b=ql19Q1HBH2G+/z0tK/nhf4/UryJ/yWEpqtatPKs7eINk1d6QCXBB5NpUGyydpu/xCR
+         g+LvVGa5sCLyodA97z0TRYAjJmrha6P2XNvjeK3Ts5NrZpNU3gYN9hVmav6/5I2O40gp
+         avEZBXQHpN6kJAMppnKOAumIOSwJxHYozLYohWBIwY17vRK4ovu5jADtSZTi+zO5YET2
+         iALSSaE4RcMsceWYzvohK0c5w7QlJ/Qk3CvwR8Ufxnv0Y3coYJbLq05KjlkktoFoXBJP
+         HL2XL5gDVLON8qeCwZFJ/u0ch1vsLpkSeiJGWuub6pkylP0dXp2t15XZBvHvEymwX2rc
+         c+7g==
+X-Gm-Message-State: AOJu0Yx1OWAlWUGsWMLQSOEdcmpBTQSasEunCvT/T7MHgcnK9utnUj+O
+	Iqu5JplTjdyAqEvhP92IRYgRzChNlAd+xQklONh8czAkbnpQLF9uWfmzEl0yZyjhl6FPZZ52f2S
+	00Y3doi5JES6lFOHhYis7dc16s99/BVQ=
+X-Gm-Gg: AeBDievJ/5P0wUaXoIUwFfBYpypyrvB6+7Idn94GWfE0gxHE7lUYU66mcaIz7Geltp4
+	HSoCgvEQr6coavTv3brPgr5OiQuGEYaWfDQB7xUT9P21i5iQdqb3nmi0aLJxLThCwCxQr898vp+
+	hq4ew/ynAbIi/rYPaPth7lPlUqX5DYHO8M0JQGf/Acay2HDFcao+Qt0x/L2XoyeyiSA3tz+R+OE
+	zRFLI0KPK4uDx0WOn3uodUagvdvBvdvV9WU404E+8EMYh3eKUdilqQEZrUlr4fIfYxdXwPxbf9H
+	kWrp4gDRy8qljEGX
+X-Received: by 2002:a05:7022:6892:b0:128:d4db:4464 with SMTP id
+ a92af1059eb24-12ddd9db078mr59639c88.25.1777317006086; Mon, 27 Apr 2026
+ 12:10:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="h8E0ijeg3Rf1YQAF"
-Content-Disposition: inline
-In-Reply-To: <20260427034427.881389-4-rosenp@gmail.com>
+References: <20260427115443.3224840-1-eagle.alexander923@gmail.com> <20260427-smartly-sullen-509e3d5e1967@spud>
+In-Reply-To: <20260427-smartly-sullen-509e3d5e1967@spud>
+From: Alexander Shiyan <eagle.alexander923@gmail.com>
+Date: Mon, 27 Apr 2026 22:09:53 +0300
+X-Gm-Features: AVHnY4KGmGS5TTBcR6l162yPSyCbez8-gBuRN0yPlPZAIlbqIQAvx_FlaKL7f_Q
+Message-ID: <CAP1tNvRHqoq==tehB5vKxH41BXG54Y9s+JMZt66o__SMTekHeg@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: regulator: fcs,fan53555: Remove vsel-gpios property
+To: Conor Dooley <conor@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>
+Content-Type: text/plain; charset="UTF-8"
 
+Hello Comor.
 
---h8E0ijeg3Rf1YQAF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> On Mon, Apr 27, 2026 at 02:54:43PM +0300, Alexander Shiyan wrote:
+> > The vsel-gpios property is currently documented in the binding but
+> > is not used by the driver. The FAN53555 family of regulators supports
+> > two voltage selector registers (VSEL0/VSEL1), and the selection between
+> > them is intended to be controlled by an external hardware pin (VSEL).
+> > However, the driver does not support dynamic toggling of this pin via
+> > a GPIO, it only uses the fcs,suspend-voltage-selector property to
+> > statically assign which register is used for runtime voltage and which
+> > for suspend voltage.
+> > Remove the vsel-gpios property from the binding to prevent incorrect DT
+> > usage and to reflect the actual hardware description supported by the
+> > driver.
+>
+> From the wording/justification here, I disagree with this patch. The
+> binding should document what the hardware can do, not what the driver
+> can.
+>
+> Maybe instead you should make fcs,suspend-voltage-selector mutually
+> exclusive with vsel-gpios?
 
-On Sun, Apr 26, 2026 at 08:44:27PM -0700, Rosen Penev wrote:
-> mt76_get_of_data_from_mtd has been replaced by
-> mt76_get_of_data_from_nvmem in all usages.
+The main problem here is that this feature (vsel-gpios) was never
+implemented in the driver. So, the patch consists solely of removing a
+non-existent property.
 
-All users in the kernel, but what about other sources of devicetrees?
-Those built into firmware etc? Are there none of those too?
-
-Conor.
-
->=20
-> Remove it to prevent people from using the deprecated
-> mediatek,mtd-eeprom binding.
->=20
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  drivers/net/wireless/mediatek/mt76/eeprom.c   | 87 -------------------
->  drivers/net/wireless/mediatek/mt76/mt76.h     |  1 -
->  .../wireless/mediatek/mt76/mt7915/eeprom.c    |  4 -
->  3 files changed, 92 deletions(-)
->=20
-> diff --git a/drivers/net/wireless/mediatek/mt76/eeprom.c b/drivers/net/wi=
-reless/mediatek/mt76/eeprom.c
-> index afdb73661866..092804323d81 100644
-> --- a/drivers/net/wireless/mediatek/mt76/eeprom.c
-> +++ b/drivers/net/wireless/mediatek/mt76/eeprom.c
-> @@ -35,89 +35,6 @@ static int mt76_get_of_eeprom_data(struct mt76_dev *de=
-v, void *eep, int len)
->  	return 0;
->  }
-> =20
-> -int mt76_get_of_data_from_mtd(struct mt76_dev *dev, void *eep, int offse=
-t, int len)
-> -{
-> -#ifdef CONFIG_MTD
-> -	struct device_node *np =3D dev->dev->of_node;
-> -	struct mtd_info *mtd;
-> -	const __be32 *list;
-> -	const char *part;
-> -	phandle phandle;
-> -	size_t retlen;
-> -	int size;
-> -	int ret;
-> -
-> -	list =3D of_get_property(np, "mediatek,mtd-eeprom", &size);
-> -	if (!list)
-> -		return -ENOENT;
-> -
-> -	phandle =3D be32_to_cpup(list++);
-> -	if (!phandle)
-> -		return -ENOENT;
-> -
-> -	np =3D of_find_node_by_phandle(phandle);
-> -	if (!np)
-> -		return -EINVAL;
-> -
-> -	part =3D of_get_property(np, "label", NULL);
-> -	if (!part)
-> -		part =3D np->name;
-> -
-> -	mtd =3D get_mtd_device_nm(part);
-> -	if (IS_ERR(mtd)) {
-> -		ret =3D  PTR_ERR(mtd);
-> -		goto out_put_node;
-> -	}
-> -
-> -	if (size <=3D sizeof(*list)) {
-> -		ret =3D -EINVAL;
-> -		goto out_put_node;
-> -	}
-> -
-> -	offset +=3D be32_to_cpup(list);
-> -	ret =3D mtd_read(mtd, offset, len, &retlen, eep);
-> -	put_mtd_device(mtd);
-> -	if (mtd_is_bitflip(ret))
-> -		ret =3D 0;
-> -	if (ret) {
-> -		dev_err(dev->dev, "reading EEPROM from mtd %s failed: %i\n",
-> -			part, ret);
-> -		goto out_put_node;
-> -	}
-> -
-> -	if (retlen < len) {
-> -		ret =3D -EINVAL;
-> -		goto out_put_node;
-> -	}
-> -
-> -	if (of_property_read_bool(dev->dev->of_node, "big-endian")) {
-> -		u8 *data =3D (u8 *)eep;
-> -		int i;
-> -
-> -		/* convert eeprom data in Little Endian */
-> -		for (i =3D 0; i < round_down(len, 2); i +=3D 2)
-> -			put_unaligned_le16(get_unaligned_be16(&data[i]),
-> -					   &data[i]);
-> -	}
-> -
-> -#ifdef CONFIG_NL80211_TESTMODE
-> -	dev->test_mtd.name =3D devm_kstrdup(dev->dev, part, GFP_KERNEL);
-> -	if (!dev->test_mtd.name) {
-> -		ret =3D -ENOMEM;
-> -		goto out_put_node;
-> -	}
-> -	dev->test_mtd.offset =3D offset;
-> -#endif
-> -
-> -out_put_node:
-> -	of_node_put(np);
-> -	return ret;
-> -#else
-> -	return -ENOENT;
-> -#endif
-> -}
-> -EXPORT_SYMBOL_GPL(mt76_get_of_data_from_mtd);
-> -
->  int mt76_get_of_data_from_nvmem(struct mt76_dev *dev, void *eep,
->  				const char *cell_name, int len)
->  {
-> @@ -163,10 +80,6 @@ static int mt76_get_of_eeprom(struct mt76_dev *dev, v=
-oid *eep, int len)
->  	if (!ret)
->  		return 0;
-> =20
-> -	ret =3D mt76_get_of_data_from_mtd(dev, eep, 0, len);
-> -	if (!ret)
-> -		return 0;
-> -
->  	return mt76_get_of_data_from_nvmem(dev, eep, "eeprom", len);
->  }
-> =20
-> diff --git a/drivers/net/wireless/mediatek/mt76/mt76.h b/drivers/net/wire=
-less/mediatek/mt76/mt76.h
-> index 527bef97e122..f447ecac664d 100644
-> --- a/drivers/net/wireless/mediatek/mt76/mt76.h
-> +++ b/drivers/net/wireless/mediatek/mt76/mt76.h
-> @@ -1339,7 +1339,6 @@ void mt76_seq_puts_array(struct seq_file *file, con=
-st char *str,
-> =20
->  int mt76_eeprom_init(struct mt76_dev *dev, int len);
->  int mt76_eeprom_override(struct mt76_phy *phy);
-> -int mt76_get_of_data_from_mtd(struct mt76_dev *dev, void *eep, int offse=
-t, int len);
->  int mt76_get_of_data_from_nvmem(struct mt76_dev *dev, void *eep,
->  				const char *cell_name, int len);
-> =20
-> diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c b/drivers=
-/net/wireless/mediatek/mt76/mt7915/eeprom.c
-> index eb92cbf1a284..c24e1276700b 100644
-> --- a/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c
-> +++ b/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c
-> @@ -29,10 +29,6 @@ static int mt7915_eeprom_load_precal(struct mt7915_dev=
- *dev)
-> =20
->  	offs =3D is_mt7915(&dev->mt76) ? MT_EE_PRECAL : MT_EE_PRECAL_V2;
-> =20
-> -	ret =3D mt76_get_of_data_from_mtd(mdev, dev->cal, offs, size);
-> -	if (!ret)
-> -		return ret;
-> -
->  	ret =3D mt76_get_of_data_from_nvmem(mdev, dev->cal, "precal", size);
->  	if (!ret)
->  		return ret;
-> --=20
-> 2.54.0
->=20
-
---h8E0ijeg3Rf1YQAF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCae+0fwAKCRB4tDGHoIJi
-0p6UAQCh7xiqZv6vZTQVkekaR1PoBZs8cZSa9cGLXxrA5TBPXAD+NdxdB4FFY1+K
-5yFpUApYxWTCs8eeSKv6+VAqqrq7lAE=
-=hLdb
------END PGP SIGNATURE-----
-
---h8E0ijeg3Rf1YQAF--
+Thanks!
