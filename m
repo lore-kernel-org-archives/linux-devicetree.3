@@ -1,120 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 894FA3B8D4A;
-	Mon, 27 Apr 2026 12:39:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436013B8BD5
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 12:39:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777293590; cv=none; b=p5ojgDZ9aYVbZYlZomSW7BG3/JiT0cPOcHU4iUjOzAnTgQplWO3kGJInQhUCez0udyORfg4/uoARN+HL6+8S++6q+eamVewM8B2a49P9VstGShUX8zWMWifBSQAfsb/3vjA1guHg8p+1O1gFR0yhbST4HbdmlAfNqKIdsKKoTgE=
+	t=1777293597; cv=none; b=SjigewIZJmzM4WyJIsA9nxf+fm0G0f0Zk4GrF8OMusza3oRnRLV6GnUzJFMOAN0n8Lp1yooXqR8nhOa3n4crz2Iwn3DJeSX6zlCy0hxNDu/oN57okSVWmD0ApL464PuwzI22KK8XwcGE6NqG8vGQzMiCYvhcB9mLfA4hUG+KIHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777293590; c=relaxed/simple;
-	bh=B6VXB3n93X8gQas+e8Yh7Mmm6pVyLJdNvfAKeHZtWuI=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=bcALVtrKz5C955IETXD04yRNJN/UnwhPrzrF/QJHLY7ZxsIKhoMdRa9YMGsaZRDF2+8FF0X5z7sV9Z+UK4J/Usti/R7fBhD7D9aI5EGwSyVo9EPb1a4j6eE3j8466siDIGVoQHVdsdnWp02opQgTWN3A3VEPOQvXIYNRqev6ON0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SEdolQrk; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SEdolQrk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA629C19425;
-	Mon, 27 Apr 2026 12:39:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777293590;
-	bh=B6VXB3n93X8gQas+e8Yh7Mmm6pVyLJdNvfAKeHZtWuI=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=SEdolQrkY49wv+MM4qEkvALcwMpbb0oXZH16A8bc8mYX5c+E7xMGPIxt06/5wBMk2
-	 xhswo/oTLqCb2cOsjDqgTHUhr2pvauHIITQNBY2qmsm0308ZmnEPDszb2o8huKxCNN
-	 f5CCUvp9jlbjuhCT3ZdQkmTJiVsCdkmVO2aNL5mkwNfhKi1Ko/aJcmLmwYxlT7Vwsw
-	 RzZGzuzwE7jJciqCr9ar7VMpi8vOBjkMZbTGaN2nSHvJuDs0Mz/bFlUrb8tXzZgUYN
-	 7zGBgT2/OW/aQrUdd9p/kkFHGy+YWBb+dXpyHwj61BXnsvTS1BMAbothMwKyCT5CEM
-	 vYJw0fb2MhYHg==
-Date: Mon, 27 Apr 2026 07:39:48 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1777293597; c=relaxed/simple;
+	bh=JDIWJkl/LgBTnPaChq7M+tWmJ9t9TgrLrxcBQAaM568=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NVrZAKx6g9e+c007qJ/3FmnHvH4B8+tEAq69nY3tTui7x9Rh7WfoU+V0p2MiL5kwWhuLjxcH9BDHBfNAx+9v/hBhjXjMC939UlJmFS/M/ZhpyFsVGY/+YRP59kCyaRSF8IDV7ddqxnF4eSQR64yMmNakEbpFDei84h2UAIZ+bac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-56eee0ba462so6161324e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 05:39:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777293595; x=1777898395;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4I4ulITfm7RcRo2LSwevKoJMqLeV3TvjRz6ydPI4T5c=;
+        b=VFHJbC0tMfHo3U6aNh6iIf/XmMFWztkdQbIRe30NTply43N1ybXZ4LgUcjIryuNq8m
+         b8dG+vrNUPZEwTpKDIKkUDFFIziEOh12ue6IIk2Mv/dtHNKaqT/KhzUYCONiGrRsgIVK
+         WhqQzbI1xE3V5POcFcPNtfmeO3UKd1tXHcc1nKoCk8po6OpZlAqcc/mXm4uAVn3h6/Lk
+         SlPxlH06KO7HJdiFQI62h291WttmJ/2vfAzBRbfuRChle4gaVPD7OiEJ3wn+EG2lvFN/
+         x7bDR03DsiSKXyt4RVc1RfqkwusAzVE+Ixi10/T7E3yRMBERTR7GUYsBHxU3eWRtkFaE
+         unjA==
+X-Forwarded-Encrypted: i=1; AFNElJ9c8mZyryGiEaNYAyb/fZR2QXvnulvD83jar7s24HoZJMCwabXQb4RMml42IABH7XBa8ovdprjGADy1@vger.kernel.org
+X-Gm-Message-State: AOJu0YxoGK+/NrW+feH3Bg1QR66Z9lGqiQSmNf7PIcfPDkVyyOfWEvPT
+	ZLOcVIRAGzLhS9CaRxOhrHgXmD1FaUy1Rm9EundvuXT0bMJWHyTofwX0viHOpXOk1Wo=
+X-Gm-Gg: AeBDieu26E1lovcsTEWJea+y0l4Hb7PWnG/4GVsGSrFbHj1XdnBvIR1+mz+h1g0YWuQ
+	4AO62WEieo/aIRG6vG3S8K6yackH9i1I6/Nc/FlVk3xTjz+HL+LQLWTVvbPqFJfJLJeX4O3xLdy
+	9VEPopqFPV6JBen6clARL4wUMFn0gv/mItYdbxBYVlTxo8sJGiodGWpKXh/IYWGEB3S/ecb9eDc
+	ba75xE5PV6nn2zxd7HrdO4y/br7yizQFb3bIuUf1ycl+2NT1L8AE3XITQWiCgXXnG31vfKhGizX
+	uPY0KV0R3rDb8vJ0G1mwBNdKNUnE2Njibp+XGDlxdwH/dW+53X7sc1gXoQR64o5X4EBv1dPJtyT
+	/tBcJO/6odOPIsEsCdObMtiEX4oNvdNRFKW7nrbe4nlDl47CuFd3IUibQs9GpXM7TA6XLzWf18L
+	1Rd7MtOmsyV54e49MoxjVodgDip0l4vDnmK/QaeQ/+z/2blxOuNnghibTbjj5ksTrjbiEXHj5fJ
+	e62Cp6PpA==
+X-Received: by 2002:a05:6122:168f:b0:559:6788:7b55 with SMTP id 71dfb90a1353d-56fa6673f07mr14586265e0c.3.1777293595166;
+        Mon, 27 Apr 2026 05:39:55 -0700 (PDT)
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com. [209.85.217.51])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56fa933a54dsm17853694e0c.16.2026.04.27.05.39.54
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 27 Apr 2026 05:39:54 -0700 (PDT)
+Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-610f4cf6ddcso7839980137.1
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 05:39:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+TwM8tqUqKd01Qyn4pOaMuFun99jHvuXCIu2/xvQ91GXGV0TW8Q8uJ2SY1DHG44DDt91cwltT3Z6lW@vger.kernel.org
+X-Received: by 2002:a05:6102:f10:b0:60f:f686:3de2 with SMTP id
+ ada2fe7eead31-616fd91c77bmr15161873137.10.1777293593886; Mon, 27 Apr 2026
+ 05:39:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Hailong Fan <Hailong.Fan@mediatek.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, 
- Project_Global_Chrome_Upstream_Group@mediatek.com, 
- Justin Yeh <Justin.Yeh@mediatek.com>, Conor Dooley <conor+dt@kernel.org>, 
- Xiangzhi Tang <Xiangzhi.Tang@mediatek.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- linux-remoteproc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Vince-WL Liu <Vince-WL.Liu@mediatek.com>, 
- Huayu Zong <Huayu.Zong@mediatek.com>, 
- Jarried Lin <Jarried.Lin@mediatek.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Xiangzhi Tang <xiangzhi.tang@mediatek.com>
-In-Reply-To: <20260427111446.22955-2-xiangzhi.tang@mediatek.com>
-References: <20260427111446.22955-1-xiangzhi.tang@mediatek.com>
- <20260427111446.22955-2-xiangzhi.tang@mediatek.com>
-Message-Id: <177729358821.1983670.16657208241339249962.robh@kernel.org>
-Subject: Re: [PATCH v4 1/7] dt-bindings: remoteproc: Add MediaTek mt8196
- VCP binding
+References: <20260317101627.174491-1-biju.das.jz@bp.renesas.com> <20260317101627.174491-2-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260317101627.174491-2-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 27 Apr 2026 14:39:41 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdU8TOLtTXiEDmze745n1PUDuXB=ngrZpmQ82u1wzM9-jw@mail.gmail.com>
+X-Gm-Features: AVHnY4KkIQs5InenbyGUiwPx39HZwsYBx-UWGIr1zOzvwEycJZUsx_PjwWzdJxs
+Message-ID: <CAMuHMdU8TOLtTXiEDmze745n1PUDuXB=ngrZpmQ82u1wzM9-jw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/8] dt-bindings: pinctrl: renesas: Document reset-names
+To: Biju <biju.das.au@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
+
+On Tue, 17 Mar 2026 at 11:16, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> All SoCs has multiple resets. Document reset-names property.
+
+have ... the reset-names property
+
+>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-pinctrl for v7.2.
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 
-On Mon, 27 Apr 2026 19:04:40 +0800, Xiangzhi Tang wrote:
-> Add device tree binding for the MediaTek Video Companion Processor
-> (VCP), a RISC-V based coprocessor used for video processing and
-> multimedia tasks on mt8196 and future MediaTek SoCs.
-> 
-> The VCP is a heterogeneous multi-core processor that can contain
-> multiple RISC-V cores with different hart (hardware thread)
-> configurations. Key features:
-> 
-> - Supports both single-core and multi-core VCP configurations
-> - Each core can have 1 or 2 harts (hardware threads)
-> - Shared SRAM memory space partitioned among cores
-> - Communication via 5 dedicated mailbox channels for IPI messaging
-> - Integrated with SoC IOMMU for multimedia memory management
-> - Boot and power management coordinated with ARM Trusted Firmware
-> 
-> The binding defines both the top-level VCP device (with mailboxes,
-> interrupts, and power domains) and child nodes for individual VCP
-> cores (with SRAM allocation and hart configuration).
-> 
-> Signed-off-by: Xiangzhi Tang <xiangzhi.tang@mediatek.com>
-> ---
->  .../remoteproc/mediatek,mt8196-vcp.yaml       | 166 ++++++++++++++++++
->  1 file changed, 166 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/remoteproc/mediatek,mt8196-vcp.yaml
-> 
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-My bot found errors running 'make dt_binding_check' on your patch:
-
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/remoteproc/mediatek,mt8196-vcp.example.dts:26:18: fatal error: dt-bindings/power/mt8196-power.h: No such file or directory
-   26 |         #include <dt-bindings/power/mt8196-power.h>
-      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compilation terminated.
-make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/remoteproc/mediatek,mt8196-vcp.example.dtb] Error 1
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1635: dt_binding_check] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260427111446.22955-2-xiangzhi.tang@mediatek.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
