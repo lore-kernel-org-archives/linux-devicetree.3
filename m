@@ -1,131 +1,182 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C6637D110
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 21:57:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E89379EDF;
+	Mon, 27 Apr 2026 21:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777327056; cv=none; b=YZ+1d1S0FyzoKixERnAq2ePCHY5PJx1kjxThxDjQAGOte4j8gn/0OfuvFJM5BZ9/ugDW03C+1OV3tPAmhz87ab5vcGRZWW2oakRZd5tBSVl3JVcXntJXDz3vxr7hDGG7DdgbeY+z9Ea5vrkdl7fmL22+8FImod7eS793XouzJ+8=
+	t=1777327066; cv=none; b=EClee5Pab9isbQWMkhqGR44utP52q7UAJmPOkDYGohcllMRznyXt7Zz7jrGngwYTvubc31W0TnWvkb85QsGS9q6rk+qGtmSF7pQrDlEMXiBlc9oZIHtcuN3CzNnmrBXrmZno6zo68JwxIhc1vo/6dI/wPHf8PPWv0RMo07fzFJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777327056; c=relaxed/simple;
-	bh=OFgtGCn1mfUaoCP8LhdAyM8uQwb3Te8gLBE/Ti+VRMI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D6ZDWjg1reI9mXyEtZEYPnxsR+7IcGJaQqqQtZxsNmSfAvnECfyZgOg5fCdbnA+/NcnLhbiguZLoY6MQa6ODWVyhMyag/KFfTdjPxIB8aa7WO/zfBiDm44F8d6RKP469kyKwrCftTmX9ZRSQcOgpG0/DeUVuBja3CDRVSMmN4/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=sMyQxbao; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1777327066; c=relaxed/simple;
+	bh=uWU06PV+eLEGXA1QlwT32JGIwdV2LTYGAZ+bIHKDUeM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dGfjHX2yfM5cp7GHDBbnBfzxO5NPwYRGPQFRMKHGbOJ0mMrEdpcF1ff7VMToOCyVjHID+dMmunyXbkHy9xHX5xEKrk295zdYSEH7YPPB8sEcIFwJk5ZOpB9lLzB9zd2VekJLmgHG8984i593NtrwyuKfLI9VLQcDEXjNEUftDNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=RWuZw4x0; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="sMyQxbao"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-48a563e4ef7so73546615e9.0
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 14:57:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777327053; x=1777931853; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=kV+WIZsj9AmJtT9rTaHxlweLR0VMyPyAnS2ki5QOUJg=;
-        b=sMyQxbaoFGJX/irParUdWhOOocCeUXvxFueNP6tsUkKMDA09z0L27fpY339j5ZCWOJ
-         eVzCjDzD7vnD2t2iCuSoLzQnv8USvbSt3L5MxtOEvVMMsKRrHEN7CIJ7Ulxt3yKHD9rU
-         ztw18e5W+kSqQHS/HYUdoXTEBfEYL5cNNw50k/MGVAFE2645Bh6ZHm8MLFtuOZPFXKs2
-         K8cp10m4Ix5aYnNASAg3qCMpay1gY4706zIWd6QX752KDNbqy1i0ZvFqGRtaPrll93QD
-         gr9BHek6wJpEQzL+mHVhiOaVsUl6npQ8cQJpWbOeGOtPrZG87br/DgVk19I4KrDSDGtY
-         eTQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777327053; x=1777931853;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kV+WIZsj9AmJtT9rTaHxlweLR0VMyPyAnS2ki5QOUJg=;
-        b=CeZmBWtTdC73kX3ddD8cMONR4YqkBS932B7qPYu19rYSmfqa2WsPJtsIpeBE9CE75J
-         DK69WUt6tM1LRZXsPGo+MwVdXXTi2SNWR3eFEchNrjfAbeR/kui2tiDGpsK+Wa3XNiU0
-         M4w8A0tudhtaeJsThN0PD3A/J75A5KHwWddYRLfSVQV+Bx0RWBXOmxViYv5E8fNiMbNa
-         0ZGJtp0eOdD/W4S40pqD5HwXk4IfbM5ExB4fFwg4mNhBHyW450YkSDa7VSmIuf5xN3SK
-         RYIsLBOC0D3zvAQEMn2k2BvnIItyIYrt8cWgCCWUOS5bWsKpMH2M9m787VEDU70z7V/4
-         +oyA==
-X-Forwarded-Encrypted: i=1; AFNElJ9huNGdvT4xkk89VnK+jZMkrmIgkDZBdvLfbHV8iQ5xVr3oYLXVoqQfEH+Eao32nDIo9b4xJf9BXrlv@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy8ifrg1czICrH19H3bVD6PoB/v++KXoTgPReIlLjGhWgI/6PwE
-	s5HDqAetiEJSy19Z6Y1znsmdzdNQd12a+gCMbl2uWp3ZpjJCosCQZEPChNoz+Wi11hk=
-X-Gm-Gg: AeBDietjwxHEawaenuN6q/FEFmT8fJhnAapABTh3jEYDUPEOVw8DGSRXu6T8/AS+9lV
-	BJxXirtmo+9KVIu2xkKm69TPveb30jQjrMgtbkTn7F957BM63E2Ww/BhYeRGuYdwDXGy4a3sMOq
-	sMfTEMJgVmBmuLjmggXbrGcJN2H2tlocRUP7aWdxsky3GJoC648mU6o2N8+9UdEGXMnZ/5Ssy3J
-	y9wWhZ48uglwmQUza+9Og4mjJPO/kZmFjJ/xXx2CvGHO6tZEU80/moy8ThIzUKmPSo3U81DipTi
-	BlcWZ8NjOQ6fJOxrNs/JCHcMVjhUzNKGPhfJ9qc0u22u0SxUsrIbKJCqe7wmhjLS0nI1ynFWrUU
-	HwzfqoYDAYHoa4ZI0rcOJKS0m6+eMNABTYVo8wP5WKdmLF/cd7zjwCpYIDIBZT0hyJHCSHNlUM4
-	JoxucP6O6j/XebPWMxXTUP74JUyHcUUX+FZ5+Tr0nibgeVCL0VpoCeZA==
-X-Received: by 2002:a05:600c:4f0b:b0:48a:55d8:7882 with SMTP id 5b1f17b1804b1-48a77ae6477mr5384895e9.9.1777327052826;
-        Mon, 27 Apr 2026 14:57:32 -0700 (PDT)
-Received: from [10.156.67.45] ([89.101.53.25])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a77609a82sm3993585e9.36.2026.04.27.14.57.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Apr 2026 14:57:32 -0700 (PDT)
-Message-ID: <1b914585-4c27-4f4d-8264-181340c27791@linaro.org>
-Date: Mon, 27 Apr 2026 22:57:26 +0100
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="RWuZw4x0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1777327062;
+	bh=uWU06PV+eLEGXA1QlwT32JGIwdV2LTYGAZ+bIHKDUeM=;
+	h=From:Subject:Date:To:Cc:From;
+	b=RWuZw4x0YkQlS2q1np47mdToA2QJD+dl99IQxojZkAoK1l3OHZHdLhnCxGdqjqna/
+	 lhwBplktTtQ980RzspFcW8Wf0EGvecVXM+RmqRsmADWidzmch6tTc++iSTO7vTw/DT
+	 6NnZ7RYbYJ/zMFqxzMut9jH/Ds3VrtfBDMLCru6essIGb6jkTmMXey23GxMr2dnWJ2
+	 qibMI6+VKw7dKfeoGzq2SbyDcwtDtzGR0WfMg0dXzeUL5X0NM3Kvt7tQACI4oN5mo1
+	 SBjDL6rg2jN4Cun+5RIF5yjwC6BUWeFhj5+X2JyttKraUWYVqK85h5qRh6MOcKsaAT
+	 aCzAaA0OChpMA==
+Received: from localhost (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A3B1017E0D23;
+	Mon, 27 Apr 2026 23:57:42 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Subject: [PATCH v2 00/13] arm64: dts: rockchip: Wire up frl-enable-gpios
+ for RK3576/RK3588 boards
+Date: Tue, 28 Apr 2026 00:57:18 +0300
+Message-Id: <20260428-dts-rk-frl-enable-gpios-v2-0-924df9db884a@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/14] media: uapi: Add CAMSS ISP configuration
- definition
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Bryan O'Donoghue <bod@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- devicetree@vger.kernel.org, laurent.pinchart@ideasonboard.com,
- kieran.bingham@ideasonboard.com
-References: <20260427-camss-isp-ope-v2-0-f430e7485009@oss.qualcomm.com>
- <20260427-camss-isp-ope-v2-12-f430e7485009@oss.qualcomm.com>
-Content-Language: en-US
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <20260427-camss-isp-ope-v2-12-f430e7485009@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ6CMBBFr2K6dkyLitaV9zAs2ukUqpWSDhIN4
+ e4CHsDlS95/fxRMORCLy2YUmYbAIbUzFNuNwMa0NUFwM4tCFqU8qBO4niE/wOcI1BobCeouJAY
+ krffSWX9EI+Z1l8mH91q+VT/ml70T9ktuMZrAfcqf9XpQi/f/ZVAgwSiN0rkzal9eMcVobMpmh
+ +kpqmmavgURTqvUAAAA
+X-Change-ID: 20260417-dts-rk-frl-enable-gpios-ce9930dbf5ca
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.1
 
-On 27/04/2026 13:43, Loic Poulain wrote:
-> +/**
-> + * struct camss_params_wb_gain - White Balance gains
-> + *
-> + * @header:   generic block header; @header.type = CAMSS_PARAMS_WB_GAIN
-> + * @g_gain:   green channel gain (15uQ10)
-> + * @b_gain:   blue channel gain (15uQ10)
-> + * @r_gain:   red channel gain (15uQ10)
-> + */
-> +struct camss_params_wb_gain {
-> +	struct v4l2_isp_params_block_header header;
-> +	__u16 g_gain;
-> +	__u16 b_gain;
-> +	__u16 r_gain;
-> +	__u16 _pad;
-> +} __attribute__((aligned(8)));
+Several boards based on the RK3576 and RK3588(S) SoCs use a
+GPIO-controlled voltage bias circuit on the HDMI data lines that must be
+switched according to the active link mode: asserted for HDMI 2.1 FRL
+and deasserted for HDMI 1.4/2.0 TMDS.
 
-So I published a comprehensive list of these structures a few days ago.
+This series adds the frl-enable-gpios property to the HDMI nodes of all
+boards for which the GPIO configuration could be identified from vendor
+BSP kernel sources and/or schematics where available.  In a small number
+of cases it was necessary to extract and disassemble the DTB from the
+vendor firmware image.
 
-https://lore.kernel.org/linux-media/20260426000418.1158716-1-bryan.odonoghue@linaro.org/T/#u
+One board remains unhandled (rk3588-edgeble-neu6a-io), pending
+clarification from the vendor.
 
-See:
+For each affected board the patches:
+- set frl-enable-gpios with the appropriate GPIO reference and
+  GPIO_ACTIVE_LOW polarity (inverted relative to the BSP enable-gpios /
+  GPIO_ACTIVE_HIGH convention, which effectively acts as
+  tmds-enable-gpios)
+- extend pinctrl-0 of the HDMI node to include the new pin group
+- add the corresponding pinctrl definition under &pinctrl
 
-struct camss_params_wb_gain - White balance gains and offsets
+It's worth noting the Rockchip platform glue driver for the DesignWare
+HDMI QP TX controller already drives the frl-enable GPIO, but since FRL
+is not yet supported, TMDS mode is unconditionally selected.  This
+ensures a consistent setup independent of hardware reset defaults and
+bootloader state.
 
-The ICP/HFI structures - at least for the stats I believe are how 
-hardware writes data to memory.
+Furthermore, this allows removing a few DT quirks hardcoding the active
+link mode and paves the way for a follow-up series enabling HDMI 2.1 FRL
+support.
 
-OTOH on the way in, the params ought to be pretty uniform as again 
-HFI/ICP needs to take that representation and either
-
-- Hand it over to CDM or
-- Pass it over HFI so that ICP can hand it over to CDM
-
-The ordering and precision is a resolved thing. I'm ~ sure OPE must 
-write and consume in the same format.
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+Changes in v2:
+- Squashed common changes into one patch per SoC; the more invasive
+  changes remain in board specific patches
+- Ensured overridden pinctrl-0 properties in the hdmi nodes are followed
+  by the pinctrl-names property
+- Move the newly introduced frl-enable-gpios entries before pinctrl-*,
+  to keep the items ordered alphabetically
+- Renamed hdmi[0-1]?-frl-en pinmux nodes to hdmi[0-1]?-tx-on-h, to match
+  the naming commonly used in boards schematics
+- Added a new patch to drop unnecessary #{address,size}-cells from
+  rk3588-jaguar
+- Added patches to provide the missing pinctrl-names to pinctrl-N
+  overrides for all non-hdmi nodes, e.g. i2c, i2s, pcie, pwm, sdmmc,
+  spdif, spi, uart, etc
+- Rebased series onto next-20260427
+- Link to v1: https://patch.msgid.link/20260417-dts-rk-frl-enable-gpios-v1-0-a19c0dd8c9f6@collabora.com
 
 ---
-bod
+Cristian Ciocaltea (13):
+      arm64: dts: rockchip: Add frl-enable-gpios to rk3576 boards
+      arm64: dts: rockchip: Add frl-enable-gpios to rk3576-luckfox-core3576
+      arm64: dts: rockchip: Add frl-enable-gpios to rk3576-nanopi-r76s
+      arm64: dts: rockchip: Add frl-enable-gpios to rk3588 boards
+      arm64: dts: rockchip: Add frl-enable-gpios to rk3588s boards
+      arm64: dts: rockchip: Add frl-enable-gpios to rk3588s-gameforce-ace
+      arm64: dts: rockchip: Add frl-enable-gpios to rk3588s-khadas-edge2
+      arm64: dts: rockchip: Add frl-enable-gpios to rk3588s-orangepi-cm5-base
+      arm64: dts: rockchip: Add frl-enable-gpios to rk3588s-roc-pc
+      arm64: dts: rockchip: Drop unnecessary #{address,size}-cells from rk3588-jaguar
+      arm64: dts: rockchip: Add missing pinctrl-names to rk3576 boards
+      arm64: dts: rockchip: Add missing pinctrl-names to rk3588 boards
+      arm64: dts: rockchip: Add missing pinctrl-names to rk3588s boards
+
+ .../boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts | 10 +++++++++
+ .../boot/dts/rockchip/rk3576-armsom-sige5.dts      | 10 +++++++++
+ arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts   |  9 ++++++++
+ arch/arm64/boot/dts/rockchip/rk3576-evb2-v10.dts   |  9 ++++++++
+ .../boot/dts/rockchip/rk3576-luckfox-core3576.dtsi | 22 ++++----------------
+ arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts  |  9 ++++++++
+ .../arm64/boot/dts/rockchip/rk3576-nanopi-r76s.dts | 16 +++------------
+ arch/arm64/boot/dts/rockchip/rk3576-roc-pc.dts     | 10 +++++++++
+ arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts    | 10 +++++++++
+ .../boot/dts/rockchip/rk3588-armsom-sige7.dts      | 11 ++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588-armsom-w3.dts  | 19 +++++++++++++++++
+ .../boot/dts/rockchip/rk3588-coolpi-cm5-evb.dts    | 18 +++++++++++++++-
+ .../dts/rockchip/rk3588-coolpi-cm5-genbook.dts     | 12 ++++++++++-
+ .../arm64/boot/dts/rockchip/rk3588-coolpi-cm5.dtsi |  4 ++++
+ .../boot/dts/rockchip/rk3588-edgeble-neu6a-io.dtsi |  1 +
+ arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts   | 20 ++++++++++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588-evb2-v10.dts   | 11 ++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588-fet3588-c.dtsi |  1 +
+ .../dts/rockchip/rk3588-firefly-core-3588j.dtsi    |  1 +
+ .../dts/rockchip/rk3588-firefly-icore-3588q.dtsi   |  1 +
+ .../boot/dts/rockchip/rk3588-firefly-itx-3588j.dts | 12 +++++++++++
+ .../rockchip/rk3588-friendlyelec-cm3588-nas.dts    | 18 ++++++++++++++++
+ .../arm64/boot/dts/rockchip/rk3588-h96-max-v58.dts | 11 ++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts     | 24 +++++++++++++++-------
+ .../arm64/boot/dts/rockchip/rk3588-mnt-reform2.dts | 12 +++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi | 21 +++++++++++++++++++
+ .../boot/dts/rockchip/rk3588-orangepi-5-max.dts    | 18 ++++++++++++++--
+ .../boot/dts/rockchip/rk3588-orangepi-5-plus.dts   | 20 ++++++++++++++++++
+ .../boot/dts/rockchip/rk3588-orangepi-5-ultra.dts  | 11 ++++++++--
+ .../arm64/boot/dts/rockchip/rk3588-orangepi-5.dtsi |  1 +
+ arch/arm64/boot/dts/rockchip/rk3588-roc-rt.dts     | 19 +++++++++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts | 12 ++++++++++-
+ .../boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi   | 19 ++++++++++++++++-
+ .../boot/dts/rockchip/rk3588-tiger-haikou.dts      |  4 +++-
+ arch/arm64/boot/dts/rockchip/rk3588-tiger.dtsi     | 20 ++++++++++++++++--
+ .../arm64/boot/dts/rockchip/rk3588-toybrick-x0.dts |  1 +
+ .../arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi |  2 ++
+ arch/arm64/boot/dts/rockchip/rk3588s-coolpi-4b.dts | 16 +++++++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588s-evb1-v10.dts  |  1 +
+ .../boot/dts/rockchip/rk3588s-gameforce-ace.dts    | 15 +++++++++-----
+ .../boot/dts/rockchip/rk3588s-indiedroid-nova.dts  | 13 +++++++++++-
+ .../boot/dts/rockchip/rk3588s-khadas-edge2.dts     | 15 ++++++++++----
+ .../arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi | 11 ++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts | 10 +++++++++
+ .../boot/dts/rockchip/rk3588s-orangepi-5.dtsi      | 11 ++++++++++
+ .../dts/rockchip/rk3588s-orangepi-cm5-base.dts     | 12 +++++++----
+ .../boot/dts/rockchip/rk3588s-orangepi-cm5.dtsi    |  3 +++
+ .../boot/dts/rockchip/rk3588s-radxa-cm5-io.dts     | 10 +++++++++
+ arch/arm64/boot/dts/rockchip/rk3588s-roc-pc.dts    | 17 ++++++++++++---
+ arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts   | 13 ++++++++++--
+ arch/arm64/boot/dts/rockchip/rk3588s-rock-5c.dts   | 13 ++++++++++--
+ 51 files changed, 519 insertions(+), 70 deletions(-)
+---
+base-commit: 39704f00f747aba3144289870b5fd8ac230a9aaf
+change-id: 20260417-dts-rk-frl-enable-gpios-ce9930dbf5ca
+
