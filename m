@@ -1,60 +1,60 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97283CD8C9;
-	Mon, 27 Apr 2026 14:08:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD153A6F04;
+	Mon, 27 Apr 2026 14:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777298904; cv=none; b=AwAS+39WXdjA8NfIYRpHb9ctbD5FW6TiJHHqeb/bgHTeD5WUsgk41iJk6dYDdgpHbRwmejQK5bqyQAHz+DJnl8M9z/HmDWEY/hB446lXhOpE7oH4ilHqaU786EQhIoByf3z1i7A/8V+ZJpKU7XanwU9349THyvdtvYzbhw972ZE=
+	t=1777299128; cv=none; b=UBfCYoiyKen3xRNTn77TZyRCbaH5EmBe5Xkev9lSjJonmtc01qLqfGu4S5YNqJJgIJ1g7KqmUyOh1RsUgrJD9I/hGu0lUpSObR/fNtLFgE8JVlZIFxwUvM01h9YFpMNV8bxHmVmetE01FViqy0z6ntsZzuVGVa2yyY8j7ONQ0ps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777298904; c=relaxed/simple;
-	bh=jAO5cLk3TEjotVwYima79o1qK3z5XTXzUH9IFQ8dsBo=;
+	s=arc-20240116; t=1777299128; c=relaxed/simple;
+	bh=oBrZXiJkkdlM2G4DOdxzZBCRGlA4jk6wKJYZ4FpQTNg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=equ4d9tiUIKZ4DcIqRltnNrVgqYpySKXXFkvZmbs6hTJpAAdXBsG9O7XV+3wQ7c5wD5sGrBrfFrIu9ewnompzRMiiAtFKsPr4OXF5rMYKAhCnpTTMHLO1iHhWj825PsL4x6WwPgy3tUt3+C9C2x2pryKzjUZvn/Wuxd2W1zCMHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K2Qfc2Qr; arc=none smtp.client-ip=192.198.163.8
+	 Content-Type:Content-Disposition:In-Reply-To; b=R09Rdc2Y+FLVj0X1l/JcCQCxTGJ9rEBCOE3NKfRFqKesQEadGqUqmj9cAvJGTDjLZlJh4hJ3icb6DmdCrIMCZwiIoZsT/qHLN0GeF2Lp8YhrBSbWLx8moLEwIk9JMNCM80whkzi1AVTNu3M3OlKoZyY53PSuLTRB4b6L7I8oT3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eRfRYdyC; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K2Qfc2Qr"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eRfRYdyC"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777298904; x=1808834904;
+  t=1777299127; x=1808835127;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=jAO5cLk3TEjotVwYima79o1qK3z5XTXzUH9IFQ8dsBo=;
-  b=K2Qfc2QrPDbTatJYe7yKIvyWG0MPHwjOBMu/HPjqTU8KEkRIfxfgZJG1
-   n012+p42ORaCoPsa6M3CE8nMZ5sEkoD7WZ50S5Sykh/++mK2pITzpwtYU
-   h0OnLAQrafaZzEfXHdG3/tx017EUhUq9nje/S4weimTm/0WSE7D0SAiQl
-   elQ6LVaJgniIABx5GNHu2G7btc7TKyHq2Ax5sNUAvURgxpTJfRb/NV7Er
-   0gLn3VuYrJWbQsY880hPjAKSNhWxeqdwE/LP0uMKkv8fxKFRtaGqbobXH
-   9HcNY7tuSW604RiOLAuiQoe4KkY1p6iOdsLQPqnjeIfy7LSId8TyCQFi9
+  bh=oBrZXiJkkdlM2G4DOdxzZBCRGlA4jk6wKJYZ4FpQTNg=;
+  b=eRfRYdyC3P4knwmK/3iq484nCtRnT3Y4MOYNtsvjv6z8K5J19o2GV1SP
+   QTVe3FVBYw6onMZHsLdVxZnA++V7pseLVfH1eWQoAyOj91Y6fLiVCokFN
+   xVUoGualT7ZE3D/UuEXkf0GyaUh8em1B9Zx6fXaS91IqdwXXo9v19a5/b
+   cOuGYeKMSu06IxvGePIxtRWtaBjKKBcoMbRocOXnHCmBIEmpjGJFoTIPM
+   LYtBw0hXXO7LDRxzlD6ccaoPbsbWCtMlLoN3T7HubAb5YHWbL6GbJ5xft
+   HGQxA+YdHGhCdGlTm+T4ikpgreVdt8gMMTnxHISdyybL/kw16S0RbqBHT
    w==;
-X-CSE-ConnectionGUID: ghJgSBWKRWKue+rmWInafA==
-X-CSE-MsgGUID: owYGEN7LQCSzv2XGw21XxQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="95748900"
+X-CSE-ConnectionGUID: /pe2yjplQ7Wp5gF8quFveg==
+X-CSE-MsgGUID: pja1wXcHTLGTRhR9NqzsWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="88785859"
 X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; 
-   d="scan'208";a="95748900"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Apr 2026 07:08:23 -0700
-X-CSE-ConnectionGUID: 73rH3C44SuiNeD1Q3GuLZA==
-X-CSE-MsgGUID: +qwOXb0NTgS5A0tafG3GWQ==
+   d="scan'208";a="88785859"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Apr 2026 07:12:06 -0700
+X-CSE-ConnectionGUID: TXRkafY6QtGjxpDKyQvVfg==
+X-CSE-MsgGUID: HGEbCV4UQ2iqmlegVAssOQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; 
-   d="scan'208";a="233922321"
+   d="scan'208";a="227130782"
 Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.2])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Apr 2026 07:08:20 -0700
-Date: Mon, 27 Apr 2026 17:08:17 +0300
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Apr 2026 07:12:03 -0700
+Date: Mon, 27 Apr 2026 17:12:01 +0300
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
 To: Piyush Patle <piyushpatle228@gmail.com>
 Cc: ak@it-klinger.de, jic23@kernel.org, dlechner@baylibre.com,
 	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
 	krzk+dt@kernel.org, conor+dt@kernel.org, linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 4/7] iio: adc: hx711: introduce hx711_chip_info
- per-variant structure
-Message-ID: <ae9t0WuhKgcPkfIt@ashevche-desk.local>
+Subject: Re: [PATCH v4 5/7] iio: adc: hx711: pass trailing pulse count into
+ hx711_read()
+Message-ID: <ae9usdn2rhyehzX6@ashevche-desk.local>
 References: <20260427100950.33936-1-piyushpatle228@gmail.com>
- <20260427100950.33936-5-piyushpatle228@gmail.com>
+ <20260427100950.33936-6-piyushpatle228@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -63,64 +63,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260427100950.33936-5-piyushpatle228@gmail.com>
+In-Reply-To: <20260427100950.33936-6-piyushpatle228@gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Apr 27, 2026 at 03:39:35PM +0530, Piyush Patle wrote:
-> Add struct hx711_chip_info to hold per-variant static configuration:
-> device name, IIO channel spec array, IIO info ops pointer, and channel
-> count. Store a chip_info pointer in hx711_data and populate indio_dev
-> fields from it at probe time instead of hardcoding them.
+On Mon, Apr 27, 2026 at 03:39:36PM +0530, Piyush Patle wrote:
+> Move the trailing-pulse computation out of hx711_read() and into the
+> callers. hx711_read() now takes an explicit 'trailing_pulses' parameter
+> so the HX710B support patch can pass the per-channel count stored in
+> chan->address without adding a separate code path in hx711_read().
 > 
-> Use device_get_match_data() to look up the chip_info pointer from the
-> of_device_id table. Guard against a NULL return so that the driver
-> fails cleanly if probed via the platform name match path without
-> associated match data.
+> Use scoped loop variables (for (int i = ...) / for (unsigned int i = ...))
+> to tighten the scope of the loop counters.
 > 
-> No functional change for existing HX711 users.
-
-All the above is fine, but I missed the answer to the question "why?"
-You need to add that this is preparatory change to add more HW support
-or something alike along these words.
+> No functional change.
 
 ...
 
-> +static const struct hx711_chip_info hx711_chip = {
-> +	.name		= "hx711",
-> +	.channels	= hx711_chan_spec,
-> +	.iio_info	= &hx711_iio_info,
-> +	.num_channels	= ARRAY_SIZE(hx711_chan_spec),
+> -static int hx711_read(struct hx711_data *hx711_data)
+> +static int hx711_read(struct hx711_data *hx711_data, unsigned int trailing_pulses)
+>  {
+> -	int i, ret;
+> +	int ret;
+>  	int value = 0;
+>  	int val = gpiod_get_value(hx711_data->gpiod_dout);
 
-The array_size.h inclusion should go with this patch.
+Try to follow the reversed xmas tree order.
 
-> +};
+> -	for (i = 0; i < 24; i++) {
+> +	for (int i = 0; i < 24; i++) {
+
+Why is 'i' signed?
+
+> -	for (i = 0; i < hx711_get_gain_to_pulse(hx711_data->gain_set); i++)
+> +	for (unsigned int i = 0; i < trailing_pulses; i++)
+>  		hx711_cycle(hx711_data);
+
+With the above the both seems like a candidate to a separate change (after this
+trailing_pulses patch).
+
+>  	return value;
 
 ...
 
->  	struct device *dev = &pdev->dev;
->  	struct hx711_data *hx711_data;
-> +	const struct hx711_chip_info *chip_info;
-
-Preserve reversed xmas tree order.
-
->  	struct iio_dev *indio_dev;
->  	int ret;
->  	int i;
-
-...
-
-> +	chip_info = device_get_match_data(dev);
-> +	if (!chip_info)
-> +		return dev_err_probe(dev, -ENODEV, "missing match data\n");
-
-Since we are here, it's not match data, it's driver data. "missing driver data".
-
-> +	hx711_data->chip_info = chip_info;
-
-+ Blank line.
-
->  	/*
+So, split this to two:
+- trailing_pulses (without touching 'i')
+- localising loop iterators
 
 -- 
 With Best Regards,
