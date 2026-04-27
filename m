@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33B2339FCCF;
-	Mon, 27 Apr 2026 21:57:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393FE39184B;
+	Mon, 27 Apr 2026 21:57:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777327075; cv=none; b=XaQ/Llr505QQytzhyhdbDmX/4VlfcULX7cF93pWrHR6Qn57L1zgaLHkKdH2Bz4WrJ5wc9mMY6JG0En4dR6wQGHa8JdR26EduE7cMucAVaFrEDEUzPKr8KpQHLdNjbWpek6p9ZqSz3NP9FO0AXmLYw3EuNNUqTuLxTc8V/WZlpcQ=
+	t=1777327075; cv=none; b=hezrcy3mJQ5LdBaaYY20cr44HJPyoEmpZFuZ0KPqYZz2yIFaJvsHbv0JHZDsXbRJilgWSUFjAmdmDgYvTQMQ0PXyu/6iN8z+tXRyzJItx6fRLTSX2V/kBpBhN8lipPlQEnDLLlYnT/0qALt5jqObeoq9ysCVMHhxGsn3ZWzkUGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1777327075; c=relaxed/simple;
-	bh=L8fHGnYJyQWq1k1jHm8DfO8Gn8xMdJZNXES7wUUBo9c=;
+	bh=pqRtbplYE8IdJKdBWhM5OHW77gHMGDEF1m/tI0sVmVg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nzm247aQ/Pi38pB0/8yectQu6RNVo31+xcEfeez1E4tvm9ue5pF/PeMWLZFmo/Q7x1PHyxQR1ypRGM1CBR9EpUzHh4myhpanTJi2i3PN5fIPqiiJDfUydQ2uUqFX7gup+WUb5fTb30wZLnv+EA46Zuw5YlZePiPeotsivO8ex/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Ggm058k0; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=OSgKQb4uNCHrD6ZR8D4Uf5c19CfH1OaigafBk4AuImEPgCSyIiBEG3T3jakRVoLkb89xnLKdf8moF/Om+rQy639xOwALD2mBjpynicbG+S8IPL7rqMIu9UNS3Iy4/ve3AH8vfCeMG3s908otAf8mGE1r8+lb921QOUknOgMZ9Ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=KQLXIHWJ; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Ggm058k0"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="KQLXIHWJ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1777327071;
-	bh=L8fHGnYJyQWq1k1jHm8DfO8Gn8xMdJZNXES7wUUBo9c=;
+	bh=pqRtbplYE8IdJKdBWhM5OHW77gHMGDEF1m/tI0sVmVg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Ggm058k0+YbgMqt05i7tTW6pf9RqHbyXgydQijp8VJES5aK77XPSjSp8n3kvNBXBu
-	 ybZaEsDWpYpcmmT0S0ZoF8LQUxgDjPQBcbRF2sobpdybIiIE95AFusregoagXVzFMd
-	 hdsKanc1SMBYANsyAymDv5DYG6+/SXU8jv6HRzR72faobSg8KFf5Q0h1pL4cUjNhv4
-	 i1nX74FGneWfPx+koeVN7igKgM9IBVg+a72u8rzQChW5/bJ1F9xSrX2RggYK1gXxQb
-	 clUnpmpMTS//Ox6/abwtN9cR4hLfVHw9qS9/ZTnYIfBK/gqnAFqwZASInrWndT+axD
-	 phl00X6KJ0CoA==
+	b=KQLXIHWJdZT0TECVDrV5VZQulabse1tqARayoCENAjGajdd5B5KWN683h6Y3vIu3U
+	 5CVfEqlvA3dilYUNKiO+TrtyWoyUJnTtsJIduQICpxwoesLS2fABYxCowaeIwW3jYD
+	 zsfok6b79zkMnZzdofnsKK0lRaCTrOmE77rQLOc2LWcs4zZcMK0ocsLOisn+MQu63P
+	 pYS02iAetB/LAyB1aMrkpAqY+UlTBq7t6RNCuxQn5TvMCUg7hp3Bg0l5n/c6gFnPR/
+	 Z+PAkRZILC9fLTjqMDKyTsK+H3/EVTL7qGCDdhuFrL++UeYsbFn3UevNYGhP9FEv/J
+	 n4LzWoTtnCv9w==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id ACE4717E1562;
-	Mon, 27 Apr 2026 23:57:51 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D5A7E17E141F;
+	Mon, 27 Apr 2026 23:57:50 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 28 Apr 2026 00:57:29 +0300
-Subject: [PATCH v2 11/13] arm64: dts: rockchip: Add missing pinctrl-names
- to rk3576 boards
+Date: Tue, 28 Apr 2026 00:57:28 +0300
+Subject: [PATCH v2 10/13] arm64: dts: rockchip: Drop unnecessary
+ #{address,size}-cells from rk3588-jaguar
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-dts-rk-frl-enable-gpios-v2-11-924df9db884a@collabora.com>
+Message-Id: <20260428-dts-rk-frl-enable-gpios-v2-10-924df9db884a@collabora.com>
 References: <20260428-dts-rk-frl-enable-gpios-v2-0-924df9db884a@collabora.com>
 In-Reply-To: <20260428-dts-rk-frl-enable-gpios-v2-0-924df9db884a@collabora.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -55,67 +55,45 @@ Cc: kernel@collabora.com, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.1
 
-Several rk3576 board DTS files override pinctrl-0 for uart0 without
-re-specifying pinctrl-names.  While the property is inherited from the
-base rk3576.dtsi, add it explicitly to the board-level overrides for
-consistency with other nodes.
+Remove the unnecessary #address-cells and #size-cells properties from
+the usb_host0_xhci and usb_host1_xhci port nodes, as they each contain
+a single endpoint child with no reg property.
+
+This fixes the following dtc warnings:
+
+rk3588-jaguar.dts: Warning (avoid_unnecessary_addr_size):
+ /usb@fc000000/port: unnecessary #address-cells/#size-cells [...]
+ /usb@fc400000/port: unnecessary #address-cells/#size-cells [...]
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts | 1 +
- arch/arm64/boot/dts/rockchip/rk3576-armsom-sige5.dts      | 1 +
- arch/arm64/boot/dts/rockchip/rk3576-roc-pc.dts            | 1 +
- arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts           | 1 +
- 4 files changed, 4 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts | 6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts b/arch/arm64/boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts
-index a9e3beb3ee5e..05fb4a7f9a16 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts
-@@ -815,6 +815,7 @@ &u2phy1_otg {
- 
- &uart0 {
- 	pinctrl-0 = <&uart0m0_xfer>;
-+	pinctrl-names = "default";
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts b/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
+index 05b524f682cf..033db78aff67 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
+@@ -1142,9 +1142,6 @@ &usb_host0_xhci {
  	status = "okay";
- };
  
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-armsom-sige5.dts b/arch/arm64/boot/dts/rockchip/rk3576-armsom-sige5.dts
-index c3e8966c09c4..4ac4465e39a5 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-armsom-sige5.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-armsom-sige5.dts
-@@ -975,6 +975,7 @@ &u2phy1_otg {
- 
- &uart0 {
- 	pinctrl-0 = <&uart0m0_xfer>;
-+	pinctrl-names = "default";
+ 	port {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+ 		usb_host0_xhci_drd_sw: endpoint {
+ 			remote-endpoint = <&usbc0_hs>;
+ 		};
+@@ -1157,9 +1154,6 @@ &usb_host1_xhci {
  	status = "okay";
- };
  
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-roc-pc.dts b/arch/arm64/boot/dts/rockchip/rk3576-roc-pc.dts
-index 54de3a50571f..8411c16fa471 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-roc-pc.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-roc-pc.dts
-@@ -776,6 +776,7 @@ wd_en: wd-en {
- 
- &uart0 {
- 	pinctrl-0 = <&uart0m0_xfer>;
-+	pinctrl-names = "default";
- 	status = "okay";
- };
- 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-index cc054c837317..272af1012ab0 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-@@ -833,6 +833,7 @@ &u2phy1_otg {
- 
- &uart0 {
- 	pinctrl-0 = <&uart0m0_xfer>;
-+	pinctrl-names = "default";
- 	status = "okay";
- };
- 
+ 	port {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+ 		usb_host1_xhci_drd_sw: endpoint {
+ 			remote-endpoint = <&usbc1_hs>;
+ 		};
 
 -- 
 2.53.0
