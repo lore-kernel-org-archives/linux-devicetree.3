@@ -1,132 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 025F63D6486;
-	Mon, 27 Apr 2026 19:02:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1015E285CA2;
+	Mon, 27 Apr 2026 19:02:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777316556; cv=none; b=WZfE5wryYui8KFCAtG2vkosyLtaGk0/FaYTlwSk/ljpklztArbymAWOlDXnDmecBYVqSkA3dy5lLHCUecKC70x8ijXJ/RFUYUaQJ0cd+zKHAy9Y/hZySxRH6Y2A3pbwWPLQSBOO46gUSnGgU2YHzssfrYqq/Mn21c1TjyalU3ZI=
+	t=1777316564; cv=none; b=Fqu/8QiyZQbkqFsM798rpYSc3LdKhi6nLNmi4ypmiCdlw0Y7lYmE05mURMk2Af2eO9rzcmNPpbLoldwNI3Swfq8ySBKms8SZ+YSaZRzdNykEWmRcz0j6iwkWP3Efr3ftoqdNR0OIhp6vYu6eR3ha0T7TL8DXuDovs3VhxqzQ9Gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777316556; c=relaxed/simple;
-	bh=QiOW0pRNHKjZQb0GCanC1NBjMtUFbjV5l/TrrAVmxWs=;
+	s=arc-20240116; t=1777316564; c=relaxed/simple;
+	bh=jTWwfj0zZG7bsq6Opv6LU53fDAa+a75QEi6tnfm6hmo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ULhoopjh+muDpIqr3QPdFSe4EuElvaahxHPT4dDLPTSkHimmViA++hmvjttHZh921W44lPja3W2h6Ilv2lQRObOQp2JE7zAUDOuXIWeF39kbi4avqjNLOpUBl4sfULkgDlXj5iejSePnyV8KlzcTAt9gpKULQShHU/Swa4s1dgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ipzDKaxZ; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=B9SEijycq/nAXBeT6syID2kl4j2gLSsUureTs9yhtMZFGj6encxLKHd3W+a0wEKpPpZNrPoCF54erdv5+/d6gaKH1gOm/UsheZdoq6N4+X5BXumiXhyzvzeMSDJfbT+Ow6Q6Va4ucvzFJknmfwgRcySX7N0ij2TEkWl//3ZtyeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qi0vwyy6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ipzDKaxZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333DCC19425;
-	Mon, 27 Apr 2026 19:02:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qi0vwyy6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96BA9C19425;
+	Mon, 27 Apr 2026 19:02:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777316553;
-	bh=QiOW0pRNHKjZQb0GCanC1NBjMtUFbjV5l/TrrAVmxWs=;
+	s=k20201202; t=1777316563;
+	bh=jTWwfj0zZG7bsq6Opv6LU53fDAa+a75QEi6tnfm6hmo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ipzDKaxZTuYcAn0cwLm7hq2XD+tz2MXHj3hQCRF6ub1hXDlCIYhssR2xm92TremKK
-	 O/qRkTwREQsWry8sV74JN5RCnXLRNr4JeghoNVLrRWjm6aLxotzbvmQ3v/tsh7VWhP
-	 ktrJsy9iRPx3UyRP5J3TdSLoEPEjJOt9bzM8r5eMhBY5zMKDHBhD1lFf0yleY/YHTu
-	 05NKP7JCd+sQjg5kt5itL3MYDSzmGWmgof+C5Db+5StrwBxr+8IBqP+nl8FwfN4qS6
-	 wu1NYpNpjul+Im+HFfD3zj9YbQt/F7/L+ufDX9t2CID8X2zjWwqqIMX6D0zT1PE1zt
-	 k7JsDI3/nHjhQ==
-Date: Mon, 27 Apr 2026 20:02:29 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v2] docs: dt: writing-bindings: Extend compatible
- fallbacks guideline
-Message-ID: <20260427-squishier-outclass-bb25f2f83dd1@spud>
-References: <20260427160739.175451-2-krzysztof.kozlowski@oss.qualcomm.com>
+	b=qi0vwyy6lKqMm8ChV2AS977CuHDGOgXUvJfAPLdcG8y1QT2M1YCJighptIannJWwv
+	 FdtNpxGVmzFYgMaHvkPxEktcfVxj06I117dTznfVsE+OZiOVBCuNN4G6u1DHdinXmc
+	 jEcIoM3v04iK9xagvoNGG5t4kYB5tXEr8i6jrKrkDiPJe8Lkt4zvHRevDEgl4KoZZE
+	 GVwN5W20w5vsmDGXKW11nQHG9zrtKfg5HiL7qZ4i3gnj5FtvGzbpzN86j17dBDroWS
+	 29gEIm4HVxVbx7OCHPqDP/YfGN9msTKjeiByeqWr6Au2omR2369F9PmzUXEBTBxC4H
+	 A9EsYBPLn/ejw==
+Date: Mon, 27 Apr 2026 14:02:39 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Richard Acayan <mailingradian@gmail.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Thierry Reding <thierry.reding@gmail.com>, 
+	Sam Ravnborg <sam@ravnborg.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, Yifei Zhan <yifei@zhan.science>
+Subject: Re: [PATCH v3 0/5] Support for the Pixel 3a XL with the Tianma panel
+Message-ID: <ae-yXomgNWLd8IcE@baldur>
+References: <20260310002606.16413-1-mailingradian@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Bx6+VBo+jgc1wxgT"
-Content-Disposition: inline
-In-Reply-To: <20260427160739.175451-2-krzysztof.kozlowski@oss.qualcomm.com>
-
-
---Bx6+VBo+jgc1wxgT
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260310002606.16413-1-mailingradian@gmail.com>
 
-On Mon, Apr 27, 2026 at 06:07:40PM +0200, Krzysztof Kozlowski wrote:
-> Extend the guidelines when to use fallback compatibles to cover to
-> common review responses.  Devices are most likely compatible and should
-> use fallbacks when having:
->=20
-> 1. Compatible programming interface, meaning one is a subset, and Linux
->    device drivers can use the subset to correctly match/bind and still
->    operate with the subset features.
->=20
-> 2. Device variant discovery through some means, like registers.
->=20
-> Devices are incompatible and fallback is not suitable when that
-> fallback cannot be used by the drivers to match/bind.  In the same time
-> commit message should clearly explain when the code suggests devices
-> are compatible, but the binding does not define them as such.
->=20
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->=20
-> ---
->=20
-> Changes in v2:
-> 1. Include Conor's suggestion about commit msg, a bit rephrased.
+On Mon, Mar 09, 2026 at 08:26:01PM -0400, Richard Acayan wrote:
+> This expands Pixel 3a support to the Pixel 3a XL, starting with one of
+> the panel variants. The Pixel 3a XL has two variants with panels from
+> Samsung or from Tianma/Novatek.
+> 
+> This series depends on the IMX355 front camera devicetree patches
+> (https://lore.kernel.org/r/20260217002738.133534-1-mailingradian@gmail.com).
 
-Ye, it's better than my double use of the same term.
+Please resubmit the DeviceTree patches once this dependency has been
+resolved.
 
-> 2. Add tag
-> 3. Drop double-space, because file does not use that format (old habit).
-> ---
->  .../devicetree/bindings/writing-bindings.rst         | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/writing-bindings.rst b/Doc=
-umentation/devicetree/bindings/writing-bindings.rst
-> index 667816dd7d50..1a51764833a1 100644
-> --- a/Documentation/devicetree/bindings/writing-bindings.rst
-> +++ b/Documentation/devicetree/bindings/writing-bindings.rst
-> @@ -53,7 +53,17 @@ Properties
->     - DON'T use wildcards or device-family names in compatible strings.
-> =20
->     - DO use fallback compatibles when devices are the same as or a super=
-set of
-> -     prior implementations.
-> +     prior implementations. Fallback compatibles are applicable especial=
-ly
-> +     when sharing a programming interface or when able to discover the
-> +     variants.
-> +
-> +   - DON'T add fake fallback compatibles when software cannot use such t=
-o match
-> +     and bind to a device, and still operate correctly.
-> +
-> +   - DO use the commit message to explain why devices that may appear
-> +     compatible in a diff (e.g. no differences in property use, same han=
-dling
-> +     by the software) but are not made compatible in the binding, are not
-> +     compatible.
-> =20
->     - DO add new compatibles in case there are new features or bugs.
-> =20
-> --=20
-> 2.51.0
->=20
+Regards,
+Bjorn
 
---Bx6+VBo+jgc1wxgT
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCae+yxQAKCRB4tDGHoIJi
-0qbhAQDfy8lQlSn6/HD1jVJZE0bmvAWinM/vTVsXO8NRK3ujEAEA7E/H7gqtBzUv
-yYEdndf1mc/a36YFZhlbf105Y974iwI=
-=pj18
------END PGP SIGNATURE-----
-
---Bx6+VBo+jgc1wxgT--
+> 
+> Changes since v2 (https://lore.kernel.org/r/20260217000854.131242-1-mailingradian@gmail.com):
+> - add support for regulator (Dmitry's review retained) (3/5)
+> - use common set page function (Dmitry's review retained) (3/5)
+> - squash new labels into common dtsi patch (review tags dropped) (4/5)
+> - specify framebuffer in terms of memory region (4/5)
+> - only specify height in XL/non-XL specific devicetrees (4/5, 5/5)
+> - remove status in display devices (4/5, 5/5)
+> - preserve same touchscreen physical width in sargo (4/5)
+> - move entry in Makefile to correct place (5/5)
+> - omit copyright year in new file (4/5)
+> - correct top-of-file comment about which panel is supported (5/5)
+> - explain license identifier change from GPL-2.0 to GPL-2.0-only (4/5)
+> - add review tags (1/5, 3/5, 5/5)
+> 
+> Changes since v1 (https://lore.kernel.org/r/20260210023300.15785-1-mailingradian@gmail.com):
+> - use multi functions in disable callback (3/6)
+> - add and reformat comments about XL differences (5/6)
+> - mention the sdc panel (6/6)
+> - explain google,bonito compatible (1/6)
+> - remove TODO item in code (3/6)
+> - add review and testing tags (2/6, 3/6, 5/6)
+> 
+> Richard Acayan (5):
+>   dt-bindings: arm: qcom: document google,bonito-tianma board
+>   dt-bindings: panel-simple-dsi: add nt37700f compatible
+>   drm/panel: Add Novatek/Tianma NT37700F panel
+>   arm64: dts: qcom: sdm670-google: add common device tree include
+>   arm64: dts: qcom: add support for pixel 3a xl with the tianma panel
+> 
+>  .../devicetree/bindings/arm/qcom.yaml         |   6 +
+>  .../display/panel/panel-simple-dsi.yaml       |   2 +
+>  arch/arm64/boot/dts/qcom/Makefile             |   1 +
+>  .../dts/qcom/sdm670-google-bonito-tianma.dts  |  32 +
+>  ...le-sargo.dts => sdm670-google-common.dtsi} |  22 +-
+>  .../boot/dts/qcom/sdm670-google-sargo.dts     | 709 +-----------------
+>  drivers/gpu/drm/panel/Kconfig                 |   9 +
+>  drivers/gpu/drm/panel/Makefile                |   1 +
+>  .../gpu/drm/panel/panel-novatek-nt37700f.c    | 299 ++++++++
+>  9 files changed, 370 insertions(+), 711 deletions(-)
+>  create mode 100644 arch/arm64/boot/dts/qcom/sdm670-google-bonito-tianma.dts
+>  copy arch/arm64/boot/dts/qcom/{sdm670-google-sargo.dts => sdm670-google-common.dtsi} (97%)
+>  create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt37700f.c
+> 
+> -- 
+> 2.53.0
+> 
