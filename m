@@ -1,383 +1,100 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.175.55.52])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 98CC937BE84;
-	Mon, 27 Apr 2026 07:25:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.175.55.52
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [4.193.249.245])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D9AAA390CB2;
+	Mon, 27 Apr 2026 07:26:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=4.193.249.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777274742; cv=none; b=CdEltnm42Xb+GagA2clHrAjFEhNn0WXOimKbdOC67vqzHEe2fcaSWjaOFEc+30B2DeTgKUBU/A5VBgeECGMIzyIsG/bKEv3zHT9U6n9zzgo79O90abIPBde0yG9pnO4NgRVOzhd3YwAjPpZSBD2V8zLr1ybsSpeAwgYtVtMZ0Cs=
+	t=1777274780; cv=none; b=UuczXO48MeXVDuJLgZhxXZKNylfivmxduIIXFq13Gg9CtDKKg9w3/aD5oIEwrjRRi6VkVthH9MC6Z6bwLypssGha4Z2QBkK6vQvvoIExidczQTauiJWFjXZgco7+BbDmHdi4jHIEzEz16zMdrXnyIisIQIg9msuzL15vgCAhA2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777274742; c=relaxed/simple;
-	bh=z4n3PCrtTDdq36Yvi4h1mo7cmkQTPxqEfzbacDx+P6Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nPubbGq1DxLy0JI5Gv63/nu/feKTMM1qqYpATREb7/kjChXp7hzUx5N5BGcfbzu3OWmQCrv3cAOHCLXwVJnbFwaDM5QsJcNROX8tXkOwBF7bTKdt98nojw6tJ2n1iH9TC33b6lD7FjeN8bxh+IAjjHXIIrBFY1UFen1UIK0HogA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.175.55.52
+	s=arc-20240116; t=1777274780; c=relaxed/simple;
+	bh=+f/Ak5ZvNVLxWoZopsI2/wbpbNejzmreXm9s1vzcDiA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=k+vpr6YZ2c3YXLn0JNOqRPXarshoHe5iFanX77Xq+8Zgmvi3Ek2hSGQL/I4RnxKvttdno+5wuar8+HXeWijY/C8WyqDz3mbJJ/V1le+Lv/Ty3UAhgut8cMvkMnleI1U5RZvOZnDXa9/1Vo0jRH1vAlD6syFnYo7T4LYiU49Xeoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=4.193.249.245
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
-	by app1 (Coremail) with SMTP id TAJkCgCHKXNWD+9pehAVAA--.20068S2;
-	Mon, 27 Apr 2026 15:25:11 +0800 (CST)
-From: lizhi2@eswincomputing.com
-To: devicetree@vger.kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	rmk+kernel@armlinux.org.uk,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	linux-riscv@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	maxime.chevallier@bootlin.com
-Cc: ningyu@eswincomputing.com,
-	linmin@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com,
-	pritesh.patel@einfochips.com,
-	weishangjuan@eswincomputing.com,
-	horms@kernel.org,
-	Zhi Li <lizhi2@eswincomputing.com>
-Subject: [PATCH net-next v7 2/4] net: stmmac: eic7700: enable clocks before syscon access and correct RX sampling timing
-Date: Mon, 27 Apr 2026 15:25:05 +0800
-Message-ID: <20260427072508.1151-1-lizhi2@eswincomputing.com>
-X-Mailer: git-send-email 2.52.0.windows.1
-In-Reply-To: <20260427072353.1114-1-lizhi2@eswincomputing.com>
-References: <20260427072353.1114-1-lizhi2@eswincomputing.com>
+Received: from hehuan1$eswincomputing.com ( [10.12.96.103] ) by
+ ajax-webmail-app2 (Coremail) ; Mon, 27 Apr 2026 15:25:56 +0800 (GMT+08:00)
+Date: Mon, 27 Apr 2026 15:25:56 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: "Huan He" <hehuan1@eswincomputing.com>
+To: conor+dt@kernel.org
+Cc: linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
+	p.zabel@pengutronix.de, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	ningyu@eswincomputing.com, linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com, luyulin@eswincomputing.com,
+	conor.dooley@microchip.com
+Subject: Re: [PATCH v3 1/2] dt-bindings: hwmon: Add Eswin EIC7700 PVT sensor
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <20260306094508.1098-1-hehuan1@eswincomputing.com>
+References: <20260306094312.1043-1-hehuan1@eswincomputing.com>
+ <20260306094508.1098-1-hehuan1@eswincomputing.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TAJkCgCHKXNWD+9pehAVAA--.20068S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Zw4ktF15AF1xAFyUtrWDArb_yoWDWFy5pF
-	WkAFy5tr1jqr1fG3yvyF4kta4Fkw47WF1rArWfKFnFyF98trn8XayjyasIkF98Wry7Zr13
-	J3yUAFyxuF129rJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBm14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
-	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
-	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
-	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1U
-	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
-	8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRMrWrDUUUU
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
+Message-ID: <28b4eea0.5ad0.19dcdd49d49.Coremail.hehuan1@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:TQJkCgA3TJ+ED+9pcAkVAA--.2927W
+X-CM-SenderInfo: 5khk3tzqr6v25zlqu0xpsx3x1qjou0bp/1tbiAQEKCmnuPhohtAAA
+	s2
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-From: Zhi Li <lizhi2@eswincomputing.com>
-
-The second Ethernet controller (eth1) on the Eswin EIC7700 SoC may fail
-to sample RX data correctly at Gigabit speed due to EIC7700-specific
-receive clock to data skew at the MAC input in the silicon.
-
-The existing internal delay configuration does not provide sufficient
-adjustment range to compensate for this condition at 1000Mbps.
-Update the EIC7700 DWMAC glue driver to apply EIC7700-specific clock
-sampling inversion only during Gigabit operation on MAC instances
-that require it.
-
-TXD and RXD delay registers are explicitly cleared during initialization
-to override any residual configuration left by the bootloader. All HSP
-CSR register accesses are performed only after the required clocks are
-enabled.
-
-Fixes: ea77dbbdbc4e ("net: stmmac: add Eswin EIC7700 glue driver")
-Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
----
- .../ethernet/stmicro/stmmac/dwmac-eic7700.c   | 183 ++++++++++++++----
- 1 file changed, 140 insertions(+), 43 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-index bcb8e000e720..33144611da8d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-@@ -28,20 +28,40 @@
- 
- /*
-  * TX/RX Clock Delay Bit Masks:
-- * - TX Delay: bits [14:8] — TX_CLK delay (unit: 0.1ns per bit)
-- * - RX Delay: bits [30:24] — RX_CLK delay (unit: 0.1ns per bit)
-+ * - TX Delay: bits [14:8] — TX_CLK delay (unit: 0.02ns per bit)
-+ * - TX Invert : bit  [15]
-+ * - RX Delay: bits [30:24] — RX_CLK delay (unit: 0.02ns per bit)
-+ * - RX Invert : bit  [31]
-  */
- #define EIC7700_ETH_TX_ADJ_DELAY	GENMASK(14, 8)
- #define EIC7700_ETH_RX_ADJ_DELAY	GENMASK(30, 24)
-+#define EIC7700_ETH_TX_INV_DELAY	BIT(15)
-+#define EIC7700_ETH_RX_INV_DELAY	BIT(31)
- 
--#define EIC7700_MAX_DELAY_UNIT 0x7F
-+#define EIC7700_MAX_DELAY_STEPS		0x7F
-+#define EIC7700_DELAY_STEP_PS		20
-+#define EIC7700_MAX_DELAY_PS	\
-+	(EIC7700_MAX_DELAY_STEPS * EIC7700_DELAY_STEP_PS)
- 
- static const char * const eic7700_clk_names[] = {
- 	"tx", "axi", "cfg",
- };
- 
-+struct eic7700_dwmac_data {
-+	bool rgmii_rx_clk_invert;
-+};
-+
- struct eic7700_qos_priv {
-+	struct device *dev;
- 	struct plat_stmmacenet_data *plat_dat;
-+	struct regmap *eic7700_hsp_regmap;
-+	u32 eth_axi_lp_ctrl_offset;
-+	u32 eth_phy_ctrl_offset;
-+	u32 eth_txd_offset;
-+	u32 eth_clk_offset;
-+	u32 eth_rxd_offset;
-+	u32 eth_clk_dly_param;
-+	bool eth_rx_clk_inv;
- };
- 
- static int eic7700_clks_config(void *priv, bool enabled)
-@@ -61,8 +81,28 @@ static int eic7700_clks_config(void *priv, bool enabled)
- static int eic7700_dwmac_init(struct device *dev, void *priv)
- {
- 	struct eic7700_qos_priv *dwc = priv;
-+	int ret;
-+
-+	ret = eic7700_clks_config(dwc, true);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_set_bits(dwc->eic7700_hsp_regmap,
-+			      dwc->eth_phy_ctrl_offset,
-+			      EIC7700_ETH_TX_CLK_SEL |
-+			      EIC7700_ETH_PHY_INTF_SELI);
-+	if (ret) {
-+		eic7700_clks_config(dwc, false);
-+		return ret;
-+	}
-+
-+	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_axi_lp_ctrl_offset,
-+		     EIC7700_ETH_CSYSREQ_VAL);
-+
-+	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_txd_offset, 0);
-+	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_rxd_offset, 0);
- 
--	return eic7700_clks_config(dwc, true);
-+	return 0;
- }
- 
- static void eic7700_dwmac_exit(struct device *dev, void *priv)
-@@ -88,18 +128,35 @@ static int eic7700_dwmac_resume(struct device *dev, void *priv)
- 	return ret;
- }
- 
-+static void eic7700_dwmac_fix_speed(void *priv, phy_interface_t interface,
-+				    int speed, unsigned int mode)
-+{
-+	struct eic7700_qos_priv *dwc = (struct eic7700_qos_priv *)priv;
-+	u32 dly_param = dwc->eth_clk_dly_param;
-+
-+	switch (speed) {
-+	case SPEED_1000:
-+		if (dwc->eth_rx_clk_inv)
-+			dly_param |= EIC7700_ETH_RX_INV_DELAY;
-+		break;
-+	case SPEED_100:
-+	case SPEED_10:
-+		break;
-+	default:
-+		dev_err(dwc->dev, "invalid speed %u\n", speed);
-+		break;
-+	}
-+
-+	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_clk_offset, dly_param);
-+}
-+
- static int eic7700_dwmac_probe(struct platform_device *pdev)
- {
-+	const struct eic7700_dwmac_data *data;
- 	struct plat_stmmacenet_data *plat_dat;
- 	struct stmmac_resources stmmac_res;
- 	struct eic7700_qos_priv *dwc_priv;
--	struct regmap *eic7700_hsp_regmap;
--	u32 eth_axi_lp_ctrl_offset;
--	u32 eth_phy_ctrl_offset;
--	u32 eth_phy_ctrl_regset;
--	u32 eth_rxd_dly_offset;
--	u32 eth_dly_param = 0;
--	u32 delay_ps;
-+	u32 delay_ps, val;
- 	int i, ret;
- 
- 	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-@@ -116,70 +173,95 @@ static int eic7700_dwmac_probe(struct platform_device *pdev)
- 	if (!dwc_priv)
- 		return -ENOMEM;
- 
-+	dwc_priv->dev = &pdev->dev;
-+
-+	data = device_get_match_data(&pdev->dev);
-+	if (!data)
-+		return dev_err_probe(&pdev->dev,
-+				     -EINVAL, "no match data found\n");
-+
-+	dwc_priv->eth_rx_clk_inv = data->rgmii_rx_clk_invert;
-+
- 	/* Read rx-internal-delay-ps and update rx_clk delay */
- 	if (!of_property_read_u32(pdev->dev.of_node,
- 				  "rx-internal-delay-ps", &delay_ps)) {
--		u32 val = min(delay_ps / 100, EIC7700_MAX_DELAY_UNIT);
-+		if (delay_ps % EIC7700_DELAY_STEP_PS)
-+			return dev_err_probe(&pdev->dev, -EINVAL,
-+				"rx delay must be multiple of %dps\n",
-+				EIC7700_DELAY_STEP_PS);
-+
-+		if (delay_ps > EIC7700_MAX_DELAY_PS)
-+			return dev_err_probe(&pdev->dev, -EINVAL,
-+				"rx delay out of range\n");
- 
--		eth_dly_param &= ~EIC7700_ETH_RX_ADJ_DELAY;
--		eth_dly_param |= FIELD_PREP(EIC7700_ETH_RX_ADJ_DELAY, val);
--	} else {
--		return dev_err_probe(&pdev->dev, -EINVAL,
--			"missing required property rx-internal-delay-ps\n");
-+		val = delay_ps / EIC7700_DELAY_STEP_PS;
-+
-+		dwc_priv->eth_clk_dly_param &= ~EIC7700_ETH_RX_ADJ_DELAY;
-+		dwc_priv->eth_clk_dly_param |=
-+				 FIELD_PREP(EIC7700_ETH_RX_ADJ_DELAY, val);
- 	}
- 
- 	/* Read tx-internal-delay-ps and update tx_clk delay */
- 	if (!of_property_read_u32(pdev->dev.of_node,
- 				  "tx-internal-delay-ps", &delay_ps)) {
--		u32 val = min(delay_ps / 100, EIC7700_MAX_DELAY_UNIT);
-+		if (delay_ps % EIC7700_DELAY_STEP_PS)
-+			return dev_err_probe(&pdev->dev, -EINVAL,
-+				"tx delay must be multiple of %dps\n",
-+				EIC7700_DELAY_STEP_PS);
-+
-+		if (delay_ps > EIC7700_MAX_DELAY_PS)
-+			return dev_err_probe(&pdev->dev, -EINVAL,
-+				"tx delay out of range\n");
-+
-+		val = delay_ps / EIC7700_DELAY_STEP_PS;
- 
--		eth_dly_param &= ~EIC7700_ETH_TX_ADJ_DELAY;
--		eth_dly_param |= FIELD_PREP(EIC7700_ETH_TX_ADJ_DELAY, val);
--	} else {
--		return dev_err_probe(&pdev->dev, -EINVAL,
--			"missing required property tx-internal-delay-ps\n");
-+		dwc_priv->eth_clk_dly_param &= ~EIC7700_ETH_TX_ADJ_DELAY;
-+		dwc_priv->eth_clk_dly_param |=
-+				 FIELD_PREP(EIC7700_ETH_TX_ADJ_DELAY, val);
- 	}
- 
--	eic7700_hsp_regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
--							     "eswin,hsp-sp-csr");
--	if (IS_ERR(eic7700_hsp_regmap))
-+	dwc_priv->eic7700_hsp_regmap =
-+			syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
-+							"eswin,hsp-sp-csr");
-+	if (IS_ERR(dwc_priv->eic7700_hsp_regmap))
- 		return dev_err_probe(&pdev->dev,
--				PTR_ERR(eic7700_hsp_regmap),
-+				PTR_ERR(dwc_priv->eic7700_hsp_regmap),
- 				"Failed to get hsp-sp-csr regmap\n");
- 
- 	ret = of_property_read_u32_index(pdev->dev.of_node,
- 					 "eswin,hsp-sp-csr",
--					 1, &eth_phy_ctrl_offset);
-+					 1, &dwc_priv->eth_phy_ctrl_offset);
- 	if (ret)
- 		return dev_err_probe(&pdev->dev, ret,
- 				     "can't get eth_phy_ctrl_offset\n");
- 
--	regmap_read(eic7700_hsp_regmap, eth_phy_ctrl_offset,
--		    &eth_phy_ctrl_regset);
--	eth_phy_ctrl_regset |=
--		(EIC7700_ETH_TX_CLK_SEL | EIC7700_ETH_PHY_INTF_SELI);
--	regmap_write(eic7700_hsp_regmap, eth_phy_ctrl_offset,
--		     eth_phy_ctrl_regset);
--
- 	ret = of_property_read_u32_index(pdev->dev.of_node,
- 					 "eswin,hsp-sp-csr",
--					 2, &eth_axi_lp_ctrl_offset);
-+					 2, &dwc_priv->eth_axi_lp_ctrl_offset);
- 	if (ret)
- 		return dev_err_probe(&pdev->dev, ret,
- 				     "can't get eth_axi_lp_ctrl_offset\n");
- 
--	regmap_write(eic7700_hsp_regmap, eth_axi_lp_ctrl_offset,
--		     EIC7700_ETH_CSYSREQ_VAL);
-+	ret = of_property_read_u32_index(pdev->dev.of_node,
-+					 "eswin,hsp-sp-csr",
-+					 3, &dwc_priv->eth_clk_offset);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "can't get eth_clk_offset\n");
- 
- 	ret = of_property_read_u32_index(pdev->dev.of_node,
- 					 "eswin,hsp-sp-csr",
--					 3, &eth_rxd_dly_offset);
-+					 4, &dwc_priv->eth_txd_offset);
- 	if (ret)
- 		return dev_err_probe(&pdev->dev, ret,
--				     "can't get eth_rxd_dly_offset\n");
-+				     "can't get eth_txd_offset\n");
- 
--	regmap_write(eic7700_hsp_regmap, eth_rxd_dly_offset,
--		     eth_dly_param);
-+	ret = of_property_read_u32_index(pdev->dev.of_node,
-+					 "eswin,hsp-sp-csr",
-+					 5, &dwc_priv->eth_rxd_offset);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "can't get eth_rxd_offset\n");
- 
- 	plat_dat->num_clks = ARRAY_SIZE(eic7700_clk_names);
- 	plat_dat->clks = devm_kcalloc(&pdev->dev,
-@@ -208,12 +290,27 @@ static int eic7700_dwmac_probe(struct platform_device *pdev)
- 	plat_dat->exit = eic7700_dwmac_exit;
- 	plat_dat->suspend = eic7700_dwmac_suspend;
- 	plat_dat->resume = eic7700_dwmac_resume;
-+	plat_dat->fix_mac_speed = eic7700_dwmac_fix_speed;
- 
- 	return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
- }
- 
-+static const struct eic7700_dwmac_data eic7700_dwmac_data = {
-+	.rgmii_rx_clk_invert = false,
-+};
-+
-+static const struct eic7700_dwmac_data eic7700_dwmac_data_clk_inversion = {
-+	.rgmii_rx_clk_invert = true,
-+};
-+
- static const struct of_device_id eic7700_dwmac_match[] = {
--	{ .compatible = "eswin,eic7700-qos-eth" },
-+	{	.compatible = "eswin,eic7700-qos-eth",
-+		.data = &eic7700_dwmac_data,
-+	},
-+	{
-+		.compatible = "eswin,eic7700-qos-eth-clk-inversion",
-+		.data = &eic7700_dwmac_data_clk_inversion,
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, eic7700_dwmac_match);
--- 
-2.25.1
-
+PiBGcm9tOiBIdWFuIEhlIDxoZWh1YW4xQGVzd2luY29tcHV0aW5nLmNvbT4KPiAKPiBBZGQgZGV2
+aWNlIHRyZWUgYmluZGluZyBkb2N1bWVudGF0aW9uIGZvciBFU1dJTiBFSUM3NzAwIFByb2Nlc3Ms
+IFZvbHRhZ2UKPiBhbmQgVGVtcGVyYXR1cmUgc2Vuc29yLgo+IAo+IFRoZSBFSUM3NzAwIFNvQyBp
+bnRlZ3JhdGVzIHR3byBQVlQgaW5zdGFuY2VzIGZvciBtb25pdG9yaW5nIFNvQyBhbmQgRERSCj4g
+cG93ZXIgZG9tYWlucyByZXNwZWN0aXZlbHkuCj4gCj4gU2lnbmVkLW9mZi1ieTogWXVsaW4gTHUg
+PGx1eXVsaW5AZXN3aW5jb21wdXRpbmcuY29tPgo+IFNpZ25lZC1vZmYtYnk6IEh1YW4gSGUgPGhl
+aHVhbjFAZXN3aW5jb21wdXRpbmcuY29tPgo+IFJldmlld2VkLWJ5OiBDb25vciBEb29sZXkgPGNv
+bm9yLmRvb2xleUBtaWNyb2NoaXAuY29tPgo+IC0tLQo+ICAuLi4vYmluZGluZ3MvaHdtb24vZXN3
+aW4sZWljNzcwMC1wdnQueWFtbCAgICAgfCA2NSArKysrKysrKysrKysrKysrKysrCj4gIDEgZmls
+ZSBjaGFuZ2VkLCA2NSBpbnNlcnRpb25zKCspCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBEb2N1bWVu
+dGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvaHdtb24vZXN3aW4sZWljNzcwMC1wdnQueWFtbAo+
+IAo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvaHdtb24v
+ZXN3aW4sZWljNzcwMC1wdnQueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5n
+cy9od21vbi9lc3dpbixlaWM3NzAwLXB2dC55YW1sCj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiBp
+bmRleCAwMDAwMDAwMDAwMDAuLjM2NmRjZTNjNmQ0Mwo+IC0tLSAvZGV2L251bGwKPiArKysgYi9E
+b2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvaHdtb24vZXN3aW4sZWljNzcwMC1wdnQu
+eWFtbAo+IEBAIC0wLDAgKzEsNjUgQEAKPiArIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogKEdQ
+TC0yLjAtb25seSBPUiBCU0QtMi1DbGF1c2UpCj4gKyVZQU1MIDEuMgo+ICstLS0KPiArJGlkOiBo
+dHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9od21vbi9lc3dpbixlaWM3NzAwLXB2dC55YW1s
+Iwo+ICskc2NoZW1hOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvbWV0YS1zY2hlbWFzL2NvcmUueWFt
+bCMKPiArCj4gK3RpdGxlOiBFU1dJTiBFSUM3NzAwIFBWVCBTZW5zb3IKPiArCj4gK21haW50YWlu
+ZXJzOgo+ICsgIC0gWXVsaW4gTHUgPGx1eXVsaW5AZXN3aW5jb21wdXRpbmcuY29tPgo+ICsgIC0g
+SHVhbiBIZSA8aGVodWFuMUBlc3dpbmNvbXB1dGluZy5jb20+Cj4gKwo+ICtkZXNjcmlwdGlvbjoK
+PiArICBFU1dJTiBFSUM3NzAwIFNvQyBpbnRlZ3JhdGVzIGVtYmVkZGVkIHByb2Nlc3MsIHZvbHRh
+Z2UgYW5kIHRlbXBlcmF0dXJlCj4gKyAgc2Vuc29ycyB0byBtb25pdG9yIHRoZSBpbnRlcm5hbCBT
+b0MgZW52aXJvbm1lbnQuIFRoZSBzeXN0ZW0gaW5jbHVkZXMgdHdvCj4gKyAgUFZUIHNlbnNvciBp
+bnN0YW5jZXMuIFRoZSBQVlQwIG1vbml0b3JzIHRoZSBtYWluIFNvQyBwb3dlciBkb21haW4uIFRo
+ZQo+ICsgIFBWVDEgc2Vuc29yIG1vbml0b3JzIHRoZSBERFIgY29yZSBwb3dlciBkb21haW4uCj4g
+Kwo+ICthbGxPZjoKPiArICAtICRyZWY6IC9zY2hlbWFzL2h3bW9uL2h3bW9uLWNvbW1vbi55YW1s
+Iwo+ICsKPiArcHJvcGVydGllczoKPiArICBjb21wYXRpYmxlOgo+ICsgICAgY29uc3Q6IGVzd2lu
+LGVpYzc3MDAtcHZ0Cj4gKwo+ICsgIHJlZzoKPiArICAgIG1heEl0ZW1zOiAxCj4gKwo+ICsgIGNs
+b2NrczoKPiArICAgIG1heEl0ZW1zOiAxCj4gKwo+ICsgIGludGVycnVwdHM6Cj4gKyAgICBtYXhJ
+dGVtczogMQo+ICsKPiArICBsYWJlbDogdHJ1ZQoKSGkgQ29ub3IsCgpUaGUgbGFiZWwgcHJvcGVy
+dHkgaXMgY3VycmVudGx5IGRlY2xhcmVkIGFzICdsYWJlbDogdHJ1ZScgd2l0aG91dCBhbnkKdmFs
+dWUgY29uc3RyYWludHMuIEhvd2V2ZXIsIHRoZSBkcml2ZXIgZXhwZWN0cyBzcGVjaWZpYyBsYWJl
+bCB2YWx1ZXMgKHB2dDAKb3IgcHZ0MSkuIElzIGl0IG9rIHRvIHVwZGF0ZSB0aGUgRFQgYmluZGlu
+ZyBzY2hlbWEgdG8gY29uc3RyYWluIHRoZSBsYWJlbApwcm9wZXJ0eSB0byBhbiBlbnVtOgoKLcKg
+IGxhYmVsOiB0cnVlCivCoCBsYWJlbDoKK8KgIMKgIGVudW06CivCoCDCoCDCoCAtIHB2dDAKK8Kg
+IMKgIMKgIC0gcHZ0MQoKQmVzdCByZWdhcmRzLApIdWFuIEhlCgo+ICsKPiArICByZXNldHM6Cj4g
+KyAgICBtYXhJdGVtczogMQo+ICsKPiArICAnI3RoZXJtYWwtc2Vuc29yLWNlbGxzJzoKPiArICAg
+IGNvbnN0OiAwCj4gKwo+ICtyZXF1aXJlZDoKPiArICAtIGNvbXBhdGlibGUKPiArICAtIHJlZwo+
+ICsgIC0gY2xvY2tzCj4gKyAgLSBpbnRlcnJ1cHRzCj4gKyAgLSBsYWJlbAo+ICsgIC0gcmVzZXRz
+Cj4gKwo+ICt1bmV2YWx1YXRlZFByb3BlcnRpZXM6IGZhbHNlCj4gKwo+ICtleGFtcGxlczoKPiAr
+ICAtIHwKPiArICAgIHB2dEA1MGIwMDAwMCB7Cj4gKyAgICAgIGNvbXBhdGlibGUgPSAiZXN3aW4s
+ZWljNzcwMC1wdnQiOwo+ICsgICAgICByZWcgPSA8MHg1MGIwMDAwMCAweDEwMDAwPjsKPiArICAg
+ICAgY2xvY2tzID0gPCZjbG9ja3MgMjQ0PjsKPiArICAgICAgaW50ZXJydXB0cyA9IDwzNDk+Owo+
+ICsgICAgICBpbnRlcnJ1cHQtcGFyZW50ID0gPCZwbGljPjsKPiArICAgICAgbGFiZWwgPSAicHZ0
+MCI7Cj4gKyAgICAgIHJlc2V0cyA9IDwmcmVzZXQgMTExPjsKPiArICAgICAgI3RoZXJtYWwtc2Vu
+c29yLWNlbGxzID0gPDA+Owo+ICsgICAgfTsKPiArLi4uCj4gLS0gCj4gMi4yNS4xCg==
