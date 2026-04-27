@@ -1,306 +1,149 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA65739A05A
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 08:19:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED60F37FF5C
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 08:23:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777277945; cv=none; b=HiOXiABmtotsPkSEVGB06j4rjuzFFlsm5UI5rISrwHQOSBQDyb6Pe7K9wzjc0C9BeskJK0PB/+BWrbovXdm2zH/3wTWuPTvAOc83He7rIWJDnJV/am+4/3brWLLEWDNwuAkMeBmkVseLHykvzLKDddqCOEimiVkuOln2tlGV8zQ=
+	t=1777278211; cv=none; b=kas4Cf62f7qguShFTAVn1knuEO7gaHKQz9EYl8R8A5MpJS7nsLl9ZZKKwd+T0qqoSf7Dzado7GB3aeysS90mBcanLGNPhIhpXgKqS8El+itQ4epwhpWUIDCJukdvOWUn7RGIxX4wx5grAn9+O42DkqUCfAmjW7qyx+m56Briq6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777277945; c=relaxed/simple;
-	bh=J2TZUzyKbhBP8QKXUd6dU18LJ5IcJowSmbEIPSADdyI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kF92AKiX406BgUtSL/RT7eBwcevSV393ci5DBGt1CpaObBLUWwTTl2U/Yj2P6/u9YnPj5yejUIUcqJPhLjT0m1U4iaMfX3KHrMnuEnK6OGa60NMUqyO9vx2W1x2sU0WdVaXmD85t4NlD0snRj2kdoUBbET3HQ+EakEcGiR6QynM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jtqvudJ/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Lusci4Fc; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1777278211; c=relaxed/simple;
+	bh=S+UC5l8xLtwplTScFcAPLUWxLbOcZ4c8cKWGBkjX09c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bN5t0mmwHj8YjsHoUzkkNxCwq50htmOBDYfgS965SWBrDSlMEaCRQmYjVyS5NlQPSrhuQqchyGDfif55sSYvpSXdDFmpjd1qjxQl1LcpBHOQlY31RHQlWKwD4QLdNIGGbt6fOypU/RiaRRLXVY8dh/NVbBBgn4PcxxRIkVPUpNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WVDg6lCO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jUJNF8/T; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jtqvudJ/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Lusci4Fc"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63R82F5Q1652118
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 08:19:03 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WVDg6lCO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jUJNF8/T"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63R84wdh173900
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 08:23:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Rc4id9/G0ofQjHwOaT3b3hRz38cbyjQ45C7/+/HoEKo=; b=jtqvudJ/Pq9709S+
-	cUByznB4LR2yKhv+KhNnbT46W8mQ4ool2nxxZd+3hVdk9fBVZ/nGVtwzX8Z9bK2B
-	P5a79SSnGeyxVU8ABXLcQxutFIf8ygILVXHsTi3nnLnZZBuPSXaqxxcj4BN6yjxi
-	7/seMI3smejc/9PNlMozG93tSKpJditgTPFBcqKLtdOoo51E8FItNA22hB0xgQ6R
-	fzaP42KmL8MXCWM9/KAusI8mxo270Rj2jJnGSCQSL6Np7aIMoe7QeAtMhjHUH1eC
-	oZmDFD54Yi3Ly+xSLYN6a3Do3SqEnuBd6EGXbCjKESrQszn5NPqNPvk2I9oKhWSe
-	AzIVUw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drnu2w406-1
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=tiRArfcKehWqRcHRhfjkDPQuN1XNjJnT51L
+	mmPgOUFs=; b=WVDg6lCOAqr0Bi/0aGdgXnRrlKaCimHsYluJXB6SN/Ld+tPVPkd
+	xZCXQB1WukaG2m/MIWB7tN6/NEKBPFiYgr2SWwKkPkCf8zrbp562Avng5oD/RvTQ
+	3Ryqnvpas8mfHwkxHsIE1HWSxuUE/Xtp15zcJiM9wXht3RbZzZQ0QS3+D9vImSwR
+	jZIvABaTHQ9gQjCTmYRB3zI1P8MP7/7Vg4uWXc7lPWfDHOKYdWji/j/1UTp+qERJ
+	2qimVFSBsNeI6l2G+b/Wd+y9WslYYo74EmxNWw0oxSPVHDdXnZggJv8MxfIa5Ekj
+	w73aMlVN/2r+J/3ShwMV0HHDhmgfz9d6MMA==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drnqrn3h7-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 08:19:02 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50da529ff48so34081941cf.3
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 01:19:02 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 08:23:28 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-2bdf6fe90a9so15447126eec.1
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 01:23:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777277942; x=1777882742; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Rc4id9/G0ofQjHwOaT3b3hRz38cbyjQ45C7/+/HoEKo=;
-        b=Lusci4FcW/CNXhiXs4PPt3Pmr86C0+7ARUHOqc8FQGIBY9gkJG3rs6hc32clnmaBug
-         t4DsBQoVp3MpDejxIo9ANV62TK30S5QBKOHDpW1CXgGAecn6IlmpAPetVmtI6KQuev/H
-         AVgwNUtfjeKW9KNnJrIG/tzyLyyFGI19dUOKr7maEnc2HD7kzeos3vKPplC8v0OpeBRp
-         qYVthoTCz8A94DSe+4kJ1MgYVkMUC2WJp+hg/dQmr5ZPduujuJhlYfvYEZMrYraDc+UW
-         d8Un6TpKebuqiLoMTpfwmhSYBA4Lzso/NjF/8DL7CaAsULNbFlHQxjFRzpxyXEHACyFg
-         J8NA==
+        d=oss.qualcomm.com; s=google; t=1777278208; x=1777883008; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=tiRArfcKehWqRcHRhfjkDPQuN1XNjJnT51LmmPgOUFs=;
+        b=jUJNF8/TXX7z4/uQJfsUkRBJsfBrlNt/tbr9FLt6x/0bqCwx4idH6LKPYLIZlv7U+j
+         YCqqfhP5WHa1fgWTSN/p5lSK2AqJSE2MQnPFZm8HuHcUeCPLob4DqKCipWbrTwHNTgkb
+         Por/yUS0D+JlsxJE1ho7O4KBq/iNdhnDhbeXaBIVBZ9yPzS7RjnSidPCDZwY1d5xEKNY
+         uUE+qOQPDHW4HxRDXurtE+LzqDfn2aeamhkOji78iFPU6ooxBHIcOEDvybjFCy6uctSM
+         3w0d6nr+LtN98JBVv7lUnqDbPkF6QxP7qO7Or28706o4909WlrMsjGQeuw6W+efctiVs
+         bv7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777277942; x=1777882742;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Rc4id9/G0ofQjHwOaT3b3hRz38cbyjQ45C7/+/HoEKo=;
-        b=HBi089NPGUZomcnlqET7BVGsDlGueAcy6O+rtPZJ8anhoOG4RVLabe/CumJDXolahH
-         iPYdT13YJK05tMyeSIkQB6NaucxryjkcP02zMBJ9aIaPP5Kwv8uyJH1GhdeN3ZM6bkBm
-         EDaJ8ZwOeYomVIk4GH6dqPo3pKKPyIlTDxVs2RpM2vyUzkqmtjE5mrtKC1KUEI8jSIwI
-         SUgQ2/gO1+1rtFPLO5iYxdzOcv9mDN5gg4jpULHtz//AxtgjAgvWN6YdWlKQvckZKJZU
-         e5YQE/I4h/ww/RPnxiqU/BFFnFT7seTzzP1HjH49uIP3uvKG1ZmmNn13ORIIKxxgqwWA
-         lKsg==
-X-Forwarded-Encrypted: i=1; AFNElJ+kLwFIjskOy4dr/pFuQhcPY9fJ32Jf9hWoocEG9GujPsX3w0gXikhMXngSIOwo9wV50Le4mJJ3CwSx@vger.kernel.org
-X-Gm-Message-State: AOJu0YxWnbPcpnLrZFxu0V6bNJVPIoTsFzRqQIi6QJrnqa3YMSvVrq7P
-	gUnqzRPMHi4ILwZC4UX0RZutpHWduZTAW3MkkTO7GK8tWfbXsH4q00jKgCxtMKoxn4wuASctmZq
-	q5pavJKosVD/5/SnorF4G9juqlud4+5AylU3ZIddgiqLxlATt/vDJzHcVs4+ANIjl
-X-Gm-Gg: AeBDiet16W09MYMT6YM6lBsHNVErqbk40HfQzSiUP353FmXIw10Lp4yhkpR2mISNQH6
-	dXdxe7t42Fvyn8alpHke2XwqDfCUpg3GF29r4Ghj7FdXS5xitSWUReSxsDB2yyQjCMw0TGMZEGH
-	+IqwMq6h1G1cQRA8gNdLn2juBk6xoOh2kfLq6rnYZTaPvVg080jbM3ibQo/OWaiPw5LEw4w/RRb
-	Y+6smQLn8p1ILGHL4HmGxtrNI2McGBnIhsFi+bT2qOfB75nngtW/AIh6OhUFrPOBkW7/5+nvL0F
-	uRYHM3TqKAMA/eIX2VSNGtTAv9h8hzKLCDqijo5PQungsyA2KG5ogJ5GyzXn5YeJ4IxFCCg9K9q
-	K41a/seDJqzZOJ15Q/nHGTKUfXB9vtYiOlMnnP2o04uq4a6pdn79xZmVo+uxrV893wnxEzDat4x
-	6kohQO/URfBnrSFa/x/nA=
-X-Received: by 2002:ac8:7f55:0:b0:50e:defb:9dc2 with SMTP id d75a77b69052e-50edefba0b3mr409749611cf.27.1777277941875;
-        Mon, 27 Apr 2026 01:19:01 -0700 (PDT)
-X-Received: by 2002:ac8:7f55:0:b0:50e:defb:9dc2 with SMTP id d75a77b69052e-50edefba0b3mr409749111cf.27.1777277941230;
-        Mon, 27 Apr 2026 01:19:01 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:9464:b7df:8046:49f4? ([2a05:6e02:1041:c10:9464:b7df:8046:49f4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4cc0d51sm80260977f8f.10.2026.04.27.01.18.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Apr 2026 01:19:00 -0700 (PDT)
-Message-ID: <e1845fc5-254e-4481-b783-5e631d4e506b@oss.qualcomm.com>
-Date: Mon, 27 Apr 2026 10:18:58 +0200
+        d=1e100.net; s=20251104; t=1777278208; x=1777883008;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tiRArfcKehWqRcHRhfjkDPQuN1XNjJnT51LmmPgOUFs=;
+        b=HHN9+QGP6SQTbLAfoI7EO/jiRx5lt/L8tKxtMy1jaiAhH/1WAT0Sq0l3pH5ek1EyWT
+         0BoW9w6HGGEgyWvZ5Ry81uOVHjzQhngRR32PXuQ+TFfpXA62nuVEwAxVpRG8DINx7RRv
+         c88paoJEoENKPNs04L365A/mM88lSwxCFtHlv74Nm8cp7Ef40dglUc2tNwJPdwx96IeQ
+         vIAopYYBwDnxVJ8xVKlzrqhl0byplgTjNmpYQn/HCi9LuMY4yLeGxYm6xOpvQiMXrqhV
+         T6P0F8v4HqzzBZ4Y4HP7pfsJ+eGgi8ITIRVpN47QLKB3seOxnx3sJwDj4a2i24S47CVh
+         2YLQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+sNCC3xyPYcUpbm01Akhg1cvzDlSlsXG6yZwR+WYDFCO9BIYVYSKbiHpxi38s1ptwgyCXA2Sb5u+4/@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw57iGwb5GgdCXdnRw1lPZCKo5fZ7lNLZfjWSni/sN5UPzA/02D
+	8GG7QoIsW13tw3x1uAeEbh9PWPnu+/+76aR8tDsG4cN1Ww1OCspdlUp1KRu1xnwX6HLdMMEG1wP
+	z19VpdM0HsL+3vVBYCQPOgqdyVT5RLvgv0Gc+KMwvCfgBEE3XljMi6HoUjSjDCCOT
+X-Gm-Gg: AeBDievlTyFMYE3EHxWw/X/JBO5f4ZQsoQm5omemcCrhzb3fmzwCB6y8huuDRGRAiFs
+	QlFp+I3uHVqiagfF0bneak6DwhV/Tm/Ji9pT7OOWHtQZFwSqUTVJtBtiKxc8ci/jw7Uk0hJFt3K
+	Rv2Em8gGbiAwsseUXCzh9FYXAOmZ2BRqkttltFkqunANnrgQLC3reWBoE1OoEdhokF7ydPR4kVh
+	n895zhiUlLUdhzMBL/Xg4guIIdhWmgR68DdxZtLXa8CnSskt7taCTICQP/cT8KK6RAEINj7d65a
+	e9vaghaQf8ndU1Ekcx89IZQzXJj1bNFMSh1Ujpk8RTG/BnH7dN2IGMG6AbDRPjYNKIVZ4KlXm2F
+	jKR4yxe1xFxm1nOYyavP5SGFXEqC8jD4cTzCx1BwDmZC7hnbKXz6LD6ztI+nldDhZ8ssZ5uvjSR
+	9Yxw==
+X-Received: by 2002:a05:7300:3723:b0:2d9:db50:c6d6 with SMTP id 5a478bee46e88-2e478a331b3mr23189772eec.21.1777278207586;
+        Mon, 27 Apr 2026 01:23:27 -0700 (PDT)
+X-Received: by 2002:a05:7300:3723:b0:2d9:db50:c6d6 with SMTP id 5a478bee46e88-2e478a331b3mr23189760eec.21.1777278207087;
+        Mon, 27 Apr 2026 01:23:27 -0700 (PDT)
+Received: from hu-liuxin-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2e539fa5c86sm50814692eec.1.2026.04.27.01.23.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Apr 2026 01:23:26 -0700 (PDT)
+From: Xin Liu <xin.liu@oss.qualcomm.com>
+To: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
+        jie.gan@oss.qualcomm.com
+Subject: [PATCH] arm64: dts: qcom: talos: Add EL2 overlay for talos-evk
+Date: Mon, 27 Apr 2026 01:23:25 -0700
+Message-ID: <20260427082325.1895450-1-xin.liu@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V10 4/4] thermal: qcom: add support for PMIC5 Gen3 ADC
- thermal monitoring
-To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        agross@kernel.org, andersson@kernel.org, lumag@kernel.org,
-        dmitry.baryshkov@oss.qualcomm.com, konradybcio@kernel.org,
-        daniel.lezcano@linaro.org, sboyd@kernel.org, amitk@kernel.org,
-        thara.gopinath@gmail.com, lee@kernel.org, rafael@kernel.org,
-        subbaraman.narayanamurthy@oss.qualcomm.com,
-        david.collins@oss.qualcomm.com, anjelique.melendez@oss.qualcomm.com,
-        kamal.wadhwa@oss.qualcomm.com, rui.zhang@intel.com,
-        lukasz.luba@arm.com, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        cros-qcom-dts-watchers@chromium.org, quic_kotarake@quicinc.com,
-        neil.armstrong@linaro.org, stephan.gerhold@linaro.org
-References: <20260130115421.2197892-1-jishnu.prakash@oss.qualcomm.com>
- <20260130115421.2197892-5-jishnu.prakash@oss.qualcomm.com>
- <addDTiI8MB2b_AzJ@mai.linaro.org>
- <12d683aa-44c2-4e2d-8459-78ba9f2ab61e@oss.qualcomm.com>
- <f46ef4af-1c05-4473-9226-901d3393ea89@oss.qualcomm.com>
- <7e619cef-ed08-4454-905c-05ab0939d60e@oss.qualcomm.com>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <7e619cef-ed08-4454-905c-05ab0939d60e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: vD430ezFC47xq3hZDHjGpVa-jnHMeFuj
-X-Authority-Analysis: v=2.4 cv=cbriaHDM c=1 sm=1 tr=0 ts=69ef1bf7 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDA4OCBTYWx0ZWRfX9d9PsaE1bI38
+ 1vzTVCi2VYa541hOW7MJ+nLytP0BUhcupOhuSly4k95HcUR9IIBeyDZRquPVw6h83J5b2qZF3/t
+ AQ8CVOZhewPy2pft9d/bLdDsmPMPYBGy23flRwLXZV9Udboo7CDsW/a+x8bchulh78DhWudkAo8
+ NJmgWg0Z946qqf9D8Fx24M6PVP3NtxoatSzM9wEkc2qHru79UJJzmkHYCbitQSvcB+JROiWGGi0
+ ynbShv4tEgNmLw+08/PSzSr5rsaREA3mejy2OJcpaa4UJYMGa3246ui17eVRxoC8WC2Gvj/ZX3u
+ mQOextm4WA1W8dzaKfxc54RYt4nsWy/3V/gPUqA8TOkMDbVFlIPop+gJrn6QeVBgAzYD0hhDHXV
+ MwQW5YktOzlVU2QOHPlaNLw1t0Yyex8LhbQqQvU2KXtsnu79wwUyRnnkr0uj0VHmIx60x2kpQb6
+ Jdj+VJRXoEeXwCs6plw==
+X-Proofpoint-ORIG-GUID: VvOTf3tt4sIsKhixZrkkQwFjjN-_mZUD
+X-Proofpoint-GUID: VvOTf3tt4sIsKhixZrkkQwFjjN-_mZUD
+X-Authority-Analysis: v=2.4 cv=UcthjqSN c=1 sm=1 tr=0 ts=69ef1d00 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=Q6r41MFCYhVuxuzLeoIA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: vD430ezFC47xq3hZDHjGpVa-jnHMeFuj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDA4NyBTYWx0ZWRfX83bAddRtbz0Y
- ZdNDwrdOUtN579zuQvogEgkW967ISkF3khK9D589vkklzGE9mJVc2+BwsrfFw9u3hVsNmkA7SAN
- LkyKaKa7TQIg8MjORsnwTAoJ8pbUZWz/c6Y1qG3Icu5qLUdvwHCacVQzkGga5zwF83ovFm4ciGY
- 3KNCFSDA+xVzluTYJY3fwHG3M/fx+Wo7PjIS5HLdpNcwipd40qWDj4CxXsQi02eD8U22DEY7yfx
- 4z0G5prP1L/1HxndF4wzWNQu2dGFUi+uNRY1woIzs5GtPq08FBJ0Xir5V35rId99ABW+n+yxVBT
- cOjdLR+jAVx+i0jf8uAJM9pUGZRQ7W+E5gEPHf0klZI/I+qYrUMTZ5DldvYDBsKwNXQvjMpQSek
- 5jmk5mOjtdNd10wSc99m3HvTQrM5mWQwpkLJ32721iVd3IUFK3A88dyfaLFAkfiDzVRp4PQcgDy
- M486Gl51PYs1c6YQNtw==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=_9oBJBIr4Ljb0oQskpwA:9 a=6Ab_bkdmUrQuMsNx7PHu:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-27_02,2026-04-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
- priorityscore=1501 spamscore=0 malwarescore=0 bulkscore=0 adultscore=0
+ clxscore=1015 malwarescore=0 spamscore=0 lowpriorityscore=0 impostorscore=0
+ adultscore=0 priorityscore=1501 bulkscore=0 suspectscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270087
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270088
 
+Add support for building an EL2 combined DTB for the talos-evk
+in the Qualcomm DTS Makefile.
 
-Hi Jishnu,
+The new talos-evk-el2.dtb is generated by combining the base
+talos-evk.dtb with the talos-el2.dtbo overlay, enabling EL2-specific
+configurations required by the platform.
 
-On 4/25/26 12:37, Jishnu Prakash wrote:
-> Hi Daniel,
+Signed-off-by: Xin Liu <xin.liu@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/Makefile | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-[ ... ]
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 4ba8e7306419..c89e4327ef18 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -393,6 +393,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-qrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
++
++talos-evk-el2-dtbs	:= talos-evk.dtb talos-el2.dtbo
++
++dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk-el2.dtb
+ talos-evk-usb1-peripheral-dtbs := talos-evk.dtb talos-evk-usb1-peripheral.dtbo
+ dtb-$(CONFIG_ARCH_QCOM) += talos-evk-usb1-peripheral.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk-camera-imx577.dtbo
+-- 
+2.43.0
 
-
->> Actually, if get_sdam_from_irq() or adc5_gen3_read() fail, they will return without clearing the interrupt flag, so we should potentially end up in an infinite loop.
->>
-> 
-> I went over this discussion and the code again and I need to explain a few things.
-> 
-> First, please note that individual PMIC drivers do not handle interrupt clearing by
-> themselves - they are under the SPMI PMIC arbiter (drivers/spmi/spmi-pmic-arb.c),
-> which is an interrupt controller and the arbiter driver handles IRQ clearing internally
-> for all the PMIC drivers under it. So we won't be clearing the interrupt explicitly here.
-> 
->> So the status should be cleared at the end with IRQ_HANDLED. IRQ_NONE returned if it is for another subsystem.
->>
-> 
-> Maybe my explanation above wasn't sufficiently detailed - the "status" I mentioned
-> above is not related to the interrupt by itself, it is just the ADC's status register
-> reading. If it indicates an ADC conversion fault, the fault has to be cleared by
-> calling the function adc5_gen3_status_clear() before we can make subsequent conversion
-> requests (like for .set_trips) on the ADC.
-> 
-> 
-> There are 3 main reasons for which the Gen3 ADC interrupt may fire:
-> 
-> 1. End of conversion for immediate conversion request (handled in main ADC driver)
-> 2. Threshold violation for TM conversions (handled in this auxiliary driver)
-> 3. Conversion fault (handled in both drivers)
-> 
-> 
-> I think it would make the most sense if I make changes so that the ISRs
-> (of both main and aux driver) return IRQ_HANDLED only when any of the above
-> 3 cases are detected and they return IRQ_NONE in case of errors or when the
-> interrupt is confirmed to be for the other driver.
-> 
-> Does this sound fine?
-
-Thanks for clarifying. It should be fine.
-
->> If you think there can be a significant number of errors in the handler may be you should add statistics but later in an additional series if it makes sense.
->>
-
-[ ... ]
-
->> [ ... ]
->>
->>>>> +    dev_dbg(adc_tm5->dev, "channel:%s, low_temp(mdegC):%d, high_temp(mdegC):%d\n",
->>>>> +        prop->common_props.label, low_temp, high_temp);
->>>>> +
->>>>> +    guard(adc5_gen3)(adc_tm5);
->>>>> +    if (high_temp == INT_MAX && low_temp == -INT_MAX)
->>>>> +        return adc_tm5_gen3_disable_channel(prop);
->>>>
->>>> Why disable the channel instead of returning an errno ?
->>>>
->>>
->>> This is the convention we follow in our existing ADC_TM driver at
->>> drivers/thermal/qcom/qcom-spmi-adc-tm5.c. If both upper and lower
->>> thresholds are meant to be disabled, we disable the channel fully
->>> in HW to save some power and it can be enabled later if this API
->>> is called for it with valid thresholds.
->>>
->>> Is it considered invalid in the thermal framework to try to disable
->>> both thresholds? Should I both disable the channel and return some
->>> error from here?
->>
->> Well, if the channel is disabled, then the temperature sensor of the thermal zone is disabled, consequently the thermal zone is disabled from a HW POV but enabled from the kernel POV.
->>
->> Why not add the 'change_mode' ops and then disable the thermal zone (+ pm_runtime) ?
->>
-> 
-> I have a doubt about this part - if the thermal framework sends threshold values
-> of (-INT_MAX, INT_MAX) in the .set_trips callback, doesn't it mean that the
-> framework is already trying to disable the thermal sensor?
-
-No, let me clarify this:
-
-  * the thermal thresholds are set by the userspace to get notification 
-when a temperature is crossing the way up or/and down a specified limit. 
-Thresholds can be deleted, added, flushed, etc ...
-
-  * the thermal trips are specified by the firmware and should not be 
-changed even if I agree there are the writable trip points which IMO we 
-can consider for debug purpose
-
-If you specify a trip/threshold point with min=-INT_MAX and max=INT_MAX, 
-semantically speaking it is correct but in practice these temperatures 
-won't be reached so it is like the trip point is disabled but it is a 
-side effect.
-
-A trip point is a property of a thermal zone.
-
-A thermal sensor is represented by a thermal zone.
-
-A thermal zone can be enabled without trip points or thresholds. The 
-userspace is still able to read a temperature through netlink or sysfs.
-
-> Or does it just mean threshold monitoring functionality can be disabled for now,
-> but other functionality like temperature reading is still expected to work?
-> 
-> Please note that adc_tm5_gen3_disable_channel() only disables the threshold
-> monitoring and interrupt generation functionality - the get_temp() call to read
-> temperature will still work.
-
-Above you stated we receive a notification when the conversion is 
-finished. So how do you read the temperature if there is no interrupt 
-telling to read the converted value ?
-
-> Perhaps I should not have used the wording
-> "disable the channel" above, as calling adc_tm5_gen3_disable_channel() is not
-> exactly the same as fully disabling the thermal zone.
-> 
-> Please let me know if any change is needed there - should I return any error
-> after calling adc_tm5_gen3_disable_channel() ?
-
-I understand, your point. Perhaps just put it apart and address it later 
-as an optimization when the driver is merged and everything is clarified.
-
->> [ ... ]
->>
->>>>> +    /*
->>>>> +     * Skipping first SDAM IRQ as it is requested in parent driver.
->>>>> +     * If there is a TM violation on that IRQ, the parent driver calls
->>>>> +     * the notifier (adctm_event_handler) exposed from this driver to handle it.
->>>>> +     */
->>>>> +    for (i = 1; i < adc_tm5->dev_data->num_sdams; i++) {
->>>>> +        ret = devm_request_threaded_irq(dev,
->>>>> +                        adc_tm5->dev_data->base[i].irq,
->>>>> +                        NULL, adctm5_gen3_isr, IRQF_ONESHOT,
->>>>> +                        adc_tm5->dev_data->base[i].irq_name,
->>>>> +                        adc_tm5);
->>>>
->>>> The threaded interrupts set the isr in a thread and from the thread
->>>> handling the event, there is a work queue scheduled. Why not use the
->>>> top and bottom halves of the threaded interrupt ? Hopefully you should
->>>> be able to remove the lock.
->>>
->>> Yes, I can use the top and bottom halves of the threaded interrupt as you
->>> suggested. But what exactly do you mean by removing the lock?
->>>
->>> If you meant the mutex lock used in this driver, we cannot remove that.
->>> This is because the ADC_TM driver needs to write into several registers
->>> shared with the main ADC driver for setting new thresholds, so we
->>> have to share a mutex between the drivers to prevent concurrency issues.
->>
->> When using a workqueue tampering with registers while an interrupt handler is doing the same, the lock is needed.
->>
->> But if the workqueue is replaced by threaded interrupt, the lock *may* not be needed because the design may prevent race conditions.
->>
->> That may be not true in this case, I did not investigate deeper in the code to figure it out. Let's see the next version
->>
-> 
-> I think a lock will not be needed with the change I planned, but you
-> can judge it in the next version.
-
-Sure, thanks
-
-   -- Daniel
