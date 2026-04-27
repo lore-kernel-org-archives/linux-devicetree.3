@@ -1,128 +1,102 @@
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B51330649;
-	Mon, 27 Apr 2026 15:18:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F408431E84C;
+	Mon, 27 Apr 2026 15:20:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777303087; cv=none; b=tzDeo3M29ztb+6NpSWzxN5F1veJUNaE18XSpzPreb/O6EGcKUs4jvx7bR5uZcfguJWmaH9qZ/Vf19MYHtUKogzjRE978kRc48/+NpFA1onkX2chD9GJxYAIRa9SHfzqzgXr3idcPc7Ur7lDT4wP5PQEt9S73d96ZPc34TigIpFE=
+	t=1777303208; cv=none; b=imOfjJJRNm+FGorbl83dlOcItVz4adwdkaZjUbEJr/5g1PbJTrSneDhAe21WZcdNznQaIYHePeELvZtnJrjqCzQ77Pgh1Z854uhejn0Jf2/z6S88te3fe1dL1pjZv8RQLP5vnrc0ZeS0h4icAQXNyI277x6ow+d8Qdyaus+yzds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777303087; c=relaxed/simple;
-	bh=T5XnkGRAYWWNEx8qLlTAVkCmcLueRVg4qlTxLgiNMu4=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=IzphD/cYXNNjByCAujiOc7Bc5PykHI0HzPyvwwuOg2JdEOKlIBx5McyYuyPMvI5sUuCgETevu8mTGc2nF/xfZbDYMBfK4S+226og4fdw1ir7Z1KAX+0zbidqjgOiu3mI8Ngjj3mUr1iS4FuCz1hBCDQv+4RI+LOe6YPFosNdi6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=urpxGyNL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Seb0oU1H; arc=none smtp.client-ip=103.168.172.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1777303208; c=relaxed/simple;
+	bh=EQ/GidcN+QXNY8aMd32wGAAq1bAiO732einC07pYk9A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mj3adRlF/QyYLnFDl7evutl9JpZcQh8QXlQXCIkLPWAHvFd64ZrMGhxVBBc9NCrRIzOYPkjJziHlHUBIX/4v9N2rTCrPW+MjQOBKyyLbKJhUMHmvBne/sh7Whrhxjx11shA7ncQsBpep39zfX0vSUhj3Fpp5NQdC0OnP08nCOnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=c1/ro4s+; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=6X4RhCYu; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="urpxGyNL";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Seb0oU1H"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id F1657EC0266;
-	Mon, 27 Apr 2026 11:18:04 -0400 (EDT)
-Received: from phl-imap-02 ([10.202.2.81])
-  by phl-compute-04.internal (MEProxy); Mon, 27 Apr 2026 11:18:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1777303084;
-	 x=1777389484; bh=hYaRI0SZPudNmDi+HcLT6SMoYtUdnCImkMZqOGOuwVU=; b=
-	urpxGyNLaw3xhjYZ1L2ak1EMQ8L5kfMuAtqFyNeVZfOrwo4BMKpJybxOAqA0XhrM
-	zMyyAIdhXOzVcpjY4Ge4eUIIihf72sqMfpek2v0jxf99c6FR6RQDvtS6NEv44B76
-	+I3eXWF1PxLE2ctZ766VhcSnKvtqHl3i4OCoBaMS9GHHiyFcZr9G7P8tO0z7w+a7
-	kwKmishaXE1MVXS5/lD0dnp1Yh8zwhltPgCZMuRxs1pj9TsuqKYadz9g15n91DOM
-	56vSvCqwAjgFDsKWPWM7ga1QIVUqcjzR5L9bI8bp6mZC7lB/OR9yvmPF66s7KkGv
-	6RmxMk1y9s6l5+slnKoWCw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1777303084; x=
-	1777389484; bh=hYaRI0SZPudNmDi+HcLT6SMoYtUdnCImkMZqOGOuwVU=; b=S
-	eb0oU1HBqBNiu7vcT0Za+Oj7MfhwBtnKaCzUoH4ZIJxc/VRBuzoS4sCnzlaBs3to
-	r4JgTuZwbgvzZbDPIf2DudIvM+iuXz+6b9HQH0szD56ytd1HsvdRdhkms45mbT8y
-	rAvm9+PeUAP597Fv2Gh/l0/QIuS1Q56Gj6bJ1rFrb6Ivf8zD0V7/kzfd6AsdxL9M
-	Dd4xV4njDd+FbMfS0HOTSlcth996i7ddawnvMMmhQ4EbWUbezUgcQdycHQwzkn1j
-	xEbB8JfT4uEobo+vAEL89pAkblTp90HzbRU+Y5lYzyK1QE8/CDcZAqhxAX3VHkRf
-	HPh1c7JvsEbJ+yxVUxt8w==
-X-ME-Sender: <xms:LH7vaT30mNlPc8k6Cng2HK-BYht7yOcNa-qb8E7M5VH2PIBfmuy1vQ>
-    <xme:LH7vac6fWfsSNjA-nNNcWcM8po51DjDfV6PRzMQnLO65T7xq-miOZL5KNvdhrRZ1s
-    43CEAt4ld4EdFoQMsPYE-g5n_aITY0-HPThxaUZdFNeoRbq8B2W8Pc>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdejledtfecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpefoggffhffvvefkjghfufgtgfesthejredtredttdenucfhrhhomhepfdetrhhnugcu
-    uegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrghtthgvrh
-    hnpefhtdfhvddtfeehudekteeggffghfejgeegteefgffgvedugeduveelvdekhfdvieen
-    ucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrrhhnug
-    esrghrnhgusgdruggvpdhnsggprhgtphhtthhopeduiedpmhhouggvpehsmhhtphhouhht
-    pdhrtghpthhtohepuggrvhgvmhesuggrvhgvmhhlohhfthdrnhgvthdprhgtphhtthhope
-    gvughumhgriigvthesghhoohhglhgvrdgtohhmpdhrtghpthhtoheprghrnhgusehkvghr
-    nhgvlhdrohhrghdprhgtphhtthhopegsrhhglheskhgvrhhnvghlrdhorhhgpdhrtghpth
-    htoheptghonhhorhdoughtsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehkrhiikhdo
-    ughtsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehkuhgsrgeskhgvrhhnvghlrdhorh
-    hgpdhrtghpthhtoheplhhinhhushifsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehr
-    ohgshheskhgvrhhnvghlrdhorhhg
-X-ME-Proxy: <xmx:LH7vaZ4tyWlV4nb0qrtVIWk1Q9mLdZTuOum2j8EBpJX1cyQgFyxqBA>
-    <xmx:LH7vaQSssqy_Krxa6I2p1stX4UIrJEkhl90EpQWN8srFnuaKI5oA7Q>
-    <xmx:LH7vaY8TTuox_2cqZhf1SEbbGo3nLaBq1Fz95YhehXNoFXsMg7LcPQ>
-    <xmx:LH7vaRpM3S5-mEp1vmkbZL0eElgoKnn4gCjORGtcbL36Y4YxACfsyw>
-    <xmx:LH7vaZejMoqI0NTe_McnHrYqmHBEn7cSoJS82ald1iBNwj3kv2O5hZQo>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 7E48D700065; Mon, 27 Apr 2026 11:18:04 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="c1/ro4s+";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="6X4RhCYu"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1777303203; bh=9TSSyIpW2Qwod5c/ROJJ/K+
+	EIswXo5pCklQvb5X+iNM=; b=c1/ro4s+L1wCtGobO9UHbp7T0DOoz04poDlXfqFxGjleKO3syK
+	+DOkKRajnm0Kp00ja9FylWLYfhTII7EtNZSTt1A2VZNo6FeF3GL28nvAFTVo3fRJ3aDp5En2vxq
+	8iq6hloi38c6ZSDdAnOZmZ2t5aoCaPhsGgN1LvGNslGHLUEbsvP214wHSy+qQnFixY5++gGTdaG
+	nPrY88zPsnSAxLdiOsGl3y0VXiVxRS6TBCwsnAOpotxQvHoiLVAW4U+6hzOeQTiCh821UnVXHiX
+	fHwfgE3COU1gycZCdcLMDXsTS8SHuG8WvJ6T6zfqks0tFdkPXYyVoSo7x6nZrzFtTVw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1777303203; bh=9TSSyIpW2Qwod5c/ROJJ/K+
+	EIswXo5pCklQvb5X+iNM=; b=6X4RhCYuMiTNqa2T65nqw8Kz7pNCnukTtU3cTOrPMavmawLJgc
+	sgtx2R/4td9KTWdcFAUrlEec8Btr4eyGmICA==;
+Message-ID: <e282acd6-dfcb-45a6-977d-eb71b2619b7d@mainlining.org>
+Date: Mon, 27 Apr 2026 18:20:02 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A5-Su42ZZeGF
-Date: Mon, 27 Apr 2026 17:17:24 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Rob Herring" <robh@kernel.org>, "Arnd Bergmann" <arnd@kernel.org>
-Cc: "Andrew Lunn" <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
- "Paolo Abeni" <pabeni@redhat.com>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Linus Walleij" <linusw@kernel.org>,
- "Bartosz Golaszewski" <brgl@kernel.org>,
- "Marco Crivellari" <marco.crivellari@suse.com>,
- Netdev <netdev@vger.kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>
-Message-Id: <57297b41-0f08-43eb-a73c-21a5461a4eb4@app.fastmail.com>
-In-Reply-To: <20260427145010.GA2502144-robh@kernel.org>
-References: <20260427142924.2702598-1-arnd@kernel.org>
- <20260427145010.GA2502144-robh@kernel.org>
-Subject: Re: [PATCH] [v4] wiznet: convert to GPIO descriptors
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: sdm630: describe adsp_mem region
+ properly
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Alexey Minnekhanov <alexeymin@minlexx.ru>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
+References: <20260422-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v3-0-274ba3715db0@mainlining.org>
+ <20260422-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v3-3-274ba3715db0@mainlining.org>
+ <337d362d-93de-4e81-8141-a51fa75d615c@oss.qualcomm.com>
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <setotau@mainlining.org>
+In-Reply-To: <337d362d-93de-4e81-8141-a51fa75d615c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Apr 27, 2026, at 16:50, Rob Herring wrote:
-> On Mon, Apr 27, 2026 at 04:28:29PM +0200, Arnd Bergmann wrote:
->> 
->> The CONFIG_WIZNET_BUS_SHIFT value was apparently meant to be set
->> at compile time to a machine specific value. This was always broken
->> for multiplatform configurations with conflicting requirements, and
->> in the mainline kernel it was set to 0 anyway. Leave it defined
->> locally as 0 but rename it to something without the CONFIG_ prefix.
->> 
->> Acked-by: Rob Herring <robh@kernel.org>
->
-> Well, 3 years later and I'm a bit grumpier seeing .txt binding 
-> additions. A new compatible plus new property we generally require 
-> converting the binding first. But I'm not going to revoke my ack here.
->
-> Is there even a known user for this new compatible?
 
-No, I'm not aware of any users neither the old nor the new
-compatible, it only popped up from my backlog of patches
-because of its usage of legacy GPIOs. From what I can
-tell, the only users of the non-DT MMIO interface were
-out of tree arch/blackfin/ boards.
+27.04.2026 14:49, Konrad Dybcio пишет:
+> On 4/22/26 5:39 PM, Nickolay Goppen wrote:
+>> Downstream [1] this region is marked as shared, reusable and dynamic so
+>> describe it that way.
+>>
+>> [1]: https://github.com/xiaomi-sdm660/android_kernel_xiaomi_sdm660/blob/11-EAS/arch/arm/boot/dts/qcom/sdm660.dtsi#L448
+>>
+>> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+>> ---
+>>   arch/arm64/boot/dts/qcom/sdm630.dtsi | 9 ++++++---
+>>   1 file changed, 6 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+>> index 4b47efdb57b2..36b419dea153 100644
+>> --- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+>> @@ -494,9 +494,12 @@ venus_region: venus@9f800000 {
+>>   			no-map;
+>>   		};
+>>   
+>> -		adsp_mem: adsp-region@f6000000 {
+>> -			reg = <0x0 0xf6000000 0x0 0x800000>;
+>> -			no-map;
+>> +		adsp_mem: adsp-region {
+>> +			compatible = "shared-dma-pool";
+>> +			alloc-ranges = <0x0 0x00000000 0x0 0xffffffff>;
+> Please make this = <0x0 0x80000000 0x0 0x80000000>; instead, since the RAM
+> starts at 0x80000000
 
-       Arnd
++Alexey Min found out that on 3 GiB xiaomi-lavender RAM starts at 0x40000000
+
+40000000-855fffff : System RAM
+   40080000-41bfffff : Kernel code
+   42600000-42fd0fff : Kernel data
+88f00000-8abfffff : System RAM
+95000000-feabffff : System RAM
+
+> Konrad
+
+-- 
+Best regards,
+Nickolay
+
