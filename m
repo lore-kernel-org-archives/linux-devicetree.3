@@ -1,132 +1,110 @@
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B5AA3043BE
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 20:12:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF8631E846;
+	Mon, 27 Apr 2026 20:16:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777320776; cv=none; b=LJ/brdTIK7KilwR6aDIFjYkrdCw/GyVeXAIuo7qZOtiE38f7nYKSCW0zg3MHzCuGZQ3avr1jmpwRhTdgswr9n80FWKKy05FhgoC2Vi2HysaHp1fhTZ10GOVNuyVU7RVhD6ODfzQZizl2fHH37osW1S/dUdQBWD+XvCY5wpgeZVY=
+	t=1777320986; cv=none; b=uvSMLhtEUQb455bXfw0WI+bIJIW51zDj5vsoYPh8+nXAAnkcxh74J2DWFh9sWKUZ2tUR8qz+inaJJ5HQAIXxYBEqhsUrWmuHNuV0ZpC/51Cg+sosC7IWMxcxBaRdh9UCouZMIoTwEKIVkuoQpZZLYSBcg8Sv2Xy+Sw9bbiT4Yg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777320776; c=relaxed/simple;
-	bh=mBAgnSsUNn3fsc8pfQtWtaiDDL5qRMehlyaAO/YC9RA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=WQXYuC/r0vYkf0mMAolXsOjhugAsh1SrHPj85jo1wgYAve479huOXI3hWHli3kFcsfF+xCGRvzNJwlckjjHWWpArc6jcmuWEoEg3fkGntvoGB1P8rPDYwG12dK7NYs1RmR78nfI7ZBWNF4TOVjZ4BUPnTUmY7LT0FGLfERlrHSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=LTzf0Djn; arc=none smtp.client-ip=209.85.216.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1777320986; c=relaxed/simple;
+	bh=3rZXJ6B4yqNNViFs+1CaX2CJCTIOiE4AG/reE3vGreA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j0qigCwtpOexy3ORgz0wl6D/7h0miY5//R9LH2OVtIB4K+VJtItWkuNskhDaZiRKdt28pxVbmu1CXlsNHnr4bpcAfL9EoJoxPagQ8zSNyvtwASDeJWgCSh4N/j/JtMP6ca7yN2LW7e/Ss4VfU8ibiSk0rtcWyu7hypsFgJKjRDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gvr/RIVd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="LTzf0Djn"
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-35e576110adso7335074a91.0
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 13:12:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777320774; x=1777925574;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=e6HrkrEMv+Q+KsECCy2j5IGNVAW2RVCs/l06xUaahDY=;
-        b=gwI5vkqDaS6SStvdgJKVoPp/73HpTWovlgs30MgKFnrjJQV8PLk8G6qv6Fe7vHgNij
-         YHtnh5ZMcLbQQy2JmmGKFVSMLKC8s379XjiTlnN8Mzxns39LV11355Fm2Np352FlCtC4
-         lqapQfNvXi+kN30xMJHDgW7EuHgXpuc+x5+8gYs+4Y84J5D0Ea7KtdLRCSuNriGg3Ox3
-         fbzm8a0y2fM1SAOfkcLTCqCTxRPmO1FNWydnzGXxCnyPnY6cUa6mMr6xJpx9Ptohk+pl
-         0U9NaD1apuK8EKF/b9fYoPso4CmKn/Cvke4BMN5doLjduk00P29ie10FJ/SHxCzdL9pZ
-         fabQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+76W7ZQqH4m+cg8hJslKpOjxDGDTOVJBZc17Uj93riel8JugKDta2vIxJg8M16dTGX3UpwN1w3kQy7@vger.kernel.org
-X-Gm-Message-State: AOJu0YylJ2g6iG7uaAOi3tzWC7i4s4fP8Kg0if1PHPO4fS7/pgPtfePN
-	8/uWzXhiZ6b5+eO8o/d/YJOGy+j5YI1zUpK5scnL/kX6mF5ZVCvZh+ynJExP4oi01ErWXwbJ0jm
-	yXNX+AlJ/WOFY8KZ0YQVUgZEr/2SgAhwOu14/vPOthnoYjH8We7DKpLsPBTmxCTru6pvYZBsY+q
-	6stpWW3qfg6qAqXeTzeD4pv7ALPbRirHCkLTo+KHWA88SYlwbRzmpBrOEsXj9thQu4BylP5BLYi
-	XTVti8GWtfV9w==
-X-Gm-Gg: AeBDietuzbt8wCPlpSBdlSlANqbjLypYdMU9EIqBM/SOnljA8zTSPfK5MnGt0twwBvg
-	3cyNqtU0yD/N8dJ3TQEChUG2ruRCT7X//rN59pEU8iFHLOfEaeB+WC47zciwcNLyc/VrAgdHpdX
-	tSnjgg6xaw7l9+WfS6yl8cj+aPR15s73/hZw40+Lz1tVhjSC0Bralos17zbIqAyQxfMrJ2nipE/
-	Gw67Af1yasae3jl1qm77JSFNhaMImdpyBCJzMBfk8BipX4qsLgG7u4GSNSg0GO37RXbsOIBQVh6
-	netWRQaseZtpi1D2gtzLM4v6SPFHEwHOs05fOf2dPPakk4plzfcNd73act9QIp+ejVfS/3KAOcS
-	DvIBSOe6thAl1XqdGSrCMJONr7wLkL/YmzwIIp7n8N/tlpNsUPOIAESYWVvvkcc1Y7NDqwJ0VZR
-	qql0SyqL+/3iB4cCmy1RknsIMQR4iqiN+LOwRtJTkiqwx77bPqiOEwEnuj77+1YQ==
-X-Received: by 2002:a17:90b:48c5:b0:35b:e4d4:8290 with SMTP id 98e67ed59e1d1-36491abd42emr182292a91.9.1777320774452;
-        Mon, 27 Apr 2026 13:12:54 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-2.dlp.protect.broadcom.com. [144.49.247.2])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-364908e61e6sm24639a91.1.2026.04.27.13.12.54
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 27 Apr 2026 13:12:54 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-2bda35eab74so9540714eec.0
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 13:12:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1777320773; x=1777925573; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=e6HrkrEMv+Q+KsECCy2j5IGNVAW2RVCs/l06xUaahDY=;
-        b=LTzf0DjnQdOVs+eFKAdGOQJcbwVDQS+sxGHPI8lkzd3/2rMk8STdgrFFl+PXAe3wCy
-         KJ5b/laJdCNnJksgRRfuNe3z0Mj1pScS83IjaNMvTMVPKqCID3TrtrwBKyj27fCRM2gm
-         o1dlIk4izQUSPOVPTBKExYAOy9M5vW+RWn728=
-X-Forwarded-Encrypted: i=1; AFNElJ8nK6AYJ0Hc6T2aynbQkHShL+QyPGBIgr0UqJqABNRHnxcbPss2ZipGP5DNU8Jr0NO6svHqTHqB5kgR@vger.kernel.org
-X-Received: by 2002:a05:7300:dc85:b0:2c0:df3b:ec1e with SMTP id 5a478bee46e88-2ed0a530457mr90796eec.11.1777320772628;
-        Mon, 27 Apr 2026 13:12:52 -0700 (PDT)
-X-Received: by 2002:a05:7300:dc85:b0:2c0:df3b:ec1e with SMTP id 5a478bee46e88-2ed0a530457mr90770eec.11.1777320772079;
-        Mon, 27 Apr 2026 13:12:52 -0700 (PDT)
-Received: from mail.broadcom.net ([192.19.144.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ed09fb6b7fsm437136eec.10.2026.04.27.13.12.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Apr 2026 13:12:51 -0700 (PDT)
-From: Kamal Dasu <kamal.dasu@broadcom.com>
-To: andersson@kernel.org,
-	robh@kernel.org
-Cc: krzysztof.kozlowski@linaro.org,
-	conor+dt@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	florian.fainelli@broadcom.com,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-remoteproc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Kamal Dasu <kamal.dasu@broadcom.com>
-Subject: [PATCH v7 3/3] MAINTAINERS: adding entry for BRCMSTB HWSPINLOCK driver
-Date: Mon, 27 Apr 2026 16:12:33 -0400
-Message-Id: <20260427201233.380314-4-kamal.dasu@broadcom.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260427201233.380314-1-kamal.dasu@broadcom.com>
-References: <20260427201233.380314-1-kamal.dasu@broadcom.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gvr/RIVd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F153C19425;
+	Mon, 27 Apr 2026 20:16:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777320985;
+	bh=3rZXJ6B4yqNNViFs+1CaX2CJCTIOiE4AG/reE3vGreA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=gvr/RIVdPwkJuk0U6cEd2DgkMycWj0OkipEoF2DtJelK7SfvfBy+V7ixz23YhkelF
+	 4dAiiCZiQRZjzZQNm0EtmbWRt198OresMGJb5KAlBJON29BwSNaFyoRrUIphLngt2+
+	 5i0qBM7CfxbLuqwKLtoPwp39mb43x3B67nsJQ0UDYeIj0S5FQg/vVLk+wab2ZMA4+l
+	 4t3caYsM9nQ9RaiG+brBw4gaoZDW+3k48BljQTgzR10RIo42FxbXbYKZyIbAQFc6XF
+	 YhR88fNBSKukTmuzwfqNoXPJ8QDCY9yPj+x7xW8Y3z7JvSlNRQWYfau8AWckJu5XFU
+	 aW7LG3FtMzowQ==
+Message-ID: <b68a3297-d7ad-4ca5-b374-141f0827349b@kernel.org>
+Date: Mon, 27 Apr 2026 22:16:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: interconnect: qcom-bwmon: Add Hawi cpu-bwmon
+ compatible
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260427182255.3649922-1-mukesh.ojha@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260427182255.3649922-1-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Adding myself to the maintainers list for the hwspinlock
-driver on broadcom settop platforms.
+On 27/04/2026 20:22, Mukesh Ojha wrote:
+> Add the Qualcomm Hawi SoC compatible string for the CPU bandwidth
+> monitor and there is single instance present globally to monitor
+> the traffic from CPU to LLCC.
+> 
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml     | 1 +
+>  1 file changed, 1 insertion(+)
+> 
 
-Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
----
- MAINTAINERS | 8 ++++++++
- 1 file changed, 8 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2fb1c75afd16..4f3dfc6a090c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -5244,6 +5244,14 @@ S:	Supported
- F:	Documentation/devicetree/bindings/gpio/brcm,brcmstb-gpio.yaml
- F:	drivers/gpio/gpio-brcmstb.c
- 
-+BROADCOM BRCMSTB HWSPINLOCK DRIVER
-+M:	Kamal Dasu <kamal.dasu@broadcom.com>
-+R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-+L:	linux-remoteproc@vger.kernel.org
-+S:	Supported
-+F:	Documentation/devicetree/bindings/hwlock/brcm,bcm7038-sun-top-ctrl-semaphore.yaml
-+F:	drivers/hwspinlock/brcmstb_hwspinlock.c
-+
- BROADCOM BRCMSTB I2C DRIVER
- M:	Kamal Dasu <kamal.dasu@broadcom.com>
- R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
--- 
-2.34.1
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
+Best regards,
+Krzysztof
