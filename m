@@ -1,88 +1,88 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2302A3B585F
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:05:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B56A369970
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:05:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777284332; cv=none; b=rhDpQpTQj8VLfyFwbbBXjD1WZIgfK2TdsqFCmU/x2olLZKdUY+/NmmrrPOBvVzF1PGYM9OzAZ+0yzj3y1ACkTKLe8iLADocQWkfYXrDuYSH6JG8/iAmkixItd07OnlpAGp9FmRdO3AZXUhEnJkXV9P5fmhDo37eKTybmcJ4gi2M=
+	t=1777284340; cv=none; b=o955VJGeA4yMQ8Jj1+gnVncZZ1kxTqarFecHt6ZCC7C2HhDcvj1CpHxMgFYuoHokX+ULkZCHFmDnVVyaaaTTfhRoUs2Ahoq+Ch2R9TkQ7JBw9qM6sRY6KLxmE1ff+o/eCGkWG4oN6FvhdY5XBEohmZMYrIUstBWTNk3f0xvmyF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777284332; c=relaxed/simple;
-	bh=zFarwFyP7Mwjc36+jVJxSXy6/e4tQoyriPLsSHSmWgM=;
+	s=arc-20240116; t=1777284340; c=relaxed/simple;
+	bh=FadxWHtWV105J9xLriYBzLEu9Xqye9typzHQ060fxww=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rvNdN8qIHWsWT9Q0HMEgtBe8pYgWuJJd5pLdBjnNAhdvL2j4lj9S/92CjBxS3zvNvGzJa2QbPii+KZIMHhWcwzPEuFbbIdBn3d8nS0wcihRK4ghJNt9gSd4kuwyyYHbvnNO7M95ntPdVDZNUgtAeJEDQ2AUVsvGO4H5n9DYMi10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WYqUrJEo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QOV6UGLY; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=k6xm7/np4ZNYz5zSNutChlBjCD8uwWWFjStRFY0rH36HgTDh2Z2lwOnKuDV2fz2tRRNnLBbpMUWWPrtlxiCmcl2+CFW1I/HlBs+dF565LyysOYAjCy1JB2hHVZEkIlV5hui6exqGYhr7oNUdPXoD+ZcCPkmUs6tNK5GxLRWYfqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FOnlRJYT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PyJYI5Kf; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WYqUrJEo";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QOV6UGLY"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63R9Oe0r3825258
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:05:30 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FOnlRJYT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PyJYI5Kf"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63R8TCcY1501588
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:05:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hUZQteOkDmv1t57NkB6ARC1fQRP9JD9uH5Ktg+HthLo=; b=WYqUrJEoiVFArZGy
-	nJIBZb3a3PgX7GJtmkR9ZHutSLEhXOeSAy/vgVYRnzn6K8sWDOQclsRKPzZspMaP
-	L7k21madqwSV94yBcn0ww0u2QCHIZvHkc7svz2+UQrh37XJ+YdzavIEsy3pEn99t
-	TuhSM3pzNYJ/tU8043NMJrcnfSbh14MX2EZIZ1rhhmgSC+/15kq9Ruc/xVDOCn5o
-	fpyVoTxMNCc+L2QBhXzGH14Ra9RdAeLDx96bmX4R7TrEPkWP744kc49PToDLmWKU
-	Rgbx83zndobpYkBhyWoVoaILCoo7vK0A3DkkfGoczDv4d4/CGonPUq7jpZ+d8mS2
-	1Lt2bA==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dt55506wp-1
+	tJvVeTQxr0x51CbR5uZ2Ptvq4XhvkMGTLUKWx96I/3k=; b=FOnlRJYTORN14LnG
+	VhKzy31E1kcaA9ErmgwzxnMkrkVWXdHbh++zzpymjJjc3TngasN8zoXhBlJgUkOd
+	XT7tjvB4ZI4PZpyhdoX3LxERGK7ijtbRm/IGZMBX/X6e8PnAE4o1vrAHF2ozi68k
+	tZEWILeUxOfI6hNNV6F9oUsix2dG6j7LxJjVsl7EU/Ea3om3U7BTbKtmEhzs5got
+	2uUpALWkRcUfmb7G76zd1uLNWQZANb3qMTiPF0xXIlDHSZA9MmsIjBLgeZcOeyTx
+	499Fw1BfNlO49Rdva5LD/J0YwYH8dQ1LcYJZLfszu5o1QEXkPPZ8amQg67WS10LV
+	NvNlsg==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drnqrnjh6-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:05:30 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-82f6e6a3a76so12170083b3a.0
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 03:05:30 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:05:37 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-82cf8dcd079so6527109b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 03:05:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777284330; x=1777889130; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1777284336; x=1777889136; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=hUZQteOkDmv1t57NkB6ARC1fQRP9JD9uH5Ktg+HthLo=;
-        b=QOV6UGLYMt3ZuIa3hLkeMurokulxZfNqVajpl3fkZRQaRVfH/Rt6hgcBezd356M6gD
-         5ytKrAx0dmfmH9xrwk0kC3OKsnVyuMO11z0qLwAPRHHS2AHx3YHEnTmWjt79GlguNQcP
-         0WXYoiD+/jS+pNuKPRgacA/8/590up+WOlz3XR4W4uGfz7DAm7wtRKV00bppQjNL3N+k
-         fr6HqDIBXr+5OO62P7ewh+OhVKSHQKbIlOQMBC3NZ0nh/NkBxzZ4sZEOI2e/8FY2P1Ms
-         zVNpn1qHLADDT0k5ZcqTYPm6zuxxQ/w+ufFXv7le7NMxxu3ExlguK0JkGtSjkViMWAB0
-         IaPw==
+        bh=tJvVeTQxr0x51CbR5uZ2Ptvq4XhvkMGTLUKWx96I/3k=;
+        b=PyJYI5KffWwSkFungTyskbRidKX1L21VrLSUNIPhzZNIvwMJUfqXgVFvFLV7nDXpjp
+         cGKLBIJQy+6Wx9a+N87w/zQcILC4/61rWTVctasSMDuY3UchiKBLd3wxlshyW8nBLiVP
+         auLmwEpnosIahhFUb5mukwuJCW/Ql7J5P07npvEAuHraZ81B6o9SytU+3Z/nSZMBTsWj
+         qkdHvl4jA3z7RNtIefT2PDJk25fw3eyiGb6dIho2VndQbeCSsye7kzkhc0fTiAdJWW6u
+         a4sPUiq0aURyn9EuHuS4j2dXmaZXIPnX4+MCaxMxvicbSniN7YEby9tuFj1mEBnsG3KE
+         hVPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777284330; x=1777889130;
+        d=1e100.net; s=20251104; t=1777284336; x=1777889136;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=hUZQteOkDmv1t57NkB6ARC1fQRP9JD9uH5Ktg+HthLo=;
-        b=PTUcBD8aquyRLeiQ6P6593ap5t/WWCTQWzTs4phFaJ9nh1cCSeKn0oUmP3afDMLw4T
-         OAf3fMkCpjLr2WgFn685Ta7Lm7xzkzjDDgI1vEJ/cDJtyFqM+MxqDQGCNNq5mJar1Cng
-         mYkjrNNGP0LezZb2Jp9MpU+HEy68Ff0MX9kGyyI+9h6njHVci7mq6XGAZMSX3lkCz4M+
-         mngad/CZs+xLPwMXukDOfNhbdlKpiGtbb8JuRoOa/J/lyAnzVpV1iflGnjkdTKrnXQqb
-         a5rKi/1zVp/BhthKHmG9XBNjNb21+3xOaEAgbi3ep31ihKy2b4RY8Ux+YufLtToOIJiA
-         0WXQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/U8s1XuMgBmZlYDOyt0MZfFnpMfN5L3LK31hMk7h0QGYFILZiGXArIa21oV+g65MRuLvUrX7fQLBlM@vger.kernel.org
-X-Gm-Message-State: AOJu0YzvCL41bOspYVbl8tNGzfBUEtOVu/w9K8Gcqyk8DkZxkzt3JhOu
-	5OVqoWxz7V+xi//F3lOcdXR3giZRgFYXsA5tApMBSNPtTVOEEkd0i6xQSHNIdXg/QJMu4QYO60U
-	x6ICrsnqQgk5JrVYNzstgTiwyL+r6xWrCXhadaRvBdXkb+Nm1lvn9aC3+2IYpMiqz
-X-Gm-Gg: AeBDiesJ64DYYW7BlUJf/Sd8kuxkuQnvaGrTShpTSlgwKOaI97wETgm2wyFzq/syt9h
-	H57FJp++rgE6C62gdKmSsptFwW4DjvTUWL1ttAElHdFynP1e7cM20BTpz1PZr6TxD7IfhcEY9Jo
-	4CeAIr/j/Kuhz7I/t0R8pwKedC1PawdOeo9CSG3WRw85JI31O+nsHw6DRZh7s8GIqWNpLIRssLM
-	OfvgVw+GdyA2/MmkaM4YLnVtbTpRjsyqSdJKwANbzjf2p6bkVjxGAYJnisb6CGZJkEwjZd0cybr
-	4VQMzC4XIAq5QW/CU+034xhqpG/meABH5Cuak7BaMocGk0fMfdURf6Jqa4gAoVzQde3PsusySAs
-	NwCWYpDqqGishh9l4UdvmTdcKskDyv6KYynw0zWlUJlOP8i+DXVZrbfICxHNl8Rqk1SFH9Ae8V1
-	+w58Easr1rFNxHFMWhguSr6iECp/7QvO4MlNmz8E4WUwnr
-X-Received: by 2002:a05:6a00:929b:b0:82f:5051:f022 with SMTP id d2e1a72fcca58-82f8c8c7bc4mr44751988b3a.32.1777284329627;
-        Mon, 27 Apr 2026 03:05:29 -0700 (PDT)
-X-Received: by 2002:a05:6a00:929b:b0:82f:5051:f022 with SMTP id d2e1a72fcca58-82f8c8c7bc4mr44751948b3a.32.1777284329165;
-        Mon, 27 Apr 2026 03:05:29 -0700 (PDT)
+        bh=tJvVeTQxr0x51CbR5uZ2Ptvq4XhvkMGTLUKWx96I/3k=;
+        b=ZNMLaKIBKc+mPD/T/kCHOcWPHjYunqlh+nSgakZ62hZs8oVVBHn77bvpse75PR1uoc
+         NSUC8WiCQJ1TgEUwKQqBn8jEQf2uibiLCgUm/d9+Z+3UfUoA3s3z48LydYn2ulvmYc4/
+         eNScuKmwg+lrYnpHapW1MmhqFNicwk2BMC52fXCO9Vk1ghBxdlXQPLvkWXX5SDsgih0/
+         tP+eEjxa+mAXoJ+ucb8o8WoxXE2HrocwySBCkkoRzcvSfLX+583jVVhQlD4sl3OOe5e9
+         xw2aowedP6slqKKLOrHc9gzjF117jcYS+L89D1qwy+PrAml1kzWbEImt/45hgmhkr7t3
+         4vHQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+LUfIufnUCHNQDhc5x2a4DyKcdJGag17d25V56QdjLiu8HJXUvlOBpQZai91bV/qf9SYud4GhsZkXj@vger.kernel.org
+X-Gm-Message-State: AOJu0YxY0oFAUmpU8EXmnF8nZDvEfD3xMg4XMXSiE+NYzm/di+acs3A9
+	U5eR9EmeYj6ggGRADUCYVevfWOaMzmrv/dzppDhCyEHzGkTrPqfTcjui7P5R16PgW/ooncwNEsS
+	gTHskYZxJd29U56sVZnBsFf7bEvd8qeACg9RFYGPhL3K+8Xi03Mu0sFL3u/d3JFNN
+X-Gm-Gg: AeBDieu9m3fuB90OE5RpU7xiDCF129lmURzZgFcFfpr5CZOUOYsoNwxzbPtcPw1ktxq
+	zdei8lXPar5LMOCM+ktWg1ldDpSdPY0mDN+jEB/ypi3Y9ka73owQsIf3ooxG1Y4f0JGrvQ/2DVK
+	JWDqoR7eKalDrr3TabGwPEqRO8ZThYuY3GLu6CuyYcmvSNl/Pq9z9UndXrHib0TcqGYQ8340mTH
+	UsoI+NJJ3IL6OUbo86rYCpx1WxeYWCv75BUrUzSCNJ4oP6QK0yHgSxNkV92+AHKVXyEW8X4J2pT
+	h+f6svQsXpUeq40dMx8cmUcdVP5suG/u1b97u9aeY/aWFjGyZANAYCpI8LibhiGegtuwjWAEG8f
+	cP62nC8CWret6fW+FcSZDpT7xvQG/Y/G7yJBTPqkdj0FXwWcXJWe9zAyBO3Wz2K2hkA9DjUZlJJ
+	9+X2Bqb/8RgBvAAvtQjg6J0Xeo5inglOM2QGl45KDKPZs9
+X-Received: by 2002:a05:6a00:3c86:b0:82f:316:31f6 with SMTP id d2e1a72fcca58-82f8c8bef36mr45635840b3a.26.1777284335826;
+        Mon, 27 Apr 2026 03:05:35 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3c86:b0:82f:316:31f6 with SMTP id d2e1a72fcca58-82f8c8bef36mr45635793b3a.26.1777284335199;
+        Mon, 27 Apr 2026 03:05:35 -0700 (PDT)
 Received: from hu-ajainp-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8ec24850sm33004008b3a.60.2026.04.27.03.05.24
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8ec24850sm33004008b3a.60.2026.04.27.03.05.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Apr 2026 03:05:28 -0700 (PDT)
+        Mon, 27 Apr 2026 03:05:34 -0700 (PDT)
 From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-Date: Mon, 27 Apr 2026 15:34:52 +0530
-Subject: [PATCH v8 1/6] dt-bindings: embedded-controller: Add Qualcomm
- reference device EC description
+Date: Mon, 27 Apr 2026 15:34:53 +0530
+Subject: [PATCH v8 2/6] platform: arm64: Add driver for EC found on
+ Qualcomm reference devices
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260427-add-driver-for-ec-v8-1-702f74e495f7@oss.qualcomm.com>
+Message-Id: <20260427-add-driver-for-ec-v8-2-702f74e495f7@oss.qualcomm.com>
 References: <20260427-add-driver-for-ec-v8-0-702f74e495f7@oss.qualcomm.com>
 In-Reply-To: <20260427-add-driver-for-ec-v8-0-702f74e495f7@oss.qualcomm.com>
 To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
@@ -106,117 +106,572 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
         Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
         Maya Matuszczyk <maccraft123mc@gmail.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777284317; l=2330;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777284317; l=17415;
  i=anvesh.p@oss.qualcomm.com; s=20260313; h=from:subject:message-id;
- bh=p1qib2l7A/JEOeiEFUXoqiCJEoH/aeCCTCy9wrPvB6A=;
- b=ErNzU5mw83Da2u7kh008/Dc0CT1AdXprku9fq+PLAB/henuOdFNdmhU9r870WHRACmc6EEBKF
- 1J2D6KcowsVBQ+RURg+8DJkn1ei+/DxrRWRW/LMM3p9WPpGpLe6w5xS
+ bh=hf6vt/8obUYugydhKYK3fjd7rRlRb6d7Zd5YKnav9Ww=;
+ b=nWaqEByzsS++x1IUy+ty6mh8qeKz4K3xeYgP/0nnzG30lkAVfpwY1kx9aGbyeToW47i7p1vcg
+ PC3bAXeD1bmB+48JSRTh2USrx28Vm1gbIJScWx4Eblt9U4ZewyAehNk
 X-Developer-Key: i=anvesh.p@oss.qualcomm.com; a=ed25519;
  pk=8o9EG7gkPe2Er9y9UVCx8MTdcFCwU8Pa54hBZPuduXE=
-X-Proofpoint-GUID: 4eQ1SKySs_t2eWpdAqzjJErpn_bwoVFL
-X-Authority-Analysis: v=2.4 cv=CJEamxrD c=1 sm=1 tr=0 ts=69ef34ea cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDEwNSBTYWx0ZWRfX+Uqcpy7ENs96
+ IcrnBN9SbTOorhwcF3ilYa126VCN9R1PeYpelsBV1mWtLzCt0pZRQPM7sLhABVkDjPwdR/lXhN2
+ Lz35Y3nqs6b2ZcCVWUGGzLCMOp40jbtJvLlLHrWep4pUtv4iDYkyput3Ds0kf+b3pO4uZRHPUhS
+ IpBZ9wm8Ao5vszlFUqFceTFBszKUbAkEPrFB/NovFxwaDp+rvC9rRDw/fPab0rkb1yCMmlAQmdZ
+ lU8D0ZM8J0MMSpfcomMLCNs4mlOEYd5rXFQY3GaD/t00BhIrRS+OkYUA7gm9mDu/tKHEGn0QQwe
+ 9uN9tXeqc+kucAJppVrldHqx66wx5IGi5TsePlnyg/xte1JbEvLFPlMu40JwvOCCFOZPASjk7Rd
+ TlgYYMPNdsL+4VbPxSn3nN8R3PfXTPpl95U37JkdfJ5UhaYdDPyC/1rPb6apL34UQnAZ3k5lkve
+ RNB+RV2RNURSrODpU2w==
+X-Proofpoint-ORIG-GUID: I7aayhq8GHkwNebfAdR-27XjdKnrDAFM
+X-Proofpoint-GUID: I7aayhq8GHkwNebfAdR-27XjdKnrDAFM
+X-Authority-Analysis: v=2.4 cv=UcthjqSN c=1 sm=1 tr=0 ts=69ef34f1 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=gEfo2CItAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=p9JF3S6fNoJM7NwPcqUA:9
- a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDEwNSBTYWx0ZWRfX748zwVOBjbFX
- bk/aF5Exhvwv9YeHsRkVzOQpiN5V4uqHnb0HrvIV4OIztgjFTnc94ZCcDP6qj4KqoR9L3Me7Xno
- o8jk4Vyb+Y80Uehb7IL6oEdJlvhqKMB/PEKfvc0B3bMooATNGLM2XCxShrN6nHBZlwncPcd0OEe
- W/ak2m4wIC8SlDByWqk3h2eF15+nRh86UrcyJp5N+VD3rFUIfKxTkrv5h/ejG83JgxyrXF7frJY
- PLT2JQnUIvKfiJKMYPvUcWMvgkKmKuleVRxoRlQsQXMulPnhKSmGgc2/dcvbgAEDW8TfTtvdHD7
- G06k63iyPao5QCw/4gTfkNzgUYQpMQxQWFBeHxP8KGDSPcdgkBluj/LBLOaJW4EgDH8GESqhWqX
- D97NYT8i3fWC+mMw3pQBJ06hdaNrCtU4RbVZQEtk8I7Stap0hhvAv3+BJRk44yKpkScPiKX4V90
- /JfcsYu34qAOLSacp1w==
-X-Proofpoint-ORIG-GUID: 4eQ1SKySs_t2eWpdAqzjJErpn_bwoVFL
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8 a=ZZkxa-lhXBFmNfqa1H8A:9
+ a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-27_03,2026-04-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ clxscore=1015 malwarescore=0 spamscore=0 lowpriorityscore=0 impostorscore=0
+ adultscore=0 priorityscore=1501 bulkscore=0 suspectscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270105
 
-From: Maya Matuszczyk <maccraft123mc@gmail.com>
+From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
 
-Add description for the EC firmware running on Hamoa/Purwa and Glymur
-reference devices.
+Add Embedded controller driver support for Hamoa/Purwa/Glymur qualcomm
+reference boards. It handles fan control, temperature sensors, access
+to EC state changes and supports reporting suspend entry/exit to the
+EC.
 
+Co-developed-by: Maya Matuszczyk <maccraft123mc@gmail.com>
 Signed-off-by: Maya Matuszczyk <maccraft123mc@gmail.com>
-Co-developed-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
 Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Tested-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Co-developed-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
 Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
 ---
- .../embedded-controller/qcom,hamoa-crd-ec.yaml     | 56 ++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
+ MAINTAINERS                            |   8 +
+ drivers/platform/arm64/Kconfig         |  13 +
+ drivers/platform/arm64/Makefile        |   1 +
+ drivers/platform/arm64/qcom-hamoa-ec.c | 452 +++++++++++++++++++++++++++++++++
+ 4 files changed, 474 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 62b89d0013d2..0bf0d6d55550 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -21980,6 +21980,14 @@ F:	Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+ F:	drivers/misc/fastrpc.c
+ F:	include/uapi/misc/fastrpc.h
+ 
++QUALCOMM HAMOA EMBEDDED CONTROLLER DRIVER
++M:	Anvesh Jain P <anvesh.p@oss.qualcomm.com>
++M:	Sibi Sankar <sibi.sankar@oss.qualcomm.com>
++L:	linux-arm-msm@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml
++F:	drivers/platform/arm64/qcom-hamoa-ec.c
++
+ QUALCOMM HEXAGON ARCHITECTURE
+ M:	Brian Cain <brian.cain@oss.qualcomm.com>
+ L:	linux-hexagon@vger.kernel.org
+diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
+index 10f905d7d6bf..e32e01b2a9bd 100644
+--- a/drivers/platform/arm64/Kconfig
++++ b/drivers/platform/arm64/Kconfig
+@@ -90,4 +90,17 @@ config EC_LENOVO_THINKPAD_T14S
+ 
+ 	  Say M or Y here to include this support.
+ 
++config EC_QCOM_HAMOA
++	tristate "Embedded Controller driver for Qualcomm Hamoa/Glymur reference devices"
++	depends on ARCH_QCOM || COMPILE_TEST
++	depends on I2C
++	depends on THERMAL || THERMAL=n
++	help
++	  Say M or Y here to enable the Embedded Controller driver for Qualcomm
++	  Snapdragon-based Hamoa/Glymur reference devices. The driver handles fan
++	  control, temperature sensors, access to EC state changes and supports
++	  reporting suspend entry/exit to the EC.
++
++	  This driver currently supports Hamoa/Purwa/Glymur reference devices.
++
+ endif # ARM64_PLATFORM_DEVICES
+diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
+index 60c131cff6a1..7681be4a46e9 100644
+--- a/drivers/platform/arm64/Makefile
++++ b/drivers/platform/arm64/Makefile
+@@ -9,3 +9,4 @@ obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
+ obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
+ obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
+ obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
++obj-$(CONFIG_EC_QCOM_HAMOA) += qcom-hamoa-ec.o
+diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/arm64/qcom-hamoa-ec.c
 new file mode 100644
-index 000000000000..ac5a08f8f76d
+index 000000000000..253f927c9aca
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml
-@@ -0,0 +1,56 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/embedded-controller/qcom,hamoa-crd-ec.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/platform/arm64/qcom-hamoa-ec.c
+@@ -0,0 +1,452 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2024 Maya Matuszczyk <maccraft123mc@gmail.com>
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
 +
-+title: Qualcomm Hamoa Embedded Controller
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/device.h>
++#include <linux/dev_printk.h>
++#include <linux/err.h>
++#include <linux/i2c.h>
++#include <linux/interrupt.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/pm.h>
++#include <linux/slab.h>
++#include <linux/thermal.h>
 +
-+maintainers:
-+  - Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-+  - Anvesh Jain P <anvesh.p@oss.qualcomm.com>
++#define EC_SCI_EVT_READ_CMD	0x05
++#define EC_FW_VERSION_CMD	0x0e
++#define EC_MODERN_STANDBY_CMD	0x23
++#define EC_FAN_DBG_CONTROL_CMD	0x30
++#define EC_SCI_EVT_CONTROL_CMD	0x35
++#define EC_THERMAL_CAP_CMD	0x42
 +
-+description:
-+  Qualcomm Snapdragon based Hamoa/Purwa and Glymur reference devices have an
-+  EC running on different MCU chips. The EC handles things like fan control,
-+  temperature sensors, access to EC internal state changes.
++#define EC_FW_VERSION_RESP_LEN	4
++#define EC_THERMAL_CAP_RESP_LEN	3
++#define EC_FAN_DEBUG_CMD_LEN	6
++#define EC_FAN_SPEED_DATA_SIZE	4
 +
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - enum:
-+              - qcom,glymur-crd-ec
-+              - qcom,hamoa-iot-evk-ec
-+          - const: qcom,hamoa-crd-ec
-+      - enum:
-+          - qcom,hamoa-crd-ec
++#define EC_MODERN_STANDBY_ENTER	0x01
++#define EC_MODERN_STANDBY_EXIT	0x00
 +
-+  reg:
-+    const: 0x76
++#define EC_FAN_DEBUG_MODE_OFF   0
++#define EC_FAN_DEBUG_MODE_ON    BIT(0)
++#define EC_FAN_ON               BIT(1)
++#define EC_FAN_DEBUG_TYPE_PWM   BIT(2)
++#define EC_MAX_FAN_CNT		2
++#define EC_FAN_NAME_SIZE	20
++#define EC_FAN_MAX_PWM		255
 +
-+  interrupts:
-+    maxItems: 1
++enum qcom_ec_sci_events {
++	EC_FAN1_STATUS_CHANGE_EVT = 0x30,
++	EC_FAN2_STATUS_CHANGE_EVT,
++	EC_FAN1_SPEED_CHANGE_EVT,
++	EC_FAN2_SPEED_CHANGE_EVT,
++	EC_NEW_LUT_SET_EVT,
++	EC_FAN_PROFILE_SWITCH_EVT,
++	EC_THERMISTOR_1_THRESHOLD_CROSS_EVT,
++	EC_THERMISTOR_2_THRESHOLD_CROSS_EVT,
++	EC_THERMISTOR_3_THRESHOLD_CROSS_EVT,
++	/* Reserved: 0x39 - 0x3c/0x3f */
++	EC_RECOVERED_FROM_RESET_EVT = 0x3d,
++};
 +
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
++struct qcom_ec_version {
++	u8 main_version;
++	u8 sub_version;
++	u8 test_version;
++};
 +
-+additionalProperties: false
++struct qcom_ec_thermal_cap {
++#define EC_THERMAL_FAN_CNT(x)		(FIELD_GET(GENMASK(1, 0), (x)))
++#define EC_THERMAL_FAN_TYPE(x)		(FIELD_GET(GENMASK(4, 2), (x)))
++#define EC_THERMAL_THERMISTOR_MASK(x)	(FIELD_GET(GENMASK(7, 0), (x)))
++	u8 fan_cnt;
++	u8 fan_type;
++	u8 thermistor_mask;
++};
 +
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++struct qcom_ec_cooling_dev {
++	struct thermal_cooling_device *cdev;
++	struct device *parent_dev;
++	u8 fan_id;
++	u8 state;
++};
 +
-+        embedded-controller@76 {
-+            compatible = "qcom,hamoa-crd-ec";
-+            reg = <0x76>;
++struct qcom_ec {
++	struct qcom_ec_cooling_dev *ec_cdev;
++	struct qcom_ec_thermal_cap thermal_cap;
++	struct qcom_ec_version version;
++	struct i2c_client *client;
++};
 +
-+            interrupts-extended = <&tlmm 66 IRQ_TYPE_LEVEL_HIGH>;
-+        };
-+    };
-+...
++static int qcom_ec_read(struct qcom_ec *ec, u8 cmd, u8 resp_len, u8 *resp)
++{
++	int ret;
++
++	ret = i2c_smbus_read_i2c_block_data(ec->client, cmd, resp_len, resp);
++
++	if (ret < 0)
++		return ret;
++	else if (ret == 0 || ret == 0xff)
++		return -EOPNOTSUPP;
++
++	if (resp[0] >= resp_len)
++		return -EINVAL;
++
++	return 0;
++}
++
++/*
++ * EC Device Firmware Version:
++ *
++ * Read Response:
++ * ----------------------------------------------------------------------
++ * | Offset	| Name		| Description				|
++ * ----------------------------------------------------------------------
++ * | 0x00	| Byte count	| Number of bytes in response		|
++ * |		|		| (excluding byte count)		|
++ * ----------------------------------------------------------------------
++ * | 0x01	| Test-version	| Test-version of EC firmware		|
++ * ----------------------------------------------------------------------
++ * | 0x02	| Sub-version	| Sub-version of EC firmware		|
++ * ----------------------------------------------------------------------
++ * | 0x03	| Main-version	| Main-version of EC firmware		|
++ * ----------------------------------------------------------------------
++ *
++ */
++static int qcom_ec_read_fw_version(struct device *dev)
++{
++	struct i2c_client *client = to_i2c_client(dev);
++	struct qcom_ec *ec = i2c_get_clientdata(client);
++	struct qcom_ec_version *version = &ec->version;
++	u8 resp[EC_FW_VERSION_RESP_LEN];
++	int ret;
++
++	ret = qcom_ec_read(ec, EC_FW_VERSION_CMD, EC_FW_VERSION_RESP_LEN, resp);
++	if (ret < 0)
++		return ret;
++
++	version->main_version = resp[3];
++	version->sub_version = resp[2];
++	version->test_version = resp[1];
++
++	dev_dbg(dev, "EC Version %d.%d.%d\n",
++		version->main_version, version->sub_version, version->test_version);
++
++	return 0;
++}
++
++/*
++ * EC Device Thermal Capabilities:
++ *
++ * Read Response:
++ * ------------------------------------------------------------------------------
++ * | Offset		| Name		| Description				|
++ * ------------------------------------------------------------------------------
++ * | 0x00		| Byte count	| Number of bytes in response		|
++ * |			|		| (excluding byte count)		|
++ * ------------------------------------------------------------------------------
++ * | 0x02 (LSB)	| EC Thermal	| Bit 0-1: Number of fans		|
++ * | 0x03		| Capabilities	| Bit 2-4: Type of fan			|
++ * |			|		| Bit 5-6: Reserved			|
++ * |			|		| Bit 7: Data Valid/Invalid		|
++ * |			|		|	 (Valid - 1, Invalid - 0)	|
++ * |			|		| Bit 8-15: Thermistor 0 - 7 presence	|
++ * |			|		|	    (1 present, 0 absent)	|
++ * ------------------------------------------------------------------------------
++ *
++ */
++static int qcom_ec_thermal_capabilities(struct device *dev)
++{
++	struct i2c_client *client = to_i2c_client(dev);
++	struct qcom_ec *ec = i2c_get_clientdata(client);
++	struct qcom_ec_thermal_cap *cap = &ec->thermal_cap;
++	u8 resp[EC_THERMAL_CAP_RESP_LEN];
++	int ret;
++
++	ret = qcom_ec_read(ec, EC_THERMAL_CAP_CMD, EC_THERMAL_CAP_RESP_LEN, resp);
++	if (ret < 0)
++		return ret;
++
++	cap->fan_cnt = min(EC_MAX_FAN_CNT, EC_THERMAL_FAN_CNT(resp[1]));
++	cap->fan_type = EC_THERMAL_FAN_TYPE(resp[1]);
++	cap->thermistor_mask = EC_THERMAL_THERMISTOR_MASK(resp[2]);
++
++	dev_dbg(dev, "Fan count: %d Fan Type: %d Thermistor Mask: %x\n",
++		cap->fan_cnt, cap->fan_type, cap->thermistor_mask);
++
++	return 0;
++}
++
++static irqreturn_t qcom_ec_irq(int irq, void *data)
++{
++	struct qcom_ec *ec = data;
++	struct device *dev = &ec->client->dev;
++	int val;
++
++	val = i2c_smbus_read_byte_data(ec->client, EC_SCI_EVT_READ_CMD);
++	if (val < 0) {
++		dev_err_ratelimited(dev, "Failed to read EC SCI Event: %d\n", val);
++		return IRQ_HANDLED;
++	}
++
++	switch (val) {
++	case EC_FAN1_STATUS_CHANGE_EVT:
++		dev_dbg_ratelimited(dev, "Fan1 status changed\n");
++		break;
++	case EC_FAN2_STATUS_CHANGE_EVT:
++		dev_dbg_ratelimited(dev, "Fan2 status changed\n");
++		break;
++	case EC_FAN1_SPEED_CHANGE_EVT:
++		dev_dbg_ratelimited(dev, "Fan1 speed crossed low/high trip point\n");
++		break;
++	case EC_FAN2_SPEED_CHANGE_EVT:
++		dev_dbg_ratelimited(dev, "Fan2 speed crossed low/high trip point\n");
++		break;
++	case EC_NEW_LUT_SET_EVT:
++		dev_dbg_ratelimited(dev, "New LUT set\n");
++		break;
++	case EC_FAN_PROFILE_SWITCH_EVT:
++		dev_dbg_ratelimited(dev, "FAN Profile switched\n");
++		break;
++	case EC_THERMISTOR_1_THRESHOLD_CROSS_EVT:
++		dev_dbg_ratelimited(dev, "Thermistor 1 threshold crossed\n");
++		break;
++	case EC_THERMISTOR_2_THRESHOLD_CROSS_EVT:
++		dev_dbg_ratelimited(dev, "Thermistor 2 threshold crossed\n");
++		break;
++	case EC_THERMISTOR_3_THRESHOLD_CROSS_EVT:
++		dev_dbg_ratelimited(dev, "Thermistor 3 threshold crossed\n");
++		break;
++	case EC_RECOVERED_FROM_RESET_EVT:
++		dev_dbg_ratelimited(dev, "EC recovered from reset\n");
++		break;
++	default:
++		dev_notice_ratelimited(dev, "Unknown EC event: %d\n", val);
++		break;
++	}
++
++	return IRQ_HANDLED;
++}
++
++static int qcom_ec_sci_evt_control(struct device *dev, bool enable)
++{
++	struct i2c_client *client = to_i2c_client(dev);
++
++	return i2c_smbus_write_byte_data(client, EC_SCI_EVT_CONTROL_CMD, !!enable);
++}
++
++static int qcom_ec_fan_get_max_state(struct thermal_cooling_device *cdev, unsigned long *state)
++{
++	*state = EC_FAN_MAX_PWM;
++
++	return 0;
++}
++
++static int qcom_ec_fan_get_cur_state(struct thermal_cooling_device *cdev, unsigned long *state)
++{
++	struct qcom_ec_cooling_dev *ec_cdev = cdev->devdata;
++
++	*state = ec_cdev->state;
++
++	return 0;
++}
++
++/*
++ * Fan Debug control command:
++ *
++ * Command Payload:
++ * --------------------------------------------------------------------------------------
++ * | Offset		| Name		| Description					|
++ * --------------------------------------------------------------------------------------
++ * | 0x00		| Command	| Fan control command				|
++ * --------------------------------------------------------------------------------------
++ * | 0x01		| Fan ID	| 0x1 : Fan 1					|
++ * |			|		| 0x2 : Fan 2					|
++ * --------------------------------------------------------------------------------------
++ * | 0x02		| Byte count = 4| Size of data to set fan speed			|
++ * --------------------------------------------------------------------------------------
++ * | 0x03		| Mode		| Bit 0: Debug Mode On/Off (0 - OFF, 1 - ON )	|
++ * |			|		| Bit 1: Fan On/Off (0 - Off, 1 - ON)		|
++ * |			|		| Bit 2: Debug Type (0 - RPM, 1 - PWM)		|
++ * --------------------------------------------------------------------------------------
++ * | 0x04 (LSB)	| Speed in RPM	| RPM value, if mode selected is RPM		|
++ * | 0x05		|		|						|
++ * --------------------------------------------------------------------------------------
++ * | 0x06		| Speed in PWM	| PWM value, if mode selected is PWM (0 - 255)	|
++ * ______________________________________________________________________________________
++ *
++ */
++static int qcom_ec_fan_debug_mode_off(struct qcom_ec_cooling_dev *ec_cdev)
++{
++	struct device *dev = ec_cdev->parent_dev;
++	struct i2c_client *client = to_i2c_client(dev);
++	u8 request[6] = { ec_cdev->fan_id, EC_FAN_SPEED_DATA_SIZE,
++			  EC_FAN_DEBUG_MODE_OFF, 0, 0, 0 };
++	int ret;
++
++	ret = i2c_smbus_write_i2c_block_data(client, EC_FAN_DBG_CONTROL_CMD,
++					     sizeof(request), request);
++	if (ret) {
++		dev_err(dev, "Failed to turn off fan%d debug mode: %d\n",
++			ec_cdev->fan_id, ret);
++	}
++
++	return ret;
++}
++
++static int qcom_ec_fan_set_cur_state(struct thermal_cooling_device *cdev, unsigned long state)
++{
++	struct qcom_ec_cooling_dev *ec_cdev = cdev->devdata;
++	struct device *dev = ec_cdev->parent_dev;
++	struct i2c_client *client = to_i2c_client(dev);
++	u8 request[6] = { ec_cdev->fan_id, EC_FAN_SPEED_DATA_SIZE,
++			  EC_FAN_DEBUG_MODE_ON | EC_FAN_ON | EC_FAN_DEBUG_TYPE_PWM,
++			  0, 0, state };
++	int ret;
++
++	ret = i2c_smbus_write_i2c_block_data(client, EC_FAN_DBG_CONTROL_CMD,
++					     sizeof(request), request);
++	if (ret) {
++		dev_err(dev, "Failed to set fan pwm: %d\n", ret);
++		return ret;
++	}
++
++	ec_cdev->state = state;
++
++	return 0;
++}
++
++static const struct thermal_cooling_device_ops qcom_ec_thermal_ops = {
++	.get_max_state = qcom_ec_fan_get_max_state,
++	.get_cur_state = qcom_ec_fan_get_cur_state,
++	.set_cur_state = qcom_ec_fan_set_cur_state,
++};
++
++static int qcom_ec_resume(struct device *dev)
++{
++	struct i2c_client *client = to_i2c_client(dev);
++
++	return i2c_smbus_write_byte_data(client, EC_MODERN_STANDBY_CMD,
++					 EC_MODERN_STANDBY_EXIT);
++}
++
++static int qcom_ec_suspend(struct device *dev)
++{
++	struct i2c_client *client = to_i2c_client(dev);
++
++	return i2c_smbus_write_byte_data(client, EC_MODERN_STANDBY_CMD,
++					 EC_MODERN_STANDBY_ENTER);
++}
++
++static int qcom_ec_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct qcom_ec *ec;
++	unsigned int i;
++	int ret;
++
++	ec = devm_kzalloc(dev, sizeof(*ec), GFP_KERNEL);
++	if (!ec)
++		return -ENOMEM;
++
++	ec->client = client;
++
++	ret = devm_request_threaded_irq(dev, client->irq, NULL, qcom_ec_irq,
++					IRQF_ONESHOT, "qcom_ec", ec);
++	if (ret < 0)
++		return ret;
++
++	i2c_set_clientdata(client, ec);
++
++	ret = qcom_ec_read_fw_version(dev);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Failed to read EC firmware version\n");
++
++	ret = qcom_ec_sci_evt_control(dev, true);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Failed to enable SCI events\n");
++
++	ret = qcom_ec_thermal_capabilities(dev);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Failed to read thermal capabilities\n");
++
++	if (ec->thermal_cap.fan_cnt == 0) {
++		dev_warn(dev, FW_BUG "Failed to get fan count, firmware update required\n");
++		return 0;
++	}
++
++	ec->ec_cdev = devm_kcalloc(dev, ec->thermal_cap.fan_cnt, sizeof(*ec->ec_cdev), GFP_KERNEL);
++	if (!ec->ec_cdev)
++		return -ENOMEM;
++
++	for (i = 0; i < ec->thermal_cap.fan_cnt; i++) {
++		struct qcom_ec_cooling_dev *ec_cdev = &ec->ec_cdev[i];
++		char name[EC_FAN_NAME_SIZE];
++
++		scnprintf(name, sizeof(name), "qcom_ec_fan_%u", i);
++		ec_cdev->fan_id = i + 1;
++		ec_cdev->parent_dev = dev;
++
++		ec_cdev->cdev = devm_thermal_of_cooling_device_register(dev, NULL, name, ec_cdev,
++									&qcom_ec_thermal_ops);
++		if (IS_ERR(ec_cdev->cdev)) {
++			return dev_err_probe(dev, PTR_ERR(ec_cdev->cdev),
++					     "Failed to register fan%d cooling device\n", i);
++		}
++	}
++
++	return 0;
++}
++
++static void qcom_ec_remove(struct i2c_client *client)
++{
++	struct qcom_ec *ec = i2c_get_clientdata(client);
++	struct device *dev = &client->dev;
++	int ret;
++
++	ret = qcom_ec_sci_evt_control(dev, false);
++	if (ret < 0)
++		dev_err(dev, "Failed to disable SCI events: %d\n", ret);
++
++	for (int i = 0; i < ec->thermal_cap.fan_cnt; i++) {
++		struct qcom_ec_cooling_dev *ec_cdev = &ec->ec_cdev[i];
++
++		qcom_ec_fan_debug_mode_off(ec_cdev);
++	}
++}
++
++static const struct of_device_id qcom_ec_of_match[] = {
++	{ .compatible = "qcom,hamoa-crd-ec" },
++	{}
++};
++MODULE_DEVICE_TABLE(of, qcom_ec_of_match);
++
++static const struct i2c_device_id qcom_ec_i2c_id_table[] = {
++	{ "qcom-hamoa-ec", },
++	{}
++};
++MODULE_DEVICE_TABLE(i2c, qcom_ec_i2c_id_table);
++
++static DEFINE_SIMPLE_DEV_PM_OPS(qcom_ec_pm_ops,
++		qcom_ec_suspend,
++		qcom_ec_resume);
++
++static struct i2c_driver qcom_ec_i2c_driver = {
++	.driver = {
++		.name = "qcom-hamoa-ec",
++		.of_match_table = qcom_ec_of_match,
++		.pm = &qcom_ec_pm_ops
++	},
++	.probe = qcom_ec_probe,
++	.remove = qcom_ec_remove,
++	.id_table = qcom_ec_i2c_id_table,
++};
++module_i2c_driver(qcom_ec_i2c_driver);
++
++MODULE_DESCRIPTION("QCOM Hamoa Embedded Controller");
++MODULE_LICENSE("GPL");
 
 -- 
 2.34.1
