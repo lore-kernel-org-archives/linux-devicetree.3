@@ -1,63 +1,63 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7330244694
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 03:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0CD364EA5
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 03:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777261489; cv=none; b=jqwfi/5okeCRBqYU0cQLmFE/+U5mWERmtUXaCWl1MxRshzJvfOzoAre8iy4aROtoklAN5v9MioVOSQWggWeA+LGY+nkNtUwO/U59ukqN+zGljTz47Vi3fFaKYxJ5pg7tmbeCvHzEqVbDN/y6bgrHXZoBgWKXCMzcc7OYvdXwPmw=
+	t=1777261493; cv=none; b=tzK2EqrFFAWUqOoykH/PniOA+WUaAxTisRgd5T1Spq8ehRYPBlaSxcUIO1NHFv2/EfclXeJmFzlb1B01MaDg0ysLhNKRensCYndEjS4iO7VPSyeraH9faRmicx6H/uG2Z7y9QtZUlK1cT2lBEQHKgOmtYeh3unei4wYm4+d8pOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777261489; c=relaxed/simple;
-	bh=A343E43pW95EP9AO8BFmFQukqMiRwvLdirbY6h+orZI=;
+	s=arc-20240116; t=1777261493; c=relaxed/simple;
+	bh=AlqGAY2/4NNL+jMyIRi7fYh3ze89oIFRvHFa0sQLods=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VE7qr121vviVz8c/YTDYjZjpYDXmy6oRa3NQgDkytSvnS9cYHCvunu3WjvJzyJI6brNKXd0mE8w2mmcRPcd0xN42c3NvLVsedU1Nr6KGNb8+Hwdxo15vkzx2Az6SZCJsOmWr1jCWVKWOqXLSsLWGzk0dqpLeM4OBszVg9f3jaug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=st20g3eS; arc=none smtp.client-ip=209.85.214.172
+	 MIME-Version; b=uCAdjgZiAgV3p7iVt3Buf3p2Gq/2HqyLGpAfD2q6DTuDZkuBNKwF5/p/E1W2LSnh0VNcEjH6/lk1abmvv1fcpp891Wz95QOpgZ7WxubpIt4phwogMfniReHzWpMLMdL1xszjg/YPw6vFS3XpbwwPQ0kDakQOIaF5bAOaS/+y+Gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EB9MyRgC; arc=none smtp.client-ip=209.85.216.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="st20g3eS"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2aae146b604so64769675ad.3
-        for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 20:44:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EB9MyRgC"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-362ddc1de56so2429473a91.1
+        for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 20:44:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777261488; x=1777866288; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1777261489; x=1777866289; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6LnJZvLH9bwq8rkIs+Lcwlv8aSN2xQ6iGFhBeGaXxuk=;
-        b=st20g3eSaLO4SR5RZZy5U+ro4XhaAUD4EDcUnClaEoStmSW1uzftJswByLnDm2Exzu
-         3XGjbTy+s6K/Q0fS7acAUmlQ5milQXKvKIuiJN4/x0PDvL44aydKSyEiw1mu1BERNKX0
-         2bHlo5eSMDj4YysrZgg4KJAfxl5stb3grzm9znxCyUP6f5tMdkoRfFDvKo1tqqcC+In1
-         4O8LFLX2WjLUrkA1whvNeKHKoDgj7PasfQlE7Ga1Ae6EChPWr0jspMbl0NsWRSTP1mGX
-         PoedB1ApUWTkimv7XHUwKuIbCfqJv6SBqQFm5Ffj2I04gAi3jsfzMLLYg0TmpalPRG+f
-         Vg2g==
+        bh=KLWnGZIr20U/8NXRxTbpdrnOVEAiLhYCZ2NPvdWXNF8=;
+        b=EB9MyRgCDNMOAifBuvL4E/fQOTgUNA45DUQiiJdXbk9hqZgkr4JlYgNPPBQjQfarxx
+         BdBcc8374LjSIsy6lnebz+ZishixE19m02QOzwqsyn/rDCaJpTXZ3vn0jvt0s9CwWl/l
+         mwi/2IiRnnbIrNDb8Ixf4mZy4742JbcaoB1jTGUVvL2wXsFb8N3ZzW90GpmT+GKIxtth
+         pkIwueEZpvi68Dms/xVG+FT8s/HoABSIG/UQaHMScDlR7J3jV072O5shvdfrrngDZime
+         7xOw0txPoPaJWBVW+yw9JY/hFVFJo892GV8ikjTHpCQ7pcnp8x/lFbYORbfE6bGLzUEv
+         vBVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777261488; x=1777866288;
+        d=1e100.net; s=20251104; t=1777261489; x=1777866289;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=6LnJZvLH9bwq8rkIs+Lcwlv8aSN2xQ6iGFhBeGaXxuk=;
-        b=DJSQNv4rvgoQvltlmE9uKkucURG5HKFJ/sp/ni+ldfMhZ9EmGOyGKcr3oVwDKQWDpa
-         pJywPxasbVHPykxsU2z1LX+8EL5NQ3VGk134rtoyiAHJI5NtIIGT1uj4S0JpWJxdR1vM
-         Vu3Nc3qk4GCRJk2pLw+RHrqJ3ZZ8wAp1y6u0LwsoIHcxoJP6aacQ0/kPSJK4ZN/VIv3N
-         okuiWbuVzTUd1UqPuIcq7wfOfuSC5q/1Hfw1gpoxQmayBZZHd+cqqMRn7oG/LUB2YUoG
-         VbCg2n0TFnLE/2B5dwAKvBt4x+FSl7jZMTTNMP6AG+AwKjuZaaL5QFNpY4B6Wb1UJu5D
-         LU0w==
-X-Gm-Message-State: AOJu0YwFjrXvMTkwF+HJChq8NkccSb0jbkb/qU/NPvBWhLNebR8rdHNT
-	ZfOcRDQGVujjlmbKQL0KDWyzbhy3Ib7O44QOPjJef+fAAhubyN9aRTa4shPM2A==
-X-Gm-Gg: AeBDiesbuMjl5LKDnhude6vUD4jtPSjwnKP2Ij5k8ul/kWkX1l/KSmVOw5wzNmph46/
-	yzvM0j0rIAS+KEnlNlPgRr7ejs4eGDMFBdQ3Usa0D0NeyVS4jISNENYGc5eaVuGGb0UjRCBBe13
-	y4Oa+v+u6b5uONiY9konjjuMFAny1XIuIitZDlI22ua941kLKrPNMHdbN2F1AMzueuxzOnGLB8u
-	AwMA+eP+KDveCM0FgwFg6VYruyJu3SAKsJ+roo0LBfsLt/JBkA8/0hzBcilHpkK8JTB/X9XiM4w
-	iq8l1mlrAS/kyCPTYaTMoesmW4ke5S3slYoSeiZ/CKZyTlA7B1RDmdgPQFRvLAX81OPo4akDI89
-	sYvfkuZ/lh+4sqIJG5MplXn1cNsYH4wCSX2Bki7Bq5YgIzsrPxyRJYmu45urAXKr2X0NCBR+1B9
-	woSm+A85kWG9u2Nt3h5KVCVut2WAirkn1vjccBloUZENkVAo3P0E51O/MPsjRtvLQNwKqMS4K/B
-	7PRLu0KppW5OgAPKSMNoGsedw==
-X-Received: by 2002:a17:903:120d:b0:2b2:489a:f46a with SMTP id d9443c01a7336-2b5f9fbc5a1mr463142335ad.36.1777261487655;
-        Sun, 26 Apr 2026 20:44:47 -0700 (PDT)
+        bh=KLWnGZIr20U/8NXRxTbpdrnOVEAiLhYCZ2NPvdWXNF8=;
+        b=oaTVE78fhpz3KEzS+z1stROlH0zRMzH1whHDw4I5BdUpUlGE36D3OSj81zmjRhJu99
+         Mb7UwJf5GErFe5+bMp+DDzVI4aK/ji2lKM6qXwEeUDVShCfiqkNS71EGbYDoF5E1K5iP
+         WX7Ay6juPdFNy/pdiuT66g9uNh0Xjculv3Q8w/euk1PcqlVKL092JBgsvKLAdgc1usdW
+         /eBCU9D3L4Rd0WL2E47AfjBCxyS5jd/EWGALWWg7cFhTKMHeqElvlBQx1zhg7Ql286gH
+         1Nba6hvJPQkbdPKMvtkqQIXszNjnv0GPk+48KwQd3yk+uSEPSde/kU2qWE3xGYKmwdLM
+         8dtg==
+X-Gm-Message-State: AOJu0YzzmBrHk5en9pRVA1Mm+eSq49Fydw1pgcr5PoRqaV8ZPTKI5Nnq
+	nb2jkhb6oS/4/5U7yt2Y1hpIA4uSw9vU0lOAdb2lvU4AGKeCKb/ys5YNqXfUhA==
+X-Gm-Gg: AeBDietPmm4pUhFCfXIOhkWSly11FUogAKoTxOp8eS5+VrN0NBeBlKjz+fITsu7/Wry
+	puUzSiCxFlVvLLlG3LxfkxmpfJvuwhDOGzD5LDGnC8NWiDc3x26uL8O6OgDqXUXEXFzzcfd+c3P
+	x0vXz13ICW4ifX1wlZd746bfThA+6e70xMgJPbn5nsbro64g1r/w9jzQFWy+3+fl22SbQFKCcQK
+	1tAQ3IyDHNfo3dNEkjoeEdCVDjma9XIX3MIOCJqUfQv9F4Saa0FVnpdvPjHtslnkBMsXm3Lu+9r
+	Rjqzwx4ag6pC3eK7VdLAob6nGymka4V/qWcJXryyi/5LXPrzP2t8DW+jm37sDb9SsmFJUKWMOA7
+	Y6+YqxGz1ZZgCc80vc3V0LyKt+tVh/EYMlAq1yvRhTV4Pf+F9AV51qXikqCoxo89tE2AQlKK6Ur
+	k89QT0mXYQ3MIqCdI8URKptprYfblk9zMVVDt/N6qPdqnZApt2+QLve7aWNIdK1K1m6bBCh4U1W
+	TYwZShR+Z78EL8eE1q8nzZigQ==
+X-Received: by 2002:a17:903:37c3:b0:2b7:aba0:ac10 with SMTP id d9443c01a7336-2b7aba0aea6mr161097325ad.11.1777261489333;
+        Sun, 26 Apr 2026 20:44:49 -0700 (PDT)
 Received: from ryzen ([2601:644:8000:5b5d::8bd])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5faa4f092sm290610585ad.36.2026.04.26.20.44.46
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5faa4f092sm290610585ad.36.2026.04.26.20.44.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Apr 2026 20:44:46 -0700 (PDT)
+        Sun, 26 Apr 2026 20:44:48 -0700 (PDT)
 From: Rosen Penev <rosenp@gmail.com>
 To: devicetree@vger.kernel.org
 Cc: Felix Fietkau <nbd@nbd.name>,
@@ -77,9 +77,9 @@ Cc: Felix Fietkau <nbd@nbd.name>,
 	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
 	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
 	linux-mips@vger.kernel.org (open list:MIPS)
-Subject: [PATCH 1/3] MIPS: dts: ralink: gardena_smart_gateway_mt7688: use nvmem for EEPROM
-Date: Sun, 26 Apr 2026 20:44:25 -0700
-Message-ID: <20260427034427.881389-2-rosenp@gmail.com>
+Subject: [PATCH 2/3] dt-bindings: net: wireless: mt76: remove mediatek,mtd-eeprom
+Date: Sun, 26 Apr 2026 20:44:26 -0700
+Message-ID: <20260427034427.881389-3-rosenp@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260427034427.881389-1-rosenp@gmail.com>
 References: <20260427034427.881389-1-rosenp@gmail.com>
@@ -91,53 +91,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mediatek,mtd-eeprom is a deprecated binding for extracting data on MTD
-devices which has been replaced by NVMEM.
-
-The latter is already in wide use with mt76. As this is the only user,
-transition to NVMEM.
+mediatek,mtd-eeprom is a widely unused binding that predates and has
+been replaced by NVMEM. As there are no users, remove it.
 
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- .../dts/ralink/gardena_smart_gateway_mt7688.dts | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
+ .../bindings/net/wireless/mediatek,mt76.yaml  | 19 ++-----------------
+ 1 file changed, 2 insertions(+), 17 deletions(-)
 
-diff --git a/arch/mips/boot/dts/ralink/gardena_smart_gateway_mt7688.dts b/arch/mips/boot/dts/ralink/gardena_smart_gateway_mt7688.dts
-index 0bfb1dde9764..a8a8efbaf527 100644
---- a/arch/mips/boot/dts/ralink/gardena_smart_gateway_mt7688.dts
-+++ b/arch/mips/boot/dts/ralink/gardena_smart_gateway_mt7688.dts
-@@ -155,10 +155,20 @@ partition@b0000 {
- 				reg = <0xb0000 0x10000>;
- 			};
+diff --git a/Documentation/devicetree/bindings/net/wireless/mediatek,mt76.yaml b/Documentation/devicetree/bindings/net/wireless/mediatek,mt76.yaml
+index ae6b97cdc44b..482c22cd6627 100644
+--- a/Documentation/devicetree/bindings/net/wireless/mediatek,mt76.yaml
++++ b/Documentation/devicetree/bindings/net/wireless/mediatek,mt76.yaml
+@@ -87,21 +87,6 @@ properties:
+     description:
+       EEPROM data embedded as array.
  
--			factory: partition@c0000 {
-+			partition@c0000 {
- 				label = "factory";
- 				reg = <0xc0000 0x10000>;
- 				read-only;
-+
-+				nvmem-layout {
-+					compatible = "fixed-layout";
-+					#address-cells = <1>;
-+					#nvmem-cell-cells = <1>;
-+
-+					eeprom_factory_0: eeprom@0 {
-+						reg = <0x0 0x400>;
-+					};
-+				};
- 			};
- 		};
- 	};
-@@ -201,5 +211,8 @@ &watchdog {
+-  mediatek,mtd-eeprom:
+-    $ref: /schemas/types.yaml#/definitions/phandle-array
+-    items:
+-      - items:
+-          - description: phandle to MTD partition
+-          - description: offset containing EEPROM data
+-    description:
+-      Phandle to a MTD partition + offset containing EEPROM data
+-    deprecated: true
+-
+-  big-endian:
+-    $ref: /schemas/types.yaml#/definitions/flag
+-    description:
+-      Specify if the radio eeprom partition is written in big-endian
+-
+   mediatek,eeprom-merge-otp:
+     type: boolean
+     description:
+@@ -314,8 +299,8 @@ examples:
+         compatible = "mediatek,mt76";
+         reg = <0x0000 0 0 0 0>;
+         ieee80211-freq-limit = <5000000 6000000>;
+-        mediatek,mtd-eeprom = <&factory 0x8000>;
+-        big-endian;
++        nvmem-cells = <&eeprom>;
++        nvmem-cell-names = "eeprom";
  
- &wmac {
- 	status = "okay";
--	mediatek,mtd-eeprom = <&factory 0x0000>;
-+
-+	nvmem-cells = <&eeprom_factory_0>;
-+	nvmem-cell-names = "eeprom"
-+
- };
+         led {
+           led-sources = <2>;
 -- 
 2.54.0
 
