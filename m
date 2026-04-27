@@ -1,160 +1,99 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B0FE391E50
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 07:50:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9136B29ACC5;
+	Mon, 27 Apr 2026 07:53:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777276238; cv=none; b=J7xZ2J64hUPL2Dy6XFdNyGOzfGFa8aF8ivqetuGmygr0k7ZACCAtnU934KvRQ2tPYCOPvkHmhOv072B5Y9n4ZBIqUgtcO3TkO+4raMvz9nY0CVf6hrqK60gCV18Cn+PXQ5dkusKiZMsNhlErHlzWepoRMWBuOpKY1lIdsAuKE7I=
+	t=1777276434; cv=none; b=T7/V03PrUPZc8fAiFyKMwfm90owT5R1D3yzFvda13x28KP8ydFpqnBxCe39MQqWlKN8itH57SG4tw1UGZ+dgXdMwW+YTGdLUcftbeta+u7CNvDCMECqEgna5Rkk3O+ol29lYamkQub7x+ThgdZX11LTmoxkbdxSYiCYTkUZ10Qc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777276238; c=relaxed/simple;
-	bh=lN/6325sqKItlf/aw2n425m/Ms2tR/ussSe22vm3WJo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qHFs0p4UA/PDYpO7BOTobTlnDeh8qlUdF9ocL2BRFjaOb+N/z8veDVy3bBy57mC3MrCbdd71Eu+IjRZYF2qn+W1FdKwmPW/sXGtu3SB7XIH6IPWcXZGWktGRfMD+HX3vSNr6yHEfjJ5sfpR/qdrGSVGDBKa9J0iCQEe8dKuh44g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.trumtrar.info)
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <s.trumtrar@pengutronix.de>)
-	id 1wHGjb-00032N-F2; Mon, 27 Apr 2026 09:50:27 +0200
-From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Mon, 27 Apr 2026 09:50:14 +0200
-Subject: [PATCH v2 2/2] arm64: dts: imx8mp-skov: support new 7inch panel
- board
+	s=arc-20240116; t=1777276434; c=relaxed/simple;
+	bh=aXXauhBu84m0zkaw5xvXwETxYMmftmj0mucH4ZqZV8E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sBQgbTKsvuwcZaUTyE/7lssNBSF+3kcQInNC3iB1I6oMpG5maCZNT9HVPyJMyETlRs2IV99Okrt6X4vSZ5rFaFpTd/QqX1HvF1zZu/lLliKgqEH25+MKzfDKkSAYXicQGZEHSp9e1GLJG6wlaH/7sZdX8B3modnw2aa7DO2NzYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PUvjZHfW; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PUvjZHfW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777276433; x=1808812433;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=aXXauhBu84m0zkaw5xvXwETxYMmftmj0mucH4ZqZV8E=;
+  b=PUvjZHfW0XNDjFb4HUoQg3j5pEFg5vAeJepaqaXpmDSIPWShO2MhibPL
+   Tbie7y3ccrZlBhlnunCg2oQOyK/aew4vORp8ULysgJWyLZe9YL/0RiNn5
+   gQYzIAFwqesMhJfo8krnfhzAZ/nVeC+c7JecvakrliReI74LJ0NeqrBNE
+   MnixcIfXLnm34h/IcVIfIcrKC4nwl3Izr8cKNsli+WlBN8eJFMUjqTTrz
+   9GkFHesTv32JvBOB1NjX20W49/Ldhzuv3bsGu2T1ASZZzb+tmN10iOWp1
+   IkvH0InfOOOH4jMrWHpJShPuZ+dOJRcR2qqW50ORhsWMpaE1oGXcHQRpF
+   A==;
+X-CSE-ConnectionGUID: wZHV/mtRTvSagPBzmJDsLw==
+X-CSE-MsgGUID: bqQo9w/QSayQO0dFX62V4Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11768"; a="82018805"
+X-IronPort-AV: E=Sophos;i="6.23,201,1770624000"; 
+   d="scan'208";a="82018805"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Apr 2026 00:53:53 -0700
+X-CSE-ConnectionGUID: zQnQN4EmRNuCfc+D6/YTJA==
+X-CSE-MsgGUID: nACzrQHnS0+BN93wq5h6SA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,201,1770624000"; 
+   d="scan'208";a="227036888"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.2])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Apr 2026 00:53:48 -0700
+Date: Mon, 27 Apr 2026 10:53:46 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Antony Kurniawan Soemardi <linux@smankusors.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, phone-devel@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v4 2/4] iio: adc: qcom-pm8xxx-xoadc: remove redundant
+ error logs when reading values
+Message-ID: <ae8WCnjrI-4XuWPF@ashevche-desk.local>
+References: <20260426-pm8xxx-xoadc-label-v4-0-0ec782362615@smankusors.com>
+ <20260426-pm8xxx-xoadc-label-v4-2-0ec782362615@smankusors.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260427-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v2-2-e2b79fc24391@pengutronix.de>
-References: <20260427-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v2-0-e2b79fc24391@pengutronix.de>
-In-Reply-To: <20260427-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v2-0-e2b79fc24391@pengutronix.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: Steffen Trumtrar <s.trumtrar@pengutronix.de>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.15.2
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260426-pm8xxx-xoadc-label-v4-2-0ec782362615@smankusors.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-This board is similar to the already upstream
-imx8mp-skov-revc-tian-g07017.dts but uses a different 7" panel with a
-different touch controller.
+On Sat, Apr 25, 2026 at 08:39:16PM +0000, Antony Kurniawan Soemardi wrote:
+> Drop dev_err() logging for -EINVAL and -ETIMEDOUT cases and rely on
+> return values to report errors, reducing unnecessary log noise.
 
-Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
----
- arch/arm64/boot/dts/freescale/Makefile             |  1 +
- .../imx8mp-skov-revc-jutouch-jt070tm041.dts        | 79 ++++++++++++++++++++++
- 2 files changed, 80 insertions(+)
+Assuming that this error codes go to the user space without changes,
+this LGTM, FWIW,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 711e36cc2c990..cc337cc4745bc 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -320,6 +320,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-mi1010ait-1cp1.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-bd500.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-hdmi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-tian-g07017.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt070tm041.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt101tm023.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mpxl.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dts b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dts
-new file mode 100644
-index 0000000000000..56374f1e67663
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt070tm041.dts
-@@ -0,0 +1,79 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+
-+/dts-v1/;
-+
-+#include "imx8mp-skov-reva.dtsi"
-+
-+/ {
-+	model = "SKOV IMX8MP CPU revC - JuTouch JT070TM041";
-+	compatible = "skov,imx8mp-skov-revc-jutouch-jt070tm041", "fsl,imx8mp";
-+
-+	panel {
-+		compatible = "jutouch,jt070tm041";
-+		backlight = <&backlight>;
-+		power-supply = <&reg_tft_vcom>;
-+
-+		port {
-+			in_lvds0: endpoint {
-+				remote-endpoint = <&ldb_lvds_ch0>;
-+			};
-+		};
-+	};
-+};
-+
-+&backlight {
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	clock-frequency = <100000>;
-+	status = "okay";
-+
-+	touchscreen@2a {
-+		compatible = "eeti,exc81w32";
-+		reg = <0x2a>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_touchscreen>;
-+		interrupts-extended = <&gpio4 28 IRQ_TYPE_LEVEL_LOW>;
-+		reset-gpios = <&gpio4 29 GPIO_ACTIVE_LOW>;
-+		touchscreen-size-x = <1024>;
-+		touchscreen-size-y = <600>;
-+		vdd-supply = <&reg_vdd_3v3>;
-+	};
-+};
-+
-+&lcdif2 {
-+	status = "okay";
-+};
-+
-+&lvds_bridge {
-+	assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>,
-+				 <&clk IMX8MP_VIDEO_PLL1>;
-+	assigned-clock-parents = <&clk IMX8MP_VIDEO_PLL1_OUT>;
-+	/* IMX8MP_VIDEO_PLL1 = IMX8MP_CLK_MEDIA_DISP2_PIX * 2 * 7 */
-+	assigned-clock-rates = <0>, <358400000>;
-+	status = "okay";
-+
-+	ports {
-+		port@1 {
-+			ldb_lvds_ch0: endpoint {
-+				remote-endpoint = <&in_lvds0>;
-+			};
-+		};
-+	};
-+};
-+
-+&pwm4 {
-+	status = "okay";
-+};
-+
-+&pwm1 {
-+	status = "okay";
-+};
-+
-+&reg_tft_vcom {
-+	regulator-min-microvolt = <3160000>;
-+	regulator-max-microvolt = <3160000>;
-+	voltage-table = <3160000 73>;
-+	status = "okay";
-+};
+The EINVAL --> ENOENT can be discussed / changed separately later on.
+
+...
+
+> +	if (!wait_for_completion_timeout(&adc->complete,
+> +					 VADC_CONV_TIME_MAX_US)) {
+
+I would even dare to make this a single line (82 characters).
 
 -- 
-2.51.0
+With Best Regards,
+Andy Shevchenko
+
 
