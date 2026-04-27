@@ -1,240 +1,153 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991E73BD228;
-	Mon, 27 Apr 2026 13:00:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B9E3C9EE0
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 13:00:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777294804; cv=none; b=kxt2O0FQ2k4v3Jdbj+ZIQ/MJBwfU0u7Y4Lb9iTy8Nxv9RtfdGJQTB3hwRITj6F12ZFIeZvKPpnpGajIrwjO93iF/6Tmv28bza/Mb1crYKpvQEwdXK4Uh5kIwhw3fnKOA6pkBhsg4T1OqGbXhrHmFOPgxqk+nwSDYbju8hU/r2Lw=
+	t=1777294833; cv=none; b=mdWKGfQ2n9ul9uXlqxSktnouF6jmxKfYk8BY6bYcNwgwbsbKsLNnlbSylY3AMOeYgd0EYpa1D+r7T5iWhteJy6w+0X8J4ZT+xoMVX4d5xRVxwq2qA/qeLzlQyMbFlJuNpzu3P/BSDWEWlwd1154NncYU+9MkrWtYLpeZ9tGAZoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777294804; c=relaxed/simple;
-	bh=zYwUMrw77kZv6Ulwz2jFUp2zuaLuCan/tdc75nc4Tr0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=u4lS0eq0pTjBEgxHo964BsaEGMkZ+VPL5/ypM5KXoOhdGlJWuX+D39JiblqZEFZDp7RvIJWVXaOgHfFQpoIoRxlF//k2k3KVMXPuJnsau0AIZhfH8w3Tn1tKx3bMijJ/YRW9w47rd2rbj8Dbs/bag15zCwrdYNngcve5pcd3gh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QS9tJsZ4; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1777294833; c=relaxed/simple;
+	bh=/Vo5RdswgfOHNJuNuRmCqc/7gYBqdZHdOW/lFNmJNE8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TnGnrN/AaJXD1RQvSgc0nMbKJcNEYnszGbfUjbXBGmUFLmr5/mk1wNTBFK9Xgq2NJL09MHysfEicec9lU6yPVCANE3FOXqaTw2w6LRtmUFIkWUo/ZzU0PM5SCObwfxUu0qj06xbpgKpQII1Tn+bgYQJKxv6PnB0N/QwA17wW0g0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Q6BEJ0Mm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KJ5wGTVl; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QS9tJsZ4"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 59023C5CD49;
-	Mon, 27 Apr 2026 13:00:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 26DBA600D1;
-	Mon, 27 Apr 2026 13:00:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CE0791072806A;
-	Mon, 27 Apr 2026 14:59:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1777294798; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ONCngfvdZKG04Y5xOFYFcJaPqFKOYgTjJdd9UAdynm8=;
-	b=QS9tJsZ47VMdS5lOnm00fpaBvbYhRGWOra+baDhj7sePjohjjxzycBRQmdqknIBDCdGkzL
-	4zG3uo2Gs95WDMyoPpnlpEMo0G0Hkkmdj8LwRv7XKeKuzzXousFT8cV/9GeJSv2SJms6hD
-	2Jav3LAjfyAn/I7CFkhPxF5T0AGvTze5CeA6FSQ2/LKz1WjVN746KwjHR+iU6F4eC6+EdS
-	ZrmyFiDxeefro4G9IhLrHVwwYrWB+BExFSBD0uSlZX22spc7hAQ4Z1kW4kAkQYi/m1y+TN
-	mPnpYr6ibqNYaNjAAbpZ/n48Fc5gjpX7iXxaRLIQcw1cwKxOeDZ9ij7JOiJg6Q==
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q6BEJ0Mm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KJ5wGTVl"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63R8TAo62793094
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 13:00:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	uGkcCsiEA2JIXk+TcjaMJ2B35tfV/d5doRcU1NZp98I=; b=Q6BEJ0Mmw4PMQHaG
+	cGf0U4RS6zQAh2TenqOqUpm1qqfck7uK4qCYtyGWHTdJzriENvpIoJFyKYRnDpgV
+	GfpRlhYPBvDiEY1j0GhqovR8durrd+Rc8HdJWUgNouuncQ9v+mDMIcJu+2tQ/UAJ
+	bhMKYBlDiJejF3uhCZhIL0De9CC1wXDSOe5lYZCV66cC2b5UKPzRQ72KhqN6BdOM
+	NOQCVkrkZB5ya1iEyp9MBBtUwyw/tBCqcZmjz+R5TTDOA6V/sCYzO+8a3+papD21
+	Yxj/Nz0YEeaye/1IyycN+/dzANbWqHSCEbBMocnKCQiQNjCdx0eI2x9HmRkM9mFU
+	tjIJZQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dsa4uv8ta-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 13:00:21 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50de6db1eabso20519601cf.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 06:00:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1777294820; x=1777899620; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=uGkcCsiEA2JIXk+TcjaMJ2B35tfV/d5doRcU1NZp98I=;
+        b=KJ5wGTVlRmJwaOLbvjPI5/2XfU/7uo1KjMDgeL7b7bEO2IGncW+Z9JhUTpNBHJCpSY
+         oFNgO6yQsHvDkJ+eT5kN02ghWr2M8DIEcZq8es9KDx7uC31vjQObwgbSlVNH/VoZ891S
+         V97X8SC7jke8Wfrkbk60tMMwUzbD6TVsDXX9/u9g80EbiwtJBShcLxMl36sOQIqQLcuO
+         VIrBeG3nEth2cM8YO5GXIEiWh21s9vPDUd4lIvsP3EooIMawVZkyA7NeItVhHCWNXe2G
+         5SLzAmYE7qLKCNB0VzSLmmOoaGi6Yo0Sa/sP7m1197zIKz1GzrjatnonEyz7Ghw0f9eK
+         FJtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777294820; x=1777899620;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=uGkcCsiEA2JIXk+TcjaMJ2B35tfV/d5doRcU1NZp98I=;
+        b=G7pXuRWFlWgSKz/VtBIBb1VagiDXu0mg+QCPA1icDdceafAT4+9PDK4QbVPproaize
+         PK78Y8vX/MShbK3CjLh6m7rMoTdYhcr9gJE/DO2zjqbJ5FSEDVbj9T5qdwQdyG8V7uoS
+         fqEM7lKAeb90m5eNQL4HwvTeF8Uk6/utvN5G8L7LwiCqGhMjQ6ZNyffa6KgjzU0jfL+C
+         dszX2BK5UDYdRZH4ShBwHMgfjY+N/aho1xbZC3BL2tR16I9xNXAhYLZtIQF0Zp+BY/KA
+         eyRP73IpCseKslQqq9aERBcieIy1UawwfQn8uFRv/qFnXW+3X3iQk/DrtNoFJ/MChopx
+         iOUw==
+X-Forwarded-Encrypted: i=1; AFNElJ++aQ2SlFW4hggdEbg2fqO9/EApnAqJFKAGvIvE32MnD/I+thHaU6vt68CgCIt6zYwd2Qzn0N5ZVUfY@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3OpD7em0uZFMvsDvSK3ZQezSDD2OzuoEZwLG+xZjiOVGDXYcd
+	FwL0GOE4hbXJmoNzXsCVD2q0Apg/ckwQsSsdnRariL+4H7NAQetQPjZ69dSN0jIuVhTrg5JtpNt
+	Q+o2gaPCFuLEMgdoz6LodmGZdSV/cRwXquIYD4Ny52/8cTx2h5dmz3cP7O5CkvmD2
+X-Gm-Gg: AeBDietqjgA2e4WzM5b5DD5Gev+tf89N9sEsYiFt1CS2JIjIpic1lX6845VrqADqvG/
+	eNj7eSBGBdYv8KtL8Uc6HOUO2fMknkcVpfLR9cZ7ZDQZ2nf76K5vzjn+2ekVj3efy3FfO8hpL4d
+	bgxiZqH2zlZ+Chvax2R13tmvdwTJIxutp2Uu86XKNc515g2bYaVY5fayEmpe9XCQQwtIwSMYaMf
+	f4dtzlikCLQpZ3Lxq6CGCcjolJT2zhELD/+lNLhBM5n8+60sm1iJwIdz8cHZePPjku79/bSTU0K
+	faZIOIqzzmhuDpblbvtNtzAQd+Vxp+kwyp6Yt8Lh5/OCTA2IHfh7jtMnk6LwXxCaMOr7x9rcoY7
+	i3h8wYTJUu5nnGbCYZ0/qibOZIcaYceWVx8TcSjEZlHR/9HzpiFzjoM+xbf6swI8qYIar0saXzI
+	F4JDh51nZMlGvLDQ==
+X-Received: by 2002:a05:622a:1c0c:b0:50d:9138:3322 with SMTP id d75a77b69052e-50e36c8e98amr408672441cf.7.1777294818719;
+        Mon, 27 Apr 2026 06:00:18 -0700 (PDT)
+X-Received: by 2002:a05:622a:1c0c:b0:50d:9138:3322 with SMTP id d75a77b69052e-50e36c8e98amr408671681cf.7.1777294818137;
+        Mon, 27 Apr 2026 06:00:18 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba451ae5f2dsm1099761466b.21.2026.04.27.06.00.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 27 Apr 2026 06:00:17 -0700 (PDT)
+Message-ID: <2134b8d1-70ca-4f97-afc4-bba0538f84cb@oss.qualcomm.com>
+Date: Mon, 27 Apr 2026 15:00:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: sc8280xp: gaokun3: add front camera
+ sensor node
+To: Pengyu Luo <mitltlatltl@gmail.com>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Martin Kepplinger-Novakovic <martink@posteo.de>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Martin Kepplinger <martin.kepplinger@puri.sm>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+References: <20260425105300.745044-1-mitltlatltl@gmail.com>
+ <20260425105300.745044-4-mitltlatltl@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260425105300.745044-4-mitltlatltl@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 27 Apr 2026 14:59:51 +0200
-Message-Id: <DI3YF7J7ZW0P.3OKMUXAM7GW5C@bootlin.com>
-Subject: Re: [PATCH v22 4/8] drm: bridge: Cadence: Add MHDP8501 DP/HDMI
- driver
-Cc: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-phy@lists.infradead.org>,
- <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
- <linux@ew.tq-group.com>, "Alexander Stein"
- <alexander.stein@ew.tq-group.com>, "Ying Liu" <victor.liu@nxp.com>
-To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>, "Parshuram Thombare"
- <pthombar@cadence.com>, "Swapnil Jakhade" <sjakhade@cadence.com>, "Dmitry
- Baryshkov" <lumag@kernel.org>, "Nikhil Devshatwar" <nikhil.nd@ti.com>,
- "Jayesh Choudhary" <j-choudhary@ti.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.20.1
-References: <20260424-dcss-hdmi-upstreaming-v22-0-30a28f89298d@oss.nxp.com>
- <20260424-dcss-hdmi-upstreaming-v22-4-30a28f89298d@oss.nxp.com>
-In-Reply-To: <20260424-dcss-hdmi-upstreaming-v22-4-30a28f89298d@oss.nxp.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 2MB1j4QEYDMhaulcUt_EXnB7CzBNQI_c
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDEzNyBTYWx0ZWRfX6jMpqPQdgcv+
+ hSommJju87Wz+XICYjHdi+UGIrlVs/iJk7Y0OF2/gQyY4FhYh+BKW5bWleSlt/3Vgfu/fAxZcqY
+ pWe4b/CKsnsjYkR8yyHVnIlHF2F4SL7HShvKbZUJH6hZvLqqOU+p9D56mmgH5TQkYXAw+kjDZw9
+ McDQTCxXcaRRv9HB4zPPCv4gZcPIXH4BRTOmrk+BVjRPk4gUcflEDi4+ItGQcQ0nkBdm6Ir6eJH
+ 15hd/pkzs0vP3ticV6MiYkPPlaT3td1qwq5mFnWJv4weg/FfWjV04J+GxbcMdPiPMqrQ/RbXe1I
+ 2XqmtDTD1UueoWlq3Nzd+K0wq+3YjRS/AYiCUh4IOi7NMsdmFU07LLL4oWgEbj18yH0z2f57FQ+
+ LDJjmGENRodyAz2WX4DdwyIflUxH3Yl7gY3upeSLTDrVkSpJEeiP1h6MYxSEmTgA1Zx36YzrlQ9
+ +p+XZuZ/ueRlRLaQFWA==
+X-Proofpoint-ORIG-GUID: 2MB1j4QEYDMhaulcUt_EXnB7CzBNQI_c
+X-Authority-Analysis: v=2.4 cv=J/GaKgnS c=1 sm=1 tr=0 ts=69ef5de5 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=7hjUlyXiQ9dVm2DUhQYA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-27_04,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 spamscore=0 phishscore=0 lowpriorityscore=0
+ impostorscore=0 priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270137
 
-Hello Laurentiu,
+On 4/25/26 12:52 PM, Pengyu Luo wrote:
+> Hi846 is found on my Gaokun3, descripting it.
+> 
+> Note that it seems that only Goakun3(3.0GHz) version is equipped with
+> Hi846. Goakun3(2.69GHz) version is equipped with S5K4H7.
 
-On Fri Apr 24, 2026 at 1:07 PM CEST, Laurentiu Palcu wrote:
-> From: Sandor Yu <Sandor.yu@nxp.com>
->
-> Add a new DRM DisplayPort and HDMI bridge driver for Candence MHDP8501
-> used in i.MX8MQ SOC. MHDP8501 could support HDMI or DisplayPort
-> standards according embedded Firmware running in the uCPU.
->
-> For iMX8MQ SOC, the DisplayPort/HDMI FW was loaded and activated by
-> SOC's ROM code. Bootload binary included respective specific firmware
-> is required.
->
-> Driver will check display connector type and
-> then load the corresponding driver.
->
-> Signed-off-by: Sandor Yu <Sandor.yu@nxp.com>
-> Co-developed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Are there any other noticeable hw differences between the two variants,
+that could warrant the DT to be split?
 
-...
+[...]
 
-> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8501-core.c
-...
-> +enum drm_connector_status cdns_mhdp8501_detect(struct drm_bridge *bridge=
-,
-> +					       struct drm_connector *connector)
-> +{
-> +	struct cdns_mhdp8501_device *mhdp =3D bridge->driver_private;
+> +		orientation = <0>;	/* Front facing */
 
-Please don't use driver_private. Write a oneliner function wrapping
-container_of(). There are many examples in bridges,
-e.g. bridge_to_sn65dsi83().
+Please either drop the comment or s/tab/space
 
-> +static int cdns_mhdp8501_get_bridge_type(struct device_node *out_ep,
-> +					 int *bridge_type)
-> +{
-> +	struct device_node *incoming_ep, *node, *ep;
-> +	int ret =3D -ENODEV;
-> +
-> +	incoming_ep =3D of_graph_get_remote_endpoint(out_ep);
-> +	if (!incoming_ep)
-> +		return -ENODEV;
-> +
-> +	node =3D of_graph_get_port_parent(incoming_ep);
-> +	if (!node) {
-> +		of_node_put(incoming_ep);
-> +		return -ENODEV;
-> +	}
-> +
-> +	if (of_device_is_compatible(node, "hdmi-connector")) {
-> +		*bridge_type =3D DRM_MODE_CONNECTOR_HDMIA;
-> +		ret =3D 0;
-> +	} else if (of_device_is_compatible(node, "dp-connector")) {
-> +		*bridge_type =3D DRM_MODE_CONNECTOR_DisplayPort;
-> +		ret =3D 0;
-> +	} else {
-> +		for_each_endpoint_of_node(node, ep) {
-> +			if (ep =3D=3D incoming_ep)
-> +				continue;
-> +
-> +			ret =3D cdns_mhdp8501_get_bridge_type(ep, bridge_type);
-> +			if (!ret) {
-> +				of_node_put(ep);
-> +				break;
-> +			}
-> +		}
-> +	}
-
-I don't follow what this logic is doing. Can you provide a practical
-example of the "next node" (@node variable) where you fall in the else
-case?
-
-Also, while this resursion will probably work in most, if not all,
-realistic cases, it could take incorrect decisions. Consider the case there
-in the else branch your @node points to some node having two input
-endpoints: ep0 is the incoming_ep and ep1 is another input endpoint. In
-such case you would recurse on ep1 and return its bridge type, which
-however has nothing to to with the output and might be incorrect.
-
-Another question is whether this driver should have two compatible strings,
-one for hdmi and one for dp, and set the bridge_type based on that. This
-would make it a lot simpler and remove the need for this function.
-
-But if I guess right from the code, this device can output either hdmi or
-dp, and the implementation infers the type based on this device tree
-walk. Is it the case?
-
-> +static int cdns_mhdp8501_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct cdns_mhdp8501_device *mhdp;
-> +	const struct drm_bridge_funcs *bridge_funcs;
-> +	enum phy_mode phy_mode;
-> +	struct resource *res;
-> +	u32 lane_mapping;
-> +	int bridge_type;
-> +	u32 reg;
-> +	int ret;
-> +
-> +	ret =3D cdns_mhdp8501_dt_parse(pdev, &bridge_type, &lane_mapping);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret =3D devm_of_platform_populate(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	bridge_funcs =3D (bridge_type =3D=3D DRM_MODE_CONNECTOR_HDMIA) ?
-> +			&cdns_hdmi_bridge_funcs : &cdns_dp_bridge_funcs;
-> +
-> +	mhdp =3D devm_drm_bridge_alloc(dev, struct cdns_mhdp8501_device,
-> +				     bridge, bridge_funcs);
-> +	if (!mhdp)
-> +		return -ENOMEM;
-> +
-> +	mhdp->dev =3D dev;
-> +	mhdp->bridge_type =3D bridge_type;
-> +	mhdp->lane_mapping =3D lane_mapping;
-> +
-> +	mhdp->next_bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
-> +	if (IS_ERR(mhdp->next_bridge))
-> +		return dev_err_probe(dev, PTR_ERR(mhdp->next_bridge),
-> +				     "failed to get next bridge\n");
-
-devm_drm_of_get_bridge() is there to either create a new panel_bridge
-wrapping a panel or return an existing bridge. However based on the
-cdns_mhdp8501_get_bridge_type() code it seems to me that you will always
-have another bridge after this bridge. And so instead of
-devm_drm_of_get_bridge() you should use of_drm_find_and_get_bridge(),
-which handles bridge refcounting.
-
-When switching to it, you additionally can use the drm_bridge::next_bridge
-pointer instead of having your mhdp->next_bridge. This will simplify
-putting the bridge reference. An example of its usage is in [0].
-
-[0] https://lore.kernel.org/lkml/20260109-drm-bridge-alloc-getput-drm_of_fi=
-nd_bridge-2-v2-4-8bad3ef90b9f@bootlin.com/
-
-> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8501-dp.c
-...
-> +static int cdns_dp_bridge_attach(struct drm_bridge *bridge,
-> +				 struct drm_encoder *encoder,
-> +				 enum drm_bridge_attach_flags flags)
-> +{
-> +	struct cdns_mhdp8501_device *mhdp =3D bridge->driver_private;
-> +	int ret;
-> +
-> +	ret =3D drm_bridge_attach(encoder, mhdp->next_bridge, bridge,
-> +				flags | DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)) {
-> +		dev_err(mhdp->dev, "do not support creating a drm_connector\n");
-> +		return -EINVAL;
-> +	}
-
-Any good reason for doing this check after calling drm_bridge_attach()? It
-looks to me that you should first check for valid arguments, and if they
-pass take any actions.
-
-Same below for the HDMI version.
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Konrad
