@@ -1,277 +1,306 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013035.outbound.protection.outlook.com [52.101.83.35])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E86274B2B;
-	Mon, 27 Apr 2026 08:12:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.35
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777277537; cv=fail; b=b4JVb2uMD7wMS4ZpWymrWrAOkLoVr1cdHYycWaxm9Q+h2Wmvjqcjj9fXwRO4RGxA6EDkQ72Ze42ebtCamH7T7A/KlMpoEgQvXQSW1fGd3ELFvgrf7UCvFaF9GGPogsGnGhgtGA7SPVAPdpQ1Foc5uYb1Amcck4bTVbMP6bdbNPE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777277537; c=relaxed/simple;
-	bh=GuNZmFHay4Sd1/lBFcwC5eisaWdM/+tUE3uzg70bQmY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=pEOUGWkOHkIArYE/G/rEi8nDcrVbg9ndwBj9gOLvwRDJ9RPthyENOjFJ9QYImvLzMVEsRg5UeF0Q4OND1WY/965oLYvygy1njsdhmjYBLExYQZufzJYehSZagP5GEvzgdWxxeGVvAFsda23tFOl/7bTdtsRfWBz8u4Zf9bf9bCE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=GPzaoh4Q; arc=fail smtp.client-ip=52.101.83.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA65739A05A
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 08:19:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777277945; cv=none; b=HiOXiABmtotsPkSEVGB06j4rjuzFFlsm5UI5rISrwHQOSBQDyb6Pe7K9wzjc0C9BeskJK0PB/+BWrbovXdm2zH/3wTWuPTvAOc83He7rIWJDnJV/am+4/3brWLLEWDNwuAkMeBmkVseLHykvzLKDddqCOEimiVkuOln2tlGV8zQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777277945; c=relaxed/simple;
+	bh=J2TZUzyKbhBP8QKXUd6dU18LJ5IcJowSmbEIPSADdyI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kF92AKiX406BgUtSL/RT7eBwcevSV393ci5DBGt1CpaObBLUWwTTl2U/Yj2P6/u9YnPj5yejUIUcqJPhLjT0m1U4iaMfX3KHrMnuEnK6OGa60NMUqyO9vx2W1x2sU0WdVaXmD85t4NlD0snRj2kdoUBbET3HQ+EakEcGiR6QynM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jtqvudJ/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Lusci4Fc; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="GPzaoh4Q"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cjcIum+8Nj+eMmbItoPf7tHah4NpLbYc5LKSUz0Uc6+5aNfSqyXXMO0xPZULYyKNYmgxedshI7gHvX8zOszFSmsQJXj5L8X3uXVxBJQo/cnGzE1mInn4ewbFLAOtms1i1sticSUiGae3LSXUJWa7pAdKQ0hVou6w8WWUZ/+udXWj6vZlF1Q8DtSmDPM+yI91v3PzU8lB9XAc4i/7uZ78WDTKw8pkzPr2MysZOqjFamch3D32yIxEMT3GkHT4YfWlJNd0w0OCfrlhItJz+FDvY55YAFNrDwh/YU+Emx84HrrIY8VXWXz7FpSha3nFSmuWzpsmvigGU4Uo5sXD3+XP1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AYQi5M7RpOYiTk3DMW5x5Woxfmwnz4QjrTnu+btPZRA=;
- b=k3mnrIlqGpi9FTKOq2FFpQkvaZ+6bEyfUJ7CFsTFU48Svr9YLw4IAaKyt7xjYtGLfK9+VSRkV3bzLkcF1TSM7hXi9OZtYVb+y+NL8ZgUFSJhou/NiuQTzlDAGzqrCsDaHGBBMw+h0pnZsVAVPK9EtjbtflOOP4CAVI9j3x4CWtbshc4mipC+gNWOdXmKPv+ltV3OmQLJxFuqSxyBfm7rpDnmmVHo3rgSzAIEGAxsChD4wLf7AwkN/7WecQkW10BwlwxXFYg5K1GdDaeYf2DU+Jyc7keMGr82mr/Ykx/RYdk0nm/yjWY7i1WbeHKaX+rxwib9ZPfJSujOYNZWdtNG1Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AYQi5M7RpOYiTk3DMW5x5Woxfmwnz4QjrTnu+btPZRA=;
- b=GPzaoh4QoMQYRiL1xvaf/YRouja/2sCldqI+5HdAgoa6cpSQ1z3jZJuRHfN/iXhdMgt6mnInu7yVDDs4uHG7dM3KWfLyXL0cY0RYGMEHIOdJB6CiL8EhiU24mRPnsxuR3KJ9eMiX1ympgUPYnX2NJWIbEEu9PxVbtwn6o9DOebC32BCQoiA5Eo3GXHiUbxQk+udfFSzGJwB2/wQIRvniBJ7PCBxLBXmKlWnIHQ6vx9/waQT4ZefDFSYaK6Z1BG8dpJFbEQa9TlzZkJ3aP1MpBG3+10il8zoQqd7YR7ydx1aMTKZyJ/g1bv44ZWKngOnd6TJHPNhgDAke6Ebzl8TO1g==
-Received: from AS8PR04MB9080.eurprd04.prod.outlook.com (2603:10a6:20b:447::16)
- by PA6PR04MB11715.eurprd04.prod.outlook.com (2603:10a6:102:525::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Mon, 27 Apr
- 2026 08:12:11 +0000
-Received: from AS8PR04MB9080.eurprd04.prod.outlook.com
- ([fe80::92c2:2e03:bf99:68eb]) by AS8PR04MB9080.eurprd04.prod.outlook.com
- ([fe80::92c2:2e03:bf99:68eb%6]) with mapi id 15.20.9846.025; Mon, 27 Apr 2026
- 08:12:10 +0000
-From: "G.N. Zhou (OSS)" <guoniu.zhou@oss.nxp.com>
-To: Conor Dooley <conor@kernel.org>, "G.N. Zhou (OSS)"
-	<guoniu.zhou@oss.nxp.com>
-CC: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li
-	<frank.li@nxp.com>, Vladimir Zapolskiy <vz@mleia.com>, Linus Walleij
-	<linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>, "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>, "G.N. Zhou" <guoniu.zhou@nxp.com>
-Subject: RE: [PATCH v6 1/4] dt-bindings: media: ti,ds90ub953: Add support for
- remote GPIO data source
-Thread-Topic: [PATCH v6 1/4] dt-bindings: media: ti,ds90ub953: Add support for
- remote GPIO data source
-Thread-Index: AQHc1h2M1MkEbrlROUK3NS1D6gBP5A==
-Date: Mon, 27 Apr 2026 08:12:10 +0000
-Message-ID:
- <AS8PR04MB9080CEB000F4F1C9043E8C21FA362@AS8PR04MB9080.eurprd04.prod.outlook.com>
-References: <20260424-ds90ub953-v6-0-7a84efbab316@oss.nxp.com>
- <20260424-ds90ub953-v6-1-7a84efbab316@oss.nxp.com>
- <20260424-reshoot-postage-7bfe0a5eca80@spud>
-In-Reply-To: <20260424-reshoot-postage-7bfe0a5eca80@spud>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS8PR04MB9080:EE_|PA6PR04MB11715:EE_
-x-ms-office365-filtering-correlation-id: 89cb056c-616a-4082-9c25-08dea434aea3
-x-ms-exchange-sharedmailbox-routingagent-processed: True
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|19092799006|7416014|376014|1800799024|22082099003|56012099003|18002099003|38070700021;
-x-microsoft-antispam-message-info:
- O/aPqUnVBetYXHK3ywQwTXYwoELlB/6bAfY5w1NRn0h6CSiabzKBAlDgHCcwOsHeCOvMs7oVuC3WPQyVYZk9GMnpabqcRkjbIEMyQApPaADGLkeaJgInP0K+MLtVoc8TdELvJdZHgrtHVQsff/IRzYsjlrW91j5TCOXndR5o2qq8RqZmLTW/YF1sqSwGUCbpsmR54Y6S3m9w62gz41AzGd6g7e8kNmv1Au1M0vk4BqxrRRw6GnVHnUPBH3Rs1TatYSfiP70ziYQ8U6Pu+uZzPcQ3sKAg2FJANUKooED/n5Zvft++wh4eYtVVKAuwEG1YKLlGwQLyD+dXUhnH6Krhx9H7rzuDdcPtVpGIaw1yytvZPyqapoxqG+ao2w77VXU2N43/FUs6N/YCT2UZ3OGDgeQ4bsWlPsqbofev4S++wucJ7GE6/FA7+pas79OvOPTyDTa2Hkgod7JHIHhRrPIfCe8ViA61tKFuyeeikExWRWa5yniTVntwFPTfPKt4JIxB1vQ4c/jCVz+W0ztsn1yEYQeOSwrnOHvfUaJL0x511AeHnZQ24M5xIZE6tOjgeMdRRvs2gdQZZbyDgzKG9NDeIHTVckJclY/78QbxmYBer/heSKLdjTYnaaa3+/+NTid/TlOkYLBebe86KsG5bmlCfv6Kg9Oce8CjJL7XD8P9ABtrvgoSUpC8k3FCAkwiwmHsencqJLd0BnjVhtMPigzDC3vVRQtcwWaGCfAD7YjDvYBlG8uUdP3M90kC6VJD2hs7FZ8LqZJxxto24LWNi+BlhKNzDM6u0RQn6b5po8IEtTg=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB9080.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(7416014)(376014)(1800799024)(22082099003)(56012099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?YVl4kxKrcH0csQIBXP/OzTgHsYaTyIa4uK+3I5+3qJvKeQicVKvCx3UVPKU0?=
- =?us-ascii?Q?bHOz5zbEgxNCAKKk4xL4S22/AK75UQPUEKsHiBHC+kkNlTXm8N79/wQKEJ2G?=
- =?us-ascii?Q?UXKPhDVS4MbEVYDAvPj1qZqbAHa5+Ua2/rQANB35lHwM1hK0tdr9hTE9Hrzw?=
- =?us-ascii?Q?4vJBFhdLNYZwLINP9UeztEJ4+EitBn5SGXjN/AJTXpO1HvdGK0J9F/RiRYjk?=
- =?us-ascii?Q?ODkVj0K7fzEVubK5CLRxxWoLQxCtHswMaCHrUWGSkxEWiyExHz0zMhxngVBZ?=
- =?us-ascii?Q?DMTsBC6FvngqPoKd8IqGVBpHiHL4OPg4QefFW0Kfq8lC1ZSaxO8fbk4w6KE6?=
- =?us-ascii?Q?maRkf2gK8BKW8328KsXZPBRSzLqup1x1ekTnh/tS1PnGkVuwxoO5y3+TyV5O?=
- =?us-ascii?Q?yuXtHJ2gHXuy/XCSm1U02/jNcCOJLPCXOoSQatmfb/42O7FFgNiu075+VCBD?=
- =?us-ascii?Q?IKHGhpNnC6qesnB8PprFUg5fflPH6Ewonx/K+V7baLxpU5OogatPpnAucvIe?=
- =?us-ascii?Q?cfesdGRIrhXKQc1bypkZybti7+3rkWsSmKMSi3s0vmwEQX1BshdPpmtZA5o/?=
- =?us-ascii?Q?lNvir//1OCoqD23iia226V0TneuDLgn9zVwRllS/c+6EkRafW7kaSJ3/ZRyY?=
- =?us-ascii?Q?BynDZjh00cc20mbQbxfkPt2vQ5TrwrqC4JAB4FAtuIEhuAqPqq8zzqDpM/Lh?=
- =?us-ascii?Q?bOFK5BjgjQOaRr0fTyAbcjylvnrvqBI6CoPpp7hoMvDx4DYpghg701lr+M16?=
- =?us-ascii?Q?rk/URTBsYUN8wt+5eZ4OZkt1Xq3zEldBNCHz9hbjrvpVgWfdVROSJqAR+Mn/?=
- =?us-ascii?Q?jBObdrQ63pNup9EG1Cyano/mERNcLxQ1kL6aCjx8l+jy4YfnWGeCDbt2sYyd?=
- =?us-ascii?Q?vjfHPEVWaT04CgADM3TW3wcYRU+QV9jE8VdqgA568+hCgItBI7GnUhodL5GA?=
- =?us-ascii?Q?4he5uwY6824aPoH2nV63i/OrInFWsHZ4QK3kbz5d6XqGBXzxiXh9dI0tu7Ns?=
- =?us-ascii?Q?ty8yKdFBnlGmejqbefr/m9N9mMUzdu1WxyP13igIjOVykAiVJWZNcsUNzL2z?=
- =?us-ascii?Q?4dx276g8LzGgOlpOCao8jJDcDmve7IaB9L6uR9X/ckad5beg3V6T5MOjrNqg?=
- =?us-ascii?Q?tuykTmBTBkr2nzSeTN9b06jM+Pvsg3wz4vJOU3A1a9VORPx9JhSAJ0x+YWCk?=
- =?us-ascii?Q?1Rwwsh+iQXhFkdmG/gTXW/kDIMCV+LdkGA/aNZCn/txBO15j+77Q7FPaeHvp?=
- =?us-ascii?Q?FILXJ3fQ6A6/1lMYAG6R3cnZzgVVxVT+04py3tHJRgOdzZmeA/g1E+97vnQF?=
- =?us-ascii?Q?CHUgF4MER6Gf+mzBFDfnWig3fXn2fYx5vi63pAQzLYwNCLvsLZh5KVR30HKF?=
- =?us-ascii?Q?WAtXouReBHKvd9dEHwD4N/1Bx6By+kyrLEc/hK0lIJyJPkle09uKvyIjsY5N?=
- =?us-ascii?Q?LLXep3zB8/yfgz9vmTdfExIlSdfB1v9zaQpFSTTWmtV3MXFZdhPTviGest+1?=
- =?us-ascii?Q?MzHOx/T63Nlc15kllDUTXDx4xwku6AUlunK4YFsUbzE6cGIWSd9E+4nSauHe?=
- =?us-ascii?Q?nnfRiPnU1dkLjMtz5mvw3NDRyM+jHKmdyZjoczwB2PoisSnieZISlnsPQWUF?=
- =?us-ascii?Q?9fBj5WROoTzUnwku4npVzJM51iPoWwDKsM1y+Sozws5kgjwI5kE635NFKIYf?=
- =?us-ascii?Q?AAluAaOQt7NIja2pQt3Wg6+o7ZHP/0LUXMIYFVxmbsETSI/iMym2ehZXWTS8?=
- =?us-ascii?Q?kY7brzEV4Q=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jtqvudJ/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Lusci4Fc"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63R82F5Q1652118
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 08:19:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Rc4id9/G0ofQjHwOaT3b3hRz38cbyjQ45C7/+/HoEKo=; b=jtqvudJ/Pq9709S+
+	cUByznB4LR2yKhv+KhNnbT46W8mQ4ool2nxxZd+3hVdk9fBVZ/nGVtwzX8Z9bK2B
+	P5a79SSnGeyxVU8ABXLcQxutFIf8ygILVXHsTi3nnLnZZBuPSXaqxxcj4BN6yjxi
+	7/seMI3smejc/9PNlMozG93tSKpJditgTPFBcqKLtdOoo51E8FItNA22hB0xgQ6R
+	fzaP42KmL8MXCWM9/KAusI8mxo270Rj2jJnGSCQSL6Np7aIMoe7QeAtMhjHUH1eC
+	oZmDFD54Yi3Ly+xSLYN6a3Do3SqEnuBd6EGXbCjKESrQszn5NPqNPvk2I9oKhWSe
+	AzIVUw==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drnu2w406-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 08:19:02 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50da529ff48so34081941cf.3
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 01:19:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1777277942; x=1777882742; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Rc4id9/G0ofQjHwOaT3b3hRz38cbyjQ45C7/+/HoEKo=;
+        b=Lusci4FcW/CNXhiXs4PPt3Pmr86C0+7ARUHOqc8FQGIBY9gkJG3rs6hc32clnmaBug
+         t4DsBQoVp3MpDejxIo9ANV62TK30S5QBKOHDpW1CXgGAecn6IlmpAPetVmtI6KQuev/H
+         AVgwNUtfjeKW9KNnJrIG/tzyLyyFGI19dUOKr7maEnc2HD7kzeos3vKPplC8v0OpeBRp
+         qYVthoTCz8A94DSe+4kJ1MgYVkMUC2WJp+hg/dQmr5ZPduujuJhlYfvYEZMrYraDc+UW
+         d8Un6TpKebuqiLoMTpfwmhSYBA4Lzso/NjF/8DL7CaAsULNbFlHQxjFRzpxyXEHACyFg
+         J8NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777277942; x=1777882742;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Rc4id9/G0ofQjHwOaT3b3hRz38cbyjQ45C7/+/HoEKo=;
+        b=HBi089NPGUZomcnlqET7BVGsDlGueAcy6O+rtPZJ8anhoOG4RVLabe/CumJDXolahH
+         iPYdT13YJK05tMyeSIkQB6NaucxryjkcP02zMBJ9aIaPP5Kwv8uyJH1GhdeN3ZM6bkBm
+         EDaJ8ZwOeYomVIk4GH6dqPo3pKKPyIlTDxVs2RpM2vyUzkqmtjE5mrtKC1KUEI8jSIwI
+         SUgQ2/gO1+1rtFPLO5iYxdzOcv9mDN5gg4jpULHtz//AxtgjAgvWN6YdWlKQvckZKJZU
+         e5YQE/I4h/ww/RPnxiqU/BFFnFT7seTzzP1HjH49uIP3uvKG1ZmmNn13ORIIKxxgqwWA
+         lKsg==
+X-Forwarded-Encrypted: i=1; AFNElJ+kLwFIjskOy4dr/pFuQhcPY9fJ32Jf9hWoocEG9GujPsX3w0gXikhMXngSIOwo9wV50Le4mJJ3CwSx@vger.kernel.org
+X-Gm-Message-State: AOJu0YxWnbPcpnLrZFxu0V6bNJVPIoTsFzRqQIi6QJrnqa3YMSvVrq7P
+	gUnqzRPMHi4ILwZC4UX0RZutpHWduZTAW3MkkTO7GK8tWfbXsH4q00jKgCxtMKoxn4wuASctmZq
+	q5pavJKosVD/5/SnorF4G9juqlud4+5AylU3ZIddgiqLxlATt/vDJzHcVs4+ANIjl
+X-Gm-Gg: AeBDiet16W09MYMT6YM6lBsHNVErqbk40HfQzSiUP353FmXIw10Lp4yhkpR2mISNQH6
+	dXdxe7t42Fvyn8alpHke2XwqDfCUpg3GF29r4Ghj7FdXS5xitSWUReSxsDB2yyQjCMw0TGMZEGH
+	+IqwMq6h1G1cQRA8gNdLn2juBk6xoOh2kfLq6rnYZTaPvVg080jbM3ibQo/OWaiPw5LEw4w/RRb
+	Y+6smQLn8p1ILGHL4HmGxtrNI2McGBnIhsFi+bT2qOfB75nngtW/AIh6OhUFrPOBkW7/5+nvL0F
+	uRYHM3TqKAMA/eIX2VSNGtTAv9h8hzKLCDqijo5PQungsyA2KG5ogJ5GyzXn5YeJ4IxFCCg9K9q
+	K41a/seDJqzZOJ15Q/nHGTKUfXB9vtYiOlMnnP2o04uq4a6pdn79xZmVo+uxrV893wnxEzDat4x
+	6kohQO/URfBnrSFa/x/nA=
+X-Received: by 2002:ac8:7f55:0:b0:50e:defb:9dc2 with SMTP id d75a77b69052e-50edefba0b3mr409749611cf.27.1777277941875;
+        Mon, 27 Apr 2026 01:19:01 -0700 (PDT)
+X-Received: by 2002:ac8:7f55:0:b0:50e:defb:9dc2 with SMTP id d75a77b69052e-50edefba0b3mr409749111cf.27.1777277941230;
+        Mon, 27 Apr 2026 01:19:01 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:9464:b7df:8046:49f4? ([2a05:6e02:1041:c10:9464:b7df:8046:49f4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4cc0d51sm80260977f8f.10.2026.04.27.01.18.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 27 Apr 2026 01:19:00 -0700 (PDT)
+Message-ID: <e1845fc5-254e-4481-b783-5e631d4e506b@oss.qualcomm.com>
+Date: Mon, 27 Apr 2026 10:18:58 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB9080.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89cb056c-616a-4082-9c25-08dea434aea3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Apr 2026 08:12:10.8035
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JiNfVFgsNOBEYsAwb0ZBf/f2emYltZ1py8EU8kH8pCLZjOZW07fVlPpdlQU6K6WwpqzHLJAaiDFQcYjeuiKmIA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR04MB11715
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V10 4/4] thermal: qcom: add support for PMIC5 Gen3 ADC
+ thermal monitoring
+To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        agross@kernel.org, andersson@kernel.org, lumag@kernel.org,
+        dmitry.baryshkov@oss.qualcomm.com, konradybcio@kernel.org,
+        daniel.lezcano@linaro.org, sboyd@kernel.org, amitk@kernel.org,
+        thara.gopinath@gmail.com, lee@kernel.org, rafael@kernel.org,
+        subbaraman.narayanamurthy@oss.qualcomm.com,
+        david.collins@oss.qualcomm.com, anjelique.melendez@oss.qualcomm.com,
+        kamal.wadhwa@oss.qualcomm.com, rui.zhang@intel.com,
+        lukasz.luba@arm.com, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        cros-qcom-dts-watchers@chromium.org, quic_kotarake@quicinc.com,
+        neil.armstrong@linaro.org, stephan.gerhold@linaro.org
+References: <20260130115421.2197892-1-jishnu.prakash@oss.qualcomm.com>
+ <20260130115421.2197892-5-jishnu.prakash@oss.qualcomm.com>
+ <addDTiI8MB2b_AzJ@mai.linaro.org>
+ <12d683aa-44c2-4e2d-8459-78ba9f2ab61e@oss.qualcomm.com>
+ <f46ef4af-1c05-4473-9226-901d3393ea89@oss.qualcomm.com>
+ <7e619cef-ed08-4454-905c-05ab0939d60e@oss.qualcomm.com>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <7e619cef-ed08-4454-905c-05ab0939d60e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: vD430ezFC47xq3hZDHjGpVa-jnHMeFuj
+X-Authority-Analysis: v=2.4 cv=cbriaHDM c=1 sm=1 tr=0 ts=69ef1bf7 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=Q6r41MFCYhVuxuzLeoIA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: vD430ezFC47xq3hZDHjGpVa-jnHMeFuj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDA4NyBTYWx0ZWRfX83bAddRtbz0Y
+ ZdNDwrdOUtN579zuQvogEgkW967ISkF3khK9D589vkklzGE9mJVc2+BwsrfFw9u3hVsNmkA7SAN
+ LkyKaKa7TQIg8MjORsnwTAoJ8pbUZWz/c6Y1qG3Icu5qLUdvwHCacVQzkGga5zwF83ovFm4ciGY
+ 3KNCFSDA+xVzluTYJY3fwHG3M/fx+Wo7PjIS5HLdpNcwipd40qWDj4CxXsQi02eD8U22DEY7yfx
+ 4z0G5prP1L/1HxndF4wzWNQu2dGFUi+uNRY1woIzs5GtPq08FBJ0Xir5V35rId99ABW+n+yxVBT
+ cOjdLR+jAVx+i0jf8uAJM9pUGZRQ7W+E5gEPHf0klZI/I+qYrUMTZ5DldvYDBsKwNXQvjMpQSek
+ 5jmk5mOjtdNd10wSc99m3HvTQrM5mWQwpkLJ32721iVd3IUFK3A88dyfaLFAkfiDzVRp4PQcgDy
+ M486Gl51PYs1c6YQNtw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-27_02,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 spamscore=0 malwarescore=0 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270087
 
-Hi Conor,
 
-Thanks for your review.
+Hi Jishnu,
 
-> -----Original Message-----
-> From: Conor Dooley <conor@kernel.org>
-> Sent: Saturday, April 25, 2026 1:09 AM
-> To: G.N. Zhou (OSS) <guoniu.zhou@oss.nxp.com>
-> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>; Mauro Carvalho
-> Chehab <mchehab@kernel.org>; Rob Herring <robh@kernel.org>; Krzysztof
-> Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>; Frank
-> Li <frank.li@nxp.com>; Vladimir Zapolskiy <vz@mleia.com>; Linus Walleij
-> <linusw@kernel.org>; Bartosz Golaszewski <brgl@kernel.org>; linux-
-> media@vger.kernel.org; devicetree@vger.kernel.org; linux-
-> kernel@vger.kernel.org; imx@lists.linux.dev; linux-gpio@vger.kernel.org; =
-G.N.
-> Zhou <guoniu.zhou@nxp.com>
-> Subject: Re: [PATCH v6 1/4] dt-bindings: media: ti,ds90ub953: Add support=
- for
-> remote GPIO data source
->=20
-> On Fri, Apr 24, 2026 at 09:42:24AM +0800, Guoniu Zhou wrote:
-> > From: Guoniu Zhou <guoniu.zhou@nxp.com>
-> >
-> > The DS90UB953 supports four pins, GPIO0 through GPIO3. When enabled as
-> > an output, it can be programed to output local data or remote data
-> > coming from the remote compatible deserializer.
-> >
-> > Add GPIO flag in second cell to select remote GPIO data source.
-> >
-> > Signed-off-by: Guoniu Zhou <guoniu.zhou@nxp.com>
-> > ---
-> > Changes in v6:
-> > - Added GPIO_DATA_SOURCE_REMOTE flag to dt-bindings/gpio/gpio.h
-> > - Updated dt-bindings documentation accordingly
-> > - Dropped Reviewed-by tag from Rob Herring due to significant binding
-> > change
-> >
-> > Changes in v5:
-> > - Improve the description for "#gpio-cells" as commented by Conor.
-> >
-> > Changes in v4:
-> > - Use folder block instead of literal block for #gpio-cell property des=
-cription.
-> >
-> > Changes in v3:
-> > - Make GPIO range from 0-3 to 0-7 to support GPIO data from remote
-> >   compatible deserializer suggested by Rob instead of adding third
-> >   cell for GPIO controller.
-> >
-> > Changes in v2:
-> > - Remove new property ti,gpio-data
-> > - Add third cell for GPIO controller to select GPIO output source.
-> > ---
-> >  Documentation/devicetree/bindings/media/i2c/ti,ds90ub953.yaml | 6 ++++=
--
-> -
-> >  include/dt-bindings/gpio/gpio.h                               | 8 ++++=
-++++
-> >  2 files changed, 12 insertions(+), 2 deletions(-)
-> >
-> > diff --git
-> > a/Documentation/devicetree/bindings/media/i2c/ti,ds90ub953.yaml
-> > b/Documentation/devicetree/bindings/media/i2c/ti,ds90ub953.yaml
-> > index 2e129bf573b7..da63771bc236 100644
-> > --- a/Documentation/devicetree/bindings/media/i2c/ti,ds90ub953.yaml
-> > +++ b/Documentation/devicetree/bindings/media/i2c/ti,ds90ub953.yaml
-> > @@ -21,8 +21,10 @@ properties:
-> >    '#gpio-cells':
-> >      const: 2
-> >      description:
-> > -      First cell is the GPIO pin number, second cell is the flags. The=
- GPIO pin
-> > -      number must be in range of [0, 3].
-> > +      First cell is the GPIO pin number (0-3) and the second cell is u=
-sed
-> > +      to specify flags. See <dt-bindings/gpio/gpio.h> for available fl=
-ags
-> > +      including GPIO_DATA_SOURCE_REMOTE for remote GPIO data source.
-> > +      Flags can be OR'd together.
-> >
-> >    gpio-controller: true
-> >
-> > diff --git a/include/dt-bindings/gpio/gpio.h
-> > b/include/dt-bindings/gpio/gpio.h index b5d531237448..d04a494d96ad
-> > 100644
-> > --- a/include/dt-bindings/gpio/gpio.h
-> > +++ b/include/dt-bindings/gpio/gpio.h
-> > @@ -42,4 +42,12 @@
-> >  /* Bit 6 express pull disable */
-> >  #define GPIO_PULL_DISABLE 64
-> >
-> > +/*
-> > + * Bit 24 indicates the GPIO data source is from a remote device.
->=20
-> Why 24, not 7?
+On 4/25/26 12:37, Jishnu Prakash wrote:
+> Hi Daniel,
 
-Good question. I chose bit 24 for the following reasons:
-- There is no clear guidance in the documentation on how to add custom
-   GPIO flags, so I wanted to ensure sufficient separation from the generic
-   GPIO flags to avoid potential conflicts.
-- The generic GPIO flags currently use the lower bits (0-6). By using
-   bit 24, I'm leaving ample room (bits 7-23) for future expansion of
-   generic flags without risking collision.
-- This also reserves space (bits 25-31) for potential future custom
-   flags that may be needed by this or other drivers.
+[ ... ]
 
-However, if there's a preferred convention or range for driver-specific
-GPIO flags that I'm not aware of, I'm happy to adjust this.
 
->=20
-> > + * This is used in serializer/deserializer setups where the GPIO pin
-> > + * on the local device (e.g., TI DS90UB953 serializer) reflects the
-> > + * state of a GPIO on the remote device (e.g., TI DS90UB960 deserializ=
-er).
-> > + */
-> > +#define GPIO_DATA_SOURCE_REMOTE		0x01000000
->=20
-> And why the divergent formatting compared to other defines in this file?
+>> Actually, if get_sdam_from_irq() or adc5_gen3_read() fail, they will return without clearing the interrupt flag, so we should potentially end up in an infinite loop.
+>>
+> 
+> I went over this discussion and the code again and I need to explain a few things.
+> 
+> First, please note that individual PMIC drivers do not handle interrupt clearing by
+> themselves - they are under the SPMI PMIC arbiter (drivers/spmi/spmi-pmic-arb.c),
+> which is an interrupt controller and the arbiter driver handles IRQ clearing internally
+> for all the PMIC drivers under it. So we won't be clearing the interrupt explicitly here.
+> 
+>> So the status should be cleared at the end with IRQ_HANDLED. IRQ_NONE returned if it is for another subsystem.
+>>
+> 
+> Maybe my explanation above wasn't sufficiently detailed - the "status" I mentioned
+> above is not related to the interrupt by itself, it is just the ADC's status register
+> reading. If it indicates an ADC conversion fault, the fault has to be cleared by
+> calling the function adc5_gen3_status_clear() before we can make subsequent conversion
+> requests (like for .set_trips) on the ADC.
+> 
+> 
+> There are 3 main reasons for which the Gen3 ADC interrupt may fire:
+> 
+> 1. End of conversion for immediate conversion request (handled in main ADC driver)
+> 2. Threshold violation for TM conversions (handled in this auxiliary driver)
+> 3. Conversion fault (handled in both drivers)
+> 
+> 
+> I think it would make the most sense if I make changes so that the ISRs
+> (of both main and aux driver) return IRQ_HANDLED only when any of the above
+> 3 cases are detected and they return IRQ_NONE in case of errors or when the
+> interrupt is confirmed to be for the other driver.
+> 
+> Does this sound fine?
 
-You're right about the formatting inconsistency.
+Thanks for clarifying. It should be fine.
 
-The existing decimal notation (8, 16, 32, 64) works well for lower bits, bu=
-t
-16777216 (decimal for bit 24) is much less readable than 0x01000000. It's
-also harder to verify correctness and more error-prone.
+>> If you think there can be a significant number of errors in the handler may be you should add statistics but later in an additional series if it makes sense.
+>>
 
-If consistency with the existing style is preferred, I can use decimal, but
-I'd suggest considering updating all these defines to use BIT() hex for bet=
-ter
-Readability and maintainability. What's your preference?
+[ ... ]
 
->=20
-> > +
-> >  #endif
-> >
-> > --
-> > 2.34.1
-> >
+>> [ ... ]
+>>
+>>>>> +    dev_dbg(adc_tm5->dev, "channel:%s, low_temp(mdegC):%d, high_temp(mdegC):%d\n",
+>>>>> +        prop->common_props.label, low_temp, high_temp);
+>>>>> +
+>>>>> +    guard(adc5_gen3)(adc_tm5);
+>>>>> +    if (high_temp == INT_MAX && low_temp == -INT_MAX)
+>>>>> +        return adc_tm5_gen3_disable_channel(prop);
+>>>>
+>>>> Why disable the channel instead of returning an errno ?
+>>>>
+>>>
+>>> This is the convention we follow in our existing ADC_TM driver at
+>>> drivers/thermal/qcom/qcom-spmi-adc-tm5.c. If both upper and lower
+>>> thresholds are meant to be disabled, we disable the channel fully
+>>> in HW to save some power and it can be enabled later if this API
+>>> is called for it with valid thresholds.
+>>>
+>>> Is it considered invalid in the thermal framework to try to disable
+>>> both thresholds? Should I both disable the channel and return some
+>>> error from here?
+>>
+>> Well, if the channel is disabled, then the temperature sensor of the thermal zone is disabled, consequently the thermal zone is disabled from a HW POV but enabled from the kernel POV.
+>>
+>> Why not add the 'change_mode' ops and then disable the thermal zone (+ pm_runtime) ?
+>>
+> 
+> I have a doubt about this part - if the thermal framework sends threshold values
+> of (-INT_MAX, INT_MAX) in the .set_trips callback, doesn't it mean that the
+> framework is already trying to disable the thermal sensor?
+
+No, let me clarify this:
+
+  * the thermal thresholds are set by the userspace to get notification 
+when a temperature is crossing the way up or/and down a specified limit. 
+Thresholds can be deleted, added, flushed, etc ...
+
+  * the thermal trips are specified by the firmware and should not be 
+changed even if I agree there are the writable trip points which IMO we 
+can consider for debug purpose
+
+If you specify a trip/threshold point with min=-INT_MAX and max=INT_MAX, 
+semantically speaking it is correct but in practice these temperatures 
+won't be reached so it is like the trip point is disabled but it is a 
+side effect.
+
+A trip point is a property of a thermal zone.
+
+A thermal sensor is represented by a thermal zone.
+
+A thermal zone can be enabled without trip points or thresholds. The 
+userspace is still able to read a temperature through netlink or sysfs.
+
+> Or does it just mean threshold monitoring functionality can be disabled for now,
+> but other functionality like temperature reading is still expected to work?
+> 
+> Please note that adc_tm5_gen3_disable_channel() only disables the threshold
+> monitoring and interrupt generation functionality - the get_temp() call to read
+> temperature will still work.
+
+Above you stated we receive a notification when the conversion is 
+finished. So how do you read the temperature if there is no interrupt 
+telling to read the converted value ?
+
+> Perhaps I should not have used the wording
+> "disable the channel" above, as calling adc_tm5_gen3_disable_channel() is not
+> exactly the same as fully disabling the thermal zone.
+> 
+> Please let me know if any change is needed there - should I return any error
+> after calling adc_tm5_gen3_disable_channel() ?
+
+I understand, your point. Perhaps just put it apart and address it later 
+as an optimization when the driver is merged and everything is clarified.
+
+>> [ ... ]
+>>
+>>>>> +    /*
+>>>>> +     * Skipping first SDAM IRQ as it is requested in parent driver.
+>>>>> +     * If there is a TM violation on that IRQ, the parent driver calls
+>>>>> +     * the notifier (adctm_event_handler) exposed from this driver to handle it.
+>>>>> +     */
+>>>>> +    for (i = 1; i < adc_tm5->dev_data->num_sdams; i++) {
+>>>>> +        ret = devm_request_threaded_irq(dev,
+>>>>> +                        adc_tm5->dev_data->base[i].irq,
+>>>>> +                        NULL, adctm5_gen3_isr, IRQF_ONESHOT,
+>>>>> +                        adc_tm5->dev_data->base[i].irq_name,
+>>>>> +                        adc_tm5);
+>>>>
+>>>> The threaded interrupts set the isr in a thread and from the thread
+>>>> handling the event, there is a work queue scheduled. Why not use the
+>>>> top and bottom halves of the threaded interrupt ? Hopefully you should
+>>>> be able to remove the lock.
+>>>
+>>> Yes, I can use the top and bottom halves of the threaded interrupt as you
+>>> suggested. But what exactly do you mean by removing the lock?
+>>>
+>>> If you meant the mutex lock used in this driver, we cannot remove that.
+>>> This is because the ADC_TM driver needs to write into several registers
+>>> shared with the main ADC driver for setting new thresholds, so we
+>>> have to share a mutex between the drivers to prevent concurrency issues.
+>>
+>> When using a workqueue tampering with registers while an interrupt handler is doing the same, the lock is needed.
+>>
+>> But if the workqueue is replaced by threaded interrupt, the lock *may* not be needed because the design may prevent race conditions.
+>>
+>> That may be not true in this case, I did not investigate deeper in the code to figure it out. Let's see the next version
+>>
+> 
+> I think a lock will not be needed with the change I planned, but you
+> can judge it in the next version.
+
+Sure, thanks
+
+   -- Daniel
