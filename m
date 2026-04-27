@@ -1,84 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1496A2E414;
-	Mon, 27 Apr 2026 19:14:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDAD63559EC;
+	Mon, 27 Apr 2026 19:16:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777317298; cv=none; b=Z6/7EC/qTMHHnfZaSIIKg8l6hwXqFNqfs9/mIdBBKQeTpY6JbG/k9+0aNXO8Udn1m1lKIJNzGCJBQsUqZGVA00e06mecN+ZxC5pJPr36SDsl7I8z0b/Th+O4s31BRuwNA33GXtbdGowof7gEOjb43YmKL3ODyT1AIRcmkAmL4Yc=
+	t=1777317390; cv=none; b=SLUoNA80Rxm4kA8JZTyy+J3FTBZk7tX8HKMbs1oVYaREc3PJFexOwvhzJj6xTOoAkFyqK7ry0rXFWaU4qEEWToZoNOSPqm4VgleOVGxBGxziX6+rzinK7CWQ7vIaCwzuacDwKAz6z6SXVOtPJaV4UUe0W+ZfLfdg5jHz4t4hJm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777317298; c=relaxed/simple;
-	bh=PdnuyTvuhoQMGMeBVnQLbG5IqfTvFPutVB/bI+WpAOw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MOwviJV9nTIPVhLhE9xm+xAvedphYaEu+MDnGyKZdjLAUs0ug0hPLqosUgxiRt8t94HvMmqqnG3hFA76tX0XPzZLGhRpWe+XI6HfGrVpoAiW9eY3TY1nDbgoEY/dYnD1oaZr7qImPPRRL+PV41oI+9JSOxPAU3SBG2UhJV3nNoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B8ZAI2pM; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777317390; c=relaxed/simple;
+	bh=ixckm2P4vuXIw7DV3No6tQyUzz3TqNd6xEhgFTEaVpQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mfqVGhmz6K4vBMkI0fySKMXq5TSr3+AdjU+2b5Q+d75yPMXZawU6QIwtodMBEQOFGX63v/McoazXGp9q1I12Se7kQU2yL8uWOmWse8M8EX1O3ChIHQK3KoL2CWit7mldyB8vHYf7X0LbVaZy98bD4zybaS3yIS0n3cz/YzoOyiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nheMo4pn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B8ZAI2pM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 616D0C19425;
-	Mon, 27 Apr 2026 19:14:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nheMo4pn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E94AAC19425;
+	Mon, 27 Apr 2026 19:16:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777317297;
-	bh=PdnuyTvuhoQMGMeBVnQLbG5IqfTvFPutVB/bI+WpAOw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=B8ZAI2pMW/5vuMO0eg2as3bzLndbw80bRRuTBzEWC+xrIPfSh7bSGwyYZ3Mr755oV
-	 4Hw7xQYBsQI38cnWWDMjX82epPl1HajS9Vr4fCigkrSS7GBs/DENYlMNZEuK1ZeeKI
-	 fR3BuEH6GRZAbUUqQ7toEfn5kd5G/52nIATFlJbEyZgWM+w2kK9kdcwbaCaxXaSJIY
-	 iyq4MU7ynSq7KJcZI9VX+BONqCBFXWK3cuA6SkKXUhHJbnU//Sf5ByL5F5Pz50Iz2s
-	 SPI/aodPsGbfVwcmgBslMDYsTYeT+JS//wdtJChEZ3IQQjS/5du+ahPU5vAzmtn3dQ
-	 YJHM2vNdtl1Cw==
+	s=k20201202; t=1777317389;
+	bh=ixckm2P4vuXIw7DV3No6tQyUzz3TqNd6xEhgFTEaVpQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nheMo4pnun3AlAxdrXBXdrTdhbFj7DbwfjQ9v17CQFZiUGrfmP/8RVGiSHHzXF5O9
+	 xOGMHybsUViXE8W6LuvKguTjlEwy3Ek0m1WbZidjCkivf/V/nKbMufcBlVuKoloWLE
+	 31zFEItHru0ZV4XyqwIP71uYEqxzDA5l/KOwpHonsp3F0FKZHmD2ujDP24qEQ5EHpr
+	 3JdEJCDezFWzmp1i7K2CosqsvVJ7SAY9CXZQ95xoXfoedgTWtBbIAySaUX4UhvOdme
+	 biVvIpA15xp3EF90HoZ7xON2d+EBnRJ6D2CIpYa8jgwLtNT+DcS/4nKXpc515In90P
+	 AR8XC//rg0Ylw==
+Date: Mon, 27 Apr 2026 20:16:24 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Emil Renner Berthing <kernel@esmil.dk>,
-	Conor Dooley <conor@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+To: Michal Piekos <michal.piekos@mmpsystems.pl>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Conor Dooley <conor.dooley@microchip.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] riscv: dts: starfive: jh7110: Drop CAMSS node
-Date: Mon, 27 Apr 2026 20:14:22 +0100
-Message-ID: <20260427-coherent-slimness-133d28f2cba0@spud>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260420-starfive_camss_use-v1-1-ec326af71ca7@ideasonboard.com>
-References: <20260420-starfive_camss_use-v1-1-ec326af71ca7@ideasonboard.com>
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v2 1/4] dt-bindings: timer: allwinner,sun5i-a13-hstimer:
+ add H616 and D1
+Message-ID: <20260427-glider-cause-f6e015c6595a@spud>
+References: <20260426-h616-t113s-hstimer-v2-0-e65e9dc0c9da@mmpsystems.pl>
+ <20260426-h616-t113s-hstimer-v2-1-e65e9dc0c9da@mmpsystems.pl>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=501; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=09O818Y59SMVVItRNPa3fOedSa/QBLcndxc5e/T2S+8=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDJnvt/aKbir1fVW7RsAivnfOsR0HWhpeS56w8d1Ze+Fqb TRP2h3hjlIWBjEuBlkxRZbE230tUuv/uOxw7nkLM4eVCWQIAxenAEzkfAQjw4FzJx56ugSEbZp1 Sbz2srxM0OmksglsC/n2t7rEfsrarcDwT5V7k+eX8nX72Qu3XJshwzz5cs65P7+qdk7c0SSsYPv rNysA
-X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pNK/41k60Ogg+RgS"
+Content-Disposition: inline
+In-Reply-To: <20260426-h616-t113s-hstimer-v2-1-e65e9dc0c9da@mmpsystems.pl>
 
-From: Conor Dooley <conor.dooley@microchip.com>
 
-On Mon, 20 Apr 2026 18:48:07 +0530, Jai Luthra wrote:
-> The starfive-camss driver and bindings were dropped, as they were no
-> longer being worked upon for destaging.
-> 
-> Drop the relevant node as well to avoid the following build warning:
-> "failed to match any schema with compatible: ['starfive,jh7110-camss']"
-> 
-> 
-> [...]
+--pNK/41k60Ogg+RgS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Applied to riscv-dt-fixes, thanks! I did drop the Fixes tag in the end, but
-since this is going on -fixes, your goal with it has been achieved regardless.
+On Sun, Apr 26, 2026 at 12:15:26PM +0200, Michal Piekos wrote:
+> D1 is similar to existing sun5i, but with different register offsets.
+> H616 uses same offsets as D1.
+>=20
+> Add allwinner,sun20i-d1-hstimer
+> Add allwinner,sun50i-h616-hstimer with fallback to
+> allwinner,sun20i-d1-hstimer
+> Extend schema condition for interrupts to cover D1 compatible variant.
+>=20
+> Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
 
-[1/1] riscv: dts: starfive: jh7110: Drop CAMSS node
-      https://git.kernel.org/conor/c/3e256d4c4074
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Thanks,
-Conor.
+> ---
+>  .../devicetree/bindings/timer/allwinner,sun5i-a13-hstimer.yaml   | 9 +++=
++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/timer/allwinner,sun5i-a13-=
+hstimer.yaml b/Documentation/devicetree/bindings/timer/allwinner,sun5i-a13-=
+hstimer.yaml
+> index f1853daec2f9..3e2725c56995 100644
+> --- a/Documentation/devicetree/bindings/timer/allwinner,sun5i-a13-hstimer=
+=2Eyaml
+> +++ b/Documentation/devicetree/bindings/timer/allwinner,sun5i-a13-hstimer=
+=2Eyaml
+> @@ -15,9 +15,13 @@ properties:
+>      oneOf:
+>        - const: allwinner,sun5i-a13-hstimer
+>        - const: allwinner,sun7i-a20-hstimer
+> +      - const: allwinner,sun20i-d1-hstimer
+>        - items:
+>            - const: allwinner,sun6i-a31-hstimer
+>            - const: allwinner,sun7i-a20-hstimer
+> +      - items:
+> +          - const: allwinner,sun50i-h616-hstimer
+> +          - const: allwinner,sun20i-d1-hstimer
+> =20
+>    reg:
+>      maxItems: 1
+> @@ -45,7 +49,10 @@ required:
+>  if:
+>    properties:
+>      compatible:
+> -      const: allwinner,sun5i-a13-hstimer
+> +      anyOf:
+> +        - const: allwinner,sun5i-a13-hstimer
+> +        - contains:
+> +            const: allwinner,sun20i-d1-hstimer
+> =20
+>  then:
+>    properties:
+>=20
+> --=20
+> 2.43.0
+>=20
+
+--pNK/41k60Ogg+RgS
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCae+2CAAKCRB4tDGHoIJi
+0nS7AP4/CDhqa4Ux2Wj5qHy3wSqDPSDnHczo2iuNR62MTBa6EAEAiZz+CQNqwujG
+BD7yUhD4X39xYTXU1o1JE7Ek1rLTqws=
+=YqUz
+-----END PGP SIGNATURE-----
+
+--pNK/41k60Ogg+RgS--
