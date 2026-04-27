@@ -1,148 +1,265 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A85E3B47CF
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1429B19CCF5
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:10:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777284606; cv=none; b=cnTxoNOhjN2kMrO77WAEeemLSz4f1hkJX3P77QCUV40WK9nAmjoaj2+Akn/VeLVvriHazeUHqW1L93Eg198RQ2PI0lgh+k2/3NqBUaCA9uc9PAxn9c+ueCI3Mx3gteDE7LKZfFKaLmQdCPzpiUZMic4M1WeYEvLdh3xr7PksCwo=
+	t=1777284612; cv=none; b=UPrs9XfPcZI5TMcKy+t5gq5WYdhGNo+hRsATNj5UpAD/4/KxPCdpcg88yvTBpy5mGHVk1FR8nNdP0aD/8cXIPgqiPYRh+5rFIyJ2orkkzLy0PhNJ2XeRXaSylUnZksgR2k39bdqU2YTJNeqW22UnguWu55McBVCkMH49yei3Rdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777284606; c=relaxed/simple;
-	bh=df59Xk7yR3KlM3Nop9TG33Euc01Wqj3JKaFTj1LdW1k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Cflv3ER6Cnm4vZm+IMLcQwo0iodY8loJs70rGHoTF6HgUSE1P9dkDA3nLSRTvnK4U85xRLwAmBvultHISk7aDF8qDcok8/sG+TEu5kCgM4mAU8t+k68/mpLIiUDuvQPyLMlqcOLlzXlg2krxc6luN+Om271zI2lrF16BkFtv9ho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ocljP44C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KCOEhINc; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777284612; c=relaxed/simple;
+	bh=0PUkoXhMDarNP9t/5JZNDvxydLZwYMiP1Clat9658yU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=op+CfzdhERCIrxJ1PLEsUmpkSE9FdlanTHcyclzOO+8Eu08hqxV9l9IJJa9foKEVCzfUlIgg2FYIDKp59OpdJFrdH9n2GtZP5NE2m7qhMWhZb+kKhlOdVd7+mXrh+zJmA/WodZptInXubRonoFsQtwyOxchqu/IBJQUAP6J+RSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ePDfWqKX; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ocljP44C";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KCOEhINc"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63R8T7OQ3639521
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:10:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UySfCgJ955LJs37rWuiTegFDYRglF9oeDO5PYw8FEcs=; b=ocljP44CtJkbAB/z
-	Qoc3gQ2MQ4o2ZXOenOsn5fH363WaY0ST/PXBY0+G4x34isCBAIRNRPi54/JwyJa8
-	jtzTY9KXk0y6NuxAMGRSno/IKvfs/Tbn4R9zIK4HqSet5q871lBYyVtX5g/AK/Cc
-	gKZkidEgo/MafZTvBt6klXYjBevbgH317qh/JdAj0yPxeipu5ZziF6ggaY+9vAAL
-	9G4ueM07g5Wid80WUS7twQfaxU+gjldcZD3hE/FxHcT2vSWx0H/EGJMnGSZeJnMZ
-	sRa3XS2Rd/j8Ea2o91urF5K7LA9XBa4F3HtSG96PHtIaIt3d6EJewfT1zc5oM8uJ
-	j7t5dw==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dsya01k8b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:10:03 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50fb0b93e90so22141861cf.3
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 03:10:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ePDfWqKX"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c76b9efc299so4063105a12.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 03:10:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777284603; x=1777889403; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=UySfCgJ955LJs37rWuiTegFDYRglF9oeDO5PYw8FEcs=;
-        b=KCOEhINcDEqXQndDzbf4Z7MdxHN3KYKnk/HMQFy9x6E8YeGKwyDL6SdMKCDW0FrfGh
-         k5U5T6w6fKmYedeJWKUBy/4GGQ3NtITTw0CDHr9uLW5d+sRdgzQ/lnW6lwFSq70AwiWI
-         gqMfA8V0cHBvCUTGnmHQHuQEZoBZaNN883s+vp8RDH/iJFT4cIhLEKXNz+nFHqOLyoxE
-         J7NrzzM9bXCTeZjd5ibDkFmiqKH13M/CCauKnbwKIICkq//Kc8F494RAnbH0O2fEve/D
-         3pC+A/uaoX+Q6KDS1cU1yRye1Djwr8b8TJ4sIoHHBaIlMhyT/ONYZAkcDditMtQ0BxD+
-         w2Gw==
+        d=gmail.com; s=20251104; t=1777284609; x=1777889409; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DbGHpgdnNrh8VCIxoCiZ35IAkxAnxOipEdRQVtqttRY=;
+        b=ePDfWqKXToKssoSJRTXpp1zcC2bjUAo9g8FIpp81kqamB4B76sZaDU3zh3QD0fEH4m
+         fRKDDcghcwhCgZzx6MOIujFEvUD537CGDVHPgZZv4Jr+ij8jRNQTRlLX61z8zq3/F6bu
+         5mcgJUXmpAeeve4T/vtxITbxxZQKTuWvGK2BWpsQFCO2gstVENR46My9Ux5GJZI9y/cf
+         f8HHRA8D9LgnJNwvkgcfYXR5ad+yer/I1p7dYNr1bgHUlFovUSVZ/imRjvPFEYBUHnvk
+         g8Ypomiji/SISgzonPgmUIsHZNn2A92BJZpR3LjtV0PUNAVWj2XLSkiX82W1fbUidlTq
+         2sbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777284603; x=1777889403;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=UySfCgJ955LJs37rWuiTegFDYRglF9oeDO5PYw8FEcs=;
-        b=qvx3VvbX7KgDb1Va2uKfQeZj45Em58wl8iuta8A1iDhhwvvEqjHnqT7ppoIOmxlwX0
-         8LkwTs6uHZ/QmfisalsmsPdIfOOM1mLJyIH/s/ApeiRVuF3sBwAuDLQmvhNaW6265J8u
-         iNUcSJh6Zs7w537p9xVYiqvJxM3czc4UNIEeDjjx3l/OoiFzhOwmn/CdoTjo/RE/+h5x
-         qb2I588mkOsgthZo0hr2Yj9EF8vypZDWgmcodE753ScOKniiRX+/78IRFp9JpT2yLJ+e
-         7tBlL8CDF4zUe1ugGmQKOa7HaMW21gkNP5HT5p6w+T0+LR+AheTS2GoYmbkvc3A219v2
-         +RMQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9b5ZRnuQZtnXASSNytjzCm9o67ePv5HEbMfhgNZ0Lt/wq+gJbnhiDb//RdHOG4byiESyGWBL51OpJz@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTJ9a+6UqTWWPGl6Yb/efCfO6yYQIh5rMHK4NWdjLwlzYd8WxC
-	0kCHBgKSElQi4SGg2633YtjQduRjt9h1w/lvFy44/jJKG8apEtg9dnTlR1tkywWN2HZA7GbMbkU
-	YDlSfgj+pnajiT7NVnnT44a2xsAOBbT28wlX4Oi0Sf2XIm6oxIErKltnXpi4nDq9L
-X-Gm-Gg: AeBDieuzCzJU+44Qz89UJK7iphS65DmCVuuZvFddJFS7xTP2Tq7RrdG9bZZVYHEp/Wn
-	gh+CvLaZieK4ZZSc2rYlVKv0tFDdp2Cf2jl4B6KB4SMoHj99mcwd4tS1p4H1Mwi4kcj36/wPAWQ
-	90IE64vCx3/nuLEww8u12lmTW58eoeQFW/897pwjnoTIYc1umJSLcy5MA73B6FFfitPABK7EgvI
-	AbZ29PDZmbB2/mjYKM9X90U98w/V7wHch8pfP/qwi/i79GEiP7BVuUj0eaK8HyZCLr8Sx/KwwUk
-	xYBtgufmMjWD3OHvw8gQ+aYKRYHOjiEAkfmhGNZ6Q3RKpT35SFolh6JcW5thO/7j3adGkLJ+3Ga
-	vKMi1ajVXkg9fzOn6ONCIpinpVeZJEkk/QQk23ljO6DA8xBrZNx5QgDxHQSRd7wXGOesR4ocPlX
-	EW0WXNbgxfZMfBjg==
-X-Received: by 2002:a05:622a:a06:b0:50e:5cc3:6f59 with SMTP id d75a77b69052e-50fad4a0f81mr303493201cf.5.1777284603363;
-        Mon, 27 Apr 2026 03:10:03 -0700 (PDT)
-X-Received: by 2002:a05:622a:a06:b0:50e:5cc3:6f59 with SMTP id d75a77b69052e-50fad4a0f81mr303492691cf.5.1777284602682;
-        Mon, 27 Apr 2026 03:10:02 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba451cdd2b8sm1107652966b.25.2026.04.27.03.10.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Apr 2026 03:10:01 -0700 (PDT)
-Message-ID: <97c230b5-167c-41d4-9f36-e62b97ff202d@oss.qualcomm.com>
-Date: Mon, 27 Apr 2026 12:09:59 +0200
+        d=1e100.net; s=20251104; t=1777284609; x=1777889409;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=DbGHpgdnNrh8VCIxoCiZ35IAkxAnxOipEdRQVtqttRY=;
+        b=ZLPkfsImF/mrl23xUSFA70HS0RqGrzHwVAjQLnyRq/pYeouYSKNbzJeFJDOjCPWgCJ
+         3gFVpVxwa4dNDWl6EEH4IqLhLrQsI5t/1d42UbsVBKyHSBDpvgERNKra7U0j2RedLoMZ
+         j4oKF4yMliXzh0G7ytNACdNav2xFIfXst+uf3XVnKhCFqiNX9kK1iBj4Udoaf/6z6Oc2
+         9GUxPGEqw7ukize2uBw2aBvxcy8YqoukUkoHUyPU0P7D2ICSlXYOaGFzwvPIsLE/sG3f
+         cVwYKTXRRbo32gp00S4kjOxzdL4E+encEmRl2TXHKceiX+v0EgFD7rFAM7Z7xOC6iucz
+         5PcA==
+X-Forwarded-Encrypted: i=1; AFNElJ/LY19VRnGmeQVealZBbUfe1THT1Q922y3a9XKtN6AUSPXWPjoWlNAN/gxpmdPZxoDf0bDfTHDzp6bC@vger.kernel.org
+X-Gm-Message-State: AOJu0YyRPEIfYXprVvY/OO9RNx6Gz+0pZbn42uV9mbjueSQOJyDvbSim
+	L8BIgHBsDgmj8BTIlwudgyCQrwzWbOsCq9MQiJuIMvNJ97Z0hAOaLfdi
+X-Gm-Gg: AeBDievimTgw6kbNg6k5kXiYrqU6CLKw3P5+mgo+KTLpjBZt4R2y47L6lK+dL00Jwkr
+	uEqoOoZzDCEDIyhdFzchcJSdZ/iT7seLNhYdZ5Cx078uIzk38gG1bQPc1aERUZ/XhyYS0EJwuy1
+	vaubUqTNz9NUKKvB/At0DFQHz9VmV5Qtmg91+ZtbQZSZ0wW2NGtnj8/XwYtVMKVjwlWjl+20JNH
+	EygqB37Ef/RDPmWnKKVkY8z1eE58nIKnNIQl6pXf/zmIful6d3S21zKc0XMG9e9KN++bSo92yi0
+	YkkMGPdw5JnDid7JgypIDLs+r4Uej8yQrH+nes/Hlew8p5VrlQHzlpKtp5oPsfhJMhzOE3DMGMx
+	o4eWKrACiDLv4CEPe9G0m90fSr9LiLPfRuSQYCGCxGGZg+jCt655cMYEQXTpIAXsTr0a1QyfRHM
+	BWozZv/PucIPVamLKnVsxVQX7ZTmDohL0PqpY11luxAPrNEL1aRBLs5zoOGAIhevAq/71zwq1Ru
+	2frASpkbd1RKFhznXiOdiuhLeE6FQ+BBBbqlYO0jn1is5yQBA==
+X-Received: by 2002:a05:6a00:3397:b0:82f:6c31:51f5 with SMTP id d2e1a72fcca58-82f8c830364mr47167373b3a.3.1777284609395;
+        Mon, 27 Apr 2026 03:10:09 -0700 (PDT)
+Received: from lord-daniel-VivoBook-ASUSLaptop-K3502ZA-S3502ZA.. ([2405:201:31:d016:e577:22da:dc9:7f6c])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8ebba485sm39534225b3a.38.2026.04.27.03.10.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Apr 2026 03:10:08 -0700 (PDT)
+From: Piyush Patle <piyushpatle228@gmail.com>
+To: ak@it-klinger.de,
+	jic23@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 1/7] dt-bindings: iio: adc: avia-hx711: add avia,hx710b compatible
+Date: Mon, 27 Apr 2026 15:39:32 +0530
+Message-ID: <20260427100950.33936-2-piyushpatle228@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260427100950.33936-1-piyushpatle228@gmail.com>
+References: <20260427100950.33936-1-piyushpatle228@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: monaco: fix wrong connection for the
- replicator
-To: Jie Gan <jie.gan@oss.qualcomm.com>,
-        Bjorn Andersson
- <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260427-fix-monaco-coresight-dt-v1-1-1707017f20c5@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260427-fix-monaco-coresight-dt-v1-1-1707017f20c5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: ye-DBj2FuNzkMl0CFgf0CXGu3xq_wRex
-X-Proofpoint-ORIG-GUID: ye-DBj2FuNzkMl0CFgf0CXGu3xq_wRex
-X-Authority-Analysis: v=2.4 cv=DZEnbPtW c=1 sm=1 tr=0 ts=69ef35fb cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=TcQrU0szjGiQgjDi6ycA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDEwNSBTYWx0ZWRfX4JIPhsr8op0l
- 0xbSPTWvHUj7hE1dIMYLbDQ0NWUTzV/JM9HeRN2ghXcQ0a7M9IOozPAHDEKlIa7va7MsdoxwSGo
- ShnqAb0mTvDjhvjIakEjy3pz9Lib/tNx9Jl8+bPs3JD4J1kSZ5hk/1HyZ0tKKTF/6qSToIALQDQ
- JaZ+e0AMg7sajSWrP+HxSxk00vK2XUQymfhOsPvoRwBCFhfQUSL+WgxJY5N9GBv6Ti9ctaChZuk
- nIjJjlXt+R/1gSvxjJFcOpAyUme0GeJ5qQrarud5z2MFCqEucfo7OAUAf7z79NME+uWO5hCaVSP
- cEHYkzbkO5h9vf4++VlaoTnUJfU+LsR3SQX26OXolsnZt8z6aKbSPa0Q9SUMk1Z0oZyxooZCwOq
- I9rUpHalmJMxorttuvyRTU5WVFkmMGuxAittxUv97mLN7ZkjwMch8aeYSchtMBqg2tSHCsoGOeD
- O45jBAqLRyvWWpGlZEw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-27_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 spamscore=0 adultscore=0 bulkscore=0
- lowpriorityscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604270105
+Content-Transfer-Encoding: 8bit
 
-On 4/27/26 6:33 AM, Jie Gan wrote:
-> Fix the wrong connection for the qdss replicator device.
-> 
-> Fixes: 0f43254763b3 ("arm64: dts: qcom: qcs8300: Add coresight nodes")
-> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
-> ---
+The HX710B shares the same two-wire interface as the HX711 but differs
+in its channel and gain model: gain is fixed at 128 and the number of
+trailing PD_SCK pulses selects the input channel rather than the gain.
 
-I'm afraid this patch will miss-apply since the visible context is not
-very telling.
+Add avia,hx710b to the compatible enum. Document the chip differences
+in the description and add chip-specific supply properties (dvdd-supply,
+vsup-supply, vref-supply) and a rate-gpios property for the HX711 RATE
+pin. Add allOf constraints that forbid HX711-only properties on HX710B
+nodes and vice versa. Clarify the clock-frequency description to
+reflect its actual purpose: controlling the SCK bit-bang timing.
 
-Try setting `git config diff.context 20` (you can revert to the previous/
-default value later because usually the default is reasonable)
+Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
+---
+Changes in v4:
+- Add vref-supply for the HX710B VREF reference voltage pin.
+- Remove dvdd-supply from the HX710B forbidden properties list; the
+  HX710B has a DVDD supply and the DVDD-AVDD channel relies on it.
+- Add allOf block forbidding vref-supply on HX711 nodes.
+- Add an HX710B example showing vref-supply.
+- Update description: avoid specific channel-number references in
+  hardware text.
 
-Konrad
+Changes in v3:
+- Drop the vref-supply mention from avdd-supply; no such binding
+  property exists.
+- Drop the clock-frequency sentence that repeated the schema default.
+- Restore the example node name to weight.
+- Remove the separate HX710B example.
+
+Changes in v2:
+- Remove driver implementation details from the description and describe
+  hardware behaviour only.
+- Drop unrelated punctuation cleanup.
+- Add dvdd-supply and vsup-supply optional properties for HX711.
+- Add rate-gpios optional property for the HX711 RATE pin and forbid it
+  on HX710B.
+- Add the allOf if/then block forbidding HX711-only properties on
+  HX710B nodes.
+- Clarify clock-frequency as SCK bit-bang timing, not a crystal or
+  external clock input.
+- Sort compatible enum alphabetically.
+- Remove redundant example comments.
+- Update the HX711 example to exercise rate-gpios.
+---
+ .../bindings/iio/adc/avia-hx711.yaml          | 82 +++++++++++++++----
+ 1 file changed, 67 insertions(+), 15 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
+index 9c57eb13f892..fddd296bfaca 100644
+--- a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
+@@ -4,49 +4,91 @@
+ $id: http://devicetree.org/schemas/iio/adc/avia-hx711.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: AVIA HX711 ADC chip for weight cells
++title: AVIA HX711 and HX710B ADCs
+ 
+ maintainers:
+   - Andreas Klinger <ak@it-klinger.de>
+ 
+ description: |
+-  Bit-banging driver using two GPIOs:
+-  - sck-gpio gives a clock to the sensor with 24 cycles for data retrieval
+-    and up to 3 cycles for selection of the input channel and gain for the
+-    next measurement
+-  - dout-gpio is the sensor data the sensor responds to the clock
++  The HX711 is a 24-bit ADC with selectable gain (32/64/128) and two
++  differential input channels. Channel A supports gain 64 and 128;
++  channel B supports gain 32.
+ 
+-  Specifications about the driver can be found at:
+-  http://www.aviaic.com/ENProducts.aspx
++  The HX710B is a 24-bit ADC with fixed gain of 128. One input measures
++  the differential voltage between the two input pins; a second measures
++  the DVDD-AVDD supply voltage difference for battery level detection.
+ 
+ properties:
+   compatible:
+     enum:
++      - avia,hx710b
+       - avia,hx711
+ 
+   sck-gpios:
+     description:
+-      Definition of the GPIO for the clock (output). In the datasheet it is
+-      named PD_SCK
++      GPIO for the clock output (PD_SCK in the datasheet).
+     maxItems: 1
+ 
+   dout-gpios:
+     description:
+-      Definition of the GPIO for the data-out sent by the sensor in
+-      response to the clock (input).
+-      See Documentation/devicetree/bindings/gpio/gpio.txt for information
+-      on how to specify a consumer gpio.
++      GPIO for the data output from the sensor (DOUT in the datasheet).
+     maxItems: 1
+ 
+   avdd-supply:
+     description:
+-      Definition of the regulator used as analog supply
++      Analog supply voltage (AVDD). Also serves as the voltage reference on
++      both chips.
++
++  dvdd-supply:
++    description:
++      Digital supply voltage (DVDD). For the HX710B, DVDD must be greater
++      than or equal to AVDD. When DVDD is a battery rail and AVDD is a
++      regulated supply, one channel monitors the DVDD-AVDD difference for
++      battery level detection.
++
++  vsup-supply:
++    description:
++      Supply voltage for the on-chip regulator (VSUP). HX711 only.
++
++  vref-supply:
++    description:
++      Reference voltage input (VREF). HX710B only. When omitted, the driver
++      assumes VREF is tied to AVDD on the board.
++
++  rate-gpios:
++    description:
++      GPIO connected to the RATE pin (HX711 only). When driven low the
++      output data rate is 10 SPS; when driven high it is 80 SPS. If
++      omitted the RATE pin state is determined by the board wiring.
++    maxItems: 1
+ 
+   clock-frequency:
++    description:
++      Controls the SCK bit-bang timing. The value is used to derive the
++      delay between SCK edges; keep the SCK high time below 60 us to
++      avoid triggering chip power-down mode.
+     minimum: 20000
+     maximum: 2500000
+     default: 400000
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          const: avia,hx710b
++    then:
++      properties:
++        vsup-supply: false
++        rate-gpios: false
++
++  - if:
++      properties:
++        compatible:
++          const: avia,hx711
++    then:
++      properties:
++        vref-supply: false
++
+ required:
+   - compatible
+   - sck-gpios
+@@ -62,6 +104,16 @@ examples:
+         compatible = "avia,hx711";
+         sck-gpios = <&gpio3 10 GPIO_ACTIVE_HIGH>;
+         dout-gpios = <&gpio0 7 GPIO_ACTIVE_HIGH>;
++        rate-gpios = <&gpio0 9 GPIO_ACTIVE_HIGH>;
+         avdd-supply = <&avdd>;
+         clock-frequency = <100000>;
+     };
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    weight {
++        compatible = "avia,hx710b";
++        sck-gpios = <&gpio3 10 GPIO_ACTIVE_HIGH>;
++        dout-gpios = <&gpio0 7 GPIO_ACTIVE_HIGH>;
++        avdd-supply = <&avdd>;
++        vref-supply = <&vref>;
++    };
+-- 
+2.43.0
+
