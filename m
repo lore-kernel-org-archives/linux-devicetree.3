@@ -1,108 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540AA371890;
-	Mon, 27 Apr 2026 06:36:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03FB37D138
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 06:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777271788; cv=none; b=pqb26SY55dy8Q2328aZsoKsUsmmnSuXpZ3D201GPvkoskxAf272GS7+YA8InDCkX03KJmGptEyoEdgUTRjy4mWKyZVNMQzKPolO5DLFJhXu9zjdF0IXb1Hup2m0vul7TmFiTbqyY/Q8Vjee+UeRWHpn5ZVALI0J//gIBgBGK1ww=
+	t=1777272148; cv=none; b=tjPHwxHvdegdibDE4T5vsaAgaYtIxmlY9Yo7i5ev0T1zDospX9pqsAyJKDSwsp4GdFiHU/+UINe61UyzU0wwcp2qSnNpPF5TwzsRp+2sdDXB5C+iG0tIpkhaGWYUb473x4953tszEXVLTYvmL0Myov2IiP2SNeTz8ZsJfUaf83I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777271788; c=relaxed/simple;
-	bh=yl5/WDsjZspBmlBOze3U4ANL3sT69J4PkQ8aajn7tEY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CxJn5F3xFC6iBB+WDkf6d6Gl1jBRuIWRXN53ecyEU8QEna7kYzq4/j6fXcSraAAQo+zCIpjo5EgxaMpwxXqXyys1lsEYls7C2PsJ8g46WG+mHuj/ViHX5AzFPR4nyEqmOHiHb73PxRSCDqFJ8BCgkTJCJ0qQI5NGxahgeTfsh/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=foOydptn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777272148; c=relaxed/simple;
+	bh=mw6mwptDA5uoTeDrka/qYZXjH+Vrm1JywJJ0ewmeIPo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qXKHzpW695TOhhtxmhgtc4hZZ6kPjd3kkZQmYh64YUf3DmxKslKg4f83z3zIKxQeLGYBXGFrCcpaI4/ja0INbYzdFoTY1oZJVaRTR//F5R6bD9aWcYYqDOZBPgVk7mq0REp9Y6IG1NNDvUeb+C3Iyfywo2Q2ETGWpOyd25p3Lus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com; spf=pass smtp.mailfrom=inventec.com; dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b=UOHO4pOX; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inventec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="foOydptn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 268E6C19425;
-	Mon, 27 Apr 2026 06:36:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777271788;
-	bh=yl5/WDsjZspBmlBOze3U4ANL3sT69J4PkQ8aajn7tEY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=foOydptnN/8QOM/iQIxum2PeUwe29pV7wyizcoNKqUM90dJle2dR8dntX55M3/dtG
-	 1K9jUXWgtHQPWKkXgrq1R+0asMBYY3yiclBCf/k6535+PE969LJeUXBiXZS41zWbpI
-	 Ef2YNV5buy6caYzfEJEdgTW2Ez3sLivuISMfTvoTIoH4AgXO0FCjzt5saNlYFOnvQV
-	 g3+LUWjyaDVAf0YCOKXsclnGTzDv73xVv+wnHkXRy4FbSkLCZCCR1oIxGHnGYgFOr8
-	 mgv03bxlIiUyPHnGhwuXS2vsfVu0JWUG7WbNroc4X3u4pUo0wB/0AcfrnuWY4sxPmu
-	 9JrNeql22t6Ig==
-Message-ID: <d78e5b19-c380-4fd6-9ae7-e2b20b74474f@kernel.org>
-Date: Mon, 27 Apr 2026 08:36:22 +0200
+	dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b="UOHO4pOX"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-82f9fdfc965so3857385b3a.1
+        for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 23:42:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=inventec.com; s=google; t=1777272144; x=1777876944; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=PdwCjZ9cqGXmbdLC2LWsKAWhycfXBl0zq2VQEo6gMUk=;
+        b=UOHO4pOXrBSLFRJjGCl9b5OLYifm/Ve/IWc6c+oQXkbz1/fdVkOZ1KO7DZMqH7Gl8I
+         WnlZTC2jl7FhpJvHly+88Wi4u6FMNy1yGpjKlP/VW87mNZhkNs3preYi9rSHuCwD2u0n
+         KtbS7/vpUy6fcsVocGP5/jeAskpVxYUl9obrCFZ6sWCEufcYGpyIM0WmddEUYiloUcRd
+         sLfh97X7+qoVffs17rLFJhdaBBQsq2BnODtHGV5xl5SeVMFBLMLcwiR9Lg3soi3nwYHd
+         CSn65M3ZPDg0kVKbJjt9cTMpl5B4GwXkmGBwV/4mqJzvCHo4+biFTNNFsm66cqs1bm4P
+         8L7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777272144; x=1777876944;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PdwCjZ9cqGXmbdLC2LWsKAWhycfXBl0zq2VQEo6gMUk=;
+        b=ZcE3ifF4EMBT5hCmARdIUN69DFfFcsxpAymop13zUk2FzgZ6skkWPzaIIimHUAqUZf
+         IE2OEXzDFgumhf/1RWg4xKWCVL72z5tQtQ7cHslUUBEU0M3pEnzsNrpyHL/elnT3dYrz
+         1aUSWcyRGee0hb3osk2rVKFhKKK6wHgit6NxGEckLpiOM6eoqMVW7OwQ8wdF3eVm6OTg
+         +ihRMW1b6NQBkMWoyRTxURRzA+I8eQT4ijfDpKxAqr5OZM3oQsgvDaWPqKYYHe1RAKuv
+         auqfo0oOXArlwL762Ym4xzuoVx8dCS4X/L3CABm2WIUUgX4S3x1VAmZwnydF7RznKUFB
+         oT4Q==
+X-Gm-Message-State: AOJu0YyV2BdDBvpti9L+nJ6p7WDDOHUFHgLEWBdShVbgddYnXaDcE7Xa
+	Gb0R8OYTOa/cXLG9YszAs1dQdqmPR6Hu9t4gSVjoSVJL7X9kg3puZDV0Eb1eDY4r6S8=
+X-Gm-Gg: AeBDiestANHHzdPxzSghZjFstdP711z8VxuR4sM3lxFlg2wo6itjwBFcrOclUXo8hbF
+	p4hFHZraYwwfb1nJxnyvglBGmHw3epsdjPR2h8t5ZZla872cFsWgve9IUv5WV/0KImQhPis5rlF
+	oCe5mTvlVZrAW2lJzlFv62DUw4l9ot+Bb/Bx6Iqdkss6NgXxFhMuutT5b2DAxqNJabySyjFcHkz
+	TM+w7l5HoqAP7/zYxtZCJapKJjUjm29PbCKcqi7KXbVMnxpiumsFJyOsugOUXHEclB/1Fw1PaRL
+	aCL8ktTNuDP6pBmCNUqqNLwWGdLj4TXgYmC6znnLdWNn4gJSF0Q5t5qeBsf08TlWIYO+BlF5aQ2
+	fp2Tm06TWjLlN0Ndo0PqLe3045NQPwy1iSNNk6JatkVcvmya0mgrZ0LkDvwhcD1wW0m+l+tqvol
+	AUAoFmWsS0a4Qw+cOibDyMu628tVcgfG1b12o6xwvQTRCkDUGBKokVss6iCobjHvxGf8xwyXAaW
+	N2R
+X-Received: by 2002:a05:6a00:2d1f:b0:81f:3afe:281e with SMTP id d2e1a72fcca58-82f8c87b8e6mr43418498b3a.3.1777272144263;
+        Sun, 26 Apr 2026 23:42:24 -0700 (PDT)
+Received: from [127.0.1.1] (59-120-179-172.hinet-ip.hinet.net. [59.120.179.172])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8ec05391sm32209315b3a.56.2026.04.26.23.42.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 26 Apr 2026 23:42:23 -0700 (PDT)
+From: Brian Chiang <chiang.brian@inventec.com>
+Subject: [PATCH v6 0/2] Add support for q50sn12072 and q54sn120a1
+Date: Mon, 27 Apr 2026 06:42:17 +0000
+Message-Id: <20260427-add-support-for-q50sn12072-and-q54sn120a1-v6-0-ffa77bfa65e7@inventec.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/2] arm64: dts/defconfig: enable BST C1200 eMMC
-To: Albert Yang <yangzh0906@thundersoft.com>, gordon.ge@bst.ai,
- krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
- catalin.marinas@arm.com, will@kernel.org
-Cc: bst-upstream@bstai.top, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260427062329.3715925-1-yangzh0906@thundersoft.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260427062329.3715925-1-yangzh0906@thundersoft.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEkF72kC/53OzU7EIBSG4VuZsBYDB8qPK+/DuODn4LCQdqA2m
+ knvXaaJcWK6qcuXkOc7V9KwZmzk6XQlFZfc8lh6qIcTCWdX3pDm2JsAg4FpxqmLkbaPaRrrTNN
+ Y6WVgrXBgGqgrsafc0vWfNoC1qKLhkXRvqpjy57b18tr7nNs81q9teuG31/+sLJwyGoTR3iULJ
+ vjnXBYsM4bHML6T29ACP7hiAtQRHDqutQ9aI8ag1Q4ufnHJ4AguOq60G7iRaIU3O7i8w7k8gsu
+ Oe8PRoZM2Jr6DD3c4HLp82PDkjQYFRv29fF3Xb05qohdZAgAA
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, Jack Cheng <Cheng.JackHY@inventec.com>, 
+ Brian Chiang <chiang.brian@inventec.com>, 
+ Jack Cheng <cheng.jackhy@inventec.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777272141; l=3332;
+ i=chiang.brian@inventec.com; s=20260316; h=from:subject:message-id;
+ bh=mw6mwptDA5uoTeDrka/qYZXjH+Vrm1JywJJ0ewmeIPo=;
+ b=ULr/evwWo2ule3iwKhE7dCUvIOHr+N+H9qhoK5drTs1YpjWTaMpTqYcqha2SUKFpAH6JD8oo3
+ tKMX4maA2WEBxbJA3cKLhzRjC3T2Ng9DTHwp7WzaoMoAE8ZUx0+VLlg
+X-Developer-Key: i=chiang.brian@inventec.com; a=ed25519;
+ pk=q+NqJYuJbGpA9KS9941D7f+8PVVW+k7DvaGgFykBiUc=
 
-On 27/04/2026 08:23, Albert Yang wrote:
-> This series adds DTS and defconfig support for the eMMC controller on
-> Black Sesame Technologies C1200 SoC, split from the v5 MMC series [1].
-> 
-> The MMC driver patches (dt-bindings, sdhci bounce buffer, BST SDHCI
-> driver, and MAINTAINERS update) were merged via mmc-next during the
-> v7.1 merge window and are now in mainline as of Linux 7.1-rc1 [2].
-> These remaining DTS and defconfig patches are submitted to the mailing
-> lists for review (per Krzysztof's feedback on v6 [3])
-> 
+The Q50SN12072 and Q54SN120A1 are high-efficiency, high-density DC-DC power
+module from Delta Power Modules.
 
-You sent it already three times within one hour. Please stop.
+The Q50SN12072, quarter brick, single output 12V. This product provides up
+to 1200 watts of output power at 38~60V. The Q50SN12072 offers peak
+efficiency up to 98.3%@54Vin.
+
+The Q54SN120A1, quarter brick, single output 12V. This product provides up
+to 1300 watts of output power at 40~60V. The Q54SN120A1 offers peak
+efficiency up to 98.1%@54Vin.
+
+Add support for them to q54sj108a2 driver.
+
+Signed-off-by: Jack Cheng <Cheng.JackHY@inventec.com>
+Signed-off-by: Brian Chiang <chiang.brian@inventec.com>
+
+Changes in v6:
+- Add lock to debugfs read/write handlers
+- Remove the incorrect Co-developed-by tag in cover letter patch reported by checkpatch.pl
+- Link to v5: https://lore.kernel.org/r/20260422-add-support-for-q50sn12072-and-q54sn120a1-v5-0-b8fb87262868@inventec.com
+
+Changes in v5:
+- Rebase from 6.19 to 7.0-rc7 for review
+- Link to v4: https://lore.kernel.org/r/20260414-add-support-for-q50sn12072-and-q54sn120a1-v4-0-b81eaea49df1@inventec.com
+
+Changes in v4:
+- Add null terminator to prevent comparison of uninitialized data which
+takes place when ret is shorter than strlen(mid->name)
+- Link to v3: https://lore.kernel.org/r/20260402-add-support-for-q50sn12072-and-q54sn120a1-v3-0-67a5184e93b8@inventec.com
+
+Changes in v3:
+- Fix MFR_MODEL detection by using strncasecmp prefix match, without the strict length equality
+- Move blackbox_read_offset debugfs entry inside the q54sj108a2-only guard block
+- Sort the debugfs entries by the order of PMBus register addresses 
+- Link to v2: https://lore.kernel.org/r/20260326-add-support-for-q50sn12072-and-q54sn120a1-v2-0-77bc77eedc76@inventec.com
+
+Changes in v2:
+- Drop Q50SN12072_DEBUGFS_VOUT_COMMAND debugfs entry
+- Add .format[PSC_VOLTAGE_OUT] = linear explicitly to all three chip
+  entries for consistency
+- Replace hardcoded MFR_MODEL check (ret != 14 || strncmp("Q54SJ108A2"))
+  with a loop over q54sj108a2_id[] using strncasecmp to support all
+  three chip variants dynamically
+- Remove of_device_get_match_data()/i2c_match_id() early chip_id path;
+  derive chip_id exclusively from MFR_MODEL hardware read
+- Remove unused .data fields from of_device_id entries
+- Guard store_default, blackbox_erase, blackbox_set_offset, blackbox_read,
+  and flash_key debugfs entries under psu->chip == q54sj108a2 check
+- Add dev_notice() when configured device name differs from detected model
+- Update MODULE_DESCRIPTION to "PMBus driver for Delta Q54SJ108A2 and
+  compatibles"
+- Fix commit message typo: "Q54SN12072" -> "Q50SN12072"
+- Link to v1: https://lore.kernel.org/r/20250701-add-support-for-q50sn12072-and-q54sn120a1-v1-0-c387baf928cb@inventec.com
+
+---
+Jack Cheng (2):
+      dt-bindings: trivial: Add q50sn12072 and q54sn120a1 support
+      hwmon: (pmbus/q54sj108a2) Add support for q50sn12072 and q54sn120a1
+
+ .../devicetree/bindings/trivial-devices.yaml       |   4 +
+ drivers/hwmon/pmbus/q54sj108a2.c                   | 179 ++++++++++++++-------
+ 2 files changed, 123 insertions(+), 60 deletions(-)
+---
+base-commit: 591cd656a1bf5ea94a222af5ef2ee76df029c1d2
+change-id: 20250701-add-support-for-q50sn12072-and-q54sn120a1-a9c299e6d81d
 
 Best regards,
-Krzysztof
+-- 
+Brian Chiang <chiang.brian@inventec.com>
+
