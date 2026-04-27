@@ -1,241 +1,186 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8668F367F33
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 03:44:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9716A4502F
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 04:34:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777261495; cv=none; b=RW5c6DcIQTSGE6p13jm1lpwThl9GQiGlzHgnJn1H8kJYxVzVlDql/mneEyLAlnYFAyfdABiJTwTdNu0y3plEeZeLAbUA+EgKJGWKYyI1uP7E5bxey7xgCuazqOMzQbkjY49/zVRCJCIg2gP+VdAeLRf398hZQD70/Ljvjafq544=
+	t=1777264477; cv=none; b=rCZunfFnOpvSj5Dr27urEaLzzn6+rhpSRs8VFtO2131zLhS31vmUZzuS5+4OhP26lJ5K5qITKsSIy3Y2IIh6JIDYJ4h+nxyFkUh4+aL5TYC7hzFctwpKL+IJVdBE2HJ/pmmnqR9NW7wysqh6UV8i76L4l/ltAlAlmCJOxJTbX5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777261495; c=relaxed/simple;
-	bh=m8RlGgwURyICt4aQmcsLHhrwNopwUAIPa5Y88JK2eEE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dmbyYd6EtHG14DcxHNkf3AMWXyKfLjlCxXfgtvq9vefJwOqYe8Al7w1c+3HHk+WqSqwD9D04WFECbEd725C607DKsehROq83iR8zZdBTTcYLDzTLlM5Tph0FRJJJye5aGDjFmlTbygytMfF9bbZd4VhyJuEgtl8yi0bEGYF3TrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qokvMuaj; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777264477; c=relaxed/simple;
+	bh=zcTQzmuJlYdHw5hMfp2prGplNw/pvEvdI2E4sxKO34M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pn49XoYdmzCI9DmQxnvHeSBVJStPfOzWeXopo0M9joGo3HkQZZj6GnvPoSfIgbrLD9O26MnpjkKGH3S+YcHdyK0eWUuVffe3KhQXFCEB+1qQqU7Bw4UjDVfeqUf4bOpucB5PBUbyL+OJiwQYlon5z0G3O/vYbhrs79tDNHuNwzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CzCnZ3RF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h4Pk57Vh; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qokvMuaj"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2b2ea1b3962so55432625ad.0
-        for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 20:44:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CzCnZ3RF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h4Pk57Vh"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63QMs5aU3625357
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 04:34:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=jLD8q0LRIBYBbZE3QmPEzx
+	vL9a3d0LQZo1rCSFwbico=; b=CzCnZ3RFGBXA3QRqlgD2mTPWStTWAcNjf0oTX9
+	Iqs+01hsbtVQJtgQfUelN4QcA1tg/PSL5TDwHcWbyl/owIvXJjOvBdBnFHOPNL6p
+	WaHrXe5LRZKq1YDkr6u8utSCLTO1xfjLLu0HSZ+2yrVxOp9tk1n0x6xgqnMTJ23g
+	kkx0dZuSD30vOmSdmo/+BZ2TG1N16MSqdfZAWo8qt3u9RIwThTcOe490eXZ3iP18
+	ENsDPvpFw3wulVTrouu/PpwJruj7GhjDxyKa2UXPJOLdMpbDdPEQBhPOyGDIDLE5
+	+h/BGHniGalY6/R1KIAm8P1Ll1DReabCk5SlkU0M31rfm4mQ==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drpcdmbc8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 04:34:34 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-35da97f6a6dso9631272a91.0
+        for <devicetree@vger.kernel.org>; Sun, 26 Apr 2026 21:34:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777261491; x=1777866291; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=o7US79DzYi1oz6JsAlo7MAoEcS/s37RIVJeKWp9La9I=;
-        b=qokvMuajAOpzl26J9X6XYx+S01mVCKDdnmCS3nEbLfpkn3oNG017cUAmeUXmSKCotx
-         FpcVMKl+zZ4ZykBiuk9C601KcjNBzDZbsHqUt6e+ZnAqv3SCAzOu9gK534jyjtHI3AI+
-         CyYcStlv0V2c47jrEYyarsSek1Grcd40iLn3JCkXRt6uKMrbLhiECQHNG4hwj5o2p/0R
-         onaU41IYKuyaa5hg3tPAUnj8DV+Apm8lwBcE5wy4yB2i2lmm2cHD9PHy3bw78XLKvoan
-         azr2HpOv9nN3nNu9YpiSz7/7uJjJz34YwuR3oSrdvvJmGvVvvqNnuVNuEfHoG1wB2tig
-         z2Zg==
+        d=oss.qualcomm.com; s=google; t=1777264474; x=1777869274; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=jLD8q0LRIBYBbZE3QmPEzxvL9a3d0LQZo1rCSFwbico=;
+        b=h4Pk57VhRqEvazhlAe2IWPm6eVa3KZmP4MGDEQkMiOaA8nAO0fKFCHW264Wjyn6VVk
+         lqWkdtPuSTdjdVHwjNDPjuIzAf06bsp+QO5FthNmrSyjKW4yFqL0S6jka4aJsnaQvrYi
+         CLwtXXvUrnKjQ6zWv4DbnBOcuUZ26zNor7VoKzoHGmmFtE8du2tYvrwAf2Nz/Reo8vTw
+         hO9NdJjAyec59SJWNTjv9ZjV2zCw2xS3DegbVRku+Fo5NpLSNZXvqzvHxlQBYc6dHCEJ
+         3SYJhUcNVHVqBNrk3vwLK92kYB/EoMMsW6VoOrr+9w3Mflk+YmIjK4my5svSJMC6J6DC
+         xLqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777261491; x=1777866291;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=o7US79DzYi1oz6JsAlo7MAoEcS/s37RIVJeKWp9La9I=;
-        b=haQHrh2eZeNFlPfePr1PDRlAWmin9MDCQ79YehS8ofHXajffKVFCcLglHX21c74jA+
-         eHJ6cUwHp12X/dqNab0OsWSZtdhzDMzJZ5dpL6a/k9CRSpEv7l98I/JarbJmxak4jv4g
-         Y6HY977QKwT8LUYYf2eX7LqkrplkjktW+7CMiUpMFiAjGNCaGeSATUoMIK26DBhlGwqz
-         pbRDlw6Sm1ley3p6NWE7P2D6xZaLt3pchz+MAc4oyUDVAGuiAgxH4RAPkafobVEqvgv4
-         O/BNNYuaNA7vRZzVjoYXUbfVri+/489jrLowXwfljoQxZ7QTXsheD08dJQBUzzvajGku
-         TDeg==
-X-Gm-Message-State: AOJu0Yz5P9atEyGHBsfW7lnZzDo/H/1q3wd30mW5jNPUbh+GbiLiGjCM
-	6Oi4+VYcgNQmnOEL5ggTpRJbOld+e3d7bdl7T8LPa3V/ha+oYvgHU6Xrrw1LAQ==
-X-Gm-Gg: AeBDievDXXb1fov9ba1kUOYri/IXxPYImyDwLT0i67CL2Rp9fh/KG0ZvvLxlovupdrh
-	m6Ss+DVeUXVa0MgC8aj0e7gzLl5tBAWP49a9r26kpQjQqHzf5dZRUyPsFynbFjwzivTqlhy6sLT
-	pGfOJ3QiCOKUPKBjLXS2Z22nyQh8VolY8OedOeGex+IPH6Vr+mfoT/NCkDWVMr5FfFX5O9Ty+Ij
-	zAnw0rImcS3nzR00sm/wIJF84EgOX/Gy1cTGjZCYv+H6SvCP6pWGmmbphNiOVB86eJgLg4WDhfS
-	uDmD9ZcC9v6RVjoPZWZUM9/nWFHhbgPyMv3y8NnAnxxEZVWphupUl1TQKPHNu5h3A0odU32IX6y
-	kRUMdRnZl8/MprAS9r+aSeBSLIOFyNfM+G4e+XHv+VmvocxNNKBgsBWIJvjykxlUECdNcB0uXQX
-	5gCUJxTlQcXae/R8DzRY+qlGaTzPtxw/AkYTSQMoeFtXrnQUN5gpgAITg3XfRXTF39sI39Sj2wu
-	YbdXN3vZrLGXEjR3lc38/7dgA==
-X-Received: by 2002:a17:903:32c9:b0:2b0:5923:5194 with SMTP id d9443c01a7336-2b5f9fa70e1mr428464165ad.27.1777261491168;
-        Sun, 26 Apr 2026 20:44:51 -0700 (PDT)
-Received: from ryzen ([2601:644:8000:5b5d::8bd])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5faa4f092sm290610585ad.36.2026.04.26.20.44.49
+        d=1e100.net; s=20251104; t=1777264474; x=1777869274;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jLD8q0LRIBYBbZE3QmPEzxvL9a3d0LQZo1rCSFwbico=;
+        b=HbGc55FYe9QcIM3I3f8i4lMx+NIy8A1Bk7BDv0P4E+3b74xFSKkyfiTpiHCnXw+h2V
+         LdXTg5hF71PmsAhZ2zxqZ2+g7dhnuMi9g1uFHU+F84cqSfqQCFYxSwoxqZEaXz5Y0eNn
+         y3wgUAQLtlZHczx+iFR53u5fNlP4xi3Wt9VzOz4Iw7AGOl/pmfNGVwq4sJyOar0KYNds
+         UEZU8lWxAsPgtZVdOyQ3NONJQBjLtiO5Jy7NBMhnGuyDbsQR0Qfwln45JpoYPVKLUt7W
+         R/bv6UFOc+gNLZYpG+7QfXzJVdqcGb/ktAtSv/JFlNnkBW8Tba03gc/JI1fUXcamiggH
+         fTDw==
+X-Forwarded-Encrypted: i=1; AFNElJ/qSHrhP84js2rtOOAXdztREjsVpEC3Gmgrt5APmAFdwRaL79X+AKl+6JGetiRQWMF4dJhqqnLlkpqr@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQDOp7BlJSeUXN4QC5a1wiKz0/OlOCkGSkCH4xRDonSSBtca8N
+	BwA/NviebGxUh7z/zo1hm46JZFpNfdBUBbvXvtY+SwIThrC+jtfM6J1iIiAgaBqymXktHaRHsXs
+	KohMh/ZOGKplu/nIe7tSgyf2AXQ63v70HD91/PwNB83IIPaSesZBnQWabSHXNBdii
+X-Gm-Gg: AeBDies+2i+dh94LOIwXmAzQZJ6I0wUarUxhBFrx6HLSdwmBZ3NsjIQw0bzjmOZPtVU
+	J5Z60Xj6y80suB9UyqtEc+okmr1lIb2eW+UZ4dMQ/5JT+CYmvB/pD8hiTIsoIoYfkqJjqsf2JhR
+	ROG9ZBK3Is2Fza5J4OpG2zqSCzUhs5hiKWAJESOoLXNf0c90NWhiTcrviQI6D40qjS7jRaOhHDi
+	z4wovEOMAvj0ZsqhrcIF5JWngw7CYzFAmB3++XcmOfu3x8K2+x54PcqnzB0yfJfhsGGe/0cJzTh
+	DjKmojg6rkdfVPkSkSZ3Xa2a7niP6YOYtad/4pCSEIplJretXXP4++ulxlPDq9TClFC41fnp2y8
+	ytZxhaspRAYH/M+Q7S3m+pv+KoDK/8amSSwi0Y9buTmjentBIiEETt774YE6P1mwp5NDGKF3CuQ
+	TzSGS2W7KKGIJrRkpa0i8=
+X-Received: by 2002:a17:90b:3d01:b0:35a:cf:64a6 with SMTP id 98e67ed59e1d1-361404af0a4mr44267556a91.23.1777264474160;
+        Sun, 26 Apr 2026 21:34:34 -0700 (PDT)
+X-Received: by 2002:a17:90b:3d01:b0:35a:cf:64a6 with SMTP id 98e67ed59e1d1-361404af0a4mr44267527a91.23.1777264473657;
+        Sun, 26 Apr 2026 21:34:33 -0700 (PDT)
+Received: from jiegan-gv.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3613fba1bc9sm11218560a91.10.2026.04.26.21.34.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Apr 2026 20:44:50 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-wireless@vger.kernel.org (open list:MEDIATEK MT76 WIRELESS LAN DRIVER),
-	linux-kernel@vger.kernel.org (open list:ARM/Mediatek SoC support),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
-	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support),
-	linux-mips@vger.kernel.org (open list:MIPS)
-Subject: [PATCH 3/3] wifi: mt76: remove mt76_get_of_data_from_mtd
-Date: Sun, 26 Apr 2026 20:44:27 -0700
-Message-ID: <20260427034427.881389-4-rosenp@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260427034427.881389-1-rosenp@gmail.com>
-References: <20260427034427.881389-1-rosenp@gmail.com>
+        Sun, 26 Apr 2026 21:34:33 -0700 (PDT)
+From: Jie Gan <jie.gan@oss.qualcomm.com>
+Date: Mon, 27 Apr 2026 12:33:45 +0800
+Subject: [PATCH] arm64: dts: qcom: monaco: fix wrong connection for the
+ replicator
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260427-fix-monaco-coresight-dt-v1-1-1707017f20c5@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIACnn7mkC/x2MSQqAMAwAvyI5G6jBDb8iHmoaNQdbaUUE8e8Wj
+ wMz80CSqJJgKB6IcmnS4DNUZQG8Wb8KqssMZKg1NXW46I178JYDcoiSdN1OdCeScb0jbuamY8j
+ 1ESWr/3mc3vcDujfbFGkAAAA=
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Jie Gan <jie.gan@oss.qualcomm.com>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777264470; l=1219;
+ i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
+ bh=zcTQzmuJlYdHw5hMfp2prGplNw/pvEvdI2E4sxKO34M=;
+ b=ZrRfWo4oqOirHhMKnLrhRWA+MfOQJFwrLoJMwOLvU2clM10BTWaCDFpPh6BLyIuRnZKYAulKv
+ WL515l5vK3vCq9pvXEkqaVNjlTtv4leT1HsmdBX2o98YI2rzeu9fRAr
+X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
+ pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDA0NSBTYWx0ZWRfXxDDY1o+aO6m+
+ O1JMhGKbB11IHAdJYHRmKNnDtO5pNU4xBBOOIk7uZ2OeUMsrLS+f2CdNGWbjVmMEXHMydRKfG54
+ FRb5Nu1QM9rK5P81X5U14MbkgNYZGd9z/Uw6lLdwIybGdT9gSgC7AEsprlzCDEhcx+9vBczC01E
+ t8AUieMe/llV7ZRaCojwyev0yHPOzinE+jrrGSFR5/MkfPTCCLje+KpV6W1OHgRlLwTlB63Kpaz
+ FU0uJ5sD3HjKA4XfcfE68yfbV2dl0TKkmyqgIr1YzYQUsedvuus8QRr1gkbgnoMerzREaDM+Q++
+ X+yCSUoIb9GRH3M/cQHATIych/hYNxhKyDmcETlPpKAq8ATmRsCInPLZUwTDvJFC9rethXmYbEz
+ OlXGb0+v50Rj2DcV6mnLQ6KKlbPHrOmroK4nSni3km/TcVHXTpbgNcuYNLJPKgkL7cXmCbZc7ZK
+ +Aq+TX4TuaH8z1TZQqg==
+X-Authority-Analysis: v=2.4 cv=N5IZ0W9B c=1 sm=1 tr=0 ts=69eee75a cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=1etcwcUoXHP-D-r6DHIA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: VDXZxR0-UD_LPvgugM569QsdADN9dlfi
+X-Proofpoint-GUID: VDXZxR0-UD_LPvgugM569QsdADN9dlfi
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-27_01,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0 impostorscore=0
+ malwarescore=0 clxscore=1015 suspectscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270045
 
-mt76_get_of_data_from_mtd has been replaced by
-mt76_get_of_data_from_nvmem in all usages.
+Fix the wrong connection for the qdss replicator device.
 
-Remove it to prevent people from using the deprecated
-mediatek,mtd-eeprom binding.
-
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Fixes: 0f43254763b3 ("arm64: dts: qcom: qcs8300: Add coresight nodes")
+Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
 ---
- drivers/net/wireless/mediatek/mt76/eeprom.c   | 87 -------------------
- drivers/net/wireless/mediatek/mt76/mt76.h     |  1 -
- .../wireless/mediatek/mt76/mt7915/eeprom.c    |  4 -
- 3 files changed, 92 deletions(-)
+ arch/arm64/boot/dts/qcom/monaco.dtsi | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/eeprom.c b/drivers/net/wireless/mediatek/mt76/eeprom.c
-index afdb73661866..092804323d81 100644
---- a/drivers/net/wireless/mediatek/mt76/eeprom.c
-+++ b/drivers/net/wireless/mediatek/mt76/eeprom.c
-@@ -35,89 +35,6 @@ static int mt76_get_of_eeprom_data(struct mt76_dev *dev, void *eep, int len)
- 	return 0;
- }
+diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
+index 7b1d57460f1e..50fd8cea88b9 100644
+--- a/arch/arm64/boot/dts/qcom/monaco.dtsi
++++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+@@ -3013,14 +3013,6 @@ in-ports {
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
  
--int mt76_get_of_data_from_mtd(struct mt76_dev *dev, void *eep, int offset, int len)
--{
--#ifdef CONFIG_MTD
--	struct device_node *np = dev->dev->of_node;
--	struct mtd_info *mtd;
--	const __be32 *list;
--	const char *part;
--	phandle phandle;
--	size_t retlen;
--	int size;
--	int ret;
+-				port@0 {
+-					reg = <0>;
 -
--	list = of_get_property(np, "mediatek,mtd-eeprom", &size);
--	if (!list)
--		return -ENOENT;
+-					swao_rep_out0: endpoint {
+-						remote-endpoint = <&qdss_rep_in>;
+-					};
+-				};
 -
--	phandle = be32_to_cpup(list++);
--	if (!phandle)
--		return -ENOENT;
--
--	np = of_find_node_by_phandle(phandle);
--	if (!np)
--		return -EINVAL;
--
--	part = of_get_property(np, "label", NULL);
--	if (!part)
--		part = np->name;
--
--	mtd = get_mtd_device_nm(part);
--	if (IS_ERR(mtd)) {
--		ret =  PTR_ERR(mtd);
--		goto out_put_node;
--	}
--
--	if (size <= sizeof(*list)) {
--		ret = -EINVAL;
--		goto out_put_node;
--	}
--
--	offset += be32_to_cpup(list);
--	ret = mtd_read(mtd, offset, len, &retlen, eep);
--	put_mtd_device(mtd);
--	if (mtd_is_bitflip(ret))
--		ret = 0;
--	if (ret) {
--		dev_err(dev->dev, "reading EEPROM from mtd %s failed: %i\n",
--			part, ret);
--		goto out_put_node;
--	}
--
--	if (retlen < len) {
--		ret = -EINVAL;
--		goto out_put_node;
--	}
--
--	if (of_property_read_bool(dev->dev->of_node, "big-endian")) {
--		u8 *data = (u8 *)eep;
--		int i;
--
--		/* convert eeprom data in Little Endian */
--		for (i = 0; i < round_down(len, 2); i += 2)
--			put_unaligned_le16(get_unaligned_be16(&data[i]),
--					   &data[i]);
--	}
--
--#ifdef CONFIG_NL80211_TESTMODE
--	dev->test_mtd.name = devm_kstrdup(dev->dev, part, GFP_KERNEL);
--	if (!dev->test_mtd.name) {
--		ret = -ENOMEM;
--		goto out_put_node;
--	}
--	dev->test_mtd.offset = offset;
--#endif
--
--out_put_node:
--	of_node_put(np);
--	return ret;
--#else
--	return -ENOENT;
--#endif
--}
--EXPORT_SYMBOL_GPL(mt76_get_of_data_from_mtd);
--
- int mt76_get_of_data_from_nvmem(struct mt76_dev *dev, void *eep,
- 				const char *cell_name, int len)
- {
-@@ -163,10 +80,6 @@ static int mt76_get_of_eeprom(struct mt76_dev *dev, void *eep, int len)
- 	if (!ret)
- 		return 0;
+ 				port@1 {
+ 					reg = <1>;
  
--	ret = mt76_get_of_data_from_mtd(dev, eep, 0, len);
--	if (!ret)
--		return 0;
--
- 	return mt76_get_of_data_from_nvmem(dev, eep, "eeprom", len);
- }
+@@ -3730,6 +3722,14 @@ out-ports {
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
  
-diff --git a/drivers/net/wireless/mediatek/mt76/mt76.h b/drivers/net/wireless/mediatek/mt76/mt76.h
-index 527bef97e122..f447ecac664d 100644
---- a/drivers/net/wireless/mediatek/mt76/mt76.h
-+++ b/drivers/net/wireless/mediatek/mt76/mt76.h
-@@ -1339,7 +1339,6 @@ void mt76_seq_puts_array(struct seq_file *file, const char *str,
++				port@0 {
++					reg = <0>;
++
++					swao_rep_out0: endpoint {
++						remote-endpoint = <&qdss_rep_in>;
++					};
++				};
++
+ 				port@1 {
+ 					reg = <1>;
  
- int mt76_eeprom_init(struct mt76_dev *dev, int len);
- int mt76_eeprom_override(struct mt76_phy *phy);
--int mt76_get_of_data_from_mtd(struct mt76_dev *dev, void *eep, int offset, int len);
- int mt76_get_of_data_from_nvmem(struct mt76_dev *dev, void *eep,
- 				const char *cell_name, int len);
- 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c b/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c
-index eb92cbf1a284..c24e1276700b 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c
-@@ -29,10 +29,6 @@ static int mt7915_eeprom_load_precal(struct mt7915_dev *dev)
- 
- 	offs = is_mt7915(&dev->mt76) ? MT_EE_PRECAL : MT_EE_PRECAL_V2;
- 
--	ret = mt76_get_of_data_from_mtd(mdev, dev->cal, offs, size);
--	if (!ret)
--		return ret;
--
- 	ret = mt76_get_of_data_from_nvmem(mdev, dev->cal, "precal", size);
- 	if (!ret)
- 		return ret;
+
+---
+base-commit: 7080e32d3f09d8688c4a87d81bdcc71f7f606b16
+change-id: 20260427-fix-monaco-coresight-dt-20d8d2c5b57c
+
+Best regards,
 -- 
-2.54.0
+Jie Gan <jie.gan@oss.qualcomm.com>
 
