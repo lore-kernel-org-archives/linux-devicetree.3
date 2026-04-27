@@ -1,195 +1,129 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0453D3498
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 14:02:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF62E3CEB9D;
+	Mon, 27 Apr 2026 14:02:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777298541; cv=none; b=S9Q7Gl3gPG7A465l4xlmL0t4zgpRoAIv3CfAAARUbiJ/1KTKWXBcBBKXIig3HciqjarBv85rPHIWeuGzMzrj4/lf1ycXrYrzAkTE+zNs8XxqxBEh5u+tpHTpNLd+fLJtP+BRiWguAn1Xt0tp19cHASn1IlqxpVixiX8zajZZGKc=
+	t=1777298542; cv=none; b=rWr4k8cHYF/nIhU1+C9WoIiXNQDGYfTQKrqxMCNjBTZiv4ToKGYnIyZExNL0Ex4p9h00ZPVG9WP451/3Qz0x8O7eFTrHEU46VS/9YpZXHg+7DGsqs/klv8b7MJEAHR8jFknrPjJGoLnqbSd8hBAeOdcO5YbNjLOtbojupdUXDnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777298541; c=relaxed/simple;
-	bh=DL7WXDFY1O5eBh2tmSI3Zsd/h0SrUvqrCzd486m+vE8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KAHSpSVoY3bj0UvJnKgWBr42dgdaYhkbEVrfeR0o7hhzLozAGdEfm4J/d4VeuQhHFKypcKCe1hQkwZGZQzO4VyKDEjZe/cGhH0G9seNd7VxcSSY+KzKoTEwEwaHOVH0n6Q21ZPedVwQ3oGM/e95aReEUlp9H7Ygfcv3mr80e5z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=GKkemFHd; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1777298542; c=relaxed/simple;
+	bh=7Gra0MesnEZXHUo+I08l87jSn9s/OjE9JOQI03sCmbo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fbGaizlbvlCBwJRdtG6VsASdCc5NXp6BYZHYOFDz1ulQl9TCvdISq+eQ5MeYtiWqiErMTO46Drj72ezqYVQy9H/zA9BW1QvSBZICltyq8vrDGQLQXO8A9OiWJEaY+g0rl3f2PlIqwkT4ZJDoYMgRmLZ1XvQeDMHyP2HcQsaSZI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bRb2aTuv; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="GKkemFHd"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2aae146b604so68374295ad.3
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 07:02:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1777298540; x=1777903340; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=4Zn1VHf2vGq/Rgp6tmVMmYAtaKJKXMEkXpNhjeJ8VMM=;
-        b=GKkemFHd+RZyEWGbir64WPIi7wKWUu2IoBYL7safr3T1j34Ps51hF/6GKW7IxuQRlj
-         uN4IUh/UzSHgCQIPkEcjk0SOyvVcFJb6VAyPgGMb5T7rE4ENHsLGisIajoxS50uUvDie
-         /oZ0NvcCvPO63bmT7BmsByPuT6L6l3B7ZsptJObuO+Bc618+qelaWSYqe2MNpK3IMlRq
-         rq2Tg+NM2EzTCTyCNeSoHrjYMA/0faSPydcQKpcFPuAfFEcyv5Aqm0zgy8d111pQXYR9
-         NOaS1U+HysVCJm2w9br3lLYhB8qrW+OJKhZiciypfDyGsG2leWlAoPC5qaZ29HWX3kaK
-         za0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777298540; x=1777903340;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=4Zn1VHf2vGq/Rgp6tmVMmYAtaKJKXMEkXpNhjeJ8VMM=;
-        b=DsAx07X1ZoWy+bVc1bhw3qxjo08Q74F1LPTSpcA8t6fQTKhmbUvp7lqthqv0Vn4AvJ
-         /ACSZWYCqB5xP2ciZFkdUcz29x19nGBs47BOyfQjWdoNddiMhjDyjuCnv96AhVKUm1x9
-         gGm5/m7mS8TUqFVzyCd17F3sTqc16TsObsBZbje9SDrcRywUj2pnR8OGKIIOyoMDZRvu
-         k3N9v7nGNFWfAFCMdVaQ5p8i6wp2Di2AKWqVf7YjOg/Hd71SoUd4KC5IPF5bOb9yJJeT
-         XrfPGO1KAF6mZ8lo7yhkkXvOcfcGmAubsO+fPSlh/N6QN2t4DSTIRzrvCxfQ2Cgi7BAD
-         1dfw==
-X-Forwarded-Encrypted: i=1; AFNElJ/na2BHg14ObD0iBCvKku6QWUuY8cX8OJ8nlIIYYm5yJflFA4cOhYKYr+Z86KWr8kgiV0Z7YLMkqw0t@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFaAm/0m6jme9L7ubnEIwnD47wzeMPbQhZoMfjQbwO9kyCtmFh
-	Dv4F1phSnq0KV0j8csmJtMvbATO9bI9RLebsy1IyLoj9nMp11/U/sLdAfBQuAMii5lk=
-X-Gm-Gg: AeBDievwgFUurHPtt6Pmbq2aKAXfASQnsBSeZDCw5v2wgxMvMJ6shNVacYyx0htlXEF
-	o4d2R0HHhe1XyWMWmndwV2O4jjKt+To8T5voMm2WpRhk1fNZX4TioC2x6KS6TNh+LO1PrBJ0CkJ
-	HmfNBHZsfyXSb8QAkXQQCoiR2nkbUWN2ieiua1ZVOmWMOaq9WlVwsDu0zbhjIq/WKVrtJAvBW5H
-	VrF9rM7Snb+UzqW7DMV8q3B/6xLjxXvXypXDhvreWB2/oYlhqgj0LENZUlrs2W2yRPhbYnBlthB
-	enCeLlk7aas+LOaQ4EMT5grb2hugxI2nEjQwRzNAaHa8cR5XaX9JrhqkJipkgM+yARL3nIiLyRy
-	Z5LP7pYq4gatDAxgYoixcAzE/c/uWj/4Ps2nab4M3vX1D//yX7RgRfR/U629+nnQ3ZccUWK2c4e
-	JRLcedtErt1SjonTwkXJx0hKmas1AOezisXKG3jhMPYmZOdzLdgb3kKw==
-X-Received: by 2002:a17:903:3db3:b0:2b2:58a2:c8a with SMTP id d9443c01a7336-2b5f9d68827mr300145985ad.0.1777298539927;
-        Mon, 27 Apr 2026 07:02:19 -0700 (PDT)
-Received: from [127.0.1.1] ([2a12:a305:4::3016])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5fa9ff98csm307143625ad.3.2026.04.27.07.02.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Apr 2026 07:02:19 -0700 (PDT)
-From: Guodong Xu <guodong@riscstar.com>
-Date: Mon, 27 Apr 2026 22:01:29 -0400
-Subject: [PATCH v9 3/3] riscv: dts: spacemit: define a SPI controller node
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bRb2aTuv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777298540; x=1808834540;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=7Gra0MesnEZXHUo+I08l87jSn9s/OjE9JOQI03sCmbo=;
+  b=bRb2aTuvtO4B5iwy6cJB/+VZAD5IMNNzgL+n7HIVyye3qbxUo1+1gohP
+   zbYioIKEtRlx8MvDmS4MXc4Pef5jhmupf8Z4sHJE8bCNPdH4Ancqs/rnT
+   sKI64drwiHQIcYBKrw2AhLutR7eDfmRG61GSiBmNAmUrfF4K3dLE8I0U8
+   8rMFTJyGIUc3zDbom4ds4oeUpHAcYN9xfPwUD76uu5ZJpcaP2A94lVk2E
+   +LWvR0s5nddo0XOzUwsRGiC+UkvqbS9ZyZQuD4RFJ2U0jBOTxqbZcVCea
+   N9te5ObpO9iiExYtMfoskdoG6TVI4fO6eDsGhcwWXSxyshWKcE4vmzXUd
+   g==;
+X-CSE-ConnectionGUID: s3sKbw0ZTqKRLw/Q0EIqbw==
+X-CSE-MsgGUID: 4yY4Ge9dQ1e0zk830PrH/A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="78204155"
+X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; 
+   d="scan'208";a="78204155"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Apr 2026 07:02:20 -0700
+X-CSE-ConnectionGUID: M1CIRg62TOO2fpCSn0FjYw==
+X-CSE-MsgGUID: DnQdcdrQTOuXudMt1gVjGA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; 
+   d="scan'208";a="231012157"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.2])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Apr 2026 07:02:16 -0700
+Date: Mon, 27 Apr 2026 17:02:14 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Piyush Patle <piyushpatle228@gmail.com>
+Cc: ak@it-klinger.de, jic23@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/7] iio: adc: hx711: move scale computation to
+ per-device storage
+Message-ID: <ae9sZonxK7HTXsUT@ashevche-desk.local>
+References: <20260427100950.33936-1-piyushpatle228@gmail.com>
+ <20260427100950.33936-3-piyushpatle228@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260427-spi-spacemit-k1-v9-3-ff753b551302@riscstar.com>
-References: <20260427-spi-spacemit-k1-v9-0-ff753b551302@riscstar.com>
-In-Reply-To: <20260427-spi-spacemit-k1-v9-0-ff753b551302@riscstar.com>
-To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Alex Elder <elder@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Guodong Xu <guodong@riscstar.com>, 
- Alex Elder <elder@riscstar.com>, Yixun Lan <dlan@kernel.org>
-X-Mailer: b4 0.15.1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260427100950.33936-3-piyushpatle228@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Alex Elder <elder@riscstar.com>
+On Mon, Apr 27, 2026 at 03:39:33PM +0530, Piyush Patle wrote:
+> The gain-to-scale table hx711_gain_to_scale[] is a global array whose
+> .scale fields are overwritten in hx711_probe() using the AVDD voltage
+> read at probe time. When two HX711 sensors are connected to supplies at
+> different voltages, the second probe call overwrites the scale values
+> computed for the first sensor, silently corrupting its readings.
+> 
+> Fix this by removing the .scale field from the global table, making the
+> table const, and adding a per-instance gain_scale[] array to hx711_data.
+> Populate gain_scale[] in hx711_probe() using the device's own AVDD
+> regulator voltage. Update hx711_get_gain_to_scale() and
+> hx711_get_scale_to_gain() to take the per-instance array as a parameter,
+> and update hx711_scale_available_show() to retrieve it via iio_priv().
+> 
+> No functional change for single-sensor configurations.
 
-Define a node for the fourth SoC SPI controller (number 3) on the
-SpacemiT K1 SoC.
+...
 
-Enable it on the Banana Pi BPI-F3 board, which exposes this feature
-via its GPIO block:
-  GPIO PIN 19:  MOSI
-  GPIO PIN 21:  MISO
-  GPIO PIN 23:  SCLK
-  GPIO PIN 24:  SS (inverted)
+>  /*
+>   * .scale depends on AVDD which in turn is known as soon as the regulator
+> - * is available
+> - * therefore we set .scale in hx711_probe()
+> + * is available; it is stored per device in hx711_data.gain_scale[]
+>   *
+>   * channel A in documentation is channel 0 in source code
+>   * channel B in documentation is channel 1 in source code
+>   */
+> -static struct hx711_gain_to_scale hx711_gain_to_scale[HX711_GAIN_MAX] = {
+> -	{ 128, 1, 0, 0 },
+> -	{  32, 2, 0, 1 },
+> -	{  64, 3, 0, 0 }
+> +static const struct hx711_gain_to_scale hx711_gain_to_scale[HX711_GAIN_MAX] = {
+> +	{ 128, 1, 0 },
+> +	{  32, 2, 1 },
+> +	{  64, 3, 0 }
 
-Define pincontrol configurations for the pins as used on that board.
+I would leave trailing comma, as it is semantically is not the terminator entry.
 
-(This was tested using a GigaDevice GD25Q64E SPI NOR chip.)
+>  };
 
-Reviewed-by: Yixun Lan <dlan@gentoo.org>
-Signed-off-by: Alex Elder <elder@riscstar.com>
-Signed-off-by: Guodong Xu <guodong@riscstar.com>
----
- arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts |  7 +++++++
- arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi    | 20 ++++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k1.dtsi            | 15 +++++++++++++++
- 3 files changed, 42 insertions(+)
+...
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-index 5790d927b93db..9429189354d6a 100644
---- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-@@ -14,6 +14,7 @@ aliases {
- 		ethernet0 = &eth0;
- 		ethernet1 = &eth1;
- 		serial0 = &uart0;
-+		spi3 = &spi3;
- 		i2c2 = &i2c2;
- 		i2c8 = &i2c8;
- 	};
-@@ -335,6 +336,12 @@ &pcie2 {
- 	status = "okay";
- };
- 
-+&spi3 {
-+	pinctrl-0 = <&ssp3_0_cfg>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
- &uart0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0_2_cfg>;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
-index b13dcb10f4d66..34d88334e95e4 100644
---- a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
-@@ -570,4 +570,24 @@ pwm14-1-pins {
- 			drive-strength = <32>;
- 		};
- 	};
-+
-+	ssp3_0_cfg: ssp3-0-cfg {
-+		ssp3-0-pins {
-+			pinmux = <K1_PADCONF(75, 2)>,	/* SCLK */
-+				 <K1_PADCONF(77, 2)>,	/* MOSI  */
-+				 <K1_PADCONF(78, 2)>;	/* MISO */
-+
-+			bias-disable;
-+			drive-strength = <19>;
-+			power-source = <3300>;
-+		};
-+
-+		ssp3-0-frm-pins {
-+			pinmux = <K1_PADCONF(76, 2)>;	/* FRM (frame) */
-+
-+			bias-pull-up = <0>;
-+			drive-strength = <19>;
-+			power-source = <3300>;
-+		};
-+	};
- };
-diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
-index f0bad6855c970..f8747190d2e12 100644
---- a/arch/riscv/boot/dts/spacemit/k1.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
-@@ -983,6 +983,21 @@ qspi: spi@d420c000 {
- 				status = "disabled";
- 			};
- 
-+			spi3: spi@d401c000 {
-+				compatible = "spacemit,k1-spi";
-+				reg = <0x0 0xd401c000 0x0 0x30>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks = <&syscon_apbc CLK_SSP3>,
-+					 <&syscon_apbc CLK_SSP3_BUS>;
-+				clock-names = "core", "bus";
-+				resets = <&syscon_apbc RESET_SSP3>;
-+				interrupts = <55>;
-+				dmas = <&pdma 20>, <&pdma 19>;
-+				dma-names = "rx", "tx";
-+				status = "disabled";
-+			};
-+
- 			/* sec_uart1: 0xf0612000, not available from Linux */
- 		};
- 
+>  {
+>  	struct iio_dev_attr *iio_attr = to_iio_dev_attr(attr);
+>  	int channel = iio_attr->address;
+> +	struct hx711_data *hx711_data =
+> +				iio_priv(dev_to_iio_dev(dev));
+
+First of all, please preserve the reversed xmas tree order.
+Second, it's more than enough room to have it a single line.
+
+	struct hx711_data *hx711_data = iio_priv(dev_to_iio_dev(dev));
+
+>  	int i, len = 0;
 
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
