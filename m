@@ -1,131 +1,127 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944CF3542F8
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 09:14:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4A139A7F2;
+	Mon, 27 Apr 2026 09:31:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777281298; cv=none; b=Dr5F95DRYbwQz4wVzPqn63vO2we+UbvkGWEGX4qmFKvhBkel9EIVENxkLOpxqTkOBbi4k1yS3zyytkpbPoX5RCBl3VyiIYpqFsWCCwLcU7Rpd0k4rOGBC6EPT2lykjtlkuysFidEV//vCqMAmUjV8Ju2lPKEuu3TKWhN1EVPBoY=
+	t=1777282296; cv=none; b=Y6QPpD/REBR03oFTohKkwiyxCNdatJ54i0rwpiwg2wXPkMckdDxSUv+weBCsqxjpSyqmI8CGOo6sFtct3qLZM8iQIM3loh/6BjhkcEiWkoiQrhWc9Ua/1arLa4rxsfDoDsA/eMN4dmD04Wq6FOHj/yFExairzeAlitGpEbxMq4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777281298; c=relaxed/simple;
-	bh=EzPC7nqk9AgFER6/WVv2twNqV5B+PmIayWg4UAsoMyk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DcUDsHQk4ZayG+VoNJDfPvt48dTVBTObo+rdAibJ19iejAbwKRr3/XiMiQ60MX5TV0cG2qcJ33XWR2KB4z/6ny0B43i204FSS4zko2jNzZwYjdbnV38pgwl1QWEcB1iaU84u1/Bgeo19c2oKyggpVbGFtvlKAYZk4RKFfH75fKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wHI31-000151-3b; Mon, 27 Apr 2026 11:14:35 +0200
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wHI2y-007Sug-0S;
-	Mon, 27 Apr 2026 11:14:32 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wHI2y-000000004DH-0Dxa;
-	Mon, 27 Apr 2026 11:14:32 +0200
-Message-ID: <871996c5a57223294c584c0ff344efd30b3b982b.camel@pengutronix.de>
-Subject: Re: [PATCH 2/2] thermal: mediatek: lvts: Add MT8189 support
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: mtk36707 <kuanfu.lu@mediatek.com>, "Rafael J . Wysocki"
- <rafael@kernel.org>,  Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui
- <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,  Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,  Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Balsam CHIHI <bchihi@baylibre.com>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, jarried.lin@mediatek.com, 
-	vince-wl.liu@mediatek.com, justin.yeh@mediatek.com
-Date: Mon, 27 Apr 2026 11:14:31 +0200
-In-Reply-To: <20260427065236.1685057-2-kuanfu.lu@mediatek.com>
-References: <20260427065236.1685057-1-kuanfu.lu@mediatek.com>
-	 <20260427065236.1685057-2-kuanfu.lu@mediatek.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1777282296; c=relaxed/simple;
+	bh=A0oXCMrybLIEwLDt5XmVSSXvZtqREUvn/lU0xjuCu6A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X7RlpiH4U48fP7xcaHQwOPkJx6htsaGnPx/MwzSXv/GL4y1XOtjahdgAfzubHJTJZpvxhlhpyLUHYpH73D6e7E/yAlG8/oXPCbNJ0LVVMEelN69/jc1rkvvotwD8JEamtzY10Gjt8bdUiiRyOv5QuQDhFk/zbA/TQHDdIN2G1eY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=Oui0MOT0; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="Oui0MOT0"
+Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
+	by mail11.truemail.it (Postfix) with ESMTPA id 39F831FB1B;
+	Mon, 27 Apr 2026 11:31:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1777282292;
+	bh=3f+ipyipbG9ve74SWingHtpF8ckpjt3qTGqxppXfFzY=; h=From:To:Subject;
+	b=Oui0MOT0x94+2dM3R5uOpRffJ9Wx9j6ylSA9QAkTg92XTx+dn56JG7xkyoASs/fa6
+	 jeurKD+LfLijfHlA9mg6wH5OqqjaEOvDVucHz17xzhALz3mdyDx+/MsPHaZVp+YVxJ
+	 VIU34BPvnoFHTPl+YThEFIUGqU6HzI1TbxO1HNl3JHKluUYtK9yGDDeiUXDnyOF/Yz
+	 U9rQ8naikD2oQ8qGchfq7QlTttc7kMhUh/sUuzk97naTvYQq6FTtCPfwqgnIJIqwXO
+	 eWElkycEwmM5cl9ZVK2doQf8R3IWlYTNVaMEWuAXQbf20IyJv35NG87Vt7cb+pgGT3
+	 aaV344jJwI6MA==
+Date: Mon, 27 Apr 2026 11:31:27 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Francesco Dolcini <francesco@dolcini.it>, peng.fan@oss.nxp.com,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, Frank Li <Frank.Li@nxp.com>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	imx@lists.linux.dev, linux-renesas-soc@vger.kernel.org,
+	linux-sunxi@lists.linux.dev, driver-core@lists.linux.dev,
+	regressions@lists.linux.dev
+Subject: Re: [PATCH v2 6/9] soc: imx8m: don't access of_root directly
+Message-ID: <20260427093127.GA50667@francesco-nb>
+References: <20260223-soc-of-root-v2-0-b45da45903c8@oss.qualcomm.com>
+ <20260223-soc-of-root-v2-6-b45da45903c8@oss.qualcomm.com>
+ <6593091.DvuYhMxLoT@steina-w>
+ <20260427064704.GA17710@francesco-nb>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260427064704.GA17710@francesco-nb>
 
-On Mo, 2026-04-27 at 14:48 +0800, mtk36707 wrote:
-> From: Kuanfu Lu <kuanfu.lu@mediatek.com>
->=20
-> Add LVTS thermal support for MediaTek MT8189 by adding MT8189-specific
-> controller/sensor topology and platform data for the MCU and AP domains.
->=20
-> MT8189 differs from previous SoCs in a few aspects, so extend the driver
-> to handle these variations:
-> - Program the hardware thermal shutdown threshold (tshut) using raw units=
-.
-> - Add per-SoC feature flags to skip clock gating and reset control when
->   they are not required, and to enable Stage-3 monitor interrupt setup.
-> - Pass SoC data into lvts_irq_init() and lvts_ctrl_configure() so the
->   initialization can be configured per platform.
->=20
-> This enables monitoring of MT8189 CPU clusters and AP domain sensors
-> (SOC/APU/GPU) with the existing LVTS driver.
->=20
-> Signed-off-by: Kuanfu Lu <kuanfu.lu@mediatek.com>
-> ---
->  drivers/thermal/mediatek/lvts_thermal.c | 142 +++++++++++++++++++++---
->  1 file changed, 129 insertions(+), 13 deletions(-)
->=20
-> diff --git a/drivers/thermal/mediatek/lvts_thermal.c b/drivers/thermal/me=
-diatek/lvts_thermal.c
-> index a9617d5e0077..9dbd9191e3ba 100644
-> --- a/drivers/thermal/mediatek/lvts_thermal.c
-> +++ b/drivers/thermal/mediatek/lvts_thermal.c
-[...]
-> @@ -1470,10 +1482,12 @@ static int lvts_probe(struct platform_device *pde=
-v)
->  	if (IS_ERR(lvts_td->base))
->  		return dev_err_probe(dev, PTR_ERR(lvts_td->base), "Failed to map io re=
-source\n");
-> =20
-> -	lvts_td->reset =3D devm_reset_control_get_by_index(dev, 0);
++Peng
 
-First of all, this should have been:
+Hello all,
 
-	lvts_td->reset =3D devm_reset_control_get_exclusive(dev, NULL);
+On Mon, Apr 27, 2026 at 08:47:04AM +0200, Francesco Dolcini wrote:
+> On Tue, Mar 24, 2026 at 11:24:09AM +0100, Alexander Stein wrote:
+> > Hi,
+> > 
+> > Am Montag, 23. Februar 2026, 14:37:21 CET schrieb Bartosz Golaszewski:
+> > > Don't access of_root directly as it reduces the build test coverage for
+> > > this driver with COMPILE_TEST=y and OF=n. Use existing helper functions
+> > > to retrieve the relevant information.
+> > > 
+> > > Suggested-by: Rob Herring <robh@kernel.org>
+> > > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > 
+> > today I noticed the following warning running next-20260323:
+> > > caam 30900000.crypto: No clock data provided for i.MX SoC
+> > 
+> > This happens when there is no matching against the soc_id.
+> > 
+> > Checking the source it turns out this patch is the cause that the SoC info
+> > does not provide soc_id anymore.
+> > next-20260323:
+> > > $ grep . /sys/devices/soc0/*
+> > > /sys/devices/soc0/family:Freescale i.MX
+> > > /sys/devices/soc0/machine:TQ-Systems i.MX8MPlus TQMa8MPxL on MBa8MP-RAS314
+> > > grep: /sys/devices/soc0/power: Is a directory
+> > > /sys/devices/soc0/revision:unknown
+> > > /sys/devices/soc0/serial_number:0000000000000000
+> > > grep: /sys/devices/soc0/subsystem: Is a directory
+> > 
+> > reverting this patch (2524b293a59e586afd06358d0b191ab57208a920):
+> > > $ grep . /sys/devices/soc0/*
+> > > /sys/devices/soc0/family:Freescale i.MX
+> > > /sys/devices/soc0/machine:TQ-Systems i.MX8MPlus TQMa8MPxL on MBa8MP-RAS314
+> > > grep: /sys/devices/soc0/power: Is a directory
+> > > /sys/devices/soc0/revision:1.1
+> > > /sys/devices/soc0/serial_number:469677A693A4B8CE131D180033E44903
+> > > /sys/devices/soc0/soc_id:i.MX8MP
+> > > grep: /sys/devices/soc0/subsystem: Is a directory
+> > 
+> > soc_id is restored. Now that I write these lines I noticed that
+> > serial_number also contained empty value which is restored with the revert.
+> 
+> Any update on this? I would say this is a regression in 7.1-rc1.
+> 
+> I noticed the same issue, and CAAM is not working.
+> 
+> [    0.000000] Linux version 7.1.0-rc1-0.0.0-devel (oe-user@oe-host) (aarch64-tdx-linux-gcc (GCC) 15.2.0, GNU ld (GNU Binutils) 2.46) #1 SMP PREEMPT Sun Apr 26 21:19:00 UTC 2026
+> ...
+> [   10.611139] caam 30900000.crypto: No clock data provided for i.MX SoC
+> [   10.611211] caam 30900000.crypto: probe with driver caam failed with error -22
 
-since there is only a single reset control defined in the binding.
+I guess this is the fix
 
-> -	if (IS_ERR(lvts_td->reset))
-> -		return dev_err_probe(dev, PTR_ERR(lvts_td->reset), "Failed to get rese=
-t control\n");
-> -
-> +	if (!lvts_data->reset_no_need) {
-> +		lvts_td->reset =3D devm_reset_control_get_by_index(dev, 0);
+https://lore.kernel.org/all/20260427-soc-imx8m-fix-v1-1-1fe5b43d8090@nxp.com/
 
-So this can be changed to
-
-	lvts_td->reset =3D devm_reset_control_get_optional_exclusive(dev, NULL);
-
-instead. There is no need for the reset_no_need parameter at all.
-Whether the reset control is required or not is already specified in
-the device tree bindings.
-
-> +		if (IS_ERR(lvts_td->reset))
-> +			return dev_err_probe(dev, PTR_ERR(lvts_td->reset),
-> +					     "Failed to get reset control\n");
-> +	}
->  	irq =3D platform_get_irq(pdev, 0);
->  	if (irq < 0)
->  		return irq;
-
-regards
-Philipp
