@@ -1,144 +1,246 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1ED63EF0A8
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 19:09:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFFF43E3D96;
+	Mon, 27 Apr 2026 19:09:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777316966; cv=none; b=VRYvYJMIYTXXS46OuZ/sgwxixqtveMAsn9mA+BVlWcJoBI4Wz73wKgFl3iHxzL7TwkiPyK6GiEW+DWxAWEsCJ95iAVQEikphM4RMaou53LiUdh0OJXdwvGFsHbJI+HJ17kW9ylH/brBVa5BFuGeHJzrVorRUzX/xjMuMqzpGFD8=
+	t=1777316997; cv=none; b=nE/FjHZyo/7B1Kl6KLqabye5+ykAGEGX+6bVCh5wATOyXxDG3rNnVPP0dGc3fv2qKlgU8NtSgN9GpjGrOAXPMNw5WfNpORgy390O9YVuiXBIX85NbhRFK57XshapHK9OPMo7WmYUw+Yrin3Aev13Ji5f0HpbpXKMrHTZcblrZno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777316966; c=relaxed/simple;
-	bh=xwUA3LOinRz99aXFkNoUESWamcaKaH4TPR2HucSnVJU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Diq/MiTw83LJcj8YIhKmDPL9HBbsNy6K0RaMO4noQWY7dKrVXhvhN9bKtfh/+p/kbZJjz+14npF6ZKxg7Rqwp76YqMhiUJzSMoVMRUVvOJvZsCWvKglCSJdEkdtySGi0PKDhyLATOCcovKvhl/JfMj34yBnjQnt1JItr6phhNbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lNcNrHwP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZqdgWBhI; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777316997; c=relaxed/simple;
+	bh=S2QFyYO98/VeGN/skPl8gjEfWZ0lmpn91ZH1v5evmfc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZzSCgTgyNCtvnFyxjVmeKIg3+yVbEJSo76rbDY4g7ip7l2aaN7kTWXcUI/qVoVmgnZcvgjgdm7DA5i3EOzeWiqaosUr9jty7WpgcBl/b0t8r6FvFa5lk1RleUX5TioZhWfu4OfPo7OOo9mlbMR6rxJFcYgVOOkZxwEbEjlNOox0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oy1TTQza; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lNcNrHwP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZqdgWBhI"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63RJ3buc2112680
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 19:09:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=VN5/vWSpUfq9bwbzgEQDNDzFZoAHnVwNNTG
-	Tid3qqrU=; b=lNcNrHwPgkYTE0JzH8D6ZgdLbLGqDJcXiBBbQzzczaX367p7Ock
-	6lHWXieQlV0UD6yDfiFUyFsAyNX7JKVqCT5EFmooGCIT6aN23s2SY/Ad77E3RC1C
-	25Y4OpxHbv5jc6oBStM1ja314LA+V5TepKxT4wL0s9Hj6xohxuaDDXVGRADr7age
-	NgiR45Z6gF32Go07coLsoRkXGSXGK2eBhuNSm0drsY2VC4AcukKhg7vauw68MUMc
-	Nu9xk/cbFSy/aXNyvuarOMIeyRpWfFPnDe3HlNei2k90/WiKQoH8XKK+jPBTwuN9
-	muq9fVFWRjDw3f3jW0RR6DzeXMe0e8bmbnA==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dtdmbg0q5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 19:09:22 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2b242062308so196949165ad.2
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 12:09:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777316962; x=1777921762; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=VN5/vWSpUfq9bwbzgEQDNDzFZoAHnVwNNTGTid3qqrU=;
-        b=ZqdgWBhIa65LVR+XTbjkc30xh70CWuOIzQUFfdE36h+m1qHtmDsyoHZVeyXoo2iS3e
-         Q5ZyjBT/iz0JldJqMAzBSZdjXySRVplT5Aze4cG8tqzRYgU8s2Z2/YGxQ5uig9kytUE6
-         ZWsRXPKGZGSp0AYgjf13ay6G9u8eg+7IeFakfTH2r26b9C9AO7RLrvxPZDM0N/dJJIXC
-         RdQWeYorlxCuPAShBOYsekoDNKQEXwiBiN8aYBUkEbbKWtD7i+yfRg9um5ziFsIpo43w
-         zaTq13maf3Ea80IAptXMILmCcIwB+nwGZ/er3FYeTqyJ2pW3fhJdnPNmntZbVRPOWnbd
-         F+2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777316962; x=1777921762;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VN5/vWSpUfq9bwbzgEQDNDzFZoAHnVwNNTGTid3qqrU=;
-        b=cmficWL3OJbwlc8pkWnayJmytk75zCKHQ1Gons9ri1b/grTIajj+8HsqwtTV+24tQy
-         pvO2Jjczo8Cp2AIIAEXZAjcKrHMhqtcEz4+dOuzCEeJEFTcWtDjUBhEmukuUZ2psvd29
-         HqYI6GBFxB7HCocChdvM9ce8/JPTs5mO1z0/fxqLICu8WdS2a9F+CcOrfBCk5Ov4dLQn
-         zG1/nRmu82LxpBCkrA0Laq67I8WP2ylZ2HY0JZ0kjl+geQO8/V1gFUCbRwl6Wuy8+xWs
-         KCwj5Uojgf6tK1EPnLI1RVZUtOnpTX6LnGrxYdJnPkymTYc3GJnuuXsqxbwEkJhkPWdG
-         u1ig==
-X-Forwarded-Encrypted: i=1; AFNElJ/k6h8iINd/GVICHIfb09ukFAn6mTIaPU6Ad5QbtoG3PXnMeUUvuRwRbwyC1wJ3kjb89/OUW4FNGUiV@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQKfBgUqdx6kbrr5DYY/GFyBkjwpXJX+v3wS8xHMefTAt9F/yg
-	Xztvyf3DAQuNgOuicgXDG3tAc5ZultOC+Zd59lYGrljQZTbgoKHYMYsoPncial6D3xlt6M6NIMJ
-	lJp4ldUHStkJ73kbXx48NVApqK3s02ja2DBRpFavtEL/k5kz5anzcJR+YEfYxGB0R
-X-Gm-Gg: AeBDievE8tlTgP5b1THqT/OwqkTyG/sqXVF0czSm5qeeKx6LSJJiKT3EK+cWtmDZrpu
-	3ZAc/kKNmorS/GxRVzUlmcBbXWz6mhMWUT6NINMlqhb1/84WrVVa3yTGGU4y0viaNiVZURE3nIW
-	1o1Ta7LvaG8qBWUNJU5HH0u6i1IruH+Q7pCJaEEKpCfzRml5+33PRf9kCSVFoD8NsFtY2NIx6yk
-	NWV1nwCAY3mjYMBxgOmeZ6rqpbb5kuvH+HwMYgnQlrMzXJ+EB0zQMDJoP9d0+uZ9bN7rl/DT8As
-	+htMM09FRs2rrtKuTA1scGb1vJ0s4MGCCKubeDjL7/y1/a7ya9bCXXesnynN+SxBsrzra62pfQ6
-	R/HAhAGtVwLBKOnC5bzF9781wI2eBq+8OBzxJ3fXwlIEvreN5BrzeoHmok+g=
-X-Received: by 2002:a17:903:22c2:b0:2b2:489a:f46a with SMTP id d9443c01a7336-2b97a97298dmr4981715ad.36.1777316962269;
-        Mon, 27 Apr 2026 12:09:22 -0700 (PDT)
-X-Received: by 2002:a17:903:22c2:b0:2b2:489a:f46a with SMTP id d9443c01a7336-2b97a97298dmr4981065ad.36.1777316961476;
-        Mon, 27 Apr 2026 12:09:21 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b97aa95a7fsm2232335ad.24.2026.04.27.12.09.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Apr 2026 12:09:20 -0700 (PDT)
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Amol Maheshwari <amahesh@qti.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH] dt-bindings: misc: qcom,fastrpc: Add compatible for Hawi SoC
-Date: Tue, 28 Apr 2026 00:39:13 +0530
-Message-ID: <20260427190913.3680717-1-mukesh.ojha@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oy1TTQza"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB534C19425;
+	Mon, 27 Apr 2026 19:09:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777316997;
+	bh=S2QFyYO98/VeGN/skPl8gjEfWZ0lmpn91ZH1v5evmfc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=oy1TTQzabSaSuoEPs9nMY1DcOZHjLDMVdinWJwVSlLiubHWfCdGTVDrBoiffUnV42
+	 4lR3iRcdRoRm6WmErZB7xmwE+o0aok1TZr1gwQZZcMF/yREI/KReJwtBaDBanAXqWX
+	 TfhlFacma5zyeE/lMesNtd8p1bGd0mlgCuYcBVgQKiBOZuO5gLxEp2OxhkJ8/ui9We
+	 1EHCy0xQa2AOpklCXJB1L/n/Ayy5PTYKEtFKHBzU4E8+TgcW9+pFZ4yNaV0pCoERhj
+	 XNq7M8lMiRHMiGR0gSTnuKUyaqDXJruookoppjFCDKseviChNfSmsd40xnEbV7T3hs
+	 /TvYi7Y59+Oqw==
+Date: Mon, 27 Apr 2026 20:09:51 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: devicetree@vger.kernel.org, Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	"open list:MEDIATEK MT76 WIRELESS LAN DRIVER" <linux-wireless@vger.kernel.org>,
+	"open list:ARM/Mediatek SoC support" <linux-kernel@vger.kernel.org>,
+	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>,
+	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+	"open list:MIPS" <linux-mips@vger.kernel.org>
+Subject: Re: [PATCH 3/3] wifi: mt76: remove mt76_get_of_data_from_mtd
+Message-ID: <20260427-hug-baboon-d60bb8fdfa51@spud>
+References: <20260427034427.881389-1-rosenp@gmail.com>
+ <20260427034427.881389-4-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: h1sYwgDBGsAImLmwCf-GTMp48rjqtLpu
-X-Authority-Analysis: v=2.4 cv=PcrPQChd c=1 sm=1 tr=0 ts=69efb463 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=vdJOUiAGeZ4XVXUCxO0A:9 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-ORIG-GUID: h1sYwgDBGsAImLmwCf-GTMp48rjqtLpu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDIwNCBTYWx0ZWRfX/N5A1K5xBxM5
- DaqPTz+Szw+mDudvD4dHYpENGcPB5WUj/yF5p0b4Dq8M8TueIqgGxKkEyGYVfBAV+0Sm9XK2QrH
- Rvkz7bOaWYzZQA9CFzdVLs3SFa8mL2RyvpZqYr4uBwRa/MQaoEDzUv/cAG4GcZ1HRzy084xizAh
- o0KkcaAeeY1cUHLjRE1o6AmWOjZLRlpQzPjPj5nQJ0+AymO9gebn1cLM7hzd3vfkVgh468mSNfT
- qZgv+KqcMe/ZWQFQu0dFeIBRQfKvhB2D8bCnmMa9pHmjsx1Fth9Fjr0qgJG4nUgW0sfj96QMmH0
- rqObLfkyiwTgVPRj4OhOTBd2qc7u7pBrBfBanOQ0hpW9qH/iIYBE+qFMETJltUsQmhyiK0DVBRh
- /E0x8OPNseOVGSqj5hC9xjTdGMbtcgb28npzmOzIYikYUTr+PVVMqLrrSzo0YNqERD10JgZwBAk
- M3ZW6E/EI7hFpv4Frgg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-27_04,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
- malwarescore=0 adultscore=0 priorityscore=1501 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270204
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="h8E0ijeg3Rf1YQAF"
+Content-Disposition: inline
+In-Reply-To: <20260427034427.881389-4-rosenp@gmail.com>
 
-Document compatible for Qualcomm Hawi fastrpc which is fully
-compatible with Qualcomm Kaanapali fastrpc.
 
-Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml | 1 +
- 1 file changed, 1 insertion(+)
+--h8E0ijeg3Rf1YQAF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
-index ca830dd06de2..2876fdd7c6e6 100644
---- a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
-+++ b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
-@@ -25,6 +25,7 @@ properties:
-       - items:
-           - enum:
-               - qcom,glymur-fastrpc
-+              - qcom,hawi-fastrpc
-           - const: qcom,kaanapali-fastrpc
- 
-   label:
--- 
-2.53.0
+On Sun, Apr 26, 2026 at 08:44:27PM -0700, Rosen Penev wrote:
+> mt76_get_of_data_from_mtd has been replaced by
+> mt76_get_of_data_from_nvmem in all usages.
 
+All users in the kernel, but what about other sources of devicetrees?
+Those built into firmware etc? Are there none of those too?
+
+Conor.
+
+>=20
+> Remove it to prevent people from using the deprecated
+> mediatek,mtd-eeprom binding.
+>=20
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  drivers/net/wireless/mediatek/mt76/eeprom.c   | 87 -------------------
+>  drivers/net/wireless/mediatek/mt76/mt76.h     |  1 -
+>  .../wireless/mediatek/mt76/mt7915/eeprom.c    |  4 -
+>  3 files changed, 92 deletions(-)
+>=20
+> diff --git a/drivers/net/wireless/mediatek/mt76/eeprom.c b/drivers/net/wi=
+reless/mediatek/mt76/eeprom.c
+> index afdb73661866..092804323d81 100644
+> --- a/drivers/net/wireless/mediatek/mt76/eeprom.c
+> +++ b/drivers/net/wireless/mediatek/mt76/eeprom.c
+> @@ -35,89 +35,6 @@ static int mt76_get_of_eeprom_data(struct mt76_dev *de=
+v, void *eep, int len)
+>  	return 0;
+>  }
+> =20
+> -int mt76_get_of_data_from_mtd(struct mt76_dev *dev, void *eep, int offse=
+t, int len)
+> -{
+> -#ifdef CONFIG_MTD
+> -	struct device_node *np =3D dev->dev->of_node;
+> -	struct mtd_info *mtd;
+> -	const __be32 *list;
+> -	const char *part;
+> -	phandle phandle;
+> -	size_t retlen;
+> -	int size;
+> -	int ret;
+> -
+> -	list =3D of_get_property(np, "mediatek,mtd-eeprom", &size);
+> -	if (!list)
+> -		return -ENOENT;
+> -
+> -	phandle =3D be32_to_cpup(list++);
+> -	if (!phandle)
+> -		return -ENOENT;
+> -
+> -	np =3D of_find_node_by_phandle(phandle);
+> -	if (!np)
+> -		return -EINVAL;
+> -
+> -	part =3D of_get_property(np, "label", NULL);
+> -	if (!part)
+> -		part =3D np->name;
+> -
+> -	mtd =3D get_mtd_device_nm(part);
+> -	if (IS_ERR(mtd)) {
+> -		ret =3D  PTR_ERR(mtd);
+> -		goto out_put_node;
+> -	}
+> -
+> -	if (size <=3D sizeof(*list)) {
+> -		ret =3D -EINVAL;
+> -		goto out_put_node;
+> -	}
+> -
+> -	offset +=3D be32_to_cpup(list);
+> -	ret =3D mtd_read(mtd, offset, len, &retlen, eep);
+> -	put_mtd_device(mtd);
+> -	if (mtd_is_bitflip(ret))
+> -		ret =3D 0;
+> -	if (ret) {
+> -		dev_err(dev->dev, "reading EEPROM from mtd %s failed: %i\n",
+> -			part, ret);
+> -		goto out_put_node;
+> -	}
+> -
+> -	if (retlen < len) {
+> -		ret =3D -EINVAL;
+> -		goto out_put_node;
+> -	}
+> -
+> -	if (of_property_read_bool(dev->dev->of_node, "big-endian")) {
+> -		u8 *data =3D (u8 *)eep;
+> -		int i;
+> -
+> -		/* convert eeprom data in Little Endian */
+> -		for (i =3D 0; i < round_down(len, 2); i +=3D 2)
+> -			put_unaligned_le16(get_unaligned_be16(&data[i]),
+> -					   &data[i]);
+> -	}
+> -
+> -#ifdef CONFIG_NL80211_TESTMODE
+> -	dev->test_mtd.name =3D devm_kstrdup(dev->dev, part, GFP_KERNEL);
+> -	if (!dev->test_mtd.name) {
+> -		ret =3D -ENOMEM;
+> -		goto out_put_node;
+> -	}
+> -	dev->test_mtd.offset =3D offset;
+> -#endif
+> -
+> -out_put_node:
+> -	of_node_put(np);
+> -	return ret;
+> -#else
+> -	return -ENOENT;
+> -#endif
+> -}
+> -EXPORT_SYMBOL_GPL(mt76_get_of_data_from_mtd);
+> -
+>  int mt76_get_of_data_from_nvmem(struct mt76_dev *dev, void *eep,
+>  				const char *cell_name, int len)
+>  {
+> @@ -163,10 +80,6 @@ static int mt76_get_of_eeprom(struct mt76_dev *dev, v=
+oid *eep, int len)
+>  	if (!ret)
+>  		return 0;
+> =20
+> -	ret =3D mt76_get_of_data_from_mtd(dev, eep, 0, len);
+> -	if (!ret)
+> -		return 0;
+> -
+>  	return mt76_get_of_data_from_nvmem(dev, eep, "eeprom", len);
+>  }
+> =20
+> diff --git a/drivers/net/wireless/mediatek/mt76/mt76.h b/drivers/net/wire=
+less/mediatek/mt76/mt76.h
+> index 527bef97e122..f447ecac664d 100644
+> --- a/drivers/net/wireless/mediatek/mt76/mt76.h
+> +++ b/drivers/net/wireless/mediatek/mt76/mt76.h
+> @@ -1339,7 +1339,6 @@ void mt76_seq_puts_array(struct seq_file *file, con=
+st char *str,
+> =20
+>  int mt76_eeprom_init(struct mt76_dev *dev, int len);
+>  int mt76_eeprom_override(struct mt76_phy *phy);
+> -int mt76_get_of_data_from_mtd(struct mt76_dev *dev, void *eep, int offse=
+t, int len);
+>  int mt76_get_of_data_from_nvmem(struct mt76_dev *dev, void *eep,
+>  				const char *cell_name, int len);
+> =20
+> diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c b/drivers=
+/net/wireless/mediatek/mt76/mt7915/eeprom.c
+> index eb92cbf1a284..c24e1276700b 100644
+> --- a/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c
+> +++ b/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c
+> @@ -29,10 +29,6 @@ static int mt7915_eeprom_load_precal(struct mt7915_dev=
+ *dev)
+> =20
+>  	offs =3D is_mt7915(&dev->mt76) ? MT_EE_PRECAL : MT_EE_PRECAL_V2;
+> =20
+> -	ret =3D mt76_get_of_data_from_mtd(mdev, dev->cal, offs, size);
+> -	if (!ret)
+> -		return ret;
+> -
+>  	ret =3D mt76_get_of_data_from_nvmem(mdev, dev->cal, "precal", size);
+>  	if (!ret)
+>  		return ret;
+> --=20
+> 2.54.0
+>=20
+
+--h8E0ijeg3Rf1YQAF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCae+0fwAKCRB4tDGHoIJi
+0p6UAQCh7xiqZv6vZTQVkekaR1PoBZs8cZSa9cGLXxrA5TBPXAD+NdxdB4FFY1+K
+5yFpUApYxWTCs8eeSKv6+VAqqrq7lAE=
+=hLdb
+-----END PGP SIGNATURE-----
+
+--h8E0ijeg3Rf1YQAF--
