@@ -1,43 +1,84 @@
-Received: from mail-m49195.qiye.163.com (mail-m49195.qiye.163.com [45.254.49.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076333B38BB;
-	Mon, 27 Apr 2026 09:52:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE5783B3C13;
+	Mon, 27 Apr 2026 09:56:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777283573; cv=none; b=gFCJGbu8rfWGDFL0WJtCbwilsxH0tOTXdAuMbYt/NQpbgV0K5YRTKOQMl+4fnVxa28yHt8eZD9kI95PojkYF6f5X/fypOqmYn5BvBqMp3+ofJx5RHrAYnnqLOqyPFwBWpZBzvaUAzF0H3+2PF/1YlS1HYQrB8cMRwJYfYu5khWQ=
+	t=1777283786; cv=none; b=qnP+r+ZcUrg2VjgewV9ITqT06+LjsoVPatmOhjHeAjTLQW3XUXiyP1iaDeYwAWMqQdk+cGmPw4FPttFXWq3JFHAr6a54wR6DHaNmcVwLGbA6KPW6Y5XRMvbGaZjOuOVamcMqZwqgyuR5pEwVrh6NtK+urx0FWKVn74ENc91q/5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777283573; c=relaxed/simple;
-	bh=hzIoHfnPdYQMF9GtwItmBDS7TD1MqyYSOUvBP3HWYXU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jGggxt9e5RLYarklZTmMO6vTJxVc4yIA6EnGFYKngnnF5VU2HqFhArmNLZcZTgB69jU6HnXUvnbUK6sij6w0E4hR6ELfo0z5/qJhb4w2pvbAOjJTA5JdFMV2Jn3zQLBr2FviL6qHCoBQF/dxtu14Bm6mgH6/cO5aKTYsRnyoaEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=XrhtiPlI; arc=none smtp.client-ip=45.254.49.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1777283786; c=relaxed/simple;
+	bh=jMmit9CI2GuOx6nGL6l6rT3WoEmoOZljdXM257fv1rY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LfDPTBH3ZGHKFWBN747vacoTurcwKKc6ALFxYAhlo2S5+wr5n0YgPIGGHTvo4AdTwVQryYcp2//IR11VC+puKVLGdIWnz4wFDjBciILZAXYRAtE7HpG3ZuytLM2Ht6E4UtTyR43Rg+Tg090p6h3921hlFzt466lURB22mYYCpgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NGZ6W8hz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="XrhtiPlI"
-Received: from albert-OptiPlex-7080.. (unknown [112.65.126.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3c40faa06;
-	Mon, 27 Apr 2026 14:23:31 +0800 (GMT+08:00)
-From: Albert Yang <yangzh0906@thundersoft.com>
-To: gordon.ge@bst.ai,
-	krzk@kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	conor+dt@kernel.org,
-	arnd@arndb.de,
-	catalin.marinas@arm.com,
-	will@kernel.org
-Cc: bst-upstream@bstai.top,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NGZ6W8hz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FFCAC2BCB4;
+	Mon, 27 Apr 2026 09:56:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777283786;
+	bh=jMmit9CI2GuOx6nGL6l6rT3WoEmoOZljdXM257fv1rY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=NGZ6W8hzd02dc31RtbeTvU87c03i2+XoFfsp8ZKY5Q/b2GXEgjW/xF1Ba8XN7CaOH
+	 PCWma2I8ZKKvkL7PZ0b4BibO4z28yI72/3kDCmEmKeshL3iDj//WegAQPz1br0RZAS
+	 Rwl8L4IMw4kuCIlgkhryicOMKmFePXxy5qZa1nBP/dIV8eVkHbfwEJonyLtVbrfhz5
+	 ikl1vcieK1wpgMCKLyvqW5aaAchex4l6hJBXfMZf7PLZVX0s2j45genoCtPX2VZKV2
+	 JmnjtGuFa7E9j0yVlbaGgR+TNTfVDErPpTjxLEqkDIk9sO7m//9XuS5SbdRyYD3V1E
+	 c+2N4UaG01lgg==
+From: Sumit Garg <sumit.garg@kernel.org>
+To: andersson@kernel.org,
+	konradybcio@kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v8 1/2] arm64: dts: bst: enable eMMC controller in C1200 CDCU1.0 board
-Date: Mon, 27 Apr 2026 14:23:28 +0800
-Message-ID: <20260427062329.3715925-2-yangzh0906@thundersoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260427062329.3715925-1-yangzh0906@thundersoft.com>
-References: <20260427062329.3715925-1-yangzh0906@thundersoft.com>
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-remoteproc@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	robin.clark@oss.qualcomm.com,
+	sean@poorly.run,
+	akhilpo@oss.qualcomm.com,
+	lumag@kernel.org,
+	abhinav.kumar@linux.dev,
+	jesszhan0024@gmail.com,
+	marijn.suijten@somainline.org,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	vikash.garodia@oss.qualcomm.com,
+	dikshita.agarwal@oss.qualcomm.com,
+	bod@kernel.org,
+	mchehab@kernel.org,
+	elder@kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	jjohnson@kernel.org,
+	mathieu.poirier@linaro.org,
+	trilokkumar.soni@oss.qualcomm.com,
+	mukesh.ojha@oss.qualcomm.com,
+	pavan.kondeti@oss.qualcomm.com,
+	jorge.ramirez@oss.qualcomm.com,
+	tonyh@qti.qualcomm.com,
+	vignesh.viswanathan@oss.qualcomm.com,
+	srinivas.kandagatla@oss.qualcomm.com,
+	amirreza.zarrabi@oss.qualcomm.com,
+	jens.wiklander@linaro.org,
+	op-tee@lists.trustedfirmware.org,
+	apurupa@qti.qualcomm.com,
+	skare@qti.qualcomm.com,
+	linux-kernel@vger.kernel.org,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: [PATCH v4 00/15] firmware: qcom: Add OP-TEE PAS service support
+Date: Mon, 27 Apr 2026 15:25:48 +0530
+Message-ID: <20260427095603.1157963-1-sumit.garg@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,124 +86,138 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9dcd9b778c09cckunmcd249b321a30d5
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTR1DVkJJHUkfTExKGE1MSVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSklVTU5VSklNVUpNSVlXWRYaDxIVHRRZQVlPS0hVSk
-	tJT09PSFVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=XrhtiPlIUTegFw1ieLby/O9MrO+eVqF8NCzfQhVAjPOSKWC+C1R44nkBhylZU6fXR6U2hHqH1qW6ki4UPYuR2uKpAS22EYCT5tNHb8Uju7Ispb8TpIf9K/i9qdr5ln7DQiuxqCVtF4C+QyAreOZ0Te/EaHaqGvSVJIUUry30PIA=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
-	bh=I/Qf+Jt8jBH61yX/14Jp1btkMWzHWiNR5UF+Cn43c64=;
-	h=date:mime-version:subject:message-id:from;
 
-Add eMMC controller support to the BST C1200 device tree:
+From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-- bstc1200.dtsi: Add mmc0 node for the DWCMSHC SDHCI controller
-  with basic configuration (disabled by default)
-- bstc1200.dtsi: Add fixed clock definition for MMC controller
-- bstc1200-cdcu1.0-adas_4c2g.dts: Enable mmc0 with board-specific
-  configuration including 8-bit bus width and reserved SRAM buffer
+Qcom platforms has the legacy of using non-standard SCM calls
+splintered over the various kernel drivers. These SCM calls aren't
+compliant with the standard SMC calling conventions which is a
+prerequisite to enable migration to the FF-A specifications from Arm.
 
-The bounce buffer in reserved SRAM addresses hardware constraints
-where the eMMC controller cannot access main system memory through
-SMMU due to a hardware bug, and all DRAM is located outside the
-4GB boundary.
+OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+support these non-standard SCM calls. And even for newer architectures
+using S-EL2 with Hafnium support, QTEE won't be able to support SCM
+calls either with FF-A requirements coming in. And with both OP-TEE
+and QTEE drivers well integrated in the TEE subsystem, it makes further
+sense to reuse the TEE bus client drivers infrastructure.
 
-Signed-off-by: Albert Yang <yangzh0906@thundersoft.com>
-Acked-by: Gordon Ge <gordon.ge@bst.ai>
+The added benefit of TEE bus infrastructure is that there is support
+for discoverable/enumerable services. With that client drivers don't
+have to manually invoke a special SCM call to know the service status.
+
+So enable the generic Peripheral Authentication Service (PAS) provided
+by the firmware. It acts as the common layer with different TZ
+backends plugged in whether it's an SCM implementation or a proper
+TEE bus based PAS service implementation.
+
+The TEE PAS service ABI is designed to be extensible with additional API
+as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
+extensions of the PAS service needed while still maintaining backwards
+compatibility.
+
+Currently OP-TEE support is being added to provide the backend PAS
+service implementation which can be found as part of this PR [1].
+This implementation has been tested on Kodiak/RB3Gen2 board with lemans
+EVK board being the next target. In addition to that WIN/IPQ targets
+planning to use OP-TEE will use this service too. Surely the backwards
+compatibility is maintained and tested for SCM backend.
+
+Note that kernel PAS service support while running in EL2 is at parity
+among OP-TEE vs QTEE. Especially the media (venus/iris) support depends
+on proper IOMMU support being worked out on the PAS client end.
+
+Patch summary:
+- Patch #1: adds Kodiak EL2 overlay since boot stack with TF-A/OP-TEE
+  only allow UEFI and Linux to boot in EL2.
+- Patch #2: adds generic PAS service.
+- Patch #3: migrates SCM backend to generic PAS service.
+- Patch #4: adds TEE/OP-TEE backend for generic PAS service.
+- Patch #5-#13: migrates all client drivers to generic PAS service.
+- Patch #14: drops legacy PAS SCM exported APIs.
+
+The patch-set is based on v7.1-rc1 tag and can be found in git tree here
+[2].
+
+Merge strategy:
+
+It is expected due to APIs dependency, the entire patch-set to go via
+the Qcom tree. All other subsystem maintainers, it will be great if I
+can get acks for the corresponding subsystem patches.
+
+[1] https://github.com/OP-TEE/optee_os/pull/7721
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v4
+
 ---
-Changes for v8:
-- Collected Acked-by: Gordon Ge <gordon.ge@bst.ai>
-- Rebased onto v7.1-rc1
-- No code changes
+Changes in v4:
+- Incorporate misc. comments on patch #4.
+- Picked up an ack for patch #10.
+- Clarify in cover letter about state of media support.
 
-Changes for v7:
-- No code changes; resend with corrected recipients
+Changes in v3:
+- Incorporated some style and misc. comments for patch #2, #3 and #4.
+- Add QCOM_PAS Kconfig dependency for various subsystems.
+- Switch from pseudo TA to proper TA invoke commands.
 
-Changes for v5:
-- Split from platform series per Arnd's feedback
+Changes in v2:
+- Fixed kernel doc warnings.
+- Polish commit message and comments for patch #2.
+- Pass proper PAS ID in set_remote_state API for media firmware drivers.
+- Added Maintainer entry and dropped MODULE_AUTHOR.
 
-Changes for v4:
-- Change compatible to bst,c1200-sdhci
-- Move bus-width and non-removable to board dts
+Mukesh Ojha (1):
+  arm64: dts: qcom: kodiak: Add EL2 overlay
 
-Changes for v3:
-- Split defconfig into dedicated patch
+Sumit Garg (14):
+  firmware: qcom: Add a generic PAS service
+  firmware: qcom_scm: Migrate to generic PAS service
+  firmware: qcom: Add a PAS TEE service
+  remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+  remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
+  soc: qcom: mdtloader: Switch to generic PAS TZ APIs
+  remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+  remoteproc: qcom: Select QCOM_PAS generic service
+  drm/msm: Switch to generic PAS TZ APIs
+  media: qcom: Switch to generic PAS TZ APIs
+  net: ipa: Switch to generic PAS TZ APIs
+  wifi: ath12k: Switch to generic PAS TZ APIs
+  firmware: qcom_scm: Remove SCM PAS wrappers
+  MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
 
-Changes for v2:
-- Reorganize memory map, standardize interrupt definitions
----
- .../dts/bst/bstc1200-cdcu1.0-adas_4c2g.dts    | 19 +++++++++++++++++++
- arch/arm64/boot/dts/bst/bstc1200.dtsi         | 18 ++++++++++++++++++
- 2 files changed, 37 insertions(+)
+ MAINTAINERS                                   |   9 +
+ arch/arm64/boot/dts/qcom/Makefile             |   2 +
+ arch/arm64/boot/dts/qcom/kodiak-el2.dtso      |  35 ++
+ drivers/firmware/qcom/Kconfig                 |  19 +
+ drivers/firmware/qcom/Makefile                |   2 +
+ drivers/firmware/qcom/qcom_pas.c              | 288 +++++++++++
+ drivers/firmware/qcom/qcom_pas.h              |  50 ++
+ drivers/firmware/qcom/qcom_pas_tee.c          | 479 ++++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
+ drivers/gpu/drm/msm/Kconfig                   |   1 +
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
+ drivers/media/platform/qcom/iris/Kconfig      |  25 +-
+ .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
+ drivers/media/platform/qcom/venus/Kconfig     |   1 +
+ drivers/media/platform/qcom/venus/firmware.c  |  11 +-
+ drivers/net/ipa/Kconfig                       |   2 +-
+ drivers/net/ipa/ipa_main.c                    |  13 +-
+ drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
+ drivers/net/wireless/ath/ath12k/ahb.c         |   8 +-
+ drivers/remoteproc/Kconfig                    |   1 +
+ drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
+ drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
+ drivers/remoteproc/qcom_wcnss.c               |  12 +-
+ drivers/soc/qcom/mdt_loader.c                 |  12 +-
+ include/linux/firmware/qcom/qcom_pas.h        |  43 ++
+ include/linux/firmware/qcom/qcom_scm.h        |  29 --
+ include/linux/soc/qcom/mdt_loader.h           |   6 +-
+ 28 files changed, 1115 insertions(+), 317 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+ create mode 100644 drivers/firmware/qcom/qcom_pas.c
+ create mode 100644 drivers/firmware/qcom/qcom_pas.h
+ create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
+ create mode 100644 include/linux/firmware/qcom/qcom_pas.h
 
-diff --git a/arch/arm64/boot/dts/bst/bstc1200-cdcu1.0-adas_4c2g.dts b/arch/arm64/boot/dts/bst/bstc1200-cdcu1.0-adas_4c2g.dts
-index 5eb9ef369d8c..178ad4bf4f0a 100644
---- a/arch/arm64/boot/dts/bst/bstc1200-cdcu1.0-adas_4c2g.dts
-+++ b/arch/arm64/boot/dts/bst/bstc1200-cdcu1.0-adas_4c2g.dts
-@@ -17,6 +17,25 @@ memory@810000000 {
- 		      <0x8 0xc0000000 0x1 0x0>,
- 		      <0xc 0x00000000 0x0 0x40000000>;
- 	};
-+
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		mmc0_reserved: mmc0-reserved@5160000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0x0 0x5160000 0x0 0x10000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&mmc0 {
-+	bus-width = <8>;
-+	memory-region = <&mmc0_reserved>;
-+	non-removable;
-+	status = "okay";
- };
- 
- &uart0 {
-diff --git a/arch/arm64/boot/dts/bst/bstc1200.dtsi b/arch/arm64/boot/dts/bst/bstc1200.dtsi
-index dd13c6bfc3c8..9660d8396e27 100644
---- a/arch/arm64/boot/dts/bst/bstc1200.dtsi
-+++ b/arch/arm64/boot/dts/bst/bstc1200.dtsi
-@@ -7,6 +7,12 @@ / {
- 	#address-cells = <2>;
- 	#size-cells = <2>;
- 
-+	clk_mmc: clock-4000000 {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <4000000>;
-+	};
-+
- 	cpus {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
-@@ -72,6 +78,18 @@ uart0: serial@20008000 {
- 			status = "disabled";
- 		};
- 
-+		mmc0: mmc@22200000 {
-+			compatible = "bst,c1200-sdhci";
-+			reg = <0x0 0x22200000 0x0 0x1000>,
-+			      <0x0 0x23006000 0x0 0x1000>;
-+			clocks = <&clk_mmc>;
-+			clock-names = "core";
-+			dma-coherent;
-+			interrupts = <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>;
-+			max-frequency = <200000000>;
-+			status = "disabled";
-+		};
-+
- 		gic: interrupt-controller@32800000 {
- 			compatible = "arm,gic-v3";
- 			reg = <0x0 0x32800000 0x0 0x10000>,
 -- 
-2.43.0
+2.51.0
 
