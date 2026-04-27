@@ -1,242 +1,276 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73653B6C15
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 11:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662BB3B775B;
+	Mon, 27 Apr 2026 11:15:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777288511; cv=none; b=qIp1xHf/+M3XLK2fOJ0ZQHI5G2drjny04vA4zRdp6J+pvDD0gLA3gbENZN5uWjPxLOvaeTIJz2/a+hHfzGCYVmTn7j6M/eEVZ+kzFzqPJdP0UzL2Z851188i9VxQhxMQvIwoD5zWlxNQHKdinKmw0nVPSg8CMX90o/Ny3eDEaNM=
+	t=1777288513; cv=none; b=dfA10fHWnaLX4BqkhQipPr9MqCYwkEFu4LfGOw8Va+6pyJ+TGYrisdTMz+HNJ/jKwNrLNMxJTae5Ntc9WsXDkpA7XyCpOapu8jXTLPEY/YhDjFrWQr/kB30/rWA8CdR3N3mK7Dx9hES33pSU37rNYYKvcCm474cp/fI90ZsZ1T8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777288511; c=relaxed/simple;
-	bh=S5v5a2xILTFOuUeOI4/ZHldfWBXVtIB51PyRpwW4Xuc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f7hQKRTIZF6y7JHm539VML8DnK+Q5pCaFzOXIZCVOGYRUABV3sXBYNc0HEJqMqYR+zJm5DoAzci9Xcql4yRkkayRbTZ5LznVMs6Yz8waOPmY7Kk7SOcDzABGunUqcTzYOKH157aLWhwydB5709iFA1v5ls8hCiv8c8lBYQVwlAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com; spf=pass smtp.mailfrom=inventec.com; dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b=L91vQEj1; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inventec.com
+	s=arc-20240116; t=1777288513; c=relaxed/simple;
+	bh=FKVi9H5n+Ygevt4eNRlmcaLrjeWDDl8NL5sgkJC1f8w=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BfwAgX+XocivsI8rj+3JD+m52yETBoXjDNQnzKkoVaD8sBYTFs+cYgZeIgPMaWk78J8fPBqKIJKrqAhJJwKYrhAXtCwRRCXM390dUEGE2Tll4Ld7134CHItIPUk1axyKZunORsv1R0CJswn3bNVK4mPKwGJ5xhthuUZgrza+AdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=u4yKOCo+; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b="L91vQEj1"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c7973f67f4dso2907156a12.1
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 04:15:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=inventec.com; s=google; t=1777288507; x=1777893307; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Rj51DoniKArwyiQTRmeeRmOZITT30YvMqLl9YIyYIsU=;
-        b=L91vQEj1bSom3oomISEnGlu52fE4Sbkg2C3X8tSHqb/wnxP8yrNyal80RDmquANPJw
-         c0Uk6hGHDnmH3m2Hg1D5CKOcqdtTO27z+T++RCiS21VftXRnTZcA/QMvnaPbcNF2MowJ
-         /bgP2L5ibYKDzFNrj8H8skqrLEcmb3OFvctWrQRsMcppiLRP9OnKZXUR76AFsKNBREYW
-         VLm+cw3CljrT+YNvSqMSqqYxTYq3bXh7n29FEPGGIhzqUIJZnR5lQxBd9sVTq8QIS01H
-         a7i09BXGuINfZJXzXAx1kG58/+RxHqRU2TvByGm2rGTq5bQF4jHEBBpRu3XRRsVHXlB/
-         7ZPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777288507; x=1777893307;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Rj51DoniKArwyiQTRmeeRmOZITT30YvMqLl9YIyYIsU=;
-        b=f3xmF3qOEApvgiyaTkIePFIC0L36NQHVOMiapIX4zj6Q6IMc4Oz95HFOFDYlt8C4q6
-         fR7zSdRIhWX7OL+ReZwjv8LOaI1pkRz50wfUnI6zNHFqRBg2jAdi6t5rbkpJcecKuTtK
-         zkH4/nI5oHMuWqzrQPA6ttCJjN96uOGnAbblwOEJg0GNNfkEMfCslh3QlUc8eQUf3MA2
-         gSbaXTqp6IJefVuzel2fvtWJ7l+P/SB1dBWVS9DZKNXzBPVPK9qdGYcMftBYUwdwtA8Z
-         b6O0aPNUPJFp49xJfWyRkL6lV/u8UdVVZOjghEpq/r3EybEwpKT6Cq/H5az4gEL1aFl5
-         4Fzw==
-X-Forwarded-Encrypted: i=1; AFNElJ+Upf2pLqT2i+4xDxldW16ucux5o0jcm0xYEvOCfRozlrJPYv9rgkSAoanzH5M0yE/maqYulRvDzGn1@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyq0mV75Gq79gBKbA6ZIB+0l87hUzxwxB6+3tDQKuBu/rsg67F8
-	XjEmhEQTarVFAcGAaMTnaT/AOWjMHT49j0q0TRuWWgznQSBFA5kmd6Jpj96yoCzWWgA=
-X-Gm-Gg: AeBDiesUeylwIkGG4Sy+w3GxOnXVigudoVv4LmijaBBUXq/b1V135QCvCtEyT9fuRSs
-	HhDdR+DFm5fIiDbg7ihE4Y5DGkQSG/Clz/YoY9rw/MIdMi/UY57hdTeDoBKPpJxM0GpWn3msIt1
-	B6pDdsj1soubWCf/7ea8vLVY0nN20uhF33KH3rEmO6k5WXDwHUAFIFIz3ztZybTl3QqD+mPw0eq
-	VxIF+veBNdiN5siteXA3+xvjwX1Tg+ghjAUmFWyrbrt2aDNj/vwyaJi+sllUjqazo5Vw4JKMIYs
-	3OPg3kYGIzyHC1syu/+QQpUtOa99s5NWMs+VHanSwQYQiqpPZ5TaYY7ltLotkFgX/jGeOC7Wa44
-	QfduZp3ajMneHAuomm0a1WPGPJ6mBMiy7hZTAvmTYbsxJIr3cUWMAj43MKGtBrA6xB37fvtue1i
-	8Mjrqm03tuswtd4gAwkNxB7pKPkQahWrHPy/JM815IJFq1iXpowuIY4UGvSOQ/2uaXEvnSRwCzp
-	hl9ksk=
-X-Received: by 2002:a17:90b:380c:b0:35f:bc9f:e1b6 with SMTP id 98e67ed59e1d1-3613ffce9b0mr33845874a91.1.1777288506885;
-        Mon, 27 Apr 2026 04:15:06 -0700 (PDT)
-Received: from TAO-BU2-SWA-3 (60-250-242-163.hinet-ip.hinet.net. [60.250.242.163])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-361410bac6dsm31270802a91.14.2026.04.27.04.15.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Apr 2026 04:15:06 -0700 (PDT)
-Date: Mon, 27 Apr 2026 11:15:02 +0000
-From: Brian Chiang <chiang.brian@inventec.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: (pmbus/lx1308) Add LX1308 support
-Message-ID: <bnyp2ct63m2p2ln52lnmrxjrh7bgwfcelekeptbj6j3vgygpae@og4y7ul7gumz>
-References: <20260422-add-support-lx1308-v1-0-9b8322f45aae@inventec.com>
- <20260422-add-support-lx1308-v1-1-9b8322f45aae@inventec.com>
- <20260423-free-blond-boobook-ceae7e@quoll>
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="u4yKOCo+"
+X-UUID: 5761bafa422a11f19781c1a04af40193-20260427
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=BjBoE/eELfGcy+c4cqtV+JxXHfww4jP3U0dh+zL8bEA=;
+	b=u4yKOCo+okjuEMBzPvVm8jfnU0M2kRxI1axXdPPQsg0UjW+jLJ927FFY+VWJsEKXyJC8oPwOJuRZQZPnx3DLv3jVNiRWOYx4a+nKWvp18WFTmKAs9cwkgmvJwgWPT4llHey84RZDLiYyeUUZEeJV0x3Xq+kTIhZ8LMVbBvPQZAs=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:11a74933-f40c-4e5e-ad0f-32ebe92fbcb7,IP:0,U
+	RL:25,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:e7bac3a,CLOUDID:f57c82be-65a8-4b41-ac18-3671578a914d,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|865|888|898,TC:-5,Cont
+	ent:0|15|50,EDM:-3,IP:nil,URL:97|99|83|106|11|1,File:130,RT:0,Bulk:nil,QS:
+	nil,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC
+	:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5761bafa422a11f19781c1a04af40193-20260427
+Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw01.mediatek.com
+	(envelope-from <xiangzhi.tang@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 455111229; Mon, 27 Apr 2026 19:15:04 +0800
+Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
+ MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Mon, 27 Apr 2026 19:15:03 +0800
+Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
+ mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Mon, 27 Apr 2026 19:15:02 +0800
+From: Xiangzhi Tang <xiangzhi.tang@mediatek.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+	<mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Xiangzhi Tang
+	<Xiangzhi.Tang@mediatek.com>
+CC: <linux-remoteproc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>,
+	<Project_Global_Chrome_Upstream_Group@mediatek.com>, Hailong Fan
+	<Hailong.Fan@mediatek.com>, Huayu Zong <Huayu.Zong@mediatek.com>, Jarried Lin
+	<Jarried.Lin@mediatek.com>, Justin Yeh <Justin.Yeh@mediatek.com>, Vince-WL
+ Liu <Vince-WL.Liu@mediatek.com>, Xiangzhi Tang <xiangzhi.tang@mediatek.com>
+Subject: [PATCH v4 1/7] dt-bindings: remoteproc: Add MediaTek mt8196 VCP binding
+Date: Mon, 27 Apr 2026 19:04:40 +0800
+Message-ID: <20260427111446.22955-2-xiangzhi.tang@mediatek.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20260427111446.22955-1-xiangzhi.tang@mediatek.com>
+References: <20260427111446.22955-1-xiangzhi.tang@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260423-free-blond-boobook-ceae7e@quoll>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Thu, Apr 23, 2026 at 10:41:18AM +0200, Krzysztof Kozlowski wrote:
->On Wed, Apr 22, 2026 at 12:06:15PM +0000, Brian Chiang wrote:
->> Add device tree bindings for the Luxshare LX1308, a high-efficiency
->> 12V 860W DC/DC power module with PMBus interface.
->>
->> Signed-off-by: Brian Chiang <chiang.brian@inventec.com>
->> ---
->>  .../bindings/hwmon/pmbus/luxshare,lx1308.yaml      | 49 ++++++++++++++++++++++
->>  .../devicetree/bindings/vendor-prefixes.yaml       |  2 +
->>  MAINTAINERS                                        |  8 ++++
->>  3 files changed, 59 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/luxshare,lx1308.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/luxshare,lx1308.yaml
->> new file mode 100644
->> index 000000000000..a8d92447508d
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/luxshare,lx1308.yaml
->> @@ -0,0 +1,49 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +
->
->Drop blank line here
+Add device tree binding for the MediaTek Video Companion Processor
+(VCP), a RISC-V based coprocessor used for video processing and
+multimedia tasks on mt8196 and future MediaTek SoCs.
 
-Will fix in v2.
+The VCP is a heterogeneous multi-core processor that can contain
+multiple RISC-V cores with different hart (hardware thread)
+configurations. Key features:
 
->
->> +$id: http://devicetree.org/schemas/hwmon/pmbus/luxshare,lx1308.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Luxshare LX1308 Digital DC/DC Power Module
->> +
->> +maintainers:
->> +  - Brian Chiang <chiang.brian@inventec.com>
->> +
->> +description: |
->
->Do not need '|' unless you need to preserve formatting.
+- Supports both single-core and multi-core VCP configurations
+- Each core can have 1 or 2 harts (hardware threads)
+- Shared SRAM memory space partitioned among cores
+- Communication via 5 dedicated mailbox channels for IPI messaging
+- Integrated with SoC IOMMU for multimedia memory management
+- Boot and power management coordinated with ARM Trusted Firmware
 
-Will drop the '|' in v2.
+The binding defines both the top-level VCP device (with mailboxes,
+interrupts, and power domains) and child nodes for individual VCP
+cores (with SRAM allocation and hart configuration).
 
->
->> +  The LX1308 is a high-efficiency, non-isolated, regulated 12V, 860W,
->> +  digital DC/DC power module. The module operates from a 40V to 60V DC
->> +  primary bus and provides a 12V regulated output voltage. It can deliver
->> +  up to 860W continuous and 1300W in transient.
->> +
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - luxshare,lx1308lch
->> +      - luxshare,lx1308nch
->> +      - luxshare,lx1308sch
->> +      - luxshare,lx1308ldh
->> +      - luxshare,lx1308ndh
->> +      - luxshare,lx1308sdh
->> +      - luxshare,lx1308
->
->What are all these devices? What are the differences?
->
->Especially, what is the difference between lx1308sdh and lx1308?
+Signed-off-by: Xiangzhi Tang <xiangzhi.tang@mediatek.com>
+---
+ .../remoteproc/mediatek,mt8196-vcp.yaml       | 166 ++++++++++++++++++
+ 1 file changed, 166 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/remoteproc/mediatek,mt8196-vcp.yaml
 
-Thanks for catching this. The suffix letters encode purely
-mechanical/packaging options with no software visibility:
-
-   1st letter - pin length    (S=0.11", N=0.145", L=0.17")
-   2nd letter - pin assignment (C=pin14 IShare, D=pin14 NC,
-                                S=pin9/14 used as Vo sense)
-   3rd letter - HSP option    (H=HSP, O=open frame)
-   4th letter - output cap    (blank=600uF, C=2000uF)
-
-All variants share the same PMBus register map, scaling, and behavior.
-
->
->> +
->> +  reg:
->> +    maxItems: 1
->
->No properties? Looks like suitable for trivial bundings.
-
-Agreed. Since there are no device-specific properties and software-wise
-this is a single device, I will drop the standalone binding in v2 and
-add a single entry to trivial-devices.yaml:
-
-   - description: Luxshare LX1308 12V/860W digital DC/DC power module
-     compatible: luxshare,lx1308
-
-The mechanical variant information will be documented in
-Documentation/hwmon/lx1308.rst (sent in patch 2/2) so integrators can
-still find it, without polluting the ABI.
-
->
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    i2c {
->> +      #address-cells = <1>;
->> +      #size-cells = <0>;
->> +
->> +      power-module@60 {
->> +        compatible = "luxshare,lx1308";
->> +        reg = <0x60>;
->> +      };
->> +    };
->> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
->> index ee7fd3cfe203..67fb1592daaa 100644
->> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
->> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
->> @@ -967,6 +967,8 @@ patternProperties:
->>      description: Shenzhen Luckfox Technology Co., Ltd.
->>    "^lunzn,.*":
->>      description: Shenzhen Lunzn Technology Co., Ltd.
->> +  "^luxshare,.*":
->> +    description: Luxshare-ICT Co., Ltd.
->>    "^luxul,.*":
->>      description: Lagrand | AV
->>    "^lwn,.*":
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index c3fe46d7c4bc..58fa595cff6a 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -15175,6 +15175,14 @@ S:	Maintained
->>  F:	Documentation/devicetree/bindings/iio/light/liteon,ltr390.yaml
->>  F:	drivers/iio/light/ltr390.c
->>
->> +LUXSHARE LX1308 PMBUS DRIVER
->> +M:	Brian Chiang <chiang.brian@inventec.com>
->> +L:	linux-hwmon@vger.kernel.org
->> +S:	Maintained
->> +F:	Documentation/devicetree/bindings/hwmon/pmbus/luxshare,lx1308.yaml
->
->
->> +F:	Documentation/hwmon/lx1308.rst
->> +F:	drivers/hwmon/pmbus/lx1308.c
->
->There are no such files
-
-These files are added in patch 2/2 of this series:
-https://lore.kernel.org/lkml/20260422-add-support-lx1308-v1-0-9b8322f45aae@inventec.com/
-
-I will note the series ordering more clearly in the v2 cover letter.
-
->
->Best regards,
->Krzysztof
->
-
-Thanks for the review.
-
-Best regards,
-Brian
+diff --git a/Documentation/devicetree/bindings/remoteproc/mediatek,mt8196-vcp.yaml b/Documentation/devicetree/bindings/remoteproc/mediatek,mt8196-vcp.yaml
+new file mode 100644
+index 000000000000..8ecb643cbdc5
+--- /dev/null
++++ b/Documentation/devicetree/bindings/remoteproc/mediatek,mt8196-vcp.yaml
+@@ -0,0 +1,166 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/remoteproc/mediatek,mt8196-vcp.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: MediaTek Video Companion Processor (VCP)
++
++maintainers:
++  - Xiangzhi Tang <xiangzhi.tang@mediatek.com>
++
++description:
++  This binding provides support for the MediaTek Video Companion Processor
++  (VCP), a Risc-V coprocessor found on some MediaTek SoCs.
++
++properties:
++  compatible:
++    enum:
++      - mediatek,mt8196-vcp
++
++  reg:
++    items:
++      - description: sram base
++      - description: cfg group IO
++      - description: cfg core group IO
++      - description: cfg sec group IO
++
++  reg-names:
++    items:
++      - const: sram
++      - const: cfg
++      - const: cfg-core
++      - const: cfg-sec
++
++  interrupts:
++    maxItems: 1
++
++  mboxes:
++    maxItems: 5
++
++  mbox-names:
++    items:
++      - const: mbox0
++      - const: mbox1
++      - const: mbox2
++      - const: mbox3
++      - const: mbox4
++
++  power-domains:
++    maxItems: 1
++
++  iommus:
++    description:
++      Using MediaTek IOMMU to apply larb ports for Multimedia Memory
++      Management Unit and address translation.
++    maxItems: 1
++
++  memory-region:
++    maxItems: 1
++
++patternProperties:
++  "^vcp@[a-f0-9]+$":
++    type: object
++    description:
++      The MediaTek VCP integrated to SoC might be a multi-core version.
++      The other cores are represented as child nodes of the boot core.
++      There are some integration differences for the IP like the usage of
++      address translator for translating SoC bus addresses into address
++      space for the processor.
++
++      The SRAM is shared by all cores, each VCP core only using a piece of
++      SRAM memory. The power of SRAM should be enabled before booting VCP cores.
++      The size of SRAM varies on different SoCs.
++
++      The VCP cores have differences on different SoCs for Hart support.
++
++    properties:
++      compatible:
++        enum:
++          - mediatek,vcp-core
++
++      reg:
++        description: The base address and size of SRAM.
++        maxItems: 1
++
++      reg-names:
++        const: sram
++
++      mediatek,vcp-core-harts:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: Number of harts in this VCP core.
++        enum: [1, 2]
++
++      mediatek,vcp-core-sram-offset:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description:
++          Offset of the allocated SRAM memory for this VCP core.
++
++    required:
++      - compatible
++      - reg
++      - reg-names
++      - mediatek,vcp-core-harts
++      - mediatek,vcp-core-sram-offset
++
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - mboxes
++  - mbox-names
++  - power-domains
++  - iommus
++  - memory-region
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/power/mt8196-power.h>
++
++    vcp: vcp@31800000 {
++        compatible = "mediatek,mt8196-vcp";
++        reg = <0x31800000 0x60000>,
++              <0x31a04000 0xa000>,
++              <0x31bd0000 0x1000>,
++              <0x31a70020 0x100>;
++        reg-names = "sram",
++                    "cfg",
++                    "cfg-core",
++                    "cfg-sec";
++
++        interrupts = <GIC_SPI 787 IRQ_TYPE_LEVEL_HIGH 0>;
++
++        mboxes = <&vcp_mailbox0>,
++                 <&vcp_mailbox1>,
++                 <&vcp_mailbox2>,
++                 <&vcp_mailbox3>,
++                 <&vcp_mailbox4>;
++        mbox-names = "mbox0", "mbox1", "mbox2", "mbox3", "mbox4";
++
++        power-domains = <&scpsys MT8196_POWER_DOMAIN_MM_PROC_DORMANT>;
++        iommus = <&mm_smmu 160>;
++        memory-region = <&vcp_resv_mem>;
++
++        vcp@0 {
++            compatible = "mediatek,vcp-core";
++            reg = <0x0 0x31000>;
++            reg-names = "sram";
++            mediatek,vcp-core-harts = <2>;
++            mediatek,vcp-core-sram-offset = <0x0>;
++        };
++
++        vcp@31000 {
++            compatible = "mediatek,vcp-core";
++            reg = <0x31000 0x60000>;
++            reg-names = "sram";
++            mediatek,vcp-core-harts = <1>;
++            mediatek,vcp-core-sram-offset = <0x31000>;
++        };
++    };
+-- 
+2.46.0
 
