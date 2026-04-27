@@ -1,102 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FD536998C;
-	Mon, 27 Apr 2026 14:19:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF093D34B6
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 14:19:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777299566; cv=none; b=TL5WZNkk+w1KVcxMipHCQX1xRe4laDriZyEnhBbd7Xiraevl2G88qbR9DKXbyf8d0eZR0f1A3fxoKF10Ay+O/GSQmUFJJNKwOar4Gq1Nzdj40KiO4K/UNNoyq9mK/NLrhVpxxKoVeENqKT6Oer78mMRU0kV/+x2M2qfgr7eTpxw=
+	t=1777299570; cv=none; b=sofb4CY6j/RKkhFUeueVQw0/soyU2ZQ11yrPRoRBo8KHkoo/XaS3ktByLOKLCxZ9zt5TN6HD/WLlPSdi++7gvQwXMMJtao1uXRf14ahgdurHGbGuaFN8a/IqAcM8uO6Pey5Rt82//5iuM/S+7ix2mMlgzik/lrX/bzk7u96QJdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777299566; c=relaxed/simple;
-	bh=Zys1ExBQTwA98a4ZfwVfqsjhHuJ5NFVa6xCet15TvrE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KvRL3YBZB3O+6N5Z1ISgTd14nLvPdIGsI0s0sm/f/XuDhQAt5MKvrvUaXSC1q4bs6F1ABKRoGdX8t1T2O5PqjI8Y4eLfTMINMg1Z7VqFayYKt7MgrKb+VncsAwLM1BwiNZCiWpmrxD7pbsn7rC7jrI2BDSDVbrkwkssMSzWYz5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Mll/l2FI; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1777299570; c=relaxed/simple;
+	bh=TUSa+V6fI08d4nOKFeekuHXah98vfOm5LhjsV8D2a0I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=it6frv9YUFFuHoPbJWOs2Onlvzihy5ddmiiZYz2UdGXuVqdyAQ6/G0A464ToO2/Ru2pB+ztKvhj+3rAJUClkd0pGKx6nE+iQSMeaNEfAzGaLwBISPKIA/Mcrl2wakvrKXiMlx/LeNrh9+lliZAaHEc00DN75F25zwdMDipQ1rz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ecOilbna; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Mll/l2FI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777299565; x=1808835565;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Zys1ExBQTwA98a4ZfwVfqsjhHuJ5NFVa6xCet15TvrE=;
-  b=Mll/l2FIBkuTb9dPQfmDjdcVJVLNd9taacnPDzbY1OORUXXg8ulzkHum
-   S1i4oPE9r1uaWei6XFsDqAA52rtKElhO9TDhNrnJwk7oL++eSfLMghUHu
-   lGp9WMtFfwGBEEE4+YPo3JCWcwMXOWF4rG1BPJGDET8xqL3tnaNZ7neZi
-   UOatREl3O9E/nkvl8xjCiwtmqxMnBYZyqi4D19meClFEXDfL250tvBnX+
-   Hs+ZDXy835N8A5q9Q62AKfNQPYrFiP8C6xchQtpLyG05QsERVJshiHIOY
-   nz/XLxjBBwlspm6eRjq/jvMjLDogkmPKVwrFFkPUr8SRTgrGiK6fjGuJ1
-   Q==;
-X-CSE-ConnectionGUID: hNHHGRxwRCenuEXy/xN98g==
-X-CSE-MsgGUID: ql6Gi4r+RyOpxwmybrntfg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="103648812"
-X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; 
-   d="scan'208";a="103648812"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Apr 2026 07:19:25 -0700
-X-CSE-ConnectionGUID: tG+yVrhsS8ey4M2J/EpbVA==
-X-CSE-MsgGUID: dt3M7YoOTgah1rqDh82KqQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; 
-   d="scan'208";a="237612522"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.2])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Apr 2026 07:19:22 -0700
-Date: Mon, 27 Apr 2026 17:19:19 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Piyush Patle <piyushpatle228@gmail.com>
-Cc: ak@it-klinger.de, jic23@kernel.org, dlechner@baylibre.com,
-	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 3/7] iio: adc: hx711: update Kconfig, module
- description and file header
-Message-ID: <ae9wZ1LMw7gq_Pyn@ashevche-desk.local>
-References: <20260427100950.33936-1-piyushpatle228@gmail.com>
- <20260427100950.33936-4-piyushpatle228@gmail.com>
- <ae9rayYbr1UbYIQD@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ecOilbna"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EEDBC2BCF7
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 14:19:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777299570;
+	bh=TUSa+V6fI08d4nOKFeekuHXah98vfOm5LhjsV8D2a0I=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=ecOilbna6gZoiccrPJGCjKvke36KFifFnL6pCaXDfptTLEWOhziexCxQKFJg8iZW7
+	 JiMB0yOZx8T9AWpRRchtAH2XuQUKB4rBIIk92Tq6rGfK7uc4rZgXPsUD2zkRmoNBvj
+	 Jmv7UH0IEB31VW2N66xdHaxxLFlA2azJiypASLwqlm+PRpDiOmvG0SawmA+3ITDVM9
+	 sIveHbq1BuJfyk8BYIli0o5hKX6kpOcZwycXviyHCdYl136uwI6MrDW6HNdi8e9XX6
+	 XBPE9qNhD/NWGq8GeUgbNqh5sDYFKDvBg4c47SScDWcM3VmUEydBPTKZgkyvE96rj7
+	 gI8TlCpCqd19w==
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-38a01c80c34so100348111fa.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 07:19:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+kHx6Vb/h02lxAHq9NyApj8ORhaS8X7P3NGWkIJceusurK+gKyzU3gSUkerO9wOzCy4/wILem2UQYz@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz4Y/S7XLO/v7Z839lE/H6q98kuoYRfLdj4ScZqncnazTxBMCVC
+	aIIiqwQuVe9587ZlPNDjbhP3yTzscAY++NLSk/aXbjGfyEnJCAsyiXW9Sprm9RDUScKlkydV0wE
+	9Hfgzdzg1k4VXaq5oZxawiMbQUl+YIfDDsb4cAEKfPg==
+X-Received: by 2002:a05:6512:3e18:b0:5a4:157:5342 with SMTP id
+ 2adb3069b0e04-5a4172eeb07mr13066652e87.39.1777299569068; Mon, 27 Apr 2026
+ 07:19:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ae9rayYbr1UbYIQD@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260427-nord-tlmm-v2-0-ade8e0f3d803@oss.qualcomm.com>
+ <20260427-nord-tlmm-v2-2-ade8e0f3d803@oss.qualcomm.com> <ae9usgOf-KtgEJ4q@baldur>
+In-Reply-To: <ae9usgOf-KtgEJ4q@baldur>
+From: Bartosz Golaszewski <brgl@kernel.org>
+Date: Mon, 27 Apr 2026 16:19:16 +0200
+X-Gmail-Original-Message-ID: <CAMRc=MedyMb0jCjNtp_Jy-05eHuaZ_gLbLWAQVFuxBk4wxAUPA@mail.gmail.com>
+X-Gm-Features: AVHnY4KLKvQTIww_LmXI9MwhW94zXNui82mwS-N0sdDW_fPy6iQj1PtiDTKMtIA
+Message-ID: <CAMRc=MedyMb0jCjNtp_Jy-05eHuaZ_gLbLWAQVFuxBk4wxAUPA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] pinctrl: qcom: add the TLMM driver for the Nord platforms
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
+	Arnd Bergmann <arnd@arndb.de>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Apr 27, 2026 at 04:58:03PM +0300, Andy Shevchenko wrote:
-> On Mon, Apr 27, 2026 at 03:39:34PM +0530, Piyush Patle wrote:
-> > Update the Kconfig entry to "AVIA HX711 and compatible ADCs" and list
-> > supported chips one per line to make it easy to extend when new variants
-> > are added. Change the module description and file header to match.
-> > 
-> > Add direct includes for linux/array_size.h and linux/types.h rather than
-> > relying on transitive includes pulled in by other headers.
-> 
-> Obviously something went wrong. First of all, I have told that MODULE_*()
-> changes doesn't belong to the refactoring patch. Second, I meant that the
-> Kconfig help text to go to a separate patch.
-> 
-> Header inclusions should be taken care when it's required. It doesn't belong
-> here.
-> 
-> Looking at this again, most of it probably should be folded into the new HW
-> support patch where you add a new chip_info.
+On Mon, Apr 27, 2026 at 4:17=E2=80=AFPM Bjorn Andersson <andersson@kernel.o=
+rg> wrote:
+>
+> On Mon, Apr 27, 2026 at 04:00:30PM +0200, Bartosz Golaszewski wrote:
+> > diff --git a/drivers/pinctrl/qcom/pinctrl-nord.c b/drivers/pinctrl/qcom=
+/pinctrl-nord.c
+> [..]
+> > +enum nord_functions {
+> > +     msm_mux_gpio,
+> > +     msm_mux_aoss_cti,
+> > +     msm_mux_atest_char0,
+> > +     msm_mux_atest_char1,
+> > +     msm_mux_atest_char2,
+> > +     msm_mux_atest_char3,
+> > +     msm_mux_atest_char_start,
+> > +     msm_mux_atest_usb20,
+> > +     msm_mux_atest_usb21,
+> > +     msm_mux_aud_intfc0_clk,
+> > +     msm_mux_aud_intfc0_data0,
+> > +     msm_mux_aud_intfc0_data1,
+> > +     msm_mux_aud_intfc0_data2,
+> > +     msm_mux_aud_intfc0_data3,
+> > +     msm_mux_aud_intfc0_data4,
+> > +     msm_mux_aud_intfc0_data5,
+> > +     msm_mux_aud_intfc0_data6,
+> > +     msm_mux_aud_intfc0_data7,
+> > +     msm_mux_aud_intfc0_ws,
+> > +     msm_mux_aud_intfc10_clk,
+> > +     msm_mux_aud_intfc10_data0,
+> > +     msm_mux_aud_intfc10_data1,
+> > +     msm_mux_aud_intfc10_ws,
+> > +     msm_mux_aud_intfc1_clk,
+> > +     msm_mux_aud_intfc1_data0,
+> > +     msm_mux_aud_intfc1_data1,
+> > +     msm_mux_aud_intfc1_data2,
+> > +     msm_mux_aud_intfc1_data3,
+> > +     msm_mux_aud_intfc1_data4,
+> > +     msm_mux_aud_intfc1_data5,
+> > +     msm_mux_aud_intfc1_data6,
+> > +     msm_mux_aud_intfc1_data7,
+>
+> Is there any reason to keep these 8 "data" lanes as separate pingroups?
+>
 
-I checked again after browsing through the whole series. This patch basically
-should be either folded to the patch 7, or immediately prepend that (without
-being any between them).
+The answer here and elsewhere is: no. I just didn't have other states
+in DTS to visualize the resulting nodes and it didn't occur to me to
+update other functions as well. I'll do it in v3.
 
-- Kconfig + MODULE_*() + respective comments update
-  // no patches in between!
-- new HW support
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Bart
