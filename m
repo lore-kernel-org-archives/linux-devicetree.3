@@ -1,38 +1,38 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9283D411A
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 14:29:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DB73D412C;
+	Mon, 27 Apr 2026 14:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777300179; cv=none; b=oyNsozB8k/czXcW/SsJiny/tX9KLJKegAS99KKHWGNYAjlZYZU7zu0hLiCZGdIQmeZg5hg+U2oMxxCJ56238xvXfRraB/HDZX4mB6tlHrPSMez1b4UegcX0JXslv6P/gLH5ylBCH0WMRSMv2tQaD1gdWc6BM/HWmAA+Xg1TJET4=
+	t=1777300180; cv=none; b=aX7Tsy/jXI8DEfOZuSvwpeiQoq81r+6HjC7BguBV9KuOCFzIJXLl2GtfdZuyA94RDGZ8SRoevEy7f34i8LpKCdbRog2Bj8WMLuSJOA5V0rlSNzZCB3clpuqTuCsW5QVeAi3pXbYbE6V/FIfZgAVviL1FfjPzl3027qfsyXFn5lg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777300179; c=relaxed/simple;
-	bh=CE3L7UT9Dl66mTLL4kN6XoGftovug+bLETY+5ZdFT3k=;
+	s=arc-20240116; t=1777300180; c=relaxed/simple;
+	bh=3V/9SKZ4S8nUFTtk6kBE5/xeopXltaEBrAoBh7EHQxk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qKI0Cq6ezh8D06ERX8c0XyiQTzcfhd2x+Vko9WGJ5YqO0ObrexGMOSTN7FEc02PwriE9ezWoQSrz678EqjPNhdf5hWVNrUAhu0MumuY2I2JJCB75fBfGV14IAWbF3E3yQvlJ88VYFnOAAWwPmnB2iH3206dQ+pD471xym/lm4NU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=2lrwh2x4; arc=none smtp.client-ip=185.246.85.4
+	 MIME-Version; b=Z9IMlTtmqkIg6fvrNlmNk2h8EOdRwZKrL8Gmbtf/wLc0hk60YJxxklwa7AVpsnlM9O3JPV1viG9MobAPCzYIpJoTo38XZmGDF9c8vo/HoNjvxlsABQ7NL06cXhNTiHv0PQIRUm7S6unAyeuXHQUjbNsaaggZLcgUwhfBCXTptPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=CK7EszMO; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="2lrwh2x4"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="CK7EszMO"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 91C084E42B35;
-	Mon, 27 Apr 2026 14:29:36 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 0B5CC1A344B;
+	Mon, 27 Apr 2026 14:29:38 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 63C0A600D1;
-	Mon, 27 Apr 2026 14:29:36 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4D9B91072823B;
-	Mon, 27 Apr 2026 16:29:34 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id CA69D600D1;
+	Mon, 27 Apr 2026 14:29:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CF47210728234;
+	Mon, 27 Apr 2026 16:29:35 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1777300175; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1777300176; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=uBTPwmmRps7fixb46EdJWX5fjWrgSn5Qg9Xm/D96I/c=;
-	b=2lrwh2x4A+veKBbp314CyZrZFUh7SwMrooMH9r8mdbNXJ7IetEblPJYYRjxJMMcDEx8Q5G
-	Di0UR5iVf/kNA9cOjCXPWMfr6V/5gpka8ww8CaRRl/frKf7SRKbzQbdfwbunlCmIZvCkup
-	EQ1N6u8dS/TzV/BYWpgwPAMpm9IrT25OOxaZHC2kQQBsnYrJkWbs9BdgkAqyCwtk288MBl
-	/25Q1SNqGm7wrEzbcnT6on0MPEdKE0wAzQv8ZDVUexfoEFMk7MZJmWYu9Ss4D2kxImN/fY
-	Cw7biZJiOWRk6qSG85lsxcXHpR47jErqCMilu6URegB4ah/e6I3EWD3x59IHww==
+	bh=NKABeUwlf/uAaidZSS4m3XCnFnS6ujsftdUmNohI/TQ=;
+	b=CK7EszMOccVo5nr3hn5/qWJcmikLNo+rbkSPm3rrAtWNbXM4Bbn4lGq39bDphI1EItSxrd
+	ZaJiKNzkX3ldyYpre9LgWh1iT0m2DO4d+RaD0xlpFg7Zo6nKmBJRRRycR0fwcuodcPG0uX
+	jpxGVnWiYYNVZVd1lorImPHtUo11IEfQNMwf6LhMWXAyACF4hngOngfFRjoB0bz+qVHcQr
+	Jvgb6Qw6fLurWG3kMzWkbeAYQ2E+XOrkcJ+9jUN3gN38FcHIARZd2XPOKkLvzY/Qo5iOYA
+	zazUjtK6X9Od03EyxPMHl2rlA7thmfoWmxjCA3t3Dvs5Ag4AAKnpOEEZ/Sjcbg==
 From: "Richard Genoud (TI)" <richard.genoud@bootlin.com>
 To: Nishanth Menon <nm@ti.com>,
 	Vignesh Raghavendra <vigneshr@ti.com>,
@@ -49,9 +49,9 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	"Richard Genoud (TI)" <richard.genoud@bootlin.com>
-Subject: [PATCH v2 1/3] arm64: dts: ti: k3-j722s: Use ti,j7200-padconf compatible
-Date: Mon, 27 Apr 2026 16:28:59 +0200
-Message-ID: <20260427142901.341861-2-richard.genoud@bootlin.com>
+Subject: [PATCH v2 2/3] arm64: dts: ti: k3-j722s: Add mcu domain peripherals specific to J722S
+Date: Mon, 27 Apr 2026 16:29:00 +0200
+Message-ID: <20260427142901.341861-3-richard.genoud@bootlin.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260427142901.341861-1-richard.genoud@bootlin.com>
 References: <20260427142901.341861-1-richard.genoud@bootlin.com>
@@ -64,43 +64,67 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-From: Abhash Kumar Jha <a-kumar2@ti.com>
+Introduce the "k3-j722s-mcu.dtsi" file to contain mcu domain peripherals
+that are specific to J722S SoC and are not shared with AM62P.
+Previously, those nodes were squatting the k3-j722s-main.dtsi file which
+should contain only main domain peripherals.
 
-The pinctrl contexts for j722s should be saved and restored during
-suspend-to-ram, just like it is done for j7200 and j784s4 SoCs.
-
-Use ti,j7200-padconf compatible to save and restore pinctrl contexts during
-suspend-to-ram.
-
-Signed-off-by: Abhash Kumar Jha <a-kumar2@ti.com>
 Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
 ---
- arch/arm64/boot/dts/ti/k3-j722s-main.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ arch/arm64/boot/dts/ti/k3-j722s-main.dtsi | 10 ----------
+ arch/arm64/boot/dts/ti/k3-j722s-mcu.dtsi  | 15 +++++++++++++++
+ arch/arm64/boot/dts/ti/k3-j722s.dtsi      |  1 +
+ 3 files changed, 16 insertions(+), 10 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-j722s-mcu.dtsi
 
 diff --git a/arch/arm64/boot/dts/ti/k3-j722s-main.dtsi b/arch/arm64/boot/dts/ti/k3-j722s-main.dtsi
-index ddf20e44f0ea..d14caa9d8619 100644
+index d14caa9d8619..2a8aba13bd73 100644
 --- a/arch/arm64/boot/dts/ti/k3-j722s-main.dtsi
 +++ b/arch/arm64/boot/dts/ti/k3-j722s-main.dtsi
-@@ -432,6 +432,10 @@ &main_bcdma_csi {
+@@ -430,16 +430,6 @@ &main_bcdma_csi {
+ 	ti,sci-rm-range-tchan = <0x22>;
+ };
  
- /* MCU domain overrides */
+-/* MCU domain overrides */
+-
+-&mcu_pmx0 {
+-	compatible = "ti,j7200-padconf", "pinctrl-single";
+-};
+-
+-&mcu_r5fss0_core0 {
+-	firmware-name = "j722s-mcu-r5f0_0-fw";
+-};
+-
+ /* Wakeup domain overrides */
  
+ &wkup_r5fss0_core0 {
+diff --git a/arch/arm64/boot/dts/ti/k3-j722s-mcu.dtsi b/arch/arm64/boot/dts/ti/k3-j722s-mcu.dtsi
+new file mode 100644
+index 000000000000..ab43a7e49f37
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-j722s-mcu.dtsi
+@@ -0,0 +1,15 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Device Tree file for the J722S MCU domain peripherals
++ *
++ * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.com/
++ * Copyright (C) 2026 Bootlin
++ */
++
 +&mcu_pmx0 {
 +	compatible = "ti,j7200-padconf", "pinctrl-single";
 +};
 +
- &mcu_r5fss0_core0 {
- 	firmware-name = "j722s-mcu-r5f0_0-fw";
- };
-@@ -473,6 +477,10 @@ &inta_main_dmss {
- 	ti,interrupt-ranges = <7 71 21>;
- };
- 
-+&main_pmx0 {
-+	compatible = "ti,j7200-padconf", "pinctrl-single";
++&mcu_r5fss0_core0 {
++	firmware-name = "j722s-mcu-r5f0_0-fw";
 +};
-+
- &main_gpio0 {
- 	gpio-ranges = <&main_pmx0 0 0 32>, <&main_pmx0 32 33 38>,
- 			<&main_pmx0 70 72 17>;
+diff --git a/arch/arm64/boot/dts/ti/k3-j722s.dtsi b/arch/arm64/boot/dts/ti/k3-j722s.dtsi
+index 1b36dcf37925..ad477dd66963 100644
+--- a/arch/arm64/boot/dts/ti/k3-j722s.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j722s.dtsi
+@@ -238,3 +238,4 @@ cbass_wakeup: bus@b00000 {
+ 
+ /* Include J722S specific peripherals */
+ #include "k3-j722s-main.dtsi"
++#include "k3-j722s-mcu.dtsi"
