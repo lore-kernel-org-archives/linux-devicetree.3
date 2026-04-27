@@ -1,167 +1,145 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C1C72949E0;
-	Mon, 27 Apr 2026 07:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A688429B79B;
+	Mon, 27 Apr 2026 07:15:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777273528; cv=none; b=p+x3Uy4TtbMTPSWi0c0iwT7McarAe12oyrT7VDUNYP/3WJDz867LmtL9zJjzF0ng6zRqZs4zSpn25tNNHUNZzoRiy1O5m5WTk3gf79WXMW+G+Ap4vYAIGJJ96KMaVYuLmC4Ks9KeuTC57thCToQ8f25E9ksA8Un/EWoV5KVBsNs=
+	t=1777274158; cv=none; b=O9DL6gigwtda5sxPIA8/fjjK/OquD0lHBNfX2//qrP3er8kU91uvQvn2PnWVcnIll3UXKJsVIv2WeIybpA2P32RJTjtU8kd6lTqF/OQcPXmBkVwJAGx2E7C5NmxpmQH2IQql5K7kJJIWrbNwojN0Bm8GJ6eIVix2UFkXc88/DVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777273528; c=relaxed/simple;
-	bh=bbtz755NrT5fNJhbUWQPauq/Rx+n99Zj/gF9NgEajUU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fWYWnFmBxlt8G5rADuX4PadQG8zawaGwchFpJLlSjE0eQ/3O8utcjJ4iYAEbtESAu5ZLioLP7t/BIKXyl+/mFk8jmBFxf/dV0G+dzyfvsNkIWTNhYGwV1aE1nMOs2xPPfJgdn50xk9JVJjeJFUk+SSz9eP4FdDsdBvKkYEfc6ek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=ay9dd/bd; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1777274158; c=relaxed/simple;
+	bh=P/tTQuPHG8NvZa6CrH2gIUjX+SxZnduY6Mz93+yekh8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lJUE0/YzSS4JG7NIkgup0e3koPRVS+AWAspX175n79j8VO+1+b55yXKQjdku11+odOobVHcOpDbzn9buRo0y2phx3fTrTYazWlVHG502oqVt+wqObFyICecDBFcRW1XjloCjw1aCZiKgrm8jzXSQQQjWGayBcdShlXb1JtiZ72c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=l6PHItTP; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=U8+R79XG; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="ay9dd/bd"
-X-UUID: 73ffcda0420711f19a16598d5ca7f8ec-20260427
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=BY/CeKw/Cj7EVqerAhBT/2EnODNIlNfrNdkGy5aGuvs=;
-	b=ay9dd/bd6CzZrqLPp8YvbPwEIUNWqWX/gS45lHfFhrggmL/Cbjad/vHfvQdPe09s/5fgwCOqfCMydN2PKNMuqINzZN460bHLdPqZ7iizRb1kQ20MOFXje0nFMGlH0E/ca1ZSWWCkCl9alcNYPJxpa3qym2G0S+zUTZDem2VTDAg=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:6fa11e13-5781-4d61-bfba-e8b236b70d08,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:8f187fbe-65a8-4b41-ac18-3671578a914d,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|865|888|898,TC:-5,Cont
-	ent:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 73ffcda0420711f19a16598d5ca7f8ec-20260427
-Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw02.mediatek.com
-	(envelope-from <zhengnan.chen@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1982675891; Mon, 27 Apr 2026 15:05:20 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 27 Apr 2026 15:05:18 +0800
-Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Mon, 27 Apr 2026 15:05:18 +0800
-From: mtk20898 <zhengnan.chen@mediatek.com>
-To: Yong Wu <yong.wu@mediatek.com>, Krzysztof Kozlowski <krzk@kernel.org>, Rob
- Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias
- Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>
-CC: <linux-mediatek@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<Project_Global_Chrome_Upstream_Group@mediatek.com>, Zhengnan Chen
-	<zhengnan.chen@mediatek.com>
-Subject: [RESEND,v2 2/2] memory: mtk-smi: Add mt8189 support
-Date: Mon, 27 Apr 2026 15:04:29 +0800
-Message-ID: <20260427070444.20247-3-zhengnan.chen@mediatek.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20260427070444.20247-1-zhengnan.chen@mediatek.com>
-References: <20260427070444.20247-1-zhengnan.chen@mediatek.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="l6PHItTP";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="U8+R79XG"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4g3vx11431z9vDh;
+	Mon, 27 Apr 2026 09:15:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1777274149;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Le2XwzWiqwhfCfphPB8qaGdrWgXHDh5RoYZDWvPLXgs=;
+	b=l6PHItTPk+9hhxYukbnDaHbFDgiNXfcCNGYQDkX1MwzDbCdzZowTsqz9HcFemhxyHjTvaV
+	DMBksUY90gV9orfYZly4eyILlwUb5TMFOa3iknpLfY0CvaRELDMZ7Xe63+ULln4JZA287J
+	wMRGAwcFGpS6dnc4Ucl3psK/c22H9yypcgL6EkEI/mnLfTOj/Ea56agJgE/pJzDcvE4NUL
+	YChd8W7em23H5j4Mj0GhSFKzuRPtLyNVQ3jLqQxKN3OIehdGqThUVQqHg0SsUjXAhP5pLU
+	peM+XHxynrnaaAOmwJjyY7CtdyKNsEsETFLL8iDbK2hoS6lAtofIiPUQzEKVYw==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=U8+R79XG;
+	spf=pass (outgoing_mbo_mout: domain of shuwei.wu@mailbox.org designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=shuwei.wu@mailbox.org
+From: Shuwei Wu <shuwei.wu@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1777274146;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Le2XwzWiqwhfCfphPB8qaGdrWgXHDh5RoYZDWvPLXgs=;
+	b=U8+R79XGmUd2FFR6qIVVYLep+NgyvN8lndXNXXEEeg72ttOamPpBiHEO44ImL0NkVAVa7p
+	W1qYohfgy470oc5xeDUMT1OcPJTDhvQV2QGSqZyT8LFFSw1vzinT1JJjtEGbPCND08Kdqe
+	DTnP9mvpmLMd26xmvAGWRsZ4VkgonFR9Oo4GsC///Rjw0npMTxX7lYo23FDpOsDto/iDt8
+	SsomAfuQfEc5s6TPGI6WWQsT0qg5s/nkdEJChaVejmFcPfND0wRS78dycSsNAC1E7WuRnC
+	FzzoM2m4FCZzwZVNG3zh0yXwGcAARTkO73nW1jgUODkmSj7F7ac2gTUcv7+rpw==
+Subject: [PATCH v5 0/3] thermal: spacemit: Add support for SpacemiT K1 SoC
+ thermal sensor
+Date: Mon, 27 Apr 2026 15:15:14 +0800
+Message-Id: <20260427-k1-thermal-v5-0-df39187480ed@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAIN72kC/03MQQ6CMBCF4auQWVvTFqnIynsYFm0ZYCJQMyUEQ
+ 7i7lbhw+b/kfRtEZMIIVbYB40KRwpSiOGXgezt1KKhJDVpqIy/yJp5KzD3yaAfRWmWN86UzBUI
+ 6vBhbWg/sUafuKc6B34e9qO/6Y5T8ZxYlpFDal9emkSb3+X20NLiwngN3UO/7/gEQDkZ7pgAAA
+ A==
+X-Change-ID: 20260409-k1-thermal-fa1a6bc8b65e
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Shuwei Wu <shuwei.wu@mailbox.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Anand Moon <linux.amoon@gmail.com>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>, Yao Zi <me@ziyao.cc>, 
+ Vincent Legoll <legoll@online.fr>, Gong Shuai <gsh517025@gmail.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777274126; l=2057;
+ i=shuwei.wu@mailbox.org; s=20251125; h=from:subject:message-id;
+ bh=P/tTQuPHG8NvZa6CrH2gIUjX+SxZnduY6Mz93+yekh8=;
+ b=YgNHdzLvJyPejzh7MYVe41x9bBzX5q1DIhB3k5HQw7m+23/YeAnOCYlTVI0bo1z517P3Kh0FR
+ dm/b7uN448EA+zP3Khd6xeA9spphgZXO96E+oG37i9d+frYpjnnEP63
+X-Developer-Key: i=shuwei.wu@mailbox.org; a=ed25519;
+ pk=qZs6i2UZnXkmjUrwO5HJxcfpCvgSNrR4dcU5cjtfTSk=
+X-MBO-RS-META: wtwznt6tf6zqny1hyqtetawm48ryqccy
+X-MBO-RS-ID: 481a13714f42994e906
+X-Rspamd-Queue-Id: 4g3vx11431z9vDh
 
-From: Zhengnan Chen <zhengnan.chen@mediatek.com>
+Introduce support for the on-die thermal sensor found
+on the SpacemiT K1 SoC.
 
-Add the necessary platform data and ostdl setting to enable support
-for mt8189 smi.
+Include the device tree binding documentation in YAML format, the
+thermal sensor driver implementation, and the device tree changes to
+enable the sensor on K1 SoC.
 
-Signed-off-by: Zhengnan Chen <zhengnan.chen@mediatek.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/memory/mtk-smi.c | 44 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
+Changes in v5:
+- Register threaded IRQ handler before enabling interrupts
+- Clamp trip points with clamp_val in set_trips
+- Link to v4: https://lore.kernel.org/r/20260410-k1-thermal-v1-0-12c87dd063c3@mailbox.org
 
-diff --git a/drivers/memory/mtk-smi.c b/drivers/memory/mtk-smi.c
-index aaeba8ab211e..f2d5462af681 100644
---- a/drivers/memory/mtk-smi.c
-+++ b/drivers/memory/mtk-smi.c
-@@ -401,6 +401,30 @@ static const u8 mtk_smi_larb_mt8188_ostd[][SMI_LARB_PORT_NR_MAX] = {
- 	[25] = {0x01},
- };
- 
-+static const u8 mtk_smi_larb_mt8189_ostd[][SMI_LARB_PORT_NR_MAX] = {
-+	[0] = {0x8, 0x20, 0x20, 0x20, 0x20, 0x20, 0x10, 0x0,},
-+	[1] = {0x8, 0x20, 0x20, 0x20, 0x20, 0x20, 0x10, 0x0,},
-+	[2] = {0x7, 0x7, 0x4, 0x4, 0x0, 0x0, 0x2, 0x2, 0x7, 0x7, 0x0,},
-+	[4] = {0x2F, 0x1E, 0x9, 0x1, 0x1, 0x1, 0x1, 0x2, 0x2, 0x5, 0x1, 0x17,},
-+	[7] = {0x20, 0x2, 0x1, 0x1, 0x1, 0x4, 0x2, 0x1, 0x1, 0x2, 0x3, 0x2,
-+	       0xA, 0xF, 0x4, 0x6, 0x5, 0x1,},
-+	[9] = {0x6, 0x3, 0xC, 0x6, 0x1, 0x4, 0x3, 0x1, 0x2, 0x4, 0x5, 0x2,
-+	       0x4, 0x2, 0x3, 0xB, 0x1, 0x4, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1,
-+	       0x1, 0x1,},
-+	[11] = {0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1,
-+		0x1, 0x1, 0x1, 0xB, 0x1, 0x4, 0x6, 0x5, 0x6, 0x1, 0x5, 0x2,
-+		0x9, 0x5,},
-+	[13] = {0x2, 0x8, 0x8, 0x8, 0x4, 0x4, 0x4, 0x4, 0x4, 0xE, 0x4, 0x1,
-+		0x6, 0x6, 0x2,},
-+	[14] = {0x1, 0x1, 0x1, 0x20, 0xE, 0x4, 0x8, 0x8, 0x6, 0x4,},
-+	[16] = {0x1E, 0xC, 0x2, 0x8, 0xE, 0x2, 0x1E, 0x10, 0x4, 0x2, 0x2, 0x2,
-+		0x2, 0x2, 0x4, 0x2, 0x4,},
-+	[17] = {0x1E, 0xC, 0x2, 0x8, 0xE, 0x2, 0x1E, 0x10, 0x4, 0x2, 0x2, 0x2,
-+		0x2, 0x2, 0x4, 0x2, 0x4,},
-+	[19] = {0x2, 0x1, 0x3, 0x1,},
-+	[20] = {0x7, 0x7, 0x3, 0x3, 0x1, 0x1,},
-+};
-+
- static const u8 mtk_smi_larb_mt8192_ostd[][SMI_LARB_PORT_NR_MAX] = {
- 	[0] = {0x2, 0x2, 0x28, 0xa, 0xc, 0x28,},
- 	[1] = {0x2, 0x2, 0x18, 0x18, 0x18, 0xa, 0xc, 0x28,},
-@@ -533,6 +557,13 @@ static const struct mtk_smi_larb_gen mtk_smi_larb_mt8188 = {
- 	.ostd		            = mtk_smi_larb_mt8188_ostd,
- };
- 
-+static const struct mtk_smi_larb_gen mtk_smi_larb_mt8189 = {
-+	.config_port                = mtk_smi_larb_config_port_gen2_general,
-+	.flags_general	            = MTK_SMI_FLAG_THRT_UPDATE | MTK_SMI_FLAG_SW_FLAG |
-+				      MTK_SMI_FLAG_SLEEP_CTL | MTK_SMI_FLAG_CFG_PORT_SEC_CTL,
-+	.ostd		            = mtk_smi_larb_mt8189_ostd,
-+};
-+
- static const struct mtk_smi_larb_gen mtk_smi_larb_mt8192 = {
- 	.config_port                = mtk_smi_larb_config_port_gen2_general,
- 	.ostd			    = mtk_smi_larb_mt8192_ostd,
-@@ -556,6 +587,7 @@ static const struct of_device_id mtk_smi_larb_of_ids[] = {
- 	{.compatible = "mediatek,mt8183-smi-larb", .data = &mtk_smi_larb_mt8183},
- 	{.compatible = "mediatek,mt8186-smi-larb", .data = &mtk_smi_larb_mt8186},
- 	{.compatible = "mediatek,mt8188-smi-larb", .data = &mtk_smi_larb_mt8188},
-+	{.compatible = "mediatek,mt8189-smi-larb", .data = &mtk_smi_larb_mt8189},
- 	{.compatible = "mediatek,mt8192-smi-larb", .data = &mtk_smi_larb_mt8192},
- 	{.compatible = "mediatek,mt8195-smi-larb", .data = &mtk_smi_larb_mt8195},
- 	{}
-@@ -808,6 +840,16 @@ static const struct mtk_smi_common_plat mtk_smi_common_mt8188_vpp = {
- 	.init     = mtk_smi_common_mt8195_init,
- };
- 
-+static const struct mtk_smi_common_plat mtk_smi_common_mt8189 = {
-+	.type     = MTK_SMI_GEN2,
-+	.bus_sel  = F_MMU1_LARB(1) | F_MMU1_LARB(3) | F_MMU1_LARB(5) |
-+		    F_MMU1_LARB(7),
-+};
-+
-+static const struct mtk_smi_common_plat mtk_smi_sub_common_mt8189 = {
-+	.type     = MTK_SMI_GEN2_SUB_COMM,
-+};
-+
- static const struct mtk_smi_common_plat mtk_smi_common_mt8192 = {
- 	.type     = MTK_SMI_GEN2,
- 	.has_gals = true,
-@@ -852,6 +894,8 @@ static const struct of_device_id mtk_smi_common_of_ids[] = {
- 	{.compatible = "mediatek,mt8186-smi-common", .data = &mtk_smi_common_mt8186},
- 	{.compatible = "mediatek,mt8188-smi-common-vdo", .data = &mtk_smi_common_mt8188_vdo},
- 	{.compatible = "mediatek,mt8188-smi-common-vpp", .data = &mtk_smi_common_mt8188_vpp},
-+	{.compatible = "mediatek,mt8189-smi-common", .data = &mtk_smi_common_mt8189},
-+	{.compatible = "mediatek,mt8189-smi-sub-common", .data = &mtk_smi_sub_common_mt8189},
- 	{.compatible = "mediatek,mt8192-smi-common", .data = &mtk_smi_common_mt8192},
- 	{.compatible = "mediatek,mt8195-smi-common-vdo", .data = &mtk_smi_common_mt8195_vdo},
- 	{.compatible = "mediatek,mt8195-smi-common-vpp", .data = &mtk_smi_common_mt8195_vpp},
+Changes in v4:
+- Add 'depends on THERMAL_OF' in Kconfig to ensure functional dependency
+- Link to v3: https://lore.kernel.org/spacemit/20260119-patchv2-k1-thermal-v3-0-3d82c9ebe8a4@163.com/
+
+Changes in v3:
+- Fix indentation and variable types
+- Simplify clock management and redundant assignments
+- Link to v2: https://lore.kernel.org/r/20251216-patchv2-k1-thermal-v1-0-d4b31fe9c904@163.com
+
+Changes in v2:
+- Move driver to drivers/thermal/spacemit/ and update Kconfig/Makefile
+- Address reviewer feedback on style and structure
+- Improve variable naming and comments
+- Link to v1: https://lore.kernel.org/r/20251127-b4-k1-thermal-v1-0-f32ce47b1aba@163.com
+
+Signed-off-by: Shuwei Wu <shuwei.wu@mailbox.org>
+
+---
+Shuwei Wu (3):
+      dt-bindings: thermal: Add SpacemiT K1 thermal sensor
+      thermal: spacemit: k1: Add thermal sensor support
+      riscv: dts: spacemit: Add thermal sensor for K1 SoC
+
+ .../bindings/thermal/spacemit,k1-tsensor.yaml      |  76 ++++++
+ arch/riscv/boot/dts/spacemit/k1.dtsi               | 101 ++++++++
+ drivers/thermal/Kconfig                            |   2 +
+ drivers/thermal/Makefile                           |   1 +
+ drivers/thermal/spacemit/Kconfig                   |  19 ++
+ drivers/thermal/spacemit/Makefile                  |   3 +
+ drivers/thermal/spacemit/k1_tsensor.c              | 280 +++++++++++++++++++++
+ 7 files changed, 482 insertions(+)
+---
+base-commit: 5a11253b34fde37ab9f899728bb1f7b19af5ee37
+change-id: 20260409-k1-thermal-fa1a6bc8b65e
+
+Best regards,
 -- 
-2.46.0
+Shuwei Wu <shuwei.wu@mailbox.org>
 
