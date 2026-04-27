@@ -1,225 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2003E9298;
-	Mon, 27 Apr 2026 18:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2731E3D6CD4
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 18:16:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777313563; cv=none; b=NLHOw8ox3zcNOVRM+pxajZdfcIWep+TFkntToY1e2SsMPp8iGjH+t/b/ff9VSji+BUnSzRn04zs2mlfC8HHDBuBOThbfsxMqZ5Szyhi8UptOejnZgrRiyNzrxYLj5EL4QSiGRDkKHxwlrI1quh43D3C2KAktn3sUmYmWHcZ3wFg=
+	t=1777313780; cv=none; b=PcCPgtfY2kgd+SQCBsmRMa6KiY2Dk44cZ+0RSeUGRSktHE/AlYzthRRMquE+WS6L7Es5R9tq+5pKfY4m2WfRsW0liP17IDzjkYO9Qx2rYzJice2/8Ecb23qq8bM2wRFiNSru7b5HKoQUveN1YC+Yx/KvIJjWkhldlhU5Yr9Xwto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777313563; c=relaxed/simple;
-	bh=UdG0Y3AzgBhVD5fbYvF/r1RlsPIe/pDq4iIEOXkt55Q=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=GlFXEjr0osAtIDLXVFBfmBPGW690Nv5fvX5ZaMv0Xf5zvnwETzgg+EuVdoyn2F3e0LWeaFizlrCIJEiR7i8Eih86v2AlVNUMOXdzRYd9lCO/Ag+wZ1oGeH6iFMOpoVeR2cJZDDXT4W011MJ5EvGCWaxnRpNC7wQrdE5id3C2xks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NGD/Jsz7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777313780; c=relaxed/simple;
+	bh=YprplocZURA1lKVLjcB+psbpqSxBxjQw83uHxzj/+9c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DXE6RxTZzftFVstDHtRymGRbgmLfvSLrwx6JgRWl0k51jq5aj2WkpVCwpJdlFvJyWxSXH2fRQ/kn1tYolmZKlunt8kuZIzyhWCfZoRStuEY9vYrFYQAM/qoz/CcjMcEWfCsfcVlNAdk0Mk8NzG+a9gjHV+VE5n60NpSjS8gtyA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UBb8du5q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GhnoDFnA; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NGD/Jsz7"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 61CC2C19425;
-	Mon, 27 Apr 2026 18:12:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777313563;
-	bh=UdG0Y3AzgBhVD5fbYvF/r1RlsPIe/pDq4iIEOXkt55Q=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=NGD/Jsz7AZGvieu9I8A8IqNaueLW8h2KOHQtrcVl0AkYBDulPAoLB4jqb/IoX5nI1
-	 B0wn9YUzHkvyuQreavyalzjF7k9OJeJ/VKj0TeJWSJV26ZdzSiIF0s/f97ZR8kj2XD
-	 mzCq0f+669nRlhpo+qIbNP9JUHroK6Wi3Or/rm7CVPLu3zVtGAhxeGMS5w4rB6t/9K
-	 3WR8CaCfr2f+KjLuYTyEsx82XrGiWJvUAe4fTbK/j/ydVJx7wdZ9Vozns/1S0iJ3hS
-	 SxAI55886lSWJWcM5IT8QAzlTWmPWQoEUJw7jvG8qb9cfsc4twqLskJsq08WEVKp3h
-	 7jdPOiQqa0Euw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 51692FF886C;
-	Mon, 27 Apr 2026 18:12:43 +0000 (UTC)
-From: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>
-Subject: [PATCH v11 0/2] Introduce Synology Microp driver
-Date: Mon, 27 Apr 2026 20:12:38 +0200
-Message-Id: <20260427-synology_microp_initial-v11-0-9c1bd5a6f3ed@posteo.de>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UBb8du5q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GhnoDFnA"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63RFLnMj3761355
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 18:16:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=BxPqoSIfk5SgqjJr+ogyo0XMyzNwZ9IP9oz
+	1ubebmgg=; b=UBb8du5qyegAl+J7udmO7dJa7C8XwFjNDEnQUA3MqV9J+KcvfHG
+	/2/mD1LGRCJQlblAlHuX/VjilGRjr2wPXtNg/Mm3Pfk1ESSyWI2yBzpZrJ5tp4/9
+	gePi6dcC0ETvQ2fj2f7wMUJxT52HnI1tOxZcRUtph83h5oqW7RO6IXs1xxo0IvwR
+	pck71eX3n59Tj9+cHkCn6xH+rbapoqHSQ1rJk2XfqXMmb/aQ9AjBoJFWh55sjzpJ
+	xc+uUzdQD3m64NRLKbjIOvkXMEIth+b4h4V7qXvT2fpG3r0Gl42z2HCSLjtlYEx5
+	+q356O6rh7jWASpI05XmZQSyDz1JtREQPSg==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dtacdrnjt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 18:16:18 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-82d40278103so6849420b3a.2
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 11:16:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1777313778; x=1777918578; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=BxPqoSIfk5SgqjJr+ogyo0XMyzNwZ9IP9oz1ubebmgg=;
+        b=GhnoDFnAyrLKMgzGNbj6Y6VcX92h0qnavk61uasW+/jyS1umTg+nVuAvzk/gFmT7W3
+         +F/z0fjW5a7YCDOgXcV19qBi2yxWYU2fvNgJHdjtlmk5enEr77XSVw8AUlmlxUQQVtzZ
+         bfY/WYlRRp0RIkrw42wB3fM/JiqUKr0HzUXxRqKwanK+JPXYm1R+I+CvngnUExPpNbKo
+         eykfqJj94/Q9ZiuGibkqM5lpZLfRP+z0YZYqRf6gFsbtuFgg5g61tnXCPFhMDxeRrIZJ
+         dV9kR+LtED2BNeN2xT9g3CFKJ3crK+Cd8RBAsKfC3exnwT9DldkQSsABHxxoyLQGFL0g
+         AhsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777313778; x=1777918578;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BxPqoSIfk5SgqjJr+ogyo0XMyzNwZ9IP9oz1ubebmgg=;
+        b=BWNKDspPBR/O972sxk79SbcNJG3bpg1WNpouTp7dpqxtL5Jm9e4jPam3VBrRNMAEjJ
+         Fb0AHJMxPGYPFAQcNeRTojKjaXtxmgcgknPdZ7lHEYKoHyF0I3fhn/vfPdoW/1WF+vhx
+         Y/WM+CYv1Evq/g5EWGTbh1kprLB/9Zyhu+FG3V1e1NtLVRtUyIoRhfqeYufV1bQTXvI8
+         DGWrn8nyjJB2OPfVjm16KGAToKEEoxARAP5QECy5N7qpy/ZLLFuyB8B2pT9SCoT0cTV5
+         a5kFm6bkedHvjCyUiuIIvxBzplbz6o3rQWThGXawgnWNQmck13vKkNN4tXCCWpppSiyj
+         UmGQ==
+X-Forwarded-Encrypted: i=1; AFNElJ99fZKG/8PKBECyybdn0m8nyhgX8njtIdnyLyhiyK/KS/oTgM5Oq1ZPqDC5mdrYJVlWl3FAYF066ITG@vger.kernel.org
+X-Gm-Message-State: AOJu0YwYfKq1SrQmqDiRKlMhkls+blDk+3wDV/XAMvAJASQ0iteqod35
+	3slU0lk0TddOcUbY6ZEJmClaRfvK0RZGXpH9NkTRpXlCJS+gSULFIkw/1nJzfI6H7P7C3S71RjE
+	Ah1q3jDJwqCAD2k6P1Hwk3JhYjX+5+HTo57IBSQ6a1W9ny7g61L1whMhQnjXRdA4U
+X-Gm-Gg: AeBDiesKUWooLxT70abc8SMfLlG4DZwum4ZwkXFoO5XGc/Qge85uhjsYIii/Q2mwtCP
+	fQc/ASP99nadiYGDCZYjGSkReY4jfkv4KCqHsn17KHGlzxq3ye9WXq9ZM2uTIGSwQdv0Xz3ho4p
+	52ffB1RooeoTLaR+x/kelsAz5qHgqkYWktqbMZCBIOZ0OISKTN/2ZUEG3f5ik0bGYAGS233hYTV
+	j2mW9Q+S2xUa1fpzsNEsG/5YD7iTYOPJj81nA8xItYBNOdjRmGsQbhvp39NU2y89z0LuewXpzKq
+	cssfxrMYJSeWPWNwp6ICS2I5SQPuhvqSCWsrBxIUTCXHl++PJiFBggScZqplRn7eUTUXBegyE0n
+	VRRF0Ulw/or3xYLVBWAB9Hkd4o9OVSvZ8kl1brEWlU140hZa4pejtfzqD5Ho=
+X-Received: by 2002:a05:6a00:ab0a:b0:82f:5dc3:b376 with SMTP id d2e1a72fcca58-834dc265f94mr83133b3a.25.1777313777602;
+        Mon, 27 Apr 2026 11:16:17 -0700 (PDT)
+X-Received: by 2002:a05:6a00:ab0a:b0:82f:5dc3:b376 with SMTP id d2e1a72fcca58-834dc265f94mr83095b3a.25.1777313776918;
+        Mon, 27 Apr 2026 11:16:16 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-834dae1fd83sm154353b3a.14.2026.04.27.11.16.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Apr 2026 11:16:16 -0700 (PDT)
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Subject: [PATCH] dt-bindings: soc: qcom,aoss-qmp: Document the Hawi AOSS side channel
+Date: Mon, 27 Apr 2026 23:46:09 +0530
+Message-ID: <20260427181609.3648384-1-mukesh.ojha@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIABan72kC/4XSzW7jIBAH8FeJfC4VA8OXT32PahVhGFqkJE6Na
- 21U5d2XOId6XTk9MtL8+M/AV1NoyFSadvfVDDTlkvtTPQA87Zrw7k9vxHKshUZwobnkmpXLqT/
- 0b5f9MYehP+/zKY/ZHxhPJvpgOoNON7X7PFDKf2f69c/9PNDHZ71hvBe//XZXdQUCDBs+y7ivm
- SJNjEihBXLcqtBOM7puAcB7y4FiYd4pl0wQySTXToC3js4XYqE/HvPY7ibzDGwI0NwCvecy9sN
- lHn2COdGvQ07AOEshJYqkEW14OfdlpP450mxOYunYbUdUx0nrnJZJQlBrRy4ckNuOrI6P2gfU0
- gsOawcXjuDbDlaHo5AxdlYGj2tHLR237ajqCBM6y7uYlPuRR387yNW2o295bIqEBjsd3NoxCwd
- g2zG3PXvpuUMydUVrxy6cR/ux1TEOtXcgEH/O5ZbOg/dy1UFvlZTJGuJm7QBfQvjgI9b9MLJKR
- JEkdf6/RNfr9R9hfXWV2gMAAA==
-X-Change-ID: 20260306-synology_microp_initial-0f7dac7b7496
-To: Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Lee Jones <lee@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, Markus Probst <markus.probst@posteo.de>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6107;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=UdG0Y3AzgBhVD5fbYvF/r1RlsPIe/pDq4iIEOXkt55Q=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBp76cZY43+JXV0zU7jUWnPpJio9bHcx8O4/zp7G
- ba+iHsCSauJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCae+nGRsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9I0qA//cxHSwP79AllLalTIKQT+fRxW+mC8kfa
- YTcpwzsByTqn/zKWXJt6lIja1AeVEIZNTSPt72CmneOisWSKMXP8gmpkbPS0xrNzZpWgV33Za8b
- 2oRjrH/vky4Emi61hwO6kt3p6iUnh9sCm7RoU9A615sIg3niF8bY1G6gdxubUkTsv9IHngl9qIy
- Qy32ei5AUZ/lrU/Pi8KOY3QkbezaHgS90aZk/ncJTy0TrJS2T4iXAoKuuwkpF5jNN58B5d+19uw
- EkpDz4D4/sdfb9+hrZdNcI/c3zcPkB4jh5gRuWouvOMz2eySZtD44x3niSgbIqy8JEpmxZHsoIn
- k+aORsUnJTSG66HKf7ygGBVN/jgvlZW/LAKrgki4pw7jqNzJWUVOVpdothtMPadD6Cs3S7dCreq
- 8tMFJW3KvhEKfYJG9tu9frqelVKjMZ2zy6er/HkIXsLNwLD+r5l7G2sN69X1Ttv2qtfMojUWZps
- mrYEMy+eS9zeGRvSXVCIC8WYIrqIE+/T0y4A81dbUAf7oMJ10R39ymSnpPK6yVdg4feFgbJG8wE
- l4Q2dlIyjs06cxil3gv7n4ufvizupHmsLyO522mVLQPZ0g9xMZcXCxml/g7EfLe19N63LsfpBPM
- og6wgmExmiykbW6ljAfAwMAmD844Dp4XFFsWTxckNn7+7H4GMUNo=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-X-Endpoint-Received: by B4 Relay for markus.probst@posteo.de/default with
- auth_id=680
-X-Original-From: Markus Probst <markus.probst@posteo.de>
-Reply-To: markus.probst@posteo.de
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDE5NSBTYWx0ZWRfX4P8rVCb2rVdT
+ zdL/uECXAAb5XM9XfjRJSVgXxTViiVIRL30gPVF7jMC5RDP416Z9DrjMkumlvtF0BQy2ISFnKAA
+ ecWPqXXuxroTIa5dgu87UL4flGxH8+edHWJ0PKq2Psor7yBkc06CgmqBOo/WFrrLZtzOW8jvKrP
+ gFXdzefYQEX6MN7flqzt9nYMchZV81BxXmrGLfGrnMb/W0g9z4L0MAlOOK7Bi/TuzsJBUD3jHSm
+ 3deTvg7YxlJ6ffLJyWjS90WW5/Yi0ZF2LD6s4aV88rzXdMJLf+ql2tOj9nV1bnop2qY3Dv5wvNJ
+ 7fK/u+Y5pXRNMrA87jepdECL9773C1vdfWHeTd0a80dL5PHZ/AdDWnI/gi8tJGuUpRWN9VIDv24
+ +bnf9LsKLmCAM0Ov0zNurfOnsv7NIuPsgtJ98VuaondntjjhXtkyF5TGFLDGwl9r3NW8JSBHtWd
+ UfLt4xWQ8EDJKD5dVpw==
+X-Authority-Analysis: v=2.4 cv=QsduG1yd c=1 sm=1 tr=0 ts=69efa7f2 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=M8R6JNo6oyjcFb5i_SoA:9 a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-GUID: FUpQS_3PMT8YMo85xvFMVFN7cpTNCWRX
+X-Proofpoint-ORIG-GUID: FUpQS_3PMT8YMo85xvFMVFN7cpTNCWRX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-27_04,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ suspectscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270195
 
-Synology uses a microcontroller in their NAS devices connected to a
-serial port to control certain LEDs, fan speeds, a beeper, to handle
-proper shutdown and restart, buttons and fan failures.
+Document the Always-on Subsystem side channel on Qualcomm Hawi SoC.
 
-This patch series depends on the rust led abstraction [1] and the rust
-serdev abstraction [2].
-
-This is only a initial version of the driver able to control LEDs.
-The following rust abstractions would be required, to implement the
-remaining features:
-- hwmon (include/linux/hwmon.h)
-- input (include/linux/input.h)
-- sysoff handler (include/linux/reboot.h)
-
-[1] https://lore.kernel.org/rust-for-linux/20260427-rust_leds-v14-0-4f4b17e5d516@posteo.de/
-[2] https://lore.kernel.org/rust-for-linux/20260427-rust_serdev-v6-0-173798d5e1a3@posteo.de/
-
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
+Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 ---
-Changes in v11:
-- rebased on top of 7.1-rc1
-- add "synology" as devicename to led, like it is done in existing dts
-  files in the kernel
-- fix color for led being orange instead of amber. I personally can't
-  clearly tell them apart, but apparently its amber.
-- replaced MCU with EC in Kconfig help
-- Link to v10: https://patch.msgid.link/20260424-synology_microp_initial-v10-0-e852d2f3eba1@posteo.de
+ Documentation/devicetree/bindings/soc/qcom/qcom,aoss-qmp.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes in v10:
-- resolved issues reported by Sashiko Bot:
-  - removed unneeded include from device tree
-  - fix typo in of device table
-  - fix blink not set to false, if delay_off or delay_on is 0
-- Link to v9: https://patch.msgid.link/20260423-synology_microp_initial-v9-0-4a8533f87e07@posteo.de
-
-Changes in v9:
-- separate fallback and front compatibles in dt schema
-- remove front compatibles from of id table, if all functionality is
-  by covered by the fallback
-- remove TODO file
-- add platform-driver-x86@vger.kernel.org to Maintainers file entry
-- use `Delta` type in `BLINK_DELAY` const
-- Link to v8: https://patch.msgid.link/20260420-synology_microp_initial-v8-0-7946a9124491@posteo.de
-
-Changes in v8:
-- removed unnecessary Copy and Clone derive
-- added `BLINK_DELAY` constant
-- added compatible id fallbacks
-- moved dt schema patch before the driver
-- added ds411p
-- Link to v7: https://lore.kernel.org/r/20260411-synology_microp_initial-v7-0-9a3a094e763a@posteo.de
-
-Changes in v7:
-- remove list of compatible ids from commit msg
-- explain what makes the different models not compatible in the commit msg
-- remove unnecessary examples
-- Link to v6: https://lore.kernel.org/r/20260405-synology_microp_initial-v6-0-08fde474b6c9@posteo.de
-
-Changes in v6:
-- moved devicetree bindings patch at the end of the set
-- remove several patches
-- move of id table from model.rs to synology_microp.rs
-- remove the model! macro
-- use if blocks in devicetree schema to narrow down the
-  fan-failure-gpios property
-- add multiple devicetree examples to test if blocks
-- Link to v5: https://lore.kernel.org/r/20260329-synology_microp_initial-v5-0-27cb80bdf591@posteo.de
-
-Changes in v5:
-- add esata led support
-- use different compatible for each model
-- add visibility modifier to of_device_table macro
-- fix match data missing when using PRP0001
-- Link to v4: https://lore.kernel.org/r/20260320-synology_microp_initial-v4-0-0423ddb83ca4@posteo.de
-
-Changes in v4:
-- convert to monolithic driver and moved it into drivers/platform
-- removed mfd rust abstraction
-- moved dt-bindings to embedded-controller
-- Link to v3: https://lore.kernel.org/r/20260313-synology_microp_initial-v3-0-ad6ac463a201@posteo.de
-
-Changes in v3:
-- remove `default n` from Kconfig entry, as n is the default already.
-- select RUST_SERIAL_DEV_BUS_ABSTRACTIONS in Kconfig
-- add mfd rust abstraction
-- split core and led parts into their own driver. It should now be considered a
-  MFD device.
-- split led part of dt binding into its own file
-- Link to v2: https://lore.kernel.org/r/20260308-synology_microp_initial-v2-0-9389963f31c5@posteo.de
-
-Changes in v2:
-- fix missing tabs in MAINTAINERS file
-- remove word binding from patch subject
-- add missing signed-off-by
-- add missing help entry in Kconfig
-- add missing spdx license headers
-- remove no-check{,-cpu}-fan properties from the dt-bindings and replace
-  them with the check_fan module parameter
-- use patternProperties for leds in dt-bindings
-- license dt-binding as GPL-2.0-only OR BSD-2-Clause
-- move driver from staging tree into mfd tree and mark it as work in
-  progress inside Kconfig
-- only register alert and usb led if fwnode is present
-- Link to v1: https://lore.kernel.org/r/20260306-synology_microp_initial-v1-0-fcffede6448c@posteo.de
-
----
-Markus Probst (2):
-      dt-bindings: embedded-controller: Add synology microp devices
-      platform: Add initial synology microp driver
-
- .../synology,ds918p-microp.yaml                    | 100 +++++++
- MAINTAINERS                                        |   7 +
- drivers/platform/Kconfig                           |   2 +
- drivers/platform/Makefile                          |   1 +
- drivers/platform/synology_microp/Kconfig           |  13 +
- drivers/platform/synology_microp/Makefile          |   3 +
- drivers/platform/synology_microp/command.rs        |  54 ++++
- drivers/platform/synology_microp/led.rs            | 287 +++++++++++++++++++++
- drivers/platform/synology_microp/model.rs          |  49 ++++
- .../platform/synology_microp/synology_microp.rs    |  90 +++++++
- 10 files changed, 606 insertions(+)
----
-base-commit: 5e9b7d093f3f77cb0af4409559e3d139babfb443
-change-id: 20260306-synology_microp_initial-0f7dac7b7496
-prerequisite-change-id: 20251217-rust_serdev-ee5481e9085c:v6
-prerequisite-patch-id: 52b17274481cc770c257d8f95335293eca32a2c5
-prerequisite-patch-id: 6ab09768759461c6bea5d4a0833d50e3e41067f1
-prerequisite-patch-id: 8df2fcbdf925250fd8b768c48d4d4224a431c987
-prerequisite-patch-id: d0686cf451ef899a06d468adfba51ccd84e6ff98
-prerequisite-change-id: 20251114-rust_leds-a959f7c2f7f9:v14
-prerequisite-patch-id: bffdc634baa213e70eacc27b52033b16bd7451c4
-prerequisite-patch-id: b15ffa7d95d9260151bfb116b259c4473f721c82
-prerequisite-patch-id: 144f13648788a554a03be98ee572e00bd985fa0f
-
+diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,aoss-qmp.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,aoss-qmp.yaml
+index c5c1bac2db01..c8f95ae563ae 100644
+--- a/Documentation/devicetree/bindings/soc/qcom/qcom,aoss-qmp.yaml
++++ b/Documentation/devicetree/bindings/soc/qcom/qcom,aoss-qmp.yaml
+@@ -26,6 +26,7 @@ properties:
+     items:
+       - enum:
+           - qcom,glymur-aoss-qmp
++          - qcom,hawi-aoss-qmp
+           - qcom,kaanapali-aoss-qmp
+           - qcom,milos-aoss-qmp
+           - qcom,qcs615-aoss-qmp
+-- 
+2.53.0
 
