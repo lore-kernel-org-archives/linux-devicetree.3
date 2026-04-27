@@ -1,67 +1,68 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8C73264DA
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 15:22:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B601332909
+	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 15:22:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777303352; cv=none; b=s9nROY16KrRpMORgmLKPC4xKyHwa1VHeUeD4Myf+JMnFTo3uApt277nxehBErZF0Xztu/Hc0kWr7x0/h54k9PwJR/EC78/GSF4AG9KnFUFvu1soKan0V4F2buu1JMSiLZdcmkNiNCGEb8czVTiVBbRDJi2/+6eXDfHUJVttd4fw=
+	t=1777303354; cv=none; b=NPEKzOQfQxSkzPj1K9GQxuPxgJAdNyVnBguqUC8qFz+hQ+4uMs1GdgLtzRJ+XMXeqQ1u2qFRABvJuHwKs1F8pgcOgQbdU7XtnkHCTroOWQN+MUwW62m8jVpj079+zjhFfM8BQoiV4cIo+bG5s4ArAjIow/QbUnPoRExtfVHHCSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777303352; c=relaxed/simple;
-	bh=Xh79u2I3b2hu2peNDOXXVhLaQglsCAryN12wXb6nPgI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=PV3KIbNiUyeXYismdvTJ1L+H8Gfn/hpKjq17UtVpX6quttZJZKVJbJAvkyq5TCcE3vjBVyJ2jvGTbU/zfsATRj8T+c6r0g/fVPH+N7xPH5cZhLCJtc6e3jIuNgMehPFe08lUdpS/SmdBjfcw/HrmT+d5MoiDCsugWmE/mA7jxv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=Opk/KaUe; arc=none smtp.client-ip=209.85.128.53
+	s=arc-20240116; t=1777303354; c=relaxed/simple;
+	bh=nufcdi2qkof5Ww/gaEmoLUgX8VGg/jPNZzUufn8zrLM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=o3VzSIkR6WYrcOTV9AXm32d8kJ51eiKflfPS/z0yX8KAfK4SazpxULdwUFpji2J+kllty+Hk7JnPfhmzKVlqh6tzxDoPs1se8wlqN21+BqfyIPQN5ny7fr2cM08LCE85hW2+D+24U8JwFZgojijcMq0wxBJNSPdu4ltWye8ugII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=FIXrUM3S; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="Opk/KaUe"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-48374014a77so135415405e9.3
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 08:22:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="FIXrUM3S"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-48984d29fe3so124751235e9.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 08:22:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=imd-tec.com; s=google; t=1777303349; x=1777908149; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9wUtrIXRTfOr+O6nQ8tmIzbVyTOQXWqkfNhpm00D0Vo=;
-        b=Opk/KaUeWXunB+CcMhVCcav8BSRT6jasN8uZlCI5YkPEUn4uYNq8s3f57TTxe8mCNP
-         9LAvOs/aX7gcDoWHi+mvmUUYY/E18qP0X2X/Ay68TrKsZzgH7prbbUlqTkT3Mb+EsTOs
-         kL8MlSsfb1H9V8tUJIjIBaAisuKBDPzQq825Ht1/0W6aGDV6CnqfvIaTk+tecooeLx5w
-         lLgm4tvjSK/ETDGPZk8BZb/bPbuXnvKPTUWg0RxuqwwoGC6OTfQaouzQe3zBaV5kghuS
-         8Rs7VAlGpb+qAjIBlhgXtkLqydzNtStgVgq9BUKPCJMWoGm54F0xdKyP9OQtoyk18tRq
-         QWJg==
+        d=imd-tec.com; s=google; t=1777303350; x=1777908150; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kxIlr02u0245SQX0aOke1TpITzvCVNhVlaMNlcxWD0s=;
+        b=FIXrUM3SkvLJUlRdLRDFtKLwAAjt3YQ+GkTqCQBoQ/QWWH3fVspeIvpNqeEND2x77E
+         8MozIRxpOY8wsBdvNrVDxDqgTtBwWDPg7g6Yz7bk/LfysFuLbruZAi2G5OoC6optn0qD
+         4heIHGc/qyIb90OlG+4kQ4WoKB/uFDD4UIMAf5N5mJTLraaeOVkrZV65fWlHpscDmecZ
+         xmNx042RHmdPPmBeOCywB1i9i5kf+BvKnMGpzf8pDXuahkznmQ4fG4WmFhJAp0rIa1Zm
+         RRqvAnz7Cm27PCOeYmVEcpAx0C5CrJSxboUeGkdsOenjYHllHErgaWBhOitFbfrECCOE
+         MZ+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777303349; x=1777908149;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9wUtrIXRTfOr+O6nQ8tmIzbVyTOQXWqkfNhpm00D0Vo=;
-        b=cfUNWd9k5AurzQ82cGSxvSC1nCTnbUAcQPtVBri1h8F2whTkjqWlGks8VtfrO35WbA
-         bc1lE7m8tgmUAov2YAC2zZUWLnGn8f0U1hXRLAQJoRPuiAxRfgQFExx+B6/+1YGuf16t
-         vXu1403T4nE4AMDSvbkMWRIWNMchs1IKW+TEH47w3NAE1aoFf7492vHdgLJtEL7G/KTM
-         Glqe+y88snrq30K/qqbG260C0z6g8x9eRrM0diR1rbrRR6h1ZyPaNJvJ3r6ycEDWZCgI
-         tH19YPhxsGvVRGgmV93TvavtPwVzm1K9HaWwUKdJwxlF2PwhS6fwKQWrnZQ/ta7QXuJZ
-         ZgUQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9xajJ4wozasdF/6k6EElx40tths2fz2YGVQLL9uLZtKkIcmpvzPb4FQpsp3PcE0fRQWMAlwicgAy8G@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywn5L6+Hbb7AI4sZhbkOiQWBZzYfPkJy46kbimr75YMlqXxO7ne
-	J7q6FZcWTmy3y4KoksieTolKxHcmZKmNonBv7FpHkLHw+9Nv6BeD3idzBvmhnvS+xAI=
-X-Gm-Gg: AeBDies08ZlFQAkyHozxst+TMpDM524Msfsvwdi44sKi0sEUMHjJsxvGYahNPi49mJC
-	dyg9+naA6wrI5K2nvfLbwwxjaA9a9mEksDtp17sO7zbazna5bQstqgpKKzvp6kUg56Zl9RgvhGi
-	pXcFpoxCvJT3hrfX2MbutXu+d8t/xMWZGk6BOUamuCiYDUzs+gWM1r+anPH+n1EfP4lsa3f23eR
-	sPmBKlflNe2YPMXQpxjdYm9VKefelJ7atUR0F6G8udqgRIPtpBaV4sDU6XZlnb/iNloPRjwAMNJ
-	BAvxZo7PWyrlpopFIMj7CQO0www6NpoZDsEVgGpnn85+LC5Hw8PNRoeKqSnZHv1X5swZAEIvqy4
-	VHUfxig9U83CDMzhObZzQzdIR2lgCgx6TXS1FHpNn4ESBNrhkLmoB4kX3nzdSZk2ODksGRr45hc
-	g5eTAF6+sW/BKmRDdpZE7jS3lLWC5ePIIye5wEUMdDmGEsVPiJz49Ab64Hc5OqTJ2cFIq1GmemZ
-	alDI7h5tlSWohKdmsX+wJH2lmz/CZPgz8pM0eeJ
-X-Received: by 2002:a05:600d:8408:b0:486:ff92:63e5 with SMTP id 5b1f17b1804b1-488fb73dc6fmr483448635e9.6.1777303348718;
-        Mon, 27 Apr 2026 08:22:28 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1777303350; x=1777908150;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=kxIlr02u0245SQX0aOke1TpITzvCVNhVlaMNlcxWD0s=;
+        b=LQH3+/HgMiFzM5cywSIAXbl5dYDXuPBNu8qMsbzyxdBLqiM149EFPYEtOfOhRiiQld
+         I4jfj07CmtL4qHXHTrO8vPYk1lC/nC1qyqZDUpsgiWsuladXsflkRGzmMZ1+jnLPA0vF
+         sJEuwyVlTeAacFFPJC+WGLEl+IbC9Zf/+UGJrOqYwPCsi1HXWWJ8R+SnDw5kqwqx+3Xy
+         9qyZe9cwt8rCowORfnfC93kITnQqea1vFGKAiskE6+Dpx87MPOrdcrLxjymobY/nD0/R
+         B3tsa2juulxd52nF/T0Z4UT/GItvjAbn7qB+ptriA5r1PcwB7Cr9AQzQMxAQUQwR1SkQ
+         WtmQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9bJF2NNVG0L4sXkFd3f9AVDcrJkB8tG6zReE6jmrbmwezST3p+pDRgItq085U6Aj+TWxqMxTx0Tme+@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3oO4V3rRxN73fW9N4gF4ANrbeC8/phfaCcmT6ZHM+J308KsvC
+	bMuBXcCAJQo1K7+oaiS8SqLNXFSZzy9oIQNiLJVYf0bf8KRxGNxzP4u9Xl8rsWypWRg=
+X-Gm-Gg: AeBDietH/p5HLURQUghH8zMgnMM9Rzg95ePdxaCFNnLG1LekfIo/yjUv3ezk1Fx3tp2
+	Cg4aNb+kTuy0fLJUWJkRCtOXMsT6ARU3Ix4HJ3f0odq+E6g9oQhgK9Z37TCinuOjJYBRgRCax+0
+	JVeMdCuISNjGh+xOtvpAnDTEx/F11bYQEPugfczbXxxsO/dFaTLESzvMeWIjWhuXHvM8CePgVRM
+	wvbvv3Ah+yg0Tdw5awJnZJsCywvd2MQihPyUN2rZvtiynZd02thua1Gt95q+ZRmuorpyHSdY5vx
+	eHT+BvBhw6r0pNmfFxlI4uYDse4fXoSTV0xCBR1ftSd7ypl32k6g4nKvxRbBysTwHV/SvKEOK42
+	Gjjp57anAMQO32/WQEihMOS7uf8GLuQwCnbsOPbKMUIojqGDw0lcNszY4cGXVNsyGSHoEr3poIP
+	fVaEUMroiqgPdvedjl2GPltQ2MmytNmj5xwzxQ3e1z8BfyrL5k2//I6aalFGN6lxPUEbqeV2uxi
+	WJCiPJ3l4u1l7qi5JbEx/L7wEHFxw==
+X-Received: by 2002:a05:600c:4f92:b0:48a:f18:ece4 with SMTP id 5b1f17b1804b1-48a0f18edf7mr408561105e9.24.1777303349827;
+        Mon, 27 Apr 2026 08:22:29 -0700 (PDT)
 Received: from [127.0.1.1] ([82.71.135.85])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fc0f8188sm861247695e9.2.2026.04.27.08.22.27
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fc0f8188sm861247695e9.2.2026.04.27.08.22.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Apr 2026 08:22:28 -0700 (PDT)
+        Mon, 27 Apr 2026 08:22:29 -0700 (PDT)
 From: William Bright <william.bright@imd-tec.com>
-Subject: [PATCH 0/2] drm/panel: Add support for TSD TST070WSBE-196C 8"
- MIPI-DSI panel
-Date: Mon, 27 Apr 2026 16:21:08 +0100
-Message-Id: <20260427-imdt-dsi-display-v1-0-bb2768de120b@imd-tec.com>
+Date: Mon, 27 Apr 2026 16:21:09 +0100
+Subject: [PATCH 1/2] dt-bindings: display: panel: Add TSD TST070WSBE-196C
+ panel
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,10 +71,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOR+72kC/yXMQQqDMBBA0avIrDugUwnBq0gXiZnqiFXJqFjEu
- 5vW5Vv8f4ByFFaosgMib6IyjQnFI4Omc2PLKCEZKCeTl/RE+YQFgwoG0XlwXyTrvXHkTGEtpGy
- O/Jb9v6xft3X1PTfL7wPneQGibHNmdAAAAA==
-X-Change-ID: 20260423-imdt-dsi-display-28bb6a2a6188
+Message-Id: <20260427-imdt-dsi-display-v1-1-bb2768de120b@imd-tec.com>
+References: <20260427-imdt-dsi-display-v1-0-bb2768de120b@imd-tec.com>
+In-Reply-To: <20260427-imdt-dsi-display-v1-0-bb2768de120b@imd-tec.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -85,42 +85,86 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, William Bright <william.bright@imd-tec.com>
 X-Mailer: b4 0.15.2
 
-This series adds support for the TSD TST070WSBE-196C, a 7" 1024x600                                                                   
-MIPI-DSI TFT LCD panel module based on the Fitipower EK79007AD                                                                        
-controller. The panel is connected over a 4-lane MIPI-DSI video-mode                                                                  
-interface and uses the RGB888 pixel format.                                                                                           
-                                                                                                                                        
-The driver is a simple non-configurable panel: the EK79007AD comes up                                                                 
-with usable defaults after the power/reset sequence, so no                                                                 
-DCS init sequence is required. It supports a single power supply, a                                                                   
-reset GPIO and the standard backlight framework.
-
-Note that in patch 2, link [2] has the incorrect DTSI name 
-(TST070WSBE-165C.dtsi instead of TST070WSBE-196C.dtsi) even though 
-its for the same panel as this patchset.
-   
-Patch 1 adds the dt-binding for the panel.                                                                                            
-Patch 2 adds the panel driver, Kconfig/Makefile entries and a                                                                       
-MAINTAINERS entry.                                                                                                                    
-                                                                                                                                      
+Add device tree binding documentation for the TSD TST070WSBE-196C, a 7"
+1024x600 MIPI-DSI TFT LCD panel using an EK79007AD controller. The
+panel is connected via a 4-lane MIPI-DSI video interface.
 
 Signed-off-by: William Bright <william.bright@imd-tec.com>
 ---
-William Bright (2):
-      dt-bindings: display: panel: Add TSD TST070WSBE-196C panel
-      drm/panel: Add TSD TST070WSBE-196C 7" DSI panel driver
+ .../display/panel/tsd,tst070wsbe-196c.yaml         | 64 ++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
 
- .../display/panel/tsd,tst070wsbe-196c.yaml         |  64 ++++++++
- MAINTAINERS                                        |   6 +
- drivers/gpu/drm/panel/Kconfig                      |   9 ++
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-tsd-tst070wsbe-196c.c  | 168 +++++++++++++++++++++
- 5 files changed, 248 insertions(+)
----
-base-commit: f6c73e7156b54d8b9ddf1a27f4e93d3a1e49a73e
-change-id: 20260423-imdt-dsi-display-28bb6a2a6188
+diff --git a/Documentation/devicetree/bindings/display/panel/tsd,tst070wsbe-196c.yaml b/Documentation/devicetree/bindings/display/panel/tsd,tst070wsbe-196c.yaml
+new file mode 100644
+index 000000000000..fe3f45aa4575
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/tsd,tst070wsbe-196c.yaml
+@@ -0,0 +1,64 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/tsd,tst070wsbe-196c.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TSD TST070WSBE-196C 7" 1024x600 MIPI-DSI TFT LCD panel
++
++maintainers:
++  - William Bright <william.bright@imd-tec.com>
++
++description: |
++  The TSD TST070WSBE-196C is a 7" 1024x600 TFT LCD panel module with an
++  EK79007AD controller, connected via a 4-lane MIPI-DSI video interface.
++
++allOf:
++  - $ref: panel-common.yaml
++
++properties:
++  compatible:
++    const: tsd,tst070wsbe-196c
++
++  reg:
++    maxItems: 1
++    description: DSI virtual channel
++
++  backlight: true
++  reset-gpios: true
++  power-supply: true
++  port: true
++
++required:
++  - compatible
++  - reg
++  - reset-gpios
++  - power-supply
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "tsd,tst070wsbe-196c";
++            reg = <0>;
++
++            reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
++            power-supply = <&display_panel_pwr_en>;
++            backlight = <&backlight>;
++
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&dsi_out>;
++                };
++            };
++        };
++    };
++...
 
-Best regards,
---  
-William Bright <william.bright@imd-tec.com>
+-- 
+2.43.0
 
