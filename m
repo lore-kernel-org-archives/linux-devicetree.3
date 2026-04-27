@@ -1,340 +1,205 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF573DCD99
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 17:35:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777311360; cv=none; b=iVTQW/90NyDsuaw24PGrSciUBPUeAD6MpIz5fFNV7tQ7XRSJ9+loiEZryVN/VF7hza97U8bp7TaobthAaLd1xFpJ7XkZXqxqSxXKMI09TfAtgtiLcHn8gWGiHDdwZRbKFdEetUeET//YABNXsKkKywvAvasR6KuHSFk1BPEhEx0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777311360; c=relaxed/simple;
-	bh=IJaAfFoD68Hrp8z3QWdwMvJoK/M04B/XNqX7mDYzhJk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qFbpxS+tnweod30ZC+gH84hSlCYk5whA3VcWvZe6yT5F2EsJyUo/eN9guCXKTM3bvjBshYwFNCtHE0GV+YVYNDN3gckcDwC2snSCIzmf/hKW+iye+aRyW6c5sqZhzc5M9aDkY6g9ZwdiAGMVXpGlX5tLX7PzCLm/bUozEuwBRVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lCz2QCez; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Hc/HVTz+; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE52369970;
+	Mon, 27 Apr 2026 17:36:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777311366; cv=pass; b=DD0pler385LyEYW8abMyu6n/p9b1H0Z3uznIC/dKQA5/uBRED4xACmdcd0YM2/uptwFDM9gIkRTLZCbZMHGMbybuKtrJrkLu7JKH6jdLTxxTi+nvEPBx9kU5GpLntCevgtZbDz4Twj6AzU+OL66dfjM+HUnZ12ynyA2Op46jJRs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777311366; c=relaxed/simple;
+	bh=nr5ilqN014BdeoWLjGf8aQJGuYGOGF0K4mmsCEMvF4I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=REqVpqi8FlD4KvWz97Vzqv/Sfwju7ORsGrgP+gKkumpLns+cJbk1O0CM5Aa2f4/rwCvzh6kedc3iKQ/sUFV+a6U9+n3HhnnHFDGWFJ7Y9UoL2VtxFE85xvsb/+84WPurcP1lhCOBOBG9DJ+VX8n3jNRfm9gR38XdPBuM4Sv+QoQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=Zk7ogawB; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lCz2QCez";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Hc/HVTz+"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63RDxLv12913796
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 17:35:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+CUiM8EWNjsOey3D4G6szxSNMyY47RvHNq1zFsclMX4=; b=lCz2QCezMCNeSYCU
-	dLbGk4kqlKhZdcmkwgfG6iSUrW8Wwks7bnL/QLRt5pyP3OP5z0ehCJWxc5GWeD1g
-	HUgICg9pMNEd2M/02RwvZ1YyDRFCGPa0xuMXDKjshmKJX2m6wKZTt5rUw0i/Prek
-	0GP7xCF7f20uLp4K6eLgOZ5u3JrFSy913GqS3qNBPsS7HvrQtaL9LmLQylCvMH5H
-	wCGbg9NojDwUXg1KsZ7V7i48XmbtAGTlOwi+RIm67AXL6VJBwJhbH5fujEaGislg
-	+f3M5zDYTw2XZdjBAAob3LLxZpoq/4I6zGLXzr669Fd2TaqAAWs16V2ePeeJfwzv
-	AMWmcA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dt26xjmjd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 17:35:55 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2b2e6ee9444so113288255ad.1
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 10:35:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777311354; x=1777916154; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+CUiM8EWNjsOey3D4G6szxSNMyY47RvHNq1zFsclMX4=;
-        b=Hc/HVTz+xsEQz0XcWjg/H2rahk1N7W3TMTA2mdei+PZBAB07DOQzKDX/cA84u1g9WD
-         ZbsaFwaJKaB1YblK4DND3I59tlpqbTgzH5thP0ekli1JYRHKaeqDtNo4NrezmV937RuF
-         P2jPSQ6vh9VQyiAkWFijHwJUzkYDHqvjVh1LHk1c6odxTz5bxuckhjum9fpYzZ4wQ78X
-         QypLuwHfypzOtaG/CSkfme09lEaH9ca1lvT8NNqX4w6yAbAry4oCHpdxLL57lM/nbpQH
-         5Wm1ybWji0+IjYApfzYKxNcEei+QAqeMULYP3wNK/jrLvMTwsY21V57TZCwhmzVB5mI5
-         8fNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777311354; x=1777916154;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=+CUiM8EWNjsOey3D4G6szxSNMyY47RvHNq1zFsclMX4=;
-        b=mjjxRpj3viMLjy6xSTzprhAixlz4itPo00w3/ivZ8xTG5OrGFl/Wxu+cqZzpjsmLcx
-         L/ar34G7Yr9RRa033cp4iyNPTTx5/u/HqK1Neq91FLm7yodASqY3O4x8nVT875T0/6RT
-         6pY0dzrlhgnXtpBBfJ6CTELplJZpdZhQtfm2Gcg4mXbhaqt+oQag8sZj0IIatWSvA4dG
-         CW/N2rRtLjGccqS2eTHl8Jh+BdoHsKOATgtKJyi8o+OtBU7DauBa7RVtdz713+FkvoJ8
-         EaazpsoM5EJg6t0j3/oZ+W4BcNW72sfsg/x47aOLD8XK5eHWwVwk9yOgyKxPPAqWLcPP
-         1+Xg==
-X-Forwarded-Encrypted: i=1; AFNElJ9SzK+pMrIKpxqYIDu+9bMAhpx3nWqKbGtigIi+mgODXZClHYhcipwDEAdK0lpEqanFEiBn0+JXNYMA@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6fhdylEilsQYm2L+QIRLe6U+KDqFWxHBtkOkQbUyQzRHJ9/7F
-	MnYqoNmmjafbheaJFIupZlAN6IvFQ2T8OCX1emCNNDFC2Yt0k4hqjMCi3saeQm+FhbKVHFlPjsr
-	eMrjiA1EBlgxo0kvIZrA7nuM2LbZZLEUGox0fJGzcRPQ3TAjzn9748XA2yj6SS9EQ
-X-Gm-Gg: AeBDievc4/lpeoRNogJ6ea73NcGh9XHpY/3RZbme7Wq/A5UOEZnWUL0Us4R7DgUqnls
-	fqnUDNe/rx/VY5xGauFq2D5RDS2BmMkO8txuSQ0FFT5CuyDtc1mv5n2MoJH3AjNQKHANhZPQV3a
-	JgCglR3VPvwHScps1Q7GfnihFv3SR4vx0/4+KyxKXkL1pG7Aym8N8AKTMFi9pZvFoszhzJrlP0Q
-	oy7oL6zyouJ13vCBD32TVF/oUrcoWSH6MTcmPmdRNvhAXa+RhZRKG3XwB3A6CG0CYOle6euXDE2
-	ZeuDEnApY9s+Atpw3fh+bfT8/68TftknqNokPktIW7+KodBRM019lexdSZVnhKVFqkbGLMtXJUw
-	v9QGbWU78hHocE3+ARkdJpmsFsP8JfE8Xk3+3xSXxk+x8Jn6LTUIu7eSW0qFajnS1K1/T
-X-Received: by 2002:a17:903:3c44:b0:2b0:4f16:22f7 with SMTP id d9443c01a7336-2b97ac74404mr519065ad.16.1777311354057;
-        Mon, 27 Apr 2026 10:35:54 -0700 (PDT)
-X-Received: by 2002:a17:903:3c44:b0:2b0:4f16:22f7 with SMTP id d9443c01a7336-2b97ac74404mr518555ad.16.1777311353383;
-        Mon, 27 Apr 2026 10:35:53 -0700 (PDT)
-Received: from hu-spratap-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b97aca8369sm329115ad.75.2026.04.27.10.35.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Apr 2026 10:35:53 -0700 (PDT)
-From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Date: Mon, 27 Apr 2026 23:04:44 +0530
-Subject: [PATCH v21 04/13] firmware: psci: Introduce command-based with
- magic
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Zk7ogawB"
+ARC-Seal: i=1; a=rsa-sha256; t=1777311340; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=AD31+MNPTHWPoTYCQMpX7n3R0Er4g3R9tw0h41WKv3hmOvvgViSemwhfzgvt0V/Xr18hI/13AuZ0oc0jPRO1vaW8c/KDAqRL2r30pWhwGATOtKWmuq12DKZQQTOg1LqmiiHzVlG6YN2u+grPU4bwOqHmSMG/tOYf69jDCalMJLw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1777311340; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=UmdZibbd/+Riw2ttNnhE20ZsNtrexm4/ybN5Xvwgvow=; 
+	b=LXggAq9qe3W+IUdyL2SssQt6RWKdrnslU1yGMFBo6D1XXM6lNMqddmD0wdndgrl7EWNOY6exIK0HAQ6yvlpkbRDJCviTPe9oD481ycqCzL3J9zoN6jg2Deoji6iwl5sUZScIEeeKqVMnoeHYRZ/tLdLuJClButw5EBNT31hnOHE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777311340;
+	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+	bh=UmdZibbd/+Riw2ttNnhE20ZsNtrexm4/ybN5Xvwgvow=;
+	b=Zk7ogawB1ZqlMX1b33i7nQ48RAsz7BPFAlhFSMtpmi8D4JtbDjXDFb4ZwdMH1rlr
+	lehBH8gAk6rM/QAG7ZaQYWhFns4VQdtZ3tGA53rooZDa9H+oXX7voL4Z8XxCgCBA45i
+	s9i7M6LHzBfPYjGKSjicMwGrYclXUYxOUUbKXPDc=
+Received: by mx.zohomail.com with SMTPS id 1777311337704981.5046370792685;
+	Mon, 27 Apr 2026 10:35:37 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Lee Jones <lee@kernel.org>, William Breathitt Gray <wbg@kernel.org>,
+ Damon Ding <damon.ding@rock-chips.com>
+Cc: kernel@collabora.com, Jonas Karlman <jonas@kwiboo.se>,
+ Alexey Charkov <alchark@gmail.com>, linux-rockchip@lists.infradead.org,
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org
+Subject: Re: [PATCH v5 4/6] counter: Add rockchip-pwm-capture driver
+Date: Mon, 27 Apr 2026 19:35:32 +0200
+Message-ID: <q0kG3ZZyT92lQlYsvZD_qg@collabora.com>
+In-Reply-To: <91eed9a4-4dc3-4846-baf3-e9cef53be79b@rock-chips.com>
+References:
+ <20260420-rk3576-pwm-v5-0-ae7cfbbe5427@collabora.com>
+ <20260420-rk3576-pwm-v5-4-ae7cfbbe5427@collabora.com>
+ <91eed9a4-4dc3-4846-baf3-e9cef53be79b@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260427-arm-psci-system_reset2-vendor-reboots-v21-4-dcf937775e73@oss.qualcomm.com>
-References: <20260427-arm-psci-system_reset2-vendor-reboots-v21-0-dcf937775e73@oss.qualcomm.com>
-In-Reply-To: <20260427-arm-psci-system_reset2-vendor-reboots-v21-0-dcf937775e73@oss.qualcomm.com>
-To: Sebastian Reichel <sre@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Christian Loehle <christian.loehle@arm.com>,
-        Ulf Hansson <ulfh@kernel.org>, Lee Jones <lee@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-        Andy Yan <andy.yan@rock-chips.com>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        John Stultz <john.stultz@linaro.org>,
-        Moritz Fischer <moritz.fischer@ettus.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Sudeep Holla <sudeep.holla@kernel.org>, Ulf Hansson <ulfh@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        devicetree@vger.kernel.org,
-        Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Andre Draszik <andre.draszik@linaro.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777311301; l=6677;
- i=shivendra.pratap@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
- bh=IJaAfFoD68Hrp8z3QWdwMvJoK/M04B/XNqX7mDYzhJk=;
- b=C1CJp2wthLFqASyPaBoz2bmtc5z3yh2Vt0xyY746fg44zr0TjDFSpuJDS92BW6Jsg0sUhMzDf
- 3hqs005mGwXBPy0tEuBhaWKEwjimbSOSNCPq+NE7ukFuc7O3+sNU6/U
-X-Developer-Key: i=shivendra.pratap@oss.qualcomm.com; a=ed25519;
- pk=CpsuL7yZ8NReDPhGgq6Xn/SRoa59mAvzWOW0QZoo4gw=
-X-Proofpoint-GUID: w_zAuWcP7fm6-DPEGrkqEEki5Mxq-AAU
-X-Proofpoint-ORIG-GUID: w_zAuWcP7fm6-DPEGrkqEEki5Mxq-AAU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDE4NyBTYWx0ZWRfXwvR3ocXQGRud
- 6W1cMo3AHnIryNUb/W80xHkccZu0boF81/+cedqck32W3Y/zo7Z4YVNx3jftbr9fSoUBeVpIxGy
- y/ukaST6oPjDGKF0St6iBA3BcFCMfs2CCxbTOvH01ut6256qveaAaDitOafRK9MOnkFhwW0/f6Z
- j0qLASQQpIw3I5EeYdU9L0O+rccxeJ6Y07XaI/KHIXhUWkcP8DrGd5b7MJlGLNe1trn2kWmIWBE
- mECX4zsYiCbzk387vYRvZnV8d4yA26hxfBnqJeQcV6QAVRG6bnXyUzFZzqdk4m8Ze4bVNg0lbDs
- bljfkRkXWliNZy20n+awpF/OoesOiaAgemM09yetmYMKi4HBpVx49lApLgO0cL+T6kLGSNq5zgj
- pi7JlFZiaxYUDnxt3mxe2t3GCa56JIc0MMKVC4qIXHrXFP33NK7CdzUJGLgcRaeWAKhFKDslS+X
- XIUTI6N/k17MmV9SJjw==
-X-Authority-Analysis: v=2.4 cv=FM8rAeos c=1 sm=1 tr=0 ts=69ef9e7b cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=dfwn7jY9AU0u4DHcGkkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-27_04,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 adultscore=0 bulkscore=0 phishscore=0
- spamscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270187
 
-PSCI currently supports only two resets - SYSTEM_RESET and SYSTEM_RESET2
-ARCH WARM reset. The reset patch is selected based on the Linux
-reboot_mode variable. The PSCI specification now includes SYSTEM_RESET2
-for vendor-specific resets but there's no mechanism to issue these
-through psci_sys_reset().
+Hi Damon,
 
-Add a command-based reset mechanism that allows external drivers to set
-the psci reset command via a exported psci_set_reset_cmd() function.
+On Sunday, 26 April 2026 12:55:20 Central European Summer Time Damon Ding wrote:
+> Hi Nicolas,
+> 
+> On 4/20/2026 9:52 PM, Nicolas Frattaroli wrote:
+> > Among many other things, Rockchip's new PWMv4 IP in the RK3576 supports
+> > PWM capture functionality.
+> > 
+> > Add a basic driver for this that works to expose HPC/LPC counts and
+> > state change events to userspace through the counter framework. It's
+> > quite basic, but works well enough to demonstrate the device function
+> > exclusion stuff that mfpwm does, in order to eventually support all the
+> > functions of this device in drivers within their appropriate subsystems,
+> > without them interfering with each other.
+> > 
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >   MAINTAINERS                            |   1 +
+> >   drivers/counter/Kconfig                |  11 ++
+> >   drivers/counter/Makefile               |   1 +
+> >   drivers/counter/rockchip-pwm-capture.c | 307 +++++++++++++++++++++++++++++++++
+> >   4 files changed, 320 insertions(+)
+> > 
+> 
+> For functional validation, I connected PWM0/PWM1 (continuous output)
+> to PWM2 (capture input) pairwise.
+> 
+> I enabled the counter via:
+> /sys/bus/counter/devices/counter0/count0/enable
+> 
+> Then I verified the functionality by reading the count values from:
+> /sys/bus/counter/devices/counter0/count0/count
+> /sys/bus/counter/devices/counter0/count1/count
+> 
+> Tested-by: Damon Ding <damon.ding@rock-chips.com>
 
-Define predefined reset_types - PSCI_RESET_TYPE_SYSTEM_RESET to map to
-SYSTEM_RESET, and PSCI_RESET_TYPE_SYSTEM_RESET2_ARCH_WARM to map to
-SYSTEM_RESET2 arch warm reset. Interpret zero cmd_reset_type, for
-predefined reset-command selection via cmd_cookie. For non-zero
-cmd_reset_type, check for valid vendor_reset_type and set the psci
-reset_command and cookie accordingly.
+Thanks for testing! To make sure a bug on the pwm output driver won't
+be cancelled out by an equivalent bug in the counter driver, I did
+my counter driver testing by using an RK3588 as the source of the
+PWM signal, with the two boards sharing a common ground. Maybe I
+should get a proper function generator. :)
 
-Disable PSCI command-based reset by default and treat invalid reset
-commands as no‑op. psci_sys_reset() follows its original flow based on
-reboot_mode until a reset command is explicitly set by
-psci_set_reset_cmd().  In the device reset flow, psci_set_reset_cmd() is
-called in reboot_notifier phase and the device reset happens in
-psci_sys_reset() which is called later in the restart_notifier phase. If
-a kernel panic occurs in between these two phases, the reboot should
-take its original flow based on the value of reboot_mode. Disable the
-command-based reset in such case.
+> BTW: Is there any user-space test tool similar to libpwm for the
+> counter subsystem?
 
-Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
----
- drivers/firmware/psci/psci.c | 75 ++++++++++++++++++++++++++++++++++++++++++--
- include/linux/psci.h         | 19 +++++++++++
- 2 files changed, 92 insertions(+), 2 deletions(-)
+I've tried looking for this as well, and couldn't find anything. If
+it exists then adding a mention of it to generic-counter.rst would
+be in order I think.
 
-diff --git a/drivers/firmware/psci/psci.c b/drivers/firmware/psci/psci.c
-index 38ca190d4a22d6e7e0f06420e8478a2b0ec2fe6f..cb37c39e2b4b1d99f0080f6a5cd6c92a070beda8 100644
---- a/drivers/firmware/psci/psci.c
-+++ b/drivers/firmware/psci/psci.c
-@@ -51,6 +51,16 @@ static int resident_cpu = -1;
- struct psci_operations psci_ops;
- static enum arm_smccc_conduit psci_conduit = SMCCC_CONDUIT_NONE;
- 
-+/*
-+ * Encoded reset command:
-+ * bits[63:32] = cookie
-+ * bits[31:0]  = reset_type
-+ */
-+static u64 reset_cmd;
-+
-+#define PSCI_RESET_TYPE(reset_cmd)	((u32)(reset_cmd))
-+#define PSCI_RESET_COOKIE(reset_cmd)	((u32)((reset_cmd) >> 32))
-+
- bool psci_tos_resident_on(int cpu)
- {
- 	return cpu == resident_cpu;
-@@ -80,6 +90,35 @@ static u32 psci_cpu_suspend_feature;
- static bool psci_system_reset2_supported;
- static bool psci_system_off2_hibernate_supported;
- 
-+static u32 psci_fn_from_cookie(u32 cookie)
-+{
-+	switch (cookie) {
-+	case PSCI_RESET_TYPE_SYSTEM_RESET2_ARCH_WARM:
-+		if (psci_system_reset2_supported)
-+			return PSCI_FN_NATIVE(1_1, SYSTEM_RESET2);
-+		return 0;
-+	case PSCI_RESET_TYPE_SYSTEM_RESET:
-+		return PSCI_0_2_FN_SYSTEM_RESET;
-+	default:
-+		return 0;
-+	}
-+}
-+
-+/** psci_set_reset_cmd() - Configure reset request for psci_sys_reset()
-+ * @psci_reset_cmd: reset command encoded as cookie[63:32] | reset_type[31:0]
-+ *
-+ * Save reset command.
-+ */
-+void psci_set_reset_cmd(u64 psci_reset_cmd)
-+{
-+	reset_cmd = psci_reset_cmd;
-+}
-+
-+bool psci_has_system_reset2_support(void)
-+{
-+	return psci_system_reset2_supported;
-+}
-+
- static inline bool psci_has_ext_power_state(void)
- {
- 	return psci_cpu_suspend_feature &
-@@ -306,8 +345,24 @@ static int get_set_conduit_method(const struct device_node *np)
- 	return 0;
- }
- 
--static int psci_sys_reset(struct notifier_block *nb, unsigned long action,
--			  void *data)
-+static void psci_handle_reset_cmd(void)
-+{
-+	u32 psci_sys_reset_fn;
-+
-+	if ((reset_cmd & BIT_ULL(31)) && psci_system_reset2_supported) {
-+		/* PSCI SYSTEM_RESET2 Vendor-specific reset */
-+		invoke_psci_fn(PSCI_FN_NATIVE(1_1, SYSTEM_RESET2),
-+			       PSCI_RESET_TYPE(reset_cmd),
-+			       PSCI_RESET_COOKIE(reset_cmd), 0);
-+	} else {
-+		/* cookie part of the reset_cmd decides ARCH WARM RESET vs SYSTEM_RESET */
-+		psci_sys_reset_fn = psci_fn_from_cookie(PSCI_RESET_COOKIE(reset_cmd));
-+		if (!PSCI_RESET_TYPE(reset_cmd) && psci_sys_reset_fn)
-+			invoke_psci_fn(psci_sys_reset_fn, 0, 0, 0);
-+	}
-+}
-+
-+static void psci_handle_reboot_mode(void)
- {
- 	if ((reboot_mode == REBOOT_WARM || reboot_mode == REBOOT_SOFT) &&
- 	    psci_system_reset2_supported) {
-@@ -320,6 +375,22 @@ static int psci_sys_reset(struct notifier_block *nb, unsigned long action,
- 	} else {
- 		invoke_psci_fn(PSCI_0_2_FN_SYSTEM_RESET, 0, 0, 0);
- 	}
-+}
-+
-+static int psci_sys_reset(struct notifier_block *nb, unsigned long action,
-+			  void *data)
-+{
-+	/*
-+	 * Command-based resets are configured at the reboot_notifier phase.
-+	 * If a kernel panic occurs between the reboot_notifier and this final
-+	 * reset, ignore the command-based reset and let reboot_mode drive the
-+	 * reset flow.
-+	 * If reset_cmd is zero, there is no command to handle.
-+	 */
-+	if (reset_cmd && !panic_in_progress())
-+		psci_handle_reset_cmd();
-+	else
-+		psci_handle_reboot_mode();
- 
- 	return NOTIFY_DONE;
- }
-diff --git a/include/linux/psci.h b/include/linux/psci.h
-index 4ca0060a3fc42ba1ca751c7862fb4ad8dda35a4c..c2458291a3faf5ac89b1528dae2c9b805a2dd075 100644
---- a/include/linux/psci.h
-+++ b/include/linux/psci.h
-@@ -21,6 +21,21 @@ bool psci_power_state_is_valid(u32 state);
- int psci_set_osi_mode(bool enable);
- bool psci_has_osi_support(void);
- 
-+/**
-+ * enum psci_reset_type	-	PSCI_RESET_TYPE for SYSTEM_RESET.
-+ * @PSCI_RESET_TYPE_SYSTEM_RESET: Standard SYSTEM_RESET command.
-+ * @PSCI_RESET_TYPE_SYSTEM_RESET2_ARCH_WARM: SYSTEM_RESET2 architectural warm reset.
-+ *
-+ * These enum values map PSCI_RESET_TYPE_SYSTEM_* constants to reset strings
-+ * issued from user space. When user space requests a reset, the cookie
-+ * carries one of these values, and the PSCI reset path translates it into
-+ * the appropriate PSCI system reset call.
-+ */
-+enum psci_reset_type {
-+	PSCI_RESET_TYPE_SYSTEM_RESET = 1,
-+	PSCI_RESET_TYPE_SYSTEM_RESET2_ARCH_WARM,
-+};
-+
- struct psci_operations {
- 	u32 (*get_version)(void);
- 	int (*cpu_suspend)(u32 state, unsigned long entry_point);
-@@ -45,8 +60,12 @@ struct psci_0_1_function_ids get_psci_0_1_function_ids(void);
- 
- #if defined(CONFIG_ARM_PSCI_FW)
- int __init psci_dt_init(void);
-+void psci_set_reset_cmd(u64 psci_reset_cmd);
-+bool psci_has_system_reset2_support(void);
- #else
- static inline int psci_dt_init(void) { return 0; }
-+static inline void psci_set_reset_cmd(u64 psci_reset_cmd) { }
-+static inline bool psci_has_system_reset2_support(void) { return false; }
- #endif
- 
- #if defined(CONFIG_ARM_PSCI_FW) && defined(CONFIG_ACPI)
+> 
+> ......
+> > diff --git a/drivers/counter/rockchip-pwm-capture.c b/drivers/counter/rockchip-pwm-capture.c
+> > new file mode 100644
+> > index 000000000000..09a92f2bc409
+> > --- /dev/null
+> > +++ b/drivers/counter/rockchip-pwm-capture.c
+> > @@ -0,0 +1,307 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> > +/*
+> > + * Copyright (c) 2025 Collabora Ltd.
+> > + *
+> > + * A counter driver for the Pulse-Width-Modulation (PWM) hardware found on
+> > + * Rockchip SoCs such as the RK3576, internally referred to as "PWM v4". It
+> > + * allows for measuring the high cycles and low cycles of a PWM signal through
+> > + * the generic counter framework, while guaranteeing exclusive use over the
+> > + * MFPWM device while the counter is enabled.
+> > + *
+> > + * Authors:
+> > + *     Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > + */
+> > +
+> > +#include <linux/cleanup.h>
+> > +#include <linux/counter.h>
+> > +#include <linux/devm-helpers.h>
+> > +#include <linux/interrupt.h>
+> > +#include <linux/mfd/rockchip-mfpwm.h>
+> > +#include <linux/mod_devicetable.h>
+> > +#include <linux/of.h>
+> > +#include <linux/platform_device.h>
+> > +#include <linux/spinlock.h>
+> > +
+> > +#define RKPWMC_INT_MASK			(PWMV4_INT_LPC | PWMV4_INT_HPC)
+> > +
+> > +struct rockchip_pwm_capture {
+> > +	struct rockchip_mfpwm_func *pwmf;
+> > +	struct counter_device *counter;
+> > +};
+> > +
+> > +static struct counter_signal rkpwmc_signals[] = {
+> > +	{
+> > +		.id = 0,
+> > +		.name = "PWM Clock"
+> > +	},
+> > +};
+> > +
+> > +static const enum counter_synapse_action rkpwmc_hpc_lpc_actions[] = {
+> > +	COUNTER_SYNAPSE_ACTION_BOTH_EDGES,
+> > +	COUNTER_SYNAPSE_ACTION_NONE,
+> > +};
+> 
+> For the capture function, it uses the PWM's reference clock (dclk) as 
+> the time base to measure how many reference cycles the high and low 
+> levels of the input waveform last respectively.
+> 
+> I find it a bit strange to set COUNTER_SYNAPSE_ACTION_BOTH_EDGES for 
+> counting. If we treat the input waveform as a sequence of square waves 
+> sampled by dclk cycles, it feels like we should count on a single edge 
+> (rising edge only) rather than both edges.
+> 
 
--- 
-2.34.1
+Yeah, that's a good point. I think I've been struggling to wrap my head
+around what the signal is and what the synapse should trigger on because
+the signal isn't something exposed in this case.
+
+Your explanation makes sense, and perhaps I should rename
+rkpwmc_hpc_lpc_actions as well. Currently it makes it seem like HPC
+and LPC are the signal, when actually the waveform is the signal, HPC
+and LPC are the counts, and the synapse is a sample every dclk spotting
+a transition if I understand this correctly.
+
+> > +
+> > +static struct counter_synapse rkpwmc_pwm_synapses[] = {
+> > +	{
+> > +		.actions_list = rkpwmc_hpc_lpc_actions,
+> > +		.num_actions = ARRAY_SIZE(rkpwmc_hpc_lpc_actions),
+> > +		.signal = &rkpwmc_signals[0]
+> > +	},
+> > +};
+> > +
+> 
+> Best regards,
+> Damon
+> 
+
+Kind regards,
+Nicolas Frattaroli
+
 
