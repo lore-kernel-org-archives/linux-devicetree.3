@@ -1,114 +1,114 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A54E31F984;
-	Mon, 27 Apr 2026 20:25:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC57366072;
+	Mon, 27 Apr 2026 20:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777321536; cv=none; b=hdpzxWBybyKQpNC1y9WYKwtqu/gttYcwv3wGiWcufimSjDzDwH4Rfz5cbTYEUAQz6tFb3DJ4krQfR/1lRdG4yXSTu2drQ07SpVTkQUt3u/4PamoFADOlTEzofRvCl2aCUnVCYnlLa891vfTuQBHjxtGwQ4Ne2xxYnagp5WSxAXc=
+	t=1777321697; cv=none; b=MUE2A+qG/oqG6MOYrIy/0ZGRKyWQAbEq9evW4wXj9Ft7u9Ih85fydQMkGgYTo0k6DSdMU3XudL7Y+Z7xlRUTX8Bv0F/abNtH9vG6vNiGuamf460O75CTDNuF7ZSnpIvbT8AyTGQ69pbAqitf5bDJo3UKq70MAaGVljhGBlM1D9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777321536; c=relaxed/simple;
-	bh=oHxuF0zz8E0hhW0pls7hle2dqF6YIvkZgvJcLy3BzXs=;
+	s=arc-20240116; t=1777321697; c=relaxed/simple;
+	bh=V23+FncfRih0vg6hWFTVq/hfs0/6m3e5YdaqQfSqJpA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hG2tl83yhQSXzh7Iyf9QzY1BxSil12SmefJgKm1PSQ1s/hq31LPGTN25oURDgl7myPEHzUa2yy5RWV5GPc5altG/n/Q+lVIQVuuftc/rpHhVIRfpr2NXrxq8c8aKLNhNDCoBbQE0w6Nf5SnJvI2CkAvw5vhNVrRvjq+Hm8cmbL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=EE5ScAbO; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cp0gOh3NrGktw1goqqwoev8s42Kw+KMzyeC1HnhHK7kTqPpP+s1kjUzcs9N9D82xujnjz+wRqt+rnCH9m6FchYJXoqr/xnDUypAdRacsCtnqjD5KA/1IXazWfmREXs8cyw20Gn7vJl47HJEokyAPOaCqRWOUu6LY67U07H/8tR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=rLlesqLi; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="EE5ScAbO"
-Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E8627145C;
-	Mon, 27 Apr 2026 22:23:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1777321423;
-	bh=oHxuF0zz8E0hhW0pls7hle2dqF6YIvkZgvJcLy3BzXs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EE5ScAbO1F/fZr/DQTTI6ND1triKB6GpQa7Z7ASKsATJiY0tlQFgl3yZEOEPoF5bo
-	 WH2kRX9EssbY1q5ZAAXju0xpBGqp6kQcBY5z1vNAW4Dw7Qpsoeessn4m+8P1vbgK5r
-	 CM3rWC9Sm5MRqPpyj9tJvcZhAfzRyB5dQi3zWuDg=
-Date: Mon, 27 Apr 2026 23:25:23 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="rLlesqLi"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=bCKUIAH5AFpDTEzRcLChuiZZK/DaK7fLHicMM3GjPeU=; b=rLlesqLi6cgTfWUu5jNjMHVnJc
+	WFSU29sFZ7PYpE/EtDJrxlyl9K4R4lTFz3LpB3gxa3gy6IjKwY0rG8OaHwJUN5RJGxmXdMCZuuAfW
+	AhzQWMvhNGLPqSnoCVhJCMAATNyF4t3Z8rO3EO6V0Zj2ca/0yQjQaKX7UIsq5FxqX4+M=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wHSYk-000Dgw-4C; Mon, 27 Apr 2026 22:28:02 +0200
+Date: Mon, 27 Apr 2026 22:28:02 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Shenwei Wang <shenwei.wang@nxp.com>
+Cc: "Padhi, Beleswar" <b-padhi@ti.com>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
-	kieran.bingham@ideasonboard.com
-Subject: Re: [PATCH v2 12/14] media: uapi: Add CAMSS ISP configuration
- definition
-Message-ID: <20260427202523.GE3219146@killaraus.ideasonboard.com>
-References: <20260427-camss-isp-ope-v2-0-f430e7485009@oss.qualcomm.com>
- <20260427-camss-isp-ope-v2-12-f430e7485009@oss.qualcomm.com>
- <3e72d17c-e46c-42d3-9b17-54627f6e5e28@oss.qualcomm.com>
- <CAFEp6-20MzQh55iJzyhn=htFZxN1yq9o+EJJAX0CWG3O6_KSyA@mail.gmail.com>
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Frank Li <frank.li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	dl-linux-imx <linux-imx@nxp.com>,
+	Bartosz Golaszewski <brgl@bgdev.pl>
+Subject: Re: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg GPIO driver
+Message-ID: <6412a758-4560-4cf1-a0d0-5b24d1a715f1@lunn.ch>
+References: <20260422212849.1240591-1-shenwei.wang@nxp.com>
+ <20260422212849.1240591-4-shenwei.wang@nxp.com>
+ <22fb5fac-2568-42be-a7e3-7e89d0017eb3@ti.com>
+ <PAXPR04MB91850A11C58419C03909145F89362@PAXPR04MB9185.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAFEp6-20MzQh55iJzyhn=htFZxN1yq9o+EJJAX0CWG3O6_KSyA@mail.gmail.com>
+In-Reply-To: <PAXPR04MB91850A11C58419C03909145F89362@PAXPR04MB9185.eurprd04.prod.outlook.com>
 
-On Mon, Apr 27, 2026 at 10:08:59PM +0200, Loic Poulain wrote:
-> On Mon, Apr 27, 2026 at 2:56 PM Konrad Dybcio wrote:
-> > On 4/27/26 2:43 PM, Loic Poulain wrote:
-> > > Add the uapi header camss-config.h defining the ISP parameter
-> > > structures used by the CAMSS Offline Processing Engine (OPE) driver.
-> > > This includes structures for white balance, chroma enhancement and
-> > > color correction configuration.
-> > >
-> > > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> > > ---
-> >
-> > [...]
-> >
-> >
-> > > +/**
-> > > + * struct camss_params_wb_gain - White Balance gains
-> > > + *
-> > > + * @header:   generic block header; @header.type = CAMSS_PARAMS_WB_GAIN
-> > > + * @g_gain:   green channel gain (15uQ10)
-> > > + * @b_gain:   blue channel gain (15uQ10)
-> > > + * @r_gain:   red channel gain (15uQ10)
-> > > + */
-> > > +struct camss_params_wb_gain {
-> > > +     struct v4l2_isp_params_block_header header;
-> > > +     __u16 g_gain;
-> > > +     __u16 b_gain;
-> > > +     __u16 r_gain;
-> > > +     __u16 _pad;
-> > > +} __attribute__((aligned(8)));
-> >
-> > Should this be __le for all of the related types?
+> > > +struct rpmsg_gpio_packet {
+> > > +     u8 type;        /* Message type */
+> > > +     u8 cmd;         /* Command code */
+> > > +     u8 port_idx;
+> > > +     u8 line;
+> > > +     u8 val1;
+> > > +     u8 val2;
+> > > +};
+> > 
+> > 
+> > Could you please document the fields in these structs (and the below ones too)?
+> > From the code, it looks like while sending a message from Linux to Firmware; val1
+> > and val2 are used to describe the values to set. Whereas while receiving a
+> > response, val1 represents a possible error code, and val2 represents the actual
+> > message of get type queries. If that is so, you might want to change the variable
+> > names to be more descriptive and also use a union.
+> > 
 > 
-> At the moment, this is purely a UAPI, the values are not dumped
-> directly to hardware as-is. Instead, each field is translated into one
-> or more register writes, with the appropriate math, masking and
-> shifting applied. Adding explicit endianness in the definition would
-> therefore require special handling on both user and kernel side
-> (to_le16, from_le16).
-> 
-> On the other side, there are scenarios, such as platforms that rely on
-> ICP (firmware-driven processing), where we may want to forward these
-> structures directly within an HFI packet to the ICP MCU. In that
-> context, explicitly defining the endianness could make some sense...
+> The fields in the two structs are fairly self-explanatory. Do we really need the additional comments?
+> The previous version of the patch used a union, which was updated to support the fixed_up hooks. 
+> Now that the fixed_up hooks have been removed, I can revert this back to the union-based implementation.
 
-Would those be different structures, or do you envision that someone
-could develop an ICP firmware that understands these structures ?
+I thought you had already adopted the virtio message format?
 
--- 
-Regards,
 
-Laurent Pinchart
+/* Possible values of the status field */
+#define VIRTIO_GPIO_STATUS_OK			0x0
+#define VIRTIO_GPIO_STATUS_ERR			0x1
+
+struct virtio_gpio_response {
+	__u8 status;
+	__u8 value;
+};
+
+Seems pretty obvious what status means. value depends on the request,
+get_direction actually uses it, and it can be one of
+
+#define VIRTIO_GPIO_DIRECTION_NONE		0x00
+#define VIRTIO_GPIO_DIRECTION_OUT		0x01
+#define VIRTIO_GPIO_DIRECTION_IN		0x02
+
+and gpio_get uses it as a bool for the state of the GPIO.
+
+Why do we need all the complexity for val1, val2, etc?
+
+  Andrew
