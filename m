@@ -1,171 +1,278 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBDD37BE84
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 07:20:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5656537B413;
+	Mon, 27 Apr 2026 07:24:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777274450; cv=none; b=IYQqM8qklOvCvfFStP3bW3pARJVpBH02LCdwOVqx4YhS5CxHm48MK3JbgMIN0UHkBl/BLTBHeo/hxwn+xZokbG80u9Ae9CRFRKXWHkmEdfc82PgG0Si3xoLKO3n2u9XIGNcPs2OHc2JaYTa9E9Pqi8B6NyXTvIaYw3lhzq55Xzg=
+	t=1777274689; cv=none; b=AVJ1VVaT60F0Y8nBZ+U3t85k116OoQA1vAOj7dRqMBwDnV7K+v0x7oByovc94JEhBFw5vCntO+3ZignITUnp6G4EHl2/bcqK7UD8o2khTlyRhBqvLx/joyjwjastjr5y6B1ezX8DB/Wg7akBHPsm/D6aKuDEp1P/ppWlZRoIgkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777274450; c=relaxed/simple;
-	bh=o9f762Gf9TU4Xcf3RUmv4xe1w+G1LPDPNbt+IgF6tjs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uGFrAzwiALB2eptpP9rLlKz1YJzRlSw0Bb6zitUtmiTzRO95IRP5oF4cnxGxp5C/vCrX/o3Pd4I5yB5IMcNMll73bOQWLi5dSHkie97yd2rcxHhLjsUeZ8BkYaX+6g9aW70YwYsJHiM/6jy5vFLkBIl6hySOetOFNT5bRkDqmi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KIMErKLP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OyW2NfiY; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KIMErKLP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OyW2NfiY"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63QNgrh42540636
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 07:20:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7PmnkfFyBl7ajnSl177EBYWpYk1Eo9oHSOysxEGNHNM=; b=KIMErKLPlETn3HjY
-	tQNcunp5B8oH67/o/f6xIg/G0QtRFQCrR5oyZ3PL5CFl+rTr0D2tLnMLC16sMPGB
-	TcrdJufvPgRux5+3PqPGblfGIY9yXhqVvpUTcqO/UkK1/5KGd4gBUZWxY92V8cVj
-	G0lSN4MNK5jRDNkHekrNFvfpt3bdMMUZDgNCpz2cnJ3v7L3r9aQrbM2YXYDyAodP
-	efIfc/YutxSBHG9x49MFtCTCGtZCdhhiioMvnPBpaFG8ZuX98H/lUJCgrqepcu3t
-	Q1m/ran42opvHcDWAiR/y3V9J0xeDgfB6nDugHQL6gcouk0DdZ34uOjkgb9zhxnz
-	M+LLeA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drnmr4vkh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 07:20:47 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2b454cac322so93323765ad.2
-        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 00:20:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777274446; x=1777879246; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=7PmnkfFyBl7ajnSl177EBYWpYk1Eo9oHSOysxEGNHNM=;
-        b=OyW2NfiYPNKpY9nYPKXpfkmaaRwj1DAZSqfmXlkSo5MwpLvbPJIHCBb54DFkCeMkWp
-         4Po57h6UKsufMHsyMKcW+0oBuU/6zV+Vxn7eTH9TJywnP1OU8tEgbwVYULkGKavsn0cp
-         uL+nllcWiHhHEuiH3CQlJ9m8SrYj+d+GTj0GUnENf9HvmKwGdin/q5OQtHuCpe22yc38
-         egubWOiM5GVAdm1c7frp6RThaQZNR7nblj1Hu+nvwRSJNFat9gZcVTnVKBytWWeE6mvN
-         07Ct6rwUtwuyrmp1rxdC5E8K5jua16a71AwD0GU8P5K+BDVU51rxiwqjLIs090SU5X0Y
-         M55A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777274446; x=1777879246;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=7PmnkfFyBl7ajnSl177EBYWpYk1Eo9oHSOysxEGNHNM=;
-        b=TkWocppM8HDLStuUYodWzLKU9xPYwVpJlQRih7nazBeKUQvvPEvPCoIo3tTJ4JtURy
-         t4KpDWDz9ZX+0hyOkeeUo9nTPOsNvO+QIkvebpNUCPewtUqkTgt2xub4a78adkdqr/nQ
-         enlcCvhsm36aF0CVsIpnY996CGucEfWpHNCZBp0zIsHNeIi567lb+tsJF4NoUgTS5zxr
-         8qTESC6hPMuchXtnxcSFf0EaQmsXuuZFEK7/BSHBypCWh7ZinPTdNM7XqtSZc1bhCfmH
-         9CQ9RFx1mHcoGiZMwKPjq8wbESkrSw6q9AbAkavA84+HIk8cAC+nIwcJk2W71KcOgZb0
-         Q5og==
-X-Forwarded-Encrypted: i=1; AFNElJ8xwYBsOvMrUkvVlvPQr0C0SglUDWAQuMeAfqSVS251LeDGe2WPTwCnPneNeStTxMeF1KakMbgm6Yqd@vger.kernel.org
-X-Gm-Message-State: AOJu0YwLZgwN4ch/drLiYG2pbGixxWFh1suQGcMPHcUNp9h0im1bBAAy
-	ASFWwIC1+3ifAJYafqTKLU03qArIqCuJ9eE75V5z/0nNSEcy7cwD7aaC2YNNEyJEoyHLjjfwRWg
-	KqT1By1M42l3zEWNh1ocnyTfBhdU3aAq6mKIqurq4JD5w562uQgV44PgqsXfA95Lf
-X-Gm-Gg: AeBDietx3UEE4A+w7oX4e7yZzSxzN8hp1kh7Um33Yyith22/pvJoAAhPRFfjsbYGIFw
-	449vp2AF5b62yqUht+jc49txkOLjslQs0oU3HfDk8E+Jb9B6ksy8OB1IlLr3rQLD+h+tf0ZjFhH
-	iqijhnzuyhn0Z4HkUZBWe5F9IULovJ/OUoandtpu5zZxe+hDXmwAxYcV/RjdDmRHEbm176gx/CW
-	jNhFpT/kGpt4JyikWGu7mW9IL/4PlQvcy5ExfzUhvNmvlfKRmKcpp/Uu8rwbYiFWpGqJh6DEJ8e
-	nCBI6KTbqUJSi+CISR2eAGIH9GSxxi8Dww149H+DYb5nGCv/VGLXt9moKbtJlnD00TNk0H1gGRZ
-	7XCNvGAw42KxK+bgGQP6wLeaCUqs74lFcuGpziENenVDbXwT30iYJia60FX/pQA==
-X-Received: by 2002:a17:903:8c6:b0:2b0:c45a:bc2 with SMTP id d9443c01a7336-2b5f9eddc7emr446294685ad.16.1777274446571;
-        Mon, 27 Apr 2026 00:20:46 -0700 (PDT)
-X-Received: by 2002:a17:903:8c6:b0:2b0:c45a:bc2 with SMTP id d9443c01a7336-2b5f9eddc7emr446294365ad.16.1777274446032;
-        Mon, 27 Apr 2026 00:20:46 -0700 (PDT)
-Received: from [10.217.223.121] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5fab3ac1fsm315877045ad.70.2026.04.27.00.20.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Apr 2026 00:20:45 -0700 (PDT)
-Message-ID: <f3e83bc2-36ef-4628-af1f-d9465eca72e3@oss.qualcomm.com>
-Date: Mon, 27 Apr 2026 12:50:40 +0530
+	s=arc-20240116; t=1777274689; c=relaxed/simple;
+	bh=tQCRguxmbjAScgCKFpr5khzYOVpiWhaEWDJtW6u4gUo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TUUeMsHG6BGFGxttWOQpeQp+VdU6fbRYGtNJsyufRXZCdA3dmlfDG9h6ke5pVHUfhIUYuC8c/dajKeLZrRQObw6EUG3X1cvCWzImnZ2uolTDMMeu6P5UKagVgwIA2GOr/5f0j8DTuw5A1t+66VoJF0IQ9IVmcoHCgDc72ENz6mM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=206.189.21.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
+	by app2 (Coremail) with SMTP id TQJkCgAXLaAPD+9pVwkVAA--.22769S2;
+	Mon, 27 Apr 2026 15:24:01 +0800 (CST)
+From: lizhi2@eswincomputing.com
+To: devicetree@vger.kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	rmk+kernel@armlinux.org.uk,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	linux-riscv@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	maxime.chevallier@bootlin.com
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com,
+	pritesh.patel@einfochips.com,
+	weishangjuan@eswincomputing.com,
+	horms@kernel.org,
+	Zhi Li <lizhi2@eswincomputing.com>
+Subject: [PATCH net-next v7 0/4] net: stmmac: eic7700: fix EIC7700 eth1 RX sampling timing
+Date: Mon, 27 Apr 2026 15:23:53 +0800
+Message-ID: <20260427072353.1114-1-lizhi2@eswincomputing.com>
+X-Mailer: git-send-email 2.52.0.windows.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: crypto: qcom,inline-crypto-engine:
- Document Nord ICE
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260427010527.230473-1-shengchao.guo@oss.qualcomm.com>
-Content-Language: en-US
-From: Harshal Dev <harshal.dev@oss.qualcomm.com>
-In-Reply-To: <20260427010527.230473-1-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=aqCCzyZV c=1 sm=1 tr=0 ts=69ef0e4f cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=JrGBsv4J1yBW9PuSV2wA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: EXnye0zY19y8YQEg_Vb3MZhmqCLQRUfw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDA3NyBTYWx0ZWRfX6CrWkLO++6XA
- rfz+zEII4QuSZKurGLoAqP7waRbxpw9TESPAcFR674hCe35Z7F3QA7s19bvMgNv2sKoGpRxnHbj
- UhIb1G4/cxtAEITk4kNZ68GmBIFc6jSw2i1j3y6H/8p+jtIpZBNq+qW5gncGYesdEjHUBe3FEF5
- O8zM2VcJvb/D5DHskAx8930tsURfBy4F35gCE+TL2tJ0LMEHRPhEy+AVF8PTW+6twYde9TXUSXa
- JKS39pwLHQhHkn/n0AbjWbctZMYmd9pqE3PudMbZWwVaxRYBxyvwgz/GHuOsxTXRP13MNy0yV68
- etTYFalj9oRNYO6XlrYHz0hf0CRMG/SOPQ7PKdIpy7z5gUMc4ALoYoa5OxBu/oHmQsFdVNp/qdk
- avizdvcU9dEtU2BOxooc2qTCgayRRtrGp5DVGy0da5NGLf3ya+yKcyLIM+i8eD8V4cMELbcffcY
- sg5o22FLCzQDL4jiC8Q==
-X-Proofpoint-ORIG-GUID: EXnye0zY19y8YQEg_Vb3MZhmqCLQRUfw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-27_02,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 adultscore=0
- suspectscore=0 malwarescore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270077
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TQJkCgAXLaAPD+9pVwkVAA--.22769S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Gr1kAw4UCr47XrWfJw4kCrg_yoW3tw4xpF
+	WUWrn8JFsxJF1xAan7t3W09a4Sqan3GF4jgr1rJrnrXws09Fyqqr1S9F45ZFyDurZ7ZryY
+	vF15KF4jka4j9FJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9E14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI4
+	8JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
+	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjx
+	v20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20E
+	Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267
+	AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRifHU3UUUUU==
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
 
-Hi Shawn,
+From: Zhi Li <lizhi2@eswincomputing.com>
 
-On 4/27/2026 6:35 AM, Shawn Guo wrote:
-> Document Inline Crypto Engine (ICE) on Qualcomm Nord SoC which is
-> compatible with 'qcom,inline-crypto-engine'.
-> 
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
-> Changes in v2:
->  - Improve commit log to make the compatibility explicit
->  - Link to v1: https://lore.kernel.org/all/20260420073301.1250197-1-shengchao.guo@oss.qualcomm.com/
-> 
->  .../devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml    | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-> index 876bf90ed96e..9251db2b8fcd 100644
-> --- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-> +++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
-> @@ -16,6 +16,7 @@ properties:
->            - qcom,eliza-inline-crypto-engine
->            - qcom,kaanapali-inline-crypto-engine
->            - qcom,milos-inline-crypto-engine
-> +          - qcom,nord-inline-crypto-engine
+v6 -> v7:
+  - Address checkpatch.pl --strict warnings for DTS changes:
+    - Split DT binding documentation and DTS board description into separate patches
+    - Fix DTS style issues reported by checkpatch:
+      - Reduce line length where applicable
+      - Add required description for rgmii-rxid
 
-Wanted to bring your attention to this patch we are hoping to send for 7.1 fixes window
-which mandates the iface clock and power-domain for ICE (from Eliza/Milos onwards) to avoid issues
-seen when these properties are missing:
-https://lore.kernel.org/all/20260416-qcom_ice_power_and_clk_vote-v5-1-5ccf5d7e2846@oss.qualcomm.com/
+  - DTS changes in this series are split into:
+    - Patch 3/4: syscon binding update (documentation / reference only)
+    - Patch 4/4: board DTS changes (architecture overview only)
 
-While I won't ask you to adjust your patch immediately, if our patch is merged, would request you to
-update this binding to comply with the newly introduced ones such that the iface clock and power-domain
-are made mandatory for Nord as well.
+    These patches (3/4 and 4/4) are provided to facilitate review of the overall
+    Ethernet integration across binding, driver, and device tree, and are not
+    intended as final upstream submission in their current form.
 
-Regards,
-Harshal
+    A cleaned-up, upstream-ready DTS series will be submitted separately once
+    all dependencies and final hardware integration are completed.
+
+  - Note:
+    - Clock-related bindings referenced in earlier revisions are now already merged
+      into net-next, so dtbs_check warnings related to clock are no longer present
+      and are not relevant to this revision.
+
+  - No functional changes in the stmmac driver or binding semantics in this revision.
+
+  - Link to v6:
+    https://lore.kernel.org/lkml/20260423085501.760-1-lizhi2@eswincomputing.com/
+
+v5 -> v6:
+  - Update DTS/DTSI descriptions to fix invalid phandle references reported by DTC:
+    - Add missing GMAC provider nodes required for proper hardware description:
+      - HSP power domain: GMAC nodes moved under this domain to reflect
+        hardware power hierarchy.
+      - Clock nodes: added to provide clk phandles referenced by GMAC.
+      - Reset nodes: added to provide reset phandles referenced by GMAC.
+      - Pinctrl nodes: defines pinctrl settings for GMAC signals
+        (pinctrl_gpio106, pinctrl_gpio111).
+    - Move GMAC nodes under the correct HSP power domain.
+    - Ensure DTS builds without dtc errors and all phandle references
+      (clk/reset/pinctrl/power-domain) are valid.
+    - This update does not change runtime behavior; it only improves DTS
+      consistency and resolves issues reported by dtc.
+
+  - Note:
+    - The patch 3/3 for DTS changes in this series provide an overview of the GMAC
+      integration and its dependencies, as discussed previously:
+      https://lore.kernel.org/lkml/64bf6b40-b947-4ffa-8d48-4d6341931327@lunn.ch/
+
+    - It is **not intended for upstream inclusion** in its current form,
+      and is provided solely for architecture overview and integration
+      context.
+
+    - A fully cleaned and upstream-ready DTS series will be submitted
+      separately once all related components (pinctrl, clock, power-domain,
+      etc.) are finalized.
+
+  - dtbs_check has been run on top of net-next for reference purposes.
+    Remaining warnings are expected due to missing EIC7700 clock bindings[1]
+    in net-next and do not reflect issues in the DTS design itself.
+
+  - One remaining warning:
+    - eswin,eic7700-clock
+
+  - The clock binding has already been applied to upstream and is present
+    in mainline, but not yet available in net-next.
+
+  - The syscon binding is extended in this series to include the
+    eswin,eic7700-syscfg compatible.
+
+  - Any further refinement of the syscfg binding will be handled in
+    separate patches if needed.
+
+  - Dependencies:
+    - [1]EIC7700 clock binding:
+      https://lore.kernel.org/lkml/20260303080637.2100-1-dongxuyang@eswincomputing.com/
+      (already applied to upstream)
+
+  - Link to v5:
+    https://lore.kernel.org/lkml/20260324073017.376-1-lizhi2@eswincomputing.com/
+
+v4 -> v5:
+  - eswin,eic7700-eth.yaml:
+    - Add Acked-by from Conor Dooley
+    - No functional changes
+
+  - Update dwmac-eic7700.c:
+    - Disable clocks on the error path to fix a clock leak in
+      eic7700_dwmac_init() when regmap_set_bits() fails
+      (reported by Simon Horman <horms@kernel.org>)
+
+  - Link to v4:
+    https://lore.kernel.org/lkml/20260313075234.1567-1-lizhi2@eswincomputing.com/
+
+v3 -> v4:
+  - Update eswin,eic7700-eth.yaml:
+    - Improve commit message in dt-bindings patch to clarify the
+      hardware difference of the eth1 MAC and why a new compatible
+      string is required.
+    - Move the newly added eswin,hsp-sp-csr item to the end of the list
+      to avoid inserting entries in the middle of the binding schema.
+    - Simplify the compatible schema by replacing the previous oneOf
+      construct with an enum.
+
+  - Update dwmac-eic7700.c:
+    - Fix build issues.
+    - Adjust code to match the updated binding definition.
+
+  - Update DTS/DTSI descriptions:
+    - Move SoC-level descriptions to the .dtsi file.
+    - Keep board-specific configuration in the .dts file.
+
+  - Link to v3:
+    https://lore.kernel.org/lkml/20260303061525.846-1-lizhi2@eswincomputing.com/
+
+v2 -> v3:
+  - Update eswin,eic7700-eth.yaml:
+    - Extend rx-internal-delay-ps and tx-internal-delay-ps range
+      from 0-2400 to 0-2540 to match the full 7-bit hardware delay
+      field (127 * 20 ps).
+    - Add "multipleOf: 20" constraint to reflect the 20 ps hardware
+      step size.
+    - Make rx-internal-delay-ps and tx-internal-delay-ps optional.
+      A well-designed board should not require internal delay tuning.
+    - Remove rx-internal-delay-ps and tx-internal-delay-ps from the
+      example to avoid encouraging blind copy into board DTs.
+
+  - Update dwmac-eic7700.c:
+    - Treat rx-internal-delay-ps and tx-internal-delay-ps as optional
+      DT properties.
+    - Apply delay configuration only when properties are present.
+    - Keep TX/RX delay registers cleared by default to ensure a
+      deterministic state when no delay is specified.
+
+  - Describe Ethernet configuration for the HiFive Premier P550 board:
+    - Add GMAC controller nodes for the HiFive Premier P550 board
+      to describe the on-board Ethernet configuration.
+
+      The Ethernet controller depends on clock, reset, pinctrl
+      and HSP subsystem providers which are currently under
+      upstream review. These dependent nodes will be submitted
+      separately once the corresponding drivers are merged.
+
+      Due to these missing dependencies, dt-binding-check may
+      report warnings or failures for this series.
+
+  - No functional changes to RX clock inversion logic.
+
+  - Link to v2:
+    https://lore.kernel.org/lkml/20260209094628.886-1-lizhi2@eswincomputing.com/
+
+  - This series is based on the EIC7700 clock support series:
+    https://lore.kernel.org/all/20260210095008.726-1-dongxuyang@eswincomputing.com/
+    The clock series is currently under review.
+
+v1 -> v2:
+  - Update eswin,eic7700-eth.yaml:
+    - Drop the vendor-specific properties eswin,rx-clk-invert and
+      eswin,tx-clk-invert.
+    - Introduce a distinct compatible string
+      "eswin,eic7700-qos-eth-clk-inversion" to describe MAC instances that
+      require internal RGMII clock inversion.
+      This models the SoC-specific hardware difference directly via the
+      compatible string and avoids per-board configuration properties.
+    - Change rx-internal-delay-ps and tx-internal-delay-ps from enum to
+      minimum/maximum to reflect the actual delay range (0-2400 ps)
+    - Add reference to High-Speed Subsystem documentation in eswin,hsp-sp-csr
+      description. The HSP CSR block is described in Chapter 10
+      ("High-Speed Interface") of the EIC7700X SoC Technical Reference Manual,
+      Part 4 (EIC7700X_SoC_Technical_Reference_Manual_Part4.pdf):
+      https://github.com/eswincomputing/EIC7700X-SoC-Technical-Reference-Manual/releases
+
+  - Update dwmac-eic7700.c:
+    - Remove handling of eswin,rx-clk-invert and eswin,tx-clk-invert
+      properties.
+    - Select RX clock inversion based on the new
+      "eswin,eic7700-qos-eth-clk-inversion" compatible string, using
+      match data to apply the required configuration for affected MAC
+      instances (eth1).
+
+  - Link to v1:
+    https://lore.kernel.org/lkml/20260109080601.1262-1-lizhi2@eswincomputing.com/
+
+Zhi Li (4):
+  dt-bindings: ethernet: eswin: add clock sampling control
+  net: stmmac: eic7700: enable clocks before syscon access and correct
+    RX sampling timing
+  dt-bindings: mfd: syscon: add ESWIN EIC7700 compatible
+  riscv: dts: eswin: eic7700-hifive-premier-p550: enable Ethernet
+    controller
+
+ .../devicetree/bindings/mfd/syscon.yaml       |   2 +
+ .../bindings/net/eswin,eic7700-eth.yaml       |  69 ++++-
+ .../dts/eswin/eic7700-hifive-premier-p550.dts | 239 ++++++++++++++++++
+ arch/riscv/boot/dts/eswin/eic7700.dtsi        | 105 ++++++++
+ .../ethernet/stmicro/stmmac/dwmac-eic7700.c   | 183 ++++++++++----
+ 5 files changed, 541 insertions(+), 57 deletions(-)
+
+-- 
+2.25.1
 
