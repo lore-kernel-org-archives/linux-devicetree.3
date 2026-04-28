@@ -1,26 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD6893D8135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0CD53DCDAD
 	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:01:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777366901; cv=none; b=thotTxAW2E1d7+C+gHnbP0W5yNg/JoDCXMKBRsrNz2OIo94O1P+K4yigTHIsViltSoqk+JsNC9yZ+DaqKygD4v8f4iFUItY605F9boCKmVdrzjbtX6XB8TUZ7wVGmEpsESVLWsXQr0+o6vWvUUT8t1279X+WCK7bBAI9mNmim6c=
+	t=1777366901; cv=none; b=HOr0ht6+GL61pjPFqEHIfxwWxTpJ4uKsZI9dHT5SkM6Q+UdtR1V4p01olzapaYzObI8EunYSPV4XNVuHmdI21OzVVxzEDk4k1jF6z1QbU5WNiAYVkJMVux0je9ncETT8EiZPR80oYkSf7Cnq79cF3rPnETyzEr8DhngXOmleMpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1777366901; c=relaxed/simple;
-	bh=p3yb1xlo8kvB/pUzXm+SKG6vy2eIz7AOnMNZC7Grw/8=;
+	bh=GjKoaTYDNj3NeoAUlWTBGbGSp3eRwtzjInmPsxuqJbU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nVH1ADrXjo0/pZ0C0H/lG9NTmhQ/+xvh70c+CC6OfRIiQnTDxnVgc5j4y6vxMdOACg276IlpqDrKrEoxb5ZfJBDSe+L/jSPSpYydMKMPjQoGD6psYYd0AuBaPUMlixVkvJ4uS+Et/u9d5hpTyf6qaB8i5hM34pS6ZdWq7Ae5qe4=
+	 In-Reply-To:To:Cc; b=sEpXAdzUorHGyS+Mo5hBTXlUkymJujxuXeZ8xYMiKIbEFij/jtQ0MRyFdAigIKte/0jfp9yRzxtD2TRuSNOKvmR02O8phAyeA03D56EEuy6dCILI4mg2SBo0NGlyWCP6BWj6RzQfEjkb+XkrkBfH5udoUFufMVfNDr1/ww1elwY=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wHeJN-0004Lz-9n; Tue, 28 Apr 2026 11:00:57 +0200
+	id 1wHeJM-0004Lz-Hp; Tue, 28 Apr 2026 11:00:56 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Tue, 28 Apr 2026 11:01:02 +0200
-Subject: [PATCH v5 27/29] media: rockchip: rga: disable multi-core support
+Date: Tue, 28 Apr 2026 11:01:01 +0200
+Subject: [PATCH v5 26/29] media: rockchip: rga: add feature flags
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -29,7 +29,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260428-spu-rga3-v5-27-eb7f5d019d86@pengutronix.de>
+Message-Id: <20260428-spu-rga3-v5-26-eb7f5d019d86@pengutronix.de>
 References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 In-Reply-To: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -50,88 +50,110 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Disable multi-core support in preparation of the RGA3 addition. The
-RK3588 SoC features two equal RGA3 cores. This allows scheduling of the
-work between both cores, which is not yet implemented. Until it is
-implemented avoid exposing both cores as independent video devices to
-prevent an ABI breakage when multi-core support is added.
+In preparation to the RGA3 addition add feature flags, which can limit
+the exposed feature set of the video device, like rotating or selection
+support. This is necessary as the RGA3 doesn't initially implement the
+full feature set currently exposed by the driver.
 
-This patch is copied from the Hantro driver patch to disable multi core
-support by Sebastian Reichel. See
-commit ccdeb8d57f7f ("media: hantro: Disable multicore support")
-
-Link: https://lore.kernel.org/all/20240618183816.77597-4-sebastian.reichel@collabora.com/
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga.c | 47 +++++++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+ drivers/media/platform/rockchip/rga/rga-hw.c |  4 ++++
+ drivers/media/platform/rockchip/rga/rga.c    | 23 +++++++++++++++--------
+ drivers/media/platform/rockchip/rga/rga.h    |  7 +++++++
+ 3 files changed, 26 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+index d4282fc5d92ba..2a14d18baf532 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+@@ -613,6 +613,10 @@ const struct rga_hw rga2_hw = {
+ 	.max_height = MAX_HEIGHT,
+ 	.max_scaling_factor = MAX_SCALING_FACTOR,
+ 	.stride_alignment = 4,
++	.features = RGA_FEATURE_FLIP
++		  | RGA_FEATURE_ROTATE
++		  | RGA_FEATURE_BG_COLOR
++		  | RGA_FEATURE_SELECTION,
+ 
+ 	.setup_cmdbuf = rga_hw_setup_cmdbuf,
+ 	.start = rga_hw_start,
 diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index b0c88ad647e96..fd92ecf408e0c 100644
+index 364c1dac3f81c..b0c88ad647e96 100644
 --- a/drivers/media/platform/rockchip/rga/rga.c
 +++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -708,6 +708,49 @@ static int rga_parse_dt(struct rockchip_rga *rga)
- 	return 0;
- }
+@@ -162,17 +162,21 @@ static int rga_setup_ctrls(struct rga_ctx *ctx)
  
-+/*
-+ * Some SoCs, like RK3588 have multiple identical RGA3 cores, but the
-+ * kernel is currently missing support for multi-core handling. Exposing
-+ * separate devices for each core to userspace is bad, since that does
-+ * not allow scheduling tasks properly (and creates ABI). With this workaround
-+ * the driver will only probe for the first core and early exit for the other
-+ * cores. Once the driver gains multi-core support, the same technique
-+ * for detecting the main core can be used to cluster all cores together.
-+ */
-+static int rga_disable_multicore(struct device *dev)
-+{
-+	struct device_node *node = NULL;
-+	const char *compatible;
-+	bool is_main_core;
-+	int ret;
-+
-+	/* Intentionally ignores the fallback strings */
-+	ret = of_property_read_string(dev->of_node, "compatible", &compatible);
-+	if (ret)
-+		return ret;
-+
-+	/* The first compatible and available node found is considered the main core */
-+	do {
-+		node = of_find_compatible_node(node, NULL, compatible);
-+		if (of_device_is_available(node))
-+			break;
-+	} while (node);
-+
-+	if (!node)
+ 	v4l2_ctrl_handler_init(&ctx->ctrl_handler, 4);
+ 
+-	v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
+-			  V4L2_CID_HFLIP, 0, 1, 1, 0);
++	if (rga->hw->features & RGA_FEATURE_FLIP) {
++		v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
++				  V4L2_CID_HFLIP, 0, 1, 1, 0);
+ 
+-	v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
+-			  V4L2_CID_VFLIP, 0, 1, 1, 0);
++		v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
++				  V4L2_CID_VFLIP, 0, 1, 1, 0);
++	}
+ 
+-	v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
+-			  V4L2_CID_ROTATE, 0, 270, 90, 0);
++	if (rga->hw->features & RGA_FEATURE_ROTATE)
++		v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
++				  V4L2_CID_ROTATE, 0, 270, 90, 0);
+ 
+-	v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
+-			  V4L2_CID_BG_COLOR, 0, 0xffffffff, 1, 0);
++	if (rga->hw->features & RGA_FEATURE_BG_COLOR)
++		v4l2_ctrl_new_std(&ctx->ctrl_handler, &rga_ctrl_ops,
++				  V4L2_CID_BG_COLOR, 0, 0xffffffff, 1, 0);
+ 
+ 	if (ctx->ctrl_handler.error) {
+ 		int err = ctx->ctrl_handler.error;
+@@ -536,6 +540,9 @@ static int vidioc_s_selection(struct file *file, void *priv,
+ 	struct rga_frame *f;
+ 	int ret = 0;
+ 
++	if (!(rga->hw->features & RGA_FEATURE_SELECTION))
 +		return -EINVAL;
 +
-+	is_main_core = (dev->of_node == node);
-+
-+	of_node_put(node);
-+
-+	if (!is_main_core) {
-+		dev_info(dev, "missing multi-core support, ignoring this instance\n");
-+		return -ENODEV;
-+	}
-+
-+	return 0;
-+}
-+
- static int rga_probe(struct platform_device *pdev)
- {
- 	struct rockchip_rga *rga;
-@@ -718,6 +761,10 @@ static int rga_probe(struct platform_device *pdev)
- 	if (!pdev->dev.of_node)
- 		return -ENODEV;
+ 	f = rga_get_frame(ctx, s->type);
+ 	if (IS_ERR(f))
+ 		return PTR_ERR(f);
+diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+index d98e57c6d7b57..849b96392b780 100644
+--- a/drivers/media/platform/rockchip/rga/rga.h
++++ b/drivers/media/platform/rockchip/rga/rga.h
+@@ -6,6 +6,7 @@
+ #ifndef __RGA_H__
+ #define __RGA_H__
  
-+	ret = rga_disable_multicore(&pdev->dev);
-+	if (ret)
-+		return ret;
++#include <linux/bits.h>
+ #include <linux/clk.h>
+ #include <linux/platform_device.h>
+ #include <media/videobuf2-v4l2.h>
+@@ -133,6 +134,11 @@ static inline void rga_mod(struct rockchip_rga *rga, u32 reg, u32 val, u32 mask)
+ 	rga_write(rga, reg, temp);
+ };
+ 
++#define RGA_FEATURE_FLIP	BIT(0)
++#define RGA_FEATURE_ROTATE	BIT(1)
++#define RGA_FEATURE_BG_COLOR	BIT(2)
++#define RGA_FEATURE_SELECTION	BIT(3)
 +
- 	rga = devm_kzalloc(&pdev->dev, sizeof(*rga), GFP_KERNEL);
- 	if (!rga)
- 		return -ENOMEM;
+ struct rga_hw {
+ 	const char *card_type;
+ 	bool has_internal_iommu;
+@@ -141,6 +147,7 @@ struct rga_hw {
+ 	u32 max_width, max_height;
+ 	u8 max_scaling_factor;
+ 	u8 stride_alignment;
++	u8 features;
+ 
+ 	void (*setup_cmdbuf)(struct rga_ctx *ctx);
+ 	void (*start)(struct rockchip_rga *rga,
 
 -- 
 2.54.0
