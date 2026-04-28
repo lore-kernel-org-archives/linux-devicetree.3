@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0C533F8C5;
-	Tue, 28 Apr 2026 06:23:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1E422A4E9;
+	Tue, 28 Apr 2026 06:26:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777357424; cv=none; b=KaPbsjtsH7wsh94q78/CYiQye8OznpDZjOW8NQ7InIFwNUB9uGWhht0jPCK7fcqo4xEMxdVDrBL1wk8WuaSwCgRQ8B6cSol/gBpBV0qipjzK18+Rcnl66GJyZnGZwfRfdPgDQzYS/9iNHV65kX0Q/7sf7UWXIU101Ele1NRY6zI=
+	t=1777357570; cv=none; b=CDhVUVkywDxpimGWdOc+vnJcpZi06oMJY/jq0Shgz6dE30P1nRwn4G80cB7DSA0hrkhuURhpHtTCIRVdzQj/E2hcxFOlpp2ItFSz17Of5koR4YJA8osyEPksHzYAFaNdlKZpihLHdouS4g0b09QjL4ZgQRmo0S5WPlSPReRhIUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777357424; c=relaxed/simple;
-	bh=UZvg/yE8LIQ8RPyblTF9R9063/jm4KfLUiOFsofAWxM=;
+	s=arc-20240116; t=1777357570; c=relaxed/simple;
+	bh=Cs0va9ksutkltfw/gfiQLgiE4WIPRepYv8o4zvP4pTk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=damfz43PpZz3j0SngjSg+QxwEOOwY0tGaiDPPcsHp4nGnOSCTIMEvAZinqkvW7Flk2Kj7Dy9TUf/9G8AjaYYUBd/jcXc/rEHDFslOEgGESrZZ+Py5tE4Wm2SG2rh1OlxFWJ9GkdgS4NwAPphUaoh2RA+AZpWQCf2ZBS8YgmNuiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=q6o5jI20; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=c3hckZRMfhoK5aWJPAd6JtEsnC6Jrxe7ofmF6zljszvyPfc8COe2LWr6oLVoGfo44BRHeL9nysuCNoRVQEwI3G/0As3UeTwWo8pznseDXFMuqvVGywFum+g3si/ab9lYWtlmw9nGabPgHAju2AGVaTpQLQGm9OoV1dqfQVkQ6NM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rk9r+wOG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="q6o5jI20"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A662BC2BCAF;
-	Tue, 28 Apr 2026 06:23:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rk9r+wOG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A34ADC2BCAF;
+	Tue, 28 Apr 2026 06:26:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777357424;
-	bh=UZvg/yE8LIQ8RPyblTF9R9063/jm4KfLUiOFsofAWxM=;
+	s=k20201202; t=1777357570;
+	bh=Cs0va9ksutkltfw/gfiQLgiE4WIPRepYv8o4zvP4pTk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=q6o5jI20pgFjCSE0HckVSr3w7+cssiz0Egfd4cx22ZegutU6eKTlcznByt1XTQpYp
-	 Hub1Ao4F0qqkiIeSsW+UoEqqyo67lxu7JjVI6wU66YZawJJsXhXyoYfJxVRhKFc8r+
-	 5ih5g6KzMmYk81fM9H4y+8k8zessHh6v0zJOKgDzzqlVrHTGMszf6fEyg3FXGlroJm
-	 mhii7xHhqoMPD1dtTeBccCNj+Ukh5uX/gW+lU/O1VBoYPGbux2dvWBR6A1MUk6mVz5
-	 6W71old91Km/ZvMIMrATzMAPnuEWo+5U1qkJ9sHq0UuloqTCFOyLOduAr9sVyMsPPh
-	 TQ3kOaCO58MJQ==
-Date: Tue, 28 Apr 2026 08:23:41 +0200
+	b=Rk9r+wOGldHCWKoV3gZDP9RF3hwTmvN8ykTAcsATsiZU8b/Mcj814GM4viziTI/22
+	 Y6v8iKEpQ2JP7L1L60iOuseFkFGqU7oj8p6G+Gci+MJFXUoEViKH1fCnrgY6tj9xbX
+	 h5VGUVLJ+NWqXcE9+UKm5G7j3lY1gO3vSpgl6NcYgX35Qw+O5K9m/2D8eTE0u9/wkP
+	 FuALcZtiWY5/dhpXI5XEd0hEygD5xqxqdaFYXW4u5caPbctuHTcFNe2v/eQzChRTqq
+	 jxD4R7YtJs6blf7zNBhZ4EHMWqsg+XFcoITlkNjYh9QbUlRQ4cKQ8mLlI0eM5c/vlX
+	 laScHgn7+FS6g==
+Date: Tue, 28 Apr 2026 08:26:07 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: phy: qcom,sc8280xp-qmp-ufs-phy: Document
- Nord QMP UFS PHY
-Message-ID: <20260428-portable-ultraviolet-swan-5f4759@quoll>
-References: <20260427012732.231611-1-shengchao.guo@oss.qualcomm.com>
+To: mtk20898 <zhengnan.chen@mediatek.com>
+Cc: Yong Wu <yong.wu@mediatek.com>, Rob Herring <robh@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Project_Global_Chrome_Upstream_Group@mediatek.com
+Subject: Re: [RESEND,v2 1/2] dt-bindings: memory-controllers: mtk-smi: Add
+ support for mt8189
+Message-ID: <20260428-topaz-turtle-of-support-f5b9ec@quoll>
+References: <20260427070444.20247-1-zhengnan.chen@mediatek.com>
+ <20260427070444.20247-2-zhengnan.chen@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,16 +47,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260427012732.231611-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20260427070444.20247-2-zhengnan.chen@mediatek.com>
 
-On Mon, Apr 27, 2026 at 09:27:32AM +0800, Shawn Guo wrote:
-> Document QMP UFS PHY on Qualcomm Nord SoC which is compatible with
-> 'qcom,sm8650-qmp-ufs-phy'.
+On Mon, Apr 27, 2026 at 03:04:28PM +0800, mtk20898 wrote:
+>  properties:
+>    compatible:
+>      oneOf:
+> @@ -40,6 +55,8 @@ properties:
+>            - mediatek,mt8186-smi-common
+>            - mediatek,mt8188-smi-common-vdo
+>            - mediatek,mt8188-smi-common-vpp
+> +          - mediatek,mt8189-smi-common
+> +          - mediatek,mt8189-smi-sub-common
+>            - mediatek,mt8192-smi-common
+>            - mediatek,mt8195-smi-common-vdo
+>            - mediatek,mt8195-smi-common-vpp
+> @@ -108,19 +125,23 @@ allOf:
+>          compatible:
+>            contains:
+>              enum:
+> +              - mediatek,mt8189-smi-sub-common
+>                - mediatek,mt8195-smi-sub-common
+>      then:
+>        required:
+>          - mediatek,smi
+>        properties:
+>          clocks:
+> -          minItems: 3
+> +          minItems: 2
 
-Why are you naming compatibles not devices in the commit msgs? We never
-used, never asked for it, there are basically no such commits. git log
-can help here, for example  last commit from Abel looks reasonable
-(although repeating "so use fallback" is redundant - it's obvious).
+Same problem as v2 before resend.
+
+Please explain me how mt8195 requires three clocks. You can prove it by
+trying a malformed DTS (past here the snippet/diff) and pasting here the
+validation error.
+
 
 Best regards,
 Krzysztof
