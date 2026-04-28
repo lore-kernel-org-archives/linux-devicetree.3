@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAE6441C301;
-	Tue, 28 Apr 2026 13:28:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5348044BCBE;
+	Tue, 28 Apr 2026 13:36:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777382935; cv=none; b=dkZaHGGKBQN35EM9OUaPqZpHRgEm9HRcRUrkd4qe/ohcTxiznfkTJ0p0Bc+5cxPZZCnES2kKPfKXJImeeCocY2Y9bv50IR7Iai2dCD68XppjhlUlg41y6dXGgT69xSUhhgaPM+r1Rq1YFVcBdBLhmJrigvEXYwzBSZBnbt3+N2Y=
+	t=1777383413; cv=none; b=s0q+YgcpnhQkEAMPkQ9CRjTD9eS0bfs5NMZY2AEsYF3x7X+FoAboC+MrS+i2qT5B/YBA1IjH6YQdSsK6FVrRFJaDE29O+7h3WKua4usYxND5+WO4CIzf7OFvyRNhFewX0qLA7zzDFV8SHKvBulIWQqINoEVHMR2Y8XvTkFxqw3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777382935; c=relaxed/simple;
-	bh=S1UnlINMq5PbX42veAN/jFJ8Q9sWwkb9dbjfLlQLLZU=;
+	s=arc-20240116; t=1777383413; c=relaxed/simple;
+	bh=SV/abDQ9GHMF1r7JuRQf6ccezy9MHlopkSctJDFMcm0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bEYz+CnFVFRAzIHybb/B5AGHea8hiylbVyWcCHoxVsSC84oTiX2EjSA9he+tEn6ZR1jvX1gprWAwi7oThFDR7v52LH8s2XsOkJXXDYX/MgcpXJxMTFfaRNKC9KQZE0E5A7WhKM0EOmzZJ0Pl3DADIXQomHx0rgj/R3f7FyAvA2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C0HtDSTT; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=lsBRdu2EFu4uRLs1qXusGK7Rad0ivK1niV3dZ3NdBfIDKT5S8kIDXK/SRN/VwrxzQ6c3nLEuSmaHt99oPovV3cGl0hCvShYvha83TUxN4O29whrP7OhxSZgRyYHdLPvwttbHxsMy1ved12kWBzXczCOHL6gj8CLw3mzg3I6a+is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TQCh+V7X; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C0HtDSTT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10E81C2BCAF;
-	Tue, 28 Apr 2026 13:28:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TQCh+V7X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DD15C2BCAF;
+	Tue, 28 Apr 2026 13:36:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777382934;
-	bh=S1UnlINMq5PbX42veAN/jFJ8Q9sWwkb9dbjfLlQLLZU=;
+	s=k20201202; t=1777383413;
+	bh=SV/abDQ9GHMF1r7JuRQf6ccezy9MHlopkSctJDFMcm0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=C0HtDSTTd2USl9zhTg3uy5vGh9EVtFGPEU1OiIuExH9zlceQ9qe4Eeb4gUBJQR/3s
-	 Ivm0yIPlAZj+fA0ZORWSDRjZJCYB8BumUmFN22PHs+OjmLsL/qOsaDhLcCpqUJDhqD
-	 78qnzPkAG30TdKJ1JCq2FK/1dI/PNcmq/DwvJzOTz65jQYUhVkeY2ymgc1m/Izolyg
-	 wKw31dcaExJ6PT+lIgYKrz2sMczHNMcMuvHeIAgdnXsSIXdlaH5c8Q8Tcm+0VJqrnX
-	 668QpRZRV7dxzUJLbcHDhrdYBdtg50e5fEmtEuxXUlh1hDMI9uAIBRpxi262FWf/P5
-	 kib7WYoNb0ORQ==
-Message-ID: <b29fc356-0c5e-4418-9d3f-c04a2c0f7957@kernel.org>
-Date: Tue, 28 Apr 2026 15:28:50 +0200
+	b=TQCh+V7XkKalFjhqFLnZNoiER1cm/2IHx7i6qSIQhKboGz5cU13NVK2zoPg1a3Kgb
+	 rs2jpke3ulloLBQX+zWbcGmjrmRsQLZ1w6M0GpeyMWWfTrqHcX3r/oTMJQq5dUfzU+
+	 06ZCug4Hh5myP99JcCzJmdFYixP1RX+MS2ekstaMvfVq0rqWolWC2TfQYJUjav88Rx
+	 yXduw3391pgOvi4qnylT1CfZLoIWNA/b+1kXJfpwBm60Xtb1efuJiDCnwfWVATXvbe
+	 Q7iFO2tjk2MwkH6gYZRCW1TrP9h/h9JOJhvFDK+G/mZ5wqBD/s8/3SyasoxJwCslF6
+	 SzEZkfZkXLOtg==
+Message-ID: <2846fc60-bf8c-43b3-ae64-58faad6aed2f@kernel.org>
+Date: Tue, 28 Apr 2026 14:36:47 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,102 +35,109 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: remoteproc: document AMD BRAM-based
- rproc
-To: Michal Simek <michal.simek@amd.com>, Ben Levinsky <ben.levinsky@amd.com>
-Cc: andersson@kernel.org, mathieu.poirier@linaro.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-remoteproc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, tanmay.shah@amd.com
-References: <20260427162703.1644103-1-ben.levinsky@amd.com>
- <20260427162703.1644103-2-ben.levinsky@amd.com>
- <20260428-curly-hyena-of-triumph-fc1f4c@quoll>
- <68cf4479-c6f5-4947-bc75-df9be73644d3@amd.com>
- <998b67ff-192a-478f-a9c6-ddcd7773e27c@kernel.org>
- <86e464f2-974b-441d-9459-dd957c16993d@amd.com>
- <5ded8bbd-11b2-4552-80f5-972df15dc6e0@kernel.org>
- <c2ee8499-2ba2-42b2-bacc-18166135abbb@amd.com>
- <b8193657-65ba-422b-b207-a75de419cd65@kernel.org>
- <a6a231e5-ee87-4045-ab16-8acdd4937f42@amd.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH RFC v3 04/11] arm64: dts: qcom: msm8939: Add venus node
+To: Erikas Bitovtas <xerikasxx@gmail.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org
+References: <20260427-msm8939-venus-rfc-v3-0-288195bb7917@gmail.com>
+ <Xfiq_WNTU9P-ThZLMs4plWE5hwtmwyVyKJc1bD5BKdhERGouucNpyuenIoKQiKfZKaRzP-PdamsNlQ8vezjrRg==@protonmail.internalid>
+ <20260427-msm8939-venus-rfc-v3-4-288195bb7917@gmail.com>
+ <56d609dd-62be-47eb-8ba3-c5d70d773113@kernel.org>
+ <QRkqY_zK7EC4e0ZMoLVyLUhgI9A5RrBcJLm22d69xKT17HzJMXsEDdz_qodBN9qogvuS1XqN4zdemqcoByY5CA==@protonmail.internalid>
+ <34627be5-75cc-469b-af23-f1f08ce29820@gmail.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <a6a231e5-ee87-4045-ab16-8acdd4937f42@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Bryan O'Donoghue <bod@kernel.org>
+In-Reply-To: <34627be5-75cc-469b-af23-f1f08ce29820@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 28/04/2026 15:18, Michal Simek wrote:
->>>
->>>     properties:
->>>       compatible:
->>>         items:
->>>           - enum:
->>>               - xlnx,zynqmp-bram-rproc
->>>               - xlnx,versal-bram-rproc
->>>               - xlnx,versal-net-bram-rproc
->>>               - amd,versal2-bram-rproc
->>>           - const: amd,bram-rproc
->>>
->>>     The example should also be updated:
+On 28/04/2026 10:47, Erikas Bitovtas wrote:
+> 
+> 
+> On 4/28/26 10:10 AM, Bryan O'Donoghue wrote:
+>> On 27/04/2026 18:58, Erikas Bitovtas wrote:
+>>> +            video-decoder {
+>>> +                compatible = "venus-decoder";
+>>> +                clocks = <&gcc GCC_VENUS0_CORE0_VCODEC0_CLK>,
+>>> +                     <&gcc GCC_VENUS0_CORE1_VCODEC0_CLK>;
+>>> +                clock-names = "core0", "core1";
+>>> +                power-domains = <&gcc VENUS_CORE0_GDSC>,
+>>> +                        <&gcc VENUS_CORE1_GDSC>;
+>>> +                power-domain-names = "core0", "core1";
+>>> +            };
+>>> +
+>>> +            video-encoder {
+>>> +                compatible = "venus-encoder";
+>>> +                clocks = <&gcc GCC_VENUS0_CORE0_VCODEC0_CLK>,
+>>> +                     <&gcc GCC_VENUS0_CORE1_VCODEC0_CLK>;
+>>> +                clock-names = "core0", "core1";
+>>> +                power-domains = <&gcc VENUS_CORE0_GDSC>,
+>>> +                        <&gcc VENUS_CORE1_GDSC>;
+>>> +                power-domain-names = "core0", "core1";
+>>> +            };
 >>
->> Yes, except what I wrote earlier and is mentioned in the writing
->> bindings doc - the specific compatible should be also the fallback.
-> 
->    properties:
->      compatible:
->        oneOf:
->          - const: xlnx,zynqmp-bram-rproc
->          - items:
->              - enum:
->                  - xlnx,versal-bram-rproc
->                  - xlnx,versal-net-bram-rproc
->                  - amd,versal2-bram-rproc
->              - const: xlnx,zynqmp-bram-rproc
-> 
-> Good now?
+>> So to be fair in this case you do have a reason to have an encoder and
+>> decoder compatible here _but_ it should be the case that one one of the
+>> sub-devices contains CORE0 related stuff and the other CORE1 related stuff.
+>>
+>> Because in that case the sub-devices actually represent individual
+>> hardware settings.
+>>
+>> So listing power-domains and clocks for both cores in each node like
+>> this militates against that.
+>>
+>> The other thing is to double check of the encoder and decoder are inter-
+>> changable here i.e. can either core be encoder or decoder or is it fixed ?
+>>
+>> I believe on older generations - perhaps not on 8939 it is not
+>> interchangable.
+>>
+> I found this in LA.BR.1.2.9.1_rb1.5:
+> https://github.com/msm8916-mainline/linux-downstream/blob/b20608408caff817ec874f325127b07609fbaeb8/arch/arm/boot/dts/qcom/msm8939-common.dtsi#L1589
+> Only decoder bits are being set in bus configs. This suggests that the
+> cores are not interchangeable.
+> Then again, I never managed to get encoding working on MSM8939. Testing
+> it with
+> gst-launch-1.0 videotestsrc ! videoconvert ! v4l2vp8enc ! queue !
+> v4l2vp8dec ! xvimagesink
+> Fails with the following log: https://pastebin.com/nmZcLgPV
+> And in dmesg it reports a firmware error:
+> [  784.461031] qcom-venus 1d00000.video-codec: no valid instance(pkt
+> session_id:dead, pkt:21001)
+> [  784.461126] qcom-venus-decoder 1d00000.video-codec:video-decoder:
+> dec: event session error 0
+> [  784.461200] qcom-venus-encoder 1d00000.video-codec:video-encoder:
+> enc: event session error 0
+> [  784.468799] qcom-venus 1d00000.video-codec: SFR message from FW:
+> QC_IMAGE_VERSION_STRING=VIDEO.VE.1.8-00099, Err_Fatal -
+> Z:\b\venus\utils\src\vbuffer.c:1319:
+> [  785.791641] qcom-venus 1d00000.video-codec: System error has
+> occurred, recovery failed to init HFI
+> [  787.018339] qcom-venus 1d00000.video-codec: System error has
+> occurred, recovery failed to init HFI
+> [  787.097253] qcom-venus 1d00000.video-codec: system error has occurred
+> (recovered)
+> This happens regardless of whether I enable the cores for encoding too
+> or not. The same errors were happening on MSM8916 as well. So I can't
+> tell if these cores are interchangeable just by testing.
 
-Yes, looks good to me!
+Right so if you swap around the definition of which core is encoder and 
+which decoder do you get the same or different result ?
 
-Best regards,
-Krzysztof
+i.e. is it because you are trying to get encoder running generally or 
+because of the core you are doing it on ?
+
+How about declaring both cores a decoder ?
+
+---
+bod
