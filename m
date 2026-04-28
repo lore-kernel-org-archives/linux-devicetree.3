@@ -1,171 +1,246 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0882F1FEF
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 11:41:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777376478; cv=pass; b=QbZtYhC+bTc5Cl+EmExbvri2n/AlV90UQg5PozB4pN1q+nhnojWQJ7pE4OruYH7771ZR9uAW2cRNpmcatp1L+XEeC/X3829qbv7SqkDM3x8rDglVbyQISv++icEQFhoeqo9K1m/sy4Q3LSp58tCYH/ind3MR+VOY5Pj96pfjMAU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777376478; c=relaxed/simple;
-	bh=k7HeohUbUssFnrsRkngGqREcYGE1ZE44XRtGWhZRoG4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=het3t6cOwACO9PxjsIwypZOf9hxGuwqmY7F+s7GrVTAw61Dcb3C/qKkfFTv909PBZEVrcsZWvH1BcmfVkvKF6kTmiLSfQak5bAzeK6pYivxRaLBvLpFwzSlci9ay+lD406UxjjTihDmT/QDEnbKZ9GIuWw6SrS1NcnoMiMaqHUU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jQVz4BFZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LfFNbewc; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C323B19A8
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 11:43:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777376606; cv=none; b=FsZAFXcxK189OyYCJaizsaBOWJIAJd8VAZhTBvkuBieCA4Bcdbgi80pgHCKztXDEFg6vIYm8eeMAqPb3XM4vj/C4Rs19UwPYm0DLU36Vzjef9CoZQXrv/a3VrJfkZAJ9lVqa1qFJtt6NKeCKRTaSAK2o6g10dQAZrChReuOcf8s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777376606; c=relaxed/simple;
+	bh=rQQeryjlDPg4urwf9wsAKv6+1E3kGh1WMOFNdp3Rw3o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kTCmcBm1seDqTeVsQkXwJhnzhi1bUQBBtRO0UTyZemFLlf0DZT/0eRje/ySu5yK2ifbQacj8td0HkrWLus60qrU2EIXUxYm8Fp7Gxd/EQWsE9xYIl8t/oo/ubgiLosbHdTF6rMsE2pHtUw5ZmRdkK2f71zCHGaZiJEhiegNWbac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B5/Lco54; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jQVz4BFZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LfFNbewc"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63SA3wcG3275204
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 11:41:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	k7HeohUbUssFnrsRkngGqREcYGE1ZE44XRtGWhZRoG4=; b=jQVz4BFZpNUbhzjD
-	OvQje9QZrZqkjOyy6WeWu0C+cuu3YORqh2mzv/LsUXJzHECzFBZgA04NdVSPcTjJ
-	GtsmU7o84uuiNPVKV8fz0vVA6ihK8HoezmLfodwxb73Jhd7VGaOnahIqx0kBFrIn
-	il6zi0r/Yk0Genz32ElVVLBlvW3i8D+o7AQLUFrzjuh6vbJ80LP3/7Imf5mC137w
-	PGKUHi0j9vEInenqaK9ZEMlQRzo4dSjXKClTQldlckXulqp693yH9xbLqpX3JSQL
-	5cbHfc+Va2x4TzQt42ssjmmZ4UkUbd8rm8zydJzkRw306s/PYjdpdYv+q84S1kdU
-	7893Ig==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dtttjgakt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 11:41:15 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8acb26fbbb2so168405086d6.2
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 04:41:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777376475; cv=none;
-        d=google.com; s=arc-20240605;
-        b=jAe6Unk9OUaf33rn6U5NMjyycAhZpVsH9kWlID1zUY6r9LSfRNkRLZKlG9PCMIh7pY
-         +dNqIH+vQOWA2EQ//oZf3J8EzEiomY9VBqrwNg2PzanIJBujels/n3gXLlewakM/TMl1
-         vIDojkO4hOohZGCTTxVnHD9BWxFLegiaNHISSndnsX++H+Qm79+Fan86yG7hB92xzB/b
-         wGFdZuYZFcW0Zv596TDbgaEC9xgMhmumYhK0VzXuivAM/Q8mR8FKi31Jm9t4Z6bcStLw
-         Sb0e5jKAoVcBvNHKMj6RQ5uwAPWUrnXtoxlXDx6sp4Z81JvjyQbOY8o4N/kS2nl4vb8h
-         IZFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=k7HeohUbUssFnrsRkngGqREcYGE1ZE44XRtGWhZRoG4=;
-        fh=b+lsAv5YZPT+RjHCp7+12NpTdxE65Z6sw+6VhuUb+fs=;
-        b=HLpiS9Lk4kj+e+y4exr34sH/2UWSOkcjYbXwlthjFPynctJGKOCAw0996S+j4WEOxC
-         +lTD2u6sno8zgqdixMnFY3X2tBcaKmm0ouSljyztcARLWQT0SP6RAdvSy6bUjsDdPyTW
-         UDf+iJCx3AFcvjjYPnx5WLAowWaHmltMgrGy2FJkkocVAd+A6yxvOS08ju9F3pVmPlcS
-         6zBFWRj3c6XhpgX8SQckkz0eUj5uhKncfWn7vG7gW0JeVXCHhI/KOSRSCRJ8L0CA9iwL
-         efb/Lvn1FLwMvLJts1ed4EokLVneIxiZZ6N5NyqrRHYP+QDNTNq3v3z92pNYCcwwK63D
-         lDzA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B5/Lco54"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-43d7645adbdso6194078f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 04:43:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777376475; x=1777981275; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1777376603; x=1777981403; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=k7HeohUbUssFnrsRkngGqREcYGE1ZE44XRtGWhZRoG4=;
-        b=LfFNbewcLWl3JujrYcatutEczwGW80liCpCzAigkqKXneeOBgqiovXJghdbbCPdsas
-         YqXSGppK4TouqK26Lso1bO9t6c2yYTt9945dCWZxp9ps46nyIMuuz2xwRwLbD2+lyRUk
-         gw204McufDHYBMKSOpV3bhE3LtJe9rVL/zAW+J140zwltNQnxtCK8vQlBK2v8ZpNeXSv
-         nPpGI2i4pByWavnV1fWrNG1hr/f+0duLu5Rxyv+hambheoNRJT76pdopX9OW7p3DDUfI
-         NZKTOC6ekfxjQvX+K6F6WkDQsg7Lky7A/F7AIySi3E95fbjXa2F/dw9oLQsIUvwxAB1O
-         M/Tw==
+        bh=iTrqK5wcsWCvddHoN+UD4X9AWwNewOZ8K7DocYXvyXI=;
+        b=B5/Lco54OgwwVxVaHSxVce0iE16++Bc4kUeVZImsgfmDJRej9tdgL20NBTj+vfJKcT
+         x/n+piliGrx7emQbLhhC3Nuy5gCo4lY9QAtTtGV4cIV5HwZh41ZMrJVHJ8tYj3Byf5QS
+         pL8uvBSK2R6Q5cPqlwihPYzHLZtZPm4FbWQdATk3k3m4NJ0B9EzJaE1cpBxSFKLsJOhO
+         6U6E1g/SydjFt+zRejG2ZnMJPQwtG8Z0XOiuEwyHuHcdK7N5fCxpb7kuIND++CvB3Vo6
+         GeZ4/4UjZUFisx8NR/ti5TpYg0RDRQZzG3svwzMudxdAvs0iShAI/vU/f9W824urMkHh
+         RX9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777376475; x=1777981275;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+        d=1e100.net; s=20251104; t=1777376603; x=1777981403;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=k7HeohUbUssFnrsRkngGqREcYGE1ZE44XRtGWhZRoG4=;
-        b=gAYS1vl2PNMDw5uZXHMWCNuDZbbSkprmjSprEnBTxTkWL2ju5EPw0F4Zk0vXaAt2NV
-         kLNX8aplmoEvfrBJDAKc2uQVII/UfyPYxbnVJJf/ncEtgjxqulRolrG5gC+i+9KK4Gpu
-         pAF+uGbeKOfrWGYTBuoQ4aKyxqoicIX4n6yfD/gdtphGp+BHQ6s2dlCbCSSSzL5TODoM
-         D2/PrskiD/JgGR+C/NpqFxGkJHt9vCXx5jIf14UH90/h4DCU/TqxHnwfbnErybHK5avu
-         AKI+Hd61PU3TtNjSE+FOz/GxciwfLi+WxzVqpHNjky9NCH2bOxM+rxCTPUWI4J9LYsQD
-         Wo5g==
-X-Forwarded-Encrypted: i=1; AFNElJ8K5hV676PhfvekWyCB/A2b/ZKJroZBa8GUOPpKHwtXa4ZfFukutGLUIjtvGNQ3tL3154lPTkTfZ+6J@vger.kernel.org
-X-Gm-Message-State: AOJu0YzC0FbaLWV7jmVmtxagNgAsveRCwF3i8Bm1AuUgYO5a6yyvWd8f
-	Db3gzUpFJzdT25RnjNL9jQe4vK4XaLXXUdF28yE9OawQp7daS3TPfz7kfdSCzyhLiU4D32GcLZl
-	BLgvlvZvlh90tlR6kTCKT/06eUNEUYJ5A5THMvN1yhfqogORn1fpV73hhhdaCeb6NKcv9uEv+6O
-	rXJ7wACzEDoscqZ9I4q60vhRxWWjQq7sLtZYZX1lQ=
-X-Gm-Gg: AeBDievwga+8gQcLTxN0XN4OXBlxW1xTF371TELQFvmKmWTJjGXF2xDC4dUO8que1n9
-	RBrHy+NfhzV3q0UErGAMePIc8GCiDuIgbVdv5LNV14PJ/h7LWWZK7aTs4bvKbBM11qn7zDWxIP9
-	Ia+cEJA5nb9MAB/ENVnXGX+OWAM4KRy0yQTAT9voLSyETlHi5BQEi4V968q+vzrLrVySikCeSIL
-	FiazZT5/SzzLd5sE3YFh9r0sWdT4h1FbriChOxYls9jgWA39Q==
-X-Received: by 2002:a05:6214:5294:b0:8a6:1216:fb78 with SMTP id 6a1803df08f44-8b3e31b26bcmr42646696d6.46.1777376475305;
-        Tue, 28 Apr 2026 04:41:15 -0700 (PDT)
-X-Received: by 2002:a05:6214:5294:b0:8a6:1216:fb78 with SMTP id
- 6a1803df08f44-8b3e31b26bcmr42646256d6.46.1777376474849; Tue, 28 Apr 2026
- 04:41:14 -0700 (PDT)
+        bh=iTrqK5wcsWCvddHoN+UD4X9AWwNewOZ8K7DocYXvyXI=;
+        b=spRNNqlKAWXb9lqWyqhaKyWOvOWTmz3nIj+J78nG904eh0pPxAYuHO/R00KGml6TP2
+         jzP7+TzFfVyVqwr7nde9pBC9p05UO0SNZWTKtJajBW49lnKaL31eMMnOf8fcIQvGyqYU
+         2mqt3Ahi+z3V0oQis3d8DbihLF1VZ6fTIcLYCHTUW2QqJkSbzEbsqCpgz5Y37Zjh5IXE
+         l3U5kjLKM79M2FU2lFHM6H8rw+GjYBvC4gQ6jq7cR8hDfe2tzO3VecRlnlb3MUn7Pz07
+         2iaLA76MLXz9p5XeeGNmZUnfQh06uUEiO10d40LNqN6TCD1W5oxrHg0xqOjs8p7nG6Si
+         BbmA==
+X-Forwarded-Encrypted: i=1; AFNElJ+vJGOop/Uqk8nwzNoUpIqO/qfbPcIntUfVLifRsKUrU3l7q4IEESZ/P3/WHIfECCQw/0WwmPMxkTO0@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyrq9EPDsPMirN/8ffs5eKc6WViH6sf3sbBCP3FJv5YgQFvIxPu
+	afFkipXPPHqB/l+1PzLBhYo0PQh4GAmHD01c4AK/FcpUhqwuau7jRqtk
+X-Gm-Gg: AeBDiesrKvqNzUcDS9TFy/3sfGLDq+v1EdHE8WIf9oMDXVbbBq9cpcu7VaBe7px7Aoi
+	AOWQu2aqhtJXfkQfITy3w6ZhEQk3WWcArpS+byQCW2vlaZoG6GO0PYlalW5wzKiOoVUPq/C7Ria
+	z6QVqtWF6NeYYEH2idgtYMUC3NVy3dGUAhj7+E6GscxMFO3K6VIjLHp5xy1Pyz0KbhsFSOaLtlr
+	suA0p6Qo1p3lzYMPbLMvTlYY6JJtZ4q4YCfQBkKwDnLQYPNmpg2TTcc/egvI5uZNloU6tfLo1gK
+	IIBusD7TjXHq7hPJxCm1Humv1v/qYFSSmgrcQH3NvZbd5LjW6/q4s+trg2FsHFxDUsECBVkBcHF
+	8sjWkv/FmG5UW88iIGpE1aYcCvNoUiwjP5w1EuCIibgZAH1o6jfa87gBlGdPuIFb7bNksLiKhU/
+	amCYy0uTUvNgKwhniVgjzufiI=
+X-Received: by 2002:a05:6000:310b:b0:43f:ea91:63ff with SMTP id ffacd0b85a97d-4464761c07fmr5171770f8f.10.1777376603089;
+        Tue, 28 Apr 2026 04:43:23 -0700 (PDT)
+Received: from xeon ([188.163.112.56])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4463ff5a1acsm5589842f8f.33.2026.04.28.04.43.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Apr 2026 04:43:22 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/2] dt-bindings: input: Document Imagis ISA1200 haptic motor driver
+Date: Tue, 28 Apr 2026 14:43:07 +0300
+Message-ID: <20260428114308.113253-2-clamor95@gmail.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260428114308.113253-1-clamor95@gmail.com>
+References: <20260428114308.113253-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260427-camss-isp-ope-v2-0-f430e7485009@oss.qualcomm.com>
- <20260427-camss-isp-ope-v2-1-f430e7485009@oss.qualcomm.com> <a6aff52d-6bf1-4f32-8b4f-cfba85b78964@kernel.org>
-In-Reply-To: <a6aff52d-6bf1-4f32-8b4f-cfba85b78964@kernel.org>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Tue, 28 Apr 2026 13:41:04 +0200
-X-Gm-Features: AVHnY4I30PHO3JaiGQw02eVXNc-m3WyF_MeHdddg6z1v0u-m38ixLGWueeKRES0
-Message-ID: <CAFEp6-3Cx_6xa0e452220wfvUwcQvwEy6vtnBnwTpqTvC+HptQ@mail.gmail.com>
-Subject: Re: [PATCH v2 01/14] media: qcom: camss: Add support to populate sub-devices
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        "Bryan O'Donoghue" <bod@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
-        laurent.pinchart@ideasonboard.com, kieran.bingham@ideasonboard.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI4MDEwNyBTYWx0ZWRfX1d5GYLMB7ukm
- Afm2cuoiyeoDZpc0pvlbXyzUJyawmQHknTRO0pGJ6BIs+pCr0hDcTpdx7QbtczNMK0g5sInNyop
- RkJ6p+XFncLfHlaQr3leWWY4OIIwjkSRRVJOXc+pNlw3e3p3ml4DW1sdvq1uUaQQxdAOwLRaLsp
- FOR+0nvMQ/MU20+P88JQKVS5ZKuKfsrdAsSiTHi7YHwI1HOT/fTORjte+ZGzqub+PiH1Sx6AQ2p
- eYMErO2tJUWwgOVTl6KvRt3Os7Rm9LQNcoWbM6PnUm9D1S26HyhLN0bmGsgfN1CNrO/z4kXuU/4
- cJb3KiZClO7Kwf3R4Y9dRi/Vov3Iie33Pgz+pfO6D/gL+Sa3Qy8GNCU0mCgJuIyrE7/iCwSlWwp
- vkaXiX5WiQnmgjp4c4qXn51PeVsIHXY0Ty7XD5bTS4c1DjvNi3S/W/ImWDQQfUg64musPqId86j
- IenreDd4hFZZmpWmeIg==
-X-Authority-Analysis: v=2.4 cv=TZKmcxQh c=1 sm=1 tr=0 ts=69f09cdc cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
- a=Q8RtUPtQJvjqpABxVQUA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: sde8owW9iS_r3scE6MTggl5hihpTJBkD
-X-Proofpoint-ORIG-GUID: sde8owW9iS_r3scE6MTggl5hihpTJBkD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-28_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 adultscore=0 phishscore=0 clxscore=1015
- suspectscore=0 bulkscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604280107
+Content-Transfer-Encoding: 8bit
 
-On Tue, Apr 28, 2026 at 8:43=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On 27/04/2026 14:43, Loic Poulain wrote:
-> > From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> >
-> > Use devm_of_platform_populate() to populate subs in the tree.
-> >
-> > Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> > Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
->
-> There are no children in DTS and ABI does not allow them, so this is not
-> really correct or you just missed proper order - bindings describing the
-> ABI changes should be always before the actual change implementing it.
+Document the Imagis ISA1200 haptic motor driver, used primarily in mobile
+handheld devices and capable of supporting up to two motors.
 
-Right, this is a dependency that I cherry-picked from a previous
-Bryan=E2=80=99s series. I will make sure to place it correctly, or explicit=
-ly
-document the series dependency in the next revision.
+The exact datasheet for the ISA1200 is not available; all data was modeled
+based on available downstream kernel sources for various devices and
+fragments of information scattered across the internet.
+
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ .../bindings/input/imagis,isa1200.yaml        | 140 ++++++++++++++++++
+ 1 file changed, 140 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/imagis,isa1200.yaml
+
+diff --git a/Documentation/devicetree/bindings/input/imagis,isa1200.yaml b/Documentation/devicetree/bindings/input/imagis,isa1200.yaml
+new file mode 100644
+index 000000000000..40a4c7fd78bc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/input/imagis,isa1200.yaml
+@@ -0,0 +1,140 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/input/imagis,isa1200.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Imagis ISA1200 haptic motor driver
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++  - Linus Walleij <linusw@kernel.org>
++
++description:
++  The ISA1200 is a high-performance enhanced haptic motor driver designed
++  for mobile hand-held devices. It supports various voltages for both ERM
++  (Eccentric Rotating Mass) and LRA (Linear Resonant Actuator) type
++  actuators. Thanks to an embedded LDO, battery power can be used directly
++  in handheld applications.
++
++properties:
++  compatible:
++    const: imagis,isa1200
++
++  reg:
++    maxItems: 1
++
++  control-gpios:
++    description:
++      One or two GPIOs flagged as active high linked to HEN and LEN pins
++    maxItems: 2
++
++  clocks:
++    maxItems: 1
++
++  pwms:
++    maxItems: 1
++
++  vdd-supply:
++    description:
++      Regulator for 2.4V - 5.5V power supply
++
++  vddp-supply:
++    description:
++      Regulator for 2.4V - 3.6V IO power supply
++
++  imagis,clk-div:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Divider for the external input clock/PWM
++    enum: [128, 256, 512, 1024]
++    default: 128
++
++  imagis,pll-div:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Divider for the internal PLL clock
++    minimum: 1
++    maximum: 15
++    default: 1
++
++  imagis,mode:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: |
++      Defines the motor type isa1200 drives
++      0 - LRA (Linear Resonant Actuator)
++      1 - ERM (Eccentric Rotating Mass)
++    enum: [0, 1]
++    default: 0
++
++  imagis,period-ns:
++    description:
++      Period of the internal PWM channel in nanoseconds.
++    minimum: 12800
++    maximum: 25400
++
++  imagis,duty-cycle-ns:
++    description:
++      Duty cycle of the external/internal PWM channel in nanoseconds,
++      defaults to 50% of the channel's period
++
++  ldo:
++    $ref: /schemas/regulator/regulator.yaml#
++    type: object
++    description:
++      Embedded LDO regulator with voltage range 2.3V - 3.8V
++    unevaluatedProperties: false
++
++    required:
++      - regulator-min-microvolt
++      - regulator-max-microvolt
++
++required:
++  - compatible
++  - reg
++  - ldo
++
++anyOf:
++  - required:
++      - clocks
++      - imagis,period-ns
++  - required:
++      - pwms
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        haptic-engine@49 {
++            compatible = "imagis,isa1200";
++            reg = <0x49>;
++
++            clocks = <&isa1200_refclk>;
++
++            control-gpios = <&gpio 22 GPIO_ACTIVE_HIGH>,
++                            <&gpio 23 GPIO_ACTIVE_HIGH>;
++
++            vdd-supply = <&vdd_3v3_vbat>;
++            vddp-supply = <&vdd_2v8_vvib>;
++
++            imagis,clk-div = <256>;
++            imagis,pll-div = <2>;
++
++            imagis,mode = <0>; /* LRA_MODE */
++
++            imagis,period-ns = <13400>;
++            imagis,duty-cycle-ns = <100>;
++
++            ldo {
++                regulator-name = "vdd_vib";
++                regulator-min-microvolt = <2300000>;
++                regulator-max-microvolt = <2300000>;
++            };
++        };
++    };
+-- 
+2.51.0
+
