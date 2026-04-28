@@ -1,27 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C1D3D8135
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:01:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109433D8135
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:01:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777366897; cv=none; b=ULVivHRLqLZH+uJD71wwSGE5OmzNvr03gwxJjKxOyksxmpUSAduHF1Gv4QaeKI4OYWCs8YRLiP8U7WBmEScSLS4SyyFCSi/k8Eq9UMPLHk3A14PHjOy0T/TbBCMV+MXdZliG+fPSYv7KVRf//xMEXnUTcO1Hza3np4jUHa+o3Vo=
+	t=1777366899; cv=none; b=Kvvqx4KtgHKEm69ihGC3mzcG64DWwJbYeyHPfGz26Re4gaRd+l9xSAEi8Lhyx0YFwseQBox8K7ArSROsmZORZHpPREr7wSs8Y/a54RHSG+Wbp2e//I+65eRwTG6XNMeugSLa4qifk+nGq+vjhXyj40RXs74Gq/XNg6tEv0M7IMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777366897; c=relaxed/simple;
-	bh=Ik7wVtrOHKYzimsGwxz4CxrPgF8JxX/MMCTmwdWfxvQ=;
+	s=arc-20240116; t=1777366899; c=relaxed/simple;
+	bh=7t11dbH7+CIs5LkJ1dQuiYChvYLuQhSr2XmSOdig7Ng=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WCQvO2Ie4tw1K0pP9p5US1/gj7iJtxwPgmA2l39uPfzwGf+3w0ot9pHjpWH9/+3DCdxcrSk5fLaiS7+eB2PtxENGTKH7ysMkKTpIkrRVw/IN7dF/lp5/cP5dsnDCP4IjFUqWZOWQQsuT7S8C5w3aVp2UXJJE1wGXYt17GuI7WSM=
+	 In-Reply-To:To:Cc; b=M7nI5+Cu/hmoPft0oEebAO4in0m/LgRMXIH/5K6MPGEdYBDUgRnBRdqDCqEXlPUmvGHJC4kqrF/egi4mgrt9hmsGNZ1WcQ8t+eoTr3P6Dl/HTx54JGEjAM6v5jbWc3acABkA6JoCIrKp3hLWI3ChP5YanzdXZZ0nkg6wssoAX5U=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wHeJG-0004Lz-9x; Tue, 28 Apr 2026 11:00:50 +0200
+	id 1wHeJH-0004Lz-Cj; Tue, 28 Apr 2026 11:00:51 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Tue, 28 Apr 2026 11:00:51 +0200
-Subject: [PATCH v5 16/29] media: rockchip: rga: split flip and rotate into
- separate function
+Date: Tue, 28 Apr 2026 11:00:53 +0200
+Subject: [PATCH v5 18/29] media: rockchip: rga: check scaling factor
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -30,7 +29,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260428-spu-rga3-v5-16-eb7f5d019d86@pengutronix.de>
+Message-Id: <20260428-spu-rga3-v5-18-eb7f5d019d86@pengutronix.de>
 References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 In-Reply-To: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -50,99 +49,145 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Split the flip and rotate command configuration into a separate
-function in preparation of filling the command stream at streamon.
-As the userspace can change the flipping and rotation controls while
-streaming, we have to update them with each new frame to prevent the
-user being unable to change them while streaming.
+Check the scaling factor to avoid potential problems. This is relevant
+for the upcoming RGA3 support, as it can hang when the scaling factor
+is exceeded.
+
+There are two relevant scenarios that have to be considered to protect
+against invalid scaling values:
+
+When the output or capture is already streaming, setting the format on
+the other side should consider the max scaling factor and clamp it
+accordingly. This is only done in the streaming case, as it otherwise
+may unintentionally clamp the value when the application sets the first
+format (due to a default format on the other side).
+
+When the format is set on both sides first, then the format won't be
+corrected by above means. Therefore the second streamon call has to
+check the scaling factor and fail otherwise.
+
+As try functions should only be state aware if specified, the scaling
+limitation is only done in s_fmt.
 
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga-hw.c | 57 +++++++++++++++++-----------
- 1 file changed, 34 insertions(+), 23 deletions(-)
+ drivers/media/platform/rockchip/rga/rga-hw.c |  1 +
+ drivers/media/platform/rockchip/rga/rga-hw.h |  1 +
+ drivers/media/platform/rockchip/rga/rga.c    | 47 ++++++++++++++++++++++++++++
+ drivers/media/platform/rockchip/rga/rga.h    |  1 +
+ 4 files changed, 50 insertions(+)
 
 diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index dac3cb6aa17d3..6c1956b04f6ba 100644
+index 11079477a3008..11a1a914668f6 100644
 --- a/drivers/media/platform/rockchip/rga/rga-hw.c
 +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -156,7 +156,38 @@ static void rga_cmd_set_dst_addr(struct rga_ctx *ctx, dma_addr_t dma_addr)
- 	dest[reg >> 2] |= 0x7 << 8;
+@@ -595,6 +595,7 @@ const struct rga_hw rga2_hw = {
+ 	.max_width = MAX_WIDTH,
+ 	.min_height = MIN_HEIGHT,
+ 	.max_height = MAX_HEIGHT,
++	.max_scaling_factor = MAX_SCALING_FACTOR,
+ 	.stride_alignment = 4,
+ 
+ 	.setup_cmdbuf = rga_hw_setup_cmdbuf,
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.h b/drivers/media/platform/rockchip/rga/rga-hw.h
+index c2e34be751939..805ec23e5e3f4 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.h
++++ b/drivers/media/platform/rockchip/rga/rga-hw.h
+@@ -14,6 +14,7 @@
+ 
+ #define MIN_WIDTH 34
+ #define MIN_HEIGHT 34
++#define MAX_SCALING_FACTOR 16
+ 
+ #define RGA_TIMEOUT 500
+ 
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index d111b348255e2..75d05c86b1c00 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -405,10 +405,36 @@ static int vidioc_s_fmt(struct file *file, void *priv, struct v4l2_format *f)
+ 	struct v4l2_pix_format_mplane *pix_fmt = &f->fmt.pix_mp;
+ 	struct rga_ctx *ctx = file_to_rga_ctx(file);
+ 	struct rockchip_rga *rga = ctx->rga;
++	const struct rga_hw *hw = rga->hw;
+ 	struct vb2_queue *vq;
+ 	struct rga_frame *frm;
+ 	int ret = 0;
+ 	int i;
++	struct rga_frame *limit_frm = NULL;
++
++	/* Limit before try_fmt to avoid recalculating the stride */
++	if (V4L2_TYPE_IS_OUTPUT(f->type) &&
++	    v4l2_m2m_get_dst_vq(ctx->fh.m2m_ctx)->streaming)
++		limit_frm = &ctx->out;
++	if (V4L2_TYPE_IS_CAPTURE(f->type) &&
++	    v4l2_m2m_get_src_vq(ctx->fh.m2m_ctx)->streaming)
++		limit_frm = &ctx->in;
++	if (limit_frm) {
++		const struct v4l2_frmsize_stepwise frmsize = {
++			.min_width = DIV_ROUND_UP(limit_frm->pix.width,
++						  hw->max_scaling_factor),
++			.max_width =
++				limit_frm->pix.width * hw->max_scaling_factor,
++			.min_height = DIV_ROUND_UP(limit_frm->pix.height,
++						   hw->max_scaling_factor),
++			.max_height =
++				limit_frm->pix.height * hw->max_scaling_factor,
++			.step_width = 1,
++			.step_height = 1,
++		};
++		v4l2_apply_frmsize_constraints(&pix_fmt->width,
++					       &pix_fmt->height, &frmsize);
++	}
+ 
+ 	/* Adjust all values accordingly to the hardware capabilities
+ 	 * and chosen format.
+@@ -568,12 +594,33 @@ static int vidioc_s_selection(struct file *file, void *priv,
+ 	return ret;
  }
  
--static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
-+static void rga_cmd_set_flip_rotate_info(struct rga_ctx *ctx)
++static bool check_scaling(const struct rga_hw *hw, u32 src_size, u32 dst_size)
 +{
-+	u32 *dest = ctx->cmdbuf_virt;
-+	union rga_src_info src_info;
-+
-+	src_info.val = dest[(RGA_SRC_INFO - RGA_MODE_BASE_REG) >> 2];
-+
-+	if (ctx->vflip)
-+		src_info.data.mir_mode |= RGA_SRC_MIRR_MODE_X;
-+
-+	if (ctx->hflip)
-+		src_info.data.mir_mode |= RGA_SRC_MIRR_MODE_Y;
-+
-+	switch (ctx->rotate) {
-+	case 90:
-+		src_info.data.rot_mode = RGA_SRC_ROT_MODE_90_DEGREE;
-+		break;
-+	case 180:
-+		src_info.data.rot_mode = RGA_SRC_ROT_MODE_180_DEGREE;
-+		break;
-+	case 270:
-+		src_info.data.rot_mode = RGA_SRC_ROT_MODE_270_DEGREE;
-+		break;
-+	default:
-+		src_info.data.rot_mode = RGA_SRC_ROT_MODE_0_DEGREE;
-+		break;
-+	}
-+
-+	dest[(RGA_SRC_INFO - RGA_MODE_BASE_REG) >> 2] = src_info.val;
++	if (src_size < dst_size)
++		return src_size * hw->max_scaling_factor >= dst_size;
++	else
++		return dst_size * hw->max_scaling_factor >= src_size;
 +}
 +
-+static void rga_cmd_set_format_scale_info(struct rga_ctx *ctx)
+ static int vidioc_streamon(struct file *file, void *priv,
+ 			   enum v4l2_buf_type type)
  {
- 	struct rockchip_rga *rga = ctx->rga;
- 	u32 *dest = ctx->cmdbuf_virt;
-@@ -219,27 +250,6 @@ static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
- 		}
- 	}
+ 	struct rga_ctx *ctx = file_to_rga_ctx(file);
+ 	const struct rga_hw *hw = ctx->rga->hw;
  
--	if (ctx->vflip)
--		src_info.data.mir_mode |= RGA_SRC_MIRR_MODE_X;
--
--	if (ctx->hflip)
--		src_info.data.mir_mode |= RGA_SRC_MIRR_MODE_Y;
--
--	switch (ctx->rotate) {
--	case 90:
--		src_info.data.rot_mode = RGA_SRC_ROT_MODE_90_DEGREE;
--		break;
--	case 180:
--		src_info.data.rot_mode = RGA_SRC_ROT_MODE_180_DEGREE;
--		break;
--	case 270:
--		src_info.data.rot_mode = RGA_SRC_ROT_MODE_270_DEGREE;
--		break;
--	default:
--		src_info.data.rot_mode = RGA_SRC_ROT_MODE_0_DEGREE;
--		break;
--	}
--
- 	/*
- 	 * Calculate the up/down scaling mode/factor.
- 	 *
-@@ -431,7 +441,8 @@ static void rga_cmd_set(struct rga_ctx *ctx,
++	if ((V4L2_TYPE_IS_OUTPUT(type) &&
++	     v4l2_m2m_get_dst_vq(ctx->fh.m2m_ctx)->streaming) ||
++	    (V4L2_TYPE_IS_CAPTURE(type) &&
++	     v4l2_m2m_get_src_vq(ctx->fh.m2m_ctx)->streaming)) {
++		/*
++		 * As the other side is already streaming,
++		 * check that the max scaling factor isn't exceeded.
++		 */
++		if (!check_scaling(hw, ctx->in.pix.width, ctx->out.pix.width) ||
++		    !check_scaling(hw, ctx->in.pix.height, ctx->out.pix.height))
++			return -EINVAL;
++	}
++
+ 	hw->setup_cmdbuf(ctx);
  
- 	rga_cmd_set_src_info(ctx, &src->offset);
- 	rga_cmd_set_dst_info(ctx, &dst->offset);
--	rga_cmd_set_trans_info(ctx);
-+	rga_cmd_set_format_scale_info(ctx);
-+	rga_cmd_set_flip_rotate_info(ctx);
+ 	return v4l2_m2m_streamon(file, ctx->fh.m2m_ctx, type);
+diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+index c741213710b32..454af283b1694 100644
+--- a/drivers/media/platform/rockchip/rga/rga.h
++++ b/drivers/media/platform/rockchip/rga/rga.h
+@@ -150,6 +150,7 @@ struct rga_hw {
+ 	size_t cmdbuf_size;
+ 	u32 min_width, min_height;
+ 	u32 max_width, max_height;
++	u8 max_scaling_factor;
+ 	u8 stride_alignment;
  
- 	rga_write(rga, RGA_CMD_BASE, ctx->cmdbuf_phy);
- 
+ 	void (*setup_cmdbuf)(struct rga_ctx *ctx);
 
 -- 
 2.54.0
