@@ -1,76 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB8937CD50;
-	Tue, 28 Apr 2026 07:05:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C253AA1B2;
+	Tue, 28 Apr 2026 07:10:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777359934; cv=none; b=luaQ/AOK/L072Mgrmsxs8czl8Pk8ovq+NSG5Gh8FH5YHKvJiEc+ASvLzRknszJP2mv/DIssibCwK8Z9ASrH3miMJkyaG9glTHuhZqPkvi0lqDaxEnivDroBRZiYNuComsMx3xTLvClxtb1q+AvJ8nXBAwXoD3Wl4XXdIaaRQx+s=
+	t=1777360225; cv=none; b=SNniDVVM1T2iTDUJ2zmPgEHxkPLtbMn3dYwQaCVgefOguHTkwNXzD5sMcqb0iVBWNrtxZzmZIsRV56MOfoPICVIAJvVU6oHwMaYcEVrkb2+7K1w5ZVwm+ThA2IjFP1/G5SMkktGAXtLj6PKJnukSx8JEOMBg6W67sbop23bUvgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777359934; c=relaxed/simple;
-	bh=BRO9J/ZmX8rsQZ3xlStEfQAaOa2YUCNxilflaRpplMA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B14j2M+ajBrYhcKhwQ6s1QuowAPqBU1JaRe/EVqxjzYR56HyLd+AvBXy7w6psnr3Akn/SfV8nLaUtr/RZCwlKGY7pzqV6ZSimKj/67Y39QOHDbBB7A9GjvnsOWWBbvv4RO17q8IelJtoGn5kpT8QcBwUKl4z3GL7uhAWLjl0+bA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IFmFTrY7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777360225; c=relaxed/simple;
+	bh=TtoGexmgAiwUbNPhRjJiMmOOiVKbBVpRUGsDRKUVH1E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GhbrN+sWKedPQqzKydAGBsp+kNC9dud3mnoANrlfiG2XtQcwnooHcJibBoVEuxKgYC/JvhCxvmyFZ04Mhy+3KGTwhkKFA6y09gXkHXNYkMngYXZ217+b/e2WsGbtQN7Rxj97uv+lQCNON5F80hrl9YurLJrrvm6aZ4rxq2HldLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f69C224W; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IFmFTrY7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00A4BC2BCAF;
-	Tue, 28 Apr 2026 07:05:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f69C224W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0DC1C2BCB6;
+	Tue, 28 Apr 2026 07:10:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777359934;
-	bh=BRO9J/ZmX8rsQZ3xlStEfQAaOa2YUCNxilflaRpplMA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IFmFTrY7E4Om8seG+902x+cmIKa/lEV33L2FLbPmGJwI4HuBdsOs6nUeNsEzHNRr6
-	 WHlA+1tgb+2A9c5Cd2iM5Ol5jjxVotyxRMXEa/WgkH/5k7AyN2x8V/lM12FWssK86S
-	 d52OqmBHJSHa2mb2EFeTszx+mEpra63G/BbD0/7DJ60KwofCnL0kabaZCy3f2sfnhx
-	 o6lp9+QyghAHvivNz2W7Uee7qaTfChG+uKu3WXmUIjfDjwMsTH2glaSu8CDwO+ZBXJ
-	 HOQ+S/mS8EFU9WyjAJm5INVOq6FV+iFZ9Bd9AdEVBZUKNmkWTuej+Zo/5rzCvQqogX
-	 Iyl+ZcI1BlKkw==
-Date: Tue, 28 Apr 2026 09:05:31 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Manish Baing <manishbaing2789@gmail.com>
-Cc: lgirdwood@gmail.com, broonie@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
-	angelogioacchino.delregno@collabora.com, kaichieh.chuang@mediatek.com, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH] ASoC: dt-bindings: mediatek,mt6351: convert to DT schema
-Message-ID: <20260428-unbiased-piquant-spider-5b912c@quoll>
-References: <20260424210302.39972-1-manishbaing2789@gmail.com>
+	s=k20201202; t=1777360225;
+	bh=TtoGexmgAiwUbNPhRjJiMmOOiVKbBVpRUGsDRKUVH1E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=f69C224W4LOKHE7t55Ksp7Y4hpBRp4cwPKqPzt36knA3cZSUAvfi68GFPbkB1CGEX
+	 6aa2XgD+oJibpT7osVJpLOOk37Nbb1n6GPP9T0l1msAru9Cq9Cj0oYXa3sJ1xoPdsT
+	 +Q93i1A6O19kKyMYZAzoUoCj+caJoziwZCa4URV3c8sDR7mLt6FdOcDy/c/hP4VDCY
+	 806r2K/gx90h6M9XXqAJetRHC0MuqKLE87pHthvigZw+nLBDPhMGipmjojt1nL/RGb
+	 ioRPYcP3lisDoBpM0bkUAKrJwa9NFYUcDiaPXvdbn6emeRMtfidwvhGBInd3Y4XEgY
+	 x6oQ2iPBpXXxQ==
+Message-ID: <56d609dd-62be-47eb-8ba3-c5d70d773113@kernel.org>
+Date: Tue, 28 Apr 2026 08:10:19 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260424210302.39972-1-manishbaing2789@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v3 04/11] arm64: dts: qcom: msm8939: Add venus node
+To: Erikas Bitovtas <xerikasxx@gmail.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org
+References: <20260427-msm8939-venus-rfc-v3-0-288195bb7917@gmail.com>
+ <Xfiq_WNTU9P-ThZLMs4plWE5hwtmwyVyKJc1bD5BKdhERGouucNpyuenIoKQiKfZKaRzP-PdamsNlQ8vezjrRg==@protonmail.internalid>
+ <20260427-msm8939-venus-rfc-v3-4-288195bb7917@gmail.com>
+Content-Language: en-US
+From: Bryan O'Donoghue <bod@kernel.org>
+In-Reply-To: <20260427-msm8939-venus-rfc-v3-4-288195bb7917@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Apr 24, 2026 at 09:03:02PM +0000, Manish Baing wrote:
-> +description:
-> +  MT6351 Audio CODEC is a part of the MediaTek MT6351 PMIC.
-> +  It communicates with the SoC through the MediaTek PMIC wrapper(pwrap).
+On 27/04/2026 18:58, Erikas Bitovtas wrote:
+> +			video-decoder {
+> +				compatible = "venus-decoder";
+> +				clocks = <&gcc GCC_VENUS0_CORE0_VCODEC0_CLK>,
+> +					 <&gcc GCC_VENUS0_CORE1_VCODEC0_CLK>;
+> +				clock-names = "core0", "core1";
+> +				power-domains = <&gcc VENUS_CORE0_GDSC>,
+> +						<&gcc VENUS_CORE1_GDSC>;
+> +				power-domain-names = "core0", "core1";
+> +			};
 > +
-> +allOf:
-> +  - $ref: dai-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: mediatek,mt6351-sound
-> +
-> +required:
-> +  - compatible
-> +
-> +additionalProperties: false
+> +			video-encoder {
+> +				compatible = "venus-encoder";
+> +				clocks = <&gcc GCC_VENUS0_CORE0_VCODEC0_CLK>,
+> +					 <&gcc GCC_VENUS0_CORE1_VCODEC0_CLK>;
+> +				clock-names = "core0", "core1";
+> +				power-domains = <&gcc VENUS_CORE0_GDSC>,
+> +						<&gcc VENUS_CORE1_GDSC>;
+> +				power-domain-names = "core0", "core1";
+> +			};
 
-This should be unevaluatedProperties and you probably miss here
-sound-dai-cells, but this is semi-abandoned incomplete device without
-users, so pretty does not matter. Conversion to DT schema also does not
-matter that much. :/
+So to be fair in this case you do have a reason to have an encoder and 
+decoder compatible here _but_ it should be the case that one one of the 
+sub-devices contains CORE0 related stuff and the other CORE1 related stuff.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Because in that case the sub-devices actually represent individual 
+hardware settings.
 
-Best regards,
-Krzysztof
+So listing power-domains and clocks for both cores in each node like 
+this militates against that.
 
+The other thing is to double check of the encoder and decoder are 
+inter-changable here i.e. can either core be encoder or decoder or is it 
+fixed ?
+
+I believe on older generations - perhaps not on 8939 it is not 
+interchangable.
+
+If it is interchangable then declaring either node specifically encoder 
+or decoder is incorrect so you should declare that inline in venus itself.
+
+Perhaps Vikash or Dikshita could confirm whether or not the cores have 
+fixed encoder/decoder functionality.
+
+TBH I think you should stick to the inline declaration.
+
+---
+bod
