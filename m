@@ -1,467 +1,415 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazolkn19012072.outbound.protection.outlook.com [52.103.11.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C240A43C071
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 13:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777384760; cv=none; b=iJYTyj0u4Iex2d7rCYZC5H03rRYKy3xFm15HLglR59yGboyCchdruC8BgEcQr0hKPv3vteTKAAQecjAwduiLh51uv92USLSP+mfLs9UB+5Xe1+IRV4mpjJ1X1bcozuIq3scLUX1Hb4OuEwMmY1Tjqngy/+NiFWkiQh1byP8IhgI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777384760; c=relaxed/simple;
-	bh=KpHc4VUnEH8yC2HEUnCrC546BMHSJ+FMabQtH7NyOYk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=usXncHcP1D/7XH5452mDwFwjdMrNLZB6mwteE/nzWZkfQn/5ebOaoQ4esxoknTxZ9X3KIxOw1aFg/cIuJeFo86LM4S5JNOTpLVYffEUow6+iqyXTlUPH2zbV6QoAEWvWR4n9rG/n2dMNa3K1b+u6Om5aqVGsQYI2HmUCkBxJuN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=VM4EeCrT; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C5B3F54C3;
+	Tue, 28 Apr 2026 14:01:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.11.72
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777384882; cv=fail; b=Mnq9Ja6uRwnCp4rVRRJC/Rl0D+i6zByeVjFi6kEOwDf/PxbSjzdvNBfJ7uR91gkXPamIIrqNu93TN+MdEPhtpzYJWLqftHBW2CrU2VOJZ/4GKCW9Fmrt8vYHAPAMPMUPiyBKoV/yCOELDyrtizbc+K2U05q9be/0QXeBZNfvarY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777384882; c=relaxed/simple;
+	bh=8SkOps9pkf/xKMa8sNK8doHPouLoZUPWKIZ9Ukvug8o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=KrciZofjsLMlOTGNRGmc//ReA3WmqgvQ/viCYU6d0YcCN3FrWYmEP3VlP7Rb3aJQjI9IX2pnQ2rCqbn68J9ncXPVRdPlLUlYIkWqUtLeHIoIFeWKp0yDUhsta0nwnUAO/D7+SMjgola5pRONyCDggzDTa24/gUUoFNcTvpxhT4Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=rJkHMedU; arc=fail smtp.client-ip=52.103.11.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="VM4EeCrT"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4838c15e3cbso106454465e9.3
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 06:59:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777384756; x=1777989556; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=eKZ7iAWIrTA/bQhSyAbJFi9RrHxwT2445JQxA+ahvBs=;
-        b=VM4EeCrT2YtnOCSRBVGGdyVL8zNPAzZnKFiAbgjcsLSeP1SbGLJOFHRf6BGUGn5AqV
-         yUONrqSX8lzKNa/6ZnEh+Teb+K498s6lcLPTiCfUiN94u0z4RZzwCoj/JNiTmmqhzrjV
-         SyurCk/561TN1hTUh5MTCsCAs54ZUDhXlR7R0G+f4WgDyHz/SKN1Y82E2oQflPtLc2VT
-         GX86O5uynA2VUtAKjl6I00xDlZu4DWd5ztDF0P099nr68KJhtz8Pnyt2AWK/payHFgA4
-         iJc4UO8cn4WO9dyT0JKCVnzwQIJiiIfo/KGCf8Pr1XaMoBIvHCXbWr0Y7a5oRNC+Jg3z
-         HUoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777384756; x=1777989556;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=eKZ7iAWIrTA/bQhSyAbJFi9RrHxwT2445JQxA+ahvBs=;
-        b=PmRlHYvpiU6+VQAKdvnleZuIA9dwXC0tp2hlpZDh96i0skYHn8o6Lj4uL9LpmhXD+Z
-         C3DhinuCrotK3l+ZudTmCNtjIsvkxITGX/zgivNI9ztep1ygX+46YXGPqLyEnos8PCFZ
-         RJJt3qAmQEh0H9g0Ivita1tJ3XVqnQjF27Uw8DULiXkW65rp6qkW47AUycQUS9HZWImT
-         tzIYpMmPTIhd9VGImXXhOgmMs3GGdVacmSX/PeuFxtMQd6vFcuKRwxYQm4ebp+DR+fOj
-         a3zZsGM44ViHOuFOCsDYgPb516N9NYjDH3zmlfHdryFUtqF5T1L7MwT9Wc8daMnPs4Bd
-         2WKg==
-X-Forwarded-Encrypted: i=1; AFNElJ+jc3vP6hVHXnV/Yqo3n4T+7MnjBLTsXScQdvdHtGdjjqJPrAAPoLnjSUSzdAUJMy7X8+nQ0TlxY3qs@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx1wDvW6KFR5Khr5BcJhVqrR+j4HQjAf/tGlwuSSLTaAk3ww2sQ
-	k4BG63sKD4Le8ypMsEZuINve3exi+3p6dCMBkV5qOrhX5PxIiyWC0EgPJlt86Q2Y8zU=
-X-Gm-Gg: AeBDietcSkqHEA97Xgrzmjs6kddxXCeQ2zsmoxArD/mWzTqShcZcPr/pl36qW6b227c
-	A4nUs2Tt25nfta3nYDxK563Zt5K25XvMYW+yaRJHz1JLLL7HQYcvp58RzTzsHZ0/8VKTesgRCmf
-	CZ2hLIJUcmZxCySYMfyXCeAVInuFhkJe6vBWzt46F2tulxptW7spCYKc7lUq63WiGf3Jeo2oy5y
-	XFYbu7w/RG7nUPEeQvzDXHXCIksOcR4RuJTfMr+p4yLB4b4j9w1mESHeb2DroXNw48tT3rAZsse
-	g/ZlcwBM9XAiv2SwLWDHbmP9Ldan9XLZqO8K8Bl+FPm9+qwHPrEWjnDta9BfBM8zrdxcD4ADEjL
-	vPpXBS/+OJD8VX0Y8+npMGr5wUuDHv9F0krbPmzEgbT5y265Y4gNK4/A84yT7tyrLaOVC290PXP
-	Nylc+Uf433+gtmEa/XqcEVuiTKHlqVRw+UfiT6EjV+OPm0wtWfotZJ0f8=
-X-Received: by 2002:a05:600d:8402:b0:489:149a:f9e7 with SMTP id 5b1f17b1804b1-48a77b25340mr41771075e9.27.1777384756154;
-        Tue, 28 Apr 2026 06:59:16 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a773efe04sm60811155e9.12.2026.04.28.06.59.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Apr 2026 06:59:15 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Tue, 28 Apr 2026 15:59:12 +0200
-Subject: [PATCH 2/2] backlight: Add SY7758 6-channel High Efficiency LED
- Driver support
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="rJkHMedU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R/VXz7AvB+WaS50OOdStScZqeHLBaKOLnsD/IciHQ82vGX3KZdHdwoY0BD1tR4cNlCjH9NE2QpBJElC7d9ps1kn3ce97adBCUfsJ2QGxUWdpQw+wid1vtn/+4QNIqC2xWyb0jhNtg4XkPOY3Kx7saBEmDLJAKCfzr1offpQxWJcqJIuKiunmunGtJH7cUju8OZrD0jklukE5zMo8hqe3WU9TY2VQUug7Oz/8n+w+QBY6jinZDKeP9vb8tAEJlSmaPn/DS407PWuYuzRNzT2SSbajZD4fNd5wpTkgc39qmQ+ZkpdldvnP3h01CwMs1liiR1WZQxDggfDIbw+3UVsO4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QK6NBNBD3roXbA/kjeXOANm8VDAyYnNh/C9qU1YF/00=;
+ b=L2790M8jmRY/G0ZIZ3ONXHIEdzYOXVrBgQ0TGGgjZiBJ0tuwWmXFN1UlJq9P+ahO2/CthrCPMV4d6Eg79ckNx0d4QW0ktanRcIsOh6B+rhRFfgPk9zllJHVzbcfY50sOQdrpXz/udjrvw4rU3pj3McBgsIdEu86cJjugL4Vrp3zlLKdzHC3n36CBmFwvJ37DAB+r+0QWTlYmthzp6gdArtf9WYNScTZg73NkCQHUcSW/wLlGknzk45BQ6/2XqxHaelxVcHMCbEmT8jSnm+LJB0/mL3YFELAkS3EDC9ITPo4+vGoyM4mK3H0cE8Qymyntq3tTke98lw/OF5HcK7eewQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QK6NBNBD3roXbA/kjeXOANm8VDAyYnNh/C9qU1YF/00=;
+ b=rJkHMedU7JgCgPcTjoLJ91PYOvLbeBC4c9gbKarpmbkm8Arq7AHhwgxZVVcb1/4CpWDOedOmLXFJuRY62qc0Nb9Wa9L4Yv5p1rgKyEAqj2wRf1VuqFVU8U0X4R0A5uZUXEMmg5vuMu53TY8A464U/FlFVScB6rCwJjZ52ZFsT6hQYzoD/oVmahEISGfqXR9nIlcYTlj0wZkkCyz1doAhMparHbD5I3nxG17jolz7QxJeKyZgNoCcZsV/8RKzh78b1dXSnjomK/aUNppu8e5l1RyL2YF29+MrBSXvPq81KfsQah/5hzOZqFdkB64r6VZokdTI1z85X+hnM/ggP8GJmw==
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18) by CH3PR19MB7982.namprd19.prod.outlook.com
+ (2603:10b6:610:161::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Tue, 28 Apr
+ 2026 14:01:18 +0000
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172]) by PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172%6]) with mapi id 15.20.9846.025; Tue, 28 Apr 2026
+ 14:01:18 +0000
+Date: Tue, 28 Apr 2026 09:01:12 -0500
+From: Chris Morgan <macromorgan@hotmail.com>
+To: David Lechner <dlechner@baylibre.com>
+Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
+	andy@kernel.org, nuno.sa@analog.com, jic23@kernel.org,
+	jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
+	krzk+dt@kernel.org, robh@kernel.org, andriy.shevchenko@intel.com
+Subject: Re: [PATCH V3 6/9] iio: imu: inv_icm42607: Add Accelerometer for
+ icm42607
+Message-ID:
+ <PH0PR19MB997338EE6A13BD08879C4B9B2BA5372@PH0PR19MB997338.namprd19.prod.outlook.com>
+References: <20260330195853.392877-1-macroalpha82@gmail.com>
+ <20260330195853.392877-7-macroalpha82@gmail.com>
+ <f1ae57fe-1ad5-46ee-9f0c-245f4deec7ce@baylibre.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f1ae57fe-1ad5-46ee-9f0c-245f4deec7ce@baylibre.com>
+X-ClientProxiedBy: SA1PR05CA0008.namprd05.prod.outlook.com
+ (2603:10b6:806:2d2::15) To PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18)
+X-Microsoft-Original-Message-ID: <afC9qOzisMfb_Ulc@wintermute.localhost.fail>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-2-0caade5fdb32@linaro.org>
-References: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-0-0caade5fdb32@linaro.org>
-In-Reply-To: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-0-0caade5fdb32@linaro.org>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10600;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=XwkwUb/gWDWAE9PtQGUU15EurO7ORw1iWyFV0UYaRgM=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBp8L0w/OVhYkTAXvHRGaCiz8CW7n4IHJz+kTXaca4S
- ut5XKtSJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCafC9MAAKCRB33NvayMhJ0RNRD/
- 4/4h4yOM7I3EarDvjhcxVqPKR9CqLLRXKdDBEN20tTL91KzTiC0rRNlKrObP64R/pyZpLi3g7VO0o5
- Kf0+wXjW+4MxTFIXQbd5KcYMpIwnD88SjwEK0ZLyChCs2+OiwjMhjDMMWfnBDqDO9vpZ/qgaFlhO+G
- 1d639USK2QYY/QwVHtxSSekQ9qVqoQCRVS3YtitYwTFyniDuJJ5wWBaCYcDVALLFCwaC4OJVhTw4NX
- F8A+Fy1ul7wigBan35kV5n6f9ZhzCPOsrkuCvB0mT+qZ0kC2N2hknmvVWkgd2RCdk717yVyrDVc30l
- bnUHfdMXcSEXUGw+njC0SeTiT86oUPCHn82siZoISXN+NyoTf5U+m2o9nGRV50Q8yqCzn30MWGMb9c
- pYGTSOLxDPqmnY4ip7fZEHnkgwbD5mKYsgglAT7YEB0KkMcsx5yp/Uo1+1A5FOxlB2mydnJhAfUluk
- aHEqn/6DjIry4TwcZQk9OUzjEgUDhLGLvIlqm6O0zfieSztc1a3oDBKU4sVHt7GShBdAy3XOAcUSXE
- ah47tWO8lYJ3HXhuFay1UvEV37Vs12Ox+Idmx4ouBIcnyEQzsItok/TlmL1+NGyfVmvrOFdmI3xsgc
- CXhxU//mPkKEY6TFizcMWFnHHjfgieS11gCxS/G/KZz5Dm97IhRrw5xqOKyw==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR19MB997338:EE_|CH3PR19MB7982:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7ae7dbd2-00da-44ea-3d9f-08dea52e9eb5
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|8060799015|41001999006|6090799003|19110799012|5072599009|461199028|23021999003|15080799012|25031999004|24021099003|37011999003|440099028|3412199025|56899033|40105399003|52005399003;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?+tjGF4PR3/YKtdK/48wli+WiOGSQDIZ6uiLgrJ2XkoT85j0jziVQDD7Z/ant?=
+ =?us-ascii?Q?kqZVXgyIOMHIXVZMvC6GP1MKkpnqA+hoLFaAwaX6J3e5eeBWb6iop1FVO/xL?=
+ =?us-ascii?Q?PDt5i9drIs8fmlUHknLs4w4DI795ml0BiwOlPTRf8GEhX0h/T0Bf4ANqLpYR?=
+ =?us-ascii?Q?KdPe4wxZf62YI56+kiZ9H65bJ5mf+kWKtatbxcMnBrq8U5qgKiuLYls1HsxE?=
+ =?us-ascii?Q?ZTQWP0YIPMv2dbughx29i7RbybhUfq6uvjqqN7Tr2nFD0z+Kl5YlQr3bb1DZ?=
+ =?us-ascii?Q?VK5sHfq6lIR8a7gBfieImQFP7DxCrllLvlTC47dfRDJJUh4QQGXdXnHtgzIf?=
+ =?us-ascii?Q?SJmXzIQ9ER7IaJJh4snymb82EeGnh9KAYFBeNvAYfRsTnO2Q8T/QoWhgE9ch?=
+ =?us-ascii?Q?uuXsRAyU1yD5aLpe2ierKX3CB1x/HU3QFwp+3eUhtYX594ptdltd6LhnQRrE?=
+ =?us-ascii?Q?ISLSLnAv1j5fCZtFmDV2A5tdAi2F5hs12uMJGzi8NJ9aGTe/h/T7+jdINqLw?=
+ =?us-ascii?Q?MjmRueuTRtYZND4x9AU3qpdGk2wD4G9kt/729rrLTuZtBFaCk+pHf4MpVpm9?=
+ =?us-ascii?Q?XwScOc45sZDBrhkLzTrJTbJRonxN6r/ufdEWgOt9k728jQAPps8Qw+Fs8Dbu?=
+ =?us-ascii?Q?f+GP0yI57XHalXpKdurQMR9XiSqDruyN/PnhEmYlNJO63HOXmEkgzS0ZJX3i?=
+ =?us-ascii?Q?Qi/yTOpzSUGG1oGinID/BrQEmJz+XYfoIWhZl8mK57851K+szReD1QXDFL4a?=
+ =?us-ascii?Q?J2KLBm5yV9dBvIiH2HZujF4SH6URTQMELA6pXpS5T7mOtynCiMUV+NcrxORA?=
+ =?us-ascii?Q?jQVsFJyapjYtJriAw9Xa6NaozPL5vq3ICY3iPq2CeqHQNZzatRnxeKb92fx4?=
+ =?us-ascii?Q?8TqaWR9cROuYosm+M71sbt7TdfZOzDb3wvMrDTmuqDujOXD8RiUSa206qNfH?=
+ =?us-ascii?Q?gdEa51PEwpy5iQ7SPdmsfB9exT9p22M+S5EWXtgKyp1L9lZ70O8WW3jBJq9m?=
+ =?us-ascii?Q?VgdYUjisYC85zwp/LUg7zjpUngmmeBy9JCpDuKt7HXZXMbJIeGd538S/9Sbp?=
+ =?us-ascii?Q?mpGfsQIj?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Y3I0KI821oux9H+7CVAU6qtebCblyhcWoO229lSYTt09a/y/YQmcS8B5WfE6?=
+ =?us-ascii?Q?QvaNpX2MK5ciU9ru4SrtNV0J7LruMmlFNCO/3bTJO+9jTKz2KlGR6vXW/dXQ?=
+ =?us-ascii?Q?AYSwd28M7u1Pzfu19wjIs2dHgtpnY8gonwalcBK4F4QgZ/imQKI4IJPgsXQY?=
+ =?us-ascii?Q?HMb3ariK3RzHhHkjgc0w0GrgIcsjL2ZhLMKTOl3Cqr3MR7rjGbmzASUL28XK?=
+ =?us-ascii?Q?rpj7xQwPAKOV4O5bVyVmDOSf91kjs5L1PzFwpM3XR4mYHEImtyY8LeUH6zUn?=
+ =?us-ascii?Q?tMK2UKQvcNpRx+u8tSLxeUeGm40zbwnPXCKZYPgxXjrQZF6lWBahJReevbt/?=
+ =?us-ascii?Q?0hDI2rBS5cmIAr6FBIXDpz5OykPuw194SGO554+ZJnhwJdysuCl2sVkRS2B4?=
+ =?us-ascii?Q?AAaqVXy2Ys6s2K/GOQw2EIrW71QnNA1N7B3l1Qa4CoRg+sKgFFA6QEoT8fvA?=
+ =?us-ascii?Q?jDnpUtycs9wU11xWf/Y6kSeCw0Lg1gYgTaQD9eeb2n8DZq03Wbkpbkc2XuIX?=
+ =?us-ascii?Q?/KElfxSCoSzw7/zLRiOhaXfaQNnpdGW/6zhsXHBXtL0vSnezIpeFXRzRKqPq?=
+ =?us-ascii?Q?AWz49AF4gMvoRuJ7C4kdvf8GxEfekEHMaFkW94IkVww26CzOsWETXLG/rurK?=
+ =?us-ascii?Q?8MuhdzqJD/kjzw2w7Y6UTM9k6On1/umsZ1oAlbGhU57Aq/0I4Fnwu4jMBis2?=
+ =?us-ascii?Q?Ecya8qAXv/1l4r/mYoH7ybt0YHq7hPyPVwrouyJBc6qklwcjozisCGUl5J8B?=
+ =?us-ascii?Q?uujPhBmv6Uekh/qNs+EnfUPZRi8wQ09YYEiikNA1v/k8jT3q4MPwblFOj+Xu?=
+ =?us-ascii?Q?cW8PjQRzhLwTMDdwzrssB13F23bE8HUnGKKZoSg+o295D3/L65HMTkQTmOT4?=
+ =?us-ascii?Q?URiGlzaHFAwntFs0qbtGOyaU6umcpC9cMGPKFJWW5p5dCa9KL3042lA9x2Lr?=
+ =?us-ascii?Q?gNhTGFu2DPAjvFwpQmDdlyT1plyVH80kiTO6H1dndBvzpXeunQwuDZHfpKP9?=
+ =?us-ascii?Q?T2GFr6FOHNOWfSsUoY3TeXQMe1a2me2ur/k+tLJZLaDavEWfUe3KGJfPzHpE?=
+ =?us-ascii?Q?XWee98zO93Kq+MZVlQOe2BS4CNw0HSP/yGm8ebANmuRVv28nkEXib2FJ9IQO?=
+ =?us-ascii?Q?lf9SgnJhf5X0PmkPCo7Xfki+E1B9jTXiiBkQkk5KT+SydJFLo9Y9bU0yLQFj?=
+ =?us-ascii?Q?FBmo1F367PCsPcRASfDVylt8jC1OEspmeQHrgYUxdeFxoG1LyI+9mtpwoYjs?=
+ =?us-ascii?Q?UPC8U2/F+5NzgC2sXHDpC/My1dYaGQZoaZqBFeS7asGIu1Q1rVlIIec46Yfz?=
+ =?us-ascii?Q?KcZtPoVmG/Ylkm7FtA5dMKLTH0X/w88B/AsyIFZ4ncuw/mNVFvnihpP+PP08?=
+ =?us-ascii?Q?PQVVfflA0+daQ1s5cgr2JZXQ8Hf/vHstMBCRbJoKvwU9Yaal/Q=3D=3D?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ae7dbd2-00da-44ea-3d9f-08dea52e9eb5
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR19MB997338.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 14:01:18.6422
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR19MB7982
 
-From: KancyJoe <kancy2333@outlook.com>
+On Fri, Apr 10, 2026 at 05:59:05PM -0500, David Lechner wrote:
+> On 3/30/26 2:58 PM, Chris Morgan wrote:
+> > From: Chris Morgan <macromorgan@hotmail.com>
+> > 
+> > Add icm42607 accelerometer sensor for icm42607.
+> > 
+> 
+> ...
+> 
+> > +static const unsigned long inv_icm42607_accel_scan_masks[] = {
+> > +	/* 3-axis accel + temperature */
+> > +	INV_ICM42607_SCAN_MASK_ACCEL_3AXIS | INV_ICM42607_SCAN_MASK_TEMP,
+> 
+> This is going to make it so that the temperature channel is always read
+> even if it isn't enabled and additional work is needed when pushing to
+> buffers to remove it again.
+> 
+> It looks like it is possible to read accel and temp separatly, so
+> there shuold be two more lines here,
+> 
+> 	INV_ICM42607_SCAN_MASK_ACCEL_3AXIS,
+> 	INV_ICM42607_SCAN_MASK_TEMP,
+> 
+> I forget what the correct order is though.
+> 
+> > +	0,
+> > +};
+> > +
+> > +/* enable accelerometer sensor and FIFO write */
+> > +static int inv_icm42607_accel_update_scan_mode(struct iio_dev *indio_dev,
+> > +					       const unsigned long *scan_mask)
+> > +{
+> > +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
+> > +	struct inv_icm42607_sensor_state *accel_st = iio_priv(indio_dev);
+> > +	struct inv_icm42607_sensor_conf conf = INV_ICM42607_SENSOR_CONF_INIT;
+> > +	unsigned int fifo_en = 0;
+> > +	unsigned int sleep_temp = 0;
+> > +	unsigned int sleep_accel = 0;
+> > +	unsigned int sleep;
+> > +	int ret;
+> > +
+> > +	mutex_lock(&st->lock);
+> > +
+> > +	if (*scan_mask & INV_ICM42607_SCAN_MASK_TEMP) {
+> > +		/* enable temp sensor */
+> > +		ret = inv_icm42607_set_temp_conf(st, true, &sleep_temp);
+> > +		if (ret)
+> > +			goto out_unlock;
+> > +		fifo_en |= INV_ICM42607_SENSOR_TEMP;
+> > +	}
+> > +
+> > +	if (*scan_mask & INV_ICM42607_SCAN_MASK_ACCEL_3AXIS) {
+> > +		/* enable accel sensor */
+> > +		conf.mode = accel_st->power_mode;
+> > +		conf.filter = accel_st->filter;
+> > +		ret = inv_icm42607_set_accel_conf(st, &conf, &sleep_accel);
+> > +		if (ret)
+> > +			goto out_unlock;
+> > +		fifo_en |= INV_ICM42607_SENSOR_ACCEL;
+> > +	}
+> > +
+> > +	/* update data FIFO write */
+> > +	ret = inv_icm42607_buffer_set_fifo_en(st, fifo_en | st->fifo.en);
+> > +
+> > +out_unlock:
+> > +	mutex_unlock(&st->lock);
+> > +	/* sleep maximum required time */
+> 
+> Would be better if the comment explain _why_ we need to sleep.
+> 
+> The code is pretty obvious that it does what the comment says, so
+> it doesn't add much.
+> 
+> > +	sleep = max(sleep_accel, sleep_temp);
+> > +	if (sleep)
+> 
+> Probably don't need the if here as msleep() should handle 0 without actually
+> sleeping.
+> 
+> > +		msleep(sleep);
+> > +	return ret;
+> > +}
+> > +
+> > +static int inv_icm42607_accel_read_sensor(struct iio_dev *indio_dev,
+> > +					  struct iio_chan_spec const *chan,
+> > +					  s16 *val)
+> > +{
+> > +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
+> > +	struct inv_icm42607_sensor_state *accel_st = iio_priv(indio_dev);
+> > +	struct device *dev = regmap_get_device(st->map);
+> > +	struct inv_icm42607_sensor_conf conf = INV_ICM42607_SENSOR_CONF_INIT;
+> > +	unsigned int reg;
+> > +	__be16 *data;
+> > +	int ret;
+> > +
+> > +	if (chan->type != IIO_ACCEL)
+> > +		return -EINVAL;
+> > +
+> > +	switch (chan->channel2) {
+> > +	case IIO_MOD_X:
+> > +		reg = INV_ICM42607_REG_ACCEL_DATA_X1;
+> > +		break;
+> > +	case IIO_MOD_Y:
+> > +		reg = INV_ICM42607_REG_ACCEL_DATA_Y1;
+> > +		break;
+> > +	case IIO_MOD_Z:
+> > +		reg = INV_ICM42607_REG_ACCEL_DATA_Z1;
+> > +		break;
+> > +	default:
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
+> > +	if (PM_RUNTIME_ACQUIRE_ERR(&pm))
+> > +		return -ENXIO;
+> > +
+> > +	guard(mutex)(&st->lock);
+> > +
+> > +	/* enable accel sensor */
+> > +	conf.mode = accel_st->power_mode;
+> > +	conf.filter = accel_st->filter;
+> > +	ret = inv_icm42607_set_accel_conf(st, &conf, NULL);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	/* read accel register data */
+> > +	data = (__be16 *)&st->buffer[0];
+> > +	ret = regmap_bulk_read(st->map, reg, data, sizeof(*data));
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	*val = (int16_t)be16_to_cpup(data);
+> 
+> We don't use int16_t in the kernel (ideally). Stick with s16.
+> 
+> Although cast isn't needed here since val is already s16.
+> 
+> > +	if (*val == INV_ICM42607_DATA_INVALID)
+> > +		ret = -EINVAL;
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +/* IIO format int + nano */
+> 
+> Usually we make these 2-D arrays for readability and then cast to int * if needed.
+> 
+> > +static const int inv_icm42607_accel_scale[] = {
+> > +	/* +/- 16G => 0.004788403 m/s-2 */
+> > +	[2 * INV_ICM42607_ACCEL_FS_16G] = 0,
+> > +	[2 * INV_ICM42607_ACCEL_FS_16G + 1] = 4788403,
+> > +	/* +/- 8G => 0.002394202 m/s-2 */
+> > +	[2 * INV_ICM42607_ACCEL_FS_8G] = 0,
+> > +	[2 * INV_ICM42607_ACCEL_FS_8G + 1] = 2394202,
+> > +	/* +/- 4G => 0.001197101 m/s-2 */
+> > +	[2 * INV_ICM42607_ACCEL_FS_4G] = 0,
+> > +	[2 * INV_ICM42607_ACCEL_FS_4G + 1] = 1197101,
+> > +	/* +/- 2G => 0.000598550 m/s-2 */
+> > +	[2 * INV_ICM42607_ACCEL_FS_2G] = 0,
+> > +	[2 * INV_ICM42607_ACCEL_FS_2G + 1] = 598550,
+> > +};
+> > +
 
-Implement support for the Silergy SY7758 6-channel High Efficiency LED
-Driver used for backlight brightness control in the Ayaneo Pocket S2
-dual-DSI panel.
+I've gone through and implemented all of the changes everyone suggested, though
+this is one of the few on which I had a question. Obviously this driver was
+cobbled together from 2 different sources and checked to the best of my ability
+and tested/validated against the data sheet, but there are a few bits I'm not
+fully clear on such as this.
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: KancyJoe <kancy2333@outlook.com>
----
- drivers/video/backlight/Kconfig  |   8 +
- drivers/video/backlight/Makefile |   1 +
- drivers/video/backlight/sy7758.c | 311 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 320 insertions(+)
+What's the correct way to represent this data? Since it looks like one of the
+values is always 0, should I just assume it's always 0 and only represent the
+values that change in this scale?
 
-diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-index a7a3fbaf7c29..052ac80c8213 100644
---- a/drivers/video/backlight/Kconfig
-+++ b/drivers/video/backlight/Kconfig
-@@ -207,6 +207,14 @@ config BACKLIGHT_KTZ8866
- 		Say Y to enable the backlight driver for the Kinetic KTZ8866
- 		found in Xiaomi Mi Pad 5 series.
- 
-+config BACKLIGHT_SY7758
-+	tristate "Backlight Driver for Silergy SY7758"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Say Y to enable the backlight driver for the Silergy SY7758
-+	  backlight controller found in Ayaneo Socket S2.
-+
- config BACKLIGHT_LM3533
- 	tristate "Backlight Driver for LM3533"
- 	depends on MFD_LM3533
-diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-index 794820a98ed4..39ef588b1cf2 100644
---- a/drivers/video/backlight/Makefile
-+++ b/drivers/video/backlight/Makefile
-@@ -56,6 +56,7 @@ obj-$(CONFIG_BACKLIGHT_PWM)		+= pwm_bl.o
- obj-$(CONFIG_BACKLIGHT_QCOM_WLED)	+= qcom-wled.o
- obj-$(CONFIG_BACKLIGHT_RT4831)		+= rt4831-backlight.o
- obj-$(CONFIG_BACKLIGHT_SAHARA)		+= kb3886_bl.o
-+obj-$(CONFIG_BACKLIGHT_SY7758)		+= sy7758.o
- obj-$(CONFIG_BACKLIGHT_SKY81452)	+= sky81452-backlight.o
- obj-$(CONFIG_BACKLIGHT_TPS65217)	+= tps65217_bl.o
- obj-$(CONFIG_BACKLIGHT_WM831X)		+= wm831x_bl.o
-diff --git a/drivers/video/backlight/sy7758.c b/drivers/video/backlight/sy7758.c
-new file mode 100644
-index 000000000000..a3e24bd444b6
---- /dev/null
-+++ b/drivers/video/backlight/sy7758.c
-@@ -0,0 +1,311 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Silergy SY7758 6-channel High Efficiency LED Driver
-+ *
-+ * Copyright (C) 2025 Kancy Joe <kancy2333@outlook.com>
-+ * Copyright (C) 2026 Linaro Limited
-+ * Author: Neil Armstrong <neil.armstrong@linaro.org>
-+ */
-+#include <linux/backlight.h>
-+#include <linux/module.h>
-+#include <linux/i2c.h>
-+#include <linux/of.h>
-+#include <linux/err.h>
-+#include <linux/bits.h>
-+#include <linux/regmap.h>
-+#include <linux/bitfield.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/regulator/consumer.h>
-+
-+#define DEFAULT_BRIGHTNESS 1024
-+#define MAX_BRIGHTNESS 4080
-+#define REG_MAX 0xAE
-+
-+/* Registers */
-+#define REG_BRT_8BIT 0x00
-+#define REG_DEV_CTL 0x01
-+#define REG_STATUS 0x02
-+#define REG_DEV_ID 0x03
-+#define REG_DIRECT_CTL 0x04
-+#define REG_STATUS2 0x05
-+#define REG_BRT_12BIT_L 0x10
-+#define REG_BRT_12BIT_H 0x11
-+#define REG_LED_ENABLE 0x16
-+
-+/* OTP memory */
-+#define REG_OTP_CFG98 0x98
-+#define REG_OTP_CFG9E 0x9E
-+#define REG_OTP_CFG0 0xA0
-+#define REG_OTP_CFG1 0xA1
-+#define REG_OTP_CFG2 0xA2
-+#define REG_OTP_CFG3 0xA3
-+#define REG_OTP_CFG4 0xA4
-+#define REG_OTP_CFG5 0xA5
-+#define REG_OTP_CFG6 0xA6
-+#define REG_OTP_CFG7 0xA7
-+#define REG_OTP_CFG9 0xA9
-+#define REG_OTP_CFGA 0xAA
-+#define REG_OTP_CFGE 0xAE
-+
-+/* Fields */
-+#define BIT_DEV_CTL_FAST BIT(7)
-+#define MSK_DEV_CTL_BRT_MODE GENMASK(2, 1)
-+#define BIT_DEV_CTL_BL_CTLB BIT(0)
-+
-+#define BIT_STATUS_OPEN BIT(7)
-+#define BIT_STATUS_SHORT BIT(6)
-+#define BIT_STATUS_VREF_OK BIT(5)
-+#define BIT_STATUS_VBST_OK BIT(4)
-+#define BIT_STATUS_OVP BIT(3)
-+#define BIT_STATUS_OCP BIT(2)
-+#define BIT_STATUS_TSD BIT(1)
-+#define BIT_STATUS_UVLO BIT(0)
-+
-+#define MSK_DIRECT_CTL_OUT GENMASK(5, 0)
-+
-+#define BIT_STATUS2_OCP50MS_LATCH BIT(0)
-+#define BIT_STATUS2_OCP2 BIT(0)
-+
-+#define MSK_BRT_12BIT_L GENMASK(7, 0)
-+#define MSK_BRT_12BIT_H GENMASK(3, 0)
-+#define MSK_LED_ENABLE GENMASK(5, 0)
-+
-+#define BIT_CFG98_IBST_LIM_2X BIT(7)
-+#define BIT_CFG98_A0_FSETB BIT(0)
-+
-+#define BIT_CFG9E_VBST_RANGE BIT(5)
-+#define MSK_CFG9E_HEADROOM_OFFSET GENMASK(3, 0)
-+
-+#define MSK_CFG0_CURRENT_LOW GENMASK(7, 0)
-+
-+#define BIT_CFG1_PDET_STDBY BIT(7)
-+#define MSK_CFG1_CURRENT_MAX GENMASK(6, 4)
-+#define MSK_CFG1_CURRENT_HIGH GENMASK(3, 0)
-+
-+#define BIT_CFG2_UVLO_EN BIT(5)
-+#define BIT_CFG2_UVLO_TH BIT(4)
-+#define BIT_CFG2_BL_ON BIT(3)
-+#define BIT_CFG2_ISET_EN BIT(2)
-+#define BIT_CFG2_BST_ESET_EN BIT(1)
-+
-+#define MSK_CFG3_SLOPE GENMASK(6, 4)
-+#define MSK_CFG3_FILTER GENMASK(3, 2)
-+#define MSK_CFG3_PWM_INPUT_HYSTERESIS GENMASK(1, 0)
-+#define MSK_CFG4_PWM_TO_I_TH GENMASK(7, 4)
-+
-+#define BIT_CFG5_PWM_DIRECT BIT(7)
-+#define MSK_CFG5_PS_MODE GENMASK(6, 4)
-+#define MSK_CFG5_PWM_FREQ GENMASK(3, 0)
-+
-+#define MSK_CFG6_BST_FREQ GENMASK(7, 6)
-+#define MSK_CFG6_VBST GENMASK(5, 0)
-+
-+#define BIT_CFG7_EN_DRV3 BIT(5)
-+#define BIT_CFG7_EN_DRV2 BIT(4)
-+#define MSK_CFG7_IBST_LIM GENMASK(1, 0)
-+
-+#define MSK_CFG9_VBST_MAX GENMASK(7, 5)
-+#define BIT_CFG9_JUMP_EN BIT(4)
-+#define MSK_CFG9_JUMP_TH GENMASK(3, 2)
-+#define MSK_CFG9_JUMP_VOLTAGE GENMASK(1, 0)
-+
-+#define BIT_CFGA_SSCLK_EN BIT(7)
-+#define BIT_CFGA_ADAPTIVE BIT(3)
-+#define MSK_CFGA_DRIVER_HEADROOM GENMASK(2, 0)
-+#define MSK_CFGE_STEP_UP GENMASK(7, 6)
-+#define MSK_CFGE_STEP_DN GENMASK(5, 4)
-+#define MSK_CFGE_LED_FAULT_TH GENMASK(3, 2)
-+#define MSK_CFGE_LED_COMP_HYST GENMASK(1, 0)
-+
-+struct sy7758 {
-+	struct i2c_client *client;
-+	struct regmap *regmap;
-+	struct gpio_desc *gpio;
-+	struct backlight_device *bl;
-+};
-+
-+static const struct regmap_config sy7758_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = REG_MAX,
-+};
-+
-+static int sy7758_backlight_update_status(struct backlight_device *backlight_dev)
-+{
-+	struct sy7758 *sydev = bl_get_data(backlight_dev);
-+	unsigned int brightness = backlight_get_brightness(backlight_dev);
-+	int ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_L,
-+			   FIELD_PREP(MSK_BRT_12BIT_L,
-+				      brightness & 0xff));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_H,
-+			   FIELD_PREP(MSK_BRT_12BIT_H,
-+				      (brightness >> 8) & 0xf));
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static const struct backlight_ops sy7758_backlight_ops = {
-+	.options = BL_CORE_SUSPENDRESUME,
-+	.update_status = sy7758_backlight_update_status,
-+};
-+
-+static int sy7758_init(struct sy7758 *sydev)
-+{
-+	int ret = 0;
-+
-+	ret = regmap_write(sydev->regmap, REG_DEV_CTL,
-+			   BIT_DEV_CTL_FAST | BIT_DEV_CTL_BL_CTLB |
-+			   FIELD_PREP(MSK_DEV_CTL_BRT_MODE, 2));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_L,
-+			   FIELD_PREP(MSK_BRT_12BIT_L,
-+				      DEFAULT_BRIGHTNESS & 0xff));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_H,
-+			   FIELD_PREP(MSK_BRT_12BIT_H,
-+				      (DEFAULT_BRIGHTNESS >> 8)));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_OTP_CFG5,
-+			   FIELD_PREP(MSK_CFG5_PS_MODE, 6) |
-+			   FIELD_PREP(MSK_CFG5_PWM_FREQ, 4));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_OTP_CFG0,
-+			   FIELD_PREP(MSK_CFG0_CURRENT_LOW, 85));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_OTP_CFG1,
-+			   BIT_CFG1_PDET_STDBY |
-+			   FIELD_PREP(MSK_CFG1_CURRENT_MAX, 1) |
-+			   FIELD_PREP(MSK_CFG1_CURRENT_HIGH, 10));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_OTP_CFG9,
-+			   FIELD_PREP(MSK_CFG9_VBST_MAX, 4));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_OTP_CFG2,
-+			   BIT_CFG2_BL_ON | BIT_CFG2_UVLO_EN);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int sy7758_probe(struct i2c_client *client)
-+{
-+	struct backlight_properties props = { };
-+	struct device *dev = &client->dev;
-+	struct sy7758 *sydev;
-+	unsigned int dev_id;
-+	int ret;
-+
-+	sydev = devm_kzalloc(dev, sizeof(*sydev), GFP_KERNEL);
-+	if (!sydev)
-+		return -ENOMEM;
-+
-+	i2c_set_clientdata(client, sydev);
-+
-+	/* Initialize regmap */
-+	sydev->client = client;
-+	sydev->regmap = devm_regmap_init_i2c(client, &sy7758_regmap_config);
-+	if (IS_ERR(sydev->regmap))
-+		return dev_err_probe(dev, PTR_ERR(sydev->regmap),
-+				     "failed to init regmap\n");
-+
-+	/* Get and enable regulators */
-+	ret = devm_regulator_get_enable(dev, "vddio");
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get regulator\n");
-+
-+	usleep_range(100, 200);
-+
-+	/* Get enable GPIO and set to high */
-+	sydev->gpio = devm_gpiod_get(dev, "enable", GPIOD_OUT_HIGH);
-+	if (IS_ERR(sydev->gpio))
-+		return dev_err_probe(dev, PTR_ERR(sydev->gpio),
-+				     "failed to get enable GPIO\n");
-+
-+	usleep_range(100, 200);
-+
-+	/* try read and check device id */
-+	ret = regmap_read(sydev->regmap, REG_DEV_ID, &dev_id);
-+	if (ret < 0)
-+		return dev_err_probe(dev, -EPROBE_DEFER,
-+				     "failed to read device id\n");
-+	if (dev_id != 0x63) {
-+		dev_err(dev, "unexpected device id: 0x%02x\n", dev_id);
-+		return -ENODEV;
-+	}
-+
-+	/* Initialize and set default brightness */
-+	ret = sy7758_init(sydev);
-+	if (ret)
-+		return ret;
-+
-+	props.type = BACKLIGHT_RAW;
-+	props.max_brightness = MAX_BRIGHTNESS;
-+	props.brightness = DEFAULT_BRIGHTNESS;
-+	props.scale = BACKLIGHT_SCALE_LINEAR;
-+
-+	sydev->bl = devm_backlight_device_register(dev, "sy7758-backlight",
-+						   dev, sydev, &sy7758_backlight_ops,
-+						   &props);
-+	if (IS_ERR(sydev->bl))
-+		return dev_err_probe(dev, PTR_ERR(sydev->bl),
-+				     "failed to register backlight device\n");
-+
-+	return backlight_update_status(sydev->bl);
-+}
-+
-+static void sy7758_remove(struct i2c_client *client)
-+{
-+	struct sy7758 *sydev = i2c_get_clientdata(client);
-+
-+	backlight_disable(sydev->bl);
-+}
-+
-+static const struct i2c_device_id sy7758_ids[] = {
-+	{ "sy7758" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, sy7758_ids);
-+
-+static const struct of_device_id sy7758_match_table[] = {
-+	{ .compatible = "silergy,sy7758", },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, sy7758_match_table);
-+
-+static struct i2c_driver sy7758_driver = {
-+	.driver = {
-+		.name = "sy7758",
-+		.of_match_table = sy7758_match_table,
-+	},
-+	.probe = sy7758_probe,
-+	.remove = sy7758_remove,
-+	.id_table = sy7758_ids,
-+};
-+
-+module_i2c_driver(sy7758_driver);
-+
-+MODULE_DESCRIPTION("Silergy SY7758 Backlight Driver");
-+MODULE_AUTHOR("Kancy Joe <kancy2333@outlook.com>");
-+MODULE_LICENSE("GPL");
+> 
+> ...
+> 
+> > +static int inv_icm42607_accel_read_calibbias(struct inv_icm42607_state *st,
+> > +					     struct iio_chan_spec const *chan,
+> > +					     int *val, int *val2)
+> > +{
+> > +	/* Not actually supported in the ICM-42607P registers */
+> > +	return -EOPNOTSUPP;
+> > +}
+> 
+> Can we just not create the attribute instead of returning an error?
+> 
+> 
+> > +static int inv_icm42607_accel_write_raw_get_fmt(struct iio_dev *indio_dev,
+> > +						struct iio_chan_spec const *chan,
+> > +						long mask)
+> > +{
+> > +	if (chan->type != IIO_ACCEL)
+> > +		return -EINVAL;
+> > +
+> > +	switch (mask) {
+> > +	case IIO_CHAN_INFO_SCALE:
+> > +		return IIO_VAL_INT_PLUS_NANO;
+> > +	case IIO_CHAN_INFO_SAMP_FREQ:
+> > +		return IIO_VAL_INT_PLUS_MICRO;
+> > +	case IIO_CHAN_INFO_CALIBBIAS:
+> > +		return IIO_VAL_INT_PLUS_MICRO;
+> 
+> Can write this as:
+> 
+> 	case IIO_CHAN_INFO_SAMP_FREQ:
+> 	case IIO_CHAN_INFO_CALIBBIAS:
+> 		return IIO_VAL_INT_PLUS_MICRO;
+> 
+> > +	default:
+> > +		return -EINVAL;
+> > +	}
+> > +}
+> > +
+> 
+> ...
+> 
+> > +int inv_icm42607_set_accel_conf(struct inv_icm42607_state *st,
+> > +				struct inv_icm42607_sensor_conf *conf,
+> > +				unsigned int *sleep_ms)
+> > +{
+> > +	struct inv_icm42607_sensor_conf *oldconf = &st->conf.accel;
+> > +	unsigned int val;
+> > +	int ret;
+> > +
+> > +	if (conf->mode < 0)
+> > +		conf->mode = oldconf->mode;
+> > +	if (conf->fs < 0)
+> > +		conf->fs = oldconf->fs;
+> > +	if (conf->odr < 0)
+> > +		conf->odr = oldconf->odr;
+> > +	if (conf->filter < 0)
+> > +		conf->filter = oldconf->filter;
+> > +
+> > +	if (conf->fs != oldconf->fs || conf->odr != oldconf->odr) {
+> 
+> We could use the regmap cache feature to avoid having to manual keep
+> track of old values. Or just always write the same values anyway. I
+> find that is nice when debugging hardware with a logic analyzer. Unless
+> there is some measureable performance improvlment here?
 
--- 
-2.34.1
+This is another one I had a question on. I'm not entirely clear from the
+datasheet which reg values are volatile and which ones are safe to cache.
+Performance wise the 42607 series appears to be the *least* performant
+in their lineup, so I don't imagine we care much either way. Should I just
+not worry about the old values and always write? Do you think that would
+work?
 
+> 
+> > +		val = INV_ICM42607_ACCEL_CONFIG0_FS_SEL(conf->fs) |
+> > +		INV_ICM42607_ACCEL_CONFIG0_ODR(conf->odr);
+> > +		ret = regmap_write(st->map, INV_ICM42607_REG_ACCEL_CONFIG0, val);
+> > +		if (ret)
+> > +			return ret;
+> > +		oldconf->fs = conf->fs;
+> > +		oldconf->odr = conf->odr;
+> > +	}
+> > +
+> > +	if (conf->filter != oldconf->filter) {
+> > +		if (conf->mode == INV_ICM42607_SENSOR_MODE_LOW_POWER) {
+> > +			val = INV_ICM42607_ACCEL_CONFIG1_AVG(conf->filter);
+> > +			ret = regmap_update_bits(st->map, INV_ICM42607_REG_ACCEL_CONFIG1,
+> > +						 INV_ICM42607_ACCEL_CONFIG1_AVG_MASK, val);
+> > +		} else {
+> > +			val = INV_ICM42607_ACCEL_CONFIG1_FILTER(conf->filter);
+> > +			ret = regmap_update_bits(st->map, INV_ICM42607_REG_ACCEL_CONFIG1,
+> > +						 INV_ICM42607_ACCEL_CONFIG1_FILTER_MASK, val);
+> > +		}
+> > +		if (ret)
+> > +			return ret;
+> > +		oldconf->filter = conf->filter;
+> > +	}
+> > +
+> > +	return inv_icm42607_set_pwr_mgmt0(st, st->conf.gyro.mode, conf->mode,
+> > +					  st->conf.temp_en, sleep_ms);
+> > +}
+> > +
+
+Thank you otherwise for all your valuable feedback. I've implemented
+it to the best of my ability and plan on resubmitting this series
+soon. Thank you.
+
+Chris
