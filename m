@@ -1,120 +1,522 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9304C3FB06C;
-	Tue, 28 Apr 2026 11:12:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0E43F7A8B
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 11:13:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777374749; cv=none; b=L9YGB5Sw+ZJ9oCx01dzSjkdgE6IOda5Uj1SOWJWbJcX5OzpRWQ94cjtFSjJbWJIcNmNrdySs3vEvv9S9H7xfLvPUnfP50fEIIOo3fWWI3NLm3CT05X2Fekr7p7MaRbFFlZAcEQb5p+R9B02qr1UhnXsj5h3dYgibCsBsaFqG/EI=
+	t=1777374798; cv=none; b=VTkIeN1J81UGe4WCgaNUYgya18s10qhxkeYQHc9ZtP6D8fwdCfgsWy7HwIogIBEdP50Tq0OjkPYYFikajMF+4/u169OQTQTzjPH6eNeigbGtImDNgbC2x+Dm0+Dn7erZC6PLBp9WkcZa44Nr2w/8SyauttS+fkP2SzpmVaJ4vEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777374749; c=relaxed/simple;
-	bh=l9p52mJ3IfvCGCC9KRjHmJ0LFuLa6o8Ibv7XD3DrdGs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nbxSe0wbCmxN2TpL7aDBo/bHw9Z475KDy/d6QKb3OYBmKxMhddiNF35fLh6Mm/69rmyHDJskIZF+qomUCSlVQTXS3ha5Y07ti7nkYY5jGeRajRLYZLoYdjx89m6SihxiW2CCS5nnwbFm3iR5pRmwK48NanDRoiIxk4QMNDvMknY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F172WmJz; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777374798; c=relaxed/simple;
+	bh=KY/LKzoaJShkrox+8o/j+PhuR2mpqsb7kdLuplRquFg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iKZDmga1+Cs0wKFknxeke0JzRWNIAgYNkIsjvReFAz+pfQjqEQaHUEqYS9eGXK1Kgzyc8iAckgfzxz/GInZ8odBrGU9YNQFqK89Ve5b4arQdWK5luzZ18hUwvzb5qYHqH2xHYz+b7D1+Rdg/pxTkXkPMgTzSBZDpDK0DDy6NATw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fTuAct1t; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F172WmJz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31CB6C2BCAF;
-	Tue, 28 Apr 2026 11:12:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777374749;
-	bh=l9p52mJ3IfvCGCC9KRjHmJ0LFuLa6o8Ibv7XD3DrdGs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=F172WmJzZGE+OVcktFEoxNALbg1ZNb+95SjvBOpKnCv/Ao2ZEArFplcn1n0iVbQKV
-	 e2CDw38ctbRfX9uA8QpmnjTQIO9UCpXDm9hmfCoc4EZdtp8Aid4izBnIF9pQCf8e9i
-	 ylCA873WdFwf+yvRglLmxvTRbnMbfdNqQs1W7NcALJN7YgiHk6FypgDtQXtzShhi3s
-	 MCk4A4mLopToSBEeyMPaMfTCv3IL8tB1PBId2G3hWhu5yOA90UbV41dgUx796Q1cIa
-	 PQA7qNCECqMuO3svV7s4gWzM0f0e2Mjb96gJL7Du42nus5LOugk4fYimiiw64CPmMS
-	 BvpkB9BIaantA==
-Message-ID: <a872b9ef-0d39-4ecc-9620-9b5d33d4d48f@kernel.org>
-Date: Tue, 28 Apr 2026 13:12:22 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fTuAct1t"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4891b0786beso81365145e9.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 04:13:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777374794; x=1777979594; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Z11n+PRhb7EWOxgpZ9gxX8IAfg6BMXQq4yyy1cTr18E=;
+        b=fTuAct1t4vfO4BDdbaDvHSLS9gr0T/8sggpWRrBRI7VcsPbJ7RnKtmo6/uLI34Ij+y
+         KFoIenyzLyw3rbDWf2d3FmalSCby753ksEC92qMwaKKzg0BifOB+AdqjTY+xt77+Gpqf
+         ZY5Y9a4BDWRO/6TeGFIdlL+tafAUZmwjt+oDMCv/HxwKtMmq8NhH05lz3/PVRKt91+P7
+         mBxfd7j5Pg+Cm29J6BuljijLMlWY1koctczSpX6gz2XV+aYlCea0P/wrAnnWSeMNXaYX
+         5xHN1673/viTr3VAKhczBeNVhraUIP08NRoRckX6bv7nty/UW4p2iX1XFtDsKUFsBAmt
+         R0IA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777374794; x=1777979594;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z11n+PRhb7EWOxgpZ9gxX8IAfg6BMXQq4yyy1cTr18E=;
+        b=ab0MZ7n0FzsGq1xfj8RkhM6tmZ71EPxu3OR1EeY93W65fHoCUPr6xKBItTQ+0OGm3E
+         CfTAwhNl9Lezy4Mr8kF3/4b35A/9XQl7LeDfrYNTZpC5qGDVLXb9O0FfmIDeM4dA/0d5
+         xvZnJO3k83dxc5vaKW98nLYX3Jn3Wmv6UlfNSLrpVWT4omMoUS5Mw71XBqO8SGsIlJA+
+         7VXgyrlC4R6967LByP6+BsNAE+qPDi6wnA9Mw4KtMi5DPtolDS3lumA0a/bwAIUYjBjl
+         BjmJVGfmtyFyZO8peYE691TR/UkvW1RA+R3soIgn8+1G2wDpz2IcFCvlChRpFBchAzXI
+         Fulw==
+X-Forwarded-Encrypted: i=1; AFNElJ/h4o550sB0XXu1xs27qajtixDkkXPK3hlBLLIznY2+ldqfXQpvpkNgBEqRUzEnTGHcmH/X00+8ZKZ5@vger.kernel.org
+X-Gm-Message-State: AOJu0YwKul1qOf65evMEwGvchSh+r0j8pq9avr6OXVVSz0UBDl0j6Ibd
+	5PJMkmNXoox/oLhL6OC+G520wxyahXDnLorGiiPwrnutEtH/+mCfyOF6
+X-Gm-Gg: AeBDiesDk9IKp8UjuRFNYDuByqHn+BYdRgzipokhsss2mORemFKNfpMEQyfeoSLC1Lt
+	ZsVOrhYzWgo2j8ZttzBMx940+2Jhy7HjQMm0fzSwmVQAP3nxuSUnKwwXiFaWPWqD4WywSvihPQ3
+	mvd6RID6k2c7lOct+qwnAr8mQfxShAcT7Ciit1nWb+1umXTYuqJSzlB8MwayFLMJzGIQemrrQU5
+	n7MdHzIaYOYgT3NVxoNMTEgBv9zJ5P1iCLyfOhaH0r6PwbD4dPWh3r1e6ryH4X1Qfo3H/vRvhuq
+	tU/uSmg6CVhJk0Ms0ZCWm7VGNj6JbuZBAD/74uf0BgzX2HBCpO1DQsHz0vCh8M9Rki2MBevUu+k
+	CPRbhStxNJ1sXBZXiR+t+O40ZkkjySbsyido4u2yfAtxc8IKtCcNmWSoxq9wwT/PmytjsNqATqq
+	6CtZoNgo9c+323ALYAhymy4pJPyw==
+X-Received: by 2002:a05:600c:8b52:b0:488:a882:c7 with SMTP id 5b1f17b1804b1-48a77b1a4aemr45443975e9.25.1777374793963;
+        Tue, 28 Apr 2026 04:13:13 -0700 (PDT)
+Received: from nsa ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a77b24035sm42059235e9.9.2026.04.28.04.13.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Apr 2026 04:13:13 -0700 (PDT)
+Date: Tue, 28 Apr 2026 12:14:05 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: Liviu Stan <liviu.stan@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: temperature: ltc2983: Add support for ADT7604
+Message-ID: <afCVtXBHIIoLlsRo@nsa>
+References: <20260427132526.272716-1-liviu.stan@analog.com>
+ <20260427132526.272716-3-liviu.stan@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: display/msm: Fix typo in clock-names
- property
-To: Prabhakar <prabhakar.csengg@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260428100338.3179722-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260428100338.3179722-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260427132526.272716-3-liviu.stan@analog.com>
 
-On 28/04/2026 12:03, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Mon, Apr 27, 2026 at 04:25:08PM +0300, Liviu Stan wrote:
+> The ADT7604 shares the same die as the LTC2984. It repurposes the
+> custom RTD sensor type (18) as a copper trace resistance sensor
+> and the custom thermistor type (27) as a leak detector, and
+> removes thermocouple, diode and direct ADC sensor types.
 > 
-> Fix the typo "clocks-names" to "clock-names" in the allOf/if conditional
-> blocks.
+> Custom RTD (type 18) becomes the copper trace sensor. Sensor
+> configuration bits 21:18 are hardcoded to 0b1001 per the
+> datasheet. Two variants are supported via the new
+> adi,copper-trace-sub-ohm DT property: sub-ohm traces (< 1 ohm)
+> have bits 17:0 cleared with no excitation current or custom
+> table; standard traces (> 1 ohm) accept an optional
+> resistance-to-temperature table.
 > 
-> Fixes: 9be5c47908e66 ("dt-bindings: display/msm: expand to support MST")
-> Fixes: 7403e87c13847 ("dt-bindings: display: msm: Fix reg ranges and clocks on Glymur")
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Custom thermistor (type 27) becomes the leak detector. Sensor
+> configuration bits are hardcoded to 0b001. The custom table
+> uses a resolution of 16 (20+4 bit resistance field) instead of
+> 64, and is specified via the new adi,custom-leak-detector DT
+> property.
+> 
+> Both sensor types expose an IIO_RESISTANCE channel reading from
+> the resistance result register bank (0x060-0x00AF), added to
+> the regmap readable ranges. Scales are 1/1,024,000 for copper
+> trace (result in mOhm) and 1/1024 for leak detector (result
+> in Ohm).
+
+But for userspace we report both in Ohm? That's the ABI AFAICT. In DT,
+you also mention IIO_TEMP is used:
+
+"IIO_TEMP reports coverage percentage"
+
+Can you expand more on what the above means? Are we reporting milli
+degrees celcius to userspace?
+
+I could not find the datasheet so I guess it's not yet public?
+
+> 
+> A has_copper_trace capability flag is introduced in
+> ltc2983_chip_info to identify the ADT7604, following the
+> existing has_temp and has_eeprom pattern.
+> 
+> Tested on EVAL-ADT7604-AZ connected to Raspberry Pi 5 via SPI.
+> 
+> Signed-off-by: Liviu Stan <liviu.stan@analog.com>
 > ---
-> v1->v2:
-> - Added "Fixes" tags.
+>  drivers/iio/temperature/ltc2983.c | 347 +++++++++++++++++++++---------
+>  1 file changed, 251 insertions(+), 96 deletions(-)
+> 
+> diff --git a/drivers/iio/temperature/ltc2983.c b/drivers/iio/temperature/ltc2983.c
+> index 38e6f8dfd3b8..1966f6fb0305 100644
+> --- a/drivers/iio/temperature/ltc2983.c
+> +++ b/drivers/iio/temperature/ltc2983.c
+> @@ -28,6 +28,8 @@
+>  #define LTC2983_STATUS_REG			0x0000
+>  #define LTC2983_TEMP_RES_START_REG		0x0010
+>  #define LTC2983_TEMP_RES_END_REG		0x005F
+> +#define ADT7604_RES_RES_START_REG		0x0060
+> +#define ADT7604_RES_RES_END_REG			0x00AF
+>  #define LTC2983_EEPROM_KEY_REG			0x00B0
+>  #define LTC2983_EEPROM_READ_STATUS_REG		0x00D0
+>  #define LTC2983_GLOBAL_CONFIG_REG		0x00F0
+> @@ -58,8 +60,8 @@
+>  
+>  #define LTC2983_CHAN_START_ADDR(chan) \
+>  			(((chan - 1) * 4) + LTC2983_CHAN_ASSIGN_START_REG)
+> -#define LTC2983_CHAN_RES_ADDR(chan) \
+> -			(((chan - 1) * 4) + LTC2983_TEMP_RES_START_REG)
+> +#define LTC2983_CHAN_RES_ADDR(chan, base) \
+> +			((((chan) - 1) * 4) + (base))
+>  #define LTC2983_THERMOCOUPLE_DIFF_MASK		BIT(3)
+>  #define LTC2983_THERMOCOUPLE_SGL(x) \
+>  				FIELD_PREP(LTC2983_THERMOCOUPLE_DIFF_MASK, x)
+> @@ -214,6 +216,7 @@ struct ltc2983_chip_info {
+>  	unsigned int max_channels_nr;
+>  	bool has_temp;
+>  	bool has_eeprom;
+> +	bool has_copper_trace;
+>  };
+>  
+>  struct ltc2983_data {
+> @@ -272,6 +275,7 @@ struct ltc2983_rtd {
+>  	u32 r_sense_chan;
+>  	u32 excitation_current;
+>  	u32 rtd_curve;
+> +	bool sub_ohm;
+>  };
+>  
+>  struct ltc2983_thermistor {
+> @@ -575,6 +579,10 @@ static int ltc2983_rtd_assign_chan(struct ltc2983_data *st,
+>  		if (ret)
+>  			return ret;
+>  	}
+> +
+> +	if (rtd->sub_ohm)
+> +		chan_val &= ~GENMASK(17, 0);
+> +
+>  	return __ltc2983_chan_assign_common(st, sensor, chan_val);
+>  }
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+I'm not sure if we shouldn't just treat the new types as new sensors
+instead of trying to push them in the existing one. I agree with Andy,
+the patch does not look great with respect to if() else() and going to
+deep in indentation.
 
-Best regards,
-Krzysztof
+>  
+> @@ -758,83 +766,113 @@ ltc2983_rtd_new(const struct fwnode_handle *child, struct ltc2983_data *st,
+>  		return dev_err_ptr_probe(dev, ret,
+>  					 "Property reg must be given\n");
+>  
+> -	ret = fwnode_property_read_u32(child, "adi,number-of-wires", &n_wires);
+> -	if (!ret) {
+> -		switch (n_wires) {
+> -		case 2:
+> -			rtd->sensor_config = LTC2983_RTD_N_WIRES(0);
+> -			break;
+> -		case 3:
+> -			rtd->sensor_config = LTC2983_RTD_N_WIRES(1);
+> -			break;
+> -		case 4:
+> -			rtd->sensor_config = LTC2983_RTD_N_WIRES(2);
+> -			break;
+> -		case 5:
+> -			/* 4 wires, Kelvin Rsense */
+> -			rtd->sensor_config = LTC2983_RTD_N_WIRES(3);
+> -			break;
+> -		default:
+> +	/* ADT7604 requires hardcoding sensor configuration bits to 0b1001 */
+> +	if (st->info->has_copper_trace &&
+> +	    sensor->type == LTC2983_SENSOR_RTD_CUSTOM) {
+> +		rtd->sensor_config = 0x9;
+> +		if (sensor->chan < LTC2983_DIFFERENTIAL_CHAN_MIN)
+
+Like the above, we have the following kind of condition all over the
+place. In DT we can just have a different type for these and map it to
+real value when creating the sensor.
+
+...
+
+>  
+>  	/* set common parameters */
+> @@ -908,17 +946,27 @@ ltc2983_thermistor_new(const struct fwnode_handle *child, struct ltc2983_data *s
+>  		return dev_err_ptr_probe(dev, ret,
+>  					 "rsense channel must be configured...\n");
+>  
+> -	if (fwnode_property_read_bool(child, "adi,single-ended")) {
+> -		thermistor->sensor_config = LTC2983_THERMISTOR_SGL(1);
+> -	} else if (fwnode_property_read_bool(child, "adi,rsense-share")) {
+> -		/* rotation is only possible if sharing rsense */
+> -		if (fwnode_property_read_bool(child, "adi,current-rotate"))
+> -			thermistor->sensor_config =
+> -						LTC2983_THERMISTOR_C_ROTATE(1);
+> -		else
+> -			thermistor->sensor_config =
+> -						LTC2983_THERMISTOR_R_SHARE(1);
+> +	if (st->info->has_copper_trace &&
+> +	    sensor->type == LTC2983_SENSOR_THERMISTOR_CUSTOM) {
+> +		thermistor->sensor_config = LTC2983_THERMISTOR_C_ROTATE(1);
+> +		if (sensor->chan < LTC2983_DIFFERENTIAL_CHAN_MIN)
+> +			return dev_err_ptr_probe(dev, -EINVAL,
+> +						 "Invalid chann:%d for leak detector\n",
+> +						 sensor->chan);
+
+Same story
+
+> +	} else {
+> +		if (fwnode_property_read_bool(child, "adi,single-ended")) {
+> +			thermistor->sensor_config = LTC2983_THERMISTOR_SGL(1);
+> +		} else if (fwnode_property_read_bool(child, "adi,rsense-share")) {
+> +			/* rotation is only possible if sharing rsense */
+> +			if (fwnode_property_read_bool(child, "adi,current-rotate"))
+> +				thermistor->sensor_config =
+> +							LTC2983_THERMISTOR_C_ROTATE(1);
+> +			else
+> +				thermistor->sensor_config =
+> +							LTC2983_THERMISTOR_R_SHARE(1);
+> +		}
+>  	}
+> +
+>  	/* validate channel index */
+>  	if (!(thermistor->sensor_config & LTC2983_THERMISTOR_DIFF_MASK) &&
+>  	    sensor->chan < LTC2983_DIFFERENTIAL_CHAN_MIN)
+> @@ -928,23 +976,36 @@ ltc2983_thermistor_new(const struct fwnode_handle *child, struct ltc2983_data *s
+>  
+>  	/* check custom sensor */
+>  	if (sensor->type >= LTC2983_SENSOR_THERMISTOR_STEINHART) {
+> -		bool steinhart = false;
+> -		const char *propname;
+> -
+> -		if (sensor->type == LTC2983_SENSOR_THERMISTOR_STEINHART) {
+> -			steinhart = true;
+> -			propname = "adi,custom-steinhart";
+> +		if (st->info->has_copper_trace &&
+> +		    sensor->type == LTC2983_SENSOR_THERMISTOR_CUSTOM) {
+> +			if (fwnode_property_present(child, "adi,custom-leak-detector")) {
+> +				thermistor->custom =
+> +					__ltc2983_custom_sensor_new(st, child,
+> +								    "adi,custom-leak-detector",
+> +								    false, 16, false);
+> +				if (IS_ERR(thermistor->custom))
+> +					return ERR_CAST(thermistor->custom);
+> +			}
+>  		} else {
+> -			propname = "adi,custom-thermistor";
+> +			bool steinhart = false;
+> +			const char *propname;
+> +
+> +			if (sensor->type == LTC2983_SENSOR_THERMISTOR_STEINHART) {
+> +				steinhart = true;
+> +				propname = "adi,custom-steinhart";
+> +			} else {
+> +				propname = "adi,custom-thermistor";
+> +			}
+> +
+> +			thermistor->custom = __ltc2983_custom_sensor_new(st, child,
+> +									 propname,
+> +									 steinhart,
+> +									 64, false);
+> +			if (IS_ERR(thermistor->custom))
+> +				return ERR_CAST(thermistor->custom);
+>  		}
+> -
+> -		thermistor->custom = __ltc2983_custom_sensor_new(st, child,
+> -								 propname,
+> -								 steinhart,
+> -								 64, false);
+> -		if (IS_ERR(thermistor->custom))
+> -			return ERR_CAST(thermistor->custom);
+>  	}
+> +
+>  	/* set common parameters */
+>  	thermistor->sensor.fault_handler = ltc2983_common_fault_handler;
+>  	thermistor->sensor.assign_chan = ltc2983_thermistor_assign_chan;
+> @@ -1167,7 +1228,8 @@ static struct ltc2983_sensor *ltc2983_temp_new(struct fwnode_handle *child,
+>  }
+>  
+>  static int ltc2983_chan_read(struct ltc2983_data *st,
+> -			const struct ltc2983_sensor *sensor, int *val)
+> +			const struct ltc2983_sensor *sensor,
+> +			u32 base_reg, int *val)
+>  {
+>  	u32 start_conversion = 0;
+>  	int ret;
+> @@ -1197,13 +1259,23 @@ static int ltc2983_chan_read(struct ltc2983_data *st,
+>  	}
+>  
+>  	/* read the converted data */
+> -	ret = regmap_bulk_read(st->regmap, LTC2983_CHAN_RES_ADDR(sensor->chan),
+> +	ret = regmap_bulk_read(st->regmap, LTC2983_CHAN_RES_ADDR(sensor->chan, base_reg),
+>  			       &st->temp, sizeof(st->temp));
+>  	if (ret)
+>  		return ret;
+>  
+>  	*val = __be32_to_cpu(st->temp);
+>  
+> +	if (base_reg == ADT7604_RES_RES_START_REG) {
+> +		/*
+> +		 * Resistance result register gives a plain unsigned value,
+> +		 * D31 is always 0, no valid bit, no fault bits. Read bits[30:0]
+> +		 * directly — the temperature result format does not apply here.
+> +		 */
+> +		*val &= GENMASK(30, 0);
+> +		return 0;
+> +	}
+> +
+>  	if (!(LTC2983_RES_VALID_MASK & *val)) {
+>  		dev_err(&st->spi->dev, "Invalid conversion detected\n");
+>  		return -EIO;
+> @@ -1214,6 +1286,7 @@ static int ltc2983_chan_read(struct ltc2983_data *st,
+>  		return ret;
+>  
+>  	*val = sign_extend32((*val) & LTC2983_DATA_MASK, LTC2983_DATA_SIGN_BIT);
+> +
+>  	return 0;
+>  }
+>  
+> @@ -1234,7 +1307,12 @@ static int ltc2983_read_raw(struct iio_dev *indio_dev,
+>  	switch (mask) {
+>  	case IIO_CHAN_INFO_RAW:
+>  		mutex_lock(&st->lock);
+> -		ret = ltc2983_chan_read(st, st->sensors[chan->address], val);
+> +		if (chan->type == IIO_RESISTANCE)
+> +			ret = ltc2983_chan_read(st, st->sensors[chan->address],
+> +						ADT7604_RES_RES_START_REG, val);
+> +		else
+> +			ret = ltc2983_chan_read(st, st->sensors[chan->address],
+> +						LTC2983_TEMP_RES_START_REG, val);
+
+I think the preferred style is to also have switch() case for the above
+
+>  		mutex_unlock(&st->lock);
+>  		return ret ?: IIO_VAL_INT;
+>  	case IIO_CHAN_INFO_SCALE:
+> @@ -1251,6 +1329,18 @@ static int ltc2983_read_raw(struct iio_dev *indio_dev,
+>  			/* 2^21 */
+>  			*val2 = 2097152;
+>  			return IIO_VAL_FRACTIONAL;
+> +		case IIO_RESISTANCE:
+> +			/* value in ohm */
+> +			*val = 1;
+> +			/*
+> +			 * Copper trace result is in milliohm with 10 fractional
+> +			 * bits: divide by 2^10 * 1000 = 1024000.
+> +			 * Leak detector result is in ohm with 10 fractional
+> +			 * bits: divide by 2^10 = 1024.
+> +			 */
+> +			*val2 = (st->sensors[chan->address]->type == LTC2983_SENSOR_RTD_CUSTOM) ?
+> +				1024000 : 1024;
+> +			return IIO_VAL_FRACTIONAL;
+
+I would prefer a plain if() else
+
+>  		default:
+>  			return -EINVAL;
+>  		}
+> @@ -1292,6 +1382,17 @@ static irqreturn_t ltc2983_irq_handler(int irq, void *data)
+>  	__chan; \
+>  })
+>  
+> +#define LTC2983_RESISTANCE_CHAN(index, __address) ({ \
+> +	struct iio_chan_spec __chan = { \
+> +		.type = IIO_RESISTANCE, \
+> +		.indexed = 1, \
+> +		.channel = index, \
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE), \
+> +		.address = __address, \
+> +	}; \
+> +	__chan; \
+> +})
+> +
+>  static int ltc2983_parse_fw(struct ltc2983_data *st)
+>  {
+>  	struct device *dev = &st->spi->dev;
+> @@ -1339,6 +1440,16 @@ static int ltc2983_parse_fw(struct ltc2983_data *st)
+>  			return dev_err_probe(dev, ret,
+>  				"adi,sensor-type property must given for child nodes\n");
+>  
+> +		if (st->info->has_copper_trace) {
+> +			if ((sensor.type >= LTC2983_SENSOR_THERMOCOUPLE &&
+> +			     sensor.type <= LTC2983_SENSOR_THERMOCOUPLE_CUSTOM) ||
+> +			     sensor.type == LTC2983_SENSOR_DIODE ||
+> +			     sensor.type == LTC2983_SENSOR_DIRECT_ADC)
+> +				return dev_err_probe(dev, -EINVAL,
+> +			 "sensor type %d not supported on %s\n",
+> +			 sensor.type, st->info->name);
+> +		}
+> +
+
+The above is also not great! Maybe see the possibility of having a
+supported sensors mask that you fill in chip_info! Then we would just
+test_bit() in here
+
+>  		dev_dbg(dev, "Create new sensor, type %u, chann %u",
+>  			sensor.type, sensor.chan);
+>  
+> @@ -1380,6 +1491,15 @@ static int ltc2983_parse_fw(struct ltc2983_data *st)
+>  		st->sensors[chan]->chan = sensor.chan;
+>  		st->sensors[chan]->type = sensor.type;
+>  
+> +		if (st->info->has_copper_trace) {
+> +			if (st->sensors[chan]->type == LTC2983_SENSOR_THERMISTOR_CUSTOM &&
+> +			    to_thermistor(st->sensors[chan])->custom)
+> +				st->iio_channels++;
+> +			else if (st->sensors[chan]->type == LTC2983_SENSOR_RTD_CUSTOM &&
+> +				 to_rtd(st->sensors[chan])->custom)
+> +				st->iio_channels++;
+> +		}
+> +
+
+Having to go up to to_thermistor() and to_rtd() in a common path like
+here also smells :). One possible solution would be to refactor things
+so that:
+
+`st->iio_channels = st->num_channels` is not necessarily true.
+
+struct ltc2983_sensor could have a new n_iio_chan count given that now
+we can (AFAIU) one sensor with more that one IIO channel. Then we could
+count things in a generic way in here.
+
+We might need to change more things that I'm missing now.
+
+>  		channel_avail_mask |= BIT(sensor.chan);
+>  		chan++;
+>  	}
+> @@ -1426,7 +1546,7 @@ static int ltc2983_eeprom_cmd(struct ltc2983_data *st, unsigned int cmd,
+>  
+>  static int ltc2983_setup(struct ltc2983_data *st, bool assign_iio)
+>  {
+> -	u32 iio_chan_t = 0, iio_chan_v = 0, chan, iio_idx = 0, status;
+> +	u32 iio_chan_t = 0, iio_chan_v = 0, iio_chan_r = 0, chan, iio_idx = 0, status;
+>  	int ret;
+>  
+>  	/* make sure the device is up: start bit (7) is 0 and done bit (6) is 1 */
+> @@ -1473,6 +1593,26 @@ static int ltc2983_setup(struct ltc2983_data *st, bool assign_iio)
+>  		    !assign_iio)
+>  			continue;
+>  
+> +		/*
+> +		 * Copper trace and leak detector sensors without a custom table
+> +		 * produce only a resistance result; the chip does not populate
+> +		 * the temperature result register. Emit only an IIO_RESISTANCE
+> +		 * channel in this case.
+> +		 */
+> +		if (st->info->has_copper_trace) {
+> +			bool resistance_only =
+> +				(st->sensors[chan]->type == LTC2983_SENSOR_RTD_CUSTOM &&
+> +				 !to_rtd(st->sensors[chan])->custom) ||
+> +				(st->sensors[chan]->type == LTC2983_SENSOR_THERMISTOR_CUSTOM &&
+> +				 !to_thermistor(st->sensors[chan])->custom);
+> +
+> +			if (resistance_only) {
+> +				st->iio_chan[iio_idx++] =
+> +					LTC2983_RESISTANCE_CHAN(iio_chan_r++, chan);
+> +				continue;
+> +			}
+> +		}
+> +
+
+My above suggestion would also fit for the above I believe.
+
+>  		/* assign iio channel */
+>  		if (st->sensors[chan]->type != LTC2983_SENSOR_DIRECT_ADC) {
+>  			chan_type = IIO_TEMP;
+> @@ -1488,6 +1628,11 @@ static int ltc2983_setup(struct ltc2983_data *st, bool assign_iio)
+>  		 */
+>  		st->iio_chan[iio_idx++] = LTC2983_CHAN(chan_type, (*iio_chan)++,
+>  						       chan);
+> +
+> +		if (st->info->has_copper_trace &&
+> +		    (st->sensors[chan]->type == LTC2983_SENSOR_RTD_CUSTOM ||
+> +		     st->sensors[chan]->type == LTC2983_SENSOR_THERMISTOR_CUSTOM))
+> +			st->iio_chan[iio_idx++] = LTC2983_RESISTANCE_CHAN(iio_chan_r++, chan);
+
+
+I think the above can also be dropped and improved with what I
+suggested.
+
+- Nuno Sá
+
