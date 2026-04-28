@@ -1,173 +1,222 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010066.outbound.protection.outlook.com [52.101.193.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E81358391;
-	Tue, 28 Apr 2026 15:09:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.66
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777388991; cv=fail; b=kxotfWRLuzFcQYloeWTN1Vo+YvsxlS+k+rXyWLIeqsoCrCfylctuPKSQGo40R/Q2+u1/4c1DWCtpdNiAuh3r09EstsHAWAPbYQWkkuXb94qA5trNuFJg8Gz9KNSC6YChuG74iO45LLuYdCs0iyKuyV68P6MV6/lwFykflw4iBfY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777388991; c=relaxed/simple;
-	bh=5cQuDjhy5xiixscJexDslqJHsC5/6YwWGqBYFjqp/n0=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Hn2R1KdYkRIYCM36PXyoQbNDF+vR8u3vncUFi4xH7N2Z+n8NlNCT/JCF7J31sGXE4X4BFEV910rMUxpM2686vbvzGWmGRJgOUFgMsGqwJXnwhvZ9nNiSQgdIT8bDZkuzERxrk363CrLwVxzPa0E+F4X3j2WFI3dSnwnbJVpSB8c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=VRrMPWgl; arc=fail smtp.client-ip=52.101.193.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E94843C047;
+	Tue, 28 Apr 2026 15:09:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777388996; cv=none; b=JFF5478XoK2Xxw1H3hTgav6D/fOMMn2ktB9HVXDF6dgHPCsPM/D+3u6muW2jB+rNkpBiiDJ4hI2jqYlIrbU5MGkGmSuUQp/xX+l5Ww30kVXDzSq9MULkfswE9TvamwyiEafN9tlX/DwHb2604sFOCyIjqmfOD0rVsXH+vOF9ezo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777388996; c=relaxed/simple;
+	bh=6Wn5RlgVJ7Tb8uQ9GRdxiAw+akTPiDx9gaJheqB2gfw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RMud+rC+lvY3vDcDxMG3VHB4Cx6iq+jinmdyXqlj2cNlGU+c7WTpVkY3lM/FwADEIC+Uu4eP4K2PlkQrhsXHNbEXFIIiKxj9HITQXePo70JStLM4iNB0oSa6bX81n0FFSvvRYrTodfIoGpVrqV1tEHfgWooPboDPM3Qcxy8HO1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pw5gTGfa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="VRrMPWgl"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q3prjf2hHwYFA6o6lj+qGXLxVZOF9sDxp7Qysj+4ywpXM9bk8oYZ3o3dYSRYE8AOq9oDxadZB9nabz3NDXzP3anTMXlTmIRa8TVUuW7SAJwh85UcXOssYNR3CzJemKcaadT25t67GR/SgWUerYW0PXZi1bj2NS0xhF0fD6ucK9tlFywi8e4CtfeHUGc2cvj0bkrX/4AYVCnnbbrYEA9FmwHC2AiZ4tvShQAkq7ZmXYWra9JYtkScEVlyLGOcQdwsDldXVz4696RDAgiNB7aKxmkbpfP4xaO5vGtXYbhhY7mMuvL65mybqh1Lck5jANSX0+p71RwvaJFbMdLtfMWUfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LCumSf6nuPQFSfWA3Bz9OKHTGeqoeCqn3v0+mjJ5XrE=;
- b=ZCcOtp0B9nb44a4zfgjYc7Gczd5xRszrPwAkILzGNvQZ1s74bdkJHDN7z2LPDoOsw+WJx3W0V9YBdL5Efs9x0piEu85VpoPrPXd4Tr4rd70mG9TCbM1NT6tn9aaJSovaIu8YNiyxcbaKsyUcQikxELza2dM2YgoN3+Gusz2+RT/7wZU5XqQk2iLiOtDPIMGjr7rzorJWQjNMQWT3ubYOSQlHmgwEFJxwwg9K0CSXeXRlK5X6HucahxGPPga9iUq+3f4V6TG0dUfz/T6e9YaafoteY6gIvnAOUmdhoWJE3nI19GRQSFDFxam2ntvB6C7s6iSrSg57aAa5Qrixn0goMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LCumSf6nuPQFSfWA3Bz9OKHTGeqoeCqn3v0+mjJ5XrE=;
- b=VRrMPWglM8LPVbaUeLpjFXR0lA8Yf2NkgyZSnI6j14HqiJS5i9rN2WlGOZw7Wq8hW/vngBiJZt6HBMty/W0ZL7ldpvwoVdoyD4K4GAldl6j80Qc1Zheu0YDWPHE4wSDad2hFnqnkvm6Y9XteVv+GBoLn0Cg+L54ApGgVa/zoPWfzM1EZSwdjDIg/KyKkNXTiTQi6cc0YEkk5EqLx9mTz3G3D9HlyTilL/fuuR04mGQupaOiZB0ch8KWQx242131GbiqW5mvtvGyE13GEpBY8s/yKSWZ0D9SGSO3WBZ+mn46WsudruLgiaBSlxtowhj4H/9oqEs+OuliUf/iski5lZw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM4PR03MB6208.namprd03.prod.outlook.com (2603:10b6:5:39c::19)
- by SJ0PR03MB5725.namprd03.prod.outlook.com (2603:10b6:a03:2ae::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.21; Tue, 28 Apr
- 2026 15:09:43 +0000
-Received: from DM4PR03MB6208.namprd03.prod.outlook.com
- ([fe80::2216:93ef:67b:9e04]) by DM4PR03MB6208.namprd03.prod.outlook.com
- ([fe80::2216:93ef:67b:9e04%6]) with mapi id 15.20.9846.025; Tue, 28 Apr 2026
- 15:09:42 +0000
-Message-ID: <ddc1d4a3-0287-4a57-b3dd-8a9260da05f3@altera.com>
-Date: Tue, 28 Apr 2026 20:39:32 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: reset: altr: add COMBOPHY_RESET for Agilex5
-To: Dinh Nguyen <dinguyen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260428092615.29681-1-tanmay.kathpalia@altera.com>
- <96705fc3-332e-4bd1-acb9-7494ca83e070@kernel.org>
-Content-Language: en-US
-From: "Kathpalia, Tanmay" <tanmay.kathpalia@altera.com>
-In-Reply-To: <96705fc3-332e-4bd1-acb9-7494ca83e070@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0067.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b7::6) To DM4PR03MB6208.namprd03.prod.outlook.com
- (2603:10b6:5:39c::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pw5gTGfa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63A36C2BCAF;
+	Tue, 28 Apr 2026 15:09:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777388995;
+	bh=6Wn5RlgVJ7Tb8uQ9GRdxiAw+akTPiDx9gaJheqB2gfw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Pw5gTGfaVCzIb3NLSczGXOmu2MwATrBI5cEWgRCc2w92/GygUUobT0mRn64L/X/Zs
+	 qL6dFgnUIkx9mP+TQRkDEVfv+WW3EnvTQZazvLidM7wsmxVWxSbAytDQEVxoWqsrDL
+	 IkRQXgQ0hVysvPXX/tY1rzl/mmqoZIauopLlq+SH/qdS0YrA8qKN4M5qTRJiI8HOc8
+	 73zugE83OnDvWOVHOGUbym0Pmi4wQHdJiAZYvzAaa5yn0g5i1bLjV7QOUIBYQjHejp
+	 k1Jrk2OmAqJSPtxblv8DnAEFPZiuyWPCoamTTAz7g7iigCvul345fPPKc5jMxHNqvM
+	 xRp8CUvhuNtEQ==
+Message-ID: <534f0795-0002-4c04-a83c-fa1b3ce68216@kernel.org>
+Date: Tue, 28 Apr 2026 17:09:49 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR03MB6208:EE_|SJ0PR03MB5725:EE_
-X-MS-Office365-Filtering-Correlation-Id: 53d2e5f4-b742-4ba8-c89c-08dea5382c36
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003|55112099003;
-X-Microsoft-Antispam-Message-Info:
-	E0lulKRUyKzJgOLtBzGyJ4w8b+eGwjZGztUcdC1yuGp4OhLK/yuCEQI+WqPrxxM5hK+dfBzBpTyJRbZefr4CmT3va62moVkU7hHh2vd4eehLnntihGhFlOpKMbPbKiWy2lT0lKXH85z/y9kIqwX3Cz0BIbqUuqMKrpe0iQvxvcimmFrOaBgOuCgL+SDJ/0IN5FGSX6H22hADtPBbMOjGnjyjqMrVEebLUE1pdoz3+evPjYFgZzZrIti2oNWPmijQIXsuElkKEvmznKma1nG98LgpWxSbELn3hWawukwXuxg30nB4GpBjsJl8UxYKInhoXMpLsvbgxsp7mzUgLBgJzIZ8IxSGnde9MhJj8hhcNd85/C5TLWhkYiv1Ax0AR6zKvoorzP74zscA7GMpOEptnQDN5d2uFqrbOG++VIV3prbWkCY23PvIC7SHw4VURHDgmJdT+UjQa0d0Sj9PM1CQM7znkkgwqneb1MLeAcbDvAHIswTDf5UdYYYI0wLc6LRBgY/fDAqwstTWUSJJrvtJQktBT/wxDyvOXHP221xcMKwrTCc5feaYltGoKkbAQQMKO4jJqY7vt8sNGOdv/vpuM3Kp66D4LzexGcePg1yOYZOoldthRCu5rWypMCFDlCsu4+q+cYn3w7iKKLcW5OH1H6VKYykFAkxjPPJEpKCBm0ZsQXbU2+9r1p1HhToac5zmPln/bDOwCEDSwQlOX51p6qTG1+7du0Hg3wBygsMFF6M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6208.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003)(55112099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZXRmM21iUERNdTlQL285S0sxZU1mbHZtVHF1UnlzZHRDRkNHVXR1Zjc4V2VQ?=
- =?utf-8?B?bWxhSUdXNTNkM054SVpLQ29lREM4OFNHU2dHSTE2UmpVYnRWNG9DR2ZUQXpK?=
- =?utf-8?B?MWhNRm9MNVJCQWtVV1N1VUNzVlNSSzY2WWNnRUNEa3ZZMGo4NHpCOVhQUUd2?=
- =?utf-8?B?T0RWaHh2TzFrOWd1R3lnU25BV3RuNmNFNlR5UldFY2pkSHdDWkpXL0g3Q1h5?=
- =?utf-8?B?Znhqd08xa3hjYStCQ0hkUGR5dVdvcFhja0JXbE8zdko1RnZNU2ppZC9aVHZR?=
- =?utf-8?B?UTFmeW9iUW9ValB6TE5MSVlxMnVCVVVUTFB5YXdBVlpGRmM1UStmb3FPV3VK?=
- =?utf-8?B?YnZFTFpRTHZXKzVhSjZnMXo0WTE1cTZwTy9NTDRkc0VlQjNhTGdWSnVtc0ZE?=
- =?utf-8?B?OURGdDNGQWpWQTBQNmN4ZkxzZTFBRWo4UUcvMDdESnpnWkFxTDZLUWZ2b3U4?=
- =?utf-8?B?TmtuVTVVeUpENHBmeWxqVW81Rjh0MGNDeW9DQ29ENmR3MzRpS3FSaVd2Y0JI?=
- =?utf-8?B?bzNhTHVxdTlQRU15OEttZXRuVU91T2RhNC83Y0R4Z3A1NGN6UDUyNXEwbHl6?=
- =?utf-8?B?QnBkYkxFUWMvdlhYRFdNSWlRNHlRbmlMZ0lPNUpINTlORGlXYUdwdzJ1NFVK?=
- =?utf-8?B?elZOTnNPYkx6WmFOWFRvQnhJMTRNNFlNNUYvazRaQjlPZFlIQVd3V3R4RHlv?=
- =?utf-8?B?WFJ2Rm1YdWdPUlBJTnlscHJMVXFlMDdVd2k5MSt3bituM0l2dWpwM21KaDND?=
- =?utf-8?B?bVVBYzY5TVdxVERaQnFiSVIrMkJqcE1LdUhHaTYxdjU0eEVHY3JLWVdhRmVq?=
- =?utf-8?B?UVdSSEFiUkt0bG1ZcGF5c1Z2MjNMVjZKSEFTcElNbW5xU1hLREt3T0ZwZW1l?=
- =?utf-8?B?T1Q4bUZScys0V0FoUWdJaUpJbmNKcGhwbzAyN0lLUmFLVWZ2MWh5UytsekJj?=
- =?utf-8?B?cVFlR04zUlVoSm9Sa1lWTEF2M2JLVW13MjlmMGpnU0pNSjBBVFdjeFpONjBu?=
- =?utf-8?B?VTRlV3NmOFNhRGJISXJESmg3UDlXaWFERzBqWStQSTFUZFdoRGdrZG4vaGxn?=
- =?utf-8?B?bFRpOUdqZ3M4MitQR0hWSXNNQnNxRlF0VXI0d3pFRmo4RDNlczk0Vmo1Vk1Y?=
- =?utf-8?B?U2NHYS84WnNXajFnM1IzR21haDQ5cEFtS2l5SGs3YTVsVjFYYXY4bllEa0xP?=
- =?utf-8?B?UHZaYzZ4VDFTVFhLb1FJNWJHV0o3MUNQblpKTVkrVU9wRGJobTdleXFuL3hv?=
- =?utf-8?B?MlgrNjl2T2ovR3NzUHp2Uzc1U0d3MmthYU5KN0d2eSt6U3psMDlyRGtheDdj?=
- =?utf-8?B?N3FNNWlkZXdoL0JWaXNaS243eHVKaVdqUGVpRGtPRDBCWFVmbythQkpKY24x?=
- =?utf-8?B?SmR0RUpUZVhFQXJkc3lHNkJPUGRIRFRUTXdYL2FOOFluazFKL1R3MVNjdFVN?=
- =?utf-8?B?aE5NcE4rSG9oaXNldCtCVy9CVzdZWXpZcjkwQm9hL1ZrZCtwd1VjeHJUVVZN?=
- =?utf-8?B?a1k1NUFMTmxqVU41UmRrSkZjdGs4dzRZeGRYWlNCdGY2cFBBSEVaYnVVcGxx?=
- =?utf-8?B?WktRKzhnU0V0ZGEwNnAwMDN2emJxSkgwMllHTGthKzV2d2xSWkthOXp4RWRr?=
- =?utf-8?B?TkdCTWFFT1E0NnU1aThqczJEY0ZjWDRra2pxSmdTblN1S3U3ZmMxMXJUdjVZ?=
- =?utf-8?B?ajh2RzZyaVV0MHpJOXhocFMvTW1mdUR0K1UwdUlaL0x0VDBuQzE2ZGdiaGoz?=
- =?utf-8?B?cmJJekFhUDlHM3I4VVpwU1ZtT3BRSGVyaG52U3B4enpPZEw0R1FlWFpUR3A4?=
- =?utf-8?B?YzhqZG9nOWZQZmdQNmVKbVpBeHBtUkxncXZOT28vSm1RSUVLazA0eWNiRUEx?=
- =?utf-8?B?azc4bW5lbmhNRjFwdWFtbGlrN1l6bHQ5aXNVWlNrU2gvZWNaQzZuazU1S1pE?=
- =?utf-8?B?UXgzUmFYN1ZnMU9DNzdtTVVrUDQyeUZzU2VOZVFoclRacVhEMDcxK2FZZG9U?=
- =?utf-8?B?SFZJQW5EQzRpRWVpbk5sY0FUZmdzN1FYVGVvbGZlVmdkVnEraU96VVlCNlIw?=
- =?utf-8?B?cGJOcHFoUjhta1ZvUjh2blY1ZUdxbHh0cmFxUXNYR3dEeWNOR0x6UEsxQjdX?=
- =?utf-8?B?TFdyUHBUcWVZRXhmTUpEaDFFd3g2QzBTczhYcXFETUxvVnA0ZjRFY2U0YWFa?=
- =?utf-8?B?Mk5ScDJzaWxUaVdPOXljU3Z0TkFjOVJnVWdBb2E3eFFPOVhkbUx4eHdONURz?=
- =?utf-8?B?dnNBSkFyME05ck1LbHJJcFN4ajBMaFdGSjdqK2tTOVJrMkFSYmo3OGdkMnVY?=
- =?utf-8?B?dUxNdmk0TE92OW9JQ05pZDRyMERaNS81K1BGZ3lacFdjeEZ2YmZhZUs4Wk95?=
- =?utf-8?Q?YAeCSeP75kBsUdHg=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53d2e5f4-b742-4ba8-c89c-08dea5382c36
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6208.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 15:09:41.9730
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kbrDglawY64WFPfNxTI/5kY8cK7WdYP8H44JM0hjG5cMp2uJFehKygjwMKIN4ViwypxfPFJ5Lmi9lo/B60NaJ57CFm1JspTNVmL8A3ZYMBM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5725
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] dt-bindings: power: supply: sgm41542: document
+ sgm41542
+To: Chris Morgan <macromorgan@hotmail.com>
+Cc: Chris Morgan <macroalpha82@gmail.com>,
+ linux-rockchip@lists.infradead.org, linux-pm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ xsf@rock-chips.com, sre@kernel.org, simona@ffwll.ch, airlied@gmail.com,
+ tzimmermann@suse.de, mripard@kernel.org, maarten.lankhorst@linux.intel.com,
+ jesszhan0024@gmail.com, neil.armstrong@linaro.org, heiko@sntech.de,
+ conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org
+References: <20260427170914.5062-1-macroalpha82@gmail.com>
+ <20260427170914.5062-2-macroalpha82@gmail.com>
+ <20260428-bulky-nebulous-reindeer-ed45ed@quoll>
+ <PH0PR19MB997338F0B06B7B99AA0ED3C6C4A5372@PH0PR19MB997338.namprd19.prod.outlook.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <PH0PR19MB997338F0B06B7B99AA0ED3C6C4A5372@PH0PR19MB997338.namprd19.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Dinh,
-
-On 4/28/2026 6:02 PM, Dinh Nguyen wrote:
-> Hi Tanmay
->
-> On 4/28/26 04:26, Tanmay Kathpalia wrote:
->> Add COMBOPHY_RESET definition at index 38 for the combo PHY reset
->> control on Altera Agilex5 SoCs. This reset is used by peripherals
->> such as the SD/eMMC controller that share the combo PHY.
+On 28/04/2026 16:09, Chris Morgan wrote:
+> On Tue, Apr 28, 2026 at 09:47:00AM +0200, Krzysztof Kozlowski wrote:
+>> On Mon, Apr 27, 2026 at 12:09:09PM -0500, Chris Morgan wrote:
+>>> From: Chris Morgan <macromorgan@hotmail.com>
+>>>
+>>> Document the SG Micro sgm41542 battery charger/boost converter.
+>>>
+>>> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+>>> ---
+>>>  .../supply/sgmicro,sgm41542-charger.yaml      | 99 +++++++++++++++++++
+>>>  1 file changed, 99 insertions(+)
+>>>  create mode 100644 Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
+>>> new file mode 100644
+>>> index 000000000000..3e5041e5b551
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
 >>
->> Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
->> ---
->>   include/dt-bindings/reset/altr,rst-mgr-s10.h | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
+>> Filename must match compatible.
+> 
+> Acknowledged.
+> 
 >>
->> diff --git a/include/dt-bindings/reset/altr,rst-mgr-s10.h 
->> b/include/dt-bindings/reset/altr,rst-mgr-s10.h
->> index 04c4d0c6fd34..c2505b9eb63e 100644
->> --- a/include/dt-bindings/reset/altr,rst-mgr-s10.h
->> +++ b/include/dt-bindings/reset/altr,rst-mgr-s10.h
->> @@ -22,7 +22,7 @@
->>   #define USB0_RESET        35
->>   #define USB1_RESET        36
->>   #define NAND_RESET        37
->> -/* 38 is empty */
->> +#define COMBOPHY_RESET        38
->>   #define SDMMC_RESET        39
->>   #define EMAC0_OCP_RESET        40
->>   #define EMAC1_OCP_RESET        41
->
-> Please include the patch(es) that will make use of this change.
->
+>>> @@ -0,0 +1,99 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/power/supply/sgmicro,sgm41542-charger.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: SGM41542 Battery Charger
+>>> +
+>>> +description: |
+>>
+>> Do not need '|' unless you need to preserve formatting.
+>>
+> 
+> Will fix.
+> 
+>>> +  The SGMicro SGM41542 is a single cell battery charger/boost controller.
+>>> +
+>>> +maintainers:
+>>> +  - Chris Morgan <macromorgan@hotmail.com>
+>>> +  - Xu Shengfei <xsf@rock-chips.com>
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    const: sgmicro,sgm41542
+>>> +
+>>> +  input-current-limit-microamp:
+>>
+>> Missing vendor prefix.
+>>
+> 
+> This *appears* to be a standard value (perhaps not formally, but in use by
+> enough devices to suggest a defacto standard), which is why I did not use
+> the vendor prefix here. Do I need to add that for this one?
 
-Thanks for the feedback, I will incorporate this patch as part of
-the driver series
+I know, I found these other properties but I think they were just coming
+from old schema.
 
-Regards,
-Tanmay
+If it is really a common property, then should be defined in a common
+schema and this did not happen.
 
+> 
+>>> +    description:
+>>> +      Optional value to clamp the maximum input current limit to for
+>>> +      the device. If omitted, the default value for the hardware will
+>>> +      be used (2400000).
+>>> +    minimum: 100000
+>>> +    maximum: 3800000
+>>> +
+>>> +  input-voltage-limit-microvolt:
+>>> +    description:
+>>> +      Optional value to clamp the maximum input voltage limit to for
+>>> +      the device. If omitted, the default value for the hardware will
+>>> +      be used (4500000).
+>>> +    minimum: 3900000
+>>> +    maximum: 12000000
+>>> +
+>>> +  interrupts:
+>>> +    maxItems: 1
+>>> +
+>>> +  monitored-battery:
+>>
+>> You miss definition of this property. I guess this is power supply, so
+>> reference proper schema for power supplies. Look at other bindings to
+>> for some example code.
+> 
+> I'll look at this some more, I might have a few more questions. But I will
+> make the changes requested.
+> 
+>>
+>>> +    description: |
+>>> +        A phandle to a monitored battery node. Values for the following
+>>> +        are used by the driver and if not present will result in default
+>>> +        values being applied:
+>>> +        constant-charge-current-max-microamp
+>>> +        constant-charge-voltage-max-microvolt
+>>> +        charge-term-current-microamp
+>>> +        precharge-current-microamp
+>>> +
+>>> +  reg:
+>>> +    maxItems: 1
+>>> +
+>>> +  regulators:
+>>
+>> No need for regulators node, just define here otg-vbus directly. But
+>> honestly, your example is incomplete or you defined something implied by
+>> the compatible. If you have a fixed 5V regulator, what is the point of
+>> defining it in the DT?
+> 
+> The regulator can be adjusted within a range around 5V, and is referenced
+> by the USB subsystem. Should I still omit it from the device tree or instead
+> define the min and max values?
+
+If it can be adjusted then it's fine, can stay.
+
+
+Best regards,
+Krzysztof
