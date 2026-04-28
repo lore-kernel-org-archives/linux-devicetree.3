@@ -1,150 +1,115 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B821B3101C8;
-	Tue, 28 Apr 2026 08:41:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663942580F2;
+	Tue, 28 Apr 2026 08:42:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777365698; cv=none; b=EpBgAPBbgEcaUidO9mlHJu2YK7RwJx9M9eAposxij8ny6z4RCzrhKPF6CJeRj5aLg09RVpkvkAkqC+Z984qOs6YvZ1pYzg/HTsa3keQ+sHYTdRLK+hKlTb+/KYM+Cc7yNc1rattjo++wgZXUdQnrWXP4m+9xwN+GAUtrrDjjUBQ=
+	t=1777365741; cv=none; b=PfT3t03+dWGWOiGoeuDylwW6VavRnIrzvU2fJbcYvjJd+icivaNGI1HHPEeuaiFnZFi6ySuZm8JVSrECo9lUPIh22wVS3vZ2X6N+/cfFWeAk6Z2kaIneDS4zy/ZH73h10gxhSR7bCI4LIZO6QR0lryzIXZkNSWHz83ym/kPd+ME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777365698; c=relaxed/simple;
-	bh=XPTCEcTHbkekBt6T4R3aXPqOPTdwjmg9/9WWoig2Tmo=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=Y+OMPftWb5FWQZbAXy/Qs7jucBXDzz7XPt3vc/s4l/CS91A4C7iGnNqpuORI0nPRMHrkzCF6oRT/cSl3hYdOHWWwS7Jf6u/YOJvr0tIEAjSnI+uXWjxUhend9qlPW9zUvHjGUu9jFNdySy6S86/Q4KDQyaNMCCT1dp+YVWj50rk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CSCcT/j2; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1777365741; c=relaxed/simple;
+	bh=+Ht49/48BDDFyIwfwFjfCOcc/KlPavM8NYKMinsAYcw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AtR19ratvvUaIhj3vQXIIF4Bt2xEET+JDPM8EEmuRFRXSewUNuV7veNfoDkk1q8STmS59Z3bqYhLZqlaoYWeOmwijexVE2Y2+By1Ho44yTcoDjcWiZjmzc1AGqbdprC87PxrhYoyrEtWiEYe5AY84olWSGUvcRxWjcEFzA/17B8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aUidP4Oa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CSCcT/j2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777365697; x=1808901697;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=XPTCEcTHbkekBt6T4R3aXPqOPTdwjmg9/9WWoig2Tmo=;
-  b=CSCcT/j2vkl7FrcvTreT3O3pxYsiBFeMFOCZBGE8buClXtL/+ZnrftZB
-   yH4e4j0E34c+cWxCQ1uBY1+fdn/g+uayKXg1LUsjugOgeHwBPzODKrdQU
-   bcoIOlzWFBOpDsuUvNnp1+KY5iO4ZYnx0yPV2mVqWdpkcRhHo6EWbJWmZ
-   lGk5GPIUbXpKl94GYBxGVzAVGWGR/wU13EmxemKImiMnjb5Nl+/jnmRO1
-   xqW0siKAdeXxzMuu8tz3EXDvAz0FnEO6XIo0+SmMVajy4BLmwWIPrx1ZF
-   C5ZEILsmeP3LUuE470S+wi7oViN5PBKdxMO1/dewG3cGQFYoY/pvJhIqI
-   w==;
-X-CSE-ConnectionGUID: pTwBDUegRUKaG8iblSqgdQ==
-X-CSE-MsgGUID: eO4YKIsaQc+iT9nYRYJHrA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="78378969"
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; 
-   d="scan'208";a="78378969"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Apr 2026 01:41:36 -0700
-X-CSE-ConnectionGUID: 1x1HMCQuSp+u6ywDASTGNA==
-X-CSE-MsgGUID: but3WnWeQfyNuUnb2Rt03Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; 
-   d="scan'208";a="232884984"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.1])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Apr 2026 01:41:31 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 28 Apr 2026 11:41:27 +0300 (EEST)
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Jia Wang <wangjia@ultrarisc.com>
-cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-    Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-    Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
-    linux-serial <linux-serial@vger.kernel.org>, 
-    linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 2/4] serial: 8250_dw: build Renesas RZN1 CPR value
- from DW_UART_CPR_* definitions
-In-Reply-To: <afBhkbGLsuqUitOl@ashevche-desk.local>
-Message-ID: <23c80500-f2c1-0eb3-f640-00f7b108059b@linux.intel.com>
-References: <20260428-ultrarisc-serial-v5-0-97de63b1e3eb@ultrarisc.com> <20260428-ultrarisc-serial-v5-2-97de63b1e3eb@ultrarisc.com> <afBhkbGLsuqUitOl@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aUidP4Oa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 868EFC2BCAF;
+	Tue, 28 Apr 2026 08:42:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777365741;
+	bh=+Ht49/48BDDFyIwfwFjfCOcc/KlPavM8NYKMinsAYcw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=aUidP4OaMwgjxPoXKZiDR1NJ9hmI/njL/LK9mCj85dG3DhDFo6nqtQuXeFuriBsN3
+	 rud85YALDxzU/teJlweV8w+jTYEJOBiXxqCBs1KyjTq8ZuXbtWShIWrqZg2U+f8aqT
+	 JAIima6VHQSrQENt3qf0tXGTa7sYCwStq7+MmLHWNpnpTN4VL4Sq7bUWN/EJwgeIGw
+	 Hjsg9dWHwEQZzTaJSM7n+Th2EoiEZlW/0W9nl9G7xUUnpzsD5qu3pSCUEhswfp85Sb
+	 fOJd6y29rdTzeTD+Rsv5n1br6sWZiO3dZqiiUqB9z4I2aD64I6GfhDVJYwWj6w2Vg2
+	 hrEcZKVapzhjA==
+Message-ID: <ee58a5d6-9268-445c-a270-1f4a49b49c6e@kernel.org>
+Date: Tue, 28 Apr 2026 10:42:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/2] dt-bindings: pwm: dwc: add optional reset
+To: dongxuyang@eswincomputing.com, ukleinek@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, ben-linux@fluff.org,
+ ben.dooks@codethink.co.uk, p.zabel@pengutronix.de,
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: ningyu@eswincomputing.com, linmin@eswincomputing.com,
+ xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
+ pinkesh.vaghela@einfochips.com
+References: <20260424094529.1691-1-dongxuyang@eswincomputing.com>
+ <20260424095435.1721-1-dongxuyang@eswincomputing.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260424095435.1721-1-dongxuyang@eswincomputing.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 28 Apr 2026, Andy Shevchenko wrote:
+On 24/04/2026 11:54, dongxuyang@eswincomputing.com wrote:
+>  
+> +allOf:
+> +  - $ref: pwm.yaml#
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: eswin,eic7700-pwm
 
-> On Tue, Apr 28, 2026 at 01:26:27PM +0800, Jia Wang wrote:
-> > Replace the magic CPR value for Renesas RZ/N1 with a composition using
-> > DW_UART_CPR_* bit/field definitions and FIELD_PREP_CONST().
-> > 
-> > Introduce a helper macro to convert a FIFO size (bytes) into the CPR
-> > FIFO_MODE field value, with BUILD_BUG_ON_ZERO() checks for alignment and
-> > bounds. Use it to replace the literal FIFO_MODE values in the RZN1.
-> 
-> A couple of nit-picks below. After addressing them you can add
-> 
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> 
-> ...
-> 
-> >  #include <linux/bitfield.h>
-> >  #include <linux/bits.h>
-> > +#include <linux/build_bug.h>
-> > +#include <linux/align.h>
-> 
-> Preserve order, 'a' goes before 'b'.
-> 
-> >  #include <linux/io.h>
-> >  #include <linux/types.h>
-> 
-> ...
-> 
-> >  /* Helper for FIFO size calculation */
-> >  #define DW_UART_CPR_FIFO_SIZE(a)	(FIELD_GET(DW_UART_CPR_FIFO_MODE, (a)) * 16)
-> 
-> > +#define DW_UART_CPR_FIFO_MODE_MAX	0x80
-> 
-> You used decimal values elsewhere (id est 16), use upper limit in decimal
-> as well.
-> 
-> > +#define DW_UART_CPR_FIFO_MODE_FROM_SIZE(size)				\
-> > +	(BUILD_BUG_ON_ZERO(!IS_ALIGNED((size), 16)) +			\
-> > +	 BUILD_BUG_ON_ZERO(((size) / 16) > DW_UART_CPR_FIFO_MODE_MAX) +	\
-> > +	 ((size) / 16))
-> 
-> I don't see the need in having that maximum being defined separately (we don't
-> have that for 16, no need to have it for 128.
-> 
-> Since some ISA:s have one assembly instruction to get both / and % divisions,
-> it's better to use that instead of IS_ALIGNED(). Can you check code generation
-> for x86_64 / x86?
+Same problem as v3 which I commented. I do not understand why your new
+device has also 1 reset.
 
-Do those BUILD_BUGs even generate code, especially when they are expected 
-to only appear in a struct initializer?
+Your commit msg MUST explain why 1 reset is valid.
 
-> #define DW_UART_CPR_FIFO_MODE_FROM_SIZE(size)				\
-> 	(BUILD_BUG_ON_ZERO((size) > 2048) + BUILD_BUG_ON_ZERO((size) % 16) + ((size) / 16))
-> 
-> Note, I dropped first division in order to show the upper limit in a plain
-> number since 16 is also FIFO size in bytes.
-> 
-> Also note, this evaluates (size) three times, which might be problematic,
-> but I think we can leave with that for now.
-
-I'd put also FIELD_PREP_CONST() into the macro itself as I don't see much 
-value for this macro outside of those .cpr_value initializations.
-
-IMO, the entire macro would be cleaner looking as a truly multi-line 
-construct. Can we use static_assert()s in struct field initialization 
-(I'm not sure), something along these lines:
-
-#define DW_UART_CPR_FIFO_MODE_FROM_SIZE(size)			\
-({								\
-	typeof (size) __size = size;				\
-								\
-	static_assert(IS_ALIGNED((__size), 16));		\
-	static_assert(__size <= DW_UART_CPR_FIFO_MODE_MAX);	\
-								\
-	FIELD_PREP_CONST(DW_UART_CPR_FIFO_MODE, __size / 16);	\
-})
-
--- 
- i.
-
+Best regards,
+Krzysztof
