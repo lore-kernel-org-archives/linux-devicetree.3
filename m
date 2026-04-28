@@ -1,89 +1,62 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC9F3D411A;
-	Tue, 28 Apr 2026 08:19:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5314B3D34BD;
+	Tue, 28 Apr 2026 08:22:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777364359; cv=none; b=fCuVRcd1yJFpm2RHEiGv9b6wmPXvJexshuULOeMoe4XYJNNcHg/LwpzV4liYY747mFhnq79cDT0WM2SZqCXiT0gtUoBWYl9MhjoUQWHiNJwvWeyjKSz23gKJIINLYoKH4GFJioAxHgi0ZRmJKTL1s4N09XPraUjTZBEsSZyVPiY=
+	t=1777364542; cv=none; b=Za8OkX1ZBJXSfRH4wM7eGXwy4cTq2kGkXRRiJammohLknT1iEDh+shSzgNljFV0hBQvkdplySRZ0Tpx5eP8RrlIy8p/J4tpAXJrp/7RMWTZnTCZ1cmS5llf50ydUW5AmcXccEw030PNH+z0mAqquLJyjrG35v99R/6K233LynOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777364359; c=relaxed/simple;
-	bh=LPlcOO4oTr6lzEKDfTYi1Sv2tWWa1TpBzwz0HZv8geQ=;
+	s=arc-20240116; t=1777364542; c=relaxed/simple;
+	bh=lfz/ksKkFC0NR846C2PlTrK9Y+PX6UClsHE5m5sF8Oo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NoehGia3DC5IyyIcckfSn2tH38sSSQFw+g2w3td0eWqyGv8NMfCV7YvxNokrQzRoE+dOcv/jMqZfrQe5srZ2aA3ZsxlplbxT8qetLBpMvzjB4CqjPthZKm56vANoTKHRARHGtL03sKGcG58AU/Urn7a7Wk7cEMibv0QWDY65KOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aS82/cLG; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=WTWSw7+LqGUPHxpMEePffSakWWxWwp7iEDKG0UvQMZ01d0UO+orM2I61blBbXPYmrMKsc9CeP2L/7cCopM9skCE7dvHq+zwd7Hm+LUG7wBwd7z9HQs8rDK4LMrs1rssqoS0OWD1m2wCVxAU3O5Ug/wp1H/H9X7ylIklMfHrYNZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ckbzzsS3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aS82/cLG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777364358; x=1808900358;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=LPlcOO4oTr6lzEKDfTYi1Sv2tWWa1TpBzwz0HZv8geQ=;
-  b=aS82/cLG+n5ntQ/JrtG7kgt38+jzUx/VmnRuYspdpoJ+Ph3ggFXaGFOt
-   DclLxbklz7qUfA+2k7/XVGT3sdnAxypDKQn3Zgny9uU5UNUSXI5La63sy
-   lBn0o1n6z4O28FoOh7lcXn9OfvCotDuvTEABSRoGPd7oZdYVm1iZFRmYz
-   yZXDeGPQHNkkVrkeL66il+GJchNNbiII1t+j9X/Aa0KIjRvAkxxlpbI5G
-   IaIx33CdJ98gNe4fU3gxsP5cv19XGIW0jX396WCSeYAkEAdEnx/eCYWqH
-   8EZvL3plA82yBnboV7yVOMC/giZu5bSjklDLQNc1hj8HplQl9E15nlf2U
-   g==;
-X-CSE-ConnectionGUID: makpklzUSS2QrJYA6jow8Q==
-X-CSE-MsgGUID: wkP8jJQWToisOnVUNsuegw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="65795857"
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; 
-   d="scan'208";a="65795857"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Apr 2026 01:19:17 -0700
-X-CSE-ConnectionGUID: IatilBlqQmimrRvkgbIzXQ==
-X-CSE-MsgGUID: DjGukAhZRVSuOyhPJS1zNw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; 
-   d="scan'208";a="233759413"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.213])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Apr 2026 01:19:14 -0700
-Date: Tue, 28 Apr 2026 11:19:11 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 4/4] serial: 8250_dw: Use a fixed CPR value for
- UltraRISC DP1000 UART
-Message-ID: <afBtf0gx8r2Z9a2E@ashevche-desk.local>
-References: <20260428-ultrarisc-serial-v5-0-97de63b1e3eb@ultrarisc.com>
- <20260428-ultrarisc-serial-v5-4-97de63b1e3eb@ultrarisc.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ckbzzsS3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 911F0C2BCB8;
+	Tue, 28 Apr 2026 08:22:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777364542;
+	bh=lfz/ksKkFC0NR846C2PlTrK9Y+PX6UClsHE5m5sF8Oo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ckbzzsS3dTUcLoud7ObxAGoHH/pnOiVYzZIXnFUpw4JGOouPYSFGSpPkGKczCb84u
+	 GnjfjCT0eVd0w5uJuSD9Nx9Q/0/+VEW7w6KPSw2gWzqT0Ig25iUxfZe6o5sixzNgmB
+	 kO02/Yr9TWgGa1Vd7v21aYdi8iudOnRPZFapQf0wBn1xMM5ABa1b8Sk+grO2CYCYse
+	 kxi2xciOrWOCAo7BJjm1YMEICSZKF8sWYgtU/zdhJnjKpEzHIzud8gllqtNVXT+NO4
+	 rpfPa+04OsRfBsi9E/TNd0YsTSqhTXhNyKkiJRfma6/Wc9Soi2mp1qkPHrDxKuc1w6
+	 tyPUfjBDPvH3Q==
+Date: Tue, 28 Apr 2026 10:22:19 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: soc: qcom,aoss-qmp: Document the Hawi AOSS
+ side channel
+Message-ID: <20260428-golden-swift-of-effort-74d802@quoll>
+References: <20260427181609.3648384-1-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260428-ultrarisc-serial-v5-4-97de63b1e3eb@ultrarisc.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260427181609.3648384-1-mukesh.ojha@oss.qualcomm.com>
 
-On Tue, Apr 28, 2026 at 01:26:29PM +0800, Jia Wang wrote:
-> The UltraRISC DP1000 UART does not provide the standard CPR register used
-> by 8250_dw to discover port capabilities.
+On Mon, Apr 27, 2026 at 11:46:09PM +0530, Mukesh Ojha wrote:
+> Document the Always-on Subsystem side channel on Qualcomm Hawi SoC.
 > 
-> Provide a fixed CPR value for the DP1000-specific compatible so the
-> driver can configure the port correctly.
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/soc/qcom/qcom,aoss-qmp.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+Krzysztof
 
