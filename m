@@ -1,305 +1,209 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19011072.outbound.protection.outlook.com [52.103.23.72])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F483FD12B;
-	Tue, 28 Apr 2026 14:09:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.23.72
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777385378; cv=fail; b=nB027FsZlSDCnv70vPDL4jy4I0tPUQbSPpS1cy+pLw4Vjc/6eH5KKyJVk18uFVQgza9hRAAhIBvJ+9Fb1ebKIVSwKVI7XcptqSC7ANeIe4FzRd0K6ibuXxAhSb6VvjTYOBR9H68MyRXu1hNsHGYoc887GlS81T4yBgpukabenxI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777385378; c=relaxed/simple;
-	bh=4wYYBm5lh/MjMLC3BrabHO/jedY0PrhSz/rUL1lbvto=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=McvoFUPVk2ImvM46/DxFziJqLaPVnwwZuNOTYb3KQlBs5zKSvXhPS0LCY2IIs19NcmcAZV0PGtGnmStRtzHEzMICWQaAsAIUPT2DADXY2y10wk5cuCPlM18M93s5LlpeeEuSR7fgqYGIExWrqZ8t79NWHny5u/fxu/svPapdrkg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=h4GhKy4n; arc=fail smtp.client-ip=52.103.23.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CAD3246768
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 14:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777386195; cv=none; b=reYvO/kRjCz0ZS92t774ZmPz5Ufc71pxFkIqJCKVlEYCXK3WHzTSiJ+zF2SjGJz6Lgy7hq8+RPTqG7IlNlGLiCO3zqF5ySmJuRF7kd1KdSfzlqVuXc/z5DM1kJ4Zpgt1BU9EF29NELBHwjcM+CeU9LobxsNJm0o2X8liV/RBRWI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777386195; c=relaxed/simple;
+	bh=LijrkjFJMpmtl0RFSav1RQXDYuIS2GNEp12OlC/fnQU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=n58e3t/n0y6pdPBMluZAxrsKS1Z/Kke1WEjjyQGvAMMTr354tkXFOX2bdJADwJlM5OxefOIWTY8uGOVqtGOigxBdvisDOHqZwpgrW+CpYe/keRDrFCsfJOpH/nmd7/tyOkzpQKS3ICbDFdkbY5GVLyrrEopMiELtvKaUvZkWIL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C9wFGBxw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=N5qAoWPK; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="h4GhKy4n"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y7SFpk0D3bpz72iROmPYSupSks5csufLprkB7ORBZpsBfeNaUvzinPeYMHON0vQUPRW6bsCJxaJimkGjyOhZjMyGY4b7YtIk8udDQPcyT43LCLx0eOljyekhDBdslPIbXymf1pKeDbfi+nC3wrI8AI3hXv6LzXMv0H9MoU7vs3X9t8afeNYikBPpIYHP765CkEpe7FNhAk1yOn5K9wXxN/al3T+5zt0HyycAefl4uEFVbK6RcgtCziQqhWx8sObAq3ashFltvdvT+h11sc4MCik0ldl1/BHAEuaL+Va9Kglbf9CFSYM1AoaV9MkrfekU9d2bAZSJlLYHUVJWvTHf8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7Ej9TvUCL3Ze9l4edZ1r/QWQgNZ+IAlip5owdlVA7Bs=;
- b=JbLPOuMoLXc8rhEf32PzBE+FD9dJUelmg5m5nD2qG2p5+SsP8i5ON8OazRjXmkbX+pFAvmSDX84pFEyvyO2+/ctbg8E01sZBCcIoWocF22aPg6060BfgO6kG/L0dQxaLePCpxyBWFDJcPvDW0/oHOKNsEIugMkr48P4HFqveK/o6K7ZsVAlWZFCUBWeReP72heZ9Lf2Rua6pHqBefKXYuC+HSklVkAger7xynOoHndd+vHahawdcQjx5Bsa91wqxCJllbLdjMaki12RtJzzYp0fuxR8CrUeeRDr7DrDE+yBIrZqSJDmzNrdFSnn+SkMd5SIM6QXWY+Ke0WwCSBP9jQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7Ej9TvUCL3Ze9l4edZ1r/QWQgNZ+IAlip5owdlVA7Bs=;
- b=h4GhKy4nBhouXXxvLpgNIGm7vaYcGT4wfrkqZcTL8FQx8MmeG8IWANyxl9SOvwTQxoaT0sNpB9iaYBFQAhojQEz0yhsuDkQzn2r86dRwHh9qGAXspce/2Cx2kkWvNfTdSV8tUaB+DtJUWLCupRcM3JUK6hw8Yt9dR8tWcvkCvLhdt4SaCKoUU69rhTHT5o5d5Wt0NcpLu0XDH/tbC0faVziA1t6/M889AiMaXBqXKFpRaHSHXin/RiIA5Rm0Bb71pSLi5mSzvCmt1qvSH+HOomm8nmw0pt0ePezJY1ejabZ1Xa/HQOkGQyqOLyUW+3VEcHSSh/eMIfRCAAxY9OayXg==
-Received: from PH0PR19MB997338.namprd19.prod.outlook.com
- (2603:10b6:510:3b1::18) by DM3PR19MB8358.namprd19.prod.outlook.com
- (2603:10b6:8:1af::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Tue, 28 Apr
- 2026 14:09:34 +0000
-Received: from PH0PR19MB997338.namprd19.prod.outlook.com
- ([fe80::fd22:ee23:3e25:3172]) by PH0PR19MB997338.namprd19.prod.outlook.com
- ([fe80::fd22:ee23:3e25:3172%6]) with mapi id 15.20.9846.025; Tue, 28 Apr 2026
- 14:09:32 +0000
-Date: Tue, 28 Apr 2026 09:09:29 -0500
-From: Chris Morgan <macromorgan@hotmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Chris Morgan <macroalpha82@gmail.com>,
-	linux-rockchip@lists.infradead.org, linux-pm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	xsf@rock-chips.com, sre@kernel.org, simona@ffwll.ch,
-	airlied@gmail.com, tzimmermann@suse.de, mripard@kernel.org,
-	maarten.lankhorst@linux.intel.com, jesszhan0024@gmail.com,
-	neil.armstrong@linaro.org, heiko@sntech.de, conor+dt@kernel.org,
-	krzk+dt@kernel.org, robh@kernel.org
-Subject: Re: [PATCH 1/6] dt-bindings: power: supply: sgm41542: document
- sgm41542
-Message-ID:
- <PH0PR19MB997338F0B06B7B99AA0ED3C6C4A5372@PH0PR19MB997338.namprd19.prod.outlook.com>
-References: <20260427170914.5062-1-macroalpha82@gmail.com>
- <20260427170914.5062-2-macroalpha82@gmail.com>
- <20260428-bulky-nebulous-reindeer-ed45ed@quoll>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260428-bulky-nebulous-reindeer-ed45ed@quoll>
-X-ClientProxiedBy: SA1P222CA0112.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:3c5::25) To PH0PR19MB997338.namprd19.prod.outlook.com
- (2603:10b6:510:3b1::18)
-X-Microsoft-Original-Message-ID: <afC_md94llV0cKmI@wintermute.localhost.fail>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C9wFGBxw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="N5qAoWPK"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63SE4psE3456112
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 14:23:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=n4/CmuMpXrsR4zeR3KixXM
+	kaiDP4I+U9UFoAoRmEES8=; b=C9wFGBxwZbGqSpHYgzveA7EzaOmjjhvoKBHZZ8
+	EZIfHBft9olSpK+OhwZGiP8bPv1yK+KpIVsBI5PUL5E+mu9jB6if/7LVM4B6xmv5
+	3hCmLavmsPtblF2qJN5Z1NOuhRr0Qnbt34yW5yE/2skFuZby1sOPsBSR5O7KO0DW
+	gLXSq7zvnCVtvzb3q7hj48z9bx1EFTSYAM3m3VgSDG4yMqCqRNW+5hMfKXeZITx8
+	nU+eLTWivLYFiAH3TbfvvXf60/bZevkdcOt22fWAwFXS1Q5IfmAaVvBcgp00F08e
+	h2DNFP5BZWUTJ1aBVvOKg7Oc1ynB5HzYRSI7gVi2vr4rmqig==
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dtxb502x4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 14:23:11 +0000 (GMT)
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6948c46e69aso10064829eaf.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 07:23:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1777386191; x=1777990991; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=n4/CmuMpXrsR4zeR3KixXMkaiDP4I+U9UFoAoRmEES8=;
+        b=N5qAoWPKOWvmN7/XT95+5mHqC85xQtO4FyTcWhG0A6lZSOdalWGFzKopMwVKZxWF7I
+         cSTbfOhLa/a4+NqasONV6MSBPVWk2bIOdBwImacuG53+KCcdMG9JagefA/r+vDJBhxue
+         E9Un6ln62OnBdD+yvCZC7cQT4SMWsm2vg+3Osr3jzUVllXE9kpq5FT8V8wesItkAacef
+         KOAfcK9Nv2G9JFeOiVGd81/kC00XQirgO/9PeeyWE2l7xKv0jASOxBVjeEJym9w1UYJf
+         ja/ofkXvYIN5Kl0BiKbi6EyamR87IHQ3gXr1ZuEm6JrwtDnMJXCTilPcVmVoorFd2Pe8
+         LPAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777386191; x=1777990991;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=n4/CmuMpXrsR4zeR3KixXMkaiDP4I+U9UFoAoRmEES8=;
+        b=cotjbubUCoUCH16SDAbqLmy5sPQh/TiOdMEzIGiEH6tINi/x8m3i0NSAPJCu2BXtu3
+         PgEslc9ibgigLxVDJxCU+kMbJjT/SG26xC5YGZPpm4StMAz8rprD/zpFvMkd6uHWyM/d
+         J5f+0aLmqQCvKVb2PGpr96UNiejfIjGRklROHiiz8+Wz1QE+20ILkpiHGDJ1uA08nGEj
+         8Q/SSAAmt18loxSE8VrVOX596kUP50aFMQwbzqXIQU93Sh2R+npvn4FJDq+U4CZDapgv
+         fSq5L6zcdsIsP/RBMoJMdV6eGeuBbQvssIku3mwZxN38SQ3+bh4gimJQ2XFKR6KHXDA+
+         qDNw==
+X-Forwarded-Encrypted: i=1; AFNElJ8n9qyq+RFubNh1qnouuA2ljSq2KCWRfCY5MFGTbfIFvqK9+OYdJgHHe62aZ8WTNZYMCXTsBVxeirm1@vger.kernel.org
+X-Gm-Message-State: AOJu0YxyBbNbPY6wAFLiL1xMky5jUT+4AlQHVer6LCZmeG742B9MH0ss
+	H+WDe7bJicjueVQvSfsHCF7YZ4t3x1y0T8o8RV7upY/HzC3TjmMoSVz14l+/WaNhLy1W01ABe3J
+	QO+pTQekvNNOKx+WRVYs7CZ7EEdlBewnLZsYPq81tJpOvQvfJYdyMqhRxy2ahmp0s
+X-Gm-Gg: AeBDievEf0aAKKBZJntc0DCn0dqXi9y3Nf9d3ZUKE69os0BPl49SxKqgoyQ7NCTHgWE
+	iZtGPNW7b/PVLeufBmle8Kjp2mXUUIcJ0fq0S4yPo3jgIgQolhhA10rbes8Zeyocr90nWMxYNXo
+	kFwBCgTa/C0rV8i6+PSARfF4YCqH0LQSu7d/w+gewTr3qAInADV0pgQNemYOVSk5B7Z2SB8TNH3
+	HIzmOcxMTBudx32KC9TqY7m48Qea3x7XL7vPmntffS2sQIW7MzuMYtH4D0U/e1bV2vbOPH9UwPI
+	qGVP7oozPsgN29GTE8FEl8p9XaePnV/XgBYcRl+ut2c7Go22RTHMUZQdor1IbSdkOW7VSHYaGDs
+	P7r8KL4+mVQp+00OmS5g7cMyd0uLDuSUrWGmUJqXvbVUVY2orv52mbgruM1NTEwfIYW+ljMJ40z
+	VIhdQ3saJVQ8iPMLs4Q+pZtyAK4xI=
+X-Received: by 2002:a05:6820:1ca6:b0:694:a339:43ac with SMTP id 006d021491bc7-6965cb8b5fdmr1505725eaf.42.1777386190983;
+        Tue, 28 Apr 2026 07:23:10 -0700 (PDT)
+X-Received: by 2002:a05:6820:1ca6:b0:694:a339:43ac with SMTP id 006d021491bc7-6965cb8b5fdmr1505690eaf.42.1777386190463;
+        Tue, 28 Apr 2026 07:23:10 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:653f:4d28:6a78:a6ca])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bb80ba9b8c8sm107072666b.48.2026.04.28.07.23.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Apr 2026 07:23:09 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Subject: [PATCH 0/9] Support for block device NVMEM providers
+Date: Tue, 28 Apr 2026 16:23:05 +0200
+Message-Id: <20260428-block-as-nvmem-v1-0-6ad23e75190a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR19MB997338:EE_|DM3PR19MB8358:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8abdc3d1-273f-492b-b4be-08dea52fc529
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|41001999006|8060799015|461199028|6090799003|15080799012|19110799012|5072599009|23021999003|10092599007|37011999003|24021099003|51005399006|25031999004|10035399007|440099028|3412199025|40105399003;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?WcPSMRYf6jRD6KAFVSNMd6cnnry3qM2QC11GlL3Xdn9ua43MJ4c6EZAZMQ1H?=
- =?us-ascii?Q?hEBK0Km3B5Y3fb/mZWgOQPnWeNfHbj4xj37ov23kfIZSWwfzvYhr/6tOvhVG?=
- =?us-ascii?Q?PiRNgBC5rc02HCumCL5AYHn90J/h2/CmaNA3YvcPiIxDrdkxOfdOLFxuNK1y?=
- =?us-ascii?Q?o31DPOtinkRtXQkqO5qk+KoaVY7Ln4YvRvIC+Rbea04HOpkVNVDlh8YxqVH7?=
- =?us-ascii?Q?BsHGTRN/1GojK5cPEoNMXFBLoc2pXwRGd2ci9Ii9e4PK9Uyv+m+pxGsW4jq7?=
- =?us-ascii?Q?RGGc8M+qnBBRyQ0lbwZoDUDegC9kcMmzZ8Rl36QGQb5mYYt16KtKeutuV1fZ?=
- =?us-ascii?Q?bWvni5KAFyxgePaQ0q8+cNZMdI+HNPdDDoVc3r4hDGh8MqhPhQond0j+xjv5?=
- =?us-ascii?Q?4jbrg0Sq5U9w95v6MaC9wtWzhkKSMgZdEhuo7dzPbkv0lCo2rdvIA3Hkp0KU?=
- =?us-ascii?Q?yRuXcO6SpOpxjTUAxnTUwuCWfUOqvp6B+PEhoagf3rFOkfpxQ1NRfKzD4N5S?=
- =?us-ascii?Q?6W/xOrPE4nGaO0vyoDGaPeHh9bUsKUd5j8NQ6GXf+S9KXQCS3XoIMP69lLXu?=
- =?us-ascii?Q?19oV9mrohUXWedlTmFr2pvUh3KaQb5Pcy6OOOQtU/VVYiYsrxV6CMb9Iw9Ww?=
- =?us-ascii?Q?o8Te+cMkyzHs0ddT9A1YoxzGyUWqcSgmjuXNA/GBJ0YgB0v/aEJ0RXZBq6l7?=
- =?us-ascii?Q?fU2RDZRwjsGZzmyuhCmgAzVMHUaG02OQYd69CPGz1nOPbS3pIc/kqL6TRTV1?=
- =?us-ascii?Q?uKXMoOtEu4MOARtrMt4lsgmkdTyu1l7Ej+E5ajJd9xS8kQp6zoYpCQbav7xH?=
- =?us-ascii?Q?yK01vRHl3GvH56y6PKRMeRajQuSnQsjF0CzWpDx8LMRHAjyiNan8tzwrzPbd?=
- =?us-ascii?Q?Cu6VpPSRoQMdBA4SEQYJB69VXdVrMtr+dpbzsPUjl7CIXfNEQKAl8FjsxM7H?=
- =?us-ascii?Q?p4xrCnxRW9vWDaRub+CVbeteArR/zMfOgXMZWsSXzkgr8kanAcPnbg4OBl/z?=
- =?us-ascii?Q?lpj2dSLzWzNPMLnXlopX7efzyTCLqxPyw1tXIo+fjPV35atds81HzWrXJpLk?=
- =?us-ascii?Q?ApVZP6PPLdtySzus4hqKz5L5ipucaQ=3D=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?H+tNuUJTKvh7AQCVT51Rd8sy2Vrxc4TJXRDnvdNx/InPO2CUsqjZqg5oAZyv?=
- =?us-ascii?Q?kFL/KFPDPE/XVO4SvXV3LMmITP30HQ8S+QhN2jfrgEZ+iuNNAmPOp/GB0YVK?=
- =?us-ascii?Q?YIAfM4IOp1L3UgPClppc5hqrWhdJB3KHUhLPOLFmGNoLue7A8/SCkXqE8Qix?=
- =?us-ascii?Q?ktRoAYDnoDJ//uaM1KNtsfaSqvSeZrAipq//Ml4hrzag4HXpi6XJM1i+7MI+?=
- =?us-ascii?Q?J9w/NDjQSXdBuV/WrCFqGXFLU+A4qWLbMqKCSEXk8y1eZDhs9oOJofe5JRb/?=
- =?us-ascii?Q?7Ox4f0gtfLzBx+sQqKmirPHBG4hgmB4NCjRwL4v3vufFOecp2Lfpt6DxH34Z?=
- =?us-ascii?Q?Pf3/YlL753ClIRfMnxdXJ4zAsaPtgkfS/LhVSJ8GF7nMs9MvxMJ/u3OstRsi?=
- =?us-ascii?Q?itxk0kc6UpG/UIGOwohICxP19u6hlJ9s0WrEaFofDzAk9uSj6VWBDcIsAY8p?=
- =?us-ascii?Q?GJJz5PCAzmeoZJf7sPn4rTDkOzWAdDflOcww0zwNrABL9hNJxLeGxe6MWNQF?=
- =?us-ascii?Q?0/ZQGoeFiTUXF8J6mCw5/SR3Bls6YW7ey8cw7CsGiSHWgC1MZpnO+hhdypwZ?=
- =?us-ascii?Q?DJBsI0uTkZWKSZvQzVVr3IUNRwft6VQvDrAth427Pna1uf2UD/qmvlW8iBHB?=
- =?us-ascii?Q?vttZqbbx/5WViI/wIVx08bneny3y1Qx7I6xRDqcX9uR24vehE6D94N+JmV64?=
- =?us-ascii?Q?66vprQxZ1X2DlpWD+bQXZnnPmUnnaJDmKMDIVkb3AoBmcuvHmsAkxnmqV2Da?=
- =?us-ascii?Q?OZ8R7hQYEewnrF5slGTMAuuS9MaDDTzgWcgpnybXNpUInzzNEhX3F1T8OrgL?=
- =?us-ascii?Q?+VsKvBYbk6wVUMIjODGIju0jeX1R2cAr+TAqSCZ2F5qGfpqQtR6WTtUkeDDY?=
- =?us-ascii?Q?iHhyQDEBTtCAV1FUQdY1xHMw/pl3BX2ZYbDQ+y0Qe6YMZgxeoXYV8hqfze17?=
- =?us-ascii?Q?Dsopcmqhv/ZxPUs0bdlyPNNZIxhEnviLqfkM+q4UadxtqLhJ638dzs5W21ma?=
- =?us-ascii?Q?+IHRG+Bd11mhjhTdN0a8k0lxGBc627yfRkhjLqbbWqI+zZzaCbcCHZ1WoAsp?=
- =?us-ascii?Q?WB/y16HuWGuE8I4CpGbur+00iDW9SBCHXm7I40pbSYOogybDlASiPhrU9AIN?=
- =?us-ascii?Q?ofIBYjHt0z57WrIbqGtOg5gt0nwqx7a4ZR9yGxUDAMA+MZrzggwEL23kOw7m?=
- =?us-ascii?Q?z0dBnQH/TI88Yov56UEJhs4BnTelgYN72+n8i13YTQy9on6B3+AvrBWiRRjX?=
- =?us-ascii?Q?mAFcUFSEO8RPvAcMmxMI9akxA7EsMG6CQrHOLIBDBPMVpxgQ2hxTxDffN98b?=
- =?us-ascii?Q?EkaJD24hFruYLAfhgDlUAXoCZtqSxKGqyHVdFb3xIEJQUeGmH4gqgiL1BtmR?=
- =?us-ascii?Q?QYfHw/RL5SH0ZeBrw6EFPJLWFHmODKp9SisKh3M+4DQ9S3c4Eg=3D=3D?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8abdc3d1-273f-492b-b4be-08dea52fc529
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR19MB997338.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 14:09:32.5085
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR19MB8358
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMnC8GkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDEyML3aSc/ORs3cRi3byy3NRcXZMkYwOLVIuklETLRCWgpoKi1LTMCrC
+ B0bG1tQDuQjwMYAAAAA==
+X-Change-ID: 20260428-block-as-nvmem-4b308e8bda9a
+To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
+Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
+        ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
+        netdev@vger.kernel.org, daniel@makrotopia.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI4MDEzNiBTYWx0ZWRfXxGROIqWpd82X
+ qyX4ErsuxiwpzM1ngsGDNxxsQVmfzq5xxRLFARH1X+C/gr1bFkB59kzVYq7zNvGiQ9yqriWBYlC
+ lVjiE5/upJadgwxC+yduTeQhJOqvq3VLPbA6Eu/rPSj4GwPk8tlZwOJcRa5UUI/ZoNYkX6gmymU
+ /pfFOOMCWpdDdHlq8er930iO3JpcCTZMcJIWXxCFlo3xV2hwr8Sh92ZqMjWcd6W9886FR4nUjyw
+ S4UFQKUuThsiyBvDrrDmkXm+R0Jah0aapJQavCYkxfUqPT71rJKn4T4+TQKd8I+N5V6oHWt/3iY
+ 9pbMa1V0kWcw3BhyxYeS+vvXE7EW7tZYiZvGP23P5P8BLq3p39ocA0t8KXq0qbzpCiVrZo+d8oi
+ SdR6bODk9rrM7AFpCMv8RaJkzzWp2xQ6Io1Xk4G3KmW37NvGG+uINoIhZt7AGGq2paEPwPbymnG
+ LFoiWieboxoy1RlHZnA==
+X-Proofpoint-ORIG-GUID: _4M21gNuCTtNURDjHhy5oauLStg8x1nk
+X-Proofpoint-GUID: _4M21gNuCTtNURDjHhy5oauLStg8x1nk
+X-Authority-Analysis: v=2.4 cv=A45c+aWG c=1 sm=1 tr=0 ts=69f0c2cf cx=c_pps
+ a=V4L7fE8DliODT/OoDI2WOg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=VT4XjZGOAAAA:8 a=EUspDBNiAAAA:8 a=d2RCo21-rtVxI0NFAHcA:9 a=QEXdDO2ut3YA:10
+ a=WZGXeFmKUf7gPmL3hEjn:22 a=6CpsfURP9XNmmWg3j1mJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-28_04,2026-04-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 impostorscore=0 phishscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604280136
 
-On Tue, Apr 28, 2026 at 09:47:00AM +0200, Krzysztof Kozlowski wrote:
-> On Mon, Apr 27, 2026 at 12:09:09PM -0500, Chris Morgan wrote:
-> > From: Chris Morgan <macromorgan@hotmail.com>
-> > 
-> > Document the SG Micro sgm41542 battery charger/boost converter.
-> > 
-> > Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-> > ---
-> >  .../supply/sgmicro,sgm41542-charger.yaml      | 99 +++++++++++++++++++
-> >  1 file changed, 99 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
-> > 
-> > diff --git a/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
-> > new file mode 100644
-> > index 000000000000..3e5041e5b551
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
-> 
-> Filename must match compatible.
+On embedded devices, it is common for factory provisioning to store
+device-specific information, such as Ethernet or WiFi MAC addresses,
+in a dedicated area of an eMMC partition. This avoids the need for
+and additional EEPROM/OTP and leverages the persistence of eMMC.
 
-Acknowledged.
+One example is the Arduino UNO-Q, where the WiFi MAC address and the
+Bluetooth Device address are stored in the eMMC Boot1 partition.
 
-> 
-> > @@ -0,0 +1,99 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/power/supply/sgmicro,sgm41542-charger.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: SGM41542 Battery Charger
-> > +
-> > +description: |
-> 
-> Do not need '|' unless you need to preserve formatting.
-> 
+Until now, accessing this information required a custom bootloader
+to read the data and inject it into the Device Tree before handing
+control over to the kernel. This approach is fragile and leads to
+device-specific workarounds.
 
-Will fix.
+Rather than adding a new NVMEM provider specifically to the eMMC
+subsystem, the new support operates at the block layer, allowing any
+block device to behave like other non-volatile memories such as EEPROM
+or OTP.
 
-> > +  The SGMicro SGM41542 is a single cell battery charger/boost controller.
-> > +
-> > +maintainers:
-> > +  - Chris Morgan <macromorgan@hotmail.com>
-> > +  - Xu Shengfei <xsf@rock-chips.com>
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: sgmicro,sgm41542
-> > +
-> > +  input-current-limit-microamp:
-> 
-> Missing vendor prefix.
-> 
+This series builds on earlier work by Daniel Golle that enables block
+devices to act as NVMEM providers:
+https://lore.kernel.org/all/6061aa4201030b9bb2f8d03ef32a564fdb786ed1.1709667858.git.daniel@makrotopia.org/
 
-This *appears* to be a standard value (perhaps not formally, but in use by
-enough devices to suggest a defacto standard), which is why I did not use
-the vendor prefix here. Do I need to add that for this one?
+It also introduces an NVMEM layout description for the Arduino UNO-Q,
+allowing device-specific data stored in the eMMC Boot1 partition to
+be accessed in a standard way.
 
-> > +    description:
-> > +      Optional value to clamp the maximum input current limit to for
-> > +      the device. If omitted, the default value for the hardware will
-> > +      be used (2400000).
-> > +    minimum: 100000
-> > +    maximum: 3800000
-> > +
-> > +  input-voltage-limit-microvolt:
-> > +    description:
-> > +      Optional value to clamp the maximum input voltage limit to for
-> > +      the device. If omitted, the default value for the hardware will
-> > +      be used (4500000).
-> > +    minimum: 3900000
-> > +    maximum: 12000000
-> > +
-> > +  interrupts:
-> > +    maxItems: 1
-> > +
-> > +  monitored-battery:
-> 
-> You miss definition of this property. I guess this is power supply, so
-> reference proper schema for power supplies. Look at other bindings to
-> for some example code.
+WiFi and Ethernet already support retrieving MAC addresses from NVMEM.
+Bluetooth requires similar support, which is also addressed.
 
-I'll look at this some more, I might have a few more questions. But I will
-make the changes requested.
+Note that this is currently limited to eMMC-backed block devices, as
+only the eMMC core associates a firmware node with the block device
+(add_disk_fwnode). This can be easily extended in the future to
+support additional block drivers.
 
-> 
-> > +    description: |
-> > +        A phandle to a monitored battery node. Values for the following
-> > +        are used by the driver and if not present will result in default
-> > +        values being applied:
-> > +        constant-charge-current-max-microamp
-> > +        constant-charge-voltage-max-microvolt
-> > +        charge-term-current-microamp
-> > +        precharge-current-microamp
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  regulators:
-> 
-> No need for regulators node, just define here otg-vbus directly. But
-> honestly, your example is incomplete or you defined something implied by
-> the compatible. If you have a fixed 5V regulator, what is the point of
-> defining it in the DT?
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+---
+Daniel Golle (1):
+      block: implement NVMEM provider
 
-The regulator can be adjusted within a range around 5V, and is referenced
-by the USB subsystem. Should I still omit it from the device tree or instead
-define the min and max values?
+Loic Poulain (8):
+      dt-bindings: mmc: Document support for nvmem-layout
+      arm64: dts: qcom: arduino-imola: Describe boot1 NVMEM layout
+      dt-bindings: net: wireless: qcom,ath10k: Add NVMEM MAC address cell
+      arm64: dts: qcom: arduino-imola: Get WiFi MAC from NVMEM
+      dt-bindings: bluetooth: qcom: Add NVMEM BD address cell
+      Bluetooth: hci_sync: Add NVMEM-backed BD address retrieval
+      Bluetooth: qca: Set NVMEM BD address quirks when address is invalid
+      arm64: dts: qcom: arduino-imola: Get Bluetooth BD address from NVMEM
 
-> 
-> > +    type: object
-> > +    properties:
-> > +      otg-vbus:
-> > +        type: object
-> > +        description: OTG boost regulator
-> > +        $ref: /schemas/regulator/regulator.yaml
-> > +        unevaluatedProperties: false
-> > +    additionalProperties: false
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    battery: battery {
-> > +      compatible = "simple-battery";
-> > +      constant-charge-current-max-microamp = <10000000>;
-> > +      constant-charge-voltage-max-microvolt = <4350000>;
-> > +      precharge-current-microamp = <180000>;
-> > +      charge-term-current-microamp = <300000>;
-> > +    };
-> > +    #include <dt-bindings/gpio/gpio.h>
-> 
-> Drop this one
+ .../devicetree/bindings/mmc/mmc-card.yaml          |  20 +++
+ .../net/bluetooth/qcom,bluetooth-common.yaml       |  10 ++
+ .../bindings/net/wireless/qcom,ath10k.yaml         |  10 ++
+ arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts |  30 ++++
+ block/Kconfig                                      |   9 ++
+ block/Makefile                                     |   1 +
+ block/blk-nvmem.c                                  | 164 +++++++++++++++++++++
+ drivers/bluetooth/btqca.c                          |   5 +-
+ include/net/bluetooth/hci.h                        |  18 +++
+ net/bluetooth/hci_sync.c                           |  56 ++++++-
+ 10 files changed, 321 insertions(+), 2 deletions(-)
+---
+base-commit: 47c4835fc0fed583d01d90387b67633950eba2b2
+change-id: 20260428-block-as-nvmem-4b308e8bda9a
 
-Will do.
+Best regards,
+-- 
+Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-> 
-> > +    #include <dt-bindings/interrupt-controller/irq.h>
-> > +    i2c {
-> > +      #address-cells = <1>;
-> > +      #size-cells = <0>;
-> > +
-> > +      charger@3b {
-> > +        compatible = "sgmicro,sgm41542";
-> > +        reg = <0x3b>;
-> > +        input-current-limit-microamp = <3000000>;
-> > +        input-voltage-limit-microvolt = <4500000>;
-> > +        interrupt-parent = <&gpio0>;
-> > +        interrupts = <26 IRQ_TYPE_EDGE_FALLING>;
-> > +        monitored-battery = <&battery>;
-> > +
-> > +        regulators {
-> > +          otg-vbus {
-> > +            regulator-max-microvolt = <5000000>;
-> > +            regulator-min-microvolt = <5000000>;
-> > +          };
-> > +        };
-> > +      };
-> > +    };
-> > -- 
-> > 2.43.0
-> > 
-
-Thank you for your valuable feedback,
-Chris
