@@ -1,100 +1,96 @@
-Received: from out28-3.mail.aliyun.com (out28-3.mail.aliyun.com [115.124.28.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE1B175A72;
-	Tue, 28 Apr 2026 06:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2FC3348883;
+	Tue, 28 Apr 2026 06:35:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777357962; cv=none; b=swFdTUkhaZWUVdcrUfhiMcSlFF5Nz9eomIf9W1oHHzJopzvGWS9zfJyZVIaymxG/WgWO/Vxxsnk5Y3WDcYrSVmgJ2nXvAib2KsxlalOggTXZwGm3xpmR7olZ9bMjm1i/HmYU6VUCa4LY/Lt5+WJa3SIVSyQA8mFAl7HY/oNk0NU=
+	t=1777358149; cv=none; b=WFAwIVmZcqc/VaH4EZVg3AFWzsTrsTArzl+6nq36FGwiYSr6neGglNmV1UmVZwBsW1KCDY0dHDUJAaCLz0n6PQEhY1DVq+AnC57zY9VXWTPu28V00oMDUGY6VTqSQf1YSBhqgY8yeM7rBR4BO0rblmelz00xwPoHmgovjnaT2ss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777357962; c=relaxed/simple;
-	bh=d7UsIGAL2elOYBblg57Vtj7xITQYJbYSPm41n8mWcxU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mdIMuHIBab/9ov0mpSISJNZCJAOtw/ZsLaloZFOpGfYExrrxBGimlI3gTFZ9wLt9iHaxIut4VjCmAYZ8qLpKINxKa3bbWpShZLBKENu4IEJUf0cJmEmW6Mn5Rh3rZUGqGPw+1vQXLFHywrCul4HyOfEFs7rHtnyU18Ta21DdvGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=XHUcy/Z7; arc=none smtp.client-ip=115.124.28.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+	s=arc-20240116; t=1777358149; c=relaxed/simple;
+	bh=vz/Sb1hlBnsqaIN7hQ/T+8KinGrjDXu1ayrskd2xKrA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DFPZ6WFirLgidTOID4BNcWfYHoTCEEZ2qTzWSlO1+sUonPwcbyYhQ44KHvMEK2wSVgU3xFWzxGm2778OEoGjdQUrV8RrhOkClotRZltuc9zK1OuWNphkRQS4r/5UEP12qDqYtaiECPwttU3nu16hHQTGB3LWAOHWCSjNDAuEkzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dN6IpnOh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="XHUcy/Z7"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1777357951; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=1lDrImTp9mJIo503AuFEkRnxI/JUO0PNkk1WhsvyCxg=;
-	b=XHUcy/Z7p8mHKinvb8JYa2Czkv/ZrJB7iLM8EB7n+SBF24CSpgCJogJ9/12CcfK8enE4iGiWlXgCFoJD9MGvMLGuND5KXfv8B40pt82FYw1RnFqyRLYBeUpQaKdaRuQHkmkEaAfULwPClxG5y2/eAx/7Bop/hZyrvSLmRHwJtXo+UgIiGYbLv8/MS7GFPUb5WD+lJOKANRBjNbQV4OtPGnXN03cPx5R6rwWccrYwyHj+mZ+RjIy3pYKVw1qpXudvKftcVh3cyrdg2tM0nZTixA07tlkoMSTabxeQJDj8BpRrmRzqhGSOKP3dJE5xCxCO3TzCx5ViKdj8ppai/EUeig==
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.240612|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00668875-0.00019251-0.993119;FP=7856652936164330937|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083013073;MF=syyang@lontium.com;NM=1;PH=DS;RN=22;RT=22;SR=0;TI=SMTPD_---.hLqybuf_1777357948;
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.hLqybuf_1777357948 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 28 Apr 2026 14:32:29 +0800
-From: syyang@lontium.com
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	maarten.lankhorst@linux.intel.com,
-	rfoss@kernel.org,
-	mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	tzimmermann@suse.de,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	yangsunyun1993@gmail.com,
-	xmzhu@lontium.corp-partner.google.com,
-	xmzhu@lontium.com,
-	rlyu@lontium.com,
-	xbpeng@lontium.com,
-	Sunyun Yang <syyang@lontium.com>
-Subject: [PATCH v1 0/2] Add Lontiun LT7911EXC eDP to MIPI DSI bridge
-Date: Tue, 28 Apr 2026 14:32:22 +0800
-Message-Id: <20260428063224.3316655-1-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dN6IpnOh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7136C2BCB5;
+	Tue, 28 Apr 2026 06:35:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777358149;
+	bh=vz/Sb1hlBnsqaIN7hQ/T+8KinGrjDXu1ayrskd2xKrA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dN6IpnOhoAGIEKdNAX2u+DsYtps6nSP7JtpjHEYxaJTFQDZxCIOCfEVaosRWGM+nn
+	 SNvghifzMRb9LIAeqwWVy9hxhvifBQbdpoVpajj28sCRJPVMbd57imH23fSJoHv7UJ
+	 2bTmVJIgqH0nBRTOESGjt1tdvxfhsGXSWJm+buheKVnF4j3H5OA4hdumUSf+xjeyZq
+	 4ai8jjI8fToPiD/ca5fGTxoQkz8bt/KNV5d0SQYaeeVEMZYDiPesxmaIA9kG0ysUtJ
+	 rSdEwHzhO8PtnPKXGHSbRvZKoSHfEtIPqEVNZ3xhLgBwdnBkyivrUw9Tz6SxLjWihV
+	 DFunPsGmgDang==
+Date: Tue, 28 Apr 2026 08:35:46 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	Bryan O'Donoghue <bod@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
+	kieran.bingham@ideasonboard.com
+Subject: Re: [PATCH v2 11/14] dt-bindings: media: qcom,qcm2290-camss: Add OPE
+ ISP subnode
+Message-ID: <20260428-demonic-albatross-of-enrichment-aa6f26@quoll>
+References: <20260427-camss-isp-ope-v2-0-f430e7485009@oss.qualcomm.com>
+ <20260427-camss-isp-ope-v2-11-f430e7485009@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260427-camss-isp-ope-v2-11-f430e7485009@oss.qualcomm.com>
 
-From: Sunyun Yang <syyang@lontium.com>
+On Mon, Apr 27, 2026 at 02:43:38PM +0200, Loic Poulain wrote:
+> Extend the qcm2290 CAMSS binding to describe CAMSS as a simple bus by
+> allowing child ISP nodes. Add the required address and size cells, as
+> well as ranges, and validate ISP subnodes against the existing
+> qcom,qcm2290-camss-ope schema.
+> 
+> On qcm2290 the OPE (Offline Processing Engine) is a memory-to-memory
+> ISP (Image Signal Processor).
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/media/qcom,qcm2290-camss.yaml       | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml b/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml
+> index 391d0f6f67ef5fdfea31dd3683477561516b1556..d8b356028e24c3c5b2e9b7f20e220db7d491ad68 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml
+> @@ -52,6 +52,14 @@ properties:
+>        - const: vfe1
+>        - const: vfe1_cphy_rx
+>  
+> +  '#address-cells':
 
-The LT7911EXC is an I2C-controlled bridge that Receiver eDP1.4
-and output signal/dual port mipi. This series introduces:
+Please use consistent quotes, either ' or "
 
-- A device tree binding YAML file describing the hardware
-- A new DRM bridge driver implementing the basic functionality
+> +    const: 2
 
-Signed-off-by: Sunyun Yang<syyang@lontium.com>
----
-Change in v1:
-- dt-binding:
- 1. reset pins use active low.                        [Dmitry]
-- drm/bridge:
- 1. use atomic_* callbacks.                           [Quentin]
- 2. fix the incorrect formatting and spaces.
- 3. add the required header files.                    [Dmitry]
- 4. remove "enabled" flag.
- 5. remove *fw from the lt7911exc struct.
- 6. .max_register and .range_max use actual range.
- 7. regulator use bulk interface.
- 8. use dev_err_probe, devm_mutex_init and devm_drm_bridge_add.
- 9. Replace GPL with GPL v2.
----
-Sunyun Yang (2):
-  dt-bindings:bridge: Add Lontiun LT7911EXC eDP to MIPI DSI bridge
-  drm:bridge: Add Lontiun LT7911EXC eDP to MIPI DSI bridge
+This means the child will use 64-bit addressing, but does it need that?
+Or do you need that to have 36-bit DMA addressing? If there are true no
+needs for above, usually recommendation is to use narrowe address space
+for children, so only 32-bit.
 
- .../display/bridge/lontium,lt7911exc.yaml     |  89 ++++
- drivers/gpu/drm/bridge/Kconfig                |  13 +
- drivers/gpu/drm/bridge/Makefile               |   1 +
- drivers/gpu/drm/bridge/lontium-lt7911exc.c    | 497 ++++++++++++++++++
- 4 files changed, 600 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
- create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
 
--- 
-2.34.1
+> +
+> +  '#size-cells':
+> +    const: 2
+
+Best regards,
+Krzysztof
 
