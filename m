@@ -1,65 +1,66 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425A641324C
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 12:19:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA0742189D
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 12:19:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777378786; cv=none; b=lS44PVwyjgCRK/tw1pBojUoZ7NtEih2m6SRnx1xNBfUxHLRWDxGt0ztVEzKwt5XyW5IvA0U4KmXo+6muUxbDjVFHqafUioOPgOfYgUQ88jVZ7wc/G1del8oFvK6mV9QgwrRsIupdph31Oiaks1LOdcPE4GXJN548UgFYXmojsdE=
+	t=1777378788; cv=none; b=OPcHzlkcu/xsHzKGsYd7js7n27j5IK32QdDpyUfDrTz5KMfW3QAgeztsa/4D0N8jOpzIjUxhH0kPOdOF7xGKKcfYVDLblIQMuy1COPxxBu8Ba9tA1lK8k8vJ/oZttByoMvIzD4UUO+9uucS8DYRmN2kAsOPPFl7ZlvZtCTOtGyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777378786; c=relaxed/simple;
-	bh=qMPsGKiP1/3BxOxfOQ2894idq7MNjZh2VUDwYbD89Ac=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=PdzdJ17kZprmnAqefQsK8HK5k3LqsfDBK81l3QiNRoftDCvrSiXjnijJfzU9WjhKYGiLxRNfarKAKXS57+K9zy9xBWf7VPUqRNZqZx6TJiWcPtZ4qtY0MZ6B107T9rESpXxijMovXBv7X1n86JWw7v6mBQTCDoz5TL/HiR2AfxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com; spf=fail smtp.mailfrom=inventec.com; dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b=P/V9GYMa; arc=none smtp.client-ip=209.85.210.171
+	s=arc-20240116; t=1777378788; c=relaxed/simple;
+	bh=GpiPsYASiqbAHQFZCILpVMlA6CP9faFuuzfrDYjZMIA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=a1g6oAxivOUd06yys6iN2wja4Le+twkccbBLH5MrEGzYIq6nOXFV2Dn+31rbx3Mhb/+wf8ES7Mc219Z4BWVmsHa/kM3kQBdALjGBsdEZgD60rwiEyhs4c0Mr88yOT3CdVv+I1hJnN1X4ZtENAGMB6eQiqYCbCStkZVq5TXKQC8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com; spf=fail smtp.mailfrom=inventec.com; dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b=OAfU7K9F; arc=none smtp.client-ip=209.85.210.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=inventec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b="P/V9GYMa"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-82ce2e2880cso7844112b3a.0
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 05:19:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b="OAfU7K9F"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-82f9fdfc965so4556183b3a.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 05:19:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=inventec.com; s=google; t=1777378778; x=1777983578; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=frMIZCIhOVYR65BCOqomQnYfaoTkq4t4Fqtd6/zq0j0=;
-        b=P/V9GYMavQX18tTET6d6FkIXQLcYBlxDOLTIymp27PLBJ/Jc06zyq9Bdm2n7Xo4nCq
-         /ghqlFE6J2RlEcPlrEAiZm81eXoliAQM0Q88sJ7Oj2G2lPmiYuroue5eeLcNHNOnctxW
-         axjJwcspgpfi1XMd15qEuOSAroUF1n2Nv1lxC5NowFik423guUt6u6vsAKWevd+AdrSe
-         CXF2PlpyeUVr+CBaSHGKjcY3ODf6C2AZv7wrU3knd//Uvwcxu9F2qidWc4gvzk8vVYZp
-         8kj6ak9GxWXQhAiaNLdlcuIE8VN3RveCt07qVcZonkyU7TKm5JYDTjlJQH5Q5gZpcb2H
-         dkeQ==
+        d=inventec.com; s=google; t=1777378781; x=1777983581; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Vm32vRoZZ5yFrCpJ+KYjb2vzes9BEArqT3PAPVNaYwI=;
+        b=OAfU7K9FCYjmrU6xF/JFNjk1GsrejmslTGiNDtPESRMBU47BBf7Pq7V3GCOlxU/tEP
+         o5YCIK1aFhkE53XesuwqWQdsCPexThO3vTrd4t57kpfR3IV+OVWbJDoQB90825qYxW6G
+         9Ue6v2QmA9Xn5LnSgD+O+H08dV78suvJxEtHT6Jbh7j3gJGtOS0EFpGDmtbzXkNrG+Rl
+         9qZ0rypQSLNGhRkS5RHfnV7VC7i+UsR5IIG0/I9qPIS/7hPKm5cVKTvb97v1RrF1ErDz
+         EFd3hwvuGFY5JEd7ld7fk4uCu7QVxWFwi7sNVdb0Eqo2YCzlXTIm4WmQOe4ClhYN9N6G
+         8zFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777378778; x=1777983578;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=frMIZCIhOVYR65BCOqomQnYfaoTkq4t4Fqtd6/zq0j0=;
-        b=enjXMiZqaFSN6JxPCRQh/u+pd5Eii91MYmjMyg2+oRrvM1Kl1A461hfLLQrNELbCOZ
-         KWXu9VftYuznTc1F7E1kNFtlYxbFRSfVJjmoc+K3ihqnHVuLeS9TBa40xMNNGGjQQpvG
-         JWE141VHY/A/osgoslTDK9wf0f9LYO1UGN8HMRTLn2omEnUugEYZvSCju5J7ds1upKpK
-         U6Zbj2vixCVjXaptl5rC9QlqO/vILd2TAqa7sBA7Wd77UxUonl4Irn+tta54hiXxsFD5
-         LnPdxVw+oLVScuMilZtiBhH4Y/0TRS3qmXOwugG//3cIkOn8YpPwhyM2gTDou7oY5bPm
-         YTUQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/iafg/wjeHLppYfZsj2FRdli5AsmIkWurMmn2kq/HRU7sLP1kO5/v3YNyYxjEGNPqSj1qSCaXKdzpb@vger.kernel.org
-X-Gm-Message-State: AOJu0YzQqkPrcs54lRCNrxVk1LihYZH+Fw2D3rf6XmECOy7SK1+9xm24
-	NCrB5VzNa32l6UVAfhdFZQ7EUQj9EH/fGqk9vIxmun+VnFTfSlETwjixDvaX2byVMBE=
-X-Gm-Gg: AeBDievDeNw8t1Qw48e8x87d+o2jOxm2hBFQObSiNBQ5j4mZFpAsHb3bprkgqQ8gFEf
-	NUsbkBEOLX2jg86kNXD9+R0uxsqvgFh02IVZLSUlE6499471IalJNDjuv2/VJNBkJaIXJE+h3kJ
-	oV0eKxFAhK2TXwgpsf2cN1VMLWnCeK9qbNaPj67wetWI4gE6Opw6wfVGBvcr2bBeqIgQ0LKB4jp
-	VDCy5yxnKVrjK/qcBODfUb/DVP9Dml6QDi9gXH4DXLlc71rGsUc91RZdsRlfwp88eypgZUGEGUW
-	S0u+So4GBFpY9Irrqmv0txJ5j7fUEwCHmOj2BkJs8tlRV8cctOZQDVwCnQu7w/U2jD+nKW6PZOm
-	APdXBTpIXs55pyUIGcuVf554WxjpNcRABudaglg0mOVNEmXuG0ktwMAgrRkQH6M5ATyBabmg3X7
-	yFUm0S2Ejo/Nc5Ee5OteOo+rDoKsiCBmhyVRgbMRf7
-X-Received: by 2002:a05:6a00:3686:b0:82c:9e00:f958 with SMTP id d2e1a72fcca58-834dd913b2emr2965836b3a.0.1777378777797;
-        Tue, 28 Apr 2026 05:19:37 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1777378781; x=1777983581;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Vm32vRoZZ5yFrCpJ+KYjb2vzes9BEArqT3PAPVNaYwI=;
+        b=WDpz8IpuZGTm2w9mVsC9DZIDZvAlotjlzY/BSXhu+/34Ux2MLI8nenxAzmA8A0YSe3
+         OxTBgNsHkL9MxCawSJkqCc+0yMurSkgtSavHj93pNniIiuLNNYLs9HS34NVwsOOrQVv/
+         O0WRTTYxDZvDUWEeAblhYGhSVeKnKqw0fwoLsAxW5xX91w9aTaIsgtz+KBjTyG3jzPtl
+         /7SSsS/5xQWrSb/CCgtXDtvIWCSqY+DoC0MxIiNPVuujSFM7ZPutRcCPnmaP8wnb3ZUJ
+         YPYjCjDyM4SlFVrhUhQv+qn3UMcYg5DPFo6+PcUTBsvgiPKGRDzOem8Dcr2mAFVBq1y8
+         CBdw==
+X-Forwarded-Encrypted: i=1; AFNElJ8gj73DHAdB/1rrzki4CBShgiRc8pPMOBzj5YjxPDl7Mhj5lMfB8GeamRgeJwSRZ1U/tPrfDsQoA7v+@vger.kernel.org
+X-Gm-Message-State: AOJu0YwzQ0K3/mDwV4BS/L5eTBVZxN1C15tg2k+FRNHlJJ6/QqHQmwyZ
+	ZCM4/AbmAoD8CuEFXcDgeh1JYKdJ74LiBCn4+qRuZ6jL6GDaEpIDPn174/QJ94aXueE=
+X-Gm-Gg: AeBDietsxWNQvCRByeXY1RcI//Bs155EGNEpFGDGqfyGtayulON9DiGPvfbosuU0Xew
+	R/ynnjUf2lZWdhvOPUqIo8qv9jslvw4pgfU4wtZAgstrJai9xh0aHXdXbBCDb8GZWWsxzXvSnVC
+	4oJhRLltmSik9W3rPozyQ/0POOILIMLzQqkPplJoFRgFtHaWurcqruuS+qv9sCVag4uOuMsQJyP
+	kPOiIrcfgDB/vo0gwNKyxKwkqPBt+4jYG3SeJbHaEk3vbGUGkLtxLFYYI4lYPAwSB+Ww96PL6pJ
+	S2NOLspwkSTCcDbmQwSirxT3znad8CPBdH+hoqmLtAyytTcsnLrF2M1F/VDl1HDTpqQeonjN8XL
+	6GF6e1g++faUwuH0j5qdNQgOrc102Jzink25Ls2b5EVnvg7rJZKLiu4nfWgwE8WozcRm0Zih4Fv
+	2g/lWdqKm1nmv76+HQJ5mjtt1Ul4bWNQQoxvxuB8nk
+X-Received: by 2002:a05:6a00:1885:b0:82c:9cd2:fee5 with SMTP id d2e1a72fcca58-834dda62ca5mr3222108b3a.7.1777378780756;
+        Tue, 28 Apr 2026 05:19:40 -0700 (PDT)
 Received: from [127.0.1.1] ([123.51.235.216])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-834daf5705fsm3254587b3a.42.2026.04.28.05.19.35
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-834daf5705fsm3254587b3a.42.2026.04.28.05.19.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Apr 2026 05:19:37 -0700 (PDT)
+        Tue, 28 Apr 2026 05:19:40 -0700 (PDT)
 From: Brian Chiang <chiang.brian@inventec.com>
-Subject: [PATCH v2 0/2] Add support for LX1308
-Date: Tue, 28 Apr 2026 12:19:27 +0000
-Message-Id: <20260428-add-support-lx1308-v2-0-90f115954143@inventec.com>
+Date: Tue, 28 Apr 2026 12:19:28 +0000
+Subject: [PATCH v2 1/2] dt-bindings: trivial: Add LX1308 support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,10 +69,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAM+l8GkC/22NQQ6CMBBFr0Jm7Zh2gAZceQ/DosAgTbRtWmwwh
- LtbiUuX7yX//Q0iB8MRLsUGgZOJxtkMdCpgmLW9M5oxM5AgJSpZox5HjC/vXVjwscpSNChVrSs
- SSveqhTz0gSezHtFbl3k2cXHhfXwk+bW/HNG/XJIosO2bkmiqaq35amxiu/BwHtwTun3fP8AxY
- ci3AAAA
+Message-Id: <20260428-add-support-lx1308-v2-1-90f115954143@inventec.com>
+References: <20260428-add-support-lx1308-v2-0-90f115954143@inventec.com>
+In-Reply-To: <20260428-add-support-lx1308-v2-0-90f115954143@inventec.com>
 To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
@@ -80,51 +80,50 @@ Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  Brian Chiang <chiang.brian@inventec.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777378774; l=1741;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777378774; l=1627;
  i=chiang.brian@inventec.com; s=20260316; h=from:subject:message-id;
- bh=qMPsGKiP1/3BxOxfOQ2894idq7MNjZh2VUDwYbD89Ac=;
- b=sHVziZqGCDAKtI4ZWL5Twa/Bb+yAp9az43in8xGZnkYxKfnqkYI2ShDthPW9Wfy+luRnADqL3
- Lr6+Gq3JMM5DQg6uGPop5/MenIXWUlZDMdxGX8MCQUEa6CD7jBZVAfa
+ bh=GpiPsYASiqbAHQFZCILpVMlA6CP9faFuuzfrDYjZMIA=;
+ b=tmE2g1bOGOEgdkl42iKy3s/qc4U+BujOm/diKonrLdCGc3P/Tp7el24NWT8VRY2aGaZRSmsmQ
+ tfekRdhFruaAGBUwbWnBJYj2gzqtgsS4GwMfoF2YXkAqe5A5c8CuBEb
 X-Developer-Key: i=chiang.brian@inventec.com; a=ed25519;
  pk=q+NqJYuJbGpA9KS9941D7f+8PVVW+k7DvaGgFykBiUc=
 
-The LX1308 is a high-efficiency, non-isolated power module. The module
-operates from a 40V to 60V DC primary bus and a 12V regulated output
-voltage. It can deliver up to 860W continuous and 1300W in transient.
-The built-in digital controller can store and restore module
-configurations. The fault status, input voltage, output voltage, output
-current, and temperature are monitored via the PMBus interface.
-
-Add support for this driver.
+Add device tree bindings for the Luxshare LX1308, a high-efficiency
+12V 860W DC/DC power module with PMBus interface.
 
 Signed-off-by: Brian Chiang <chiang.brian@inventec.com>
 ---
-Changes in v2:
-- Remove the unused compatibles of mechanical variants
-- Drop the existing pmbus binding in v1, and move lx1308 to trivial binding
-- Reorganize the id tables to be placed to each other
-- Reorder lx1308 with alphabetical ordering in Kconfig and Makefile
-- Fix undefined behavior left-shifting of a negative integer
-- Link to v1: https://lore.kernel.org/r/20260422-add-support-lx1308-v1-0-9b8322f45aae@inventec.com
+ Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 2 files changed, 4 insertions(+)
 
----
-Brian Chiang (2):
-      dt-bindings: trivial: Add LX1308 support
-      hwmon: (pmbus/lx1308) Add support for LX1308
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index a482aeadcd44..037baf4cd67d 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -181,6 +181,8 @@ properties:
+           - jedec,spd5118
+             # Linear Technology LTC2488
+           - lineartechnology,ltc2488
++            # Regulated 12V, 860W, Digital DC/DC Power Module
++          - luxshare,lx1308
+             # 5 Bit Programmable, Pulse-Width Modulator
+           - maxim,ds1050
+             # 10 kOhm digital potentiometer with I2C interface
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ee7fd3cfe203..67fb1592daaa 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -967,6 +967,8 @@ patternProperties:
+     description: Shenzhen Luckfox Technology Co., Ltd.
+   "^lunzn,.*":
+     description: Shenzhen Lunzn Technology Co., Ltd.
++  "^luxshare,.*":
++    description: Luxshare-ICT Co., Ltd.
+   "^luxul,.*":
+     description: Lagrand | AV
+   "^lwn,.*":
 
- .../devicetree/bindings/trivial-devices.yaml       |   2 +
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
- Documentation/hwmon/index.rst                      |   1 +
- Documentation/hwmon/lx1308.rst                     |  90 +++++++++
- drivers/hwmon/pmbus/Kconfig                        |  10 +
- drivers/hwmon/pmbus/Makefile                       |   1 +
- drivers/hwmon/pmbus/lx1308.c                       | 204 +++++++++++++++++++++
- 7 files changed, 310 insertions(+)
----
-base-commit: 591cd656a1bf5ea94a222af5ef2ee76df029c1d2
-change-id: 20260415-add-support-lx1308-165a4206ab69
-
-Best regards,
 -- 
-Brian Chiang <chiang.brian@inventec.com>
+2.43.0
 
