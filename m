@@ -1,87 +1,86 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D49DB43E48E
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 16:14:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A942F549C
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 16:28:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777392859; cv=none; b=YRgQHEwoQECnUtK4cWue1cXEyXniTSs9a524b5gyRHGgLZcPQvkyGlaPa2phm/owfACYRegN3f6cpCdRsDU5U6MRvvIcRrm1zwJXxUfRboqWI7BL8RrpF/xLu+/8qYabxLkJOk942qXVLGQmEB6CyA45zZD650Veiml+TcnCYNs=
+	t=1777393682; cv=none; b=HoGxSSPCzjia9g6kUGIZlbqNDmOZVJuQS8UO99oALFH+GpnnJQ3+v1lMuU0I6DNWjgGfWdEgFmRTVi+ATJHttE781Hk+rZHq6qJQUaGoST1y4+W2jmIUndeT1kAkHuL6U9+jETvV/XLTJEODPyVOfj8oEfgQKbe33gJBB0sMAaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777392859; c=relaxed/simple;
-	bh=OGGx6Juc3+wfrS3W7vKIGdl7XlXSnp2EAZG1ceHvcEk=;
+	s=arc-20240116; t=1777393682; c=relaxed/simple;
+	bh=7o7xPybo0e/XAw1Dyb/YPRrdJEhxYOVGMyv9+c+tQ+o=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Fd/Rsy15xAENGL3DUsXnbGtV9SesV+H4vUsCsdCL9l7c180ktR3uABNtR0YrXP8aJ6vdFiisfNtnasE+VF2x/Jxba0+nndIa0X9IaUpoQncjg9SdUOz4ZLuNlE2DMP9e7pVqOEUax6vAGRFaalixSQs/drDRLZWoML5f4u5NKJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nTc8psaP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F0Y+5eRb; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:Content-Type; b=PbBAbh1TXRBoRJ6dU98LM4MfPDTmuGr933ZVrOJ0sQ912H9WD2SQSDXuUID1Yv7MVyzSzEivgGTXKZAGjuAt2LlCJxl6hfsspHy4D2YGpPo4ZbRN4ky+cHRMNax4CkkaVlBbxfpM/0Dxqm0IM4tlV0CbeKoadLLmXfQXd/Xmtm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=deOiAsRS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R4fPpaHF; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nTc8psaP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F0Y+5eRb"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63SFsRnv3705163
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 16:14:13 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="deOiAsRS";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R4fPpaHF"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63SFsJbM3713210
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 16:28:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	T6oBcVBcyteYW09E2HTiBvm+oEW8wd4V4D6A2fwJL7g=; b=nTc8psaP9spOnEss
-	BctGpWDa4uTwTFgwV8U9Ue07Evsqz3mnp0VWoyj7GO+XljHrfVTFmQSfpEuyW7A4
-	FCGerCp+k8eboHHdPbxDTFwHxPEHBHhaC2xwZKR9rRoPrTlWaaNJU3PXLBFLxaan
-	lptvdek22/FiC9Fp0X5rQ6xqsgMcxqOEvtfbD3is+mCuBTQBhDDiVp4QhODZ+60t
-	CfDvAD9CllFbXszsTufAR060TKWVVSXM3DurLdW1zE88X1hzG+OfhKt/Dg0ZSq/Q
-	v8165B/sEjszvuQxvZoZMyxc9HMMZV9NdkJrur05PIeuhRJgXuUnOA00t8ParNDK
-	Cwu2HQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dttxh9d95-1
+	0zYoXgcN5YmYoiapw5cl2FOxLA24GcaGELbu3+TT+7I=; b=deOiAsRSWPgxHeMc
+	bY5h+d++hfvjFrQZVAHuEzfsF2GppwuUNK1ra9pnFULXPsOebAWenv78v/piTnrY
+	cf7pbq1ReqIjRQ4MsuombIJoYgXWnC5sp1wZjuQ6Ek+azMQh0lArmZP4mb8WqD/+
+	l6Kxm5kCXhOO6yLFvy5/+E2cu53VH6F5Az+QJUSvUj6uiNLlfdLO0ovAQDmKfKyb
+	BnTnb9hkIFPRdxXTUFZRwjIqrHI9IfyzbIwRHekb8TvbMQWypx/Y1refLpo3HTda
+	a0+QNgacip+8mLUzLAr6CUhPc6AW6mFpo7QX7f7sLrTeEWOv73yQkcR6ODjTcgZG
+	ox0Z3g==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dtxb50mq1-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 16:14:13 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-35fbb5779e8so12286894a91.3
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:14:13 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 16:28:00 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-82f6b984b3aso6528084b3a.3
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:28:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777392852; x=1777997652; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1777393680; x=1777998480; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=T6oBcVBcyteYW09E2HTiBvm+oEW8wd4V4D6A2fwJL7g=;
-        b=F0Y+5eRbvZbHDAWykbZOEVgYqr1qlZLF9ICiwpqdJ6ND8VpAONIh/05IZb+JmvOQP7
-         2u7drFeAWH2p8ccbkY4CJCxdYDoh+ma5DDgW++/gsRiz899C0zuTac5r7FoOkUFgrrYg
-         K1sRtW79uMhgzgq9bm0GUTywucn5ibPsG2bEd54FjI7LIQNrzQ1y5OzShMEBewgBc/Tf
-         M0E80Dp+XtUYVlxUoQ9xrORws6gpvjS/MQUCQIQab8MFnAEb4iv+IxdILWHLNGW1/iiM
-         N002hiNU9uF27HaYaSevPeW3rqZCvVH/+Jh7FwPFPlOJCt16oe3lxVbNId7Np/jMbvag
-         c0Ww==
+        bh=0zYoXgcN5YmYoiapw5cl2FOxLA24GcaGELbu3+TT+7I=;
+        b=R4fPpaHF786MJ6IGeMXdlx1/8dh+ptWArNIyPOqr09M21LynP7fC7WEIYk/QZKFsSM
+         uOl0TPNuXdY4FX5zV2YPlshbqYv4e1UNwGgJv2zYXlc+SVTAyNml6fhn4ISHDSGWVAaM
+         xB1Dj9A4QsIHjWPDPslYuP2BjzlWcpi+1zjbN0QTMiLI3YuzWgqgauqMWIeY36XJkIgL
+         PgnrGvsG/WdoN7QjdhZkEkJtIUJ+55kmkli0XPVZzq5GmxQSO8aWcYlDetBf99NTX8Zx
+         eBswwb7R7HfQoYuCwy2QJd5XR9a5CBCyyOadP1gpz+M3YtfyFTmWh0Jdz4kEQXXL+RDW
+         60DQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777392852; x=1777997652;
+        d=1e100.net; s=20251104; t=1777393680; x=1777998480;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=T6oBcVBcyteYW09E2HTiBvm+oEW8wd4V4D6A2fwJL7g=;
-        b=sGFC5JlkPnWM19xPsoM4ZHRaCwN2hgRKxOpYFABYm+CG3+Gyl37eSe/CPrYfT8IgVy
-         cusdrsFWBuDUg3lt8IkORuisYrGwJR4C36s4pj2PujUyfKn8B5jZlDq0TrGyhou1Exqy
-         p1oJO8mDW0f/6sJwriUH3ZZKJ48bvoZEtK6BhNFwGWXYUdQv63cmg7HBGCchNHE+oibz
-         mPtZ7Ujn4Jo+rXfDK18IUUz7IPQRwWft9f0whQJUzEaki1lgJLqJo3CK3QNWd7cNQgWR
-         nu3uw2dnRKBHtav5ZKNI9+XHwrj3/JXtOkXt6JN/wBgNBM+PUnZs7hGJhnKuqDDZhyeJ
-         Hoow==
-X-Forwarded-Encrypted: i=1; AFNElJ/U6GPNQJU5Oy8trsYbTlN8D6KMjUlf0gHzIkaScc6ApmldEaelY78556V9M4RC3Qjaw8vY3R1eik8x@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkhgnGP2yGTtIF26zcU1MO2kKmFLj5ekTdVJBGAgjks+MqM6Oc
-	tlgtVPyJDyhnOytQxqAtE0nr2xkYSLqQbgQlItlp2GiYoQoMUT/iSvUCoogXeWop2kxWDPLsa/T
-	ToPGqv1Ib/uRXfgjTgjX+vRoW/LhxEgkjGzZmrk+ualDIMQzbubXr3U2kUAxfE2Ij
-X-Gm-Gg: AeBDiev1FQfCK32EKY8OfGNuynunBo0guq44yq1OJuobIYFjjhOCtFzGsKGaSTayod3
-	+z1xSUUi8bVNTSJgclAQsk8NuYwA2Q5zdCfTz7LkkmJdSzYNtbYOwO4gBIsaGiOOwj3OFwLjSgq
-	hTIiUE2riEeRabwWRvqLyOv7s1dMJTp9/hEUmRvCWet8HYbeVjZV2ybhuNy9FLOHBJN6WIN7eD3
-	GgjIzE2axRLhR14nltqPtipNT8C2VWxWZER/upUNxK1BFVjTdnqgsWEmrgYoRDtnaaHilDVKOcz
-	URhqobMv+Voop4NvXkpyB1z2ScI8bbniv+RfaKkJfWT7NfWxOqpEgnsQJ0FlxkUo60qtNs82nnD
-	EedZJl5nfjm1r+kdBzJkWwFylsyuD2pKON5uK4uIvz3BQWjlS9VLd9tPpzOSUJGE8rIXT/unXsv
-	cL
-X-Received: by 2002:a17:90b:3504:b0:35d:a3b4:2ef6 with SMTP id 98e67ed59e1d1-364a0f23de5mr8504a91.21.1777392852115;
-        Tue, 28 Apr 2026 09:14:12 -0700 (PDT)
-X-Received: by 2002:a17:90b:3504:b0:35d:a3b4:2ef6 with SMTP id 98e67ed59e1d1-364a0f23de5mr8470a91.21.1777392851489;
-        Tue, 28 Apr 2026 09:14:11 -0700 (PDT)
-Received: from [10.48.22.70] ([110.224.93.172])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-364a0213862sm90551a91.15.2026.04.28.09.14.07
+        bh=0zYoXgcN5YmYoiapw5cl2FOxLA24GcaGELbu3+TT+7I=;
+        b=CiBaWWNxsKKj0kDPGl6utTZIRuxl7HGxhvvgt5JeWpV6beIJgUqcMXbET1ZSXj7YdN
+         1HERvAr5wR7HpDF5uZgIzNAglrQHda3x2LzE0WclHG2pHCCt3uvO+oLoMTKm6ztfWmNS
+         Yom/tmy+weg6PWEFThjOfCGa17+eCB2TkC9Wx62JvGU9lrmObnRLGYSUFHi/F4MM7PaA
+         Emd+G2lZUrMENYJEykp/oBMSjZW3AL4WP3/WN3wwAiL2RFV/8+hyo/0qHb/JaWR/R9oc
+         E/MVAMrTtwOiNYSUWXX9G3sYiQrogpbaNZXoCzQz4/LzQcoBb5/tyj5iCmSM6kBVJPeI
+         EhxA==
+X-Forwarded-Encrypted: i=1; AFNElJ9w4llhUiCZlHksoM6dS7MRsKSGMpLVCn0Y1bGcOaZ+7J7mNsk051Vz6tylahakTl4deq8dr4gsj7oU@vger.kernel.org
+X-Gm-Message-State: AOJu0YyIBK7H0V4ZqnPESmbDRXW9uexrZwK0jsmTi2Hfq+9eZ7n/qDhH
+	EGHnEk6jpJDENVCmSRm2t1c5VGmMZArjF4ZgKnjQCz0LzQto3nk00AcReAoHPpl56+ygh99ujaH
+	JV7Dy6jHD0+ZvVitoroR66EygpYgAu5IGfpsGFNLpGYP8/A2LEM/GxkTYzqeGeC3V
+X-Gm-Gg: AeBDiesFLiU5eRdmMHCNnPPyOXWgWLMsJgRs3EZVdz9wGBkg3mLfRe8z20oSsfe3D62
+	U27A3PHH7Q5zpV+XIAUhD0rsujQsYz9aSzAGAvU0FrUoaXtAmn5ArTQaUycfvjjU1oEyv8FDamZ
+	1GBtVDTqHrcZxzlqK2a+DFg5kSvK+NvMM4jt5AtdmE7ymtLCh/NZG9GnynKpQEw5GiW5bpi9VJq
+	6ygK3nW0VU/4v94LdKC9oS1NIhNr629+CyMGQihH0DMIlbvshxssxAeSueWHdGsSS1EU2zNYays
+	L41vTr/g6Pd0hDYNhfBvMz8vGo0bYzyCwPqfp/w2Yyu6nnFNNP6AdeKp+y3pKRWSp8y0GaznS1S
+	mdl75onquQ4ckErUSt1ke3I4ukzw9TyVTKf7rrtwQuf47L0FT38OMaeZSUf0iq7KNxcb4
+X-Received: by 2002:a05:6a00:4b0c:b0:82c:db50:ef77 with SMTP id d2e1a72fcca58-834ddc950c7mr3689727b3a.49.1777393679351;
+        Tue, 28 Apr 2026 09:27:59 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4b0c:b0:82c:db50:ef77 with SMTP id d2e1a72fcca58-834ddc950c7mr3689676b3a.49.1777393678617;
+        Tue, 28 Apr 2026 09:27:58 -0700 (PDT)
+Received: from [192.168.29.31] ([49.43.227.143])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-834daf69297sm2893898b3a.47.2026.04.28.09.27.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Apr 2026 09:14:11 -0700 (PDT)
-Message-ID: <3f5103b8-ebc5-4855-b032-f20f93c89dc8@oss.qualcomm.com>
-Date: Tue, 28 Apr 2026 21:44:06 +0530
+        Tue, 28 Apr 2026 09:27:58 -0700 (PDT)
+Message-ID: <b3c36404-64ae-4a10-b955-ee5b2321b7ed@oss.qualcomm.com>
+Date: Tue, 28 Apr 2026 21:57:46 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,67 +88,253 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Introduce TLMM driver for Qualcomm IPQ9650 SoC
-To: Linus Walleij <linusw@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v21 04/13] firmware: psci: Introduce command-based with
+ magic
+To: Sebastian Reichel <sre@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Christian Loehle <christian.loehle@arm.com>,
+        Ulf Hansson <ulfh@kernel.org>, Lee Jones <lee@kernel.org>,
+        Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260415-ipq9650_tlmm-v1-0-bd16ccb06332@oss.qualcomm.com>
- <CAD++jLmxJUPNjXkFi490GSPwB-bHs4tdJmMFwxyCX07N=kxGHA@mail.gmail.com>
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+        Andy Yan <andy.yan@rock-chips.com>,
+        Matthias Brugger
+ <matthias.bgg@gmail.com>,
+        John Stultz <john.stultz@linaro.org>,
+        Moritz Fischer <moritz.fischer@ettus.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Sudeep Holla <sudeep.holla@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        devicetree@vger.kernel.org,
+        Florian Fainelli
+ <florian.fainelli@broadcom.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Andre Draszik <andre.draszik@linaro.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>
+References: <20260427-arm-psci-system_reset2-vendor-reboots-v21-0-dcf937775e73@oss.qualcomm.com>
+ <20260427-arm-psci-system_reset2-vendor-reboots-v21-4-dcf937775e73@oss.qualcomm.com>
 Content-Language: en-US
-From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-In-Reply-To: <CAD++jLmxJUPNjXkFi490GSPwB-bHs4tdJmMFwxyCX07N=kxGHA@mail.gmail.com>
+From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+In-Reply-To: <20260427-arm-psci-system_reset2-vendor-reboots-v21-4-dcf937775e73@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI4MDE1NSBTYWx0ZWRfX7j6FHhXBejYL
- M8iNGNAimkzkq2eE1usoHvTZPnCosgW0Dw/oOEm3sPQRKrIC8m7t4Opz0lE3OSMaRoktreNkJ/R
- nGhATDxczeDRpklkHOhUDBacpFyVL0+/PTEIsoA4sn6sFcp1xdF9wjDXu6ALKFkJKRi+uHMX4s/
- m/AN+gApKeJixwb93CpkGxa3BjD57ZMJI02JelByUkgPwsM9iezEt6d2tPRKuxHysAQWH1X43dB
- S8Xl2BoTkTUy1+jgNOAVpNW3p65Mk+YRUOzBBbfBus75SHXsVUqmVRtI3uLwnxsUEa5kROsyVQs
- dvaXN6d3X3LRg8d7UtKpNtihqyeggyTnyqSAMy7Drn8Uyq84Zgn5iHY6GvaLL+T/g8B2YrtCK26
- J49FUOiGz5X9TkOxIKdppp+na/jro9bBfWTW9xbiY0KeG4q1Ca+luX9IljYdYnMhq+8VA/nBQC1
- 6+KGgDy0S8TPgTWxpSg==
-X-Authority-Analysis: v=2.4 cv=Uu5T8ewB c=1 sm=1 tr=0 ts=69f0dcd5 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=m8rBHnErhwdSF42aeuMaWQ==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI4MDE1OCBTYWx0ZWRfX2957xAsGIpTw
+ QN+plh9oFMh5UO4/+bbJBghGdtrM1TzRGW7A14T71hWaMqOdOX0Hl2lAvZnxD2PVS1Utv83dQA+
+ 1QEy1sc5t8P6SblgBBTFuQPRV5OKq1oqBpbisTiXbOMCa183NffNcar6tGIU+27uu+sMNJgzMal
+ RhgWNhQDW3jU2n02VrCTfMIfJTUwk6b+3gRAxqYui5VONR3lSDd8sLmqEiryZGIVZTuIs4o5v+W
+ duEJKHRe7B81JNoveiweTK87hspH0kcwPGBBSht3g/8wX2f1zuoW83hC1oywW6vu8x9anjjpCCO
+ padK4CGzfQStnc8wreCc4dSBoHZ4aatT8u+gZMugjK0qpG1DaU/P+18vnS7PAcOXi208aBh1/ob
+ NVJJpPqQTsNnrSWIY2yLmzx3pQpUISrlLSIIC8tXKlesbARyk7gZgQW62gPXRVqw9Fwst5vZstM
+ dAK55cPGr5RxpPfIDaw==
+X-Proofpoint-ORIG-GUID: 5_6j1e5rv08sEgi0aD004XCJvTqPtxeR
+X-Proofpoint-GUID: 5_6j1e5rv08sEgi0aD004XCJvTqPtxeR
+X-Authority-Analysis: v=2.4 cv=A45c+aWG c=1 sm=1 tr=0 ts=69f0e010 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=Gpg95E5bJKK5C7oRfY2+2w==:17
  a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=rkh08bgVQrwZcmFFEZkA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: QjREGCpfZso0HJS0QYW1q9KICi8S5B59
-X-Proofpoint-GUID: QjREGCpfZso0HJS0QYW1q9KICi8S5B59
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=219khkIK2FHepI9fHIMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-28_05,2026-04-28_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 phishscore=0 adultscore=0 clxscore=1015
- suspectscore=0 impostorscore=0 bulkscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604280155
+ clxscore=1015 suspectscore=0 impostorscore=0 phishscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604280158
 
+Correction in commit subject - firmware: psci: Introduce command-based 
+resets
 
-On 4/28/2026 2:57 PM, Linus Walleij wrote:
-> On Wed, Apr 15, 2026 at 1:29 PM Kathiravan Thirumoorthy
-> <kathiravan.thirumoorthy@oss.qualcomm.com> wrote:
->
->> The IPQ9650 is Qualcomm's SoC for Routers, Gateways and Access Points.
->> Add the pinctrl support for the same.
->>
->> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-> Patches applied for v7.2!
+On 27-04-2026 23:04, Shivendra Pratap wrote:
+> PSCI currently supports only two resets - SYSTEM_RESET and SYSTEM_RESET2
+> ARCH WARM reset. The reset patch is selected based on the Linux
+> reboot_mode variable. The PSCI specification now includes SYSTEM_RESET2
+> for vendor-specific resets but there's no mechanism to issue these
+> through psci_sys_reset().
+> 
+> Add a command-based reset mechanism that allows external drivers to set
+> the psci reset command via a exported psci_set_reset_cmd() function.
+> 
+> Define predefined reset_types - PSCI_RESET_TYPE_SYSTEM_RESET to map to
+> SYSTEM_RESET, and PSCI_RESET_TYPE_SYSTEM_RESET2_ARCH_WARM to map to
+> SYSTEM_RESET2 arch warm reset. Interpret zero cmd_reset_type, for
+> predefined reset-command selection via cmd_cookie. For non-zero
+> cmd_reset_type, check for valid vendor_reset_type and set the psci
+> reset_command and cookie accordingly.
+> 
+> Disable PSCI command-based reset by default and treat invalid reset
+> commands as no‑op. psci_sys_reset() follows its original flow based on
+> reboot_mode until a reset command is explicitly set by
+> psci_set_reset_cmd().  In the device reset flow, psci_set_reset_cmd() is
+> called in reboot_notifier phase and the device reset happens in
+> psci_sys_reset() which is called later in the restart_notifier phase. If
+> a kernel panic occurs in between these two phases, the reboot should
+> take its original flow based on the value of reboot_mode. Disable the
+> command-based reset in such case.
+> 
+> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> ---
+>   drivers/firmware/psci/psci.c | 75 ++++++++++++++++++++++++++++++++++++++++++--
+>   include/linux/psci.h         | 19 +++++++++++
+>   2 files changed, 92 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/firmware/psci/psci.c b/drivers/firmware/psci/psci.c
+> index 38ca190d4a22d6e7e0f06420e8478a2b0ec2fe6f..cb37c39e2b4b1d99f0080f6a5cd6c92a070beda8 100644
+> --- a/drivers/firmware/psci/psci.c
+> +++ b/drivers/firmware/psci/psci.c
+> @@ -51,6 +51,16 @@ static int resident_cpu = -1;
+>   struct psci_operations psci_ops;
+>   static enum arm_smccc_conduit psci_conduit = SMCCC_CONDUIT_NONE;
+>   
+> +/*
+> + * Encoded reset command:
+> + * bits[63:32] = cookie
+> + * bits[31:0]  = reset_type
+> + */
+> +static u64 reset_cmd;
+> +
+> +#define PSCI_RESET_TYPE(reset_cmd)	((u32)(reset_cmd))
+> +#define PSCI_RESET_COOKIE(reset_cmd)	((u32)((reset_cmd) >> 32))
+> +
+>   bool psci_tos_resident_on(int cpu)
+>   {
+>   	return cpu == resident_cpu;
+> @@ -80,6 +90,35 @@ static u32 psci_cpu_suspend_feature;
+>   static bool psci_system_reset2_supported;
+>   static bool psci_system_off2_hibernate_supported;
+>   
+> +static u32 psci_fn_from_cookie(u32 cookie)
+> +{
+> +	switch (cookie) {
+> +	case PSCI_RESET_TYPE_SYSTEM_RESET2_ARCH_WARM:
+> +		if (psci_system_reset2_supported)
+> +			return PSCI_FN_NATIVE(1_1, SYSTEM_RESET2);
+> +		return 0;
+> +	case PSCI_RESET_TYPE_SYSTEM_RESET:
+> +		return PSCI_0_2_FN_SYSTEM_RESET;
+> +	default:
+> +		return 0;
+> +	}
+> +}
+> +
+> +/** psci_set_reset_cmd() - Configure reset request for psci_sys_reset()
+> + * @psci_reset_cmd: reset command encoded as cookie[63:32] | reset_type[31:0]
+> + *
+> + * Save reset command.
+> + */
+> +void psci_set_reset_cmd(u64 psci_reset_cmd)
+> +{
+> +	reset_cmd = psci_reset_cmd;
+> +}
+> +
+> +bool psci_has_system_reset2_support(void)
+> +{
+> +	return psci_system_reset2_supported;
+> +}
+> +
+>   static inline bool psci_has_ext_power_state(void)
+>   {
+>   	return psci_cpu_suspend_feature &
+> @@ -306,8 +345,24 @@ static int get_set_conduit_method(const struct device_node *np)
+>   	return 0;
+>   }
+>   
+> -static int psci_sys_reset(struct notifier_block *nb, unsigned long action,
+> -			  void *data)
+> +static void psci_handle_reset_cmd(void)
+> +{
+> +	u32 psci_sys_reset_fn;
+> +
+> +	if ((reset_cmd & BIT_ULL(31)) && psci_system_reset2_supported) {
+> +		/* PSCI SYSTEM_RESET2 Vendor-specific reset */
+> +		invoke_psci_fn(PSCI_FN_NATIVE(1_1, SYSTEM_RESET2),
+> +			       PSCI_RESET_TYPE(reset_cmd),
+> +			       PSCI_RESET_COOKIE(reset_cmd), 0);
+> +	} else {
+> +		/* cookie part of the reset_cmd decides ARCH WARM RESET vs SYSTEM_RESET */
+> +		psci_sys_reset_fn = psci_fn_from_cookie(PSCI_RESET_COOKIE(reset_cmd));
+> +		if (!PSCI_RESET_TYPE(reset_cmd) && psci_sys_reset_fn)
+> +			invoke_psci_fn(psci_sys_reset_fn, 0, 0, 0);
+> +	}
+> +}
+> +
+> +static void psci_handle_reboot_mode(void)
+>   {
+>   	if ((reboot_mode == REBOOT_WARM || reboot_mode == REBOOT_SOFT) &&
+>   	    psci_system_reset2_supported) {
+> @@ -320,6 +375,22 @@ static int psci_sys_reset(struct notifier_block *nb, unsigned long action,
+>   	} else {
+>   		invoke_psci_fn(PSCI_0_2_FN_SYSTEM_RESET, 0, 0, 0);
+>   	}
+> +}
+> +
+> +static int psci_sys_reset(struct notifier_block *nb, unsigned long action,
+> +			  void *data)
+> +{
+> +	/*
+> +	 * Command-based resets are configured at the reboot_notifier phase.
+> +	 * If a kernel panic occurs between the reboot_notifier and this final
+> +	 * reset, ignore the command-based reset and let reboot_mode drive the
+> +	 * reset flow.
+> +	 * If reset_cmd is zero, there is no command to handle.
+> +	 */
+> +	if (reset_cmd && !panic_in_progress())
+> +		psci_handle_reset_cmd();
+> +	else
+> +		psci_handle_reboot_mode();
+>   
+>   	return NOTIFY_DONE;
+>   }
+> diff --git a/include/linux/psci.h b/include/linux/psci.h
+> index 4ca0060a3fc42ba1ca751c7862fb4ad8dda35a4c..c2458291a3faf5ac89b1528dae2c9b805a2dd075 100644
+> --- a/include/linux/psci.h
+> +++ b/include/linux/psci.h
+> @@ -21,6 +21,21 @@ bool psci_power_state_is_valid(u32 state);
+>   int psci_set_osi_mode(bool enable);
+>   bool psci_has_osi_support(void);
+>   
+> +/**
+> + * enum psci_reset_type	-	PSCI_RESET_TYPE for SYSTEM_RESET.
+> + * @PSCI_RESET_TYPE_SYSTEM_RESET: Standard SYSTEM_RESET command.
+> + * @PSCI_RESET_TYPE_SYSTEM_RESET2_ARCH_WARM: SYSTEM_RESET2 architectural warm reset.
+> + *
+> + * These enum values map PSCI_RESET_TYPE_SYSTEM_* constants to reset strings
+> + * issued from user space. When user space requests a reset, the cookie
+> + * carries one of these values, and the PSCI reset path translates it into
+> + * the appropriate PSCI system reset call.
+> + */
+> +enum psci_reset_type {
+> +	PSCI_RESET_TYPE_SYSTEM_RESET = 1,
+> +	PSCI_RESET_TYPE_SYSTEM_RESET2_ARCH_WARM,
+> +};
+> +
+>   struct psci_operations {
+>   	u32 (*get_version)(void);
+>   	int (*cpu_suspend)(u32 state, unsigned long entry_point);
+> @@ -45,8 +60,12 @@ struct psci_0_1_function_ids get_psci_0_1_function_ids(void);
+>   
+>   #if defined(CONFIG_ARM_PSCI_FW)
+>   int __init psci_dt_init(void);
+> +void psci_set_reset_cmd(u64 psci_reset_cmd);
+> +bool psci_has_system_reset2_support(void);
+>   #else
+>   static inline int psci_dt_init(void) { return 0; }
+> +static inline void psci_set_reset_cmd(u64 psci_reset_cmd) { }
+> +static inline bool psci_has_system_reset2_support(void) { return false; }
+>   #endif
+>   
+>   #if defined(CONFIG_ARM_PSCI_FW) && defined(CONFIG_ACPI)
+> 
 
-Thanks Linus.
-
-To align with Krzysztof's change[1], do you prefer me to send the patch 
-for IPQ9650 on top of his change or do you plan to take care of it when 
-apply his change? Kindly do let me know.
-
-[1] 
-https://lore.kernel.org/linux-arm-msm/3e7b941c-b297-48ea-89b7-e21a51f56acf@oss.qualcomm.com/T/#mb046f22f0c90ed7073e17073dc04daa931e40ee4
-
->
-> Yours,
-> Linus Walleij
