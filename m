@@ -1,27 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9B63DA7CC
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:01:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27AE3DABE3
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:01:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777366888; cv=none; b=uUR86h9r78iywSvrEjJ4mY7tDqRfeq589vBU02ps7hQZqXLOAKPtiKM31jrPANFmgpyO00QVuKI7h+npl03+xSYI7nJA2Um4IABjFsC4GwXbmBkW3OFAB1CDOoBIDk2cVM7Axkv3i/1YBCubPQnBXDt31Io3KCkUAIpdUdMX1/U=
+	t=1777366890; cv=none; b=tgU8q3wQVboAXa5N2MBap6oWPc2LjU2TmfbGeqxqVk0wixk9orGlQrD77tm6E5CGhJoHTMEVx5v55RLZmGc5yvaIztmQL8QGcxChlvexSD8CQEeV7o8V1BXD6v6WRd8CfPpSx7xBNL+zAD++y2ENRtoiRfC6ldh2kvJ7uogwsvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777366888; c=relaxed/simple;
-	bh=O35zDqcigfxarHeM7lhed6lXFRm4kX5W5Hov/RJcpQM=;
+	s=arc-20240116; t=1777366890; c=relaxed/simple;
+	bh=1JlY+N4SnPm5stESttpyK4IG+iwzAporxN+TRokWNcw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dQ0EcbkKP/2i/C8LfGRgGDT99IrQwJMia9xVCrerUZB8W2u0qO4cHYISrwau8juu1s4HRnf2Pfa8WWdjjGlJAf1eMnf3ZZDLFvYDRSdjNeinKmUR8HvLzan1dk3/YZ0Lt7CpAUU9UPsA1ed6WumkpVUsmVrqgSfLH9Tztw1XnU8=
+	 In-Reply-To:To:Cc; b=OFpJAgIpsiD0dUiLLmnHzw6fSsDVxKq9iG5Ikx3HjB0fCSbyQvXA6SFLQl5WI8jqMQFPxfjavZ/Ixv+BsT/PpknosQZV0yY5n3y8IFfY6zJyqz7vhyXArwLlEVQzLK6g1Hpe599ONJGhAS1ibPkjJ+RqxD2iaT8vzP62Sw9g/bU=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wHeJE-0004Lz-Nq; Tue, 28 Apr 2026 11:00:48 +0200
+	id 1wHeJH-0004Lz-TH; Tue, 28 Apr 2026 11:00:51 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Tue, 28 Apr 2026 11:00:48 +0200
-Subject: [PATCH v5 13/29] media: rockchip: rga: calculate x_div/y_div using
- v4l2_format_info
+Date: Tue, 28 Apr 2026 11:00:54 +0200
+Subject: [PATCH v5 19/29] media: rockchip: rga: use card type to specify
+ rga type
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -30,7 +30,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260428-spu-rga3-v5-13-eb7f5d019d86@pengutronix.de>
+Message-Id: <20260428-spu-rga3-v5-19-eb7f5d019d86@pengutronix.de>
 References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 In-Reply-To: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -51,189 +51,58 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Calculate the x_div and y_div variables with the information from
-v4l2_format_info instead of storing these in the rga_fmt struct.
+In preparation of the RGA3 support add a filed to the rga_hw struct
+to specify the desired card type value. This allows the user to
+differentiate the RGA2 and RGA3 video device nodes.
 
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga-hw.c | 45 +++++++---------------------
- drivers/media/platform/rockchip/rga/rga.h    |  2 --
- 2 files changed, 11 insertions(+), 36 deletions(-)
+ drivers/media/platform/rockchip/rga/rga-hw.c | 1 +
+ drivers/media/platform/rockchip/rga/rga.c    | 4 +++-
+ drivers/media/platform/rockchip/rga/rga.h    | 1 +
+ 3 files changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index 40498796507e0..17f7a67c0b4bb 100644
+index 11a1a914668f6..931b4c4074a29 100644
 --- a/drivers/media/platform/rockchip/rga/rga-hw.c
 +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -42,6 +42,7 @@ rga_get_addr_offset(struct rga_frame *frm, struct rga_addr_offset *offset,
- {
- 	struct rga_corners_addr_offset offsets;
- 	struct rga_addr_offset *lt, *lb, *rt, *rb;
-+	const struct v4l2_format_info *format_info;
- 	unsigned int x_div = 0,
- 		     y_div = 0, uv_stride = 0, pixel_width = 0;
- 
-@@ -50,8 +51,16 @@ rga_get_addr_offset(struct rga_frame *frm, struct rga_addr_offset *offset,
- 	rt = &offsets.right_top;
- 	rb = &offsets.right_bottom;
- 
--	x_div = frm->fmt->x_div;
--	y_div = frm->fmt->y_div;
-+	format_info = v4l2_format_info(frm->pix.pixelformat);
-+	/* x_div is only used for the u/v planes.
-+	 * When the format doesn't have these, use 1 to avoid a division by zero.
-+	 */
-+	if (format_info->bpp[1])
-+		x_div = format_info->hdiv * format_info->bpp_div[1] /
-+			format_info->bpp[1];
-+	else
-+		x_div = 1;
-+	y_div = format_info->vdiv;
- 	uv_stride = frm->stride / x_div;
- 	pixel_width = frm->stride / frm->pix.width;
- 
-@@ -476,128 +485,96 @@ static struct rga_fmt formats[] = {
- 		.color_swap = RGA_COLOR_ALPHA_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR8888,
- 		.depth = 32,
--		.y_div = 1,
--		.x_div = 1,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_ABGR32,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR8888,
- 		.depth = 32,
--		.y_div = 1,
--		.x_div = 1,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_XBGR32,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_XBGR8888,
- 		.depth = 32,
--		.y_div = 1,
--		.x_div = 1,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_RGB24,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_RGB888,
- 		.depth = 24,
--		.y_div = 1,
--		.x_div = 1,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_BGR24,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_RGB888,
- 		.depth = 24,
--		.y_div = 1,
--		.x_div = 1,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_ARGB444,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR4444,
- 		.depth = 16,
--		.y_div = 1,
--		.x_div = 1,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_ARGB555,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_ABGR1555,
- 		.depth = 16,
--		.y_div = 1,
--		.x_div = 1,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_RGB565,
- 		.color_swap = RGA_COLOR_RB_SWAP,
- 		.hw_format = RGA_COLOR_FMT_BGR565,
- 		.depth = 16,
--		.y_div = 1,
--		.x_div = 1,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV21,
- 		.color_swap = RGA_COLOR_UV_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420SP,
- 		.depth = 12,
--		.y_div = 2,
--		.x_div = 1,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV61,
- 		.color_swap = RGA_COLOR_UV_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV422SP,
- 		.depth = 16,
--		.y_div = 1,
--		.x_div = 1,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV12,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420SP,
- 		.depth = 12,
--		.y_div = 2,
--		.x_div = 1,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV12M,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420SP,
- 		.depth = 12,
--		.y_div = 2,
--		.x_div = 1,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_NV16,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV422SP,
- 		.depth = 16,
--		.y_div = 1,
--		.x_div = 1,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_YUV420,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420P,
- 		.depth = 12,
--		.y_div = 2,
--		.x_div = 2,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_YUV422P,
- 		.color_swap = RGA_COLOR_NONE_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV422P,
- 		.depth = 16,
--		.y_div = 1,
--		.x_div = 2,
- 	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_YVU420,
- 		.color_swap = RGA_COLOR_UV_SWAP,
- 		.hw_format = RGA_COLOR_FMT_YUV420P,
- 		.depth = 12,
--		.y_div = 2,
--		.x_div = 2,
- 	},
+@@ -588,6 +588,7 @@ static struct rga_fmt formats[] = {
  };
  
+ const struct rga_hw rga2_hw = {
++	.card_type = "rga2",
+ 	.formats = formats,
+ 	.num_formats = ARRAY_SIZE(formats),
+ 	.cmdbuf_size = RGA_CMDBUF_SIZE,
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index 75d05c86b1c00..421a70558c3c7 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -306,8 +306,10 @@ static const struct v4l2_file_operations rga_fops = {
+ static int
+ vidioc_querycap(struct file *file, void *priv, struct v4l2_capability *cap)
+ {
++	struct rockchip_rga *rga = video_drvdata(file);
++
+ 	strscpy(cap->driver, RGA_NAME, sizeof(cap->driver));
+-	strscpy(cap->card, "rockchip-rga", sizeof(cap->card));
++	strscpy(cap->card, rga->hw->card_type, sizeof(cap->card));
+ 	strscpy(cap->bus_info, "platform:rga", sizeof(cap->bus_info));
+ 
+ 	return 0;
 diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index 640e510285341..27b3c9b4f220c 100644
+index 454af283b1694..dc6f90b843c32 100644
 --- a/drivers/media/platform/rockchip/rga/rga.h
 +++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -20,8 +20,6 @@
- struct rga_fmt {
- 	u32 fourcc;
- 	int depth;
--	u8 y_div;
--	u8 x_div;
- 	u8 color_swap;
- 	u8 hw_format;
+@@ -145,6 +145,7 @@ static inline void rga_mod(struct rockchip_rga *rga, u32 reg, u32 val, u32 mask)
  };
+ 
+ struct rga_hw {
++	const char *card_type;
+ 	struct rga_fmt *formats;
+ 	u32 num_formats;
+ 	size_t cmdbuf_size;
 
 -- 
 2.54.0
