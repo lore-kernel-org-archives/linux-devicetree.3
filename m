@@ -1,457 +1,213 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEDD8426D0C
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 12:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9F241324E
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 12:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777378796; cv=none; b=WG+B9iK7bH9dMHNYbH1T4CmaorxM55FsS2ZLGgrbwQwAy5XGkChpAO82uCrZ9hZmc3Pf740PyDw21Zv+TcKuBLdPU5EeW+Oq0qr8VSAJORne9iycW5d/zfW923M2btf2oV95/LX9/S1eUPoB0FJzQFmI91Bn/BCXn7Cj530shFA=
+	t=1777378914; cv=none; b=cTbYxnAamyqj7o+DxrlpDt+YO53R3uH1T8RJQucBFgIuD/vuaqraP1D17w47aMhBVtdeTZa1FFmSLH492PIEjd//udu40d+jobLDjfI8pDewdPtWLofJPpsY3/LxeQ1hmfjy2C68l6SK/rYL6MoT7Tqoyqs77bujNZMru8q6aiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777378796; c=relaxed/simple;
-	bh=M/sOIDN1OH5lbAtVgg3JeylSjCLDwSD5RTk79w8wpko=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uI31IT/ukl54580LOeymJVxo81oA1q6JguhArTGz1EJ+jGNE3Hi6EDtA4/EuzQLZpXRTd5QbOM9IWh9cmilTB40z+f7kuX6oOxYO+4Q1KU0IapWKQgEKqdupm8tKmJYnY2gowJfq7yhVpEWfotQez7HQ1Apwgy1Q1QrzHmORthM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com; spf=pass smtp.mailfrom=inventec.com; dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b=AoCGqHKt; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inventec.com
+	s=arc-20240116; t=1777378914; c=relaxed/simple;
+	bh=FWzALyqf+QscwrPfgIVwVFW+Y1JjgRB71Kd1nmWJlRI=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
+	 References:In-Reply-To; b=NwCF/b/bx+C8jaR/4HrCPWbM99jBR18SrXuEp8MbkOGreuKLzkwaKLDMOb0uf/SQjV5xBCTiQcO51+zdPWR3vsDEV7UQBsrzLWQNFx+MZqLQUqYSQgzHZDfBXl1qlGv5QvavyDULJbmTv9spF6iG5CszRORbgIKlbaXEHtLuNmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=lDEouwh7; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b="AoCGqHKt"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-82f8b60e485so4721474b3a.0
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 05:19:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=inventec.com; s=google; t=1777378784; x=1777983584; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=am9M3EBhsBtI0W+fdPdNyDSQadIL28OCsPQk25ZYgrA=;
-        b=AoCGqHKtA5JLLi8MIovpDUPqqy3Uwjq10CnUyeIFJlZzhRndg/gvcPTB36eZSx1k/+
-         Egktoyz25eoeX0bFpnzAkKFBXweomcXF5FqfABm5lD6y9dTvyVc4ROqVjP8pbK7UqxKB
-         kDWMKjn286uzXBFDBymr1j7YX8hbqMm4Q/sX2tKmBZv/uNAWb2YH1C8LQLhbPTqT1bK+
-         niMYN7UJ5iKmBfvsmT/6NwspVCA0VcA02cLFwpObbbmLwfU/ru6JQ+F8rxt3TFiCx0vV
-         3jcMe4BPJ3azMQcSOov0QpydgZ/U0qajHa8lSS9t+2a3HVoRsvImo/fbhjbOGqpnG1mS
-         Xd8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777378784; x=1777983584;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=am9M3EBhsBtI0W+fdPdNyDSQadIL28OCsPQk25ZYgrA=;
-        b=TWplhtA/sRbgtfuohPC2kZRK3OFH7AEEvMorq2L2hAZQpkHM6t4iYlN7V/aYfF39wx
-         bDnWPw/fyYp8qhmxk/2Uj+i0wbYYr3+Hs0bs5+j6GXkgbDrW9t0SPS//B4+1WirM5Cah
-         H3hzFemHjn+bANtWQhTAA9m/vT6VboEtN98q9WFME/IGblbSW+Ai6Ouu8jxhJpMdEXob
-         2xLplI7DMDsV3QpJil12N119uvkmspkOcfm2iFt2nnrUYy3O5ODI4itHovudS8bwmsaI
-         qtO4K4ebpqMvmsGuD1siKskfbMpsub/FAuuB5/i/29DkJ8w8/7P0ijTC3u5LOKcRjOsN
-         +P7A==
-X-Forwarded-Encrypted: i=1; AFNElJ/g1PcYUggM1N2SkoDGkxaIaXLXfy04HI1+BMubwadrbc6bpkGlnk3Un6j+5Ii7Nyhd5EIUFU0z8jwZ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZWdoYAJEUvn3ceAC8rd1dVI5RU2SYKzkNQQAoA9Qtd/Q5TjBg
-	IAMAGdPQ8/IpkdisHe3zngQ7rwSznVDNVn9gna/W5wKv1HFvnkTjB32an2lKQWUepYg=
-X-Gm-Gg: AeBDiesM0WP+tklggHsKlhPQHRoXWwVd6Sutjd1HrGrrVspwNknhv6+sQK8NQmnTskv
-	RsyP8l5/FMLU+gN3xvMjmeAq0SmSGbhOD/BRHbzpE2wkufI1Rfp7hxa99S0K6gFSsSydHy2XFMm
-	6Blxc6EL0+rdfhxloPM3NA/ZNNZjkDvJi7+VBniQwkNkf+FmHq4y1UuoNqBFEmmtxNETvPDujnF
-	jUjDgjDl1eUUhUMowoZ3HUOY+5x2ZcWzkWbznBJltKYqlSUuwGPamr0h875FyDX2OoR6EidWEQ4
-	EWGOJf7mtdP0G8TmfC1HsvbY2WEFG3uF7X0R+NPL8ksfsPmUt8+lwEvI6f8cYPbgAhXUP/MAk08
-	CrSVFbphh25bTLH5+9ifdOgueCl8JelkqawtbKBrzFYndYDEL3l41wwQpOT/ptrXhS668Jus2ES
-	Ap36BNgmLr/Ga4Gt5zny1ZtBV5bkJHbTPOrxkUuLUE
-X-Received: by 2002:a05:6a00:1805:b0:82c:e09b:3f76 with SMTP id d2e1a72fcca58-834ddc791bdmr3068989b3a.41.1777378783835;
-        Tue, 28 Apr 2026 05:19:43 -0700 (PDT)
-Received: from [127.0.1.1] ([123.51.235.216])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-834daf5705fsm3254587b3a.42.2026.04.28.05.19.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Apr 2026 05:19:43 -0700 (PDT)
-From: Brian Chiang <chiang.brian@inventec.com>
-Date: Tue, 28 Apr 2026 12:19:29 +0000
-Subject: [PATCH v2 2/2] hwmon: (pmbus/lx1308) Add support for LX1308
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="lDEouwh7"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 005BBC5EF07;
+	Tue, 28 Apr 2026 12:22:25 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3E459601D0;
+	Tue, 28 Apr 2026 12:21:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EF52010728AA4;
+	Tue, 28 Apr 2026 14:21:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1777378900; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=FkhJI2u81cWQQKkbpyLd60L537rqdrvEOTTOduSP8fc=;
+	b=lDEouwh70SunD0CIWASRbWeFowTrGybIpcklgMde26dHzbTlVQO4tNpqeNvxp/DTQsoqLf
+	MVjtKrPOCWqpHgHajsl9TS3Z3HbhRIpfUc1ER+yeSnCjIO3sw4GAhoSvOm0qOqbvwlTHrB
+	x+gO9MKBp4xsCHTPNEnL2nYoU4H0Uz7b3WQc5J0o29raPzA+01q4oo01SleqCbz0BDqus+
+	+SOujwJmPYbFV9TLnY1ejbitcPWUig77tZIqCoYyaNv88N+8BWkg4GxKRwHhpKohvAc+Wg
+	QN2E2KsPjss+wNTEiCqCvUKMlcm3LPj/suEerpCepkldM2ueNI7yNcP+xUABCg==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-add-support-lx1308-v2-2-90f115954143@inventec.com>
-References: <20260428-add-support-lx1308-v2-0-90f115954143@inventec.com>
-In-Reply-To: <20260428-add-support-lx1308-v2-0-90f115954143@inventec.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- Brian Chiang <chiang.brian@inventec.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777378774; l=11714;
- i=chiang.brian@inventec.com; s=20260316; h=from:subject:message-id;
- bh=M/sOIDN1OH5lbAtVgg3JeylSjCLDwSD5RTk79w8wpko=;
- b=lPbZLKRAyGIyAkbNNrCinnnrVVDG3QyFhF6tEDprn2s4A4zTXl5PVTHVCz2M1npddCMeIWjCR
- Dt6SU4zkHaZBSjoJ+Bry1czDY0ywld4nrVatCkbAHrWFOPuWJbPMJg0
-X-Developer-Key: i=chiang.brian@inventec.com; a=ed25519;
- pk=q+NqJYuJbGpA9KS9941D7f+8PVVW+k7DvaGgFykBiUc=
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 28 Apr 2026 14:21:35 +0200
+Message-Id: <DI4S8GN9WTCI.75C07G767ZOV@bootlin.com>
+Cc: "Vinod Koul" <vkoul@kernel.org>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
+ "Pengutronix Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam"
+ <festevam@gmail.com>, <dri-devel@lists.freedesktop.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-phy@lists.infradead.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux@ew.tq-group.com>, "Alexander
+ Stein" <alexander.stein@ew.tq-group.com>, "Ying Liu" <victor.liu@nxp.com>
+To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v22 5/8] dt-bindings: phy: Add Freescale iMX8MQ DP and
+ HDMI PHY
+X-Mailer: aerc 0.20.1
+References: <20260424-dcss-hdmi-upstreaming-v22-0-30a28f89298d@oss.nxp.com>
+ <20260424-dcss-hdmi-upstreaming-v22-5-30a28f89298d@oss.nxp.com>
+ <DI3YF5Y2B3GZ.25AP4NKQAXH36@bootlin.com>
+ <f6rf5d6nhglkwendf5yvaklfn2ovlwkqstsz7vvl5zefibtiun@wic7bchohmwv>
+In-Reply-To: <f6rf5d6nhglkwendf5yvaklfn2ovlwkqstsz7vvl5zefibtiun@wic7bchohmwv>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Add support for the Luxshare LX1308, a high-efficiency 12V 860W
-DC/DC power module. The module operates from 40-60V input voltage.
+Hello Laurentiu,
 
-Signed-off-by: Brian Chiang <chiang.brian@inventec.com>
----
- Documentation/hwmon/index.rst  |   1 +
- Documentation/hwmon/lx1308.rst |  90 ++++++++++++++++++
- drivers/hwmon/pmbus/Kconfig    |  10 ++
- drivers/hwmon/pmbus/Makefile   |   1 +
- drivers/hwmon/pmbus/lx1308.c   | 204 +++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 306 insertions(+)
+On Mon Apr 27, 2026 at 4:35 PM CEST, Laurentiu Palcu wrote:
+> Hi Luca,
+>
+> On Mon, Apr 27, 2026 at 02:59:47PM +0200, Luca Ceresoli wrote:
+>> Hello Laurentiu,
+>>
+>> On Fri Apr 24, 2026 at 1:07 PM CEST, Laurentiu Palcu wrote:
+>> > From: Sandor Yu <Sandor.yu@nxp.com>
+>> >
+>> > Add bindings for Freescale iMX8MQ DP and HDMI PHY.
+>> >
+>> > Signed-off-by: Sandor Yu <Sandor.yu@nxp.com>
+>> > Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+>> > ---
+>> >  .../bindings/phy/fsl,imx8mq-hdptx-phy.yaml         | 80 +++++++++++++=
++++++++++
+>> >  1 file changed, 80 insertions(+)
+>> >
+>> > diff --git a/Documentation/devicetree/bindings/phy/fsl,imx8mq-hdptx-ph=
+y.yaml b/Documentation/devicetree/bindings/phy/fsl,imx8mq-hdptx-phy.yaml
+>> > new file mode 100644
+>> > index 0000000000000..a24435139b8b3
+>> > --- /dev/null
+>> > +++ b/Documentation/devicetree/bindings/phy/fsl,imx8mq-hdptx-phy.yaml
+>> > @@ -0,0 +1,80 @@
+>> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> > +%YAML 1.2
+>> > +---
+>> > +$id: http://devicetree.org/schemas/phy/fsl,imx8mq-hdptx-phy.yaml#
+>> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> > +
+>> > +title: Cadence HDP-TX DP/HDMI PHY for Freescale i.MX8MQ SoC
+>> > +
+>> > +maintainers:
+>> > +  - Sandor Yu <sandor.yu@nxp.com>
+>>
+>> Based on what you said in the cover, I guess this line will have to be
+>> changed. Are you willing to maintain this binding?
+>
+> Yes, I'll update it in the next iteration.
+>
+>>
+>> > +description:
+>> > +  The Cadence HDP-TX DP/HDMI PHY is a child node of the MHDP8501 brid=
+ge,
+>> > +  sharing the same MMIO region as the parent bridge node.
+>> > +
+>> > +properties:
+>> > +  compatible:
+>> > +    const: fsl,imx8mq-hdptx-phy
+>> > +
+>> > +  clocks:
+>> > +    items:
+>> > +      - description: PHY reference clock.
+>> > +      - description: APB clock.
+>> > +
+>> > +  clock-names:
+>> > +    items:
+>> > +      - const: ref
+>> > +      - const: apb
+>> > +
+>> > +  "#phy-cells":
+>> > +    const: 0
+>> > +
+>> > +required:
+>> > +  - compatible
+>> > +  - clocks
+>> > +  - clock-names
+>> > +  - "#phy-cells"
+>> > +
+>> > +additionalProperties: false
+>> > +
+>> > +examples:
+>> > +  - |
+>> > +    #include <dt-bindings/clock/imx8mq-clock.h>
+>> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> > +
+>> > +    display-bridge@32c00000 {
+>> > +        compatible =3D "fsl,imx8mq-mhdp8501";
+>> > +        reg =3D <0x32c00000 0x100000>;
+>> > +        interrupts =3D <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
+>> > +                     <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
+>> > +        interrupt-names =3D "plug_in", "plug_out";
+>> > +        clocks =3D <&clk IMX8MQ_CLK_DISP_APB_ROOT>;
+>> > +        phys =3D <&dp_phy>;
+>> > +
+>> > +        ports {
+>> > +            #address-cells =3D <1>;
+>> > +            #size-cells =3D <0>;
+>>
+>> The ports are not mentioned in the properties. I'm not a DT maintainer, =
+but
+>> I think they should, e.g. to mention which port is the input and which i=
+s
+>> the output.
+>>
+>> > +
+>> > +            port@0 {
+>> > +                reg =3D <0>;
+>> > +                endpoint {
+>> > +                    remote-endpoint =3D <&dcss_out>;
+>> > +                };
+>> > +            };
+>> > +
+>> > +            port@1 {
+>> > +                reg =3D <1>;
+>> > +                endpoint {
+>> > +                    data-lanes =3D <2 1 0 3>;
+>>
+>> Having a remote-endpoint property would be nice here, to make the exampl=
+e
+>> more complete.
+>
+> The ports and the remote endpoints are documented in the bridge binding..=
+.
 
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index b2ca8513cfcd..c86c21554c37 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -145,6 +145,7 @@ Hardware Monitoring Kernel Drivers
-    ltc4261
-    ltc4282
-    ltc4286
-+   lx1308
-    macsmc-hwmon
-    max127
-    max15301
-diff --git a/Documentation/hwmon/lx1308.rst b/Documentation/hwmon/lx1308.rst
-new file mode 100644
-index 000000000000..c1b72e1647c5
---- /dev/null
-+++ b/Documentation/hwmon/lx1308.rst
-@@ -0,0 +1,90 @@
-+.. SPDX-License-Identifier: GPL-2.0-or-later
-+
-+Kernel driver lx1308
-+====================
-+
-+Supported chips:
-+
-+  * Luxshare LX1308
-+
-+    Prefixes: 'lx1308'
-+
-+    Addresses scanned: -
-+
-+    Datasheet: Datasheet is not publicly available.
-+
-+Author: Brian Chiang <chiang.brian@inventec.com>
-+
-+
-+Description
-+-----------
-+
-+The LX1308 is a high-efficiency, non-isolated, regulated 12V, 860W,
-+digital DC/DC power module. The module operates from a 40V to 60V DC
-+primary bus and provides a 12V regulated output voltage. It can deliver
-+up to 860W continuous and 1300W in transient.
-+
-+The module has slow OCP and fast OCP. If the module output current is higher
-+than slow OCP set point and the lasting time is also longer than the delay,
-+the module will shut down and retry 3 time, if the fault still exists then
-+module enter latch mode.
-+
-+If the module output current is higher than fast OCP set point then it shut
-+down and enter latch mode.
-+
-+The driver is a client driver to the core PMBus driver.
-+Please see Documentation/hwmon/pmbus.rst for details on PMBus client drivers.
-+
-+
-+Usage Notes
-+-----------
-+
-+This driver does not auto-detect devices. You will have to instantiate the
-+devices explicitly. Please see Documentation/i2c/instantiating-devices.rst for
-+details.
-+
-+
-+Sysfs entries
-+-------------
-+
-+======================= ======================================================
-+curr1_alarm             Input current alarm
-+curr1_input             Input current (IIN)
-+curr1_label             "iin"
-+curr2_crit              Output over current fault threshold (slow OCP, 60ms delay)
-+curr2_crit_alarm        Output over current fault alarm
-+curr2_input             Output current (IOUT)
-+curr2_label             "iout1"
-+curr2_max               Output over current warning threshold (slow OCP, 60ms delay)
-+curr2_max_alarm         Output over current warning alarm
-+in1_crit                Input over voltage fault threshold
-+in1_crit_alarm          Input over voltage fault alarm
-+in1_input               Input voltage (VIN)
-+in1_label               "vin"
-+in1_lcrit               Input under voltage fault threshold
-+in1_lcrit_alarm         Input under voltage fault alarm
-+in1_max                 Input over voltage warning threshold
-+in1_max_alarm           Input over voltage warning alarm
-+in1_min                 Input under voltage warning threshold
-+in1_min_alarm           Input under voltage warning alarm
-+in2_crit                Output over voltage fault threshold
-+in2_crit_alarm          Output over voltage fault alarm
-+in2_input               Output voltage (VOUT)
-+in2_label               "vout1"
-+in2_lcrit               Output under voltage fault threshold
-+in2_lcrit_alarm         Output under voltage fault alarm
-+in2_max                 Output over voltage warning threshold
-+in2_max_alarm           Output over voltage warning alarm
-+in2_min                 Output under voltage warning threshold
-+in2_min_alarm           Output under voltage warning alarm
-+power1_alarm            Input power alarm
-+power1_input            Input power (PIN)
-+power1_label            "pin"
-+power2_input            Output power (POUT)
-+power2_label            "pout1"
-+temp1_crit              Over temperature fault threshold
-+temp1_crit_alarm        Over temperature fault alarm
-+temp1_input             Module hot spot temperature
-+temp1_max               Over temperature warning threshold
-+temp1_max_alarm         Over temperature warning alarm
-+======================= ======================================================
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index fc1273abe357..1b003a828537 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -302,6 +302,16 @@ config SENSORS_LTC4286
- 	  If you say yes here you get hardware monitoring support for Analog
- 	  Devices LTC4286.
- 
-+config SENSORS_LX1308
-+	tristate "Luxshare LX1308 DC/DC Power Module"
-+	help
-+	  If you say yes here you get hardware monitoring support for
-+	  Luxshare LX1308, a high-efficiency 12V 860W DC/DC power module
-+	  with PMBus interface.
-+
-+	  This driver can also be built as a module. If so, the module will
-+	  be called lx1308.
-+
- config SENSORS_MAX15301
- 	tristate "Maxim MAX15301"
- 	help
-diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-index d6c86924f887..95fc539a77e9 100644
---- a/drivers/hwmon/pmbus/Makefile
-+++ b/drivers/hwmon/pmbus/Makefile
-@@ -29,6 +29,7 @@ obj-$(CONFIG_SENSORS_LT7182S)	+= lt7182s.o
- obj-$(CONFIG_SENSORS_LTC2978)	+= ltc2978.o
- obj-$(CONFIG_SENSORS_LTC3815)	+= ltc3815.o
- obj-$(CONFIG_SENSORS_LTC4286)	+= ltc4286.o
-+obj-$(CONFIG_SENSORS_LX1308)	+= lx1308.o
- obj-$(CONFIG_SENSORS_MAX15301)	+= max15301.o
- obj-$(CONFIG_SENSORS_MAX16064)	+= max16064.o
- obj-$(CONFIG_SENSORS_MAX16601)	+= max16601.o
-diff --git a/drivers/hwmon/pmbus/lx1308.c b/drivers/hwmon/pmbus/lx1308.c
-new file mode 100644
-index 000000000000..0c453393796b
---- /dev/null
-+++ b/drivers/hwmon/pmbus/lx1308.c
-@@ -0,0 +1,204 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include "pmbus.h"
-+
-+#define LX1308_MFR_IOUT_OCP3_FAULT	0xBE
-+#define LX1308_MFR_IOUT_OCP3_WARN	0xBF
-+
-+/*
-+ * Decode a Linear11-encoded word to an integer value.
-+ * Linear11 format: bits[15:11] = signed 5-bit exponent,
-+ * bits[10:0] = signed 11-bit mantissa. Result = mant * 2^exp.
-+ */
-+static inline int linear11_to_int(u16 word)
-+{
-+	s16 exp = ((s16)word) >> 11;
-+	s16 mant = ((s16)((word & 0x7ff) << 5)) >> 5;
-+
-+	return (exp >= 0) ? (int)((u32)mant << exp) : (mant >> -exp);
-+}
-+
-+static int lx1308_read_word_data(struct i2c_client *client, int page,
-+				 int phase, int reg)
-+{
-+	int ret;
-+
-+	if (page > 0)
-+		return -ENXIO;
-+
-+	switch (reg) {
-+	/*
-+	 * The LX1308 OCP3 registers (slow OCP, 60ms delay) use a
-+	 * manufacturer-specific U8.0 format. Read the byte value N and present
-+	 * it as a Linear11 word with exponent 0.
-+	 */
-+	case PMBUS_IOUT_OC_FAULT_LIMIT:
-+		ret = i2c_smbus_read_byte_data(client, LX1308_MFR_IOUT_OCP3_FAULT);
-+		if (ret < 0)
-+			break;
-+		ret &= 0x7FF;
-+		break;
-+
-+	case PMBUS_IOUT_OC_WARN_LIMIT:
-+		ret = i2c_smbus_read_byte_data(client, LX1308_MFR_IOUT_OCP3_WARN);
-+		if (ret < 0)
-+			break;
-+		ret &= 0x7FF;
-+		break;
-+
-+	/*
-+	 * The following registers are not implemented by the LX1308. Return
-+	 * -ENXIO to suppress the corresponding sysfs attributes.
-+	 */
-+	case PMBUS_IIN_OC_WARN_LIMIT:
-+	case PMBUS_IIN_OC_FAULT_LIMIT:
-+	case PMBUS_IOUT_UC_FAULT_LIMIT:
-+	case PMBUS_PIN_OP_WARN_LIMIT:
-+	case PMBUS_POUT_OP_WARN_LIMIT:
-+	case PMBUS_UT_WARN_LIMIT:
-+	case PMBUS_UT_FAULT_LIMIT:
-+	case PMBUS_MFR_IIN_MAX:
-+	case PMBUS_MFR_IOUT_MAX:
-+	case PMBUS_MFR_VIN_MIN:
-+	case PMBUS_MFR_VIN_MAX:
-+	case PMBUS_MFR_VOUT_MIN:
-+	case PMBUS_MFR_VOUT_MAX:
-+	case PMBUS_MFR_PIN_MAX:
-+	case PMBUS_MFR_POUT_MAX:
-+	case PMBUS_MFR_MAX_TEMP_1:
-+		ret = -ENXIO;
-+		break;
-+
-+	default:
-+		ret = -ENODATA;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static int lx1308_write_word_data(struct i2c_client *client, int page,
-+				  int reg, u16 word)
-+{
-+	int ret;
-+
-+	if (page > 0)
-+		return -ENXIO;
-+
-+	switch (reg) {
-+	case PMBUS_IOUT_OC_FAULT_LIMIT:
-+		/*
-+		 * Decode Linear11 word from pmbus_core back to a plain integer
-+		 * and write as the U8.0 byte the device expects.
-+		 */
-+		ret = i2c_smbus_write_byte_data(client, LX1308_MFR_IOUT_OCP3_FAULT,
-+						clamp_val(linear11_to_int(word), 0, 255));
-+		break;
-+
-+	case PMBUS_IOUT_OC_WARN_LIMIT:
-+		ret = i2c_smbus_write_byte_data(client, LX1308_MFR_IOUT_OCP3_WARN,
-+						clamp_val(linear11_to_int(word), 0, 255));
-+		break;
-+
-+	default:
-+		ret = -ENODATA;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static struct pmbus_driver_info lx1308_info = {
-+	.pages = 1,
-+	.format[PSC_VOLTAGE_IN] = linear,
-+	.format[PSC_VOLTAGE_OUT] = linear,
-+	.format[PSC_CURRENT_IN] = linear,
-+	.format[PSC_CURRENT_OUT] = linear,
-+	.format[PSC_POWER] = linear,
-+	.format[PSC_TEMPERATURE] = linear,
-+
-+	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
-+		| PMBUS_HAVE_IIN | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
-+		| PMBUS_HAVE_PIN | PMBUS_HAVE_POUT
-+		| PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP
-+		| PMBUS_HAVE_STATUS_INPUT,
-+
-+	.read_word_data  = lx1308_read_word_data,
-+	.write_word_data = lx1308_write_word_data,
-+};
-+
-+static const struct of_device_id lx1308_of_match[] = {
-+	{ .compatible = "luxshare,lx1308" },
-+	{ }
-+};
-+
-+MODULE_DEVICE_TABLE(of, lx1308_of_match);
-+
-+static const struct i2c_device_id lx1308_id[] = {
-+	{ "lx1308" },
-+	{ }
-+};
-+
-+MODULE_DEVICE_TABLE(i2c, lx1308_id);
-+
-+static int lx1308_probe(struct i2c_client *client)
-+{
-+	u8 buf[I2C_SMBUS_BLOCK_MAX + 1];
-+	const struct i2c_device_id *mid;
-+	int ret;
-+
-+	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
-+	if (ret < 0)
-+		return dev_err_probe(&client->dev, ret,
-+				     "Failed to read manufacturer id\n");
-+	buf[ret] = '\0';
-+
-+	if (ret != 12 || strncmp(buf, "LUXSHARE", 8))
-+		return dev_err_probe(&client->dev, -ENODEV,
-+				     "Unsupported Manufacturer ID '%s'\n", buf);
-+
-+	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
-+	if (ret < 0)
-+		return dev_err_probe(&client->dev, ret,
-+				     "Failed to read Manufacturer Model\n");
-+	buf[ret] = '\0';
-+
-+	for (mid = lx1308_id; mid->name[0]; mid++) {
-+		if (!strncasecmp(mid->name, buf, strlen(mid->name)))
-+			break;
-+	}
-+	if (!mid->name[0])
-+		return dev_err_probe(&client->dev, -ENODEV,
-+				     "Unsupported Manufacturer Model '%s'\n", buf);
-+
-+	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_REVISION, buf);
-+	if (ret < 0)
-+		return dev_err_probe(&client->dev, ret,
-+				     "Failed to read Manufacturer Revision\n");
-+	buf[ret] = '\0';
-+
-+	if (ret != 12 || buf[0] != 'V')
-+		return dev_err_probe(&client->dev, -ENODEV,
-+				     "Unsupported Manufacturer Revision '%s'\n", buf);
-+	return pmbus_do_probe(client, &lx1308_info);
-+}
-+
-+static struct i2c_driver lx1308_driver = {
-+	.driver = {
-+		.name = "lx1308",
-+		.of_match_table = lx1308_of_match,
-+	},
-+	.probe = lx1308_probe,
-+	.id_table = lx1308_id,
-+};
-+
-+module_i2c_driver(lx1308_driver);
-+
-+MODULE_AUTHOR("Brian Chiang <chiang.brian@inventec.com>");
-+MODULE_DESCRIPTION("PMBus driver for Luxshare LX1308");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("PMBUS");
+Ah, my bad, I reviewed too quickly and mixed the phy and bridge bindings in
+my mind, sorry.
 
--- 
-2.43.0
+>
+> However, I believe I screwed this example up by adding the entire bridge =
+node,
+> instead of just a simple:
+>
+> mhdp {
+>     phy {
+>         compatible =3D "fsl,imx8mq-hdptx-phy";
+>         #phy-cells =3D <0>;
+>         clocks =3D <&hdmi_phy_27m>, <&clk IMX8MQ_CLK_DISP_APB_ROOT>;
+>         clock-names =3D "ref", "apb";
+>     };
+> };
+>
+> I'll simplify the example in the next iteration.
 
+Yes, I think it would make sense to do it.
+
+Thanks,
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
