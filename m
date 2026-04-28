@@ -1,96 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out28-171.mail.aliyun.com (out28-171.mail.aliyun.com [115.124.28.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2FC3348883;
-	Tue, 28 Apr 2026 06:35:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66D530CDA2;
+	Tue, 28 Apr 2026 06:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777358149; cv=none; b=WFAwIVmZcqc/VaH4EZVg3AFWzsTrsTArzl+6nq36FGwiYSr6neGglNmV1UmVZwBsW1KCDY0dHDUJAaCLz0n6PQEhY1DVq+AnC57zY9VXWTPu28V00oMDUGY6VTqSQf1YSBhqgY8yeM7rBR4BO0rblmelz00xwPoHmgovjnaT2ss=
+	t=1777358287; cv=none; b=gvM98ke/hn9WL4qqPSFAYBrIeBpj58Dro3FvyE4//NNaD1ZledKVi1cTzcFR90Tn3geiMACwNctSyKsro4J/T2t47vdA1QZtS0iO+tkfmfTdmhW4RcaZQ+jDQJgxEcEQiNWleqy3Bzol0ECO971w3jEivi9Q+2hXqV6bX3TCXPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777358149; c=relaxed/simple;
-	bh=vz/Sb1hlBnsqaIN7hQ/T+8KinGrjDXu1ayrskd2xKrA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DFPZ6WFirLgidTOID4BNcWfYHoTCEEZ2qTzWSlO1+sUonPwcbyYhQ44KHvMEK2wSVgU3xFWzxGm2778OEoGjdQUrV8RrhOkClotRZltuc9zK1OuWNphkRQS4r/5UEP12qDqYtaiECPwttU3nu16hHQTGB3LWAOHWCSjNDAuEkzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dN6IpnOh; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777358287; c=relaxed/simple;
+	bh=/bZXwUNgvMDgqCPzD8kNpCeQqVayHYu5T+1Mc6pxWz4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=qzKpHmwFpZiDewlF48W8hAqw9vaQkuI5SVnOvmOOhuHgOc+1+VeYA1TtfhkkhDEKkYzpX4g5UqNRJTPNdnzLMY3Zc0x1cOKhVumZY9svOaxZVXEHEKC4gjdKhbphlGnfe+5thmbfy4uVdUAXXAPAPrT3b7uPsahqUUkkdAq3W7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=ZlblUM9W; arc=none smtp.client-ip=115.124.28.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dN6IpnOh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7136C2BCB5;
-	Tue, 28 Apr 2026 06:35:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777358149;
-	bh=vz/Sb1hlBnsqaIN7hQ/T+8KinGrjDXu1ayrskd2xKrA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dN6IpnOhoAGIEKdNAX2u+DsYtps6nSP7JtpjHEYxaJTFQDZxCIOCfEVaosRWGM+nn
-	 SNvghifzMRb9LIAeqwWVy9hxhvifBQbdpoVpajj28sCRJPVMbd57imH23fSJoHv7UJ
-	 2bTmVJIgqH0nBRTOESGjt1tdvxfhsGXSWJm+buheKVnF4j3H5OA4hdumUSf+xjeyZq
-	 4ai8jjI8fToPiD/ca5fGTxoQkz8bt/KNV5d0SQYaeeVEMZYDiPesxmaIA9kG0ysUtJ
-	 rSdEwHzhO8PtnPKXGHSbRvZKoSHfEtIPqEVNZ3xhLgBwdnBkyivrUw9Tz6SxLjWihV
-	 DFunPsGmgDang==
-Date: Tue, 28 Apr 2026 08:35:46 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	Bryan O'Donoghue <bod@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
-	kieran.bingham@ideasonboard.com
-Subject: Re: [PATCH v2 11/14] dt-bindings: media: qcom,qcm2290-camss: Add OPE
- ISP subnode
-Message-ID: <20260428-demonic-albatross-of-enrichment-aa6f26@quoll>
-References: <20260427-camss-isp-ope-v2-0-f430e7485009@oss.qualcomm.com>
- <20260427-camss-isp-ope-v2-11-f430e7485009@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="ZlblUM9W"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=lontium.com; s=default;
+	t=1777358277; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=LznwDmo8lURTRzj9CF7qq+sRSbzkNdWUrUNKawWQh3Q=;
+	b=ZlblUM9WoTTAaAM+VZ0c1wa9En3E5tP6dY9TENKh1jZwgF6howO+/HRpZ8zguSv3XBt11ImkRw77nwBwSsD5q225pMVNhIV3KvULBLImKYXFYGUTsoplOmA0XszgUkR6PIsxS3/Oa3SIuZgPE6KaRen61PgEbBaSmsowKTsJoPEMJXT4wc6B2bsmJXOcDRBBQKv/KOzwg4KXf6vUMcn0rakvofOW9UMLccEEuHn1pv1WSEpmGFoqVfVBpIZ5BOSjP90uinDpGS8xXwGEOAZs0EUZJnEJ15dvva65vA7m4fRbL8PWPo8+2cZQ62UmkU6R9e0jpgkRWG+/C8QYklzoTQ==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08688486|-1;BR=01201311R201ec;CH=green;DM=|CONTINUE|false|;DS=SPAM|spam_ad|0.867174-0.00121929-0.131607;FP=12538500737866364210|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083013073;MF=syyang@lontium.com;NM=1;PH=DS;RN=22;RT=22;SR=0;TI=SMTPD_---.hLqybwe_1777357950;
+Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.hLqybwe_1777357950 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 28 Apr 2026 14:32:36 +0800
+From: syyang@lontium.com
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	dmitry.baryshkov@oss.qualcomm.com,
+	maarten.lankhorst@linux.intel.com,
+	rfoss@kernel.org,
+	mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	tzimmermann@suse.de,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	yangsunyun1993@gmail.com,
+	xmzhu@lontium.corp-partner.google.com,
+	xmzhu@lontium.com,
+	rlyu@lontium.com,
+	xbpeng@lontium.com,
+	Sunyun Yang <syyang@lontium.com>
+Subject: [PATCH v1 1/2] dt-bindings:bridge: Add Lontiun LT7911EXC eDP to MIPI DSI bridge
+Date: Tue, 28 Apr 2026 14:32:23 +0800
+Message-Id: <20260428063224.3316655-2-syyang@lontium.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260428063224.3316655-1-syyang@lontium.com>
+References: <20260428063224.3316655-1-syyang@lontium.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260427-camss-isp-ope-v2-11-f430e7485009@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Apr 27, 2026 at 02:43:38PM +0200, Loic Poulain wrote:
-> Extend the qcm2290 CAMSS binding to describe CAMSS as a simple bus by
-> allowing child ISP nodes. Add the required address and size cells, as
-> well as ranges, and validate ISP subnodes against the existing
-> qcom,qcm2290-camss-ope schema.
-> 
-> On qcm2290 the OPE (Offline Processing Engine) is a memory-to-memory
-> ISP (Image Signal Processor).
-> 
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/media/qcom,qcm2290-camss.yaml       | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml b/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml
-> index 391d0f6f67ef5fdfea31dd3683477561516b1556..d8b356028e24c3c5b2e9b7f20e220db7d491ad68 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml
-> @@ -52,6 +52,14 @@ properties:
->        - const: vfe1
->        - const: vfe1_cphy_rx
->  
-> +  '#address-cells':
+From: Sunyun Yang <syyang@lontium.com>
 
-Please use consistent quotes, either ' or "
+The LT7911EXC is an I2C-controlled bridge that Receiver eDP1.4
+and output signal/dual port mipi.
 
-> +    const: 2
+Signed-off-by: Sunyun Yang <syyang@lontium.com>
+---
+ .../display/bridge/lontium,lt7911exc.yaml     | 89 +++++++++++++++++++
+ 1 file changed, 89 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
 
-This means the child will use 64-bit addressing, but does it need that?
-Or do you need that to have 36-bit DMA addressing? If there are true no
-needs for above, usually recommendation is to use narrowe address space
-for children, so only 32-bit.
-
-
-> +
-> +  '#size-cells':
-> +    const: 2
-
-Best regards,
-Krzysztof
+diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+new file mode 100644
+index 000000000000..0525133443ca
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+@@ -0,0 +1,89 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/bridge/lontium,lt7911exc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Lontium LT7911EXC eDP to MIPI DSI Bridge
++
++maintainers:
++  - Sunyun Yang <syyang@lontium.com>
++
++properties:
++  compatible:
++    enum:
++      - lontium,lt7911exc
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++    description: GPIO connected to RST_ pin.
++
++  vdd-supply:
++    description: Regulator for 1.2V MIPI phy power.
++
++  vcc-supply:
++    description: Regulator for 3.3V IO power.
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Video port for MIPI DSI output.
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Video port for eDP input.
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - reg
++  - reset-gpios
++  - vdd-supply
++  - vcc-supply
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        mipi-bridge@41 {
++            compatible = "lontium,lt7911exc";
++            reg = <0x41>;
++            reset-gpios = <&gpy8 8 GPIO_ACTIVE_LOW>;
++            vdd-supply = <&lt7911exc_1v2>;
++            vcc-supply = <&lt7911exc_3v3>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    bridge_in: endpoint {
++                        remote-endpoint = <&edp_out>;
++                    };
++                };
++
++                port@1 {
++                    reg = <1>;
++                    bridge_out: endpoint {
++                        remote-endpoint = <&panel_in>;
++                    };
++                };
++            };
++        };
++    };
+-- 
+2.34.1
 
