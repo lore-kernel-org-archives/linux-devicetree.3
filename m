@@ -1,109 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726643F54C7;
-	Tue, 28 Apr 2026 10:58:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 455143F0A9D
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 11:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777373939; cv=none; b=i82dEWh/zNajLy3+quJNW3F2F22aasyx2EeaNKDeOaKqtFTa5izDSkrHX9hWSiUb1BgiTu/0+1CHpu7fqW3XLSXdbdsNtYWEVGAcegiM8eNRyKZ+v5ti+gYmQO2EW0hY5amMBbx63mCtvZhV8EndJ6hiZpYmm8xNK09VnrLW+/o=
+	t=1777374502; cv=none; b=ciy7yWN0IeI9lC7jx7rl0Y28cyZ3wjCo8ZjA97BuYW1H+U9CI0aonFNYWH0Q0+z0M1wW6wep52jyOLbMTlN8aptydBxDI5byytSdBmvx6wb68qaPB0WjoiAK+T2lFU33mdkQmoEyPgRzCnhB+qHJHpeiylhm4br0SqX3wTHqhR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777373939; c=relaxed/simple;
-	bh=MGoeypASKD4rtePXz/VKClp1Ph4phRySb1UqKEwoHIs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QAPEdFzcy29XvB+Qns2e4QPxozk8K+DEXwFAS7pHUlNPwuwwOWvL83LvFT+MImATYfpfFUFCwra0ClAKNxChMU36K31JGZfJB06FG9CHK/QTS9g6fr0QBDB+RtZaPIaM/2J8226F/5ycpODy+uSuLhPfbqfluWfzuUKT4BI+Na8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bV2HyjaQ; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1777374502; c=relaxed/simple;
+	bh=c2c7jO6hYI8b7jy0S2IChLenRdchEWJaq6E2waZawHE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CJLNZS5vxKau6wVW4sQd1YuiuBdL18xJnCwiVwZ7gf8Y3N+YMdlY0GBfSYLsHdLvAknVSRZf/x4RKc7s3UUdwpU5xFm3+PGEJaApq9wuit6lc0A903IcjOea/IEc3QndrX0X1aL/Fuyzq1AfbaCCtunL/7s7/HPopJRNgX/5eHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F+Ki5qsn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bV2HyjaQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777373939; x=1808909939;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=MGoeypASKD4rtePXz/VKClp1Ph4phRySb1UqKEwoHIs=;
-  b=bV2HyjaQEqvrwmOzoUlVZ9YJ9UUBudOnPSxUY5cU/Q7FYVABgOqi7fTI
-   SSIgEcl+BLQtqPiWGzXwgRGWZio/oGV5+TkCTQteOs7LYwKD1wocD3xUy
-   27HMvTyV8ZxUJdy2SeTRF3gOKsvqWj8hTq2THFX1jsOFAG4EouO94C50c
-   ZN/vTeI7A1UE1c8kaTWiP9uRBY0v8rgfwPjKT8WQ4nCDyu6VXw/JaZRY6
-   OLygnOc3TQewGNMnCb8hLVWLsV6W3k/Iw6hgrTy4Ax2hN9Er5H0E70JUs
-   PWVr3g6Xi6n6lkEXfLMAhuS7g1MUFqqWmJ2PrXg+umj0NQpwia7VcXxI0
-   A==;
-X-CSE-ConnectionGUID: N37+bIkIR9SozKyHPwRckg==
-X-CSE-MsgGUID: wzocW7Y6QVuFMDasLI1Xbg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="81883651"
-X-IronPort-AV: E=Sophos;i="6.23,204,1770624000"; 
-   d="scan'208";a="81883651"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Apr 2026 03:58:59 -0700
-X-CSE-ConnectionGUID: +MQNRSAzTpyEIDA78i1obA==
-X-CSE-MsgGUID: JyjeK03hQvy4AyL355vWuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,204,1770624000"; 
-   d="scan'208";a="232914395"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.213])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Apr 2026 03:58:55 -0700
-Date: Tue, 28 Apr 2026 13:58:52 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-serial <linux-serial@vger.kernel.org>,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 2/4] serial: 8250_dw: build Renesas RZN1 CPR value
- from DW_UART_CPR_* definitions
-Message-ID: <afCS7GEG7gtyC7RH@ashevche-desk.local>
-References: <20260428-ultrarisc-serial-v5-0-97de63b1e3eb@ultrarisc.com>
- <20260428-ultrarisc-serial-v5-2-97de63b1e3eb@ultrarisc.com>
- <afBhkbGLsuqUitOl@ashevche-desk.local>
- <23c80500-f2c1-0eb3-f640-00f7b108059b@linux.intel.com>
- <177736726936.2886867.7725295920724488690.b4-reply@b4>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F+Ki5qsn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3E1DC2BCAF
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 11:08:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777374502;
+	bh=c2c7jO6hYI8b7jy0S2IChLenRdchEWJaq6E2waZawHE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=F+Ki5qsnRa3obRmGutl/v+YE/IaCsg06XMEhWRXxUXm5ZWBFR4FNxwTMddd5fcwzY
+	 h4R9lOh47SXniKs2dnTbqT1v2c+ExzIL+sYrR6P+YkNHV8fx1rbgPxtCz0NdjBTRwE
+	 /Tug9VHBN/nJqcNYsUlifxqNoNjFeRQ6IyLVicIdL/rcrAsMQdAGe0hZkvK4AcDLud
+	 ZroRHccexPYzi/pO77aX/OdsGvt3zy9imwlRA7S49/mUT8js/uW6P4TZk7HE8OsID6
+	 qn5MhQdT7zIYIOJbXygG1aIWYOTvNWuY4loaem4/pLJbWxRJS9PyEwwbRDGRWU2kaE
+	 EfNp3J4WURi6g==
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-38dd9f0fdc6so126470911fa.0
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 04:08:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/XV+swtViH1OY0Zk5BQ/iI/iysnulcUcg+9KirkKR8CLs81qfMr2QSkKeS36Yf1BnbBS51u6JcKuQj@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz8x1o1AmvUHwfqDj1jIWLZfIfD2BYHx3wkSGzaNmamHd45jblu
+	INHIGE/r42vcabtjAHWZeVSS6PozlsiaNSOAVV35Aj9BZhVKh/7iOeWq2ppmZC07F+Hqq21Su/U
+	voN+bv46YB9cAScCuhX3Xmit16sMfUT8=
+X-Received: by 2002:a05:651c:324c:b0:38e:35fe:b79 with SMTP id
+ 38308e7fff4ca-39243022befmr7190031fa.2.1777374500737; Tue, 28 Apr 2026
+ 04:08:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <177736726936.2886867.7725295920724488690.b4-reply@b4>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260424111330.702272-1-changhuang.liang@starfivetech.com> <20260424111330.702272-12-changhuang.liang@starfivetech.com>
+In-Reply-To: <20260424111330.702272-12-changhuang.liang@starfivetech.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 28 Apr 2026 13:08:09 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk_AQjjCLkeuiyBtiQUsmzHEfqpigttJ7E9n1UE8h29Hg@mail.gmail.com>
+X-Gm-Features: AVHnY4IDxcIj36cpLzKrI1NZVFjYAH9TxKPvCzuHnuFYmrkebhBtVhuQTXFLwpQ
+Message-ID: <CAD++jLk_AQjjCLkeuiyBtiQUsmzHEfqpigttJ7E9n1UE8h29Hg@mail.gmail.com>
+Subject: Re: [PATCH v1 11/20] dt-bindings: pinctrl: Add starfive,jhb100-per1-pinctrl
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Apr 28, 2026 at 05:07:49PM +0800, Jia Wang wrote:
-> On 2026-04-28 11:41 +0300, Ilpo Järvinen wrote:
-> > On Tue, 28 Apr 2026, Andy Shevchenko wrote:
-> > > On Tue, Apr 28, 2026 at 01:26:27PM +0800, Jia Wang wrote:
+Hi Changhuang,
 
-...
+thanks for your patch!
 
-> > #define DW_UART_CPR_FIFO_MODE_FROM_SIZE(size)			\
-> > ({								\
-> > 	typeof (size) __size = size;				\
-> > 								\
-> > 	static_assert(IS_ALIGNED((__size), 16));		\
-> > 	static_assert(__size <= DW_UART_CPR_FIFO_MODE_MAX);	\
-> > 								\
-> > 	FIELD_PREP_CONST(DW_UART_CPR_FIFO_MODE, __size / 16);	\
-> > })
-> 
-> Thanks. I tried that approach, but the statement-expression form does
-> not work in this case because the helper is used in static initializers.
-> So I'll keep it as a plain expression macro for now, and just rework it
-> into a cleaner multi-line form.
+On Fri, Apr 24, 2026 at 1:14=E2=80=AFPM Changhuang Liang
+<changhuang.liang@starfivetech.com> wrote:
 
-Still you can move FIELD_PREP_CONST() into it.
+> Add pinctrl bindings for StarFive JHB100 SoC Peripheral-1(per1) pinctrl
+> controller.
+>
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+(...)
 
--- 
-With Best Regards,
-Andy Shevchenko
+> +  This domain contains 4 IO groups which support voltage levels 1.8V and=
+ 3.3V
+> +  gpioe-spi - comprises PAD_GPIO_C0 through PAD_GPIO_C4.
+> +  gpioe-qspi0 - comprises PAD_GPIO_C5 through PAD_GPIO_C11.
+> +  gpioe-qspi1 - comprises PAD_GPIO_C12 through PAD_GPIO_C19.
+> +  gpioe-qspi2 - comprises PAD_GPIO_C20 through PAD_GPIO_C27.
+> +
+> +  Each of the above IO groups must be configured with a voltage setting =
+that matches the external
+> +  voltage level provided to the IO group.
 
+So your hardware has groups and support some properties on the group level.
 
+So expose these groups and make these properties configurable per group
+instead of inventing per-group properties.
+
+> +  gpioe-spi-vref:
+> +  gpioe-qspi0-vref:
+> +  gpioe-qspi1-vref:
+> +  gpioe-qspi2-vref:
+
+Create proper groups in the pin controller then use the
+standard pincfg property power-source =3D <...>; for this.
+
+Example for a simple default hog:
+
+pinctrl {
+    /* Hog the QSPI pins */
+    pinctrl-names =3D "default";
+    pinctrl-0 =3D <&qspi_default>;
+
+    qspi_default: pinctrl-qspi {
+        config {
+            groups =3D "gpioe-qspi-pins";
+            power-source =3D <2>;
+        };
+    };
+};
+
+The groups can be orthogonal to other pin handling, that's
+fine. Implement .pin_config_group_set in struct pinconf_ops.
+
+> +          starfive,debounce-width:
+> +          starfive,drive-i2c-fast-mode:
+> +          starfive,drive-i2c-fast-mode-plus:
+> +          starfive,i2c-open-drain-pull-up-ohm:
+
+I already adressed these in other review comments. Get rid of
+them in favor of standard pinconfig bindings.
+
+Yours,
+Linus Walleij
