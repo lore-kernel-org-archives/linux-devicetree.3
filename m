@@ -1,213 +1,80 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9F241324E
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 12:21:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70E6C42882D;
+	Tue, 28 Apr 2026 12:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777378914; cv=none; b=cTbYxnAamyqj7o+DxrlpDt+YO53R3uH1T8RJQucBFgIuD/vuaqraP1D17w47aMhBVtdeTZa1FFmSLH492PIEjd//udu40d+jobLDjfI8pDewdPtWLofJPpsY3/LxeQ1hmfjy2C68l6SK/rYL6MoT7Tqoyqs77bujNZMru8q6aiE=
+	t=1777379534; cv=none; b=LOVfTgCDrH86J5fA4/jYoKgm4B5/BA3N3lFk3VBBxHoHIXfiTyC8X/13FiL11YS31u6LfgpwBwYPDza/YnVBDtLT1V+VqmVxdmg0h8GKPANMRI2WP4dUuJ5HC6lcBaySTzkbbnqhaujhbGTQ/q1nZsI9BkB4UgiH9dqC4xD5IAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777378914; c=relaxed/simple;
-	bh=FWzALyqf+QscwrPfgIVwVFW+Y1JjgRB71Kd1nmWJlRI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
-	 References:In-Reply-To; b=NwCF/b/bx+C8jaR/4HrCPWbM99jBR18SrXuEp8MbkOGreuKLzkwaKLDMOb0uf/SQjV5xBCTiQcO51+zdPWR3vsDEV7UQBsrzLWQNFx+MZqLQUqYSQgzHZDfBXl1qlGv5QvavyDULJbmTv9spF6iG5CszRORbgIKlbaXEHtLuNmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=lDEouwh7; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1777379534; c=relaxed/simple;
+	bh=x8RBNMR6z4a8pPGqv5e/gKYflWjd64vzG0RvdWIJAf0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TQWBk6nH2w9GvoRns+HuzH2sv78m12Wi+EaOwAYtgOpR7n/ee97ynLMFdAur8hNIfHUJtWsHzNza16WwXOhSPWENJEImtmMgvUhru+GFZYjAvZLtKSP1g+iI4Xv2UEC9/5Z82h0YgreTF0oydOd6GTTY2q9bNGBQxqIk8zRWums=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k3sLtSZc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="lDEouwh7"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 005BBC5EF07;
-	Tue, 28 Apr 2026 12:22:25 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3E459601D0;
-	Tue, 28 Apr 2026 12:21:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EF52010728AA4;
-	Tue, 28 Apr 2026 14:21:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1777378900; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=FkhJI2u81cWQQKkbpyLd60L537rqdrvEOTTOduSP8fc=;
-	b=lDEouwh70SunD0CIWASRbWeFowTrGybIpcklgMde26dHzbTlVQO4tNpqeNvxp/DTQsoqLf
-	MVjtKrPOCWqpHgHajsl9TS3Z3HbhRIpfUc1ER+yeSnCjIO3sw4GAhoSvOm0qOqbvwlTHrB
-	x+gO9MKBp4xsCHTPNEnL2nYoU4H0Uz7b3WQc5J0o29raPzA+01q4oo01SleqCbz0BDqus+
-	+SOujwJmPYbFV9TLnY1ejbitcPWUig77tZIqCoYyaNv88N+8BWkg4GxKRwHhpKohvAc+Wg
-	QN2E2KsPjss+wNTEiCqCvUKMlcm3LPj/suEerpCepkldM2ueNI7yNcP+xUABCg==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k3sLtSZc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C64AC2BCAF;
+	Tue, 28 Apr 2026 12:32:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777379533;
+	bh=x8RBNMR6z4a8pPGqv5e/gKYflWjd64vzG0RvdWIJAf0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=k3sLtSZclP2//KI5Mm8cmAvW+GVme1VFrSJqV3yi8uVcYoJDJgEvd943oDVTocobq
+	 BSJZow2PeF5TLIlJG6nQ91n0rxV9geCvCsdFS+6KJv6oLChXBPNt/qeVJSJdlXkLE5
+	 qzWAqh9+nlHstUWlWaeOfREK7SSzE0Vs9JHygL8gPtdoy4HhFtYaJ/lMfeTNlZ59xe
+	 uxzGsnoNInei6XhY2TGxdTGZF6wAdlO9RUNBvCRKhDOc/d7YWfu2vpRERfSTgJAcDh
+	 ycJjOviEvEosY82UOGcfGCLdYzzorMHfsWKQSyWvDcU/Uml5aogq9MfNfiDoT2+CeS
+	 cKmC6tjed/xJQ==
+Message-ID: <96705fc3-332e-4bd1-acb9-7494ca83e070@kernel.org>
+Date: Tue, 28 Apr 2026 07:32:11 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 28 Apr 2026 14:21:35 +0200
-Message-Id: <DI4S8GN9WTCI.75C07G767ZOV@bootlin.com>
-Cc: "Vinod Koul" <vkoul@kernel.org>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
- "Pengutronix Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam"
- <festevam@gmail.com>, <dri-devel@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-phy@lists.infradead.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>, <linux@ew.tq-group.com>, "Alexander
- Stein" <alexander.stein@ew.tq-group.com>, "Ying Liu" <victor.liu@nxp.com>
-To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v22 5/8] dt-bindings: phy: Add Freescale iMX8MQ DP and
- HDMI PHY
-X-Mailer: aerc 0.20.1
-References: <20260424-dcss-hdmi-upstreaming-v22-0-30a28f89298d@oss.nxp.com>
- <20260424-dcss-hdmi-upstreaming-v22-5-30a28f89298d@oss.nxp.com>
- <DI3YF5Y2B3GZ.25AP4NKQAXH36@bootlin.com>
- <f6rf5d6nhglkwendf5yvaklfn2ovlwkqstsz7vvl5zefibtiun@wic7bchohmwv>
-In-Reply-To: <f6rf5d6nhglkwendf5yvaklfn2ovlwkqstsz7vvl5zefibtiun@wic7bchohmwv>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: reset: altr: add COMBOPHY_RESET for Agilex5
+Content-Language: en-US
+To: Tanmay Kathpalia <tanmay.kathpalia@altera.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260428092615.29681-1-tanmay.kathpalia@altera.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <20260428092615.29681-1-tanmay.kathpalia@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello Laurentiu,
+Hi Tanmay
 
-On Mon Apr 27, 2026 at 4:35 PM CEST, Laurentiu Palcu wrote:
-> Hi Luca,
->
-> On Mon, Apr 27, 2026 at 02:59:47PM +0200, Luca Ceresoli wrote:
->> Hello Laurentiu,
->>
->> On Fri Apr 24, 2026 at 1:07 PM CEST, Laurentiu Palcu wrote:
->> > From: Sandor Yu <Sandor.yu@nxp.com>
->> >
->> > Add bindings for Freescale iMX8MQ DP and HDMI PHY.
->> >
->> > Signed-off-by: Sandor Yu <Sandor.yu@nxp.com>
->> > Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
->> > ---
->> >  .../bindings/phy/fsl,imx8mq-hdptx-phy.yaml         | 80 +++++++++++++=
-+++++++++
->> >  1 file changed, 80 insertions(+)
->> >
->> > diff --git a/Documentation/devicetree/bindings/phy/fsl,imx8mq-hdptx-ph=
-y.yaml b/Documentation/devicetree/bindings/phy/fsl,imx8mq-hdptx-phy.yaml
->> > new file mode 100644
->> > index 0000000000000..a24435139b8b3
->> > --- /dev/null
->> > +++ b/Documentation/devicetree/bindings/phy/fsl,imx8mq-hdptx-phy.yaml
->> > @@ -0,0 +1,80 @@
->> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> > +%YAML 1.2
->> > +---
->> > +$id: http://devicetree.org/schemas/phy/fsl,imx8mq-hdptx-phy.yaml#
->> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> > +
->> > +title: Cadence HDP-TX DP/HDMI PHY for Freescale i.MX8MQ SoC
->> > +
->> > +maintainers:
->> > +  - Sandor Yu <sandor.yu@nxp.com>
->>
->> Based on what you said in the cover, I guess this line will have to be
->> changed. Are you willing to maintain this binding?
->
-> Yes, I'll update it in the next iteration.
->
->>
->> > +description:
->> > +  The Cadence HDP-TX DP/HDMI PHY is a child node of the MHDP8501 brid=
-ge,
->> > +  sharing the same MMIO region as the parent bridge node.
->> > +
->> > +properties:
->> > +  compatible:
->> > +    const: fsl,imx8mq-hdptx-phy
->> > +
->> > +  clocks:
->> > +    items:
->> > +      - description: PHY reference clock.
->> > +      - description: APB clock.
->> > +
->> > +  clock-names:
->> > +    items:
->> > +      - const: ref
->> > +      - const: apb
->> > +
->> > +  "#phy-cells":
->> > +    const: 0
->> > +
->> > +required:
->> > +  - compatible
->> > +  - clocks
->> > +  - clock-names
->> > +  - "#phy-cells"
->> > +
->> > +additionalProperties: false
->> > +
->> > +examples:
->> > +  - |
->> > +    #include <dt-bindings/clock/imx8mq-clock.h>
->> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->> > +
->> > +    display-bridge@32c00000 {
->> > +        compatible =3D "fsl,imx8mq-mhdp8501";
->> > +        reg =3D <0x32c00000 0x100000>;
->> > +        interrupts =3D <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
->> > +                     <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
->> > +        interrupt-names =3D "plug_in", "plug_out";
->> > +        clocks =3D <&clk IMX8MQ_CLK_DISP_APB_ROOT>;
->> > +        phys =3D <&dp_phy>;
->> > +
->> > +        ports {
->> > +            #address-cells =3D <1>;
->> > +            #size-cells =3D <0>;
->>
->> The ports are not mentioned in the properties. I'm not a DT maintainer, =
-but
->> I think they should, e.g. to mention which port is the input and which i=
-s
->> the output.
->>
->> > +
->> > +            port@0 {
->> > +                reg =3D <0>;
->> > +                endpoint {
->> > +                    remote-endpoint =3D <&dcss_out>;
->> > +                };
->> > +            };
->> > +
->> > +            port@1 {
->> > +                reg =3D <1>;
->> > +                endpoint {
->> > +                    data-lanes =3D <2 1 0 3>;
->>
->> Having a remote-endpoint property would be nice here, to make the exampl=
-e
->> more complete.
->
-> The ports and the remote endpoints are documented in the bridge binding..=
-.
+On 4/28/26 04:26, Tanmay Kathpalia wrote:
+> Add COMBOPHY_RESET definition at index 38 for the combo PHY reset
+> control on Altera Agilex5 SoCs. This reset is used by peripherals
+> such as the SD/eMMC controller that share the combo PHY.
+> 
+> Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
+> ---
+>   include/dt-bindings/reset/altr,rst-mgr-s10.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/dt-bindings/reset/altr,rst-mgr-s10.h b/include/dt-bindings/reset/altr,rst-mgr-s10.h
+> index 04c4d0c6fd34..c2505b9eb63e 100644
+> --- a/include/dt-bindings/reset/altr,rst-mgr-s10.h
+> +++ b/include/dt-bindings/reset/altr,rst-mgr-s10.h
+> @@ -22,7 +22,7 @@
+>   #define USB0_RESET		35
+>   #define USB1_RESET		36
+>   #define NAND_RESET		37
+> -/* 38 is empty */
+> +#define COMBOPHY_RESET		38
+>   #define SDMMC_RESET		39
+>   #define EMAC0_OCP_RESET		40
+>   #define EMAC1_OCP_RESET		41
 
-Ah, my bad, I reviewed too quickly and mixed the phy and bridge bindings in
-my mind, sorry.
-
->
-> However, I believe I screwed this example up by adding the entire bridge =
-node,
-> instead of just a simple:
->
-> mhdp {
->     phy {
->         compatible =3D "fsl,imx8mq-hdptx-phy";
->         #phy-cells =3D <0>;
->         clocks =3D <&hdmi_phy_27m>, <&clk IMX8MQ_CLK_DISP_APB_ROOT>;
->         clock-names =3D "ref", "apb";
->     };
-> };
->
-> I'll simplify the example in the next iteration.
-
-Yes, I think it would make sense to do it.
+Please include the patch(es) that will make use of this change.
 
 Thanks,
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Dinh
