@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663942580F2;
-	Tue, 28 Apr 2026 08:42:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384B33D5648;
+	Tue, 28 Apr 2026 08:47:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777365741; cv=none; b=PfT3t03+dWGWOiGoeuDylwW6VavRnIrzvU2fJbcYvjJd+icivaNGI1HHPEeuaiFnZFi6ySuZm8JVSrECo9lUPIh22wVS3vZ2X6N+/cfFWeAk6Z2kaIneDS4zy/ZH73h10gxhSR7bCI4LIZO6QR0lryzIXZkNSWHz83ym/kPd+ME=
+	t=1777366076; cv=none; b=P4bjhrheP4bPvd0+qgKr5IGsXbcwfsdTDERHsZcEZhSsvW5CgC616yvBMp9sgp7TCILjnG4YPzRUxIqGFRaNDBK4G/dbftfPBIQ6GmqeSkAbl/3YDz3DdrtzZgEQT5cvbbReGw4GU82lJeuyrm2ZGPCClYmbnZ9mYKx8e0kei18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777365741; c=relaxed/simple;
-	bh=+Ht49/48BDDFyIwfwFjfCOcc/KlPavM8NYKMinsAYcw=;
+	s=arc-20240116; t=1777366076; c=relaxed/simple;
+	bh=fJvWZVvTQMLzqag5MBlqQAvDAgjLFqRj96D23TMgFiU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AtR19ratvvUaIhj3vQXIIF4Bt2xEET+JDPM8EEmuRFRXSewUNuV7veNfoDkk1q8STmS59Z3bqYhLZqlaoYWeOmwijexVE2Y2+By1Ho44yTcoDjcWiZjmzc1AGqbdprC87PxrhYoyrEtWiEYe5AY84olWSGUvcRxWjcEFzA/17B8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aUidP4Oa; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=fU0vLkfy7edWT6ewpmV6zhDSjzXWmzP7A7040nr2/9TLeITzC4mtmn3VapsHh0Lj4dnCuAzlZXF2vE9aJwpCBQnJDnFwirjc1t8zdofbrNsT/c63NEjiFRASeBXl2HnltSrcYk/yDCws4BWThmf3x3iozIKXqHLNBXhpA/CokuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s7/sr7q/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aUidP4Oa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 868EFC2BCAF;
-	Tue, 28 Apr 2026 08:42:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s7/sr7q/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1BAC2BCAF;
+	Tue, 28 Apr 2026 08:47:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777365741;
-	bh=+Ht49/48BDDFyIwfwFjfCOcc/KlPavM8NYKMinsAYcw=;
+	s=k20201202; t=1777366076;
+	bh=fJvWZVvTQMLzqag5MBlqQAvDAgjLFqRj96D23TMgFiU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=aUidP4OaMwgjxPoXKZiDR1NJ9hmI/njL/LK9mCj85dG3DhDFo6nqtQuXeFuriBsN3
-	 rud85YALDxzU/teJlweV8w+jTYEJOBiXxqCBs1KyjTq8ZuXbtWShIWrqZg2U+f8aqT
-	 JAIima6VHQSrQENt3qf0tXGTa7sYCwStq7+MmLHWNpnpTN4VL4Sq7bUWN/EJwgeIGw
-	 Hjsg9dWHwEQZzTaJSM7n+Th2EoiEZlW/0W9nl9G7xUUnpzsD5qu3pSCUEhswfp85Sb
-	 fOJd6y29rdTzeTD+Rsv5n1br6sWZiO3dZqiiUqB9z4I2aD64I6GfhDVJYwWj6w2Vg2
-	 hrEcZKVapzhjA==
-Message-ID: <ee58a5d6-9268-445c-a270-1f4a49b49c6e@kernel.org>
-Date: Tue, 28 Apr 2026 10:42:15 +0200
+	b=s7/sr7q/aBKk1jPJYgRvgwf2KE69Nojlzj8s2opBiTIvhr3SpWSnqkoSXfk9sMLLy
+	 1aA9Jph4qfqndlJFZ5EO0W0H129j76nEFUQVGOtRP0xdoSTsa1TvqlN+EUPSEKoD7g
+	 S7gNZiPBjceDzGQN11P15dZ+4V5XDiSXcPZ/x4SrG4D9G3XYl/19H5MfDYLWWa6ZSB
+	 zL+/abfIIMgjfZst6jxX5wR9EZDTRLM/Zrywi6FgmFEtAbVr42LkOw0JtRweqHCZkO
+	 chFZlgAw3XnkRiyvidqoZ1K2BbHQ/LHMkUH6O3GPUwxnU6U7z9cX4bM5yfZWXGnlh6
+	 3tSvJDSaAIiQA==
+Message-ID: <998b67ff-192a-478f-a9c6-ddcd7773e27c@kernel.org>
+Date: Tue, 28 Apr 2026 10:47:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,17 +35,16 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/2] dt-bindings: pwm: dwc: add optional reset
-To: dongxuyang@eswincomputing.com, ukleinek@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, ben-linux@fluff.org,
- ben.dooks@codethink.co.uk, p.zabel@pengutronix.de,
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: ningyu@eswincomputing.com, linmin@eswincomputing.com,
- xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
- pinkesh.vaghela@einfochips.com
-References: <20260424094529.1691-1-dongxuyang@eswincomputing.com>
- <20260424095435.1721-1-dongxuyang@eswincomputing.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: remoteproc: document AMD BRAM-based
+ rproc
+To: Michal Simek <michal.simek@amd.com>, Ben Levinsky <ben.levinsky@amd.com>
+Cc: andersson@kernel.org, mathieu.poirier@linaro.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linux-remoteproc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, tanmay.shah@amd.com
+References: <20260427162703.1644103-1-ben.levinsky@amd.com>
+ <20260427162703.1644103-2-ben.levinsky@amd.com>
+ <20260428-curly-hyena-of-triumph-fc1f4c@quoll>
+ <68cf4479-c6f5-4947-bc75-df9be73644d3@amd.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -91,25 +90,82 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260424095435.1721-1-dongxuyang@eswincomputing.com>
+In-Reply-To: <68cf4479-c6f5-4947-bc75-df9be73644d3@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24/04/2026 11:54, dongxuyang@eswincomputing.com wrote:
->  
-> +allOf:
-> +  - $ref: pwm.yaml#
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: eswin,eic7700-pwm
+On 28/04/2026 10:33, Michal Simek wrote:
+> 
+> 
+> On 4/28/26 08:50, Krzysztof Kozlowski wrote:
+>> On Mon, Apr 27, 2026 at 09:27:02AM -0700, Ben Levinsky wrote:
+>>> Describe an AMD BRAM-based soft-core processor subsystem instantiated in
+>>> programmable logic and using dual-port BRAM for firmware storage and
+>>> execution.
+>>>
+>>> The binding models a soft-core processor subsystem instantiated in AMD
+>>> programmable logic and using dual-port BRAM for firmware storage and
+>>> execution. The remoteproc device is represented as a child node whose
+>>> reg property describes the firmware memory window in the processor-local
+>>> address space. The parent bus node provides standard devicetree address
+>>> translation through ranges so Linux can access the same BRAM through the
+>>> system physical address space.
+>>>
+>>> A clock input feeds the soft-core processor subsystem, and an active-low
+>>> reset GPIO holds the processor in reset until firmware loading
+>>> completes. The firmware-name property is optional.
+>>>
+>>> Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
+>>> ---
+>>>   .../bindings/remoteproc/amd,bram-rproc.yaml   | 98 +++++++++++++++++++
+>>>   1 file changed, 98 insertions(+)
+>>>   create mode 100644 Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
+>>> new file mode 100644
+>>> index 000000000000..f16657dc0d9f
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
+>>> @@ -0,0 +1,98 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/remoteproc/amd,bram-rproc.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: AMD BRAM-based Remote Processor
+>>> +
+>>> +maintainers:
+>>> +  - Ben Levinsky <ben.levinsky@amd.com>
+>>> +
+>>> +description: |
+>>> +  Soft-core processor subsystem instantiated in AMD programmable logic and
+>>> +  using dual-port BRAM for firmware storage and execution.
+>>
+>> Isn't the soft-core or FPGA still part of some Xilinx SoC? Or is this
+>> completely different thing from SoC and there is a design WITHOUT SoC
+>> using this remote proc?
+> 
+> In 99% case this is going to be used on Xilinx SOC with programmable logic next 
+> to ARM core.
+> soft core means - means VHDL/Verilog code synthesized to programmable 
+> logic/fpga. It means exact location in chip varies based on build and constraints.
+> 
+> hard core - physical HW location - like ARM cores in our chip.
+> 
+> (ARM is providing RTL/code that even ARM cores in fpga emulated platforms are 
+> actually used as soft cores).
+> 
+> Not sure if you want me to talk about that 1% use cases which are also possible 
+> but don't think anybody will design them.
 
-Same problem as v3 which I commented. I do not understand why your new
-device has also 1 reset.
+Then I would treat it exactly like every other block of a SoC - you need
+a SoC specific compatible. If there is a fallback, SoC specific
+compatible should be used in the fallback as well - that's all already
+documented in writing-bindings.
 
-Your commit msg MUST explain why 1 reset is valid.
+If this is ever used standalone, outside of SoC, then maybe it will need
+its own wiring thus it will get its own compatible.
 
 Best regards,
 Krzysztof
