@@ -1,171 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011009.outbound.protection.outlook.com [52.101.57.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384B33D5648;
-	Tue, 28 Apr 2026 08:47:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777366076; cv=none; b=P4bjhrheP4bPvd0+qgKr5IGsXbcwfsdTDERHsZcEZhSsvW5CgC616yvBMp9sgp7TCILjnG4YPzRUxIqGFRaNDBK4G/dbftfPBIQ6GmqeSkAbl/3YDz3DdrtzZgEQT5cvbbReGw4GU82lJeuyrm2ZGPCClYmbnZ9mYKx8e0kei18=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777366076; c=relaxed/simple;
-	bh=fJvWZVvTQMLzqag5MBlqQAvDAgjLFqRj96D23TMgFiU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fU0vLkfy7edWT6ewpmV6zhDSjzXWmzP7A7040nr2/9TLeITzC4mtmn3VapsHh0Lj4dnCuAzlZXF2vE9aJwpCBQnJDnFwirjc1t8zdofbrNsT/c63NEjiFRASeBXl2HnltSrcYk/yDCws4BWThmf3x3iozIKXqHLNBXhpA/CokuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s7/sr7q/; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9863D5672;
+	Tue, 28 Apr 2026 08:52:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777366341; cv=fail; b=JOutgWYFRAwbPokiqvOxTmN+KDG+4T9yGKYsEkbrAXnaAV2EseXe4HcmHZDynELj+zJ2itFLeXl+yc/WImSxxV8/kpoPksijjbnJMDjqNrNqdQf+LWF+D6OdiHj/DfkxWVMfmg+2kpskd3KLV7gqq2i/P4m7sOcBQWL+MZO6Q0o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777366341; c=relaxed/simple;
+	bh=u/ZflzMnzCz7+K4RdT2ygD/Aji9d/9uDff8/rJXoG9k=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nzn79Lo7Ik/F1EYlYMNOglM2FMuoyg6lPE+NMFlSr5IygP4TgN+HNedDds7bs3sDKiJDxFgEy/iQvxboQjE9WVkgcnoVI7KYs7mqgm0bl0DAblL/0mJWZgkPsbm2ndFeGmWTgVt2GDgh6n332u6QwA27SccSxkX5xZN2FU6X55A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=vr8wAmsb; arc=fail smtp.client-ip=52.101.57.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s7/sr7q/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1BAC2BCAF;
-	Tue, 28 Apr 2026 08:47:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777366076;
-	bh=fJvWZVvTQMLzqag5MBlqQAvDAgjLFqRj96D23TMgFiU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=s7/sr7q/aBKk1jPJYgRvgwf2KE69Nojlzj8s2opBiTIvhr3SpWSnqkoSXfk9sMLLy
-	 1aA9Jph4qfqndlJFZ5EO0W0H129j76nEFUQVGOtRP0xdoSTsa1TvqlN+EUPSEKoD7g
-	 S7gNZiPBjceDzGQN11P15dZ+4V5XDiSXcPZ/x4SrG4D9G3XYl/19H5MfDYLWWa6ZSB
-	 zL+/abfIIMgjfZst6jxX5wR9EZDTRLM/Zrywi6FgmFEtAbVr42LkOw0JtRweqHCZkO
-	 chFZlgAw3XnkRiyvidqoZ1K2BbHQ/LHMkUH6O3GPUwxnU6U7z9cX4bM5yfZWXGnlh6
-	 3tSvJDSaAIiQA==
-Message-ID: <998b67ff-192a-478f-a9c6-ddcd7773e27c@kernel.org>
-Date: Tue, 28 Apr 2026 10:47:51 +0200
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="vr8wAmsb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OKiJS5xvvhDSRIrcFtaVCnKsRT3KWKcAjP9uRCYc9PHQTljM/1Pv3gL7I/IC+XLsg1RPwNi23hNJ03wZiTuUgk1BtnCF8zDGHQqsgB3NCkElEsUHAlgb/owTfyzNztkA4eLTzIIkUtFGNYeVrLOynP5+6sMltGl2sBUvFjmH3tV9+2UczSAwLQUMUqZdKSVOHAvIiGtDxsMd8EdCi0SOtUx4uUQMSKyT3fn1SXbzSIyI4tcAxFN6JSQLT8SHBL/o7cJ2vSusQDOGV4XMx+3KkWXYZgZ34fupFOQyHtR4rIF+rmavZXBOcP+nKYXSxctzzQkNNJCPCssqffYBvcGzAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H536rpQu8oZvmBs5VIoxdxL7QuEmK3YQ/quKpyx4kcg=;
+ b=p0ITyA8HCaY7tRwYkVk0Vst9JNZlAQ2BxT3GWNsbYcEmIhjMCt4Mo5pe19mbTctSQugBwvjjElZ0LaccP/1ZVU7y7hnpGPctcjS6wfYNIBxp6oUQ2efx50QB32phI6jjiYsf+1zeNrLVIgE4k3wr6mGpHsoFISgfukRs+aab3bKpHATeHhvZwYq0cJPUPhN9lMfV+knvWZMRnGDAqkJd5fSLGR+Zn9OF/UD8Lz2OCh7GHg4NGdz/tYHGdMTwbEuBIvv9e2lIvsxunu5AivJP3UTl3FgZVTeZoWqLxKMK4c8365HVpu5BI0IYxKSDZFuIgKNO9vfTxLAGhCsG20yiug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=nxp.com smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H536rpQu8oZvmBs5VIoxdxL7QuEmK3YQ/quKpyx4kcg=;
+ b=vr8wAmsbC8C0+L1Xx9CvywGPp1SH0WHPa9HhMLxoR74+NR7AhcovhzFJjPNhoVrGH3+YgXauudmOM+evVmUXWN841G4spttsa/At4bg540eLI36C90mm44aGME50QCoPrFPATDryLTfVA2wHoMBOqw32PjI5Ag7iDbrlbOLk3iY=
+Received: from CH0PR03CA0326.namprd03.prod.outlook.com (2603:10b6:610:118::9)
+ by MN2PR10MB4318.namprd10.prod.outlook.com (2603:10b6:208:1d8::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Tue, 28 Apr
+ 2026 08:52:18 +0000
+Received: from CH2PEPF00000099.namprd02.prod.outlook.com
+ (2603:10b6:610:118:cafe::77) by CH0PR03CA0326.outlook.office365.com
+ (2603:10b6:610:118::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.25 via Frontend Transport; Tue,
+ 28 Apr 2026 08:52:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ CH2PEPF00000099.mail.protection.outlook.com (10.167.244.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9846.18 via Frontend Transport; Tue, 28 Apr 2026 08:52:17 +0000
+Received: from DFLE201.ent.ti.com (10.64.6.59) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 28 Apr
+ 2026 03:52:16 -0500
+Received: from DFLE209.ent.ti.com (10.64.6.67) by DFLE201.ent.ti.com
+ (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 28 Apr
+ 2026 03:52:16 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE209.ent.ti.com
+ (10.64.6.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Tue, 28 Apr 2026 03:52:16 -0500
+Received: from uda0498651.dhcp.ti.com (uda0498651.dhcp.ti.com [172.24.233.239])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 63S8q6MJ623293;
+	Tue, 28 Apr 2026 03:52:12 -0500
+From: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+To: <peter.ujfalusi@gmail.com>, <vkoul@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <nm@ti.com>,
+	<ssantosh@kernel.org>, <dmaengine@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <vigneshr@ti.com>,
+	<Frank.li@nxp.com>, <s-adivi@ti.com>
+CC: <r-sharma3@ti.com>, <gehariprasath@ti.com>
+Subject: [PATCH v6 01/19] dmaengine: ti: k3-udma: Fix sporadic crash on AM62x
+Date: Tue, 28 Apr 2026 14:21:30 +0530
+Message-ID: <20260428085202.1724548-2-s-adivi@ti.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260428085202.1724548-1-s-adivi@ti.com>
+References: <20260428085202.1724548-1-s-adivi@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: remoteproc: document AMD BRAM-based
- rproc
-To: Michal Simek <michal.simek@amd.com>, Ben Levinsky <ben.levinsky@amd.com>
-Cc: andersson@kernel.org, mathieu.poirier@linaro.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-remoteproc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, tanmay.shah@amd.com
-References: <20260427162703.1644103-1-ben.levinsky@amd.com>
- <20260427162703.1644103-2-ben.levinsky@amd.com>
- <20260428-curly-hyena-of-triumph-fc1f4c@quoll>
- <68cf4479-c6f5-4947-bc75-df9be73644d3@amd.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <68cf4479-c6f5-4947-bc75-df9be73644d3@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000099:EE_|MN2PR10MB4318:EE_
+X-MS-Office365-Filtering-Correlation-Id: d202a4eb-dc62-4a3c-637b-08dea5037352
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|1800799024|56012099003|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	qJOo4ngF1cgMWEU5OkiS9tpjVeTPn40JYdtwpF4E5iDtNVzoZpOigk2y+OTzXDMNVYx8DlZRwgw5wl1lbgbrtQ0mEljdjx0FWhZh7RK0CTzizdDUiwhH0ot/Ilfvg9FIknT97NumGCHiGNBDNsBW8thfv3TNJVNsT2568/XwGA+OY7dEydcYRUzjZWkSBO8PC7fm0O7RfcgnowUsRz0SxpZEt9fdHQ7OZmnYjwwLWKTA5fuQ7xY/bisypa4wsUkOs9yD/U9Q84CzDGiv2jzs/ziUg2D70ZsQnCo5ziO3B3LDQuX71xjO/IuYw83LcVZwNKo/2zJCKFTsxwMpnZ+awFPn9QptTzWEoLMxBc8S+M9m77u+4jc+5Cvf0CrfdLGhldEcjvtrIvaT4TuwVd+L5PBVcrnbjziKwdFLIIaYASEqt7qDi5n1D2gpewQBio7+xesdjI+RuoAPRm+VK413UvUkD9mdjym38wcYjWki/1G0ccHdkaK986EJuKS2sycHVG0AWZyC9nR1y81SUjmHfEq5NgE9VzUBf+Bu1Bf7emGkcXSzapR4iB3RUZLwzJVJv/q57kAEVB+3/ckPJ6WqeHTxh5E7Wikk641UPmY1FWxGXxUsGrYwkZWLJUh1ck/e0q5PzzZvJYxW8m/CgByKL68zw0blLCl0oqt23+aOgiT/4NypGADhL4i4IpNbqsOnivpQ09iTLwH2hisprnRdkIfxwiLPXUp1aXu17Fa+Ied/Mj3xVAlcABsW2UjNP2Od2QVIZ2DtUi/EJKKlsFNEaXd/xneupcDp0J9h3hWldJnwrgjt5v5uxm+XVtxr/0e3
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(1800799024)(56012099003)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	LlywwPAcvjfi1DzcQqD0IHEodE15PvBwW4pfq/+HZvbFRk8NHZuXpMJkBVI3/nS6QJq20pOFoDWkrBtEyB5JfRKAy+hSeGufenF8Lv9+bJc1nl5TbF2N33KwAelpuHcdEuXv9/3D8u6YjolcsYWuXqORk4UPHxpoLDwGS2lNaA2MOyDB15I9zg1lWV3H5PGJV0NMlPQQJoPiBLGF83kmsHvggcN+MSvFFBij1RcCJScdK3olGZGGOurVbmn915c6m9Y/+pgH0kHXWXc/eweTARTQYbZPKYf6DTTINiDKbeEMH4qV6ejQba+2rTlvpb02B3YacZXAjQsow2tM2FBGvjT5vwRid1aIRFuBjfk4tfaCOUdLIogvHFF8K7O9byNoMRjNHx09IV7DXVw/fflM07+oupcWyhYXr542Gxu5iNjyqLxaUZJ+dyl/1iRxRHtI
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 08:52:17.0478
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d202a4eb-dc62-4a3c-637b-08dea5037352
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000099.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR10MB4318
 
-On 28/04/2026 10:33, Michal Simek wrote:
-> 
-> 
-> On 4/28/26 08:50, Krzysztof Kozlowski wrote:
->> On Mon, Apr 27, 2026 at 09:27:02AM -0700, Ben Levinsky wrote:
->>> Describe an AMD BRAM-based soft-core processor subsystem instantiated in
->>> programmable logic and using dual-port BRAM for firmware storage and
->>> execution.
->>>
->>> The binding models a soft-core processor subsystem instantiated in AMD
->>> programmable logic and using dual-port BRAM for firmware storage and
->>> execution. The remoteproc device is represented as a child node whose
->>> reg property describes the firmware memory window in the processor-local
->>> address space. The parent bus node provides standard devicetree address
->>> translation through ranges so Linux can access the same BRAM through the
->>> system physical address space.
->>>
->>> A clock input feeds the soft-core processor subsystem, and an active-low
->>> reset GPIO holds the processor in reset until firmware loading
->>> completes. The firmware-name property is optional.
->>>
->>> Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
->>> ---
->>>   .../bindings/remoteproc/amd,bram-rproc.yaml   | 98 +++++++++++++++++++
->>>   1 file changed, 98 insertions(+)
->>>   create mode 100644 Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
->>>
->>> diff --git a/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
->>> new file mode 100644
->>> index 000000000000..f16657dc0d9f
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
->>> @@ -0,0 +1,98 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/remoteproc/amd,bram-rproc.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: AMD BRAM-based Remote Processor
->>> +
->>> +maintainers:
->>> +  - Ben Levinsky <ben.levinsky@amd.com>
->>> +
->>> +description: |
->>> +  Soft-core processor subsystem instantiated in AMD programmable logic and
->>> +  using dual-port BRAM for firmware storage and execution.
->>
->> Isn't the soft-core or FPGA still part of some Xilinx SoC? Or is this
->> completely different thing from SoC and there is a design WITHOUT SoC
->> using this remote proc?
-> 
-> In 99% case this is going to be used on Xilinx SOC with programmable logic next 
-> to ARM core.
-> soft core means - means VHDL/Verilog code synthesized to programmable 
-> logic/fpga. It means exact location in chip varies based on build and constraints.
-> 
-> hard core - physical HW location - like ARM cores in our chip.
-> 
-> (ARM is providing RTL/code that even ARM cores in fpga emulated platforms are 
-> actually used as soft cores).
-> 
-> Not sure if you want me to talk about that 1% use cases which are also possible 
-> but don't think anybody will design them.
+From: Vignesh Raghavendra <vigneshr@ti.com>
 
-Then I would treat it exactly like every other block of a SoC - you need
-a SoC specific compatible. If there is a fallback, SoC specific
-compatible should be used in the fallback as well - that's all already
-documented in writing-bindings.
+ring_init_data is declared on stack and thus can contain garbage which
+can lead to k3_ringacc_dmarings use junk address for ringrt base leading
+to below crash during ring pop
 
-If this is ever used standalone, outside of SoC, then maybe it will need
-its own wiring thus it will get its own compatible.
+[    1.998239] cadence-qspi fc40000.spi: couldn't determine phase-detect-selector
+[    2.532106] Unable to handle kernel paging request at virtual address ffff800081a84b98
+[    2.540051] Mem abort info:
+[...]
+[    2.629987] Workqueue: events_unbound deferred_probe_work_func
+[    2.635832] pstate: 800000c5 (Nzcv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[    2.642787] pc : k3_ringacc_ring_pop+0x48/0x94
+[    2.647234] lr : udma_pop_from_ring+0x7c/0xb4
+[...]
+[    2.726250] Call trace:
+[    2.728691]  k3_ringacc_ring_pop+0x48/0x94
+[    2.732786]  udma_ring_irq_handler+0x34/0x218
+[    2.737141]  __handle_irq_event_percpu+0x60/0x14c
+[    2.741846]  handle_irq_event+0x4c/0xa8
 
-Best regards,
-Krzysztof
+Fix this by explicitly initializing the variable to 0.
+
+Reported-by: Rishikesh Donadkar <r-donadkar@ti.com>
+Reported-by: Kendall Willis <k-willis@ti.com>
+Signed-off-by: Vignesh Raghavendra <vigneshr@ti.com>
+Signed-off-by: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+---
+ drivers/dma/ti/k3-udma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/dma/ti/k3-udma.c b/drivers/dma/ti/k3-udma.c
+index c964ebfcf3b68..3e9792136906a 100644
+--- a/drivers/dma/ti/k3-udma.c
++++ b/drivers/dma/ti/k3-udma.c
+@@ -5484,7 +5484,7 @@ static int udma_probe(struct platform_device *pdev)
+ 	if (ud->match_data->type == DMA_TYPE_UDMA) {
+ 		ud->ringacc = of_k3_ringacc_get_by_phandle(dev->of_node, "ti,ringacc");
+ 	} else {
+-		struct k3_ringacc_init_data ring_init_data;
++		struct k3_ringacc_init_data ring_init_data = { 0 };
+ 
+ 		ring_init_data.tisci = ud->tisci_rm.tisci;
+ 		ring_init_data.tisci_dev_id = ud->tisci_rm.tisci_dev_id;
+-- 
+2.53.0
+
