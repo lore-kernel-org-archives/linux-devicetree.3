@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1ECD332638
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 08:03:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A7B320CAD
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 08:03:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777363391; cv=none; b=c1uT6uv6z0COHM0jXx9FHFcB8xvojE3Mgu4wZJ9a5WzbCnhGe05RepvqU1RlFozpWobhrTqFvujoqpndbkl5McRF8DbXpKpDBzl/4peL6w3Q9M/54TlPhhwByhzZcKktYO9N+J09FlTDXngtwEnfaAv0Uofkh0il0i021BtC36w=
+	t=1777363426; cv=none; b=jYXp8zdz5zY+Yh5jwVZCOJDkhkHCuI609r18Ja57nt/0KBUtzLFTYaKjqfesqF0QXssRKfZFCsynmJYJSr3NhswwunMayYFNKuVqmlFa8jtA+ugNghP1lB1lSlmGIq6jqmHppiJ4qFajWgelTQDM4KTXX3hS0uRKhOmcUr8OuFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777363391; c=relaxed/simple;
-	bh=gakvkReg0fVWUJryauTzFRkfayEeCg9clm8BNqJgejI=;
+	s=arc-20240116; t=1777363426; c=relaxed/simple;
+	bh=nVhY0saX0hIlsPhBZOfgsMBCUpdbk4+El+viqARp73s=;
 	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cxFaOnKkrl3ZgYZp1e7ctbEZpNiZxdNXQkR3z9Mb1Wcq4l5V5RE2OIw6ehwz5QqCUliGOvigNefJQhoN2ZUehD4eBuOojKow5hgcAAjHC1OwU0RX+SGBXxitTMXasgZzsTSWsCixbxp7KKUC/sF1A2vSDLGeRkQUrrvadcSZT7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gCiU8DcV; arc=none smtp.client-ip=10.30.226.201
+	 To:Cc:Content-Type; b=jtf+7ryLNZ1a1sebhbkaoVyfSDJ8NciT8rQAO8ZszwdeKhXGQh2SqbbPEP0NVT4fkDiNejorc24dXDFh46k3WNI0NFtjEVJ6oH2o1IvzxKUg+PLj5kZLGEbgSc+1PsCTxLk4du9CySDOK5oniTVENVWkxORL9qt8eONLyRkAHNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TNsj5G6y; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gCiU8DcV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8985FC2BD04
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 08:03:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TNsj5G6y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9657C2BCFF
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 08:03:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777363391;
-	bh=gakvkReg0fVWUJryauTzFRkfayEeCg9clm8BNqJgejI=;
+	s=k20201202; t=1777363426;
+	bh=nVhY0saX0hIlsPhBZOfgsMBCUpdbk4+El+viqARp73s=;
 	h=From:In-Reply-To:References:Date:Subject:To:Cc:From;
-	b=gCiU8DcVwQEowwEAwYG3MsLXklegyS09HYA2QCs3e6rYJLLSuDu4SxCyVK/2W3YTQ
-	 c4OVu/MwPcLnaGuDdakQNX9jF3K7FgFpCtLxeCgZnYxexquRWElzbN8IiTVf7h3/sH
-	 TjWwKhJ/vwNqnh6wMoUt0GXPslR3z+122nus16tJ8Oq2oSQUCzPvY6MNSq66TFLH6w
-	 BLy/DF4wCtHjzGSaqjiuGe9opjrUvHVnP2yqkgtQTkjWx8vCcSVtfqr6BHlCNqgF1X
-	 Jruz9Ja+u7JLPvVfJwGOu45gIIwSAx7oq8uVWzzStz7fIu2YHagpL4xuwlYEGrDnKV
-	 T06kp866Vry+Q==
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-38e97e73234so90272141fa.1
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 01:03:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9ciJcg7W3c5kxATI4kSoDq5BtOw+U069Zo54kUTLoWcNQA/GcSdwcvIOdE8JgH1wGc7KPy8rH5TcOI@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4k/u/Lt99FxUw2Ia3CB0hCbEAAZHr3UiBKJZcPN7k34aeB0yb
-	CP8HSNTdlo6PmzaXnYIR7kRUaCmI9w0e07rzITMsVl5ukGkD4ipK7ZFCshRukC7ViRSDiXPQmeG
-	7ItGHcgYdneeCqH08sbRINKSlyYhWryQ5CIkZdhyw2w==
-X-Received: by 2002:a05:651c:b13:b0:38a:8199:1b60 with SMTP id
- 38308e7fff4ca-39240e2f97fmr6452871fa.6.1777363389951; Tue, 28 Apr 2026
- 01:03:09 -0700 (PDT)
+	b=TNsj5G6yZNY+l0aXqUiQ4SpAcgeMKg7eakKdZd9BNO8FOWFT5SBnVRpH45GIlyFQI
+	 sfu0PJqgZeterYZM/6QPpY5oDbOUsAZhyJvRr6fzhUaGPRr4Ym82QOPD2bqjsPIz/G
+	 K0ct9hqiAhWCG8jZr18L4W8i7q1UOF4WfRdJANgZC82x3HMb5l5oyW5PG3hEnSZJWa
+	 wGp68Ahrh8SUjDPzYpvXIioXUha6ciDq4gStvwlZzR1UKgU5lZSQsVUjQCnzHJRXMq
+	 V/DAQs0ayEjtZyR4i4espP3KgoPS0nHgknrqnTK+G/WsGwHtEjh1OHTjfNX79N3cdI
+	 oR1Yxn4pif/mg==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5a62a049c1fso8430835e87.3
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 01:03:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8/jgSvdpWIh+Td+tCcJ0o04osw3aJoOP7W2r9nc7hBE5NWthN1y175VRZfkALe7Ds7FAxNZ28woDTm@vger.kernel.org
+X-Gm-Message-State: AOJu0YwjVPmqTznnecJ/BIG6gco2C8VvYS3GVwWuNtSsFC6urTVDPNrB
+	fm0Hivu0jf67W/LNf1LETWcmETI7L3PIYTKIPrD+k8WlNWq+Po9wjXjVKM6DyUjZPcTgIumntrg
+	9Q8xCKcXxk7CqmMNnOpQyuMA5UNiKz1LYji4rPDPXQw==
+X-Received: by 2002:a05:6512:1194:b0:5a1:4158:ea9b with SMTP id
+ 2adb3069b0e04-5a7466182b4mr698217e87.22.1777363425259; Tue, 28 Apr 2026
+ 01:03:45 -0700 (PDT)
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 28 Apr 2026 01:03:06 -0700
+ HTTPREST; Tue, 28 Apr 2026 01:03:44 -0700
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 28 Apr 2026 01:03:06 -0700
+ HTTPREST; Tue, 28 Apr 2026 01:03:43 -0700
 From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260427-arm-psci-system_reset2-vendor-reboots-v21-8-dcf937775e73@oss.qualcomm.com>
+In-Reply-To: <20260427-arm-psci-system_reset2-vendor-reboots-v21-10-dcf937775e73@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,12 +48,13 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20260427-arm-psci-system_reset2-vendor-reboots-v21-0-dcf937775e73@oss.qualcomm.com>
- <20260427-arm-psci-system_reset2-vendor-reboots-v21-8-dcf937775e73@oss.qualcomm.com>
-Date: Tue, 28 Apr 2026 01:03:06 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mf+-04Zr7jjRoaxTzO3LKSMyQ7DzxJc=dHNSyThEUiq_Q@mail.gmail.com>
-X-Gm-Features: AVHnY4KzpDYlkP_BmYQb8Tu_NftXGx0jC5UQCJ6_82FV8dMIjk5ibCMQsX_dXwo
-Message-ID: <CAMRc=Mf+-04Zr7jjRoaxTzO3LKSMyQ7DzxJc=dHNSyThEUiq_Q@mail.gmail.com>
-Subject: Re: [PATCH v21 08/13] mfd: core: Add firmware-node support to MFD cells
+ <20260427-arm-psci-system_reset2-vendor-reboots-v21-10-dcf937775e73@oss.qualcomm.com>
+Date: Tue, 28 Apr 2026 01:03:43 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MdC0dFadu-gyHLa2zM6fKWhBeXYpKxhcz0n+TwaEQ9XBw@mail.gmail.com>
+X-Gm-Features: AVHnY4L0_XpeAfopxwETVjDoOWklya0cgmAaZoipsKTFpenV3YwDa9FcdgYB49Q
+Message-ID: <CAMRc=MdC0dFadu-gyHLa2zM6fKWhBeXYpKxhcz0n+TwaEQ9XBw@mail.gmail.com>
+Subject: Re: [PATCH v21 10/13] arm64: dts: qcom: Add psci reboot-modes for
+ kodiak boards
 To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
 Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
@@ -74,26 +75,19 @@ Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Bartosz Golaszewski <brgl@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 27 Apr 2026 19:34:48 +0200, Shivendra Pratap
+On Mon, 27 Apr 2026 19:34:50 +0200, Shivendra Pratap
 <shivendra.pratap@oss.qualcomm.com> said:
-> MFD core has no way to register a child device using an explicit firmware
-> node. This prevents drivers from registering child nodes when those nodes
-> do not define a compatible string. One such example is the PSCI
-> "reboot-mode" node, which omits a compatible string as it describes
-> boot-states provided by the underlying firmware.
+> Add PSCI SYSTEM_RESET2 reboot-modes for qcm6490-idp and qcs6490-rb3gen2
+> for use by the psci-reboot-mode driver.
+> The following modes are defined:
+> - bootloader: reboot into fastboot mode for fastboot flashing.
+> - edl: reboot into emergency download mode for image loading via
+>   the Firehose protocol.
 >
-> Extend struct mfd_cell with an optional fwnode pointer and attach it to the
-> child device during registration when no firmware node is already assigned.
+> Support for these modes is firmware dependent and not available across
+> all kodiak based boards.
 >
 > Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
 > ---
 
-In the following patch you use this and violate the supposed constness of
-MFD cells. This also mean you need to modify the mfd_cell at run-time. I would
-prefer introducing a field in mfd_cell: bool use_parent_fwnode which would
-indicate to MFD core that - in case no fwnode was assigned from other sources:
-DT or software node - it should reuse the parent MFD device's node.
-
-How about that?
-
-Bart
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
