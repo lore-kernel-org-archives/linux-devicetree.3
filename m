@@ -1,131 +1,220 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C0306342539;
-	Tue, 28 Apr 2026 05:26:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777354019; cv=none; b=nfodRWauXYgR6eVZ+TqQ1mOGkkRyKzxrRmoPJtZ+0vneElLD8dd77tNVwY5M36fqiZTt/T/dHUJFtWfv/9wt0CVf8FoKqv2lVhvDycnc1E5nqpJfWaIOF4ltg1CB4hMA+18pJWw5Epm0YUMFHyNs7iVxGiBL37KcoWrvCBmrpRE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777354019; c=relaxed/simple;
-	bh=A5CCafM9ZkDWbA5vbjYEFX3HyNOl1jj7t9s3liEYB0k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GldFEt2IRSPWC3usy8uBrW4m47Ru1NyqHykm0j6teRwHLFq/vrca+NDgyC6STSKSFEQDpJ/WBJrTzM5GnObW2fqALHlN5RWM6uXyihdPianXtNcWOvbWZYKydKKIMRxEPB1ZXufKZLvw5A75aj2Ooxr750GPgPlI+UEq3g5rlXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=q+rbEW1H; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0581E1C11
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 05:47:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777355231; cv=pass; b=AR+8AR/47ySnNRHjPxDoWKiKh+jD+19DGaUhW3DFSC4mKvnSG9SjGr3r38DFY+GIdWXQFuOFDBiuz/yxnk4P17Jqx9bXsjTd4wYIa72PC1rYYEj8EZ0qGl4ZpiObyv1gFoTeJgy9ov7DDeffdR1xkc0LO7RKZLj524yx/w4jUcI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777355231; c=relaxed/simple;
+	bh=mlMqdXFriR1NPOu++ehwnapqTjBgv5WcCndQlg95xUE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QLhm4MiBmd9kYLdkS5MMnDMBFXezL7VRWypW6ChqijHswBV4gsFLxsQ9Mm0m7+4uTxCkTEwe32Hm/NjzUcpPFKJZiGeF7a5E/7Og3cFtgrxnAHvUjNvy0Y3mjCei2q7tdknXcDh1EaDugw7h8xIuWcr8LzFmnmiH1WaXGn/VB5M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dVJM4Ysl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iRB7959S; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="q+rbEW1H"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dVJM4Ysl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iRB7959S"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63S21uYE3123516
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 05:47:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	904MNvmo4S/voCKmtIZIg0Hvxx0Xe/N1YqgI1M2/QbI=; b=dVJM4YslGSenrGrz
+	dFvK6y6Ib/j/FMHv4J5DcEMjHIEascpkTwZ9y4xeEFgva+kgCN1ReHjJ4Ua3z2lL
+	wKskdIrUYED+N/sHnAPcwKeHxMCPy4UtRLtZaLsfsFyd6wFIEP6c0QACma2KJ2LT
+	oAooIib6vQ0WJ+ImC+76z3B1tL2nybXaMEKMgn9C9nXaZLi4uAEoUxchoBJs4vd6
+	mDQxVeeTofYhXoDC81jmsCZ2HRrab3jCKbMbbpuom79ox6SARxqprR0jS8csyybL
+	LQf0uy+h5Lx2pFIeN5Xu/PQWpvDIW9IEA0lSb+/tXRNc7ASfvy1Y0Hsegy6k/aZL
+	LfwOtw==
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com [209.85.128.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dt5qgky4y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 05:47:08 +0000 (GMT)
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-7b3e41a97f0so150460767b3.0
+        for <devicetree@vger.kernel.org>; Mon, 27 Apr 2026 22:47:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777355228; cv=none;
+        d=google.com; s=arc-20240605;
+        b=M3nrf1fgL+wIDKM1UMUaGLJqe/UG1MGCxB1aI6ok4rluvIXxlEMoABDfQnmC04osxm
+         1cilw3Shu5flryB+BlW9bHtlsIlG5UB7oz9/QO4aOxFJLHOQ9xkpMv2ZjE3vlW550vj7
+         szPkawhUhgmqhV8nHZ2ehAzAWZn3Xi511nFeEWFRqQlEGm9eNkRVgsW7SRyEHKNVzdjw
+         l2uso1TGtdc5nNTml53jO0nLcoxW5oBofMbP8mWMr1trxSszF5Nc0wxox5kIwTvxmyJQ
+         mhCpeFrTAw9KhEtmGfmYoaDv48LTF+I1HzRbQMW3kwkC0GMwHev3LaOTXYV9cUpFUVyy
+         ppEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=904MNvmo4S/voCKmtIZIg0Hvxx0Xe/N1YqgI1M2/QbI=;
+        fh=gt6U8W6NUJYwYd8jMy4zJMFahkLoabHFWwQ/C00mYHw=;
+        b=g5g+MFVpGBpqTwQAHw81q+sufYFVVIUlMf6s6C7LosNcx74dsc5uZiTT5jqbU3KhYD
+         lxGUd8qeXf/c4sZNBYxO+g/x3Fn5/A+Z/cl0ILEgWlwXTV6dJVPIlrAD6MeTwO36sfUL
+         6gRQuaY8UO9u+5XFyG0YekjeaO4LSj2K8mte0tw6+jXoy+M80Czp5vpBhYJqGh704auC
+         HdxvptevAa9qSi6GiL3zPvCyvLpcxwXpbaAkm/OJS1vEtFo1YiOa0kTqk9+5W7qfwA0/
+         CzA6BzN6onHY8jve/DwxhzlgL+rFeTA/G8MuMiLoK0vzVsMfxs8+rS4N9Gr2Bxqo3PXn
+         s06g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:From:Date:Subject:
-	MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	References:In-Reply-To:To:Cc; bh=eu6xcYQBkr+nwx6koqqcliFwhSiICCy
-	FSC33b3cp3aA=; b=q+rbEW1HkPWpUNdrz4jW2Ok+HJG55Lo9rCXoT2X/FXJ9Jc4
-	yiSQ6+E9hFP2YjriXdMVuOLKkEGVbAS1LtSsN0OHhwXtRa3pqN062IwvZ2m0qfer
-	EWyWNbMr1wPTcMyLf8Xg66/SE8HzWw/7ovYW8max3z1Uh/s4Rn1qVogPIN0w=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwA3cUIxRfBpJRMDAA--.1785S4;
-	Tue, 28 Apr 2026 13:27:24 +0800 (CST)
-From: Jia Wang <wangjia@ultrarisc.com>
-Date: Tue, 28 Apr 2026 13:26:27 +0800
-Subject: [PATCH v5 2/4] serial: 8250_dw: build Renesas RZN1 CPR value from
- DW_UART_CPR_* definitions
+        d=oss.qualcomm.com; s=google; t=1777355228; x=1777960028; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=904MNvmo4S/voCKmtIZIg0Hvxx0Xe/N1YqgI1M2/QbI=;
+        b=iRB7959S7RhRk0zW9v7eNDBieOqyhfKXf3h3q0iHdeDToFr/jMTSFPTxF/6BDtlk47
+         hT1nl2QGOnbXmODRTYA2VUjJzqEOfpYwJvMnk/qH9cnjNHfrHk7w3yv6ssIX+g1eVglb
+         3jnrWc/K1sfkMK4vaz+EjomwnHxYMqyMwtd8oYv4xl5JHN7WBMkWKAcuORZOZ0Zn+pLw
+         C45htYNjfr5BKmb+MwuzLio9bo2/7d3Du0Ky1VOE22qWHAE3ovgZbOVOb3xa4xOX1UFT
+         /lHTGs04O790WRUudY7HOxbSFPa/+R3gjyzDDCfZYcQbMYHl58VnAWVh3R/zbwo0yzPJ
+         Dqig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777355228; x=1777960028;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=904MNvmo4S/voCKmtIZIg0Hvxx0Xe/N1YqgI1M2/QbI=;
+        b=tJr04VhxVjH5Wt57Ay+TC9wETf/uqs2rRXqiQQpMuGHQzJJdebDC5N7IPFe5GwBW+M
+         /SN/gJzvxQTo/ehsNANytYspuBX3MDR1NEjSdpfVk3Ss5yLO6DVcWzafbyqEqmUUZQnI
+         udwxRfY9w5b57AqBXbF68L+84llCxbm+ZUIvwEJk8d3X/x3aCdQpO/gvSPQvZ0Hbln6S
+         ST8f64zCd5s/SITEB/Amo3J+t8KYBNNV1VpSQfgY8ORnBZi1adChiD6G0PFTm0XZtHyI
+         7yBH/DjgTLXgzoPTExmVCaFOBVOVkaAtLYDgEQtem97AKwM/RhVIeKK1pxaHfKJXIw+l
+         YaKg==
+X-Forwarded-Encrypted: i=1; AFNElJ8WH2DUsSRA4svhZ/hE01DBceJezjyt1pR8WgilpjljrfZUouYdYOqrBQ3KHZMyovu9R4/6OZLma8zw@vger.kernel.org
+X-Gm-Message-State: AOJu0YxdLn4gJ89ZLgo8Ji7HwI4H+Ygq9qLBcsUe5VCInmawBIxWfGgm
+	slXgAUC5xCDnWWYYEJxfgFPOx629+W4yl2g/3F5tQX7BEBsSNHMOKyKyG4n78x3K5qAVmkiRgCV
+	qpurLjwE4PwoI6R2wyoWFmbnlbgfJix8fUFmBdK2V0VNfWqbS8tyP4WSbA5lzIb/mGWSK5aYUAA
+	+UNdsZCRTbGhifhufa11ng6iNOi2xXUyR8xTzi0Qw=
+X-Gm-Gg: AeBDieuH2BxwWAEqc0EsZKfI6thBb2gk8d2Xcxyz5gJBwKa+jop864FhAjNgLHxZMfF
+	8STuuRiPR+sTnFtIJ7czoLGA+jqUU6SkTygvqgtPK68FJaNceFYKtEEbQHWm9cbckdLeBu/3BcD
+	YocioWi1Z3QusidZisqyhXPkea0WuB1tJc+pAOQ5+yRNI6iefHNc3Yo6h09UCwbvKuvMj4x7R23
+	MD6DPp6o0ojSn9Jqj4MDF0EMgZG61rnHE0wEmLuJC6riHSSGf4=
+X-Received: by 2002:a05:690c:87:b0:7b2:136d:2436 with SMTP id 00721157ae682-7bcf50d16b8mr15101727b3.8.1777355227933;
+        Mon, 27 Apr 2026 22:47:07 -0700 (PDT)
+X-Received: by 2002:a05:690c:87:b0:7b2:136d:2436 with SMTP id
+ 00721157ae682-7bcf50d16b8mr15101557b3.8.1777355227528; Mon, 27 Apr 2026
+ 22:47:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-ultrarisc-serial-v5-2-97de63b1e3eb@ultrarisc.com>
-References: <20260428-ultrarisc-serial-v5-0-97de63b1e3eb@ultrarisc.com>
-In-Reply-To: <20260428-ultrarisc-serial-v5-0-97de63b1e3eb@ultrarisc.com>
-To: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
- Jia Wang <wangjia@ultrarisc.com>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777353989; l=2326;
- i=wangjia@ultrarisc.com; s=20260309; h=from:subject:message-id;
- bh=A5CCafM9ZkDWbA5vbjYEFX3HyNOl1jj7t9s3liEYB0k=;
- b=N+HNp/hepAFG1ZmnqJ49LLp4klYmysYR4HEuq/My2/fwIWaPOs61Ksl68CRtTDGxeYaRzQO0X
- 6BLgGDHoPvYAu8bEP0qp6L+fAGzCmrjaNWAHngE0mCQRmOg8wV0UqFE
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=XvYkrelqJIIzobY7j+nIg8rsfv5kzaOzuc1UPhd087U=
-X-CM-TRANSID:AQAAfwA3cUIxRfBpJRMDAA--.1785S4
-X-Coremail-Antispam: 1UD129KBjvJXoW7KF17ur43AF13KrW3AFyUtrb_yoW8KF1Upr
-	s0kr4qvryY93Z3W34IkrWjvF4Sqa15Wa4I9F9rW3sxtF13Ar1ktrs0vF9xtrnrJFWFvrW5
-	GF17Ary5uay0kr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_UUUUUUUUU==
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAKEWnti78ACwAisD
+References: <20260331-eliza-adsp-usb-v1-0-d8a251be20c3@oss.qualcomm.com>
+ <20260331-eliza-adsp-usb-v1-1-d8a251be20c3@oss.qualcomm.com>
+ <69d644bd-d64e-4ef4-b0ca-b47103e84764@oss.qualcomm.com> <p6duntiwahnmxwit2qgegcmqerv3or3h36y5cel36ekw4vkcfp@exmgriqkkqqb>
+ <e0dacc06-432f-4924-89e8-f5fafaee4906@oss.qualcomm.com> <jznwxsifczinkboh5kakjj7etxvfbvn5hwbxvxauy42mr3cgph@dnnqiihclguy>
+In-Reply-To: <jznwxsifczinkboh5kakjj7etxvfbvn5hwbxvxauy42mr3cgph@dnnqiihclguy>
+From: Krishna Kurapati PSSNV <krishna.kurapati@oss.qualcomm.com>
+Date: Tue, 28 Apr 2026 11:16:54 +0530
+X-Gm-Features: AVHnY4IW-s7ZWmxCMcWomBKPRZTyXnt6XjkBi2QcMC6pnWY9-35jJ5-YLd-9OZw
+Message-ID: <CAEiyvpq0e_VgTq0FYOSKGxa_d88sz9uOQgMCBoZfztRk1cjD2A@mail.gmail.com>
+Subject: Re: [PATCH 1/3] arm64: dts: qcom: eliza: Describe the ADSP and USB
+ related nodes
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI4MDA1MCBTYWx0ZWRfX0hO58m1TbKnk
+ MM5dDdiEuYlnd2r/2SAsJPSUTQ+6YUUejtwT+WQ3ypKiAXLsjHn8TLICRN3Sz+mwmVYet1zibxU
+ jZk6xcElvtXUIIbuJTV5iUzttRTeZ0WXLkTnVEMaAaoWNO+/GWumin440OxvS65VkZY2SFA0bIa
+ KORkqdnQNnHudFhU4jQYx2AUfReXZWoyanizEdYK1KVLENSlYYoYUgJCtUsLjafhSKJ3ELWdZ4T
+ Zg9J1yVA5LUJdZOKMEQEd9ArpWvoPgJs79+4cpqy06r+a6tiZLDTo7Qi9HFvdiuDu9dR33Pybzp
+ JYVr8HjpPbxfMzoil4TD5SVB1Q8yCjSAL0DM4v0sd4hpsPnuK21zSU4AQXCV9xqb7iuSFImJ+75
+ 78jhliioOYOS/qbltRNYM8savZJLlBk99h+3fEoN1CINgKHoaYLArfZiPRS5tSyW3jZz1fQAlTn
+ zY7qsqrt8Ifzo/aC3Yw==
+X-Authority-Analysis: v=2.4 cv=V69NF+ni c=1 sm=1 tr=0 ts=69f049dc cx=c_pps
+ a=0mLRTIufkjop4KoA/9S1MA==:117 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=TO9xln4AVH5IzxScuHwA:9
+ a=QEXdDO2ut3YA:10 a=WgItmB6HBUc_1uVUp3mg:22
+X-Proofpoint-GUID: nXv0WEdEy4NgMw1JhU3mYs04shlUnNlY
+X-Proofpoint-ORIG-GUID: nXv0WEdEy4NgMw1JhU3mYs04shlUnNlY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-28_01,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 suspectscore=0 adultscore=0 spamscore=0
+ phishscore=0 priorityscore=1501 bulkscore=0 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604280050
 
-Replace the magic CPR value for Renesas RZ/N1 with a composition using
-DW_UART_CPR_* bit/field definitions and FIELD_PREP_CONST().
+On Wed, Apr 22, 2026 at 3:55=E2=80=AFPM Abel Vesa <abel.vesa@oss.qualcomm.c=
+om> wrote:
+>
+> On 26-04-22 12:09:31, Konrad Dybcio wrote:
+> > On 4/22/26 11:41 AM, Abel Vesa wrote:
+> > > On 26-03-31 15:37:08, Konrad Dybcio wrote:
+> > >> On 3/31/26 12:37 PM, Abel Vesa wrote:
+> > >>> Describe the ADSP remoteproc node along with its dependencies, incl=
+uding
+> > >>> the IPCC mailbox, AOSS QMP and SMP2P links used for communication.
+> > >>>
+> > >>> The Eliza SoC features a USB 3.1 Gen 2 controller connected to a QM=
+P
+> > >>> combo PHY and an SNPS eUSB2 PHY. Describe them.
+> > >>>
+> > >>> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> > >>> ---
+> > >>
+> > >> [...]
+> > >>
+> > >>> +         usb_hsphy: phy@88e3000 {
+> > >>> +                 compatible =3D "qcom,eliza-snps-eusb2-phy",
+> > >>> +                              "qcom,sm8550-snps-eusb2-phy";
+> > >>> +                 reg =3D <0x0 0x088e3000 0x0 0x154>;
+> > >>> +                 #phy-cells =3D <0>;
+> > >>> +
+> > >>> +                 clocks =3D <&rpmhcc RPMH_CXO_CLK>;
+> > >>
+> > >> This is TCSR_USB2_CLKREF_EN
+> > >
+> > > Good point. Will fix.
+> > >
+> > >>
+> > >>
+> > >>> +         usb: usb@a600000 {
+> > >>> +                 compatible =3D "qcom,eliza-dwc3", "qcom,snps-dwc3=
+";
+> > >>
+> > >> Does the device suspend and resume successfully?
+> > >
+> > > Well, tested with pm_test devices and it does suspend and resume
+> > > successfully, but there is this:
+> > >
+> > > [   54.584126] dwc3-qcom a600000.usb: port-1 HS-PHY not in L2
+> > >
+> > > But if I'm not mistaken, this is valid accross all SNPS eUSB2 PHYs, o=
+n
+> > > all platforms that have them.
+> >
+> > Well it's not fatal, but ideally this wouldn't be there. Maybe you're m=
+issing
+> > some DWC quirk in the list, although it seems pretty long already. Perh=
+aps
+> > Wesley would know more.
+>
+> + Wesley
+>
 
-Introduce a helper macro to convert a FIFO size (bytes) into the CPR
-FIFO_MODE field value, with BUILD_BUG_ON_ZERO() checks for alignment and
-bounds. Use it to replace the literal FIFO_MODE values in the RZN1.
+As per HPG and downstream, this is what needs to be done while entering sus=
+pend:
 
-Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
----
- drivers/tty/serial/8250/8250_dw.c    | 11 ++++++++++-
- drivers/tty/serial/8250/8250_dwlib.h |  7 +++++++
- 2 files changed, 17 insertions(+), 1 deletion(-)
+1. Clear PWR_EVNT_LPM_IN_L2_MASK bit of pwr_evnt_irq_stat_reg
+2. Clear PWR_EVNT_LPM_OUT_L2_MASK bit of pwr_evnt_irq_stat_reg
+3. Set the following bits in the pwr_evnt_irq_stat_reg:
+ a)  DWC3_GUSB2PHYCFG_ENBLSLPM  and  DWC3_GUSB2PHYCFG_SUSPHY
+4. Wait for 3ms for PWR_EVNT_LPM_IN_L2_MASK to be set
+5. If it is not set, then we can print the error
+6. If its set, then we need to clear the bits.
 
-diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-index 467755bf0092..5cf3bb74b285 100644
---- a/drivers/tty/serial/8250/8250_dw.c
-+++ b/drivers/tty/serial/8250/8250_dw.c
-@@ -937,7 +937,16 @@ static const struct dw8250_platform_data dw8250_armada_38x_data = {
- 
- static const struct dw8250_platform_data dw8250_renesas_rzn1_data = {
- 	.usr_reg = DW_UART_USR,
--	.cpr_value = 0x00012f32,
-+	.cpr_value = FIELD_PREP_CONST(DW_UART_CPR_ABP_DATA_WIDTH, 2) |
-+		     DW_UART_CPR_AFCE_MODE |
-+		     DW_UART_CPR_THRE_MODE |
-+		     DW_UART_CPR_ADDITIONAL_FEATURES |
-+		     DW_UART_CPR_FIFO_ACCESS |
-+		     DW_UART_CPR_FIFO_STAT |
-+		     DW_UART_CPR_SHADOW |
-+		     DW_UART_CPR_DMA_EXTRA |
-+		     FIELD_PREP_CONST(DW_UART_CPR_FIFO_MODE,
-+				      DW_UART_CPR_FIFO_MODE_FROM_SIZE(16)),
- 	.quirks = DW_UART_QUIRK_CPR_VALUE | DW_UART_QUIRK_IS_DMA_FC,
- };
- 
-diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
-index 2f26f9ecacbe..c1f87cd42ecc 100644
---- a/drivers/tty/serial/8250/8250_dwlib.h
-+++ b/drivers/tty/serial/8250/8250_dwlib.h
-@@ -6,6 +6,8 @@
- 
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/build_bug.h>
-+#include <linux/align.h>
- #include <linux/io.h>
- #include <linux/types.h>
- 
-@@ -70,6 +72,11 @@
- 
- /* Helper for FIFO size calculation */
- #define DW_UART_CPR_FIFO_SIZE(a)	(FIELD_GET(DW_UART_CPR_FIFO_MODE, (a)) * 16)
-+#define DW_UART_CPR_FIFO_MODE_MAX	0x80
-+#define DW_UART_CPR_FIFO_MODE_FROM_SIZE(size)				\
-+	(BUILD_BUG_ON_ZERO(!IS_ALIGNED((size), 16)) +			\
-+	 BUILD_BUG_ON_ZERO(((size) / 16) > DW_UART_CPR_FIFO_MODE_MAX) +	\
-+	 ((size) / 16))
- 
- struct dw8250_port_data {
- 	/* Port properties */
-
--- 
-2.34.1
-
+Regards,
+Krishna,
