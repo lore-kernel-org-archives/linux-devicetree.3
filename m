@@ -1,103 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE413BED30
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 07:38:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F04A34F25C;
+	Tue, 28 Apr 2026 07:39:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777361938; cv=none; b=UvjaFL9kYLR/cARFj1D9Yeo01BzS9Y6vKYYAGfz7Qk0UpBzmcs9WVe33DmGV1iYqBw73y/JZac+3iky0XdheCTfFMF0kJOB5U082X6HHEZy1PqACzXCRXK1m+5gt7uFYgdujFO7ZrWlETpLnTKzMNgiFAt4MFpg6jRaiHP8/asY=
+	t=1777361971; cv=none; b=pzmSJVQCumt8kr25ZJjI80DIRA0oru2U0nj44gtAphQrhL3+sqg7dQDk46Q1MLrHYHV4rjXBn+wFazcTBsRHkYKg+Yebgk0lgUeJ/rBCbJtBq03aC7o8kBXkaV7/4NAf6I9o/Wo/UNZPtzF0i6IPSKNX1nFQtaVOiKXtabxf3TI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777361938; c=relaxed/simple;
-	bh=M8+6UnX+4lN+I7hSH5w2HlitnXoe39zLUp85i19lW4k=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XpCt/9rR/lPdb72C+/ry92vxt7tzW9YruSZsTdXtdzeXPxQ32kTkbhbkyEp6hc2OifAXHgGPv5mn91OcYuQnkmC2N0Gk95PNH26WHgoW58zXIRFv+8FjnJUJn2gonXOeRlEGccwChOa3hhaECYDGPABOAVeArHOD/G8aqxpGTKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bzY9iOf2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777361971; c=relaxed/simple;
+	bh=UFT+K+PDKPQSW0ONxvQCutLaWbCpyvSTzbi8Whq8mPE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iAzIikfHDH/55R6wkGyAyKS2ZsBh6WDq1oHYe43M1QkU6OZC0w2t97QEOMAZ84rp/3reRdoofF2faazZ0B5k2ZuaNZlJQQHzpYNP5WhyGdaNacAXRtFd/ZqLFnjILx01oyGPFqm+ucf/C1D9h6NvEC0b1/wmIiPbOx7p3kYI9MM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bShYofMU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bzY9iOf2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D5B3C2BCF6
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 07:38:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bShYofMU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7F0AC2BCAF;
+	Tue, 28 Apr 2026 07:39:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777361938;
-	bh=M8+6UnX+4lN+I7hSH5w2HlitnXoe39zLUp85i19lW4k=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc:From;
-	b=bzY9iOf2fJS2zOKIN5pj9R1SnGVsXOFvkXqX+Qq2QvgZMieWagoQy5m2szhhtmQKx
-	 o6cqY0IWl3S348ddXvQf5czzaknJnyNym6fv/LsFTIcruPaF96ItdwqOX+XreeIonj
-	 FSYYhvJVh5bI9SVMGzUOvWx35GXz0eRcyRPY3ICpPW0rZX1DwqJlp2rcAm/GFgAFWF
-	 03sdiAAiG2lVQ5o4s6c5nsdBCtq4TFQZXoqlQheMhMv7ka3pvoF50ulu80LRPYxSPK
-	 kr6xcjtsKh4vn4NiUgkmjXoB7rijCfYdG1ml7JhFEU1yq+qmQtCItuA1LrSye54WBp
-	 ggpA+DPnPCe6A==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5a3cee3a271so11050008e87.3
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 00:38:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8qBxS0OfsnyocSRtGdafEiQqLHQIp5KRvp65F13vr3yTTS6x7i4397rN/6doRzwxwjy0o1Wl3+NN7M@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0i5HpdOCT4wptq2Y7dZ+TTG1NMuLxpPrVvTfmDVivfFjmaxSB
-	ZlFd2P7X1wKCX5JFVA4XmO1Lpz5HPS4YGKhkPKK5LfSxY3yxU98OTdQE5THyoTA8ru2j+JEzLSF
-	yOYRo0G0d8srT6DXG5xknpC28hCgaQnQWhss/Z7yHlg==
-X-Received: by 2002:a05:6512:3f12:b0:5a4:17a6:9780 with SMTP id
- 2adb3069b0e04-5a74660a971mr759395e87.14.1777361936359; Tue, 28 Apr 2026
- 00:38:56 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 28 Apr 2026 00:38:55 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 28 Apr 2026 00:38:54 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260427-arm-psci-system_reset2-vendor-reboots-v21-2-dcf937775e73@oss.qualcomm.com>
+	s=k20201202; t=1777361971;
+	bh=UFT+K+PDKPQSW0ONxvQCutLaWbCpyvSTzbi8Whq8mPE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bShYofMUEgHChAVhaCcjQFFVgyZWdN4ny9wml6VJ9NagtD2bvpBe6gwZRX3YZ1vU0
+	 jB3gm1MxC0UOYCYWEGk6DZb20/dT5oRqt1qbwsGvPRFbQlsepg5Xk82F3SfSSLs6Mf
+	 nfcW2yY2SFs5Iix37V5C+sdPzlaS+4UldHy2nLPa7MaaPM2LrTV5G6VrWyqA7GNSsh
+	 GRLT0NN3j0qktHbDy2n1QhCE3SYVgfqt3dvQv1wN+UZqlUBbUXe/YdKaT1WoTKDraD
+	 RgIDpI5jJRepIYLHZlj74asvqeWQg4d9haEZdx56mjcHYHuWUeqi78CSZ5sQ5+YmD/
+	 b3c+B4zRd0TxQ==
+Date: Tue, 28 Apr 2026 09:39:28 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: William Bright <william.bright@imd-tec.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add TSD TST070WSBE-196C
+ panel
+Message-ID: <20260428-misty-tuatara-of-downpour-0ad6eb@quoll>
+References: <20260427-imdt-dsi-display-v1-0-bb2768de120b@imd-tec.com>
+ <20260427-imdt-dsi-display-v1-1-bb2768de120b@imd-tec.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260427-arm-psci-system_reset2-vendor-reboots-v21-0-dcf937775e73@oss.qualcomm.com>
- <20260427-arm-psci-system_reset2-vendor-reboots-v21-2-dcf937775e73@oss.qualcomm.com>
-Date: Tue, 28 Apr 2026 00:38:54 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MevqR=ST_-WO_CAUc7stKmQU=_Qp7BTrewzvg40x=JiLw@mail.gmail.com>
-X-Gm-Features: AVHnY4IrhreEwlQ0Dtd2BuvGIlLYNK7-acJ0gJkWUG1j_5wLe4XWVKLYqD4Vmhg
-Message-ID: <CAMRc=MevqR=ST_-WO_CAUc7stKmQU=_Qp7BTrewzvg40x=JiLw@mail.gmail.com>
-Subject: Re: [PATCH v21 02/13] power: reset: reboot-mode: Add support for 64
- bit magic
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Andre Draszik <andre.draszik@linaro.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, 
-	Srinivas Kandagatla <srini@kernel.org>, Sebastian Reichel <sebastian.reichel@collabora.com>, 
-	Sebastian Reichel <sre@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Christian Loehle <christian.loehle@arm.com>, 
-	Ulf Hansson <ulfh@kernel.org>, Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Souvik Chakravarty <Souvik.Chakravarty@arm.com>, 
-	Andy Yan <andy.yan@rock-chips.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	John Stultz <john.stultz@linaro.org>, Moritz Fischer <moritz.fischer@ettus.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260427-imdt-dsi-display-v1-1-bb2768de120b@imd-tec.com>
 
-On Mon, 27 Apr 2026 19:34:42 +0200, Shivendra Pratap
-<shivendra.pratap@oss.qualcomm.com> said:
-> Current reboot-mode supports a single 32-bit argument for any
-> supported mode. Some reboot-mode based drivers may require
-> passing two independent 32-bit arguments during a reboot
-> sequence, for uses-cases, where a mode requires an additional
-> argument. Such drivers may not be able to use the reboot-mode
-> driver. For example, ARM PSCI vendor-specific resets, need two
-> arguments for its operation =E2=80=93 reset_type and cookie, to complete
-> the reset operation. If a driver wants to implement this
-> firmware-based reset, it cannot use reboot-mode framework.
->
-> Introduce 64-bit magic values in reboot-mode driver to
-> accommodate up-to two 32-bit arguments in below format.
-> |    Higher 32 bit  |   Lower 32 bit    |
-> |	 arg2	    | 	    arg1	|
->
-> Update current reboot-mode drivers for 64-bit magic.
->
-> Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-> ---
+On Mon, Apr 27, 2026 at 04:21:09PM +0100, William Bright wrote:
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/tsd,tst070wsbe-196c.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: TSD TST070WSBE-196C 7" 1024x600 MIPI-DSI TFT LCD panel
+> +
+> +maintainers:
+> +  - William Bright <william.bright@imd-tec.com>
+> +
+> +description: |
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Do not need '|' unless you need to preserve formatting.
+
+No need to resend just for that.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
+
