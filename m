@@ -1,128 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010028.outbound.protection.outlook.com [52.101.84.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D621DD877;
-	Tue, 28 Apr 2026 08:40:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777365655; cv=none; b=JBEcCBpOPdP8l5mml43fRhR1+7EB6i/t/km13WZ3/KCH8IqXxRbuSjeLoheZGh7rCgZ+yRQ7q7iyX7gC056fQKaJr67FKsgj71MVuGI1WcGbpsa5XIul8T94jrxeK/2kbDiTWFs45ShaRzK1/Eu0NaOzNoFQUt7jA0KkvZ7e8bI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777365655; c=relaxed/simple;
-	bh=ItVJ5F6UDc9yJQwS4bk61nzLdZyax39MtPrAql5QAmA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f1dJbb9Ksam16NaBm+mYTznMBLH7MehT6wmoIuLD4wkYiabLrfsaz+S2TIpQKYJbzcscXxK1K2m4JzKLk15eoGuXjzxk0iANGrGyyBs/cb2CBgKzjl4seEb8yTADr6JuC/APOxa15zNHYtUSHzyGu3cEm01CXk3XfD/UlUM87Yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cCgTwAd5; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A56AD24;
+	Tue, 28 Apr 2026 08:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777365665; cv=fail; b=OJBTh8U/vZWUDbrNPX4o9nywaL7JZaHajHwps8kMWvEBvX7BZgfmiEBJZ/ylwg2rVBfwuho8QjFEtSh2ea4QbOGPwkmxqK/6P8AWMWfRqNFYWob0gauvQCHtgiRIUkhVxlAhgv9zsAYxbAEsdSmVaAlktYvKTzL+Lz4uXaPYU3o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777365665; c=relaxed/simple;
+	bh=TtHV4JozkEOAbTSb+XgXPHsj7blKoy+zCVQgTG9rEjk=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=uRSwgGzB5f9sE2SKLBDS6ls8ic+tpClEGkh9Igcp5Atx4stkjLR+NuuO4wtOTN8SBy83lpV2wO19mVyoYZDGl9hxJ6ELotk3tnYGdZo9a//9sxS3clcVTcNpXc/Yhhi5FE3JIVQce1l3p4QFBRibL6Fw2ot7/42CCZMAa1q2wB8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=GWZ7UOYP; arc=fail smtp.client-ip=52.101.84.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cCgTwAd5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79B83C2BCB5;
-	Tue, 28 Apr 2026 08:40:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777365654;
-	bh=ItVJ5F6UDc9yJQwS4bk61nzLdZyax39MtPrAql5QAmA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=cCgTwAd5SRAVCZExSUQ051DjhblKL34IeBbpL1emWrxSkKmybKl7kXD47E/RnKMsh
-	 nfig+sNUR13rAgJu5kCdM8QdsR+TJ7w1X0kKHKeDPKi1x+5xViWO2mgNMMe83nHVxl
-	 sXM14/iy0v/n7q5gbMl0vIHQyX4NG/53LoGTQuTdQd6U0ztIDflr+Eq0TVeDaViR04
-	 jJWsGJpU5XP1jQ8vicNeppu2MZufodPMba5Tl+DmPZ5OIVp1RJtuqLusw/iKITjo8I
-	 WHZo3e7X82JBTNQ5+kNAWaa8ZXihnfUuatrOOaM/dnv13GiO6upuNkfSFRvT40m3AG
-	 3SCoKbo8siDNg==
-Message-ID: <006bd158-87aa-4fda-93cf-91f714fb72b6@kernel.org>
-Date: Tue, 28 Apr 2026 10:40:50 +0200
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="GWZ7UOYP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xM/FaCecMYcyYObudq7fgALCvpPWfSLftGbRSMvQem6JehWi7br1lrtx4dOlSSAvsjFXcpKGKNSElsDvxy1vHxkW/HUr34Lv0zeWwt6n8frLAJ3vKjIVeOoWdEHvFwcFratZc67P8U5ghaIw9KPBpU8DFMTSWz2m+Q+hAmDMz0HsL5x//3UQKZxbne0qL2+cTST/n4MB4eAS8cgMAxdMf4bhiJl2GtFFy1ouxVINEDMoBndtD0nyYJWGJ6HtVRkRq3EPHUZddPLtexNOAb6ll3eZn499yYdN0GdN48y3MODqUqyfQwSKhQBC3USSzTsUVKa81NVc8xy/9BwBhMidyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XiPlte0x8kyHO2sjHpDO2qCHHt76ileAEvtgDp4UyAA=;
+ b=Vw4PqjHlRYoRvm+FLHZnQ4R24UurdnMA2D39d+g8buMPlx+xb7nqQZbX9As7MahVAZJU+plJKmSmdsLuSLXfCj2Mo3AFwikezBTE+E7WPuv6sYIbslMBhw/KWQAGBJF7qd/C6gbkrRIl2ZwaOaeb8TqEOIecif/JWyzi+cqY6WUK8Kq8YM4nXq3ETmEJ9sedULR1OCLY3vRXpEUFoxPYbENjrkJmKAL+N4gzX+qrY6qPXXfl8cwPtiLadFqWH2JLNlkO2QvsNc0QtPnRr7Lnn4c7jVZkAgRun1/FAQU+rHw4QWzkrrNPkbBT95uafGwqVNVYR7OhogwE1d2VjXwalg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XiPlte0x8kyHO2sjHpDO2qCHHt76ileAEvtgDp4UyAA=;
+ b=GWZ7UOYPBaS6tHzmJufuwZX+bkUGW4fhOaVxpZ49mKZN5fXdRGm0r+fTpjr5efq+DiIRfgnP6Ek47t3Q4VdcmDPlQhwBmsDvQqZ1Ih1q9tyua2b+wQZAv5Ursrc7//JxXcuzgX2lvKFZ7ENdZSypZpLCkdpZ/wiCS1PuuG6e9Uwv89fvzWukdRrBxV0AYFAxu2CSWV1Z+r/BCk9EU3pGiVb1v0Z12JTkmy7/qMcYSIpbha3Hdr4m/bcpz8hcO/HO2UIJrYtW/E9yLTr7q0rNFqmFbAlSplnWOTEcncUI5X7P5+hAs2l+QRMJv327ZT5fS9itdvGynowj9JMtCygtww==
+Received: from AM0P309CA0011.EURP309.PROD.OUTLOOK.COM (2603:10a6:20b:28f::33)
+ by DU2PR10MB7646.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:492::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Tue, 28 Apr
+ 2026 08:40:58 +0000
+Received: from AMS0EPF000001B1.eurprd05.prod.outlook.com
+ (2603:10a6:20b:28f:cafe::80) by AM0P309CA0011.outlook.office365.com
+ (2603:10a6:20b:28f::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.12 via Frontend Transport; Tue,
+ 28 Apr 2026 08:40:57 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ AMS0EPF000001B1.mail.protection.outlook.com (10.167.16.165) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9846.18 via Frontend Transport; Tue, 28 Apr 2026 08:40:57 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 28 Apr
+ 2026 10:44:28 +0200
+Received: from localhost (10.252.13.121) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 28 Apr
+ 2026 10:40:56 +0200
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+Subject: [PATCH 0/5] media: i2c: vd55g1: Add vd55g4 support and various
+ fixes
+Date: Tue, 28 Apr 2026 10:40:54 +0200
+Message-ID: <20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] dt-bindings: gpio: fairchild,74hc595: add
- registers-default property
-To: Chanhong Jung <happycpu@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1776872453.git.happycpu@gmail.com>
- <33d515f13769c685e6811463a14e111252a7c58d.1776872453.git.happycpu@gmail.com>
- <20260423-quantum-precious-mantis-2481d7@quoll>
- <20260423103347.4054425-1-happycpu@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260423103347.4054425-1-happycpu@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJZy8GkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDEyML3bIUU9N0k/jEvJT4tMyK1GJdS/OUZCPjJLM0IzMzJaC2gqJUsAR
+ QV3QshF9cmpSVmlwCMkepthYA4CXhLHQAAAA=
+X-Change-ID: 20260428-vd55g4_and_fixes-97dc23b6f266
+To: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
+	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>
+CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS0EPF000001B1:EE_|DU2PR10MB7646:EE_
+X-MS-Office365-Filtering-Correlation-Id: df85e11a-ad0e-47dc-b6bd-08dea501de63
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|376014|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	rWb/+GyOXsWQkSAFZ3GIku4gRKq811AIKQlN6+FBES82AmGPQH+M40BVyq1tKozj9dr0s5Z+UGFdxAwujwBu8V0Rt8MZT07UEBc1UvzpOknakXB1xCii+qTk8icqRx1Mp7rzEXOluCiE5PGOimw4Ww8FX8EZRzxI9M6MyY/HCJR+1ZfZH3RFgXSQ6tYDxSf4UBa2flvDqfQQxzhdZUyqItNRjdcle5szKZd5Jqy1/z8mf5FfpyQ2ZMngFm2CDOhoDI4d+Q9jrG7c4rT446MWNzjk6bN+9yJ6hf85sN0j5KM0Bxtj9DHWq67wAFn0Z0VJHfnER6K+8sw1BYHqdGjJaKy3xfazMxArFBwfz3SdUcNYJJNX4Z1/xfZAOAtO0J9fB2N1083YrfDnYEoMgKwVuhtArNMTdWK5tzpghbFfSA/0c2KtOM9coMqZwm929ttSOkYzIx5hz25FUUJT2V2an2LyC95dZYJnRmlUnMWARVB6xOAghsp+/8d1X8o0Vi513U/+ffQRUzVR2BZgryzNrFBk85uuh5c63D31IlGRmXY/AsLqDt5B82cAr0ukTMMu/j6KzKXUnwWnXDkNqXB4bN4xGmpWouNtQWEa4A0e/fo3TY6C1eInsFtPHfE45yjZdDhrSru6OeNp5sI/ePQp9wFxmeFOdDKJw5p1cKGN9vhp/Ggwbn0axbiAoYvHBgSDUqpBNXdylW5WZ3Uxzhse02VOgLVNILbLDz7NPK7U7wqgfC8p1ekGSg/MiwC5g96xvpp3yPoB1CQx90LX1EFzDA==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Wvoyj/9Ve6bYiZzMC6X06+zLKZViTTdKt7lodVU62BKbDN+QRmC4Q/sTfpLyqZsZC3P6GELCjUSf634jFbPMBQyMPa/xJrVQ8aDl56rWHtAXKGWQ4Y0dcJLvODhRs1EvHx0pVG4ooHKnL8CHQaUsMXxHvpiVB83BilKsk4Wl+2lIeqK/JVV07gBnnx/eN0KjHiL/5Sit6Qc5t/ecE6+CpwI5QTue5BXTeXAq0YEUTCUshvSAy/dYc7Y3LYEN/KyN4y+XMU1/8Wb88fCg/E/7OMSn1iH5+lAhM7f026ADbURc0QqHDfclgvfbpQu+IIQigntVwoYE2QKP1xBn1Q7VP8i8i1VzHkQ8u1zX2y7TYW8OjNywmu0n0nsLzs9v1nNA4mLVMLBOzeGK26YFYog4KvikdHXLFCLgFSqAkOpw5ReOpo5A+MSH2LG1v3S5BhWR
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 08:40:57.6932
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: df85e11a-ad0e-47dc-b6bd-08dea501de63
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS0EPF000001B1.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR10MB7646
 
-On 23/04/2026 12:33, Chanhong Jung wrote:
-> Hi Krzysztof,
-> 
-> Thanks for the review.
-> 
->> You can fix the driver not to do that. Or fix the driver to properly
->> parse hogs. I don't understand why exactly this one driver needs
->> default registers stored in DT, but all other drivers in the kernel
->> don't.
-> 
-> I thought about both, but I don't think either works for this chip.
-> 
-> 74HC595/74LVC594 is pure write-only: no MISO path, no register
-> read-back, and the data sheet defines the power-on state of the
-> parallel outputs as whatever /SRCLR and /OE do before the SPI master
-> is up. That's different from MCP23xxx, PCA953x, STMPE and the rest,
-> which are either readable (so the driver can RMW) or have a defined
-> reset value. None of those drivers need a seed property. This one
-> does, because there is nothing to read back and no defined state to
-> fall back on.
-> 
-> Partial updates aren't possible either. set_value() has to shift the
-> full chain every time - see __gen_74x164_write_config() - so whatever
+The vd55g4 is the monochrome variant of the vd56g4. This series adds the
+necessary code in the driver to probe and stream from the sensor
+in the correct format, and a new compatible in device tree bindings.
 
-This should also be explained in the commit msg.
+This series also fixes some issues I encountered while developing.
 
+Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+---
+Benjamin Mugnier (5):
+      media: i2c: vd55g1: Fix media bus code initialization
+      media: i2c: vd55g1: Remove spurious pad format update on init_state()
+      media: i2c: vd55g1: Fix manual digital gain on color variant
+      media: i2c: vd55g1: Add support for vd55g4
+      media: dt-bindings: vd55g1: Add vd55g4 compatible
 
+ .../devicetree/bindings/media/i2c/st,vd55g1.yaml   |   3 +-
+ drivers/media/i2c/vd55g1.c                         | 141 ++++++++++++++-------
+ 2 files changed, 99 insertions(+), 45 deletions(-)
+---
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+change-id: 20260428-vd55g4_and_fixes-97dc23b6f266
 
 Best regards,
-Krzysztof
+--  
+Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+
