@@ -1,107 +1,83 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7B74534AE;
-	Tue, 28 Apr 2026 18:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C945B47279F;
+	Tue, 28 Apr 2026 18:13:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777399543; cv=none; b=Cxu/PI6+2E47Mi99ClobjA14OSdsN8FEpTZcIBkJbzc4xKTpBXaahIH5i6wYtk+4R8bsTQ7mhxDoo+bPl3QO2+x7KCWpR3W1zss32C0kWnGBFegJnKLiwuAC3jykR+DDSjQ8iyWAvYjHQynHsAzc11B4MehSA0gCFvVAQqqzJls=
+	t=1777399984; cv=none; b=Q0fsh4fGBGlSlNfILqYS55zzNtukA36iUs9UIh7boqO6iaKk3g+vePiD2d1gnuWOxppfj9q95ZkN8HQ78OcMCzUoO/vUJSRM0gRcqjTd/tUpXwqMtjqWGXcaZCDK3jbk3qYTqf82QJEzZMj79DdoWjmrUtRa0ZvSfA+wGvZhwrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777399543; c=relaxed/simple;
-	bh=P64k85N3daHnIev8xOmxmzWEX56aQBjsUVihR/XicFg=;
+	s=arc-20240116; t=1777399984; c=relaxed/simple;
+	bh=adKxGlnFh2v7arFvCaA/DguA8JQxujgHW5DfTnIH2J4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SvRTzzX04BVulm1nfQCmIrG/UrZJS7FNriZBXaRVbaLx13PgA/CfV3yjTN7nfIRduHZRIEjuMAs4KhrVFUaVZHWeIUbf9P2mVyDkuTAIM1OqiBfEnFc59lIHMrvOjtKSy6qEY7a29JG+ZzLPFZTFD6tCApeCe8hDwQ//B6DjaL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=GEcDleAy; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=J0JlBMCI4aWUvGo1lkelcLd75j+gge/3VSvc4JEVXJkrPs2vyYQMWy5UXzVmkcYVzRPXIzcTVCWlwYL3Hi7oTQ0orJ3/pR53x84l3BxYiQnYNaE1JdQM9Nw6r6jLMdRTgq3rOVPR2aBnFU9qq4jbnQ1PEVkXxhFawnoPk3dTOZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AvXobuaI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="GEcDleAy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=f7TAcOXxPnUVfil+ay330gPo4DxhAxhPDiY4u2086e4=; b=GE
-	cDleAyqqdGmQWx/Ex+NIq0ne4BoHv7ryPiIH1R8l8YNsCRw9rQeCVAVmE7beTtd1Yo536uB6pXloi
-	WWskddRMmJeVNtUfwGqet9BpI13iSU7xXwav46OeSpPSwq1hR5ThEGC/B6lnz+iaXWp5r7OfLbUBV
-	s64aKyNSeep6o6g=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wHmoJ-000NwR-MD; Tue, 28 Apr 2026 20:05:27 +0200
-Date: Tue, 28 Apr 2026 20:05:27 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Padhi, Beleswar" <b-padhi@ti.com>
-Cc: Shenwei Wang <shenwei.wang@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AvXobuaI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A84AC2BCAF;
+	Tue, 28 Apr 2026 18:13:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777399984;
+	bh=adKxGlnFh2v7arFvCaA/DguA8JQxujgHW5DfTnIH2J4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AvXobuaISYzinZhJRSeIkCZzTjMI4MAbx+KCxmIVkw/nChIU2xDLsKnIbFVVcKiHi
+	 6/jqaGsY+BInAZEWc0ij2gzmuEZKlhnmkd2+8ghnLtcb+ErmIaj5ZVTwrpMobTI/fM
+	 gZ4hmZVdW7etub9+XioSiYGS6GAh4LnoH04v4OPYsE536zaXMSDafmPLcJsTsgSBYz
+	 bEwWQWfD5TShe3oEjYrIqeTHQ7EbCS5bdAVAFEUO1O+MXBKnQ6wl7S8iHzohp8CMyL
+	 nw5oV5wZOp4RVQH0imqGnsYVLVspGihuMcmZsXYWK9mEjBVXb7WkYKkDQezhYET4bI
+	 rnWzPAdfpDIqA==
+Date: Tue, 28 Apr 2026 19:12:59 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Yixun Lan <dlan@kernel.org>
+Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Frank Li <frank.li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	dl-linux-imx <linux-imx@nxp.com>,
-	Bartosz Golaszewski <brgl@bgdev.pl>
-Subject: Re: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg GPIO driver
-Message-ID: <8d9801cb-0c66-48d8-a946-89a7771e73ea@lunn.ch>
-References: <20260422212849.1240591-1-shenwei.wang@nxp.com>
- <20260422212849.1240591-4-shenwei.wang@nxp.com>
- <22fb5fac-2568-42be-a7e3-7e89d0017eb3@ti.com>
- <PAXPR04MB91850A11C58419C03909145F89362@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <29485742-6e49-482e-b73d-228295daaeec@ti.com>
- <PAXPR04MB918568939EC7DAEB4BB6C8F989372@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <32c119af-96ad-4da0-86f2-cdc4ba57ef0b@ti.com>
- <PAXPR04MB9185C7741DCC422212F952CD89372@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <8c8cefaa-7d9e-4b73-b92f-40cb52b37f2e@ti.com>
+	Duje =?utf-8?Q?Mihanovi=C4=87?= <duje@dujemihanovic.xyz>,
+	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev
+Subject: Re: [PATCH v2 1/2] dt-bindings: pwm: marvell,pxa-pwm: Add SpacemiT
+ K3 PWM support
+Message-ID: <20260428-operate-satin-367dd5a42ff5@spud>
+References: <20260428-03-k3-pwm-drv-v2-0-a532bbe45556@kernel.org>
+ <20260428-03-k3-pwm-drv-v2-1-a532bbe45556@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hbZz409LMBfc1SqO"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8c8cefaa-7d9e-4b73-b92f-40cb52b37f2e@ti.com>
+In-Reply-To: <20260428-03-k3-pwm-drv-v2-1-a532bbe45556@kernel.org>
 
-> Remote side learns the endpoint when it receives any message from Linux
-> from the dynamic endpoint.
-> 
-> Lets say rpmsg_create_ept() allocates a dynamic local ept of 1026. When
-> you send the message from this endpoint, the standard rpmsg header
-> would have:
-> 
->     85 struct rpmsg_hdr {
->     86         __rpmsg32 src; // 1026
->     87         __rpmsg32 dst; // rpdev->dst (e.g. 400)
->     88         __rpmsg32 reserved;
->     89         __rpmsg16 len;
->     90         __rpmsg16 flags;
->     91         u8 data[];
->     92 } __packed;
-> 
-> Remote side tracks the dynamic endpoint by reading src = 1026. And while
-> sending the response it fills the header as:
 
-I've never used rpmsg, so this might be a FAQ. How does the remote
-side know what the endpoint is to be used for? Here we are talking
-about GPIO. But the same hardware implements I2C, and a few other
-things. How do we indicate this endpoint is for GPIO?
+--hbZz409LMBfc1SqO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Maybe also related, this hardware also supports a number of GPIO
-controllers. There has been some argument about if one endpoint should
-support multiple GPIO controllers. Or, like gpio-virtio, one endpoint
-represents one GPIO controller, and you instantiate multiple
-endpoints, one per controller. How can you tell the different
-instances of GPIO endpoints apart when they are dynamically created?
+On Tue, Apr 28, 2026 at 10:46:50AM +0000, Yixun Lan wrote:
+> The PWM controller in SpacemiT K3 SoC reuse the same IP as previous K1
+> generation, while the difference is that one additional bus clock is
+> added.
+>=20
+> Signed-off-by: Yixun Lan <dlan@kernel.org>
 
-   Andrew
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+--hbZz409LMBfc1SqO
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafD4qwAKCRB4tDGHoIJi
+0mGaAQDq6P9TZl3HphQpeRKzTA/sPmsbvxle6zYX9nGyqTyAAQD/b2AVulWdGL2k
+O2A8UPpyX7n62Inet7X+4JjZD9TyBA0=
+=bCnk
+-----END PGP SIGNATURE-----
+
+--hbZz409LMBfc1SqO--
