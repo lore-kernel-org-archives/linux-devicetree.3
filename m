@@ -1,520 +1,305 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19011072.outbound.protection.outlook.com [52.103.23.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67AC143E4AE
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 14:05:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777385157; cv=none; b=VF7x4lee7wTRMMk3CuOgPMqG9G2/z03L9E4KGCXExHH+UvWNAF+Y/sowAJ9M0I/aHHkA880D446xfLKR2F+82WNYHtCX0wYaVXAt4VLLwa3WvaUa9ytiyZxKtM3qHgYOCEhi8cdmR6EhzIxVVT8ylkdaud+w8qQEQFSXh+j7T+c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777385157; c=relaxed/simple;
-	bh=QwLk3Rt5xXaoZ6skQucP5sBlR6hQ6tO5Cq9c1hdGbv0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=vFMJR4Usx5GpGqpyktjzhAT8sRHLQvInlZovSCm0kglWdKLcjCjsYRd1FeYCkNtXSwEQwPwDmn+AZXzLBANpHQHM3Y8nEZA7AsQYc+RBG8eRWfKr5w0uNUNqpWmbyLMRPruqqFBvNBS27KINiLLY01wAtXiNxbi/m5tcI8zGEw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=CX4I/ZaX; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F483FD12B;
+	Tue, 28 Apr 2026 14:09:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.23.72
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777385378; cv=fail; b=nB027FsZlSDCnv70vPDL4jy4I0tPUQbSPpS1cy+pLw4Vjc/6eH5KKyJVk18uFVQgza9hRAAhIBvJ+9Fb1ebKIVSwKVI7XcptqSC7ANeIe4FzRd0K6ibuXxAhSb6VvjTYOBR9H68MyRXu1hNsHGYoc887GlS81T4yBgpukabenxI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777385378; c=relaxed/simple;
+	bh=4wYYBm5lh/MjMLC3BrabHO/jedY0PrhSz/rUL1lbvto=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=McvoFUPVk2ImvM46/DxFziJqLaPVnwwZuNOTYb3KQlBs5zKSvXhPS0LCY2IIs19NcmcAZV0PGtGnmStRtzHEzMICWQaAsAIUPT2DADXY2y10wk5cuCPlM18M93s5LlpeeEuSR7fgqYGIExWrqZ8t79NWHny5u/fxu/svPapdrkg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=h4GhKy4n; arc=fail smtp.client-ip=52.103.23.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="CX4I/ZaX"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-43fe3e22e33so7432004f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 07:05:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777385153; x=1777989953; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=FudvciPbQh66CQVlQx9qR0a4iS/GQ4J8s0VZ/c5V0Ws=;
-        b=CX4I/ZaXdxSbBACi+f6k68i2UDZygAu2he6rY6K2UO6Xok7uPE64KgawDOBkQ5vjPq
-         V2l/E66beZUVN9x5ku0t6oglJ9P9crewxAXt/CNhYvpWvcWuBpKhPFMZgFg/a4qMF3Dk
-         Pu0HphnMDgKXxWc6hoC+TrI0TDKMTTnGVtTdzkJFXJHjtfWU+b1Tnv3Jm3qjdcuoFQ15
-         8gHgHxMe7wzCwiAV2GSZhqIVmY8ONcjB+7wgDUugFc1rNt55ZofoZ4ZJIyykjxGbk9Cq
-         nF2w9Oa864ObUxjJ7cLpK6z8g0WNc5R7ZJWGDv+Ce4us7L64FwycnwiRqXBshY/RyT9A
-         O8Zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777385153; x=1777989953;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=FudvciPbQh66CQVlQx9qR0a4iS/GQ4J8s0VZ/c5V0Ws=;
-        b=ara7cSmY/uh7Wlx03Swz1rUS1e91d6WpfGhWeIEKwjWaR/0Rn8aRRNvV18Dvy1c6rh
-         Lrrt+RosME2r+JjpM1waDl2/cUy2l7jJRKSUi3HbO4T/cPade9QgtjANktmiYtgs+Ncu
-         a8/YtOkenwboANsN2cZKTbA4g6QikIVr29tc6yeACcs46G52cU0NhaNl1JSfzRsgYa3S
-         GjFVm6DmnT+XPrKZ0P+Bw6kFr3PLzbut3+ushrt+yeDyReXNoddzQHA3WX9MwgTBeyP6
-         37VNk6nhYXy03jYzf3Nho94sP+T5GnSlPdNnJONg8EwKsjm3wkfzdkfukBftMvbWxQQx
-         mhsA==
-X-Forwarded-Encrypted: i=1; AFNElJ+mXVomyXQX3uW5o2dyTypBbzqySjZkhEgTokSMcO02ES3zjzacP7gdPk0Nma+FI46bV/IrZSglERFn@vger.kernel.org
-X-Gm-Message-State: AOJu0YzNX5bHrFJZj29tCc6jiXrRhuuYSIa9dUNJgSZb5wdNodRF/dup
-	hDdr8mQ6pM1Q51rQJyU0kHPQxEWqaGF5dblHI1bDdAHJPVnN9phITI9I8G6tNAvR4NSL3pDMpG2
-	ZfD5CHqc=
-X-Gm-Gg: AeBDievAhWzMG009oc0mrxIz0Pm1OXfjWaTbNT1jhhV/GT7Ut4xdxR8YcKlJCC1slA1
-	k6xCr/lBtU9qzaJBPR7eYxhEW2a2NkBX765iHs8JM8hs4OL9saFC07QbWujxPuZbKZbuSBmekXO
-	D/HPu8Qyji2evcF2smevbgJVrfEZnS6nthd5TDlHtEo2ODOTRds5wiKguG3Fw6YfO0pEJW+mYme
-	dqXhAmtzk7BBq2OBZguhyOwa7n2l6yoyVi64Xvx18NQLSmyQNVxGh9JTMZHqdJi8KOhrYo3a0yY
-	jiousLGJ+dhhIZsuNDePaRFSA0J7fTPH3Cz0bvqqRsbACoTKpVJRDZvoPVLzZ6qNRo4B7tzL/76
-	UgzGQVgbnvf2EguBsIIpAYR3EYTxItOrYvYA9hOvr4Q401QYMX3VjXGp2kj3bSUe6S0xK+2E1gL
-	WQ+wV3ZzG8SrqMeGfQ1EAn53dKB8iGeq3MXFIGdOLFQmdRODkFKLhJbtQ=
-X-Received: by 2002:a5d:64c3:0:b0:43d:3004:5fef with SMTP id ffacd0b85a97d-44648f28ef6mr5714427f8f.7.1777385152430;
-        Tue, 28 Apr 2026 07:05:52 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4464004ed80sm7143264f8f.34.2026.04.28.07.05.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Apr 2026 07:05:52 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Tue, 28 Apr 2026 16:05:47 +0200
-Subject: [PATCH 2/2] drm: panel: add support for the R63419 based dual-DSI
- video mode Display Panels
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="h4GhKy4n"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y7SFpk0D3bpz72iROmPYSupSks5csufLprkB7ORBZpsBfeNaUvzinPeYMHON0vQUPRW6bsCJxaJimkGjyOhZjMyGY4b7YtIk8udDQPcyT43LCLx0eOljyekhDBdslPIbXymf1pKeDbfi+nC3wrI8AI3hXv6LzXMv0H9MoU7vs3X9t8afeNYikBPpIYHP765CkEpe7FNhAk1yOn5K9wXxN/al3T+5zt0HyycAefl4uEFVbK6RcgtCziQqhWx8sObAq3ashFltvdvT+h11sc4MCik0ldl1/BHAEuaL+Va9Kglbf9CFSYM1AoaV9MkrfekU9d2bAZSJlLYHUVJWvTHf8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7Ej9TvUCL3Ze9l4edZ1r/QWQgNZ+IAlip5owdlVA7Bs=;
+ b=JbLPOuMoLXc8rhEf32PzBE+FD9dJUelmg5m5nD2qG2p5+SsP8i5ON8OazRjXmkbX+pFAvmSDX84pFEyvyO2+/ctbg8E01sZBCcIoWocF22aPg6060BfgO6kG/L0dQxaLePCpxyBWFDJcPvDW0/oHOKNsEIugMkr48P4HFqveK/o6K7ZsVAlWZFCUBWeReP72heZ9Lf2Rua6pHqBefKXYuC+HSklVkAger7xynOoHndd+vHahawdcQjx5Bsa91wqxCJllbLdjMaki12RtJzzYp0fuxR8CrUeeRDr7DrDE+yBIrZqSJDmzNrdFSnn+SkMd5SIM6QXWY+Ke0WwCSBP9jQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7Ej9TvUCL3Ze9l4edZ1r/QWQgNZ+IAlip5owdlVA7Bs=;
+ b=h4GhKy4nBhouXXxvLpgNIGm7vaYcGT4wfrkqZcTL8FQx8MmeG8IWANyxl9SOvwTQxoaT0sNpB9iaYBFQAhojQEz0yhsuDkQzn2r86dRwHh9qGAXspce/2Cx2kkWvNfTdSV8tUaB+DtJUWLCupRcM3JUK6hw8Yt9dR8tWcvkCvLhdt4SaCKoUU69rhTHT5o5d5Wt0NcpLu0XDH/tbC0faVziA1t6/M889AiMaXBqXKFpRaHSHXin/RiIA5Rm0Bb71pSLi5mSzvCmt1qvSH+HOomm8nmw0pt0ePezJY1ejabZ1Xa/HQOkGQyqOLyUW+3VEcHSSh/eMIfRCAAxY9OayXg==
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18) by DM3PR19MB8358.namprd19.prod.outlook.com
+ (2603:10b6:8:1af::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Tue, 28 Apr
+ 2026 14:09:34 +0000
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172]) by PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172%6]) with mapi id 15.20.9846.025; Tue, 28 Apr 2026
+ 14:09:32 +0000
+Date: Tue, 28 Apr 2026 09:09:29 -0500
+From: Chris Morgan <macromorgan@hotmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Chris Morgan <macroalpha82@gmail.com>,
+	linux-rockchip@lists.infradead.org, linux-pm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	xsf@rock-chips.com, sre@kernel.org, simona@ffwll.ch,
+	airlied@gmail.com, tzimmermann@suse.de, mripard@kernel.org,
+	maarten.lankhorst@linux.intel.com, jesszhan0024@gmail.com,
+	neil.armstrong@linaro.org, heiko@sntech.de, conor+dt@kernel.org,
+	krzk+dt@kernel.org, robh@kernel.org
+Subject: Re: [PATCH 1/6] dt-bindings: power: supply: sgm41542: document
+ sgm41542
+Message-ID:
+ <PH0PR19MB997338F0B06B7B99AA0ED3C6C4A5372@PH0PR19MB997338.namprd19.prod.outlook.com>
+References: <20260427170914.5062-1-macroalpha82@gmail.com>
+ <20260427170914.5062-2-macroalpha82@gmail.com>
+ <20260428-bulky-nebulous-reindeer-ed45ed@quoll>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260428-bulky-nebulous-reindeer-ed45ed@quoll>
+X-ClientProxiedBy: SA1P222CA0112.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:3c5::25) To PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18)
+X-Microsoft-Original-Message-ID: <afC_md94llV0cKmI@wintermute.localhost.fail>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-topic-sm8650-ayaneo-pocket-s2-r63419-v1-2-981eb5ab5a51@linaro.org>
-References: <20260428-topic-sm8650-ayaneo-pocket-s2-r63419-v1-0-981eb5ab5a51@linaro.org>
-In-Reply-To: <20260428-topic-sm8650-ayaneo-pocket-s2-r63419-v1-0-981eb5ab5a51@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- KancyJoe <kancy2333@outlook.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=12821;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=Lg2heIFXpUjxNVvz0DHXOITtCdWX7bdwih4yMCzmWj0=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBp8L68afQkKuJn1zxyo60zyCwtAA2LZ5ULoL84Blkb
- W96QN9GJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCafC+vAAKCRB33NvayMhJ0WclD/
- 9rSeNBMq0D1Ph5yHEXqIn0F+kcLO2xZSKMxqaF32QLp64w+TMbpSPLdolnBp9OhchgBPQyy2FzwH39
- GEMrtrmRAZkcfDgN/vxubaUrkCuPo2dPwyVDv5FqkvswXS+CXiAzxH9uwbIKjrY8UGGvoaHnkV6kmH
- 9WervAigDQ7vDk+BzxsuLl27dhC4tiitYyczU2cxwXAHkdg1g17wUEq97Z9VDOm1g7rIi5cEhuJvAI
- gquA0SMCl73I6JiwnWo55CmmHivk7CawISkZs/c9N6W/Lk5hx3+hzjc0dGmh4Wz5yZipvzMPE/NVjs
- AXN3vt6Y0p513oDygP3gca9zwb7N7T1E94xMX6L5I6olYnjuD6JhaXGvKFr4BApbcINwUBBmf7WZSu
- nK5hOEifTkZO5/N9rzfMAMMqRxq1Ilp2VPrbhdvowWS4cQ/3rYNjVrD9Wohz8TYZUKrUdYUaXHh3q7
- 6snm8gp8SCcEJ1QQbHgmrZ7uyVjPnoboB+CGkIdVVLHXr90h0MBDdPecT74CS/nobupX+qt/+qBVei
- fxuO7TDzeNfCLE/J0m+yIBWkpwZqL+ugBlNXkkkg/9XG31tAuEwgUfxq4ZK8YKs8DmppLCqAO0ilmn
- mQsNXPLnfU64zcFxo++Ooagp2HrrIBNxCjFVGzYXvRaIrvt9rBE4mU27HBDA==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR19MB997338:EE_|DM3PR19MB8358:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8abdc3d1-273f-492b-b4be-08dea52fc529
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|41001999006|8060799015|461199028|6090799003|15080799012|19110799012|5072599009|23021999003|10092599007|37011999003|24021099003|51005399006|25031999004|10035399007|440099028|3412199025|40105399003;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?WcPSMRYf6jRD6KAFVSNMd6cnnry3qM2QC11GlL3Xdn9ua43MJ4c6EZAZMQ1H?=
+ =?us-ascii?Q?hEBK0Km3B5Y3fb/mZWgOQPnWeNfHbj4xj37ov23kfIZSWwfzvYhr/6tOvhVG?=
+ =?us-ascii?Q?PiRNgBC5rc02HCumCL5AYHn90J/h2/CmaNA3YvcPiIxDrdkxOfdOLFxuNK1y?=
+ =?us-ascii?Q?o31DPOtinkRtXQkqO5qk+KoaVY7Ln4YvRvIC+Rbea04HOpkVNVDlh8YxqVH7?=
+ =?us-ascii?Q?BsHGTRN/1GojK5cPEoNMXFBLoc2pXwRGd2ci9Ii9e4PK9Uyv+m+pxGsW4jq7?=
+ =?us-ascii?Q?RGGc8M+qnBBRyQ0lbwZoDUDegC9kcMmzZ8Rl36QGQb5mYYt16KtKeutuV1fZ?=
+ =?us-ascii?Q?bWvni5KAFyxgePaQ0q8+cNZMdI+HNPdDDoVc3r4hDGh8MqhPhQond0j+xjv5?=
+ =?us-ascii?Q?4jbrg0Sq5U9w95v6MaC9wtWzhkKSMgZdEhuo7dzPbkv0lCo2rdvIA3Hkp0KU?=
+ =?us-ascii?Q?yRuXcO6SpOpxjTUAxnTUwuCWfUOqvp6B+PEhoagf3rFOkfpxQ1NRfKzD4N5S?=
+ =?us-ascii?Q?6W/xOrPE4nGaO0vyoDGaPeHh9bUsKUd5j8NQ6GXf+S9KXQCS3XoIMP69lLXu?=
+ =?us-ascii?Q?19oV9mrohUXWedlTmFr2pvUh3KaQb5Pcy6OOOQtU/VVYiYsrxV6CMb9Iw9Ww?=
+ =?us-ascii?Q?o8Te+cMkyzHs0ddT9A1YoxzGyUWqcSgmjuXNA/GBJ0YgB0v/aEJ0RXZBq6l7?=
+ =?us-ascii?Q?fU2RDZRwjsGZzmyuhCmgAzVMHUaG02OQYd69CPGz1nOPbS3pIc/kqL6TRTV1?=
+ =?us-ascii?Q?uKXMoOtEu4MOARtrMt4lsgmkdTyu1l7Ej+E5ajJd9xS8kQp6zoYpCQbav7xH?=
+ =?us-ascii?Q?yK01vRHl3GvH56y6PKRMeRajQuSnQsjF0CzWpDx8LMRHAjyiNan8tzwrzPbd?=
+ =?us-ascii?Q?Cu6VpPSRoQMdBA4SEQYJB69VXdVrMtr+dpbzsPUjl7CIXfNEQKAl8FjsxM7H?=
+ =?us-ascii?Q?p4xrCnxRW9vWDaRub+CVbeteArR/zMfOgXMZWsSXzkgr8kanAcPnbg4OBl/z?=
+ =?us-ascii?Q?lpj2dSLzWzNPMLnXlopX7efzyTCLqxPyw1tXIo+fjPV35atds81HzWrXJpLk?=
+ =?us-ascii?Q?ApVZP6PPLdtySzus4hqKz5L5ipucaQ=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?H+tNuUJTKvh7AQCVT51Rd8sy2Vrxc4TJXRDnvdNx/InPO2CUsqjZqg5oAZyv?=
+ =?us-ascii?Q?kFL/KFPDPE/XVO4SvXV3LMmITP30HQ8S+QhN2jfrgEZ+iuNNAmPOp/GB0YVK?=
+ =?us-ascii?Q?YIAfM4IOp1L3UgPClppc5hqrWhdJB3KHUhLPOLFmGNoLue7A8/SCkXqE8Qix?=
+ =?us-ascii?Q?ktRoAYDnoDJ//uaM1KNtsfaSqvSeZrAipq//Ml4hrzag4HXpi6XJM1i+7MI+?=
+ =?us-ascii?Q?J9w/NDjQSXdBuV/WrCFqGXFLU+A4qWLbMqKCSEXk8y1eZDhs9oOJofe5JRb/?=
+ =?us-ascii?Q?7Ox4f0gtfLzBx+sQqKmirPHBG4hgmB4NCjRwL4v3vufFOecp2Lfpt6DxH34Z?=
+ =?us-ascii?Q?Pf3/YlL753ClIRfMnxdXJ4zAsaPtgkfS/LhVSJ8GF7nMs9MvxMJ/u3OstRsi?=
+ =?us-ascii?Q?itxk0kc6UpG/UIGOwohICxP19u6hlJ9s0WrEaFofDzAk9uSj6VWBDcIsAY8p?=
+ =?us-ascii?Q?GJJz5PCAzmeoZJf7sPn4rTDkOzWAdDflOcww0zwNrABL9hNJxLeGxe6MWNQF?=
+ =?us-ascii?Q?0/ZQGoeFiTUXF8J6mCw5/SR3Bls6YW7ey8cw7CsGiSHWgC1MZpnO+hhdypwZ?=
+ =?us-ascii?Q?DJBsI0uTkZWKSZvQzVVr3IUNRwft6VQvDrAth427Pna1uf2UD/qmvlW8iBHB?=
+ =?us-ascii?Q?vttZqbbx/5WViI/wIVx08bneny3y1Qx7I6xRDqcX9uR24vehE6D94N+JmV64?=
+ =?us-ascii?Q?66vprQxZ1X2DlpWD+bQXZnnPmUnnaJDmKMDIVkb3AoBmcuvHmsAkxnmqV2Da?=
+ =?us-ascii?Q?OZ8R7hQYEewnrF5slGTMAuuS9MaDDTzgWcgpnybXNpUInzzNEhX3F1T8OrgL?=
+ =?us-ascii?Q?+VsKvBYbk6wVUMIjODGIju0jeX1R2cAr+TAqSCZ2F5qGfpqQtR6WTtUkeDDY?=
+ =?us-ascii?Q?iHhyQDEBTtCAV1FUQdY1xHMw/pl3BX2ZYbDQ+y0Qe6YMZgxeoXYV8hqfze17?=
+ =?us-ascii?Q?Dsopcmqhv/ZxPUs0bdlyPNNZIxhEnviLqfkM+q4UadxtqLhJ638dzs5W21ma?=
+ =?us-ascii?Q?+IHRG+Bd11mhjhTdN0a8k0lxGBc627yfRkhjLqbbWqI+zZzaCbcCHZ1WoAsp?=
+ =?us-ascii?Q?WB/y16HuWGuE8I4CpGbur+00iDW9SBCHXm7I40pbSYOogybDlASiPhrU9AIN?=
+ =?us-ascii?Q?ofIBYjHt0z57WrIbqGtOg5gt0nwqx7a4ZR9yGxUDAMA+MZrzggwEL23kOw7m?=
+ =?us-ascii?Q?z0dBnQH/TI88Yov56UEJhs4BnTelgYN72+n8i13YTQy9on6B3+AvrBWiRRjX?=
+ =?us-ascii?Q?mAFcUFSEO8RPvAcMmxMI9akxA7EsMG6CQrHOLIBDBPMVpxgQ2hxTxDffN98b?=
+ =?us-ascii?Q?EkaJD24hFruYLAfhgDlUAXoCZtqSxKGqyHVdFb3xIEJQUeGmH4gqgiL1BtmR?=
+ =?us-ascii?Q?QYfHw/RL5SH0ZeBrw6EFPJLWFHmODKp9SisKh3M+4DQ9S3c4Eg=3D=3D?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8abdc3d1-273f-492b-b4be-08dea52fc529
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR19MB997338.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 14:09:32.5085
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR19MB8358
 
-From: KancyJoe <kancy2333@outlook.com>
+On Tue, Apr 28, 2026 at 09:47:00AM +0200, Krzysztof Kozlowski wrote:
+> On Mon, Apr 27, 2026 at 12:09:09PM -0500, Chris Morgan wrote:
+> > From: Chris Morgan <macromorgan@hotmail.com>
+> > 
+> > Document the SG Micro sgm41542 battery charger/boost converter.
+> > 
+> > Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+> > ---
+> >  .../supply/sgmicro,sgm41542-charger.yaml      | 99 +++++++++++++++++++
+> >  1 file changed, 99 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
+> > 
+> > diff --git a/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
+> > new file mode 100644
+> > index 000000000000..3e5041e5b551
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
+> 
+> Filename must match compatible.
 
-Implement support for the Renesas 63419 based dual-DSI video mode
-Display Panels found in the Ayaneo gaming handled devices.
+Acknowledged.
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: KancyJoe <kancy2333@outlook.com>
----
- drivers/gpu/drm/panel/Kconfig                |  12 +
- drivers/gpu/drm/panel/Makefile               |   1 +
- drivers/gpu/drm/panel/panel-renesas-r63419.c | 356 +++++++++++++++++++++++++++
- 3 files changed, 369 insertions(+)
+> 
+> > @@ -0,0 +1,99 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/power/supply/sgmicro,sgm41542-charger.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: SGM41542 Battery Charger
+> > +
+> > +description: |
+> 
+> Do not need '|' unless you need to preserve formatting.
+> 
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index d6863b28ddc5..5404d918677f 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -755,6 +755,18 @@ config DRM_PANEL_RENESAS_R61307
- 	  This panel controller can be found in LG Optimus Vu P895 smartphone
- 	  in combination with LCD panel.
- 
-+config DRM_PANEL_RENESAS_R63419
-+	tristate "Renesas R63419 dual-DSI video mode panels"
-+	depends on OF && GPIOLIB
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	help
-+	  Say Y here if you want to enable support for Ayaneo WT0600 and WT0630
-+	  1440x2560 60Hz dual-DSI video mode display panels with Renesas
-+	  R63419 IC.
-+
-+	  These panels are used in Ayaneo handheld gaming devices.
-+
- config DRM_PANEL_RENESAS_R69328
- 	tristate "Renesas R69328 720x1280 DSI video mode panel"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index a4291dc3905b..b498ee9b5929 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -75,6 +75,7 @@ obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM68200) += panel-raydium-rm68200.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM692E5) += panel-raydium-rm692e5.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM69380) += panel-raydium-rm69380.o
- obj-$(CONFIG_DRM_PANEL_RENESAS_R61307) += panel-renesas-r61307.o
-+obj-$(CONFIG_DRM_PANEL_RENESAS_R63419) += panel-renesas-r63419.o
- obj-$(CONFIG_DRM_PANEL_RENESAS_R69328) += panel-renesas-r69328.o
- obj-$(CONFIG_DRM_PANEL_RONBO_RB070D30) += panel-ronbo-rb070d30.o
- obj-$(CONFIG_DRM_PANEL_SAMSUNG_AMS581VF01) += panel-samsung-ams581vf01.o
-diff --git a/drivers/gpu/drm/panel/panel-renesas-r63419.c b/drivers/gpu/drm/panel/panel-renesas-r63419.c
-new file mode 100644
-index 000000000000..cb4957914241
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-renesas-r63419.c
-@@ -0,0 +1,356 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * DRM driver for Renesas R63419 based dual-DSI video mode panels
-+ *
-+ * Copyright (c) 2025, Kancy Joe <kancy2333@outlook.com>
-+ * Copyright (C) 2026 Linaro Limited
-+ * Author: Neil Armstrong <neil.armstrong@linaro.org>
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_graph.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/drm_connector.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+struct renesas_r63419_panel {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi[2];
-+	const struct panel_desc *desc;
-+
-+	struct gpio_desc *reset_gpio;
-+	struct regulator_bulk_data *vdd_supplies;
-+	struct regulator_bulk_data *vcc_supplies;
-+	enum drm_panel_orientation orientation;
-+};
-+
-+/* VDDIO/VDD Supplies */
-+static const struct regulator_bulk_data renesas_r63419_vdd_supplies[] = {
-+	{ .supply = "vddio" },
-+	{ .supply = "vdd" },
-+};
-+
-+/* VSP/VSN/VCI Supplies */
-+static const struct regulator_bulk_data renesas_r63419_vcc_supplies[] = {
-+	{ .supply = "vsp" },
-+	{ .supply = "vsn" },
-+	{ .supply = "vci" },
-+};
-+
-+struct panel_desc {
-+	const struct drm_display_mode *mode;
-+	unsigned int lanes;
-+	unsigned long mode_flags;
-+	enum mipi_dsi_pixel_format format;
-+	u16 height_mm;
-+	u16 width_mm;
-+	const struct mipi_dsi_device_info dsi_info;
-+};
-+
-+static const struct drm_display_mode wt0600_mode = {
-+	/* Dual dsi */
-+	.clock = 2 * (720 + 100 + 8 + 40) * (2560 + 15 + 2 + 8) * 60 / 1000,
-+	.hdisplay = 2 * 720,
-+	.hsync_start = 2 * (720 + 100),
-+	.hsync_end = 2 * (720 + 100 + 8),
-+	.htotal = 2 * (720 + 100 + 8 + 40),
-+	.vdisplay = 2560,
-+	.vsync_start = 2560 + 15,
-+	.vsync_end = 2560 + 15 + 2,
-+	.vtotal = 2560 + 15 + 2 + 8,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static struct panel_desc wt0600_desc = {
-+	.lanes = 4,
-+	.width_mm = 74,
-+	.height_mm = 131,
-+	.mode = &wt0600_mode,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-+		      MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
-+	.format = MIPI_DSI_FMT_RGB888,
-+	.dsi_info = {
-+		.type = "wt0600-2k",
-+		.channel = 0,
-+		.node = NULL,
-+	},
-+};
-+
-+static struct panel_desc wt0630_desc = {
-+	.lanes = 4,
-+	.width_mm = 78,
-+	.height_mm = 140,
-+	.mode = &wt0600_mode,  /* wt0600 only has different screen size */
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-+		      MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
-+	.format = MIPI_DSI_FMT_RGB888,
-+	.dsi_info = {
-+		.type = "wt0630-2k",
-+		.channel = 0,
-+		.node = NULL,
-+	},
-+};
-+
-+static inline struct renesas_r63419_panel *
-+to_renesas_r63419_panel(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct renesas_r63419_panel, panel);
-+}
-+
-+static int renesas_r63419_on(struct renesas_r63419_panel *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi[0] };
-+	struct mipi_dsi_multi_context dsi_ctx1 = { .dsi = ctx->dsi[1] };
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx1);
-+	mipi_dsi_msleep(&dsi_ctx, 150);
-+
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx1);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int renesas_r63419_disable(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi[0] };
-+	struct mipi_dsi_multi_context dsi_ctx1 = { .dsi = ctx->dsi[1] };
-+
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx1);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx1);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int renesas_r63419_prepare(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(renesas_r63419_vdd_supplies),
-+				    ctx->vdd_supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	usleep_range(1000, 2000);
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(renesas_r63419_vcc_supplies),
-+				    ctx->vcc_supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	usleep_range(1000, 2000);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+
-+	usleep_range(3000, 4000);
-+
-+	ret = renesas_r63419_on(ctx);
-+	if (ret < 0) {
-+		dev_err(panel->dev, "Failed to initialize panel: %d\n", ret);
-+		regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vcc_supplies),
-+				       ctx->vcc_supplies);
-+		regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies),
-+				       ctx->vdd_supplies);
-+
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int renesas_r63419_unprepare(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+
-+	regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vcc_supplies), ctx->vcc_supplies);
-+	regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies), ctx->vdd_supplies);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+
-+	return 0;
-+}
-+
-+static int renesas_r63419_get_modes(struct drm_panel *panel,
-+				    struct drm_connector *connector)
-+{
-+	struct drm_display_mode *mode;
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+
-+	mode = drm_mode_duplicate(connector->dev, ctx->desc->mode);
-+	if (!mode)
-+		return -ENOMEM;
-+
-+	/* Update panel size */
-+	mode->width_mm = ctx->desc->width_mm;
-+	mode->height_mm = ctx->desc->height_mm;
-+
-+	drm_mode_set_name(mode);
-+	connector->display_info.width_mm = mode->width_mm;
-+	connector->display_info.height_mm = mode->height_mm;
-+	drm_mode_probed_add(connector, mode);
-+
-+	return 1;
-+}
-+
-+static enum drm_panel_orientation
-+renesas_r63419_get_orientation(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+
-+	return ctx->orientation;
-+}
-+
-+static const struct drm_panel_funcs renesas_r63419_panel_funcs = {
-+	.disable = renesas_r63419_disable,
-+	.prepare = renesas_r63419_prepare,
-+	.unprepare = renesas_r63419_unprepare,
-+	.get_modes = renesas_r63419_get_modes,
-+	.get_orientation = renesas_r63419_get_orientation,
-+};
-+
-+static int renesas_r63419_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct renesas_r63419_panel *ctx;
-+	struct device_node *dsi1_node;
-+	struct mipi_dsi_host *dsi1_host;
-+	int ret, i;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct renesas_r63419_panel, panel,
-+				   &renesas_r63419_panel_funcs, DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ctx->desc = of_device_get_match_data(dev);
-+	if (!ctx->desc)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "Failed to get panel description\n");
-+
-+	ret = devm_regulator_bulk_get_const(&dsi->dev,
-+					    ARRAY_SIZE(renesas_r63419_vdd_supplies),
-+					    renesas_r63419_vdd_supplies, &ctx->vdd_supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = devm_regulator_bulk_get_const(&dsi->dev,
-+					    ARRAY_SIZE(renesas_r63419_vcc_supplies),
-+					    renesas_r63419_vcc_supplies, &ctx->vcc_supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset gpio\n");
-+
-+	/* Get second DSI host */
-+	dsi1_node = of_graph_get_remote_node(dsi->dev.of_node, 1, -1);
-+	if (!dsi1_node)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "Failed to get remote node for second DSI\n");
-+
-+	dsi1_host = of_find_mipi_dsi_host_by_node(dsi1_node);
-+	of_node_put(dsi1_node);
-+	if (!dsi1_host)
-+		return dev_err_probe(dev, -EPROBE_DEFER,
-+				     "Failed to find second DSI host\n");
-+
-+	/* Register the second DSI device */
-+	ctx->dsi[1] = devm_mipi_dsi_device_register_full(dev, dsi1_host,
-+							 &ctx->desc->dsi_info);
-+	if (IS_ERR(ctx->dsi[1]))
-+		return dev_err_probe(dev, PTR_ERR(ctx->dsi[1]),
-+				     "Failed to register second DSI device\n");
-+
-+	ctx->dsi[0] = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	/* Get panel orientation */
-+	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-+	if (ret < 0 && ret != -ENODEV)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to get panel orientation\n");
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ret = drm_panel_of_backlight(&ctx->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get backlight\n");
-+
-+	drm_panel_add(&ctx->panel);
-+
-+	/* Configure and attach both DSI devices */
-+	for (i = 0; i < ARRAY_SIZE(ctx->dsi); i++) {
-+		ctx->dsi[i]->lanes = ctx->desc->lanes;
-+		ctx->dsi[i]->format = ctx->desc->format;
-+		ctx->dsi[i]->mode_flags = ctx->desc->mode_flags;
-+
-+		ret = mipi_dsi_attach(ctx->dsi[i]);
-+		if (ret < 0) {
-+			drm_panel_remove(&ctx->panel);
-+			return dev_err_probe(dev, ret,
-+					     "Failed to attach DSI device %d\n", i);
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static void renesas_r63419_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct renesas_r63419_panel *ctx = mipi_dsi_get_drvdata(dsi);
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ctx->dsi); i++)
-+		mipi_dsi_detach(ctx->dsi[i]);
-+
-+	drm_panel_remove(&ctx->panel);
-+}
-+
-+static const struct of_device_id renesas_r63419_of_match[] = {
-+	{
-+		.compatible = "ayaneo,wt0600-2k",
-+		.data = &wt0600_desc,
-+	},
-+	{
-+		.compatible = "ayaneo,wt0630-2k",
-+		.data = &wt0630_desc,
-+	},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, renesas_r63419_of_match);
-+
-+static struct mipi_dsi_driver renesas_r63419_driver = {
-+	.probe = renesas_r63419_probe,
-+	.remove = renesas_r63419_remove,
-+	.driver = {
-+		.name = "panel-renesas-r63419",
-+		.of_match_table = renesas_r63419_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(renesas_r63419_driver);
-+
-+MODULE_AUTHOR("Kancy Joe <kancy2333@outlook.com>");
-+MODULE_DESCRIPTION("DRM driver for Renesas R63419 based dual-DSI video mode panels");
-+MODULE_LICENSE("GPL");
+Will fix.
 
--- 
-2.34.1
+> > +  The SGMicro SGM41542 is a single cell battery charger/boost controller.
+> > +
+> > +maintainers:
+> > +  - Chris Morgan <macromorgan@hotmail.com>
+> > +  - Xu Shengfei <xsf@rock-chips.com>
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: sgmicro,sgm41542
+> > +
+> > +  input-current-limit-microamp:
+> 
+> Missing vendor prefix.
+> 
 
+This *appears* to be a standard value (perhaps not formally, but in use by
+enough devices to suggest a defacto standard), which is why I did not use
+the vendor prefix here. Do I need to add that for this one?
+
+> > +    description:
+> > +      Optional value to clamp the maximum input current limit to for
+> > +      the device. If omitted, the default value for the hardware will
+> > +      be used (2400000).
+> > +    minimum: 100000
+> > +    maximum: 3800000
+> > +
+> > +  input-voltage-limit-microvolt:
+> > +    description:
+> > +      Optional value to clamp the maximum input voltage limit to for
+> > +      the device. If omitted, the default value for the hardware will
+> > +      be used (4500000).
+> > +    minimum: 3900000
+> > +    maximum: 12000000
+> > +
+> > +  interrupts:
+> > +    maxItems: 1
+> > +
+> > +  monitored-battery:
+> 
+> You miss definition of this property. I guess this is power supply, so
+> reference proper schema for power supplies. Look at other bindings to
+> for some example code.
+
+I'll look at this some more, I might have a few more questions. But I will
+make the changes requested.
+
+> 
+> > +    description: |
+> > +        A phandle to a monitored battery node. Values for the following
+> > +        are used by the driver and if not present will result in default
+> > +        values being applied:
+> > +        constant-charge-current-max-microamp
+> > +        constant-charge-voltage-max-microvolt
+> > +        charge-term-current-microamp
+> > +        precharge-current-microamp
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  regulators:
+> 
+> No need for regulators node, just define here otg-vbus directly. But
+> honestly, your example is incomplete or you defined something implied by
+> the compatible. If you have a fixed 5V regulator, what is the point of
+> defining it in the DT?
+
+The regulator can be adjusted within a range around 5V, and is referenced
+by the USB subsystem. Should I still omit it from the device tree or instead
+define the min and max values?
+
+> 
+> > +    type: object
+> > +    properties:
+> > +      otg-vbus:
+> > +        type: object
+> > +        description: OTG boost regulator
+> > +        $ref: /schemas/regulator/regulator.yaml
+> > +        unevaluatedProperties: false
+> > +    additionalProperties: false
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    battery: battery {
+> > +      compatible = "simple-battery";
+> > +      constant-charge-current-max-microamp = <10000000>;
+> > +      constant-charge-voltage-max-microvolt = <4350000>;
+> > +      precharge-current-microamp = <180000>;
+> > +      charge-term-current-microamp = <300000>;
+> > +    };
+> > +    #include <dt-bindings/gpio/gpio.h>
+> 
+> Drop this one
+
+Will do.
+
+> 
+> > +    #include <dt-bindings/interrupt-controller/irq.h>
+> > +    i2c {
+> > +      #address-cells = <1>;
+> > +      #size-cells = <0>;
+> > +
+> > +      charger@3b {
+> > +        compatible = "sgmicro,sgm41542";
+> > +        reg = <0x3b>;
+> > +        input-current-limit-microamp = <3000000>;
+> > +        input-voltage-limit-microvolt = <4500000>;
+> > +        interrupt-parent = <&gpio0>;
+> > +        interrupts = <26 IRQ_TYPE_EDGE_FALLING>;
+> > +        monitored-battery = <&battery>;
+> > +
+> > +        regulators {
+> > +          otg-vbus {
+> > +            regulator-max-microvolt = <5000000>;
+> > +            regulator-min-microvolt = <5000000>;
+> > +          };
+> > +        };
+> > +      };
+> > +    };
+> > -- 
+> > 2.43.0
+> > 
+
+Thank you for your valuable feedback,
+Chris
