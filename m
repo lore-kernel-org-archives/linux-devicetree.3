@@ -1,335 +1,205 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5433EFD3E
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 11:39:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A942BF006
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 11:41:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777376393; cv=none; b=gAWBLwzOmX4aLNPDLdFpAxqEXKJkZNZ8iOJ21SantDWLqfTP8pnDOznbIu3W2oOaw44Io5Jt7d2TgMrgkFI7IOhTZgmDW3Fv9MmLB2uI7EPoUJZliy7Xf/O0vRpp2SMOkl+1Q59O6Mue7OmqMYOM9Ae0N714AUxXaRVg+F+ljX8=
+	t=1777376462; cv=none; b=NqpUbomwNAl+X7JVpZU2FICnzWjlfp44rxTnV22YMacwpHoYnksdDxLkLmA4C9OEmYtFKlmIzSnLkSNaX9/hIOxHH0T1NO12YtVyPdtSF2LEbO+O6FFRxzIqjTdDgFeSZxCSuFLyLqNaZiAhntIRrSZ8cRn0NczeBMDRRlpWpsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777376393; c=relaxed/simple;
-	bh=liWseIjFkuXVt4TWv2i3U3BN73xnSKmtLaF9Z6gcVcY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KeIi5aVs/DmtDY+b1eCaFLCNzTqm6ANk7zhh8RVjx/0yQi796QNFQve7sJTcv0QWPHL3USyuXz0vTvalv0jGSr7v7bpABb7vs/gQZs2oFoZaFf9eJmWrcWkTgprgc8EbbUZHRN49ck3XizlBYm4Rc76UmRM4bHf7HwPJv5R1m+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c1gzpOYL; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777376462; c=relaxed/simple;
+	bh=eW0LAkJt7c+5A+uqdJpHBrRAxyHFIfhww3+Djvafb4w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wh71Uou+KelsviKrBNzTxwfbqlxbas/NZbPa8SDKpp5ot5rR3vrUs1DdFPt7Zgq/+Ow7cImLO6Y6o+q2GlW/isKUR7UIZ3Xqr7jxisJqXbEwA3Am8R9d32ni5j+lz7WVuQ5oi0tYZVOsvA2kv7yq4vg6uzzSB/Dt8rZu0t0F0D4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i3PpFV6e; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DXwp6Tsu; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c1gzpOYL"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-488ba840146so102004505e9.1
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 04:39:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i3PpFV6e";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DXwp6Tsu"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63S7Dh4P440970
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 11:41:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=LvoV2Ov1kpFw2uDF2NI6469G
+	ftqDuPAXFKdWzhpFPuk=; b=i3PpFV6ekzQiMByIbNp9zdUbr7G7ATFlOiwHGPml
+	2pKxFE/jzRqhrhx2KjI4JjgmD0Dv8Z8xRlMiXG5/UdjwHFjIoaC4u/pDcz5v1mli
+	DdM3yxlL5rK5SWH5hEQPAZpCQmGRrF3RACX1/hoeLd/hfU3ddHxM586IZ19uq16L
+	+blZ4bXv84DuAjffcqco8HqdgW0t67hts6veCq4qZTXqnL0TyZBopD27NxEh7nRe
+	ptxXHU5bRKsE3Rgf4buyCJZ+ULikPfEb21SGGPvv4wyvY/ssdniaeMuz0SquYJsJ
+	KCX+ThPQbU7SMEJUBOPq41JqRro/ST13poDPcOS8syzwjA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dtac446v8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 11:41:00 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50d5d1c2289so240264461cf.2
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 04:41:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777376388; x=1777981188; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iONjqkBbha9vIXYKPOr4JdhI2heccbufxTPWG9w70fs=;
-        b=c1gzpOYLEp6OZtxkgha/y4PHz86quAHV0F6O18LwvgydXWjUvzoP2cX2qNKaTZ8HeP
-         wCQHpz4z1owhcpvaONdrR+ETgXzgtFjY/823KCboBSXRgqxAftvQRV2itTcigTS0G1os
-         XRN7Ta6HhifMDsaRhuR6LcU07cpd6ECRrluucI5sbNSHfeV0hhEl1eVQig54KLDAAZo3
-         c13OkUwll9+uA3kyfrfk18Qca7b3FLDPkXBNYy8gN4AIDL05pTVp+QoFb51zir5pJD61
-         skZ7a6EXksvKl2X8QL21QOTQdPH+fb24LU7l0ZZRfyhPsEI6P3DgqRQc+1IPK36YeV+L
-         7rnA==
+        d=oss.qualcomm.com; s=google; t=1777376459; x=1777981259; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=LvoV2Ov1kpFw2uDF2NI6469GftqDuPAXFKdWzhpFPuk=;
+        b=DXwp6TsujIytwelZYE3Y+n0oHqgaXG+2+qqetE+ot3U2AXrzQnvpdrhYNrNi1TM/0e
+         aLi0mbJAnT1wOZkmJKfa8xVhLfntkoNVCLMkbEkv/7I1FyowhSVwCBJlFYVWERv92CZN
+         jcy+Ip9aXr3V0ubV7+FENA1fSwqGSVDnk55Xrh/mFivLb2A6iW//9IKqbGr5gcdgl8hr
+         YfzVTr3Ixw5T85bRBfpGPau5c2gGERbarUPDxPSdmr8geZmWx34IEKytXMUUflXyscgz
+         yeDKt2vCad1Riif/RPubPN1K0Hi+nTlpC+ip2fGWns43b40K0YtCXCUWIErpR9/866tj
+         Gb3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777376388; x=1777981188;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=iONjqkBbha9vIXYKPOr4JdhI2heccbufxTPWG9w70fs=;
-        b=Tf08xT5S0ycnw400sE2UIIkvcZ3rkdqGYx/SCcfzL6iKrTdPO0nYS0ryP8/crueNJx
-         HaFOF5LxS/hlJRoBUM0jaVkkaIouZwsKYeSdUX/4sLFaV82U1iMvvKcecSoCpAKLEnrr
-         BlkRZNX66YevZ6ElU8XqW8Dp/sgeQL7yxLJ45ueT4Ii/Stv9NT2H4obgxUmttjG6Iv+B
-         n561H5aDx3szF6VerdoV17US8tTvfoKsLfwB//UpmQ703zC6hILZwKwwRGJzhLJxonof
-         zv0VMYjyauGpjBRIqfXnQg2XGViR9UO4NFc76icLqJsgM6hqMRAOnXUFCWwFYJM0RAil
-         ogZQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8EtE2Duazebvy4qQUDxjPnCoEtS6dT0HkHZYwcg8S9kymnqS/bdC/jgduYI5oRQr2/HXUpVn4bRKoU@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz5EzWbx9tP5U11Ghrokw6oaIGHG2N4rHBm83ATIG/4YB92IJot
-	omgJ9ed/KJZ9ZknykqcVCe93r0Bs+6D76GRxpu5JlAVX40w8GWeacskL
-X-Gm-Gg: AeBDievfS8wjsfp838ukOauaJWrluj5+0fkhXHqUNBphBU/zZ9trR9WPuN+fi146Hkx
-	M+R98FDWQiZY0W847BOGJFeaD3wxKrISSmTgNGG49uLkFSV9bTc8znTb/wmwAdj535JWjnIA/88
-	6f2REaHsKmAZksdz3aM3rmlth38pOGlNGfrNT8dWDGXp2t+KHDRq5Z7N9FMfPe9GReUeI+goOhb
-	QM4xoHJLVTDIimA8mNp6lGkLzKbR0IEMpNfjiGdmRlPIFX3Bs+S6i8dikijuBgEA9+ZZDuA/GPu
-	crrGm/WouVaONc4+e8KghS743vfpn77NV0/JdeZqHD0rVXb8acfvkaXYyFYHhQmFNJd9Zrwcs68
-	0n1Rpcznb80ZBZbQPu9dtTRQe1QPXufsoEwuZhADugXvkN4UcY+yRSkYx3JRYZ+cZLRhdUPYOyO
-	NvqM7fp6VhGFVnABpLYntvXi4=
-X-Received: by 2002:a05:600c:8582:b0:485:3abe:ab86 with SMTP id 5b1f17b1804b1-48a77af3ddamr28904405e9.4.1777376387345;
-        Tue, 28 Apr 2026 04:39:47 -0700 (PDT)
-Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a77aeb223sm43541125e9.3.2026.04.28.04.39.46
+        d=1e100.net; s=20251104; t=1777376459; x=1777981259;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=LvoV2Ov1kpFw2uDF2NI6469GftqDuPAXFKdWzhpFPuk=;
+        b=r8qL3L2g1m/qCHK7mnUjyJtpeDfSfK3KoyjdtPyBal9fEpJzl9yusLBF15OKYqud2M
+         s3YVjxHp55knA2LqLeSAXqPM0IXjevg/5EzvnEbyJT+T4gElSW3DHQBCJS+nK1+x5idb
+         FGuTv4TkjmCQxcrdp0zG67k+uPkRrMMk7u1AFmvGp8Yn3W0GVnlezRIxyH+Is5+gWrOf
+         4SanabjyOdqs+GCNT3a0+Yq0xGNMtkce2AooNcur2qR2ddc08Yi5kJPMj/xfj+g0X9T1
+         i/GB24wkgfN+CJ2B6a7lz51GzaaxQ799aPPt8DG0gCpRE6zJtF2OzVur6xGel+AjqCTA
+         r4mw==
+X-Forwarded-Encrypted: i=1; AFNElJ9Q5zFIgcq7Vgws8HDCMGSBlkATzpLKJEKXH2fXM9czey1LfVBtjfTDoI25QckBHdkwiBqHLhVHi1ow@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywc9kAnx1iliz0o+G47fTe2mIY2Ar3bdZOk4xHfbQO+sw2MJq0y
+	n7VT5yqhz6XRsUt7O22nf3StgM3mqIRc+U2iul3KoYhQwvWPH2+imvipFGmLeiLxeaFGr1MgpNI
+	/8bcGSGGwKUT9ZyGVOFwlcpvMlNQ50MrSlN3gd6BbGUVWarmnt5pifKJ77gqAu8vQ
+X-Gm-Gg: AeBDieubEOXpZe2ODgRHcF80wsTIzJAXLGKFJIwHfRhaAZlSDcjtZfARMb7RjlqdzXT
+	AjjGK3OynfiA5Am+sL1clk0cRxqSk7VwVjagMqP8xEITxT4+ARoPb3227XmIoHWTWAF6OM4Ag1t
+	RXnzeGnavWF8TZZGvjlRgDP7Lv1LE0uLeX12UnyjVhXOPgUxz88ndXPNmiC84tRsKD/huJgPRoO
+	OMqTZCJQZoQoiA5sPQgOfc/mrB3cuEwTdROsJdttXmfvgQhPEI1Xfy3nNd5PrLnqt840GiYE/jR
+	T+HHSB3P+5qFIy6RhsInZzBPYrrDSYn/i39MMnJ6mRQMM+as6GhS9OTVNHykrMUI2PmsaxItSE0
+	bLnXGpmv3hcyxqlFC022OpFCexoLFwtKJBUYGg6T7BlcXDTMtCG8rnRIjZp9S8P9vVTiwwZesx6
+	5D1JjWJnKwnL7WFJDFrZnnXZYEC9RlY8z8UkspD1ik/Czfdg==
+X-Received: by 2002:a05:622a:15c7:b0:50f:ca25:fb48 with SMTP id d75a77b69052e-5100e1ea5b9mr35845521cf.55.1777376458949;
+        Tue, 28 Apr 2026 04:40:58 -0700 (PDT)
+X-Received: by 2002:a05:622a:15c7:b0:50f:ca25:fb48 with SMTP id d75a77b69052e-5100e1ea5b9mr35844401cf.55.1777376457975;
+        Tue, 28 Apr 2026 04:40:57 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a7462ca617sm567782e87.5.2026.04.28.04.40.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Apr 2026 04:39:46 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: [PATCH v4 5/5] media: i2c: lm3560: Add support for PM features
-Date: Tue, 28 Apr 2026 14:39:22 +0300
-Message-ID: <20260428113923.112920-6-clamor95@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260428113923.112920-1-clamor95@gmail.com>
-References: <20260428113923.112920-1-clamor95@gmail.com>
+        Tue, 28 Apr 2026 04:40:56 -0700 (PDT)
+Date: Tue, 28 Apr 2026 14:40:55 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Ronak Raheja <ronak.raheja@oss.qualcomm.com>
+Cc: vkoul@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org,
+        neil.armstrong@linaro.org, gregkh@linuxfoundation.org,
+        konrad.dybcio@oss.qualcomm.com, abel.vesa@oss.qualcomm.com,
+        wesley.cheng@oss.qualcomm.com, krzysztof.kozlowski@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/4] phy: qualcomm: qmp-combo: Add support for Hawi SoC
+Message-ID: <s6ortwyjjoq6lsxjjykbbshg2rczchtol4ntmxipcrsqufvsby@whwxtlnn74id>
+References: <20260427214217.2735240-1-ronak.raheja@oss.qualcomm.com>
+ <20260427214217.2735240-5-ronak.raheja@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260427214217.2735240-5-ronak.raheja@oss.qualcomm.com>
+X-Proofpoint-GUID: _8EVN6FF5HLs7lx_2QxyJji08helZ46e
+X-Authority-Analysis: v=2.4 cv=D7J37PRj c=1 sm=1 tr=0 ts=69f09ccc cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=REwqGe_ukdr-d6Ko48MA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: _8EVN6FF5HLs7lx_2QxyJji08helZ46e
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI4MDEwNyBTYWx0ZWRfX63AYrrl712xX
+ rRq61D+zS5nVc99lvj5lhghGwB9y+vT2SaGQ1FzOscUnwmH1uRDgQ+ZJp/lnCRpuHC324Lte0+h
+ QOG7/0OfYXjripsV+GA1b15HGLXuqbgBtT1hhnKLxG2NKVEQIAsisdgo/0YtWAU68UDriq+0KYe
+ RLPo3cTZe4WuBkmi+gk2d0O6H1/gjRejCky2i4S23qr79AESbXXpPqItshJVjZ9DoRC5lagJ5lR
+ 5+t2OJ6QStZE3qEWpBqOK02pfSz6qb3JG53qPAcbZ8vSTXRUsvZbJUgt7qQIGayCsvqVodISJUN
+ GCXhJZaahs7Z9fU+I9ceol/jEu4++p9kcsARv1VPhH03dddyJZYHmiW+xzRMQC/9kDfT9lBtdjx
+ a4p1RyC1bTZ40+BrOS+kSZ8dFz/gMH6HkxUieMr4ptwBjq44wJnV1cMQoVfTGZztIi2EDUQfg01
+ f79Fm+qFSNZFfHS2vFw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-28_03,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 phishscore=0 lowpriorityscore=0 spamscore=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604280107
 
-Add support for power management features to better control the LM3560
-within the media framework. To achieve the desired PM support, the HWEN
-GPIO and VIN power supply were added and configured into power on/off
-sequences. Added PM operations along with the PM configuration setup.
+On Mon, Apr 27, 2026 at 02:42:17PM -0700, Ronak Raheja wrote:
+> Add support for the USB3-DP combo PHY found on Hawi platform.
+> 
+> The QMP PHY for Hawi uses QSERDES V10 register layouts. Add the required
+> PHY sequences from the hardware programming guide and new V10 register
+> header files. Also add a new v10 offset structure to incorporate the new
+> COM AON register module.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/media/i2c/lm3560.c | 117 ++++++++++++++++++++++++++++++++++---
- 1 file changed, 110 insertions(+), 7 deletions(-)
+Was this tested with the DP too or did you test only the USB part?
 
-diff --git a/drivers/media/i2c/lm3560.c b/drivers/media/i2c/lm3560.c
-index 1052c11f42e8..29f3ee98e0ca 100644
---- a/drivers/media/i2c/lm3560.c
-+++ b/drivers/media/i2c/lm3560.c
-@@ -12,12 +12,15 @@
- #include <linux/bitmap.h>
- #include <linux/delay.h>
- #include <linux/module.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/slab.h>
- #include <linux/mod_devicetable.h>
- #include <linux/mutex.h>
-+#include <linux/pm_runtime.h>
- #include <linux/property.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/videodev2.h>
- #include <media/i2c/lm3560.h>
- #include <media/v4l2-ctrls.h>
-@@ -48,6 +51,8 @@ enum led_enable {
-  * @dev: pointer to &struct device
-  * @regmap: reg. map for i2c
-  * @lock: muxtex for serial access.
-+ * @hwen_gpio: line connected to HWEN pin
-+ * @vin_supply: line connected to IN supply (2.5V - 5.5V)
-  * @led_mode: V4L2 LED mode
-  * @ctrls_led: V4L2 controls
-  * @subdev_led: V4L2 subdev
-@@ -62,6 +67,9 @@ struct lm3560_flash {
- 	struct regmap *regmap;
- 	struct mutex lock;
- 
-+	struct gpio_desc *hwen_gpio;
-+	struct regulator *vin_supply;
-+
- 	enum v4l2_flash_led_mode led_mode;
- 	struct v4l2_ctrl_handler ctrls_led[LM3560_LED_MAX];
- 	struct v4l2_subdev subdev_led[LM3560_LED_MAX];
-@@ -176,12 +184,17 @@ static int lm3560_get_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
- 	struct lm3560_flash *flash = to_lm3560_flash(ctrl, led_no);
- 	int rval = -EINVAL;
- 
-+	if (!pm_runtime_get_if_in_use(flash->dev))
-+		return 0;
-+
- 	if (ctrl->id == V4L2_CID_FLASH_FAULT) {
- 		s32 fault = 0;
- 		unsigned int reg_val;
- 		rval = regmap_read(flash->regmap, REG_FLAG, &reg_val);
--		if (rval < 0)
-+		if (rval < 0) {
-+			pm_runtime_put(flash->dev);
- 			return rval;
-+		}
- 		if (reg_val & FAULT_SHORT_CIRCUIT)
- 			fault |= V4L2_FLASH_FAULT_SHORT_CIRCUIT;
- 		if (reg_val & FAULT_OVERTEMP)
-@@ -191,6 +204,8 @@ static int lm3560_get_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
- 		ctrl->cur.val = fault;
- 	}
- 
-+	pm_runtime_put(flash->dev);
-+
- 	return rval;
- }
- 
-@@ -200,6 +215,9 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
- 	u8 tout_bits;
- 	int rval = -EINVAL;
- 
-+	if (!pm_runtime_get_if_in_use(flash->dev))
-+		return 0;
-+
- 	switch (ctrl->id) {
- 	case V4L2_CID_FLASH_LED_MODE:
- 		flash->led_mode = ctrl->val;
-@@ -245,6 +263,8 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
- 		break;
- 	}
- 
-+	pm_runtime_put(flash->dev);
-+
- 	return rval;
- }
- 
-@@ -408,6 +428,38 @@ static int lm3560_init_device(struct lm3560_flash *flash)
- 	return rval;
- }
- 
-+static int lm3560_power_off(struct device *dev)
-+{
-+	struct lm3560_flash *flash = dev_get_drvdata(dev);
-+
-+	gpiod_set_value_cansleep(flash->hwen_gpio, 0);
-+	regulator_disable(flash->vin_supply);
-+
-+	return 0;
-+}
-+
-+static int lm3560_power_on(struct device *dev)
-+{
-+	struct lm3560_flash *flash = dev_get_drvdata(dev);
-+	int rval;
-+
-+	rval = regulator_enable(flash->vin_supply);
-+	if (rval < 0) {
-+		dev_err(flash->dev, "failed to enable vin power supply\n");
-+		return rval;
-+	}
-+
-+	gpiod_set_value_cansleep(flash->hwen_gpio, 1);
-+
-+	rval = lm3560_init_device(flash);
-+	if (rval < 0) {
-+		lm3560_power_off(dev);
-+		return rval;
-+	}
-+
-+	return 0;
-+}
-+
- static void lm3560_subdev_cleanup(struct lm3560_flash *flash)
- {
- 	int led_no;
-@@ -441,6 +493,17 @@ static int lm3560_probe(struct i2c_client *client)
- 
- 	bitmap_zero(flash->led_id, LM3560_LED_MAX);
- 
-+	flash->hwen_gpio = devm_gpiod_get_optional(flash->dev, "enable",
-+						   GPIOD_OUT_LOW);
-+	if (IS_ERR(flash->hwen_gpio))
-+		return dev_err_probe(flash->dev, PTR_ERR(flash->hwen_gpio),
-+				     "failed to get hwen gpio\n");
-+
-+	flash->vin_supply = devm_regulator_get(flash->dev, "vin");
-+	if (IS_ERR(flash->vin_supply))
-+		return dev_err_probe(flash->dev, PTR_ERR(flash->vin_supply),
-+				     "failed to get vin-supply\n");
-+
- 	flash->peak = LM3560_PEAK_1600mA;
- 	rval = device_property_read_u32(flash->dev,
- 					"ti,peak-current-microamp", &peak_ua);
-@@ -468,9 +531,19 @@ static int lm3560_probe(struct i2c_client *client)
- 				 &flash->max_flash_timeout);
- 	flash->max_flash_timeout /= 1000;
- 
-+	rval = regulator_enable(flash->vin_supply);
-+	if (rval < 0)
-+		return dev_err_probe(flash->dev, rval,
-+				     "failed to enable vin power supply\n");
-+
-+	gpiod_set_value_cansleep(flash->hwen_gpio, 1);
-+
- 	rval = lm3560_init_device(flash);
- 	if (rval < 0)
--		return rval;
-+		goto error_disable;
-+
-+	pm_runtime_set_active(flash->dev);
-+	pm_runtime_enable(flash->dev);
- 
- 	device_for_each_child_node(flash->dev, node) {
- 		rval = fwnode_property_read_u32(node, "reg", &reg);
-@@ -490,10 +563,10 @@ static int lm3560_probe(struct i2c_client *client)
- 			rval = lm3560_subdev_init(flash, reg, node);
- 			if (rval < 0) {
- 				fwnode_handle_put(node);
--				lm3560_subdev_cleanup(flash);
--				return dev_err_probe(flash->dev, rval,
--						    "failed to register led%d\n",
--						    reg);
-+				dev_err(flash->dev,
-+					"failed to register led%d: %d\n",
-+					reg, rval);
-+				goto error_clean;
- 			}
- 
- 			set_bit(reg, flash->led_id);
-@@ -502,7 +575,23 @@ static int lm3560_probe(struct i2c_client *client)
- 
- 	i2c_set_clientdata(client, flash);
- 
-+	pm_runtime_set_autosuspend_delay(flash->dev, 1000);
-+	pm_runtime_use_autosuspend(flash->dev);
-+	pm_runtime_idle(flash->dev);
-+
- 	return 0;
-+
-+error_clean:
-+	pm_runtime_disable(flash->dev);
-+	pm_runtime_set_suspended(flash->dev);
-+
-+	lm3560_subdev_cleanup(flash);
-+
-+error_disable:
-+	gpiod_set_value_cansleep(flash->hwen_gpio, 0);
-+	regulator_disable(flash->vin_supply);
-+
-+	return rval;
- }
- 
- static void lm3560_remove(struct i2c_client *client)
-@@ -510,8 +599,22 @@ static void lm3560_remove(struct i2c_client *client)
- 	struct lm3560_flash *flash = i2c_get_clientdata(client);
- 
- 	lm3560_subdev_cleanup(flash);
-+
-+	/*
-+	 * Disable runtime PM. In case runtime PM is disabled in the kernel,
-+	 * make sure to turn power off manually.
-+	 */
-+	pm_runtime_disable(&client->dev);
-+	if (!pm_runtime_status_suspended(&client->dev)) {
-+		lm3560_power_off(&client->dev);
-+		pm_runtime_set_suspended(&client->dev);
-+	}
- }
- 
-+static const struct dev_pm_ops lm3560_pm_ops = {
-+	SET_RUNTIME_PM_OPS(lm3560_power_off, lm3560_power_on, NULL)
-+};
-+
- static const struct of_device_id lm3560_of_match[] = {
- 	{ .compatible = "ti,lm3559" },
- 	{ .compatible = "ti,lm3560" },
-@@ -530,7 +633,7 @@ MODULE_DEVICE_TABLE(i2c, lm3560_id_table);
- static struct i2c_driver lm3560_i2c_driver = {
- 	.driver = {
- 		   .name = LM3560_NAME,
--		   .pm = NULL,
-+		   .pm = pm_ptr(&lm3560_pm_ops),
- 		   .of_match_table = lm3560_of_match,
- 		   },
- 	.probe = lm3560_probe,
+> 
+> Signed-off-by: Ronak Raheja <ronak.raheja@oss.qualcomm.com>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  .../phy/qualcomm/phy-qcom-qmp-com-aon-v10.h   |  15 ++
+>  drivers/phy/qualcomm/phy-qcom-qmp-combo.c     | 231 +++++++++++++++++-
+>  .../phy/qualcomm/phy-qcom-qmp-dp-phy-v10.h    |  15 ++
+>  .../phy/qualcomm/phy-qcom-qmp-pcs-aon-v10.h   |  13 +
+>  .../phy/qualcomm/phy-qcom-qmp-pcs-usb-v10.h   |  19 ++
+>  drivers/phy/qualcomm/phy-qcom-qmp-pcs-v10.h   |  34 +++
+>  .../qualcomm/phy-qcom-qmp-qserdes-com-v10.h   |  89 +++++++
+>  .../qualcomm/phy-qcom-qmp-qserdes-txrx-v10.h  |  89 +++++++
+>  drivers/phy/qualcomm/phy-qcom-qmp.h           |   5 +
+>  9 files changed, 506 insertions(+), 4 deletions(-)
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-com-aon-v10.h
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-dp-phy-v10.h
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-pcs-aon-v10.h
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-pcs-usb-v10.h
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-pcs-v10.h
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-qserdes-com-v10.h
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v10.h
+> 
+> @@ -2198,6 +2368,7 @@ struct qmp_combo_offsets {
+>  	u16 dp_txa;
+>  	u16 dp_txb;
+>  	u16 dp_dp_phy;
+> +	u16 aon_toggle;
+
+Are there (or will there) be any other regs? Is it just one-register
+space?
+
+>  };
+>  
+>  struct qmp_phy_cfg {
+> @@ -2705,6 +2895,27 @@ static const struct qmp_phy_cfg x1e80100_usb3dpphy_cfg = {
+>  	.regs			= qmp_v6_n4_usb3phy_regs_layout,
+>  };
+>  
+> +static const struct qmp_phy_cfg hawi_usb3dpphy_cfg = {
+> +	.offsets		= &qmp_combo_offsets_v10,
+> +
+> +	.serdes_tbl		= hawi_usb3_serdes_tbl,
+> +	.serdes_tbl_num		= ARRAY_SIZE(hawi_usb3_serdes_tbl),
+> +	.tx_tbl			= hawi_usb3_tx_tbl,
+> +	.tx_tbl_num		= ARRAY_SIZE(hawi_usb3_tx_tbl),
+> +	.rx_tbl			= hawi_usb3_rx_tbl,
+> +	.rx_tbl_num		= ARRAY_SIZE(hawi_usb3_rx_tbl),
+> +	.pcs_tbl		= hawi_usb3_pcs_tbl,
+> +	.pcs_tbl_num		= ARRAY_SIZE(hawi_usb3_pcs_tbl),
+> +	.pcs_usb_tbl		= hawi_usb3_pcs_usb_tbl,
+> +	.pcs_usb_tbl_num	= ARRAY_SIZE(hawi_usb3_pcs_usb_tbl),
+> +
+> +	.regs			= qmp_v10_usb3phy_regs_layout,
+> +	.reset_list		= msm8996_usb3phy_reset_l,
+> +	.num_resets		= ARRAY_SIZE(msm8996_usb3phy_reset_l),
+> +	.vreg_list		= qmp_phy_vreg_l,
+> +	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
+
+No DP counterpart and no mention of it in the commit message.
+
+> +};
+> +
+>  static const struct qmp_phy_cfg sm6350_usb3dpphy_cfg = {
+>  	.offsets		= &qmp_combo_offsets_v3,
+>  
+
 -- 
-2.51.0
-
+With best wishes
+Dmitry
