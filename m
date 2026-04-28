@@ -1,117 +1,120 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13673F7A88
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 11:10:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9304C3FB06C;
+	Tue, 28 Apr 2026 11:12:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777374602; cv=none; b=sHK1B3y9V36D1+m5y9+pBJmoVX/Mfu4JacXpL6z38atxC+C7fSfWG161827PB6Ju/eTrIS4c0vGC8Nk8S+SmYIha6eAkVGNC8/rxQGbGDhLpN80wmM+P1iZQ7R02ZPPr9SaBJLa2ROoguOHIRg7LHLs27sq8Guxo4UVHY9m5Xkg=
+	t=1777374749; cv=none; b=L9YGB5Sw+ZJ9oCx01dzSjkdgE6IOda5Uj1SOWJWbJcX5OzpRWQ94cjtFSjJbWJIcNmNrdySs3vEvv9S9H7xfLvPUnfP50fEIIOo3fWWI3NLm3CT05X2Fekr7p7MaRbFFlZAcEQb5p+R9B02qr1UhnXsj5h3dYgibCsBsaFqG/EI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777374602; c=relaxed/simple;
-	bh=VUFpOgb6S22ZcG0ANMgf/zXh1YJTmhZ2B8aJFv/OheI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=E7Kg1sr+I4luk5CETwup6ut2DqzS3c7yw9jWfQx9gmwjM0Jm+yS+skCxfGJuG9DEuDdQWVZXvPeVvl8ThMDkLDVrv8OfUPUD2Nf6C4aKZjiVVMV1g5t/jIO+QjyDSzTjorXBmhzoIbrhxm3sfgDgiuoEO18xDLX/NLBaecipPoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aOOlag78; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777374749; c=relaxed/simple;
+	bh=l9p52mJ3IfvCGCC9KRjHmJ0LFuLa6o8Ibv7XD3DrdGs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nbxSe0wbCmxN2TpL7aDBo/bHw9Z475KDy/d6QKb3OYBmKxMhddiNF35fLh6Mm/69rmyHDJskIZF+qomUCSlVQTXS3ha5Y07ti7nkYY5jGeRajRLYZLoYdjx89m6SihxiW2CCS5nnwbFm3iR5pRmwK48NanDRoiIxk4QMNDvMknY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F172WmJz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aOOlag78"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2b24fdac394so107102125ad.3
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 04:10:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777374600; x=1777979400; darn=vger.kernel.org;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=pef3OD46TxOIUwH98qFLaQm0kXcNlzkOoDkRUMv4zcQ=;
-        b=aOOlag78cBE/biLGc4yEOR3pHWKcJxKnxZ26YL1Rhd/+CzuCHIFue1+Hv5fEozl7Lt
-         dbLhXRKUPEiya5Kyfx3CV7w1V2/Yg+KTiaXszgtXv/56DW/JcGtEWWfaYBj/jMF+POu+
-         A8at4KfwEjtoy+DpOdbCaYRm9KdJLjgJMJAQsSoIMi1hVy1mVO6kC03liKUNDVi2gIED
-         KOLbuE7FLdxAXE+yrMsyOj/r9e2rSQ/xn1z/a5xQIXaK7eraYzxOODLQSUXAQ/ydMa5W
-         Ev+NxdQn9QtQfo2dtApYRiJDFnR/kUssggPBm6FywLxnBqyd8I0qpiHyGuDvYnv2RrjA
-         dTTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777374600; x=1777979400;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pef3OD46TxOIUwH98qFLaQm0kXcNlzkOoDkRUMv4zcQ=;
-        b=Fao3v1/mA0Boh60G+po/aB1CUUEQEd+uOGWvTrFWm/QluYaYDNTZrGXN88MWFEIcVm
-         f1osCNKFY6+h93syuO4ONCODyxn+5Lhb+a4UjMuBxkmYyj1ZUbKUffUWD4nyHzXWFRiE
-         cteCdnQzSAb9kQ43lWSm9mJ8bMs3NBBvlF2V1qr98Mi6FcKYtZ3+3kcqwj5Vz2blSu4H
-         OiPEcpHMfjr/mK3GzeBsRcWm2XjYTFkRi9zOtZWFktR1hq0OooN58BwXxeE0/vx+SgPT
-         lJFq2w7xt12pMtubuF2GMcAOTILZtnImXK3XfWPS5TDJRigcS2cuOWGUjSFzWlUg/ANF
-         V50w==
-X-Forwarded-Encrypted: i=1; AFNElJ8XdI1CRSDtiE7MlDoaawvNoYoKD3DuIdWeplZhnmQoPTfmXuRVLAhgaQHK2xpI7S09VH8c5fFObhku@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz3pKFTAqqYm5ZalfadGuEC22PYc3Tje3bcBOGp9KdmxbSlOlGa
-	Kds+lsAcw0LVFJgPz5zT7oZaG06ZnE0i6ZotPgppvK8wlhjKGPIS3STa
-X-Gm-Gg: AeBDietiwLDsE8fuSHbqbekPffQpRCpFTAaM4HfDbpSuiiuw+ZM84B8pTZDGR4uGhwX
-	3Kxie24zdpSfO4OQ8sPj0+mY4tkcfgvTzk92zMGWJ8ThD6Wvp110xhOPlqtIusCjKLR2Eo31iPj
-	LMhT7eomIRfhhG/68WB2eb+/FGoLSldxhHGgCjqUFlBfMS/M+OAUCKxZaUNX/NzYlnkrr2Jso87
-	7L5xe5CWlPSX2CCWttpiWI75JRtj9Q0AHtKXGfcmOCm4xE+2TB/kA8IcwqwllAJgBEnke/P8yNp
-	WCGgvdZMtKEyeZ6//CWdy37iuSsmmKGYsn4zQJF2+bz3OIZ+2nU9x8mBoDklftgwGD5uD+Vwh3T
-	BCH5y2J69Xsygs2BJ7P4f878uUOZUiNwq4fLBcyAvkw3hAa9+E7DT5vMlfwKhOqCAT6nabeRdv0
-	TRwHgLrHi48zoa0EqKaA+20i/a2hhBRh7FR4eQ5WT5iohpYPkYdwZklCMyUMKQzS5lhYiO5+PvN
-	g==
-X-Received: by 2002:a17:903:4b0c:b0:2b7:9ed0:4f92 with SMTP id d9443c01a7336-2b97c4b78fcmr27558045ad.32.1777374599397;
-        Tue, 28 Apr 2026 04:09:59 -0700 (PDT)
-Received: from ubuntu.localdomain ([27.217.83.168])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b97aa93bd4sm22828885ad.23.2026.04.28.04.09.56
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 28 Apr 2026 04:09:59 -0700 (PDT)
-From: Zaixiang Xu <zaixiang.xu.dev@gmail.com>
-To: linux@roeck-us.net
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zaixiang.xu.dev@gmail.com
-Subject: [PATCH v6 4/4] hwmon: (sht3x) Add support for GXCAS GXHT30
-Date: Tue, 28 Apr 2026 19:09:29 +0800
-Message-Id: <1777374569-59233-5-git-send-email-zaixiang.xu.dev@gmail.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1777374569-59233-1-git-send-email-zaixiang.xu.dev@gmail.com>
-References: <1777374569-59233-1-git-send-email-zaixiang.xu.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F172WmJz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31CB6C2BCAF;
+	Tue, 28 Apr 2026 11:12:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777374749;
+	bh=l9p52mJ3IfvCGCC9KRjHmJ0LFuLa6o8Ibv7XD3DrdGs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=F172WmJzZGE+OVcktFEoxNALbg1ZNb+95SjvBOpKnCv/Ao2ZEArFplcn1n0iVbQKV
+	 e2CDw38ctbRfX9uA8QpmnjTQIO9UCpXDm9hmfCoc4EZdtp8Aid4izBnIF9pQCf8e9i
+	 ylCA873WdFwf+yvRglLmxvTRbnMbfdNqQs1W7NcALJN7YgiHk6FypgDtQXtzShhi3s
+	 MCk4A4mLopToSBEeyMPaMfTCv3IL8tB1PBId2G3hWhu5yOA90UbV41dgUx796Q1cIa
+	 PQA7qNCECqMuO3svV7s4gWzM0f0e2Mjb96gJL7Du42nus5LOugk4fYimiiw64CPmMS
+	 BvpkB9BIaantA==
+Message-ID: <a872b9ef-0d39-4ecc-9620-9b5d33d4d48f@kernel.org>
+Date: Tue, 28 Apr 2026 13:12:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: display/msm: Fix typo in clock-names
+ property
+To: Prabhakar <prabhakar.csengg@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260428100338.3179722-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
+ QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
+ +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
+ ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
+ 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
+ hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
+ tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
+ 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
+ naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
+ hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
+ whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
+ Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
+ MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
+ OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
+ GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
+ 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
+ YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
+ 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
+ BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
+ JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
+ 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
+ YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
+ qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
+ RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
+ Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
+ H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
+ dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
+ AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
+ jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
+ zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
+ XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
+In-Reply-To: <20260428100338.3179722-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add support for the GXCAS GXHT30 humidity and temperature sensor.
-The GXHT30 is software compatible with the Sensirion SHT30.
+On 28/04/2026 12:03, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> Fix the typo "clocks-names" to "clock-names" in the allOf/if conditional
+> blocks.
+> 
+> Fixes: 9be5c47908e66 ("dt-bindings: display/msm: expand to support MST")
+> Fixes: 7403e87c13847 ("dt-bindings: display: msm: Fix reg ranges and clocks on Glymur")
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v1->v2:
+> - Added "Fixes" tags.
 
-Signed-off-by: Zaixiang Xu <zaixiang.xu.dev@gmail.com>
----
- drivers/hwmon/sht3x.c | 3 +++
- 1 file changed, 3 insertions(+)
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-diff --git a/drivers/hwmon/sht3x.c b/drivers/hwmon/sht3x.c
-index 6437568aaf73..f52114c13edb 100644
---- a/drivers/hwmon/sht3x.c
-+++ b/drivers/hwmon/sht3x.c
-@@ -934,6 +934,7 @@ static const struct i2c_device_id sht3x_ids[] = {
- 	{"sht3x", sht3x},
- 	{"sts3x", sts3x},
- 	{"sht85", sht3x},
-+	{"gxht30", sht3x},
- 	{}
- };
- 
-@@ -948,6 +949,7 @@ static const struct of_device_id sht3x_of_match[] = {
- 	{ .compatible = "sensirion,sts31", .data = (void *)(uintptr_t)sts3x },
- 	{ .compatible = "sensirion,sts32", .data = (void *)(uintptr_t)sts3x },
- 	{ .compatible = "sensirion,sts35", .data = (void *)(uintptr_t)sts3x },
-+	{ .compatible = "gxcas,gxht30", .data = (void *)(uintptr_t)sht3x },
- 	{ }
- };
- 
-@@ -965,5 +967,6 @@ module_i2c_driver(sht3x_i2c_driver);
- 
- MODULE_AUTHOR("David Frey <david.frey@sensirion.com>");
- MODULE_AUTHOR("Pascal Sachs <pascal.sachs@sensirion.com>");
-+MODULE_AUTHOR("Zaixiang Xu <zaixiang.xu.dev@gmail.com>");
- MODULE_DESCRIPTION("Sensirion SHT3x humidity and temperature sensor driver");
- MODULE_LICENSE("GPL");
--- 
-2.34.1
-
+Best regards,
+Krzysztof
