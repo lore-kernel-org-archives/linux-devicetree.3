@@ -1,108 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C253AA1B2;
-	Tue, 28 Apr 2026 07:10:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D883C355F2D;
+	Tue, 28 Apr 2026 07:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777360225; cv=none; b=SNniDVVM1T2iTDUJ2zmPgEHxkPLtbMn3dYwQaCVgefOguHTkwNXzD5sMcqb0iVBWNrtxZzmZIsRV56MOfoPICVIAJvVU6oHwMaYcEVrkb2+7K1w5ZVwm+ThA2IjFP1/G5SMkktGAXtLj6PKJnukSx8JEOMBg6W67sbop23bUvgY=
+	t=1777360512; cv=none; b=Nn/S/X+z/f1fZYSmkOmJVexYyV9NvdpMNnYiscf1bWU/fVkBT1t3vI+3bu0PUwoc0Xwz1tkiNR+GlmcPMYg+xat0d7h7Dd5llxXPCUdHkwNhq6R0OoCTJR3IOnDRB61WxztmwR6bTrz/7uuHxqHGESttvT2Mm1mR2PxJqBXWPTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777360225; c=relaxed/simple;
-	bh=TtoGexmgAiwUbNPhRjJiMmOOiVKbBVpRUGsDRKUVH1E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GhbrN+sWKedPQqzKydAGBsp+kNC9dud3mnoANrlfiG2XtQcwnooHcJibBoVEuxKgYC/JvhCxvmyFZ04Mhy+3KGTwhkKFA6y09gXkHXNYkMngYXZ217+b/e2WsGbtQN7Rxj97uv+lQCNON5F80hrl9YurLJrrvm6aZ4rxq2HldLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f69C224W; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777360512; c=relaxed/simple;
+	bh=Q7LiYqnlwsUZrSNZmU+aGajjRZKDNMhNNKIUhLLiISw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tujsQeX1mRRVkqofHwkhoDdiNm8iv9u0Pk0h1gK3seOSxu6QqLPiuC1dGd3CVg/VEhKqBOSdfatjmnNihOVk8j/MhcjUDM+DuAo2qCW6XIGDOSG+i0QusD2LJt2luhppjasQIEkaCxQJcFY3cWBfC6lKesiCg1B+xQhdIGvUw1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bSH69yZ6; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f69C224W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0DC1C2BCB6;
-	Tue, 28 Apr 2026 07:10:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777360225;
-	bh=TtoGexmgAiwUbNPhRjJiMmOOiVKbBVpRUGsDRKUVH1E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=f69C224W4LOKHE7t55Ksp7Y4hpBRp4cwPKqPzt36knA3cZSUAvfi68GFPbkB1CGEX
-	 6aa2XgD+oJibpT7osVJpLOOk37Nbb1n6GPP9T0l1msAru9Cq9Cj0oYXa3sJ1xoPdsT
-	 +Q93i1A6O19kKyMYZAzoUoCj+caJoziwZCa4URV3c8sDR7mLt6FdOcDy/c/hP4VDCY
-	 806r2K/gx90h6M9XXqAJetRHC0MuqKLE87pHthvigZw+nLBDPhMGipmjojt1nL/RGb
-	 ioRPYcP3lisDoBpM0bkUAKrJwa9NFYUcDiaPXvdbn6emeRMtfidwvhGBInd3Y4XEgY
-	 x6oQ2iPBpXXxQ==
-Message-ID: <56d609dd-62be-47eb-8ba3-c5d70d773113@kernel.org>
-Date: Tue, 28 Apr 2026 08:10:19 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bSH69yZ6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777360510; x=1808896510;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Q7LiYqnlwsUZrSNZmU+aGajjRZKDNMhNNKIUhLLiISw=;
+  b=bSH69yZ6YmIQx84uwl5BmXiSLEwu/a11OtHnIKqmHfIN1IswZs+im2zI
+   s6KpAlNaoaF9A+TorS2XhZGTrP0BUdsSBDmPAMZfjQQByWFp7JkN12dv3
+   i8VbICkcfVnQVpCqzu6bVk3lor7dEGKrjKqla7dZcLUdNg39EK66+q/y8
+   pM9eGZaSX1sF4aGir9c8BqynqTBdniOBRujMue7poY8kxl6OTUYKdkJW2
+   vG1gX+WIVMUj8hWLuTbckJVdBrePlFjp5sWn31IWg3w04OSqjDP8MytdT
+   WywHzHpnEwpj208JyE4xBCZoE1VGCTb5IgMldNeGbcI+fnqhg+nCGu2+H
+   w==;
+X-CSE-ConnectionGUID: s1zFPcPNReaH9xCF8Sbx9Q==
+X-CSE-MsgGUID: E4i1uzIzTnahMEckNf9AZw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="78281054"
+X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; 
+   d="scan'208";a="78281054"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Apr 2026 00:15:10 -0700
+X-CSE-ConnectionGUID: Bj30AuJCQeefJA5s34H2Uw==
+X-CSE-MsgGUID: Tizm7nbvQJmDwmSH4lCy4g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; 
+   d="scan'208";a="229514829"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.213])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Apr 2026 00:15:06 -0700
+Date: Tue, 28 Apr 2026 10:15:04 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 1/4] serial: 8250_dwlib: move DesignWare register
+ definitions to header
+Message-ID: <afBeeGxD-ABOTqpf@ashevche-desk.local>
+References: <20260428-ultrarisc-serial-v5-0-97de63b1e3eb@ultrarisc.com>
+ <20260428-ultrarisc-serial-v5-1-97de63b1e3eb@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v3 04/11] arm64: dts: qcom: msm8939: Add venus node
-To: Erikas Bitovtas <xerikasxx@gmail.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-References: <20260427-msm8939-venus-rfc-v3-0-288195bb7917@gmail.com>
- <Xfiq_WNTU9P-ThZLMs4plWE5hwtmwyVyKJc1bD5BKdhERGouucNpyuenIoKQiKfZKaRzP-PdamsNlQ8vezjrRg==@protonmail.internalid>
- <20260427-msm8939-venus-rfc-v3-4-288195bb7917@gmail.com>
-Content-Language: en-US
-From: Bryan O'Donoghue <bod@kernel.org>
-In-Reply-To: <20260427-msm8939-venus-rfc-v3-4-288195bb7917@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260428-ultrarisc-serial-v5-1-97de63b1e3eb@ultrarisc.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 27/04/2026 18:58, Erikas Bitovtas wrote:
-> +			video-decoder {
-> +				compatible = "venus-decoder";
-> +				clocks = <&gcc GCC_VENUS0_CORE0_VCODEC0_CLK>,
-> +					 <&gcc GCC_VENUS0_CORE1_VCODEC0_CLK>;
-> +				clock-names = "core0", "core1";
-> +				power-domains = <&gcc VENUS_CORE0_GDSC>,
-> +						<&gcc VENUS_CORE1_GDSC>;
-> +				power-domain-names = "core0", "core1";
-> +			};
-> +
-> +			video-encoder {
-> +				compatible = "venus-encoder";
-> +				clocks = <&gcc GCC_VENUS0_CORE0_VCODEC0_CLK>,
-> +					 <&gcc GCC_VENUS0_CORE1_VCODEC0_CLK>;
-> +				clock-names = "core0", "core1";
-> +				power-domains = <&gcc VENUS_CORE0_GDSC>,
-> +						<&gcc VENUS_CORE1_GDSC>;
-> +				power-domain-names = "core0", "core1";
-> +			};
+On Tue, Apr 28, 2026 at 01:26:26PM +0800, Jia Wang wrote:
+> Move the DW_UART_* register offsets and CPR bit/field definitions from
+> 8250_dwlib.c into 8250_dwlib.h so they can be shared by 8250_dw and
+> 8250_dwlib users.
+> 
+> Add an include guard for 8250_dwlib.h.
 
-So to be fair in this case you do have a reason to have an encoder and 
-decoder compatible here _but_ it should be the case that one one of the 
-sub-devices contains CORE0 related stuff and the other CORE1 related stuff.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Because in that case the sub-devices actually represent individual 
-hardware settings.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-So listing power-domains and clocks for both cores in each node like 
-this militates against that.
 
-The other thing is to double check of the encoder and decoder are 
-inter-changable here i.e. can either core be encoder or decoder or is it 
-fixed ?
-
-I believe on older generations - perhaps not on 8939 it is not 
-interchangable.
-
-If it is interchangable then declaring either node specifically encoder 
-or decoder is incorrect so you should declare that inline in venus itself.
-
-Perhaps Vikash or Dikshita could confirm whether or not the cores have 
-fixed encoder/decoder functionality.
-
-TBH I think you should stick to the inline declaration.
-
----
-bod
