@@ -1,96 +1,125 @@
-Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA4237B41E
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 22:48:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.10
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777416485; cv=none; b=daWa6IL9+ttqMDUBnaqqZ/k1w3dZqph+b2zDAhzcUGSgNKgna23Gy2UczVojbEAixQVr5I1+3xNy+DKtBSnSan6oSlJ+u6mPcbfNW8c1CeUlUgVAQdnSOGBtdbAbdyXKdqUjrleFZV6NKjkBBVeSFqgQNMIGYEmM6qfJr221zOE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777416485; c=relaxed/simple;
-	bh=3XiWY50iNUQ4D540F4EKHqD0cSM4M2GY8uqotaTPFig=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UGgAgXPUA+3BisZS4FdVP191tPv1SOUcoSOUHDNe2W10t691zzBOiidg5Lhw3AF5Q7G0Bf4vJllp4s93I5T2C4OcS06yoyJrYZDNTuxJn0CBwKi2blQfauUSMW4GPwUAKrb1LTMksMwkdn1Ge7MLT1OjNUQV6z9RHNvd7mp9Aw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=OdOuHSl8; arc=none smtp.client-ip=212.77.101.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5812D35CB66
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 23:35:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777419355; cv=pass; b=YrPbS1nuqLkGYS54V5J8cImYcjv3DLujy3cMOqr2yKQaIg3F/q12F1Z9gR9D5EhQHjqA5v6vbwQ1DpURRrw+vopFD/xP7Ouh+IGr5k6gYJo7cMJ5+yImjpRV4m3v0FKrDOSJQMS0bPGa3RMRBlKqB8P+/hgJsW9TbBXMM2DeLN4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777419355; c=relaxed/simple;
+	bh=p24DGe2ChYsLvCmBXf6Kp5TWFFLOr7i+/3Xsm2m1l9M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VinKe5e3Tvs0Vzp7qomozAOVuokyUTE1WTx33Vdsnw2jpbUGEk9IrzI/OgYkpUgVFY1i62L77BTDk79keAILUYm+hsOz/EEYU4APXtrpbAxl8WoTuQeYaiVn/iC8aEVjqmZ1kNQpHNVm9Eiz2aJ6NrpXHxqAthimpda3JJzv2yo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lqhu2+sG; arc=pass smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="OdOuHSl8"
-Received: (wp-smtpd smtp.wp.pl 48429 invoked from network); 29 Apr 2026 00:47:59 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
-          t=1777416479; bh=Xswwtzad7rvDteRWu0qhZE+fNx0Z3gHT3572TPLV83U=;
-          h=From:To:Cc:Subject;
-          b=OdOuHSl88j6WGUcECjLjwCpXzlhDihv2yzS4gkGZm7bg9CkgHPjpmcqHV+DuXktSY
-           GUq73+1pNp8Iyvh7mCPqUS8u03QD1fMVjcgd18pxke3aT8IRo2BW67LRB0sMZZhy0C
-           wOFA9zHQgjEAqhqcucjif04KFeV9mpZ1hjAraGL6vQ9HyT2PR4ylUPLiuC0Lzrajt+
-           MrMCMXT8ZFWWFWvKjOJcgWQ16KObem4jTrwIymirCcTIvaDmJkhr8JltZhK43A42LN
-           CAKN/4jlxGQvKw/d++X5LwY4MMvxNbKiH0qTUo39mCeMtivq+yoS+osWLk0gNOxwYP
-           ArGJhwFUaFv5g==
-Received: from 83.24.138.167.ipv4.supernova.orange.pl (HELO abajkowski.lan) (olek2@wp.pl@[83.24.138.167])
-          (envelope-sender <olek2@wp.pl>)
-          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <robh@kernel.org>; 29 Apr 2026 00:47:59 +0200
-From: Aleksander Jan Bajkowski <olek2@wp.pl>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
-Subject: [PATCH v3] arm64: dts: mediatek: add crypto offload support on MT7981
-Date: Wed, 29 Apr 2026 00:47:43 +0200
-Message-ID: <20260428224755.336843-1-olek2@wp.pl>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lqhu2+sG"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ad9516a653so60839105ad.0
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 16:35:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777419354; cv=none;
+        d=google.com; s=arc-20240605;
+        b=HaitsWGyBazoa3j5/CrO3FDVy2GPDREfSBhrQ8lnrlebh0VvvjVGIUCCA9QelG1ozt
+         SXVRmZzgtfMxGpBD2cNiB3i1oDOCh9XmGIyDYNAu19fDFKuC0gFesNrrDiLh080jemVq
+         7zt/4epmJi0mjpDWETLOAMpTuCZdE4I/9tQJ7SvyOQWYURTMy4n9XiKyQ2bvkn97/qnK
+         GRSIqYn8H/aoiZKvrfKFrnZffvEPh3ZFRAsAaqQXs9hZRR+erQpKKZqkcfCsBcAWnOb+
+         YOm4IKp4/Ai1+YZZLa1MYjbMDxi9+WjF1MeZzeHm2PVI55211hpxL3pV/NkbfFDD915O
+         FR0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=0db33wYSB/VKxNPenizKPNWOjqB/3saiIIrw++PQlmA=;
+        fh=q2wP/SQSI3YPDsd6+p3UQYD3Gp+QIkmDln6ZGaRUGr4=;
+        b=lIAF5tkGVN0x5iuAP4ROMZ8GTUmiXUjbreeypipvr4iw6J3l/NDBVwCiHnrfmFaiUp
+         o1qWEpAhbb3yAjhXSB+Mnh50B4qg2FyVg8SBY5kyZHa55iVkQpJMG5CBjtY/p1rBXTuz
+         fvSTCji9g05nkF5wipSbXorc2bHnUyrYnquBPvdfJLq4ZQSp3vwaddN3S6DhSsNmeRua
+         IskzcBb80x3JXIlsm+QzL22M/a0gAdbDR/60SKdvmD5DkiofAJjNdcu1wZPkODGDhh6s
+         USnpZl0OZBhKcFy6lxZNZvhtMnaiCszDcKJDjWjlH4wY6Qibi1g62jXzJGzazEouzXAF
+         zLTQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777419354; x=1778024154; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=0db33wYSB/VKxNPenizKPNWOjqB/3saiIIrw++PQlmA=;
+        b=lqhu2+sGzhBTsyZRRos2jZ387BvKCfAcc1fKf1A/JtGEisIHLLncDhhkhhRlvdUIMJ
+         Dlg3Jve5tuMahEqtI8RpjhflyeAMzsEIi3hfFO6jBbs2PLnQBwAKxE8w8h5rWhIu/b7h
+         i+1ggRanMO3AgRtgI6tcLrx4Anl5NaM4VL1nKJ7UaCeVYW34Bh8SvOqkrjGoFf+B4m3z
+         XwhrlcC7MepsVB3dW4Sa6QjGUZJZW5ERxk8/PwiX1ZKWInGa07LASTJi254vjO4TYUf8
+         KsgPXB1etH51a2Ky1hoCINE5EHN+oYpO5Ep8rRjv2b9Dl1aRPtQdeWinaMksZwxTenym
+         bY2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777419354; x=1778024154;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0db33wYSB/VKxNPenizKPNWOjqB/3saiIIrw++PQlmA=;
+        b=qmnTa5KOl0tDuGEnSumfbXAfW1yfGoQ43oGbBL5vyyryVRZh4YbmJ5aVPN5YBiMvqk
+         V9xNzJYYH9s92RaaE8lMRIhLWF3+pMuEjzCv4pWYNaAvAeygjuOMBsuleT+1MgE0Tk6Q
+         HSdEWFg6g7P0A6Sw3VAtsj4pSF3iRp3h3kO5NuMCqGEDqc7zAmAQ5aI0ITMZxaPEsOrQ
+         0MoBJ5ARod0G0stEHi3D+Y+BsC8ljOuYpwMa350cFvN05q7bSDY5Ne2r8md1vzgxgu91
+         VbzJD9khM45j4PheHwCJy9007OaG7K2yOICKqwQzGlHXHSboRjubTP/sD58jh+riB9cc
+         wo0w==
+X-Forwarded-Encrypted: i=1; AFNElJ+s88NeUApKkrXS3DyuCKed9/fKCDf1jLzvA40rnFjHFq5eOohEF2r6NhChYc3IcDd0guM/2qptYw3R@vger.kernel.org
+X-Gm-Message-State: AOJu0YxfyD/qtKll71ScfEFRfiM3Wrd44mzGXTwVkjbSICSS85XieRwq
+	EHtsQtz83zmWm4Vp74Tn3B4/B79uDwiGZZjTQyXs5R4YRYSI4lzCeDVYoMgc+/6T2Brm7c9y6nP
+	hr9UvI2L3qDtryIjveFpVawsjUIMP20o=
+X-Gm-Gg: AeBDietGAfpWPEg5Gz3VQR5ivbaaHeK81V6qhhmXoCDUxnf7gzV4bIJxlR2DDvfuXvH
+	qVXHptvxf9jNCcr5Hxfx2gX3DpJPlVFNlS4JktDPxweOiqUUOAWA1tU+n14r7NWJKSP6sX1JPuc
+	+Wj8mXlnB/l89LBSsmEti/m6F9EGv8C9C+v41QzWyz4NryRxkQx8dCPYd/Pxpjb7heiRaWkU2Y1
+	A5cdxwdWGxwmXTcv12MIlDc+IybJujpGY2oSqkJXj/H5OYsAHx3UBiqfL1uZmEN886sgLumEYyH
+	KMD/Dl/K/UKyBb7hXUUPhzoCeKkQr/RRW5c4QbHJqIS5LlZc0dY=
+X-Received: by 2002:a17:903:1c5:b0:2b2:4b4e:e4d8 with SMTP id
+ d9443c01a7336-2b98730ca87mr13536075ad.4.1777419353607; Tue, 28 Apr 2026
+ 16:35:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-WP-DKIM-Status: good (id: wp.pl)                                                      
-X-WP-MailID: c4c1a66eb78616786b6a9a28261e39cd
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000008 [IeuH]                               
+References: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-0-0caade5fdb32@linaro.org>
+ <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-2-0caade5fdb32@linaro.org>
+In-Reply-To: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-2-0caade5fdb32@linaro.org>
+From: Gyeyoung Baek <gye976@gmail.com>
+Date: Wed, 29 Apr 2026 08:35:41 +0900
+X-Gm-Features: AVHnY4IUG0aEhSqiUeS0javv0LFZ7gitoer-tm54oLakxbwVeIPwDa7HUcbCYTI
+Message-ID: <CAKbEznvPAYFUt-ykH7rCQwMFUq6N68B9x7Dd97WRDm3Mvj34fw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] backlight: Add SY7758 6-channel High Efficiency LED
+ Driver support
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, 
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
+Content-Type: text/plain; charset="UTF-8"
 
-The MT7981 as well as the MT7986 have a built-in EIP-97 rev 2.3p0 crypto
-accelerator. This commit adds the missing entry in the dts.
+Hi,
 
-Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- arch/arm64/boot/dts/mediatek/mt7981b.dtsi | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+> +
+> +static int sy7758_probe(struct i2c_client *client)
+> +{
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt7981b.dtsi b/arch/arm64/boot/dts/mediatek/mt7981b.dtsi
-index 1bbe219380f9..e63ba3ae395e 100644
---- a/arch/arm64/boot/dts/mediatek/mt7981b.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt7981b.dtsi
-@@ -150,6 +150,21 @@ sgmiisys1: syscon@10070000 {
- 			#clock-cells = <1>;
- 		};
- 
-+		crypto@10320000 {
-+			compatible = "mediatek,mt7981-crypto",
-+				"inside-secure,safexcel-eip97ies";
-+			reg = <0 0x10320000 0 0x40000>;
-+			interrupts = <GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 118 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 119 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "ring0", "ring1", "ring2", "ring3";
-+			clocks = <&topckgen CLK_TOP_EIP97B>;
-+			clock-names = "core";
-+			assigned-clocks = <&topckgen CLK_TOP_EIP97B_SEL>;
-+			assigned-clock-parents = <&topckgen CLK_TOP_CB_NET1_D5>;
-+		};
-+
- 		uart0: serial@11002000 {
- 			compatible = "mediatek,mt7981-uart", "mediatek,mt6577-uart";
- 			reg = <0 0x11002000 0 0x100>;
+> +
+> +       /* try read and check device id */
+> +       ret = regmap_read(sydev->regmap, REG_DEV_ID, &dev_id);
+> +       if (ret < 0)
+> +               return dev_err_probe(dev, -EPROBE_DEFER,
+> +                                    "failed to read device id\n");
+
+regmap_read() seems it can return errors other than -EPROBE_DEFER
+(like -EINVAL,), and hardcoding -EPROBE_DEFER here might drop the
+actual error.
+And maybe would keep retrying probe forever
+
+How about this?
+> +               return dev_err_probe(dev, ret, "failed to read device id\n");
+
+
 -- 
-2.53.0
-
+Thanks,
+Gyeyoung
