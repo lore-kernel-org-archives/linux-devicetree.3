@@ -1,45 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F04A34F25C;
-	Tue, 28 Apr 2026 07:39:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E54F3B5826;
+	Tue, 28 Apr 2026 07:41:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777361971; cv=none; b=pzmSJVQCumt8kr25ZJjI80DIRA0oru2U0nj44gtAphQrhL3+sqg7dQDk46Q1MLrHYHV4rjXBn+wFazcTBsRHkYKg+Yebgk0lgUeJ/rBCbJtBq03aC7o8kBXkaV7/4NAf6I9o/Wo/UNZPtzF0i6IPSKNX1nFQtaVOiKXtabxf3TI=
+	t=1777362096; cv=none; b=jGDsa/iEyijP5VQPcOQTQrc4tYrZE+hnDqL8ZJU0y/rqafGg7VPzvghngbgMqUccntgRjqdm2DEyAwXcIKbLVpzk/xaJwHhaE6CORTT+v5Q6BE1RTdznHV2cumkqj4capSyDfuxdXdut2TJmVNCEjgULxw5jJbacT56XdlDta4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777361971; c=relaxed/simple;
-	bh=UFT+K+PDKPQSW0ONxvQCutLaWbCpyvSTzbi8Whq8mPE=;
+	s=arc-20240116; t=1777362096; c=relaxed/simple;
+	bh=UfYVcnjZ7Yd1VqbbHzwFGlt22qkE7sYoXn7cJY+5boY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iAzIikfHDH/55R6wkGyAyKS2ZsBh6WDq1oHYe43M1QkU6OZC0w2t97QEOMAZ84rp/3reRdoofF2faazZ0B5k2ZuaNZlJQQHzpYNP5WhyGdaNacAXRtFd/ZqLFnjILx01oyGPFqm+ucf/C1D9h6NvEC0b1/wmIiPbOx7p3kYI9MM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bShYofMU; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=b+xLFIAhUXo3L8jayvfCtgtYF8HPkN0rxn34o4o9Yrcq4NjIxZaNsQVLBV55LcGqb5Ouu39Nhz/hfuozPx/LDQDHsTX0LdlUNczUWWFI7yJa0+CUHimMm7CXTierQQWuzk4IqBgawHgEZAoHobWaSiWEOqprBXM3btWt6zAzQbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O9XI4NDl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bShYofMU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7F0AC2BCAF;
-	Tue, 28 Apr 2026 07:39:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O9XI4NDl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7589DC2BCAF;
+	Tue, 28 Apr 2026 07:41:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777361971;
-	bh=UFT+K+PDKPQSW0ONxvQCutLaWbCpyvSTzbi8Whq8mPE=;
+	s=k20201202; t=1777362096;
+	bh=UfYVcnjZ7Yd1VqbbHzwFGlt22qkE7sYoXn7cJY+5boY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bShYofMUEgHChAVhaCcjQFFVgyZWdN4ny9wml6VJ9NagtD2bvpBe6gwZRX3YZ1vU0
-	 jB3gm1MxC0UOYCYWEGk6DZb20/dT5oRqt1qbwsGvPRFbQlsepg5Xk82F3SfSSLs6Mf
-	 nfcW2yY2SFs5Iix37V5C+sdPzlaS+4UldHy2nLPa7MaaPM2LrTV5G6VrWyqA7GNSsh
-	 GRLT0NN3j0qktHbDy2n1QhCE3SYVgfqt3dvQv1wN+UZqlUBbUXe/YdKaT1WoTKDraD
-	 RgIDpI5jJRepIYLHZlj74asvqeWQg4d9haEZdx56mjcHYHuWUeqi78CSZ5sQ5+YmD/
-	 b3c+B4zRd0TxQ==
-Date: Tue, 28 Apr 2026 09:39:28 +0200
+	b=O9XI4NDlKQ4ouR8xO0xmvuukD3U+E8twBJIWuneFbU9ESgJxLDGAl+ejeQMerVlA8
+	 oKFpcaUBUVSpRiB1fs2UanW/pn3xZbb2t98eLegYJZZxY/laF0PW3w/hCosnp8tyDK
+	 w7mivNDfY76dP6IHKrEjwhP1YTtlMVhV228fzYPYrEq5YuEBKX08RAAkMQ8yabpXLY
+	 477mqFiYY4Xc3vSnEPNYsYkKp3DGBG9Ve7PhLkM1H6qy0KiuPz1hNkMaLKSwUadSNq
+	 yih7OWwLMGKiSLBZPwO3cP00Kqzzts+EHG4PhhN4HBZnV0hlXL3BCYZ2N00fff62X8
+	 Iunf09LYhxIVQ==
+Date: Tue, 28 Apr 2026 09:41:33 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: William Bright <william.bright@imd-tec.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
 	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add TSD TST070WSBE-196C
- panel
-Message-ID: <20260428-misty-tuatara-of-downpour-0ad6eb@quoll>
-References: <20260427-imdt-dsi-display-v1-0-bb2768de120b@imd-tec.com>
- <20260427-imdt-dsi-display-v1-1-bb2768de120b@imd-tec.com>
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH] dt-bindings: display/msm: Fix typo in clock-names
+ property
+Message-ID: <20260428-wise-rat-of-criticism-df0ea3@quoll>
+References: <20260427154658.276737-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,25 +52,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260427-imdt-dsi-display-v1-1-bb2768de120b@imd-tec.com>
+In-Reply-To: <20260427154658.276737-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-On Mon, Apr 27, 2026 at 04:21:09PM +0100, William Bright wrote:
-> +---
-> +$id: http://devicetree.org/schemas/display/panel/tsd,tst070wsbe-196c.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: TSD TST070WSBE-196C 7" 1024x600 MIPI-DSI TFT LCD panel
-> +
-> +maintainers:
-> +  - William Bright <william.bright@imd-tec.com>
-> +
-> +description: |
+On Mon, Apr 27, 2026 at 04:46:58PM +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> Fix the typo "clocks-names" to "clock-names" in the allOf/if conditional
+> blocks.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> Note, patch applies on top of next-20260427.
 
-Do not need '|' unless you need to preserve formatting.
+No one can apply on top of next-20260427, there are no such maintainer
+trees.
 
-No need to resend just for that.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Please add Fixes tag.
 
 Best regards,
 Krzysztof
