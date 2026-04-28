@@ -1,198 +1,167 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823DB3CCA15;
-	Tue, 28 Apr 2026 20:14:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C08329E49
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 20:21:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777407273; cv=none; b=VrqtX6wfQoNgHiAKRRN3Gab7RYqMt/CBhEsMSQ2GXiowliCpDgX95hlCd6+TcPzG9NGXkLOMuCe3VDmcVVo3bIsYCgciZf0MemDgbB5i8lSkF5YwodTSNuTO3ZN4TpYfHAlPeKJhyYUtDXVLFfhnNxj3h5xQ2Q6EI5VolHBF50k=
+	t=1777407667; cv=none; b=XPjsV2nXNQiowaonKT/jFScjM5kJujeHyZIcRUxbvmksbq+mUY1hrD9/gB1IB07Y2RMwT8VXJMBfLX9p5NjhMarEI+zXghNnm8gEt5Q+BA0NbF+OkVrI5fUyO5XfBMJJzpyIqTZGcvi37pZJn2QFaXgJEfY4coMqMGYJUtwBVTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777407273; c=relaxed/simple;
-	bh=n52sIa7hBm6ai6W8sMRaiMmDFW4qaL5TUk9D2hKkq20=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iWKSgw4BUVEMAo5pasLop6xjbmmY+eIrs7JZpMo2yJUyAT7zYWZIKmZgbXEaYliJEo99VNF+dkIuDnkbuLmWVJ4YAeiXX1E8CDfoUmrDfmjvsbpUrKn0kpBDiRLxZZUZXryA6Gd4XGwQeSfsmRFkBMy08e+5Gq+f6AoSFGY05+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=k6d8rESl; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1777407667; c=relaxed/simple;
+	bh=b3y0XwETp/+cTkGRrG43RAGkVJDpjROsO7uB28sz0+k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IW4gH2bwpEc4XNPRl5RrJiLR+u31nNzEPgdNEfoMykaLZDgHwDTbbYmuCDMykzGE+js7SFU77yafdR91GViuTmoxh/4lCE7IVbpHYRkfMtl54VYF1rJeDqT6x0QN5cMTaalUrJ6nPZR/MFabCN6BvWrgY7jkWCU2kApOtAN9/ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Qk/a/gpH; arc=none smtp.client-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="k6d8rESl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1777407270;
-	bh=n52sIa7hBm6ai6W8sMRaiMmDFW4qaL5TUk9D2hKkq20=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=k6d8rESlbbQXJLC0eOlVys7JmTXCkRtMbKFikoYKF0BPGO3g2PygftkRdoBs6olR5
-	 yUUo7jEoxpMlbjArQY+htFNZEuAg6BARVt8b/f+uHcBxxUGiQJsu6wwURtYpEN9kW0
-	 1Ne/5sosvEtaYRykbjqQa0yvwkeLCHqDTi0xqVbZcIYEk+pI2x6OXywNGXs1EolgpU
-	 CWH4zKVDcYSF0CJnyCBqikaUf9TnQxZ22FknqfFA7HUTihuUYmDKZzycOSoA+ASiX+
-	 q/X8J98ez24x8n+qu5B6HGFCrDycgOkUk+qDDFvY3J+0RbzcS8kY8++3eqw34N+Shf
-	 rWQDSJ1JsJsAg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C27D317E0EB6;
-	Tue, 28 Apr 2026 22:14:28 +0200 (CEST)
-Message-ID: <3bc30a4e04ad49e5b119b61e1e6392d8b454a7d6.camel@collabora.com>
-Subject: Re: [PATCH v6 3/6] media: ioctl: Add pixel formats NV12MT_COL128
- and NV12MT_10_COL128
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>, Sakari Ailus	
- <sakari.ailus@linux.intel.com>, Laurent Pinchart	
- <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>,  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,  Florian Fainelli
- <florian.fainelli@broadcom.com>, Broadcom internal kernel review list	
- <bcm-kernel-feedback-list@broadcom.com>, John Cox
- <john.cox@raspberrypi.com>,  Dom Cobley <dom@raspberrypi.com>, review list
- <kernel-list@raspberrypi.com>, Ezequiel Garcia	
- <ezequiel@vanguardiasur.com.ar>
-Cc: John Cox <jc@kynesim.co.uk>, Stefan Wahren <wahrenst@gmx.net>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org
-Date: Tue, 28 Apr 2026 16:14:27 -0400
-In-Reply-To: <20260304-media-rpi-hevc-dec-v6-3-93868ae6dff8@raspberrypi.com>
-References: <20260304-media-rpi-hevc-dec-v6-0-93868ae6dff8@raspberrypi.com>
-	 <20260304-media-rpi-hevc-dec-v6-3-93868ae6dff8@raspberrypi.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-tGxzQtJlib/xM1/4dGWX"
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Qk/a/gpH"
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-12c45281a06so16339115c88.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 13:21:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1777407663; x=1778012463; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=wAYKdy6rZGHPp+6vTJbxhAN2mtySYtF/dy0uwVb4Go4=;
+        b=Qk/a/gpHCT0jyi5R99OTiHzfbiqefiQgbfbvncmGW/v8RZYEpHTyzAmlJdoZOF9RXx
+         ApO2HfxAoSXrA/y0FwW+q7Aex1MlSu287gmjdLKOcamUmrm9pnpwSPets4bP8W0/Hw49
+         1m1lu1Ab1ISF0Je3WzJGHKMLKAXFy0Er17E34=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777407663; x=1778012463;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=wAYKdy6rZGHPp+6vTJbxhAN2mtySYtF/dy0uwVb4Go4=;
+        b=QDfX93q2PTTXH1efSU9SEMVqMzWGdRcxBENH4vwSHWO7oUsSbinCBufrQ3sr1O+jXR
+         7RhR3QBE+UFHgxa1+6Nzl5BYaFKOkfhVHl5dZnYWbJH1gpzDO8xzq6A04SCjU4e5yZVu
+         jm9Uvp0AKd2wkP3RXawRSXu4BpQHonCnY7B3Y8TUiqja7GJmGy/4WZDdMzMi0QY9c4mh
+         QjX7RRROGABxTxcEup7ln+ki7huT9q+p1TiM+vOjyj6uEP6xtfTDccGls/odTAKcGSpZ
+         mke4u5g/pp92ObZjY4kqv5bfxiV3qnX/AN/KVRkeQUAT9M9ldf5aPOzHFvrLwVL86YLw
+         96vg==
+X-Forwarded-Encrypted: i=1; AFNElJ+M0k4aSdIoq5syOJgib9nEwof1pZfw6r0qXETYKkFoTgYA1QwadpRG2i7wOh2vWeHTgGKpBadcUI31@vger.kernel.org
+X-Gm-Message-State: AOJu0YwDra92FpbfcdsUgGyjxbCEVq9ADlNzIrAohplIVixRg+nTez5r
+	4RunhE0Xu4m1S8BQnDeUGpyGdZl++ePEedUvTsZteOJ1JaXuB0EDnTVL8QO8ImLZ0A==
+X-Gm-Gg: AeBDieuf5caHHIjiFwtWcvqI65nG5zrEhHRoE3IkQnVMJRDL63XH1QE0wdSfguIUKzU
+	WfBraS+p+D1TTYHonG+G8V6YMrlQsJfsNNyqO+TV6I0lnvkPlB5kL0gHTRspDMKSyBCGvcKPdry
+	1HrbPtP6UOYjQRuY0nba4jmvLBVkbh4tqPUv4Pm3C/RWv8hWt7UTUpG6PUvvg9BBvNEhJPOdpmr
+	p15LFWGfWRd2oNFPQQpCwwCXl15t+rcCgwNxtsLnlQiohY81H9JkLGv/pklkPhMae/FRbNjtxSH
+	hH1XcMpj2JAwUopC/Y3O2i31/WkDShHEFel0U5vOpZ+LZJMFA8bqfTx2Ti5JFFDWXZQbDYN/gvC
+	NNVKdjOXlZEtIAcjNQ2jr++Dn/gTWqBQWLI9+35760GucigrmOL/lndzSuBgTsw2OBrWkP6H9zi
+	TtusDRxPk4vB2SdF+1dgJ0veoR5sWwmRKZMqJKIiGN7YtA7AxGainlQPUi3sD8W8TRrH2tLRVWj
+	ws7L5ZlY0w=
+X-Received: by 2002:a05:7022:6607:b0:128:d967:4678 with SMTP id a92af1059eb24-12ddd99c410mr1729142c88.23.1777407663085;
+        Tue, 28 Apr 2026 13:21:03 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2e7c:8:4ff5:9607:c7e5:48f3])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-12ddd933044sm2821511c88.5.2026.04.28.13.21.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Apr 2026 13:21:02 -0700 (PDT)
+Date: Tue, 28 Apr 2026 13:21:00 -0700
+From: Brian Norris <briannorris@chromium.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, Sasha Levin <sashal@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Doug Anderson <dianders@chromium.org>,
+	Julius Werner <jwerner@chromium.org>,
+	chrome-platform@lists.linux.dev
+Subject: Re: [regression] of: mis-parsing Depthcharge's /firmware
+Message-ID: <afEWrApcO-SRP5Th@google.com>
+References: <e77669ea-9edd-4321-8d17-4da40161b59d@linaro.org>
+ <Z0R6myuCR4Jpmc_y@sashalap>
+ <CAL_Jsq+QBweDZ+1=FXq7Hez=+mhiOxOvurr3rP0+3y_FCd49Ew@mail.gmail.com>
+ <20241209092809.GA3246424@google.com>
+ <aeKlYzTiL0OB1y3g@google.com>
+ <CAL_Jsq+UCYbKMXG5m8BRNVRA_03Ki8aGF0uoaDs8HHvOSCZ2Mg@mail.gmail.com>
+ <aeaTSYyaqQjuP29U@google.com>
+ <CAL_Jsq+qmHV8VJ1J61nUupNBZSQrqzwCV3oOjkeqc0VFBt2aDQ@mail.gmail.com>
+ <aeaussSE6_TN7xk4@google.com>
+ <20260421193038.GA1502234-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260421193038.GA1502234-robh@kernel.org>
 
+Hi Rob,
 
---=-tGxzQtJlib/xM1/4dGWX
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thanks for your thoughts. I delayed a bit since I wasn't really sure
+what the right conclusion was and wanted to give it some thought.
 
-Le mercredi 04 mars 2026 =C3=A0 14:05 +0000, Dave Stevenson a =C3=A9crit=C2=
-=A0:
-> Add V4L2_PIXFMT_NV12MT_COL128 and V4L2_PIXFMT_NV12MT_10_COL128
-> to describe the Raspberry Pi HEVC decoder NV12 multiplanar formats.
->=20
-> NV12MT_COL128 has been added to v4l2_format_info.
-> NV12MT_10_COL128 has not as the block width is not a power of 2,
-> but the framework uses ALIGN with the value.
+On Tue, Apr 21, 2026 at 02:30:38PM -0500, Rob Herring wrote:
+> On Mon, Apr 20, 2026 at 03:54:42PM -0700, Brian Norris wrote:
+> > You say it's not novel, but then you say the only existing code is
+> > either:
+> > 
+> > 1) completely different, and only applicable to powerpc or
+> > 2) only on your local tree.
+> > 
+> > That sounds novel to me :)
+> > 
+> > Anyway, I'm more inclined to lean on my #1 and/or #2 than to write a
+> > whole new fixup layer. But maybe #1 can be replaced in the future if we
+> > come to really want/need a generic fixup layer in the future.
+> 
+> The problem with #1 is a) new platforms can then repeat the same mistake 
+> and b) we'll forget what platforms needed some work-around and whether 
+> we still need to maintain such a work-around. Well, I might not forget, 
+> but the next DT maintainer (applications welcome!) even won't know. For 
+> example, I have know clue if we still need to carry some of the 
+> work-arounds embedded into the interrupt parsing code. That all 
+> predates me. The only way I find out is breaking them (I'll never 
+> understand why people still run PowerMacs from the 1990s).
 
-The performance of that code is not critical, any reason you can't just por=
-t
-everything to round up to the next multiple of ? (to be done in its own pat=
-ch).
+Ack to most of this. I'll note that it's possible to write unit tests
+for this, if we go for the in-kernel route though, so hopefully that'd
+give maintainers a bit more visibility.
 
-Nicolas
+> Calling the fixup code a layer is an exageration. It's on my kernel.org 
+> tree in the dt/fixup-infrastruct branch. And look, guess what issue it 
+> was that it has a fixup for.
 
-p.s. we should really add a ktest for that table ...
+OK! I spoke in ignorance then. I really haven't explored the device tree
+construction / unflattening logic, so it was new to me.
 
->=20
-> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> ---
-> =C2=A0drivers/media/v4l2-core/v4l2-common.c | 2 ++
-> =C2=A0drivers/media/v4l2-core/v4l2-ioctl.c=C2=A0 | 2 ++
-> =C2=A0include/uapi/linux/videodev2.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 4 ++++
-> =C2=A03 files changed, 8 insertions(+)
->=20
-> diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-c=
-ore/v4l2-common.c
-> index 554c591e1113..20a7066df570 100644
-> --- a/drivers/media/v4l2-core/v4l2-common.c
-> +++ b/drivers/media/v4l2-core/v4l2-common.c
-> @@ -311,6 +311,8 @@ const struct v4l2_format_info *v4l2_format_info(u32 f=
-ormat)
-> =C2=A0		{ .format =3D V4L2_PIX_FMT_NV15_4L4, .pixel_enc =3D V4L2_PIXEL_EN=
-C_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 5, 10, 0, 0 }, .bp=
-p_div =3D { 4, 4, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2,
-> =C2=A0		=C2=A0 .block_w =3D { 4, 2, 0, 0 }, .block_h =3D { 1, 1, 0, 0 }},
-> =C2=A0		{ .format =3D V4L2_PIX_FMT_P010_4L4, .pixel_enc =3D V4L2_PIXEL_EN=
-C_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 2, 4, 0, 0 }, .bpp=
-_div =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
-> +		{ .format =3D V4L2_PIX_FMT_NV12MT_COL128, .pixel_enc =3D V4L2_PIXEL_EN=
-C_YUV, .mem_planes =3D 2, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bpp=
-_div =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
-> +		/* V4L2_PIX_FMT_NV12MT_10_COL128 can not be described within the curre=
-nt constraints of v4l2_format_info as 96 pixels is not a power of 2 */
-> =C2=A0
-> =C2=A0		/* YUV planar formats, non contiguous variant */
-> =C2=A0		{ .format =3D V4L2_PIX_FMT_YUV420M, .pixel_enc =3D V4L2_PIXEL_ENC=
-_YUV, .mem_planes =3D 3, .comp_planes =3D 3, .bpp =3D { 1, 1, 1, 0 }, .bpp_=
-div =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
-> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-co=
-re/v4l2-ioctl.c
-> index 37d33d4a363d..2fe8f591cdb3 100644
-> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
-> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-> @@ -1379,7 +1379,9 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *f=
-mt)
-> =C2=A0	case V4L2_PIX_FMT_NV16M:	descr =3D "Y/UV 4:2:2 (N-C)"; break;
-> =C2=A0	case V4L2_PIX_FMT_NV61M:	descr =3D "Y/VU 4:2:2 (N-C)"; break;
-> =C2=A0	case V4L2_PIX_FMT_NV12MT:	descr =3D "Y/UV 4:2:0 (64x32 MB, N-C)"; =
-break;
-> +	case V4L2_PIX_FMT_NV12MT_COL128: descr =3D "Y/CbCr 4:2:0 (128b cols)"; =
-break;
-> =C2=A0	case V4L2_PIX_FMT_NV12MT_16X16:	descr =3D "Y/UV 4:2:0 (16x16 MB, N=
--C)"; break;
-> +	case V4L2_PIX_FMT_NV12MT_10_COL128: descr =3D "10-bit Y/CbCr 4:2:0 (128=
-b cols)"; break;
-> =C2=A0	case V4L2_PIX_FMT_P012M:	descr =3D "12-bit Y/UV 4:2:0 (N-C)"; brea=
-k;
-> =C2=A0	case V4L2_PIX_FMT_YUV420M:	descr =3D "Planar YUV 4:2:0 (N-C)"; bre=
-ak;
-> =C2=A0	case V4L2_PIX_FMT_YVU420M:	descr =3D "Planar YVU 4:2:0 (N-C)"; bre=
-ak;
-> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev=
-2.h
-> index eda4492e40dc..e466c816ff2f 100644
-> --- a/include/uapi/linux/videodev2.h
-> +++ b/include/uapi/linux/videodev2.h
-> @@ -697,6 +697,10 @@ struct v4l2_pix_format {
-> =C2=A0#define V4L2_PIX_FMT_NV12MT_16X16 v4l2_fourcc('V', 'M', '1', '2') /=
-* 12=C2=A0 Y/CbCr 4:2:0 16x16 tiles */
-> =C2=A0#define V4L2_PIX_FMT_NV12M_8L128=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 v4l2=
-_fourcc('N', 'A', '1', '2') /* Y/CbCr 4:2:0 8x128 tiles */
-> =C2=A0#define V4L2_PIX_FMT_NV12M_10BE_8L128 v4l2_fourcc_be('N', 'T', '1',=
- '2') /* Y/CbCr 4:2:0 10-bit 8x128 tiles */
-> +#define V4L2_PIX_FMT_NV12MT_COL128 v4l2_fourcc('N', 'c', '1', '2') /* 12=
-=C2=A0 Y/CbCr 4:2:0 128 pixel wide column */
-> +#define V4L2_PIX_FMT_NV12MT_10_COL128 v4l2_fourcc('N', 'c', '3', '0')
-> +			/* Y/CbCr 4:2:0 10bpc, 3x10 packed as 4 bytes in a 128 bytes / 96 pix=
-el wide column */
-> +
-> =C2=A0
-> =C2=A0/* Bayer formats - see http://www.siliconimaging.com/RGB%20Bayer.ht=
-m=C2=A0*/
-> =C2=A0#define V4L2_PIX_FMT_SBGGR8=C2=A0 v4l2_fourcc('B', 'A', '8', '1') /=
-*=C2=A0 8=C2=A0 BGBG.. GRGR.. */
+If it really comes to patching the kernel itself, I'll consider pulling
+in your patch. On first glance, it looks good, and not that complex even
+to an outsider like me.
 
---=-tGxzQtJlib/xM1/4dGWX
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+> > (Frankly, if we do #2, #1 and #3 will probably both be redundant and
+> > unnecessary. I don't know of any case here where we're relying on strict
+> > DTB ABI compatibility with no opportunity to update some of the DTS
+> > sources.)
+> 
+> Shrug. I thought the ABI was a concern here. It's ultimately up to the 
+> maintainers and users of a given platform whether or not they care about 
+> the ABI.
 
------BEGIN PGP SIGNATURE-----
+I'm usually on the receiving end of people complaining about ABI. It
+seems like we bend over backwards in a lot of places (drivers, driver
+frameworks) to maintain some idea of DTB ABI, while in practice, the ABI
+is almost never a strict concern for anything I've dealt with -- 98% of
+the DTB is generated from in-kernel DTS sources that match the kernel.
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCafEVIwAKCRDZQZRRKWBy
-9J8UAQCuP0morTUyDPD/NNdhubR85mByJNrNBbLzHV+uLAQNQQD/eQUcx2XK2E9+
-Cgs60mkBfDrXtJA0+lIklNYMLTrhJwM=
-=Qopn
------END PGP SIGNATURE-----
+($subject case is actually the closest we get to DTB ABI concerns,
+because it involves the small part of the DTB that is generated by a
+program that is independent from the kernel tree. But even there, it's
+possible to fix the issue in the kernel-provided source.)
 
---=-tGxzQtJlib/xM1/4dGWX--
+So it seems to me like maybe it's best to just ignore the ABI concern,
+patch the DTS and call it a day. I've done that here:
+
+  https://lore.kernel.org/all/20260428200712.2660635-1-briannorris@chromium.org/
+  [PATCH 0/7] dts: Add /firmware/#{address,size}-cells to Chromium-based DTs
+
+If someone finds reason we should still go back to fix the kernel
+itself, I can resurrect the fixup logic in addition.
+
+Thanks,
+Brian
