@@ -1,43 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD59647887F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C634E477E2D;
 	Tue, 28 Apr 2026 16:14:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777392850; cv=none; b=ueN/vo0LnsCuWIkG8jc/6FbDgQeWdxR086MqJsbE3U9vQWuzvP9Ln5Szc1lpyhN13YJ2pMf2ONrPlHvuGQaxkjOpCqeUMTkM5dPI00CD7UDMQdE65sgx51Il+AJFDFPgB6D/vZu7DjtxgCitht9XijlzOGIGjk6k7J4EUujJPoQ=
+	t=1777392851; cv=none; b=eKS8rKmAkdBUCpbM8vZ+9NSglWw8/bIDdLyJK0o9REsNcOtA0FQhZZLvOmWjdQR9DzXd7Bv0mvmFb/7ZgYmcWA0TdyRYjygW5QCIeshyQ4Q4MQJRp/OicXGCV6i4AUZOnNs/HmESCF1OftAEZiI/gHW1s2MkEMJ3VxfgC5dCo2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777392850; c=relaxed/simple;
-	bh=t4WOoiRBpoIjnqRhUxMbzch5XZDGVRegDpDLfMr+pdg=;
+	s=arc-20240116; t=1777392851; c=relaxed/simple;
+	bh=hm1hwqX12MMmcOcx+mUmnef+Uccffb/i9jFQzzEPLQA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ThCVHaoL5G3rpkmqwo77a7AVF4gLynL+6Tv3CFC8jZF3X3Axgc17uepKbkf27kK/wIzu3uysLKwf3FK+eAkpvVMI0nR6qbovhlXzbdVMbxkOauS6G8ZVDxMq+41SUy2/LbE2ql4xgkTbNqrbleU9tDSq2TBTuDoQmUjQWNwQ6GA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=i5fd698P; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=jwODVCW27jQlgsE3qS7nG0elcLz9rnliiqXBLCghSXo0dwkwtorjkwM5pQZ+ZYCpMmhvFE8f3jyGokwmxkkfWlFsXucunFylZXU9tqVJMudQUsfgoGcjcFoavPWjY62+Vhi4QiX27Cj14M0bHobjqBSGTwEmM4Tjc8upKByRPak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=U01CRmYc; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="i5fd698P"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="U01CRmYc"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1777392842;
-	bh=t4WOoiRBpoIjnqRhUxMbzch5XZDGVRegDpDLfMr+pdg=;
+	bh=hm1hwqX12MMmcOcx+mUmnef+Uccffb/i9jFQzzEPLQA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=i5fd698PwsQNVvvRsgRxUQrTU7R+/NzE7vqqgibSb+EF8hdt2WMoe8BvAJQ5CO+4Q
-	 ActeE2//ia2HPEOeKY+QICzymM3KfoLEqQYTyHTLq2yXu++bnLeVGSWOeYeF2zBLvp
-	 XrAvTb7SDK4nkj0c6kpyUWltULwJa+eutPRzAPaDOKMKWtqOyMwYeGvlDGRz83i+Ia
-	 GNhjGjrJMSs26CvT3Eq3VX3yfbDihWSCLQaQZQV4RRQ9dPu8VU+3k5H1P485X8+97k
-	 eH7PEzR+WrzoWUMpRTVXtRXXP6w7y9uwHv2dGgKjb0ovyKweRiuKXh1EaRFsKUhClW
-	 pXmyhTnvTIRrA==
+	b=U01CRmYcRmVIsSolJHd1twJqHsbhmtWWRlK0ZV+vx8jS5vXHFPjqHJChMZcUk07lr
+	 TI1biwMMWOe/J+TH2o2VeAkvCZIjOFLIP8rZ4XFAOKZ5mT8ApTRYYVpFPZSfnvSH/j
+	 shNomPytuuz+5ZHTH7L97dWUT+4gH+GcaWgh7JS+qkXkpQLufETX1M6423+Tut+Ffl
+	 OOgOyqaNqKsLgZVXFI7J2eVqpJBGF4yDJRNP/i7pFHMy/IbJxvsUD53h7swL8K7VjZ
+	 6zurW9x8QdJ4PCyV0mkF+BjV3a63G4XOTzOl9rZBJ91Fp8u+N9K45z4nFUVPVqc5ql
+	 Pr2q6QPAthi9w==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3B3D317E1582;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 56A6217E15A6;
 	Tue, 28 Apr 2026 18:14:02 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 8CEF648004C; Tue, 28 Apr 2026 18:14:01 +0200 (CEST)
+	id 934EF480061; Tue, 28 Apr 2026 18:14:01 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 28 Apr 2026 18:13:48 +0200
-Subject: [PATCH v4 09/16] phy: rockchip: usbdp: Use FIELD_PREP_WM16_CONST
+Date: Tue, 28 Apr 2026 18:13:52 +0200
+Subject: [PATCH v4 13/16] phy: rockchip: usbdp: Rename mode_change to
+ phy_needs_reinit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-rockchip-usbdp-cleanup-v4-9-7775671ece22@collabora.com>
+Message-Id: <20260428-rockchip-usbdp-cleanup-v4-13-7775671ece22@collabora.com>
 References: <20260428-rockchip-usbdp-cleanup-v4-0-7775671ece22@collabora.com>
 In-Reply-To: <20260428-rockchip-usbdp-cleanup-v4-0-7775671ece22@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -62,63 +63,78 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  devicetree@vger.kernel.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1489;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1849;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=t4WOoiRBpoIjnqRhUxMbzch5XZDGVRegDpDLfMr+pdg=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnw3MkDjC20n4q+HoWN81TqglrzFTrZQPhox
- hzb91pW/pjO24kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJp8NzJAAoJENju1/PI
- O/qae+cQAIxyY4nZl1j7ttVmDhN5dv8Tv2ehJKQlCrzwxiBK1yd7bwqpxoR2H+9+RlZ5U4ON2DV
- 1RLEUbMG1yHicfGzfHOhbjjgTuzBnxezS+ha3BwABSIzB8F00XfP3UFJtaxA0aVOAtHQfWrW1mK
- OFxjzKTRE75eoqh9ajonLZ2lkNpD0KbmpPgqpeEFKBgcnUAjNIvK3J2TGUaNSOny3g+t2kJB1Gm
- sZsg25jfM1y35N97WB39yCJRWJimYLfWATLZ95AYrSFZz7vSM3QpCWWOuIjuzjryuybIeR0M98U
- zqzYjuoQgfHkhFTzEUgOi+qmgPN6b4LkXiVoFF4Wv9inV9XFByzXoQ++vBApp9lLbCOwUmCsToX
- SVrwN2tnEIq2MClUar+Xhsv+GCTNAmHNJYZtBsQk5ZJklHzch1d4pXbzbRTy5gDcSGH8FGhjVqj
- KPE91jKg0Ore7oYxerQiUkRTs3EWVg1nYC7UcMabbPbpjpO8umfa0zqt/8QxmLeq18DIi3Rm118
- 79X+XJOh0khi0qG4Ryo2lFv4Pnr4aFL6Qy/11o3hOY249jk14akUGwkUzZvNEDM93dJyVkJBtEr
- b8kalPUjMEPzbzPBc0ZcU3pHqqSEl7n1NL2yNqiLHWOklHZpYhhoW+rFgw7ha+Xfuo3d4AZ77iM
- 2KEb/SKAaWmHveMwOoQAvVg==
+ bh=hm1hwqX12MMmcOcx+mUmnef+Uccffb/i9jFQzzEPLQA=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnw3MkGqm5aAX1UQ2T9KL1PCkegp2zPPVdsU
+ UjQTJC2P0pXyIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJp8NzJAAoJENju1/PI
+ O/qaUTIQAJtrmZYeZ2/Ua3NtDTAumruL/6iiTtFdfJIoM9DjN2Z7ZYeqo6g6PREZOHin1HyXJp/
+ OkpnqJ+BWr2yja2Xdx2cEaDzxg4iUzxtQ6YHOWyBB+fA+2tTCEf1heWwR/DsL2Dtj0yJbJEEQ6u
+ LhAJdHXgGSJ4GmZYoHThlvyEvYm50kDk3ZQWh5wFbB57aKc4YcTkxF3uLNVzr3XjyzCWw/JbuTI
+ 0cw7V8H1aLxk0u6jHzdZ1RMwjULKjcCW8r0I1nB6uTReiR/csnrzJL4ktIzgBe5T69UN9OlqFq8
+ Vu6c+pAfuqTvx2zs32pC3Brwx/MMYC2C3dH3Uhu7owtL6yrvzZhBZgSwUYgFwTHJjo7oIt2TorR
+ gID9G2GnCYNkqnKBCMeNNqqLlh4r8uegT2s4lMPdBniIY2tJUDE1H4ND4lAShUDpeHwUVHrHrgf
+ AXmFPlh8IrMpvOsrO7dunpdINr4C5vBwm8IFlMs/LYejr61HJGukCdOWFasO2T5opD9jfREUmE+
+ 3b5R2wPUNX4oym36Ga/FAAZUUoN63I/Ne+6CWSTqgkkyBsP85dJwf5ssiFTPZF9Z/VlPadKc07p
+ KYPUczLFpZSqL3S7jpIZLGbitCejt7BtZtX9mZJgmRBVvcxDilczoTxW2BVRIeo1bf34XrNsMrB
+ OOhBsZ7FT+7ydBQ2LcSYt3Q==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Cleanup code by replacing open-coded version of FIELD_PREP_WM16_CONST
-with the existing helper macro.
+Right now the mode_change property is set whenever the mode changes
+between USB-only, DP-only and USB-DP. It is needed, because on any
+mode change the PHY needs to be re-initialized. Apparently at least
+DP also requires a re-init when the cable orientation is changed,
+which is currently not being done (except when the orientation switch
+also involves a mode change). Prepare for this by renaming mode_change
+to phy_needs_reinit.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index 6d7ca11b308e..1bfc365e2b2c 100644
+index 3f1233f50686..694832cc161e 100644
 --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -12,6 +12,7 @@
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/gpio.h>
-+#include <linux/hw_bitfield.h>
- #include <linux/mfd/syscon.h>
- #include <linux/mod_devicetable.h>
- #include <linux/module.h>
-@@ -75,7 +76,6 @@
- #define TRSV_LN2_MON_RX_CDR_DONE_OFFSET		0x1b84	/* trsv_reg06E1 */
- #define TRSV_LN2_MON_RX_CDR_LOCK_DONE		BIT(0)
+@@ -172,7 +172,7 @@ struct rk_udphy {
  
--#define BIT_WRITEABLE_SHIFT			16
- #define PHY_AUX_DP_DATA_POL_NORMAL		0
- #define PHY_AUX_DP_DATA_POL_INVERT		1
- #define PHY_LANE_MUX_USB			0
-@@ -104,8 +104,8 @@ struct rk_udphy_grf_reg {
- #define _RK_UDPHY_GEN_GRF_REG(offset, mask, disable, enable) \
- {\
- 	offset, \
--	FIELD_PREP_CONST(mask, disable) | (mask << BIT_WRITEABLE_SHIFT), \
--	FIELD_PREP_CONST(mask, enable) | (mask << BIT_WRITEABLE_SHIFT), \
-+	FIELD_PREP_WM16_CONST(mask, disable), \
-+	FIELD_PREP_WM16_CONST(mask, enable), \
+ 	/* PHY status management */
+ 	bool flip;
+-	bool mode_change;
++	bool phy_needs_reinit;
+ 	u8 mode;
+ 	u8 status;
+ 
+@@ -582,7 +582,7 @@ static void rk_udphy_mode_set(struct rk_udphy *udphy, u8 mode)
+ 	if (udphy->mode == mode)
+ 		return;
+ 
+-	udphy->mode_change = true;
++	udphy->phy_needs_reinit = true;
+ 	udphy->mode = mode;
  }
  
- #define RK_UDPHY_GEN_GRF_REG(offset, bitend, bitstart, disable, enable) \
+@@ -970,15 +970,15 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ 	}
+ 
+ 	if (udphy->status == UDPHY_MODE_NONE) {
+-		udphy->mode_change = false;
++		udphy->phy_needs_reinit = false;
+ 		ret = rk_udphy_setup(udphy);
+ 		if (ret)
+ 			return ret;
+ 
+ 		if (udphy->mode & UDPHY_MODE_USB)
+ 			rk_udphy_u3_port_disable(udphy, false);
+-	} else if (udphy->mode_change) {
+-		udphy->mode_change = false;
++	} else if (udphy->phy_needs_reinit) {
++		udphy->phy_needs_reinit = false;
+ 		if (udphy->mode == UDPHY_MODE_DP)
+ 			rk_udphy_u3_port_disable(udphy, true);
+ 
 
 -- 
 2.53.0
