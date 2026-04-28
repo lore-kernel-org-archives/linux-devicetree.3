@@ -1,180 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650D0372EF9;
-	Tue, 28 Apr 2026 09:14:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9839A26F289
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:15:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777367677; cv=none; b=EWHtDOcAxGQmKjD63oGT8pcCUwE180VUVLP70aXbwMa/ll0tpUd3Sgq5QwbSd+oBi3rhzrHyzsus11XVlp+cBMIVp5M2OdQQ9UK3/7uZYyiblu6LqOLbvOhFLaLT5lnUMmEvxgMQA70ePourxPeExSQDrEAGu5d+VMpA8Iocuf8=
+	t=1777367741; cv=none; b=XPcpUgXceZOyV4i10rHuwvIpSnuvl0+88yVAYmRFh+rhBbfrUB4PrKI8p6pEyHpcmwRnJPNJkntvhnagYWzfKUzS2cVcfjMXscKMqxQmiQ6ZwRGnDMl3xzj+29hDXeVDWojhbOIBuOwaa6R1JzJTouLU2yEd4cXStYOhSbNW8L8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777367677; c=relaxed/simple;
-	bh=sTgzxKlvNx3kDBwuHW7P1B6MFUo60aa2uqEAXCEDmo8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=usXHrYTBrds+ohBNqInFixxmucdjoq7rDTjS6hAHSNMTfWDd7cmnKMfR2rKwwFh/6qtk6RFyLHnaFS6MP2qVX0aT5zmIs7H+Ma+kLiZy9dCaBXoedZvXVdXU7m39xNiMNTKH8XrsKCS2lVJGq6EkbjDCEJXZcwJLbxqMujxRi3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JYh0LZQR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777367741; c=relaxed/simple;
+	bh=awpELMqLUdC0kYnkjNOuts6q9isGcctAxwhBeu23+34=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MIX1/iM7B5wdNiF/KnYkpe7zMoowp8t/VhKPlqFH8PjWsBMKBHDGlaf8w6Jhb2WekIcG5sun8Byg25MwTKYb6XjZ+ozOhxF21Z2zoN4sDeL0mmDXANJhTq7PJj9I6NAft5Pk3iGqUzeXBDNuBemuM8qV656E0DRuvM57YIGXZWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p1bFoL3O; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JYh0LZQR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93B6FC2BCAF;
-	Tue, 28 Apr 2026 09:14:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p1bFoL3O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5774EC4AF0B
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:15:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777367677;
-	bh=sTgzxKlvNx3kDBwuHW7P1B6MFUo60aa2uqEAXCEDmo8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=JYh0LZQR1Ey0PeC4fs+vIpv7mBdMhrYnzld5mG2EpEdfOrBQEARbZFdb6ul2QhDbr
-	 c/jZHYGg7uTlxdvtZqT5tZfjVPK4U9dI2zju6E9JQ6YtIj0Kf3vhSJfCKDi+glfO9E
-	 1jpD4bMNmPBAFTTHtF8A3f4PRTip8t7B32Eathpt6bNUWlB8ut+QrtU5iGPYAV/qZe
-	 I+xvIdJJBQiz7EsM+BYzhlPSVi4dZ8gkEGnseVZciuiH/BuqrlJVvSLu0j/Ep59P9G
-	 OaFd7wnCD+9xouOBF/jXDMARGkA13eVRcjLlSd0RsbJR1MhwvbCphDxRwCM3vDClxY
-	 eMMMA7ZuD4rCg==
-Message-ID: <5ded8bbd-11b2-4552-80f5-972df15dc6e0@kernel.org>
-Date: Tue, 28 Apr 2026 11:14:32 +0200
+	s=k20201202; t=1777367741;
+	bh=awpELMqLUdC0kYnkjNOuts6q9isGcctAxwhBeu23+34=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=p1bFoL3ONb2N9LyVXGx6WTlxyeup27+PT+AG56WKrCC13lT0zePBhzWossmwclYJN
+	 WAj7ssur5Hfek/KJ8bFn8DkUvMun1O4+g21SFNzydG3z2PUMdnfqy6D1ETWKnVGuIt
+	 P3twbD2h0F1q/T8hEYkJvhyh+zMBWUIxwbphzP8qnd+PGYPHRwjsDCe7Z0MmFrZnVN
+	 W70VMbITlSt0nFSVo+i56iumi3+D9DCizEJVIPyiV8J+2gvNpDcKgZJG5kq9b3jOmm
+	 Sjr6Etwcy9W17VNnHvNsmf8auoiZWIlyy1/tynkmUAHKkZj0o39ZzOG+xGQqLoiwJQ
+	 mbAF4fY/M4nwQ==
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5a62a049c1fso8506375e87.3
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 02:15:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/lDr/JHaCL11X10ipyYHzt0jxNCQ4pFmLcSiJbJQjmZgdQgSOztXjImjD6VwXlzywWmBGY7LRga5vx@vger.kernel.org
+X-Gm-Message-State: AOJu0YxOo2Dma0Ri4CyTwdAKrjOhs70wo8Q1u6FVaFP++h3b3Vn7Oy12
+	7WVe676JxiNevGJX30HKx/Sk5TwjzrKAKKzsjv074DXE7Y26waCl2ENY6CMNBlqzWmPFY3JcE6t
+	AUE5eh0idaCDIk/fqXsB7J0oS1wif3ws=
+X-Received: by 2002:a05:6512:3984:b0:5a4:ab6:81ac with SMTP id
+ 2adb3069b0e04-5a7466229b2mr713237e87.34.1777367739994; Tue, 28 Apr 2026
+ 02:15:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: remoteproc: document AMD BRAM-based
- rproc
-To: Michal Simek <michal.simek@amd.com>, Ben Levinsky <ben.levinsky@amd.com>
-Cc: andersson@kernel.org, mathieu.poirier@linaro.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-remoteproc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, tanmay.shah@amd.com
-References: <20260427162703.1644103-1-ben.levinsky@amd.com>
- <20260427162703.1644103-2-ben.levinsky@amd.com>
- <20260428-curly-hyena-of-triumph-fc1f4c@quoll>
- <68cf4479-c6f5-4947-bc75-df9be73644d3@amd.com>
- <998b67ff-192a-478f-a9c6-ddcd7773e27c@kernel.org>
- <86e464f2-974b-441d-9459-dd957c16993d@amd.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <86e464f2-974b-441d-9459-dd957c16993d@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260410111047.309798-3-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260410111047.309798-3-krzysztof.kozlowski@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 28 Apr 2026 11:15:28 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk6e0mATHVKdCifmNWxercHeAs8EZWmC_BNLuNWagk2gQ@mail.gmail.com>
+X-Gm-Features: AVHnY4JjDqOCD7g_W9kH7halVekL6hGvEDu2BPCJ-xFboqoZ_gLn0TH30VkPJLk
+Message-ID: <CAD++jLk6e0mATHVKdCifmNWxercHeAs8EZWmC_BNLuNWagk2gQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: pinctrl: nvidia,tegra234: Add missing
+ required block
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Prathamesh Shete <pshete@nvidia.com>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 28/04/2026 11:04, Michal Simek wrote:
-> 
-> 
-> On 4/28/26 10:47, Krzysztof Kozlowski wrote:
->> On 28/04/2026 10:33, Michal Simek wrote:
->>>
->>>
->>> On 4/28/26 08:50, Krzysztof Kozlowski wrote:
->>>> On Mon, Apr 27, 2026 at 09:27:02AM -0700, Ben Levinsky wrote:
->>>>> Describe an AMD BRAM-based soft-core processor subsystem instantiated in
->>>>> programmable logic and using dual-port BRAM for firmware storage and
->>>>> execution.
->>>>>
->>>>> The binding models a soft-core processor subsystem instantiated in AMD
->>>>> programmable logic and using dual-port BRAM for firmware storage and
->>>>> execution. The remoteproc device is represented as a child node whose
->>>>> reg property describes the firmware memory window in the processor-local
->>>>> address space. The parent bus node provides standard devicetree address
->>>>> translation through ranges so Linux can access the same BRAM through the
->>>>> system physical address space.
->>>>>
->>>>> A clock input feeds the soft-core processor subsystem, and an active-low
->>>>> reset GPIO holds the processor in reset until firmware loading
->>>>> completes. The firmware-name property is optional.
->>>>>
->>>>> Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
->>>>> ---
->>>>>    .../bindings/remoteproc/amd,bram-rproc.yaml   | 98 +++++++++++++++++++
->>>>>    1 file changed, 98 insertions(+)
->>>>>    create mode 100644 Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
->>>>>
->>>>> diff --git a/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
->>>>> new file mode 100644
->>>>> index 000000000000..f16657dc0d9f
->>>>> --- /dev/null
->>>>> +++ b/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
->>>>> @@ -0,0 +1,98 @@
->>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>>>> +%YAML 1.2
->>>>> +---
->>>>> +$id: http://devicetree.org/schemas/remoteproc/amd,bram-rproc.yaml#
->>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>>> +
->>>>> +title: AMD BRAM-based Remote Processor
->>>>> +
->>>>> +maintainers:
->>>>> +  - Ben Levinsky <ben.levinsky@amd.com>
->>>>> +
->>>>> +description: |
->>>>> +  Soft-core processor subsystem instantiated in AMD programmable logic and
->>>>> +  using dual-port BRAM for firmware storage and execution.
->>>>
->>>> Isn't the soft-core or FPGA still part of some Xilinx SoC? Or is this
->>>> completely different thing from SoC and there is a design WITHOUT SoC
->>>> using this remote proc?
->>>
->>> In 99% case this is going to be used on Xilinx SOC with programmable logic next
->>> to ARM core.
->>> soft core means - means VHDL/Verilog code synthesized to programmable
->>> logic/fpga. It means exact location in chip varies based on build and constraints.
->>>
->>> hard core - physical HW location - like ARM cores in our chip.
->>>
->>> (ARM is providing RTL/code that even ARM cores in fpga emulated platforms are
->>> actually used as soft cores).
->>>
->>> Not sure if you want me to talk about that 1% use cases which are also possible
->>> but don't think anybody will design them.
->>
->> Then I would treat it exactly like every other block of a SoC - you need
->> a SoC specific compatible. If there is a fallback, SoC specific
->> compatible should be used in the fallback as well - that's all already
->> documented in writing-bindings.
-> 
-> But which SOC? We have ZynqMP, Versal, Versal NET, Versal Gen 2. And all of 
-> these will use this configuration.
-> Do you want to list all of them?
+On Fri, Apr 10, 2026 at 1:10=E2=80=AFPM Krzysztof Kozlowski
+<krzysztof.kozlowski@oss.qualcomm.com> wrote:
 
-"Then I would treat it exactly like every other block of a SoC"
+> Binding should require 'reg' property, because address space cannot be
+> missing in the hardware and is already needed by the Linux drivers.
+> Require also 'compatible' by convention, although it is not strictly
+> necessary.
+>
+> Fixes: 857982138b79 ("dt-bindings: pinctrl: Document Tegra234 pin control=
+lers")
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Best regards,
-Krzysztof
+Patch applied to the pinctrl tree.
+
+Yours,
+Linus Walleij
