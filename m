@@ -1,162 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from server.couthit.com (server.couthit.com [162.240.164.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E40212F89;
-	Tue, 28 Apr 2026 07:28:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 440623C9ED6;
+	Tue, 28 Apr 2026 07:30:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.240.164.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777361331; cv=none; b=CI3RvBuDb3Z78qB6XXh4Zns1J2Jo8q7rpZAW2h/u1DzN70Ue+keTA9LOvEv88HJRtmWbRr8VHNixgvrRTzxCg7PWTmKfa8zKSE5joji+D5lpzdIJ3wqR/0lgi3sWCHYGs6iYO6hmwkZgT3rCh1YD4ZyBU5a6szHIO0HIxT47/G4=
+	t=1777361405; cv=none; b=o/EpGidwdNXfKYagHgo8QyLQlEO5iqFZmpNvd2wNhNP09xzuyJLaVEBDl+STvUywy+Vmg1Aq5n3O7TiVvYp8wA2xS9A577X/aeA7iaNq0nNv1uyJs/ssBoZRT+bP3fdnTZB54RgQb1/777QR/Jv51OWrS4Qzck+i53vIghFYHM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777361331; c=relaxed/simple;
-	bh=ibjBOj6OYaJh73o595yTXFskkPVNjUyVaL+8Wblo+Yc=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=RZRMVyNOJCKndWS8sHOTogBTbXt4uVci0q9mTQeOQhJiVBn0A4Mgx1MMbw/sIcKiAJ+QfeWjv35IiaHO0RH9V1cgg9ARVLHnGJNle1wyB1m6qCqBQAwdX6suV7CkV8mc+z7diGRtUrPXJblrXYO2r5Lq8qCExekcOu4sHZZKAsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OqlMRYFD; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777361405; c=relaxed/simple;
+	bh=77phWsaigQmSYE4bT5DU9fTaMkciOvN27E52vUWUBNI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bH2HAWVioIYuyUF8IpBi4OxE6ZeIBlNjcsOv+I8Kv0nJ6/71oEKNKyOyVE/vvA3vwe8vtSYYFDIHeza7msdtBJ65nACuR5iGCw+46vInSQqVXdS9ijPWOs9zQrgBrQ6nvaRrIbaE8j6LwPIRHQnEaEfzJV6kiF4DTw8tCax4x2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=couthit.com; spf=pass smtp.mailfrom=couthit.com; dkim=pass (2048-bit key) header.d=couthit.com header.i=@couthit.com header.b=YPoiHbCx; arc=none smtp.client-ip=162.240.164.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=couthit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=couthit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OqlMRYFD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE3A6C2BCAF;
-	Tue, 28 Apr 2026 07:28:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777361331;
-	bh=ibjBOj6OYaJh73o595yTXFskkPVNjUyVaL+8Wblo+Yc=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=OqlMRYFDkg8SSy1lrKrzOOAQ6fIOVL01ne4zSckMUetk8deqjsxsnmQk1VlAPabJi
-	 2uJhy0EKBqt27EO52KsDSXnyP5XCHasCCAUz52vpZyjZiGgR0cUmNURyfX3cu4NVw1
-	 6NUaQBKntV2B2YUmTRDmwHD8XmsrSMp47AhlIBDPkNf5G6jPxV5UxBBTccj8xfCFnU
-	 Igl5yQqN+/qUgbdVQyO8GYjPjYaxGVLzQLdoGR49CYBvWb3O6KH8qJpt+TQ6JZP8J8
-	 omOmeaid38FFl6viBbspEpBQDNSWN/xv/9U+46aDWp3pvBYaQnrQc8tcNOiekSF8wS
-	 rWS8wkYlDTdZw==
-Message-ID: <e1a84d37-04a1-4c36-b6c3-f8830df9a744@kernel.org>
-Date: Tue, 28 Apr 2026 09:28:47 +0200
+	dkim=pass (2048-bit key) header.d=couthit.com header.i=@couthit.com header.b="YPoiHbCx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=couthit.com
+	; s=default; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject
+	:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=5LBdL41YcH/krzzVhyyE3Vtp0Kla/ikLLpLRIkmMtI0=; b=YPoiHbCxXzMK6L4OIpCrpb51q5
+	t4A5VVrsiGzd5eE14J0FD9xpOSDrOQgM4snezahqOdtkOZXVaLg1zWW3oBCiPif3/r0AILOF9/4ZQ
+	nX2sTfhcQm2JBdX+etP3qnwUAwPVKZ+3TKZ4GC1H8g+yhrQ06j5sSfqj0sev2ZYprN6ZTfaT+/lpT
+	6IocEYKpySGzAltAiE/kft/YD8OXhlvBwSPoGi+nWcuvrVPj8AFNUSHY/+vRNUILHWegkB9Pbzh+5
+	X+Da1ZqpbJo8Nls/q7hni99ALvDXWap5GEzaqu7JpTXy8i0XhvcLDV1PMDQOZDIxHT6l47wKfaYyY
+	uGFk+xog==;
+Received: from [115.246.246.98] (port=30876 helo=cypher.couthit.local)
+	by server.couthit.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.98.1)
+	(envelope-from <parvathi@couthit.com>)
+	id 1wHclA-0000000GFVv-3Ahw;
+	Tue, 28 Apr 2026 03:21:33 -0400
+From: Parvathi Pudi <parvathi@couthit.com>
+To: nm@ti.com,
+	vigneshr@ti.com,
+	afd@ti.com,
+	khilman@baylibre.com,
+	rogerq@kernel.org,
+	tony@atomide.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	richardcochran@gmail.com,
+	aaro.koskinen@iki.fi,
+	andreas@kemnade.info
+Cc: linux-omap@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	andrew@lunn.ch,
+	danishanwar@ti.com,
+	pratheesh@ti.com,
+	j-rameshbabu@ti.com,
+	praneeth@ti.com,
+	srk@ti.com,
+	rogerq@ti.com,
+	krishna@couthit.com,
+	mohan@couthit.com,
+	pmohan@couthit.com,
+	basharath@couthit.com,
+	parvathi@couthit.com
+Subject: [PATCH v7 0/3] Add support for ICSSM Ethernet on AM57x, AM437x, and AM335x
+Date: Tue, 28 Apr 2026 12:47:26 +0530
+Message-ID: <20260428072046.3022679-1-parvathi@couthit.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] arm64: dts: qcom: Add device tree for Nord SoC series
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260427023455.236410-1-shengchao.guo@oss.qualcomm.com>
- <20260427023455.236410-2-shengchao.guo@oss.qualcomm.com>
- <20260428-dangerous-garnet-collie-dacccf@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260428-dangerous-garnet-collie-dacccf@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - server.couthit.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - couthit.com
+X-Get-Message-Sender-Via: server.couthit.com: authenticated_id: parvathi@couthit.com
+X-Authenticated-Sender: server.couthit.com: parvathi@couthit.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On 28/04/2026 09:24, Krzysztof Kozlowski wrote:
-> On Mon, Apr 27, 2026 at 10:34:52AM +0800, Shawn Guo wrote:
->> Add base device tree include (nord.dtsi) for the Nord SoC series
->> describing the core hardware components:
->>
->>  - 18 Oryon (qcom,oryon-1-5) cores in three clusters, with PSCI-based
->>    power management and CPU/cluster idle states
->>  - ARM GICv3 interrupt controller with ITS
->>  - TLMM GPIO/pinctrl controller
->>  - 8 TSENS thermal sensors with thermal zones
->>  - 3 APPS SMMU-500 instances
->>  - 3 QUPv3 GENI SE QUP blocks
->>  - PDP SCMI channel and mailbox
->>  - Watchdog, TRNG and TCSR
->>  - Reserved memory, CMD-DB and firmware SCM
->>  - PSCI and architected timers
->>
->> Co-developed-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
->> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
->> Co-developed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
->> ---
->>  arch/arm64/boot/dts/qcom/nord.dtsi | 4511 ++++++++++++++++++++++++++++
->>  1 file changed, 4511 insertions(+)
->>  create mode 100644 arch/arm64/boot/dts/qcom/nord.dtsi
->>
->> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qcom/nord.dtsi
->> new file mode 100644
->> index 000000000000..00d189cfed8c
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
->> @@ -0,0 +1,4511 @@
->> +// SPDX-License-Identifier: BSD-3-Clause
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + */
->> +
->> +#include <dt-bindings/interrupt-controller/arm-gic.h>
->> +
->> +/ {
->> +	interrupt-parent = <&intc>;
->> +	#address-cells = <2>;
->> +	#size-cells = <2>;
->> +
->> +	cpus {
->> +		#address-cells = <2>;
->> +		#size-cells = <0>;
->> +
->> +		cpu0: cpu@0 {
->> +			device_type = "cpu";
->> +			compatible = "qcom,oryon-1-5";
-> 
-> I asked you to send this binding WITH the user, because they go via
-> the same tree. I see the user, but no binding for it in the patchset.
+Hi,
 
-And few others like SCM are also missing. I am talking about this many
-times already, to multiple vendors, and I am still surprised why people
-on purpose give more work to the maintainer. Well, not my tree, so not
-my work, but if you ever wonder why your patches are not applied for
-longer time, that could be one of the reasons.
+This series adds support for ICSSM Ethernet on Texas Instruments AM57x,
+AM437x and AM335x platforms.
 
-Best regards,
-Krzysztof
+The AM57x and AM437x IDKs support two PRU-ICSS instances, each consisting
+of two PRU cores, with each PRU-ICSS instance capable of handling two
+Ethernet ports. For the AM57x platforms, the PRU-ICSS2 node has been added
+to the am57xx-idk-common.dtsi, while for the AM437x platform, the PRU-ICSS1
+node has been added to the am437x-idk-evm.dts.
+
+The AM335x ICE features a single PRU-ICSS instance. A new device tree overlay
+source file, am335x-icev2-prueth-overlay.dtso, has been introduced to define the
+PRU-ICSS node for the AM335x platform.
+
+This is v7 of the patch series [v1]. This series is based on the latest
+next-20260427 linux-next.
+
+Changes from v6 to v7 :
+
+*) No code changes were made, only the version was updated.
+*) Rebased the series on latest linux-next.
+
+Changes from v5 to v6 :
+
+*) Addressed Kevin Hilman, Krzysztof and Andrew lunn comments on patch 3 of
+the series.
+*) Fixed an issue with overlaying "output-low" property in "mux-mii-hog"
+sub-node under "gpio3" node.
+*) Rebased the series on latest linux-next.
+
+Changes from v4 to v5 :
+
+*) Addressed Andrew Davis's comments on patch 2 of the series.
+*) Addressed Andrew Lunn and Nikolaus Schaller comments on patch 2 of the series.
+*) Rebased the series on latest linux-next.
+
+Changes from v3 to v4 :
+
+*) No code changes were made, only the version was updated.
+*) Rebased the series on latest linux-next.
+
+Changes from v2 to v3 :
+
+*) Addressed Andrew Davis's comment by placing PRUETH nodes in a new overlay file
+am335x-icev2-prueth-overlay.dtso.
+*) Rebased the series on latest linux-next.
+
+Changes from v1 to v2 :
+
+*) Addressed Andrew Lunn's comment on patch 1 of the series.
+*) Addressed MD Danish Anwar comment on patch 1 of the series.
+*) Rebased the series on latest linux-next.
+
+[v1] https://lore.kernel.org/all/20251013125401.1435486-1-parvathi@couthit.com/
+[v2] https://lore.kernel.org/all/20251103124820.1679167-1-parvathi@couthit.com/
+[v3] https://lore.kernel.org/all/20251217130715.1327138-1-parvathi@couthit.com/
+[v4] https://lore.kernel.org/all/20260105162546.1809714-1-parvathi@couthit.com/
+[v5] https://lore.kernel.org/all/20260307122641.738450-1-parvathi@couthit.com/
+[v6] https://lore.kernel.org/all/20260402073853.2170099-1-parvathi@couthit.com/
+
+Thanks and Regards,
+Parvathi
+
+Roger Quadros (3):
+  arm: dts: ti: Add device tree support for PRU-ICSS on AM57xx
+  arm: dts: ti: Add device tree support for PRU-ICSS on AM437x
+  arm: dts: ti: Add device tree support for PRU-ICSS on AM335x
+
+ arch/arm/boot/dts/ti/omap/Makefile            |   4 +
+ .../ti/omap/am335x-icev2-prueth-overlay.dtso  | 156 ++++++++++++++++++
+ arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi      |  11 ++
+ arch/arm/boot/dts/ti/omap/am4372.dtsi         |  11 ++
+ arch/arm/boot/dts/ti/omap/am437x-idk-evm.dts  | 103 +++++++++++-
+ arch/arm/boot/dts/ti/omap/am57-pruss.dtsi     |  11 ++
+ arch/arm/boot/dts/ti/omap/am571x-idk.dts      |   8 +-
+ arch/arm/boot/dts/ti/omap/am572x-idk.dts      |  10 +-
+ arch/arm/boot/dts/ti/omap/am574x-idk.dts      |  10 +-
+ .../boot/dts/ti/omap/am57xx-idk-common.dtsi   |  61 +++++++
+ 10 files changed, 375 insertions(+), 10 deletions(-)
+ create mode 100644 arch/arm/boot/dts/ti/omap/am335x-icev2-prueth-overlay.dtso
+
+-- 
+2.43.0
+
