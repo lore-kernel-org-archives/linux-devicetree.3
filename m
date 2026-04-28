@@ -1,66 +1,68 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazolkn19012072.outbound.protection.outlook.com [52.103.11.72])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazolkn19012074.outbound.protection.outlook.com [52.103.11.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C5B3F54C3;
-	Tue, 28 Apr 2026 14:01:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.11.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716FB391E7E;
+	Tue, 28 Apr 2026 14:02:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.11.74
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777384882; cv=fail; b=Mnq9Ja6uRwnCp4rVRRJC/Rl0D+i6zByeVjFi6kEOwDf/PxbSjzdvNBfJ7uR91gkXPamIIrqNu93TN+MdEPhtpzYJWLqftHBW2CrU2VOJZ/4GKCW9Fmrt8vYHAPAMPMUPiyBKoV/yCOELDyrtizbc+K2U05q9be/0QXeBZNfvarY=
+	t=1777384954; cv=fail; b=DLrdDMpq18mNLXZ0pfUC0tdy0t8t9vedTGQAP7/IXahVMqC0+mPOZ/rkS6kTOAdSQc8NYHHYFYa5LSERReNEJDp3XtzPXSzv4kHRP95fAAxQZVq1tfLAJ3ZElAVRq9+S9fIJRCZwL/wvnwfq4v3/qhM44sZDXpw2L2PjVrKXx8M=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777384882; c=relaxed/simple;
-	bh=8SkOps9pkf/xKMa8sNK8doHPouLoZUPWKIZ9Ukvug8o=;
+	s=arc-20240116; t=1777384954; c=relaxed/simple;
+	bh=2KZfDSB9E5wCTkxAEct1WOzLlb0zfbZz+Ai9ALJzQ2s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=KrciZofjsLMlOTGNRGmc//ReA3WmqgvQ/viCYU6d0YcCN3FrWYmEP3VlP7Rb3aJQjI9IX2pnQ2rCqbn68J9ncXPVRdPlLUlYIkWqUtLeHIoIFeWKp0yDUhsta0nwnUAO/D7+SMjgola5pRONyCDggzDTa24/gUUoFNcTvpxhT4Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=rJkHMedU; arc=fail smtp.client-ip=52.103.11.72
+	 Content-Disposition:In-Reply-To:MIME-Version; b=JE2yH+KyPP8vvKYkmO2wFaSC930g5lb7c+8/n+HCbDbZfMq1PpYPfdHfxKhnfCu2eUwPmQLw3Zqv86/LVwbo0UNgUjb6OUHZVO+j3a8MUbV3xYXNys2kIw1LBWlfdzrD1p3Nu9J3asHGgokUIws90TgL+u/uY9TcgsfCW07xL8Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=BFV5VmbR; arc=fail smtp.client-ip=52.103.11.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="rJkHMedU"
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="BFV5VmbR"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R/VXz7AvB+WaS50OOdStScZqeHLBaKOLnsD/IciHQ82vGX3KZdHdwoY0BD1tR4cNlCjH9NE2QpBJElC7d9ps1kn3ce97adBCUfsJ2QGxUWdpQw+wid1vtn/+4QNIqC2xWyb0jhNtg4XkPOY3Kx7saBEmDLJAKCfzr1offpQxWJcqJIuKiunmunGtJH7cUju8OZrD0jklukE5zMo8hqe3WU9TY2VQUug7Oz/8n+w+QBY6jinZDKeP9vb8tAEJlSmaPn/DS407PWuYuzRNzT2SSbajZD4fNd5wpTkgc39qmQ+ZkpdldvnP3h01CwMs1liiR1WZQxDggfDIbw+3UVsO4Q==
+ b=mi4Q/JTAl7osfomFXdIJexuqi922RSNYnbhrgw3cE8/w/mMZiSOjWlbCVMHQRMnpDPg0dDYH4AaB2ERDnfiDz7dgJi3NeDBo4MtaOcT0lRlfwkz3+i5zEubVtmDN2TfACc6Q8VoF4D0JqS3QwVlxYp7ay5hQD0BZPmnbu+S2f58ar2KZ1YF1RAcM2KUIg+sXnuuWzxS3lvYHbnxnv4x1djZuEXLntbtilRdtiGAPCZd0dBG4nVagAJxGwp8W4D1pQrVrhGnQYiqFz+OIoQakz1BOZU8GhaZn5gIig5rAx4Su/o6n5X4jC6n0ADtgc0kvHZZIC6q5W88P8ztOPrJ9FA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QK6NBNBD3roXbA/kjeXOANm8VDAyYnNh/C9qU1YF/00=;
- b=L2790M8jmRY/G0ZIZ3ONXHIEdzYOXVrBgQ0TGGgjZiBJ0tuwWmXFN1UlJq9P+ahO2/CthrCPMV4d6Eg79ckNx0d4QW0ktanRcIsOh6B+rhRFfgPk9zllJHVzbcfY50sOQdrpXz/udjrvw4rU3pj3McBgsIdEu86cJjugL4Vrp3zlLKdzHC3n36CBmFwvJ37DAB+r+0QWTlYmthzp6gdArtf9WYNScTZg73NkCQHUcSW/wLlGknzk45BQ6/2XqxHaelxVcHMCbEmT8jSnm+LJB0/mL3YFELAkS3EDC9ITPo4+vGoyM4mK3H0cE8Qymyntq3tTke98lw/OF5HcK7eewQ==
+ bh=mvgOSwnpHpQMziZqPwCFco8ggE4sUL2s2Kol5x78wOY=;
+ b=OGqGBDXcOFfKNkO0DbKPBbjcuqB63rUp4e1jo6ZLIEXYEoANaz4hxdXduS0B+eZ5RAsZp15/+JfkdA2KuW9NKcvqfvV9phOlfUlwqm5O8qCgqAuib/9EWhv1ds/hzM2LNk2IxMt/iFG6StQe88a+wnZQy7qyq/fHwucfdYFmxZu7CIyIHd7eH26lDQ1jelqpDb110aOOf1w83dycUNZJ0h/bfhF7S/OUF5gX/v/qSb9wRjPvV96rIoGw0AEzRUvBhGLBMoPirC+oo4nc+LS3x4qxItI6WYmQ1FHnNC0zyp2P8gD+VrkVNbZd9D0mM+LtTjmkjVXMOpHeln3mbHpJbA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QK6NBNBD3roXbA/kjeXOANm8VDAyYnNh/C9qU1YF/00=;
- b=rJkHMedU7JgCgPcTjoLJ91PYOvLbeBC4c9gbKarpmbkm8Arq7AHhwgxZVVcb1/4CpWDOedOmLXFJuRY62qc0Nb9Wa9L4Yv5p1rgKyEAqj2wRf1VuqFVU8U0X4R0A5uZUXEMmg5vuMu53TY8A464U/FlFVScB6rCwJjZ52ZFsT6hQYzoD/oVmahEISGfqXR9nIlcYTlj0wZkkCyz1doAhMparHbD5I3nxG17jolz7QxJeKyZgNoCcZsV/8RKzh78b1dXSnjomK/aUNppu8e5l1RyL2YF29+MrBSXvPq81KfsQah/5hzOZqFdkB64r6VZokdTI1z85X+hnM/ggP8GJmw==
+ bh=mvgOSwnpHpQMziZqPwCFco8ggE4sUL2s2Kol5x78wOY=;
+ b=BFV5VmbRy1K4UAXzTrbBDA/QmSiHnsobKW4xuTZo48qFUhMFoYW5mXslGWkIHSQ4OPt35gJgbiK2V0oMar5CiB9fOHf+H2xxGQi7M5lmPEBUt1vTo8W6SnrxR5akTZu4hkNNvU3ekri5utgs0I6H2MgMNKUTPMb6hjvBLxVHOVUQezmiR5Gqc1xJbJo+yuo1pTt7QW0nQNE7ASRLE0TMjynUHrI1CRARHhTHB5257jb4tKQsusL3YJhn7CXfPx7FYKLixE3d8E2bVb/UVYDyTDX0LmneoYwRlMRIwuty4sRcWzBeyBPLSMgQnxBLSbYZNyGY4DZahaYWNYdx4fMLHg==
 Received: from PH0PR19MB997338.namprd19.prod.outlook.com
- (2603:10b6:510:3b1::18) by CH3PR19MB7982.namprd19.prod.outlook.com
- (2603:10b6:610:161::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Tue, 28 Apr
- 2026 14:01:18 +0000
+ (2603:10b6:510:3b1::18) by DS1PR19MB997375.namprd19.prod.outlook.com
+ (2603:10b6:8:495::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.27; Tue, 28 Apr
+ 2026 14:02:30 +0000
 Received: from PH0PR19MB997338.namprd19.prod.outlook.com
  ([fe80::fd22:ee23:3e25:3172]) by PH0PR19MB997338.namprd19.prod.outlook.com
  ([fe80::fd22:ee23:3e25:3172%6]) with mapi id 15.20.9846.025; Tue, 28 Apr 2026
- 14:01:18 +0000
-Date: Tue, 28 Apr 2026 09:01:12 -0500
+ 14:02:30 +0000
+Date: Tue, 28 Apr 2026 09:02:26 -0500
 From: Chris Morgan <macromorgan@hotmail.com>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
-	andy@kernel.org, nuno.sa@analog.com, jic23@kernel.org,
-	jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
-	krzk+dt@kernel.org, robh@kernel.org, andriy.shevchenko@intel.com
-Subject: Re: [PATCH V3 6/9] iio: imu: inv_icm42607: Add Accelerometer for
- icm42607
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Chris Morgan <macroalpha82@gmail.com>,
+	linux-rockchip@lists.infradead.org, linux-pm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	xsf@rock-chips.com, sre@kernel.org, simona@ffwll.ch,
+	airlied@gmail.com, tzimmermann@suse.de, mripard@kernel.org,
+	maarten.lankhorst@linux.intel.com, jesszhan0024@gmail.com,
+	neil.armstrong@linaro.org, heiko@sntech.de, conor+dt@kernel.org,
+	krzk+dt@kernel.org, robh@kernel.org
+Subject: Re: [PATCH 5/6] dt-bindings: arm: rockchip: Add Anbernic RG Vita-Pro
 Message-ID:
- <PH0PR19MB997338EE6A13BD08879C4B9B2BA5372@PH0PR19MB997338.namprd19.prod.outlook.com>
-References: <20260330195853.392877-1-macroalpha82@gmail.com>
- <20260330195853.392877-7-macroalpha82@gmail.com>
- <f1ae57fe-1ad5-46ee-9f0c-245f4deec7ce@baylibre.com>
+ <PH0PR19MB997338E281101ABB457FF8D655A5372@PH0PR19MB997338.namprd19.prod.outlook.com>
+References: <20260427170914.5062-1-macroalpha82@gmail.com>
+ <20260427170914.5062-6-macroalpha82@gmail.com>
+ <20260428-vigilant-grebe-of-tempering-0b5e14@quoll>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <f1ae57fe-1ad5-46ee-9f0c-245f4deec7ce@baylibre.com>
-X-ClientProxiedBy: SA1PR05CA0008.namprd05.prod.outlook.com
- (2603:10b6:806:2d2::15) To PH0PR19MB997338.namprd19.prod.outlook.com
+In-Reply-To: <20260428-vigilant-grebe-of-tempering-0b5e14@quoll>
+X-ClientProxiedBy: DS7PR03CA0055.namprd03.prod.outlook.com
+ (2603:10b6:5:3b5::30) To PH0PR19MB997338.namprd19.prod.outlook.com
  (2603:10b6:510:3b1::18)
-X-Microsoft-Original-Message-ID: <afC9qOzisMfb_Ulc@wintermute.localhost.fail>
+X-Microsoft-Original-Message-ID: <afC98jaSd_VWsgyH@wintermute.localhost.fail>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,347 +71,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR19MB997338:EE_|CH3PR19MB7982:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7ae7dbd2-00da-44ea-3d9f-08dea52e9eb5
+X-MS-TrafficTypeDiagnostic: PH0PR19MB997338:EE_|DS1PR19MB997375:EE_
+X-MS-Office365-Filtering-Correlation-Id: 364628a6-f569-4eb6-fc14-08dea52ec9c3
 X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|8060799015|41001999006|6090799003|19110799012|5072599009|461199028|23021999003|15080799012|25031999004|24021099003|37011999003|440099028|3412199025|56899033|40105399003|52005399003;
+	BCL:0;ARA:14566002|51005399006|24021099003|37011999003|25031999004|6090799003|15080799012|5072599009|19110799012|8060799015|23021999003|461199028|40105399003|3412199025|440099028;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?+tjGF4PR3/YKtdK/48wli+WiOGSQDIZ6uiLgrJ2XkoT85j0jziVQDD7Z/ant?=
- =?us-ascii?Q?kqZVXgyIOMHIXVZMvC6GP1MKkpnqA+hoLFaAwaX6J3e5eeBWb6iop1FVO/xL?=
- =?us-ascii?Q?PDt5i9drIs8fmlUHknLs4w4DI795ml0BiwOlPTRf8GEhX0h/T0Bf4ANqLpYR?=
- =?us-ascii?Q?KdPe4wxZf62YI56+kiZ9H65bJ5mf+kWKtatbxcMnBrq8U5qgKiuLYls1HsxE?=
- =?us-ascii?Q?ZTQWP0YIPMv2dbughx29i7RbybhUfq6uvjqqN7Tr2nFD0z+Kl5YlQr3bb1DZ?=
- =?us-ascii?Q?VK5sHfq6lIR8a7gBfieImQFP7DxCrllLvlTC47dfRDJJUh4QQGXdXnHtgzIf?=
- =?us-ascii?Q?SJmXzIQ9ER7IaJJh4snymb82EeGnh9KAYFBeNvAYfRsTnO2Q8T/QoWhgE9ch?=
- =?us-ascii?Q?uuXsRAyU1yD5aLpe2ierKX3CB1x/HU3QFwp+3eUhtYX594ptdltd6LhnQRrE?=
- =?us-ascii?Q?ISLSLnAv1j5fCZtFmDV2A5tdAi2F5hs12uMJGzi8NJ9aGTe/h/T7+jdINqLw?=
- =?us-ascii?Q?MjmRueuTRtYZND4x9AU3qpdGk2wD4G9kt/729rrLTuZtBFaCk+pHf4MpVpm9?=
- =?us-ascii?Q?XwScOc45sZDBrhkLzTrJTbJRonxN6r/ufdEWgOt9k728jQAPps8Qw+Fs8Dbu?=
- =?us-ascii?Q?f+GP0yI57XHalXpKdurQMR9XiSqDruyN/PnhEmYlNJO63HOXmEkgzS0ZJX3i?=
- =?us-ascii?Q?Qi/yTOpzSUGG1oGinID/BrQEmJz+XYfoIWhZl8mK57851K+szReD1QXDFL4a?=
- =?us-ascii?Q?J2KLBm5yV9dBvIiH2HZujF4SH6URTQMELA6pXpS5T7mOtynCiMUV+NcrxORA?=
- =?us-ascii?Q?jQVsFJyapjYtJriAw9Xa6NaozPL5vq3ICY3iPq2CeqHQNZzatRnxeKb92fx4?=
- =?us-ascii?Q?8TqaWR9cROuYosm+M71sbt7TdfZOzDb3wvMrDTmuqDujOXD8RiUSa206qNfH?=
- =?us-ascii?Q?gdEa51PEwpy5iQ7SPdmsfB9exT9p22M+S5EWXtgKyp1L9lZ70O8WW3jBJq9m?=
- =?us-ascii?Q?VgdYUjisYC85zwp/LUg7zjpUngmmeBy9JCpDuKt7HXZXMbJIeGd538S/9Sbp?=
- =?us-ascii?Q?mpGfsQIj?=
+	=?us-ascii?Q?/vfC1WGWPZehI/J88HbiPdOzj6v7ZUHqXhKcyUJFOkzCHevwIdH9kSaZW8Jk?=
+ =?us-ascii?Q?wohL3oiYjJzYnaV9JR8KgT2UmSVKy1hrKJHGvWZYkeZdC1EbTHED0AoYJDrq?=
+ =?us-ascii?Q?n+Gpm7lllyIA/oF6jxd5PyG92y8YUTbODBoq869P7JZ/tRl5M43sOfNedKMh?=
+ =?us-ascii?Q?BEMVl7YOFMje+yEjoNb7YXG91LmfKjD4jwFaGn+CU4q1BMEC9QUeEYInnjai?=
+ =?us-ascii?Q?GP+5mKmrPqtb3yAKRJgBnyvK20MyAwZavIHIMByovUvCwvgM/p3nPrtO9ZFK?=
+ =?us-ascii?Q?J6iAz939Ecj/+Bk3aeB2O/UjX0dsVBIDGFrG4LZClnlxTDl/MoqonAq/ZbjW?=
+ =?us-ascii?Q?HwdifmKPYBJo/fu8/TtdYbSMsFoqWTnQkt1H5Z1FQFAcz/zz+1zeiFd8HFqA?=
+ =?us-ascii?Q?rUgi4pI3W7s9tWmBkfHYVpRCsb84+Q3+fbDkMuABgM+2W/B1IjvYhIcdX9rh?=
+ =?us-ascii?Q?3qBWqbn0egUT68Z/J4VDk9IPQkI0Ox6yZ8dndmwZwJfXyJLTAMXtJ5wpGZM4?=
+ =?us-ascii?Q?SbAQcqejnppuPt3XN/yj3HXfwKM5/kDYFPdErmuUeKv9b4Xh3cRs2OYSYRYl?=
+ =?us-ascii?Q?iFW6tDTR05k6k83qwDLgwXBpeZiM0+qvA92WliaQ2TIaQQlfW5S3emleetPu?=
+ =?us-ascii?Q?XNFf3fd8tS8kRKXAfp36in2d4L8B7qn4KkYnrbgWj3DLqgWCuAv2YE1+csJz?=
+ =?us-ascii?Q?nJfCxDV0FxLWc3OFFjJMBqkUXJdXEV80+YH8sZEg9RN0yQycCMbNMD4vmrlj?=
+ =?us-ascii?Q?eEWhrmi1oOkgOn47Q4GSr01heuBZSqaEK/8iXG6M5ZzebJJHRMLa1nrdps8p?=
+ =?us-ascii?Q?UxfZWUD8RyPgWcjGq1KLN/2EMZJsXKx6GbXDD5SjJBi475caT/GbtZvJO9b+?=
+ =?us-ascii?Q?9H3bS71QfnXLIw4GWLgvjD0bBpNWaH7F41VgQmh96kcsMXCMyYtm7Z5s7eRv?=
+ =?us-ascii?Q?2dnRASZ8OfFjz2IdaAc3nEmRgopXPVWX4RB9keRCDDPIbyrVK9AyTtXQc5rc?=
+ =?us-ascii?Q?23Zdct5XYrHt3nIR3toqBKZOUC2P2/gCgqyQELG/WaLPHNg=3D?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Y3I0KI821oux9H+7CVAU6qtebCblyhcWoO229lSYTt09a/y/YQmcS8B5WfE6?=
- =?us-ascii?Q?QvaNpX2MK5ciU9ru4SrtNV0J7LruMmlFNCO/3bTJO+9jTKz2KlGR6vXW/dXQ?=
- =?us-ascii?Q?AYSwd28M7u1Pzfu19wjIs2dHgtpnY8gonwalcBK4F4QgZ/imQKI4IJPgsXQY?=
- =?us-ascii?Q?HMb3ariK3RzHhHkjgc0w0GrgIcsjL2ZhLMKTOl3Cqr3MR7rjGbmzASUL28XK?=
- =?us-ascii?Q?rpj7xQwPAKOV4O5bVyVmDOSf91kjs5L1PzFwpM3XR4mYHEImtyY8LeUH6zUn?=
- =?us-ascii?Q?tMK2UKQvcNpRx+u8tSLxeUeGm40zbwnPXCKZYPgxXjrQZF6lWBahJReevbt/?=
- =?us-ascii?Q?0hDI2rBS5cmIAr6FBIXDpz5OykPuw194SGO554+ZJnhwJdysuCl2sVkRS2B4?=
- =?us-ascii?Q?AAaqVXy2Ys6s2K/GOQw2EIrW71QnNA1N7B3l1Qa4CoRg+sKgFFA6QEoT8fvA?=
- =?us-ascii?Q?jDnpUtycs9wU11xWf/Y6kSeCw0Lg1gYgTaQD9eeb2n8DZq03Wbkpbkc2XuIX?=
- =?us-ascii?Q?/KElfxSCoSzw7/zLRiOhaXfaQNnpdGW/6zhsXHBXtL0vSnezIpeFXRzRKqPq?=
- =?us-ascii?Q?AWz49AF4gMvoRuJ7C4kdvf8GxEfekEHMaFkW94IkVww26CzOsWETXLG/rurK?=
- =?us-ascii?Q?8MuhdzqJD/kjzw2w7Y6UTM9k6On1/umsZ1oAlbGhU57Aq/0I4Fnwu4jMBis2?=
- =?us-ascii?Q?Ecya8qAXv/1l4r/mYoH7ybt0YHq7hPyPVwrouyJBc6qklwcjozisCGUl5J8B?=
- =?us-ascii?Q?uujPhBmv6Uekh/qNs+EnfUPZRi8wQ09YYEiikNA1v/k8jT3q4MPwblFOj+Xu?=
- =?us-ascii?Q?cW8PjQRzhLwTMDdwzrssB13F23bE8HUnGKKZoSg+o295D3/L65HMTkQTmOT4?=
- =?us-ascii?Q?URiGlzaHFAwntFs0qbtGOyaU6umcpC9cMGPKFJWW5p5dCa9KL3042lA9x2Lr?=
- =?us-ascii?Q?gNhTGFu2DPAjvFwpQmDdlyT1plyVH80kiTO6H1dndBvzpXeunQwuDZHfpKP9?=
- =?us-ascii?Q?T2GFr6FOHNOWfSsUoY3TeXQMe1a2me2ur/k+tLJZLaDavEWfUe3KGJfPzHpE?=
- =?us-ascii?Q?XWee98zO93Kq+MZVlQOe2BS4CNw0HSP/yGm8ebANmuRVv28nkEXib2FJ9IQO?=
- =?us-ascii?Q?lf9SgnJhf5X0PmkPCo7Xfki+E1B9jTXiiBkQkk5KT+SydJFLo9Y9bU0yLQFj?=
- =?us-ascii?Q?FBmo1F367PCsPcRASfDVylt8jC1OEspmeQHrgYUxdeFxoG1LyI+9mtpwoYjs?=
- =?us-ascii?Q?UPC8U2/F+5NzgC2sXHDpC/My1dYaGQZoaZqBFeS7asGIu1Q1rVlIIec46Yfz?=
- =?us-ascii?Q?KcZtPoVmG/Ylkm7FtA5dMKLTH0X/w88B/AsyIFZ4ncuw/mNVFvnihpP+PP08?=
- =?us-ascii?Q?PQVVfflA0+daQ1s5cgr2JZXQ8Hf/vHstMBCRbJoKvwU9Yaal/Q=3D=3D?=
+	=?us-ascii?Q?Tgh5D1Q6FGgCgwTohL0A9+yHxjZ5OSioimdcCb0hyr6UVpTbKrREZ4i7pEx6?=
+ =?us-ascii?Q?mwPPatUp/uIx8d4lSL7mr4jZBuL2M0Z7dma99daeN4fcjtaBMSg4ModbMiBH?=
+ =?us-ascii?Q?BkU66LmJMZN9ysaGUn0OG7q7XWyZOlTtkPnVUnfHGIjXB+LL/cYygL9LDpUr?=
+ =?us-ascii?Q?fpBvMsvBPFCp5JP9+lKxqFG3mR04hLUyLN+5ZZ3sc6H8fYSRa5IZ8EHAzgic?=
+ =?us-ascii?Q?E8udRcZkHPww50X3XC4XFJVJmWOYRcKvN9Qg991ry/rJc+j0/51RLTgHzZJI?=
+ =?us-ascii?Q?xmjB2FTp33xM1BfJINGz3HinEAYFFXlzRRiKFVgYG81+0odhdVg7J3PB1agU?=
+ =?us-ascii?Q?4kjrrZ/U5UQRCAeYQK0Jq7GTwPi0Hzxi5ZnTTlnasIKi1+bVojSyzTt146UI?=
+ =?us-ascii?Q?o2YmUQrZ2Rp4LGsq2OTnBXbIbwpAeSlMiIKuv6LLFfPPEi6aJZmooLHedZtE?=
+ =?us-ascii?Q?P9EPvWKpDBvEB70sSWrpMRPTvjnyhGOZBmFu0pKYbEd7/yPq30Y2UOrh6lVV?=
+ =?us-ascii?Q?/ep8FeE6h8Wy3R2Q4O2a0AI+TUYtAxW62/giYoXmpkoiHRM1d1xBmy8Wt38A?=
+ =?us-ascii?Q?Jem4LE05bMLXrVg5yWgogjlrG94x6ozR4DI512JSLgj6gQqZrcTQTmfiUobt?=
+ =?us-ascii?Q?LyszHEDcK26qv/7JdfMPlbr/3m+J/zkttdw4R7np+jjWCeQHJ1sq4G0nXveu?=
+ =?us-ascii?Q?koDV2qL7LoNeeDPD+7xW37nIhTmpI+x8H+qDSlrK72ClMh9LC/du3ozTpBkY?=
+ =?us-ascii?Q?53GjlBc5hmg64KI4N0Ie1dQkNpTaOCenYi9jovTCvsK4Chm9aH6do4e1fZLy?=
+ =?us-ascii?Q?VJrzzBvkRDtSRwxDuEyADJkafuy1KOQMRATJyveZ6B60W/1Mr3qQXf2Xm49o?=
+ =?us-ascii?Q?oJyqd1fEBwuSNIPWaISz6tODmachzp0BbGAlyzOw4GSNFV/nr8ylwIPcVL2T?=
+ =?us-ascii?Q?844s+WFggc5khRDM+gvVXYtkWl7gcEhoOsHWA4Q0XgWtq1xWoebljqI1dbY9?=
+ =?us-ascii?Q?oWJSWdBLfKKOU6q53RzxxFLtWRbUckdhHD0Nk+q9DBxrXCWwA1GcZ0H3scRT?=
+ =?us-ascii?Q?gORnXxCWQ/ifv/jYdmAG43T/I00h9IT/1xuIiiOlzXzidUZ6Ssg1Co0Wj+/K?=
+ =?us-ascii?Q?rBiwpO6k6MwVfeiDqtmrg2YMdbwdtseRove28KvddxchCuyiq/WO8SdqxLj9?=
+ =?us-ascii?Q?/IEFAGqmXvelj995VApLvpK+XGxYmOs5buPfxMxOE9uikjEqH5GxhXq+QgxO?=
+ =?us-ascii?Q?WLXOOnwaE9TWdjRX3dr/QAEFeUj9XY30NuHKnVtzejcm1yfzXeVa1AdUpf3O?=
+ =?us-ascii?Q?KSjPPB2sDntS6VjfnOgozTesq3UDdrVATKjBKiJIAeSMWijlTr6QtO1CJvFG?=
+ =?us-ascii?Q?abqu1LCbL19WnnMAhnAXf219oxapx2hMkgTYHy7eIfJtlTZy+A=3D=3D?=
 X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ae7dbd2-00da-44ea-3d9f-08dea52e9eb5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 364628a6-f569-4eb6-fc14-08dea52ec9c3
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR19MB997338.namprd19.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 14:01:18.6422
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 14:02:30.7413
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
 	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR19MB7982
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS1PR19MB997375
 
-On Fri, Apr 10, 2026 at 05:59:05PM -0500, David Lechner wrote:
-> On 3/30/26 2:58 PM, Chris Morgan wrote:
+On Tue, Apr 28, 2026 at 09:48:14AM +0200, Krzysztof Kozlowski wrote:
+> On Mon, Apr 27, 2026 at 12:09:13PM -0500, Chris Morgan wrote:
 > > From: Chris Morgan <macromorgan@hotmail.com>
 > > 
-> > Add icm42607 accelerometer sensor for icm42607.
+> > Add compatible string for the Anbernic RG Vita-Pro.
 > > 
+> > Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
 > 
-> ...
-> 
-> > +static const unsigned long inv_icm42607_accel_scan_masks[] = {
-> > +	/* 3-axis accel + temperature */
-> > +	INV_ICM42607_SCAN_MASK_ACCEL_3AXIS | INV_ICM42607_SCAN_MASK_TEMP,
-> 
-> This is going to make it so that the temperature channel is always read
-> even if it isn't enabled and additional work is needed when pushing to
-> buffers to remove it again.
-> 
-> It looks like it is possible to read accel and temp separatly, so
-> there shuold be two more lines here,
-> 
-> 	INV_ICM42607_SCAN_MASK_ACCEL_3AXIS,
-> 	INV_ICM42607_SCAN_MASK_TEMP,
-> 
-> I forget what the correct order is though.
-> 
-> > +	0,
-> > +};
-> > +
-> > +/* enable accelerometer sensor and FIFO write */
-> > +static int inv_icm42607_accel_update_scan_mode(struct iio_dev *indio_dev,
-> > +					       const unsigned long *scan_mask)
-> > +{
-> > +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-> > +	struct inv_icm42607_sensor_state *accel_st = iio_priv(indio_dev);
-> > +	struct inv_icm42607_sensor_conf conf = INV_ICM42607_SENSOR_CONF_INIT;
-> > +	unsigned int fifo_en = 0;
-> > +	unsigned int sleep_temp = 0;
-> > +	unsigned int sleep_accel = 0;
-> > +	unsigned int sleep;
-> > +	int ret;
-> > +
-> > +	mutex_lock(&st->lock);
-> > +
-> > +	if (*scan_mask & INV_ICM42607_SCAN_MASK_TEMP) {
-> > +		/* enable temp sensor */
-> > +		ret = inv_icm42607_set_temp_conf(st, true, &sleep_temp);
-> > +		if (ret)
-> > +			goto out_unlock;
-> > +		fifo_en |= INV_ICM42607_SENSOR_TEMP;
-> > +	}
-> > +
-> > +	if (*scan_mask & INV_ICM42607_SCAN_MASK_ACCEL_3AXIS) {
-> > +		/* enable accel sensor */
-> > +		conf.mode = accel_st->power_mode;
-> > +		conf.filter = accel_st->filter;
-> > +		ret = inv_icm42607_set_accel_conf(st, &conf, &sleep_accel);
-> > +		if (ret)
-> > +			goto out_unlock;
-> > +		fifo_en |= INV_ICM42607_SENSOR_ACCEL;
-> > +	}
-> > +
-> > +	/* update data FIFO write */
-> > +	ret = inv_icm42607_buffer_set_fifo_en(st, fifo_en | st->fifo.en);
-> > +
-> > +out_unlock:
-> > +	mutex_unlock(&st->lock);
-> > +	/* sleep maximum required time */
-> 
-> Would be better if the comment explain _why_ we need to sleep.
-> 
-> The code is pretty obvious that it does what the comment says, so
-> it doesn't add much.
-> 
-> > +	sleep = max(sleep_accel, sleep_temp);
-> > +	if (sleep)
-> 
-> Probably don't need the if here as msleep() should handle 0 without actually
-> sleeping.
-> 
-> > +		msleep(sleep);
-> > +	return ret;
-> > +}
-> > +
-> > +static int inv_icm42607_accel_read_sensor(struct iio_dev *indio_dev,
-> > +					  struct iio_chan_spec const *chan,
-> > +					  s16 *val)
-> > +{
-> > +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-> > +	struct inv_icm42607_sensor_state *accel_st = iio_priv(indio_dev);
-> > +	struct device *dev = regmap_get_device(st->map);
-> > +	struct inv_icm42607_sensor_conf conf = INV_ICM42607_SENSOR_CONF_INIT;
-> > +	unsigned int reg;
-> > +	__be16 *data;
-> > +	int ret;
-> > +
-> > +	if (chan->type != IIO_ACCEL)
-> > +		return -EINVAL;
-> > +
-> > +	switch (chan->channel2) {
-> > +	case IIO_MOD_X:
-> > +		reg = INV_ICM42607_REG_ACCEL_DATA_X1;
-> > +		break;
-> > +	case IIO_MOD_Y:
-> > +		reg = INV_ICM42607_REG_ACCEL_DATA_Y1;
-> > +		break;
-> > +	case IIO_MOD_Z:
-> > +		reg = INV_ICM42607_REG_ACCEL_DATA_Z1;
-> > +		break;
-> > +	default:
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-> > +	if (PM_RUNTIME_ACQUIRE_ERR(&pm))
-> > +		return -ENXIO;
-> > +
-> > +	guard(mutex)(&st->lock);
-> > +
-> > +	/* enable accel sensor */
-> > +	conf.mode = accel_st->power_mode;
-> > +	conf.filter = accel_st->filter;
-> > +	ret = inv_icm42607_set_accel_conf(st, &conf, NULL);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	/* read accel register data */
-> > +	data = (__be16 *)&st->buffer[0];
-> > +	ret = regmap_bulk_read(st->map, reg, data, sizeof(*data));
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	*val = (int16_t)be16_to_cpup(data);
-> 
-> We don't use int16_t in the kernel (ideally). Stick with s16.
-> 
-> Although cast isn't needed here since val is already s16.
-> 
-> > +	if (*val == INV_ICM42607_DATA_INVALID)
-> > +		ret = -EINVAL;
-> > +
-> > +	return ret;
-> > +}
-> > +
-> > +/* IIO format int + nano */
-> 
-> Usually we make these 2-D arrays for readability and then cast to int * if needed.
-> 
-> > +static const int inv_icm42607_accel_scale[] = {
-> > +	/* +/- 16G => 0.004788403 m/s-2 */
-> > +	[2 * INV_ICM42607_ACCEL_FS_16G] = 0,
-> > +	[2 * INV_ICM42607_ACCEL_FS_16G + 1] = 4788403,
-> > +	/* +/- 8G => 0.002394202 m/s-2 */
-> > +	[2 * INV_ICM42607_ACCEL_FS_8G] = 0,
-> > +	[2 * INV_ICM42607_ACCEL_FS_8G + 1] = 2394202,
-> > +	/* +/- 4G => 0.001197101 m/s-2 */
-> > +	[2 * INV_ICM42607_ACCEL_FS_4G] = 0,
-> > +	[2 * INV_ICM42607_ACCEL_FS_4G + 1] = 1197101,
-> > +	/* +/- 2G => 0.000598550 m/s-2 */
-> > +	[2 * INV_ICM42607_ACCEL_FS_2G] = 0,
-> > +	[2 * INV_ICM42607_ACCEL_FS_2G + 1] = 598550,
-> > +};
-> > +
+> You combined three completely independent subsystems into one patchset.
+> Usually that's unnecessary burden on our mailboxes and instead of simple
+> shazam of entire patchset maintainers need to pick up individual bits.
 
-I've gone through and implemented all of the changes everyone suggested, though
-this is one of the few on which I had a question. Obviously this driver was
-cobbled together from 2 different sources and checked to the best of my ability
-and tested/validated against the data sheet, but there are a few bits I'm not
-fully clear on such as this.
-
-What's the correct way to represent this data? Since it looks like one of the
-values is always 0, should I just assume it's always 0 and only represent the
-values that change in this scale?
-
-> 
-> ...
-> 
-> > +static int inv_icm42607_accel_read_calibbias(struct inv_icm42607_state *st,
-> > +					     struct iio_chan_spec const *chan,
-> > +					     int *val, int *val2)
-> > +{
-> > +	/* Not actually supported in the ICM-42607P registers */
-> > +	return -EOPNOTSUPP;
-> > +}
-> 
-> Can we just not create the attribute instead of returning an error?
-> 
-> 
-> > +static int inv_icm42607_accel_write_raw_get_fmt(struct iio_dev *indio_dev,
-> > +						struct iio_chan_spec const *chan,
-> > +						long mask)
-> > +{
-> > +	if (chan->type != IIO_ACCEL)
-> > +		return -EINVAL;
-> > +
-> > +	switch (mask) {
-> > +	case IIO_CHAN_INFO_SCALE:
-> > +		return IIO_VAL_INT_PLUS_NANO;
-> > +	case IIO_CHAN_INFO_SAMP_FREQ:
-> > +		return IIO_VAL_INT_PLUS_MICRO;
-> > +	case IIO_CHAN_INFO_CALIBBIAS:
-> > +		return IIO_VAL_INT_PLUS_MICRO;
-> 
-> Can write this as:
-> 
-> 	case IIO_CHAN_INFO_SAMP_FREQ:
-> 	case IIO_CHAN_INFO_CALIBBIAS:
-> 		return IIO_VAL_INT_PLUS_MICRO;
-> 
-> > +	default:
-> > +		return -EINVAL;
-> > +	}
-> > +}
-> > +
-> 
-> ...
-> 
-> > +int inv_icm42607_set_accel_conf(struct inv_icm42607_state *st,
-> > +				struct inv_icm42607_sensor_conf *conf,
-> > +				unsigned int *sleep_ms)
-> > +{
-> > +	struct inv_icm42607_sensor_conf *oldconf = &st->conf.accel;
-> > +	unsigned int val;
-> > +	int ret;
-> > +
-> > +	if (conf->mode < 0)
-> > +		conf->mode = oldconf->mode;
-> > +	if (conf->fs < 0)
-> > +		conf->fs = oldconf->fs;
-> > +	if (conf->odr < 0)
-> > +		conf->odr = oldconf->odr;
-> > +	if (conf->filter < 0)
-> > +		conf->filter = oldconf->filter;
-> > +
-> > +	if (conf->fs != oldconf->fs || conf->odr != oldconf->odr) {
-> 
-> We could use the regmap cache feature to avoid having to manual keep
-> track of old values. Or just always write the same values anyway. I
-> find that is nice when debugging hardware with a logic analyzer. Unless
-> there is some measureable performance improvlment here?
-
-This is another one I had a question on. I'm not entirely clear from the
-datasheet which reg values are volatile and which ones are safe to cache.
-Performance wise the 42607 series appears to be the *least* performant
-in their lineup, so I don't imagine we care much either way. Should I just
-not worry about the old values and always write? Do you think that would
-work?
-
-> 
-> > +		val = INV_ICM42607_ACCEL_CONFIG0_FS_SEL(conf->fs) |
-> > +		INV_ICM42607_ACCEL_CONFIG0_ODR(conf->odr);
-> > +		ret = regmap_write(st->map, INV_ICM42607_REG_ACCEL_CONFIG0, val);
-> > +		if (ret)
-> > +			return ret;
-> > +		oldconf->fs = conf->fs;
-> > +		oldconf->odr = conf->odr;
-> > +	}
-> > +
-> > +	if (conf->filter != oldconf->filter) {
-> > +		if (conf->mode == INV_ICM42607_SENSOR_MODE_LOW_POWER) {
-> > +			val = INV_ICM42607_ACCEL_CONFIG1_AVG(conf->filter);
-> > +			ret = regmap_update_bits(st->map, INV_ICM42607_REG_ACCEL_CONFIG1,
-> > +						 INV_ICM42607_ACCEL_CONFIG1_AVG_MASK, val);
-> > +		} else {
-> > +			val = INV_ICM42607_ACCEL_CONFIG1_FILTER(conf->filter);
-> > +			ret = regmap_update_bits(st->map, INV_ICM42607_REG_ACCEL_CONFIG1,
-> > +						 INV_ICM42607_ACCEL_CONFIG1_FILTER_MASK, val);
-> > +		}
-> > +		if (ret)
-> > +			return ret;
-> > +		oldconf->filter = conf->filter;
-> > +	}
-> > +
-> > +	return inv_icm42607_set_pwr_mgmt0(st, st->conf.gyro.mode, conf->mode,
-> > +					  st->conf.temp_en, sleep_ms);
-> > +}
-> > +
-
-Thank you otherwise for all your valuable feedback. I've implemented
-it to the best of my ability and plan on resubmitting this series
-soon. Thank you.
+I'm sorry about that, I will only submit to the maintainers for the next
+revision along with the Rockchip mailing list. Thank you.
 
 Chris
+
+> 
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> Best regards,
+> Krzysztof
+> 
