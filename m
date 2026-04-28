@@ -1,76 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B345D28B4E2;
-	Tue, 28 Apr 2026 06:59:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB8937CD50;
+	Tue, 28 Apr 2026 07:05:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777359541; cv=none; b=f+DR9Yu1Q07cJnYZG/FEN8mI97KOkUfZh/nX2Lkr+tq8U1yRUmfmqY01g3UFaSZTIy9/X2kI20EbNAEG8kTo3ZPvN3LKx2+0v1AHvgG3z+O9wpFociSPAuCbGeMhyDISQ4tAeslCEz++IeLTgu8/zdKg6O8XIpGaAvvsqv6CclI=
+	t=1777359934; cv=none; b=luaQ/AOK/L072Mgrmsxs8czl8Pk8ovq+NSG5Gh8FH5YHKvJiEc+ASvLzRknszJP2mv/DIssibCwK8Z9ASrH3miMJkyaG9glTHuhZqPkvi0lqDaxEnivDroBRZiYNuComsMx3xTLvClxtb1q+AvJ8nXBAwXoD3Wl4XXdIaaRQx+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777359541; c=relaxed/simple;
-	bh=qcxwqNRAUHk1BYedxxBMnS+1rZxy6T0uDounlDb+gKw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jFy8PYablVds26tfTDry9wKq1xxOUFMmOT9mWDLg3JaiDemTB+AGgll95jFnPdUOk2tyPyZUfzrDt/NnCIpxQcyDIpv6Fpu9jvVAIfCn201LTBBLJiAf3tdxlzwfz88jI3b2mPQGm8I8rTp8MTwV8QlbS0jcFOA64lzsSpTEMXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XqIhq1Eu; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777359934; c=relaxed/simple;
+	bh=BRO9J/ZmX8rsQZ3xlStEfQAaOa2YUCNxilflaRpplMA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B14j2M+ajBrYhcKhwQ6s1QuowAPqBU1JaRe/EVqxjzYR56HyLd+AvBXy7w6psnr3Akn/SfV8nLaUtr/RZCwlKGY7pzqV6ZSimKj/67Y39QOHDbBB7A9GjvnsOWWBbvv4RO17q8IelJtoGn5kpT8QcBwUKl4z3GL7uhAWLjl0+bA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IFmFTrY7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XqIhq1Eu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BABDDC2BCAF;
-	Tue, 28 Apr 2026 06:58:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IFmFTrY7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00A4BC2BCAF;
+	Tue, 28 Apr 2026 07:05:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777359541;
-	bh=qcxwqNRAUHk1BYedxxBMnS+1rZxy6T0uDounlDb+gKw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XqIhq1Euld1fDOmb0MGvSBXidGneSY/wEuWTxrW7X+nIfycos1HVmyntzqeZdVCWB
-	 tPB2GvWJ7pgyQH16X7SEjnIOqWLHCJGHKg/1NHImAGjhmhqJcWR/G3msxW0hn2YWkd
-	 19RU6zq1duXapSrYF0pGfRuZm++I+gt5fxEYNiC5ifNlJz9JOzuOAl6cqhoI7C28wl
-	 Zl1b4q0/EWVfLGjOFxmqjGcQYUBLaFX2FFNzINLhtOSKeKltK51TfvXUtVv4/TB9E4
-	 T+UDEH2S250p2ZrpredMQMukowbphOequ+9706V41vEGHrrci2iWMz144eTXwvTSHi
-	 Umt8hkM7NmYyQ==
-Message-ID: <2be69e97-94d5-4d63-8933-7a17c62788a0@kernel.org>
-Date: Tue, 28 Apr 2026 07:58:56 +0100
+	s=k20201202; t=1777359934;
+	bh=BRO9J/ZmX8rsQZ3xlStEfQAaOa2YUCNxilflaRpplMA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IFmFTrY7E4Om8seG+902x+cmIKa/lEV33L2FLbPmGJwI4HuBdsOs6nUeNsEzHNRr6
+	 WHlA+1tgb+2A9c5Cd2iM5Ol5jjxVotyxRMXEa/WgkH/5k7AyN2x8V/lM12FWssK86S
+	 d52OqmBHJSHa2mb2EFeTszx+mEpra63G/BbD0/7DJ60KwofCnL0kabaZCy3f2sfnhx
+	 o6lp9+QyghAHvivNz2W7Uee7qaTfChG+uKu3WXmUIjfDjwMsTH2glaSu8CDwO+ZBXJ
+	 HOQ+S/mS8EFU9WyjAJm5INVOq6FV+iFZ9Bd9AdEVBZUKNmkWTuej+Zo/5rzCvQqogX
+	 Iyl+ZcI1BlKkw==
+Date: Tue, 28 Apr 2026 09:05:31 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Manish Baing <manishbaing2789@gmail.com>
+Cc: lgirdwood@gmail.com, broonie@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
+	angelogioacchino.delregno@collabora.com, kaichieh.chuang@mediatek.com, linux-sound@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH] ASoC: dt-bindings: mediatek,mt6351: convert to DT schema
+Message-ID: <20260428-unbiased-piquant-spider-5b912c@quoll>
+References: <20260424210302.39972-1-manishbaing2789@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v3 01/11] media: dt-bindings: venus: Add qcom,msm8939
- schema
-To: Erikas Bitovtas <xerikasxx@gmail.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-References: <20260427-msm8939-venus-rfc-v3-0-288195bb7917@gmail.com>
- <YzZsuL4AkwyyqAf2UcNu45lsqxIN8DMPUA6OejoKVBCvmGnFPEFeaZEt8qPhdnZ_gqmZRJiTw2uh1oatvb9m8A==@protonmail.internalid>
- <20260427-msm8939-venus-rfc-v3-1-288195bb7917@gmail.com>
-Content-Language: en-US
-From: Bryan O'Donoghue <bod@kernel.org>
-In-Reply-To: <20260427-msm8939-venus-rfc-v3-1-288195bb7917@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260424210302.39972-1-manishbaing2789@gmail.com>
 
-On 27/04/2026 18:58, Erikas Bitovtas wrote:
-> +  video-encoder:
-> +    type: object
+On Fri, Apr 24, 2026 at 09:03:02PM +0000, Manish Baing wrote:
+> +description:
+> +  MT6351 Audio CODEC is a part of the MediaTek MT6351 PMIC.
+> +  It communicates with the SoC through the MediaTek PMIC wrapper(pwrap).
 > +
-> +    properties:
-> +      compatible:
-> +        const: venus-encoder
+> +allOf:
+> +  - $ref: dai-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: mediatek,mt6351-sound
+> +
+> +required:
+> +  - compatible
+> +
+> +additionalProperties: false
 
-This should be dropped.
+This should be unevaluatedProperties and you probably miss here
+sound-dai-cells, but this is semi-abandoned incomplete device without
+users, so pretty does not matter. Conversion to DT schema also does not
+matter that much. :/
 
-The new way is to declare encoder/decoder inline in the driver, I 
-pointed this out to you at the last revision.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
----
-bod
+Best regards,
+Krzysztof
+
