@@ -1,127 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 455143F0A9D
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 11:08:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C87BE3D3304
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 11:09:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777374502; cv=none; b=ciy7yWN0IeI9lC7jx7rl0Y28cyZ3wjCo8ZjA97BuYW1H+U9CI0aonFNYWH0Q0+z0M1wW6wep52jyOLbMTlN8aptydBxDI5byytSdBmvx6wb68qaPB0WjoiAK+T2lFU33mdkQmoEyPgRzCnhB+qHJHpeiylhm4br0SqX3wTHqhR4=
+	t=1777374590; cv=none; b=XwRawDBf5g6SQzV11+RtI2xyaOWu+QqJVdnaGFUrLmEd3dH+9vI+wRBjhboO+B08VStgJ64TCb1UzvWo2FaJ5FkAJkts1OYTt9PMjQqiZYpnjJNMS6hFWRdxqz6weSuJShw/3vfxUK6WTZP8nAwc8RK/fIc3HWpdn8cS/4X8zsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777374502; c=relaxed/simple;
-	bh=c2c7jO6hYI8b7jy0S2IChLenRdchEWJaq6E2waZawHE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CJLNZS5vxKau6wVW4sQd1YuiuBdL18xJnCwiVwZ7gf8Y3N+YMdlY0GBfSYLsHdLvAknVSRZf/x4RKc7s3UUdwpU5xFm3+PGEJaApq9wuit6lc0A903IcjOea/IEc3QndrX0X1aL/Fuyzq1AfbaCCtunL/7s7/HPopJRNgX/5eHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F+Ki5qsn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777374590; c=relaxed/simple;
+	bh=1Vp7zKw7I/5rzaasqJeo7lI+OEf8xK5r+iIbzLGBYeU=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=e/K5l672c9XPel48+MOYLXbhPSzgJGM9E3+DsfLrtsO6U5ZCm7gC1SKkPjqDs2no89ZyxxrQ8RK/+ya00x8IuDjykFDcL/tEFB43HqLCRO+nHYem1XDR49fh0VuOhDEjJTNGfuzVZIn/IK5HYUquQxIfGAMaXtx3Ulnm0u/CU8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZLuqNV44; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F+Ki5qsn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3E1DC2BCAF
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 11:08:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777374502;
-	bh=c2c7jO6hYI8b7jy0S2IChLenRdchEWJaq6E2waZawHE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=F+Ki5qsnRa3obRmGutl/v+YE/IaCsg06XMEhWRXxUXm5ZWBFR4FNxwTMddd5fcwzY
-	 h4R9lOh47SXniKs2dnTbqT1v2c+ExzIL+sYrR6P+YkNHV8fx1rbgPxtCz0NdjBTRwE
-	 /Tug9VHBN/nJqcNYsUlifxqNoNjFeRQ6IyLVicIdL/rcrAsMQdAGe0hZkvK4AcDLud
-	 ZroRHccexPYzi/pO77aX/OdsGvt3zy9imwlRA7S49/mUT8js/uW6P4TZk7HE8OsID6
-	 qn5MhQdT7zIYIOJbXygG1aIWYOTvNWuY4loaem4/pLJbWxRJS9PyEwwbRDGRWU2kaE
-	 EfNp3J4WURi6g==
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-38dd9f0fdc6so126470911fa.0
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 04:08:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/XV+swtViH1OY0Zk5BQ/iI/iysnulcUcg+9KirkKR8CLs81qfMr2QSkKeS36Yf1BnbBS51u6JcKuQj@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz8x1o1AmvUHwfqDj1jIWLZfIfD2BYHx3wkSGzaNmamHd45jblu
-	INHIGE/r42vcabtjAHWZeVSS6PozlsiaNSOAVV35Aj9BZhVKh/7iOeWq2ppmZC07F+Hqq21Su/U
-	voN+bv46YB9cAScCuhX3Xmit16sMfUT8=
-X-Received: by 2002:a05:651c:324c:b0:38e:35fe:b79 with SMTP id
- 38308e7fff4ca-39243022befmr7190031fa.2.1777374500737; Tue, 28 Apr 2026
- 04:08:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZLuqNV44"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-35d99bae2ebso9983249a91.3
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 04:09:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777374588; x=1777979388; darn=vger.kernel.org;
+        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bkt/IQyJtwb/Crw+ebjNGvQqMlted9pWU+2ZKnZfT1M=;
+        b=ZLuqNV44ha0eT5hB+0ggERgyBRBBh3t3w78rXve1FHzvyqhuKeoW7XYGPAifjdH+b0
+         7OPf2kc0MerIR7J3RwBQRTy5adktE20ztWUG98OAeexS5R3A9loAOLdyJJxSVGAwqJcZ
+         8MuDw/+L51TnW3CiyQN2NC9/COrPpD8GO7u4ZA90QzPbNXD/aniTubCLzn2Kd9sahaHs
+         lxxJjw5nruVSStUuPHStGDxa/YXFaV0/dp/BZup9sWoswea6ebPbKKy2k5UsdseSIdRv
+         uFxEzOdjNIKjWhyO3j6RTkiey3no70GLFedWdiGFHmV8g51Sm4EM+8VdkU7GWCUMxkKu
+         Fbzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777374588; x=1777979388;
+        h=message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=bkt/IQyJtwb/Crw+ebjNGvQqMlted9pWU+2ZKnZfT1M=;
+        b=hbMRh5xg1QokPjUF+83YoZoUbsCypIWPJGJBtYrxC4aWi+P4SHvQpNeghibVQMgp4Z
+         tWClcAI7erdgNoA2ePRoo5VYwIdwttrR4dPFKDuXWjoVRRaZOI3i/s1PXgakhGXEiFkU
+         NRfFgHRe5+En3Golm1JKocqC1JrLH8AQ/aLbJjeAB3Xx5OIpoxGvbnZINXCYFA375uSI
+         QIJTWmSMyLhETDxmiSex/jhzfv8FrvazOVLbE74GwlvWhPlhWtm541KSfsv1NEwnNegd
+         5PL+84Xl8BoRcJwcO5/tfn6h3hmeRqlMvk7Luqag53I2Ns56HDvqTGwpU2SzYXeFQivQ
+         9/Ig==
+X-Forwarded-Encrypted: i=1; AFNElJ/NQpftvwb+2ClDv/cRVtg7L/W58l1K2VLTQHJZHExeCDLERrQZBK9PkVPfoDx+nC5kAc+i8XiHD4DX@vger.kernel.org
+X-Gm-Message-State: AOJu0YywtgfawuHqMBH92+i5OLNLB+pIJyZ9Pnk66UgfPjHmiGBDC0zM
+	cuIhsk4g/q28oTKSCHTcGFjKAsL5GZyCsiwt76L1ZJfAx97jmLXIaNDX
+X-Gm-Gg: AeBDiev2y21RQxmMfhJpn4qVfv71WU9AX/MMe/kf5mz0wNJqx0SZIbSHS1GKkjiVScN
+	tuDj4sypwF6swgNix3cSOb8n7NHN4T7GbglKjEmaikCop8EeMDVhdQlKSu7glnobWlJgeUDDCLJ
+	Wn1bSGX7qMaOdZkfHwQj8BKCRZ8iW/mrNAq/I/ycPbwfopkmswMsCJmvdaGwzkouwDZV7SQFsqw
+	6hIhxRH2hfG64N98VhbqoEOCxpbU+5xIfPo7FPmwgvBRcJb9Xfz0VzCONgl3sBtRBdJu2wDER1/
+	kRwWCBY9dCCeUBh1HXVwsRZV/izZnQfNRq1uBUsQS/qNpMkcj0UBVVHJjeDszTavs4RrUP3lxWy
+	jfuI9tXC66Iccs9wdEAWOyG34lfxfn9CFlgMlkHpSFeDz6pYywOZzqWEXl6SifqxA2d7vz+1+ZQ
+	Jxpj/jH79CXwknrxeppMSHncm6Mtwcjr07VZt/N7iyK5UubqO8sCJ46l4uo7NLpLU=
+X-Received: by 2002:a17:903:94d:b0:2b9:6458:1a2c with SMTP id d9443c01a7336-2b97c4370damr28735835ad.13.1777374588015;
+        Tue, 28 Apr 2026 04:09:48 -0700 (PDT)
+Received: from ubuntu.localdomain ([27.217.83.168])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b97aa93bd4sm22828885ad.23.2026.04.28.04.09.45
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 28 Apr 2026 04:09:47 -0700 (PDT)
+From: Zaixiang Xu <zaixiang.xu.dev@gmail.com>
+To: linux@roeck-us.net
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zaixiang.xu.dev@gmail.com
+Subject: [PATCH v6 0/4] hwmon: (sht3x) Add support for GXCAS GXHT30
+Date: Tue, 28 Apr 2026 19:09:25 +0800
+Message-Id: <1777374569-59233-1-git-send-email-zaixiang.xu.dev@gmail.com>
+X-Mailer: git-send-email 2.7.4
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260424111330.702272-1-changhuang.liang@starfivetech.com> <20260424111330.702272-12-changhuang.liang@starfivetech.com>
-In-Reply-To: <20260424111330.702272-12-changhuang.liang@starfivetech.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 28 Apr 2026 13:08:09 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk_AQjjCLkeuiyBtiQUsmzHEfqpigttJ7E9n1UE8h29Hg@mail.gmail.com>
-X-Gm-Features: AVHnY4IDxcIj36cpLzKrI1NZVFjYAH9TxKPvCzuHnuFYmrkebhBtVhuQTXFLwpQ
-Message-ID: <CAD++jLk_AQjjCLkeuiyBtiQUsmzHEfqpigttJ7E9n1UE8h29Hg@mail.gmail.com>
-Subject: Re: [PATCH v1 11/20] dt-bindings: pinctrl: Add starfive,jhb100-per1-pinctrl
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Changhuang,
+Hi all,
 
-thanks for your patch!
+This v6 addresses the feedback provided by Guenter on v5 regarding the 
+Sashiko results.
 
-On Fri, Apr 24, 2026 at 1:14=E2=80=AFPM Changhuang Liang
-<changhuang.liang@starfivetech.com> wrote:
+In v5, I attempted to rely entirely on the I2C core's fallback matching 
+and moved the devices to trivial-devices.yaml. However, as Guenter 
+pointed out, the driver requires a proper of_device_id table to pass 
+DT checks and function correctly.
 
-> Add pinctrl bindings for StarFive JHB100 SoC Peripheral-1(per1) pinctrl
-> controller.
->
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-(...)
+Because an explicit of_match_table is necessary in the driver, it is 
+no longer appropriate to list these sensors in trivial-devices.yaml. 
+Therefore, in this v6, I have introduced a proper, dedicated YAML 
+binding for the Sensirion SHT30 series and GXCAS GXHT30.
 
-> +  This domain contains 4 IO groups which support voltage levels 1.8V and=
- 3.3V
-> +  gpioe-spi - comprises PAD_GPIO_C0 through PAD_GPIO_C4.
-> +  gpioe-qspi0 - comprises PAD_GPIO_C5 through PAD_GPIO_C11.
-> +  gpioe-qspi1 - comprises PAD_GPIO_C12 through PAD_GPIO_C19.
-> +  gpioe-qspi2 - comprises PAD_GPIO_C20 through PAD_GPIO_C27.
-> +
-> +  Each of the above IO groups must be configured with a voltage setting =
-that matches the external
-> +  voltage level provided to the IO group.
+Changes in v6:
+- Dropped the trivial-devices.yaml approach from v5.
+- Added a dedicated YAML binding file (sensirion,sht30.yaml).
+- Added standard devicetree support (of_device_id table) to sht3x.c 
+  as requested by Guenter.
+- Split the patches into 4 logically separated commits (Vendor prefix, 
+  YAML binding, Driver DT support, Driver GXHT30 support).
 
-So your hardware has groups and support some properties on the group level.
+Changes in v5:
+- (Attempted) Move to trivial-devices.yaml and drop of_match_table.
+- Dropped wildcards, added specific models.
+- Wrapped commit messages to 72 characters.
 
-So expose these groups and make these properties configurable per group
-instead of inventing per-group properties.
+v3 & v4:
+- Standalone YAML binding (but incorrectly used wildcards).
 
-> +  gpioe-spi-vref:
-> +  gpioe-qspi0-vref:
-> +  gpioe-qspi1-vref:
-> +  gpioe-qspi2-vref:
+v2:
+- Fix placeholder "Your Name" in MODULE_AUTHOR.
 
-Create proper groups in the pin controller then use the
-standard pincfg property power-source =3D <...>; for this.
+v1:
+- Initial submission.
 
-Example for a simple default hog:
+Zaixiang Xu (4):
+  dt-bindings: vendor-prefixes: Add GXCAS Technology
+  dt-bindings: hwmon: Add Sensirion SHT30 series
+  hwmon: (sht3x) Add devicetree support
+  hwmon: (sht3x) Add support for GXCAS GXHT30
 
-pinctrl {
-    /* Hog the QSPI pins */
-    pinctrl-names =3D "default";
-    pinctrl-0 =3D <&qspi_default>;
+ .../bindings/hwmon/sensirion,sht30.yaml       | 67 +++++++++++++++++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+ drivers/hwmon/sht3x.c                         | 22 +++++-
+ 3 files changed, 90 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/sensirion,sht30.yaml
 
-    qspi_default: pinctrl-qspi {
-        config {
-            groups =3D "gpioe-qspi-pins";
-            power-source =3D <2>;
-        };
-    };
-};
+-- 
+2.34.1
 
-The groups can be orthogonal to other pin handling, that's
-fine. Implement .pin_config_group_set in struct pinconf_ops.
-
-> +          starfive,debounce-width:
-> +          starfive,drive-i2c-fast-mode:
-> +          starfive,drive-i2c-fast-mode-plus:
-> +          starfive,i2c-open-drain-pull-up-ohm:
-
-I already adressed these in other review comments. Get rid of
-them in favor of standard pinconfig bindings.
-
-Yours,
-Linus Walleij
