@@ -1,59 +1,60 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC963D47AF
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 20:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB393CD8C2
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 20:07:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777406853; cv=none; b=fs7SuarDmdv+ErwyQ+fYOw+05rSmhMHsXURH8KEmjib8vaC/E3xQ67lr9Q2bF+Vflobz8ADH2WavwI4lLRxZOtAg9UEuwnrPYouL1GFC59dYCsXBYZNBroYIN4gaAG5T0tKaqm8kcgF9LC0gEBmTtltZ//ZyCpYd/kgguq7G2J8=
+	t=1777406859; cv=none; b=oAXIGoQPBUanOVqxqTooKeBwNYMFV3SzIEm2uEwI0m2dT+5D2o6U8yrYAxWi1XFqR80rjdKipADho7GXSriLKtceXrrh60u0jYJ8upnY5PFuQffASEmuLNxFAOTPmjFDeZkmJd9QntQL2VjXi4EXBEA+CCH8LpFmseH5GQVDrko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777406853; c=relaxed/simple;
-	bh=xlJmeP+PJelIrVWVbvw6zF4EvPRmj3ee8OfUipPJo0c=;
+	s=arc-20240116; t=1777406859; c=relaxed/simple;
+	bh=XO1A/HibqZZptlBWN5BCzJBPBBT6OtgGPpR1fmvJiA4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nc/1a0FfowAZP11g0GucrmYX4MjkRl+/2zuR2e3dp2f6Livb7b5PbXi/1yuXo/1G8DETtF/n/CCcv4Nk6YjEum2aC6Il5e7ShiRuQXnvmqx9pEAQLnn5ez8/oZZ/fKRi/PNrPYcbJY/+C0lWY9VLC/hpGnwsHGW4rQct+am5beI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=hYGSZM89; arc=none smtp.client-ip=74.125.82.180
+	 MIME-Version; b=qAPlcfBsi4vkNky2AQBJQrXqQtrkJ6cLDvlFDgbj8hyEF28iE10cJSoN0wrWfFdFM30Hp3tHYA9wZcPkUrcEYURBMV6hQnDDU/W1j+v1izknxLvC35TM8ABOOJ7iOwkWLxAWWjGoRQAkp0cL9Ckd1nT1EYtk1iQhskHJesY4mxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=lgoFIlx5; arc=none smtp.client-ip=74.125.82.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="hYGSZM89"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-2d96243c91fso19351317eec.1
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 13:07:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="lgoFIlx5"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-2d8ffdc31d0so4709914eec.0
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 13:07:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1777406851; x=1778011651; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1777406855; x=1778011655; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oZddyefkooDQKnc5O6I7CXwcRuSu4lPrXGIxW3LQfo4=;
-        b=hYGSZM897QKQ5m+LAhH+lO8SS8phly+jGg8Ckq7yAM4gpBYqZprOmOi+vB/G0NglCG
-         sGYCaSwiZKRJxJtfzqU50x/OCyuMNMmVuFBqXF3yfnpcLwLCqSJ6sYvPAEen+OiSuybQ
-         ywMtsaehpdFVYctkpSpR4gNQJFeZtxTGQbtVQ=
+        bh=wyEh8MUYI6uV1LBlX4TWKPlLf6Jaa4vkUqpt47EeXpM=;
+        b=lgoFIlx5tLNJIADdHllLhe2CgooduUbz4JdRKVvEGiRC6/BorZMWXqS3GvbBGZqWtm
+         b0OsNU5naFbwnHe0Rwn4QgHD9vWZAGcEwN5AIK/KqQoQgjkIqssTJ8Ldmhh71JUY0vRC
+         ZcmLlxLpVf0PWsG1Qf++1bgkRLrhUL1oiva6U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777406851; x=1778011651;
+        d=1e100.net; s=20251104; t=1777406855; x=1778011655;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=oZddyefkooDQKnc5O6I7CXwcRuSu4lPrXGIxW3LQfo4=;
-        b=knikzrlV5Qo/ePBk1SAt009hGmw9nm3pH6/ASrdXItFiZRcjF6lmvxErMx3o6w6w1K
-         aaW1VZC7pIsh3lHML+YPmTYBT/WwBhG7J3CaxzhW1YBpgNfe9gBzJ0TGDPIVjN/K2t7D
-         PwojZHqls4ixQrVLQwdqUIfK1kPDWoeUem3eOFreZTWxa6tzHAJYUdSOqtHI8PruiF4p
-         XlDeET7Nh/cn6JRLfJtB2zRNqB356PSUn8v8L1zXA5n+zrlXyZAXDASAK00RQyS8RVNE
-         wbP16ZYpibDjzsxd+sppVIVZUP5ZMTPeS8VkthO61OglL2wjtRuyZ6YQczukj5gYTiNc
-         NyvQ==
-X-Gm-Message-State: AOJu0YywqxSSkmhLFSfVpeu5K4ehzPbg6HJDNnWRvg0BNojhj+LCfYSO
-	wnWWmpOp6vqzmuYC8xoIpvcld+vW4uMS6I5eCsnTjZ2el24YFTD6Vl7OOjywRNiXbA==
-X-Gm-Gg: AeBDievvVYjzVOOX0Gh8ITKFokKrVx6IWq8jTJjEf8t73DYe4Byax3do1dyKZMK4m5L
-	lt5irggRAuN/OACbCv0zHLJIKxiv/8URoS+LUre1TjocsM3H068vj4pj19vmI0/Vjnw+Z77YtIU
-	8i2xJt0JRzmU6c3eNddZtI7L0rDBOHR1dELgKdkE8CQRU88Lk1I1gHwgBbJ9yVjIUV4wmEKuPSR
-	clBHur+PkthL8B3we373fz/znTLfOvhmbeakC0nAH/lAik8tN1PXQVvykC/iQpigV64GTc45HDe
-	DQN14wS7/6fM0TW/I66nbAu+8p+Cb40dvTTHYzmo3XVzI6LdwSSB5r6/DKEc4F/+aM2tNnrcM8a
-	aJpy2VSN1VpYHt1Fkyr7aZx12T0q2KEtTcaOzf9Vm7alzVhWqqdPNIwAgyu1L680BL4dPA2HHzZ
-	CNlhpd9OvXYA4QCVvChPi11K07FnO4qSnNPitllXRVPeyatqxvci+cjpNxlZ3anpawXbmB5GnP
-X-Received: by 2002:a05:7300:fd08:b0:2ed:e17:d50b with SMTP id 5a478bee46e88-2ed0e17d6eemr1499097eec.30.1777406851181;
-        Tue, 28 Apr 2026 13:07:31 -0700 (PDT)
+        bh=wyEh8MUYI6uV1LBlX4TWKPlLf6Jaa4vkUqpt47EeXpM=;
+        b=kCsoy/9TlEa/nStFZcXlsBvtkihLUSh2WLyjBi+/Qner5QyAoCqNInIsGlPURyt9W/
+         Dnb8B9s8nQaFdzVcXk+2gRIHfRYP5m+12F9iNKTtE/A9kU84LwytP2ButlvA/TW/tlXz
+         /qCgDBUMSm5+2lwgGge3MNIGVXNxID7OE3IWG88bPtuWl1pJ8lHndQQ3D7O0JerGq9Ar
+         9lFiuwDx0P/6BVziNQpwn9vT3ij8lIctJdODbpbcDz5IjQUGMdrlfElTvkPLkf1unSJv
+         gK+EkhaFTG71FPj/tFX1Ju20McoqdHTsrfuImlq01KU1e67LRaEsgCbQ/cP72pGLwafj
+         csgA==
+X-Gm-Message-State: AOJu0YzOp9m/8mN0BoYiy1/T5cSRqt/SCRQMpWjkmL7VtRJBgde1rBM2
+	BEiM9P2oGyPwT2RjeN9X70NohWPbMEi55Bx6pZkdHQ+Ekldros5cwNzGXSWsxahYNg==
+X-Gm-Gg: AeBDiesZWgO+FTohLos9awY9y2TfisxW5ez48x1qF55OJHe+M503lkHoNZGnw+XG7xA
+	vRImLvQZrVTzlIpgzVO+w7VvRGW8KV9Kjar0UYzVfeOiVZFz+2lyAVacNeI1er47iMEz/n2C+DV
+	tuaL7oZ1RyNCcbtbWpAbPmXsT7ByhET7Xc4wTz3Kyyh6lN8XWqkrNmT4KfO2A01QqOtSYVj4kwM
+	VzkWPfVCDtAF3dpDJMwryB6BtjWBDLhjOzuGRl4HTR7DWXgLRh/9lRW+H2UlIyv1ac4pWRezuAQ
+	8OGxoYu2Vz1uIRSFte9kWok9PNsAk4U9wucbLcdSjku+ybdmL+zQDzaguKtdKPIJislf7jKKlUV
+	fJV9hN09VjK/8yMurHdH9y8cSlGsM1TP2utLWKGlAi0JBwdtP1zeK602UbzU6VrlbgDNyg+kPAF
+	CrNjWOYj6lUQFTAEkoXfp6fYRNI2cqWmYYLTiksuwBnkodYB7mVj7uvWPVMNYTYuBm8NG2T1GoZ
+	f0D2hHv7tM=
+X-Received: by 2002:a05:7300:5707:b0:2ed:e15:c924 with SMTP id 5a478bee46e88-2ed0e15ce32mr1940281eec.32.1777406854721;
+        Tue, 28 Apr 2026 13:07:34 -0700 (PDT)
 Received: from localhost ([2a00:79e0:2e7c:8:4ff5:9607:c7e5:48f3])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-2ed0a10650esm2873589eec.22.2026.04.28.13.07.29
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-2ed09fb6b8asm3015155eec.8.2026.04.28.13.07.32
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Apr 2026 13:07:30 -0700 (PDT)
+        Tue, 28 Apr 2026 13:07:34 -0700 (PDT)
 From: Brian Norris <briannorris@chromium.org>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -79,9 +80,9 @@ Cc: devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-samsung-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/7] arm64: dts: rockchip: Add #{address,size}-cells to Chromium-based /firmware
-Date: Tue, 28 Apr 2026 13:06:53 -0700
-Message-ID: <20260428200712.2660635-2-briannorris@chromium.org>
+Subject: [PATCH 2/7] ARM: dts: rockchip: Add #{address,size}-cells to Chromium-based /firmware
+Date: Tue, 28 Apr 2026 13:06:54 -0700
+Message-ID: <20260428200712.2660635-3-briannorris@chromium.org>
 X-Mailer: git-send-email 2.54.0.545.g6539524ca2-goog
 In-Reply-To: <20260428200712.2660635-1-briannorris@chromium.org>
 References: <20260428200712.2660635-1-briannorris@chromium.org>
@@ -97,32 +98,19 @@ Chromium/Depthcharge bootloaders may dynamically add a few device nodes
 to a system's DTB under a /firmware node. A typical DT looks something
 like the following:
 
-  ## From a RK3399 Gru/Kevin Chromebook:
-  # find /sys/firmware/devicetree/base/firmware
-  /sys/firmware/devicetree/base/firmware
-  /sys/firmware/devicetree/base/firmware/coreboot
-  /sys/firmware/devicetree/base/firmware/coreboot/ram-code
-  /sys/firmware/devicetree/base/firmware/coreboot/compatible
-  /sys/firmware/devicetree/base/firmware/coreboot/board-id
-  /sys/firmware/devicetree/base/firmware/coreboot/reg
-  /sys/firmware/devicetree/base/firmware/coreboot/name
-  /sys/firmware/devicetree/base/firmware/chromeos
-  /sys/firmware/devicetree/base/firmware/chromeos/readonly-firmware-version
-  /sys/firmware/devicetree/base/firmware/chromeos/active-ec-firmware
-  /sys/firmware/devicetree/base/firmware/chromeos/firmware-version
-  /sys/firmware/devicetree/base/firmware/chromeos/nonvolatile-context-storage
-  /sys/firmware/devicetree/base/firmware/chromeos/vboot-shared-data
-  /sys/firmware/devicetree/base/firmware/chromeos/nonvolatile-context-size
-  /sys/firmware/devicetree/base/firmware/chromeos/nonvolatile-context-offset
-  /sys/firmware/devicetree/base/firmware/chromeos/hardware-id
-  /sys/firmware/devicetree/base/firmware/chromeos/compatible
-  /sys/firmware/devicetree/base/firmware/chromeos/firmware-type
-  /sys/firmware/devicetree/base/firmware/chromeos/fmap-offset
-  /sys/firmware/devicetree/base/firmware/chromeos/name
-  /sys/firmware/devicetree/base/firmware/ranges
-  /sys/firmware/devicetree/base/firmware/name
+/ {
+	firmware {
+		ranges;
 
-The /firmware node has an empty 'ranges', but does not have
+		coreboot {
+			compatible = "coreboot";
+			reg = <...>;
+			...;
+		};
+	};
+};
+
+Notably, the /firmware node has an empty 'ranges', but does not have
 address/size-cells.
 
 Commit 6e5773d52f4a ("of/address: Fix WARN when attempting translating
@@ -149,25 +137,25 @@ Fixes: 6e5773d52f4a ("of/address: Fix WARN when attempting translating non-trans
 Signed-off-by: Brian Norris <briannorris@chromium.org>
 ---
 
- arch/arm64/boot/dts/rockchip/rk3399-gru.dtsi | 5 +++++
+ arch/arm/boot/dts/rockchip/rk3288-veyron.dtsi | 5 +++++
  1 file changed, 5 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-gru.dtsi b/arch/arm64/boot/dts/rockchip/rk3399-gru.dtsi
-index 7eca1da78cff..2f9e39671efc 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-gru.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-gru.dtsi
+diff --git a/arch/arm/boot/dts/rockchip/rk3288-veyron.dtsi b/arch/arm/boot/dts/rockchip/rk3288-veyron.dtsi
+index 2d6cf08d00f9..ca8e8e735078 100644
+--- a/arch/arm/boot/dts/rockchip/rk3288-veyron.dtsi
++++ b/arch/arm/boot/dts/rockchip/rk3288-veyron.dtsi
 @@ -18,6 +18,11 @@ chosen {
  		stdout-path = "serial2:115200n8";
  	};
  
 +	firmware {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
++		#address-cells = <1>;
++		#size-cells = <1>;
 +	};
 +
  	/*
- 	 * Power Tree
- 	 *
+ 	 * The default coreboot on veyron devices ignores memory@0 nodes
+ 	 * and would instead create another memory node.
 -- 
 2.54.0.545.g6539524ca2-goog
 
