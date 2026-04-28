@@ -1,169 +1,246 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010055.outbound.protection.outlook.com [52.101.61.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 661CC46AEF0
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 14:23:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777386222; cv=none; b=c92Gixq6q7BH2jHYut/uLON9VyLr07KWzyJ0rej0SCdL8vVvbYIkyVmerxIn0c/Bu00tPpJWbkua2ml5LNnSwiKeDp6tmbAiLSSghdFbljVYeJ8kJQ4skQ+5JYWD6FUiYTA8Z1mPInDSLJKhv4RqcwHTNT8lzhGVS0ak8rGKluw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777386222; c=relaxed/simple;
-	bh=n11bfCJoefHvmThlP8x1PiTVeFVsEIhjZBpXIg5IZ38=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=q2mdny+YqyyB93asXwHg0DqT6mr/LkKzPVdl8/Tqax3qOg85GkQ0+vYAtbK5oz1NX1HKu29NZsYx8LU/1s4cmdDtQiusPJPUnr5Tf9BwW2zGyrX1w+m+MqWwZxJglcENR4+hezMddA8eql1yr00wSMRb72W16ExwWFRjoAWSmTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iPGoa7ID; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GkDUHFtK; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D3444BC92;
+	Tue, 28 Apr 2026 14:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777386404; cv=fail; b=IFbcznC/nddQLLacwsV1eHMr6iKrcRFD08Tyvu78ZuDj+e/o4celwbt5DNGTBmz/8/U/K1Fe41P9n6UX+ZpEl5hksPfdN1G80n9atkAJRKQfIa4/SpGl6q1MXbAYubnTaew131zUhry5dr/1Re+PH3g29F9jeIeBckKnhLBZuwk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777386404; c=relaxed/simple;
+	bh=AE/YiQvL1PUg/Z4k24VLeib4ktbkyV0ZcCPg3E7S4Qk=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GCbD2jK63pHp8y1AQewfdSs6xdcXIVcKTh/svOHPJxY+dZm3LHEadIPtyWXyKjsp/KBMUWYzqq6V19z6pMsdwiYOvU8CHhS45KM4degZqLDQ6Zr3vyRrCtEjAGrwN4YfB6BL3ytc48MRmB9JtXDrYdGlpCulzJhrMvqkp14b7E8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=KNPSvL06; arc=fail smtp.client-ip=52.101.61.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iPGoa7ID";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GkDUHFtK"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63SBqmTA1625047
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 14:23:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	w+OP4W0xAiPDjd5bYE2eMNSeXnhE/RBCJAZjyE4cLE8=; b=iPGoa7IDfNVUwgax
-	iQmx3Hn13dlYxiKhW6NWQgJkVCcfVhWY3w1NXgiUS/AO4kbXtAzsbJqfdPE5LbOD
-	aMaZdelub8/Unp8pb+HXCzEQBsR8xginxDxZ9BlF6F2PJ0wLwDzUrqo+sdtDjJgg
-	8FcBPFGCgBaJlXLIhj9Wis1DcxlQZz6GYLY/WXYtai2KxqkaTJ3x+/fi70R8b0wg
-	68KmHm/howOh5nqx9HVMUGO44qYYBxUDt6ASdrC9UxNoI8W+c8giWCAV02VWXESm
-	vxIU4fZTShIm+pLIAwBfOkXCqylEyi+86em422/0qZen+6+ECfncdGkpPZGVtiQ0
-	f5FCwA==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dtgmsbf0n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 14:23:36 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5662a21d35bso23329291e0c.2
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 07:23:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777386215; x=1777991015; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=w+OP4W0xAiPDjd5bYE2eMNSeXnhE/RBCJAZjyE4cLE8=;
-        b=GkDUHFtKN5UxgNeqWe8HuyqPh2iPoDbuY1EIbLJnrV/iE6Xmbb/byjlF6F6LGGm9tO
-         4PEj8le9+2jbvWWgAzCMkjo9+r6VgeZcWWlIKW2gFiBkMFSkl6qA8ozQvjm5Z7t2J81U
-         eUserXL++X9qM88evPez8gn8MF8qXt8XNjWOptD6kQmDwqsMBMvbGW3bQKUw+3k+jJEA
-         yuJy2g3naX/3tG6GxaDhgbM4bemRrq8wkr7gJN8rsuI7AxFCbDJymmpUX3VTNi2kAeCV
-         T7emqjciWneRVw+IrlD/IJHe/D+ywTCSEkkA1Acp1Bxr6ED/lToeL6liCJz1kg1LoHyp
-         q2BQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777386215; x=1777991015;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=w+OP4W0xAiPDjd5bYE2eMNSeXnhE/RBCJAZjyE4cLE8=;
-        b=saG4oJTcP5ViqalZQbbLb+gcIxshqtSuOqatW3i66oXSPoqcDUbr1mjnX2ztULBUtN
-         9lfqiLQroUN7Pja7EXVczwHtscLQRIkXGY6z6SkrlR5yknAqMCTR4v2YMfEYvG+s6QSA
-         2MOfabns28ueCdkCoras6gwNbOmuLq4Eo2XhmBqSsgxiEO/POICRtMN8YjK0y+XImR+s
-         m9hH8uNeu08TQEM12NIO8+NqPUDPIH/g8yr6Ti9UoMXSSv9c4qK3UvlotUAyv9T1ffT+
-         XCEZVkxi1K5Mv575+Taj5R/AusQvyR5MNYE5HzMIIGrdAOfb9OxE2ar6B3JschGC1b3e
-         /+YA==
-X-Forwarded-Encrypted: i=1; AFNElJ8R1grYmZUF80POftpyawA6oETtxCaz1sMZmrCmCJFjD2dfIOQ1HVXGVApO2KXHvMeVQq/ZQGPPaAzM@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywu39RYYdy/EqTWu/USMiNIMxlO93WKpAso8psv0uX0g1cgxHX/
-	QqQG8xRjNAIHkBW6cQuJixOGHF5eboWX3JGMr6kKHsZVFATjk/UhJoyFXiZBxDTDK1R29f9M0eC
-	DK5PfWKWeO3Gf4xQJ1zAy1KNSlYr6/bE5jelrjQzH9WuPs6fGGwpXMvMWg20RP3H0
-X-Gm-Gg: AeBDies/WD+ZK78Z6xyzfP6yfanq012WvbJtYAUtqyd4nXiPC9VDh0v+JnUy01tG8Xy
-	hZtE6+G9jS2vtkYKvYxBFxZLUtnoWIEjO9GTwXJFWhOnQ6nwL+ddaCbhdQ0l+pbTYdgYVJkEDle
-	4mH+dT4wgHQnTOMc9j68CoYXtXOziar6ZV+anfaTN0h4Hdvh0TIOTpKLjxrn094PLNqeA+tvTxx
-	db66nxpcKGmIvrxoHI8JjBB5XLRatbsePISA4nJ1Qyt/TQGVEhE86JKbHHj5PLpNPhY/9uXeIdR
-	vnD6w7m81r1cWwA/tPdmMgt2E3g8vUmeMMrhoIdxTEMPzQV/qsHQK2cY+pH1UjSoOYVPvQqkNYh
-	98735Fxj8llceTAq5K4NK93ZH6PoMahXIEaM4ouclfaRLKkLui6LCpS+PViXoK6ANCqDOiOTpqS
-	YgGZreVNJONqK7yuz5P+UmZz8cHaw=
-X-Received: by 2002:a05:6122:4201:b0:56c:860b:c34e with SMTP id 71dfb90a1353d-573a55b83fcmr1687247e0c.8.1777386214206;
-        Tue, 28 Apr 2026 07:23:34 -0700 (PDT)
-X-Received: by 2002:a05:6122:4201:b0:56c:860b:c34e with SMTP id 71dfb90a1353d-573a55b83fcmr1687200e0c.8.1777386213784;
-        Tue, 28 Apr 2026 07:23:33 -0700 (PDT)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:653f:4d28:6a78:a6ca])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bb80ba9b8c8sm107072666b.48.2026.04.28.07.23.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Apr 2026 07:23:33 -0700 (PDT)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Tue, 28 Apr 2026 16:23:14 +0200
-Subject: [PATCH 9/9] arm64: dts: qcom: arduino-imola: Get Bluetooth BD
- address from NVMEM
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="KNPSvL06"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X3vci5AIBcRDBH19aPMkm2w/kf49Mcq/r78JYz+161gQUXDWRY+7islkBmgUrW7fICgCJ54YgdwSkZzJy3jGIB4/EvbGZtdh82JM9MOFc8V/J7wyNO+3sIGTgv4AsAt673sv3dKkJ0wTygl5OpGJgStErmys/v1QUvKDpk8JjmFqAncVT+7AYJhteti+1UdBrjgvz/bCUFsmYcE4j+YE0ED8s0X59R1CJQviTZQddCb8groTvX7nr4l67dzF9n9aov2Zrcvqf3E920V0f/GbhPJKtQTn7xMs5cNFA2Hs7G9wdM+KRJrIrG/HdjZPZnFsaYSddPj7dYWZm5bhoiycTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ItAYSRk3yM+/a+ZHQ3rJpEv4hBBoDfYPTNgXPCszW4I=;
+ b=GZWWYiX/FxjRriQfYNz9O/qKKjCavsJhe+x7Pkmfw531nTWj4lIYL4qyomf0bAw4N51ZEufu049wdAllvJNo/mCELQQIfeJwBwzz5Uv1ER/JS1kVjRXfrzlsYT3Jt5ehOC+jkeQOPN6LgoDIwJlyztjgSb34e4Kxrmf8lL+VU4MdpD/K+RaUoc+wYn3XbZAS+6QTu47xGsPdWVfPPKW2Ix3glxZ7GBe2ZEENYIX3PhgR5uTpmVgLTT/N1hpNiEPhCeVxlIjauW7iVhHbgAt45af+ZeLgvZ3CZ+tPyR38Qau/PSihxHbhaCIzSQ4hpJkEdb0i4bj2oiLyHkwDlXFzPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ItAYSRk3yM+/a+ZHQ3rJpEv4hBBoDfYPTNgXPCszW4I=;
+ b=KNPSvL067rveIGGkK1vW5VoKSfU7uRnDyaN5uOt/XDVcBc99phCYNdg8g0jCL9x+crT1kNMwQYKu/HpFtSGNsSyzFOY1Es8kKPDPyLShip8d3m7SQlI0ma9+jUAmB9sf/yH2rz3h/3DAHuFnWeATIC2DPE6H8iTatTSh1Rqk/vc=
+Received: from BN0PR03CA0032.namprd03.prod.outlook.com (2603:10b6:408:e7::7)
+ by CYXPR12MB9387.namprd12.prod.outlook.com (2603:10b6:930:e6::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.17; Tue, 28 Apr
+ 2026 14:26:36 +0000
+Received: from BN3PEPF0000B073.namprd04.prod.outlook.com
+ (2603:10b6:408:e7:cafe::b0) by BN0PR03CA0032.outlook.office365.com
+ (2603:10b6:408:e7::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.26 via Frontend Transport; Tue,
+ 28 Apr 2026 14:26:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN3PEPF0000B073.mail.protection.outlook.com (10.167.243.118) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9846.18 via Frontend Transport; Tue, 28 Apr 2026 14:26:35 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 28 Apr
+ 2026 09:26:35 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 28 Apr
+ 2026 07:26:35 -0700
+Received: from xsjblevinsk51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 28 Apr 2026 09:26:34 -0500
+From: Ben Levinsky <ben.levinsky@amd.com>
+To: <linux-remoteproc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<andersson@kernel.org>, <mathieu.poirier@linaro.org>
+CC: <linux-kernel@vger.kernel.org>, <michal.simek@amd.com>,
+	<tanmay.shah@amd.com>
+Subject: [PATCH v3 1/2] dt-bindings: remoteproc: document AMD BRAM-based rproc
+Date: Tue, 28 Apr 2026 07:26:32 -0700
+Message-ID: <20260428142633.1854251-2-ben.levinsky@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260428142633.1854251-1-ben.levinsky@amd.com>
+References: <20260428142633.1854251-1-ben.levinsky@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-block-as-nvmem-v1-9-6ad23e75190a@oss.qualcomm.com>
-References: <20260428-block-as-nvmem-v1-0-6ad23e75190a@oss.qualcomm.com>
-In-Reply-To: <20260428-block-as-nvmem-v1-0-6ad23e75190a@oss.qualcomm.com>
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
-        netdev@vger.kernel.org, daniel@makrotopia.org,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Proofpoint-GUID: iIxT-PJP-t0YWrUe24U4rioI0cIDKtN5
-X-Authority-Analysis: v=2.4 cv=R4gz39RX c=1 sm=1 tr=0 ts=69f0c2e8 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=w5cLSrw8bnM9wMX07V0A:9 a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI4MDEzNiBTYWx0ZWRfXzvt9YYm8kSnK
- kK2edsxdrcsMK7kFNAAGRuXYerlcFXYhUnrqX6fnJkHu9LswjKyhlEcyBUEBFoOuTz3FTZ1RD9B
- MvL6SBU7E+V0Sb6sziNP3DOndhTlI7rrjGVkQaJ8O6MJLsHnyR5wo8h3dfmlooMJOivhL8tZq8+
- 54X9jaQ7QopopilI5CgiFcspujPzxJQ8d4x2yA5wgTpJHY4TMqa2+9UdrI7cBEugpe9UTkuwa6j
- fzUcuk9DSRd+EmxElgWKQcnuZiV+6C/nRutqE+owSX4dLOds0/UXRNKQBEdcm/9YynArPQvxnId
- QRh48W/skrbcfq2x7SLkbeGj3Hl+FkA9E4up2QPu0Utd47EbEOyCVlUIjmNVu8TkB8nexxxHpXK
- ATU62KG7gHF2s+2VWJHZD8UEPiEq7gPumt4DkB3FlBIGl6kzkRTGZFovDFe1MjyD8m5R8Pvzx9v
- fS9uWVGTetEY+3sOwqg==
-X-Proofpoint-ORIG-GUID: iIxT-PJP-t0YWrUe24U4rioI0cIDKtN5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-28_04,2026-04-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- impostorscore=0 spamscore=0 adultscore=0 bulkscore=0 phishscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604280136
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B073:EE_|CYXPR12MB9387:EE_
+X-MS-Office365-Filtering-Correlation-Id: 725a4423-59d9-42f7-bbb1-08dea532274a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|30052699003|82310400026|376014|36860700016|13003099007|56012099003|18002099003|22082099003|20046099003;
+X-Microsoft-Antispam-Message-Info:
+	Fpwol9Fo7UB4Oy6efbVEyRLjOjfQKErQgsmLqhj5AOCmmz/R9UDR28PrJFKuSCjQpWcdlISZuEuNeH3RnFmJUSpPm+sj7CLcDvqdVWjscfUqg8tP+1US2DpvuVfU7iH7/rMDwcPK8gO7eRYbfY2gXXN1r501kNybPSSIBA9YNZrkYn1W4iqMFzNrmL2eqdyXr9povXoTjLJJc07buHVxzrkx+A8l4sTtEB+o37tJzV3C8ulVwdUVFguLYy4kjQL5b+IqQsTzD8mLVIx2VwJAnBydrDjPWorWSLnjS2o7PHCpygRUvlhX7t4vkhefekjR0/15eqHMQldjfhh2XPpsemRpYaIVdgSgiKnHabf+n1/0O3sE2ZF0z2PD+P54DwzxXfM/M7e0+yzcU5siyq/MqmZ1f2Lf+15nNBeatTmoohpqGBK7KBr4GisZ7P3A4B5sQvPoec7skYb43Ur5tXJ8RkgYPkdGs5hc20SfRpVypli7YU4F67sUiq4yQOXEKnNtNlckr+g+fkRV0OUHinbVtft28g29HRVEphNB3jIaSdBEkmNNuUIYohXcZablyQ0gnNg0+IqtHly6480zYe1deXkw/F0gRqdgG4c7lDfHjlCZMqf+hAhf2D6w46w90HUXbfh5ErLQKUNfowRJg1UyQBZyD8gmPQmw1QXTswP6or+LQNVFqPtMQZptQfP6HZ5+29X0GFwPtUDVP0Z/zjumOk80tcLeIHUQfMzxOsBYbM8=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(30052699003)(82310400026)(376014)(36860700016)(13003099007)(56012099003)(18002099003)(22082099003)(20046099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Jw+czdci0L3T+XYIi+5xkj7HMiQSDmOvpZPgPi70fXRo63cY652B/qOwceBdcdWNmGXMDbDfpRGwp6ajCd53qlj5eN6/4VjxieN64oZi/kOih/i9Eu3fJ2LncSo+hvXuwhZw18viCVA/Dch5Go9gwKV+FkpPGwPT62PDu2oAcihBnnkMYgkacL2p46nnFBNg7NLzdlaWK/Ey87cTuW3HBbQOiuKeuTvfL/rNZCBqPKF/xLPisOcbcDQlON1ocCT9rQH01FYRyEa4LxuStpNLOkhM62d7bKaXg6m6pfY615vqwY1ZcmmBn2cYAsyVK0jPNlZ25Nrb6K+403NQylV0or27WRdfwvNleVgrda4ulbFCV80ZwTT6xTNPxnU7jQ+xivjcZ8t+bouvu+roB3ucgAEF6QuRfuxWFTm+S0ScawPH/5ygcPQYHYzjNS7gkYmY
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 14:26:35.8911
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 725a4423-59d9-42f7-bbb1-08dea532274a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B073.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9387
 
-On Arduino Uno-Q, the Bluetooth Device address is stored in the eMMC
-boot1 partition. Point to the appropriate NVMEM cell to retrieve it.
+Describe an AMD BRAM-based remote processor controlled through the
+remoteproc framework.
 
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+The binding models a soft-core processor subsystem instantiated in AMD
+programmable logic and using dual-port BRAM for firmware storage and
+execution. The remoteproc device is represented as a child node whose
+reg property describes the firmware memory window in the processor-local
+address space. The parent bus node provides standard devicetree address
+translation through ranges so Linux can access the same BRAM through the
+system physical address space.
+
+A clock input feeds the soft-core processor subsystem, and an active-low
+reset GPIO holds the processor in reset until firmware loading
+completes. The firmware-name property is optional.
+
+Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
 ---
- arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts | 3 +++
- 1 file changed, 3 insertions(+)
+ .../bindings/remoteproc/amd,bram-rproc.yaml   | 105 ++++++++++++++++++
+ 1 file changed, 105 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
 
-diff --git a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-index 35a30cd6f47d6d2e018f6841a05fe929fec15738..109fa76e05625461935e321e15dbfe6c7d452e78 100644
---- a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-+++ b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-@@ -536,6 +536,9 @@ bluetooth {
- 		vddch0-supply = <&pm4125_l22>;
- 		enable-gpios = <&tlmm 87 GPIO_ACTIVE_HIGH>;
- 		max-speed = <3000000>;
+diff --git a/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
+new file mode 100644
+index 000000000000..cff13d552321
+--- /dev/null
++++ b/Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
+@@ -0,0 +1,105 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/remoteproc/amd,bram-rproc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+		nvmem-cells = <&bd_addr>;
-+		nvmem-cell-names = "local-bd-address";
- 	};
- };
- 
-
++title: AMD BRAM-based Remote Processor
++
++maintainers:
++  - Ben Levinsky <ben.levinsky@amd.com>
++
++description: |
++  Soft-core processor subsystem instantiated in AMD programmable logic and
++  using dual-port BRAM for firmware storage and execution.
++
++  Hardware Architecture:
++
++    Host (PS)                        Programmable Logic (PL)
++    =========                        ======================
++
++    AXI Interface -----------------> AXI BRAM Controller (Host Port)
++                                             |
++                                             | Port A
++                                             v
++                                     +-----------------+
++                                     |  Dual-Port BRAM |
++                                     | (shared memory) |
++                                     +-----------------+
++                                             ^
++                                             | Port B
++                                             |
++                                     AXI BRAM Controller (Soft-core Port)
++                                             ^
++                                             | LMB
++                                             |
++                                     Soft-core CPU (MicroBlaze/V)
++
++    GPIO --------------------------> Proc Sys Reset ----> CPU Reset Signal
++
++    Clock -------------------------> Clock Distribution -> CPU Clock
++
++  Memory Architecture:
++
++    The dual-port BRAM allows simultaneous access from both processors:
++      - Port A: Connected to the host AXI BRAM controller for firmware loading
++      - Port B: Connected to the soft-core local memory bus for execution
++
++  The reg property describes the executable BRAM window in the processor-local
++  address space. The parent bus node translates that window to the system
++  physical address space by using standard devicetree address translation
++  through ranges. A clock input and a reset GPIO control the subsystem.
++
++properties:
++  compatible:
++    oneOf:
++      - const: xlnx,zynqmp-bram-rproc
++      - items:
++          - enum:
++              - xlnx,versal-bram-rproc
++              - xlnx,versal-net-bram-rproc
++              - amd,versal2-bram-rproc
++          - const: xlnx,zynqmp-bram-rproc
++
++  reg:
++    maxItems: 1
++    description:
++      Processor-local address and size of the BRAM firmware memory window,
++      as seen by the soft-core processor (typically 0x0 for reset vector).
++      The parent bus ranges property must translate this window to the
++      corresponding system physical address.
++
++  clocks:
++    maxItems: 1
++    description:
++      Clock input for the soft-core processor subsystem.
++
++  firmware-name:
++    maxItems: 1
++    description:
++      Name of the firmware ELF file to load.
++
++  reset-gpios:
++    maxItems: 1
++    description:
++      GPIO specifier controlling the soft-core reset input.
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - reset-gpios
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    remoteproc@0 {
++      compatible = "xlnx,zynqmp-bram-rproc";
++      reg = <0x0 0x40000>;
++      clocks = <&pl_clk>;
++      firmware-name = "firmware.elf";
++      reset-gpios = <&gpio0 0 GPIO_ACTIVE_LOW>;
++    };
++...
 -- 
 2.34.1
 
