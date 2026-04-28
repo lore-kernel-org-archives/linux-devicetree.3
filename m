@@ -1,27 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516863DB630
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFBF3DB632
 	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:01:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777366892; cv=none; b=eSvCo0HOK8NZn81xR9h7QmdEWPY2X/KbxxVosNyUtjbCOzZFSpfNS8+JbV2ebs2NQ3WG8sRUp3EY7OC0DEqiTJAjkqsXeicEFSzXysXkc5vI8KbIJGvMXp+g9xFT+wVdB10EfuHU54A8j9iAxBew5Knfvhn5lC2WQfYSgK9knP4=
+	t=1777366893; cv=none; b=a/Hhvq1ZVgpH2OxKc+vsSmPVcraLLveqVWcP8MrSR94KM6EvCHPjHRERxqeLfDngj05yF+p7zO4rQy4fUWdTOpNplKOEFWnbPeezcRYeF18VUVBpHohK47ULNccgDB5ryR3MmbEumxFgEXKQSyyKpnz8zPGK2EsO5p7AqxONubk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777366892; c=relaxed/simple;
-	bh=nq7RCHacjxW5EVdjmF//uWDgPOh24j6z6FUTeV2RpiI=;
+	s=arc-20240116; t=1777366893; c=relaxed/simple;
+	bh=IV1MPqpIuDVqI5WDTyEOgup2JhW6cyHgQx0jC+JgUIk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CzzXb27Q/1ohf5beKC/M5yul8C95RiLg2sZ/SfKHcxx9eqZUfw7Itp4pX11wUP0gqolLlsdnvlni3aM1XCM10QY9+kMiK490FwMKA6R6P7tIXpbZUVDPewsNoien+x/nwjFFHNj7rx+Yvx/gKPsIHvi+zxdvAO2qrwB5nsRRv/Y=
+	 In-Reply-To:To:Cc; b=jyOWxsTHzGwzbs4IVjWiQcNiAKy+KPoikxYnsQkgsZ7sgJyFt2aeBgMZrVF36i54OPSObvVs3bC0VO5t6VpyaZaGpWSwiLh+VXDszHy3g2S0Nc3E5IY04ZLmLFfZ1D2J+Dmb+Z7OWQ15gUIafXNDJeNAFSi0PPBbtsmuPPs5yhU=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wHeJJ-0004Lz-OC; Tue, 28 Apr 2026 11:00:53 +0200
+	id 1wHeJA-0004Lz-NE; Tue, 28 Apr 2026 11:00:44 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Tue, 28 Apr 2026 11:00:57 +0200
-Subject: [PATCH v5 22/29] media: rockchip: rga: share the interrupt when an
- external iommu is used
+Date: Tue, 28 Apr 2026 11:00:41 +0200
+Subject: [PATCH v5 06/29] media: rockchip: rga: fix too small buffer size
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -30,7 +29,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260428-spu-rga3-v5-22-eb7f5d019d86@pengutronix.de>
+Message-Id: <20260428-spu-rga3-v5-6-eb7f5d019d86@pengutronix.de>
 References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 In-Reply-To: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -43,42 +42,56 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
  sebastian.reichel@collabora.com, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
- Michael Olbrich <m.olbrich@pengutronix.de>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
 X-Mailer: b4 0.15.2
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-From: Michael Olbrich <m.olbrich@pengutronix.de>
+Fix the command buffer size being only a quarter of the actual size.
+The RGA_CMDBUF_SIZE macro was potentially intended to specify the length
+of the cmdbuf u32 array pointer. But as it's used to specify the size of
+the allocation, which is counted in bytes. Therefore adjust the macro
+size to bytes as it better matches the variable name and adjust it's
+users accordingly.
 
-The RGA3 and the corresponding iommu share the interrupt. So in that
-case, request a shared interrupt so that the iommu driver can request
-it as well.
+As the command buffer is relatively small, it probably didn't caused
+an issue due to being smaller than a single page.
 
-Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/media/platform/rockchip/rga/rga-hw.c | 2 +-
+ drivers/media/platform/rockchip/rga/rga-hw.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index 5bdc8dc51ab68..eb7b211a99e66 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -761,7 +761,8 @@ static int rga_probe(struct platform_device *pdev)
- 		goto err_put_clk;
- 	}
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+index 43ed742a16492..d1618bb247501 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+@@ -414,7 +414,7 @@ static void rga_cmd_set(struct rga_ctx *ctx,
+ {
+ 	struct rockchip_rga *rga = ctx->rga;
  
--	ret = devm_request_irq(rga->dev, irq, rga_isr, 0,
-+	ret = devm_request_irq(rga->dev, irq, rga_isr,
-+			       rga_has_internal_iommu(rga) ? 0 : IRQF_SHARED,
- 			       dev_name(rga->dev), rga);
- 	if (ret < 0) {
- 		dev_err(rga->dev, "failed to request irq\n");
+-	memset(rga->cmdbuf_virt, 0, RGA_CMDBUF_SIZE * 4);
++	memset(rga->cmdbuf_virt, 0, RGA_CMDBUF_SIZE);
+ 
+ 	rga_cmd_set_src_addr(ctx, src->dma_desc_pa);
+ 	/*
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.h b/drivers/media/platform/rockchip/rga/rga-hw.h
+index cc6bd7f5b0300..2b8537a5fd0d7 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.h
++++ b/drivers/media/platform/rockchip/rga/rga-hw.h
+@@ -6,7 +6,7 @@
+ #ifndef __RGA_HW_H__
+ #define __RGA_HW_H__
+ 
+-#define RGA_CMDBUF_SIZE 0x20
++#define RGA_CMDBUF_SIZE 0x80
+ 
+ /* Hardware limits */
+ #define MAX_WIDTH 8192
 
 -- 
 2.54.0
