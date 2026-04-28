@@ -1,67 +1,69 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB4537DE9C
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 15:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31DC75809
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 15:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777389471; cv=none; b=AKgG/VUSA06YfBleAPeF/3Wqak3+Z/PcQoEwnoGEaoiuy+R+3JmUJMP2JGrge2GNCnzY5h8k9ZkDhHETeOwGU/bp/2KtrSrXaOi6jGIWq0aMwUPpIGWjkAZyHtjHtCSnuruY4JxutK1IOpG+whufdA2gF/YZc+RLJyt9cZxgm/U=
+	t=1777389473; cv=none; b=k975A/8D0vwx4k+CVwUmk8aeFeqojFugXYjZipSUuyRPIDldPhWBnDwelVeGAeGReKyYOFApGDYZSWEhO9fFvqezeFaAI2ZDz39dZ2nhuINNNWHojOs9q+vhUxOLjMzlRJBxLN1/6YgJ1NpyoBwK77iP2hda1IykZwG1B3j6QFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777389471; c=relaxed/simple;
-	bh=0MYbAaN+UBw5aL/CYJJbSZ5+VtbKOGI1/ywR6bSRNy4=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=R6lSBmTTIyE341nVnnzKP7/hVK4W2QB4UEymdv8ju002Zt5Sv90Iin9ywN3nVu6oB/exMmnXp14CWo+8HVXbnRhhTzddma073R5cK2fy1ebSlm59tXl0vO+7oR9WmxIGyGGdar4fBb9YyCAYHjeA4efKJk2leQXVGLvFT6iKyMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=JkyNiIfx; arc=none smtp.client-ip=209.85.218.52
+	s=arc-20240116; t=1777389473; c=relaxed/simple;
+	bh=7n+1n3tAUVlUb2NTZ6/xqHUyMp1IQXVl03uYXR/xiLE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=T9EmWpxuy9EYQgx0ljlOBFqb2ByyEWMDHihAyN8/G8U6B6W2t9hzmrXSOH6OMpxO5WYVfS9tlXgb6LaorSOoFWnibA3v/ngdmNIwvOK1+0qcEaWmUMnv3KIedQMO9/4Sg540s23D8A+wiodrVYvCFV8Tt4phihB0FYjLeG13ukk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=eC+j3vpM; arc=none smtp.client-ip=209.85.218.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="JkyNiIfx"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-ba7fd666666so1075131266b.3
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 08:17:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="eC+j3vpM"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-b8f97c626aaso998507166b.2
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 08:17:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=imd-tec.com; s=google; t=1777389465; x=1777994265; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=tfcGL+vcMS+UjBvp0G25Bttx2znw1uqS/N2RTCBWA44=;
-        b=JkyNiIfxmYZRY9boXMGiYjElkqxgrZ62rk4lvupcZCZOt9SnZTs1oilsFgQNVPAkTT
-         QJyW5546G6qfotDFj+A9SKOqAexpMzyEuv6SvEgm6aCJfMTiPMla9hCO7zn28UrDKYWq
-         Ht/hOho2zid0UvphYBxEIeRLg1Ev32KYC2YuQZS9oN9rMsWYKiwQQ+2kEKEhI4QC/euJ
-         P9CThD4C0VfDh71T4Re+WvID/xNGpStU5NAUIyWYG3McwIgQI+xhiZKSnrOxfPBdj0P4
-         7dymUdS0a2tWIJ4Q2DC/KDANpQrulOgpzGPwijeS1KKwpOFgGC59roPd95z8NsM6mfF/
-         uMMA==
+        d=imd-tec.com; s=google; t=1777389468; x=1777994268; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=RY/5ve0AYi87wKI8M4T8nphzcR95Syd1n7GrDKReYDI=;
+        b=eC+j3vpMThJMO9eS8Tb5kwA+1637H+Xk+Z9MKCLQfN6cFpXwVf/4ShiMKgwLXtJP8U
+         wA0k+XbUDI5lT35v6J00GnIgAbpPFC+Qx0McUXaTGUWPW4oJFuKMv46neSzFVsR9w4S1
+         O74Vjv5Meu6B8C7JbmNbZrDtbyJSxMhzdyTowneDqRw5dRX3LBevSXoQmGHxNKJnbD35
+         mXV0X81hctDamF6ocvq6scq0YXsz8bOXQQrdeKojmuVHlU8T194XKsxu85k+F9tUzeaX
+         HDIajVKNzrrY0r/RGekp0vNXqdiw6nWIc8flY4nnACsSS6ZDr1KJ9jx1gbiS/Qtzaqmb
+         7zGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777389465; x=1777994265;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tfcGL+vcMS+UjBvp0G25Bttx2znw1uqS/N2RTCBWA44=;
-        b=L7V/bjr2EcFdPaDY0W5fN+iDpjYVcrw2UkQRlfox8mWK0HDd0GN72iwYwbWIi9VcFQ
-         C8cL9TG6AIH+tuUw5Fjld8r/SJUzdYZwFxk3C2bcoWNjs3Bh1jHJnA8YMTRXH2yFNBAV
-         aqgVzQPyOSUAFS9fHoKca60hNSmX9u0gly0OuN8fCK5RDn1gMwoJYC9wqCZ5I5RCFkY6
-         ahxmOOJlcRMHz5cMpBHl9WGGE3wBv91fmBMnSmL/h0cXRGBpSQiLDvvRmNGeLgqpUJl0
-         R+cs+b4B1HH++VtRWCommsOyNBTyT4082M0b1L4llfr2Fx7uU7X8sATrp3DJmheHJ29n
-         LYvA==
-X-Forwarded-Encrypted: i=1; AFNElJ/FzyIsLNaqaQdkdivpb7zRhuJRVXJYkZFMo2196JfMzUl0vUbSJGCMB3jynR0aKveQaaY3QjPtw86s@vger.kernel.org
-X-Gm-Message-State: AOJu0YxOTu1Fng4GHnNfsJJZ2HLXbG0jm/dAWAqwAmRbaAbn5RpEaXgu
-	CDVw4onErv7paX0sgWMXEj8lYoHeU22jLQiGD3CcTLZpB2RgurfPynWcDmtPx66zlIU=
-X-Gm-Gg: AeBDievVl4uE02WwXpDCHOSxZNcA9TMYWDFd1oRh/TCi7Aw6jrINeOFoqNBWZLEk+1g
-	bXz80Ehy5ROTOe2gYllZDaY1OpCG069tT0belqtsu3OLis3yel8WHm4kBSdAjc+NWXDeiuCowfB
-	gDheMkj/ltM1e5N120EZVj4iu6eZQQWDXm3MBu0+r9M7WsV+lQI4gLBVCQouhE3z7X2uetbYL8O
-	rlOrAr/a0qISLVDgvlTVjxC0UhUJuva/QQ4QqFQwbYuN3kl6EqwAbpY93a9pSWfxYaYB1QgEc2p
-	TwYLx2KNcvOWnS71Pg2wBfx3LdG/XdBSs1hJsI7mkS6D1F0L6FFjswCN8aFMMQDpqdKE7SGf/L0
-	7PkPCRt2XF8XUc7xJBR+UODjgl+gzNzAwXfTUoRTsTG/BIOxH6uu00Zcd1tvLzlt13+/p3E1G6r
-	NNONfxEWgR8wWA0cQi+ym7dG/LvJMXJgEJueZZIYbgJHs2Du3DLkdlITj02aSf0A58SlUin5E5N
-	15XlZkL/RQN+v/V7lrFdW3x+BLzYw==
-X-Received: by 2002:a17:907:789:b0:ba5:20b1:c13b with SMTP id a640c23a62f3a-bb80443cbedmr221886666b.28.1777389465261;
-        Tue, 28 Apr 2026 08:17:45 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1777389468; x=1777994268;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=RY/5ve0AYi87wKI8M4T8nphzcR95Syd1n7GrDKReYDI=;
+        b=UNW3DJlzuj4CjGvDh1DVMZuJuy8sNCxz5PckIo05TZsrbhP8aLNIiBQr7PG1SKou1Z
+         8mqYUsVygCAsZJZ5hGRG2ygA9dFntKdbpaX5pvbqIEi05lT8jk259gbQuUhDQuHZ6OC3
+         Tl/Rb+sq5sI6sgdAJY+qvtx7YcYxpmDhqadEP0DHl/GzljqTr2vZlC5hTiL2bVSly5WU
+         D9ExfMXgLrbW/5gN1ZrhQBumTUpTfuF2bUmCyeYE6BlspzAJ7RT5jM3RGHEG84Ax881g
+         xtOMnOtFFkCfK+WOUZ4xtuJi8i1ofiq1y7y9Y4gvSVcS2wes5rAqzuxAg+duiLLEgLmz
+         o0vg==
+X-Forwarded-Encrypted: i=1; AFNElJ9Cg/Ige1y5V2L6d/gthXxOiSmN3KZQ1CfK5Q6VCtHor2UKC+SEngKCLhifTLAt83gPxh7F6GwVsgai@vger.kernel.org
+X-Gm-Message-State: AOJu0YygPJP/JaSlYYS40sh9tycJemx3EVyqcdJlg3zB4OPlVMUgj2t3
+	XCLp/rRLwFyMyvtPSJGYMYTKBZKE4xml8NPeTOZf2zKimgOLL32Fhj0DEaqiw/0JT+I0YINVVXd
+	rB7hhPsRhfQ==
+X-Gm-Gg: AeBDiesKEei2KMOrCu+EbisTLmQMJ0uagwyqZRuNkvueDjFTH9ooQB1f+L+L2OFLdtk
+	pMs4+a1L6Rsbgypx5yyjfH7hNHrOuYApnYIwSt/2Vnf8s8wAtTB3tWzbZUTC3qufsww1I4kZBXB
+	3hVzXlfQ5MaScz22lX8B07a0WV/7XGqVzul79Qq8bIQVC8xNz8BoxrJnkyKiphHtmqhPjPo0Lc4
+	3KyD5OOjvtU1uoEf03pKheKNd/K4P/DctMa5EY8YpL76JKJztIQH4kmCN/SJFPZpaphRQ73FVbV
+	IV58KnDCD9l7d3kHlRMEOLQbUCasjZvCCJTe6/7AgcsXduMC1wakLNp69pSjhC4kL7k50k4lCsC
+	1qAxNe5PylbU4f5t5sZ+6U1oIC5E5zhZIB8zBcw9/ILZesXD2OxwcGLDAxUQM4M7S/6kULIYfrT
+	Jt8B3RZGreSwFGBC19Pou6rWyt9pY4o+LNPhUb0oifPMnwy8qCdEk92gY9k5voln2mSvwSmAWu9
+	XyAePPBcMRjUTjP3qGvlESu0BSf3A==
+X-Received: by 2002:a17:907:8b95:b0:bad:667f:efa3 with SMTP id a640c23a62f3a-bb8026bcbb7mr172309266b.11.1777389467428;
+        Tue, 28 Apr 2026 08:17:47 -0700 (PDT)
 Received: from [127.0.1.1] ([82.71.135.85])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bb80c0828d0sm115205366b.56.2026.04.28.08.17.44
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bb80c0828d0sm115205366b.56.2026.04.28.08.17.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Apr 2026 08:17:44 -0700 (PDT)
+        Tue, 28 Apr 2026 08:17:46 -0700 (PDT)
 From: William Bright <william.bright@imd-tec.com>
-Subject: [PATCH v2 0/2] drm/panel: Add support for TSD TST070WSBE-196C 8"
- MIPI-DSI panel
-Date: Tue, 28 Apr 2026 16:17:23 +0100
-Message-Id: <20260428-imdt-dsi-display-v2-0-cf7294b5d7d6@imd-tec.com>
+Date: Tue, 28 Apr 2026 16:17:25 +0100
+Subject: [PATCH v2 2/2] drm/panel: simple: Add Team Source Display
+ TST070WSBE-196C panel
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,11 +72,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAIPP8GkC/2WNyw6CMBBFf4V07Zh2NKVx5X8YFn2MMkaEtJVIC
- P9uwbhyeZJzz51FosiUxKmaRaSRE/fPArirhG/t80bAobBAiVoe8QDchQwhMQROw8NOgMY5bdF
- qZYwosyHSld9b8tJ8Ob3cnXxeO6vRcsp9nLbPUa3eL1//50cFEpzDWptACqU7FwUy+b3vO9Esy
- /IBaiEJdMQAAAA=
-X-Change-ID: 20260423-imdt-dsi-display-28bb6a2a6188
+Message-Id: <20260428-imdt-dsi-display-v2-2-cf7294b5d7d6@imd-tec.com>
+References: <20260428-imdt-dsi-display-v2-0-cf7294b5d7d6@imd-tec.com>
+In-Reply-To: <20260428-imdt-dsi-display-v2-0-cf7294b5d7d6@imd-tec.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -87,72 +87,77 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, William Bright <william.bright@imd-tec.com>
 X-Mailer: b4 0.15.2
 
-This series adds support for the TSD TST070WSBE-196C, a 7" 1024x600                                                                   
-MIPI-DSI TFT LCD panel module based on the Fitipower EK79007AD                                                                        
-controller. The panel is connected over a 4-lane MIPI-DSI video-mode                                                                  
-interface and uses the RGB888 pixel format.                                                                                           
-                                                                                                                                        
-The driver is a simple non-configurable panel: the EK79007AD comes up                                                                 
-with usable defaults after the power/reset sequence, so no                                                                 
-DCS init sequence is required. It supports a single power supply, a                                                                   
-reset GPIO and the standard backlight framework.
+Add a dedicated panel driver for the Team Source Display
+TST070WSBE-196C, a 7" 1024x600 MIPI-DSI TFT LCD panel
+using an EK79007AD controller.
 
-Note that in patch 2, link [2] has the incorrect DTSI name 
-(TST070WSBE-165C.dtsi instead of TST070WSBE-196C.dtsi) even though 
-its for the same panel as this patchset.
-   
-Patch 1 adds the dt-binding for the panel.                                                                                            
-Patch 2 adds the panel driver, Kconfig/Makefile entries and a                                                                       
-MAINTAINERS entry.                                                                                                                    
-                                                                                                                                      
+The DSI timings were calculated using
+"linux-mdss-dsi-panel-driver-generator" [1], reading the downstream
+file "dsi-panel-imdt-tst070wsbe165c-video.dtsi" [2].
+
+[1] https://github.com/msm8916-mainline/linux-mdss-dsi-panel-driver-generator
+[2] https://raw.githubusercontent.com/imd-tec/meta-imdt-qcom/refs/heads/kirkstone/recipes-display/displaydevicetree/displaydevicetree/0001-Initial-bringup-of-IMDT-Display-3.patch
 
 Signed-off-by: William Bright <william.bright@imd-tec.com>
 ---
-Changes in v2:
-- As suggested by Dmitry, rework patch 1 and 2 so that the 
-  panel-simple driver is modified instead of creating a new custom 
-  driver for the panel since the panel doesn't require programming 
-  via DSI.
-- The panel controller (EK79007AD) supports 
-  MIPI_DSI_MODE_VIDEO_BURST and
-  MIPI_DSI_MODE_VIDEO_SYNC_PULSE. These have been added to the
-  panel-desc flags.
-- Rework patch 1 and 2 to rename the panel vendor as 
-  Team Source Display instead of using the shortened version (TSD).
-- Within the timing table, the pixel clock is now given 
-  as an explict value instead of a calculated value
-  to be similar to the other panels defined in simple-panel.
-- Link to v1: https://patch.msgid.link/20260427-imdt-dsi-display-v1-0-bb2768de120b@imd-tec.com
+ drivers/gpu/drm/panel/panel-simple.c | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Thierry Reding <thierry.reding@gmail.com>
-To: Sam Ravnborg <sam@ravnborg.org>
-Cc: dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index 236bd56208cc..0010bb3db484 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -5936,6 +5936,39 @@ static const struct panel_desc_dsi osd101t2045_53ts = {
+ 	.lanes = 4,
+ };
+ 
++static const struct drm_display_mode tsd_tst070wsbe_196c_mode = {
++	.clock = 52477,
++	.hdisplay = 1024,
++	.hsync_start = 1024 + 160,
++	.hsync_end = 1024 + 160 + 12,
++	.htotal = 1024 + 160 + 160 + 12,
++	.vdisplay = 600,
++	.vsync_start = 600 + 12,
++	.vsync_end = 600 + 12 + 10,
++	.vtotal = 600 + 12 + 10 + 23,
++};
++
++static const struct panel_desc_dsi tsd_tst070wsbe_196c = {
++	.desc = {
++		.modes = &tsd_tst070wsbe_196c_mode,
++		.num_modes = 1,
++		.bpc = 8,
++		.size = {
++			.width = 190,
++			.height = 121,
++		},
++		.delay = {
++			.prepare = 20,
++		},
++		.connector_type = DRM_MODE_CONNECTOR_DSI,
++	},
++	.flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM |
++		 MIPI_DSI_MODE_VIDEO_BURST |
++		 MIPI_DSI_MODE_VIDEO_SYNC_PULSE,
++	.format = MIPI_DSI_FMT_RGB888,
++	.lanes = 4,
++};
++
+ static const struct of_device_id dsi_of_match[] = {
+ 	{
+ 		.compatible = "auo,b080uan01",
+@@ -5955,6 +5988,9 @@ static const struct of_device_id dsi_of_match[] = {
+ 	}, {
+ 		.compatible = "osddisplays,osd101t2045-53ts",
+ 		.data = &osd101t2045_53ts
++	}, {
++		.compatible = "team-source-display,tst070wsbe-196c",
++		.data = &tsd_tst070wsbe_196c
+ 	}, {
+ 		/* sentinel */
+ 	}
 
----
-William Bright (2):
-      dt-bindings: panel-simple-dsi: Add Team Source Display TST070WSNE-196C
-      drm/panel: simple: Add Team Source Display TST070WSBE-196C panel
-
- .../bindings/display/panel/panel-simple-dsi.yaml   |  2 ++
- drivers/gpu/drm/panel/panel-simple.c               | 36 ++++++++++++++++++++++
- 2 files changed, 38 insertions(+)
----
-base-commit: f6c73e7156b54d8b9ddf1a27f4e93d3a1e49a73e
-change-id: 20260423-imdt-dsi-display-28bb6a2a6188
-
-Best regards,
---  
-William Bright <william.bright@imd-tec.com>
+-- 
+2.43.0
 
