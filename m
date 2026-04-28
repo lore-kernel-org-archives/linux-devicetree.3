@@ -1,59 +1,59 @@
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527F63CCA02
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 20:07:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212603D75A6
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 20:07:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777406868; cv=none; b=A8LUcMUgF9/8J/7VEY0vgvBTh+tSiELjNC2QeX0XmfNVUarOWLoKhvbvY2GKolx5y+BwRdjIUOvj+Xkpemt4X4PHfKvO54OhdKJBbnMaMdawhUZ/edvPPepv36Zx17qix6HVUXdYwa0A/RNEBmyA886hZ1tf5JcX4Dq4/JAIq6k=
+	t=1777406874; cv=none; b=fy/zUqLPb2vHIidhV3zS15X9amTSHpnO/OUGiIgVUxbfkeaVZhN3Vqga9y/mYxX4FDhnJleUtNz98NAIHoqVtYbo0iK50MP/Yz+ZCKbuBzg2bmT/NXGsNAK4iUhwKLWluJblIWizYgUz1hzZi9Ds+8U6OM+PvRmHfXk191zZoCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777406868; c=relaxed/simple;
-	bh=91Jr18vVzfVxquYQHVRz08LrBbzSjFimJpVSdAg42Ic=;
+	s=arc-20240116; t=1777406874; c=relaxed/simple;
+	bh=5qSEGoSFEbZ9Aw2s104tTg8FW55x+SU2f7LQRnzdTp4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hVJ+jbq9hUCt7VwRcrMUViwj0Hu68BpwQ4O/yAuIF+lwXKZeJRIYDnPsH3nZZ27RVNzFPr9XaX+LJXTaPRdcKUaXUAGqxgxXaitNnFkKLneyqjhDzJG+dZkO9D5yYo9mRCFgkQI7cCsjI3SVwE8oyH4Ej72tM1BKwPyEqKiHL7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=mlzutQ1Y; arc=none smtp.client-ip=74.125.82.41
+	 MIME-Version; b=jF83luhdJMz8reCVmded3uEQ+qwPEUYpxmswPC4OFHLsT1E7m23Ej6zz5ZtlX+b1/D9RUhhBeDFaaCoBhVerWBrtvu/Sl/aZ7J6Qhz0LNV/j9zqJ8aYtwMxxqG4xJUoNqS4utu0AKwncwj3sP58VU2z8wBskRXSSX8ZZHwGfiDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=EkLyTgPA; arc=none smtp.client-ip=74.125.82.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="mlzutQ1Y"
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-12c565dd3a7so4087879c88.1
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 13:07:46 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="EkLyTgPA"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-2eadb000b8cso3156672eec.0
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 13:07:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1777406865; x=1778011665; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1777406869; x=1778011669; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4z+F35aj0Zw+rehp8tVxMlZOUqU6/YdKeXG9fNxlPfY=;
-        b=mlzutQ1Ybi0XOPzWC891b1KD65Argk5xXWrYLq1sQymwC6WbJJg+vjUBlSn95exkSa
-         Q1Ng4czKlFVonm85QUbgqVVWxwpi36H4U3O3lnRB3zwT/rLxRVPsEeQi3vNarThSLpNa
-         338BW4Hf57O1P/rzC6bfni6qiF98VuEy8AtN8=
+        bh=63kFLuS2ZunRuwIKFamabno0yfYzwQFLWtzreaffIiA=;
+        b=EkLyTgPAJVV8g7Dhrp0Xta6ycX7glzqwHLsIyM6rYiAoTSnxQkf84NcjPg1g8ZAYGB
+         02u+JNwGAhNaeLrHDLXiCx4LKuKoEMGzXKh2lkj9FS0A2Xbb2HcuWWJVt0ROLOzGswlr
+         DF24gepVJO8mgt5r7T8MULcNYgs65wQMv1h94=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777406865; x=1778011665;
+        d=1e100.net; s=20251104; t=1777406869; x=1778011669;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=4z+F35aj0Zw+rehp8tVxMlZOUqU6/YdKeXG9fNxlPfY=;
-        b=bqjnkESulF4aXm45qxl6ZpMTI6N6YnCMxct3GC0qklZUJU/Ngit1QGQDo2BZ42NLPJ
-         +guMCImrLWO/3GPzGYK8Zr3LeA1mGDqZsvGKzaqDjuJZZ84Jpb7C0Ax4+nTPq4P5Ur8d
-         icuLyuXx8Emky7W6mnpvq2SOrMnuGyw/S7VSPKj195mt6J3b2n1//VtN/8IbWTo49Nb6
-         Tr6mobXBQ4EdujVudhZ8jk005hkmDNpSlg0FSxjqk/nt76T1NvT7wYDpNrB1NDzLOvat
-         MnkcsmntOJcC/S6kO4ZTCV55GMy0SS/qb4mIJjy2xx4ROxxCGq+UV7i6sVclozbdFuBO
-         uEyw==
-X-Gm-Message-State: AOJu0YxYKh/I9yw1j9RGiF/UqtxyB2YEdGJw9K29ij8w+uWkR5upCZSu
-	mI9nNrpPw0Cr3bMaWfycYVgjkxMy3+GsEGGDx8h7P7htg38upw+I0TPuyKHX9O5gVw==
-X-Gm-Gg: AeBDieuaxtB1uP3zJtaO+EX055E2mshWlZYsLlEPWXj6e811LF7hYxnvmiPOvo6tiuA
-	jvmb4SdVIIizGEBgPqEZm6aey2KU2gnvLWPrsgTAj7GqXHrDVr6eBknDNQf0+SDBLHw9duR+IQw
-	+0Ayizqgy3QLB7tH1twxekRBc7HJcfJGmkL/N/BQAY+82lNtRa3WC0bd9GSbmKnKgSkTSbU+fPw
-	zch9nQAoihPrsoIyCoFkVK9D50hhciFbb31Txk5rVCtBUh/q2deIxiuIWkJzwwaTmS0hqu7sozS
-	bs6jIIOmMFTMiFudVIfTouwRiqcdTH1MRO7KpiZu277d9eqOurEeB9V0Um8CGspjBjlXyQOesBQ
-	JnC6gjcukeF7XzskVU+HaDLS+prOMvcpOIMXEfPRIhDxiAuEFJFQs1DCEu7CoXk/98ujWYWni5I
-	ruDEHHrcflUONcaHu6Zk7C5NsrOcxKF7st3UfTANhZLPs/vbB0uymsyiy0mw0EfV7Z4dZMu1gb
-X-Received: by 2002:a05:7022:660d:b0:12c:8b9:720c with SMTP id a92af1059eb24-12de2a330a7mr383827c88.18.1777406865408;
-        Tue, 28 Apr 2026 13:07:45 -0700 (PDT)
+        bh=63kFLuS2ZunRuwIKFamabno0yfYzwQFLWtzreaffIiA=;
+        b=BTn3gZZsUmpptv9j4K1npgn+sxAoUYaosdDDWECU92Lgl5Bcaweja6FTTbHE3qLYlL
+         K1XPh0mSz12Zc4p9DEF1FctxvCbXH6aLx8CRee7iU5cisAcbPvknujSrG3Ot8yC62/rZ
+         k7eKc3sIMsjqQedly6r2HpquhF/A6ehAOqSmlfbINs0y+doM5wwoSw7ZOMs7XTlHBvM4
+         kJztGqaSNCTZW2HLk7VLgjvApCZLa8ERec4wBV54hmrXhMl7JY+rwQjg0gOSLXpqjqMH
+         dTrNmuP2je3Rdg6nIu1I3UTCIgOTc4/y7ltlNPmFE6drcAEAX5pQq/Oq1WYg+B+nknEi
+         L1TQ==
+X-Gm-Message-State: AOJu0YyV1USs/838CAN6QBRYc+vrhxb5KCCxQTP4UO5IV5wgxZGSS2p5
+	D6wputmy11ZKL7tTWCN5gr+XnIUYJayB9lm0XUZBSFu4AuDJLXD5hBW/UggFaRzDVg==
+X-Gm-Gg: AeBDietDWmzEgjE3Cjd1klYr3SIzYliMqH2G806Z3EPa8y2ODzoc5xtGo2bZv6OuYaU
+	qxLsW3epw8PzVihaoiIvYho3tem8CbFZzBWn4X1qpau6v8wSuylEThQjIWQw8zxpjtmjxc7j1mb
+	5pkZvA9uJWMG4B1CS0AhJ42b55SNTo6kS+/EO+Sl1rxoEbMaF5YVZNub2YP7nbsOauNrH3oqV1y
+	XiQvkFIrmHtZ2VIbyDtrvtHtVFb9JmiC4oJw8u0lyJGPXczC1dLWKht2hMKHGYJvQYGGxRckDlF
+	AR2MlHWPCQLaBj9xsda/AhBNnlabcUZCUyNF99Ri7ya3K7Q6L80tLLshH0ANsjcdCCwiE68LDSr
+	iWaK7Vaf9FnQUozQTC8ltU53o5XgaiHxSJCT5BW5XEz22JBgtyswXSi3ZqoQuaUSopmcoy5lSrZ
+	fy41aok1XKjAQvIr9P3tAN+Qdc3iDFtB/7j4DrhBFh++ZVE7Gue3FRoPqhS6bVkTwDeSeOPPKx
+X-Received: by 2002:a05:7300:7255:b0:2ed:e12:3771 with SMTP id 5a478bee46e88-2ed1991b2a9mr467588eec.33.1777406869213;
+        Tue, 28 Apr 2026 13:07:49 -0700 (PDT)
 Received: from localhost ([2a00:79e0:2e7c:8:4ff5:9607:c7e5:48f3])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-12ddd9a63a7sm3079240c88.11.2026.04.28.13.07.43
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-2ed0a0ce761sm3064459eec.15.2026.04.28.13.07.47
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Apr 2026 13:07:44 -0700 (PDT)
+        Tue, 28 Apr 2026 13:07:48 -0700 (PDT)
 From: Brian Norris <briannorris@chromium.org>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -79,9 +79,9 @@ Cc: devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-samsung-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 5/7] arm64: dts: mediatek: Add #{address,size}-cells to Chromium-based /firmware
-Date: Tue, 28 Apr 2026 13:06:57 -0700
-Message-ID: <20260428200712.2660635-6-briannorris@chromium.org>
+Subject: [PATCH 6/7] arm64: dts: nvidia: Add #{address,size}-cells to Chromium-based /firmware
+Date: Tue, 28 Apr 2026 13:06:58 -0700
+Message-ID: <20260428200712.2660635-7-briannorris@chromium.org>
 X-Mailer: git-send-email 2.54.0.545.g6539524ca2-goog
 In-Reply-To: <20260428200712.2660635-1-briannorris@chromium.org>
 References: <20260428200712.2660635-1-briannorris@chromium.org>
@@ -136,51 +136,15 @@ Fixes: 6e5773d52f4a ("of/address: Fix WARN when attempting translating non-trans
 Signed-off-by: Brian Norris <briannorris@chromium.org>
 ---
 
- arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi     | 5 +++++
- arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi   | 5 +++++
- arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi | 5 +++++
- arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi  | 5 +++++
- arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi | 5 +++++
- arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi  | 5 +++++
- 6 files changed, 30 insertions(+)
+ arch/arm64/boot/dts/nvidia/tegra132-norrin.dts | 5 +++++
+ arch/arm64/boot/dts/nvidia/tegra210-smaug.dts  | 5 +++++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-index a0573bc359fb..777da2129e77 100644
---- a/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi
-@@ -16,6 +16,11 @@ aliases {
- 		mmc2 = &mmc3;
- 	};
- 
-+	firmware {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+	};
-+
- 	memory@40000000 {
- 		device_type = "memory";
- 		reg = <0 0x40000000 0 0x80000000>;
-diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
-index a8e257b21a88..a906ec1ce672 100644
---- a/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi
-@@ -21,6 +21,11 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	firmware {
-+		#address-cells <2>;
-+		#size-cells <2>;
-+	};
-+
- 	backlight_lcd0: backlight_lcd0 {
- 		compatible = "pwm-backlight";
- 		pwms = <&pwm0 0 500000>;
-diff --git a/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi b/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
-index ff20376a44d7..2b327d9ef65e 100644
---- a/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi
-@@ -26,6 +26,11 @@ chosen {
+diff --git a/arch/arm64/boot/dts/nvidia/tegra132-norrin.dts b/arch/arm64/boot/dts/nvidia/tegra132-norrin.dts
+index 683ac124523b..1f5222d43e62 100644
+--- a/arch/arm64/boot/dts/nvidia/tegra132-norrin.dts
++++ b/arch/arm64/boot/dts/nvidia/tegra132-norrin.dts
+@@ -18,6 +18,11 @@ chosen {
  		stdout-path = "serial0:115200n8";
  	};
  
@@ -189,29 +153,13 @@ index ff20376a44d7..2b327d9ef65e 100644
 +		#size-cells = <2>;
 +	};
 +
- 	memory@40000000 {
+ 	memory@80000000 {
  		device_type = "memory";
- 		/* The size should be filled in by the bootloader. */
-diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-index 8e423504ec05..ed63c74cf238 100644
---- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-@@ -41,6 +41,11 @@ dmic-codec {
- 		wakeup-delay-ms = <100>;
- 	};
- 
-+	firmware {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+	};
-+
- 	memory@40000000 {
- 		device_type = "memory";
- 		/* The size will be filled in by the bootloader */
-diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
-index eadf1b2d156f..b3850be25594 100644
---- a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
+ 		reg = <0x0 0x80000000 0x0 0x80000000>;
+diff --git a/arch/arm64/boot/dts/nvidia/tegra210-smaug.dts b/arch/arm64/boot/dts/nvidia/tegra210-smaug.dts
+index f0b8c2c80aa5..a6d31650245d 100644
+--- a/arch/arm64/boot/dts/nvidia/tegra210-smaug.dts
++++ b/arch/arm64/boot/dts/nvidia/tegra210-smaug.dts
 @@ -25,6 +25,11 @@ chosen {
  		stdout-path = "serial0:115200n8";
  	};
@@ -221,25 +169,9 @@ index eadf1b2d156f..b3850be25594 100644
 +		#size-cells = <2>;
 +	};
 +
- 	memory@40000000 {
+ 	memory@80000000 {
  		device_type = "memory";
- 		reg = <0 0x40000000 0 0x80000000>;
-diff --git a/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi b/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
-index f1ff64a84267..4992631dd504 100644
---- a/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
-@@ -42,6 +42,11 @@ dmic-codec {
- 		wakeup-delay-ms = <50>;
- 	};
- 
-+	firmware {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+	};
-+
- 	memory@40000000 {
- 		device_type = "memory";
- 		reg = <0 0x40000000 0 0x80000000>;
+ 		reg = <0x0 0x80000000 0x0 0xc0000000>;
 -- 
 2.54.0.545.g6539524ca2-goog
 
