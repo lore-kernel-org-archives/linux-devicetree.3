@@ -1,65 +1,180 @@
-Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B1D2139D6D6;
-	Tue, 28 Apr 2026 09:30:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F143D6CA4
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777368657; cv=none; b=SUvDPHyzML22fYdABUGmGZwtWHo/62M7vrCMxmi/lvTZ8hVoNwZeMiuKobujEMIFIHo9DPTLTX4tofAAQbLKTCt2yNEjTavIgN4ikzNdOuh1bmo967huC7asM0frTL9SS2G1e1lecWQgnYS0oFNU9k4IHePRCmdCOl52Fq2Cdeg=
+	t=1777368722; cv=none; b=Zg8vR56b4hvgT7EwjmphK+s1sygt9EcVVe9k3zzPiWGHH2akMHaonSdm5rAQ/OTseNVZMEA1vVK9kc4Cg6nNpSuAvJ8aUP2i1qflhFnGQ7QSTAjMxFjkZL6iTHWAKpCe+urqYms6QCx84QfbApxqxDD1P2eiXEQ7y/cCS7o4uhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777368657; c=relaxed/simple;
-	bh=c0tk5d51VYQt3g3MNVbd50/HazxNiXCYqTNEMdUzAuQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=n/W4qjJHu6bUziG/Vi9c18S7lFwDI6WLVety3Gg6JGuojyrE/yN5aKNTfxyA5i/jevG01cRjAfe1jc05iZWJhiKYurvNvdWiEcVwl21IUyqFFLyvyjCiGAFIL1d+vjzXno/6+Jw8cBAgzfI/u3cuwY8oWzHnLvMHGqY5iekAbJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=206.189.21.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
- ajax-webmail-app2 (Coremail) ; Tue, 28 Apr 2026 17:30:32 +0800 (GMT+08:00)
-Date: Tue, 28 Apr 2026 17:30:32 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>
-Cc: ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
-	p.zabel@pengutronix.de, linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ningyu@eswincomputing.com, linmin@eswincomputing.com,
-	xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com
-Subject: Re: Re: [PATCH v6 1/2] dt-bindings: pwm: dwc: add optional reset
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <ee58a5d6-9268-445c-a270-1f4a49b49c6e@kernel.org>
-References: <20260424094529.1691-1-dongxuyang@eswincomputing.com>
- <20260424095435.1721-1-dongxuyang@eswincomputing.com>
- <ee58a5d6-9268-445c-a270-1f4a49b49c6e@kernel.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1777368722; c=relaxed/simple;
+	bh=RTNGG1oBjylw5WInHSS/Bhmq34TlF2xruXPC1zPQYu8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XMHBuGWINPx933cN0a7phh64Oi5ioZZdZYXVMEXnTeWQn5ZBUzaCPbrdSdplaKT1QX2pCHgtua6hZ4qIMOMMXC3zfvJcD5hjgHEuMs8Kl9CcW+ITFR7AQqifFXOyBa9yMCv2m7HruAEr5a+81duDjZTcswZZZ7Qbc+1NU0/f9uU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KGmRWLkp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YR9adaM1; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KGmRWLkp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YR9adaM1"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63S6NGpL1625767
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:32:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	dCix2WwSQZTaFU6BabqTi+usW62DHqdG6ZVKuM7pkp4=; b=KGmRWLkpxgKDdl5U
+	azdoUMZIS15OpVD9UdTI2seB2A+pveRUqgyL5htkHzur4xDEkw5ZB1US99e7xBvp
+	8EpsPzFMtjLMQV9ZKB6Cn9rK9d7Ln7tKKYlu5SSei2Xm83P7ClcXCR2ghw42lP5M
+	0JNWMyboMFPA9HVv3SabqhOU4MZ5CPl2SezQeaGvNA1j4kzrNXExhJscifDEgEcX
+	BucXH1MTrT9eA6SzdgISXaZhxR4lxfVDHPmBuNw1tZDtHWLHWxEK79DOYF9RzfaK
+	XIDC8HDzHJM5b2sxwyEgOQcFF0422eXbf5N6WY+J7QjaLFBfdxe1pDdcxJL8dizG
+	SE3flg==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dtgmsa8sq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:31:59 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8954b9b5da7so27749096d6.2
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 02:31:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1777368719; x=1777973519; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=dCix2WwSQZTaFU6BabqTi+usW62DHqdG6ZVKuM7pkp4=;
+        b=YR9adaM1mpGa5JilD6BI/H8bWRDHvD+QvLroolE29xQa7hvMovEjJ3QGpiWPTGjBWb
+         oBKYN/pw8U3lZnMbrqdwwog1lsheyehtEEBt9IdfKNtcw3Y4Dt6vRf5ZHtupvxjr4Ijr
+         dHsBq1k8PPJklouFFU1mxjsLptvThcvgc5JNlQMwhS0zgUH7kgZ/KYYNBqgpTIp3xLRk
+         8AC4H9YIZkYykCLh+g+qqFBZvCUP3aFEfEbPdvKKlKIo50/9NbDLUOVzITpF6L9oF0bV
+         83krT6GtMWOmJLBTNXCY3vbnbLf+aKzBJJq4HMX22bWpk01iQFMaJ4sAqsN6ihODuNDC
+         MFDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777368719; x=1777973519;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dCix2WwSQZTaFU6BabqTi+usW62DHqdG6ZVKuM7pkp4=;
+        b=W/WdByGV5Oq+ADDWBPrI3rC1lIi31nSGrKN9FxzMbXD0TVgrlTxQumoeVGexa+Pn5w
+         IG+gH+2TyrchPj+U83uJZr8JV0u1NdQZalZwIvEeippVJCwJFffo5dqHGLyqSshivgAa
+         Bj2msZ6b/D/Bdk0qwX8/VFgXF7aL1tg5+L4+SXQxb1zqSTVqOvIiUys0/aA9TQja0bAA
+         40005RXjgjHRKkmeG/qzwbiRyHvEzEMshY5Sy3szAbUbqlhBHUm+eSqeSGsldyLcEe0d
+         hQ4/ZEHzY2FsHHbNkzb+ovFEyBP8bMOETTJ0suVNLGXvRqqA6/MsPQb1mAU3YzeBUFjG
+         Rzyg==
+X-Forwarded-Encrypted: i=1; AFNElJ+ZixuSkwynVNd9dMAxTv7fI9o8pGjLuvPKf+ZzZUtorVSNMDh+svkyJZo+wMHfU6zpaItKsTDJtMOR@vger.kernel.org
+X-Gm-Message-State: AOJu0YxtzphzxWgQ1Oo/ruIpPD53RljnoFtpLESpUCTU/FERTsqu6ym9
+	V06xeVjY2NrSqm3jhftxegQvFYC8dzmq5wwBY2siI9/2b0yCcm9JLhixRLQBNHkwAgDo27e+6ZJ
+	SLnmL+WNXppA6x2OC9Cjh5EsjenI828pM3tzkOUfVdqWhdKkQumK95Nb6OsIoBou7
+X-Gm-Gg: AeBDietsXVqdpz/OdpbCVJ2vms1Q5qpXQ5+DuCf/KNBjgvTNaq0RUN5eEXA5TqwSlty
+	WNc42/6s3GjpfFYlntD3Pr0wFpMifjxq5fcR71okkJF/AO1gePQsxTwstoaY89MMDd/VOFblOwe
+	SUd+MRtrm/qXiYjq655ugSZ50QXV96XZepYtc8Jje0Td01iWjaeJL79JC+5LkIeQFNqyLYorxpH
+	xX7CZaqUbwPEUuliLoYSE03cX4dmisdjTD/xYo5VLSKOarHnb3TrZISXougyNrjW/pNGy0mckfS
+	hZDi4bpW+4CT6lbzSGCu/34A3n2YxTbOa37ql3bWO+Sbn1pS9rLIeBwKU4w4HIBfV8opw4o2MB4
+	pBz4q4m2fEIJRmO0HpY3tJ2PBYS/njQ7SZnLKiHXPRVdLIg+A6bhdsG+WNOYaYI4Df7LCxmTmsG
+	Ft+gz4MzedZ1Vafg==
+X-Received: by 2002:a05:6214:629:b0:89a:4741:2147 with SMTP id 6a1803df08f44-8b3e2a0dfa3mr28573776d6.8.1777368718956;
+        Tue, 28 Apr 2026 02:31:58 -0700 (PDT)
+X-Received: by 2002:a05:6214:629:b0:89a:4741:2147 with SMTP id 6a1803df08f44-8b3e2a0dfa3mr28573486d6.8.1777368718524;
+        Tue, 28 Apr 2026 02:31:58 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bb80c081c40sm74244866b.55.2026.04.28.02.31.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Apr 2026 02:31:57 -0700 (PDT)
+Message-ID: <828c59ee-c30e-4a47-9ff8-6fbbe05bbdde@oss.qualcomm.com>
+Date: Tue, 28 Apr 2026 11:31:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <622e18f1.5bb3.19dd36d0c40.Coremail.dongxuyang@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:TQJkCgDH3aA4fvBpfFYVAA--.4903W
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAQELAmnvj5oiO
-	gABsD
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VW7Jw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] arm64: dts: monac-arduino-monza: Add Bluetooth UART
+ node
+To: Shuai Zhang <shuai.zhang@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+        cheng.jiang@oss.qualcomm.com, quic_chezhou@quicinc.com,
+        wei.deng@oss.qualcomm.com, jinwang.li@oss.qualcomm.com,
+        mengshi.wu@oss.qualcomm.com,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+References: <20260428025652.662502-1-shuai.zhang@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260428025652.662502-1-shuai.zhang@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: qoS_Bz15JnSkDrgIG9ie96_SL3mokVuS
+X-Authority-Analysis: v=2.4 cv=R4gz39RX c=1 sm=1 tr=0 ts=69f07e8f cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=U7gHpUSv1cUObH_NKCQA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI4MDA4MyBTYWx0ZWRfX7Y5CN+83Hjo0
+ flRPz8XQzAnBfT2yDnc2NJsA6MZ/fTbbVVyJj5O/41GCCDdhSATGole4Ry4p8d6C302IZwOx6qZ
+ 5ypeHFmHx31zsOE0rIz932+k2dgCj6oZ7Wr/rD3AMQ2cfKwBbk5Dbk1mUBbdhgBZWuOzAasKew1
+ Tz0bRHZ+lnIKWudJA7OWJtqXk1LJvKO6RqugYEMu0xGSk+jQavO8T17ryx23EWMId7Bm7Ft1zKT
+ WDpNaJzkeRLQJlNs714k1TBBwKYCtSJAQIwqJIPW4/I0nMnmLkcgCeTtV0rZeqB2HTHacXAViu6
+ AGab57+YV8RTAtqp8IImcYzwOAzxvlip27F492e6vW89LgOJAdOpKJ6flO9NQSHPeuhlgMoKCF8
+ WSewr7rmT+iG/r6D7H5DpZwbWYaiBiJCh1BVCB+0fs+dZU/T8aJNhbRk2uyxGbwYwIbUCcsnIiA
+ vM5Vk9dgXEusloWWhPQ==
+X-Proofpoint-ORIG-GUID: qoS_Bz15JnSkDrgIG9ie96_SL3mokVuS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-28_02,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ impostorscore=0 spamscore=0 adultscore=0 bulkscore=0 phishscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604280083
 
-PiA+ICAKPiA+ICthbGxPZjoKPiA+ICsgIC0gJHJlZjogcHdtLnlhbWwjCj4gPiArCj4gPiArICAt
-IGlmOgo+ID4gKyAgICAgIHByb3BlcnRpZXM6Cj4gPiArICAgICAgICBjb21wYXRpYmxlOgo+ID4g
-KyAgICAgICAgICBjb250YWluczoKPiA+ICsgICAgICAgICAgICBjb25zdDogZXN3aW4sZWljNzcw
-MC1wd20KPiAKPiBTYW1lIHByb2JsZW0gYXMgdjMgd2hpY2ggSSBjb21tZW50ZWQuIEkgZG8gbm90
-IHVuZGVyc3RhbmQgd2h5IHlvdXIgbmV3Cj4gZGV2aWNlIGhhcyBhbHNvIDEgcmVzZXQuCj4gCj4g
-WW91ciBjb21taXQgbXNnIE1VU1QgZXhwbGFpbiB3aHkgMSByZXNldCBpcyB2YWxpZC4KPiAKCkhp
-IEtyenlzenRvZiwKCkFsdGhvdWdoIHRoZSBQV00gSVAgc3VwcG9ydHMgdHdvIGNsb2NrIGRvbWFp
-bnMsIGVhY2ggcmVxdWlyaW5nIGEgcmVzZXQswqAKdGhlIEVJQzc3MDAgaW1wbGVtZW50YXRpb24g
-dXNlcyB0aGUgc2FtZSBjbG9jayBkb21haW4gZm9yIGJvdGggY2xvY2vCoApzaWduYWxzLiBUaGVy
-ZWZvcmUsIHRoZSBlaWM3NzAwLXB3bSBvbmx5IHN1cHBvcnRzIG9uZSByZXNldC4KVGhpcyBkZXNj
-cmlwdGlvbiB3aWxsIGJlIHVwZGF0ZWQgaW4gdGhlIGJpbmRpbmcgY29tbWl0IGluIHRoZSBuZXh0
-IHZlcnNpb24uCgpCZXN0IHJlZ2FyZHMsClh1eWFuZyBEb25nCg==
+On 4/28/26 4:56 AM, Shuai Zhang wrote:
+> enable bt on monac-arduino-monza
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Signed-off-by: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
+
+This sign-off chain is invalid as-is - should this patch have
+"From: Loic"? Who is the author?
+
+> ---
+>  arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
+> index ca14f0ea4..092ca0b59 100644
+> --- a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
+> +++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
+> @@ -21,6 +21,7 @@ aliases {
+>  		ethernet0 = &ethernet0;
+>  		i2c1 = &i2c1;
+>  		serial0 = &uart7;
+> +		serial1 = &uart10;
+>  	};
+>  
+>  	chosen {
+> @@ -454,6 +455,16 @@ &uart7 {
+>  	status = "okay";
+>  };
+>  
+> +&uart10 {
+> +	status = "okay";
+> +	bluetooth: bluetooth {
+
+Please keep a \n above the subnode definition
+
+> +		compatible = "qcom,qca2066-bt";
+> +		max-speed = <3200000>;
+> +		enable-gpios = <&tlmm 55 GPIO_ACTIVE_HIGH>;
+> +		status = "okay";
+
+The node is enabled already, because nothing disabled it. Drop the
+status line.
+
+Konrad
