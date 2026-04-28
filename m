@@ -1,183 +1,271 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D463A27F19F
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 17:25:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3809B44D696;
+	Tue, 28 Apr 2026 17:49:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777397140; cv=none; b=tFmWVEQ1cog/LcMP5WokuJdzLqPWf+dJcFKR/0neTX8zH6MA9dYMO4oxglSaRKKu3exZT6cwriFK8PKXjIItDabccepOAziNqa6ikZWNXg9d3asV7YUagOhdHaKI4FGSPBjAMQNO+kWVHi3urh78ivlvwBaXkcKsO43kB/6/F/0=
+	t=1777398582; cv=none; b=nQfM5teD0T0GucPbliqiTMUiVulDOcpnTtOtiC7gQ8RD86XQvieeajzrqON4PI47OM1gEQsE4SD8nkn+fLBrT8OyULsxj7/2KWTcNAU9RHoXZNv9+4Q5BNWkwlxnAkVAo5ZpxEyxpdf1HmfXxoqpaO+VP0di33CSNU6rZorCh50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777397140; c=relaxed/simple;
-	bh=fGEvSKKrJp5vnG05fgLesw2rCs8hn7Cq83GP49OrIb4=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=QOxv7sOQLxOb6zCZ7ViOK+gzgvdG926VxBsiJGYxQ1k0X+NMOR6SRKZ8tCe35cHV60KeNZcu7e93HE045LUuyAm9LFewC7ptXgX4HPjWATTuVqBG4Aenucz4XftXKqXq1Eu7VNph4AJza99xeE5/eyCtcJYyF/OEapYZ2mcdDiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fdjC78W5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jrUzf2G4; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777398582; c=relaxed/simple;
+	bh=EkSW1r8JzoHe52BJQrjtUZwAVYmHhXjAZqebDcSpL58=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UPo+wApJ051+FdTf53qHPoIAqb0qkDZKhqMOJHmWJy2AHAmGgyFBc8In/xFqU70yG3/0OxQ94ELg3Z9mbDfxLSajQbo3yoWHAbu3wU1aQ9KCM/eN6FdVhMPgfq9tgjPbN2Jk+aM9y29j9sfmHWQJzouieico7QKrlNvFfX50cb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H6fw16wk; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fdjC78W5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jrUzf2G4"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63SFsBiZ3634312
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 17:25:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZmRlkAry5rxLITNug1gUNrl6wTOkbnqP0LFzwMZv0uY=; b=fdjC78W5GCImrW1h
-	D8P5M4uUVcH5n9Cstz7WPpPaknVgkWui2/y63Un/KWzPQI4Zk7VVVymSVeZ6ZFEn
-	F7GSZm5atGso46WxaPoKKNrQ77lyEbm12Y/15w+i71RHUzjNRYv+UR/f9qIefXxt
-	ebYO/tHS/hidCSHH44/mBnUsId0aoXzWNQdBPZGotjXoXcc42aeYETkZU92KEc9t
-	7SIzvkRXkJWwxPBHb10dz2ttJ86aD8dfJPjAUzMRIj7VN9DNyfl/b9ddYscOiebU
-	ID/BbBWNFcS+eio+gml9M8946N44h+ybr+Nvxruv/4wa/Emb2y9UiavjzJ+Zq3Z3
-	JYooGw==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dty87rk1n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 17:25:37 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2aad5fec175so166175275ad.2
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 10:25:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777397137; x=1778001937; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ZmRlkAry5rxLITNug1gUNrl6wTOkbnqP0LFzwMZv0uY=;
-        b=jrUzf2G49rD0nK4nmtX+bES4rzw7AJhSxkoLpvEtRtkVHyD6+8EdLwTn1c682lF6Hv
-         c0WFmeJGkYF2zzt7RgQgSv2B02gqkC4CCjJcktbmxwlJcIzcK+bluDxOgSmxrzhZD74E
-         nN0L3YqgdXVwoqecu1z3CJ0aK+pdr2dG/Rk9xlO+fdCBe/S2GsxV6RvfnZw2J/QaKABp
-         v2j9BC+5Ji9GoWonpemt1/Jstz2Ggjnoyh++o9UTWKPxQGrYICwWtJMPal5ydvOkwhYC
-         P8TciEB/lHh0/vgsdH/4rfPc1cR1ohW8vZiWlgLmNYoQwuPk1oiBVLFFP6D+r79hhaJQ
-         Yrww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777397137; x=1778001937;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZmRlkAry5rxLITNug1gUNrl6wTOkbnqP0LFzwMZv0uY=;
-        b=kTVgPC1GLmGWJOI6ZYxVMZgZhkomontAzcXK5Z7uumob00fKXzrbSH0ZsnIoUAbVtQ
-         aSqg3CsUF9iU7+S+L3KBgF+hkkcItM3U2gNvcQ93G74s4K4sGQMBppxUT9jgY9ce0Og7
-         I8slJTY3m6BYaweJoSGm10Ty2FB62HM9ku43w4nxUD709+typuONWnBwdHj1JqnRsNGl
-         zY2Urp64ZaC7Vcw0EZ/LNuJA3ybJCi5ZowjRIS1l+coTu6IXuUwHX6CmkR2MdRPr/ZMt
-         ZOLZM4zIinNO7gy4gpOGK9EmgkUVxToDD/ySEEjNVmY35Qft/VRqXlJRJ+65j+cAx7Da
-         9owQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8JItEI66kCoiP+Ke8pBQxr5OkiPCzEnoYVmColj177cA9jvtt39Xc9DeWMod9uHqEN+IEZ3or3Yp8l@vger.kernel.org
-X-Gm-Message-State: AOJu0YyrpHqs5coYayaTlBRLA4F359sfuDl638+CCdT8+EvmtRuluud1
-	4Y8X/DX6nEcc27uKvM6mYFCJZ7vypWGctBg9VMcDKOLdTeBKKHJ9kVeMEWBt2jEP8oGEmEsy3ty
-	Re9jaShQbiCksli4j0r9M89LbNqDaJ/a90un62Zg6m73EVZ7Ilk7mCe0BT/PgPeDl
-X-Gm-Gg: AeBDievyET91O5kRhi18GkJqsjc1fVIe6IQdicMF+x/JXvJPB0OYR1jfqW81nAufRt1
-	jyH18WqBBqGgJ7nw3L2rs1YP7Lqqs5vPaCba8EXFnqcbDvSjc1tbLOVmfHHtWQVXXlz1B+GrZ92
-	PS02KNta3bQxdIsrBntETiQsuKMEsyoI/OtvRRGyUri7dWFCF0/o+TXlVic9x4hYD/WVCisyanG
-	Ju2DTbn45uY4hPeDXllBfNgOJjZWVvf6UqmCR7ppB+JSyBbTxkVbkbhNfOtwljDCsv15FGIZs/6
-	YlvnoTFDcrxtTb9TOTguHEYZ2B/8oFh/gPPQusa0AeUnFVkrDol721KHlWEdghhVMWDqQPJ3Sb3
-	3trlBClPNTPiAA+ooMqVFWnhCFALDLNQ6aGqNn4qYi6zWGCQdMKY5fMpX0L9KMbSP
-X-Received: by 2002:a17:903:3503:b0:2b5:f105:52b2 with SMTP id d9443c01a7336-2b98739675cmr3922755ad.9.1777397136762;
-        Tue, 28 Apr 2026 10:25:36 -0700 (PDT)
-X-Received: by 2002:a17:903:3503:b0:2b5:f105:52b2 with SMTP id d9443c01a7336-2b98739675cmr3922325ad.9.1777397136215;
-        Tue, 28 Apr 2026 10:25:36 -0700 (PDT)
-Received: from [192.168.1.4] ([122.177.243.58])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b97aca8b4esm32088765ad.73.2026.04.28.10.25.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Apr 2026 10:25:35 -0700 (PDT)
-Message-ID: <94a49f16-2e1f-4d32-9d4c-483d56fd2731@oss.qualcomm.com>
-Date: Tue, 28 Apr 2026 22:55:27 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H6fw16wk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEA62C2BCB8;
+	Tue, 28 Apr 2026 17:49:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777398581;
+	bh=EkSW1r8JzoHe52BJQrjtUZwAVYmHhXjAZqebDcSpL58=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=H6fw16wkK3Omz9bJiXliKlgQlGkUoJZ//AahZa1NMSM0fPOkv7/7oU4sJtYfX98BZ
+	 pOIrKRzXeDNyVL4SPqrkwcOhPsQG4+QYrsyTcFiozpdojjVG4f9wvZTiqYhwF8O5/j
+	 6zT3PoWsPehZfcYB0TBqeLc1UOmAxA6dlXUUnrYKpuB1Y3Z4hQ2Xr8W3JUaPZ2ZwyR
+	 RTOPkHdgyGqCB6G0vz41K4EluSoYsxMx6v+8dcOJhWIg87pvH+w4jReIhusHZtHpo8
+	 WZVUg1dD8URaXEGt5QWxrKO3ya3OCKxOBXCZLepcVZn4aCM+lzn0OYv/BzVgDcwke7
+	 xR+FrYMpG1L2Q==
+Date: Tue, 28 Apr 2026 18:49:31 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Piyush Patle <piyushpatle228@gmail.com>
+Cc: ak@it-klinger.de, dlechner@baylibre.com, nuno.sa@analog.com,
+ andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/7] dt-bindings: iio: adc: avia-hx711: add
+ avia,hx710b compatible
+Message-ID: <20260428184931.2be4baab@jic23-huawei>
+In-Reply-To: <20260427100950.33936-2-piyushpatle228@gmail.com>
+References: <20260427100950.33936-1-piyushpatle228@gmail.com>
+	<20260427100950.33936-2-piyushpatle228@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-Subject: Re: [PATCH 02/13] dt-bindings: clock: qcom,sm8550-dispcc: Add display
- CESTA support on SM8750
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-        Maulik Shah <maulik.shah@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>
-References: <20260420-cesta-sm870-dispcc-v1-0-eb27d845df9c@oss.qualcomm.com>
- <20260420-cesta-sm870-dispcc-v1-2-eb27d845df9c@oss.qualcomm.com>
- <20260422-savvy-wolverine-of-chivalry-9ae6fc@quoll>
- <3ea2c4a2-4a1b-4062-b332-9d5d0a53379b@kernel.org>
-Content-Language: en-US
-In-Reply-To: <3ea2c4a2-4a1b-4062-b332-9d5d0a53379b@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=abJRWxot c=1 sm=1 tr=0 ts=69f0ed91 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=EwI1ikYXukqkrg4G3Narhw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=HjAgAaymx-b2fZWta2cA:9 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: oqIOqpOTi7VIu-QmHAc2YRccriT3Aakw
-X-Proofpoint-ORIG-GUID: oqIOqpOTi7VIu-QmHAc2YRccriT3Aakw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI4MDE2NyBTYWx0ZWRfX3gkGwRnRwtlK
- iwhoYNa3RoR6HFkCHCbbykIy9DIXJzzsqRMQcHjYcwUQRiQg/UETU58iZSYYbfmXGPVqQh3Uk6R
- i3cRLsO2mdpsIBTdd57Iq/rGopm9BYfd5isQP7FlchfWzKWAYDDmTNRTY1xTvQTe7+XvnKjjYJF
- G57TbCmBzi6VJnr4xpDiBrlHfMgnvUhZPvwGL56WNdDRaPCYmS34BsqeargyOBLP+sRCHuFh07j
- 8ms1tReUaw7zfe9MRyDo9QDnSIDQHAWupy+3Bx1IqxGyQXt62xWy27bZhbyJxHwHm/duxUHjFqy
- SDmgp5Qy5AKJ6p6LcWx2MZ5xCYtDNzkHUmzpM23RdiokAjiXKSWWHaNCur9u+8/6WFFbRIFz9Z0
- DpXovsrFRlc2Ob26pxwpzyZRDjgFVfvvv3/qh/d9AR1km/N9uGWMu9XUOaDdGXGOiuV3OpQDat3
- MLu0PM6Gd3kbMmWIWtg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-28_05,2026-04-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 spamscore=0
- phishscore=0 bulkscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604280167
 
+On Mon, 27 Apr 2026 15:39:32 +0530
+Piyush Patle <piyushpatle228@gmail.com> wrote:
 
-
-On 4/24/2026 2:39 PM, Krzysztof Kozlowski wrote:
-> On 22/04/2026 09:41, Krzysztof Kozlowski wrote:
->> On Mon, Apr 20, 2026 at 09:58:55PM +0530, Jagadeesh Kona wrote:
->>> On SM8750, a subset of DISPCC clocks is controlled by the display CESTA
->>> (Client State Aggregator) hardware. These clocks can be scaled to the
->>> desired frequency by sending votes to the display CRM(CESTA Resource
->>> manager) instead of programming DISPCC registers directly.
->>
->> This looks like completely new, vendor clock API, so no.
->>
->> Resource voting or clock scaling is nothing new and you do not get a
->> vendor phandle to do it. That's like basic upstreaming 101: we do not
->> want another vendor re-implementation of common or typical solutions.
+> The HX710B shares the same two-wire interface as the HX711 but differs
+> in its channel and gain model: gain is fixed at 128 and the number of
+> trailing PD_SCK pulses selects the input channel rather than the gain.
 > 
-> I'll provide a bit more context, what I am looking for:
-> Are CESTA and CRMC truly separate blocks? Do they have their own
-> resources or maybe something is shared with clock controller, e.g. parts
-> of address space?
+> Add avia,hx710b to the compatible enum. Document the chip differences
+> in the description and add chip-specific supply properties (dvdd-supply,
+> vsup-supply, vref-supply) and a rate-gpios property for the HX711 RATE
+> pin. Add allOf constraints that forbid HX711-only properties on HX710B
+> nodes and vice versa. Clarify the clock-frequency description to
+> reflect its actual purpose: controlling the SCK bit-bang timing.
 > 
+> Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
 
-Thanks Krzysztof for your review
+Hi Piyush,
 
-CRMC is sub-block within the CESTA block. CRMC block contains the clocks frequency lookup tables
-information for CESTA controlled RCGs, which clock driver needs to read and populate the RCG's
-frequency tables. DISPCC block is outside of CESTA block, so CRMC block is mapped as syscon device
-and is used in DISPCC node only to read & populate the CESTA controlled RCGs frequency lookup tables.
-The actual clock scaling is done later by converting the frequency into a perf level & sending it
-to CESTA HW via CRM APIs.
+This is doing at least 3 different things. See below for why I think
+it needs to be 3 patches.
 
-> If they manage clocks, they should receive some of the clocks as inputs,
-> because I don't imagine a block which gates clock somewhere else, to
-> which it has no access (IOW, that gate to manage clock is part of the
-> clock). Or maybe it's some shadow registers? Or display clock controller
-> does not have direct clock access in the first place?
+> ---
+> Changes in v4:
+> - Add vref-supply for the HX710B VREF reference voltage pin.
+> - Remove dvdd-supply from the HX710B forbidden properties list; the
+>   HX710B has a DVDD supply and the DVDD-AVDD channel relies on it.
+> - Add allOf block forbidding vref-supply on HX711 nodes.
+> - Add an HX710B example showing vref-supply.
+> - Update description: avoid specific channel-number references in
+>   hardware text.
 > 
+> Changes in v3:
+> - Drop the vref-supply mention from avdd-supply; no such binding
+>   property exists.
+> - Drop the clock-frequency sentence that repeated the schema default.
+> - Restore the example node name to weight.
+> - Remove the separate HX710B example.
+> 
+> Changes in v2:
+> - Remove driver implementation details from the description and describe
+>   hardware behaviour only.
+> - Drop unrelated punctuation cleanup.
+> - Add dvdd-supply and vsup-supply optional properties for HX711.
+> - Add rate-gpios optional property for the HX711 RATE pin and forbid it
+>   on HX710B.
+> - Add the allOf if/then block forbidding HX711-only properties on
+>   HX710B nodes.
+> - Clarify clock-frequency as SCK bit-bang timing, not a crystal or
+>   external clock input.
+> - Sort compatible enum alphabetically.
+> - Remove redundant example comments.
+> - Update the HX711 example to exercise rate-gpios.
+> ---
+>  .../bindings/iio/adc/avia-hx711.yaml          | 82 +++++++++++++++----
+>  1 file changed, 67 insertions(+), 15 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
+> index 9c57eb13f892..fddd296bfaca 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
+> @@ -4,49 +4,91 @@
+>  $id: http://devicetree.org/schemas/iio/adc/avia-hx711.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  
+> -title: AVIA HX711 ADC chip for weight cells
+> +title: AVIA HX711 and HX710B ADCs
+>  
+>  maintainers:
+>    - Andreas Klinger <ak@it-klinger.de>
+>  
+>  description: |
+> -  Bit-banging driver using two GPIOs:
+> -  - sck-gpio gives a clock to the sensor with 24 cycles for data retrieval
+> -    and up to 3 cycles for selection of the input channel and gain for the
+> -    next measurement
+> -  - dout-gpio is the sensor data the sensor responds to the clock
+> +  The HX711 is a 24-bit ADC with selectable gain (32/64/128) and two
+> +  differential input channels. Channel A supports gain 64 and 128;
+> +  channel B supports gain 32.
 
-Yes, there are few dispcc clocks required for accessing the display CRM/CRMC register
-blocks but those clocks are already kept ON from bootloader and they will stay ON as
-long as MMCX rail is voted. So if MMCX is ON, we can access CRM/CRMC blocks.
+Do this in two patches. First one changes like this that apply to existing
+HX711 binding and second one that adds the HX710B elements (and any text
+about stuff being specific to the HX711 as that only makes sense when adding
+the new stuff.
 
-Thanks,
-Jagadeesh
+>  
+> -  Specifications about the driver can be found at:
+> -  http://www.aviaic.com/ENProducts.aspx
+> +  The HX710B is a 24-bit ADC with fixed gain of 128. One input measures
+> +  the differential voltage between the two input pins; a second measures
+> +  the DVDD-AVDD supply voltage difference for battery level detection.
+>  
+>  properties:
+>    compatible:
+>      enum:
+> +      - avia,hx710b
+>        - avia,hx711
+>  
+>    sck-gpios:
+>      description:
+> -      Definition of the GPIO for the clock (output). In the datasheet it is
+> -      named PD_SCK
+> +      GPIO for the clock output (PD_SCK in the datasheet).
+This cleanup goes in that first patch.
+>      maxItems: 1
+>  
+>    dout-gpios:
+>      description:
+> -      Definition of the GPIO for the data-out sent by the sensor in
+> -      response to the clock (input).
+> -      See Documentation/devicetree/bindings/gpio/gpio.txt for information
+> -      on how to specify a consumer gpio.
+> +      GPIO for the data output from the sensor (DOUT in the datasheet).
+
+As does this.
+
+>      maxItems: 1
+>  
+>    avdd-supply:
+>      description:
+> -      Definition of the regulator used as analog supply
+> +      Analog supply voltage (AVDD). Also serves as the voltage reference on
+> +      both chips.
+
+Don't talk about 'both' chips. Also it doesn't if vref is supplied.  So I'd
+drop the sentence entirely.
+
+> +
+> +  dvdd-supply:
+> +    description:
+> +      Digital supply voltage (DVDD). For the HX710B, DVDD must be greater
+> +      than or equal to AVDD. When DVDD is a battery rail and AVDD is a
+> +      regulated supply, one channel monitors the DVDD-AVDD difference for
+> +      battery level detection.
+> +
+> +  vsup-supply:
+> +    description:
+> +      Supply voltage for the on-chip regulator (VSUP). HX711 only.
+
+This applies to the existing hx711 binding rather than being related to the new
+stuff. Separate patch with an explanation.  This isn't just tidy up so needs
+to be the 2nd patch after tidy up and before hx710b addition.
+
+> +
+> +  vref-supply:
+> +    description:
+> +      Reference voltage input (VREF). HX710B only. When omitted, the driver
+> +      assumes VREF is tied to AVDD on the board.
+
+Is it an external pin? If so no such assumption. It should be specified.
+If both end up pointing at same regulator that's fine.  This is for
+a new device that wasn't supported before so we don't need
+to be careful with backwards compatibility - can do it right!
+
+> +
+> +  rate-gpios:
+> +    description:
+> +      GPIO connected to the RATE pin (HX711 only). When driven low the
+> +      output data rate is 10 SPS; when driven high it is 80 SPS. If
+> +      omitted the RATE pin state is determined by the board wiring.
+> +    maxItems: 1
+
+This is new binding applying to hx711. Put it in a separate patch with
+explanation of just this bit int he patch description.
+
+>  
+>    clock-frequency:
+> +    description:
+> +      Controls the SCK bit-bang timing. The value is used to derive the
+> +      delay between SCK edges; keep the SCK high time below 60 us to
+> +      avoid triggering chip power-down mode.
+Should be in that first hx711 dt binding clean up patch.
+
+>      minimum: 20000
+>      maximum: 2500000
+>      default: 400000
+>  
+> +allOf:
+
+Bring all this in as part of the hx710b addition patch as first
+time we need constraints.
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: avia,hx710b
+> +    then:
+> +      properties:
+> +        vsup-supply: false
+> +        rate-gpios: false
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: avia,hx711
+> +    then:
+> +      properties:
+> +        vref-supply: false
+> +
+>  required:
+>    - compatible
+>    - sck-gpios
+> @@ -62,6 +104,16 @@ examples:
+>          compatible = "avia,hx711";
+>          sck-gpios = <&gpio3 10 GPIO_ACTIVE_HIGH>;
+>          dout-gpios = <&gpio0 7 GPIO_ACTIVE_HIGH>;
+> +        rate-gpios = <&gpio0 9 GPIO_ACTIVE_HIGH>;
+>          avdd-supply = <&avdd>;
+>          clock-frequency = <100000>;
+>      };
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    weight {
+> +        compatible = "avia,hx710b";
+> +        sck-gpios = <&gpio3 10 GPIO_ACTIVE_HIGH>;
+> +        dout-gpios = <&gpio0 7 GPIO_ACTIVE_HIGH>;
+> +        avdd-supply = <&avdd>;
+> +        vref-supply = <&vref>;
+> +    };
+
