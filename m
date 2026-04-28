@@ -1,143 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5348044BCBE;
-	Tue, 28 Apr 2026 13:36:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBDC43DA47
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 13:39:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777383413; cv=none; b=s0q+YgcpnhQkEAMPkQ9CRjTD9eS0bfs5NMZY2AEsYF3x7X+FoAboC+MrS+i2qT5B/YBA1IjH6YQdSsK6FVrRFJaDE29O+7h3WKua4usYxND5+WO4CIzf7OFvyRNhFewX0qLA7zzDFV8SHKvBulIWQqINoEVHMR2Y8XvTkFxqw3U=
+	t=1777383566; cv=none; b=DH0U9uR0G5rJYoUJJzGMblOjUATA+dhA27qyHmb9it0gEdORv0EmOTUca9X6bKNkluuglJDrbCaKD7KIkpjVM797CRsewTSX58ZxDEvHJ6sBsAKCt43CEFSubnY24AQcbYwJHhQ5DkvWNLOwQTx1OE91pDml3QZxl7Rm2yK6OkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777383413; c=relaxed/simple;
-	bh=SV/abDQ9GHMF1r7JuRQf6ccezy9MHlopkSctJDFMcm0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lsBRdu2EFu4uRLs1qXusGK7Rad0ivK1niV3dZ3NdBfIDKT5S8kIDXK/SRN/VwrxzQ6c3nLEuSmaHt99oPovV3cGl0hCvShYvha83TUxN4O29whrP7OhxSZgRyYHdLPvwttbHxsMy1ved12kWBzXczCOHL6gj8CLw3mzg3I6a+is=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TQCh+V7X; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777383566; c=relaxed/simple;
+	bh=2Nntu3egbUh/u7IpfDHTCoOFDbjKhMadOhI4rtSRJSU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PfAZuPN16I9QeBP6S4RxAAkQGSSXClvsjxrAOCOpIlvv+BPC7SbZNwcVHJvmQroYEk3wyqzbBBBkmmq9HQKyJnzNubqzmnaO5IdMJwdtKa4Rm4hADGq+qoAGOD8tdDQur54b73mKgVpAzxcdl0g1XlNQYb1mpiJPtOnZNINjPpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UB9F3WIX; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=oVicnqVs; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TQCh+V7X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DD15C2BCAF;
-	Tue, 28 Apr 2026 13:36:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777383413;
-	bh=SV/abDQ9GHMF1r7JuRQf6ccezy9MHlopkSctJDFMcm0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=TQCh+V7XkKalFjhqFLnZNoiER1cm/2IHx7i6qSIQhKboGz5cU13NVK2zoPg1a3Kgb
-	 rs2jpke3ulloLBQX+zWbcGmjrmRsQLZ1w6M0GpeyMWWfTrqHcX3r/oTMJQq5dUfzU+
-	 06ZCug4Hh5myP99JcCzJmdFYixP1RX+MS2ekstaMvfVq0rqWolWC2TfQYJUjav88Rx
-	 yXduw3391pgOvi4qnylT1CfZLoIWNA/b+1kXJfpwBm60Xtb1efuJiDCnwfWVATXvbe
-	 Q7iFO2tjk2MwkH6gYZRCW1TrP9h/h9JOJhvFDK+G/mZ5wqBD/s8/3SyasoxJwCslF6
-	 SzEZkfZkXLOtg==
-Message-ID: <2846fc60-bf8c-43b3-ae64-58faad6aed2f@kernel.org>
-Date: Tue, 28 Apr 2026 14:36:47 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UB9F3WIX";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="oVicnqVs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1777383563;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SPYMWkvIrzN3gEn5sFq2jPlLqaoi5Nb4/O/19cEGdcw=;
+	b=UB9F3WIXcOLFaqSw0/HMA+Xl4mn1G752dfxeBcAWpdiTppotrIEAQ2yB2Woq7URWqV6yTr
+	CwaYhkKiyFmIf5hPXaWhGv2SSNNFuIlXUdaEOkRJtx0GQ9yKpcpm8jJX9PtpERaXZVBwAW
+	nZRh6W8FZ0RNfDvC3CcfIhTWfknC+/k=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-107-h0Ueo2-SP_i9EBc3cCCQvQ-1; Tue, 28 Apr 2026 09:39:18 -0400
+X-MC-Unique: h0Ueo2-SP_i9EBc3cCCQvQ-1
+X-Mimecast-MFC-AGG-ID: h0Ueo2-SP_i9EBc3cCCQvQ_1777383554
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-8b1f4478ca7so158496656d6.3
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 06:39:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1777383554; x=1777988354; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:mime-version:references:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=SPYMWkvIrzN3gEn5sFq2jPlLqaoi5Nb4/O/19cEGdcw=;
+        b=oVicnqVsG+lyiFj0Yjq0uF8U3N+rTwrMcJeVtJqAk++CBHc9x+hXVzXSuY4tt88n0n
+         OTHW9MxwbpsjjItpqON6PeObfv30zSk5MUsVD0bchU7AxkKP1pewdxtbKCr7HSeMPWYK
+         bNVzDOGMLbNeKbC6PapKn6nxDakstl0He63FHeXMwQuuyB+pKNOv0JYhBQptUyBhwB/E
+         mC2uWLr4oen9KpFk+5Uv2YbpdX2Ie1J5eJlG3lh0CFlotSZ93aZi36grg46JkDl7Wh6m
+         QKgve9JZ+OIBRWU1Bzd/xranytsXiqkICZ6xLYQtq3ZS6dZ76IRBxsOy54HrbVXIyv1s
+         fmdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777383554; x=1777988354;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:mime-version:references:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SPYMWkvIrzN3gEn5sFq2jPlLqaoi5Nb4/O/19cEGdcw=;
+        b=lYVrk/nKvSOm5AxfNcXGiltihgxEjHtvVab5FKlCotS4zmFND9v/wp/3A2gNUA24bM
+         Nrtd1XmNpv8Ls413Dm94KavLMNgUYZxhR6m8+uT4SWTtHWNuRZ+O/Z+e9bC/t0TFabVP
+         9/7sHTVVjRX23vOPDubzRs9N5B14U3jcnqUjXfaedCMCctMSC1IHZ/YANC6WVOopqtww
+         ofAU8sFfBjch5OrBmw2X/PBFVRWYXDC2/LmD5o1OyeacAfhi884CGDpgGyTKHqTRtIEt
+         U4xaUlHxsxSu21ttvpzJxFjXdgyzRfRk9qF/MXwPlZHTIOVwNMfSYjZKsR4goyD8ZIXf
+         T/iA==
+X-Forwarded-Encrypted: i=1; AFNElJ+PAgn78fr8cu9lX8j422TPfVn8qyUrfv3IeuZJEEORCXfcOFsQzZx7BShowO/AVApZqM64ThhLUdF4@vger.kernel.org
+X-Gm-Message-State: AOJu0YyqN7CF+g8x1IDhAAylAyrXACL4+OVoV7+I0MCUusoIpwV2hANx
+	4E9O4wJJaSmhfFdGexBUe2IgG27TxUe4pEdIweCnHZLDnYnorJ7amptvB4/MvD1JFuPn3brU9nU
+	dSKLqvY2J8ZKVqWUkFSRzeGRnw7Yvqj/rbnViiaOayJCGXWzrnzEQFT4iIsX/eqs=
+X-Gm-Gg: AeBDieu8y+YAZVSqpP4VxiEDoYHHgnP172ThPEWtJg0/Xbl4ZNjIr93rDUzWx4hYOXm
+	CCD/pAiB794Hd3my1BGKPzRZ2vdbNsMc7qk7oN+1Q/XQeEbP1uZLxxdqiW4NELL9AHIW0v8rUyV
+	+YTklNeGaI7JfGey41Q8bRa6r2YJZu4BDVI/EswQdRHjk+Jp7SuqsEBlKMH/2WTA9TWQ7dOq7uJ
+	KZ1B/3Z86S4tTzKm2UTIUwpBcaTneqCTbDmAtcpsuSo3eLr6p4ivn7R25loepIu9atrKqF8FiH4
+	WE2tfRk6J1OgXHOWL3K8Qqy+WwvRNTi7MBTUtbdJOgjj32QUwXokSIw7mTJukV+FzPSOb9J1v0O
+	b9a53oYPYm0ruMS3S7tXV5Dtuz7ey8b2d7dyEwJlvxnqcgLSI/oyAIoLBH2o5WCSoOnw=
+X-Received: by 2002:ad4:5ccb:0:b0:89c:4cac:74c5 with SMTP id 6a1803df08f44-8b3e30828ecmr51378386d6.25.1777383554105;
+        Tue, 28 Apr 2026 06:39:14 -0700 (PDT)
+X-Received: by 2002:ad4:5ccb:0:b0:89c:4cac:74c5 with SMTP id 6a1803df08f44-8b3e30828ecmr51377366d6.25.1777383553408;
+        Tue, 28 Apr 2026 06:39:13 -0700 (PDT)
+Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8b3e2956b79sm24018236d6.29.2026.04.28.06.39.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Apr 2026 06:39:12 -0700 (PDT)
+Date: Tue, 28 Apr 2026 09:39:10 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Xuyang Dong <dongxuyang@eswincomputing.com>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: mturquette@baylibre.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de, huangyifeng@eswincomputing.com,
+	benoit.monin@bootlin.com, ningyu@eswincomputing.com,
+	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com
+Subject: Re: Re: Re: [PATCH v3 2/3] clk: eswin: Add eic7700 HSP clock driver
+Message-ID: <afC4fqX_6eeE97mB@redhat.com>
+References: <20260423090904.2108-1-dongxuyang@eswincomputing.com>
+ <20260423091114.2326-1-dongxuyang@eswincomputing.com>
+ <aeo8nn-eigzlojWx@redhat.com>
+ <4e5c887.5a31.19dbf179fb6.Coremail.dongxuyang@eswincomputing.com>
+ <CABx5tqK7p_XJHfXZ70gXhR88PzAteV7cVSFPoRzccgmjanADMw@mail.gmail.com>
+ <177733570840.5403.12558106273673899411@lazor>
+ <7a76d8cb.5bab.19dd3645d4e.Coremail.dongxuyang@eswincomputing.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v3 04/11] arm64: dts: qcom: msm8939: Add venus node
-To: Erikas Bitovtas <xerikasxx@gmail.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-References: <20260427-msm8939-venus-rfc-v3-0-288195bb7917@gmail.com>
- <Xfiq_WNTU9P-ThZLMs4plWE5hwtmwyVyKJc1bD5BKdhERGouucNpyuenIoKQiKfZKaRzP-PdamsNlQ8vezjrRg==@protonmail.internalid>
- <20260427-msm8939-venus-rfc-v3-4-288195bb7917@gmail.com>
- <56d609dd-62be-47eb-8ba3-c5d70d773113@kernel.org>
- <QRkqY_zK7EC4e0ZMoLVyLUhgI9A5RrBcJLm22d69xKT17HzJMXsEDdz_qodBN9qogvuS1XqN4zdemqcoByY5CA==@protonmail.internalid>
- <34627be5-75cc-469b-af23-f1f08ce29820@gmail.com>
-Content-Language: en-US
-From: Bryan O'Donoghue <bod@kernel.org>
-In-Reply-To: <34627be5-75cc-469b-af23-f1f08ce29820@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <7a76d8cb.5bab.19dd3645d4e.Coremail.dongxuyang@eswincomputing.com>
+User-Agent: Mutt/2.3.1 (2026-03-20)
 
-On 28/04/2026 10:47, Erikas Bitovtas wrote:
+Hi Stephen,
+
+On Tue, Apr 28, 2026 at 05:21:03PM +0800, Xuyang Dong wrote:
+> > Quoting Brian Masney (2026-04-24 04:15:46)
+> > > On Fri, Apr 24, 2026 at 6:45 AM Xuyang Dong
+> > > <dongxuyang@eswincomputing.com> wrote:
+> > > > Thanks for the feedback. I did some research based on your comments.
+> > > >
+> > > > lock_ctx is a local variable declared inside the function body. It is not
+> > > > in scope at the attribute site. The attribute expands to
+> > > > __attribute__((acquire_capability(lock_ctx->lock))), and since lock_ctx
+> > > > doesn't exist at the declaration point, clang's analysis cannot resolve it
+> > > > and silently drops the annotation. That's why you see no warnings from
+> > > > make C=2 or -Wthread-safety.
+> > > >
+> > > > Why -Wthread-safety produces no output
+> > > > Two reasons:
+> > > >   1. The lock_ctx->lock expression is unresolvable at the attribute site,
+> > > >   so clang drops the annotation silently — no acquire/release tracking,
+> > > >   no warnings.
+> > > >   2. Even if the expression were resolvable, spinlock_t in this driver is
+> > > >   a plain pointer field (spinlock_t *lock) accessed through a void *
+> > > >   callback — the analysis can't track lock state through that indirection.
+> > > >
+> > > > The closest correct expression would be:
+> > > > __acquires(((struct eic7700_hsp_regmap_lock *)arg)->lock)
+> > > > But that also won't work: arg is void *, and clang's thread-safety
+> > > > analysis is type-based. It can't trace through a void pointer cast to
+> > > > determine which spinlock_t instance is being acquired. The analysis
+> > > > would still silently ignore it.
+> > > >
+> > > > For void * regmap callbacks, there is no clean way to make __acquires()
+> > > > work, because the lock is always hidden behind the opaque pointer.
+> > > > The annotations should be dropped.
+> > > >
+> > > > Based on the above analysis, I suggest removing the annotations entirely.
+> > > > However, I'd like to hear your thoughts on this approach.
+> > > 
+> > > I agree to remove the annotations. Before you post a new version,
+> > > let's let this series sit out on the list for a week or two, and see
+> > > if anyone else replies with the proper way to do this.
+> > > 
+> > 
+> > Why not use a regmap instead? That would enforce locking on registers
+> > and then you use the right regmap APIs to update the register under the
+> > lock (like regmap_update_bits() or something).
 > 
+> Hi Stephen,
 > 
-> On 4/28/26 10:10 AM, Bryan O'Donoghue wrote:
->> On 27/04/2026 18:58, Erikas Bitovtas wrote:
->>> +            video-decoder {
->>> +                compatible = "venus-decoder";
->>> +                clocks = <&gcc GCC_VENUS0_CORE0_VCODEC0_CLK>,
->>> +                     <&gcc GCC_VENUS0_CORE1_VCODEC0_CLK>;
->>> +                clock-names = "core0", "core1";
->>> +                power-domains = <&gcc VENUS_CORE0_GDSC>,
->>> +                        <&gcc VENUS_CORE1_GDSC>;
->>> +                power-domain-names = "core0", "core1";
->>> +            };
->>> +
->>> +            video-encoder {
->>> +                compatible = "venus-encoder";
->>> +                clocks = <&gcc GCC_VENUS0_CORE0_VCODEC0_CLK>,
->>> +                     <&gcc GCC_VENUS0_CORE1_VCODEC0_CLK>;
->>> +                clock-names = "core0", "core1";
->>> +                power-domains = <&gcc VENUS_CORE0_GDSC>,
->>> +                        <&gcc VENUS_CORE1_GDSC>;
->>> +                power-domain-names = "core0", "core1";
->>> +            };
->>
->> So to be fair in this case you do have a reason to have an encoder and
->> decoder compatible here _but_ it should be the case that one one of the
->> sub-devices contains CORE0 related stuff and the other CORE1 related stuff.
->>
->> Because in that case the sub-devices actually represent individual
->> hardware settings.
->>
->> So listing power-domains and clocks for both cores in each node like
->> this militates against that.
->>
->> The other thing is to double check of the encoder and decoder are inter-
->> changable here i.e. can either core be encoder or decoder or is it fixed ?
->>
->> I believe on older generations - perhaps not on 8939 it is not
->> interchangable.
->>
-> I found this in LA.BR.1.2.9.1_rb1.5:
-> https://github.com/msm8916-mainline/linux-downstream/blob/b20608408caff817ec874f325127b07609fbaeb8/arch/arm/boot/dts/qcom/msm8939-common.dtsi#L1589
-> Only decoder bits are being set in bus configs. This suggests that the
-> cores are not interchangeable.
-> Then again, I never managed to get encoding working on MSM8939. Testing
-> it with
-> gst-launch-1.0 videotestsrc ! videoconvert ! v4l2vp8enc ! queue !
-> v4l2vp8dec ! xvimagesink
-> Fails with the following log: https://pastebin.com/nmZcLgPV
-> And in dmesg it reports a firmware error:
-> [  784.461031] qcom-venus 1d00000.video-codec: no valid instance(pkt
-> session_id:dead, pkt:21001)
-> [  784.461126] qcom-venus-decoder 1d00000.video-codec:video-decoder:
-> dec: event session error 0
-> [  784.461200] qcom-venus-encoder 1d00000.video-codec:video-encoder:
-> enc: event session error 0
-> [  784.468799] qcom-venus 1d00000.video-codec: SFR message from FW:
-> QC_IMAGE_VERSION_STRING=VIDEO.VE.1.8-00099, Err_Fatal -
-> Z:\b\venus\utils\src\vbuffer.c:1319:
-> [  785.791641] qcom-venus 1d00000.video-codec: System error has
-> occurred, recovery failed to init HFI
-> [  787.018339] qcom-venus 1d00000.video-codec: System error has
-> occurred, recovery failed to init HFI
-> [  787.097253] qcom-venus 1d00000.video-codec: system error has occurred
-> (recovered)
-> This happens regardless of whether I enable the cores for encoding too
-> or not. The same errors were happening on MSM8916 as well. So I can't
-> tell if these cores are interchangeable just by testing.
+> The common gate API, the HSP private API, and the reset driver all access 
+> the same register space.
+> Therefore, they need to be protected by the same data->lock.
 
-Right so if you swap around the definition of which core is encoder and 
-which decoder do you get the same or different result ?
+To add to Xuyang's response: regmap is already used by this driver.
+These annotations are for the lock and unlock ops on the regmap.
 
-i.e. is it because you are trying to get encoder running generally or 
-because of the core you are doing it on ?
+Brian
 
-How about declaring both cores a decoder ?
-
----
-bod
