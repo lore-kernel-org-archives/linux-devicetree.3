@@ -1,48 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6213FF89E;
-	Tue, 28 Apr 2026 10:42:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EABE428838;
+	Tue, 28 Apr 2026 10:43:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777372939; cv=none; b=V2szyYv3v/iJVD+whniUXJ3bzEtsTQ58hKckqsTSx2jFxWV40q8Ed+XNpB031YVFhjpfsWbUOgUFqunUahROzrfYmpP3FL03/BQ1KEwPUw0okBlOKQo6V3bLj8NgkO5o91up35t9bJD8jY4OPqYec+yrFPyAbDJYzynswz3n0S8=
+	t=1777373002; cv=none; b=C8Pewf/rmzEsPeG0gPa7rY1eu1Pw/5DTbFdOiUIUM9rwhByt7IClJfalUJlfSST7gbdoxzFOf7ZBLW1NHQtIumo1TjnHp6OccsTPleKzm8/0xOejqXi3vov6qWA1rilURNN8Mq2ZVPQdFaWMf4YzdAWOEzctewDY75GfI2j5t/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777372939; c=relaxed/simple;
-	bh=kPur6jWe6BvdHYe0RM6/hM1TWbrq+uMmPOxcVVn7tU8=;
+	s=arc-20240116; t=1777373002; c=relaxed/simple;
+	bh=yA9GlsKbZPA0q0wYtAV3srus1XhU361ZRCUkz2/ZKKs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HizMNN8eFDt63VRZQiHTvHu2/PepbXL81MTlSVXnte4hEIZXHe+cLMqp/Jg2xp2TCp1vkWrBT32Vowm1nurs5Pr8IoEMre/3tEzYN1aSlrUTp7h6cDgBE6PvQHK4tSAlSNNYEFCzQeLchqyzp3fao0Wva3s5V4IW0EdvqiUuihk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gB8fmX51; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=HsseqPI/WLSg8jXuWsp7M4BZyw/I50EINgtj82Pvb2G7czLhq7JMaOTMXMyKp21GxUvHEwXjGvL5hjDcl3QcAkmqUGDC4FqvkBoftszXUaSLlk8pdUOPKzgWj8j/RMH8FSTxEqEQlHZ19VwonpvrkiPS7gkRP4SU7eioFOeFmOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nd5YifBL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gB8fmX51"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6877DC2BCC7;
-	Tue, 28 Apr 2026 10:42:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nd5YifBL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D83AC2BCB5;
+	Tue, 28 Apr 2026 10:43:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777372938;
-	bh=kPur6jWe6BvdHYe0RM6/hM1TWbrq+uMmPOxcVVn7tU8=;
+	s=k20201202; t=1777373001;
+	bh=yA9GlsKbZPA0q0wYtAV3srus1XhU361ZRCUkz2/ZKKs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=gB8fmX51C8i5Ld1o9Znvh0MfxonevAAxXjt1pNUB3xl/GGspzEhc1z27L/POXfn+9
-	 2ARwlrv4Zf1lYOiWMji1RyKduiTD6nH+KsX5HWc55WPmFDZpsHlCo9bmLtkfCymH7I
-	 KpbzuSq/WLe0rc8rcFziU6kooIi6rjgCyGNkOtcaL+C3Zi9ZKUVUW/Btht+XXMmD0G
-	 u9/MC9xyz17RWZuaiNQ2TWBo1cxy+5jdlsVeKMakvIdQvdkMoYY3mX+TNutn3k/zH/
-	 Blnc4AhsFvci2EAiJKYVdigaD9leMIF422NdfVI63e5mKDpPzJwAB892eKwOGmvEHW
-	 VGzk6a+toOF5g==
+	b=Nd5YifBLnlNJYcBrxP9ouMf4MW2VJ40F69lAtGDeg9QENKHa9XxdtIU6UQuq2OdGd
+	 66aBabNAWCqR9GHNHX/S6r7cqBNTJic75gVZ04HQrmcCcE3RrOFsejz42ATf0OrzZc
+	 DrsDKBM9PnGAiKE2+TTM8vtF/iqQ4HhSoVFUoAPfwkTeaq5Cl1rWozKbwKHoEnhTgf
+	 l7CdHB4PyRmcSDgTkiK+DlLTYJ5kjsJIDFRAcu29lZiOAXfjOzJGoWjs7K9V8bjkYO
+	 dVKrmW8lyNcrTfn5ZfMrtPj5PNIq5/r3GgF2GmysR36nWtVSc9mn/KXdmwrYANvs9b
+	 ZOX7ah3yAy5aA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Frieder Schrempf <frieder.schrempf@kontron.de>,
+Cc: Val Packett <val@packett.cool>,
 	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Bjorn Andersson <andersson@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	a.zummo@towertech.it,
+	agross@kernel.org,
+	konrad.dybcio@linaro.org,
+	mturquette@baylibre.com,
+	sboyd@kernel.org,
 	robh+dt@kernel.org,
 	krzysztof.kozlowski+dt@linaro.org,
 	conor+dt@kernel.org,
-	linux-rtc@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.6] dt-bindings: rtc: microcrystal,rv3028: Allow to specify vdd-supply
-Date: Tue, 28 Apr 2026 06:40:43 -0400
-Message-ID: <20260428104133.2858589-32-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0-5.15] dt-bindings: clock: qcom,gcc-sc8180x: Add missing GDSCs
+Date: Tue, 28 Apr 2026 06:41:26 -0400
+Message-ID: <20260428104133.2858589-75-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260428104133.2858589-1-sashal@kernel.org>
 References: <20260428104133.2858589-1-sashal@kernel.org>
@@ -55,204 +59,318 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0.2
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
+From: Val Packett <val@packett.cool>
 
-[ Upstream commit 10663044bee592ba049a2aa37f4431fbdf93b739 ]
+[ Upstream commit 76404ffbf07f28a5ec04748e18fce3dac2e78ef6 ]
 
-In case the VDD supply voltage regulator of the RTC needs to be
-specified explicitly, allow to set vdd-supply.
+There are 5 more GDSCs that we were ignoring and not putting to sleep,
+which are listed in downstream DTS. Add them.
 
-Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260309085749.25747-2-frieder@fris.de
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Signed-off-by: Val Packett <val@packett.cool>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20260312112321.370983-2-val@packett.cool
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Decision Summary
-Backport this **with the companion DTS fix**. By itself it is a schema-
-only change, but the mailing-list history verifies it was added because
-the runtime DTS fix for Kontron i.MX8MP OSM RTC boot hangs was dropped
-due to `dtb_check` warning: `'vdd-supply' is not allowed`. This patch is
-a 2-line DT binding addition for existing hardware, reviewed by a DT
-maintainer, and has essentially no runtime regression risk.
+I have all the evidence I need. Now let me write my analysis.
 
-## Phase Walkthrough
-1.1 Record: Subsystem `dt-bindings: rtc: microcrystal,rv3028`; action
-verb `Allow`; intent is to permit `vdd-supply` in the RV3028 RTC
-binding.
+## Phase 1: Commit Message Forensics
 
-1.2 Record: Tags found: `Signed-off-by: Frieder Schrempf`, `Reviewed-by:
-Krzysztof Kozlowski`, `Link:
-https://patch.msgid.link/20260309085749.25747-2-frieder@fris.de`,
-`Signed-off-by: Alexandre Belloni`. No `Fixes`, `Reported-by`, `Tested-
-by`, or `Cc: stable`.
+**Step 1.1: Parse subject line**
+Record: Subsystem: `dt-bindings: clock: qcom,gcc-sc8180x`. Action verb:
+"Add". Summary: Adds 5 missing GDSC (Global Distributed Switch
+Controller) #defines to the binding header.
 
-1.3 Record: Commit body says only that explicit VDD regulator
-specification should be allowed. The series and v2 discussion verify the
-concrete issue: the companion DTS fix adds `vdd-supply` so fw_devlink
-orders PMIC before RTC, avoiding sporadic boot hangs.
+**Step 1.2: Parse all tags**
+Record: Tags found: `Signed-off-by: Val Packett`, `Acked-by: Krzysztof
+Kozlowski` (DT bindings maintainer), `Link:` to lore.kernel.org thread,
+`Signed-off-by: Bjorn Andersson` (Qualcomm maintainer who applied). No
+`Fixes:` tag on this bindings patch (but its companion driver patch
+`3565741eb985a` has `Fixes: 4433594bbe5d`). No `Cc: stable` tag.
 
-1.4 Record: Hidden bug-fix context exists, but not in this patch alone.
-This patch fixes a DT schema gap that blocked a real DTS boot-hang fix.
+**Step 1.3: Analyze commit body**
+Record: "There are 5 more GDSCs that we were ignoring and not putting to
+sleep" — explicitly describes missing PM/power management support. The
+commit adds 5 new #define identifiers (values 11-15) for MMNOC MMU TBU
+(HF0/HF1/SF) and Turing MMU TBU0/TBU1 GDSCs. No version info mentioned.
+Author's explanation: these were missing from mainline driver but
+present in downstream DTS.
 
-2.1 Record: One file changed,
-`Documentation/devicetree/bindings/rtc/microcrystal,rv3028.yaml`; 2
-lines added; no functions; single-file schema change.
+**Step 1.4: Detect hidden fix**
+Record: Language uses "Add missing" — typical hidden-fix pattern. The
+driver companion has `Fixes: 4433594bbe5d` tag pointing to the original
+SC8180x driver (v5.12). This is a bug fix by nature (missing power
+management), but THIS patch is only the header definitions.
 
-2.2 Record: Before, `unevaluatedProperties: false` rejected `vdd-
-supply`. After, `vdd-supply: true` permits the regulator phandle.
+## Phase 2: Diff Analysis
 
-2.3 Record: Bug category is DT schema/build-validation fix and
-prerequisite for hardware dependency expression. Not memory safety,
-locking, or runtime driver logic.
+**Step 2.1: Inventory**
+Record: Single file modified: `include/dt-bindings/clock/qcom,gcc-
+sc8180x.h`. 5 lines added, 0 removed. Zero functions modified — purely
+adding preprocessor macros.
 
-2.4 Record: Fix is obviously correct and minimal. Regression risk is
-very low because it only relaxes schema validation for one standard
-supply property.
+**Step 2.2: Code flow change**
+Record: Before: header defined GDSC IDs 0-10. After: header defines GDSC
+IDs 0-15 (adds 11-15). No execution-path change; these are constants
+used by other code (driver `drivers/clk/qcom/gcc-sc8180x.c` in the
+companion patch) and potentially DTS files.
 
-3.1 Record: Blame shows the binding file was introduced by
-`c690048ed59b5` in `v6.3-rc1`; `#clock-cells` was added by
-`4015580e983da` in `v6.12-rc1`.
+**Step 2.3: Bug mechanism category**
+Record: Category (h) Hardware enablement — adds IDs needed to expose
+hardware GDSCs. This is a prerequisite for the follow-on driver patch
+that actually registers the 5 GDSCs so they can be power-managed.
 
-3.2 Record: Candidate has no `Fixes:` tag. Companion DTS patch fixes
-`946ab10e3f40f`, introduced in `v6.13-rc1`.
+**Step 2.4: Fix quality**
+Record: Trivially correct — just #define additions. Zero regression risk
+on its own (unused constants). Obvious correctness verifiable by reading
+the names and numbering. No red flags.
 
-3.3 Record: Recent binding history only shows the file creation and
-`#clock-cells` addition. The patch is standalone, but its stable value
-is tied to the companion DTS fix.
+## Phase 3: Git History Investigation
 
-3.4 Record: Author has multiple Kontron DTS fixes in local history; not
-the RTC maintainer, but the patch was reviewed by Krzysztof Kozlowski
-and applied by Alexandre Belloni.
+**Step 3.1: Blame**
+Record: The file was introduced in commit 4433594bbe5d (SC8180x GCC
+driver, v5.12-rc1, January 2021). The existing GDSC section (IDs 0-10)
+has been stable since then. This patch only appends new IDs.
 
-3.5 Record: No code dependencies. For meaningful runtime benefit,
-backport with `arm64: dts: imx8mp-kontron: Fix boot order for PMIC and
-RTC`.
+**Step 3.2: Fixes target**
+Record: This bindings patch has no Fixes: tag. The driver companion
+`3565741eb985a` has `Fixes: 4433594bbe5d` ("clk: qcom: gcc: Add global
+clock controller driver for SC8180x"). That target commit is in v5.12
+and every stable tree since (5.15, 6.1, 6.6, 6.12).
 
-4.1 Record: `b4 dig -c 10663044bee5` found the original v3 patch at the
-supplied lore/msgid URL. `b4 dig -a` found v1 and v3 series history; v3
-added the missing binding patch.
+**Step 3.3: File history**
+Record: Recent changes to the file have been small additions (GPLL9
+support, USB MP resets, UFS QREF clocks) — standard "add missing"
+completions. This fits the same pattern. Part of an 11-patch series
+"clk: qcom: sc8180x: PM-related fixes (and refactoring)" but this
+specific commit + the driver commit (patches 01/11 and 02/11) are the
+only "fix missing GDSCs" pair.
 
-4.2 Record: `b4 dig -w` showed relevant DT/RTC maintainers and lists
-were included.
+**Step 3.4: Author context**
+Record: Author Val Packett has submitted Qualcomm platform work
+previously; the patch is Acked-by the DT binding maintainer (Krzysztof
+Kozlowski) and applied by the Qualcomm SoC maintainer (Bjorn Andersson).
+The driver commit got Reviewed-by from two additional Qualcomm
+maintainers (Dmitry Baryshkov, Konrad Dybcio).
 
-4.3 Record: v2 discussion verified Frank Li dropped the DTS fix because
-it caused `dtb_check` warning: `'vdd-supply' is not allowed`; Frieder
-replied that v3 adds the binding patch.
+**Step 3.5: Dependencies**
+Record: This bindings patch is a prerequisite for the driver patch
+`3565741eb985a`, which references `HLOS1_VOTE_MMNOC_MMU_TBU_HF0_GDSC`
+etc. Without this header change, the driver patch won't compile
+(verified: `drivers/clk/qcom/gcc-sc8180x.c:17` includes this header).
 
-4.4 Record: Series context is 2 patches in v3: this binding patch and
-the DTS boot-order fix. Binding was applied by Alexandre Belloni; DTS
-fix later applied by Frank Li.
+## Phase 4: Mailing List Research
 
-4.5 Record: I found no stable-specific discussion or explicit stable
-nomination.
+**Step 4.1: Original discussion**
+Record: `b4 dig -c 76404ffbf07f2` found
+https://patch.msgid.link/20260312112321.370983-2-val@packett.cool. Part
+of v2 series (v1 had 7 patches, v2 expanded to 11 patches). Applied
+version is v2. Thread saved; no stable nominations, no NAKs, no concerns
+raised on this specific patch.
 
-5.1 Record: No functions modified.
+**Step 4.2: Reviewers**
+Record: Acked-by Krzysztof Kozlowski (DT bindings maintainer). The
+broader series was reviewed by subsystem maintainers Dmitry Baryshkov
+and Konrad Dybcio.
 
-5.2 Record: No callers. Semantic impact is DT schema validation.
+**Step 4.3: Bug report search**
+Record: No Reported-by tag, no bug link. The issue was identified by
+comparing against downstream DTS.
 
-5.3 Record: Verified runtime relevance through OF supplier parsing:
-`drivers/of/property.c` has `DEFINE_SUFFIX_PROP(regulators, "-supply",
-NULL)` and includes `parse_regulators` in supplier bindings.
+**Step 4.4: Series context**
+Record: 11-patch series. Patches 01-02 are the "add missing GDSCs" pair
+(bindings + driver). Patches 03-06 are PM retention/runtime-PM
+enablement (larger functional changes). Patches 07-08 are dispcc
+changes, 09-11 are camcc refactoring. Only 01+02 are tight bug-fix
+material.
 
-5.4 Record: Companion DTS path is reachable during device probing on
-Kontron i.MX8MP OSM. PMIC driver enables the I2C level translator when
-`nxp,i2c-lt-enable` is present; RTC node sits on the same I2C bus.
+**Step 4.5: Stable list**
+Record: No stable-list discussion found about this specific patch.
 
-5.5 Record: Similar `vdd-supply: true` properties exist in many
-bindings, including another RTC binding, `amlogic,meson6-rtc.yaml`.
+## Phase 5: Code Semantic Analysis
 
-6.1 Record: Binding exists from `v6.3+`; Kontron OSM DTS exists from
-`v6.13+`. `v6.1` lacks the binding file.
+**Step 5.1: Key symbols**
+Record: 5 preprocessor constants:
+HLOS1_VOTE_MMNOC_MMU_TBU_HF0/HF1/SF_GDSC and
+HLOS1_VOTE_TURING_MMU_TBU0/1_GDSC. No functions modified.
 
-6.2 Record: `git apply --check` succeeded on existing `v6.6` and `v6.12`
-worktrees and current `v7.0.1`; `v6.1` fails because the file does not
-exist. A separate v6.19 temporary worktree attempt ran out of space
-before testing, so direct v6.19 apply was not verified.
+**Step 5.2-5.4: Callers/callees**
+Record: Used by `drivers/clk/qcom/gcc-sc8180x.c` to index into the
+`gcc_sc8180x_gdscs[]` array (verified via grep). Not directly reachable
+from user code; these IDs reference power domains managed by the clock
+framework and consumed by SMMU/Turing subsystems on SC8180x hardware
+(e.g. Microsoft Surface Pro X).
 
-6.3 Record: No related stable fix already found in local history.
+**Step 5.5: Similar patterns**
+Record: **Strong precedent found**. An essentially identical SC8280XP
+pair exists:
+- `9eba4db02a88` (SC8280XP bindings: "Add missing GDSCs") +
+  `4712eb7ff85b` (SC8280XP driver fix)
+- Both were backported to stable as `66120ba55999a` (explicitly labeled
+  `Stable-dep-of: 4712eb7ff85b`) and `a92a9604e8a43` respectively. The
+  SC8280XP commit message is almost verbatim identical, and the Qualcomm
+  stable process treated the bindings half as a required dependency.
 
-7.1 Record: Subsystem is DT binding documentation for RTC hardware;
-criticality is peripheral, but it supports a board boot-hang fix.
+## Phase 6: Cross-referencing / Stable Tree
 
-7.2 Record: Subsystem/file is low churn: only binding creation and
-`#clock-cells` addition before this patch.
+**Step 6.1: Code in stable**
+Record: The header file and driver exist in all stable trees ≥5.12. The
+incomplete GDSC list is present in all active stable trees.
 
-8.1 Record: Affected population is users/builders of RV3028 DTs,
-especially Kontron i.MX8MP OSM users when paired with the DTS fix.
+**Step 6.2: Backport cleanliness**
+Record: Bindings file context from line 320-325 is unchanged since 2023
+(last modification 19ac3579af14e "Add missing bindings on gcc-sc8180x").
+The addition appends at end of GDSC section — should apply cleanly to
+all stable trees without conflicts.
 
-8.2 Record: Trigger for the companion bug is boot/probe ordering where
-RTC is accessed before PMIC enables the I2C level shifter. Trigger for
-this patch alone is DT schema validation with `vdd-supply`.
+**Step 6.3: Related fixes in stable**
+Record: SC8280XP equivalent already in stable (same fix pattern for
+sibling SoC).
 
-8.3 Record: Candidate alone fixes a build/validation warning. Companion
-failure mode is sporadic boot hang, which is critical for affected
-hardware.
+## Phase 7: Subsystem
 
-8.4 Record: Benefit is high when paired with the companion DTS fix, low
-if isolated. Risk is very low: two schema lines, no runtime code.
+**Step 7.1**: Record: `drivers/clk/qcom/` (via header it defines) and
+`include/dt-bindings/` — Qualcomm clock/PM subsystem. Criticality:
+PERIPHERAL (specific to SC8180x, used in Microsoft Surface Pro X-class
+laptops and similar devices).
 
-9.1 Record: For backporting: tiny, reviewed, applies cleanly to relevant
-trees, enables a verified hardware boot-hang fix, standard DT supply
-property. Against: schema-only and no standalone runtime fix.
+**Step 7.2**: Record: Qualcomm clock driver area is actively maintained;
+this patch went through normal review cycle (v1→v2).
 
-9.2 Record: Stable rules: obviously correct yes; real user bug
-indirectly yes via companion DTS fix; important issue yes when paired,
-boot hang; small yes; no runtime API/new driver yes; applies to
-v6.6/v6.12/current, not v6.1.
+## Phase 8: Impact / Risk
 
-9.3 Record: Exception category applies: DT binding addition for existing
-hardware / build-validation support.
+**Step 8.1: Affected users**
+Record: SC8180x platform users (notably Surface Pro X; ARM64 laptops).
+When combined with driver patch, affects power consumption on these
+devices.
 
-9.4 Record: Decision is YES, but it should be treated as a
-prerequisite/companion to the DTS boot-order fix, not as a standalone
-runtime fix.
+**Step 8.2: Trigger**
+Record: Always active — SMMU TBU / Turing TBU GDSCs remain powered-on
+because kernel doesn't vote them off.
+
+**Step 8.3: Severity of this patch alone**
+Record: This bindings-only patch has ZERO runtime effect by itself.
+Severity of the **combined fix** (with companion driver patch): MEDIUM —
+power waste, excess heat, degraded battery. Not a crash, not a
+corruption, but real user-facing PM issue.
+
+**Step 8.4: Risk-benefit**
+Record: Benefit: enables the companion driver fix to apply and build.
+Risk: essentially zero (5 unused preprocessor macros if driver patch not
+applied). As Stable-dep-of — safe and necessary.
+
+## Phase 9: Synthesis
+
+**Evidence FOR:**
+- Companion driver fix has `Fixes: 4433594bbe5d` pointing to v5.12;
+  valid bug fix
+- Strong, nearly identical precedent: SC8280XP pair was backported to
+  stable exactly this way (Stable-dep-of marker)
+- Five trivial macro additions; zero regression risk
+- Applies cleanly to all stable trees (no conflicts in the appended
+  section)
+- Acked by DT bindings maintainer, reviewed by Qualcomm maintainers
+- Required prerequisite — without it the driver fix will not compile in
+  stable
+
+**Evidence AGAINST:**
+- This patch alone has no runtime effect; it's a dependency, not a
+  standalone fix
+- The underlying issue is "missing PM" not "crash/corruption"
+- Part of a larger 11-patch series, most of which is NOT stable material
+
+**Stable rules check:**
+1. Obviously correct — yes (5 #define lines)
+2. Fixes real bug — yes, when paired with driver patch (power waste)
+3. Important issue — borderline: PM/power waste, not crash
+4. Small & contained — yes (5 lines, 1 file)
+5. No new features/APIs — yes (enables existing hardware features
+   already in DT bindings header)
+6. Applies to stable — yes (verified file structure unchanged)
+
+**Exception category**: This is effectively a DT binding additions for
+existing hardware (exception category 3) AND a required Stable-dep-of
+for a Fixes:-tagged driver commit — which was the exact rationale used
+for the SC8280XP precedent.
 
 ## Verification
-- Phase 1: Parsed supplied commit message and local b4 mbox; confirmed
-  tags and absence of `Fixes`/stable tags.
-- Phase 2: Read diff and current binding file; confirmed only `vdd-
-  supply: true` is added.
-- Phase 3: Used `git blame`, `git describe --contains`, and file
-  history; confirmed binding introduction in `v6.3-rc1`, `#clock-cells`
-  in `v6.12-rc1`, board DTS in `v6.13-rc1`.
-- Phase 4: Used `b4 am`, `b4 mbox`, `b4 diff`, `b4 dig -a`, and `b4 dig
-  -w`; verified v2 rejection due dtb_check warning and v3 addition of
-  this binding patch.
-- Phase 5: Searched/read OF supplier parsing and PCA9450 code; verified
-  `*-supply` creates supplier links and PMIC `nxp,i2c-lt-enable` enables
-  the I2C level translator.
-- Phase 6: Checked stable tags/worktrees; apply check passes on v6.6,
-  v6.12, and current tree; v6.1 lacks the file.
-- Phase 7/8: Verified affected paths in Kontron DTS and binding; no
-  runtime code touched.
-- Unverified: Direct apply check on v6.19 due temporary worktree
-  checkout failure, though v6.19 file contents were inspected and match
-  the expected context.
+
+- [Phase 1] Parsed tags via `git show 76404ffbf07f2`: Acked-by Krzysztof
+  Kozlowski, Signed-off-by Bjorn Andersson, Link to lore. No
+  Fixes:/stable tags on bindings commit.
+- [Phase 1] Companion `git show 3565741eb985a` confirmed `Fixes:
+  4433594bbe5d` and two Reviewed-by tags.
+- [Phase 2] Diff analysis: 5 line additions in one file, pure #define
+  macros.
+- [Phase 3] `git show 4433594bbe5d` and `git describe --contains
+  4433594bbe5d` → v5.12-rc1~110^2^4~33. Bug present since v5.12.
+- [Phase 3] `git log --oneline -- include/dt-bindings/clock/qcom,gcc-
+  sc8180x.h`: confirms file has been amended via "Add missing X" commits
+  repeatedly.
+- [Phase 4] `b4 dig -c 76404ffbf07f2`: found
+  https://patch.msgid.link/20260312112321.370983-2-val@packett.cool
+- [Phase 4] `b4 dig -c 76404ffbf07f2 -a`: found v1 (7-patch) and v2
+  (11-patch). Applied = v2 (latest).
+- [Phase 4] Thread saved and searched for "stable": no stable
+  nominations or objections.
+- [Phase 5] `grep qcom,gcc-sc8180x.h drivers/clk/qcom/gcc-sc8180x.c`:
+  confirms line 17 includes this header — driver build depends on these
+  defines.
+- [Phase 5] `git show 3565741eb985a | grep HLOS1_VOTE_`: driver patch
+  uses all 5 new defines.
+- [Phase 5] Precedent: `git show 66120ba55999a`: confirmed "[ Upstream
+  commit 9eba4db02a88e7a810aabd70f7a6960f184f391f ]" and "Stable-dep-of:
+  4712eb7ff85b" — identical pattern backported to stable for SC8280XP.
+- [Phase 5] `git show a92a9604e8a43`: confirmed companion SC8280XP
+  driver fix was also backported.
+- [Phase 6] `git describe --contains 9eba4db02a88` → v6.6-rc1. Stable
+  backports landed in older branches with Stable-dep-of marker.
+- [Phase 6] Read current file (lines 300-327): confirmed GDSC section
+  ends at USB30_SEC_GDSC=10; appending 5 new IDs won't conflict with any
+  downstream state in stable.
+- UNVERIFIED: Could not fetch the actual lore thread content (anti-bot
+  wall); relied on saved mbox and local commit metadata. Could not
+  verify stable maintainer's intention for this specific pair, but
+  SC8280XP precedent is unambiguous.
+
+## Conclusion
+
+This is a pure DT-bindings header addition that is safe on its own (zero
+runtime impact) and is a **required prerequisite** for the companion
+driver patch `3565741eb985a` which has a `Fixes:` tag pointing to v5.12.
+The almost identical SC8280XP bindings commit (`9eba4db02a88`) was
+backported to stable as `Stable-dep-of: 4712eb7ff85b`, establishing a
+clear precedent. Without this patch, the driver fix cannot compile in
+stable trees. It is small, obviously correct, applies cleanly, and
+follows an exception category (DT bindings for existing hardware +
+required dependency for a Fixes:-tagged fix).
 
 **YES**
 
- Documentation/devicetree/bindings/rtc/microcrystal,rv3028.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ include/dt-bindings/clock/qcom,gcc-sc8180x.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/rtc/microcrystal,rv3028.yaml b/Documentation/devicetree/bindings/rtc/microcrystal,rv3028.yaml
-index cda8ad7c12037..2ea3b40419530 100644
---- a/Documentation/devicetree/bindings/rtc/microcrystal,rv3028.yaml
-+++ b/Documentation/devicetree/bindings/rtc/microcrystal,rv3028.yaml
-@@ -32,6 +32,8 @@ properties:
-       - 9000
-       - 15000
+diff --git a/include/dt-bindings/clock/qcom,gcc-sc8180x.h b/include/dt-bindings/clock/qcom,gcc-sc8180x.h
+index b9d8438a15ffb..9ed7b794aacc4 100644
+--- a/include/dt-bindings/clock/qcom,gcc-sc8180x.h
++++ b/include/dt-bindings/clock/qcom,gcc-sc8180x.h
+@@ -322,5 +322,10 @@
+ #define USB30_MP_GDSC						8
+ #define USB30_PRIM_GDSC						9
+ #define USB30_SEC_GDSC						10
++#define HLOS1_VOTE_MMNOC_MMU_TBU_HF0_GDSC		11
++#define HLOS1_VOTE_MMNOC_MMU_TBU_HF1_GDSC		12
++#define HLOS1_VOTE_MMNOC_MMU_TBU_SF_GDSC		13
++#define HLOS1_VOTE_TURING_MMU_TBU0_GDSC			14
++#define HLOS1_VOTE_TURING_MMU_TBU1_GDSC			15
  
-+  vdd-supply: true
-+
- required:
-   - compatible
-   - reg
+ #endif
 -- 
 2.53.0
 
