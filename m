@@ -1,26 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFBF3DB632
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8F93DB63A
 	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:01:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777366893; cv=none; b=a/Hhvq1ZVgpH2OxKc+vsSmPVcraLLveqVWcP8MrSR94KM6EvCHPjHRERxqeLfDngj05yF+p7zO4rQy4fUWdTOpNplKOEFWnbPeezcRYeF18VUVBpHohK47ULNccgDB5ryR3MmbEumxFgEXKQSyyKpnz8zPGK2EsO5p7AqxONubk=
+	t=1777366893; cv=none; b=tc0GFzWAPo2YpYIl5jrQOrklLcppnjttWiVh9iedGBU6cJGvdqykcjmv0Fq7s18VSUBRphEPQmTUZat/xlAxIcAoR1L61nTnyRLE71ZG76lJ8TOYFlw0H0FTnILtYPZ6M7re0JHumdMP+YIM4KOQ/DkNzkmIKIl8fMnM1MlRTRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1777366893; c=relaxed/simple;
-	bh=IV1MPqpIuDVqI5WDTyEOgup2JhW6cyHgQx0jC+JgUIk=;
+	bh=4UALNyh3zvQReRdoyc6YBeCLRcgHWvzWyrXqKVXno8k=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jyOWxsTHzGwzbs4IVjWiQcNiAKy+KPoikxYnsQkgsZ7sgJyFt2aeBgMZrVF36i54OPSObvVs3bC0VO5t6VpyaZaGpWSwiLh+VXDszHy3g2S0Nc3E5IY04ZLmLFfZ1D2J+Dmb+Z7OWQ15gUIafXNDJeNAFSi0PPBbtsmuPPs5yhU=
+	 In-Reply-To:To:Cc; b=L+JVpAZiEipUYVv1Ky5JdalxiJ19ut6Qm0ecLhRoQrI9iwAk3xTybHs/BirxMaE2StJ1Yb1yWU/tQ/P+15IxWuuYrE9BImCExrimAHD3FK/8ec5ZKOl/WrZS5O1XgE4+PswxZPSPkM6t/UOSeWkm3Z7b940nO5m1x+DQtJrvUxY=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wHeJA-0004Lz-NE; Tue, 28 Apr 2026 11:00:44 +0200
+	id 1wHeJC-0004Lz-0Z; Tue, 28 Apr 2026 11:00:46 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Tue, 28 Apr 2026 11:00:41 +0200
-Subject: [PATCH v5 06/29] media: rockchip: rga: fix too small buffer size
+Date: Tue, 28 Apr 2026 11:00:43 +0200
+Subject: [PATCH v5 08/29] media: rockchip: rga: use stride for offset
+ calculation
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -29,7 +30,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260428-spu-rga3-v5-6-eb7f5d019d86@pengutronix.de>
+Message-Id: <20260428-spu-rga3-v5-8-eb7f5d019d86@pengutronix.de>
 References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 In-Reply-To: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -42,56 +43,218 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
  sebastian.reichel@collabora.com, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>
 X-Mailer: b4 0.15.2
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Fix the command buffer size being only a quarter of the actual size.
-The RGA_CMDBUF_SIZE macro was potentially intended to specify the length
-of the cmdbuf u32 array pointer. But as it's used to specify the size of
-the allocation, which is counted in bytes. Therefore adjust the macro
-size to bytes as it better matches the variable name and adjust it's
-users accordingly.
+Use the stride instead of the width for the offset calculation. This
+ensures that the bytesperline value doesn't need to match the width
+value of the image.
 
-As the command buffer is relatively small, it probably didn't caused
-an issue due to being smaller than a single page.
+Furthermore this patch removes the dependency on the uv_factor property
+and instead reuses the v4l2_format_info to determine the correct
+division factor.
 
-Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga-hw.c | 2 +-
- drivers/media/platform/rockchip/rga/rga-hw.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/media/platform/rockchip/rga/rga-buf.c | 14 +++++++++-----
+ drivers/media/platform/rockchip/rga/rga.c     | 16 ----------------
+ drivers/media/platform/rockchip/rga/rga.h     |  1 -
+ 3 files changed, 9 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index 43ed742a16492..d1618bb247501 100644
---- a/drivers/media/platform/rockchip/rga/rga-hw.c
-+++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -414,7 +414,7 @@ static void rga_cmd_set(struct rga_ctx *ctx,
+diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c b/drivers/media/platform/rockchip/rga/rga-buf.c
+index bb575873f2b24..65fc0d5b4aa10 100644
+--- a/drivers/media/platform/rockchip/rga/rga-buf.c
++++ b/drivers/media/platform/rockchip/rga/rga-buf.c
+@@ -14,7 +14,6 @@
+ #include <media/videobuf2-dma-sg.h>
+ #include <media/videobuf2-v4l2.h>
+ 
+-#include "rga-hw.h"
+ #include "rga.h"
+ 
+ static ssize_t fill_descriptors(struct rga_dma_desc *desc, size_t max_desc,
+@@ -95,14 +94,19 @@ static int rga_buf_init(struct vb2_buffer *vb)
+ 	return 0;
+ }
+ 
+-static int get_plane_offset(struct rga_frame *f, int plane)
++static int get_plane_offset(struct rga_frame *f,
++			    const struct v4l2_format_info *info,
++			    int plane)
  {
- 	struct rockchip_rga *rga = ctx->rga;
++	u32 stride = f->pix.plane_fmt[0].bytesperline;
++
+ 	if (plane == 0)
+ 		return 0;
+ 	if (plane == 1)
+-		return f->width * f->height;
++		return stride * f->height;
+ 	if (plane == 2)
+-		return f->width * f->height + (f->width * f->height / f->fmt->uv_factor);
++		return stride * f->height +
++		       (stride * f->height / info->hdiv / info->vdiv);
  
--	memset(rga->cmdbuf_virt, 0, RGA_CMDBUF_SIZE * 4);
-+	memset(rga->cmdbuf_virt, 0, RGA_CMDBUF_SIZE);
+ 	return -EINVAL;
+ }
+@@ -148,7 +152,7 @@ static int rga_buf_prepare(struct vb2_buffer *vb)
+ 	/* Fill the remaining planes */
+ 	info = v4l2_format_info(f->fmt->fourcc);
+ 	for (i = info->mem_planes; i < info->comp_planes; i++)
+-		offsets[i] = get_plane_offset(f, i);
++		offsets[i] = get_plane_offset(f, info, i);
  
- 	rga_cmd_set_src_addr(ctx, src->dma_desc_pa);
- 	/*
-diff --git a/drivers/media/platform/rockchip/rga/rga-hw.h b/drivers/media/platform/rockchip/rga/rga-hw.h
-index cc6bd7f5b0300..2b8537a5fd0d7 100644
---- a/drivers/media/platform/rockchip/rga/rga-hw.h
-+++ b/drivers/media/platform/rockchip/rga/rga-hw.h
-@@ -6,7 +6,7 @@
- #ifndef __RGA_HW_H__
- #define __RGA_HW_H__
- 
--#define RGA_CMDBUF_SIZE 0x20
-+#define RGA_CMDBUF_SIZE 0x80
- 
- /* Hardware limits */
- #define MAX_WIDTH 8192
+ 	rbuf->offset.y_off = offsets[0];
+ 	rbuf->offset.u_off = offsets[1];
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index 4e710a050cb7c..c07207edffdb6 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -190,7 +190,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_ALPHA_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_ABGR8888,
+ 		.depth = 32,
+-		.uv_factor = 1,
+ 		.y_div = 1,
+ 		.x_div = 1,
+ 	},
+@@ -199,7 +198,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_RB_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_ABGR8888,
+ 		.depth = 32,
+-		.uv_factor = 1,
+ 		.y_div = 1,
+ 		.x_div = 1,
+ 	},
+@@ -208,7 +206,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_RB_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_XBGR8888,
+ 		.depth = 32,
+-		.uv_factor = 1,
+ 		.y_div = 1,
+ 		.x_div = 1,
+ 	},
+@@ -217,7 +214,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_NONE_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_RGB888,
+ 		.depth = 24,
+-		.uv_factor = 1,
+ 		.y_div = 1,
+ 		.x_div = 1,
+ 	},
+@@ -226,7 +222,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_RB_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_RGB888,
+ 		.depth = 24,
+-		.uv_factor = 1,
+ 		.y_div = 1,
+ 		.x_div = 1,
+ 	},
+@@ -235,7 +230,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_RB_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_ABGR4444,
+ 		.depth = 16,
+-		.uv_factor = 1,
+ 		.y_div = 1,
+ 		.x_div = 1,
+ 	},
+@@ -244,7 +238,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_RB_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_ABGR1555,
+ 		.depth = 16,
+-		.uv_factor = 1,
+ 		.y_div = 1,
+ 		.x_div = 1,
+ 	},
+@@ -253,7 +246,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_RB_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_BGR565,
+ 		.depth = 16,
+-		.uv_factor = 1,
+ 		.y_div = 1,
+ 		.x_div = 1,
+ 	},
+@@ -262,7 +254,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_UV_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV420SP,
+ 		.depth = 12,
+-		.uv_factor = 4,
+ 		.y_div = 2,
+ 		.x_div = 1,
+ 	},
+@@ -271,7 +262,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_UV_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV422SP,
+ 		.depth = 16,
+-		.uv_factor = 2,
+ 		.y_div = 1,
+ 		.x_div = 1,
+ 	},
+@@ -280,7 +270,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_NONE_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV420SP,
+ 		.depth = 12,
+-		.uv_factor = 4,
+ 		.y_div = 2,
+ 		.x_div = 1,
+ 	},
+@@ -289,7 +278,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_NONE_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV420SP,
+ 		.depth = 12,
+-		.uv_factor = 4,
+ 		.y_div = 2,
+ 		.x_div = 1,
+ 	},
+@@ -298,7 +286,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_NONE_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV422SP,
+ 		.depth = 16,
+-		.uv_factor = 2,
+ 		.y_div = 1,
+ 		.x_div = 1,
+ 	},
+@@ -307,7 +294,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_NONE_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV420P,
+ 		.depth = 12,
+-		.uv_factor = 4,
+ 		.y_div = 2,
+ 		.x_div = 2,
+ 	},
+@@ -316,7 +302,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_NONE_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV422P,
+ 		.depth = 16,
+-		.uv_factor = 2,
+ 		.y_div = 1,
+ 		.x_div = 2,
+ 	},
+@@ -325,7 +310,6 @@ static struct rga_fmt formats[] = {
+ 		.color_swap = RGA_COLOR_UV_SWAP,
+ 		.hw_format = RGA_COLOR_FMT_YUV420P,
+ 		.depth = 12,
+-		.uv_factor = 4,
+ 		.y_div = 2,
+ 		.x_div = 2,
+ 	},
+diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+index 2db10acecb405..477cf5b62bbb2 100644
+--- a/drivers/media/platform/rockchip/rga/rga.h
++++ b/drivers/media/platform/rockchip/rga/rga.h
+@@ -17,7 +17,6 @@
+ struct rga_fmt {
+ 	u32 fourcc;
+ 	int depth;
+-	u8 uv_factor;
+ 	u8 y_div;
+ 	u8 x_div;
+ 	u8 color_swap;
 
 -- 
 2.54.0
