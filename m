@@ -1,49 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378813FBED4;
-	Tue, 28 Apr 2026 10:42:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6213FF89E;
+	Tue, 28 Apr 2026 10:42:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777372928; cv=none; b=RBVWrUhppIm7TaLJjS0B+Avgn4GExJLzibLHvXsSzo+V+JzjSKRax/JyMNbB9hcmVuHEw3PuQFsOR39yknSpBg3QOqfHajldNrmVCvFzS9aOBgw/Vw1gnus0XYdjUj418ThEm8xcKssBj0pKDPhLu39WTdfUJ/HCxIjoWWDVUZE=
+	t=1777372939; cv=none; b=V2szyYv3v/iJVD+whniUXJ3bzEtsTQ58hKckqsTSx2jFxWV40q8Ed+XNpB031YVFhjpfsWbUOgUFqunUahROzrfYmpP3FL03/BQ1KEwPUw0okBlOKQo6V3bLj8NgkO5o91up35t9bJD8jY4OPqYec+yrFPyAbDJYzynswz3n0S8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777372928; c=relaxed/simple;
-	bh=32abhNWO89cs2JwkXa0XH5ZqG1v/L7wT581ifHEbNSo=;
+	s=arc-20240116; t=1777372939; c=relaxed/simple;
+	bh=kPur6jWe6BvdHYe0RM6/hM1TWbrq+uMmPOxcVVn7tU8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LjrsCNBHqsLvd8HSbjng4/z6JSnBRbdI/EBEZhfK7bWSbJsHAty47obEPLiV0rtNBliSlCK1OreoA2D1zQgKphbjBeDFbbWAThcdEAypUp8KTPWMM3Z2+H/2KlW50A40taM1TDtplJSSVqHEeitbxJKGwDuAm9UCK0hJWcR0ahk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CNEOdlEV; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version; b=HizMNN8eFDt63VRZQiHTvHu2/PepbXL81MTlSVXnte4hEIZXHe+cLMqp/Jg2xp2TCp1vkWrBT32Vowm1nurs5Pr8IoEMre/3tEzYN1aSlrUTp7h6cDgBE6PvQHK4tSAlSNNYEFCzQeLchqyzp3fao0Wva3s5V4IW0EdvqiUuihk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gB8fmX51; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CNEOdlEV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9E26C2BCB5;
-	Tue, 28 Apr 2026 10:42:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gB8fmX51"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6877DC2BCC7;
+	Tue, 28 Apr 2026 10:42:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777372928;
-	bh=32abhNWO89cs2JwkXa0XH5ZqG1v/L7wT581ifHEbNSo=;
+	s=k20201202; t=1777372938;
+	bh=kPur6jWe6BvdHYe0RM6/hM1TWbrq+uMmPOxcVVn7tU8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=CNEOdlEVV/wPN8bR5EDj70Aue0OASPmqHvdUgczIC5vNRxxkLsoMwatdqGnVni72S
-	 BMps/zP9GzQMd2Ux57sTlW7hsuvJ1Huw+vhutOwvz4iK7rmGmwII68WUjipr0Tk5Ke
-	 uXuVgkeQ9eztfK2c5nCMB+oHh7wvnAg31YaPa2Ckqej/o93PBWRAfpC9THUbv00+Z4
-	 Hr7u3u0sogQflfmDd9hgfyGrKO1225cE9Fd42H2L84pHZM/uLrrtLZsCEVQ8xfCPaD
-	 yw96a5xdd54Jiscghmdg6jfCbWW/H2uOORqmdddokXi2TK9G1Dun7jHDFsTzeSigF8
-	 FHbql6Q6j2l8A==
+	b=gB8fmX51C8i5Ld1o9Znvh0MfxonevAAxXjt1pNUB3xl/GGspzEhc1z27L/POXfn+9
+	 2ARwlrv4Zf1lYOiWMji1RyKduiTD6nH+KsX5HWc55WPmFDZpsHlCo9bmLtkfCymH7I
+	 KpbzuSq/WLe0rc8rcFziU6kooIi6rjgCyGNkOtcaL+C3Zi9ZKUVUW/Btht+XXMmD0G
+	 u9/MC9xyz17RWZuaiNQ2TWBo1cxy+5jdlsVeKMakvIdQvdkMoYY3mX+TNutn3k/zH/
+	 Blnc4AhsFvci2EAiJKYVdigaD9leMIF422NdfVI63e5mKDpPzJwAB892eKwOGmvEHW
+	 VGzk6a+toOF5g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Elad Nachman <enachman@marvell.com>,
-	"Rob Herring (Arm)" <robh@kernel.org>,
-	Gregory CLEMENT <gregory.clement@bootlin.com>,
+Cc: Frieder Schrempf <frieder.schrempf@kontron.de>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>,
-	andrew@lunn.ch,
-	sebastian.hesselbarth@gmail.com,
+	a.zummo@towertech.it,
 	robh+dt@kernel.org,
 	krzysztof.kozlowski+dt@linaro.org,
 	conor+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	linux-rtc@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-5.10] dt-bindings: arm64: add Marvell 7k COMe boards
-Date: Tue, 28 Apr 2026 06:40:35 -0400
-Message-ID: <20260428104133.2858589-24-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0-6.6] dt-bindings: rtc: microcrystal,rv3028: Allow to specify vdd-supply
+Date: Tue, 28 Apr 2026 06:40:43 -0400
+Message-ID: <20260428104133.2858589-32-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260428104133.2858589-1-sashal@kernel.org>
 References: <20260428104133.2858589-1-sashal@kernel.org>
@@ -56,336 +55,204 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0.2
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Elad Nachman <enachman@marvell.com>
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
 
-[ Upstream commit 283822a64d6bd9aca55b5e2718bc63e9815b443d ]
+[ Upstream commit 10663044bee592ba049a2aa37f4431fbdf93b739 ]
 
-Add dt bindings for:
-Armada 7020 COM Express CPU module
-Falcon DB-98CX85x0 COM Express type 7 Carrier board
-Falcon DB-98CX85x0 COM Express type 7 Carrier board
-with an Armada 7020 COM Express CPU module
+In case the VDD supply voltage regulator of the RTC needs to be
+specified explicitly, allow to set vdd-supply.
 
-Signed-off-by: Elad Nachman <enachman@marvell.com>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Gregory CLEMENT <gregory.clement@bootlin.com>
+Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260309085749.25747-2-frieder@fris.de
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Based on my investigation, I have enough information to complete the
-analysis.
+## Decision Summary
+Backport this **with the companion DTS fix**. By itself it is a schema-
+only change, but the mailing-list history verifies it was added because
+the runtime DTS fix for Kontron i.MX8MP OSM RTC boot hangs was dropped
+due to `dtb_check` warning: `'vdd-supply' is not allowed`. This patch is
+a 2-line DT binding addition for existing hardware, reviewed by a DT
+maintainer, and has essentially no runtime regression risk.
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Phase Walkthrough
+1.1 Record: Subsystem `dt-bindings: rtc: microcrystal,rv3028`; action
+verb `Allow`; intent is to permit `vdd-supply` in the RV3028 RTC
+binding.
 
-**Step 1.1: Subject Line**
-Record: Subsystem `dt-bindings: arm64`, action verb `add`, summary: "Add
-DT binding descriptions for the Marvell Falcon DB-98CX85x0 COM Express
-carrier board and Armada 7020 CPU module."
+1.2 Record: Tags found: `Signed-off-by: Frieder Schrempf`, `Reviewed-by:
+Krzysztof Kozlowski`, `Link:
+https://patch.msgid.link/20260309085749.25747-2-frieder@fris.de`,
+`Signed-off-by: Alexandre Belloni`. No `Fixes`, `Reported-by`, `Tested-
+by`, or `Cc: stable`.
 
-**Step 1.2: Tags**
-Record: `Signed-off-by: Elad Nachman` (author), `Acked-by: Rob Herring
-(Arm) <robh@kernel.org>` (DT maintainer), `Signed-off-by: Gregory
-CLEMENT <gregory.clement@bootlin.com>` (mvebu maintainer). No `Fixes:`,
-no `Cc: stable`, no `Reported-by:`, no `Link:`.
+1.3 Record: Commit body says only that explicit VDD regulator
+specification should be allowed. The series and v2 discussion verify the
+concrete issue: the companion DTS fix adds `vdd-supply` so fw_devlink
+orders PMIC before RTC, avoiding sporadic boot hangs.
 
-**Step 1.3: Commit Body**
-Record: The commit body lists the three binding descriptions added but
-provides no bug description or symptom. However, the subject does not
-use "fix" and reads as a feature addition. Body does not discuss impact.
+1.4 Record: Hidden bug-fix context exists, but not in this patch alone.
+This patch fixes a DT schema gap that blocked a real DTS boot-hang fix.
 
-**Step 1.4: Hidden Bug Fix Detection**
-Record: Based on subject alone, looks like pure feature addition.
-However, based on mailing list discussion (see Phase 4), this is a fix
-for a binding/DTS mismatch where the DTS files reference compatibles not
-documented in the bindings.
+2.1 Record: One file changed,
+`Documentation/devicetree/bindings/rtc/microcrystal,rv3028.yaml`; 2
+lines added; no functions; single-file schema change.
 
-## PHASE 2: DIFF ANALYSIS
+2.2 Record: Before, `unevaluatedProperties: false` rejected `vdd-
+supply`. After, `vdd-supply: true` permits the regulator phandle.
 
-**Step 2.1: Inventory**
-Record: 1 file changed
-(`Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml`), +11
-lines, -0 lines. Single surgical YAML addition.
+2.3 Record: Bug category is DT schema/build-validation fix and
+prerequisite for hardware dependency expression. Not memory safety,
+locking, or runtime driver logic.
 
-**Step 2.2: Code Flow**
-Record: Before: Binding file did not describe the
-`marvell,armada7020-cpu-module`, `marvell,db-falcon-carrier`, or
-`marvell,armada7020-falcon-carrier` compatibles. After: New `oneOf`
-entry documents this 6-level compatible stack. No runtime code affected.
+2.4 Record: Fix is obviously correct and minimal. Regression risk is
+very low because it only relaxes schema validation for one standard
+supply property.
 
-**Step 2.3: Bug Mechanism**
-Record: This falls in category (h) Hardware workarounds/documentation
-additions - DT binding additions for board compatibles. The "bug" is
-that the DTS files already in the tree (b3370479a5f7e) reference
-compatibles that are undocumented, causing `make CHECK_DTBS=y` to
-produce schema validation warnings.
+3.1 Record: Blame shows the binding file was introduced by
+`c690048ed59b5` in `v6.3-rc1`; `#clock-cells` was added by
+`4015580e983da` in `v6.12-rc1`.
 
-**Step 2.4: Fix Quality**
-Record: Obviously correct - YAML schema change only. Zero runtime risk.
-Minimal and surgical. Cannot introduce regression as DT schema is not
-used at runtime.
+3.2 Record: Candidate has no `Fixes:` tag. Companion DTS patch fixes
+`946ab10e3f40f`, introduced in `v6.13-rc1`.
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+3.3 Record: Recent binding history only shows the file creation and
+`#clock-cells` addition. The patch is standalone, but its stable value
+is tied to the companion DTS fix.
 
-**Step 3.1: Blame**
-Record: The existing "Armada 7020 SoC" entry that precedes the added
-block was present from file creation. New entry inserted after it.
+3.4 Record: Author has multiple Kontron DTS fixes in local history; not
+the RTC maintainer, but the patch was reviewed by Krzysztof Kozlowski
+and applied by Alexandre Belloni.
 
-**Step 3.2: Fixes Tag**
-Record: No `Fixes:` tag. However, the related DTS commit `b3370479a5f7e`
-("arm64: dts: a7k: add COM Express boards", Jan 22 2026) is the commit
-that introduced the DTS files referencing the new compatibles, and is
-already present in HEAD.
+3.5 Record: No code dependencies. For meaningful runtime benefit,
+backport with `arm64: dts: imx8mp-kontron: Fix boot order for PMIC and
+RTC`.
 
-**Step 3.3: File History**
-Record: Recent related file history: `4c9bc78fa22d6` (missing 7040/8040
-compatibles), `242aa69df6ed8` (8KPlus schema move), `099e1d034f009`
-(solidrun cn9132), `5f5eb24090bec` (solidrun cn9130), `c604a4d1833c1`
-(earlier Marvell COM Express boards). Part of a typical incremental
-binding maintenance flow.
+4.1 Record: `b4 dig -c 10663044bee5` found the original v3 patch at the
+supplied lore/msgid URL. `b4 dig -a` found v1 and v3 series history; v3
+added the missing binding patch.
 
-**Step 3.4: Author**
-Record: Author Elad Nachman from Marvell has been contributing
-Armada/CN913x and ac5 patches. Gregory Clement (mvebu subsystem
-maintainer) handled the commit. Rob Herring (top-level DT maintainer)
-Acked it.
+4.2 Record: `b4 dig -w` showed relevant DT/RTC maintainers and lists
+were included.
 
-**Step 3.5: Dependencies**
-Record: Standalone binding addition, no code dependencies. However,
-contextually linked to DTS commit `b3370479a5f7e` (already in
-HEAD/v7.0).
+4.3 Record: v2 discussion verified Frank Li dropped the DTS fix because
+it caused `dtb_check` warning: `'vdd-supply' is not allowed`; Frieder
+replied that v3 adds the binding patch.
 
-## PHASE 4: MAILING LIST RESEARCH
+4.4 Record: Series context is 2 patches in v3: this binding patch and
+the DTS boot-order fix. Binding was applied by Alexandre Belloni; DTS
+fix later applied by Frank Li.
 
-**Step 4.1: Lore Discussion**
-Record: Found via `b4 dig`: https://lore.kernel.org/all/20260122165923.2
-316510-2-enachman@marvell.com/ — Patch 1/3 of series "arm64: dts: a7k:
-add COM Express boards". Crucial reviewer feedback found:
+4.5 Record: I found no stable-specific discussion or explicit stable
+nomination.
 
-- Rob Herring (Mar 6, 2026): *"It seems the .dts files are in 7.0 and
-  the binding is only in next. The binding needs to go into 7.0 too.
-  Please pay attention to the warnings."*
-- Gregory Clement (Mar 13, 2026): *"Sorry for this. I have now applied
-  the binding, and it will be included in my next fixes PR."*
+5.1 Record: No functions modified.
 
-This is an **explicit stable nomination from the DT maintainer** for
-7.0.y.
+5.2 Record: No callers. Semantic impact is DT schema validation.
 
-**Step 4.2: Reviewers**
-Record: Rob Herring (DT maintainer) Acked it, Gregory Clement (mvebu
-maintainer) applied and explicitly targeted 7.0 fixes. Proper subsystem
-review occurred.
+5.3 Record: Verified runtime relevance through OF supplier parsing:
+`drivers/of/property.c` has `DEFINE_SUFFIX_PROP(regulators, "-supply",
+NULL)` and includes `parse_regulators` in supplier bindings.
 
-**Step 4.3: Bug Report**
-Record: Rob's dt-schema bot flagged "new warnings" on the series.
-Warnings are DT validation errors produced by the DTS files without
-matching bindings.
+5.4 Record: Companion DTS path is reachable during device probing on
+Kontron i.MX8MP OSM. PMIC driver enables the I2C level translator when
+`nxp,i2c-lt-enable` is present; RTC node sits on the same I2C bus.
 
-**Step 4.4: Series**
-Record: Part of a 3-patch series. Patch 2 (DTS) already merged to 7.0.
-Patch 3 (MAINTAINERS) has its own destiny. This patch 1 (bindings) is
-the reviewer-requested sync.
+5.5 Record: Similar `vdd-supply: true` properties exist in many
+bindings, including another RTC binding, `amlogic,meson6-rtc.yaml`.
 
-**Step 4.5: Stable Mailing List**
-Record: Not discussed on stable list; this is being handled as a 7.0
-fixes path.
+6.1 Record: Binding exists from `v6.3+`; Kontron OSM DTS exists from
+`v6.13+`. `v6.1` lacks the binding file.
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+6.2 Record: `git apply --check` succeeded on existing `v6.6` and `v6.12`
+worktrees and current `v7.0.1`; `v6.1` fails because the file does not
+exist. A separate v6.19 temporary worktree attempt ran out of space
+before testing, so direct v6.19 apply was not verified.
 
-Not applicable — no code functions involved, only DT YAML schema. DT
-binding files have no runtime callers; they are consumed only by `dt-
-schema` validation tools (`make dt_binding_check`, `make CHECK_DTBS=y`).
+6.3 Record: No related stable fix already found in local history.
 
-Record: Zero runtime call paths, zero runtime consumers. Binding file
-affects only build-time validation.
+7.1 Record: Subsystem is DT binding documentation for RTC hardware;
+criticality is peripheral, but it supports a board boot-hang fix.
 
-## PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
+7.2 Record: Subsystem/file is low churn: only binding creation and
+`#clock-cells` addition before this patch.
 
-**Step 6.1: Buggy Code in Stable**
-Record: Verified with `git merge-base --is-ancestor b3370479a5f7e HEAD`
--> IN HEAD. The DTS files (`db-falcon-carrier-a7k.dts`, `db-falcon-
-carrier.dtsi`, `armada-7020-comexpress.dtsi`) are present in
-stable/linux-7.0.y via mvebu-dt64-6.20-1 merge. The mismatched bindings
-cause the validation gap in 7.0.y. Not in older stable trees (6.6.y,
-6.1.y etc.), so they aren't affected.
+8.1 Record: Affected population is users/builders of RV3028 DTs,
+especially Kontron i.MX8MP OSM users when paired with the DTS fix.
 
-**Step 6.2: Backport Complications**
-Record: Binding file in HEAD matches the pre-patch state from mainline.
-Patch should apply cleanly to 7.0.y. Verified file context still has the
-"Armada 7040 SoC" entry right after the "Armada 7020 SoC" entry -
-insertion point unchanged.
+8.2 Record: Trigger for the companion bug is boot/probe ordering where
+RTC is accessed before PMIC enables the I2C level shifter. Trigger for
+this patch alone is DT schema validation with `vdd-supply`.
 
-**Step 6.3: Related Fixes in Stable**
-Record: No related binding fixes already in stable.
+8.3 Record: Candidate alone fixes a build/validation warning. Companion
+failure mode is sporadic boot hang, which is critical for affected
+hardware.
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+8.4 Record: Benefit is high when paired with the companion DTS fix, low
+if isolated. Risk is very low: two schema lines, no runtime code.
 
-**Step 7.1: Subsystem Criticality**
-Record: Subsystem = `Documentation/devicetree/bindings/arm/marvell/`, DT
-binding documentation. Criticality: PERIPHERAL (affects only DT schema
-validators, not any runtime path).
+9.1 Record: For backporting: tiny, reviewed, applies cleanly to relevant
+trees, enables a verified hardware boot-hang fix, standard DT supply
+property. Against: schema-only and no standalone runtime fix.
 
-**Step 7.2: Activity Level**
-Record: Moderately active file, typical maintenance pace.
+9.2 Record: Stable rules: obviously correct yes; real user bug
+indirectly yes via companion DTS fix; important issue yes when paired,
+boot hang; small yes; no runtime API/new driver yes; applies to
+v6.6/v6.12/current, not v6.1.
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+9.3 Record: Exception category applies: DT binding addition for existing
+hardware / build-validation support.
 
-**Step 8.1: Who is Affected**
-Record: Developers/testers running `make dt_binding_check` or `make
-CHECK_DTBS=y` on the arm64 marvell DTS tree. No end users affected (DT
-schema files are not compiled into the kernel or used at runtime).
-
-**Step 8.2: Trigger Conditions**
-Record: The "bug" (validation warning) triggers only when someone runs
-DT schema validation against the shipped DTS files. Not runtime
-reachable.
-
-**Step 8.3: Failure Mode Severity**
-Record: LOW - generates `CHECK_DTBS` warnings/failures for validator
-users; no crashes, no data corruption, no security impact, no runtime
-behavior change.
-
-**Step 8.4: Risk vs Benefit**
-Record:
-- Benefit: LOW severity, fixes validation inconsistency explicitly
-  requested by the DT maintainer; keeps 7.0.y internally consistent.
-- Risk: Near-zero. 11-line YAML file touching schema metadata only;
-  cannot affect compile or runtime.
-- Ratio: LOW/near-zero = favorable.
-
-## PHASE 9: FINAL SYNTHESIS
-
-**Step 9.1: Evidence**
-
-FOR backport:
-- DT maintainer (Rob Herring) explicitly stated: "The binding needs to
-  go into 7.0 too."
-- Companion DTS commit `b3370479a5f7e` is already in stable/linux-7.0.y
-  (verified)
-- Fixes DT schema validation warnings against the already-shipped DTS
-- Zero runtime risk (YAML metadata only)
-- Acked-by DT maintainer, applied to mvebu/fixes (7.0 fixes) by mvebu
-  maintainer
-- Small (11 lines), contained, obviously correct
-- Falls under the "Documentation" and "DT updates for existing hardware
-  (in tree)" exception categories
-
-AGAINST backport:
-- Subject reads as feature addition ("add Marvell 7k COMe boards")
-- No `Fixes:` tag, no `Cc: stable` tag
-- Technically describes new boards not previously documented
-- Doesn't fix any runtime behavior
-
-Unresolved: None — the mailing list discussion resolves the intent.
-
-**Step 9.2: Stable Rules Checklist**
-1. Obviously correct and tested? YES (YAML schema addition, acked by DT
-   maintainer)
-2. Fixes a real bug affecting users? BORDERLINE - fixes validator bug
-   for shipped DTS
-3. Important issue? LOW severity (validation warnings, not runtime)
-4. Small and contained? YES (11 lines, one file)
-5. No new features? YES (no runtime features, binding matches DTS
-   already in tree)
-6. Can apply to stable? YES (applies cleanly to 7.0.y)
-
-**Step 9.3: Exception Categories**
-Applicable exceptions:
-- "DEVICE TREE (DT) UPDATES: DT binding additions for existing hardware,
-  DT fixes for incorrect hardware descriptions, enabling already-
-  supported hardware on new boards - Usually safe because they only
-  affect specific ARM/embedded platforms."
-- "DOCUMENTATION and COMMENT FIXES: Fixing incorrect documentation,
-  updating obsolete comments - Zero risk of runtime regression"
-
-The DTS files for this hardware are already present in 7.0; adding the
-matching bindings is a documentation sync.
-
-**Step 9.4: Decision**
-For 7.0.y specifically, the DTS files exist in the tree, the DT
-maintainer explicitly asked for this to land in 7.0, and the risk is
-zero. This matches the exception for DT updates / documentation fixes.
+9.4 Record: Decision is YES, but it should be treated as a
+prerequisite/companion to the DTS boot-order fix, not as a standalone
+runtime fix.
 
 ## Verification
-
-- [Phase 1] Parsed tags: `Acked-by: Rob Herring`, `Signed-off-by:
-  Gregory CLEMENT`, no `Fixes:`/`Cc: stable`.
-- [Phase 2] Diff analysis: +11 lines of YAML added to
-  `armada-7k-8k.yaml`, single file, new `oneOf` entry for the Falcon
-  carrier + Armada 7020 CPU module compatible stack.
-- [Phase 3] `git log --oneline -- <file>`: file churn is typical
-  incremental binding maintenance.
-- [Phase 3] `git log -1 --format="%H %ci %s" edb7efa767da8` -> March 13,
-  2026; `b3370479a5f7e` -> January 23, 2026 (DTS, earlier).
-- [Phase 3] `git merge-base --is-ancestor b3370479a5f7e HEAD` -> **IN
-  HEAD** (DTS already in 7.0.y).
-- [Phase 3] `git merge-base --is-ancestor edb7efa767da8 HEAD` -> **NOT
-  IN HEAD** (binding not yet in 7.0.y).
-- [Phase 3] `git tag --contains b3370479a5f7e` -> `v7.0` confirms DTS is
-  in the 7.0 release.
-- [Phase 4] `b4 dig -c edb7efa767da8` -> found thread at
-  lore.kernel.org/all/20260122165923.2316510-2-enachman@marvell.com/.
-- [Phase 4] `b4 dig -c edb7efa767da8 -w` -> recipients include robh+dt,
-  krzysztof.kozlowski+dt, conor+dt, andrew@lunn.ch,
-  gregory.clement@bootlin.com (all relevant DT/maintainer parties).
-- [Phase 4] `b4 dig -c edb7efa767da8 -m /tmp/thread.mbox` -> saved full
-  thread; confirmed Rob Herring's explicit "The binding needs to go into
-  7.0 too" and Gregory Clement's response "I have now applied the
-  binding, and it will be included in my next fixes PR."
-- [Phase 4] Rob's dt-bot reported DTB warnings on the series
-  (`arch/arm64/boot/dts/marvell/db-falcon-carrier-a7k.dtb: ...phy-
-  mode:0: '10gbase-kr' is not one of [...]`), a separate phy-mode issue,
-  but confirms validation is run.
-- [Phase 5] Not applicable (YAML schema file has no runtime callers).
-- [Phase 6] Verified DTS files (`db-falcon-carrier-a7k.dts`, `db-falcon-
-  carrier.dtsi`, `armada-7020-comexpress.dtsi`) exist in HEAD via `git
-  show b3370479a5f7e:...` - confirmed they use the compatibles added in
-  this binding commit.
-- [Phase 7] File path: `Documentation/devicetree/bindings/arm/marvell/`
-  - DT binding docs for Marvell Armada platforms.
-- [Phase 8] Severity determined by examining what consumes DT binding
-  YAMLs (dt-schema validators only); verified no runtime code path uses
-  these YAML files.
-
-The mailing list evidence is unambiguous: the DT maintainer explicitly
-flagged that the DTS files landed in v7.0 but the matching bindings did
-not, and requested they go into 7.0 to fix the CHECK_DTBS validation
-warnings. The mvebu maintainer applied it to the fixes branch
-accordingly. The change is 11 lines of YAML with zero runtime risk,
-acked by the DT maintainer, matching already-shipped DTS files in the
-7.0 tree.
+- Phase 1: Parsed supplied commit message and local b4 mbox; confirmed
+  tags and absence of `Fixes`/stable tags.
+- Phase 2: Read diff and current binding file; confirmed only `vdd-
+  supply: true` is added.
+- Phase 3: Used `git blame`, `git describe --contains`, and file
+  history; confirmed binding introduction in `v6.3-rc1`, `#clock-cells`
+  in `v6.12-rc1`, board DTS in `v6.13-rc1`.
+- Phase 4: Used `b4 am`, `b4 mbox`, `b4 diff`, `b4 dig -a`, and `b4 dig
+  -w`; verified v2 rejection due dtb_check warning and v3 addition of
+  this binding patch.
+- Phase 5: Searched/read OF supplier parsing and PCA9450 code; verified
+  `*-supply` creates supplier links and PMIC `nxp,i2c-lt-enable` enables
+  the I2C level translator.
+- Phase 6: Checked stable tags/worktrees; apply check passes on v6.6,
+  v6.12, and current tree; v6.1 lacks the file.
+- Phase 7/8: Verified affected paths in Kontron DTS and binding; no
+  runtime code touched.
+- Unverified: Direct apply check on v6.19 due temporary worktree
+  checkout failure, though v6.19 file contents were inspected and match
+  the expected context.
 
 **YES**
 
- .../devicetree/bindings/arm/marvell/armada-7k-8k.yaml | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ Documentation/devicetree/bindings/rtc/microcrystal,rv3028.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml b/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml
-index 4bc7454a5d3ac..7e77310da626f 100644
---- a/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml
-+++ b/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml
-@@ -21,6 +21,17 @@ properties:
-           - const: marvell,armada-ap806-dual
-           - const: marvell,armada-ap806
+diff --git a/Documentation/devicetree/bindings/rtc/microcrystal,rv3028.yaml b/Documentation/devicetree/bindings/rtc/microcrystal,rv3028.yaml
+index cda8ad7c12037..2ea3b40419530 100644
+--- a/Documentation/devicetree/bindings/rtc/microcrystal,rv3028.yaml
++++ b/Documentation/devicetree/bindings/rtc/microcrystal,rv3028.yaml
+@@ -32,6 +32,8 @@ properties:
+       - 9000
+       - 15000
  
-+      - description:
-+          Falcon (DB-98CX85x0) Development board COM Express Carrier plus
-+          Armada 7020 SoC COM Express CPU module
-+        items:
-+          - const: marvell,armada7020-falcon-carrier
-+          - const: marvell,db-falcon-carrier
-+          - const: marvell,armada7020-cpu-module
-+          - const: marvell,armada7020
-+          - const: marvell,armada-ap806-dual
-+          - const: marvell,armada-ap806
++  vdd-supply: true
 +
-       - description: Armada 7040 SoC
-         items:
-           - enum:
+ required:
+   - compatible
+   - reg
 -- 
 2.53.0
 
