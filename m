@@ -1,26 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1B33DA7D4
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:01:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71EB3DA7E0
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:01:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777366886; cv=none; b=TfM6QyhY+Mqls4/Cold4L7hNWbQp9HJ2YGN3gG7HbbJz4YRuk+JjpxZQK2ScCsL9KurMZ+RBv6jdhK2HXI8W8Wmy7yAm4Mm0YBSK0DArDW/JjyIMUEm0sMbEjubY/V6DbMInHgdi5Q8ClyAn4SPcN6j8/htYHkf+r9aDI86Kfog=
+	t=1777366888; cv=none; b=ZllhyZwD+tqjRlEeO3HgGLEeOkoqmcBhs16wp7FS/UXgakBRPggAsqVagRVjguwAoQg2tbca/gFdUnbeI/h+9Ipcg4rk9NoPauZABx5c9h/bgzaRztBkqIQZnGljCr10q2zZY15svOCYnZ2IidRekVmIz1lmzIu5TUdrGjPOYWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777366886; c=relaxed/simple;
-	bh=Fpg+E4AMLX9834hLYDO5eO1HMRGNzdORSc2gTM/NtXE=;
+	s=arc-20240116; t=1777366888; c=relaxed/simple;
+	bh=TTPvb0x4OqQ5w6C/6ClXG5pZvqC8ITR3Tf7/nAb0BGE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hbcZg5fl5BI+uclDtY4/gLxENzJDGLnwCBfGJKU0uoeY6qWu8I2Ujh1FuOEvJ47JjdBrVCws2ylqHBUC6pVT+ibA0bnmbtErZhI74N9owCM7DyHP9TGmJZI1xwompFajLdv3e/G8kVKXMNi3vgfwjcMA/A4QSpOdQpdWFsSeCVs=
+	 In-Reply-To:To:Cc; b=Zpf/yD1QT/VYfPONAuMJO9jO/YRpfHSkrnPuqynn6RUEruyURZ1hQmJEylEieNb5QfPsS9SrhJJoi8vBPiu9riY0vTkxkQeiVfLHboHPb3I1kmxomdrU2jOljZZeiOzCyXaksTwyipjNXVNAR7ACUYvVpcDieSNDbq0ZvpWTST4=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wHeJB-0004Lz-Fw; Tue, 28 Apr 2026 11:00:45 +0200
+	id 1wHeJF-0004Lz-Pm; Tue, 28 Apr 2026 11:00:49 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Tue, 28 Apr 2026 11:00:42 +0200
-Subject: [PATCH v5 07/29] media: rockchip: rga: use clk_bulk api
+Date: Tue, 28 Apr 2026 11:00:50 +0200
+Subject: [PATCH v5 15/29] media: rockchip: rga: align stride to 4 bytes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -29,7 +29,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260428-spu-rga3-v5-7-eb7f5d019d86@pengutronix.de>
+Message-Id: <20260428-spu-rga3-v5-15-eb7f5d019d86@pengutronix.de>
 References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 In-Reply-To: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -50,141 +50,73 @@ X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Use the clk_bulk API to avoid code duplication for each of the three
-clocks.
+Add an alignment setting to rga_hw to set the desired stride alignment.
+As the RGA2 register for the stride counts in word units, the code
+already divides the bytesperline value by 4 when writing it into the
+register. Therefore fix the alignment to a multiple of 4 to avoid
+potential off by one errors due from the division.
 
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga.c | 65 ++++---------------------------
- drivers/media/platform/rockchip/rga/rga.h |  6 +--
- 2 files changed, 11 insertions(+), 60 deletions(-)
+ drivers/media/platform/rockchip/rga/rga-hw.c |  1 +
+ drivers/media/platform/rockchip/rga/rga.c    | 11 ++++++-----
+ drivers/media/platform/rockchip/rga/rga.h    |  1 +
+ 3 files changed, 8 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+index 9881c14f908d5..dac3cb6aa17d3 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+@@ -580,6 +580,7 @@ const struct rga_hw rga2_hw = {
+ 	.max_width = MAX_WIDTH,
+ 	.min_height = MIN_HEIGHT,
+ 	.max_height = MAX_HEIGHT,
++	.stride_alignment = 4,
+ 
+ 	.start = rga_hw_start,
+ 	.handle_irq = rga_handle_irq,
 diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index fea63b94c5f3d..4e710a050cb7c 100644
+index bf6bbcbfc869b..16a663aeef8c9 100644
 --- a/drivers/media/platform/rockchip/rga/rga.c
 +++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -698,48 +698,10 @@ static const struct video_device rga_videodev = {
- 	.device_caps = V4L2_CAP_VIDEO_M2M_MPLANE | V4L2_CAP_STREAMING,
- };
+@@ -234,10 +234,10 @@ static int rga_open(struct file *file)
+ 	ctx->in = def_frame;
+ 	ctx->out = def_frame;
  
--static int rga_enable_clocks(struct rockchip_rga *rga)
--{
--	int ret;
--
--	ret = clk_prepare_enable(rga->sclk);
--	if (ret) {
--		dev_err(rga->dev, "Cannot enable rga sclk: %d\n", ret);
--		return ret;
--	}
--
--	ret = clk_prepare_enable(rga->aclk);
--	if (ret) {
--		dev_err(rga->dev, "Cannot enable rga aclk: %d\n", ret);
--		goto err_disable_sclk;
--	}
--
--	ret = clk_prepare_enable(rga->hclk);
--	if (ret) {
--		dev_err(rga->dev, "Cannot enable rga hclk: %d\n", ret);
--		goto err_disable_aclk;
--	}
--
--	return 0;
--
--err_disable_aclk:
--	clk_disable_unprepare(rga->aclk);
--err_disable_sclk:
--	clk_disable_unprepare(rga->sclk);
--
--	return ret;
--}
--
--static void rga_disable_clocks(struct rockchip_rga *rga)
--{
--	clk_disable_unprepare(rga->sclk);
--	clk_disable_unprepare(rga->hclk);
--	clk_disable_unprepare(rga->aclk);
--}
--
- static int rga_parse_dt(struct rockchip_rga *rga)
- {
- 	struct reset_control *core_rst, *axi_rst, *ahb_rst;
-+	int ret;
+-	v4l2_fill_pixfmt_mp(&ctx->in.pix,
+-			    ctx->in.fmt->fourcc, def_width, def_height);
+-	v4l2_fill_pixfmt_mp(&ctx->out.pix,
+-			    ctx->out.fmt->fourcc, def_width, def_height);
++	v4l2_fill_pixfmt_mp_aligned(&ctx->in.pix, ctx->in.fmt->fourcc,
++				    def_width, def_height, rga->hw->stride_alignment);
++	v4l2_fill_pixfmt_mp_aligned(&ctx->out.pix, ctx->out.fmt->fourcc,
++				    def_width, def_height, rga->hw->stride_alignment);
  
- 	core_rst = devm_reset_control_get(rga->dev, "core");
- 	if (IS_ERR(core_rst)) {
-@@ -771,23 +733,12 @@ static int rga_parse_dt(struct rockchip_rga *rga)
- 	udelay(1);
- 	reset_control_deassert(ahb_rst);
+ 	if (mutex_lock_interruptible(&rga->mutex)) {
+ 		ret = -ERESTARTSYS;
+@@ -393,7 +393,8 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
+ 		fmt = &hw->formats[0];
  
--	rga->sclk = devm_clk_get(rga->dev, "sclk");
--	if (IS_ERR(rga->sclk)) {
--		dev_err(rga->dev, "failed to get sclk clock\n");
--		return PTR_ERR(rga->sclk);
--	}
--
--	rga->aclk = devm_clk_get(rga->dev, "aclk");
--	if (IS_ERR(rga->aclk)) {
--		dev_err(rga->dev, "failed to get aclk clock\n");
--		return PTR_ERR(rga->aclk);
--	}
--
--	rga->hclk = devm_clk_get(rga->dev, "hclk");
--	if (IS_ERR(rga->hclk)) {
--		dev_err(rga->dev, "failed to get hclk clock\n");
--		return PTR_ERR(rga->hclk);
-+	ret = devm_clk_bulk_get_all(rga->dev, &rga->clks);
-+	if (ret < 0) {
-+		dev_err(rga->dev, "failed to get clocks\n");
-+		return ret;
- 	}
-+	rga->num_clks = ret;
+ 	v4l2_apply_frmsize_constraints(&pix_fmt->width, &pix_fmt->height, &frmsize);
+-	v4l2_fill_pixfmt_mp(pix_fmt, fmt->fourcc, pix_fmt->width, pix_fmt->height);
++	v4l2_fill_pixfmt_mp_aligned(pix_fmt, pix_fmt->pixelformat,
++				    pix_fmt->width, pix_fmt->height, hw->stride_alignment);
+ 	pix_fmt->field = V4L2_FIELD_NONE;
  
  	return 0;
- }
-@@ -935,7 +886,7 @@ static int __maybe_unused rga_runtime_suspend(struct device *dev)
- {
- 	struct rockchip_rga *rga = dev_get_drvdata(dev);
- 
--	rga_disable_clocks(rga);
-+	clk_bulk_disable_unprepare(rga->num_clks, rga->clks);
- 
- 	return 0;
- }
-@@ -944,7 +895,7 @@ static int __maybe_unused rga_runtime_resume(struct device *dev)
- {
- 	struct rockchip_rga *rga = dev_get_drvdata(dev);
- 
--	return rga_enable_clocks(rga);
-+	return clk_bulk_prepare_enable(rga->num_clks, rga->clks);
- }
- 
- static const struct dev_pm_ops rga_pm = {
 diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index 72a28b120fabf..2db10acecb405 100644
+index 04aeb7b429523..38518146910a6 100644
 --- a/drivers/media/platform/rockchip/rga/rga.h
 +++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -6,6 +6,7 @@
- #ifndef __RGA_H__
- #define __RGA_H__
+@@ -150,6 +150,7 @@ struct rga_hw {
+ 	size_t cmdbuf_size;
+ 	u32 min_width, min_height;
+ 	u32 max_width, max_height;
++	u8 stride_alignment;
  
-+#include <linux/clk.h>
- #include <linux/platform_device.h>
- #include <media/videobuf2-v4l2.h>
- #include <media/v4l2-ctrls.h>
-@@ -81,9 +82,8 @@ struct rockchip_rga {
- 	struct device *dev;
- 	struct regmap *grf;
- 	void __iomem *regs;
--	struct clk *sclk;
--	struct clk *aclk;
--	struct clk *hclk;
-+	struct clk_bulk_data *clks;
-+	int num_clks;
- 	struct rockchip_rga_version version;
- 
- 	/* vfd lock */
+ 	void (*start)(struct rockchip_rga *rga,
+ 		      struct rga_vb_buffer *src, struct rga_vb_buffer *dst);
 
 -- 
 2.54.0
