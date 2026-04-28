@@ -1,27 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C32373F54D4
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:01:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6C33F65FA
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:01:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777366879; cv=none; b=KZ2HPqeBN2C45KpiP2z5ExrLVLGC3nDQJJBDWi8t9I/kdvYTBl+sTVPAxR1e6uk8A6Td9/5jV+BxdBUBOLW4SSHzfzLWJeJ3516BSPi8s2dmQt0/w0ufrdDba1Pf80GI1OJhvjLNupwgm1pTUtEoC/WBN8OJ/Uv0SfUqW4wS4rI=
+	t=1777366880; cv=none; b=fr1Rwg9AlBYBp708BbJvdC4Ngt0ogbzv2vUGPQa9l7ihfk9QMJVmZWofyYKPKDjHUluEVCxhY5DzQbDd0jvUN2Ftl4D5LHFEuOndSO7H//TVfu3BmvubCO5u591fMdCG0VNS+yY9vzGF1O3QZaHWeRNse5X72yHvGtnpzCDn974=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777366879; c=relaxed/simple;
-	bh=eb0HVwcvyYdHcbAqk88/gzJjmki0m+Dx2IZBwYkohNc=;
+	s=arc-20240116; t=1777366880; c=relaxed/simple;
+	bh=ljhyyAVAsaT41Rpt30YyAO53+U3vqFIqV/OgI67rHP8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lDq3/lv4gV9FxwDiX3uFAFGhfBZcqZSZy+p73Q8/LrVKaBbUoOpa3OoH/36caUQXk2y07Ce49neGAjp3jWlS82q4tBHE+WknVk0AQuIsB8FtHmscYDnEbD6BM2tF5n35nDzq+GUHfuo6h4nU98AqBhFbFcj4twzbffJ5I/8iBr0=
+	 In-Reply-To:To:Cc; b=H9hJqGss1/8wOOsomejugaRPs36fagKSZlfB8ios/FiZqcZYlBHz3GpOjmERaiy9ikSCsgg+4o1kVjr9Vmyw/r+ly+P7IdHe94lZwlqs6CfA8TAOvV8r0+QGhaW7kbIB2XQxo8lxDkRNOXF8wPGuiyObl1EDUiiOUr9nPN/7nGw=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=peter.mobile.pengutronix.de)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wHeJC-0004Lz-GU; Tue, 28 Apr 2026 11:00:46 +0200
+	id 1wHeJ7-0004Lz-SE; Tue, 28 Apr 2026 11:00:41 +0200
 From: =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Date: Tue, 28 Apr 2026 11:00:44 +0200
-Subject: [PATCH v5 09/29] media: rockchip: rga: remove redundant rga_frame
- variables
+Date: Tue, 28 Apr 2026 11:00:36 +0200
+Subject: [PATCH v5 01/29] media: dt-bindings: media: rockchip-rga: add
+ rockchip,rk3588-rga3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -30,7 +30,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260428-spu-rga3-v5-9-eb7f5d019d86@pengutronix.de>
+Message-Id: <20260428-spu-rga3-v5-1-eb7f5d019d86@pengutronix.de>
 References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 In-Reply-To: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
 To: Jacob Chen <jacob-chen@iotwrt.com>, 
@@ -43,194 +43,75 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@pengutronix.de, nicolas@ndufresne.ca, 
  sebastian.reichel@collabora.com, 
- =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>
+ =?utf-8?q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
 X-Mailer: b4 0.15.2
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Remove the redundant rga_frame variables width, height and color space.
-The value of these variables is already contained in the pix member
-of rga_frame. The code also keeps these values in sync. Therefore drop
-them in favor of the existing pix member.
+Add a new compatible for the RGA3 (Raster Graphic Acceleration 3)
+peripheral found on the RK3588 SoC. Also specify an iommu property,
+as the RGA3 contains the generic rockchip iommu. While other versions
+also have an iommu, it's usually specific to them.
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+The RK3588 contains one RGA2-Enhance core (also contained on the RK3399)
+and two RGA3 cores. Both feature a similar functionality of scaling,
+cropping and rotating of up to two input images into one output image.
+Key differences of the RGA3 are:
+
+- supports 10bit YUV output formats
+- supports 8x8 tiles and FBCD as inputs and outputs
+- supports BT2020 color space conversion
+- max output resolution of (8192-64)x(8192-64)
+- MMU can map up to 32G DDR RAM
+- fully planar formats (3 planes) are not supported
+- max scale up/down factor of 8 (RGA2 allows up to 16)
+
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
 ---
- drivers/media/platform/rockchip/rga/rga-buf.c |  6 ++---
- drivers/media/platform/rockchip/rga/rga-hw.c  |  6 ++---
- drivers/media/platform/rockchip/rga/rga.c     | 32 ++++++++++-----------------
- drivers/media/platform/rockchip/rga/rga.h     |  5 -----
- 4 files changed, 18 insertions(+), 31 deletions(-)
+Changed in v3/v4:
+- Dropped Acked-by: Krzysztof Kozlowski due to the added iommus property
+  and description adjustments.
+---
+ Documentation/devicetree/bindings/media/rockchip-rga.yaml | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c b/drivers/media/platform/rockchip/rga/rga-buf.c
-index 65fc0d5b4aa10..ffc6162b2e681 100644
---- a/drivers/media/platform/rockchip/rga/rga-buf.c
-+++ b/drivers/media/platform/rockchip/rga/rga-buf.c
-@@ -103,10 +103,10 @@ static int get_plane_offset(struct rga_frame *f,
- 	if (plane == 0)
- 		return 0;
- 	if (plane == 1)
--		return stride * f->height;
-+		return stride * f->pix.height;
- 	if (plane == 2)
--		return stride * f->height +
--		       (stride * f->height / info->hdiv / info->vdiv);
-+		return stride * f->pix.height +
-+		       (stride * f->pix.height / info->hdiv / info->vdiv);
+diff --git a/Documentation/devicetree/bindings/media/rockchip-rga.yaml b/Documentation/devicetree/bindings/media/rockchip-rga.yaml
+index ac17cda65191b..7bd92f7336664 100644
+--- a/Documentation/devicetree/bindings/media/rockchip-rga.yaml
++++ b/Documentation/devicetree/bindings/media/rockchip-rga.yaml
+@@ -9,7 +9,11 @@ title: Rockchip 2D raster graphic acceleration controller (RGA)
+ description:
+   RGA is a standalone 2D raster graphic acceleration unit. It accelerates 2D
+   graphics operations, such as point/line drawing, image scaling, rotation,
+-  BitBLT, alpha blending and image blur/sharpness.
++  BitBLT, alpha blending and image blur/sharpness. There exist many versions
++  of this unit that differ in the supported inputs/output formats,
++  the attached IOMMU and the supported operations on the input. As some SoCs
++  include multiple RGA units with different versions, a more specific
++  compatible name to differentiate the concrete unit is used for them.
  
- 	return -EINVAL;
- }
-diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index d1618bb247501..ec6c17504ca15 100644
---- a/drivers/media/platform/rockchip/rga/rga-hw.c
-+++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -53,7 +53,7 @@ rga_get_addr_offset(struct rga_frame *frm, struct rga_addr_offset *offset,
- 	x_div = frm->fmt->x_div;
- 	y_div = frm->fmt->y_div;
- 	uv_stride = frm->stride / x_div;
--	pixel_width = frm->stride / frm->width;
-+	pixel_width = frm->stride / frm->pix.width;
+ maintainers:
+   - Jacob Chen <jacob-chen@iotwrt.com>
+@@ -20,6 +24,7 @@ properties:
+     oneOf:
+       - const: rockchip,rk3288-rga
+       - const: rockchip,rk3399-rga
++      - const: rockchip,rk3588-rga3
+       - items:
+           - enum:
+               - rockchip,rk3228-rga
+@@ -45,6 +50,9 @@ properties:
+   power-domains:
+     maxItems: 1
  
- 	lt->y_off = offset->y_off + y * frm->stride + x * pixel_width;
- 	lt->u_off = offset->u_off + (y / y_div) * uv_stride + x / x_div;
-@@ -191,7 +191,7 @@ static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
- 
- 	if (RGA_COLOR_FMT_IS_YUV(ctx->in.fmt->hw_format) &&
- 	    RGA_COLOR_FMT_IS_RGB(ctx->out.fmt->hw_format)) {
--		switch (ctx->in.colorspace) {
-+		switch (ctx->in.pix.colorspace) {
- 		case V4L2_COLORSPACE_REC709:
- 			src_info.data.csc_mode = RGA_SRC_CSC_MODE_BT709_R0;
- 			break;
-@@ -203,7 +203,7 @@ static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
- 
- 	if (RGA_COLOR_FMT_IS_RGB(ctx->in.fmt->hw_format) &&
- 	    RGA_COLOR_FMT_IS_YUV(ctx->out.fmt->hw_format)) {
--		switch (ctx->out.colorspace) {
-+		switch (ctx->out.pix.colorspace) {
- 		case V4L2_COLORSPACE_REC709:
- 			dst_info.data.csc_mode = RGA_SRC_CSC_MODE_BT709_R0;
- 			break;
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index c07207edffdb6..ca8d8a53dc251 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -329,9 +329,6 @@ static struct rga_fmt *rga_fmt_find(u32 pixelformat)
- }
- 
- static struct rga_frame def_frame = {
--	.width = DEFAULT_WIDTH,
--	.height = DEFAULT_HEIGHT,
--	.colorspace = V4L2_COLORSPACE_DEFAULT,
- 	.crop.left = 0,
- 	.crop.top = 0,
- 	.crop.width = DEFAULT_WIDTH,
-@@ -363,9 +360,9 @@ static int rga_open(struct file *file)
- 	ctx->out = def_frame;
- 
- 	v4l2_fill_pixfmt_mp(&ctx->in.pix,
--			    ctx->in.fmt->fourcc, ctx->out.width, ctx->out.height);
-+			    ctx->in.fmt->fourcc, DEFAULT_WIDTH, DEFAULT_HEIGHT);
- 	v4l2_fill_pixfmt_mp(&ctx->out.pix,
--			    ctx->out.fmt->fourcc, ctx->out.width, ctx->out.height);
-+			    ctx->out.fmt->fourcc, DEFAULT_WIDTH, DEFAULT_HEIGHT);
- 
- 	if (mutex_lock_interruptible(&rga->mutex)) {
- 		kfree(ctx);
-@@ -453,10 +450,8 @@ static int vidioc_g_fmt(struct file *file, void *priv, struct v4l2_format *f)
- 	if (IS_ERR(frm))
- 		return PTR_ERR(frm);
- 
--	v4l2_fill_pixfmt_mp(pix_fmt, frm->fmt->fourcc, frm->width, frm->height);
--
-+	*pix_fmt = frm->pix;
- 	pix_fmt->field = V4L2_FIELD_NONE;
--	pix_fmt->colorspace = frm->colorspace;
- 
- 	return 0;
- }
-@@ -505,27 +500,24 @@ static int vidioc_s_fmt(struct file *file, void *priv, struct v4l2_format *f)
- 	frm = rga_get_frame(ctx, f->type);
- 	if (IS_ERR(frm))
- 		return PTR_ERR(frm);
--	frm->width = pix_fmt->width;
--	frm->height = pix_fmt->height;
- 	frm->size = 0;
- 	for (i = 0; i < pix_fmt->num_planes; i++)
- 		frm->size += pix_fmt->plane_fmt[i].sizeimage;
- 	frm->fmt = rga_fmt_find(pix_fmt->pixelformat);
- 	frm->stride = pix_fmt->plane_fmt[0].bytesperline;
--	frm->colorspace = pix_fmt->colorspace;
- 
- 	/* Reset crop settings */
- 	frm->crop.left = 0;
- 	frm->crop.top = 0;
--	frm->crop.width = frm->width;
--	frm->crop.height = frm->height;
-+	frm->crop.width = pix_fmt->width;
-+	frm->crop.height = pix_fmt->height;
- 
- 	frm->pix = *pix_fmt;
- 
- 	v4l2_dbg(debug, 1, &rga->v4l2_dev,
- 		 "[%s] fmt - %p4cc %dx%d (stride %d, sizeimage %d)\n",
- 		  V4L2_TYPE_IS_OUTPUT(f->type) ? "OUTPUT" : "CAPTURE",
--		  &frm->fmt->fourcc, frm->width, frm->height,
-+		  &frm->fmt->fourcc, pix_fmt->width, pix_fmt->height,
- 		  frm->stride, frm->size);
- 
- 	for (i = 0; i < pix_fmt->num_planes; i++) {
-@@ -579,8 +571,8 @@ static int vidioc_g_selection(struct file *file, void *priv,
- 	} else {
- 		s->r.left = 0;
- 		s->r.top = 0;
--		s->r.width = f->width;
--		s->r.height = f->height;
-+		s->r.width = f->pix.width;
-+		s->r.height = f->pix.height;
- 	}
- 
- 	return 0;
-@@ -629,8 +621,8 @@ static int vidioc_s_selection(struct file *file, void *priv,
- 		return -EINVAL;
- 	}
- 
--	if (s->r.left + s->r.width > f->width ||
--	    s->r.top + s->r.height > f->height ||
-+	if (s->r.left + s->r.width > f->pix.width ||
-+	    s->r.top + s->r.height > f->pix.height ||
- 	    s->r.width < MIN_WIDTH || s->r.height < MIN_HEIGHT) {
- 		v4l2_dbg(debug, 1, &rga->v4l2_dev, "unsupported crop value.\n");
- 		return -EINVAL;
-@@ -821,8 +813,8 @@ static int rga_probe(struct platform_device *pdev)
- 		goto rel_m2m;
- 	}
- 
--	def_frame.stride = (def_frame.width * def_frame.fmt->depth) >> 3;
--	def_frame.size = def_frame.stride * def_frame.height;
-+	def_frame.stride = (DEFAULT_WIDTH * def_frame.fmt->depth) >> 3;
-+	def_frame.size = def_frame.stride * DEFAULT_HEIGHT;
- 
- 	ret = video_register_device(vfd, VFL_TYPE_VIDEO, -1);
- 	if (ret) {
-diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index 477cf5b62bbb2..c4a3905a48f0d 100644
---- a/drivers/media/platform/rockchip/rga/rga.h
-+++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -24,11 +24,6 @@ struct rga_fmt {
- };
- 
- struct rga_frame {
--	/* Original dimensions */
--	u32 width;
--	u32 height;
--	u32 colorspace;
--
- 	/* Crop */
- 	struct v4l2_rect crop;
++  iommus:
++    maxItems: 1
++
+   resets:
+     maxItems: 3
  
 
 -- 
