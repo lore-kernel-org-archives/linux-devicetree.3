@@ -1,268 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F41153E8C49
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 10:29:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34CA71EEA54
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 10:31:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777372198; cv=none; b=SnGfKkn23/Lx60RzcifikSOWn9iw4zQ9c+H6jveDPDosZKSjpQe5Oy+2iNEkIshiagKSJnBrqTLc9V9RPZCfcohmoWkD/NvgDnrFywKcmtffJyOAUUfWWppEZ4UiIXmpBqnglximLH9Fl+QahMPG6z78lBf6jhraJ+8Ct/YZlL0=
+	t=1777372319; cv=none; b=gDADluR6HLkjckWYZMKtZJHPL+eat57zIU8pBWIInqqAeA/K0IRXgFso3jbGFhDyJ1fRmMpwen1g3SG2aEGf/RDsOlCSF4CuYsrbJOkH1Kb9f2zMcPK+D5yxz+2a/13A/g/FrqMdL96Stg+5KGIg6rkd2pKiufDeY3U4CTnbWMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777372198; c=relaxed/simple;
-	bh=kLsx+AZu6JpJXrKX0DXj71/Ih8p4NW1P1/libhF77WE=;
+	s=arc-20240116; t=1777372319; c=relaxed/simple;
+	bh=UG+AWWYF8+8wcJMCUjbTFh4VwOPAlhF8FZLDzvsNMAg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rDwhfg7G2XObKBO6h1sbkvYhYEBeczd344cZvH1PoRmlO0X1Q7X8/K62Vee4UNW/0zA9I9YPYO4XyL1f4+5UeTDHZ4+GTpfKS6oWLYYZYMZAGqI3dlDXUl+hFSb4ijV5U3k5/5NL+TCkw1URYmlHN586xnhZPpTYv8QtFWsyUnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOZOHEQx; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOZOHEQx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B95B6C2BCB5
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 10:29:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777372197;
-	bh=kLsx+AZu6JpJXrKX0DXj71/Ih8p4NW1P1/libhF77WE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=IOZOHEQx98psfXoHYYDX+OnW6f3UZDPzo8ndDqQIktzssFV7pWuhqOZQucPba5+gN
-	 icBzMkkIQk9hRnVluI0Ro6RL3TpOemlVTKXpD/FQ4W46U9dt46mC2t7tY9Vp8XRG5j
-	 SZXyCKQteIwaNdctRXowhQYcmS3fYWGLJgvi8tzr+AK4hzsp0n4nZvVzoVlNF6Tf6r
-	 GaPD3LJVAvPIhZxU7vtEclNlff0UerruFEyeVFBzThkXd34fMQ1Hpplx+BlhtMu6AZ
-	 IR3JfOPjdVhGHXcK/mtTVylXzbkZPtEm2RzXyA6Pv11VrMVwtwFkqtS4kObmx+r07G
-	 3MpNra7TPXjxg==
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-38ddeb0f5abso85983611fa.3
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 03:29:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+fgfyOlTv7mhY58ifCh/hxEGoA6E1InbIYNGljAvskUGLOQEqkhPENhB5IgapwsaeD5Smnaz2IEsMW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz8B4SDKxIKD+H9AmgXqaXwc571kkkYWuSvFgGOxa+CxUB6GpnC
-	GM2654nWIpaR6ZoTC58dgKZMYlFu09PBpH4hlAlGbKbovoBwPzDw8RJ1BT3uy5CSSma21DrwbPG
-	6aLb/jorClIxB6DQQdK0nd+2mi7KBoqs=
-X-Received: by 2002:a2e:9fc8:0:b0:38e:a74c:cfb7 with SMTP id
- 38308e7fff4ca-39240f2ce91mr10662801fa.14.1777372196443; Tue, 28 Apr 2026
- 03:29:56 -0700 (PDT)
+	 To:Cc:Content-Type; b=J6VBcIdsfXaz5FeujdmMuBEYLCUZWDYCT6bnwLQenmu92ZRluHRFOXHDJYVn/JKZQPNrgfpM9Y+fsssAhH/vxAKXZd9JLMXa6mLZuEezMDyEkBL+TxhH0ntvbTmRLrdcoBYmNeIpqA9xB0rsEToBHHrCVHByscicSFLLuUAfCLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-56f72d27e7eso10239904e0c.0
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 03:31:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777372317; x=1777977117;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yX0h1Y9Mkq6p8qHdHFJchBdDb8mSjHkwiA1G/+/zjKk=;
+        b=JQGrsuyHU8K4+BU+ad4cbGVHe0YhnTwXP5Z7IsiJkHGylgsScOTkbVPbYssizNcF2J
+         1jEbtOSixjQ1n8ofFwSMu/ODqq2Cb1my2OySmGxhnG7EzaDgvcuvJmrdvigfpfzFk68o
+         UiUpPjK+q2ae5iOgBRmAOoKSrFAY+TjYSu9Fb4ggi5RpP5VK3CwuVYNqUNfL5DgVyogo
+         mEd7mHe4RgyJUpmgA9S/7BAE1rIH28hRO5bp4N9TIX9/Gq4Hg78h5jUwXlnAsQ72Cf2m
+         b7IUabMZ8elXE+5o4uuYWSUsY8/osn97hvjA9pZFszlxiFgzNLxm2SoXdWvB/fmaQwfW
+         peog==
+X-Forwarded-Encrypted: i=1; AFNElJ8Mdmdr+0q9VFVGEs62Y0J6K+wxrJy7akho8D2Ltm+0X4wXD15GBWEHHQpbSc9pWwH8MnspPGrIJfJW@vger.kernel.org
+X-Gm-Message-State: AOJu0YyYjBwWFjG4F1VO7y9gW8ly8k+QCmScq0c1106dVUbcEQiX4FZN
+	blvWGetSqACtv9oW2NwucFNxibfvh1Rmk7cUSALCUEibPny37oZoD5540SKrGEdMgLk=
+X-Gm-Gg: AeBDietOYbGgjhx/NGfq+JGZRcLwLTLOhIsBa/qlkWpaWYwcfC5Jk+ZYhXqzrPyfG4U
+	yrSs29Rg28JKrJvpXKFpIuTuPY9bnvgpOyKn1E0SD2k75UfYB1sMwvf9MexNtN2n9Y5mYaU8ssw
+	/WLYN9WrSr0QZpr7Q4UmXNckCcZQcCOchsr+SkfjFczNuWJyHLjix04DwJ3gMP30umLCxA14DUY
+	492Gg/jVeklYr/uqvoglME/CK5Qe6gXH7i3yS+mqpV7e0jQtUjFfcxYAh1FPglQw5gKjuKVrZKt
+	XU/M9pUrTveA/VrHjSQufM/lB5TSnKEGwqctECYf3220Wx3uKZ4kDEmLTWOCy8xpvIKosvWKiTZ
+	rwCHmRNr/zU9z3UUzUCUo+vexIyutRVlgxO5AQFmqR6egSkRnBnLkDRm4G8N2q7hQ34gU+E4/Qh
+	4h3fKGqdZIU/cFc0O0n1cfgzYedapY0L76m+TYaRZ7Wc8OjS7xQpqjH16T/ns+9ogVfTfTMGEEW
+	HKK5ljpyEas5g==
+X-Received: by 2002:a05:6102:809a:b0:602:8894:b76c with SMTP id ada2fe7eead31-628060be74dmr602974137.5.1777372317065;
+        Tue, 28 Apr 2026 03:31:57 -0700 (PDT)
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com. [209.85.221.181])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-627f8032e9esm995332137.12.2026.04.28.03.31.56
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Apr 2026 03:31:56 -0700 (PDT)
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-56d8a5f0e44so10504533e0c.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 03:31:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8uDMLxLhgyhMTOY4dkA9kk2QEtRcqqj38x+1mAcOx/Ho2bPf/6b2l9qN8EZF1qa7YbJh+AzEXXUtcN@vger.kernel.org
+X-Received: by 2002:a05:6122:4b81:b0:56f:b831:909c with SMTP id
+ 71dfb90a1353d-573a54f6dd3mr738558e0c.1.1777371942065; Tue, 28 Apr 2026
+ 03:25:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260424111330.702272-1-changhuang.liang@starfivetech.com> <20260424111330.702272-3-changhuang.liang@starfivetech.com>
-In-Reply-To: <20260424111330.702272-3-changhuang.liang@starfivetech.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 28 Apr 2026 12:29:44 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=Pxz-=cTPCuoL-j0fqJymrHN9BE5w-SCxq4_9S1KDtXw@mail.gmail.com>
-X-Gm-Features: AVHnY4LqFo_HDwtWhzAhaUJ81fs1ASYixYqCTQiyBvU7icpL3NbkqcMGvWJEmc4
-Message-ID: <CAD++jL=Pxz-=cTPCuoL-j0fqJymrHN9BE5w-SCxq4_9S1KDtXw@mail.gmail.com>
-Subject: Re: [PATCH v1 02/20] pinctrl: starfive: Add StarFive JHB100 sys0
- controller driver
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+References: <20260415124731.3684773-1-john.madieu.xa@bp.renesas.com> <20260415124731.3684773-15-john.madieu.xa@bp.renesas.com>
+In-Reply-To: <20260415124731.3684773-15-john.madieu.xa@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 28 Apr 2026 12:25:29 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWnZhUeY+498Ot4wCjRKM3YEpq9C1vcqbyKe=_Rt4O3Aw@mail.gmail.com>
+X-Gm-Features: AVHnY4JGBNGTte30b8cNYuVFq1Ftrjan7Mckgl-ml10MKOiPXuleAlM2Dd1l_54
+Message-ID: <CAMuHMdWnZhUeY+498Ot4wCjRKM3YEpq9C1vcqbyKe=_Rt4O3Aw@mail.gmail.com>
+Subject: Re: [PATCH v5 14/14] ASoC: rsnd: Add system suspend/resume support
+To: John Madieu <john.madieu@gmail.com>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown <broonie@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-sound@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, John Madieu <john.madieu.xa@bp.renesas.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Changhuang,
+Hi John,
 
-thanks for your patch!
-
-On Fri, Apr 24, 2026 at 1:13=E2=80=AFPM Changhuang Liang
-<changhuang.liang@starfivetech.com> wrote:
-
-> Add pinctrl driver for StarFive JHB100 SoC System-0(sys0) pinctrl
-> controller.
+On Wed, 15 Apr 2026 at 14:47, John Madieu <john.madieu@gmail.com> wrote:
+> Add per-module suspend/resume functions following the existing driver
+> architecture where each module manages its own resources in its own
+> file. core.c provides common clock/reset helpers and orchestrates the
+> calls in the correct order (reverse probe for suspend, probe order
+> for resume).
 >
-> Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> Infrastructure clocks (ADG, audmacpp, SCU) are managed globally
+> using optional APIs to remain transparent to platforms that don't
+> specify these clocks/resets.
+>
+> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
 
-(...)
+Thanks for your patch!
 
-> +config PINCTRL_STARFIVE_JHB100
-> +       bool
-> +       select GENERIC_PINCONF
-> +       select GENERIC_PINCTRL_GROUPS
-> +       select GENERIC_PINMUX_FUNCTIONS
+This causes a crash on Gray Hawk Single (R-Car V4M), but not on
+Salvator-XS (R-Car H3 ES2.0):
 
-Neat that you use the generic stuff!
+    Unable to handle kernel NULL pointer dereference at virtual
+address 0000000000000008
+    Mem abort info:
+      ESR = 0x0000000096000004
+      EC = 0x25: DABT (current EL), IL = 32 bits
+      SET = 0, FnV = 0
+      EA = 0, S1PTW = 0
+      FSC = 0x04: level 0 translation fault
+    Data abort info:
+      ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
+      CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+      GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
+    user pgtable: 4k pages, 48-bit VAs, pgdp=00000004879ed000
+    [0000000000000008] pgd=0000000000000000, p4d=0000000000000000
+    Internal error: Oops: 0000000096000004 [#1]  SMP
+    CPU: 0 UID: 0 PID: 675 Comm: s2idle Not tainted
+7.1.0-rc1-arm64-renesas-03756-g4cf47bc1e3d7 #3579 PREEMPT
+    Hardware name: Renesas Gray Hawk Single board based on r8a779h0 (DT)
+    pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+    pc : rsnd_src_suspend+0x60/0x98
+    lr : rsnd_suspend+0x44/0x6c
+    sp : ffff800082e03ab0
+    x29: ffff800082e03ab0 x28: ffff000444022ac0 x27: ffff8000817d9050
+    x26: 0000000000000002 x25: ffff80008073dd64 x24: ffff800080ab0b20
+    x23: 0000000000000000 x22: ffff0004408a84a0 x21: 0000000000000002
+    x20: ffff0004402d6e80 x19: ffff0004402d6e80 x18: 0000000000000000
+    x17: 003fffffffffffff x16: ffff800082d8bc18 x15: ffff0005bef86f00
+    x14: ffff000444022b40 x13: 0000000000000112 x12: 071c71c71c71c71c
+    x11: 00000000000000c0 x10: 00000000000009f0 x9 : ffff800082e03880
+    x8 : ffff000444022ac0 x7 : ffff0005bef86f80 x6 : 0000000000000000
+    x5 : 0000000000000084 x4 : ffff000444022ac0 x3 : 0000000000000000
+    x2 : ffff000444022ac0 x1 : 0000000000000000 x0 : 0000000000000000
+    Call trace:
+     rsnd_src_suspend+0x60/0x98 (P)
+     rsnd_suspend+0x44/0x6c
+     device_suspend+0x134/0x3d8
+     dpm_suspend+0x164/0x268
+     dpm_suspend_start+0x4c/0x64
+     suspend_devices_and_enter+0x1c8/0x544
+     pm_suspend+0x194/0x1e0
+     state_store+0x7c/0x100
+     kobj_attr_store+0x14/0x24
+     sysfs_kf_write+0x78/0x8c
+     kernfs_fop_write_iter+0x128/0x1d0
+     vfs_write+0x210/0x390
+     ksys_write+0x6c/0x100
+     __arm64_sys_write+0x18/0x20
+     invoke_syscall+0x50/0x104
+     el0_svc_common.constprop.0+0x3c/0xd4
+     do_el0_svc+0x18/0x20
+     el0_svc+0x24/0xd8
+     el0t_64_sync_handler+0x98/0xdc
+     el0t_64_sync+0x154/0x158
+    Code: 6b13001f 54ffff0c f94013f5 f9402e80 (f9400413)
+    ---[ end trace 0000000000000000 ]---
 
-> +#include <linux/pinctrl/consumer.h>
-
-Do you really need the consumer header?
-
-> +/* Custom pinconf parameters */
-> +#define STARFIVE_PIN_CONFIG_GMAC_VSEL          (PIN_CONFIG_END + 1)
-> +#define STARFIVE_PIN_CONFIG_DEBOUNCE_WIDTH     (PIN_CONFIG_END + 2)
-
-Hm I wonder about this...
-
-> +#define STARFIVE_PIN_DRIVE_I2C_FAST_MODE       (PIN_CONFIG_END + 3)
-> +#define STARFIVE_PIN_DRIVE_I2C_FAST_MODE_PLUS  (PIN_CONFIG_END + 4)
-> +#define STARFIVE_PIN_OPEN_DRAIN_PULLUP_SELECT  (PIN_CONFIG_END + 5)
-
-But the existing pullup already takes an argument. This looks wrong.
-
-> +static const struct pinconf_generic_params jhb100_custom_bindings[] =3D =
-{
-> +       { "starfive,gmac-vsel", STARFIVE_PIN_CONFIG_GMAC_VSEL, 0 },
-
-Can't you use the existing "power-source" instead? It's fine if it's only
-applicable to a few pins. This is overly specific.
-
-> +       { "starfive,debounce-width", STARFIVE_PIN_CONFIG_DEBOUNCE_WIDTH, =
-0 },
-
-Don't know about this... sounds like the argument to the existing
-input-debounce which is expressed in microseconds. Just recalculate
-that value to your "width"?
-
-> +       { "starfive,drive-i2c-fast-mode", STARFIVE_PIN_DRIVE_I2C_FAST_MOD=
-E, 0 },
-> +       { "starfive,drive-i2c-fast-mode-plus", STARFIVE_PIN_DRIVE_I2C_FAS=
-T_MODE_PLUS, 0 },
-
-It's not special that things are for i2c. Use the generic
-slew-rate for these two, it describes how fast something is.
-
-> +       { "starfive,i2c-open-drain-pull-up-ohm", STARFIVE_PIN_OPEN_DRAIN_=
-PULLUP_SELECT, 0 },
-
-Use the existing drive-open-drain; with the exitsing bias-pull-up =3D <ohms=
->;
-two properties. No need to be fancy and create a new property for this.
-
-> +       { "starfive,vga-rte", STARFIVE_PIN_VGA_RTE_SELECT, 0 },
-
-No idea what this is...
-
-> +static int jhb100_dt_node_to_map(struct pinctrl_dev *pctldev,
-> +                                struct device_node *np,
-> +                                struct pinctrl_map **maps,
-> +                                unsigned int *num_maps)
-
-Long complicated function. Try to use the generic helper instead and
-extend it if need be.
-
-> +static void jhb100_dt_free_map(struct pinctrl_dev *pctldev, struct pinct=
-rl_map *map,
-> +                              unsigned int num_maps)
-
-Use the generic helper instead.
-
-> +static const struct pinctrl_ops jhb100_pinctrl_ops =3D {
-> +       .get_groups_count =3D pinctrl_generic_get_group_count,
-> +       .get_group_name   =3D pinctrl_generic_get_group_name,
-> +       .get_group_pins   =3D pinctrl_generic_get_group_pins,
-> +       .dt_node_to_map   =3D jhb100_dt_node_to_map,
-> +       .dt_free_map      =3D jhb100_dt_free_map,
-
-Maybe the need for this goes away if you just use the generic properties
-instead?
-
-> +static void jhb100_set_gpioval(struct jhb100_pinctrl *sfp, unsigned int =
-pin,
-> +                              unsigned int val)
+> --- a/sound/soc/renesas/rcar/src.c
+> +++ b/sound/soc/renesas/rcar/src.c
+> @@ -848,3 +848,29 @@ void rsnd_src_remove(struct rsnd_priv *priv)
+>                 rsnd_mod_quit(rsnd_mod_get(src));
+>         }
+>  }
+> +
+> +void rsnd_src_suspend(struct rsnd_priv *priv)
 > +{
-> +       const struct jhb100_pinctrl_domain_info *info =3D sfp->info;
-> +       unsigned int offset =3D 4 * (pin / 32);
-> +       unsigned int shift =3D 1 * (pin % 32);
-> +       unsigned int fs_offset =3D 4 * (pin / 16);
-> +       unsigned int fs_shift =3D 2 * (pin % 16);
-
-All of these are signs that the GPIOs are "banked" into 32
-GPIOs per bank, and I think the chips get simpler and easier
-to use if they get split into threecell DT phandles.
-
-> +static int jhb100_gpio_get_direction(struct gpio_chip *gc,
-> +                                    unsigned int gpio)
-> +{
-> +       struct jhb100_pinctrl *sfp =3D container_of(gc, struct jhb100_pin=
-ctrl, gc);
-> +       const struct jhb100_pinctrl_domain_info *info =3D sfp->info;
-> +       unsigned int offset =3D 4 * (gpio / 32);
-> +       unsigned int shift =3D 1 * (gpio % 32);
-
-Here too.
-
-> +static void jhb100_gpio_irq_handler(struct irq_desc *desc)
-> +{
-> +       struct jhb100_pinctrl *sfp =3D jhb100_from_irq_desc(desc);
-> +       struct irq_chip *chip =3D irq_desc_get_chip(desc);
-> +       struct gpio_irq_chip *girq =3D &sfp->gc.irq;
-> +       struct starfive_pinctrl_regs *pinctrl_regs =3D sfp->info->regs;
-> +       unsigned long is;
-> +       unsigned int pin;
-> +       unsigned int total, size, remain =3D sfp->npins;
+> +       struct rsnd_src *src;
+> +       int i;
 > +
-> +       chained_irq_enter(chip, desc);
+> +       for_each_rsnd_src(src, priv, i)
+> +               rsnd_suspend_clk_reset(rsnd_mod_get(src)->clk,
+> +                                      rsnd_mod_get(src)->rstc);
 > +
-> +       for (total =3D 0, size =3D 0; total < sfp->npins; total +=3D 32, =
-remain -=3D size) {
-> +               is =3D readl_relaxed(sfp->base + pinctrl_regs->irq_status=
-.reg +
-> +                                  (total >> 3));
-> +               size =3D umin(remain, 32);
-> +
-> +               for_each_set_bit(pin, &is, size) {
-> +                       if (sfp->gpio_func_sel_arr[pin] >=3D 0)
-> +                               generic_handle_domain_irq(girq->domain, p=
-in);
-> +               }
-> +       }
-> +
-> +       chained_irq_exit(chip, desc);
+> +       clk_disable_unprepare(rsnd_priv_to_src_ctrl(priv)->scu_x2);
+
+Apparently rsnd_priv_to_src_ctrl(priv) is NULL.
+
+> +       clk_disable_unprepare(rsnd_priv_to_src_ctrl(priv)->scu);
 > +}
 
-And since the IRQs are groups per 32 pins I think this will become much
-easier if you break the GPIOs into banks.
+Gr{oetje,eeting}s,
 
-(...)
-> +++ b/drivers/pinctrl/starfive/pinctrl-starfive-jhb100.h
+                        Geert
 
-> +struct starfive_pinctrl_regs {
-> +       struct pinvref_reg vref;
-> +       struct gpio_irq_reg config;
-> +       struct gpio_irq_reg output;
-> +       struct gpio_irq_reg output_en;
-> +       struct gpio_irq_reg func_sel;
-> +       struct gpio_irq_reg gpio_status;
-> +       struct gpio_irq_reg irq_en;
-> +       struct gpio_irq_reg irq_status;
-> +       struct gpio_irq_reg irq_clr;
-> +       struct gpio_irq_reg irq_trigger;
-> +       struct gpio_irq_reg irq_level;
-> +       struct gpio_irq_reg irq_both_edge;
-> +       struct gpio_irq_reg irq_edge;
-> +};
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-If you want to keep a cache of all registers around, use regmap-mmio.
-
-> +int jhb100_pinctrl_probe(struct platform_device *pdev);
-> +
-> +void pinctrl_utils_free_map(struct pinctrl_dev *pctldev,
-> +                           struct pinctrl_map *map, unsigned int num_map=
-s);
-> +int pinmux_generic_get_function_count(struct pinctrl_dev *pctldev);
-> +const char *pinmux_generic_get_function_name(struct pinctrl_dev *pctldev=
-,
-> +                                            unsigned int selector);
-> +int pinmux_generic_get_function_groups(struct pinctrl_dev *pctldev,
-> +                                      unsigned int selector,
-> +                                      const char * const **groups,
-> +                                      unsigned int * const num_groups);
-> +int pinmux_generic_add_function(struct pinctrl_dev *pctldev,
-> +                               const char *name,
-> +                               const char * const *groups,
-> +                               unsigned int const num_groups,
-> +                               void *data);
-> +
-> +#if defined(CONFIG_GENERIC_PINCONF) && defined(CONFIG_OF)
-> +int pinconf_generic_parse_dt_config(struct device_node *np,
-> +                                   struct pinctrl_dev *pctldev,
-> +                                   unsigned long **configs,
-> +                                   unsigned int *nconfigs);
-> +#endif
-
-Why is there a copy of the generic function headers here?
-It looks wrong.
-
-Yours,
-Linus Walleij
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
