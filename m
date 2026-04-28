@@ -1,110 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801283FB7EF;
-	Tue, 28 Apr 2026 10:47:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A22393FCB3B
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 10:51:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777373257; cv=none; b=NWKJlesKeqJxat8RZlYi0CvV97BYLKs0dRfrgweGHmiCy1Au7RqAoCrOkIikjTGkK6JtVjgE6Eo62TEF6exUY5uehxBYvUoCY5fpC2FFgzdx5v5KZ7hysps80mxiCUiPl0418KA4HEkE5z1UAueBozdZ79/jzblue5afFrwPLKg=
+	t=1777373473; cv=none; b=f+5MUyWGoyQT2k9Z+fQ10MCEu3rNEWe+gxZ3COh4s2XElvNy7Dn9RCG95T++df/3amQQyQ7tVDW1lEsZ+7QvZEYEqsFEfnxM/J4o2WqJYZDKxCKwVlXG7ySJJDP0FkGMCt8D7evEwzh7DfvZqSn62/IMa1Tvzz7ibX3m+sZkxaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777373257; c=relaxed/simple;
-	bh=9I3S+ZMjQ+CX5ruVFO8hHEKt9n+ligax17wFo6u0nUQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VCi4egTeulUrRbYu3LXFWmRpoVXSZTiLxGK9Nkfigy6fZiPVyGpcRcPOs2tuaUaTO2ikUUsXkJfRkt5diTtPlyGJYRjQXaMTqby5CQK5HlCDsEop+RqwuuiU3mwqCm/WoeKprN+luki5WdnXogU695kKDci8ifKYKbGb4i7kcHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LLaKGxOk; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777373473; c=relaxed/simple;
+	bh=0HutzdFNa0obdPVLGrfLNhx/g4CaTgRC5uNOdkJSmA4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=p2ILcBAnXVjvw0SW3YS8LHFxpgMD4jVn4TnOUmsmotx4lAcAbWc0cFLc37ZEVnLGeCxOFyc0MCwXxxWB/HkPhGbSdLOQYuSWGf4+/CgVsEALVpz7T6hM9ydAUfCl48bpWKboK8AudIbX6QEv7VMjEDL+GuKUA37h/UXoAl7zLWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dkZpK3Kd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LLaKGxOk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00BC3C2BCB6;
-	Tue, 28 Apr 2026 10:47:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dkZpK3Kd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F2B9C2BCB6
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 10:51:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777373257;
-	bh=9I3S+ZMjQ+CX5ruVFO8hHEKt9n+ligax17wFo6u0nUQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=LLaKGxOk+VWT+nhOtElYEmSHoBxPwYg5VhZBk2DO3Xqml+wqTAqlswriKiVLSTGje
-	 KgNT7xSoJomNUjvdRWAQLWensYeNVB9Ya1KoDC0N1a1dR81zL947cJrDZMSrUkzkTi
-	 EtVPQ7afGwgNbk9mhMxbeDFxw3L21FloiOTXKxdDAABDj+oIqupSkXqjGbFYxAOq2D
-	 KEp+xa+hnNTnDAbFs4z3chsN8YUow7r7M1BUTqKim0ItNhQ82LrHQaDaYvLIxmmT1K
-	 jtXNM8wdIPfWuevSRemc365GRbSW+gx7hHoSXLbysRDaQ2nyyoFQoP8OruOpiIcnGW
-	 PBmnV6PwKTVsQ==
-From: Yixun Lan <dlan@kernel.org>
-Date: Tue, 28 Apr 2026 10:46:51 +0000
-Subject: [PATCH v2 2/2] pwm: pxa: Add optional bus clock
+	s=k20201202; t=1777373473;
+	bh=0HutzdFNa0obdPVLGrfLNhx/g4CaTgRC5uNOdkJSmA4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=dkZpK3KdiKZfm1LFxn5n1JF6HjQlDUahfC2FKTP7JpUO6sJSbCjgRxwKtFZlP6eUJ
+	 FyM7ZUCSWAFcRK/JblqOih0Sj5T1exzFu4DiREsWuOfeVh6Qj4MxK6wr5C9J5JXIdC
+	 ZlB/Q2GRLA3+qKIht+MIisszHOyrgax3YBrPa1lT4HGd54N0PSTEbTt1OPzrg0j/eq
+	 D+ZQ4qTlrOZ01PG1MjVcEqIAMnKL1WIa5ghn7Lsee32GfOZ9zohpIelEWjCDyNjf82
+	 GlTV2z5LHP19uh8u2G0mDuhEN4p8k0rd1hfIvDg7jiarivOH+sVtKvqK1TlTN1kkcN
+	 PHvldzmRhafyw==
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-38e7d984096so124367081fa.2
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 03:51:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8Tj38sGjxXTFENT98bj4vvbdrPkDNvpumzqJU33P2ShKG5Ufx1RADCgTQI3ZwMeAsr8oF2n5mYqIz0@vger.kernel.org
+X-Gm-Message-State: AOJu0YznMrutkHI8W5v1dWVbwz/zWzj8quuZ7lW2jeOcY9hvcRQOD9qV
+	p0thdcgHDfBg0DZDwy6JrTemdlt1bBoRNz6OGAie8RwjBSg2/cw0EW4ET562cOwvKjnkkaQ3zo6
+	pTbo3DOUr+fg73d2M/QdWQLcC1BH/pIg=
+X-Received: by 2002:a05:651c:3252:b0:38e:cab9:365c with SMTP id
+ 38308e7fff4ca-39240b34918mr8858931fa.0.1777373471941; Tue, 28 Apr 2026
+ 03:51:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-03-k3-pwm-drv-v2-2-a532bbe45556@kernel.org>
-References: <20260428-03-k3-pwm-drv-v2-0-a532bbe45556@kernel.org>
-In-Reply-To: <20260428-03-k3-pwm-drv-v2-0-a532bbe45556@kernel.org>
-To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Duje_Mihanovi=C4=87?= <duje@dujemihanovic.xyz>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, Yixun Lan <dlan@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1372; i=dlan@kernel.org;
- h=from:subject:message-id; bh=9I3S+ZMjQ+CX5ruVFO8hHEKt9n+ligax17wFo6u0nUQ=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBp8JA2t6Oh3boo/AQsj6aqlzUcUURaIZlQZlq6U
- Zf4kLhr1jSJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCafCQNhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
- maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+3jOQ//Y8FpkguGvfJYxeQJkXpK+fjeQHQoHtHMKdwNvQ60UOtgYSVOZTjD3
- mzQnZSlcpRU02iACF6nCZmZ3+eAlIbXi6nLDgkyrNg4RMIu8sch19RdUhr5mVmCytb+o8YRiRD1
- VMD3HIbHg1BhezDY/cvYFP/GUpfA93JtELUhUGU6oWUhIDZzH78e0QwMLhVNCXwRn+oL+Lx4obG
- 87QtXW9V3RXUMQTiXGhmwJRciAEX4rNHzpv8gDiOfsQ1AtBjh+uO/5rNigTvq12zQhSi640q8Va
- iNJAivx6BvDjVpEJo9Z5mWQvU+Vr4tiaLkAiAkYE9YgzPvgc4SsWeVwlm8xXnRvcwttcPI3KWqN
- toDgHLdk+wH92E1xbkWy7CxprSsJAnnBuS4UVl/ch6Hp0CqxPHb9VLu9AasuYNG2PhjuuV6VeG8
- scynopWwrZqpauSNPVbZLchwlV+zxbLslJuy/qz/mOu00CGqwUmvR9XhvFKLvCgcCsJqN3MH24B
- kB7zxIwUrAYNm/r2mpCUqHB1hxB31VVH2UjYyaSSTjQjjAn+KMbi7elgKNrPVNi43MnY7+8/azd
- 2Vy+BdqhRmdPzEmOZPtWnzpt1yV8yFnHO3wCBGwJLNHUPyZ89J1M4rmjuVaBxz+zl3pd60kSuqM
- mqpuohQ8cjZs5fG5me1Acf6aIsQg/s=
-X-Developer-Key: i=dlan@kernel.org; a=openpgp;
- fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
+References: <20260427-nord-tlmm-v2-0-ade8e0f3d803@oss.qualcomm.com> <20260427-nord-tlmm-v2-2-ade8e0f3d803@oss.qualcomm.com>
+In-Reply-To: <20260427-nord-tlmm-v2-2-ade8e0f3d803@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 28 Apr 2026 12:50:59 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmk2o+i4uqwsv9Pb5ABqnt9584gnmZLosNkLmx1YtsN2A@mail.gmail.com>
+X-Gm-Features: AVHnY4IhvQMDEYW8EoPHVxBDI4gshdKsR1xp_fkpIh4_xsz5sgNJU3TihctEl8s
+Message-ID: <CAD++jLmk2o+i4uqwsv9Pb5ABqnt9584gnmZLosNkLmx1YtsN2A@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] pinctrl: qcom: add the TLMM driver for the Nord platforms
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Shawn Guo <shengchao.guo@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add one secondary optional bus clock for the PWM PXA driver, also keep it
-compatible with old single clock.
+Hi Bartosz,
 
-The SpacemiT K3 SoC require a bus clock for PWM controller, acquire and
-enable it during probe phase.
+thanks for your patch!
 
-Signed-off-by: Yixun Lan <dlan@kernel.org>
----
- drivers/pwm/pwm-pxa.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+On Mon, Apr 27, 2026 at 4:00=E2=80=AFPM Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> wrote:
 
-diff --git a/drivers/pwm/pwm-pxa.c b/drivers/pwm/pwm-pxa.c
-index 0f5bdb0e395e..80d2fa10919f 100644
---- a/drivers/pwm/pwm-pxa.c
-+++ b/drivers/pwm/pwm-pxa.c
-@@ -161,6 +161,7 @@ static int pwm_probe(struct platform_device *pdev)
- 	const struct platform_device_id *id = platform_get_device_id(pdev);
- 	struct pwm_chip *chip;
- 	struct pxa_pwm_chip *pc;
-+	struct clk *bus_clk;
- 	struct device *dev = &pdev->dev;
- 	struct reset_control *rst;
- 	int ret = 0;
-@@ -177,7 +178,12 @@ static int pwm_probe(struct platform_device *pdev)
- 		return PTR_ERR(chip);
- 	pc = to_pxa_pwm_chip(chip);
- 
--	pc->clk = devm_clk_get(dev, NULL);
-+	bus_clk = devm_clk_get_optional_enabled(dev, "bus");
-+	if (IS_ERR(bus_clk))
-+		return dev_err_probe(dev, PTR_ERR(bus_clk), "Failed to get bus clock\n");
-+
-+	/* Get named func clk if bus clock is valid */
-+	pc->clk = devm_clk_get(dev, bus_clk ? "func" : NULL);
- 	if (IS_ERR(pc->clk))
- 		return dev_err_probe(dev, PTR_ERR(pc->clk), "Failed to get clock\n");
- 
+> +config PINCTRL_NORD
+> +       tristate "Qualcomm Technologies Inc NORD (SA8797p) pin controller=
+ driver"
 
--- 
-2.53.0
+Krzysztof just tidied up all of these strings, this should now say:
 
+tristate "Qualcomm NORD (SA8797p) pin controller driver"
+
+or something.
+
+Yours,
+Linus Walleij
