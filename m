@@ -1,209 +1,142 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30783D5252
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:41:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777369282; cv=pass; b=KbqfRlZajbXT3FlWbv7mRFoUOwKymGkFI+YLE09BpzMMtI4VOlv9DgffrPl1DDAFPkTSwCF5coP97Psr4sbJ31rlNwA1T2Nh34U6gXAFzznPYNsFI9PZzgQ3MOli4qOf3BXe2NDy9bZwh+GHbxzj7YKGWmaiWyafHZW+iIT9VNY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777369282; c=relaxed/simple;
-	bh=z+RviMs9g44rVfq3IhufiHmgZV9hxNooZsGNxeL+nBs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sgeKOG3Wgzw3oqWS5EKfxKRTVYAYPqJb7UvD4e/wHMVyl7nlWnIK3s1f1qYOl1lrErVj5yxJQ4q6v2LOeGkj5xCAYc35bj4C8morz8Y8gl5cN+X9Svqq1qp/fedztMf1KBXqyPxUDhH61hdy8vk0AgAP3A6CsbMwjNA7pnP0uuA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q3miB2Dd; arc=pass smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA0B3D47A6
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:41:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777369291; cv=none; b=eUWUyMPEiYM3VdhqvXFI/A+ChsD25T5lhaw9uO9lEvTOi0SdjJErgkuQ1Z7bYkVRkhF/6qQw7J6gPetblHrs4KZxSy2cyRjnB1xPpCB3b6tXezMb4zURusyPm9wCttMu+qnoGlAyUDg0giVDlAZ5hS7jcFjEx9SwuUd69qKDVI0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777369291; c=relaxed/simple;
+	bh=0jGJqIEvHyuE2jd3yZfBzTnMNJvxYmCxBDEiDeKiL/g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IyjneumwtpG9AxZxjGgmfF91sxHZbObMqz8M49hpkHeRp9rUj6vYKUlq2umyPVJWi6IZgGOC8X63UbDOs5O3U6wBLlBCYrz6q8UhhG+AFbZFXrdV9+RJlCweTOkZRKjQNnn/pLBX7tU64D5OlbKefB1pb00TQPjbSEUpBMD9SxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ANHJD3Oi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KAgFyEI3; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q3miB2Dd"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2b25cf1b5f0so61384795ad.3
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 02:41:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777369280; cv=none;
-        d=google.com; s=arc-20240605;
-        b=PS28V6pbi1cG7N4eROv/BkmNs3Q4z2Vtb4pIH3IrRB3LztCrjAGUkV0JPkhHv+w5Ch
-         tRWYs/mGYqZaf83rLPOwamtDuZxid1HvejVAifpq5oh7t7anft7A/+S4389jZeHiZyzf
-         44t/pibbBhj2MaZ0bf/0aiAIkya/0hkked9C6cGZLcOrPjurI5hbJfVgEew5h09eHrOJ
-         uGJNeSnUoC6hq6ZkJlR238/qZBA+0hmBBcAz5hqWM9m9CM5tuiPc3Y62+xaNJW4TTd4N
-         HaTdSqUl6yjv61WvIu9FVt4Xz7/uz+0wolzHPfzpqQOQMrXpwiLUSYgMq9aeIHKxkZoM
-         iYBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=AnSnIsMNDAma+IgkOcey9NBHXePZVAGOReDpxepiZEw=;
-        fh=c2aShgdN+ibofF2gmf1dwTYVSsqCyweZt78VVVuRQjk=;
-        b=amXt1mlhYnkpPKtVPqoMlONrFQPNB8mzNLNSljC3jGegLHR/Tw4LA079wFZTmr8Fje
-         2oc8gr4NrwvAOTXtZ/d/B410g+2T8PHPyRxQEu1uIq6ndfS76A+/9VFe9nNUxpSofw0u
-         XBi9/SzZB8XX2HBCJZMTHNGDdjKUpr7Q/XXAYMuaJUHPhT/1RjQESw/GEmbIJCZUCP5u
-         guZQWFUiNOnP4EO8+QPRsZwqOV9JNAOecFv08By8MPoeq8BfN8ePqXrhBnQciQqVDTwi
-         RXLI0Jk+eb++s2kuUSdNkyNYYnQ4u8YQGrXfXqUxIG+4BpWL3DziGgyLooz9qF8r6OOX
-         TM9Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ANHJD3Oi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KAgFyEI3"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63S8KDFG3123516
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:41:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	wnKHfK8K/F+/mKvBliY5EUv22XSILH050ZJQu5YGI5E=; b=ANHJD3OidzSjwTJC
+	D6vAaI3U05MLMhATgvzD8bqSZlaopuRWFCrAN6QjrfpvOpkb7Yi9I1yAJtGBVRWt
+	LBu0fGjTtfEw+g973jtTGwY5gwGwj1RWjs8MjI3frKi5zF5UEt0GST1zK+Kf89dg
+	N/q+ZCH4drFVqBMgdJpkQJH1hyCymLizGdTFMDyKnEVICe6U2h934In8wQHr+tVB
+	yJ82++EvRuu+JRb3gcPHJ/0oXeypEfZPKGfiyUwOCv4wRE/+DDDaamqdrOj5/Tmm
+	Z6G6FIX1jZQ7j7Qs33qn+xtwLtt75xF2yd/fybmPzzd7dw6GCtz9a33k2/gHMJko
+	jtBciA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dt5qgmw3s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 09:41:30 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-8edcc885cd3so188350385a.2
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 02:41:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777369280; x=1777974080; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=AnSnIsMNDAma+IgkOcey9NBHXePZVAGOReDpxepiZEw=;
-        b=Q3miB2DdYqHExGww80uDoGpcVI7nAUlpVM3uftty9z9oi2DiN/asfcMDjLN7a2mYTw
-         zztSAfFLZ9PaeEwVOEPDn7Fj3fv+1jgnt59PRTKHqz0lS+DzYJU36By3WDqEN+tf1r5d
-         On9WQuADu2KkKZlYAlXcciTsL5a7mfknJOInEmlfpyaZnnw75DG+7iztHSE6ulcL0Jaz
-         wkWOa3WCj4UjYgrMlz/PLpOma9UfY6QbtR1BSh7pC6PlhqPDQjCG+/IpYTsmMmaXYC2F
-         q5nFiJ2HVeBeOHZsIG7SU/MCQ8vJBxYstEhow5bs767dp2DNMWbmuDS/L6PzSZGQB11y
-         sM5A==
+        d=oss.qualcomm.com; s=google; t=1777369289; x=1777974089; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=wnKHfK8K/F+/mKvBliY5EUv22XSILH050ZJQu5YGI5E=;
+        b=KAgFyEI3ThUM3MHNvvLlN0Dy40NjOHWCmmuQhMnUSoxz86hWSZfbPYOrBvBfcnyyKQ
+         Ij63O4Gqgge+zuAad74Fo/2Srde9mSho6zLweZy4TC8LOFLj6WTJNyhabzV3looqryUl
+         uqmuxSLAxUSVEDNl7ljjsFZMd4JQqTL9MfLVzF7QRPQjCZB/SqwFlQr1VRc5G0PjXMQr
+         anOIDueLFqA3u2LjQgGaflUIOqXZc6EfdFfX5nScq0JxaM6D3VmK/AJBiy8Xl1wjYBp4
+         TCJqS1cXR92gJPDViS+VHhJmx7ul5neAOmz0t/ik+FPC4PxGOQJiBFrQUChDSDmj2Fxd
+         wPbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777369280; x=1777974080;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AnSnIsMNDAma+IgkOcey9NBHXePZVAGOReDpxepiZEw=;
-        b=bwlGXVv7hOA0LIpuQpztvZKXW84QZGP5LAgaVZ4smX1xvGjFE7BoV12FgTQfAjxjyC
-         0iZQiwTtecwfKJpAqnwiJCiSxZ6XbcR1bDepf73a+qhxkqzs7hJsr3N0/W7LoTPHfERz
-         5mfA66Xdl0TZSoBk9oZTrsHZVtDjNuzoUARbCfDtdHY6iJhY8jjTyHxph3u8xTK0/BVh
-         QtfzPe3YJ6XDjxgrxpQJk9mfqHihAU3AEm74h365gvtWo4OFlrTe+O2IlbudIGgGeFQ1
-         FSwjMli811G+DgIMiV1+E6apH51kzEsCyDiABHh6Kl4M3brYym5EDGhXtv/UgGbQg5lW
-         5XVg==
-X-Forwarded-Encrypted: i=1; AFNElJ8XMyl5oeR97p0S86DnXn4Q34/VFHwUv/mUbIIVVN1lUPpuWV+G6UIvgQAW5ftnJj7X5sw5acn6fo2f@vger.kernel.org
-X-Gm-Message-State: AOJu0YxmoTdqadWJ195IXGPixndHM9XHhkCVTNjb28R0BzTO0rVEC7VI
-	Gf3UGA1XGpbEAXpjfJXbi7vwG7UO4GQWC3lvCIKdlRtzQY0LCMXnHHXcGIX769/1hFq/BoQtNeQ
-	RmK1NWxXeoP7ZQpNWzPVpo+gEgUmHIN/imev/
-X-Gm-Gg: AeBDiesdHvpS3WR58KzXoByO1zYmRR4PWiuPJch/KthhXOxVUeg9XKoYDPp5RLqT+qD
-	N2ynvvH3jC3zHXkZejCnXkfRUDH/ZTT3AgrH9uKi3CCAldIeFGiJWxoUF4W4L6YzPTZl7knc+pL
-	bMFFNd/SanQqFrqgeUeZyFNbVrVpq1Ev37kCBgnga103CzbqeSY4DVJCieD2ptYWQ2BdzG4Z28v
-	Qf9Q1L3QrQVCznC08L92WMUMA2Af+7cdrNKoDVA7A1+e99SnU/yCubxct8OsFVedV1pLlgppYwN
-	PPxx5P7ybCNe7h9xdyfdUIKzU1VSNpWIYd6e/1jxOCll0jet
-X-Received: by 2002:a17:902:e746:b0:2b0:6e60:9582 with SMTP id
- d9443c01a7336-2b97c411386mr26853925ad.18.1777369280083; Tue, 28 Apr 2026
- 02:41:20 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1777369289; x=1777974089;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wnKHfK8K/F+/mKvBliY5EUv22XSILH050ZJQu5YGI5E=;
+        b=OJtIft9i6DH/LSHBsLd0uECy6debctdUOL04HczNaOJuHnJhuo4w8y8fyjZamdWWP0
+         O9ZQ/T5L4rEHx+wvY2vjSWdGWK07t9lB9sWcRRnBXTyXJWd5nzsaexFug9TlRb1pEocV
+         EOOqDY93PzUSrb5F+Bcmf8ZSOjpxJJjYIwRo9PfM0vYo/FZYZg8zDgS3RBgy+MJ7HaLR
+         bE3+vMgp9rvpqdZTgCKqUe6UMldthe09HSwEQTnuHvSm7lLc0uImR/tuW98v2yB9Q1KG
+         7s3vcuBDr2BZSay4amsJtlFU/7EBynu6BksWomSvyI7L+B9aSkp/qcT8OEz6vU3DvtW/
+         dFgg==
+X-Forwarded-Encrypted: i=1; AFNElJ9xh7P4RNnvbcyJdgfbhhw0Vp0l3KQ0PXbhSFK+t7cUAPt39PFqr2tMvPKvAqXZ6IIABst+QpqoHVNO@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyc5ciMIJ1oO1QwGGG8xO/bsISrcfWfnzrWkdJErM0mT9Dw/wXE
+	VJNjstLLMp3MiniR6+rOdz6Zv5kq9SyD3D8iWYHHwcWhShAqnIEyCQd20k4Nk6fIdjTKr3bftWf
+	gdqDxoGrDhg9mEfgs7E4n2quEKPrH2OXcRSkyprOnqJoASFcmCXVt2+qo2yiGhAri
+X-Gm-Gg: AeBDietFYZrNRlyHc33inyVaNqUIrfzN4lS/Sm3VKUcfEx3ImDL5C4Rhfm/6N2CaRXE
+	imzItYiRZXEuE60J94ZwjgxE65h/HqgC/CrizCxgexo0wm1RTmQwEMxmvf5vYF/SsZiI+HSey2/
+	0T9h7qW78ddgG0tV3svX2iof4526XJM08a+Z6CdHHsODITHojZslz9OjMhadvDdC1WuwMdFnLWD
+	KWo+4kbjFouLS+dkMbYcoB0eEzM79b+sqhgGfuNtmBbzEdJzFFuqetbiW3NOEE0X53ZeYHfmxDY
+	OpsB3e+nuN6Rvj13S5qdlwlKKr9LGXZCFhlZVWr3hakNnlgErevjUoUM5N2k74NwWIpEAVxDjB5
+	UnISeODD3QT/bH8wUveYuwajnfwuJ4xGH7n1DffiMu0M0vkO3EqOEQnI3ydmZHC9d9VnuXly84q
+	WWrH8Ytn/WgreWwA==
+X-Received: by 2002:a05:6214:5099:b0:8ac:afca:a68f with SMTP id 6a1803df08f44-8b3e284647emr26420656d6.1.1777369289024;
+        Tue, 28 Apr 2026 02:41:29 -0700 (PDT)
+X-Received: by 2002:a05:6214:5099:b0:8ac:afca:a68f with SMTP id 6a1803df08f44-8b3e284647emr26420426d6.1.1777369288549;
+        Tue, 28 Apr 2026 02:41:28 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bb80c581f6esm74064366b.63.2026.04.28.02.41.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Apr 2026 02:41:27 -0700 (PDT)
+Message-ID: <fc786276-6397-43c5-83aa-1352b4016f09@oss.qualcomm.com>
+Date: Tue, 28 Apr 2026 11:41:25 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260413100700.30995-1-phucduc.bui@gmail.com> <20260413100700.30995-4-phucduc.bui@gmail.com>
- <87se8ypeq1.wl-kuninori.morimoto.gx@renesas.com> <CAABR9nGB0u-Y7ddGtu0DmZXUiEWTVrXQy7DhTkLgkSBvFjNyJA@mail.gmail.com>
-In-Reply-To: <CAABR9nGB0u-Y7ddGtu0DmZXUiEWTVrXQy7DhTkLgkSBvFjNyJA@mail.gmail.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Tue, 28 Apr 2026 16:41:08 +0700
-X-Gm-Features: AVHnY4Jtd9qov1U9UDBxFBM7FR1sTGp_zRda_9g4fyTQWtjsSvrJmbyAPpkfjao
-Message-ID: <CAABR9nHiSxH60ULks7_jZCC5rE+YVu-u+nm3TnO7oKcFoQduhQ@mail.gmail.com>
-Subject: Re: [PATCH v2 3/6] ASoC: renesas: fsi: Fix trigger stop ordering
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be, 
-	magnus.damm@gmail.com, perex@perex.cz, tiwai@suse.com, 
-	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] soc: qcom: socinfo: Add SoC ID for Shikra IoT
+ variants
+To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260428-shikra-socid-v1-0-6ff16bad5ea2@oss.qualcomm.com>
+ <20260428-shikra-socid-v1-2-6ff16bad5ea2@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260428-shikra-socid-v1-2-6ff16bad5ea2@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI4MDA4NCBTYWx0ZWRfX4AV4f0/dGv42
+ ugYYL2xLYHGyGb0LQE4aKqDeoFNLE6iyknQ6cTOoC1LS2CZsYRB4imae+Dk8VKK8y2ajftSRLBC
+ 84IaqlE1YrOgDpqTtLl6ZRXhFYfpMQzfa96CVUp1bzPCydkqQXhYFlPDLmviqEw7Aq2id3Zfs1h
+ F9n9N2o+T/GGmqpwrq/JcmhotAgB1bDSoebpKvOolk8GwFQuQyDJCv7PpjDnslaSeQ/R4NQmCvS
+ AJ2Fovz/Ia6SSqw0sxB1oCAgO9/R4WvErnR9JOPAXLZYtrFjqbZ7PgEhGI+dFJjxn5rnnxCa7Uh
+ 61WhQpYJ4v16B56agtXCKlEIHocRrZoXbwrh4UHu01ykN7TVUa5F6oHtzqh2qrSJ71Yi4jNyqO/
+ 4vNEQPw1xs6I9g2JObZM9hVoxTLqFNMP6HdM7ZVYewx8dlT6A5cDlKpAmJUcKTQ92MYnOYYRNLl
+ 9gd8bHX0NISrAu85w2Q==
+X-Authority-Analysis: v=2.4 cv=V69NF+ni c=1 sm=1 tr=0 ts=69f080ca cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=vUAe5X8XSJDf5Ne0D5cA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: 4uLHNSqZBstYeKA021V20FwCZ00UrT3M
+X-Proofpoint-ORIG-GUID: 4uLHNSqZBstYeKA021V20FwCZ00UrT3M
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-28_02,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 suspectscore=0 adultscore=0 spamscore=0
+ phishscore=0 priorityscore=1501 bulkscore=0 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604280084
 
-Hi Morimoto-san,
+On 4/28/26 11:17 AM, Komal Bajaj wrote:
+> Add SoC ID for Shikra IoT variants: CQ2390M, CQ2390S and IQ2390S.
+> 
+> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+> ---
 
-Even after reordering the sequence as follows:
-    fsi_stream_stop(fsi, io);
-    if (!ret)
-        ret = fsi_hw_shutdown(fsi, dai->dev);
-I had previously tested this change and did not observe any issues.
-However, in more recent testing under different conditions, I noticed
-a system hang.
-It seems that the interrupt handler may still be invoked after
-interrupts are disabled and the SPU clock is turned off.
-The following log was observed:
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-root@localhost:~#
-root@localhost:~# aplay /audio/file_example_WAV_2MG.wav
-[   51.580000] >>>>>DEBUG: enter fsi_dai_startup
-Playing WAVE '/audio/file_example_WAV_2MG.wav' : Signed 16 bit Little
-Endian, Rat[   51.590000] wm8978 1-001a
-: Imprecise sampling rate: 48000Hz, consider using PLL
-e 44100 Hz, Stereo
-[   51.640000] >>>>>DEBUG: enter fsi_hw_startup
-[   51.640000] >>>>>DEBUG: enter fsi_pio_start_stop, enable : 1
-[   62.610000] >>>>>DEBUG: enter fsi_pio_start_stop, enable : 0
-[   62.610000] >>>>>DEBUG: enter fsi_hw_shutdown
-[   62.610000] FSI BUG: READ after clock OFF
-[   62.610000] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted
-7.0.0-09892-g26b66fbaf162-dirty #5 VOLUNTARY
-[   62.610000] Hardware name: Generic R8A7740 (Flattened Device Tree)
-[   62.610000] Call trace:
-[   62.610000]  unwind_backtrace from show_stack+0x10/0x14
-[   62.610000]  show_stack from dump_stack_lvl+0x50/0x64
-[   62.610000]  dump_stack_lvl from __fsi_reg_read+0x30/0x5c
-[   62.610000]  __fsi_reg_read from fsi_count_fifo_err+0x14/0x88
-[   62.610000]  fsi_count_fifo_err from fsi_interrupt+0xa0/0xc0
-[   62.610000]  fsi_interrupt from __handle_irq_event_percpu+0x1a8/0x1ec
-[   62.610000]  __handle_irq_event_percpu from handle_irq_event_percpu+0xc/0x38
-[   62.610000]  handle_irq_event_percpu from handle_irq_event+0x44/0x68
-[   62.610000]  handle_irq_event from handle_fasteoi_irq+0xa8/0x130
-[   62.610000]  handle_fasteoi_irq from handle_irq_desc+0x64/0x7c
-[   62.610000]  handle_irq_desc from gic_handle_irq+0x60/0x70
-[   62.610000]  gic_handle_irq from generic_handle_arch_irq+0x28/0x3c
-[   62.610000]  generic_handle_arch_irq from __irq_svc+0x88/0xb0
-[   62.610000] Exception stack(0xc0d01f48 to 0xc0d01f90)
-[   62.610000] 1f40:                   00000003 00000001 000176c4
-40000000 00000000 00000000
-[   62.610000] 1f60: c0d03f98 c0d07880 c0d90b82 c0d03fd4 c0aea642
-00000000 99cea980 c0d01f98
-[   62.610000] 1f80: c08228f4 c0822c68 600f0013 ffffffff
-[   62.610000]  __irq_svc from default_idle_call+0x24/0x30
-[   62.610000]  default_idle_call from do_idle+0xcc/0x124
-[   62.610000]  do_idle from cpu_startup_entry+0x28/0x2c
-[   62.610000]  cpu_startup_entry from rest_init+0x94/0xb0
-[   62.610000]  rest_init from start_kernel+0x608/0x6bc
-[   62.610000] FSI BUG: READ after clock OFF
-[   62.610000] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted
-7.0.0-09892-g26b66fbaf162-dirty #5 VOLUNTARY
-[   62.610000] Hardware name: Generic R8A7740 (Flattened Device Tree)
-[   62.610000] Call trace:
-[   62.610000]  unwind_backtrace from show_stack+0x10/0x14
-[   62.610000]  show_stack from dump_stack_lvl+0x50/0x64
-[   62.610000]  dump_stack_lvl from __fsi_reg_read+0x30/0x5c
-[   62.610000]  __fsi_reg_read from fsi_count_fifo_err+0x24/0x88
-[   62.610000]  fsi_count_fifo_err from fsi_interrupt+0xa0/0xc0
-[   62.610000]  fsi_interrupt from __handle_irq_event_percpu+0x1a8/0x1ec
-[   62.610000]  __handle_irq_event_percpu from handle_irq_event_percpu+0xc/0x38
-[   62.610000]  handle_irq_event_percpu from handle_irq_event+0x44/0x68
-[   62.610000]  handle_irq_event from handle_fasteoi_irq+0xa8/0x130
-[   62.610000]  handle_fasteoi_irq from handle_irq_desc+0x64/0x7c
-[   62.610000]  handle_irq_desc from gic_handle_irq+0x60/0x70
-[   62.610000]  gic_handle_irq from generic_handle_arch_irq+0x28/0x3c
-[   62.610000]  generic_handle_arch_irq from __irq_svc+0x88/0xb0
-[   62.610000] Exception stack(0xc0d01f48 to 0xc0d01f90)
-[   62.610000] 1f40:                   00000003 00000001 000176c4
-40000000 00000000 00000000
-[   62.610000] 1f60: c0d03f98 c0d07880 c0d90b82 c0d03fd4 c0aea642
-00000000 99cea980 c0d01f98
-[   62.610000] 1f80: c08228f4 c0822c68 600f0013 ffffffff
-[   62.610000]  __irq_svc from default_idle_call+0x24/0x30
-[   62.610000]  default_idle_call from do_idle+0xcc/0x124
-[   62.610000]  do_idle from cpu_startup_entry+0x28/0x2c
-[   62.610000]  cpu_startup_entry from rest_init+0x94/0xb0
-[   62.610000]  rest_init from start_kernel+0x608/0x6bc
-
-
-.......
-
-In fsi_pio_start_stop(), I also tried adding the following:
-
-    if (enable)
-        fsi_irq_enable(fsi, io);
-    else {
-        fsi_irq_disable(fsi, io);
-+    disable_irq_nosync(master->irq);
-+        fsi_irq_clear_status(fsi);
-     }
-
-However, this still does not resolve the issue where the interrupt
-handler may still be invoked after the SPU clock has been turned off.
-
-Do you have any suggestions on this issue?
-If we still want to keep the SPU clock enable/disable inside
-hw_start/hw_shutdown,
-we need to properly handle this race condition where the interrupt
-handler is still being triggered after hw_shutdown.
-
-Otherwise, moving the SPU clock control into dai_start/dai_shutdown
-seems to be a safer approach,
-since at that point all interrupts have already been fully processed.
-
-Best regards,
-Phuc
+Konrad
