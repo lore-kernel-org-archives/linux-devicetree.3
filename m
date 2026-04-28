@@ -1,132 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558F339D6D5;
-	Tue, 28 Apr 2026 09:34:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497833D4133;
+	Tue, 28 Apr 2026 09:38:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777368861; cv=none; b=Z3GfGSt4MSvXHzECsQRUs68BxUTkA7r50dOe09tE5hT+dAt3vORHl/M09fluj7CAhZV/q0bnBRUYXHaKMOE1ABzG5Ajqe7Mz0uDZVyGmSRmD7Zu3ecMNsx6n8lA3dQGytCJFj/VY2goPFxKD3818CPWzVqrErEpJon137b5EOak=
+	t=1777369100; cv=none; b=CJB6Qm5ljAxBL9r62hZH57dIPBSr3W3kwDcXdJANMaRGUOfglj2FCRKmioddk8bhOM/0fivMK7dfE7PkrvrMfQiP6FFVYba2isd2e1Y+QipSsk40TLY4VW2GNx0k8K7Aj6G8PBGVsbsGnsEHjcNEXTBT3eajfmaob5R3FvCDgaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777368861; c=relaxed/simple;
-	bh=1LHm3vO159I5U/p2qW4B5XeBlB2fH0Dy8Z5y/tVELzg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hNCrf4CqR37Kmahz38qTNkH3X4jhwP1c+Q4G9j+ctAUXeO8o8E/rGJfqhIpRGycNHEX7P11xQsRP8Jgm4jgCO4wyCuuIpO0CTGIUsfkpLWi/UhKoAWG4AOoxVibebtmuTuO151EXlYwcjikjCsW5wWua4839rdyFy2Mgi/1/kFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=llvGmL7A; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="llvGmL7A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AEE1C2BCAF;
-	Tue, 28 Apr 2026 09:34:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777368861;
-	bh=1LHm3vO159I5U/p2qW4B5XeBlB2fH0Dy8Z5y/tVELzg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=llvGmL7A6wwWqcK6lyQ0GMQaXVDluIHi6HI4FEd2dPOJbcU/fveatdI4x9yb5Tm5t
-	 nr/l8FMO90FTYiN62vaJGvmc2gtjj3MTHYKnGm7sh2d0Xptudxel10L01YGQbKuZsL
-	 LiiPG9uMc9wM7/2XO0mx+3qTKTzQizOsmGW03fq8/lEXIo1y2Ea6Nxjs/udg5Fh5/W
-	 J3+qTRhD+VIquirOHPkARq4Mkc1zqx0dOqlRQzvgtBf5HAX6JkMD6MZtvPiiAwhsxy
-	 4pm0dR7K+jpUdMbUdbHBIjolNEgB3evXb/E3GNWhotsC6uIRkgbWeEe41rCVowcJCY
-	 vvCUJBsk00fnw==
-Message-ID: <7bd6129a-dd37-48e8-a54c-cc149a2b84a2@kernel.org>
-Date: Tue, 28 Apr 2026 11:34:16 +0200
+	s=arc-20240116; t=1777369100; c=relaxed/simple;
+	bh=B+LP+7H9+jyz80hMZdIc4OadzTjifJ4c14Fp1RGJHpo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qgKbiYPXs4B0kqdOoyepYzVhfdPN4IiTJapNiORNW8kd0iHjHWdITNubiq9DPx/fbBYZA/27d0jSxgVYW/KTuURLtCFqeiaPhscot/ctv4xnHgcaJPo8taFsMSNJjmWyEBkosCC3vPSweXpfAYhKBfiZFBFj5GSC8byoUBH3ohk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=timmermann.space; spf=pass smtp.mailfrom=timmermann.space; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=timmermann.space
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=timmermann.space
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4g4b2p4kzDz9tqB;
+	Tue, 28 Apr 2026 11:38:10 +0200 (CEST)
+Date: Tue, 28 Apr 2026 11:38:00 +0200
+From: Lukas Timmermann <linux@timmermann.space>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+	Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Alexandre Marquet <tb@a-marquet.fr>
+Subject: Re: [PATCH 2/5] drm/panel-edp: Add support for Samsung
+ LTL101DL02-002 panel
+Message-ID: <afB-JGklY4IPyZER@archstation>
+References: <20260423-manta-display-v1-0-196f80c5673a@timmermann.space>
+ <20260423-manta-display-v1-2-196f80c5673a@timmermann.space>
+ <CAD=FV=VNvPtG_f1W942SKJfM4ptK8Wvd-nZs4geBCG3bO_A0BA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/2] dt-bindings: pwm: dwc: add optional reset
-To: Xuyang Dong <dongxuyang@eswincomputing.com>
-Cc: ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
- p.zabel@pengutronix.de, linux-pwm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- ningyu@eswincomputing.com, linmin@eswincomputing.com,
- xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
- pinkesh.vaghela@einfochips.com
-References: <20260424094529.1691-1-dongxuyang@eswincomputing.com>
- <20260424095435.1721-1-dongxuyang@eswincomputing.com>
- <ee58a5d6-9268-445c-a270-1f4a49b49c6e@kernel.org>
- <622e18f1.5bb3.19dd36d0c40.Coremail.dongxuyang@eswincomputing.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <622e18f1.5bb3.19dd36d0c40.Coremail.dongxuyang@eswincomputing.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD=FV=VNvPtG_f1W942SKJfM4ptK8Wvd-nZs4geBCG3bO_A0BA@mail.gmail.com>
 
-On 28/04/2026 11:30, Xuyang Dong wrote:
->>>  
->>> +allOf:
->>> +  - $ref: pwm.yaml#
->>> +
->>> +  - if:
->>> +      properties:
->>> +        compatible:
->>> +          contains:
->>> +            const: eswin,eic7700-pwm
->>
->> Same problem as v3 which I commented. I do not understand why your new
->> device has also 1 reset.
->>
->> Your commit msg MUST explain why 1 reset is valid.
->>
+On Thu, Apr 23, 2026 at 02:49:53PM -0700, Doug Anderson wrote:
+> Hi,
 > 
-> Hi Krzysztof,
+> On Thu, Apr 23, 2026 at 2:15 PM Lukas Timmermann <linux@timmermann.space> wrote:
+> >
+> > From: Alexandre Marquet <tb@a-marquet.fr>
+> >
+> > Add a panel entry for the Samsung LTL101DL02-002 panel, as found in
+> > Samsung Manta (Google Nexus 10).
+> >
+> > Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
+> > Signed-off-by: Lukas Timmermann <linux@timmermann.space>
+> > ---
+> >  drivers/gpu/drm/panel/panel-edp.c | 31 +++++++++++++++++++++++++++++++
+> >  1 file changed, 31 insertions(+)
 > 
-> Although the PWM IP supports two clock domains, each requiring a reset, 
-> the EIC7700 implementation uses the same clock domain for both clock 
-> signals. Therefore, the eic7700-pwm only supports one reset.
->
+> Adding new panels like this is discouraged these days. Is there a
+> reason you can't use the generic "edp-panel" compatible? I know that
+> the exynos5 driver is pretty old, but a quick glance shows that it's
+> based on the same analogix-dp core that "rockchip,analogix-dp" is, and
+> that seems to have support for aux-bus...
+> 
+> -Doug
+> 
+Alexandre had no luck using the aux-bus in the past. I've read the
+documentation on the panel-edp driver more closely now and apologize for
+the clearly violated directive of not adding panels like this, we are
+investigating how to get the aux-bus working eventually.
+Thanks for the clarification.
 
-If we speak about eic7700, explain why it has two resets now, according
-to schema, even though you say it has not.
-
-But I was speaking about dw-apb-timers-pwm, which has one reset as well!
-Why you are not having proper constraints? Please read writing bindings
-document.
-
-Best regards,
-Krzysztof
+Best regards
+Lukas
