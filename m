@@ -1,99 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED7F3F7894;
-	Tue, 28 Apr 2026 10:52:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535B63EDAC5;
+	Tue, 28 Apr 2026 10:57:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777373579; cv=none; b=mZVmfltO+PXBcJwyP2QJi/c3zbcBitb7PSGA9dMbvwrdAnXInWjTYzLAcsWG6x253qC6Cit9zfUArTf3/q9uDNV92aTTxPJFaTIN1ym1XhX4je5TY2ElA2eMfHvaMcnK/kYpBSFj5urbvEdPIoaxaRG7NtSy5DoSl1u9jPB0Cu8=
+	t=1777373859; cv=none; b=lAeMzpEO4r0q7D3yGbSfeK+/1GzjSfLEIk5HGHkf5JYxg/RYDqE6qSkoESzjcbQGC5AJUGH5ps4w7tpbbyA6jU3WMqJB8tjqRo0vGg+x41o6IIC+EQgz7S//V4DfkzEVeIgr3Y0hCb55Nvdt8FDBTPXQpfwfsgGACw7vYP3ekbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777373579; c=relaxed/simple;
-	bh=FAkK0ftN7gWUbuk+HZ/TnP99n+RR4S9QM3ioJ/hUWvI=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=lhhNaJWyHyRdAMzHDoJkcW2uHwsAFkSDyDUHaFmxWgtZLIkwUjgKJOCuGtO8Qw+EdWggAuDbhw8PxyOkx5ZXvLIScP971AIrbGy9dR+VhA5d6SsBCDr2yiSQumlZBT3KpibsVexQzWYYauESZicFJ0l4GOTh9/JYB2O8AvPNmlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Qsqv6r1l; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777373859; c=relaxed/simple;
+	bh=sImdUFiTEcsJdvzgMX0S2OmS7j920K5wziuXQQGFWQA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bvd2snTsI41K2HkwmN0LJy5QcmZjZV5qErsya1tix3cX/XJGVpizs1H47Xcuu9Vl8O7OOuzsc+1ojrVTE8JaP5oCZKqprivlgoZanmjE1uWF2ZXx+mwVpEnYnf9CD5xNe3p/Bl3ev+l+kWG0fhoPlf6n+vkP9Fx+hkol+JKBD/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UXFcVyUd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Qsqv6r1l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CEE5C2BCAF;
-	Tue, 28 Apr 2026 10:52:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux-foundation.org;
-	s=korg; t=1777373579;
-	bh=FAkK0ftN7gWUbuk+HZ/TnP99n+RR4S9QM3ioJ/hUWvI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Qsqv6r1lJZq/c7ZPtIt0sZl/DuaHenFFdJWV+kUZfKy9lze4sbNHOT4ldBEvZsMcI
-	 IzA4ewciHKUUGkWs11knSBEVXzjvVrxdGd/P9JBd6VWThd9m0HhwDsNHUrAT8OtKfZ
-	 vkIpz9kt+ca77YyWoiGiskB7TOq8ICE0RWcWLVHM=
-Date: Tue, 28 Apr 2026 03:52:56 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: <corbet@lwn.net>, <skhan@linuxfoundation.org>,
- <catalin.marinas@arm.com>, <will@kernel.org>, <chenhuacai@kernel.org>,
- <kernel@xen0n.name>, <maddy@linux.ibm.com>, <mpe@ellerman.id.au>,
- <npiggin@gmail.com>, <chleroy@kernel.org>, <pjw@kernel.org>,
- <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
- <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
- <dave.hansen@linux.intel.com>, <hpa@zytor.com>, <robh@kernel.org>,
- <saravanak@kernel.org>, <bhe@redhat.com>, <vgoyal@redhat.com>,
- <dyoung@redhat.com>, <rdunlap@infradead.org>, <peterz@infradead.org>,
- <pawan.kumar.gupta@linux.intel.com>, <feng.tang@linux.alibaba.com>,
- <dapeng1.mi@linux.intel.com>, <kees@kernel.org>, <elver@google.com>,
- <paulmck@kernel.org>, <lirongqing@baidu.com>, <rppt@kernel.org>,
- <leitao@debian.org>, <ardb@kernel.org>, <jbohac@suse.cz>,
- <cfsworks@gmail.com>, <tangyouling@kylinos.cn>,
- <sourabhjain@linux.ibm.com>, <ritesh.list@gmail.com>,
- <hbathini@linux.ibm.com>, <eajames@linux.ibm.com>, <guoren@kernel.org>,
- <songshuaishuai@tinylab.org>, <kevin.brodsky@arm.com>,
- <vishal.moola@gmail.com>, <junhui.liu@pigmoral.tech>, <coxu@redhat.com>,
- <fuqiang.wang@easystack.cn>, <liaoyuanhong@vivo.com>,
- <takahiro.akashi@linaro.org>, <james.morse@arm.com>,
- <lizhengyu3@huawei.com>, <x86@kernel.org>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
- <linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
- <kexec@lists.infradead.org>
-Subject: Re: [PATCH v12 00/15] arm64/riscv: Add support for crashkernel CMA
- reservation
-Message-Id: <20260428035256.cbb3ac77c4bbb89bb7efcc19@linux-foundation.org>
-In-Reply-To: <dfa24c4b-a423-4c80-9a8f-28c577c9ec11@huawei.com>
-References: <20260402072701.628293-1-ruanjinjie@huawei.com>
-	<dfa24c4b-a423-4c80-9a8f-28c577c9ec11@huawei.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UXFcVyUd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E68DC2BCAF;
+	Tue, 28 Apr 2026 10:57:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777373859;
+	bh=sImdUFiTEcsJdvzgMX0S2OmS7j920K5wziuXQQGFWQA=;
+	h=From:Date:Subject:To:Cc:From;
+	b=UXFcVyUd66XBuZhePJDCFKvm3Y77H7TcLBc5a/CZ87XcuTMwCFiwpVSJLwFxuf1g3
+	 G2/XPPz/p0oJALALcTIRGJAHWDKjvO2w1gDtxOa0Ll3c9vsJDgNHmAVYHpHHZuAB/J
+	 fOQL8qVGoQUC/2WUl2m2WwWPDQl77q8aXChbJVsKc3U5cGSqySe/F8Le6Fd4Me+Hj3
+	 TIEadrsbRiTBdGM2rFgyhRrCIVwqQSKafhAAGhDGejWhBiUfQfE5oVtdFQBOuZc5AI
+	 aw36KKJEVjs+5bPZJRZnK4QlqFamKM0qQg4L0ANBQti68YDHmR+Ws3Fuy4laK45kDR
+	 L8MCxcPSCjDUg==
+From: Yixun Lan <dlan@kernel.org>
+Date: Tue, 28 Apr 2026 10:57:29 +0000
+Subject: [PATCH] dts: riscv: spacemit: correct 32k clock frequency
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260428-06-k3-clk-osc32k-v1-1-e2378da7cb9b@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAJiS8GkC/x3MTQqAIBBA4avErBvwD6muEi3MphoMC4UIwrsnL
+ b/Fey9kSkwZhuaFRDdnPmOFbBvwu4sbIS/VoISywgiJwmLQ6I+AZ/ZaBZR9Nxup3bp4BzW7Eq3
+ 8/MtxKuUD+sOugGIAAAA=
+X-Change-ID: 20260401-06-k3-clk-osc32k-198b413afdca
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Alex Elder <elder@riscstar.com>, 
+ Haylen Chu <heylenay@4d2.org>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1490; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=sImdUFiTEcsJdvzgMX0S2OmS7j920K5wziuXQQGFWQA=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBp8JKb4can4DX2EGCETug/6t/HtvRYOvcPe/X3y
+ Gy0mPy7gR2JAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCafCSmxsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+1LdQ//fz3qLgK2xl4jCgcTQBwFSGHt2w/qnvoBke6D/sBWr43n/9cRlMwVE
+ OZkIvhOITGPVsSbfZTB85uQqOjJODGSb3K2XkDTaQa1BrTD7xH3JdDbfKv8HMMVxLlTl2udl7i6
+ JLUy46sqyqfgLiTLO9oxRcQtofjWmZAIVJYTrdozR7IpFrpMQdXzdgj9y5GUNNylkEVCfA4s6a6
+ VJ89HJi1AlHoyXuba53lEprGDOPKhaGWHIUXVMGhhePyyse72VN36/tPM+dkj2NN+jd/cq0/g9l
+ WUDZ6XyGjOYf99CC9LXLL6pIfij1F/b+yp3MeEV7a3hHF6zyVvgLqnyNV4IJQeKeAjDMYQX14HT
+ TYm0bcBjkNlxXJisTJWHeT2mNyoQWaGTWwMs0i8txZ8PnCv6NeQ5FoT1NgdR8wAYEYFq+JF8jRI
+ xbWDKBQTCAdfQ0lCLT/ggrfB7iK1utX3djtBlDb7vGTqHRdyDdFdQag/sPn1DDmbMksnD6QBh9k
+ gE1Ob01vTF6+C6ikoke72ZQMfATbaCfYyrboI5uc3NlRI88QRON3XfPQzxzTQ5mdV2uzrLd1Qkx
+ meMOonposZbPchIeAiHJmQtefX8mAG4aDwbsrhQAfUcB3c6hfxT5/pUZfgisaGFdtnWB3uHDDoH
+ EU4iHNnf4oYwgRSw78qnaTuHB+Yn08=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-On Tue, 28 Apr 2026 11:30:13 +0800 Jinjie Ruan <ruanjinjie@huawei.com> wrote:
+The 32k oscillator's clock frequency is actually 32768Hz, so correct it.
 
-> It seems the patches for crash core rework, powerpc, riscv, and arm64
-> are mostly ready to be merged. Could any maintainer help pick these up,
-> or should I rebase the entire series against v7.1-rc1?
+Fixes: 67072c8cd48c ("riscv: dts: spacemit: k3: add clock tree")
+Fixes: a6fafa64b03a ("riscv: dts: spacemit: Add clock tree for SpacemiT K1")
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+ arch/riscv/boot/dts/spacemit/k1.dtsi | 2 +-
+ arch/riscv/boot/dts/spacemit/k3.dtsi | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-April 2 is prehistoric ;)
+diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
+index f0bad6855c97..b0b9c19b56a0 100644
+--- a/arch/riscv/boot/dts/spacemit/k1.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
+@@ -333,7 +333,7 @@ vctcxo_3m: clock-3m {
+ 
+ 		osc_32k: clock-32k {
+ 			compatible = "fixed-clock";
+-			clock-frequency = <32000>;
++			clock-frequency = <32768>;
+ 			clock-output-names = "osc_32k";
+ 			#clock-cells = <0>;
+ 		};
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index 815debd16409..e6faf8d8759e 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -424,7 +424,7 @@ vctcxo_3m: clock-3m {
+ 
+ 		osc_32k: clock-32k {
+ 			compatible = "fixed-clock";
+-			clock-frequency = <32000>;
++			clock-frequency = <32768>;
+ 			clock-output-names = "osc_32k";
+ 			#clock-cells = <0>;
+ 		};
 
-Yes, refresh, retest, resend.  Note that there have been maintainership
-shuffles in this area.  
+---
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+change-id: 20260401-06-k3-clk-osc32k-198b413afdca
 
-KDUMP
-M:	Andrew Morton <akpm@linux-foundation.org>
-M:	Baoquan He <bhe@redhat.com>
-M:	Mike Rapoport <rppt@kernel.org>
-M:	Pasha Tatashin <pasha.tatashin@soleen.com>
-M:	Pratyush Yadav <pratyush@kernel.org>
-R:	Dave Young <ruirui.yang@linux.dev>
-L:	kexec@lists.infradead.org
-S:	Maintained
-F:	Documentation/admin-guide/kdump/
-F:	fs/proc/vmcore.c
-F:	include/linux/crash_core.h
-F:	include/linux/crash_dump.h
-F:	include/uapi/linux/vmcore.h
-F:	kernel/crash_*.c
-
-I believe that Pasha/Mike/Pratyush are setting up a git tree, but there
-isn't one listed here?
+Best regards,
+-- 
+Yixun Lan <dlan@kernel.org>
 
