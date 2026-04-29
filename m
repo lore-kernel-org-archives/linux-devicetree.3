@@ -1,38 +1,38 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 573AC3AC0DD
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 07:44:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADA63A7F66
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 07:44:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777448672; cv=none; b=auEJJoD8NWv60HOTBdg5gtjFZk0YjxxTWBt3sbhykd1wCg9Y0ebZthXaMAQqeMYVmmokjfn3ESABEtZVBnqcJyxW8nSM214JKQPmLv6oYNnpYa7rktHMBq55JRdh7wu55hMKKjbymu23ywauKFn4pu6VBJGD+onWRwtAdRVf90Y=
+	t=1777448673; cv=none; b=bN8npgjeZUJyUU3O86TkkNk2NcMGDgDE7oOXqtAMnxRGlmQmGqIh3Haz22K9M/dxV7Hp4sQjkdzE5qlILzMHd1WCky/p1apoqJck84eevhkVaXgnukGu466d+2UUmGXqOARTahSat8XrdMeU9WX35lx0Go9LeeV8vCfgWpaMilI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777448672; c=relaxed/simple;
-	bh=ocoaZh1cfN3aM3Ass44A1Z0c1a33deHhsbOrm3iYaRw=;
+	s=arc-20240116; t=1777448673; c=relaxed/simple;
+	bh=Hgc2uiWzscD7t/E3wgC9iKLt80BoqxNLjQKgfvNVCIU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j7LJhjTm8YaLNydw44Gy/2QisGaPZS+G79/R0KYrxSGZ94g4SDVmfvIMmI4Lm83Lc8Qw2mC8CNzQyigKvD4fcB6FHn0nqahTfeC61sw46BdD7x9rLT3kkx/SNPcswgoM/Sf0Xb8OqizBPaEuOFaPcQMQejRWkkf3BG+w8LR0roY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=OMPRdntW; arc=none smtp.client-ip=185.246.84.56
+	 MIME-Version; b=BQ6OhErj5jip88NJU81LyWIfThaUiCA/mpjxNZeOGJpNwiNI8d8HTzR1Lq73hBMT9YvnTUkBNTbciwlHoPfAhYSmLKfQqSxUIP30HN8kU0HvPUxX4BYWvaMI16FpZwW713yh6/nkR/hVuCxVLIR5+U0JFUjGUEjVFA/p5dpTOwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ex7TX76q; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="OMPRdntW"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ex7TX76q"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C978A1A347C;
-	Wed, 29 Apr 2026 07:44:28 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 718A34E42ADE;
+	Wed, 29 Apr 2026 07:44:26 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9F346601DF;
-	Wed, 29 Apr 2026 07:44:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D7E0C1072989C;
-	Wed, 29 Apr 2026 09:44:25 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 46DD7601DF;
+	Wed, 29 Apr 2026 07:44:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 05BCE1072989B;
+	Wed, 29 Apr 2026 09:44:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1777448667; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1777448665; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=ZItBdljHzkyosd2r0ODxJgNw6WPrkERIedKn/xuhEJA=;
-	b=OMPRdntWiyAyoWbGzCBhPmxo+OOwTGzKBUAHyCLhOfiG4Z9hiZOOmcGfYIv0spjdLyfxl8
-	wBUaQeDTKsQGblyVw46Q9hs2H3xsQtCcGoDxjvh/xJTDWJn6Tx2/H2++eo5pRq096mDqJ6
-	pPPALyVi6nxjsl+DApW4K5TLbACqLlQUcbbzyH1E0Y+srlTnbuV/sTlsDEAmyodbHFtNna
-	ttLkvVbsETBtME7+1i9Ez7DR899CfNi8tti1I1mRp5Uk3PuAU1Qllzxt0mZFXPQmsvZ7aU
-	k3Zql/ut6gHhsg3TzLRtnoFAlRXce1nq5Xj4yd6+KpOz/j1crUxqreBdbGzOHA==
+	bh=MDWbndD0MDPCeru1OfQ7pxS5JaPa/gaaif8SAMi6MO8=;
+	b=Ex7TX76q53iLj9ujUT51zN0Qh4luveldr+SCzvFBKzPk0pxUbJ9tym8dYPN0eLkpls5l+5
+	tvgvDGj0Mw1A7GKs22CJkYamdYqC7uqJoQmKId9yQnUbIeUy0btJaVAj71NGfsLGAyabVR
+	+86P6V2c7klbQK5bhCSPVs5wRhmF8JX+lr3xHQHqrQyLS7gcR3QFvzWlEigfPCz3+UXxV6
+	xpdsSf3Q6rba7izjZypcAh39pyxZnmVR59QWACIxj8jCx5MH4uMczTOtnf0greIesTtPZ/
+	ynFrdhvZkwW3U/Oa3h2Wm09cSUBWK0wEzKc8mSq7jgcvc2x4mbm2+GUrH9Tjfw==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>,
 	Bartosz Golaszewski <brgl@kernel.org>,
@@ -51,9 +51,9 @@ Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH v2 07/17] ASoC: simple-amplifier: Use 'simple_amp' variable name instead of 'priv'
-Date: Wed, 29 Apr 2026 09:43:43 +0200
-Message-ID: <20260429074356.118420-8-herve.codina@bootlin.com>
+Subject: [PATCH v2 06/17] ASoC: simple-amplifier: Rename drv_event() function
+Date: Wed, 29 Apr 2026 09:43:42 +0200
+Message-ID: <20260429074356.118420-7-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260429074356.118420-1-herve.codina@bootlin.com>
 References: <20260429074356.118420-1-herve.codina@bootlin.com>
@@ -66,71 +66,46 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-The simple-amplifier driver use 'priv' as variable name for its private
-data (struct simple_amp).
+The drv_event() is used to handle power events related to the DRV item.
 
-With the support for gpio-audio-amp, more functions and data
-structures will be added.
+Later, with the support for gpio-audio-amp, this function will be
+also used to handle power events related to the PGA item.
 
-Those future additions will add more complexity in data manipulation and
-will make the 'priv' term error prone.
+Also, more functions will be added in the driver and it is a common
+usage to prefix functions based on the driver name.
 
-In order to clearly identify the struct simple_amp private data, use
-'simple_amp' as variable name when this structure is involved.
+Rename the drv_event() function to simple_amp_power_event() to follow
+common usage and get rid of the 'drv' term.
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- sound/soc/codecs/simple-amplifier.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ sound/soc/codecs/simple-amplifier.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/codecs/simple-amplifier.c b/sound/soc/codecs/simple-amplifier.c
-index 8f2daec55134..231e84ab4c0e 100644
+index 215318ff62fc..8f2daec55134 100644
 --- a/sound/soc/codecs/simple-amplifier.c
 +++ b/sound/soc/codecs/simple-amplifier.c
-@@ -19,7 +19,7 @@ static int simple_amp_power_event(struct snd_soc_dapm_widget *w,
- 				  struct snd_kcontrol *control, int event)
+@@ -15,8 +15,8 @@ struct simple_amp {
+ 	struct gpio_desc *gpiod_enable;
+ };
+ 
+-static int drv_event(struct snd_soc_dapm_widget *w,
+-		     struct snd_kcontrol *control, int event)
++static int simple_amp_power_event(struct snd_soc_dapm_widget *w,
++				  struct snd_kcontrol *control, int event)
  {
  	struct snd_soc_component *c = snd_soc_dapm_to_component(w->dapm);
--	struct simple_amp *priv = snd_soc_component_get_drvdata(c);
-+	struct simple_amp *simple_amp = snd_soc_component_get_drvdata(c);
- 	int val;
- 
- 	switch (event) {
-@@ -34,7 +34,7 @@ static int simple_amp_power_event(struct snd_soc_dapm_widget *w,
- 		return -EINVAL;
- 	}
- 
--	gpiod_set_value_cansleep(priv->gpiod_enable, val);
-+	gpiod_set_value_cansleep(simple_amp->gpiod_enable, val);
- 
- 	return 0;
- }
-@@ -68,17 +68,17 @@ static const struct snd_soc_component_driver simple_amp_component_driver = {
- static int simple_amp_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
--	struct simple_amp *priv;
-+	struct simple_amp *simple_amp;
- 
--	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
--	if (priv == NULL)
-+	simple_amp = devm_kzalloc(dev, sizeof(*simple_amp), GFP_KERNEL);
-+	if (!simple_amp)
- 		return -ENOMEM;
--	platform_set_drvdata(pdev, priv);
-+	platform_set_drvdata(pdev, simple_amp);
- 
--	priv->gpiod_enable = devm_gpiod_get_optional(dev, "enable",
--						     GPIOD_OUT_LOW);
--	if (IS_ERR(priv->gpiod_enable))
--		return dev_err_probe(dev, PTR_ERR(priv->gpiod_enable),
-+	simple_amp->gpiod_enable = devm_gpiod_get_optional(dev, "enable",
-+							   GPIOD_OUT_LOW);
-+	if (IS_ERR(simple_amp->gpiod_enable))
-+		return dev_err_probe(dev, PTR_ERR(simple_amp->gpiod_enable),
- 				     "Failed to get 'enable' gpio");
- 
- 	return devm_snd_soc_register_component(dev,
+ 	struct simple_amp *priv = snd_soc_component_get_drvdata(c);
+@@ -42,7 +42,7 @@ static int drv_event(struct snd_soc_dapm_widget *w,
+ static const struct snd_soc_dapm_widget simple_amp_dapm_widgets[] = {
+ 	SND_SOC_DAPM_INPUT("INL"),
+ 	SND_SOC_DAPM_INPUT("INR"),
+-	SND_SOC_DAPM_OUT_DRV_E("DRV", SND_SOC_NOPM, 0, 0, NULL, 0, drv_event,
++	SND_SOC_DAPM_OUT_DRV_E("DRV", SND_SOC_NOPM, 0, 0, NULL, 0, simple_amp_power_event,
+ 			       (SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD)),
+ 	SND_SOC_DAPM_OUTPUT("OUTL"),
+ 	SND_SOC_DAPM_OUTPUT("OUTR"),
 -- 
 2.53.0
 
