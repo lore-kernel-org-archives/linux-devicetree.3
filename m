@@ -1,100 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD90F3A3E7B;
-	Wed, 29 Apr 2026 07:19:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9417239D6EC;
+	Wed, 29 Apr 2026 07:23:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777447159; cv=none; b=jXz413PdP1RS/OzYCzOJGFuz4jiZTQhFYJAhe36KHLXkT8pVtEH3kg3JB/KxSuoGhoUd1bnOLFWsHFhkhv4DgqtkXlApJ3dphx9Bs4EPBR9RmTbe6n1XSGY0v+KOOAA+RXYV80ZJ4DScwGROyAHEkb8Og0aOgp19TULp2nklfZQ=
+	t=1777447395; cv=none; b=UovkT8YQIeWO9h1WrAWqtWXmF/mEVlGOfBmqaVWtVFqY7IKqmKE1/rxZy63GNUtWL4HZTwYDjpNHzxUFs/cNVcm1Je+QjfNY/qwhC22aYFI4PgiVlC8s1TG7GvlOEz/4gF2fTwdWAUN+KebM3joPXjvjf7/5KXl81Kjr4CxJSPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777447159; c=relaxed/simple;
-	bh=M8jWi/iwARsSCdhnsrumHZijiF7Pox6rExtjsTJLJHg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=XyVZIl4zfb7GIBmPsP2l4HBwE7hSKzm/HXR9Ii9E/D1kl4hglovp7kDyLbvzVzSpInOGMwobTikuw6vpmFxKD5T+2NQTpF+HOwpfppQfSb02q7bCmHwlZIYCZKDdkDZ+7D5ETU8MQs2f6GwipLYgXA3DSpEFcQmypq8U7mge8Zw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D/A2mRIC; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777447395; c=relaxed/simple;
+	bh=bJF9QUNmmeOmaXEn4I5oSZ4l4DpvzHomPNF3FqnBOvA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VC6j3OBnPfpt7gOQitcxtJ/VNzSCInVmaoFIQIQ61bLViJ1PGT3bjUD+SM631r3GKDU3fmNTNW3IWnVq40u2CVtmHcKKinPxij/TgdF1XU0gCSp2UyBit9mWOF1rNGYUQNQtc0752eSChAN7X0Cljyftf1rMCADp+j1e82S426k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qncFiO9C; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D/A2mRIC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65358C19425;
-	Wed, 29 Apr 2026 07:19:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qncFiO9C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97BA2C19425;
+	Wed, 29 Apr 2026 07:23:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777447159;
-	bh=M8jWi/iwARsSCdhnsrumHZijiF7Pox6rExtjsTJLJHg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=D/A2mRICO84nLmSp93o3iYWAW1Az6jzLxPdtj1B8fIDB6l+8IVEneALtWUN/qURFX
-	 5GwVRKkrnf7AEy3hyAeryB8j3BxZf1HSk44vRGeF4pIkMVRp3mEKpNFsSNRMKxxkN3
-	 Ne5V8nXrn/HPn9jAjFZyxcQ81OeTf6gJLSy2QQ7gtZrLIfVwLdhxXy95LeRNc8HMvb
-	 kokjcNJFrUE8FEjynUPYM6d8rLSR772FJPJRkPOMnsW9uNo6Hk6RYmWZXGJEPDfPpp
-	 ymWwJJgWQHtJpKmD1tQSv3FiQzpkjq3EY8EDDM5aIwgQwiFxERXObATs1yGVX4AQNg
-	 iRDoEgDw1y4gA==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Caleb James DeLisle <cjd@cjdns.fr>, linux-mips@vger.kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Caleb James
- DeLisle <cjd@cjdns.fr>
-Subject: Re: [PATCH 2/2] irqchip/econet-en751221: Support MIPS 34Kc VEIC mode
-In-Reply-To: <20260425123531.270548-3-cjd@cjdns.fr>
-References: <20260425123531.270548-1-cjd@cjdns.fr>
- <20260425123531.270548-3-cjd@cjdns.fr>
-Date: Wed, 29 Apr 2026 09:19:15 +0200
-Message-ID: <87tssuxmh8.ffs@tglx>
+	s=k20201202; t=1777447395;
+	bh=bJF9QUNmmeOmaXEn4I5oSZ4l4DpvzHomPNF3FqnBOvA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=qncFiO9CfVyJT5qoXfJJURRxz/PKdzCyLLeABy/zGcsR48v8yyopJ0ZD7Kmkgx0P/
+	 aOTpz6KgfNKXYFysSPoJFhVqCEC0jN6fazpdQYVg2NYYXe3fhnx5duVodkrqaCitHr
+	 qpSc2fd8lIP7EC3bdB3xzKROtjKj/3HSoVcRYdQH68r0cM849grXhq+7MKQmO1ohuB
+	 svIsADru3E2XNz0XYFUM8fqFql5GUiy0FwSvxo/NHWt/uFPTxF7+Z2qL1aMSoPcTgL
+	 g+naM6wZvY62wjdAhg1OPam2O98JaSXEnvO5IF+Yb7vpqLmbXSlPchhDs5azewuFTh
+	 mSsxuBIN956pA==
+Date: Wed, 29 Apr 2026 09:23:12 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 RESEND] dt-bindings: firmware: qcom,scm: Document SCM
+ for Nord SoC
+Message-ID: <20260429-fragrant-soft-dalmatian-bdca6c@quoll>
+References: <20260427130800.271146-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260427130800.271146-1-shengchao.guo@oss.qualcomm.com>
 
-On Sat, Apr 25 2026 at 12:35, Caleb James DeLisle wrote:
-> This of course subverts the traditional intc hierarchy, and on the
-> 1004Kc the interrupt controller is standardized (IRQ_GIC) so it can be
-> reasonably considered part of the CPU itself - and tighter coupling
-> between IRQ_GIC and arch/mips/* is tolerable. However on the 34Kc
-> the intc is defined by each SoC vendor, so we have the task of making a
+On Mon, Apr 27, 2026 at 09:08:00PM +0800, Shawn Guo wrote:
+> Document SCM on Qualcomm Nord SoC which is compatible with 'qcom,scm'.
+> 
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+> Resend to add missing lists (Thanks Rob!)
+> 
+> Changes in v2:
+>  - Improve commit log to make the compatibility explicit
+>  - Link to v1: https://lore.kernel.org/all/20260420023243.1239927-1-shengchao.guo@oss.qualcomm.com/
+> 
+>  Documentation/devicetree/bindings/firmware/qcom,scm.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-s/so we have.../so it's required to have a modular driver/
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-or something like that. Please use passive and factual voice for change logs.
+Best regards,
+Krzysztof
 
-> reasonably modular driver - but for a device which in fact ends up
-> taking over the entire interrupt system.
->
-> We let the DT describe which IRQs which come from the CPU and should
-> be
-
-s/we let/Let/
-
-> routed back and handled by the CPU intc. These particularly include the
-> two IPI interrupts which would otherwise necessitate duplication of all
-> the IPI supporting infrastructure from the CPU intc.
->  /**
->   * @membase: Base address of the interrupt controller registers
-> + * @domain: The irq_domain for direct dispatch
-> + * @ipi_domain: The irq_domain for inter-process dispatch
-
-Can you please make that tabular for easier parsing?
-
->   * @interrupt_shadows: Array of all interrupts, for each value,
->  
-> +/* When in VEIC mode, the CPU jumps to a handler in the vector table.
-
-This is invalid multiline comment style.
-
-https://www.kernel.org/doc/html/latest/process/maintainer-tip.html
-
-> + * The only way to know which interrupt is being triggered is from the vector table offset that
-> + * has been jumped to. Reading REG_PENDING(0|1) will tell you which interrupts are currently
-
-> +		if (receive >= IRQ_COUNT) {
-> +			pr_err("%pOF: Entry %d:%d in %s (%u) %s\n",
-> +			       node, i, 0, field, receive, "is out of bounds");
-
-Yuck. What's the point of the last string constant argument? Just stick
-it into the format string. All over the place.
-
-Other than those nits, this look like a reasonable solution for a
-completely unreasonable hardware design.
-
-Thanks,
-
-        tglx
