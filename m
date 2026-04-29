@@ -1,151 +1,93 @@
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD1E222370A;
-	Wed, 29 Apr 2026 01:39:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C2F271A6D;
+	Wed, 29 Apr 2026 01:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777426786; cv=none; b=DN0i2F8zvOo+zrUf6dY/x95FyA9h/Iq7msIaDjHrBpXjXN2Jo0g9mySXTiHrH52DgNbKSJFCDhiXokisPkExV9x3FBFA7YJXnAzo4jUseNzBWRrOOzRRpa26Ag1aeyYAfMvMhUI19FwZx7HA+8+37i0iBKJh68oDK7DXNIPWq4M=
+	t=1777426928; cv=none; b=ZSDVHDQgLp72TA7EEUJaKiItI59WUAIw/YZ7DLjywfWx1Kt8cm3fbeJIGRcs254623loA4VXJ3/SemYoBR/JqAl0bfqJJPA2Wpx5UzFhGvm2OCnAsTWty9ZA3EmrRXe8r8pddnXJSyx7lgr0Ov/QSRxqPg5tJYjpFVmo51AK8e4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777426786; c=relaxed/simple;
-	bh=rQ3g1iEURZi4LnziZ1fc6sbszDwJlqQ9RIGs3gyTlGc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HqZyzsc521o54zwKbPIT/nk2kEc9esWFlXTvzidFOa/HDIG8oPGNd7pWF2QyOzZZuoBI4F8vmVPXlj6E/oMZNoAgYiUwDtGf0oSW/U7Z5MHkxaIdyL9FFRxu8Lz95yH7/lwvLbpD1+5CAe8WNSA+Jc1vKVYGwa2Tv7x/6rTwbjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=FaAGJtSS; arc=none smtp.client-ip=18.194.254.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1777426928; c=relaxed/simple;
+	bh=v67v7KT5BIZDe+T4/abHvDx4Y87f8RhD9dCoqpqCDHk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YeZdT4b9B79ZvTYTGsK72QhXOLMuKGQNMmMwAlS4I4V53AdSKE+t/cA3MYnbkUGF+QLyLzIKL6UxPu2Jg+P7atboTZd63CVmJF9YRl3tuaArFvs4h/B890jzE5Q6KUBglalzqb5YXiVcpxEghGwQii/rILEfYj7e4nJjxNzxrjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=kp+edf72; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="FaAGJtSS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1777426763;
-	bh=Fa1GhJ9Mm6+UlP/0zx8pjid8wYuGhB8oXYTC38+xnlU=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=FaAGJtSSafvVC1M50qydn+RM3yPEyk61qo7sqlA1MKbwjWYpfCr//pb9xQZGuWzOn
-	 XnJUIp1q/qOyImmUsI9kuGcifNLKJcojlgyN6mSYTHZePz3zgJ4yUjS9ofuIq5CrKq
-	 Lm/gR7reHlTXz3B1+z97kQ4djFGUua2PNRb4URMY=
-X-QQ-mid: esmtpgz14t1777426759ta66e92bf
-X-QQ-Originating-IP: TnZa94EYn/Y67XrWQDnUM6ySI8l1koZCnIZNF1cOgfk=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 29 Apr 2026 09:39:16 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 8148319090196438835
-EX-QQ-RecipientCnt: 15
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Wed, 29 Apr 2026 09:38:51 +0800
-Subject: [PATCH 6/7] ASoC: spacemit: add fixed-sample-rate constraint
- support
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="kp+edf72"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=xr++0uW3/aWfxubO3cxQcvyMCVatN4XOXUV5OwG2V2w=; b=kp+edf72edokyxU3mtqEnZKTr3
+	IdsBZ36KjZkY+e6Mq+wkNkDnqeAGDWrgyJ93hMP+ALlz9+l3ZutV6C30c3TTf1iuG0U5PLgIzieVn
+	XNbOI/kNLVqt5Yk26Maej/3KG2oCWZjyZb6Uwktr5gIfLqnUtIv8x4BMfVTQ1yt+/QTY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wHtw1-000Rgl-Lj; Wed, 29 Apr 2026 03:41:53 +0200
+Date: Wed, 29 Apr 2026 03:41:53 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: lizhi2@eswincomputing.com
+Cc: devicetree@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org,
+	pabeni@redhat.com, mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com, rmk+kernel@armlinux.org.uk,
+	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	alex@ghiti.fr, linux-riscv@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	maxime.chevallier@bootlin.com, ningyu@eswincomputing.com,
+	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com,
+	pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com,
+	horms@kernel.org
+Subject: Re: [PATCH net-next v7 4/4] riscv: dts: eswin:
+ eic7700-hifive-premier-p550: enable Ethernet controller
+Message-ID: <d662fa07-cd0f-48c4-a6e4-03c5fd390e92@lunn.ch>
+References: <20260427072353.1114-1-lizhi2@eswincomputing.com>
+ <20260427072603.1191-1-lizhi2@eswincomputing.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260429-k3-i2s-v1-6-2fe99db11ecb@linux.spacemit.com>
-References: <20260429-k3-i2s-v1-0-2fe99db11ecb@linux.spacemit.com>
-In-Reply-To: <20260429-k3-i2s-v1-0-2fe99db11ecb@linux.spacemit.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Yixun Lan <dlan@kernel.org>, Jinmei Wei <weijinmei@linux.spacemit.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777426731; l=2155;
- i=troy.mitchell@linux.spacemit.com; s=20250710; h=from:subject:message-id;
- bh=rQ3g1iEURZi4LnziZ1fc6sbszDwJlqQ9RIGs3gyTlGc=;
- b=1QAW1hqaGPJM7giTj3fW5j/i0VLxVFmLKJwW6gR8vxiDo5ByP5sbUNgS70bD3NzQFt64DAf0Z
- HYKiC8VJCVOAt8KHIMtFWqYJgdquan9RXkP5vET9BXSGlQQqWfcQuxr
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=ed25519;
- pk=lQa7BzLrq8DfZnChqmwJ5qQk8fP2USmY/4xZ2/MSsXc=
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MwFkbloawFgLdqwuzIolXdFu8PlJrDU0tcUuI5gQcmauejLvoJwaahYg
-	n6J1F9x8gUI6vDG9aFJXgpIzLrbFuEbxSsuGrZk2qEEbJ0eDVUqrF4ezIrAQle0L4bgjmgJ
-	WfcXHkP2iN8not2q81kv+O2ahHk4Pr95V8XFkZ9VgMvvJT1mEn24FT+EfRHf0nnkvetmXMd
-	dQtYsRzHJrU8vXeNzm4LzP+9t6GqNffjtOaIjmmt58AA1JxeVowbzUjM1TLFPV4pTVcC4hO
-	b/k5ggE0JBFy8Pj8dF/VNJrj/Z/qp6DuRELZ1SP99P1NJIqJAhEbtkHf+2XFbt1R7MvT7sP
-	6mhDFjRdDk2N3SaVva+Prc8SEsg1gsgY/ik50t1S63ZVRRLtLO/pCO0ooUucw9eVfcBsfog
-	usl735+nX3+ovPl/z+/wO1heieh09IMbKf/oRtyJpFNjBVOqWyC9Qw1EPsNUjMGBdCtAniy
-	lLPi4d4xQQ2xziZM4mGqA7HlhnNsh/IwhJ7J7o132G9GP36IdepsGBd7jMa4TXTJqMTXte9
-	x+HMs+UfaUMtyqf2aEY4B7WwPE2h8I1apzVIXmaLf0ar30ae0xSR9lpbIxnQyIzLBYgeZBP
-	D4D/GAg8Vrcv7fKXkPR/QhPADO/8kG4o0YfAHUuejxrATACHj2GRhfXqIOG2q0cMnHyWd70
-	7uZ0ZUfGHBYw/jr2RR3MfkxMZukXLSSjPHEd3iGSqm/zt5pMZxXYLpI9Wrp5sUB1E0dPCz7
-	c1mQrfn7L3/ys2VnsFkC+l3fXV+KFQNXFXtcel6Rc4SXU9HNh6/yx2wk1iiYVd/sYIdQM4N
-	k++yonT0fGslVwzJ3bbWsr9hw7P6x/+Otbc/Hgc3OjIasOMfH8Bt0lKlwkWdSneA/sVQ1tB
-	TdzuZ80SjACE1S0lF7w0YLMT9oYFN+/aWWBfMNl3dQb8gy6UY2WMEFVofXBeKRiXt1kgnzd
-	1yssyarUjC5Cz5IxDqxbWQE5t9FlxHmMhQLWt01lbUZluS/DM7goQBuKtM3VnM9kOBBom+S
-	0i3La9eUffrAdag9jH9wYXXuXeFTtrRxF4heOLH7JaxAe+A9n0odgP46HVreW97HnVrus1+
-	kGF7F6VPwqD9UzEELOs1Z2YG+ab6bmYoT0UPhM55Pnmt8pxKUKzE0Zs2dodfp6c7jJsRQqH
-	bYGCPnVGglUMNrlsS6JfHmjDau7oTWaSKzh7
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260427072603.1191-1-lizhi2@eswincomputing.com>
 
-When multiple I2S controllers share a common bclk, they must all use
-the same sample rate. Read the optional spacemit,fixed-sample-rate DT
-property and apply it as a hardware constraint in the startup callback,
-restricting the PCM rate to the specified value.
+> +&gmac1 {
+> +	phy-handle = <&gmac1_phy0>;
+> +	/*
+> +	 * For the TX path of gmac1, there is a skew between the TX clock
+> +	 * and data on the MAC controller inside the silicon. This skew happens
+> +	 * to be approximately 2 ns. Therefore, it can be considered that the
+> +	 * 2 ns delay of TX is provided by the MAC.
+> +	 * No delay configuration for tx is needed in software via PHY driver.
+> +	 */
+> +	phy-mode = "rgmii-rxid";
 
-This applies to both K1 and K3 SoCs and is only needed when two or
-more I2S controllers are active simultaneously.
+This is wrong. Take a read of
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
+
+phy-mode describes the board. If the board provides the 2ns delay, you
+use rgmii. If the MAC/PHY pair needs to provide the delay, you using
+rgmii-id.
+
+If rgmii-id is used, it is up to the MAC/PHY to decide which will add
+the delay. If the MAC adds the delay, it needs to mask the value of
+phy-mode it passes to the PHY so it does not also add the delay.
+
+Your broken hardware means you cannot support 'rgmii' or 'rgmii-rx',
+since you cannot turn off this 2ns delay, so you end up with double
+delays if anybody designs a board with 2ns TX delay on the board
+itself. So please validate the PHY modes and return -EINVAL if these
+modes are used.
+
+    Andrew
+
 ---
- sound/soc/spacemit/k1_i2s.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/sound/soc/spacemit/k1_i2s.c b/sound/soc/spacemit/k1_i2s.c
-index cef883ba4de9..7d0794d21ea6 100644
---- a/sound/soc/spacemit/k1_i2s.c
-+++ b/sound/soc/spacemit/k1_i2s.c
-@@ -3,6 +3,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/clk.h>
-+#include <linux/of.h>
- #include <linux/reset.h>
- #include <sound/dmaengine_pcm.h>
- #include <sound/pcm.h>
-@@ -54,6 +55,8 @@ struct spacemit_i2s_dev {
- 	struct clk *bclk;
- 	struct clk *sspa_clk;
- 
-+	unsigned int fixed_sample_rate;
-+
- 	struct snd_dmaengine_dai_dma_data capture_dma_data;
- 	struct snd_dmaengine_dai_dma_data playback_dma_data;
- 
-@@ -111,6 +114,13 @@ static int spacemit_i2s_startup(struct snd_pcm_substream *substream,
- {
- 	struct spacemit_i2s_dev *i2s = snd_soc_dai_get_drvdata(dai);
- 
-+	if (i2s->fixed_sample_rate) {
-+		snd_pcm_hw_constraint_minmax(substream->runtime,
-+					     SNDRV_PCM_HW_PARAM_RATE,
-+					     i2s->fixed_sample_rate,
-+					     i2s->fixed_sample_rate);
-+	}
-+
- 	switch (i2s->dai_fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
- 	case SND_SOC_DAIFMT_I2S:
- 		snd_pcm_hw_constraint_minmax(substream->runtime,
-@@ -437,6 +447,9 @@ static int spacemit_i2s_probe(struct platform_device *pdev)
- 		return dev_err_probe(i2s->dev, PTR_ERR(i2s->sspa_clk),
- 				     "failed to enable sspa clock\n");
- 
-+	of_property_read_u32(i2s->dev->of_node, "spacemit,fixed-sample-rate",
-+			     &i2s->fixed_sample_rate);
-+
- 	i2s->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
- 	if (IS_ERR(i2s->base))
- 		return dev_err_probe(i2s->dev, PTR_ERR(i2s->base), "failed to map registers\n");
-
--- 
-2.54.0
-
+pw-bot: cr
