@@ -1,136 +1,96 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DBDA3947AA
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 08:02:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4899435C1B6;
+	Wed, 29 Apr 2026 08:03:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777449754; cv=none; b=AjImXToLOzpaGItmtXu8c1Jh/z3dkHp73bftiukE9qR8FpWlog0a9RgnDQF0WoN1nNGZ5pNgX0OmftSn10xMd8V+j3omPUxSsp1oYnjaPSR/dsds4TBXVGt1cIqX9nhscrzxA0cpf5ryU8cHaTj/MTbWDlsU7MracXKC8QJrFc0=
+	t=1777449843; cv=none; b=ontFeKvo20SggGcUR7DY8bxjFddKqQ0AHYmkklBCd97rCYxWb2yrr2gm63SZyvDK2/gCTzpJC1PK/28KgWRE8P1LvEgxitILaJpvkyXqudy+grOGTu6DiQJFPnJbz2Pueba5MLNPg/p+V3btP3Dmie+4LH6B/TIK17mVR+kNMRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777449754; c=relaxed/simple;
-	bh=6b4er1NOQyvs8cPrYXvyddNJKgS3bjdUkS06JygQzTI=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=OkMlGXt0GErSbJECUjZeMky30XVNBrxiGebi4+t0yGWM7szaKw2FQNrCuE8Mk0/libue09AKxdEIqW45n+2zlVuL4Opfe5MeTTMCg7E/iIXksDoh9MfXfKdmdhgBiVD/0HECSOa95A3OAidCcdV4/vNe1GM2qJnY+uG2hclGaJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Q7dwgrkZ; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1777449843; c=relaxed/simple;
+	bh=dX7QsEGz4VtKbIHdSeXLo6QP+Ue7Cyb5IAqSUgvZDPU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=OllN18CXcv+XHlXF5YGGaf/rI01JwmZUdNv1V5xMJG0JTa+uf5hw366GnGx9z1MzwnoWYmLECv7N5rAZ3c1qB80T84P0aqr32KK9H8fZGg1VS9DBhbKnVndxyzzB2R+aU1PxOiyZD3C0Jic21GxLMrZFCHqD8pH8shDRocEVgYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=UHuxi3Eg; arc=none smtp.client-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Q7dwgrkZ"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-488b3f8fa2bso5385835e9.1
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 01:02:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777449751; x=1778054551; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ggee1ozzA2Mh/uKU7rZ+emKZHTYb6DMgCPHUTf94hJE=;
-        b=Q7dwgrkZnyYRZ6n1JkCrJK63nuOK/wTSAvwMSoFgOowqERl0jgcTAxR1j3AbnZbv+Q
-         xz3WxCiXR/72558kG0b7AoH7vhjTkhqeefNOkd2/dSr7TmhEgTLpaPJmPjNhiGIPaNaF
-         H4XlrZiUdBDROzbZ6ddKmI+45a7hyJTSJBjVj0QWy1ZDRMvs/neb2AFiPwxivRqoNsE6
-         cEwapwMI0hDqJbC9F/ALKLwDvIiXyDa9XOOTOD6iwhBk/hFtkZjuluOBaKhjQYtTBAxs
-         LF6nkWuJHLG4W+COUknWKgiqjriD2HrEQolSlQdmMQpjlovdXJPVtDeVC0uQeSw5YdDX
-         B4nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777449751; x=1778054551;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ggee1ozzA2Mh/uKU7rZ+emKZHTYb6DMgCPHUTf94hJE=;
-        b=Dm2Gduik3wIxy4bMAjXLcPc6ArBL4bVhfi42dihwq0ff4JDVGPi+5fDTMekFglVE29
-         KG0mP3/44m97YlOsYzuWKExI+gQif6xm5SXrxBFfL0JQ6d8X+obMlor00mmwysiypsOB
-         YhaQ3gv1FOIOnnCDOPlzih3EnACMeqDWX3Az55LYfnXgbB4DYcibo/9AhfOmjRB3HAeQ
-         A0g1lUnPHAapP/IwZdSe3bbX2vGDKD8uV+IcWn5QfMjc3ekgENNm/krhFG4h3B+MhUgo
-         gzymXuwl4RvLAwbmxlAlha3RRwo9GyBCTYtWzBWBpO5XYKrAFQM1TFvCsKWjZfPxMCb5
-         ZVLA==
-X-Forwarded-Encrypted: i=1; AFNElJ+m1GmlGWS6FqVF2nWMv/Cfx6CVq8FIo9S8pLZkp0ItpPGpIuV4B14XAI06+P6TekWzs8Bq1iGfFV03@vger.kernel.org
-X-Gm-Message-State: AOJu0YxhN/PdThALGgapwgN9tOEds/xifY3zYIZCVTFHZMzwFNKAoxQx
-	etGLcKxOSjy491ytd0m3AH+s3mT+uQ1fLLwDhM8cdbSfszOeaFgacvsH9vFS6cvzsHM=
-X-Gm-Gg: AeBDieuZ54qjmxQq6qf5cSWRlDEnOe3KP4PuITMXejq2kBHxJ2JE3wFLCfeL2QT/5uu
-	uPVsEtG7ar65CWJxXBYUXCTp00kt34h2B0QdHkiXCs2pjPv83uLWJWo2aH1GhUM8Sfkc6ohsd0N
-	2RhZgJY7KsxWanCIhONpDgVTmBloxOgQBiPqL3sXtT20UgPcL66+w6Zgy8XrEMwxYevvH7JbpzG
-	TST9IdXLMFNdWIGlYaqKDEt+eITvxyH7nFsFgDwV1KHYk9fSWH3UIA1yQysLJsPU0oI/aQ2OXzk
-	4ZvEKF2JNj5djiirdRaiqcYu5+HelbIA3sjFVdE0mdYYe6ySaK1sAJPBuYjrifCnCZXUXOXSJzG
-	xaqnyZljjCRd9eVnGY28eBJzYkXvdOdTV0O9j/V/V4PVh4ymNj54SzUQ2+lnFXxsz7BlhmE7eEj
-	M19bq0PkNABsWWMYr3UupPKalc0hJFTtMlVeTAkeidLRXqJndRTKvLvSrSdGYqspa17TtDi35gM
-	mCgBUVrGDLQvutGhg==
-X-Received: by 2002:a05:600c:3e86:b0:48a:53cb:8604 with SMTP id 5b1f17b1804b1-48a7c1bcc18mr36601975e9.14.1777449750889;
-        Wed, 29 Apr 2026 01:02:30 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:b679:2e1c:a552:545b? ([2a01:e0a:106d:1080:b679:2e1c:a552:545b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a7b92adefsm19748565e9.3.2026.04.29.01.02.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Apr 2026 01:02:30 -0700 (PDT)
-Message-ID: <164780ac-2e56-4169-b42a-1b06e592a303@linaro.org>
-Date: Wed, 29 Apr 2026 10:02:29 +0200
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="UHuxi3Eg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1777449833;
+	bh=5fUuBfC7bwv1lJmKApj9TAOEI13YVB4KodPqQkdcyHw=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=UHuxi3EgviWKmwfjSBodUN7+cH/Cp51DYzO3SWEjymHu5I6Z23faTNMD+7ACQbbUU
+	 gYYU0IiLcGSOWNZr4Mep5FtwU86JrL7I9pdJhy+8B880R6/UFTiTbdJmOz9gKMMegQ
+	 dtkMSV8MQ/O6KQmx+7DnCmYcAsnZWvCmLGcmE5sE=
+X-QQ-mid: zesmtpgz3t1777449827t5d1bd17e
+X-QQ-Originating-IP: rX94L3y+/0mK+XkUrL28TUJzyamFByYqjc5ZNvM/9pc=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 29 Apr 2026 16:03:45 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 15618526834681889661
+EX-QQ-RecipientCnt: 15
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/2] dt-bindings: regulator: document the SGM3804 Dual
- Output regulator
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
-References: <20260428-topic-sm8650-ayaneo-pocket-s2-sgm3804-v1-0-1d8dc7620256@linaro.org>
- <20260428-topic-sm8650-ayaneo-pocket-s2-sgm3804-v1-1-1d8dc7620256@linaro.org>
- <afFTIlkS7Vg_2Eah@sirena.co.uk>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <afFTIlkS7Vg_2Eah@sirena.co.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 29 Apr 2026 16:03:46 +0800
+Message-Id: <DI5HDLS7LRAX.3M0H0KH046K04@linux.spacemit.com>
+Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Jaroslav Kysela"
+ <perex@perex.cz>, "Takashi Iwai" <tiwai@suse.com>, "Yixun Lan"
+ <dlan@kernel.org>, "Jinmei Wei" <weijinmei@linux.spacemit.com>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, <linux-sound@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH 1/7] ASoC: spacemit: fix RX DMA params not set when TX
+ is running
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Mark Brown" <broonie@kernel.org>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260429-k3-i2s-v1-0-2fe99db11ecb@linux.spacemit.com>
+ <20260429-k3-i2s-v1-1-2fe99db11ecb@linux.spacemit.com>
+ <afFuXO3IfV6CSsLf@sirena.co.uk>
+In-Reply-To: <afFuXO3IfV6CSsLf@sirena.co.uk>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NVJ59BI8BGh+BFPWtIceeGCRduANYadvAz0ipfnrQ0VYK/UmUTH9ek2F
+	wb0eWitfQrgv6Ffv3h39eb+EkB9rm3VccJ3RcDjdn6Kk0ZmsI5MtVfoYJFEz50CTNwgxa2F
+	gUqFx1mTu2Vz1HjbYJv/U+AS+wi4N4UbqxCECATmfAdiVgcAdUorVc+uS2Dm/+2olnUuE3g
+	DyoPU2UDpSMcQD+ndM+iTUOdItbwY2q3WQS0hnT2cn/giO46hFxauypiTnH+0xbULGlDlHv
+	E4WDpX5uBTGCQALiPivh9Friq+CSZ/b+1emW3H4VSAH3aiDyi0viBm06tyGL/mJIFg5Qnf5
+	3qZykKl1PVEz5UDNjM+mvPjY3sRrlE0zHAgd62Cf/8WW757fZVuhyNg0GClx0xd3zhdNyBp
+	CnC9JDB1xu+ofAvOCmqFLxnyRP6VaIRq9lF4WeLm6ppmW7cT3ZStblMFUtYs0v8Ly9Ssho/
+	mqZMBv7m7zbmeQivXd0vknBZEmAK5MtPmQG/XPbxpegVZAHrAXn4bW7nJeq7IWXyHOtjcQN
+	oDe/YzOTQvS+hfA4Vc0ytf5YE68J+eTPa01IVggp55vj9azUl6xWiqvG4Ym2fzYVAfT4r4Z
+	0Iy0GQXLUp7W5AR5mfHrYdjYg1/oO/S1H2ZxZ1dNyu/LVz0QsUweesFyxnKNMoP3ut38P5l
+	sATcCNGR2GRBH+K92mKmx3yHGHh2nX1Be40AbKIqbLbomzFiQKPJwMpk+59H05PSZedMkQL
+	3fmDW1QoRhYAEQdbZADBjnQXMC7v5vl3UwRMfvBLdKtWaOOikKZ32yujjNpIYTIl7C+wbj9
+	P1D5yBr1cYbj8yyrYQmlA9wiHjtqL/dwSU/duHN9LzVw0ivI4ubbsdSyXJi2jIHmYoDOmKR
+	i0M51cy3eIcGVLsBA115PaKftxaSrtS78wLFYfzZ1bL0zwlvL+pPCLQGBHxTHe2D/UZNM6E
+	/9Cg9i6Tj7hnxWcWZIQR7Zs9bNO06jTzRprljp4pW4CVcGlA+ozKDLMYX/ZURuYTFfJLx6r
+	ltp2d4+MYOrdiX8s2ifvRbYbNN49YOhISQNBfIGQYQlkX42KIiWdIyUVUHyixkmDTQvWKJC
+	GuPEYihJfz4
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-On 4/29/26 02:38, Mark Brown wrote:
-> On Tue, Apr 28, 2026 at 03:52:05PM +0200, Neil Armstrong wrote:
->> Document the SG Micro SGM3804 Single Inductor Dual Output Buck/Boost
->> Converter used to power LCD panels a provide positive and negative
->> power rails with configurable voltage and active discharge function
->> for each output.
-> 
->> +  enable-gpios:
->> +    maxItems: 2
->> +    description:
->> +      GPIO specifiers to enable the positive and negative outputs.
-> 
-> The driver requires both to be provided, either it should relax it's
-> requirements during probe() and allow only one of the regulators to be
-> instantiated or if that's not a realistic setup the binding should set
-> minItems too.
+On Wed Apr 29, 2026 at 10:35 AM CST, Mark Brown wrote:
+> On Wed, Apr 29, 2026 at 09:38:46AM +0800, Troy Mitchell wrote:
+>
+>> Fixes: 955f7b46873e ("ASoC: spacemit: add i2s support for K1 SoC")
+>
+> 	Fixes tag: Fixes: 955f7b46873e ("ASoC: spacemit: add i2s support for K1 =
+SoC")
+> 	Has these problem(s):
+> 		- Target SHA1 does not exist
+should be fce217449075 ("ASoC: spacemit: add i2s support for K1 SoC")
 
-
-It's a mismatch on my side, it needs both gpios, I'll fix it.
-
-Neil
+                          - Troy
 
