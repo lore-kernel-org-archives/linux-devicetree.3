@@ -1,147 +1,116 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C439463
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 09:03:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 020D339B4A6
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 09:03:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777453434; cv=none; b=WdSLA4okG7lkrFx9bYztLGbfxV/iIWo0VDjkezOd7xPEI2E/wUhfpioH+8Ea/YBkgV+dX71lOIRE8JVwqo8Sl/ymUPgFonbjYo0cibOSJKmru45IL4K8oW7ah/cBQ9Fdh4xp8zhGzEfSx/vM5EEmtDSOss+sXdAO0pbyXxp2AWE=
+	t=1777453440; cv=none; b=vFlArkpb3zY4D5ZyEZlBz2TvGK+ZGpm2+WikwwF3lWYH+G0fr4gx6nScPtgW75jvTGvbkWqyW4qh6aLXhPuwecVN3M2MidgzUsowum65mOH4+pjcdf02xJWUu+OrxJG56mW46JEIuGAnCXQjUy6m4FEttguCbkfd7YBVGeEWEnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777453434; c=relaxed/simple;
-	bh=HMbidjnXWQ7dqAUl70UddiBL/hKnsrslsSh+V6/N6Xc=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Hbp7eo0EmTfuijhjQcVXoM8je7gElQxWuyF3Xw26guN/jcqthlRs/0Bt+my8p5XcoUCuqzmeHDbEVB3RVJET+3nl8DGbHTnw5ZhtvJVlrIReSUeajUtvCeEkVLTjZ7GqEiHIXbTdM5gWsOgfDkJiL6iEbBX3hO8dD4KDlDE0bXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=WHsQlU8f; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1777453440; c=relaxed/simple;
+	bh=mTUPK7ZxRi3yyrLMtOOrIKFFrpiIPXHYRD2toiOtVGw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kYT9t61iCbSaFtD4ikSeSkBlF3NAREL0TYrXoRFSRng/rcrZcgqXkQvqRJyg4FM73iH4jRg6HbfCxTg6dBn3hqiTLPJgyfOJyQApXiW0DofqJXh1GLwQamam+5Gd4OGubcCUg/Cpx6IiFXEvyOtyUcf6nNgIor/moDDeS1lWsTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c1RxaVqF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="WHsQlU8f"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-43fe3e22e33so7902553f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 02:03:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777453431; x=1778058231; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=RSpsznma6FPd297vSkEgjiyMuhjrOLr3Zucu2Me0roU=;
-        b=WHsQlU8foQ+rzkhUOSJTTx2gyC9NjYHFKsqO3zg/q7Nj23wX3qJP7EZ9jGdN0iiGCB
-         peyYnog+3C9YbqDd/PVLomDIAHviw9blPFmAHOYsznzK08+jZjN9bcElTBDFYkJ8JqQ/
-         lM+HJGaQGpmi9AfAoVVpZWK8JzTHnOUFdNQiOS/PATO74t2dEeK8J98oZyI5ZsFjHVtf
-         rYL7GxDVzodOMYZRaDuGTXFd1ldLBm7fWfNoyHHUDb47ZN7J1PGwXuQiRmCE0Bth6Ryv
-         8Obb0CrTtYeUFa5r2eL/XhmLl8d9JMP64mB4BdIzEorGsY8guXP2LuaEoCChzPzPLCJ5
-         xDmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777453431; x=1778058231;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=RSpsznma6FPd297vSkEgjiyMuhjrOLr3Zucu2Me0roU=;
-        b=FTuIcCZdSHh/A/ODf0cvjN9MC4cUF081ZK8WX+tZjnu0bPQSo+2PguFRzZGbUqgMbl
-         R8Rv+PIRXIQAel+xxuRt3n/0908qyRRHkIWcGTRRy5eiWrnaNgiMzrIYpKXgA4pGg5FC
-         2KDBFGd2+eF3DFk9Ym7bZZzT1UXOGaaXz59U0QffcmyeaN1HPTllUO6pBPHpvMdllAT9
-         Ca+fb9JnxQAbJnF1zAx2jHz+10sBDlJYHW70eEpGliVnEGiTQ6E/3nqszvNXVo1e0nKn
-         h8jCW71Sssp4WdBOj/1QMzZxKOt5MBiysriH9cCT1ca8nwCyUiarr+LETh4hkmc7KgIE
-         nvtg==
-X-Forwarded-Encrypted: i=1; AFNElJ+e+bXCfy6FpfIWe0zvr+lTgTmi9+fUBvURpq7nn70nsrPFBi7ra+cqQiHNrSFK38j7SLG6P0+Yt2rU@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCPy7thBauUPqNCGeLu5urz2wreZ9q8p9PUojia999Un9Xx5Av
-	zduiPCJuvotptXvmrtJzUCsDExsrGsuNva6wIDXEAfaQP9qdgTd0TC2bZFGxdo+vd8E=
-X-Gm-Gg: AeBDiet3ZytKsDoygeDiJWsrt4mzdRtmj0/SCio2kyKzqeAGc1jEkZMZkm43WkU7guG
-	LlnuNZIyXy++jXxa7uCnqnGU8A1/+u0TceE6/9YeWGm17QffTM+v+7Uairo/Ssvq7XiXoXH8yft
-	EKRQYv7vztId88Z33CV6ZPA7eQiLmjkwaCAjoVjfrZckNLoqFM7N8CkMs8kVl7J4fw3Aus52JIe
-	p0O99Q4mHsDEAalvq/2lIiJYddrWJyIgt8JbXeKG/ZOsvD/MsMPxhInt6jq57QNaJF2UT2dF3vu
-	YP/DknH4k/HCTQ0vH5e7WOTITYays/Gcuprfay28vaHLtmpBwigwO5NgjZBKBRRs7tRuzIY75nM
-	IIZhTA/WrXZQM45FV8Y8KPFpFUmud56+KGf0iGhr9RXEc6T6VzcApi+phVYmLywHXO8iMUUQ7ZB
-	qQkFoi0dCrXY9HrdrvcdE78kx4lRLMT9faeNjVg8vYgmnYcAq4oFQ8cjqhsQeWVYNQhA8W9oMRa
-	Zw+HFAVOWjMcx6S9Q==
-X-Received: by 2002:a05:6000:2dc2:b0:43d:7403:4b65 with SMTP id ffacd0b85a97d-44648f28e88mr11536798f8f.6.1777453431182;
-        Wed, 29 Apr 2026 02:03:51 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:b679:2e1c:a552:545b? ([2a01:e0a:106d:1080:b679:2e1c:a552:545b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-447b76e5bf2sm4322188f8f.27.2026.04.29.02.03.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Apr 2026 02:03:50 -0700 (PDT)
-Message-ID: <bac23b70-758f-4944-b040-753fc40a53c5@linaro.org>
-Date: Wed, 29 Apr 2026 11:03:49 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c1RxaVqF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD933C4AF09
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 09:03:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777453439;
+	bh=mTUPK7ZxRi3yyrLMtOOrIKFFrpiIPXHYRD2toiOtVGw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=c1RxaVqF2bvWvHNMk/ITIWI/kGn3Z1jc4aOdZ76Uf+Uu9WwHCey/WfLzmaPfidJsw
+	 LpaTvd4HUQvyaxA7mR3Ai9DvEwJZjdViO1z3uWXEGRpdVxNqH9OuCFU8NdH3HUkIxy
+	 ZgzKAbhewOPbVJ1ilx3HYzuMnX5/kQZ8SLNTq5unbQ1DY8rixhJvFTk/42CWjNDjgW
+	 UP3wxjMVgeqD5hosjkaY4h0T13QdPDfP88TDtw7FJ4d7Jhy0GanPhCf6nDAKY8gx0f
+	 n63xEJkxd6MKFllfsd9J0A4KQNA7rjJYUVI7l64Bfcllbmj9PzKtCUq2ucLBNMYsjQ
+	 zLTMDU10Z5VuQ==
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-38dfb789d7fso95223091fa.2
+        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 02:03:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8fhobaWCpzGdxciJb72Ng/T5B6u7ZhXMA/J/dPUemuFbNIncQkwL6UhCncWhZUF9cPEarEzM/wgvzp@vger.kernel.org
+X-Gm-Message-State: AOJu0YzjEmCWilV9/4ORYfxwkA31xFg8CYZIJxEPJzvHq1VQB3QlsJ04
+	95AiLT7GDpxvNKNMOcKc7ioro7W6WPeKWdfjD15SzFX9NlI7HOgb9jAeV7Ww38DXYcIrry7xKBu
+	jZ9Iz49bH5fqrek8b5bsGH7RobejTM4yWilozOjZ8rg==
+X-Received: by 2002:a05:6512:2302:b0:5a2:c1b5:f70d with SMTP id
+ 2adb3069b0e04-5a746409fa1mr2584393e87.6.1777453438308; Wed, 29 Apr 2026
+ 02:03:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/2] backlight: Add SY7758 6-channel High Efficiency LED
- Driver support
-To: Gyeyoung Baek <gye976@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
-References: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-0-0caade5fdb32@linaro.org>
- <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-2-0caade5fdb32@linaro.org>
- <CAKbEznvPAYFUt-ykH7rCQwMFUq6N68B9x7Dd97WRDm3Mvj34fw@mail.gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <CAKbEznvPAYFUt-ykH7rCQwMFUq6N68B9x7Dd97WRDm3Mvj34fw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <cover.1776872453.git.happycpu@gmail.com> <33d515f13769c685e6811463a14e111252a7c58d.1776872453.git.happycpu@gmail.com>
+ <CAD++jLkOZGunkfs2EO_DQDPLnLVp+OPG6o4EKaY5GkAcqYQy5w@mail.gmail.com>
+In-Reply-To: <CAD++jLkOZGunkfs2EO_DQDPLnLVp+OPG6o4EKaY5GkAcqYQy5w@mail.gmail.com>
+From: Bartosz Golaszewski <brgl@kernel.org>
+Date: Wed, 29 Apr 2026 11:03:46 +0200
+X-Gmail-Original-Message-ID: <CAMRc=MfQY2Z+q=YGO0jEBip0dGjyq+uCH8EZwi9RaUOJxf74UA@mail.gmail.com>
+X-Gm-Features: AVHnY4Lmb_N-ZmHzzL6TwheIpW-rlf_epcR7VFXtc6pSrDLlasvLLH7-au8zNRQ
+Message-ID: <CAMRc=MfQY2Z+q=YGO0jEBip0dGjyq+uCH8EZwi9RaUOJxf74UA@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] dt-bindings: gpio: fairchild,74hc595: add
+ registers-default property
+To: Linus Walleij <linusw@kernel.org>
+Cc: Chanhong Jung <happycpu@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 4/29/26 01:35, Gyeyoung Baek wrote:
-> Hi,
-> 
->> +
->> +static int sy7758_probe(struct i2c_client *client)
->> +{
-> 
->> +
->> +       /* try read and check device id */
->> +       ret = regmap_read(sydev->regmap, REG_DEV_ID, &dev_id);
->> +       if (ret < 0)
->> +               return dev_err_probe(dev, -EPROBE_DEFER,
->> +                                    "failed to read device id\n");
-> 
-> regmap_read() seems it can return errors other than -EPROBE_DEFER
-> (like -EINVAL,), and hardcoding -EPROBE_DEFER here might drop the
-> actual error.
-> And maybe would keep retrying probe forever
+On Tue, Apr 28, 2026 at 11:07=E2=80=AFAM Linus Walleij <linusw@kernel.org> =
+wrote:
+>
+> On Wed, Apr 22, 2026 at 6:05=E2=80=AFPM Chanhong Jung <happycpu@gmail.com=
+> wrote:
+>
+> > The 74HC595 and 74LVC594 shift registers latch their outputs until the
+> > first serial write, so boards that depend on a specific power-on patter=
+n
+> > (for example active-low indicators, reset lines, or other signals that
+> > must come up non-zero) have no way to express that today: the Linux
+> > driver always writes zeros from its zero-initialised buffer during
+> > probe.
+> >
+> > Describe a new optional 'registers-default' property that carries a u8
+> > array - one byte per cascaded register, in the same order used by the
+> > driver's internal buffer (first byte targets the last register in the
+> > chain). The Linux driver change that consumes this property follows.
+> >
+> > This property is already recognised by the corresponding U-Boot driver
+> > (drivers/gpio/74x164_gpio.c), so documenting it here brings the two
+> > bindings back in sync and allows boards to initialise the chain once
+> > from the bootloader DT and keep the same value after the kernel takes
+> > over.
+> >
+> > Signed-off-by: Chanhong Jung <happycpu@gmail.com>
+>
+> See
+> Documentation/devicetree/bindings/gpio/nxp,pcf8575.yaml
+>
+>   lines-initial-states:
+>     $ref: /schemas/types.yaml#/definitions/uint32
+>     description:
+>       Bitmask that specifies the initial state of each line.
+>       When a bit is set to zero, the corresponding line will be initializ=
+ed to
+>       the input (pulled-up) state.
+>       When the  bit is set to one, the line will be initialized to the
+>       low-level output state.
+>       If the property is not specified all lines will be initialized to t=
+he
+>       input state.
+>
+> If you want to set up initial states, use this property.
+>
+> This also makes it possible for us to centralize the handling later on.
+>
 
-I forgot to change it, initially the powering was clunky and we had a read error
-in the first probe, but now it's solved so I'll remove it.
+Ah, the old initial/default GPIO values problem strikes again. :(
 
-Neil
+IMO this is software configuration, not HW description. I think the
+driver should do it based on the compatible and/or machine. It should
+not be a property but if Krzysztof is fine with it, I'll queue it.
 
-> 
-> How about this?
->> +               return dev_err_probe(dev, ret, "failed to read device id\n");
-> 
-> 
-
+Bart
