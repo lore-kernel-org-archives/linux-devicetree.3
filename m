@@ -1,157 +1,123 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 646CF37E30A
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 15:41:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFDB33F595
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 15:44:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777477312; cv=none; b=u9wyh7cCC+5BLYcZd46kqKumRwcdRkP07pKU/7LlG5tFfEFzuVldvhL3hDzs4DZNvKH/iIYplXpEvq1FLADyLqQznLzE9KGF6Ak+42ISSN3lHLrP99U3zOYMPYGItDoRp4JK5S0GGHvuIUp/cTb5PZedzmHKk2QbnI4yRXAcNFk=
+	t=1777477499; cv=none; b=CgPjkyq2waLiakVbXe8I3biFDHIrwXXsKAgKVhEI1mMTOWfBCSN6WHqMdRZFRKHJ+G+9Eipz5YtIfbuhemRqQkayvtWgkzIznR4wqyxvS1yeduFl3IfemFz9fISjBwSAOmhroPMob9h6byeOJVT7ht6x86wzLxvzWjq9roHIXfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777477312; c=relaxed/simple;
-	bh=ptDOA8oXfBcLNX1p/12OZLzqrk1BS6t5onLGu8IEt8M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VybG/Zh66nYnqf0dNaP+nx7E4J+Lf78Y99PkxTHdU3tb6FinavHpe8n+ppdjQ2n9aEataa2iFc2ktygMkhGrEkeH8hZ4m8oZa/CLc6e6u57OqNNggyAcMzPzpRo2er6e8YLhvY0G8/8AGG1n/JOraXyUYizMcueB4U116aCJF48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=x/27T86g; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1777477499; c=relaxed/simple;
+	bh=Qi7xIA2TqpAwS/9xKDClt8v6/ovXWQCPOu7xJnS7geY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T/kR9X9tGGi0xxngdBvA18EaQgLJ3FzPKSQOp4QK0f4kgbNwRoKz3oo0Ld2XrY+GJyu064coSSzWrNm0hGyC/cuLHD3bxFN0BX3uSOog91Bg5V73hBIaw0v8orE7FLKXxsRV79lMt0/f5bafcTPfJhqCJ7sDkttdieEP6TbCG6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hir4SGuP; arc=none smtp.client-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="x/27T86g"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c7973f67f4dso390774a12.1
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 08:41:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hir4SGuP"
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-12dbd0f8063so3017875c88.0
+        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 08:44:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777477311; x=1778082111; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=h8L+nXE7L85P9lNyL2I2gs9CTUVcJOwgVrd7ZFlSaCE=;
-        b=x/27T86gUyqmFKiprX3Eig42Q7FCCl2TkTqFhm0EveKwg9ZNtlWgGtuOdD71R4J+Ad
-         g78mNZ31VSgKne6xap4Qepafn42S5ilLNua7qxaSqlGILcW3T+z2bQ8Onr+lKHKaqLUz
-         cznRYN1QngzriWUdnBiD6d5nrtXBdky30GuxtsXzD0yTGqYvnmw9pfeFqbqnGUBA1QMZ
-         noNSnrmA4VbtXWXRnOq84eXCnzAzVCCDrq8P1m8cjOrlfTBU+9M1Wrm2LXmz0AleFyYA
-         uFjd5HdDCgfQRMFWCsTRbWjmvinnIJvlHiTzSX46+ofmFs9Rv82jxzsk7zpV8m4ZSYkC
-         jUHA==
+        d=gmail.com; s=20251104; t=1777477497; x=1778082297; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=2pGMTg5AYRgxoacmWH4RFQzjjbAiPYYFD1LTfaMwfdw=;
+        b=hir4SGuPxjyE0AhLJuNLldN6X7o5RVOp8tX0xp7k6ZgdwWVY/yKTmKrHiUqZYfhcYZ
+         ECe2zC2haDJEEg3Hw9iHJx2HtLpi3N31vaUlamusrJLT8Y0cVfjd8AJumZwFXL5rjwBh
+         B9G5iYNj6kaZ7fJPmpS7nM8ZUc8JAMD4iUn5MdA2aZ2AW4YkbsSjR6Yr5hebXwIBJRTL
+         h/i3ooElcghGjkk556Y3RO5kbm9FgWsZbQ2rSnntlH92S5DEyn8sE/7lF4Un58rymi8T
+         zeCkvXNigpFdJnB1nMp4AccIT8c3IDRdXbUje+alF5EwbQJMvdZAwY5HhyQL+baOy70R
+         dOcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777477311; x=1778082111;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=h8L+nXE7L85P9lNyL2I2gs9CTUVcJOwgVrd7ZFlSaCE=;
-        b=aGMU0iaN5ImgAPKgXM4WKDThDG3VlX0NKLKGz42UxwcBKtR3Wg23LvkhGbG9IwHliL
-         IKSJLvrF3LUM+JiMWmg9ynNH43qhKvbWH8wpjf5bJLi0nNjDp37pLzV5j+F1QWHDgZok
-         KPYCGsnJIc4M1DNFTZxKa/+xheYMTmU7nT8UTk2ml5B9mVZ4kJQiZQblfNFdVA6+HEVZ
-         GlSTAi0RbkyZokH4XxbCncbAqFiJP3i7cVpWGmuJZflcpsRNE2HlKCXxF+xftU6+7s1j
-         hQehRJeowujkxadoxMUhvbXLdcAE7hz5fVSrvvsoqBBJhPE7k5GLBeOYPxBDh1KAUHiI
-         c3Hg==
-X-Forwarded-Encrypted: i=1; AFNElJ9bD4PJm9xq/dKtNfuCNoN3PuUUc8pbj1EWz8CVlf24GOXdd2RcozTAhO85DTyrNvA3sI8QV5L8Ruig@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx2FBBF9+QOPaqjtPD/nBtru97g5o7QtB6Al9BX516nBDdnyqk+
-	FQW6doWQsU9uv+hdaDWNrWeiJQwuZNJIcm53MydBTqtmjeSB6bfnv9SNy13PmbhO97I=
-X-Gm-Gg: AeBDieu4Nmi12C7AeBsTQmNi61hLO9QTyXV4wAcFCN1ETB1xX72yzWusAyqKN2oQSdl
-	JarRDsbbEIpftMv5mtHuLMA0s+rWdtMkARB6ugNAG8GZRUkhcs5800uERaOXivaIFMPnya/bz92
-	9DBMHPpJZmx7bWkmA2weh/XSaRknBUJSMhJ4AeSGNTcecy5bRvYbE84YtNy8BzST+mIQa658VeI
-	vAwV0ozgHS0GFVkHgjc07oa3CKBDiRQPcyBRjaKQHhLijR4vmZPvE9AQoEx8ec+zO8RU9/Cz0LD
-	ijbHQ5UaYVdRzQ5C0sW32+x32vxC6oy+zHNuq80IY47xYwklFpg+MrjR/idXhHV4j87NdSGZTiP
-	ixdfX7zV2XgQ5Kde2Y31yCNwHUJtW4CM55KBl+tO6KRmtUnjquVoqBHsfFjlMlsN3lIPDMikxPm
-	QgmWAvylEGmuXFGSHDazwXW5spTsS09OvwDa4fEg==
-X-Received: by 2002:a17:903:2410:b0:2b4:68c9:302a with SMTP id d9443c01a7336-2b9882388cdmr33673325ad.17.1777477310614;
-        Wed, 29 Apr 2026 08:41:50 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:8131:aef0:bb67:5559])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b98899055fsm27045325ad.80.2026.04.29.08.41.48
+        d=1e100.net; s=20251104; t=1777477497; x=1778082297;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2pGMTg5AYRgxoacmWH4RFQzjjbAiPYYFD1LTfaMwfdw=;
+        b=fBxIrqmCkY/aQ680/7rqHB0EO/g9fhwx/qdbC/jvlzRaF+m/7Uxu6kyhKsjr3G6Aw9
+         SqSio1yGuY5uRXQWDRYTMOwtJWsjL/225M82V8kDtF7+ApfDiqJlFHV5P/40wmW0Sxc4
+         Aekiv0xAMOISfnCcs3EbvqxquFBS5FxemXJplNJG1knjRHR9xLrUxGAXGz1cXj4SPi/Y
+         nEH1yELc4Tu102Fb2P4EQxkt/52czdibbvcP7VDQfqlaCBMk1oWXiOyzXQvMeXIq6vLP
+         u4+YRB2DiVS386Ym9L9Dr31Q4WiUoXhp3OZYWp4dmPgxyllxD80YA2y1a5KN1ujAYWBg
+         Hckw==
+X-Forwarded-Encrypted: i=1; AFNElJ+yZqFoPqx7WxxBEhK2PYFjei0JVDUqZ5+o68qcJwXfs4Ozoiy92oJS8SgGGig6/V47i7ZbmBaAsmHp@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBpXqG+/4sWdkZMtZXSLpHcq56g6AREcuR/rmtij4IzlaBIsoF
+	UAEZjDKyIJSw3LxsISJcBE+9Dbxn1/fzdjH1/KCcLrPnJ7VulmiOhwppnB83lIpl
+X-Gm-Gg: AeBDietVB49tFH4wnYNJoTzbhzeN7bvz5VohzYoPzbIjWZ56s85mCmkk+9+iNMy/QBg
+	digHrOgDIABNge40umUHtQxHi+rXdtcL/V1L2Q0hoECL1aVKcDvf4JGlqYN5/yO/lMkJNRlV9G7
+	p4PHLlZKUfGDX9+mRL7Wq4iivS5UQp+xqPABPo0b65A+WhOVhus9ViPAF6kRSGDC9oHycuW9cvP
+	MTL8EaEXjVzZBLObD73cc2nEutrL7DoJ8U9LRzJj8pGxhH22hajsN0tPYF6HyxOA8PYBMrLyZlO
+	p3bTW1b8RXKe9XphCWr+dZP5TfLNvjUMGsIlgau2j/q1Akl4oQeSDI1MrQ/DDKYm2sdR2Us4MTg
+	H4oKyDcLqgrFObMauk6fp1FvgVDBx87j+Qy3/8/OoLQRgGc+Y+3JIwXW/4oaRwPGHgOGWj2tX/P
+	UBTMRC7zaOo1E6hr8VDENZ5fDpHqOXT3Q=
+X-Received: by 2002:a05:7022:f513:b0:12d:de3e:52c8 with SMTP id a92af1059eb24-12dde3e5333mr1963969c88.44.1777477496912;
+        Wed, 29 Apr 2026 08:44:56 -0700 (PDT)
+Received: from arch.localdomain ([2409:8a28:a59:55d1::1002])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12de320ecf9sm3610166c88.2.2026.04.29.08.44.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Apr 2026 08:41:50 -0700 (PDT)
-Date: Wed, 29 Apr 2026 09:41:46 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Shenwei Wang <shenwei.wang@nxp.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, "Padhi, Beleswar" <b-padhi@ti.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>, Frank Li <frank.li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	dl-linux-imx <linux-imx@nxp.com>,
-	Bartosz Golaszewski <brgl@bgdev.pl>
-Subject: Re: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg GPIO driver
-Message-ID: <afImuoeHolxGgw3H@p14s>
-References: <20260422212849.1240591-1-shenwei.wang@nxp.com>
- <20260422212849.1240591-4-shenwei.wang@nxp.com>
- <22fb5fac-2568-42be-a7e3-7e89d0017eb3@ti.com>
- <PAXPR04MB91850A11C58419C03909145F89362@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <6412a758-4560-4cf1-a0d0-5b24d1a715f1@lunn.ch>
- <PAXPR04MB9185009A17DFDF3D6C8B44E789362@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <6e01e114-e336-4744-b6b4-563ec42e321b@lunn.ch>
- <PAXPR04MB9185A098D894B6A6EBCC13F889372@PAXPR04MB9185.eurprd04.prod.outlook.com>
+        Wed, 29 Apr 2026 08:44:56 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-leds@vger.kernel.org
+Cc: lee@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	luccafachinetti@gmail.com,
+	pzalewski@thegoodpenguin.co.uk,
+	daniel@zonque.org,
+	Jun Yan <jerrysteve1101@gmail.com>
+Subject: [PATCH v3 0/5] leds: Add powerdown gpio for is31fl32xx
+Date: Wed, 29 Apr 2026 23:44:44 +0800
+Message-ID: <20260429154449.730880-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <PAXPR04MB9185A098D894B6A6EBCC13F889372@PAXPR04MB9185.eurprd04.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Apr 28, 2026 at 03:24:59PM +0000, Shenwei Wang wrote:
-> 
-> 
-> > -----Original Message-----
-> > From: Andrew Lunn <andrew@lunn.ch>
-> > Sent: Monday, April 27, 2026 3:49 PM
-> > To: Shenwei Wang <shenwei.wang@nxp.com>
-> > Cc: Padhi, Beleswar <b-padhi@ti.com>; Linus Walleij <linusw@kernel.org>;
-> > Bartosz Golaszewski <brgl@kernel.org>; Jonathan Corbet <corbet@lwn.net>;
-> > Rob Herring <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>;
-> > Conor Dooley <conor+dt@kernel.org>; Bjorn Andersson
-> > <andersson@kernel.org>; Mathieu Poirier <mathieu.poirier@linaro.org>; Frank Li
-> > <frank.li@nxp.com>; Sascha Hauer <s.hauer@pengutronix.de>; Shuah Khan
-> > <skhan@linuxfoundation.org>; linux-gpio@vger.kernel.org; linux-
-> > doc@vger.kernel.org; linux-kernel@vger.kernel.org; Pengutronix Kernel Team
-> > <kernel@pengutronix.de>; Fabio Estevam <festevam@gmail.com>; Peng Fan
-> > <peng.fan@nxp.com>; devicetree@vger.kernel.org; linux-
-> > remoteproc@vger.kernel.org; imx@lists.linux.dev; linux-arm-
-> > kernel@lists.infradead.org; dl-linux-imx <linux-imx@nxp.com>; Bartosz
-> > Golaszewski <brgl@bgdev.pl>
-> > Subject: [EXT] Re: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg GPIO driver
-> > > > struct virtio_gpio_response {
-> > > >         __u8 status;
-> > > >         __u8 value;
-> > > > };
-> > 
-> > > It is the same message format. Please see the message definition
-> > (GET_DIRECTION) below:
-> > 
-> > > +   +-----+-----+-----+-----+-----+----+
-> > > +   |0x00 |0x01 |0x02 |0x03 |0x04 |0x05|
-> > > +   | 1   | 2   |port |line | err | dir|
-> > > +   +-----+-----+-----+-----+-----+----+
-> > 
-> > Sorry, but i don't see how two u8 vs six u8 are the same message format.
-> > 
-> 
-> Some changes to the message format are necessary.
-> 
-> Virtio uses two communication channels (virtqueues): one for requests and replies, and a second one for events. 
-> In contrast, rpmsg provides only a single communication channel, so a type field is required to distinguish between 
-> different kinds of messages.
-> 
-> Since rpmsg replies and events share the same message format, an additional line is introduced to handle both cases.
-> 
-> Finally, rpmsg supports multiple GPIO controllers, so a port field is added to uniquely identify the target controller.
+This patch series primarily adds the powerdown-gpios support
+for the IS31FL32xx controller.It also includes a fix and
+dt-bindings updates derived from previous attempts [1].
 
-I have commented on this before - RPMSG is already providing multiplexing
-capability by way of endpoints.  There is no need for a port field.  One
-endpoint, one GPIO controller. 
+Patch 1 and patch 2 are based on a previous attempt [1].
+The driver-related updates in patch 2 have already been merged.
 
-> 
-> Shenwei
-> 
-> >        Andrew
+Patch 3 and Patch 4 add support for the powerdown-gpios property,
+which corresponds to the SDB pin of the IS31FL32xx series chips.
+This pin is used to enter and exit the hardware powerdown mode.
+
+Patch 5 fixes errors introduced by previous changes. It impacts
+the brightness control function of the IS31FL3236.
+
+[1] https://lore.kernel.org/all/20250723-leds-is31fl3236a-v6-0-210328058625@thegoodpenguin.co.uk/
+
+Changes in v3:
+- Replace shutdown-gpios with powerdown-gpios, follow gpio-consumer-common binding.
+- Link to v2: https://lore.kernel.org/all/20260428023401.330308-1-jerrysteve1101@gmail.com/
+
+Changes in v2:
+- Fix $id mismatch with file name in dt-binding.
+- Link to v1: https://lore.kernel.org/all/20260428003412.322032-1-jerrysteve1101@gmail.com/
+
+Jun Yan (5):
+  dt-bindings: leds: is31fl32xx: convert the binding to yaml
+  dt-bindings: leds: leds-is31fl32xx: add support for is31fl3236a
+  dt-bindings: leds: leds-is31fl32xx: Add powerdown-gpios property
+  leds: is31fl32xx: Add powerdown pin to exit hardware shutdown mode
+  leds: is31f132xx: Fix missing brightness_steps for is31f13236
+
+ .../bindings/leds/issl,is31fl32xx.yaml        | 200 ++++++++++++++++++
+ .../bindings/leds/leds-is31fl32xx.txt         |  53 -----
+ drivers/leds/leds-is31fl32xx.c                |   7 +
+ 3 files changed, 207 insertions(+), 53 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/issl,is31fl32xx.yaml
+ delete mode 100644 Documentation/devicetree/bindings/leds/leds-is31fl32xx.txt
+
+-- 
+2.53.0
+
