@@ -1,113 +1,181 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C428A3BB9E4;
-	Wed, 29 Apr 2026 18:49:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D16221773D;
+	Wed, 29 Apr 2026 18:50:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777488578; cv=none; b=Bhn0e5vlaXESLfgkMGKyE4ObRarCBlNTrSlI5cbjnDLS3tqaDq+y7DJCXBOuwvzX4hJsa/RJkr7UOqBwvaEJVjfOvmM1Zp3bEXP0mimDYji/3fKUAU7107VtN47jNYFIdaSOcO4bcYHSYkwGY38Gp5ouxRJMS0ernO6OVlpytUs=
+	t=1777488601; cv=none; b=fNLi6OvVNNUeT179g+M0e0fL47jwoEwJGXtNpXPh1Vsz8klMxJluwsdAkETXDVQJC8KE4u7UsJG090mBNGC3epkLrtuJfpG0AMkuz2QdSy87Jd/CixWo77pX3IYODTRTCd66uQiUY0kVEe79hE/mdWQcNr0DXwQkAd/ov6telwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777488578; c=relaxed/simple;
-	bh=WnLYOACUjtaK5n3MgY1yIetQs3I59sfWjGjjqjxJg+g=;
+	s=arc-20240116; t=1777488601; c=relaxed/simple;
+	bh=SJYZ4NAfB0jKA2r12K3oUXg2EYSzdPCWQ44kjGJMgLo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q0n9ObCOtewZWkMN8jnAZYuDyxDJoRrWiaF2uPQJKbFRDlTaQiNMRhf+EHJEzLWa6A3qyyIsUN+eG5oak2+RoN3ydT0IXfvyMAgbnAxs5XfDLXi6FRry3vTJgFqLGMAikw+leS5otHlJfOh+xThupmLOsEWZTcC/HDQCm8rYHfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K28e2LpG; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y8d3GB9m/dXDD2mHkRdNmoQFB7eB/3zTX/q2zVGwSAoz/lbJPZWwZUccCBU+Ztr5Bx7Lduu2acbDR+sn4a7ZAhscpIvAspOQ2fcqjws9otexxPw7d6vgC5Tojc4E7tlUoeBZlHLSJ42Vl8FwwBiSheoqJr7o2kilxoiLAwblozk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZiKs4+Ko; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K28e2LpG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777488574; x=1809024574;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WnLYOACUjtaK5n3MgY1yIetQs3I59sfWjGjjqjxJg+g=;
-  b=K28e2LpGnuuxg2/3foA4BNNQaKmPYrpQFrtN418HE/crVgx39lth0WqU
-   LZ57sW+V6z3L9TlaycgGkq5WJQrSeZu0vPrfU/og4beCcyYgMpwd0RPVl
-   WDuaWw88YCi+ljDAWi8xIX8Q67wUwOIJrzYMzN/nKMI8G73jQvs/0+1qQ
-   K73Z02sFcaTJXVsNA7U02LeaZ+ux2Ry4Jf1vGwltZ/zj5IGopWCrIQvhs
-   sVPp9cyBxTqgpA9p7YI6Ena8bwxKk5T85+ff88TFNJ6dWXx8la1268olp
-   iRdoyCTq215l9ApLDfSugL7c8AUlhkkBbWIwDY9vu2hyIs+aShKtCIeXy
-   A==;
-X-CSE-ConnectionGUID: wbsuCpV0SziU953FUGgI+w==
-X-CSE-MsgGUID: 78xg14N4RVWpHq7Y8s3ffQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11771"; a="78322611"
-X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; 
-   d="scan'208";a="78322611"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Apr 2026 11:49:28 -0700
-X-CSE-ConnectionGUID: 074RzClnST2/pYcStRKTKw==
-X-CSE-MsgGUID: o9umrVM5QSCWWLEvFb0s/Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; 
-   d="scan'208";a="229750727"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.141])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Apr 2026 11:49:25 -0700
-Date: Wed, 29 Apr 2026 21:49:22 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Piyush Patle <piyushpatle228@gmail.com>
-Cc: ak@it-klinger.de, jic23@kernel.org, dlechner@baylibre.com,
-	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 08/11] iio: adc: hx711: localize loop iterators in
- hx711_read
-Message-ID: <afJSsrKPn3v3fXrp@ashevche-desk.local>
-References: <20260429054544.123862-1-piyushpatle228@gmail.com>
- <20260429054544.123862-9-piyushpatle228@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZiKs4+Ko"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BEF6C19425;
+	Wed, 29 Apr 2026 18:50:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777488600;
+	bh=SJYZ4NAfB0jKA2r12K3oUXg2EYSzdPCWQ44kjGJMgLo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZiKs4+KokO+v2SHr7cJRFjeswZtDWAzjDIi7YJZLFDicOWa42t0FtJ97scrmoiUiL
+	 YsjvGJNaROhTcz31Xxw3IN36HhQVVkTcvWofiM/u+JdnNoCJi51qAjuL9iY8yXa9Cz
+	 Lb9/EVcoz/DZ+6UJcQJsHcrbjdeaCuXDVqP+XDLo6nc+fEiZO+5RR09YgxNVqmsRE6
+	 f2xwQcVnUTNF42WTKHXUSjGizaJUfdHMQHie5vUwjbIFkMu4R84ualDCvczf7C1DBq
+	 GgfoEPpj4WRW5lJCJtmyi77fcvlk4IwucF/VAif6QEZdu8VOln9b5y5Cz4cpHWGcEl
+	 285blVyaIgMGw==
+Date: Wed, 29 Apr 2026 20:49:58 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Maxime Ripard <mripard@redhat.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
+	John Stultz <jstultz@google.com>, "T . J . Mercier" <tjmercier@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@redhat.com>, 
+	Mike Rapoport <rppt@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2 06/10] dma-buf: heaps: Add support for Tegra VPR
+Message-ID: <afJSQbArB8USb6mt@orome>
+References: <20260122161009.3865888-1-thierry.reding@kernel.org>
+ <20260122161009.3865888-7-thierry.reding@kernel.org>
+ <20260123-meteoric-butterfly-of-imagination-fd691f@houat>
+ <aY3nov29aBGWw93Y@orome>
+ <20260218-voracious-orchid-malamute-febce0@houat>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="d2myfaz5io3m7bs5"
 Content-Disposition: inline
-In-Reply-To: <20260429054544.123862-9-piyushpatle228@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Wed, Apr 29, 2026 at 11:15:41AM +0530, Piyush Patle wrote:
-> Tighten the scope of the loop variables in hx711_read() now that the
-> trailing-pulse refactor is in place.
-> 
-> No functional change.
-
-Suggested-by:?
-
-...
-
->  static int hx711_read(struct hx711_data *hx711_data, int trailing_pulses)
->  {
-> -	int i, ret;
-> +	int ret;
->  	int value = 0;
->  	int val = gpiod_get_value(hx711_data->gpiod_dout);
-
-Try to place it to follow reversed xmas tree order (yes, it doesn't and won't
-fully be, but it will be step closer).
-
-	int value = 0;
-	int val = gpiod_get_value(hx711_data->gpiod_dout);
-	int ret;
-
-But as you see, this needs to be coupled with splitting definition and
-assignment of val, hence
-
-	int value = 0;
-	int val;
-	int ret;
-
-	val = gpiod_get_value(hx711_data->gpiod_dout);
-
-This part should be in a separate change before you are doing the loop
-iterators.
-
-TL;DR: Should be two patches here: 1) split val assignment; 2) this patch with
-proper location of int ret.
-
--- 
-With Best Regards,
-Andy Shevchenko
+In-Reply-To: <20260218-voracious-orchid-malamute-febce0@houat>
 
 
+--d2myfaz5io3m7bs5
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 06/10] dma-buf: heaps: Add support for Tegra VPR
+MIME-Version: 1.0
+
+On Wed, Feb 18, 2026 at 10:42:22AM +0100, Maxime Ripard wrote:
+> On Thu, Feb 12, 2026 at 03:50:09PM +0100, Thierry Reding wrote:
+> > On Fri, Jan 23, 2026 at 02:30:14PM +0100, Maxime Ripard wrote:
+> > > Hi,
+> > >=20
+> > > On Thu, Jan 22, 2026 at 05:10:05PM +0100, Thierry Reding wrote:
+> > > > From: Thierry Reding <treding@nvidia.com>
+> > > >=20
+> > > > NVIDIA Tegra SoCs commonly define a Video-Protection-Region, which =
+is a
+> > > > region of memory dedicated to content-protected video decode and
+> > > > playback. This memory cannot be accessed by the CPU and only certain
+> > > > hardware devices have access to it.
+> > > >=20
+> > > > Expose the VPR as a DMA heap so that applications and drivers can
+> > > > allocate buffers from this region for use-cases that require this k=
+ind
+> > > > of protected memory.
+> > > >=20
+> > > > VPR has a few very critical peculiarities. First, it must be a sing=
+le
+> > > > contiguous region of memory (there is a single pair of registers th=
+at
+> > > > set the base address and size of the region), which is configured by
+> > > > calling back into the secure monitor. The memory region also needs =
+to
+> > > > quite large for some use-cases because it needs to fit multiple vid=
+eo
+> > > > frames (8K video should be supported), so VPR sizes of ~2 GiB are
+> > > > expected. However, some devices cannot afford to reserve this amount
+> > > > of memory for a particular use-case, and therefore the VPR must be
+> > > > resizable.
+> > > >=20
+> > > > Unfortunately, resizing the VPR is slightly tricky because the GPU =
+found
+> > > > on Tegra SoCs must be in reset during the VPR resize operation. Thi=
+s is
+> > > > currently implemented by freezing all userspace processes and calli=
+ng
+> > > > invoking the GPU's freeze() implementation, resizing and the thawin=
+g the
+> > > > GPU and userspace processes. This is quite heavy-handed, so eventua=
+lly
+> > > > it might be better to implement thawing/freezing in the GPU driver =
+in
+> > > > such a way that they block accesses to the GPU so that the VPR resi=
+ze
+> > > > operation can happen without suspending all userspace.
+> > > >=20
+> > > > In order to balance the memory usage versus the amount of resizing =
+that
+> > > > needs to happen, the VPR is divided into multiple chunks. Each chun=
+k is
+> > > > implemented as a CMA area that is completely allocated on first use=
+ to
+> > > > guarantee the contiguity of the VPR. Once all buffers from a chunk =
+have
+> > > > been freed, the CMA area is deallocated and the memory returned to =
+the
+> > > > system.
+> > > >=20
+> > > > Signed-off-by: Thierry Reding <treding@nvidia.com>
+> > >=20
+> > > Aside from the discussion on CMA, it doesn't look like the heap defin=
+es
+> > > anywhere the attributes of the allocated buffers this heap provides.
+> >=20
+> > Attributes like what? Where would you expect the driver to define this?
+> > I don't see anything in struct drm_heap_export_info that sounds like
+> > what you expect, nor does the allocation ABI provide any means of
+> > reporting attributes.
+> >=20
+> > There's also not a whole lot to this, other than that the memory
+> > allocated by this can't be accessed by anything other than a select set
+> > of devices. You can't have any CPU access to these buffers (the hardware
+> > will refuse to let the CPU read from this memory) either, which is
+> > hinted at by the fact that no mmap() operations are allowed.
+> >=20
+> > Can you elaborate what you're looking for?
+>=20
+> Are the buffers you're getting when allocating cacheable? uncacheable?
+> mappable? physically or virtually contiguous? etc.
+>=20
+> See
+> https://docs.kernel.org/userspace-api/dma-buf-heaps.html#heaps
+
+The CPU doesn't have access to the contents of these buffers, so
+cacheable or uncacheable aren't really meaningful, but I guess they are
+unmappable in that sense. The buffers are physically contiguous, but I
+think "protected" is the right name for the heap since it most
+accurately describes what the purpose (and access pattern) is.
+
+Thierry
+
+--d2myfaz5io3m7bs5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnyUtYACgkQ3SOs138+
+s6FR+g/+KsYWfQUZ129aKCUNsoLuGu/cyN7j8T6Z/3ilgL0EC9R58tbva6UNIcs8
+8r2onzdPn4w0huB+6STgpihIyHcmj/Uz+Oe99KMc9dtsU9ZJQ3ZXimgI74FU+Rpw
+etJC0iu8ZzUj4E46mO2wUxhq1Hw9v/+ozBlejV1Z2+07PrfxYANnB6AfrJctpWfR
+oHSChS/KXwfgBN4VJUcDr9Oe9ldyzolQp/8zUNYjfIn7U8y/RzJrm/qk6llDpqmX
+JVnqBG6sPty/tCi48FH6zyrD3xTi83Od3oxpLVTPk/wIOJANhJ1EMDXWicQwrWLc
+eeGvG0WWTNx7+8Ej95VB/LPguytkBN3QwJwZb9d9gBOYKewiKLM41fSMhSpIjz+j
+3g0DhGqKSSlk4mVqw1BQik6+wIBGCSQSZxXnqjtwOoCy7XREJbU+POiSKnczfm7/
+5+YVt7Se5070nu3fc1Pl9m0vlacUB6PfYKpR47BJE8KbT5hcyDUpAK96Spo4d1L0
+B+mC14GNVj1/cAV9X82JR8MhB+IsZLgWKoXV7VKQOmrQmmN7WF78iCiiYWQ0/1CY
+f98vLHUgPFfpyp2laMldeuILA1YYOX73cANruKUqSz2baWdNV/YEAkShnVJxDynq
+sUPyc9EarzQeCDHok0jWlg+/+IlZJoXgOHIt3ToaY3R0kns97JI=
+=hyUh
+-----END PGP SIGNATURE-----
+
+--d2myfaz5io3m7bs5--
