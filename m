@@ -1,170 +1,167 @@
-Received: from flow-b5-smtp.messagingengine.com (flow-b5-smtp.messagingengine.com [202.12.124.140])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B746277C9D;
-	Wed, 29 Apr 2026 21:36:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BCB8359A6C;
+	Wed, 29 Apr 2026 22:11:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777498590; cv=none; b=OOmxWLN2QsHTwQeo6p6f8k+teshnh73wZAWfbNLzCibQrlMdr1OfyqtWgIeB7k/P3cxr/gXadkc627BRxD8jJ/nNCl9gNQo6JcSz3yvyFrGdLHB5RES7DPikQt3eE9MUkChTgcsLZwQt3LA9vjeqFoFrZkKppu0oGfcCVQIUti4=
+	t=1777500719; cv=none; b=EbDt8tKLVDnSMLjtb7IZr+kZHG5PFY4/ZZwO4/f97YgRBo8/jb+WE371Ywbe8WID6KJHrDbIDPfL7kYqXuCIyOdYpu9rPHF5C/NMBEdFsR7+4W6H+JLTwVCDj4fJzM2TpMW78Ybeyg+vBxRpAAOQZNAU8ooU9Y/aJ0s2i1Cwjgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777498590; c=relaxed/simple;
-	bh=klf0tstlaQQRwsbPlrG8dRk7UxgfXScT7I6Ug1NVWqo=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=ggtG+0VCwswovEzdH5WmOOnreU2mKXBGD+b8toIa4Fwu+ItbduLrHAgfN1t6eofq3ZQMxViySTbikThdUGYWvitAPL9XmQGNadm1IUxvE8gkIWkUIVY3mGqymUovYCUXYT/S1pfukX8LmxgGkHKsQFbuDMyjzfFGc4a2wYp6Npg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Jr+R6Qpk; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=lH+dIeKq; arc=none smtp.client-ip=202.12.124.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1777500719; c=relaxed/simple;
+	bh=YIv9iZYultS1nlhWrV7cBQansovtAf+/IYGOeXT8hXE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S1xpht285VC6kZGE2YREa263ACKutMUa26wAlN++QVpwLX1EprvNHtj84u1B5Fp10j72X+sc+osx3nJ8sDyjGhShkShvKGqxkic/PR3bhbgWL+dNDL885yIbHBexMbHH3MM6iGSfBpFofp4z/dTspHToWkDNOrGnacg3CT3N8xU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=mSfKIVal; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Jr+R6Qpk";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="lH+dIeKq"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailflow.stl.internal (Postfix) with ESMTP id BF9B4130036A;
-	Wed, 29 Apr 2026 17:36:26 -0400 (EDT)
-Received: from phl-imap-02 ([10.202.2.81])
-  by phl-compute-04.internal (MEProxy); Wed, 29 Apr 2026 17:36:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1777498586;
-	 x=1777505786; bh=5c6EKeRaeRgw2IP6/aj0vwG5gMU6SBqRhc9H6l67RiQ=; b=
-	Jr+R6QpkxIywS/7WcSX44vaN9mfpxh7lBC2ezZrvdvuA/yI+NBgPqA9p1STNkGxv
-	+d48HacyNpKlIYgICiGd2MaHDc9qZjiR7fn+eFjIL70w+t2NjuHnAaHPu+W5YBJg
-	ANsGVbscLAui2TZcyw/0j58ke/CfVlQCeQhDi4ZcbrBNt6Z9hu1LCHdKLJbIy//W
-	9Wl16IcsT1sYF8P8bBxmIhuWzinkqAP0KyxuCpZY2eipNp6hADnDn89bKQlXLXPU
-	+twHMtrBu3HzhxOv21mgHo069Hz4yZynJw3+ds/cBumeITKX3FxdSb/JRljN7qKL
-	LrN53qX0XMZKZuAwWviCSA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1777498586; x=
-	1777505786; bh=5c6EKeRaeRgw2IP6/aj0vwG5gMU6SBqRhc9H6l67RiQ=; b=l
-	H+dIeKqoYkoZhzjlRFOgPwh6Y2FWWcE8/DB5spvkDaBfxAULdmlBIkLHMmkvMZwT
-	gViu6vzN/tIYlHs2lUsOq1RZY94Lpo8XT9gxDpc8lM1EU49KKT1787DaKatfnIfu
-	C8w3KTJqxEU2iZZlk86pBDCo6g3y6v3cyki8SnkAU7IQWMkpiXS37XAjhOxMHkNl
-	iF8td4IVsEJ2gpictINOm+8jDDgXLno5xEX7JlFPNdIa0Y1PFdTDe6qO7r9/HsKE
-	JygEHebypLDS5V2Nf3FvK2DixXjhRspCzvu6BeKxrIcMBU8Uvnj88RiMdn06lnwF
-	pV8f4LNsk6g8tuO6FqGLw==
-X-ME-Sender: <xms:2nnyae4igw8uVEMMztjiAbf_zsCdn6yhDMpsb1lqcNZA7PPowcjEuA>
-    <xme:2nnyaSuHLt8KUulleeBoxX1S6dP-b1Gw_xoLfgASRLEQVlyK_4tx17HEAp0NdPaua
-    94grnG3ddm8JJnAA229mKBXPmqyzQgMsMDH9RNU79Qj1PXshC7ztg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdekheehgecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpefoggffhffvvefkjghfufgtgfesthejredtredttdenucfhrhhomhepfdetrhhnugcu
-    uegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrghtthgvrh
-    hnpefhtdfhvddtfeehudekteeggffghfejgeegteefgffgvedugeduveelvdekhfdvieen
-    ucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrrhhnug
-    esrghrnhgusgdruggvpdhnsggprhgtphhtthhopedvjedpmhhouggvpehsmhhtphhouhht
-    pdhrtghpthhtohepthhonhihsegrthhomhhiuggvrdgtohhmpdhrtghpthhtohepsggtoh
-    hushhsohhnsegsrgihlhhisghrvgdrtghomhdprhgtphhtthhopehkhhhilhhmrghnsegs
-    rgihlhhisghrvgdrtghomhdprhgtphhtthhopegurghvvghmsegurghvvghmlhhofhhtrd
-    hnvghtpdhrtghpthhtoheptghhuhhnkhgvvgihsehgmhgrihhlrdgtohhmpdhrtghpthht
-    ohepughmihhtrhihrdhtohhrohhkhhhovhesghhmrghilhdrtghomhdprhgtphhtthhope
-    gvughumhgriigvthesghhoohhglhgvrdgtohhmpdhrtghpthhtoheprggrrhhordhkohhs
-    khhinhgvnhesihhkihdrfhhipdhrtghpthhtoheprghnughrvggrsheskhgvmhhnrgguvg
-    drihhnfhho
-X-ME-Proxy: <xmx:2nnyaQVgbuPYwQ5PhORdbzIQH5UhjHsL72TZyvElKtkH1aaRbv438Q>
-    <xmx:2nnyadxpkCobOu3ZukawY3SpbfPzxsOghsEgMP3SNhGL8Vb0cspQDQ>
-    <xmx:2nnyaeibFjsc08s8EhBQwOqVh2QaA3ndmeaPDON86htoMSYXBjMHIA>
-    <xmx:2nnyaQMltp_xmQ2nS6jRq7wyIVO4JwQcWZDKNPUXxJb4EIrvy47p3A>
-    <xmx:2nnyaXavduEMWLUdY2sB7yCKpzJ24ICtTtce4Ut1i37Vrhc5Zf-xsmEA>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id EA351700065; Wed, 29 Apr 2026 17:36:25 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="mSfKIVal"
+Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A502E241;
+	Thu, 30 Apr 2026 00:10:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1777500610;
+	bh=YIv9iZYultS1nlhWrV7cBQansovtAf+/IYGOeXT8hXE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mSfKIValxq5w1WchamENa9pwEWRxuBmTjrS98h4LZL7njev2Z0awfkAzZssAw4nrc
+	 vs/iG2YiB1lTOAXhn8RbNg7raRn/BOJSam9x6xVQb9j4+saYDhOjYOfkjJxDO7qkA3
+	 nAWdf1hhHh16pPWimm6qsNCNwWj0RNDe4+xLuGM0=
+Date: Thu, 30 Apr 2026 01:11:53 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	Nguyen Tran <nguyen.tran.pz@bp.renesas.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 6/7] arm64: dts: renesas: r8a779md: Add Renesas R-Car
+ R8A779MD M3Le DTs
+Message-ID: <20260429221153.GD132396@killaraus.ideasonboard.com>
+References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org>
+ <20260419193718.133174-7-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A9F4XwaMmS3c
-Date: Wed, 29 Apr 2026 23:35:44 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Arnd Bergmann" <arnd@kernel.org>
-Cc: "Aaro Koskinen" <aaro.koskinen@iki.fi>,
- "Andreas Kemnade" <andreas@kemnade.info>,
- "Bartosz Golaszewski" <brgl@kernel.org>,
- =?UTF-8?Q?Beno=C3=AEt_Cousson?= <bcousson@baylibre.com>,
- "David S . Miller" <davem@davemloft.net>,
- "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- "Eric Dumazet" <edumazet@google.com>, "Felipe Balbi" <balbi@kernel.org>,
- "Jakub Kicinski" <kuba@kernel.org>,
- "Johannes Berg" <johannes@sipsolutions.net>,
- "Kevin Hilman" <khilman@baylibre.com>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Linus Walleij" <linusw@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
- "Rob Herring" <robh+dt@kernel.org>, "Roger Quadros" <rogerq@kernel.org>,
- "Tony Lindgren" <tony@atomide.com>, linux-wireless@vger.kernel.org,
- Netdev <netdev@vger.kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Linux-OMAP <linux-omap@vger.kernel.org>,
- "Christian Lamparter" <chunkeey@gmail.com>
-Message-Id: <556b64c4-febb-4dc6-8d51-1b1c2d2c6aa6@app.fastmail.com>
-In-Reply-To: <e4a7e9d8-7091-4520-a634-ff0a44eb5139@kernel.org>
-References: <20260427142355.2532714-1-arnd@kernel.org>
- <20260427142355.2532714-4-arnd@kernel.org>
- <e4a7e9d8-7091-4520-a634-ff0a44eb5139@kernel.org>
-Subject: Re: [PATCH v3 3/3] p54spi: convert to devicetree
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260419193718.133174-7-marek.vasut+renesas@mailbox.org>
 
-On Wed, Apr 29, 2026, at 10:07, Krzysztof Kozlowski wrote:
-> On 27/04/2026 16:23, Arnd Bergmann wrote:
->>  
->> -	ret = gpio_request(p54spi_gpio_power, "p54spi power");
->> -	if (ret < 0) {
->> -		dev_err(&priv->spi->dev, "power GPIO request failed: %d", ret);
->> +	priv->gpio_powerdown = gpiod_get(&spi->dev, "powerdown", GPIOD_OUT_HIGH);
->> +	if (IS_ERR(priv->gpio_powerdown)) {
->> +		ret = PTR_ERR(priv->gpio_powerdown);
->> +		dev_err(&priv->spi->dev, "powerdown GPIO request failed: %d", ret);
->
-> Binding said it is optional, so this cannot be a failure.
->
-> Also, please use ret = dev_err_probe syntax.
+Hi Marek,
 
-Ok, fixed both.
+Thank you for the patch.
 
->> @@ -686,10 +659,19 @@ static void p54spi_remove(struct spi_device *spi)
->>  	p54_free_common(priv->hw);
->>  }
->>  
->> +struct of_device_id p54spi_of_ids[] = {
->
-> static const
+On Sun, Apr 19, 2026 at 09:35:37PM +0200, Marek Vasut wrote:
+> From: Nguyen Tran <nguyen.tran.pz@bp.renesas.com>
+> 
+> Add support for the Renesas R-Car M3Le (R8A779MD) SoC, a variant of the
+> R-Car M3-N (R8A77965) SoC. The Renesas M3Le SoC is a register-compatible
+> variant of the R8A77965 (M3-N) with reduced set of peripherals.
+> 
+> Signed-off-by: Nguyen Tran <nguyen.tran.pz@bp.renesas.com>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> ---
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Cc: Magnus Damm <magnus.damm@gmail.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Michael Turquette <mturquette@baylibre.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Stephen Boyd <sboyd@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-clk@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+>  arch/arm64/boot/dts/renesas/r8a779md.dtsi | 48 +++++++++++++++++++++++
+>  1 file changed, 48 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/renesas/r8a779md.dtsi
+> 
+> diff --git a/arch/arm64/boot/dts/renesas/r8a779md.dtsi b/arch/arm64/boot/dts/renesas/r8a779md.dtsi
+> new file mode 100644
+> index 0000000000000..7e0f5fe4cd439
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/renesas/r8a779md.dtsi
+> @@ -0,0 +1,48 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +/*
+> + * Device Tree Source for the R-Car M3Le (R8A779MD) SoC
+> + *
+> + * Copyright (C) 2025-2026 Renesas Electronics Corp.
+> + */
+> +
+> +#include "r8a77965.dtsi"
+> +
+> +/ {
+> +	compatible = "renesas,r8a779md", "renesas,r8a77965";
+> +};
+> +
+> +/delete-node/ &csi20;
+> +/delete-node/ &drif00;
+> +/delete-node/ &drif01;
+> +/delete-node/ &drif10;
+> +/delete-node/ &drif11;
+> +/delete-node/ &drif20;
+> +/delete-node/ &drif21;
+> +/delete-node/ &drif30;
+> +/delete-node/ &drif31;
+> +/delete-node/ &hdmi0;
+> +/delete-node/ &mlp;
+> +/delete-node/ &pciec1;
+> +/delete-node/ &sata;
+> +/delete-node/ &sdhi3;
+> +/delete-node/ &usb3_peri0;
+> +/delete-node/ &usb3_phy0;
+> +/delete-node/ &vin0csi20;
+> +/delete-node/ &vin1csi20;
+> +/delete-node/ &vin2csi20;
+> +/delete-node/ &vin3csi20;
+> +/delete-node/ &vin4csi20;
+> +/delete-node/ &vin5csi20;
+> +/delete-node/ &vin6csi20;
+> +/delete-node/ &vin7csi20;
+> +/delete-node/ &xhci0;
+> +
+> +&du {
+> +	compatible = "renesas,du-r8a779md";
+> +	renesas,cmms = <&cmm0>, <&cmm3>;
 
-I would have expected that to trigger a compile-time warning for a
-missing declaration, not sure what happened here. Fixed now.
+Shouldn't you then also delete the cmm1 node ?
 
->> +	{ .compatible = "cnxt,3110x", },
->> +	{ .compatible = "isil,p54spi", },
->> +	{ .compatible = "st,stlc4550", },
->> +	{ .compatible = "st,stlc4560", },
->
-> At least last two devices are then compatible, so this should be
-> expressed in the binding with fallback and drop stlc4560 here. Maybe all
-> of them are compatible.
+And does the DU still need three clocks and three interrupts ?
 
-The driver doesn't know the difference, so I assume they are
-either all compatible, or the other ones don't actually work.
-I've dropped everything except  "st,stlc4550" now, as that is the
-one I used in the dts file. I kept the other identifiers
-in the binding as:
+> +	renesas,vsps = <&vspd0 0>, <&vspd1 0>;
+> +
+> +	ports {
+> +		/delete-node/ port@1;
+> +	};
+> +};
 
-  compatible:
-    oneOf:
-      - const: st,stlc4560
-      - items:
-          - enum:
-              - cnxt,3110x
-              - st,stlc4550
-              - isil,p54spi
-          - const: st,stlc4560
+-- 
+Regards,
 
-Not sure if that's the best way to express this.
-
-       Arnd
+Laurent Pinchart
