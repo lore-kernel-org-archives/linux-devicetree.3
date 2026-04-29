@@ -1,131 +1,102 @@
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1853A1A2F;
-	Wed, 29 Apr 2026 09:36:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.175.55.52])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B7203BC668;
+	Wed, 29 Apr 2026 09:39:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.175.55.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777455380; cv=none; b=n6BBP3bRtwvxEvvrFts2QFuQIlDhdfE/hONFBINJryrzHEdc5uJEk/SyiMfYbIhhv0Dc/mCf+vGUkLF/Ifg9QhueyDARjgDlqgIMfbXrSV8z1ygoP3bAw1ond6EuFXTuVeBhYYGyjsworn+crz/gCt1l0yXQY4PzmAWmNrUS8cQ=
+	t=1777455554; cv=none; b=G51pS35FfZijaSVTwbUj3gJvSGe1JXlTOlxyv+xIdaYBvIa9ZT5PB4qw2Oh3qItIA3H00JiT4RpzIwJ0SDe/i9UajjNSt8fe/Xk/CSGd9Ugp08rueCH9J19rdi2COZ45Zmtot7SARyqXPQJ65YrdBJ0HJFPfH49oha3/bZi/P0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777455380; c=relaxed/simple;
-	bh=Xf6zZJzgLMvmAW30t87H7JUR7g6g8WBSZqFVbcO1fkc=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=PPMBhh6eYCfvpWFbvzxa4dRtIV6fYmxG3+w9rvKvRRljnGpwmcLdcX8ZZ8KniDCUl9tql4uo0W2Y5Ym8OZxGc4kECXdbsQHxQ3A4LG/t/IYMGM+JvlJ14TwWNyQK341rYhQOncAS59/Hq1CHRNjhMOvJe6tnHlxPd0KIEBN/4NI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=flygoat.com; spf=pass smtp.mailfrom=flygoat.com; dkim=pass (2048-bit key) header.d=flygoat.com header.i=@flygoat.com header.b=liFlFwoG; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VhRNBFCH; arc=none smtp.client-ip=103.168.172.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=flygoat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flygoat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flygoat.com header.i=@flygoat.com header.b="liFlFwoG";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VhRNBFCH"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id A2BA4EC018B;
-	Wed, 29 Apr 2026 05:36:18 -0400 (EDT)
-Received: from phl-imap-08 ([10.202.2.84])
-  by phl-compute-03.internal (MEProxy); Wed, 29 Apr 2026 05:36:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flygoat.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1777455378;
-	 x=1777541778; bh=RrrQxnCiP4A6oVNx6GsMcrgkKaGPOhYYSIH0FcBHhLk=; b=
-	liFlFwoGDYgC23B+Kwgw0pkhWWNfLZ2ELx9qRFn7ScjmQq/5KmK96ZZMWwZgvmCO
-	QCXNTLuRNtBSk6BH/TuxXiZqVgzQnoBhAnpmFSXDlMfsYrR33uis3kw7un/qkPzI
-	mnPiio298np+BGbH11N7iaFv9nKqy7CNK0m2wJjX22WmX3uKCP37cidA/nvMDdOL
-	2YQYK0wqxn32BpHFrXP4zRTS/6Bfm+2HlrlwnpcoJEDRjqRYATuuKoczYzv1/Mm0
-	EcU5MAARlBYkI8CTr7FSZQUzu3Y99N1GJ2YPRUbB2Vr8e8smW6UG1dBOBJ0agcBb
-	DZNVFGB3M1iJmE/kWP7+5Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1777455378; x=
-	1777541778; bh=RrrQxnCiP4A6oVNx6GsMcrgkKaGPOhYYSIH0FcBHhLk=; b=V
-	hRNBFCHaHknS3aWRi6PDhQst5r5ROGYzfEnDZ9aQcc+e/C7gwHfbAcy/UTeC4d2z
-	RbcUSLGiazuYxTiYFakA1ho8nxmR7ZSLz7OlXyZKwWI5RyqRDrZYwCF/1wlnp6ls
-	nRV8lJgaQLEM6wKeQm632kLgH9G0uYtJKRgr2Hjm7T/0U/5iD1EvFbe6ZyLWEvrd
-	Pn4YVep+PkD9nIDfdhM9SviM+qs7a9JBvEUkFt1OWADgb4oc0IJS2SqvHHPuwcpW
-	tb1DUjPmfGyrFhyKuxx5aVZYZFOYwwx8aGot1vz7aM/1Zcpc7Mu/CqA9k+qnIXju
-	p38jm55yIMR1hhwn5YLhw==
-X-ME-Sender: <xms:EdHxaQqQl1rGrNqLNPEFB20pswlrXXKKRUDlw2HGL2Mt23gKizGUgw>
-    <xme:EdHxaRckuA4aIVspRX7Vwaws32pblT9FkIunAV3iBHfvj7XZuAbJx-53T117XdQH7
-    mvHrZI8KLu3v7BNfaXPLx_lpOHSBGCfTQakKyuQOKlaAyU4v_S5Og>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdekgedtlecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpefoggffhffvvefkjghfufgtgfesthejredtredttdenucfhrhhomhepfdflihgrgihu
-    nhcujggrnhhgfdcuoehjihgrgihunhdrhigrnhhgsehflhihghhorghtrdgtohhmqeenuc
-    ggtffrrghtthgvrhhnpefhtefhuddtieegleeuiedttdehheduveffjeettdekvdeuiedt
-    udejfeeijeeifeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfh
-    hrohhmpehjihgrgihunhdrhigrnhhgsehflhihghhorghtrdgtohhmpdhnsggprhgtphht
-    thhopeekpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehtshgsohhgvghnugesrg
-    hlphhhrgdrfhhrrghnkhgvnhdruggvpdhrtghpthhtohepiihhvghnghigihhnghgurges
-    ihhstggrshdrrggtrdgtnhdprhgtphhtthhopegtohhnohhrodgutheskhgvrhhnvghlrd
-    horhhgpdhrtghpthhtohepkhhriihkodgutheskhgvrhhnvghlrdhorhhgpdhrtghpthht
-    oheprhhosghhsehkvghrnhgvlhdrohhrghdprhgtphhtthhopeguvghvihgtvghtrhgvvg
-    esvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehlihhnuhigqdhkvghrnhgv
-    lhesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehlihhnuhigqdhmihhpsh
-    esvhhgvghrrdhkvghrnhgvlhdrohhrgh
-X-ME-Proxy: <xmx:EdHxaX7k3I-3o4O8j_P--SAa_vZvv7qzlQ3-FPpeay1wKWRP83kq4A>
-    <xmx:EdHxadUzILC4Q1aAiffPCMKtTQa43vwVXu8Axhq0Xo7YYJxd8XkLcw>
-    <xmx:EdHxafJrqjPb5nrK4RMV_BimM_Tc1-oL8T4FgOkyENLX-L34Q4Sl-w>
-    <xmx:EdHxaftIb_Ngp2uk4oW12e-eLK1jA0_3OrU1NxD5_XvjIIp_lzSshA>
-    <xmx:EtHxab6R05X8krldV1dMOT4erXvQi5jvAwKZHo6d3lAOnf7fWcWAZaAA>
-Feedback-ID: ifd894703:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id A25F72CE0072; Wed, 29 Apr 2026 05:36:17 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1777455554; c=relaxed/simple;
+	bh=CsXoKp3QU4hX0jOGETgiJGVyBgiXEmemloORdgsX8ag=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=mwai0VG+8c0+/2hoZQFv8onqkl8AmGtBq128mjihad4wcF4kOYpPNmUf/4VT6sQiG1hAE9YjzOpGf/TwSHh7aZYDZvT+K1jlsPc59nMOOdod5jgWysAV6VX95KHtki/yhYfFrlLsRukSWsIw6tpJ9PsOSEfv/pXqPiWcpsVOXig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.175.55.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
+ ajax-webmail-app2 (Coremail) ; Wed, 29 Apr 2026 17:38:51 +0800 (GMT+08:00)
+Date: Wed, 29 Apr 2026 17:38:51 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
+To: "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney" <bmasney@redhat.com>
+Cc: mturquette@baylibre.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de, huangyifeng@eswincomputing.com,
+	benoit.monin@bootlin.com, ningyu@eswincomputing.com,
+	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com
+Subject: Re: Re: Re: Re: [PATCH v3 2/3] clk: eswin: Add eic7700 HSP clock
+ driver
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <177742748214.5403.15526965667317467444@localhost.localdomain>
+References: <20260423090904.2108-1-dongxuyang@eswincomputing.com>
+ <20260423091114.2326-1-dongxuyang@eswincomputing.com>
+ <aeo8nn-eigzlojWx@redhat.com>
+ <4e5c887.5a31.19dbf179fb6.Coremail.dongxuyang@eswincomputing.com>
+ <CABx5tqK7p_XJHfXZ70gXhR88PzAteV7cVSFPoRzccgmjanADMw@mail.gmail.com>
+ <177733570840.5403.12558106273673899411@lazor>
+ <7a76d8cb.5bab.19dd3645d4e.Coremail.dongxuyang@eswincomputing.com>
+ <177742748214.5403.15526965667317467444@localhost.localdomain>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ApIjjO01HLYR
-Date: Wed, 29 Apr 2026 10:35:34 +0100
-From: "Jiaxun Yang" <jiaxun.yang@flygoat.com>
-To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>
-Cc: devicetree@vger.kernel.org,
- "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>,
- linux-kernel@vger.kernel.org
-Message-Id: <3194da09-3bfc-4482-b179-04b6d5df4a00@app.fastmail.com>
-In-Reply-To: <20260411101744.4020216-1-zhengxingda@iscas.ac.cn>
-References: <20260411101744.4020216-1-zhengxingda@iscas.ac.cn>
-Subject: Re: [PATCH 0/2] Enable LPC interrupt controller on MIPS LS7A systems
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Message-ID: <4257942f.5c6d.19dd89b06f8.Coremail.dongxuyang@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:TQJkCgAnPJ+r0fFpY68VAA--.3070W
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAQEMAmnw4RseG
+	QACso
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-
-
-On Sat, 11 Apr 2026, at 11:17 AM, Icenowy Zheng wrote:
-> This patchset tries to enable support for LPC interrupts on MIPS-based
-> Loongson systems with Loongson 7A1000 PCH chip.
->
-> The corresponding irqchip support (along with the DT binding) is already
-> added to the tip tree.
->
-> Tested on a Haier Boyue G51 system with legacy i8042 keyboard/mouse as
-> integrated ones.
->
-> This patchset is splitted from the original patchset that contains both
-> driver part and DT part.
-
-For the series:
-
-Acked-by: Jiaxun Yang <jiaxun.yang@flygoat.com>
-
->
-> Icenowy Zheng (2):
->   MIPS: Loongson64: dts: Sort nodes
->   MIPS: Loongson64: dts: Add node for LS7A PCH LPC
->
->  arch/mips/boot/dts/loongson/ls7a-pch.dtsi | 17 +++++++++++++----
->  1 file changed, 13 insertions(+), 4 deletions(-)
->
-> -- 
-> 2.52.0
-
--- 
-- Jiaxun
+PiA+IAo+ID4gVGhlIGNvbW1vbiBnYXRlIEFQSSwgdGhlIEhTUCBwcml2YXRlIEFQSSwgYW5kIHRo
+ZSByZXNldCBkcml2ZXIgYWxsIGFjY2Vzc8KgCj4gPiB0aGUgc2FtZSByZWdpc3RlciBzcGFjZS4K
+PiA+IFRoZXJlZm9yZSwgdGhleSBuZWVkIHRvIGJlIHByb3RlY3RlZCBieSB0aGUgc2FtZSBkYXRh
+LT5sb2NrLgo+ID4gCj4gCj4gSWYgZXZlcnl0aGluZyBpcyBhY2Nlc3NpbmcgcmVnaXN0ZXJzIHRo
+cm91Z2ggcmVnbWFwIHdoeSBhcmVuJ3Qgd2UgdXNpbmcKPiB0aGUgYnVpbHRpbiBsb2NrIHdpdGgg
+c3RydWN0IHJlZ21hcF9jb25maWc6OnVzZV9yYXdfc3BpbmxvY2s/IEkgZG9uJ3QKPiB1bmRlcnN0
+YW5kIHdoeSB3ZSdyZSByb2xsaW5nIG91ciBvd24gaGVyZS4KCkhpIFN0ZXBoZW4sCgpJbiB0aGUg
+SFNQIGNsb2NrIGRyaXZlciBhbmQgcmVzZXQgZHJpdmVyLCB0aGVyZSBhcmUgdGhyZWUgY29tcG9u
+ZW50cyB0aGF0CmFjY2VzcyB0aGUgSFNQIHJlZ2lzdGVyIHNwYWNlOiBhIGNvbW1vbiBnYXRlIGNs
+b2NrLCBhIGN1c3RvbSBnYXRlIGNsb2NrwqAKKGkuZS4sIDB4ODAwKSwgYW5kIGEgcmVzZXQuCgox
+LiBUaGUgY29tbW9uIGdhdGUgdXNlcyBlc3dpbl9jbGtfcmVnaXN0ZXJfZ2F0ZSgpIHRvIHJlZ2lz
+dGVyIGEgZ2F0ZSBjbG9ja8KgCnZpYSBkZXZtX2Nsa19od19yZWdpc3Rlcl9nYXRlX3BhcmVudF9k
+YXRhKCkuIEl0IGFjY2Vzc2VzIHRoZSByZWdpc3RlcsKgCnVzaW5nIGNsa19nYXRlX2VuZGlzYWJs
+ZSgpLgoKc3RhdGljIHZvaWQgY2xrX2dhdGVfZW5kaXNhYmxlKHN0cnVjdCBjbGtfaHcgKmh3LCBp
+bnQgZW5hYmxlKQp7CglzdHJ1Y3QgY2xrX2dhdGUgKmdhdGUgPSB0b19jbGtfZ2F0ZShodyk7Cgl1
+bnNpZ25lZCBsb25nIGZsYWdzOwoKCWlmIChnYXRlLT5sb2NrKQoJCXNwaW5fbG9ja19pcnFzYXZl
+KGdhdGUtPmxvY2ssIGZsYWdzKTsKCWVsc2UKCQlfX2FjcXVpcmUoZ2F0ZS0+bG9jayk7Ci4uLgoJ
+aWYgKGdhdGUtPmxvY2spCgkJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZShnYXRlLT5sb2NrLCBmbGFn
+cyk7CgllbHNlCgkJX19yZWxlYXNlKGdhdGUtPmxvY2spOwp9CgpUaGUgZ2F0ZS0+bG9jayBpbiB1
+c2UgaXMgdGhlIGRhdGEtPmxvY2sgcGFzc2VkIGluIGZyb20gdGhlIGNsb2NrIGRyaXZlci4KCjIu
+IFRoZSBjdXN0b20gZ2F0ZSB1c2VzIGhzcF9jbGtfcmVnaXN0ZXJfZ2F0ZSgpIHRvIHJlZ2lzdGVy
+IGEgZ2F0ZSBjbG9jay4gCkl0IGFjY2Vzc2VzIHRoZSByZWdpc3RlciB1c2luZyBoc3BfY2xrX2dh
+dGVfZW5kaXNhYmxlKCkuCgpzdGF0aWMgdm9pZCBoc3BfY2xrX2dhdGVfZW5kaXNhYmxlKHN0cnVj
+dCBjbGtfaHcgKmh3LCBpbnQgZW5hYmxlKQp7CglzdHJ1Y3QgZWljNzcwMF9oc3BfY2xrX2dhdGUg
+KmdhdGUgPSB0b19nYXRlX2Nsayhodyk7CgoJZ3VhcmQoc3BpbmxvY2tfaXJxc2F2ZSkoZ2F0ZS0+
+bG9jayk7Ci4uLgp9CgpUaGUgZ2F0ZS0+bG9jayBpbiB1c2UgaXMgdGhlIHNhbWUgZGF0YS0+bG9j
+ayBwYXNzZWQgaW4gZnJvbSB0aGUgY2xvY2vCoApkcml2ZXIuCgozLiBUaGUgcmVzZXQgdXNlcyBl
+aWM3NzAwX2hzcF9yZXNldF9hc3NlcnQoKSBhbmTCoAplaWM3NzAwX2hzcF9yZXNldF9kZWFzc2Vy
+dCgpLCB3aGljaCBjYWxsIHJlZ21hcF9hc3NpZ25fYml0cygpIHRvIGFjY2Vzc8KgCnRoZSByZWdp
+c3Rlci4KCkFsbCB0aHJlZSBtZXRob2RzIGFjY2VzcyB0aGUgc2FtZSByZWdpc3RlciBzcGFjZTsg
+dGhlcmVmb3JlLCB0aGV5IG11c3QgYmXCoApwcm90ZWN0ZWQgYnkgdGhlIHNhbWUgbG9jayAoZGF0
+YS0+bG9jaykuCgpUaGF0J3Mgd2h5IHdlIGludHJvZHVjZWQgZWljNzcwMF9oc3BfcmVnbWFwX2xv
+Y2svdW5sb2NrIGZvcsKgCmVpYzc3MDBfaHNwX3JlZ21hcF9jb25maWcuCgllaWM3NzAwX2hzcF9y
+ZWdtYXBfY29uZmlnID0gewoJCS5sb2NrID0gZWljNzcwMF9oc3BfcmVnbWFwX2xvY2ssCgkJLnVu
+bG9jayA9IGVpYzc3MDBfaHNwX3JlZ21hcF91bmxvY2ssCgkJLmxvY2tfYXJnID0gbG9ja19jdHgs
+Cgl9OwoKVGhlICdsb2NrX2N0eC0+bG9jaycgaW4gZWljNzcwMF9oc3BfcmVnbWFwX2xvY2svdW5s
+b2NrIGlzIHRoZSAnZGF0YS0+bG9jaycuCglzdGF0aWMgdm9pZCBlaWM3NzAwX2hzcF9yZWdtYXBf
+bG9jayh2b2lkICphcmcpCglfX2FjcXVpcmVzKGxvY2tfY3R4LT5sb2NrKQoJewoJCXN0cnVjdCBl
+aWM3NzAwX2hzcF9yZWdtYXBfbG9jayAqY29uc3QgbG9ja19jdHggPSBhcmc7CgkJdW5zaWduZWQg
+bG9uZyBmbGFnczsKCQoJCXNwaW5fbG9ja19pcnFzYXZlKGxvY2tfY3R4LT5sb2NrLCBmbGFncyk7
+CgkJbG9ja19jdHgtPmZsYWdzID0gZmxhZ3M7Cgl9CgpUaGUgc2ltaWxhciBhcHByb2FjaCBjYW4g
+YmUgZm91bmQgaW4gY2xrLWlteDh1bHAtc2ltLWxwYXYuYy4KClRoZSBhbm5vdGF0aW9ucyB3aGF0
+IHdlIG1lbnRpb25lZCBwcmV2aW91c2x5IGlzIHRoZSBhYm92ZcKgCiJfX2FjcXVpcmVzKGxvY2tf
+Y3R4LT5sb2NrKSIuCgpCZXN0IHJlZ2FyZHMsClh1eWFuZyBEb25nCg==
