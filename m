@@ -1,97 +1,202 @@
-Received: from mail-ej1-f74.google.com (mail-ej1-f74.google.com [209.85.218.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3AD3254B3
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 14:19:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CC0282F15;
+	Wed, 29 Apr 2026 14:21:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777472348; cv=none; b=mxWWE7c8k7iZTok2+V7KfE9zY41aumHsbWP6GObUA1GOzaIHgYLdDIXvHHAYBNZvmS/zlWfSFv8nCQ49RE8KJK9Pp7X5vga4YCJdhAQwUM2O8M3PBWFGrIpjqWZh/DMXZPQOsypwaVmXJmcyL6Jc1olZLlJXmcXARS8qbt/S4w0=
+	t=1777472504; cv=none; b=IDgF2fzkRSVOcCt8BqTg2eBbU4OFyFtcbNOQ8WRHuF3+uSQ+Mcs5T/gKztNeWewNkOeRaWLKPnwrqE90h6HADsPmDwdIoT8wQj4Sa+6CxgG1U0IS0V1x1DzwvmuQ+kEM88YalbHMCHPFXelJ9uGeomEb8AxYSIeFoR+nBFADLE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777472348; c=relaxed/simple;
-	bh=l2VwwdY0f8fP42No1Lq6QNkjHif6XCCH1yOub02MhsU=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=htnS1JrK5e8wKrULNnIzqyr8jk8rI87vNJPWXH4pD29YgEmuq9iOjBjxfNWau/huGL2K5CNJ2EwtsSClp4Scv9za8DmBhQrgx4GahzjRPH2rWqidPGdcrADfWR2aerasTwOoT36YFCzV5a/4agq7/166HMkC77/94V+Y6Kdy7xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BgMYJjnH; arc=none smtp.client-ip=209.85.218.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BgMYJjnH"
-Received: by mail-ej1-f74.google.com with SMTP id a640c23a62f3a-b9360e9f43bso1339028466b.3
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 07:19:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1777472343; x=1778077143; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:from:subject:message-id
-         :mime-version:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=l2VwwdY0f8fP42No1Lq6QNkjHif6XCCH1yOub02MhsU=;
-        b=BgMYJjnHhACZTFQq6a0keIEJ/Rp1m0mim0Oh4+/vFLOfxASvU/F3jea4EbQ0UpEtym
-         j4VoOJfWGmy85TWQnBdC0oW8Po06bkLA2gN9XdmCnmb7vmyD5LklMv4b2WsnpFj4AaBT
-         tLHszQXucta/KlKcL/Mcoj1JspzdgGXYunVRzGA/InxZbNqv6QLkyX5cJd84WKLGlowP
-         56gIy3+CKzV5RTkrPdx/rGCigoNXHQMJYVKfd/TiVt9GnqgZv6QJSnwKUYeDoRY6wSlW
-         7fnJAJ2K82u+Ph3FUm2N51ycoHlXXQ9LGx8DnMaX3og3tAWG1sV8bIGt3hAk9b8K+6eu
-         H42g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777472343; x=1778077143;
-        h=content-transfer-encoding:cc:to:from:subject:message-id
-         :mime-version:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=l2VwwdY0f8fP42No1Lq6QNkjHif6XCCH1yOub02MhsU=;
-        b=G8t/XgJ+Ipg858uPbdHkxEheTKFj4TrRMvIu0d3IXYmzDtqXVQXxzb3BDJcXXUPQFe
-         vf0sTQT5JlugyQ//18H4VbCAJgvZaIHE4ZYTmCW9KofNl38gbhsRY7NUAoRcwhqdQu/z
-         4IIsgBnNBuIneXsPSaiLHOJe6WGpkQhsvY+FWtsjQb/aThujcSj7STn6OLZOnX6eiXja
-         dO2Gdydevu4m0hIZzVILKP64F1STH1brAfeBm4W9M0soKNsbcso27vFyJqh8geo0JLgW
-         LmVzQvoVrES8THujr7172HRikkZx94gjVoI8ybYTKmki2bMM34gPCA1+itw8h2DfdRwn
-         c7/g==
-X-Forwarded-Encrypted: i=1; AFNElJ8n+eV1kGvQkBpXNznE1RXLDh6cUAYe6HVu+LhOkFgpzh0XClV3AqkgA0tirMN/XMt3d/KceGU6ast3@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjNxn2zq1SlqPlUB2drEUeQeahI9qUHjYbyLvNuWefTaYxoA0B
-	7SIFWNZSribykQYBrq74RUEm1dxvJprAXtx8eGMJz8UY7qMcc6Knk+BYP+ais2uKI2kOFG+ICNh
-	gydnZokYM7U23Cw==
-X-Received: from ejchj1.prod.google.com ([2002:a17:906:9fc1:b0:ba2:62ad:29f7])
- (user=smostafa job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:3e1e:b0:ba0:d58b:6045 with SMTP id a640c23a62f3a-bb803778202mr518587266b.27.1777472342464;
- Wed, 29 Apr 2026 07:19:02 -0700 (PDT)
-Date: Wed, 29 Apr 2026 14:18:11 +0000
+	s=arc-20240116; t=1777472504; c=relaxed/simple;
+	bh=FYT8emQ2XifKe8qwEbDhOEUy4mJETMc7OOWLSMG/nSE=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=U4g+PBK8roNdaeyPmno0XXi8kLYoUi8E4bIQzCzpys2d/kKoRlS4SUm0tJ/j3PI1ZecwEbxD3yjqrZ0PcYXkiXtZZ0mQdd9mInBlPC+1hjbsvs8Lq1aEfC5PpyuX0PWXhc8EsLKLumRmelOZGZJvb63r2/hxY0yyocxVvOCFOQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+	 (Exim 4.99)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1wI5my-000000002RN-1Klr;
+	Wed, 29 Apr 2026 14:21:20 +0000
+Date: Wed, 29 Apr 2026 15:21:16 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Aleksander Jan Bajkowski <olek2@wp.pl>,
+	Test User <test@example.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org
+Subject: [PATCH v2 0/3] dt-bindings: automated coding style check for DTS
+ examples
+Message-ID: <cover.1777471439.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.54.0.545.g6539524ca2-goog
-Message-ID: <20260429141815.827157-1-smostafa@google.com>
-Subject: Support for Lenovo IdeaCentre Mini X (Purwa)
-From: Mostafa Saleh <smostafa@google.com>
-To: andersson@kernel.org, konradybcio@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, maz@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi,
+v1: https://lore.kernel.org/all/cover.1776700167.git.daniel@makrotopia.org/
 
-I see that recently the support for =E2=80=9CLenovo IdeaCentre Mini X=E2=80=
-=9D was
-added [1]
-However, unfortunately that doesn=E2=80=99t work for my device, the board
-resets once I try to boot the kernel from UEFI.
+Following v1 review feedback, this series replaces the original
+single-mode checker with one organised around a declarative rule
+registry. Each rule is tagged 'relaxed' (default; must be
+zero-violation on the current tree) or 'strict' (opt-in for new
+submissions); promoting a rule from strict to relaxed is a one-line
+edit once the tree catches up.
 
-I believe that=E2=80=99s because it is another variant, as I have been usin=
-g
-my device tree for some time[2] which is hacked based on the crd
-device tree with some trial and error. With that I can boot with
-PCI/NVME/Ethernet and USB (there are also some other errors in the
-log related PMIC), this device tree is based on purwa.dtsi unlike
-the upstream one which use hamoa.dtsi.
+Default mode runs cleanly on the current tree once the small prep
+series [1] has landed. Stricter rules (indent unit, property
+ordering, blank-line placement, sibling address ordering, unused
+labels, line length, value rendering, ...) live behind --mode=strict
+and are intended for use by checkpatch.pl in a follow-up series.
 
-Are there any plans to support the Purwa based variant? I am happy to
-help with testing, but I can=E2=80=99t confidently send patches as my devic=
-e
-tree is based on trial and error rather than a data sheet.
+The tool also accepts .dts/.dtsi/.dtso files directly (with a
+tab-indent rule) so it can be reused for actual device tree sources.
+It reads file paths from @argfile and parallelises across CPUs, with
+$PARALLELISM (set by scripts/jobserver-exec) honoured so the worker
+count tracks `make -j N`. ruamel.yaml is the only non-stdlib
+dependency, already required by dtschema.
 
-[1] https://lore.kernel.org/all/20260401-ideacentre-v2-0-5745fe2c764e@oss.q=
-ualcomm.com/
-[2] https://github.com/misaleh/linux/blob/lenovo/arch/arm64/boot/dts/qcom/x=
-1p42100-lenovo-ideacentre-x-gen10.dts
+In aggregate, strict mode pins down indentation, blank lines,
+property and child ordering, hex casing, unit-address format,
+whitespace inside <...>, line length (80 cols), continuation
+alignment, closing brace placement and unused labels -- enough to
+drive a single canonical layout per DT structure modulo the
+author's choice of when to wrap properties for readability.
 
-Thanks,
-Mostafa
+Strict-mode violation counts on a current tree (5506 YAML bindings,
+6530 in-tree .dts/.dtsi/.dtso under arch/):
 
+  rule                         yaml      dts
+  property-order              14457   240804
+  indent-consistent            2435   294778
+  continuation-alignment       2462   187914
+  unused-labels                3611    11628
+  required-blank-lines         1862    47351
+  line-length                   102    25999
+  child-name-order              664    16409
+  mixed-indent-chars              0    13275
+  indent-unit-strict           1493       --
+  child-address-order            69     4075
+  blank-lines                    91     1963
+  value-whitespace               87      983
+  node-close-alone               40      783
+  hex-case                       78      666
+  indent-unit                   181       --
+  indent-unit-dts                --      202
+  unit-address-format             5       39
+  trailing-whitespace             0       10
+
+(YAML and DTS columns reflect the rules that apply to each input
+type; e.g. indent-unit-strict is YAML-only since .dts files use
+tabs, indent-unit-dts is the equivalent DTS-only check.
+unused-labels is skipped for .dtsi/.dtso since labels there are
+exported to includers/applies-to.)
+
+The script was written with generous help from Claude Opus 4.7,
+since my Python is even worse than my DTS coding style.
+
+[1] https://lore.kernel.org/all/cover.1777434096.git.daniel@makrotopia.org/
+
+
+Daniel Golle (3):
+  dt-bindings: add DTS style checker
+  dt-bindings: wire style checker into dt_binding_check
+  dt-bindings: add self-test fixtures for style checker
+
+ Documentation/devicetree/bindings/Makefile    |   20 +-
+ Makefile                                      |    6 +
+ scripts/dtc/dt-check-style                    | 1063 +++++++++++++++++
+ .../dtc/dt-style-selftest/bad/dts-spaces.dts  |   13 +
+ .../bad/yaml-child-addr-order.yaml            |   41 +
+ .../bad/yaml-child-name-order.yaml            |   37 +
+ .../bad/yaml-cont-align.yaml                  |   30 +
+ .../dt-style-selftest/bad/yaml-hex-case.yaml  |   29 +
+ .../bad/yaml-indent-strict.yaml               |   29 +
+ .../bad/yaml-line-length.yaml                 |   29 +
+ .../bad/yaml-mixed-indent.yaml                |   29 +
+ .../bad/yaml-node-close.yaml                  |   31 +
+ .../bad/yaml-prop-order.yaml                  |   29 +
+ .../bad/yaml-prop-pairing.yaml                |   33 +
+ .../bad/yaml-required-blank.yaml              |   33 +
+ .../dtc/dt-style-selftest/bad/yaml-tab.yaml   |   29 +
+ .../bad/yaml-trailing-ws.yaml                 |   29 +
+ .../dt-style-selftest/bad/yaml-unit-addr.yaml |   29 +
+ .../bad/yaml-unused-label.yaml                |   29 +
+ .../dt-style-selftest/bad/yaml-value-ws.yaml  |   29 +
+ .../expected/dts-spaces.dts.txt               |    2 +
+ .../expected/yaml-child-addr-order.yaml.txt   |    2 +
+ .../expected/yaml-child-name-order.yaml.txt   |    2 +
+ .../expected/yaml-cont-align.yaml.txt         |    2 +
+ .../expected/yaml-hex-case.yaml.txt           |    2 +
+ .../expected/yaml-indent-strict.yaml.txt      |    2 +
+ .../expected/yaml-line-length.yaml.txt        |    2 +
+ .../expected/yaml-mixed-indent.yaml.txt       |    3 +
+ .../expected/yaml-node-close.yaml.txt         |    2 +
+ .../expected/yaml-prop-order.yaml.txt         |    2 +
+ .../expected/yaml-prop-pairing.yaml.txt       |    3 +
+ .../expected/yaml-required-blank.yaml.txt     |    3 +
+ .../expected/yaml-tab.yaml.txt                |    2 +
+ .../expected/yaml-trailing-ws.yaml.txt        |    2 +
+ .../expected/yaml-unit-addr.yaml.txt          |    2 +
+ .../expected/yaml-unused-label.yaml.txt       |    2 +
+ .../expected/yaml-value-ws.yaml.txt           |    2 +
+ .../dtc/dt-style-selftest/good/dts-tab.dts    |   30 +
+ .../dt-style-selftest/good/yaml-4space.yaml   |   41 +
+ scripts/dtc/dt-style-selftest/run.sh          |   67 ++
+ 40 files changed, 1770 insertions(+), 2 deletions(-)
+ create mode 100755 scripts/dtc/dt-check-style
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-spaces.dts
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-child-addr-order.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-child-name-order.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-indent-strict.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-line-length.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-mixed-indent.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-node-close.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-prop-order.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-prop-pairing.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-required-blank.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-tab.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-trailing-ws.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-unit-addr.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-unused-label.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-value-ws.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-spaces.dts.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-child-addr-order.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-child-name-order.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-cont-align.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-hex-case.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-indent-strict.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-line-length.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-mixed-indent.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-node-close.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-prop-order.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-prop-pairing.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-required-blank.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-tab.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-trailing-ws.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-unit-addr.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-unused-label.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-value-ws.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/good/dts-tab.dts
+ create mode 100644 scripts/dtc/dt-style-selftest/good/yaml-4space.yaml
+ create mode 100755 scripts/dtc/dt-style-selftest/run.sh
+
+-- 
+2.54.0
