@@ -1,32 +1,37 @@
-Received: from vinatta.cz (vinatta.cz [37.205.8.231])
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AE83FBEC2;
-	Wed, 29 Apr 2026 13:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.205.8.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B20223F2101;
+	Wed, 29 Apr 2026 13:21:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777468866; cv=none; b=d0hKgX3Iv80FDr3i0E6TF4AnRlNvy4y9EtCMKy/2/Uj7GqzqzEdeSjMLugddMbrjHPgiVeZtm9svRAkXnwBSnAKWVlWudoyWQiaI8J1bJfo60QelXB6w2XHP+LAJbGE27nSj9um2dW0MgyYjR1ZFI2njbvFGbdOUfaLnbDMyYCk=
+	t=1777468917; cv=none; b=YoaTuUPAGDbzFsuRGL4jEvQ/rqbEq9QZ9OC8hYFQdZSD46Pq2X3wafNy3Pj+oVJlm4gTCGx3jtzU1/jIs/Tyjy4z1Dr+gnXXCJMaWCqltz75LMVhpNFnvszfAXmxSMwrtlbgSS7oJg98xw+xAkrxhlDDQ8JSE9YxXPgCABU3hcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777468866; c=relaxed/simple;
-	bh=xqRqdqb9cql00b3xqlZ9Qf54W2TCp7JZjtSRq3okoys=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:To:From:
-	 References:In-Reply-To; b=l1t8UcFwRIgWJP9/HjfE1rUWx+3HZBlHFONSca6gCkj92EEutu8TrXvKVhsF2aHyS6N4kuM6LNsJBkQW1mW58KvhrNAMb1kBV1KtJwS0pdQ5gvxgjSGso1p5vEhizqdO+v2A1rHwqYb/pGuHJ+FUd5Ez27Dz+0hOactjYwjnrco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=matfyz.cz; spf=pass smtp.mailfrom=vinatta.cz; dkim=pass (2048-bit key) header.d=vinatta.cz header.i=@vinatta.cz header.b=IyM+Dn02; arc=none smtp.client-ip=37.205.8.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=matfyz.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinatta.cz
+	s=arc-20240116; t=1777468917; c=relaxed/simple;
+	bh=B+6vl6C/OV8+WpB8aWQtmkHIycQOFdlFNDQexZH3THM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=rAIbZqnXjGPjTZ+Z2qhm/mDQM2yGlS4NuLTKC1G/TDe2mAUAJZHC9l9ePmAjw8dZlDfN48dv6KVrg4c7cd9PuEsZxZzGMdnw6hciKkovlJQjLCvmSnOVwN37Qb6WylzeL6KWIiWUsFEQr6O8H8moDeVpRoY9MqEk3dO+iL4Q3TQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=Xp3Eqw6D; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vinatta.cz header.i=@vinatta.cz header.b="IyM+Dn02"
-DKIM-Signature: a=rsa-sha256; bh=xqRqdqb9cql00b3xqlZ9Qf54W2TCp7JZjtSRq3okoys=;
- c=relaxed/relaxed; d=vinatta.cz;
- h=Subject:Subject:Sender:To:To:Cc:Cc:From:From:Date:Date:MIME-Version:MIME-Version:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Reply-To:In-Reply-To:In-Reply-To:Message-Id:Message-Id:References:References:Autocrypt:Openpgp;
- i=@vinatta.cz; s=default; t=1777468828; v=1; x=1777900828;
- b=IyM+Dn02OPnovfHH7qNxVHpRW3lq/vYVi8gIZcW4AH7D2xne9s+wetiIl+wxpJE6OZFyTOkm
- RguW5ARTHy3psH4xEHq1wSvuu9pVbbBnDs7WkbnysjUgPn2Zn3tjG/vwTwPw6Jzk8QNkZajEwln
- bEnKo/NHeCiP3dxeqdMa/VD2iYAHYg6eNe9oGnLxh+poF0IoDqoQFGNVA00lFNXMxn6Ic/jt0CK
- fy6UDDHUSrkQHQ1sajzCK6X3Ek3xAf3QWRyeapcFtUvNGmSxGuNDfAOtcZFgdBCEUkHi/u1pIh5
- 7MIEt8s/hY14nWI79pi1zTXz57/0aOCSnp6eLVR7s/6cQ==
-Received: by vinatta.cz (envelope-sender <karel@vinatta.cz>) with ESMTPS id
- 2b91500b; Wed, 29 Apr 2026 15:20:28 +0200
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="Xp3Eqw6D"
+Received: from mail01.disroot.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 570F826949;
+	Wed, 29 Apr 2026 15:12:35 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id RS3R83mpiQhH; Wed, 29 Apr 2026 15:12:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1777468354; bh=B+6vl6C/OV8+WpB8aWQtmkHIycQOFdlFNDQexZH3THM=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=Xp3Eqw6D2wdfqkrqtCXEGKpQarouGLQmdkkzDYQtDCU/Eg/HT8Nj2CKamRCYfW4N9
+	 PsmGt3/ne5sI9irdB8JmCGwilYHpUuT1zscLbLG5cq8DEh5BcnprzsHralTLVnJfzv
+	 yFigbtB3HB9/C79K8sFT/CsY6VriNOV2z81aoXp8XNy0A0L8FeKQ030/TaLKEhsUfv
+	 BQ10L9CBl3tIMVZ4YzSC5B0+S5NHamXeHPl+1TuV4cGAnERslQRq+sEpnG/ktD07/B
+	 wcihld4J9ADvSRNyVE0KU3qU//zC69p243KukM5aqOZofDt8MqloZncA5Y5wCQZEzW
+	 PXfPHLRbAswyw==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,64 +40,180 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 29 Apr 2026 15:20:28 +0200
-Message-Id: <DI5O432AFZVX.3VGKJP31AZX97@matfyz.cz>
-Cc: "Brian Norris" <briannorris@chromium.org>, "Johannes Berg"
- <johannes@sipsolutions.net>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- =?utf-8?q?Duje_Mihanovi=C4=87?= <duje@dujemihanovic.xyz>, "Andrew Lunn"
- <andrew@lunn.ch>, "Gregory Clement" <gregory.clement@bootlin.com>,
- "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>, "Ulf Hansson"
- <ulf.hansson@linaro.org>, "Frank Li" <Frank.Li@nxp.com>,
- <linux-wireless@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-mmc@vger.kernel.org>, <~postmarketos/upstreaming@lists.sr.ht>,
- <phone-devel@vger.kernel.org>, "Jeff Chen" <jeff.chen_1@nxp.com>, "Peng
- Fan" <peng.fan@nxp.com>, <david@ixit.cz>
-Subject: Re: [DONOTAPPLY RFC PATCH v2 0/4] WiFi support for
- samsung,coreprimevelte
-To: "Francesco Dolcini" <francesco@dolcini.it>
-From: "Karel Balej" <balejk@matfyz.cz>
-References: <20251026182602.26464-1-balejk@matfyz.cz>
- <DEJL1ATTQMVE.120JV9YW59I27@matfyz.cz>
- <aSnWYS2g5slVFaSk@gaggiata.pivistrello.it>
- <DI5L100Q1RKO.1A68EJIPWYSRC@matfyz.cz>
- <20260429112232.GD17033@francesco-nb>
-In-Reply-To: <20260429112232.GD17033@francesco-nb>
+Date: Wed, 29 Apr 2026 18:42:14 +0530
+Message-Id: <DI5NXS3PQ53R.L9JZEBHW5EGI@disroot.org>
+Subject: Re: [PATCH v5 03/11] dt-bindings: mfd: add documentation for
+ S2MU005 PMIC
+From: "Kaustabh Chakraborty" <kauschluss@disroot.org>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Kaustabh Chakraborty"
+ <kauschluss@disroot.org>
+Cc: "Lee Jones" <lee@kernel.org>, "Pavel Machek" <pavel@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "MyungJoo Ham"
+ <myungjoo.ham@samsung.com>, "Chanwoo Choi" <cw00.choi@samsung.com>,
+ "Sebastian Reichel" <sre@kernel.org>, =?utf-8?q?Andr=C3=A9_Draszik?=
+ <andre.draszik@linaro.org>, "Alexandre Belloni"
+ <alexandre.belloni@bootlin.com>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah
+ Khan" <skhan@linuxfoundation.org>, "Nam Tran" <trannamatk@gmail.com>,
+ =?utf-8?q?=C5=81ukasz_Lebiedzi=C5=84ski?= <kernel@lvkasz.us>,
+ <linux-leds@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+ <linux-samsung-soc@vger.kernel.org>, <linux-rtc@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>
+References: <20260424-s2mu005-pmic-v5-0-fcbc9da5a004@disroot.org>
+ <20260424-s2mu005-pmic-v5-3-fcbc9da5a004@disroot.org>
+ <20260428-fortunate-olive-asp-fe4f53@quoll>
+In-Reply-To: <20260428-fortunate-olive-asp-fe4f53@quoll>
 
-Hello, Francesco,
+Hi Krzysztof,
 
-Francesco Dolcini, 2026-04-29T13:22:32+02:00:
-> On Wed, Apr 29, 2026 at 12:55:23PM +0200, Karel Balej wrote:
->> without the firmware being in linux-firmware?
->
-> What's the license of this firmware? Am I wrong saying that if
-> the license allows it, you could just send a patch to have it integrated
-> to the linux-firmware repository? Is there any history or documentation
-> on the topic (please apologize if this is a well known topic, just
-> answer RTFM if this is the case).
+This are no review comments here. Did you happen to miss anything?
 
-that's one of the issues, the license is not specified explicitly
-anywhere as far as I know. Likely it is the same as the other Marvell
-blobs already in linux-firmware (the mrvl directory), but we don't know
-for sure.
-
-As far as I know, even if I was to submit the firmware myself, it would
-still require a sign-off from someone from NXP [1].
-
-> I read a couple of days ago that for example the firmwares for the
-> various Apple arm64 laptop cannot be redistributed and every single
-> individual that wants to use those needs to extract those from their
-> system.
-
-Are those blobs loaded by the mainline kernel? If so, it would be the
-same situation as I'm proposing here I believe.
-
-> All of that seems just a legal matter, and IANAL ...
-
-It is.
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware=
-.git/about/#signed-off-by-requirement
-
-Karel
+On 2026-04-28 08:01 +02:00, Krzysztof Kozlowski wrote:
+> On Fri, Apr 24, 2026 at 01:09:02AM +0530, Kaustabh Chakraborty wrote:
+>> Samsung's S2MU005 PMIC includes subdevices for a charger, an MUIC (Micro
+>> USB Interface Controller), and flash and RGB LED controllers.
+>>=20
+>> Add the compatible and documentation for the S2MU005 PMIC. Also, add an
+>> example for nodes for supported sub-devices, i.e. MUIC, flash LEDs, and
+>> RGB LEDs. Charger sub-device uses the node of the parent.
+>>=20
+>> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+>> ---
+>>  .../bindings/mfd/samsung,s2mu005-pmic.yaml         | 120 ++++++++++++++=
++++++++
+>>  1 file changed, 120 insertions(+)
+> \r>=20
+>> diff --git a/Documentation/devicetree/bindings/mfd/samsung,s2mu005-pmic.=
+yaml b/Documentation/devicetree/bindings/mfd/samsung,s2mu005-pmic.yaml
+>> new file mode 100644
+>> index 0000000000000..0e6afb7d2017b
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/mfd/samsung,s2mu005-pmic.yaml
+>> @@ -0,0 +1,120 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/mfd/samsung,s2mu005-pmic.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Samsung S2MU005 Power Management IC
+>> +
+>> +maintainers:
+>> +  - Kaustabh Chakraborty <kauschluss@disroot.org>
+>> +
+>> +description: |
+>> +  The S2MU005 is a companion power management IC which includes subdevi=
+ces for
+>> +  a charger controller, an MUIC (Micro USB Interface Controller), and f=
+lash and
+>> +  RGB LED controllers.
+>> +
+>> +allOf:
+>> +  - $ref: /schemas/power/supply/power-supply.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: samsung,s2mu005-pmic
+>> +
+>> +  flash:
+>> +    $ref: /schemas/leds/samsung,s2mu005-flash.yaml
+>> +    description:
+>> +      Child node describing flash LEDs.
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  muic:
+>> +    $ref: /schemas/extcon/samsung,s2mu005-muic.yaml#
+>> +    description:
+>> +      Child node describing MUIC device.
+>> +
+>> +  multi-led:
+>> +    type: object
+>> +
+>> +    allOf:
+>> +      - $ref: /schemas/leds/leds-class-multicolor.yaml#
+>> +
+>> +    properties:
+>> +      compatible:
+>> +        const: samsung,s2mu005-rgb
+>> +
+>> +    required:
+>> +      - compatible
+>> +
+>> +    unevaluatedProperties: false
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>> +    #include <dt-bindings/leds/common.h>
+>> +
+>> +    i2c {
+>> +        #address-cells =3D <1>;
+>> +        #size-cells =3D <0>;
+>> +
+>> +        pmic@3d {
+>> +            compatible =3D "samsung,s2mu005-pmic";
+>> +            reg =3D <0x3d>;
+>> +            interrupt-parent =3D <&gpa2>;
+>> +            interrupts =3D <7 IRQ_TYPE_LEVEL_LOW>;
+>> +
+>> +            monitored-battery =3D <&battery>;
+>> +
+>> +            flash {
+>> +                compatible =3D "samsung,s2mu005-flash";
+>> +                #address-cells =3D <1>;
+>> +                #size-cells =3D <0>;
+>> +
+>> +                led@0 {
+>> +                    reg =3D <0>;
+>> +                    color =3D <LED_COLOR_ID_WHITE>;
+>> +                    function =3D LED_FUNCTION_FLASH;
+>> +                };
+>> +
+>> +                led@1 {
+>> +                    reg =3D <1>;
+>> +                    color =3D <LED_COLOR_ID_WHITE>;
+>> +                    function =3D LED_FUNCTION_FLASH;
+>> +                    function-enumerator =3D <1>;
+>> +                };
+>> +            };
+>> +
+>> +            muic {
+>> +                compatible =3D "samsung,s2mu005-muic";
+>> +
+>> +                connector {
+>> +                    compatible =3D "usb-b-connector";
+>> +                    label =3D "micro-USB";
+>> +                    type =3D "micro";
+>> +                };
+>> +
+>> +                port {
+>> +                    muic_to_usb: endpoint {
+>> +                        remote-endpoint =3D <&usb_to_muic>;
+>> +                    };
+>> +                };
+>> +            };
+>> +
+>> +            multi-led {
+>> +                compatible =3D "samsung,s2mu005-rgb";
+>> +                color =3D <LED_COLOR_ID_RGB>;
+>> +                function =3D LED_FUNCTION_INDICATOR;
+>> +                linux,default-trigger =3D "pattern";
+>> +            };
+>> +        };
+>> +    };
+>>=20
+>> --=20
+>> 2.53.0
+>>=20
