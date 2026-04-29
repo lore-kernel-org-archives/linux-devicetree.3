@@ -1,116 +1,129 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3174194A6C;
-	Wed, 29 Apr 2026 19:47:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D61B38A29A
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 20:20:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777492031; cv=none; b=AvoZhHS5TRim59tz9bkHMSHH8hczVDgogXic0Oy6ZfiZyFi/kbad0hoAkwJUlztIVO0UL14jAjYOv3nL0x3kaEQkH7uhDU7bv3kwJigCJ4Q2HIV8Cn2u/tkJruLNIdylrUruuB+GMpK6+2OllBDsD/kkEVWyxBLOmim/7Uuw+kk=
+	t=1777494008; cv=none; b=oe40Z02L2rM+XNKSjCHL6SyuWpcDtVgHVubGmaIeHnInbufEb2Bl5/rhpQwjLj8ftsSGPY00GOFMw/NDe0AfpjUXBOBuzHFQW6N/QJW1InIMeWB2H6drqVUtTIZ3F2kbi8o6v6lGyAZknvT1TgO5scOrPOufDUBSF/t7aRZ/Mso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777492031; c=relaxed/simple;
-	bh=6zMJPlCzBFsIzmH9C7DCUzlFezjuerKEUd/NjhQDdwg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dF/bcQXJvgYRsrqIVpV48MRnBnvRIM2ec3knsftdlHXH8kujlvh8JbQDsR1bdn3KVQgnnM7GdzHQprvPB5y1OI2CDIpIzR+5lLlzpvfcwbTTKFxpdIKICHMb7+kKF4RFyJxNYuJugAXhUdFGU0BgCcfa/Dsd/OaH8DkFlNruoCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IDeJOgP7; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1777494008; c=relaxed/simple;
+	bh=cgdbf9ulAMpYKm4T38h1CZ5kKIIJRtVc7aJ8B0WV//U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Zr01z4tC+7X0hcoa2lrZ9jBENdNKCBgtQSb/q1nKwhWBsDg0d6tOWBrC/0yH5+0iY7HiTi/yl6n9k5HM8PwhtbnbZdRmJr60+9FE7rhiL+Fo2RZuWU9dnnutieSP/h4qPzyIrKSG5/DDXL3ClxNZTNJ/k7ui8m9x57zMUO4WSRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=neUrdDDZ; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IDeJOgP7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777492030; x=1809028030;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6zMJPlCzBFsIzmH9C7DCUzlFezjuerKEUd/NjhQDdwg=;
-  b=IDeJOgP7TQyK/eJ0hXGUD0yjckqox5pY8IvCfVGYdBJG7TiMvZk2WeI2
-   gV1y5867WVj3ARg815j7ZEKmcLf6WmWo/H9Crg8XAxbdn79JyXrMtGnyO
-   Fzdkorw+5eR7DRoAkQTZgaWQ4cKtXz4WQb8dA8udDe5/Vd9yJ/bllKfcS
-   CzxbNMiy9VuMeqAb8Rs4qxIG6MNnwORNQgHHf6BuVO08hjHcQa+tE8wnM
-   04scjTMFqau12JClPK1xxoD38nE4RYkY4cswY1OlBZwHJYqSVjnz7UgQG
-   tqsj9F1n7Ih1cmjaagI1JnRI0u6ldjWXSZ+bVqbKJtqsyuwZniiekRU6W
-   A==;
-X-CSE-ConnectionGUID: x9wDsoBxRCiWd8FSpq8kLQ==
-X-CSE-MsgGUID: KcdW0avPROWgxG0zm9vzSw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11771"; a="89031424"
-X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; 
-   d="scan'208";a="89031424"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Apr 2026 12:47:05 -0700
-X-CSE-ConnectionGUID: lM+CHRiGTVqpdkJdp+sBHQ==
-X-CSE-MsgGUID: vweuhPFcRfqvaT4k8qwKTw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; 
-   d="scan'208";a="227858748"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.141])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Apr 2026 12:47:01 -0700
-Date: Wed, 29 Apr 2026 22:46:59 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Chris Morgan <macromorgan@hotmail.com>
-Cc: David Lechner <dlechner@baylibre.com>,
-	Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
-	andy@kernel.org, nuno.sa@analog.com, jic23@kernel.org,
-	jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
-	krzk+dt@kernel.org, robh@kernel.org
-Subject: Re: [PATCH V3 6/9] iio: imu: inv_icm42607: Add Accelerometer for
- icm42607
-Message-ID: <afJgM5DhK6Repa1d@ashevche-desk.local>
-References: <20260330195853.392877-1-macroalpha82@gmail.com>
- <20260330195853.392877-7-macroalpha82@gmail.com>
- <f1ae57fe-1ad5-46ee-9f0c-245f4deec7ce@baylibre.com>
- <PH0PR19MB997338EE6A13BD08879C4B9B2BA5372@PH0PR19MB997338.namprd19.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="neUrdDDZ"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-488b3f8fa2bso12805855e9.1
+        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 13:20:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1777494005; x=1778098805; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Mcl9hUvY34FgeniWwVm+TyCioqlD+gxNdeIUe9rxqOk=;
+        b=neUrdDDZ2AYizeqC1mg3DKnHn5mCrpehyJh8I6xot8/sm4ZDISleWxPlnqS/qwXTIj
+         uJuxwv7NqRHMuhLt5RAcTB2Tp4w/V6QuIXgEHR1GmGo0L6KpPCzgCCvKx7a3269v/A7m
+         j2WbbM06TUhdQmGAmrIDtIltHjHqvgm8IVdTD/mjJg97nFclfgyKTGcKn9Ae/zsZM2R/
+         wsNj8jSq9kE4IXrNEONH9uqyw/eA7DcTZdBURK6vpWuR2JGUISvK1OHjIrFpglqQ4Bcx
+         1ODguPcGL7q0F0vWGbK7OLPqewQU0OFgcXw4JfYjNdIYICC+igmLTqFTpB9ef5koobMs
+         3vwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777494005; x=1778098805;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Mcl9hUvY34FgeniWwVm+TyCioqlD+gxNdeIUe9rxqOk=;
+        b=iD2+MPbu3QrLfJVKGqKs54WUoxZMCwQuv9q9Lpww3vKUQgAvj2te4IMs3LiAqkwipp
+         PiMWqrM+CqXkAd4cr1u1exVYNLIMPYNbXHmFWNT/g1o76KnUa1qe4T4dGIacB7lL4l8i
+         ubZu73ZdoMk5PNwfMe7O2u2f9jSUbwTQIFrhNorrumYE3vv8kW2q5+6CnRaP9+Sz9q5G
+         mtDqk/93+wsT8en+NeGwJjG7xqakkAExzAPopnqPdQ41WnHnRn/M55Cgcag7LS6HhphR
+         JAp8YfZpLmXfNSJrO/vPYNArqojy9Wn26cF1WiIG/04Qn2OuLpYXAij9zqFXc0Ja/sMT
+         ppzg==
+X-Forwarded-Encrypted: i=1; AFNElJ/om0zNxFP+8EFco+ak0gmWzILWugVg1TSONSSLMOCI4eSGGGdg8q3RBHKW5pwWqgt1bYMocvA+vY3s@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/+WxmRQ0SgMyol36b5aAPDMR8GFxFZzmGpRFd1xPApndOIZ3L
+	pDpbffije3o8urn9KVO/3E2eGoJELo6RMASiJ9JgnEF9uWKZtx/zcD9G6jciohgfOAw=
+X-Gm-Gg: AeBDievTt4fAhCubjjk6sO5rXkzQ/eRq8oX8Tl2O9/+2lBYYbAhwjQa5DhDhj0G0MEj
+	cpNHsFyoRqdzHloi9ZLm9dU0bFKccr1qEFYp0tJXS3as4SYTmAddcxrR6Qm0qnKC5kLspi9Cx1A
+	zvZVRo6k0GKyWw2/W18hoaWb7jxeHefLgOh9B4OJlf//K2HrV/U1lluro40JM6aq1doU0J7PKjw
+	Zgh9sQhHb8vzLcEKZ3vqtQF2qsd1Ns3l5k1Tss5Zzy0JYbj2QF07fI0xwS7GgSmKI0dRhuLID1t
+	b7bwBfhn79C/51e4prROYs1dh2ONtIHZf6n8Ioc07fLToBcS8cYSdny42d1vZdZLMCANFOPgvxe
+	CKH6DH4fsz3TXVE5kqZfEqSjswX+XrLg3iNnEyjrt1Rh4IHX6Ii0QOcQyHqlXw/3/F9mNSEIbu1
+	vskg2B0TNgK3pU0jkO1t5V0QC8DW91yTFnSmFFDZDOlCO4D77TJcuBBCOTuzIz5cIxRhyJD7P8a
+	u8NPUnNDFjdpM144GrBX6RvwgU=
+X-Received: by 2002:a05:600c:a013:b0:48a:5821:6006 with SMTP id 5b1f17b1804b1-48a7bf98557mr78026385e9.4.1777494004845;
+        Wed, 29 Apr 2026 13:20:04 -0700 (PDT)
+Received: from [127.0.1.1] ([94.4.195.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a7b901a15sm58061355e9.1.2026.04.29.13.20.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Apr 2026 13:20:04 -0700 (PDT)
+From: Alexey Klimov <alexey.klimov@linaro.org>
+Date: Wed, 29 Apr 2026 21:19:50 +0100
+Subject: [PATCH] arm64: dts: exynos850: Add ap2apm mailbox
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <PH0PR19MB997338EE6A13BD08879C4B9B2BA5372@PH0PR19MB997338.namprd19.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260429-exynos850-mbox-dts-v1-1-7f3ad27ed4f4@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAOVn8mkC/03NTQ6CMBCG4auQrh3TH8S2VzEsShm0iaXYIsEQ7
+ m6BhS7fSeb5FpIwOkxEFwuJOLnkQp+DnQpiH6a/I7g2N+GUV7TkCnD+9CHJCwXfhBnaMYFVjcK
+ rEBUrKcmPQ8TOzTt6q4+O+HpnezyOP1oXOyw4/YPNwM3gwRv33CZs11Er20pJJfUktoXGJAQbv
+ HejLqbrmUG0jNTr+gVlPGPN0AAAAA==
+X-Change-ID: 20260429-exynos850-mbox-dts-c9b9e7336140
+To: Sam Protsenko <semen.protsenko@linaro.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-On Tue, Apr 28, 2026 at 09:01:12AM -0500, Chris Morgan wrote:
-> On Fri, Apr 10, 2026 at 05:59:05PM -0500, David Lechner wrote:
-> > On 3/30/26 2:58 PM, Chris Morgan wrote:
+Add mailbox node that describes AP-to-APM mailbox, that can be
+used for communicating with APM co-processor on Exynos850 SoCs.
 
-...
+Reviewed-by: Tudor Ambarus <tudor.ambarus@linaro.org>
+Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+---
+Depends on dt-bindings from:
+https://lore.kernel.org/linux-samsung-soc/20260429-exynos850-ap2apm-mailbox-v3-1-8e2719608c46@linaro.org/
+---
+---
+ arch/arm64/boot/dts/exynos/exynos850.dtsi | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-> > > +/* IIO format int + nano */
-> > 
-> > Usually we make these 2-D arrays for readability and then cast to int * if needed.
-> > 
-> > > +static const int inv_icm42607_accel_scale[] = {
-> > > +	/* +/- 16G => 0.004788403 m/s-2 */
-> > > +	[2 * INV_ICM42607_ACCEL_FS_16G] = 0,
-> > > +	[2 * INV_ICM42607_ACCEL_FS_16G + 1] = 4788403,
-> > > +	/* +/- 8G => 0.002394202 m/s-2 */
-> > > +	[2 * INV_ICM42607_ACCEL_FS_8G] = 0,
-> > > +	[2 * INV_ICM42607_ACCEL_FS_8G + 1] = 2394202,
-> > > +	/* +/- 4G => 0.001197101 m/s-2 */
-> > > +	[2 * INV_ICM42607_ACCEL_FS_4G] = 0,
-> > > +	[2 * INV_ICM42607_ACCEL_FS_4G + 1] = 1197101,
-> > > +	/* +/- 2G => 0.000598550 m/s-2 */
-> > > +	[2 * INV_ICM42607_ACCEL_FS_2G] = 0,
-> > > +	[2 * INV_ICM42607_ACCEL_FS_2G + 1] = 598550,
-> > > +};
-> 
-> I've gone through and implemented all of the changes everyone suggested, though
-> this is one of the few on which I had a question. Obviously this driver was
-> cobbled together from 2 different sources and checked to the best of my ability
-> and tested/validated against the data sheet, but there are a few bits I'm not
-> fully clear on such as this.
+diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+index 3881f573ec08..47c9293c54c2 100644
+--- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
++++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+@@ -305,6 +305,15 @@ cmu_apm: clock-controller@11800000 {
+ 			clock-names = "oscclk", "dout_clkcmu_apm_bus";
+ 		};
+ 
++		ap2apm_mailbox: mailbox@11900000 {
++			compatible = "samsung,exynos850-mbox";
++			reg = <0x11900000 0x1000>;
++			clocks = <&cmu_apm CLK_GOUT_MAILBOX_APM_AP_PCLK>;
++			clock-names = "pclk";
++			interrupts = <GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>;
++			#mbox-cells = <0>;
++		};
++
+ 		cmu_cmgp: clock-controller@11c00000 {
+ 			compatible = "samsung,exynos850-cmu-cmgp";
+ 			reg = <0x11c00000 0x8000>;
 
-> What's the correct way to represent this data? Since it looks like one of the
-> values is always 0, should I just assume it's always 0 and only represent the
-> values that change in this scale?
+---
+base-commit: 5e9b7d093f3f77cb0af4409559e3d139babfb443
+change-id: 20260429-exynos850-mbox-dts-c9b9e7336140
+prerequisite-change-id: 20260320-exynos850-ap2apm-mailbox-cff0c8d69898:v3
+prerequisite-patch-id: 093e2d93cd4b6f0ade6f9ff0e3b773e47017f884
+prerequisite-patch-id: c2e9212d341270a2f2a8b6f3695711bc3b6ff2d8
 
-Isn't the comment is clear about that? The first one is integer, the second one
-is fraction. So, no, your assumption is wrong strictly speaking.
-
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Alexey Klimov <alexey.klimov@linaro.org>
 
