@@ -1,200 +1,236 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9135423A71
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 19:14:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777490080; cv=none; b=eRdFF0n9jHMLdG01L0MGHHfF7Oj2n9GKphab5oajyic3eSCnjykNFm07h3Pt49e8/dzaYDBxWyM8ZWnqsDpocGDdTTmrxa+8umJhf3AMDicivSksgPxSZ4sG1LBdR7Z38OKZ49AuwXCrJEzkkour8w6ZfltazjmSUQsE9BTNkgY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777490080; c=relaxed/simple;
-	bh=Raw3nnG6txGxRT2tuucK4Vyk8RJ3aJNJodqKknAtnWs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=etaShJtKCfwL1mYSLDxrrnCuhmBx44GDxPPZEw1u2Sdr9AmGHVeIWj05oAnC6TaFSHWj2F04Q8JPsjpOyYb7W3j40crK+uaPNGGv3zLpvpUaazTwze0c9Xq1s5q6J/+zkdfKwZ1Bygm1fq14Om9y8RyL5lmKxWQq+Y79W/BGp7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fH502bVa; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BDC92DF6EA
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 19:20:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777490453; cv=pass; b=kTV/7JONqIsWaPQ70i4G81uK55vyoD+I5QSTNB4yDtmsZ8F5Ne7UQ3vZsIP02I0bK986e563jYIQAMaVom6wLcaEKQ+w/iN1jlQ/a4n/rFbmbP+UPV2LJYlpc1kKUxyLQv6kZP2CKzAi3RCxQn2hQbEYzPdwrcWEhMOTAzjPCDc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777490453; c=relaxed/simple;
+	bh=braCilAYzfWSvAWMEDj3jzrbXNaOgTJxXed3C2N+6Jg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bobwk3ZRv/wDv08dUMgOJ0CV8VH9NE+aOvhU08pwoXGV9K06uwlDz2UX93WOJOXPb5Y8VLnBjGTeZdyzqMVM61KkBitl8FSqmQZTjJE6jAaMAOonJQC4SscLS8NsIr7RJcXxbPMEh3dRCLOO8SWZWc9Zm9MhBkUwZ3y3f/K9FA0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=J2foeINB; arc=pass smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fH502bVa"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4891cd41959so858345e9.3
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 12:14:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="J2foeINB"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-671c5eb7fb0so139962a12.3
+        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 12:20:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777490450; cv=none;
+        d=google.com; s=arc-20240605;
+        b=l2Hfvygw+2PQfoT4v3FQDBXq1uXOFQxLnFHWBTb2QabGDNfjxA4/+QwmmDIUCtRo/t
+         H+oWwsO520hnMTcbpRgZ9iqpFxrzNGihoXlkg2lttF9JzDuWmi7/ODhFk7EWjwAyg/Yc
+         9ffbwcskeAIgDgg5HMd/OPDktj6/+5koK72FlyYE03KUlY24zn1Iksr5WYcT6Ofg3h5S
+         1LsmrEHSNBisaIV2hc60chTlMLwohqX1E9IIy2jUiJ7WnuPKWBraLpXqMCIEZCto6GPw
+         7Q/AkdYnQGDkTzarCanIzm92n6l1O4q7jYhU4Q9yJj8J5CS30ROj8Lb/ssl1yxf2Qs+i
+         Zsiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=P1oUs/Abu5g3UxUIAO0ZwpBJwwKm0pg05ZGOCVCeRmU=;
+        fh=xeZGwGY+fAP8YSrp8T2SQlOF3gD6REvMLPB0VyO2Xfs=;
+        b=XDA7Gt8Cwp7CpWoHku+hTsn2X5nQ4cPbBbQd7CxLi4FJA7OThFIYWjyxOv3kM5R/nX
+         mctIFmFFio+N+fKcIYglYv3MoQV9n6+7WOcZpDl2VA+5SCwsteysOyJcUL7Ol9RwOEat
+         E6JLKGjy7fOSjJsjaxGSweaRb1iL4pJeFtJbGH+dKniKT54exDsbRzeEtlIG8sB0EvhJ
+         8AET3zm3cQbEwxbVwgMuiTIid++FZ6zzzvLu9/o0Ew3OCkNFGurdNfm5JOMoO4hNtxmL
+         0E59pZLDsqOnr+cjpqCMBTDjhGvBQmcSEtxkY860C1YOnZLpRN/aIzfcJjdtK7HMGpOs
+         QjjQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777490077; x=1778094877; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=6fKUgxBCx0mNxBEJyRtsEMEQ1iRhj1qvL3+7BPzmL+U=;
-        b=fH502bVa3+gNxhIob4IOre3rUEmgRL9V3GaLlY7rO7PV2KdQy69LcCjMC1osfFnCva
-         +xd++tqIYgMW5ULkBNnw6F57uTJ9NDdlBLUkI2Ct508tiuCB0JPlwq/LBcSbaXNinbdV
-         4bqSbNCPvXf6/piu0mgHEbbQsyqgA0co4FG1E8TbAZR3/CmftIGyYY+hko9OPzb1ifiT
-         RhozoOBVBuz4w5oJUHUb8Pc0/7l79daS7WMn5AMKTdWQRrNpzbz44bRc6jvFMHRYJTZH
-         BWeEdkCsrAFeTzjDKKXF7VbJMWIHAqh+JEZZS6DwG9Q1rbbkCJuHrq7S+a9WhXfwqxgq
-         nJrg==
+        d=linaro.org; s=google; t=1777490450; x=1778095250; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=P1oUs/Abu5g3UxUIAO0ZwpBJwwKm0pg05ZGOCVCeRmU=;
+        b=J2foeINBIxLUD/f5R5WCd8ndy0IbWzi/9CzJczqdjXtlw3YvhYiQE77BGYYg802I1z
+         FU7njl6BiHtLe3JY6/7kGsC0q7dMD10OotdhXQE1POQ1294rIB/dSnUyv8U9JWzg9I7z
+         ei2wT5CCNdjjv7V/7nPaZqlx/s5ohLlUREbCnoy6ZxM5WPZJ3do4UglWe/Q5L6Yh/wG5
+         +lVzgL382uWvsVNf56voBRSwgdyTSRe4OQzSinlaX3hYxvfO8bEIDCu0H+9RV5Hp6pQk
+         wahqe1IZeEtXZfap/DQ8iXjAABs1J6tBCF+iq5oazzubo8McZnAlVggbYlGFlfY71b7u
+         Ie3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777490077; x=1778094877;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=6fKUgxBCx0mNxBEJyRtsEMEQ1iRhj1qvL3+7BPzmL+U=;
-        b=L4xFfTDVQunJAIe1/xcZts92LfYzCl75i+py/mvWLPlwqU2MgIBv12BZTy5Vjbubr5
-         jHWK84WAWiP1i0JwTzS3MXMgShBBrDBo3aYWNueSft83NH1Gf0PTiSou/Sv1E4Tr1txA
-         /P/hsiicBZl+fr9kbw/J6s235kU+n0sawyTKXaEE3Ax8JDMEri4Chco+UCM93yX6LY3L
-         LInrOSmNilqXulFjJICPA8Fm+AtZSPfO7a+Tj5BNv3OZ4nAqb93l1jyaWgAWSEf4q3zK
-         0xc0zuZCqfBbK1qXTizn+lF5AcN3ACYYmOuB+kw4VQ+nCq44VLxyM374LIxwme/HWuzY
-         D5CA==
-X-Forwarded-Encrypted: i=1; AFNElJ9kn48uYjoRgAvjnom0k5jemmimZleLrMrr8r9GWEbCz8vH0ZjDu2mByKlLjYONI9aHq5MzfgL6Fqun@vger.kernel.org
-X-Gm-Message-State: AOJu0YzFiT/Zp1UR9FS1IGyh/7NdgW2DP8bky/90mL0+KCKKRd1Tt75f
-	Sf1buYs43Ud2mGGeydcQPdYTtQMf47fhfWM8ytdtwbTexkQhp/ZoXhfj
-X-Gm-Gg: AeBDievqbxnM3foqZv7hYqWMlf2x64tJCEC+hYUjsgHHd94bZDP/vPL2MxhdCEc6W8P
-	FfkEgTPe1QPy9uScdrn+S8aw1jI1sjM8uqYL3PtxIsTi4syZLkwKa2PNo2WjifuPUAx+Q0fSlaO
-	EmJJnHOGc/RAU0uJQOQmKrWqEeGv347JInDuZrnM0hZcWupAcfCKdOKkeVFraXwZMOd1yGFPL48
-	NhqinUQ/3hPZ5h7bSjNTEZbdHTpNWrvh5lEwM9rfm4oi18G2bzvmQfFrsgVAFfiOK90YQ8STpn0
-	ZT0NwPgotiZPOUu/nZi9cAX6wzBQ3St6ie+Kzb6cPLZXwQwpHUPmqkwTwyEBctRLh730pRU1zEn
-	S/K3UFsmFSu5RVS5+BfA329JsiXDyYw4O/EPcmqbpQ3r5Dk+Of0FLtCjT3boPQHAf9FCvR4G/jN
-	BMftX9PUsXGBndTmXha59Tzzkr7bmRHrfTTOrsJMG8bwo=
-X-Received: by 2002:a05:600c:630a:b0:487:1fb4:7e1 with SMTP id 5b1f17b1804b1-48a77b0ee3emr168084865e9.22.1777490077103;
-        Wed, 29 Apr 2026 12:14:37 -0700 (PDT)
-Received: from [192.168.0.2] ([197.250.51.50])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a7c316d7esm23315005e9.24.2026.04.29.12.14.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Apr 2026 12:14:36 -0700 (PDT)
-From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-Date: Wed, 29 Apr 2026 22:13:17 +0300
-Subject: [PATCH v7 6/6] ARM: zte: defconfig: Add a zx29 defconfig file
+        d=1e100.net; s=20251104; t=1777490450; x=1778095250;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=P1oUs/Abu5g3UxUIAO0ZwpBJwwKm0pg05ZGOCVCeRmU=;
+        b=sDQ/FlOJuTYxqhQ378c6EmILzE4IYQt4TS9ktqxaHy7GJOrs4dJQ7aq4idlwMRVHXM
+         UFVLkCdyyzl6iGc+LUO4HKfa+EWbiHEEJO8QKdZIgjWKARIPRHZpxRwI5hbClwbEYxyr
+         2NwfraIVPqRzwBfBTp+Tze+VEvBnbGBZDnMQh0qwYFcr0tNUt1lBipbwstWSNOYzfZMZ
+         XK8Q+a9BCNgVPFfY0kxmycASKq3SMSYSET2Xv/aBwMJL3wgKerkW4W4TRpnm7qAW/aLe
+         HogvRacnwFBuUtGB7pYGnoOhQK0bRZXi2BqYs1ekMSPZ0cJFm+LvQ4LDQg/b307TcYnt
+         XP1Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8s/ika3XI5VA3nc/pzLmlisxlOazdbOgsK3emrSk1X4POE2Khv808aldlVgulbQpRvZ4Z7JlCEHzfr@vger.kernel.org
+X-Gm-Message-State: AOJu0YwdC6m4OhIpOqShZLu7vHkjBVjzz5G7WvA7lno0c4X9NwaW54Ri
+	Xc0xKrELb4D0fLQE9C96gPXRqTcjk0wm9hG8Dm1GZ+2hRdYT2pkDRTBvXvqtVE+PP36ul08vZHi
+	nBvABOojKg95ASH2ajmQ/pKeZhYbuNA2vyprp5bccOw==
+X-Gm-Gg: AeBDieu4RquPuGZ8/UkegW07zb18zNKaw8O+i9fj40DVP3+5y8x5QxYNejtZmOz+2hP
+	ih1AQg/bo/+wsXkkGE1eZCLrjPuePGUsOv/+SqfuT8m9LJvtQgNvaCzp2Umegh/p+TOp/09OuxT
+	kMteaeRY/Z6HXIEbL8sFZ7g2t9oRc8bx0is8PIfuAgyIdImvAqyIG1AxP0bIg+1xzpOCsvw/g+t
+	jXIwA7DBslc9xRsvXRmo/iTIO3YqafV/72CW4Hi7iakvZhx4kru9Nlzx6Ez2hlweJvcqdVDa0Gf
+	6AzRCr/RFerJKqjcpHP2e6L1Gawv7RjDnXb8Kz56yXU1nPPaKsoq4GfbnICvMYA=
+X-Received: by 2002:a05:6402:5024:b0:674:2565:f27a with SMTP id
+ 4fb4d7f45d1cf-679bb095b4amr4292362a12.19.1777490449661; Wed, 29 Apr 2026
+ 12:20:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260429-send-v7-6-b432e00d2db8@gmail.com>
-References: <20260429-send-v7-0-b432e00d2db8@gmail.com>
-In-Reply-To: <20260429-send-v7-0-b432e00d2db8@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- soc@lists.linux.dev, linux-serial@vger.kernel.org, 
- =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2584;
- i=stefandoesinger@gmail.com; h=from:subject:message-id;
- bh=Raw3nnG6txGxRT2tuucK4Vyk8RJ3aJNJodqKknAtnWs=;
- b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBp8lh1EhYS/FI32IlxLUBQvJ1l9b49Dbf2N5b5b
- 0+0yQRveI2JAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCafJYdRsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiLTUQ/9H4sDaDcI8rzJTKhDFNRttj29vxe6POt
- eevQdOL+WQaWNV5Iq+5n/XsbP0bp2cuqUwCUbr8sRr+s1kFz2TB0YjWQCjT3eLTpU5F5xZ32V0n
- LM2hx7oOK5tvlCn8EScXp2v/0t3G+WwS+PJT5JkKKJj670Z+5PbBWmdkRRqR3eCZ8LkVWsJAO3y
- T6ya+d2yGv+jVfZmp6Cm7nsdVINKlFQ9bKmBEqOHwXwpNK35xPEsHUqYselJ7Y6ijIHTAQWSPSs
- m3HtYNJPJcw2how9p084rusWqFS6qVPgWGEBCEZ1+5Y2FdKepgvjuVRUqAOUxU6EOBIVKYz+Zup
- ksAoJGRzMC/o2/w4J7l9+9Eyqv6UdS3yu3HgiBloNGM8fiQDDFDkI9tdLK/sn5YjiIaSs96IY3H
- MrPisngXDE6JCyVlGzNlHzB1PZZXYm3TiGr8Lw04HhyawjbA8bad7k+IpOJmFlGULDQ4ais+Tkx
- 4ByKHcTaCM9V7eUzaK2vsVsDGstcn8lKV26t78yeQ5Szmy8+uZJEUhVdjd5ue6j2JYuiG4EeOjq
- Tieiv8xSuv6EmymMgSguk0s87VQE1xZ01bcYbN84JI/M4Snh3oh9SBKL2PESxrMa0NIfilYH5Vk
- VQ6/qQIFKNYuUoKSGqwlOh9qd8IC9QthvqlEMv8q/soMTaUMkvFE=
-X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
- fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
+References: <20260422212849.1240591-1-shenwei.wang@nxp.com>
+ <20260422212849.1240591-4-shenwei.wang@nxp.com> <22fb5fac-2568-42be-a7e3-7e89d0017eb3@ti.com>
+ <PAXPR04MB91850A11C58419C03909145F89362@PAXPR04MB9185.eurprd04.prod.outlook.com>
+ <6412a758-4560-4cf1-a0d0-5b24d1a715f1@lunn.ch> <PAXPR04MB9185009A17DFDF3D6C8B44E789362@PAXPR04MB9185.eurprd04.prod.outlook.com>
+ <6e01e114-e336-4744-b6b4-563ec42e321b@lunn.ch> <PAXPR04MB9185A098D894B6A6EBCC13F889372@PAXPR04MB9185.eurprd04.prod.outlook.com>
+ <afImuoeHolxGgw3H@p14s> <PAXPR04MB9185F2F6DDB55AC56C92D63B89342@PAXPR04MB9185.eurprd04.prod.outlook.com>
+ <CANLsYkwvL0Z3+12MD=J+Dc2yAU2T8ypizyG=6AhYoWOh55odHA@mail.gmail.com> <472f85bd-42c2-40c6-abfd-b76924797069@ti.com>
+In-Reply-To: <472f85bd-42c2-40c6-abfd-b76924797069@ti.com>
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Wed, 29 Apr 2026 13:20:38 -0600
+X-Gm-Features: AVHnY4LS0q8rVhCWEM9jcgreDzRj6jHlyTeei6srw2bJ0kIdi0Mr181JcAK3ylA
+Message-ID: <CANLsYkzt9xUczxSU28u-TfZAAjr0ufZKXAj8Eqfq=45gufXW3w@mail.gmail.com>
+Subject: Re: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg GPIO driver
+To: "Padhi, Beleswar" <b-padhi@ti.com>
+Cc: Shenwei Wang <shenwei.wang@nxp.com>, Andrew Lunn <andrew@lunn.ch>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Frank Li <frank.li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Shuah Khan <skhan@linuxfoundation.org>, 
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>, 
+	"imx@lists.linux.dev" <imx@lists.linux.dev>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, dl-linux-imx <linux-imx@nxp.com>, 
+	Bartosz Golaszewski <brgl@bgdev.pl>
+Content-Type: text/plain; charset="UTF-8"
 
-This enables existing drivers for hardware that is present on this board
-even if it is not present in the DT yet.
+On Wed, 29 Apr 2026 at 12:07, Padhi, Beleswar <b-padhi@ti.com> wrote:
+>
+> Hi Mathieu,
+>
+> On 4/29/2026 11:03 PM, Mathieu Poirier wrote:
+> > On Wed, 29 Apr 2026 at 10:53, Shenwei Wang <shenwei.wang@nxp.com> wrote:
+> >>
+> >>
+> >>> -----Original Message-----
+> >>> From: Mathieu Poirier <mathieu.poirier@linaro.org>
+> >>> Sent: Wednesday, April 29, 2026 10:42 AM
+> >>> To: Shenwei Wang <shenwei.wang@nxp.com>
+> >>> Cc: Andrew Lunn <andrew@lunn.ch>; Padhi, Beleswar <b-padhi@ti.com>; Linus
+> >>> Walleij <linusw@kernel.org>; Bartosz Golaszewski <brgl@kernel.org>; Jonathan
+> >>> Corbet <corbet@lwn.net>; Rob Herring <robh@kernel.org>; Krzysztof Kozlowski
+> >>> <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>; Bjorn Andersson
+> >>> <andersson@kernel.org>; Frank Li <frank.li@nxp.com>; Sascha Hauer
+> >>> <s.hauer@pengutronix.de>; Shuah Khan <skhan@linuxfoundation.org>; linux-
+> >>> gpio@vger.kernel.org; linux-doc@vger.kernel.org; linux-kernel@vger.kernel.org;
+> >>> Pengutronix Kernel Team <kernel@pengutronix.de>; Fabio Estevam
+> >>> <festevam@gmail.com>; Peng Fan <peng.fan@nxp.com>;
+> >>> devicetree@vger.kernel.org; linux-remoteproc@vger.kernel.org;
+> >>> imx@lists.linux.dev; linux-arm-kernel@lists.infradead.org; dl-linux-imx <linux-
+> >>> imx@nxp.com>; Bartosz Golaszewski <brgl@bgdev.pl>
+> >>> Subject: [EXT] Re: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg GPIO driver
+> >>> On Tue, Apr 28, 2026 at 03:24:59PM +0000, Shenwei Wang wrote:
+> >>>>
+> >>>>> -----Original Message-----
+> >>>>> From: Andrew Lunn <andrew@lunn.ch>
+> >>>>> Sent: Monday, April 27, 2026 3:49 PM
+> >>>>> To: Shenwei Wang <shenwei.wang@nxp.com>
+> >>>>> Cc: Padhi, Beleswar <b-padhi@ti.com>; Linus Walleij
+> >>>>> <linusw@kernel.org>; Bartosz Golaszewski <brgl@kernel.org>; Jonathan
+> >>>>> Corbet <corbet@lwn.net>; Rob Herring <robh@kernel.org>; Krzysztof
+> >>>>> Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>;
+> >>>>> Bjorn Andersson <andersson@kernel.org>; Mathieu Poirier
+> >>>>> <mathieu.poirier@linaro.org>; Frank Li <frank.li@nxp.com>; Sascha
+> >>>>> Hauer <s.hauer@pengutronix.de>; Shuah Khan
+> >>>>> <skhan@linuxfoundation.org>; linux-gpio@vger.kernel.org; linux-
+> >>>>> doc@vger.kernel.org; linux-kernel@vger.kernel.org; Pengutronix
+> >>>>> Kernel Team <kernel@pengutronix.de>; Fabio Estevam
+> >>>>> <festevam@gmail.com>; Peng Fan <peng.fan@nxp.com>;
+> >>>>> devicetree@vger.kernel.org; linux- remoteproc@vger.kernel.org;
+> >>>>> imx@lists.linux.dev; linux-arm- kernel@lists.infradead.org;
+> >>>>> dl-linux-imx <linux-imx@nxp.com>; Bartosz Golaszewski
+> >>>>> <brgl@bgdev.pl>
+> >>>>> Subject: [EXT] Re: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg
+> >>>>> GPIO driver
+> >>>>>>> struct virtio_gpio_response {
+> >>>>>>>          __u8 status;
+> >>>>>>>          __u8 value;
+> >>>>>>> };
+> >>>>>> It is the same message format. Please see the message definition
+> >>>>> (GET_DIRECTION) below:
+> >>>>>
+> >>>>>> +   +-----+-----+-----+-----+-----+----+
+> >>>>>> +   |0x00 |0x01 |0x02 |0x03 |0x04 |0x05|
+> >>>>>> +   | 1   | 2   |port |line | err | dir|
+> >>>>>> +   +-----+-----+-----+-----+-----+----+
+> >>>>> Sorry, but i don't see how two u8 vs six u8 are the same message format.
+> >>>>>
+> >>>> Some changes to the message format are necessary.
+> >>>>
+> >>>> Virtio uses two communication channels (virtqueues): one for requests and
+> >>> replies, and a second one for events.
+> >>>> In contrast, rpmsg provides only a single communication channel, so a
+> >>>> type field is required to distinguish between different kinds of messages.
+> >>>>
+> >>>> Since rpmsg replies and events share the same message format, an additional
+> >>> line is introduced to handle both cases.
+> >>>> Finally, rpmsg supports multiple GPIO controllers, so a port field is added to
+> >>> uniquely identify the target controller.
+> >>>
+> >>> I have commented on this before - RPMSG is already providing multiplexing
+> >>> capability by way of endpoints.  There is no need for a port field.  One endpoint,
+> >>> one GPIO controller.
+> >>>
+> >> You still need a way to let the remote side know which port the endpoint maps to, either
+> >> by embedding the port information in the message (the current way), or by sending it
+> >> separately.
+> >>
+> > An endpoint is created with every namespace request.  There should be
+> > one namespace request for every GPIO controller, which yields a unique
+> > endpoint for each controller and eliminates the need for an extra
+> > field to identify them.
+>
+>
+> Right, but this can still be done by just having one namespace request.
+> We can create new endpoints bound to an existing namespace/channel by
+> invoking rpmsg_create_ept(). This is what I suggested here too:
+> https://lore.kernel.org/all/29485742-6e49-482e-b73d-228295daaeec@ti.com/
+>
 
-Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
+I will look at your suggestion (i.e link above) later this week or next week.
 
----
+> My mental model looks like this for the complete picture:
+>
+> 1. namespace/channel#1 = rpmsg-io
+>     a. ept1 -> gpio-controller@1
+>     b. ept2 -> gpio-controller@2
+>
 
-Changes: v5 to v6: Regenerate the file with make savedefconfig.
+I've asked for one endpoint per GPIO controller since the very
+beginning.  I don't yet have a strong opinion on whether to use one
+namespace request per GPIO controller or a single request that spins
+off multiple endpoints.  I'll have to look at your link and reflect on
+that.  Regardless of how we proceed on that front, multiplexing needs
+to happen at the endpoint level rather than the packet level.  This is
+the only way this work can move forward.
 
-An open question: What's the appropriate name? zx29_defconfig?
-zte_defconfig? zte_zx29_defconfig? There's e.g. stm32_defconfig without
-an extra mention of STMicro in the name.
----
- MAINTAINERS                     |  1 +
- arch/arm/configs/zx29_defconfig | 54 +++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 55 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6f51ba1c5ada..5dc52b84cc09 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -3776,6 +3776,7 @@ ARM/ZTE ZX29 SOC SUPPORT
- M:	Stefan Dösinger <stefandoesinger@gmail.com>
- F:	Documentation/devicetree/bindings/arm/zte.yaml
- F:	arch/arm/boot/dts/zte/
-+F:	arch/arm/configs/zx29_defconfig
- F:	arch/arm/mach-zte/
- 
- ARM/ZYNQ ARCHITECTURE
-diff --git a/arch/arm/configs/zx29_defconfig b/arch/arm/configs/zx29_defconfig
-new file mode 100644
-index 000000000000..54fa62ed56e7
---- /dev/null
-+++ b/arch/arm/configs/zx29_defconfig
-@@ -0,0 +1,54 @@
-+CONFIG_SYSVIPC=y
-+CONFIG_BLK_DEV_INITRD=y
-+# CONFIG_RD_BZIP2 is not set
-+# CONFIG_RD_LZMA is not set
-+# CONFIG_RD_XZ is not set
-+# CONFIG_RD_LZ4 is not set
-+CONFIG_EXPERT=y
-+CONFIG_KALLSYMS_ALL=y
-+CONFIG_ARCH_ZTE=y
-+CONFIG_ARM_PSCI=y
-+CONFIG_ARM_APPENDED_DTB=y
-+CONFIG_CMDLINE="console=ttyAMA0 earlyprintk root=/dev/ram rw"
-+CONFIG_CPU_FREQ=y
-+CONFIG_CPUFREQ_DT_PLATDEV=y
-+# CONFIG_SUSPEND is not set
-+CONFIG_PM=y
-+CONFIG_BINFMT_FLAT=y
-+CONFIG_NET=y
-+CONFIG_PACKET=y
-+CONFIG_UNIX=y
-+CONFIG_INET=y
-+# CONFIG_STANDALONE is not set
-+# CONFIG_PREVENT_FIRMWARE_BUILD is not set
-+# CONFIG_ALLOW_DEV_COREDUMP is not set
-+CONFIG_MTD=y
-+CONFIG_MTD_BLOCK=y
-+CONFIG_BLK_DEV_RAM=y
-+CONFIG_BLK_DEV_RAM_COUNT=4
-+CONFIG_SRAM=y
-+CONFIG_KEYBOARD_GPIO_POLLED=y
-+# CONFIG_INPUT_MOUSE is not set
-+CONFIG_VT_HW_CONSOLE_BINDING=y
-+CONFIG_SERIAL_AMBA_PL011=y
-+CONFIG_SERIAL_AMBA_PL011_CONSOLE=y
-+CONFIG_SERIAL_DEV_BUS=y
-+# CONFIG_HW_RANDOM is not set
-+CONFIG_PINCTRL=y
-+CONFIG_GPIOLIB=y
-+CONFIG_GPIO_GENERIC_PLATFORM=y
-+CONFIG_POWER_RESET=y
-+CONFIG_MFD_SYSCON=y
-+CONFIG_REGULATOR=y
-+CONFIG_REGULATOR_FIXED_VOLTAGE=y
-+# CONFIG_HID is not set
-+CONFIG_USB_DWC2=y
-+CONFIG_USB_GADGET=y
-+CONFIG_MMC=y
-+CONFIG_MMC_DW=y
-+CONFIG_RESET_CONTROLLER=y
-+CONFIG_RESET_SIMPLE=y
-+CONFIG_JFFS2_FS=y
-+CONFIG_PRINTK_TIME=y
-+CONFIG_DEBUG_LL=y
-+CONFIG_EARLY_PRINTK=y
-
--- 
-2.53.0
-
+> 2. namespace/channel#2 = rpmsg-i2c
+>     a. ept1 -> i2c@1
+>     b. ept2 -> i2c@2
+>     c. ept3 -> i2c@3
+>
+> etc...
+>
+> This way device groups are isolated with each channel/namespace, and
+> instances within each device groups are also respected with specific
+> endpoints.
+>
+> Thanks,
+> Beleswar
+>
