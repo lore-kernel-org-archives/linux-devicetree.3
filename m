@@ -1,145 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from vinatta.cz (vinatta.cz [37.205.8.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552EE154425;
-	Wed, 29 Apr 2026 10:55:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE1021B9F6;
+	Wed, 29 Apr 2026 10:55:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.205.8.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777460125; cv=none; b=Tua135pBPwIJOTzEdtGV+3FuFVNBXW03Cg7iYybJxlwLqqf3TkTY6PGjA9fN4sT1cLCJbXy0LHQvKlXpdv2au0+gkrD1Kkr6KYx1etJPuSv4LHCBkmrdEiNLud2TGrm7+0utIBna13QrOr0oCVtpZYHEdGV0oSX2mMCfV09gc1w=
+	t=1777460155; cv=none; b=Xc/aMmsGt0n7Y7xOyQzkR5vqQNHvaHpsnTc27VQ4BZg2XMmH0/rnA2MT0phG90aGYhDH8A0tdF+GRZLz/kANnZHmgCQw0yfvpbgmWteJHkqFBDK3akiq9kQaiqGuuBnpzDIGH/qlaloyJU7Sq452gllvQl7QRmp+RT4M9++BAMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777460125; c=relaxed/simple;
-	bh=QANXounuzkuFspZS0EBxjHhEE3xoQ7mCoC1U0Ehjids=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=Ydf1+NyKK6rc0rjtktCnoF/YsYP1JlzCpqNEeH+owyw0sXFK0CSUZsIgcLCdC9ZoxopKAq4rvJJDm2gNELfERa0mS0UpzfQxBSzA1E5D/+f2ZNL8bVJL+/RwBDT+IspN6W9t/DAR0GDvhiPTsdTwN9SdtOYYwMRLLdLIcvDj2P4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OKXToDcg; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1777460155; c=relaxed/simple;
+	bh=Fmly2pB3Jdw6CU7aua3Gt1Tb8FZySUz2f9Q9kbm89gQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:To:From:
+	 References:In-Reply-To; b=DBUVpHLdJ/nXCumu94PuKK74mFfYQCvS4uvaRD84QDJqnttDLwlj1eeG/emedUX1xqTjSetk3acvzITbS7Tod5KpprduhECwTNL79WyaZ1OD7YDITZogeVqPgA2VtHd04Gf2dt/VIsp4NEhMcIcH5NCUnpNdUG+T6n3z/tby5m8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=matfyz.cz; spf=pass smtp.mailfrom=vinatta.cz; dkim=pass (2048-bit key) header.d=vinatta.cz header.i=@vinatta.cz header.b=IE9hT5cj; arc=none smtp.client-ip=37.205.8.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=matfyz.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinatta.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OKXToDcg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777460125; x=1808996125;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=QANXounuzkuFspZS0EBxjHhEE3xoQ7mCoC1U0Ehjids=;
-  b=OKXToDcgDd+gNbORRsaO3RJcMZsdBLVX8taif30xfwP/CiZh2aA7Xz0r
-   pc470volDjJU0s++kAXaw6X3zSII3gHneEpuwRx1L+ohtGJvBU1HwGcqb
-   Adz7KP+arRbdhJEAwspLAYQEVT1G+FjksoH2I6Rlnrgk1GAKIE9WKmg79
-   KpXm4Th+rUff5ruXppBBCpG/g35Dan3+4wnn9aCxyxc1ifuLqHimlwGmV
-   bWND/xT8GxLtbOVNUli8XGfFyYTCtylnLtkEaOJ4YO4G5/mc/nyoGfeHT
-   3G/8mdwNQo00ipNjohMmvRYOJumkMT2phDH7dVvPi1hx1lbRiwixyflld
-   A==;
-X-CSE-ConnectionGUID: WQ3NJJGER7+dSpcuupj46A==
-X-CSE-MsgGUID: VhEt53B9SVqvu146XIWvFA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11770"; a="101047263"
-X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; 
-   d="scan'208";a="101047263"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Apr 2026 03:55:12 -0700
-X-CSE-ConnectionGUID: 2ov17KlCQWKWvrNs5yz2kg==
-X-CSE-MsgGUID: ny0tfrM2RY+zSF/08m4Y4w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; 
-   d="scan'208";a="229887480"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.212])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Apr 2026 03:55:05 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 29 Apr 2026 13:55:03 +0300 (EEST)
-To: Jia Wang <wangjia@ultrarisc.com>
-cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-    Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-    Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
-    linux-serial <linux-serial@vger.kernel.org>, 
-    linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v7 4/4] serial: 8250_dw: Use a fixed CPR value for
- UltraRISC DP1000 UART
-In-Reply-To: <20260429-ultrarisc-serial-v7-4-e475cce9e274@ultrarisc.com>
-Message-ID: <66f322a7-70c5-13f9-3e97-6d0b18193f91@linux.intel.com>
-References: <20260429-ultrarisc-serial-v7-0-e475cce9e274@ultrarisc.com> <20260429-ultrarisc-serial-v7-4-e475cce9e274@ultrarisc.com>
+	dkim=pass (2048-bit key) header.d=vinatta.cz header.i=@vinatta.cz header.b="IE9hT5cj"
+DKIM-Signature: a=rsa-sha256; bh=Fmly2pB3Jdw6CU7aua3Gt1Tb8FZySUz2f9Q9kbm89gQ=;
+ c=relaxed/relaxed; d=vinatta.cz;
+ h=Subject:Subject:Sender:To:To:Cc:Cc:From:From:Date:Date:MIME-Version:MIME-Version:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Reply-To:In-Reply-To:In-Reply-To:Message-Id:Message-Id:References:References:Autocrypt:Openpgp;
+ i=@vinatta.cz; s=default; t=1777460123; v=1; x=1777892123;
+ b=IE9hT5cjZEmIwG9IIdx+fcVqsAG5vT54+uzxwHiRxM0qxsFe8xvtdB5JsLOmQepxxwoCxtyb
+ TM2YyAJJZ5UbMb5FtR5kcijOJLoblavspW1N+ZG7G3wkE5/DFWnrVyZmY0EoM2BBwceSKRh4Z4p
+ vIzF+E6YexybCwcyabYmLNTEok0LHtxFh2l8fepePWj0RpUmB+J6ChmiJy5/EqCOhfhw6xb1qN3
+ lP0CZiGLNO7QX/PTkLwUk9NVmRsPAgFAg5zHLuPRuOBi4mdC55z9zzj2ca/aoZvXzF6L1q0uuvF
+ GxJEdCqfwVXGEGS7eiMO2CPd07ZakUhWpFIOe9f/L6ySA==
+Received: by vinatta.cz (envelope-sender <karel@vinatta.cz>) with ESMTPS id
+ 740817af; Wed, 29 Apr 2026 12:55:23 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-392823364-1777460103=:966"
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 29 Apr 2026 12:55:23 +0200
+Message-Id: <DI5L100Q1RKO.1A68EJIPWYSRC@matfyz.cz>
+Cc: "Johannes Berg" <johannes@sipsolutions.net>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, =?utf-8?q?Duje_Mihanovi=C4=87?=
+ <duje@dujemihanovic.xyz>, "Andrew Lunn" <andrew@lunn.ch>, "Gregory Clement"
+ <gregory.clement@bootlin.com>, "Sebastian Hesselbarth"
+ <sebastian.hesselbarth@gmail.com>, "Ulf Hansson" <ulf.hansson@linaro.org>,
+ "Frank Li" <Frank.Li@nxp.com>, <linux-wireless@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-mmc@vger.kernel.org>,
+ <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
+ "Jeff Chen" <jeff.chen_1@nxp.com>, "Peng Fan" <peng.fan@nxp.com>,
+ <david@ixit.cz>
+Subject: Re: [DONOTAPPLY RFC PATCH v2 0/4] WiFi support for
+ samsung,coreprimevelte
+To: "Brian Norris" <briannorris@chromium.org>, "Francesco Dolcini"
+ <francesco@dolcini.it>
+From: "Karel Balej" <balejk@matfyz.cz>
+References: <20251026182602.26464-1-balejk@matfyz.cz>
+ <DEJL1ATTQMVE.120JV9YW59I27@matfyz.cz>
+ <aSnWYS2g5slVFaSk@gaggiata.pivistrello.it>
+In-Reply-To: <aSnWYS2g5slVFaSk@gaggiata.pivistrello.it>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hello,
 
---8323328-392823364-1777460103=:966
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Francesco Dolcini, 2025-11-28T18:05:37+01:00:
+> Hello Karel,
+>
+> On Thu, Nov 27, 2025 at 04:29:12PM +0100, Karel Balej wrote:
+>> To reiterate, the firmware is generally available but is not part of
+>> linux-firmware and the entire process of upstreaming the chipset support=
+ is
+>> stuck on that.
+>
+> I'll try to see if any of my contact in NXP Wi-Fi group is able to help. =
+Give
+> me a few days.
 
-On Wed, 29 Apr 2026, Jia Wang wrote:
+so I was in a long conversation over the past months with Jeff from NXP
+who was very helpful and tried to arrange for the upstreaming of the
+firmware. Unfortunately however, his efforts were ultimately rejected by
+the internal management.
 
-> The UltraRISC DP1000 UART does not provide the standard CPR register used
-> by 8250_dw to discover port capabilities.
->=20
-> Provide a fixed CPR value for the DP1000-specific compatible so the
-> driver can configure the port correctly.
->=20
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
->  drivers/tty/serial/8250/8250_dw.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->=20
-> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/=
-8250_dw.c
-> index 480f82d89856..55e40c10f46a 100644
-> --- a/drivers/tty/serial/8250/8250_dw.c
-> +++ b/drivers/tty/serial/8250/8250_dw.c
-> @@ -959,6 +959,15 @@ static const struct dw8250_platform_data dw8250_intc=
-10ee =3D {
->  =09.quirks =3D DW_UART_QUIRK_IER_KICK,
->  };
-> =20
-> +static const struct dw8250_platform_data dw8250_ultrarisc_dp1000_data =
-=3D {
-> +=09.usr_reg =3D DW_UART_USR,
-> +=09.cpr_value =3D FIELD_PREP_CONST(DW_UART_CPR_ABP_DATA_WIDTH, 2) |
-> +=09=09     DW_UART_CPR_THRE_MODE |
-> +=09=09     DW_UART_CPR_DMA_EXTRA |
-> +=09=09     DW_UART_CPR_FIFO_MODE_FROM_SIZE(32),
-> +=09.quirks =3D DW_UART_QUIRK_CPR_VALUE,
+We were directed to try to reach out to NXP via the customer support
+page which yielded nothing. The current situation is thus the same as a
+few months ago, summarized in my quote above.
 
-Thanks for all the effort you put to this series,
+Brian, what are the options here now? Would it be possible to make an
+exception and accept the patches without the firmware being in
+linux-firmware? This is an old device with no mainstream audience so I
+expect everyone who will want to use it will be able to supply the
+firmware themselves and it would be great to not have to keep the
+patches in a fork, especially when trying to build on top of them
+further (such as to fix the driver-firmware incompatibilities discussed
+in one of the patches of this series).
 
-Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+Francesco, would you perhaps still be able to help in any way?
 
-Unrelated to this patch, I suppose we wouldn't strictly need to have=20
-DW_UART_QUIRK_CPR_VALUE in this driver as non-zero .cpr_value should be=20
-enough to decide if the CPR quirk should be used or not (if the code is=20
-adapted, obviously).
-
-> +};
-> +
->  static const struct of_device_id dw8250_of_match[] =3D {
->  =09{ .compatible =3D "snps,dw-apb-uart", .data =3D &dw8250_dw_apb },
->  =09{ .compatible =3D "cavium,octeon-3860-uart", .data =3D &dw8250_octeon=
-_3860_data },
-> @@ -966,6 +975,7 @@ static const struct of_device_id dw8250_of_match[] =
-=3D {
->  =09{ .compatible =3D "renesas,rzn1-uart", .data =3D &dw8250_renesas_rzn1=
-_data },
->  =09{ .compatible =3D "sophgo,sg2044-uart", .data =3D &dw8250_skip_set_ra=
-te_data },
->  =09{ .compatible =3D "starfive,jh7100-uart", .data =3D &dw8250_skip_set_=
-rate_data },
-> +=09{ .compatible =3D "ultrarisc,dp1000-uart", .data =3D &dw8250_ultraris=
-c_dp1000_data },
->  =09{ /* Sentinel */ }
->  };
->  MODULE_DEVICE_TABLE(of, dw8250_of_match);
->=20
->=20
-
---=20
- i.
-
---8323328-392823364-1777460103=:966--
+Thank you, kind regards,
+K. B.
