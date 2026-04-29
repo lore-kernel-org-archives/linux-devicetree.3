@@ -1,347 +1,169 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37392FE560;
-	Wed, 29 Apr 2026 14:11:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777471904; cv=fail; b=loO6pU3rELTb7xNMGzlbHJs2ZT5lnTGcaJeRy9RVD6qjae69ryPUUxV2chx4Mii2QYT+PMt1Ux97QGL2vcBMuCYIMDGGQBX34NPpsxYKkc9T7t9Qu9x6DGHqeVre5Ky27+7MeS4JYmR9ohFEan8ahxnH2ScUjoA/aG3dMAilyK8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777471904; c=relaxed/simple;
-	bh=D+5CGdVnlqIu7uDuIke0sDcRiNDAJ4gElf2w9s8SRzs=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=hrXA11VtR+E7CwRtobsX702v0YVQv8evqeMML8YyccEl875IFDN6vNMGfF6NmeDIiA1H6knrOfVRjOLaEM/ATlI1G+MxN4xmqZR9K6x+k/YyntJ3pSvXdxXxWLdG8e7KVQxlCuJ/gVJfpV5I13TqhSh+sX0+FAlWweIU3sh5oCs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ExmNWwff; arc=fail smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A192A25EF9C
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 14:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777472139; cv=none; b=BU2shaHKyvtjlhOdNQnsY5gKn6jCrYM0a+Zl2F5/wppgmqgNwxQzUR/2Lb9CAhAMYPYEMbLxjWTGMkZnTS3GTS1hnxt9qdLzGk0veFmBWo9dV6QAg+AOfF0LhQZ1sawZLMhhFXBTW1Cbc5MrhLzn4xWo83pcRw3Q47bgTw57pe0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777472139; c=relaxed/simple;
+	bh=6qiQEZhfqswwyTy6lGpZ8vDSCa5P9FHQo6RPH8unH5I=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jMCbMZAFg7sHQsdsX4BkqRFnKCsPmUzt2O3m0iomxGp0hsMZ5AboDkUAASm18D/tZ2eBY03pDFELIfjyUsJWFQdQpFsaKc5oPWjCjQ1jB+ufgNBzps474WsRUl+PZE00mD0hcWFiyae8KvEIllOKC4vS5dyXLUO+dtFgEqlOfxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QJcH8Q5Y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=e0fSYAhi; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ExmNWwff"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777471903; x=1809007903;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=D+5CGdVnlqIu7uDuIke0sDcRiNDAJ4gElf2w9s8SRzs=;
-  b=ExmNWwffItM6CFe+NveX1MpGv+JPEtoIythgbudpbsp2JQSkmAgEiFBS
-   jDzLkBtU+1FSfmsBN1OTrSoGZ2QkV/JFMInjrl6JSflFewjNhRdk6FXAz
-   4zEJ6PbyAr2L2ZKyv+im8uOqw6gN9qYQosMt6QErrsflzM0qVcDM4LSTv
-   YSTqB2DlfUivGJayXB1mby+VOJ5cgsdT5ijXiVvnvc4nVZH/Vo/AWsaMQ
-   CWi9NRUW/9kOO/fCRYfjg1zGB+IPS0zXag8I+zsLidVj0K5JuB372egaW
-   SWoTX4FDWmaIEE8v38tB9kkB7x1mk1NGH82arCXtj3FXKZ9v2Zu4ExoCy
-   w==;
-X-CSE-ConnectionGUID: UqkLCqGZSsma5t5dm5XKHQ==
-X-CSE-MsgGUID: 488C6eeQTliL5V0rr9aMMA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11771"; a="88997963"
-X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; 
-   d="scan'208";a="88997963"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Apr 2026 07:11:41 -0700
-X-CSE-ConnectionGUID: +cjcPFUyQy+UZYn1mycI4Q==
-X-CSE-MsgGUID: ovEQzn2QTEqn6oiauBZOCg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; 
-   d="scan'208";a="233254625"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Apr 2026 07:11:41 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 29 Apr 2026 07:11:40 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 29 Apr 2026 07:11:40 -0700
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.54) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 29 Apr 2026 07:11:39 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l71mvkNmsOjJ/wpvruf1WiQ/I5P2ioOsV4jqi4ytAl+d9xcCL+KsKV4lMauvtvx2RWIKQpNg3d6jqWKjuaprDcT3u6Y8XMVHa3QlP7OK0kqoSfjaSK0u4AbGJEBgX3XpJdx0tTnjv9k1+a+3dkgtNQpny4d95h9QSLXfnkZM4yTEJTj11brVdXe/HqrniU1Q7heACUjF9JfLzocOsHtrpoJNdv1MKi/EUIToWNq/7Qg9eibwJFRFdQQ0b0rvVXk1uCuYMM0r8wmF2eff+VWFRkUUiC8buIjoPq3QL3ADkoJw6W9I4ggBo7XQv2THZjLZGjkTxXhqCid2GiEjUdhAvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=99z3XM1OacO7v9zG/GBi5xFUn+7+3clZaQEpFf/XC/8=;
- b=h7tZzX55W1/KRj+I2DoVCbLbJru/n25LmTyomJ9Q347ggK5DFsG4yI5699Ust5sSRYKPwRWYX4Q325vQJQOLac4Jy7Rgt6EZV4CABASMfjcnE9fhDTunZpKQHmqV78iffB6W6KEMmy9WGHcfhKymtUvJXQVDwzB2jdVR/YrC6ms5w9CQ2nlzgwnsCMHzqnxZGu3QQ8QJsOTpnRYIy1npSEa9Qd9mPm6muO8LM7mZuA0x2C0u0kSSBxn1C0aCcsbaf5XPyzamAZnG9oIYeU5GZmluFdVFZ9DNKDg0V9Qej+xYpVx/UCIjgN0mX7oeJ0QtOX9S+fTR4vJ8OmqMiqVt3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA1PR11MB8152.namprd11.prod.outlook.com (2603:10b6:208:446::8)
- by PH0PR11MB7614.namprd11.prod.outlook.com (2603:10b6:510:28f::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.18; Wed, 29 Apr
- 2026 14:11:35 +0000
-Received: from IA1PR11MB8152.namprd11.prod.outlook.com
- ([fe80::4895:dd55:dbe9:73bf]) by IA1PR11MB8152.namprd11.prod.outlook.com
- ([fe80::4895:dd55:dbe9:73bf%4]) with mapi id 15.20.9870.020; Wed, 29 Apr 2026
- 14:11:35 +0000
-From: "Shulzhenko, Oleksandr" <oleksandr.shulzhenko@intel.com>
-To: "yh_chung@aspeedtech.com" <yh_chung@aspeedtech.com>
-CC: "andrew@codeconstruct.com.au" <andrew@codeconstruct.com.au>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "joel@jms.id.au" <joel@jms.id.au>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Lawniczak, Maciej"
-	<maciej.lawniczak@intel.com>, "openbmc@lists.ozlabs.org"
-	<openbmc@lists.ozlabs.org>, "p.zabel@pengutronix.de"
-	<p.zabel@pengutronix.de>, "robh@kernel.org" <robh@kernel.org>, "Chen, Ryan"
-	<ryan_chen@aspeedtech.com>
-Subject: Re: [PATCH 2/7] soc: aspeed: Introduce core eSPI controller support
-Thread-Topic: Re: [PATCH 2/7] soc: aspeed: Introduce core eSPI controller
- support
-Thread-Index: AdzX4fN+YKg3om1DTZm2LDYCOnmpsg==
-Date: Wed, 29 Apr 2026 14:11:34 +0000
-Message-ID: <IA1PR11MB8152C8DD6B4E738C8F86E94F99342@IA1PR11MB8152.namprd11.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA1PR11MB8152:EE_|PH0PR11MB7614:EE_
-x-ms-office365-filtering-correlation-id: 72c4b671-2d93-452a-16d2-08dea5f938aa
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|7416014|1800799024|38070700021|56012099003|18002099003;
-x-microsoft-antispam-message-info: F7KJskXKQZyaojxsxAHW9qMJTPdzTfJwhhHmxUmtBWb865DmozPI+2E70QbuwkLONz5UfcnzqGEBl1t6S7s+01bXk+G/V282v6FmyF7PaK3DieIWzSG8ed4rmJrja4OiHioGfJAa4Z4+P+FCi8g1HTkgCPVDa5AKZ7yXMdZfyN51UxKeV/6bHW25VzlHCbkmMkKj9jTrPSHx4qfLbOTW4dPKJbfTqlW9xPpDrNpPfx/0b4PNuZ5epImd50jZFmoKjHyqPofgAGFh3rZOAF4biVRrsre9wE7SWKFr7TW3L8Ps+rTQoAWPjNFugH/u8dMpiS+ywcWygpEzezOXBbdOAiAfcRlbJuE82GcRvfnrf2tANzbua0rdJfd9cRIRJSmFjXbNdMqNfDrejMvkPSnygn0keTXFIRAg/hj7q7CNxXMG02ev7Yz2wSPomnenGDIYV40fpESZDZ+A3QqH+lUPo3H0/iFwx7rarKsycKdyI6UmYQQj8DNuI0vOzPyLW4hiVbYdwtRrfjxuzZXBPvHjQ6eZJiv4NhEB+k7KFQsPPFZGtKXnCp9ciknHdUYHPdRBQnoPDVt8HWbyzufChNFUmmX6LwCQPnuX2+PVwgIPzu6Za/Ex7eIgUo+vPEsNOK4IulxH7PGQmkKU+24gpXApI7aQsokwwS3eQfeb+wq+97Xi6h1e5/46PCE1au60PgA8ILePV9iEJ9L1c33tj6ejVrrRDalrWJgVg0PJZ9PZdAmQRcWe5WCK597Y6N3vhkuU7WHcerFaxrLzZPwUR2TP/7JAPYg/K87LdODihNKP8qg=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB8152.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(38070700021)(56012099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?EdsvysvwSqRwSTYlUWY5dBTw7+fQexHFIR4NlNjC1jdd19vH9lDq9UQqbauq?=
- =?us-ascii?Q?0FjZ5d26vjzOL+an2tZGtAsvosdFCsmQs96cczceA3Gn4N7dJHwTq2jg9kr4?=
- =?us-ascii?Q?8bhhs7C2hmjWDGrFgpKmLYBzX+Io9logepxIZwIgUW8ADw88cxpxkEoY3XLB?=
- =?us-ascii?Q?1Z99Cbt5feoBOO2fBlXaNJ6eYcWmfyOtB5O0lHivJOMsA+gzvEQLj8NmtNlw?=
- =?us-ascii?Q?82SBdz4OndXi5CJKsKLLa9nadlnSaSl1GRFOuV8+5H3e1E5gB6QvL99fcBSU?=
- =?us-ascii?Q?POlhgNxmnDSUjxGbZdQGPABK4+l9TYI59X2j9MPskm1Ma92BPuQd371EhNXV?=
- =?us-ascii?Q?Kwnw06stgdG9jJYKennTJLiZZ3otLHqNC3jXxj/bW3rol8BPWfFPUZ278B/v?=
- =?us-ascii?Q?xlcHlK1p2pFwU08dCVoP35y7EmIvswUgo72Fb0n56cPUswwD1istqiX9l0Z0?=
- =?us-ascii?Q?fAewjXUJ80mS+7Ib5j0AapqgobomOHZY4RcxTSN++5mVmjx6zTulg1pTPod2?=
- =?us-ascii?Q?fjD7ssTRMchJMoDOTI0PP0ijJvkmIGrMfwZIxTffimU5M+7PcX25pBezjBNz?=
- =?us-ascii?Q?wNu+Mh6ONvofE5e46FTC08+EsSmmOvcq7ZyRHN00RfIlHhilHisriwh4QQ0Q?=
- =?us-ascii?Q?DV+hEqxlgpXImSZ+ejvTb/aagmSw0URa29sr9oRmMSleeCRkOuLn3YIeXQif?=
- =?us-ascii?Q?Gnte2vyo2QnVYQ0+QU2mLAvd1YVnV94BcBSsIZYrZwHyeIJHR0kUuFYIAqWn?=
- =?us-ascii?Q?YYDF6GCjse/lX//BUkM1dLIl/ZQC0jUBxIz3D4swuOpUNSSkHJxeZ6ncwnPU?=
- =?us-ascii?Q?YYIUnbk6FGS1GahGRNmojwMXX6MqcM/yziJ7JVt6+NdaEawHC325WOGjN0QW?=
- =?us-ascii?Q?x8GCIOxnXA56IN4EcbS4q/lT/8IKJBVqKKLHnj+Yv3Te5uI5HHErYNMBysI/?=
- =?us-ascii?Q?UtzMNpN5vQyIwhsFUnQcA5Z5aZD3NCF2L9TXEDHNDbw+A1jyGT+ZhFxNIoSv?=
- =?us-ascii?Q?8RIpba8IhXI27g9RJluZoWrJsCFWLQicXo8jXWI4ijV9k1IZSIffBMkRYmPJ?=
- =?us-ascii?Q?Ef6WGnP2EW6ps/fC4AWLXKZAusnNCz5C9LzsDD6btc1PYUh8BNod3kBBXk6t?=
- =?us-ascii?Q?XwZe4+Om7IvhHy72/0mx+84xrQRlyEZebSKcz4lVzKcrLaXuNQcn+CoaF3h7?=
- =?us-ascii?Q?9hRNyl9SL9Lo0yfTQu+cwO5+EaKFIACzR9vrOuxilsoRPpSO9G7uPtPrT6I2?=
- =?us-ascii?Q?XcCrRCVl98gGFP8F8d3ezvoWNuwMW1RG69nMmgBv+cxJW5qSZPhnv9sc+ph9?=
- =?us-ascii?Q?BDe3eKO2dp+NXo4JpDmZZKrHloVMT7XXDYhwHh3YV+hrBq9vMfbzodoxV3SH?=
- =?us-ascii?Q?iFRQC08y60/8Le7hM/PZVLu2BbPSZqQEgOOm2xID44a6rm3dhRmkNZIe+Qjj?=
- =?us-ascii?Q?Op9PggFfboXEaAPpHUjNi8T3Ijfc9cbT0Z9lO8eCspb7J6Vr8GzobOKL4Duh?=
- =?us-ascii?Q?i4qqfA1LeWRES1mR2CitwXKYDcE1wjayYgAzDKo76e8rBut6SuYL6EaWbb5c?=
- =?us-ascii?Q?9+ae2q0X+niUOBs2XY3zTdz+ZL+TCqA2Zkc4Bi8fktVzFZJWtbhleKkATtxu?=
- =?us-ascii?Q?fL5jGrcFwGmj0vTFDMrICuLMGflS8wL9Nx2FbySwwkLPcf10vW/3OS660DQX?=
- =?us-ascii?Q?MuO7fEIkvi64Js+ekb54LWnTcVzPQVKal026/VuBOyMXI1qSnVllU9VC79/7?=
- =?us-ascii?Q?WKNmu8RWe7zzcyvV0D7CRzXQtchA69E=3D?=
-Content-Type: text/plain; charset="us-ascii"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QJcH8Q5Y";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e0fSYAhi"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63T8qcIt870130
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 14:15:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=iKo+UJYDFtR4I5B/NNi2ij
+	yviGN2L82xHEIJ7WGjUyY=; b=QJcH8Q5YxT5C6SHwCtXpNBURPlQ0ln/DwgGg5M
+	SY2XZs1CQFaUl0qIumL5BXsQnc5mR7z8/s+TWcHPZITx6WP1NvTuPuHtahnb6eyj
+	453wxQuyDEdM7rtvq3xP2PjSn16hFwNdvgQZFNF+Te2Pltk2N+gj1zCHLQW23oZ/
+	Jv0ro7R9PdYokbTXWVafnQp6pT+PZLlG2n5+7vklwKN7zfc6/4Gp6ntCZH4T7Ykn
+	0wgpWFAjavMDGbBxEdOVB5rPfZ4nfPDqMDp5m59C5NBhUUBq/zC/5P8frrVdk/yN
+	p9lamXvNl1bV8mLNzDoH+5/Q2mp6/ta4XZUFA0dTbBtKutYg==
+Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com [74.125.224.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4du0u1v93y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 14:15:36 +0000 (GMT)
+Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-6583252c117so6840618d50.2
+        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 07:15:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1777472136; x=1778076936; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=iKo+UJYDFtR4I5B/NNi2ijyviGN2L82xHEIJ7WGjUyY=;
+        b=e0fSYAhipuJNCGQgUdu2XxeJYTfkNIPoGFeQBLwTCuctfXrlMPq4pkrYb3R56xoxvO
+         1WQoXZxjbSKj8jOn4zXgVYdK1VtB1XbSZrOC4m2Co7CC7qCJ/Iy0Ik4wx/6iyT7Q6gCg
+         hSpdEZ/4fmnZ6Qq4k8jCjZkxvD9ZzMpmJH6IGZKajp2Hjmx4gBIqgSSS9JMt36dcWeul
+         FT9Pqxsn1Xu9kYQMGeqcgEenReTyyw0+wof47BipZazXPpgDSIx07Yub+SfVADmh57Fl
+         OtqoWbvfx/Jx17v10Tz7/NLjF6uXUSJKXO0ZtzowS+jd/KqxdQdbLEYZKDo7pnmkZK3Z
+         TIbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777472136; x=1778076936;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iKo+UJYDFtR4I5B/NNi2ijyviGN2L82xHEIJ7WGjUyY=;
+        b=gdK3/cxUvDxuU1j0OSOuA4+IuSLE1Ul4R4kmkCjp6mnxUAxswxcR5HSmtLqzLod7Wx
+         tUONSxQYDbAbtr11XJa/j7s6kM0PPnJ+McOK62Dg0P5a1Ugf6gNpGLyt6xmFnFkpEUts
+         63HhqPQbaqnTWJCk0xUUUj8UUObkwU3nYUU7ZBZ8TzATEzGAaHMy/2FmJoWTt1HySxFH
+         rn10TpsLroTMPhIe/OqdZ+Ngwc8pS/EF3+izUXNYfbcu8pWFpviOKclnNVDIq+WuQMhI
+         pkWwB07mO0ApxXQ2KVlbyvIKzr7hSGZBtUIc8slc0CcTuSpDvxoounRoal990cbwDVT6
+         Pj/w==
+X-Forwarded-Encrypted: i=1; AFNElJ9rzBMX2XreF79uzXaIMRddnxcsnKKHY6DNJCEk2iJmNSZxlpHqa4ved6RPiCzM//vx1gL7tzzFUQ6c@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx9w0kza9F3I3LHIkK5nh8IZEqU95c8UMlWKGtgpPqR79y1lCs2
+	74+o/RS5feaZzKJfBToKA50B2SgCM0pRCfw/a1oimBO0McUSP4fktUXCAh0CR6YnyH+n+Lu5R3b
+	mcXJstvdu9XERoxWlJVdI3tTC0iUGp5YAE+fgsMuJNJ0nkfqd2wQCfpSBrO14/zFD
+X-Gm-Gg: AeBDieuTBzfDwbyGZdl6EbMGXjybkil36VCTllhPeUGSjH3Pae3+y8jl6BDjDlolPqk
+	tfoCrkroGVchVsYmO/hSv7SyfLt8hm90yNPPL6W33GsZ+f2btoJgJMGZMZZDTKpg9oi1Izh1wvs
+	jp2ldz646ArxKcAtwlu2A953+5VhmMOMu8VmT4Sk95T3G20dMr9K8exh29IbwDCiGOMvwL6mTN9
+	/GWlIxTJwYlcJev61C45SMhVdMXgnIdTLxDicYol4JoQgzw4CPUPuz+O4SFs/brLIi76DaG4LKW
+	bN3NNz05z31Vj50S8O4O7Jz6eP23mPeVvOK6W/cyKeQoXVHaruq2cCwmVzupowcI2RwWjpSo2bb
+	qau4tnKGgC37eUKbHAK+OHnEq9cUPr/eqihg2U7B/57olWFv1kHD4wzrS2ihPNIM=
+X-Received: by 2002:a05:690e:12cb:b0:65c:b99:607a with SMTP id 956f58d0204a3-65c0b996108mr810626d50.38.1777472136001;
+        Wed, 29 Apr 2026 07:15:36 -0700 (PDT)
+X-Received: by 2002:a05:690e:12cb:b0:65c:b99:607a with SMTP id 956f58d0204a3-65c0b996108mr810582d50.38.1777472135482;
+        Wed, 29 Apr 2026 07:15:35 -0700 (PDT)
+Received: from hu-jkona-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-65bff2c2eccsm1379533d50.0.2026.04.29.07.15.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Apr 2026 07:15:34 -0700 (PDT)
+From: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+Subject: [PATCH v2 0/4] Add camera clock controller support on Glymur
+ platform
+Date: Wed, 29 Apr 2026 19:44:55 +0530
+Message-Id: <20260429-glymur_camcc-v2-0-0c3fd1977869@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: RT5M7EiN+FCdXpvO9W8OC0hh+5mHPMSKgbPkWDRR49cLFABFkA5gL06hmEcB6WXwLcw06X25evrO6bQ1+RQbJcsWL16WPcYJKmYexEUw6Sbhjk225UcGaCp0YIDcZ/6cohvDximxCYcL8SExoVP4RfI7mbB/QT0iVFzZOWm54T0IqJW3Hjfv+Epx9DSVoFTy1WEEbxm8P/ukpJBlpz9GAPCwdV04KeuZEjyodRA3CP2pIGr9XQsM8TosP5QCBpH5PkNEzzwPmsln3ez4EtTmDj8MmzJm1GNJ1iwoM3wh119llZsD6R07UBBOkQpBBfB5HaJzuGQaUh5U+za1WedBgA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB8152.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72c4b671-2d93-452a-16d2-08dea5f938aa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Apr 2026 14:11:34.8854
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GhePVE4WSDc4Cn8KrsdGZ3svb0btY/XURIKcNvXHu/CNXgH+Sy9zSclv3TxhMJUiWxMoQrqw7fqSThm56PFoRU7hlgN4OLtC+w0iT3ZB6tQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB7614
-X-OriginatorOrg: intel.com
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAF8S8mkC/1XMQQqDMBCF4avIrBtJglbpqvcoUmIy1YAxNlNDR
+ XL3pkIX3Qz8A+/bgTBYJLgUOwSMlqyfc8hTAXpU84DMmtwguTzzigs2TJtbw10rpzUzKEVT1aa
+ v2x7yZAn4sO+Du3W5R0svH7ZDj+L7/UHyH4qCcYatUbxWUhjVXD1R+VzVpL1zZT7QpZQ+RlYev
+ q8AAAA=
+X-Change-ID: 20260401-glymur_camcc-de21745db58b
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-GUID: SgSoXxL_fEpxCtiWekoPDAcRU9GrmW5-
+X-Proofpoint-ORIG-GUID: SgSoXxL_fEpxCtiWekoPDAcRU9GrmW5-
+X-Authority-Analysis: v=2.4 cv=aPPAb79m c=1 sm=1 tr=0 ts=69f21289 cx=c_pps
+ a=VEzVgl358Dq0xwHDEbsOzA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=HjKqFMqo481W0hlq81sA:9 a=QEXdDO2ut3YA:10
+ a=uujmmnXaIg8lM0-o0HFK:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI5MDE0NCBTYWx0ZWRfXxL067gSXS0P+
+ nRsoOf7e0yyCAdqbdYsWFK2qSYbisZrAAqC3WzAtByPmeoZcwqxI4WHSzSlP0SL4bv2LNozIY8F
+ 7KnzsG6P/k8vCMKFV1g6UyANCivfm/9TYP4q7jlViSmL5jqlnqat6/8UrraCXle5fP1fitJWrn7
+ B6Gtnm7npNHHSlAE+7XeW4dWDMjGVh3nEXjSWAAsnTBLWDbpP8+x9jsepDyyqytRGi3QfAlDWOB
+ fzVdXWnkO6lGzxgB/0UTyNpcMXVP4lGgh6bTwv33/Dlzf7/3yTrTrGDNEy2Sgsk5pMYhc54X4Uw
+ d7zzfDq7XC8w47XD/U5s7sc40RZzn/4RsIUT/ecJqUKAzPBg/VoA5v651XJ9hqSJ9e7rUJ6tOUC
+ H2zDE7Cjtf07xnmFns9O1va9NBmbOc+bRcL1xdU/Sa7Yn30zi6OFFd9EaOdyMmJ/mRARZ4CWeFr
+ AWZzRTGDoI99xmabXEw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-28_05,2026-04-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 adultscore=0 impostorscore=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604290144
 
-Subject: Re: [PATCH 2/7] soc: aspeed: Introduce core eSPI controller support
+Add support for camera clock controller on Glymur platform
+for camera clients to be able to request for camcc clocks.
 
-Add core eSPI controller support and common code for ASPEED SoCs. The
-eSPI engine is a slave device in BMC to communicate with the Host over
-the eSPI interface.
-
-The initial support includes basic eSPI driver probe/remove operations,
-and provides operators for ASPEED SoCs to implement their own eSPI slave
-device drivers that are different among SoC models.
-
-Signed-off-by: aspeedyh <yh_chung@aspeedtech.com>
+Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 ---
-[...]
-diff --git a/drivers/soc/aspeed/espi/aspeed-espi.c b/drivers/soc/aspeed/esp=
-i/aspeed-espi.c
-new file mode 100644
-index 000000000000..15d58b38bbe4
---- /dev/null
-+++ b/drivers/soc/aspeed/espi/aspeed-espi.c
-@@ -0,0 +1,143 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Unified Aspeed eSPI driver framework for different generation SoCs
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/interrupt.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/reset.h>
-+
-+#include "aspeed-espi.h"
-+
-+struct aspeed_espi_ops {
-+       void (*espi_pre_init)(struct aspeed_espi *espi);
-+       void (*espi_post_init)(struct aspeed_espi *espi);
-+       void (*espi_deinit)(struct aspeed_espi *espi);
-+       irqreturn_t (*espi_isr)(int irq, void *espi);
-+};
-+
-+static const struct of_device_id aspeed_espi_of_matches[] =3D {
-+       { }
-+};
-+MODULE_DEVICE_TABLE(of, aspeed_espi_of_matches);
-+
-+static int aspeed_espi_probe(struct platform_device *pdev)
-+{
-+       const struct of_device_id *match;
-+       struct aspeed_espi *espi;
-+       struct resource *res;
-+       struct device *dev;
-+       int rc;
-+
-+       dev =3D &pdev->dev;
-+       espi =3D devm_kzalloc(dev, sizeof(*espi), GFP_KERNEL);
-+       if (!espi)
-+               return -ENOMEM;
-+
-+       espi->dev =3D dev;
-+       match =3D of_match_device(aspeed_espi_of_matches, dev);
-+       if (!match)
-+               return -ENODEV;
-+
-+       espi->pdev =3D pdev;
-+       espi->ops =3D match->data;
-+       if (!espi->ops || !espi->ops->espi_isr)
-+               return -EINVAL;
-+
-+       res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+       if (!res) {
-+               dev_err(dev, "cannot get resource\n");
-+               return -ENODEV;
-+       }
-+
-+       espi->regs =3D devm_ioremap_resource(dev, res);
-+       if (IS_ERR(espi->regs)) {
-+               dev_err(dev, "cannot map registers\n");
-+               return PTR_ERR(espi->regs);
-+       }
-+
-+       espi->irq =3D platform_get_irq(pdev, 0);
-+       if (espi->irq < 0) {
-+               dev_err(dev, "cannot get IRQ number\n");
-+               return espi->irq;
-+       }
-+
-+       espi->rst =3D devm_reset_control_get_optional(dev, NULL);
-+       if (IS_ERR(espi->rst)) {
-+               dev_err(dev, "cannot get reset control\n");
-+               return PTR_ERR(espi->rst);
-+       }
-+
-+       espi->clk =3D devm_clk_get(dev, NULL);
-+       if (IS_ERR(espi->clk)) {
-+               dev_err(dev, "cannot get clock control\n");
-+               return PTR_ERR(espi->clk);
-+       }
-+
-+       rc =3D clk_prepare_enable(espi->clk);
-+       if (rc) {
-+               dev_err(dev, "cannot enable clocks\n");
-+               return rc;
-+       }
-> +
-> +     if (espi->ops->espi_pre_init)
-> +             espi->ops->espi_pre_init(espi);
-is there a chance ops are unitialized? In any place you do this check
-+
-+       rc =3D devm_request_irq(dev, espi->irq, espi->ops->espi_isr, 0,
-+                             dev_name(dev), espi);
-+       if (rc) {
-+               dev_err(dev, "cannot request IRQ\n");
-+               goto err_deinit;
-+       }
-+
-+       if (espi->ops->espi_post_init)
-+               espi->ops->espi_post_init(espi);
-+
-+       platform_set_drvdata(pdev, espi);
-+
-+       dev_info(dev, "module loaded\n");
-+
-+       return 0;
-+
-+err_deinit:
-+       if (espi->ops->espi_deinit)
-+               espi->ops->espi_deinit(espi);
-+       clk_disable_unprepare(espi->clk);
-+
-+       return rc;
-+}
-+
-> +static void aspeed_espi_remove(struct platform_device *pdev)
-> +{
-> +     struct aspeed_espi *espi;
-> +
-> +     espi =3D platform_get_drvdata(pdev);
-> +
-> +     if (!espi)
-> +             return;
-espi pointer is unlikely to be null here, I suggest removing the NULL check
-+
-+       if (espi->ops->espi_deinit)
-+               espi->ops->espi_deinit(espi);
-+
-+       clk_disable_unprepare(espi->clk);
-+}
-+
-+static struct platform_driver aspeed_espi_driver =3D {
-+       .driver =3D {
-+               .name =3D "aspeed-espi",
-+               .of_match_table =3D aspeed_espi_of_matches,
-+       },
-+       .probe =3D aspeed_espi_probe,
-+       .remove =3D aspeed_espi_remove,
-+};
-+
-+module_platform_driver(aspeed_espi_driver);
-+
-+MODULE_AUTHOR("Aspeed Technology Inc.");
-+MODULE_DESCRIPTION("Aspeed eSPI controller");
-+MODULE_LICENSE("GPL");
-[...]
+Changes in v2:
+- Updated DT node reg property to use hex for 0 also [Krzysztof]
+- Added R-By tags received on v1
+- Link to v1: https://lore.kernel.org/r/20260402-glymur_camcc-v1-0-e8da05a21da7@oss.qualcomm.com
 
----------------------------------------------------------------------
-Intel Technology Poland sp. z o.o.
-ul. Slowackiego 173 | 80-298 Gdansk | Sad Rejonowy Gdansk Polnoc | VII Wydz=
-ial Gospodarczy Krajowego Rejestru Sadowego - KRS 101882 | NIP 957-07-52-31=
-6 | Kapital zakladowy 200.000 PLN.
-Spolka oswiadcza, ze posiada status duzego przedsiebiorcy w rozumieniu usta=
-wy z dnia 8 marca 2013 r. o przeciwdzialaniu nadmiernym opoznieniom w trans=
-akcjach handlowych.
+---
+Jagadeesh Kona (4):
+      dt-bindings: clock: qcom: Add Glymur camera clock controller
+      clk: qcom: camcc-glymur: Add camera clock controller driver
+      arm64: dts: qcom: glymur: Add camera clock controller support
+      arm64: defconfig: Enable CAMCC driver on Qualcomm Glymur SoC
 
-Ta wiadomosc wraz z zalacznikami jest przeznaczona dla okreslonego adresata=
- i moze zawierac informacje poufne. W razie przypadkowego otrzymania tej wi=
-adomosci, prosimy o powiadomienie nadawcy oraz trwale jej usuniecie; jakiek=
-olwiek przegladanie lub rozpowszechnianie jest zabronione.
-This e-mail and any attachments may contain confidential material for the s=
-ole use of the intended recipient(s). If you are not the intended recipient=
-, please contact the sender and delete all copies; any review or distributi=
-on by others is strictly prohibited.
+ .../bindings/clock/qcom,x1e80100-camcc.yaml        |    3 +
+ arch/arm64/boot/dts/qcom/glymur.dtsi               |   16 +
+ arch/arm64/configs/defconfig                       |    1 +
+ drivers/clk/qcom/Kconfig                           |   10 +
+ drivers/clk/qcom/Makefile                          |    1 +
+ drivers/clk/qcom/camcc-glymur.c                    | 2280 ++++++++++++++++++++
+ include/dt-bindings/clock/qcom,glymur-camcc.h      |  122 ++
+ 7 files changed, 2433 insertions(+)
+---
+base-commit: bd0f139e5fc11182777b81cefc3893ea508544ec
+change-id: 20260401-glymur_camcc-de21745db58b
+
+Best regards,
+-- 
+Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 
