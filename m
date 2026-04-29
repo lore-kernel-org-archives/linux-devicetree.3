@@ -1,290 +1,236 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com [209.85.215.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C7A39E164
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 06:59:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C9439E180
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 06:59:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777445987; cv=none; b=shZ2abWBWKCAUx4CWXxhG5q3UzPGNAhZj03M0U/AQSEtM6u/Hm/+4YsA/IdZ5L0oVFXRp5Ilm5Xoe7w8kXv//Asux6WCcYip2bOxlRhFmObWWwFoffQWZ8Y4LzWqg6/7Feo4YueDr2Gu7EpDIsiQaj5WA35vUS/jIQpNYtbPiSI=
+	t=1777445994; cv=none; b=cDfoqUrPavZAaP4ZVMRF/R8jv5hw+3W9z6glnhA+9bSFsGp7+6gFr9IM11d2p7rWd3boM29oKpvM22VLXQ0PgWlGYsA54Ehx5+20tkZSJEpB9rCE5dC5IhUZ3Ot/F8Y1D1e1zRL61wa1ZjvQAQBeHnYCNxrG6KlJm+s1d9N1zCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777445987; c=relaxed/simple;
-	bh=1o8QqlAow6PmoPIT9dbQVNVo33WTouwEyxLpj5AEVfE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hdJBEzj4PpebmclmlnAWZWkSM4FmPEoMOS6pcvoas8az0EwNoB1D1vICHUSALkhrLUDF9g3+WX8pbP+9aIEWM4zJ/iHQtPmDz6HpGTgImGOziNJBIrWMMOpwcT220E/Ii7nf67GBihay+6PGQ14jRUlqznUl0ZEPLTFFst9FJiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=g438JSka; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TrWOAyrq; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777445994; c=relaxed/simple;
+	bh=18l+fhXsr0FIoD6ma0m0oV997W8UN5RJPyEXvUsYpxc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Dp/m5BoV881qbijuJGLR56pEehY/1ETWambEwJcOcMRYI1TNiE2lqVtZSiH/6fW4mdOkAuedBLe2HPGDFJh5zfQUxcw904QgfN6QyjJ51VGuMd1Hugybkhki8rODa9wMrJ8lZGDuNdVL+FzWdd0ehKn/9/GK065Bwg/9znJ3FRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N0FUFLmU; arc=none smtp.client-ip=209.85.215.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="g438JSka";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TrWOAyrq"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63T56E7l3347481
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 06:59:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=rpnLGvqaOGowhqbh0BhtKXXR
-	xHvBmmvOGqR1wADwXo8=; b=g438JSkanjOpVQqT4BPx3R6bpd1VJbbmWFD6dKOd
-	jFfFB+w7o2BFIQkM8DUi3dk+eLi2MmG2yFu2mvJoaVjZRpuKpKC8SOHGN1T4k6HZ
-	eH9ZrtpUlQslZMlhYlYVUFi72Xrodhf1bXWVnE64mFiuiPhsLVRgk76DPLSLdQOe
-	3wpSPbqj+929j7SchNlWiT/Mvmx2f3w9te7+sxffPyvR3SZ4QpMR9dvdKxnbHoHd
-	r/5cgF5H5psWIcz6rpRnrZ7KiVHDlYy0AVG7IKRCWWDzx4ABdZYlug/nS7Nc/tDD
-	/Al6A+BepM0Qxu+178Yh7cY8Ecg/Vm71wutdCwmhxrioxQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4du2m4t279-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 06:59:44 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2b465bf993cso124974825ad.1
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 23:59:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N0FUFLmU"
+Received: by mail-pg1-f194.google.com with SMTP id 41be03b00d2f7-c797d5ad36bso4224777a12.2
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 23:59:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777445983; x=1778050783; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=rpnLGvqaOGowhqbh0BhtKXXRxHvBmmvOGqR1wADwXo8=;
-        b=TrWOAyrqtDiU/MXc6Y+9LG0ZO8VG9RGtG8RzWnSdkAgO0+GV64oDu27Zk7kBgmIs5D
-         oco9LKyBSAoIysviSjTvYB8KxHpepNvVGp9uTRSZomF0zcSOCQmbDY9K+qn3OkUDjWFM
-         Tc0Tv21gugU1ia6cKUsrBVOLDAhBomO2CuWoLY7LFSQoxXMZ3vzn+RUoj/pS3nSfMPd6
-         KQzdI9z5zjD4zMJ0aAtd93zTYHrrBPURiQ50Pb+PxzNxvW8WNJBfo+CBrxq0CpVmoJqG
-         lDMVJ8EVESzSm3xfsOIPtr5DzTo1th/tHyJrX+u/TyVOVoOCJF/byL/UI7eEguh/SD+V
-         tyXQ==
+        d=gmail.com; s=20251104; t=1777445993; x=1778050793; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nuWPT+XdRkD5quZoMJ/j/U0upX+W05bC344BAJoReBo=;
+        b=N0FUFLmUFq1724uZhXCIfajRaCrixLbi29yI1wn5jLbn+aZ4T2/OXRnyBE4JL50ni0
+         q3VDybrntBzyVRmB44N6+H49LDijQcDRFT4jBM9VItuXw0ilfdchHz0gGI3NSbp+UTHS
+         DodNpJalJuckbvyYlI4G6NRtHSzHqlXeRd8UYuh2UlM7zZPjyWu0A7NREe9j6FtpeG56
+         zS/9G+HeokUYYu+T81wZWgFsVtFKh1l5INKQlzl2qg3KnQkFFQ7BZzKJHdXWRBz0sgWE
+         UjwKjoRZwMJaKZLckgsnXa1uvYodIdZUGoXdj0QCslugcPHmPdcAC8gvuQ/CFuCa2Kpj
+         52Yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777445983; x=1778050783;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=rpnLGvqaOGowhqbh0BhtKXXRxHvBmmvOGqR1wADwXo8=;
-        b=IkTHoXTnmLYF9jN8TgDqHTXn8zJQZULjVv7an2CGEsJD6QRUhJbHrEM8cXjEEibix+
-         xtf6UNye0pTrF46FlbkiaQUBZEQZ9mXY9jFvMsVKre5sfh1PQQQUyltqE8d/A+0PqUXR
-         T9qeNjL2LWdgNuizBk0DXHXwT/yTWwgDMLFdll0THQ7HunCytBdvUjmL/qO+Ez7K2QBZ
-         Q06wnhRmKBq3kjUcLFCRra5g/FWUwQ1wuCl1lvR5hFI6yFrOsyzKy2QPOBx20YpX9C2d
-         8Tqg0cJBqsyz5h6+Nju6WK1UXMjdh7CevqgzKY7xFDD2iUZwsBZ9ShirF73dGrMtmZDZ
-         WSdQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+XGpsAny4JbnHpkN7vyjmLZ0FmryhsY5k4Cm91HRg5RAvCy5+BxyGN2WL9bMfTweIFB32oPQh/dixu@vger.kernel.org
-X-Gm-Message-State: AOJu0YyX60ojfLC0jwb8FTmcRRaqnOaD9AkIIsEQbjyixGDV8CL5sQQv
-	RyJ7wBvWombbFyVOf5UIZK3vzT8PtumOBCqezPCuLPx/nnJVCt7FwK9Lbmqaty03femZeXqb6fU
-	Dtttl3lV8ZXtop4KmbGb8rMNUY07ps9B5xCTkDprh3MrochEVR4DKnL4xeq70MfFc
-X-Gm-Gg: AeBDietn4Svk++EUdiY7dT3rjOo5M5EA/8bqWPwAqUxdqQkdrBDa+reEP1WGpFSPSz6
-	yFE06yyVlZ1BUmx2kfzTMjnfN6KDBNP8aghnnyQbnrXAZtYNeUxQ9eLnG4lYHsxJQXScoqKfFhf
-	ofcUebzRVPkS4mwefBFtk+2j4vl5XCriJlERnx8tTPsnYohF3d3P6aTC68MdbbYyOqWbFGPIDR3
-	nLe4MzpLZxyA2t8i+rHPm0zE5mXyeJw9Xcwj8pkbbYZSegZuYt5ZktHLGKukAw1U+DXLb+UFnrT
-	5jSruBYSZ0dHQMwHFoW05WF7WvZ6GR6uiCMrqU/24fgeHMR9aGkt1otYpASXZSVeBzqp3JZK0eB
-	dSRZtLcxBiNu7HN2tYbxGBQ+Puee1JuetUNEjwaIDJ8pv8eprYXlfQmlalJc=
-X-Received: by 2002:a17:903:984:b0:2b2:ec31:25b0 with SMTP id d9443c01a7336-2b98741da0dmr24709085ad.29.1777445983170;
-        Tue, 28 Apr 2026 23:59:43 -0700 (PDT)
-X-Received: by 2002:a17:903:984:b0:2b2:ec31:25b0 with SMTP id d9443c01a7336-2b98741da0dmr24708625ad.29.1777445982436;
-        Tue, 28 Apr 2026 23:59:42 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b988971938sm11669805ad.71.2026.04.28.23.59.29
+        d=1e100.net; s=20251104; t=1777445993; x=1778050793;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=nuWPT+XdRkD5quZoMJ/j/U0upX+W05bC344BAJoReBo=;
+        b=lCTqPQfYebNdS+ByZaYEJK0tb74TOLtOmIK0H0nXQqvHvqoh3FKwpusAqoO/Bkgh/o
+         hrSho7lZywucXnTN3zc0mO9wXGCHB1xvBsJbRuc/mI6Tem6GpZnl+5pzAudJjxcoM/er
+         uPU0WoddRLNNcNUrZtDJYoXE5i+EEJdb2zhm+JGtMaVr0aZZBD7y0DDGaxzAwcJeKcMH
+         hEVgqNAJ2wzL9VnMx9UmxWwwYk/dl4nYIaf33/F1p4XDYbhyHH6M007XZr8awiBc0Trf
+         0daL3UF5HP15CGueLtm0WnPF6bIAIHBe9GHs8OHvw0/j992fYWcwpKQGGp0gHl1/ApsA
+         2b2w==
+X-Forwarded-Encrypted: i=1; AFNElJ/mAKjQ9QOoFEzDzzeI4JlRleU+Q0mYhbHlJzxSGcX+Ujj59KT/W4hMOXzfDg6cQS0+LlF9XckKdTOy@vger.kernel.org
+X-Gm-Message-State: AOJu0YxXS8GJ7oa2owey/Xjv+EEGw94Ick33R9g0fM6SJ4ItoVYKJ2s2
+	AWJkdoJGQtd87WA8l6L3ISgQnH4SL2IcckJDTPHRZcmqkWWy98nQzML6
+X-Gm-Gg: AeBDiesWzq4Hf2gwYEdlEn0vbPvdR3LKIsAL3jlk9GsHtXsTgwXhSAAldYFJGjyZyfo
+	HLRbW5Mx+zfvFU4PW38Zj0PnaV8+BE/spx/Dd0FPsipIHxIgIR/0NRTTlnJM+ZUgUP10Oj1HHdl
+	cA5m7kXXRmN9gpBlZ0ybIQKP3Ak+S6FfGvpsLK5aS1k9m+kt3EfBYRBMGRYKZ+T0NWappK0GPzt
+	745+Fb4E9CYaw4R9xOCjILiwvzeNCCt6xxL6o167BdI5jCBR+DVnLNL9xsqE56jVNmhOn4b1stt
+	Rw32GWHUO1R2S0ZfHJat4c8GPITQZaT6hf2VlI37Y/L87+Rl+n65+5IM8olI90hpkpS4HxvBfAs
+	DD0nCf45i5a6YnUhvEsImryuIXI3U7noWOutk5Km3Ww8W3OLgezP/Co5FshXAL6ZDtIPpPOtqwl
+	rzImx7VTsR6LT8RbFCTs2ZiwKxWe7KUCE1wDiNTiydhMpdGTF8rehch1MRIGE=
+X-Received: by 2002:a05:6a21:33a7:b0:3a2:cc5f:2187 with SMTP id adf61e73a8af0-3a3af541a19mr3029899637.28.1777445993005;
+        Tue, 28 Apr 2026 23:59:53 -0700 (PDT)
+Received: from intel.company.local ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-834ed7eaf93sm1043146b3a.40.2026.04.28.23.59.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Apr 2026 23:59:42 -0700 (PDT)
-Date: Wed, 29 Apr 2026 12:29:26 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Sumit Garg <sumit.garg@kernel.org>
-Cc: andersson@kernel.org, konradybcio@kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-media@vger.kernel.org, netdev@vger.kernel.org,
-        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-        linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
-        akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
-        jesszhan0024@gmail.com, marijn.suijten@somainline.org,
-        airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
-        dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
-        elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-        jjohnson@kernel.org, mathieu.poirier@linaro.org,
-        trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
-        jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
-        vignesh.viswanathan@oss.qualcomm.com,
-        srinivas.kandagatla@oss.qualcomm.com,
-        amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
-        op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
-        skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
-        Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v4 00/15] firmware: qcom: Add OP-TEE PAS service support
-Message-ID: <20260429065926.5iliebd3d2j6bong@hu-mojha-hyd.qualcomm.com>
-References: <20260427095603.1157963-1-sumit.garg@kernel.org>
+        Tue, 28 Apr 2026 23:59:52 -0700 (PDT)
+From: Chen Wandun <chenwandun1@gmail.com>
+X-Google-Original-From: Chen Wandun <chenwandun@lixiang.com>
+To: kexec@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org
+Cc: akpm@linux-foundation.org,
+	bhe@redhat.com,
+	rppt@kernel.org,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	ruirui.yang@linux.dev,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	chenhuacai@kernel.org,
+	kernel@xen0n.name,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	chenwandun@lixiang.com,
+	zhaomeijing@lixiang.com,
+	everyzhao@126.com
+Subject: [PATCH 07/11] of: reserved_mem: add no-dump crash_mem exclusion helpers
+Date: Wed, 29 Apr 2026 14:58:27 +0800
+Message-ID: <20260429065831.1510858-8-chenwandun@lixiang.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260429065831.1510858-1-chenwandun@lixiang.com>
+References: <20260429065831.1510858-1-chenwandun@lixiang.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260427095603.1157963-1-sumit.garg@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI5MDA2NyBTYWx0ZWRfX4bX0DCbAtzs6
- 2xRDt8MF52ZtftMUadlssqBZRGLZi2yuq7CJBqk5rku3iIN4yMlHV1rPqdbv27irCK5O8kJ1oB2
- xXGJdKlNozRoFuGuQfQ+6J5WtdDsAwbiN9bQdsDA81UTs/CCPdidO3ZA/zOI7Ddo2+pj9P9vgp4
- 6l1TKAe63QPFNB7gfjdRPithI5xWJIKYqA2r61HobCZ5jSboAn9KXXLqDWlIoS7snC9Q5SIvHhW
- BC1pPKBfNEiEOqL8rc6CEgfol0jllKuIhlaQt8DsqjHFLza+8k7nP1EDLNCeGUr4KHd+2B6mRx0
- 2jKrsjLSU6povRZDTNdLb50RJ3XidMinu0zrN0thHl7kyqc+kLxXlCJtRaAVzbQsv3b16u/CtuR
- +kuoPO6Cb7X3xX3BPJ6T5cumKC9Z90xTJMF8N8ECr7B3lCitnw7yMJOYiES1ICzOl9D8ZiMRMW4
- Ak9I3W4gVpOD7Po0eJg==
-X-Proofpoint-GUID: Jh8bC9WI2ohpQBGngFFwn-AFnU8HbNyY
-X-Authority-Analysis: v=2.4 cv=MuFiLWae c=1 sm=1 tr=0 ts=69f1ac60 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=IpgJVh4PXWExouJfQAQA:9
- a=CjuIK1q_8ugA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: Jh8bC9WI2ohpQBGngFFwn-AFnU8HbNyY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-28_05,2026-04-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 phishscore=0 impostorscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 suspectscore=0 lowpriorityscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604290067
+Content-Transfer-Encoding: 8bit
 
-On Mon, Apr 27, 2026 at 03:25:48PM +0530, Sumit Garg wrote:
-> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> 
-> Qcom platforms has the legacy of using non-standard SCM calls
-> splintered over the various kernel drivers. These SCM calls aren't
-> compliant with the standard SMC calling conventions which is a
-> prerequisite to enable migration to the FF-A specifications from Arm.
-> 
-> OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
-> support these non-standard SCM calls. And even for newer architectures
-> using S-EL2 with Hafnium support, QTEE won't be able to support SCM
-> calls either with FF-A requirements coming in. And with both OP-TEE
-> and QTEE drivers well integrated in the TEE subsystem, it makes further
-> sense to reuse the TEE bus client drivers infrastructure.
-> 
-> The added benefit of TEE bus infrastructure is that there is support
-> for discoverable/enumerable services. With that client drivers don't
-> have to manually invoke a special SCM call to know the service status.
-> 
-> So enable the generic Peripheral Authentication Service (PAS) provided
-> by the firmware. It acts as the common layer with different TZ
-> backends plugged in whether it's an SCM implementation or a proper
-> TEE bus based PAS service implementation.
-> 
-> The TEE PAS service ABI is designed to be extensible with additional API
-> as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
-> extensions of the PAS service needed while still maintaining backwards
-> compatibility.
-> 
-> Currently OP-TEE support is being added to provide the backend PAS
-> service implementation which can be found as part of this PR [1].
-> This implementation has been tested on Kodiak/RB3Gen2 board with lemans
-> EVK board being the next target. In addition to that WIN/IPQ targets
-> planning to use OP-TEE will use this service too. Surely the backwards
-> compatibility is maintained and tested for SCM backend.
-> 
-> Note that kernel PAS service support while running in EL2 is at parity
-> among OP-TEE vs QTEE. Especially the media (venus/iris) support depends
-> on proper IOMMU support being worked out on the PAS client end.
-> 
-> Patch summary:
-> - Patch #1: adds Kodiak EL2 overlay since boot stack with TF-A/OP-TEE
->   only allow UEFI and Linux to boot in EL2.
-> - Patch #2: adds generic PAS service.
-> - Patch #3: migrates SCM backend to generic PAS service.
-> - Patch #4: adds TEE/OP-TEE backend for generic PAS service.
-> - Patch #5-#13: migrates all client drivers to generic PAS service.
-> - Patch #14: drops legacy PAS SCM exported APIs.
+Provide two kdump-oriented helpers so that arch kexec_file code does
+not have to open-code the no-dump filtering loop:
 
+ - of_reserved_mem_no_dump_nr_ranges() returns the number of reserved
+   regions flagged with linux,no-dump. Each exclusion may split one
+   existing crash_mem range into two, so callers use this count to
+   pre-size their crash_mem allocation.
 
-Gave it a try to test the series on Lemans with Gunyah as well as KVM
-hypervisor and all the remote processor are coming up successfully.
+ - of_reserved_mem_exclude_no_dump() walks the reserved_mem[] array
+   and calls crash_exclude_mem_range() for each no-dump region.
 
-Feel free to carry 
+Both helpers are guarded by CONFIG_KEXEC_FILE; empty inline stubs are
+provided for the !KEXEC_FILE case so architecture code can call them
+unconditionally.
 
-Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
+The consumers are added in the following arm64, riscv and loongarch
+patches in this series.
 
-for the Series.
+Signed-off-by: Chen Wandun <chenwandun@lixiang.com>
+Tested-by: Zhao Meijing <zhaomeijing@lixiang.com>
+---
+ drivers/of/of_reserved_mem.c    | 54 +++++++++++++++++++++++++++++++++
+ include/linux/of_reserved_mem.h | 15 +++++++++
+ 2 files changed, 69 insertions(+)
 
-
-> The patch-set is based on v7.1-rc1 tag and can be found in git tree here
-> [2].
-> 
-> Merge strategy:
-> 
-> It is expected due to APIs dependency, the entire patch-set to go via
-> the Qcom tree. All other subsystem maintainers, it will be great if I
-> can get acks for the corresponding subsystem patches.
-> 
-> [1] https://github.com/OP-TEE/optee_os/pull/7721
-> [2] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v4
-> 
-> ---
-> Changes in v4:
-> - Incorporate misc. comments on patch #4.
-> - Picked up an ack for patch #10.
-> - Clarify in cover letter about state of media support.
-> 
-> Changes in v3:
-> - Incorporated some style and misc. comments for patch #2, #3 and #4.
-> - Add QCOM_PAS Kconfig dependency for various subsystems.
-> - Switch from pseudo TA to proper TA invoke commands.
-> 
-> Changes in v2:
-> - Fixed kernel doc warnings.
-> - Polish commit message and comments for patch #2.
-> - Pass proper PAS ID in set_remote_state API for media firmware drivers.
-> - Added Maintainer entry and dropped MODULE_AUTHOR.
-> 
-> Mukesh Ojha (1):
->   arm64: dts: qcom: kodiak: Add EL2 overlay
-> 
-> Sumit Garg (14):
->   firmware: qcom: Add a generic PAS service
->   firmware: qcom_scm: Migrate to generic PAS service
->   firmware: qcom: Add a PAS TEE service
->   remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
->   remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
->   soc: qcom: mdtloader: Switch to generic PAS TZ APIs
->   remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
->   remoteproc: qcom: Select QCOM_PAS generic service
->   drm/msm: Switch to generic PAS TZ APIs
->   media: qcom: Switch to generic PAS TZ APIs
->   net: ipa: Switch to generic PAS TZ APIs
->   wifi: ath12k: Switch to generic PAS TZ APIs
->   firmware: qcom_scm: Remove SCM PAS wrappers
->   MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
-> 
->  MAINTAINERS                                   |   9 +
->  arch/arm64/boot/dts/qcom/Makefile             |   2 +
->  arch/arm64/boot/dts/qcom/kodiak-el2.dtso      |  35 ++
->  drivers/firmware/qcom/Kconfig                 |  19 +
->  drivers/firmware/qcom/Makefile                |   2 +
->  drivers/firmware/qcom/qcom_pas.c              | 288 +++++++++++
->  drivers/firmware/qcom/qcom_pas.h              |  50 ++
->  drivers/firmware/qcom/qcom_pas_tee.c          | 479 ++++++++++++++++++
->  drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
->  drivers/gpu/drm/msm/Kconfig                   |   1 +
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
->  drivers/media/platform/qcom/iris/Kconfig      |  25 +-
->  .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
->  drivers/media/platform/qcom/venus/Kconfig     |   1 +
->  drivers/media/platform/qcom/venus/firmware.c  |  11 +-
->  drivers/net/ipa/Kconfig                       |   2 +-
->  drivers/net/ipa/ipa_main.c                    |  13 +-
->  drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
->  drivers/net/wireless/ath/ath12k/ahb.c         |   8 +-
->  drivers/remoteproc/Kconfig                    |   1 +
->  drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
->  drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
->  drivers/remoteproc/qcom_wcnss.c               |  12 +-
->  drivers/soc/qcom/mdt_loader.c                 |  12 +-
->  include/linux/firmware/qcom/qcom_pas.h        |  43 ++
->  include/linux/firmware/qcom/qcom_scm.h        |  29 --
->  include/linux/soc/qcom/mdt_loader.h           |   6 +-
->  28 files changed, 1115 insertions(+), 317 deletions(-)
->  create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
->  create mode 100644 drivers/firmware/qcom/qcom_pas.c
->  create mode 100644 drivers/firmware/qcom/qcom_pas.h
->  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
->  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
-> 
-> -- 
-> 2.51.0
-> 
-
+diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+index 4b80420da2d2..038056a6408a 100644
+--- a/drivers/of/of_reserved_mem.c
++++ b/drivers/of/of_reserved_mem.c
+@@ -27,6 +27,10 @@
+ 
+ #include "of_private.h"
+ 
++#ifdef CONFIG_KEXEC_FILE
++#include <linux/crash_core.h>
++#endif
++
+ static struct reserved_mem reserved_mem_array[MAX_RESERVED_REGIONS] __initdata;
+ static struct reserved_mem *reserved_mem __refdata = reserved_mem_array;
+ static int total_reserved_mem_cnt = MAX_RESERVED_REGIONS;
+@@ -916,6 +920,56 @@ struct reserved_mem *of_reserved_mem_lookup(struct device_node *np)
+ }
+ EXPORT_SYMBOL_GPL(of_reserved_mem_lookup);
+ 
++#ifdef CONFIG_KEXEC_FILE
++/**
++ * of_reserved_mem_no_dump_nr_ranges() - count reserved regions flagged
++ * with the linux,no-dump property.
++ *
++ * Each such region may split an existing crash_mem range into two when
++ * it is excluded, so callers can use this count to pre-size their
++ * crash_mem allocation.
++ */
++unsigned int of_reserved_mem_no_dump_nr_ranges(void)
++{
++	unsigned int i, n = 0;
++
++	for (i = 0; i < reserved_mem_count; i++)
++		if (reserved_mem[i].no_dump)
++			n++;
++	return n;
++}
++
++/**
++ * of_reserved_mem_exclude_no_dump() - exclude no-dump reserved regions
++ * from a crash_mem list.
++ * @cmem: crash memory list to modify
++ *
++ * Walks the reserved_mem[] array and calls crash_exclude_mem_range() for
++ * every region with no_dump set. Intended to be called from arch kdump
++ * code when constructing the elfcorehdr.
++ *
++ * Returns 0 on success, or a negative error returned by
++ * crash_exclude_mem_range() on the first failure.
++ */
++int of_reserved_mem_exclude_no_dump(struct crash_mem *cmem)
++{
++	unsigned int i;
++	int ret;
++
++	for (i = 0; i < reserved_mem_count; i++) {
++		struct reserved_mem *r = &reserved_mem[i];
++
++		if (!r->no_dump || !r->size)
++			continue;
++		ret = crash_exclude_mem_range(cmem, r->base,
++					      r->base + r->size - 1);
++		if (ret)
++			return ret;
++	}
++	return 0;
++}
++#endif /* CONFIG_KEXEC_FILE */
++
+ /**
+  * of_reserved_mem_region_to_resource() - Get a reserved memory region as a resource
+  * @np:		node containing 'memory-region' property
+diff --git a/include/linux/of_reserved_mem.h b/include/linux/of_reserved_mem.h
+index 29674f572673..cd0f88f29579 100644
+--- a/include/linux/of_reserved_mem.h
++++ b/include/linux/of_reserved_mem.h
+@@ -8,6 +8,7 @@
+ struct of_phandle_args;
+ struct reserved_mem_ops;
+ struct resource;
++struct crash_mem;
+ 
+ struct reserved_mem {
+ 	const char			*name;
+@@ -94,6 +95,20 @@ static inline int of_reserved_mem_region_count(const struct device_node *np)
+ }
+ #endif
+ 
++#if defined(CONFIG_OF_RESERVED_MEM) && defined(CONFIG_KEXEC_FILE)
++unsigned int of_reserved_mem_no_dump_nr_ranges(void);
++int of_reserved_mem_exclude_no_dump(struct crash_mem *cmem);
++#else
++static inline unsigned int of_reserved_mem_no_dump_nr_ranges(void)
++{
++	return 0;
++}
++static inline int of_reserved_mem_exclude_no_dump(struct crash_mem *cmem)
++{
++	return 0;
++}
++#endif
++
+ /**
+  * of_reserved_mem_device_init() - assign reserved memory region to given device
+  * @dev:	Pointer to the device to configure
 -- 
--Mukesh Ojha
+2.43.0
+
