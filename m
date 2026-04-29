@@ -1,130 +1,357 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779223FE35D
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 13:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FDD53FE347
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 13:23:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777468980; cv=none; b=Hskfl5CvlDGzdMJj+agxWVhRLQNMiAU+EbcAT4r1PFQQWtkSWWwQdxx/ccXmoG5sejmfiW0hm41qrBfrXO+BsLmyRm7JgZ9TNEpdY6j9qYi/kiWhbps13kJiSw6k/CwVJ9yYul4tKKZjdveumPwk7d6vlepCO9NsEGDOnU7MLF8=
+	t=1777468984; cv=none; b=R0upMp6BDjxzg5EQu9ormSZLaJbKYCTLtzuZgj0M7YPKva1DYEtBhQq0pZMzxN2T97MGWCCwGG8QibWwIbS700+JV+RFw8VUQc+B+g5SAHEhnHzlnQzPOeUdiwTW4d4d2rDH4EcwtoS9k/IJRqOCxD9ipa4ihgqqwt6ASzKpBe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777468980; c=relaxed/simple;
-	bh=VsaP4LCm9vj+GPBKWc9GbqkMJjZILMOds/rJOobS64k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=G03oc9MhTmlWNoPNhIhvslpV22mwiRVSnwnNONASgTSky02KyDiNeGgyYM/v80p4pV2ATpDzReGQmyAAxOHoES//siXHehjjFnBYdHyzjkweW9HAXNGLM87m0uKeMBPW2ZMuZMVZve8Lj/QrD3kmd2A6cfvOtSWb9WQ5SsTLUcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=L0PV0ZQm; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1777468984; c=relaxed/simple;
+	bh=gczVuAShdEGpAOX27PF16GmBdqERLGb5Ax6/ItUK9YQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iuPpfl+NDcG+ey+/LeiMye7t000LFpmKuWjD9/FSHlN/s+JRuXm9S/t5ZPzyxtkgcXxlNKeX408i1RHlnT8rk57mk1X77vUmoSW6p40s5aFAr7Z8fgO8VNyMrMdVmavSvpL3KUeYfRTSpOhOsjtB/Ic9InkJKMipZGK9igfvmrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OzXCxOfi; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="L0PV0ZQm"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-488a14c31eeso104713875e9.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 06:22:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OzXCxOfi"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-82f943870baso5387743b3a.1
+        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 06:23:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777468977; x=1778073777; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rJisnvoilHvM1tcsiW91zKp6fAV95Xpg1TUbZ8titHM=;
-        b=L0PV0ZQmjDljlaZ0Y80UBJirQFCW53fWnytXltxVz+OPhbBx4qMB2Mh7c+sPSZJy1o
-         7megrm3TZewuN3CIkv4xEsd610NPkagrkE2hnlv5IEjYPnnmwor2jub8eYcnqYY5uGNt
-         NLG33+1AGNK8DkcYwJBi92VfaA5F1zbh21XcJeYWM5j06nnmmecNLjIalDyDAKX5r0z7
-         RBg3kRDO0lY+COl/x2KsKBgtdau/qwuFwg+SJ0JtRpT3AEENavBgOqBrPKbicBXIUQ01
-         g0aYmk1ZtiHFunoeDctU5d82cM7vXttdggSbvGGaUK0YhufuOt4kUDONCjfCCXaZUOhK
-         TJog==
+        d=gmail.com; s=20251104; t=1777468982; x=1778073782; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Zk/HPFBK4IBkCNGG/AGyeD13qmMu2NSM3WquJIJ4QH8=;
+        b=OzXCxOfiL60JCgMFSwI+5r37xX0ckhAzuf50RPcwf4f31UHQtCXAoypmSQvBzOh0nw
+         EA8Davx0sMaun/AderP+D+gBbW4Tsne/aXWkrlzLaPmhg+h+gdwczeXPe5x5qTZ4Vv44
+         cuLMIXeKwkwd0kpVVr4HYcN+f7YUEPXuX06P3uVduhTDkeC2azVXGDC+0khREetPIxBL
+         6hAmWlktL/xjG0+tPvppK4f0+Hy54TSWaFaUW4zgkbBkZ2eMYJ+OQ8/qWFGafJ2XXkb1
+         Qj58G4WBYZlrWzCXIrIbmn3TL3SSV1cAbaVGNWy59kRByyTZExjzQgakGCtOZuuLX4kO
+         +CJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777468977; x=1778073777;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=rJisnvoilHvM1tcsiW91zKp6fAV95Xpg1TUbZ8titHM=;
-        b=E1Fx1ZhSKQz0XyktzfqD22RhDFQRXu4rEWvRuAx6vAqutSfpoRCYe6/Z7ms5dZwY8b
-         pIEqdAqfL/XLw1wkA4cDVWsMqITvDseagrANS4B9zFcb96AXpRuVSs9LEXkfeZrV35+M
-         RAdmiSAh+ONWjm4T3na3vKfMKCGN0kl4Dfkq5mSmJ7v4+7TG0IQYiMuVqDkpsqJN5w85
-         E3D/uDMrgbo3gsuYl+8DwVrBdNpnRS+sls4m6Ik8bqDndEh9REbzpj4QDfmwaYz//OI1
-         qlAgau2FBmNimzZzUl0Y54+4J+y5/QbIMEsHAb1aMl720f5JOztYtv8ilk6xGI7/xOA5
-         CsKg==
-X-Forwarded-Encrypted: i=1; AFNElJ9Xw2WZm1p1308qHvs7D5fU/QhYUmx7w+ytxN2KNVDN8KexTSqnS2Ocfsn8zNc1KJ9kq32h9uJ1316J@vger.kernel.org
-X-Gm-Message-State: AOJu0Yybr+0PtfW7JkOI/XdxnUCuZQqo7F0/j4blW9ArkA7R4DnxA9YF
-	ZIDqDBjLM5YO2w/Nu4NWBTcvMCWD+mupNKVcAbijPlKoa9jTqVqz3exrXcIFdOcwnK0=
-X-Gm-Gg: AeBDieuHQMNADRQ9nCZJaJkWOzxDqZJtmeW8rJJJZumDr8gZqDOz4ydWmYcji7fgEII
-	CL/O5h1HuX586Ys7dSgqsaCHy8vAZE6svPswV01Ai2Nc/72Ss9NnxVgCewK59EoHXlu6H4AQvIP
-	SCjFVlKPvRRd3fYJTYEXsQnzlA/PhqLbGmrZBjvaOvlpIpiBLg+VuGggcyJMz8E5dDiKUgb+yhD
-	+SpbWavpGwaIIrtSU208WE981gWGwdurl6wVtEZWbysuMS8WwSoakINR42ireCOXZGSfLEst0xP
-	2SzK4P66XqdllsYjMWCypoBwq/FCIcg5oPOPvb4NIn41drPCEJbC+6/eQ/t74AaoAPBonjDt2Cp
-	VHT6UOtc9xDIjFkPVot0VpBs+35qUUt1owNn0nGFNbeli/5WtZXxuqAo6wulfPSgnT+Tp41vRIH
-	dZu6V7b8D/f0z/lSnxAVRRDrnhNGcjTT/T26N0aGjyPA==
-X-Received: by 2002:a05:600c:3541:b0:488:936a:6220 with SMTP id 5b1f17b1804b1-48a77b1bb4cmr126176615e9.21.1777468976657;
-        Wed, 29 Apr 2026 06:22:56 -0700 (PDT)
-Received: from localhost ([2001:4090:a246:83ca:1917:a47e:1872:2063])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-447b3d4843bsm5752703f8f.7.2026.04.29.06.22.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Apr 2026 06:22:56 -0700 (PDT)
-From: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Date: Wed, 29 Apr 2026 15:22:11 +0200
-Subject: [PATCH v4 4/4] arm64: dts: ti: k3-am62p5-sk: Add r5f nodes to
- pre-ram bootphase
+        d=1e100.net; s=20251104; t=1777468982; x=1778073782;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Zk/HPFBK4IBkCNGG/AGyeD13qmMu2NSM3WquJIJ4QH8=;
+        b=nutWBOE3FJlk6z/xYmBaOjpltYR7ztmw/rzXGN5T7vvUNP+FUbZDF6O2ajldWnewtL
+         53BGin8O3DvX+Gvbu9wzpA1OJnGT+7QCuU1A4GUB+HxDX5kNHgXyFkH6jM3YkBjooL3N
+         FYCKMkIxHIC9HaNK8licCASsUGjAWy0nU6TXoiYTjA2BvmPygGKvuAYcQqNGy3KObSxv
+         nGpp6mV3WugVIQIht8ukbG7ShELdu5XHruMJwiQ81Y7Jwji6b6nIgEZ0ptYpPLKN2Qcr
+         WRnUNF66UB/G3puxr/UWn8HIr+SQnPreMZDbb4LlXVLMWH6pZvcXfUlTVvuToRajlFuQ
+         if7Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/c/rSKEYwD0zG2rmrzMY4LK3evBXjCxj5hfkesYf3tipkTf8vN6aOCA6cg9EMNfJHeZ13KQl0jmvlc@vger.kernel.org
+X-Gm-Message-State: AOJu0YzPg1AVn/2bV2K9NoxEYoV2s/hUMZlmmKeGNA9diuMMt20OvO1O
+	i5L62p8wUmMHu0vorMb2qgVtMx6nUod0UmvQAxz41xDLojEMp3vSvCJ3WGadgU07
+X-Gm-Gg: AeBDiesrwVLG//K19XV8rbEYv+zU2yoxq7CQfdr4dtUWJZpL/oA0HLMmvlHs1pryTKB
+	jfSTsCBiCccz4YNUh6gAVrYH565zkGsov1gWc7HOyvV1yHiv979ZurQWZZVjGfj0QhW0a9/jBVM
+	txTw4f6vb1DyJVscH793P9gNZo30gS+nINgWgfd7DZ7xvkcfBiKOViN3SIEog6gmqoEnOZ1DVS8
+	3WR+AoXMt72Mrps5eQTxYwfbtsnkV0wrhJo2Ck2obUKETJTo5qtAnI3+wwn8ZZv/NSksQWnUNMT
+	pLjW4yspcHJXOnAbp2B9RowrO3T4c5BaW00pg6kAXJ3wQLJKrmrEApEWTjJnp2vJhDIkOp3ezkr
+	y3ebMYEJFZ+GGMYLQCIYriDt+YhXEWLM5mEacbdqTadTRkzMK+BpZMzV3DMCPeQYcuuraH34qI+
+	Sp3fajC4zvOVJO8lP8AFkROP7XvwiW0xCJ51eCc69OQb9pFnEBLN/hqTw/E6RA5PBTOC1NFee5k
+	hp1azaipO/+9sXTJ2xFTCisJg==
+X-Received: by 2002:a05:6a00:849:b0:82f:238f:b5a8 with SMTP id d2e1a72fcca58-834ddae11cfmr7829325b3a.9.1777468982443;
+        Wed, 29 Apr 2026 06:23:02 -0700 (PDT)
+Received: from localhost.localdomain ([2001:448a:2002:4381:3859:fd0d:505e:362c])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-834ed5cd407sm2091372b3a.13.2026.04.29.06.22.58
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 29 Apr 2026 06:23:01 -0700 (PDT)
+From: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
+To: jic23@kernel.org,
+	linux-iio@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: branstj@gmail.com,
+	lars@metafoo.de,
+	ojeda@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	igor.korotin.linux@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
+Subject: [RFC PATCH v2 2/4] rust: add minimal IIO subsystem abstractions
+Date: Wed, 29 Apr 2026 20:22:28 +0700
+Message-ID: <20260429132234.30514-3-muchamadcoirulanwar@gmail.com>
+X-Mailer: git-send-email 2.50.0
+In-Reply-To: <20260429132234.30514-1-muchamadcoirulanwar@gmail.com>
+References: <20260429132234.30514-1-muchamadcoirulanwar@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260429-topic-am62a-ioddr-dt-v6-19-v4-4-fc27d6ac753c@baylibre.com>
-References: <20260429-topic-am62a-ioddr-dt-v6-19-v4-0-fc27d6ac753c@baylibre.com>
-In-Reply-To: <20260429-topic-am62a-ioddr-dt-v6-19-v4-0-fc27d6ac753c@baylibre.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Suman Anna <s-anna@ti.com>, 
- Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Tero Kristo <kristo@kernel.org>
-Cc: Vishal Mahaveer <vishalm@ti.com>, Kevin Hilman <khilman@baylibre.com>, 
- Dhruva Gole <d-gole@ti.com>, Sebin Francis <sebin.francis@ti.com>, 
- Kendall Willis <k-willis@ti.com>, Akashdeep Kaur <a-kaur@ti.com>, 
- linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1183; i=msp@baylibre.com;
- h=from:subject:message-id; bh=VsaP4LCm9vj+GPBKWc9GbqkMJjZILMOds/rJOobS64k=;
- b=owGbwMvMwCXWejAsc4KoVzDjabUkhsxPbIo2lfKnvyd5e3KfnbSlfZnmWTaubknzS18bTirrP
- G3daDS7o5SFQYyLQVZMkaUzMTTtv/zOY8mLlm2GmcPKBDKEgYtTACbCs5/hr+C8JRf/f9h62W/S
- 5pfTLq3Xdxbrk7F3a97vFxwtUWr1SYrhv+8pgftnGGb9OrxftfTKlucSV5xcjrV61ucsFq/0rHQ
- 4xQkA
-X-Developer-Key: i=msp@baylibre.com; a=openpgp;
- fpr=BADD88DB889FDC3E8A3D5FE612FA6A01E0A45B41
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-For IO+DDR the wkup_r5fss0_core0 and the
-wkup_r5fss0_core0_lpm_metadata_region need to be accessed before RAM
-setup is done. These are used to read the lpm metadata region in which
-data is stored to resume. This needs to be done before RAM is in use to
-avoid overwriting data.
-
-Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+Signed-off-by: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
 ---
- arch/arm64/boot/dts/ti/k3-am62p5-sk.dts | 2 ++
- 1 file changed, 2 insertions(+)
+ rust/bindings/bindings_helper.h |   2 +
+ rust/kernel/iio.rs              | 224 ++++++++++++++++++++++++++++++++
+ rust/kernel/lib.rs              |   2 +
+ 3 files changed, 228 insertions(+)
+ create mode 100644 rust/kernel/iio.rs
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am62p5-sk.dts b/arch/arm64/boot/dts/ti/k3-am62p5-sk.dts
-index e67489a178f2a2caedf1306e1c1c9dd6a95745e6..b4a4e427637bb4d5ca408d29234b95fe7e69d006 100644
---- a/arch/arm64/boot/dts/ti/k3-am62p5-sk.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am62p5-sk.dts
-@@ -71,6 +71,7 @@ wkup_r5fss0_core0_lpm_metadata_region: memory@9ca08000 {
- 			compatible = "shared-dma-pool";
- 			reg = <0x00 0x9ca08000 0x00 0x1000>;
- 			no-map;
-+			bootph-pre-ram;
- 		};
- 
- 		wkup_r5fss0_core0_lpm_rest_region: memory@9ca09000 {
-@@ -879,4 +880,5 @@ &wkup_r5fss0_core0 {
- 	memory-region-names = "dma", "ipc", "lpm-stub",
- 			      "lpm-metadata", "lpm-context",
- 			      "dm-firmware";
-+	bootph-pre-ram;
- };
-
+diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
+index 083cc44aa952..e732ee19b90c 100644
+--- a/rust/bindings/bindings_helper.h
++++ b/rust/bindings/bindings_helper.h
+@@ -58,6 +58,8 @@
+ #include <linux/firmware.h>
+ #include <linux/fs.h>
+ #include <linux/i2c.h>
++#include <linux/iio/iio.h>
++#include <linux/iio/types.h>
+ #include <linux/interrupt.h>
+ #include <linux/io-pgtable.h>
+ #include <linux/ioport.h>
+diff --git a/rust/kernel/iio.rs b/rust/kernel/iio.rs
+new file mode 100644
+index 000000000000..ee27d928e803
+--- /dev/null
++++ b/rust/kernel/iio.rs
+@@ -0,0 +1,224 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (C) 2026 Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
++//! IIO subsystem abstractions.
++//!
++//! Minimal safe Rust wrappers for the Linux IIO (Industrial I/O) subsystem.
++//! Provides [`Device`] for allocating and registering an IIO device, and the
++//! [`IioDriver`] trait for implementing `read_raw` callbacks in safe Rust.
++
++use crate::{
++    bindings::{
++        __iio_device_register, iio_chan_spec, iio_dev, iio_device_alloc, iio_device_free,
++        iio_device_unregister, iio_info, INDIO_DIRECT_MODE,
++    },
++    device,
++    error::{code::*, to_result, Result},
++    prelude::*,
++    ThisModule,
++};
++use core::{
++    ffi::c_int,
++    marker::PhantomData,
++    mem::{size_of, zeroed},
++    ptr::{drop_in_place, write},
++};
++use pin_init::{pin_data, pinned_drop};
++/// IIO value type: single integer (`IIO_VAL_INT`).
++pub const IIO_VAL_INT: c_int = crate::bindings::IIO_VAL_INT as c_int;
++/// IIO value type: integer plus micro part (`IIO_VAL_INT_PLUS_MICRO`).
++pub const IIO_VAL_INT_PLUS_MICRO: c_int = crate::bindings::IIO_VAL_INT_PLUS_MICRO as c_int;
++/// IIO value type: integer plus nano part (`IIO_VAL_INT_PLUS_NANO`).
++pub const IIO_VAL_INT_PLUS_NANO: c_int = crate::bindings::IIO_VAL_INT_PLUS_NANO as c_int;
++/// IIO value type: fractional (`IIO_VAL_FRACTIONAL`).
++pub const IIO_VAL_FRACTIONAL: c_int = crate::bindings::IIO_VAL_FRACTIONAL as c_int;
++
++/// Represents the return value of a `read_raw` operation.
++///
++/// Each variant corresponds to an `IIO_VAL_*` constant and tells the
++/// IIO core how to format `val` and `val2` for userspace.
++pub enum IioVal {
++    /// A single integer value.
++    Int(i32),
++    /// A fractional value represented as `val / val2`.
++    Fractional(i32, i32),
++    /// An integer plus a micro (10⁻⁶) fractional part: `val.val2`.
++    IntPlusMicro(i32, i32),
++    /// An integer plus a nano (10⁻⁹) fractional part: `val.val2`.
++    IntPlusNano(i32, i32),
++}
++
++/// Trait to be implemented by IIO driver private data.
++///
++/// Implementors supply the `read_raw` callback invoked by the IIO core
++/// when userspace reads a channel attribute (e.g. `in_angl_raw`).
++pub trait IioDriver {
++    /// Called by the IIO core when userspace reads a channel attribute.
++    ///
++    /// `chan` is the channel being read; `mask` selects the attribute
++    /// (e.g. `IIO_CHAN_INFO_RAW`, `IIO_CHAN_INFO_SCALE`).
++    fn read_raw(&self, chan: *const iio_chan_spec, mask: isize) -> Result<IioVal>;
++
++    /// Returns the channel specifications for this driver.
++    ///
++    /// The default implementation returns an empty slice.
++    fn channels(&self) -> &[iio_chan_spec] {
++        &[]
++    }
++}
++
++/// C-compatible trampoline for the `iio_info.read_raw` callback.
++///
++/// # Safety
++///
++/// This function is only called by the IIO core with valid pointers:
++/// - `indio_dev` is a valid `iio_dev` allocated by `iio_device_alloc`.
++/// - `chan` points to a valid channel spec from the device's channel array.
++/// - `val` and `val2` are valid pointers for writing the result.
++unsafe extern "C" fn read_raw_callback<T: IioDriver>(
++    indio_dev: *mut iio_dev,
++    chan: *const iio_chan_spec,
++    val: *mut c_int,
++    val2: *mut c_int,
++    mask: isize,
++) -> c_int {
++    // SAFETY: `indio_dev` is valid and was allocated with space for `T` in its
++    // private data area. The `priv_` field was initialized in `Device::new()`.
++    let priv_ptr = unsafe { (*indio_dev).priv_ as *mut T };
++    // SAFETY: `priv_ptr` points to a valid, initialized instance of `T` that
++    // lives as long as the `iio_dev` allocation.
++    let driver = unsafe { &*priv_ptr };
++
++    match driver.read_raw(chan, mask) {
++        Ok(IioVal::Int(v)) => {
++            // SAFETY: `val` is a valid pointer provided by the IIO core.
++            unsafe { *val = v };
++            IIO_VAL_INT
++        }
++        Ok(IioVal::Fractional(v, v2)) => {
++            // SAFETY: `val` and `val2` are valid pointers provided by the IIO core.
++            unsafe {
++                *val = v;
++                *val2 = v2;
++            };
++            IIO_VAL_FRACTIONAL
++        }
++        Ok(IioVal::IntPlusMicro(v, v2)) => {
++            // SAFETY: `val` and `val2` are valid pointers provided by the IIO core.
++            unsafe {
++                *val = v;
++                *val2 = v2;
++            }
++            IIO_VAL_INT_PLUS_MICRO
++        }
++        Ok(IioVal::IntPlusNano(v, v2)) => {
++            // SAFETY: `val` and `val2` are valid pointers provided by the IIO core.
++            unsafe {
++                *val = v;
++                *val2 = v2;
++            }
++            IIO_VAL_INT_PLUS_NANO
++        }
++        Err(e) => e.to_errno(),
++    }
++}
++
++/// A registered IIO device.
++///
++/// Wraps a C `struct iio_dev` and manages its lifetime. On drop the
++/// device is unregistered (if registered) and its memory freed.
++#[pin_data(PinnedDrop)]
++pub struct Device<T: IioDriver> {
++    indio_dev: *mut iio_dev,
++    registered: bool,
++    _p: PhantomData<T>,
++}
++
++// SAFETY: `Device` only contains a raw pointer to a kernel-managed `iio_dev`.
++// The IIO core serializes access to the device, and `T` is required to be `Send`.
++unsafe impl<T: IioDriver + Send> Send for Device<T> {}
++// SAFETY: All `&self` access to the `iio_dev` is read-only or goes through the
++// IIO core which provides its own synchronization. `T` is required to be `Sync`.
++unsafe impl<T: IioDriver + Sync> Sync for Device<T> {}
++
++#[pinned_drop]
++impl<T: IioDriver> PinnedDrop for Device<T> {
++    // SAFETY: `self.indio_dev` was allocated by `iio_device_alloc` in `new()`
++    // and is valid for the lifetime of this struct. We unregister first (if
++    // registered), then drop the private data, then free the `iio_dev`.
++    // This ordering is critical: unregister ensures no more callbacks can
++    // fire before we drop the driver data they reference.
++    fn drop(self: Pin<&mut Self>) {
++        unsafe {
++            if self.registered {
++                iio_device_unregister(self.indio_dev);
++            }
++            let priv_ptr = (*self.indio_dev).priv_ as *mut T;
++            drop_in_place(priv_ptr);
++            iio_device_free(self.indio_dev);
++        }
++    }
++}
++
++impl<T: IioDriver> Device<T> {
++    // SAFETY: The remaining fields of `iio_info` are pointers and function
++    // pointers. Zeroed values are NULL, and the IIO core checks for NULL
++    // before invoking callbacks or dereferencing attribute group pointers.
++    const VTABLE: iio_info = iio_info {
++        read_raw: Some(read_raw_callback::<T>),
++        ..unsafe { zeroed() }
++    };
++
++    /// Allocates a new IIO device with the given driver data.
++    ///
++    /// The device is not yet registered; call [`register`](Self::register)
++    /// to make it visible to userspace.
++    pub fn new(dev: &device::Device, data: T, name: &'static CStr) -> Result<Self> {
++        // SAFETY: `dev.as_raw()` returns a valid `struct device` pointer.
++        // `iio_device_alloc` allocates an `iio_dev` with `sizeof(T)` bytes of
++        // private data. Returns NULL on failure.
++        let indio_dev = unsafe { iio_device_alloc(dev.as_raw(), size_of::<T>() as _) };
++        if indio_dev.is_null() {
++            return Err(ENOMEM);
++        }
++
++        // SAFETY: `indio_dev` is a valid, newly allocated `iio_dev`.
++        // - `priv_` points to an uninitialized area of `sizeof(T)` bytes.
++        // - `core::ptr::write` initializes it without reading the old value.
++        // - `name` is a `'static` C string that outlives the device.
++        // - `VTABLE` is a `'static` const and outlives the device.
++        // - `channels()` returns a reference to data owned by `T` in `priv_`,
++        //   which remains at a fixed address for the lifetime of `indio_dev`
++        //   because `priv_` is heap-allocated by `iio_device_alloc`.
++        unsafe {
++            let priv_ptr = (*indio_dev).priv_ as *mut T;
++            write(priv_ptr, data);
++            (*indio_dev).name = name.as_char_ptr();
++            (*indio_dev).info = &Self::VTABLE;
++
++            let chans = (*priv_ptr).channels();
++            (*indio_dev).channels = chans.as_ptr() as *const iio_chan_spec;
++            (*indio_dev).num_channels = chans.len() as _;
++            (*indio_dev).modes = INDIO_DIRECT_MODE as i32;
++        }
++
++        Ok(Self {
++            indio_dev,
++            registered: false,
++            _p: PhantomData,
++        })
++    }
++
++    /// Registers the IIO device, making it visible to userspace via sysfs.
++    ///
++    /// On success, channel attributes like `in_angl_raw` become readable.
++    /// On failure the device stays unregistered and will be freed when
++    /// this [`Device`] is dropped.
++    pub fn register(&mut self, _dev: &device::Device, module: &'static ThisModule) -> Result {
++        // SAFETY: `self.indio_dev` is a valid, fully initialized `iio_dev`.
++        // `module.as_ptr()` provides the module owner for proper refcounting.
++        let ret = unsafe { __iio_device_register(self.indio_dev, module.as_ptr()) };
++        to_result(ret)?;
++        self.registered = true;
++        Ok(())
++    }
++}
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index 138d846f798d..ec6eb4dbdb6a 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -99,6 +99,8 @@
+ #[cfg(CONFIG_I2C = "y")]
+ pub mod i2c;
+ pub mod id_pool;
++#[cfg(CONFIG_IIO)]
++pub mod iio;
+ #[doc(hidden)]
+ pub mod impl_flags;
+ pub mod init;
 -- 
-2.53.0
+2.50.0
 
