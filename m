@@ -1,53 +1,53 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5590A3FB7E5;
-	Wed, 29 Apr 2026 12:52:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DD33FBEAD;
+	Wed, 29 Apr 2026 12:52:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777467146; cv=none; b=oa+x5vsiZxWppMO0pNaRTVjngBg7OrgL6Ma0qOn1YgxUF/Kt6omJxmQr1mStevzIHOOSdh1VGDd+9UIZJZuAvMM+AsNMu4nozrJhuoujHMiEik7pRJFFfG71whEN+r7l1gmefR3jM6Db4QXh4VNjI5e9vcpdKFfFVGcrMGtLYkA=
+	t=1777467150; cv=none; b=WW6ojv3cjws3SOfD56cj798oTydPdIj7KSQEWKGoY+IPqZxDnhQ4NrAIVvzekboazSry4dX11speUhy22fUfbrEfJPamzAvFvbvzFqIakCQ0sdu1FyyyhHlJn4g49UJd5oNPAI7xj3Z60/Jl+ZY4eB90bmp3lL32SZjzxUI6TvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777467146; c=relaxed/simple;
-	bh=+8QU8HL5LTowQUw4GcnLZco3bnWOUB2eU7X5SI7iTaE=;
+	s=arc-20240116; t=1777467150; c=relaxed/simple;
+	bh=/FkPJYOfTAd4h5YqJKfrPb5l1QNwgaBadcU/nKKIg88=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sVt+hr2kEDn0O4zXeWpVLYibhPEAMNVBit0arqZ8zLI8Y3oKY51HKnI/ZEclVe9IhUks07SeTyJHvriBu4Pbh6ObCfb8ieO2lg4voLjcnu6Z0qxTg+B63zMJ1mqme7QWU9/I+Wvx0QjEXsFwjvsnT7SwdqoyG6vCHSDp/o0hpwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UN3poaYu; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=P9/voP6ZGy82BSh2TCk7hYNXgymyfbLFq8f9nOcqyq+Jm5bmCsbTP8NHJJdme31n5KvnT7hdyH1pUYj88EZtDrUnZ360HvKorK6GWa7tUipIqWYNFqobw7wXe+TFDiDCmstfehpBoLDaSl12j0S1/aXdZN+BTscuAI3o7TXJ6bU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SLqksZqx; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UN3poaYu"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63T8pt9Y1728611;
-	Wed, 29 Apr 2026 12:51:43 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SLqksZqx"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63T8qXAd1642983;
+	Wed, 29 Apr 2026 12:51:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=p+WhCru9HgF
-	aP+TWy5L7byNF1z/ANIoO47ZhLfz7SwE=; b=UN3poaYupzXeVnH+kpH8uGMvZ5u
-	hHCsQn7c4JM/HJmYnysvUSd83Pvp/9Pgfcx+CBueJBB58lG1MupT38DGKmqsFmGX
-	wB5dGF5rJ/YOfag7ovmxp6uwFRXq3/+v5J7VRHCLGPriWGEwH+W2Bzc9KiWwmMbk
-	6Udr08+Zyfjb/WomiiZpqbg44L9MG6m6sTC3zqbwaDaS1ayXhop7JvicMdgB4b5o
-	XLlDh/5JAkWGVci0h2tloPza/RJm2LUarF9na2mEy+lzCZ8VR4hzZ8+2Xy036KA2
-	Q1q/uPbGeq9Kx6wkdDg9nGY5l4imIfQYOaGPJz1K8eWv1sYWjl4WcMWyRsA==
+	:mime-version:references:subject:to; s=qcppdkim1; bh=8f0Pi81zN9t
+	kL3OXmacgA2swuOinfVpfGGMeF5s7kw4=; b=SLqksZqxI2Pz0AfeCZM6Q3K5aVp
+	HpVgWmmb/hYRyuYXDdgo2s4Eji4LjnVvSBf97vDotqFYPaKN02y2+P+AcOo9kDrY
+	pk3MGOkA/qptQPEMIZhMxPJOuA1wtVdh2jMk3U+8FqtWAY3t1Bux3Hd0MyElF5r7
+	bigUg55L/2C0OhDDANerYLA57+3Je6kVJKyEecKX+aSx7rFo5HTzF1a0A0sSEGD9
+	B9BQyIDb20vT45DHW7gnsxMhy5+BV+dtae1qaNCKodzDjWaBHua2/w0bumZpaUX8
+	qNTmyJxfqiH+TJ8eUJfOQ8+3/3XanTSXU5GU1q2yW8QygT0Ldah+XQtjKbw==
 Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4due5ks2kp-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ducj81jm9-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Wed, 29 Apr 2026 12:51:42 +0000 (GMT)
 Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 63TCpbOY010778;
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 63TCpbOX010778;
 	Wed, 29 Apr 2026 12:51:39 GMT
 Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4ds65fvr23-1
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4ds65fvr20-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Wed, 29 Apr 2026 12:51:39 +0000 (GMT)
 Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 63TCpcKn010816;
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 63TCpcSp010815;
 	Wed, 29 Apr 2026 12:51:38 GMT
 Received: from hu-devc-blr-u24-a.qualcomm.com (hu-anuppate-blr.qualcomm.com [10.131.36.165])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 63TCpcJD010803
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 63TCpcgl010802
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Wed, 29 Apr 2026 12:51:38 +0000 (GMT)
 Received: by hu-devc-blr-u24-a.qualcomm.com (Postfix, from userid 486687)
-	id CF061222EB; Wed, 29 Apr 2026 18:21:36 +0530 (+0530)
+	id C3A252212C; Wed, 29 Apr 2026 18:21:36 +0530 (+0530)
 From: Anup Patel <anup.patel@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
@@ -64,11 +64,11 @@ Cc: Alexandre Ghiti <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
         Andrew Jones <andrew.jones@oss.qualcomm.com>,
         Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
-        Anup Patel <anup.patel@oss.qualcomm.com>
-Subject: [PATCH v4 09/12] rvtrace: Add perf driver for tracing using perf tool
-Date: Wed, 29 Apr 2026 18:21:32 +0530
-Message-ID: <20260429125135.1983498-10-anup.patel@oss.qualcomm.com>
+        Anup Patel <anup.patel@oss.qualcomm.com>,
+        Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+Subject: [PATCH v4 06/12] rvtrace: Add function to copy into perf AUX buffer
+Date: Wed, 29 Apr 2026 18:21:29 +0530
+Message-ID: <20260429125135.1983498-7-anup.patel@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260429125135.1983498-1-anup.patel@oss.qualcomm.com>
 References: <20260429125135.1983498-1-anup.patel@oss.qualcomm.com>
@@ -81,459 +81,118 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QCInternal: smtphost
 X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI5MDEzMCBTYWx0ZWRfXznIAajsG5GEZ
- wx6pmVA0O4B4UPBXn3GMCDnqlwD003RXvkJNNisKDR7aXkKBrELeuxIUMcR4PhUaXgjGiEIZ3oK
- vR828hg96ev7e4Vm1ZLs6RUgnL+dAdR1wt/GvEFSzt8ELsAFugjKAxeLOn0nXvFU6w2INona61+
- NgXt/v73nJ2tLmBTsb9Z9GFGIqy3jzG4ay3oO0vDqVXgkOJHpNNa7yKAsdLmGxt6eydYq1zU0jr
- UPZRBjg+mylehZZc7BEPDjrJLASDNquNyty79ds8+ZzNeFdiWruEgoi2sSJ4fKdtgc4ZD8S1g/F
- JFD5nx8Aon/Bi7jZ3Hcrx08vEV/JBL1ke81u0f6/TfB7AVKBrnOv7T/bcCSSE3cWB8yDdyaGRUs
- 6eFALJPsCsUI9yLEamsZUpwg7EslV0odNgrvxRdTkYQDaDoWgOnmgJ9zn+3Oj1G7fKrozwmkee1
- 4NT7zIiijg2RMIB/gpw==
-X-Proofpoint-GUID: STbQEXTDpIQfjg8UafM5ewLb50x8eBMZ
-X-Proofpoint-ORIG-GUID: STbQEXTDpIQfjg8UafM5ewLb50x8eBMZ
-X-Authority-Analysis: v=2.4 cv=CL4amxrD c=1 sm=1 tr=0 ts=69f1fede cx=c_pps
+X-Proofpoint-ORIG-GUID: NCSAYNMQx2vM14rzxlhoVqKOiJQAZZ3x
+X-Authority-Analysis: v=2.4 cv=RI6D2Yi+ c=1 sm=1 tr=0 ts=69f1fede cx=c_pps
  a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8 a=HURrUvzjhtnrdgnosHYA:9
+ a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=J47OFj0AjNl56Ar9NcoA:9
+X-Proofpoint-GUID: NCSAYNMQx2vM14rzxlhoVqKOiJQAZZ3x
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI5MDEzMCBTYWx0ZWRfX9OcEn4X4rrhn
+ Hkn6eH0CRwQaAGexpSYM+JxHtvlr9ZmhH/AQcWZkwKm6rlLCTOsLavyRLu6a7kSvA0ceDERF/Ed
+ i5iRxKyrA+gQqHjD6PuAnC8cs7KlwRWOOGGTAEwUS0Bptn8adOxAg2cSgh4TKrmK2qPDxLmMira
+ tGETXo1oGAi4QGDLflkbyjEn2n5/B+HFVE9GH9Tfwk7yV+uPhecWC7XlihpAY0mOn7JtXJQQhJm
+ SdxfLsOi6ohXD/tYFqb+F4X9dhET82omY2T/kMGgEMTINwPavV5AwLH509bZqowYHnZe+B8Rsry
+ fLvi4ccTnFixXFEJ2RkQ/vkJD2OFNwXfq4lWrADZtL0VOF3oDeqtHWDidaw7Lt2Sw0N+77mfSSo
+ fkbBL308CciWBlabvvfrvtGlWoMUMpsXOgZFcmw5Pg/GJ+sAlpEneQ7sC4ue7eVitWMV+cTWyl6
+ KMIAFVp4OW7ROWD1WsQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-28_05,2026-04-28_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 adultscore=0 suspectscore=0
- lowpriorityscore=0 impostorscore=0 spamscore=0 clxscore=1015 malwarescore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ phishscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 impostorscore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
  adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
  definitions=main-2604290130
 
-From: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+The RISC-V trace ramsink will need a mechanism to copy trace data
+into the perf AUX buffer. Add rvtrace_path_copyto_auxbuf() function
+and corresponding trace driver callback copyto_auxbuf() for this
+purpose.
 
-Add perf driver for RISC-V tracing similar to ARM Coresight and Hisilicon
-PTT drivers. The driver adds 'rvtrace' event descriptor which can be used
-by the perf tool to record the RISC-V trace data.
-
-Co-developed-by: Anup Patel <anup.patel@oss.qualcomm.com>
-Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
+Co-developed-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
 ---
- drivers/hwtracing/rvtrace/Kconfig        |   1 +
- drivers/hwtracing/rvtrace/Makefile       |   2 +-
- drivers/hwtracing/rvtrace/rvtrace-core.c |   8 +
- drivers/hwtracing/rvtrace/rvtrace-perf.c | 345 +++++++++++++++++++++++
- include/linux/rvtrace.h                  |   3 +
- 5 files changed, 358 insertions(+), 1 deletion(-)
- create mode 100644 drivers/hwtracing/rvtrace/rvtrace-perf.c
+ drivers/hwtracing/rvtrace/rvtrace-core.c | 22 ++++++++++++++++++++++
+ include/linux/rvtrace.h                  | 21 +++++++++++++++++++++
+ 2 files changed, 43 insertions(+)
 
-diff --git a/drivers/hwtracing/rvtrace/Kconfig b/drivers/hwtracing/rvtrace/Kconfig
-index 0577f9acb858..ba11acf1117d 100644
---- a/drivers/hwtracing/rvtrace/Kconfig
-+++ b/drivers/hwtracing/rvtrace/Kconfig
-@@ -4,6 +4,7 @@ menuconfig RVTRACE
- 	tristate "RISC-V Trace Support"
- 	depends on RISCV
- 	depends on OF
-+	select PERF_EVENTS
- 	default RISCV
- 	help
- 	  This framework provides a kernel interface for the RISC-V trace
-diff --git a/drivers/hwtracing/rvtrace/Makefile b/drivers/hwtracing/rvtrace/Makefile
-index 122e575da9fb..07403f4d94e3 100644
---- a/drivers/hwtracing/rvtrace/Makefile
-+++ b/drivers/hwtracing/rvtrace/Makefile
-@@ -1,6 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0
- 
- obj-$(CONFIG_RVTRACE) += rvtrace.o
--rvtrace-y := rvtrace-core.o rvtrace-platform.o
-+rvtrace-y := rvtrace-core.o rvtrace-platform.o rvtrace-perf.o
- obj-$(CONFIG_RVTRACE_ENCODER) += rvtrace-encoder.o
- obj-$(CONFIG_RVTRACE_RAMSINK) += rvtrace-ramsink.o
 diff --git a/drivers/hwtracing/rvtrace/rvtrace-core.c b/drivers/hwtracing/rvtrace/rvtrace-core.c
-index 6d45c90480f1..58454e9ddb4e 100644
+index 733d07abffbc..6d45c90480f1 100644
 --- a/drivers/hwtracing/rvtrace/rvtrace-core.c
 +++ b/drivers/hwtracing/rvtrace/rvtrace-core.c
-@@ -766,11 +766,19 @@ static int __init rvtrace_init(void)
- 		return ret;
- 	}
- 
-+	ret = rvtrace_perf_init();
-+	if (ret) {
-+		platform_driver_unregister(&rvtrace_platform_driver);
-+		bus_unregister(&rvtrace_bustype);
-+		return ret;
-+	}
-+
- 	return 0;
+@@ -664,6 +664,28 @@ int rvtrace_path_stop(struct rvtrace_path *path)
  }
+ EXPORT_SYMBOL_GPL(rvtrace_path_stop);
  
- static void __exit rvtrace_exit(void)
- {
-+	rvtrace_perf_exit();
- 	platform_driver_unregister(&rvtrace_platform_driver);
- 	bus_unregister(&rvtrace_bustype);
- }
-diff --git a/drivers/hwtracing/rvtrace/rvtrace-perf.c b/drivers/hwtracing/rvtrace/rvtrace-perf.c
-new file mode 100644
-index 000000000000..63017a3a42b8
---- /dev/null
-+++ b/drivers/hwtracing/rvtrace/rvtrace-perf.c
-@@ -0,0 +1,345 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2026 Qualcomm Technologies, Inc.
-+ * Author: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/cpumask.h>
-+#include <linux/device.h>
-+#include <linux/list.h>
-+#include <linux/mm.h>
-+#include <linux/init.h>
-+#include <linux/perf_event.h>
-+#include <linux/vmalloc.h>
-+#include <linux/percpu-defs.h>
-+#include <linux/slab.h>
-+#include <linux/stringhash.h>
-+#include <linux/types.h>
-+#include <linux/workqueue.h>
-+#include <linux/rvtrace.h>
-+
-+#define RVTRACE_PMU_NAME "rvtrace"
-+static struct pmu rvtrace_pmu;
-+static DEFINE_SPINLOCK(perf_buf_lock);
-+
-+/**
-+ * struct rvtrace_event_data - RISC-V trace specific perf event data
-+ * @work:		Handle to free allocated memory outside IRQ context.
-+ * @mask:		Hold the CPU(s) this event was set for.
-+ * @aux_hwid_done:	Whether a CPU has emitted the TraceID packet or not.
-+ * @path:		An array of path, each slot for one CPU.
-+ * @buf:		Aux buffer / pages allocated by perf framework.
-+ */
-+struct rvtrace_event_data {
-+	struct work_struct work;
-+	cpumask_t mask;
-+	cpumask_t aux_hwid_done;
-+	struct rvtrace_path * __percpu *path;
-+	struct rvtrace_perf_auxbuf buf;
-+};
-+
-+struct rvtrace_ctxt {
-+	struct perf_output_handle handle;
-+	struct rvtrace_event_data *event_data;
-+};
-+
-+static DEFINE_PER_CPU(struct rvtrace_ctxt, rvtrace_ctxt);
-+
-+static void *alloc_event_data(int cpu)
++int rvtrace_path_copyto_auxbuf(struct rvtrace_path *path,
++			       struct rvtrace_perf_auxbuf *buf,
++			       size_t *bytes_copied)
 +{
-+	struct rvtrace_event_data *event_data;
-+	cpumask_t *mask;
++	const struct rvtrace_driver *rtdrv;
++	struct rvtrace_component *comp;
++	struct rvtrace_path_node *node;
 +
-+	event_data = kzalloc(sizeof(*event_data), GFP_KERNEL);
-+	if (!event_data)
-+		return NULL;
-+
-+	/* Update mask as per selected CPUs */
-+	mask = &event_data->mask;
-+	if (cpu != -1)
-+		cpumask_set_cpu(cpu, mask);
-+	else
-+		cpumask_copy(mask, cpu_present_mask);
-+
-+	event_data->path = alloc_percpu(struct rvtrace_path *);
-+	return event_data;
-+}
-+
-+static void rvtrace_free_aux(void *data)
-+{
-+	struct rvtrace_event_data *event_data = data;
-+
-+	schedule_work(&event_data->work);
-+}
-+
-+static struct rvtrace_path **rvtrace_event_cpu_path_ptr(struct rvtrace_event_data *data,
-+							int cpu)
-+{
-+	return per_cpu_ptr(data->path, cpu);
-+}
-+
-+static void free_event_data(struct work_struct *work)
-+{
-+	struct rvtrace_event_data *event_data;
-+	struct rvtrace_path *path;
-+	cpumask_t *mask;
-+	int cpu;
-+
-+	event_data = container_of(work, struct rvtrace_event_data, work);
-+	mask = &event_data->mask;
-+	for_each_cpu(cpu, mask) {
-+		path = *rvtrace_event_cpu_path_ptr(event_data, cpu);
-+		rvtrace_destroy_path(path);
-+	}
-+	free_percpu(event_data->path);
-+	kfree(event_data);
-+}
-+
-+static void *rvtrace_setup_aux(struct perf_event *event, void **pages,
-+			       int nr_pages, bool overwrite)
-+{
-+	struct rvtrace_event_data *event_data = NULL;
-+	struct page **pagelist;
-+	int cpu = event->cpu, i;
-+	cpumask_t *mask;
-+
-+	event_data = alloc_event_data(cpu);
-+	if (!event_data)
-+		return NULL;
-+
-+	INIT_WORK(&event_data->work, free_event_data);
-+	mask = &event_data->mask;
-+	/*
-+	 * Create the path for each CPU in the mask. In case of any failure skip the CPU
-+	 */
-+	for_each_cpu(cpu, mask) {
-+		struct rvtrace_component *src;
-+		struct rvtrace_path *path;
-+
-+		src = rvtrace_cpu_source(cpu);
-+		if (!src)
++	list_for_each_entry(node, &path->comp_list, head) {
++		comp = node->comp;
++		rtdrv = to_rvtrace_driver(comp->dev.driver);
++		if (!rtdrv->copyto_auxbuf)
 +			continue;
 +
-+		path = rvtrace_create_path(src, NULL, RVTRACE_COMPONENT_MODE_PERF);
-+		if (!path)
-+			continue;
-+
-+		*rvtrace_event_cpu_path_ptr(event_data, cpu) = path;
++		*bytes_copied = rtdrv->copyto_auxbuf(comp, buf);
++		return 0;
 +	}
 +
-+	/* If we don't have any CPUs ready for tracing, abort */
-+	cpu = cpumask_first(&event_data->mask);
-+	if (cpu >= nr_cpu_ids)
-+		goto err;
-+
-+	pagelist = kcalloc(nr_pages, sizeof(*pagelist), GFP_KERNEL);
-+	if (!pagelist)
-+		goto err;
-+
-+	for (i = 0; i < nr_pages; i++)
-+		pagelist[i] = virt_to_page(pages[i]);
-+
-+	event_data->buf.base = vmap(pagelist, nr_pages, VM_MAP, PAGE_KERNEL);
-+	if (!event_data->buf.base) {
-+		kfree(pagelist);
-+		goto err;
-+	}
-+
-+	event_data->buf.nr_pages = nr_pages;
-+	event_data->buf.length = nr_pages * PAGE_SIZE;
-+	event_data->buf.pos = 0;
-+	return event_data;
-+err:
-+	rvtrace_free_aux(event_data);
-+	return NULL;
++	return -EOPNOTSUPP;
 +}
++EXPORT_SYMBOL_GPL(rvtrace_path_copyto_auxbuf);
 +
-+static void rvtrace_event_read(struct perf_event *event)
-+{
-+}
-+
-+static void rvtrace_event_destroy(struct perf_event *event)
-+{
-+}
-+
-+static int rvtrace_event_init(struct perf_event *event)
-+{
-+	if (event->attr.type != rvtrace_pmu.type)
-+		return -EINVAL;
-+
-+	event->destroy = rvtrace_event_destroy;
-+	return 0;
-+}
-+
-+static void rvtrace_event_start(struct perf_event *event, int flags)
-+{
-+	struct rvtrace_ctxt *ctxt = this_cpu_ptr(&rvtrace_ctxt);
-+	struct perf_output_handle *handle = &ctxt->handle;
-+	struct rvtrace_event_data *event_data;
-+	int cpu = smp_processor_id();
-+	struct rvtrace_path *path;
-+
-+	if (WARN_ON(ctxt->event_data))
-+		goto fail;
-+
-+	/*
-+	 * Deal with the ring buffer API and get a handle on the
-+	 * session's information.
-+	 */
-+	event_data = perf_aux_output_begin(handle, event);
-+	if (!event_data)
-+		goto fail;
-+
-+	if (!cpumask_test_cpu(cpu, &event_data->mask))
-+		goto out;
-+
-+	event_data->buf.pos = handle->head % event_data->buf.length;
-+	path = *rvtrace_event_cpu_path_ptr(event_data, cpu);
-+	if (!path) {
-+		pr_err("Error. Path not found\n");
-+		return;
-+	}
-+
-+	if (rvtrace_path_start(path)) {
-+		pr_err("Error. Tracing not started\n");
-+		return;
-+	}
-+
-+	/*
-+	 * output cpu / trace ID in perf record, once for the lifetime
-+	 * of the event.
-+	 */
-+	if (!cpumask_test_cpu(cpu, &event_data->aux_hwid_done)) {
-+		cpumask_set_cpu(cpu, &event_data->aux_hwid_done);
-+		perf_report_aux_output_id(event, cpu);
-+	}
-+
-+out:
-+	/* Tell the perf core the event is alive */
-+	event->hw.state = 0;
-+	ctxt->event_data = event_data;
-+	return;
-+fail:
-+	event->hw.state = PERF_HES_STOPPED;
-+}
-+
-+static void rvtrace_event_stop(struct perf_event *event, int mode)
-+{
-+	struct rvtrace_ctxt *ctxt = this_cpu_ptr(&rvtrace_ctxt);
-+	struct perf_output_handle *handle = &ctxt->handle;
-+	struct rvtrace_event_data *event_data;
-+	int ret, cpu = smp_processor_id();
-+	struct rvtrace_path *path;
-+	size_t size;
-+
-+	if (event->hw.state == PERF_HES_STOPPED)
-+		return;
-+
-+	if (handle->event &&
-+	    WARN_ON(perf_get_aux(handle) != ctxt->event_data))
-+		return;
-+
-+	event_data = ctxt->event_data;
-+	ctxt->event_data = NULL;
-+
-+	if (WARN_ON(!event_data))
-+		return;
-+
-+	if (handle->event && (mode & PERF_EF_UPDATE) && !cpumask_test_cpu(cpu, &event_data->mask)) {
-+		event->hw.state = PERF_HES_STOPPED;
-+		perf_aux_output_end(handle, 0);
-+		return;
-+	}
-+
-+	/* stop tracing */
-+	path = *rvtrace_event_cpu_path_ptr(event_data, cpu);
-+	if (!path) {
-+		pr_err("Error. Path not found\n");
-+		return;
-+	}
-+
-+	if (rvtrace_path_stop(path)) {
-+		pr_err("Error. Tracing not stopped\n");
-+		return;
-+	}
-+
-+	event->hw.state = PERF_HES_STOPPED;
-+	if (handle->event && (mode & PERF_EF_UPDATE)) {
-+		if (WARN_ON_ONCE(handle->event != event))
-+			return;
-+		spin_lock(&perf_buf_lock);
-+		ret = rvtrace_path_copyto_auxbuf(path, &event_data->buf, &size);
-+		spin_unlock(&perf_buf_lock);
-+		WARN_ON_ONCE(ret);
-+		if (READ_ONCE(handle->event)) {
-+			if (size > handle->size) {
-+				size = handle->size;
-+				perf_aux_output_flag(handle, PERF_AUX_FLAG_TRUNCATED);
-+			}
-+			perf_aux_output_end(handle, size);
-+		} else
-+			WARN_ON(size);
-+	}
-+}
-+
-+static int rvtrace_event_add(struct perf_event *event, int mode)
-+{
-+	struct hw_perf_event *hwc = &event->hw;
-+	int ret = 0;
-+
-+	if (mode & PERF_EF_START) {
-+		rvtrace_event_start(event, 0);
-+		if (hwc->state & PERF_HES_STOPPED)
-+			ret = -EINVAL;
-+	} else {
-+		hwc->state = PERF_HES_STOPPED;
-+	}
-+
-+	return ret;
-+}
-+
-+static void rvtrace_event_del(struct perf_event *event, int mode)
-+{
-+	rvtrace_event_stop(event, PERF_EF_UPDATE);
-+}
-+
-+PMU_FORMAT_ATTR(event, "config:0-0");
-+
-+static struct attribute *rvtrace_pmu_formats_attr[] = {
-+	&format_attr_event.attr,
-+	NULL,
-+};
-+
-+static struct attribute_group rvtrace_pmu_format_group = {
-+	.name = "format",
-+	.attrs = rvtrace_pmu_formats_attr,
-+};
-+
-+static const struct attribute_group *rvtrace_pmu_attr_groups[] = {
-+	&rvtrace_pmu_format_group,
-+	NULL,
-+};
-+
-+int __init rvtrace_perf_init(void)
-+{
-+	rvtrace_pmu.capabilities	= (PERF_PMU_CAP_EXCLUSIVE | PERF_PMU_CAP_ITRACE);
-+	rvtrace_pmu.attr_groups		= rvtrace_pmu_attr_groups;
-+	rvtrace_pmu.task_ctx_nr		= perf_sw_context;
-+	rvtrace_pmu.read		= rvtrace_event_read;
-+	rvtrace_pmu.event_init		= rvtrace_event_init;
-+	rvtrace_pmu.setup_aux		= rvtrace_setup_aux;
-+	rvtrace_pmu.free_aux		= rvtrace_free_aux;
-+	rvtrace_pmu.start		= rvtrace_event_start;
-+	rvtrace_pmu.stop		= rvtrace_event_stop;
-+	rvtrace_pmu.add			= rvtrace_event_add;
-+	rvtrace_pmu.del			= rvtrace_event_del;
-+	rvtrace_pmu.module		= THIS_MODULE;
-+
-+	return perf_pmu_register(&rvtrace_pmu, RVTRACE_PMU_NAME, -1);
-+}
-+
-+void __exit rvtrace_perf_exit(void)
-+{
-+	perf_pmu_unregister(&rvtrace_pmu);
-+}
+ struct rvtrace_path *rvtrace_create_path(struct rvtrace_component *source,
+ 					 struct rvtrace_component *sink,
+ 					 enum rvtrace_component_mode mode)
 diff --git a/include/linux/rvtrace.h b/include/linux/rvtrace.h
-index 36663c7b3e30..0cb3bd474c2b 100644
+index 2a7d8afd27c8..36663c7b3e30 100644
 --- a/include/linux/rvtrace.h
 +++ b/include/linux/rvtrace.h
-@@ -346,4 +346,7 @@ static inline int rvtrace_comp_poll_empty(struct rvtrace_component *comp)
- 				comp->pdata->control_poll_timeout_usecs);
- }
+@@ -280,9 +280,28 @@ void rvtrace_destroy_path(struct rvtrace_path *path);
+ int rvtrace_path_start(struct rvtrace_path *path);
+ int rvtrace_path_stop(struct rvtrace_path *path);
  
-+int rvtrace_perf_init(void);
-+void rvtrace_perf_exit(void);
++/**
++ * struct rvtrace_perf_auxbuf - Representation of the perf AUX buffer
++ * @length:   size of the AUX buffer
++ * @nr_pages: number of pages of the AUX buffer
++ * @base:     start address of AUX buffer
++ * @pos:      position in the AUX buffer to commit traced data
++ */
++struct rvtrace_perf_auxbuf {
++	size_t length;
++	int nr_pages;
++	void *base;
++	long pos;
++};
 +
- #endif
++int rvtrace_path_copyto_auxbuf(struct rvtrace_path *path,
++			       struct rvtrace_perf_auxbuf *buf,
++			       size_t *bytes_copied);
++
+ /**
+  * struct rvtrace_driver - Representation of a RISC-V trace driver
+  * id_table: Table to match components handled by the driver
++ * copyto_auxbuf:Callback to copy data into perf AUX buffer
+  * start:        Callback to start tracing
+  * stop:         Callback to stop tracing
+  * probe:        Driver probe() function
+@@ -293,6 +312,8 @@ int rvtrace_path_stop(struct rvtrace_path *path);
+  */
+ struct rvtrace_driver {
+ 	const struct rvtrace_component_id *id_table;
++	size_t			(*copyto_auxbuf)(struct rvtrace_component *comp,
++						 struct rvtrace_perf_auxbuf *buf);
+ 	int			(*start)(struct rvtrace_component *comp);
+ 	int			(*stop)(struct rvtrace_component *comp);
+ 	int			(*probe)(struct rvtrace_component *comp);
 -- 
 2.43.0
 
