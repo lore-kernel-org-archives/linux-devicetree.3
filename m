@@ -1,178 +1,285 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C7130E85D;
-	Wed, 29 Apr 2026 10:35:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 595722EBB99;
+	Wed, 29 Apr 2026 10:39:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777458948; cv=none; b=bOpCFS2mmq82aMbdTwr3wB4GDqj6BX2XbEv2pvnioHfBMdma9UloHekmFBGBQpDyJP2of1kMN4JWKUn6sJJ8qc2cUDjot/Km3bozFIEEZqYhxLRTjfF0FGoz4uLsRs6VQjpPScwLRuaSvi0bwdHPpOnaEJ0QiIyPmcNG80j4KIQ=
+	t=1777459145; cv=none; b=nPXCE3MBFtuNH9PX00dgKsgHoK4qDXxhfEGrfLyE/f/LUCY7pUWHhZ8LDkykGLD52lz4TJu8/Ttc/fywfx0JAgA2aX3IWvFmAw4QQsbYebY9E5o++27wwKfBkgyHFj38Uly9NZG6NiaU7CBvd+RwbHiU/3LN3S8xEzIvvg5xMxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777458948; c=relaxed/simple;
-	bh=19Rr29Idb4huD5A/su/DfBvHKDxafFYs9o48mQd/W1w=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=oGupCgKrpwnFcfSZGnStmXNW+AXk65LAuyiPe3Jo1JSCxIA/abBp1BpugKZQVcBy3yWKFPvZG5CESNBMcc1WqROTNlapVUFofwgL6yGVEkyvfRCx1RFQtPgeW60mRgu+0dVTlVfVfQOZA4KHi5Nbhx63ZIrZS1Y+Ek/1U4JjSrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EgAb0Lcy; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1777459145; c=relaxed/simple;
+	bh=wS2y88poNh8+M4OaCoMUd1vy4JEzXBX0q9rVHEytoM0=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Wh7cK0OciYnytvRbavBFSQrhsafXEBINY84wHrstOR1ZesEPO9ehZpdIJs7KG/+3WCJ2mNqsQhZsxdB5i8nKYZE4h2Rwb11fjGIHjsVZ7BmMCvESYHn+2YYCrS03Sb3IBPC3wTt94ZoRYs4yru+1jX7scKbFDTgS+pzUhxHxG6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=naSzJRMe; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EgAb0Lcy"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63T8pxOM963224;
-	Wed, 29 Apr 2026 10:35:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=mMhgb2w3UUprI9puCgN9jd
-	6YY1J9HQUZQkJdF2fVHOw=; b=EgAb0LcyYbdPjy6eut5IbPyaO+yLXwPNsq1UKc
-	cjvsH5GASQcihPYw1E1THuhsYWr+uGXeiYXlhM1P94BK6Cn7jhGJD0uy+hbZBHx4
-	o+Fvr37M1Czu7cYSaAEsRSO0oRAYNLobxKoj/35f/ED8DlDnx36OvVun7kTnYVN8
-	um82VNi35yiJzA0/xS0JCq9PCwZOWvRB2cyzDMQPtxBkD2f6rVElDqFBnia4G3pC
-	b8/MMsDZ6OhHs85OIx1EccJmfqgAkWlqINJCY8bRloEjXoJg9O/GbL6GRHrEKzXQ
-	nt5mVvgzUw2m6pA5C0uaJfduizIOEhz5HoYOVYwm8mDao6PA==
-Received: from aptaippmta01.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4du2m4u05b-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 29 Apr 2026 10:35:43 +0000 (GMT)
-Received: from pps.filterd (APTAIPPMTA01.qualcomm.com [127.0.0.1])
-	by APTAIPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 63TAZeCA026210;
-	Wed, 29 Apr 2026 10:35:40 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTPS id 4ds69w9497-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 29 Apr 2026 10:35:40 +0000 (GMT)
-Received: from APTAIPPMTA01.qualcomm.com (APTAIPPMTA01.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 63TAZeWN026203;
-	Wed, 29 Apr 2026 10:35:40 GMT
-Received: from shuaz-gv.ap.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
-	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTPS id 63TAZdDa026202
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 29 Apr 2026 10:35:40 +0000 (GMT)
-Received: by shuaz-gv.ap.qualcomm.com (Postfix, from userid 4467449)
-	id E8F445EE; Wed, 29 Apr 2026 18:35:38 +0800 (CST)
-From: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-        cheng.jiang@oss.qualcomm.com, quic_chezhou@quicinc.com,
-        wei.deng@oss.qualcomm.com, jinwang.li@oss.qualcomm.com,
-        mengshi.wu@oss.qualcomm.com, shuai.zhang@oss.qualcomm.com
-Subject: [PATCH v2] arm64: dts: monaco-arduino-monza: Add Bluetooth UART node
-Date: Wed, 29 Apr 2026 18:35:37 +0800
-Message-Id: <20260429103537.1282497-1-shuai.zhang@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="naSzJRMe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777459144; x=1808995144;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=wS2y88poNh8+M4OaCoMUd1vy4JEzXBX0q9rVHEytoM0=;
+  b=naSzJRMeHeBwvmT/Hje4yQs/VH29j95NQ/ZkH6+5KrFvMBFayK90gP//
+   8ZwZcVJmXbeyG1aaSU3Di2cwdZvVz81K/9NmUcS+BtDZHkMHlVRYtP5me
+   b/Z9wqAhVjTMLMcEArMXkZMT8pzR7ouJLzY847NwXFC3vdsEo5klg1beU
+   Lw75cTCFxlWi25dqsrddPb95f39lkoTx5v2Eahb1pIYghiuUqn+X2Zdx0
+   trtDDCpIXDZcM59IDMyzH3pqI84ybKtu5JbrYg3QfiI1a/fROun6gVVlA
+   G+Ootj/m2bf6l68yaIeZuyxoWqbat4C8uZRi+Nd6ZO1QDpx5C8SgMqZ2P
+   A==;
+X-CSE-ConnectionGUID: /zVEhDKgTNyeevQcf/lQ7g==
+X-CSE-MsgGUID: KXuxG6P+SPutUzWcZhh1lA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11770"; a="95803897"
+X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; 
+   d="scan'208";a="95803897"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Apr 2026 03:39:03 -0700
+X-CSE-ConnectionGUID: Vg9DE7BVQtiBTtBDea3/Uw==
+X-CSE-MsgGUID: Ti4RqAGnQv6MTrfg31swsw==
+X-ExtLoop1: 1
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.212])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Apr 2026 03:38:55 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 29 Apr 2026 13:38:44 +0300 (EEST)
+To: Jia Wang <wangjia@ultrarisc.com>
+cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+    Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+    Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, 
+    linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v6 1/4] serial: 8250_dwlib: move DesignWare register
+ definitions to header
+In-Reply-To: <20260429-ultrarisc-serial-v6-1-b2c852e0c4c3@ultrarisc.com>
+Message-ID: <36efd2f5-d050-c613-77bf-dc651a94a586@linux.intel.com>
+References: <20260429-ultrarisc-serial-v6-0-b2c852e0c4c3@ultrarisc.com> <20260429-ultrarisc-serial-v6-1-b2c852e0c4c3@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI5MDEwNyBTYWx0ZWRfX8kXWsYx5ueqC
- alR78zWuc+9l9xBtmL2h6QGhM2VVq68hHIDErfcYA2IKhbFM4j4PSexeoLshzgroWb0moOt74P7
- LO+4lnhp/NNo+J/qa4hkU8it9OPEH/ukewljq/gwJGAoVjmW810lmpG+bqODlLmEjSyVdterzT+
- N/zTwWUv381Az/mfmwTt1NFmNHoNELsSfOVNNFjdbPJMReNXgMzo0YLPv04uhwOqq+dEjqUVuCu
- Hn7moSOKu/eJXIBk7eRbaJdS/AeYpxwa586Ej39xsFlkcwSO9pwIj5gGE2HW3Fs95oxyAMtePpC
- N4v8m/jJpNwSHYvPu4lbScHswq6IuPA8EXu6ZIg0uPyh8a5RvOSF7Cnxjdfh8sMZEU/fjm+NlcR
- N4AhUjTJcl52ALaFCkkrXdY3EraYy/PYdGt/z0wnNYucXfjwldCfjeedO5UrS3qbwe0bm33F5Ts
- QbKoMx5fmHTPc34OXlw==
-X-Proofpoint-GUID: V8HNL5CDLmsms53d3p9eVpky0zQvwdz3
-X-Authority-Analysis: v=2.4 cv=MuFiLWae c=1 sm=1 tr=0 ts=69f1deff cx=c_pps
- a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=hEndWF4aPVnrLPyaUrQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: V8HNL5CDLmsms53d3p9eVpky0zQvwdz3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-28_05,2026-04-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 phishscore=0 impostorscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 suspectscore=0 lowpriorityscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604290107
+Content-Type: multipart/mixed; boundary="8323328-1401029749-1777459124=:966"
 
-The QCA2066 Bluetooth chip is powered by a board-level 3.3 V supply
-provided by the hardware. This change connects the Bluetooth
-controller via UART10, and the corresponding GPIO is used to enable
-the Bluetooth chip.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-basic function test step:
- - bluetoothctl power on/off
- - bluetoothctl scan bredr/le
- - bluetoothctl pair <remote device address>
- - bluetoothctl connect <remote device address>
+--8323328-1401029749-1777459124=:966
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-low-state test and state:
- - rtcwake -d /dev/rtc0 -m no -s 30 && systemctl suspend
+On Wed, 29 Apr 2026, Jia Wang wrote:
 
-cat /sys/kernel/debug/suspend_stats
-success: 1
-fail: 0
-failed_freeze: 0
-failed_prepare: 0
-failed_suspend: 0
-failed_suspend_late: 0
-failed_suspend_noirq: 0
-failed_resume: 0
-failed_resume_early: 0
-failed_resume_noirq: 0
-failures:
-  last_failed_dev:
+> Move the DW_UART_* register offsets and CPR bit/field definitions from
+> 8250_dwlib.c into 8250_dwlib.h so they can be shared by 8250_dw and
+> 8250_dwlib users.
+>=20
+> Add an include guard for 8250_dwlib.h.
+>=20
+> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+>  drivers/tty/serial/8250/8250_dw.c    | 11 ------
+>  drivers/tty/serial/8250/8250_dwlib.c | 49 --------------------------
+>  drivers/tty/serial/8250/8250_dwlib.h | 67 ++++++++++++++++++++++++++++++=
+++++++
+>  3 files changed, 67 insertions(+), 60 deletions(-)
+>=20
+> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/=
+8250_dw.c
+> index 94beadb4024d..467755bf0092 100644
+> --- a/drivers/tty/serial/8250/8250_dw.c
+> +++ b/drivers/tty/serial/8250/8250_dw.c
+> @@ -34,22 +34,11 @@
+> =20
+>  #include "8250_dwlib.h"
+> =20
+> -/* Offsets for the DesignWare specific registers */
+> -#define DW_UART_USR=090x1f /* UART Status Register */
+> -#define DW_UART_DMASA=090xa8 /* DMA Software Ack */
+> -
+>  #define OCTEON_UART_USR=090x27 /* UART Status Register */
+> =20
+>  #define RZN1_UART_TDMACR 0x10c /* DMA Control Register Transmit Mode */
+>  #define RZN1_UART_RDMACR 0x110 /* DMA Control Register Receive Mode */
+> =20
+> -/* DesignWare specific register fields */
+> -#define DW_UART_IIR_IID=09=09=09GENMASK(3, 0)
+> -
+> -#define DW_UART_MCR_SIRE=09=09BIT(6)
+> -
+> -#define DW_UART_USR_BUSY=09=09BIT(0)
+> -
+>  /* Renesas specific register fields */
+>  #define RZN1_UART_xDMACR_DMA_EN=09=09BIT(0)
+>  #define RZN1_UART_xDMACR_1_WORD_BURST=09(0 << 1)
+> diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/82=
+50/8250_dwlib.c
+> index b055d89cfb39..8859e66d2d71 100644
+> --- a/drivers/tty/serial/8250/8250_dwlib.c
+> +++ b/drivers/tty/serial/8250/8250_dwlib.c
+> @@ -13,55 +13,6 @@
+> =20
+>  #include "8250_dwlib.h"
+> =20
+> -/* Offsets for the DesignWare specific registers */
+> -#define DW_UART_TCR=090xac /* Transceiver Control Register (RS485) */
+> -#define DW_UART_DE_EN=090xb0 /* Driver Output Enable Register */
+> -#define DW_UART_RE_EN=090xb4 /* Receiver Output Enable Register */
+> -#define DW_UART_DLF=090xc0 /* Divisor Latch Fraction Register */
+> -#define DW_UART_RAR=090xc4 /* Receive Address Register */
+> -#define DW_UART_TAR=090xc8 /* Transmit Address Register */
+> -#define DW_UART_LCR_EXT=090xcc /* Line Extended Control Register */
+> -#define DW_UART_CPR=090xf4 /* Component Parameter Register */
+> -#define DW_UART_UCV=090xf8 /* UART Component Version */
+> -
+> -/* Receive / Transmit Address Register bits */
+> -#define DW_UART_ADDR_MASK=09=09GENMASK(7, 0)
+> -
+> -/* Line Status Register bits */
+> -#define DW_UART_LSR_ADDR_RCVD=09=09BIT(8)
+> -
+> -/* Transceiver Control Register bits */
+> -#define DW_UART_TCR_RS485_EN=09=09BIT(0)
+> -#define DW_UART_TCR_RE_POL=09=09BIT(1)
+> -#define DW_UART_TCR_DE_POL=09=09BIT(2)
+> -#define DW_UART_TCR_XFER_MODE=09=09GENMASK(4, 3)
+> -#define DW_UART_TCR_XFER_MODE_DE_DURING_RE=09FIELD_PREP(DW_UART_TCR_XFER=
+_MODE, 0)
+> -#define DW_UART_TCR_XFER_MODE_SW_DE_OR_RE=09FIELD_PREP(DW_UART_TCR_XFER_=
+MODE, 1)
+> -#define DW_UART_TCR_XFER_MODE_DE_OR_RE=09=09FIELD_PREP(DW_UART_TCR_XFER_=
+MODE, 2)
+> -
+> -/* Line Extended Control Register bits */
+> -#define DW_UART_LCR_EXT_DLS_E=09=09BIT(0)
+> -#define DW_UART_LCR_EXT_ADDR_MATCH=09BIT(1)
+> -#define DW_UART_LCR_EXT_SEND_ADDR=09BIT(2)
+> -#define DW_UART_LCR_EXT_TRANSMIT_MODE=09BIT(3)
+> -
+> -/* Component Parameter Register bits */
+> -#define DW_UART_CPR_ABP_DATA_WIDTH=09GENMASK(1, 0)
+> -#define DW_UART_CPR_AFCE_MODE=09=09BIT(4)
+> -#define DW_UART_CPR_THRE_MODE=09=09BIT(5)
+> -#define DW_UART_CPR_SIR_MODE=09=09BIT(6)
+> -#define DW_UART_CPR_SIR_LP_MODE=09=09BIT(7)
+> -#define DW_UART_CPR_ADDITIONAL_FEATURES=09BIT(8)
+> -#define DW_UART_CPR_FIFO_ACCESS=09=09BIT(9)
+> -#define DW_UART_CPR_FIFO_STAT=09=09BIT(10)
+> -#define DW_UART_CPR_SHADOW=09=09BIT(11)
+> -#define DW_UART_CPR_ENCODED_PARMS=09BIT(12)
+> -#define DW_UART_CPR_DMA_EXTRA=09=09BIT(13)
+> -#define DW_UART_CPR_FIFO_MODE=09=09GENMASK(23, 16)
+> -
+> -/* Helper for FIFO size calculation */
+> -#define DW_UART_CPR_FIFO_SIZE(a)=09(FIELD_GET(DW_UART_CPR_FIFO_MODE, (a)=
+) * 16)
+> -
+>  /*
+>   * divisor =3D div(I) + div(F)
+>   * "I" means integer, "F" means fractional
+> diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/82=
+50/8250_dwlib.h
+> index 7dd2a8e7b780..2f26f9ecacbe 100644
+> --- a/drivers/tty/serial/8250/8250_dwlib.h
+> +++ b/drivers/tty/serial/8250/8250_dwlib.h
+> @@ -1,11 +1,76 @@
+>  /* SPDX-License-Identifier: GPL-2.0+ */
+>  /* Synopsys DesignWare 8250 library header file. */
+> =20
+> +#ifndef _SERIAL_8250_DWLIB_H_
+> +#define _SERIAL_8250_DWLIB_H_
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+>  #include <linux/io.h>
+>  #include <linux/types.h>
+> =20
+>  #include "8250.h"
+> =20
+> +/* Offsets for the DesignWare specific registers */
+> +#define DW_UART_USR=090x1f /* UART Status Register */
+> +#define DW_UART_DMASA=090xa8 /* DMA Software Ack */
+> +#define DW_UART_TCR=090xac /* Transceiver Control Register (RS485) */
+> +#define DW_UART_DE_EN=090xb0 /* Driver Output Enable Register */
+> +#define DW_UART_RE_EN=090xb4 /* Receiver Output Enable Register */
+> +#define DW_UART_DLF=090xc0 /* Divisor Latch Fraction Register */
+> +#define DW_UART_RAR=090xc4 /* Receive Address Register */
+> +#define DW_UART_TAR=090xc8 /* Transmit Address Register */
+> +#define DW_UART_LCR_EXT=090xcc /* Line Extended Control Register */
+> +#define DW_UART_CPR=090xf4 /* Component Parameter Register */
+> +#define DW_UART_UCV=090xf8 /* UART Component Version */
+> +
+> +/* Interrupt ID Register bits */
+> +#define DW_UART_IIR_IID=09=09=09GENMASK(3, 0)
+> +
+> +/* Modem Control Register bits */
+> +#define DW_UART_MCR_SIRE=09=09BIT(6)
+> +
+> +/* Line Status Register bits */
+> +#define DW_UART_LSR_ADDR_RCVD=09=09BIT(8)
+> +
+> +/* UART Status Register bits */
+> +#define DW_UART_USR_BUSY=09=09BIT(0)
+> +
+> +/* Transceiver Control Register bits */
+> +#define DW_UART_TCR_RS485_EN=09=09BIT(0)
+> +#define DW_UART_TCR_RE_POL=09=09BIT(1)
+> +#define DW_UART_TCR_DE_POL=09=09BIT(2)
+> +#define DW_UART_TCR_XFER_MODE=09=09GENMASK(4, 3)
+> +#define DW_UART_TCR_XFER_MODE_DE_DURING_RE=09FIELD_PREP(DW_UART_TCR_XFER=
+_MODE, 0)
+> +#define DW_UART_TCR_XFER_MODE_SW_DE_OR_RE=09FIELD_PREP(DW_UART_TCR_XFER_=
+MODE, 1)
+> +#define DW_UART_TCR_XFER_MODE_DE_OR_RE=09=09FIELD_PREP(DW_UART_TCR_XFER_=
+MODE, 2)
+> +
+> +/* Receive / Transmit Address Register bits */
+> +#define DW_UART_ADDR_MASK=09=09GENMASK(7, 0)
+> +
+> +/* Line Extended Control Register bits */
+> +#define DW_UART_LCR_EXT_DLS_E=09=09BIT(0)
+> +#define DW_UART_LCR_EXT_ADDR_MATCH=09BIT(1)
+> +#define DW_UART_LCR_EXT_SEND_ADDR=09BIT(2)
+> +#define DW_UART_LCR_EXT_TRANSMIT_MODE=09BIT(3)
+> +
+> +/* Component Parameter Register bits */
+> +#define DW_UART_CPR_ABP_DATA_WIDTH=09GENMASK(1, 0)
+> +#define DW_UART_CPR_AFCE_MODE=09=09BIT(4)
+> +#define DW_UART_CPR_THRE_MODE=09=09BIT(5)
+> +#define DW_UART_CPR_SIR_MODE=09=09BIT(6)
+> +#define DW_UART_CPR_SIR_LP_MODE=09=09BIT(7)
+> +#define DW_UART_CPR_ADDITIONAL_FEATURES=09BIT(8)
+> +#define DW_UART_CPR_FIFO_ACCESS=09=09BIT(9)
+> +#define DW_UART_CPR_FIFO_STAT=09=09BIT(10)
+> +#define DW_UART_CPR_SHADOW=09=09BIT(11)
+> +#define DW_UART_CPR_ENCODED_PARMS=09BIT(12)
+> +#define DW_UART_CPR_DMA_EXTRA=09=09BIT(13)
+> +#define DW_UART_CPR_FIFO_MODE=09=09GENMASK(23, 16)
+> +
+> +/* Helper for FIFO size calculation */
+> +#define DW_UART_CPR_FIFO_SIZE(a)=09(FIELD_GET(DW_UART_CPR_FIFO_MODE, (a)=
+) * 16)
+> +
+>  struct dw8250_port_data {
+>  =09/* Port properties */
+>  =09int=09=09=09line;
+> @@ -38,3 +103,5 @@ static inline void dw8250_writel_ext(struct uart_port =
+*p, int offset, u32 reg)
+>  =09else
+>  =09=09writel(reg, p->membase + offset);
+>  }
+> +
+> +#endif /* _SERIAL_8250_DWLIB_H_ */
 
-  last_failed_errno:    0
-                        0
-  last_failed_step:
+Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
 
-Signed-off-by: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
----
-Changes v2:
-- Fix board name typo from "monac" to "monaco".
-- Clarify that Bluetooth is connected via UART10.
-- Add detailed testing steps, including suspend/resume and low-power validation.
-- Document that the QCA2066 Bluetooth chip is powered by a board-level, hardware-provided 3.3 V supply, and that the GPIO is used only to enable the Bluetooth chip.
-- Add the required sleep clock to satisfy the qcom,qca2066-bt DT binding and run dtbs_check.
-- Fix DTS formatting issues and drop redundant status properties.
-- Update authorship
-- Link to v6
-  https://lore.kernel.org/all/20260428025652.662502-1-shuai.zhang@oss.qualcomm.com/
----
- arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+--=20
+ i.
 
-diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-index ca14f0ea4..379b796f2 100644
---- a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-+++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-@@ -21,6 +21,7 @@ aliases {
- 		ethernet0 = &ethernet0;
- 		i2c1 = &i2c1;
- 		serial0 = &uart7;
-+		serial1 = &uart10;
- 	};
- 
- 	chosen {
-@@ -454,6 +455,16 @@ &uart7 {
- 	status = "okay";
- };
- 
-+&uart10 {
-+	status = "okay";
-+
-+	bluetooth: bluetooth {
-+		compatible = "qcom,qca2066-bt";
-+		enable-gpios = <&tlmm 55 GPIO_ACTIVE_HIGH>;
-+		clocks = <&sleep_clk>;
-+	};
-+};
-+
- &usb_1 {
- 	status = "okay";
- };
--- 
-2.34.1
-
+--8323328-1401029749-1777459124=:966--
