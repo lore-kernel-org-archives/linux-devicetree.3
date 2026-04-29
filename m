@@ -1,139 +1,138 @@
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C79F386566
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 11:32:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854A226B2D2;
+	Wed, 29 Apr 2026 11:37:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777462368; cv=none; b=S5kGT/b6VjiLFYbWPpIDZo2uvRdnTjlddms/ro9h4GiGnJdSFRr/lAxtL8ajVtPI9aMxhLxvBXcfUwg0LdDvQB3nu4yCLflgI7kA/DFOnCqVycApCiDHKQ1uRGetA1LZ5HLwGYwKD4HqhzFUM8EhZIlrLCOAMA9Vn6LFFKgC8dI=
+	t=1777462621; cv=none; b=iuha/JTHPdhv6TSrf9ToGdBFYJEhZpZ1nQ334YD056hG857ywEmPxiyb0pDtZnpoeqroCnm3DDsoSy3XtCjYSgoc0G2j0b6/WPwNhuMc8Fx1d0p8sKSO4tvftPpe1bxucRwBfmPTdwH+hTahlOMyTOjSU39P2OsEH1eDPe6rvek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777462368; c=relaxed/simple;
-	bh=GQd283GbRHcL1eMa5GJkNHY5pKpECh6vPQSJWAlvGH0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZSZ+ScS58rthBRYwM1TGg9cbjWfIMYDXNYEpDKIG78oG1GbT7PFrpajZEnNWV/jJA+Q7Lvqm2oh1Q/3fS3NCyH2c6k+QRMBjzGlhkuYEMO2YBrnCIC0VUpb8p+g2jF5oTghhtoOu8uCGHsp44cqK9m7mP5WqGobru8a0ZrwbeTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-56a9c5cb48bso4537694e0c.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 04:32:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777462366; x=1778067166;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=h4uRNs5kbsz3D4/C3TCXfPmMeHwT6iVUCZwC9U3W8vY=;
-        b=Wq/gSPXuUC1Aytiw4Gatvzn4zdgpsEdcbv1m+r29+ZaJxmAPg5EHcMukoEQoKNNZ4m
-         RYzrVgn0wPCa8Uds7xKNMyI1x3JkaOlONhhTRUlA5U7FmY0UgzV6x5QE5YwVxvZCg3IS
-         ItZk0+7URUZzuaa0lXdi6hX+uRzXw1/kOOF97D9LDr4SLToW8qSU8n3lirJetl7/xA3w
-         piLTE28sYykXyCI4NcOkYEwci0baWaKEN77qIQeuctvb+T2bD/XZ2yTxlN9qo1iFVfoJ
-         r9XqHPKXG/Uup+NJqybjSBiT/9I71qzyI/7CPI/flSd41S7K9SOXuICjiMtx8RtjXuqJ
-         VlGQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+1xA4NRvd4MsYKia6oGhkUUBWxvPndh5VWx/NrgTPmNPb7RS+Aekoltbv0pxHe2rJMg5xsGasWTArc@vger.kernel.org
-X-Gm-Message-State: AOJu0YwGyF47b9XudTAyzhjWAG4k86IzapWxoCqG197qNCJ3LfkQlj96
-	Eg1FNFrCVchJCr94V5y7+Xo59Us7buG6VjinDPUKEUGeFGYb7JA8C/OeAv70sA==
-X-Gm-Gg: AeBDievpuRYbowstQQO3XM5eahWkxZQAENkofJ4SAv/an1v2voaV5QdonVF6u6t+4Gm
-	BKt92WDFJMfdgkDyCLkdR0ZIdXFSHv8yz2TVaAqF0ZZ8AQ+kBc6a1ng0bFS5eTzInefD0SzOr7S
-	t4HDqe+b5d5r9MNnl/gb+XLI2mjbQPWxgZ9PwrMn4PB1khRorAKR3hyyaX2S60Q1SeIfuEpSs9p
-	xlI1Lvsmk3TNYkgJaPkzDjgm8HeNct6qwCcC+eZsjO6VimIQW2lk/HuSPF909VqCao4Hdv6Fx/9
-	MDCrAFrBwUjzlXVO3NWeHIORd4l63OaMPufmusxCaUBV33LWuXZNML+ttEO3TAJg2H/ZRKuOd73
-	G38yy0eX82DmH6ISu2houDhYB1YTMdomAS9ggbXFLhWxMV3/WKlGLkLhc1L4M6/U6YJPMAFkALa
-	4TMKNsJYzc0FWScDyuMSCGNnNrxuxn7LJoPEn/JRqnEaVcPSOnI0zVlLzcYwWltVf6qowVVos0z
-	2oldTTtKgM0Rg==
-X-Received: by 2002:a05:6122:3111:b0:56f:1c32:bd07 with SMTP id 71dfb90a1353d-573a55255f9mr3604810e0c.2.1777462365920;
-        Wed, 29 Apr 2026 04:32:45 -0700 (PDT)
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com. [209.85.221.177])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-95cb77bfca0sm757082241.11.2026.04.29.04.32.44
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Apr 2026 04:32:44 -0700 (PDT)
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-56d9ed609d2so3811336e0c.1
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 04:32:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9yVDB6HQtEOsYXt49HoP/2ifOn9dvBcsNgtvsjlCCUjDET25AOXdETbPuh/+JOw/+jwo5GHAouDSxu@vger.kernel.org
-X-Received: by 2002:a05:6122:1814:b0:56f:b2df:1791 with SMTP id
- 71dfb90a1353d-573a566e6camr3723066e0c.9.1777462361508; Wed, 29 Apr 2026
- 04:32:41 -0700 (PDT)
+	s=arc-20240116; t=1777462621; c=relaxed/simple;
+	bh=+CtpYDWRU0lzlDz1A8KTGZXFMUfWoyOh9Y7j+aS8jhc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OTMldanPfuYAPalDkjIYWBGe/YjV/DISkCcwOBMDw2VUwJiBuAM0BOXGpGCWCCX28LQuyXri1ZLCqIyMsNlOe7B98/mKN8YQvk2MHB+LYSWYnpwxLvclH4oYF5tZoUsu7a60/aHizf+JyraPwmnG4S7sjrNGxGQ9alQxN241h7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sbojCgyx; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sbojCgyx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CCB1C19425;
+	Wed, 29 Apr 2026 11:36:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777462621;
+	bh=+CtpYDWRU0lzlDz1A8KTGZXFMUfWoyOh9Y7j+aS8jhc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sbojCgyxsFkSlSjhr5AXlFoBenS47F6oVAIN3Xm7ZJfN0ZzBYwMoKSorlCmrrDPtw
+	 E1IcZMlI//74Z8mvN6HWvcWQzV62xy1A+LYvauL92GDs+/LbujErKq/bPgId0gYBXk
+	 x79/Hr6nXiv1Avdj9r/higuZNZfkCMTj3qb+D8TtiRyBf0NzbfCC4BKT+ys4pusWRs
+	 AX2/u5H4q7TemSriKduaWWx5MgQ6yXcrTgWFfYgUflk8DB99Pu2rxenG0ELWaGV/q2
+	 yEPpWPtdvmYNoXCYqawY9caTKS+Ku3g441OQTFoszjF83ah9IKLiHMRzM/ZkOlTp0a
+	 SccALby2VvG8w==
+Date: Wed, 29 Apr 2026 12:36:56 +0100
+From: Lee Jones <lee@kernel.org>
+To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Steffen Trumtrar <kernel@pengutronix.de>,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] leds: rgb: lp5860: add enable-gpio
+Message-ID: <20260429113656.GA1806155@google.com>
+References: <20260408-v6-19-topic-ti-lp5860-enable-gpio-v3-1-da59a9005386@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org> <20260419193718.133174-4-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260419193718.133174-4-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 29 Apr 2026 13:32:30 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUkT6wO=mCSbJt1dQueW62=_o3r589MvFyHhz-zSfw_9w@mail.gmail.com>
-X-Gm-Features: AVHnY4LCd6eTq9wcyp22X0zMAv4PuhD2Uo4vLw9bsPU9plD7Rc1VJGY_TMU-X5Y
-Message-ID: <CAMuHMdUkT6wO=mCSbJt1dQueW62=_o3r589MvFyHhz-zSfw_9w@mail.gmail.com>
-Subject: Re: [PATCH 3/7] dt-bindings: clock: cs2000-cp: document CS2500
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
-	David Airlie <airlied@gmail.com>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Simona Vetter <simona@ffwll.ch>, Stephen Boyd <sboyd@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, 
-	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260408-v6-19-topic-ti-lp5860-enable-gpio-v3-1-da59a9005386@pengutronix.de>
 
-Hi Marek,
+On Wed, 08 Apr 2026, Steffen Trumtrar wrote:
 
-On Sun, 19 Apr 2026 at 21:37, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> Document backward compatibility support for CS2500 chip, which
-> is a drop-in replacement for CS2000 chip.
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> The VIO_EN pin can either be connected with VIO power supply or GPIO.
+> Get the GPIO from DT if provided and set it on chip enable and disable.
+> 
+> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> ---
+> Changes in v3:
+> - remove unnecessary validation checks
+> - update dep to newer lp5860 series
+> - Link to v2: https://lore.kernel.org/r/20260310-v6-19-topic-ti-lp5860-enable-gpio-v2-0-3fcc617fe03a@pengutronix.de
+> 
+> Changes in v2:
+> - add acked-by
+> - updated deps to newer lp5860 series
+> - rebased to v7.0-rc1
+> - Link to v1: https://lore.kernel.org/r/20260217-v6-19-topic-ti-lp5860-enable-gpio-v1-0-f5e8edeb5d74@pengutronix.de
+> ---
+>  drivers/leds/rgb/leds-lp5860-core.c | 9 +++++++++
 
-Thanks for your patch!
+I'm confused.
 
-> --- a/Documentation/devicetree/bindings/clock/cirrus,cs2000-cp.yaml
-> +++ b/Documentation/devicetree/bindings/clock/cirrus,cs2000-cp.yaml
-> @@ -11,14 +11,18 @@ maintainers:
->
->  description: |
->    The CS2000-CP is an extremely versatile system clocking device that
-> -  utilizes a programmable phase lock loop.
-> +  utilizes a programmable phase lock loop. CP2500-CP is a compatible
-> +  drop-in replacement for CP2000-CP.
+Why are you sending me patches for files that don't exist?
 
-While CP2000 exists in two variants (-CP and -OTP, cfr. the link below),
-there is just "CP2500"[2].
-
->
->    Link: https://www.cirrus.com/products/cs2000/
->
->  properties:
->    compatible:
-> -    enum:
-> -      - cirrus,cs2000-cp
-> +    oneOf:
-> +      - items:
-> +          - const: cirrus,cs2500-cp
-
-cirrus,cs2500
-
-> +          - const: cirrus,cs2000-cp
-> +      - const: cirrus,cs2000-cp
->
->    clocks:
->      description:
-
-
-[1] ttps://www.cirrus.com/products/cs2500
-
-Gr{oetje,eeting}s,
-
-                        Geert
+>  drivers/leds/rgb/leds-lp5860.h      | 1 +
+>  2 files changed, 10 insertions(+)
+> 
+> diff --git a/drivers/leds/rgb/leds-lp5860-core.c b/drivers/leds/rgb/leds-lp5860-core.c
+> index 31eebaf0269ab..5bccca47b20a1 100644
+> --- a/drivers/leds/rgb/leds-lp5860-core.c
+> +++ b/drivers/leds/rgb/leds-lp5860-core.c
+> @@ -5,6 +5,7 @@
+>   * Author: Steffen Trumtrar <kernel@pengutronix.de>
+>   */
+>  
+> +#include <linux/gpio/consumer.h>
+>  #include <linux/led-class-multicolor.h>
+>  #include <linux/module.h>
+>  #include <linux/of_platform.h>
+> @@ -59,6 +60,8 @@ static int lp5860_set_mc_brightness(struct led_classdev *cdev,
+>  
+>  static int lp5860_chip_enable(struct lp5860 *lp, bool enable)
+>  {
+> +	gpiod_direction_output(lp->enable_gpiod, enable);
+> +
+>  	return regmap_write(lp->regmap, LP5860_REG_CHIP_EN, enable);
+>  }
+>  
+> @@ -189,6 +192,12 @@ int lp5860_device_init(struct device *dev)
+>  	struct lp5860 *lp = dev_get_drvdata(dev);
+>  	int ret;
+>  
+> +	lp->enable_gpiod = devm_gpiod_get_optional(lp->dev, "enable", GPIOD_ASIS);
+> +	if (IS_ERR(lp->enable_gpiod))
+> +		return PTR_ERR(lp->enable_gpiod);
+> +
+> +	gpiod_set_consumer_name(lp->enable_gpiod, "LP5860 VIO enable");
+> +
+>  	ret = lp5860_chip_enable(lp, LP5860_CHIP_ENABLE);
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/leds/rgb/leds-lp5860.h b/drivers/leds/rgb/leds-lp5860.h
+> index b3ad8c46720cd..48a6afc4227d6 100644
+> --- a/drivers/leds/rgb/leds-lp5860.h
+> +++ b/drivers/leds/rgb/leds-lp5860.h
+> @@ -257,6 +257,7 @@ struct lp5860_led {
+>  struct lp5860 {
+>  	struct device *dev;
+>  	struct regmap *regmap;
+> +	struct gpio_desc *enable_gpiod;
+>  	unsigned int leds_count;
+>  
+>  	DECLARE_FLEX_ARRAY(struct lp5860_led, leds);
+> 
+> ---
+> base-commit: 559f264e403e4d58d56a17595c60a1de011c5e20
+> change-id: 20260217-v6-19-topic-ti-lp5860-enable-gpio-83c0652d34ad
+> prerequisite-message-id: <20260403-v6-14-topic-ti-lp5860-v8-1-e127e80e875a@pengutronix.de>
+> prerequisite-patch-id: 2fc7123c98bf6c53d946af75269ecb1a7b421f14
+> 
+> Best regards,
+> --  
+> Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> 
+> 
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Lee Jones
