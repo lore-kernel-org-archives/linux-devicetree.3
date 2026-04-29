@@ -1,219 +1,163 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E19423162
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 19:00:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC32C14A
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 19:06:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777489235; cv=none; b=bgAXhsoLIngegW1rb612MhmgUJjDeF4TqDi1ELXdg2KF/AS1IBVgxJaVYf21gWhRLp2hUzd473NuvCGL1CHANlba53dzBW8B5SPIsaO+l74nNCHGnFBo2D8SLF8gohO9xi8JnY9nWeHn93P7EPMIY30Kk1Fe0LoLAH3v5huQZeM=
+	t=1777489576; cv=none; b=uqhgV134p14B5GBFQB2twBk2uL0L0glGIhuFbBQmD8nC+mZHmoH90ko5it0gl8B92FVDneV5g/NM8u8WIN6FPy9/4ofCn8lfyyD0SeqqetZJnPndO7yQYSomknwx1iFxSRrRRiYB+2Czuu0XV5AYeMZx6jGqQY3xjNVoAXmgM+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777489235; c=relaxed/simple;
-	bh=2wrIkCg2F0ORc8+hMPtq5Mv5GcVpiU80g1pcRdLD/fE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VZKAlcXvT2ayeHZglALqrBZ0fh8eOSX5nUxf86ZdrzfyVbiHLFZFCEyq/w6MAQ5xUIytUSst0MayyfTVxezypJVjNslOWBeznmQnyermK0hxoE3v05SFmth/bBhS52/0MYT5LsZ0tyiRG7XMhr7yIX9sJv4iE7KiLJSEG24rf40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Xrkp8dJx; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1777489576; c=relaxed/simple;
+	bh=v6/9V/mp+0VaUqiO4OggX9M3nsJ9rsEkbG6fS3iZ24o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gNk5TvJTILe6K6kuE01c0rxLUbQT34bPVV5iuCfIxdTrA1WeOfQvvqO3qUWPJv4hqWUbbd+YL7UhOPMkMoftRExZt+YFLM/A7c9Ep3gEcI522eL7/CTfFvMb9k56eYg2ON7XThZKo1yDAoGnXxDZvQ+4TigHdaNqDTE9ZAAvd94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org; spf=pass smtp.mailfrom=ieee.org; dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b=fdSguQNj; arc=none smtp.client-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Xrkp8dJx"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-488d2079582so753715e9.2
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 12:00:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b="fdSguQNj"
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7dcdd23fcdfso81361a34.3
+        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 12:06:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777489232; x=1778094032; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qBYA5nKt8YmzIPAJc6uOBQ1k/4UmKz7MxOXdNyaxiqk=;
-        b=Xrkp8dJxjf3OIyIE4gAktt2vidMxt9afGtxdvsh8l8UDjH1rwJ/LmVle2LmltkP/ow
-         GSHbOd07Sqs5v4a/QV5UEK0qvzw4IyU4y+zLZz/3vTu+9JFLQDlI4iuJjtwrT7RbInVB
-         bQitzJHLeeO45nelM7z/KVDx+0gxNYTGUGatlWicpgZuIgFbsXLuaYBMifTZZ3zfsi1u
-         laU4L8tjjrnRGdIXlqzVj7JkUhtFJEiZEEq72yKPkr/bIx0ABMWwTqAz60PX77WSGxL3
-         oEvjs9QFfKCw8RJPkUmHmoGhHFGPZy9gUB8OV+jBaCngTKii9eBsGZD2ebvUyGLrT0IR
-         A6nA==
+        d=ieee.org; s=google; t=1777489573; x=1778094373; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=tLp77h37TVQdWoQsotndHzDBo5bpvvkPFhWBJBsBzYc=;
+        b=fdSguQNjqLtGBdBpn8vqsF50gEHLhFAzDZI11aRQ+hRC7SnFaxrmtvazmMiVwQr6Qk
+         9VIx4qH7N6COIPqkP/bKOnM6ykzb6ABaivLxN50LadNB4ld45pwV5I/QTKhVGXX4UwlK
+         bd2zvgMbvED6DMRS//um3wq58CFSG1yqjAaH0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777489232; x=1778094032;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=qBYA5nKt8YmzIPAJc6uOBQ1k/4UmKz7MxOXdNyaxiqk=;
-        b=m9yE7RXb+BRqTkdszuwyJSiFgwnNT9Z2YLAtFwJfx7k9jQ8+b4kO3oOL2pBptDhJPG
-         BvIv5GqP1bA76I8y4lx2Zg/gMACXVzPglQvc0i5qldQIcsnkXeU33stUEzss2osRIQGN
-         Owi9wxyexqc55LvMGi1DIqZfWX3GKcldlRe6XvY6zn96oRW5UIXcA0HfiEYrSZXQI7Z2
-         CZt2H7oj10jRuQj9vKvI2HOUKkPCMSMJUPCLORIY5zlN8mksVjHzVye3h682jPmrKVGD
-         9gF/jL619lyN9T2cqnL6KxatNEKwaI90tmtNt1s84v0Op8ZHwYGcCRP2Y/kGHS5iRabJ
-         xJEQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8oAKLdVRX2cpPoSho8aNdeVDhaJx2koU0uxecwra4HYFnIEFhCpywgla2itcqYjupmlhov6eRkqL38@vger.kernel.org
-X-Gm-Message-State: AOJu0YxDUeMwlzOiklGG2T5OK9zRtNIOUnUHk/DkiVSrvrAFQqaqBn13
-	6TPlwVjb6oBVZus1+7T7zm/wISChx6HWeEFcGPW5oKYNqMjyVJZbcmFdg8xm1+XBeh8=
-X-Gm-Gg: AeBDievkFfRJzdD68GrkMMVRD8aF+Ce56rHau/bwI+8nJlRuhNjgPycRBt++kmc2yMs
-	ou+TmHc3GGJjTBKsJ2pQOAZ+B1iJYUt3T0TUAaa4rnPANkxwgIEy/l64O/tFY0ITrQE+VDTCrhX
-	m6vQ4lGcI7HpvXwmfo84tE/gh9Q+YsV4cgDVDveJ6+BN/hZouMchqnW8MYO0JPYWhe4t6owWB4p
-	t2TObF455jVhicp0V2ouQrItLc0dgIBU1pp5NdZNVnVu+x5Z5ICBILni7/bQdroElq+mwNTGA7C
-	nBv26+vwfolRDLCZdQhjJ3xr7XXFK8VEOxjgnblFzluIu1BENmDlRG7aLxvAjdC9W21pjxDSclO
-	kaQ43yg9362+chFTDjjZmY2ftQwzueUrdZwYNOJnLPJ9XYpKcmkeDyUuuSdAFKQ+B+GfwXR+EIv
-	GfguLlrfZZ5rsV2Y5qH0mvaGReodESuBh3/FHdiHnlSiSzeVLqEsTFtM72oBBnYQbLhCsQVeycc
-	RLN8GW2S9vE95cobOPQ4uz4BbA=
-X-Received: by 2002:a05:600c:a409:b0:486:fba7:b150 with SMTP id 5b1f17b1804b1-48a7b531980mr72931285e9.15.1777489231411;
-        Wed, 29 Apr 2026 12:00:31 -0700 (PDT)
-Received: from [127.0.1.1] ([94.4.195.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a7b900b40sm26187785e9.2.2026.04.29.12.00.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Apr 2026 12:00:30 -0700 (PDT)
-From: Alexey Klimov <alexey.klimov@linaro.org>
-Date: Wed, 29 Apr 2026 20:00:25 +0100
-Subject: [PATCH v3 2/2] mailbox: exynos: Add support for Exynos850 mailbox
+        d=1e100.net; s=20251104; t=1777489573; x=1778094373;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=tLp77h37TVQdWoQsotndHzDBo5bpvvkPFhWBJBsBzYc=;
+        b=a1FAtooj2Gq2waXWVaKtXfmixUCs2jxEkfCMvxKonYO9gg7ytbLafCryh4Jy/EEC2E
+         J1yg86suXaMvTQjb8bu4F6uJ8BhNA6uQdxZkfr1FdVbuF4upxBvX9Gdkz85ebsgn6Anm
+         dZt07tqcPP78qd7UKQXfAXC7cfYa0Yjgn4RRq3S7UqVyLrxpRG2IZ+NdkUaMWx0F/FSm
+         CUsstwHBY+hc4olPUWY7S69EFjZpBfLgJNaNO3Z9USrC0eK6Ka/q4USQDWIIkzQH0eAZ
+         tqVTnITI/mJwqGKgObHMxUVREu5szrE+xqXbY/N9yj82vhv9tt8OCjaeO40Rn1i0H1Nq
+         ZRjQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9wMW4yWyN4SCnb8mg+wq9TvBvATinxADMnQ0k8uPk9E1Dti1JxmR6fj09JBv8b8KN2t1hH3LhtLIRO@vger.kernel.org
+X-Gm-Message-State: AOJu0YwgwGUveauZ6Gl93DX1TTLEn7M96ls10K3Q61oL3ImCHa7/pjwa
+	AmzqEPGEsjua23uVq77PSxYrGRumZH5X+DF35Lsz7qNrSSWQOLs4Ka2qku3gaU6pAg==
+X-Gm-Gg: AeBDieu5j+QvtbdWv8o5hN9VyODKPAqAY4SaWFu/+jNZCQfh/NZRJ7ffiVR7lQzbI1F
+	9LA6QXYXWbPFIEIE+Ut4rxFXr+DximKxOlCm/dOBWYLN6DQSiiQKMYgqXt+pw3pOq6qww+XMV5N
+	Z7r5HnwxXXiQNjB8X+ZtOGsSplQPxxXYMn8qxQpOaj9c9r5jg269Hd1qAlGxtT5l0CAKWh3E4X+
+	m4kt2jZx2ByZthBZ4SGu0/212XoMyD4jR/Aq1T8NwGIJpvlY5TT39TRwPA7sHQX/Mo6NXsqzJlR
+	euFfKRwKulz5+g7L9rsQVBq1wkOBWZei7D72+VLJr82ynEjRP+qp2nWxoyx6S3uBt+RDXNfqFKK
+	BlRk6Kp9N8VNRQEXqH8jXwkS8g+IY5c9VVM7PMehy2TexBBdGAu9ijiaw3ZSuGydfzXGgdFVu7u
+	munY8yk+zC2D1pUeU3qt1CCl2Uv6HBTPzeGh8F2B4sm2vxdCgNzYfby8ylmBS0G56r78StaUj4F
+	c7fp5o=
+X-Received: by 2002:a05:6830:6008:b0:7de:44a5:51ea with SMTP id 46e09a7af769-7deba07072emr31818a34.6.1777489573064;
+        Wed, 29 Apr 2026 12:06:13 -0700 (PDT)
+Received: from [172.22.22.28] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
+        by smtp.googlemail.com with ESMTPSA id 46e09a7af769-7deab9d5b9asm1822657a34.21.2026.04.29.12.06.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Apr 2026 12:06:12 -0700 (PDT)
+Message-ID: <856f4e8d-ff7c-4744-9624-e838c758f009@ieee.org>
+Date: Wed, 29 Apr 2026 14:06:11 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 2/3] spi: spacemit: introduce SpacemiT K1 SPI
+ controller driver
+To: Mark Brown <broonie@kernel.org>, Guodong Xu <guodong@riscstar.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Alex Elder <elder@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Alex Elder <elder@riscstar.com>
+References: <20260427-spi-spacemit-k1-v9-0-ff753b551302@riscstar.com>
+ <20260427-spi-spacemit-k1-v9-2-ff753b551302@riscstar.com>
+ <ae_8n0I_ORDLib1y@sirena.co.uk>
+Content-Language: en-US
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <ae_8n0I_ORDLib1y@sirena.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260429-exynos850-ap2apm-mailbox-v3-2-8e2719608c46@linaro.org>
-References: <20260429-exynos850-ap2apm-mailbox-v3-0-8e2719608c46@linaro.org>
-In-Reply-To: <20260429-exynos850-ap2apm-mailbox-v3-0-8e2719608c46@linaro.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>, 
- Sam Protsenko <semen.protsenko@linaro.org>, Rob Herring <robh@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, 
- Jassi Brar <jassisinghbrar@gmail.com>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, linux-samsung-soc@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Alexey Klimov <alexey.klimov@linaro.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
 
-Exynos850-based platforms support ACPM and has similar workflow
-of communicating with ACPM via mailbox, however mailbox controller
-registers are located at different offsets and writes/reads could be
-different. To distinguish between such different behaviours,
-the registers offsets for Exynos850 and the platform-specific data
-structs are introduced and configuration is described in such structs
-for gs101 and exynos850 based SoCs. Probe routine now selects the
-corresponding platform-specific data via device_get_match_data().
+On 4/27/26 7:17 PM, Mark Brown wrote:
+> On Mon, Apr 27, 2026 at 10:01:28PM -0400, Guodong Xu wrote:
+> 
+>> +static int k1_spi_transfer_one(struct spi_controller *host,
+>> +			       struct spi_device *spi,
+>> +			       struct spi_transfer *transfer)
+>> +{
+> 
+>> +	/* Record how many words the len bytes represent */
+>> +	count = transfer->len / drv_data->bytes;
+>> +	drv_data->rx_resid = count;
+>> +	drv_data->tx_resid = count;
+> 
+> This is setting up _resid with a number of words.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
----
- drivers/mailbox/exynos-mailbox.c | 59 ++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 56 insertions(+), 3 deletions(-)
+Guodong, see below, but I think the above should be:
 
-diff --git a/drivers/mailbox/exynos-mailbox.c b/drivers/mailbox/exynos-mailbox.c
-index d2355b128ba4..11657dd475c0 100644
---- a/drivers/mailbox/exynos-mailbox.c
-+++ b/drivers/mailbox/exynos-mailbox.c
-@@ -31,14 +31,52 @@
- 
- #define EXYNOS_MBOX_CHAN_COUNT		HWEIGHT32(EXYNOS_MBOX_INTGR1_MASK)
- 
-+#define EXYNOS850_MBOX_INTGR0		0x8	/* Interrupt Generation Register 0	*/
-+#define EXYNOS850_MBOX_INTMR1		0x24	/* Interrupt Mask Register 1		*/
-+
-+#define EXYNOS850_MBOX_INTMR1_MASK	GENMASK(15, 0)
-+
-+/**
-+ * struct exynos_mbox_driver_data - platform-specific mailbox configuration.
-+ * @intgr:		offset to the IRQ generation register, doorbell
-+ *			to APM co-processor.
-+ * @intgr_shift:	shift to apply to the value written to IRQ generation
-+ *			register.
-+ * @intmr:		offset to the IRQ mask register.
-+ * @intmr_mask:		value to write to the mask register to mask out all
-+ *			interrupts.
-+ */
-+struct exynos_mbox_driver_data {
-+	u16 intgr;
-+	u16 intgr_shift;
-+	u16 intmr;
-+	u16 intmr_mask;
-+};
-+
- /**
-  * struct exynos_mbox - driver's private data.
-  * @regs:	mailbox registers base address.
-  * @mbox:	pointer to the mailbox controller.
-+ * @data:	pointer to driver platform-specific data.
-  */
- struct exynos_mbox {
- 	void __iomem *regs;
- 	struct mbox_controller *mbox;
-+	const struct exynos_mbox_driver_data *data;
-+};
-+
-+static const struct exynos_mbox_driver_data exynos850_mbox_data = {
-+	.intgr = EXYNOS850_MBOX_INTGR0,
-+	.intgr_shift = 16,
-+	.intmr = EXYNOS850_MBOX_INTMR1,
-+	.intmr_mask = EXYNOS850_MBOX_INTMR1_MASK,
-+};
-+
-+static const struct exynos_mbox_driver_data exynos_gs101_mbox_data = {
-+	.intgr = EXYNOS_MBOX_INTGR1,
-+	.intgr_shift = 0,
-+	.intmr = EXYNOS_MBOX_INTMR0,
-+	.intmr_mask = EXYNOS_MBOX_INTMR0_MASK,
- };
- 
- static int exynos_mbox_send_data(struct mbox_chan *chan, void *data)
-@@ -57,7 +95,9 @@ static int exynos_mbox_send_data(struct mbox_chan *chan, void *data)
- 		return -EINVAL;
- 	}
- 
--	writel(BIT(msg->chan_id), exynos_mbox->regs + EXYNOS_MBOX_INTGR1);
-+	/* Ring the doorbell */
-+	writel(BIT(msg->chan_id) << exynos_mbox->data->intgr_shift,
-+	       exynos_mbox->regs + exynos_mbox->data->intgr);
- 
- 	return 0;
- }
-@@ -87,13 +127,21 @@ static struct mbox_chan *exynos_mbox_of_xlate(struct mbox_controller *mbox,
- }
- 
- static const struct of_device_id exynos_mbox_match[] = {
--	{ .compatible = "google,gs101-mbox" },
-+	{
-+		.compatible = "google,gs101-mbox",
-+		.data = &exynos_gs101_mbox_data
-+	},
-+	{
-+		.compatible = "samsung,exynos850-mbox",
-+		.data = &exynos850_mbox_data
-+	},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, exynos_mbox_match);
- 
- static int exynos_mbox_probe(struct platform_device *pdev)
- {
-+	const struct exynos_mbox_driver_data *data;
- 	struct device *dev = &pdev->dev;
- 	struct exynos_mbox *exynos_mbox;
- 	struct mbox_controller *mbox;
-@@ -122,6 +170,11 @@ static int exynos_mbox_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(pclk),
- 				     "Failed to enable clock.\n");
- 
-+	data = device_get_match_data(&pdev->dev);
-+	if (!data)
-+		return -ENODEV;
-+
-+	exynos_mbox->data = data;
- 	mbox->num_chans = EXYNOS_MBOX_CHAN_COUNT;
- 	mbox->chans = chans;
- 	mbox->dev = dev;
-@@ -133,7 +186,7 @@ static int exynos_mbox_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, exynos_mbox);
- 
- 	/* Mask out all interrupts. We support just polling channels for now. */
--	writel(EXYNOS_MBOX_INTMR0_MASK, exynos_mbox->regs + EXYNOS_MBOX_INTMR0);
-+	writel(data->intmr_mask, exynos_mbox->regs + data->intmr);
- 
- 	return devm_mbox_controller_register(dev, mbox);
- }
+	drv_data->rx_resid = transfer->len;
+	drv_data->tx_resid = transfer->len;
 
--- 
-2.51.0
+>> +static void k1_spi_write_word(struct k1_spi_driver_data *drv_data)
+>> +{
+>> +	struct spi_transfer *transfer = drv_data->transfer;
+>> +	u32 bytes = drv_data->bytes;
+>> +	u32 val;
+>> +
+>> +	if (transfer->tx_buf) {
+>> +		const void *buf;
+>> +
+>> +		buf = transfer->tx_buf + (transfer->len - drv_data->tx_resid);
+> 
+> This is using _resid as a byte count.  It'll be fine for 8 bits per word
+> (which is by far the most common thing).
 
+You're right, this is a really great observation.
+
+The best thing is probably to just have the *_resid symbols
+represent bytes.  (Their definitions in the structure say
+that as well.)
+
+k1_spi_write_word() decrements tx_resid by the number of
+bytes transferred, so that's OK.
+
+But the FIFO handles words, and k1_spi_write() limits the number
+of *words* transferred, so the "count" calculation there needs to
+take the word size into account.  Something like:
+
+/**/	unsigned int resid_words;
+	unsigned int count;
+
+	/* Get the number of open slots in the FIFO; zero means all */
+	count = FIELD_GET(SSP_STATUS_TFL, val) ? : K1_SPI_FIFO_SIZE;
+
+	/*	
+	 * Limit how much we try to send at a time, to reduce the
+	 * chance the other side can overrun our RX FIFO.
+	 */
+/**/	resid_words = drv_data->tx_resid / drv_data->bytes;
+/**/	count = min3(count, K1_SPI_THRESH, resid_words);
+	do
+		k1_spi_write_word(drv_data);
+	while (--count);
+
+	return !drv_data->tx_resid;
+
+And we have the same problem in k1_spi_read().  There you can
+probably change this:
+     count = min(count, drv_data->rx_resid);
+to this
+     count = min(count, drv_data->rx_resid / drv_data->bytes);
+
+You'll want to review and test yourself, but scanning through the
+code this is what I see.
+
+					-Alex
