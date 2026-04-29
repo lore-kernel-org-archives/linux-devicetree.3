@@ -1,168 +1,131 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D9C3B47D2
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 09:36:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1853A1A2F;
+	Wed, 29 Apr 2026 09:36:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777455369; cv=none; b=DjnVWqAW6OnG/apBjPDDcaKLlTYOg4Wy157PjBsNebBXqrJpTo3c3+WRkUn1EMDZk8ASCMupbICa20xpHD2W9JsWhA8LIjYk4IF5u9tCf5L/D2WjiZn4fKgfbRllLQtLQfHYv72TVvExLslwYGOt+/1T30qAknE+aBVs1yjdbcs=
+	t=1777455380; cv=none; b=n6BBP3bRtwvxEvvrFts2QFuQIlDhdfE/hONFBINJryrzHEdc5uJEk/SyiMfYbIhhv0Dc/mCf+vGUkLF/Ifg9QhueyDARjgDlqgIMfbXrSV8z1ygoP3bAw1ond6EuFXTuVeBhYYGyjsworn+crz/gCt1l0yXQY4PzmAWmNrUS8cQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777455369; c=relaxed/simple;
-	bh=UVm107WhzQ5WkZdgFr90sAxI6S4u2TmSP/Q+GBZpQFk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=iN+9aeQRtEGisBZL5+q/6H17rzN1ue+NdHP3D5NHEprENXJtLyD68mYjFoByW3cKdzCBZqb0++oxdOFQHKf9zM6uf6jzHN1rm6pNVv827469olod/tuw2ihMVj/jGIuqFAcPkYN6NjNXkqAFG82gfLFIGiQfJYPGWN6oCKc4Y5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l8T9uyLZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AkWUiVd6; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777455380; c=relaxed/simple;
+	bh=Xf6zZJzgLMvmAW30t87H7JUR7g6g8WBSZqFVbcO1fkc=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=PPMBhh6eYCfvpWFbvzxa4dRtIV6fYmxG3+w9rvKvRRljnGpwmcLdcX8ZZ8KniDCUl9tql4uo0W2Y5Ym8OZxGc4kECXdbsQHxQ3A4LG/t/IYMGM+JvlJ14TwWNyQK341rYhQOncAS59/Hq1CHRNjhMOvJe6tnHlxPd0KIEBN/4NI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=flygoat.com; spf=pass smtp.mailfrom=flygoat.com; dkim=pass (2048-bit key) header.d=flygoat.com header.i=@flygoat.com header.b=liFlFwoG; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VhRNBFCH; arc=none smtp.client-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=flygoat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flygoat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l8T9uyLZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AkWUiVd6"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63T8q72E1721232
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 09:36:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=XOLjpZX8HYTI3cLRh9OOLn
-	/J1nWesnZ3svuiRmcBZaQ=; b=l8T9uyLZFvjJij4S19E4CSW9pPicRSut0K7B0/
-	SrEu+0AAHGNs7Yw/96J2zbGxRhOovAsJEKoz5HXiWYHkPQz3ZN3wkp7yb/kjp1BK
-	3rE7XR1D+kXwZuLW++hDzWMO1QWvxPwjmrdgMDIGNm4iXqE+XCNUWhh1jF0bW4XG
-	OH+MKXrNb2DG0WLU+9jcJJGwksYrZIXbWp1QhR//rivGmqB+ZK8KA1Hz/MlkVUEn
-	ByP8w1xh2IyhS1RRpfDtp2Xj0ycwYg8XulLDoXOZ8TiCly/EUB4Ahk3EbqkDSnDj
-	Yi+U74D4YoG8mskkVKJlFFNOFO53IwgP4UQvK4AsYU44r4eA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dua731d0p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 09:36:07 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2b24cd2e2b3so113669185ad.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 02:36:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777455363; x=1778060163; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=XOLjpZX8HYTI3cLRh9OOLn/J1nWesnZ3svuiRmcBZaQ=;
-        b=AkWUiVd61jE1bkhZBKWq01UBCgxmjR4RgtV3uum9w7rE4NpA5PD1EUlAYljg7AkzZ2
-         3kycP+jShgeV3eYuw+XpaVyZvjSHkV8dYKZvh2Lhtl/9rBZoC+X9lYvwXrWZX5Y/81gI
-         q3RUfb+04yamysOFusm44SYlz5oLDgIpLo2W1t0JDCgB1ToZGq8Oeu4qBjD8a+gjMabt
-         YlZa3KKtKF7NY5ayC8cb8F71OYIdiihthi7HE8D8seszXpOilYBVGx4f2KU2x3Bts55m
-         6zLnwSJjzFCcJk96qXJsthEAIe364/QWw6ZpC7ke9/263E5qWHyZoFiG2tqWia7PXjED
-         KVnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777455363; x=1778060163;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XOLjpZX8HYTI3cLRh9OOLn/J1nWesnZ3svuiRmcBZaQ=;
-        b=HaIrOom22RDeKPDumb2QD5BLmIdopbxOMU4p8euPRo2GnUL7qrDhpOaXzka8PRtraq
-         sIz0IC0YAcUn5z5zZ2ylKHX8I+l+nzkO7btrCraAvtwLho8rpK6EPynTLKL4xGPNT4Zv
-         xoJqvA+0+YNsjqzXaSyC/c1/XNbG+2NgDS4lDPNSYsnhpgoixndnen3ebO+UE7NZY1SG
-         jucDqQpu8/QPpX/gxjvNdpWiS66CGvpMzK1X6I2ZAKZ9ctBHc49hEL80wnEMknGIqyR/
-         oe/WE0UEGYBeADWoRmSIaSvip/rXci8kEqjIdHV7daEitVmo6AgRABsTbuWY99bAeL0v
-         WVmw==
-X-Forwarded-Encrypted: i=1; AFNElJ80TV0mhgGqGIpL7fEAVTX7OLJWjeoeUCHRIpCkcNcwGGhgpQo5Dg4f08M0kvkH/1G5g3RKRE48GCmw@vger.kernel.org
-X-Gm-Message-State: AOJu0YyhuqICIy2o9Mwtp02jn7lPA5+tnlzHwnOIFpsz9TEACHWLAtAa
-	b79SnVWOV2GyqJHM5fwDs4lCVAzn9Nmq58HxM0O8BpaO1aytrL0xZ3vaBO5ZrdF6A+JrHoWhVH4
-	/whbrn/ozNixn1qec7W0rpV0NvCLS92G0zBXKnF33TEIgKklcHpxC7My8x5JwNohm
-X-Gm-Gg: AeBDievDuNZ5n99DspJ0unU2pi+r/astboHMXjwfAhLzTSapvLoM20yzawcLqArWcZP
-	UfrxO8Zto0mLVHoX8wOszajl3C9ldVgfT7XEMrROZe7OAPqPfrdvD1DsUqP1Tl3eRE262ESXvnv
-	XmFBciw1pwdY8mhhY5J3a2q64KS9fOzStl29XdCV1vcDKKaHF/juXo+IcOSF3c4GmaU6C+t53Vc
-	Km/ojGI6i8ZOBMVrj4zJUXoGCXcqG7oAajJ+/R0HC5Aosynv1CNBpXfXMzTpjJ/8WDdtulpzMFW
-	BLEjTKewXSYVjFcNHxvDUtDfZIv69pqfxkrGadWKdSQIXUkFHE9pHxbZcVqoI8L9PFUnONcPDvJ
-	vJOJAHsYfgEc3wEeHiFTKkny0OTPDxdjTP6vTj8ykf0IY0H6O6KRD2x1l+aeiN1kMXw==
-X-Received: by 2002:a17:903:985:b0:2b4:5986:cd80 with SMTP id d9443c01a7336-2b97c47b524mr69885015ad.26.1777455363376;
-        Wed, 29 Apr 2026 02:36:03 -0700 (PDT)
-X-Received: by 2002:a17:903:985:b0:2b4:5986:cd80 with SMTP id d9443c01a7336-2b97c47b524mr69884755ad.26.1777455362839;
-        Wed, 29 Apr 2026 02:36:02 -0700 (PDT)
-Received: from hu-kuldsing-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b988989d67sm16568775ad.76.2026.04.29.02.35.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Apr 2026 02:36:02 -0700 (PDT)
-From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Date: Wed, 29 Apr 2026 15:05:40 +0530
-Subject: [PATCH] arm64: dts: qcom: sm8750: wire UFS to ice instance
+	dkim=pass (2048-bit key) header.d=flygoat.com header.i=@flygoat.com header.b="liFlFwoG";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VhRNBFCH"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.phl.internal (Postfix) with ESMTP id A2BA4EC018B;
+	Wed, 29 Apr 2026 05:36:18 -0400 (EDT)
+Received: from phl-imap-08 ([10.202.2.84])
+  by phl-compute-03.internal (MEProxy); Wed, 29 Apr 2026 05:36:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flygoat.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1777455378;
+	 x=1777541778; bh=RrrQxnCiP4A6oVNx6GsMcrgkKaGPOhYYSIH0FcBHhLk=; b=
+	liFlFwoGDYgC23B+Kwgw0pkhWWNfLZ2ELx9qRFn7ScjmQq/5KmK96ZZMWwZgvmCO
+	QCXNTLuRNtBSk6BH/TuxXiZqVgzQnoBhAnpmFSXDlMfsYrR33uis3kw7un/qkPzI
+	mnPiio298np+BGbH11N7iaFv9nKqy7CNK0m2wJjX22WmX3uKCP37cidA/nvMDdOL
+	2YQYK0wqxn32BpHFrXP4zRTS/6Bfm+2HlrlwnpcoJEDRjqRYATuuKoczYzv1/Mm0
+	EcU5MAARlBYkI8CTr7FSZQUzu3Y99N1GJ2YPRUbB2Vr8e8smW6UG1dBOBJ0agcBb
+	DZNVFGB3M1iJmE/kWP7+5Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1777455378; x=
+	1777541778; bh=RrrQxnCiP4A6oVNx6GsMcrgkKaGPOhYYSIH0FcBHhLk=; b=V
+	hRNBFCHaHknS3aWRi6PDhQst5r5ROGYzfEnDZ9aQcc+e/C7gwHfbAcy/UTeC4d2z
+	RbcUSLGiazuYxTiYFakA1ho8nxmR7ZSLz7OlXyZKwWI5RyqRDrZYwCF/1wlnp6ls
+	nRV8lJgaQLEM6wKeQm632kLgH9G0uYtJKRgr2Hjm7T/0U/5iD1EvFbe6ZyLWEvrd
+	Pn4YVep+PkD9nIDfdhM9SviM+qs7a9JBvEUkFt1OWADgb4oc0IJS2SqvHHPuwcpW
+	tb1DUjPmfGyrFhyKuxx5aVZYZFOYwwx8aGot1vz7aM/1Zcpc7Mu/CqA9k+qnIXju
+	p38jm55yIMR1hhwn5YLhw==
+X-ME-Sender: <xms:EdHxaQqQl1rGrNqLNPEFB20pswlrXXKKRUDlw2HGL2Mt23gKizGUgw>
+    <xme:EdHxaRckuA4aIVspRX7Vwaws32pblT9FkIunAV3iBHfvj7XZuAbJx-53T117XdQH7
+    mvHrZI8KLu3v7BNfaXPLx_lpOHSBGCfTQakKyuQOKlaAyU4v_S5Og>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdekgedtlecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+    hrpefoggffhffvvefkjghfufgtgfesthejredtredttdenucfhrhhomhepfdflihgrgihu
+    nhcujggrnhhgfdcuoehjihgrgihunhdrhigrnhhgsehflhihghhorghtrdgtohhmqeenuc
+    ggtffrrghtthgvrhhnpefhtefhuddtieegleeuiedttdehheduveffjeettdekvdeuiedt
+    udejfeeijeeifeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfh
+    hrohhmpehjihgrgihunhdrhigrnhhgsehflhihghhorghtrdgtohhmpdhnsggprhgtphht
+    thhopeekpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehtshgsohhgvghnugesrg
+    hlphhhrgdrfhhrrghnkhgvnhdruggvpdhrtghpthhtohepiihhvghnghigihhnghgurges
+    ihhstggrshdrrggtrdgtnhdprhgtphhtthhopegtohhnohhrodgutheskhgvrhhnvghlrd
+    horhhgpdhrtghpthhtohepkhhriihkodgutheskhgvrhhnvghlrdhorhhgpdhrtghpthht
+    oheprhhosghhsehkvghrnhgvlhdrohhrghdprhgtphhtthhopeguvghvihgtvghtrhgvvg
+    esvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehlihhnuhigqdhkvghrnhgv
+    lhesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehlihhnuhigqdhmihhpsh
+    esvhhgvghrrdhkvghrnhgvlhdrohhrgh
+X-ME-Proxy: <xmx:EdHxaX7k3I-3o4O8j_P--SAa_vZvv7qzlQ3-FPpeay1wKWRP83kq4A>
+    <xmx:EdHxadUzILC4Q1aAiffPCMKtTQa43vwVXu8Axhq0Xo7YYJxd8XkLcw>
+    <xmx:EdHxafJrqjPb5nrK4RMV_BimM_Tc1-oL8T4FgOkyENLX-L34Q4Sl-w>
+    <xmx:EdHxaftIb_Ngp2uk4oW12e-eLK1jA0_3OrU1NxD5_XvjIIp_lzSshA>
+    <xmx:EtHxab6R05X8krldV1dMOT4erXvQi5jvAwKZHo6d3lAOnf7fWcWAZaAA>
+Feedback-ID: ifd894703:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id A25F72CE0072; Wed, 29 Apr 2026 05:36:17 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: ApIjjO01HLYR
+Date: Wed, 29 Apr 2026 10:35:34 +0100
+From: "Jiaxun Yang" <jiaxun.yang@flygoat.com>
+To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>
+Cc: devicetree@vger.kernel.org,
+ "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>,
+ linux-kernel@vger.kernel.org
+Message-Id: <3194da09-3bfc-4482-b179-04b6d5df4a00@app.fastmail.com>
+In-Reply-To: <20260411101744.4020216-1-zhengxingda@iscas.ac.cn>
+References: <20260411101744.4020216-1-zhengxingda@iscas.ac.cn>
+Subject: Re: [PATCH 0/2] Enable LPC interrupt controller on MIPS LS7A systems
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260429-sm8750_ice_dt_fix-v1-1-2540dc337082@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAOvQ8WkC/yXM0QrCMAyF4VcZubZQ06nFV5FRbBo1gttouiGMv
- fvqvPwOnH8B5SyscG0WyDyLytBXHA8N0OveP9lIqga0eLYteqMffznZIMQhlfCQr0kOyTtPlly
- E+hsz13lv3rq/dYpvpvILwbpuijc3bXUAAAA=
-X-Change-ID: 20260428-sm8750_ice_dt_fix-d32c838c0c3b
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Manish Pandey <quic_mapa@quicinc.com>,
-        Melody Olvera <melody.olvera@oss.qualcomm.com>,
-        Nitin Rawat <quic_nitirawa@quicinc.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Wenjia Zhang <wenjia.zhang@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-X-Mailer: b4 0.15.1
-X-Authority-Analysis: v=2.4 cv=XtvK/1F9 c=1 sm=1 tr=0 ts=69f1d107 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=YMVLaHQI2UQk2HygKEgA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI5MDA5NiBTYWx0ZWRfX3O/o9QQ9Hu/q
- 6C4NogptFjQwR/LAqSCzy+bGQBbIA1I4frzOJ5/HeRRl7zxCszj362FIXVkw9jflsTuC3tqNg7A
- 8GjA8Z3uPA9geZRc5VNVBn5ZgJLrcxiqrPJlfr3cfbNcyTB53gzQm0/5Qg0lnAThZIC96Im2qQ5
- iGZ4+dIBPgPc3INLouIw0CyFQ6YWgqPahJdTXEcbUH9IliPT6STLueO7ehe2HZNtCXwnA7NAof2
- zUjA6ZWxkoflCr97S5D9IM5Foqjw5i0Fn2ts3CdQC9NiuxTtB/OUIsyCdABDGiIgP0dWpCg7JN6
- 0N+57KshqXXHHGR72TjbjXVqofnGKEMS+Imf9LEOOmFx0rJcPE+ywYQ2zdscr0dZzyS64quokVK
- WndMlC/d7aElXaxrwr/mRDPH+4yuDAGEDkp0pNu+okRc0mdCMDbRgySDrXj9aNhpNGvs11M0Yoi
- yRWIp2r2kv0iSfRKaTw==
-X-Proofpoint-GUID: VD719_A28Vy_WAz_jtrFiq2YoLqzS2xH
-X-Proofpoint-ORIG-GUID: VD719_A28Vy_WAz_jtrFiq2YoLqzS2xH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-28_05,2026-04-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 bulkscore=0
- adultscore=0 impostorscore=0 phishscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604290096
 
-The Inline Crypto Engine (ICE) exists as a standalone DT node, but the
-UFS node lacks the required qcom,ice phandle reference.
 
-Add the qcom,ice property to explicitly associate the UFS controller
-with its ICE instance.
 
-Fixes: d288abc3a70e ("arm64: dts: qcom: sm8750: Add UFS nodes for SM8750 SoC")
-Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
----
-Validations:
-* Driver probe
-* FBE with standard keys. 
----
- arch/arm64/boot/dts/qcom/sm8750.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+On Sat, 11 Apr 2026, at 11:17 AM, Icenowy Zheng wrote:
+> This patchset tries to enable support for LPC interrupts on MIPS-based
+> Loongson systems with Loongson 7A1000 PCH chip.
+>
+> The corresponding irqchip support (along with the DT binding) is already
+> added to the tip tree.
+>
+> Tested on a Haier Boyue G51 system with legacy i8042 keyboard/mouse as
+> integrated ones.
+>
+> This patchset is splitted from the original patchset that contains both
+> driver part and DT part.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-index 18fb52c14acd..4ea7f6b7e20d 100644
---- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-@@ -5396,6 +5396,7 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
- 			phy-names = "ufsphy";
- 
- 			#reset-cells = <1>;
-+			qcom,ice = <&ice>;
- 
- 			status = "disabled";
- 
+For the series:
 
----
-base-commit: 39704f00f747aba3144289870b5fd8ac230a9aaf
-change-id: 20260428-sm8750_ice_dt_fix-d32c838c0c3b
+Acked-by: Jiaxun Yang <jiaxun.yang@flygoat.com>
 
-Best regards,
---  
-Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+>
+> Icenowy Zheng (2):
+>   MIPS: Loongson64: dts: Sort nodes
+>   MIPS: Loongson64: dts: Add node for LS7A PCH LPC
+>
+>  arch/mips/boot/dts/loongson/ls7a-pch.dtsi | 17 +++++++++++++----
+>  1 file changed, 13 insertions(+), 4 deletions(-)
+>
+> -- 
+> 2.52.0
 
+-- 
+- Jiaxun
