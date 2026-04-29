@@ -1,271 +1,341 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8B23FCB27
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 13:23:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7AF3FB069
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 13:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777468998; cv=none; b=mPZCJjmehDHQWUh8r7q9IUluby6ehSLkbnDxayjtuXAZ1XmXEi/qaxLKCI9mMdAInubw4okz92wA8L1Bsw0PX1ihxmrqXvYF09YoeJn5XhXN+wmiakaRNkELoLHiyfGQ4HnbHl3dbIU/2BlZ30QpQ+0pyWgzQDnhODmd8AFr4jY=
+	t=1777469132; cv=none; b=PzxEsIIWzqrlxdAmX+lGTPvIkobsobo72CmxfULEKXml2isAhEnGwWqFNn6pQpGspsivA0h6jzkdlugaJ1i+Mh8x35L/U95VeBINg1r96ymrKAUD6G8BGthBKZD01Ylj4p4SA+58O49DOKnSsq6lWduHgQyk8X7DBioZgt7bN2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777468998; c=relaxed/simple;
-	bh=4onuEvPaP2yvZAtOC+F4BCT1UwRW5DkR/lNZprGqXK0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gZsZvJFe3Nm0B/l9KgXxOlvzgyEM/0+DTlmWXRXLacqUBlLsQ1TMn92Nl/p9juc76kIJQsOchijBqRjq4aqTQPNFdlNNmM8YS0jI/8vHq2hfQo6rgslyZrT6mXs6IUBVxznbZiwmlJNOlKnNXzQiomqxs7utSy6GIS4PMift3X0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V90m/fjb; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777469132; c=relaxed/simple;
+	bh=MgBynsG615Gay9WuPdHInOpVB6+mXWxzVoohqxlsbEU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bPS15sg7wgwwXZX5nwHI18M8LhGjvlZK2ymbRlwwxEpqXFY3FAztQhiULt8gDp4X3FXfaADe8geQMBTbegvb8aKiuQRemS2465x7MwCN08BJVAxCFbqLdr1mWU4YAUo/JxmAU7De2dbR2ajCNsdwIvg8y43LSujTbg+G36Ia7ik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DQYPFip/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ghYWj/AE; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V90m/fjb"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8296dabef74so10461405b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 06:23:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DQYPFip/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ghYWj/AE"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63T8pxkp963224
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 13:25:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=tESQm7/a22Cxh8QWHH7UiC0w
+	dXJ6q1GIcYXgrhUKjnI=; b=DQYPFip/26hMD9exGNiQGhlON3S2bUV+8JfEYY9J
+	Zx8ygITz/GtbM469Eq0PdgOS2noAWfj2Sra+9IJKYoatpUNmxT2vk/EsA/zewz2f
+	THlpaOd9s5w5FK9gJadkUJhwBybrPpVTrPDBCChPn7ppTjgtxcjVg7F8obba83nV
+	77cLKYPNgxlpc8k8OudwNa5NpdrfDgrI5yeoXlvjSJLCFfJIU7YcMa5bLJmoW2Sg
+	ia/16AVPOY++1fIkbEzclcTHiZgEntPqkZ4Rh5OYP7CsqWjZ1Jx7GfTpA57LYOOx
+	LUXrkAuHeqmYafFkaYwgBfiYgxjLHaEybXL/AE//v8vRBA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4du2m4uhp8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 13:25:29 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2b24e9b4d82so7073595ad.1
+        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 06:25:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777468995; x=1778073795; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WCpqWEaMYg3UZ5FWd6Kx+fvUYh//nkS7obYuvELKMmY=;
-        b=V90m/fjbKTuPjqlw5QgrqvYOosLYhl2YBonDELiwUVpWnSvCmJrazCko7GjU+Skcmc
-         v8TKoX73DHAKUs2xi4DMdg4rObLVvQGCE3xwnpHXLQPaOPur+NwL4ha07hh/5MYdq6Le
-         +BQaDUOBeubCtOvsbx4YbVpohIUAsQmE+7ssTscHgaPwKrHLj3N7MnBXQDYfVKywgh2T
-         lbs0nI0nULv+maQ7lKCI4yW5G2dcI1oi79SsZYe0iG3NCYhBn/oIghngqgn/s56aqy1/
-         HmxnKgiu7MOYqp63nnyX0khOtwfdCXAvH67HqRmusEzPx3oLRSMqbgYwVWzioK47o9y2
-         EkKA==
+        d=oss.qualcomm.com; s=google; t=1777469129; x=1778073929; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=tESQm7/a22Cxh8QWHH7UiC0wdXJ6q1GIcYXgrhUKjnI=;
+        b=ghYWj/AE+KXRIK0lqI3fOapYN0VEEX+0vlgjOsWv6mM5EiwKwWWmTVn48X3D+yj4P7
+         6oXnjEpw6fN+gk1mO7vNiMe2UWlDm7qW72bC2NHXdGmlEkt83jkywSwQMotPIbOhqr+c
+         iqRh+edv8tEck5cS+HecL2npN6M5V/gSntABouoUDusjt19ORtuY/ygRh09epIoIDdWJ
+         dMmKOXwbFd+7qU4zwoG1Csrx4G11Y9MU6/3lV4sGyQzehIB6gJzCFC40WeLrGHawiEOu
+         Ckef5PlCDI76xk8dOzzZD1uf+cLonZyFOcytmxhf6msfu0vBnTm4LLtnaIND1N11CRwb
+         V0xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777468995; x=1778073795;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=WCpqWEaMYg3UZ5FWd6Kx+fvUYh//nkS7obYuvELKMmY=;
-        b=JIbuZIv+xB+ERD99RbKkAUu1RbNHUScuMjKcvda3MMekfzvSlaYqKeHKURONBjlOoo
-         hO1Ba/mPQJzfbkCofnFWpIWFGS2+nMsLodoqtXncL+9e9oY24JJzqAq5XtUTqIl9Oiov
-         50lRYFlBvs7USZGheAp49z6Zk8iN7bi2fm/1jyS/Cf8SL+X3My2hQEEVn9ZWUGGk6WGV
-         ss0jrm2ECHsuHC7m2rcqWU8UiXZqdj2PLapmfw8X6aX4fJJbZPbYPbJpK6NDNQscftyi
-         JcLtV+Ji6zEDVUvU4aOcei+l6hj9NXLsuSCXfHWSiY7n/OSqndoZnTykeASmsAtfjpTi
-         ZtLQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+14ZHavup3ZuAMoZa+4NyUdk+/tTTFfIl2j/fDtO8dKIMiyMJcJfuPVwjWIFcs5RLBJpYtTCKnqjKu@vger.kernel.org
-X-Gm-Message-State: AOJu0YxQiSgXWqP5HJAE0T5DFzi8weWhVvjd9Vr5/BFYCpn3ln0HJVzk
-	bFz42s2Iam44v1XXIgFJXSTFJ9v3HPtFvyoOG49qvAHCrL9raxz3aleZ
-X-Gm-Gg: AeBDievaGYhSe3K0HKfg8lekb6AQKSr6M1n66q/YJeELt3ADHpAKTbs1AsJhsHrxFeD
-	24pVjofdUEV0+TrimWLZcnUoxNbRnD1yR8ch0fCME8oSiIeHZNBZ5GwXzdjaT8HPxi0ElpwVbMS
-	6rd2heDhrc0yGI67Y6TIIQc0WNs4hz4dMJPIFcLLSw8b/dF8T+wj7RY+x1oYPhGTKfh2CZfb+0R
-	MGA9sXwMb3xJXW3+5k9SUdSbyQTQWHMvXWuB1DvGKUJKSV4QW+WrAwUveCeInaLtr5uHcYcWCxb
-	fVn8jeBUGY/06NQursISV1DP0AKbweu2qBrO/rHDQxizW6MSKY6/QcFjH5Rw8lvG9YLjj4grKs5
-	G6VAtoYdhFhoIykmZJulEpTVMOTAQXS+TyOv+s5Gy2ZvZlxyypkbGjSTA+Me0jYTnEWB4SG3qTA
-	GHZtTAVdxhbc7lVdX9yJFTUx0538aIDBEAC7/CFi8pUuAwgZsh2n/aM/x19/ZZ7eq6kPR5TCSXH
-	Kl9W/AK5bkrjCE=
-X-Received: by 2002:a05:6a00:69a3:b0:834:df57:9d6b with SMTP id d2e1a72fcca58-834df57af63mr5180255b3a.24.1777468994395;
-        Wed, 29 Apr 2026 06:23:14 -0700 (PDT)
-Received: from localhost.localdomain ([2001:448a:2002:4381:3859:fd0d:505e:362c])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-834ed5cd407sm2091372b3a.13.2026.04.29.06.23.10
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 29 Apr 2026 06:23:13 -0700 (PDT)
-From: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
-To: jic23@kernel.org,
-	linux-iio@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	devicetree@vger.kernel.org
-Cc: branstj@gmail.com,
-	lars@metafoo.de,
-	ojeda@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	igor.korotin.linux@gmail.com,
-	linux-kernel@vger.kernel.org,
-	Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
-Subject: [RFC PATCH v2 4/4] iio: position: add Rust driver for ams AS5600
-Date: Wed, 29 Apr 2026 20:22:30 +0700
-Message-ID: <20260429132234.30514-5-muchamadcoirulanwar@gmail.com>
-X-Mailer: git-send-email 2.50.0
-In-Reply-To: <20260429132234.30514-1-muchamadcoirulanwar@gmail.com>
-References: <20260429132234.30514-1-muchamadcoirulanwar@gmail.com>
+        d=1e100.net; s=20251104; t=1777469129; x=1778073929;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=tESQm7/a22Cxh8QWHH7UiC0wdXJ6q1GIcYXgrhUKjnI=;
+        b=TqdVkMZmoe85YFCdbdbEbQY7OYP5WHxVp1jX3pT4vWBQQzkhQbDsqdcx+v6kUzqJBP
+         Gyde9iAjJ/OfqzwKd91pTgvCDeWvZ5zk21QzjlBHx2FgTKEvnuRGeHgydxvZTTQiv3qR
+         my8YXtAvNKu7D6IXn9WRy3MMGAaqrdlY9lnvoHvHsEKykRis2vvS1jW+gODPVjvM02pZ
+         T/IBKPKg8XglqdhaUeq7nIETiuAHdbYyeePXQ3DRfKNOBTntV5JnanAV3r58hYyWLV3r
+         GvUKIk8RTD2r2GLPTs83q7+LSovyOJ9aODMDmSiG5oIHB8yEP6tIkT4o6ROmPpOHLdY3
+         wwfA==
+X-Forwarded-Encrypted: i=1; AFNElJ/RAeO+h42ZgmCLBh58C0xMXHk2FQnGzQDchOSV5RlFfVrkt4qSsrrllnUpk3BkQFrQo2xQLdmPtZsT@vger.kernel.org
+X-Gm-Message-State: AOJu0YzEHv7XAwb4cBwU4ntDRrqr+M2tzRD47zZ/wa+PVzdy/D+ZiARC
+	+IMHh/eo2Asu4H1pwzBxKdQMgTELPpM0LZ+PGmZchb+34X7ZbmRyfh5VIah8pKXiPhxaY06a8rm
+	eJp9NTGSiha26sH8/Nlf/QU/2igek5BtosBiI7AfmYPB+67th413ZM38MFgQhckf4
+X-Gm-Gg: AeBDietWi2TpRMw02lbUCx6j5UHnFKt5qY8STUGfbnsG3A+mKAD6kclSWvkfOQ3CGeW
+	+IrB7nn1JmZaLJedRWaCvxyRKnnDH/J0Vgkp6evsyvaOcgpll1332Ho5qSQFE1cnTtmMaqqxSPZ
+	PVeawDcnWErcK0EMugyFHbWwBys4lkR+zy+5YIGUHC1wnlh0G6OIyDiMm9iRSkXzf9hIlzf5tMP
+	HEDobHnY4NeQRL1vLvWvueMb1GCnrm5L8a2hcUoTMi26C94E3gRla3z7P2/1eB8caSnkZlWoQj7
+	xt5+rHdVjQk12BnDkpk4hypQ3//1gC+P8YwSFH7O6TSSIxf0smkRQphBEFz0g0ijP+1CYKevKLU
+	kc1xLIHjLSrB1VOAgaZPW6O4YwzcHMk4Btp/mXtFimP4CvLId2fY9LY9KWSg=
+X-Received: by 2002:a17:902:ef06:b0:2b9:6cde:c345 with SMTP id d9443c01a7336-2b98823923cmr28867055ad.18.1777469128665;
+        Wed, 29 Apr 2026 06:25:28 -0700 (PDT)
+X-Received: by 2002:a17:902:ef06:b0:2b9:6cde:c345 with SMTP id d9443c01a7336-2b98823923cmr28866375ad.18.1777469128039;
+        Wed, 29 Apr 2026 06:25:28 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b98893f4e7sm24343015ad.39.2026.04.29.06.25.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Apr 2026 06:25:27 -0700 (PDT)
+Date: Wed, 29 Apr 2026 18:55:12 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Sumit Garg <sumit.garg@kernel.org>
+Cc: andersson@kernel.org, konradybcio@kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-media@vger.kernel.org, netdev@vger.kernel.org,
+        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+        akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+        jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+        airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+        dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
+        elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+        jjohnson@kernel.org, mathieu.poirier@linaro.org,
+        trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+        jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+        vignesh.viswanathan@oss.qualcomm.com,
+        srinivas.kandagatla@oss.qualcomm.com,
+        amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+        op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+        skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+        Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v4 05/15] remoteproc: qcom_q6v5_pas: Switch over to
+ generic PAS TZ APIs
+Message-ID: <20260429132512.aki4vqkhpil7awc3@hu-mojha-hyd.qualcomm.com>
+References: <20260427095603.1157963-1-sumit.garg@kernel.org>
+ <20260427095603.1157963-6-sumit.garg@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260427095603.1157963-6-sumit.garg@kernel.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI5MDEzNiBTYWx0ZWRfX0vnlobbKX0R6
+ ueQLWV4qBC3Oio3Jchsmc+cRhfwRxRSY+E3C01DVVduQprLcExW3CJbS4kcxu37oIkyEep3MNni
+ jnvn0FZ8FoR65WlAlGXtWhLR+PAcWzReUl1Drwlvia6Su7qr7iQ+7HCdZdxkd0ISRZmoHiQmKRC
+ myPgGc5HTNp+OKFvuj/EC0V+QMzYR1TTQB7p0zn0mDyJBHQkyTXaVSINzs4IR1hteLmI34r0DQA
+ XVipiuRQoptaJ7zkvUdID89U2ZD+POn8nOZuabFr3KXMggcm0NFZ6Q+naPZHLhtGbnd0aLX9vfY
+ djSTPWMVsjD1S7+BGYwhjKbYH5xiJjkrcCbUSNN+hCc4D2bs3UGbBV/Rb0okeN8XAq0wqELPsQa
+ 3KYk8bjKdcjR8LeXpJey7OvJspp9eoFi3LiyAxHw2Qs1dPZ6ioYnpuWOWASsEzme05CFZJW//Qq
+ 6Ya170DnFndFc1CEDJQ==
+X-Proofpoint-GUID: kOgwWO2kgqV84PJvrQzenuQyv-U-Az4L
+X-Authority-Analysis: v=2.4 cv=MuFiLWae c=1 sm=1 tr=0 ts=69f206c9 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=OiisSXWjcB2wRZQgg0QA:9 a=CjuIK1q_8ugA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-ORIG-GUID: kOgwWO2kgqV84PJvrQzenuQyv-U-Az4L
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-28_05,2026-04-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 phishscore=0 impostorscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 suspectscore=0 lowpriorityscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604290136
 
-Signed-off-by: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
----
- drivers/iio/position/Kconfig   |  14 ++++
- drivers/iio/position/Makefile  |   1 +
- drivers/iio/position/as5600.rs | 129 +++++++++++++++++++++++++++++++++
- 3 files changed, 144 insertions(+)
- create mode 100644 drivers/iio/position/as5600.rs
+On Mon, Apr 27, 2026 at 03:25:53PM +0530, Sumit Garg wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> 
+> Switch qcom_q6v5_pas client driver over to generic PAS TZ APIs. Generic PAS
+> TZ service allows to support multiple TZ implementation backends like QTEE
+> based SCM PAS service, OP-TEE based PAS service and any further future TZ
+> backend service.
+> 
+> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> ---
+>  drivers/remoteproc/qcom_q6v5_pas.c | 51 +++++++++++++++---------------
+>  1 file changed, 26 insertions(+), 25 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+> index da27d1d3c9da..847249c28c1b 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_domain.h>
+>  #include <linux/pm_runtime.h>
+> +#include <linux/firmware/qcom/qcom_pas.h>
+>  #include <linux/firmware/qcom/qcom_scm.h>
 
-diff --git a/drivers/iio/position/Kconfig b/drivers/iio/position/Kconfig
-index 1576a6380b53..dab9310e8079 100644
---- a/drivers/iio/position/Kconfig
-+++ b/drivers/iio/position/Kconfig
-@@ -6,6 +6,20 @@
- 
- menu "Linear and angular position sensors"
- 
-+config AS5600
-+	tristate "ams AS5600 magnetic rotary position sensor"
-+	depends on I2C && RUST
-+	help
-+	  Say Y here to build support for the ams AS5600 12-bit
-+	  magnetic rotary position sensor with IIO channel support
-+	  (in_angl_raw and in_angl_scale).
-+
-+	  This is a Rust driver that exposes the 12-bit raw angle
-+	  and radian scale via the IIO subsystem.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called as5600.
-+
- config IQS624_POS
- 	tristate "Azoteq IQS624/625 angular position sensors"
- 	depends on MFD_IQS62X || COMPILE_TEST
-diff --git a/drivers/iio/position/Makefile b/drivers/iio/position/Makefile
-index d70902f2979d..2d26f6d6ace3 100644
---- a/drivers/iio/position/Makefile
-+++ b/drivers/iio/position/Makefile
-@@ -4,5 +4,6 @@
- 
- # When adding new entries keep the list in alphabetical order
- 
-+obj-$(CONFIG_AS5600) += as5600.o
- obj-$(CONFIG_HID_SENSOR_CUSTOM_INTEL_HINGE) += hid-sensor-custom-intel-hinge.o
- obj-$(CONFIG_IQS624_POS)	+= iqs624-pos.o
-diff --git a/drivers/iio/position/as5600.rs b/drivers/iio/position/as5600.rs
-new file mode 100644
-index 000000000000..0cbf8be58b64
---- /dev/null
-+++ b/drivers/iio/position/as5600.rs
-@@ -0,0 +1,129 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Copyright (C) 2026 Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
-+//! Driver for ams AS5600 12-bit magnetic rotary position sensor.
-+//!
-+//! Datasheet: https://ams.com/documents/20143/36005/AS5600_DS000365_5-00.pdf
-+
-+use kernel::{
-+    bindings::{
-+        iio_chan_info_enum_IIO_CHAN_INFO_RAW, iio_chan_info_enum_IIO_CHAN_INFO_SCALE,
-+        iio_chan_spec, iio_chan_type_IIO_ANGL, ENODATA,
-+    },
-+    bits::bit_u8,
-+    device::Core,
-+    i2c::{DeviceId, Driver, I2cClient, IdTable},
-+    i2c_device_table,
-+    iio::{Device, IioDriver, IioVal},
-+    module_i2c_driver, of, of_device_table,
-+    prelude::*,
-+};
-+
-+const AS5600_REG_STATUS: u8 = 0x0B;
-+const AS5600_REG_RAW_ANGLE_H: u8 = 0x0C;
-+const AS5600_REG_RAW_ANGLE_L: u8 = 0x0D;
-+
-+const AS5600_STATUS_MD: u8 = bit_u8(5);
-+
-+module_i2c_driver! {
-+    type: As5600,
-+    name: "as5600",
-+    authors: ["Muchamad Coirul Anwar"],
-+    description: "I2C Driver for ams OSRAM AS5600 Magnetic Rotary Position Sensor",
-+    license: "GPL",
-+}
-+
-+i2c_device_table!(
-+    I2C_TABLE,
-+    MODULE_I2C_TABLE,
-+    <As5600 as Driver>::IdInfo,
-+    [(DeviceId::new(c"as5600"), ())]
-+);
-+
-+of_device_table!(
-+    OF_TABLE,
-+    MODULE_OF_TABLE,
-+    <As5600 as Driver>::IdInfo,
-+    [(of::DeviceId::new(c"ams,as5600"), ())]
-+);
-+
-+struct As5600Priv {
-+    client_ptr: *const I2cClient<Core>,
-+    channels: [iio_chan_spec; 1],
-+}
-+
-+// SAFETY: `client_ptr` points to an `I2cClient` that is owned by the I2C
-+// subsystem and outlives the driver binding. `iio_device_unregister` in
-+// `Device<T>::PinnedDrop` drains pending callbacks before this struct is
-+// dropped, so `client_ptr` is valid for every `read_raw` invocation.
-+// Concurrent access is safe because the I2C adapter lock serializes all
-+// SMBus transactions.
-+unsafe impl Send for As5600Priv {}
-+unsafe impl Sync for As5600Priv {}
-+
-+impl IioDriver for As5600Priv {
-+    fn read_raw(&self, _chan: *const iio_chan_spec, mask: isize) -> Result<IioVal> {
-+        // SAFETY: `client_ptr` was set from a valid `&I2cClient` in `probe()`.
-+        // The I2C client outlives the driver binding, and `read_raw` is only
-+        // called while the driver is bound.
-+        let client = unsafe { &*self.client_ptr };
-+
-+        #[allow(non_upper_case_globals)]
-+        match mask as u32 {
-+            // IIO_CHAN_INFO_RAW
-+            iio_chan_info_enum_IIO_CHAN_INFO_RAW => {
-+                let status = client.smbus_read_byte_data(AS5600_REG_STATUS)?;
-+                if (status & AS5600_STATUS_MD) == 0 {
-+                    return Err(Error::from_errno(-(ENODATA as i32)));
-+                }
-+
-+                let angle_h = client.smbus_read_byte_data(AS5600_REG_RAW_ANGLE_H)? as u16;
-+                let angle_l = client.smbus_read_byte_data(AS5600_REG_RAW_ANGLE_L)? as u16;
-+
-+                let angle = (angle_h << 8 | angle_l) & 0x0FFF;
-+                Ok(IioVal::Int(angle as i32))
-+            }
-+            // IIO_CHAN_INFO_SCALE
-+            iio_chan_info_enum_IIO_CHAN_INFO_SCALE => Ok(IioVal::IntPlusNano(0, 1533981)),
-+            _ => Err(EINVAL),
-+        }
-+    }
-+
-+    fn channels(&self) -> &[iio_chan_spec] {
-+        &self.channels
-+    }
-+}
-+
-+struct As5600 {
-+    _iio_dev: Device<As5600Priv>,
-+}
-+
-+impl Driver for As5600 {
-+    type IdInfo = ();
-+    const I2C_ID_TABLE: Option<IdTable<Self::IdInfo>> = Some(&I2C_TABLE);
-+    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
-+
-+    fn probe(dev: &I2cClient<Core>, _id_info: Option<&Self::IdInfo>) -> impl PinInit<Self, Error> {
-+        let _status = dev.smbus_read_byte_data(AS5600_REG_STATUS)?;
-+
-+        // SAFETY: `iio_chan_spec` is a C struct whose fields are all integers
-+        // and pointers. Zero is a valid initialization for all of them.
-+        let mut channels: [iio_chan_spec; 1] = unsafe { core::mem::zeroed() };
-+        channels[0].info_mask_separate = (1 << iio_chan_info_enum_IIO_CHAN_INFO_RAW)
-+            | (1 << iio_chan_info_enum_IIO_CHAN_INFO_SCALE);
-+        channels[0].type_ = iio_chan_type_IIO_ANGL;
-+
-+        let priv_data = As5600Priv {
-+            client_ptr: dev as *const _,
-+            channels,
-+        };
-+
-+        let mut iio_dev = Device::new(dev.as_ref(), priv_data, c"as5600")?;
-+
-+        iio_dev.register(dev.as_ref(), &crate::THIS_MODULE)?;
-+
-+        dev_dbg!(dev.as_ref(), "AS5600: Sensor probed, driver ready\n");
-+        Ok::<_, Error>(As5600 { _iio_dev: iio_dev })
-+    }
-+
-+    fn unbind(_dev: &I2cClient<Core>, _this: Pin<&Self>) {}
-+}
+Can you check do we really need this header ?
+
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/remoteproc.h>
+> @@ -118,8 +119,8 @@ struct qcom_pas {
+>  	struct qcom_rproc_ssr ssr_subdev;
+>  	struct qcom_sysmon *sysmon;
+>  
+> -	struct qcom_scm_pas_context *pas_ctx;
+> -	struct qcom_scm_pas_context *dtb_pas_ctx;
+> +	struct qcom_pas_context *pas_ctx;
+> +	struct qcom_pas_context *dtb_pas_ctx;
+>  };
+>  
+>  static void qcom_pas_segment_dump(struct rproc *rproc,
+> @@ -196,7 +197,7 @@ static int qcom_pas_shutdown_poll_decrypt(struct qcom_pas *pas)
+>  
+>  	do {
+>  		msleep(QCOM_PAS_DECRYPT_SHUTDOWN_DELAY_MS);
+> -		ret = qcom_scm_pas_shutdown(pas->pas_id);
+> +		ret = qcom_pas_shutdown(pas->pas_id);
+>  	} while (ret == -EINVAL && --retry_num);
+>  
+>  	return ret;
+> @@ -212,9 +213,9 @@ static int qcom_pas_unprepare(struct rproc *rproc)
+>  	 * auth_and_reset() was successful, but in other cases clean it up
+>  	 * here.
+>  	 */
+> -	qcom_scm_pas_metadata_release(pas->pas_ctx);
+> +	qcom_pas_metadata_release(pas->pas_ctx);
+>  	if (pas->dtb_pas_id)
+> -		qcom_scm_pas_metadata_release(pas->dtb_pas_ctx);
+> +		qcom_pas_metadata_release(pas->dtb_pas_ctx);
+>  
+>  	return 0;
+>  }
+> @@ -228,9 +229,9 @@ static int qcom_pas_load(struct rproc *rproc, const struct firmware *fw)
+>  	pas->firmware = fw;
+>  
+>  	if (pas->lite_pas_id)
+> -		qcom_scm_pas_shutdown(pas->lite_pas_id);
+> +		qcom_pas_shutdown(pas->lite_pas_id);
+>  	if (pas->lite_dtb_pas_id)
+> -		qcom_scm_pas_shutdown(pas->lite_dtb_pas_id);
+> +		qcom_pas_shutdown(pas->lite_dtb_pas_id);
+>  
+>  	if (pas->dtb_pas_id) {
+>  		ret = request_firmware(&pas->dtb_firmware, pas->dtb_firmware_name, pas->dev);
+> @@ -250,7 +251,7 @@ static int qcom_pas_load(struct rproc *rproc, const struct firmware *fw)
+>  	return 0;
+>  
+>  release_dtb_metadata:
+> -	qcom_scm_pas_metadata_release(pas->dtb_pas_ctx);
+> +	qcom_pas_metadata_release(pas->dtb_pas_ctx);
+>  	release_firmware(pas->dtb_firmware);
+>  
+>  	return ret;
+> @@ -310,7 +311,7 @@ static int qcom_pas_start(struct rproc *rproc)
+>  		if (ret)
+>  			goto disable_px_supply;
+>  
+> -		ret = qcom_scm_pas_prepare_and_auth_reset(pas->dtb_pas_ctx);
+> +		ret = qcom_pas_prepare_and_auth_reset(pas->dtb_pas_ctx);
+>  		if (ret) {
+>  			dev_err(pas->dev,
+>  				"failed to authenticate dtb image and release reset\n");
+> @@ -329,7 +330,7 @@ static int qcom_pas_start(struct rproc *rproc)
+>  	if (ret)
+>  		goto release_pas_metadata;
+>  
+> -	ret = qcom_scm_pas_prepare_and_auth_reset(pas->pas_ctx);
+> +	ret = qcom_pas_prepare_and_auth_reset(pas->pas_ctx);
+>  	if (ret) {
+>  		dev_err(pas->dev,
+>  			"failed to authenticate image and release reset\n");
+> @@ -339,13 +340,13 @@ static int qcom_pas_start(struct rproc *rproc)
+>  	ret = qcom_q6v5_wait_for_start(&pas->q6v5, msecs_to_jiffies(5000));
+>  	if (ret == -ETIMEDOUT) {
+>  		dev_err(pas->dev, "start timed out\n");
+> -		qcom_scm_pas_shutdown(pas->pas_id);
+> +		qcom_pas_shutdown(pas->pas_id);
+>  		goto unmap_carveout;
+>  	}
+>  
+> -	qcom_scm_pas_metadata_release(pas->pas_ctx);
+> +	qcom_pas_metadata_release(pas->pas_ctx);
+>  	if (pas->dtb_pas_id)
+> -		qcom_scm_pas_metadata_release(pas->dtb_pas_ctx);
+> +		qcom_pas_metadata_release(pas->dtb_pas_ctx);
+>  
+>  	/* firmware is used to pass reference from qcom_pas_start(), drop it now */
+>  	pas->firmware = NULL;
+> @@ -355,9 +356,9 @@ static int qcom_pas_start(struct rproc *rproc)
+>  unmap_carveout:
+>  	qcom_pas_unmap_carveout(rproc, pas->mem_phys, pas->mem_size);
+>  release_pas_metadata:
+> -	qcom_scm_pas_metadata_release(pas->pas_ctx);
+> +	qcom_pas_metadata_release(pas->pas_ctx);
+>  	if (pas->dtb_pas_id)
+> -		qcom_scm_pas_metadata_release(pas->dtb_pas_ctx);
+> +		qcom_pas_metadata_release(pas->dtb_pas_ctx);
+>  
+>  unmap_dtb_carveout:
+>  	if (pas->dtb_pas_id)
+> @@ -406,7 +407,7 @@ static int qcom_pas_stop(struct rproc *rproc)
+>  	if (ret == -ETIMEDOUT)
+>  		dev_err(pas->dev, "timed out on wait\n");
+>  
+> -	ret = qcom_scm_pas_shutdown(pas->pas_id);
+> +	ret = qcom_pas_shutdown(pas->pas_id);
+>  	if (ret && pas->decrypt_shutdown)
+>  		ret = qcom_pas_shutdown_poll_decrypt(pas);
+>  
+> @@ -414,7 +415,7 @@ static int qcom_pas_stop(struct rproc *rproc)
+>  		dev_err(pas->dev, "failed to shutdown: %d\n", ret);
+>  
+>  	if (pas->dtb_pas_id) {
+> -		ret = qcom_scm_pas_shutdown(pas->dtb_pas_id);
+> +		ret = qcom_pas_shutdown(pas->dtb_pas_id);
+>  		if (ret)
+>  			dev_err(pas->dev, "failed to shutdown dtb: %d\n", ret);
+>  
+> @@ -484,11 +485,11 @@ static int qcom_pas_parse_firmware(struct rproc *rproc, const struct firmware *f
+>  	 *
+>  	 * Here, we call rproc_elf_load_rsc_table() to check firmware binary has resources
+>  	 * or not and if it is not having then we pass NULL and zero as input resource
+> -	 * table pointer and size respectively to the argument of qcom_scm_pas_get_rsc_table()
+> +	 * table pointer and size respectively to the argument of qcom_pas_get_rsc_table()
+>  	 * and this is even true for Qualcomm remote processor who does follow remoteproc
+>  	 * framework.
+>  	 */
+> -	output_rt = qcom_scm_pas_get_rsc_table(pas->pas_ctx, table, table_sz, &output_rt_size);
+> +	output_rt = qcom_pas_get_rsc_table(pas->pas_ctx, table, table_sz, &output_rt_size);
+>  	ret = IS_ERR(output_rt) ? PTR_ERR(output_rt) : 0;
+>  	if (ret) {
+>  		dev_err(pas->dev, "Error in getting resource table: %d\n", ret);
+> @@ -746,7 +747,7 @@ static int qcom_pas_probe(struct platform_device *pdev)
+>  	if (!desc)
+>  		return -EINVAL;
+>  
+> -	if (!qcom_scm_is_available())
+> +	if (!qcom_pas_is_available())
+>  		return -EPROBE_DEFER;
+>  
+>  	fw_name = desc->firmware_name;
+> @@ -838,16 +839,16 @@ static int qcom_pas_probe(struct platform_device *pdev)
+>  
+>  	qcom_add_ssr_subdev(rproc, &pas->ssr_subdev, desc->ssr_name);
+>  
+> -	pas->pas_ctx = devm_qcom_scm_pas_context_alloc(pas->dev, pas->pas_id,
+> -						       pas->mem_phys, pas->mem_size);
+> +	pas->pas_ctx = devm_qcom_pas_context_alloc(pas->dev, pas->pas_id,
+> +						   pas->mem_phys, pas->mem_size);
+>  	if (IS_ERR(pas->pas_ctx)) {
+>  		ret = PTR_ERR(pas->pas_ctx);
+>  		goto remove_ssr_sysmon;
+>  	}
+>  
+> -	pas->dtb_pas_ctx = devm_qcom_scm_pas_context_alloc(pas->dev, pas->dtb_pas_id,
+> -							   pas->dtb_mem_phys,
+> -							   pas->dtb_mem_size);
+> +	pas->dtb_pas_ctx = devm_qcom_pas_context_alloc(pas->dev, pas->dtb_pas_id,
+> +						       pas->dtb_mem_phys,
+> +						       pas->dtb_mem_size);
+>  	if (IS_ERR(pas->dtb_pas_ctx)) {
+>  		ret = PTR_ERR(pas->dtb_pas_ctx);
+>  		goto remove_ssr_sysmon;
+> -- 
+> 2.51.0
+> 
+
+Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 -- 
-2.50.0
-
+-Mukesh Ojha
