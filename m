@@ -1,195 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32122342CB4;
-	Wed, 29 Apr 2026 08:19:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB783A9632
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 08:22:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777450757; cv=none; b=FaXJWZPi5LmQFtwEIp+Cc+/rQymLbyoHVJCv7Wv72OhH1/pEymXGFs1I9ZMKUiRifvh7cOlV00Dcs1ORrnIlZReA7fMpYGVQjrd0uutGsMvcDx9zRheT+lf2uWYaW3uDTeoSXWDIaornbQxalNnqkj+cqOhhLG5yDLoa2vzpOzg=
+	t=1777450926; cv=none; b=h6Pj0eZgJM/5rgD1xCUeVShumG7Sp/u+n2iDtmDnKm97fchbG2ChMyqZR/dL68AZTWfXll4EFRcvULW9PeonjqDfs3+O4c+CTcCUYzM3pWavqxry1+ic2ZpTvg89fCuK+7XpK0XgrFDVt0elatCW4zENQJewnsqA2BQDaqLGqiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777450757; c=relaxed/simple;
-	bh=IDu8gLXSNTp3NrOI27W68qJX6hYnnDVK6G1TVmyYnW4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iN2zRs0snu3seuaDUUYc8QjiIirawnbxGvofp1odZEKiQ1YMdSBui5NhCUbY+jxnjmZ/solGr5xvglYue5Etb8MeGGWGgZScbgikNhHV21Fhir8Z+Z+gkXb6BR6ScTsxz0hv/T9yIkmm1gMkcNIQVOZNwyYg5NWPkwgrUL63x5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ebkt1+a0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777450926; c=relaxed/simple;
+	bh=+9M/cFtsoQyfrNsQ9FS6t3KvUfUQVhNH19LJXrEpyQM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BsupdPdbh5R2yWLkjRHMc+q6axEmTeZvJbNbta+n89Xm3vEw/v9eNRf9VJc9OkbuOF2MhFfMPSP9r/ufLWIDoMxdOWNcyh6NCK60Yq2L8ayqi1g+NlnJNk4BSvUnRCZ7Jb0zdql7Qb8W/WQ6T0OQtIni9DTSmAVQAzWADuPyXdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com; spf=pass smtp.mailfrom=tinyisr.com; dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b=Fb/y27gv; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=M/JCgXdB; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tinyisr.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ebkt1+a0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 088A9C19425;
-	Wed, 29 Apr 2026 08:19:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777450756;
-	bh=IDu8gLXSNTp3NrOI27W68qJX6hYnnDVK6G1TVmyYnW4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ebkt1+a0YcUGTorkmsmxt3mJ9QJm2/Jn1TxixTGWMuS5BspBsorquoLHJMacbqc6s
-	 fCL/I7K+eZLQrKSdQbi9Ort9jQd5aI9Ccb4IwhQKlO9CesR5KWt4mt1KJ6n9mgO5dj
-	 +IkeNbRP2IfcBnzVqXsLN+SXnfYMYUJplL1mSIdlB9MNXWau7feByOb/tNOY6+AJyo
-	 vVDlzTthubcUmZjG6nFjP/jaiqYYOAhfMG4iMaXUdMKjnYB2BeJTZqb17Y3b2/XWf9
-	 OHWPlUM9cGMbPLQE1UIte5q3kFoYO9KVr43aMGVmVJ0GY3qikgw55RxZHkFD6FJGZ7
-	 wmddZc6CCgRAw==
-Message-ID: <4fda911e-df77-43bd-9248-e55ed587d040@kernel.org>
-Date: Wed, 29 Apr 2026 10:19:11 +0200
+	dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b="Fb/y27gv";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="M/JCgXdB"
+DKIM-Signature: a=rsa-sha256; b=Fb/y27gvpwne4EMiKYSKktrm0zoxQw5w0qdKlxYj1PsjUQTQZg08WCD2x8K2Wiu/ud23xcJFAx025119TI5Y3wY6Tj+20NFYrRg+ebAPGh+cxcCS0j6o8nwlcOU/GQjDEAQwJoCCJ1S8Gysg9OHGXWvjKSYb/69+Y6fKvvbLNI3tbckdMZvbIG7vh3pm0u7lndpYYuisnkMgOYrEW0TU5WcsatAlWBVnU5RkDZmD1/aKuN9II45y60EjaZxYkuDqLrnHm5X6sJiViiDrd796RC0ksVqK5J3HQ7Vhcs0MDc2W7BkvTZ5RgcriYEA+VFuwVUmUV02uXQUKGkhp2DFCIw==; s=purelymail2; d=tinyisr.com; v=1; bh=+9M/cFtsoQyfrNsQ9FS6t3KvUfUQVhNH19LJXrEpyQM=; h=Received:Date:From:To:Subject;
+DKIM-Signature: a=rsa-sha256; b=M/JCgXdBvOifLu5hevyQhNXc9XuInd1Hb0cv6pxFLy/VS2PAkaG4uL+tB89UfjLqaSvu+9Ua6Kv3EzZwlaF1mP/qCf0mPhASLukJUyRFSidEqH0bKq1j40XYInMymJilBuedM7ZwbE5uMYB37qKwgzv8Bx+bprBG3P7prrqy2XP+o89wU5NpVeRXR0uKdAcLSBjuYB5Wmfz1HORKQQvraHpVTsm/tFuPukMUXOPVzqLvh767yB1z8uDRt552lacz45ll0nGCA10Pp4Ndvvylge3f4Qq6bgC+Hau65/yvCBUo3dMWa/lrPAUDVtWfFJA11IuMR8p/PydxlARKrl7v9Q==; s=purelymail2; d=purelymail.com; v=1; bh=+9M/cFtsoQyfrNsQ9FS6t3KvUfUQVhNH19LJXrEpyQM=; h=Feedback-ID:Received:Date:From:To:Subject;
+Feedback-ID: 99681:12517:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -650336061;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Wed, 29 Apr 2026 08:21:44 +0000 (UTC)
+Date: Wed, 29 Apr 2026 11:21:30 +0300
+From: Joris Vaisvila <joey@tinyisr.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: netdev@vger.kernel.org, horms@kernel.org, pabeni@redhat.com, 
+	kuba@kernel.org, edumazet@google.com, davem@davemloft.net, olteanv@gmail.com, 
+	Andrew Lunn <andrew@lunn.ch>, devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH net-next v3 0/4] net: dsa: mt7628 embedded switch initial
+ support
+Message-ID: <afG9uaP_zWiWMdq9@archlinux>
+References: <20260428185510.261521-1-joey@tinyisr.com>
+ <20260429-impossible-archetypal-bear-607a7b@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] dt-bindings: net: wireless: intel,iwlwifi: add
- binding
-To: Avinash Bhatt <avinash.bhatt@intel.com>, devicetree@vger.kernel.org
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- johannes@sipsolutions.net, miriam.rachel.korenblit@intel.com,
- kobi.guetta@intel.com, emmanuel.grumbach@intel.com
-References: <20260429081403.46087-1-avinash.bhatt@intel.com>
- <20260429081403.46087-2-avinash.bhatt@intel.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260429081403.46087-2-avinash.bhatt@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260429-impossible-archetypal-bear-607a7b@quoll>
 
-On 29/04/2026 10:14, Avinash Bhatt wrote:
-> Add a devicetree schema binding for Intel discrete Wi-Fi 7 BE200 PCIe
-> adapters.
-
-Why? Where is any user of that?
-
+On Wed, Apr 29, 2026 at 09:09:44AM +0200, Krzysztof Kozlowski wrote:
+> On Tue, Apr 28, 2026 at 09:55:06PM +0300, Joris Vaisvila wrote:
+> > Hello,
+> > 
+> > This patch series adds initial support for the MediaTek MT7628 Embedded
+> > Switch.
+> > 
+> > The driver implements the basic functionality required to operate the
+> > switch using DSA. The hardware provides five internal Fast Ethernet user
+> > ports and one Gigabit port connected internally to the CPU MAC.
+> > 
+> > Bridge offloading is not yet supported.
+> > 
+> > Tested on an MT7628NN-based board.
+> > 
+> > changes since v2:
+> > 	- fix binding issues found in review
 > 
-> The binding documents OEM platform configuration properties for
-> platforms that use Device Tree instead of platform firmware
-> methods. All properties mirror the existing equivalents in
-> structure and semantics, covering SAR power limits (intel,wrds),
-> 6 GHz AP type support (intel,uats), static power limit
-> (intel,splc), channel puncturing (intel,wcpe), 320 MHz per-MCC
-> enablement (intel,wbem), ETSI SRD channel configuration
-> (intel,srd), 6-7 GHz UHB country enable bitmask (intel,6e-uhb),
-> and additional regulatory override properties.
+> Which issues exactly?
 > 
-> Signed-off-by: Avinash Bhatt <avinash.bhatt@intel.com>
-> ---
->  .../bindings/net/wireless/intel,iwlwifi.yaml  | 445 ++++++++++++++++++
->  1 file changed, 445 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/wireless/intel,iwlwifi.yaml
+> This has to be specific.
 > 
-> diff --git a/Documentation/devicetree/bindings/net/wireless/intel,iwlwifi.yaml b/Documentation/devicetree/bindings/net/wireless/intel,iwlwifi.yaml
-> new file mode 100644
-> index 000000000000..d97be6cc35d8
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/wireless/intel,iwlwifi.yaml
-> @@ -0,0 +1,445 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (c) 2026 Intel Corporation
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/wireless/intel,iwlwifi.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Intel iwlwifi PCIe Wi-Fi devices
-> +
-> +maintainers:
-> +  - Avinash Bhatt <avinash.bhatt@intel.com>
-> +  - linux-wireless@vger.kernel.org
+> Best regards,
+> Krzysztof
+> 
 
-Drop this one.
+Hi Krzysztof, 
 
-> +
-> +description:
-> +  Intel iwlwifi IEEE 802.11be discrete Wi-Fi adapters connected over PCIe.
+My bad. These are the binding changes since v2:
 
-Please wrap code according to the preferred limit expressed in Kernel
-coding style (checkpatch is not a coding style description, but only a
-tool).  However don't wrap blindly (see Kernel coding style).
-
-> +  These bindings provide OEM platform configuration for platforms that use Device Tree.
-
-Drop. Describe hardware.
-
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - pci8086,272b
-> +
-
-...
-
-> +
-> +  intel,activate-channel:
-> +    description: |
-> +      Indoor channel activation bitmask. Sets specific frequency bands to
-> +      active (rather than passive or disabled) when the platform is
-> +      confirmed to be operating indoors.
-> +
-> +      Layout (2 cells):
-> +        [0] revision - structure revision, must be 0x00
-> +        [1] bitmap   - per-region indoor activation flags:
-> +                       bit 0 = enable EU U-NII-1 (5.2 GHz) for indoors only
-> +                       bit 1 = enable Japan U-NII-1 (5.2 GHz) for indoors only
-> +                       bit 2 = enable China Mainland U-NII-1 (5.2 GHz) for indoors only
-> +                       bit 3 = enable USA U-NII-4 (5.9 GHz) for indoors only
-> +                       bit 4 = enable WW U-NII-1 (5.2 GHz) for indoors in any
-> +                               country where the band is permitted
-> +                       bit 5 = enable Canada U-NII-4 (5.9 GHz) for indoors only
-> +                       bit 6 = enable USA + Canada + WW U-NII-4 (5.9 GHz) for
-> +                               indoors only
-> +                       bits 7-31: reserved, must be 0
-> +    allOf:
-> +      - $ref: /schemas/types.yaml#/definitions/uint32-array
-> +      - minItems: 2
-> +        maxItems: 2
-> +        items:
-> +          - const: 0
-> +
-> +  intel,force-disable-channels:
-
-I don't see how this is a DT property. Actually most of the properties
-do not look either. Do you want to say, that if I go with my device from
-EU to US on a business trip, I will need to recompile DTB? Obviously no...
-
-Best regards,
-Krzysztof
+- Removed description from reg property
+- Clarify reset descriptions
+- Added ethernet-ports to required 
+- Fix reg coming before compatible in the example
+- Replaced 'ports' and 'port' with 'ethernet-ports' and 'ethernet-port'
+  respectively in the example
