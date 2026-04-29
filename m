@@ -1,138 +1,111 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8800B3B9D9C
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 09:07:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF4EE3BC693;
+	Wed, 29 Apr 2026 09:13:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777453656; cv=none; b=Cq1scujAefD7h2pwsMoAXCJi+XadN3P6JT+i+CMc8/Pjb59NArSbYqtI6hAK3NmRgYmw0I2K9OUIojeWFoT6IXMtDFq6TM1LI++p/xs+yBIUlkS2iOK2+J40iuZbmgm7Q1CdtLsJ++hNv5aFT3t/Sxd3P9cKFFVE40Ap5YHfUE0=
+	t=1777454019; cv=none; b=CyTbtkvebiULxUr8u1nygxwT0576jo50l9ecrg/J40sqEJETs+d27ChK+ioQ07+hNBRHwSNH0hXZUsxBqscCsPj7rN2zFSt+BKyQ27R4kbwrZvAecWdE8IZENVXwtsztbhBBwsFSjamLF4YpTWDPBZgkph5Ee2A48nJRg7y4GRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777453656; c=relaxed/simple;
-	bh=AwZuUXPk4/WpmF+r8jDpB7wrDuVU3zFwiYudmOuTakQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BSBbup4XWb/2xd9NYVmNu5D2SaX6373qt0rLNXA0Vp0AwecTdGpC3VQVCKpB+MYmf5uNSGuaB30eIigsYoRv9vOcmeznk9KemFWKLiZTLpZ2DkF3orqwYshrQv9S4K85ftX0EhvA6zE0CKJ4ebRm/7HSRAxoGd7E7zsld8E+Mtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=WzlnfwAr; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1777454019; c=relaxed/simple;
+	bh=+dtQ3f+XBoxv3HZDucz50ukJ2U/SQ+5U7lcx9cpy2/w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tpHWHw5hg+6pNZBUOoDdjhOWpeNZywWwu+XlYvA8mtLiN7WIP3d/91XNlWY13RVl1++OcvlyOjdFajAGaaH/sbk13t9S+pOcIOHdpXsPzu7ACvWrFsHWz8noKc9LTg/kjPqPvjBnAseHX7wqPym3U9Inzj/9jUtouIURk3NEt0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=A+NwNV1k; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="WzlnfwAr"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-48374014a77so157736835e9.3
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 02:07:34 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="A+NwNV1k"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777453653; x=1778058453; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=8Lj5tmUBXJFmzYH2N7Dd27gLNCll+S51FdGFIIdlW1Y=;
-        b=WzlnfwAr4DJID5MtMtZ5nD/hIInr+BJPMOmbnxGKYJdc5oZo19tk5YD9fLAkzZx6XQ
-         t3oQIb8ONLqCn/clp6+dSaUcXmlYA3KCj10APjyZq7ZodhQmXFSqwnaLOmUGNbyCleTm
-         06KP2V5WK1ba+Rto9wLX78pIU7NRQJ04Q0CVYPJrBu62F7rfNGcphlKxmE4TuIEXtKCL
-         cvgXoI3me+BsJRE8jRB9xrFiYKz/sWrAL/oJepsxfZK1x95WzrxSfx7SCcR3wacUGxKy
-         CrMfpKo5lqE5pUI2WOG5Vws/QVrqM3u92g9nBypyXlW7YbdWoFLZ72kYqIFcDXyRtY+7
-         r+6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777453653; x=1778058453;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=8Lj5tmUBXJFmzYH2N7Dd27gLNCll+S51FdGFIIdlW1Y=;
-        b=TCEyrVo3BhyJZb00dfnWrcXEvJAJpoD1LQUT0QUpZHbDF4JFfho11t56lf2lbd9Ebw
-         lfErd7ih+9+NWc+Nvct5zOoyxZQZFMm2Y8h0hBi6oCAVsoSOJz4q3sDLdlNXB1XIaEoZ
-         9ucE8IjYMk73e2fWp83r2lvaB84rk2ZmO0a3euE8ypcuBu78Mtl0DQ5cl6cWvdwD8CNk
-         XwGo+LVfBpf0XRP+I2uCDpQJFDBcIcx1ZVslzz8w+ka6YNSqNuA5FZARpP9/IT8sUDQg
-         n7KXv2GIOBCZ9k3YaS7csHMUoFyaEmOH7iaonQfMwCHgk9ZEbBaBVJdxbqysTeIsRXdl
-         eaFQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8FSCTW5GsusogVkE4MuQOTUeoLREAp7yzPbb9L+uXyT+4EZXleFhdvbFi+yYt8ERH5+pIxq5972qwK@vger.kernel.org
-X-Gm-Message-State: AOJu0YzOIgxt+Fdc0g9PGqELQSyTrIJ5b0E0iIicf7NkeEUdnsNX5pMm
-	iUvhGd4iNluQk2tE3ryuttoVlcZ8xXKVjE1XkL6CvAkYmyDdT5ao/s0cCDt8aGRatpE=
-X-Gm-Gg: AeBDievkE0oDJMIOpsd6PlsjyYq3avlNpkVCtU/wF05vmmtBOenv9IQTyVVN5Iyw0BD
-	lk8g8hvAhjeV9nN+hfsL4o9GRvvbIhtCsyd8h9kOBBbxEVa6jndJj5wpyCJCZSns0SYsfG8Wo+e
-	LY3myvpHWcqXgkjDWoKa1XESKz6b3KFvQiEDBFoJRK8EDfKtdovZoLgf8w5LM/YFDucRoQeNjvk
-	Hn/yKOMGvlGBWQ/C0rL+zd7ytvpSwRYYE+2EX+Na6+cOTzAYD/zCyLwHxhatdv156hgbrx7rOhA
-	xNymx/6TM5fCEHjqMYtaF+XT2VmhReiupTzKahsFt6TqPCbf0rRe8NfnDNIOZL9TT+QPtIgRmyn
-	wK8+qcBv1ZJNBa/AsmCNtBNMM8crOtUeVi31Paf29xYWD8e02N+q1SgbL5DLihCDt3kSxAfMVDG
-	3pp1cYO32KP3WWl0IHGGylAuw0zgkHApAgBnkJlpWNagU=
-X-Received: by 2002:a05:600c:2e55:b0:48a:7b55:12a6 with SMTP id 5b1f17b1804b1-48a7b55131amr28563845e9.0.1777453652729;
-        Wed, 29 Apr 2026 02:07:32 -0700 (PDT)
-Received: from [10.11.12.108] ([79.115.63.228])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a7c5d1a53sm40803645e9.14.2026.04.29.02.07.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Apr 2026 02:07:32 -0700 (PDT)
-Message-ID: <6dcb5348-e973-494d-adf1-7fa2dc5655f2@linaro.org>
-Date: Wed, 29 Apr 2026 12:07:28 +0300
+	d=ultrarisc.com; s=dkim; h=Received:From:Date:Subject:
+	MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	References:In-Reply-To:To:Cc; bh=W6qFc8IOjX0c5M+yiuQoc29Iohko0me
+	7jng1y1x4BCM=; b=A+NwNV1k4NPQTKIfGOwBv8LBYrMyUE9hyuYdOfkG1Z2gRmn
+	b53Q6VEYpzbLBIYFB0e1uOKU/FgN7x+z2uTS4wfeRX913O1sosINBLz4OyWL8kz5
+	DROBZQXKtfM2UpgI5M4yQmmLsDhOMmzdVoGVkS0QS7zH8IdWcNcMwLbtjF88=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwA3cULgy_FpFiUDAA--.1811S6;
+	Wed, 29 Apr 2026 17:14:11 +0800 (CST)
+From: Jia Wang <wangjia@ultrarisc.com>
+Date: Wed, 29 Apr 2026 17:13:28 +0800
+Subject: [PATCH v7 4/4] serial: 8250_dw: Use a fixed CPR value for
+ UltraRISC DP1000 UART
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] mailbox: exynos: Add support for Exynos850 mailbox
-To: Alexey Klimov <alexey.klimov@linaro.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>,
- Sam Protsenko <semen.protsenko@linaro.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jassi Brar <jassisinghbrar@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>, linux-samsung-soc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260402-exynos850-ap2apm-mailbox-v2-0-ca5ffdff99d4@linaro.org>
- <20260402-exynos850-ap2apm-mailbox-v2-2-ca5ffdff99d4@linaro.org>
- <a02a693e-b06e-43bf-ac5f-8253f298c83d@linaro.org>
- <DHNSP3FVR4ZQ.1PIRHF0KJGKI5@linaro.org>
- <DI52JP9JH6AH.3I5OKWOZ56MIU@linaro.org>
-Content-Language: en-US
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: <DI52JP9JH6AH.3I5OKWOZ56MIU@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260429-ultrarisc-serial-v7-4-e475cce9e274@ultrarisc.com>
+References: <20260429-ultrarisc-serial-v7-0-e475cce9e274@ultrarisc.com>
+In-Reply-To: <20260429-ultrarisc-serial-v7-0-e475cce9e274@ultrarisc.com>
+To: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
+ Jia Wang <wangjia@ultrarisc.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777454005; l=1792;
+ i=wangjia@ultrarisc.com; s=20260309; h=from:subject:message-id;
+ bh=+dtQ3f+XBoxv3HZDucz50ukJ2U/SQ+5U7lcx9cpy2/w=;
+ b=nmerw0ArdTWMMQFMZSuME4C0AJnXNs0ypTI1gfzcje9qI2TXhHpB7t9chdK9vLktGmCITfZg0
+ WR1yoMKYkBcCvGxo3WPqYm1vQFQGZCHi5fl5eBJFIMhcMl1iYh9g1EB
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=XvYkrelqJIIzobY7j+nIg8rsfv5kzaOzuc1UPhd087U=
+X-CM-TRANSID:AQAAfwA3cULgy_FpFiUDAA--.1811S6
+X-Coremail-Antispam: 1UD129KBjvJXoW7tw1kXw4fWry5Gw18AryfXrb_yoW8Cr4fpF
+	47GrZ0vFySgF4Yg3WIy3WvvFZ7ua17Zry2k3srK347tFn8tFyUJrnakrWay3ZIgFySqw1a
+	yF1Y9rW7Aa18Za7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_UUUUUUUUU==
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAKEWnti78ACwBVs0
 
+The UltraRISC DP1000 UART does not provide the standard CPR register used
+by 8250_dw to discover port capabilities.
 
+Provide a fixed CPR value for the DP1000-specific compatible so the
+driver can configure the port correctly.
 
-On 4/28/26 11:26 PM, Alexey Klimov wrote:
-> On Wed Apr 8, 2026 at 2:08 PM BST, Alexey Klimov wrote:
-> 
-> [...]
-> 
->> On Thu Apr 2, 2026 at 9:42 AM BST, Tudor Ambarus wrote:
->>>>  static int exynos_mbox_send_data(struct mbox_chan *chan, void *data)
->>>> @@ -57,7 +104,8 @@ static int exynos_mbox_send_data(struct mbox_chan *chan, void *data)
->>>>  		return -EINVAL;
->>>>  	}
->>>>  
->>>> -	writel(BIT(msg->chan_id), exynos_mbox->regs + EXYNOS_MBOX_INTGR1);
->>>> +	writel(BIT(msg->chan_id) << exynos_mbox->data->irq_doorbell_shift,
->>>> +	       exynos_mbox->regs + exynos_mbox->data->irq_doorbell_offset);
->>>
->>> Use FIELD_PREP from <linux/bitfield.h> please. You will use a mask instead of
->>> a shift.
->>>
->>> I would rename irq_doorbell_offset to intgr. It aligns with the register name
->>> from the datasheet. You won't need to prepend _offset to the name, we already
->>> see it's an offset when doing the writel().
->>
->> Sure. Thanks. Let's use FIELD_PREP.
-> 
-> +       /* Ring the doorbell */
-> +       writel(BIT(msg->chan_id) << exynos_mbox->data->intgr_shift,
-> +              exynos_mbox->regs + exynos_mbox->data->intgr);
-> 
-> FIELD_PREP() wants a mask as a compile-time constant. Unless you want me to
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/tty/serial/8250/8250_dw.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Indeed, I forgot, sorry.
+diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+index 480f82d89856..55e40c10f46a 100644
+--- a/drivers/tty/serial/8250/8250_dw.c
++++ b/drivers/tty/serial/8250/8250_dw.c
+@@ -959,6 +959,15 @@ static const struct dw8250_platform_data dw8250_intc10ee = {
+ 	.quirks = DW_UART_QUIRK_IER_KICK,
+ };
+ 
++static const struct dw8250_platform_data dw8250_ultrarisc_dp1000_data = {
++	.usr_reg = DW_UART_USR,
++	.cpr_value = FIELD_PREP_CONST(DW_UART_CPR_ABP_DATA_WIDTH, 2) |
++		     DW_UART_CPR_THRE_MODE |
++		     DW_UART_CPR_DMA_EXTRA |
++		     DW_UART_CPR_FIFO_MODE_FROM_SIZE(32),
++	.quirks = DW_UART_QUIRK_CPR_VALUE,
++};
++
+ static const struct of_device_id dw8250_of_match[] = {
+ 	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
+ 	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
+@@ -966,6 +975,7 @@ static const struct of_device_id dw8250_of_match[] = {
+ 	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
+ 	{ .compatible = "sophgo,sg2044-uart", .data = &dw8250_skip_set_rate_data },
+ 	{ .compatible = "starfive,jh7100-uart", .data = &dw8250_skip_set_rate_data },
++	{ .compatible = "ultrarisc,dp1000-uart", .data = &dw8250_ultrarisc_dp1000_data },
+ 	{ /* Sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, dw8250_of_match);
 
-> add switch/case for different SoCs or I misunderstood something I don't see
-> how this is gonna fly.
+-- 
+2.34.1
 
-other option is to have a .ring_doorbell callback defined in the SoC data,
-and then you can use FIELD_PREP. But it increases boilerplate code just to
-ring a doorbell. I wouldn't go via switch/case. I think we'll have to live
-with the mask and shift.
-
-Cheers,
-ta
