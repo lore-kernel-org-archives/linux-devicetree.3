@@ -1,125 +1,87 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5812D35CB66
-	for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 23:35:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777419355; cv=pass; b=YrPbS1nuqLkGYS54V5J8cImYcjv3DLujy3cMOqr2yKQaIg3F/q12F1Z9gR9D5EhQHjqA5v6vbwQ1DpURRrw+vopFD/xP7Ouh+IGr5k6gYJo7cMJ5+yImjpRV4m3v0FKrDOSJQMS0bPGa3RMRBlKqB8P+/hgJsW9TbBXMM2DeLN4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777419355; c=relaxed/simple;
-	bh=p24DGe2ChYsLvCmBXf6Kp5TWFFLOr7i+/3Xsm2m1l9M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VinKe5e3Tvs0Vzp7qomozAOVuokyUTE1WTx33Vdsnw2jpbUGEk9IrzI/OgYkpUgVFY1i62L77BTDk79keAILUYm+hsOz/EEYU4APXtrpbAxl8WoTuQeYaiVn/iC8aEVjqmZ1kNQpHNVm9Eiz2aJ6NrpXHxqAthimpda3JJzv2yo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lqhu2+sG; arc=pass smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B85175A9C;
+	Wed, 29 Apr 2026 00:23:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777422238; cv=none; b=T3H8K6J0Av/PM1kfJTmoGfc8skaDWozzU2xRbTRajRNPr+3/zNbd60KSpGibpdeCef2xGr9nz9ZOe0dkXUXXMxRiJq/bir6NmtvurT4bvQNRxWi25zoRxHbOulOEcd7KIT7VyW4jAFghrmFYNd4alu7axYbQecE4m3o/L2KAIE8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777422238; c=relaxed/simple;
+	bh=YcRgSx7RdBOF/znXu+5wS1Gz8hSobGRECpLsYfP5Wss=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iKAPRHyoKvfhZIaBvdBfp6Z7UR8LvvYwVRXPHhCRbumBMvilCr/ab13NmrvEIWMhJqYj2WmaN73O9CU7Ypit5Pf0Jo4PTx8HNfdgY8cyRyxvTfsDrNjJlC/+YhphOnnRg+XRlT+RYOil5VUhF3wE2k45h/ysZ7QVYlAiza8+nG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d+F7zhby; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lqhu2+sG"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ad9516a653so60839105ad.0
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 16:35:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777419354; cv=none;
-        d=google.com; s=arc-20240605;
-        b=HaitsWGyBazoa3j5/CrO3FDVy2GPDREfSBhrQ8lnrlebh0VvvjVGIUCCA9QelG1ozt
-         SXVRmZzgtfMxGpBD2cNiB3i1oDOCh9XmGIyDYNAu19fDFKuC0gFesNrrDiLh080jemVq
-         7zt/4epmJi0mjpDWETLOAMpTuCZdE4I/9tQJ7SvyOQWYURTMy4n9XiKyQ2bvkn97/qnK
-         GRSIqYn8H/aoiZKvrfKFrnZffvEPh3ZFRAsAaqQXs9hZRR+erQpKKZqkcfCsBcAWnOb+
-         YOm4IKp4/Ai1+YZZLa1MYjbMDxi9+WjF1MeZzeHm2PVI55211hpxL3pV/NkbfFDD915O
-         FR0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=0db33wYSB/VKxNPenizKPNWOjqB/3saiIIrw++PQlmA=;
-        fh=q2wP/SQSI3YPDsd6+p3UQYD3Gp+QIkmDln6ZGaRUGr4=;
-        b=lIAF5tkGVN0x5iuAP4ROMZ8GTUmiXUjbreeypipvr4iw6J3l/NDBVwCiHnrfmFaiUp
-         o1qWEpAhbb3yAjhXSB+Mnh50B4qg2FyVg8SBY5kyZHa55iVkQpJMG5CBjtY/p1rBXTuz
-         fvSTCji9g05nkF5wipSbXorc2bHnUyrYnquBPvdfJLq4ZQSp3vwaddN3S6DhSsNmeRua
-         IskzcBb80x3JXIlsm+QzL22M/a0gAdbDR/60SKdvmD5DkiofAJjNdcu1wZPkODGDhh6s
-         USnpZl0OZBhKcFy6lxZNZvhtMnaiCszDcKJDjWjlH4wY6Qibi1g62jXzJGzazEouzXAF
-         zLTQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777419354; x=1778024154; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=0db33wYSB/VKxNPenizKPNWOjqB/3saiIIrw++PQlmA=;
-        b=lqhu2+sGzhBTsyZRRos2jZ387BvKCfAcc1fKf1A/JtGEisIHLLncDhhkhhRlvdUIMJ
-         Dlg3Jve5tuMahEqtI8RpjhflyeAMzsEIi3hfFO6jBbs2PLnQBwAKxE8w8h5rWhIu/b7h
-         i+1ggRanMO3AgRtgI6tcLrx4Anl5NaM4VL1nKJ7UaCeVYW34Bh8SvOqkrjGoFf+B4m3z
-         XwhrlcC7MepsVB3dW4Sa6QjGUZJZW5ERxk8/PwiX1ZKWInGa07LASTJi254vjO4TYUf8
-         KsgPXB1etH51a2Ky1hoCINE5EHN+oYpO5Ep8rRjv2b9Dl1aRPtQdeWinaMksZwxTenym
-         bY2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777419354; x=1778024154;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0db33wYSB/VKxNPenizKPNWOjqB/3saiIIrw++PQlmA=;
-        b=qmnTa5KOl0tDuGEnSumfbXAfW1yfGoQ43oGbBL5vyyryVRZh4YbmJ5aVPN5YBiMvqk
-         V9xNzJYYH9s92RaaE8lMRIhLWF3+pMuEjzCv4pWYNaAvAeygjuOMBsuleT+1MgE0Tk6Q
-         HSdEWFg6g7P0A6Sw3VAtsj4pSF3iRp3h3kO5NuMCqGEDqc7zAmAQ5aI0ITMZxaPEsOrQ
-         0MoBJ5ARod0G0stEHi3D+Y+BsC8ljOuYpwMa350cFvN05q7bSDY5Ne2r8md1vzgxgu91
-         VbzJD9khM45j4PheHwCJy9007OaG7K2yOICKqwQzGlHXHSboRjubTP/sD58jh+riB9cc
-         wo0w==
-X-Forwarded-Encrypted: i=1; AFNElJ+s88NeUApKkrXS3DyuCKed9/fKCDf1jLzvA40rnFjHFq5eOohEF2r6NhChYc3IcDd0guM/2qptYw3R@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfyD/qtKll71ScfEFRfiM3Wrd44mzGXTwVkjbSICSS85XieRwq
-	EHtsQtz83zmWm4Vp74Tn3B4/B79uDwiGZZjTQyXs5R4YRYSI4lzCeDVYoMgc+/6T2Brm7c9y6nP
-	hr9UvI2L3qDtryIjveFpVawsjUIMP20o=
-X-Gm-Gg: AeBDietGAfpWPEg5Gz3VQR5ivbaaHeK81V6qhhmXoCDUxnf7gzV4bIJxlR2DDvfuXvH
-	qVXHptvxf9jNCcr5Hxfx2gX3DpJPlVFNlS4JktDPxweOiqUUOAWA1tU+n14r7NWJKSP6sX1JPuc
-	+Wj8mXlnB/l89LBSsmEti/m6F9EGv8C9C+v41QzWyz4NryRxkQx8dCPYd/Pxpjb7heiRaWkU2Y1
-	A5cdxwdWGxwmXTcv12MIlDc+IybJujpGY2oSqkJXj/H5OYsAHx3UBiqfL1uZmEN886sgLumEYyH
-	KMD/Dl/K/UKyBb7hXUUPhzoCeKkQr/RRW5c4QbHJqIS5LlZc0dY=
-X-Received: by 2002:a17:903:1c5:b0:2b2:4b4e:e4d8 with SMTP id
- d9443c01a7336-2b98730ca87mr13536075ad.4.1777419353607; Tue, 28 Apr 2026
- 16:35:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d+F7zhby"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFB4DC2BCAF;
+	Wed, 29 Apr 2026 00:23:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777422237;
+	bh=YcRgSx7RdBOF/znXu+5wS1Gz8hSobGRECpLsYfP5Wss=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=d+F7zhby5VePcFfrm91zfHHUjbndIevytPloJuH+7zj6BxbqVDlf21671i3cCZaAQ
+	 mdgT3CU60hm0vfOAuOsObCfPHgMUDuPFhf2mXy07b+IPfzn44dxZ6zOo7g+EQ4wKqZ
+	 /6Rpy+SSQJzr21m/0EBwsNPDq1E0W7SDhlfV7EzI9t4WIl+H56yyzgQnEWNEahbPJW
+	 rHR1bNIUcQ8JtwIj05hudIrcopTSp8ViekGNbY7cTd8/Qg46AyzcbuwYMPxUWndUfR
+	 JJ3jX+v5YEVbW0hi+/aNRKVFvA8SaIDkF91zq3YUH1ch0j2JKLSg6RRTus4EukamzU
+	 ABZi+yuZ67Akg==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 927E61AC584A; Wed, 29 Apr 2026 01:23:55 +0100 (BST)
+Date: Wed, 29 Apr 2026 09:23:55 +0900
+From: Mark Brown <broonie@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
+Subject: Re: [PATCH 1/2] dt-bindings: regulator: document the SGM3804 Dual
+ Output regulator
+Message-ID: <afFPmzqhXbVxZyCo@sirena.co.uk>
+References: <20260428-topic-sm8650-ayaneo-pocket-s2-sgm3804-v1-0-1d8dc7620256@linaro.org>
+ <20260428-topic-sm8650-ayaneo-pocket-s2-sgm3804-v1-1-1d8dc7620256@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-0-0caade5fdb32@linaro.org>
- <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-2-0caade5fdb32@linaro.org>
-In-Reply-To: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-2-0caade5fdb32@linaro.org>
-From: Gyeyoung Baek <gye976@gmail.com>
-Date: Wed, 29 Apr 2026 08:35:41 +0900
-X-Gm-Features: AVHnY4IUG0aEhSqiUeS0javv0LFZ7gitoer-tm54oLakxbwVeIPwDa7HUcbCYTI
-Message-ID: <CAKbEznvPAYFUt-ykH7rCQwMFUq6N68B9x7Dd97WRDm3Mvj34fw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] backlight: Add SY7758 6-channel High Efficiency LED
- Driver support
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, 
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-
-Hi,
-
-> +
-> +static int sy7758_probe(struct i2c_client *client)
-> +{
-
-> +
-> +       /* try read and check device id */
-> +       ret = regmap_read(sydev->regmap, REG_DEV_ID, &dev_id);
-> +       if (ret < 0)
-> +               return dev_err_probe(dev, -EPROBE_DEFER,
-> +                                    "failed to read device id\n");
-
-regmap_read() seems it can return errors other than -EPROBE_DEFER
-(like -EINVAL,), and hardcoding -EPROBE_DEFER here might drop the
-actual error.
-And maybe would keep retrying probe forever
-
-How about this?
-> +               return dev_err_probe(dev, ret, "failed to read device id\n");
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nzWnEtDwxCA2v1GK"
+Content-Disposition: inline
+In-Reply-To: <20260428-topic-sm8650-ayaneo-pocket-s2-sgm3804-v1-1-1d8dc7620256@linaro.org>
+X-Cookie: 667:
 
 
--- 
-Thanks,
-Gyeyoung
+--nzWnEtDwxCA2v1GK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Apr 28, 2026 at 03:52:05PM +0200, Neil Armstrong wrote:
+> Document the SG Micro SGM3804 Single Inductor Dual Output Buck/Boost
+> Converter used to power LCD panels a provide positive and negative
+> power rails with configurable voltage and active discharge function
+> for each output.
+
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
+
+--nzWnEtDwxCA2v1GK
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnxT5oACgkQJNaLcl1U
+h9BYewf+JaHr9hPVFbQMpKEkneQl4HFdyBpERIzmFaCjrqznRG2iJTSlovgmYzjM
+fcH99AY8WSh8Je/rFbZL//Io6v480DKMc06gKnvrWGiZbaLo/RAv4iGh6yYrUfYW
+bs4O4PJ1+8/qZ5TnwB9Zm6PfgRE23v/LxXf61YKQacxR54FyFFH3LGyp5xkPWXDl
+V9hdsAmO7bGGUYS+D68h+YaE+E/Ghc2IYUWckKLGHe3g7lQ+D9IjsfHc593yur30
+E9SlKJdNeioceC8Y01DddnF0d1HjQy20dBjsMMH3VpfjKRntw9WWbHz6qGRQrK23
+YygqBNg7a+YpgjhBAF+i4iP2/ZQZqQ==
+=1Sw7
+-----END PGP SIGNATURE-----
+
+--nzWnEtDwxCA2v1GK--
