@@ -1,24 +1,33 @@
-Received: from mail.auroraos.dev (unknown [95.181.193.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F292F37E30F
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 20:29:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.181.193.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B5235E94F;
+	Wed, 29 Apr 2026 20:35:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777494594; cv=none; b=gIAXkyxT2QV6MX3mkYWzpJFCNhc+RQt79JqchQiNdvu5YMP+lKDcOhFQZbVq0dsCDwWa2lasVC0UxKokyPa3dltfLN9HYVjxwy7Qxii5lyTLG0Zmn8DXTZWhrni1sizpipvbqX+hNP16miSU0qNpRvFvVgGFuQ94dZYRkRxA2DM=
+	t=1777494932; cv=none; b=QmYFl+FVMKQo2AaqTst62dTXVPVEcr8un2RB8+Ps4Iu3H8gmY7lv+4d16MBQs2/di+si5dtOHi+6jqBac5zku3x4ssyeNFUIgtphEIBlBUilrRRywcwCjNnuXDKLTVuXYoZc/a9Zd6pubP56Egv3xy/WYQMuc/m+u/N0E7NJeKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777494594; c=relaxed/simple;
-	bh=UnIb7WXariyi+q3labZn1TgnVVccAMmJBqKfFFw6NuA=;
-	h=Message-ID:Date:MIME-Version:To:CC:From:Subject:Content-Type; b=O4lUXhPgt8XMVLLk9lQGxOrTrFTyWKWiwijV3iasPdPCy2R2wc9ake91i1hFluxntdTUZ0bRG4qdSWVSNqPQyKdkxQKD3cjXvm0IeTJLlB9YMJufzdQsNAE2qAVM6G4ZvkOGL++Mmm4nNTevtngxDTQwdmHBYpfC/9zWRecPesM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev; spf=pass smtp.mailfrom=auroraos.dev; arc=none smtp.client-ip=95.181.193.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
-Received: from [192.168.2.104] (213.87.162.78) by exch16.corp.auroraos.dev
- (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Wed, 29 Apr
- 2026 23:14:39 +0300
-Message-ID: <0c7bf7e9-887c-42d5-bcfb-0ba7fe1e70b6@auroraos.dev>
-Date: Wed, 29 Apr 2026 23:14:39 +0300
+	s=arc-20240116; t=1777494932; c=relaxed/simple;
+	bh=rufxEQD76zjB+sGn217WJftdtxWXtAM/N8y3tXTg0LU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BpSkNWLMmVXxiPEBlC52HDn9x08u1RIvCZXOmT+x+mzhxgIbJkVXMzvBw2WNc/4Dh4K+LSmwn4obzMWU2M0/1two+OxQwyDLSfID9kd+9HaA5JjZsBZFcZl7Cbtgc3vA0LSynsicjEpVcsbhOPPnsQmhdKadJ2EOqzg4vTMBtdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RIGJsGDs; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RIGJsGDs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 800DCC19425;
+	Wed, 29 Apr 2026 20:35:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777494931;
+	bh=rufxEQD76zjB+sGn217WJftdtxWXtAM/N8y3tXTg0LU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RIGJsGDsTmMMNNmBXyJ71peWBYO5CwXyDmcGh5zFVDbWe9rgRDujZPfj9NQFIl7ji
+	 tvlAwDpAUa6Z8HSgjpkpwPAw/dBskOAQ4wOixnvX/yw10yhyqE8anlmhMG3NSYqVcu
+	 JItxl+iRm0ZSsUvD8Cdf/99+G8z4M5YZk0k5DoO5rVqm/JfLT/i9iswAUL6IqtV1PJ
+	 FdQqNOQM6dnM3g6zpwCE/3KADE14Q1Hc5lHw+7dDd5b3WkDNGN5iwNPmEk0GyIk3WL
+	 c987scdq52K6LG4fLpEwpzubYNIlUItMLci+e24p6ZKT1UvIk+4NBRwtnJOaIs7yUg
+	 WQh1thuh6azqA==
+Message-ID: <a52f7acc-44b0-4669-a97c-686aae623f97@kernel.org>
+Date: Wed, 29 Apr 2026 21:35:25 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -26,47 +35,49 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v3 04/11] arm64: dts: qcom: msm8939: Add venus node
+To: Erikas Bitovtas <xerikasxx@gmail.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org
+References: <20260427-msm8939-venus-rfc-v3-0-288195bb7917@gmail.com>
+ <Xfiq_WNTU9P-ThZLMs4plWE5hwtmwyVyKJc1bD5BKdhERGouucNpyuenIoKQiKfZKaRzP-PdamsNlQ8vezjrRg==@protonmail.internalid>
+ <20260427-msm8939-venus-rfc-v3-4-288195bb7917@gmail.com>
+ <56d609dd-62be-47eb-8ba3-c5d70d773113@kernel.org>
+ <QRkqY_zK7EC4e0ZMoLVyLUhgI9A5RrBcJLm22d69xKT17HzJMXsEDdz_qodBN9qogvuS1XqN4zdemqcoByY5CA==@protonmail.internalid>
+ <34627be5-75cc-469b-af23-f1f08ce29820@gmail.com>
+ <2846fc60-bf8c-43b3-ae64-58faad6aed2f@kernel.org>
+ <xF67mO47hDKLzMEauOb12gQbqTt6OO5h2ODjqizbRCXRpz1KUs2qHsX8InXbE5xWVFBdPAPYK26WacBHk1TDKw==@protonmail.internalid>
+ <89f2b7ab-2335-4029-a074-4d9bf956c14f@gmail.com>
 Content-Language: en-US
-To: <devicetree@vger.kernel.org>, Rob Herring <robh@kernel.org>, Saravana
- Kannan <saravanak@kernel.org>
-CC: Grant Likely <grant.likely@linaro.org>, <lvc-project@linuxtesting.org>
-From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
-Subject: [PATCH] of: cpu: add check in __of_find_n_match_cpu_property()
-Content-Type: text/plain; charset="UTF-8"
+From: Bryan O'Donoghue <bod@kernel.org>
+In-Reply-To: <89f2b7ab-2335-4029-a074-4d9bf956c14f@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
- exch16.corp.auroraos.dev (10.189.209.38)
 
-In __of_find_n_match_cpu_property(), checking the variable ac for 0 won't
-prevent a possible overflow when multiplying it by sizeof(*cell). Besides,
-of_read_number() (called in the *for* loop) can't return correct result if
-that variable (which equals the #address-cells prop's value) exceeds 2, so
-additionally checking for that seems logical...
+On 29/04/2026 13:42, Erikas Bitovtas wrote:
+>> How about declaring both cores a decoder ?
+>>
+> That is what I did on v1. Ideally we'd decide which core we want to
+> power up based on what codec we are dealing with, but given there is no
+> easy way to do so on mainline yet, it could work.> ---
 
-Found by Linux Verification Center (linuxtesting.org) with the Svace static
-analysis tool.
+@Vikash @Dikshita
 
-Fixes: f3cea45a77c8 ("of: Fix iteration bug over CPU reg properties")
-Signed-off-by: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+Could you possibly check up on whether 8936/8939 has fixed core 
+assignments ?
+
+@Erikas please give a try my suggested change on hardware GDSC control - 
+perhaps this is the reason why encoder doesn't work.
 
 ---
-The patch is against the dt/linus branch of Rob Herring's linux.git repo...
-
- drivers/of/cpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/of/cpu.c b/drivers/of/cpu.c
-index 5214dc3d05ae..bd0e918d6f29 100644
---- a/drivers/of/cpu.c
-+++ b/drivers/of/cpu.c
-@@ -60,7 +60,7 @@ static bool __of_find_n_match_cpu_property(struct device_node *cpun,
- 	cell = of_get_property(cpun, prop_name, &prop_len);
- 	if (!cell && !ac && arch_match_cpu_phys_id(cpu, 0))
- 		return true;
--	if (!cell || !ac)
-+	if (!cell || !ac || ac > 2)
- 		return false;
- 	prop_len /= sizeof(*cell) * ac;
- 	for (tid = 0; tid < prop_len; tid++) {
--- 
-2.53.0
+bod
