@@ -1,166 +1,167 @@
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D97703F0772
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 11:24:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777461891; cv=pass; b=QVJPjUV62zMkQzhhNAZ7Od+TbWBNycqlAu0OLEYLfLoXop0Fn8LicDc/XCP1qFn3tu4xU6sYDzaip0FNdRiE0xk8226qTz9r/6qkWpgrt2TUi7ZQu/1YV02Ap16rXy//cprKUjEXrrJkb9C6JCts9HdN/cBx7pCvSV65Kvlnc1g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777461891; c=relaxed/simple;
-	bh=QbqXT4tTrrdjuTLkfmMqgyWw3/qNy/1JnUwKAJmmVXk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pC1ABfQMfS0cx0P72sbbQW33/VOOa39ff8iMGOvyQwyCvg1XAgAq0A89f+pd2sOcZ+68swg1VJJQIYOSkoq6LFO2ndEcn6TzJ33udy4e97XDCUP7epI4OVyhncem5iivRTjadFhbLsXhydujlWWGWSfr+JWKi2oXi+8cHl67P2c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DHJYPyLc; arc=pass smtp.client-ip=209.85.217.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96BAE3D564B
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 11:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777462186; cv=none; b=VbI9HgnH/XRpxybNoYPArBIfIH40xAwHHWGmVVCV6l7RHwGnNJkdu0IutmcH47p0OoaQYhrqJFSw8QXQemwL0a2cp9GU3NEYtOMwTideHkVZnR0a9aNCLmYIDtHbiwbFLJOiX9Mfouip/HfreDnFoK3Pi7IO/z/XgnMbGGFyOv4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777462186; c=relaxed/simple;
+	bh=xe+MsCXfl3p1dLsFN+TVjTQqPTbPPjYf3XDLon7gknk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=B9hu2YJDKFhrW7DOBQ31Aq+nFi0+Waj3U5RTw8dvx7+NFATOCVGgFJg3tz7wndMH/odpFF/OCHV3rycWXbJt8hiuxZ0XAiFxdy/XnAAtGGG5+3K4frSEoKQlzBnhCOmfi4c1w3HDPwY22LBU+AZGJFmPdudhmOaePSzzF7pQog4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com; spf=pass smtp.mailfrom=inventec.com; dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b=fpnIIHLu; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inventec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DHJYPyLc"
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-6058ac0ebceso7513022137.2
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 04:24:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777461889; cv=none;
-        d=google.com; s=arc-20240605;
-        b=MuZKX91Bfj94ZULG4w6aereyev0H3q3k6aGOFNKHMZ7bhU8CJT6xJ9xGhQPsQJqxjE
-         wjrJ0fMX4NZjmOWW45n9wSEJKpbY7NF6QdogY3V9/uuFl/AIlUQi8RiNv+lAqab0tyhv
-         /6egZZ142X1jq63bu2CmffK5uhxpxdsNROekEoc2dafya1jHA0gxn0hl85ul07PjInB3
-         pZabTCLXzWEHeoxFYWc3ylqy8NsiFqdbMP7iDKssA0d+Jn2iDYmUF3tPw0NZEG5r6dCM
-         qP+6F4UzYTqRmOdrltElKQUXpBekYjd6/BKk750CBvjkZYZA3YFJ14vGQZqw3noooNeu
-         cvsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7gz2/nVmfgvH8AxcwgS0YP5YxZm2HnbLT24tkQ8ZyMI=;
-        fh=m2+Q3LwJAHFsG2U18xb51T6Qoextm4G0Q3mC1gi9Aso=;
-        b=fPHq1Nrf6kMFDlwZKNKO/R5Sd8Y3P0cIfDlXfLD41bSt++LNFOFg+HNDBkNl3W9yzf
-         q9F+0GM2ajlGmz+HsyrfsVbuFCGwFU6OxbnMdM7I6xuaLFJnyNK7Id41BfEGgyOqnWLf
-         rXMwpsUKcxQcrK3e4h8tYWgtt+6D2DtgacHIxB+945cxJuOLsNS6wjpTwn34WplC8mF+
-         BCgOVhB8zx+INKtAKG91yAJuBLkJS7bjsj2fryHU7Vst8Tp3ofk+OfbscB43/hqGdB7/
-         pAj2/8kFe63JboSnf9z9LZjLSvoQTnySqkyxHYrTqnS3TY0ED54BydxNYrOmweDV3nwB
-         VMGg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b="fpnIIHLu"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-358ed696623so5523569a91.0
+        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 04:29:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777461889; x=1778066689; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7gz2/nVmfgvH8AxcwgS0YP5YxZm2HnbLT24tkQ8ZyMI=;
-        b=DHJYPyLcfCack5RDNBh/WbrKv+wXFEVM1ogNbJePRh65yBH+9P8v4lakenfWlxAmUG
-         gEqwnP4iem6/J2IU4ISlhomYEyM1i2P+F4X2ClbHh+mRSsCj5tigzw0i0OZx2MCW5fVi
-         d/w21fuXq16Ul2O7iJHGpkYMM1892ghWW9xpcwsf+4Ko+E1uxg9zj0OP0F/ytJUty35E
-         R2YtSCIep4y1iuIQbK+/mdMLVAcxU2TKIFPxihta1F9IJCzeTU509pBuMIMJStw6hDC3
-         CDgH3q6Oim510t4nrUkPPrBDNdVjt7Hryf5wT9jd4saWoqRoBMCEr+mVGFwEt9d9lSj7
-         XQ4Q==
+        d=inventec.com; s=google; t=1777462182; x=1778066982; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=HeXECNGBJvHPKxS7FXZaQMkrp4TodQ+oswz046Aqoy8=;
+        b=fpnIIHLuafih4l5VISLoRgjCGdVAU7SarBKN/F8i6EhxsfSGEIauVEUhvN+aPJtWPE
+         5B8zLVu6pGWZGHf1tF1bQerUJRrblITODQ/nffxvQ7/bvhPdpc0URK4hm94xWsOCIlNM
+         sckkrouPNqiRqlI/xv39jBTxBeRhstuPKSuTNqTgB9j2wbkRhq5AYXDpweARKF9u2tIR
+         HIV9vAgQW5gzVS14y1A5+pAxJQCB9Krj4tkOThIbfMudShj0vys8zrP9IYh+yNvOVZyW
+         AY4oAQxEkuU8KwV4TMm0IbzpUWNGNXGXAK1HSrekh3fj9sZGyPFTBPi2TmkKLVBs4Mls
+         xzEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777461889; x=1778066689;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=7gz2/nVmfgvH8AxcwgS0YP5YxZm2HnbLT24tkQ8ZyMI=;
-        b=frLTZIhkoVQayvLQJN48rJnuweeTjkP3OOL39Uh7uLD78UvB24F9InGBd1ei033bKE
-         hyAmnI5yI6+PYL4GHtn+zGScdLLKxJaMP60/Nv/mkTr8pWXLFsS+HdnDyjva4hQ13thY
-         lO/EtcKjbGnquWiPClhmiMjtrC7mW9lU55w0mIb4ZQBuD1bKoTKnUtlhnmerI7Ow2nZW
-         ctibOiTENnxITEfs4GawATbqIhJtUktIeBHq+jXGrSTikcuAs47k65qxtWCLHhKvwAIX
-         spSHAUaOTnCMRAFU0WrGA3BDTEAS/mJxLTNndirtj8WxyBl0/AAYHmT6iuSh1grJnM2Z
-         VYrA==
-X-Forwarded-Encrypted: i=1; AFNElJ8uX1LQV0ZgpoX1u0HM9nV4xouHeFa6hKofguSNbNsrEqxArumkvWkbFLJnX30TAQzBkgsUgpo5Io+y@vger.kernel.org
-X-Gm-Message-State: AOJu0YzrIcrxK1IXk9WNiU3Igw6Q0iU4qywvjy+jC1pgIW0Utshn53Mm
-	4mB0pFE7ys+gBSDR0mx3ZwX940JzzPvGPO6ychHxfQV8OvHCtSuDq/BUYSRirbZsrC0FscV7L6s
-	qiqeRwYf8KFiFR1lqkevLVkN4RDMsgms=
-X-Gm-Gg: AeBDiesp68NwChgy8ffFKEaUUF+el0A0ViQWNRtLavO7m2c50FQ6TFlTejqYKKQ8dQU
-	sWhTRfos89FLEYaqyE74dmDD2nxGY7s0ovVJ0UChhp6yFFWdnr+MaGV/m8l0hgmTQNReVJGune2
-	xewzg6Qf9HXk9PzD3XfDIytjZyY6+IOpWeLkQgCiLJsIBt7vWqLOqvF7G2KH0wSL/YhC3uqCl/G
-	AEWgKPRH3b5OKFWdS1JlaB3wclYUisTFDUspAWrS66Rq4qhgoMGI4xj5qZzgjwzhoZWw410792R
-	I24v0XhZZV4RlPDTs4qD9x0F+yZ+ahLRhg48Fsr/xBLzMdrMDQ==
-X-Received: by 2002:a05:6102:5e8c:b0:609:4d86:81b with SMTP id
- ada2fe7eead31-629278208bamr1936529137.27.1777461888827; Wed, 29 Apr 2026
- 04:24:48 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1777462182; x=1778066982;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HeXECNGBJvHPKxS7FXZaQMkrp4TodQ+oswz046Aqoy8=;
+        b=DM/UV9Bq2iv2V6RAcSyfOwa0Y+8FSnZnx/GEiX2X0pcKbn7WKbBGl25OpEx2OxRwM6
+         tWfqriDwWHhIqv2PbESUq4HIRt3fOJt7pFrt+gWf97WT8Wrw5hhj2XMxQSOMPg9D5yqg
+         uHvajRe308XzkJoV2alIuzRmO6kFAwa3/i7HbC/t3m8ikCtFXqPAqERITbSB3Q1utHUf
+         8hhRl3GCc/QTyPF1ulbYgOiWfCW0XwL3ag6rEXPL+UXCIV45fRJfv7OUybgThU8xJNbQ
+         jX2eBCgEvIar+8szB1LCy185a6sUijEZjfONARneAHNEWyioBpNdtzEvQsqWvuxkqBbZ
+         +sLw==
+X-Gm-Message-State: AOJu0Yxvz25AksYrKW1dlQ7WWs/v/veF7BbLaWq0u2qacGUuIzyif3fO
+	KCeEQ75/6i83xl9Tp+tynucRcW9vRHteLtEriqyTmnage5DgRLXwayltUOLgWUHqa8U=
+X-Gm-Gg: AeBDieu3APGrIJvyPUAcl7C+Li7bQ1EgifiEkbbXcNma/xk/VsgRlmrw8P0ZHz6sttO
+	xoYaXzo49uxEJB7yKtliaHZJNpEueawAbzXf6RGLEIjY3SS3vDHdrsewiwBelhFmoA3g4Z05UwV
+	6HMrRXOECXcnzQGARAbwURZOn1vvdOIs3pV4gu652S4Y57dOiNDyxIKFYUoRb3vzrJU/YtkccGO
+	P2AnI1V47aRATOPWZxD5WOX9SwV8bagw2Pe+z7L3zkLa59pM7hyVpUzENcvGycpFeUtsdVRUzIL
+	VLwKCVMObLkRPjRpfFSOSPIMxdyaedsl/g1dVcn0Qm35og+MBGcFC1B+O2VGgq/Mro61+jWS9V3
+	M6+lzocoTjVzOCRPY1zPu8SmgkI8533acA5ri75UtlK37YqeTEXG3H8nQjd2V/NbZj5w1V4TqXv
+	GQjnHhdX6F5xpKvVeKch5KrbxhIA9qW9k/TRJERsb+
+X-Received: by 2002:a17:90b:2f8f:b0:35f:bb33:d727 with SMTP id 98e67ed59e1d1-3649202dabcmr6868224a91.20.1777462181860;
+        Wed, 29 Apr 2026 04:29:41 -0700 (PDT)
+Received: from [127.0.1.1] ([123.51.235.216])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-364a41520dbsm1923048a91.3.2026.04.29.04.29.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Apr 2026 04:29:41 -0700 (PDT)
+From: Brian Chiang <chiang.brian@inventec.com>
+Subject: [PATCH v7 0/2] Add support for q50sn12072 and q54sn120a1
+Date: Wed, 29 Apr 2026 11:29:35 +0000
+Message-Id: <20260429-add-support-for-q50sn12072-and-q54sn120a1-v7-0-f1f83d2039f7@inventec.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260425105300.745044-1-mitltlatltl@gmail.com>
- <20260425105300.745044-4-mitltlatltl@gmail.com> <2134b8d1-70ca-4f97-afc4-bba0538f84cb@oss.qualcomm.com>
- <CAH2e8h6AvtaQjrwOu-QumeqYVoz6GyQPRR363JWfS8Wy-jNBkQ@mail.gmail.com> <652bf474-a524-4391-b8d1-7c0bbdc28b4d@oss.qualcomm.com>
-In-Reply-To: <652bf474-a524-4391-b8d1-7c0bbdc28b4d@oss.qualcomm.com>
-From: Pengyu Luo <mitltlatltl@gmail.com>
-Date: Wed, 29 Apr 2026 19:23:57 +0800
-X-Gm-Features: AVHnY4L7oPV5ZetIKykRzVLPFjvo6DuPoYEk-dDEME-xpa-a28o8EUMduxtFbTA
-Message-ID: <CAH2e8h4MNsaFiYmO_y8Pn8XVREGtGam5xY=yeFCK7p6BkD4y1g@mail.gmail.com>
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: sc8280xp: gaokun3: add front camera
- sensor node
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Martin Kepplinger-Novakovic <martink@posteo.de>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJ/r8WkC/53QTU7EMAwF4KuMsiYocZM4ZcU9EIv8OEwWtJ2kV
+ KBR706mEmKEuinLZ1nfs3xllUqmyp5OV1ZoyTWPQwv4cGLh7IY34jm2zECAFigkdzHy+jFNY5l
+ 5Ggu/aFEHCQKBuyG2qLbo2mYfoO/JRCsja95UKOXPrevlteVzrvNYvrbqRd6m/2lZJBc8dBa9S
+ z3Y4J/zsNAwU3gM4zu7FS3wgxvRgTmCQ8MRfUAkigHNDt794krAEbxruEGnpVXUd97u4OoOl+o
+ IrhrurSRHTvUxyR1c3+Fw6HK94clbBAPW7F1u7nE8gpuGp+Ta25MzmvAPvq7rNwGOVMi2AgAA
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, Jack Cheng <Cheng.JackHY@inventec.com>, 
+ Brian Chiang <chiang.brian@inventec.com>, 
+ Jack Cheng <cheng.jackhy@inventec.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777462179; l=3701;
+ i=chiang.brian@inventec.com; s=20260316; h=from:subject:message-id;
+ bh=xe+MsCXfl3p1dLsFN+TVjTQqPTbPPjYf3XDLon7gknk=;
+ b=1exsHWiBxZCh7ojc/W16G4fD0TFJ3AV/GN2AdaW2DaUgnTyBHAgvY4Wv8VYF46/u3z51xKx+D
+ gcdcjkbTiqrDtfCQEXqYouyOSpiZekzZGBcLhhJxyaklodMsAhZHGed
+X-Developer-Key: i=chiang.brian@inventec.com; a=ed25519;
+ pk=q+NqJYuJbGpA9KS9941D7f+8PVVW+k7DvaGgFykBiUc=
 
-On Wed, Apr 29, 2026 at 6:08=E2=80=AFPM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 4/29/26 8:36 AM, Pengyu Luo wrote:
-> > On Mon, Apr 27, 2026 at 9:00=E2=80=AFPM Konrad Dybcio
-> > <konrad.dybcio@oss.qualcomm.com> wrote:
-> >>
-> >> On 4/25/26 12:52 PM, Pengyu Luo wrote:
-> >>> Hi846 is found on my Gaokun3, descripting it.
-> >>>
-> >>> Note that it seems that only Goakun3(3.0GHz) version is equipped with
-> >>> Hi846. Goakun3(2.69GHz) version is equipped with S5K4H7.
-> >>
-> >> Are there any other noticeable hw differences between the two variants=
-,
-> >> that could warrant the DT to be split?
-> >>
-> >
-> > Except for the cameras and cpu, I think no.(But I couldn't tell all
-> > 3.0 variants are equipped with hi846) Before camera support, this DT
-> > worked for both of them.
->
-> Do the ACPI tables perhaps have some sort of a hwid mechanism? Perhaps
-> two nodes defined for both cameras and the _STA method referencing some
-> object?
->
+The Q50SN12072 and Q54SN120A1 are high-efficiency, high-density DC-DC power
+module from Delta Power Modules.
 
-No. It may poll sensormodule binarys, register lists are in
-sensormodule, the slave addr may be here too.
+The Q50SN12072, quarter brick, single output 12V. This product provides up
+to 1200 watts of output power at 38~60V. The Q50SN12072 offers peak
+efficiency up to 98.3%@54Vin.
 
-In qccamfrontsensor_extension8280.cab
+The Q54SN120A1, quarter brick, single output 12V. This product provides up
+to 1300 watts of output power at 40~60V. The Q54SN120A1 offers peak
+efficiency up to 98.1%@54Vin.
 
-CAMF_RES_MTP_ALT.bin
-CAMF_RES_MTP.bin
-CAMF_RES_QRD.bin
-com.qti.sensormodule.hlt_hi846.bin
-com.qti.sensormodule.xinli_s5k4h7.bin
-com.qti.tuned.default.bin # for hi846
-com.qti.tuned.hlt_hi846.bin
-com.qti.tuned.xinli_s5k4h7.bin
-qccamfrontsensor_extension8280.cat
-qccamfrontsensor_extension8280.inf
-SCF1_FRONT_MTP.bin
-SCFG_FRONT_MTP.bin
-SCFG_FRONT_QRD.bin
+Add support for them to q54sj108a2 driver.
 
-in SCFG_FRONT_QRD.bin
+Signed-off-by: Jack Cheng <Cheng.JackHY@inventec.com>
+Signed-off-by: Brian Chiang <chiang.brian@inventec.com>
 
-Package ()
-{
-    "com.qti.sensormodule.hlt_hi846.bin",
-    "com.qti.tuned.hlt_hi846.bin",
-    0x0000000000150041,
-    0x0000000046080F16, # id, id_addr, this can be found in the binary too
-    0x0000000000000000,
-},
+Changes in v7:
+- Restore the PMBUS_WRITE_PROTECT register to its original state
+- Fix potential denial of service by storing user input berfore
+  acquiring lock
+- Fix use-after-free risk by moving pmbus_do_probe() after
+  devm_kzalloc() 
+- Link to v6: https://lore.kernel.org/r/20260427-add-support-for-q50sn12072-and-q54sn120a1-v6-0-ffa77bfa65e7@inventec.com
 
-If this fails, then try to load com.qti.sensormodule.xinli_s5k4h7.bin?
+Changes in v6:
+- Add lock to debugfs read/write handlers
+- Remove the incorrect Co-developed-by tag in cover letter patch reported by checkpatch.pl
+- Link to v5: https://lore.kernel.org/r/20260422-add-support-for-q50sn12072-and-q54sn120a1-v5-0-b8fb87262868@inventec.com
 
-Best wishes,
-Pengyu
+Changes in v5:
+- Rebase from 6.19 to 7.0-rc7 for review
+- Link to v4: https://lore.kernel.org/r/20260414-add-support-for-q50sn12072-and-q54sn120a1-v4-0-b81eaea49df1@inventec.com
 
-> Konrad
+Changes in v4:
+- Add null terminator to prevent comparison of uninitialized data which
+takes place when ret is shorter than strlen(mid->name)
+- Link to v3: https://lore.kernel.org/r/20260402-add-support-for-q50sn12072-and-q54sn120a1-v3-0-67a5184e93b8@inventec.com
+
+Changes in v3:
+- Fix MFR_MODEL detection by using strncasecmp prefix match, without the strict length equality
+- Move blackbox_read_offset debugfs entry inside the q54sj108a2-only guard block
+- Sort the debugfs entries by the order of PMBus register addresses 
+- Link to v2: https://lore.kernel.org/r/20260326-add-support-for-q50sn12072-and-q54sn120a1-v2-0-77bc77eedc76@inventec.com
+
+Changes in v2:
+- Drop Q50SN12072_DEBUGFS_VOUT_COMMAND debugfs entry
+- Add .format[PSC_VOLTAGE_OUT] = linear explicitly to all three chip
+  entries for consistency
+- Replace hardcoded MFR_MODEL check (ret != 14 || strncmp("Q54SJ108A2"))
+  with a loop over q54sj108a2_id[] using strncasecmp to support all
+  three chip variants dynamically
+- Remove of_device_get_match_data()/i2c_match_id() early chip_id path;
+  derive chip_id exclusively from MFR_MODEL hardware read
+- Remove unused .data fields from of_device_id entries
+- Guard store_default, blackbox_erase, blackbox_set_offset, blackbox_read,
+  and flash_key debugfs entries under psu->chip == q54sj108a2 check
+- Add dev_notice() when configured device name differs from detected model
+- Update MODULE_DESCRIPTION to "PMBus driver for Delta Q54SJ108A2 and
+  compatibles"
+- Fix commit message typo: "Q54SN12072" -> "Q50SN12072"
+- Link to v1: https://lore.kernel.org/r/20250701-add-support-for-q50sn12072-and-q54sn120a1-v1-0-c387baf928cb@inventec.com
+
+---
+Jack Cheng (2):
+      dt-bindings: trivial: Add q50sn12072 and q54sn120a1 support
+      hwmon: (pmbus/q54sj108a2) Add support for q50sn12072 and q54sn120a1
+
+ .../devicetree/bindings/trivial-devices.yaml       |   4 +
+ drivers/hwmon/pmbus/q54sj108a2.c                   | 238 +++++++++++++--------
+ 2 files changed, 151 insertions(+), 91 deletions(-)
+---
+base-commit: 591cd656a1bf5ea94a222af5ef2ee76df029c1d2
+change-id: 20250701-add-support-for-q50sn12072-and-q54sn120a1-a9c299e6d81d
+
+Best regards,
+-- 
+Brian Chiang <chiang.brian@inventec.com>
+
