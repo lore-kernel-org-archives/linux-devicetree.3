@@ -1,69 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com [209.85.210.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01715217F27;
-	Wed, 29 Apr 2026 06:59:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410AF39DBE1
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 06:59:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777445964; cv=none; b=VMbyRt/DHYoDmW3HPvqasg/J9Jktnpauxb/lL4FR7M+fwh74pcKNoZSCxaq30nJntT8Vx0xuPTxxXClRkzwTooNEkW+HrkFCYrfeAtNaAhmkdqiRdDTmjBDle9i4h7Kcyr0L4qfoJhZaH3ZuKjjSZhuI9DftW7C6BW3p9Fohdnk=
+	t=1777445965; cv=none; b=fwa+8kcqFMzDtrtjfhTitGmxh9wmH4Le5VREGPQQP0HW4KKJ5VaGmt1H9PZ722HVNOGE+aRUwEK+WMPqVlcv5r8bIVXBtKsHol9rpMqpTzVORbaZ5UP/f0/CmeMl33pFGs11M3tn01r8G11k8M1CPmAB17dX/U0BhWRUx/nSoUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777445964; c=relaxed/simple;
-	bh=Ty5rDqNCr57ubNVebLW5G9qiKvLhrBRgSdwjbxVB//Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fXlbtPPBe2GJ7g3asRI8578N8RUvmzsxQ9FgM9on+DIAueeiYrwkh+t6fEL/O08543L5/P3kdqdqJwR84NNhoKCSB5TitH9RR+LvZlICA7uiLfh1tZuZNsyN212Xak8s/0EuG4xo1mnk8DRcp55F2/l/MHmNtXZh1ZK5rOvopes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/cg4vGU; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777445965; c=relaxed/simple;
+	bh=AscXsVQdQtSzP4LlCGAz/Bs520rvB9Y/aAxkWx2lFak=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hyK+S/FOPnY3iv63n5qpj5A9UZw5A0xWmX7oF83fDjYu+VGKqoayx9qANMRW5vHulYVCkPsP+Mn6izaMSxp/qAU8MTjnA8+SK+dIpYYnLNNaO9dggyWUk4twB8PL/XJOOBdml/ajE7myUyBlDyVAHtgz2VWvLcCejzzyBTb+XAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZnVoxcCo; arc=none smtp.client-ip=209.85.210.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/cg4vGU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D286C2BCC4;
-	Wed, 29 Apr 2026 06:59:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777445963;
-	bh=Ty5rDqNCr57ubNVebLW5G9qiKvLhrBRgSdwjbxVB//Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Q/cg4vGU7RW/4xZcVjUfFD/VIJjxpJ945fY3zz0vmzzs0f/oDvWLpkIG2wGQf+hQV
-	 H/67Y9EXKsCuC4S9iUn/s6ijzLiq3T/4VsWLtJKX6yn2A37DG/zoy2C3il+zy7ICwR
-	 IEuq8aUt+/11kqeNR7P2uNUuW4mdH8SplRlXP4K6gQExRo9UjL0lpbH5t1+tQGp6OQ
-	 1J1W68d9K1amvAYorNC8WMeV3lCJt2Uw+H2q9jM2VKljcCIUpruRN1v7usa4ySZhvh
-	 sOBagINgJlzk9fr2AMpGPR7VRuULasJmSN32ll8i3+Yu+fVLaSn4VBm23zOzpI9IW0
-	 lnTEd/o9A+xQA==
-Date: Wed, 29 Apr 2026 08:59:21 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Shawn Guo <shengchao.guo@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: pinctrl: describe the Qualcomm
- nord-tlmm
-Message-ID: <20260429-smoky-expert-poodle-30482a@quoll>
-References: <20260428-nord-tlmm-v3-0-f16f08d084cc@oss.qualcomm.com>
- <20260428-nord-tlmm-v3-1-f16f08d084cc@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZnVoxcCo"
+Received: by mail-pf1-f195.google.com with SMTP id d2e1a72fcca58-82f1bfc9b8fso5570253b3a.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 23:59:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777445964; x=1778050764; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OzSUcXeQbcSyOJLVmBDEIvlXQPXERsU2BOZ+obvdQ0o=;
+        b=ZnVoxcCoAveJ4rIHsBQ12JxKf+R9lgl5AhXozPQpSLLiF8+wiBEHHW0LJyxlViKYy1
+         VAxJpIoy42UOkWXFdD+2e7ifiSW+OMwkY7HcsHMWb+sle2r8NJW7Lgz9QG4DxNI1NuXs
+         jOIJ6IKwMpRE1SbURUdW72HbqFDVvYSKJNCvCuu19+bJ185LySuWdYFxCnz0xdHtiF7N
+         cR35X9dLQPuQN/lQ4pP1zeteyWSQ+l2ZS0jBHoZ5y72PZ25GIu6ArWIhaf+YgJzDGHWp
+         KNIorlgsSlCs0IeGDbqHW0ABCqFJwP2KSDBfKNomlFpyIjLtnAnBopCCi6+UePGsyPg2
+         nROA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777445964; x=1778050764;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=OzSUcXeQbcSyOJLVmBDEIvlXQPXERsU2BOZ+obvdQ0o=;
+        b=mv7RldsKFTulZnKoCoKOdx5Lt+/oFbE4enc0jNTRdHhucA/Z5G0Hou4SYtErj+rHJM
+         Ha9U8yHNYapURtxAw0G2r30p8E2WLe+gLbx3aw+Ukr3Z45NvhGFow7wu5+Q0gKgcj77V
+         u48s7D8lAYfhpdtrHBQ4YjnidZg2lL/NT5swBU3ssE5vP2tNg0dLhiqRNmXs6AO6OwW2
+         yiktq/wC99IK7TmRc8rjFxtA3WWcW+c+JdMybG0tGvetleIMDhdV7HbyIYE0VE+f4cL9
+         jYef2ikQV+7E369eH4H+BUpVwuJPURhEAiEw123A4TJjiQPQiX/UELoUtpUtRinlFzgo
+         rIwA==
+X-Forwarded-Encrypted: i=1; AFNElJ+jUh7qXubkKsypOR6cbcX8MwhE2T/F6ywwDnX+5QVNx69hh2O7ApeWpHrl2Z8HCXRtXFUoD258G0qS@vger.kernel.org
+X-Gm-Message-State: AOJu0YwJ0Rdj7CHO8eXGeaS184b5lPR9aECr+mtM0/3mk5WISlouxqbL
+	57Rpgb6JGRKnz2YJKbrByVU1PeMPFem85xA0onak8+eXWcoqkLKXXLNj
+X-Gm-Gg: AeBDievj6SEYnt5GxzfED7U01jotCf/YVfq/XB/fiFswWhIUvMnu93QWevqBKMDotXg
+	3KUMDnI9mRO8ZpdnDuGTKP263Xao36qMHZa9KzSyUvxst/B/ojuxnit6ikzbOlVsLhukelhorI7
+	94PH8jp9YFgEEoGVoLxud0p/KHfuw+Z7DLy2UAJKfQoR+mlr9KwiJIUhiTJ7XuzMs5OD8edyTaT
+	i5j2Lh/va1Gf+WkO+eTuGQfPwA4mlEdfRmhIM3l/1Vg+VC2FPfSIYQ70n/3sF57C+vEa0RZu+VR
+	iGPs0hJDeYj9NIDUB+MfyErM4AjHxQvkCnsylClrtJX5hNP0qlQvtoG5MmeQne15Y3yr2m8js1l
+	JIpAwwZ2zk2oonW3Ja8aD+5QkOeCutrEzFMjTrnQZTchrWcy+gUvuvn2bBRe+qK4HH+HKkqgDNP
+	65p0PR6oqPLdqlpwecX0bSY8pnsnQv8UkktFJyp0NrmsxhuXtC
+X-Received: by 2002:a05:6a00:1c8f:b0:82f:29fe:7239 with SMTP id d2e1a72fcca58-834ddc4bf7fmr5980744b3a.50.1777445963631;
+        Tue, 28 Apr 2026 23:59:23 -0700 (PDT)
+Received: from intel.company.local ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-834ed7eaf93sm1043146b3a.40.2026.04.28.23.59.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Apr 2026 23:59:23 -0700 (PDT)
+From: Chen Wandun <chenwandun1@gmail.com>
+X-Google-Original-From: Chen Wandun <chenwandun@lixiang.com>
+To: kexec@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org
+Cc: akpm@linux-foundation.org,
+	bhe@redhat.com,
+	rppt@kernel.org,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	ruirui.yang@linux.dev,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	chenhuacai@kernel.org,
+	kernel@xen0n.name,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	chenwandun@lixiang.com,
+	zhaomeijing@lixiang.com,
+	everyzhao@126.com
+Subject: [PATCH 04/11] of: reserved_mem: skip reserved_mem array allocation when there is nothing to save
+Date: Wed, 29 Apr 2026 14:58:24 +0800
+Message-ID: <20260429065831.1510858-5-chenwandun@lixiang.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260429065831.1510858-1-chenwandun@lixiang.com>
+References: <20260429065831.1510858-1-chenwandun@lixiang.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260428-nord-tlmm-v3-1-f16f08d084cc@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Apr 28, 2026 at 03:48:10PM +0200, Bartosz Golaszewski wrote:
-> Add a DT binding document describing the TLMM pin controller available
-> on the Nord platforms from Qualcomm.
-> 
-> Co-developed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
->  .../bindings/pinctrl/qcom,nord-tlmm.yaml           | 141 +++++++++++++++++++++
->  1 file changed, 141 insertions(+)
+fdt_scan_reserved_mem_late() unconditionally calls
+alloc_reserved_mem_array() after confirming /reserved-memory exists.
+Two issues with that:
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ - When __reserved_mem_check_root() subsequently fails, the call
+   returns right away, leaving the freshly allocated array unused.
+ - When /reserved-memory exists but fdt_scan_reserved_mem() found no
+   entries to save (total_reserved_mem_cnt stays at its freshly-set
+   value of zero, e.g. empty node or all children disabled),
+   alloc_reserved_mem_array() ends up calling memblock_alloc() with
+   zero size, which returns NULL and logs an "Failed to allocate
+   memory for reserved_mem array" error even though nothing was
+   expected to be allocated.
 
-Best regards,
-Krzysztof
+Move alloc_reserved_mem_array() past the root-node check and gate it
+on total_reserved_mem_cnt, so the array is only allocated when there
+is at least one entry that needs a slot.
+
+Fixes: 00c9a452a235 ("of: reserved_mem: Add code to dynamically allocate reserved_mem array")
+Signed-off-by: Chen Wandun <chenwandun@lixiang.com>
+Tested-by: Zhao Meijing <zhaomeijing@lixiang.com>
+---
+ drivers/of/of_reserved_mem.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+index 807b222fce5f..93585af9f8a3 100644
+--- a/drivers/of/of_reserved_mem.c
++++ b/drivers/of/of_reserved_mem.c
+@@ -276,14 +276,22 @@ void __init fdt_scan_reserved_mem_late(void)
+ 		return;
+ 	}
+ 
+-	/* Attempt dynamic allocation of a new reserved_mem array */
+-	alloc_reserved_mem_array();
+-
+ 	if (__reserved_mem_check_root(node)) {
+ 		pr_err("Reserved memory: unsupported node format, ignoring\n");
+ 		return;
+ 	}
+ 
++	/*
++	 * fdt_scan_reserved_mem() sets total_reserved_mem_cnt to the
++	 * number of entries that need a slot in reserved_mem[]. If it is
++	 * zero there is nothing to allocate or save.
++	 */
++	if (!total_reserved_mem_cnt)
++		return;
++
++	/* Attempt dynamic allocation of a new reserved_mem array */
++	alloc_reserved_mem_array();
++
+ 	fdt_for_each_subnode(child, fdt, node) {
+ 		const char *uname;
+ 		int i, len;
+-- 
+2.43.0
 
