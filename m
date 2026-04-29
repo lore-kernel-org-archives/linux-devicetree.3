@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A9D2206A7;
-	Wed, 29 Apr 2026 06:21:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8259B34D4F9;
+	Wed, 29 Apr 2026 06:21:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777443684; cv=none; b=kJ5nm2ExMPThfxOXkkpQQxnik1rf8Rlo/eA9UmvPYwveUE+X3UrRxuSkh4nOXP5uE9n2YaOi3uduGuQLTjr+HhvarK6pN/8k1Eneqyhmq7ZxbAHHsXefugZ5ebMRJPp1H80Ztw8BCGsiJfUZTJt69pqrx0xSH1L5OdF3ykYPUn0=
+	t=1777443701; cv=none; b=bk+CdYirRfcrQOsMM2vQYDd6QOdIbWDFD9XAID5Z2AgQSwR6VHheSQ9UF9USQQVRiQVPK1+9z68fP7kk9Hxq7A6qbelx8oj+idb1YVKaAy6Czj2g4w6oemrqTLUwNitHj0g/QLEZScY7B9CiZzzgxXXmqXat1kNDa7QouZQ8TMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777443684; c=relaxed/simple;
-	bh=nyLlPApUeRPcCplyVs74LherjZTCuNRMjDH7ZqatLVs=;
+	s=arc-20240116; t=1777443701; c=relaxed/simple;
+	bh=uFyF7aWsS7uffhHCndxkJ+skouFYdNlm+3q1ejfbKzQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=q8GETM3JaJY9iKCdU3hJMcBsJ50ZIsrLS2DZlkiYKA+F4pZ+1qilZtGCVHzitEAidvAL0jY3pFpaAzgoEh5KAfi7P4X0I/3zRezYwDL2ZxZSRfdcEn43r8NmuOMJxiZVMs57sOmLWNgT56qnUO56DGwevfWIy9PzwSwjcSOAZz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KCoY8VLg; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=eB2+fP5l9pOu67iYD8uqwwF4rMLmELp7IaYsmm1A9U1hhNHVIKCJR3WN4BELz9i2SOheJ0zvTUa7W+rin4ZUolpDzpZMJc/HmFVyJDMxbUd9/QRPpugRHUfSBkSJ8qZ3YbPXFKG8RgVAbYGFz+0/eq7ktH7FO4kT78wbgmlQ9+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zvc80XDR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KCoY8VLg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0076C19425;
-	Wed, 29 Apr 2026 06:21:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zvc80XDR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8841AC19425;
+	Wed, 29 Apr 2026 06:21:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777443684;
-	bh=nyLlPApUeRPcCplyVs74LherjZTCuNRMjDH7ZqatLVs=;
+	s=k20201202; t=1777443701;
+	bh=uFyF7aWsS7uffhHCndxkJ+skouFYdNlm+3q1ejfbKzQ=;
 	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=KCoY8VLggeW89RWyRb2XArN+uvlo0pGnZBY9YGpYWoKrS74Tw5mqDdAl7aXDvDNHC
-	 OvdF5jJmJgfhs3BHXF0eWrPDcaARODfsawjkI4je0BnzNQzBmrBmOMl4Ig793vFpoU
-	 s9up3DvslddnwdxHq5nyDSQA1lBDI/ksii86Mj2ywVFsWRTqZhSB+OGyQR1ss1sDt/
-	 YGhL7dzwcWd5wbvUxMsppz368RAzweQKX2oXqhbSfMsZqZEh/f6UgZugQBIx0hO8Ve
-	 0TELtTBlptDVHzAUN3lvY+eYz/lXA+k1mGYUZqAFcTLmy6R3vsMQt2XmImazPq/0uv
-	 vg6i5vhtGepPw==
-Message-ID: <0c4cabbd-123d-4f23-9c5c-4e45403ca4fe@kernel.org>
-Date: Wed, 29 Apr 2026 08:21:20 +0200
+	b=Zvc80XDRdX7K6qP4lJNSu8u+zjrmvBUBcJD4M86HmOc/Ic3rJMmcSFaSqK9vLlGPA
+	 w6Oj0hjRTEdEJ1OadpONDKy5mFSo7Tj1OvzqeC7Z3dGJH6Od9a6p8uDFBHN/8OMMQH
+	 S5W/ofaHNAG29rOMq1g2SRqnmLIoPrVcjGw7jprQfPiFc5zR/Rgv1wlUy97uBD587K
+	 gmhA3Qwwr/wynBYwRkbaUu5rppHtPgpph4g4rJrqE1M6HoErpIE8v39+gq3vEIdpCE
+	 S/P5Ij39G14kyz9KEilIA/nvjsoXZ18u4XccBz18JBLOfkiiZixgfaz5D5VW9p/9xw
+	 zjn4CPqU+dqNg==
+Message-ID: <bc79406b-ab23-41dd-bc0c-82dca32e3a5f@kernel.org>
+Date: Wed, 29 Apr 2026 08:21:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,13 +35,14 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: drop tab characters from DTS examples
+Subject: Re: [PATCH 1/2] dt-bindings: misc: fsl,qoriq-mc: drop trailing
+ whitespace
 To: Daniel Golle <daniel@makrotopia.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <cover.1777434096.git.daniel@makrotopia.org>
- <2044ee0cac191c7be8b6e989fc3c99b24aa4cc5e.1777434096.git.daniel@makrotopia.org>
+ <20fb6993052534958ca57b537204de6c5617215a.1777434096.git.daniel@makrotopia.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -87,33 +88,18 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <2044ee0cac191c7be8b6e989fc3c99b24aa4cc5e.1777434096.git.daniel@makrotopia.org>
+In-Reply-To: <20fb6993052534958ca57b537204de6c5617215a.1777434096.git.daniel@makrotopia.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 29/04/2026 05:48, Daniel Golle wrote:
-> YAML literal block scalars cannot use tabs for indent.
-> Replace tab separators (mostly between values and trailing /* ... */
-> comments) with single spaces.
+> Drop trailing whitespace from example.
 > 
 > Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 > ---
->  .../bindings/i2c/opencores,i2c-ocores.yaml    |  8 ++---
->  .../bindings/iio/adc/st,spear600-adc.yaml     |  2 +-
->  .../devicetree/bindings/input/imx-keypad.yaml | 32 +++++++++----------
->  .../bindings/input/microchip,cap11xx.yaml     | 12 +++----
->  .../input/touchscreen/ti,ads7843.yaml         |  4 +--
->  .../devicetree/bindings/leds/leds-lp55xx.yaml |  2 +-
->  .../media/mediatek,vcodec-encoder.yaml        |  2 +-
->  .../media/mediatek,vcodec-subdev-decoder.yaml |  2 +-
->  .../memory-controllers/nvidia,tegra20-mc.yaml |  4 +--
->  .../samsung,exynos5422-dmc.yaml               |  2 +-
->  .../bindings/pci/mediatek-pcie-mt7623.yaml    |  4 +--
->  .../bindings/pci/samsung,exynos-pcie.yaml     |  2 +-
->  .../bindings/sound/davinci-mcasp-audio.yaml   |  4 +--
->  .../bindings/sound/simple-card.yaml           |  6 ++--
->  .../devicetree/bindings/usb/ti,j721e-usb.yaml |  8 ++---
->  15 files changed, 47 insertions(+), 47 deletions(-)
+>  Documentation/devicetree/bindings/misc/fsl,qoriq-mc.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
