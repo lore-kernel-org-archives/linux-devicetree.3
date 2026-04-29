@@ -1,45 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A3837C0FE;
-	Wed, 29 Apr 2026 04:19:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6CD3859E2;
+	Wed, 29 Apr 2026 04:20:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777436392; cv=none; b=J+CKUtS044k94fA+Pewf3FqnVkDi4pbtFftuq4sWBKVtmBUto5QvDYHjyBBFVjSvoHfWacszEvhd5WM6yBpooGgMV/xYtl7CZaPf92Y+3milPLGic6r/J++jkhhMePg9TY+Ae3TV5s22N9FJdfuMEQjcsnuwkxaIXpQO6BzrgWU=
+	t=1777436408; cv=none; b=Huq181k3v0mcczvgQweB4bsHwvCVkTXs/qs+2k8to+wpUyt7KsXuZfWbBHXzKn9DLDzAqwRWY3H+sDDDpdu1AO0WMkQgjxPnN1KG92PWw8a71JqD+pHF7tc0g7TRUdcql186tOr5uAVB7RmFRWdMTAuq5I9tRFnMEvAFIt6mXsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777436392; c=relaxed/simple;
-	bh=AmD4vqaT2uUvRTUm6AyJgjIJNJLVUy55SkGkTF49aMQ=;
+	s=arc-20240116; t=1777436408; c=relaxed/simple;
+	bh=Y3TadPI+Uk+0lcra2ukxy7a1jSLDUZdGEsO0a8IaOuM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=YiEo11faye8YOqqidKIEUpk6YLdzeK3KhecpMpHo3/llw6wZ16ZZTm2sWzPywyl9AsEjWXtBZhQ0inWPI9QpmIZaqipjAMKGfJ3xPgIhVrL/RVPJRuvUG6XdZOsVbieYLPn88wzDh4xuwjeLFQKbVvjuvNKeZ0kYD6iD9Rghy4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cnLaDfum; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=e7znOLc5Q2QguHmAKUWmt0Z0nZTFZQ2e5kPfxHI2qDXe3pz4D/WzC/WO2Z/8Xj7cUpWzXA6OjPLSHvXzx92bCJP9kEHOjMNYvRJUjX/hrUfvA9GisMisJmPmh6uP3Lpu8ZpVaVGQgvXZSHE70PMGK2GFmiLBD7yOl7zF2SfFsxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KtLnoFDX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cnLaDfum"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E197C2BCB4;
-	Wed, 29 Apr 2026 04:19:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KtLnoFDX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10462C2BCB4;
+	Wed, 29 Apr 2026 04:20:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777436392;
-	bh=AmD4vqaT2uUvRTUm6AyJgjIJNJLVUy55SkGkTF49aMQ=;
+	s=k20201202; t=1777436408;
+	bh=Y3TadPI+Uk+0lcra2ukxy7a1jSLDUZdGEsO0a8IaOuM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=cnLaDfumluBRuImtdokXh4ERk0qYVsC+bj2tEcf2BK0yh7Xia87nSp1T1ouJ/mlne
-	 Mfg5oV0QjF6QOdgAakpqdKAuX21qceXVtTOd59nhQlXdsk0YKMcmvDk2yI39vUglR3
-	 2tgKxpFRxGTLy47vQ207oMOAUtZ21vqwThC9W5gZQ0yZgpuzgxLhl0LYYLq9jV+fqk
-	 aVUDIuZWaatTUIoC8yC+KpmeJ4AO93Bho1hjgZw/xz4FV+E9rybRsRgia1WVVY9eQr
-	 /qSJzDSeaxZuFJH9QDl8KDECEXplYL6OKex9HxfYbiwvN105IMxQ2DgqVIvSYI7eFt
-	 Ywx14L+qYwi5w==
+	b=KtLnoFDX/LmckW/QlstZ6bfDZxf1oto3yy2sVCHBbWDmtY9LuVjn+O7QtJcerlfZP
+	 aVBxPB4fOZ/WzwQmcvhAkJjZgxhEC5cO3uDlLnvzCRIwcMAva7msvwDS6MflfjJ0FR
+	 4AgqhJxlJ8qKZeHTxRH9k09GbMeDhqsh9OKxkbBHPUc+MQuhTYsLU/+NcUdnrngBK5
+	 N5/qM9+E5Z0Z3wK0z6igY9Q9S/D1LqsKaw5+iE0dPovpGe48vtHhyt9Ko0nfyYSHPO
+	 8MQl9RAUiBhHQEBaNOEMOcEQD4HJsSb3hZ8KwSq3SSUKUs1S+ZOLtL1z+mY4MxgqzG
+	 r3k++/wyxliCw==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Manish Baing <manishbaing2789@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, 
- kaichieh.chuang@mediatek.com, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260428171644.5703-1-manishbaing2789@gmail.com>
-References: <20260428171644.5703-1-manishbaing2789@gmail.com>
-Subject: Re: [PATCH v2] ASoC: dt-bindings: mediatek,mt6351: convert to DT
- schema
-Message-Id: <177741830306.363516.10918867152857147398.b4-ty@b4>
-Date: Wed, 29 Apr 2026 08:18:23 +0900
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Yixun Lan <dlan@kernel.org>, 
+ Jinmei Wei <weijinmei@linux.spacemit.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: linux-sound@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org
+In-Reply-To: <20260429-k3-i2s-v1-0-2fe99db11ecb@linux.spacemit.com>
+References: <20260429-k3-i2s-v1-0-2fe99db11ecb@linux.spacemit.com>
+Subject: Re: (subset) [PATCH 0/7] ASoC: spacemit: bug fixes, refactoring,
+ and K3 SoC support
+Message-Id: <177743049537.363516.3431185859758571339.b4-ty@b4>
+Date: Wed, 29 Apr 2026 11:41:35 +0900
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,29 +51,42 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1130; i=broonie@kernel.org;
- h=from:subject:message-id; bh=AmD4vqaT2uUvRTUm6AyJgjIJNJLVUy55SkGkTF49aMQ=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBp8YbjsZ1LJmGgZqCojzF1xlJO7LUOaQtvFgSPB
- oYB1ACcsHqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCafGG4wAKCRAk1otyXVSH
- 0KSgB/4tV5PGktpNn5RUJqR6GvCP1Gg4ClOhRGo+4xsjo6d3QDrgQYWGh+k7sHjnZ0whup/bleN
- ZAQ8rZ1cWU3ljz98jPwzILKB92yEL5nc4wVorZmV4jfJmcuuLTTjJcEe2KxRVnuuCSRGMj0rA91
- lyoU+dcYwElbS5E7xLIcjTn2PQDR6B7bDlPwgl9LoE+gKe0r4freqjJg4upNCQAQmfmVO8Uxj7E
- hsg+tuy0noKZk5oHGZVMJtzFS6qhfdMN5l/mRkUbgY+rc+NhIxbVG4b6xnyovT9mu/mDuy2FV0X
- Ha6X1ic3NkSFi63+eth81l/6Pf5NGmmGzSdy2+8ZYLpRmAos
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1706; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=Y3TadPI+Uk+0lcra2ukxy7a1jSLDUZdGEsO0a8IaOuM=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBp8Yb0K+ucIi3HDtgy/2P9jyTHgZHvTNgpG3lfC
+ rcwtX3nqkeJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCafGG9AAKCRAk1otyXVSH
+ 0HsGB/0SR87C+jiNlh2idBxBsVbfTMnM51S9G6GDqaJKpv/Q0igZROaqjIOgR+7rgwkxtu/APtK
+ roW2rPY+7xkz8uYz9wQb+Y28UuChQFbDcPEcrgIzT6Y7uSxzg9kU0Z2N4MGmf5/uaHAPw81iyy/
+ bYcX2K0Q6OTTGHeR+9xT3hqSupM8HaGMX0ZCHGi+D5h4dPoMWcRaiQ7297iT4x64WngNvviymse
+ yi0pcZRFCp8/QCQ3ll3FugTOHRVdsLE83t0trkfDzgO2uidRU/D6qtbE5xawG8lmzZxbFB3MDoV
+ fECtrWN6f3zAS/C+LisSWJobTUle1BCnFLz6FfkJY7GK8uWR
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 28 Apr 2026 17:16:44 +0000, Manish Baing wrote:
-> ASoC: dt-bindings: mediatek,mt6351: convert to DT schema
+On Wed, 29 Apr 2026 09:38:45 +0800, Troy Mitchell wrote:
+> ASoC: spacemit: bug fixes, refactoring, and K3 SoC support
+> 
+> This series fixes bugs and adds K3 SoC support for the SpacemiT I2S
+> controller driver (sound/soc/spacemit/).
+> 
+> Patches 1-3 are bug fixes and refactoring for the existing K1 I2S driver:
+>   - Fix RX DMA params not being set when TX is already running
+>   - Move hw constraints from hw_params to startup where they belong
+>   - Adjust FIFO trigger threshold to half FIFO size for better DMA
+>     efficiency
+> 
+> [...]
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.1
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: mediatek,mt6351: convert to DT schema
-      https://git.kernel.org/broonie/sound/c/f103e6c27fa2
+[2/7] ASoC: spacemit: move hw constraints from hw_params to startup
+      https://git.kernel.org/broonie/sound/c/6b4afbaaa342
+[3/7] ASoC: spacemit: adjust FIFO trigger threshold to half FIFO size
+      https://git.kernel.org/broonie/sound/c/03dcb5b68a96
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
