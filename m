@@ -1,59 +1,61 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9FE1396B8C
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 07:41:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9D439D6EC
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 07:41:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777448492; cv=none; b=PkgzaTxdn6styxuwq8wY0xdh8AbYq/tRVcdZTmdBDiFxLXxXmJO+YwNdhOhzm4D5+hRyG+vGDXoiFXrwVfAthLyNyQfDw1mXfbiq5M5VWQWPJkFCbY2amsmUxSH4hyszbjxQUFSP2DbhCS2vpVJtpdfHVESV20YfJzau1wlyBD4=
+	t=1777448494; cv=none; b=Ub7pAV4j7POahLTUInaNBWbGVHLDYoSaUl7St4jHQ6ILZaDJgZ/LkaL6LMQyf5OBSisdFweRV72fdD8DcLAGmeO0EsXE04OfxK9zW+rIk9DHGDbAiuUr0ooP0URn4r+68oS1ngG/YtiLf6YEEPB8dPoDspU8UrS74IURlJHAdj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777448492; c=relaxed/simple;
-	bh=HoldeK6Y6q5KKy85/YQjScHZJE+f6Zn8Ukpab/mP8Rg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mcYWA+eJYa+QaCkG/11X7sWkBgKhAwaaLSbQIj+P1YZRdm5jAbA49wuLY8pstGuntdjMbNHw1z78MbLNdt13yimHLA/xuMNSMvqTHRhBwjRIHpRTGt/wvl3Hn+L6a27S4JO5ruutFhycNq8rLp6oqyPiRbxnbrixC2ekmUCnTD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=AMq5xxvl; arc=none smtp.client-ip=209.85.216.51
+	s=arc-20240116; t=1777448494; c=relaxed/simple;
+	bh=8tOWHu6uZ90AtUHaIBCGODtBeugzMn9R0wSP4/7acF4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bWdm1TD0pZs5G7CJxHab4uXvmi1GqDRvUuj6OXAzPRwknWQ9T1r4aL1foNmS0x8qomCWoP/v8RPnwJOwMBIKR+q7RzC+BLRUb2fMcUXtifbV4KqL5Ls+WlZPBwnjyHiOyJZb9wqQCbqLsPGzx3SOxXNKOp4p6SurENPK45Occ1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=aK5Fwd0Y; arc=none smtp.client-ip=209.85.216.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="AMq5xxvl"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-362bb3260f1so6251706a91.2
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 00:41:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="aK5Fwd0Y"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-35da9c0c007so10525842a91.2
+        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 00:41:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1777448490; x=1778053290; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=RFZhSnSnaJvbVAF8eyUqTOgahKo+NC7KLHnE9JI0jEw=;
-        b=AMq5xxvlAB/v+huI8HE/Fx9JoND5d+iX+ROCC0460fgLpFZcYrlXt9ilpCGp/ckPJa
-         Cqzjenr8+KoRl+YwkKt6z+XmfxjxOe6mtLLvWysREcqGrcDxBFLe5UT9vUqMGByqSwLh
-         NBIJDPcdBJpsTb+YBOZIllGvYymzj3DGkrXQA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777448490; x=1778053290;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=chromium.org; s=google; t=1777448492; x=1778053292; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RFZhSnSnaJvbVAF8eyUqTOgahKo+NC7KLHnE9JI0jEw=;
-        b=i2gYi0HjGiBpNveTYR6YKw/7l+dl26q07rU8zR3+sO2iLQYiJc4rkT88NPMAYfJx1S
-         HkDEaWu7JJKjq1+RBl9HhHboHM3oTVi8kG3w7Z3cm1JEglbFEc17RNwOao5oBpSgKbGj
-         HCoohOSCvNVu54Y41J3hnPX2YkIUm/Jm4CmI+ZApoLnWjkiJoSTvw+X+mDOjg1rOfTs6
-         sSLozSu8rdXwS9mIbr5t64DcfrUJkRP+EIAKqXD8QFnX+bi1Gy7IuLDsLrq1z5J+CJyG
-         iUSVn+o1H67ADDCjrKs5JwDN8CBJnfWCwb/fSzBEhFq0flhvMZaWSF16mF/As7hI7N5L
-         BUXg==
-X-Forwarded-Encrypted: i=1; AFNElJ/NSlaRn0zCiWPIZlZDXVsdvGqD91EzNR4cImbQHULqOTNtTERgABavyg63iZDBtgisRKXFmtqEyZr+@vger.kernel.org
-X-Gm-Message-State: AOJu0YxiGuKNYUvhfTwZ33PSDmatt+zlrE20JH1jvPeZWMw+pCeZ0+aA
-	FrGdsRimyDxdZ+aU7ipl0hitO5ikZS3gOPs0XxN+K9HbFmYt7Epxq4mtWM4iKUqxIg==
-X-Gm-Gg: AeBDievGbuYvwWlK2Ci7ymejHxBr6MFAQ45kmAERNHhvSB8h/ulLb2PtSZcqVHUWUXF
-	vaBBkOnU48+duhmDXcbR18iu0SSmFPuEElpBRAsHlO7aFNcZU0+qLxJCdCTrRQk+Qcy0D401cK3
-	TwKggdzHf9hrPdd8Q+VCKQspEWLFDf2G4yqCnvPMXz8YcaNjwdWzs4zQg6VnwVIzhqtlub+DtR6
-	fP5KpRivgckyThGY799ta/vt1oJ1iYpb9HLdjxYAAtjVl5i8CqOGMUrXR/7Nku4+r1kTpO9qCp6
-	jQi44jqVk5JuKNXncOZK5KGFBlcXKBE1IQ2X0/HvfbLIGem/OytjBUJjYi0/RyLQDY7Q/jeyDAQ
-	FXpxqK8MWrZhxpct5vAIz0xJjOPdjCj5sNBCjOq8FBlbiIrEFP+muj5b0Z8L1SxvKZZbHlhow6H
-	DhBKtWVtAkNTu+e5f6Lzk0OVE3RVPO6KLfLAYEruJMLub+GEHNVkEm8tSKB/11YddA5Z6CYT1OA
-	GR2IQWckYvkxH5MbZA=
-X-Received: by 2002:a17:90b:2fc5:b0:35c:b02:b5c1 with SMTP id 98e67ed59e1d1-364a0b2b59bmr2680846a91.2.1777448489640;
-        Wed, 29 Apr 2026 00:41:29 -0700 (PDT)
+        bh=FXLYavQvSo8+AMt81moN1578QhYfNvjrMqBZJuTbjC8=;
+        b=aK5Fwd0YYx0kGkfsKymmGiBUL2VZ1qr1Km1umcWMPOtBNjuUJFmY6Oqgf/kzeMx2Gs
+         p16VRU0mhOil+JYv4ywfbU3cnDp3ywaOkPnYioE3J5H5tdBIN2mANXhXPENW1Jzl5dZI
+         VSg0zUhKhDI4wBfAj2Mmq9CzsHHag/NP9Q2IE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777448492; x=1778053292;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=FXLYavQvSo8+AMt81moN1578QhYfNvjrMqBZJuTbjC8=;
+        b=eWFop6f3mIcXUFe0kMOEn+Nu5kPA28Yh7kxqMfSmZgJID4ibmi83O+5hUBUv7zSYIz
+         XFf2mq4kO7907yPX26tVEOBwhK9l2kb1h6Mi3sO7Mcooq/dXhAk9ztCAFB+ARZHQz9Z2
+         YDE54DKOUiK46OhDO7gaAm4uwNiDkQ3V3bZIlBfw15CWF4pDTWYXMP/SngIVED/yqSkj
+         /WCshQ3BN1vx2bCDf1UYVajR8XTNSlWV0S/EwdfTWWKRna0iSr81OmhPHPh9KcZk+6Dq
+         Fboozl9//hkXUn2sBpf0lX8Rw0fWjOa5EdsjrWlf8vmy7xeL/fQgLEYwD8av8HUmJdz5
+         lMFg==
+X-Forwarded-Encrypted: i=1; AFNElJ+BUDa5lHiR2dZ729xMhAMY6Epj2+8HpdeZCNcMJjwpsW/kkxS5hFVLpkBMCbgR8Da9J71c7D1Z9ZM4@vger.kernel.org
+X-Gm-Message-State: AOJu0YzLbwfi3V58gKeSE3Y4OVbSH65LGfqkd/wC7BMFhN0a3Es/yUbv
+	U6/F8yLUNPJg/PRlw8rB5cc9uOu4uMvtSgptnIWmjJ77Qd5lpSa1KZRkuVCfSkIuBQ==
+X-Gm-Gg: AeBDiet8qHPjrpG1uqgrrsTf3WuxZ2Cs/D2QY5I/S37LC6D9e07cQf6f/N5JXj0zyEW
+	nu41fkqFJh8KWK8A97MUchXDeWDG4PH+mXuDGxR7F7P013rhspmD7r/ielpkkvy0XuOYJzYdiuV
+	YQrt7Z1a9XYsg8naicqHu/9+rtYGIE2QYL5WkqWoPvDGc7ywHvgC7wnX9HY1vJVFm2MR64+OBwg
+	RJi/DDKQShLDVdm6Qmu5fx4dvLyFh2VWOLrtdxhYYCZCcmObH6JgBZcPIMXMPT8emwYs4bX+ILL
+	MH3kp3H12ImNc9h7ViZZfDiE/C67B9KUa4ihY6rXOGwGZCYo0k/2Yz+nLvpDlr3tXd9Xsl10mk5
+	pi1wNm10DUCqA4khT1jx4Hp1SMUtbEF3IK2DQg9zzzVlgWRMRYJDSkE+eghVlScOdIWWXzXVP8I
+	QiXKYILAXf9JNJ6pDnT2R5vwKn/tAjmuQkcvdtqO84sTawtclktAAanvmaKgZDbkQr2y/8u+fBy
+	oGBWT4/MiEczPLTkOw=
+X-Received: by 2002:a17:90b:4a10:b0:35e:58d3:329f with SMTP id 98e67ed59e1d1-364920a5a75mr7208188a91.13.1777448492355;
+        Wed, 29 Apr 2026 00:41:32 -0700 (PDT)
 Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:e49b:67f9:cdcb:8366])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-364a439248fsm1341528a91.9.2026.04.29.00.41.27
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-364a439248fsm1341528a91.9.2026.04.29.00.41.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Apr 2026 00:41:29 -0700 (PDT)
+        Wed, 29 Apr 2026 00:41:31 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -65,11 +67,14 @@ To: Mark Brown <broonie@kernel.org>,
 Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH v2 0/6] regulator: mt6359: cleanup and add supplies
-Date: Wed, 29 Apr 2026 15:41:06 +0800
-Message-ID: <20260429074113.3720271-1-wenst@chromium.org>
+	devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v2 1/6] mfd: dt-bindings: mt6397: Add regulator supplies
+Date: Wed, 29 Apr 2026 15:41:07 +0800
+Message-ID: <20260429074113.3720271-2-wenst@chromium.org>
 X-Mailer: git-send-email 2.54.0.545.g6539524ca2-goog
+In-Reply-To: <20260429074113.3720271-1-wenst@chromium.org>
+References: <20260429074113.3720271-1-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,84 +83,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+On the MT6397 family each buck regulator has a separate supply. LDOs are
+split into various groups with independent supplies. There is also a
+supply for the regulator control logic.
 
-This is v2 of my "MT6359 PMIC cleanup and add supplies" series.
+Add descriptions for all of the supplies for the MT6359.
 
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
 Changes since v1:
-- Moved regulator supply properties up to the PMIC mfd node
-  - This requires moving the properties to the mfd bindings
-- deprecated vcn33_[12]_(bt|wifi) regulators and added vcn33_[12]
-- model the deprecated ones as downstream to the new ones
-  (vcn33_[12] -> vcn33_[12]_(bt|wifi)
-- Handle internal supply of vbbck directly in the driver, instead of
-  specifying it in the binding
-- Added patch to constify data structures in the regulator driver
+- Use regular expression to describe vcn33_* names
+- Moved regulator supplies to top level PMIC node
+- Moved changes to mfd binding
+- Dropped ack from Krzysztof
+---
+ .../bindings/mfd/mediatek,mt6397.yaml         | 50 +++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
-This series is part of a broader collection of regulator related
-cleanups for MediaTek Chromebooks. This one covers the MT6359 PMIC.
-
-The MT6359 PMIC is similar to the MT6358 and MT6366 PMICs. I've done
-cleanups for those in the past.
-
-Patch 1 adds the names of the power supply inputs to the binding.
-
-Patch 2 drops the restrictions on the regulator-name property from the
-binding. The name of the supply rail ideally should match the design
-schematics, not the PMIC's output name. The DT should be free to set
-whatever name it needs.
-
-Patch 3 deprecates the vcn33_[12]_(bt|wifi) regulators, and adds new
-proper vcn33_[12] regulators. The two *real* VCN33 regulator outputs
-each have two enable bits that are OR-ed together to control the
-output. This allowed WiFi and BT stacks to separately control power
-output without coordination.
-
-Patch 4 constifies the data structures used throughout the regulator
-driver. While not directly related, it touches the same context and
-it is easier to include it in the series.
-
-Patch 5 adds the supply names from the DT binding change in patch 2
-to the regulator descriptions in the driver. This patch has a whole
-bunch of checkpatch.pl warnings, but I wonder if it's because the
-context size for checking complex macros is not large enough.
-
-Patch 6 implements the changes of the DT binding change in patch 3.
-
-
-One part not yet covered in this series is the removal of the *_sshub
-regulators. These are not actual regulators, but a set of separate
-configurations to be used by the low power sensor hub or embedded
-controller. How these combine with the standard set of configurations
-set by the main processor is TBD.
-
-Device tree changes will be sent separately. The goal is to get the
-regulator tree as complete as possible. This includes adding supply
-names to other regulator DT bindings, and adding all the supply links
-to the existing DTs.
-
-Please have a look.
-
-
-Thanks
-ChenYu
-
-Chen-Yu Tsai (6):
-  mfd: dt-bindings: mt6397: Add regulator supplies
-  regulator: dt-bindings: mt6359: Drop regulator-name pattern
-    restrictions
-  regulator: dt-bindings: mt6359: Deprecate bogus vcn33_[12]_* split
-    regulators
-  regulator: mt6359: const-ify regulator descriptions
-  regulator: mt6359: Add regulator supply names
-  regulator: mt6359: Add proper ldo_vcn33_[12] regulators
-
- .../bindings/mfd/mediatek,mt6397.yaml         |  50 +++
- .../bindings/regulator/mt6359-regulator.yaml  |  52 +--
- drivers/regulator/mt6359-regulator.c          | 400 ++++++++++++------
- include/linux/regulator/mt6359-regulator.h    |  10 +-
- 4 files changed, 339 insertions(+), 173 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+index 05c121b0cb3d..7fbf07208d0f 100644
+--- a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
++++ b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+@@ -225,12 +225,62 @@ properties:
+     description:
+       Pin controller
+ 
++  vsmps-supply:
++    description: Supply for regulator control logic
++
++patternProperties:
++  "^vsys-v[a-z]+[0-9]*-supply$":
++    description: Supplies for PMIC buck regulators
++  "^vs(ys|[12])-ldo[1-9]-supply$":
++    description: Supplies for PMIC LDO regulators
++
+ required:
+   - compatible
+   - regulators
+ 
+ additionalProperties: false
+ 
++allOf:
++  - if:
++      properties:
++        "compatible":
++          contains:
++            const: mediatek,mt6359
++    then:
++      properties:
++        vsys-ldo1-supply:
++          description: Supply for LDOs vcn33_[12], vio28, vfe28, vibr
++        vsys-ldo2-supply:
++          description: Supply for LDOs va09, vaux18, vbif28, vxo22, vrfck, vrfck_1,
++            vemc, vsim1, vsim2, vusb
++        vsys-vcore-supply:
++          description: Supply for buck regulator vcore
++        vsys-vgpu11-supply:
++          description: Supply for buck regulator vgpu11
++        vsys-vmodem-supply:
++          description: Supply for buck regulator vmodem
++        vsys-vpa-supply:
++          description: Supply for buck regulator vpa
++        vsys-vproc1-supply:
++          description: Supply for buck regulator vproc1
++        vsys-vproc2-supply:
++          description: Supply for buck regulator vproc2
++        vsys-vpu-supply:
++          description: Supply for buck regulator vpu
++        vsys-vs1-supply:
++          description: Supply for buck regulator vs1
++        vsys-vs2-supply:
++          description: Supply for buck regulator vs2
++        vs1-ldo1-supply:
++          description: Supply for LDOs vaud18, vcamio, vm18, vufs
++        vs1-ldo2-supply:
++          description: Supply for LDOs vcn18, vefuse, vio18, vrf18
++        vs2-ldo1-supply:
++          description:
++            Supply for LDOs vsram_proc1, vsram_proc2, vsram_others, vsram_md
++        vs2-ldo2-supply:
++          description: Supply for LDOs va09, va12, vcn13, vrf12
++
+ examples:
+   - |
+     #include <dt-bindings/interrupt-controller/arm-gic.h>
 -- 
 2.54.0.545.g6539524ca2-goog
 
