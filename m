@@ -1,97 +1,99 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B30313BED31;
-	Wed, 29 Apr 2026 07:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3403A3803;
+	Wed, 29 Apr 2026 07:56:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777448699; cv=none; b=NSB+WhYb7/nHMM/L/8cIcaX2zxI88WRy2G1qOQy5xNYwsBZUR2VI60cJ0R9xPr4DglRfJc0niVkz4m9UGPuyTF1CKwyPesJnu9xUYTo37+0CRRJ+DcOllvpGWook/eErZaDOxcfzzg3HfXIbTX45Go0yBesW/VpiEBryb4Afdwg=
+	t=1777449420; cv=none; b=OT8DAyzzl8wS8jm5z3r/0ryQqnEechSf21RJfU5NGILFbLAZlMQ/9XV3xDAW6O7ZJ92s1bY7yP6AAmt107SVCZko42XKfh12Krb+m0JyXg2Ji8TsMoKf3Ppyua2poxQ3j+qEjM8w5kTkXuqAzboyn2KyslqD3vuBiqdq5R7I/xo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777448699; c=relaxed/simple;
-	bh=op2dyqGMPf45Zp004/cYcTotxRMgO+sGnvJdpRf3ngA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C6s02KS3y0WMWsKsfciuR5ZxLXtptCFcXa3Cl2OB7qzPUlaa0GcFhMjhzJ6P43NIuAssYtnsMEbitby+GropJvP7dbyYmoqY7llrHDbb42K5QsAmyDwURp6GB3xXHbyML3IYEO3UkH5AkedNJKK5bk71xEYK9X9NM9K2R898j/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xsKLxOKV; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1777449420; c=relaxed/simple;
+	bh=UPeTgm4C/Ie1ap4dTBAYXimQGkzcmNYfJQ4v7B4RFro=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=DxFXX7hV2UwZMJOPJzGNuSIj2sPzLGVETWJjjiaY3Zt/ALME2TSMTwwE7up3VDhcGgLJNLPSkOox9EzDXmEQnVr6z321evnVYjholhp2PSO40miMDwddf2gsGqMMoY2yAnh+QJCMuC/MJhOSLrtUhbGuP/vYszokcK9pPbDxAmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=kQNXRN/I; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xsKLxOKV"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 71D921A3478;
-	Wed, 29 Apr 2026 07:44:56 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4211160537;
-	Wed, 29 Apr 2026 07:44:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E847B107298A5;
-	Wed, 29 Apr 2026 09:44:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1777448695; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=BBUTlQzRbcWMTsEb0Kt5D7Leu3NTlQjVFL2I0uveIu0=;
-	b=xsKLxOKVcSg85hNBTKS1T7Eabf8uQw5GUSP1e7/cOxGcbansFbn49NMOE9HWf2S8XKMsLZ
-	al4bol33Z8sRtOexztmqLkba9zKm2qF5IPJCaz70MfJOSkmySh79WKLEM9yI6OwDExsn2p
-	9lCBFUFufyfmzefY1+FUE/vgvd+3dbQaVCqWpPSogx480/Oo3wAU9EDDG5+pNOyylMuQ+p
-	DCVZIlZkTHZASlNeD70z0UVmCF89UiHYvGk1TKqWeLCaV9mjdREdwM0/Jys6P0/okgVe0y
-	7c/vTRHlN8fRMZosrtFFUuTM4KGOSMEzERHq05Lcg/W91GVlHFceawl/5xB6HA==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Herve Codina <herve.codina@bootlin.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH v2 17/17] MAINTAINERS: Add the ASoC gpio audio amplifier entry
-Date: Wed, 29 Apr 2026 09:43:53 +0200
-Message-ID: <20260429074356.118420-18-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260429074356.118420-1-herve.codina@bootlin.com>
-References: <20260429074356.118420-1-herve.codina@bootlin.com>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="kQNXRN/I"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1777449414;
+	bh=BJ49DOwjJR+WskeXhiKnY23XN8YKPK13S13MmrbKwMI=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=kQNXRN/IBDbv7FceeksGeddoCJ5S6RRx/7CXTo3qtnL9m6Gk6p8jsXR1EsdVzp3xA
+	 gzcailOB8TuWyZ5BrhyqP2MFvD61b9F3WMLj81nzqBvZwIJrCwSK95DuLlMnO8HXIO
+	 G4/lQ53eTtultmndYT+JaaERSN23Dtir/AOnpixw=
+X-QQ-mid: esmtpgz16t1777449409tac12cdb6
+X-QQ-Originating-IP: DkWHvUEwJTe71CZ7AGA68Q4lc/p1h5yY4D/tlreyZvA=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 29 Apr 2026 15:56:47 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 729058513551534686
+EX-QQ-RecipientCnt: 15
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 29 Apr 2026 15:56:47 +0800
+Message-Id: <DI5H899DW2NZ.P89S1L5KSOO9@linux.spacemit.com>
+Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Jaroslav Kysela"
+ <perex@perex.cz>, "Takashi Iwai" <tiwai@suse.com>, "Yixun Lan"
+ <dlan@kernel.org>, "Jinmei Wei" <weijinmei@linux.spacemit.com>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, <linux-sound@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH 1/7] ASoC: spacemit: fix RX DMA params not set when TX
+ is running
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Mark Brown" <broonie@kernel.org>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260429-k3-i2s-v1-0-2fe99db11ecb@linux.spacemit.com>
+ <20260429-k3-i2s-v1-1-2fe99db11ecb@linux.spacemit.com>
+ <afFsyiSHrVBapQ9V@sirena.co.uk>
+In-Reply-To: <afFsyiSHrVBapQ9V@sirena.co.uk>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OGtyjy/q1OVdeFO5A4VzZQuGXBoI729vD6r0cahmaD7JzTX2IoVRHh6b
+	YH158zWFy7AaY0G3Iy9YA5Yt9KW/XYbsVhRxG4dgZBQTlrNMPj0iPsbmF4iEztmcTWREoV8
+	jSk6nIsimoGB53sjltFDSfUMzZIFt1JfE/c1G+RC3+537h10Qtg+5n65ZkByyEuW+Gn7IOw
+	VvSGc/S19Evwt5dK31bZU8lxmLIsB2mxZcG73raKBdvqbLGcAiXR6btyljCvyrIL+GYZfNf
+	09qja6bBDm3ISbYR07TAqbUTlMKkMDKLw8B5J+sT+rnnxvajJwYfeIN5frM+P+3od15H+UF
+	SOHZcZ6jb5/lKiDcv2GvqQp8ixMVPK2NoYFFQ/D9Iq0CnyrAuwCGpGZikFKwoU+IL3nF9dI
+	Hc9f45K7RF1inUjZsv5eDFGIZVA6UjxU98GctVjoYlhXPmotE0VZitUhxvoXyw0wzL3C3AL
+	xbcHub8ivjXKuBPdEDnqfiU64bMcw5BCNq+N9U0BrlymtXyVDFgwpus8K/x/7+FoTSx9wCr
+	tZclEYMMfn1k7czhdEcDl2U6mnmmwEbLClX7g5Cb5g4gXXBxU3u6B0iaKad+kIpVdr+2lcu
+	7g3eLfzxQemiRqVI4G04xeuUnpIJXAr2fW6BbBB0pWHtCNnsvG//B3rtMVWlaUjqT7Y9kiI
+	+pvctZngzrZAjEzMKSOqom4salbzJ3orCaZqhVq3VFqkv5np0fmXOwPHkrxSdBLMNDmIt6h
+	ckgGIUiSRGiVk5g8P0LnxF6p25lQTXDJ/KV5if99cpfAXVBEQKuXm4hXBpqlh2B6QLDItts
+	7b5jXmVjEObBfzUebbQVjUANo73qw7m2oy3/YX4lrv/2gTezL++4cBghWJEcI4IfWBHEfg4
+	BMQtX8qhILnOEOfQHPPe2csM2vvCNa3fa+yY0flauMt1ZntISBQ7C72W5KEO6mhDmRVlBMH
+	AcoOAd8cnBvZxsz2/EN7XU4mqQS5rgMl5rwvobMlV6wHTmTAXW1F+ca9Kb0/Zep0+Do919b
+	C+OHkEoriFZTKBGdn6qdwQHCr3tuu3eGEwiYSsD7XC/cqUay7mC4+o7Io4RdWFf1sTZqq4R
+	ZOCvLwgREvts2Dlrtdm9oFT+O2JF/FftA==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-After contributing the component, add myself as the maintainer for the
-ASoC gpio audio amplifier component.
+On Wed Apr 29, 2026 at 10:28 AM CST, Mark Brown wrote:
+> On Wed, Apr 29, 2026 at 09:38:46AM +0800, Troy Mitchell wrote:
+>
+>> +	val =3D readl(i2s->base + SSCR);
+>> +	if (val & SSCR_SSE)
+>> +		return 0;
+>> +
+>>  	val =3D readl(i2s->base + SSCR);
+>>  	val &=3D ~SSCR_DW_32BYTE;
+>>  	val |=3D data_width;
+>
+> Very minor optimisation but those two SSCR reads could be combined.
+Thanks. I'll fix it.
 
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
----
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2fb1c75afd16..4bd360f7aa80 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24985,6 +24985,13 @@ F:	include/sound/dmaengine_pcm.h
- F:	sound/core/pcm_dmaengine.c
- F:	sound/soc/soc-generic-dmaengine-pcm.c
- 
-+SOUND - SOC LAYER / GPIO AUDIO AMPLIFIER
-+M:	Herve Codina <herve.codina@bootlin.com>
-+L:	linux-sound@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/sound/gpio-audio-amp.yaml
-+F:	sound/soc/codecs/simple-amplifier.c
-+
- SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEMENT (ASoC)
- M:	Liam Girdwood <lgirdwood@gmail.com>
- M:	Mark Brown <broonie@kernel.org>
--- 
-2.53.0
+                   - Troy
 
