@@ -1,75 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235F035A387;
-	Wed, 29 Apr 2026 07:16:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD90F3A3E7B;
+	Wed, 29 Apr 2026 07:19:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777447006; cv=none; b=IEIlSDN+VKG9j5jEIPKqkOH7+F09AxT5JnsUSmNp2dX1UZZefXw8HFURpYiCLA+HgOrmTXPxazKBdtZoL+l7SpDd/yWfcqnLKG1WzksGXyeLACLdgYnfUG/MVn9VNyvIuDDR0Sjn/qDKWKITuMd/LuEYLKBmGV9/7zkcuPHhqSk=
+	t=1777447159; cv=none; b=jXz413PdP1RS/OzYCzOJGFuz4jiZTQhFYJAhe36KHLXkT8pVtEH3kg3JB/KxSuoGhoUd1bnOLFWsHFhkhv4DgqtkXlApJ3dphx9Bs4EPBR9RmTbe6n1XSGY0v+KOOAA+RXYV80ZJ4DScwGROyAHEkb8Og0aOgp19TULp2nklfZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777447006; c=relaxed/simple;
-	bh=FTpgnX6lm7HSkuC/tj0uDIaESnQjfNt5WRUd5INg0Ds=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aXpw2oYiK9nzFnoKFR1MS5xiLRCWIi009qABpTxwEuT38aYHsjw3357b/ZSMT45SiMLD3riMBE3tGmeVm1jG3ItIgpgb4McO4lx2v7vT7doNu0U5ayOzar4JpFuHSgzs+MJwuu/0dQsrWUrkWqmDAtfG01Uh+6Snzcx8xY/Vr4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GI+N9ifQ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777447159; c=relaxed/simple;
+	bh=M8jWi/iwARsSCdhnsrumHZijiF7Pox6rExtjsTJLJHg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=XyVZIl4zfb7GIBmPsP2l4HBwE7hSKzm/HXR9Ii9E/D1kl4hglovp7kDyLbvzVzSpInOGMwobTikuw6vpmFxKD5T+2NQTpF+HOwpfppQfSb02q7bCmHwlZIYCZKDdkDZ+7D5ETU8MQs2f6GwipLYgXA3DSpEFcQmypq8U7mge8Zw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D/A2mRIC; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GI+N9ifQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE35C19425;
-	Wed, 29 Apr 2026 07:16:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D/A2mRIC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65358C19425;
+	Wed, 29 Apr 2026 07:19:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777447005;
-	bh=FTpgnX6lm7HSkuC/tj0uDIaESnQjfNt5WRUd5INg0Ds=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GI+N9ifQt2chGRQFu+5CG6JFU4Ochio+SV3l7PK/Rn/lHNoc5HLECEPVePVq/GHeD
-	 Xh2mj/uDJYUmns9n0B8OziVM0+RsFM0Ywy7lgt7OUWQ5tZkf6DQjjdticd8/nK1F+4
-	 cHPLJGJSrFOpV21uN84FDAtGuu/MnMR8MuGIiY1xXAfP9EIPJ6IO1mUzDfbf1iz/gd
-	 I0hmAf2h8oC8gy6j/XSESoDEi2KMivAsZb5GA5H0RH7Qn7wiN8TUhzlnwTpFaBy1TZ
-	 DqeH3pKwvxyWSjJi2HtC7saUYbWzkEAw2U7Es4GHFfyXo4d93FypsVNQpbI/8ERUS8
-	 AETOYHlhCrsMg==
-Date: Wed, 29 Apr 2026 09:16:43 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Kumar Dwivedi <ram.dwivedi@oss.qualcomm.com>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] scsi: ufs: dt-bindings: Add compatible for
- SA8797P UFS Host Controller
-Message-ID: <20260429-amphibian-bullfrog-of-awe-70a928@quoll>
-References: <20260427013115.231731-1-shengchao.guo@oss.qualcomm.com>
- <20260427013115.231731-3-shengchao.guo@oss.qualcomm.com>
+	s=k20201202; t=1777447159;
+	bh=M8jWi/iwARsSCdhnsrumHZijiF7Pox6rExtjsTJLJHg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=D/A2mRICO84nLmSp93o3iYWAW1Az6jzLxPdtj1B8fIDB6l+8IVEneALtWUN/qURFX
+	 5GwVRKkrnf7AEy3hyAeryB8j3BxZf1HSk44vRGeF4pIkMVRp3mEKpNFsSNRMKxxkN3
+	 Ne5V8nXrn/HPn9jAjFZyxcQ81OeTf6gJLSy2QQ7gtZrLIfVwLdhxXy95LeRNc8HMvb
+	 kokjcNJFrUE8FEjynUPYM6d8rLSR772FJPJRkPOMnsW9uNo6Hk6RYmWZXGJEPDfPpp
+	 ymWwJJgWQHtJpKmD1tQSv3FiQzpkjq3EY8EDDM5aIwgQwiFxERXObATs1yGVX4AQNg
+	 iRDoEgDw1y4gA==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Caleb James DeLisle <cjd@cjdns.fr>, linux-mips@vger.kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Caleb James
+ DeLisle <cjd@cjdns.fr>
+Subject: Re: [PATCH 2/2] irqchip/econet-en751221: Support MIPS 34Kc VEIC mode
+In-Reply-To: <20260425123531.270548-3-cjd@cjdns.fr>
+References: <20260425123531.270548-1-cjd@cjdns.fr>
+ <20260425123531.270548-3-cjd@cjdns.fr>
+Date: Wed, 29 Apr 2026 09:19:15 +0200
+Message-ID: <87tssuxmh8.ffs@tglx>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260427013115.231731-3-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain
 
-On Mon, Apr 27, 2026 at 09:31:15AM +0800, Shawn Guo wrote:
-> From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> 
-> SA8797P is the automotive variant of the Nord SoC. Like SA8255P, its
-> platform firmware implements an SCMI server that manages UFS resources
-> such as the PHY, clocks, regulators and resets via the SCMI power
-> protocol. As a result, the OS-visible DT only describes the controller's
-> MMIO, interrupt, IOMMU and power-domain interfaces, making SA8255P the
-> appropriate fallback compatible.
-> 
-> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/ufs/qcom,sa8255p-ufshc.yaml         | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+On Sat, Apr 25 2026 at 12:35, Caleb James DeLisle wrote:
+> This of course subverts the traditional intc hierarchy, and on the
+> 1004Kc the interrupt controller is standardized (IRQ_GIC) so it can be
+> reasonably considered part of the CPU itself - and tighter coupling
+> between IRQ_GIC and arch/mips/* is tolerable. However on the 34Kc
+> the intc is defined by each SoC vendor, so we have the task of making a
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+s/so we have.../so it's required to have a modular driver/
 
-Best regards,
-Krzysztof
+or something like that. Please use passive and factual voice for change logs.
 
+> reasonably modular driver - but for a device which in fact ends up
+> taking over the entire interrupt system.
+>
+> We let the DT describe which IRQs which come from the CPU and should
+> be
+
+s/we let/Let/
+
+> routed back and handled by the CPU intc. These particularly include the
+> two IPI interrupts which would otherwise necessitate duplication of all
+> the IPI supporting infrastructure from the CPU intc.
+>  /**
+>   * @membase: Base address of the interrupt controller registers
+> + * @domain: The irq_domain for direct dispatch
+> + * @ipi_domain: The irq_domain for inter-process dispatch
+
+Can you please make that tabular for easier parsing?
+
+>   * @interrupt_shadows: Array of all interrupts, for each value,
+>  
+> +/* When in VEIC mode, the CPU jumps to a handler in the vector table.
+
+This is invalid multiline comment style.
+
+https://www.kernel.org/doc/html/latest/process/maintainer-tip.html
+
+> + * The only way to know which interrupt is being triggered is from the vector table offset that
+> + * has been jumped to. Reading REG_PENDING(0|1) will tell you which interrupts are currently
+
+> +		if (receive >= IRQ_COUNT) {
+> +			pr_err("%pOF: Entry %d:%d in %s (%u) %s\n",
+> +			       node, i, 0, field, receive, "is out of bounds");
+
+Yuck. What's the point of the last string constant argument? Just stick
+it into the format string. All over the place.
+
+Other than those nits, this look like a reasonable solution for a
+completely unreasonable hardware design.
+
+Thanks,
+
+        tglx
