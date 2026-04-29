@@ -1,138 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854A226B2D2;
-	Wed, 29 Apr 2026 11:37:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8262175A81
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 11:50:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777462621; cv=none; b=iuha/JTHPdhv6TSrf9ToGdBFYJEhZpZ1nQ334YD056hG857ywEmPxiyb0pDtZnpoeqroCnm3DDsoSy3XtCjYSgoc0G2j0b6/WPwNhuMc8Fx1d0p8sKSO4tvftPpe1bxucRwBfmPTdwH+hTahlOMyTOjSU39P2OsEH1eDPe6rvek=
+	t=1777463413; cv=none; b=RFx7C0C/GcmR5eAhETN9+ie2DTe8SXczMsJHZT4tZzHKOyvVgQg8oTabDZ90SdXdrLrN7NM4qvFdMlLyK3geMunPsImYjzDzQK4ls/UC/gchibWVzfIHW40sC/QZOP5dEff/HUxiMxve0xC4wg6sRCd7Z3zqpIawueKJijQ7GIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777462621; c=relaxed/simple;
-	bh=+CtpYDWRU0lzlDz1A8KTGZXFMUfWoyOh9Y7j+aS8jhc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OTMldanPfuYAPalDkjIYWBGe/YjV/DISkCcwOBMDw2VUwJiBuAM0BOXGpGCWCCX28LQuyXri1ZLCqIyMsNlOe7B98/mKN8YQvk2MHB+LYSWYnpwxLvclH4oYF5tZoUsu7a60/aHizf+JyraPwmnG4S7sjrNGxGQ9alQxN241h7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sbojCgyx; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sbojCgyx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CCB1C19425;
-	Wed, 29 Apr 2026 11:36:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777462621;
-	bh=+CtpYDWRU0lzlDz1A8KTGZXFMUfWoyOh9Y7j+aS8jhc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sbojCgyxsFkSlSjhr5AXlFoBenS47F6oVAIN3Xm7ZJfN0ZzBYwMoKSorlCmrrDPtw
-	 E1IcZMlI//74Z8mvN6HWvcWQzV62xy1A+LYvauL92GDs+/LbujErKq/bPgId0gYBXk
-	 x79/Hr6nXiv1Avdj9r/higuZNZfkCMTj3qb+D8TtiRyBf0NzbfCC4BKT+ys4pusWRs
-	 AX2/u5H4q7TemSriKduaWWx5MgQ6yXcrTgWFfYgUflk8DB99Pu2rxenG0ELWaGV/q2
-	 yEPpWPtdvmYNoXCYqawY9caTKS+Ku3g441OQTFoszjF83ah9IKLiHMRzM/ZkOlTp0a
-	 SccALby2VvG8w==
-Date: Wed, 29 Apr 2026 12:36:56 +0100
-From: Lee Jones <lee@kernel.org>
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Steffen Trumtrar <kernel@pengutronix.de>,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] leds: rgb: lp5860: add enable-gpio
-Message-ID: <20260429113656.GA1806155@google.com>
-References: <20260408-v6-19-topic-ti-lp5860-enable-gpio-v3-1-da59a9005386@pengutronix.de>
+	s=arc-20240116; t=1777463413; c=relaxed/simple;
+	bh=k3006wJqxnTat9Xj8MW2QjrO2YW2+jD6t20DobBX4xo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AgU8++KdvmyJCDOTIfMRMvq++T0OzsZw2XGQ+GTDkP8qOa2OyNga1HjUo118EXaikOfKC6TCv+J1N/bH35xkEWWjJowknULwOfV2BhEdyhS6e9v5EJIBm9UHk7+mWlueheN8VAgVkMrQhhq+PlZDzSTOHbwBdiEOkHArM0mdBMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2a7a9b8ed69so106651395ad.2
+        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 04:50:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777463412; x=1778068212;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=07iUR/sIOeK9OY28Ao/jBJ40ezKJgRa8Xi1S5qNmXhs=;
+        b=FMqty1Zq6IxZ+uNYLkJXjevT3AgIvNTkV3Y+TOD3uKWeq3H2PZuXNFC9at/tYVaTso
+         m10OpxhoeCTBxPOlvAs005F2Tw7EE8qqa3iH/IDftaKZ5PiN+dWeuWYF9lCoUKrcScL6
+         zwpAYDSlylHbutOPzOEQ1cOnjIicwU/jm8UzgKHhVrqe4T5QrdT/Y2PJtP6AUuQOVM9D
+         CucUg+u6RmERrgDnagKnAej3e0y6sEzuY+CRqATfZhJvzoN/dpUpsr1pP26PVdiDzVxi
+         cCHsfn2ZDeE6KFsHB2Yjkz2SxcbOodKBPJKbs/lJ/N96NEp8fba7FBRMflejmpgNhSiR
+         MEeQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+zk/bLf2jL75V847yzWta3RAaSYcSt2Lax1TXtyjorEjRmnqp5IfVESbPzDmhzAmB4p7TENd0meqUp@vger.kernel.org
+X-Gm-Message-State: AOJu0YzGnDOPEcUJfq1CsUj5HCijluy/H1WxaVE5hBc3urGiOF43KeN4
+	ku+FcaW2mdPNr5umlsPgg2mwuo5g/jVfwA5ko1aIg6JIb/FnKA0aSMgY4NfwoHr+IdU=
+X-Gm-Gg: AeBDiesBVQgjZC0usugD/SOxH99ql/6QOiHFxROWo6lk756Zq6eM41S0S2uviJtRPoJ
+	Qs8LQcPpV1NDnCnKT/cyu8Y1gxsu/fzTARxlL1lDBl0IloXskSZOHgxhg38zDsgq71XeHfn00+I
+	r4NrcwPsaWw5mvKVcUs7De/fo1GD8DYf5W7LSKdU/SWHro/hA8gaCg9qBeYHlYY2VV49XBU5FMU
+	opeeSDunsSrseEMz3OYwAdDO31IDXL0OixYlDGlfECd2wMvkvckLk1XLF+pi+g/o/PM2GLEYI6I
+	Re4QWbBTQrjYaPaaxU88XV1j0aaEYJI6eUBOevNWrFQ0o6gzx3E2TgQn4Kz8alRYMMXcLGbMFgJ
+	KFd6rv0Vbz8BiMwiAX4RUvdRzKlYow36SNJtonMAz12g+ndXoptyJGo8oJD4oR/3zQRQ8Iu9v5e
+	WHGBztbYEse2w3ROXKmwBZsMx/qajSiNJV5AI2V2WUJnO01hV3s8KHQX6cQRbMVOBPVgosjmv5G
+	JU=
+X-Received: by 2002:a17:903:3bcc:b0:2b9:87e0:1f80 with SMTP id d9443c01a7336-2b987e02b8emr33303895ad.24.1777463411965;
+        Wed, 29 Apr 2026 04:50:11 -0700 (PDT)
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com. [209.85.215.169])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b98893f317sm21188865ad.53.2026.04.29.04.50.11
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Apr 2026 04:50:11 -0700 (PDT)
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-c70c112cb61so8194338a12.0
+        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 04:50:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/+GH0YpTnm+hnKZdf92rH230hKtqkvaWcYXOyg8DviZb4/B/xzXV1f+4ECU80ybcqIv+JGUnaye9t8@vger.kernel.org
+X-Received: by 2002:a05:6122:8b0c:b0:56f:7300:37c9 with SMTP id
+ 71dfb90a1353d-573b368cf79mr1448638e0c.10.1777463106983; Wed, 29 Apr 2026
+ 04:45:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260408-v6-19-topic-ti-lp5860-enable-gpio-v3-1-da59a9005386@pengutronix.de>
+References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org> <20260419193718.133174-5-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260419193718.133174-5-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 29 Apr 2026 13:44:55 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVLUFZzwUjvMuZOOTJk9jn-pTM4-rYHE8OZzp9RpQd2tw@mail.gmail.com>
+X-Gm-Features: AVHnY4LhTK0YHEkXOgViPxtDX3drSx5eXMIsHWPwRkcxiJzGfAV6beExDjAOpFs
+Message-ID: <CAMuHMdVLUFZzwUjvMuZOOTJk9jn-pTM4-rYHE8OZzp9RpQd2tw@mail.gmail.com>
+Subject: Re: [PATCH 4/7] dt-bindings: soc: renesas: Document Renesas R-Car
+ R8A779MD Geist
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Simona Vetter <simona@ffwll.ch>, Stephen Boyd <sboyd@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, 
+	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, devicetree@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 08 Apr 2026, Steffen Trumtrar wrote:
+Hi Marek,
 
-> The VIO_EN pin can either be connected with VIO power supply or GPIO.
-> Get the GPIO from DT if provided and set it on chip enable and disable.
-> 
-> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> ---
-> Changes in v3:
-> - remove unnecessary validation checks
-> - update dep to newer lp5860 series
-> - Link to v2: https://lore.kernel.org/r/20260310-v6-19-topic-ti-lp5860-enable-gpio-v2-0-3fcc617fe03a@pengutronix.de
-> 
-> Changes in v2:
-> - add acked-by
-> - updated deps to newer lp5860 series
-> - rebased to v7.0-rc1
-> - Link to v1: https://lore.kernel.org/r/20260217-v6-19-topic-ti-lp5860-enable-gpio-v1-0-f5e8edeb5d74@pengutronix.de
-> ---
->  drivers/leds/rgb/leds-lp5860-core.c | 9 +++++++++
+On Sun, 19 Apr 2026 at 21:38, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> Document the compatible value for the Renesas R-Car M3Le (R8A779MD)
+> SoC and the Renesas Geist development board. The Renesas M3Le SoC is
+> a register-compatible variant of the R8A77965 (M3-N) with reduced set
+> of peripherals. The Geist board is derived from Renesas Salvator-X/XS
+> boards, with adjustment for the R8A779MD SoC.
+>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-I'm confused.
+Thanks for your patch!
 
-Why are you sending me patches for files that don't exist?
+> --- a/Documentation/devicetree/bindings/soc/renesas/renesas.yaml
+> +++ b/Documentation/devicetree/bindings/soc/renesas/renesas.yaml
+> @@ -473,6 +473,12 @@ properties:
+>            - const: renesas,r8a779mb
+>            - const: renesas,r8a7795
+>
+> +      - description: R-Car M3Le (R8A779MD)
+> +        items:
+> +          - const: renesas,geist    # M3Le Geist
 
->  drivers/leds/rgb/leds-lp5860.h      | 1 +
->  2 files changed, 10 insertions(+)
-> 
-> diff --git a/drivers/leds/rgb/leds-lp5860-core.c b/drivers/leds/rgb/leds-lp5860-core.c
-> index 31eebaf0269ab..5bccca47b20a1 100644
-> --- a/drivers/leds/rgb/leds-lp5860-core.c
-> +++ b/drivers/leds/rgb/leds-lp5860-core.c
-> @@ -5,6 +5,7 @@
->   * Author: Steffen Trumtrar <kernel@pengutronix.de>
->   */
->  
-> +#include <linux/gpio/consumer.h>
->  #include <linux/led-class-multicolor.h>
->  #include <linux/module.h>
->  #include <linux/of_platform.h>
-> @@ -59,6 +60,8 @@ static int lp5860_set_mc_brightness(struct led_classdev *cdev,
->  
->  static int lp5860_chip_enable(struct lp5860 *lp, bool enable)
->  {
-> +	gpiod_direction_output(lp->enable_gpiod, enable);
+"Geist (RTP8A779MDASKB0F10S)"
+
+> +          - const: renesas,r8a779md
+> +          - const: renesas,r8a77965
 > +
->  	return regmap_write(lp->regmap, LP5860_REG_CHIP_EN, enable);
->  }
->  
-> @@ -189,6 +192,12 @@ int lp5860_device_init(struct device *dev)
->  	struct lp5860 *lp = dev_get_drvdata(dev);
->  	int ret;
->  
-> +	lp->enable_gpiod = devm_gpiod_get_optional(lp->dev, "enable", GPIOD_ASIS);
-> +	if (IS_ERR(lp->enable_gpiod))
-> +		return PTR_ERR(lp->enable_gpiod);
-> +
-> +	gpiod_set_consumer_name(lp->enable_gpiod, "LP5860 VIO enable");
-> +
->  	ret = lp5860_chip_enable(lp, LP5860_CHIP_ENABLE);
->  	if (ret)
->  		return ret;
-> diff --git a/drivers/leds/rgb/leds-lp5860.h b/drivers/leds/rgb/leds-lp5860.h
-> index b3ad8c46720cd..48a6afc4227d6 100644
-> --- a/drivers/leds/rgb/leds-lp5860.h
-> +++ b/drivers/leds/rgb/leds-lp5860.h
-> @@ -257,6 +257,7 @@ struct lp5860_led {
->  struct lp5860 {
->  	struct device *dev;
->  	struct regmap *regmap;
-> +	struct gpio_desc *enable_gpiod;
->  	unsigned int leds_count;
->  
->  	DECLARE_FLEX_ARRAY(struct lp5860_led, leds);
-> 
-> ---
-> base-commit: 559f264e403e4d58d56a17595c60a1de011c5e20
-> change-id: 20260217-v6-19-topic-ti-lp5860-enable-gpio-83c0652d34ad
-> prerequisite-message-id: <20260403-v6-14-topic-ti-lp5860-v8-1-e127e80e875a@pengutronix.de>
-> prerequisite-patch-id: 2fc7123c98bf6c53d946af75269ecb1a7b421f14
-> 
-> Best regards,
-> --  
-> Steffen Trumtrar <s.trumtrar@pengutronix.de>
-> 
-> 
+>        - description: R-Car X5H (R8A78000)
+>          items:
+>            - enum:
+
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-Lee Jones
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
