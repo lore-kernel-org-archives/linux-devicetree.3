@@ -1,179 +1,347 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2ED3FD147
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 14:10:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777471821; cv=none; b=Rl2xvwqNN1ngVt01dvIXPDfByH/7lviSGFf2eZTckROwatk3gVT0grVXExnAp5n+CotODLPYXEx52robAvLsgQP5MxpORFm7OU+SN0+DCSiM8SRe+POJ11GfrI62OUyPySdPvaKSpvm8/rcxX9p2RnCZjl82qy3Yi0TqfR6HqLs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777471821; c=relaxed/simple;
-	bh=XtDgh9EmFEUZTFmmIEWobw9+f5N/wS8Pmul7XFNhQBs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=K4Ksyh2XxJSxVfQ33qzsneJVLBZoOURFcfsHY/rXTs6XwJHXiYvoV2Lr5AD6VcRd2qe7kh3+4w1Nz1stXICkdjjyZBzlomGp3oMxc9S9sUDk5byntqZ8mLtxM6XWO/BCol8HkMLM5INOMDPE/fbVFOaiKIzBGLMCZx4nxMcUYVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TaXepd6Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eergk2Ga; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37392FE560;
+	Wed, 29 Apr 2026 14:11:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777471904; cv=fail; b=loO6pU3rELTb7xNMGzlbHJs2ZT5lnTGcaJeRy9RVD6qjae69ryPUUxV2chx4Mii2QYT+PMt1Ux97QGL2vcBMuCYIMDGGQBX34NPpsxYKkc9T7t9Qu9x6DGHqeVre5Ky27+7MeS4JYmR9ohFEan8ahxnH2ScUjoA/aG3dMAilyK8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777471904; c=relaxed/simple;
+	bh=D+5CGdVnlqIu7uDuIke0sDcRiNDAJ4gElf2w9s8SRzs=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=hrXA11VtR+E7CwRtobsX702v0YVQv8evqeMML8YyccEl875IFDN6vNMGfF6NmeDIiA1H6knrOfVRjOLaEM/ATlI1G+MxN4xmqZR9K6x+k/YyntJ3pSvXdxXxWLdG8e7KVQxlCuJ/gVJfpV5I13TqhSh+sX0+FAlWweIU3sh5oCs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ExmNWwff; arc=fail smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TaXepd6Q";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eergk2Ga"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63T8psMK2094143
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 14:10:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ysp1U9NNqTsUxNFeHUm82oPmQG1qVjCig1cIpSv7JdE=; b=TaXepd6QlNhhrcak
-	L8xgyWvNk9Jh+FeNoy0q+/CHcX1U2NvqwsoTz57sEZfKOcKmjQxhS0avu6+MnGoI
-	AKTYTHlBrKUzoMuTfsVfIw1svIf3Yg+uUfcC0LX60SH1deMZWNijQYyjubECmh9S
-	Gg0cca2vtpb22diJZMDzgTVje3jGQAW3ZkQRG9A5JkY7loEVIh41QZcwKOHVH+q9
-	Zn6r6479IipXLKvAM61lDgAPnEuBuZCgWAqeywmbmpyb5zChAnOnLFLlqjanlowM
-	LrxL3nvtce709vj9LorimgudFqVL2FExMIxpKsc1dg54V/nUX9uTfJomQ+0m8lko
-	AeoOpQ==
-Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dudh3sm9h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 14:10:18 +0000 (GMT)
-Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-657e42cee12so4303971d50.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 07:10:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777471818; x=1778076618; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ysp1U9NNqTsUxNFeHUm82oPmQG1qVjCig1cIpSv7JdE=;
-        b=eergk2GatJwddK0m5aDHk7mW1Vqve4NKgrLTD/xMf1cdoaN61l3rFXLmoD56XLwVT1
-         1OgGjY+fDt3+itf2xR3zzsUFSsJfJPQW42Ztdx/8mqYMx5+Y5zE994sF4QnLZEZP/+MU
-         qAX2UR8t3b6hhsXpasbHFy85w0abSoVXWQr5BRECFjoO+JPSURH8GaAhTJalT8IFmppo
-         8publ8BpcrGXZa0QFQ2t6owe/4ry5mEUWjbt64DiAYUtz5Pi4NnNTDzo4LVLodkuP7Re
-         vMO+00HXqz+fNrysjD03Vuhryr3F2iVqUaXl9dVG9yUutLGCaCLP38SpiA+Svv8abqpf
-         xVrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777471818; x=1778076618;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Ysp1U9NNqTsUxNFeHUm82oPmQG1qVjCig1cIpSv7JdE=;
-        b=BAumqguhLBcFZydEFgQz3rV2SD8x7Dua+GIL+MfFG0Q0/kCf7/uGW4jjTWE+GeNPMy
-         fwFKYM4nyv+wW9KUu68s+oEo9Z7429TAyLmozxtc9vxA5+bJyN7oct77PldObC1uSBas
-         yPBZH+LeyCMDKOdmbfk2palS3fX5DIZewVzzA4Ju5SAse9G8CPzhYhuit7nvB/p5qP75
-         3jKot5PundNBJUns2g5kWDhBY0Igyzgulky2psMVG7lgik+jE5hfLnd/HV3vq4/dXmGL
-         womeiBq6O0j4Ceq1VE3e3NyFR829S7otSxj67fylLghR1h3NL5a1QiWoK20YC5RfgTLE
-         sayg==
-X-Forwarded-Encrypted: i=1; AFNElJ+zN7pfG28hQZZft8Q3igoTLtdxllYktRdZT1UOIYkvbM4lgFbNrHbBrrIaKsH1Ke72fGjWjasB2UX2@vger.kernel.org
-X-Gm-Message-State: AOJu0YzbCc20IGDjDJ7YFIMkVKwtp3gahvtNpsDsnX0PHRLzIUrsRsmn
-	9E1jESaYtuNn4vvwNnOYdRmC3bC2q9jjabdHF7NOXo1xKh9A+zYT/3amXfh4ICMVOwrQA6Csf8S
-	UyWcihuhFONdbWyEPGQJibm26Ydre/UYV/mmWE15mCetsaFyFm1noBmrF7RDNUWo=
-X-Gm-Gg: AeBDieuRN+eShdt+abrvdwrcWXp+dQCFmRB34vj5RkMdS2b7PUGQDB/u6iz/4qiUWaw
-	FhH49ihALoiPdiKUagRq98mIRkPlZ0/tovMVrHuqRn8Ll8pzrg+fCgTBvKW65mhjsimj3m3me7U
-	gATvvy4hO3dCAIb2wkUr05V1nDdIY1DjWU9tgF6K1OjtxWKOAXS3nnCFjEz9rnk8WBevFg4jGZ6
-	bHmSkJvcnOXjQSJXkjHkuk9Zpj59E9AoPj6rpdOzbdnKg5i8P0m2/0cs0AJQrLmp7P10BqQOKZi
-	/veMBOCoEII1MCf6wi/JBpDamXz1r8h/apFoQgSQpKwVS3hTj+0abbr12nkelH7ItlP72+J5VLg
-	uAO2jbQYL2xq1Qctppn7Im9IWf70zwSCRzIS7kdVQf73/ydbCJwqQbJBoFMRpYA==
-X-Received: by 2002:a53:5a05:0:b0:650:3952:3d3d with SMTP id 956f58d0204a3-65beee8dad9mr5103173d50.44.1777471817846;
-        Wed, 29 Apr 2026 07:10:17 -0700 (PDT)
-X-Received: by 2002:a53:5a05:0:b0:650:3952:3d3d with SMTP id 956f58d0204a3-65beee8dad9mr5103131d50.44.1777471817363;
-        Wed, 29 Apr 2026 07:10:17 -0700 (PDT)
-Received: from hu-kotarake-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-65bff7ce720sm1286731d50.21.2026.04.29.07.10.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Apr 2026 07:10:17 -0700 (PDT)
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Date: Wed, 29 Apr 2026 19:39:57 +0530
-Subject: [PATCH 2/2] soc: qcom: rpmpd: Add Shikra RPM Power Domains
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ExmNWwff"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777471903; x=1809007903;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=D+5CGdVnlqIu7uDuIke0sDcRiNDAJ4gElf2w9s8SRzs=;
+  b=ExmNWwffItM6CFe+NveX1MpGv+JPEtoIythgbudpbsp2JQSkmAgEiFBS
+   jDzLkBtU+1FSfmsBN1OTrSoGZ2QkV/JFMInjrl6JSflFewjNhRdk6FXAz
+   4zEJ6PbyAr2L2ZKyv+im8uOqw6gN9qYQosMt6QErrsflzM0qVcDM4LSTv
+   YSTqB2DlfUivGJayXB1mby+VOJ5cgsdT5ijXiVvnvc4nVZH/Vo/AWsaMQ
+   CWi9NRUW/9kOO/fCRYfjg1zGB+IPS0zXag8I+zsLidVj0K5JuB372egaW
+   SWoTX4FDWmaIEE8v38tB9kkB7x1mk1NGH82arCXtj3FXKZ9v2Zu4ExoCy
+   w==;
+X-CSE-ConnectionGUID: UqkLCqGZSsma5t5dm5XKHQ==
+X-CSE-MsgGUID: 488C6eeQTliL5V0rr9aMMA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11771"; a="88997963"
+X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; 
+   d="scan'208";a="88997963"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Apr 2026 07:11:41 -0700
+X-CSE-ConnectionGUID: +cjcPFUyQy+UZYn1mycI4Q==
+X-CSE-MsgGUID: ovEQzn2QTEqn6oiauBZOCg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; 
+   d="scan'208";a="233254625"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Apr 2026 07:11:41 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 29 Apr 2026 07:11:40 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 29 Apr 2026 07:11:40 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.54) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 29 Apr 2026 07:11:39 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l71mvkNmsOjJ/wpvruf1WiQ/I5P2ioOsV4jqi4ytAl+d9xcCL+KsKV4lMauvtvx2RWIKQpNg3d6jqWKjuaprDcT3u6Y8XMVHa3QlP7OK0kqoSfjaSK0u4AbGJEBgX3XpJdx0tTnjv9k1+a+3dkgtNQpny4d95h9QSLXfnkZM4yTEJTj11brVdXe/HqrniU1Q7heACUjF9JfLzocOsHtrpoJNdv1MKi/EUIToWNq/7Qg9eibwJFRFdQQ0b0rvVXk1uCuYMM0r8wmF2eff+VWFRkUUiC8buIjoPq3QL3ADkoJw6W9I4ggBo7XQv2THZjLZGjkTxXhqCid2GiEjUdhAvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=99z3XM1OacO7v9zG/GBi5xFUn+7+3clZaQEpFf/XC/8=;
+ b=h7tZzX55W1/KRj+I2DoVCbLbJru/n25LmTyomJ9Q347ggK5DFsG4yI5699Ust5sSRYKPwRWYX4Q325vQJQOLac4Jy7Rgt6EZV4CABASMfjcnE9fhDTunZpKQHmqV78iffB6W6KEMmy9WGHcfhKymtUvJXQVDwzB2jdVR/YrC6ms5w9CQ2nlzgwnsCMHzqnxZGu3QQ8QJsOTpnRYIy1npSEa9Qd9mPm6muO8LM7mZuA0x2C0u0kSSBxn1C0aCcsbaf5XPyzamAZnG9oIYeU5GZmluFdVFZ9DNKDg0V9Qej+xYpVx/UCIjgN0mX7oeJ0QtOX9S+fTR4vJ8OmqMiqVt3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA1PR11MB8152.namprd11.prod.outlook.com (2603:10b6:208:446::8)
+ by PH0PR11MB7614.namprd11.prod.outlook.com (2603:10b6:510:28f::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.18; Wed, 29 Apr
+ 2026 14:11:35 +0000
+Received: from IA1PR11MB8152.namprd11.prod.outlook.com
+ ([fe80::4895:dd55:dbe9:73bf]) by IA1PR11MB8152.namprd11.prod.outlook.com
+ ([fe80::4895:dd55:dbe9:73bf%4]) with mapi id 15.20.9870.020; Wed, 29 Apr 2026
+ 14:11:35 +0000
+From: "Shulzhenko, Oleksandr" <oleksandr.shulzhenko@intel.com>
+To: "yh_chung@aspeedtech.com" <yh_chung@aspeedtech.com>
+CC: "andrew@codeconstruct.com.au" <andrew@codeconstruct.com.au>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "joel@jms.id.au" <joel@jms.id.au>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
+	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "Lawniczak, Maciej"
+	<maciej.lawniczak@intel.com>, "openbmc@lists.ozlabs.org"
+	<openbmc@lists.ozlabs.org>, "p.zabel@pengutronix.de"
+	<p.zabel@pengutronix.de>, "robh@kernel.org" <robh@kernel.org>, "Chen, Ryan"
+	<ryan_chen@aspeedtech.com>
+Subject: Re: [PATCH 2/7] soc: aspeed: Introduce core eSPI controller support
+Thread-Topic: Re: [PATCH 2/7] soc: aspeed: Introduce core eSPI controller
+ support
+Thread-Index: AdzX4fN+YKg3om1DTZm2LDYCOnmpsg==
+Date: Wed, 29 Apr 2026 14:11:34 +0000
+Message-ID: <IA1PR11MB8152C8DD6B4E738C8F86E94F99342@IA1PR11MB8152.namprd11.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA1PR11MB8152:EE_|PH0PR11MB7614:EE_
+x-ms-office365-filtering-correlation-id: 72c4b671-2d93-452a-16d2-08dea5f938aa
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|7416014|1800799024|38070700021|56012099003|18002099003;
+x-microsoft-antispam-message-info: F7KJskXKQZyaojxsxAHW9qMJTPdzTfJwhhHmxUmtBWb865DmozPI+2E70QbuwkLONz5UfcnzqGEBl1t6S7s+01bXk+G/V282v6FmyF7PaK3DieIWzSG8ed4rmJrja4OiHioGfJAa4Z4+P+FCi8g1HTkgCPVDa5AKZ7yXMdZfyN51UxKeV/6bHW25VzlHCbkmMkKj9jTrPSHx4qfLbOTW4dPKJbfTqlW9xPpDrNpPfx/0b4PNuZ5epImd50jZFmoKjHyqPofgAGFh3rZOAF4biVRrsre9wE7SWKFr7TW3L8Ps+rTQoAWPjNFugH/u8dMpiS+ywcWygpEzezOXBbdOAiAfcRlbJuE82GcRvfnrf2tANzbua0rdJfd9cRIRJSmFjXbNdMqNfDrejMvkPSnygn0keTXFIRAg/hj7q7CNxXMG02ev7Yz2wSPomnenGDIYV40fpESZDZ+A3QqH+lUPo3H0/iFwx7rarKsycKdyI6UmYQQj8DNuI0vOzPyLW4hiVbYdwtRrfjxuzZXBPvHjQ6eZJiv4NhEB+k7KFQsPPFZGtKXnCp9ciknHdUYHPdRBQnoPDVt8HWbyzufChNFUmmX6LwCQPnuX2+PVwgIPzu6Za/Ex7eIgUo+vPEsNOK4IulxH7PGQmkKU+24gpXApI7aQsokwwS3eQfeb+wq+97Xi6h1e5/46PCE1au60PgA8ILePV9iEJ9L1c33tj6ejVrrRDalrWJgVg0PJZ9PZdAmQRcWe5WCK597Y6N3vhkuU7WHcerFaxrLzZPwUR2TP/7JAPYg/K87LdODihNKP8qg=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB8152.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(38070700021)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?EdsvysvwSqRwSTYlUWY5dBTw7+fQexHFIR4NlNjC1jdd19vH9lDq9UQqbauq?=
+ =?us-ascii?Q?0FjZ5d26vjzOL+an2tZGtAsvosdFCsmQs96cczceA3Gn4N7dJHwTq2jg9kr4?=
+ =?us-ascii?Q?8bhhs7C2hmjWDGrFgpKmLYBzX+Io9logepxIZwIgUW8ADw88cxpxkEoY3XLB?=
+ =?us-ascii?Q?1Z99Cbt5feoBOO2fBlXaNJ6eYcWmfyOtB5O0lHivJOMsA+gzvEQLj8NmtNlw?=
+ =?us-ascii?Q?82SBdz4OndXi5CJKsKLLa9nadlnSaSl1GRFOuV8+5H3e1E5gB6QvL99fcBSU?=
+ =?us-ascii?Q?POlhgNxmnDSUjxGbZdQGPABK4+l9TYI59X2j9MPskm1Ma92BPuQd371EhNXV?=
+ =?us-ascii?Q?Kwnw06stgdG9jJYKennTJLiZZ3otLHqNC3jXxj/bW3rol8BPWfFPUZ278B/v?=
+ =?us-ascii?Q?xlcHlK1p2pFwU08dCVoP35y7EmIvswUgo72Fb0n56cPUswwD1istqiX9l0Z0?=
+ =?us-ascii?Q?fAewjXUJ80mS+7Ib5j0AapqgobomOHZY4RcxTSN++5mVmjx6zTulg1pTPod2?=
+ =?us-ascii?Q?fjD7ssTRMchJMoDOTI0PP0ijJvkmIGrMfwZIxTffimU5M+7PcX25pBezjBNz?=
+ =?us-ascii?Q?wNu+Mh6ONvofE5e46FTC08+EsSmmOvcq7ZyRHN00RfIlHhilHisriwh4QQ0Q?=
+ =?us-ascii?Q?DV+hEqxlgpXImSZ+ejvTb/aagmSw0URa29sr9oRmMSleeCRkOuLn3YIeXQif?=
+ =?us-ascii?Q?Gnte2vyo2QnVYQ0+QU2mLAvd1YVnV94BcBSsIZYrZwHyeIJHR0kUuFYIAqWn?=
+ =?us-ascii?Q?YYDF6GCjse/lX//BUkM1dLIl/ZQC0jUBxIz3D4swuOpUNSSkHJxeZ6ncwnPU?=
+ =?us-ascii?Q?YYIUnbk6FGS1GahGRNmojwMXX6MqcM/yziJ7JVt6+NdaEawHC325WOGjN0QW?=
+ =?us-ascii?Q?x8GCIOxnXA56IN4EcbS4q/lT/8IKJBVqKKLHnj+Yv3Te5uI5HHErYNMBysI/?=
+ =?us-ascii?Q?UtzMNpN5vQyIwhsFUnQcA5Z5aZD3NCF2L9TXEDHNDbw+A1jyGT+ZhFxNIoSv?=
+ =?us-ascii?Q?8RIpba8IhXI27g9RJluZoWrJsCFWLQicXo8jXWI4ijV9k1IZSIffBMkRYmPJ?=
+ =?us-ascii?Q?Ef6WGnP2EW6ps/fC4AWLXKZAusnNCz5C9LzsDD6btc1PYUh8BNod3kBBXk6t?=
+ =?us-ascii?Q?XwZe4+Om7IvhHy72/0mx+84xrQRlyEZebSKcz4lVzKcrLaXuNQcn+CoaF3h7?=
+ =?us-ascii?Q?9hRNyl9SL9Lo0yfTQu+cwO5+EaKFIACzR9vrOuxilsoRPpSO9G7uPtPrT6I2?=
+ =?us-ascii?Q?XcCrRCVl98gGFP8F8d3ezvoWNuwMW1RG69nMmgBv+cxJW5qSZPhnv9sc+ph9?=
+ =?us-ascii?Q?BDe3eKO2dp+NXo4JpDmZZKrHloVMT7XXDYhwHh3YV+hrBq9vMfbzodoxV3SH?=
+ =?us-ascii?Q?iFRQC08y60/8Le7hM/PZVLu2BbPSZqQEgOOm2xID44a6rm3dhRmkNZIe+Qjj?=
+ =?us-ascii?Q?Op9PggFfboXEaAPpHUjNi8T3Ijfc9cbT0Z9lO8eCspb7J6Vr8GzobOKL4Duh?=
+ =?us-ascii?Q?i4qqfA1LeWRES1mR2CitwXKYDcE1wjayYgAzDKo76e8rBut6SuYL6EaWbb5c?=
+ =?us-ascii?Q?9+ae2q0X+niUOBs2XY3zTdz+ZL+TCqA2Zkc4Bi8fktVzFZJWtbhleKkATtxu?=
+ =?us-ascii?Q?fL5jGrcFwGmj0vTFDMrICuLMGflS8wL9Nx2FbySwwkLPcf10vW/3OS660DQX?=
+ =?us-ascii?Q?MuO7fEIkvi64Js+ekb54LWnTcVzPQVKal026/VuBOyMXI1qSnVllU9VC79/7?=
+ =?us-ascii?Q?WKNmu8RWe7zzcyvV0D7CRzXQtchA69E=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260429-add_rpmpd_shikra-v1-2-fdba28564380@oss.qualcomm.com>
-References: <20260429-add_rpmpd_shikra-v1-0-fdba28564380@oss.qualcomm.com>
-In-Reply-To: <20260429-add_rpmpd_shikra-v1-0-fdba28564380@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>, Ulf Hansson <ulfh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        kamal.wadhwa@oss.qualcomm.com, jishnu.prakash@oss.qualcomm.com,
-        Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777471803; l=1679;
- i=rakesh.kota@oss.qualcomm.com; s=20250919; h=from:subject:message-id;
- bh=XtDgh9EmFEUZTFmmIEWobw9+f5N/wS8Pmul7XFNhQBs=;
- b=YdF4LQ5P7/s+dPEDIb1S7XAm19xZRPt1lXvu9pK2Z5oPFhc2qt2eFhU8lYegQ8hVoQOAkbYlU
- VYvbR/zoIeNBGBUjlr9yUuqVnN/eZidzlZnM47xzb2E4wuq4dJrh6JK
-X-Developer-Key: i=rakesh.kota@oss.qualcomm.com; a=ed25519;
- pk=dFhv9yPC8egZglsSLDMls08cOvZKZkG6QQn1a/ofwNU=
-X-Proofpoint-GUID: WWz3RzKsqgE2R1-6y1_TwH9rBUHdfeVt
-X-Authority-Analysis: v=2.4 cv=A4dc+aWG c=1 sm=1 tr=0 ts=69f2114a cx=c_pps
- a=J+5FMm3BkXb42VdG8aMU9w==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=Q_XHpadt4R70q37f1CAA:9 a=QEXdDO2ut3YA:10
- a=Epx66wHExT0cjJnnR-oj:22
-X-Proofpoint-ORIG-GUID: WWz3RzKsqgE2R1-6y1_TwH9rBUHdfeVt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI5MDE0MiBTYWx0ZWRfXw1m9JUUx3xsD
- uXXWwiAB5CtM8qlx7nZ+W25qhJm96doI6qliMo6H3YlfQXcE1F/o+9j9kd9SEYJjSgOJ9cB9D52
- zQnGe3wivo5DRQ5n1J2ArKZ/Wj1JmIxXAX4Dvku9f7vsAWpWZWLshCowzdeh+G44XGQ+Cb+IdPP
- Gxd3Czzp1ir3jzGwFaoBBOMbPzYb7QL1xv+dSfgV3VumjKelZRa7vTXaDA9eaLkY7XZLLY5ZCZu
- eUXP8UtB5pepYN8yjMA7gRUcUXoHQ/ddVckFsXhXorWtssn+5gO7ksAnUTrKHP6NtDqzU3uKI+S
- D/wpdu3S2z9dowBh76rXp4rqBOiLmxHrv5ACy/xixKu2mM71ycrqBm7jcv8ewaavE23V+1P1ms6
- BjQKtHML/TorXmZzLQkZ7Uy/Lze88qn3TTNPx1dRbYL6uQ3EMJnij/k1AJ8GACjhGCrKf5CVEeE
- 20txzNQuOhOrrPOzvqQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-28_05,2026-04-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- priorityscore=1501 phishscore=0 bulkscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604290142
+X-Exchange-RoutingPolicyChecked: RT5M7EiN+FCdXpvO9W8OC0hh+5mHPMSKgbPkWDRR49cLFABFkA5gL06hmEcB6WXwLcw06X25evrO6bQ1+RQbJcsWL16WPcYJKmYexEUw6Sbhjk225UcGaCp0YIDcZ/6cohvDximxCYcL8SExoVP4RfI7mbB/QT0iVFzZOWm54T0IqJW3Hjfv+Epx9DSVoFTy1WEEbxm8P/ukpJBlpz9GAPCwdV04KeuZEjyodRA3CP2pIGr9XQsM8TosP5QCBpH5PkNEzzwPmsln3ez4EtTmDj8MmzJm1GNJ1iwoM3wh119llZsD6R07UBBOkQpBBfB5HaJzuGQaUh5U+za1WedBgA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB8152.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72c4b671-2d93-452a-16d2-08dea5f938aa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Apr 2026 14:11:34.8854
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: GhePVE4WSDc4Cn8KrsdGZ3svb0btY/XURIKcNvXHu/CNXgH+Sy9zSclv3TxhMJUiWxMoQrqw7fqSThm56PFoRU7hlgN4OLtC+w0iT3ZB6tQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB7614
+X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: quoted-printable
 
-Add RPM Power Domains support for the Shikra platform.
+Subject: Re: [PATCH 2/7] soc: aspeed: Introduce core eSPI controller support
 
-Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+Add core eSPI controller support and common code for ASPEED SoCs. The
+eSPI engine is a slave device in BMC to communicate with the Host over
+the eSPI interface.
+
+The initial support includes basic eSPI driver probe/remove operations,
+and provides operators for ASPEED SoCs to implement their own eSPI slave
+device drivers that are different among SoC models.
+
+Signed-off-by: aspeedyh <yh_chung@aspeedtech.com>
 ---
- drivers/pmdomain/qcom/rpmpd.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
-
-diff --git a/drivers/pmdomain/qcom/rpmpd.c b/drivers/pmdomain/qcom/rpmpd.c
-index 15a11ff282c3f86b1e86c6604d165e297620f6cf..6f751ee5a7833912d54d2bcfd5d85837ab7a97d3 100644
---- a/drivers/pmdomain/qcom/rpmpd.c
-+++ b/drivers/pmdomain/qcom/rpmpd.c
-@@ -863,6 +863,21 @@ static const struct rpmpd_desc sdm660_desc = {
- 	.max_state = RPM_SMD_LEVEL_TURBO,
- };
- 
-+static struct rpmpd *shikra_rpmpds[] = {
-+	[RPMPD_VDDCX] =		&cx_rwcx0_lvl,
-+	[RPMPD_VDDCX_AO] =	&cx_rwcx0_lvl_ao,
-+	[RPMPD_VDDCX_VFL] =	&cx_rwcx0_vfl,
-+	[RPMPD_VDDMX] =		&mx_rwmx0_lvl,
-+	[RPMPD_VDDMX_AO] =	&mx_rwmx0_lvl_ao,
-+	[RPMPD_VDDMX_VFL] =	&mx_rwmx0_vfl,
+[...]
+diff --git a/drivers/soc/aspeed/espi/aspeed-espi.c b/drivers/soc/aspeed/esp=
+i/aspeed-espi.c
+new file mode 100644
+index 000000000000..15d58b38bbe4
+--- /dev/null
++++ b/drivers/soc/aspeed/espi/aspeed-espi.c
+@@ -0,0 +1,143 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Unified Aspeed eSPI driver framework for different generation SoCs
++ */
++
++#include <linux/clk.h>
++#include <linux/dma-mapping.h>
++#include <linux/interrupt.h>
++#include <linux/module.h>
++#include <linux/of_device.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/reset.h>
++
++#include "aspeed-espi.h"
++
++struct aspeed_espi_ops {
++       void (*espi_pre_init)(struct aspeed_espi *espi);
++       void (*espi_post_init)(struct aspeed_espi *espi);
++       void (*espi_deinit)(struct aspeed_espi *espi);
++       irqreturn_t (*espi_isr)(int irq, void *espi);
 +};
 +
-+static const struct rpmpd_desc shikra_desc = {
-+	.rpmpds = shikra_rpmpds,
-+	.num_pds = ARRAY_SIZE(shikra_rpmpds),
-+	.max_state = RPM_SMD_LEVEL_TURBO_NO_CPR,
++static const struct of_device_id aspeed_espi_of_matches[] =3D {
++       { }
++};
++MODULE_DEVICE_TABLE(of, aspeed_espi_of_matches);
++
++static int aspeed_espi_probe(struct platform_device *pdev)
++{
++       const struct of_device_id *match;
++       struct aspeed_espi *espi;
++       struct resource *res;
++       struct device *dev;
++       int rc;
++
++       dev =3D &pdev->dev;
++       espi =3D devm_kzalloc(dev, sizeof(*espi), GFP_KERNEL);
++       if (!espi)
++               return -ENOMEM;
++
++       espi->dev =3D dev;
++       match =3D of_match_device(aspeed_espi_of_matches, dev);
++       if (!match)
++               return -ENODEV;
++
++       espi->pdev =3D pdev;
++       espi->ops =3D match->data;
++       if (!espi->ops || !espi->ops->espi_isr)
++               return -EINVAL;
++
++       res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
++       if (!res) {
++               dev_err(dev, "cannot get resource\n");
++               return -ENODEV;
++       }
++
++       espi->regs =3D devm_ioremap_resource(dev, res);
++       if (IS_ERR(espi->regs)) {
++               dev_err(dev, "cannot map registers\n");
++               return PTR_ERR(espi->regs);
++       }
++
++       espi->irq =3D platform_get_irq(pdev, 0);
++       if (espi->irq < 0) {
++               dev_err(dev, "cannot get IRQ number\n");
++               return espi->irq;
++       }
++
++       espi->rst =3D devm_reset_control_get_optional(dev, NULL);
++       if (IS_ERR(espi->rst)) {
++               dev_err(dev, "cannot get reset control\n");
++               return PTR_ERR(espi->rst);
++       }
++
++       espi->clk =3D devm_clk_get(dev, NULL);
++       if (IS_ERR(espi->clk)) {
++               dev_err(dev, "cannot get clock control\n");
++               return PTR_ERR(espi->clk);
++       }
++
++       rc =3D clk_prepare_enable(espi->clk);
++       if (rc) {
++               dev_err(dev, "cannot enable clocks\n");
++               return rc;
++       }
+> +
+> +     if (espi->ops->espi_pre_init)
+> +             espi->ops->espi_pre_init(espi);
+is there a chance ops are unitialized? In any place you do this check
++
++       rc =3D devm_request_irq(dev, espi->irq, espi->ops->espi_isr, 0,
++                             dev_name(dev), espi);
++       if (rc) {
++               dev_err(dev, "cannot request IRQ\n");
++               goto err_deinit;
++       }
++
++       if (espi->ops->espi_post_init)
++               espi->ops->espi_post_init(espi);
++
++       platform_set_drvdata(pdev, espi);
++
++       dev_info(dev, "module loaded\n");
++
++       return 0;
++
++err_deinit:
++       if (espi->ops->espi_deinit)
++               espi->ops->espi_deinit(espi);
++       clk_disable_unprepare(espi->clk);
++
++       return rc;
++}
++
+> +static void aspeed_espi_remove(struct platform_device *pdev)
+> +{
+> +     struct aspeed_espi *espi;
+> +
+> +     espi =3D platform_get_drvdata(pdev);
+> +
+> +     if (!espi)
+> +             return;
+espi pointer is unlikely to be null here, I suggest removing the NULL check
++
++       if (espi->ops->espi_deinit)
++               espi->ops->espi_deinit(espi);
++
++       clk_disable_unprepare(espi->clk);
++}
++
++static struct platform_driver aspeed_espi_driver =3D {
++       .driver =3D {
++               .name =3D "aspeed-espi",
++               .of_match_table =3D aspeed_espi_of_matches,
++       },
++       .probe =3D aspeed_espi_probe,
++       .remove =3D aspeed_espi_remove,
 +};
 +
- static struct rpmpd *sm6115_rpmpds[] = {
- 	[SM6115_VDDCX] =	&cx_rwcx0_lvl,
- 	[SM6115_VDDCX_AO] =	&cx_rwcx0_lvl_ao,
-@@ -949,6 +964,7 @@ static const struct of_device_id rpmpd_match_table[] = {
- 	{ .compatible = "qcom,qcs404-rpmpd", .data = &qcs404_desc },
- 	{ .compatible = "qcom,qm215-rpmpd", .data = &qm215_desc },
- 	{ .compatible = "qcom,sdm660-rpmpd", .data = &sdm660_desc },
-+	{ .compatible = "qcom,shikra-rpmpd", .data = &shikra_desc },
- 	{ .compatible = "qcom,sm6115-rpmpd", .data = &sm6115_desc },
- 	{ .compatible = "qcom,sm6125-rpmpd", .data = &sm6125_desc },
- 	{ .compatible = "qcom,sm6375-rpmpd", .data = &sm6375_desc },
++module_platform_driver(aspeed_espi_driver);
++
++MODULE_AUTHOR("Aspeed Technology Inc.");
++MODULE_DESCRIPTION("Aspeed eSPI controller");
++MODULE_LICENSE("GPL");
+[...]
 
--- 
-2.34.1
+---------------------------------------------------------------------
+Intel Technology Poland sp. z o.o.
+ul. Slowackiego 173 | 80-298 Gdansk | Sad Rejonowy Gdansk Polnoc | VII Wydz=
+ial Gospodarczy Krajowego Rejestru Sadowego - KRS 101882 | NIP 957-07-52-31=
+6 | Kapital zakladowy 200.000 PLN.
+Spolka oswiadcza, ze posiada status duzego przedsiebiorcy w rozumieniu usta=
+wy z dnia 8 marca 2013 r. o przeciwdzialaniu nadmiernym opoznieniom w trans=
+akcjach handlowych.
+
+Ta wiadomosc wraz z zalacznikami jest przeznaczona dla okreslonego adresata=
+ i moze zawierac informacje poufne. W razie przypadkowego otrzymania tej wi=
+adomosci, prosimy o powiadomienie nadawcy oraz trwale jej usuniecie; jakiek=
+olwiek przegladanie lub rozpowszechnianie jest zabronione.
+This e-mail and any attachments may contain confidential material for the s=
+ole use of the intended recipient(s). If you are not the intended recipient=
+, please contact the sender and delete all copies; any review or distributi=
+on by others is strictly prohibited.
 
