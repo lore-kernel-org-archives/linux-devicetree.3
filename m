@@ -1,64 +1,64 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9F533E360
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 05:46:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D472D876A
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 05:46:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777441562; cv=none; b=MhjmZA71hsWzR0u4unv11VqZcHD92v+7Zy2jwxEcJP++dNAPl2QvSgmqtolBlhBrgg9nWDZpzt/hij1wd+NoErEaFcDnNrHThLKlLUKYa0CAcIX+quxpDLoCtvFcMEYfBD/b1c7Gep2WglfjQEkxDQOXJKTV/hUWIqXNWeWiXnM=
+	t=1777441567; cv=none; b=GRBs35NaB6nfExN+QPAr+KAVinH4PkwT1Jf7GszggyP40Wjm/H8RLsUHtnVIu/Ocf4VZMLpTsC2fGBkkCnuLbuFFsPFIHnL6+A0VxyI+sx/qhSdQqUD7G0HhlLzLyvdhBACwNFpvgv3KIreRMH/WqycslNaNpCzdgYCqeN6JgsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777441562; c=relaxed/simple;
-	bh=OCr2Hcn0qix+hqJ1KxJxOzUQfs1MFEoU3VKInobzy38=;
+	s=arc-20240116; t=1777441567; c=relaxed/simple;
+	bh=LVx7QBmq5oHLQS8ou5iLZO5dvWTi5L4BQ0pp1NtWuNg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R3MT37MTStWA5kzYK1N+ZG17LTHRnaXhG2/r76EJl0FHG1+LrFmKTqSVUA0Y+141RTJoHN1n0t8gnOhdbNKitxkZwiWsm95C+cPzvf7UcT1CWLhES8QmS8PqL9W/MhumD+CrnzQoRKwEAWyAeqZjG3I1d8KTe+zep1hFi/JVOqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GyiSOy/a; arc=none smtp.client-ip=209.85.216.48
+	 MIME-Version; b=dychPgL85Owqfi2b/Qt9ZYNF0LRc0V9AMIbnGWr4ew74WbYZo/X1c5cTl5qTkpjkzV+9phdA/HE6JVWtawrpyCPlMwm2pZGe3XFgSVJj4ARFMquzJVMFnUbbiS/laVEkFXH1jgYjjcw8drDyTckXOeas0e4v8kgonLYv0yWxjck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G2pyWpqA; arc=none smtp.client-ip=209.85.215.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GyiSOy/a"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-35fc258aaa4so7652985a91.2
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 22:46:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G2pyWpqA"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c6dd5b01e14so4255458a12.0
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 22:46:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777441561; x=1778046361; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1777441565; x=1778046365; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QHweuBk06mfMQKKsSg/CDUzFihaXXhNJibA/Sa+cnuQ=;
-        b=GyiSOy/ab8c2XAf6pqJR2S24XrbGw0RSw5SL9oYsBpxAiqVcwlyLUKkNRyafkHe1T6
-         HWyWO528qjNYxssuwf8YHH0EiaPP703mJuexNdYdjRPuoix3BHijzfGt1M23UJ0CrOEr
-         MfE7u2HH4WO2uNl8NZID4pnVMVuhdBG6qWkeB/06/Wxq0+hLEpfyGPhO8UGVUCi6HSQ6
-         n8CnudrkMvH/K0x9hC7HK/AuCgIvLu3LEs2OdIioyn7jNbid9BsKUoEXO+olWJ7fPz6T
-         4ozF6NW5ZQHXwYIdQa/urzZIbFK79IdgS8c335BZuMKmmG2/Ax1oAWx1wP+vPi05ozKD
-         ht3Q==
+        bh=cMy0u/g2cL7yrYXQqhYNhi1XV/1EanELOFp/N7XhvWc=;
+        b=G2pyWpqAZc/6hclJWHE2ZCbfLpBAqe0Z1p0fZC7AG/LqZXenPC0s4Dih8+QC11/JuT
+         AI4WNTDVFD/DwaljK4qZbVTT3RK3p0Wgfr2YIDCVachmMJ3nFBPOELnGHEAOloGBDBIK
+         osgBQR3Fqf65WYHJ1+p+TVFcLeVNoxBc9LzbgzEv2mzJ7qMywIIz+hX/BcCuJwPoW0wy
+         M5PWIaLqRUOZiKvBkyuV//YTW6L54xp4MDKlh9BcUb3Ti7LPJGLGTM62KSl9BEtDIVId
+         I5Rs28XRJt2Tap704CdwKQzPqJrBYW34wKtQ159WjMZxVgLLEk0Ir9jfiSeFntAP6Xbv
+         cOKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777441561; x=1778046361;
+        d=1e100.net; s=20251104; t=1777441565; x=1778046365;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=QHweuBk06mfMQKKsSg/CDUzFihaXXhNJibA/Sa+cnuQ=;
-        b=sFZdfqVwb+m7kvAVImLGxBrTQfOnEYEVKBNuxCzYCGi5N5JwNyG1j3jHdlFOfMFUV1
-         od9icScN/ei+UywVhSccNPtBAIY5xPWqvL44Rf1LYGO0kG6y15v6dYklrVnkXt/hHEFG
-         NwGIXTPRqISnGqw5/8Oxp0tJWpScXvCMNpuP7lYTidb/70AA7yvR9fIa//SOx+uvc6MS
-         d1Ba11lzhTg0Qr88o9U4cMcoZ5wqSn2wTs2tU/YQS0SATY+GTsTnd6GXLC+qItVovcQ3
-         7thSTDFDEdkFjWnabG6/0XJPmluz7ziK8sYwdIREBD90FW2jJf92/B9nlNpDeeh4ny8g
-         nvdg==
-X-Forwarded-Encrypted: i=1; AFNElJ8gQvxQa7d13Mc/vcWBzpi0pZbCgnvBHzLDnp0a/Au77zSqxdJVWyyKCHH938IzW4Qwip9XcExN+rAh@vger.kernel.org
-X-Gm-Message-State: AOJu0YytypqiqVnvFhEtEa2+JMHUHHn2CBCG15GgU46PpJTCUx7bnAcA
-	MJujTmK4sd5zEfcyqhSGsDqJID6rzDR8RCbXpdv79IngZA7k9pcOHV+T
-X-Gm-Gg: AeBDiev58NgTjx2+7bCHBSQmgYpGYhpegsNAIf3QI3PtisK4kUFGlQQgoJfM4lRAmR5
-	Sq1bNLNtecD+YxZ+Dfxl3XOfYP1jAgbFXo+IrhnCwHXEI9Pd7d21cHimiehbbHf5VumIRMtGvae
-	g2Ah7yTS2RIQXKE20n4JxzD0K4BC1kC8VeLQOpR+slgCcGiLgJsEOa74HJC/WPntTxqUPYrk7zZ
-	urahpEFarDCSwcr+szDDQBG8T5lRNLP4sHDtVtNGBa1t2wSQFXxSZtEqB/cZySyKMubw7X+NyoQ
-	tLJIWsjoiz5bnn3VnLnsUY3DXRY35yas7/HAM4E9ArcNDKzDijTd2CemyUvtTJOT4tP4FZOaElG
-	e1duaPix0swW8WQlguLLP13o4THPkKnMcYFd2RfZUC3sEQ/9VyuaQykiZJdcDt0VqVcBgclnNAf
-	2I0JjBa1+y6/h8O3uhDYo8keIr1qNe5zXxOXVDCQ1Tc7T6AOSyjbQXy5i3Kn9j2sb75w1/h2aJl
-	/ZjzZwuxG/gJCOvLwNzIerxMtsUGIJrkt/vsXYedev/4GQyYg==
-X-Received: by 2002:a17:90b:38c4:b0:35f:bfdd:f5a1 with SMTP id 98e67ed59e1d1-3649204d630mr6255254a91.13.1777441561015;
-        Tue, 28 Apr 2026 22:46:01 -0700 (PDT)
+        bh=cMy0u/g2cL7yrYXQqhYNhi1XV/1EanELOFp/N7XhvWc=;
+        b=eI4nGs/EOHk0/UsVNv+r0wjL4sfRRm5BOow6KR1d5wPd7BwMXWSEiBuNPyc2KvKSWB
+         T/FjBwPFHhHfP6R8JT3ufPmAGqBELz41X9i7cVYKLo/ErIQ7T2RL4f32K5B0Yl4f+Rku
+         2yxZ0mWpp55CJD9Dckwctx1eHYD157nBWney6T6n1kHHbKLtHxErufyzL35LcAPa8BaI
+         kDywrY8bzLPD1MLn7bXA8ZUPeC+uoPEmDESb1i3jTCovmIjMye/8F7X4Tkt3CEI1e955
+         TtGeEXfy90APFoLYdf/fHRAmAqdAHyq/ilAtk9K7s8NKRNycXisXK6NEuX3Ym2/CWT+C
+         13Uw==
+X-Forwarded-Encrypted: i=1; AFNElJ8DYnt7aNBuy1DWqL9Bmr+TAlyL8O74akV/i5THa4e5Z+GPMIF1S4AZ4DuaxvVzJSWaqxNKBENDe95U@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJwv62882lOPhsx6ZGBZAYbmzRj1Q2Yc463fZKfV4LK60SXKpI
+	8I0uWe20g65fC5+O9WJA1pCWSYmSTrA27SNUZvmIogn1RCQ27NtYQjRF
+X-Gm-Gg: AeBDievoxcLwHP2nagUIZKr4nnMNEWmKisz/7oksWbFhyd86gIPH84T1KR+hWhoRCC5
+	xp+X+SO6Bp/j9BtN6kvJdo8UUtDXIMo61kxR69oZOiwhhv/XKRhFs2m+NKs6buUsl4sb1mhhyza
+	sRFOjhQM9ol104vjY9P3qu67ne+UvVul5JzrXMJwFvRAVdZUNVC+M7KU/shJHgQ/nCKJYsxqh0y
+	tRZBqvYcBwqX9PkHdskIVHSMGkWWI5t2JoI0ukT/lkc6CyMPMMHT1uOi86sE15pY+y1OKqBL9hG
+	JP/NQmIJ97I/9Dxf06knu4nYA/hJOdkYH+dEXqYJcgSrnJhDNNmdGsFGjw+F1dkvf1IHJdP979u
+	2Q3eR360EHi7gffqkII/oQ1A4Yg+d6IthKCJUuqgUvqWhud1wopPlZxw0bjDvQzqory7aLbiRF9
+	MsHn+W+ogSEZkq6FJWZWkjiz68MXLMR9F78Zbi183PGhJvcTX60QwmYW5tw12zbloUFHKH50Scz
+	a/YHKvpxQJvlaHiC7frB/zj9Wrd5hDLXiQ/HBKlTkbwxWPi4g==
+X-Received: by 2002:a17:903:984:b0:2b2:ec31:25b0 with SMTP id d9443c01a7336-2b98741da0dmr22832185ad.29.1777441565346;
+        Tue, 28 Apr 2026 22:46:05 -0700 (PDT)
 Received: from lord-daniel-VivoBook-ASUSLaptop-K3502ZA-S3502ZA.. ([2405:201:31:d01f:5fb:20b2:c2f6:85bd])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b98879656dsm9346365ad.25.2026.04.28.22.45.56
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b98879656dsm9346365ad.25.2026.04.28.22.46.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Apr 2026 22:46:00 -0700 (PDT)
+        Tue, 28 Apr 2026 22:46:04 -0700 (PDT)
 From: Piyush Patle <piyushpatle228@gmail.com>
 To: ak@it-klinger.de,
 	jic23@kernel.org
@@ -71,9 +71,9 @@ Cc: dlechner@baylibre.com,
 	linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 02/11] dt-bindings: iio: adc: hx711: add VSUP supply property
-Date: Wed, 29 Apr 2026 11:15:35 +0530
-Message-ID: <20260429054544.123862-3-piyushpatle228@gmail.com>
+Subject: [PATCH v5 03/11] dt-bindings: iio: adc: hx711: add RATE GPIO property
+Date: Wed, 29 Apr 2026 11:15:36 +0530
+Message-ID: <20260429054544.123862-4-piyushpatle228@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260429054544.123862-1-piyushpatle228@gmail.com>
 References: <20260429054544.123862-1-piyushpatle228@gmail.com>
@@ -85,10 +85,10 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the optional VSUP supply used by the HX711 on-chip regulator.
+Document the optional RATE pin GPIO used to select the HX711 output
+data rate.
 
-Keep this separate from the HX710B support so the existing HX711
-binding extension stands on its own.
+Update the example to show the property in use.
 
 No functional change for existing users.
 
@@ -96,30 +96,42 @@ Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
 ---
 Changes in v5:
 - New patch split out of the old combined binding update during review.
-- Document the existing HX711-only VSUP supply separately from the new
-  HX710B support.
+- Document the existing HX711-only RATE GPIO separately and move the
+  example update here.
 Changes in v4:
-- This property was part of the old combined binding patch.
+- This property and example update were part of the old combined
+  binding patch.
 Changes in v2:
-- Document the optional VSUP supply for HX711 nodes.
+- Add the optional RATE GPIO property for the HX711 RATE pin.
 ---
-Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-index 1ea60dff98d5..a8eaa1f18de5 100644
+index a8eaa1f18de5..9134bbe41379 100644
 --- a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
 +++ b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-@@ -33,6 +33,10 @@ properties:
+@@ -37,6 +37,13 @@ properties:
      description:
-       Analog supply voltage (AVDD).
+       Supply voltage for the on-chip regulator (VSUP).
  
-+  vsup-supply:
++  rate-gpios:
 +    description:
-+      Supply voltage for the on-chip regulator (VSUP).
++      GPIO connected to the RATE pin. When driven low the output data
++      rate is 10 SPS; when driven high it is 80 SPS. If omitted the
++      RATE pin state is determined by the board wiring.
++    maxItems: 1
 +
    clock-frequency:
      description:
        Controls the SCK bit-bang timing. The value is used to derive the
+@@ -61,6 +68,7 @@ examples:
+         compatible = "avia,hx711";
+         sck-gpios = <&gpio3 10 GPIO_ACTIVE_HIGH>;
+         dout-gpios = <&gpio0 7 GPIO_ACTIVE_HIGH>;
++        rate-gpios = <&gpio0 9 GPIO_ACTIVE_HIGH>;
+         avdd-supply = <&avdd>;
+         clock-frequency = <100000>;
+     };
 -- 
 2.43.0
