@@ -1,91 +1,217 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E5B421EE5;
-	Wed, 29 Apr 2026 18:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7314237E2F8;
+	Wed, 29 Apr 2026 18:30:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777486930; cv=none; b=EPUVgkLZWESaugZlJmBQZz+E5dWif/6INUdJzsVoBUV0lzhWXnaW8eeFNbGAhHqfgT6LQv/PY4+SA0c51puqadhq3x9bFboE8Qz9xCCVsMvLuRUeo5KiFL1nHKQXNda8pvmr7Xy1CZbX2yzPREdlQoDwMhucONhR8f2znplLDNU=
+	t=1777487458; cv=none; b=HAyM7Ikcd8Ky5PQF1Aaz0PsUxSb0MqTsvNB1KP/7ZcKYfwGK/p+VMOFRRz4Siy0njwY2mk50bfSb022uuEi2o/nuJq3WKAzOk1X635t+EKrrjgoG63jXrhItwPdfzlgg7weomZv1QnU7qfw0nCdOcuT6yd5jVutXD6PYUliPqts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777486930; c=relaxed/simple;
-	bh=A2HWuygo9laZl+MF0ZT85lu9bwwS8oO/uA3OEJNjKOs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NBOrlRxhaSzjv5bD2wWx6N3cdeCZ4KjkfKB7qWeni0lAMyfGsR7hZmWjXMPdySfQDv55B1yziM7xJ3qKSzjJfQl3ZIKhHPma7//tc5vHbFEkhNUk+8Ik3ZOSbooItQqibkOhIl16tkL0jiOyLqADtoSNRxn1mbDX7641Gq6Lwi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=SQVWa/55; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1777487458; c=relaxed/simple;
+	bh=44NA6rUhVair067G7uXMUjokLii9afZLzuTWi8578y8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=rv6yiUFFZWdraMDmJPdNhBA8tvWv5iGdluK7s8V9mBOC9G4bK6XoOFHVviuSdHWf6ZPTqAvjLB5Izhsf4JwZHz0Mfm43q/a/rVFo+HZLSTIBN488NYEcA2MdAz6ZSucqELy7/at90t6rRYsZH2O5O1neZqku/wfQWwGXTJgLXCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MH9MDJAV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="SQVWa/55"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=z3GtHk/ol4lljLIonjZbUzzf+Kywq4ueWS/Omn2wpWg=; b=SQVWa/55JM8wQBVpqHDNM1xFfS
-	mXU4TJjeNC4nMrKXqeH6Pxpu44WvN93U2Dka+zbZRN6hDJAI/EfQr1KElAYio7tNyxC15K45AcvWc
-	EwYY1ynlGZTtB0O9GYa8BrqxnIE8+zcVB41N3akHQx8P4e4bI+Bb9cqlfks8drQY8Wfc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wI9Xo-000ZDq-JK; Wed, 29 Apr 2026 20:21:56 +0200
-Date: Wed, 29 Apr 2026 20:21:56 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Padhi, Beleswar" <b-padhi@ti.com>
-Cc: Shenwei Wang <shenwei.wang@nxp.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>, Frank Li <frank.li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	dl-linux-imx <linux-imx@nxp.com>,
-	Bartosz Golaszewski <brgl@bgdev.pl>
-Subject: Re: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg GPIO driver
-Message-ID: <9837070a-f096-4e8f-a83d-efda0570e62a@lunn.ch>
-References: <20260422212849.1240591-4-shenwei.wang@nxp.com>
- <22fb5fac-2568-42be-a7e3-7e89d0017eb3@ti.com>
- <PAXPR04MB91850A11C58419C03909145F89362@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <6412a758-4560-4cf1-a0d0-5b24d1a715f1@lunn.ch>
- <PAXPR04MB9185009A17DFDF3D6C8B44E789362@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <6e01e114-e336-4744-b6b4-563ec42e321b@lunn.ch>
- <PAXPR04MB9185A098D894B6A6EBCC13F889372@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <afImuoeHolxGgw3H@p14s>
- <PAXPR04MB9185F2F6DDB55AC56C92D63B89342@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <b80e17fb-7986-4a95-a845-48a7d318ff33@ti.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MH9MDJAV"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F2B7DC2BCB8;
+	Wed, 29 Apr 2026 18:30:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777487458;
+	bh=44NA6rUhVair067G7uXMUjokLii9afZLzuTWi8578y8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=MH9MDJAVeDwImDzASWYN8sKtPe5PjYDI0gjIPuMwInuCuw3b2DXo5pXgmtk6ia2SJ
+	 zPRz6zOrpoj5KgiGzsUabCCvyLBdF1wGUyyd2d3ixnUzJAHpOh/SxOY0IPbsszFgIq
+	 BLM5DLo5geE5O1TDA4vo+ChuONRO8qvPy1FYz9K4b5fbUNYNTkMagqPYsLU5n+ax9z
+	 uWbZl942MeXLn3FVx+kM5Oyek/WLZoceO7olT8qi8RF9xjdIyZhC/Ip9lkTRdSI3+R
+	 82bzay7KFDzaGbtgd2wa4JkgEcrv1jD8jane95Abp+3OVfEEUc4ID6tkoHnoaVBEoe
+	 ETEcFT5Y1DNDQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E2FCBFF8875;
+	Wed, 29 Apr 2026 18:30:57 +0000 (UTC)
+From: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>
+Date: Wed, 29 Apr 2026 20:30:41 +0200
+Subject: [PATCH v12 1/2] dt-bindings: embedded-controller: Add synology
+ microp devices
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b80e17fb-7986-4a95-a845-48a7d318ff33@ti.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260429-synology_microp_initial-v12-1-40a05033c620@posteo.de>
+References: <20260429-synology_microp_initial-v12-0-40a05033c620@posteo.de>
+In-Reply-To: <20260429-synology_microp_initial-v12-0-40a05033c620@posteo.de>
+To: Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Lee Jones <lee@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, Markus Probst <markus.probst@posteo.de>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4079;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=alrwaULuLrijlaEQo59qC6IZr7fepf0GBhjIrFXTxGk=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBp8k5gON2L/rCWLtCQTIcCMcEV5bL0sSGTwMvDC
+ 7FhkRJuGsGJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCafJOYBsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9IoOxAAnJJ9dVAXt7DGKcaTSj8VpSWHgoeMz1A
+ mwhGVO5gYixEMC3k9Jb+UPHcktau2vnpF2EdIi5hvRH836DZOxoy2qJea1FnxGEUCeDGZqZ4KQo
+ W2Dk7uC6SBJYOS2zFwWZzm+TzArY094nGBTGXUIJJqY0NMWZV0W3ts2b/pTWLzjACdrGaPL80l8
+ bRn6rnI18cu/WOduSqMqTFDNcElUFPY3/UIef0pyyUvqVnzwJUB4ofc2DkN7ImjFDY6/w6mqdAm
+ B4yYmNZ01aNKvvRcJslQyT7UxWXZBgbl7Q+L/7sozBgVcZefRQc8w10UYUrRz/BlIi1XQMK+RpF
+ 5pdAmgwENn39V6j19OLJdSTeujieR5/n8vuHtcSUGt5B5StVyW7GAl3LVf97ObLEdvIdjkQpvjY
+ GAq8vTrgbLBxOEIiEaREF6SuzuESLR0cV7QjFmmRncjEjsz15VfG2JDXHugdFc/ehnFddwVBnjS
+ iRSCYsZZhE5yxEyoov3UDVeFASx+mORK+zZ2xISSFIB76G+7H120YzbGrHNKgctQUuOFg/MbSXx
+ 4PVlpZ1Eun8/JIm/7Y/qt0h3LIdU3pITIMMeKVKG0I8XiY3U2XKooyvwadzbn4bKG5bUIzujp7Y
+ K7eO2nclfipwIqI8qnWeKeGOLUrrI+Y2mIA/tOxRXC6M3N/Yb1sw=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+X-Endpoint-Received: by B4 Relay for markus.probst@posteo.de/default with
+ auth_id=680
+X-Original-From: Markus Probst <markus.probst@posteo.de>
+Reply-To: markus.probst@posteo.de
 
-> About this, we only need to do this because you are defining the gpio
-> controller instances "statically" in the device tree. I understand gpio
-> nodes can act as providers, but I do not see any device referencing the
-> gpio nodes you are defining in the device tree.
+From: Markus Probst <markus.probst@posteo.de>
 
-They probably come later, and a board specific. The GPIO controllers
-are probably SoC specific, so can be defined at the SoC .dtsi
-level. The users are then in the board .dts files.
+Add the Synology Microp devicetree bindings. Those devices are
+microcontrollers found on Synology NAS devices. They are connected to a
+serial port on the host device.
 
-This is how GPIOs are typically used. Same will be true of I2C, the
-SoC provides the I2C adaptor, the boards have devices on the bus,
-again, described in DT.
+Those devices are used to control certain LEDs, fan speeds, a beeper, to
+handle buttons, fan failures and to properly shutdown and reboot the
+device.
 
-       Andrew
+The device has a different feature set depending on the Synology NAS
+model, like having different number of fans, buttons and leds. Depending
+on the architecture of the model, they also need a different system
+shutdown behaviour.
 
-     
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
+---
+ .../synology,ds918p-microp.yaml                    | 100 +++++++++++++++++++++
+ 1 file changed, 100 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/embedded-controller/synology,ds918p-microp.yaml b/Documentation/devicetree/bindings/embedded-controller/synology,ds918p-microp.yaml
+new file mode 100644
+index 000000000000..eb1c9d3fac07
+--- /dev/null
++++ b/Documentation/devicetree/bindings/embedded-controller/synology,ds918p-microp.yaml
+@@ -0,0 +1,100 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/embedded-controller/synology,ds918p-microp.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Synology NAS on-board Microcontroller
++
++maintainers:
++  - Markus Probst <markus.probst@posteo.de>
++
++description: |
++  Synology Microp is a microcontroller found in Synology NAS devices.
++  It is connected to a serial port on the host device.
++
++  It is necessary to properly shutdown and reboot the NAS device and
++  provides additional functionality such as led control, fan speed control,
++  a beeper and buttons on the NAS device.
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - enum:
++              - synology,ds1221rpp-microp
++              - synology,rs822p-microp
++              - synology,rs422p-microp
++          - const: synology,rs1221p-microp
++
++      - items:
++          - const: synology,ds1825p-microp
++          - const: synology,ds1823xsp-microp
++
++      - items:
++          - enum:
++              - synology,ds725p-microp
++              - synology,ds225p-microp
++              - synology,ds723p-microp
++              - synology,ds710p-microp
++          - const: synology,ds214play-microp
++
++      - items:
++          - enum:
++              - synology,ds425p-microp
++              - synology,ds1525p-microp
++              - synology,ds925p-microp
++              - synology,ds923p-microp
++              - synology,ds1522p-microp
++              - synology,ds1010p-microp
++              - synology,ds411p-microp
++          - const: synology,ds918p-microp
++
++      - items:
++          - enum:
++              - synology,ds124-microp
++              - synology,ds223j-microp
++              - synology,ds223-microp
++          - const: synology,ds118-microp
++
++      - enum:
++          - synology,ds118-microp
++          - synology,ds1823xsp-microp
++          - synology,rs1221p-microp
++          - synology,ds918p-microp
++          - synology,ds214play-microp
++
++  fan-failure-gpios:
++    description: GPIOs needed to determine which fans stopped working on a fan failure event.
++    minItems: 2
++    maxItems: 3
++
++required:
++  - compatible
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - synology,ds918p-microp
++              - synology,rs422p-microp
++    then:
++      required:
++        - fan-failure-gpios
++    else:
++      properties:
++        fan-failure-gpios: false
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    embedded-controller {
++      compatible = "synology,ds923p-microp", "synology,ds918p-microp";
++
++      fan-failure-gpios = <&gpio 68 GPIO_ACTIVE_HIGH>, <&gpio 69 GPIO_ACTIVE_HIGH>;
++    };
+
+-- 
+2.53.0
+
+
