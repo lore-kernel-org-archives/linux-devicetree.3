@@ -1,63 +1,63 @@
-Received: from mail-ot1-f100.google.com (mail-ot1-f100.google.com [209.85.210.100])
+Received: from mail-oo1-f97.google.com (mail-oo1-f97.google.com [209.85.161.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ADA0388E60
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 04:15:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8F8336EF8
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 04:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777436139; cv=none; b=DnBxXybOUZdrWsW8HWRv33SKTjOhIW4ooeanrNURSYfv/aFPBYzfl5SGtfDgd5WZvJahxPBr92vRQJTQiyUz/v8yZWNXishZXBjWNIkAibqz3mwxhOdKROHzu1sJ4n5U+wZrUq8VZD56DWsmYt6fl1yodAuBkebmXxU9DXOHuhU=
+	t=1777436140; cv=none; b=APHDCaaYWlWP/ZU7vkHl5aK3WBj56OiLS+eDVTmE75fK+8by8OX+syDtElTI9Te4gba2IiIt0YZ5aBXig3NZI8vU+iGAdQ7xy+9uegxz+xVt5xgMD7xAhmDYnY4F6yXNoQ/yfqVLyiTqWCeCKcTIhiRwmm4l8zeSQFBi5YIqqZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777436139; c=relaxed/simple;
-	bh=Utc2QGdKsqyPoNlC4WG7Q8Z0HLqtqz0lyRmUliqchBg=;
+	s=arc-20240116; t=1777436140; c=relaxed/simple;
+	bh=FOJ42zieAav8ocVCkcKSLh45lzS8XHSfrGPYjm/TzKk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u0YWGgdIwK5gMBCXkbfT2BgJPUGHahLrUkYkXMURgASs7CsrVQTeQQZgLYuJJ6YXwEDEKAORONEXEmoZOlTxA0HUb9hzbxlNCMdytSWM2/KugSnzL2p1U8Fte76pGlN/gix7jK1ZOwW7fN4x9DCChC3Etk482tF4lx12X3kqvVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us; spf=pass smtp.mailfrom=ausil.us; dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b=CSl9p8L1; arc=none smtp.client-ip=209.85.210.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us
+	 MIME-Version; b=bSR6+/2vLl0N16MDSIx7zjEZQBKvUcSBQtPsZBbmPoyc/BGyh233gVXHwD9dyzhBvm9tAWefUWZ9u+cvcL+xhesNa/tLqGwG3xiq4Dm8gLYdNzWjZoPUB+ClghokoBeqyb1jzDBieaLqFT6lwSlyzb4xMkQQCzAJU14MSOuwjVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ausil.us; spf=pass smtp.mailfrom=ausil.us; dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b=OoPuHOzI; arc=none smtp.client-ip=209.85.161.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ausil.us
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ausil.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b="CSl9p8L1"
-Received: by mail-ot1-f100.google.com with SMTP id 46e09a7af769-7dbe437b072so6964774a34.2
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 21:15:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b="OoPuHOzI"
+Received: by mail-oo1-f97.google.com with SMTP id 006d021491bc7-6948da50eb5so274932eaf.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 21:15:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ausil.us; s=google; t=1777436137; x=1778040937; darn=vger.kernel.org;
+        d=ausil.us; s=google; t=1777436136; x=1778040936; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MhsANxfjmjB7vk5bKYmWUGk+7KV8pJM6GvanWdmMMRI=;
-        b=CSl9p8L1ZdYvcJUgMGmodko6NG/Y+uTlwZ65/oMddTqEne0yzirGG4OmGTKrfU33E1
-         Hg08duwiYFbKdwbJCYqgtfT/2RLErk9fn8+ugYuMUPol2U2aIpfoxdU5vtTxVeMj6tdx
-         vuU6/dfSXd2qFC5EqeJePZwf0uD62oeG/c+DmhFa5z2XAYfsrdfcuO0DD4ciKe2VWQ0M
-         W7RjjnKHERnbSo0dmK5+/HDRhD1hhOwkykK9+BVVPrYxA2RJntkUV85BeOxkg04YgvYd
-         iTM8EHEjUXKovULB62fSVbsW7B0E0vPQhbNeaRhpDd3jtCVszG+1lBcbGsnC1o3jS2QW
-         PtxA==
+        bh=cUANSDjJgu1WXHjNheDgVJfCwB+h6we7yJfErm3QH3E=;
+        b=OoPuHOzIV5mq7XaXBqqo0qTkf40ZjKBuqJ6KLwUoYjmc3mtpp8mr6G/PJaUD3ysq3q
+         rBgswULNhMBLFkLat2vRLQfFnKBNfRZgAc86CD7+cfnJKy+UFNvX7jCOk0kVkmEO5WvV
+         vRe9Ux49ZgVhyey4uhqqBNrXmeuSDePMPSV7/tVnG2vAPT2wxf8pmC+C9I6eZmYFVra8
+         uyJkrHKAhKlZir2XImJFIPMh+C1pEuYqpCwXjeG5yRUWsnzwh5RlncSqjYYTe8iisbCY
+         1s3qHMDbredsM0AjAJEzH0kkdA2phbItmV9LmXBmWGvPgUl0XSnHhc9zMK6mNOY9+W3d
+         9rhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777436137; x=1778040937;
+        d=1e100.net; s=20251104; t=1777436136; x=1778040936;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=MhsANxfjmjB7vk5bKYmWUGk+7KV8pJM6GvanWdmMMRI=;
-        b=IOoPsvSKWF/JVFikREKVw5BPZrrjrbvMWcyqFeFFDMH521raecmRjy2BQWzSDQHpWs
-         xc+Eq+oIMTXwte/VtHL3MjtXqc3e/sVyrwZ21Ds7w5p0nOuNHCyXx2RcB+MCwPG5D50q
-         /tuFjYYPHMkTn6LJHMhwJL9QZOpCwAgxy+nEr2H1gDubfKnS/oHrUAgGls9d/rw1Hv0e
-         nChJiN5MA71EBtIG2LteyTCVhYJhYKZnqz72Bzl9xR/qh9OWG6wqvAJiiPN9Ipqruz0G
-         05lDh+nDKfl7vX7GnpA75xezphX0vFujDeJ6PU2Q62lRNP8By3FClIOV4qONTtQgBe/R
-         H+sg==
-X-Forwarded-Encrypted: i=1; AFNElJ+mltQ1BdB1aNfEhcS3GRCIi0onUhC7Q1AdeItxBQuvE3fRjIgRdLxArElj/KDUEFRDkqlJ4MlriEqw@vger.kernel.org
-X-Gm-Message-State: AOJu0YwrRzALHnveBm3b0x5NIhqTagVBnlZjCwuoPGOwIYU3+nzG0MBf
-	eouaNi8pgsnurZGDJLn+xpf5A8vMtSLS0v0VUpl83cGGuMvD9AXwpUgG7AoEdde6tQa1Bnk/3dH
-	MLO3JtmN2EK9aBhg/deb4zlK6IrEz8P/MCQ5+
-X-Gm-Gg: AeBDiet1Vc5dggHJULlZ8PoSFZsQpuad5+g5R2Mhu9hBNi+JSpUQssZqYQW0iONhszn
-	LSVfaeUiBXz0hi9GLRYUeamLyD8Ca5xg6j+j0KCVgdl5x5yetVMq9y8IdMq8TzJc4MZyqfetj9i
-	6TBF1fIQ4eAizf32rqkmT5FURT2Dg3yzX/rExdcMK9/pxjj0BYH+mDWHZqT0S9VWGP/E8vWABrj
-	xKbMYaW0R0FwI1utrtGKBNO2W7TJOzsCHXq66AWmMg/wzQnawuJtNd/6hdXJVa18mfjOJEuagW8
-	GlWz+Ct/tjRRTIHAJxgS3WhU5qxEPkxt+DwzROK0+pNOHtO4gu2O6JNOZw8EGv0KyvSAFWfpEuh
-	apPrl/F+qdobjBdXTNhBcbGAwHUCGlSiu557H8HJqpqQ1WMupJEf3DAY=
-X-Received: by 2002:a05:6820:4b13:b0:696:1bda:5dbe with SMTP id 006d021491bc7-6965cbce522mr2941455eaf.56.1777436137366;
-        Tue, 28 Apr 2026 21:15:37 -0700 (PDT)
+        bh=cUANSDjJgu1WXHjNheDgVJfCwB+h6we7yJfErm3QH3E=;
+        b=EP+hYBrW9lgO/FkDL7MUVbB7sGszNZlEJdmY5dwAqrwP5dwvXePSDVoH55Gq6TJuC5
+         q3cTg+zcGTEz2YTTbqxBwBU22quUu9IYkFcY+Tgm0jKnENxPh7i9BQlJQOxd10wkUo0G
+         +CN1M+jccBzPlWuJd929Z82aoyBqfLBJttYY+oI7SL5oYxGe3EmTXPQrr66vwlwYO4Ww
+         iKi6s2zg96GcoQyZfNyX+b3nHJFKZWZH9i663les8x1d3IGWUFpu+IQwwXCQVE2VExPy
+         Z0Mk2cF8GHDTZIWL7FTCcsxcgx+IMcBFv90dFEI67xVB8Uu6pO4wsHCMyi6xNwgNovOa
+         BnKQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9SymfKZIGCnBXYy8v/beEeBGKeQKigWNk1oMERmkplVvy/WoKkGMsaq55E93JuzrPhw5af5xCcDHLY@vger.kernel.org
+X-Gm-Message-State: AOJu0YwCvqhB/EA9PCFdrlIJWKDv059neP69AqaWDBm+7BtTZX26qvbO
+	z6K+qmzv1BMlLuGs9KjsctzE7zrgpjCn/30KkImVPYM2jIoFphQLvzHvTQKVsR6uavsaXCiEjcr
+	vZgC7m5IVmpW7tWF11XfmsQxtq0yXh5TGTRpz
+X-Gm-Gg: AeBDievQ6qbimEiYO3cduwO9Wstj6tPDOR8SiJAg7nePv0iiAHwwwppuiqbL5Y8KK9O
+	s3toh+WYit1cUDUKo/44XA/Yn8uFsuThTmtlBy6RhhRC+lXC3lUHKtuOJwMQagO4APuBHCc0oBE
+	qZ4EO2vDcvZrLuwowthwL/veJnzfv2qZUqMTz/Q5jrpLzt22RetH4pKRnJbGKtt7ZjrcNYiBs9g
+	jbtjR/0a+ALVTI2a1qMr1yllYF4CmHsVE+Pql5wD1IcR8DR9NmmuVSF6pzi7LPrNlIzQrJjQ/uf
+	i39No4bdxrrwH4kANNCBZW+fozmkiAo4HjycGf2taUFBTFH2RUFlZ4/q4Qb9/EoYqy512n6yFA8
+	Ea2UJO5mx1LjqkQqRavELdPgz/rw5EwizpUHdUBxoSSYgU6MM6TjQ/VU=
+X-Received: by 2002:a05:6820:2210:b0:67e:2a62:35ba with SMTP id 006d021491bc7-696699b7162mr686474eaf.15.1777436136286;
+        Tue, 28 Apr 2026 21:15:36 -0700 (PDT)
 Received: from ryac.ausil.us (207-179-239-100.mtco.net. [207.179.239.100])
-        by smtp-relay.gmail.com with ESMTPS id 006d021491bc7-6966baf952asm41557eaf.9.2026.04.28.21.15.36
+        by smtp-relay.gmail.com with ESMTPS id 006d021491bc7-6966baf952asm41557eaf.9.2026.04.28.21.15.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Apr 2026 21:15:37 -0700 (PDT)
+        Tue, 28 Apr 2026 21:15:36 -0700 (PDT)
 X-Relaying-Domain: ausil.us
 From: Dennis Gilmore <dennis@ausil.us>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -82,10 +82,10 @@ Cc: Alexey Charkov <alchark@gmail.com>,
 	Jernej Skrabec <jernej.skrabec@gmail.com>,
 	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
 	Dennis Gilmore <dennis@ausil.us>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH 2/3] drm/bridge: simple: Add the Lontium LT8711UXD DP-to-HDMI bridge
-Date: Tue, 28 Apr 2026 23:15:27 -0500
-Message-ID: <20260429041528.558254-3-dennis@ausil.us>
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH 1/3] dt-bindings: display: bridge: simple: document the Lontium LT8711UXD DP-to-HDMI bridge
+Date: Tue, 28 Apr 2026 23:15:26 -0500
+Message-ID: <20260429041528.558254-2-dennis@ausil.us>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260429041528.558254-1-dennis@ausil.us>
 References: <20260429041528.558254-1-dennis@ausil.us>
@@ -97,33 +97,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Lontium LT8711UXD is a high performance two lane Type-C/DP1.4 to
-HDMI2.0 converter, designed to connect a USB Type-C source or a DP1.4
-source to an HDMI2.0 sink. The device can be run uncontrolled or it can
-be attached over I2C, this supports the uncontrolled mode.
+The Lontium LT8711UXD is a high performance two lane Type-C/DP1.4
+to HDMI2.0 converter, designed to connect a USB Type-C source or a DP1.4
+source to an HDMI2.0 sink. The device can be running uncontrolled or it
+can be attached over I2C, the bindings describe the uncontrolled mode.
 
 Signed-off-by: Dennis Gilmore <dennis@ausil.us>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- drivers/gpu/drm/bridge/simple-bridge.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ .../devicetree/bindings/display/bridge/simple-bridge.yaml        | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
-index 8aa31ca3c72d..42c1f3d5ba0c 100644
---- a/drivers/gpu/drm/bridge/simple-bridge.c
-+++ b/drivers/gpu/drm/bridge/simple-bridge.c
-@@ -270,6 +270,11 @@ static const struct of_device_id simple_bridge_match[] = {
- 		.data = &(const struct simple_bridge_info) {
- 			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
- 		},
-+	}, {
-+		.compatible = "lontium,lt8711uxd",
-+		.data = &(const struct simple_bridge_info) {
-+			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
-+		},
- 	}, {
- 		.compatible = "parade,ps185hdm",
- 		.data = &(const struct simple_bridge_info) {
+diff --git a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
+index e6808419f625..752c736c8f85 100644
+--- a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
+@@ -30,6 +30,7 @@ properties:
+           - algoltek,ag6311
+           - asl-tek,cs5263
+           - dumb-vga-dac
++          - lontium,lt8711uxd
+           - parade,ps185hdm
+           - radxa,ra620
+           - realtek,rtd2171
 -- 
 2.54.0
 
