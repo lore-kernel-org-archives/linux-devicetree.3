@@ -1,104 +1,122 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.229.168.213])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 661613BD25E;
-	Wed, 29 Apr 2026 09:30:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.229.168.213
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D2B33A014;
+	Wed, 29 Apr 2026 09:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777455026; cv=none; b=Cy5ravnIxAMOvPE9TN1zmS7FuPHI8NBHV6B8FRtYKxmq3NtSynIlULHFdnsoyZLYMLWBOgZFFuse/vXjmH/aZYpgkXL4bW2FQ3TucQDMIWdsveIVLGhuw+GVLdGCYSfbrfaKXcVatilIiieOKVQ2qK50ktl0mSKAvldWEfpCMr4=
+	t=1777455027; cv=none; b=DFaVdcFjDqivYHzmxp+fDZcdDabgmJGD5W2hoawh07+L5dTkxZ6uY5GMm/v5gQeiPXKnfkUDQHmNGjJKdXF3xqYjbn/To05msPvhu8S91RJYFIW618daxEvsvJRydvnp1lLl3DjkcAV6kNoI153jSZkRQN23t+vYDt/S6i/KA90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777455026; c=relaxed/simple;
-	bh=7kgD4cBDoa9BDLuThA7ZzUozXm/+LOVRP4yAm/zV6z8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=O6vgcBTT06Igxd+6Gq8vm+KO1KfTGTY1sNkU1/DgmHT0oaTNo2VsWUn1SohD+70T8GZgCo1KUGY8KpMkzquqG6fgQhm+mCp+GIfHMpnkxmYYlUkmIdYrwdINIIR1HE8lGDV0dZvSEQw96Yk7ta4xwGLQRUq9H75nnyfvhFw+U74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.229.168.213
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
- ajax-webmail-app2 (Coremail) ; Wed, 29 Apr 2026 17:30:00 +0800 (GMT+08:00)
-Date: Wed, 29 Apr 2026 17:30:00 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>
-Cc: ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
-	p.zabel@pengutronix.de, linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ningyu@eswincomputing.com, linmin@eswincomputing.com,
-	xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com
-Subject: Re: Re: [PATCH v6 1/2] dt-bindings: pwm: dwc: add optional reset
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <7bd6129a-dd37-48e8-a54c-cc149a2b84a2@kernel.org>
-References: <20260424094529.1691-1-dongxuyang@eswincomputing.com>
- <20260424095435.1721-1-dongxuyang@eswincomputing.com>
- <ee58a5d6-9268-445c-a270-1f4a49b49c6e@kernel.org>
- <622e18f1.5bb3.19dd36d0c40.Coremail.dongxuyang@eswincomputing.com>
- <7bd6129a-dd37-48e8-a54c-cc149a2b84a2@kernel.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1777455027; c=relaxed/simple;
+	bh=UjczPjOcgRtrys3/EUzMogDLJ0NH/eLdy2TGRE52QPs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HLsv07W78ie4EJnTHFY8jWhD1Kbi79vmiObgUHNvV023WPa+2/GkC8XTUTkEr84Eqzd6bzVZ0LxfiFIp5nqHDhV3aQEHbyhzxSF6dGCixPcdQ3RPPoVyVpJ+jk756WffwqFujZf4v+Ny0urcjojKiTbQsHgMh3xVZU4Sgd8vuWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=mK8rF1CO; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=oddBBFv/; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="mK8rF1CO";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="oddBBFv/"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Subject:Date:From; t=1777455014; bh=6ZDnbudYd8Bx04u61QlyRAk
+	dIXUfgtcS1rxS8UCJfHg=; b=mK8rF1COlUTFsWBsZMpoQcFewaW37VyGbX8DSuBx8YVVVtMs3u
+	CLCDYoRvTTQJSrMhdxUoOiqsapyD3PU6zgFlhYdtbkQhhSZJ4Q8B9UWZ0rgzl4TUjyTW2qfW/pg
+	xW6nylu/g+H+dC8rAXBX+Pein1ntZCqFXuOvL8K39i+TQTL/qaOzcTM0+bGz4pSDZKueK3wFDjv
+	WG1IeRpgQym5Gq12MI89HDP3/erNZ4FJXmXAnHWPJ/TFXKY9bhAyVaUzV/O9JfGXhxrY2gvrvwp
+	pH2nj4xNgU+ybjGZeVH2Mu7+dqHttNaSAn3QSVW50ftW36YyOGmloaaXLpAPnrBOubg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Subject:Date:From; t=1777455014; bh=6ZDnbudYd8Bx04u61QlyRAk
+	dIXUfgtcS1rxS8UCJfHg=; b=oddBBFv/3hpqX5Hvqcvy46xB5zoTHT7t+Jdbd+B297WZvl3YRk
+	F8FhKf8WOGeFt5Puo+u1It3P6QY949XGlKAw==;
+From: Nickolay Goppen <setotau@mainlining.org>
+Date: Wed, 29 Apr 2026 12:30:10 +0300
+Subject: [PATCH v5 3/5] arm64: dts: qcom: sdm630: set adsp compute-cbs'
+ regs properly
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <1ac7fae4.5c66.19dd892ec4d.Coremail.dongxuyang@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:TQJkCgAnPqGYz_FpCq8VAA--.5067W
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAQEMAmnw4RseG
-	QAAsq
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260429-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v5-3-16bc82e622ad@mainlining.org>
+References: <20260429-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v5-0-16bc82e622ad@mainlining.org>
+In-Reply-To: <20260429-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v5-0-16bc82e622ad@mainlining.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Nickolay Goppen <setotau@mainlining.org>, 
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Konrad Dybcio <konradybcio@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777455011; l=1669;
+ i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
+ bh=UjczPjOcgRtrys3/EUzMogDLJ0NH/eLdy2TGRE52QPs=;
+ b=sd28YXnopeX1LH7aI/Peiyt30twhGRbhfj5oUvfgT3164tz5Q1RB9PjNe5oXDlstakrq19P4V
+ tkLhBKOvkJHDznxXfbVG7/mUiNd3kkqZjy7m25zB3N7Lc0hO3WNFaYy
+X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
+ pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
 
-PiA+Pj4gIAo+ID4+PiArYWxsT2Y6Cj4gPj4+ICsgIC0gJHJlZjogcHdtLnlhbWwjCj4gPj4+ICsK
-PiA+Pj4gKyAgLSBpZjoKPiA+Pj4gKyAgICAgIHByb3BlcnRpZXM6Cj4gPj4+ICsgICAgICAgIGNv
-bXBhdGlibGU6Cj4gPj4+ICsgICAgICAgICAgY29udGFpbnM6Cj4gPj4+ICsgICAgICAgICAgICBj
-b25zdDogZXN3aW4sZWljNzcwMC1wd20KPiA+Pgo+ID4+IFNhbWUgcHJvYmxlbSBhcyB2MyB3aGlj
-aCBJIGNvbW1lbnRlZC4gSSBkbyBub3QgdW5kZXJzdGFuZCB3aHkgeW91ciBuZXcKPiA+PiBkZXZp
-Y2UgaGFzIGFsc28gMSByZXNldC4KPiA+Pgo+ID4+IFlvdXIgY29tbWl0IG1zZyBNVVNUIGV4cGxh
-aW4gd2h5IDEgcmVzZXQgaXMgdmFsaWQuCj4gPj4KPiA+IAo+ID4gSGkgS3J6eXN6dG9mLAo+ID4g
-Cj4gPiBBbHRob3VnaCB0aGUgUFdNIElQIHN1cHBvcnRzIHR3byBjbG9jayBkb21haW5zLCBlYWNo
-IHJlcXVpcmluZyBhIHJlc2V0LMKgCj4gPiB0aGUgRUlDNzcwMCBpbXBsZW1lbnRhdGlvbiB1c2Vz
-IHRoZSBzYW1lIGNsb2NrIGRvbWFpbiBmb3IgYm90aCBjbG9ja8KgCj4gPiBzaWduYWxzLiBUaGVy
-ZWZvcmUsIHRoZSBlaWM3NzAwLXB3bSBvbmx5IHN1cHBvcnRzIG9uZSByZXNldC4KPiA+Cj4gCj4g
-SWYgd2Ugc3BlYWsgYWJvdXQgZWljNzcwMCwgZXhwbGFpbiB3aHkgaXQgaGFzIHR3byByZXNldHMg
-bm93LCBhY2NvcmRpbmcKPiB0byBzY2hlbWEsIGV2ZW4gdGhvdWdoIHlvdSBzYXkgaXQgaGFzIG5v
-dC4KPiAKPiBCdXQgSSB3YXMgc3BlYWtpbmcgYWJvdXQgZHctYXBiLXRpbWVycy1wd20sIHdoaWNo
-IGhhcyBvbmUgcmVzZXQgYXMgd2VsbCEKPiBXaHkgeW91IGFyZSBub3QgaGF2aW5nIHByb3BlciBj
-b25zdHJhaW50cz8gUGxlYXNlIHJlYWQgd3JpdGluZyBiaW5kaW5ncwo+IGRvY3VtZW50Lgo+IAoK
-SGkgS3J6eXN6dG9mLAoKTGV0IG1lIGNsYXJpZnkgdGhlIHJlc2V0IHNpZ25hbHMuCsKgIC0gc25w
-cyxkdy1hcGItdGltZXJzLXB3bTI6IElQIHNwZWMgaGFzIDIgb3B0aW9uYWwgcmVzZXQgc2lnbmFs
-cyAob25lIHBlcgpjbG9jayBkb21haW4pLCBTb0MgdmVuZG9yIGRlY2lkZXMgd2hldGhlciB0byB3
-aXJlIHRoZW0g4oCUIHNvIG1heEl0ZW1zOiAyLMKgCm9wdGlvbmFsIGluIHJlcXVpcmVkLgrCoCAt
-IGVzd2luLGVpYzc3MDAtcHdtOiBTb0MgcGh5c2ljYWxseSB0aWVzIGJvdGggc2lnbmFscyB0byBv
-bmUgcmVzZXQg4oCUIHNvCmV4YWN0bHkgMSwgcmVxdWlyZWQuCgpTbyBJIHRoaW5rIHRoZSBjb3Jy
-ZWN0IHBhdGNoIHNob3VsZCBiZSBsaWtlIHRoaXM6Ck1vZGlmeSB0aGUgY29tbWl0IG1lc3NhZ2Ug
-YXMgZm9sbG93czoKClRoZSBEZXNpZ25XYXJlIFBXTSBJUCBoYXMgdXAgdG8gdHdvIG9wdGlvbmFs
-IHJlc2V0IHNpZ25hbHMsIG9uZSBwZXIgY2xvY2sKZG9tYWluIChwcmVzZXRuIGZvciBwY2xrLCB0
-aW1lcl9OX3Jlc2V0biBmb3IgdGltZXJfTl9jbGspLgpTb0MgdmVuZG9ycyBkZWNpZGVzIHRvIHdp
-cmUgdGhlbSwgc28gbWF4SXRlbXM6IDIgaXMgdGhlIHVwcGVyIGJvdW5kIGZvcsKgCnRoZSBnZW5l
-cmljIHNucHMsZHctYXBiLXRpbWVycy1wd20yIGNvbXBhdGlibGUuCgpUaGUgRVNXSU4gRUlDNzcw
-MCB0aWVzIGJvdGggcmVzZXQgZG9tYWlucyB0byBhIHNpbmdsZSBwaHlzaWNhbCByZXNldMKgCnNp
-Z25hbCwgc28gZXhhY3RseSBvbmUgcmVzZXQgaXMgcmVxdWlyZWQuIEFkZCBtYXhJdGVtczogMSB0
-byB0aGUgaWYtdGhlbsKgCmJsb2NrIGZvciBlc3dpbixlaWM3NzAwLXB3bSB0byBlbmZvcmNlIHRo
-aXMuCgpNb2RpZnkgdGhlIFlBTUwgYXMgZm9sbG93czoKCi1hbGxPZjoKLcKgIC0gJHJlZjogcHdt
-LnlhbWwjCi0KwqBwcm9wZXJ0aWVzOgrCoCDCoGNvbXBhdGlibGU6Ci3CoCDCoCBjb25zdDogc25w
-cyxkdy1hcGItdGltZXJzLXB3bTIKK8KgIMKgIGVudW06CivCoCDCoCDCoCAtIHNucHMsZHctYXBi
-LXRpbWVycy1wd20yCivCoCDCoCDCoCAtIGVzd2luLGVpYzc3MDAtcHdtCgrCoCDCoHJlZzoKwqAg
-wqAgwqBtYXhJdGVtczogMQpAQCAtNDMsNiArNDIsMTMgQEAgcHJvcGVydGllczoKwqAgwqAgwqAg
-wqAtIGNvbnN0OiBidXMKwqAgwqAgwqAgwqAtIGNvbnN0OiB0aW1lcgoKK8KgIHJlc2V0czoKK8Kg
-IMKgIG1pbkl0ZW1zOiAxCivCoCDCoCBtYXhJdGVtczogMgorCsKgIMKgc25wcyxwd20tbnVtYmVy
-OgrCoCDCoCDCoCRyZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2RlZmluaXRpb25zL3VpbnQzMgrC
-oCDCoCDCoGRlc2NyaXB0aW9uOiBUaGUgbnVtYmVyIG9mIFBXTSBjaGFubmVscyBjb25maWd1cmVk
-IGZvciB0aGlzIGluc3RhbmNlCkBAIC01NCw2ICs2MCwyMSBAQCByZXF1aXJlZDoKwqAgwqAtIGNs
-b2NrcwrCoCDCoC0gY2xvY2stbmFtZXMKCithbGxPZjoKK8KgIC0gJHJlZjogcHdtLnlhbWwjCisK
-K8KgIC0gaWY6CivCoCDCoCDCoCBwcm9wZXJ0aWVzOgorwqAgwqAgwqAgwqAgY29tcGF0aWJsZToK
-K8KgIMKgIMKgIMKgIMKgIGNvbnRhaW5zOgorwqAgwqAgwqAgwqAgwqAgwqAgY29uc3Q6IGVzd2lu
-LGVpYzc3MDAtcHdtCivCoCDCoCB0aGVuOgorwqAgwqAgwqAgcHJvcGVydGllczoKK8KgIMKgIMKg
-IMKgIHJlc2V0czoKK8KgIMKgIMKgIMKgIMKgIG1heEl0ZW1zOiAxCivCoCDCoCDCoCByZXF1aXJl
-ZDoKK8KgIMKgIMKgIMKgIC0gcmVzZXRzCisKwqBhZGRpdGlvbmFsUHJvcGVydGllczogZmFsc2UK
-CkRvIHlvdSB0aGluayB0aGlzIG1vZGlmaWNhdGlvbiBpcyBtb3JlIGFwcHJvcHJpYXRlPwoKQmVz
-dCByZWdhcmRzLApYdXlhbmcgRG9uZwo=
+Changing FastRPC compute-cbs' reg values to matching iommu streams
+solves SMMU translation errors when trying to use FastRPC on ADSP
+so change FastRPC compute-cbs' reg values that way
+
+Fixes: af2ce7296643 ("arm64: dts: qcom: sdm630: Add FastRPC nodes to ADSP")
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+---
+ arch/arm64/boot/dts/qcom/sdm630.dtsi | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+index bef3213165d6..4b47efdb57b2 100644
+--- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+@@ -2459,27 +2459,27 @@ fastrpc {
+ 					#address-cells = <1>;
+ 					#size-cells = <0>;
+ 
+-					compute-cb@1 {
++					compute-cb@3 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+-						reg = <1>;
++						reg = <3>;
+ 						iommus = <&lpass_smmu 3>;
+ 					};
+ 
+-					compute-cb@2 {
++					compute-cb@7 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+-						reg = <2>;
++						reg = <7>;
+ 						iommus = <&lpass_smmu 7>;
+ 					};
+ 
+-					compute-cb@3 {
++					compute-cb@8 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+-						reg = <3>;
++						reg = <8>;
+ 						iommus = <&lpass_smmu 8>;
+ 					};
+ 
+-					compute-cb@4 {
++					compute-cb@9 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+-						reg = <4>;
++						reg = <9>;
+ 						iommus = <&lpass_smmu 9>;
+ 					};
+ 				};
+
+-- 
+2.54.0
+
