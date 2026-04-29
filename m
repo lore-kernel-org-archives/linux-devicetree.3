@@ -1,224 +1,91 @@
-Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com [209.85.210.194])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362BA39C65D
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 06:58:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.194
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BACAD39D6F9;
+	Wed, 29 Apr 2026 06:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777445926; cv=none; b=DDAQlxihDnV1i0fHnhoD8/VmrEwdkLS2KvXP38uVuKEWaGmlyEGU8Jl2v9oiwDHOudiJpezFfdAg963QmU6hqQEbjhra2qnZc9viTmaBMcw+B+cvNdydJuX03tTPjgiNwSDwLlc7zi++FKusuFK7YUqUE6EQP6SbmkbYynoqi4A=
+	t=1777445930; cv=none; b=Rn/YptPs2ZTVP90S54BZp1+14Gwm0YKr5QAIFWkt7Dn075/r8sInjuhNGNn7l8/ArzwrL8xricpvAoqG6mf7hKTR0crmm08EXU72Zv0oPRiSJkWl2fly41YcPe2zpUyFxLfx+FkmBTHejd7W0LMyTgVBUmBmxTvO23wnI+LrqQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777445926; c=relaxed/simple;
-	bh=z8QrbyEQ9Qhmn8e7bcE+J1PUsYSh4gHOBxd0HU0dPH0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JRmm4cEu461cvZyEPLcptdlCCvQpXWn2z39+cuqykQeoz2HmfCWiMlKWfckdGfZMZnfD6ygUQZoiSXTxNRkJOZgUsGS6I0i4ICZWJYNatIrxeh7hT1VO8W9PN9C5brsAPfcK0fF7HvFz/xn9ztgz9+E5TKpKS99IbVSiJ4ypPd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g5UebSqy; arc=none smtp.client-ip=209.85.210.194
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777445930; c=relaxed/simple;
+	bh=u4Pfn5a/U0AlGb8AqkEdtAoy0eLj8UmNKcvMgCHYYec=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B/SCrNPrHImbFaGur/XhHpSTXVwcJUyZ6uzBYw5BtBfGJ2iT5xNXpenbjzpsmHvFSn77Q1QodZpQILoUQ4xqy+ucEwHzM8tO+AzGCCtTEutqd4b4+7PHzLaw3mk/2/A0x+pnmTd+w30PfAlqe4A+sZABTgk5lvATbjXRuR4t/ik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cuSlswfz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g5UebSqy"
-Received: by mail-pf1-f194.google.com with SMTP id d2e1a72fcca58-82d0b68837aso7234799b3a.2
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 23:58:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777445924; x=1778050724; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=2YAMiQdl0y9iAuHJeag5d0legeH39piZcT0MdhE3hIc=;
-        b=g5UebSqybmlZmoOdPsh9rz3fTm2Km6Vz5pgUYTdHnKyhd/95JcBcF2HZlWlAX9CLl+
-         +QP53fGJ/XTMe+G9kHQ1pwvlS0w+Lpmiz40L/l9MQPRgxSbcHEuv8nA4JaXCVXcz68b/
-         /gsp1kJKMNBreaCaN/mzuAuhWUsLAc7wBzSQcDURugNGo8UliTXKY7d2mCOG6Oq+41un
-         R75iIL/I/Qc6tyy/MCKDcqZ08SZMq68zX8OdOyeYdPswd2aTk63S3CZ673wI55d/0PH8
-         dnyZX/a87HCZJM4PZimuQ4HmGDQGrAI4KJ4v7vG9i+7skKqe5kkSkoYD1MCRyIc4CgRs
-         ccBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777445924; x=1778050724;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2YAMiQdl0y9iAuHJeag5d0legeH39piZcT0MdhE3hIc=;
-        b=jUG8mFmINg6JdgGs7MDaQCkSAkWLe3+Xkrl7mjWlfSfbiDFtJWZ9A82wXolk3XX9IR
-         wsJFoR0zucp68Ks9bwLaXBirPSzrLyeyGz5XhArCjjT8RrZD/+P2uh9gUbBOGlyIUfIp
-         SCTTTui1vncDbCoiYnaopc3AAIP77tzEzlsVJGdZYpv80/4E23Loxze4qO3/uUMuUVox
-         xBJdQl2i/l4CIYbmd/VcDQIBkiEjj4mZXyvawqjg371VUHMV8MFADxl8hns/aXFFStRB
-         MXnnBYIhOW7zPk3YdLE1L+LHajU8jyfhWx2DatqYqf/+k/Vh8ULS1RrlnKLzh0wz+aDu
-         ewUQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/JmuXsrC4nm4MjKZB/2GmjdV+LRR6fsjWY+HkcDOSpnarmxAWceyf14BtNTbvJGdINXP9ci4p13ynD@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx98gnB3HyPFLZY5p5KkDO0Ef6+1IUZv0nEEImD96oR+OijpjKX
-	qXDkJ6rAKuVoKwbXyNeLrGwJPIUHcArbtxq/2gD5xmPaJaBcyKBXQPLg
-X-Gm-Gg: AeBDiesYxDqdRE3VJh5T5x3tULoCgxWVAw5f62IrghILwLNXR8VzZ/1AG7WjnJv2Fer
-	l10M+jGAbxOCpSLzKBZDSphvYjytcJD54m0bCvYuJugxOE7QFqBZNDG3yeJevScpPQX9bTQ91sg
-	fVDz3s53R7BsEsWI1b0Vwls9F+J6B31pxZY5dz6pAf0TigtryFn45/x+p5YyIGmgosAzda3WLyn
-	wErixLFjmPAy7qgiul4AaN8msFzRLeQNUJs/xXUxdvGTZwleqU+Lje+OPD89KXlDAaPcs9H4RdH
-	XiRdVCLgSm7v1LMJ+7IFlW5yfq8ADJM7qjSlf8+cZiU2VI5e5QnrvQBkeXpgGUtzMEWMvNZNdOI
-	LvFxEkEC2k/4aGFcbetQQGWoOXYhG5nRam8WApcuqvsiwkYQPra3JxaKkYqFhH4tP9ZPWr1xg8g
-	ybfMJRIzznLzsWjlAJRb83VmwkAc7YV17oE0t/DpwLBPHorAxA
-X-Received: by 2002:a05:6a00:883:b0:829:7d31:dd99 with SMTP id d2e1a72fcca58-834ddbd42f5mr6432638b3a.38.1777445924448;
-        Tue, 28 Apr 2026 23:58:44 -0700 (PDT)
-Received: from intel.company.local ([210.184.73.204])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-834ed7eaf93sm1043146b3a.40.2026.04.28.23.58.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Apr 2026 23:58:43 -0700 (PDT)
-From: Chen Wandun <chenwandun1@gmail.com>
-X-Google-Original-From: Chen Wandun <chenwandun@lixiang.com>
-To: kexec@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org
-Cc: akpm@linux-foundation.org,
-	bhe@redhat.com,
-	rppt@kernel.org,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	ruirui.yang@linux.dev,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	robh@kernel.org,
-	saravanak@kernel.org,
-	chenwandun@lixiang.com,
-	zhaomeijing@lixiang.com,
-	everyzhao@126.com
-Subject: [PATCH 00/11] kdump: reduce vmcore size and capture time via linux,no-dump
-Date: Wed, 29 Apr 2026 14:58:20 +0800
-Message-ID: <20260429065831.1510858-1-chenwandun@lixiang.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cuSlswfz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B28B9C19425;
+	Wed, 29 Apr 2026 06:58:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777445930;
+	bh=u4Pfn5a/U0AlGb8AqkEdtAoy0eLj8UmNKcvMgCHYYec=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cuSlswfzB7iS01np7vobw5kDq/S0raz1Y/72kRLxRYcbyrLrEdn4ZOR8t2PNUMkzt
+	 u1OP4+iIAGHPqITBECrxxjDugEXnmIfRf/Rm2L831QdbQB4mH5TChRjrlBt78n/nO6
+	 PLrX9vFwp7OL6chDwF0DODIPk7lXFnIF5kHCyPz7HUAsnoMWuZza0o4BodA+a5/DNI
+	 HCpRZXJhV94y2RAWQ2wNfTDmS9Oiz7E4U7p4aYSIN6xUG4pv8jzCadXvGp6ki3hCg1
+	 oBkLSGLOP3wnrkXi6ai2/+5mCBUCrzxueCKz48RCeVHQd3OzLeRZnG8akIcBbxV/TO
+	 ISSB8xNmlZd/g==
+Date: Wed, 29 Apr 2026 08:58:47 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Stefan Schmidt <stefan.schmidt@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>, 
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, iommu@lists.linux.dev
+Subject: Re: [PATCH v3 02/12] dt-bindings: media: qcom,glymur-iris: Add
+ glymur video codec
+Message-ID: <20260429-calm-shark-of-tempest-3a7bcb@quoll>
+References: <20260428-glymur-v3-0-8f28930f47d3@oss.qualcomm.com>
+ <20260428-glymur-v3-2-8f28930f47d3@oss.qualcomm.com>
+ <20260428-nifty-quaint-hoatzin-6de65d@quoll>
+ <97aa5f18-d1d5-f082-9075-a385255f2e97@oss.qualcomm.com>
+ <7d775357-c7b1-4cf5-af90-012d1364e773@kernel.org>
+ <6ebe28dc-b8a3-db92-0e66-3f0541e23e13@oss.qualcomm.com>
+ <1f88a8eb-1725-4e6a-b4f3-287ec538ee7d@kernel.org>
+ <e39df722-3868-60d4-07f3-768d11762e12@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <e39df722-3868-60d4-07f3-768d11762e12@oss.qualcomm.com>
 
-This series has two parts:
+On Tue, Apr 28, 2026 at 05:46:55PM +0530, Vishnu Reddy wrote:
+> >> Glymur is the first platform where the common schema limits become a h=
+ard
+> >> blocker, unlike all prior platforms that happened to stay within those=
+ limits.
+> > Hard blocker? What? How? you are imagining some problems here which do
+> > not exist in any other devices, any other IP blocks.
+> >
+> > Why is this special and GPU is not? Or display is not? Or anything else?
+> > Why standard rules of writing bindings do not apply here? What is
+> > exactly different? Write like this:
+>=20
+> The intent is not to treat Glymur as =E2=80=9Cspecial=E2=80=9D in the sen=
+se of resource
+> count alone. The key difference is architectural:
+>=20
+> The existing qcom,venus-common.yaml was originally written with single
+> Venus/Iris video core and its maxItems for clocks and power domains were
+> defined accordingly. All existing platforms fit within that assumption,
+> even if their exact counts differ slightly.
 
- - Patches 1-4 are OF reserved_mem bug fixes and small hardening
-   changes. They stand on their own and at the same time prepare the
-   ground for the feature work that follows (accurate region counts,
-   consistent two-pass save/reserve state, and an early-out when the
-   array is empty).
+I don't think that's anyhow relevant difference here. Just change the
+common binding and be 100% SURE that all devices have correct/fixed
+consrtaints.
 
- - Patches 5-11 introduce a new 'linux,no-dump' reserved-memory
-   device tree property and the kdump plumbing to honour it, split
-   further as:
-
-     * Patches 5-7: core OF changes - parse 'linux,no-dump' on
-       /reserved-memory/ children, save /memreserve/ firmware regions
-       into reserved_mem[] with no_dump defaulted on, and add generic
-       no-dump crash_mem exclusion helpers.
-
-     * Patches 8-10: arch kdump consumers - arm64, riscv and
-       loongarch each call the helpers from patch 7 in their
-       prepare_elf_headers() so that 'linux,no-dump' /reserved-memory/
-       children and /memreserve/ regions are filtered out of the
-       vmcore ELF PT_LOAD segments.
-
-     * Patch 11: user-facing documentation in
-       Documentation/admin-guide/kdump/kdump.rst.
-
-Motivation
-==========
-
-On SoCs that carve out large firmware-owned reserved memory (GPU
-firmware, DSP, modem, camera ISP, NPU, ...), kdump currently dumps
-those carveouts as part of system RAM even though their contents are
-firmware state that is not useful for kernel crash analysis. On a
-machine with several hundred MiB of such carveouts, the overhead per
-vmcore is substantial.
-
-This series adds a declarative way for DT authors to mark such
-regions:
-
-    reserved-memory {
-        npu_fw@a0000000 {
-            reg = <0x0 0xa0000000 0x0 0x10000000>;
-            linux,no-dump;
-        };
-    };
-
-and also defaults /memreserve/ firmware regions (Trusted Firmware /
-BL31 images, secondary-CPU spin-table pens, bootloader scratch per
-Documentation/arch/arm64/booting.rst and upstream DTS files) to
-no_dump=true.
-
-Interaction with existing reserved-memory flags is kept simple:
-'linux,no-dump' is an OS hint, it is redundant (but harmless) when
-combined with 'no-map' and silently ignored on 'reusable' (CMA)
-regions whose contents are relevant for crash analysis. The 'linux,'
-prefix follows existing precedents like 'linux,cma-default' since
-kdump is a Linux-specific concept.
-
-Benefits
-========
-
- - Smaller vmcore. The excluded firmware carveouts are omitted from
-   the ELF PT_LOAD segments entirely, so the resulting dump file is
-   smaller by roughly the sum of the tagged regions - on SoCs with
-   hundreds of MiB of GPU/DSP/modem/NPU carveouts this is a
-   substantial saving, both on disk and in transit to a dump server.
-
- - Faster kdump. The dump-capture kernel writes less data to storage
-   or over the network, which directly shortens the crash-to-dump
-   turnaround. Tools that walk the dump (makedumpfile, crash) also
-   spend less time on regions that were never going to be useful
-   anyway.
-
- - No existing behaviour change for DTs that do not opt in: regions
-   without 'linux,no-dump' and systems without /memreserve/ entries
-   are dumped exactly as before.
-
-DT binding
-==========
-
-The 'linux,no-dump' property is maintained in dt-schema
-(reserved-memory.yaml moved there from the kernel tree).
-Corresponding PR:
-
-  https://github.com/devicetree-org/dt-schema/pull/193
-
-Follow-ups
-==========
-
- - powerpc also uses kexec_file and /reserved-memory/, but its
-   arch/powerpc/kexec/ranges.c uses the _guarded variant of
-   crash_exclude_mem_range with dynamic realloc and collects
-   additional RTAS/OPAL firmware ranges. Adapting it needs a small
-   extra helper; left as a follow-up.
-
----
-
-Chen Wandun (11):
-  of: reserved_mem: fix region count for nodes with multiple reg entries
-  of: reserved_mem: reject reserved memory outside physical address
-    range
-  of: reserved_mem: avoid unconditional save of reg entries in
-    fdt_scan_reserved_mem_late()
-  of: reserved_mem: skip reserved_mem array allocation when there is
-    nothing to save
-  of: reserved_mem: add linux,no-dump property support for reserved
-    memory regions
-  of: reserved_mem: save /memreserve/ entries into reserved_mem array
-  of: reserved_mem: add no-dump crash_mem exclusion helpers
-  arm64: kdump: exclude no-dump reserved memory regions from vmcore
-  riscv: kdump: exclude no-dump reserved memory regions from vmcore
-  loongarch: kdump: exclude no-dump reserved memory regions from vmcore
-  Documentation: admin-guide: kdump: document linux,no-dump DT property
-
- Documentation/admin-guide/kdump/kdump.rst  |  59 ++++++
- arch/arm64/kernel/machine_kexec_file.c     |   6 +
- arch/loongarch/kernel/machine_kexec_file.c |   6 +
- arch/riscv/kernel/machine_kexec_file.c     |   4 +
- drivers/of/of_reserved_mem.c               | 233 ++++++++++++++++++---
- include/linux/of_reserved_mem.h            |  16 ++
- 6 files changed, 295 insertions(+), 29 deletions(-)
-
--- 
-2.43.0
+Best regards,
+Krzysztof
 
