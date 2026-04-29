@@ -1,223 +1,206 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013042.outbound.protection.outlook.com [40.107.201.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAF03410D17;
-	Wed, 29 Apr 2026 17:32:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 089882EAD1C
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 17:33:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777483960; cv=fail; b=aqPQZcZcY/S3kugEPP3lx0KylPitO4tVVU82YYIULrSzao/xBvjYmwqOTy74jAFOVUejQ2+sBDCvnjkMKHKJlPYtLNpNbgF9c/gge8Fa7ETtRXbkFG6KNuheVJmigv8/syZpFIeAyHF3ycnzjDab/jzGTX1piyqD5PT8ju7QpEs=
+	t=1777484013; cv=pass; b=TnKMvsJFjdqengassKf2TQvXcWsgPFneclM2P3qS/RwV0XLg/4VUDcHtHu+H069IFhyOrUWpGjfL0kqrWOoDDKUlQNgqtBpDFTKp+Xez8nuSdwJqMdfRa1c/5vuAWAiLOrYfb2Di/DaBSJAIYkSu2pXYTWvCU+LCpca1fv80CMI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777483960; c=relaxed/simple;
-	bh=93SoFMjl1O+L5yc4+n4FkmupuVoUGMbsGYINKe6YGy8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bALagFFcj1MJsoBnwEOK/aJJb0dYMizr02/C4ASxWY/g9Ap6iBO4Yik3B63yUyh6j57Ljjz21TXk2+CLj5K5pHLlqKEl+5ORZRE3sWlVIHdpP2Tcl7hwvDsSmzi/hOmHiZFs0K9yPMU2dFw0uJGa8S/qMn2dTtexefumR+SMKr4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=turgR/Um; arc=fail smtp.client-ip=40.107.201.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1777484013; c=relaxed/simple;
+	bh=kN1Jg8zrE0WkiYysXn+g0/IiPU/u/Efvo6UZbhbtzTE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pZ/MGVQYlNhntBbfRxlJ6aFlgf+hGZR05nE1mg+zzwVBZA6c2pj7FDAoay/ElqInrZgEiJYDegAEB+a39zYsISkvTZCLj71MW7frlHwXTDyVcUr754CkYHtn2YSiZVgrxvlYZU1jNAhjJ9Zsf0mhXO39nf6tIE08uUeJHAxLAuc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=PEKrzCC/; arc=pass smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="turgR/Um"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=svNeI2g33z3A2V9tw5UFzyeixIYZ2Z14qGkmRDEkHThW30tZRp4H9bVhX6S8JLqsAoH1PPX9uX6XeHPN+pLDkCDKDhHgpp9INl0FztNZMTsqz5AaZadZo+oV+F+40IiUWSB9aSlgoQnw2ahklkA3fa7oiGoW+MbQYcEnuGQN29znOG2wXZR03+Rr08cDFsFhQ2P/0FMEkXjxk5t9/BZNshuajEBBxuvuWD/AoDohKS+hHV7PCOPg8Yd0xp5IQOJgfp0I9xifRZ5u76mnn5eCF9pAWVi0iTXRkN3EDzOxYZdEy2+QXlKxbr4olGbJVKqN5IrD2Or8pgCu0DwJbD9gxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qxgsOjuMBg+nR+h/5ZIz401LrwJ5bWo0sTvhBMs20jc=;
- b=hNeuhnhQqf4N1c42m0xm8jqVjp+kUyQOo8I04Y8RiZwOqgFxbMRleeVqntEuLmtA9QEYxwUfLNeVynmcr1hEdASXrpaxSUZbu0HHzydDu7qcC+HkOSnqYziM5UL9vH0SRMyEIgWR1e3yis39VBYuqF7fyA+cTGX8ubWSIki6jJExCz9YFM51tGDIZzozBrXPhBeFsMlLSeQ8DpOLzKDNDgGWFFy4xd1Yn9U9zEHsARpJYxLwu36btWovAC6ir12pg82e1ejGVqY3v1pskaxh/G/ZvHC1P6z8vNCXvg7orKKmIGs1hJMy8g+dNaVcxOu2RBJOJ99YMmyGjif26xgFpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linuxfoundation.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qxgsOjuMBg+nR+h/5ZIz401LrwJ5bWo0sTvhBMs20jc=;
- b=turgR/Um86NaoDDmKRGRUIdaPbA10qSGdMaG2inSr9TYq9lhVTIwZfAZ+XtZvLamrcGgamWLMdXDqFkdEOn+QMQts9Ftk0IwmQ0RXsQv4wj9rb6ThoQDwdZt/GtDmRwOBmFcRIMmvT/Ce0ufnHu8naDdF3d8g4dH+ctjWbfYkrQ=
-Received: from SJ0PR13CA0206.namprd13.prod.outlook.com (2603:10b6:a03:2c3::31)
- by PH7PR12MB6444.namprd12.prod.outlook.com (2603:10b6:510:1f8::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Wed, 29 Apr
- 2026 17:32:32 +0000
-Received: from BY1PEPF0001AE1D.namprd04.prod.outlook.com
- (2603:10b6:a03:2c3:cafe::d5) by SJ0PR13CA0206.outlook.office365.com
- (2603:10b6:a03:2c3::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.16 via Frontend Transport; Wed,
- 29 Apr 2026 17:32:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BY1PEPF0001AE1D.mail.protection.outlook.com (10.167.242.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Wed, 29 Apr 2026 17:32:29 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 29 Apr
- 2026 12:31:52 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 29 Apr
- 2026 12:31:26 -0500
-Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 29 Apr 2026 12:31:23 -0500
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-To: <gregkh@linuxfoundation.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <michal.simek@amd.com>, <Thinh.Nguyen@synopsys.com>,
-	<p.zabel@pengutronix.de>
-CC: <linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<git@amd.com>, Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Subject: [PATCH v3 2/4] usb: dwc3: xilinx: Introduce dwc3_xlnx_config for per-platform data
-Date: Wed, 29 Apr 2026 23:00:48 +0530
-Message-ID: <20260429173050.1772377-3-radhey.shyam.pandey@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260429173050.1772377-1-radhey.shyam.pandey@amd.com>
-References: <20260429173050.1772377-1-radhey.shyam.pandey@amd.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="PEKrzCC/"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-67790429f71so91522a12.2
+        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 10:33:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777484010; cv=none;
+        d=google.com; s=arc-20240605;
+        b=kgtDZ1QQMPO1/EziM8z/+pYcfZTLk85vj5Wi/VWI+oKLRKSlGarU0NmDCqyu9sdndN
+         nJbAodlg3K/r+TGr0jXYTXW4bmkKzHIQqFU+h1uIImTAk6HorcWJbW5RucOOk4ArzLns
+         5VGeYjy+5V1PWrHGoyFsgMtRvnT+JpDYOzv71qpB+SsojycSTzKEmPlYfSEFU4OVcdlY
+         RcyFlzG8QG1b6HTl+s1ZvKyHCKlMlIgCQrhVKA/UVJTuFQNpNJXVwiE/DGeprKOEMFxi
+         t4XNn4YvYInLgSgG2mK9/FK8qPYScaLtMjdHNflcTjy+6rKYijYi/MvrY5lNUr9p0VDJ
+         5jZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=/kb5CXOOm0mj4ODKw/K4npAFTtH0bYa0bnYZ1mb4DgI=;
+        fh=Fvu/kkka4QaqVREDzTRXVto7FyFqQ3XzX3c6O3p1OWo=;
+        b=MGB8MeSWXIU/kK+mLf3yXJc+zq3ayX7UNxae0anVbzUKfFisFZ3mO25EDzTPSVpJM5
+         +WEqK7HvTY4bPzpG2pAE5xaaJAwZSgNp16xh8w0+SCAFCx+9JqMHJ/OT8RWie2F542PP
+         Eb6sTqtoGRlCU+iHJUXIfCzHJmaphveeTs0bXYVmrQLqjjfWLy5mjcFEVeHyfduwAWhc
+         XajfORvnGWGuCade/4CbnjEU0/kqLqq5h7UpiENkwYulmxhY16jJiDGulzO3rWUYBhRn
+         agvJM8eT4PvDHo0NchkDgA2glTWojV8C76WWsdSHKRrfDCQv7P17gQyHo8yep3Q+gWM4
+         3yrg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1777484010; x=1778088810; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=/kb5CXOOm0mj4ODKw/K4npAFTtH0bYa0bnYZ1mb4DgI=;
+        b=PEKrzCC/rAYDBGbkyjxCwRTqVSUmwyhWncEDGEJDD1tfT5AzME3HRihUbthWq6pyp7
+         QycNd14wHmXXNN4jxEJuyFaSq0o38AsPNg5DRuCjwju8yAj+dHEc5XA3z+AOik/nGGFV
+         PDb5YwnzrlCwoYLc4vYEYt8bxJOeIFByHRSmhhXVCB7oQ/GbdX0I9UeL/bv7mhXQri8i
+         gjprCCsn+XGTdBgqVKYQvvzUE5ujR0ETrdAn/nn7Rpy9ZbsyZ5UUHHoya8VBKoH+tUWZ
+         oLZq+y8E9nwRapDuGWGykFWfM1s5u9sPt7k1ygv6klmBTPlahP7K493EyogU3Qa68M07
+         NlPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777484010; x=1778088810;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/kb5CXOOm0mj4ODKw/K4npAFTtH0bYa0bnYZ1mb4DgI=;
+        b=P5yoFzYQtWVsNOYkqyNmT6Tz2L2MpZr/RDiyO5Pm1kw2juR4X9nvrk31BpY+ziYf1p
+         CmXf6h3KYcVNJPSV18E/N45D2BlJPEum3BgthcDBeyBJuwzHzifaUiIfOBgmbsRZbelP
+         2bywQuUXSycpojWnAHasiq5Lp76XIeTU/Qb4HdOCdLtXwAiInJBi2JcG62C8LfFjd8S8
+         pbdamdIzrnXQ8hfPv5Ok8bm4nDqqo+7tfCpRkMTqnv8/ZYOWJ7TqmUITNnDfQea54WHj
+         2oGTfs9vyRouhxK79KqKceD1nXnSawVOomEOKGaSkFxwnqyZKQIId0Vs/TaNZx0N8H/U
+         KRuA==
+X-Forwarded-Encrypted: i=1; AFNElJ/eE3xyW7tzBr6TvlFNpE/0u1BbhOMG+ZA8lVtITKpVSV8lTC3n88IrknY5+au7YE3UPzWzjxBvly0T@vger.kernel.org
+X-Gm-Message-State: AOJu0YxuS4oC7G2GpmSMtGgWxxF2xPyYIiyAGTXh/iPGrrOzKfpHwX5r
+	PIz8Q5i0UYtSkmaKtPKi44IerPDXhYN+s9jZ/2Hm6s6Ft2kqtVfzPgOP0BAlypgEYvvarbbtI2Y
+	TqU0lwdhDmyd9RVHFSFUy+XlRSOkCDs1Tvi7Zx66HPy2QTYqaMP7E
+X-Gm-Gg: AeBDietX20VA21NbnUzKPZz1G6SqF2uTCc65Bc/rqHKk7XlycRIBswlbKRqvyzlbuJu
+	TUqvvZEB3ZjbI3GPrrBkWzQwGsnkiBUqPKEqdQuuv1WdWiZ7+WaHtoSPR9v7MJnp3oqJYQR+9xE
+	04aLyI8KQPuVZVB2GPU19uwXPtvIXI6i4LCiOFgZfbEm/zZBcNZJZpmYEspxs12fIRDiFx3Y5Lf
+	boIow85S9xKV1H2Jp0jcfHIYCR9a5srmw4PD/MF9HYKKWNnUvnp49R+ln5WXe8cgkKqKvzyZnZi
+	d8C3p8yLu+EJZnLTqitgHRtWRg4awbYamJVZscCIEAfWDOxpkBv9
+X-Received: by 2002:a05:6402:1ed3:b0:672:5255:af77 with SMTP id
+ 4fb4d7f45d1cf-679bb07ee71mr5034063a12.13.1777484010328; Wed, 29 Apr 2026
+ 10:33:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1D:EE_|PH7PR12MB6444:EE_
-X-MS-Office365-Filtering-Correlation-Id: 196989da-3d65-476a-3347-08dea6154a03
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|7416014|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	nJC72asbofGQY6oksBW7vKEf2GnIk74W3dKOqKkq6/aodJP7VTc34Xuj45vmMYpiwboCSuAyR57WohCCfC9iB9mSStwu//WYQ81JoypWezY8Z3x3w97HlWfVZo6cASxiEXxXZxK6klzADkXUYxpczqYEB5oybfVpIKNY/POCz5XvvbPPhuQr6T8AXTF+J8gRcJ/Wjs5HUe28T+lOGp85fwWpZB2PuBKPulAPQ84G9GCSfb/FIYjY5AEzB2S5qpXMWWaMlj7Ff7m5ABS631VgwQd+VWpxKrDMZDbUHHEANCYeD4+KTuvbEUy5wRX6BYE+awv4OU4f43n79X+IBdozYAuXs+v1mD1QEs/BxgOSaj4Si/r7Kk8kIG/vo2jrXKo9IkzmOEJtgl3HscFWgsGnpkui1f8s15g1ITwFaHyTFkdvkTNl0+F6ujUQROT3+fyssgBxHpszAKBuMDKupmffYZaA1I6NUerkRo8Cao9+YK9Y3IorKFPJ7pz7T/duGA4+VwqlbmUBbMDmvl1jWAB05WScizVbmOFFeUSgSiWkai18KBeuygQVGkvizPZcY3w5R3t0bA7RWKt/lNHGsNtdIoTc36BNYj9HqZaCQ/Fm3v34lRy+hWpD/sc7akHa6bLTvegzdPD0WbEfEsjj9AUGrqA3Seys/3I0dJBn4j0ZeQS9v93hn8GmXA2sB+Vq5J/tVM2ErcwS0sgvsgMV5meT7+tl7hg+5on73bTRqq5E6jnxk6TWpuJtM4i3IPSepTDjo/JKcL03JASoWCMUYFeG9Q==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(7416014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jRaaQar9kFj/6ucDTdk1HPhxpqXu07fswZYAwUKXYG2cMzxicT2/aCxpiU5ySEcxOx+iV8oINjI0D6+dAs2ln+rZb9NOKgnFIwiWmBM1cFHJZI+Aa33tgzWawQMXizX3iHYmv8dm3gqvf7yHkF19OAcESFOWgZ4VbNzl0o2XY6scMYhHpfzhSND5JwObudNH3NW62vJS9N3fMfaf/vE7iU0gVmc5XuVfvHMN+D9699gACshE0Hfvap8vWsi4VyZVr/Ee4R+XbysapfW9DuE9EwAcZ08aPjDeOT7ojA+wvCQB2zk6BKLigZ+z+16XgZqrIWOBI55eS56q4qvFM466lMdB7AzeLzKndFg7ZVWQpa8FdrJnf45Os6bdOqivPqIB2od5mM6alZqN6rVz4DOE+1mz0pz/5GEdqjEzIzezQiN9hY+BvZUiuSfdI0gd2QHO
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2026 17:32:29.8328
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 196989da-3d65-476a-3347-08dea6154a03
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF0001AE1D.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6444
+References: <20260422212849.1240591-1-shenwei.wang@nxp.com>
+ <20260422212849.1240591-4-shenwei.wang@nxp.com> <22fb5fac-2568-42be-a7e3-7e89d0017eb3@ti.com>
+ <PAXPR04MB91850A11C58419C03909145F89362@PAXPR04MB9185.eurprd04.prod.outlook.com>
+ <6412a758-4560-4cf1-a0d0-5b24d1a715f1@lunn.ch> <PAXPR04MB9185009A17DFDF3D6C8B44E789362@PAXPR04MB9185.eurprd04.prod.outlook.com>
+ <6e01e114-e336-4744-b6b4-563ec42e321b@lunn.ch> <PAXPR04MB9185A098D894B6A6EBCC13F889372@PAXPR04MB9185.eurprd04.prod.outlook.com>
+ <afImuoeHolxGgw3H@p14s> <PAXPR04MB9185F2F6DDB55AC56C92D63B89342@PAXPR04MB9185.eurprd04.prod.outlook.com>
+In-Reply-To: <PAXPR04MB9185F2F6DDB55AC56C92D63B89342@PAXPR04MB9185.eurprd04.prod.outlook.com>
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Wed, 29 Apr 2026 11:33:18 -0600
+X-Gm-Features: AVHnY4KBveuXaT50xXGT561BJAnz_p9YSdb7SJnI5b60PkMgL6_ZMJ8SGU0KF-U
+Message-ID: <CANLsYkwvL0Z3+12MD=J+Dc2yAU2T8ypizyG=6AhYoWOh55odHA@mail.gmail.com>
+Subject: Re: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg GPIO driver
+To: Shenwei Wang <shenwei.wang@nxp.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, "Padhi, Beleswar" <b-padhi@ti.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Frank Li <frank.li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Shuah Khan <skhan@linuxfoundation.org>, 
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>, 
+	"imx@lists.linux.dev" <imx@lists.linux.dev>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, dl-linux-imx <linux-imx@nxp.com>, 
+	Bartosz Golaszewski <brgl@bgdev.pl>
+Content-Type: text/plain; charset="UTF-8"
 
-Replace the direct pltfm_init function pointer in struct dwc3_xlnx with
-a const pointer to a new struct dwc3_xlnx_config. This groups
-per-platform configuration in one place and allows future patches to add
-platform-specific fields (e.g. tx_deemph) without growing dwc3_xlnx.
+On Wed, 29 Apr 2026 at 10:53, Shenwei Wang <shenwei.wang@nxp.com> wrote:
+>
+>
+>
+> > -----Original Message-----
+> > From: Mathieu Poirier <mathieu.poirier@linaro.org>
+> > Sent: Wednesday, April 29, 2026 10:42 AM
+> > To: Shenwei Wang <shenwei.wang@nxp.com>
+> > Cc: Andrew Lunn <andrew@lunn.ch>; Padhi, Beleswar <b-padhi@ti.com>; Linus
+> > Walleij <linusw@kernel.org>; Bartosz Golaszewski <brgl@kernel.org>; Jonathan
+> > Corbet <corbet@lwn.net>; Rob Herring <robh@kernel.org>; Krzysztof Kozlowski
+> > <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>; Bjorn Andersson
+> > <andersson@kernel.org>; Frank Li <frank.li@nxp.com>; Sascha Hauer
+> > <s.hauer@pengutronix.de>; Shuah Khan <skhan@linuxfoundation.org>; linux-
+> > gpio@vger.kernel.org; linux-doc@vger.kernel.org; linux-kernel@vger.kernel.org;
+> > Pengutronix Kernel Team <kernel@pengutronix.de>; Fabio Estevam
+> > <festevam@gmail.com>; Peng Fan <peng.fan@nxp.com>;
+> > devicetree@vger.kernel.org; linux-remoteproc@vger.kernel.org;
+> > imx@lists.linux.dev; linux-arm-kernel@lists.infradead.org; dl-linux-imx <linux-
+> > imx@nxp.com>; Bartosz Golaszewski <brgl@bgdev.pl>
+> > Subject: [EXT] Re: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg GPIO driver
+> > On Tue, Apr 28, 2026 at 03:24:59PM +0000, Shenwei Wang wrote:
+> > >
+> > >
+> > > > -----Original Message-----
+> > > > From: Andrew Lunn <andrew@lunn.ch>
+> > > > Sent: Monday, April 27, 2026 3:49 PM
+> > > > To: Shenwei Wang <shenwei.wang@nxp.com>
+> > > > Cc: Padhi, Beleswar <b-padhi@ti.com>; Linus Walleij
+> > > > <linusw@kernel.org>; Bartosz Golaszewski <brgl@kernel.org>; Jonathan
+> > > > Corbet <corbet@lwn.net>; Rob Herring <robh@kernel.org>; Krzysztof
+> > > > Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>;
+> > > > Bjorn Andersson <andersson@kernel.org>; Mathieu Poirier
+> > > > <mathieu.poirier@linaro.org>; Frank Li <frank.li@nxp.com>; Sascha
+> > > > Hauer <s.hauer@pengutronix.de>; Shuah Khan
+> > > > <skhan@linuxfoundation.org>; linux-gpio@vger.kernel.org; linux-
+> > > > doc@vger.kernel.org; linux-kernel@vger.kernel.org; Pengutronix
+> > > > Kernel Team <kernel@pengutronix.de>; Fabio Estevam
+> > > > <festevam@gmail.com>; Peng Fan <peng.fan@nxp.com>;
+> > > > devicetree@vger.kernel.org; linux- remoteproc@vger.kernel.org;
+> > > > imx@lists.linux.dev; linux-arm- kernel@lists.infradead.org;
+> > > > dl-linux-imx <linux-imx@nxp.com>; Bartosz Golaszewski
+> > > > <brgl@bgdev.pl>
+> > > > Subject: [EXT] Re: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg
+> > > > GPIO driver
+> > > > > > struct virtio_gpio_response {
+> > > > > >         __u8 status;
+> > > > > >         __u8 value;
+> > > > > > };
+> > > >
+> > > > > It is the same message format. Please see the message definition
+> > > > (GET_DIRECTION) below:
+> > > >
+> > > > > +   +-----+-----+-----+-----+-----+----+
+> > > > > +   |0x00 |0x01 |0x02 |0x03 |0x04 |0x05|
+> > > > > +   | 1   | 2   |port |line | err | dir|
+> > > > > +   +-----+-----+-----+-----+-----+----+
+> > > >
+> > > > Sorry, but i don't see how two u8 vs six u8 are the same message format.
+> > > >
+> > >
+> > > Some changes to the message format are necessary.
+> > >
+> > > Virtio uses two communication channels (virtqueues): one for requests and
+> > replies, and a second one for events.
+> > > In contrast, rpmsg provides only a single communication channel, so a
+> > > type field is required to distinguish between different kinds of messages.
+> > >
+> > > Since rpmsg replies and events share the same message format, an additional
+> > line is introduced to handle both cases.
+> > >
+> > > Finally, rpmsg supports multiple GPIO controllers, so a port field is added to
+> > uniquely identify the target controller.
+> >
+> > I have commented on this before - RPMSG is already providing multiplexing
+> > capability by way of endpoints.  There is no need for a port field.  One endpoint,
+> > one GPIO controller.
+> >
+>
+> You still need a way to let the remote side know which port the endpoint maps to, either
+> by embedding the port information in the message (the current way), or by sending it
+> separately.
+>
 
-While at it, switch from of_match_node() to device_get_match_data() to
-simplify the match data lookup.
+An endpoint is created with every namespace request.  There should be
+one namespace request for every GPIO controller, which yields a unique
+endpoint for each controller and eliminates the need for an extra
+field to identify them.
 
-Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
----
-Changes for v3:
-- Add check if dwc3_config exists.
-
-Changes for v2:
-- New patch, split from "Add Versal2 MMI USB 3.2 controller support".
-- Use device_get_match_data() instead of of_match_node().
----
- drivers/usb/dwc3/dwc3-xilinx.c | 31 +++++++++++++++++++++++--------
- 1 file changed, 23 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/usb/dwc3/dwc3-xilinx.c b/drivers/usb/dwc3/dwc3-xilinx.c
-index f41b0da5e89d..af0ccd060c8b 100644
---- a/drivers/usb/dwc3/dwc3-xilinx.c
-+++ b/drivers/usb/dwc3/dwc3-xilinx.c
-@@ -12,6 +12,7 @@
- #include <linux/clk.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
-+#include <linux/property.h>
- #include <linux/dma-mapping.h>
- #include <linux/gpio/consumer.h>
- #include <linux/of_platform.h>
-@@ -41,12 +42,18 @@
- #define XLNX_USB_FPD_POWER_PRSNT		0x80
- #define FPD_POWER_PRSNT_OPTION			BIT(0)
- 
-+struct dwc3_xlnx;
-+
-+struct dwc3_xlnx_config {
-+	int				(*pltfm_init)(struct dwc3_xlnx *data);
-+};
-+
- struct dwc3_xlnx {
- 	int				num_clocks;
- 	struct clk_bulk_data		*clks;
- 	struct device			*dev;
- 	void __iomem			*regs;
--	int				(*pltfm_init)(struct dwc3_xlnx *data);
-+	const struct dwc3_xlnx_config	*dwc3_config;
- 	struct phy			*usb3_phy;
- };
- 
-@@ -241,14 +248,22 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
- 	return ret;
- }
- 
-+static const struct dwc3_xlnx_config zynqmp_config = {
-+	.pltfm_init = dwc3_xlnx_init_zynqmp,
-+};
-+
-+static const struct dwc3_xlnx_config versal_config = {
-+	.pltfm_init = dwc3_xlnx_init_versal,
-+};
-+
- static const struct of_device_id dwc3_xlnx_of_match[] = {
- 	{
- 		.compatible = "xlnx,zynqmp-dwc3",
--		.data = &dwc3_xlnx_init_zynqmp,
-+		.data = &zynqmp_config,
- 	},
- 	{
- 		.compatible = "xlnx,versal-dwc3",
--		.data = &dwc3_xlnx_init_versal,
-+		.data = &versal_config,
- 	},
- 	{ /* Sentinel */ }
- };
-@@ -284,7 +299,6 @@ static int dwc3_xlnx_probe(struct platform_device *pdev)
- 	struct dwc3_xlnx		*priv_data;
- 	struct device			*dev = &pdev->dev;
- 	struct device_node		*np = dev->of_node;
--	const struct of_device_id	*match;
- 	void __iomem			*regs;
- 	int				ret;
- 
-@@ -296,9 +310,10 @@ static int dwc3_xlnx_probe(struct platform_device *pdev)
- 	if (IS_ERR(regs))
- 		return dev_err_probe(dev, PTR_ERR(regs), "failed to map registers\n");
- 
--	match = of_match_node(dwc3_xlnx_of_match, pdev->dev.of_node);
--
--	priv_data->pltfm_init = match->data;
-+	priv_data->dwc3_config = device_get_match_data(dev);
-+	if (!priv_data->dwc3_config)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "missing dwc3 platform configuration\n");
- 	priv_data->regs = regs;
- 	priv_data->dev = dev;
- 
-@@ -314,7 +329,7 @@ static int dwc3_xlnx_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
--	ret = priv_data->pltfm_init(priv_data);
-+	ret = priv_data->dwc3_config->pltfm_init(priv_data);
- 	if (ret)
- 		goto err_clk_put;
- 
--- 
-2.43.0
-
+> Shenwei
+>
+> > >
+> > > Shenwei
+> > >
+> > > >        Andrew
