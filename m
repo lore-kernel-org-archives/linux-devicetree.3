@@ -1,179 +1,174 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2C62DC32A
-	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 03:11:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D894314F70
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 03:45:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777432291; cv=none; b=U9mWnvQ8SWklMRi/g76pZQ2UPsFvxVB9zuXI0VT8KmfNkIxqFuZfqgMh2o3g7EsPXgty9KNo2evL5wKZUoSLDD9bQ1jb8LhP7vrgN/JhNpFHM/A0fCwLwe8cTiDNQQD9C9oLpCEUcP0pnoxwP3cfsbiBEnj50ccsRhmYhpj172g=
+	t=1777434342; cv=none; b=ts4rv/sEM44bd7HvFdevzZpi4cZYUWcu2IK0uFVHANAoVFRF1nyPz/mcFHtXNopjAFMDo7tbWqTtzB9s9LQoqLLGctZhR9tR6tmgiLQmDNLE0QnT1x1Ny1CoouhU14zOhIbeUtByfwpi1OkEXNOZj0aumoSVFXgASo4CjOaNzAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777432291; c=relaxed/simple;
-	bh=R0RT5BudhmrI8eGI91Vu5+RO1GtIP27et4c/aLQbjPA=;
+	s=arc-20240116; t=1777434342; c=relaxed/simple;
+	bh=wbTQJeDm0ersU6wMu6P47zsx+mFfkeoRq8XwtWhXcNM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DPDOsVGWrvNDuK2YgiAR0MVV37LiD2Vuf70MPdCJld8l04loPVCy9iJE3yuLW6HULOFVjp5xR55wpa5T7nnyUSmVB089EOOrA6vx/UuLMbGOWgsbc4kOyynXTjpuY7MTbBbFedx8RBlKponMrZDVn/a8TdF9YPEjzLzp4cJ7D0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J1pcGQlj; arc=none smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=jlPhwYrI8Qo2VwTISP29Wdi5WGkQskkBmECnC0GkgBYWPokjCntK19N/nwRh6MotoMlHGmODgE0FExuQeGwXjnwJRnqz3aQZ3jNOKuotYdG++4OMn6x9lC16GW6TYxnCzv3KDr4pnIyOfPRBFjEmeiVEG/mfLG6bhmqT+o+O980=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JxD+YDod; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g8DquPV+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J1pcGQlj"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c6e2355739dso4840974a12.2
-        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 20:11:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JxD+YDod";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g8DquPV+"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63T3ZV0P1016145
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 03:45:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gNT4rzTgg6PTtm2cSdeMVfAs3gh6lbBElOgnRLEOjpM=; b=JxD+YDodv9t/5pZw
+	deuztASi8PevLk+eqPKsItdDx7So2bzcKvkOElD2Zu/hBG0OZmDF5prFkpOMHCGw
+	pPTyiQztylcvqEJkLIlQbo8ooEcOy1e/QFsCxOg9ThmDicZdmBy3bOPrHgUTlR2B
+	apbF0SgLKqX4f3Ggmbapt2o2Mh1bCHSG2LGnY4+d0mxW5aUQkE6Rla/gLSGIdSTc
+	z8hU1VLDzbbxVjKTBS+uK2mP0pwR60Ds5V8txoWP5bhHQmBkl8i85TisWAwxnc/+
+	9TqzVY0wiY3jqEmtvWhrdAvPAc1yDS5f8zZeo3hKGayjIV6tOcnPW792zdG/0gcX
+	4iukog==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dua73013d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 03:45:41 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-35d9e67f6dcso16487072a91.1
+        for <devicetree@vger.kernel.org>; Tue, 28 Apr 2026 20:45:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777432289; x=1778037089; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
+        d=oss.qualcomm.com; s=google; t=1777434340; x=1778039140; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=6bDYfcj76Nr80y55FIaIDI9diKj6yFZhFoo5wVmqGbE=;
-        b=J1pcGQljnmoEBI5REaynE343aYnvY7e4N9O8S5FMolVAUnREYCsHpP819aMT9hkcMA
-         JS95udIz3kCU97crr95SNdeHmpzVU4ChOqbLfRE9kH1rS8Mvrtv9UeIdEmpH4HvBDcDZ
-         eUFcB+I5ll4bYfeLKav0Iq/Rq5knYJ6+4kRht1IXJsCwHjruemXIGeN7LhXogJQAGWaP
-         wmL6mw6Yk8swf43aJT3FTK45lIIETdnyzq5dIkVQn6BeeW1oDbF892f65iWr26arCRno
-         i13B/lrj49a9/7DqwA6txmsTpyDDEhbDOiBmm4xVUt2Egz10vRwIKIiW9/O+QGl7gfsO
-         1Syg==
+        bh=gNT4rzTgg6PTtm2cSdeMVfAs3gh6lbBElOgnRLEOjpM=;
+        b=g8DquPV+1WuN6ajJt8hdV0KWVfEXnNeHU5AvDZzzr+RR0cl7/Iop9MNnH30l+ZpvbF
+         sy+whxkhZ3BABwrjc0TUNC4cyv8Q9D+EKLnqetsbiiD5LVCGv4q/hI8Q1/Pl3CEXeMHL
+         T/jZbFsWiQiuBmexe1yOpY2mLmN28n0zjIvO09XL8T08AB2zgF8w7mMdSEIOYIzGATDo
+         5Q+cviURhRqGfXnAQ3yJmR07evIkZLg+Y5H8Y8w6xU2W4v9gTyS0xoruWWLXn+RviUEv
+         EBLkn76kGMpi//S209NQjzzZ2bwrxWxhosbmsoBRusYMOnu+a/6UFfGDv6e1BMyTnr0+
+         g88g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777432289; x=1778037089;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20251104; t=1777434340; x=1778039140;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=6bDYfcj76Nr80y55FIaIDI9diKj6yFZhFoo5wVmqGbE=;
-        b=SMfwuxSWJxVF3l8uInRNsIN6y7SDYdVnfi+lns0bojiH+583wnbN51pYZhrl6Kp7Ev
-         IQZ7BqGd5RONPh5bOmZyV8UfHimpwVgnkPuNwEpz+jxXMF9mM2KSXC/a1uOqcQNioC6J
-         pytpkdQ9U7uWPj4uz8paoeFeUeNYCr/VUNO6vGlsibC735kviM+yZoGPpUfDNw44b7os
-         txa710gLep3t+YdWg3+hbi9tGtGX2tG/vBKIfqsSNJSbuN6MM82vZjnZwpOWxQMX8j3u
-         NiyVrZkrOl628c0QtQdurjaPiNSdv/CWLm7b4VyshlEohGkJtHB1bjBEuyvBUhjFWeP1
-         2hiQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8KAJzAY+llviXX3oxt6cQEJqq1k+fSWsg89XJ7jjOk9DxECW2Z9JUgExaUNCIcSNisEk85l0i3xDUi@vger.kernel.org
-X-Gm-Message-State: AOJu0YzAyvxITR6rKU218hBjHnPXj1lHH2yIge1DFebhpnALoC5LqPqK
-	xeyCOqz1O6YAEiloZXbNWKngbuRLcVDd4MC3r5JfWp5Lbh+zx+SPEHsQ
-X-Gm-Gg: AeBDieug6RKGh+IAEj6m2938oz1cY/7yGMdJCg0c7fL3toNj7+u8KOJYioyP2hJZabd
-	3hGaDgPZqmBgOFscUTa+/ruW29EZn0bVpLRKH064oP7la3wC4cL2SHGUCD6pr5YE+SqEJsBawRW
-	0EgxfpKtcFYO9f849EFbrz9qMbCTBBE0taJkVnAjQCXxYGfaR0uuurasRn6OeFI3LcJX8k0QaE9
-	eY/6lpdVZJf7izGwqIBD7voOgHG6wDdLzO37vm2qpvoC8Dj4AaU0lRFWyJAyAVIgUlwBFj2cO0d
-	k4Sz0pgGSjMe5eCW4kebZ43aZF1rcWkAdizSE3zt727eZJSVlj15ja+wUPK7c6dSlz+wCTVk983
-	SBcMza+pYJ+1lCnnPiTGbr/thddWMiKcyQuIaptiIzn/3TuGNnFFp6HpqkFTdvc2U9kE4GIvCbS
-	rlsVlQ0FMnye9HYBe8Dc7z/OOaKQ66+9udA+nGr9G7XCqKaXA4FdX/BIFPXMDRgkU1OW6S
-X-Received: by 2002:a05:6a20:2443:b0:3a0:aee6:acc3 with SMTP id adf61e73a8af0-3a3af660d37mr2332904637.38.1777432289396;
-        Tue, 28 Apr 2026 20:11:29 -0700 (PDT)
-Received: from [172.20.10.2] (42-79-67-210.emome-ip.hinet.net. [42.79.67.210])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c7fd6506f0csm483483a12.27.2026.04.28.20.11.26
+        bh=gNT4rzTgg6PTtm2cSdeMVfAs3gh6lbBElOgnRLEOjpM=;
+        b=YW5/Oz+M2x4IuY/2jsTeJrhcHmbLXxtAGttkUDvNLwd5RUYnnvj/et3TvJHKsamOvp
+         fv/3gx/ZYI06Mj0DkmwNkTc1ESxjLj/rO4FmU8O9BUwFcHiabxIBzl8+kAJaunZzNiXT
+         MPddTiQba2eDvztEI9jUH2IiDYjW6c7I4LajqkNqxazDCdxNHURyYut2xmwpD6Xqtkjf
+         2cEL7ZoLo+e9e7iovycg2yPO1FIsVgNtcKk4qYzyMI7uJBlwbqApkSRVaAT+CctNLx6k
+         wCTuCgR8HLOxeDdSgsfxMnozaxb648Xi0JDxdJtXZgJ0aKxNG0qwW2IEeTrKDCkIw474
+         J7Iw==
+X-Forwarded-Encrypted: i=1; AFNElJ9B6mhvti5WUv9HZ3/n5x96z1XKoDd5Ox4Ar6iC5yur8enT2CD/H9ZBYkpnuMVBRKi8pjwihKc4p4a9@vger.kernel.org
+X-Gm-Message-State: AOJu0YyvopRbQj8enYRq+zoK55np11prfZ/TSIJDwAdQtT4XnHux5WJz
+	HjL31MrdIgFoKuarSg2d0kTBi7I8sLMzVRKnyW5A2eMMovF4BrKD3Fp09uuvnJjxiwNZ6NV06s8
+	caFxK1jVV/OLOC4irhtiUUI3NOQa/burChv5r8F7EA5cHHvfF0H5oZWk+cKPQHrfa
+X-Gm-Gg: AeBDieuFAGs6rx+Bs77awxgUm5tVNaYMjvCl7CB8luJdQdllGPXcTlJLfegZ2W27fS/
+	e+nO+Sx9y89v7IPM85mmBr7J9ZPO3lwG6OBXpZqHfbk81XUSQPESOF/IDe7194T1GNPlxyIy7pj
+	jsJm4V4tfS3y10FBNhldoVVN7q+h5XZHHzz9GMUL+XFz1XJ7XMkBPSeqaAEX77M9H/nqI+sx/Op
+	KvZSQuthhWSG711jN+kMOJz9LlIff3jOEuHkdnNEPMk2xiPXZgFAHLFvfIKZn9S9e1fkJdqqXpG
+	TmBJFUlU6wRZhE/3raIq+KZ55zcL6sFMxSmc3UsikOEp1jQSB+gvBODMH3a9FeZAj8a14J73dBG
+	itxI8TE8jDCkAbaMjHGMPf1nXKlKAqdoeYakraKWUnKIK1/3TmRYrSr1U2/rmM0aI
+X-Received: by 2002:a17:903:1b67:b0:2b0:a980:367c with SMTP id d9443c01a7336-2b987359abamr20791435ad.2.1777434340400;
+        Tue, 28 Apr 2026 20:45:40 -0700 (PDT)
+X-Received: by 2002:a17:903:1b67:b0:2b0:a980:367c with SMTP id d9443c01a7336-2b987359abamr20791055ad.2.1777434339943;
+        Tue, 28 Apr 2026 20:45:39 -0700 (PDT)
+Received: from [10.217.216.47] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b9887734d6sm7084525ad.1.2026.04.28.20.45.35
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Apr 2026 20:11:28 -0700 (PDT)
-Message-ID: <8449eb0e-0e16-bf3e-0dc8-0b2869d75753@gmail.com>
-Date: Wed, 29 Apr 2026 11:11:24 +0800
+        Tue, 28 Apr 2026 20:45:39 -0700 (PDT)
+Message-ID: <3217c494-aa6b-4060-9487-2d5b57c2db18@oss.qualcomm.com>
+Date: Wed, 29 Apr 2026 09:15:33 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
- amplifier
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: glymur: Add camera clock controller
+ support
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260402-glymur_camcc-v1-0-e8da05a21da7@oss.qualcomm.com>
+ <20260402-glymur_camcc-v1-3-e8da05a21da7@oss.qualcomm.com>
+ <6eeb24a9-e2ee-4727-af25-5dfbb95bad59@kernel.org>
 Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>, Neo Chang <YLCHANG2@nuvoton.com>
-Cc: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, robh@kernel.org,
- krzk+dt@kernel.org, linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, kchsu0@nuvoton.com, sjlin0@nuvoton.com
-References: <20260424033953.280520-1-YLCHANG2@nuvoton.com>
- <20260424033953.280520-3-YLCHANG2@nuvoton.com>
- <a76fe4d7-5726-41a9-b569-e676ad94f353@sirena.org.uk>
-From: YLCHANG2 <neo.chang70@gmail.com>
-In-Reply-To: <a76fe4d7-5726-41a9-b569-e676ad94f353@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+In-Reply-To: <6eeb24a9-e2ee-4727-af25-5dfbb95bad59@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=XtvK/1F9 c=1 sm=1 tr=0 ts=69f17ee5 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=VcKEMVW0aYsEEJBu7dsA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI5MDAzMiBTYWx0ZWRfX1o0bcwbrReZc
+ hTM0zAp6xta1SsyUSyUmthkttas20yxsbBL234fgCE2onsaZx5HmHij4Hx3TSEsHnrlFlfdNFhT
+ Jz09/5vs71uPvwKKYwlDl9za83z7FjkZ2MShXk5cn8na8HCubP4nxK9ZLFvFm7ClqPw2R0ycA0u
+ Sg8cx7e1Ak137IlYMCG79YlywtjtqobrPIGyBIzmRozS0Yrg6QlkVCCH3lq13GQADcDmfsE/Poy
+ 3qFe4NS0SWCktbD/QRu4VPfCPahg94BKhF1BFtNf1jlm0JrmwZCVFdultm1FlQXMsXPWkWuyCjR
+ OX01lzKkGC8LLXYVi2KEDsN2z8tyvepWTulCD/cDZcJti7ReQmE1rXWO0ON1AoP3gduljRV/eJU
+ s5USxizOY65l0xsCArgYRlSFu74YO2pJHuF/gnpZbqo6QAmhGEYifuGZqtQhchcVMQ9s5KyVYv0
+ EXduHymSozpXJfgJGjg==
+X-Proofpoint-GUID: ZFA0ccgawITtiXt1Lpce9eJpmIg-poeW
+X-Proofpoint-ORIG-GUID: ZFA0ccgawITtiXt1Lpce9eJpmIg-poeW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-28_05,2026-04-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 bulkscore=0
+ adultscore=0 impostorscore=0 phishscore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604290032
 
 
-On 4/24/26 23:56, Mark Brown wrote:
-> On Fri, Apr 24, 2026 at 11:39:53AM +0800, Neo Chang wrote:
->
->> Add support for the Nuvoton NAU83G60 audio codec. The NAU83G60 is a
->> stereo 30W+30W smart amplifier with an integrated low-latency
->> Advanced Audio DSP.
->> +static int nau8360_peq_coeff_put(struct snd_kcontrol *kcontrol,
->> +	struct snd_ctl_elem_value *ucontrol)
->> +{
->> +	struct snd_soc_component *cp = snd_kcontrol_chip(kcontrol);
->> +	struct soc_bytes_ext *params = (void *)kcontrol->private_value;
->> +	int i, ret, reg = nau8360_peq_regaddr(kcontrol->id.name);
->> +	__be16 *data;
->> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_TEST,
->> +		NAU8360_HW1_MEM_TEST);
->> +	for (i = 0; i < params->max / sizeof(u16); i++)
->> +		snd_soc_component_write(cp, reg + i, be16_to_cpu(*(data + i)));
->> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_TEST, 0);
->> +
->> +	kfree(data);
->> +
->> +	return 0;
-> This should return 1 if the value was changed to generate notifications.
-I will modify this and returns 1 when the value actually changes in v2..
->
->> +/**
->> + * nau8360_set_tdm_slot - configure DAI TDM.
->> + * @tx_mask: 4-bits value representing each active TX slots. Range: 0 (skip), 1~8. Ex.
->> + *	bit 0-3 for left AEC output channel selection
->> + *	bit 4-7 for right AEC output channel selection
->> + *	bit 8-11 for left Isense output channel selection
->> + *	bit 12-15 for right Isense output channel selection
->> + *	bit 16-19 for left Vsense output channel selection
->> + *	bit 20-23 for right Vsense output channel selection
->> + *	bit 24-27 for Junction Temperature (Tj) data output channel selection
->> + *	bit 28-31 for VBAT measured data output channel selection
->> + * @rx_mask: Bitmask representing active RX slots. Ex.
->> + *	bit 0-7 for left DAC channel source selection
->> + *	bit 8-15 for right DAC channel source selection
->> + *	bit 16-23 for left ANC channel source selection
->> + *	bit 24-31 for right ANC channel source selection
->> + *
->> + * Configures a DAI for TDM operation. Only support 8 slots TDM.
->> + */
->> +static int nau8360_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mask,
->> +	unsigned int rx_mask, int slots, int slot_width)
-> That's not the way the API is supposed to work, the mask should be which
-> slots are active as a bitmask.  It looks like what you want here is a
-> series of muxes which control the routing to some AIF widgets
-> representing the TDM slots.
-Got it. I will rework set_tdm_slot() so tx_mask and rx_mask are used 
-only as active slot bitmasks.
-The default routing will be TX slots for AEC and RX slots for DAC.
-Slot-to-function assignment will be handled through ALSA kcontrols instead.
->
->> +static const struct regmap_config nau8360_regmap_config = {
->> +	.reg_bits = NAU8360_REG_ADDR_LEN,
->> +	.val_bits = NAU8360_REG_DATA_LEN,
->> +
->> +	.max_register = NAU8360_REG_MAX,
->> +	.readable_reg = nau8360_readable_reg,
->> +	.writeable_reg = nau8360_writeable_reg,
->> +	.volatile_reg = nau8360_volatile_reg,
->> +	.reg_read = nau8360_reg_read,
->> +	.reg_write = nau8360_reg_write,
->> +
->> +	.cache_type = REGCACHE_RBTREE,
-> Use REGCACHE_MAPLE unless you've got a particular reason to use
-> something else, it's a more modern data structure than _RBTREE and makes
-> choices more suited to current hardware.
-I will change this to REGCACHE_MAPLE in v2.
->
->> +	/* DAC gain setting 0dB by changing current cell current. */
->> +	regmap_update_bits(regmap, NAU8360_R6E_DAC_CFG0, NAU8360_DAC_CUR_MASK,
->> +		NAU8360_DAC_CUR_0DB);
-> Things like gains should normally be user visible and left at the chip
-> defaults, that way we're not making use case specific decisions.
-Agreed. I will remove this setting and leave it at the default in v2.
->
->> +static void nau8360_read_device_properties(struct nau8360 *nau8360)
->> +{
->> +	nau8360->pbtl_enable = device_property_read_bool(dev, "nuvoton,pbtl-enable");
-> This is missing from the binding documentation.
-I double-checked the patch, and it seems this property is already 
-documented in the YAML file.
->
->> +static int nau8360_i2c_probe(struct i2c_client *i2c)
->> +{
->> +	return snd_soc_register_component(dev, &soc_comp_dev_nau8360, &nau8360_dai, 1);
->> +}
-> Nothing unregisters this, you should use devm_snd_soc_register_component()
-Got it. I will switch to devm_snd_soc_register_component() in v2.
+
+On 4/2/2026 11:48 PM, Krzysztof Kozlowski wrote:
+> On 02/04/2026 08:15, Jagadeesh Kona wrote:
+>> Add support for camera clock controller for camera clients to
+>> be able to request for camera clocks on Glymur SoC's.
+>>
+>> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+>> ---
+>>  arch/arm64/boot/dts/qcom/glymur.dtsi | 16 ++++++++++++++++
+>>  1 file changed, 16 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+>> index f23cf81ddb77a4138deeb4e00dd8b316930a2feb..c32f0b84db2f38ec567485e36e8e50529e886775 100644
+>> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+>> @@ -4163,6 +4163,22 @@ usb_mp: usb@a400000 {
+>>  			status = "disabled";
+>>  		};
+>>  
+>> +		camcc: clock-controller@ade0000 {
+>> +			compatible = "qcom,glymur-camcc";
+>> +			reg = <0 0x0ade0000 0 0x20000>;
+> 
+> Please use hex, also for '0'.
+> 
+
+Yes, will fix this in v2.
+
+Thanks,
+Jagadeesh
+
+
+
