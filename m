@@ -1,94 +1,148 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011010.outbound.protection.outlook.com [52.101.62.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C495447AF60
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 18:18:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777573115; cv=none; b=EpVxAOmiEJ5HealPHwvxuXKrtzMn3wGJiNDul36MZh+VDzDXX3BCLjaDSBWqMx1LOzZaJOpXJufCaDQ4BHu5oEuo5+mDpQZcSMrkQH5dlY3L4IG3oWhyh3QVo0gThkfoEt1UxZ4TOyiWSoppxHBPLgQAAzL68yTO+OzZFATw6xY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777573115; c=relaxed/simple;
-	bh=r1xldGkskM1LoWG/eSEiuRbHYKyqMWnb+9qvWV8vW+o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vFYR6JoT/Im2PNI8CMLyTdRrjN4yZG0umbttZJyhkKPu7dqI2/CHuX7acue7Kft2QfHZMC02Wa/OK8ENUCnaRCjMxqy1R43I0i/kfcwE78QGF+s8vWx7I3KYayndcUHSXHdOXiFNYSDsQTZKakDd8P8lGAIJBsZIrMnZbjKYCkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JV3/8xfo; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536474779A4;
+	Thu, 30 Apr 2026 18:33:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777574023; cv=fail; b=FvcqkW5PxBUjGw7mMcyxYjy9cXXgQbGOzfWSAzunhoqE2tYCLuTiDrXDWUINIfh7zgyPfhHdQaJaXi60ZYlGshxR6UlMk60UUPoDG2L/z9nmOiPnE6BkRktzvtLZB1T4rM+42gK6dr5lPti4Bx78FTWRWFFVk9NjJWZNXrKDcdM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777574023; c=relaxed/simple;
+	bh=7keWlIKr4RQ3Vo8fv24IOxU/8SHrEnTxfuKoyzlxtoI=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VHLPNAoaI/UT6ZukZUzYdZuWYDgnhynkkOPD1YB2wvpELtOc8rkvdV76pF3QUbadP5cjrXaFaaLzOKX6Cum/5sBHrunWXcex6rL5XtVIzS2XEOh0Nm4m/KcvStzIfPNkijA5rnTrGN6KdrPBtqrrGJ1pzmUy6Joh8K6nxNItY+o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=MtrK2Vz7; arc=fail smtp.client-ip=52.101.62.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JV3/8xfo"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-82ce2e2880cso876397b3a.0
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 11:18:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777573113; x=1778177913; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=SKm1ZdQlx5hjZVefyBU7lA6ZzR4xQCcmrN+zV7mG1fg=;
-        b=JV3/8xfoTgec5Wt52gaGXCR0bNLsZVLmAckC+6/gFM6lWXuruFnwajK0CBJ0Hm4xlb
-         +pA1CnZX0gAWSv/9O7uLOeNIytKzFFCjSQIquHw1gJRJ2qEWf3JDPIHCyH6lJBUkr0zi
-         DZPmAi1R502fNr3V0Nn5Wzk3cZlhV2C1lKiwAzYeiCsPzbdE60o3P4FxLuUB2ZrdTV9i
-         ROPELSSK2fxcXvmOhxmH7SqxhiKJ7/lWwSU3+mXmHJRTfq0XhLbwDBaeh6IuwMbNVPGw
-         cnWoLtcBuK/pCDL5yvaZiof3SttPSqQUhhR5P9KZ4VbbF3HndX0z8pRjGq9HSipyzLCO
-         7Kyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777573113; x=1778177913;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=SKm1ZdQlx5hjZVefyBU7lA6ZzR4xQCcmrN+zV7mG1fg=;
-        b=TIIJihbzDrNtUBqs01uozCat262PKJ/xMbrY3hKi6D2R6ucWgOmTsS8w844dZbyV7y
-         P6T1CYZ/7JFucXxJ94XvNXp3PpTbcQ9FLGd/dhQuypcVWXJxItNZcAsHm1BGU7by2TpB
-         ZIpSHct0PJBK0My5I/7lBD2oTETppOILjOOKcz6MuQj4WL2ziyhd8mcn5pfGD9Xy6uWT
-         H6eNZ0z1Mh7jQra6Sro4E9DYZ6JucNHDlKohyA+tjJdQ//EZKXqzLIoJSzor01VehY4k
-         N5X8x6ha0MnVgRLryxO7CJNhVVAz0Dd+DgNmUpszfUwzPSy/02v47z3mPZOSYKM5V5sg
-         pU2g==
-X-Forwarded-Encrypted: i=1; AFNElJ9XCWHLrhxn2H0xBVVW37Ve/C/PWTbbTBaazWA6a+0MPgg1BKJk/9YxDaoEyRMm0KRbyPGaWU3/j2eC@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy8fQUf4InRdADffScv58T+1HNCYew13sVPaGeshMlPFMSLuojj
-	qeor8xV/WoDEPUVyhcHbBAtLpVfffKnMZWkZ5zfDKkmj4D2CNPWpq3AC
-X-Gm-Gg: AeBDietyQi3QzOoKuwTal44HzSu8RX7oSuZInL+r2WMYCKCflGEmgTGG6IjwtUHRaPn
-	by+wmbG24YOo4mIaJAN1ZARxZTNexUfS9DWJbknmXyB6/UMioWde9ZKspDhjTvpMwqpuFDshfmB
-	ea1WcA38aCbuFIosUc6zkFGWQaeScmD65+1L+V62IW6E9Qkm4iTyyH93WP6DBTRpTo9ExcSDA8J
-	FCpuKJFyILZWh7BkzAYWn1tOqfqTA85qJhZGSFLRKAm+G9kb0dAh9R7jo7yafjh4lKMdf20ZsVr
-	0dMr12gdyy+51pjvuPoZcF6qeiqZEcVIOsfFdjelUWNwqKxDeJUFP9acXNUvT4CNpaqaKfQa2RM
-	1Ua3KOOFuLthDNJZyVJEAbj1ryCPdi2UVK7IgFm3H4LWmeH7NJ5E87nuySLVutf2BUigj8/hY2J
-	jsQrX/w/F0qZi9np8hShTQBqB2yeuV6FhnJniKOepLvxjJMJs=
-X-Received: by 2002:a05:6a00:28c5:b0:82c:70a8:faee with SMTP id d2e1a72fcca58-834fdadf50amr5266501b3a.6.1777573112943;
-        Thu, 30 Apr 2026 11:18:32 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-835158aa1ffsm311794b3a.22.2026.04.30.11.18.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Apr 2026 11:18:32 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Thu, 30 Apr 2026 11:18:31 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Brian Chiang <chiang.brian@inventec.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] hwmon: (pmbus/lx1308) Add support for LX1308
-Message-ID: <136527f6-5bcb-4cd1-b60c-ce7c80fd149b@roeck-us.net>
-References: <20260428-add-support-lx1308-v2-0-90f115954143@inventec.com>
- <20260428-add-support-lx1308-v2-2-90f115954143@inventec.com>
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="MtrK2Vz7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ykf4k08ooeQEQiK5ivYhdigz9Qr43Wb2kafV12UhCrNx+w3CU3Thm0TTXMgP+vm6UGXSXLphin77dWS0hsgFwZBLayqvAORxIKhQJWyknsKB+sVL7fmnyOGRgfXLYrUhQ04HJrFrKckxaT4f+8aO9I8w39yDCPlOK3hlVyyWTMpE+vHuveDA40csm7RReU6oAgMPw+QR+TKKLr+aUKyCGZP6extx0O59fHB3lMweAmG5VdLdKhDIFTiPOp8MTnV3JRF72wwyNXdSbxl4Grp4vhNyMU2dS4csBcCvhLPVuohI4aqiM7ZhnCCEGtvOk3s+NJJTafIpKLjRAYkw/WlQKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UcVfyWYA0wNj5xpf1WtrZ0XxfW8KYrpUIVu1RsGaJEM=;
+ b=In8EFGMMrLhob9EvK2IihRgqJBKR5QGE6lzxdf8inK1j+FUPeInouhYL3niON8Rqg8Ten9n6rVuWKSy3zmIT+PaSl36n9mXoYBryn7RNAwjnQ+cUaflncoO60Lsm8DBTgMmN9ZeXvOeA5qgrzLU5Nrj8b/LjgvbuWezv/UKbX7tbzf6m4YueL0Ly3AfOtXJT26L06wRK1zMA0FBVjG0P2tW1nCy5tW1fXBBVvNKg0TA4KrSBj6Qm+8D/X2d7Jr+pL6Zvq0bPnMnmQ1qF/LzuGwbtfsIoD8A7S6xEy3ThoID7Fbw9y1y8YqZ+jtbjZY/ZUP6QrjT/EYXCnx3RMDGWjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UcVfyWYA0wNj5xpf1WtrZ0XxfW8KYrpUIVu1RsGaJEM=;
+ b=MtrK2Vz7XZ767zXE0bx5sKMxegvI/huHaf22AUNoTKXt/BYNCfdNJsd15TDZ5QpkYiAAYToIgjnQmNlJfBlQkpyf75XdYpCHhnNoHxU4nEs/rg0inHeTLiKPOqpS/5vUNWt4HvKEYMAFeERyNjeNrSp0eEBvoV/CHMBIu86UaiY=
+Received: from BN9PR03CA0711.namprd03.prod.outlook.com (2603:10b6:408:ef::26)
+ by PH7PR10MB6379.namprd10.prod.outlook.com (2603:10b6:510:1a9::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Thu, 30 Apr
+ 2026 18:33:38 +0000
+Received: from BL02EPF0001A101.namprd05.prod.outlook.com
+ (2603:10b6:408:ef:cafe::dd) by BN9PR03CA0711.outlook.office365.com
+ (2603:10b6:408:ef::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.21 via Frontend Transport; Thu,
+ 30 Apr 2026 18:33:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ BL02EPF0001A101.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9870.22 via Frontend Transport; Thu, 30 Apr 2026 18:33:36 +0000
+Received: from DFLE213.ent.ti.com (10.64.6.71) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 30 Apr
+ 2026 13:33:34 -0500
+Received: from DFLE211.ent.ti.com (10.64.6.69) by DFLE213.ent.ti.com
+ (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 30 Apr
+ 2026 13:33:32 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE211.ent.ti.com
+ (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Thu, 30 Apr 2026 13:33:32 -0500
+Received: from localhost (ti.dhcp.ti.com [172.24.233.157] (may be forged))
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 63UIXVjm1698367;
+	Thu, 30 Apr 2026 13:33:32 -0500
+From: Devarsh Thakkar <devarsht@ti.com>
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, "Bjorn
+ Andersson" <bjorn.andersson@oss.qualcomm.com>,
+	<dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <praneeth@ti.com>, <vigneshr@ti.com>, <s-jain1@ti.com>, <s-wang12@ti.com>,
+	<r-donadkar@ti.com>, <r-sharma3@ti.com>, <devarsht@ti.com>, <afd@ti.com>
+Subject: [PATCH 1/6] dt-bindings: vendor-prefixes: Add Dalian Good Display Co., Ltd.
+Date: Fri, 1 May 2026 00:03:06 +0530
+Message-ID: <20260430183311.2978142-2-devarsht@ti.com>
+X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20260430183311.2978142-1-devarsht@ti.com>
+References: <20260430183311.2978142-1-devarsht@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260428-add-support-lx1308-v2-2-90f115954143@inventec.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A101:EE_|PH7PR10MB6379:EE_
+X-MS-Office365-Filtering-Correlation-Id: 288b51ae-1405-42bb-43f8-08dea6e6fe01
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|7416014|376014|36860700016|921020|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	TzaBR9GjuSaqtar0gurFEs3fYOxSG+GFQW/+YAzDDNPTNHoVEV5P27DG/izZinKR3i+Or7Ko88tgPH8KclfhmLDKB9wax/VjdworZiLBGrAztyU468+jFzhMs9O5kjhjJO5k9lctWrmaFRXCr+PXfWcOIz7w/8ZEAkWvIJvjGlS1kD4eUTitEJr/iVBHw8O3wf2i4PgbVU7E37c7ovcoUzIylKXHM1TOSv5zOARYqy7X0RjP71JQHI8clxHk3ytn4KAsrrWDoqdkmitWRsqTatBUo0Q12m8EnXHfVxzmpNa95tmBhq1e+WEOSZsU3r6eAiAx3eFm0SjOhcjKy8jXLXYCEVqtRsnu28tBejgfakMl1jYrPLADXiy9iDzzOrvA/lV+9pSwFBaP3KG9TprwCkYRpZvMW8PR5/Sy1JXiflicys9mq4hvyCZqXUgsHKqIHnSC0nhZni+rVi7e9wtQ0GBuE6nPw01nXIZMTpuDZVDC8HU84dUdSUgSQmnxYrRsjNULHMQt2VWn+Qt5es7qPYEaWeFPvAxTFnbqdzi4ihe8RSeN1/4+GfbrIEod8q/MhRdTNkybuAmtDGnHyS56RalWb1lq8AOnwO6+vH0OtpzORIwPqyXkqaWB24axx7LJ0ZED1aq3/Faf0XPTB62ManlC+0hJV5hNljkHvqQdMeIAGPn1vpqYX5d1GzDwj4U8rOOiv/dxIQRE8owtJOtasi8dEJt3OMwyh/MhtoyM9A+0RjnSglEves5d70ASmMgrm9q3gMBSM1/uuBFQbkUphg==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(7416014)(376014)(36860700016)(921020)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	4S/YN+t3ZxKwTKQlkGc2vITi0m4BqzjMeqVKu3fgw1TU4nZQQKrOVXkUIKtB2euVdDW2+aVCv/mWfA+r7cfMYJxsywFrJaQw9lljU/Oa5J8HPD39mq2LWQcHTT4FO1FiRZn2KH3U3Y4mH5YtXC9d4ruC5fuA/owEH9lf/RxaYKlS8Q+1ECqEuMqi6eBSp/MVss0LciAKFULmV/HOFgkyMyC1v7j4Y3/K3p+MKnz55JjVeHgyj9v5RzD7LCD1LN9N/U5tucCWibPX8D+EBacimzUjgy+eLOox59RmQPDDXuC3Ta7L211Y+fg1EvOKaoIA8raoBR+taM1dF689kHMD84pmg/lIg/iscl81JV7HjwtUrpRt2aE7wGY6YNBpx3IU25cNDgcY6vuJ9dlNQ40IFfui4Xw3iQyq5yfpCjZiq5mdlWkL//CKAYzOdV8gdrSi
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 18:33:36.6143
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 288b51ae-1405-42bb-43f8-08dea6e6fe01
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0001A101.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB6379
 
-On Tue, Apr 28, 2026 at 12:19:29PM +0000, Brian Chiang wrote:
-> Add support for the Luxshare LX1308, a high-efficiency 12V 860W
-> DC/DC power module. The module operates from 40-60V input voltage.
-> 
-> Signed-off-by: Brian Chiang <chiang.brian@inventec.com>
+Add vendor prefix 'gooddisplay' for Dalian Good Display Co., Ltd., a
+manufacturer of e-paper display panels and modules.
 
-Applied.
+This prefix will be used for the GDEY042T81 e-paper display panel in
+the solomon,ssd16xx binding.
 
-Thanks,
-Guenter
+Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 00bffb9c4469..04daa3245919 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -662,6 +662,8 @@ patternProperties:
+     description: GOcontroll Modular Embedded Electronics B.V.
+   "^goldelico,.*":
+     description: Golden Delicious Computers GmbH & Co. KG
++  "^gooddisplay,.*":
++    description: Dalian Good Display Co., Ltd.
+   "^goodix,.*":
+     description: Shenzhen Huiding Technology Co., Ltd.
+   "^google,.*":
+-- 
+2.39.1
+
