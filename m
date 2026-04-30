@@ -1,117 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A46A39F160;
-	Thu, 30 Apr 2026 09:25:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1204831B830;
+	Thu, 30 Apr 2026 09:31:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777541129; cv=none; b=D5hMj1nxEpOETapXT0FoUcSQkrSkRioqQgDF90qKuHZPp9LrXx4U+bBGIZqoAU2ajYUaOJtc1EN+mrii8Uv1PYWrQaHQjI0yqPyGnedN0oc1bRYZI3Al6qqryjHew85osbwExpxeDf9RymHwn3osIPq/7qN4kIZpV4NZDxtuxYk=
+	t=1777541483; cv=none; b=IQMOt8RbM/IbVmpTGY9G3fyGkkFkZXHKfXTZrRLTGHokubpjkc7pXHbpOEvI0Jsw0Hz3ffctIKQn9naG5REcWWyNbouIXJI1vD2lpTRnCryA/ASlILg2u0idUdovsP8N1B4oUIAmvd9BpoapMdIjaxFNdvIicErST3cYyVusI9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777541129; c=relaxed/simple;
-	bh=B853Eh9uk565MxVVpob3pa08VA0fsq5RODboe/BkwDg=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=Fs9Qj9uAzNV9xGK6MexXhqUIWgV+GRItq+yDB6BBdVRDB9TMOxqyDnAkI6yVJ+8IN55iGUiWzg6yjlNNd9wvxw/JAFoPnuPXTvDeSUI2Ui8fOLUwM2AcqG2c/M6C4i/L4TeBlGCg377xEJ57/7LPWwvHHrY0RidE7Mx3PElnUnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iot/Czbj; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777541483; c=relaxed/simple;
+	bh=lNyfrnysNzXRa/d5wAQ61BZKV63ROnMlAqiKmaO5TiY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oroAdkojnMzZ2RZ3fQzpLXwCMIQ1/E3BzfDG1YG+ImI9VH/5REbtHhW7anmv0jOInF2Yaeon5QSehmlKsX5dEfl6ldIfFoEzO8RrSHGf+IY5Hzr3ZGHyUFwazgKQGTXf+LRK+i4nrxz5QAblbMGWWHY+Uj4Uhcb2/de8mNex35o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N8VtOWAw; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iot/Czbj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E38C5C2BCB4;
-	Thu, 30 Apr 2026 09:25:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N8VtOWAw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AEDCC2BCB3;
+	Thu, 30 Apr 2026 09:31:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777541129;
-	bh=B853Eh9uk565MxVVpob3pa08VA0fsq5RODboe/BkwDg=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=iot/Czbj1UTXZtIKbuakUOJPEZf2jgEJsXUobkf3fTE6pxHY1WoYVSUKSdjGjweU2
-	 uJCII7hbjhIouQ7z+4khXHPcxKRfaQKW5M8Ob7Ff/2xSIiteOAtptRQ6PRVkaTUlXR
-	 m5hnmHC34YoQvr6bwwzWq2O9IDz3/7o6w2Ux/d7uBQOzrHFiHHPE6x5MGEwTHosl5Y
-	 FtyWqlDWOsE2uTUmk93O2vMxDZkoZBQ9EeRqJitySRYcWBAmbfCmXMjl7Y98+WSE2j
-	 s23YYEIaJkoJReZgcK3bIv8Gfrr3USg/F7iytFGSPEmXH9vDS7tcs9sL21B1DUkETF
-	 aW/y9woiMNIXw==
-Date: Thu, 30 Apr 2026 04:25:27 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20201202; t=1777541482;
+	bh=lNyfrnysNzXRa/d5wAQ61BZKV63ROnMlAqiKmaO5TiY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=N8VtOWAw6O0Mnar8m/p8NfAM2S6bQGzfi6zgBdPGBYEsh1hmYFWs0w25zTsPX+wyU
+	 gmEK/pOtPwd0ItoCRD2yo9FgUbdyMfLRoVXV3FIlJkR+kYAFWshCG2q1ERLy3SSWRc
+	 XoDvq+Vc14EeI5ZYNRmWoNiWGg2HRs/3Q/uvN3N3TsR2ABJv2XwCa+Y3xLfXtK8GEm
+	 LpbBcOMvzaQQiJfarjpZgG/Ixl5XBKLCsTMbDuh/FlXou2yfSM21VJwW3iqHTuAdbo
+	 hIVJdwh4jTv3v3S+uyD5t2nUVwNOdIUywKXh+Ynx6f1q8u75nD8nlJ2lF9p4KFTJen
+	 1uqfaY0gaPazQ==
+Date: Thu, 30 Apr 2026 11:31:20 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: nvmem: qfprom: qcom: Add Hawi compatible
+Message-ID: <20260430-finicky-jaybird-of-prosperity-0a26c0@quoll>
+References: <20260427182618.3667963-1-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Christian Lamparter <chunkeey@gmail.com>, 
- Andreas Kemnade <andreas@kemnade.info>, 
- =?utf-8?q?Beno=C3=AEt_Cousson?= <bcousson@baylibre.com>, 
- Eric Dumazet <edumazet@google.com>, Bartosz Golaszewski <brgl@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Johannes Berg <johannes@sipsolutions.net>, Jakub Kicinski <kuba@kernel.org>, 
- Kevin Hilman <khilman@baylibre.com>, Arnd Bergmann <arnd@arndb.de>, 
- linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, 
- linux-omap@vger.kernel.org, Felipe Balbi <balbi@kernel.org>, 
- Rob Herring <robh+dt@kernel.org>, linux-gpio@vger.kernel.org, 
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org, 
- netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
- Roger Quadros <rogerq@kernel.org>, linux-arm-kernel@lists.infradead.org, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Aaro Koskinen <aaro.koskinen@iki.fi>, Tony Lindgren <tony@atomide.com>, 
- Linus Walleij <linusw@kernel.org>
-To: Arnd Bergmann <arnd@kernel.org>
-In-Reply-To: <20260430081242.3686993-2-arnd@kernel.org>
-References: <20260430081242.3686993-1-arnd@kernel.org>
- <20260430081242.3686993-2-arnd@kernel.org>
-Message-Id: <177754112702.3678889.4847926893667561974.robh@kernel.org>
-Subject: Re: [PATCH v4 1/3 net-next] dt-bindings: net: add
- st,stlc4560/p54spi binding
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260427182618.3667963-1-mukesh.ojha@oss.qualcomm.com>
 
-
-On Thu, 30 Apr 2026 10:12:40 +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
+On Mon, Apr 27, 2026 at 11:56:18PM +0530, Mukesh Ojha wrote:
+> Document compatible string for the QFPROM on Hawi platform.
 > 
-> The SPI version of Prism54 was sold under a couple of different
-> names and supported by the Linux p54spi driver, but there was
-> never a DT binding for it.
-> 
-> Document the four known names of this device and the properties
-> that are sufficient for its use on the Nokia N8x0 tablet.
-> 
-> As I don't have this hardware or documentation for it, this is
-> purely based on existing usage in the driver.
-> 
-> Link: https://lore.kernel.org/all/e8dc9acb-6f85-e0a9-a145-d101ca6da201@gmail.com/
-> Acked-by: Christian Lamparter <chunkeey@gmail.com>
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 > ---
-> v4: renamed file to st,stlc4560, matching the primary compatible string
->     require st,stlc4560 string
-> ---
->  .../bindings/net/wireless/st,stlc4560.yaml    | 61 +++++++++++++++++++
->  MAINTAINERS                                   |  1 +
->  2 files changed, 62 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/wireless/st,stlc4560.yaml
-> 
+>  Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/wireless/st,stlc4560.yaml: $id: Cannot determine base path from $id, relative path/filename doesn't match actual path or filename
- 	 $id: http://devicetree.org/schemas/net/wireless/st,stlc45xx.yaml
- 	file: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/wireless/st,stlc4560.yaml
-
-doc reference errors (make refcheckdocs):
-Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/net/wireless/st,stlc45xx.yaml
-MAINTAINERS: Documentation/devicetree/bindings/net/wireless/st,stlc45xx.yaml
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260430081242.3686993-2-arnd@kernel.org
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+Best regards,
+Krzysztof
 
