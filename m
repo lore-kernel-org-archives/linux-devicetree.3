@@ -1,71 +1,69 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011010.outbound.protection.outlook.com [52.101.62.10])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011033.outbound.protection.outlook.com [52.101.52.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536474779A4;
-	Thu, 30 Apr 2026 18:33:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0332647A0B5;
+	Thu, 30 Apr 2026 18:33:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.33
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777574023; cv=fail; b=FvcqkW5PxBUjGw7mMcyxYjy9cXXgQbGOzfWSAzunhoqE2tYCLuTiDrXDWUINIfh7zgyPfhHdQaJaXi60ZYlGshxR6UlMk60UUPoDG2L/z9nmOiPnE6BkRktzvtLZB1T4rM+42gK6dr5lPti4Bx78FTWRWFFVk9NjJWZNXrKDcdM=
+	t=1777574024; cv=fail; b=Jbjiqi64TyPtwMuSzov3fe3VVXcOyK1FLLEtFEtngR/IjacguFAzqFSBQhL/1iohxW0DDUsbJI683ZsFpgr2aLs7GANsslbfIjqDEksFGkFC7Rv0ud8R7Iw9nBgK+pKW0A0NbPA3IfpALHNRaqgreMzmV+oJpV/pnF8FwGFpQEo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777574023; c=relaxed/simple;
-	bh=7keWlIKr4RQ3Vo8fv24IOxU/8SHrEnTxfuKoyzlxtoI=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VHLPNAoaI/UT6ZukZUzYdZuWYDgnhynkkOPD1YB2wvpELtOc8rkvdV76pF3QUbadP5cjrXaFaaLzOKX6Cum/5sBHrunWXcex6rL5XtVIzS2XEOh0Nm4m/KcvStzIfPNkijA5rnTrGN6KdrPBtqrrGJ1pzmUy6Joh8K6nxNItY+o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=MtrK2Vz7; arc=fail smtp.client-ip=52.101.62.10
+	s=arc-20240116; t=1777574024; c=relaxed/simple;
+	bh=rX2fHSJcIyEy7OQ64BAVgO/whETQ1cBL1QAhVhhHIg8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SKUPIgcHpA5SYZ8R2CrGiRv7H1ixj3eXStJ+P/fdvWSOC/Le7iGMKJ7tnbN+txwcpRzz0yx0tmglqEmzusE+Wv8x+uL5W4Fw66yC6K+taEQzpIMZ6qwBoSDXUwpR+XUif9burqke7ofpe77QF1/HYkQ/PFiYN47otxfzhrYIPBo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=js/lhCa/; arc=fail smtp.client-ip=52.101.52.33
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="MtrK2Vz7"
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="js/lhCa/"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ykf4k08ooeQEQiK5ivYhdigz9Qr43Wb2kafV12UhCrNx+w3CU3Thm0TTXMgP+vm6UGXSXLphin77dWS0hsgFwZBLayqvAORxIKhQJWyknsKB+sVL7fmnyOGRgfXLYrUhQ04HJrFrKckxaT4f+8aO9I8w39yDCPlOK3hlVyyWTMpE+vHuveDA40csm7RReU6oAgMPw+QR+TKKLr+aUKyCGZP6extx0O59fHB3lMweAmG5VdLdKhDIFTiPOp8MTnV3JRF72wwyNXdSbxl4Grp4vhNyMU2dS4csBcCvhLPVuohI4aqiM7ZhnCCEGtvOk3s+NJJTafIpKLjRAYkw/WlQKQ==
+ b=Fvngzw4JiXX3KB8dqBTDqvZRt2OJGkRgBBlUb/GfZp71lnHNjaf4b5rECA2YyUZPnk1rnTqSZylxq78sDIHIQr4GXq8Arm1GTtLklUpYZu3BcVI7o9di6tMpEw2XLDtpXDlC1bsRBsknxIWYzb85MkhOUwMZIlFdz07Gmd+OrfbM9YnIt0xzeyq30f/Vyl4gCuCsweh6ofurpGiVefBKC2Ls+LWV+PrdcEPjuEY77p3ai+V5B64i83k98AXBSt4yxLJGQzSogk8DRhJhHOmANqOu+bmbZb5htVWnoPS6+Snm46AW9VtZ+AOJSnJ1Np6PUQiGoT/HSsZ78u8ZZKrPqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UcVfyWYA0wNj5xpf1WtrZ0XxfW8KYrpUIVu1RsGaJEM=;
- b=In8EFGMMrLhob9EvK2IihRgqJBKR5QGE6lzxdf8inK1j+FUPeInouhYL3niON8Rqg8Ten9n6rVuWKSy3zmIT+PaSl36n9mXoYBryn7RNAwjnQ+cUaflncoO60Lsm8DBTgMmN9ZeXvOeA5qgrzLU5Nrj8b/LjgvbuWezv/UKbX7tbzf6m4YueL0Ly3AfOtXJT26L06wRK1zMA0FBVjG0P2tW1nCy5tW1fXBBVvNKg0TA4KrSBj6Qm+8D/X2d7Jr+pL6Zvq0bPnMnmQ1qF/LzuGwbtfsIoD8A7S6xEy3ThoID7Fbw9y1y8YqZ+jtbjZY/ZUP6QrjT/EYXCnx3RMDGWjA==
+ bh=qYu2nmwpmNZsI5X8MoooH3uoTuTf34eMt1KDPShWHNY=;
+ b=PEMdZ1A3twhbHkqhnYEHOBu4kPupKzAVAJRVgtdzluhcUX23z+f46MQndORFnKhuX75PUnhHfnP/5JC0Hxt6ajVw5C0pkQmHEKV1EkRykOU34nA0Fh9yGC2Y1X/TK55kTuc9UDCM7iKZPH1FvS/M+BZkRPUpLS44Ormemy8GwxLUYWQ9b7BXXsaQrGGpvuUY8gOhFYCsf/63GUNYG7oj0boKtYokNtinZwW6N4OjwnQFK/U9BZVpGhrOF24uzzdlApnr9JIZEUoMgCsf0bfJRJCa1vm40LxqAyEYDXdJH4kfWcjKqCmuF+VCEKD02yghxXAvIXIFc4CmElVC3hdVDA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
  dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UcVfyWYA0wNj5xpf1WtrZ0XxfW8KYrpUIVu1RsGaJEM=;
- b=MtrK2Vz7XZ767zXE0bx5sKMxegvI/huHaf22AUNoTKXt/BYNCfdNJsd15TDZ5QpkYiAAYToIgjnQmNlJfBlQkpyf75XdYpCHhnNoHxU4nEs/rg0inHeTLiKPOqpS/5vUNWt4HvKEYMAFeERyNjeNrSp0eEBvoV/CHMBIu86UaiY=
-Received: from BN9PR03CA0711.namprd03.prod.outlook.com (2603:10b6:408:ef::26)
- by PH7PR10MB6379.namprd10.prod.outlook.com (2603:10b6:510:1a9::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Thu, 30 Apr
- 2026 18:33:38 +0000
-Received: from BL02EPF0001A101.namprd05.prod.outlook.com
- (2603:10b6:408:ef:cafe::dd) by BN9PR03CA0711.outlook.office365.com
- (2603:10b6:408:ef::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.21 via Frontend Transport; Thu,
+ bh=qYu2nmwpmNZsI5X8MoooH3uoTuTf34eMt1KDPShWHNY=;
+ b=js/lhCa/FHeDzSoz09RjqA4lkSNeksk4ZKOLjN1/KCDhHsVilRcSe9IXRDRFtinHVTN8fK0UM9Q4NS+ml1ftaRXmbXxlhfHbH5WDfaLSYEjEpIKTb1fjelX9+XYg/w3hv7kqTZ8c+87YaftrmRKLJC2zgWTq2TApYIX6cpWFr+E=
+Received: from PH7PR13CA0014.namprd13.prod.outlook.com (2603:10b6:510:174::28)
+ by DS7PR10MB7180.namprd10.prod.outlook.com (2603:10b6:8:ed::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9870.19; Thu, 30 Apr 2026 18:33:38 +0000
+Received: from CY4PEPF0000EDD7.namprd03.prod.outlook.com
+ (2603:10b6:510:174:cafe::4a) by PH7PR13CA0014.outlook.office365.com
+ (2603:10b6:510:174::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.7 via Frontend Transport; Thu,
  30 Apr 2026 18:33:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
  smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
  action=none header.from=ti.com;
 Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BL02EPF0001A101.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ CY4PEPF0000EDD7.mail.protection.outlook.com (10.167.241.203) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.20.9870.22 via Frontend Transport; Thu, 30 Apr 2026 18:33:36 +0000
-Received: from DFLE213.ent.ti.com (10.64.6.71) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 30 Apr
- 2026 13:33:34 -0500
-Received: from DFLE211.ent.ti.com (10.64.6.69) by DFLE213.ent.ti.com
- (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 13:33:26 -0500
+Received: from DFLE202.ent.ti.com (10.64.6.60) by DFLE204.ent.ti.com
+ (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 30 Apr
- 2026 13:33:32 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE211.ent.ti.com
- (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 13:33:25 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE202.ent.ti.com
+ (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Thu, 30 Apr 2026 13:33:32 -0500
+ Transport; Thu, 30 Apr 2026 13:33:25 -0500
 Received: from localhost (ti.dhcp.ti.com [172.24.233.157] (may be forged))
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 63UIXVjm1698367;
-	Thu, 30 Apr 2026 13:33:32 -0500
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 63UIXOaM1942851;
+	Thu, 30 Apr 2026 13:33:24 -0500
 From: Devarsh Thakkar <devarsht@ti.com>
 To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
 	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
@@ -77,72 +75,128 @@ To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
 	<linux-kernel@vger.kernel.org>
 CC: <praneeth@ti.com>, <vigneshr@ti.com>, <s-jain1@ti.com>, <s-wang12@ti.com>,
 	<r-donadkar@ti.com>, <r-sharma3@ti.com>, <devarsht@ti.com>, <afd@ti.com>
-Subject: [PATCH 1/6] dt-bindings: vendor-prefixes: Add Dalian Good Display Co., Ltd.
-Date: Fri, 1 May 2026 00:03:06 +0530
-Message-ID: <20260430183311.2978142-2-devarsht@ti.com>
+Subject: [PATCH 0/6] Add DRM driver for Solomon SSD16xx e-paper display controllers
+Date: Fri, 1 May 2026 00:03:05 +0530
+Message-ID: <20260430183311.2978142-1-devarsht@ti.com>
 X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20260430183311.2978142-1-devarsht@ti.com>
-References: <20260430183311.2978142-1-devarsht@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A101:EE_|PH7PR10MB6379:EE_
-X-MS-Office365-Filtering-Correlation-Id: 288b51ae-1405-42bb-43f8-08dea6e6fe01
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD7:EE_|DS7PR10MB7180:EE_
+X-MS-Office365-Filtering-Correlation-Id: c715f9e8-3d06-440a-e99e-08dea6e6fe2b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|7416014|376014|36860700016|921020|22082099003|18002099003|56012099003;
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|7416014|376014|921020|18002099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	TzaBR9GjuSaqtar0gurFEs3fYOxSG+GFQW/+YAzDDNPTNHoVEV5P27DG/izZinKR3i+Or7Ko88tgPH8KclfhmLDKB9wax/VjdworZiLBGrAztyU468+jFzhMs9O5kjhjJO5k9lctWrmaFRXCr+PXfWcOIz7w/8ZEAkWvIJvjGlS1kD4eUTitEJr/iVBHw8O3wf2i4PgbVU7E37c7ovcoUzIylKXHM1TOSv5zOARYqy7X0RjP71JQHI8clxHk3ytn4KAsrrWDoqdkmitWRsqTatBUo0Q12m8EnXHfVxzmpNa95tmBhq1e+WEOSZsU3r6eAiAx3eFm0SjOhcjKy8jXLXYCEVqtRsnu28tBejgfakMl1jYrPLADXiy9iDzzOrvA/lV+9pSwFBaP3KG9TprwCkYRpZvMW8PR5/Sy1JXiflicys9mq4hvyCZqXUgsHKqIHnSC0nhZni+rVi7e9wtQ0GBuE6nPw01nXIZMTpuDZVDC8HU84dUdSUgSQmnxYrRsjNULHMQt2VWn+Qt5es7qPYEaWeFPvAxTFnbqdzi4ihe8RSeN1/4+GfbrIEod8q/MhRdTNkybuAmtDGnHyS56RalWb1lq8AOnwO6+vH0OtpzORIwPqyXkqaWB24axx7LJ0ZED1aq3/Faf0XPTB62ManlC+0hJV5hNljkHvqQdMeIAGPn1vpqYX5d1GzDwj4U8rOOiv/dxIQRE8owtJOtasi8dEJt3OMwyh/MhtoyM9A+0RjnSglEves5d70ASmMgrm9q3gMBSM1/uuBFQbkUphg==
+	qrnfyNeU21ZSzK+KCQ1zcrph8YuRrNxUdK58eklCmfAb5ijalXnMohDNeb+lQ1tuKIukB8Jo9VGoG0P0ERXRTtJavfTKwbf09n2vu/DUAqU3mXL4etyDpbAgC+U0TgFutFzrGXyms49lqNfEmcnonETaA5lLLUOxJ18KhUyXDbPii0qN1Ej0rTC2ikeOahHDGf0FNP84MBCo+MElzwWf7lLdDAYZoe7cm9Pu+xq4OMbl8bi1ewVANl8Hrlq4ULAJ3Ik9riF1+DzdBl4GPp6tHXTMlRSVLYnB/o057WMnX7fj4zlep9mCE2BWlg6fahgz+p/oIeT54mapyuVeOilsRn1NjfOjzGrF9BxyZnYpG6e+WZ79OQGlXzxlZm9rjo/56W60+yhxav4kZ7UhgRcVlhhMx7APyJsFTbTJvLbrNHS0QQtm9Ms+kjhsFuNl1+ohBxdqzDlAzYF+NIFIq8Dz4+sbOi/PIeoil5UTTlPhfj14pQfsvn131dfvLS5Dm2qunotla5uLB0ZHWeqbbHHGTNOOFAy8FIWtphFX5KX9u2HuyC5zUoGT2brigCJtJSIpBX7zXItCan4oCbzs+OQBcq6XUynYF9LECg8Qx9c9ZQSy14fw59IlIS6RTxGu36+gHQF99VhXnxWx2ZREKAQc4V40epNbrEQZ1h78UB8dakEl4yH2PIvfZuKFMVexhmsTTVTjTsqucNHIMEvuHiMe8Td8kLH4q3E0iawCBYCZ9B7m+BTkl86NWrgqoTfbzJ+PIQBK/clmUNjnNhgXRP0Cbow3OhDsTnqZOwzwRMGWD4U=
 X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(7416014)(376014)(36860700016)(921020)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(7416014)(376014)(921020)(18002099003)(56012099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	4S/YN+t3ZxKwTKQlkGc2vITi0m4BqzjMeqVKu3fgw1TU4nZQQKrOVXkUIKtB2euVdDW2+aVCv/mWfA+r7cfMYJxsywFrJaQw9lljU/Oa5J8HPD39mq2LWQcHTT4FO1FiRZn2KH3U3Y4mH5YtXC9d4ruC5fuA/owEH9lf/RxaYKlS8Q+1ECqEuMqi6eBSp/MVss0LciAKFULmV/HOFgkyMyC1v7j4Y3/K3p+MKnz55JjVeHgyj9v5RzD7LCD1LN9N/U5tucCWibPX8D+EBacimzUjgy+eLOox59RmQPDDXuC3Ta7L211Y+fg1EvOKaoIA8raoBR+taM1dF689kHMD84pmg/lIg/iscl81JV7HjwtUrpRt2aE7wGY6YNBpx3IU25cNDgcY6vuJ9dlNQ40IFfui4Xw3iQyq5yfpCjZiq5mdlWkL//CKAYzOdV8gdrSi
+	hGz9DSRtibof2nFLTi5R/wqyt9IrRQ+VhadZUv2R4x6hAIsq0GbYzMiJHvWmBw51gKqDFroo/+yXgeyRSv5rNb8NYK/0NTizJaxz/9zqwMZWUuhPfn1tBsc+SVCXeZlTzzZ9LVsRh98N9K0Ov6RwAQo0C/c6mgHUpLi3JJMbhrkdZIszSOlb4hEfy47OL4o78g16qX5IQW3HMFtTAO10PH9gPafZOxlNOnXLm4V4/HdM+j3o+awGUv+XuDQT54TLxYs1V1o+Aio4L8YOEDf7lXJcssmWmqMskgoouunFY3y64NDppvBzSnPTzl/0ODPtSpT67SKJQorjbc1UZusm7D8ekkl0ky4gdhcTds5e3Z+9lzN0FjvepmrzOk/MorMphBxmmhcwdUn/fFI+7S6zBS55gqYIvAxkuX6Cf9+4OiN3riyToL5m19J03Bf3tmjz
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 18:33:36.6143
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 18:33:36.9301
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 288b51ae-1405-42bb-43f8-08dea6e6fe01
+X-MS-Exchange-CrossTenant-Network-Message-Id: c715f9e8-3d06-440a-e99e-08dea6e6fe2b
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A101.namprd05.prod.outlook.com
+	CY4PEPF0000EDD7.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB6379
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB7180
 
-Add vendor prefix 'gooddisplay' for Dalian Good Display Co., Ltd., a
-manufacturer of e-paper display panels and modules.
+This series adds a DRM driver for the Solomon Systech SSD16xx family of
+e-paper display controllers (SSD1673, SSD1680, SSD1681, SSD1683), starting
+with support for the Gooddisplay GDEY042T81, a 4.2" 400×300 black-and-white
+e-paper panel driven by the SSD1683 controller.
 
-This prefix will be used for the GDEY042T81 e-paper display panel in
-the solomon,ssd16xx binding.
+E-paper displays are bistable: they retain the last image indefinitely
+without power, making them well-suited for applications where display
+content changes infrequently — dashboards, e-labels, signage, e-readers
+and e-badges and low-power IoT interfaces. The driver is designed
+and architected keeping this bi-stable nature and low-power requirements
+along with having adequate flexibility to support varying use-case
+requirements for the e-paper display use-cases.
 
-Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
----
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+The driver integrates with the DRM atomic modesetting framework and
+supports:
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 00bffb9c4469..04daa3245919 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -662,6 +662,8 @@ patternProperties:
-     description: GOcontroll Modular Embedded Electronics B.V.
-   "^goldelico,.*":
-     description: Golden Delicious Computers GmbH & Co. KG
-+  "^gooddisplay,.*":
-+    description: Dalian Good Display Co., Ltd.
-   "^goodix,.*":
-     description: Shenzhen Huiding Technology Co., Ltd.
-   "^google,.*":
+  - SPI communication in both 4-wire mode (separate D/C GPIO) and
+    3-wire mode (9-bit SPI with embedded D/C# bit)
+  - Full 4-way rotation via the Data Entry Mode register, with no GPU
+    or memory-copy overhead
+  - Three independently selectable refresh waveforms: partial (~300–500 ms),
+    full (~1.5–2 s), and fast (~1.0–1.5 s)
+  - 3-colour BWR pixel classification for panels with a red RAM plane
+  - Broad pixel format coverage: XRGB8888, RGB888, RGB565, R8, NV12,
+    NV16, YUYV, UYVY, R1 (native 1bpp)
+  - Runtime PM with configurable autosuspend: the controller enters
+    Mode 1 deep sleep (RAM retained) after an idle timeout, waking
+    transparently on the next frame update
+  - System suspend/resume: switches to Mode 2 deep sleep (maximum
+    power savings) on system suspend and rebuilds the pipeline on resume
+  - Runtime-configurable DRM connector properties for refresh mode,
+    rotation, border waveform, clear-on-init/close/disable, colour mode,
+    and init-refresh waveform, each with a corresponding module parameter
+    for boot-time or sysfs configuration
+
+Tested on AM62L3 EVM using Gooddisplay GDEY042T81 using following branch
+and test suite:
+
+Test suite:
+https://github.com/devarsht/linux-next/tree/drm_ssd16xx_epaper/ssd16xx_tests
+Test scripts:
+https://github.com/devarsht/linux-next/blob/drm_ssd16xx_epaper/ssd16xx_tests/run_all_tests.sh (parent script)
+https://github.com/devarsht/linux-next/blob/drm_ssd16xx_epaper/ssd16xx_tests/test*.sh (Individual test scripts)
+
+Testi console logs and summary:
+https://github.com/devarsht/linux-next/blob/drm_ssd16xx_epaper/ssd16xx_tests/logs.txt
+https://github.com/devarsht/linux-next/blob/drm_ssd16xx_epaper/ssd16xx_tests/results/run_all_20260430_224250.summary
+
+Individual test results:
+
+Supported Pixel Formats tests:
+https://github.com/devarsht/linux-next/blob/drm_ssd16xx_epaper/ssd16xx_tests/results/test_formats
+Integration (Misc) tests:
+https://github.com/devarsht/linux-next/blob/drm_ssd16xx_epaper/ssd16xx_tests/results/test_integration_20260430_223910.result
+https://github.com/devarsht/linux-next/blob/drm_ssd16xx_epaper/ssd16xx_tests/results/test_integration_20260430_225207.result
+Module params tests:
+https://github.com/devarsht/linux-next/blob/drm_ssd16xx_epaper/ssd16xx_tests/results/test_module_params_20260430_224700.result
+PM Automated tests:
+https://github.com/devarsht/linux-next/blob/drm_ssd16xx_epaper/ssd16xx_tests/results/test_pm_20260430_225028.result
+DRM properties tests:
+https://github.com/devarsht/linux-next/blob/drm_ssd16xx_epaper/ssd16xx_tests/results/test_properties_20260430_224329.result
+
+Devarsh Thakkar (6):
+  dt-bindings: vendor-prefixes: Add Dalian Good Display Co., Ltd.
+  dt-bindings/display: Add Solomon SSD16xx e-paper controller binding
+  drm/tiny: Add DRM driver for Solomon SSD16xx e-paper display
+    controllers
+  drm/tiny: panel-ssd16xx: Add power management support
+  MAINTAINERS: Add entry for Solomon SSD16xx DRM driver
+  arm64: defconfig: Enable DRM_PANEL_SSD16XX
+
+ .../bindings/display/solomon,ssd16xx.yaml     |   81 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |    2 +
+ MAINTAINERS                                   |    7 +
+ arch/arm64/configs/defconfig                  |    1 +
+ drivers/gpu/drm/tiny/Kconfig                  |   13 +
+ drivers/gpu/drm/tiny/Makefile                 |    1 +
+ drivers/gpu/drm/tiny/panel-ssd16xx.c          | 2731 +++++++++++++++++
+ 7 files changed, 2836 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/solomon,ssd16xx.yaml
+ create mode 100644 drivers/gpu/drm/tiny/panel-ssd16xx.c
+
 -- 
 2.39.1
 
