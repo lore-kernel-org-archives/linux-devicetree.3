@@ -1,242 +1,109 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9871A08AF
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 22:51:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7505A398918
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 23:13:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777589491; cv=none; b=jD+DKFXNJ9QMrDSJirbZQ2tqq5A8Qss0iFLmUKVvo6GyYESQIBUaMIQFxLtSEz9yUSFVysPi+dKwgESMs5bTs3kvUmQ5GK8azpAuItupfRFmcWOue7oU3dzRnCMFb8UAqUFQqHNchm8ywwU2Li9Z25++rNlxOawY+Z61wMLxTeI=
+	t=1777590798; cv=none; b=iDCAdnH4DGsDsYLMxqMAS40XO2UbqNTmPlmqcUzU1tbK+J0cMe0TDkfqUTqZfs3zZ/xwGQZY1KlcMPIrrmKV/P7043RpjMkFxnV17bjNleFMGlDDwpyt63V458Xcgia15t4juPm7v4XP+e5asIN7TluCp+CSDpy6vjfHmJpTmcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777589491; c=relaxed/simple;
-	bh=ccySoFKEoNVQ75TK1fIyIDu/J5XEcUCUomg+Rj0oapg=;
+	s=arc-20240116; t=1777590798; c=relaxed/simple;
+	bh=dY1HY9JIF8+lDEBooYfgHkN/XI0e+4h8UH4v6feKDu0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kc6Q82hLTka7nKgjIw7L2KCygDPhBrv+UAH0SINtAs6238MbsZT8MM/S9T3rx8T13IpJyHqZWmxLSlTUumGLjq1S/rC6aLyGgh5BXnWAkqKDXpDex8ouEiyj49pk8FUdOOFnJW15Ma57+bJ7t+1VW0WP+kmE+4HIRXoERtPvfSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AZJGWSUo; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hTbEVrAs; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=eXPxnDOHlADs6LqcYP3d7iNSH1NcQey/knnLR+Qxtr9GmTArp+VEWHVromfk/334PFavnHfY8gJfxJ9OQRYC3y7RZur6lwisx0aV41DBLd0oZnxChCw0gwBUkH0P7xNpDuK+3ULoHnzPtpCndj6vpjUhjj7sdAfqp65xOjD/0pI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=deAKfLGx; arc=none smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AZJGWSUo";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hTbEVrAs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1777589488;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HdVxrW5qbfv9o4/xQYAtdxN+n/sFjjbbXDDlDPx+0zc=;
-	b=AZJGWSUoxJodatNFtesF8iJgFMQXJ45FDJyo+cUuSqICU5kcdFthFxhbaPdJ5CWvVIuc1d
-	wwZurbLNJBgbruiCVbpWZEKHwog3kmU/nMCbb6xVlTGRwnSLyaW8T1OC7eIj6d8kzDHRtx
-	zwbVwMBj42AiIrMYGPvDNzgBouPnoRE=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-407-RojLGcKmOyq3keKziVYHBA-1; Thu, 30 Apr 2026 18:51:27 -0400
-X-MC-Unique: RojLGcKmOyq3keKziVYHBA-1
-X-Mimecast-MFC-AGG-ID: RojLGcKmOyq3keKziVYHBA_1777589487
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5102a9671c8so27465931cf.1
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 15:51:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="deAKfLGx"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-82f943870baso697097b3a.1
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 16:13:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1777589487; x=1778194287; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:mime-version:references:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=HdVxrW5qbfv9o4/xQYAtdxN+n/sFjjbbXDDlDPx+0zc=;
-        b=hTbEVrAsUsjjGdpfbVWRlj1ctolSZLULfSkcePLvxvDxEH7xGSuu2M6QYH6MH28L7T
-         I48zkN6lYytB2W6sAzy7+5Ta6iguzzPdHrA87Ja8sOeQqQe5IaqT2Ttk7vl7zD3Z5B4f
-         Tmd1EWdRjBT5JUz4mXAHiCZpWpmblOgGmWk5gqEdjBnh1Sr8vQoXJzIw6PHusT9eUhb9
-         nK4mQPpAkmbVyk0FCLXqSVOidaAKYqCkAQvoyxpo4auUk7y0IfM4PNkEb6j7znV32uXv
-         ZIHfD89ICl065y4RY+lhM9gqNK1IlC4TXiHoLX+VvlEHLka4De4NKV2FuaxMrhihw/nr
-         z6bA==
+        d=gmail.com; s=20251104; t=1777590797; x=1778195597; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QRfJ91dKSszpfdR8DuR6IPrBqkdsGBVokk2DQ9C/ack=;
+        b=deAKfLGxEtEG1PYHmc5nu+2bHX+LiDVHMNYQ+CNhzCxcf6rkUxP+lB3BUP28pw8pTV
+         fj7bpONtsf1pmC+8iTN40RZrjK2a8+nYwjoESeJUiJdDbiuoIsRclWPH7tCOB/44RYoJ
+         Qx8jmPwrgSgwKUk8v67IAVaD9ZMrlZ4JF3Tzot30fVwynxxWRCizXka+Ofj8tUsi+qNA
+         5JLh+uIR62xxEv/qsybFBW1ZyX0t/Cu5CmU+dfx+HKVpipi5UMrHGgTO/NUj/gB4pmpN
+         kqM/QXUKC4ADyMQnozXKTbxjoH+hmz7NDLOoNUZSJvuuOZYEghzwUl8Plxe6cyVSah3A
+         6b9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777589487; x=1778194287;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:mime-version:references:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HdVxrW5qbfv9o4/xQYAtdxN+n/sFjjbbXDDlDPx+0zc=;
-        b=olg6E60/zBi6W09zM9KzQT9A3LLaEf9owmB6fgkwc+8RLYBtsnbrJs8nTqZPSDzaAd
-         /g9f4RSUZR0nNAkYq/oaxfhX2fJ0iYGcIYDzD6zmCMYtDzNzrkG7GC+dd4/fz5KURHZj
-         xyy8+gSp8hvkHAK8u7zmVbJ6LLhT6bgcM2npXo557wBB7e+9lvHETnR6bzoTjDkegRCC
-         KOblhpiQjA+pgDB1Aadn6M3OcrewntrNNOBXqrIqfq48/SJuVZt7wyixbB+lZIlWXIYi
-         5ntyCoS4ntB932pv/WLRc1z7Ri4YoG//4OlO2HzxaDHDImmXcC0NvomrePeR/9qwLLdk
-         xBCw==
-X-Forwarded-Encrypted: i=1; AFNElJ9lf9PwOOKa/b9prcoXNdd0Ri2g9RQNtxNPVk1bsMyBJs79/pxcOgx8DNmoBOIqaC30lfYt6yFYsNa4@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyi28PbkQJ9wu2jyqcQzO4gtXXsPt2yCHxYPyDbEfv5bKaixFE7
-	hk1a1MVVudJ+HhwXJmzDOfjvDbVhT0k4kEIm36XuEaBvPObw6qmbZeJyMMuYt+v6IA08R3RuGgi
-	gs6f+xEr3Y+MYC8QB8sp4oDnb0nhAkycT0AR+2cMxnQEoe9rrDImT2NOfTaF3p34=
-X-Gm-Gg: AeBDietc+eKJfIVC1auAukFHet3MixGLgY8sBMxhegz/tI38Tcf1B0sZWpGvXubFStu
-	r/529eY7Q63HaTT9dtm++PTx1uULgAw7rhZsRmU0f8DgqRnoNJlzPd/3kbOMs+RoHoo5CeAz2Qc
-	piqdqBU8h14bjPMQaqXp+8LGIEv3FEwVLwrF3vLRJ/C2Kd0B32R9Cqhn36ZmnFhruIehXSXFY0f
-	XcR2TzsKs/17D/KaUMWPtI84a3Sk8APv/iJ2ZVpJbnJWVDmwDE+lO3cHcczO3LY8ZFpfB0jkkRK
-	6yAwy/no9uwq9s/UNZqg4gcUczOFS9zJXSCjTp9E/FxJmum+rsgdaXqwn37FFIn7JEgdbAB8+rC
-	yVI9bLwgsO6qa5ql9LhtDMrHzuykKYuY=
-X-Received: by 2002:ac8:5ad6:0:b0:509:4406:44e0 with SMTP id d75a77b69052e-5102ab52a6fmr73290371cf.27.1777589486770;
-        Thu, 30 Apr 2026 15:51:26 -0700 (PDT)
-X-Received: by 2002:ac8:5ad6:0:b0:509:4406:44e0 with SMTP id d75a77b69052e-5102ab52a6fmr73289921cf.27.1777589486342;
-        Thu, 30 Apr 2026 15:51:26 -0700 (PDT)
-Received: from redhat.com ([2600:382:7701:f83c:fba1:9a93:4c64:db25])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8b538b1d761sm4868636d6.9.2026.04.30.15.51.24
+        d=1e100.net; s=20251104; t=1777590797; x=1778195597;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=QRfJ91dKSszpfdR8DuR6IPrBqkdsGBVokk2DQ9C/ack=;
+        b=R/s+WXlvWxKpPxiOwKdZ+5XnA8Fmjdu1m5QktAnzd+UIJG+MFgxizuurVBHdqYM1eZ
+         DM4twgQu8dCe0MOk7tUdcwhg3r0hKT1sS0YVtdNAdLTl5M0Mo9BJTVipyatxa7p29sV4
+         HvLM94RQhzTZSFI2KahMT01O6PoB1W/IRR+b245myRBz8CkuPUH8BvPCytt/NYkCZhzN
+         x75HapaXYK5Daqwfq749pc1BN/6YIV6MD27Y1S0LcqTtgb0q1xRtzUDsFfTmaqPFLVkl
+         mMZcanF2QAo3SbHQRnu71Yk8WILaknTfRt2J/TSWZXzEDqw6IN8bt6DZepul7v+3QDob
+         aa3Q==
+X-Forwarded-Encrypted: i=1; AFNElJ+v/MzrO+1JAZ3Kl8t8e+2Z1ZP5p1axszI4dsmTDedYK9wKQQ3OArbcsBKo1hwHpcdnkv/AUbO8U9Pb@vger.kernel.org
+X-Gm-Message-State: AOJu0YweUNX4jukub3knb0GykR06wPG1taRRHMg7tO4ACP0RtMpCqT+Z
+	nt7J1iDB/3ptuaSy7c+z7UAVQVBrJklj+kKTSEMAj1y94amjHM2ENSMt
+X-Gm-Gg: AeBDievwaWNuTCROvLE5ngqYTX9MvidJjyIphfaR1LeLzWphSeudfCbp6XD2O6qvO68
+	nu6G4unIS9hC6b4gRZSTY3vKmAhdJzBKKoMGozKm/5l5bVCbv08AQ1hp1X+XEthqTyclNnRGaXR
+	5Xc9JyHkwzVC3g58c2KaCfi5Rg9cUtq7HgZzxBSwcRxES2P7uRQ6PcVwhvvYhP96i65dbvcGQv7
+	5V+DBrBzO1eD1K6FxMrFcOKwcMvx2dbWaqJjhi8h0YdyJnpy1ursDHmVI5Y7dJRDAq7TvD2nFKT
+	phvW+IpYi2B182GQm5uGJ5lkDE6xEERWh/HMNsksJbR3bj7rc8qh4Sck3v6mQo/CkwCddRlIAR7
+	7CoSoUAjLjdHDQ643P1vdsS9Bom279ztTccaHBxztnOGo+0hJo7TBx+4xsvipAG0/t740A6R93r
+	KnB/+/YsJE+wg4EVq+eknc55GfMJAIimTGJxmTgJ1sKSY5VsI=
+X-Received: by 2002:a05:6a00:430c:b0:82f:5576:2853 with SMTP id d2e1a72fcca58-8351a59ca27mr541087b3a.30.1777590796764;
+        Thu, 30 Apr 2026 16:13:16 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83515ad0049sm787335b3a.33.2026.04.30.16.13.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Apr 2026 15:51:25 -0700 (PDT)
-Date: Thu, 30 Apr 2026 18:51:23 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Xuyang Dong <dongxuyang@eswincomputing.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, mturquette@baylibre.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, p.zabel@pengutronix.de,
-	huangyifeng@eswincomputing.com, benoit.monin@bootlin.com,
-	ningyu@eswincomputing.com, linmin@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com
-Subject: Re: Re: Re: Re: Re: [PATCH v3 2/3] clk: eswin: Add eic7700 HSP clock
- driver
-Message-ID: <afPc66GcXiSzQ6uN@redhat.com>
-References: <20260423091114.2326-1-dongxuyang@eswincomputing.com>
- <aeo8nn-eigzlojWx@redhat.com>
- <4e5c887.5a31.19dbf179fb6.Coremail.dongxuyang@eswincomputing.com>
- <CABx5tqK7p_XJHfXZ70gXhR88PzAteV7cVSFPoRzccgmjanADMw@mail.gmail.com>
- <177733570840.5403.12558106273673899411@lazor>
- <7a76d8cb.5bab.19dd3645d4e.Coremail.dongxuyang@eswincomputing.com>
- <177742748214.5403.15526965667317467444@localhost.localdomain>
- <4257942f.5c6d.19dd89b06f8.Coremail.dongxuyang@eswincomputing.com>
- <afINjhKluCxeb9LK@redhat.com>
- <1f0a2d11.5cd2.19ddcf8114a.Coremail.dongxuyang@eswincomputing.com>
+        Thu, 30 Apr 2026 16:13:16 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Thu, 30 Apr 2026 16:13:15 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: florin.leotescu@oss.nxp.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Shych <michaelsh@nvidia.com>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	daniel.baluta@nxp.com, viorel.suman@nxp.com,
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+	festevam@gmail.com, Florin Leotescu <florin.leotescu@nxp.com>
+Subject: Re: [PATCH v7 1/3] hwmon: emc2305: Fix fan channel index handling
+Message-ID: <2bce6b65-d09b-4237-be0f-3b53698d8031@roeck-us.net>
+References: <20260429065955.2113012-1-florin.leotescu@oss.nxp.com>
+ <20260429065955.2113012-2-florin.leotescu@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1f0a2d11.5cd2.19ddcf8114a.Coremail.dongxuyang@eswincomputing.com>
-User-Agent: Mutt/2.3.1 (2026-03-20)
+In-Reply-To: <20260429065955.2113012-2-florin.leotescu@oss.nxp.com>
 
-Hi Xuyang,
+On Wed, Apr 29, 2026 at 09:59:53AM +0300, florin.leotescu@oss.nxp.com wrote:
+> From: Florin Leotescu <florin.leotescu@nxp.com>
+> 
+> The fan channel index is used to access per-channel data structures.
+> Validate the index against the number of available channels
+> before use to prevent out-of-bounds access if an invalid
+> value is provided.
+> 
+> The thermal registration path currently uses a sequential child index,
+> which may not match the validated channel from DT. Use the DT "reg"
+> property when registering cooling devices to ensure consistent
+> channel handling
+> 
+> Signed-off-by: Florin Leotescu <florin.leotescu@nxp.com>
 
-On Thu, Apr 30, 2026 at 01:58:58PM +0800, Xuyang Dong wrote:
-> > On Wed, Apr 29, 2026 at 05:38:51PM +0800, Xuyang Dong wrote:
-> > > > > 
-> > > > > The common gate API, the HSP private API, and the reset driver all access 
-> > > > > the same register space.
-> > > > > Therefore, they need to be protected by the same data->lock.
-> > > > > 
-> > > > 
-> > > > If everything is accessing registers through regmap why aren't we using
-> > > > the builtin lock with struct regmap_config::use_raw_spinlock? I don't
-> > > > understand why we're rolling our own here.
-> > > 
-> > > Hi Stephen,
-> > > 
-> > > In the HSP clock driver and reset driver, there are three components that
-> > > access the HSP register space: a common gate clock, a custom gate clock 
-> > > (i.e., 0x800), and a reset.
-> > > 
-> > > 1. The common gate uses eswin_clk_register_gate() to register a gate clock 
-> > > via devm_clk_hw_register_gate_parent_data(). It accesses the register 
-> > > using clk_gate_endisable().
-> > > 
-> > > static void clk_gate_endisable(struct clk_hw *hw, int enable)
-> > > {
-> > > 	struct clk_gate *gate = to_clk_gate(hw);
-> > > 	unsigned long flags;
-> > > 
-> > > 	if (gate->lock)
-> > > 		spin_lock_irqsave(gate->lock, flags);
-> > > 	else
-> > > 		__acquire(gate->lock);
-> > > ...
-> > > 	if (gate->lock)
-> > > 		spin_unlock_irqrestore(gate->lock, flags);
-> > > 	else
-> > > 		__release(gate->lock);
-> > > }
-> > > 
-> > > The gate->lock in use is the data->lock passed in from the clock driver.
-> > > 
-> > > 2. The custom gate uses hsp_clk_register_gate() to register a gate clock. 
-> > > It accesses the register using hsp_clk_gate_endisable().
-> > > 
-> > > static void hsp_clk_gate_endisable(struct clk_hw *hw, int enable)
-> > > {
-> > > 	struct eic7700_hsp_clk_gate *gate = to_gate_clk(hw);
-> > > 
-> > > 	guard(spinlock_irqsave)(gate->lock);
-> > > ...
-> > > }
-> > > 
-> > > The gate->lock in use is the same data->lock passed in from the clock 
-> > > driver.
-> > > 
-> > > 3. The reset uses eic7700_hsp_reset_assert() and 
-> > > eic7700_hsp_reset_deassert(), which call regmap_assign_bits() to access 
-> > > the register.
-> > > 
-> > > All three methods access the same register space; therefore, they must be 
-> > > protected by the same lock (data->lock).
-> > > 
-> > > That's why we introduced eic7700_hsp_regmap_lock/unlock for 
-> > > eic7700_hsp_regmap_config.
-> > > 	eic7700_hsp_regmap_config = {
-> > > 		.lock = eic7700_hsp_regmap_lock,
-> > > 		.unlock = eic7700_hsp_regmap_unlock,
-> > > 		.lock_arg = lock_ctx,
-> > > 	};
-> > > 
-> > > The 'lock_ctx->lock' in eic7700_hsp_regmap_lock/unlock is the 'data->lock'.
-> > > 	static void eic7700_hsp_regmap_lock(void *arg)
-> > > 	__acquires(lock_ctx->lock)
-> > > 	{
-> > > 		struct eic7700_hsp_regmap_lock *const lock_ctx = arg;
-> > > 		unsigned long flags;
-> > > 	
-> > > 		spin_lock_irqsave(lock_ctx->lock, flags);
-> > > 		lock_ctx->flags = flags;
-> > > 	}
-> > > 
-> > > The similar approach can be found in clk-imx8ulp-sim-lpav.c.
-> > > 
-> > > The annotations what we mentioned previously is the above 
-> > > "__acquires(lock_ctx->lock)".
-> > 
-> > I see what Stephen is saying. Take a look at __regmap_init() in
-> > drivers/base/regmap/regmap.c. If the lock/unlock ops are not specified,
-> > then the final else will automatically setup locking. By default, it'll
-> > use a mutex, but there is the ability to use a spinlock.
-> > 
-> > So you can drop the lock/unlock ops from the driver, and add to the ops:
-> > 
-> > 	fast_io: 1,
-> > 	use_raw_spinlock: 1,
-> > 
-> > Given the critcal nature of clks, I agree with Stephen that a raw
-> > spinlock should be used here.
-> > 
-> 
-> Hi Stephen and Brian,
-> 
-> In the HSP clock driver, hsp_clk_gate_endisable() only accesses the 
-> registers at 0x800/0x900, and reset accesses the same registers as well, 
-> which leads to concurrent RMW (read-modify-write) races.
-> 
-> There are two approaches to solve these races.
-> 
-> The first method is the current implementation. All three functions 
-> (clk_gate_endisable(), hsp_clk_gate_endisable(), 
-> and eic7700_hsp_reset_assert()) use data->lock to prevent concurrent 
-> RMW races.
-> 
-> The second method is as Stephen said. If I understand correctly, it is to 
-> change the register read/write operations in hsp_clk_gate_endisable() to 
-> use the regmap API and use the same lock (map->raw_spinlock) as reset.
-> 
-> Is the second approach preferable?
+The problems found by Sashiko are real, but they are pre-existing.
+The locking issues are pre-existing, and data->pwm_separate is for
+all practical purposes always false (there is no upstream user of
+the platform data, so it may well be removed), meaning there is no
+separation of pwm channels if the thermal subsystem is enabled.
+Given that, applied.
 
-Use the same regmap everywhere. Also you don't have to explicitly define
-the raw spinlock in your driver since the regmap API will create a raw
-spinlock for you if you use the fast_io / use_raw_spinlock options I
-described above.
-
-Brian
-
+Thanks,
+Guenter
