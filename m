@@ -1,123 +1,141 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 562FC39446D;
-	Thu, 30 Apr 2026 07:05:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43673396D0C
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 07:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777532761; cv=none; b=ZYf6fxEQMpKZ3iNbLeH5gb/zUKGIszuUjM9JbcOiyKSU/OfF0m4vysRGCxEs2JsWwNHvxHTbfYygvOe774Vnh/nZMP+2dD+LqyLYSKjK3myh3rcbplfp2Ohb8XWGNdEeq8tWfGUgaj0pqewcmaAF8f3x2iXwdbYHXYE71m99SyA=
+	t=1777533053; cv=none; b=cCOKx2bSMogVXGTeY+JW5zXDMsjtlqAI9/2Lvc9edMKTVgDsS2I/qj7+FF/QUEcMmHMod4V5tqnt92gDK7EOIbZcn7S1q7rUN71yzmAvdQ3jGFBM2VIKOl3dGa0NKJrA9QhA8OATHbAAItHa0i4z+gHgpk6a0G7CLPB95L317Fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777532761; c=relaxed/simple;
-	bh=Q/CYUFrBY9oiZ1V/DgB1eH5buSeSaju7jfaovk+Eukg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=dUOP0JEId391itM7MuBF3p9ZRLZgkxDe3v+WuzhJJquhMkTS6ekcYB2jGNUhrl8ORUszLrt3P8YM9sUq0JbkujAfiJhLVDl5zVdsVF+oerBUvb1rJhnZeQxcOQj+L0G7dIpi6RV/8ilVujJflDK7mSlZtaEjZHgpEBIlHnMZruc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=13.75.44.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
- ajax-webmail-app1 (Coremail) ; Thu, 30 Apr 2026 15:05:13 +0800 (GMT+08:00)
-Date: Thu, 30 Apr 2026 15:05:13 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-To: "Andrew Lunn" <andrew@lunn.ch>
-Cc: devicetree@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org,
-	pabeni@redhat.com, mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com, rmk+kernel@armlinux.org.uk,
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	alex@ghiti.fr, linux-riscv@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	maxime.chevallier@bootlin.com, ningyu@eswincomputing.com,
-	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com,
-	pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com,
-	horms@kernel.org
-Subject: Re: Re: [PATCH net-next v7 4/4] riscv: dts: eswin:
- eic7700-hifive-premier-p550: enable Ethernet controller
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <d662fa07-cd0f-48c4-a6e4-03c5fd390e92@lunn.ch>
-References: <20260427072353.1114-1-lizhi2@eswincomputing.com>
- <20260427072603.1191-1-lizhi2@eswincomputing.com>
- <d662fa07-cd0f-48c4-a6e4-03c5fd390e92@lunn.ch>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1777533053; c=relaxed/simple;
+	bh=QhQKB2mRUuTtgEbrNzVyQWry9Jhf3YZS5lk/FPu/bGE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JCLrRh5xOYwc3qG1rCLsYUVEViUfxlhv5686W0isaPR9vE4FD77UhU4DjkZSWVkE9H3GWIqCsT+RDw+3atO69EF0csgQSbdNOo1CHotld7LChM+dw1A42pV/WEciSzETq3b7HQ/Uu7fqj7HNGFYPuq84nEIgwek78LBTZLV82Kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=fYFej4iR; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="fYFej4iR"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-48334ee0aeaso4062305e9.1
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 00:10:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1777533049; x=1778137849; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=aE4vBf5pFQqHJ7JzFp5lwW/U6bPFUoFVmhKlS9U+c7s=;
+        b=fYFej4iRwj8Q47Zjp2yyzDeW1yrn9awRIqN4FPApvdIIzvxZsrSPYFNLMkv9plRVHK
+         u36fchzOs3ivYM1i3fsk5d/OExiutj08lHhVfLSWA26UOiKGMANjvQEq6mRmCfuH/+PD
+         2Zpv8/easd0St9SWAkQ6TcByk2Lx16vtaDAujpjpNcAWUa6wWqGE2xVeq0uOODjX0Oq5
+         MDfKP/nwJHCPncaSMzAb1BejIsSa5RRHI9uM19Lt+BiK4eHRlxGNOqrko6emkJxu8lFg
+         vDF2ELXSfSbo8IuFqb0I7ueY/327iLsgARwupuFylW/X3M7OREpIGlsPTvrC9YMnCmDt
+         QxLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777533049; x=1778137849;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aE4vBf5pFQqHJ7JzFp5lwW/U6bPFUoFVmhKlS9U+c7s=;
+        b=N/FkxWqQ8riosHzTak+ABTL9lL0r08mzQNTU9BQi/PVCe63tjmBAbYMYPM2zZVmbO2
+         Uwu8S1n1PJ0DISusHfx14u29c2bQwFML5BTVETXu1yCetgKjnceBpKNd0jGyJkbEGbYp
+         umjNP7kqV8c2UFT3SknieZ2dVb6SWvq21AUrGi/b39m3LzvGcnx+8Zk88RkZtL6aMegy
+         AjFd66r0Un9DHY/fLQaq8aGp+hxR20s0sXi4EUr4U8YZ0EldDtX6Bekfz8hYtnyoQugZ
+         aR4x3209qDvs0g4337P3tGXgXCBQj6iCF4MZX8w4WF4ghAdbRgy9baD0wZlpgEHTDQWI
+         a11Q==
+X-Forwarded-Encrypted: i=1; AFNElJ91wdqr5sZsngJU2OFDxlR6dGmall6Q7NOIi5Spm6MJNxd3GDDVT9T0Qi46fyUQoqPWG8YhFLpwVOZx@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7feviUCTEahzhHXTU0YbQ/FatMRWm8lkO6+sUWIT0MCvK0zP7
+	Jb5k9eO9G9Podf1ceb2fr6gX6Lc9VLeOz/YmnOF6osFU5BWiQDFTdU551WHahDjWOsc=
+X-Gm-Gg: AeBDieuiySNm8qlTgEd9YmWEy/y3YJN2Vbeh7QXK9eD5dxUItnGmBT6IpuxQYScE1Kc
+	tJiFCqOKww/wjCdtCcMftt0iBijM1JdDRY+OH9yiAAeBN9Bk+qw50r3ep++yCbTVzDHZImkoDmE
+	5tJJsOxAudSIhdvau+CJ04qCyPpPjLOAKx3yIHBxHyZaIhfMcMFsMSZIwTYcgJSqbGbGhVIqGuX
+	oBuxJhzPayw+6e0TWJRpgIPMFcPgWAHiMawqei1IZfUrUR4j9oOtE5NVM3+iPBfaFEo+kAvnZIq
+	fUsWOZNtKsq10cM0onyJiG3UHF5rY0A/lrZyO03mNluH4ZdvKYelk/+c+lBsdXlOw+npef7vloH
+	Rxs8QAR2fVt0MWAKa3Hijt2VQp2tngqCkJ87GYQbujCyOyScAptPgThrCZUUjdi/hbaZDbZYvNg
+	8OM/bF4k4KWT8RtKTVHyAh3WDTVQUv6dK8hoElMg6zL1z4gupu84NiPIMiKgk5gEivSFsVYXudR
+	1UHfF+iOja81EF8hCY=
+X-Received: by 2002:a05:600c:8483:b0:487:2671:fb8f with SMTP id 5b1f17b1804b1-48a83d73324mr27890335e9.8.1777533049245;
+        Thu, 30 Apr 2026 00:10:49 -0700 (PDT)
+Received: from [192.168.178.36] (046124200255.public.t-mobile.at. [46.124.200.255])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a81ed6b89sm46080825e9.1.2026.04.30.00.10.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Apr 2026 00:10:48 -0700 (PDT)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Subject: [PATCH v2 0/5] Add LPASS LPI pin controller support for SM6350
+Date: Thu, 30 Apr 2026 09:10:40 +0200
+Message-Id: <20260430-sm6350-lpi-tlmm-v2-0-81d068025b97@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <5e09c674.799b.19ddd34b91f.Coremail.lizhi2@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:TAJkCgDHaXMp__Jp_vAVAA--.6489W
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAQENDGnyMpsSHgACs9
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOQQ6DIBBFr2JYdxpAJbar3qNxgTrWSQQsUGNjv
+ HtR182s3kz+f7OygJ4wsHu2Mo8zBXI2gbxkrB20fSFQl5hJLhUXsoJgVF5yGCeCOBoDTdfqosO
+ mVIVgKTV57Gk5Gp914oFCdP57CGaxb/93zQI45Kqs8l7qfR69Jj8NzuK1dYbV2ynw+P6kT+NpY
+ Y0OCOluKN4zi0uEw1DIW0psP3Wo3APjAAAA
+X-Change-ID: 20260128-sm6350-lpi-tlmm-bdca4deb5641
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777533047; l=1992;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=QhQKB2mRUuTtgEbrNzVyQWry9Jhf3YZS5lk/FPu/bGE=;
+ b=I2DiK9SeNbN+KP+wFWjjnhIUJ5RMd8BNN8v7oSbkqI6PJiH33CQS4/zUIe1YOvTRqGpykL5lV
+ mnap3+ig0YYDu9R0Qnbs2gaD0qG+DRGisKOaB0mpJe9VF64CG+0olfz
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-CgoKPiAtLS0tLeWOn+Wni+mCruS7ti0tLS0tCj4g5Y+R5Lu25Lq6OiAiQW5kcmV3IEx1bm4iIDxh
-bmRyZXdAbHVubi5jaD4KPiDlj5HpgIHml7bpl7Q6MjAyNi0wNC0yOSAwOTo0MTo1MyAo5pif5pyf
-5LiJKQo+IOaUtuS7tuS6ujogbGl6aGkyQGVzd2luY29tcHV0aW5nLmNvbQo+IOaKhOmAgTogZGV2
-aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmcsIGFuZHJldytuZXRkZXZAbHVubi5jaCwgZGF2ZW1AZGF2
-ZW1sb2Z0Lm5ldCwgZWR1bWF6ZXRAZ29vZ2xlLmNvbSwga3ViYUBrZXJuZWwub3JnLCByb2JoQGtl
-cm5lbC5vcmcsIGtyemsrZHRAa2VybmVsLm9yZywgY29ub3IrZHRAa2VybmVsLm9yZywgbmV0ZGV2
-QHZnZXIua2VybmVsLm9yZywgcGFiZW5pQHJlZGhhdC5jb20sIG1jb3F1ZWxpbi5zdG0zMkBnbWFp
-bC5jb20sIGFsZXhhbmRyZS50b3JndWVAZm9zcy5zdC5jb20sIHJtaytrZXJuZWxAYXJtbGludXgu
-b3JnLnVrLCBwandAa2VybmVsLm9yZywgcGFsbWVyQGRhYmJlbHQuY29tLCBhb3VAZWVjcy5iZXJr
-ZWxleS5lZHUsIGFsZXhAZ2hpdGkuZnIsIGxpbnV4LXJpc2N2QGxpc3RzLmluZnJhZGVhZC5vcmcs
-IGxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20sIGxpbnV4LWFybS1rZXJu
-ZWxAbGlzdHMuaW5mcmFkZWFkLm9yZywgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZywgbWF4
-aW1lLmNoZXZhbGxpZXJAYm9vdGxpbi5jb20sIG5pbmd5dUBlc3dpbmNvbXB1dGluZy5jb20sIGxp
-bm1pbkBlc3dpbmNvbXB1dGluZy5jb20sIHBpbmtlc2gudmFnaGVsYUBlaW5mb2NoaXBzLmNvbSwg
-cHJpdGVzaC5wYXRlbEBlaW5mb2NoaXBzLmNvbSwgd2Vpc2hhbmdqdWFuQGVzd2luY29tcHV0aW5n
-LmNvbSwgaG9ybXNAa2VybmVsLm9yZwo+IOS4u+mimDogUmU6IFtQQVRDSCBuZXQtbmV4dCB2NyA0
-LzRdIHJpc2N2OiBkdHM6IGVzd2luOiBlaWM3NzAwLWhpZml2ZS1wcmVtaWVyLXA1NTA6IGVuYWJs
-ZSBFdGhlcm5ldCBjb250cm9sbGVyCj4gCj4gPiArJmdtYWMxIHsKPiA+ICsJcGh5LWhhbmRsZSA9
-IDwmZ21hYzFfcGh5MD47Cj4gPiArCS8qCj4gPiArCSAqIEZvciB0aGUgVFggcGF0aCBvZiBnbWFj
-MSwgdGhlcmUgaXMgYSBza2V3IGJldHdlZW4gdGhlIFRYIGNsb2NrCj4gPiArCSAqIGFuZCBkYXRh
-IG9uIHRoZSBNQUMgY29udHJvbGxlciBpbnNpZGUgdGhlIHNpbGljb24uIFRoaXMgc2tldyBoYXBw
-ZW5zCj4gPiArCSAqIHRvIGJlIGFwcHJveGltYXRlbHkgMiBucy4gVGhlcmVmb3JlLCBpdCBjYW4g
-YmUgY29uc2lkZXJlZCB0aGF0IHRoZQo+ID4gKwkgKiAyIG5zIGRlbGF5IG9mIFRYIGlzIHByb3Zp
-ZGVkIGJ5IHRoZSBNQUMuCj4gPiArCSAqIE5vIGRlbGF5IGNvbmZpZ3VyYXRpb24gZm9yIHR4IGlz
-IG5lZWRlZCBpbiBzb2Z0d2FyZSB2aWEgUEhZIGRyaXZlci4KPiA+ICsJICovCj4gPiArCXBoeS1t
-b2RlID0gInJnbWlpLXJ4aWQiOwo+IAo+IFRoaXMgaXMgd3JvbmcuIFRha2UgYSByZWFkIG9mCj4g
-Cj4gaHR0cHM6Ly9lbGl4aXIuYm9vdGxpbi5jb20vbGludXgvdjYuMTUvc291cmNlL0RvY3VtZW50
-YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvZXRoZXJuZXQtY29udHJvbGxlci55YW1sI0wy
-ODcKPiAKPiBwaHktbW9kZSBkZXNjcmliZXMgdGhlIGJvYXJkLiBJZiB0aGUgYm9hcmQgcHJvdmlk
-ZXMgdGhlIDJucyBkZWxheSwgeW91Cj4gdXNlIHJnbWlpLiBJZiB0aGUgTUFDL1BIWSBwYWlyIG5l
-ZWRzIHRvIHByb3ZpZGUgdGhlIGRlbGF5LCB5b3UgdXNpbmcKPiByZ21paS1pZC4KPiAKPiBJZiBy
-Z21paS1pZCBpcyB1c2VkLCBpdCBpcyB1cCB0byB0aGUgTUFDL1BIWSB0byBkZWNpZGUgd2hpY2gg
-d2lsbCBhZGQKPiB0aGUgZGVsYXkuIElmIHRoZSBNQUMgYWRkcyB0aGUgZGVsYXksIGl0IG5lZWRz
-IHRvIG1hc2sgdGhlIHZhbHVlIG9mCj4gcGh5LW1vZGUgaXQgcGFzc2VzIHRvIHRoZSBQSFkgc28g
-aXQgZG9lcyBub3QgYWxzbyBhZGQgdGhlIGRlbGF5Lgo+IAo+IFlvdXIgYnJva2VuIGhhcmR3YXJl
-IG1lYW5zIHlvdSBjYW5ub3Qgc3VwcG9ydCAncmdtaWknIG9yICdyZ21paS1yeCcsCj4gc2luY2Ug
-eW91IGNhbm5vdCB0dXJuIG9mZiB0aGlzIDJucyBkZWxheSwgc28geW91IGVuZCB1cCB3aXRoIGRv
-dWJsZQo+IGRlbGF5cyBpZiBhbnlib2R5IGRlc2lnbnMgYSBib2FyZCB3aXRoIDJucyBUWCBkZWxh
-eSBvbiB0aGUgYm9hcmQKPiBpdHNlbGYuIFNvIHBsZWFzZSB2YWxpZGF0ZSB0aGUgUEhZIG1vZGVz
-IGFuZCByZXR1cm4gLUVJTlZBTCBpZiB0aGVzZQo+IG1vZGVzIGFyZSB1c2VkLgo+IAoKVGhhbmtz
-IGZvciB0aGUgZGV0YWlsZWQgZXhwbGFuYXRpb24uCgpZb3UgYXJlIHJpZ2h0IHRoYXQgcGh5LW1v
-ZGUgc2hvdWxkIGRlc2NyaWJlIHRoZSBib2FyZC1sZXZlbApjb25maWd1cmF0aW9uIGFuZCBzaG91
-bGQgbm90IGJlIG1vZGlmaWVkIGluIHRoZSBEVCB0byByZWZsZWN0Ck1BQy1pbnRlcm5hbCBiZWhh
-dmlvci4KCkZvciB0aGlzIGhhcmR3YXJlLCB0aGUgTUFDIHVuY29uZGl0aW9uYWxseSBpbnRyb2R1
-Y2VzIGFuIH4yIG5zClRYIGRlbGF5IHdoaWNoIGNhbm5vdCBiZSBkaXNhYmxlZC4gVGhpcyBtZWFu
-cyB0aGUgY29uZmlndXJhdGlvbgplZmZlY3RpdmVseSBtYXRjaGVzIHJnbWlpLWlkIGF0IHRoZSBi
-b2FyZCBsZXZlbCwgd2hlcmUgVFggZGVsYXkKaXMgcHJvdmlkZWQgYnkgdGhlIE1BQyBhbmQgUlgg
-ZGVsYXkgYnkgdGhlIFBIWS4KCkkgd2lsbCB0aGVyZWZvcmU6Ci0gS2VlcCB0aGUgRFQgdXNpbmcg
-cGh5LW1vZGUgPSAicmdtaWktaWQiIHRvIGNvcnJlY3RseSBkZXNjcmliZQrCoCB0aGUgYm9hcmQt
-bGV2ZWwgdGltaW5nLgotIEluIHRoZSBkcml2ZXIsIG1hc2sgdGhlIHBoeV9pbnRlcmZhY2UgcGFz
-c2VkIHRvIHRoZSBQSFkgc28gdGhhdArCoCBpdCBkb2VzIG5vdCBhZGQgVFggZGVsYXksIGF2b2lk
-aW5nIGRvdWJsZSBkZWxheS4KLSBFeHBsaWNpdGx5IHJlamVjdCB1bnN1cHBvcnRlZCBtb2RlcyBz
-dWNoIGFzICJyZ21paSIgYW5kCsKgICJyZ21paS1yeGlkIiwgc2luY2UgdGhlIE1BQyBUWCBkZWxh
-eSBjYW5ub3QgYmUgZGlzYWJsZWQgYW5kCsKgIHRoZXNlIGNvbmZpZ3VyYXRpb25zIHdvdWxkIGxl
-YWQgdG8gaW5jb3JyZWN0IHRpbWluZy4KClJlZ2FyZGluZyB0aGUgdHgtaW50ZXJuYWwtZGVsYXkt
-cHMgcHJvcGVydHksIGl0IHJlcHJlc2VudHMgdGhlCnRvdGFsIGVmZmVjdGl2ZSBUWCBkZWxheSBv
-biB0aGUgbGluZSwgaW5jbHVkaW5nIHRoZSBpbmhlcmVudAp+MiBucyBza2V3IGludHJvZHVjZWQg
-YnkgdGhlIE1BQyBzaWxpY29uLiBUaGUgZHJpdmVyIHN1YnRyYWN0cwp0aGlzIGluaGVyZW50IHNr
-ZXcgYW5kIHByb2dyYW1zIG9ubHkgdGhlIHJlbWFpbmluZyBkZWxheS4KCkFzIGEgcmVzdWx0LCBm
-b3IgdGhlIGNsay1pbnZlcnNpb24gdmFyaWFudCwgdGhlIHZhbGlkIHJhbmdlIGlzClsyMDAwLCA0
-NTQwXSwgd2hpY2ggbWF0Y2hlcyB0aGUgdXBkYXRlZCBiaW5kaW5nIGNvbnN0cmFpbnRzLgoKSSB3
-aWxsIGNsYXJpZnkgaW4gdGhlIGJpbmRpbmcgZGVzY3JpcHRpb24gdGhhdCB0aGlzIHByb3BlcnR5
-CnJlcHJlc2VudHMgdGhlIHRvdGFsIFRYIGRlbGF5IChNQUMgKyBwcm9ncmFtbWFibGUpLCB0byBh
-dm9pZAphbWJpZ3VpdHkuCgpUaGFua3MgZm9yIHBvaW50aW5nIHRoaXMgb3V0Lgo=
+Introduce support for the LPASS LPI pin controller for the Qualcomm
+SM6350 SoC, by adding the dt-bindings, driver, dts bits and enabling it
+in the arm64 defconfig.
+
+The custom slew offset for gpio14 is described as
+"qcom,lpi-slew-base-tbl" in the downstream dts[0]. I've tried to find
+some reasonable solution to have this handled correctly in the patches
+here, but suggestions are welcome how to improve the situation. There's
+of course several ways to implement a solution for this.
+
+[0] https://gerrit-public.fairphone.software/plugins/gitiles/kernel/msm-extra/devicetree/+/refs/heads/kernel/13/fp4/qcom/lagoon-lpi.dtsi#25
+
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+Changes in v2:
+- Fix dt bindings example
+- Drop note about too little register space (Konrad)
+- Pick up tags
+- Link to v1: https://lore.kernel.org/r/20260128-sm6350-lpi-tlmm-v1-0-36583f2a2a2a@fairphone.com
+
+---
+Luca Weiss (5):
+      dt-bindings: pinctrl: qcom: Add SM6350 LPI pinctrl
+      pinctrl: qcom: lpass-lpi: Add ability to use SPARE_1 for slew control
+      pinctrl: qcom: Add SM6350 LPASS LPI TLMM
+      arm64: dts: qcom: sm6350: add LPASS LPI pin controller
+      arm64: defconfig: Enable LPASS LPI pin controller for SM6350
+
+ .../pinctrl/qcom,sm6350-lpass-lpi-pinctrl.yaml     | 124 +++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm6350.dtsi               |  66 +++++++++
+ arch/arm64/configs/defconfig                       |   1 +
+ drivers/pinctrl/qcom/Kconfig                       |   9 ++
+ drivers/pinctrl/qcom/Makefile                      |   1 +
+ drivers/pinctrl/qcom/pinctrl-lpass-lpi.c           |   2 +
+ drivers/pinctrl/qcom/pinctrl-lpass-lpi.h           |  20 +++
+ drivers/pinctrl/qcom/pinctrl-sm6350-lpass-lpi.c    | 149 +++++++++++++++++++++
+ 8 files changed, 372 insertions(+)
+---
+base-commit: 3d33d10c2d4f964c9223fd9a27eb7f0ac733c216
+change-id: 20260128-sm6350-lpi-tlmm-bdca4deb5641
+
+Best regards,
+--  
+Luca Weiss <luca.weiss@fairphone.com>
+
