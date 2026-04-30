@@ -1,66 +1,68 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A7D39FCD9
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 07:15:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1455239E6E4
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 07:16:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777533341; cv=none; b=ibeJJrPD3AD79SVli6LJeGzQDbJnq8irRqk9mp83ILPAcNztxFeMJi99CGKh5nY+z5SDmKg5Msp8jgpgVbjBXfmnCjVrvkOJFArrOk188KMT30uIStHMociswiRYwBaDGVJlv8GK0xsBzwaRPVeIf2Fy0nJKkrx2GYrcDRrqHXA=
+	t=1777533369; cv=none; b=tbskEJpxa1mQoFqTgOMqjDsh4P8Rlqsfb3lGFXHZ1864qeqmRpyStOvqHZo7iQHlbEbCAEjO3a3n5McGd/nV6tik2pE6j1tMjt2gZz9RMEjtDXUJfgK94hJGk6N1IMAJ3Xl8TaJ7rnHRHio2gRh4n5+ERRW2+SBsTrBvxeb1lXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777533341; c=relaxed/simple;
-	bh=943u9tGah9fZKkBwSz2vWV6zvES2zNY+ugxae7nl5oY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mrLz/SyJCth60DHMqPvS5cKE3nMqazbv083gaITrcFrPa2d7hM3EtsQmE6+OZA9Uia9MO92F9Wim2D//TC3BTy/zc7YuIfYkTb0y7lHSrzA/8iVoGE2571zg6wk0Zgwa4ILhDlwdG0sZix5YpJNoqiXJSehfPFXYY7oaiG+/3Qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=qOpWjSls; arc=none smtp.client-ip=209.85.221.46
+	s=arc-20240116; t=1777533369; c=relaxed/simple;
+	bh=8y5IjJzM/6XuEQyFMJA+yn2DH9j5uTrLw1mp2yRYfhQ=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=giLOX11pehmmwOYLjNyaMFdAwuQIbiW/Nr0d4iDcwn7jqisXuB3iQbzrQLQJUHzIV+wa7vzXQwm9Bc8Tl5xrAqQz5CGcD1oDUy22Zx7ygTEUFTpwRApb5PMxZM61AOgGN01SqQ3LvdPzfmc8+tLDPFFerqkz9t2BiLOlqgHMPe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=srv2m/st; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="qOpWjSls"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-43fe62837baso297837f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 00:15:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="srv2m/st"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4891f625344so5918075e9.0
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 00:16:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777533338; x=1778138138; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=VmRymc3GPUbLGGqxDSkazp7UPTgnpwv2CEs1VA6yd2g=;
-        b=qOpWjSlshHfX2QfWoTTjkcCTyIqnQYo5T6I8dnS5wKZOZG91IPvbBHH5p7naasmH6N
-         7MN6PJePxwV8U69lrB+ch3lvFOMOSycneyiLh68PV+fcznyoI8FFC6aLj06nitOI20JT
-         tZRgxL3XplTq1dJA/OQq2pwhFCBZpO29JmxxK5FtpojsaOAStm02C/bkJpenwo9UjAO1
-         dgdCcI/vhAX9F3KKIYHIgQe9/pMJQckGI0vhXAxEGUxBpGsuByGhBVaaHo5D5W6bs2oh
-         t6W0cnkLZXM+l5S53mkbdwnKRQHnvV9oQNsMgaJWVxhia7/0cFE8bXRQv5t4fjbYuJba
-         nzXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777533338; x=1778138138;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=linaro.org; s=google; t=1777533366; x=1778138166; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=VmRymc3GPUbLGGqxDSkazp7UPTgnpwv2CEs1VA6yd2g=;
-        b=mJ24LGRmOpf51bnUM3BKkyW7EhJEFVxgtJVJ3wUSmtfcyKWraiYkcghUDMW98NMRMB
-         stBF1IVQxjV0DHsNaZGzlwXcv6ScYU5dy+dKgWfqiHWWQvMQxMbMi8VUmA4FKznsjqix
-         pjw13hiJQOfnVr/MGw+Moy+LTwoXXUMREzNZ3JohpW8fXXeg5pOlbmifOlrq0WCErcKZ
-         Mp2fr7ihTr82JMDTOpfcP9WQHuJdhTe1zCkgq4tSgvoqPQDPlKIfjHYFhoqAl/cOnp8x
-         P8/gZJIltBl2uyrdG6Cd0EOvSNf6xxdAUJtTq3yZiYLKXyEBkAKxZDNXOQvr03Pm8DTq
-         48pA==
-X-Forwarded-Encrypted: i=1; AFNElJ9mf7jM63rbhLx18/qPJv79zEaxQxjIjubkyQGkVCprrW+hz4BXzvpeiI+O++GJ85nTWluV0toD7IeL@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz5yNGiOrGAQWkWvl9qRla1hmprduQcbrOqd4ZSv6A/+koymt9S
-	hXB9L7//xE6PfM9vzoMU7Ic7+glFCssu4HRZuC511ufI1oB3j6O8tBVxaL1Bnsp9hM0=
-X-Gm-Gg: AeBDiev1Oj+gmaAqzz3LsL3jMNnBL1NeEU+uI9FxGjNS4VU6vpB4lPGiz7RldF6z8ko
-	zDcGL6mFmP+ustp+OIObXyxx1XbV92DBlNg8Mauy75Wfz4aMhNl0iIeT7gZzUnof3pJ4fSYKL3y
-	q4R9ST1EoF/raeB0Kh0sTkl7E7Sl253OlrupXTwzPG5ZpIbu/TNT/AGIo8EAexzLdHSUzhPVQhg
-	yB1IkGye8StA928irYCx9Dq9uVmxgEwQRmXvX3KssEscWcEDMVdDlsXgPWpQ7sxbrSGSQ1PejOW
-	I01s1Ca1uFVgUIA8AIXyva+GHvF5RdSTWprplfRe7Kk5EEiyA3ZIkbLYItbi8UB75kF/a7mrd8r
-	7S4LFgujNMREzrX0IF3JzE2pe9Gi+PoDHfYm1Sspyfl9qRfUT3gl45On/sdEHpDJcKJ23WO5pFo
-	w40eW02ypbzTac/w732+fbwLpx1xMvT03nFz8KKRq0Qm+VT5wy
-X-Received: by 2002:a5d:5f82:0:b0:43d:2be:e54 with SMTP id ffacd0b85a97d-449403a9bb7mr2449221f8f.39.1777533337875;
-        Thu, 30 Apr 2026 00:15:37 -0700 (PDT)
-Received: from [192.168.42.159] ([83.240.169.14])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-447b7217c56sm10970745f8f.20.2026.04.30.00.15.36
+        bh=hOuJHF/wE9ZTofIpwa25PjNSbv38gjdXsd0cuVP+tXY=;
+        b=srv2m/stjz1EFW/o9le1f/2/I8sfyz3GTefFT51akAnwwuMo8AfBkWXY4uPW7FEGye
+         r5mDqIjwHW/j443sWp1Dz6lLgBsGxgQ8X9S9qUYvhlFp4AUhArpV3XJMEtpifM1MAjRP
+         Q4RV2miGZ4CDDluj0US2F91h+29U7U2zrvQVcZ0gzEVXLYQPPGKu7CWjoiwqImfAH9cQ
+         kjDZylTKQ1EImgJJW10UqcW237veOHOpaVLgs78mj6xs8jZHLSUXYxUVqKsM99OlYApH
+         RQjT8/s5HCi8a8iv4FylC+PjFgc02OSbfDx04pt/ZFEH/42ZyUlwCLP2SYEJi6yhYaIS
+         zxZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777533366; x=1778138166;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=hOuJHF/wE9ZTofIpwa25PjNSbv38gjdXsd0cuVP+tXY=;
+        b=bFzOvAZlsyGNVsxPYIBJCicFjMqX2wOjluQL7ut5IVnHLbR0K6odD0aiel7zLn6Qpi
+         EWMOR2agczN2B1JQXcFbvy5EZDMaxb4RpXXjSzAE+wrZ6g6P0yGYo0CTiX8lNrRVh0Va
+         jZIbTGapUxT11mOAOa1TP/u9AbNihi8BJ5MvgtT1kOTlHz0Os0PiJmwTTyVfOfHxehUB
+         rnh6JtPe0IOupPqdUPu44VtZrmwlWkElMm3C/WuprXfKD2GmkbixoRD0ME4LbHY1elt7
+         x9AcLzk/5ehdINZCof+gmRLIeGf2/ZOt2g1aax2xShB3GRH7/s0GoulMbXfVxTOmC4ug
+         1bCg==
+X-Forwarded-Encrypted: i=1; AFNElJ/WrPdh/E366GDgqay7akO5n0laZkIJHh0ekBjuMfvADRE6v0MMcs7s8aecj2WkWStF9geWnOsfifX+@vger.kernel.org
+X-Gm-Message-State: AOJu0YwIHlRC2WKE/EMb5YgvLZjeAbCMuTxd4La7/QLtj+vtyLLJ/OoO
+	wvuZRVMPrKW+HAdpyGrJSE0TS6R82w7a7cwKMXQXOa2kpkiXZmq5eRIeoWXmN6RzF5M=
+X-Gm-Gg: AeBDiesxdNs7bwy9ayWz6d9hHWgT3vWhfg2vEyLX+PBDMfu8Dpz10+aXmkkOn7Rdsyl
+	JisdYbxsn5vGyNGYIvAXHrBJ70VfMNpmK7Tp2I3zjQ4wuW1QduVHpOUYpnDtxU6x2VIHaNhKFT0
+	QKwKCK2dPzjF3Qn6+DWuJlGff8yQiyr6aICDnVwC0j64+6or1est/hqnBAKMnQ+XzQJm/+cvaZm
+	1T8bV3g7H4MTMLD5AXa1B9gybKPxVDxJ6Kw+MhEvJNueAc7YrFzc8AseHdvg0p15lqiLyATYmSB
+	kXhnGLS8ya0IypRmQFd6aZETAh+8PYpo6PxEfTYjD5t7nmcxW94YxGQyBERsVr00AljYJl3ii8B
+	xabrDwZAmZk2oIYaGEASDGQnQBfs1aRSkmg2SQvq/gog/PP5NZwKV6cDCL+Mxdu6cfJp3GRtBqh
+	aR/KSVYde13aEvIRQUGYSV3V4Mnc/QSSEaSqETWgdYsQvhLYKvN+ceFr8OSElfyPc6tJANCGFJb
+	eonsJWrXTzft20PKg==
+X-Received: by 2002:a05:600c:548d:b0:48a:534a:eed8 with SMTP id 5b1f17b1804b1-48a85e17294mr18959865e9.1.1777533366279;
+        Thu, 30 Apr 2026 00:16:06 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:6dcc:3980:fe87:c6ae? ([2a01:e0a:106d:1080:6dcc:3980:fe87:c6ae])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a82301b7bsm52768295e9.11.2026.04.30.00.16.05
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Apr 2026 00:15:37 -0700 (PDT)
-Message-ID: <749460c6-2111-4729-a5f1-711d674bacfb@linaro.org>
-Date: Thu, 30 Apr 2026 08:15:33 +0100
+        Thu, 30 Apr 2026 00:16:05 -0700 (PDT)
+Message-ID: <21657cf5-425c-4b29-927d-6e305e5ebf0a@linaro.org>
+Date: Thu, 30 Apr 2026 09:16:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,63 +70,72 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] arm64: dts: qcom: glymur: Add camera clock
- controller support
-To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 2/2] regulator: add SGM3804 Dual Output driver
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>,
- Taniya Das <taniya.das@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260429-glymur_camcc-v2-0-0c3fd1977869@oss.qualcomm.com>
- <20260429-glymur_camcc-v2-3-0c3fd1977869@oss.qualcomm.com>
-Content-Language: en-US
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <20260429-glymur_camcc-v2-3-0c3fd1977869@oss.qualcomm.com>
+ <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
+References: <20260428-topic-sm8650-ayaneo-pocket-s2-sgm3804-v1-0-1d8dc7620256@linaro.org>
+ <20260428-topic-sm8650-ayaneo-pocket-s2-sgm3804-v1-2-1d8dc7620256@linaro.org>
+ <afFS3W5hokXy3T7x@sirena.co.uk>
+ <7d2fd0d7-2ac2-43d8-be5c-4f9fcd7908bb@linaro.org>
+ <afKrH4fdv1jXxLgk@sirena.co.uk>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <afKrH4fdv1jXxLgk@sirena.co.uk>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 29/04/2026 15:14, Jagadeesh Kona wrote:
-> Add support for camera clock controller for camera clients to
-> be able to request for camera clocks on Glymur SoC's.
+On 4/30/26 03:06, Mark Brown wrote:
+> On Wed, Apr 29, 2026 at 10:05:33AM +0200, Neil Armstrong wrote:
+>> On 4/29/26 02:37, Mark Brown wrote:
+>>> On Tue, Apr 28, 2026 at 03:52:06PM +0200, Neil Armstrong wrote:
 > 
-> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-> ---
->   arch/arm64/boot/dts/qcom/glymur.dtsi | 16 ++++++++++++++++
->   1 file changed, 16 insertions(+)
+>>>> +// SPDX-License-Identifier: GPL-2.0-only
+>>>> +/*
+>>>> + * SGMicro SGM3804 regulator Driver
+>>>> + *
+>>>> + * Copyright (C) 2025 Kancy Joe <kancy2333@outlook.com>
+>>>> + * Copyright (C) 2026 Linaro Limited
+>>>> + * Author: Neil Armstrong <neil.armstrong@linaro.org>
+>>>> + */
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> index f23cf81ddb77a4138deeb4e00dd8b316930a2feb..8e2a872988d1c3d97506856e2e5325646db59746 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> @@ -4163,6 +4163,22 @@ usb_mp: usb@a400000 {
->   			status = "disabled";
->   		};
->   
-> +		camcc: clock-controller@ade0000 {
-> +			compatible = "qcom,glymur-camcc";
-> +			reg = <0x0 0x0ade0000 0x0 0x20000>;
-> +			clocks = <&gcc GCC_CAMERA_AHB_CLK>,
-> +				 <&rpmhcc RPMH_CXO_CLK>,
-> +				 <&rpmhcc RPMH_CXO_CLK_A>,
-> +				 <&sleep_clk>;
-> +			power-domains = <&rpmhpd RPMHPD_MXC>,
-> +					<&rpmhpd RPMHPD_MMCX>;
-> +			required-opps = <&rpmhpd_opp_low_svs>,
-> +					<&rpmhpd_opp_low_svs>;
-> +			#clock-cells = <1>;
-> +			#reset-cells = <1>;
-> +			#power-domain-cells = <1>;
-> +		};
-> +
->   		mdss: display-subsystem@ae00000 {
->   			compatible = "qcom,glymur-mdss";
->   			reg = <0x0 0x0ae00000 0x0 0x1000>;
+>>> Please make the entire comment a C++ one so things look more
+>>> intentional.  The authorship overall appears a bit confused?
 > 
+>> Sorry, what's confusing here ?
+> 
+> At various times both you and Kancy Joe are listed as authors of the
+> driver, but rarely both of you simulataneously.  I can't tell what your
+> roles were here.
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Oh yes so I'll add my MODULE_AUTHOR() tag aswell then
+
+Neil
