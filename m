@@ -1,121 +1,241 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C4C1B7910;
-	Thu, 30 Apr 2026 19:20:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA37F37FF41
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 20:17:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777576806; cv=none; b=BoQ6JOpJFLTJZyzoXFVYUx/I4pXWXsLMIm3qqzoqG3n0wmli/ePX26XbD6XKBdeo3yz3hryUD8bIuRGjbc5oYHeMD3D3AfRBGho57Ziq+C0NRnJUSSGQSuTzC81qUHYlOJnjZ5k8lujhw9NVFO5knpW00Gu998wfZAXv6q6ExxQ=
+	t=1777580280; cv=none; b=tlyRo7zHRTdaGO+PcFbFgepppQ3JtQrgWd2PjXG/OJaP80V7rEauxohZ3h3jrTqm4dFQX2xW2Haopq51r5XbvJOrm4O2vgVOz4SfIjn+R9mVMIuxYhnKs+KdvYPlhESHlBpiFtrCXmsZePviqQeZQ1ukAxj9eegGpuBeDHdQJXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777576806; c=relaxed/simple;
-	bh=yngHXCdLOX9WcF1ZvGikqIbrivyRQzQ00lMFOMonbXc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=buRY2eGtuy36qAEYomu8jentqyMpmKMC2fcpifa0kBdk/CZwhcN8hKgv42JHKE24tZ2RyRwHiDWAOpEHhkceTDMYcCGujqVNpTzIY1NDYDnD8ALSXhfJcpJ6PYe0JW7D5w4vtXtrkM5UgPDjo4xqdp/c93C3pUxs3gCE5W1rmcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=4Yaj2CXC; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1777580280; c=relaxed/simple;
+	bh=FoqGomH61K68W5R1FI7QkSX12Lw5Beu1A6pPITQb32Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dvewPDnRDLw3BPYQa/FAFcXi+liypUwYiRJZE92gCyjtdvl3KLVQatgQ1xEmT6iV50YHjmwbqUet0TE7lTmZA9yY+SSc6N5oJPxXF29+lH3CA74Gl1f1wWKTUYhzabm8k3sDMhmv9o6ThkWj1J2ddsoB2pRx681q46k1FgX0mH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rnfcLNu3; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="4Yaj2CXC"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=yYL0m2NpGuC8cQZ16sthHWLR12GwbfVRy713DtlQGmM=; b=4Yaj2CXCVjEJVTb1s7cgTK3IEx
-	ojA14TAApXVSdC/8RvGjH1nSSxj95o0dDpNTdV/8sy2UzaN98cEEh85ytnbQKma88zKMM4hP0Cq8x
-	WG9JPo3BGDuPC8tYe7AVQWXs62fTVlGUw0KOFiGO9BdvyBS4s3kxji1UxcKLzaJ1OJRE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wIWvX-000jCW-FK; Thu, 30 Apr 2026 21:19:59 +0200
-Date: Thu, 30 Apr 2026 21:19:59 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Joris Vaisvila <joey@tinyisr.com>
-Cc: netdev@vger.kernel.org, horms@kernel.org, pabeni@redhat.com,
-	kuba@kernel.org, edumazet@google.com, davem@davemloft.net,
-	olteanv@gmail.com, devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH net-next v3 4/4] net: dsa: initial support for MT7628
- embedded switch
-Message-ID: <eccbc14b-fec1-4023-b95a-b0c45eb6df22@lunn.ch>
-References: <20260428185510.261521-1-joey@tinyisr.com>
- <20260428185510.261521-5-joey@tinyisr.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rnfcLNu3"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2b4583f0a1aso8803745ad.3
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 13:17:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777580277; x=1778185077; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=MnVwBtZbfDqdeLh5y4Pf/WbasJ8kSvMt9+xGKTa8elE=;
+        b=rnfcLNu39JiMqzpngREN/fKBVYXMVhBfXCumrpLFZEDFbivQ6Rt/HD3jDWoPfq+Qos
+         I253s1CEaea2nbOkeTvSebJV1w0hTt+73EpdelCthoOqa28KcA4PuveMJ26uPX2AjxyO
+         o+Kv7lXfgXNI+kctNr2uGZK/jsPtxiNkSf/uk7SfnsNmz6ZGSe7Se2bKAKoLYJbHcSat
+         FjnkTncHMG7QRFc8i0x55+6m0LJvPHJcunQ/+VJ++hlYlnX4C1O0/i7iNb7ppQ69cr0T
+         CtknxtLx+J1+XGhKfSWbCrmXItoJec5P5ELIXi6qOjVu+cg2QNNMl0bweOLt+Cy0fdEl
+         QQSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777580277; x=1778185077;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=MnVwBtZbfDqdeLh5y4Pf/WbasJ8kSvMt9+xGKTa8elE=;
+        b=nL561lg5MFyCj4TPpfC3K6UPnnUX3LMALCka+EHtILMVayszCc2I6hYoYNmCcnQPrb
+         5up3Aq9mHPGKqp7iYYS7IUKrCe27vGTbBdsuPQeJo1JjbNDWQSl9HRf9vWIAXvC2ychu
+         wWotHeK//UkpM4dxEgrgffK0bWaiFgQG20/xrugLywF2J6hQryuVbwg1ZX70G0jDWrbh
+         RKIDFEJFi6kbk9GC3czFrCv2icaJsieSyXFt8rjZIqBKLzh2/wYP2NoYjLqEgIAtftMk
+         3LIRNrcNZBzmsiG7nt4YZw6F1pIdLh40kMtpWvEndi92lyLYunmllUUisr74Dy1vvebe
+         U7TQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8IToMClcStoedPAORHJz5N1HRSiJYRM5O0oHJ1gjErFmzmfUW4IgUiHIHSaxaj1pMlsSMkpbnieAOv@vger.kernel.org
+X-Gm-Message-State: AOJu0YxlcqS1qgzBk/SzV57WLevUeiTVl2g589eVd37EPIDThy59/f2q
+	6K/3N+rpykdQ3w2H8hQjzWGDcCpLvbqLPSJSzXLCSj+vdY6u4mXomS7OvWTWAg==
+X-Gm-Gg: AeBDieth8PPdsHvRAFS+nlldqyUUEqyGXYQbAbEMmb43gmMWcm+tHrAQGHxJyazWNtj
+	a/6fuqYPgkqYp9yrfIOb0Wl0ugt8UEvGx7TyXyCq6XAy/qghVliz8SvHOdymfTU84WpdBp8FMMv
+	TidVE6LIRgV75I1QdifshaUTi68My49Zbw20/DTXoR95iRm/xZNQiDlz0LMRRVn7Kkz9Am9bgN6
+	xOEBvUhkMskGWcbIFeSxQNg3T3HerbxMQ/SgmOewnmdBAl6ymbC4NlT/09aSO7x6Wl4FWdE5PzD
+	47VHp7ZTyqekJmIaPQq1ywn429VJbPIU+kC5Sc46TD+6csmnQfI51SV4wvROqHdE3OxJ+riAV8j
+	fLTUdeHRsVgm2i5ZAURVsGo/IZ8NWx4TrveiHJKeFnO71AkazZh6AB9vazKW4k3HgHvku1BnrSX
+	3RYTNDExCoWprZ5cVosblHhnhJ3MJeYYHSdQbwILKf0J0u3sMXYEw5wVp+2OxozkYVdakWFAMH+
+	YmfbB7R/Eg=
+X-Received: by 2002:a17:903:5cf:b0:2b0:7225:d2c0 with SMTP id d9443c01a7336-2b9a2504c12mr28102235ad.30.1777580276999;
+        Thu, 30 Apr 2026 13:17:56 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b9cae3b169sm4413285ad.63.2026.04.30.13.17.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Apr 2026 13:17:56 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <0fc8d540-2498-4e3c-a07e-273cdbd9546a@roeck-us.net>
+Date: Thu, 30 Apr 2026 13:17:54 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260428185510.261521-5-joey@tinyisr.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] hwmon: (pmbus) add support for Delta E50SN12051
+To: u8813345@gmail.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kevin Chang <kevin.chang2@amd.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Colin Huang <colin.huang2@amd.com>
+References: <20260430-add-e50sn12051-v3-0-f6d4e043ec7c@gmail.com>
+ <20260430-add-e50sn12051-v3-3-f6d4e043ec7c@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260430-add-e50sn12051-v3-3-f6d4e043ec7c@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
->  source "drivers/net/dsa/lantiq/Kconfig"
->  
-> +config NET_DSA_MT7628
-> +	tristate "MediaTek MT7628 Embedded Ethernet switch support"
-> +	select NET_DSA_TAG_MT7628
-> +	select MEDIATEK_FE_SOC_PHY
+On 4/29/26 23:16, Colin Huang via B4 Relay wrote:
+> From: Colin Huang <u8813345@gmail.com>
+> 
+> Add the pmbus driver for Delta E50SN12051 600W Non-isolated
+> 1/8th Brick DCDC Power Modules.
+> 
+> Signed-off-by: Colin Huang <u8813345@gmail.com>
+
+For my reference:
+
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+
+> ---
+>   drivers/hwmon/pmbus/Kconfig      |  9 +++++++
+>   drivers/hwmon/pmbus/Makefile     |  1 +
+>   drivers/hwmon/pmbus/e50sn12051.c | 52 ++++++++++++++++++++++++++++++++++++++++
+>   3 files changed, 62 insertions(+)
+> 
+> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+> index 8f4bff375ecb..4fbfcbc4a9c5 100644
+> --- a/drivers/hwmon/pmbus/Kconfig
+> +++ b/drivers/hwmon/pmbus/Kconfig
+> @@ -161,6 +161,15 @@ config SENSORS_DPS920AB
+>   	  This driver can also be built as a module. If so, the module will
+>   	  be called dps920ab.
+>   
+> +config SENSORS_E50SN12051
+> +	tristate "Delta E50SN12051 Power Modules"
 > +	help
-> +	  This enables support for the built-in Ethernet switch found
-> +	  in the MT7628 SoC.
+> +	  If you say yes here you get hardware monitoring support for Delta
+> +	  E50SN12051 Power Modules.
 > +
->  config NET_DSA_MT7530
->  	tristate "MediaTek MT7530 and MT7531 Ethernet switch support"
-
-NET_DSA_MT7628 is > NET_DSA_MT7530 so should come second.
-
-> +static int mt7628_mii_read(struct mii_bus *bus, int port, int regnum)
+> +	  This driver can also be built as a module. If so, the module will
+> +	  be called e50sn12051.
+> +
+>   config SENSORS_INA233
+>   	tristate "Texas Instruments INA233 and compatibles"
+>   	help
+> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+> index 7129b62bc00f..fc910bf34fe3 100644
+> --- a/drivers/hwmon/pmbus/Makefile
+> +++ b/drivers/hwmon/pmbus/Makefile
+> @@ -17,6 +17,7 @@ obj-$(CONFIG_SENSORS_FSP_3Y)	+= fsp-3y.o
+>   obj-$(CONFIG_SENSORS_HAC300S)	+= hac300s.o
+>   obj-$(CONFIG_SENSORS_IBM_CFFPS)	+= ibm-cffps.o
+>   obj-$(CONFIG_SENSORS_DPS920AB)	+= dps920ab.o
+> +obj-$(CONFIG_SENSORS_E50SN12051) += e50sn12051.o
+>   obj-$(CONFIG_SENSORS_INA233)	+= ina233.o
+>   obj-$(CONFIG_SENSORS_INSPUR_IPSPS) += inspur-ipsps.o
+>   obj-$(CONFIG_SENSORS_IR35221)	+= ir35221.o
+> diff --git a/drivers/hwmon/pmbus/e50sn12051.c b/drivers/hwmon/pmbus/e50sn12051.c
+> new file mode 100644
+> index 000000000000..efb4d62b2603
+> --- /dev/null
+> +++ b/drivers/hwmon/pmbus/e50sn12051.c
+> @@ -0,0 +1,52 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Hardware monitoring driver for E50SN12051
+> + */
+> +
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/mod_devicetable.h>
+> +#include "pmbus.h"
+> +
+> +static struct pmbus_driver_info e50sn12051_info = {
+> +	.pages = 1,
+> +	.format[PSC_VOLTAGE_IN] = linear,
+> +	.format[PSC_VOLTAGE_OUT] = linear,
+> +	.format[PSC_CURRENT_OUT] = linear,
+> +	.format[PSC_TEMPERATURE] = linear,
+> +	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_STATUS_INPUT |
+> +		   PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT |
+> +		   PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT |
+> +		   PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP,
+> +};
+> +
+> +static const struct i2c_device_id e50sn12051_id[] = { { "e50sn12051", 0 }, {} };
+> +MODULE_DEVICE_TABLE(i2c, e50sn12051_id);
+> +
+> +static const struct of_device_id e50sn12051_of_match[] = {
+> +	{ .compatible = "delta,e50sn12051" },
+> +	{},
+> +};
+> +MODULE_DEVICE_TABLE(of, e50sn12051_of_match);
+> +
+> +static int e50sn12051_probe(struct i2c_client *client)
 > +{
-> +	struct mt7628_esw *esw = bus->priv;
-> +	int ret;
-> +	u32 val;
-> +
-> +	ret = regmap_read_poll_timeout(esw->regmap, MT7628_ESW_REG_PCR1, val,
-> +				       !(val & MT7628_ESW_PCR1_RD_DONE), 10,
-> +				       5000);
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret = regmap_write(esw->regmap, MT7628_ESW_REG_PCR0,
-> +			   FIELD_PREP(MT7628_ESW_PCR0_CPU_PHY_REG,
-> +				      regnum) |
-> +			   FIELD_PREP(MT7628_ESW_PCR0_CPU_PHY_ADDR,
-> +				      port) | MT7628_ESW_PCR0_RD_PHY_CMD);
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret = regmap_read_poll_timeout(esw->regmap, MT7628_ESW_REG_PCR1, val,
-> +				       (val & MT7628_ESW_PCR1_RD_DONE), 10,
-> +				       5000);
-> +out:
-> +	if (ret) {
-> +		dev_err(&bus->dev, "read failed. MDIO timeout?\n");
-> +		return ret;
-> +	}
-> +	return FIELD_GET(MT7628_ESW_PCR1_RD_DATA, val);
-
-This works, but it is an unusual structure. Normally the label is
-after the normal exist path, and only deals with errors.
-
+> +	return pmbus_do_probe(client, &e50sn12051_info);
 > +}
 > +
-> +static int mt7628_mii_write(struct mii_bus *bus, int port, int regnum, u16 dat)
-> +{
-> +	ret = regmap_read_poll_timeout(esw->regmap, MT7628_ESW_REG_PCR1, val,
-> +				       (val & MT7628_ESW_PCR1_WT_DONE), 10,
-> +				       5000);
-> +out:
-> +	if (ret) {
-> +		dev_err(&bus->dev, "write failed. MDIO timeout?\n");
-> +		return ret;
-> +	}
-> +	return 0;
-> +}
+> +static struct i2c_driver e50sn12051_driver = {
+> +	.driver = {
+> +		.name = "e50sn12051",
+> +		.of_match_table = e50sn12051_of_match,
+> +	},
+> +	.probe = e50sn12051_probe,
+> +
+> +	.id_table = e50sn12051_id,
+> +};
+> +
+> +module_i2c_driver(e50sn12051_driver);
+> +
+> +MODULE_AUTHOR("Kevin Chang <kevin.chang2@amd.com>");
+> +MODULE_DESCRIPTION("PMBus driver for E50SN12051");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("PMBUS");
+> 
 
-Same here.
-
-Otherwise this looks O.K.
-
-	  Andrew
