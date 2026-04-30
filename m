@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AF03B4E98;
-	Thu, 30 Apr 2026 10:50:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07EF38C429;
+	Thu, 30 Apr 2026 10:53:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777546242; cv=none; b=SmqgApFYhaIWfVvbJKe2TD5mof6mDIfXMjta0VwGF+YtHakSb1OI7MnMYlUgNqo0ozROaw86dyhw94kw67EB3aIOitjMKB9U1qrv3P8/woAGTQSpovxUaiMO2FU3d/HJ1Xy9GXu98l3S/fqSWwXRxun5mc7dde7rSHKOKidmW+c=
+	t=1777546399; cv=none; b=I3qF06p0eSnuqyv0SKbEb8wEt853Af2KGOqWG0se6ml6L170Spqzhsms8jxccXBHbBOSzaLrk1J+3H6qD3AgF7vzvA0ZxEWSMJl7oDrY7aBNgZPbxcDfhq5zFp9e3YssH1TtCO3EIgvjX1P/YG2qgq2LKEgXekbAibt4rXOVYLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777546242; c=relaxed/simple;
-	bh=siVae1Cimphe5H1SAnnxAV57FwYTp1dvKGtfCXqBDN0=;
+	s=arc-20240116; t=1777546399; c=relaxed/simple;
+	bh=1x3hbdH150AaXMWGmC2a2hL21w+ZmIuBnGgH+u9OpSU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rpPtMPMUiJ+6xesQVf4R+7RCBnASdtdpa71FLeDAUTTMigOKY4VAA9WjhQEhcV06c29p6j8WJwjkZp+fVIb3Jx1iNSx8HdPZJRKhvAEKtgdLgV2R4rA57DKju4XKhT4I7/KCjggPyGjVOOtVDbfAISRpp1MzAKRM/5BTQxeyIsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kUkcizY7; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=m591xUk909WopPXv+eVZUPhHmQjEXnbv56Gvi0cMbY1WubAXFesIIhoOzV0XVy3nBy3+G2DYPdTUwK/W9OBKbcVdbEucPMyySD4OxHjLKMv0UGfEv8auDh5rY+ONvxCURhGcN7yF6jLj4yaIO5k1Pq81qmrruIbc43hvbFTCFzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LBpyTbtu; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kUkcizY7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C217AC2BCC4;
-	Thu, 30 Apr 2026 10:50:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LBpyTbtu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20946C2BCB4;
+	Thu, 30 Apr 2026 10:53:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777546241;
-	bh=siVae1Cimphe5H1SAnnxAV57FwYTp1dvKGtfCXqBDN0=;
+	s=k20201202; t=1777546398;
+	bh=1x3hbdH150AaXMWGmC2a2hL21w+ZmIuBnGgH+u9OpSU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=kUkcizY7+9UU9pT8Leoxr+4MixBiG6H9yZ0bfkScRCiQaQwjBXo0Vv/EeeinLE3ej
-	 81k1To69LHn95RRvur3Q1NO5UrQf+vcwJljCNITuqZE26x8oXryPneRLNT10VYEs3P
-	 7M0mUXd4XUEqjjdCmypbkTtNA/IQioRTMRodMYdIyImZIEPyHUd97C8prmnkzNvTi/
-	 PqCyUcwjCL/a4P5zCTRtIyL6lF6rQ6t2Lff36by+fGd/YnSO6uF9gymmEoRyZ2M3pU
-	 yRLcJDB6yr4KbQ8FVgiTyS82hylZG1uZqWevmXmCKgr+YHFuogopcYun4wolV9CDKc
-	 VdquXMuws1Tfw==
-Message-ID: <ff478c6c-f9db-4e88-a728-333a1c5bed60@kernel.org>
-Date: Thu, 30 Apr 2026 12:50:34 +0200
+	b=LBpyTbtuXt89+FHIbC4DB4Cs8WSYpn1jT+HjbtnOBpyxv6PlP6nJ9uLQNhrLutdsI
+	 Jzy9KrfGHuUMvVMTOaIDIyIyKNRXYAxbGWiaNqx0QM9xq3OqpX/tlMHQDyW/yBqjVa
+	 dgcY1uCJbTejJjuzGzjx7wTB9Rbya5pXtwLzavH1IMKbLogA6LcSnKa4kpKVRIo429
+	 0Uoi59Srv/vZFne5yQ5RqkZD4H8q2kF+FWO8rH4tl+lMJjqmMJPOFd4q6UYOCBAdos
+	 mCG4B0QAekKLjwNFYMFM1shnPLD04Cs9Hq6QL0ixDwYoW+yjPmAUlIDG7BFmxfDYon
+	 AfxTV+eW4SuUw==
+Message-ID: <b3a1b5ba-c381-407f-9118-aac7217138af@kernel.org>
+Date: Thu, 30 Apr 2026 12:53:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,25 +35,21 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 03/11] dt-bindings: mfd: add documentation for S2MU005
- PMIC
-To: Kaustabh Chakraborty <kauschluss@disroot.org>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, Sebastian Reichel <sre@kernel.org>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Nam Tran <trannamatk@gmail.com>, =?UTF-8?B?xYF1a2FzeiBMZWJpZWR6acWEc2tp?=
- <kernel@lvkasz.us>, linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-rtc@vger.kernel.org,
- linux-doc@vger.kernel.org
-References: <20260424-s2mu005-pmic-v5-0-fcbc9da5a004@disroot.org>
- <20260424-s2mu005-pmic-v5-3-fcbc9da5a004@disroot.org>
- <20260428-fortunate-olive-asp-fe4f53@quoll>
- <DI5NXS3PQ53R.L9JZEBHW5EGI@disroot.org>
+Subject: Re: [PATCH v6 1/2] dt-bindings: pwm: dwc: add optional reset
+To: Xuyang Dong <dongxuyang@eswincomputing.com>
+Cc: ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
+ p.zabel@pengutronix.de, linux-pwm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ningyu@eswincomputing.com, linmin@eswincomputing.com,
+ xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
+ pinkesh.vaghela@einfochips.com
+References: <20260424094529.1691-1-dongxuyang@eswincomputing.com>
+ <20260424095435.1721-1-dongxuyang@eswincomputing.com>
+ <ee58a5d6-9268-445c-a270-1f4a49b49c6e@kernel.org>
+ <622e18f1.5bb3.19dd36d0c40.Coremail.dongxuyang@eswincomputing.com>
+ <7bd6129a-dd37-48e8-a54c-cc149a2b84a2@kernel.org>
+ <1ac7fae4.5c66.19dd892ec4d.Coremail.dongxuyang@eswincomputing.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -99,35 +95,55 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <DI5NXS3PQ53R.L9JZEBHW5EGI@disroot.org>
+In-Reply-To: <1ac7fae4.5c66.19dd892ec4d.Coremail.dongxuyang@eswincomputing.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 29/04/2026 15:12, Kaustabh Chakraborty wrote:
+On 29/04/2026 11:30, Xuyang Dong wrote:
+>>>>>  
+>>>>> +allOf:
+>>>>> +  - $ref: pwm.yaml#
+>>>>> +
+>>>>> +  - if:
+>>>>> +      properties:
+>>>>> +        compatible:
+>>>>> +          contains:
+>>>>> +            const: eswin,eic7700-pwm
+>>>>
+>>>> Same problem as v3 which I commented. I do not understand why your new
+>>>> device has also 1 reset.
+>>>>
+>>>> Your commit msg MUST explain why 1 reset is valid.
+>>>>
+>>>
+>>> Hi Krzysztof,
+>>>
+>>> Although the PWM IP supports two clock domains, each requiring a reset, 
+>>> the EIC7700 implementation uses the same clock domain for both clock 
+>>> signals. Therefore, the eic7700-pwm only supports one reset.
+>>>
+>>
+>> If we speak about eic7700, explain why it has two resets now, according
+>> to schema, even though you say it has not.
+>>
+>> But I was speaking about dw-apb-timers-pwm, which has one reset as well!
+>> Why you are not having proper constraints? Please read writing bindings
+>> document.
+>>
+> 
 > Hi Krzysztof,
 > 
-> This are no review comments here. Did you happen to miss anything?
+> Let me clarify the reset signals.
+>   - snps,dw-apb-timers-pwm2: IP spec has 2 optional reset signals (one per
+> clock domain), SoC vendor decides whether to wire them — so maxItems: 2, 
+> optional in required.
 
-Thanks for noticing. I mistyped.
+Two reset signals but what is exactly optional? Each of them? Only the
+first? Binding does not allow the first to be optional.
 
-> 
-> On 2026-04-28 08:01 +02:00, Krzysztof Kozlowski wrote:
->> On Fri, Apr 24, 2026 at 01:09:02AM +0530, Kaustabh Chakraborty wrote:
->>> Samsung's S2MU005 PMIC includes subdevices for a charger, an MUIC (Micro
->>> USB Interface Controller), and flash and RGB LED controllers.
->>>
->>> Add the compatible and documentation for the S2MU005 PMIC. Also, add an
->>> example for nodes for supported sub-devices, i.e. MUIC, flash LEDs, and
->>> RGB LEDs. Charger sub-device uses the node of the parent.
->>>
->>> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
->>> ---
->>>  .../bindings/mfd/samsung,s2mu005-pmic.yaml         | 120 +++++++++++++++++++++
->>>  1 file changed, 120 insertions(+)
+>   - eswin,eic7700-pwm: SoC physically ties both signals to one reset — so
+> exactly 1, required.
 
-Patch looks correct:
+Then two would not be right and you need to restrict that.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
 Krzysztof
