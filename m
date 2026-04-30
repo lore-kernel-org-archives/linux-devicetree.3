@@ -1,119 +1,124 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE161FF1B5
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 05:16:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6332A22F74A;
+	Thu, 30 Apr 2026 05:45:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777526191; cv=none; b=PGvuC2RJQBznAuDhz36blL5dIx8n17zakh9e8SIvQdQa0z219pdtQmHlOsOZTd+GqS7hiRz32mKFcYd+ydAhBj2g1giYV42525pq4c+/EagG5cRghlTUSd4BHxjHJPtc/ZpdzrasQHfNPHfHKIml4cl/xhFHvHBmp0EW2bJ8vrU=
+	t=1777527949; cv=none; b=gOOkpEHEikSnQ0/OAiuKd7ginUF5Q8dBo4jTR7uMoEoKOasXuvdbsaqSvB6N6dMFuxNtUTx5Umdou6Fs8kbxMc8pRu2r2Tqs4tBthvxGP+7EZw+f8lFU692nLYQYFzCvL8EexhWyANMDOO6CPoJcrpSMD65BxuNBF0HXEMwPNmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777526191; c=relaxed/simple;
-	bh=n8dT9YqH32OsGtmkRt4FrPcCzEZL1m3M57fIOoPsXJ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T96Gi0l5OVw34MmNysDsJzp+G91/RgTUzUu6PpxK7ws0gsTHTCSAuHGnaLpMZzq7qO3bv0usCcO5cGyDTJQEglxVx8dSPDyrPe3fk+gojbEl0frugokrkk/Wqbv9VKfjVZIUBDC+Dj706kq2unEvR+nUccivzYP2FgFWNl+N6cA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F6MkRqlp; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777527949; c=relaxed/simple;
+	bh=/tkgJeqOmmrJzR3XxdwYwLro87tsKaNd19RouarTTO8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=WYjMca3rEI18xTRaZiF6A/hMTAjC864kiYpKt/J3jerONRpzfxyv1kpSUFZrS3szxDz80v8b22etDS+ixVakb5RLkdgyAXXw0Po6UyHR2eIhTS5p//hHjjigLgCDefsOrWDyATg/x3jQepqD2BII5jItxeMUOhXcIgQBpYLps0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=r3ViC7bH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F6MkRqlp"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-82f68b3aaf7so230452b3a.0
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 22:16:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777526190; x=1778130990; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=H18543Yidz2lPsEK6jrBMSNn1Pul8IVdhilZdGgU5k4=;
-        b=F6MkRqlpMxQhvqCp7vjEWMu+q1zi/dDTjb80PL11O66uoRcxY2hw3Dqa+PSgu8H5i8
-         2kS/2604gRPKaKJ3Qlvtb6tupgu/H0E7EPC0Go8V3L8u8OzpdSMrz2rWbg9/Enl/nCzd
-         Zis3bQGzZFmXmq4+G1hB7SWzHtEqWAJjSZKZ2JO7si+spMXa7P9swFIO6c+xKfmIU/qk
-         Mv7EmrXN6+/uw5l8U3ruO9sj8+99e+pQwefQbdxAMYi4I1QUJSMMizFapYY5YAMTxuwo
-         psHj6/8LxcOmLSj/fZfmfH1QosicrDgkD1dEDWS24x5OKPb98E7ZYjRsVXxfu+S6yFI1
-         dtWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777526190; x=1778130990;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=H18543Yidz2lPsEK6jrBMSNn1Pul8IVdhilZdGgU5k4=;
-        b=ZTUFwHP6jBMvdvc9ldME746a4mutWFPoi5EIjaB+LivIhwM3PrDdOTzVoxbW2pwvc1
-         Edz2CXtG1fW/Xl7PgXrTKQ7Gk14jUngXWhm+rr984kYzcNIHhxlcOTKt+g7N+NECp+Qg
-         cM4qtcGUsWZFQbz0PShH4NEdgMGIs+VlAwjz7Tf+K0FB1dE4HUsJwzLcg30l0sdl2ykx
-         L5dGeC9z34SbrqhYFwRgp+u2ms2+gbdCx8JF3IQlll9/bSvPxhXect9EpV4KsHYofwRH
-         wGZBs9lVEoZdHnr2VHU5E1mhdXMY9YnZK0x4BrmZIXI6Tk8WZakVWv9m4doCz3ZG+lnx
-         TJ0g==
-X-Gm-Message-State: AOJu0Yw2O609VELMOjXe4HN3ge4mrQSUdejCELhiOlqnqtQhaO/lhoZF
-	Jv9hkWVQgpBnDHlANXiwiSHeovhdnhYMpMSDb7qQhFafNr996AhpWleZ1dSjag==
-X-Gm-Gg: AeBDieupf9Lwp0RiIMVXxrg7Ho0UH+7Kl+5Ih4BoXpwFCsdpnohYqsDy7n7FcPXO8QH
-	4M55FBU2E2xDy7O28GHEXBl56HCX9vWgkKtioa9Y0etJHj82L1WH//AD07EIG+24sqNodhraHg6
-	LIecVJ8A23Lha5KaaChhfcBFAzibsNE8nTrmdeESURrFIE7SWI9hynwbrf6cvWLR3BKjGs4TYff
-	Z3GdIBFGa114BBgHU+Zpzret+N/LlFkbMJ7AuWX2tGSzUz9Q4OBDcZ2K0FbpIX5YVoxh572pJ7+
-	t3nmz56PmtcVdFTVLBeMvpDchG+0rcI2ZXa0FQ0kuU8TuimcFN9MwN2bri6wmRRNl058CsEseDu
-	w8QSk2/hkweIien538GI42lLZU9wDHFfUh2omr2lhjFca67RBbXRewEaVJ1l+uSgXB5QXWhA46N
-	97JVnkN5d+NofnMSByvw6OHU0twPQCfUOd4i4i6se2oM1dnvf6hJ32fWMQsLVKgyIg+7Wg2ntUy
-	xahZoFhzPT8LQrELogwzvllIoW9FJo6g/fy
-X-Received: by 2002:a05:6a20:a104:b0:3a2:fbf9:d823 with SMTP id adf61e73a8af0-3a3cf56f0ecmr1688019637.8.1777526189794;
-        Wed, 29 Apr 2026 22:16:29 -0700 (PDT)
-Received: from ryzen ([2601:644:8000:5b5d::8bd])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c7fd5e6e830sm3848653a12.6.2026.04.29.22.16.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Apr 2026 22:16:29 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM IPROC ARM ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] ARM: dts: bcm958625-meraki-mx6x: move pinctrl conkfig to pwm
-Date: Wed, 29 Apr 2026 22:16:12 -0700
-Message-ID: <20260430051612.700050-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="r3ViC7bH"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 59C40C2BCB8;
+	Thu, 30 Apr 2026 05:45:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777527948;
+	bh=/tkgJeqOmmrJzR3XxdwYwLro87tsKaNd19RouarTTO8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=r3ViC7bHBo9vMLgWRlcm7dJWyLccD4DRD5a+PsvyS4nO3o0FiaJZix6dZ/FOPw8ho
+	 tUxT3Hxfv0YgQa8Jt19t5Tn2eBX4DbYCkon7RXKwbE6j1+pX0Udf6eh2UHBWJJZ8wt
+	 b5Z/IztnygykkV3Usd6898AC8PzhXYaUZCR24RRDiwcE3+afSlNq+xeTbqgjdJlMJG
+	 iiTuYOTLLF1S1cv74OvpDdn2SqsodGr8oqPADn/fgb35wbFx1Ya/MKSmWBx31FgNE4
+	 LSdEWZH9FHyysPBKdhwONZByHWLFO2zfvN3BxM1mKDDNQsuDf5XKzeNcQTGzVgXNRJ
+	 Qw9GS0ZJb54uw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 47279CD1297;
+	Thu, 30 Apr 2026 05:45:48 +0000 (UTC)
+From: Rex Fu via B4 Relay <devnull+Rex.Fu.amd.com@kernel.org>
+Date: Thu, 30 Apr 2026 13:44:28 +0800
+Subject: [PATCH] ARM: dts: aspeed: anacapa: name EDSFF and thermtrip SGPIO
+ lines
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260430-anacapa-sgpio-edsff-thermtrip-v1-1-2fd5e72435d0@amd.com>
+X-B4-Tracking: v=1; b=H4sIADvs8mkC/yXMwQrCMAwA0F8ZORvoqgzxV8RD2qVbBLuSVBHG/
+ n2dHt/lrWCswga3bgXlj5gsuaE/dRBnyhOjjM3gnR/c5eyQMkUqhDYVWZBHSwnrzPqqKgUpBu+
+ vIQ19YGhHUU7y/f33x9/2Dk+O9Uhh23ZG96kXgQAAAA==
+X-Change-ID: 20260430-anacapa-sgpio-edsff-thermtrip-acb228bf61be
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ Rex Fu <Rex.Fu@amd.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777527924; l=1868;
+ i=Rex.Fu@amd.com; s=20260417; h=from:subject:message-id;
+ bh=FKvzsI9xHFmGcGo9UHVCAjhAhv7ytsitasP4Y5ub01A=;
+ b=GPiFDR+/ibGE0NwGTxGFGmQdcKyr+YrgZyfg43LrcwIi2ZH7TGSoZmO77kXGMks/g4aHs7xEr
+ 73Dk+5T4CraD5T71ecP2h9D4jP6C68jM1Nj8r/ozRB7Hvh1j+k7MeL/
+X-Developer-Key: i=Rex.Fu@amd.com; a=ed25519;
+ pk=26ECoh24fxrbXDKgA4hCmgg0xjQ+IxU97kXb46ovwgc=
+X-Endpoint-Received: by B4 Relay for Rex.Fu@amd.com/20260417 with
+ auth_id=738
+X-Original-From: Rex Fu <Rex.Fu@amd.com>
+Reply-To: Rex.Fu@amd.com
 
-On boot there is this warning:
+From: Rex Fu <Rex.Fu@amd.com>
 
-/axi@18000000/pinctrl@3f1c0: Fixed dependency cycle(s) with /axi@18000000/pinctrl@3f1c0/pwm_leds
+Name the Anacapa SGPIO lines used for EDSFF power-good and thermtrip
+assertion signals.
 
-Fix by moving the pinctrl configuration to pwm, which is the actual
-consumer.
+The affected lines replace legacy or unused CPU-related names with the
+platform signal names used by userspace monitoring.
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Rex Fu <Rex.Fu@amd.com>
 ---
- .../arm/boot/dts/broadcom/bcm958625-meraki-mx6x-common.dtsi | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm958625-meraki-mx6x-common.dtsi b/arch/arm/boot/dts/broadcom/bcm958625-meraki-mx6x-common.dtsi
-index 7e71aecb7251..0ab2ed32be2a 100644
---- a/arch/arm/boot/dts/broadcom/bcm958625-meraki-mx6x-common.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm958625-meraki-mx6x-common.dtsi
-@@ -121,9 +121,6 @@ &ohci0 {
- };
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+index 2cb7bd128d24..fe960bb7bc27 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+@@ -912,7 +912,7 @@ &sgpiom0 {
+ 	"PWRGD_PVDDIO_P0", "",
+ 	"PWRGD_PVDDIO_MEM_S3_P0", "",
+ 	"PWRGD_CHMP_CPU0_FPGA", "",
+-	"PWRGD_CHIL_CPU0_FPGA", "",
++	"HPM_EDSFF_PG", "",
+ 	"PWRGD_CHEH_CPU0_FPGA", "",
+ 	"PWRGD_CHAD_CPU0_FPGA", "FM_BMC_READY_PLD",
+ 	"", "",
+@@ -957,8 +957,8 @@ &sgpiom0 {
+ 	"PDB_ALERT_R_N", "",
  
- &pinctrl {
--	pinctrl-names = "default";
--	pinctrl-0 = <&pwm_leds>;
--
- 	pwm_leds: pwm_leds {
- 		function = "pwm";
- 		groups = "pwm1_grp", "pwm2_grp", "pwm3_grp";
-@@ -131,6 +128,9 @@ pwm_leds: pwm_leds {
- };
+ 	/* L0-L7 line 176-191 */
+-	"CPU0_SP7R1", "", "CPU0_SP7R2", "",
+-	"CPU0_SP7R3", "", "CPU0_SP7R4", "",
++	"L_EDSFF2_PG", "", "L_EDSFF3_PG", "",
++	"R_EDSFF2_PG", "", "R_EDSFF3_PG", "",
+ 	"CPU0_CORETYPE0", "", "CPU0_CORETYPE1", "",
+ 	"CPU0_CORETYPE2", "", "FM_BIOS_POST_CMPLT_R_N", "",
  
- &pwm {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pwm_leds>;
-+
- 	status = "okay";
- };
- 
--- 
-2.54.0
+@@ -984,8 +984,8 @@ &sgpiom0 {
+ 	"HPM_PWR_FAIL", "Port80_b0",
+ 	"FM_DIMM_IP_FAIL", "Port80_b1",
+ 	"FM_DIMM_AH_FAIL", "Port80_b2",
+-	"HPM_AMC_THERMTRIP_R_L", "Port80_b3",
+-	"FM_CPU0_THERMTRIP_N", "Port80_b4",
++	"AMC_THERMTRIP_ASSERT", "Port80_b3",
++	"CPU_THERMTRIP_ASSERT", "Port80_b4",
+ 	"PVDDCR_SOC_P0_OCP_L", "Port80_b5",
+ 	"CPLD_SGPIO_RDY", "Port80_b6",
+ 	"", "Port80_b7",
+
+---
+base-commit: 9974969c14031a097d6b45bcb7a06bb4aa525c40
+change-id: 20260430-anacapa-sgpio-edsff-thermtrip-acb228bf61be
+
+Best regards,
+--  
+Rex Fu <Rex.Fu@amd.com>
+
 
