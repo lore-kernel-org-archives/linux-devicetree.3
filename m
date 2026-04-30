@@ -1,126 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2964266BC;
-	Thu, 30 Apr 2026 13:41:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C9026A1B9;
+	Thu, 30 Apr 2026 13:53:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777556503; cv=none; b=GU7dH3x1ze99mseTQ0riJbBcFWipXonrAAvaaXj0sarQQW3zUap/2mFcKJqtDufLxM/wERFrLCc7xF6bgXckRVCL3tFqTq9b4BtO3sNDtvIPemA2L2YKq+I0LFMUnVulCGvtfvw0YmCHq3U322HdvNGN34gz9sFR9I+u3LwyoIo=
+	t=1777557224; cv=none; b=PhEDTMjHXONfy7BTvMChcVBQ+d2VoN5ghe0gdtEGIw9DSSNLeLRO5I2hwd9/WgkyjmozHrr+JR2VYhlqcCE2Yb788HZyOqNWKMFPtwuHVVn1WkvZsuMU2P1n5XwHgEFIVtuzGVtH8Y1gqXhax4p9DZ8lh6e4SXYMkzsWSXXLhPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777556503; c=relaxed/simple;
-	bh=qo0NVFUmB45SVo0XMWqHC4qOMxTWR++i0ZQMSOzxZkE=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=D8qbDp7o0wyYfYKvc8E+s9TT6Ap/6l8b98cf+dHrVLqMGjs3hdIGiygzaRIFWD3/YXJYRp0fm+hM0CK8Ook8K11cWWX1ZEhcygByOodShIaE+Bw0MfqmRoPipQwURO7NUuJsA8Ra4rGnUnWkVjZEjQEUB2M2DKn4eg5p1eVZHt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qep3HF6J; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777557224; c=relaxed/simple;
+	bh=fWyb1fnAhDmuoMg4sCok6IXhdPjS4ufIlM7IHmfO3cQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=aUs9jqraahup+0xOjZngsy2hxlXYr4B5381GoruYuaBd5Fjt6R44bt++N/QA5i7tSpWTqHpa+ueEXTHSw3r3LYI4lJyFXFMknjZzIEfjeb8FKp5siMRDIJo3m2vy/mcOYtAgK0SiG3HrqPkHneqTmAXYkfsOZzLybz8YAw2xcVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BcaGs0Wn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qep3HF6J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF17C2BCB3;
-	Thu, 30 Apr 2026 13:41:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BcaGs0Wn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76D4FC2BCB3;
+	Thu, 30 Apr 2026 13:53:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777556503;
-	bh=qo0NVFUmB45SVo0XMWqHC4qOMxTWR++i0ZQMSOzxZkE=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=qep3HF6J7LU9utiSV6oY7tghewHVRkU6ejIBxqhGqkcMONqXqpem5RPYWLTDmKFBw
-	 WgyTxRXQv2jFoP5jbRZ+PrYO/TM+cWVnz/Go+Zf5LGx0LkaVJKdgEjj3ty3Ny3D5m0
-	 SgXndJWbzinHtk02ey/XuQXoTNG83/vB5PGOIlbYGIeXd4z+wjZo4dgvNjWjK05rdm
-	 w8y7Fbs1ro1ke2y87ZMz7jLvbHiaysrbJkpbLJslDyglv5Rng6UkMmvOkvh2KGo1kC
-	 rE6/KvLoyBHXuUrFqohF4dDZKPwt2E+DF+sKVueXBffIJqH55VRgedDsXwTOeFoB7U
-	 NcSUXWveZiATA==
-Date: Thu, 30 Apr 2026 08:41:41 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20201202; t=1777557224;
+	bh=fWyb1fnAhDmuoMg4sCok6IXhdPjS4ufIlM7IHmfO3cQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=BcaGs0WnxaKXHcEN5c7CFyBz3gN9zxY+w5isfrSHyrkHWZRtHBSQDZ0MTtTCx2DEl
+	 pelTfHZHQdyr2wijxR5oF4cfb9x7kHzT5cuPWdRL85aJa9J+T/QTBo+JwSsCu06drh
+	 jALonMAMuEE5mo9+n4E41Gydnk49mRedhQ6yfjzoO5UKu5bJ1H4HeSn5QmDW24iWlV
+	 FXTMpNkt4qlEobCNgek4pdZEJIGYC8L57RLYZsdABxEYZqA43YCjRGYajBXKZ0+odx
+	 6m4DxopmDNnGa5lXamWE9k/zG5yjSuHq1RLRo3Sh19qPo01blTQPgkH2kXKQHYI1Bz
+	 nl9+H5FMuQd7Q==
+From: Lee Jones <lee@kernel.org>
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Maud Spierings <maudspierings@gocontroll.com>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260407-max25014-v8-1-14eac7ed673a@gocontroll.com>
+References: <20260407-max25014-v8-1-14eac7ed673a@gocontroll.com>
+Subject: Re: (subset) [PATCH v8 1/4] dt-bindings: backlight: Add max25014
+ support
+Message-Id: <177755722019.2606736.10749503716773482329.b4-ty@b4>
+Date: Thu, 30 Apr 2026 14:53:40 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linusw@kernel.org, gregkh@linuxfoundation.org, 
- linux-i3c@lists.infradead.org, brgl@kernel.org, conor+dt@kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-staging@lists.linux.dev, alexandre.belloni@bootlin.com, 
- linux-gpio@vger.kernel.org, Frank.Li@nxp.com, krzk+dt@kernel.org
-To: zain_zhou@realsil.com.cn
-In-Reply-To: <20260430121354.6253-1-zain_zhou@realsil.com.cn>
-References: <20260430121354.6253-1-zain_zhou@realsil.com.cn>
-Message-Id: <177755650101.425569.4344368132239630879.robh@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: i3c: add binding for Realtek RTS490x
- I3C HUB
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
+On Tue, 07 Apr 2026 16:41:42 +0200, Maud Spierings wrote:
+> The Maxim MAX25014 is a 4-channel automotive grade backlight driver IC
+> with integrated boost controller.
 
-On Thu, 30 Apr 2026 20:13:53 +0800, zain_zhou@realsil.com.cn wrote:
-> From: zain_zhou <zain_zhou@realsil.com.cn>
-> 
-> Add DT binding schema for Realtek RTS490x series I3C HUB devices.
-> 
-> The binding describes configuration properties for:
->   - LDO enable/disable and voltage level per port group
->   - Pull-up resistance per port group
->   - IO driver strength per port
->   - Per target-port mode (I3C/SMBus/GPIO/disabled), pull-up,
->     IO mode, SMBus clock frequency and polling interval
->   - Hub network always-I3C mode
->   - Hardware identification via CSEL pin (id) and CP1 pins (id-cp1)
-> 
-> Signed-off-by: zain_zhou <zain_zhou@realsil.com.cn>
-> ---
->  .../bindings/i3c/realtek,rts490x-i3c-hub.yaml | 410 ++++++++++++++++++
->  MAINTAINERS                                   |   6 +
->  2 files changed, 416 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml
-> 
+Applied, thanks!
 
-My bot found errors running 'make dt_binding_check' on your patch:
+[1/4] dt-bindings: backlight: Add max25014 support
+      commit: 5fcbbedec9dfce78044eee922bf2030e1bd03faa
 
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml: ignoring, error in schema: patternProperties: @[0-9]$: properties: polling-interval-ms: type
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml: patternProperties:@[0-9]$:properties:polling-interval-ms: 'anyOf' conditional failed, one must be fixed:
-	'maxItems' is a required property
-		hint: Only "maxItems" is required for a single entry if there are no constraints defined for the values.
-	'type' is not one of ['maxItems', 'description', 'deprecated']
-		hint: Only "maxItems" is required for a single entry if there are no constraints defined for the values.
-	Additional properties are not allowed ('type' was unexpected)
-		hint: Arrays must be described with a combination of minItems/maxItems/items
-	'type' is not one of ['description', 'deprecated', 'const', 'enum', 'minimum', 'maximum', 'multipleOf', 'default', '$ref', 'oneOf']
-	hint: cell array properties must define how many entries and what the entries are when there is more than one entry.
-	from schema $id: http://devicetree.org/meta-schemas/cell.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml: patternProperties:@[0-9]$:properties:polling-interval-ms:type: 'uint32' is not one of ['boolean', 'object']
-	from schema $id: http://devicetree.org/meta-schemas/core.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml: patternProperties:@[0-9]$:properties:clock-frequency:type: 'uint32' is not one of ['boolean', 'object']
-	from schema $id: http://devicetree.org/meta-schemas/core.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml: patternProperties:@[0-9]$:properties:clock-frequency: 'type' is not one of ['description', 'deprecated', 'const', 'enum', 'minimum', 'maximum', 'multipleOf', 'default', '$ref', 'oneOf']
-	from schema $id: http://devicetree.org/meta-schemas/cell.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml: patternProperties:@[0-9]$:properties:clock-frequency:type: 'anyOf' conditional failed, one must be fixed:
-	'uint32' is not one of ['array', 'boolean', 'integer', 'null', 'number', 'object', 'string']
-	'uint32' is not of type 'array'
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml: patternProperties:@[0-9]$:properties:polling-interval-ms:type: 'anyOf' conditional failed, one must be fixed:
-	'uint32' is not one of ['array', 'boolean', 'integer', 'null', 'number', 'object', 'string']
-	'uint32' is not of type 'array'
-Lexical error: Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.example.dts:50.34-55 Unexpected 'I2C_OWN_SLAVE_ADDRESS'
-Lexical error: Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.example.dts:114.34-55 Unexpected 'I2C_OWN_SLAVE_ADDRESS'
-FATAL ERROR: Syntax error parsing input tree
-make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.example.dtb] Error 1
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1637: dt_binding_check] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260430121354.6253-1-zain_zhou@realsil.com.cn
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+--
+Lee Jones [李琼斯]
 
