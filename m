@@ -1,120 +1,130 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1B539E176
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 07:10:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A7D39FCD9
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 07:15:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777533060; cv=none; b=oUZy2p5h2s9InCeIdJbC0uQYWJhMIamrurKNWYOdcwFL6QgtC9+BCgHsiOx9EBk5IRcKrhPQVW/aCuIDxrN4WzYlIdML0Y104DJ2Dhcrq3U4Kw1a7U1CXls5MA7CtU2DO88VSZ7yTo/1UjFAPPl4pDizYem8yzSpx/7ulPKDm14=
+	t=1777533341; cv=none; b=ibeJJrPD3AD79SVli6LJeGzQDbJnq8irRqk9mp83ILPAcNztxFeMJi99CGKh5nY+z5SDmKg5Msp8jgpgVbjBXfmnCjVrvkOJFArrOk188KMT30uIStHMociswiRYwBaDGVJlv8GK0xsBzwaRPVeIf2Fy0nJKkrx2GYrcDRrqHXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777533060; c=relaxed/simple;
-	bh=oZ3hYpOlyjlAu2278aiFXESG6oi7YvWn82sNwQdQAP0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TX7Lihyv4ABBPoYFpy77T7pAKkr0ig8knxcrmh3D5O8Ozhfts4PLFYwurieXIihSiQRXysAama/choh+a/Hi8yS7gNvvFkhvNlTuG0aGVZf8LfH5cEa07cAm4+fAOPyXLaqKK5Fe5NK93saz2dLFdPM7hYRcQ/p3MLzPHYxpxGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=VODbNhUh; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1777533341; c=relaxed/simple;
+	bh=943u9tGah9fZKkBwSz2vWV6zvES2zNY+ugxae7nl5oY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mrLz/SyJCth60DHMqPvS5cKE3nMqazbv083gaITrcFrPa2d7hM3EtsQmE6+OZA9Uia9MO92F9Wim2D//TC3BTy/zc7YuIfYkTb0y7lHSrzA/8iVoGE2571zg6wk0Zgwa4ILhDlwdG0sZix5YpJNoqiXJSehfPFXYY7oaiG+/3Qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=qOpWjSls; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="VODbNhUh"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4891d7164ddso2772995e9.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 00:10:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="qOpWjSls"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-43fe62837baso297837f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 00:15:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1777533056; x=1778137856; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=LPu3RWNcjFZI9rac4rwEI7c1s2vJiCf0eXVgZgLzeeA=;
-        b=VODbNhUhZ3JRsSFXqxR7ajYR/J/ppN7xF7APpx5guY84on6LaYIh1pci9w5cQngOp6
-         bxnIFW13x0Stikv9uS1WL6Vs9uv/VxA2slTW1AMSMAQ5mL/lnjtr2NaBAWrwFTzgjgWH
-         iXrV8ucn2kll8/rqCFCJc9i42MqR6ZO04+5pi0VbI0qCRP0JhbfWFqPpQry00eDYwD2q
-         MmeEIKI/gqwgsK1qHhVx9sI7nO23cBUdlfWRRQbmIhaTswQQzHau/TB5/Q6WfWPbJIt1
-         4bElSMrQlQc+Zxwu0qz4Pn5XycXfPxI7TytISZYO3y/eyeuduFsu1cVRL8Ueth/iBEwD
-         2u4g==
+        d=linaro.org; s=google; t=1777533338; x=1778138138; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=VmRymc3GPUbLGGqxDSkazp7UPTgnpwv2CEs1VA6yd2g=;
+        b=qOpWjSlshHfX2QfWoTTjkcCTyIqnQYo5T6I8dnS5wKZOZG91IPvbBHH5p7naasmH6N
+         7MN6PJePxwV8U69lrB+ch3lvFOMOSycneyiLh68PV+fcznyoI8FFC6aLj06nitOI20JT
+         tZRgxL3XplTq1dJA/OQq2pwhFCBZpO29JmxxK5FtpojsaOAStm02C/bkJpenwo9UjAO1
+         dgdCcI/vhAX9F3KKIYHIgQe9/pMJQckGI0vhXAxEGUxBpGsuByGhBVaaHo5D5W6bs2oh
+         t6W0cnkLZXM+l5S53mkbdwnKRQHnvV9oQNsMgaJWVxhia7/0cFE8bXRQv5t4fjbYuJba
+         nzXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777533056; x=1778137856;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=LPu3RWNcjFZI9rac4rwEI7c1s2vJiCf0eXVgZgLzeeA=;
-        b=CLJq17K2u+mZt9YIJEq/AGU1GPgTYHaLY5OI5vEhqzzybZgxC3D4eyOpGSalZW374W
-         kCzOK27yU9LPPjaHLVxYLXjYBBl4iJSZ/B2luzgj31GD6HGTkE6nwq6vD3y7mjURovLn
-         CSEYfvq54yDmZVBGAB06Wj/yLaunYoNCad4B3oa0at7crOY1m9ILOLp3sBDoNY0kXup7
-         aNFke3MurtVSZCX1UbSJVju2IBfIJPZFY0sHMo9BfF7b30h9EF9TAlHxeVHfZsHEFbnY
-         9mf5gtJKFdcWF+WFD7IbkDDWEAlnNxRp7Ws4brbKLr5MEQ07ru4t7rgp/RnCcKvJvT1r
-         bidg==
-X-Forwarded-Encrypted: i=1; AFNElJ/ScMrYGEOlGzRC2aJaEnF/vCaGTq1aZQ7ZPkt0DwUwziNzZclURjJWf4WgjUCWMYvm8ICS8nukuGZZ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUERdNRSNckb6ba3E/i8ibfRXWorbbbekJns2YifEIpdowvjW8
-	3X9keEhQUwlg/xf5Jd1khvESXzxAuJ/g2WsPj4IbTqMBdhem+D8Zjs2jIXj9w1si1No=
-X-Gm-Gg: AeBDieuHb3izGeWKjO5eSLt2ch6aHIAP8O90JWwlX7cEGYs+brljh7hw1UQNLLLRY+P
-	bCbSXoOqLOXQ7lW549AEghRjg4E3nXDdwyGo1wSHmk1rvalcIeripfvkW9aK41cdwznuVWN0UJi
-	lOPCaJDISkxszog3XkuJQvtjEMY45CuqcxiPZslRoGdFsj+ASvoH0csmrZ286bTO9BDPWnnFjPz
-	T73JJgy5peiQWP4TmBM0DbaYQop8NEFYd5Z127qFzGzK7kGuBdnXDuoHERQ+R+tQ112Q/MMpuRh
-	+SFPiU6hHMQeV6vXkNG74mp8esoXf8nU9Fdw/X8yktXVvhicfkrqw60vp+Rxzsz5HileAp4p8nO
-	badqW/r1/Qxojt0J9bI2CF7D/98Ns1V7l/30r3mzBl6UF7RUFjxESpHIdgP+7AiZIbSZbQWui5j
-	D8HnaJZe+C0fVkRorUm1/j6VGYWins81jxsQsvFIegLiF4+bVTd6ozrpyUihDwRiBlNJGdgHJqM
-	PU3cvts
-X-Received: by 2002:a05:600c:350d:b0:48a:57e1:d8cc with SMTP id 5b1f17b1804b1-48a83e7055bmr29150115e9.9.1777533056652;
-        Thu, 30 Apr 2026 00:10:56 -0700 (PDT)
-Received: from [192.168.178.36] (046124200255.public.t-mobile.at. [46.124.200.255])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a81ed6b89sm46080825e9.1.2026.04.30.00.10.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Apr 2026 00:10:56 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Thu, 30 Apr 2026 09:10:45 +0200
-Subject: [PATCH v2 5/5] arm64: defconfig: Enable LPASS LPI pin controller
- for SM6350
+        d=1e100.net; s=20251104; t=1777533338; x=1778138138;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=VmRymc3GPUbLGGqxDSkazp7UPTgnpwv2CEs1VA6yd2g=;
+        b=mJ24LGRmOpf51bnUM3BKkyW7EhJEFVxgtJVJ3wUSmtfcyKWraiYkcghUDMW98NMRMB
+         stBF1IVQxjV0DHsNaZGzlwXcv6ScYU5dy+dKgWfqiHWWQvMQxMbMi8VUmA4FKznsjqix
+         pjw13hiJQOfnVr/MGw+Moy+LTwoXXUMREzNZ3JohpW8fXXeg5pOlbmifOlrq0WCErcKZ
+         Mp2fr7ihTr82JMDTOpfcP9WQHuJdhTe1zCkgq4tSgvoqPQDPlKIfjHYFhoqAl/cOnp8x
+         P8/gZJIltBl2uyrdG6Cd0EOvSNf6xxdAUJtTq3yZiYLKXyEBkAKxZDNXOQvr03Pm8DTq
+         48pA==
+X-Forwarded-Encrypted: i=1; AFNElJ9mf7jM63rbhLx18/qPJv79zEaxQxjIjubkyQGkVCprrW+hz4BXzvpeiI+O++GJ85nTWluV0toD7IeL@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz5yNGiOrGAQWkWvl9qRla1hmprduQcbrOqd4ZSv6A/+koymt9S
+	hXB9L7//xE6PfM9vzoMU7Ic7+glFCssu4HRZuC511ufI1oB3j6O8tBVxaL1Bnsp9hM0=
+X-Gm-Gg: AeBDiev1Oj+gmaAqzz3LsL3jMNnBL1NeEU+uI9FxGjNS4VU6vpB4lPGiz7RldF6z8ko
+	zDcGL6mFmP+ustp+OIObXyxx1XbV92DBlNg8Mauy75Wfz4aMhNl0iIeT7gZzUnof3pJ4fSYKL3y
+	q4R9ST1EoF/raeB0Kh0sTkl7E7Sl253OlrupXTwzPG5ZpIbu/TNT/AGIo8EAexzLdHSUzhPVQhg
+	yB1IkGye8StA928irYCx9Dq9uVmxgEwQRmXvX3KssEscWcEDMVdDlsXgPWpQ7sxbrSGSQ1PejOW
+	I01s1Ca1uFVgUIA8AIXyva+GHvF5RdSTWprplfRe7Kk5EEiyA3ZIkbLYItbi8UB75kF/a7mrd8r
+	7S4LFgujNMREzrX0IF3JzE2pe9Gi+PoDHfYm1Sspyfl9qRfUT3gl45On/sdEHpDJcKJ23WO5pFo
+	w40eW02ypbzTac/w732+fbwLpx1xMvT03nFz8KKRq0Qm+VT5wy
+X-Received: by 2002:a5d:5f82:0:b0:43d:2be:e54 with SMTP id ffacd0b85a97d-449403a9bb7mr2449221f8f.39.1777533337875;
+        Thu, 30 Apr 2026 00:15:37 -0700 (PDT)
+Received: from [192.168.42.159] ([83.240.169.14])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-447b7217c56sm10970745f8f.20.2026.04.30.00.15.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Apr 2026 00:15:37 -0700 (PDT)
+Message-ID: <749460c6-2111-4729-a5f1-711d674bacfb@linaro.org>
+Date: Thu, 30 Apr 2026 08:15:33 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] arm64: dts: qcom: glymur: Add camera clock
+ controller support
+To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Imran Shaik <imran.shaik@oss.qualcomm.com>,
+ Taniya Das <taniya.das@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260429-glymur_camcc-v2-0-0c3fd1977869@oss.qualcomm.com>
+ <20260429-glymur_camcc-v2-3-0c3fd1977869@oss.qualcomm.com>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <20260429-glymur_camcc-v2-3-0c3fd1977869@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260430-sm6350-lpi-tlmm-v2-5-81d068025b97@fairphone.com>
-References: <20260430-sm6350-lpi-tlmm-v2-0-81d068025b97@fairphone.com>
-In-Reply-To: <20260430-sm6350-lpi-tlmm-v2-0-81d068025b97@fairphone.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Luca Weiss <luca.weiss@fairphone.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777533047; l=846;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=oZ3hYpOlyjlAu2278aiFXESG6oi7YvWn82sNwQdQAP0=;
- b=xad101UiCBqCR5XMnrmHZ5A0H2inv58PbwoxwJ1BifMHEpwZu2cxxBPrjyFkP/o232KkdMkh+
- gT2JdEqzJLVAiZh+7LpXoduaGVjaxXpacZlUQg0vxWrATb8YTEv2vJ6
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-Build the LPASS LPI pin controller driver for SM6350 as module, which is
-required for audio functionality on boards such as the Fairphone 4.
+On 29/04/2026 15:14, Jagadeesh Kona wrote:
+> Add support for camera clock controller for camera clients to
+> be able to request for camera clocks on Glymur SoC's.
+> 
+> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+> ---
+>   arch/arm64/boot/dts/qcom/glymur.dtsi | 16 ++++++++++++++++
+>   1 file changed, 16 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> index f23cf81ddb77a4138deeb4e00dd8b316930a2feb..8e2a872988d1c3d97506856e2e5325646db59746 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> @@ -4163,6 +4163,22 @@ usb_mp: usb@a400000 {
+>   			status = "disabled";
+>   		};
+>   
+> +		camcc: clock-controller@ade0000 {
+> +			compatible = "qcom,glymur-camcc";
+> +			reg = <0x0 0x0ade0000 0x0 0x20000>;
+> +			clocks = <&gcc GCC_CAMERA_AHB_CLK>,
+> +				 <&rpmhcc RPMH_CXO_CLK>,
+> +				 <&rpmhcc RPMH_CXO_CLK_A>,
+> +				 <&sleep_clk>;
+> +			power-domains = <&rpmhpd RPMHPD_MXC>,
+> +					<&rpmhpd RPMHPD_MMCX>;
+> +			required-opps = <&rpmhpd_opp_low_svs>,
+> +					<&rpmhpd_opp_low_svs>;
+> +			#clock-cells = <1>;
+> +			#reset-cells = <1>;
+> +			#power-domain-cells = <1>;
+> +		};
+> +
+>   		mdss: display-subsystem@ae00000 {
+>   			compatible = "qcom,glymur-mdss";
+>   			reg = <0x0 0x0ae00000 0x0 0x1000>;
+> 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
----
- arch/arm64/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index dd1ac01ee29b..6b0be01af7a1 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -705,6 +705,7 @@ CONFIG_PINCTRL_LPASS_LPI=m
- CONFIG_PINCTRL_MILOS_LPASS_LPI=m
- CONFIG_PINCTRL_SC7280_LPASS_LPI=m
- CONFIG_PINCTRL_SM6115_LPASS_LPI=m
-+CONFIG_PINCTRL_SM6350_LPASS_LPI=m
- CONFIG_PINCTRL_SM8250_LPASS_LPI=m
- CONFIG_PINCTRL_SM8450_LPASS_LPI=m
- CONFIG_PINCTRL_SC8280XP_LPASS_LPI=m
-
--- 
-2.54.0
-
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
