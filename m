@@ -1,68 +1,66 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F1B421A14
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 13:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDE9428466
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 13:40:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777555729; cv=none; b=h1BwwUm2uv3BHfODQytVA2J1Y3h2fuuLLpsFCjMjuhPJ/APgL2WeKrngaSWapy8WglSWjX0U9Zltwwn3Nwf9LbgiaP796AwqD7BaYY4cH9vJrz9eFVOJa1ZgBYGEhlWe3ZYE8Py+CUzSVgE5hBEU+0fmNc36K8Vtsl2IottDbJU=
+	t=1777556418; cv=none; b=nREgyR8VaNJBi3eZGnMRFAraxGfow5+63BWQuQAszQ0TakHh8bmTj6JVfw5nvBJj8m/egvFDUeUM3AzoZ5PLX5DZ7RS3fL9YeCNEfNMyVd7M8hrp91W9aAugmFsXmEmtM4g5HK3xjnkxnLarT2+mNAnzoH/s2kvLZO1/h96fjPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777555729; c=relaxed/simple;
-	bh=teFn7cN2aGwartJbc9Zhp06mRmBM/9j0OPR0ZBo+AIk=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=GeawmddskGnt92k8EbCoONCRHzlLEnXdaJzK86sfOR5Pd2px0ZOWlYAvvCoaKO61nvMgb0fJV9WO42tWKhucxl4EVuWANF5vFFYdrTKESwbkWziDupP3U8N0xSLmLEXVUISa3B/kcIMRYTVhyYaASUMld19qqzvgzwA2aSU5SuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=UU+QuVBv; arc=none smtp.client-ip=209.85.221.45
+	s=arc-20240116; t=1777556418; c=relaxed/simple;
+	bh=66i8SiZie1Gm4LFg+caCbRColkgs0M0GxG5EPWDPZas=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Bj1oLZ9SY2zUTHPV4kyq97qLzuE1mGWMuBN//2/3ffnDReAbcNjPe5M5LN7xzR8MCG/kEx7XrplBtGPJ9MmqFs7leWrGX39T9qUMhoSEHzD4YBmdR7Hp4at9M12JvBkvZnibLqtg8CCcyOYH44Dxu/WODrzivNbfNgq/nrtKU78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=EKtLRtYg; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="UU+QuVBv"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-444826c16ffso845540f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 06:28:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="EKtLRtYg"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-44a14580111so93867f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 06:40:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777555725; x=1778160525; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=//roSJMM+KC5LVCXnB4KxMLDV36EINvLxSrVqOGyZIY=;
-        b=UU+QuVBv8fq04nEtp/SslAJrUebDqcvc0yEm9dVHwkPTh0f6cAM/afa5lKJV1/hl9m
-         0ar4z8iJGEmS6o+5Hkw4G0FjmqbZtKB+pZntbpEeJdhCLJNjDwkoeNMBfeL+vAiBm919
-         0FXKPeW19hMs6EYQsBmMO9iyDhinfSNAFU56wpO4JBm0/jKJjwAtbNccAB6WM9ettAKJ
-         MJK+CEV/Fc88V59dps5n7hyOI8YOgfq/5l8IlBfCrbEnoGxIJ/DYV2d76jhQx+SGFFlZ
-         xojgO2N6E5sTSEQD434LuvlR2HnZWBPWV4N8+cfHgo8dJaLIl9uGXnYAhDMj7YjVuNo5
-         7csA==
+        d=linaro.org; s=google; t=1777556415; x=1778161215; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=meUp30gG/FVsgvAEeVESK01aKYB23yJUpx9wfRGIDWY=;
+        b=EKtLRtYgX/Nl6Ve0ubV9vwpQaGqjSHwvQifUuHF5emo5B/cT8jFYqMwgASfY2b3o0N
+         BqkoHpbMByB5Yj3zGcDYK8tg9VjxHViKYXcURXSTuSQZkOY6c867G/Gg2o6NsBDp9Jwr
+         kTWTv7yw0ACdd+BH8YRYqe4YTepDEV/h5NT+AeK44PBx1qReR2EUwDDkz/U3mV71LdX+
+         YWM5B3WDp9H1WALbDNEf/oxT3WIBT12kA7AyfrPF+OY/ew503qkFE3Bm/C+6ykIMZFJI
+         XL7yoSBWHAPWHyctLFQCHNXr03YC0e7EVjtVnCr6WjFYDx9nSJWiRcqtvCR6GjKmrZaz
+         QbZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777555725; x=1778160525;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=//roSJMM+KC5LVCXnB4KxMLDV36EINvLxSrVqOGyZIY=;
-        b=Qo/TJDKBktG8u+h4szXqVMcoNepTmQA20T+nmDLRdxRE3lZfB4T1uQLd7y2q9T4DS1
-         b1CThiaM3DI8lKALpTIInCUKArPU7y2MdyH2HgiZPpgss/lnI+PXBpdWWsf69Tm0sMbk
-         s5wZ6WmDjS8Zp7cmODgLdA0E+CSP4UnMBsBK2ZqDIIag6jsuK4j+x+ge7yI7w6gVm6ZR
-         n4W/oRZCcKqtez1p9aCbffiQdk0my+8vqDRfry2oDeDb3Ty7qTpD4RQHftDEdfDk9R4A
-         MEOvbhbaKgI4mEuj4MOelwz0QGOZZVOviqqWEDubg43mHOL70cCs6lgDSX6M1xgUhC45
-         gA6w==
-X-Forwarded-Encrypted: i=1; AFNElJ+gafzTXK8zFKJlwFVXq2EQiPOqEjiGTFKRUoP81mTIxIgEdZn/2mBF5ynRMs0Ne5h0u7VGRhbI+mXB@vger.kernel.org
-X-Gm-Message-State: AOJu0YzY3EFgIRfI93NHGjqMyE80GeoDsm1Tz85aLQRLFPCqP4fM6baW
-	39TjlD20u44a3NBVGx3V0v0bmmv0JBxye+4fqkfj38e9137X14eMeXUtmr00zBO6hNI=
-X-Gm-Gg: AeBDietbJAN92ibN89LNBJcpdVRT0xEpTGvnD9ADtikALbFtkhngO7MSubPRTCbGfRQ
-	GMOSPBBqBdg38C3MKif4FjCxvqLkNOkHUIa3c0NDFcVdsIfCK4HkrQO6PfrInECH1OSXq8DFOM3
-	Nbufz6b2yBKWqcD+gKBElxY2R/YDEUrlU18o0s9uwRSVeh0HcqstKrSQpalGkhdqcYt5LcfOjwn
-	vB1Hueo1J6bm6W7B9OOC1V3E4VTuTiPsDu00AroJ0lWAN47rG2qRG2+9M48Ar7x9plhZth+/Ddw
-	Oqvj+ry0eFOQJNz5TzyS2PvuxV/sNBjri0kwJK/t7VRNrRDULzoRaXOPy1QSXqS27bvz5bGy39f
-	TD+Kho1nXADn54fxxPd5fOPs41/Q+KFcJ9WfrJHh4YRoPyaXDZBypxCN8uko3Yz7XRW/68prX6b
-	+DK0qLnQWPRS2lEGkxJ2iGzhghsbnPquPVlq2s43BC0IvI6uTnCRcULaG03hx47ujdw7H8kXt+c
-	ElLOn886ots9q1BbA==
-X-Received: by 2002:a05:6000:2f8a:b0:43d:77f4:7145 with SMTP id ffacd0b85a97d-4493e0c3fcamr4708532f8f.19.1777555725242;
-        Thu, 30 Apr 2026 06:28:45 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:6dcc:3980:fe87:c6ae? ([2a01:e0a:106d:1080:6dcc:3980:fe87:c6ae])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-447b76e5bf2sm13666112f8f.27.2026.04.30.06.28.43
+        d=1e100.net; s=20251104; t=1777556415; x=1778161215;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=meUp30gG/FVsgvAEeVESK01aKYB23yJUpx9wfRGIDWY=;
+        b=jXvWF41+cHCFn4lOooDGknnmpLWpcvpps1zDOl4Y+XzSTAl9L3vTj0SPW9+xUSzvIp
+         h4DETWXbeCxqasguGq+DeimSX5vCFvoei3kZgdm2ZxLM5JWt+gyVtS1LOpRvsEZDVfPc
+         vQrPO59TbTEdaHBXb8al+Nn7pwJWuDYUufzDW5sTqoM73uyeUARydiHSbIPh0b4mWzp+
+         /eGlPETgWZRemXyJa7yLvaskLNrfjc8W0NZtg/g7ulSCjjL1EgFgr7phdJMYyVB3Slxj
+         K4+CqkUTwMGINWli++mw1V30FfX1L9mDm2+PxlDNOiEE0IdgJHD3fxph0nMoQ+FXSbMx
+         Fc9w==
+X-Forwarded-Encrypted: i=1; AFNElJ9Os1GA2FJdsQlcska6r5LrBt9nkSm7Kjr2dxNATcgxQT9C+LFVARXcRLEFjvGjaWUCcFz+8Qljkzbd@vger.kernel.org
+X-Gm-Message-State: AOJu0YwPBQCfxZxyFAxzwZ0LS5hLXG45/DE7DvTEhh0St1zhUHl/umNK
+	FDuLTtvElwyBlvmvrbeRGqQ1r7w1f2cuemKKbNV2kO0syobySOMxfjPIWyyCyGz39Ys=
+X-Gm-Gg: AeBDievGtc9N/FN9XuuF6Ts5p5BmdK8Xg68mnZBHDIqBGAN9+rqN31H4WSedSiAhGTH
+	H9/BfLTcKqbxeWOm2W7Pzl86brgMd0PWGRD8U/9ja6r/rdh5enZX8ShzpZzI0ddHceeSMhouK6Q
+	xgrOU0jsUkzqvlwEE+RowC16+TO0lEc/2rQ2r26gr+WqsvXojOddsoIUhlIU/MFmmnEgHuk+uiA
+	DF1Vg9jtuIHBShzxVzwT2hdrSPPeF4cpxQ64oGJAsffUvBavGPpz4xTYmmy+5g30TvDB43BoVcU
+	M0FqMk0vF2H6HEce7H9YxfjmABR9amkk2rzP/6DImY7/Zk3PB/hZjiOsjvyF355p7XVYCmr2jde
+	M0fgO05i+egD3KpyURGZeNBNRF4RwTAoAtPROADE+kYUxIrzAniXhtH1M98xdSyIU21yG5EQM9U
+	TdcBWGv9SWVm2m1pg8phgZu7+BljlMxOaGNOhuSFpDjdM=
+X-Received: by 2002:a05:6000:1862:b0:43d:77c6:be78 with SMTP id ffacd0b85a97d-4493f42beb1mr5272265f8f.39.1777556415022;
+        Thu, 30 Apr 2026 06:40:15 -0700 (PDT)
+Received: from [10.11.12.108] ([79.115.63.228])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-447b7ca664csm13806106f8f.35.2026.04.30.06.40.13
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Apr 2026 06:28:44 -0700 (PDT)
-Message-ID: <150cdb85-d0ac-4802-a09b-9dab1b9b805a@linaro.org>
-Date: Thu, 30 Apr 2026 15:28:43 +0200
+        Thu, 30 Apr 2026 06:40:14 -0700 (PDT)
+Message-ID: <56c1bb6d-54e4-4977-bd88-9ce7a6086b1d@linaro.org>
+Date: Thu, 30 Apr 2026 16:40:08 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,139 +68,52 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 2/2] regulator: add SGM3804 Dual Output driver
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v4 08/11] thermal: samsung: Add Exynos ACPM TMU driver
+ GS101
+To: Alexey Klimov <alexey.klimov@linaro.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
-References: <20260430-topic-sm8650-ayaneo-pocket-s2-sgm3804-v2-0-76108c65a560@linaro.org>
- <20260430-topic-sm8650-ayaneo-pocket-s2-sgm3804-v2-2-76108c65a560@linaro.org>
- <afMwIVRDxl11Ty_P@sirena.co.uk>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <afMwIVRDxl11Ty_P@sirena.co.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Lee Jones <lee@kernel.org>
+Cc: willmcvicker@google.com, jyescas@google.com, shin.son@samsung.com,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-hardening@vger.kernel.org,
+ linux-clk@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260423-acpm-tmu-v4-0-8b59f8548634@linaro.org>
+ <20260423-acpm-tmu-v4-8-8b59f8548634@linaro.org>
+ <DI6IGZIW2HZ8.OBLZIORMOH2F@linaro.org>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <DI6IGZIW2HZ8.OBLZIORMOH2F@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 4/30/26 12:34, Mark Brown wrote:
-> On Thu, Apr 30, 2026 at 10:48:47AM +0200, Neil Armstrong wrote:
-> 
->> Add support for the SG Micro SGM3804 Single Inductor Dual Output
->> Buck/Boost Converter used to power LCD panels a provide positive
->> and negative power rails with configurable voltage and active
->> discharge function for each output.
-> 
->> +config REGULATOR_SGM3804
->> +	tristate "SGMicro SGM3804 voltage regulator"
->> +	depends on I2C && OF
->> +	help
->> +	  This driver supports SGMicro SGM3804 dual-output voltage regulator.
->> +
-> 
-> This needs to select REGMAP_I2C.
 
-Oops forgot
 
-> 
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * SGMicro SGM3804 regulator Driver
->> + *
->> + * Copyright (C) 2025 Kancy Joe <kancy2333@outlook.com>
->> + * Copyright (C) 2026 Linaro Limited
->> + * Author: Neil Armstrong <neil.armstrong@linaro.org>
->> + */
-> 
-> Please make the entire comment block a C++ one so things look more
-> intentional.
+On 4/30/26 4:07 PM, Alexey Klimov wrote:
+>> +static struct platform_driver acpm_tmu_driver = {
+>> +	.driver = {
+>> +		.name   = "gs-tmu",
+> What "gs" stands for in the name?
 
-Sure, converted into:
-+ * Copyright (C) 2026 Linaro Limited (Neil Armstrong <neil.armstrong@linaro.org>)
+:) Google Silicon I think.
 
-> 
->> +/*
->> + * Since all registers are only writeable & volatile,
->> + * regmap will only read from the cache data.
->> + */
->> +static bool sgm3804_readable_reg(struct device *dev, unsigned int reg)
->> +{
->> +	return false;
->> +}
-> 
-> Non-readable registers can't be volatile, volatile means always do a
-> read.
+> Shouldn't it be called something more acpm-ish generic like acpm-tmu
+> at least?
 
-Right I overlooked volatile and indeed it's incorrect.
+yes, it should! will update.
 
-> 
->> +static int sgm3804_enable(struct regulator_dev *rdev)
->> +{
->> +	struct sgm3804_data *ctx = rdev->reg_data;
->> +	int ret;
->> +
->> +	ret = gpiod_set_value(ctx->gpios[rdev_get_id(rdev)], 1);
->> +	if (ret)
->> +		return ret;
-> 
-> This could use _cansleep() for wider interoperability.
-
-Good idea
-
-> 
->> +
->> +	ret = regmap_write(ctx->regmap, rdev->desc->vsel_reg,
->> +			   ctx->sel[rdev_get_id(rdev)]);
->> +	if (ret)
->> +		goto err;
->> +
->> +	ret = regulator_set_active_discharge_regmap(rdev,
->> +						    ctx->active_discharge[rdev_get_id(rdev)]);
->> +	if (ret)
->> +		goto err;
-> 
-> I'm still not clear why this isn't doing a regcache sync instead of
-> writing things out individually.
-
-OK indeed I misunderstood you comment, fully switched to cache_only/cache_sync
-which is cleaner and simpler.
-
-> 
->> +		ctx->gpios[i] = devm_gpiod_get_index(dev, "enable",
->> +						     i, GPIOD_OUT_LOW);
->> +		if (IS_ERR(ctx->gpios[i]))
->> +			return dev_err_probe(dev, PTR_ERR(ctx->gpios[i]),
->> +					"failed to get enable GPIO %d\n", i);
-> 
-> Perhaps use GPIOD_ASIS for a smoother handover?
-
-Done
-
-Thanks,
-Neil
+Thanks!
+ta
