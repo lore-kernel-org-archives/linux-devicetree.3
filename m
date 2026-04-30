@@ -1,328 +1,59 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2777E3FFADA;
-	Thu, 30 Apr 2026 10:16:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC44B3A6EFF;
+	Thu, 30 Apr 2026 10:18:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777544208; cv=none; b=lql8A0YHnADzXaOP+IfYKp8AmDqOTBKgkw9qwaIhjCqsDoJVWZZ/NLByRO1rgaFMqaUJVgrh/Y6eYhhWUWpuWQa5Q/paNcoe5Z5/Iv/6rBeOiIIFl2LCVd7Z2xBm66yybXmZSfx/e5+BIqbBkiG0AMDgT78uu3xCwr21iBMpVAY=
+	t=1777544314; cv=none; b=VUob3KqrmBS7XSryNnuzserdv+1L4glT0kEGys04dFKoLehIcnaly7emavdt3ABgqxORYwS6hwSNPrRQ1/m8yoxGrTTGbDXi4Ndh+jm0AFC3/HI601i7JxE1PIk/Oo2fnSHS4U1k25NWOys2vBMaNDDFO6qL5UKlL50/iPbSUmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777544208; c=relaxed/simple;
-	bh=TjLO42re0i6kcbnPAhDuPMCXPMVV1s735AYXgr5LxYw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RyJmXPu2TpiIharIGN7z0MxBTJuF8e8ooUXqXJfhrX/tyAuM0qxGCpVm9VSqm9WyEH1l6elHhB8AkMICETc7N51Vnu5UrFvASPWPqBxM6s5XmNQ5t+Om4g9D5pEfWa1WZZNdZlCSiM9yRr7o7K+P6+f4M14J6ixV0kqK2H3e4Fs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GNDVP0hB; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GNDVP0hB"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DAAC4C2BCFD;
-	Thu, 30 Apr 2026 10:16:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777544208;
-	bh=TjLO42re0i6kcbnPAhDuPMCXPMVV1s735AYXgr5LxYw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=GNDVP0hBCU0gwpxAfHtoXw77BKyLcV5KWCHU4K2jUWY94dsmT8oHyymvkrZOWopG4
-	 r8Mu5Q6Ir+qrr+5Dl9kDhtQLH4OddvVVicmMlz8OWEaMZSD+XeAAbS7vQ9lg8IuKDi
-	 rBamu6gV5qh/sOk7csCBN6P0yOPmBhP48Zjnhoyo+sFDrkiAXKlwabH1IX13Axw3vU
-	 haHwIsjDvIiwbvUHt3EIrbANunWxqZB7TzWQgg6BNTEgiU5KVczDAbj2rzoC9zJX4W
-	 p59bgYhJckNUZM38DRNEsRudODqEQ7oybLlzevA5SJxGctHaTH0NVs3lxkaZFfImfx
-	 l04NL4V8uff3Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CFF47CCFA13;
-	Thu, 30 Apr 2026 10:16:47 +0000 (UTC)
-From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Date: Thu, 30 Apr 2026 13:16:48 +0300
-Subject: [PATCH v9 6/6] docs: iio: adc: ad4691: add driver documentation
+	s=arc-20240116; t=1777544314; c=relaxed/simple;
+	bh=/hQ4qJLy3jm7/UQnRB013PzjqtiQSTezw5Wx/dyiEjQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=UgpOP49m5prsXkIlE/4DbETX2j5OYIBQ/a4YPlGt8w110iadYYqdxTVxbqWaYUVNtUo1MdRLZwnTWdKlgXp7BFJ/q0gikvY1Ac1iaWD/9GqZhGxSJEAhXmlCZVHDLY2KU6wgXB2bIRmYdMIWnb1BApFEJ5wMSqXtBjZ9ljukyg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
+Received: from Vostro-3710.. (unknown [119.122.215.211])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3cc362e3e;
+	Thu, 30 Apr 2026 18:18:15 +0800 (GMT+08:00)
+From: Chukun Pan <amadeus@jmu.edu.cn>
+To: amadeus@jmu.edu.cn
+Cc: alex@ghiti.fr,
+	aou@eecs.berkeley.edu,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dlan@kernel.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	robh@kernel.org,
+	spacemit@lists.linux.dev
+Subject: Re: [PATCH v3 0/3] riscv: dts: spacemit: enable USB3 on OrangePi
+Date: Thu, 30 Apr 2026 18:18:01 +0800
+Message-Id: <20260430101801.642870-1-amadeus@jmu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260410100010.1197804-1-amadeus@jmu.edu.cn>
+References: <20260410100010.1197804-1-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260430-ad4692-multichannel-sar-adc-driver-v9-6-33e439e4fb87@analog.com>
-References: <20260430-ad4692-multichannel-sar-adc-driver-v9-0-33e439e4fb87@analog.com>
-In-Reply-To: <20260430-ad4692-multichannel-sar-adc-driver-v9-0-33e439e4fb87@analog.com>
-To: Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, 
- linux-gpio@vger.kernel.org, linux-doc@vger.kernel.org, 
- Radu Sabau <radu.sabau@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777544205; l=9306;
- i=radu.sabau@analog.com; s=20260220; h=from:subject:message-id;
- bh=8iXZp0x1X1defWWuJJgYTk6WrDF1PVndw2AvlFcwSLA=;
- b=GOldAqQrUypbvpafnuuJZA3+S5WQFTGZAJ1cfroK0ltdhZnnr9tSSIUHcIp9qJghTUpWu8obu
- Qra/scBEpIBDIjKRKjYVF4hEOf5dr9UyjL19XkDxgwzuCqrrq9Pqtdg
-X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
- pk=lDPQHgn9jTdt0vo58Na9lLxLaE2mb330if71Cn+EvFU=
-X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20260220 with
- auth_id=642
-X-Original-From: Radu Sabau <radu.sabau@analog.com>
-Reply-To: radu.sabau@analog.com
+X-HM-Tid: 0a9ddde5758d03a2kunmc2c93faf17d3cf
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHU1CVh1JTExCTUgZS0MZH1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKSkJVSklJVUlKTlVJSkpZV1kWGg8SFR0UWUFZS1VLVUtVS1
+	kG
 
-From: Radu Sabau <radu.sabau@analog.com>
+Hi,
 
-Add RST documentation for the AD4691 family ADC driver covering
-supported devices, IIO channels, operating modes, oversampling,
-reference voltage, LDO supply, reset, GP pins, SPI offload support,
-and buffer data format.
+>   riscv: dts: spacemit: add fixed regulators for OrangePi R2S
+>   riscv: dts: spacemit: enable USB3 on OrangePi R2S
 
-Signed-off-by: Radu Sabau <radu.sabau@analog.com>
----
- Documentation/iio/ad4691.rst | 205 +++++++++++++++++++++++++++++++++++++++++++
- Documentation/iio/index.rst  |   1 +
- MAINTAINERS                  |   1 +
- 3 files changed, 207 insertions(+)
-
-diff --git a/Documentation/iio/ad4691.rst b/Documentation/iio/ad4691.rst
-new file mode 100644
-index 000000000000..38e2ad28a713
---- /dev/null
-+++ b/Documentation/iio/ad4691.rst
-@@ -0,0 +1,205 @@
-+.. SPDX-License-Identifier: GPL-2.0-only
-+
-+=============
-+AD4691 driver
-+=============
-+
-+ADC driver for Analog Devices Inc. AD4691 family of multichannel SAR ADCs.
-+The module name is ``ad4691``.
-+
-+
-+Supported devices
-+=================
-+
-+The following chips are supported by this driver:
-+
-+* `AD4691 <https://www.analog.com/en/products/ad4691.html>`_ — 16-channel, 500 kSPS
-+* `AD4692 <https://www.analog.com/en/products/ad4692.html>`_ — 16-channel, 1 MSPS
-+* `AD4693 <https://www.analog.com/en/products/ad4693.html>`_ — 8-channel, 500 kSPS
-+* `AD4694 <https://www.analog.com/en/products/ad4694.html>`_ — 8-channel, 1 MSPS
-+
-+
-+IIO channels
-+============
-+
-+Each physical ADC input maps to one IIO voltage channel. The AD4691 and AD4692
-+expose 16 channels (``voltage0`` through ``voltage15``); the AD4693 and AD4694
-+expose 8 channels (``voltage0`` through ``voltage7``).
-+
-+All channels share a common scale (``in_voltage_scale``), derived from the
-+reference voltage. Each channel independently exposes:
-+
-+* ``in_voltageN_raw`` — single-shot ADC result
-+* ``in_voltageN_sampling_frequency`` — per-channel effective output rate,
-+  defined as the internal oscillator frequency divided by the channel's
-+  oversampling ratio. Writing this attribute selects the nearest achievable
-+  rate for the current OSR; the value read back reflects the actual rate after
-+  snapping to the closest valid oscillator entry.
-+* ``in_voltageN_sampling_frequency_available`` — list of achievable effective
-+  rates for the channel's current oversampling ratio. The list updates
-+  dynamically when the oversampling ratio changes.
-+
-+The following attributes are only available in CNV Burst Mode:
-+
-+* ``in_voltageN_oversampling_ratio`` — per-channel hardware oversampling depth;
-+  see `Oversampling`_ below.
-+* ``in_voltageN_oversampling_ratio_available`` — valid ratios: 1, 2, 4, 8, 16,
-+  32.
-+
-+
-+Operating modes
-+===============
-+
-+The driver supports two operating modes, selected automatically from the
-+device tree at probe time.
-+
-+Manual Mode
-+-----------
-+
-+Selected when no ``pwms`` property is present in the device tree. The CNV pin
-+is tied to the SPI chip-select: every CS assertion triggers a conversion and
-+returns the previous result. A user-defined IIO trigger (e.g. hrtimer trigger)
-+drives the buffer.
-+
-+Oversampling is not supported in Manual Mode.
-+
-+CNV Burst Mode
-+--------------
-+
-+Selected when a ``pwms`` property is present in the device tree. A PWM drives
-+the CNV pin at the configured conversion rate. A GP pin wired to the SoC and
-+declared in the device tree signals DATA_READY at the end of each burst,
-+triggering a readout of all active channel results into the IIO buffer.
-+
-+The buffer output rate is controlled by the ``sampling_frequency`` attribute
-+on the IIO buffer. In practice the PWM rate should be set low enough to allow
-+the SPI readout to complete before the next conversion burst begins.
-+
-+Autonomous Mode (idle / single-shot)
-+-------------------------------------
-+
-+When the IIO buffer is disabled, ``in_voltageN_raw`` reads perform a single
-+conversion on the requested channel using the internal oscillator. The
-+oscillator is started and stopped around each read to save power.
-+
-+
-+Oversampling
-+============
-+
-+In CNV Burst Mode each channel has an independent hardware accumulator that
-+averages a configurable number of successive conversions. The result is always
-+returned as a 16-bit mean, so ``realbits`` and ``storagebits`` are unaffected
-+by the oversampling ratio. Valid ratios are 1, 2, 4, 8, 16 and 32; the default
-+is 1 (no averaging). Oversampling is not supported in Manual Mode.
-+
-+.. code-block:: bash
-+
-+    # Set oversampling ratio to 16 on channel 0
-+    echo 16 > /sys/bus/iio/devices/iio:device0/in_voltage0_oversampling_ratio
-+
-+    # Read the resulting effective sampling frequency
-+    cat /sys/bus/iio/devices/iio:device0/in_voltage0_sampling_frequency
-+
-+Writing ``oversampling_ratio`` stores the new depth for that channel;
-+the internal oscillator is unaffected. The effective rate read back via
-+``in_voltageN_sampling_frequency`` becomes ``osc_freq / new_osr``
-+automatically. ``oversampling_ratio`` and ``sampling_frequency`` are
-+orthogonal: one controls averaging depth, the other controls the oscillator.
-+
-+All channels share one internal oscillator. Writing ``sampling_frequency`` for
-+any channel updates the oscillator and therefore affects the effective rate
-+read back from all other channels.
-+
-+
-+Reference voltage
-+=================
-+
-+The driver supports two reference configurations, mutually exclusive:
-+
-+* **External reference** (``ref-supply``): a voltage between 2.4 V and 5.25 V
-+  supplied externally.
-+* **Buffered internal reference** (``refin-supply``): an internal reference
-+  buffer is enabled by the driver.
-+
-+Exactly one of ``ref-supply`` or ``refin-supply`` must be present in the
-+device tree. The reference voltage determines the full-scale range reported
-+via ``in_voltage_scale``.
-+
-+
-+LDO supply
-+==========
-+
-+The chip contains an internal LDO that powers part of the analog front-end.
-+The supply configuration is mutually exclusive:
-+
-+* **External VDD** (``vdd-supply``): an external 1.8 V supply is used directly;
-+  the internal LDO is disabled.
-+* **Internal LDO** (``ldo-in-supply``): the internal LDO is enabled and fed
-+  from the ``ldo-in`` regulator. Use this when no external 1.8 V VDD is present.
-+
-+Exactly one of ``vdd-supply`` or ``ldo-in-supply`` must be provided.
-+
-+
-+Reset
-+=====
-+
-+The driver supports two reset mechanisms:
-+
-+* **Hardware reset** (``reset-gpios`` in device tree): asserted at probe by
-+  the reset controller framework.
-+* **Software reset** (fallback when ``reset-gpios`` is absent): written
-+  automatically at probe.
-+
-+
-+GP pins and interrupts
-+======================
-+
-+The chip exposes up to four general-purpose (GP) pins. In CNV Burst Mode
-+(non-offload), one GP pin must be wired to an interrupt-capable SoC input and
-+declared in the device tree using the ``interrupts`` and ``interrupt-names``
-+properties. The ``interrupt-names`` value identifies which GP pin is used
-+(``"gp0"`` through ``"gp3"``).
-+
-+Example device tree fragment::
-+
-+    adc@0 {
-+        compatible = "adi,ad4692";
-+        ...
-+        interrupts = <17 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-parent = <&gpio0>;
-+        interrupt-names = "gp0";
-+    };
-+
-+
-+SPI offload support
-+===================
-+
-+When a SPI offload engine (e.g. the AXI SPI Engine) is present, the driver
-+uses DMA-backed transfers for CPU-independent, high-throughput data capture.
-+SPI offload is detected automatically at probe; if no offload hardware is
-+available the driver falls back to the software triggered-buffer path.
-+
-+Two SPI offload sub-modes exist:
-+
-+CNV Burst offload
-+-----------------
-+
-+Used when a ``pwms`` property is present and SPI offload is available. The PWM
-+drives CNV at the configured rate; on DATA_READY the offload engine reads all
-+active channel results and streams them directly to the IIO DMA buffer with no
-+CPU involvement. The GP pin used as DATA_READY trigger is supplied by the
-+trigger-source consumer at buffer enable time; no ``interrupt-names`` entry is
-+required.
-+
-+Manual offload
-+--------------
-+
-+Used when no ``pwms`` property is present and SPI offload is available. A
-+periodic SPI offload trigger controls the conversion rate and the offload engine
-+streams results directly to the IIO DMA buffer.
-+
-+The ``sampling_frequency`` attribute on the IIO buffer controls the trigger
-+rate (in Hz). The initial rate is 100 kHz.
-+
-+Oversampling is not supported in Manual Mode.
-+
-diff --git a/Documentation/iio/index.rst b/Documentation/iio/index.rst
-index ba3e609c6a13..007e0a1fcc5a 100644
---- a/Documentation/iio/index.rst
-+++ b/Documentation/iio/index.rst
-@@ -23,6 +23,7 @@ Industrial I/O Kernel Drivers
-    ad4000
-    ad4030
-    ad4062
-+   ad4691
-    ad4695
-    ad7191
-    ad7380
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 24e4502b8292..819d8b6eb6bb 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1491,6 +1491,7 @@ S:	Supported
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/iio/adc/adi,ad4691.yaml
- F:	drivers/iio/adc/ad4691.c
-+F:	drivers/iio/adc/ad4691.rst
- 
- ANALOG DEVICES INC AD4695 DRIVER
- M:	Michael Hennerich <michael.hennerich@analog.com>
-
--- 
-2.43.0
-
-
+Friendly ping
