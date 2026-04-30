@@ -1,69 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8B2428839;
-	Thu, 30 Apr 2026 13:58:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C997B40B6F3
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 14:01:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777557497; cv=none; b=Wzb5iuWWOBrjzoMLLZlaD9Feby6zMKuk6nRriEYcVW5laLks31QZwTldGAYNHz9wplB8MkTje8udWkjTMIwMCX80Ra/WS6v5m633xR0gPKT4C9DCpO4SB1WI5NEsm2F4c7eTqaWMi+GmIB2W77Lstih1FgYeTx+xAkcEflo1ds0=
+	t=1777557687; cv=none; b=nnPgmW1v2crAlsTlXX1Jj7l0bLBwJkEo4vTXphxHF5AUERBUloqb7gIn8c5lCT0GWQvWsS1oRj2b6/Ru5tefjSzxFivpq9xOu9SBNrZb0uMyXl0G2UgOCieYqOE01jmLtkgsh34UyHNi9XB9s3fkEgV5jYWrQtet2oyS/73ZviA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777557497; c=relaxed/simple;
-	bh=o+8+KjdJ8yZ9gakFLBvMNa1VbfsIydfrHzxEKqLfIGc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=uwWYQaN1ZeZH4mvOM0+50bw+GpigR6wG01W3o7zzScFGFBtTJUPT9dIiYg/LaNjfU/t8Ec/hudDd585GaILfdKSfXjAd6aDVExGcg5JuxuOQXoVEOmXhHcrEJK4q0qwh57kBgZIzD2TN2fC6r4ePhpRrga+7sqKqgOSnR8QrkMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OuhE1BM6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777557687; c=relaxed/simple;
+	bh=msv4UKCWnzRJ8AaUkkjBcemw+RJMUndgSk28nTFccU8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W4eZxMT+Qe2lZuAHVN7p8l/jpXEn0Sd4pe3TG9WvNKqqG7Z0FaVF5G//jVXYB+/pXADE/E0MXxXoMzSsrW03qNhU3H8sI6hlJyJzrLjl240SmyEWAIIfygm1b4PkjYZ3JTETOqjNEUgClrs1mmvppvFVy/cNa/GTcrr7YdhDD+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UF30Fap2; arc=none smtp.client-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OuhE1BM6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295DEC2BCB3;
-	Thu, 30 Apr 2026 13:58:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777557497;
-	bh=o+8+KjdJ8yZ9gakFLBvMNa1VbfsIydfrHzxEKqLfIGc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=OuhE1BM62f7Wu/VvE9GJhsvrcGk6tTHvmjROQzTm6Tp1Ypek9rKLRu+hv9yqLnvU4
-	 HBoM7skhBKxG0VWiRv/c3dYjcqZ3nmeWCqlSxiOIiiN8PT8lLEgszpW8xiSl9cJmu6
-	 QVG0PbT1E0/FlDr1RUa1SdFA+p9fDFY20D7EJW/D/BfC4BTsmgG0Mj1mIpkGVPFqMo
-	 MqwypdBusXGm5XJyX/AzodUXDIMaD3r/x6gBPxjXxSwh00tsBXG57qzUVvB65P91vL
-	 ka0xloXLsGYPNd2XeiHHFno8ZzErWG8HaeHCzJ2kqJxW794cmjEXgauw4cgt64KOPP
-	 MjeHpr/5k/jBA==
-From: Lee Jones <lee@kernel.org>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, 
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Maud Spierings <maudspierings@gocontroll.com>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20260407-max25014-v8-2-14eac7ed673a@gocontroll.com>
-References: <20260407-max25014-v8-2-14eac7ed673a@gocontroll.com>
-Subject: Re: (subset) [PATCH v8 2/4] backlight: add max25014atg backlight
-Message-Id: <177755749291.2610033.12945503282955319463.b4-ty@b4>
-Date: Thu, 30 Apr 2026 14:58:12 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UF30Fap2"
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-12c19d23b19so1321364c88.0
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 07:01:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777557685; x=1778162485; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=qfZbAXfxGOXaCq4/H3CYpwcnIHDGtx5biK9MXIffcuI=;
+        b=UF30Fap2OP/jPoGwTfeqM9oMj9KBgS0zZmZ5USk1NV+1Oe9G+Vy7x9at21mo4KtAoe
+         /BM46uzhZf869bMOEhOlUfQXxdQGAbl+JcR4Yzac7G756qiC4GDj0Qk9SPww7H1Zz/yd
+         LSNTCXEm+xdKYA4Znod+rk2sFfkeSEBRPFKNsOER9UIF60sVisQhntf0fNgc3sX8MdLj
+         80tnux1/nkHMS7CVjm3SRPna3aN+iKueC9q2NtoOJ2fziVRgkOpleDNV9jANMCMGIFWE
+         T9YRz+SqlADevINb6C4eq2RsuO1XkAuj4PJdDwXG0CskWEzPmevVc6NDOOilhw0FYAXg
+         CVwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777557685; x=1778162485;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=qfZbAXfxGOXaCq4/H3CYpwcnIHDGtx5biK9MXIffcuI=;
+        b=ZM2KpxFUlW/o5NdlekP7rghBmvvb/izWKJha2AohTKfqV1cPBaOUX9v6EAQMxnVoQJ
+         1wUY4yPYPYH/Qmsj+e59m3BPfQBJtyVxU1rg/yPt17QGK1MQ+fSl97pqis4I11W53sWr
+         tbbUQtYjNcRRQW46yyM4zcYuGvmE9fOfqyOuowM7cfysRH7isA9YMsyNvH7S3H30Ll8u
+         iyUBkyzAOHj5mTbeLucS5ulTi8qlvWmgU1zd+FnnHaygCHoYM4k/N0kVu2gPzT8ccr4I
+         gSl6Q7afQWLQCS/2oyB6koT8GOKo0rsi5Y7zQrSiyShK5kx/JiyMKnFklu+zt5OT80Sk
+         ZzVQ==
+X-Gm-Message-State: AOJu0YwCbpmVGQ5lu1vB27UciwXIfus2nt0HKAGtYLgY+DrGuaSFToDh
+	diSAZQPCc6744Ggn4Zgqoorp1KEoqMdAIOL+0xeGKz0baFPHUZtvs5Uo
+X-Gm-Gg: AeBDiet6aAeh2+DaTLuSlPqr5hAY+YMVJzibPlmzkCAUPxthXcYgyIPuyG6Fmd7WdU3
+	zhETzvvS78q+ryC76n2n3z16kgs3Qg3t986CYLiUEfTFH20NQoRYjVb+/++Qg3ZJJGvj/EW40VE
+	QXrYaaRBkEMmH4FlBvLHpzy4kUnH1uaH5Uqo13QeG7V42NelRMdSnRcXL9FURBP7bC1/hPKYBHu
+	G1M9d8T9af/XK6eqkc4E2fzbJL0YqfpY0pgPg+Qj9EZRpSbjKlK+A+OlkL+Y986adZFVrrtUwKs
+	70mZbwgiUmrCHQi8sCUPXr1yXb1hA6ukXT4f3gGP8nFOJfYFij5bvfAbjR+NmKxHIrkyP3Ar07n
+	QTFDmY9az40ETG3sHb2ED2vNChA5HuPaV/FlQamNl41SnO8Wm1QY+4tcl7XDbhZ8Mxba32j61if
+	HTO08EwD/rsaTC5Gdb5SzxsUYgG58Ax16cZ1wcx7dHydEGDWXCorV3e4dJrugQLZnbekZ8yQRsm
+	d7vDuaJPRo=
+X-Received: by 2002:a05:7022:1702:b0:12d:ccf5:271c with SMTP id a92af1059eb24-12deace0f72mr564658c88.22.1777557684718;
+        Thu, 30 Apr 2026 07:01:24 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12de321df36sm10222426c88.7.2026.04.30.07.01.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Apr 2026 07:01:23 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <f3b8d049-744c-42ab-a641-086bc1726b24@roeck-us.net>
+Date: Thu, 30 Apr 2026 07:01:22 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/2] hwmon: (pmbus/q54sj108a2) Add support for
+ q50sn12072 and q54sn120a1
+To: Brian Chiang <chiang.brian@inventec.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, Jack Cheng <Cheng.JackHY@inventec.com>
+References: <20260429-add-support-for-q50sn12072-and-q54sn120a1-v7-0-f1f83d2039f7@inventec.com>
+ <20260429-add-support-for-q50sn12072-and-q54sn120a1-v7-2-f1f83d2039f7@inventec.com>
+ <mhguhlt5gi7sg7qsgetsizdslm2z4vdhlgag55bqjnq3a2kz24@iafh7hhezp4l>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <mhguhlt5gi7sg7qsgetsizdslm2z4vdhlgag55bqjnq3a2kz24@iafh7hhezp4l>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 07 Apr 2026 16:41:43 +0200, Maud Spierings wrote:
-> The Maxim MAX25014 is a 4-channel automotive grade backlight driver IC
-> with integrated boost controller.
+On 4/29/26 23:58, Brian Chiang wrote:
+> On Wed, Apr 29, 2026 at 11:29:37AM +0000, Brian Chiang wrote:
+>> From: Jack Cheng <cheng.jackhy@inventec.com>
+>>
+>> The Q50SN12072 and Q54SN120A1 are high-efficiency, high-density DC-DC power
+>> module from Delta Power Modules.
+>>
+>> The Q50SN12072, quarter brick, single output 12V. This product provides up
+>> to 1200 watts of output power at 38~60V. The Q50SN12072 offers peak
+>> efficiency up to 98.3%@54Vin.
+>>
+>> The Q54SN120A1, quarter brick, single output 12V. This product provides up
+>> to 1300 watts of output power at 40~60V. The Q54SN120A1 offers peak
+>> efficiency up to 98.1%@54Vin.
+>>
+>> Add support for them to q54sj108a2 driver.
+> 
+> Greetings, I received the feedback from Sashiko for this patch:
+> 
+> ```
+> This isn't a bug, but the commit message only mentions adding support for
+> the new modules. However, the patch also includes several other changes:
+> adding PMBus locking in the debugfs read/write paths, fixing the
+> WRITE_PROTECT restore logic, modifying the configuration for the existing
+> q54sj108a2 module, and refactoring the device identification logic.
+> Could the commit message be updated to describe these additional changes,
+> or should they be split into separate patches?
+> ```
+> 
+> I'm wondering if it is more appropriate to split only `fixing the WRITE_PROTECT restore logic` into separate patch? Since disabling WRITE_PROTECT was introduced in previous commit. And maybe keeping
+> other changes Sashiko mentioned in this patch and record them in the commit message?
+> 
+> Please let me know if you have any suggestion, thanks.
+> 
 
-Applied, thanks!
+Sorry, I seem to be missing something. I dont understand the logic above.
+What does fixing a bug have to do with how or when it was introduced ?
 
-[2/4] backlight: add max25014atg backlight
-      commit: 3014ad47cfaf454cb0bbee353272beacd1e7c4bc
+The missing lock in debugfs functions is a pre-existing bug, isn't it ?
+All pre-existing bugs should be fixed first in separate patches so they
+can be backported.
 
---
-Lee Jones [李琼斯]
+Please use guard(pmbus_lock)(client) instead of pmbus_lock_interruptible().
 
+Also, your patch does not apply anymore. Support for q54sn120a1 was already
+added in a separate patch. Please rebase your patches to v7.1-rc1.
+
+Thanks,
+Guenter
