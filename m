@@ -1,82 +1,82 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB042C3255
-	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 00:00:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8814E34AAEB
+	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 00:00:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777593641; cv=none; b=ky25eKvFVAi7fQRgPWe7BxdzRwVD/xIrFtilk50wVEByWTDR7tydOi4ytl78JMlC3AqFj6kVkW1dVnzvYAWkXLNq2WCypbFRkrPH+uYJT8GQqavjiD0r1RmjtEvch4ufKUUPa4N2Am0WdKWEjWDernkKa3NC3c64pM4nOnacVKE=
+	t=1777593663; cv=none; b=kji66XLI01hZRkpsPC8G3zjXwsiitLSjHCFmxkjaLlquBdXkzhc09jupX6ul3/cP5kR4NZg1ahCqVhf+lROGKOy/XhdTNn5Z6jL4gp++VmoCIz4qw/NSoGhwH9MwzcUKmA4CcHJ9d5g+RhBrkBQMI5h0e6UMH++ZkliWv/JaJRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777593641; c=relaxed/simple;
-	bh=E5GkC4G7rtGBz2MILCU8/hEbtGwGymi8oc5Ct4p7lLs=;
+	s=arc-20240116; t=1777593663; c=relaxed/simple;
+	bh=1iYFrQZWmKEVWrScCekgHrk90TTezLU+zo9EhcJOGkk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=awfjCBJ/YgZE+Wp9GuMxDz2q16yOi91aswJEF5DajIdNmL/G4ANeSQd6vgM0WlfZr6wzYtlpPT2BKqM8/x1hL1iYjRw/dQaUN5gSiTjwnAQjLeyJCdgA/REXMIyyf/K7IL90vgvW+cFZfmQTM7sijDIHEFpdpXwfilvCGS6fZVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=MXJzsd4G; arc=none smtp.client-ip=209.85.218.51
+	 To:Cc:Content-Type; b=le/mzmFV5A6szYrW+4jIn2NfzdjoXlQHzdnfzgpR5FLqXYMPmiLS+/65wdgWSKnLfzTlZHUKqg+xhlPLSvVoZzVGQtCPR17Qw23TmSinfxKaFNwVPmp2LgKpnpuO0iP8ev4xbmuUhtekzry7dtgwXoqYSxcJ2sjy2vdkTXmynRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=FalEIf5n; arc=none smtp.client-ip=209.85.208.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="MXJzsd4G"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-ba922426c5cso266608266b.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 17:00:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="FalEIf5n"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-67b8d9c26bbso639647a12.2
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 17:00:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1777593636; x=1778198436; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1777593656; x=1778198456; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FVHhCQMUid03F9iDcHc+WtyXeEQi+bjBCIpWQi6kbrQ=;
-        b=MXJzsd4Gze9A2ayuvnr97OF8lqCpEjKmUGyvH6Sft6VhF6FSlehMi/qiThpOR/UB85
-         ykXQq4XnADkzsHKRVzqjJ5LAlHwyMOTLqbuqHFTsKLGGioJI+CQ+6WerTib8ewVc0r9o
-         pwwhVyE+6aScR4AeuSVRht/dZIP/TL09oEObg=
+        bh=6+mZxHBvv1WgYnS9amllda9wyu/ABf+laADAiAQpVXA=;
+        b=FalEIf5ngt0zAY+IZnv5+967HhUFM2oUYJTOUDU5HizdeIDtLzbS1TsTeNTRSm9X6f
+         PjLiQiaeL3rzwn7Pal7vQmwZoI0JHS4hw515lnVpyvv5Bt75mv49Nls6FktsPboqzJcg
+         j/YOlfK6i1f5aamaDhAzjO7dogl5JMLeWZPDs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777593636; x=1778198436;
+        d=1e100.net; s=20251104; t=1777593656; x=1778198456;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=FVHhCQMUid03F9iDcHc+WtyXeEQi+bjBCIpWQi6kbrQ=;
-        b=GFLh0d7wEtq/0cdNNaRJMRJ+qLwS4Fw1EvsOUXHBWfZe1SDAVAeSj5bHuWzW7euoB5
-         2Rq2AxZv3YayioFhbE/CyZgVrQ7hauPB0KZ9vtoRufIehghQAKxBcPKaU1AEnd6wJtll
-         w3/qMHwHN3b5wq5d4CoD8yN8DfFVeKhlT0yP2A/HurF53mhGaylnUgaW18tzSE3GFnws
-         7ZwBU9QLLZLoXuqH4mpbA5YdItw3cJzoYPrz1jtUBQQf2IgBdWwA83IkdxVKVyATFpcH
-         2X3KUtmCYFWXaEmA5e10b6O74viqBbpRBIqoQlXWgzTa0SPKMQcY7LasOhBpvRCgsleX
-         e1qQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+0lPFZxMwQxc7aU8o4XQ6aja4epso/Y/mtOvB3HJBk5PLw9wTbdOlRrwdqvlB/CfOZeRN8tK5nRbPl@vger.kernel.org
-X-Gm-Message-State: AOJu0YyBBHyl2IadECdNp6CgGemaaLTWX6qxebvMa2NUnktRSAThCZku
-	op1NyXdl8jpG3jdt/7ue0CKXvxB3UCzkjyphauQ+SobCcDIhCcxba1GoDOGIpsA3I33lIR3fy7g
-	M9EkLtIu1
-X-Gm-Gg: AeBDieuAI/hAXfC1ZHs46ZNJ1VvRMfZR9rKgPj8YLRgdfOI9kuCNgyYf3cOyw3sTweQ
-	SLktLplL3PLa/pjyTaYXBM8mQ7rsMkYTYRtsA1bihH+VzWdjQv4OP99tV85LyaIlOJMb872dujy
-	xPi901tXjumeKJx6rZk33qXkSGL+yNdNs49ZbAXXVU7CTqlaT5EWWp6QJid4YvIdcyODN1t+30R
-	2j5pdPYHym66F3SWVvrN5Sh/b4mjuGK3Y8QA1/MpszJwtvw9yF4JqcQ1bHETp9p3obVD2IyjGXv
-	Uta/xEtQf5o921XL0DFImk0hp+gwbDQlnn6sESh2MybwW+RHAa2ulUtDzhe+ZewJQ+iBjY1bC/5
-	uyA15/QjY2sufU5mR9szyU7vv+gSDa/0WthtULb2/6y/YNOk2ClDFi8bc7JyVPaiKmeWJt7W/vA
-	QUWdAXUFRItxeHNWM7ruY51NI/VzTZWeaR9NM3unAuX36mWxPZ93UqgFg3SGQ+1py6t8RBDCBQ
-X-Received: by 2002:a17:906:fe02:b0:ba7:d65f:3b59 with SMTP id a640c23a62f3a-bbac46d674fmr331759966b.6.1777593636469;
-        Thu, 30 Apr 2026 17:00:36 -0700 (PDT)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com. [209.85.208.51])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bbe6a64d990sm49524866b.22.2026.04.30.17.00.36
+        bh=6+mZxHBvv1WgYnS9amllda9wyu/ABf+laADAiAQpVXA=;
+        b=b9/aN+KFiH8hPt2S/tUKsLUJ+Yxfb6L3k13mbONVdcbL+Y9d0ySMBhOtrDw/iun9IL
+         ucGFSogxdCmBoYhbRovLQxy/oHCgjxXSlaIhx6f5Ui0D+ue4wyMsmBk8R/6A1AI3TWzM
+         7v9i1o+OZ2AvyYC8MTFaGr38Zogy2ejzZOwxoIEjDYmp7CfxrzWIVT/HriEwn4Q6zAOJ
+         1VihcLd7aX1a1Fh7wEL1pJk1iucUpXzCQ2yqFWllv2EZcmNlrBkf9yYCuFo/7FGHURLl
+         9SQb64MpGhxNxNgEV3wrNXZ+6npS0pEWVX+3q7z/A030EiMDr1Gr6279K7b7jr/elguX
+         ZbLQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+qfgGLVkSldNUYupkNjxPtO7NrawTGkXUonVbDNN9ujEaI2w/4swO0M+ktC4yHsas785BZdwaEMiVJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzU/dPBjzrOGrBWkN1KSKbdbNAaAzYiEbhs+60vSaAZivAD9aoL
+	BjMMM8YpoDq/qI5gKJ36nnIEpKUWKW1utmUt5/RER+tAboFufKwW0Ge2WFbkc9xKSQH2JdiZ1nb
+	/b0mtudrm
+X-Gm-Gg: AeBDievP5HRJEGmZzZgWAypucnXy7HslrgKMgaBrwsMMR0P2KL7nHivRSDbgDAFV8A4
+	uB0baAfbnVnil5JnGtJTN+p3N+vt1P1XfZJ3bwHZI2cn8zPZ9/o32fnojbaJWKdxTgzCl4jU3m/
+	z+sOvHLTp6OShZfus46SvrxkskwDnvY5BEv9pQQg2ECMkem2IgazlfjSMIUrpmP/sTy0buoj/r1
+	VKvpxLMZWlZ7I7frybRIC1+zbl/aTFspxfYKFr7iHqXc2+6FeGMgj8e1Cz/1sIUZ4SDBEejk+SV
+	XXYezoYDrmaX7BsekqXjQoti8pmlJVmi4N4ippiWIPe39Iz8zQ46zr7fzKr2hRopN/aj6g+S2zU
+	NjMwwn+I9t4thjaQJ7TGDoO95hb+LlLpMseCSUxeok2omH082xQJ2plXz33hwAm7cVPydf2DsTn
+	cVWvvNx2L83wDHnyPTf9DWozB8Wr3TkJpqcZecd/6DFav6i4vHAGn0iXLYT/uw6LJAFozE5nbZ
+X-Received: by 2002:a05:6402:324e:b0:673:b696:8830 with SMTP id 4fb4d7f45d1cf-67b5d82279cmr1955352a12.16.1777593656376;
+        Thu, 30 Apr 2026 17:00:56 -0700 (PDT)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com. [209.85.218.51])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67b877d5a64sm394817a12.15.2026.04.30.17.00.55
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Apr 2026 17:00:36 -0700 (PDT)
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-67bb5ad91bfso203814a12.0
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 17:00:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9ptaiFJTtglv89Su9ggvNRcM/mchAcpZT6LKRhPNkzvWLqOBVyKZ7usifM0qN7FyteWyl5Ogx3QpgR@vger.kernel.org
-X-Received: by 2002:a05:6000:2385:b0:43d:7ba4:6b5a with SMTP id
- ffacd0b85a97d-4493f814094mr7876169f8f.22.1777593281177; Thu, 30 Apr 2026
- 16:54:41 -0700 (PDT)
+        Thu, 30 Apr 2026 17:00:56 -0700 (PDT)
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-b79f8f7ea43so259048566b.2
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 17:00:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/D69bM5WnoWqvufywhfOjArYi09TZyw67aOxHuWLapkyCFH90pKubPcjV+SoYMylV1QRyylrgM6hy/@vger.kernel.org
+X-Received: by 2002:a05:600c:8483:b0:487:2671:fb8f with SMTP id
+ 5b1f17b1804b1-48a83d73324mr83882365e9.8.1777593300707; Thu, 30 Apr 2026
+ 16:55:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260428200712.2660635-1-briannorris@chromium.org> <20260428200712.2660635-4-briannorris@chromium.org>
-In-Reply-To: <20260428200712.2660635-4-briannorris@chromium.org>
+References: <20260428200712.2660635-1-briannorris@chromium.org> <20260428200712.2660635-7-briannorris@chromium.org>
+In-Reply-To: <20260428200712.2660635-7-briannorris@chromium.org>
 From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 30 Apr 2026 16:54:29 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Wzk3BW7qOQHm3zait9p=K+pTNVviMgUF1dfdqw9rimnw@mail.gmail.com>
-X-Gm-Features: AVHnY4Lf_-e67ZfLDh6j0F0tOI3LrjkSTUbSwaFXekuSrX2ugdsS_RxN4nbO7Qo
-Message-ID: <CAD=FV=Wzk3BW7qOQHm3zait9p=K+pTNVviMgUF1dfdqw9rimnw@mail.gmail.com>
-Subject: Re: [PATCH 3/7] ARM: dts: nvidia: Add #{address,size}-cells to
+Date: Thu, 30 Apr 2026 16:54:48 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Whp6JADcVOZ11Jr=5THGrCe9cWZhX0ye54wQ84GtUOwg@mail.gmail.com>
+X-Gm-Features: AVHnY4Jn8yjvVDQMrk9sfxS2s1IXmKHM3MKByZAYOfzP-smNW0WjILYj0XY4G5A
+Message-ID: <CAD=FV=Whp6JADcVOZ11Jr=5THGrCe9cWZhX0ye54wQ84GtUOwg@mail.gmail.com>
+Subject: Re: [PATCH 6/7] arm64: dts: nvidia: Add #{address,size}-cells to
  Chromium-based /firmware
 To: Brian Norris <briannorris@chromium.org>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -142,5 +142,10 @@ ot_table failed with error -22
 > Fixes: 6e5773d52f4a ("of/address: Fix WARN when attempting translating no=
 n-translatable addresses")
 > Signed-off-by: Brian Norris <briannorris@chromium.org>
+> ---
+>
+>  arch/arm64/boot/dts/nvidia/tegra132-norrin.dts | 5 +++++
+>  arch/arm64/boot/dts/nvidia/tegra210-smaug.dts  | 5 +++++
+>  2 files changed, 10 insertions(+)
 
 Reviewed-by: Douglas Anderson <dianders@chromium.org>
