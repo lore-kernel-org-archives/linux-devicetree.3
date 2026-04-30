@@ -1,152 +1,229 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A9C3D904E
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 23:55:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E453D9DB3;
+	Thu, 30 Apr 2026 23:56:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777593324; cv=none; b=BfME9HSZzUUq5AZnqtmjvo8BtHQfi2M2A0lqoaZ64yZwlHt9DjjvLhkDBzajrCQ+saJLCfl0EolIPZ0EIddTJpsTWDW6HDY31IxpsGZFqe/AUIhC5pjuwtab7ycq3nn0Fms0EoXOGg3R3mpA/pkDYS+JF2B04salsDVoBP74Kuc=
+	t=1777593384; cv=none; b=F0fORRfZVd0FNl1v7jl2IYsbgf4woHanvrwUgSLiruVEBc35x2mIIDUx5SZmVd2otlFGgIzSvbCdvq0pWIZnSZHbB9SpprIR3jqs6XK1RU9Eyfpz2L/hOveNWN2D/XIgFnVuNcPMe9NX0FDS3AE0LyZHeehqd6/+cVZlOgXFnsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777593324; c=relaxed/simple;
-	bh=Po793qEB14FDeszlUgfCZzMNPlO0hdsx5m4i9+Am1UI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VYWTiLTEABcoyD4CpuSOly235Ym+VQ4/7xYtppGWsFXuR6T+RSYScjpGtubszISxceunTIvoFQmfVQa6bQYuvejRX5HgwVH4JQPyLi+0GxpPQrwFnRlCCSl7PH0SnQTdntPLXJq84lYbKMYHgSMw46FoDscR+B9tyX8OxUSKQg4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=H85GzRHE; arc=none smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1777593384; c=relaxed/simple;
+	bh=40qz2wf6qykN2EK8N+26nfYexocPB/b62d5bha2Hl9Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LsEeKcs8FkkELONMldFtw/oi4M3hYbV5SNOPjJWBpBtpFyvz9Ig/z7+lX5ZQA4OMEGE5X6tsH3ANZtrkzgud6q/AEyvkgwQ/giNtQaR6cH4Wkrnms6c5zb8McBbfpSKeCyi3dDJPLwRr6h+gEFEUJspvV5jlv/IacUJjUybJG44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ViboPA00; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="H85GzRHE"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-671c5eb7fb0so1657260a12.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 16:55:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1777593320; x=1778198120; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=L/stw2Li+z9zBw8IsGsJQTT0j6lAz8JjDjcZka6O6Bc=;
-        b=H85GzRHEyNXOm+vNPL9yFnzHQpWHlxWlRNRsFbpzu2tcS5YYcbeDbMVHqAAp0Djv5k
-         Um46vfmz+0f+FVvdek0HorypL42UZ+IdA6jg/PgF1NBa2TWx6kB5K9ALgtuvJwxLmI35
-         gnL0ClGi3G6R2MffKvdzYk6V9CdNM2UjsBjIA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777593320; x=1778198120;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=L/stw2Li+z9zBw8IsGsJQTT0j6lAz8JjDjcZka6O6Bc=;
-        b=LZcDTBiJamFeJXT1/3mgZ2JhbBgYyCiuV8Y3mYbhjdScei6VkeRpKDxux0fk/p04pF
-         RNFJJbrDhQIFLzpqq9m6R2lEuW7R4EbfIMcwQsxcHePSI4xlLoYaprCVeUTkkjn2BQ9w
-         XKQxJh272jQXX3pMeg/3h5SzZT509c85t1R7Ysj7QM1qVpoDZ8HQrXU/7OzmgSh6eiIE
-         0rox1etVpQxGjUQ9GScXNpiXoqx7NAMmw4Mz8yoDfKqQ2qPV5abNi8DarkevLoKEuey6
-         paie7XIbD3HyWsq+lGvfALo+QCzGr+RGAxMsd7rgZU4lsVuQJdAIkcH+SHt31fa4RqVs
-         aH+A==
-X-Forwarded-Encrypted: i=1; AFNElJ9vreRt3sZ2/kyVDdYaHmsv/wMa9b9ID7YtNlZYGJOetwGp5+i9sY0KoiLKbiXlAJve/BR5Z7phlKO2@vger.kernel.org
-X-Gm-Message-State: AOJu0YwkHNjmbUCoBymp6igxPf7iCwqWmmwU+hmZgw1d1by0RALn4bMt
-	VISUDyBwMCOboX5FoVjkU2R6MqOlGlF1UrXriEMSf3VGTJzCd6E/9Y6umguigB57ImhDjS2Ltl9
-	7pxTe4w==
-X-Gm-Gg: AeBDietctz+EGJHGcM32IGc1TlrAhOkwP6lRReFbBI7Pwcc/xakSrffHVH8/wjr1PXe
-	CVADglPt51I92K7jPwZ8azs31x35zwVh0eIxl9zh/+mhS+GcfSYOVSJVmoc+/YH8EWtNw2u0zJw
-	n9ceehCdOU92qE4ij6790MSMii66foB79chmHJVFwmRbSZ4FpsgPRh9sognpHUbSrx934NjY3oO
-	Dv4gSv80ry+j1Oe/6fGLYmPtakj8ld05xVAFp8P09L7kbIHwsJfhhZC93IA9uwPcxfLTOHLiRzq
-	eLW4A0J1nnI4VivLTj8tTXCBA8P2aA2E9tsfhDmbvp+EOUhcMBlLy8FYYlueTNqYa0j797oBvO1
-	jCqK3JhUAKc3jTxvWeY3a0gGxVBgGrRUzqrsbhEfKvDYckhRhR5SnbI/VetOYXKZSeShiQOOgjU
-	KTMcSjWSJCaBrnhJf6z9QuMsoRmLV8RF+MkYRhpMxxXpJFJ7etO/aX16hpzKzyKvIiS6D89WjqM
-	wcagS0qh0Y=
-X-Received: by 2002:a17:907:6b0b:b0:bb8:c3a8:9ad7 with SMTP id a640c23a62f3a-bbebeafdb09mr36096366b.13.1777593319998;
-        Thu, 30 Apr 2026 16:55:19 -0700 (PDT)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com. [209.85.221.47])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bbe69f6dc3esm50444866b.10.2026.04.30.16.55.18
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Apr 2026 16:55:19 -0700 (PDT)
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-43d76dd4ee8so1162352f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 16:55:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+JMA4+BzywRhXEn3QQkHnpVFfSYQdRflewfyjEKSkkRzOmwiZB88b3unftbRD1X3rOXpsGOskARpEe@vger.kernel.org
-X-Received: by 2002:a5d:5846:0:b0:447:55b5:d532 with SMTP id
- ffacd0b85a97d-44a87f60a32mr1080919f8f.37.1777593318187; Thu, 30 Apr 2026
- 16:55:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ViboPA00"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE134C2BCB3;
+	Thu, 30 Apr 2026 23:56:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777593383;
+	bh=40qz2wf6qykN2EK8N+26nfYexocPB/b62d5bha2Hl9Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ViboPA00lhuuq90JiiL4tD26Ue6Y/8I60ztTGb3qFa6Jo5jxeVw9si6vDMVIwrSbL
+	 961l+YLR3UTzx83K155V3u/INW4HH3iW/qTGFHCpjnkQ1Ie5tSGoh2Hz46eN8L+qNe
+	 ZEQ539QrasKEi73c3qmwdye/2lqW5R43XGTOGDCRE9Xu+Ofqedb4aK10X2uSvESz3F
+	 Or6KH2lko8fTzu6pjs+Nfw3p1WJLc7oA5QhwZEBTxr0KnR7K+SR/hOckoG7hymWfsD
+	 HGbxOlPsE4un/rB1Qx8e1GTFxVWw3VmLIofIAFlhaLreAXitnXhgQCf19SWELpRQ6K
+	 QTuXhbSpkoh7g==
+From: Jakub Kicinski <kuba@kernel.org>
+To: joey@tinyisr.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org,
+	horms@kernel.org,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	davem@davemloft.net,
+	olteanv@gmail.com,
+	andrew@lunn.ch,
+	devicetree@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Subject: Re: [PATCH net-next v3 1/4] dt-bindings: net: dsa: add MT7628 ESW
+Date: Thu, 30 Apr 2026 16:56:21 -0700
+Message-ID: <20260430235621.3080081-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260428185510.261521-2-joey@tinyisr.com>
+References: <20260428185510.261521-2-joey@tinyisr.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260428200712.2660635-1-briannorris@chromium.org> <20260428200712.2660635-8-briannorris@chromium.org>
-In-Reply-To: <20260428200712.2660635-8-briannorris@chromium.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 30 Apr 2026 16:54:55 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=V2H426VR8z5EEm4bWuK-Fvg_wr+mAkkaAfJrWcU0kV1g@mail.gmail.com>
-X-Gm-Features: AVHnY4JV5Y3mu38iXutrpDHLS51XF8wv90SD0VK4jxBhsJoT2PtDnx5IHddvQ_U
-Message-ID: <CAD=FV=V2H426VR8z5EEm4bWuK-Fvg_wr+mAkkaAfJrWcU0kV1g@mail.gmail.com>
-Subject: Re: [PATCH 7/7] arm64: dts: qcom: Add #{address,size}-cells to
- Chromium-based /firmware
-To: Brian Norris <briannorris@chromium.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Heiko Stuebner <heiko@sntech.de>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Tzung-Bi Shih <tzungbi@kernel.org>, chrome-platform@lists.linux.dev, 
-	linux-rockchip@lists.infradead.org, Julius Werner <jwerner@chromium.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, cros-qcom-dts-watchers@chromium.org, 
-	linux-arm-msm@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+This is an AI-generated review of your patch. The human sending this
+email says "Since Andrew requested some changes already here is the
+AI review to look thru as well (could be false positives)."
+---
+Subject: dt-bindings: net: dsa: add MT7628 ESW
 
-On Tue, Apr 28, 2026 at 1:07=E2=80=AFPM Brian Norris <briannorris@chromium.=
-org> wrote:
->
-> Chromium/Depthcharge bootloaders may dynamically add a few device nodes
-> to a system's DTB under a /firmware node. A typical DT looks something
-> like the following:
->
-> / {
->         firmware {
->                 ranges;
->
->                 coreboot {
->                         compatible =3D "coreboot";
->                         reg =3D <...>;
->                         ...;
->                 };
->         };
-> };
->
-> Notably, the /firmware node has an empty 'ranges', but does not have
-> address/size-cells.
->
-> Commit 6e5773d52f4a ("of/address: Fix WARN when attempting translating
-> non-translatable addresses") started requiring #address-cells for a
-> device's parent if we want to use the reg resource in a device node.
-> This leads to errors like the following:
->
-> [    7.763870] coreboot_table firmware:coreboot: probe with driver corebo=
-ot_table failed with error -22
->
-> Add appropriate #{address,size}-cells to work around the problem.
->
-> Note that Google has also patched the Depthcharge bootloader source to
-> add {address,size}-cells [1], but bootloader updates are typically
-> delivered only via Google OS updates. Not all users install Google
-> software updates, and even if they do, Google may not produce updated
-> binaries for all/older devices.
->
-> [1] https://lore.kernel.org/all/20241209092809.GA3246424@google.com/
->     https://crrev.com/c/6051580 ("coreboot: Insert #address-cells and
->     #size-cells for firmware node")
->
-> Closes: https://lore.kernel.org/all/aeKlYzTiL0OB1y3g@google.com/
-> Fixes: 6e5773d52f4a ("of/address: Fix WARN when attempting translating no=
-n-translatable addresses")
-> Signed-off-by: Brian Norris <briannorris@chromium.org>
-> ---
->
->  arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi   | 5 +++++
->  arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi | 5 +++++
->  2 files changed, 10 insertions(+)
+This patch adds a new YAML device tree binding for the Embedded Switch
+block found in the MediaTek MT7628 SoC. The binding describes a five
+port switch with integrated 10/100 PHYs plus an internally connected
+1G CPU port, together with reset lines and an optional MDIO subnode.
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+> diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7628-esw.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7628-esw.yaml
+> new file mode 100644
+> index 000000000000..a9db9057ee54
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7628-esw.yaml
+> @@ -0,0 +1,101 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/dsa/mediatek,mt7628-esw.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Mediatek MT7628 Embedded Ethernet Switch
+> +
+> +maintainers:
+> +  - Joris Vaisvila <joey@tinyisr.com>
+
+This isn't a bug, but the maintainers list only contains the submitter
+at an unrelated domain. Existing in-tree MediaTek DSA bindings such as
+Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml list
+multiple MediaTek or long-standing MediaTek-community maintainers.
+
+For an official MediaTek SoC's built-in switch IP, would it make sense
+to CC or co-list a MediaTek networking maintainer (Sean Wang, Landen
+Chao, Daniel Golle, ...) so the hardware description can be
+corroborated and the binding ABI has long-term stewardship?
+
+> +
+> +description:
+> +  The MT7628 SoC's built-in Ethernet Switch is a five port switch with
+> +  integrated 10/100 PHYs. The switch registers are directly mapped in the SoC's
+> +  memory. The switch has an internally connected 1G CPU port and 5 user ports
+> +  connected to the built-in Fast Ethernet PHYs.
+
+Is the description internally consistent?
+
+The first sentence says "a five port switch with integrated 10/100
+PHYs", but the following sentences describe "an internally connected
+1G CPU port and 5 user ports", which is six ports in total. The
+example below also enumerates six ports (reg = 0..4 and 6).
+
+Could this be reworded as e.g. "5 user ports plus 1 internal CPU
+port" to avoid the ambiguity?
+
+Separately, there is no justification in the commit message or
+binding for the absence of a clocks property. MT7628 peripherals are
+typically gated by syscon clock outputs (see
+arch/mips/boot/dts/ralink/mt7628a.dtsi), and
+drivers/net/ethernet/mediatek/mtk_eth_soc.c already treats "esw" as a
+named clock.
+
+The MT7628 ESW driver added alongside this binding deliberately does
+not call any clk_* API, which is a valid design choice if the esw
+gate is always on after reset. Since DT bindings are ABI, though,
+adding a clocks property later would be a backward-incompatible
+change.
+
+Could the commit message explain why no clocks property is needed, or
+alternatively could clocks/clock-names be described in the binding
+now even if the initial driver ignores them?
+
+> +
+> +unevaluatedProperties: false
+> +
+> +allOf:
+> +  - $ref: dsa.yaml#/$defs/ethernet-ports
+> +
+> +properties:
+> +  compatible:
+> +    const: mediatek,mt7628-esw
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    items:
+> +      - description: internal switch block reset
+> +      - description: internal phy package reset
+> +
+> +  reset-names:
+> +    items:
+> +      - const: esw
+> +      - const: ephy
+> +
+> +  mdio:
+> +    $ref: /schemas/net/mdio.yaml#
+> +    unevaluatedProperties: false
+
+The mdio subnode is referenced here and is actually consumed by the
+driver (drivers/net/dsa/mt7628.c mt7628_setup_internal_mdio() calls
+of_get_available_child_by_name(..., "mdio") and
+devm_of_mdiobus_register()), but the binding provides no description
+of when or why a user would populate it.
+
+Given the top-level description says the PHYs are "integrated" and
+"internally connected", when should an mdio subnode be present? Is an
+external MDIO master ever supported?
+
+A short description attached to the mdio property would make the
+intent clear to DT authors.
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - resets
+> +  - reset-names
+> +  - ethernet-ports
+
+Should the valid port reg values be constrained here?
+
+The MT7628 ESW has a fixed, well-known set of valid port indices
+(0..4 for user ports and 6 for the CPU, with port 5 not existing).
+See mt7628_phylink_get_caps() in drivers/net/dsa/mt7628.c, which
+explicitly comments that "port 5 does not exist on MT7628".
+
+As written the schema accepts ethernet-port@5 or ethernet-port@7 at
+dt_binding_check time, even though the driver will silently ignore
+them. Would adding a reg enum constraint on the ethernet-port
+children (e.g. via patternProperties, or an override of the
+$defs/ethernet-ports reg) catch these mistakes at schema-validation
+time?
+
+> +
+> +examples:
+> +  - |
+> +    switch0: switch@10110000 {
+> +        compatible = "mediatek,mt7628-esw";
+> +
+> +        reg = <0x10110000 0x8000>;
+> +
+> +        resets = <&sysc 23>, <&sysc 24>;
+> +        reset-names = "esw", "ephy";
+> +
+> +        ethernet-ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+[ ... ]
+> +            ethernet-port@6 {
+> +                reg = <6>;
+> +                phy-mode = "internal";
+> +                ethernet = <&ethernet>;
+
+The example references an undefined phandle here: ethernet-port@6
+uses ethernet = <&ethernet> but no node labelled "ethernet" is defined
+in the example snippet.
+
+Other DSA binding examples in Documentation/devicetree/bindings/net/dsa/
+typically either provide a minimal stub for referenced phandles inside
+the example or use a reg-based reference. Will dt_binding_check emit a
+warning about the unresolved phandle as written?
+
+> +
+> +                fixed-link {
+> +                    speed = <1000>;
+> +                    full-duplex;
+> +                };
+> +            };
+> +        };
+> +    };
+-- 
+pw-bot: cr
