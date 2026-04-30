@@ -1,315 +1,261 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06FAA2DCBEC;
-	Thu, 30 Apr 2026 15:13:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7742EE611;
+	Thu, 30 Apr 2026 15:26:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777562029; cv=none; b=YlkNV34F5TtgCFpUXB5F7Q+r8fY+rIIJZWcQN+1JyBtg3IqZuFGVB6D4FvyTY0tOtCIctLK2NE3lX6sBBpC728kAClLdGoNx8n4Fo2jaXo2yupv+T9LU8rUtgfa962dugF207hQ8RCVVm0ie1r6+JOi95p/2i/GamDM1s4Galwk=
+	t=1777562788; cv=none; b=tHa4y+tF5RcfpholQBXuhopzSXCA18JYik7Mgshd0zKpBPCoHq4T3CES1z4Tel9mZYiokJ4LjcpBdAYDTSfceI2Sp5BRexPjJ6O4iOfITsCj6nDAMw9/VRdSWLNkW1Twi2d5q9iVmcCDoVu3THvdlJQasXZr1aXBB3b/oNw4NRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777562029; c=relaxed/simple;
-	bh=Izv4n+16mvOVo69KhJe+E4tjLry5aBKZPO4Lz7ioZ2I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xw1OPSj2Cc8ezh4tkXQSfkexcLeUrmldYDsvjK9GcVRgep4RsfwxSRv0+Yu/QuSPMi4SfSWj+3l0WVORhqEGuMfPiYyKGSYK1GhugzA9oqI+pH39Mg7xekbwR+XguKnEk8TSXiYxYIleq93qX+N/WfMU75F0D4fE0klXD3nkg8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=XTpu2dNc; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1777562788; c=relaxed/simple;
+	bh=UQjPSiitxZ94Lj9oj8nkfmn35aZiy+FarQcaGlt5B1c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JReS8QCcLvTHNGAgU9mFxjC8CrpWESHLJs72EL1Um/+mB6VprP1W/8JeHtM2RVgExQpDeLpt2A63cShz/a3zysp3KWoexRbZLkw5D2LYZxv9QCWTdz+f3pPAn0y5TGXU/B6xZeK3qEEt0TAQZG1akRIcXLVNpKMOcbOtdvwvmM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mluKwcAW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="XTpu2dNc"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F3B3626EA5F;
-	Thu, 30 Apr 2026 17:13:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1777562022; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=AZ2lsKzvN3PciTQxinFWYhD3aqF0FoCVDMyac4TLNow=;
-	b=XTpu2dNcSRseEtx71ppPGi6I8zhGDqZchgfpC6xYtxw1LbS56325LWQ1RWHsGtCyZWokQq
-	y8r6F3Vd9AHNpHoCVJlCjU5VcaXF0zVoEWRmFwQFP/4flAVqbLkayEPfUNA63H9EQU+73U
-	tQzarW7k1FyR/XWYWtAorCm2ppBXCXbNuis6LJsYDXisA1iQnADzsyIqS5MvmaanHM1Eq2
-	2Ecujh5neqOIbRczXsSD7y3pdkHgJcudaYGqCFLwaLH5PDqs68eFnNq8EEbk12keliOv3R
-	Lu0c/kezJbF8cbS2Yyj++6a9gSH0ZbnAxZlKjQFsrvN08fhbZIp5Skf1SVBP4w==
-Message-ID: <add19314-5cab-4c5b-9727-28c618690906@cjdns.fr>
-Date: Thu, 30 Apr 2026 17:13:38 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mluKwcAW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51A61C2BCB3;
+	Thu, 30 Apr 2026 15:26:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777562787;
+	bh=UQjPSiitxZ94Lj9oj8nkfmn35aZiy+FarQcaGlt5B1c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mluKwcAWxCiQdZ3bgocvx4a1neormKMn054hHInZRgQ7b1DLPPPZqPg/fQJHuSsk0
+	 3ZH7vB59hfOKD/c44sstGy6chTjG2vkCiMqIndFffcn4ac222IhU71ZC4rYYmcBgPk
+	 +0+GzX/JrWVMah60z3W6u2D3ojg166cZNa5pLStu33ubL1gAm6sEdeQ5v8uoEdfos8
+	 jN+PqKxGUcZC3YVqcwVVDWX6KNwjlW47f2h/EhF3cuVVIYVCErijpJsjRJjNXWGb5U
+	 GrMJdOqgKcCQku/5fnOVEKVluarK/q33Wi/+FLoe4Znd322t1VyHmF6sp3Iy0CqYib
+	 5oAmFyDsPGJYQ==
+Date: Thu, 30 Apr 2026 20:56:17 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Magnus Damm <magnus.damm@gmail.com>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, John Madieu <john.madieu.xa@bp.renesas.com>, 
+	linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 5/5] PCI: rzg3s-host: Add support for RZ/V2H(P) SoC
+Message-ID: <lvix7p4e7c4dtchtdti3rwrs7jkda5iy7lthcffhqc7g6vgu2p@54qywklrspi7>
+References: <20260318124450.163471-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260318124450.163471-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <605e8d4c-09e7-4d11-acdb-7829a85eacc3@tuxon.dev>
+ <CA+V-a8srS9g2WDMARDJn98K=nL9v1LiZYxqM8evsVrzR-s5ZMA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v2 2/2] irqchip/econet-en751221: Support MIPS 34Kc VEIC
- mode
-To: linux-mips@vger.kernel.org
-Cc: tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260430150809.1827881-1-cjd@cjdns.fr>
- <20260430150809.1827881-3-cjd@cjdns.fr>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <20260430150809.1827881-3-cjd@cjdns.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CA+V-a8srS9g2WDMARDJn98K=nL9v1LiZYxqM8evsVrzR-s5ZMA@mail.gmail.com>
 
+On Wed, Apr 08, 2026 at 07:54:41PM +0100, Lad, Prabhakar wrote:
+> Hi All,
+> 
+> On Wed, Mar 25, 2026 at 10:18 AM Claudiu Beznea
+> <claudiu.beznea@tuxon.dev> wrote:
+> >
+> > Hi, Prabhakar,
+> >
+> > On 3/18/26 14:44, Prabhakar wrote:
+> > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > >
+> > > Add support for the RZ/V2H(P) SoC PCIe controller to the rzg3s-host
+> > > driver.
+> > >
+> > > The RZ/V2H(P) SoC features two independent PCIe channels that share
+> > > physical lanes. The hardware supports two configuration modes: single
+> > > x4 mode where one controller uses all four lanes, or dual x2 mode
+> > > where both controllers use two lanes each.
+> > >
+> > > Introduce configure_lanes() function pointer to configure the PCIe
+> > > lanes based on the number of channels enabled. Implement
+> > > rzv2h_pcie_configure_lanes() to detect the active PCIe channels at
+> > > boot time and program the lane mode via the system controller using
+> > > the new RZG3S_SYSC_FUNC_ID_LINK_MASTER function ID.
+> > >
+> > > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > > ---
+> > >   drivers/pci/controller/pcie-rzg3s-host.c | 142 +++++++++++++++++++++++
+> > >   1 file changed, 142 insertions(+)
+> > >
+> > > diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
+> > > index a629e861bbd0..d1bf1e750d9b 100644
+> > > --- a/drivers/pci/controller/pcie-rzg3s-host.c
+> > > +++ b/drivers/pci/controller/pcie-rzg3s-host.c
+> > > @@ -179,6 +179,16 @@
+> > >   /* Timeouts experimentally determined */
+> > >   #define RZG3S_REQ_ISSUE_TIMEOUT_US          2500
+> > >
+> > > +/**
+> > > + * enum rzg3s_sysc_link_mode - PCIe link configuration modes
+> > > + * @RZG3S_SYSC_LINK_MODE_SINGLE_X4: Single port with x4 lanes
+> > > + * @RZG3S_SYSC_LINK_MODE_DUAL_X2: Dual ports with x2 lanes each
+> > > + */
+> > > +enum rzg3s_sysc_link_mode {
+> > > +     RZG3S_SYSC_LINK_MODE_SINGLE_X4 = 1,
+> > > +     RZG3S_SYSC_LINK_MODE_DUAL_X2 = 3,
+> > > +};
+> > > +
+> > >   /**
+> > >    * struct rzg3s_sysc_function - System Controller function descriptor
+> > >    * @offset: Register offset from the System Controller base address
+> > > @@ -194,12 +204,14 @@ struct rzg3s_sysc_function {
+> > >    * @RZG3S_SYSC_FUNC_ID_RST_RSM_B: RST_RSM_B SYSC function ID
+> > >    * @RZG3S_SYSC_FUNC_ID_L1_ALLOW: L1 allow SYSC function ID
+> > >    * @RZG3S_SYSC_FUNC_ID_MODE: Mode SYSC function ID
+> > > + * @RZG3S_SYSC_FUNC_ID_LINK_MASTER: Link master SYSC function ID
+> > >    * @RZG3S_SYSC_FUNC_ID_MAX: Max SYSC function ID
+> > >    */
+> > >   enum rzg3s_sysc_func_id {
+> > >       RZG3S_SYSC_FUNC_ID_RST_RSM_B,
+> > >       RZG3S_SYSC_FUNC_ID_L1_ALLOW,
+> > >       RZG3S_SYSC_FUNC_ID_MODE,
+> > > +     RZG3S_SYSC_FUNC_ID_LINK_MASTER,
+> > >       RZG3S_SYSC_FUNC_ID_MAX,
+> > >   };
+> > >
+> > > @@ -261,6 +273,7 @@ struct rzg3s_pcie_host;
+> > >    * @config_pre_init: Optional callback for SoC-specific pre-configuration
+> > >    * @config_post_init: Callback for SoC-specific post-configuration
+> > >    * @config_deinit: Callback for SoC-specific de-initialization
+> > > + * @setup_lanes: Callback for setting up the number of lanes
+> > >    * @power_resets: array with the resets that need to be de-asserted after
+> > >    *                power-on
+> > >    * @cfg_resets: array with the resets that need to be de-asserted after
+> > > @@ -268,17 +281,20 @@ struct rzg3s_pcie_host;
+> > >    * @sysc_info: System Controller info for each PCIe channel
+> > >    * @num_power_resets: number of power resets
+> > >    * @num_cfg_resets: number of configuration resets
+> > > + * @num_channels: number of PCIe channels
+> > >    */
+> > >   struct rzg3s_pcie_soc_data {
+> > >       int (*init_phy)(struct rzg3s_pcie_host *host);
+> > >       void (*config_pre_init)(struct rzg3s_pcie_host *host);
+> > >       int (*config_post_init)(struct rzg3s_pcie_host *host);
+> > >       int (*config_deinit)(struct rzg3s_pcie_host *host);
+> > > +     int (*setup_lanes)(struct rzg3s_pcie_host *host);
+> > >       const char * const *power_resets;
+> > >       const char * const *cfg_resets;
+> > >       struct rzg3s_sysc_info sysc_info[RZG3S_PCIE_CHANNEL_ID_MAX];
+> > >       u8 num_power_resets;
+> > >       u8 num_cfg_resets;
+> > > +     u8 num_channels;
+> > >   };
+> > >
+> > >   /**
+> > > @@ -309,6 +325,7 @@ struct rzg3s_pcie_port {
+> > >    * @intx_irqs: INTx interrupts
+> > >    * @max_link_speed: maximum supported link speed
+> > >    * @channel_id: PCIe channel identifier, used for System Controller access
+> > > + * @num_lanes: The number of lanes
+> > >    */
+> > >   struct rzg3s_pcie_host {
+> > >       void __iomem *axi;
+> > > @@ -325,6 +342,7 @@ struct rzg3s_pcie_host {
+> > >       int intx_irqs[PCI_NUM_INTX];
+> > >       int max_link_speed;
+> > >       enum rzg3s_pcie_channel_id channel_id;
+> > > +     u8 num_lanes;
+> > >   };
+> > >
+> > >   #define rzg3s_msi_to_host(_msi)     container_of(_msi, struct rzg3s_pcie_host, msi)
+> > > @@ -1155,6 +1173,13 @@ static int rzg3s_pcie_config_init(struct rzg3s_pcie_host *host)
+> > >       rzg3s_pcie_update_bits(host->pcie, PCI_CLASS_REVISION, mask,
+> > >                              field_prep(mask, PCI_CLASS_BRIDGE_PCI_NORMAL));
+> > >
+> > > +     if (host->num_lanes) {
+> > > +             rzg3s_pcie_update_bits(host->pcie + RZG3S_PCI_CFG_PCIEC,
+> > > +                                    PCI_EXP_LNKCAP, PCI_EXP_LNKCAP_MLW,
+> > > +                                    FIELD_PREP(PCI_EXP_LNKCAP_MLW,
+> > > +                                               host->num_lanes));
+> > > +     }
+> > > +
+> > >       /* Disable access control to the CFGU */
+> > >       writel_relaxed(0, host->axi + RZG3S_PCI_PERM);
+> > >
+> > > @@ -1687,6 +1712,63 @@ rzg3s_pcie_host_setup(struct rzg3s_pcie_host *host,
+> > >       return ret;
+> > >   }
+> > >
+> > > +static int rzg3s_pcie_get_controller_id(struct rzg3s_pcie_host *host)
+> > > +{
+> > > +     struct device_node *np = host->dev->of_node;
+> > > +     u32 domain;
+> > > +     int ret;
+> > > +
+> > > +     if (host->data->num_channels == 1)
+> > > +             return 0;
+> > > +
+> > > +     ret = of_property_read_u32(np, "linux,pci-domain", &domain);
+> >
+> > This introduces some limits in the systems with RZ/V2H(P) SoCs with regards to
+> > the usage of linux,pci-domain. I would like the PCIe maintainers take on this.
+> >
+> > As this is necessary to index in the system controller driver specific data (as
+> > there are different SYSC offsets for different PCIe controllers) I see the
+> > following alternatives, if any:
+> >
+> > 1/ add a dedicated DT property for this, e.g. renesas,pcie-controller-id
+> > 2/ Add dedicated DT bindings for RZ/V2H(P) SoC that would be used to specify the
+> >     system controller register offset and mask for different functionalities.
+> >
+> >     E.g.:
+> >     renesas,sysc-l1-allow = <&sysc 0x1020 0x1>;
+> >     renesas,sysc-mode = <&sysc 0x1024 0x1>;
+> >     renesas,sysc-link-master = <&sysc 0x1060 0x300>;
+> >
+> >     And use them in each controller DT node. E.g.:
+> >
+> >     pcie0: pcie@add1 {
+> >         // ...
+> >
+> >         renesas,sysc-l1-allow = <&sysc 0x1020 0x1>;
+> >         renesas,sysc-mode = <&sysc 0x1024 0x1>;
+> >         renesas,sysc-link-master = <&sysc 0x1060 0x300>;
+> >
+> >         // ...
+> >     };
+> >
+> >     pcie0: pcie@add1 {
+> >         // ...
+> >
+> >         renesas,sysc-l1-allow = <&sysc 0x1050 0x1>;
+> >         renesas,sysc-mode = <&sysc 0x1054 0x1>;
+> >         renesas,sysc-link-master = <&sysc 0x1060 0x300>;
+> >
+> >         // ...
+> >     };
+> >
+> I'd like to get a clearer steer from the PCIe and DT maintainers
+> before investing further in either direction.
+> 
+> To recap the two approaches on the table:
+> 
+>   Option 1: A single renesas,pcie-controller-id property used to look up
+>             SYSC offsets in the driver.
+> 
 
-On 30/04/2026 17:08, Caleb James DeLisle wrote:
-> The Vectored External Interrupt Controller mode present in the MIPS
-> 34Kc and 1004Kc causes the CPU to stop dispatching interrupts by the
-> normal code path and instead it sends those interrupts to the external
-> interrupt controller to be prioritized, renumbered, and sent back.
-> When they come back, they are handled through a different path using a
-> dispatch table, so plat_irq_dispatch never sees action.
->
-> This of course subverts the traditional intc hierarchy, and on the
-> 1004Kc the interrupt controller is standardized (IRQ_GIC) so it can be
-> reasonably considered part of the CPU itself - and tighter coupling
-> between IRQ_GIC and arch/mips/* is tolerable. However on the 34Kc
-> the intc is defined by each SoC vendor, so it's required to have a
-> modular driver - but for a device which in fact ends up taking over the
-> entire interrupt system.
->
-> Let the DT describe which IRQs which come from the CPU and should be
-> routed back and handled by the CPU intc. These particularly include the
-> two IPI interrupts which would otherwise necessitate duplication of all
-> the IPI supporting infrastructure from the CPU intc.
->
-> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
-> ---
->   drivers/irqchip/irq-econet-en751221.c | 176 +++++++++++++++++++++++++-
->   1 file changed, 173 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/irqchip/irq-econet-en751221.c b/drivers/irqchip/irq-econet-en751221.c
-> index d83d5eb12795..98c109fe053b 100644
-> --- a/drivers/irqchip/irq-econet-en751221.c
-> +++ b/drivers/irqchip/irq-econet-en751221.c
-> @@ -30,6 +30,8 @@
->   #include <linux/irqchip.h>
->   #include <linux/irqchip/chained_irq.h>
->   
-> +#include <asm/setup.h>
-> +
->   #define IRQ_COUNT		40
->   
->   #define NOT_PERCPU		0xff
-> @@ -42,14 +44,18 @@
->   
->   /**
->    * @membase: Base address of the interrupt controller registers
-> + * @domain: The irq_domain for direct dispatch
-> + * @ipi_domain: The irq_domain for inter-process dispatch
->    * @interrupt_shadows: Array of all interrupts, for each value,
->    *	- NOT_PERCPU: This interrupt is not per-cpu, so it has no shadow
->    *	- IS_SHADOW: This interrupt is a shadow of another per-cpu interrupt
->    *	- else: This is a per-cpu interrupt whose shadow is the value
+Can you explain what is the limitation with 'linux,pci-domain' property?
 
+>   Option 2: Explicit per-controller DT properties carrying the SYSC
+>             phandle, register offset, and mask for each functionality
+>             (L1 allow, mode, link-master, etc.).
+> 
 
-Hey I'm really sorry, I did fix replace these spaces with tabs but 
-Something Happened. I'll resend :(
+Are the register offsets going to stay the same across controller instances?
 
-Caleb
+If they are not going to change and you can derive the offsets using the
+controller index, then there is no need to go for individual DT properties.
 
+- Mani
 
->    */
->   static struct {
-> -	void __iomem	*membase;
-> -	u8		interrupt_shadows[IRQ_COUNT];
-> +	void __iomem		*membase;
-> +	struct irq_domain	*domain;
-> +	struct irq_domain	*ipi_domain;
-> +	u8			interrupt_shadows[IRQ_COUNT];
->   } econet_intc __ro_after_init;
->   
->   static DEFINE_RAW_SPINLOCK(irq_lock);
-> @@ -150,6 +156,55 @@ static void econet_intc_from_parent(struct irq_desc *desc)
->   	chained_irq_exit(chip, desc);
->   }
->   
-> +/* When in VEIC mode, the CPU jumps to a handler in the vector table.
-> + * The only way to know which interrupt is being triggered is from the vector table offset that
-> + * has been jumped to. Reading REG_PENDING(0|1) will tell you which interrupts are currently
-> + * pending in the intc, but that will not tell you which one the intc wants you to process
-> + * right now. And if you are not processing the exact interrupt that the intc wants you to be
-> + * processing, you might be on the wrong VPE. You can't tell which VPE any given REG_PENDING
-> + * interrupt is intended for (shadow IRQ numbers are for masking only, they never flag as
-> + * pending).
-> + *
-> + * Consequently, this little ritual of generating n handler functions and registering one per
-> + * interrupt is unavoidable.
-> + */
-> +#define X(irq) \
-> +	static void econet_irq_dispatch ## irq (void) \
-> +	{ \
-> +		do_domain_IRQ(econet_intc.domain, irq); \
-> +	}
-> +
-> + X(0)  X(1)  X(2)  X(3)  X(4)  X(5)  X(6)  X(7)  X(8)  X(9)
-> +X(10) X(11) X(12) X(13) X(14) X(15) X(16) X(17) X(18) X(19)
-> +X(20) X(21) X(22) X(23) X(24) X(25) X(26) X(27) X(28) X(29)
-> +X(30) X(31) X(32) X(33) X(34) X(35) X(36) X(37) X(38) X(39)
-> +
-> +#undef X
-> +#define X(irq) econet_irq_dispatch ## irq,
-> +
-> +static void (* const econet_irq_dispatchers[])(void) = {
-> +	X(0)  X(1)  X(2)  X(3)  X(4)  X(5)  X(6)  X(7)  X(8)  X(9)
-> +	X(10) X(11) X(12) X(13) X(14) X(15) X(16) X(17) X(18) X(19)
-> +	X(20) X(21) X(22) X(23) X(24) X(25) X(26) X(27) X(28) X(29)
-> +	X(30) X(31) X(32) X(33) X(34) X(35) X(36) X(37) X(38) X(39)
-> +};
-> +
-> +/* Likewise, we do the same for the 2 IPI IRQs so that we can route them back */
-> +static void econet_cpu_dispatch0(void)
-> +{
-> +	do_domain_IRQ(econet_intc.ipi_domain, 0);
-> +}
-> +
-> +static void econet_cpu_dispatch1(void)
-> +{
-> +	do_domain_IRQ(econet_intc.ipi_domain, 1);
-> +}
-> +
-> +static void (* const econet_cpu_dispatchers[])(void) = {
-> +	econet_cpu_dispatch0,
-> +	econet_cpu_dispatch1,
-> +};
-> +
->   static const struct irq_chip econet_irq_chip;
->   
->   static int econet_intc_map(struct irq_domain *d, u32 irq, irq_hw_number_t hwirq)
-> @@ -174,6 +229,10 @@ static int econet_intc_map(struct irq_domain *d, u32 irq, irq_hw_number_t hwirq)
->   	}
->   
->   	irq_set_chip_data(irq, NULL);
-> +
-> +	if (cpu_has_veic)
-> +		set_vi_handler(hwirq + 1, econet_irq_dispatchers[hwirq]);
-> +
->   	return 0;
->   }
->   
-> @@ -249,6 +308,101 @@ static int __init get_shadow_interrupts(struct device_node *node)
->   	return 0;
->   }
->   
-> +/**
-> + * econet_cpu_init() - configure routing of CPU interrupts to the correct domain.
-> + * @node: The devicetree node of this interrupt controller.
-> + *
-> + * Interrupts that originate from the CPU are unconditionally unmasked here and are re-routed back
-> + * to the IPI irq_domain in the CPU intc. Masking still takes place but the CPU intc is in charge
-> + * of it, using the mask bits of the c0_status register.
-> + *
-> + * Note that because IP2 ... IP7 are repurposed as Interrupt Priority Level, only the two IPI
-> + * interrupts are actually supported.
-> + */
-> +static int __init econet_cpu_init(struct device_node *node)
-> +{
-> +	const char *field = "econet,cpu-interrupt-map";
-> +	struct device_node *parent_intc;
-> +	int map_size;
-> +	u32 mask;
-> +
-> +	map_size = of_property_count_u32_elems(node, field);
-> +
-> +	if (map_size <= 0) {
-> +		return 0;
-> +	} else if (map_size % 2) {
-> +		pr_err("%pOF: %s count is odd, ignoring\n", node, field);
-> +		return 0;
-> +	}
-> +
-> +	u32 *maps __free(kfree) = kmalloc_array(map_size, sizeof(u32), GFP_KERNEL);
-> +	if (!maps)
-> +		return -ENOMEM;
-> +
-> +	if (of_property_read_u32_array(node, field, maps, map_size)) {
-> +		pr_err("%pOF: Failed to read %s\n", node, field);
-> +		return -EINVAL;
-> +	}
-> +
-> +	/* Validation */
-> +	for (int i = 0; i < map_size; i += 2) {
-> +		u32 receive = maps[i];
-> +		u32 dispatch = maps[i + 1];
-> +		u8 shadow;
-> +
-> +		if (receive >= IRQ_COUNT) {
-> +			pr_err("%pOF: Entry %d:%d in %s (%u) %s\n",
-> +			       node, i, 0, field, receive, "is out of bounds");
-> +			return -EINVAL;
-> +		}
-> +
-> +		shadow = econet_intc.interrupt_shadows[receive];
-> +		if (shadow != NOT_PERCPU && shadow >= IRQ_COUNT) {
-> +			pr_err("%pOF: Entry %d:%d in %s (%u) %s\n",
-> +			       node, i, 0, field, receive, "has invalid shadow");
-> +			return -EINVAL;
-> +		}
-> +
-> +		if (dispatch >= ARRAY_SIZE(econet_cpu_dispatchers)) {
-> +			pr_err("%pOF: Entry %d:%d in %s (%u) %s\n",
-> +			       node, i, 1, field, dispatch,
-> +			       "is out of bounds, only IPI interrupts are supported");
-> +			return -EINVAL;
-> +		}
-> +	}
-> +
-> +	parent_intc = of_irq_find_parent(node);
-> +	if (!parent_intc) {
-> +		pr_err("%pOF: Failed to find parent %s\n", node, "IRQ device");
-> +		return -ENODEV;
-> +	}
-> +
-> +	econet_intc.ipi_domain = irq_find_matching_host(parent_intc, DOMAIN_BUS_IPI);
-> +	if (!econet_intc.ipi_domain) {
-> +		pr_err("%pOF: Failed to find parent %s\n", node, "IPI domain");
-> +		return -ENODEV;
-> +	}
-> +
-> +	mask = 0;
-> +	for (int i = 0; i < map_size; i += 2) {
-> +		u32 receive = maps[i];
-> +		u32 dispatch = maps[i + 1];
-> +		u8 shadow;
-> +
-> +		set_vi_handler(receive + 1, econet_cpu_dispatchers[dispatch]);
-> +
-> +		mask |= BIT(receive);
-> +
-> +		shadow = econet_intc.interrupt_shadows[receive];
-> +		if (shadow != NOT_PERCPU)
-> +			mask |= BIT(shadow);
-> +	}
-> +
-> +	econet_wreg(REG_MASK0, mask, mask);
-> +
-> +	return 0;
-> +}
-> +
->   static int __init econet_intc_of_init(struct device_node *node, struct device_node *parent)
->   {
->   	struct irq_domain *domain;
-> @@ -294,7 +448,23 @@ static int __init econet_intc_of_init(struct device_node *node, struct device_no
->   		goto err_unmap;
->   	}
->   
-> -	irq_set_chained_handler_and_data(irq, econet_intc_from_parent, domain);
-> +	/*
-> +	 * 34K Manual (MD00534) Section 6.3.1.3 rev 1.13 page 136:
-> +	 * In VEIC mode, IP2 ... IP7 are repurposed as Interrupt Priority Level. The controller
-> +	 * will filter incoming interrupts whose priority is lower than the IPL number. Therefore
-> +	 * we must not set any of these bits. We avoid setting IP2 by not actually chaining this
-> +	 * intc to the CPU intc.
-> +	 */
-> +	if (cpu_has_veic) {
-> +		ret = econet_cpu_init(node);
-> +
-> +		if (ret)
-> +			return ret;
-> +	} else {
-> +		irq_set_chained_handler_and_data(irq, econet_intc_from_parent, domain);
-> +	}
-> +
-> +	econet_intc.domain = domain;
->   
->   	return 0;
->   
+-- 
+மணிவண்ணன் சதாசிவம்
