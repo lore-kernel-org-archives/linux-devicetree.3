@@ -1,100 +1,136 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E7A37F8C5;
-	Thu, 30 Apr 2026 20:42:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777581724; cv=none; b=cHpTbAqKqCcsNSb33AQYZIC73mWcZuxxY9KIg5gcItcSHCEg6MfXkLcHK0V1+pBrf3Ot/HnZKBxujzp2DbhuTjVxPhulGeR+9uca6HYszdaq4c3Gwxd3Y9AdmIg8YRQm1VMlsKkslDGhAdkz4rFHJoX/D7R8X1OXQU/f6/LNvSg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777581724; c=relaxed/simple;
-	bh=SF61RjFeriGYp10aHSQ3fgkmUsJKoQcTEAr6oGybJbw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JnFTiz88TXiObKUaUoO3SOSS+pKmYvS1Wbk16z9EWRqT5xAMWBgrQ7ka1DvP+XhKced0E1tc0t6ieMGkH5Ry7ckF5Uc6mC2m7xjK98RdiiouWWuptFWXFKA5wEo4XAM/KrkywB6cfb7o8v33fEuaKcRBi3yAfiV0Apj+r1CD5tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=brOTbxfl; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F272D22689C
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 22:14:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777587257; cv=pass; b=Tk5wOYlDsFCXN7N2Tipoh/N884zVqW+KXqQOPNn+xTq+Lze0vijVm9gjFdAbL+AvFuFOmQO8Gh4nN20uNZrTjUEZcGy7xKl2WykSq70+RFLEqp4xin/ZEPYgjb2fRquMWWkr7BYVEmfVpxLfW/Bz51zcEpcX35gpRDi40yH20uc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777587257; c=relaxed/simple;
+	bh=fnkadRgpeprmtKDbJ+PN8aevRiS6O+5ljTot5EgQs4A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bZL450KEOLQABzliiC5Hn+8dyo7VoDzmxl7tht2SdhZFkcqJNzQ9sQaQEGRVzmZ+9DWIZnfVVH/A9N+BI4oFhi00W+lmQMFooDYS1XUx4LAbm2aRMwEs0zSee7XCsRuoTx6ClYJ7ATjxibsvzeHfG2RkhfE8eBvkRONNk/0yYTw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f+OQ2IUB; arc=pass smtp.client-ip=209.85.217.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="brOTbxfl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777581723; x=1809117723;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=SF61RjFeriGYp10aHSQ3fgkmUsJKoQcTEAr6oGybJbw=;
-  b=brOTbxfli+mLNiUN5tbiTXVlwnxqD+9qK1YGA0F3b9qdgJFQ70IAxfbi
-   vIqwpDYp0Gw+4ZkjkOP2b/gMh1SH61fJiQ5YPshG94B2eH59xNsyf3eh+
-   ZD82VAG+RECzLU5G8pESUn5uUt0F/wSUQ11HDsdmenDh7kbZ2vEPGkpwN
-   /yCqAElccSIJ0ktSg5jTwMQM8F9qEYKBCHxgkrVlETXQgw92bHP3I4IZ+
-   0JXLRH+5SievfLdrKpNQirU2WKoUZfxvAvHj35XpkRQyyoAL4R88qQo2X
-   5Gcx9sifMcLZJU+mgBLQRhft98jNmsdYEsM+pVRXsmWVR7JCYwL6Sya4t
-   g==;
-X-CSE-ConnectionGUID: MC58JYhsTiu2Bf1Hqd1mLQ==
-X-CSE-MsgGUID: yTzYAqwxSOWXt3aCDvOF8A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11772"; a="104003720"
-X-IronPort-AV: E=Sophos;i="6.23,208,1770624000"; 
-   d="scan'208";a="104003720"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Apr 2026 13:42:02 -0700
-X-CSE-ConnectionGUID: w84KkCgcQdCeWjzXnn5Csw==
-X-CSE-MsgGUID: ew5vami+SIeLcBZ3z71r2w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,208,1770624000"; 
-   d="scan'208";a="233649506"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.197])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Apr 2026 13:42:00 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id EDE61121CC0;
-	Thu, 30 Apr 2026 23:42:04 +0300 (EEST)
-Date: Thu, 30 Apr 2026 23:42:04 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v4 1/5] dt-bindings: leds: Document TI LM3560 Synchronous
- Boost Flash Driver
-Message-ID: <afO-nOr2JUfm2dUA@kekkonen.localdomain>
-References: <20260428113923.112920-1-clamor95@gmail.com>
- <20260428113923.112920-2-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f+OQ2IUB"
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-610e2e8f57dso588331137.0
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 15:14:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777587255; cv=none;
+        d=google.com; s=arc-20240605;
+        b=N7xeniNXG/i+TZMN8/I1f5z066sgollZlezwFBcj3sKbSl9oYTY8s8bxuPZbFM03m0
+         zTobydeIpYPlmQiaIh+sJCOzOrnlTxbA7RiHVQa5DcDkSbVzW3NcDkQ/uZmr3JszXA1T
+         HLXVwBWqRJHRkeq2c5z2PtuFUYAj1r+ljmvasUiOQzqwCp7BFtDySF4C14Np4Epo+tFq
+         NqAJ3sT8TYgWMPCwJk1GRtpemE2fYJcE/SPB9bV3SKSRVU/Q9/mWJtVEuKNQhUa0Qk8F
+         u8MSJ4iWQEPRi0D8Lsdm+nLMmyYdn3aHLEKF+wRag0NsSE/FbPCBYqDsyqHn6Bni5bY5
+         tEUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fnkadRgpeprmtKDbJ+PN8aevRiS6O+5ljTot5EgQs4A=;
+        fh=y35Ng/QcdNJXXebxm40CA0ti/rYiZgZin/1ssOpdzxs=;
+        b=Xg+1BnnAKLqQWC188PMxUZ9Og5m/GwB1c+eEsxSs0w3DejtECc756a7zjkk8aYYVKT
+         nbY6FkwzBdjWc8C0qEF9Tl0WO2SdfKQRptNNYCwUlZukestDjQtu5/DCf2ekP+bTl5qW
+         lV67kWDA4Gd0YdcrihSiSQMUDiesS6HFKFyrSX7BkyoFm6AmGUgh30ntE+sD+jvy4VvW
+         gPIYtTFRwnUz4wwTu7pwuT8v5USuHdrimhApsOYHkyX7SvJnygykuTDDqveezUSM5Ty0
+         gUSL3IRtIJ7eyz1FnCKQRlruiGt0Eh846sEp0qNmAP2mGaAfwImloB45kFJftRkYqils
+         /Lag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777587255; x=1778192055; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fnkadRgpeprmtKDbJ+PN8aevRiS6O+5ljTot5EgQs4A=;
+        b=f+OQ2IUB75xn3Gcbzrrh4t7gQ6yWlx9uxWjL6qYyehudpAnrieew9rB1v+mmzGZT1f
+         LKr/1B+Ss5QFQiVZ9roRKS4/Xv7KB+J0zAjqn0bNWlFL3CgI8iheT8IPCnjtIgnHe0IT
+         adQN7Ppl37kep6uf0SqWhtGhwBmfS1vSoGPt7cmXZhH/HNo8vnBLOSDcFHqGkof8la6R
+         7zJOt84/TuvYwN59vjodsBsB0o2GjR3edXcjVkI1UVTc+YASf7LgzrHIj7QWJzVXankD
+         C93/BwD1Pb3EJ9Af/0cfJmaVZ+T2+F25VaAI5dxYt8YTu+kJjdl3BAPufpaEwbn8wdra
+         ildQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777587255; x=1778192055;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=fnkadRgpeprmtKDbJ+PN8aevRiS6O+5ljTot5EgQs4A=;
+        b=a5OJDFgNw5PKYxvZRlYBxjN1c7iqPJDj8DYcweIZ8FnN8Kg8JtYaPS9BZvIN5kXJ85
+         7D+jfM6knE7ieMIryDEUsOihqF9ACyqB14IusoTXEv04Us/MQjJ8LgR7J6F9QJfi8pJC
+         aCJdWzSgVoNC6ThAJPDn78VZ3Ni9I8b4ZW6cG8gLWZHXn5k3pqY+vUdg/Ix6ybqV95eT
+         d8ZjKNDxg62nGMIiQxPLcLbCiMqe3VK+E5qLaT9GiVz7ywydDPbr8mC63kg3lfWoxq6n
+         kfZeiNcM6wPCjsemQMMzJFOC+wb/RMj8WCnTIs/QqOWHeX4DvXwEtqQn5vQR6h+97bBc
+         GTKw==
+X-Forwarded-Encrypted: i=1; AFNElJ8qNdKVNxjIth8DtS25esRSrpcIU6nYV3jOur1ml7i5x3SPnPbm9sFuCs4V4TuVNJoGNf7IY+963RmG@vger.kernel.org
+X-Gm-Message-State: AOJu0YxTZX/JQdsee4v0ZPAnyJEy1McBSNz6NcyDW0Tf9ps4pPGfDzWK
+	H8lkOe5AfT9OPmLiVKelQt3rZK2V3tUXI/+N+Vbj5pDhpL54jPXLXhqcrKhmc7P3UpMtbHP9fKH
+	9HJw8xMhSiw7C1i7QbdnuW5LRLBh84wU=
+X-Gm-Gg: AeBDietmw5aXG9sDnustq/bCPo4wyM3oh2LWrWlBtynGahbsazwterhtioZdJPcCbFR
+	3eXZPVdCDi2Mr7RjcYbNwNUWoRqLPViz3mi5ZjHEGUALuU1xqiNgRQ8wa+G2E2+qtqmj0X93B8N
+	7naydhCjKNApOuZCSWY+SXLj70zwo0AInDjO0TiLCWuN9PfpGAU6AQFyLs9oFLJJuWPHWFDwled
+	VDTXFwqZm6msqV9bf80al4Msm4uDP/elYg9NKFdrtvnPCoGPmgRGqOIdcQHJy57ukjLAUrhOXWK
+	e6X53S5VebNvAiWrmKmWGcNMyufnPiwFXFv3hUUf2KXFClwRPtv8rFWqrlw/
+X-Received: by 2002:a05:6102:38cb:b0:618:3503:5663 with SMTP id
+ ada2fe7eead31-62c33007bd0mr347932137.8.1777587254750; Thu, 30 Apr 2026
+ 15:14:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260428113923.112920-2-clamor95@gmail.com>
+References: <cover.1776872453.git.happycpu@gmail.com> <20260429035134.1023330-3-happycpu@gmail.com>
+ <CAD++jLmOO2UmBUx0CseCnrK_Dyw1O=MbeXzOmvuvSSnN12Vchg@mail.gmail.com>
+In-Reply-To: <CAD++jLmOO2UmBUx0CseCnrK_Dyw1O=MbeXzOmvuvSSnN12Vchg@mail.gmail.com>
+From: =?UTF-8?B?7KCV7LCs7ZmN?= <happycpu@gmail.com>
+Date: Fri, 1 May 2026 07:14:04 +0900
+X-Gm-Features: AVHnY4JkbRdIMPXcavkf1aKOaenr3awK6baJ6X0mHvd_uKOoYJ4bVrDtc31ZKyQ
+Message-ID: <CANh86Rbrza8Txh2QAPZ5LEsfHW9V2L0o0SdyszdA_=f0Vs2ykg@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] gpio: 74x164: support lines-initial-states for
+ boot-time output state
+To: Linus Walleij <linusw@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Svyatoslav,
+Thanks Linus, appreciate the review.
 
-On Tue, Apr 28, 2026 at 02:39:18PM +0300, Svyatoslav Ryhel wrote:
-> +  flash-max-timeout-us:
-> +    minimum: 32000
-> +    maximum: 1024000
-> +    default: 32000
-> +
-> +  ti,peak-current-microamp:
-> +    description:
-> +      The LM3560 features 4 selectable current limits 1.6A, 2.3A, 3A, and 3.6A.
-> +      When the current limit is reached, the LM3560 stops switching for the
-> +      remainder of the switching cycle.
-> +    enum: [1600000, 2300000, 3000000, 3600000]
-> +    default: 1600000
 
-I missed earlier these limits are of course incorrect for lm3559. These
-would need to be changed for the lm3559, too. I'd just drop that compatible
-for now.
-
-I can do that while applying the patches if you're fine with that.
-
--- 
-Regards,
-
-Sakari Ailus
+2026=EB=85=84 4=EC=9B=94 30=EC=9D=BC (=EB=AA=A9) =EC=98=A4=ED=9B=84 9:09, L=
+inus Walleij <linusw@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> On Wed, Apr 29, 2026 at 5:51=E2=80=AFAM Chanhong Jung <happycpu@gmail.com=
+> wrote:
+>
+> > 74HC595 and 74LVC594 chains retain their output state from the first
+> > serial write onwards. Today the driver always kicks that first write
+> > from a zero-initialised buffer, so every output comes up low until user
+> > space issues a write. Boards that rely on the chain to drive signals
+> > whose power-on state matters (active-low indicators, reset lines, etc.)
+> > have no way to express the desired initial pattern via DT.
+> >
+> > Read the optional lines-initial-states bitmask, recently documented for
+> > this binding, into chip->buffer before the first
+> > __gen_74x164_write_config() so the chain comes up in a known state on
+> > the very first SPI transaction. Bit N maps to GPIO line N (matching the
+> > nxp,pcf8575 convention); on this output-only device, bit=3D0 drives the
+> > line low and bit=3D1 drives it high. Property absence keeps the existin=
+g
+> > zeroing behaviour intact.
+> >
+> > Suggested-by: Linus Walleij <linus.walleij@linaro.org>
+> > Signed-off-by: Chanhong Jung <happycpu@gmail.com>
+>
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+>
+> If more users of this appears we can start thinking about brining
+> the support code into the core gpiolib but for now this works
+> fine I think.
+>
+> Yours,
+> Linus Walleij
