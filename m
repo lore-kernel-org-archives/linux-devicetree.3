@@ -1,43 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3033BA252;
-	Thu, 30 Apr 2026 22:20:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237C03BC678;
+	Thu, 30 Apr 2026 22:20:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777587644; cv=none; b=G+0tIQw/1iUCSY84bmf/FnDJFRms9CgNthuQMRhIOTBEV8hyp84oi007UXKCDzl98AkQEup5uVE8o52wq+5YgjtpKuWswImZJ3iHcHNi5En6XDayeMLNCzp8wT9jPhmptzBHfOrwuuLaSnl74RK+Kkth74VMtqPykgBK4J5X35M=
+	t=1777587645; cv=none; b=m1MZYGcR+96DG2IMswUE6MNj1GTHE2U+cX3vWC/DdHBK8kvbuRE2LbP0vRe40L0XpndzZsQqaTjoOQgcVzD+InjZ5jnxmD1tq2/b7CQvnfh7jtDrZhsKyXSLjT2rvbJVaEyfRuxz2FfiJhnuGeILoSWeafdWHAaTIpfRzquxvco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777587644; c=relaxed/simple;
-	bh=KyEBP+kk/lyiVl3ntsIO5pL+OJQ3jTSjF+KktcrQhPY=;
+	s=arc-20240116; t=1777587645; c=relaxed/simple;
+	bh=BXeARZ0ujZDNhdquS/qJc3J32JsHagxLqC8adFmTGE8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=d4TsyWAJLTphSAzd7/p03lSlPpAZlcZBX8utlQP9vUNOl90AU+BYEIov3jDLMeUV+cR9pkcqwPlAIkV0NjYkWro+NyCpmC+p9DJ80/T0s/7HldX8Pfg+6ZzR3Xnjeb9btWmpoq6M7qVtXrrkgYAPurTyyg9GM0bQEkCFGpj/UZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=C9Qa+FSc; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=ulu6tVEIlZBBHswbOHhHZBVP2xBel068LQwYRfnCCoUS6T1rlb3G4m7v3JaQsZfyjL2PHeQjK4Ff2vRzidoUEHXLanwrKdMVq8H45NvOASWnWHLb49JONUzrkzKNgFwqkgGlTM8d0lpzGhwOf9+0n3ow1ZIy7M6N/Vj2go2YBQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=H0gCZwgD; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="C9Qa+FSc"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="H0gCZwgD"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1777587638;
-	bh=KyEBP+kk/lyiVl3ntsIO5pL+OJQ3jTSjF+KktcrQhPY=;
+	bh=BXeARZ0ujZDNhdquS/qJc3J32JsHagxLqC8adFmTGE8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=C9Qa+FScllmx4u3vDE/OI2MhSI96ZMy0rOCAAH8Jq6USV+/PjkpGnQviSx1hgJTiY
-	 /YhKj4GQw1HH+8Llwr/FMVj9baPR77vxKLH+U4e8ER0C0hXYlK5Oe73vxRNRbrx+qZ
-	 6yg3VMPMiE1Z2/u/Gn+d8lFCc/uXmvLHjerbr4QWoVQsUHvACG55oll/gt6v9VLb0x
-	 IRjFkdF9/viiXF6QrqOqmyMFk/2U3CeL2VRzquiTtX5IdK3HLRrlHnn2ooH75SJadt
-	 bVvgfYxAPYXZGaosBym08d7D9ChqAnO4yztERqh4XITOX00abc3xGhnCjynTD7ReCt
-	 c/PY3pgnekfzg==
+	b=H0gCZwgDc7BNMkx0aR06G9LUBLuNl8qm+mRNXR7M6gOawFmt7LrzdYlQ2YK7qvfn6
+	 NUuKLlzOWVdSc5ds46gk90Nn66nIx0Pz+cnhlRoIbNVXKlnfHwar4IXm9VsWUMMWWh
+	 6D8YAwD/F5t7vdO1Tie6Zqf+SGJ3HJXPHi31yIXSU1A7MBRW9chsG++t4J/sKxhTyk
+	 VPE22aCAVBtwpRgVE8ZPxn5xw5bzl4TDh4DetmgssnHc/PYmgAxpcQ4oukJwURHdbd
+	 sY7d16cxbNxFwXVIaiZ+sX9Zw9IEoACGA1qqYhBKGXw1HntPeuP6v7ONnMXfqSYsIt
+	 /GaTkeZ5TpKqQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id CDD9017E15A5;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D503617E15A6;
 	Fri,  1 May 2026 00:20:37 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 1D62648004E; Fri, 01 May 2026 00:20:37 +0200 (CEST)
+	id 1EDF4480052; Fri, 01 May 2026 00:20:37 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 01 May 2026 00:20:37 +0200
-Subject: [PATCH v2 10/12] drm/rockchip: dw_dp: Add runtime PM support
+Date: Fri, 01 May 2026 00:20:38 +0200
+Subject: [PATCH RFC v2 11/12] dt-bindings: display: rockchip: dw-dp: fix
+ sound DAI cells
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260501-synopsys-dw-dp-improvements-v2-10-d7e7f6bac77f@collabora.com>
+Message-Id: <20260501-synopsys-dw-dp-improvements-v2-11-d7e7f6bac77f@collabora.com>
 References: <20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com>
 In-Reply-To: <20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -71,117 +72,86 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3069;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2725;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=KyEBP+kk/lyiVl3ntsIO5pL+OJQ3jTSjF+KktcrQhPY=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnz1bQmGZUmmuaHVFXAPTGWTE7qcJDZ+640X
- nMmqgNtE37l+YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJp89W0AAoJENju1/PI
- O/qaOXQP/jSakJDMAmUBr1ylCpE3O1yAzbu6uf9pGA4DvmM/J88q7BO7SpGS0YxCJH9tg4SpKHO
- SLZzmPsgW4EpG0tJfCKk64o2jbuVdXUeZvfhDgmCJ6kAEtMdb8YkB0d88K9Y4aDAmzRn8MWC6Pe
- 60a0Y58PPryOoORid8YZWl0E6VTM7/30aY7v+BwnRB0B4+XbAhhAxidNpW2AoSheW1EUWDAU+v7
- BvCoBpQ21ygQva/tWBTVq5EWF27KAiNxLROBFyR0XPPljT5j2Ef+QJn7ruXHG3vrzeaXUisvGui
- jrITyHCbEhiELGbaPmlubfZOJJ9mUkJJB7KU6h6ljqCzrvhbh+eWAr0ykL2Y0Ut4qA+g3AB9UwN
- GgFl8XeWQcbMwJ/pPcIdocx4pcHnRyLk3zYXoZEPTP/SagvmVp2A5oQ1ZFmBfkyB1rudf2UpFI/
- fjPpx88/h6Ltmz5/YbEw/Ss8xZbKAPcX5v2o4tgS72x93ufdWhSYAik9neYeGolHgKeqnLCpgqN
- 2u7Blr/1O4zPkafwiF/Iwb6jWnYWKbu4R6u8CD3FZKFgUQU9CbNfBz2NTw2QvH/5Wg4cs2Vhh41
- Lfx+EWM4BNebr7lfjTGR6pumJkPOBDTUnIskXUVe+D6zpSqgyjNFmZD5jvrQUl17jWu4cCY0xfB
- Ufj6aBo4hvZIqLJblZ/YusA==
+ bh=BXeARZ0ujZDNhdquS/qJc3J32JsHagxLqC8adFmTGE8=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnz1bSlTIAxj/dLLAa3GyMt8Ld0ba0OmTnOS
+ 6usSYr15oJB0IkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJp89W0AAoJENju1/PI
+ O/qalDwQAKKeW8xlPblJUTyKHxFyD32rxfsTFo92spcKa9FU8H1wCvyzO1+ed98Jl30kpY+gSgC
+ 575onA3/5uvhX4uJH9OuVXCxlHkgGfmVhXpZJHTKOI3ocSQ+UCIuYZvn12hdyRsxIhZGkxo9+tN
+ c2SbOjNa2NQvJF57U3PXhwE8FxSkPaiDcT5fB3qH0yvkQPXZ+gxWgJN134LGod+8YReVTpYKqS6
+ Eb4TKNGS7ISTG3XjM0arfoIdGG4ddknU4BLhYadqBnguxzjzVaOy2AK81vKUJVuYnUe/zBrgx53
+ Ya4hhQQlJC5TaCr930lmWJC0th6ldMFvvzRQKVtO+kP477E+KEUzFcpu2Rq7I5vobV5YPWYI7cW
+ KvK433y+oICJGuvDHi9olwbsGkzpJiC/xecdgnFHJGnYeVUEQeKrIrEeg3AVi45ztdeWAjTTnVA
+ 1CqShDvT7TNC2zmj6EXFCrsS76L56PXUC5Q0kSIlbyfofk+Lb/YG2fbwxNQ8g2eDrm7F4Omnis3
+ /wRUhZf4y56OBS11jw2kIxwTm9OViQjSfD/tUIuINRzD/ev587kLJh4FUdxK4e1vanR13sWXEjQ
+ lZlJSkzEw2MbSBGjYt6AiDMU6LSRzFWdeM0fjNjSAAd92f2zN2DcNQhPYVR2vM12AVHgnc80tai
+ yjv0Rv7YpsyX8XTEoZUMmIA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Add support for runtime PM to the Rockchip RK3576/3588 Synopsys
-DesignWare DisplayPort driver.
+The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
+possible DAI interfaces: I2S and S/PDIF. Thus it is needed to have an
+argument to select the right interface.
+
+In case of RK3576 this is not enough though. The RK3576 has the same IP
+as RK3588, but configured with Multi Stream Transport (MST) enabled for
+up to 3 displays and thus has a total of 6 DAI interfaces (I2S and
+S/PDIF for each possible stream. Meanwhile the RK3588 does not support
+MST and thus has only 2 DAI interfaces.
+
+The binding update right now only supports the simple single stream
+transport (SST) setup. To avoid further DT ABI breakage (or complicated
+bindings supporting different number of arguments), it's probably a good
+idea to take MST into account now even though the upstream Linux driver
+does not yet support it.
+
+I see two options:
+
+1. Adding yet another cell, so that we have the following:
+   <&dp_ctrl [display_stream] [i2s_or_spdif]>; potentially append
+   extra input ports for MST video data to existing ports node
+   (e.g. port@2). I would only handle the sound DAI part in my
+   patch and basically use '0' for the display stream and just
+   leave the option of using '1' or '2' once MST support is added.
+
+2. The vendor kernel creates a sub-node for each supported display
+   stream and puts the ports mapping as well as the DAI reference
+   into that. This bundles all information for one display stream
+   together, which creates a clean look but the subnode does not
+   really describe any real thing in the hardware.
+
+As upstream MST support seems to be quite limited, I wish for some
+feedback about the preferred way to handle this.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 40 +++++++++++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
+ .../devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml         | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-index 5750cf887981..015d39d48648 100644
---- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-@@ -12,6 +12,7 @@
- #include <linux/mfd/syscon.h>
- #include <linux/of_device.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/videodev2.h>
- #include <linux/regmap.h>
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+index 2b0d9e23e943..1303d0e2145a 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+@@ -83,7 +83,8 @@ properties:
+     maxItems: 1
  
-@@ -58,6 +59,8 @@ static void dw_dp_rockchip_hpd_sw_sel(void *data, bool force_hpd_from_sw)
+   "#sound-dai-cells":
+-    const: 0
++    const: 1
++    description: 0 for I2S, 1 for SPDIF
  
- 	dp->hpd_sel = force_hpd_from_sw;
+ required:
+   - compatible
+@@ -144,7 +145,7 @@ examples:
+         resets = <&cru SRST_DP0>;
+         phys = <&usbdp_phy0 PHY_TYPE_DP>;
+         power-domains = <&power RK3588_PD_VO0>;
+-        #sound-dai-cells = <0>;
++        #sound-dai-cells = <1>;
  
-+	ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
-+
- 	regmap_write(dp->vo_grf, hpd_reg,
- 		     FIELD_PREP_WM16_CONST(ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL, dp->hpd_sel));
- }
-@@ -71,6 +74,8 @@ static void dw_dp_rockchip_hpd_sw_cfg(void *data, bool hpd)
- 
- 	dp->hpd_cfg = hpd;
- 
-+	ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
-+
- 	regmap_write(dp->vo_grf, hpd_reg,
- 		     FIELD_PREP_WM16_CONST(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, dp->hpd_cfg));
- }
-@@ -213,6 +218,12 @@ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *
- 	if (IS_ERR(dp->base))
- 		return PTR_ERR(dp->base);
- 
-+	pm_runtime_use_autosuspend(dev);
-+	pm_runtime_set_autosuspend_delay(dev, 500);
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to enable runtime PM\n");
-+
- 	connector = drm_bridge_connector_init(drm_dev, encoder);
- 	if (IS_ERR(connector)) {
- 		dw_dp_unbind(dp->base);
-@@ -246,6 +257,34 @@ static void dw_dp_remove(struct platform_device *pdev)
- 	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
- }
- 
-+static int dw_dp_rockchip_runtime_suspend(struct device *dev)
-+{
-+	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
-+
-+	return dw_dp_runtime_suspend(dp->base);
-+}
-+
-+static int dw_dp_rockchip_runtime_resume(struct device *dev)
-+{
-+	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
-+	u32 hpd_reg = dp->pdata->hpd_reg[dp->id];
-+	int ret;
-+
-+	ret = dw_dp_runtime_resume(dp->base);
-+	if (ret)
-+		return ret;
-+
-+	regmap_write(dp->vo_grf, hpd_reg,
-+		     FIELD_PREP_WM16_CONST(ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL, dp->hpd_sel) |
-+		     FIELD_PREP_WM16_CONST(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, dp->hpd_cfg));
-+
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops dw_dp_pm_ops = {
-+	RUNTIME_PM_OPS(dw_dp_rockchip_runtime_suspend, dw_dp_rockchip_runtime_resume, NULL)
-+};
-+
- static const struct rockchip_dw_dp_plat_data rk3588_dp_plat_data = {
- 	.num_ctrls = 2,
- 	.ctrl_ids = {0xfde50000, 0xfde60000},
-@@ -280,5 +319,6 @@ struct platform_driver dw_dp_driver = {
- 	.driver = {
- 		.name = "dw-dp",
- 		.of_match_table = dw_dp_of_match,
-+		.pm = pm_ptr(&dw_dp_pm_ops),
- 	},
- };
+         ports {
+           #address-cells = <1>;
 
 -- 
 2.53.0
