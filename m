@@ -1,188 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14AD47D934;
-	Thu, 30 Apr 2026 18:43:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5D433CE92;
+	Thu, 30 Apr 2026 18:52:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777574630; cv=none; b=UxVKZeM4IyncVqcS+Ab/8INupjc4t2Z5WB/1Wr40JDK3p58gWoY35vPEchwL4mB88UF4gN0E13N21F05hLpkbv3VZ0RoQYs4ohu+nUSb32HNjO1BzbwXOggTWg5Xj5Kq0Q6GUAj5RrpmqTer7rubaBTRx/ggd7iLFqlaVMNNNmI=
+	t=1777575137; cv=none; b=hTQuMokdl5CLgJryj3A9P26l1P2InW07hj6oR35uxiOByjB6tX5sCYxv8ivzS3ivHKr6fkRpr/KtWEeta5uKKLKci93BQq8KJVQm7TDmJCqTnm3eIp+4wJjkWFak4FTu4K4ymPVRy4xTRxdKKce8bU99IjP5SFCXggiAXBSgt6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777574630; c=relaxed/simple;
-	bh=NeSCiMEZyJwSno9m1y6kMznWpANlGARY13Gpbdwlkn8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nQ0KDaFdFiMFUuntYEn1+ETpAZilOYCtXHM7QqgjCat81S6kSCzNT70gNif6+eZ11HTSe4kqJjufPOa2X2JODkJrVMGagwCWne6VXgrs2XdvdJK1Pezd5l4cZwXEPOk90H6kU16TtJwRV9KWlhfRObu9mLZ2QGe+FwqUGJCeBGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pHavOnNk; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777575137; c=relaxed/simple;
+	bh=7ryAeRblcPWnwSjPRvoFAvAgofVV8hhRtulzzlp5ePw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FKr3UuiFaThC0QQuQRChTw3Jz5jSuvqygCrwavftoJa6kpqp4RSsQ3MWg9qKNgx6Mh3z0dZ7mY8PiOo0bk8NIXTgxa3Vfzme8Uf0+4Z3oHHmT88oTNmvtdO/FB37Xk9WnDxsMQ0EyxuCnNHZYFgxPXVY5tt8YH9ynwUA5QCExuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G8A54/OD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pHavOnNk"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AFA8FC2BCC7;
-	Thu, 30 Apr 2026 18:43:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G8A54/OD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68A79C2BCB3;
+	Thu, 30 Apr 2026 18:52:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777574630;
-	bh=NeSCiMEZyJwSno9m1y6kMznWpANlGARY13Gpbdwlkn8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=pHavOnNkD/EABOVCMO6mNMi0bT4AlNab328PHnjUPb9DUr3uEQfddVkaI08TpJLkY
-	 09ZMtn8qVUIAqEWC5i7lAl+klZSkkqjvZscYnxamPvuU/lmj1x4iZ1uVwE56PM702w
-	 uDijamHKlifYetov6F8I52cuevIg8G0MIh14oVofwifmd/y897DJt2OXyw5wt0gHmE
-	 npd/9qSdPbKVbErOXB83w4YB1CDGuYHpS64s8UnFPn4wrEE4lubQiN7yt3UTj17Mgj
-	 SoBxqmmMZlAmugagMSYPsP512u9pT4KAmGh7kHLPwH91baQPylFxLcDGk2nK8W5KDE
-	 8CGtTZQgeQiSg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A552ACD13DA;
-	Thu, 30 Apr 2026 18:43:50 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Thu, 30 Apr 2026 13:43:40 -0500
-Subject: [PATCH v7 5/6] arm64: dts: qcom: Add AYN Odin 2 Portal
+	s=k20201202; t=1777575137;
+	bh=7ryAeRblcPWnwSjPRvoFAvAgofVV8hhRtulzzlp5ePw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=G8A54/ODPxbJlb3id7uBBZqmtwkcT+Bhb99lBx3MVW0+qYf4ug9I5TcmSTAUTxrqi
+	 RE7V+zQTuKzBDLtv5d3SbJL1mXJu7/ybSRJClEiFq8EVNfHwtHccUeV2j1iCxeUKEY
+	 FbH5WSdsllKyFblIJ/2xaMl0ZFrIb1Nlw9vvnz2RGEYSTwxlMbpiVgHJRNMOrHflY9
+	 O0e9x/MtPOW1BIGc+gZapX/sQRiz34b33C2FzR9V1QHNl2bD5uwW80lRZJHuviJAEN
+	 gwherCHmJqB1yR/ICu9dITjOGb8Gph3MY+3yFqVLRzXoCs3ZsFCOQFExiNrwNanF5C
+	 d4h1WM0S/0KUQ==
+From: Conor Dooley <conor@kernel.org>
+To: spacemit@lists.linux.dev
+Cc: conor@kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Vivian Wang <wangruikang@iscas.ac.cn>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yixun Lan <dlan@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1] dts: spacemit: set console baud rate on bpif3
+Date: Thu, 30 Apr 2026 19:52:12 +0100
+Message-ID: <20260430-reword-overstep-3be08b7eab25@spud>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260430-ayn-qcs8550-v7-5-591a96735fa3@gmail.com>
-References: <20260430-ayn-qcs8550-v7-0-591a96735fa3@gmail.com>
-In-Reply-To: <20260430-ayn-qcs8550-v7-0-591a96735fa3@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>, 
- Teguh Sobirin <teguh@sobir.in>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777574629; l=3427;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=2+SChY6IQHBKh8njjJBPKeyneYyYCGd/QTq8yhLM+4k=;
- b=5eETVYtOu9oCxWQpmzD+iUCCYHShHmSwVNxojmTsP81V81//P0HJKW7pxBwVQpl1fd+U9tXMK
- iQLIuaKy0dVDgrgiOSR/+OkeNDcPTkbFiG0N4gGCQwA8PFIj02Gd9sE
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
-Reply-To: webgeek1234@gmail.com
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1222; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=ZzIyf8kNpSShxQake71q8Bn//zWKDFH9gBDY8/gGuwk=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDJmfl9yJzI3N0Hpmfu5hlL/d5g81aqerzMwlPmieYrx3R 0nmxceNHaUsDGJcDLJiiiyJt/tapNb/cdnh3PMWZg4rE8gQBi5OAZjIZQZGhjeVuUWKdt9SMqrd VU7MNbL3lX97Ovv3plPxbLPVfvtMZ2D4H7dqzTfpTfds9p068CRtpoNx2/K5Xr21b29z5h2Renb DgREA
+X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
+Content-Transfer-Encoding: 8bit
 
-From: Teguh Sobirin <teguh@sobir.in>
+From: Conor Dooley <conor.dooley@microchip.com>
 
-The AYN Odin 2 Portal is a high-performance Android-based handheld gaming
-console powered by the Qualcomm Snapdragon 8 Gen 2 processor featuring a
-7-inch OLED touchscreen.
+Because the default console's baud rate is not set, defconfig kernels do
+not have any serial output on this platform. Set the baud rate to
+115200, matching what is used by U-Boot etc on this platform.
 
-Signed-off-by: Teguh Sobirin <teguh@sobir.in>
-Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Suggested-by: Vivian Wang <wangruikang@iscas.ac.cn>
+Fixes: d60d57ab6b2a8 ("riscv: dts: spacemit: add Banana Pi BPI-F3 board device tree")
+Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- arch/arm64/boot/dts/qcom/Makefile                  |  1 +
- .../boot/dts/qcom/qcs8550-ayntec-odin2portal.dts   | 84 ++++++++++++++++++++++
- 2 files changed, 85 insertions(+)
+CC: Rob Herring <robh@kernel.org>
+CC: Krzysztof Kozlowski <krzk+dt@kernel.org>
+CC: Conor Dooley <conor+dt@kernel.org>
+CC: Yixun Lan <dlan@kernel.org>
+CC: devicetree@vger.kernel.org
+CC: linux-riscv@lists.infradead.org
+CC: spacemit@lists.linux.dev
+CC: linux-kernel@vger.kernel.org
+---
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index aceb84a060f80e..6bfc4554580bd5 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -185,6 +185,7 @@ qcs8300-ride-el2-dtbs := qcs8300-ride.dtb monaco-el2.dtbo
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8300-ride-el2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-aim300-aiot.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-odin2mini.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-odin2portal.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride-r3.dtb
+diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+index 5790d927b93db..333ac8ebf3f51 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+@@ -19,7 +19,7 @@ aliases {
+ 	};
  
-diff --git a/arch/arm64/boot/dts/qcom/qcs8550-ayntec-odin2portal.dts b/arch/arm64/boot/dts/qcom/qcs8550-ayntec-odin2portal.dts
-new file mode 100644
-index 00000000000000..bd6ba0ab941d33
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/qcs8550-ayntec-odin2portal.dts
-@@ -0,0 +1,84 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2025, Teguh Sobirin.
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include "qcs8550-ayntec-common.dtsi"
-+
-+&{/} {
-+	model = "AYN Odin 2 Portal";
-+	compatible = "ayntec,odin2portal", "qcom,qcs8550", "qcom,sm8550";
-+
-+	vdd_bl_5v0: vdd-bl-5v0-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_bl_5v0";
-+
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+
-+		gpio = <&tlmm 52 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	vdd_disp_2v8: vdd-disp-2v8-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_disp_2v8";
-+
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+
-+		gpio = <&tlmm 142 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
-+&i2c4 {
-+	clock-frequency = <400000>;
-+
-+	status = "okay";
-+
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	touchscreen@38 {
-+		compatible = "focaltech,ft5426";
-+		reg = <0x38>;
-+
-+		interrupt-parent = <&tlmm>;
-+		interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
-+
-+		reset-gpios = <&tlmm 24 GPIO_ACTIVE_LOW>;
-+
-+		vcc-supply = <&vreg_l14b_3p2>;
-+		iovcc-supply = <&vreg_l12b_1p8>;
-+
-+		pinctrl-0 = <&ts_p_rst_default &ts_p_int_default>;
-+		pinctrl-1 = <&ts_p_rst_sleep &ts_p_int_sleep>;
-+		pinctrl-names = "default", "sleep";
-+
-+		touchscreen-size-x = <1080>;
-+		touchscreen-size-y = <1920>;
-+		touchscreen-swapped-x-y;
-+		touchscreen-inverted-y;
-+	};
-+};
-+
-+&remoteproc_adsp {
-+	firmware-name = "qcom/sm8550/ayntec/odin2portal/adsp.mbn",
-+			"qcom/sm8550/ayntec/odin2portal/adsp_dtb.mbn";
-+
-+	status = "okay";
-+};
-+
-+&spk_amp_l {
-+	firmware-name = "qcom/sm8550/ayntec/odin2portal/aw883xx_acf.bin";
-+};
-+
-+&spk_amp_r {
-+	firmware-name = "qcom/sm8550/ayntec/odin2portal/aw883xx_acf.bin";
-+};
-+
-
+ 	chosen {
+-		stdout-path = "serial0";
++		stdout-path = "serial0:115200n8";
+ 	};
+ 
+ 	leds {
 -- 
 2.53.0
-
 
