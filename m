@@ -1,64 +1,64 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE1F23ACA65
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 10:09:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AE0F37419A
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 10:09:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777543785; cv=none; b=XjvI6yseyuC+ciucZZjAbrzoA60s3ts+jkmx6963+wjUhRaAetuZ0ibqh5s7BQ12yO8pVkyTdClnh02uV1VFRNDONsCEOqwwMrPoEjSNpdZRNSPzrHpvi9NlrUhybi5wZcqppjnNbPASdzISC1WmBAUnqAPlcn0J1LHzewYuD/Y=
+	t=1777543786; cv=none; b=Y4kltcCuZ9du0JnaavmZLWiAUs1U25oSkyjN7PFKX/BxkWip6+e5+0Og5POuhD8TziJ+CFU6ri1YL7AE9hnh9zdGy1AkQYC8ZM5Zd8H9dbq034nXgPVNy0uvZWgGJP8p+4LMlWCrjowfrY6aaTJ8yncWvHZki9w3KfNk20vmWWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777543785; c=relaxed/simple;
-	bh=R2mGUgVgDOXquc18MO2nFUnPiIUFtzW2JSwhhXHeA20=;
+	s=arc-20240116; t=1777543786; c=relaxed/simple;
+	bh=4Uow7JtwP8wIC6uXE5DiKRkf4rLthpWrcREBxzAuo5U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SwAjbUIhUBZ/iHv7X7u/jWW4JjXQQ2nHopYyEH9QdhE2v3B/j2NOSL3D9i65NvTfhgGwcyv/zZgynL2n2lpsTLzUWx1lGu06LAtZ8obo8Xg2NKTFkc/SQyfyz1K/MnL6yVqgfCGoonYgR2lxLPjqt6RAIEtprSyNZiLAzZqBHsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ER2bVgf3; arc=none smtp.client-ip=209.85.128.49
+	 MIME-Version; b=bEPGMklmM2LvBVIDEwnmt7F98K2w0jb7TY30O49SSttR9nMZlT3M7rPRoudSqQEoX93rI6ehUdo1WpvwOwJ+sea8TRmFJc+oeKdfCg3xNtnR1vFjdXjFJzx9eYwqfvbnAmq8eyAZbLUh3f5O8Ps06b6hw96LrS70mmm3BusfQR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IDEY+1D2; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ER2bVgf3"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4891e86fabeso8912375e9.1
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 03:09:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IDEY+1D2"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-488a8ca4aadso7693055e9.3
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 03:09:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777543782; x=1778148582; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1777543783; x=1778148583; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1lH8TTJLFLbOhiTHR6lIN5pwq1nU1A3T8wtyLnEmupU=;
-        b=ER2bVgf3syhUBnYlj6eIo34Mc3DUsBW1uXi5EyuXGpvw5CQpkSuw3/fZCWZHzadJzS
-         4uh3U8XHpboAyl5LM3JaK59VJ/XB1Lf66TndL38xWpyDkD6ND+9R+Zo+mXy3F10JYB0V
-         VEZjldXZcN8g3avG9lbVLCaWIXpaWnYZpZcoT3VUOQgjlXQXDLcwCRDuUUnwuX9GuhDl
-         dJcYRkwGNEjJw5889AdhDzrk2ubCx/u//t098iz9/dhNwFvMWoMyVimKT7s8qzHlKHHr
-         n09+ZSXVO5V9M+yZToYfLULHvHpFEJGOmOfiYQxwiRBRVum5dHc8QCTzxVG0er32ufRr
-         +0Tw==
+        bh=4y5kIb0htxIVCSVgKsNlWw6RNkql9GPVnfbTeqYcIWw=;
+        b=IDEY+1D2f6YKldIHmLbyUgLSnKh6js/+Zw8dnnsIgFETpb+fqpPE2a4ltGfMAef4cL
+         GEuRrwM0qS1Fmlx1kBhHgYnrX+jfGhgbGPQQ70Wg79/nrBJXOP17Kiw23iZ7bjoNJ9bh
+         qGT+Dj2vMj2IDF1KjLeKhsP2rnvds1FPSOWb/P23mCn/0/WZF4jvST16l0u1w6Jq/zW1
+         4tDdBo14KZ46rMYha4KePLTd7vW5fx96Bj6pS5WOqpYZWfTx4ZH8Gmo9bCszrvyjqrSV
+         V+TNZv2LHqmCk2mRkFiXOmulILQPaqtAkeMrm9nsWuAmv2EYabwdZeS3BsS0wevYfjJZ
+         wO9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777543782; x=1778148582;
+        d=1e100.net; s=20251104; t=1777543783; x=1778148583;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=1lH8TTJLFLbOhiTHR6lIN5pwq1nU1A3T8wtyLnEmupU=;
-        b=AR8t1tApBRSDUzWY7hTBiMUnEOFvSlDIuacEWycAGbMXjBxwLn5n1fq5tJAwvBR5xq
-         zu97yERWm0ihB2bmABrer+C2NUdyAFndCrF3NjN/oreZhzCzwKL+/BxJf8DumbMB5ZZ1
-         WgUR8wKhdhGYqWKOhqaMUddGQB3cMZJXdKlK6xTHmlEnYNftV+EGlYaiKjG9EYxu5sN2
-         iiHA16HV4NNH3u5PmgEmhX+uTKdI/jb3O8IKLLIn02YCp/khM3Krywu5Di5TEPyMgEjH
-         C5vzI5vBFiGUb3O2apfdXlCq80i1AA8GeazgLLNQf5t7CtumoAfET1gsro5VhKEEdskO
-         HdTg==
-X-Forwarded-Encrypted: i=1; AFNElJ+IE4BzQ9Iw64fiFcwSJ6Uv+4tg0NLFuQ4qL9iogCE7CG3u+1Fh2pRbkQ2Jd4QyPPfaAyjH1y5CxzkH@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7w74SqK73peNCl0eKEgprK2jn2x4MWFopb6S+7a/fxRE6yy3d
-	TAD0/xLUIefUuTT24mJH85YIdn7BXCYaJLMnPePdXlpGlQfVcbsEqHZ5
-X-Gm-Gg: AeBDievccNoCAGr1TLFnE6oxRqtNgEn8YC23VO/PDy0WnkvvnpexLxwmtddBDRQb+Jg
-	XR5NbYodTvydpSBcSpWO1sU8WZPEfrwTO2D14RqkGum9JAm+TKKBh69SstQTrcycYpAIzQ/BDH+
-	mWtbl4q99x/NenhXY610VGlmKj98zMI8B00NePJYSto5Qphrl0fbYs16QziPfRBKypylWOAFeLJ
-	Tpmi35CYQZzhtW/Q6C3ExhsSKNLYa70Hq2vpKcpt+Ca8rmzY4j8viJEI19a+ri2KwLMb+AVKVlN
-	4DxxsAq8PdG6R+x1XeU7hN4vhkljzKc8Pj03xIQ5Ld+VuCm/oymwN8pc9PqD5eKKdfvKYRROxwc
-	P5Xt4Cr8hVd5OylfgTa4iAGDzXe6KjH+Y/2W7tRrs0lM0NWAro3PRKS4N7DexFIGqV4Q3uHITIr
-	6fcsGch+kn28y01ASCf3Q9xCUFzxKIMTL2rypG08Lr0jMo+LGcKRALB6hb5HhR1j+1Km0qFP02K
-	nC08jOnBUNMzdE4MJLMTqmsDZ2K54bQ58acqc/T/rY3RHoW0AcKoriP1A==
-X-Received: by 2002:a05:600c:4fc5:b0:489:c57:7836 with SMTP id 5b1f17b1804b1-48a8445dda3mr41087235e9.27.1777543782165;
+        bh=4y5kIb0htxIVCSVgKsNlWw6RNkql9GPVnfbTeqYcIWw=;
+        b=kdcZLV0H9gHh2kq6MwYV3khm1IsSAoO6H46rAL3i/NZI1lrLVQeetMzyNEiY4gfPGH
+         f07h56WkDMY2cbBr60z1IGzjF8lo0AxqSgdvfNtt0MjL6trYto5r+EpcduyJi+xnex8Q
+         Fnni1ow9qjrnTTdkMGNtzdN1LRH3oJ5h86lCaCWiF51fTlsob7tdNs7FfUfHnfc1ftUr
+         Ibop/v9OuFHRcLvWhf+z9x8h0FeOZMURT9p+ou+SNVTwRzbRvhv4xdpjPDKz9ynxX/tG
+         DXqzbOrEXcbs6sO64ul663LATPerw6WGwBJKUXgJtsub84u00fW4CPeADCYkFwxUnaTQ
+         1wGw==
+X-Forwarded-Encrypted: i=1; AFNElJ/bDuGfgdyVSE48TsRgbnUBm5/J+ogSK4NsYEO+KJnMHDLtLJjZYTB8K66ppCaHQoDR/B1CXxOQr/NY@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx6JWMriq+wkZVyaBs4tEkwc0Lgfcp8f6+WOq0Knd6JmacU+8kP
+	yycXB/Gym97hzF85cZnGVY2aPfuZnXmG3EOVAOvnn2edXdg8dlRW9LIG
+X-Gm-Gg: AeBDietez9HzLyZDN/mUWTu0HDskAWew3/najuonUehnAIZSOMwBSEeEnnxNFgmMp6h
+	lem+gSZuz+cAHL/I5iPf/fniKDWxQMDKhUiXF+cYmkpfJnEkrxZBQeH69ESAiTGcMF/h/llwimu
+	I4zEVLGCJ59iJyMkQ9rrFY8NkE1tqNhblVD/rdIIcL7UOJNwVS3LF8rJhZFUYulh9KwOvUkLRui
+	/qlI9u7BziPgF+E5MK0NRu+QbovGQt+DxluFGBlS0sKI8205cDsYlY33l7erN6px7KlLbJ4Lif/
+	LtH58da3rFKcupNU6SJZmZRadynqlmey/9qhy+AEIT4hjqOIhEEkcbYaTOTsB3wQJHur0HOy6NO
+	etYeIeqgtwMK4ZvdEUrv/Q+HGZ8hyY7tl+RIArRGk4LAdXYdxp+6Bh3b3jrxEIAHyraLdVr7qKV
+	dDX4W87mrNe1WyiRlNXV9sCFv2nQ9y/iuHKTOD4YYZB4XRLrbl01gV3bq9bHwNyciWnUa1ZRhfq
+	/+SCIP3Kns07SRSy+Kz/5oiTadF4qvv42MYaxEFmDEFmkFFrczZMt7qRzHfgQh6ySnb
+X-Received: by 2002:a05:600c:8010:b0:485:46fd:7887 with SMTP id 5b1f17b1804b1-48a8446d8a4mr36742495e9.13.1777543782926;
         Thu, 30 Apr 2026 03:09:42 -0700 (PDT)
 Received: from iku.example.org ([2a06:5906:61b:2d00:182e:1592:d4cf:18a0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a7b9313c9sm40252315e9.11.2026.04.30.03.09.41
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a7b9313c9sm40252315e9.11.2026.04.30.03.09.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Apr 2026 03:09:41 -0700 (PDT)
+        Thu, 30 Apr 2026 03:09:42 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
@@ -78,9 +78,9 @@ Cc: linux-media@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH 1/3] media: dt-bindings: media: renesas,fcp: Document RZ/T2H and RZ/N2H SoCs
-Date: Thu, 30 Apr 2026 11:09:27 +0100
-Message-ID: <20260430100929.1088281-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH 2/3] media: dt-bindings: media: renesas,vsp1: Document RZ/T2H and RZ/N2H SoCs
+Date: Thu, 30 Apr 2026 11:09:28 +0100
+Message-ID: <20260430100929.1088281-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260430100929.1088281-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260430100929.1088281-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -94,69 +94,61 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Document the FCPVD blocks present on the RZ/T2H and RZ/N2H SoCs.
+Document the VSP2 blocks present on the RZ/T2H and RZ/N2H SoCs.
 
-The FCPVD implementation on these SoCs is identical to that found on the
-RZ/G2L family.
+The VSP2 implementation on these SoCs is identical to that on the
+RZ/G2L SoC.
 
-Update the schema to disallow the "resets" property for these SoCs,
-reflecting the absence of a reset control for the FCPVD instance.
+Update the schema to disallow the "resets" property for these SoCs to
+reflect the hardware integration.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
- .../devicetree/bindings/media/renesas,fcp.yaml | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/media/renesas,vsp1.yaml | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/media/renesas,fcp.yaml b/Documentation/devicetree/bindings/media/renesas,fcp.yaml
-index 5e11ae0ee456..cbb16a7a5481 100644
---- a/Documentation/devicetree/bindings/media/renesas,fcp.yaml
-+++ b/Documentation/devicetree/bindings/media/renesas,fcp.yaml
-@@ -34,6 +34,8 @@ properties:
-               - renesas,r9a09g047-fcpvd # RZ/G3E
-               - renesas,r9a09g056-fcpvd # RZ/V2N
-               - renesas,r9a09g057-fcpvd # RZ/V2H(P)
-+              - renesas,r9a09g077-fcpvd # RZ/T2H
-+              - renesas,r9a09g087-fcpvd # RZ/N2H
-           - const: renesas,fcpv         # Generic FCP for VSP fallback
+diff --git a/Documentation/devicetree/bindings/media/renesas,vsp1.yaml b/Documentation/devicetree/bindings/media/renesas,vsp1.yaml
+index 803358780f01..a28632165804 100644
+--- a/Documentation/devicetree/bindings/media/renesas,vsp1.yaml
++++ b/Documentation/devicetree/bindings/media/renesas,vsp1.yaml
+@@ -29,6 +29,8 @@ properties:
+               - renesas,r9a09g047-vsp2    # RZ/G3E
+               - renesas,r9a09g056-vsp2    # RZ/V2N
+               - renesas,r9a09g057-vsp2    # RZ/V2H(P)
++              - renesas,r9a09g077-vsp2    # RZ/T2H
++              - renesas,r9a09g087-vsp2    # RZ/N2H
+           - const: renesas,r9a07g044-vsp2 # RZ/G2L fallback
  
    reg:
-@@ -66,7 +68,6 @@ required:
-   - reg
+@@ -67,7 +69,6 @@ required:
+   - interrupts
    - clocks
    - power-domains
 -  - resets
  
  additionalProperties: false
  
-@@ -83,6 +84,8 @@ allOf:
-               - renesas,r9a09g047-fcpvd
-               - renesas,r9a09g056-fcpvd
-               - renesas,r9a09g057-fcpvd
-+              - renesas,r9a09g077-fcpvd
-+              - renesas,r9a09g087-fcpvd
-     then:
-       properties:
-         clocks:
-@@ -94,6 +97,19 @@ allOf:
-         clocks:
+@@ -101,6 +102,20 @@ allOf:
            maxItems: 1
          clock-names: false
+ 
 +  - if:
 +      properties:
 +        compatible:
 +          contains:
 +            enum:
-+              - renesas,r9a09g077-fcpvd
-+              - renesas,r9a09g087-fcpvd
++              - renesas,r9a09g077-vsp2
++              - renesas,r9a09g087-vsp2
 +    then:
 +      properties:
 +        resets: false
 +    else:
 +      required:
 +        - resets
- 
++
  examples:
-   # R8A7795 (R-Car H3) FCP for VSP-D1
+   # R8A7790 (R-Car H2) VSP1-S
+   - |
 -- 
 2.54.0
 
