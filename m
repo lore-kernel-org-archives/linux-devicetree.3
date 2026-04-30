@@ -1,91 +1,152 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5D433CE92;
-	Thu, 30 Apr 2026 18:52:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0115717B50A;
+	Thu, 30 Apr 2026 18:53:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777575137; cv=none; b=hTQuMokdl5CLgJryj3A9P26l1P2InW07hj6oR35uxiOByjB6tX5sCYxv8ivzS3ivHKr6fkRpr/KtWEeta5uKKLKci93BQq8KJVQm7TDmJCqTnm3eIp+4wJjkWFak4FTu4K4ymPVRy4xTRxdKKce8bU99IjP5SFCXggiAXBSgt6U=
+	t=1777575209; cv=none; b=DiJKlJ16ij9VWhC6QdwxydiK7f0S17Ffr2zZxj+qt6gOtb57URiM3vCuv0xebFco54W1Z3iudfeEpL0QsYbLCp9SD4a2S0DANQhBG7W/z5SPfuGir9w0Xp5ihhiydxuGAX/Qpj9ZM5n1r8TZRyu+IblY8p4TeFtsOwm34EKPr8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777575137; c=relaxed/simple;
-	bh=7ryAeRblcPWnwSjPRvoFAvAgofVV8hhRtulzzlp5ePw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FKr3UuiFaThC0QQuQRChTw3Jz5jSuvqygCrwavftoJa6kpqp4RSsQ3MWg9qKNgx6Mh3z0dZ7mY8PiOo0bk8NIXTgxa3Vfzme8Uf0+4Z3oHHmT88oTNmvtdO/FB37Xk9WnDxsMQ0EyxuCnNHZYFgxPXVY5tt8YH9ynwUA5QCExuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G8A54/OD; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777575209; c=relaxed/simple;
+	bh=fwwPcQWOWqGnk9tycak+N0Nfom1/bWobWQp3LsvSbMg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I5HGrT/wooIIG0jx6Lzj14y5fk0vx2FbzoeehNCpl9Y7HS85v/IA3MK3TS2AwjSwwYrOiW3Z+MS17vxXkW/JvMEZ0JdQ/nDPplcQsjTyDBANfTg3PgnpF2MgikQ1EP9/Q1n/nEM8cz6a6WFv9aFf+suz7jSNzuCRZRN45cVPXyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HYYQdIsb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G8A54/OD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68A79C2BCB3;
-	Thu, 30 Apr 2026 18:52:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HYYQdIsb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 477E7C2BCB8;
+	Thu, 30 Apr 2026 18:53:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777575137;
-	bh=7ryAeRblcPWnwSjPRvoFAvAgofVV8hhRtulzzlp5ePw=;
-	h=From:To:Cc:Subject:Date:From;
-	b=G8A54/ODPxbJlb3id7uBBZqmtwkcT+Bhb99lBx3MVW0+qYf4ug9I5TcmSTAUTxrqi
-	 RE7V+zQTuKzBDLtv5d3SbJL1mXJu7/ybSRJClEiFq8EVNfHwtHccUeV2j1iCxeUKEY
-	 FbH5WSdsllKyFblIJ/2xaMl0ZFrIb1Nlw9vvnz2RGEYSTwxlMbpiVgHJRNMOrHflY9
-	 O0e9x/MtPOW1BIGc+gZapX/sQRiz34b33C2FzR9V1QHNl2bD5uwW80lRZJHuviJAEN
-	 gwherCHmJqB1yR/ICu9dITjOGb8Gph3MY+3yFqVLRzXoCs3ZsFCOQFExiNrwNanF5C
-	 d4h1WM0S/0KUQ==
+	s=k20201202; t=1777575208;
+	bh=fwwPcQWOWqGnk9tycak+N0Nfom1/bWobWQp3LsvSbMg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HYYQdIsb3BRSmWBGulj7gwK+RisK5UnSmL0v6Uql95ZJ91CIS3Z/Na5yOKCPnJkM/
+	 CFUdYrcKqaJyGj05fQfcM5vePhU5XBHIvgKHBgPJWyEoJEgSgE08DtBOx0bDl+A3d3
+	 ctOE5gRi0xHUSoS4mk5QhzmitJJrtpFGGjH2qkyyL9UgiCYAZziccu98mSKX2YDO4p
+	 93DNOP/tDrgGRvpv2DLgEQ/1bH3/wpgS/fRNY5EIuGrABiWiDeEBUxjbVDo5RBciz/
+	 uZrBgydmZNXs/6ZVDDu32rbQDf2tMGIYx67hnnuOfY7PsPP16d5hVVHmj1fvrmR3jR
+	 7CgCIkFVv6uFA==
+Date: Thu, 30 Apr 2026 19:53:22 +0100
 From: Conor Dooley <conor@kernel.org>
-To: spacemit@lists.linux.dev
-Cc: conor@kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Vivian Wang <wangruikang@iscas.ac.cn>,
-	Rob Herring <robh@kernel.org>,
+To: Florin Leotescu <florin.leotescu@oss.nxp.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Yixun Lan <dlan@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] dts: spacemit: set console baud rate on bpif3
-Date: Thu, 30 Apr 2026 19:52:12 +0100
-Message-ID: <20260430-reword-overstep-3be08b7eab25@spud>
-X-Mailer: git-send-email 2.53.0
+	Michael Shych <michaelsh@nvidia.com>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	daniel.baluta@nxp.com, viorel.suman@nxp.com,
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+	festevam@gmail.com, Florin Leotescu <florin.leotescu@nxp.com>
+Subject: Re: [PATCH v7 2/3] dt-bindings: hwmon: emc2305: Add
+ fan-shutdown-percent property
+Message-ID: <20260430-breeching-directly-811a1b78182b@spud>
+References: <20260429065955.2113012-1-florin.leotescu@oss.nxp.com>
+ <20260429065955.2113012-3-florin.leotescu@oss.nxp.com>
+ <20260429-shiftless-docile-e57509e967c4@spud>
+ <afNE46C7GBswP8LG@ro-kernel-workstation>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1222; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=ZzIyf8kNpSShxQake71q8Bn//zWKDFH9gBDY8/gGuwk=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDJmfl9yJzI3N0Hpmfu5hlL/d5g81aqerzMwlPmieYrx3R 0nmxceNHaUsDGJcDLJiiiyJt/tapNb/cdnh3PMWZg4rE8gQBi5OAZjIZQZGhjeVuUWKdt9SMqrd VU7MNbL3lX97Ovv3plPxbLPVfvtMZ2D4H7dqzTfpTfds9p068CRtpoNx2/K5Xr21b29z5h2Renb DgREA
-X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="CIKz425QYUwqIjTi"
+Content-Disposition: inline
+In-Reply-To: <afNE46C7GBswP8LG@ro-kernel-workstation>
 
-From: Conor Dooley <conor.dooley@microchip.com>
 
-Because the default console's baud rate is not set, defconfig kernels do
-not have any serial output on this platform. Set the baud rate to
-115200, matching what is used by U-Boot etc on this platform.
+--CIKz425QYUwqIjTi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Suggested-by: Vivian Wang <wangruikang@iscas.ac.cn>
-Fixes: d60d57ab6b2a8 ("riscv: dts: spacemit: add Banana Pi BPI-F3 board device tree")
-Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
----
-CC: Rob Herring <robh@kernel.org>
-CC: Krzysztof Kozlowski <krzk+dt@kernel.org>
-CC: Conor Dooley <conor+dt@kernel.org>
-CC: Yixun Lan <dlan@kernel.org>
-CC: devicetree@vger.kernel.org
-CC: linux-riscv@lists.infradead.org
-CC: spacemit@lists.linux.dev
-CC: linux-kernel@vger.kernel.org
----
- arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Thu, Apr 30, 2026 at 03:02:43PM +0300, Florin Leotescu wrote:
+> On Wed, Apr 29, 2026 at 07:18:04PM +0100, Conor Dooley wrote:
+> > On Wed, Apr 29, 2026 at 09:59:54AM +0300, florin.leotescu@oss.nxp.com w=
+rote:
+> > > From: Florin Leotescu <florin.leotescu@nxp.com>
+> > >=20
+> > > The EMC2305 fan controller supports multiple independent PWM fan
+> > > outputs. Some systems require fans to enter a defined safe state
+> > > during system shutdown or reboot handoff, until firmware or the next
+> > > boot stage reconfigures the controller.
+> > >=20
+> > > Add an optional "fan-shutdown-percent" property to fan child nodes
+> > > allowing the PWM duty cycle applied during shutdown to be configured
+> > > per fan output.
+> > >=20
+> > > Signed-off-by: Florin Leotescu <florin.leotescu@nxp.com>
+> >=20
+> > Why didn't you pick up my tag from here:
+> > https://lore.kernel.org/all/20260407-slang-scoff-795164352c62@spud/
+> >
+>=20
+> Apologies, I missed your Acked-by tag when preparing the series.
+> I will include it in the next revision.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-index 5790d927b93db..333ac8ebf3f51 100644
---- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-@@ -19,7 +19,7 @@ aliases {
- 	};
- 
- 	chosen {
--		stdout-path = "serial0";
-+		stdout-path = "serial0:115200n8";
- 	};
- 
- 	leds {
--- 
-2.53.0
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
+Don't resend unless there's something else wrong with the series.
+
+>=20
+> > > ---
+> > >  .../devicetree/bindings/hwmon/microchip,emc2305.yaml      | 8 ++++++=
+++
+> > >  1 file changed, 8 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/hwmon/microchip,emc230=
+5.yaml b/Documentation/devicetree/bindings/hwmon/microchip,emc2305.yaml
+> > > index d3f06ebc19fa..8c2548539d7f 100644
+> > > --- a/Documentation/devicetree/bindings/hwmon/microchip,emc2305.yaml
+> > > +++ b/Documentation/devicetree/bindings/hwmon/microchip,emc2305.yaml
+> > > @@ -54,6 +54,12 @@ patternProperties:
+> > >            The fan number used to determine the associated PWM channe=
+l.
+> > >          maxItems: 1
+> > > =20
+> > > +      fan-shutdown-percent:
+> > > +        description:
+> > > +          PWM duty cycle in percent applied to the fan during shutdo=
+wn.
+> > > +        minimum: 0
+> > > +        maximum: 100
+> > > +
+> > >      required:
+> > >        - reg
+> > > =20
+> > > @@ -80,12 +86,14 @@ examples:
+> > >              fan@0 {
+> > >                  reg =3D <0x0>;
+> > >                  pwms =3D <&fan_controller 26000 PWM_POLARITY_INVERTE=
+D 1>;
+> > > +                fan-shutdown-percent =3D <100>;
+> > >                  #cooling-cells =3D <2>;
+> > >              };
+> > > =20
+> > >              fan@1 {
+> > >                  reg =3D <0x1>;
+> > >                  pwms =3D <&fan_controller 26000 0 1>;
+> > > +                fan-shutdown-percent =3D <50>;
+> > >                  #cooling-cells =3D <2>;
+> > >              };
+> > > =20
+> > > --=20
+> > > 2.34.1
+> > >=20
+>=20
+>=20
+
+--CIKz425QYUwqIjTi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafOlIgAKCRB4tDGHoIJi
+0tzDAPoCZp0mN8oQj5I4vZNujEnYEEez3a7DkufwLlRs66MyAwD/UfOlbzrNu9E9
+Tx1XmbVtEQZazMbIlyCCtrdKiJ+/2w0=
+=Zgdq
+-----END PGP SIGNATURE-----
+
+--CIKz425QYUwqIjTi--
