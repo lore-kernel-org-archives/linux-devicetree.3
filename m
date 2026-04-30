@@ -1,167 +1,98 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BCB8359A6C;
-	Wed, 29 Apr 2026 22:11:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91611A9FA0;
+	Thu, 30 Apr 2026 01:06:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777500719; cv=none; b=EbDt8tKLVDnSMLjtb7IZr+kZHG5PFY4/ZZwO4/f97YgRBo8/jb+WE371Ywbe8WID6KJHrDbIDPfL7kYqXuCIyOdYpu9rPHF5C/NMBEdFsR7+4W6H+JLTwVCDj4fJzM2TpMW78Ybeyg+vBxRpAAOQZNAU8ooU9Y/aJ0s2i1Cwjgc=
+	t=1777511202; cv=none; b=l3Jx2HWV/RDoGtCpK0cVjifYrHGED1ceaxujAFD3aXYh9DnjjvfwQqhKvwmz3JBoazaRQITw+NDxD5cw96oUtSazv0/jq3pTSN8aTFVgQNF/nTitio4BBbd80q1NrQEu8q7dJsXplHhyVUprUEnOYae58fGMlH+UPbx86iY8v3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777500719; c=relaxed/simple;
-	bh=YIv9iZYultS1nlhWrV7cBQansovtAf+/IYGOeXT8hXE=;
+	s=arc-20240116; t=1777511202; c=relaxed/simple;
+	bh=tsEXakmKd45gMb7T8cVBykjOACgx6A8C3+eSqryUw5I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S1xpht285VC6kZGE2YREa263ACKutMUa26wAlN++QVpwLX1EprvNHtj84u1B5Fp10j72X+sc+osx3nJ8sDyjGhShkShvKGqxkic/PR3bhbgWL+dNDL885yIbHBexMbHH3MM6iGSfBpFofp4z/dTspHToWkDNOrGnacg3CT3N8xU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=mSfKIVal; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=RhILHO3S9yQUXw5cWUTdPtmqpZnJy9DKnhsPxfmsORddsEf6a8NSpJ7EmtSKXBpdMh7SRxadtDXQsufsT4UNzGN13u4pdYzWejQqMPENNwk5/wHktGHkeOzbfBYJQ0d4gLoHv2Pd8tW3mR+BqPFbFctmJqbhM6b0YpPqVczzEvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DYr4zl9w; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="mSfKIVal"
-Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A502E241;
-	Thu, 30 Apr 2026 00:10:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1777500610;
-	bh=YIv9iZYultS1nlhWrV7cBQansovtAf+/IYGOeXT8hXE=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DYr4zl9w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4586BC19425;
+	Thu, 30 Apr 2026 01:06:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777511202;
+	bh=tsEXakmKd45gMb7T8cVBykjOACgx6A8C3+eSqryUw5I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mSfKIValxq5w1WchamENa9pwEWRxuBmTjrS98h4LZL7njev2Z0awfkAzZssAw4nrc
-	 vs/iG2YiB1lTOAXhn8RbNg7raRn/BOJSam9x6xVQb9j4+saYDhOjYOfkjJxDO7qkA3
-	 nAWdf1hhHh16pPWimm6qsNCNwWj0RNDe4+xLuGM0=
-Date: Thu, 30 Apr 2026 01:11:53 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org,
-	Nguyen Tran <nguyen.tran.pz@bp.renesas.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	b=DYr4zl9wEOuZ5kUjwqY2+9I9YNggSFzwgVTOf/6KxX+ddEx9BrKwCUDo3jNNp3yll
+	 p5MA65QQKck8q9omSSJa1L9QbEhJPqVZ8N4cKRQI2IEhiFjLky9gn9eZoWqRWO3orp
+	 w97gPL1N1bHpFpoxAfuNCSSXX6ja1StPWSC375+w4Cue66QTsq7/xg4ssC9oQYfhZi
+	 qyvdGCiQTXXX/56a6Ycw3716ucAs7kYhc60HJwjrfjZjPCUSX0/7vTPYFCUbW49bnw
+	 geIVOuzGkQCKp7ihErLQBYSN5vAn7QeEYdsPGbdDtt5WFL0zmh84osW/vHdNZs5tyv
+	 B/ruD6fHjIryQ==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 29B881AC585D; Thu, 30 Apr 2026 02:06:39 +0100 (BST)
+Date: Thu, 30 Apr 2026 10:06:39 +0900
+From: Mark Brown <broonie@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 6/7] arm64: dts: renesas: r8a779md: Add Renesas R-Car
- R8A779MD M3Le DTs
-Message-ID: <20260429221153.GD132396@killaraus.ideasonboard.com>
-References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org>
- <20260419193718.133174-7-marek.vasut+renesas@mailbox.org>
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
+Subject: Re: [PATCH 2/2] regulator: add SGM3804 Dual Output driver
+Message-ID: <afKrH4fdv1jXxLgk@sirena.co.uk>
+References: <20260428-topic-sm8650-ayaneo-pocket-s2-sgm3804-v1-0-1d8dc7620256@linaro.org>
+ <20260428-topic-sm8650-ayaneo-pocket-s2-sgm3804-v1-2-1d8dc7620256@linaro.org>
+ <afFS3W5hokXy3T7x@sirena.co.uk>
+ <7d2fd0d7-2ac2-43d8-be5c-4f9fcd7908bb@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JN/cpNFVG9seBCzi"
 Content-Disposition: inline
-In-Reply-To: <20260419193718.133174-7-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <7d2fd0d7-2ac2-43d8-be5c-4f9fcd7908bb@linaro.org>
+X-Cookie: 667:
 
-Hi Marek,
 
-Thank you for the patch.
+--JN/cpNFVG9seBCzi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Sun, Apr 19, 2026 at 09:35:37PM +0200, Marek Vasut wrote:
-> From: Nguyen Tran <nguyen.tran.pz@bp.renesas.com>
-> 
-> Add support for the Renesas R-Car M3Le (R8A779MD) SoC, a variant of the
-> R-Car M3-N (R8A77965) SoC. The Renesas M3Le SoC is a register-compatible
-> variant of the R8A77965 (M3-N) with reduced set of peripherals.
-> 
-> Signed-off-by: Nguyen Tran <nguyen.tran.pz@bp.renesas.com>
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Cc: Magnus Damm <magnus.damm@gmail.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Michael Turquette <mturquette@baylibre.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Stephen Boyd <sboyd@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-clk@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
->  arch/arm64/boot/dts/renesas/r8a779md.dtsi | 48 +++++++++++++++++++++++
->  1 file changed, 48 insertions(+)
->  create mode 100644 arch/arm64/boot/dts/renesas/r8a779md.dtsi
-> 
-> diff --git a/arch/arm64/boot/dts/renesas/r8a779md.dtsi b/arch/arm64/boot/dts/renesas/r8a779md.dtsi
-> new file mode 100644
-> index 0000000000000..7e0f5fe4cd439
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/r8a779md.dtsi
-> @@ -0,0 +1,48 @@
-> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +/*
-> + * Device Tree Source for the R-Car M3Le (R8A779MD) SoC
-> + *
-> + * Copyright (C) 2025-2026 Renesas Electronics Corp.
-> + */
-> +
-> +#include "r8a77965.dtsi"
-> +
-> +/ {
-> +	compatible = "renesas,r8a779md", "renesas,r8a77965";
-> +};
-> +
-> +/delete-node/ &csi20;
-> +/delete-node/ &drif00;
-> +/delete-node/ &drif01;
-> +/delete-node/ &drif10;
-> +/delete-node/ &drif11;
-> +/delete-node/ &drif20;
-> +/delete-node/ &drif21;
-> +/delete-node/ &drif30;
-> +/delete-node/ &drif31;
-> +/delete-node/ &hdmi0;
-> +/delete-node/ &mlp;
-> +/delete-node/ &pciec1;
-> +/delete-node/ &sata;
-> +/delete-node/ &sdhi3;
-> +/delete-node/ &usb3_peri0;
-> +/delete-node/ &usb3_phy0;
-> +/delete-node/ &vin0csi20;
-> +/delete-node/ &vin1csi20;
-> +/delete-node/ &vin2csi20;
-> +/delete-node/ &vin3csi20;
-> +/delete-node/ &vin4csi20;
-> +/delete-node/ &vin5csi20;
-> +/delete-node/ &vin6csi20;
-> +/delete-node/ &vin7csi20;
-> +/delete-node/ &xhci0;
-> +
-> +&du {
-> +	compatible = "renesas,du-r8a779md";
-> +	renesas,cmms = <&cmm0>, <&cmm3>;
+On Wed, Apr 29, 2026 at 10:05:33AM +0200, Neil Armstrong wrote:
+> On 4/29/26 02:37, Mark Brown wrote:
+> > On Tue, Apr 28, 2026 at 03:52:06PM +0200, Neil Armstrong wrote:
 
-Shouldn't you then also delete the cmm1 node ?
+> > > +// SPDX-License-Identifier: GPL-2.0-only
+> > > +/*
+> > > + * SGMicro SGM3804 regulator Driver
+> > > + *
+> > > + * Copyright (C) 2025 Kancy Joe <kancy2333@outlook.com>
+> > > + * Copyright (C) 2026 Linaro Limited
+> > > + * Author: Neil Armstrong <neil.armstrong@linaro.org>
+> > > + */
 
-And does the DU still need three clocks and three interrupts ?
+> > Please make the entire comment a C++ one so things look more
+> > intentional.  The authorship overall appears a bit confused?
 
-> +	renesas,vsps = <&vspd0 0>, <&vspd1 0>;
-> +
-> +	ports {
-> +		/delete-node/ port@1;
-> +	};
-> +};
+> Sorry, what's confusing here ?
 
--- 
-Regards,
+At various times both you and Kancy Joe are listed as authors of the
+driver, but rarely both of you simulataneously.  I can't tell what your
+roles were here.
 
-Laurent Pinchart
+--JN/cpNFVG9seBCzi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnyqx4ACgkQJNaLcl1U
+h9AawAgAhk37UM7dRk5B61iR+DPgcKvtEBajvsyoiZ+DvaFb5Tx4SkhFfa60KEOv
+ZI1/r5BIKY/TloMoujjWVzYktY7cCq+rKBab+GvSWU9Z8TCiZ17py20/LgvF7PvP
+QRz0k+VOlltuDpd5n1Nzn2cSnG5nGVyqoq+jW2kvr3usNpxSc/gsuHczEf0QdKpY
+a0vFiQJ4OC55licuOvEj07ZbCtJPah96un8ewIjG59kzjDxnwKWeNXoI9V0UuhzU
+7NCo8cY1RottCmehWKW4flVLn/sjJb1P/FAaQLZo/j18M1n7GycPhouRDdIETKbF
+i0Il++uTCgn7YuWy5QRkEvtr7vZHOg==
+=NW/G
+-----END PGP SIGNATURE-----
+
+--JN/cpNFVG9seBCzi--
