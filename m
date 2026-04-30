@@ -1,118 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C843839FCA0
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 09:22:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A46A39F160;
+	Thu, 30 Apr 2026 09:25:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777540962; cv=none; b=R6f+pZWMLY1GYlGxsZYhsnow8Lb36zE0Fcjd1k96v1oXoBnsWl4OLy3bAAI0vgBneh+wAYocbV7olzXWTK1BeDdQfh5NH7e1zxdfzt3LD4kmx4vXmjOM+jKntVBPjFq4tSdz7IQB/tlX/l+ToRlSBPiBzRrro4Sney/mZ7LDPrY=
+	t=1777541129; cv=none; b=D5hMj1nxEpOETapXT0FoUcSQkrSkRioqQgDF90qKuHZPp9LrXx4U+bBGIZqoAU2ajYUaOJtc1EN+mrii8Uv1PYWrQaHQjI0yqPyGnedN0oc1bRYZI3Al6qqryjHew85osbwExpxeDf9RymHwn3osIPq/7qN4kIZpV4NZDxtuxYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777540962; c=relaxed/simple;
-	bh=1hbv3+qsz7CdCFW9e9Eg5avIqTaq6+B/xrpTsHNZWcU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J5DQYkyCBJvmq0JSbZkMWchUPJU2jt+AKC2PChlYYH+gKoVyR0AcNGv19ThXOiSho98PBDF056S91/VEedLuZ0bOfPrgIG4TzRdNNf+exQKtkR4CfnPO9E3A8gotj4mK8M+h3enGKHyrgIMsrTW29IvPGWwsfn/0oC6YKZDV8y8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j82fFM1x; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777541129; c=relaxed/simple;
+	bh=B853Eh9uk565MxVVpob3pa08VA0fsq5RODboe/BkwDg=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=Fs9Qj9uAzNV9xGK6MexXhqUIWgV+GRItq+yDB6BBdVRDB9TMOxqyDnAkI6yVJ+8IN55iGUiWzg6yjlNNd9wvxw/JAFoPnuPXTvDeSUI2Ui8fOLUwM2AcqG2c/M6C4i/L4TeBlGCg377xEJ57/7LPWwvHHrY0RidE7Mx3PElnUnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iot/Czbj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j82fFM1x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B719C2BCB3
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 09:22:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iot/Czbj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E38C5C2BCB4;
+	Thu, 30 Apr 2026 09:25:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777540962;
-	bh=1hbv3+qsz7CdCFW9e9Eg5avIqTaq6+B/xrpTsHNZWcU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=j82fFM1xn8zlxId+gbDTSJSCPju0dIdXfaFzxG3aFwOhw1Fufqk7nxfeco6Xz0Pwv
-	 A+MEUm+K5N5AnKG/k8Fis4cxBr4IKYoWIqzFIJfiYpdHvtuF72Drl9NIKCSyzZyQXl
-	 y3K+eR70mcUpMx5V+lWFoXKWvcPSJMXB8l5ieq9FonPp9Lb5ghf2h/ugOLC3xqE+NJ
-	 80TH3mej9hZ4hpokOBJgcSvLseu8YXlHNtzbyDdm975yBj4z8PAUhOAjE88XnnaX5o
-	 vhq/zZ+/bOXMdvGxLeqCMdEuKTGG0csniR8wbqeeNHtl/DDxUdKX13aBafkoofIfhB
-	 nPuUerAPpr7Qg==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5a0faa0d15cso646871e87.0
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 02:22:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+u6+AesioDhHzhXidMQD3SUs9zxlvLFb6KW968dSlzFLuawnsk28eYaE7/A/5brb7KEj2uNkEsUWCE@vger.kernel.org
-X-Gm-Message-State: AOJu0YyVoTdRCEmKxKvHNp32re+5pjXi42MB6tcXO8n9MsO1e/i8ANYN
-	dnDLT/3j9t/pfQRX6C8ul9dxSAtcV5q0xZ8zw1wD8Vlr76drmsNEIb0MQaOcm1FRY2IdA4e9NEf
-	PgxLtSc584hMSMIcHwUEvZhArvV8+8Bc=
-X-Received: by 2002:a05:6512:10cb:b0:5a4:157:5354 with SMTP id
- 2adb3069b0e04-5a8522bc5ffmr721493e87.12.1777540961140; Thu, 30 Apr 2026
- 02:22:41 -0700 (PDT)
+	s=k20201202; t=1777541129;
+	bh=B853Eh9uk565MxVVpob3pa08VA0fsq5RODboe/BkwDg=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=iot/Czbj1UTXZtIKbuakUOJPEZf2jgEJsXUobkf3fTE6pxHY1WoYVSUKSdjGjweU2
+	 uJCII7hbjhIouQ7z+4khXHPcxKRfaQKW5M8Ob7Ff/2xSIiteOAtptRQ6PRVkaTUlXR
+	 m5hnmHC34YoQvr6bwwzWq2O9IDz3/7o6w2Ux/d7uBQOzrHFiHHPE6x5MGEwTHosl5Y
+	 FtyWqlDWOsE2uTUmk93O2vMxDZkoZBQ9EeRqJitySRYcWBAmbfCmXMjl7Y98+WSE2j
+	 s23YYEIaJkoJReZgcK3bIv8Gfrr3USg/F7iytFGSPEmXH9vDS7tcs9sL21B1DUkETF
+	 aW/y9woiMNIXw==
+Date: Thu, 30 Apr 2026 04:25:27 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260428114308.113253-1-clamor95@gmail.com> <20260428114308.113253-3-clamor95@gmail.com>
-In-Reply-To: <20260428114308.113253-3-clamor95@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 30 Apr 2026 11:22:29 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkU-G38xtzzfAV_otiYuM2G5NHdCdtjFjsy2AjpG22_rg@mail.gmail.com>
-X-Gm-Features: AVHnY4JNoOOgq4asQaW05QkAmgJoAjyrhDY2aKkW9L0o-hpZE2efG82M63foOSM
-Message-ID: <CAD++jLkU-G38xtzzfAV_otiYuM2G5NHdCdtjFjsy2AjpG22_rg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] Input: isa1200 - new driver for Imagis ISA1200
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Christian Lamparter <chunkeey@gmail.com>, 
+ Andreas Kemnade <andreas@kemnade.info>, 
+ =?utf-8?q?Beno=C3=AEt_Cousson?= <bcousson@baylibre.com>, 
+ Eric Dumazet <edumazet@google.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Johannes Berg <johannes@sipsolutions.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Arnd Bergmann <arnd@arndb.de>, 
+ linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, 
+ linux-omap@vger.kernel.org, Felipe Balbi <balbi@kernel.org>, 
+ Rob Herring <robh+dt@kernel.org>, linux-gpio@vger.kernel.org, 
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org, 
+ netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+ Roger Quadros <rogerq@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Aaro Koskinen <aaro.koskinen@iki.fi>, Tony Lindgren <tony@atomide.com>, 
+ Linus Walleij <linusw@kernel.org>
+To: Arnd Bergmann <arnd@kernel.org>
+In-Reply-To: <20260430081242.3686993-2-arnd@kernel.org>
+References: <20260430081242.3686993-1-arnd@kernel.org>
+ <20260430081242.3686993-2-arnd@kernel.org>
+Message-Id: <177754112702.3678889.4847926893667561974.robh@kernel.org>
+Subject: Re: [PATCH v4 1/3 net-next] dt-bindings: net: add
+ st,stlc4560/p54spi binding
 
-Hi Svyatoslav,
 
-I just saw this thing:
+On Thu, 30 Apr 2026 10:12:40 +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> The SPI version of Prism54 was sold under a couple of different
+> names and supported by the Linux p54spi driver, but there was
+> never a DT binding for it.
+> 
+> Document the four known names of this device and the properties
+> that are sufficient for its use on the Nokia N8x0 tablet.
+> 
+> As I don't have this hardware or documentation for it, this is
+> purely based on existing usage in the driver.
+> 
+> Link: https://lore.kernel.org/all/e8dc9acb-6f85-e0a9-a145-d101ca6da201@gmail.com/
+> Acked-by: Christian Lamparter <chunkeey@gmail.com>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+> v4: renamed file to st,stlc4560, matching the primary compatible string
+>     require st,stlc4560 string
+> ---
+>  .../bindings/net/wireless/st,stlc4560.yaml    | 61 +++++++++++++++++++
+>  MAINTAINERS                                   |  1 +
+>  2 files changed, 62 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/wireless/st,stlc4560.yaml
+> 
 
-On Tue, Apr 28, 2026 at 1:43=E2=80=AFPM Svyatoslav Ryhel <clamor95@gmail.co=
-m> wrote:
+My bot found errors running 'make dt_binding_check' on your patch:
 
-> +/* HCTRL5 controls the PWM high duty cycle of internal channel */
-> +#define ISA1200_HCTRL5                 0x35
-(...)
-> +struct isa1200_config {
-(...)
-> +       u32 duty;
-> +};
-> +       /* Duty cycle */
-> +       regmap_write(isa->map, ISA1200_HCTRL5, config->period >> 1);
-(...)
-> +       if (isa->clk)
-> +               regmap_write(isa->map, ISA1200_HCTRL5, config->duty);
-(..)
-> +       if (isa->clk) {
-> +               ret =3D device_property_read_u32(dev, "imagis,period-ns",
-> +                                              &config->period);
-> +               if (ret)
-> +                       return dev_err_probe(dev, ret,
-> +                                            "failed to get period\n");
-> +
-> +               config->period /=3D ISA1200_HCTRL6_PERIOD_SCALE;
-> +               config->duty =3D config->period >> 1;
-> +       }
-> +
-> +       if (isa->pwm) {
-> +               struct pwm_state state;
-> +
-> +               pwm_init_state(isa->pwm, &state);
-> +
-> +               if (!state.period)
-> +                       return dev_err_probe(dev, -EINVAL,
-> +                                            "PWM period cannot be zero\n=
-");
-> +
-> +               config->freq =3D div64_u64(NANO, state.period * config->c=
-lkdiv);
-> +               config->duty =3D state.period >> 1;
+yamllint warnings/errors:
 
-So you don't need the same code writing
-regmap_write(isa->map, ISA1200_HCTRL5, config->period >> 1);
-above, just use confg->duty which contains config->period >> 1
-(...)
-> +       device_property_read_u32(dev, "imagis,duty-cycle-ns", &config->du=
-ty);
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/wireless/st,stlc4560.yaml: $id: Cannot determine base path from $id, relative path/filename doesn't match actual path or filename
+ 	 $id: http://devicetree.org/schemas/net/wireless/st,stlc45xx.yaml
+ 	file: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/wireless/st,stlc4560.yaml
 
-I'm not sure about this, it works for me when I set this to 100
-resulting in a register write of 100 to ISA1200_HCTRL5. But are
-we sure that this register is expressed in nanoseconds? I think
-some calculation is needed here (and probably another value
-in my device tree).
+doc reference errors (make refcheckdocs):
+Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/net/wireless/st,stlc45xx.yaml
+MAINTAINERS: Documentation/devicetree/bindings/net/wireless/st,stlc45xx.yaml
 
-Yours,
-Linus Walleij
+See https://patchwork.kernel.org/project/devicetree/patch/20260430081242.3686993-2-arnd@kernel.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
