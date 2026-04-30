@@ -1,126 +1,156 @@
-Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEBC526ACC;
-	Thu, 30 Apr 2026 23:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD7E2EA754
+	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 00:00:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777593563; cv=none; b=JwpiAfDZO5jIDO3c8UPEoQ8hr4nl40K4kpNaYomnYH/aRIjSnIhc3pCmqDFqkjbGwyYzTGMDJl8b8ptdCVpiWhiJ+h/X++rpqLjZuCifuz2lKv0dewaSWYzxU7MEDlvORfrDDAuIX7nvABzov02p5Wm4BYQTpW3lCT6Adpk4VNw=
+	t=1777593640; cv=none; b=hRspeXM9mE5n7Ys7g1dscaIZ3Osmbizu+4ON8ToNd5b4U2bmA33pvyNF2yFh+JeKHUsGjlgPyRPGWFI1YDUNfQgSoW8FmWb/fYQTXBzflmAn2peSqKAVOa1HB4WKBVmggvV9q4m3QfCFipUWqNrpL8aCwTI/FvxrLsIA4HgiMmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777593563; c=relaxed/simple;
-	bh=69IY5DNP84ktIAJpCd5BYlr/Qk0JwQo5oigeV6qG9n4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L99Z0ZxIevqHv1Kfd0ieRACNETFHCnpxwj/oQ7itDmB/X9apMC0iJ/hs1shymsSYgDGBz358ghykdbTBKdv19PC9YjDvMmlReV2k34akL6v/OJDH/vHeawVYxh5EgTVH7filF4y/eYGlxDOuSDpr8YddPkuDyGhdqoZM0rRykFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=UmQKegrB; arc=none smtp.client-ip=91.218.175.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	s=arc-20240116; t=1777593640; c=relaxed/simple;
+	bh=sQxuhOfm4oyjjyHRHwYJHnDekKF9G661/WNU4U8f4VY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XVzzveLd046uJ+B6WB5HQlNMQmeQCbofcUA1Zzjt3lvKgMiXrf/nzPQfYty1641jcxctN9kd3mJLY7AcXfpYleb1tg6bgwc+wNvOe+tT9IGvJ2XoNGgONNfz5GIyh9ZhgCbYL72JSdZd89nhDl1A2hMs9MyD1nX01Mmpdb1p7hU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=cQhX5Un1; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="UmQKegrB"
-Message-ID: <51eb35d3-5390-4f3b-9cb7-8d289151a650@packett.cool>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
-	s=key1; t=1777593558;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8R4x7B92IayYCVFuQQU/7cTcEQG9TXQ+mSKoT+NbYYQ=;
-	b=UmQKegrBRGrSLO88Ah7CA7JWlc5RcBmrfWU2/+hgwktMY4ND6LLqYCDKZ5JsbTYLV/a5kI
-	Im6F5I+jfWlewl20wwigjlITsm+DmeHT3nQ6ZfC42/BaVednF7nj/9JSQLP/aVpih2MjJ3
-	K08c8Au0A9y0oSUGDc0OMwjEXLxNnocWbjd87V7qqw5GyLpdeD4wiMZBIYBN4xH7/8z1Ao
-	j0s06BfVDhkBWyHa8ab3sAswsZ+IIeeqhDBlYov1kUSqGlN6ETEg5TKCkWOxCWlUj5XJ/2
-	dIhVisrqyq9QhWRaNF0aWN/XqUm41Gj8K0PxelHp7h8HzadxDLphiuUrCwRK4Q==
-Date: Thu, 30 Apr 2026 20:59:05 -0300
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="cQhX5Un1"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-baebe98afa0so208324466b.3
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 17:00:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1777593634; x=1778198434; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Z/X8TMTxizrgbcCVq8AAcQ8SrqTljyGddB0DA+TirOI=;
+        b=cQhX5Un1I3H0dsESdXH1kF3/NjLzWteVb8empsflc65XbGPJQwDSYkEaP487nbqNoo
+         uAWTcQCLnZ2RFlI2QNPwd2ncF6WG2lmcKOjSIzLFdPFEtnWPW4mo9PUcuSH39VsE91Z3
+         ehy1gXbflgQu763BoPHrBa3Fr79rKARIrmaD8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777593634; x=1778198434;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Z/X8TMTxizrgbcCVq8AAcQ8SrqTljyGddB0DA+TirOI=;
+        b=N6U5+C8/6ku4J3Xme56ZJ71mEaFnfASKCiYohTT5mJkIVfQcjCqFF/iJL8pcF/W2UZ
+         WoUpN7Fs/Lhn639c+8jGoWZtKdyeE0rTwBD6IrvdB5kjHiq82kXtp6pKYQhPm2Qs5wyX
+         J7Yn7IIjmKfr6c13QrBoafzgY+2mQSvmTEb6YtyRw5knwqoAIrzOU23KxDKmXn8DAsIX
+         rbXJplXLlnQbkOq/bMg2Tw50VggXp0Q/CA/YSZGbUGNBrxEv2eY/5L0gkw5Vn/NJKp9H
+         PqXuf15jqa6QDXOY7JS0SNacy489Rn7N7uzgRAxYAP1IVEYl42OhKyCfNPrtrTSAtDLF
+         qExg==
+X-Forwarded-Encrypted: i=1; AFNElJ8i+XBqoknf5Mx9Up53sPhUiJNDyoQpcxQXCe781qtrUL72/3pd4rXdEUHKZnWCCkEWsaJyRXaOlCYF@vger.kernel.org
+X-Gm-Message-State: AOJu0YzqBtTKfJwFaoU8zA/GjzQcIhuuDmYNkAwbc2Z7q3LR2LYv9ElV
+	LuqKYznAek6jJoWe1DollAB33gFXVx2V+CshKyy3MeNxxTIh8caF9c5YK2fHVtKa7hQOEwHGcBB
+	lTscnGWBN
+X-Gm-Gg: AeBDieuLSgOwEY37vr3MW22FoQBf+hgVMcpk7RfrY6dlN7iM7ffRYEQqA0392Eu3JbY
+	rOG5D+KGw708N3hNPW+G7C2uRdvpX7ImnFEbALciBZiE6aQf+pZSpTuLQUTacVr5sY1ik4tj+jg
+	QSXE6OeJ9lhq9USnq9wQNDbUTi3KBTafUyCb87SPgbNVCWVHdLH4kf6SLy8MhMFGsHH/c4F1g5K
+	AcDADmDf4iw8Ex4DrQP8DV4UI/0Oc8PKf/+8eCxAnoUUm4w/HJfFgJsPVIZtFNG4o32By9bYUlK
+	mFdne/ZitnKlrEJdbAwbYrwyJs6wbwVx6ZWAkYoq8jtEIgTksr6E+quLAG4018Ye2uhfnWQOGFA
+	izXJxSftYwYPa0AKOKtqvc3GeRDZ0vUrf8XWtwA5RK0NCto7xA+T4I5ZFa47KQQsFEXno4NZQeO
+	6s3rkal866M2VlTLLoaeoUyrCc5+zTjUXZkiNnmljCZ1B3CjxMEwBj6bfVctjwAz9UGpKuKdVnq
+	MpbcxnUZaY=
+X-Received: by 2002:a17:907:2679:b0:ba5:60e1:2ef2 with SMTP id a640c23a62f3a-bbac7799fd2mr257506266b.22.1777593634323;
+        Thu, 30 Apr 2026 17:00:34 -0700 (PDT)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com. [209.85.218.50])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67b85e28ef8sm425521a12.2.2026.04.30.17.00.33
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Apr 2026 17:00:33 -0700 (PDT)
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-b9d9971d059so199289366b.2
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 17:00:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+52uChCI9f7s40tdiPvCmk+ecdl7YWOeRzM5b3iQM7gbiLToLB1HXZwBirwNrfO3S0iu8HcwmP3IcW@vger.kernel.org
+X-Received: by 2002:a05:6000:26cb:b0:43d:6fb7:fedb with SMTP id
+ ffacd0b85a97d-4493ec61e55mr8612204f8f.36.1777593293572; Thu, 30 Apr 2026
+ 16:54:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v7 3/6] arm64: dts: qcom: Add AYN QCS8550 Common
-To: webgeek1234@gmail.com, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
-References: <20260430-ayn-qcs8550-v7-0-591a96735fa3@gmail.com>
- <20260430-ayn-qcs8550-v7-3-591a96735fa3@gmail.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Val Packett <val@packett.cool>
-In-Reply-To: <20260430-ayn-qcs8550-v7-3-591a96735fa3@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+References: <20260428200712.2660635-1-briannorris@chromium.org> <20260428200712.2660635-6-briannorris@chromium.org>
+In-Reply-To: <20260428200712.2660635-6-briannorris@chromium.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 30 Apr 2026 16:54:42 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UcDrakNVEZW24hCRizyh-VkgCGiZaPd3z+QyPoYzU=YA@mail.gmail.com>
+X-Gm-Features: AVHnY4KLFGb62k1dRvCKyy7EF6W0tPNO3zKHC2HCyssJ_nJGpMzpFc_-TEUNEXc
+Message-ID: <CAD=FV=UcDrakNVEZW24hCRizyh-VkgCGiZaPd3z+QyPoYzU=YA@mail.gmail.com>
+Subject: Re: [PATCH 5/7] arm64: dts: mediatek: Add #{address,size}-cells to
+ Chromium-based /firmware
+To: Brian Norris <briannorris@chromium.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Heiko Stuebner <heiko@sntech.de>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Tzung-Bi Shih <tzungbi@kernel.org>, chrome-platform@lists.linux.dev, 
+	linux-rockchip@lists.infradead.org, Julius Werner <jwerner@chromium.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, cros-qcom-dts-watchers@chromium.org, 
+	linux-arm-msm@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi,
 
-On 4/30/26 3:43 PM, Aaron Kling via B4 Relay wrote:
-> From: Teguh Sobirin <teguh@sobir.in>
+On Tue, Apr 28, 2026 at 1:07=E2=80=AFPM Brian Norris <briannorris@chromium.=
+org> wrote:
 >
-> This contains everything common between the AYN QCS8550 devices. It will
-> be included by device specific dts'.
-> [..]
-> +
-> +	/* The tzlog label is required by ABL to apply a dtbo, but it can be on any node */
-> +	qcom_tzlog: chosen {
-> [..]
-> +
-> +	/* The arch_timer label is unused here, but is required by ABL to apply a dtbo */
-> +	arch_timer: timer { };
+> Chromium/Depthcharge bootloaders may dynamically add a few device nodes
+> to a system's DTB under a /firmware node. A typical DT looks something
+> like the following:
+>
+> / {
+>         firmware {
+>                 ranges;
+>
+>                 coreboot {
+>                         compatible =3D "coreboot";
+>                         reg =3D <...>;
+>                         ...;
+>                 };
+>         };
+> };
+>
+> Notably, the /firmware node has an empty 'ranges', but does not have
+> address/size-cells.
+>
+> Commit 6e5773d52f4a ("of/address: Fix WARN when attempting translating
+> non-translatable addresses") started requiring #address-cells for a
+> device's parent if we want to use the reg resource in a device node.
+> This leads to errors like the following:
+>
+> [    7.763870] coreboot_table firmware:coreboot: probe with driver corebo=
+ot_table failed with error -22
+>
+> Add appropriate #{address,size}-cells to work around the problem.
+>
+> Note that Google has also patched the Depthcharge bootloader source to
+> add {address,size}-cells [1], but bootloader updates are typically
+> delivered only via Google OS updates. Not all users install Google
+> software updates, and even if they do, Google may not produce updated
+> binaries for all/older devices.
+>
+> [1] https://lore.kernel.org/all/20241209092809.GA3246424@google.com/
+>     https://crrev.com/c/6051580 ("coreboot: Insert #address-cells and
+>     #size-cells for firmware node")
+>
+> Closes: https://lore.kernel.org/all/aeKlYzTiL0OB1y3g@google.com/
+> Fixes: 6e5773d52f4a ("of/address: Fix WARN when attempting translating no=
+n-translatable addresses")
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
+> ---
+>
+>  arch/arm64/boot/dts/mediatek/mt8173-elm.dtsi     | 5 +++++
+>  arch/arm64/boot/dts/mediatek/mt8183-kukui.dtsi   | 5 +++++
+>  arch/arm64/boot/dts/mediatek/mt8186-corsola.dtsi | 5 +++++
+>  arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi  | 5 +++++
+>  arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi | 5 +++++
+>  arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi  | 5 +++++
+>  6 files changed, 30 insertions(+)
 
-awkwaaard.. Is there any problem with requiring erased dtbo? For phones 
-that's generally what's done. Having junk from random dtbos is best avoided.
-
-Also according to the pmOS wiki [1] at least on some of these devices, 
-there's no need to boot from ABL at all! There's also U-Boot and you can 
-switch between ABL and U-Boot at will (sounds awesome!)
-
-> [..]
-> +&i2c_hub_2 {
-> +	clock-frequency = <400000>;
-> +
-> +	status = "okay";
-> +
-> +	spk_amp_l: amplifier@34 {
-> +		compatible = "awinic,aw88166";
-> +		reg = <0x34>;
-> +		#sound-dai-cells = <0>;
-> +		reset-gpios = <&tlmm 103 GPIO_ACTIVE_LOW>;
-> +		awinic,audio-channel = <0>;
-> +		awinic,sync-flag;
-> +		sound-name-prefix = "SPK_L";
-I guess there's no real standard/convention for the prefixes but maybe 
-worth changing to the more readable "Amplifier L" / "Amplifier R" that's 
-used on e.g. the fairphone,fp5?
-> +	};
-> +
-> +	spk_amp_r: amplifier@35 {
-> +		compatible = "awinic,aw88166";
-> +		reg = <0x35>;
-> +		#sound-dai-cells = <0>;
-Also #sound-dai-cells should go last, with a newline before it.
-> +		reset-gpios = <&tlmm 100 GPIO_ACTIVE_LOW>;
-> +		awinic,audio-channel = <1>;
-> +		awinic,sync-flag;
-The awinic properties should also be a newline-separated "block", before 
-the # one.
-> +		sound-name-prefix = "SPK_R";
-> +	};
-> +};
-> [..]
-
-BTW, do these "just work" right now?
-
-If so, I guess you're lucky and the "firmware" / register config binary 
-for these devices configures a 16-bit 48kHz format which is the one the 
-soc driver forces.. because the aw88166 driver, just like other awinic 
-amp drivers, doesn't negotiate the format stuff at all and blatantly 
-lies about supporting multiple formats :) I'm currently fixing this for 
-aw88261[2] but eventually we'll probably need to actually kinda unify 
-these drivers..
-
-[1]: https://wiki.postmarketos.org/wiki/AYN_Thor_(ayn-thor)
-[2]: https://lore.kernel.org/all/20260420213250.215465-2-val@packett.cool/
-
-
-~val
-
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
