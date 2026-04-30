@@ -1,406 +1,490 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBFD63A3E6C
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 14:20:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A54B35958;
+	Thu, 30 Apr 2026 15:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777558852; cv=none; b=iov2JuhG7PKj/QkFbneVwUbkBfM7FwfYbmNPKWMHI/BO0sRMZ4QtIIw+owWTyVoVzERYoiUobfcGp2gtaEcyvYGPzqen1u3/p/X1sNsXWzI80UlauvBNY5aj7CCQNYJTI2WV5e8Db8Ssi3Qd8CAm2fXD7ES2t/X3jBOB/lJPhBY=
+	t=1777561514; cv=none; b=TNZ4oMcYsIz1tePbHdNmpdJQoBCx3OlHRZYY6jEapXVlAy8svVRr0XxlG77HxPz7bVZFsm5iTVkshc+NOLhKBb4VG40RbUm47kdNs1+6uAd0vWYRZieZCJWJHWyBQDwLW9jEAqVDTJ+soPGKTDnB5zxrWGYowLl6CMoxk4E0uy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777558852; c=relaxed/simple;
-	bh=ylV3TuCPVKskmzdgXHVoBHI9m2SHCKprMb4v0qcQIT0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=fNxIstji/h7wfpukYRbv6/xWFuLTcK398mRD43w9IG5zy/wsNAenHUpWfUcsQc0mAunkghcHPPvbbbh7WkSTv8xwho/kVxnbDfpgd48dupe3Gz0eXGmHC2bPFgaOe2ooG3eUOgOprgqr5rKvWN8tPxde5pImY2HAzSjrgZzTnMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UB65K0mw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hPi/abOz; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777561514; c=relaxed/simple;
+	bh=VX6+ebjtO5Vyi+Sz/eN3qNfvydqEfu//paiGoORg9/Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FhQ7dRgnPIEk3onzeQ3MR/ClpVrUj+wNYTw+urPnoqNClD69+NEeaiXVRPsteqR2fsftpSRK/OdChvNbvJjkni4Ul1PSy4uqbNR0DJa3qAOM1Pd8Lkj1AD/LTGlEhz0dsW50X7AqmbXF2Q2ta7f9XVRYoi7yRqa07qhkGPgcdoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rcKrk4KX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UB65K0mw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hPi/abOz"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63UC1mNo831467
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 14:20:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=dekvHp+VR67gHTc5/sW8T9
-	bG0fmDifvtGTewZf2gTHk=; b=UB65K0mwAcaShHPv/bpH6XQBmuCFK6EOpKY4TY
-	EyufFWUUdIcgMcP9NSHdc4ySGXhm3AHZe5jFb4vGO+ofAGtoRsbKDeCIxYiDxnlF
-	1fI2d9vUt1GR9rx6Gle4PMH4FTF1OdEhoOKI6IFYp+7R1eWD7/XgCa7uHq+wcbly
-	2Y94E898P7d014sDZZhjcT8+Hp/vIAOCWxzti3VDtZ4k3dcIENaCayQOui0ARNP4
-	N2RIvpLQrf4VNMkhnnkvDSeHbxw4sIpTavICUeD3dRrazjiCQJVMHZrHaSdniWtY
-	JXJWf4GUPrhoewEwkeU4FJo9hEs1dx+NpkFOlvL78P1B+RYw==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dv2cq1wta-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 14:20:49 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c76c2bb3149so531560a12.1
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 07:20:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777558848; x=1778163648; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=dekvHp+VR67gHTc5/sW8T9bG0fmDifvtGTewZf2gTHk=;
-        b=hPi/abOzSZYRBHgYTnKYWMHNioMARCsp4La/6UdPNpv1xBdFohimuXM5Q+0kJ3SyOz
-         4zWonFIExtj4CSERBlJQCBUWuul2TJWS3hLw5AMlHMfic0nC9HSTKI0Ck8I63kBYy0GC
-         k0JHeVpBV3XxbirTB4xkdgIqxNXIH6NmIZk+jR913xTb9ojPOadzuQi18c0ayH+cPse7
-         4pvFaNBqBIdKNG/KMWBpeR3CxQCIrPOfYyiSKbb23FHk42VpCbJNx1xRqyNPnrLwqL6I
-         ihrdmnlr/R2gQiSItUs7NU/aA5IIGHdiFpdv43zvV1pPpdX1y/zw5wksMtYcuV4pTOdK
-         w1lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777558848; x=1778163648;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dekvHp+VR67gHTc5/sW8T9bG0fmDifvtGTewZf2gTHk=;
-        b=XwCP8ryu/BivafwELt/QiEQhHm5/q1DW6uW2hVIxc3pUspG56FjdiQK9/taDecyVFQ
-         0n13hj1Yip07k+LmBU9IoaShyv7a+ZJDjQFqrER+GeYPDuuUerCkWcvJE7QUXSkoT0H3
-         ISc+t101EE5YgFSm/SqPnqOKjHRZqmP2Z+dg3ko9BXCgCkUXY8kcXp9gNpXO/MJDaksB
-         KBNtf7wh8L44tfhJ/DzA8wVCGQ6PiL94QuoY6Yrq/LD/TDgv167Rzq5IqtK31fEvTGbf
-         rjQtJCpnuLGE0rp8iwT/III2Pz0E1Me0dWr4ke02CQu8JqHrOW4uLchhgjLWV4WEcwVO
-         G1iQ==
-X-Forwarded-Encrypted: i=1; AFNElJ//XVXpRoyMrDqhM+D9ny7f1Or/2uSFCjgIXzJje6kNQaeSDGn0VNMU1R2ievkwKMqV3eRoR9gUHnoE@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxl8g+l62uXJMMZg9hLalxcz8kYdFvmkPFgHG07PaoIlL3Ig8IK
-	Yz79x+xsKUfcdRWY7EPrBuB50ZnUM00FpvZYxjm9vzlwn54SUHlW+SWqLdfA3K0K4PTF9mf87jx
-	6qq78zOw2/ZyIphobIFZYcAZL66RtIPjvnrcEVvpNCsyvgIAuwwTf2zdwmOscUX3q
-X-Gm-Gg: AeBDievCw9A4Dh6D6i/MlW0lL5f7JTSEO43ELFEK2+lPrIWEvdzNYT5YOmzeGCoL468
-	B4lkz/CjAdfNhMfE378F8S3dT9mXOd4hGeODJhklFBFYUnPtokzb3hdwrNOMK8s/4hl7ELGn8xJ
-	AuBj33JlFSr0SrsM6eqLktsjGbE+iE1OMUUtH57TsRYc+CUgAKrkm+0/M7Pvn+sqay82nP9Bd1G
-	aARvKDZzzTZEG6pXwkwiOxRcAmJIt0ktlV1LKQTX6miIzrIBd1v/nMf8jix0lPYD3hnkFwhvPNe
-	1HVsalfuedvbK4ZrfzQIMMWCFaNQW8adGXGbQ42n5ijZ47/nsj/+1Orx8I4hhCvOcn7gVLr6COx
-	RxOaGwlIACnNIQCdC5nDKNNv6gcpF4ucePJc81Z8QA2+F/J1Wj6rP0o7MigoU6Aapnw==
-X-Received: by 2002:a05:6a20:918a:b0:3a3:21db:8ef1 with SMTP id adf61e73a8af0-3a3d1c9e209mr2672104637.4.1777558848152;
-        Thu, 30 Apr 2026 07:20:48 -0700 (PDT)
-X-Received: by 2002:a05:6a20:918a:b0:3a3:21db:8ef1 with SMTP id adf61e73a8af0-3a3d1c9e209mr2672054637.4.1777558847520;
-        Thu, 30 Apr 2026 07:20:47 -0700 (PDT)
-Received: from hu-swatagar-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-834ed5ccb05sm6024073b3a.15.2026.04.30.07.20.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Apr 2026 07:20:46 -0700 (PDT)
-From: Swati Agarwal <swati.agarwal@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Swati Agarwal <swati.agarwal@oss.qualcomm.com>
-Subject: [PATCH v2] arm64: dts: qcom: monaco-evk: Enable primary USB controller in host mode
-Date: Thu, 30 Apr 2026 19:50:00 +0530
-Message-Id: <20260430142000.3707614-1-swati.agarwal@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rcKrk4KX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BA59C2BCB9;
+	Thu, 30 Apr 2026 15:05:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777561513;
+	bh=VX6+ebjtO5Vyi+Sz/eN3qNfvydqEfu//paiGoORg9/Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=rcKrk4KXGafBWtVNtX2QACShpm19N6Z8VsyeY2h2dm7uWfLwIOE+AHZMXTWiDSTKN
+	 Jbnt5lqr2INWpgbrrniEeKvMv8ZgrW6eEZMIPo7jjEKIoRaZtWSqd1zVILtvnzKFb6
+	 iJb/Po/j7YuVrcsk4qqMl26+SeI4DrOPpLcABq+BOSw0W9n1nlCCb7B4dYZp5K1CZM
+	 u0cP+VSo8OvZBNz1Zw5qnhqeSY1WUGLg8fmg96Be5Yx+HE3m0aemQ8ScbwwuCm0cOr
+	 ZvozkS3uUKpRYktXXXEl+QzFigmHF+p17MzzNDZ1lZVXz+iGENYEXtGa7nbGf7MW9E
+	 OPlvA6yXdDDAw==
+Date: Thu, 30 Apr 2026 16:05:08 +0100
+From: Lee Jones <lee@kernel.org>
+To: Jan Carlo Roleda <jancarlo.roleda@analog.com>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] leds: ltc3208: Add driver for LTC3208
+ Multidisplay LED Driver
+Message-ID: <20260430150508.GK1806155@google.com>
+References: <20260416-upstream-ltc3208-v4-0-3884ed3e49f5@analog.com>
+ <20260416-upstream-ltc3208-v4-2-3884ed3e49f5@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: IUp85cV3SfnAR9lTgb8-NRgGQTg22ZLe
-X-Authority-Analysis: v=2.4 cv=aYRRWxot c=1 sm=1 tr=0 ts=69f36541 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=8yLi3zvD0uxwaS-m9nYA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDMwMDE0NyBTYWx0ZWRfX6fvirjm4wPtC
- O493/LijKBipw2CelLTOHkwcyf1fWzZaXlhwjGo6cI+yvb3kyJID66IaWUXMzZ4VABtA1RYqcol
- kS+5e3KOfO3/X3Gv/ngkb3MTRvLocS3hDldW6siEMuxN9T3Ow1Fg5G/qzH2b5Ggxzg0Fhf7os5e
- ZmH9tPU73RSfxRV47j3TrRWmkyk5Vd6YKh0ktaw6+JG/upO+TDP81GmGEBG6hHgsT0dGOjiquuw
- RL9DCzG79uCWiyIiJtnQsXvjEFC7U8rKn/JQuP+bT43bVBisxB1JDAv882ZI0ovUGY5/V2+biOP
- MQIEcDX4iQ3ixqzYd8NBgxd9yw6EKEFntk5lHhtnDn7qwAiRXp2P/wLeKm+ib5KmftksX8Irv5u
- DhWNP7p/rgtz3ev2Z/mg50oLQ/2bus7uedMpBQ7WEcJyX2918hoZmngPjxlL6eTaU1Trw59Rn9K
- oZf9MXX7YDTOQFuwtvw==
-X-Proofpoint-ORIG-GUID: IUp85cV3SfnAR9lTgb8-NRgGQTg22ZLe
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-30_04,2026-04-30_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 clxscore=1015 phishscore=0 spamscore=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604300147
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260416-upstream-ltc3208-v4-2-3884ed3e49f5@analog.com>
 
-Enable primary USB controller in host mode on monaco EVK Platform.
+On Thu, 16 Apr 2026, Jan Carlo Roleda wrote:
 
-Primary USB controller is connected to a Genesys Logic USB HUB GL3590
-having 4 ports. The ports of hub that are present on lemans EVK standalone
-board are used as follows:-
-1) port-1 is connected to HD3SS3220 Type-C port controller.
-2) port-4 is used for the M.2 E key on corekit. Standard core kit uses UART
-for Bluetooth. This port is to be used only if user optionally replaces the
-WiFi card with the NFA765 chip which uses USB for Bluetooth.
+> Kernel driver implementation for LTC3208 Multidisplay LED Driver.
+> 
+> The LTC3208 is a Multi-display LED driver, designed to control up to
+> 7 distinct LED channels (MAIN, SUB, AUX, CAMHI, CAMLO, RED, GREEN, BLUE),
+> each configurable with its own current level that is equally set to its
+> respective output current source pins for external LEDs.
+> 
+> It is programmed via the I2C serial interface.
+> MAIN and SUB support 8-bit current level resolution,
+> while AUX, CAMHI/LO, RED, GREEN, and BLUE support 4-bit levels.
+> 
+> The AUX LED channel can be configured to mirror the CAM, SUB, and MAIN
+> channel current levels, or as its own independent AUX channel.
+> 
+> The CAM LED channel is configured as 2 separate CAMHI and CAMLO register
+> sub-channels, which currnet is selected via the CAMHL pin, or set to
+> CAMHI register only via setting the S_CAMHILO bit high in register G (0x7).
+> 
+> Signed-off-by: Jan Carlo Roleda <jancarlo.roleda@analog.com>
+> ---
+>  MAINTAINERS                 |   2 +-
+>  drivers/leds/Kconfig        |  12 ++
+>  drivers/leds/Makefile       |   1 +
+>  drivers/leds/leds-ltc3208.c | 278 ++++++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 292 insertions(+), 1 deletion(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 19b0b84e934d..48bae02057d5 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15131,7 +15131,7 @@ M:	Jan Carlo Roleda <jancarlo.roleda@analog.com>
+>  L:	linux-leds@vger.kernel.org
+>  S:	Maintained
+>  W:	https://ez.analog.com/linux-software-drivers
+> -F:	Documentation/devicetree/bindings/leds/adi,ltc3208.yaml
 
-Remaining 2 ports will become functional when the interface plus mezzanine
-board is stacked on top of corekit:
+Is this related to this change?  Was it intentional?
 
-3) port-2 is connected to another hub which is present on the mezz through
-which 4 type-A ports are connected.
-4) port-3 is used for the M.2 B key for a 5G card when the mezz is
-connected.
+> +F:	drivers/leds/leds-ltc3208.c
+>  
+>  LTC4282 HARDWARE MONITOR DRIVER
+>  M:	Nuno Sa <nuno.sa@analog.com>
+> diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
+> index 597d7a79c988..d13bbec73f06 100644
+> --- a/drivers/leds/Kconfig
+> +++ b/drivers/leds/Kconfig
+> @@ -1029,6 +1029,18 @@ config LEDS_ACER_A500
+>  	  This option enables support for the Power Button LED of
+>  	  Acer Iconia Tab A500.
+>  
+> +config LEDS_LTC3208
+> +	tristate "LED Driver for Analog Devices LTC3208"
+> +	depends on LEDS_CLASS && I2C
+> +	select REGMAP_I2C
+> +	help
+> +	  Say Y to enable the LTC3208 LED driver.
+> +	  This enables the LED device LTC3208, a 7-channel, 17-current source
+> +	  multidisplay high-current LED driver, configured via I2C.
+> +
+> +	  To compile this driver as a module, choose M here: the module will
+> +	  be called ltc3208.
+> +
+>  source "drivers/leds/blink/Kconfig"
+>  
+>  comment "Flash and Torch LED drivers"
+> diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
+> index 8fdb45d5b439..b08b539112b6 100644
+> --- a/drivers/leds/Makefile
+> +++ b/drivers/leds/Makefile
+> @@ -61,6 +61,7 @@ obj-$(CONFIG_LEDS_LP8788)		+= leds-lp8788.o
+>  obj-$(CONFIG_LEDS_LP8860)		+= leds-lp8860.o
+>  obj-$(CONFIG_LEDS_LP8864)		+= leds-lp8864.o
+>  obj-$(CONFIG_LEDS_LT3593)		+= leds-lt3593.o
+> +obj-$(CONFIG_LEDS_LTC3208)		+= leds-ltc3208.o
+>  obj-$(CONFIG_LEDS_MAX5970)		+= leds-max5970.o
+>  obj-$(CONFIG_LEDS_MAX77650)		+= leds-max77650.o
+>  obj-$(CONFIG_LEDS_MAX77705)		+= leds-max77705.o
+> diff --git a/drivers/leds/leds-ltc3208.c b/drivers/leds/leds-ltc3208.c
+> new file mode 100644
+> index 000000000000..9da8f4b359e3
+> --- /dev/null
+> +++ b/drivers/leds/leds-ltc3208.c
+> @@ -0,0 +1,278 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * LED driver for Analog Devices LTC3208 Multi-Display Driver
+> + *
+> + * Copyright 2026 Analog Devices Inc.
+> + *
+> + * Author: Jan Carlo Roleda <jancarlo.roleda@analog.com>
+> + */
+> +#include <linux/bitfield.h>
+> +#include <linux/errno.h>
+> +#include <linux/i2c.h>
+> +#include <linux/leds.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/types.h>
+> +
+> +#define LTC3208_LED_SET_HIGH_BYTE_DATA	GENMASK(7, 4)
+> +#define LTC3208_LED_SET_LOW_BYTE_DATA	GENMASK(3, 0)
+> +
+> +/* Registers */
+> +#define LTC3208_REG_A_GRNRED		0x1 /* Green (High half-byte) */
+> +					/* and Red (Low half-byte) current DAC*/
+> +#define LTC3208_REG_B_AUXBLU		0x2 /* AUX (High half-byte) */
+> +					/* and Blue (Low half-byte) current DAC*/
+> +#define LTC3208_REG_C_MAIN		0x3 /* Main current DAC */
+> +#define LTC3208_REG_D_SUB		0x4 /* Sub current DAC */
+> +#define LTC3208_REG_E_AUX_SELECT	0x5 /* AUX DAC Select */
+> +#define  LTC3208_AUX1_MASK		GENMASK(1, 0)
+> +#define  LTC3208_AUX2_MASK		GENMASK(3, 2)
+> +#define  LTC3208_AUX3_MASK		GENMASK(5, 4)
+> +#define  LTC3208_AUX4_MASK		GENMASK(7, 6)
+> +#define LTC3208_REG_F_CAM		0x6 /* CAM (High half-byte and Low half-byte) current DAC*/
+> +#define LTC3208_REG_G_OPT		0x7 /* Device Options */
+> +#define  LTC3208_OPT_CPO_MASK		GENMASK(7, 6)
+> +#define  LTC3208_OPT_DIS_RGBDROP	BIT(3)
+> +#define  LTC3208_OPT_DIS_CAMHILO	BIT(2)
+> +#define  LTC3208_OPT_EN_RGBS		BIT(1)
+> +
+> +#define LTC3208_MAX_BRIGHTNESS_4BIT	0xF
+> +#define LTC3208_MAX_BRIGHTNESS_8BIT	0xFF
+> +
+> +#define LTC3208_NUM_LED_GRPS		8
+> +#define LTC3208_NUM_AUX_LEDS		4
+> +
+> +#define LTC3208_NUM_AUX_OPT		4
+> +#define LTC3208_MAX_CPO_OPT		3
+> +
+> +enum ltc3208_aux_channel {
+> +	LTC3208_AUX_CHAN_AUX = 0,
+> +	LTC3208_AUX_CHAN_MAIN,
+> +	LTC3208_AUX_CHAN_SUB,
+> +	LTC3208_AUX_CHAN_CAM
+> +};
+> +
+> +enum ltc3208_channel {
+> +	LTC3208_CHAN_MAIN = 0,
+> +	LTC3208_CHAN_SUB,
+> +	LTC3208_CHAN_AUX,
+> +	LTC3208_CHAN_CAML,
+> +	LTC3208_CHAN_CAMH,
+> +	LTC3208_CHAN_RED,
+> +	LTC3208_CHAN_BLUE,
+> +	LTC3208_CHAN_GREEN
+> +};
+> +
+> +static const char * const ltc3208_dt_aux_channels[] = {
+> +	"adi,aux1-channel", "adi,aux2-channel",
+> +	"adi,aux3-channel", "adi,aux4-channel"
+> +};
+> +
+> +static const char * const ltc3208_aux_opt[] = {
+> +	"aux", "main", "sub", "cam"
+> +};
+> +
+> +struct ltc3208_led {
+> +	struct led_classdev cdev;
+> +	struct i2c_client *client;
+> +	enum ltc3208_channel channel;
+> +};
+> +
+> +struct ltc3208_dev {
+> +	struct i2c_client *client;
 
-Primary USB Controller
-          ↓
-GL3590 USB Hub (4 ports)
-    |
-    |-- Port 1 → HD3SS3220 Type‑C Port Controller → USB‑C Connector
-    |
-    |-- Port 2 → Mezzanine USB Hub (when mezz attached)
-    |
-    |-- Port 3 → M.2 B‑Key Slot (when mezz attached)
-    |
-    |-- Port 4 → M.2 E‑Key Slot
-                         (Default: BT via UART;
-                          USB only if NFA765 module is installed)
+We don't need 2 of these.
 
-Mark the primary USB controller as host only capable and add the HD3SS3220
-Type-C port controller along with Type-c connector for controlling vbus
-supply.
+> +	struct regmap *map;
 
-In hardware, DIP switches are present to select between USB0 and USB1 ports
-for the primary Type‑C USB controller. By default, the switches are in
-the OFF state, selecting the USB0 port. Add software support for both HS
-and SS switches to eliminate the need for manually changing the DIP switch
-position for USB1 operation. Add a USB1 hub reset pin to reset and activate
-the hub after boot, ensuring proper detection from its pre‑boot inactive
-state.
+'regmap' throughout.
 
-Signed-off-by: Swati Agarwal <swati.agarwal@oss.qualcomm.com>
----
-Changes in v2:
-Split DT binding and DT patch.
-Use gpio hog instead of pinctrl for usb hub reset and HS switch sel.
+> +	struct ltc3208_led *leds;
 
-Link to v1:
-https://lore.kernel.org/all/20260417152014.3000797-1-swati.agarwal@oss.qualcomm.com/
+__counted_by?
 
-This patch depends on:
-https://lore.kernel.org/all/20260427170505.1494703-1-umang.chheda@oss.qualcomm.com/
----
- .../boot/dts/qcom/monaco-evk-common.dtsi      | 166 +++++++++++++++++-
- 1 file changed, 165 insertions(+), 1 deletion(-)
+> +};
+> +
+> +static const struct regmap_config ltc3208_regmap_cfg = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +};
 
-diff --git a/arch/arm64/boot/dts/qcom/monaco-evk-common.dtsi b/arch/arm64/boot/dts/qcom/monaco-evk-common.dtsi
-index 12c847c03757..2d4ef8666822 100644
---- a/arch/arm64/boot/dts/qcom/monaco-evk-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/monaco-evk-common.dtsi
-@@ -23,6 +23,37 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	connector-1 {
-+		compatible = "usb-c-connector";
-+		label = "USB1-Type-C";
-+		data-role = "host";
-+		power-role = "source";
-+
-+		vbus-supply = <&usb1_vbus>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				usb1_con_hs_ep: endpoint {
-+					remote-endpoint = <&usb_hub_2_1>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				usb1_con_ss_ep: endpoint {
-+					remote-endpoint = <&hd3ss3220_1_in_ep>;
-+				};
-+
-+			};
-+		};
-+	};
-+
- 	connector-2 {
- 		compatible = "gpio-usb-b-connector", "usb-b-connector";
- 		label = "micro-USB";
-@@ -77,6 +108,15 @@ dp1_connector_in: endpoint {
- 		};
- 	};
- 
-+	usb1_vbus: regulator-usb1-vbus {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb1_vbus";
-+		gpio = <&expander1 3 GPIO_ACTIVE_HIGH>;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		enable-active-high;
-+	};
-+
- 	usb2_vbus: regulator-usb2-vbus {
- 		compatible = "regulator-fixed";
- 		regulator-name = "usb2_vbus";
-@@ -445,6 +485,39 @@ lt8713sx_dp1_out: endpoint {
- 			};
- 		};
- 	};
-+
-+	usb-typec@47 {
-+		compatible = "ti,hd3ss3220";
-+		reg = <0x47>;
-+
-+		interrupts-extended = <&tlmm 45 IRQ_TYPE_EDGE_FALLING>;
-+
-+		id-gpios = <&tlmm 13 GPIO_ACTIVE_HIGH>;
-+
-+		pinctrl-0 = <&usb1_id>, <&usb1_intr>;
-+		pinctrl-names = "default";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				hd3ss3220_1_in_ep: endpoint {
-+					remote-endpoint = <&usb1_con_ss_ep>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				hd3ss3220_1_out_ep: endpoint {
-+					remote-endpoint = <&usb_hub_3_1>;
-+				};
-+			};
-+		};
-+	};
- };
- 
- &i2c1 {
-@@ -556,6 +629,12 @@ expander5: gpio@3d {
- 		interrupts-extended = <&tlmm 3 IRQ_TYPE_LEVEL_LOW>;
- 		pinctrl-0 = <&expander5_int>;
- 		pinctrl-names = "default";
-+
-+		usb1_ss_sel_switch_hog: usb1-ss-sel-switch-hog {
-+			gpio-hog;
-+			gpios = <5 GPIO_ACTIVE_HIGH>;
-+			output-high;
-+		};
- 	};
- 
- 	expander6: gpio@3e {
-@@ -742,6 +821,24 @@ expander5_int: expander5-int-state {
- 		bias-pull-up;
- 	};
- 
-+	usb1_hub_reset_hog: usb1-hub-reset-hog {
-+		gpio-hog;
-+		gpios = <7 GPIO_ACTIVE_HIGH>;
-+		output-high;
-+	};
-+
-+	usb1_id: usb1-id-state {
-+		pins = "gpio13";
-+		function = "gpio";
-+		bias-pull-up;
-+	};
-+
-+	usb1_hs_sel_switch_hog: usb1-hs-sel-switch-hog {
-+		gpio-hog;
-+		gpios = <14 GPIO_ACTIVE_HIGH>;
-+		output-high;
-+	};
-+
- 	expander1_int: expander1-int-state {
- 		pins = "gpio16";
- 		function = "gpio";
-@@ -784,6 +881,13 @@ expander3_int: expander3-int-state {
- 		bias-pull-up;
- 	};
- 
-+	usb1_intr: usb1-intr-state {
-+		pins = "gpio45";
-+		function = "gpio";
-+		bias-pull-up;
-+		drive-strength = <2>;
-+	};
-+
- 	expander6_int:  expander6-int-state {
- 		pins = "gpio52";
- 		function = "gpio";
-@@ -863,9 +967,69 @@ &ufs_mem_phy {
- };
- 
- &usb_1 {
--	dr_mode = "peripheral";
-+	dr_mode = "host";
-+
-+	#address-cells = <1>;
-+	#size-cells = <0>;
- 
- 	status = "okay";
-+
-+	usb_hub_2_x: hub@1 {
-+		compatible = "usb5e3,610";
-+		reg = <1>;
-+
-+		peer-hub = <&usb_hub_3_x>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				usb_hub_2_1: endpoint {
-+					remote-endpoint = <&usb1_con_hs_ep>;
-+				};
-+			};
-+
-+			/*
-+			 * Port-4 is connected to M.2 E key connector on corekit.
-+			 */
-+			port@4 {
-+				reg = <4>;
-+
-+				usb_hub_2_4: endpoint {
-+				};
-+			};
-+		};
-+	};
-+
-+	usb_hub_3_x: hub@2 {
-+		compatible = "usb5e3,625";
-+		reg = <2>;
-+
-+		peer-hub = <&usb_hub_2_x>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				usb_hub_3_1: endpoint {
-+					remote-endpoint = <&hd3ss3220_1_out_ep>;
-+				};
-+			};
-+
-+			port@4 {
-+				reg = <4>;
-+
-+				usb_hub_3_4: endpoint {
-+				};
-+			};
-+		};
-+	};
- };
- 
- &usb_1_hsphy {
+'.cache_type'?
+
+> +
+> +static int ltc3208_led_set_current_low(struct regmap *regmap, u8 reg, u8 level)
+> +{
+> +	return regmap_update_bits(regmap, reg, LTC3208_LED_SET_LOW_BYTE_DATA, level);
+> +}
+> +
+> +static int ltc3208_led_set_current_high(struct regmap *regmap, u8 reg, u8 level)
+> +{
+> +	return regmap_update_bits(regmap, reg, LTC3208_LED_SET_HIGH_BYTE_DATA, level);
+> +}
+
+No abstraction for the sake of it.  Use regmap_update_bits() in place instead.
+
+It looks like 'level' is not shifted here, which means 'level & mask' inside
+'regmap_update_bits' will evaluate to 0.  Could we use 'regmap_field' for these
+bit-level accesses instead, as it handles the shifting automatically?
+
+> +
+> +static int ltc3208_led_set_brightness(struct led_classdev *led_cdev, enum led_brightness brightness)
+> +{
+> +	struct ltc3208_led *led = container_of(led_cdev, struct ltc3208_led, cdev);
+> +	struct i2c_client *client = led->client;
+> +	struct ltc3208_dev *dev = i2c_get_clientdata(client);
+
+This confused me for a moment.
+
+Drop the '_dev" part and call the variable 'ddata'.
+
+> +	struct regmap *regmap = dev->map;
+
+'regmap' throughout.
+
+> +	u8 current_level = brightness;
+> +
+> +	switch (led->channel) {
+> +	case LTC3208_CHAN_MAIN:
+> +		return regmap_write(regmap, LTC3208_REG_C_MAIN, current_level);
+> +	case LTC3208_CHAN_SUB:
+> +		return regmap_write(regmap, LTC3208_REG_D_SUB, current_level);
+> +	case LTC3208_CHAN_AUX:
+> +		return ltc3208_led_set_current_high(regmap, LTC3208_REG_B_AUXBLU, current_level);
+> +	case LTC3208_CHAN_BLUE:
+> +		return ltc3208_led_set_current_low(regmap, LTC3208_REG_B_AUXBLU, current_level);
+> +	case LTC3208_CHAN_CAMH:
+> +		return ltc3208_led_set_current_high(regmap, LTC3208_REG_F_CAM, current_level);
+> +	case LTC3208_CHAN_CAML:
+> +		return ltc3208_led_set_current_low(regmap, LTC3208_REG_F_CAM, current_level);
+> +	case LTC3208_CHAN_GREEN:
+> +		return ltc3208_led_set_current_high(regmap, LTC3208_REG_A_GRNRED, current_level);
+> +	case LTC3208_CHAN_RED:
+> +		return ltc3208_led_set_current_low(regmap, LTC3208_REG_A_GRNRED, current_level);
+> +	default:
+> +		dev_err(&client->dev, "Invalid LED Channel\n");
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int ltc3208_update_options(struct ltc3208_dev *dev,
+> +				  bool is_sub, bool is_cam_hi, bool is_rgb_drop)
+> +{
+
+Since this helper function only has one call site, should we inline its logic
+directly into the probe function to reduce superfluous abstractions?
+
+> +	struct regmap *map = dev->map;
+> +	u8 val;
+> +
+> +	val =	FIELD_PREP(LTC3208_OPT_EN_RGBS, is_sub) |
+> +		FIELD_PREP(LTC3208_OPT_DIS_CAMHILO, is_cam_hi) |
+> +		FIELD_PREP(LTC3208_OPT_DIS_RGBDROP, is_rgb_drop);
+> +
+> +	return regmap_write(map, LTC3208_REG_G_OPT, val);
+> +}
+> +
+> +static int ltc3208_update_aux_dac(struct ltc3208_dev *dev, enum ltc3208_aux_channel *aux_chan)
+> +{
+
+Similarly, as this function is only called once, could we inline its logic into
+the probe function?
+
+> +	struct regmap *map = dev->map;
+> +	u8 val;
+> +
+> +	val =	FIELD_PREP(LTC3208_AUX1_MASK, aux_chan[0]) |
+> +		FIELD_PREP(LTC3208_AUX2_MASK, aux_chan[1]) |
+> +		FIELD_PREP(LTC3208_AUX3_MASK, aux_chan[2]) |
+> +		FIELD_PREP(LTC3208_AUX4_MASK, aux_chan[3]);
+> +
+> +	return regmap_write(map, LTC3208_REG_E_AUX_SELECT, val);
+> +}
+> +
+> +static int ltc3208_probe(struct i2c_client *client)
+> +{
+> +	enum ltc3208_aux_channel aux_channels[LTC3208_NUM_AUX_LEDS];
+> +	struct ltc3208_dev *dev_data;
+
+Consistency.
+
+> +	struct ltc3208_led *leds;
+> +	struct regmap *regmap;
+> +	int ret;
+> +	u32 val;
+
+'val' is a weak variable name.  How about 'chan'?
+
+> +	bool dropdis_rgb_aux4;
+> +	bool dis_camhl;
+> +	bool en_rgbs;
+
+All of these variable names are non-forthcoming.
+
+Please improve the nomenclature of each of them.
+
+> +	regmap = devm_regmap_init_i2c(client, &ltc3208_regmap_cfg);
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(&client->dev, PTR_ERR(regmap),
+> +				     "Failed to initialize regmap\n");
+> +
+> +	dev_data = devm_kzalloc(&client->dev, sizeof(*dev_data), GFP_KERNEL);
+> +	if (!dev_data)
+> +		return -ENOMEM;
+> +
+> +	leds = devm_kcalloc(&client->dev, LTC3208_NUM_LED_GRPS,
+> +			    sizeof(struct ltc3208_led), GFP_KERNEL)u
+> +	if (!leds)
+> +		return -ENOMEM;
+> +
+> +	dev_data->client = client;
+> +	dev_data->map = regmap;
+> +
+> +	dis_camhl = device_property_read_bool(&client->dev, "adi,disable-camhl-pin");
+> +	en_rgbs = device_property_read_bool(&client->dev, "adi,cfg-enrgbs-pin");
+> +	dropdis_rgb_aux4 = device_property_read_bool(&client->dev, "adi,disable-rgb-aux4-dropout");
+> +
+> +	ret = ltc3208_update_options(dev_data, en_rgbs, dis_camhl,
+> +				     dropdis_rgb_aux4);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret, "error writing to options register\n");
+> +
+> +	/* Initialize aux channel configurations from devicetree */
+
+No need to shorten words in comments and drop the "from devicetree"
+part.  It doesn't really add anything.
+
+> +	for (int i = 0; i < LTC3208_NUM_AUX_LEDS; i++) {
+> +		ret = device_property_match_property_string(&client->dev,
+> +							    ltc3208_dt_aux_channels[i],
+> +							    ltc3208_aux_opt,
+> +							    LTC3208_NUM_AUX_OPT);
+> +		/* Use default value if absent in devicetree */
+
+"Fall-back to default value if not found"
+
+> +		if (ret == -EINVAL)
+> +			aux_channels[i] = LTC3208_AUX_CHAN_AUX;
+> +		else if (ret >= 0)
+> +			aux_channels[i] = ret;
+> +		else
+> +			return dev_err_probe(&client->dev, ret,
+> +					     "Failed getting aux-channel %d\n", i);
+
+"Failed to set the auxiliary channel"
+
+But when would this happen?
+
+If we have an acceptable default value, why not use it?
+
+> +	}
+> +
+> +	ret = ltc3208_update_aux_dac(dev_data, aux_channels);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret, "error writing to aux channel register.\n");
+> +
+> +	i2c_set_clientdata(client, dev_data);
+> +
+> +	device_for_each_child_node_scoped(&client->dev, child) {
+> +		struct ltc3208_led *led;
+> +		struct led_init_data init_data = {};
+> +
+> +		ret = fwnode_property_read_u32(child, "reg", &val);
+> +		if (ret)
+> +			return dev_err_probe(&client->dev, -EINVAL,
+> +					     "Failed to get reg value of LED.\n");
+
+Could we propagate the original error code returned by
+'fwnode_property_read_u32' instead of hard-coding '-EINVAL' here?
+
+> +		else if (val >= LTC3208_NUM_LED_GRPS)
+> +			return dev_err_probe(&client->dev, -EINVAL,
+> +					     "LED reg value not supported.\n");
+
+"LED channel out of range" ?
+
+> +
+> +		led = &leds[val];
+> +		led->client = client;
+> +		led->channel = val;
+> +		led->cdev.brightness_set_blocking = ltc3208_led_set_brightness;
+> +		led->cdev.max_brightness = LTC3208_MAX_BRIGHTNESS_4BIT;
+
+Nit: '\n' here.
+
+> +		if (val == LTC3208_CHAN_MAIN || val == LTC3208_CHAN_SUB)
+> +			led->cdev.max_brightness = LTC3208_MAX_BRIGHTNESS_8BIT;
+> +
+> +		init_data.fwnode = child;
+> +
+> +		ret = devm_led_classdev_register_ext(&client->dev, &led->cdev,
+> +			&init_data);
+
+Surely this is shorter than the one 2 lines down?  Use 100-chars throughout.
+
+> +		if (ret)
+> +			return dev_err_probe(&client->dev, ret, "Failed to register LED %u\n", val);
+> +	}
+> +
+> +	dev_data->leds = leds;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id ltc3208_match_table[] = {
+> +	{.compatible = "adi,ltc3208"},
+
+Spaces between the '{' and '}'.
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ltc3208_match_table);
+> +
+> +static const struct i2c_device_id ltc3208_idtable[] = {
+> +	{ "ltc3208" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, ltc3208_idtable);
+> +
+> +static struct i2c_driver ltc3208_driver = {
+> +	.driver = {
+> +		.name = "ltc3208",
+> +		.of_match_table = ltc3208_match_table,
+> +	},
+> +	.id_table = ltc3208_idtable,
+> +	.probe = ltc3208_probe,
+> +};
+> +module_i2c_driver(ltc3208_driver);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Jan Carlo Roleda <jancarlo.roleda@analog.com>");
+> +MODULE_DESCRIPTION("LTC3208 LED Driver");
+
 -- 
-2.34.1
-
+Lee Jones
