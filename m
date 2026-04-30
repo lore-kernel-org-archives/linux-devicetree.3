@@ -1,350 +1,131 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11023083.outbound.protection.outlook.com [40.107.159.83])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14FE40F8D3;
-	Thu, 30 Apr 2026 13:01:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.83
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777554096; cv=fail; b=ReE6WWBoYu13H05XcHgIMz6KaiaWBdu0806wh77LjI4t221wMwCyMy86yrvqth1kZpLp/o8KnyyyAQqkbHTPYXFIqD2JuY54n8Fch6ACMbR/aTcCZux+NQnFhTR/a3pueyAobrbUmgHmjjWKg7Z1dh8IT7Zukv1HtUE9i7BLl7Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777554096; c=relaxed/simple;
-	bh=qZATcCR5SgZH8tZR/aBcKRc0oygy5NfJTLB1SHGuYdY=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=O7jynyh/S6Gvstpfd/xgS4/2MGVPLzxZKjfZA8diktohOKrsgd7QREiTKhqE4tN8I7SSWemc3AgNh/DQViO6kq+UfDU/JbKVVYf3B9ftZFdCAm/o/JOjp55L3BN1RJSkAnZg/P2MptjVYCojao+hcTsfG0yfj27LT2DLSdBNTW8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de; spf=pass smtp.mailfrom=phytec.de; dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b=TL73Hhm3; arc=fail smtp.client-ip=40.107.159.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C4740242B
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 13:07:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777554478; cv=none; b=hgV768UDe5wopuZYXoLrSbUQ43LViIF5exdbhuDFUAuv+HydXg6uQINfubKdVIL4S4tdyryLIR4kMFOXJMWL9jHSJy8EI1Kc5oyiMKEYF8dEQzCFPzdYQ8YXzVaWULTDCm5zQy4eTN5eyUkJIKAEmp0PgAe+kOxpneowsq1+xhw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777554478; c=relaxed/simple;
+	bh=KhRQj+iRqtW+9HWFZenOFSuPZ0WQQSN49Yl9CqgIP6A=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=u27WV8isPoDiqEVrlVi85BA1pkiKYa5s43UeGRZ1JIW5vPnLX+p/+iPr48xUolvkeY7+qHPKcB8uxbn3CX+cX0YhJhsQZoJ2MVyjAYaElpeTkdiQ0u1bk0XgMxX0MO4dpHUy6c6T3csjz/D3GaAv+CFafqysYtvy5jNVnCLXcdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Ttx6BUAe; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b="TL73Hhm3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Suzo07fLt2wViSHzw130BXC3+Htu8HRPGZMcZatc+wpEklTN0pp8c+z8ndfkLHvz6S1l93ylPEQIaKV8yk2od+VS8zAVRWQbJ4XDsNwpKe2PBIUrz+mBtmGDTO+YIQ7+RJxhkYPVSMjVKs/L7wue3qcdCxqj5xKXEBHBQwaBe8rfEg/3XIDbvrdmE5O/f/bwyqhCygVu31j3GZ6qzKHE8326fx7E1C8FgMtZleUAc6eN4n/Jqdm3/x/yDQjbl2ZF07wEaadNXHZIuXSjins4IjkxoOGyh88R4MDE4yt/3yNUMe6ZmnGn8OMvid8PvwUt+5GFaY6XArQRcXRc5f/tIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sVSNbjY/oNcejXLQ3GISldfbsuVHiXais2UP3zTn60U=;
- b=Kb3uIjlYSNOYWY/kru5FALbt0WoYhY6TAkR2rpnjNCwl7UGRIP4xWCX9kkOdU4DbsVJ+psGjctfOu6mMbxZAT3jxtWo+KmdSZvR7oHBfh/AToA5AstECyFKzCwnPh9eWwggnkFRmZHwT7+5TeURGift7v//WJeBykPRMuF1WmQJjgWCGW466A+y+xTynEem6w3DlRBGxwhnpEqTCviUuvPrgPx4GOKAkWnjMbyaiqg4z4IPDEj9suL3v4EZd4wDPMJFt26aZU2CuCxGCtHybZecR1PH8/wAIBqif1NdjfENTmOAzvff7WHZCfn7WSBmouALgPdBD7xjQjg03d9EgZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 91.26.50.189) smtp.rcpttodomain=ti.com smtp.mailfrom=phytec.de; dmarc=fail
- (p=quarantine sp=quarantine pct=100) action=quarantine header.from=phytec.de;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sVSNbjY/oNcejXLQ3GISldfbsuVHiXais2UP3zTn60U=;
- b=TL73Hhm31M4SufW9xrnKQiAZSH1/6en8oxAs4bAT64bP6FXyzECOPKM/XCOUqIcM29dy0psBpIkVCKJVgLpZacdg1koyRXX9swydSpDynlXcwmcRA/bhT3qG8hMXAG8ab1p2RL1NdvirSt4KCh1jhr2IKCQmCqiJDQjFWco8oKEB45eV6iouKju6m1KffLuqcsdrVFLWi/CIV43vEc0/kMWJ6sEOCfVF+H8EpdfZUbQ5UaOIGusmkAq0x24k/PDsaLIfPJT9Mu+5D/9PGWQInBwhFkfwd8ReQMqliMVnaDIlksgkXb/kscoYq9fXsWLw7BtByP4wSR5ei7olHfdckg==
-Received: from DUZPR01CA0133.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4bc::28) by DB4P195MB2693.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:10:5e3::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Thu, 30 Apr
- 2026 13:01:24 +0000
-Received: from DB1PEPF000509F0.eurprd03.prod.outlook.com
- (2603:10a6:10:4bc:cafe::f3) by DUZPR01CA0133.outlook.office365.com
- (2603:10a6:10:4bc::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.30 via Frontend Transport; Thu,
- 30 Apr 2026 13:01:24 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 91.26.50.189)
- smtp.mailfrom=phytec.de; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=phytec.de;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- phytec.de discourages use of 91.26.50.189 as permitted sender)
-Received: from Postix.phytec.de (91.26.50.189) by
- DB1PEPF000509F0.mail.protection.outlook.com (10.167.242.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9791.48 via Frontend Transport; Thu, 30 Apr 2026 13:01:23 +0000
-Received: from phytec.de (172.25.0.51) by Postix.phytec.de (172.25.0.11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 30 Apr
- 2026 15:01:22 +0200
-From: Wadim Egorov <w.egorov@phytec.de>
-To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>
-CC: <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <upstream@lists.phytec.de>
-Subject: [PATCH v3] arm64: dts: ti: am62-phyboard-lyra: Add DT overlay for Lincoln LCD185-101CT panel
-Date: Thu, 30 Apr 2026 15:01:15 +0200
-Message-ID: <20260430130115.2380887-1-w.egorov@phytec.de>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Ttx6BUAe"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4891f625344so10087235e9.0
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 06:07:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1777554475; x=1778159275; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mvDuNaRN8hH9izY7kpqOKXTCHfnDxHlyvhuaEy6Gtkk=;
+        b=Ttx6BUAekpqaGc16Ygjpw/uU2dRApAkiv3xEZObvHlcKWC5otMLkdORqENVRXZaJxz
+         0pnBJd2FuVIZXxBe6Led+GIDxzYGoTlSaNE0NoaWdbAR/6KMvzfuyk8cHWRCBd1Rsi/A
+         0XrTFrIlAoRVazq3ThcTRMFZL3SWuRdrKPmOvftVEexLSEYzEALy+Vx53YgRzAjVX27J
+         FZj+iDDY1EvD6un8sRQ94LWTNG9Y8ZnFD4OCfD/BsXH9v33Yyf9t/TRX84c9LdLEwLwJ
+         DauQlxuv4zVHq4ZwdxE995o0BvgMbE+cseFlc6S0XXQgXh6KRUyR7AUPjQjwoNj7jAwz
+         m4Hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777554475; x=1778159275;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=mvDuNaRN8hH9izY7kpqOKXTCHfnDxHlyvhuaEy6Gtkk=;
+        b=GvwZ2TcSNZGXp+5gsPo/c3OocgbqxmHJpiIzjYak++/OeiZUeTM2CuDpz0Rw/dkSIv
+         uubAlhxOPosWLx5dlQr/iD5/9YvQRh1IVzPuGVmAjjN0m+/ISCFvAc+zdqFLkr+daglA
+         XVKGS+8bpwTi33HSUwyw6qBbWMu+t7HcbltbVx8xKwjTqCaESIt2RCBdhgdj+dVrbXA/
+         0UCPBb5EeTrq7VPDRnvdulNpUyQ3FLXsRhDwv+y6jpYnzkMtjPEMUYnv4LuKBfNel5wy
+         MRn++d8LnShzW/zD8xQwnOy4i5Gqjnh8aYDx5r1249ooL8NCeOlwEFuS07EbAghFcTyd
+         H8Qw==
+X-Forwarded-Encrypted: i=1; AFNElJ8pr0kEoj+nK5972BMvunwq+hjvkeWlBdX5QBhKGDtLQ08PiTcbXVna4S9naCdAyXYehZ1SxmI/K4MZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwrN3KrGLaKpg3UO09LzZCkWSQnw9ZUinW5gk+Q0EuWvGhm2S1d
+	gmCnKi+vG9jw0ba10dHTPakr+5ywGRmST9vcL8WooqTwXK3wjVtFADXN0W67sArfA5w=
+X-Gm-Gg: AeBDievt4TVsp042TZ/YAhgZ9QdZvHIDRF1JgzCD6gwzPiLF0uUP0AhVGRbp6mXmiOr
+	GPouHg7PvqfytZBNbzviD+24yASyPJjwMy4yuQ11LzRXLCJM5bk82F3musUXHu3vA2Ql7zlhya7
+	xlzttJD6eElciU7g+AM4in21UBzoUkXiRuir/IpyoThThvzwom1YOE+otNAbdPKTGmIQS920SbF
+	PAAAmO12ic9wWHRnVSyiLUjvHd6t47mqGfLyz3sXHdeEUAk+wEshiSFpsAaWlyYBtR6tVNV1nZM
+	0COqVGMvvBSlfsrjXiI5GnYtcyOzgufDo4tTSe5tdxkovMRn63lHzNPUeWSFSsBNm6q5riIPBD6
+	vbQbXKNb7f1slDXb2tFg7k4oCfEUX28wGsjtsT2KadLM0nx+7ZfgoyWJAmO/tE9keET0xUTKTUf
+	Wv1iETYMdc2FaCcq6nKstocygUaAN4X0ZSueYc6b3nrNmagEuty+kyoR+z8bVMpn1FQsHp7x3Pb
+	F9l5ozfiNFepqzjZOq2c502iA==
+X-Received: by 2002:a05:600c:4b1a:b0:488:aa33:dc8f with SMTP id 5b1f17b1804b1-48a85dc37c2mr23717425e9.0.1777554474275;
+        Thu, 30 Apr 2026 06:07:54 -0700 (PDT)
+Received: from localhost ([2a00:2381:fd67:101:b0e1:a8:4337:b2a4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a822d4a9asm71861585e9.14.2026.04.30.06.07.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Apr 2026 06:07:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: Postix.phytec.de (172.25.0.11) To Postix.phytec.de
- (172.25.0.11)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509F0:EE_|DB4P195MB2693:EE_
-X-MS-Office365-Filtering-Correlation-Id: a53107c0-4c10-48d6-8d57-08dea6b894ca
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|376014|13003099007|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	N9eXmzlNy2LOykzayBeSZRX+vPWE9Arv5FXo9Z5B4bmMGq0wTaU5jX0IGlvDvP4KQnYmT5On+bT6MsLBXk4uz2OiQ/wGLDYljrFlDQ67DOpoRfUgtwptsXuNOClayPr/ZWQnlODYBAIQ9ufzpQUFn1JZmVAdzpRZKAcXb6mbfNh1MqRi4FZF6FzzeLiEXnJ6tmQlmDmp3COgUXrXSXTtEqhZoQl+GVK54qankJqKKmGiX7PIj3IYP43kfx6Lx5+9NBsDIEnSzWADnvWEPvVJ+FEVvb8rrWJnqOLUg/X8sj/ER/zHTEc6clmQPgRaOoxepcHPYmnyH2vP+9kGSZr5fAY2ebT5bAYFhTnppD6wyac+gdd7lJt4hDZ/QXr8M0rU6X453ILVvKECywckDw33sXX1Fda8MTakOqP518elDizwU9wWUQ0lSwylDfjjvSCTVEdm3cCV8VwOW9CS6MyT/F2OhiIruWNxLdpJKeLLF3v/zHR0QrkrqJ7/Zewoy6YKTPo2Kq0aKPRChrd4GX2eHZsDDlUuw/8hg05vG5wYbePHurvyv1kn216siAoiwfr88bu6FNQNANnIxxWokGlA5d6wVk7pzV5CT8GeUCNmGIZ/XiNCg5wzBcXnSPwXbW8eGhMRPw3VIuylmPS+35oo8QOjjzfvo5c6orG00TxsexHkxZDSTGpzOJEFn6QHKUXTz/q0oJ58glh4zkmKaO7sOMF6tmuGra3ZVuH7qkdtrI4=
-X-Forefront-Antispam-Report:
-	CIP:91.26.50.189;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:Postix.phytec.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(13003099007)(18002099003)(56012099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	U6KUiBl1D/pfbC8UQlQPCXpbctKFCNvu+z+yIOw2CBG9xP0vh35qHEmanYoGkXqeAItSh6gpLHnphYT8l9f8eNK0FoMKNEEDwao9aEUs8ANdL3FMQnMq5zOkyqg1m93ucFLbUC98OHrWMth1yrJqaUYgew6JciQkLILwaWvZ0C52aGVt5OGFI43u/j+lKdKCRPMbrFmHpzwOsY3mZBow5gfp7QEekCv7fL5dL6KD7T+Hz2kcXoUdm5ii7gmBgYx+O9Ap90DIPnGGxApbNw3aE+Tbfu+i2Vpz01tbr12OdKn/kXa0yHvXw74eiNJbhBWPb3bMO/UpJvJqVtSvdT0vkqeHkeo4FFWOsYMd5tJXsit55se50gTU71EVcNIGsiRUWxrKd1P9PbVyazBu3U6DTeGcIkp9EA9wkvAZjT3AxIITtlomxfGgXlvM8YeK21Ge
-X-OriginatorOrg: phytec.de
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 13:01:23.2978
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a53107c0-4c10-48d6-8d57-08dea6b894ca
-X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e609157c-80e2-446d-9be3-9c99c2399d29;Ip=[91.26.50.189];Helo=[Postix.phytec.de]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509F0.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4P195MB2693
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 30 Apr 2026 14:07:52 +0100
+Message-Id: <DI6IGZIW2HZ8.OBLZIORMOH2F@linaro.org>
+Cc: <willmcvicker@google.com>, <jyescas@google.com>, <shin.son@samsung.com>,
+ <linux-samsung-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-hardening@vger.kernel.org>,
+ <linux-clk@vger.kernel.org>, "Krzysztof Kozlowski"
+ <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 08/11] thermal: samsung: Add Exynos ACPM TMU driver
+ GS101
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+To: "Tudor Ambarus" <tudor.ambarus@linaro.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, "Zhang Rui" <rui.zhang@intel.com>, "Lukasz Luba"
+ <lukasz.luba@arm.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Krzysztof Kozlowski" <krzk@kernel.org>, "Alim Akhtar"
+ <alim.akhtar@samsung.com>, "Bartlomiej Zolnierkiewicz"
+ <bzolnier@gmail.com>, "Kees Cook" <kees@kernel.org>, "Gustavo A. R. Silva"
+ <gustavoars@kernel.org>, "Peter Griffin" <peter.griffin@linaro.org>,
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, "Daniel Lezcano"
+ <daniel.lezcano@kernel.org>, "Sylwester Nawrocki" <s.nawrocki@samsung.com>,
+ "Chanwoo Choi" <cw00.choi@samsung.com>, "Michael Turquette"
+ <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Lee Jones"
+ <lee@kernel.org>
+X-Mailer: aerc 0.20.0
+References: <20260423-acpm-tmu-v4-0-8b59f8548634@linaro.org>
+ <20260423-acpm-tmu-v4-8-8b59f8548634@linaro.org>
+In-Reply-To: <20260423-acpm-tmu-v4-8-8b59f8548634@linaro.org>
 
-The panel is a Lincoln Technology Solutions LCD185-101CT [0]. It is
-a dual-link LVDS panel and supports WUXGA resolution (1920x1200).
-Furthermore, it has an I2C based touch controller: Goodix-GT928.
+On Thu Apr 23, 2026 at 4:22 PM BST, Tudor Ambarus wrote:
+> Add driver for the Thermal Management Unit (TMU) managed via the Alive
+> Clock and Power Manager (ACPM), found on Samsung Exynos SoCs such as
+> Google GS101 (and Exynos850, autov920, etc.).
+>
+> The TMU on utilizes a hybrid management model shared between the
+> Application Processor (AP) and the ACPM firmware. The driver maintains
+> direct memory-mapped access to the TMU interrupt pending registers to
+> identify thermal events, while delegating functional tasks - such as
+> sensor initialization, threshold configuration, and temperature
+> acquisition - to the ACPM firmware via the ACPM IPC protocol.
+>
+> Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  drivers/thermal/samsung/Kconfig    |  17 ++
+>  drivers/thermal/samsung/Makefile   |   2 +
+>  drivers/thermal/samsung/acpm-tmu.c | 547 +++++++++++++++++++++++++++++++=
+++++++
+>  3 files changed, 566 insertions(+)
 
-Add an device tree overlay to support the Lincoln LCD185-101CT panel
-in combination with the phyBOARD-Lyra-AM62x.
+[...]
 
-[0] https://lincolntechsolutions.com/wp-content/uploads/2024/09/LCD185-101CTL1ARNTT_DS_R1.3.pdf
+> +static struct platform_driver acpm_tmu_driver =3D {
+> +	.driver =3D {
+> +		.name   =3D "gs-tmu",
 
-Signed-off-by: Wadim Egorov <w.egorov@phytec.de>
----
-I somehow managed to send out 2 v2s. And the last one came from an
-internal tree which was tested on older Kernel. Sorry for that.
+What "gs" stands for in the name?
+Shouldn't it be called something more acpm-ish generic like acpm-tmu
+at least?
 
-v1: https://lists.infradead.org/pipermail/linux-arm-kernel/2025-September/1065767.html
-v2: https://lkml.org/lkml/2025/9/25/644 / https://www.spinics.net/lists/kernel/msg6075571.html
-v3:
-  - Fixed all schema warnings
-  - Updated properties order in nodes
----
- arch/arm64/boot/dts/ti/Makefile               |   4 +
- .../ti/k3-am62-phyboard-lyra-oldi-lcd185.dtso | 185 ++++++++++++++++++
- 2 files changed, 189 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am62-phyboard-lyra-oldi-lcd185.dtso
-
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 5269c9619b65..6aaa4a2a7561 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -29,6 +29,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-wifi-zinnia.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am62x-phyboard-lyra-gpio-fan.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am62-lp-sk.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am62-lp-sk-nand.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am62-phyboard-lyra-oldi-lcd185.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am62-pocketbeagle2.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am6254atl-sk.dtb
- 
-@@ -183,6 +184,8 @@ k3-am625-phyboard-lyra-disable-spi-nor-dtbs := k3-am625-phyboard-lyra-rdk.dtb \
- 	k3-am6xx-phycore-disable-spi-nor.dtbo
- k3-am625-phyboard-lyra-gpio-fan-dtbs := k3-am625-phyboard-lyra-rdk.dtb \
- 	k3-am62x-phyboard-lyra-gpio-fan.dtbo
-+k3-am625-phyboard-lyra-oldi-lcd185-dtbs := k3-am625-phyboard-lyra-rdk.dtb \
-+	k3-am62-phyboard-lyra-oldi-lcd185.dtbo
- k3-am625-phyboard-lyra-qspi-nor-dtbs := k3-am625-phyboard-lyra-rdk.dtb \
- 	k3-am6xx-phycore-qspi-nor.dtbo
- k3-am625-sk-csi2-imx219-dtbs := k3-am625-sk.dtb \
-@@ -287,6 +290,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am625-phyboard-lyra-disable-rtc.dtb \
- 	k3-am625-phyboard-lyra-disable-spi-nor.dtb \
- 	k3-am625-phyboard-lyra-gpio-fan.dtb \
-+	k3-am625-phyboard-lyra-oldi-lcd185.dtb \
- 	k3-am625-phyboard-lyra-qspi-nor.dtb \
- 	k3-am625-sk-csi2-imx219.dtb \
- 	k3-am625-sk-csi2-ov5640.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am62-phyboard-lyra-oldi-lcd185.dtso b/arch/arm64/boot/dts/ti/k3-am62-phyboard-lyra-oldi-lcd185.dtso
-new file mode 100644
-index 000000000000..ec1187d3b845
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am62-phyboard-lyra-oldi-lcd185.dtso
-@@ -0,0 +1,185 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (C) 2022-2026 PHYTEC Messtechnik GmbH
-+ * Author: Wadim Egorov <w.egorov@phytec.de>
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/pwm/pwm.h>
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include "k3-pinctrl.h"
-+
-+&{/} {
-+	display {
-+		compatible = "lincolntech,lcd185-101ct";
-+		backlight = <&backlight>;
-+		power-supply = <&vdd_usb_5v0>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				dual-lvds-odd-pixels;
-+				lcd_in0: endpoint {
-+					remote-endpoint = <&oldi_0_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+				dual-lvds-even-pixels;
-+				lcd_in1: endpoint {
-+					remote-endpoint = <&oldi_1_out>;
-+				};
-+			};
-+		};
-+	};
-+
-+	backlight: backlight {
-+		compatible = "pwm-backlight";
-+		brightness-levels = <0 4 8 16 32 64 128 255>;
-+		default-brightness-level = <6>;
-+		enable-gpios = <&gpio_exp 5 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&bl_pwm_pins_default>;
-+		pwms = <&epwm0 1 50000 0>;
-+	};
-+
-+	vdd_usb_5v0: regulator-vdd-usb5v0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd-usb5v0";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+};
-+
-+&dss {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&main_oldi0_pins_default &main_dss0_pins_default>;
-+};
-+
-+&dss_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* VP1: Output to OLDI */
-+	port@0 {
-+		reg = <0>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		dpi0_out0: endpoint@0 {
-+			reg = <0>;
-+			remote-endpoint = <&oldi_0_in>;
-+		};
-+
-+		dpi0_out1: endpoint@1 {
-+			reg = <1>;
-+			remote-endpoint = <&oldi_1_in>;
-+		};
-+	};
-+};
-+
-+&epwm0 {
-+	status = "okay";
-+};
-+
-+&main_i2c1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	touchscreen@5d {
-+		compatible = "goodix,gt928";
-+		reg = <0x5d>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&touch_screen_pins_default>;
-+
-+		interrupt-parent = <&main_gpio0>;
-+		interrupts = <19 IRQ_TYPE_LEVEL_LOW>;
-+
-+		reset-gpios = <&main_gpio0 18 GPIO_ACTIVE_HIGH>;
-+		irq-gpios = <&main_gpio0 19 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&main_pmx0 {
-+	bl_pwm_pins_default: bl-pwm-default-pins {
-+		pinctrl-single,pins = <
-+			AM62X_IOPAD(0x01b8, PIN_INPUT, 2) /* (C13) SPI0_CS1.EHRPWM0_B */
-+		>;
-+	};
-+
-+	touch_screen_pins_default: touch-screen-default-pins {
-+		pinctrl-single,pins = <
-+			AM62X_IOPAD(0x048, PIN_OUTPUT, 7) /* (N25) GPMC0_AD3.GPIO0_18 - RST */
-+			AM62X_IOPAD(0x04c, PIN_INPUT, 7) /* (P24) GPMC0_AD4.GPIO0_19 - INT */
-+		>;
-+	};
-+
-+	main_oldi0_pins_default: main-oldi0-default-pins {
-+		pinctrl-single,pins = <
-+			AM62X_IOPAD(0x0260, PIN_OUTPUT, 0) /* (AA5) OLDI0_A0N */
-+			AM62X_IOPAD(0x025c, PIN_OUTPUT, 0) /* (Y6) OLDI0_A0P */
-+			AM62X_IOPAD(0x0268, PIN_OUTPUT, 0) /* (AD3) OLDI0_A1N */
-+			AM62X_IOPAD(0x0264, PIN_OUTPUT, 0) /* (AB4) OLDI0_A1P */
-+			AM62X_IOPAD(0x0270, PIN_OUTPUT, 0) /* (Y8) OLDI0_A2N */
-+			AM62X_IOPAD(0x026c, PIN_OUTPUT, 0) /* (AA8) OLDI0_A2P */
-+			AM62X_IOPAD(0x0278, PIN_OUTPUT, 0) /* (AB6) OLDI0_A3N */
-+			AM62X_IOPAD(0x0274, PIN_OUTPUT, 0) /* (AA7) OLDI0_A3P */
-+			AM62X_IOPAD(0x0280, PIN_OUTPUT, 0) /* (AC6) OLDI0_A4N */
-+			AM62X_IOPAD(0x027c, PIN_OUTPUT, 0) /* (AC5) OLDI0_A4P */
-+			AM62X_IOPAD(0x0288, PIN_OUTPUT, 0) /* (AE5) OLDI0_A5N */
-+			AM62X_IOPAD(0x0284, PIN_OUTPUT, 0) /* (AD6) OLDI0_A5P */
-+			AM62X_IOPAD(0x0290, PIN_OUTPUT, 0) /* (AE6) OLDI0_A6N */
-+			AM62X_IOPAD(0x028c, PIN_OUTPUT, 0) /* (AD7) OLDI0_A6P */
-+			AM62X_IOPAD(0x0298, PIN_OUTPUT, 0) /* (AD8) OLDI0_A7N */
-+			AM62X_IOPAD(0x0294, PIN_OUTPUT, 0) /* (AE7) OLDI0_A7P */
-+			AM62X_IOPAD(0x02a0, PIN_OUTPUT, 0) /* (AD4) OLDI0_CLK0N */
-+			AM62X_IOPAD(0x029c, PIN_OUTPUT, 0) /* (AE3) OLDI0_CLK0P */
-+			AM62X_IOPAD(0x02a8, PIN_OUTPUT, 0) /* (AE4) OLDI0_CLK1N */
-+			AM62X_IOPAD(0x02a4, PIN_OUTPUT, 0) /* (AD5) OLDI0_CLK1P */
-+		>;
-+	};
-+};
-+
-+&oldi0 {
-+	ti,companion-oldi = <&oldi1>;
-+	status = "okay";
-+};
-+
-+&oldi0_port0 {
-+	oldi_0_in: endpoint {
-+		remote-endpoint = <&dpi0_out0>;
-+	};
-+};
-+
-+&oldi0_port1 {
-+	oldi_0_out: endpoint {
-+		remote-endpoint = <&lcd_in0>;
-+	};
-+};
-+
-+&oldi1 {
-+	ti,secondary-oldi;
-+	status = "okay";
-+};
-+
-+&oldi1_port0 {
-+	oldi_1_in: endpoint {
-+		remote-endpoint = <&dpi0_out1>;
-+	};
-+};
-+
-+&oldi1_port1 {
-+	oldi_1_out: endpoint {
-+		remote-endpoint = <&lcd_in1>;
-+	};
-+};
--- 
-2.43.0
-
+Best regards,
+Alexey
