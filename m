@@ -1,178 +1,209 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E86C324B06
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 15:37:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8627423A68
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 15:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777563452; cv=none; b=SgHHhpl/Ju0Q/WG6qXYNgLw91qvhkEIq0CNuwh4n9W0APpiF+wy2dppL1XMvfGAVv8EOEfeP+vE/ukmUcbyCySrKxs15j0SJXLgle3lx2R50TGVJYhiSgVFRLvhF1sqqPzwVS2mLssk4vrDaLvcr/o6GoSeeMFB/LDOn/VTh4wc=
+	t=1777563852; cv=none; b=R2OSfI4BceqaSQtPSP+eel5amIJgtJIu7MbHkMBeOqmct8oiSKZnHLsBq59Yo1OibU/hv9aY90YM+5hIQVMtZ0mBFLndrswR5JzjADIC+sj5l8BXEgshT94IlVbFzVd6T9XzIAD4j9zF9vDglOgDRYiHP9E6o6LXT9ZvQnjpmM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777563452; c=relaxed/simple;
-	bh=D8ctGVVQEch5tunpDf4+eVEVa+9ZQoaz/XYhpFXnBKk=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=UiSQDqCME4elYgP2I+le+CL0ereStdlLyMZ/3gwdB2OrJibhwQfVs3we8NPARFqCO9G23XW2Z6ZljJRH497bBU7mczi9e++No+s22JvooFZERBxiRCh7iOrJ3vr8uhTtC8747QX0vNMWmzvtHffkM45aWGXXBA5kwu76ihA3iHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=HipJ19fU; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1777563852; c=relaxed/simple;
+	bh=nhUUkVi9/hcYpl+bQ0fHNNneX3Eu22Xic+NtqQ3E/qw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CUR5ajSc9UfrmbmSpmLok37itXntbmpa+1pvYYmPPkzGjAGCmTLIhdsalH/ROIgd8UhBZ9ixl907GLlh5OmcqcI37Pt3auto29tSSB0FJ9IKIWbkzM7jF47cXcpn/vmNuok2KJxqnyOFWTl3ca1MdG1zZ5wwEJcFs2Gb+vcMwHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=m1q/nkbn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V8U+AfEm; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="HipJ19fU"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-488ff90d6c7so10548385e9.2
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 08:37:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="m1q/nkbn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V8U+AfEm"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63UDNgBA2480963
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 15:44:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	17t3T+XOa+UMBrL9L1bRnwu0sMA5ZJW1jZ+/PIyf8Fw=; b=m1q/nkbnbEl3h9ZS
+	QOhSS/CwDIZqfdQq4Z/bKLWv4ePXtO69SrX/Ohi1Z+Dt/YHTCpjHRimvenu5S434
+	ZlDYJACOyv10EKlPFslVr46Oypyh8QnWw7VyVcueZdPSLSGEQoS7BEl57tf8IxGS
+	9aRwpFA/LSPy6+glSyxK/xjx+PeGl2mnAVHL1bP5SjkX94rD9UIBkcrYYpmOwDVi
+	ts67b5eQTnbc4PjbukcrB1SGTyRRh8X3b/uMzotv1qzAmOpeRui/2pbfKeg6LWpc
+	W01+r/GaIApHdBAwWKXntiZCZ/88SUxirMMpfBfrqf3OPlRCxjAK9xcz8KNmfHek
+	toKWlA==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dv7x6gpwg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 15:44:07 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-5ff9e60dd65so102472137.3
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 08:44:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777563446; x=1778168246; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=boh2FGqR0WpDSM6dhSTP3kihWh+3GkokB90DFYaafvo=;
-        b=HipJ19fUAEq33OWW/Q5wLCcOkQz4TNsdlYRpHK2OgdU1xSTGX5gYTi5ltEpc9KxlyG
-         rWk4XWAYn/0Kh4r96B+/Ml36YkDJ+KoZl6I6CQXXlNMJrozrmbIMTNO+1QiPY/+X/nEF
-         lVcw3tXGvvESxcFtQOcWGO/Uy4U4Vrqs6S6WqtnN8VYi5Vj4SurG1M20D+e1RRKxAPKJ
-         o3+zdVz3KxLhTRBjslmdaSOT1Lokn2xvSTEQI8JdmfGqehNzrWK9V1RRk4unKtJ1BI6/
-         q3E4tQ1FrtQ7z1ZQcR0wYJpaQNHeynZrLDo8uiXFyo3AT6gokrT/inex1mKruQ1e/HkK
-         mY3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777563446; x=1778168246;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+        d=oss.qualcomm.com; s=google; t=1777563847; x=1778168647; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=boh2FGqR0WpDSM6dhSTP3kihWh+3GkokB90DFYaafvo=;
-        b=cUULM2cxS1Q9fmTu6LJdJPh0H6ID8xMjGtAqMt5M7fokoFX7qmVPRpSycBAEJ8CGXr
-         X9kK6oHrHGBMDqENP89d1llIMOtn0xiThM9gTP12X+ui6Tq8D/m+41wV+4xT/U/T91JI
-         08VBfqwesGCGad1ROFzQO4WWdJZCSZQXISmIKg4ihEKCp3SPN63aux1d+gBvgQEo+jn4
-         iSuwF3ijFVgfBbWNFLE/Txewi76FAIv2tMhLBrUDRAt7+f2Z7fdi0b2REmpabKa7W+dl
-         eN6mv/6iSdcgHKO46UgOdCvr+GWPBVzfUgAZOV0NlrKlEjM/njCgQaLX8b3JMigpNvYL
-         HfNA==
-X-Forwarded-Encrypted: i=1; AFNElJ+DTlbp0bxL62ZeQSAle9A2I+LqEqkeuSnj+JqJComKEWTveSm7zNDEWs4wMmB6zWl38ellpL9czXxh@vger.kernel.org
-X-Gm-Message-State: AOJu0YxpKogBvWDNmYkRWNV7FgVo6nTC3OkjUcvXc7ESZn2FaRhpwtnS
-	NUTQjgJvPqN6w+xLwO3VP9vttw4EzT/fAGSkDWjnz14CTdzYqYhEHYXIMN/bpYEqjFs=
-X-Gm-Gg: AeBDieviWfhkmaqBEprdlulDNibS58wYKU6JqF2yz9YCm5xUMqZHM27X2pWTpFfrF9t
-	XPxUKuvulRvRuSpjGHP3a9iEza7ucMIciN18fmVdn2UoyRSd4Sq4X4LclMkpg7ahXf2GnzQrUW/
-	iNP12FElQlW+oCXPdmmPvomoJLpaU52QTQsB219tk9e9kfKGvoYVIsEcAudKcBpvqX+03lXWgPV
-	G6831p91MjhXlYdRvfDWbjTbW/smn8PMD7q6zt9K8qDtk9Q6u8ON6qpS4bJqTaLvjJXXSZciGch
-	x0m41FMD0BAGrsj+MmNrYdnsHHZaiExKzU/94tQ2qzPNJAcDiGD8BIODiLohtb3RLbo3vd2Fc37
-	QJWefwgplnUB+fFYHJ2T+vXpX7xi+3RZAeOdlYJsxEmwdV2SJ0CfQ7G9xo+t1sjFD9f1w/AbQkh
-	/DuqSp/WDCSwH2jai9iCFk+xvGPS8KmGkolkvlHqIsL6oUp5k4DqpW/YXfA3NunzTPbjjrxoL7L
-	fUiXS4EARrUo/CwAOi9Ox5yiQ==
-X-Received: by 2002:a05:600c:c058:b0:488:ac01:72de with SMTP id 5b1f17b1804b1-48a83d6a890mr42190595e9.5.1777563445839;
-        Thu, 30 Apr 2026 08:37:25 -0700 (PDT)
-Received: from localhost ([2a00:2381:fd67:101:b0e1:a8:4337:b2a4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a7b912869sm46165045e9.6.2026.04.30.08.37.24
+        bh=17t3T+XOa+UMBrL9L1bRnwu0sMA5ZJW1jZ+/PIyf8Fw=;
+        b=V8U+AfEmIe5bFWNygVNsnyA0x6+tCg7LPKmcZsPBsvszzpnDs4HzjBMD45Jb75OlzT
+         M2G1pyRzyUvGGtftYY2q89CyP+QbC+RkPIuBqqsoiXetaQlw8krNworxEDFnHpIDFMvG
+         unZhGsLV1tArJlVInZQH84pgrGVUNdafh6dFrwdjn1nbNnaHboTtwiLFtXREuA9WGvUT
+         FgI+DqtP/fVTYPs5EX7IGGnbKB7A+3RF6NLLY6mZNChQieBbWaq51jO8/dRRH8dfEB1s
+         RZvmz9dN0sb9gJ2Udl1mxdIdj1dcYm2VDBb28VVELCGxww+LKAPeW/+CuHX5JZ5owmi2
+         KdQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777563847; x=1778168647;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=17t3T+XOa+UMBrL9L1bRnwu0sMA5ZJW1jZ+/PIyf8Fw=;
+        b=R+fvzDUzqpb5vsmzaKOpd700ixUroYGXxNEZCAk8soFrZmXs+/YfOrhE81HbyunPih
+         sa7Ul1qUlofzaDuxLo1/gJ/QFkeQK9typUsUiYxqG7EKIFDZpYvhQR+Gre/6RbZJ2ckO
+         DBgRciGWrO/hDi9/R2SxXkmI57H6VBwEs1DJ8i9SL7WGcGgNPcSZcCigdWeLQtz/F1W7
+         9W96Cyz0Uu8iFornKmk/BWyjGKwpDXoSAOmWB53iAJTKzQRN6ZzjOS1OEF3R3Ej8mlYr
+         s6f//ziyaX4dQyxXVXeGGVmSIcN3y2guFBh1ew4+Ov8173clbcuo2tOCKEUwMqgvnnVc
+         rUxg==
+X-Forwarded-Encrypted: i=1; AFNElJ8/FcIeoyl/iprNV3X72KexomEaF27E0YAU1XEc1/1ccCaSWRwEdvk7sa7iLVfvwym5SDrCzYz/U3NE@vger.kernel.org
+X-Gm-Message-State: AOJu0YxJyUt5cu71l/VRt+LOMXAvZjLEqlZFjbk6sL/kLJHXvd/2U4Ms
+	nRyRkJRO41+ZyDiMBUCitWHVzeL7lEHjYNQHlMH8fPwpik/BOCI+VKw1yZBor42v3gfDr/A8kHV
+	CeIshqvHHuU4DQWrpaIVAV+ItmV5VooiwZ6uZ+sUPHBwlC89wGi9IYl2t14g1aojN
+X-Gm-Gg: AeBDieu+PuwKF4KPlQEMqKrvWhLJ2Y74pU+5or7PWIwnZ3DBPwOX+speBrZ/cQhdIx9
+	eI7cRG/hD1+nAwRoor4ifvmZzcBe+3DNou6d1cuLxXsjbrOBQ/Kb5f/bL2+703bAzprs30N7Dd8
+	skiCd7lDXzQ+5/u4jUuPs7YsPo4OBKj3iNks4Uy8Bq2IdNMc83FnHRvBhBS8MdShKvw/Xx2Fgso
+	a8wEpJjuQmKO2pvvwwEpOet36CSVwlU9fVzGMlFG6S5AfapdWTrZs/UyDCoxpFUnfeQtxnbsduM
+	F00gf39gyCc5rXoHxWLZ7Is4b6fGbxArD9lKqBHQXeUj3bH4G6ToyWmJ060UWfzBOWZhC18GWK6
+	JBfNMeZaON5AjwcXmxdKxxoNlllB6jeYohjkdCUD1VrvXxvu5XKMgnedC1luFV4k77tIhzxBhis
+	zPe2lQL+bracysSQ==
+X-Received: by 2002:ac5:ce0d:0:b0:56a:9e65:3e30 with SMTP id 71dfb90a1353d-573c96f749amr640446e0c.3.1777563846772;
+        Thu, 30 Apr 2026 08:44:06 -0700 (PDT)
+X-Received: by 2002:ac5:ce0d:0:b0:56a:9e65:3e30 with SMTP id 71dfb90a1353d-573c96f749amr640426e0c.3.1777563846217;
+        Thu, 30 Apr 2026 08:44:06 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bbe6a64d4cbsm12589166b.16.2026.04.30.08.44.04
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Apr 2026 08:37:25 -0700 (PDT)
+        Thu, 30 Apr 2026 08:44:05 -0700 (PDT)
+Message-ID: <a74a19cd-2a33-404a-b074-58a8d7d53279@oss.qualcomm.com>
+Date: Thu, 30 Apr 2026 17:44:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/13] clk: qcom: clk-alpha-pll: Add support to skip PLL
+ configuration
+To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>,
+        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+        Maulik Shah <maulik.shah@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>
+References: <20260420-cesta-sm870-dispcc-v1-0-eb27d845df9c@oss.qualcomm.com>
+ <20260420-cesta-sm870-dispcc-v1-7-eb27d845df9c@oss.qualcomm.com>
+ <5vkpjjuq6vh2mr4lcq5cwqd4h5cbserf3n756d465kheuwl5fk@tu3amjwe5k57>
+ <269bdec3-6340-4b27-9b38-3fc1dfc958c8@oss.qualcomm.com>
+ <de7a2958-e431-4162-b0a0-d58bbebb600d@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <de7a2958-e431-4162-b0a0-d58bbebb600d@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 30 Apr 2026 16:37:24 +0100
-Message-Id: <DI6LNH2F0DP5.H1ZM8MTSDQJR@linaro.org>
-Subject: Re: [PATCH] arm64: dts: exynos850: Add SRAM node
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>
-Cc: <linux-samsung-soc@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Sam Protsenko"
- <semen.protsenko@linaro.org>, "Conor Dooley" <conor+dt@kernel.org>, "Alim
- Akhtar" <alim.akhtar@samsung.com>
-X-Mailer: aerc 0.20.0
-References: <20260413-exynos850_sram-v1-1-7fda5b7fb7d4@linaro.org>
- <2ff077e1-8983-4a41-bb21-5e4140545aa3@kernel.org>
- <DHSR70EGYY4N.2EA2HWIXJR7QR@linaro.org>
- <4c6a92e0-15a1-4f82-afc9-542f5ad9d2df@kernel.org>
-In-Reply-To: <4c6a92e0-15a1-4f82-afc9-542f5ad9d2df@kernel.org>
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: FLJCdADkrOqdCDHv3kzGG66xURcwHPkI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDMwMDE2MiBTYWx0ZWRfX4GwPcVBoaV/5
+ yMjKhuvQjXjm9uAFsRQeW1FMeXMMNKT2QcL2STbaYj6fezlxI3syhyCz83vxci1jTqFUYm0tm/r
+ mXSVNO+/LBgsdUZtg/zamK650Wm2WHYIHZb17L8RrJK0aprGJe9LlWMi3VWghC9ZYoDicFF0//K
+ JRQUEOywoaVVVPolb4cWXRkqvqyf8X6eGph18OOCJshL4v+257tfq1lxnEBzEprsPDQwDDLS/T1
+ ESx3pXpKR1T7RCqZqRxF66mlktoKD15KaforK0b/F81FWG57Vk5ddefOUA1NvURUI8IR/YOLm22
+ dhWz8Ut7G5XOgD29Jjwn84nZX3Y5aHMxha7Rc8AFXc3DZpzLcBT/xxvjgZQA6xTTytF+/zGEkxC
+ xJvOnB3LM1TTxSgKXJ7Ef9rllixP6g15EKOYrUg+S6o1HKOQKXE1sS5X/0NKDTucXlssR6yRXT3
+ VW4jKSGReCVrGH5An/A==
+X-Authority-Analysis: v=2.4 cv=XoTK/1F9 c=1 sm=1 tr=0 ts=69f378c7 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=C5MmyifQ20IcwxlzDtwA:9 a=0bXxn9q0MV6snEgNplNhOjQmxlI=:19
+ a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-ORIG-GUID: FLJCdADkrOqdCDHv3kzGG66xURcwHPkI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-30_04,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 bulkscore=0 clxscore=1015 phishscore=0
+ lowpriorityscore=0 malwarescore=0 impostorscore=0 spamscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604300162
 
-On Tue Apr 14, 2026 at 10:08 AM BST, Krzysztof Kozlowski wrote:
-> On 14/04/2026 11:00, Alexey Klimov wrote:
->> On Mon Apr 13, 2026 at 4:23 PM BST, Krzysztof Kozlowski wrote:
->>> On 13/04/2026 16:52, Alexey Klimov wrote:
->>>> SRAM is used by the ACPM protocol to retrieve the ACPM channels
->>>> information and configuration data. Add the SRAM node.
+On 4/28/26 7:22 PM, Jagadeesh Kona wrote:
+> 
+> 
+> On 4/23/2026 4:43 PM, Konrad Dybcio wrote:
+>> On 4/22/26 8:28 PM, Dmitry Baryshkov wrote:
+>>> On Mon, Apr 20, 2026 at 09:59:00PM +0530, Jagadeesh Kona wrote:
+>>>> Some PLLs are already configured as part of CRM(CESTA Resource
+>>>> manager) initialization. Add support to skip PLL reconfiguration
+>>>> for such PLLs that are already configured.
 >>>>
->>>> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+>>>> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 >>>> ---
->>>>  arch/arm64/boot/dts/exynos/exynos850.dtsi | 8 ++++++++
->>>>  1 file changed, 8 insertions(+)
+>>>>  drivers/clk/qcom/clk-alpha-pll.c | 8 +++++++-
+>>>>  1 file changed, 7 insertions(+), 1 deletion(-)
 >>>>
->>>> diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/bo=
-ot/dts/exynos/exynos850.dtsi
->>>> index cb55015c8dce..cf4a6168846c 100644
->>>> --- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
->>>> +++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
->>>> @@ -910,6 +910,14 @@ spi_2: spi@11d20000 {
->>>>  			};
->>>>  		};
->>>>  	};
+>>>> diff --git a/drivers/clk/qcom/clk-alpha-pll.c b/drivers/clk/qcom/clk-alpha-pll.c
+>>>> index 67fc97739d0d4c26aec0bac5d43d1b87d297bc6a..2f4ebf4d3884b92c981dbe0e67245704a88881ad 100644
+>>>> --- a/drivers/clk/qcom/clk-alpha-pll.c
+>>>> +++ b/drivers/clk/qcom/clk-alpha-pll.c
+>>>> @@ -2332,7 +2332,7 @@ EXPORT_SYMBOL_GPL(clk_alpha_pll_zonda_ops);
+>>>>  void clk_lucid_evo_pll_configure(struct clk_alpha_pll *pll, struct regmap *regmap,
+>>>>  				 const struct alpha_pll_config *config)
+>>>>  {
+>>>> -	u32 lval = config->l;
+>>>> +	u32 lval = config->l, regval;
+>>>>  
+>>>>  	/*
+>>>>  	 * If the bootloader left the PLL enabled it's likely that there are
+>>>> @@ -2343,6 +2343,12 @@ void clk_lucid_evo_pll_configure(struct clk_alpha_pll *pll, struct regmap *regma
+>>>>  		return;
+>>>>  	}
+>>>>  
+>>>> +	/* Return early if PLL is already configured */
+>>>> +	regmap_read(regmap, PLL_L_VAL(pll), &regval);
+>>>> +	regval &= LUCID_EVO_PLL_L_VAL_MASK;
+>>>> +	if (regval)
+>>>> +		return;
 >>>> +
->>>> +	apm_sram: sram@2039000 {
->>>> +		compatible =3D "mmio-sram";
->>>> +		reg =3D <0x0 0x2039000 0x40000>;
->>>> +		#address-cells =3D <1>;
->>>> +		#size-cells =3D <1>;
->>>> +		ranges =3D <0x0 0x0 0x2039000 0x40000>;
 >>>
->>> You miss here children.
->>=20
->> Thank you! I guess I should convert it to smth like this:
->>=20
->> apm_sram: sram@2039000 {
->> 		compatible =3D "mmio-sram";
->> 		reg =3D <0x0 0x2039000 0x40000>;
->> 		ranges =3D <0x0 0x0 0x2039000 0x40000>;
->> 		#address-cells =3D <1>;
->> 		#size-cells =3D <1>;
->>=20
->> 		acpm_sram_region: sram-section@0 {
->> 			reg =3D <0x0 0x40000>;
->
-> This covers entire block, so feels pointless. Maybe requirement of
-> children should be dropped. What's the point of having children? Why
-> does the driver need them?
+>>> Why is it being applied only to Lucid EVO PLLs?
+>>
+> 
+> Thanks Dmitry and Konrad for your reviews.
+> 
+> This is the function used to configure all Taycan PLLs, currently all the PLLs
+> configured during CESTA initialization belong to Taycan type only. I will recheck
+> if similar logic is required for any additional PLL types also.
+> 
+> 
+>> These clocks already have a an .is_enabled() callback, could that be
+>> treated as equivalent?
+>>
+> 
+> We already have is_enabled check to avoid configuring PLL's that are already enabled.
+> There can be case where PLL is configured from bootloader but not enabled during bootup.
+> This check avoids re-configuring such PLLs that are already configured by bootloader but
+> not enabled.
 
-Thinking further about this. I was looking at the schema file and
-different commits and it the right approach could be:
+Okay, that was the missing piece.
 
-- add separate compatible for mmio-sram region for this case. Similar
-to scmi and scpi, i'd say it should be "exynos,acpm-sram" or
-"samsung,acpm-sram";
+Is this a micro-optimization, or something highly necessary (for e.g.
+glitch-free display)?
 
-- update schema sram.yaml to exclude requirement for having child nodes
-and properties like ranges, address and size cells
-Similar like in commit, for instance, git show d0fe6491ddd22
-(or git show 2d4a22e79a5fd).
-
-- then this addition becomes:
-
-	apm_sram: sram@2039000 {
-		compatible =3D "exynos,acpm-sram";
-		reg =3D <0x0 0x2039000 0x40000>;
-	};
-
-and will be consumed as a whole region (also as Tudor mentioned in the
-other email).
-And then we should update gs101 dts as well. Thoughts?
-
-I honestly don't know why be default schema requires child nodes unless
-it is specifically excluded. Could be a good question to Rob?
-Or maybe we should really drop a requirement for having children from
-schema.
-
-
->> And then later reference shmem =3D &acpm_sram_region from acpm node.
->>=20
->>> Also, 'ranges' should be after 'reg'.
->>=20
->> Thanks, will fix this.
->>=20
->> FWIW this commit is a copy of commit 48e7821b26904
->> https://lore.kernel.org/r/20250207-gs101-acpm-dt-v4-1-230ba8663a2d@linar=
-o.org
->
->
-> Huh, we should fix that one as well.
-
-Best regardss,
-Alexey
+Konrad
