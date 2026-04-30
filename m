@@ -1,86 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEB234405B
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 06:08:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7555372EE0;
+	Thu, 30 Apr 2026 06:11:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777529320; cv=none; b=Y0OJqAWtgHUXeN+569isKPeM3avwGHTFWVyxXqEjt7O9PU1Jxllyh6ICXhNfJZJBPPn/35jp7niAvF9B4muAfz8/FbDyp9QP3yD63wo/FQujRcFcfeH5WUMSFnjHsiY2UD6hv8i/GKlAR7JlzW+hMXL5qRQumsg58wLoTQeqVK0=
+	t=1777529467; cv=none; b=F4e+TbaHx2l88CYoeXTDtPzk7Yp/ykFyHD0bpsq6+LLlftxTuheTZHMuxmPvJAfu8JNx7HHju3yQQv3kNwsJk+Ridmwtzz+Fub7vJceY7cf+BOrSGGLUlgU5H7KJmxvjZmmpZdUkVTJyl256d0OwyYD/tlqngjH7zFvXSjrja8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777529320; c=relaxed/simple;
-	bh=Cjn1ZBaz4ZIn2D113VXtuXFy4b0UXtv2oTvsQCSMMg4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IT4vCNEYdnBemeKzjhvedDzq6DBByeGOFUs70HaFMrzFLca29iVpArmXWvjWO4r/IZPqh52hvewYw9LX3DFk0LF05Hf2pWs82BZt6QW869B/K8xLSSBfGqrafLziA0fWKGtYzoN5HfmV4RnEyD+ZFofB/lv6Gw+dmwNKg+mzDVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jyXPaxak; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777529467; c=relaxed/simple;
+	bh=diyXVB9D3839Jv7qi+h4ebb8PmsPBdrv3loyeloIAvw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RdHZrdtuLlO62c1dsit7ovVAQxaSCcn/QuoS3oT33Xa2vhq+0JN5EIqIp/BTzKTzKeslGgDI8qQXOAlku2FiOk5pHRWgqjIbLBXduDaUtlKO1j0z6PZEM0+9bOK0e9ijhoEUcsBUk5Z+wH/t8aHNervqyi6zFxG7xNt23yQtJSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cz5MuRVL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jyXPaxak"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A934DC2BCB8;
-	Thu, 30 Apr 2026 06:08:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cz5MuRVL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0D55C2BCB8;
+	Thu, 30 Apr 2026 06:11:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777529319;
-	bh=Cjn1ZBaz4ZIn2D113VXtuXFy4b0UXtv2oTvsQCSMMg4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jyXPaxak4PnGNe+8ki6nvZGL9g324v0yLAudvontCHHxXvMkTJ6/Y3mES9v+ZRSnp
-	 q+MaH6v+1dPRVD1gy9qEYyrQ6uIh6ocYk3FjmJHigNA9Llxv4O+wYHdUVcAmmXre2Q
-	 RevnnXl+SBaN6tU2AJiD+CmpG90hckQ4h8WZNnrgL3v1jgfizKUhU2Co4CfPNaJ/dT
-	 7QKnSeJexmDmwfRQGjjzvYOZc3TWpT0P4XmS2jQw4Bzy922Q9jbeoXBBACTH7QbObs
-	 xmX5DZmkwVjKiAwRalPW9jXgPDQRyAGyH10KOuM2EguGe1SO5OCi5aWpyydPGvfKXP
-	 7AF5wUPiSi5Dg==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 71F8D1AC585E; Thu, 30 Apr 2026 07:08:37 +0100 (BST)
-Date: Thu, 30 Apr 2026 15:08:37 +0900
-From: Mark Brown <broonie@kernel.org>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 1/6] mfd: dt-bindings: mt6397: Add regulator supplies
-Message-ID: <afLx5bJJykXE_gea@sirena.co.uk>
-References: <20260429074113.3720271-1-wenst@chromium.org>
- <20260429074113.3720271-2-wenst@chromium.org>
+	s=k20201202; t=1777529466;
+	bh=diyXVB9D3839Jv7qi+h4ebb8PmsPBdrv3loyeloIAvw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=cz5MuRVLJcp+54PrCtrKjmULCjiwdVruZfkGJTAjjUChjrZitfM3aUcIK15rISWIK
+	 lFyFjib4/rIy7ygzGnw9NLivydKDee/8VfGFbLdTFNi3uyYvnzRWOY7gX1YYW6nduQ
+	 dBIl/iG0P4eyytTSs30eJTaNk3Ff3q1LSNL1+0QrCMKsDizPttqscSz2ygsIvobpYQ
+	 b2OXuYcSuZ+9+dAEEzm1sjqNRqq+1RfsxPgjbUK/N+3XeD0dN4B9K9voAmoM6/p+vY
+	 AUlvjMAdm/S4m2Kb0tFqGiQw2Kv8YjOQtAGgBGIIE/Tj70NPH+Jz8Xg/c36WSJ6WBL
+	 BDbq+BXT8yBqQ==
+Message-ID: <b5d9985c-474c-4866-bc5f-5b7b4be4d641@kernel.org>
+Date: Thu, 30 Apr 2026 08:10:58 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eTWikjTYTWdVqHms"
-Content-Disposition: inline
-In-Reply-To: <20260429074113.3720271-2-wenst@chromium.org>
-X-Cookie: 667:
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] p54spi: convert to devicetree
+To: Arnd Bergmann <arnd@arndb.de>, Arnd Bergmann <arnd@kernel.org>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Andreas Kemnade <andreas@kemnade.info>, Bartosz Golaszewski
+ <brgl@kernel.org>, =?UTF-8?Q?Beno=C3=AEt_Cousson?= <bcousson@baylibre.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, Felipe Balbi <balbi@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Johannes Berg <johannes@sipsolutions.net>,
+ Kevin Hilman <khilman@baylibre.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+ linux-wireless@vger.kernel.org, Netdev <netdev@vger.kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Linux-OMAP <linux-omap@vger.kernel.org>,
+ Christian Lamparter <chunkeey@gmail.com>
+References: <20260427142355.2532714-1-arnd@kernel.org>
+ <20260427142355.2532714-4-arnd@kernel.org>
+ <e4a7e9d8-7091-4520-a634-ff0a44eb5139@kernel.org>
+ <556b64c4-febb-4dc6-8d51-1b1c2d2c6aa6@app.fastmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <556b64c4-febb-4dc6-8d51-1b1c2d2c6aa6@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+On 29/04/2026 23:35, Arnd Bergmann wrote:
+> 
+> The driver doesn't know the difference, so I assume they are
+> either all compatible, or the other ones don't actually work.
+> I've dropped everything except  "st,stlc4550" now, as that is the
+> one I used in the dts file. I kept the other identifiers
+> in the binding as:
+> 
+>   compatible:
+>     oneOf:
+>       - const: st,stlc4560
+>       - items:
+>           - enum:
+>               - cnxt,3110x
+>               - st,stlc4550
+>               - isil,p54spi
+
+Yes, just keep this enum part sorted alphabetically.
+
+>           - const: st,stlc4560
+> 
+> Not sure if that's the best way to express this.
+> 
+>        Arnd
 
 
---eTWikjTYTWdVqHms
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Apr 29, 2026 at 03:41:07PM +0800, Chen-Yu Tsai wrote:
-> On the MT6397 family each buck regulator has a separate supply. LDOs are
-> split into various groups with independent supplies. There is also a
-> supply for the regulator control logic.
-
-Lee, this seems like mostly a regulator series - OK for me to apply this
-patch and send you a tag for it?
-
---eTWikjTYTWdVqHms
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmny8eQACgkQJNaLcl1U
-h9BgzAf/byt1RH1nlHQ3FX6eWSFu2xX9esj6k2nbapayxMx4rHey5B9brr0mpB5i
-9TDNXYmte5933g6dsYhR/2i1u0VNfwMdZry+XOUgQjM9KJETXo76rYYwZg/0SLe4
-WVN9kIX8JEmVyY97zI9pROXuYkQJHZO+Ot1CGm2QYVsP02vgk+T/f8gekGWoZa7B
-dztjGlyXUhxUe1s9eqriAY3vlcj+sUKl41rZ5ZRgETHOZ9Oc72q0X1k/YKRlgybC
-nfImtDn9cytIEtWYPqZzM3C2D7Fse8syXjCvLXdRMQUzb8Uq0R5j6iBCAJvFp0tI
-1ztjAGUoGrdq2y84+G1ZyVk6LM9rOA==
-=aOxF
------END PGP SIGNATURE-----
-
---eTWikjTYTWdVqHms--
+Best regards,
+Krzysztof
