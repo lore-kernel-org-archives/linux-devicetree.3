@@ -1,308 +1,157 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040514418DB;
-	Thu, 30 Apr 2026 15:08:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC0E9407595
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 15:12:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777561712; cv=none; b=hk50VrokTBF3zAWY59UhkDn3B9b118Z1r8e1hWdKMzm0iw6MMGucj0dkwpCD3UovRLg1Z7jpJqz9Eg6wik7PHioNi72NYDezst0V/SfUfIoei7v3CwYqFUy/pFYUmD67ZH+cOUZBPSUXuWBKCs+ftVDNKga1tOSx5BylAg8kwgA=
+	t=1777561968; cv=none; b=MQEvUXmLePq56hJTRLGuJcbCd4mznwOoEcNDYbn1JuvOUzVTEBR/wmE4dl4jsmohs1Lu57c/Jcdv/FkJDOqx63VJwR6ZB/DpgukDrrbaaTyFVLhc7Bq4CCrQQCa0XBfThb4/czQgOHOQs6vDmIE2xoDbcYXE2tJZ9CCOKz8JRF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777561712; c=relaxed/simple;
-	bh=1oLW63a1bNu8BSRJ8VS24LuvCFyRo0WdEsf7UqZYAdo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=tZAa+NAeFDN1lvAxDtVg2xs9SY19S/7afK7vczHoL+hyNt2hvChhYgkeSI5OXU2YaeVBq+qCbngCXkxNLajel8gwqC2vk7lBXoyNx7KwbVDbgN+qD3D022csXQwXKjQTqaGfRZ/7RYU8bF2tmrCk3AMIDFmjo6HSxobLEH6Cr1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=lldjgVg0; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1777561968; c=relaxed/simple;
+	bh=G4L0Xf8IL4fWRdLnsrKd1HOfE8DHAWvVmaVeHwz8C54=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ge8IjeBE7JBZlV8oqPnXSTm1yrtlM8oQIU/VBo2h8Pdx7zgWfmYS2MgHII07iXUp7sCydFRwyghU9oTNoiC6LrsOLaeF4Zg96/OM2rDpox9/BntmF2NwVcu5pGzupfHC+j6gJcLemyiqwcLW7t5J32BU/4jsKxMfL22RfTgp/lI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nA7ZlNwC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TFQE49b0; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="lldjgVg0"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DF8E526F954;
-	Thu, 30 Apr 2026 17:08:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1777561702; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=+xGRleNC4mH5IHDYvGXitByUjCH2tQRQ7nc708D+aiE=;
-	b=lldjgVg0GZqaiwnCLtq3C0Jj+sZ6+G5uG0fneJbOgN6iHZEFnxxqTb9BaHC97wDbtaTzKW
-	tkwrAfetDF3E1StCZeK91E/C7gBJ1NN6jA7vLDr6xdrbd8OYLLqJIQ2ogpFUl0X2KYjYH6
-	gZiKwjCoK4175Up/Bfi0X/7/DqhzFDvU8es1sLnWNN4daLAW26nEkJ6wHvsSJ4iEFzGpIt
-	fWWxJnjwQyjWR9TrWYG4C/mMaQHCVc+UF6BKzZ4HP4E7qceaf2l/Z+0kTBH7Ryn0SqTrp/
-	mkN8EbCdwbZujaT0No7tuT9GBOD5DEI1RfWazn/0TMIQqyDWhRwFi7+SOA4E3w==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: linux-mips@vger.kernel.org
-Cc: tglx@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [PATCH v2 2/2] irqchip/econet-en751221: Support MIPS 34Kc VEIC mode
-Date: Thu, 30 Apr 2026 15:08:09 +0000
-Message-Id: <20260430150809.1827881-3-cjd@cjdns.fr>
-In-Reply-To: <20260430150809.1827881-1-cjd@cjdns.fr>
-References: <20260430150809.1827881-1-cjd@cjdns.fr>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nA7ZlNwC";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TFQE49b0"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63UCMTLW088626
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 15:12:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ulrYcfHf8eIqVY1+cFokIxV8AlG+2IlbHsMqaIrHX5w=; b=nA7ZlNwCnxkpI5Ua
+	T6G1AUGmSdjawvYbxrjjjz0AeBOPpy6GZpQNm4/z+usJ7YfN4maIZqsCk0VhKPSc
+	hHphZIFqkJB+IwUwPxcvf6OD6uRNnrn/4G7LzIyEjkU1ykNclaSr5jdwQiRmZvdx
+	GXD2LS+EsBuZ3is+J1nYv+5lbj277XrsvoFr4xLAn1qyBBUHWo833MoTk/KCJ11T
+	tDiBWgtiB79WiozhqPl6RYjded62mRvhoTn+WvGBYFs2LDn49ZitpY+OZ1zkqICA
+	zLcRKFcixkg3PFmK8+dko2US/nR73peqs/8eoP9JNywyfy8PNbHOSgnywW17ncCK
+	7h6oaQ==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dv2u426me-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 15:12:45 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-95687296dbcso84106241.1
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 08:12:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1777561965; x=1778166765; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ulrYcfHf8eIqVY1+cFokIxV8AlG+2IlbHsMqaIrHX5w=;
+        b=TFQE49b0TWm9tyGcXvlmVbSITqFPxFJTkw8S1cJvt0Bp1EsdGZKA+qQUWZdMPkFo6F
+         NU4YP6kv0hfoF6BYLtmOUIqHo7Mji+gIxKYSjKvXjxUzRS42PuPx/IvznBBb2WMVtAD9
+         7l+05zn+wToBc+6cMwd13X2zuyZJTcSWm8q2z7m/FJbu7WlzfKJuKQDjAEvZpWbJHIG7
+         IV+IJwNJn0sKtTasqRJHNNjAtxXup6C379a5yCpfZvtdepfyKpwqumVeIzo3u1eDJpx4
+         4fVQ8RWOoDq/k5Pc41LnRt9epsYC1qP9oUDki/DAuvpS/EhGV+/8x06wQAI2LnpJ0tPY
+         7QEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777561965; x=1778166765;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ulrYcfHf8eIqVY1+cFokIxV8AlG+2IlbHsMqaIrHX5w=;
+        b=GGXVponoeKrQQ2n0//9IHTiAu1OTvR7ghol4EBuyD1hAp5GRsUhvGiqRCe4ohXod0I
+         9reQG0YBPcVrKLJgrJ6Iy7tBuZa/F5yiA3kmyJVIJ9uBkiCGOt31EEVLTl56GPcXgNi4
+         +NehwWiu+Jjg3xCwGuzwos9Yqmn28ED7gj/HFoKou2A/4g7UXn6is3uAQ/0V5MqwuqlQ
+         RCCdyKtS5viPvZvRbxNbLn+bwZSrsA6UVbiIOH22anG15Fg3SdVOmdUHeusRLVXgeLD+
+         dK7MXPlfB3a1BWzVg83/ckcg0Vtxc9bgKzCBN23bNTid10Rwr7d3TuwiAr0S4SznCtZ4
+         wh+Q==
+X-Forwarded-Encrypted: i=1; AFNElJ+p6H3OnXEETSx/lwqQW21V3d66yrNxhkMwU5U2HhmlCMQxOIGdzaScIMv49uTcMjAbTqz2Ea1CN/hx@vger.kernel.org
+X-Gm-Message-State: AOJu0YwfM4b75ENrpUPbvaZk7Oq3kxhBE3s5SDlQ/luM+Gq4f+ncjfd3
+	xT/JNmuI7MdZdAbgcvPVGEjSVi1T+6gYMTu1seD+j706Z+GFZ3dcAJAbYoL2uKEIgqqvNjlvuGa
+	BgiMkM9ao9Fp0aNdhHPcnNP+Vb7RQv+nUDxV9qWYqKIt/zvddGhmU4AVIMRXY0Smd1wzxWK/O
+X-Gm-Gg: AeBDieuW0xVm/Yp4ZLAv0HVgu45ncwrKnk3eS3+b8IiRE8f1zqv57kIq8gjKOJd9vBl
+	kCIU+MRmjN0ENm7P1lB8hjERnzaldi6C6LtPPaexLfAerwdhkCXTLd074RZNKg68XAtnzV1KDIi
+	TNTxwBMtqiB33n6dKOfa88eWQVjBI5eIxzIt9NgqSHtEwcdt8fnKoA2V6c0hgClmCECsuTkMNta
+	mvcxS7EEXAxGrObqTPzFRvJ+B3rFyS90ctvbrSmuvWC7kEcUa+IeBYx0mrZMrId3l9KSfZvj0jI
+	+HwV20TMGeFz4OgMGJ2VX/b9jSirAJ3I5CXQ7ELosYYGn/2yVWVeJP1rXG3TwDnfk9p9QPZ10yV
+	UrQ90vHwlqgEFL2RFOb2UpqIRTfy2bBkH6cQKGsVC36sHpC58CyGLXJ8xSIUDhcO4TAHCkHodNw
+	VHrOpJPhST6fgoLA==
+X-Received: by 2002:ac5:c9ba:0:b0:573:abb5:7d39 with SMTP id 71dfb90a1353d-573c9698ee3mr610463e0c.3.1777561964657;
+        Thu, 30 Apr 2026 08:12:44 -0700 (PDT)
+X-Received: by 2002:ac5:c9ba:0:b0:573:abb5:7d39 with SMTP id 71dfb90a1353d-573c9698ee3mr610434e0c.3.1777561964239;
+        Thu, 30 Apr 2026 08:12:44 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bbe6a64d919sm8497666b.23.2026.04.30.08.12.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Apr 2026 08:12:43 -0700 (PDT)
+Message-ID: <efd349b8-eb01-43ab-ab0a-99e6d9ec0885@oss.qualcomm.com>
+Date: Thu, 30 Apr 2026 17:12:41 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: pinctrl: qcom: move gpio-hog schema to
+ tlmm-common
+To: Swati Agarwal <swati.agarwal@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260430140118.3684018-1-swati.agarwal@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260430140118.3684018-1-swati.agarwal@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=Ev/iaycA c=1 sm=1 tr=0 ts=69f3716d cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=vT5BNdOIVckz33J0OJoA:9 a=QEXdDO2ut3YA:10
+ a=zZCYzV9kfG8A:10 a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-ORIG-GUID: coT0p4VHYbHJ1iEIqdcZl0P4EySTSJnL
+X-Proofpoint-GUID: coT0p4VHYbHJ1iEIqdcZl0P4EySTSJnL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDMwMDE1NyBTYWx0ZWRfX/Nut7YSf4BE1
+ GQIMi/oCX3prdjE6AAILbDB8Mwyu1prDHUfHGNzWyzYRXC2Ii2kiPIHs4MzxthyTg+clFpDVWb+
+ w6wfji/OlJzFbvpP6IB9RFdioP5QFB7ahvlYCioNQLNW7qwvI4+0x6182e6LxdMEhdTZk7YpVt2
+ aAbKBHKaW4C0irI+8Y8oEGGVZBlOBWRenhDCYebCc7XGRFvixfmMGBfLvJ5XGenBOxbLMhTe+YJ
+ g7uqtXkoTyhPvGIQI4+OehFeQDhLtR3n52TJLwS4F5AnUHMJgXNSNh1BPDNlrLgcLk/U+QHqzY1
+ rjV4/05QmOKZ0SeqMva7duWb+FQqONZUijOnVvjtngT/bNwPS/sMc+7/MMQVWX2XLCK6f2Al9k2
+ IebD87Sqw+3JdvUjSPVrGarIuZLQ0Lu3otnDA1N11j+O4TJ5eUCQ1g+2de091kQOQWtQ1mma1J/
+ OP1qhy3kNde1UH6BNzg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-30_04,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 phishscore=0 spamscore=0 suspectscore=0
+ malwarescore=0 priorityscore=1501 clxscore=1015 adultscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604300157
 
-The Vectored External Interrupt Controller mode present in the MIPS
-34Kc and 1004Kc causes the CPU to stop dispatching interrupts by the
-normal code path and instead it sends those interrupts to the external
-interrupt controller to be prioritized, renumbered, and sent back.
-When they come back, they are handled through a different path using a
-dispatch table, so plat_irq_dispatch never sees action.
+On 4/30/26 4:01 PM, Swati Agarwal wrote:
+> Qualcomm TLMM-based pin controllers share the same gpio-hog binding
+> semantics across multiple SoCs. The gpio-hog pattern currently defined in
+> qcom,sdm845-pinctrl.yaml is not specific to SDM845 and applies to all TLMM
+> controllers.
+> 
+> Move the gpio-hog patternProperties definition to qcom,tlmm-common.yaml so
+> that it can be reused by other Qualcomm TLMM pinctrl bindings and avoid
+> duplication.
+> 
+> Signed-off-by: Swati Agarwal <swati.agarwal@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> Move the gpio-hog patternProperties definition to qcom,tlmm-common.yaml
+> 
+> Link to v1:
+> https://lore.kernel.org/all/20260417152014.3000797-1-swati.agarwal@oss.qualcomm.com/
+> ---
+>  .../devicetree/bindings/pinctrl/qcom,sdm845-pinctrl.yaml    | 5 -----
+>  .../devicetree/bindings/pinctrl/qcom,tlmm-common.yaml       | 6 ++++++
 
-This of course subverts the traditional intc hierarchy, and on the
-1004Kc the interrupt controller is standardized (IRQ_GIC) so it can be
-reasonably considered part of the CPU itself - and tighter coupling
-between IRQ_GIC and arch/mips/* is tolerable. However on the 34Kc
-the intc is defined by each SoC vendor, so it's required to have a
-modular driver - but for a device which in fact ends up taking over the
-entire interrupt system.
+Please also remove it from qcom,ipq4019-pinctrl, which also includes
+tlmm-common
 
-Let the DT describe which IRQs which come from the CPU and should be
-routed back and handled by the CPU intc. These particularly include the
-two IPI interrupts which would otherwise necessitate duplication of all
-the IPI supporting infrastructure from the CPU intc.
-
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
----
- drivers/irqchip/irq-econet-en751221.c | 176 +++++++++++++++++++++++++-
- 1 file changed, 173 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/irqchip/irq-econet-en751221.c b/drivers/irqchip/irq-econet-en751221.c
-index d83d5eb12795..98c109fe053b 100644
---- a/drivers/irqchip/irq-econet-en751221.c
-+++ b/drivers/irqchip/irq-econet-en751221.c
-@@ -30,6 +30,8 @@
- #include <linux/irqchip.h>
- #include <linux/irqchip/chained_irq.h>
- 
-+#include <asm/setup.h>
-+
- #define IRQ_COUNT		40
- 
- #define NOT_PERCPU		0xff
-@@ -42,14 +44,18 @@
- 
- /**
-  * @membase: Base address of the interrupt controller registers
-+ * @domain: The irq_domain for direct dispatch
-+ * @ipi_domain: The irq_domain for inter-process dispatch
-  * @interrupt_shadows: Array of all interrupts, for each value,
-  *	- NOT_PERCPU: This interrupt is not per-cpu, so it has no shadow
-  *	- IS_SHADOW: This interrupt is a shadow of another per-cpu interrupt
-  *	- else: This is a per-cpu interrupt whose shadow is the value
-  */
- static struct {
--	void __iomem	*membase;
--	u8		interrupt_shadows[IRQ_COUNT];
-+	void __iomem		*membase;
-+	struct irq_domain	*domain;
-+	struct irq_domain	*ipi_domain;
-+	u8			interrupt_shadows[IRQ_COUNT];
- } econet_intc __ro_after_init;
- 
- static DEFINE_RAW_SPINLOCK(irq_lock);
-@@ -150,6 +156,55 @@ static void econet_intc_from_parent(struct irq_desc *desc)
- 	chained_irq_exit(chip, desc);
- }
- 
-+/* When in VEIC mode, the CPU jumps to a handler in the vector table.
-+ * The only way to know which interrupt is being triggered is from the vector table offset that
-+ * has been jumped to. Reading REG_PENDING(0|1) will tell you which interrupts are currently
-+ * pending in the intc, but that will not tell you which one the intc wants you to process
-+ * right now. And if you are not processing the exact interrupt that the intc wants you to be
-+ * processing, you might be on the wrong VPE. You can't tell which VPE any given REG_PENDING
-+ * interrupt is intended for (shadow IRQ numbers are for masking only, they never flag as
-+ * pending).
-+ *
-+ * Consequently, this little ritual of generating n handler functions and registering one per
-+ * interrupt is unavoidable.
-+ */
-+#define X(irq) \
-+	static void econet_irq_dispatch ## irq (void) \
-+	{ \
-+		do_domain_IRQ(econet_intc.domain, irq); \
-+	}
-+
-+ X(0)  X(1)  X(2)  X(3)  X(4)  X(5)  X(6)  X(7)  X(8)  X(9)
-+X(10) X(11) X(12) X(13) X(14) X(15) X(16) X(17) X(18) X(19)
-+X(20) X(21) X(22) X(23) X(24) X(25) X(26) X(27) X(28) X(29)
-+X(30) X(31) X(32) X(33) X(34) X(35) X(36) X(37) X(38) X(39)
-+
-+#undef X
-+#define X(irq) econet_irq_dispatch ## irq,
-+
-+static void (* const econet_irq_dispatchers[])(void) = {
-+	X(0)  X(1)  X(2)  X(3)  X(4)  X(5)  X(6)  X(7)  X(8)  X(9)
-+	X(10) X(11) X(12) X(13) X(14) X(15) X(16) X(17) X(18) X(19)
-+	X(20) X(21) X(22) X(23) X(24) X(25) X(26) X(27) X(28) X(29)
-+	X(30) X(31) X(32) X(33) X(34) X(35) X(36) X(37) X(38) X(39)
-+};
-+
-+/* Likewise, we do the same for the 2 IPI IRQs so that we can route them back */
-+static void econet_cpu_dispatch0(void)
-+{
-+	do_domain_IRQ(econet_intc.ipi_domain, 0);
-+}
-+
-+static void econet_cpu_dispatch1(void)
-+{
-+	do_domain_IRQ(econet_intc.ipi_domain, 1);
-+}
-+
-+static void (* const econet_cpu_dispatchers[])(void) = {
-+	econet_cpu_dispatch0,
-+	econet_cpu_dispatch1,
-+};
-+
- static const struct irq_chip econet_irq_chip;
- 
- static int econet_intc_map(struct irq_domain *d, u32 irq, irq_hw_number_t hwirq)
-@@ -174,6 +229,10 @@ static int econet_intc_map(struct irq_domain *d, u32 irq, irq_hw_number_t hwirq)
- 	}
- 
- 	irq_set_chip_data(irq, NULL);
-+
-+	if (cpu_has_veic)
-+		set_vi_handler(hwirq + 1, econet_irq_dispatchers[hwirq]);
-+
- 	return 0;
- }
- 
-@@ -249,6 +308,101 @@ static int __init get_shadow_interrupts(struct device_node *node)
- 	return 0;
- }
- 
-+/**
-+ * econet_cpu_init() - configure routing of CPU interrupts to the correct domain.
-+ * @node: The devicetree node of this interrupt controller.
-+ *
-+ * Interrupts that originate from the CPU are unconditionally unmasked here and are re-routed back
-+ * to the IPI irq_domain in the CPU intc. Masking still takes place but the CPU intc is in charge
-+ * of it, using the mask bits of the c0_status register.
-+ *
-+ * Note that because IP2 ... IP7 are repurposed as Interrupt Priority Level, only the two IPI
-+ * interrupts are actually supported.
-+ */
-+static int __init econet_cpu_init(struct device_node *node)
-+{
-+	const char *field = "econet,cpu-interrupt-map";
-+	struct device_node *parent_intc;
-+	int map_size;
-+	u32 mask;
-+
-+	map_size = of_property_count_u32_elems(node, field);
-+
-+	if (map_size <= 0) {
-+		return 0;
-+	} else if (map_size % 2) {
-+		pr_err("%pOF: %s count is odd, ignoring\n", node, field);
-+		return 0;
-+	}
-+
-+	u32 *maps __free(kfree) = kmalloc_array(map_size, sizeof(u32), GFP_KERNEL);
-+	if (!maps)
-+		return -ENOMEM;
-+
-+	if (of_property_read_u32_array(node, field, maps, map_size)) {
-+		pr_err("%pOF: Failed to read %s\n", node, field);
-+		return -EINVAL;
-+	}
-+
-+	/* Validation */
-+	for (int i = 0; i < map_size; i += 2) {
-+		u32 receive = maps[i];
-+		u32 dispatch = maps[i + 1];
-+		u8 shadow;
-+
-+		if (receive >= IRQ_COUNT) {
-+			pr_err("%pOF: Entry %d:%d in %s (%u) %s\n",
-+			       node, i, 0, field, receive, "is out of bounds");
-+			return -EINVAL;
-+		}
-+
-+		shadow = econet_intc.interrupt_shadows[receive];
-+		if (shadow != NOT_PERCPU && shadow >= IRQ_COUNT) {
-+			pr_err("%pOF: Entry %d:%d in %s (%u) %s\n",
-+			       node, i, 0, field, receive, "has invalid shadow");
-+			return -EINVAL;
-+		}
-+
-+		if (dispatch >= ARRAY_SIZE(econet_cpu_dispatchers)) {
-+			pr_err("%pOF: Entry %d:%d in %s (%u) %s\n",
-+			       node, i, 1, field, dispatch,
-+			       "is out of bounds, only IPI interrupts are supported");
-+			return -EINVAL;
-+		}
-+	}
-+
-+	parent_intc = of_irq_find_parent(node);
-+	if (!parent_intc) {
-+		pr_err("%pOF: Failed to find parent %s\n", node, "IRQ device");
-+		return -ENODEV;
-+	}
-+
-+	econet_intc.ipi_domain = irq_find_matching_host(parent_intc, DOMAIN_BUS_IPI);
-+	if (!econet_intc.ipi_domain) {
-+		pr_err("%pOF: Failed to find parent %s\n", node, "IPI domain");
-+		return -ENODEV;
-+	}
-+
-+	mask = 0;
-+	for (int i = 0; i < map_size; i += 2) {
-+		u32 receive = maps[i];
-+		u32 dispatch = maps[i + 1];
-+		u8 shadow;
-+
-+		set_vi_handler(receive + 1, econet_cpu_dispatchers[dispatch]);
-+
-+		mask |= BIT(receive);
-+
-+		shadow = econet_intc.interrupt_shadows[receive];
-+		if (shadow != NOT_PERCPU)
-+			mask |= BIT(shadow);
-+	}
-+
-+	econet_wreg(REG_MASK0, mask, mask);
-+
-+	return 0;
-+}
-+
- static int __init econet_intc_of_init(struct device_node *node, struct device_node *parent)
- {
- 	struct irq_domain *domain;
-@@ -294,7 +448,23 @@ static int __init econet_intc_of_init(struct device_node *node, struct device_no
- 		goto err_unmap;
- 	}
- 
--	irq_set_chained_handler_and_data(irq, econet_intc_from_parent, domain);
-+	/*
-+	 * 34K Manual (MD00534) Section 6.3.1.3 rev 1.13 page 136:
-+	 * In VEIC mode, IP2 ... IP7 are repurposed as Interrupt Priority Level. The controller
-+	 * will filter incoming interrupts whose priority is lower than the IPL number. Therefore
-+	 * we must not set any of these bits. We avoid setting IP2 by not actually chaining this
-+	 * intc to the CPU intc.
-+	 */
-+	if (cpu_has_veic) {
-+		ret = econet_cpu_init(node);
-+
-+		if (ret)
-+			return ret;
-+	} else {
-+		irq_set_chained_handler_and_data(irq, econet_intc_from_parent, domain);
-+	}
-+
-+	econet_intc.domain = domain;
- 
- 	return 0;
- 
--- 
-2.39.5
-
+Konrad
