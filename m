@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585E6381B15;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CEC439EF23;
 	Thu, 30 Apr 2026 22:20:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777587640; cv=none; b=qJp7F+sAhA2RwiFwD/uNI1v4D0+YSDJkXy38Jb6eW4qMW3mWqf9aMehDFlpbp5k2KS/dZkBfGvESAxPW94UicYusU+nOZ5jcRqfXijnktsHYKI49Aaoohts7zV9fDQWAs6EouFX0WImC8vKGZsAwMAqsgwmvyvAvix1+cG1QdEg=
+	t=1777587640; cv=none; b=jyY9gE+SNvw+ydEw6gPKNNjdGmXhdcyrVVhPrmfXVPB0yq2/EbH5D+WzwDM4b8ns4c5B0aBsxWPI3I9X0jwc8EC7CZiXw7M/KV+Y7KSMluqc4sIvEbIsWPUaPtyjl1Vom8qrASr01uJlWWcV2TJrzMH8iRuEI48IsakhF5izVFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1777587640; c=relaxed/simple;
-	bh=QomGHZW/FC7YCeotchHbkL/EFXCUs9zAs3hd5qwXqtQ=;
+	bh=RoqNrdAtIntnzN4QOoLbPlCuBCUoD2sMXqW3kckpQAE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oi5vJOSOfLY9MtcG9QRZlWkX9JivVxZtfOw6cbRD/T9jflRIi382gF15wDEQQRcaBjAExUz7i0xmimUTD3uhKmIUaeqIZykY7qIxHuA2fJAhUG0w7DEzE9sx+1ND01ESbmXNz5IrHzpYgG0LLWvJIT+3ZOp0DTFXtWqwctZZqDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=RkVlz76T; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=CON15LBwZ6oD0vBpExGDTLRuld7zPci6VMalQgO3dAixQqW0RzLjc8POLj6opkzs751xC8hshqryxB6wXBG0/vhr0ivU+GgrnImexrtiCLqiX7G4dly52/tymGw6LnSnYPY2/vV+Typ1bFGwds8l7XSAkdumw66Iandb/u30UlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=GWI+Riet; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="RkVlz76T"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="GWI+Riet"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1777587637;
-	bh=QomGHZW/FC7YCeotchHbkL/EFXCUs9zAs3hd5qwXqtQ=;
+	bh=RoqNrdAtIntnzN4QOoLbPlCuBCUoD2sMXqW3kckpQAE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=RkVlz76TQCd63Q/kYuDZJmnC5zcRuCcE+azDTmdvUPejn4aYSVm/Nhqm79f40jM+p
-	 YvHUDYoQkv8J+9u+vc4fDTf/QCHKIxB9NzXSU00UKLQXYvLY77mtEDNQdvuiEwIU9o
-	 cgAGfN3iSCYXBcxhrVEHbFPY+GgpS+9ztFEkDbUN0N3tCdO2saG1qoG8TAzZeKxM+b
-	 dFkt2o+HURE7ye+3d/xSLDy4YmGUQW0Fez10SJL0sMwvA5pVrwT70K2F+GG3OUf0GZ
-	 AV07dhe8Bbl7K46iBiu/dW9NYOSOdyczBGF093nncoDo9kPiPNTThyA94shGIHisKT
-	 NGSMyEI1iSuuQ==
+	b=GWI+RietXIAZYicTQXGoKZhc2qZkXpjGOgSuGzni4ZQ9budFThyBRHSDhus+A9Ynr
+	 1UD4QvK05mL7AREeY2y3wdJLTPHl58qHsMMMzNKi8PthFbqCQl772aKNpqc4DHj7dN
+	 5Rt0pnj3FlTnyLIZHEDJiWGx7/B1ov9TYNKei/YMgiW9Ewtqt+Md3tybeGZfrNpYeo
+	 9YoaB6FivXn2z31bEpJuP9wbfEKkaMjB9OTGYYPpsrOTuT3ZWgG+vEiiO9UVrrvbr8
+	 NaPySu+DvkzIVUjeMpVFUMri48FPOnRYe3GYzPw07QpI+/ro1j+2BdGHDK9iM91Hkp
+	 yLnYMww1DOtGA==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 60F6117E1553;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6238217E1562;
 	Fri,  1 May 2026 00:20:37 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 102A4480028; Fri, 01 May 2026 00:20:37 +0200 (CEST)
+	id 13F5C480035; Fri, 01 May 2026 00:20:37 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 01 May 2026 00:20:28 +0200
-Subject: [PATCH v2 01/12] drm/bridge: synopsys: dw-dp: Support
- unregistering the AUX channel
+Date: Fri, 01 May 2026 00:20:31 +0200
+Subject: [PATCH v2 04/12] drm/bridge: synopsys: dw-dp: Support
+ MEDIA_BUS_FMT_FIXED
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260501-synopsys-dw-dp-improvements-v2-1-d7e7f6bac77f@collabora.com>
+Message-Id: <20260501-synopsys-dw-dp-improvements-v2-4-d7e7f6bac77f@collabora.com>
 References: <20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com>
 In-Reply-To: <20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -72,68 +72,59 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1717;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1544;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=KVUbP2LF4Dc5Xhc4nsxpqOt5dErAkqqa5xyn+yU/zfo=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnz1bRnotRIY9hREv+0yv/5f+Lswm3R1y4d8
- mtgBfnzaP96FokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJp89W0AAoJENju1/PI
- O/qaepQP/RWTLlgpZfq76hDL4H/eEZXNlxQNDKF8YsgAn5XQstqOOCanyoUlYmgs3VgqboNAOSN
- nBsz0+PfwLbvBAic/64V9OUJb6mH1bi7QvRwh9lZgiOPGs7ISQSeY8mG8a+uQC7kvfM6fxjbcHh
- 9WtvpGJ+WXOpnBQFXYwtjDfh5hoEegJ8/47Tayj0HCv56Dalb+R10NdBqpPHq8TclURtH2jlEy7
- VwxW4nk9YnRtZsQbZUXD1w4tpjyOAcr3zrCdN+gkyWuPC5e5YlE5fzhRkmOxFQjOsMdRE0tWJ0f
- rRJkLmmqySaJ/bw6h92MbMZ8hdj2s9FGTocnpdi1djB5jaEUbsXoZ7+VM0rMbkDa2bItmvcniDv
- 8J1k7wxARNQrxS+ZrzfBuG2Fds+1ErLLoEy3tgO61tl96ovtty8SFf3INPIhz+aV/vq6D/qjzav
- xeNYmvF5ARBv191IHQ6BDHd3kl8ws8j8w+tLNpQZxLm97ziJTbwIR3ULefAMXW4SAWq5OMJ6/ju
- hjaOK36YhAF4hAFI+nurGUK5uKIs6OYVxU7LOd//yiROYEQSTlaEAaWyjVBfe+8i33GaMcnXs6q
- XGni3/Nzs1ba6bFrLVC+oRkPYyMwCVVNKayJLi9OI04VazygdzWdvdlkda8bhNcc3kyijeljUuj
- MqfsSWKa6f1NHlna492c3hw==
+ bh=RoqNrdAtIntnzN4QOoLbPlCuBCUoD2sMXqW3kckpQAE=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnz1bTefDuFjSHuihDXrELYSzaun7I+ZlT+m
+ mxxpvWrYpdWN4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJp89W0AAoJENju1/PI
+ O/qaa5sP/iwrvtecrjTownz8Bo0+JyHuIwTUhK5bIst+pr9q3+WvFHbhZOTcYmpkzK+X59Jufvz
+ 2DXyGs1S2nXnHgRDLR6xct6pFSGtNI0OB9etoPDlDLrex24L6G04rhx+bCDOz2opPwIA+re9od/
+ Zxd55iPCVnaM93gR9lLvWSi1JedK72llKvAvnHhlCfRFWfTX5354xvi/vg7bl+QYRGXpLdUlPKS
+ tfpR8riYvMIz2fri1NQLWv7IKZogfWzI4rtPqQMlgW7g2gRFPWlCMY7KUcIT9xW8RUShdo25VUx
+ I1y+2ArSbrwabIubYkIidpUIAisNd6u2Pa3lAhohlaojw3X/cxgc6UV4sd3vZEuolXd27+JGnxQ
+ qSHTwGKxRzO5rXhK1tfVKMq7pfi5DOTbSutnlPa+toLqtEsTmP/ViUZeofxEbYOpEPbQA0tJcbp
+ DSY6dF8vNfwzH85UubNKxPwNeV9+7deMxNfGSaH66/3w1CPqH2LIV6z2MqxQGe96y4LSTlyrMWs
+ wOZcFVy2Ls1aLdlnk3MF5r7aEXC+Yi9UkBaECYvmstOoGpXmm6NpW0g5gB/MqQ5AA+Yvwe1aDiS
+ b3956nSzw83cQ7tQuDtfQmqT4K3ZX76/RmqBPti99o+zZdzNiFhIJsCwDvRq0ltVQrPXSSPdjYH
+ RI5+yReX6L6ky8hC1g9Y3lQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Add support for MEDIA_BUS_FMT_FIXED, which is e.g. requested for USB-C
+DP chains as the last bridge in the chain (aux-hpd-bridge) does not
+implement atomic_get_output_bus_fmts(), which results in the generic
+drm_atomic_bridge_chain_select_bus_fmts() code using MEDIA_BUS_FMT_FIXED
+instead.
 
-The DisplayPort AUX channel gets initialized and registered during
-dw_dp_bind(), but it is never unregistered, which may lead to resource
-leaks and/or use-after-free.
-
-Add the missing dw_dp_unbind() function to allow the users of the
-library to handle the required cleanup, i.e. unregister the AUX adapter.
-
-Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 6 ++++++
- include/drm/bridge/dw_dp.h              | 1 +
- 2 files changed, 7 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 3f4530c117c7..6211ba6ba7bd 100644
+index 6211ba6ba7bd..fc4ddb7792d7 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -2093,6 +2093,12 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
- }
- EXPORT_SYMBOL_GPL(dw_dp_bind);
+@@ -1528,6 +1528,7 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 				     struct drm_connector_state *conn_state)
+ {
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
++	unsigned int out_bus_format = bridge_state->output_bus_cfg.format;
+ 	struct dw_dp *dp = bridge_to_dp(bridge);
+ 	struct dw_dp_bridge_state *state;
+ 	const struct dw_dp_output_format *fmt;
+@@ -1538,7 +1539,10 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 	state = to_dw_dp_bridge_state(bridge_state);
+ 	mode = &state->mode;
  
-+void dw_dp_unbind(struct dw_dp *dp)
-+{
-+	drm_dp_aux_unregister(&dp->aux);
-+}
-+EXPORT_SYMBOL_GPL(dw_dp_unbind);
+-	fmt = dw_dp_get_output_format(bridge_state->output_bus_cfg.format);
++	if (out_bus_format == MEDIA_BUS_FMT_FIXED)
++		out_bus_format = MEDIA_BUS_FMT_RGB888_1X24;
 +
- MODULE_AUTHOR("Andy Yan <andyshrk@163.com>");
- MODULE_DESCRIPTION("DW DP Core Library");
- MODULE_LICENSE("GPL");
-diff --git a/include/drm/bridge/dw_dp.h b/include/drm/bridge/dw_dp.h
-index 25363541e69d..22105c3e8e4d 100644
---- a/include/drm/bridge/dw_dp.h
-+++ b/include/drm/bridge/dw_dp.h
-@@ -24,4 +24,5 @@ struct dw_dp_plat_data {
++	fmt = dw_dp_get_output_format(out_bus_format);
+ 	if (!fmt)
+ 		return -EINVAL;
  
- struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
- 			 const struct dw_dp_plat_data *plat_data);
-+void dw_dp_unbind(struct dw_dp *dp);
- #endif /* __DW_DP__ */
 
 -- 
 2.53.0
