@@ -1,847 +1,300 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013038.outbound.protection.outlook.com [52.101.83.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3438F227B94
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 02:29:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777516145; cv=none; b=Sjt+tmHRXXKDFjgN6DPz7PddTe+/3Lx/IZ6IVoyV25DTG0hsM45WCZkhx4CaTtu4wIcEjbZV74mQlelk9BTaqq+WOzNeVR58MJjGI4jEu6MDpCtXSL3CEc4ARmBXnMGwIPZFnwfBeUv2TIrvcmy3Lm83U8dN7a0FeZJ2r4SUj/8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777516145; c=relaxed/simple;
-	bh=KgPQ9MHDYUG2nGrCbUIOY5QWl7tuOKtcHaGbioCYy50=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dlNzt3atfaDtkXDj7izB2LYSSz9ucYWuSRBNIUdd2AbnIHoq4PtY1Y3+3lKC+w9TH24MNXZgrlD5uf1IYkjGWbhAH8FlrgNh3kA6zkZO59ta4/4X2tlfCwLqJX+Yb906bxSiF5kGsC0eboBf2ASY2hMDNNsWxWZM+E7i+D2myyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aX5DmHWB; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1C53290C9;
+	Thu, 30 Apr 2026 02:47:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777517248; cv=fail; b=QjX1mT29xlomvbc+ho43I/JlXzNYmX0ozlTTlZLRW4jyoUbeYW/zp0UN3VAY4Z+hDMjCGnHNoUd/38EqO41/BjD44OqCzKVTq1hPPETq0ZMHRbKZYbg6+3wBWxuCF2o1F/7sgMixjcIct4LwXJyvLCq4iRsGooPx4OBvGSV+qm8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777517248; c=relaxed/simple;
+	bh=zI8JMJANLw0r8xMjRsKKA9Qtem7noTY/8y4gj0VWORs=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=piOGS0Tsn5+Uo7wh9U1sMc5ua02j7GD8PBoXiz5t8Pl7S3aGE8pj7mZLbKDbIgIpbBpnm15O6jl7qkn2JCgnBsUphT1YWWwD6/4aJoz8+yMDgP6LBEop+FSnlCF3IqUeskV8e9qigRTnJiX1e3XNRzPoe2zaWCUXAncevuAR62o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=YexDwnxB; arc=fail smtp.client-ip=52.101.83.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aX5DmHWB"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2b24fdac394so3228445ad.3
-        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 19:29:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777516142; x=1778120942; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=De//G9K6upZ2sX81StxY7zO4fKEAXMOFhjgiUDQyzhg=;
-        b=aX5DmHWBhBYXEvvFH+VKVdSLgYWtWetFSkJmtlyik9jZ3qz71ggbFS7f1KsZChpH6i
-         h7mK/21zhERJk6/t3K8Kz8YvQpHYd9DvHupJgAGjnsUs4g/klJ68C+wh72+2N+qkA3EF
-         iyOl2Y9DruUgga+3wP3Gi+rb6ArlIDl7zyobutUtli4zAtlr0GBxQqgKebMkLgcIJi1+
-         DKJgk2fXMW1wRCp+4NzvFLeQPlXFhSa6RHAklgcveOgxHmY322oQFymRgCRNp1lNcQBa
-         41VChj7P+gThOhIaVrXvrthCnPt0ps1CopgTRFt3ClP6DL/Gw9vgyv4svjMBnov8xnBx
-         +E8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777516142; x=1778120942;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=De//G9K6upZ2sX81StxY7zO4fKEAXMOFhjgiUDQyzhg=;
-        b=NvzvRnScACr2m4suPKhJ6NtQoFQrL3XO83Q1/HzgFJ0g6kELqwAPfU9mAd4yFMNAGB
-         FPKGRLo8ok06+T3RXfdwcQTKbsbpVBu0+IWCqExMWW0dcyVzr/aYHxuhK/MyJjCREy0L
-         YI77fjGBEMB5bQmKsKZAy6wQinu/dvjARWvUgppuF5+ZV2pdkOyPyFhSbMHE45cOykzF
-         h3diN6Qkzt+isMoBAGqil2RNd+WqZO4fOLv1/zpuyTSMEq0mb0BoQVOOWKdgDOKhBTQo
-         otneJvBJ1jWiHHg61s2/s7zaM0Ky1EmbXka/tsdx8Gp6wDCA5KQAaupkQiscyVxulwTo
-         UQRg==
-X-Forwarded-Encrypted: i=1; AFNElJ//Td5TlAidJEQZAPaN0M8LixCZQXS3uBzCF/QOmC7aVQPdU/eLTewEM2RPDbP2ynU/R80yEf6zmyO2@vger.kernel.org
-X-Gm-Message-State: AOJu0YwBbZpgiGHH9iVX8DX7u9S1WVM1YGuQqXV3xreeximBTUM25lY3
-	N35d2Ln7liN8kHL2cbSUa3KRXncPcelljvv58R8rKov2yxRAH8oEObRf
-X-Gm-Gg: AeBDiet86rjHVj5v+CAmSw9x+JKHPdFU0vbiI7ChXRwPRFS2zNOtU3jdtzDTV2y8hxf
-	CU4TjJqyMYF9pq5PUlmQK7Cg0RpqYy7nDzH2ODNnErtbDx7GvwEs9zmO3+SrzsJQkFY1dCYiCtr
-	6Dxqy/HKWx3SckefYDQUILEBgT9Dk9n9vTaOfzilDCUq1A7ePjuCs8p1+Dtdf3TS3sHZgN/rklG
-	M/b2aWz5fyinw98N/77F9D1e1c406t1UczxrZIwG7zbJG/HsDMJgoXGfs/0M8YfnVKfcQLCoqC8
-	UJ0DtkJZAl/r2GcRzAdoW75beclOFag9GeOZXx2XAIIJJNLQMfPChY8dAJJ8CKWaMZoOyXhdK+g
-	0cRK9azw3N6X0Zo3YtCaXqALyj/Ly4wcrk1+OQOctRUKMIsbCEYXuP9t90dASPU625Y2cr/rhpC
-	Yg88OKT8AGgmFkQRA/47PZyzAleKuUHH8rAg==
-X-Received: by 2002:a17:902:ca09:b0:2b0:a980:3687 with SMTP id d9443c01a7336-2b9a230545cmr7474495ad.3.1777516142472;
-        Wed, 29 Apr 2026 19:29:02 -0700 (PDT)
-Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b98895c27csm35959615ad.58.2026.04.29.19.29.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Apr 2026 19:29:02 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Yixun Lan <dlan@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Ze Huang <huang.ze@linux.dev>,
-	Alex Elder <elder@riscstar.com>
-Cc: linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="YexDwnxB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MB6AhAQ+theklGpVR9xpWefdD4nQFf2z23kx4OrZ3FVLVw3D6wxpymS3K7kvPHqj5XlxanlWEnqsU4uyGOvS6tT5zJ2+vWmRMl53CpycWIvu5tmYeS6Js71tkLTgZzai6ZZcf72s8kNv7j/IL9uKxz6b0XfaGpyNrscYks3NplUNfCo1qoN1moJpkVWG8bx9OXPJKOwKw0OoRnz4gh3R6MD+zOkOwuhuyORylGSrqEZG1oh3ROZxUu9Aut/WANd9GKnUjFOirvTHYwe+O/y5w5CS/HEnZSVEsNi6s+f7+9Kssm/2IyFoDNVUX6ohrD9RmUap7XTNdglKtGQgN/bKHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p1Axx6TpUYkImaS13VL+XPq2+hIeUZ9serlJOfJQmNw=;
+ b=ycgEhe70v8VjkNioxqgFUFNIuv7t2InGXsQhvC8cZqqaoFEtdAF3G1A5tlEa3tPGmLakvzHK6PNbTL0iTaR3KhmwSq1V65+emJT6a+3mKXjck5L5o+3eZD5S7LCy18LA1HnzgMnOpdqWpD2dQShIFD5oAMSHeXH5TIXXO+JAFyy/Wl6Y9U7ww7ejnIXKtKnU42+7dChkDyeiYEdTKvSjkeYsHxtFUVy6BGqT1KAhOwW+N4oEm4+LVPaloLXiuKOUAmH4MTIY+90aOaD+ggJ6/awK4hvi3s2+rIT2c6tBfCRzr4trDm6k17Qyas+t1LsRMDVygozqd2D5F6/9iln0DQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p1Axx6TpUYkImaS13VL+XPq2+hIeUZ9serlJOfJQmNw=;
+ b=YexDwnxBsEYrdiGs/9GzdSE0Plj/0Mr3XPvPIjel3sMq9kbrT45kpsN9YR+WvUYWDcRHSz4OEHuOO3cB8MizwYY7M2/IMG1bCTXy1iwJnMq48XJTorSiwjto/Yqvlfa/bLhTZhvW1TGzwPHB5TAu9dJZHWOjeTnbonurcmywFqhd+HIl2A1oyD1j4ZaXMVFCpchYaKFjxjwyIS6sk4xcdZp7/iBPxThymx6JGHjVrUawTEWH416TcdzMqZts/72zBOUwbR/UO2Lt2H5NtiCkQQSasDX89XRQ8SmGNrcX1EBHiIoj01DkVsmw1NTBE7w6spcbmmJ9/YatPrlz3NDTOA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from DBBPR04MB7500.eurprd04.prod.outlook.com (2603:10a6:10:1f4::16)
+ by PAXPR04MB8608.eurprd04.prod.outlook.com (2603:10a6:102:21b::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.18; Thu, 30 Apr
+ 2026 02:47:22 +0000
+Received: from DBBPR04MB7500.eurprd04.prod.outlook.com
+ ([fe80::c291:543b:4bde:cee7]) by DBBPR04MB7500.eurprd04.prod.outlook.com
+ ([fe80::c291:543b:4bde:cee7%6]) with mapi id 15.20.9870.020; Thu, 30 Apr 2026
+ 02:47:22 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: claudiu.manoil@nxp.com,
+	vladimir.oltean@nxp.com,
+	xiaoning.wang@nxp.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	f.fainelli@gmail.com,
+	frank.li@nxp.com,
+	chleroy@kernel.org,
+	horms@kernel.org,
+	linux@armlinux.org.uk
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH 2/2] phy: spacemit: Add USB3/PCIe comb PHY driver for Spacemit K3
-Date: Thu, 30 Apr 2026 10:28:41 +0800
-Message-ID: <20260430022843.1090138-3-inochiama@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260430022843.1090138-1-inochiama@gmail.com>
-References: <20260430022843.1090138-1-inochiama@gmail.com>
+	devicetree@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev
+Subject: [PATCH v5 net-next 00/15] Add preliminary NETC switch support for i.MX94
+Date: Thu, 30 Apr 2026 10:49:30 +0800
+Message-Id: <20260430024945.3413973-1-wei.fang@nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SG2PR01CA0133.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:8f::13) To DBBPR04MB7500.eurprd04.prod.outlook.com
+ (2603:10a6:10:1f4::16)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DBBPR04MB7500:EE_|PAXPR04MB8608:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22b51a31-b7b0-401e-b2ba-08dea662cd94
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|19092799006|7416014|52116014|376014|38350700014|921020|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	J9BexuhWVLGFXRby80dlYNru4rgRMDKpwCJknwFHbM03/JV+6+HlDGR4fuiuNUjAlR1OoBaZdEMx7dIqaPX1+OobcllBSGQKeeEI8HaXujKCyGnNKeA2+5GBBdXFfaJxNjRanEz+j9DPXpqiFm9nijULEpaVp1M41gsRyM3sycSqVJZ37bXS9XMmex0WjTBh8E8oSCdgFGOw/3hL68Mh7vxFoTBU85MKGdW02xvYx8AyCyZuVpLxk5F4WZPpLoPwJ1j0tol7rIF6lxIVdYKW0b0/j2PQH0zIkcifM1MDfukCrAmk8ohieNdcG96Djrrgvm0dzOfj/IpS/4HItF9yr6FpYUh2HbhH/z0h+2rJPwA8UuWFn86KqUMgT3xEJ6XGawpL79x+JAJXK4ONUnMuPLLEY4JIPA/L4CmH/lXIvSwwB9dG2ubHqC+zegyzHiJ+g4NQnqjbRwcCVMJ+AFh9kOhbwrI0/zomjwZLOg+IrVvRK3AjJBjZJTaNfUF10U2JxHjos9/upo1iVCN1MkQr4VvoXKInhWdyL01+SriYWk8UPC8yg5DYzVp6fuPkx6fPC+rKBGuYyjk3+o7KKCgkDm4WHE1LXUfNXIbiY+3gQUkzSDOJbwqGCYNeCOoE9NB6E9jvTAr8Kcl8XKJdvUTij5eXyUHLU2etYrFuGxu7HFbyNqGz4E/DaWPAm8bnop+eDsZgx8ayZuw4XUKFbp3tkKUV+ci5/IbTrIdczDQSl84C4vAmxJ+hsw+mBAIOTvqsi3TXp5OFp/Xha/dmyudA8lSE7lBQFC4+bQp92TkCt9UfY3l1fg4uw+zil1Zj0tMx
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7500.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(7416014)(52116014)(376014)(38350700014)(921020)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?kxzhiAyGeRK4MBQfR2rpG2JNcjjbizkQw5GhoEPg8ERGnIAvphPKIwrI9SJ5?=
+ =?us-ascii?Q?aO9qy0VJifpwkCPImI2Mx2UxUCH7RisvreU8TGSqlOTf7gKlo/qEhtRoA+Vr?=
+ =?us-ascii?Q?3IFwHskyvMGantY+kw0vV1mPQK0fM622Sqy+E9rqUxWy4My7iDZSqugLea2w?=
+ =?us-ascii?Q?rZ4Z59Bm3vRh0w7/lX4+NEY9j+k1NUSHxyPKwng5eYjmhjuKYkCx59NpQ1Wg?=
+ =?us-ascii?Q?cmTTxS3lg0YuhNoPNq80jBwJTV1ya9jzTeilY65zOqvq/B15TePHvlryFtQ8?=
+ =?us-ascii?Q?NaqgARVR9WRF2yn0qrtDluXIoNSrvWY/XshaQ0DjWmFcBhR+H76URoZLMyDp?=
+ =?us-ascii?Q?IWQS1KrlK92NmdwPx6TQvGuZv5qur43H1L8OYygOi0s4vxuB4Xz/AT2qIwCu?=
+ =?us-ascii?Q?3d3QG7LWyc4n159yuVfyyVpjCvjZvsJBFjn29a1C+1SDbSYl404HgGQFLxjq?=
+ =?us-ascii?Q?FYxThZNF3BotL/DVW9yhWTvZMhLn/kzFK7gTrW9PFZAbvPd9+m6QnIGe2ddj?=
+ =?us-ascii?Q?clyo08c4TyORfl4DgiA8QcuALWZQt1QUHs+CEZPROLwhm1ekcte9C6Es4cnl?=
+ =?us-ascii?Q?soYRuxywRgEmVCzDMIMBIR9UkAcgmAMfdXvnI+AS+FN6Qku96A+mtCDNfKCz?=
+ =?us-ascii?Q?4DwzjDHIrC0EyDBJFtOcDpT450WgU2olp8nGUJ9Qp94dpqhpJy0gs5dzjum6?=
+ =?us-ascii?Q?WP2PmB8HYY4+nCSFaWPrFxu/FfnyJiXYUHtp8+liobwfiCsUXmLJi3+RRyUQ?=
+ =?us-ascii?Q?j9+OoSXEQVDUpNbT3whkkPqThFIKBkI+ntzvzxY70uo6ejEBXV+ncLhqg24j?=
+ =?us-ascii?Q?knAgjXa1m7vx5sGdH+14jtGgOH0ZQvBGvNmxjaYRV9huvrBu+Xg1ZOJFayOj?=
+ =?us-ascii?Q?tmaJxP60PayVP9FtlKoK36gIEu3ThoAT8k175hCakAKlXphLWRzZWFY0jb9D?=
+ =?us-ascii?Q?j6IoB6hMkWXKRucjNY73d6SVooZHRu+orO7MzGp7+o6y9cZ7QXnMd6FzHjxP?=
+ =?us-ascii?Q?n/a0NfOcYVfACyI2g7b5ECNyPD/YqH+5+D6gHeUq3PwQptw2SBxw8oltxYnd?=
+ =?us-ascii?Q?LOgYbECnMEyZKaTrwZc1PzCybP2sQAbqcBOq/mGk//XL3TXcsLDpRtEHqaLd?=
+ =?us-ascii?Q?KLCcw4gsFsvpUpSIXedzop1R9ut9Jx5tBkTKTME3l5oQjumtlouhBk++BBBG?=
+ =?us-ascii?Q?hCjjWVr6ouIOvBCq8KwG1cpOjeTM2RIqapbHpYZH0nyINwnxWJ0VyjSNiudJ?=
+ =?us-ascii?Q?O/05aeQTIeVTPNR2SH9NJZUOq9P1X68fTrekEI60BlfpOSVZvR3+hmkYQS3D?=
+ =?us-ascii?Q?onOGy+MTKYt8UtohS5XhqUaQMuq8nMrx4HgizfF8O1JZ4rhKdwcnVkDM9Clc?=
+ =?us-ascii?Q?4fHjLoQ/siwy/taNZt9u/n75VSQ8oFvQw7nVRrAYmELbXxUmnt0mG6kq2J4H?=
+ =?us-ascii?Q?fpEgxjtNBchpXm3eJ6aTM6ghQZqFtGuKCdmwQHuup2H7No3cu7sb4LZOZf9P?=
+ =?us-ascii?Q?TcKo5HmYLJNen9ymDufijq1i5dzu7ZYzLmM8kzr/3p7/7BRBY8UMs+RSglV5?=
+ =?us-ascii?Q?PYMzwGUCK8waca+rj69ym0M1gn0DOrtw1QIpcdyWSqFqZTeC5P2X0vTSDR6k?=
+ =?us-ascii?Q?yXnXeZT/TSZmHnI1fguQYJX77YvMn9jas91nZeYYtGRVc3wasVdfgkTCihT3?=
+ =?us-ascii?Q?W7era01in9aEEv0iS2VJ9bYxM46jxBrd+Rw5gESrU8lTcv+u2/aYXxDpud/n?=
+ =?us-ascii?Q?A6dxDl8qdQ=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22b51a31-b7b0-401e-b2ba-08dea662cd94
+X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7500.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 02:47:22.0253
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: J3Av3gkEXmdff4S+6lKJ/KyqOkzc2nA1HTcY61Hd3BRJecnwRWR/OeXeXQKX04+kN3Jic9IHRuMywQ72sVowDg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8608
 
-The comb PHY on K3 requires to configure a syscon device for the
-right mux configuration. And it requires calibration before any
-usage.
+i.MX94 NETC (v4.3) integrates 802.1Q Ethernet switch functionality, the
+switch provides advanced QoS with 8 traffic classes and a full range of
+TSN standards capabilities. It has 3 user ports and 1 CPU port, and the
+CPU port is connected to an internal ENETC through the pseduo link, so
+instead of a back-to-back MAC, the lightweight "pseudo MAC" is used at
+both ends of the pseudo link to transfer Ethernet frames. The pseudo
+link provides a zero-copy interface (no serialization delay) and lower
+power (less logic and memory).
 
-Add USB3/PCIe comb PHY driver for Spacemit K3.
+Like most Ethernet switches, the NETC switch also supports a proprietary
+switch tag, is used to carry in-band metadata information about frames.
+This in-band metadata information can include the source port from which
+the frame was received, what was the reason why this frame got forwarded
+to the entity, and for the entity to indicate the precise destination
+port of a frame. The NETC switch tag is added to frames after the source
+MAC address. There are three types of switch tags, and each type has 1
+to 4 subtypes, more details are as follows.
 
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+Forward switch tag (Type = 0): Represents forwarded frames.
+  - SubType = 0 - Normal frame processing.
+
+To_Port switch tag (Type = 1): Represents frames that are to be sent to
+a specific switch port.
+  - SubType = 0. No request to perform timestamping.
+  - SubType = 1. Request to perform one-step timestamping.
+  - SubType = 2. Request to perform two-step timestamping.
+  - SubType = 3. Request to perform both one-step timestamping and
+    two-step timestamping.
+
+To_Host switch tag (Type = 2): Represents frames redirected or copied to
+the switch management port.
+  - SubType = 0. Received frames redirected or copied to the switch
+     management port.
+  - SubType = 1. Received frames redirected or copied to the switch
+    management port with captured timestamp at the switch port where
+    the frame was received.
+  - SubType = 2. Transmit timestamp response (two-step timestamping).
+
+Currently, this patch set supports Forward tag, SubType 0 of To_Port tag
+and SubType 0 of To_Host tag. More tags will be supported in the future.
+
+In addition, the switch supports NETC Table Management Protocol (NTMP),
+some switch functionality is controlled using control messages sent to
+the hardware using BD ring interface with 32B descriptors similar to the
+packet Transmit BD ring used on ENETC. This interface is referred to as
+the command BD ring. This is used to configure functionality where the
+underlying resources may be shared between different entities or being
+too large to configure using direct registers.
+
+For this patch set, we have supported the following tables through the
+command BD ring interface.
+
+FDB Table: It contains forwarding and/or filtering information about MAC
+addresses. The FDB table is used for MAC learning lookups and MAC
+forwarding lookups.
+
+VLAN Filter Table: It contains configuration and control information for
+each VLAN configured on the switch.
+
+Buffer Pool Table: It contains buffer pool configuration and operational
+information. Each entry corresponds to a buffer pool. Currently, we use
+this table to implement flow control feature on each port.
+
+Ingress Port Filter Table: It contains a set of filters each capable of
+classifying incoming traffic using a mix of L2, L3, and L4 parsed and
+arbitrary field data. We use this table to implement host flood support
+to the switch port.
+
+The switch also supports other tables, and we will add more advanced
+features through them in the future.
+
 ---
- drivers/phy/spacemit/Kconfig          |  16 ++
- drivers/phy/spacemit/Makefile         |   2 +
- drivers/phy/spacemit/phy-k3-combphy.c | 250 ++++++++++++++++
- drivers/phy/spacemit/phy-k3-common.c  | 398 ++++++++++++++++++++++++++
- drivers/phy/spacemit/phy-k3-common.h  |  27 ++
- 5 files changed, 693 insertions(+)
- create mode 100644 drivers/phy/spacemit/phy-k3-combphy.c
- create mode 100644 drivers/phy/spacemit/phy-k3-common.c
- create mode 100644 drivers/phy/spacemit/phy-k3-common.h
+v5:
+1. Move '$ref: dsa.yaml#' under the 'allOf'
+2. Change '^(ethernet-)?ports$' to 'ethernet-ports'
+3. Change '^(ethernet-)?port@[0-9a-f]$' to '^ethernet-port@[0-9a-f]'
+4. Update node names in the DT example
+5. Change port_id type from int to u32
+6. Remove netc_get_switch_ports()
+7. Remove unused inline functions from ntmp.h
+8. Refactor the implemention of new tables due to ntmp.c is updated
+8. Correct the definition of IPFT_DSCP_MASK
+9. Check the return value of netdev_txq_to_tc()
+10. Use pcim_* functions for automatic resource cleanup and remove
+    netc_switch_pci_destroy()
+11. Simplify error handling paths in probe function
+12. Remove PHY_INTERFACE_MODE_1000BASEX from the driver
+13. Add vid check to netc_port_fdb_add/del()
+14. Move netc_mac_port_rmw from patch 10 to patch 11
+15. Delete the old host flood entry after adding a new one to avoid
+    losing the configuration if the new rule fails
+16. Add netc_get_switch_capabilities() to get the FDB table capability
+17. Add a maximum query count check to netc_port_fdb_dump() to prevent
+    infinite loops caused by hardware malfunctions.
+18. Remove netc_get_buffer_pool_num(), the logic is moved to
+    netc_get_switch_capabilities()
+19. Remove enum netc_port_mac
+20. Move some register definitions from patch 14 to patch 15, as they
+    are not used in patch 14.
+21. Patch 15 is a new patch
+22. Update commit message, correct typos and add some comments
+v4 link: https://lore.kernel.org/imx/20260331113025.1566878-1-wei.fang@nxp.com/
+v3 link: https://lore.kernel.org/imx/20260326062917.3552334-1-wei.fang@nxp.com/
+v2 link: https://lore.kernel.org/imx/20260323060752.1157031-1-wei.fang@nxp.com/
+v1 link: https://lore.kernel.org/imx/20260316094152.1558671-1-wei.fang@nxp.com/
+---
 
-diff --git a/drivers/phy/spacemit/Kconfig b/drivers/phy/spacemit/Kconfig
-index 50b0005acf66..5fdf18fce499 100644
---- a/drivers/phy/spacemit/Kconfig
-+++ b/drivers/phy/spacemit/Kconfig
-@@ -23,3 +23,19 @@ config PHY_SPACEMIT_K1_USB2
- 	help
- 	  Enable this to support K1 USB 2.0 PHY driver. This driver takes care of
- 	  enabling and clock setup and will be used by K1 udc/ehci/otg/xhci driver.
-+
-+config PHY_SPACEMIT_K3_COMMON_OPS
-+	tristate
-+	select MFD_SYSCON
-+	select GENERIC_PHY
-+
-+config PHY_SPACEMIT_K3_COMBO_PHY
-+	tristate "SpacemiT K3 USB3/PCIe PHY support"
-+	depends on (ARCH_SPACEMIT || COMPILE_TEST) && OF
-+	depends on COMMON_CLK
-+	select PHY_SPACEMIT_K3_COMMON_OPS
-+	help
-+	  Enable this to support K3 USB3/PCIe combo PHY driver. This
-+	  driver takes care of enabling and clock setup and will be used
-+	  by K3 dwc3 driver.
-+	  If unsure, say N.
-diff --git a/drivers/phy/spacemit/Makefile b/drivers/phy/spacemit/Makefile
-index a821a21d6142..41be7b0388da 100644
---- a/drivers/phy/spacemit/Makefile
-+++ b/drivers/phy/spacemit/Makefile
-@@ -1,3 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0-only
- obj-$(CONFIG_PHY_SPACEMIT_K1_PCIE)		+= phy-k1-pcie.o
- obj-$(CONFIG_PHY_SPACEMIT_K1_USB2)		+= phy-k1-usb2.o
-+obj-$(CONFIG_PHY_SPACEMIT_K3_COMBO_PHY)		+= phy-k3-combphy.o
-+obj-$(CONFIG_PHY_SPACEMIT_K3_COMMON_OPS)	+= phy-k3-common.o
-diff --git a/drivers/phy/spacemit/phy-k3-combphy.c b/drivers/phy/spacemit/phy-k3-combphy.c
-new file mode 100644
-index 000000000000..66fa6330ad6e
---- /dev/null
-+++ b/drivers/phy/spacemit/phy-k3-combphy.c
-@@ -0,0 +1,250 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * phy-k3-usb3.c - SpacemiT K3 Type-C Orientation Switch Driver
-+ *
-+ * Copyright (c) 2025 SpacemiT Technology Co. Ltd
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/iopoll.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/phy/phy.h>
-+
-+#include <dt-bindings/phy/phy.h>
-+
-+#include "phy-k3-common.h"
-+
-+/*
-+ * The PCIE/USB Subsystem on SpacemiT K3 have 3 single lane PIPE3 PHYs
-+ * (PHY2/3/4) shared by PCIE PortC/D and USB3 PortB/C/D.
-+ *
-+ * PMUA_PCIE_SUBSYS_MGMT[4:0]
-+ *
-+ *   bit4 = 0 : PCIe A X8 mode, all 8 lanes dedicated to PCIe Port A
-+ *          1 : PHY lanes shared between PCIe or USB according to [3:0]
-+ *
-+ * All PHY matrix combinations according to [4:0]:
-+ *
-+ *   0x0X : PCIe-A X8
-+ *   0x10 : PCIe-C x2 (PHY2+PHY3) + PCIe-D x1 (PHY4)
-+ *   0x11 : PCIe-C x2 (PHY2+PHY3) + USB-D (PHY4)
-+ *   0x12 : PCIe-C x1 (PHY2)      + USB-C (PHY3)
-+ *   0x13 : PCIe-C x1 (PHY2)      + USB-C (PHY3) + USB-D (PHY4)
-+ *   0x14 : PCIe-C x1 (PHY3)      + USB-B (PHY2)
-+ *   0x15 : PCIe-C x1 (PHY3)      + USB-B (PHY2) + USB-D (PHY4)
-+ *   0x16 : USB-B (PHY2) + USB-C (PHY3) + PCIe D x1 (PHY4)
-+ *   0x17 : USB-B (PHY2) + USB-C (PHY3) + USB-D (PHY4)
-+ *
-+ * So any USB Port B/C/D operation requires PCIe A X8 mode to be disabled.
-+ */
-+#define PMUA_PCIE_SUBSYS_MGMT		0x1d8
-+#define PU_MATRIX_CONF_MASK		GENMASK(4, 0)
-+
-+#define COMBPHY_MAX_SUBPHYS		6
-+
-+struct k3_comb_phy {
-+	struct device *dev;
-+	struct k3_lane_group groups[COMBPHY_MAX_SUBPHYS];
-+	void __iomem *base;
-+	struct regmap *apb_spare;
-+};
-+
-+static const struct k3_phy_lane_group_data k3_combphy_lane_group0 = {
-+	.lanes		= 2,
-+	.config		= 0x00,
-+	.mask		= 0xff,
-+	.offsets	= {
-+		0x0, 0x400
-+	},
-+};
-+
-+static const struct k3_phy_lane_group_data k3_combphy_lane_group1 = {
-+	.lanes		= 2,
-+	.config		= 0x00,
-+	.mask		= 0xff,
-+	.offsets	= {
-+		0x100000, 0x100400
-+	},
-+};
-+
-+static const struct k3_phy_lane_group_data k3_combphy_lane_group2 = {
-+	.lanes		= 1,
-+	.config		= 0x14,
-+	.mask		= 0x14,
-+	.offsets	= {
-+		0x200000
-+	},
-+};
-+
-+static const struct k3_phy_lane_group_data k3_combphy_lane_group3 = {
-+	.lanes		= 1,
-+	.config		= 0x12,
-+	.mask		= 0x12,
-+	.offsets	= {
-+		0x300000
-+	},
-+};
-+
-+static const struct k3_phy_lane_group_data k3_combphy_lane_group4 = {
-+	.lanes		= 1,
-+	.config		= 0x11,
-+	.mask		= 0x11,
-+	.offsets	= {
-+		0x400000
-+	},
-+};
-+
-+static const struct k3_phy_lane_group_data k3_combphy_lane_group5 = {
-+	.lanes		= 1,
-+	.config		= 0x00,
-+	.mask		= 0xff,
-+	.offsets	= {
-+		0x500000
-+	},
-+};
-+
-+static const struct k3_phy_lane_group_data *k3_combphy_lane_datas[] = {
-+	&k3_combphy_lane_group0,
-+	&k3_combphy_lane_group1,
-+	&k3_combphy_lane_group2,
-+	&k3_combphy_lane_group3,
-+	&k3_combphy_lane_group4,
-+	&k3_combphy_lane_group5,
-+};
-+
-+static int k3_comb_phy_init_lanes(struct k3_comb_phy *phy, unsigned int config)
-+{
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(k3_combphy_lane_datas); i++) {
-+		const struct k3_phy_lane_group_data *data = k3_combphy_lane_datas[i];
-+		struct k3_lane_group *lg = &phy->groups[i];
-+		const struct phy_ops *ops;
-+		bool is_usb;
-+
-+		is_usb = (data->mask & config) == data->config;
-+		if (is_usb)
-+			ops = &k3_usb3_phy_ops;
-+		else
-+			ops = &k3_pcie_phy_ops;
-+
-+		lg->phy = devm_phy_create(phy->dev, NULL, ops);
-+		if (IS_ERR(lg->phy))
-+			return PTR_ERR(lg->phy);
-+
-+		lg->is_pcie = !is_usb;
-+		lg->data = data;
-+		lg->base = phy->base;
-+		phy_set_drvdata(lg->phy, lg);
-+	}
-+
-+	return 0;
-+}
-+
-+static int k3_comb_phy_update_config(struct regmap *apmu, unsigned int config)
-+{
-+	if (config & ~PU_MATRIX_CONF_MASK)
-+		return -EINVAL;
-+
-+	return regmap_update_bits(apmu, PMUA_PCIE_SUBSYS_MGMT, PU_MATRIX_CONF_MASK, config);
-+}
-+
-+static struct phy *k3_comb_phy_xlate(struct device *dev, const struct of_phandle_args *args)
-+{
-+	struct k3_comb_phy *phy = dev_get_drvdata(dev);
-+	struct k3_lane_group *lg;
-+
-+	if (args->args_count != 2) {
-+		dev_err(dev, "Invalid number of arguments\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	if (args->args[0] >= ARRAY_SIZE(k3_combphy_lane_datas)) {
-+		dev_err(dev, "Invalid PHY id\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	lg = &phy->groups[args->args[0]];
-+
-+	if ((lg->is_pcie && args->args[1] != PHY_TYPE_PCIE) ||
-+	    (!lg->is_pcie && args->args[1] != PHY_TYPE_USB3)) {
-+		dev_err(dev, "Invalid PHY mode\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	return lg->phy;
-+}
-+
-+static int k3_comb_phy_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct device_node *node = dev->of_node;
-+	struct phy_provider *provider;
-+	struct k3_comb_phy *phy;
-+	struct regmap *apmu;
-+	u32 config = 0;
-+	int ret;
-+
-+	phy = devm_kzalloc(dev, sizeof(*phy), GFP_KERNEL);
-+	if (!phy)
-+		return -ENOMEM;
-+
-+	phy->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(phy->base))
-+		return PTR_ERR(phy->base);
-+
-+	phy->apb_spare = syscon_regmap_lookup_by_phandle(node, "spacemit,apb-spare");
-+	if (IS_ERR(phy->apb_spare))
-+		return dev_err_probe(dev, PTR_ERR(phy->apb_spare),
-+				     "Failed to fine APB SPARE syscon");
-+
-+	apmu = syscon_regmap_lookup_by_phandle_args(node, "spacemit,apmu", 1, &config);
-+	if (IS_ERR(apmu))
-+		return dev_err_probe(dev, PTR_ERR(phy->apb_spare),
-+				     "Failed to fine APMU syscon");
-+
-+	ret = k3_comb_phy_update_config(apmu, config);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Failed to set lane configuration");
-+
-+	phy->dev = dev;
-+	platform_set_drvdata(pdev, phy);
-+
-+	ret = k3_phy_calibrate(phy->apb_spare);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Failed to calibrate phy");
-+
-+	ret = k3_comb_phy_init_lanes(phy, config);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Failed to init lanes");
-+
-+	provider = devm_of_phy_provider_register(dev, k3_comb_phy_xlate);
-+	if (IS_ERR(provider))
-+		return dev_err_probe(dev, PTR_ERR(provider),
-+				     "Failed to register provider\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id k3_comb_phy_of_match[] = {
-+	{ .compatible = "spacemit,k3-comb-phy" },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, k3_comb_phy_of_match);
-+
-+static struct platform_driver k3_comb_phy_driver = {
-+	.probe = k3_comb_phy_probe,
-+	.driver = {
-+		.name = "spacemit,k3-comb-phy",
-+		.of_match_table = k3_comb_phy_of_match,
-+	},
-+};
-+module_platform_driver(k3_comb_phy_driver);
-+
-+MODULE_DESCRIPTION("SpacemiT K3 USB3/PCIe comb PHY driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/phy/spacemit/phy-k3-common.c b/drivers/phy/spacemit/phy-k3-common.c
-new file mode 100644
-index 000000000000..77c4b4073b96
---- /dev/null
-+++ b/drivers/phy/spacemit/phy-k3-common.c
-@@ -0,0 +1,398 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+#include <linux/bitfield.h>
-+#include <linux/cleanup.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+#include <linux/usb.h>
-+
-+#include <dt-bindings/phy/phy.h>
-+
-+#include "phy-k3-common.h"
-+
-+/* PHY Registers */
-+#define PHY_VERSION			0x0
-+
-+#define PHY_RESET_CFG			0x04
-+
-+#define PHY_RESET_RXBUF_RST		BIT(0)
-+#define PHY_RESET_SOFT_RST_PCS		BIT(1)
-+#define PHY_RESET_SOFT_RST_AHB		BIT(2)
-+#define PHY_RESET_EN_SD_AFTER_LOCK	BIT(6)
-+
-+#define PHY_CLK_CFG			0x08
-+
-+#define PHY_CLK_PLL_READY		BIT(0)
-+#define PHY_CLK_TXCLK_INV		BIT(2)
-+#define PHY_CLK_RXCLK_EN		BIT(3)
-+#define PHY_CLK_TXCLK_EN		BIT(4)
-+#define PHY_CLK_PCLK_EN			BIT(5)
-+#define PHY_CLK_PIPE_PCLK_EN		BIT(6)
-+#define PHY_CLK_REFCLK_FREQ		GENMASK(10, 7)
-+#define PHY_CLK_REFCLK_24M		2
-+#define PHY_CLK_SW_INIT_DONE		BIT(11)
-+#define PHY_CLK_PU_SSC_OUT		BIT(23)
-+
-+#define PHY_MODE_CFG			0x0C
-+
-+#define PHY_MODE_PCIE_INT_EN		BIT(0)
-+#define PHY_MODE_LFPS_TPERIOD		GENMASK(9, 8)
-+#define PHY_MODE_LFPS_TPERIOD_USB	3
-+
-+#define PHY_PU_SEL			0x40
-+
-+#define PHY_PU_CFG_STATUS		BIT(9)
-+#define PHY_PU_OVRD_STATUS		BIT(10)
-+
-+#define PHY_PU_CK_REG			0x54
-+
-+#define PHY_PU_REFCLK_100		BIT(25)
-+
-+#define PHY_PLL_REG1			0x58
-+
-+#define PHY_PLL_FREF_SEL		GENMASK(15, 13)
-+#define PHY_PLL_FREF_24M		0x1
-+#define PHY_PLL_SSC_DEP_SEL		GENMASK(27, 24)
-+#define PHY_PLL_SSC_5000PPM		0xa
-+#define PHY_PLL_SSC_MODE		GENMASK(29, 28)
-+#define PHY_PLL_SSC_MODE_CENTER_SPREAD	0
-+#define PHY_PLL_SSC_MODE_UP_SPREAD	1
-+#define PHY_PLL_SSC_MODE_DOWN_SPREAD	2
-+#define PHY_PLL_SSC_MODE_DOWN_SPREAD1	3
-+
-+#define PHY_PLL_REG2			0x5c
-+
-+#define PHY_PLL_SEL_REF100		BIT(21)
-+
-+/* PHY RX Register Definitions */
-+#define PHY_RX_REG_A			0x60
-+
-+#define PHY_RX_REG0_RLOAD		BIT(4)
-+#define PHY_RX_REG1_RTERM		GENMASK(11, 8)
-+#define PHY_RX_REG1_RC_CALI		GENMASK(15, 12)
-+#define PHY_RX_REG2_CSEL		GENMASK(19, 16)
-+#define PHY_RX_REG2_FORCE_CSEL		BIT(20)
-+#define PHY_RX_REG2_PSEL		GENMASK(23, 21)
-+#define PHY_RX_REG3_I_LOAD		GENMASK(26, 24)
-+#define PHY_RX_REG3_SEL_CBOOST_CODE	BIT(27)
-+#define PHY_RX_REG3_ADJ_BIAS		GENMASK(29, 28)
-+#define PHY_RX_REG3_RDEG1		GENMASK(31, 30)
-+
-+#define PHY_RX_REG_B			0x64
-+
-+#define PHY_RX_REGB_MASK		GENMASK(23, 0)
-+
-+#define PHY_RX_REG4_RDEG2		GENMASK(2, 1)
-+#define PHY_RX_REG4_ENVOS		BIT(4)
-+#define PHY_RX_REG4_RTERM_SEL		BIT(5)
-+#define PHY_RX_REG4_MANUAL_CFG		BIT(7)
-+#define PHY_RX_REG5_RCELL_VCM		GENMASK(11, 8)
-+#define PHY_RX_REG5_RCELL_BIAS		GENMASK(15, 12)
-+#define PHY_RX_REG6_H1_REG		GENMASK(19, 16)
-+#define PHY_RX_REG6_ADAPT_GAIN		GENMASK(21, 20)
-+#define PHY_RX_REG6_BYPASS_ADPT		BIT(22)
-+
-+#define PHY_ADPT_CFG0			0x140
-+#define PHY_ADPT_AFE_RST_OVRD_EN	BIT(1)
-+#define PHY_ADPT_AFE_RST_OVRD_VAL	BIT(4)
-+
-+#define PHY_RXEQ_TIME			0xb4
-+#define PHY_RXEQ_TIME_OVRD_POST_C_SOC	BIT(21)
-+#define PHY_RXEQ_TIME_CFG_AMP_SOC	GENMASK(23, 22)
-+#define PHY_RXEQ_TIME_AMP_SOC_650M	0
-+#define PHY_RXEQ_TIME_AMP_SOC_800M	1
-+#define PHY_RXEQ_TIME_AMP_SOC_870M	2
-+#define PHY_RXEQ_TIME_AMP_SOC_900M	3
-+#define PHY_RXEQ_TIME_OVRD_AMP_SOC	BIT(24)
-+
-+#define PCIE_PU_ADDR_CLK_CFG		0x0008
-+#define PHY_CLK_PLL_READY		BIT(0)
-+#define PCIE_INITAL_TIMER		GENMASK(6, 3)
-+#define CFG_INTERNAL_TIMER_ADJ		GENMASK(10, 7)
-+#define CFG_SW_PHY_INIT_DONE		BIT(11)
-+
-+/* Lane RX/TX configuration (per‑lane, at lane_base) */
-+#define PCIE_RX_REG1			0x050
-+#define PCIE_TX_REG1			0x064
-+
-+#define PCIE_PLL_TIMEOUT		500000
-+#define PCIE_POLL_DELAY			500
-+
-+static int k3_usb3phy_init_single(struct k3_lane_group *lg, void __iomem *base)
-+{
-+	struct phy *phy = lg->phy;
-+	u32 val, tmp;
-+	int ret;
-+
-+	val = readl(base + PHY_PU_SEL);
-+	val = u32_replace_bits(val, 0, PHY_PU_CFG_STATUS);
-+	val |= PHY_PU_OVRD_STATUS;
-+	writel(val, base + PHY_PU_SEL);
-+
-+	udelay(200);
-+
-+	/* Do not wait CDR lock before sampling data */
-+	val = readl(base + PHY_RESET_CFG);
-+	val = u32_replace_bits(val, 0, PHY_RESET_EN_SD_AFTER_LOCK);
-+	writel(val, base + PHY_RESET_CFG);
-+
-+	/* Power down 100MHz refclk buffer */
-+	val = readl(base + PHY_PU_CK_REG);
-+	val = u32_replace_bits(val, 0, PHY_PU_REFCLK_100);
-+	writel(val, base + PHY_PU_CK_REG);
-+
-+	/* Program PLL REG1 configure the SSC */
-+	val = FIELD_PREP(PHY_PLL_SSC_MODE, PHY_PLL_SSC_MODE_DOWN_SPREAD1) |
-+	      FIELD_PREP(PHY_PLL_SSC_DEP_SEL, PHY_PLL_SSC_5000PPM) |
-+	      FIELD_PREP(PHY_PLL_FREF_SEL, PHY_PLL_FREF_24M);
-+	writel(val, base + PHY_PLL_REG1);
-+
-+	/* Un-select 100MHz PLL reference */
-+	val = readl(base + PHY_PLL_REG2);
-+	val = u32_replace_bits(val, 0, PHY_PLL_SEL_REF100);
-+	writel(val, base + PHY_PLL_REG2);
-+
-+	/* USB LFPS period configuration */
-+	val = readl(base + PHY_MODE_CFG);
-+	val = u32_replace_bits(val, PHY_MODE_LFPS_TPERIOD_USB, PHY_MODE_LFPS_TPERIOD);
-+	writel(val, base + PHY_MODE_CFG);
-+
-+	/* Force AFE adaptation reset */
-+	val = readl(base + PHY_ADPT_CFG0);
-+	val |= PHY_ADPT_AFE_RST_OVRD_EN | PHY_ADPT_AFE_RST_OVRD_VAL;
-+	writel(val, base + PHY_ADPT_CFG0);
-+
-+	/* Override driver amplitude value to 900m */
-+	val = readl(base + PHY_RXEQ_TIME);
-+	val |= PHY_RXEQ_TIME_OVRD_AMP_SOC;
-+	val = u32_replace_bits(val, PHY_RXEQ_TIME_AMP_SOC_900M, PHY_RXEQ_TIME_CFG_AMP_SOC);
-+	writel(val, base + PHY_RXEQ_TIME);
-+
-+	/* Configure RX parameters */
-+	val = PHY_RX_REG0_RLOAD |
-+		FIELD_PREP(PHY_RX_REG1_RTERM, 0x8) |
-+		FIELD_PREP(PHY_RX_REG1_RC_CALI, 0x7) |
-+		FIELD_PREP(PHY_RX_REG2_CSEL, 0x8) |
-+		PHY_RX_REG2_FORCE_CSEL |
-+		FIELD_PREP(PHY_RX_REG2_PSEL, 0x4) |
-+		FIELD_PREP(PHY_RX_REG3_I_LOAD, 0x7) |
-+		PHY_RX_REG3_SEL_CBOOST_CODE |
-+		FIELD_PREP(PHY_RX_REG3_ADJ_BIAS, 0x1) |
-+		FIELD_PREP(PHY_RX_REG3_RDEG1, 0x3);
-+	writel(val, base + PHY_RX_REG_A);
-+
-+	val = readl(base + PHY_RX_REG_B);
-+	tmp = FIELD_PREP(PHY_RX_REG4_RDEG2, 0x2) |
-+		PHY_RX_REG4_ENVOS | PHY_RX_REG4_RTERM_SEL | PHY_RX_REG4_MANUAL_CFG |
-+		FIELD_PREP(PHY_RX_REG5_RCELL_VCM, 0x8) |
-+		FIELD_PREP(PHY_RX_REG5_RCELL_BIAS, 0x8) |
-+		FIELD_PREP(PHY_RX_REG6_H1_REG, 0x8) |
-+		FIELD_PREP(PHY_RX_REG6_ADAPT_GAIN, 0x2);
-+	val = u32_replace_bits(val, tmp, PHY_RX_REGB_MASK);
-+	writel(val, base + PHY_RX_REG_B);
-+
-+	/*
-+	 * Inform PHY that all PLL-related configuration is done.
-+	 * PLL will not start locking until PHY_CLK_SW_INIT_DONE is set.
-+	 */
-+	val = PHY_CLK_SW_INIT_DONE | PHY_CLK_PU_SSC_OUT |
-+	      FIELD_PREP(PHY_CLK_REFCLK_FREQ, PHY_CLK_REFCLK_24M) |
-+	      PHY_CLK_RXCLK_EN | PHY_CLK_TXCLK_EN |
-+	      PHY_CLK_PCLK_EN | PHY_CLK_PIPE_PCLK_EN;
-+	writel(val, base + PHY_CLK_CFG);
-+
-+	ret = readl_poll_timeout(base + PHY_CLK_CFG, val,
-+				 (val & PHY_CLK_PLL_READY),
-+				 PCIE_POLL_DELAY, PCIE_PLL_TIMEOUT);
-+	if (ret) {
-+		dev_err(&phy->dev, "PHY PLL polling timeout\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int k3_usb3phy_init(struct phy *phy)
-+{
-+	struct k3_lane_group *lg = phy_get_drvdata(phy);
-+	int ret, i;
-+
-+	for (i = 0; i < lg->data->lanes; i++) {
-+		ret = k3_usb3phy_init_single(lg, lg->base + lg->data->offsets[i]);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int k3_usb3phy_set_speed(struct phy *phy, int speed)
-+{
-+	struct k3_lane_group *lg = phy_get_drvdata(phy);
-+	void __iomem *base = lg->base + lg->data->offsets[0];
-+	u32 val;
-+
-+	if (speed == USB_SPEED_HIGH) {
-+		val = readl(base + PHY_PU_SEL);
-+		val = u32_replace_bits(val, 0, PHY_PU_CFG_STATUS);
-+		val |= PHY_PU_OVRD_STATUS;
-+		writel(val, base + PHY_PU_SEL);
-+
-+		udelay(200);
-+	}
-+
-+	return 0;
-+}
-+
-+const struct phy_ops k3_usb3_phy_ops = {
-+	.init = k3_usb3phy_init,
-+	.set_speed = k3_usb3phy_set_speed,
-+	.owner = THIS_MODULE,
-+};
-+EXPORT_SYMBOL_GPL(k3_usb3_phy_ops);
-+
-+static int k3_pcie_phy_init(struct phy *phy)
-+{
-+	struct k3_lane_group *lg = phy_get_drvdata(phy);
-+	void __iomem *phy_base = lg->base + lg->data->offsets[0];
-+	u32 val;
-+	int ret;
-+	int i;
-+
-+	val = readl(phy_base + PHY_PLL_REG1);
-+	val = u32_replace_bits(val, 0x2, GENMASK(15, 12));
-+	writel(val, phy_base + PHY_PLL_REG1);
-+
-+	val = readl(phy_base + PHY_PLL_REG2);
-+	val = u32_replace_bits(val, 0, BIT(21));
-+	writel(val, phy_base + PHY_PLL_REG2);
-+
-+	for (i = 0; i < lg->data->lanes; i++) {
-+		void __iomem *lane_base = lg->base + lg->data->offsets[i];
-+
-+		val = readl(lane_base + PCIE_RX_REG1);
-+		val = u32_replace_bits(val, 0, 0x3);
-+		writel(val, phy_base + PCIE_RX_REG1);
-+	}
-+
-+	val = readl(phy_base + PHY_PLL_REG2);
-+	val |= BIT(20);
-+	writel(val, phy_base + PHY_PLL_REG2);
-+
-+	writel(0x00006505, phy_base + PCIE_RX_REG1);
-+
-+	/* pll_reg1 of lane0, disable SSC: pll_reg4[3:0] = 0 */
-+	val = readl(phy_base + PHY_PLL_REG1);
-+	val = u32_replace_bits(val, 0, GENMASK(27, 24));
-+	writel(val, phy_base + PHY_PLL_REG1);
-+
-+	for (i = 0; i < lg->data->lanes; i++) {
-+		void __iomem *lane_base = lg->base + lg->data->offsets[i];
-+
-+		/* set cfg_tx_send_dummy_data to be 1'b1 for disable dash data */
-+		val = readl(lane_base + PHY_PU_SEL);
-+		val = u32_replace_bits(val, 1, BIT(13));
-+		writel(val, lane_base + PHY_PU_SEL);
-+
-+		/* disable en_sample_data_after_cdr_locked */
-+		val = readl(lane_base + PHY_RESET_CFG);
-+		val = u32_replace_bits(val, 0, BIT(6));
-+		writel(val, lane_base + PHY_RESET_CFG);
-+
-+		/* Dynamic Lock */
-+		val = readl(lane_base + PHY_MODE_CFG);
-+		val = u32_replace_bits(val, 1, BIT(2));
-+		writel(val, lane_base + PHY_MODE_CFG);
-+
-+		val = FIELD_PREP(GENMASK(7, 0), 0x10) |
-+			FIELD_PREP(GENMASK(15, 8), 0x78) |
-+			FIELD_PREP(GENMASK(23, 16), 0x98) |
-+			FIELD_PREP(GENMASK(31, 24), 0xdf);
-+		writel(val, lane_base + PHY_RX_REG_A);
-+
-+		val = readl(lane_base + PHY_RX_REG_B);
-+		val &= ~PHY_RX_REGB_MASK;
-+		val |= FIELD_PREP(GENMASK(7, 0), 0xb4) |
-+			FIELD_PREP(GENMASK(15, 8), 0x88) |
-+			FIELD_PREP(GENMASK(23, 16), 0x28);
-+		writel(val, lane_base + PHY_RX_REG_B);
-+
-+		/* Set init done */
-+		val = readl(lane_base + PCIE_PU_ADDR_CLK_CFG);
-+		val = u32_replace_bits(val, 1, CFG_SW_PHY_INIT_DONE);
-+		writel(val, lane_base + PCIE_PU_ADDR_CLK_CFG);
-+	}
-+
-+	ret = readl_poll_timeout(phy_base + PCIE_PU_ADDR_CLK_CFG, val,
-+				 (val & PHY_CLK_PLL_READY), PCIE_POLL_DELAY,
-+				 PCIE_PLL_TIMEOUT);
-+	if (ret) {
-+		dev_err(&lg->phy->dev, "PHY PLL lock timeout\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+const struct phy_ops k3_pcie_phy_ops = {
-+	.init		= k3_pcie_phy_init,
-+	.owner		= THIS_MODULE,
-+};
-+EXPORT_SYMBOL_GPL(k3_pcie_phy_ops);
-+
-+/* PHY rcal init requires APB_SPARE regmap access */
-+
-+#define APB_SPARE_PU_CAL		0x178
-+#define PU_CAL				BIT(17)
-+
-+#define APB_SPARE_RCAL_HSIO		0x17c
-+#define APB_SPARE_PU_CAL_DONE		BIT(8)
-+#define RCAL_OVRD_PTRIM			GENMASK(23, 20)
-+#define RCAL_OVRD_NTRIM			GENMASK(27, 24)
-+#define RCAL_OVRD_PTRIM_EN		BIT(28)
-+#define RCAL_OVRD_NTRIM_EN		BIT(29)
-+#define RCAL_OVRD_STABLE_VAL		BIT(30)
-+#define RCAL_OVRD_STABLE_EN		BIT(31)
-+
-+#define RCAL_OVRD_TRIM_EN		(RCAL_OVRD_NTRIM_EN | RCAL_OVRD_PTRIM_EN)
-+#define RCAL_OVRD_TRIM_MASK		(RCAL_OVRD_NTRIM | RCAL_OVRD_PTRIM)
-+
-+#define PU_CAL_TIMEOUT 2000000
-+
-+static DEFINE_MUTEX(calibrate_lock);
-+
-+int k3_phy_calibrate(struct regmap *apb_spare)
-+{
-+	unsigned int val;
-+	int ret;
-+
-+	guard(mutex)(&calibrate_lock);
-+
-+	regmap_read(apb_spare, APB_SPARE_RCAL_HSIO, &val);
-+	if (val & APB_SPARE_PU_CAL_DONE)
-+		return 0;
-+
-+	regmap_update_bits(apb_spare, APB_SPARE_PU_CAL, PU_CAL,
-+			   PU_CAL);
-+
-+	ret = regmap_read_poll_timeout(apb_spare, APB_SPARE_RCAL_HSIO,
-+				       val, (val & APB_SPARE_PU_CAL_DONE), PCIE_POLL_DELAY,
-+				       PU_CAL_TIMEOUT);
-+
-+	if (ret)
-+		regmap_update_bits(apb_spare, APB_SPARE_RCAL_HSIO,
-+				   RCAL_OVRD_TRIM_EN | RCAL_OVRD_STABLE_VAL |
-+				   RCAL_OVRD_TRIM_MASK | RCAL_OVRD_STABLE_EN,
-+				   RCAL_OVRD_TRIM_EN | RCAL_OVRD_STABLE_VAL |
-+				   FIELD_PREP(RCAL_OVRD_NTRIM, 0x6) |
-+				   FIELD_PREP(RCAL_OVRD_PTRIM, 0xa) |
-+				   RCAL_OVRD_STABLE_EN);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(k3_phy_calibrate);
-+
-+MODULE_DESCRIPTION("SpacemiT K3 PHY common ops");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/phy/spacemit/phy-k3-common.h b/drivers/phy/spacemit/phy-k3-common.h
-new file mode 100644
-index 000000000000..49009c3c313a
---- /dev/null
-+++ b/drivers/phy/spacemit/phy-k3-common.h
-@@ -0,0 +1,27 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#ifndef _PHY_K3_COMMON_H
-+#define _PHY_K3_COMMON_H
-+
-+#include <linux/phy/phy.h>
-+
-+struct k3_phy_lane_group_data {
-+	u32 lanes;
-+	u8 config;
-+	u8 mask;
-+	u32 offsets[] __counted_by(lanes);
-+};
-+
-+struct k3_lane_group {
-+	const struct k3_phy_lane_group_data *data;
-+	void __iomem *base;
-+	struct phy *phy;
-+	bool is_pcie;
-+};
-+
-+extern const struct phy_ops k3_pcie_phy_ops;
-+extern const struct phy_ops k3_usb3_phy_ops;
-+
-+int k3_phy_calibrate(struct regmap *apb_spare);
-+
-+#endif
+Wei Fang (15):
+  dt-bindings: net: dsa: update the description of 'dsa,member' property
+  dt-bindings: net: dsa: add NETC switch
+  net: enetc: add pre-boot initialization for i.MX94 switch
+  net: enetc: add basic operations to the FDB table
+  net: enetc: add support for the "Add" operation to VLAN filter table
+  net: enetc: add support for the "Update" operation to buffer pool
+    table
+  net: enetc: add support for "Add" and "Delete" operations to IPFT
+  net: enetc: add multiple command BD rings support
+  net: dsa: add NETC switch tag support
+  net: dsa: netc: introduce NXP NETC switch driver for i.MX94
+  net: dsa: netc: add phylink MAC operations
+  net: dsa: netc: add FDB, STP, MTU, port setup and host flooding
+    support
+  net: dsa: netc: initialize buffer pool table and implement
+    flow-control
+  net: dsa: netc: add support for the standardized counters
+  net: dsa: netc: add support for ethtool private statistics
+
+ .../devicetree/bindings/net/dsa/dsa.yaml      |    6 +-
+ .../bindings/net/dsa/nxp,netc-switch.yaml     |  127 ++
+ MAINTAINERS                                   |   11 +
+ drivers/net/dsa/Kconfig                       |    2 +
+ drivers/net/dsa/Makefile                      |    1 +
+ drivers/net/dsa/netc/Kconfig                  |   14 +
+ drivers/net/dsa/netc/Makefile                 |    3 +
+ drivers/net/dsa/netc/netc_ethtool.c           |  297 ++++
+ drivers/net/dsa/netc/netc_main.c              | 1566 +++++++++++++++++
+ drivers/net/dsa/netc/netc_platform.c          |   87 +
+ drivers/net/dsa/netc/netc_switch.h            |  172 ++
+ drivers/net/dsa/netc/netc_switch_hw.h         |  361 ++++
+ .../ethernet/freescale/enetc/netc_blk_ctrl.c  |  185 +-
+ drivers/net/ethernet/freescale/enetc/ntmp.c   |  381 +++-
+ .../ethernet/freescale/enetc/ntmp_private.h   |  122 +-
+ include/linux/dsa/tag_netc.h                  |   14 +
+ include/linux/fsl/netc_global.h               |    6 +
+ include/linux/fsl/ntmp.h                      |  187 +-
+ include/net/dsa.h                             |    2 +
+ include/uapi/linux/if_ether.h                 |    1 +
+ net/dsa/Kconfig                               |   10 +
+ net/dsa/Makefile                              |    1 +
+ net/dsa/tag_netc.c                            |  193 ++
+ 23 files changed, 3719 insertions(+), 30 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/dsa/nxp,netc-switch.yaml
+ create mode 100644 drivers/net/dsa/netc/Kconfig
+ create mode 100644 drivers/net/dsa/netc/Makefile
+ create mode 100644 drivers/net/dsa/netc/netc_ethtool.c
+ create mode 100644 drivers/net/dsa/netc/netc_main.c
+ create mode 100644 drivers/net/dsa/netc/netc_platform.c
+ create mode 100644 drivers/net/dsa/netc/netc_switch.h
+ create mode 100644 drivers/net/dsa/netc/netc_switch_hw.h
+ create mode 100644 include/linux/dsa/tag_netc.h
+ create mode 100644 net/dsa/tag_netc.c
+
 -- 
-2.54.0
+2.34.1
 
