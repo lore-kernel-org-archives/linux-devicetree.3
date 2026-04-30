@@ -1,145 +1,168 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013071.outbound.protection.outlook.com [40.93.196.71])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0694C47CC70;
-	Thu, 30 Apr 2026 18:34:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777574056; cv=fail; b=KJLpZgvuQHR8xjVX09448EBi9BQoBmECcxq4BL0uA1Sgc4b0Q9cTXHHYcbveSYDiDA3isDV5tHmKEdcaKJIMJVmSXJi20r0ksJs+N8vEB6FG45cXcFA7lKbMDpr9Lo/lBx4FYAQAu1wr1i49bsdi4kYQW2Zu1mixa0bd0BBFB+U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777574056; c=relaxed/simple;
-	bh=0MH+O2nHki/8e2bCVe23iVo62xBGj5UGzADH0b7VCwU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UXI3d8LqMjKamunqBuuHIUtqEkQh3GRGVyTeIuq7JCaGY6uwLFU0ZBdB2+FuzIiT51OZddqAdZ1N8VSOmScSFXvMUJiX1aXHprWxXiOwc1+LPvBF3XsumE+6VDyp3lv/f1lLZd84XeAms8cggkHnb9zH6l2ZxSZL56ezBplw2/Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Gv+ZQD0K; arc=fail smtp.client-ip=40.93.196.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92DFB274B3B;
+	Thu, 30 Apr 2026 18:43:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777574630; cv=none; b=kPTEz/CQwgGGaF2B7purWAZNbpkIWhQqsFFiBSwOPCHweJmbS2vWGbMc10pIbHobUMBL73W5WPf4DanJuV0LdqutYVuEYfPictOvbe38UWs8y0W40Isj+q9pxRCFGkE3P0T1nnCYNXLGuiq9Y2MI3f3CugppA93uO62i/1gX0t8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777574630; c=relaxed/simple;
+	bh=Hn4fAHqLcsc4NFLexnYd+fElE0TVdwcxmDnovGn6lC4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=GnWeajD/CEq1O87vvPUK8tI4VRguNJUUZC+ke0faywdjcr0YVlS8r1UDla894P+gHywxEQnbQOAspmn9dznnhEca01ddCcXuZAEXuCHQLM8RBgaZfq6k6oh/qj6WDi+rt67vyaNy0bq3oijDWmKgpLTL9M7MyobhdZ2ikI5sZOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=APazw0E+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Gv+ZQD0K"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h/YbnYD4id6MS2ReVYcrPUF8nBn6ylfB9+y0GWQHGsk18xmHMO1DZdLG+Xnp9lt5BF/Ho+1ooQgeNlEP7eDNtOELHUrPgnpLaeTvCREfcOf/dqTKYjnYeZzAxZyQQFJuJxmceVGM7saApYQwcsz/ZaeL4W60AsXhmilAibTw26R8n+kSzwhIw/Ft7vzzpXjqHrHehwncFzIkucx5y9ZX7x97715QAXhW1k1hr+jDLl2Ijelm73ziccd17ZF+126QDIWoLicyq8muPpJGoeac9DDL29t/F9ZW5kOnhIEcVZNf6/oKO9TtoZZuBZeSodKUSuwFRGV3qvE9StYvi8Ophg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cz/PXbKylf/WjI3n7mtkp6qtoxkTz6DTseHp1My5NSU=;
- b=A7Xk2J/16o0e8Vb06TNEoECjQy2fcxWfFZvcgD4Bi72nnAS/y1ggTPk8sPYqvuCX8928kqUND+FM/FOpWlk26pOJJw8co8AY8F+t8yOmrsbqs412GudvkCRuu14YBaS/kF5jXI41mZ4+P6NVBptoU3EUwTRt7H1lf943lDvQ6Zf1C05lTvnClfCXNuUbYtNR4x65VAiESJbSMQ3kg7qt3rgcrE1PIKb1bklWqS+9ZMpOwlBPksN31EwfeKOco51pDqRi2ReK5VzjIjjdmw971yFM/hk2G8pEyPZijBiRKF/noQtD58MI5CNYKxQqsoxsO9St+LOCZGWLv37CRsLELQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cz/PXbKylf/WjI3n7mtkp6qtoxkTz6DTseHp1My5NSU=;
- b=Gv+ZQD0Km/GVnkcfp+L9eOlLz42v8sAOoOVrmPcRa85AsXYtbyMjLanfJ/cU+PLyOn7ul4WdlIZ4wdCPyNp/RO2MWN0NGPWrxC++cUNKBHyIhZV3HwDlqFuFAkTZSwF0NOl7W2ry+y4U4tWH3l+jjDraCHvgMN7+4P/zRHxRE+M=
-Received: from MN2PR18CA0013.namprd18.prod.outlook.com (2603:10b6:208:23c::18)
- by SA1PR10MB997654.namprd10.prod.outlook.com (2603:10b6:806:4b6::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.21; Thu, 30 Apr
- 2026 18:34:13 +0000
-Received: from MN1PEPF0000ECD8.namprd02.prod.outlook.com
- (2603:10b6:208:23c:cafe::fe) by MN2PR18CA0013.outlook.office365.com
- (2603:10b6:208:23c::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.30 via Frontend Transport; Thu,
- 30 Apr 2026 18:34:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- MN1PEPF0000ECD8.mail.protection.outlook.com (10.167.242.137) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Thu, 30 Apr 2026 18:34:11 +0000
-Received: from DFLE207.ent.ti.com (10.64.6.65) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 30 Apr
- 2026 13:34:10 -0500
-Received: from DFLE202.ent.ti.com (10.64.6.60) by DFLE207.ent.ti.com
- (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 30 Apr
- 2026 13:34:08 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE202.ent.ti.com
- (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Thu, 30 Apr 2026 13:34:08 -0500
-Received: from localhost (ti.dhcp.ti.com [172.24.233.157] (may be forged))
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 63UIY78d1699400;
-	Thu, 30 Apr 2026 13:34:07 -0500
-From: Devarsh Thakkar <devarsht@ti.com>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, "Bjorn
- Andersson" <bjorn.andersson@oss.qualcomm.com>,
-	<dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <praneeth@ti.com>, <vigneshr@ti.com>, <s-jain1@ti.com>, <s-wang12@ti.com>,
-	<r-donadkar@ti.com>, <r-sharma3@ti.com>, <devarsht@ti.com>, <afd@ti.com>
-Subject: [PATCH 6/6] arm64: defconfig: Enable DRM_PANEL_SSD16XX
-Date: Fri, 1 May 2026 00:03:11 +0530
-Message-ID: <20260430183311.2978142-7-devarsht@ti.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20260430183311.2978142-1-devarsht@ti.com>
-References: <20260430183311.2978142-1-devarsht@ti.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="APazw0E+"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 47875C2BCB3;
+	Thu, 30 Apr 2026 18:43:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777574630;
+	bh=Hn4fAHqLcsc4NFLexnYd+fElE0TVdwcxmDnovGn6lC4=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=APazw0E+m5zSnab2cL7C4NZo38s5jehBynjDZPQq8Vb9rQ2St2mAknQHIILcaruAv
+	 Ne9Ob1vPjYlRN4nBcOs5SuHiG4dLCuPpMjaPnqc2sIrWJ9RYd/1VSwoH9gjW/pxi9I
+	 61W6qn3d0UwDZTGpOZ6XIaqiaHwfdYPjnFv4rgnJYqqE/amZVd5PNz2qrSRvQ07WXV
+	 GPlyS881358cliScoILxYUuLDe/3OhM0taeAIKqlOjLNDj+TJrykj0nwG/LPt2fpCY
+	 tKBeft1OBsWU8CWd3fxJQLDy9kxo83WafwxX8MhQui6gikGIgHiAiOauoWjkhi2uAR
+	 /McqFGy/SFkVw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38A94CD13DA;
+	Thu, 30 Apr 2026 18:43:50 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Subject: [PATCH v7 0/6] arm64: dts: qcom: Support AYN QCS8550 Devices
+Date: Thu, 30 Apr 2026 13:43:35 -0500
+Message-Id: <20260430-ayn-qcs8550-v7-0-591a96735fa3@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD8:EE_|SA1PR10MB997654:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d0573a8-2e9b-4484-155a-08dea6e712b6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|7416014|36860700016|1800799024|921020|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ZfOIpdvU3xKzpXo41pyvZpyOFj7IcWZG0ZJM8zSNEqkT9p0pzu6+uDIAKG4gc5VQbj5kAf5C51xezt9LHMdFyvxe74XfqMfGV4kPL428LsxEEZGULS6jwUEtisj3+sSi8QmIqVY85ObQB9nXi8tLouw0CNwP04z7BrhVcPhl1hOENiEdA6JTFmYorFDkOOrEmypI7Z0XK9uNygyKh9EpMODkE/2GP2BCFzCQ845xH+SiaGbksOmYP5ZfOwi5Tsh3K1GOI73msZfEmf0/ime5xsikGSs3IyS6KY9eTqaZbWpELRwwjINj324T9Driq3XL0yqeV1J0idxV4+L4KN3wcmLIFOjo4js/PJpccnKjfE0zd9qSPTe022O1nptiA8fV3bSJs2FjxC69F8UbbPR0JgwPWP3qfKOUhlszJkmywHj+FGn+MU4fQUnV0eIvngOo6qsM75BMyGeXvrmq3bH6Qq8An+MPbfMBZI1gu8he8d2OjEapsn/Z/9qe3NulBQQUzazXpbObdfc0ocImqchJ8YeKfHtTfCNOFk/tMMMPvfCJ0rD4/F1QyqmiZ5QiG7Y3BJx2iE0eB1L7CzSiPsfyAVM8FTQj075cDcwFofeysMiHDx/DDI8IePZOBCZRH7wyJwRjRYsohCo0ugLW9/RGfD0nT66gn+sY5fHoRk6p8OBinbp+nTItrvUXYLz5T+ZCs7K7NRRwRD4tr3aCBURzgcoA6a0J3cF0pLhvqJ1LGFGLt6dz+yF0ShjMKHvxinDQKlj3g/b+WSROtamrVdIcVw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(36860700016)(1800799024)(921020)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	5R9dmNG4JaPV+3H5L4l6wLQ11f0O3yuM8GK4PLvscLEwQNcvius3EXK4xmFJUSN2ZGJySvvHsCoa6Phdn9zzKOH5+v4hvxHUAX6+i5VD61vTpVmCEm8nEOKA56NYaj64HDQFlabsxbCc+KE46wwLibHZxlx1v7wxT/I+r6CDK9ZhSTs2ObZ1t1Vv3wo5TL0SUTUI3L2NbZCvrpb41JPiw1JazkV4H/2CjbOoV/hCqMgm4L9jzmyLokaaUKgwE8mOrzyfvaPpog2AJT3W1Mn/XtjfvIKLLBD+otz6E6K3krjcmmTpeZqCV4cGZjj2FpsszsaNO0fsuz7yADTdtw9S4rA3pbIqTcAAxBi9F60FjA+OO/Aha1O4NRH93Ri1kmz2ey7j6f967KCivijWPYMAD7V+e0KNQb4vxhU1BUxmfJqKAY5Mocay3AbLMt31pFYF
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 18:34:11.3571
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d0573a8-2e9b-4484-155a-08dea6e712b6
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB997654
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33OTW7CMBAF4Ksgr+tqPI5/0lXvUXUxdsZgqRBIa
+ FSEcvcaWBCnUpdvpO+9uYqRh8yjeNtcxcBTHnN/KMG9bETc0WHLMnclCwS0gMpJuhzkKY7eGJD
+ KRnDB6o7RiiKOA6f8c2/7+HzkgU/fpfT8PO7yeO6Hy31xUrfro1wrVZVPSoJM7AMmok4xvW/3l
+ L9eY78Xt54J/7FYLFvbesuQIIa11QuLWFtdbEOJfBsRvPdr2yytrm1TrNbkKerO6PTnZ/O0Dfj
+ ammJjCxQ4OFIG19YurIba2mLBkmMXTENU7c7z/As5E29z5wEAAA==
+X-Change-ID: 20260217-ayn-qcs8550-16c07b63de26
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>, 
+ Xilin Wu <wuxilin123@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Teguh Sobirin <teguh@sobir.in>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777574629; l=3655;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=Hn4fAHqLcsc4NFLexnYd+fElE0TVdwcxmDnovGn6lC4=;
+ b=m3HSYN9ki6dKi0kwoCeXi0E3xz5dPpdurfAyJeggwBVF0IuO4ftcIfraOhHY4qu7riHOhIEyU
+ yj6fpH4wxYJBqW3iOvRkXKn24o5NLqWrouV/APk6i3ZYfwtP9Su2XL0
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Reply-To: webgeek1234@gmail.com
 
-Enable the Solomon SSD16xx e-ink display controller driver as a module
-in the arm64 defconfig, making it available by default on TI AM6x SoC
-platforms that use this driver.
+This specifically includes:
+* Odin 2 Mini
+* Odin 2 Portal
+* Thor
 
-Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
+The original Odin 2 dts is not currently included as it has not yet
+been verified.
+
+The initial port was done by Teguh Sobirin for ROCKNIX and was made
+available on the AYN github [0].
+
+Support has been removed for things not yet supported by the upstream
+kernel, these will be added later when the related drivers are submitted
+and picked up. Such includes:
+
+* All panels
+* The Odin 2 Mini backlight and touch
+* All rgb leds
+* The built-in uart gamepad
+
+[0] https://github.com/AYNTechnologies/linux/commits/sm8550/v6.17.5/
+
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 ---
- arch/arm64/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v7:
+- Add back pinmuxes dropped last revision, but without output-low
+- Link to v6: https://lore.kernel.org/r/20260430-ayn-qcs8550-v6-0-06a7e7b54aaa@gmail.com
 
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index 430219656640..0815384f955f 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -995,6 +995,7 @@ CONFIG_DRM_PANEL_RAYDIUM_RM67191=m
- CONFIG_DRM_PANEL_RAYDIUM_RM692E5=m
- CONFIG_DRM_PANEL_SAMSUNG_ATNA33XC20=m
- CONFIG_DRM_PANEL_SITRONIX_ST7703=m
-+CONFIG_DRM_PANEL_SSD16XX=m
- CONFIG_DRM_PANEL_STARTEK_KD070FHFID015=m
- CONFIG_DRM_PANEL_TRULY_NT35597_WQXGA=m
- CONFIG_DRM_PANEL_VISIONOX_VTDR6130=m
+Changes in v6:
+- Fix comment style in patch 3
+- Drop a pair of unnecessary pinmuxes in patch 3
+- Lower usb sbu pins drive strength in patch 3
+- Link to v5: https://lore.kernel.org/r/20260408-ayn-qcs8550-v5-0-c90abeb7a152@gmail.com
+
+Changes in v5:
+- Fix some style reviews in patch 6 which required matching labels in
+  patch 3
+- Drop hdmi support in patch 4, since it doesn't work
+- Link to v4: https://lore.kernel.org/r/20260323-ayn-qcs8550-v4-0-33a8ac3d53fa@gmail.com
+
+Changes in v4:
+- Fold vendor description patch into the series
+- Link to v3: https://lore.kernel.org/r/20260322-ayn-qcs8550-v3-0-4afa89c20888@gmail.com
+
+Changes in v3:
+- Drop unused backlight regulator in patch 3
+- Move zap shader firmware to standalone reference
+- Move i2c controller enables from common to devices
+- Add ABL dtbo workarounds to patch 2 as per:
+  https://lore.kernel.org/linux-arm-msm/dczz4uvcq4hc6p3zb6xnrsgmfeomwliagwhf36tewdz4z6mndp@afbxzhjziiwv/
+- Fix multiple property alphabetical order issues in patch 2
+- Use interrupts-extended for pwm-fan in patch 2
+- Ensure blank line before status in patches 2-5
+- Rename spk_amp_l/r to amplifier in patch 2
+- Remove a few properties that are already in the soc dtsi in patch 2
+- Order tlmm nodes by pin index in patch 2
+- Drop qcom,dll-config from sdhc node in patch 2
+- Drop dtbo support, convert common to dtsi, and include it directly in
+  device specific dts'
+- Link to v2: https://lore.kernel.org/r/20260311-ayn-qcs8550-v2-0-e66986e0f0cb@gmail.com
+
+Changes in v2:
+- Drop awinic bindings dep as a duplicated patch already exists
+- Change Co-authored-by tags to Co-developed-by
+- Drop alias to currently unused uart15 in patch 2
+- Link to v1: https://lore.kernel.org/r/20260311-ayn-qcs8550-v1-0-fe8b2faad1ea@gmail.com
+
+---
+Aaron Kling (1):
+      dt-bindings: arm: qcom: Add AYN QCS8550 Devices
+
+Teguh Sobirin (4):
+      arm64: dts: qcom: Add AYN QCS8550 Common
+      arm64: dts: qcom: Add AYN Odin 2 Mini
+      arm64: dts: qcom: Add AYN Odin 2 Portal
+      arm64: dts: qcom: Add AYN Thor
+
+Xilin Wu (1):
+      dt-bindings: vendor-prefixes: Add AYN Technologies
+
+ Documentation/devicetree/bindings/arm/qcom.yaml    |    9 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |    2 +
+ arch/arm64/boot/dts/qcom/Makefile                  |    3 +
+ .../arm64/boot/dts/qcom/qcs8550-ayntec-common.dtsi | 1760 ++++++++++++++++++++
+ .../boot/dts/qcom/qcs8550-ayntec-odin2mini.dts     |   44 +
+ .../boot/dts/qcom/qcs8550-ayntec-odin2portal.dts   |   84 +
+ arch/arm64/boot/dts/qcom/qcs8550-ayntec-thor.dts   |  227 +++
+ 7 files changed, 2129 insertions(+)
+---
+base-commit: b9303e6bff706758c167af686b5315ad00233bf8
+change-id: 20260217-ayn-qcs8550-16c07b63de26
+
+Best regards,
 -- 
-2.39.1
+Aaron Kling <webgeek1234@gmail.com>
+
 
