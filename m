@@ -1,49 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0115717B50A;
-	Thu, 30 Apr 2026 18:53:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E4617B50A;
+	Thu, 30 Apr 2026 18:55:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777575209; cv=none; b=DiJKlJ16ij9VWhC6QdwxydiK7f0S17Ffr2zZxj+qt6gOtb57URiM3vCuv0xebFco54W1Z3iudfeEpL0QsYbLCp9SD4a2S0DANQhBG7W/z5SPfuGir9w0Xp5ihhiydxuGAX/Qpj9ZM5n1r8TZRyu+IblY8p4TeFtsOwm34EKPr8A=
+	t=1777575325; cv=none; b=JBA2eKDCsV6KieJ1JWLZas9APOBzrEWGVvGikPg4FJr0ynCYCO5OHr/Fd6Tq4/XPFtw/TDcNbX7VAIUW6ZrZA2tBQW2OUzIXvmbMt2UzfS8kkTxIuq+QJsnVrYoawZLsIXHFzmoEjBpiiZsUbRKXFipo5EdRmGT2p7nfRzLM8rQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777575209; c=relaxed/simple;
-	bh=fwwPcQWOWqGnk9tycak+N0Nfom1/bWobWQp3LsvSbMg=;
+	s=arc-20240116; t=1777575325; c=relaxed/simple;
+	bh=lWE9HkFpXw9rtE0Jo05d+/92L9aR9NU3+uP7biB7kcU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I5HGrT/wooIIG0jx6Lzj14y5fk0vx2FbzoeehNCpl9Y7HS85v/IA3MK3TS2AwjSwwYrOiW3Z+MS17vxXkW/JvMEZ0JdQ/nDPplcQsjTyDBANfTg3PgnpF2MgikQ1EP9/Q1n/nEM8cz6a6WFv9aFf+suz7jSNzuCRZRN45cVPXyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HYYQdIsb; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=VJ/mQUEckLpHxASUmy5Jg3j+C0UBauyO0HohclsNDXBSxf3cGEc4nF2k3ZJtWlRUtRP0NsuHPr+fZdXRKqWgbPMJyD5tLx7Ro9MX5dcimsAp2uIyJdwGkQRIkK6VXP75fzmeCqSWessxVQf5cs3XLG3+e+uuBYy6J4AgdAvvIq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RSdYbXN6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HYYQdIsb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 477E7C2BCB8;
-	Thu, 30 Apr 2026 18:53:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RSdYbXN6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA858C2BCB3;
+	Thu, 30 Apr 2026 18:55:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777575208;
-	bh=fwwPcQWOWqGnk9tycak+N0Nfom1/bWobWQp3LsvSbMg=;
+	s=k20201202; t=1777575325;
+	bh=lWE9HkFpXw9rtE0Jo05d+/92L9aR9NU3+uP7biB7kcU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HYYQdIsb3BRSmWBGulj7gwK+RisK5UnSmL0v6Uql95ZJ91CIS3Z/Na5yOKCPnJkM/
-	 CFUdYrcKqaJyGj05fQfcM5vePhU5XBHIvgKHBgPJWyEoJEgSgE08DtBOx0bDl+A3d3
-	 ctOE5gRi0xHUSoS4mk5QhzmitJJrtpFGGjH2qkyyL9UgiCYAZziccu98mSKX2YDO4p
-	 93DNOP/tDrgGRvpv2DLgEQ/1bH3/wpgS/fRNY5EIuGrABiWiDeEBUxjbVDo5RBciz/
-	 uZrBgydmZNXs/6ZVDDu32rbQDf2tMGIYx67hnnuOfY7PsPP16d5hVVHmj1fvrmR3jR
-	 7CgCIkFVv6uFA==
-Date: Thu, 30 Apr 2026 19:53:22 +0100
+	b=RSdYbXN686KVP7jsq/GKLBRNM8X4srR9OWumOvVV1zxNc7J8KENy7WTw1x1A3yO23
+	 iStgzBIpGM0Gnaw/tmJWkdb7xHTfQSShZIEn0I8CiuCLM01kqk6xrHgiwbx2119Cbl
+	 Caj+/XrDYXlwvzu/yX4Up2KojwD/1gnLpeA85kCjgBwwjLIl85qQx5r8o0qdyxcTUs
+	 FxMj2gOnKUTRkTzz15MXhWP0lsrhE5/ZzJCzCXfDPyHCWlHkOyXqC4/fuevWQexU2d
+	 IPVfnJukukpc6C3GWHISN7BhC0+8+iBuQ9kjkDeQsK1gj6MtGYytgK7xiK4GjE9s3L
+	 dPWrCGJkqYQDg==
+Date: Thu, 30 Apr 2026 19:55:20 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Florin Leotescu <florin.leotescu@oss.nxp.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+To: Yixun Lan <dlan@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Michael Shych <michaelsh@nvidia.com>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	daniel.baluta@nxp.com, viorel.suman@nxp.com,
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
-	festevam@gmail.com, Florin Leotescu <florin.leotescu@nxp.com>
-Subject: Re: [PATCH v7 2/3] dt-bindings: hwmon: emc2305: Add
- fan-shutdown-percent property
-Message-ID: <20260430-breeching-directly-811a1b78182b@spud>
-References: <20260429065955.2113012-1-florin.leotescu@oss.nxp.com>
- <20260429065955.2113012-3-florin.leotescu@oss.nxp.com>
- <20260429-shiftless-docile-e57509e967c4@spud>
- <afNE46C7GBswP8LG@ro-kernel-workstation>
+	Inochi Amaoto <inochiama@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: soc: spacemit: k3: Add PCIe DBI clock
+ IDs
+Message-ID: <20260430-plug-bolt-8ff9137717fa@spud>
+References: <20260430-06-pci-clk-fix-v1-0-32fdc77c02ab@kernel.org>
+ <20260430-06-pci-clk-fix-v1-1-32fdc77c02ab@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,102 +51,61 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CIKz425QYUwqIjTi"
+	protocol="application/pgp-signature"; boundary="ZyWW5ut6GEwR4kZa"
 Content-Disposition: inline
-In-Reply-To: <afNE46C7GBswP8LG@ro-kernel-workstation>
+In-Reply-To: <20260430-06-pci-clk-fix-v1-1-32fdc77c02ab@kernel.org>
 
 
---CIKz425QYUwqIjTi
+--ZyWW5ut6GEwR4kZa
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 30, 2026 at 03:02:43PM +0300, Florin Leotescu wrote:
-> On Wed, Apr 29, 2026 at 07:18:04PM +0100, Conor Dooley wrote:
-> > On Wed, Apr 29, 2026 at 09:59:54AM +0300, florin.leotescu@oss.nxp.com w=
-rote:
-> > > From: Florin Leotescu <florin.leotescu@nxp.com>
-> > >=20
-> > > The EMC2305 fan controller supports multiple independent PWM fan
-> > > outputs. Some systems require fans to enter a defined safe state
-> > > during system shutdown or reboot handoff, until firmware or the next
-> > > boot stage reconfigures the controller.
-> > >=20
-> > > Add an optional "fan-shutdown-percent" property to fan child nodes
-> > > allowing the PWM duty cycle applied during shutdown to be configured
-> > > per fan output.
-> > >=20
-> > > Signed-off-by: Florin Leotescu <florin.leotescu@nxp.com>
-> >=20
-> > Why didn't you pick up my tag from here:
-> > https://lore.kernel.org/all/20260407-slang-scoff-795164352c62@spud/
-> >
+On Thu, Apr 30, 2026 at 10:30:26AM +0000, Yixun Lan wrote:
+> Add clock IDs of PCIe DBI (Data Bus Interface) clock.
 >=20
-> Apologies, I missed your Acked-by tag when preparing the series.
-> I will include it in the next revision.
+> Fixes: efe897b557e2 ("dt-bindings: soc: spacemit: k3: add clock support")
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Why is this a fix? As-is, this looks like you're abusing the Fixes tag
+so that this gets backported alongside things that are a fix that depend
+on it.
 
-Don't resend unless there's something else wrong with the series.
-
+> Signed-off-by: Yixun Lan <dlan@kernel.org>
+> ---
+>  include/dt-bindings/clock/spacemit,k3-clocks.h | 5 +++++
+>  1 file changed, 5 insertions(+)
 >=20
-> > > ---
-> > >  .../devicetree/bindings/hwmon/microchip,emc2305.yaml      | 8 ++++++=
-++
-> > >  1 file changed, 8 insertions(+)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/hwmon/microchip,emc230=
-5.yaml b/Documentation/devicetree/bindings/hwmon/microchip,emc2305.yaml
-> > > index d3f06ebc19fa..8c2548539d7f 100644
-> > > --- a/Documentation/devicetree/bindings/hwmon/microchip,emc2305.yaml
-> > > +++ b/Documentation/devicetree/bindings/hwmon/microchip,emc2305.yaml
-> > > @@ -54,6 +54,12 @@ patternProperties:
-> > >            The fan number used to determine the associated PWM channe=
-l.
-> > >          maxItems: 1
-> > > =20
-> > > +      fan-shutdown-percent:
-> > > +        description:
-> > > +          PWM duty cycle in percent applied to the fan during shutdo=
-wn.
-> > > +        minimum: 0
-> > > +        maximum: 100
-> > > +
-> > >      required:
-> > >        - reg
-> > > =20
-> > > @@ -80,12 +86,14 @@ examples:
-> > >              fan@0 {
-> > >                  reg =3D <0x0>;
-> > >                  pwms =3D <&fan_controller 26000 PWM_POLARITY_INVERTE=
-D 1>;
-> > > +                fan-shutdown-percent =3D <100>;
-> > >                  #cooling-cells =3D <2>;
-> > >              };
-> > > =20
-> > >              fan@1 {
-> > >                  reg =3D <0x1>;
-> > >                  pwms =3D <&fan_controller 26000 0 1>;
-> > > +                fan-shutdown-percent =3D <50>;
-> > >                  #cooling-cells =3D <2>;
-> > >              };
-> > > =20
-> > > --=20
-> > > 2.34.1
-> > >=20
+> diff --git a/include/dt-bindings/clock/spacemit,k3-clocks.h b/include/dt-=
+bindings/clock/spacemit,k3-clocks.h
+> index b22336f3ae40..dfae52547cda 100644
+> --- a/include/dt-bindings/clock/spacemit,k3-clocks.h
+> +++ b/include/dt-bindings/clock/spacemit,k3-clocks.h
+> @@ -380,6 +380,11 @@
+>  #define CLK_APMU_ISIM_VCLK1      86
+>  #define CLK_APMU_ISIM_VCLK2      87
+>  #define CLK_APMU_ISIM_VCLK3      88
+> +#define CLK_APMU_PCIE_PORTA_DBI  89
+> +#define CLK_APMU_PCIE_PORTB_DBI  90
+> +#define CLK_APMU_PCIE_PORTC_DBI  91
+> +#define CLK_APMU_PCIE_PORTD_DBI  92
+> +#define CLK_APMU_PCIE_PORTE_DBI  93
+> =20
+>  /* DCIU clocks */
+>  #define CLK_DCIU_HDMA            0
 >=20
+> --=20
+> 2.53.0
 >=20
 
---CIKz425QYUwqIjTi
+--ZyWW5ut6GEwR4kZa
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafOlIgAKCRB4tDGHoIJi
-0tzDAPoCZp0mN8oQj5I4vZNujEnYEEez3a7DkufwLlRs66MyAwD/UfOlbzrNu9E9
-Tx1XmbVtEQZazMbIlyCCtrdKiJ+/2w0=
-=Zgdq
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafOlmAAKCRB4tDGHoIJi
+0n1rAQCxrTCw7Jgkx0a5N4zQWIUC4Gs8go2JtYFp2UB241sx0gD+NuCdQwdKHF6L
+RzmcK+MGhvdUc6DScyb0unK+KofNrwY=
+=3o1x
 -----END PGP SIGNATURE-----
 
---CIKz425QYUwqIjTi--
+--ZyWW5ut6GEwR4kZa--
