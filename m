@@ -1,60 +1,61 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315724266B9
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 13:21:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7EE426D05
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 13:21:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777555308; cv=none; b=BTHPrFppreXwA0ku3eFXqUqV17Ar8lo/ypFw1emCNuq+w7GVbMFKYJWBfV2NhxNFMnqSv4TlDskO6MW6lt4Uvw7RxEN21H/VJc8WGW1VgXmDdclebLK5Q870WZVoe89UCL8yGMjwnf1n2WbDCKWH+RfeEmBT4swDkBkizI/P0jM=
+	t=1777555310; cv=none; b=RYpWHzFW/D+QFG7sr8acnjP9I6VwypifJS3RYMg24NMTkpu2y8VhsXUGabUtvW+i192ExtGIHsem2HtaCp/THmx/BKh/M7cSGp4E0JU9F9XmzR90dvICgnvFaSFH9pP88UP4gESluNclthdWpiNrmoSQFbVi53e5K49vOQgQ7Cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777555308; c=relaxed/simple;
-	bh=NwNLBanCJfWdivsHH3TQq4KhfsrK1t6xAmGPuWJEvUM=;
+	s=arc-20240116; t=1777555310; c=relaxed/simple;
+	bh=GqRGrNLZXVzhBSOIsCYxa32HgZ4zBg0+yUDiq0uerkw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QeeLQX3GiRThHVG6HBR5oOKkRmyOJch/crUOnO0LjObVeUV8UdiItCBsDlGLiJOJrDTR0ufokix1MBGpLfYTofrzynz9pckDR+9dL2C2LWq3gkfGMBLKlLI75UyjYXBv3ZauWxPm+CwMVZW99+VCasGzDhthpNMxuK16tiU5F3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arduino.cc; spf=pass smtp.mailfrom=arduino.cc; dkim=pass (1024-bit key) header.d=arduino.cc header.i=@arduino.cc header.b=AdiMxbQt; arc=none smtp.client-ip=209.85.128.49
+	 MIME-Version; b=KSQ9M59edlaMUSZJ48OdxMjvLA8ganUR+LH3/ZYhFPUGgN8p5dAI7cYMhkcyVtq6/CVb3l7nsJmDl7wQW0sZ3BHDqJ4Y6a2YAeKxgCancWUnEMwTwZJZj6JbssvAHBGvdCV9+Se8j48qgRljDSbo5JMfPyOQBp/TMBsPgSU7nxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arduino.cc; spf=pass smtp.mailfrom=arduino.cc; dkim=pass (1024-bit key) header.d=arduino.cc header.i=@arduino.cc header.b=imfRiAs2; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arduino.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arduino.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arduino.cc header.i=@arduino.cc header.b="AdiMxbQt"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-488ba840146so7379005e9.1
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 06:21:46 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arduino.cc header.i=@arduino.cc header.b="imfRiAs2"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4890d945eb4so12485225e9.0
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 06:21:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arduino.cc; s=google; t=1777555305; x=1778160105; darn=vger.kernel.org;
+        d=arduino.cc; s=google; t=1777555307; x=1778160107; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7KQEi+9Iq6a0oI1284HueD/sDdeYdOgMZIf6VRafu5Y=;
-        b=AdiMxbQtTVKPqjedLo5C44dnYcofaKZ3yVblzp8blOAw1nS8+sl7BghLj0ewBuplAN
-         prGZkW2NG+hDl/Gus+nfwcVDyAdRL28efdknX/tG6lwXiNFnj53pktdlLL7m84hr8OIP
-         BmcS9D/iZ66Pt91s9Q9g7slp2a9s1o+YnYATk=
+        bh=4V2mrc16hrnhb507yXsAugmx8ywjiAaffpYxLf0PPSI=;
+        b=imfRiAs29jnWpf/BBtEO8wB8Wqz5ZtHnOmHwJqzMfxAFANrUvruIMt+tuQRPBptE6G
+         o11oficBhc0WLyZCCV7Gq6j0TNF1ACV5moUSR7zPZbLHhk5TbH/+E4bu7S7hHe1x85fd
+         Cqm9ajErfkq4P2AADB50FlfegCgr0sFUHtr9o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777555305; x=1778160105;
+        d=1e100.net; s=20251104; t=1777555307; x=1778160107;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=7KQEi+9Iq6a0oI1284HueD/sDdeYdOgMZIf6VRafu5Y=;
-        b=Qh48lutiZA2a+QnpTQMcsjZDaiAMmUAdZ/WvnrWpESC34Ly5g/8nd4yaP3Qv+vqDek
-         bulG3XMi4J15Dl9v/t9bQ0eGd0oFOPRSN3SRzvFmJP3eKNHBI4gByO7PCwuzbwR38SDR
-         hdLo7tr5FP8vEB7w4TF4ySvYstlBObpYm8QMp/lU+ii0htIlh9Jkb9/LHG+8+fYLKjlK
-         DTK0e2mQLWvbptlkFZk93w7t9oEjMdv4PFbYan+LF9Ipuh1BNg/l8diymTodMuNK48pW
-         zdJcC9iUJdV8mafIdN6gE6Zctid7HZgqiIPMThew3lCQb9CIQrjP7IsBJGMjbM/nH8CI
-         ayag==
-X-Forwarded-Encrypted: i=1; AFNElJ8eqIgujOYq2hutL4cRkCXlZ+zAdWvQRr18unAgJBhzQ7OO4toNH484O6L7gQc3xJkZuQ/nuWe0DzEO@vger.kernel.org
-X-Gm-Message-State: AOJu0YyrlllcmKbO+6ELybAhPzYOZEmvdwQgj5ruPzJvG3ezkcLH+Znz
-	dD9kHGIExfAEdy3O1MxOF+3EWUhyjHAT9EzoH6HOcTuxXj8yA1XttkW85VCTOdpUvvg=
-X-Gm-Gg: AeBDievwbBYwtcAXkSGES+0DSUjkRchetj/Hb5h1M4nlbRhbDTttzYiLBwYm8PPzXIE
-	UzL6aMfWD0IADC3O04ImhYm8xvrldnBM1T+Bcu+nT1aUI+VEir4EFIBNBxtjPySE0wyv3QNHOwn
-	tOkP8QEwfJXLblITHg9pvjJePeoWcMYXjKCibl+T7FvtxH1nJLeLxnenCiW4aE36d1t40tPRZWr
-	vWpB1Sprd7AHLllE1bai5s7BNd6SOWuxUn5B+XLErYrqpfqzm72Di2efFTUctBnGbTIGBdEujtg
-	dWBAyqQoPfh1KDRz1rjmzYTPW9sh8197z5hOs5AEbsTuxKxqaA5wAowZgH01zzTKrSqWzHiSsvz
-	iPP6OtQ7XuVt+S1vqNj6m3vsAXxHKePNU3nQamWUDUmA+tNXEpRGCMRIzyJdxNVOstcjDtXzWr3
-	4OVZOmfHTacAhxUzWFQEGh1JDlF/ZmLMOdqhx90bAgnHO8b+TzSFvGc7Syi6EnWmazFMw=
-X-Received: by 2002:a05:600c:8b04:b0:488:b241:2c5f with SMTP id 5b1f17b1804b1-48a8445fc28mr51917765e9.26.1777555305440;
-        Thu, 30 Apr 2026 06:21:45 -0700 (PDT)
+        bh=4V2mrc16hrnhb507yXsAugmx8ywjiAaffpYxLf0PPSI=;
+        b=n9A7sh5yf3nvGdIvk1OeW4mEzIngGHiT53B+faO7/YQX0LOnJ1xgbwRYCdtw4Q8KGb
+         XTwUwSWzsoSctix1/3iMrKm0a9uFIU6jeG7yXdyeZDao8Wd/JMvMbuMcj6O6UvVEL7oQ
+         lG/qSUe4RQ7MxtmHvZkL7pxM2Juhm6d6tLZfUzvhglFSn3Ur6CsLYD0+2KKF67NVsRKe
+         i9GD7N4E+M44RRho+Ce4Q8//daJWFUhOk7yuYIZhFA6iWD+QssXDVyU2gR8SLmPmiI1a
+         thd5Fn0kRPlNcbiUXfZrFO5fdJrpMKTZDBBK+It1tOBWSWEy6L8RGWcdGdykNi1Wkrlh
+         suRA==
+X-Forwarded-Encrypted: i=1; AFNElJ9Zw1qR6BxmFy3z1rqnmGvyJK03uHCEQZsSV4GD/VBHYi/bUug24O5OI30xa2yA13aj7KaRhsh+yFce@vger.kernel.org
+X-Gm-Message-State: AOJu0Yya2UItvNj3Sa+P+jNiNpOhChLKTwO0ap1u588MRi3HThewvIBN
+	wWK8tMpQq8T0UDkUibWJthBV0UDT1gYKCGw+yKrVllA4tDNMhGZM0kNSelq9+bk4MQ8=
+X-Gm-Gg: AeBDiet11aRnncGIt2zcqeNY/kAtgbLf3JeeELJqBYli+iU38dTPa2XDMXrUmsU8qe1
+	yO+sadyl3wCiAPnLKIgHAARePxPBsn/cri+6GSVnLnNJpIYpJkK7y0ARSuHd5fReBbPGryOhRRx
+	aG86ObE0nQJMdFVfNdrdnLZTgYxrgx67w58Do8rgKNebresWYKyW+w3Ixwq2kTarfs/W4yUDIhO
+	2ENFq9rmxG9phVZ6rhiVq+7gLz1QThwwg1Wjh9oEsNE8bw+fUZTlpXdY3FSZUMrSiaLDgo3fVcA
+	X7lwNH7zFVWQiVRmABtPm8a2Tyid19M34Yqe3eOK/9vB35eSBmfxTzmejRWJDfh71fJzldc74HZ
+	BW4nhcVIeEBJZkE6ARQmUGAv2kO2an79mVVD7u6mrIon4Sp1Pto0NbDDpEo5ScBADgt+ThlFJyq
+	FIv43yEqdrI2VH4I5PBCKi51cta48AwUH0nEFWUX+kxbt8ol3xnRKTNMjFW9Wi13+2KDoGr3qWG
+	DP70g==
+X-Received: by 2002:a05:600c:5286:b0:486:faa8:9e4 with SMTP id 5b1f17b1804b1-48a86085131mr40450345e9.12.1777555306711;
+        Thu, 30 Apr 2026 06:21:46 -0700 (PDT)
 Received: from riccardo-work (public.toolboxoffice.it. [213.215.163.27])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a82307f28sm106210325e9.13.2026.04.30.06.21.43
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a82307f28sm106210325e9.13.2026.04.30.06.21.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Apr 2026 06:21:44 -0700 (PDT)
+        Thu, 30 Apr 2026 06:21:46 -0700 (PDT)
 From: Riccardo Mereu <r.mereu.kernel@arduino.cc>
 To: andersson@kernel.org,
 	konradybcio@kernel.org,
@@ -80,9 +81,9 @@ Cc: linux@roeck-us.net,
 	dmitry.baryshkov@oss.qualcomm.com,
 	loic.poulain@oss.qualcomm.com,
 	Riccardo Mereu <r.mereu@arduino.cc>
-Subject: [PATCH 1/3] arm64: qcom: agatti: Add dai@3
-Date: Thu, 30 Apr 2026 15:21:38 +0200
-Message-ID: <20260430132140.30369-2-r.mereu.kernel@arduino.cc>
+Subject: [PATCH 2/3] arm64: qcom: imola: Move analogix video/audio output to dtso
+Date: Thu, 30 Apr 2026 15:21:39 +0200
+Message-ID: <20260430132140.30369-3-r.mereu.kernel@arduino.cc>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260430132140.30369-1-r.mereu.kernel@arduino.cc>
 References: <20260430132140.30369-1-r.mereu.kernel@arduino.cc>
@@ -96,28 +97,265 @@ Content-Transfer-Encoding: 8bit
 
 From: Riccardo Mereu <r.mereu@arduino.cc>
 
-This will be used for audio over USB-C in Arduino UNO Q board.
+This is done in order to support different video output over DSI.
+Since audio part is linked to Analogix USB-C controller it is moved to
+the same DTSO.
 
 Signed-off-by: Riccardo Mereu <r.mereu@arduino.cc>
 ---
- arch/arm64/boot/dts/qcom/agatti.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
+ arch/arm64/boot/dts/qcom/Makefile             |   5 +
+ ...ola.dts => qrb2210-arduino-imola-base.dts} | 122 +++++++++++++++---
+ ...rb2210-arduino-imola-video_sound-usbc.dtso |  61 +++++++++
+ 3 files changed, 168 insertions(+), 20 deletions(-)
+ rename arch/arm64/boot/dts/qcom/{qrb2210-arduino-imola.dts => qrb2210-arduino-imola-base.dts} (85%)
+ create mode 100644 arch/arm64/boot/dts/qcom/qrb2210-arduino-imola-video_sound-usbc.dtso
 
-diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/qcom/agatti.dtsi
-index 8a7337239b1e..01e98ef52271 100644
---- a/arch/arm64/boot/dts/qcom/agatti.dtsi
-+++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
-@@ -2275,6 +2275,10 @@ dai@1 {
- 							dai@2 {
- 								reg = <MSM_FRONTEND_DAI_MULTIMEDIA3>;
- 							};
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 4ba8e7306419..e89a0e77072b 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -193,6 +193,11 @@ qcs9100-ride-r3-el2-dtbs := qcs9100-ride-r3.dtb lemans-el2.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride-el2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride-r3-el2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= qdu1000-idp.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= qrb2210-arduino-imola-base.dtb
 +
-+							dai@3 {
-+								reg = <MSM_FRONTEND_DAI_MULTIMEDIA4>;
-+							};
- 						};
- 					};
++dtb-$(CONFIG_ARCH_QCOM)	+= qrb2210-arduino-imola-video_sound-usbc.dtbo
++
++qrb2210-arduino-imola-dtbs := qrb2210-arduino-imola-base.dtb qrb2210-arduino-imola-video_sound-usbc.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= qrb2210-arduino-imola.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= qrb2210-rb1.dtb
  
+diff --git a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola-base.dts
+similarity index 85%
+rename from arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
+rename to arch/arm64/boot/dts/qcom/qrb2210-arduino-imola-base.dts
+index bf088fa9807f..fb22effb9a35 100644
+--- a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
++++ b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola-base.dts
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+ /*
+- * Copyright (c) 2025, Arduino SRL
++ * Copyright (c) 2026, Arduino SRL
+  */
+ 
+ /dts-v1/;
+@@ -110,6 +110,106 @@ multi-led {
+ 		leds = <&ledr>, <&ledg>, <&ledb>;
+ 	};
+ 
++	sound: sound {
++		compatible = "qcom,qrb2210-sndcard";
++		model = "Arduino-Imola-HPH-LOUT";
++		audio-routing =	"IN1_HPHL", "HPHL_OUT",
++				"IN2_HPHR", "HPHR_OUT",
++				"AMIC2", "MIC BIAS2";
++
++		mm1-dai-link {
++			link-name = "MultiMedia1";
++
++			cpu {
++				sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
++			};
++		};
++
++		mm2-dai-link {
++			link-name = "MultiMedia2";
++
++			cpu {
++				sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA2>;
++			};
++		};
++
++		mm3-dai-link {
++			link-name = "MultiMedia3";
++
++			cpu {
++				sound-dai = <&q6asmdai  MSM_FRONTEND_DAI_MULTIMEDIA3>;
++			};
++		};
++
++		mm4-dai-link {
++			link-name = "MultiMedia4";
++
++			cpu {
++				sound-dai = <&q6asmdai  MSM_FRONTEND_DAI_MULTIMEDIA4>;
++			};
++		};
++
++		hph-playback-dai-link {
++			link-name = "HPH Playback";
++			cpu {
++				sound-dai = <&q6afedai RX_CODEC_DMA_RX_0>;
++			};
++
++			platform {
++				sound-dai = <&q6routing>;
++			};
++
++			codec {
++				sound-dai = <&pmic4125_codec 0>, <&swr1 0>, <&rxmacro 0>;
++			};
++		};
++
++		lo-playback-dai-link {
++			link-name = "LO Playback";
++			cpu {
++				sound-dai = <&q6afedai RX_CODEC_DMA_RX_0>;
++			};
++
++			platform {
++				sound-dai = <&q6routing>;
++			};
++
++			codec {
++				sound-dai = <&pmic4125_codec 0>, <&swr1 0>, <&rxmacro 0>;
++			};
++		};
++
++		ear-playback-dai-link {
++			link-name = "Ear Playback";
++			cpu {
++				sound-dai = <&q6afedai RX_CODEC_DMA_RX_0>;
++			};
++
++			platform {
++				sound-dai = <&q6routing>;
++			};
++
++			codec {
++				sound-dai = <&pmic4125_codec 0>, <&swr1 0>, <&rxmacro 0>;
++			};
++		};
++
++		hph-capture-dai-link {
++			link-name = "HP Capture";
++			cpu {
++				sound-dai = <&q6afedai TX_CODEC_DMA_TX_3>;
++			};
++
++			platform {
++				sound-dai = <&q6routing>;
++			};
++
++			codec {
++				sound-dai = <&pmic4125_codec 1>, <&swr0 0>, <&txmacro 0>;
++			};
++		};
++	};
++
+ 	vreg_anx_30: regulator-anx-30 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "anx30";
+@@ -165,6 +265,7 @@ anx7625: encoder@58 {
+ 		analogix,lane1-swing = /bits/ 8 <0x14 0x54 0x64 0x74>;
+ 
+ 		pinctrl-0 = <&anx7625_int_pin>, <&anx7625_cable_det_pin>;
++		#sound-dai-cells = <1>;
+ 
+ 		connector {
+ 			compatible = "usb-c-connector";
+@@ -198,20 +299,6 @@ anx_ss_in: endpoint {
+ 				};
+ 			};
+ 		};
+-
+-		ports {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			port@0 {
+-				reg = <0>;
+-
+-				anx_dsi0_in: endpoint {
+-					remote-endpoint = <&mdss_dsi0_out>;
+-					data-lanes = <0 1 2 3>;
+-				};
+-			};
+-		};
+ 	};
+ };
+ 
+@@ -225,11 +312,6 @@ &mdss_dsi0 {
+ 	status = "okay";
+ };
+ 
+-&mdss_dsi0_out {
+-	remote-endpoint = <&anx_dsi0_in>;
+-	data-lanes = <0 1 2 3>;
+-};
+-
+ &mdss_dsi0_phy {
+ 	status = "okay";
+ };
+diff --git a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola-video_sound-usbc.dtso b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola-video_sound-usbc.dtso
+new file mode 100644
+index 000000000000..6fb256498cd1
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola-video_sound-usbc.dtso
+@@ -0,0 +1,61 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (c) 2025, Arduino SA
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/sound/qcom,q6asm.h>
++#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
++
++&anx7625 {
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@0 {
++			reg = <0>;
++			anx_dsi0_in: endpoint {
++				remote-endpoint = <&mdss_dsi0_out>;
++				data-lanes = <0 1 2 3>;
++			};
++		};
++	};
++};
++
++&mdss_dsi0_out {
++	remote-endpoint = <&anx_dsi0_in>;
++	data-lanes = <0 1 2 3>;
++};
++
++&q6afedai {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	#sound-dai-cells = <1>;
++	dai@18 {
++		reg = <SECONDARY_MI2S_RX>;
++		qcom,sd-lines = <0>;
++	};
++};
++
++&sound {
++	pinctrl-0 = <&lpi_i2s2_active>;
++	pinctrl-names = "default";
++
++	hdmi-i2s-dai-link {
++		link-name = "HDMI/I2S Playback";
++
++		cpu {
++			sound-dai = <&q6afedai SECONDARY_MI2S_RX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++
++		codec {
++			sound-dai = <&anx7625 0>;
++		};
++	};
++};
 -- 
 2.53.0
 
