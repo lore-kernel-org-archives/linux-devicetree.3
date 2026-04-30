@@ -1,128 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C453532FA30;
-	Thu, 30 Apr 2026 06:16:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7549C40DFD7;
+	Thu, 30 Apr 2026 06:41:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777529784; cv=none; b=p4ot7/KD8Tw0n5HbBt8hKXdx7JvuH2OEO7qw65jnEFxmWc69UOKa8cWTwCSFak6j1oDedHHYpelmNq1yCfhmnd16ID4Ihj6w60uZfuhYh5+Hzx5oaZ/O5GVs2qG4sBB3pIg1VbJXteiQNPJs1MZFNkWo87uL2/TMuQqp90mq3+E=
+	t=1777531292; cv=none; b=Pz9yzlV4wy1UT1QRUWoIYvSGR2Ix+2Rxc9pFmE/zW3Dyesu2kxT4hgCIt8QGUS2T/5lXI2PhD0K6xNVgFH4X6MCqfRZRD7oYU88ebtWEqStG/hk4x7PKcvLgVvb67Cv+XaX7L1XkKRsgxkmoEqByHSj9Vh+mSgUW+s5/VcNzABA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777529784; c=relaxed/simple;
-	bh=YCQ1gVmEk0+UlLBrYKAXo5Qvaaa3gzuUr6RlFJGdqPk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jcLX2sPGHtThtAheolpQqDtYKF8+fxYmD9zvvuo1Rl+Z+McNyANvzSkhwcabNEmHfWVTcMvu7ItpCTXjzElyUpe9c/nlWmBcDuhPlm6ZzAPHMXEh1Q0BsSaD5+3lp8U8NawmB3szJ+FAXJhWo13hODdKHMVoIRoDOn/+ysGtHgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b48TLmtF; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b48TLmtF"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 82F29C2BCB8;
-	Thu, 30 Apr 2026 06:16:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777529784;
-	bh=YCQ1gVmEk0+UlLBrYKAXo5Qvaaa3gzuUr6RlFJGdqPk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=b48TLmtFUQz765meqJ8t2kbh6Jjg/bKxINMnymDLpR/O2EpakpeK8eB0232e6CB6b
-	 ibkkxfh+rjwckX29xYyz3qga9J9vuQdGMQ5hgjohT5wwRKEa6/XWxk6tN7iiFcIsVG
-	 Vn6Kr8UwHPzgrfUONHsJnNAQUzucpt7nVGwAmbz4N1McA35jWjBvQVPF/EyAlA7ZVV
-	 /8u9tOOdTOPbPDxIKiPgdJqVkMzrAIpDHtbHJ159rGV7RGH+Q9ZWbAnXk5E0oZSmf7
-	 s2YA7lOXXimvZICkQ7akZNQpz2hWQfLY2sCj5C4YEYertboBsumjvlGMrFoloZ50Ej
-	 zXDNIGfaCkUow==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 759C3CD13D3;
-	Thu, 30 Apr 2026 06:16:24 +0000 (UTC)
-From: Colin Huang via B4 Relay <devnull+u8813345.gmail.com@kernel.org>
-Date: Thu, 30 Apr 2026 14:16:20 +0800
-Subject: [PATCH v3 1/3] dt-bindings: hwmon: pmbus: add Delta E50SN12051
- binding
+	s=arc-20240116; t=1777531292; c=relaxed/simple;
+	bh=9vBeHWPbN5SET0NRCtn5jIv0vf6rWnPyhN396COklVw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lzJ2GUDx/odTyaq7wcX3C2J0M+Mw8i1ahMvLoQEUEmDuBIcrO1sruX+rzb2m92O6WucBnJVAOFVLLUGpRNVFCAcZScsRf3tptM12id/BSP0K3Bkgp5lQUDcyiEA+s/EmBEwRru7fI2J+ePkUTu2VtG1Cdyyy8vO+4bxwvPMIq3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=206.189.21.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0005156LT.eswin.cn (unknown [10.12.96.79])
+	by app2 (Coremail) with SMTP id TQJkCgCHnaCG+fJpS+cVAA--.31998S2;
+	Thu, 30 Apr 2026 14:41:11 +0800 (CST)
+From: hehuan1@eswincomputing.com
+To: linux@roeck-us.net,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	p.zabel@pengutronix.de,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com,
+	luyulin@eswincomputing.com,
+	hehuan1@eswincomputing.com
+Subject: [PATCH v4 0/2] Add driver support for ESWIN EIC7700 PVT controller
+Date: Thu, 30 Apr 2026 14:41:07 +0800
+Message-ID: <20260430064107.1598-1-hehuan1@eswincomputing.com>
+X-Mailer: git-send-email 2.47.1.windows.2
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260430-add-e50sn12051-v3-1-f6d4e043ec7c@gmail.com>
-References: <20260430-add-e50sn12051-v3-0-f6d4e043ec7c@gmail.com>
-In-Reply-To: <20260430-add-e50sn12051-v3-0-f6d4e043ec7c@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Kevin Chang <kevin.chang2@amd.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- Colin Huang <colin.huang2@amd.com>, Colin Huang <u8813345@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777529782; l=1520;
- i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=LrBg+nJFD1aQQfSoi4TjC+OlDZ2w3HkTNOHnZebm0W4=;
- b=GAVjpQ3+MMbtHJLoZESE2X9JCvqsSNi5Hs0cJkz7Jc1EL96VO+hDpVoFZfY8y9GloUaYuBr/T
- x+XqGZskZZoA+feFYZH2b4TPQMh+s7M4mT/BICiSpVOhze0OjADBbGG
-X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
- pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
-X-Endpoint-Received: by B4 Relay for u8813345@gmail.com/20260202 with
- auth_id=761
-X-Original-From: Colin Huang <u8813345@gmail.com>
-Reply-To: u8813345@gmail.com
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TQJkCgCHnaCG+fJpS+cVAA--.31998S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGr1DKFyrCw18GFW7CF1Utrb_yoWrZF13pa
+	y8WryYkF4DXrWSqFWDJ3WF9F4fJan3JFW3Ar4fWw18Z3Z8K34j9Fy8K3WjvFyDZrn3Xa43
+	ta48Jr1xGF1DAFJanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBv14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04
+	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr4
+	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l
+	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUHCJQUUUUU=
+X-CM-SenderInfo: 5khk3tzqr6v25zlqu0xpsx3x1qjou0bp/
 
-From: Colin Huang <u8813345@gmail.com>
+From: Huan He <hehuan1@eswincomputing.com>
 
-Add devicetree binding documentation for the Delta E50SN12051
-PMBus-compliant device.
+Add support for the ESWIN EIC7700 PVT (Voltage, Temperature) sensor
 
-Signed-off-by: Colin Huang <u8813345@gmail.com>
----
- .../bindings/hwmon/pmbus/delta,e50sn12051.yaml     | 41 ++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
+Features:
+The driver supports monitoring of voltage and temperature parameters
+through the hardware monitoring subsystem. It provides an access to the
+sampled Temperature and Voltage.
 
-diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/delta,e50sn12051.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/delta,e50sn12051.yaml
-new file mode 100644
-index 000000000000..ea7b6d001d66
---- /dev/null
-+++ b/Documentation/devicetree/bindings/hwmon/pmbus/delta,e50sn12051.yaml
-@@ -0,0 +1,41 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/hwmon/pmbus/delta,e50sn12051.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Delta E50SN12051 PMBus Sensor
-+
-+maintainers:
-+  - Kevin Chang <kevin.chang2@amd.com>
-+
-+description: |
-+  This binding describes the Delta E50SN12051 PMBus sensor.
-+  The driver supports reading voltage, current, and temperature
-+  using the PMBus interface.
-+
-+properties:
-+  compatible:
-+    const: delta,e50sn12051
-+
-+  reg:
-+    maxItems: 1
-+    description: I2C bus address of the PMBus device
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        hwmon@40 {
-+            compatible = "delta,e50sn12051";
-+            reg = <0x40>;
-+        };
-+    };
+Test:
+Tested this patch on the SiFive HiFive Premier P550 (which uses the ESWIN
+EIC7700 SoC).
+
+Updates:
+
+  Changes in v4:
+  - Update eswin,eic7700-pvt.yaml
+    - Delete reviewed-by tag of Conor Dooley, because the label enum
+      constraint is introduced
+  - Update eic7700-pvt.c and eic7700-pvt.h
+    - Remove the unused LVT/ULVT/SVT process-monitoring channels
+    - Remove the probe-time power check since the PVT block is always
+      powered on EIC7700 and the extra verification is unnecessary
+    - Stop requesting the interrupt as shared and use the dedicated PVT IRQ
+      only
+    - Reorder probe initialization so the interface is initialized before
+      the clock is disabled, avoiding register accesses with the clock gated
+    - Fix runtime PM reference handling on error paths by balancing
+      pm_runtime_get_noresume() with pm_runtime_put_noidle()
+    - Add pm_runtime_put_noidle() handling for failed pm_runtime_get_sync()
+      calls in hwmon read/write paths
+    - Switch the PM callback registration from pm_sleep_ptr() to pm_ptr()
+
+  Changes in v3:
+  - Update eswin,eic7700-pvt.yaml
+    - Remove redundant label property description and use 'label: true' to
+      reference the definition in hwmon-common.yaml
+    - Replace 'additionalProperties: false' with
+      'unevaluatedProperties: false'
+    - Remove the description for '#thermal-sensor-cells'
+  - Update eic7700-pvt.c and eic7700-pvt.h
+    - Fix clock reference count imbalance with Runtime PM:
+      Replace devm_clk_get_enabled() with devm_clk_get() and manually
+      manage clock enable/disable to avoid double-disable in remove() when
+      Runtime PM is active. Clock is now enabled only during probe for
+      eic7700_pvt_check_pwr(), then disabled before enabling Runtime PM,
+      which takes full control of the clock thereafter
+    - Add detailed comment explaining the spurious interrupt risk in
+      eic7700_pvt_check_pwr()
+    - Replace wait_for_completion_interruptible() with
+      wait_for_completion_timeout() to prevent infinite wait
+
+  Changes in v2:
+  - Update eswin,eic7700-pvt.yaml
+    - Reference the hwmon-common.yaml file
+    - Remove the clock-names and reset-names properties
+    - Move additionalProperties: false after the required block
+    - Remove one example node to avoid redundancy
+  - Update eic7700-pvt.c and eic7700-pvt.h
+    - Remove unused sensor macros (PVT_SENSOR_FIRST, PVT_SENSOR_LAST,
+      PVT_SENSORS_NUM)
+    - Drop the unnecessary hwmon-sysfs.h header
+    - Replace dynamic sensor info allocation with a static array and unify
+      sensor labels
+    - Remove unused hwmon_temp_type attribute
+    - Eliminate redundant validation checks
+    - Remove mutex and related locking, relying on hwmon core
+      serialization
+    - Replace per-sensor caches and completions with a single data cache
+      and completion object
+    - Remove pvt->sensor tracking. ISR no longer depends on the currently
+      selected sensor
+    - Move devm_add_action() registration after init_completion() for
+      safer cleanup, and update cleanup function (pvt_clear_data)
+    - Replace devm_reset_control_get_optional_exclusive() with
+      devm_reset_control_get_exclusive_deasserted()
+    - Replace eic7700_pvt_remove() with eic7700_pvt_disable_pm_runtime()
+      and move it after PM runtime enable to avoid resource leaks on probe
+      failure and remove clock disable and reset assert from
+      eic7700_pvt_disable_pm_runtime() as it is already handled by devm_*
+      framework
+    - Remove redundant clock presence check in runtime_resume
+
+  - Link to v1: https://lore.kernel.org/all/20260109090718.442-1-hehuan1@eswincomputing.com/
+
+Huan He (2):
+  dt-bindings: hwmon: Add Eswin EIC7700 PVT sensor
+  hwmon: Add Eswin EIC7700 PVT sensor driver
+
+ .../bindings/hwmon/eswin,eic7700-pvt.yaml     |  68 ++
+ drivers/hwmon/Kconfig                         |  12 +
+ drivers/hwmon/Makefile                        |   1 +
+ drivers/hwmon/eic7700-pvt.c                   | 591 ++++++++++++++++++
+ drivers/hwmon/eic7700-pvt.h                   |  99 +++
+ 5 files changed, 771 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/eswin,eic7700-pvt.yaml
+ create mode 100644 drivers/hwmon/eic7700-pvt.c
+ create mode 100644 drivers/hwmon/eic7700-pvt.h
 
 -- 
-2.34.1
-
+2.25.1
 
