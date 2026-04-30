@@ -1,125 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A4439F164;
-	Thu, 30 Apr 2026 03:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BAA35295E
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 04:06:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777519613; cv=none; b=peOl0Qlk0Ycn4n47PjZpyQqUgUhUmOVzrEvW24ofDeQ9y0VCgO86W6+qu/eePu95Cyj+q2KOWWDYRpl/l0Fj5v7fxUDVKJFuKVOOWFx3xHyV2fk7kW5QYdE7zqjs2HocKydGQyr1t7mBHFaHy1AyJ4qI8JgF3+NJizYusahZC/0=
+	t=1777521984; cv=none; b=qW0g43B5mNAVi4EAvyF89KIglIoTONIYgKxSavLBXR6/0pbiKgW3zeQnCtO+FaVwiyVPfOuO3oaXT0IxjgXJvzyvV1I9fAzJPQuz6V4W5BOlt82/j1en3Kpnv1q70q0kk6RX+XbY+1OlxyUvDRvH18yW27z1S5M0jN7jI6Oa4VY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777519613; c=relaxed/simple;
-	bh=1y/qx12Do8kjGRWa26585Z3zhVAR8s9S7MLftzRNkxc=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=AJDAs8AbQtRhJAYiQIOU0WBmAKyrKosxj5hzW+Gwwa+fBoSUTxMLYofyIyCCLW6wr4D3dntHcxNzbRo58PFPlyX4XBsh7mKxXYxipLMlmtPcNILUk8WFAe7KAKS2gn8layrHMuSfTaOJhcP36WDdRAQE90QEB5KVQFnmsQXIZ3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yxx8M2cZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777521984; c=relaxed/simple;
+	bh=0e11Pnpm5SwV64UahB9uhHEjjeqUnHTUBKefyIGU/hE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Da+cpaTHiCWlz59+ucYfwoEpXEhALar6Mob7jcCMjg+e0MdroAsyz+J92Y1lpdFhE4VIqGFGi33GfcvX5YlnBd+XvfSVae/nEwLgOt+LeYNI40a8drUpa8hEvXnOL/AswijdVgLsd6BRcsTqKw7dz2oWTTHSi2IxQ4J8l/A2g/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CsbmxPZo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F2hauQ/E; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yxx8M2cZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DADBFC2BCB8;
-	Thu, 30 Apr 2026 03:26:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777519612;
-	bh=1y/qx12Do8kjGRWa26585Z3zhVAR8s9S7MLftzRNkxc=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-	b=Yxx8M2cZdErYh+yTRb4JYMX8n1xNToXdqoarYlzvZ+VJICM0/uJ3iKDXLNPcQGnRA
-	 H8JIZj/nbbFvJXlTP9rWLNIO6QshmFfKvvU6zFT0LGw+HDcOhs2jTIA7HlayOm+BjJ
-	 l8dQuieDdBsxH/orRnJnvut7oa8qxmGhcBxqkYKXiYlXBhlzr2TDj3n3VHNazWuaBZ
-	 hEks0+SfUJmmVmm8mQuI5NIPiY9XYGr5RP3vTjFgNfu+nr8cJ5r2000NO381toN5VY
-	 Duo2QjuhrvCx7cz7cRqnzsz5bSojfgxGn1cgcZYUy76sYJ9bjKOeYDGE6A+KGk2zK4
-	 ipDtjb+awhKqw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3FD4A3809A07;
-	Thu, 30 Apr 2026 03:26:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CsbmxPZo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F2hauQ/E"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63TNv66w3733196
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 04:06:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	n7cR6oAIgrpllJiTWf2waXufOwKUulNvBm3kCTfp1rA=; b=CsbmxPZo1EVLNo1A
+	thsUvYilu3ssBHzGEeCR/ajw0EXhO43ZaTXEClcYGJNepqaLqa9ECABOgp6PZ1FF
+	3W7TohWB4KXID0AK59D8/PM2TasUW0hlFVnHbSXawexTXDDUzAFnnou1GXu+CKRU
+	zsaJxKkTAjyp26KfAFO+y4ls2QsMKGLwkfKsR7O7x/iCUuMqvWOh5Xb9q7nkFwH0
+	bmHNJQ5QafWIKZVLMosIC7vc2xfMz69T3+0+pnjZtzWXjCGwQDubnNxvJ9CKkilk
+	T3CELDKSQCvVeaJmKEDaxUfZSh6ITy28UEMK1NuxfiWGWE9gZ99FmKVrkDVOisPZ
+	D1cMoQ==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4duv3x8q68-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 04:06:21 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-35da99b90f6so563511a91.1
+        for <devicetree@vger.kernel.org>; Wed, 29 Apr 2026 21:06:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1777521981; x=1778126781; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=n7cR6oAIgrpllJiTWf2waXufOwKUulNvBm3kCTfp1rA=;
+        b=F2hauQ/EZqysV08gOtDh83PQNrh1hq68Q/KZkmEqso6UD3mXYkCzBAg4a3KZ5cxsc+
+         vy9/pF/31OUKIkH+X07PYfHn2s8CWaZ8FAQEBF4tsFIfdsSBdftGpkFhaYfnknMbSMgM
+         47EqE1medeLBUe80M9D7rXJChPiaqN7XhNJ1pLChCQzzk9b3SBoLU7bc+gIYYSPO3uU0
+         nvEQvExxHstcV81XBkwWMD9HpdBhA09QndPp9HQxhfU/qTW0qKu34yd3tRv02+kEdJW3
+         7+XIX26N7fnOgTfIzR93Fnttij8jynmMX3bDeKcyRAOhUH/Rhv3uj3PmeWx8cZ4f0y2L
+         6y5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777521981; x=1778126781;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=n7cR6oAIgrpllJiTWf2waXufOwKUulNvBm3kCTfp1rA=;
+        b=HXieKIA66IyUK5YUsjZUiyaCEnZ8BzSEYOtFq8udDroYjBsU3f4zuYcVBZXenbYMDs
+         inbvFia5yp05CQwa4lwuHkR9H3SlfvDDEFEcLHnd8E254No5onQBKzgmMxna60yAR6F9
+         ut5luQu/WqWh/sAf7V+dw7sGC9EXMQ1yIe7TwKVDcCjTw88qHyGa5GPQ2d6DYQrxvIak
+         isR6NFP3gSNJY1YEq0WaTaHs1/hO+GDbegnestTeoEE14qm0aizSLk2o25w0e4ssFguI
+         dfdBBzuLCswvBME8na6gfBzuR3TY7B+A8I6F+lMwmPodaqz79AkeFxmfPXpEG30eb0yP
+         Qmhw==
+X-Forwarded-Encrypted: i=1; AFNElJ/nD+RlVq3pSYIIpGao+GgCPJN93sKI2Y3B87PxNRV0//oXKXgmXlWdkazdp6bh6Pvu0HsoAeoaW2pZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YyF8eibgefdznsUz29aPFXob+DpW108RfHIZFWmUrwDBhEZpe0e
+	ESY7YuNv22NNaBuoL2gOCKosG1uMCoHWXLOXwX68DMgzMrDyZcXqi1Vr8MJqym7MwkpH/6C+yuE
+	rx+y11DTWBNzj9nT38W3M5s+hXfZ5Pe7lgqU7UTqPnPqzkwlfpzAkrf1bEimgykJP
+X-Gm-Gg: AeBDietqCfLBeJU1nk63TeQnNu0rB/wLrU3YIp5UvU+pooH+TqEZippAu30sF7vRCV+
+	QAJJIHaNi2SHa8uEVt5fjVS83Nh5AWV6qzCriqcvtlnMYDBV6J+m3zu1BJ1kQY4MqtU4D7Lslkv
+	iTIYfocsbQMJm8i2DtAYsjlUzjZ4Wsr3rly/CF0YqU41ptYmXvf2+mz4tsULpmI60y5NoS7O2Fg
+	N3NUU4D9y0qeLA/x/qusb+tzoKKHeHerl3CVUvMeVdsPIBLqrh0SEaCFGyENcgFQvresD8nvFXe
+	MdWjS1BynQAOQTIfQ9PyePiWc16qBye1F8SibtWwBrCPd8JgRdIokxqSzf/ZLVOiWdtEaUfBHVb
+	e8HBqzx+TQjQDdSXXEhLkA98xfQa9VkKRNvJfy/aqq68EcaGGW0KX8S3m9SR+2w==
+X-Received: by 2002:a17:90b:2d0c:b0:354:a57c:65db with SMTP id 98e67ed59e1d1-364c3104209mr1142842a91.20.1777521980633;
+        Wed, 29 Apr 2026 21:06:20 -0700 (PDT)
+X-Received: by 2002:a17:90b:2d0c:b0:354:a57c:65db with SMTP id 98e67ed59e1d1-364c3104209mr1142801a91.20.1777521980161;
+        Wed, 29 Apr 2026 21:06:20 -0700 (PDT)
+Received: from [10.217.198.242] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-364a2a30b09sm1778604a91.13.2026.04.29.21.06.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Apr 2026 21:06:19 -0700 (PDT)
+Message-ID: <38bb1b79-67da-4a23-a0e8-3c3da77933d7@oss.qualcomm.com>
+Date: Thu, 30 Apr 2026 09:36:14 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v3 00/22] riscv: Memory type control for platforms with
- physical memory aliases
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <177751956779.2274119.16366589478749649607.git-patchwork-notify@kernel.org>
-Date: Thu, 30 Apr 2026 03:26:07 +0000
-References: <20251113014656.2605447-1-samuel.holland@sifive.com>
-In-Reply-To: <20251113014656.2605447-1-samuel.holland@sifive.com>
-To: Samuel Holland <samuel.holland@sifive.com>
-Cc: linux-riscv@lists.infradead.org, palmer@dabbelt.com, pjw@kernel.org,
- akpm@linux-foundation.org, david@redhat.com, linux-mm@kvack.org,
- devicetree@vger.kernel.org, surenb@google.com, linux-kernel@vger.kernel.org,
- rppt@kernel.org, mhocko@suse.com, conor@kernel.org,
- lorenzo.stoakes@oracle.com, krzk+dt@kernel.org, alex@ghiti.fr,
- kernel@esmil.dk, robh+dt@kernel.org, vbabka@suse.cz, Liam.Howlett@oracle.com,
- apw@canonical.com, dwaipayanray1@gmail.com, joe@perches.com,
- Julia.Lawall@inria.fr, lukas.bulwahn@gmail.com, nicolas.palix@imag.fr
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] pinctrl: qcom: Add Shikra pinctrl driver
+To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        netdev@vger.kernel.org
+References: <20260429-shikra-pinctrl-v1-0-1b4bb2b3a8d6@oss.qualcomm.com>
+ <20260429-shikra-pinctrl-v1-2-1b4bb2b3a8d6@oss.qualcomm.com>
+Content-Language: en-US
+From: "Maulik Shah (mkshah)" <maulik.shah@oss.qualcomm.com>
+In-Reply-To: <20260429-shikra-pinctrl-v1-2-1b4bb2b3a8d6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDMwMDAzOCBTYWx0ZWRfXxZRaX2YKldwr
+ iU5Sls4cB2UhyI4vq8V2lB3KRAHk4ikuHIT/i6Q8mqSP4p13jvGQnWgZc0AsRn00qcz/+bQ1KdB
+ Yfrei6H9AyfBhRgUpe8f1ec9B76SDcdFmQNbpO2aNUwmr7IZJG1GWXYLWWHvnE6sKgvIpPJjyz1
+ 3iWdiX1n1Gq5HOllLM8Nopi3Tv9fshbFKkOGN3COHah9sU6aLArAvQ7btikYvdqGEzu1tpKFW9P
+ IA2eikFnJzk6WOoVrUVIJ/GC19nzYN9qr0E6RcqRkgUCfaSMwq7G7QZ6thApH02yB6St8fVB1Ak
+ MIqyKsbFFFrTfZfgK29JfItlIXp9gM9OTdz7WYGKzKdue83VsilH7DlxFq71YSNjc4ZCkrITMEc
+ bh6iPWn8NlbVueMESmQvbDihDpxMGV3hYUiq0Q4hBk4zJlG7wUq6YJMrZCiPAg0DSIRvMjj+MD0
+ VaaGWYZ3vbudzZ9ZjGQ==
+X-Authority-Analysis: v=2.4 cv=Oc2oyBTY c=1 sm=1 tr=0 ts=69f2d53d cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=BREym-YhMsu58vtCbUAA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-GUID: X0C3-HN36Iqd0uvrsqCvEavB1od-t_5U
+X-Proofpoint-ORIG-GUID: X0C3-HN36Iqd0uvrsqCvEavB1od-t_5U
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-30_01,2026-04-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
+ impostorscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604300038
 
-Hello:
 
-This series was applied to riscv/linux.git (fixes)
-by Peter Zijlstra <peterz@infradead.org>:
 
-On Wed, 12 Nov 2025 17:45:13 -0800 you wrote:
-> On some RISC-V platforms, including StarFive JH7100 and ESWIN EIC7700,
-> DRAM is mapped to multiple physical address ranges, with each alias
-> having a different set of statically-determined Physical Memory
-> Attributes (PMAs), such as cacheability. Software can alter the PMAs for
-> a page by selecting a PFN from the corresponding physical address range.
-> On these platforms, this is the only way to allocate noncached memory
-> for use with noncoherent DMA.
-> 
-> [...]
+On 4/29/2026 6:41 PM, Komal Bajaj wrote:
+> Add pinctrl driver for TLMM block found in Shikra SoC.
 
-Here is the summary with links:
-  - [v3,01/22] mm/ptdump: replace READ_ONCE() with standard page table accessors
-    (no matching commit)
-  - [v3,02/22] mm: replace READ_ONCE() with standard page table accessors
-    (no matching commit)
-  - [v3,03/22] mm/dirty: replace READ_ONCE() with pudp_get()
-    (no matching commit)
-  - [v3,04/22] perf/events: replace READ_ONCE() with standard page table accessors
-    https://git.kernel.org/riscv/c/5a84b600050c
-  - [v3,05/22] mm: Move the fallback definitions of pXXp_get()
-    (no matching commit)
-  - [v3,06/22] mm: Always use page table accessor functions
-    (no matching commit)
-  - [v3,07/22] checkpatch: Warn on page table access without accessors
-    (no matching commit)
-  - [v3,08/22] mm: Allow page table accessors to be non-idempotent
-    (no matching commit)
-  - [v3,09/22] riscv: hibernate: Replace open-coded pXXp_get()
-    (no matching commit)
-  - [v3,10/22] riscv: mm: Always use page table accessor functions
-    (no matching commit)
-  - [v3,11/22] riscv: mm: Simplify set_p4d() and set_pgd()
-    (no matching commit)
-  - [v3,12/22] riscv: mm: Deduplicate _PAGE_CHG_MASK definition
-    (no matching commit)
-  - [v3,13/22] riscv: ptdump: Only show N and MT bits when enabled in the kernel
-    (no matching commit)
-  - [v3,14/22] riscv: mm: Fix up memory types when writing page tables
-    (no matching commit)
-  - [v3,15/22] riscv: mm: Expose all page table bits to assembly code
-    (no matching commit)
-  - [v3,16/22] riscv: alternative: Add an ALTERNATIVE_3 macro
-    (no matching commit)
-  - [v3,17/22] riscv: alternative: Allow calls with alternate link registers
-    (no matching commit)
-  - [v3,18/22] riscv: Fix logic for selecting DMA_DIRECT_REMAP
-    (no matching commit)
-  - [v3,19/22] dt-bindings: riscv: Describe physical memory regions
-    (no matching commit)
-  - [v3,20/22] riscv: mm: Use physical memory aliases to apply PMAs
-    (no matching commit)
-  - [v3,21/22] riscv: dts: starfive: jh7100: Use physical memory ranges for DMA
-    (no matching commit)
-  - [v3,22/22] riscv: dts: eswin: eic7700: Use physical memory ranges for DMA
-    (no matching commit)
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+[...]
 
+> +#define UFS_RESET(pg_name, ctl, io)			\
+> +	{						\
+> +		.grp = PINCTRL_PINGROUP(#pg_name,	\
+> +			pg_name##_pins,			\
+> +			ARRAY_SIZE(pg_name##_pins)),	\
+> +		.ctl_reg = ctl,				\
+> +		.io_reg = io,				\
+> +		.intr_cfg_reg = 0,			\
+> +		.intr_status_reg = 0,			\
+> +		.mux_bit = -1,				\
+> +		.pull_bit = 3,				\
+> +		.drv_bit = 0,				\
+> +		.oe_bit = -1,				\
+> +		.in_bit = -1,				\
+> +		.out_bit = 0,				\
+> +		.intr_enable_bit = -1,			\
+> +		.intr_status_bit = -1,			\
+> +		.intr_target_bit = -1,			\
+> +		.intr_raw_status_bit = -1,		\
+> +		.intr_polarity_bit = -1,		\
+> +		.intr_detection_bit = -1,		\
+> +		.intr_detection_width = -1,		\
+> +	}
+
+UFS_RESET macro is not used anywhere in the file, please remove it.
+
+I assume the macro keeps getting added since the file pinctrl-<target> is
+fully/partially auto generated. Would be good to fix auto generation to
+avoid getting this added as default in future.
+
+The unused ones were removed via [1].
+
+[1] https://lore.kernel.org/all/4429f44e-f7e5-449c-824c-83daa339b383@oss.qualcomm.com/
+
+[...]
+
+
+> +static const struct msm_gpio_wakeirq_map shikra_mpm_map[] = {
+> +	{1, 9},    {2, 31},   {5, 49},   {6, 53},   {9, 72},   {10, 10},
+
+It would be better to have spacing before/after brackets inline with other pinctrl drivers.
+{1, 9}, should be { 1, 9 }.
+
+> +	{12, 22},  {14, 26},  {17, 29},  {18, 24},  {20, 32},  {22, 33},
+> +	{25, 34},  {27, 35},  {28, 36},  {29, 37},  {30, 38},  {31, 39},
+> +	{32, 40},  {33, 41},  {38, 42},  {40, 43},  {43, 44},  {44, 45},
+> +	{45, 46},  {46, 47},  {47, 48},  {48, 60},  {50, 50},  {51, 51},
+> +	{52, 61},  {53, 62},  {57, 52},  {58, 63},  {60, 54},  {63, 64},
+> +	{73, 55},  {74, 56},  {75, 57},  {77, 3},   {80, 4},   {84, 5},
+> +	{85, 67},  {86, 69},  {88, 70},  {89, 71},  {90, 73},  {91, 74},
+> +	{92, 75},  {93, 76},  {94, 77},  {95, 78},  {97, 79},  {99, 80},
+> +	{100, 11}, {101, 13}, {102, 14}, {103, 15}, {106, 16}, {108, 17},
+> +	{112, 18}, {116, 19}, {117, 20}, {119, 21}, {120, 23}, {136, 25},
+> +	{159, 27}, {161, 28},
+> +};
+> +
+
+Thanks,
+Maulik
 
