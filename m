@@ -1,133 +1,86 @@
-Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6F9E2371071;
-	Thu, 30 Apr 2026 05:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEB234405B
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 06:08:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777528766; cv=none; b=rmF5/lf/hed4pkqOen1+HPbOUuiiYpp4QrNB/j0zoHhOTrz0Y1i2JSYvAWVuj1c4gEnOwxE6P95uIG3QjTPTUP8QltOc83uYZoOxrvo3WS+Ikq7jZBwCOZ8XVsclT5Oe9sXdK/IK2NXNfvoWQUvcn5aahQ8ii8L+Upv++A2/+II=
+	t=1777529320; cv=none; b=Y0OJqAWtgHUXeN+569isKPeM3avwGHTFWVyxXqEjt7O9PU1Jxllyh6ICXhNfJZJBPPn/35jp7niAvF9B4muAfz8/FbDyp9QP3yD63wo/FQujRcFcfeH5WUMSFnjHsiY2UD6hv8i/GKlAR7JlzW+hMXL5qRQumsg58wLoTQeqVK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777528766; c=relaxed/simple;
-	bh=30MkLiDqya1mJgqXwRDC/SXQ8gqISldg8AaX6Y43Phg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=U79h9hK/EcclD7jfT9/pIDQJTEzWTw7PDjULHVkzvFRBWAfUwdvvTgtQTidDZvxMQk1Zz+JGyX0dKe5TASN7S8DLzwavwXc3INwiYglkOvhJqfr3u2S+7juVre0MxSaZlPw1oUJsexTLh8yol6geJ3w8nzT2745Rqwg/YbfUUV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=206.189.21.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
- ajax-webmail-app2 (Coremail) ; Thu, 30 Apr 2026 13:58:58 +0800 (GMT+08:00)
-Date: Thu, 30 Apr 2026 13:58:58 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
-To: "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney" <bmasney@redhat.com>
-Cc: mturquette@baylibre.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	p.zabel@pengutronix.de, huangyifeng@eswincomputing.com,
-	benoit.monin@bootlin.com, ningyu@eswincomputing.com,
-	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com
-Subject: Re: Re: Re: Re: Re: [PATCH v3 2/3] clk: eswin: Add eic7700 HSP
- clock driver
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <afINjhKluCxeb9LK@redhat.com>
-References: <20260423090904.2108-1-dongxuyang@eswincomputing.com>
- <20260423091114.2326-1-dongxuyang@eswincomputing.com>
- <aeo8nn-eigzlojWx@redhat.com>
- <4e5c887.5a31.19dbf179fb6.Coremail.dongxuyang@eswincomputing.com>
- <CABx5tqK7p_XJHfXZ70gXhR88PzAteV7cVSFPoRzccgmjanADMw@mail.gmail.com>
- <177733570840.5403.12558106273673899411@lazor>
- <7a76d8cb.5bab.19dd3645d4e.Coremail.dongxuyang@eswincomputing.com>
- <177742748214.5403.15526965667317467444@localhost.localdomain>
- <4257942f.5c6d.19dd89b06f8.Coremail.dongxuyang@eswincomputing.com>
- <afINjhKluCxeb9LK@redhat.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1777529320; c=relaxed/simple;
+	bh=Cjn1ZBaz4ZIn2D113VXtuXFy4b0UXtv2oTvsQCSMMg4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IT4vCNEYdnBemeKzjhvedDzq6DBByeGOFUs70HaFMrzFLca29iVpArmXWvjWO4r/IZPqh52hvewYw9LX3DFk0LF05Hf2pWs82BZt6QW869B/K8xLSSBfGqrafLziA0fWKGtYzoN5HfmV4RnEyD+ZFofB/lv6Gw+dmwNKg+mzDVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jyXPaxak; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jyXPaxak"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A934DC2BCB8;
+	Thu, 30 Apr 2026 06:08:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777529319;
+	bh=Cjn1ZBaz4ZIn2D113VXtuXFy4b0UXtv2oTvsQCSMMg4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jyXPaxak4PnGNe+8ki6nvZGL9g324v0yLAudvontCHHxXvMkTJ6/Y3mES9v+ZRSnp
+	 q+MaH6v+1dPRVD1gy9qEYyrQ6uIh6ocYk3FjmJHigNA9Llxv4O+wYHdUVcAmmXre2Q
+	 RevnnXl+SBaN6tU2AJiD+CmpG90hckQ4h8WZNnrgL3v1jgfizKUhU2Co4CfPNaJ/dT
+	 7QKnSeJexmDmwfRQGjjzvYOZc3TWpT0P4XmS2jQw4Bzy922Q9jbeoXBBACTH7QbObs
+	 xmX5DZmkwVjKiAwRalPW9jXgPDQRyAGyH10KOuM2EguGe1SO5OCi5aWpyydPGvfKXP
+	 7AF5wUPiSi5Dg==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 71F8D1AC585E; Thu, 30 Apr 2026 07:08:37 +0100 (BST)
+Date: Thu, 30 Apr 2026 15:08:37 +0900
+From: Mark Brown <broonie@kernel.org>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/6] mfd: dt-bindings: mt6397: Add regulator supplies
+Message-ID: <afLx5bJJykXE_gea@sirena.co.uk>
+References: <20260429074113.3720271-1-wenst@chromium.org>
+ <20260429074113.3720271-2-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <1f0a2d11.5cd2.19ddcf8114a.Coremail.dongxuyang@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:TQJkCgAnPqGi7_JpIuUVAA--.5116W
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAgEMAmnw4Y8kd
-	AADsp
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eTWikjTYTWdVqHms"
+Content-Disposition: inline
+In-Reply-To: <20260429074113.3720271-2-wenst@chromium.org>
+X-Cookie: 667:
 
-PiAKPiBPbiBXZWQsIEFwciAyOSwgMjAyNiBhdCAwNTozODo1MVBNICswODAwLCBYdXlhbmcgRG9u
-ZyB3cm90ZToKPiA+ID4gPiAKPiA+ID4gPiBUaGUgY29tbW9uIGdhdGUgQVBJLCB0aGUgSFNQIHBy
-aXZhdGUgQVBJLCBhbmQgdGhlIHJlc2V0IGRyaXZlciBhbGwgYWNjZXNzwqAKPiA+ID4gPiB0aGUg
-c2FtZSByZWdpc3RlciBzcGFjZS4KPiA+ID4gPiBUaGVyZWZvcmUsIHRoZXkgbmVlZCB0byBiZSBw
-cm90ZWN0ZWQgYnkgdGhlIHNhbWUgZGF0YS0+bG9jay4KPiA+ID4gPiAKPiA+ID4gCj4gPiA+IElm
-IGV2ZXJ5dGhpbmcgaXMgYWNjZXNzaW5nIHJlZ2lzdGVycyB0aHJvdWdoIHJlZ21hcCB3aHkgYXJl
-bid0IHdlIHVzaW5nCj4gPiA+IHRoZSBidWlsdGluIGxvY2sgd2l0aCBzdHJ1Y3QgcmVnbWFwX2Nv
-bmZpZzo6dXNlX3Jhd19zcGlubG9jaz8gSSBkb24ndAo+ID4gPiB1bmRlcnN0YW5kIHdoeSB3ZSdy
-ZSByb2xsaW5nIG91ciBvd24gaGVyZS4KPiA+IAo+ID4gSGkgU3RlcGhlbiwKPiA+IAo+ID4gSW4g
-dGhlIEhTUCBjbG9jayBkcml2ZXIgYW5kIHJlc2V0IGRyaXZlciwgdGhlcmUgYXJlIHRocmVlIGNv
-bXBvbmVudHMgdGhhdAo+ID4gYWNjZXNzIHRoZSBIU1AgcmVnaXN0ZXIgc3BhY2U6IGEgY29tbW9u
-IGdhdGUgY2xvY2ssIGEgY3VzdG9tIGdhdGUgY2xvY2vCoAo+ID4gKGkuZS4sIDB4ODAwKSwgYW5k
-IGEgcmVzZXQuCj4gPiAKPiA+IDEuIFRoZSBjb21tb24gZ2F0ZSB1c2VzIGVzd2luX2Nsa19yZWdp
-c3Rlcl9nYXRlKCkgdG8gcmVnaXN0ZXIgYSBnYXRlIGNsb2NrwqAKPiA+IHZpYSBkZXZtX2Nsa19o
-d19yZWdpc3Rlcl9nYXRlX3BhcmVudF9kYXRhKCkuIEl0IGFjY2Vzc2VzIHRoZSByZWdpc3RlcsKg
-Cj4gPiB1c2luZyBjbGtfZ2F0ZV9lbmRpc2FibGUoKS4KPiA+IAo+ID4gc3RhdGljIHZvaWQgY2xr
-X2dhdGVfZW5kaXNhYmxlKHN0cnVjdCBjbGtfaHcgKmh3LCBpbnQgZW5hYmxlKQo+ID4gewo+ID4g
-CXN0cnVjdCBjbGtfZ2F0ZSAqZ2F0ZSA9IHRvX2Nsa19nYXRlKGh3KTsKPiA+IAl1bnNpZ25lZCBs
-b25nIGZsYWdzOwo+ID4gCj4gPiAJaWYgKGdhdGUtPmxvY2spCj4gPiAJCXNwaW5fbG9ja19pcnFz
-YXZlKGdhdGUtPmxvY2ssIGZsYWdzKTsKPiA+IAllbHNlCj4gPiAJCV9fYWNxdWlyZShnYXRlLT5s
-b2NrKTsKPiA+IC4uLgo+ID4gCWlmIChnYXRlLT5sb2NrKQo+ID4gCQlzcGluX3VubG9ja19pcnFy
-ZXN0b3JlKGdhdGUtPmxvY2ssIGZsYWdzKTsKPiA+IAllbHNlCj4gPiAJCV9fcmVsZWFzZShnYXRl
-LT5sb2NrKTsKPiA+IH0KPiA+IAo+ID4gVGhlIGdhdGUtPmxvY2sgaW4gdXNlIGlzIHRoZSBkYXRh
-LT5sb2NrIHBhc3NlZCBpbiBmcm9tIHRoZSBjbG9jayBkcml2ZXIuCj4gPiAKPiA+IDIuIFRoZSBj
-dXN0b20gZ2F0ZSB1c2VzIGhzcF9jbGtfcmVnaXN0ZXJfZ2F0ZSgpIHRvIHJlZ2lzdGVyIGEgZ2F0
-ZSBjbG9jay4gCj4gPiBJdCBhY2Nlc3NlcyB0aGUgcmVnaXN0ZXIgdXNpbmcgaHNwX2Nsa19nYXRl
-X2VuZGlzYWJsZSgpLgo+ID4gCj4gPiBzdGF0aWMgdm9pZCBoc3BfY2xrX2dhdGVfZW5kaXNhYmxl
-KHN0cnVjdCBjbGtfaHcgKmh3LCBpbnQgZW5hYmxlKQo+ID4gewo+ID4gCXN0cnVjdCBlaWM3NzAw
-X2hzcF9jbGtfZ2F0ZSAqZ2F0ZSA9IHRvX2dhdGVfY2xrKGh3KTsKPiA+IAo+ID4gCWd1YXJkKHNw
-aW5sb2NrX2lycXNhdmUpKGdhdGUtPmxvY2spOwo+ID4gLi4uCj4gPiB9Cj4gPiAKPiA+IFRoZSBn
-YXRlLT5sb2NrIGluIHVzZSBpcyB0aGUgc2FtZSBkYXRhLT5sb2NrIHBhc3NlZCBpbiBmcm9tIHRo
-ZSBjbG9ja8KgCj4gPiBkcml2ZXIuCj4gPiAKPiA+IDMuIFRoZSByZXNldCB1c2VzIGVpYzc3MDBf
-aHNwX3Jlc2V0X2Fzc2VydCgpIGFuZMKgCj4gPiBlaWM3NzAwX2hzcF9yZXNldF9kZWFzc2VydCgp
-LCB3aGljaCBjYWxsIHJlZ21hcF9hc3NpZ25fYml0cygpIHRvIGFjY2Vzc8KgCj4gPiB0aGUgcmVn
-aXN0ZXIuCj4gPiAKPiA+IEFsbCB0aHJlZSBtZXRob2RzIGFjY2VzcyB0aGUgc2FtZSByZWdpc3Rl
-ciBzcGFjZTsgdGhlcmVmb3JlLCB0aGV5IG11c3QgYmXCoAo+ID4gcHJvdGVjdGVkIGJ5IHRoZSBz
-YW1lIGxvY2sgKGRhdGEtPmxvY2spLgo+ID4gCj4gPiBUaGF0J3Mgd2h5IHdlIGludHJvZHVjZWQg
-ZWljNzcwMF9oc3BfcmVnbWFwX2xvY2svdW5sb2NrIGZvcsKgCj4gPiBlaWM3NzAwX2hzcF9yZWdt
-YXBfY29uZmlnLgo+ID4gCWVpYzc3MDBfaHNwX3JlZ21hcF9jb25maWcgPSB7Cj4gPiAJCS5sb2Nr
-ID0gZWljNzcwMF9oc3BfcmVnbWFwX2xvY2ssCj4gPiAJCS51bmxvY2sgPSBlaWM3NzAwX2hzcF9y
-ZWdtYXBfdW5sb2NrLAo+ID4gCQkubG9ja19hcmcgPSBsb2NrX2N0eCwKPiA+IAl9Owo+ID4gCj4g
-PiBUaGUgJ2xvY2tfY3R4LT5sb2NrJyBpbiBlaWM3NzAwX2hzcF9yZWdtYXBfbG9jay91bmxvY2sg
-aXMgdGhlICdkYXRhLT5sb2NrJy4KPiA+IAlzdGF0aWMgdm9pZCBlaWM3NzAwX2hzcF9yZWdtYXBf
-bG9jayh2b2lkICphcmcpCj4gPiAJX19hY3F1aXJlcyhsb2NrX2N0eC0+bG9jaykKPiA+IAl7Cj4g
-PiAJCXN0cnVjdCBlaWM3NzAwX2hzcF9yZWdtYXBfbG9jayAqY29uc3QgbG9ja19jdHggPSBhcmc7
-Cj4gPiAJCXVuc2lnbmVkIGxvbmcgZmxhZ3M7Cj4gPiAJCj4gPiAJCXNwaW5fbG9ja19pcnFzYXZl
-KGxvY2tfY3R4LT5sb2NrLCBmbGFncyk7Cj4gPiAJCWxvY2tfY3R4LT5mbGFncyA9IGZsYWdzOwo+
-ID4gCX0KPiA+IAo+ID4gVGhlIHNpbWlsYXIgYXBwcm9hY2ggY2FuIGJlIGZvdW5kIGluIGNsay1p
-bXg4dWxwLXNpbS1scGF2LmMuCj4gPiAKPiA+IFRoZSBhbm5vdGF0aW9ucyB3aGF0IHdlIG1lbnRp
-b25lZCBwcmV2aW91c2x5IGlzIHRoZSBhYm92ZcKgCj4gPiAiX19hY3F1aXJlcyhsb2NrX2N0eC0+
-bG9jaykiLgo+IAo+IEkgc2VlIHdoYXQgU3RlcGhlbiBpcyBzYXlpbmcuIFRha2UgYSBsb29rIGF0
-IF9fcmVnbWFwX2luaXQoKSBpbgo+IGRyaXZlcnMvYmFzZS9yZWdtYXAvcmVnbWFwLmMuIElmIHRo
-ZSBsb2NrL3VubG9jayBvcHMgYXJlIG5vdCBzcGVjaWZpZWQsCj4gdGhlbiB0aGUgZmluYWwgZWxz
-ZSB3aWxsIGF1dG9tYXRpY2FsbHkgc2V0dXAgbG9ja2luZy4gQnkgZGVmYXVsdCwgaXQnbGwKPiB1
-c2UgYSBtdXRleCwgYnV0IHRoZXJlIGlzIHRoZSBhYmlsaXR5IHRvIHVzZSBhIHNwaW5sb2NrLgo+
-IAo+IFNvIHlvdSBjYW4gZHJvcCB0aGUgbG9jay91bmxvY2sgb3BzIGZyb20gdGhlIGRyaXZlciwg
-YW5kIGFkZCB0byB0aGUgb3BzOgo+IAo+IAlmYXN0X2lvOiAxLAo+IAl1c2VfcmF3X3NwaW5sb2Nr
-OiAxLAo+IAo+IEdpdmVuIHRoZSBjcml0Y2FsIG5hdHVyZSBvZiBjbGtzLCBJIGFncmVlIHdpdGgg
-U3RlcGhlbiB0aGF0IGEgcmF3Cj4gc3BpbmxvY2sgc2hvdWxkIGJlIHVzZWQgaGVyZS4KPiAKCkhp
-IFN0ZXBoZW4gYW5kIEJyaWFuLAoKSW4gdGhlIEhTUCBjbG9jayBkcml2ZXIsIGhzcF9jbGtfZ2F0
-ZV9lbmRpc2FibGUoKSBvbmx5IGFjY2Vzc2VzIHRoZcKgCnJlZ2lzdGVycyBhdCAweDgwMC8weDkw
-MCwgYW5kIHJlc2V0IGFjY2Vzc2VzIHRoZSBzYW1lIHJlZ2lzdGVycyBhcyB3ZWxsLMKgCndoaWNo
-IGxlYWRzIHRvIGNvbmN1cnJlbnQgUk1XIChyZWFkLW1vZGlmeS13cml0ZSkgcmFjZXMuCgpUaGVy
-ZSBhcmUgdHdvIGFwcHJvYWNoZXMgdG8gc29sdmUgdGhlc2UgcmFjZXMuCgpUaGUgZmlyc3QgbWV0
-aG9kIGlzIHRoZSBjdXJyZW50IGltcGxlbWVudGF0aW9uLiBBbGwgdGhyZWUgZnVuY3Rpb25zwqAK
-KGNsa19nYXRlX2VuZGlzYWJsZSgpLCBoc3BfY2xrX2dhdGVfZW5kaXNhYmxlKCkswqAKYW5kIGVp
-Yzc3MDBfaHNwX3Jlc2V0X2Fzc2VydCgpKSB1c2UgZGF0YS0+bG9jayB0byBwcmV2ZW50IGNvbmN1
-cnJlbnTCoApSTVcgcmFjZXMuCgpUaGUgc2Vjb25kIG1ldGhvZCBpcyBhcyBTdGVwaGVuIHNhaWQu
-IElmIEkgdW5kZXJzdGFuZCBjb3JyZWN0bHksIGl0IGlzIHRvwqAKY2hhbmdlIHRoZSByZWdpc3Rl
-ciByZWFkL3dyaXRlIG9wZXJhdGlvbnMgaW4gaHNwX2Nsa19nYXRlX2VuZGlzYWJsZSgpIHRvwqAK
-dXNlIHRoZSByZWdtYXAgQVBJIGFuZCB1c2UgdGhlIHNhbWUgbG9jayAobWFwLT5yYXdfc3Bpbmxv
-Y2spIGFzIHJlc2V0LgoKSXMgdGhlIHNlY29uZCBhcHByb2FjaCBwcmVmZXJhYmxlPwoKQmVzdCBy
-ZWdhcmRzLApYdXlhbmcgRG9uZwoKCg==
+
+--eTWikjTYTWdVqHms
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Wed, Apr 29, 2026 at 03:41:07PM +0800, Chen-Yu Tsai wrote:
+> On the MT6397 family each buck regulator has a separate supply. LDOs are
+> split into various groups with independent supplies. There is also a
+> supply for the regulator control logic.
+
+Lee, this seems like mostly a regulator series - OK for me to apply this
+patch and send you a tag for it?
+
+--eTWikjTYTWdVqHms
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmny8eQACgkQJNaLcl1U
+h9BgzAf/byt1RH1nlHQ3FX6eWSFu2xX9esj6k2nbapayxMx4rHey5B9brr0mpB5i
+9TDNXYmte5933g6dsYhR/2i1u0VNfwMdZry+XOUgQjM9KJETXo76rYYwZg/0SLe4
+WVN9kIX8JEmVyY97zI9pROXuYkQJHZO+Ot1CGm2QYVsP02vgk+T/f8gekGWoZa7B
+dztjGlyXUhxUe1s9eqriAY3vlcj+sUKl41rZ5ZRgETHOZ9Oc72q0X1k/YKRlgybC
+nfImtDn9cytIEtWYPqZzM3C2D7Fse8syXjCvLXdRMQUzb8Uq0R5j6iBCAJvFp0tI
+1ztjAGUoGrdq2y84+G1ZyVk6LM9rOA==
+=aOxF
+-----END PGP SIGNATURE-----
+
+--eTWikjTYTWdVqHms--
