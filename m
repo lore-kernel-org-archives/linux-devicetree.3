@@ -1,244 +1,95 @@
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D31947AF5C
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 18:09:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28D6257827
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 18:18:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777572571; cv=none; b=T5KNI6cax2N9Ay/hai2ML/Fv4xUQTEpqbMQqGbTDesg/OEbDYTNyDTRozJEONh68ZkMyAPXQk3uuG0ZWQRaxbqEVuddiTKa4iSUGHU9l3VxQTta2L1UoY/Id3bhQxVT/a/zN3sPNOkIK6HNPCwqrn7fa8tPgyoCD/EgBvqBUxs4=
+	t=1777573083; cv=none; b=lGPuZoRooZi8SQN/5n8z1wiviRhKzaTbv3umFGxTE15EUcYlhBkuvvwgFEh0zHsY71G8ur8mYsDB7vE1ofooBgg18kJxWkHQEqeZ0vfQ2hUVyddwtLPiAOnPV6jO6zsIqXpUD7xNpVUjCzpECgj2pZnjev7AOcoxg9c5ndcmJaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777572571; c=relaxed/simple;
-	bh=FYibyuikWa/vTjlZUt6NgzX7WyCdTHvsUo8Q0qEQy9U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W/5pd7J+b1e6ZNtQkekQ31bTCnYfwJHkUH3BAutYHYcXIYDnI6+plVeDGV+wDZoiALxR2cCymQc28iZFkDlc9SBdBOm5ojKP/fFQxdqgJlTVG3T5HOXt9w0uMLfoCFLzROqory+5AZCkBUEqJ2WJ50vfsBDwNvU+NL65P6JLbWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rfR0LU44; arc=none smtp.client-ip=209.85.222.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1777573083; c=relaxed/simple;
+	bh=EvDjr7QOEivWg0MJ80G0BfUhnPuWN2VrxZ3OPHfOdng=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V6VDEQd1e9czPsrWSoj5TDpdM5F0s5XElRxB0IgWktKPaSvrWLp9riDVGP39JcIlFfYvEzip9A6hpfP+hVWldZYvDvvxU3PRtA5QJjJzxAoEYKmd/6Vkgba7ACDbMnQbxzaVNhcEys2VY8kvv0PzhX0sUgimdcT9MIBIeZvuFeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Py1+0xk5; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rfR0LU44"
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-8eb5ad01402so129101185a.2
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 11:09:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Py1+0xk5"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2b2503753efso12600625ad.0
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 11:18:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777572569; x=1778177369; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0AAYRTsNhA2BPULeWDDXA/e2F5vjfAMpdwjSZENwWFU=;
-        b=rfR0LU44KcrZ5nPmyQ72Grg52LufMGrgn664EMFo7/rk6ukHBofLmg47G9tQKk83GX
-         2YRIj0VWRwOCWQXGeXeiZccvTKfC0TtppvihDMCKDV+a32L+Uk7n3IDHg45BfvSennKV
-         U3uwdeqydUYGWQHPdChEq6PbxWSMtBghbMwe3bNQcmsZS95GV1P+xy/E8iOPk6OFYFbv
-         2kaUK5Z74ngLafR+jnwy3T+xT8MVhfYBjSukNiP0Pr9/4M3LbpKW0mdBnuhHwwfLAYtG
-         v3i1g5jhfz42ax1rCvIAdTpW+Ssp6DPjUpecyhHd8C+5s2hTBzkRcX9cfNfpNl9D+5MW
-         0wag==
+        d=gmail.com; s=20251104; t=1777573082; x=1778177882; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=lNrseZwM9UnOfbU9abnm0ZEe80KdvydEgw0ah+e0N5g=;
+        b=Py1+0xk5ttpH19od0x68cXjHvzFZzrw73bApEB+sQgPXeK2ru3TPxuoS9ZUSxx/Lyi
+         gIUUcMFSaFUTBwgvkbGJQ2EL9qrDyfFNUAAEJ/XBJR1oLLG0fPU9l7ULeb7jIRn6BDxP
+         4P1nAyfttHi0qmK1cnwqTMBaRg7HEq3wB9gXJ4YAe5JRmJdMxBWyetP4vHdaDQYBtq+K
+         K0V+ymbdV5x60Z3QVl4Xzjv+Lcvx7XNXun83F8ESUuyQQ9ClwkoR/r38fO4ABB3hNAf3
+         /hvziNvnLqu7z6jwyqPqHxivhcsQPRBk4PEwSrutT5ENGXKnsA+qyyQ2Pnby5oCSMByY
+         Cxrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777572569; x=1778177369;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=0AAYRTsNhA2BPULeWDDXA/e2F5vjfAMpdwjSZENwWFU=;
-        b=XxLs1OlMNPZGD1SF6055dn8Bdi9g6oek/VD+PzlYBP7PpOSkFzx5VVdTkClLzVm0Yd
-         RL8m+65QQFFipDaw5gPDz8ZVAEjijIPZ9aoX9jiOL7xd78raJlnt5c0+418nn/SxNGZ4
-         DP3tiImhSmCgxs7OfeK3vCJ4eXQCA9fBPkwU9rsh7fOTBszSPStI3GRP+Go3lkGg9+sU
-         neswlcH85ePki2E5fsbGLL46yPuFx6baZK4CIqmKUZRA28qaqF18gOBeEs7dAwq03H5M
-         3FdL0V1SvrBWcS8nI5OdXZkHLa42QPXS0tF1NyRBZGwcJnktk49uOl2bYaR2iLj0H33C
-         oG7g==
-X-Forwarded-Encrypted: i=1; AFNElJ82G45rQgNY4tTREXT7SWJqyN8XIK0APnDH0vwqnponrdOiizt68ifVtrxvaCQtt264FbdtaRH/Bl62@vger.kernel.org
-X-Gm-Message-State: AOJu0YzLSucJG3qfU3bX/PyGRpO9nO69AWgHtXcr0NOViuzUcjYe1hF4
-	bpBfAt5eyGfQCUr1SkLY+oJ5fJsk+OGshpEtwEMMozCJMTqZkLtiYGWD
-X-Gm-Gg: AeBDietzUyYSdkREu63c4kZa4bWC4xdKBnjrCAMusy/ZCR5qiGS9s7u2/aE14AK2Mj7
-	fhHSoZLS7PTEXHf4AGCEGS7j2Ki39sEfJ8HEZwX+ISh0NzlgJmeIzmfSYVM5oXpsbdaK3lSjTST
-	mht3zxX2Z+h+yejD9+mpUTYs+oGfdo7G8NaGfITvvirfjMC/rvoKtAFlmrLGGbv1Ux/X2pEsFrK
-	i3j19ZBnIiW0bOwW/NxhJDIqScLmwcH1tC8rZ7FFQzYdT3sL2guKc01LeoosNRlNc1UNf9OnacD
-	+O+HwBR4qwojp0ZbpgcVJBRGLrlmLzxa8BdI3JlxDRx+1axMMQ+RJjGBRtzDyKv1XB0f/b8LGQc
-	RTWBY4+2zkC7kXxt9LzTv8xs62UfloCesO6KSubTwsdcI1Yi6aXJdf8DRg+4H+NheZzpqltB9IK
-	8OZwzCJOun9WB7y5J3nPoQvjDmVgxl/BXuCZyV/CbS+X4cpUG7G1FetlOaohPqyGEV9PzsC8WfP
-	ITnCadES1ECCoexcbYrS/YVig==
-X-Received: by 2002:a05:620a:bc7:b0:8dc:5094:ea79 with SMTP id af79cd13be357-8fa88847307mr627536485a.39.1777572569110;
-        Thu, 30 Apr 2026 11:09:29 -0700 (PDT)
-Received: from localhost (bras-base-toroon21-grc-75-184-144-58-243.dsl.bell.ca. [184.144.58.243])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8fbb3d3445asm31956585a.32.2026.04.30.11.09.28
+        d=1e100.net; s=20251104; t=1777573082; x=1778177882;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=lNrseZwM9UnOfbU9abnm0ZEe80KdvydEgw0ah+e0N5g=;
+        b=H7MP7GCC/vRs0+x07CBDcnieQftAot3eOF54Edaz2HjukxR0lPr+pxaoOSD0jkQyqb
+         /ey1SgfoJmXQ4eF3CVAfnitMAtitKeGV0agcNVBlzYrsc5JC5GdXKRw04z6iz456JnRC
+         x4lnAdGlw8Pu9OnzAr5N517Y8A57odKZB3L1FBOLzfh13EC6EpVqQLUHjdmmIp2ESBMX
+         1c0ECtXyV+UvQ64HcLMp91rqLO09gLAuIhXEfRNea7OAMa7BtQU7YMp2fhWHdw6QKuHo
+         uRcTY3GL4gEgwDmHoeIadY92hKsUGir7PqwTDiCSxLzt6vmlIMHiBt3Rg+GRWc6IsW0t
+         rJgQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9mUzNXem7o4isTEEk0tEJu4dLiXq0UREYxjjIpe20NhEUu940zWrOo/xd2NmPc4pyTpySjnDhI00gg@vger.kernel.org
+X-Gm-Message-State: AOJu0YxZz9qdolfld0gaUvMtCzKiMTWS8rZCO1N36DS6ex3/KriBokQ1
+	RIYyJIdBQv+l/dnP6rawL4O6ndJwR27ruw5z0nkxWVwZIjSob249eFLj
+X-Gm-Gg: AeBDietGKZKopHC34QjYWSs5wv6MZGNmqirGzaf+vwusiT1l0GigCHfQemCQIvUqeTB
+	lAsE26sLbWdGIq4EjY38oq417vu9mGR3tR9B93lJ7CulUAtIvsXyQLZCFgzhmWjyiw6dsbL0D2A
+	tLQ8aLFpUb9qI9aPJ4nsMl2rWYLLuJEyjgFhxFtFo915g/2oemQPl/NWojwEfTFFSBgt6BJBauH
+	+NagD2osR6ekXBJ4b2/Lzv3XOK8ZU8r+o8ldJFGPThuF3QgCY1wBdxStHtbO06q+RVtoUSEJzrT
+	cCBYF2lJ9DA5ebXRlCYhnRX840uYwV5YMapxFFlB9KsNlyGqJ4Rk3xPlehl34GJzvZpwGYECsOF
+	wNLpR56ASxEVKmrNLaawr0+CHGUU5HlqkOJtJJitF2erI9kDmFMICTNaz+3RxsGG/2l/M+x0YCk
+	H99/Z8oOEtZwpEnCrb6wWNNqpSEB4j9+05eXLJNfsQSgwG0H0=
+X-Received: by 2002:a17:902:f20d:b0:2b2:81aa:f6c3 with SMTP id d9443c01a7336-2b9a24e293dmr34311575ad.29.1777573081946;
+        Thu, 30 Apr 2026 11:18:01 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b9caaadf8dsm3114255ad.23.2026.04.30.11.18.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Apr 2026 11:09:28 -0700 (PDT)
-From: Richard Acayan <mailingradian@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Thu, 30 Apr 2026 11:18:01 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Thu, 30 Apr 2026 11:18:00 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Brian Chiang <chiang.brian@inventec.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	"Bryan O'Donoghue" <bod@kernel.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Todor Tomov <todor.too@gmail.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Tianshu Qiu <tian.shu.qiu@intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org,
-	Robert Mader <robert.mader@collabora.com>,
-	David Heidelberg <david@ixit.cz>,
-	phone-devel@vger.kernel.org,
-	Richard Acayan <mailingradian@gmail.com>
-Subject: [PATCH v13 3/3] arm64: dts: qcom: sdm670-google-sargo: add imx355 front camera
-Date: Thu, 30 Apr 2026 14:10:01 -0400
-Message-ID: <20260430181001.9256-4-mailingradian@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260430181001.9256-1-mailingradian@gmail.com>
-References: <20260430181001.9256-1-mailingradian@gmail.com>
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: trivial: Add LX1308 support
+Message-ID: <fb8cbe2d-3ab2-43f0-a51a-3ffeb0d8de2d@roeck-us.net>
+References: <20260428-add-support-lx1308-v2-0-90f115954143@inventec.com>
+ <20260428-add-support-lx1308-v2-1-90f115954143@inventec.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260428-add-support-lx1308-v2-1-90f115954143@inventec.com>
 
-The Sony IMX355 is the front camera on the Pixel 3a, mounted in portrait
-mode. It is connected to CSIPHY1 and CCI I2C1, and uses MCLK2. Add
-support for it.
+On Tue, Apr 28, 2026 at 12:19:28PM +0000, Brian Chiang wrote:
+> Add device tree bindings for the Luxshare LX1308, a high-efficiency
+> 12V 860W DC/DC power module with PMBus interface.
+> 
+> Signed-off-by: Brian Chiang <chiang.brian@inventec.com>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Co-developed-by: Robert Mader <robert.mader@collabora.com>
-Signed-off-by: Robert Mader <robert.mader@collabora.com>
-Signed-off-by: Richard Acayan <mailingradian@gmail.com>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- .../boot/dts/qcom/sdm670-google-sargo.dts     | 100 ++++++++++++++++++
- 1 file changed, 100 insertions(+)
+Applied.
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
-index ed55646ca419..eba2f3792dd0 100644
---- a/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm670-google-sargo.dts
-@@ -172,6 +172,34 @@ vreg_s2b_1p05: vreg-s2b-regulator {
- 		regulator-min-microvolt = <1050000>;
- 		regulator-max-microvolt = <1050000>;
- 	};
-+
-+	cam_front_ldo: cam-front-ldo-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "cam_front_ldo";
-+		regulator-min-microvolt = <1352000>;
-+		regulator-max-microvolt = <1352000>;
-+		regulator-enable-ramp-delay = <135>;
-+
-+		gpios = <&pm660l_gpios 4 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&cam_front_ldo_pin>;
-+		pinctrl-names = "default";
-+	};
-+
-+	cam_vio_ldo: cam-vio-ldo-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "cam_vio_ldo";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-enable-ramp-delay = <233>;
-+
-+		gpios = <&pm660_gpios 13 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&cam_vio_pin>;
-+		pinctrl-names = "default";
-+	};
- };
- 
- &apps_rsc {
-@@ -392,6 +420,64 @@ vreg_bob: bob {
- 	};
- };
- 
-+&camss {
-+	vdda-phy-supply = <&vreg_l1a_1p225>;
-+	vdda-pll-supply = <&vreg_s6a_0p87>;
-+
-+	status = "okay";
-+};
-+
-+&camss_port1 {
-+	camss_endpoint1: endpoint {
-+		data-lanes = <0 1 2 3>;
-+		remote-endpoint = <&cam_front_endpoint>;
-+	};
-+};
-+
-+&cci {
-+	pinctrl-0 = <&cci1_default>;
-+	pinctrl-1 = <&cci1_sleep>;
-+	pinctrl-names = "default", "sleep";
-+
-+	status = "okay";
-+};
-+
-+&cci_i2c1 {
-+	camera@1a {
-+		compatible = "sony,imx355";
-+		reg = <0x1a>;
-+
-+		clocks = <&camcc CAM_CC_MCLK2_CLK>;
-+
-+		/*
-+		 * The sensor can accept a 24 MHz clock, but 19.2 MHz has
-+		 * better driver compatibility.
-+		 */
-+		assigned-clocks = <&camcc CAM_CC_MCLK2_CLK>;
-+		assigned-clock-rates = <19200000>;
-+
-+		reset-gpios = <&tlmm 9 GPIO_ACTIVE_LOW>;
-+
-+		avdd-supply = <&cam_front_ldo>;
-+		dvdd-supply = <&cam_front_ldo>;
-+		dovdd-supply = <&cam_vio_ldo>;
-+
-+		pinctrl-0 = <&cam_mclk2_default>;
-+		pinctrl-names = "default";
-+
-+		rotation = <270>;
-+		orientation = <0>;
-+
-+		port {
-+			cam_front_endpoint: endpoint {
-+				data-lanes = <1 2 3 4>;
-+				link-frequencies = /bits/ 64 <360000000>;
-+				remote-endpoint = <&camss_endpoint1>;
-+			};
-+		};
-+	};
-+};
-+
- &gcc {
- 	protected-clocks = <GCC_QSPI_CORE_CLK>,
- 			   <GCC_QSPI_CORE_CLK_SRC>,
-@@ -490,6 +576,14 @@ &pm660_charger {
- 	status = "okay";
- };
- 
-+&pm660_gpios {
-+	cam_vio_pin: cam-vio-state {
-+		pins = "gpio13";
-+		function = "normal";
-+		power-source = <0>;
-+	};
-+};
-+
- &pm660_rradc {
- 	status = "okay";
- };
-@@ -508,6 +602,12 @@ led-0 {
- };
- 
- &pm660l_gpios {
-+	cam_front_ldo_pin: cam-front-state {
-+		pins = "gpio4";
-+		function = "normal";
-+		power-source = <0>;
-+	};
-+
- 	vol_up_pin: vol-up-state {
- 		pins = "gpio7";
- 		function = "normal";
--- 
-2.54.0
-
+Thanks,
+Guenter
