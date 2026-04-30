@@ -1,138 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE213D2FFB;
-	Thu, 30 Apr 2026 23:37:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0DB26ACC;
+	Thu, 30 Apr 2026 23:46:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777592241; cv=none; b=PKB1NYqZAZolMX17jhZXth863KVhM8YiZvO4mJ2CnXCRAYGTBQ6HRvUDCxNZyebZRUmrS6Wrb7/V16+i0+yV5MtNO1RcW0Rk0SoSdfG20vL4J5Es3X4rrJL1cWtkyHWgr/WvU5ipM0YhTRqAQSt18bUOcEl82/vmQ0DVlLG18lQ=
+	t=1777592819; cv=none; b=ro3sG21vYbAsAp8sRE9kJcPP4fEiEhSay04MEOW4SL/HFCrECQGA1NvBWh/pDCa+BIMUNU+kQrXe3uWf6/nSgky7RrcUNeU6T71jtwvXmEQQZH9AmYh6zO1PqMyX68P/J3Mm8vMueHVyl4IfwwShCT40MgpUG5MGmcxdkPk7fJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777592241; c=relaxed/simple;
-	bh=EshY6j1HpzMOQVRhy5fZwtjSoZH1Z4wUejGMVerDcaw=;
+	s=arc-20240116; t=1777592819; c=relaxed/simple;
+	bh=KAo6srgNAU5MM+WDSP/3BC2/BmABB70FgH9jVqdJVkc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sjM9kWcmuSaskvK2ajTUXAHwsahW4yKsH3C2ZcNdnQUnLipifmWOvFd3jpZsxuqNjNlfWDZJSpht/GFqU2/4ks2MIvEmHU55YjgFYMO2Qt5OJPXyPIxyvSxQ04VbCkqA1iwBE0D5iM0U0L85C/3wlJo4Dyw3rlEgm+MQlGDZ5S4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T7mvH4Jw; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=pA8+hrDTh0M6meU7A7K7+T3EQE74FSrN6R1eCuYLw69qgm77uGCwXCJub02aRu+OgQypMW5+J+SZjTWKi4jgkolzjtEzlZ3M1Q4DnwlXfdjhGiM0pT2WwOrBns7Ga/rDbNT9+QbXeq3bheX24IeQdT0oKNdwOCd/XeewQtcykV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GPtAZcjh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T7mvH4Jw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12042C2BCB3;
-	Thu, 30 Apr 2026 23:37:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GPtAZcjh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0ED4C2BCB3;
+	Thu, 30 Apr 2026 23:46:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777592240;
-	bh=EshY6j1HpzMOQVRhy5fZwtjSoZH1Z4wUejGMVerDcaw=;
+	s=k20201202; t=1777592819;
+	bh=KAo6srgNAU5MM+WDSP/3BC2/BmABB70FgH9jVqdJVkc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=T7mvH4Jw8CiQC3zExgrtpYVedQ2T2406qeW6wbB/25ge6k2hFasdM5MGJEqqtgIPL
-	 kSHl2r4KQODOpZQFNBPZU8W/KggG/BOa5gyIgrQ+4gSQdMbTGjozmxTWiyYhxRh3Bc
-	 t/XnrjFbSKd9BeRpSMXaFCkr87wTYLuIqmolV0tUnO0SuTe2UR9j9IszXUkotFTB1o
-	 n1pqt9PMVVPKOeONyiZgVbjW+fOcTZLr+80ntv3RtQWxnqZaToaQ5IOnHhqcixVCrS
-	 Ahe3mGMozxdDP9oBEt+rR16XIWFPy6c8GaIPLyPaWDm89+zMJ9WrDC/eHicoPrqCQf
-	 gJPkTc56d011A==
-Date: Thu, 30 Apr 2026 16:37:18 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Adrien Ricciardi <aricciardi@baylibre.com>,
-	Nicolas Pitre <npitre@baylibre.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Atish Kumar Patra <atishp@rivosinc.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	yunhui cui <cuiyunhui@bytedance.com>,
-	Chen Pei <cp0613@linux.alibaba.com>,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Weiwei Li <liwei1518@gmail.com>, guo.wenjia23@zte.com.cn,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, liu.qingtao2@zte.com.cn,
-	Tony Luck <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>,
-	Peter Newman <peternewman@google.com>,
-	Fenghua Yu <fenghua.yu@intel.com>,
-	James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
-	Dave Martin <Dave.Martin@arm.com>, Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
+	b=GPtAZcjh+ePKeNNd6bTzqHiICamfny8TsGowp9Gbo2AAVqEuM5P/Ix8asLlAchICv
+	 rIm7Njuy8hkK4zfIcqfQJfRQ6UrQeagSpg1Wdn9UfzYNGTIkORQPzNBpPraV15RjZt
+	 t5X9GSao74pOYLf/SQmFXsmZCPOb9zC6r27YAwnL0poWjjKklNtPTXz58JLHZKrR9R
+	 /wq6BNu/3Xv70TrTM8qeE30CDJARivYKPIgqozuuYHnjnrHhWfMNFfer9mMfoAZh+Y
+	 +FN/sJo+1wyw5MkfMOiOhLBvaV/SPglGi1o2jTC3oe85z9gYkqoP+9xmYRGSksFgTb
+	 XfnKiV8+JDxKQ==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 67C6A1AC585F; Fri, 01 May 2026 00:46:56 +0100 (BST)
+Date: Fri, 1 May 2026 08:46:56 +0900
+From: Mark Brown <broonie@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Robert Moore <robert.moore@intel.com>,
-	Sunil V L <sunilvl@ventanamicro.com>, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, x86@kernel.org,
-	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>
-Subject: Re: [PATCH RFC v3 05/11] RISC-V: QoS: add resctrl arch callbacks for
- CBQRI controllers
-Message-ID: <afPnrjAseS00a8k9@x1>
-References: <20260414-ssqosid-cbqri-rqsc-v7-0-v3-0-b3b2e7e9847a@kernel.org>
- <20260414-ssqosid-cbqri-rqsc-v7-0-v3-5-b3b2e7e9847a@kernel.org>
- <03085c36-315a-47c8-85aa-f3de88fa43bd@intel.com>
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
+Subject: Re: [PATCH v2 2/2] regulator: add SGM3804 Dual Output driver
+Message-ID: <afPp8DXSLQIkQNaK@sirena.co.uk>
+References: <20260430-topic-sm8650-ayaneo-pocket-s2-sgm3804-v2-0-76108c65a560@linaro.org>
+ <20260430-topic-sm8650-ayaneo-pocket-s2-sgm3804-v2-2-76108c65a560@linaro.org>
+ <afMwIVRDxl11Ty_P@sirena.co.uk>
+ <150cdb85-d0ac-4802-a09b-9dab1b9b805a@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="BPssGiq9rDVorsrZ"
+Content-Disposition: inline
+In-Reply-To: <150cdb85-d0ac-4802-a09b-9dab1b9b805a@linaro.org>
+X-Cookie: 667:
+
+
+--BPssGiq9rDVorsrZ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <03085c36-315a-47c8-85aa-f3de88fa43bd@intel.com>
 
-On Thu, Apr 30, 2026 at 04:17:22PM -0700, Reinette Chatre wrote:
-> Hi Drew,
-> 
-> On 4/14/26 6:53 PM, Drew Fustini wrote:
-> 
-> > +int resctrl_arch_update_one(struct rdt_resource *r, struct rdt_ctrl_domain *d,
-> > +			    u32 closid, enum resctrl_conf_type t, u32 cfg_val)
-> > +{
-> > +	struct cbqri_controller *ctrl;
-> > +	struct cbqri_resctrl_dom *dom;
-> > +	struct cbqri_config cfg;
-> > +	int err = 0;
-> > +
-> > +	dom = container_of(d, struct cbqri_resctrl_dom, resctrl_ctrl_dom);
-> > +	ctrl = dom->hw_ctrl;
-> > +
-> > +	if (!r->alloc_capable)
-> > +		return -EINVAL;
-> > +
-> > +	switch (r->rid) {
-> > +	case RDT_RESOURCE_L2:
-> > +	case RDT_RESOURCE_L3:
-> > +		cfg.cbm = cfg_val;
-> > +		err = cbqri_apply_cache_config(dom, closid, t, &cfg);
-> > +		break;
-> > +	case RDT_RESOURCE_MBA:
-> > +		/* convert from percentage to bandwidth blocks */
-> > +		cfg.rbwb = cfg_val * ctrl->bc.nbwblks / 100;
-> > +		cfg.rbwb = min_t(u64, cfg.rbwb, ctrl->bc.mrbwb);
-> > +		err = cbqri_apply_bw_config(dom, closid, t, &cfg);
-> 
-> (Earlier comment wondered about whether rbwb cannot just be provided
-> directly to cbqri_apply_bw_config().)
-> 
-> Apart from that it looks like this can benefit from "emulated controls"
-> that we mused about at https://lore.kernel.org/lkml/e788ca62-ec63-4552-978b-9569f369afd5@intel.com/
-> 
-> At this time this MBA resource is constrained by the 1% steps that the
-> default MB control supports and clearly it is emulated with a control that
-> can support finer granularities. I am currently working on a PoC of the
-> base schema descriptions on which the support for emulated controls can
-> be built that should be able to expose full hardware capability.
-> 
-> Reinette
+On Thu, Apr 30, 2026 at 03:28:43PM +0200, Neil Armstrong wrote:
+> On 4/30/26 12:34, Mark Brown wrote:
+> > On Thu, Apr 30, 2026 at 10:48:47AM +0200, Neil Armstrong wrote:
 
-Thank you for your review. I have been working on a large overhaul to
-the series in v4 and was about to send it. I finally realized the
-sematic mismatch between resctl MB resource and what the RISC-V CBQRI
-spec offers. I decided to create MB_MIN for reserved bandwidth and
-MB_WGHT (weight) for shared bandwidth porpotional weight.
+> > > +// SPDX-License-Identifier: GPL-2.0-only
+> > > +/*
+> > > + * SGMicro SGM3804 regulator Driver
+> > > + *
+> > > + * Copyright (C) 2025 Kancy Joe <kancy2333@outlook.com>
+> > > + * Copyright (C) 2026 Linaro Limited
+> > > + * Author: Neil Armstrong <neil.armstrong@linaro.org>
+> > > + */
 
-I didn't expect adding two new resources to be the best solution but I
-wanted to offer something tangible to move the discussion forward. I
-look forward to your proof of concept as I expect I can then build
-proper support CBQRI bandwidth allocation (reservation and proportional
-share) on top of that.
+> > Please make the entire comment block a C++ one so things look more
+> > intentional.
 
-Thanks,
-Drew
+> Sure, converted into:
+> + * Copyright (C) 2026 Linaro Limited (Neil Armstrong <neil.armstrong@linaro.org>)
+
+That's not the issue - that's not converting into a C++ comment.
+
+--BPssGiq9rDVorsrZ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnz6eoACgkQJNaLcl1U
+h9Bjcgf/cVuaNhdE5f043AzAh2Y30JJPMlKTIEb1Cz4raPO6SpPHA6R92GY1rPWj
+yq7HPLX7bJ/A7KdDJ/TK5xPMIwacUtqXJ0U6DvYL99zylCAFsTFZdv+04Ty2RNDg
+T6l/w0D7zBr5vEK7o+c67h1funXQiR6/xPPXmGu391t1fUW1u2mPpo9zcajE9JOu
+zudy6r6jjtOp/S/R7fOZG2u5/cFF1Yhywep3C10119aaqo1obEKbDzrtlsEyv7m4
+YIReoo6NPf1QS9CZtso2KH+KhB2lf0PUbJhB3JgfsXjjUkJVNxwYQAU4Y30bCx8H
+ACGnjEH2ShEM89ULF5OO/diR/DrTMA==
+=7rQE
+-----END PGP SIGNATURE-----
+
+--BPssGiq9rDVorsrZ--
