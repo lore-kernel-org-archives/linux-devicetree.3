@@ -1,121 +1,96 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820813921CE
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 10:27:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41C2228CB8;
+	Thu, 30 Apr 2026 10:30:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777544858; cv=none; b=cSFeu+MOkAH8036Hdh9wNZidqx0CrjVhrxqc8Wj1ZTcS9xG3SAa5GXaTl9UGBrXojBuyahygoUw44HSVgzYo6TE0dk6ZDVKUHL0E2grDVj9tECp/XN+jm8LxCUEWa2skOWcW+ZxbeLNCbctet4GfaUitZVTUepmJExZTwWys3zM=
+	t=1777545058; cv=none; b=moVe2rslKWuwdrocFq65YtP3QrHLwLX9Ld7zbCxA3tcFHoYx4D2HL5GKns5XCAHM5pkicCkkaNeZC74lDB8J3q2ITZ6dN3GAxquvGSgLv6P+HvF1CTnC7wNBfzL9TWWBje65AmVypjtiI6vhvLQiLkRVZzl4fxkp+ZpKgUMNcXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777544858; c=relaxed/simple;
-	bh=vENJ+C81bb9efHvds7kbMpLjqIJ06ZgJQ3cEdIMWx6Y=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=Kk/Jcd70T3EyuxqsfVIzr6okIpdX0snz8m0pGrIDZQox73M5Ik6V0+AZLk0/t4ONXiOTrkQ7OnbCIKPOB3/D/OUKZuN2cTYMt79Oi4t1zZ+eyPuNCr1HPfbrr71mQPXWzF2D5tN99xKiYbzufBXuySvNeAPKCBMo0EJmqu9QS50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=OqV6qhIX; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1777545058; c=relaxed/simple;
+	bh=DmeSSTIGufqnT9oymE4UEk/rZkHHJ5nwP7hD8//UdrQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Q8Y4ICJ407VRJn6YvVTz2ZUHFqrvb0D20IMY79Y4FIzOSdkQTry//q5CZJ/ckioCtG/GsUQ/Q6Mda6/B6VQIQA9Fy+DNe5uOzQidH/sqSkbmHfsDSOP37kkFXUJ99nRorkYig1dLOEiMBtC2V/D19KKQhuNoPopLMBZs1Wo8KRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aWSfmgyx; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="OqV6qhIX"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-444826c16ffso678295f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 03:27:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777544856; x=1778149656; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qJtC8axtxZ6PlTBw/4plYqbYMGHIdhbjoFEFpeBa84g=;
-        b=OqV6qhIX3q/VcRiCHjx/JandIIOdYFpMvKdfWQGwbXzhJyfeS7nIWmOaQx3bGEjqI4
-         LRPemS7zFMMel9ZGdlB38awxOzzsYMesBQqlQtVLj6+UxHzDuTxDAdu3lzoV+CvnL/cZ
-         NT3GFnc+U19nXPIdli9RwT+1QBX1x2ucTfk1CS2fxo3mDWS9oXOr7dT6RjyhQMTr08px
-         LuXAVpJ+cDa71SoYxal5PKkxUNoiNJIQly3XgqxoSKtRN4FKKXVPZif+m6p9CFQ9v4kP
-         LDt2liBkOIYDg2bD4wrjV/uNI7pq8I5qzgFiEGJA31mI/PChjbE49g+VIjq7ik03czdJ
-         oJgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777544856; x=1778149656;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qJtC8axtxZ6PlTBw/4plYqbYMGHIdhbjoFEFpeBa84g=;
-        b=Wv80JKXg5Pvf7K20RcbjDC1DCYc9rGxhUT6Wj42ewZLuM3SKFvgxKWJ+3Ztvo8i4Ag
-         KfwQgNw93mi7iHsO5RGmi2+KsBwWu197AJFGqIDn92vI5CQS67ZLUrkY2YlZegNZadHN
-         BpGi4z/TB5RTEih7M75ZvP1Rn8V4BCgX3WQo9X+MX/O1g6UNq4fzdnYMDDAjgrXrbarQ
-         LZ+t10Xa+B4eNLtE9+tlmHNUvO9TD9TaLuBXcPHcmUqCdzMuXrFZnpQoATtmlBT5gWs3
-         hIOpHg4rg71f8cT0JYRFSwfxbfq0aSIiDNi9Cx5eM5AhymaZGLSsslg30Q4wZRKRbgas
-         wu6g==
-X-Forwarded-Encrypted: i=1; AFNElJ8jGO1xlifbhP0IsBVq8O4Zw+j2SUWAIsn2ApH56oz3ClcXOm9L9qGf21OrNOvcgWiUBeCWSOTTCkqE@vger.kernel.org
-X-Gm-Message-State: AOJu0YyOFdTh6lfWymb+h3pedby4z4o3+N2iFQZR8dHtPWNnzFti7vCc
-	XrocbhaCultfMS7srnWpaRZeYBRZ34njVir0fSTyZIGjQkomT7JlmSeejjSM5ZHj/xQ=
-X-Gm-Gg: AeBDiesjZaGjTXzbUksIvJlYnGfXthMsFAB2dYmM4HYqSgv6NzA3/ktZJwPs4pgAlvz
-	zz78he0w+JhRDPic6Bh1pJI8E46ptGBAMXRHCtf4/vA+KQaaW7Gs5iSM2SctGigN0vdDUIuGvxS
-	ZQUNiv9iGl2C5qNjcsbPWXM5Gw+Lb0vQo3vsYSndPe9tYAFhEP9ozgMi1VqiOvgYFDCebY66UwG
-	11TsLuGqOXiXP9DzvF4IH+vt46hLQppQqb0adWS2x24PTMGntOtT3Pv7OSiu115R1dquc9B0ARf
-	abUXpvDR1EgIIYpTLM76q6ChYKGt2fKsu5Z0EzLjNYxxULnO2tpp7VP1az9XvbMj9ogb19djb7e
-	XVDRHDHLW+TFdVEwsNAgHlqyxOYwS+8b0o3Vx1xPhg0Ptet22nno8bDibF6p9+tDD0tT/MLRek0
-	6fJh7SHLGxIbLFSqxpzReT42EkMuOhuY//LzFQLKSnPK48zDtdnYfo4gL/Wm8uZB04S44YJouY0
-	1xYcm0zKsG9riFfwmwy4XON5lvV
-X-Received: by 2002:a05:6000:2383:b0:43c:4810:dc4a with SMTP id ffacd0b85a97d-4493ffcb2b1mr3621503f8f.38.1777544855840;
-        Thu, 30 Apr 2026 03:27:35 -0700 (PDT)
-Received: from localhost ([2a00:2381:fd67:101:9e61:b264:2b8d:1e57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-447b7218622sm12070800f8f.21.2026.04.30.03.27.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Apr 2026 03:27:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aWSfmgyx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E729FC2BCB3;
+	Thu, 30 Apr 2026 10:30:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777545058;
+	bh=DmeSSTIGufqnT9oymE4UEk/rZkHHJ5nwP7hD8//UdrQ=;
+	h=From:Subject:Date:To:Cc:From;
+	b=aWSfmgyxckA5I2LQl2tRlWPVi9qkuSzqU7XBzwtvqKm1KhejCvSOQpDYAnR8/ghAa
+	 jGuIl6wU+kbizMFQFParI6Xx5bf2vMFJGYaT6RzFuBOKG+vesj+cG3uJuxXPFp14VI
+	 DEN2Jy2GWttleO8xyEjSKGoSVWYbsf0ijRJJaZA47A7bKMRq4slbPVILfNFn2JPSk2
+	 92T4+eI96MRRpyS3Vz1Pd183+3DUjzUFLR9Uw6VPD1cqGBxnFpzr6pGsKycN5DddPw
+	 V15CJzYmsaEoIKkw4HW4okayE77MAy8brLA5UvMIeqeSL//kubsSSgDAMzKwzlxe+f
+	 hhucfVKamqZTQ==
+From: Yixun Lan <dlan@kernel.org>
+Subject: [PATCH 0/4] riscv: spacemit: k3: some clock fixes related to PCIe
+Date: Thu, 30 Apr 2026 10:30:25 +0000
+Message-Id: <20260430-06-pci-clk-fix-v1-0-32fdc77c02ab@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 30 Apr 2026 11:27:34 +0100
-Message-Id: <DI6F28VL7ZGX.1ZJNLS41FF55N@linaro.org>
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Alexey Klimov" <alexey.klimov@linaro.org>, "Sam Protsenko"
- <semen.protsenko@linaro.org>, <linux-samsung-soc@vger.kernel.org>,
- "Krzysztof Kozlowski" <krzk@kernel.org>, "Peter Griffin"
- <peter.griffin@linaro.org>, =?utf-8?q?Andr=C3=A9_Draszik?=
- <andre.draszik@linaro.org>, "Conor Dooley" <conor+dt@kernel.org>, "Alim
- Akhtar" <alim.akhtar@samsung.com>
-Cc: "Tudor Ambarus" <tudor.ambarus@linaro.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 4/6] soc: samsung: exynos-pmu: add Exynos850 CPU
- hotplug support
-X-Mailer: aerc 0.20.0
-References: <20260430-exynos850-cpuhotplug-v3-0-fd6251d02a17@linaro.org>
- <20260430-exynos850-cpuhotplug-v3-4-fd6251d02a17@linaro.org>
-In-Reply-To: <20260430-exynos850-cpuhotplug-v3-4-fd6251d02a17@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEIv82kC/x2MSQqAMAwAvyI5G4gLrfgV8aA1alCqtCBC6d8NH
+ mdgJkHkIByhLxIEfiTK5RWqsgC3T35jlEUZaqoNtQ0hGbydoDsPXOVFVtvZmawhCxrdgVX/w2H
+ M+QO8afqrYAAAAA==
+X-Change-ID: 20260430-06-pci-clk-fix-e60487b07607
+To: Stephen Boyd <sboyd@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Inochi Amaoto <inochiama@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ devicetree@vger.kernel.org, spacemit@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=898; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=DmeSSTIGufqnT9oymE4UEk/rZkHHJ5nwP7hD8//UdrQ=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBp8y9Pbw0UXF6v+Sxj7RgIpbKiDLeZUszFWSa/s
+ 2RNtRpR/1OJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCafMvTxsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+1hYRAAhpFGnBLjpvTIg3GcabvxnDktWdIcTYxFZLlnhrNe2Ro7+57RbD4ea
+ Qv1HiMYuaxCfFtdgcvg9AqIkPmcojzHYegSn62QlqCuFXIOV/I+caqbaM3ejVOnpUPMelJnxZBY
+ JG8wXf9k2MouF/IGZs5zPeg+Bc1DAHfEYl5FPvQFXTnLF4Zd6v+sOwVDbhU7LfsFcXMqtey0qI+
+ 9HomizpGDOISaSqh6RS6ttodaeuxNFVEfqddNJ7jU9l8S20IyUT7qocn5/XcDryEjgigStE30Wt
+ N/Bjv5itBBMJ7e2tJ37A6pwp3vsbSrjljj2hp1HYQ/VTekKNpD4qewFEDD34md8jk4+YJOmcRPW
+ MGcmJJ4hDcP6kmb6JYLFwEdp9bVpiNyzOXMqwDvfeyTUiELbyarxsXxjccv6nGG4yT4oFcbknTs
+ NFERPN1sM4HdEOUmNZEz+tWyuruchuP3l65kPTUlycOFdZmN+Kaz4ZxJxXUjkAe+mbT6FyMbuLd
+ ar1IQboD+GA39OlkGuy/d49jQMvfcWgFDiGD867I2MH8MXoqO6HYODTuHqHQt/8T/1AFWT/qWIR
+ HJqleS4bRxzD7TNyB5I47GjheZmug+zFmwb5GHXX0fF/rnliKzpn4Mja2nB5pkV492Cxs5zycuF
+ laMbdX4dbuRuQeCRGcCx0RCToMeX2k=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-On Thu Apr 30, 2026 at 2:56 AM BST, Alexey Klimov wrote:
-> Add cpuhotplug support for Exynos850 platforms. This SoC requires
-> its own specific set of writes/updates to PMU and PMU interrupts
-> generation block in order to put a CPU or a group of CPUs into
-> a different sleep states or prepare these entities for a CPU_OFF
-> or wake-up out of idle state or after CPU online.
-> Without these writes/updates the CPU(s) wake-up or online fails.
-> While at this, also add description of Exynos850 PMU registers.
->
-> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
-> ---
->  drivers/soc/samsung/Makefile                |  2 +-
->  drivers/soc/samsung/exynos-pmu.c            |  1 +
->  drivers/soc/samsung/exynos-pmu.h            |  1 +
->  drivers/soc/samsung/exynos850-pmu.c         | 79 +++++++++++++++++++++++=
-++++++
+Here are some fixes for previous patch set in order to make PCIe work,
+Add PCIe DBI clock which was missing, Fix the parent clock, And correct
+the PCIe Clock CTRL register offset.
 
-[..]
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+Yixun Lan (4):
+      dt-bindings: soc: spacemit: k3: Add PCIe DBI clock IDs
+      clk: spacemit: k3: Add PCIe DBI clock
+      clk: spacemit: k3: Switch to pll2_d6 as parent for PCIe clock
+      clk: spacemit: k3: Fix PCIe clock register offset
 
-> +const struct exynos_pmu_data exynos850_pmu_data =3D {
-> +	.pmu_cpuhp =3D true,
-> +	.cpu_pmu_offline =3D exynos850_cpu_pmu_offline,
-> +	.cpu_pmu_online =3D exynos850_cpu_pmu_online,
-> +};
-> +
+ drivers/clk/spacemit/ccu-k3.c                  | 30 +++++++++++++++++---------
+ include/dt-bindings/clock/spacemit,k3-clocks.h |  5 +++++
+ include/soc/spacemit/k3-syscon.h               |  4 ++--
+ 3 files changed, 27 insertions(+), 12 deletions(-)
+---
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+change-id: 20260430-06-pci-clk-fix-e60487b07607
 
-Ah, sorry, I forgot to remove blank line here. Will do in the next
-update.
-
-BR,
-Alexey
+Best regards,
+-- 
+Yixun Lan <dlan@kernel.org>
 
