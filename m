@@ -1,133 +1,101 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47C942EEA6
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 17:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BCC364038;
+	Thu, 30 Apr 2026 17:56:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777571723; cv=none; b=JqiA/6vtJek44oh3H9ylugz+zr7IjgmT0nvotS1AiIpkPo2KrdkKOdkKzrg+IbA5GsG9y2SLlK91Cc3BHOBq1nTa0eTrar1zIeqnhrsvhMM8hLlPg/V0HhoTHFsZGvAuFzQrXsSQoyTyLVoEstKGMSeU9uOROC7uvUnWkADeC30=
+	t=1777571787; cv=none; b=Ovi9DjCMfBwRd+ahMvDqDaD9Ddyp4r00KRs1pcaG/0llZJpPcaY4N6zjrpX2rhEbO/hKNhZTA639IVkrZ5wBBXM1juQ6xvIW9FYTYcMJ+SO/wmVustFvqGcC8ApVkzlnO+3wCROTOG0YCXU5SzH6INRVdKYHq/AjW7wVFgVqLhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777571723; c=relaxed/simple;
-	bh=ipKUp57GyoRW23THF7J1POdt4/WFPMNT/SoRXwdqPnQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T29uKz2XNcdt+jZQ+3+2Y+GDGaA2mdUbkLTS0I87X2GUTiEJX5OW+WPQ4eVFQsmJ/bpxIDmLCoa8QLCt+zzm/8YNrP9X1XrbKcFvDmJ4IJT0bRlIlaQO0fL0dsQoY0bjl7BscP05xOH/KUGmqW0hC85371/EOBKne1ei4P34ItU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OLCv5u4s; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777571787; c=relaxed/simple;
+	bh=bxJhILJOj52ikSwAlpqvCXweZKZMwSWKG7xehCSproo=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=PRQwsy/vM/GIDnEmCgm24HJUA8gIgVyQN/KJwn2fcI1w4BbDC2KVCQ3YdB6HjJ5b/9ScQmCWWyraR2A2KMmEeZAqo0CbsFR41CO8q7T7hxLC8Kgj8I+9Mi78cg+9MUi1jSqQQv+lx+mb2TbOxYLHQSgXMTWN2QI5KNVe8GUPkJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EnW8loyD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OLCv5u4s"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-82f4a53ae20so871859b3a.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 10:55:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777571721; x=1778176521; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+IcSJbY4/m6vzsR5njH8V/sOHCSKFEcfIX9jSdaOTSk=;
-        b=OLCv5u4sOa6xGMfSR/riRqc3tnyoACgt7g6hTcus/op6gSxTFVrWfMy/sJi0ZI73pM
-         q3ntHCbXQJIdS9XzSz/CAeL7Tk+c/EP2xVQfTY5oGmuUJbq4MkOoIqoupsvU1buyqfeg
-         mp5ZNFk1UpSYACA9psv4MWBn6iME3e5Lw5SUwICHRNFZU7hcf/h3mhCPT8xLo6TULjgE
-         vo5fhJIVcMLxXu/PmlnGq3QjF2on1VRBEAfLMSCgaOSFVSNPNlbfEsK0kdohZgVdnM8s
-         kCRgQCWEXnuFP7/1ofmho0g22GYrP79XQnBVz2Y570wM7J0QKxqUoEiduoTv+5OLEE0V
-         4WPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777571721; x=1778176521;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=+IcSJbY4/m6vzsR5njH8V/sOHCSKFEcfIX9jSdaOTSk=;
-        b=msqRHLRdQih4QwtYD3xJ1QcC4t7gR/G1ecJ77ezPJZHLYP1k9b1LyKK2wtPc7g/fjc
-         GSBP7TDmbRA5aHCvqHlpe60bMXXEWaJJ0HUzWs8HeSCXEyckFD8/KVOO6uqKIgjndGff
-         Ta9T2M8D+XdaqrLaBDfaLPwTgSQjxNdOoJk6DjQloqyMvAhy4Jsnyc3lmsTZo1qJbdMq
-         hrWiNhBnpXvboyB2Fy87PEqGmo2ZWLq6LzWx9wH1fPdFQXvkFMFDNPVWnE0D3A3QeuwO
-         8SljpxBG3aiZYpO33GMa+b5oq8vJxBrqTxfUvb/MwcqFjWKcoxRREbFJzonKwUxxBpFR
-         yWfA==
-X-Forwarded-Encrypted: i=1; AFNElJ8SthsPClUgrXXiU8eCSumbC6SavVPXxbKVJ4XRicn+C8LuN5PYZGY/RtC+eQ6EHg9IRZLHaGq98P/V@vger.kernel.org
-X-Gm-Message-State: AOJu0YxQTBjzILZEIeVR1zc4Q7yJLX/qHyhcyFwS8QozY9hJmEOQ5yLB
-	vK2Z29MJHYVLD2APgnI8RkQzlKhD+gVlEstDk3kLls7o2grIZFVY9Swx
-X-Gm-Gg: AeBDiev/d2deQ5RL2+X38O9CjdeLrtuQnZE4PRLUalx7YkKVOcABbHoy2/rHFUCMoQ6
-	Rexl02g8Wakad8dPmZ7qpluPTDZlByXbgAOVcOagauScCNaPTZUwVr0M2KApsCRuCkgHbvrpyLT
-	Dqz6zaY+lJB2CMQK9Ovk9UhD7m9IhyCBf7CEq+UdmVqUwUhbBHhkphCWCBQm7EjdfJTLkpgZYKm
-	TdA7F0gFW94vWOtaJOE9FIafsJc2k8QfVfiAp0GJJWTyEOgdtuudc74F0uZPW0hHsPZssThvlYR
-	TPHHIR+yEbZT9IVMYaSpD77oAhiIql6s8F16v/mcDOSO53Lfsu06BitXubEpiyYVxQHJJRir5h5
-	tRDBjoabx/uo/b97axBsscrLCCZ+iqkmBCUTnTwtmsES8r32Vpd36DLF1DWmxhHuPAQx1Dq8+A/
-	ph2L7e5hmZHoP3Z1ALxGgBTFB+8QUEhgc4qCHlVMdp9CFFgLA=
-X-Received: by 2002:a05:6a00:e08:b0:82f:8b20:9165 with SMTP id d2e1a72fcca58-834fdc6d2c0mr4706115b3a.44.1777571720927;
-        Thu, 30 Apr 2026 10:55:20 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8351582ee04sm256974b3a.5.2026.04.30.10.55.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Apr 2026 10:55:20 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Thu, 30 Apr 2026 10:55:19 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] hwmon: (pmbus/max20830) add driver for max20830
-Message-ID: <63e770a5-1740-4144-9c5b-929fff8413b1@roeck-us.net>
-References: <20260417-dev_max20830-v3-0-0cb8d56067aa@analog.com>
- <20260417-dev_max20830-v3-2-0cb8d56067aa@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EnW8loyD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D7F7C2BCB3;
+	Thu, 30 Apr 2026 17:56:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777571787;
+	bh=bxJhILJOj52ikSwAlpqvCXweZKZMwSWKG7xehCSproo=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+	b=EnW8loyDS+MFh9w1Z8tgZUxJJgHEupnAfw00NSjwn9rJL9EmNSfwcnkp6XsHz39Rp
+	 Fi7xE1lr1xiSz6Me0DCRM0xiw9owT6ttmYSQ0bs22vCtCEiUOFamgkcOUks48jVjxl
+	 HMx37kydLKviLYJfKsv8L9IEmrJvopNxlWPqaWrPvdFWY7SiA12CvyGl4y9f7YHsdx
+	 c5hpEnT9/LxEXfJ8lWaHSGMA0/s/usUCwOMuzCU9GtlCtviNlJopTlNxhQpjbS+3cV
+	 zfGz+w5er68eozEZBXR2zV1V5ZP3UDs7EYMiS/juDxNDH95MD4C0RwR3nbthmEq3Z6
+	 sE97C0G75clVg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B9EE7380AA62;
+	Thu, 30 Apr 2026 17:55:42 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260417-dev_max20830-v3-2-0cb8d56067aa@analog.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 0/7] Enable Bluetooth and WiFi on Fairphone (Gen. 6)
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <177757174129.3109994.12376905026107591695.git-patchwork-notify@kernel.org>
+Date: Thu, 30 Apr 2026 17:55:41 +0000
+References: <20260403-milos-fp6-bt-wifi-v2-0-393322b27c5f@fairphone.com>
+In-Reply-To: <20260403-milos-fp6-bt-wifi-v2-0-393322b27c5f@fairphone.com>
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, AKoskovich@pm.me,
+ lgirdwood@gmail.com, broonie@kernel.org, brgl@kernel.org,
+ marcel@holtmann.org, luiz.dentz@gmail.com, quic_bgodavar@quicinc.com,
+ quic_rjliao@quicinc.com, johannes@sipsolutions.net, jjohnson@kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+ dmitry.baryshkov@oss.qualcomm.com
 
-,
+Hello:
 
-On Fri, Apr 17, 2026 at 04:27:14PM +0800, Alexis Czezar Torreno wrote:
-> Add support for MAX20830 step-down DC-DC switching regulator with
-> PMBus interface. It allows monitoring of input/output voltage,
-> output current and temperature through the PMBus serial interface.
+This series was applied to bluetooth/bluetooth-next.git (master)
+by Mark Brown <broonie@kernel.org>:
+
+On Fri, 03 Apr 2026 15:52:46 +0200 you wrote:
+> Add the required bits to enable Bluetooth and WiFi on the Milos
+> SoC-based Fairphone (Gen. 6) smartphone.
 > 
-> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 > ---
-...
-> +
-> +	/*
-> +	 * Use i2c_smbus_read_i2c_block_data() instead of
-> +	 * i2c_smbus_read_block_data() to support I2C controllers
-> +	 * which do not support SMBus block reads.
-> +	 */
-> +	ret = i2c_smbus_read_i2c_block_data(client, PMBUS_IC_DEVICE_ID,
-> +					    I2C_SMBUS_BLOCK_MAX, buf);
-> +	if (ret < 0)
-> +		return dev_err_probe(&client->dev, ret,
-> +				     "Failed to read IC_DEVICE_ID\n");
-> +
-> +	/* First byte is the block length (including itself). */
-> +	len = buf[0];
-> +	if (len != 9 || ret < len)
-> +		return dev_err_probe(&client->dev, -ENODEV,
-> +				     "IC_DEVICE_ID length mismatch: reported %u, read %d\n",
-> +				     len, ret);
-> +
-> +	/* Data is at buf[1..8], so null terminator goes at buf[9]. */
+> Changes in v2:
+> - Drop applied pd-mapper patch
+> - Add compatibles for wcn6755 with fallback to wcn6750 (wifi & bt)
+> - Rebase on linux-next
+> - Pick up one tag (discard the rest due to addition of wcn6755
+>   compatibles)
+> - Link to v1: https://lore.kernel.org/r/20260116-milos-fp6-bt-wifi-v1-0-27b4fbb77e9c@fairphone.com
+> 
+> [...]
 
-I ended up checking the kernel code. As it turns out,
-i2c_smbus_read_i2c_block_data does _not_ return the length in byte 0.
-It returns the first byte of the actual data, and the length as return
-value. See i2c_smbus_read_i2c_block_data() in drivers/i2c/i2c-core-smbus.c.
+Here is the summary with links:
+  - [v2,1/7] regulator: dt-bindings: qcom,qca6390-pmu: Document WCN6755 PMU
+    https://git.kernel.org/bluetooth/bluetooth-next/c/b043657c35e5
+  - [v2,2/7] dt-bindings: bluetooth: qcom,wcn6750-bt: Document WCN6755 Bluetooth
+    (no matching commit)
+  - [v2,3/7] dt-bindings: net: wireless: ath11k: Document WCN6755 WiFi
+    (no matching commit)
+  - [v2,4/7] arm64: dts: qcom: milos: Split up uart11 pinctrl
+    (no matching commit)
+  - [v2,5/7] arm64: dts: qcom: milos: Add WCN6755 WiFi node
+    (no matching commit)
+  - [v2,6/7] arm64: dts: qcom: milos-fairphone-fp6: Enable Bluetooth
+    (no matching commit)
+  - [v2,7/7] arm64: dts: qcom: milos-fairphone-fp6: Enable WiFi
+    (no matching commit)
 
-So this can not work as written. Something like
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-        if (i2c_check_functionality(client->adapter, I2C_FUNC_SMBUS_BLOCK_DATA))
-                ret = i2c_smbus_read_block_data(client, PMBUS_IC_DEVICE_ID, data_buf);
-        else
-                ret = i2c_smbus_read_i2c_block_data(client, PMBUS_IC_DEVICE_ID,
-						    I2C_SMBUS_BLOCK_MAX, buf);
 
-should do, assuming that support for I2C_FUNC_SMBUS_BLOCK_DATA and/or
-I2C_FUNC_SMBUS_READ_I2C_BLOCK was checked before.
-
-Thanks,
-Guenter
