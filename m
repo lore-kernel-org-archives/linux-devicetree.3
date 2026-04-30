@@ -1,99 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D552F9C37;
-	Thu, 30 Apr 2026 10:31:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3625D389473;
+	Thu, 30 Apr 2026 10:34:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777545080; cv=none; b=UuOyuxHzz+tejNlYCRYZgdCXU/xug67zBH3gcAjWQQG0ASMau4YBEMDUhsropJzRwuqHhR3mrxdx9kiBqSYSoj0n8oxXk/vYzx8bFssMFRP4Sho6BRXpPlFuTB9XmjqN5m3SydcpUj0rkaouFvonP7FzgCCW7f34XCHrsEwpweY=
+	t=1777545253; cv=none; b=EDKOZpDJloE+cYvBHl4T4920cJ/2AFMozR7yms4IKfhaGruP5EO1K3uQj2KIxqMXe4su9iUxoBUnLTEa64TvMNx4Kcz9y2Z3hkaUve60zGQ0RiTn4+ZgmBJOXk6xfB6PcmUykBwhVYRyXNQ4elVJKEkl0nXq9NTHyzAGwnwMZaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777545080; c=relaxed/simple;
-	bh=wVganUCXK6vIj7/O6DnSvBs/72BhNDH1zmFCk8I/4ko=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ay/cbXobVKXVTH1ci0Zk0uD3yAOObbztZdCXWG3SiXCaS0yM2LA5iGNznc9/C+lERiUxMNfjcw6IqGll+HIYUqzYDlQjq1sshDdUXXAphijkkrpsP1cYP9KzxB+bf9wgBcktGXBMk9dbmNkvGO+vZdnNXTjmfF0naJ+3VAkEmZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sgmCp9Xs; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777545253; c=relaxed/simple;
+	bh=YiP0fo7LZX2DKWfreYROVuf0XjA4O0oiBXqtJf3DMlY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QWLZQVuRFXXi9co7OtRkcEcsNQKB9GuCTidTm5UdeGXTUKtCYCMwX62o7X1bWfpDai7ML3b7tUXqlmAoh1jeScKnOuAQlXTp+t64Ki3R/sipDaBPViB05Eqk0pkB9cq+smpawJfZVIBue4xB745RhWbqIfoRgPsYyBKTVs/asGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ac/jfw5t; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sgmCp9Xs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F445C2BCB4;
-	Thu, 30 Apr 2026 10:31:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ac/jfw5t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3E63C2BCB3;
+	Thu, 30 Apr 2026 10:34:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777545080;
-	bh=wVganUCXK6vIj7/O6DnSvBs/72BhNDH1zmFCk8I/4ko=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=sgmCp9Xsn53pKZhEerjpHv6u/otaR9UF0/X6a0u0lGDaL7knL4zJwWlJMeppc//bi
-	 NiYSwWtLextSaO5alpln7qEMvj4lFH5vdR4vxN2PGUEBZ2lFbbrtgShFiHOXuSl2wm
-	 XsDcT/hGAil0OyMOQhrKl8AYl+d6h/2qfKwlCp93ZPtJFIYDSgQct2iEHsL3ntx17n
-	 QIdI2h+AXkCp0E6N9KkvguxmmegMkcnMUGoMh4vPmsoV7mNk4BH/kR/ijoirXb93KF
-	 anArNJPzFR/pUKatmzeRon0mXbKtXJdNStU4R39jaFpzPhpKU8EiQ8WzdKEtMy8V2g
-	 SDDyQ8dsoR60g==
-From: Yixun Lan <dlan@kernel.org>
-Date: Thu, 30 Apr 2026 10:30:29 +0000
-Subject: [PATCH 4/4] clk: spacemit: k3: Fix PCIe clock register offset
+	s=k20201202; t=1777545252;
+	bh=YiP0fo7LZX2DKWfreYROVuf0XjA4O0oiBXqtJf3DMlY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Ac/jfw5tHVb7ALqbt8Q4Ycc/S95wYZHg+i31hZgQg19h4mSfKONr/K+S/jIWIPrMg
+	 X0igsPwfnj1eSscFzKxMsNhm49w8r3coeduqMR8LqNR6/oVtyfkcFvFaa5YAW8hNDy
+	 yFUcTAi8ouXl/gZ/wJHeDaNF0DrV+Ij7YuveUzyGFLxhjC9V8iQPtddfEip32wiwjU
+	 VG6E0bsv6KhPsi4m9huY6uSnxjtuOrdogPA9nOnb9+DMO5M0dR+ukiS9OGrmGABzMh
+	 mg06FIsXrNoHMFAbYsyClIsxBzTA0q6VuGyIskcC8PsB1ojS07Nzz5gqjzO+01mJ2m
+	 De7oP9o7lLEnA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id D4B7C1AC585E; Thu, 30 Apr 2026 11:34:09 +0100 (BST)
+Date: Thu, 30 Apr 2026 19:34:09 +0900
+From: Mark Brown <broonie@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
+Subject: Re: [PATCH v2 2/2] regulator: add SGM3804 Dual Output driver
+Message-ID: <afMwIVRDxl11Ty_P@sirena.co.uk>
+References: <20260430-topic-sm8650-ayaneo-pocket-s2-sgm3804-v2-0-76108c65a560@linaro.org>
+ <20260430-topic-sm8650-ayaneo-pocket-s2-sgm3804-v2-2-76108c65a560@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260430-06-pci-clk-fix-v1-4-32fdc77c02ab@kernel.org>
-References: <20260430-06-pci-clk-fix-v1-0-32fdc77c02ab@kernel.org>
-In-Reply-To: <20260430-06-pci-clk-fix-v1-0-32fdc77c02ab@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Inochi Amaoto <inochiama@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org, 
- devicetree@vger.kernel.org, spacemit@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Yixun Lan <dlan@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=963; i=dlan@kernel.org;
- h=from:subject:message-id; bh=wVganUCXK6vIj7/O6DnSvBs/72BhNDH1zmFCk8I/4ko=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBp8y9cNqqlKHMxtnLU9zIo/Qf/1KA5Z7FHEaPEX
- qDFi+siiHCJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCafMvXBsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
- maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+1mPA/+JoQHwC+Lh+rWtXbfjSJh97YDp85STnJns4hFJrrDkq+yjZXkv8zmk
- C2C0iD2tlB8+QbF1h6D2rFQYi8jgrUNIHIrEzYGgt6L17ZgBN5U2v6w97zl0nQijSKhOXrcw1Ik
- SDD7BQ9wKrROYNaMp3BoXqPlUkGn95UONZHKrhzPKhO4uRhya+alFlvTO9EaN1jseOYvggYOzdv
- NBuP4HxvutIPKpxYLjfOhPT8bLra6zffrqkhHmH1Kt+b069SJbH42KqejIC2wmpSMpMfG5NH5RY
- qte0an8inyzll0N0ElYw+4PJjeqUWzdeOFVlKtX3YvZrY0fD9pLhc9+rMGFc1hjCdz0/tHlOIcU
- t2qiUQd4XdWmXRER4ZekrStZ5++EmIDoGRsoxyunqzxDbHg00Geu5QQNkeH+QfzbkoRP8sK5gSB
- d9PJMXW1aDs4KVKLhONjZ4yXdJoKFfmRGX6/WLbO/zcZObqIixTZGuusCT63NVGuuHi5B0aVO38
- lmCRsAs+5O+6y6GhujVJUOgz2NSBLgwQc9YxM9RsXJeAPvTzKY/+N/0akzkDnCJHiwQYr0G96Bj
- Od5gko6B2jjU3LKXNNhie0xuBuJcuHQ8lXK9TBspePblPyYeI4xh3rzZZskXbTsmE7BIEVn5gyY
- gIku1SfwsTByqIE1pZFaW6JcvKQ7+g=
-X-Developer-Key: i=dlan@kernel.org; a=openpgp;
- fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="HXQe6xzGiVVKcpwy"
+Content-Disposition: inline
+In-Reply-To: <20260430-topic-sm8650-ayaneo-pocket-s2-sgm3804-v2-2-76108c65a560@linaro.org>
+X-Cookie: 667:
 
-The offset of PCIe Clock CTRL register for port B and C controller was
-wrongle swapped, correct it here.
 
-Fixes: 091d19cc2401 ("clk: spacemit: k3: extract common header")
-Signed-off-by: Yixun Lan <dlan@kernel.org>
----
- include/soc/spacemit/k3-syscon.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+--HXQe6xzGiVVKcpwy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/include/soc/spacemit/k3-syscon.h b/include/soc/spacemit/k3-syscon.h
-index 0299bea065a0..a68255dd641f 100644
---- a/include/soc/spacemit/k3-syscon.h
-+++ b/include/soc/spacemit/k3-syscon.h
-@@ -168,8 +168,8 @@
- #define APMU_CPU_C2_CLK_CTRL		0x394
- #define APMU_CPU_C3_CLK_CTRL		0x208
- #define APMU_PCIE_CLK_RES_CTRL_A	0x1f0
--#define APMU_PCIE_CLK_RES_CTRL_B	0x1c8
--#define APMU_PCIE_CLK_RES_CTRL_C	0x1d0
-+#define APMU_PCIE_CLK_RES_CTRL_B	0x1d0
-+#define APMU_PCIE_CLK_RES_CTRL_C	0x1c8
- #define APMU_PCIE_CLK_RES_CTRL_D	0x1e0
- #define APMU_PCIE_CLK_RES_CTRL_E	0x1e8
- #define APMU_EMAC0_CLK_RES_CTRL		0x3e4
+On Thu, Apr 30, 2026 at 10:48:47AM +0200, Neil Armstrong wrote:
 
--- 
-2.53.0
+> Add support for the SG Micro SGM3804 Single Inductor Dual Output
+> Buck/Boost Converter used to power LCD panels a provide positive
+> and negative power rails with configurable voltage and active
+> discharge function for each output.
 
+> +config REGULATOR_SGM3804
+> +	tristate "SGMicro SGM3804 voltage regulator"
+> +	depends on I2C && OF
+> +	help
+> +	  This driver supports SGMicro SGM3804 dual-output voltage regulator.
+> +
+
+This needs to select REGMAP_I2C.
+
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * SGMicro SGM3804 regulator Driver
+> + *
+> + * Copyright (C) 2025 Kancy Joe <kancy2333@outlook.com>
+> + * Copyright (C) 2026 Linaro Limited
+> + * Author: Neil Armstrong <neil.armstrong@linaro.org>
+> + */
+
+Please make the entire comment block a C++ one so things look more
+intentional.
+
+> +/*
+> + * Since all registers are only writeable & volatile,
+> + * regmap will only read from the cache data.
+> + */
+> +static bool sgm3804_readable_reg(struct device *dev, unsigned int reg)
+> +{
+> +	return false;
+> +}
+
+Non-readable registers can't be volatile, volatile means always do a
+read.
+
+> +static int sgm3804_enable(struct regulator_dev *rdev)
+> +{
+> +	struct sgm3804_data *ctx = rdev->reg_data;
+> +	int ret;
+> +
+> +	ret = gpiod_set_value(ctx->gpios[rdev_get_id(rdev)], 1);
+> +	if (ret)
+> +		return ret;
+
+This could use _cansleep() for wider interoperability.
+
+> +
+> +	ret = regmap_write(ctx->regmap, rdev->desc->vsel_reg,
+> +			   ctx->sel[rdev_get_id(rdev)]);
+> +	if (ret)
+> +		goto err;
+> +
+> +	ret = regulator_set_active_discharge_regmap(rdev,
+> +						    ctx->active_discharge[rdev_get_id(rdev)]);
+> +	if (ret)
+> +		goto err;
+
+I'm still not clear why this isn't doing a regcache sync instead of
+writing things out individually.
+
+> +		ctx->gpios[i] = devm_gpiod_get_index(dev, "enable",
+> +						     i, GPIOD_OUT_LOW);
+> +		if (IS_ERR(ctx->gpios[i]))
+> +			return dev_err_probe(dev, PTR_ERR(ctx->gpios[i]),
+> +					"failed to get enable GPIO %d\n", i);
+
+Perhaps use GPIOD_ASIS for a smoother handover?
+
+--HXQe6xzGiVVKcpwy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnzMCEACgkQJNaLcl1U
+h9DaCgf9Eff/DtDAeiPXyZULJQ6WL1x0T99ayUEhjsx6P6JOThrlb8TJWiKkk91Y
+oAOQKfzHubyA9Q5ZxIpIEzMAtGpzSmclTOX+18VUxfGlisRDvnV5y/hFEMJgwz2j
+ZVeT2c+YKpn8nP3KKTKU8l4Raj3e7BwYsPcAOWUjuBlJGyVGqJlQ75Vw6VFPpVqb
+y4jlXlEkyGuFOxGRF52DCItDYpAMa+dsGkliUJo4RYdjFqFXhxOU6+BNQGOgUGOO
+i7VSCE+xMl0b0QROxlvnSOASf9MG/ER6ykR+jEtVnmAx9bkRyWSvRJVynxGnk3qw
+8halwxGPSbp5lfo9QMpm2b22+3kZDg==
+=eJvU
+-----END PGP SIGNATURE-----
+
+--HXQe6xzGiVVKcpwy--
