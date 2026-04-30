@@ -1,68 +1,68 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E54539A818
-	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 20:18:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB963A3E79
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 20:24:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777580337; cv=none; b=IEFD9Oz0lPqn+9tSGidfFxZC5yp4CCX131KPtEuhNEnImWVAw4HgNXHqDh3y1SJHfcOMQg5vGeyfE2EMQe8kI736bH0lra7lHlpFXOwQ/XsvkgiUBBi3QDHzONtsd4DON1K3u2yG9FV5vALRUETxxZtXDvP7VclnDnARMGhZLxw=
+	t=1777580675; cv=none; b=tJr+Fm2ocx+nfIm4tQbEsCTqCBoekAuvAGIVs04Qwn/e8KHCBmK0tE3OVx7zUqNt52bLJnV5p3GYcbOQiZLXmiEf6967vcEJ6wZqdcSLLzKxKwuwWZF8fn34namEMsqZ+gyNGizJkdve2g5TZL0wAQf9t97VbobRoThmgc3e1MM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777580337; c=relaxed/simple;
-	bh=ipayLzQyOTnT6KB96s96FlDwUtWz3R0lg+FfOs2iarQ=;
+	s=arc-20240116; t=1777580675; c=relaxed/simple;
+	bh=DWB13IUT+tZilbWnMWQhK+xwJLmcUZRAdiJdFR7ZyyQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KATXNv6hBstxvKAcPxtlOdhHn1SJE3gH5dIK25g2yvbPD18MzmcruJhf/N9BPqxa2ajCPQUGKPoEIzjv/x6kqZ+jbN0cmdHjofr1rkwjGXJmMBDJ6ENNMBeJjUdM1KXv9eIqJJYrRYU5qcZ3X3XCI+CeOvZGYWJrPceRF7Oo3O8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mb4ZmnT2; arc=none smtp.client-ip=209.85.210.170
+	 In-Reply-To:Content-Type; b=Rk7sDwBUhhytRTTc+nrF7VFbPSE07jE/vaahDJvioa9WcRY+guHoW9D12XZTwojPvvm2L26ihK52GScgRb1jBJtz4yZFGTlUbXhyhED0GANtkGWOyChYLdhSR4OpY0Az5Ht2X21NLW8YztdC/cuU9C11CUUGlSuX7/6JrMI8K+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m19VGfL7; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mb4ZmnT2"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-82f8893bff3so690615b3a.2
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 13:18:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m19VGfL7"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2b24fcc2b5dso8717295ad.1
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 13:24:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777580331; x=1778185131; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1777580674; x=1778185474; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=23tE+HbjZXJoxqvHFayaQoGSWZhsiqS+lWP51Nu+eNU=;
-        b=Mb4ZmnT2hQ30rteE1LVXig8JP83OKTw3pIs0f5T9kMjKTfTEYLsI91MjyPOoQPKOGl
-         deCZpu3egGBMh+aAc0hvydVhxdnE2E2tpHh82KZOcnhjwFBc1w7UDZ56rdsZ+66H8UoC
-         bR/3rTifltUVbzQW6kZtOECsa+uSER/gfVwo0cdhlBwQNKu7zNEIiltHh84dwIFP8dRb
-         boadM0c0Q9NQWAwd4SICA0PpEvc5oUmPUPh3ZYgGAzkNF3IuEQwNHJN5H0F2uui4Egzj
-         1a/IYonOB8Ad1mL6OmesN/jGbwA0srHwmQ8JsOwV1h11Fg4sP64WM7ScZpX8Qdr35nY0
-         kBgA==
+        bh=fwYNaRQa3yWTbJ4ptDa721p3FgFqzB92iP4KajwkaNQ=;
+        b=m19VGfL770437ftBUYJAQ2CrKLB7n7NmkIi7f+Ua4FYqyvhhbxcqrkV0qxcVxBsfs7
+         ZKChFYAh766f5inLhHXRLgdPeJUfYTwBU8QK4yALqTYrlDY5RULPdexBcm5TKBxLApVx
+         J/nAbN1mEZsoMM4m8bBcbEQOfySEGaBfgHB2vTckY+f+IKz1Fm2fqhvyl6moI9GI+L9K
+         muF7suZK1HqhN8VQSUuoNqlpiXXGXqP7pgUQXNn1Guxb4LiK1QnMjF8Ggv9XdtoIRiV7
+         OzoKzWXrBVwFo3wwDzkYGuaLtpvDI3B3tIhvXYfw1SAFwJ5ncK+NcbeKfSqgsrl2Y98g
+         FeSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777580331; x=1778185131;
+        d=1e100.net; s=20251104; t=1777580674; x=1778185474;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=23tE+HbjZXJoxqvHFayaQoGSWZhsiqS+lWP51Nu+eNU=;
-        b=MvjJZ3EHeIye3628XTrtVJFQBb5+Nvj+TMXkRDFke6fqzFHwY187I6Op31txYbcKBW
-         SjkBtKYVIVggIWoCQkmy2MhXdpWcw+TziOsMCFql1O18tj0pB6h3vlQiLgU8qs5qgVLx
-         i1UPssaXAWStQh8mpBt2ffFgsH6gAR6V6nYJvGD256D0xhXGFJV/M9mXz/IDoZovbgy0
-         NIcABc+B6H2nQ3kTria3MDaqjSD1jc3mtjSkDjqTqNtAP0HxNlY7GX2V1H7vcLqWT8Gx
-         c2woIM/e/GnWTOP1XYoufHIeRJ6LtLi3YB54qXqsukYQ1bpv1jiJX4z6woWnA2zqazdL
-         d9bw==
-X-Forwarded-Encrypted: i=1; AFNElJ9wRjksjP3ew1L3xI2vsVviiaTK2UhZsK1SXeHd00L/FJiotQMbeqpPgJBat5pE+2uzYuDWxYdxHWBE@vger.kernel.org
-X-Gm-Message-State: AOJu0YwpNkkqJG1ZwqFEPqJCBGPJSanmaC70Rm9EORs5zvVjyvjdFE6n
-	c3kb9ZkY8x6YLtwh/1VvXkIAajbdKs9FLBxdPchNAQv7T0ppq/3p7pmM
-X-Gm-Gg: AeBDietbh9Jbs4LNJwLflJmNN7qWJ6c5/MFeuqXO9NkOKvkw+XcLv1YkMWxmQboUH93
-	oVSF5ZrDTo+THhY/59gQCW9b3lw639TiskjpXKIAcdnxpRh2FpHWG40I/dTivPtg6q+j6KCPtXW
-	qQA5jUnQlaAPVTYe7i+s8U/cx+q2aGVyZAfs8mLut5fpFBxljDMef9N2rBTHnCbFXgDgCijQRH5
-	KcnHXSw91GOt7ng3NbVtmGi2RmkfVA83jOduZS6Ly8fDEZ0B0aVCkTh+aNT+m9A/P2F1CZozfqw
-	ec1Ode7daaPYo/zqOTGfpcqtcUtDkHW1leksHyhqpzAf/hUymAJ3BfZmE4K6I64wFmS2VTpZJBw
-	Qk2UyJDMhzmdSbMi3a5RxeS2we7ovZWO6LLcW9jG+v9NJo0AcWE0bdkLZrGZ22OuxCm6GC8LX5s
-	h8+qVHOpN7VsEKf2ikTHrT1hVeDKmfXVxir8f/Ep3ATHLyeowDMfp+1jH2vJsyYMrzZ2yy3g0Hp
-	2ds2FCNJo4=
-X-Received: by 2002:a05:6a00:22ca:b0:81f:4a0c:c584 with SMTP id d2e1a72fcca58-8351a2e5b0bmr81237b3a.1.1777580331224;
-        Thu, 30 Apr 2026 13:18:51 -0700 (PDT)
+        bh=fwYNaRQa3yWTbJ4ptDa721p3FgFqzB92iP4KajwkaNQ=;
+        b=dKv3tkgNtaHXdML5CWsaAp27v6GVacoQ8/VwUoo4nqqsCNW7CgvUsx6/ucPR7Wt/T0
+         oqnep7D4i9hGVpCE7rVULBsO433LJQFdFB+djljJTneO+VoiVRByN8FIFZigwm+Dxwg0
+         X9ozgQwKshZe8urd3gaVBZluUL++Jin3FRgE42tkEB4fPOE+7+L4Zysa1TK039HkmZ77
+         SmY3EMlPiFMyzpyF0XSDdDe9dHCBJ9kTXaeyytbbg+/qRGpajD0NQm+lqe9XWAFeDMqC
+         AQo/or3QtYg1ba8MA96Fkl1Ug2+s0Ur/PzFr7u64sU834vAKkqke6jPaOa3Cgt7VDtdH
+         c1fQ==
+X-Forwarded-Encrypted: i=1; AFNElJ89QYMq8RL8iJQKbtqBHKuseoFmzwj7KyAQpdLf7JRKdm6QfuxwXVkKacM8wJuviYZYk7RVWYq+tdKQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzACGg3WXXtnxW1hgAVkH1adNaxiCKnLQLSjf/kmcXd81OcYLuT
+	38FCAvPs3fzFBsoIm1hgVhn1Kolcf21V8cSLPrQ8NheiGLcpVqtLIrwT
+X-Gm-Gg: AeBDieu0YWRXVwW/rf3xH5FrngZlqmmho3nQH1OP7cHa7iuzFdNrWnEBFtJSOXCpbCW
+	4kuKsGEWJqk0DUjfSRGc5mMvVYHP1P1YyxFe82ZAWKnPfjUYeyN6djIJg17jAgzYvEoUKjJFwcW
+	XYk+8n+anG4TOjqxPhS/WeKOOGlvgZm0w23SUqVkfQ/dCoxOj3CBWTsVtAujTTyXWCd7ygFQ29x
+	2MBwmUTuv2KvGpahGZhoHEAcZ8KGWaeUxjTXlajUwbEQtGhgoxHrbbhHgonQtcZgb5HNw3BbxE7
+	e7Gqn1B5BRy2IkURkWsiRMwI4bHf6+bD9r91RwV7jQtktF1z6ZhNwFkdSKgIxqhvB3aZkDWeplE
+	Q4t3Y4/xnhiBz/Mm/waM0n0d+11BzPh4F0rzRk5lVQ+dfoNAlXtHo/n63D5B/R8SsSaHdsbfndk
+	XKvw5Tv7bWYpR7U5ZGiKJEfb/rGM4jlxD+SCJBXmt0BIHgJLkIos9TZzv+Pq6NqOOh8vtBMtuq1
+	6RGvG37VgY=
+X-Received: by 2002:a17:902:9a43:b0:2a9:e8b:5326 with SMTP id d9443c01a7336-2b9a24bee86mr32016835ad.23.1777580673805;
+        Thu, 30 Apr 2026 13:24:33 -0700 (PDT)
 Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-835158aa1ffsm509604b3a.22.2026.04.30.13.18.49
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b9caaae662sm4651045ad.22.2026.04.30.13.24.32
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Apr 2026 13:18:50 -0700 (PDT)
+        Thu, 30 Apr 2026 13:24:33 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <f2cc69a9-9211-42d6-a349-17e67d1ae4b1@roeck-us.net>
-Date: Thu, 30 Apr 2026 13:18:49 -0700
+Message-ID: <bf47e206-de64-4330-92eb-46ceda511628@roeck-us.net>
+Date: Thu, 30 Apr 2026 13:24:31 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,17 +70,14 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] Documentation/hwmon: add Delta E50SN12051
- documentation
-To: u8813345@gmail.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kevin Chang <kevin.chang2@amd.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Colin Huang <colin.huang2@amd.com>
-References: <20260430-add-e50sn12051-v3-0-f6d4e043ec7c@gmail.com>
- <20260430-add-e50sn12051-v3-2-f6d4e043ec7c@gmail.com>
+Subject: Re: [PATCH v4 0/2] Add driver support for ESWIN EIC7700 PVT
+ controller
+To: hehuan1@eswincomputing.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, p.zabel@pengutronix.de, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: ningyu@eswincomputing.com, linmin@eswincomputing.com,
+ pinkesh.vaghela@einfochips.com, luyulin@eswincomputing.com
+References: <20260430064107.1598-1-hehuan1@eswincomputing.com>
 Content-Language: en-US
 From: Guenter Roeck <linux@roeck-us.net>
 Autocrypt: addr=linux@roeck-us.net; keydata=
@@ -126,128 +123,114 @@ Autocrypt: addr=linux@roeck-us.net; keydata=
  F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
  FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
  np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260430-add-e50sn12051-v3-2-f6d4e043ec7c@gmail.com>
+In-Reply-To: <20260430064107.1598-1-hehuan1@eswincomputing.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 4/29/26 23:16, Colin Huang via B4 Relay wrote:
-> From: Colin Huang <u8813345@gmail.com>
+On 4/29/26 23:41, hehuan1@eswincomputing.com wrote:
+> From: Huan He <hehuan1@eswincomputing.com>
 > 
-> Document the hardware monitoring support for the Delta E50SN12051
-> device.
+> Add support for the ESWIN EIC7700 PVT (Voltage, Temperature) sensor
 > 
-> The documentation describes the supported sensors exposed via the
-> hwmon subsystem, including voltage, current, and temperature measurements.
+> Features:
+> The driver supports monitoring of voltage and temperature parameters
+> through the hardware monitoring subsystem. It provides an access to the
+> sampled Temperature and Voltage.
 > 
-> Signed-off-by: Colin Huang <u8813345@gmail.com>
 
-For my reference:
+Please either address the issues reported by Sashiko, or explain why they are invalid.
 
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+Thanks,
+Guenter
 
-> ---
->   Documentation/hwmon/e50sn12051.rst | 81 ++++++++++++++++++++++++++++++++++++++
->   Documentation/hwmon/index.rst      |  1 +
->   2 files changed, 82 insertions(+)
+> Test:
+> Tested this patch on the SiFive HiFive Premier P550 (which uses the ESWIN
+> EIC7700 SoC).
 > 
-> diff --git a/Documentation/hwmon/e50sn12051.rst b/Documentation/hwmon/e50sn12051.rst
-> new file mode 100644
-> index 000000000000..cbbfa7895d82
-> --- /dev/null
-> +++ b/Documentation/hwmon/e50sn12051.rst
-> @@ -0,0 +1,81 @@
-> +.. SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +Kernel driver e50sn12051
-> +========================
-> +
-> +Supported chips:
-> +
-> +  * Delta E50SN12051
-> +
-> +    Prefix: 'e50sn12051'
-> +
-> +    Addresses scanned: -
-> +
-> +    Datasheet:
-> +
-> +      Provided by Delta upon request and NDA
-> +
-> +Description
-> +-----------
-> +
-> +E50SN12051 is a 600W non-isolated 1/8th brick DC-DC power module.
-> +
-> +This driver supports the E50SN12051 PMBus compliant monitor device.
-> +
-> +The device provides measurements for:
-> +
-> +* Input voltage
-> +* Output current
-> +* Output voltage
-> +* Temperature
-> +
-> +The driver is based on the PMBus core and exposes standard hwmon
-> +sysfs attributes.
-> +
-> +Sysfs attributes
-> +----------------
-> +
-> +======================= =======================================================
-> +curr1_label             "iout1"
-> +curr1_crit              Critical maximum current.
-> +                        From IOUT_OC_FAULT_LIMIT register.
-> +curr1_crit_alarm        Current critical high alarm.
-> +                        From IOUT_OC_FAULT status.
-> +curr1_input             Measured current.
-> +                        From READ_IOUT register.
-> +curr1_max               Maximum current.
-> +                        From IOUT_OC_WARN_LIMIT register.
-> +curr1_max_alarm         Current high alarm.
-> +                        From IOUT_OC_WARN_LIMIT status.
-> +
-> +in1_label               "vin"
-> +in1_alarm               Input voltage alarm.
-> +in1_input               Measured voltage.
-> +                        From READ_VIN register.
-> +
-> +in2_label               "vout1"
-> +in2_crit                Critical maximum voltage.
-> +                        From VOUT_OV_FAULT_LIMIT register.
-> +in2_crit_alarm          Voltage critical high alarm.
-> +                        From VOLTAGE_OV_FAULT status.
-> +in2_input               Measured voltage.
-> +                        From READ_VOUT register.
-> +in2_max                 Maximum voltage.
-> +                        From VOUT_OV_WARN_LIMIT register.
-> +in2_max_alarm           Voltage high alarm.
-> +                        From VOLTAGE_OV_WARNING status.
-> +
-> +temp1_crit              Critical high temperature.
-> +                        From OT_FAULT_LIMIT register.
-> +temp1_crit_alarm        Module temperature critical high alarm.
-> +                        Set by comparing READ_TEMPERATURE_1 with OT_FAULT_LIMIT
-> +                        if TEMP_OT_FAULT status is set.
-> +temp1_input             Measured module's hot spot temperature.
-> +                        From READ_TEMPERATURE_1 register.
-> +temp1_max               Maximum temperature.
-> +                        From OT_WARN_LIMIT register.
-> +temp1_max_alarm         Module temperature high alarm.
-> +                        Set by comparing READ_TEMPERATURE_1 with OT_WARN_LIMIT if
-> +                        TEMP_OT_WARNING status is set.
-> +======================= =======================================================
-> +
-> diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-> index 8b655e5d6b68..ba08655fc496 100644
-> --- a/Documentation/hwmon/index.rst
-> +++ b/Documentation/hwmon/index.rst
-> @@ -68,6 +68,7 @@ Hardware Monitoring Kernel Drivers
->      drivetemp
->      ds1621
->      ds620
-> +   e50sn12051
->      emc1403
->      emc2103
->      emc2305
+> Updates:
+> 
+>    Changes in v4:
+>    - Update eswin,eic7700-pvt.yaml
+>      - Delete reviewed-by tag of Conor Dooley, because the label enum
+>        constraint is introduced
+>    - Update eic7700-pvt.c and eic7700-pvt.h
+>      - Remove the unused LVT/ULVT/SVT process-monitoring channels
+>      - Remove the probe-time power check since the PVT block is always
+>        powered on EIC7700 and the extra verification is unnecessary
+>      - Stop requesting the interrupt as shared and use the dedicated PVT IRQ
+>        only
+>      - Reorder probe initialization so the interface is initialized before
+>        the clock is disabled, avoiding register accesses with the clock gated
+>      - Fix runtime PM reference handling on error paths by balancing
+>        pm_runtime_get_noresume() with pm_runtime_put_noidle()
+>      - Add pm_runtime_put_noidle() handling for failed pm_runtime_get_sync()
+>        calls in hwmon read/write paths
+>      - Switch the PM callback registration from pm_sleep_ptr() to pm_ptr()
+> 
+>    Changes in v3:
+>    - Update eswin,eic7700-pvt.yaml
+>      - Remove redundant label property description and use 'label: true' to
+>        reference the definition in hwmon-common.yaml
+>      - Replace 'additionalProperties: false' with
+>        'unevaluatedProperties: false'
+>      - Remove the description for '#thermal-sensor-cells'
+>    - Update eic7700-pvt.c and eic7700-pvt.h
+>      - Fix clock reference count imbalance with Runtime PM:
+>        Replace devm_clk_get_enabled() with devm_clk_get() and manually
+>        manage clock enable/disable to avoid double-disable in remove() when
+>        Runtime PM is active. Clock is now enabled only during probe for
+>        eic7700_pvt_check_pwr(), then disabled before enabling Runtime PM,
+>        which takes full control of the clock thereafter
+>      - Add detailed comment explaining the spurious interrupt risk in
+>        eic7700_pvt_check_pwr()
+>      - Replace wait_for_completion_interruptible() with
+>        wait_for_completion_timeout() to prevent infinite wait
+> 
+>    Changes in v2:
+>    - Update eswin,eic7700-pvt.yaml
+>      - Reference the hwmon-common.yaml file
+>      - Remove the clock-names and reset-names properties
+>      - Move additionalProperties: false after the required block
+>      - Remove one example node to avoid redundancy
+>    - Update eic7700-pvt.c and eic7700-pvt.h
+>      - Remove unused sensor macros (PVT_SENSOR_FIRST, PVT_SENSOR_LAST,
+>        PVT_SENSORS_NUM)
+>      - Drop the unnecessary hwmon-sysfs.h header
+>      - Replace dynamic sensor info allocation with a static array and unify
+>        sensor labels
+>      - Remove unused hwmon_temp_type attribute
+>      - Eliminate redundant validation checks
+>      - Remove mutex and related locking, relying on hwmon core
+>        serialization
+>      - Replace per-sensor caches and completions with a single data cache
+>        and completion object
+>      - Remove pvt->sensor tracking. ISR no longer depends on the currently
+>        selected sensor
+>      - Move devm_add_action() registration after init_completion() for
+>        safer cleanup, and update cleanup function (pvt_clear_data)
+>      - Replace devm_reset_control_get_optional_exclusive() with
+>        devm_reset_control_get_exclusive_deasserted()
+>      - Replace eic7700_pvt_remove() with eic7700_pvt_disable_pm_runtime()
+>        and move it after PM runtime enable to avoid resource leaks on probe
+>        failure and remove clock disable and reset assert from
+>        eic7700_pvt_disable_pm_runtime() as it is already handled by devm_*
+>        framework
+>      - Remove redundant clock presence check in runtime_resume
+> 
+>    - Link to v1: https://lore.kernel.org/all/20260109090718.442-1-hehuan1@eswincomputing.com/
+> 
+> Huan He (2):
+>    dt-bindings: hwmon: Add Eswin EIC7700 PVT sensor
+>    hwmon: Add Eswin EIC7700 PVT sensor driver
+> 
+>   .../bindings/hwmon/eswin,eic7700-pvt.yaml     |  68 ++
+>   drivers/hwmon/Kconfig                         |  12 +
+>   drivers/hwmon/Makefile                        |   1 +
+>   drivers/hwmon/eic7700-pvt.c                   | 591 ++++++++++++++++++
+>   drivers/hwmon/eic7700-pvt.h                   |  99 +++
+>   5 files changed, 771 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/hwmon/eswin,eic7700-pvt.yaml
+>   create mode 100644 drivers/hwmon/eic7700-pvt.c
+>   create mode 100644 drivers/hwmon/eic7700-pvt.h
 > 
 
