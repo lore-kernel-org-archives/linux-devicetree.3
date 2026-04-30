@@ -1,176 +1,111 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011014.outbound.protection.outlook.com [52.101.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7F43FA5EB;
-	Thu, 30 Apr 2026 12:03:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777550631; cv=fail; b=WEksbG6oYX5f980/Pu7DIjdAgfW0yxijqNw9r+h9zd+dtpv0VlkrMX4x+NWTz8GbtCxTOY+PsEXF9MMgh87SAzatpGJ5VfBSurUoJmmwOAM1uKQKLCn2ZLO90UKu8VMnjCz6CQCd74XxU4Hbmb1k9YD0oSzlRMWBPDte49JWkPk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777550631; c=relaxed/simple;
-	bh=ZN7o+jk6QQTLMJGLdgBr+6uDxHD6URuIgAOKEKgUMY4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=FQstuU4hLryothfEZ7Bspm1tniFx3KGJnJaWcMUxSVUidPoofy3YB5r4heGXX1iDteCXKzL/IahlDypvXbnL2GD+/EO2v636uGowLqGMKtUYd6U26kAN/Sop2RWb62WLIEPfDaZg+Ja0nr8nzuGTg5DQTckDm1PC6nbuRW0Aumo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=ZpuPCI4H; arc=fail smtp.client-ip=52.101.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805433F9F22
+	for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 12:07:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777550860; cv=none; b=DSAe1KZEn9uP3fF8NSaUuBdocI3ePSSAq5cBum7nKyv5BAqDi/nTop0Jzy3cP8WFyIHZ82Hb/iZFeJYMocI4Mjd/7jF68y2gy7WPuSxCxI2PNfFB1LIcLCRZOaQaVhgMQCxloLL2cWI150caBCn//lN/goWGXyFsZFqrYlpun0w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777550860; c=relaxed/simple;
+	bh=kHSx7yrPSSx3XTLSrVOWkmHE6zs/oVtW4EX/xl4K9+Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HDQ9AWMRzkRUNi3Pz+py2x7a7t5IZiVZ8jGSJ8EDjMUNIxePQ1SPSBPQXv0uP31Qe+PlJazb0GtchR93Ae0/1LCb2gAcf9jsVUEo+LeCr+vY2fW4qxVjdjHLolCxy+MUkKAf3PM5aQmH+DfFp9Uc7UY2v5kdiCwKnah257n1IS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Ru5i/AKO; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="ZpuPCI4H"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WP0lKK9S9I9ZDvop06M5/SXC2RqS9CvuSm06qbYugxLFm4Vx+/MjbuGsYTGbpYY5Me75ejuz1H2H6zSk8bwGA7jxbZlvyo9Ux+fxCUqezPoFmZ+3M0a66ZCHVka+citHH6GC2hJBs9yGDHuwLw1CvK2QLOZsjstyl6OYKoDuT/qUqbGqaI2kkMz0ctVMnewa16wgAHNZq8Ps6NQw1XWR9AoePoA+enj8QXr2r16wHjB2l832Pa4tNF6mkk+xrsFdWxVFwPwVOSy63n3ulU6Txf0A4yk75zIJRu9oVMOR3I7TRlA1ju5rWsCBL+Hyff9rW2qpxE987pntJ3EnWvSjkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rlc8EVN2ihBTFihj4tHSpYlhQE3kmNv5RZwMbLOrZmI=;
- b=AFmGVokgqPlWwzhQGNdNGcu8oh9zpjf28kDsdWs0pTsiDtjVYNYRHM39+3rHB6Q/A2ZPOYHN1w7uqLNronDbo+XViU0ZcywluM0b3PeYiq6zop3rPDRpBOgOjSpfcRrspCB7AywAULSeXswU02L+Y06pivLg+bKM8gs7CTLZaz7CUDHXfW+e4+IWOChWqKWW2gtii6IdZovGnBbD+mqz/Kpucdd/0ZhXl7hjUFEaujEIm9CJqpbQLJZJzUK0bXdEEcOgMIAQGhi/v8eVEgIzq6Oy6sm1lPjHZTKzAYVUMz/CBdOY0zltdk9aFX7kVGdFvL+i53J0x1n068OemIFKDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rlc8EVN2ihBTFihj4tHSpYlhQE3kmNv5RZwMbLOrZmI=;
- b=ZpuPCI4HrmaweqYU3Bm5aXXKnvlU+BQlrzW2bHNG+lc1W2RUFVxUzXZEjYEVhMuwvrAbNyr9PpDW6hVdwF1s6SopQentDiMoyuj7Ml4N7QSR/a/qzOvrQXk53y5AexDTw7defInDSOPa0LjdYPX7zwLGq7LHRNSNbRWsp9IBCm04I0Yml5xKosPVo3dbeTknSKlmO0LADCtOc25LAjKvrjzMhmBZkIkAh5rETCQTToMH2XwG4hqHxeeibLrRk5P7zrrI1keYnOE/EaODAb5pu9Jf+IyHcNJYye+8StRgnFTq4uzPhDcqTi8gN/h5f0Ti0T11bm1m3f2FnUdFWmpZXQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
- by DBAPR04MB7301.eurprd04.prod.outlook.com (2603:10a6:10:1a7::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.44; Thu, 30 Apr
- 2026 12:03:45 +0000
-Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
- ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
- ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9846.025; Thu, 30 Apr 2026
- 12:03:45 +0000
-Date: Thu, 30 Apr 2026 15:03:41 +0300
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: Josua Mayer <josua@solid-run.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Yazan Shhady <yazan.shhady@solid-run.com>,
-	Mikhail Anikin <mikhail.anikin@solid-run.com>,
-	Alexander Dahl <ada@thorsis.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Subject: Re: [PATCH v2 3/3] arm64: dts: imx8dxl: Add SolidRun SoM and
- HummingBoard
-Message-ID: <20260430120341.4sqmblbt2hqoklsb@skbuf>
-References: <20260409-imx8dxl-sr-som-v2-0-83ff20629ba0@solid-run.com>
- <20260409-imx8dxl-sr-som-v2-3-83ff20629ba0@solid-run.com>
- <8efbafe3-0a8a-4005-960c-e8fe62cee719@lunn.ch>
- <bd2e73c5-2e61-4ea1-ab3b-42a6573b31f8@solid-run.com>
- <20260430111924.nvwohy4nexzyiyyl@skbuf>
- <75e338eb-afd2-4e2e-9b93-e9fc36871854@solid-run.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <75e338eb-afd2-4e2e-9b93-e9fc36871854@solid-run.com>
-X-ClientProxiedBy: VI6PEPF00000214.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:808:1::8cc) To AM9PR04MB8585.eurprd04.prod.outlook.com
- (2603:10a6:20b:438::13)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Ru5i/AKO"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2b24fdac394so6525985ad.3
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 05:07:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1777550857; x=1778155657; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=CKv4W/JoMnGa2IT1tfwDfZQZp49D12KO1oxnjPxBw3Q=;
+        b=Ru5i/AKOCZKSkDYbIyhtAiwNzdeLsjl8IF7IH0XfJQhM9QtGSSERWn+KAZMPlgLRDm
+         e+Nd1i9AHzPrPPeGrPxXy/tP8+6UdFTNHC0NmpTlg8882HKwGeZZADyNJS3QyTheaWCS
+         gfQnqpA1Dhwovoj0MYr/S9gizSoegIxZPAXrI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777550857; x=1778155657;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CKv4W/JoMnGa2IT1tfwDfZQZp49D12KO1oxnjPxBw3Q=;
+        b=fN4IwuRmaKVfLv9Sx12B0GaS4WueHuyZEwmx3YsBhoymm1VE/MgathN4o1/JVhYyWR
+         G6yau99RMLbDELIGUvte8Tg05U3XfRzuaOhxHhm+c4eEfwI99Y2rtjqU6nHsDxGqzDRg
+         stGomDAH2cY9ZMPjW5gvebW9BE1nb1GWBq15XwdruRO7bnbw1HnhR5mzAw9Ecm5+IONH
+         HaUgutvphcBjdd/w48yBpXx/nPOR1H3feWC1mtdLHkpPgq+4gr+BK6zYCc/QLTIYTYnW
+         sPKAC2Imh7KGIn+8flho1iBdF6h8S68QJFV+64alr8AjM454b1BrkfdjfDc6GgXfraEf
+         xeOg==
+X-Forwarded-Encrypted: i=1; AFNElJ8QAgXjDOswG4ZxrOQcAScY4yk8FIzDN+5JaO7HlbAbfFRkWtBcjrHQN5S1Om8IjqgANtq/tD3SfbKl@vger.kernel.org
+X-Gm-Message-State: AOJu0YwNc8bqp2DNc8aZkEcS7YMyE6GfA1qYpZifvH3PLIt+LAacTDno
+	Hr+NmXxjfpoZVH2oYWKxHD48VgWWQGJ2o8g1RQHxiCOSXENvavIyhQgu0OkdPTcjkA==
+X-Gm-Gg: AeBDieuwtN5sI9XldPEFymlZ8L22iqJlTaEfwRYfTsjBvfHhqFPgGCKdafDoZcZNVmV
+	fXcbAWCr5/3iG4afWrvcyt5X4blvfi1jgDo6kb/c9+S1AeWDaNyZvqVfLCWwOYXJ6aUV0sVUj9w
+	Lbezu5Dbf3JMm+zcNyRusxfO/XuN+yUDL/aJlOwyxa/RZhY6eRtSL/ojB+a+l3p6y6NF8cz9eGR
+	r38rxW7zS26SuHRNQOsaX+RXyEThttW7KSmcPPk2IUHi9a13kiifB5LmzrX3PZv+1CnvIGAugN+
+	hTKfwex4SUTpgzkR4i4pkzQuYYY1LTcWPzgbnie4zdvG8J8z6RW1+WDxnDhpk8dtNhco6XfgEU4
+	otIdPyGJfS0jL2Nu/zuYHcXmS4yW/xL6GCeE8P9MEfiqiXPIoF70l8wdYA+yi3xDfMUfm/YCkA3
+	1fAEd58pmbk90ulAgSbN0Cm457eISbyJnehoL2YEcz8OztaLc7ft2SnDGn77Fid2/8A2CprnPoi
+	UTcAWKO29Orv4DEtAc=
+X-Received: by 2002:a17:902:ebc2:b0:2b0:5cb3:e4bc with SMTP id d9443c01a7336-2b9a234e8c0mr28352745ad.16.1777550856708;
+        Thu, 30 Apr 2026 05:07:36 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:7c53:8aef:3f8c:bb04])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b99835a796sm34576285ad.59.2026.04.30.05.07.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Apr 2026 05:07:36 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: mediatek: mt8192-asurada: Move PCIe DMA bounce buffer to host
+Date: Thu, 30 Apr 2026 20:07:24 +0800
+Message-ID: <20260430120725.241779-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.54.0.545.g6539524ca2-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|DBAPR04MB7301:EE_
-X-MS-Office365-Filtering-Correlation-Id: d3c81926-ca37-4a23-2ab7-08dea6b08798
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|7416014|376014|10070799003|1800799024|366016|19092799006|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
- 1OjmGui8XWfMGf19dTsH3eufH6JscFu+rltXjUC9xIY+MuVmksLzPjAVlAau54gPsbXRsz4sUsEW/sdpjfwzVN7oPCcL3zzgNPEB+KF/t8/FUSTXZUbljHFWtVEmjEt0rHQl/s3LSrygCEPjCr2ibVK0/rFU9Zn03krW9COGoyubM7+sqA3SbmmzELcnB83Au90eMVIr7vQce/rwPGi+LKMVjJPz4ZzwFuGH/ZCn3MSJn/NtkJokxiU1Ua6snYsHI8D3eIuK6jW6BAhFkBRpstaa2PFa4fEM7D+m+jbJ/xMHD8D9gHxGeMxLllLLWf0CMUId0EjTweMFwB9x/fzxbJCwtkglvCw8RCOWIuoiRjK6RSGn+L74GDWQ72NEGu+svU66xceqV3EHeVeXsyA/xYB65EvX6PEwS2C9hz+mvYciYzdMHdv1RBTJOzfN/PSXEXUGYVjSEk/2iCdlbAbnTfDQFDDs7n0SRrYTdYqgcLDGjy1lQISY/0MYAvbz1kzE3yaTYb7BmYEhQWCy6Q8FyGAgkIBF+1CI84Fs+HhjdBdW/DTUIf/L/NfTkJhqDclzqK4cGNk7Ay71JZoDWZST+hV8AKMuS7aTpdq1g8ZFv3XWkurBvKHMqkkPlPhnGz4EZbUomkg8AxYO/KFhSY2iwZvLw4OfzgNyBvCq1TCpmearbXNqV4PFcrMIjKMCQcv027lGWIVQJeNoCZMzYc5VXIkmigs7GVv4Tloir8zxbcA=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8585.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(10070799003)(1800799024)(366016)(19092799006)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?JJOfnXpW7HwTdUJ/4z5j3n3tYzg+1771RPHgXzYJlfwflKkb74gZcBWn3BN4?=
- =?us-ascii?Q?wsuLJOmH0H3cdhX+zX8TgQoJEbjltfJqMLyRs3BK3qfN1X+Bz25iIw13tY4s?=
- =?us-ascii?Q?Zm/XItZc0B8soZjyqd89So4xu9aQiEGnkEgLC9cwfFOR+1Hrfa6IsaikKnSr?=
- =?us-ascii?Q?BKIHJYxbWtKyfzoLA/qkQJg5OqmTO21WlrPVoLitRBKsx7xAPxvtheCXfc7f?=
- =?us-ascii?Q?sqFwoJ/iQgjIJtWBq+MApSlvp/8uyv57bcWEFhe6++JrBSVunT86xxW5N2j/?=
- =?us-ascii?Q?4ZwDttMoubF1TXeFwsDd9cSft9SrI/UynaBHMUcYN+XtOZ9kPeyArx+azJ9B?=
- =?us-ascii?Q?rMKgMVxLkGhvUMq64TLXYPR2PKqvLOi7Wt7r/RZ6JIz0o6ErO4feViTzva5F?=
- =?us-ascii?Q?Vf2rdW1/QQUWqehsyAXxwHPsX+kZ3qgqw1f/f6LdjqYXHLtqhI8ilhJpns10?=
- =?us-ascii?Q?/PqaGbYpl9DaSdS9n1loIDXQtRhVYxLPL25N6aO78N0mgrB+nVeJOx0pgPs8?=
- =?us-ascii?Q?OmzAihpOaWVuYK2MrRj4RkkuIU3kCNe91JTJkzBkL050V7dnskUl0NIMMf1N?=
- =?us-ascii?Q?tzURimcIAXrCzVUPSuXSgScjPw6vn/w8k9tuK8z34t+Vv3i/q0O83XH5UP4f?=
- =?us-ascii?Q?o7xAfKmYVXXk1Zj7ub3P0i7LYlldrOnB2uBqU/FoVk9vrBw8kLMl48n9yqbi?=
- =?us-ascii?Q?z4z3GyF4sfhwta+YxV/IgecQNjIwA5OqA/EatjLm21yaE/HXyRwTihSzWZdp?=
- =?us-ascii?Q?+HvUtsAV19Iiv+cNGNO7zi4FbuPF7V9cPRvszJfemzeJUQLdwq8zn4loMQTG?=
- =?us-ascii?Q?Qs6XQzkiL4gxFQhFByXEAAO11zjM/a6+gLyWqbPYs/rIDp9w3cIQiPWHXN49?=
- =?us-ascii?Q?KPoPrAVm0wDF69FYGfKfU5WzV5bu7FJYChKFP5ibEaKlR5Tzb34InJ4kkzRD?=
- =?us-ascii?Q?rGDc26C8d3SN1Y9GkB9HnkcNoKDi3e9CUR75xVRe+rskaqJx/h6wWoZV9xXH?=
- =?us-ascii?Q?pSAfC4NeABsrfD5Dlo8Gq4TK597Af1l11pC7Y27caCHLU3erWAumgFqDQ9OV?=
- =?us-ascii?Q?V7taTjkz8TWc1CBHbqP6SCIYt563dRka53AhneSAU2EHjJQ09fa4XPX8Ksym?=
- =?us-ascii?Q?y2DWUdvJtEb63G6ugFbJLGV1fQy9QfZOx3hXGBux2by4LkbQfEnu1z/Qrgx5?=
- =?us-ascii?Q?7t8/HXhrQ1Rx6WepzW8Id4ylLF5dxxqnIH+e46NXVcXgyT74p30Pv7XtC4pu?=
- =?us-ascii?Q?2BYeo5DZ71P9mW+MqWNgCa2DpmXopaNvlJJKIBFlOpemO5NuKtf6yeNg4sHG?=
- =?us-ascii?Q?2r04UZ9z/TFB9cf6eqMnmLD1q+l6e0Nw20hapkHRHY6yRirROMAG4jnxgnCs?=
- =?us-ascii?Q?5vUoPzePmyECqULGHjG7oOL6GLTh04PDoPeovo6ifxUweP7M9exHyAuA46vt?=
- =?us-ascii?Q?UgoI6pi+2Wk/uoUaSe7I+jTgV0tE7gqmWMJ+D41pJeCBvfBN6cmXnAWzDGVj?=
- =?us-ascii?Q?T9MHsP3fUOTyhNPvRPJKi3Pxxlwfr3S4uNamuAawDZUgTQxEiNPbqiwV5z58?=
- =?us-ascii?Q?QXUbhpdBj4vF/qWUdlFSXKOh3U2Bej3aPUweAF1Xl22+TpHmPjzio5TksAyV?=
- =?us-ascii?Q?QZOnIa5OMznyyRzW1FeyfIt8e3pJxxFP3ouJI1+x9kAvzkViAknBXlpCflya?=
- =?us-ascii?Q?X9lF5lfiOD3A2BJaMG7pUcgFdhrYQBg+ZWQKWbTbhB79/sZia1/92TanHuBn?=
- =?us-ascii?Q?w+mCUw1gDl67jVNYCNl7cx+P8CxQi9JnV2jlhB16576RFJ8nZ8MztqIe8SdD?=
-X-MS-Exchange-AntiSpam-MessageData-1: gs8SELRefNKuysDld3L0ZGkOCkJrh0uIKWY=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3c81926-ca37-4a23-2ab7-08dea6b08798
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 12:03:45.4104
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1kizvDOoPwJmE6a9TfzhGU1OHdOxFynVhLAifTrcNlhlvG5RM5THgN2bXyAdtZqJ9OlAI2de/Z84syyfysZOrQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7301
+Content-Transfer-Encoding: 8bit
 
-On Thu, Apr 30, 2026 at 11:48:45AM +0000, Josua Mayer wrote:
-> > Also, can you use udev for user
-> > interface naming?
-> Possibly .... I am aware of systemd (udev) based default behaviour
-> for network interface aliases (eth0, eth1, ...).
-> 
-> However I have not seen it for dsa switch ports.
+The DMA bounce buffer is attached to the PCIe host controller, i.e. all
+PCIe DMA transfers should use it.
 
-In /etc/udev/rules.d/10-network.rules:
+Move it from the PCIe (WiFi) device node down to the PCIe host
+controller node.
 
-ACTION=="add", SUBSYSTEM=="net", KERNELS=="spi2.0", DRIVERS=="sja1105", ATTR{phys_port_name}=="p0", NAME="lan0"
-ACTION=="add", SUBSYSTEM=="net", KERNELS=="spi2.0", DRIVERS=="sja1105", ATTR{phys_port_name}=="p1", NAME="lan1"
-ACTION=="add", SUBSYSTEM=="net", KERNELS=="spi2.0", DRIVERS=="sja1105", ATTR{phys_port_name}=="p2", NAME="lan2"
-ACTION=="add", SUBSYSTEM=="net", KERNELS=="spi2.0", DRIVERS=="sja1105", ATTR{phys_port_name}=="p3", NAME="lan3"
-ACTION=="add", SUBSYSTEM=="net", KERNELS=="spi2.0", DRIVERS=="sja1105", ATTR{phys_port_name}=="p4", NAME="lan4"
-ACTION=="add", SUBSYSTEM=="net", KERNELS=="spi2.0", DRIVERS=="sja1105", ATTR{phys_port_name}=="p5", NAME="lan5"
+Fixes: 0dca9f0b3e63 ("arm64: dts: mediatek: asurada: Enable PCIe and add WiFi")
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+ arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> It has been common practice for switch ports to be named lan[0-9]+,
-> and I'd prefer to keep it that way here too.
-> Predictable names are important for users in particular when interfaces
-> are of different types and at different connectors.
-> 
-> Re. the T1 ports names I didn't know whether to use "lan" or "trx".
-> For those if "lan" is preferred, I can change them.
+diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
+index 217c9bd5e9a1..eebcc4068e28 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
+@@ -645,6 +645,7 @@ flash@0 {
+ &pcie {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pcie_pins>;
++	memory-region = <&wifi_restricted_dma_region>;
+ 
+ 	pcie0: pcie@0,0 {
+ 		device_type = "pci";
+@@ -659,7 +660,6 @@ pcie0: pcie@0,0 {
+ 		wifi: wifi@0,0 {
+ 			reg = <0x10000 0 0 0 0x100000>,
+ 			      <0x10000 0 0x100000 0 0x100000>;
+-			memory-region = <&wifi_restricted_dma_region>;
+ 		};
+ 	};
+ };
+-- 
+2.54.0.545.g6539524ca2-goog
 
-No objection to your naming choice. Just want to point out that we
-encourage DSA users to use the same naming infrastructure as any other
-net device. The device tree labels mostly come from deeply embedded
-environments where a full udev implementation is missing (like OpenWrt).
-If you don't have that excuse, you can try to leave the labels in the
-device tree out and set up predictable names through an udev rule.
