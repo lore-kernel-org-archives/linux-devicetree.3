@@ -1,156 +1,223 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6FFC3CFF64
-	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 15:32:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424C43CFF73
+	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 15:32:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777649576; cv=none; b=qh7Onpg52tyCtCZe+puvf4Gj/b5W2RwTp/iVVKGj8qarhfhVMniA5a9ZNlH7XtGn+YXGx31XC6Welw4I5s8mcgVemv/aL3/M5+mj/nSFwMwaQG/+IywBrQ+0DnCEb8Gr+7ctxHnNv6rt8EwH8SwHu+E3o9Yc+N3o0IbNXBCBL10=
+	t=1777649578; cv=none; b=YADghlUDasSN2Tplgl+RKkiUjKcmHJvYG1oXcAPtZffUsup/m0lcJ+tMTKe7gNVQGRRE10N/3W33JSsIexR6JGu/p9xxoH5frrvR89y09YR/YBviJM/3/cNFgbE+XiqNRj4dHP/XBqJtHQ2/W3fh0pwDUaKERD/xD0CbmPzTdk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777649576; c=relaxed/simple;
-	bh=auIWNOK7TliDHRa41hP4h/ZGSc9hDRKRewTuikcXQhg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=trcoaPLIEbt038pcgMOlA/WJSO6oxXrWWdred4qJ8kwDB9skmkKkDX+VXGRExXsZ0z1PE8TbYGEjw0Iu1F8ZGva4pOBxWq1bTx7eRtWnaTgIwZAJcNBWOjLQ1QFrsXMAZEiOSqNnJnk18M9Lg+xxcGazhp/U2C4x8JA/UR1F6xQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=BN9VVDzC; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1777649578; c=relaxed/simple;
+	bh=kWzw/voZgkZ9F987lwcQbashORT/zBgp+puHFaAHgP0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dprQTE+Jefh7OK3G+ge7NGQVjD3NyP6rzBYRsx0HCLPc/z8Dw8e3LhkZ1s+6aNq5zmhFrBoAAzgJMoxArNjvzWXEMGtDBZQsZwYLZ0iuQC360N5zrlFI19Sw24qnIjEs5TQxEdEgy15OpvlWwzLO6Hdfx17ZgwRh80U4jSQ3eHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nLT9S2Qs; arc=none smtp.client-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="BN9VVDzC"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4891e86fabeso25992085e9.1
-        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 08:32:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nLT9S2Qs"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-8cb38e86cf2so179687585a.1
+        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 08:32:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777649573; x=1778254373; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1777649575; x=1778254375; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=nIFGJkIeWdUt+CmNJefoaOlO/byGEQ4fNf280dgFKws=;
-        b=BN9VVDzC6SvjqYqG/OHlCXcINCVckD0HtROIzL6RxLMR+tr3zBdJEHwK62QlKfW380
-         VKDGQd6oNEcs/8fZ9DvIqSMkidhkAVsuXJYrwCyqNUMb0FDNMHetWeV43FBWNxB6zMNN
-         XCUgOclQQkPYH50LQFmEueTpZTA6jPjfmIfJGz4eDUJeda+LU9nNZc70tQSeKRDSgbU9
-         E2iD0pjNLqTXnWb5K81cNq4xbdmZQxwdV56YqJ4yA2rQZOghOFSfg+njv8ecBAWPoRh0
-         43y5LlVHo/vwB4a7xo3q7ygrZYGpIDruDUj+J6bs7Cux+cvvHU0wbrx4XNuadCc4fCtf
-         q6Mg==
+        bh=pPPYmlM0l3hrpJwW2jPS8aUg+kvVKXo2i1UV0uK9TUI=;
+        b=nLT9S2QsRmIhRR7rHy4H41XXnhJomDU4h16q847ruLzGxMcDkI+eWvNQAuIRy3b9t7
+         fTYXglOX0zD1PnMvL5jPwaDYtWdPHFAJkwdqsfYkGrQyT0q7FjYiHrZeoA4vpFJe4ABE
+         rE5N7y0Bscmk21WZdL7dBD/plyH+/CZdfCoN9flE/cFF5CsudOCXBnB+37njgJ80RoX9
+         U6tYLEYWD2wv2j/xVHQsu6QGDlNUfo8F53oYFdojq3/p+mlLhuDcNl8IZzatLVYvIc5/
+         zRP4GUmNi2UnEd8pDhNa72pJ0lFLZcSw/yzNeUsnOCawr3P/1zhx1aMU9Q7tV9Az0v+8
+         u8dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777649573; x=1778254373;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=nIFGJkIeWdUt+CmNJefoaOlO/byGEQ4fNf280dgFKws=;
-        b=d8YsbQH9LREvL5un5ouTzobiRYJD6AnZRiDVJUMuwTc6LxWnNqcRV2nYRGC+YlFbMf
-         zwKX4WF9l+kxXsxGgLadqGGGmIZc7cB0N716xNqL0O8GKb1vL4TlM8WD5hRfwebIZIP2
-         X1s0SLcIOwr2G7800AFTMIWGZD0vCYIrPE4bI+9ItjwYiapUqyTdz4/F+VHIbK73xE3d
-         aP0j3lsXsa6hXvodEgduhl+ql0BbAqahBMxYp5pDnSS0waVrK21bjKigfY4x5uRcduJ5
-         8Q5pRFblFLtffUqzTVWi1m2Mm0Tyc46qlIk3ajFjfPteFOpRQ2A/LYnLwtJh5kJo2lQc
-         xW4g==
-X-Forwarded-Encrypted: i=1; AFNElJ+4GlUoPmMdYzpE73KVlPsXinZ+sIXrppCkV5XXjpYSxJ2a9pABMTIb/7jBvv6p5y0LkKJ11Ihkk/FR@vger.kernel.org
-X-Gm-Message-State: AOJu0YzDDcfQgugeN0nJkDdWY2FRcMDZQ1mSyhplkmJ1hWJpxKlGMbOo
-	HFVRJn+UQXvzn7JjXzoxKZRv4sIpjSJvmGwN4s8KEfgebuHOoQHBslyTN2OyBBgG7Tg=
-X-Gm-Gg: AeBDiev1dfg226tPXiPDAye0kbirR4IWZNoslNtwDQSdA0r6Ifp6oJ1jmKoibo+blM/
-	BuuqZGGzX8i6GEjXczgJxEVGmgi4kp6EILZvr/Gw9OaBYd0X8ATgGgtmkVczHAfE2Nypry2bz0g
-	MEoefkDWUkA4/vApc4j6UsSVZwrco2DT5oUeGn1jpxyZk2X/dgSsj3aQzcwWo0Y0pfL1ffusJqo
-	deDVdEg98LW5qFGRwmgr9avQV67Qiai6ah8hosJBfc7pI0Pd1XA+T/R5Mj1p1ASB6Id1QGROhyx
-	jMF1v47FgsQTF07wBe0rvDnVOg2gLOyHnm/YW5axXj46QhX+etmiowJCYVbQsBlXAnuClxKcTC6
-	xWVtqrr5KX9vbGn82cXINcMKmXQ8aG8lorC5w1pcchF8hC//T5rXZL4EF+3kNpVD/mQbineGvey
-	QyoOcefJMLoP/nfgq4jMS0A97lFr6pUDUOFWkjkxe8csbWbXoXgpRbXJQvOlYAFiV2c1oN1jv9I
-	JZZEr18DcERmjkDAlG7WsQC6VXsqabcsWs=
-X-Received: by 2002:a05:600c:354d:b0:488:8b99:54a1 with SMTP id 5b1f17b1804b1-48a8445e8bcmr124239825e9.28.1777649573128;
-        Fri, 01 May 2026 08:32:53 -0700 (PDT)
-Received: from localhost ([94.4.195.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-44a8ef50e59sm5648768f8f.10.2026.05.01.08.32.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 01 May 2026 08:32:52 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1777649575; x=1778254375;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=pPPYmlM0l3hrpJwW2jPS8aUg+kvVKXo2i1UV0uK9TUI=;
+        b=SlkVJZc1uRZrwnukqlABrGzI0WBf2i2zLF5tpUDz22wbsbSgzogtW6zeJmtxGwQ3c0
+         nkudB3C3MkNJgsFxMNkmk2lY7HCcyUsyU95AWAwSTeMi+GMkDupqCYGL05WdijKiQlnF
+         Sgi29JdNjAPeM1QdovxSny6ZHbugIk5O3Yw/tdRd0nAzqXQrJDhk+uwUbxnFeA5AO8k0
+         6TZiiadB1aQAgATRqob9hrHc3AF6rdYZNFCpz+dUrHyX0XOAYr1yiMw4OKBLF1BA+Bhd
+         nwyFYe/iKDnPICWBTrkaYUZaNo8WMP+q1i7QJ0aaRRxZKupMh6cX5GU2dqPslBpE+b70
+         6iIA==
+X-Forwarded-Encrypted: i=1; AFNElJ+58ac4g/ILMYDNVhRmKABVDSP+bMGZ2gsRV1pYpbO/q2wkrJXdBZu+zmtpTSN+ABn6xNsJopiLSTFR@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+cfY0aRmvhE9hKpszUXLBsMIWE11AVFzDsZ1pJ+56dBDJI78p
+	RJelYmvm4GuyKix4D0vYz+nt1aWPdqPGRmpL53vuuulCRs7HReuKA310
+X-Gm-Gg: AeBDietD0QN7Es0QYuWbWCqDOTHrqlX68yebDklYwMvRUEjG9faaJI0sEqjtyTJB/Fb
+	cBTQLlGF/sjD765KZsxCqUBOfG0vPOmose3/BeI36cczTeAwk5GyE8e+7sd1YuoFGHQhHXAZbBQ
+	UjuMVHgqNiiC4wqD9wYks/1rnWQ/F8UhOn08k7IM4BZmUe0Md/PlSwvGlZMRBTwkFrot/TMot5g
+	LkgtyTy1tcSf3ucdvKn9+pWLYySKUrMlamqBzSGDcae+WcL3H8He9LgQbhkGLT/W/2UApZEMVGN
+	RGm4f3LTOxVUVreGg8l4W2Ye83yPgGLFMBCocfTsfJFHA13ZPrYKcYHVjuOu+5WYWJFo7mAVa7s
+	JK4Ji1BF3NNWk9B9k61j7T/AqIDW8tJk6FacNu6BRtweWlgtQRHFhhgDFDbr43zVhLLtjp4PDLt
+	bqEWUHNK8N9OmU+N5dZKkS8MY3jZW/n4K9p5lihXY+pFXdekzpYPwg2Dk4ubOttPguAm494w/si
+	Q6BY7UZ3oTdOLOt27bSbvQ9VA==
+X-Received: by 2002:a05:620a:46aa:b0:8f2:a656:1d8c with SMTP id af79cd13be357-8fbf3174795mr468381385a.38.1777649575114;
+        Fri, 01 May 2026 08:32:55 -0700 (PDT)
+Received: from localhost (bras-base-toroon21-grc-75-184-144-58-243.dsl.bell.ca. [184.144.58.243])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8fc29a7f9c6sm206704685a.14.2026.05.01.08.32.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 01 May 2026 08:32:54 -0700 (PDT)
+From: Richard Acayan <mailingradian@gmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: Nickolay Goppen <setotau@mainlining.org>,
+	Adam Skladowski <a39.skl@gmail.com>,
+	Vladimir Lypak <vladimir.lypak@gmail.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Wesley Cheng <quic_wcheng@quicinc.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Johan Hovold <johan@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Richard Acayan <mailingradian@gmail.com>
+Subject: [PATCH v4 13/15] ASoC: msm8916-wcd-analog: add pm8950 codec
+Date: Fri,  1 May 2026 11:31:26 -0400
+Message-ID: <20260501153128.8152-14-mailingradian@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260501153128.8152-1-mailingradian@gmail.com>
+References: <20260501153128.8152-1-mailingradian@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 01 May 2026 16:32:51 +0100
-Message-Id: <DI7G6J6LMC4T.2LQ8SEC6HMM1L@linaro.org>
-Subject: Re: [PATCH v4 00/11] thermal: samsung: Add support for Google GS101
- TMU
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Tudor Ambarus" <tudor.ambarus@linaro.org>, "Alexey Klimov"
- <alexey.klimov@linaro.org>, "Rafael J. Wysocki" <rafael@kernel.org>, "Zhang
- Rui" <rui.zhang@intel.com>, "Lukasz Luba" <lukasz.luba@arm.com>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Krzysztof Kozlowski"
- <krzk@kernel.org>, "Alim Akhtar" <alim.akhtar@samsung.com>, "Bartlomiej
- Zolnierkiewicz" <bzolnier@gmail.com>, "Kees Cook" <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, "Peter Griffin"
- <peter.griffin@linaro.org>, =?utf-8?q?Andr=C3=A9_Draszik?=
- <andre.draszik@linaro.org>, "Daniel Lezcano" <daniel.lezcano@kernel.org>,
- "Sylwester Nawrocki" <s.nawrocki@samsung.com>, "Chanwoo Choi"
- <cw00.choi@samsung.com>, "Michael Turquette" <mturquette@baylibre.com>,
- "Stephen Boyd" <sboyd@kernel.org>, "Lee Jones" <lee@kernel.org>
-Cc: <willmcvicker@google.com>, <jyescas@google.com>, <shin.son@samsung.com>,
- <linux-samsung-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-hardening@vger.kernel.org>,
- <linux-clk@vger.kernel.org>, "Krzysztof Kozlowski"
- <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: aerc 0.21.0
-References: <20260423-acpm-tmu-v4-0-8b59f8548634@linaro.org>
- <DI7D7JXW4RGK.XB0BE6ZXNMHS@linaro.org>
- <b9fa48f1-0ace-4a8b-b2bf-b5e01f789f7b@linaro.org>
-In-Reply-To: <b9fa48f1-0ace-4a8b-b2bf-b5e01f789f7b@linaro.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri May 1, 2026 at 3:33 PM BST, Tudor Ambarus wrote:
->
->
-> On 5/1/26 4:13 PM, Alexey Klimov wrote:
->>> Dependencies
->>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->>> - context dependency on the ACPM fixes sent at:
->>>   Link: https://lore.kernel.org/linux-samsung-soc/20260423-acpm-fixes-s=
-ashiko-reports-v1-0-2217b790925e@linaro.org/T/#t
->
-> cut
->
->> I've took series locally using b4 and result doesn't compile:
->
-> take the set linked above as well please.
+From: Adam Skladowski <a39.skl@gmail.com>
 
-Okay, now I am lost. Were dependencies incorrectly described in this
-series?
+Add regs overrides for PM8950 codec and implement matching reg overrides
+via compatible.
 
-Log below of applying patches below:
-
-Total patches: 11
+Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 ---
- Base: using specified base-commit 2e68039281932e6dc37718a1ea7cbb8e2cda42e6
- Deps: looking for dependencies matching 4 patch-ids
-Grabbing search results from lore.kernel.org
- Deps: Applying prerequisite patch: [PATCH v3 1/6] firmware: samsung: acpm:=
- Fix cross-thread RX length corruption
- Deps: Applying prerequisite patch: [PATCH 2/4] firmware: samsung: acpm: Fi=
-x sequence number leak and infinite loop
- Deps: Applying prerequisite patch: [PATCH 3/4] firmware: samsung: acpm: Fi=
-x mailbox channel leak on probe error
- Deps: Applying prerequisite patch: [PATCH v3 3/6] firmware: samsung: acpm:=
- Fix dummy stubs to return ERR_PTR
-Applying: firmware: samsung: acpm: Fix cross-thread RX length corruption
-Applying: firmware: samsung: acpm: Fix sequence number leak and infinite lo=
-op
-Applying: firmware: samsung: acpm: Fix mailbox channel leak on probe error
-Applying: firmware: samsung: acpm: Fix dummy stubs to return ERR_PTR
-Applying: dt-bindings: thermal: Add Google GS101 TMU
-Applying: firmware: samsung: acpm: Consolidate transfer initialization help=
-er
-Applying: firmware: samsung: acpm: Annotate rx_data->cmd with __counted_by_=
-ptr
-Applying: firmware: samsung: acpm: Drop redundant _ops suffix in acpm_ops m=
-embers
-Applying: firmware: samsung: acpm: Make acpm_ops const and access via point=
-er
-Applying: firmware: samsung: acpm: Add TMU protocol support
-Applying: firmware: samsung: acpm: Add devm_acpm_get_by_phandle helper
-Applying: thermal: samsung: Add Exynos ACPM TMU driver GS101
-Applying: MAINTAINERS: Add entry for Samsung Exynos ACPM thermal driver
-Applying: arm64: dts: exynos: gs101: Add thermal management unit
-Applying: arm64: defconfig: enable Exynos ACPM thermal support
+ sound/soc/codecs/msm8916-wcd-analog.c | 52 ++++++++++++++++++++++++---
+ 1 file changed, 48 insertions(+), 4 deletions(-)
 
-Best regards,
-Alexey
+diff --git a/sound/soc/codecs/msm8916-wcd-analog.c b/sound/soc/codecs/msm8916-wcd-analog.c
+index 9ca381812975..13df60409857 100644
+--- a/sound/soc/codecs/msm8916-wcd-analog.c
++++ b/sound/soc/codecs/msm8916-wcd-analog.c
+@@ -232,6 +232,8 @@
+ #define RX_EAR_CTL_PA_SEL_MASK			BIT(7)
+ #define RX_EAR_CTL_PA_SEL			BIT(7)
+ 
++#define CDC_A_RX_EAR_STATUS		(0xf1A1)
++
+ #define CDC_A_SPKR_DAC_CTL		(0xf1B0)
+ #define SPKR_DAC_CTL_DAC_RESET_MASK	BIT(4)
+ #define SPKR_DAC_CTL_DAC_RESET_NORMAL	0
+@@ -250,6 +252,7 @@
+ 		SPKR_DRV_CAL_EN | SPKR_DRV_SETTLE_EN | \
+ 		SPKR_DRV_FW_EN | SPKR_DRV_BOOST_SET | \
+ 		SPKR_DRV_CMFB_SET | SPKR_DRV_GAIN_SET)
++#define CDC_A_SPKR_ANA_BIAS_SET		(0xf1B3)
+ #define CDC_A_SPKR_OCP_CTL		(0xf1B4)
+ #define CDC_A_SPKR_PWRSTG_CTL		(0xf1B5)
+ #define SPKR_PWRSTG_CTL_DAC_EN_MASK	BIT(0)
+@@ -264,6 +267,7 @@
+ 
+ #define CDC_A_SPKR_DRV_DBG		(0xf1B7)
+ #define CDC_A_CURRENT_LIMIT		(0xf1C0)
++#define CDC_A_BYPASS_MODE		(0xf1C2)
+ #define CDC_A_BOOST_EN_CTL		(0xf1C3)
+ #define CDC_A_SLOPE_COMP_IP_ZERO	(0xf1C4)
+ #define CDC_A_SEC_ACCESS		(0xf1D0)
+@@ -286,6 +290,11 @@ static const char * const supply_names[] = {
+ 
+ #define MBHC_MAX_BUTTONS	(5)
+ 
++struct wcd_reg_seq {
++	const struct reg_default *seq;
++	int seq_size;
++};
++
+ struct pm8916_wcd_analog_priv {
+ 	u16 pmic_rev;
+ 	u16 codec_version;
+@@ -715,9 +724,41 @@ static const struct reg_default wcd_reg_defaults_2_0[] = {
+ 	{CDC_A_MASTER_BIAS_CTL, 0x30},
+ };
+ 
++static const struct wcd_reg_seq pm8916_data = {
++	.seq = wcd_reg_defaults_2_0,
++	.seq_size = ARRAY_SIZE(wcd_reg_defaults_2_0),
++};
++
++static const struct reg_default wcd_reg_defaults_pm8950[] = {
++	{CDC_A_RX_COM_OCP_CTL, 0xd1},
++	{CDC_A_RX_COM_OCP_COUNT, 0xff},
++	{CDC_D_SEC_ACCESS, 0xa5},
++	{CDC_D_PERPH_RESET_CTL3, 0x0f},
++	{CDC_A_TX_1_2_OPAMP_BIAS, 0x4c},
++	{CDC_A_NCP_FBCTRL, 0xa8},
++	{CDC_A_NCP_VCTRL, 0xa4},
++	{CDC_A_SPKR_DRV_CTL, 0x69},
++	{CDC_A_SPKR_DRV_DBG, 0x01},
++	{CDC_A_SEC_ACCESS, 0xa5},
++	{CDC_A_PERPH_RESET_CTL3, 0x0f},
++	{CDC_A_CURRENT_LIMIT, 0x82},
++	{CDC_A_SPKR_ANA_BIAS_SET, 0x41},
++	{CDC_A_SPKR_DAC_CTL, 0x03},
++	{CDC_A_SPKR_OCP_CTL, 0xe1},
++	{CDC_A_RX_HPH_BIAS_PA, 0xfa},
++	{CDC_A_MASTER_BIAS_CTL, 0x30},
++	{CDC_A_MICB_1_INT_RBIAS, 0x00},
++};
++
++static const struct wcd_reg_seq pm8950_data = {
++	.seq = wcd_reg_defaults_pm8950,
++	.seq_size = ARRAY_SIZE(wcd_reg_defaults_pm8950),
++};
++
+ static int pm8916_wcd_analog_probe(struct snd_soc_component *component)
+ {
+ 	struct pm8916_wcd_analog_priv *priv = dev_get_drvdata(component->dev);
++	const struct wcd_reg_seq *wcd_reg_init_data;
+ 	int err, reg;
+ 
+ 	err = regulator_bulk_enable(ARRAY_SIZE(priv->supplies), priv->supplies);
+@@ -738,9 +779,11 @@ static int pm8916_wcd_analog_probe(struct snd_soc_component *component)
+ 	snd_soc_component_write(component, CDC_D_PERPH_RESET_CTL4, 0x01);
+ 	snd_soc_component_write(component, CDC_A_PERPH_RESET_CTL4, 0x01);
+ 
+-	for (reg = 0; reg < ARRAY_SIZE(wcd_reg_defaults_2_0); reg++)
+-		snd_soc_component_write(component, wcd_reg_defaults_2_0[reg].reg,
+-			      wcd_reg_defaults_2_0[reg].def);
++	wcd_reg_init_data = of_device_get_match_data(component->dev);
++
++	for (reg = 0; reg < wcd_reg_init_data->seq_size; reg++)
++		snd_soc_component_write(component, wcd_reg_init_data->seq[reg].reg,
++					wcd_reg_init_data->seq[reg].def);
+ 
+ 	priv->component = component;
+ 
+@@ -1259,7 +1302,8 @@ static int pm8916_wcd_analog_spmi_probe(struct platform_device *pdev)
+ }
+ 
+ static const struct of_device_id pm8916_wcd_analog_spmi_match_table[] = {
+-	{ .compatible = "qcom,pm8916-wcd-analog-codec", },
++	{ .compatible = "qcom,pm8916-wcd-analog-codec", .data = &pm8916_data },
++	{ .compatible = "qcom,pm8950-wcd-analog-codec", .data = &pm8950_data },
+ 	{ }
+ };
+ 
+-- 
+2.54.0
+
