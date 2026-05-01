@@ -1,195 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010003.outbound.protection.outlook.com [52.101.61.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B87122857EA;
-	Fri,  1 May 2026 14:42:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777646565; cv=none; b=vEYmKOT5d0ZwR8QH9JpGGS8P+dMoheBCv2v/V5Iq8FL5JEgIOcr5ZQlvRRs2LbTUJBOCScDbUyUUBdONFCI0pVn+7JqXTJa+IOQa22KZeUdLVa0RpSDlzs2ZqvZxaMgxPOrBhSEaG9dy/OOVzfDGnv52++io5+MIRZpIa/oM/rM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777646565; c=relaxed/simple;
-	bh=k/u97yxQjmcGzmns+dUJBl5k+4iczjSFkBpto1YQqB0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BJoCyyyXXlyFMzlNk8R3NBV5buMVRHYujdJW3kdvhlI7Gi4M1RxLqmaww3nc8RmJ8anARIxhsjHfRtEq7WHnccf86ntQnyyPC9yX0I5by8i497rmP/rZT8q8UXxjqkOxVR/0BgQcp03xQfn9DiNX3h/+A5THJHLvOc4f9dz9PzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LGB7Welq; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF792367DF;
+	Fri,  1 May 2026 14:46:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777646793; cv=fail; b=AHWo4E83D5w2dYPYyqngz48tkauZAu0sTYdaZVb/QcjXxBjCcigLXy0Jief4jBRLNcU+V0+Zcpc9N6P1chpPzePAqtEEd/+pFvO6/lpJH/3VcswApHrQHuU+GcYTUMXWu6mYZ8LhCeEHDJ5pebSzdlxNiLUOgfFA8aXk4jwodgM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777646793; c=relaxed/simple;
+	bh=GuFGRMWqPZkK8bDsPFIM7Fpv2rmcffFhnysKElOVt2c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=SrMXe7chSfn4sOIgbHSNBtDnBGH/NP8wJVLTbvCMNS1H2ijNq8ct//SMd7yI8O36pTPyKMTfOeukn72paa82hYLcjo2vMU/69b160uWAHSiK+Ne8w2aS7KSiDfr0lg8Eojmn5pvKMQiLbP/ISkOl8s4PVgEIvLqbZVZJw2or8Ks=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=dP1N51Jm; arc=fail smtp.client-ip=52.101.61.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LGB7Welq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349B8C2BCB4;
-	Fri,  1 May 2026 14:42:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777646565;
-	bh=k/u97yxQjmcGzmns+dUJBl5k+4iczjSFkBpto1YQqB0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LGB7WelqvG9tsPZELN671K8ocfWUjqqN/o0XLGpJvyottkZGjLeikbK8AgkOYZsSD
-	 u9XoCcKhzdNbxNhUsoF7l4Li0OH0nMS5Rdu+7p0FhRf/wP2r4ouVJle+RT27liVgVW
-	 X7uXhIOqmOq3lO5QdAh/42HGDFP6rp/nR/b+dLJcccq/Q3uJUIkJ+FJx5+xJBm2AKJ
-	 Xv3t1xpkKhxQuqKhc0M7NUxCcUqlwWj8mT2WPy3SLM4kHmCG8xePR055Wa948nQKRJ
-	 hhNm7uIWmBB11kxfQtoNsWR0btzspct7tKhCQ9GyyRYYQ0ZmNTQUoMiQAs+n+XNnr1
-	 lrtX28W0+g9Jg==
-Date: Fri, 1 May 2026 20:12:34 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Magnus Damm <magnus.damm@gmail.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, John Madieu <john.madieu.xa@bp.renesas.com>, 
-	linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 5/5] PCI: rzg3s-host: Add support for RZ/V2H(P) SoC
-Message-ID: <leky6ktelj7t3uwd4bakgefrk32m3ceyxmwbkkjpp5zqp6rjgj@jtiqktxchws3>
-References: <20260318124450.163471-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260318124450.163471-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <605e8d4c-09e7-4d11-acdb-7829a85eacc3@tuxon.dev>
- <CA+V-a8srS9g2WDMARDJn98K=nL9v1LiZYxqM8evsVrzR-s5ZMA@mail.gmail.com>
- <lvix7p4e7c4dtchtdti3rwrs7jkda5iy7lthcffhqc7g6vgu2p@54qywklrspi7>
- <CA+V-a8sd=dyTZmViLbDrCPYbx5ujWzjk74HxhP0aBEqxLuEqJA@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="dP1N51Jm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RUXW4JmbQUXBnrs9CtWGRcYyKIL0oxPuHr+KOAjFq10j2LwiOAjFXJ6qEIfAlrCCenIh0ekLxAuAS9n3QbG6/zOZV8GdzyblFxjDHoBcOvHTvOsw+YClDHVd728E6ckg/Z7vrjEdFYqwtEcOXZwF2GlYrQLIblkjifK/WoCLza2BZCIC7vp/fTYrb0aFABPXNu8GHQ4mBBuraB7fjurgFxvYv5nKKE50PRRnlhSAN8NBsHjSNAzU2JK1eiLO8HitLyZYw6tGDVGWHUvA9vngk2gPujFEzsQp5vgyzT08uuiMocIrRZ6pACuYmxp7YzTRsA2a+tKgAZgjaLmgxzvd9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1UzLX4K3QU48n4tRtF840g1d/e/od+5AkDbktZ05Cyo=;
+ b=GIOLP9VwImQy7PGVAbseU3MtOOjTTprzsxTXD7s2kLM91LJTNB0lEz7W8w7HNaAgEKCUBqdGrJYpUC+9z5QxHZBff0jJX4Wi2DSIARNPvEz938r3+UZAN5AUF5VsntvuIhwFbXRBcXO9E9BpbzSARF59FRX6RP2qI682XMxhadjSa7iheU6GhCIGYdggpZatLwmYBqfkEmKJ5GIKmZZQeSdikD4Pw+2g1UwBQRSTfx23hHmFlaq+B89PtIXFDBRsctww0ekqAnoIwWryvhYhEwcFydZtLz46JcB20pvtKaoZT7HlqNuwgf2StWcAINICG5Y/pClVPv9GXDVO20Qb6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1UzLX4K3QU48n4tRtF840g1d/e/od+5AkDbktZ05Cyo=;
+ b=dP1N51JmCOEbMqxjUiPzOiwt4uHsgI4WqufO3VLvA3pHVSqX7+4Q8HZKl/MbP3KHDc5LRkKccaM9bsRirY8yAMKglFU2DzmQDOMSPhSMOHR3IhN6BrgudRUcFt4RaoTfryiJcnJ7aiQNCqa+8uJwyNdefwLL5y+P/L7HX6P9nlk=
+Received: from SJ0PR13CA0126.namprd13.prod.outlook.com (2603:10b6:a03:2c6::11)
+ by CY5PR12MB6274.namprd12.prod.outlook.com (2603:10b6:930:21::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.22; Fri, 1 May
+ 2026 14:46:29 +0000
+Received: from MWH0EPF000C6194.namprd02.prod.outlook.com
+ (2603:10b6:a03:2c6:cafe::9e) by SJ0PR13CA0126.outlook.office365.com
+ (2603:10b6:a03:2c6::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.8 via Frontend Transport; Fri, 1
+ May 2026 14:46:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000C6194.mail.protection.outlook.com (10.167.249.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Fri, 1 May 2026 14:46:28 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 1 May
+ 2026 09:46:27 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 1 May
+ 2026 07:46:27 -0700
+Received: from [172.31.134.241] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 1 May 2026 09:46:27 -0500
+Message-ID: <1997464a-26b0-4384-9dbd-4000582896c8@amd.com>
+Date: Fri, 1 May 2026 09:46:23 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+V-a8sd=dyTZmViLbDrCPYbx5ujWzjk74HxhP0aBEqxLuEqJA@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Reply-To: <tanmay.shah@amd.com>
+Subject: Re: [PATCH v2 0/2] remoteproc: xlnx: add auto-boot support
+To: Tanmay Shah <tanmay.shah@amd.com>, <andersson@kernel.org>,
+	<mathieu.poirier@linaro.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <michal.simek@amd.com>, <ben.levinsky@amd.com>
+CC: <linux-remoteproc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20260501143707.1591110-1-tanmay.shah@amd.com>
+Content-Language: en-US
+From: "Shah, Tanmay" <tanmays@amd.com>
+In-Reply-To: <20260501143707.1591110-1-tanmay.shah@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6194:EE_|CY5PR12MB6274:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5cc2307a-a77a-473f-8fee-08dea7906d86
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|1800799024|82310400026|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	uELI8w3AZdZN7NCsf2TaHc6eZpo6Dl8BBuMesp19xiN2K6h4/9asiP+KXq0/FqUZXm4pE9p10bZm04tCW5kuUIs0aXGEyIT9UsPfR9Z8r7YUVWlZWDlTMwaqc7bkKun2tjsv/CtVWIPU7OvG+N71rBl2UCWQWHU1mkn2kpCBwl666pT5l+/wtGPmSqwVCbT0SXqurqstKwwduGhCIE4y75s4cpLPsWLnQ+KT+U79g0qtwoz0xB3UehAzx8senv4fJEUoN5LXK7VRBWy8jJucC1fFCIPPWCWS7Koz4yfj0vtYPF8tS3pM0RvwxOgUC4QAP5OJnYdOMRnL1QowaERo63uW0uaXSGkUpjrMP9ucQFmG3cr3t20kScfyzUVKGn4+AR5yN0p6vcSYbPgBEe54qaDcO3dnJ5r+1WLF+oVSsCFswv70gbB/wPSzJqmEqKE8Ba73R+KHXRug+ZPhp5F8RtgyPVgyNGHgfQy3Vt7jt1n8zRlg3V0pMODCOZjtTofq9FEuwIt1VhA8y+UoFM/mSVyxNAjq/QS5pE1/RzMEVVhmJfMAEv/Vmet6FlFRuD9+VOxXr343qC6YSzgYxJMZGkN8hMiwKn37JfYmKUX+tbfrysjtHG6jCruovHGcxPPdfljiEjVD6PjR2yV77oLHxcLDPAmwkwINPM8PxgFkAq3be1NuTyMx/eMX1k/q63oAZDIdbqd93f0jTJ87oUnKJIMgx91MQolG7WekRg5A4IY=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	wNTnyG/lS6Nnr6OXPevmZVoxTyvXGC4/V2bIBw74uDn+e/gnRN6mOvVrvAFt4iwg7+9XqkO627maXpxG4EGhz9wexvtxdGjTGuwmswsUE13sHTf54qDOZhK8NkbvJr9IOtEWCvnwCPrMJ5JkeIy1Ig9Jh5+v5IuC1TkbUYP/YOCuwgpDK8D5ncJlweyJK7A5Qxq6mtJRVvQR0Vs1a05HgKg9T5T4nbCszsIHB9qw9cdLQH/4nCjMWPcJy2SCvtnqkfm8Hbo1856ouXon5i4oSIsFMJv1NFfoQfvr32S+4nLfwWTuMRynNSqSkReGuGHxwboopEr0okABniRMwx+NCXS5kKI0YE/E+MKKJNBUwxFggvqHPQiXAtzbXfsJAVzib087ChGgBCoMGZPHyumjRMEnrDiIdZruMmKIzYxcxPOKCeYdR0CByfr24aeQRkWm
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2026 14:46:28.6513
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5cc2307a-a77a-473f-8fee-08dea7906d86
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000C6194.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6274
 
-On Fri, May 01, 2026 at 12:13:55PM +0100, Lad, Prabhakar wrote:
-> Hi Manivannan,
-> 
-> On Thu, Apr 30, 2026 at 4:26 PM Manivannan Sadhasivam <mani@kernel.org> wrote:
-> >
-> > On Wed, Apr 08, 2026 at 07:54:41PM +0100, Lad, Prabhakar wrote:
-> > > Hi All,
-> > >
-> > > On Wed, Mar 25, 2026 at 10:18 AM Claudiu Beznea
-> > > <claudiu.beznea@tuxon.dev> wrote:
-> > > >
-> > > > Hi, Prabhakar,
-> > > >
-> > > > On 3/18/26 14:44, Prabhakar wrote:
-> > > > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > > > >
-> > > > > Add support for the RZ/V2H(P) SoC PCIe controller to the rzg3s-host
-> > > > > driver.
-> > > > >
-> > > > > The RZ/V2H(P) SoC features two independent PCIe channels that share
-> > > > > physical lanes. The hardware supports two configuration modes: single
-> > > > > x4 mode where one controller uses all four lanes, or dual x2 mode
-> > > > > where both controllers use two lanes each.
-> > > > >
-> > > > > Introduce configure_lanes() function pointer to configure the PCIe
-> > > > > lanes based on the number of channels enabled. Implement
-> > > > > rzv2h_pcie_configure_lanes() to detect the active PCIe channels at
-> > > > > boot time and program the lane mode via the system controller using
-> > > > > the new RZG3S_SYSC_FUNC_ID_LINK_MASTER function ID.
-> > > > >
-> > > > > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > > > > ---
-> > > > >   drivers/pci/controller/pcie-rzg3s-host.c | 142 +++++++++++++++++++++++
-> > > > >   1 file changed, 142 insertions(+)
-> > > > >
-> <snip>
-> > > >
-> > > > This introduces some limits in the systems with RZ/V2H(P) SoCs with regards to
-> > > > the usage of linux,pci-domain. I would like the PCIe maintainers take on this.
-> > > >
-> > > > As this is necessary to index in the system controller driver specific data (as
-> > > > there are different SYSC offsets for different PCIe controllers) I see the
-> > > > following alternatives, if any:
-> > > >
-> > > > 1/ add a dedicated DT property for this, e.g. renesas,pcie-controller-id
-> > > > 2/ Add dedicated DT bindings for RZ/V2H(P) SoC that would be used to specify the
-> > > >     system controller register offset and mask for different functionalities.
-> > > >
-> > > >     E.g.:
-> > > >     renesas,sysc-l1-allow = <&sysc 0x1020 0x1>;
-> > > >     renesas,sysc-mode = <&sysc 0x1024 0x1>;
-> > > >     renesas,sysc-link-master = <&sysc 0x1060 0x300>;
-> > > >
-> > > >     And use them in each controller DT node. E.g.:
-> > > >
-> > > >     pcie0: pcie@add1 {
-> > > >         // ...
-> > > >
-> > > >         renesas,sysc-l1-allow = <&sysc 0x1020 0x1>;
-> > > >         renesas,sysc-mode = <&sysc 0x1024 0x1>;
-> > > >         renesas,sysc-link-master = <&sysc 0x1060 0x300>;
-> > > >
-> > > >         // ...
-> > > >     };
-> > > >
-> > > >     pcie0: pcie@add1 {
-> > > >         // ...
-> > > >
-> > > >         renesas,sysc-l1-allow = <&sysc 0x1050 0x1>;
-> > > >         renesas,sysc-mode = <&sysc 0x1054 0x1>;
-> > > >         renesas,sysc-link-master = <&sysc 0x1060 0x300>;
-> > > >
-> > > >         // ...
-> > > >     };
-> > > >
-> > > I'd like to get a clearer steer from the PCIe and DT maintainers
-> > > before investing further in either direction.
-> > >
-> > > To recap the two approaches on the table:
-> > >
-> > >   Option 1: A single renesas,pcie-controller-id property used to look up
-> > >             SYSC offsets in the driver.
-> > >
-> >
-> > Can you explain what is the limitation with 'linux,pci-domain' property?
-> >
-> As sashiko pointed out.dev, The linux,pci-domain property is generally
-> an OS-specific logical property intended to assign a stable PCI domain
-> number across reboots. Restricting it to [0, 1] would prevent system
-> integrators from using non-conflicting domain numbers like 2 or 3 if
-> the board incorporates other PCIe controllers.
+
+
+On 5/1/2026 9:37 AM, Tanmay Shah wrote:
+> The Cortex-R remote processors on AMD-Xilinx platforms can run
+> before linux boot. Add auto-boot property to notify linux that remote
+> processor is ready to be used, so linux can load fw and start it or
+> attach to the running processor.
 > 
 
-"linux,pci-domain" is supposed to be used in SoC.dtsi, not in board.dts. AFAIK,
-the board designers have no reason to change it.
+Missed the change log here:
 
-Yes, the property name implies that it is a Linux specific property and if you
-want, you can propose a generic one (not vendor specific one). Other than that,
-I don't see a blocker in using this property. Many SoCs already do this and
-other DT projects like u-boot do not end up parsing this property.
+Changes in v2:
+  - remove the auto-boot property from bindings patch (1/2)
+  - rebase on latest remoteproc for-next branch
+  - refactor the driver patch (2/2) and detect the auto-boot runtime
 
-> > >   Option 2: Explicit per-controller DT properties carrying the SYSC
-> > >             phandle, register offset, and mask for each functionality
-> > >             (L1 allow, mode, link-master, etc.).
-> > >
-> >
-> > Are the register offsets going to stay the same across controller instances?
-> >
-> > If they are not going to change and you can derive the offsets using the
-> > controller index, then there is no need to go for individual DT properties.
-> >
-> The offsets will remain the same across the controller instances. So
-> instead of using linux,pci-domain property we could use below is that
-> OK?
+If needed, I will send v2 with the change log.
+
 > 
-> pcie0 {
->   renesas,sysc = <&sysc 0>;
-> };
+> Tanmay Shah (2):
+>   dt-bindings: remoteproc: xlnx: add firmware-name property
+>   remoteproc: xlnx: enable auto boot feature
 > 
-> pcie1 {
->   renesas,sysc = <&sysc 1>;
-> };
+>  .../remoteproc/xlnx,zynqmp-r5fss.yaml         |  4 ++
+>  drivers/remoteproc/xlnx_r5_remoteproc.c       | 48 +++++++++++++------
+>  2 files changed, 38 insertions(+), 14 deletions(-)
 > 
-> Where 0/1 are the controller instance IDs that the driver will use to
-> derive the correct offsets.
 > 
+> base-commit: 54dacf6efe7196c1cd8ae4b5c691579d0510a8bd
 
-What if you have other register blocks using the same pattern in the future?
-You'll end up with renesas,xxx = <xxx, N>. You should stick to
-"linux,pci-domain".
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
