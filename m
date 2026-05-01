@@ -1,76 +1,86 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD86B23EA89
-	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 10:21:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51502347514
+	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 10:24:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777630892; cv=none; b=cuYCwuKkcLkuuSbZqihRyr/0GzlUQ7MRPqCakA9fR8y51mbbaulzfGeMPsBKqOcGM6d/JV2+bkc0LuMAXdqNWBzsRQVaHMkS2eAeeFZOV6yqG50OEMUdyMsGn01mWNBvHUTTYHlu5jBhceVD0W9b5AlNos5jU35nLIRXatNVLII=
+	t=1777631059; cv=none; b=V+4IUqN2Qev5zocy7n8HA1KXUeMKMi4uVmXUmRtztCwEDqEEVTITzBMy4VCiZJOniztmNwu6y6xmhG0O+ZgFXQnUZu3giEzsbbMQ6HL4VFEu7k8RpyT1swcQ9nwBRdb7Z/QnWGpZewziWTw2dG50IlKkAodR3NjCV6/tSQv7iic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777630892; c=relaxed/simple;
-	bh=Lo3+DqGac6IlEiZ2czM1lRh0/V9vMHG9J90YVU5aqGY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LiqLAcPOl6PvoQZCXV3SoT3J6WqR8lUIpHqlXjmvvXvfe7lLzM1cWfCBfV9pCQ0VTs8ap/RsJzBJjyQtNpC21eKLJuHuvjDKImr64C8ycmSu1zyqO3CNzpPubdeExm+hdbS43zaI9yhf5Jo5JyZhF3aqwBDf0Mul6VycVFsnHHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=caqdJDgh; arc=none smtp.client-ip=209.85.215.175
+	s=arc-20240116; t=1777631059; c=relaxed/simple;
+	bh=QnkNnx9k8UNt0OzcapqQjvj9/iFCN7S7MPJtuIjyvqQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FuHqiOd9GDte/rzu8BUW/Wn06bfTFuZVs/QM74q6ksPwtjNj0sqAA6yg+xtQ0FoCkHzLCE0yZMDXY9B/mNKckaHswWr8c8gfjJvZqM7LA6TEw4rmfrdJGSNDdkC0PNnD0pnDcXF9rvep21mtyyjOU2ZZ1QlNQeou1gmVG4D0bio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IOToTaHd; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="caqdJDgh"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-c7961d7bc09so742822a12.1
-        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 03:21:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IOToTaHd"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-48334ee0aeaso14854925e9.1
+        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 03:24:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777630890; x=1778235690; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1777631056; x=1778235856; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=WqnN+2BfCLE5+NYkaRPGHIh+GKWc00ij8KyAPoVlJGA=;
-        b=caqdJDgh5UsIxg557i8chSK+q+6/tnhudYgtCawy72rgLlZs2ukgkBkPIfic6DOvDH
-         f6arVHBF6J9KVEB5nAUT6n5rrhbOzgOYnWuRocRg1ZId6Agz4HsB47BiE51uXWt0VE9T
-         D3bSvmjo8S24N7P6uBPg2skIp/1wEXkGktuSMhr4k6hgRX3GkhkLgCjc3sZ2v8P5qN9W
-         +UodpyXpmCiwAaGvfduX0Cboh/cjI+yQtr9Tl3LzixShGAhTkvh6h59Qhl7sp0kpuzP4
-         oCJSWfq57JQGaYvwONDelrOS4svxjgmbMBeNAwWjovnwOGvnQ7VaQbnQxh8PNFLBfMiq
-         dfYQ==
+        bh=Tjdh99dmMY77j16LsBzv2dEuLqYqGw+VhQyABiovB2k=;
+        b=IOToTaHda46GVhULUWEUd0N6CA6+cso4UAyI7xb2Sh0m6dRBn/fW6PJX8zO1FCnuav
+         go+kmCygBSEFFcZ+cJuXiAYw+AfcPpnrkzHFTLmX3F/FENFzBWYsIKpAn3NRjGQg203H
+         1Lj19Ci2SKXMWNWVuWGxIo5TmbCdcgob11ZULVdRuqpoqKzU8RSqVccbzUlxxbOSDFfK
+         jn5sWHI02yBvlG3SzXQ6m29circSEDmAJiULxjxMKRmikoKCNkfM2Ys2X2LblLYbG+TP
+         NDUbv4zoCA/M9bJC+QWxu7K4AGRMB8C0WS+GpanFv11bGm4npSriXudHNkVlYeQ/LU4v
+         V9uA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777630890; x=1778235690;
+        d=1e100.net; s=20251104; t=1777631056; x=1778235856;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WqnN+2BfCLE5+NYkaRPGHIh+GKWc00ij8KyAPoVlJGA=;
-        b=ZSM6KA0AopqMRdAHajCijZjYd7dMt/LVZ7XGAvLF006gj+gVb/erBJkLyIQOS7jdWI
-         vxV4RNKL1xpeJEhBw0b6YFjXRjL/pDNaxrOuPKGnk1+0ygXgMFjo0wenbJMsA3z3AV0C
-         dPqXK3Ktjs2LOGuIcG5ebyIu7BfHFJj2E677TApBADwPITkm/kleIlU4IRSlMTQASct0
-         Z4Zy9VmBngbMgoSk4HIJgsnVqunG/zw7ZAQAunbJYLtoDKYlXFSg4zg3YDhM5/yzvLgO
-         ewfb0y27LR7aAVNLNi4VDa9z0hxGjM5gjZEPQf/80xm63VoCmCInxjFA3kd+XchMMsRG
-         DDdg==
-X-Forwarded-Encrypted: i=1; AFNElJ+z3xJdgH86RdTV9/L616CVPrw+75ws7tudpVH7ZIwiyp+BGQYaoerMycdsJy4txuTrA2Va10b/8vFb@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz0c6lTNR7Q+19Yd3ma/2YNI5prvUvBMEKcXvBYtgNk8O1Q9bNe
-	Mj+tqNgIKikFNCVU+tGvL8bMYf9AhYBx+5tMiFopr6tTC+0mV/hxO0pyvNcZFwWL
-X-Gm-Gg: AeBDievOdS6UFWfB2K++WdSTZPZdylQMjFux4zwYGVR/PO57lu6qw4vjN8IoRALjgr9
-	inEuvPVSm4bvO1cc1BUARKNt9kZlONdWz/tOjmKlNAT4qRE6IJLaMiiI1shycwvbj+HFsLBwP5z
-	ZF+l5y0xcgPx3MY2Wz7kIE5vIM+2QCdrvCk2lgeZVpP/JAHzKp3zKusVmJHFQlu50ekt24zqsKN
-	4P19GlYyRNj/E7/K7hU7etI4KThhCZxvCQrDRM0nOULpAlQQ8FRDRJEIbYlFOQ5X9jkEDuUoby1
-	RG6/Rl8MyJiTM5ZM/00d6svt1t3dpoxIduHxGxUK1i2W1bNSd71RBx0V5Er3VN7X4sdR7SR14ul
-	WuqbmieyCxzq7VH+WhjlX6A6838hra+QlcLymCr3V2pEoiNNg7U1bz4CondwpcFM2i1ZtGAjs7N
-	xr988fqSK3wXrE7tyoqhHU6k/2wbgs/Nv3wsbv28aW72J2HQ4VWnuWAh/ZRH4Gl4eXRAa584UgE
-	ukX9tevbvkMzBqI
-X-Received: by 2002:a05:6a20:5483:b0:395:ce56:4448 with SMTP id adf61e73a8af0-3a3cf68b511mr7357065637.25.1777630890111;
-        Fri, 01 May 2026 03:21:30 -0700 (PDT)
-Received: from Ubuntu.. ([49.37.171.148])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83515b87869sm2344295b3a.61.2026.05.01.03.21.25
+        bh=Tjdh99dmMY77j16LsBzv2dEuLqYqGw+VhQyABiovB2k=;
+        b=mzBrZOUFcZcM82IE51iltxDPFKVZ3kLkKm3vT9cJYCspBp05WUWQlpnKco0UeB5hFE
+         zxY7Ln0sG6lGRKlh36yjWc1/1xgVCzcaxi+2+YgFPH+7iAqxZiua3bLr9ZfuCrwObOVL
+         W42MDf9Ajci874tKXQdL0Bcaj61eyE5WhehzT/cRT2ATyv1NIva9JWlNYeEk0bA1tiIf
+         2/gdf7f2zfabvzJveTY+mdSCcuQa6UPK5/OoRoM0Volaob9V4nsTAp35inFxfJM6qEQx
+         qxeHHvsEe1cxTQwhdApQyXCEJ4184su9YvZkFgo3op6fcMyo2xKG6PaRizVqN0uvuWaF
+         MJcA==
+X-Forwarded-Encrypted: i=1; AFNElJ8l2ozReusa1m5x2zA6QrcCS3ENpvV7bAdJCxt2HbM6vj9/5aRmcwbZCytJIZuDPfV/yaUsAowhSKrH@vger.kernel.org
+X-Gm-Message-State: AOJu0YzqtjhV+4N0yc1wy+gNJbkfD5fFZITs2gquLVHBlUthuENdO5X6
+	vggjyYVukSDF1w9AycFogGc8KgbNmY/vl3frGUaBIm/obnIcUJ2WAO0pGMSGOmsGSRk=
+X-Gm-Gg: AeBDietv/WetG+hFe6+zpJsA+/KW6CZ6uo0RH7MIckI5YH7sDNzOnnz8BEL3HQkXtYj
+	QnmJwn43cG515+9gcBTkN+pduzdHPSRMDyzzjzfJqeSHNksF+JE9DzQyAG/CMriHLeMCrzk18EA
+	UkHBoyil8IaOues04X8M6X2lsa0ZjRsW4axlArHTlgJRCOes8pFOHgRjojU2OG5sqHmOjISo8s2
+	cVXt7yaIQFFiFeQsmvpbya299dGf1aziAkgDhI5Dwf+MLEr6jG7rbF8DBbEApx9pQcs3v1ohXPM
+	VlLWDQaonldcqZnLN5gT6pRxuy7u6NAS6QcRf2nq8LRwPuO3O+8b58+qaPIAWGp86FphYvHo80/
+	BHIHyW2ywR8yCt1XJwSSXkay/dma5k9qvR1BuYHlDAKcEUkrxE9+uwkYyjqEkUneUFca3KFXHtL
+	f/PGLGbViKVv0Z0Q42f5BkgXmx8G3fOU3HT0lFcD/xldtusSzz5SeGIycV1vYeGTX+0TV+QIRpn
+	yo7p9W5Upk3iqCZ3DFCAab9izm2+cTGHCj5TaRScQtDMmicKhFZOOaeSg==
+X-Received: by 2002:a05:600d:6:b0:48a:5970:1fe1 with SMTP id 5b1f17b1804b1-48a83d6a8b6mr90374315e9.4.1777631055567;
+        Fri, 01 May 2026 03:24:15 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:1220:5ff:c603:f3ad])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-44a8ef52854sm4405895f8f.12.2026.05.01.03.24.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 01 May 2026 03:21:29 -0700 (PDT)
-From: Manish Baing <manishbaing2789@gmail.com>
-To: linux@roeck-us.net,
-	linux@baker-net.org.uk,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-hwmon@vger.kernel.org,
+        Fri, 01 May 2026 03:24:15 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	linux-pci@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	manishbaing2789@gmail.com
-Subject: [PATCH] dt-bindings: hwmon: zyxel,nsa320-mcu: convert to DT schema
-Date: Fri,  1 May 2026 10:21:16 +0000
-Message-ID: <20260501102116.8275-1-manishbaing2789@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v2] dt-bindings: PCI: renesas,r9a08g045-pcie: Add RZ/V2N support
+Date: Fri,  1 May 2026 11:24:07 +0100
+Message-ID: <20260501102407.29462-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -79,102 +89,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert the ZyXEL NSA320 MCU bindings from text format to YAML schema.
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
+Document the Renesas RZ/V2N PCIe host controller, which is compatible with
+the RZ/G3E PCIe IP and therefore uses it as a fallback compatible. The
+only difference is that it uses device ID 0x003B.
+
+Make the binding title generic to avoid extending the title for each new
+SoC, and update the description to list the supported SoCs and their
+capabilities.
+
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
- .../devicetree/bindings/hwmon/nsa320-mcu.txt  | 20 -------
- .../bindings/hwmon/zyxel,nsa320-mcu.yaml      | 54 +++++++++++++++++++
- 2 files changed, 54 insertions(+), 20 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt
- create mode 100644 Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml
+v1->v2:
+- Updated the title
+- device-id value updated to lowercase
 
-diff --git a/Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt b/Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt
-deleted file mode 100644
-index 0863e067c85b..000000000000
---- a/Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt
-+++ /dev/null
-@@ -1,20 +0,0 @@
--Bindings for the fan / temperature monitor microcontroller used on
--the Zyxel NSA 320 and several subsequent models.
--
--Required properties:
--- compatible	: "zyxel,nsa320-mcu"
--- data-gpios	: The GPIO pin connected to the data line on the MCU
--- clk-gpios	: The GPIO pin connected to the clock line on the MCU
--- act-gpios	: The GPIO pin connected to the active line on the MCU
--
--Example:
--
--	hwmon {
--		compatible = "zyxel,nsa320-mcu";
--		pinctrl-0 = <&pmx_mcu_data &pmx_mcu_clk &pmx_mcu_act>;
--		pinctrl-names = "default";
--
--		data-gpios = <&gpio0 14 GPIO_ACTIVE_HIGH>;
--		clk-gpios = <&gpio0 16 GPIO_ACTIVE_HIGH>;
--		act-gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
--	};
-diff --git a/Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml b/Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml
-new file mode 100644
-index 000000000000..a111f8125e09
---- /dev/null
-+++ b/Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml
-@@ -0,0 +1,54 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/hwmon/zyxel,nsa320-mcu.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ZyXEL NSA320 MCU
-+
-+maintainers:
-+  - Adam Baker <linux@baker-net.org.uk>
-+  - Guenter Roeck <linux@roeck-us.net>
-+
-+description:
-+  The ZyXEL NSA320 uses a dedicated microcontroller to manage system-critical
-+  functions like fan speed and power monitoring. It is connected to the SoC
-+  via a GPIO-based serial protocol.
-+
-+properties:
-+  compatible:
-+    const: zyxel,nsa320-mcu
-+
-+  data-gpios:
-+    maxItems: 1
-+    description: GPIO pin connected to the data line on the MCU.
-+
-+  clk-gpios:
-+    maxItems: 1
-+    description: GPIO pin connected to the clock line on the MCU.
-+
-+  act-gpios:
-+    maxItems: 1
-+    description: GPIO pin connected to the active line on the MCU.
-+
-+required:
-+  - compatible
-+  - data-gpios
-+  - clk-gpios
-+  - act-gpios
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    hwmon {
-+        compatible = "zyxel,nsa320-mcu";
-+        pinctrl-0 = <&pmx_mcu_data &pmx_mcu_clk &pmx_mcu_act>;
-+        pinctrl-names = "default";
-+
-+        data-gpios = <&gpio0 14 GPIO_ACTIVE_HIGH>;
-+        clk-gpios = <&gpio0 16 GPIO_ACTIVE_HIGH>;
-+        act-gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
-+    };
+Note this patch was originally sent as part of series [0], as RZ/V2H
+support needs discussion sending this single patch. The RZ/V2N support
+can be merged independently of RZ/V2H.
+
+[0] https://lore.kernel.org/all/20260318124450.163471-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+---
+ .../bindings/pci/renesas,r9a08g045-pcie.yaml  | 23 ++++++++++++-------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml b/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
+index a67108c48feb..90086909e921 100644
+--- a/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
++++ b/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
+@@ -4,21 +4,27 @@
+ $id: http://devicetree.org/schemas/pci/renesas,r9a08g045-pcie.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Renesas RZ/G3S PCIe host controller
++title: Renesas RZ/G3S PCIe host controller (and similar SoCs)
+ 
+ maintainers:
+   - Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+ 
+-description:
+-  Renesas RZ/G3{E,S} PCIe host controllers comply with PCIe
+-  Base Specification 4.0 and support up to 5 GT/s (Gen2) for RZ/G3S and
+-  up to 8 GT/s (Gen3) for RZ/G3E.
++description: |
++  PCIe host controller found in Renesas RZ/G3S and similar SoCs complies
++  with PCIe Base Specification 4.0 and supports different link speeds
++  depending on the SoC variant:
++    - Gen2 (5 GT/s): RZ/G3S
++    - Gen3 (8 GT/s): RZ/G3E, RZ/V2N
+ 
+ properties:
+   compatible:
+-    enum:
+-      - renesas,r9a08g045-pcie # RZ/G3S
+-      - renesas,r9a09g047-pcie # RZ/G3E
++    oneOf:
++      - enum:
++          - renesas,r9a08g045-pcie # RZ/G3S
++          - renesas,r9a09g047-pcie # RZ/G3E
++      - items:
++          - const: renesas,r9a09g056-pcie # RZ/V2N
++          - const: renesas,r9a09g047-pcie
+ 
+   reg:
+     maxItems: 1
+@@ -152,6 +158,7 @@ patternProperties:
+         enum:
+           - 0x0033
+           - 0x0039
++          - 0x003b
+ 
+       clocks:
+         items:
 -- 
-2.43.0
+2.54.0
 
