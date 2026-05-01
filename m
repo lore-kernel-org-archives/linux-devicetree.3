@@ -1,473 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9718637C924;
-	Fri,  1 May 2026 22:50:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F2E36A030;
+	Fri,  1 May 2026 22:56:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777675856; cv=none; b=DtSS1qusGQwBt043tmkonYPQBQ/DSoR30TcqBHf39MXz2B/WTfLZm174f+Wg0T+CAq0OWZXkvqSN3YPkk/4DMGjtPOl2k1lkiVUo9CLSEXQLbHpE6XiQx9AVyYuxm+YPYuPcaqi+AdD2dBm9kJi7I1VUtSUg9A3h1RukLV1jWxc=
+	t=1777676167; cv=none; b=JnoJhTHFXSbWwTSvR4VKrkwHxNSoZUqpTVVcmU0dAKpSlZJFNux7v4g1Ohs0zvU+wmuue7l61P/i70j70ko4oXmEGKyf371M7pJkT5V9NatlHSJwH8pW/dhP56GP+7xRo7fEVrSlb+uCLSKglMTB23NjbPuZZa6sW0PuntqEe4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777675856; c=relaxed/simple;
-	bh=JsKQZwT7twmRx3oEqUH0SYKC6E0mKWOX2JdLdQ0Tj4c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=M+E56IsUIq7cPjVf7CtfolyaW3C8Vw1ZxDGw0SXRlIClQd+Yh4gNBTVObANIgOFvpf2uUsGJmuZ/AlpeV89hMYFtzS2gZsBx+uuMYeypD8NImMHGEQMvh0FpF3u2KNik6yXv8xIVTc+9f0NBykhAoo6Rl959HghkyKxcFpop60k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P0azUMRW; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777676167; c=relaxed/simple;
+	bh=1iwI2aafpKey+TcNpyfdl6cbDQtnncXbzDesvM+TRLI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mpEvm/ygj9URzhMN9J/BzYeW9EOTWjOLtHH96S9gOl3nIROpCk3gkfZwmREu8Lx/2/cQrFmC1ZF5AVKj3YfeDUz4IOwEXokV8a/PERzeJUnmd4m+xOYI7ekDrG4d/GlrFVrDu+ntjbzxp0aqkmqvYuHHXmALnOyELTgT1ILo9YE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tVWaxZw9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P0azUMRW"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 59F21C2BCB8;
-	Fri,  1 May 2026 22:50:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tVWaxZw9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C758C2BCB4;
+	Fri,  1 May 2026 22:56:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777675856;
-	bh=JsKQZwT7twmRx3oEqUH0SYKC6E0mKWOX2JdLdQ0Tj4c=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=P0azUMRW63s2kCBIhx1Vj/VdDpuaJGCW4DGVhq4a1Vayu5ZMwJfbQSiMoZUzkNsWu
-	 FJKpeTdH+pGPPnHraJ5SD9erTIwDrhB9clyrbtfwyIRPzSrDM4F6H/SbDTptYx99si
-	 cUgqdOwhKJtFQTbebRy9iBaOGwaCQzV18005xYRU60bgaslmGiTUQ/tiezTgOfEeem
-	 VUB+Zdv3u5RtdARW8PBqFcfv7+xGrKMOOvr4T2V1CLDm4+vscBqN6B6xs1dSGZPLTz
-	 2TLB52SbpWrp7wH2/ApBrgYqAiqCtW6YwQ+gWY5l0goUlOnuvkd6hVdZhD/LGscINz
-	 nMiLpKIgrXEGw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D11ACD342C;
-	Fri,  1 May 2026 22:50:56 +0000 (UTC)
-From: David Wales via B4 Relay <devnull+daviewales.disroot.org@kernel.org>
-Date: Sat, 02 May 2026 08:50:18 +1000
-Subject: [PATCH v2 2/2] ARM: dts: qcom: Support Motorola Moto G2 (2014)
+	s=k20201202; t=1777676167;
+	bh=1iwI2aafpKey+TcNpyfdl6cbDQtnncXbzDesvM+TRLI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tVWaxZw91EPxSiL0niMsYUnvbV+iahQvNTUpd2iooPHMe2tXk4F+76ugSAQB+ZfyL
+	 83MAIleVOYBCp16xg9ptRPFXaa5CCJuvu0ZZT7oNDHUKJwO13e2CEPYgPbFUQqDyCu
+	 KGhC6IMSFarh6xghANHhjuz2NVGGt4GF2uKMpgc7LstKNdacnhtV6vveZoHzetcClP
+	 M0hfNwdQnIFUvxOAcHaldKZsxFP3wAa74ssiZqk67KGHol/SyCHyPq0cZ1s9gtwFCN
+	 dWeB8uLQgq9hWxQYORvT72I2PTp6YmIWELyLBEs7VvsM9aFg076a15zuwo1Pq2ACAW
+	 FRSa9mf8D8Caw==
+Date: Fri, 1 May 2026 15:56:05 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Adrien Ricciardi <aricciardi@baylibre.com>,
+	Nicolas Pitre <npitre@baylibre.com>,
+	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Atish Kumar Patra <atishp@rivosinc.com>,
+	Vasudevan Srinivasan <vasu@rivosinc.com>,
+	Ved Shanbhogue <ved@rivosinc.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	yunhui cui <cuiyunhui@bytedance.com>,
+	Chen Pei <cp0613@linux.alibaba.com>,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Weiwei Li <liwei1518@gmail.com>, guo.wenjia23@zte.com.cn,
+	Gong Shuai <gong.shuai@sanechips.com.cn>,
+	Gong Shuai <gsh517@gmail.com>, liu.qingtao2@zte.com.cn,
+	Tony Luck <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>,
+	Peter Newman <peternewman@google.com>,
+	Fenghua Yu <fenghua.yu@intel.com>,
+	James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
+	Dave Martin <Dave.Martin@arm.com>, Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Robert Moore <robert.moore@intel.com>,
+	Sunil V L <sunilvl@ventanamicro.com>, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, x86@kernel.org,
+	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>
+Subject: Re: [PATCH RFC v3 06/11] RISC-V: QoS: add resctrl setup and domain
+ management
+Message-ID: <afUvhf4SdKVjLqfk@x1>
+References: <20260414-ssqosid-cbqri-rqsc-v7-0-v3-0-b3b2e7e9847a@kernel.org>
+ <20260414-ssqosid-cbqri-rqsc-v7-0-v3-6-b3b2e7e9847a@kernel.org>
+ <9a8860a5-f63f-497c-ade9-6f64286abff0@intel.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260502-device-motorola-titan-mainline-v2-2-c791277c740a@disroot.org>
-References: <20260502-device-motorola-titan-mainline-v2-0-c791277c740a@disroot.org>
-In-Reply-To: <20260502-device-motorola-titan-mainline-v2-0-c791277c740a@disroot.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, David Wales <daviewales@disroot.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9249;
- i=daviewales@disroot.org; h=from:subject:message-id;
- bh=Y/D2bPYseKj91h+dSiR9jAud0Qe3ndBFvxMnLZT8Yo0=;
- b=owEBbQGS/pANAwAKAW1jV4FG9KFmAcsmYgBp9S5OxYhBaSvVuvwGdC+0iTVqij15XfRR8WMQI
- fqHgAGGgR2JATMEAAEKAB0WIQTXikd3yUPmOPWSLPJtY1eBRvShZgUCafUuTgAKCRBtY1eBRvSh
- ZlOZB/oD2DQ4eWtMC7AI8n1v7T9//nRXovMSQLhoVqYxG5ftAyzUXjUvrxkcYCICecGIN4gmnma
- Tk+NewWDdmqDfXc6MbxS93DeFDiPw+0c9GlfUoemqGm7Ft1pnyVuMDJhLvhqI8MSX7eaW0tNbyr
- ZwqE+XyB7j6RQo/0t8ogEIUWVC1s1DkrqTn+IaSmBjtVsWRLHaMunlWhZZc4nZlerUnfSCR9BZu
- 1o+iKJLhqgFXHlVhQBWcS0VJgw/SriljjsZ7mFnZDjhkmg1N527qlAU5etl33JmqqWqYC6NJZVu
- c2RHiHFO7Hx5oa14t7y5GfK+eQpgZsXDpnh6HOPRzeMRtiJy
-X-Developer-Key: i=daviewales@disroot.org; a=openpgp;
- fpr=8F5BAFB15444A769DC3B61684022B817D275D037
-X-Endpoint-Received: by B4 Relay for daviewales@disroot.org/default with
- auth_id=737
-X-Original-From: David Wales <daviewales@disroot.org>
-Reply-To: daviewales@disroot.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9a8860a5-f63f-497c-ade9-6f64286abff0@intel.com>
 
-From: David Wales <daviewales@disroot.org>
+On Thu, Apr 30, 2026 at 04:20:09PM -0700, Reinette Chatre wrote:
+> Hi Drew,
+> 
+> On 4/14/26 6:54 PM, Drew Fustini wrote:
+> > +
+> > +static int qos_resctrl_add_controller_domain(struct cbqri_controller *ctrl)
+> > +{
+> > +	struct rdt_ctrl_domain *domain;
+> > +	struct cbqri_resctrl_res *cbqri_res = NULL;
+> > +	struct rdt_resource *res = NULL;
+> > +	struct list_head *pos = NULL;
+> > +	int err;
+> > +
+> > +	domain = qos_new_domain(ctrl);
+> > +	if (!domain)
+> > +		return -ENOSPC;
+> > +
+> > +	switch (ctrl->type) {
+> > +	case CBQRI_CONTROLLER_TYPE_CAPACITY:
+> > +		cpumask_copy(&domain->hdr.cpu_mask, &ctrl->cache.cpu_mask);
+> 
+> Looking at patch #10 ctrl->cache.cpu_mask contains all CPUs associated with cache
+> even if they are offline. This is not what resctrl expects. Instead the expectation is
+> that a domain exists and is online (hence "resctrl_online_ctrl_domain()") if at least one CPU
+> belonging to that domain is online and domain->hdr.cpu_mask lists all the *online* CPUs
+> associated with that domain.
+> This is why resctrl always takes the CPU hotplug lock when traversing the domain
+> lists.
+> 
+> I thus expected this initialization to be split between an early initialization of
+> resource capabilities and then domain initialization as part of the CPU online/offline
+> handlers.
 
-Add device tree for Motorola Moto G2 (2014) (motorola-titan) smartphone
-based on the Qualcomm MSM8226 SoC.
+Good point. I'll rework this so that domain allocation moves to the cpu
+online/offline handlers.
 
-Initially supported features:
-  - Buttons (Volume Down/Up, Power)
-  - eMMC
-  - Hall Effect Sensor
-  - Simple framebuffer display
-  - Vibrator
+[..]
+> > +	if (pos)
+> > +		list_add_tail(&domain->hdr.list, pos);
+> > +	else
+> > +		list_add_tail(&domain->hdr.list, &res->ctrl_domains);
+> 
+> resctrl_find_domain() returns NULL if it cannot find an existing domain, in that
+> case it initializes "pos" to support adding a new domain in a sorted list.
+> Expectation is that domains are managed as part of CPU hotplug handlers. When
+> a CPU comes online then handler can check if the domain it belongs to already exists,
+> if it does then the CPU can just be added to that domain's cpu_mask, if it does
+> not then a new domain is created and added in the the appropriate spot in the
+> sorted list (based on domain ID) of domains. 
 
-Based on device tree for similar device msm8226-motorola-falcon.
-Initial commit for falcon notes that dhob and shob reserved-memory
-regions seem to be related to a Motorola specific mechanism. [1]
+Okay, I'll move this from probe to qos_resctrl_online_cpu().
 
-[1] https://github.com/LineageOS/android_kernel_motorola_msm8226/blob/cm-14.1/Documentation/devicetree/bindings/misc/hob_ram.txt
+> > +int qos_resctrl_online_cpu(unsigned int cpu)
+> > +{
+> > +	resctrl_online_cpu(cpu);
+> 
+> This is where a domain is expected to be added when its first CPU comes online.
+[..]
+> > +int qos_resctrl_offline_cpu(unsigned int cpu)
+> > +{
+> > +	resctrl_offline_cpu(cpu);
+> 
+> This is where a domain is expected to be removed when its last CPU goes offline.
 
-Signed-off-by: David Wales <daviewales@disroot.org>
----
- arch/arm/boot/dts/qcom/Makefile                   |   1 +
- arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts | 357 ++++++++++++++++++++++
- 2 files changed, 358 insertions(+)
+Okay, I'll update v4 to add and remove domains in these hooks.
 
-diff --git a/arch/arm/boot/dts/qcom/Makefile b/arch/arm/boot/dts/qcom/Makefile
-index c7873dcef154..de311293ce16 100644
---- a/arch/arm/boot/dts/qcom/Makefile
-+++ b/arch/arm/boot/dts/qcom/Makefile
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- dtb-$(CONFIG_ARCH_QCOM) += \
- 	msm8226-motorola-falcon.dtb \
-+	msm8226-motorola-titan.dtb \
- 	qcom-apq8016-sbc.dtb \
- 	qcom-apq8026-asus-sparrow.dtb \
- 	qcom-apq8026-huawei-sturgeon.dtb \
-diff --git a/arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts b/arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts
-new file mode 100644
-index 000000000000..73d414b1ddcf
---- /dev/null
-+++ b/arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts
-@@ -0,0 +1,357 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026, David Wales <daviewales@disroot.org>
-+ */
-+
-+/dts-v1/;
-+
-+#include "qcom-msm8226.dtsi"
-+#include "pm8226.dtsi"
-+
-+/delete-node/ &smem_region;
-+
-+/ {
-+	model = "Motorola Moto G2 (2014)";
-+	compatible = "motorola,titan", "qcom,msm8226";
-+	chassis-type = "handset";
-+
-+	aliases {
-+		mmc0 = &sdhc_1; /* eMMC */
-+	};
-+
-+	chosen {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		framebuffer@3200000 {
-+			compatible = "simple-framebuffer";
-+			reg = <0x03200000 0x800000>;
-+			width = <720>;
-+			height = <1280>;
-+			stride = <(720 * 3)>;
-+			format = "r8g8b8";
-+			vsp-supply = <&reg_lcd_pos>;
-+			vsn-supply = <&reg_lcd_neg>;
-+			vddio-supply = <&vddio_disp_vreg>;
-+
-+			clocks = <&mmcc MDSS_AHB_CLK>,
-+				 <&mmcc MDSS_AXI_CLK>,
-+				 <&mmcc MDSS_BYTE0_CLK>,
-+				 <&mmcc MDSS_ESC0_CLK>,
-+				 <&mmcc MDSS_MDP_CLK>,
-+				 <&mmcc MMSS_MISC_AHB_CLK>,
-+				 <&mmcc MDSS_PCLK0_CLK>,
-+				 <&mmcc MDSS_VSYNC_CLK>;
-+			power-domains = <&mmcc MDSS_GDSC>;
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		event-hall-sensor {
-+			label = "Hall Effect Sensor";
-+			gpios = <&tlmm 109 GPIO_ACTIVE_LOW>;
-+			linux,input-type = <EV_SW>;
-+			linux,code = <SW_LID>;
-+			linux,can-disable;
-+		};
-+
-+		key-volume-down {
-+			label = "Volume Down";
-+			gpios = <&tlmm 107 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			debounce-interval = <15>;
-+		};
-+
-+		key-volume-up {
-+			label = "Volume Up";
-+			gpios = <&tlmm 106 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEUP>;
-+			debounce-interval = <15>;
-+		};
-+	};
-+
-+	vddio_disp_vreg: regulator-vddio-disp {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vddio_disp";
-+
-+		gpio = <&tlmm 10 GPIO_ACTIVE_HIGH>;
-+		startup-delay-us = <300>;
-+		enable-active-high;
-+		regulator-boot-on;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		framebuffer@3200000 {
-+			reg = <0x03200000 0xfa0000>;
-+			no-map;
-+		};
-+
-+		dhob@f500000 {
-+			reg = <0x0f500000 0x40000>;
-+			no-map;
-+		};
-+
-+		shob@f540000 {
-+			reg = <0x0f540000 0x2000>;
-+			no-map;
-+		};
-+
-+		smem_region: smem@fa00000 {
-+			reg = <0x0fa00000 0x100000>;
-+			no-map;
-+		};
-+
-+		reserved@fb00000 {
-+			reg = <0x0fb00000 0x400000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&blsp1_i2c4 {
-+	status = "okay";
-+
-+	regulator@3e {
-+		compatible = "ti,tps65132";
-+		reg = <0x3e>;
-+
-+		pinctrl-0 = <&reg_lcd_default>;
-+		pinctrl-names = "default";
-+
-+		reg_lcd_pos: outp {
-+			regulator-name = "outp";
-+			regulator-min-microvolt = <5400000>;
-+			regulator-max-microvolt = <5600000>;
-+			regulator-active-discharge = <1>;
-+			regulator-boot-on;
-+			enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		reg_lcd_neg: outn {
-+			regulator-name = "outn";
-+			regulator-min-microvolt = <5400000>;
-+			regulator-max-microvolt = <5600000>;
-+			regulator-active-discharge = <1>;
-+			regulator-boot-on;
-+			enable-gpios = <&tlmm 13 GPIO_ACTIVE_HIGH>;
-+		};
-+	};
-+};
-+
-+&pm8226_vib {
-+	status = "okay";
-+};
-+
-+&rpm_requests {
-+	regulators {
-+		compatible = "qcom,rpm-pm8226-regulators";
-+
-+		pm8226_s3: s3 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1300000>;
-+		};
-+
-+		pm8226_s4: s4 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2200000>;
-+		};
-+
-+		pm8226_s5: s5 {
-+			regulator-min-microvolt = <1150000>;
-+			regulator-max-microvolt = <1150000>;
-+		};
-+
-+		pm8226_l1: l1 {
-+			regulator-min-microvolt = <1225000>;
-+			regulator-max-microvolt = <1225000>;
-+		};
-+
-+		pm8226_l2: l2 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		pm8226_l3: l3 {
-+			regulator-min-microvolt = <750000>;
-+			regulator-max-microvolt = <1337500>;
-+		};
-+
-+		pm8226_l4: l4 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		pm8226_l5: l5 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		pm8226_l6: l6 {
-+			/* Hall effect sensor */
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-always-on;
-+		};
-+
-+		pm8226_l7: l7 {
-+			regulator-min-microvolt = <1850000>;
-+			regulator-max-microvolt = <1850000>;
-+		};
-+
-+		pm8226_l8: l8 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l9: l9 {
-+			regulator-min-microvolt = <2050000>;
-+			regulator-max-microvolt = <2050000>;
-+		};
-+
-+		pm8226_l10: l10 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l12: l12 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l14: l14 {
-+			regulator-min-microvolt = <2750000>;
-+			regulator-max-microvolt = <2750000>;
-+		};
-+
-+		pm8226_l15: l15 {
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+		};
-+
-+		pm8226_l16: l16 {
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3350000>;
-+		};
-+
-+		pm8226_l17: l17 {
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l18: l18 {
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l19: l19 {
-+			regulator-min-microvolt = <2850000>;
-+			regulator-max-microvolt = <2850000>;
-+		};
-+
-+		pm8226_l20: l20 {
-+			regulator-min-microvolt = <3075000>;
-+			regulator-max-microvolt = <3075000>;
-+		};
-+
-+		pm8226_l21: l21 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+			regulator-allow-set-load;
-+		};
-+
-+		pm8226_l22: l22 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l23: l23 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l24: l24 {
-+			regulator-min-microvolt = <1300000>;
-+			regulator-max-microvolt = <1350000>;
-+		};
-+
-+		pm8226_l25: l25 {
-+			regulator-min-microvolt = <1775000>;
-+			regulator-max-microvolt = <2125000>;
-+		};
-+
-+		pm8226_l26: l26 {
-+			regulator-min-microvolt = <1225000>;
-+			regulator-max-microvolt = <1225000>;
-+		};
-+
-+		pm8226_l27: l27 {
-+			regulator-min-microvolt = <2050000>;
-+			regulator-max-microvolt = <2050000>;
-+		};
-+
-+		pm8226_l28: l28 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <3400000>;
-+			regulator-boot-on;
-+		};
-+
-+		pm8226_lvs1: lvs1 {
-+			/* Pull-up for I2C lines */
-+			regulator-always-on;
-+		};
-+	};
-+};
-+
-+&sdhc_1 {
-+	vmmc-supply = <&pm8226_l17>;
-+	vqmmc-supply = <&pm8226_l6>;
-+	bus-width = <8>;
-+	non-removable;
-+
-+	status = "okay";
-+};
-+
-+&smbb {
-+	qcom,fast-charge-safe-current = <2000000>;
-+	qcom,fast-charge-current-limit = <1900000>;
-+	qcom,fast-charge-safe-voltage = <4400000>;
-+	qcom,minimum-input-voltage = <4300000>;
-+
-+	status = "okay";
-+};
-+
-+&usb {
-+	extcon = <&smbb>;
-+	dr_mode = "peripheral";
-+
-+	status = "okay";
-+};
-+
-+&usb_hs_phy {
-+	extcon = <&smbb>;
-+	v1p8-supply = <&pm8226_l10>;
-+	v3p3-supply = <&pm8226_l20>;
-+};
-+
-+&tlmm {
-+	reg_vddio_disp_default: reg-vddio-disp-default-state {
-+		pins = "gpio10";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	reg_lcd_default: reg-lcd-default-state {
-+		pins = "gpio12", "gpio13";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+};
-
--- 
-2.53.0
-
-
+Thanks,
+Drew
