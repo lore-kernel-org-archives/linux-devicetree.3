@@ -1,222 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C1B7231827;
-	Fri,  1 May 2026 04:45:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777610725; cv=none; b=UV77BdE5M3271SR9JIR5rEOyG9njnJR6rTWaaofCyMxf6UqTpA9JGR7aOcWitOT2nMEDyVZQ0uphC9N6deizN6Lp/sBvnp6YCXWSoNvqBmp473WampfS9T8rrZ/9A1HdHhkXJiFlin1CU5F1XmFy22Yh3kGlKzYg0XgYY/FqJrc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777610725; c=relaxed/simple;
-	bh=0urt9bqbGp3y4rg3e1ksFahHj9pqpb5+cS/9lGfMSaU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mTvQesG76oS0qEuQ4oElCMkXVm8IGXnJld5B6h2A7y77i2eIagePhOXsLqiTy3XxbRg6KR/9UZyUVBMeEzm064tRVVZYG+nmPsLnDHKNomi0eJlGGDQCwun6COxcuVpJ/8EEqp96oet8UsH6EGUIufOW1F8ChlXxAVFT9X9BRm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iWME0HrS; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA14B2D97BB
+	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 05:00:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777611637; cv=pass; b=FSaDWNXl8TOAh/vb1tk8WqDUspPjFC4h1Ylc13YPLk11aVJQPmDPkT69kRbp2FlHS86uMUzh9ILNHBBvMuAAdE/VlM11Ono9AhKM4AVcLv4LzfF97JbwbKKYtS/d1KEkgUmsSeBL6nBJCjfA4qF8xQ9zrPwnhm4HwRaKlYyJh3s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777611637; c=relaxed/simple;
+	bh=SBauyVcTPX2Ataosw2rZRkBglocAQphV8+r815lWmR8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BCAHk8U7l4k6LZlMyEPFTKCThMRS8RIv/3fng4UsKvlbqTN5ZB4ACD8fY36xSo5oFb45VpJDTwYED8zK3mx2KnzJZ97vOLJZNchuVAZa1QogM5QlqI68cetZqcJuyyQDs+0eq4wfranvmP3HBI6NZ5ZgojOIikeCYshqt8b2frE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LiEdR2e3; arc=pass smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iWME0HrS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F0D3C2BCB7;
-	Fri,  1 May 2026 04:45:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777610724;
-	bh=0urt9bqbGp3y4rg3e1ksFahHj9pqpb5+cS/9lGfMSaU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iWME0HrS3+ZEPckX6tGyQtPb9xHhdBDN3q+ubDJmJc0Bih/PCJrsqizQtlxPBtWCF
-	 sHZaYjKEbEkY/RS/x7ZytmU2iTneqz2bS6vpVUlbGw5p155eV1RtlQP6PRg5QnpnQo
-	 Q4IphobPOyknjLvhiXir6NvcwdNDtoTwqbBT9h1KUqGo3g4NIvAI8LKqnTAn8By6Z/
-	 XDp+VZ843+nTEfHigSg2wAqkxBO3pQTRZrMDcXiFVkWv4IexvL8zahxJympsqKuZtK
-	 n7Km8CIWL+eKkFSRXc/8+cigobYlkT+NclXrtpidDd+1MoYCzxqqq3aEkC3NSyMTpJ
-	 MVfmA/DXwSM9A==
-Date: Thu, 30 Apr 2026 21:45:21 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Adrien Ricciardi <aricciardi@baylibre.com>,
-	Nicolas Pitre <npitre@baylibre.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Atish Kumar Patra <atishp@rivosinc.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	yunhui cui <cuiyunhui@bytedance.com>,
-	Chen Pei <cp0613@linux.alibaba.com>,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Weiwei Li <liwei1518@gmail.com>, guo.wenjia23@zte.com.cn,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, liu.qingtao2@zte.com.cn,
-	Tony Luck <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>,
-	Peter Newman <peternewman@google.com>,
-	Fenghua Yu <fenghua.yu@intel.com>,
-	James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
-	Dave Martin <Dave.Martin@arm.com>, Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Robert Moore <robert.moore@intel.com>,
-	Sunil V L <sunilvl@ventanamicro.com>, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, x86@kernel.org,
-	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>
-Subject: Re: [PATCH RFC v3 04/11] RISC-V: QoS: add CBQRI hardware interface
-Message-ID: <afQv4dpMHUonDJcJ@x1>
-References: <20260414-ssqosid-cbqri-rqsc-v7-0-v3-0-b3b2e7e9847a@kernel.org>
- <20260414-ssqosid-cbqri-rqsc-v7-0-v3-4-b3b2e7e9847a@kernel.org>
- <eeecb5df-64ee-46ef-b4a8-0f0cdc88f0ae@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LiEdR2e3"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-488af96f6b2so20660915e9.0
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 22:00:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777611634; cv=none;
+        d=google.com; s=arc-20240605;
+        b=hMsUzSy839MrQwg7t8zYVigZ/lz2nvgFkrlb4VRyTjQZNR2HUFAr4zrrkqCooc/+tj
+         vKdp6cQEIOCcdDvriwIQPSEwE+fXnu47nTxdRiM/NKkBlHrSIz+5U1B64juimkAa0qJF
+         C8l+PIDu8IJALTmpGqTiNHdFoVDzFSfpsru+CtwAK7oesP6WgNLEHJvdhjOrkwbeSzdX
+         GQtoXmij4CEkJu7S7RxHDQDABLMcvJzzq3RQWJZ+KhtgaA4wA+cTmFyHRv3nrieoaYb3
+         HQR3E9N9y990Qrnpabap98NV4YrLCdZtEr/ZyFrrchcByionmpMGAN8EVJruGn53JFLb
+         TD2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=u4fQWvYslfT7zG5J1AHK+cbagfvgWh5WDnFa7R4/FpE=;
+        fh=tvrJntYmxBUhST5MWvDKcbXEhwjtCmXAwHWtvnBUHyE=;
+        b=kDgM1AbuLx6YZFDHXwOfIFXiIcTb0utErgItigSduNTwNH3ua+oNn+ubeNSdBW7pyb
+         1QJxoIXAKJJKODNC1YP70IT7pj89wmgtVl5cqy7OtrBfpcGWuayLD6CnxCdQsOyKM6nn
+         Nuxm/FK3IQMGJ3LZ4wg3FKU0+E8YOTkbW2yuGMIo+RoBUAgFQoAS3OzQVOpi1Ad84KWj
+         8/Uw2fsJ/GRW7mzZhT0b6gY0gtAR3mzxV8/hCBDkFIUyfOu4scPYnT0tmMvOjZfC8/me
+         0PtCXq22mhwb5nHPQZYkYzJ/aggtwFTKnQxHQ9eaUs3TxljX0FiHSli6zkSwMQ6zHu2b
+         FFbw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777611634; x=1778216434; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=u4fQWvYslfT7zG5J1AHK+cbagfvgWh5WDnFa7R4/FpE=;
+        b=LiEdR2e3ds2xAwAt8smNmGpxkyonV63yfyLBw2yNm4kCvCdCpvzXwNeUyWDcn3mpGq
+         1mO6AhhniZZs1+q7gc4OQbDcJuYUFKmYqAUglrQZT8v/dbGG/CIYebeJbdGWvwgW5noC
+         zoJSQWJY7Wb7Mm5CDDIjX5Nq6ESTUoo5xpqXQZ+QTFcXDOiQENwqgIwncJcHGWRFN0Sg
+         Rq1IGKNILeBUbE3T3an00IgKqD0iEy5bRDLDvN4hGQFqkTck7sN1bCoVppveSF0+SXNA
+         fHsJ6lpVxSfHIK1ujL5bTuW44WlzI8tHsYHCaVMEMCaJgDI7m0ohuoDP9ExtuTQwDPyw
+         D7YQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777611634; x=1778216434;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=u4fQWvYslfT7zG5J1AHK+cbagfvgWh5WDnFa7R4/FpE=;
+        b=N0xINZcIbzAbO6Pl+XbcSj0vUjTDV5InwL9qf0O2A/hYB37z7K8etDx14mPwjz7gfz
+         +3ut+obk1b8c1zpnrD48NlpiGYFoBsmexE7EXf5jxDNfkcPUqE367faDwcTXM0m9Se16
+         ePudmWjocY57IPiENhGst5MakcVCMSeUIyst7UgBwPklThSvTwkHxHvWoxmPnKYdYW06
+         DPA24nVjPuDbBcuGYLyIvt0acYheIAiQX6O7RgkSnmj8a4kP/lVCNWCT18JaA4Ok171z
+         46w4YkXutzWpslOM919JTsLgbQC5boUPKfNMnqWY0TwXDxtt1yd3KJFKjx3P5kgIOjNN
+         8gYw==
+X-Forwarded-Encrypted: i=1; AFNElJ8oSdPWDmC5RUNDhWhbIgSiLp/UkSkJGNg+ouAD3KcX4Z9/+v9+Er4eWYYu53hrBYEJTUjEYNDRQEg7@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz6fAOuyDf/4zSv++qUGCN7pOdCgf0LMKA5pOQKIMT+4ed7PiOK
+	0M0YHtfSJBgOBBRJpOsxJT7h+lr5Jj2FCL7hTr+W3QnbQP3afWR08v3M6IogeT+r+q66a0Q0HWV
+	lVcIPoj8JRk9Oj7fOvZfUQqtrjAyuj38=
+X-Gm-Gg: AeBDievxaSh2nyxTv9o2XwX1sxffE044FHg34DcRyhekgDNLJKCE3SPPX0lEWj+iwhB
+	v9/ijG44lWJ6vEPKjazAaGMPhbKQpLCh1gFYgHupWh6g4DPBHnb3jZ+EKnnqKfD0UmXG9FYfxCF
+	gzgGLmqU0JrcUyrY9axKbceJazHPkSPybHtNckGd3Pz4JBV73mFpVTW7tAHLNYLw213rKQHu/bQ
+	TtSH8dS/2lwQo1v5UpQs8qFQH9/8QDCohy2dHPmsIRW4nOOZPq3twGsIqYOtoCu3C0TwFjuqYrI
+	oBDxbN3anxA6vFSc0Qw=
+X-Received: by 2002:a05:600c:a010:b0:488:7ff6:1f75 with SMTP id
+ 5b1f17b1804b1-48a8eb98882mr22166985e9.21.1777611633905; Thu, 30 Apr 2026
+ 22:00:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <eeecb5df-64ee-46ef-b4a8-0f0cdc88f0ae@intel.com>
+References: <20260428113923.112920-1-clamor95@gmail.com> <20260428113923.112920-2-clamor95@gmail.com>
+ <afO-nOr2JUfm2dUA@kekkonen.localdomain>
+In-Reply-To: <afO-nOr2JUfm2dUA@kekkonen.localdomain>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Fri, 1 May 2026 08:00:22 +0300
+X-Gm-Features: AVHnY4JLhHPzj6DGjsiLYEr3D-nEAFcsblb5hzuuwo4dyelOT22nmoL5seKrUFw
+Message-ID: <CAPVz0n178FSdKfyEzbij+dvHTv8C4KENbOvyt3-A4a=mJxsYig@mail.gmail.com>
+Subject: Re: [PATCH v4 1/5] dt-bindings: leds: Document TI LM3560 Synchronous
+ Boost Flash Driver
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 30, 2026 at 04:15:05PM -0700, Reinette Chatre wrote:
-> Hi Drew,
-> 
-> On 4/14/26 6:53 PM, Drew Fustini wrote:
-> > diff --git a/arch/riscv/kernel/qos/internal.h b/arch/riscv/kernel/qos/internal.h
-> > new file mode 100644
-> > index 000000000000..edbcbd9471b1
-> > --- /dev/null
-> > +++ b/arch/riscv/kernel/qos/internal.h
-> 
-> ...
-> 
+=D1=87=D1=82, 30 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 23:4=
+2 Sakari Ailus <sakari.ailus@linux.intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Hi Svyatoslav,
+>
+> On Tue, Apr 28, 2026 at 02:39:18PM +0300, Svyatoslav Ryhel wrote:
+> > +  flash-max-timeout-us:
+> > +    minimum: 32000
+> > +    maximum: 1024000
+> > +    default: 32000
 > > +
-> > +struct cbqri_config {
-> > +	u64 cbm; /* capacity block mask */
-> > +	u64 rbwb; /* reserved bandwidth blocks */
-> > +};
-> 
-> Is this struct necessary? From what I can tell it is used to pass a parameter to
-> cbqri_apply_cache_config() and cbqri_apply_bw_config() where each just picks the
-> one member of interest. Could parameter of interest just be provided directly to
-> cbqri_apply_cache_config() and cbqri_apply_bw_config() without bouncing it
-> through this struct first?
+> > +  ti,peak-current-microamp:
+> > +    description:
+> > +      The LM3560 features 4 selectable current limits 1.6A, 2.3A, 3A, =
+and 3.6A.
+> > +      When the current limit is reached, the LM3560 stops switching fo=
+r the
+> > +      remainder of the switching cycle.
+> > +    enum: [1600000, 2300000, 3000000, 3600000]
+> > +    default: 1600000
+>
+> I missed earlier these limits are of course incorrect for lm3559. These
+> would need to be changed for the lm3559, too. I'd just drop that compatib=
+le
+> for now.
+>
+> I can do that while applying the patches if you're fine with that.
+>
 
-Agreed, the struct is unnecessary indirection. The two callers each
-write one field and read it back immediately. I will drop it and pass
-cbm / rbwb directly.
+I appreciate your efforts, but removing this property will lock both
+lm3559 and lm3560 in the lowest current which may cause malfunction
+when driving more powerful dual LED configuration.
 
-> > +
-> > +#endif /* _ASM_RISCV_QOS_INTERNAL_H */
-> > diff --git a/arch/riscv/kernel/qos/qos_resctrl.c b/arch/riscv/kernel/qos/qos_resctrl.c
-> > new file mode 100644
-> > index 000000000000..6d294f2f2504
-> > --- /dev/null
-> > +++ b/arch/riscv/kernel/qos/qos_resctrl.c
-> > @@ -0,0 +1,432 @@
-> > +// SPDX-License-Identifier: GPL-2.0-only
-> > +
-> > +#define pr_fmt(fmt) "qos: resctrl: " fmt
-> > +
-> > +#include <linux/err.h>
-> > +#include <linux/io.h>
-> > +#include <linux/io-64-nonatomic-lo-hi.h>
-> > +#include <linux/iopoll.h>
-> > +#include <linux/ioport.h>
-> > +#include <linux/resctrl.h>
-> > +#include <linux/riscv_qos.h>
-> > +#include <linux/slab.h>
-> > +#include <linux/types.h>
-> > +#include <asm/csr.h>
-> > +#include <asm/qos.h>
-> > +#include "internal.h"
-> > +
-> > +static struct cbqri_resctrl_res cbqri_resctrl_resources[RDT_NUM_RESOURCES];
-> > +
-> > +static bool exposed_alloc_capable;
-> > +/* CDP (code data prioritization) on x86 is AT (access type) on RISC-V */
-> > +static bool exposed_cdp_l2_capable;
-> > +static bool exposed_cdp_l3_capable;
-> > +static bool is_cdp_l2_enabled;
-> > +static bool is_cdp_l3_enabled;
-> 
-> These CDP values could also be handled as part of struct cbqri_resctrl_res, similar
-> to how CDP is managed with struct rdt_hw_resource. There does seem to be a hidden
-> assumption in this implementation that if *any* cache controller at particular level
-> supports CDP (which will cause global exposed_cdp_l{2,3}_capable to be true) then all cache
-> controllers at that level are assumed to support CDP even though this property is
-> enumerated separately for every cache controller making it possible for this
-> support to not be uniform.
-> 
-> ...
+I will address lm3559 handling in the driver and I will send v5 as
+soon as it is ready and tested (since I don't have lm3559 I will test
+on lm3560 but they will have same mechanism just different values so
+it should be enough). Will this be acceptable for you?
 
-Good point. This is fixed in v4 which I was about to send. The
-controller-level cap is now stored on each controller as
-cc.supports_alloc_at_code and cc.supports_alloc_at_data, and
-cbqri_resctrl_pick_caches() rejects a heterogeneous-CDP set at the same
-cache level. Therefore, resctrl never sees a global-capable bit that
-some controllers cannot honour. I will take a look at folding this into
-struct cbqri_resctrl_res to make it simpler.
-
-> > +/* Perform capacity allocation control operation on capacity controller */
-> > +static int cbqri_cc_alloc_op(struct cbqri_controller *ctrl, int operation, int rcid,
-> > +			     enum resctrl_conf_type type)
-> > +{
-> > +	int reg_offset = CBQRI_CC_ALLOC_CTL_OFF;
-> > +	int status;
-> > +	u64 reg;
-> > +
-> > +	reg = ioread64(ctrl->base + reg_offset);
-> > +	reg &= ~CBQRI_CONTROL_REGISTERS_OP_MASK;
-> > +	reg |= FIELD_PREP(CBQRI_CONTROL_REGISTERS_OP_MASK, operation);
-> > +	reg &= ~CBQRI_CONTROL_REGISTERS_RCID_MASK;
-> > +	reg |= FIELD_PREP(CBQRI_CONTROL_REGISTERS_RCID_MASK, rcid);
-> > +
-> > +	/* CBQRI capacity AT is only supported on L2 and L3 caches for now */
-> > +	if (ctrl->type == CBQRI_CONTROLLER_TYPE_CAPACITY &&
-> > +	    ((ctrl->cache.cache_level == 2 && is_cdp_l2_enabled) ||
-> > +	    (ctrl->cache.cache_level == 3 && is_cdp_l3_enabled))) {
-> > +		reg &= ~CBQRI_CONTROL_REGISTERS_AT_MASK;
-> > +		switch (type) {
-> > +		case CDP_CODE:
-> > +			reg |= FIELD_PREP(CBQRI_CONTROL_REGISTERS_AT_MASK,
-> > +					  CBQRI_CONTROL_REGISTERS_AT_CODE);
-> > +			break;
-> > +		case CDP_DATA:
-> > +		default:
-> > +			reg |= FIELD_PREP(CBQRI_CONTROL_REGISTERS_AT_MASK,
-> > +					  CBQRI_CONTROL_REGISTERS_AT_DATA);
-> > +			break;
-> > +		}
-> > +	}
-> 
-> There does not seem to be any special enabling when resctrl enables CDP via
-> resctrl_arch_set_cdp_enabled() so I assume CDP is always enabled? Does that mean
-> that when CDP is disabled from resctrl perspective (thus, both is_cdp_l2_enabled
-> and is_cdp_l3_enabled are false, but exposed_cdp_l2_capable and exposed_cdp_l3_capable
-> are true) then the default behavior is that allocation applies to both code and data
-> and it is not necessary to set both CBQRI_CONTROL_REGISTERS_AT_CODE and
-> CBQRI_CONTROL_REGISTERS_AT_DATA?
-
-Good question. I think this is a bug. resctrl_arch_set_cdp_enabled() is
-implemented in v4 and toggles the is_cdp_l{2,3}_enabled flags. When CDP
-is disabled, the AT field is left at 0 in cbqri_cc_alloc_op(). But BQRI
-encodes AT=0 as data, so it only programs the data config and silently
-leaves code config at whatever the hardware default is.
-
-The fix would be to issue two CONFIG_LIMIT ops, AT=data and AT=code, for
-the same cbm when supports_alloc_at_code is true and CDP is disabled.
-Thanks for catching this.
-
-[..]
-> > +	/*
-> > +	 * max_rmid is used by resctrl_arch_system_num_rmid_idx()
-> > +	 * Find the smallest mcid_count amongst all controllers.
-> > +	 */
-> > +	max_rmid = min(max_rmid, ctrl->mcid_count);
-> 
-> This computation appears to include all controllers, whether they support monitoring or not.
-> What will ctrl->mcid_count be on a controller that does not support monitoring?
-
-Good catch. I will gate the minimum on ctrl->mon_capable.
-
-Thanks,
-Drew
+> --
+> Regards,
+>
+> Sakari Ailus
