@@ -1,68 +1,68 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6103806AD
-	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 09:18:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5DA3815F7
+	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 09:18:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777627119; cv=none; b=sFi2OGxrWyzXa7r++nkKsvzQjfRvl6nil0ZRseW8kWxphGXMHnxoJKYtvynVMdtvaXpEhkBD1ga8yd4rRg4U85WDLjwA6RBKqRKX2PIN+QDmyrq62ZFRePAb2glUJwt7wbsh9zOcDCGp3u1CImkIY1wtnhXNZI2Dv6gzi4muHCY=
+	t=1777627121; cv=none; b=qDnty2gKbHBqvdVxxZC+KYcfhHVW/iNF9vG7RvEWk8A97jwsg+pRy4tx0nHmnqJ+/yM/airXo+CBOev5pxrjobQNFNbnWHDdXOkwrf+oPtBQqkvmfl8xwkHxPJWZMdjRd2OcxxFmfRCH8my5LAnHRwHzfsYawyDzVfgDiW5B7Zc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777627119; c=relaxed/simple;
-	bh=h6Sc8ib7tRtd6w/326yX/61ibb/uDm234KS+EP440os=;
+	s=arc-20240116; t=1777627121; c=relaxed/simple;
+	bh=YmwJZh9JOI6WzIBDXZoUlM82ToEJjTRJKA1/rBWV68o=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hY4uHC6pet3Wy4tnoHy4Wz8j2ixiHTBjkFkSLN9+VIslLqZ3m/XnnzdH0fmytu95sb+godo47kG5SYMTmFtbqJE8oagFJwLbP61RCRlMg8+LDF1j0aM3mrQJW0QsgSB7j+XfTmMz3tIMVXw5mVIZy2gk80xE8O/oEU++sgl7Jx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=RHYd+TXz; arc=none smtp.client-ip=209.85.128.41
+	 In-Reply-To:To:Cc; b=uODpBr6SO4UZTULILE04W5bbrS3FIfiWRQHOEBAF+HDSJnyh/ca4v8QM/Ahhhq/osB7TrS48XUEu8Vmh094OTmRMnC+FO4Y1TzAuN0Eio6dUy+gGQRVhrTYQumeiXOe7FvxivD3dYkYNiJFSJIWdXEAjplOtFoRgriY57hswzNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=Owb5HHBa; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="RHYd+TXz"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-488a14c31eeso12756965e9.0
-        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 02:18:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="Owb5HHBa"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-488a8ca4aadso20070255e9.3
+        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 02:18:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1777627116; x=1778231916; darn=vger.kernel.org;
+        d=fairphone.com; s=fair; t=1777627118; x=1778231918; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=fSd831WLWoomwvW5VsvsxASYGj8v1cMtz1VOawQMGgc=;
-        b=RHYd+TXzjCAeXC0lyBCO0gGa/ei7QEV1J/8RsPZ9b1x/4iQMQgMhkvyHoL+4r84TSv
-         /Xl43Yb0J2dMVW/1XdGwLv5EX07Hyt+H2fGBbLTy+W3PLB9+j/NP5DEKKEzgrOrkVcMF
-         mbQ0sn1jOJZwAZS/9dtca/6JgUctm51LrhxxC50qTfTheU3CcIjW94bJ5dPU7W1PJ/N4
-         ybAfBYh3iNN6nj38GAcQKvCFQedWDDyY+vmbHQc8rjBretjZQ5UVbjvHzHRpP9TD5ZYf
-         8fDXaZYxtWORnihFV7WKicOVM89V7ZxG5lm0b6RnLgTZ0qhorSBgzjFBdDpJSIclj63S
-         Rugg==
+        bh=3vg2B5QYgg71nEreyYDVlmpHAn8rPoh5lm0nWaDaj3E=;
+        b=Owb5HHBaJ6Ent4NRFarh3IMFOcz7ExYc2HKLgWJAu6nts7VYl/xhyt1cAm15+tKHOR
+         tkb5G6XmNDFYvp3qFzBPcsQhadAgv3Ka8RFxnJ9p+AXEg4PkBwTgD5loyft/8tGDAtCW
+         wDmmFCezZCIIkZhj8Z34NboLXQpvhRWI18ZhYvsyVDFuE6+/bOdeqMZGaUTF5H/YCCfT
+         9921MZQjU8mirMDauvOUHu23qzwWrJYQzSenoRaPIaTJYG7voR/EkKmxtFy68dFJdqZa
+         Tm2hwnMnvDdDGqt9JkDYHt/XCHX+cRFBVaGiJtfHG8qc2SV47JN0dKKf5u2aNLNozjG4
+         cwzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777627116; x=1778231916;
+        d=1e100.net; s=20251104; t=1777627118; x=1778231918;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=fSd831WLWoomwvW5VsvsxASYGj8v1cMtz1VOawQMGgc=;
-        b=AqXY8UKXshH+//5fYvetqTIR7wK3E/ovjfLu9SLyWlssyD//8BytYPhsVg1rXlPyTK
-         9NEstn561zBzLL2VdWnPOMFlou569Ig/YKcPIl7gysL1DPQ1RQFLdnpYSMYzjpgrCqlu
-         L37rlXIDaGpmJDO4WTrmeWTFGHzaLHj6fxefU2E2LWRvl4LRxQcZpWyXppzKbP0luAhk
-         hdgcEkRxL+YL2LDVEcyR8w+Ncd2sgOZnYkbg8sQnjBf0U1goNuy1R7511BkTDuiu9DD8
-         U0cLY7sTRLI1DUYZ0/pf2cs1FWYInpTg5IPiPaBzbiDEdyZus+asMSIcQF0JrIZQNYgB
-         t3Dw==
-X-Forwarded-Encrypted: i=1; AFNElJ9pXIZHcEbyLetcNdoBHNe2n23k2Q/ClPutiIRyNMBWNMMdBfQ2tBmkwz6oX5atRVq9auBNpV4/AnCf@vger.kernel.org
-X-Gm-Message-State: AOJu0YxhcmCQuyiN763dYcOLVbUf1Fj2d8K5X/v8Uf212+L2stkN7oKt
-	AVFlwEbYgXbKUJKPFLEO0bC+789F5ARo7+O2zBTk9Gny8yfOnWJiLCtBkcCJ2KcCFu4=
-X-Gm-Gg: AeBDiev+VzBxQgoe7b8wcEzNRcu9FFXoHZTHA4N7ZZZqHdlkofFSqAH5pUyTWdWlIUH
-	hXVk7PnXLGsTBmUQNCX9WBugoynf4dlMHsaLYA+XHfXN81uHh28Wv8rJ/t4YurS+7erU09QUcLF
-	ONlMgATse5DC/j2O0O5yDG+fzediuKZ9+zNb6c0+OMKxnCFd6g1I0swb4ozSY3kTROnXWANB0I8
-	F4Yfg5FnKM26fhgzTPQ/AusfPMIOZrPNVOTOAq4OJD6Nk1fOXWFhSdjxRYAV+HjjznSUGy68f3m
-	5/XRNnJrXEsi9s4HMS2PGWArrdryVHu89nwtRPMqENgTdBknWOArSaHC54c/AC7p2n8Xo84qfj1
-	8VTfdTC0rKTga5TRRJsoihSzd/UK8/+04r/MMtRj0wqN+qZbCkMC3YRquG7fmTv6UhxphZULC1/
-	Ml911dFVHFeDfo1sTEfGPYf6NqQ4Vu9fUveT2sOm9LLoNHieBi/Hjc3TEIynKIHDoy99V3NkFcI
-	sUlv8/e
-X-Received: by 2002:a05:600c:6994:b0:488:a916:14a8 with SMTP id 5b1f17b1804b1-48a844ebae7mr99326285e9.10.1777627116383;
-        Fri, 01 May 2026 02:18:36 -0700 (PDT)
+        bh=3vg2B5QYgg71nEreyYDVlmpHAn8rPoh5lm0nWaDaj3E=;
+        b=QoxDqvaMy1uanjIKeGKrDKKGgPCQPM31vvxZZsEhmAMjLJjE4N5gu+eCamaHXVQzQX
+         pIh3Eo2UJnxu6bVpKRXCjppIaFkeqOJlpLjS/vpKb9+E+ihn6Y9lLgvJ8T8STAiPd+xv
+         NHUI60x5GDGeALlSEPW+h3Q2KX1q8rQaH1whhmN3g4/Z2pKKzrl90f9neXEMCyhkRVnH
+         TNYVMNDgdyBBWaJcoT9ckfV0saM3LYkKcVdRU5q7LmS6BLlNJ04ABTTfAZRM5JEgiflz
+         jOAKsTAngHPUd2k/lWwStCr4nJSXM4EYAg9Vxnj5tngyvMTuGlw7MjBrl+dBJ6wF5G3s
+         wLNA==
+X-Forwarded-Encrypted: i=1; AFNElJ8Falbjt0MMseHyV0/zN5/LhDxDyKtgIci7Orp1qWTzkkdVtfXVKdXEee+p6F8rH3HOzonoD3CAFzKD@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKVWq1tIytbKQm3rK/brsPnDP9cjlYIxNYaHtFT3pz3Uk8jIYA
+	LpMB+EKn0QWllEFQ1HNN8DPJKFu5t+1NtFB/JX3B5Zxfs7q6UGL3InXDn960vXq8Dbw=
+X-Gm-Gg: AeBDiespQ65Ewj6Op3k01H/H6/rk65onXxIP6mqyyNdBquspmFnG0u+glKn7EuLNQNK
+	5RyDTHZQhTpzhYL6zpxVifBCKYoP1I77lY+9Rjcpgnlz7icWs3PdHha0tka7CN3IEmvm9hPN836
+	lJlAjOlE0s2V870KijTFxHVTdh07MEd0xoBfcrjaVZ/c4SNbEaCeJqhddUwVSBaxBxPUWeI6uk7
+	3p9HjOpOtTIhhU+ViOEvRyL7zTi1aaVV4BGO6Xvs7Gx5kNBbzB1qNrE9MVdn7qJWFteh7mDqkqu
+	jDBNnp0HbrK0T3aIfgr2hRU4/jrr6t8LJCvBS8B2eSsRMz4oJR0ULPGrDClB3OGE6j/yuG8oXHg
+	KOsDmcMHYNduQa2S6/DczEwb6Pmk5+52ikpOIMmhpWHisUYWOIc51f73UdeTGhp76x9234KHUCA
+	dTvE99a4gGs3DpebbplapWUNLDu1pTbNfMdCSryTwVcr7Y6Bsuk9Svo/Vo/AMDOLOO/3iCUK+4G
+	gJojwHQjirirAflV80=
+X-Received: by 2002:a05:600c:4e0c:b0:487:5c0:671f with SMTP id 5b1f17b1804b1-48a8444a520mr106471165e9.9.1777627118033;
+        Fri, 01 May 2026 02:18:38 -0700 (PDT)
 Received: from [192.168.178.36] (046124199213.public.t-mobile.at. [46.124.199.213])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-44a98b76fd0sm3820787f8f.35.2026.05.01.02.18.34
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-44a98b76fd0sm3820787f8f.35.2026.05.01.02.18.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 01 May 2026 02:18:36 -0700 (PDT)
+        Fri, 01 May 2026 02:18:37 -0700 (PDT)
 From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 01 May 2026 11:18:29 +0200
-Subject: [PATCH v2 1/5] interconnect: Add devm_of_icc_get_by_index() as
- exported API for users
+Date: Fri, 01 May 2026 11:18:30 +0200
+Subject: [PATCH v2 2/5] dt-bindings: clock: qcom,milos-camcc: Document
+ interconnect path
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260501-milos-camcc-icc-v2-1-bb83c1256cc3@fairphone.com>
+Message-Id: <20260501-milos-camcc-icc-v2-2-bb83c1256cc3@fairphone.com>
 References: <20260501-milos-camcc-icc-v2-0-bb83c1256cc3@fairphone.com>
 In-Reply-To: <20260501-milos-camcc-icc-v2-0-bb83c1256cc3@fairphone.com>
 To: Georgi Djakov <djakov@kernel.org>, 
@@ -85,84 +85,56 @@ To: Georgi Djakov <djakov@kernel.org>,
 Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
  linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ devicetree@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777627112; l=2340;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777627112; l=1631;
  i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=h6Sc8ib7tRtd6w/326yX/61ibb/uDm234KS+EP440os=;
- b=EkStrO4AgPi/QOnRLNXv0FW3BxXmJs0IsGB/Ss3Vm8o1Bu7DHupW/HkJYypIrV4+9V/F3WscB
- BHOpdj2kPn+D+jrj3Khz4feDFEWrY4W1mc/sEASIxpRrmw4vgb44cSl
+ bh=YmwJZh9JOI6WzIBDXZoUlM82ToEJjTRJKA1/rBWV68o=;
+ b=g5Waz95YiXeLxPaliX00ixcxlQN9A2bYYjj5iIh3hpW01/05nrkK4yEIk0joIYOpy/N+7sWdY
+ 42tZiGQUEXLCi3azpu7zmtrWAclrnKX/jTmH3tbZOYbMDOWfVi3lQGE
 X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
  pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-Users can use devm version of of_icc_get_by_index() to benefit from
-automatic resource release.
+Document an interconnect path for camcc which needs to be enabled so
+that the CAMSS_TOP_GDSC power domain can turn on successfully.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
- drivers/interconnect/core.c  | 20 ++++++++++++++++++++
- include/linux/interconnect.h |  6 ++++++
- 2 files changed, 26 insertions(+)
+ Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/interconnect/core.c b/drivers/interconnect/core.c
-index 8569b78a1851..bc2e416dbcb2 100644
---- a/drivers/interconnect/core.c
-+++ b/drivers/interconnect/core.c
-@@ -443,6 +443,26 @@ struct icc_path *devm_of_icc_get(struct device *dev, const char *name)
- }
- EXPORT_SYMBOL_GPL(devm_of_icc_get);
+diff --git a/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml b/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
+index f63149ecf3e1..707b25d2c11e 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
+@@ -25,6 +25,10 @@ properties:
+       - description: Sleep clock source
+       - description: Camera AHB clock from GCC
  
-+struct icc_path *devm_of_icc_get_by_index(struct device *dev, int idx)
-+{
-+	struct icc_path **ptr, *path;
++  interconnects:
++    items:
++      - description: Interconnect path to enable the MultiMedia NoC
 +
-+	ptr = devres_alloc(devm_icc_release, sizeof(*ptr), GFP_KERNEL);
-+	if (!ptr)
-+		return ERR_PTR(-ENOMEM);
-+
-+	path = of_icc_get_by_index(dev, idx);
-+	if (!IS_ERR(path)) {
-+		*ptr = path;
-+		devres_add(dev, ptr);
-+	} else {
-+		devres_free(ptr);
-+	}
-+
-+	return path;
-+}
-+EXPORT_SYMBOL_GPL(devm_of_icc_get_by_index);
-+
- /**
-  * of_icc_get_by_index() - get a path handle from a DT node based on index
-  * @dev: device pointer for the consumer device
-diff --git a/include/linux/interconnect.h b/include/linux/interconnect.h
-index 4b12821528a6..75a32ad0482e 100644
---- a/include/linux/interconnect.h
-+++ b/include/linux/interconnect.h
-@@ -47,6 +47,7 @@ struct icc_path *of_icc_get(struct device *dev, const char *name);
- struct icc_path *devm_of_icc_get(struct device *dev, const char *name);
- int devm_of_icc_bulk_get(struct device *dev, int num_paths, struct icc_bulk_data *paths);
- struct icc_path *of_icc_get_by_index(struct device *dev, int idx);
-+struct icc_path *devm_of_icc_get_by_index(struct device *dev, int idx);
- void icc_put(struct icc_path *path);
- int icc_enable(struct icc_path *path);
- int icc_disable(struct icc_path *path);
-@@ -79,6 +80,11 @@ static inline struct icc_path *of_icc_get_by_index(struct device *dev, int idx)
- 	return NULL;
- }
- 
-+static inline struct icc_path *devm_of_icc_get_by_index(struct device *dev, int idx)
-+{
-+	return NULL;
-+}
-+
- static inline void icc_put(struct icc_path *path)
- {
- }
+ required:
+   - compatible
+   - clocks
+@@ -37,12 +41,16 @@ unevaluatedProperties: false
+ examples:
+   - |
+     #include <dt-bindings/clock/qcom,milos-gcc.h>
++    #include <dt-bindings/interconnect/qcom,icc.h>
++    #include <dt-bindings/interconnect/qcom,milos-rpmh.h>
+     clock-controller@adb0000 {
+         compatible = "qcom,milos-camcc";
+         reg = <0x0adb0000 0x40000>;
+         clocks = <&bi_tcxo_div2>,
+                  <&sleep_clk>,
+                  <&gcc GCC_CAMERA_AHB_CLK>;
++        interconnects = <&mmss_noc MASTER_CAMNOC_HF QCOM_ICC_TAG_ALWAYS
++                         &mmss_noc SLAVE_MNOC_HF_MEM_NOC QCOM_ICC_TAG_ALWAYS>;
+         #clock-cells = <1>;
+         #reset-cells = <1>;
+         #power-domain-cells = <1>;
 
 -- 
 2.54.0
