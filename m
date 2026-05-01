@@ -1,67 +1,67 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96BA135F5F1
-	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 07:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790EC35A383
+	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 07:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777619738; cv=none; b=O6nsiy+uP350O2PvtD2FkDG/e9hcO1FM1KnEXhDLoM9+wl6VcIFkvd09oZ6pduM1tdhfmoavbywt+t3VXhCNADBBYrMsy1/Yfd49WF2UbleCg2Glb40jvzf/niZoYmHtPdRxJ2Aq1JD3R0xwS8TShWieyaAxRY0fJqO0rukOurc=
+	t=1777619741; cv=none; b=dEFHSw5WugQczl6l0hhUl5sbxgGEZWUoZStNuuAV/gnsJnby6OsFIcCEiOE8zOw30inY1/tYRq7i/eCqpo/+3LnddkufbYqljpDM8LCN4m5mdGr/tjeLAJseRZpoZh+qFmfFeq7/Sbsrimm4zJZcraJSvTze9LG7TKUYnHVQX0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777619738; c=relaxed/simple;
-	bh=M4levVKqvb3E1M9kQrx1UfApgZmV6eS0fxmbvwGU/sM=;
+	s=arc-20240116; t=1777619741; c=relaxed/simple;
+	bh=+OinyCwXS4Y2vYMDBUiIEDzwsNrg9k3i/PQu3jWxkfU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Oq4sI9iqEupxQ6ougkKaT106FZJ5CmppWyLsON2XFoJsj0EadzqElBQG8TQ4igLZmQKrRxaJ7nAQt1y8hqkVoP3/MDU/eBGRhqGrMaW5lBIY5JR3fmMfbWr2gYHzRxqDVZw0jwLfmTzRLm5/7MqcOEUa4HxQuZ5IyYAp8y1fdDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=vDnDCMfV; arc=none smtp.client-ip=209.85.128.44
+	 In-Reply-To:To:Cc; b=ad7bz/ydwUKsC8W7n96UL5ErCFhVUNWKLv5HREEzMkaQ3qHjsURHgSVfWlATVrWx70AQd+WLhbOZjnPNO5YwnSHZejRhCvmZAqE6600taQd22ejwQ+0ofSU9UOl4Q6cQoVJEAx2ZgnIpfuk3KDGJ9mFZVFUWppHZRZiDfkf92PY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=ybt+hLTy; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="vDnDCMfV"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-48a3e9862f0so10647965e9.1
-        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 00:15:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="ybt+hLTy"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-48a563e4ef7so16197125e9.0
+        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 00:15:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1777619733; x=1778224533; darn=vger.kernel.org;
+        d=fairphone.com; s=fair; t=1777619735; x=1778224535; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=yOClhrJ15xoCIS1DoMdb7YME2yq0/VJyl12Zk7EZgH0=;
-        b=vDnDCMfVj3wqZhNvyAkBmWrcnhsB+sgMWhfTBzDfLo5Bl4ie6Nh3leO3iWn322K9SW
-         4E69tYyi8W3G85rJShywSt6+El86zzqLDGN9EvQak4lpQ5WehRnBfmt4LboZKPqxu1pl
-         M7JEna65nhNmZbEag7hh7gyZ/C8lfDL3NKgOlWUJezkwl1JxbhA+pS8JXBaPfeqAEfJq
-         5PMIPuhskm9p+e7Y/SE43jlZ5J0bWZsainy5qdA7aekSg5+D/m6aNsruThNhgyD/iHuy
-         0hV6naFMrz9UFUMqYXoZDv9K4I620L5DmF1eRGYE7hUARrmmTbbyY888nQr1eAqTTD65
-         8LWw==
+        bh=DcRaxEDDkb3JD3v/suj0HVGZb78w7Xi1M1DpP43HiY4=;
+        b=ybt+hLTy3nA9dLJAnFQWM+tQ/HSgP95TwFDTB+/8ngaBlbLznTw1HFrWP7QiXSHjNp
+         g0PR9yDXJ/RjGAw/1gIJpMoGY95AUJkhg1iLt8EsQQtBI/dQp7kHLQK3EYqViHj/nkfa
+         zaBKTJbd58Dpjn0kTaVbwnSXMsjkcxmQ55VSvBv0hezPUiQ6X5DeF+dJa0142Jzt4wYu
+         pupwU7iX8M1AdgUFZDfulu9b4fSFXxSBtIP+R1Y5EYtZDCUFDJwv3WnnOBNUfJ0CBjrX
+         0PQ67u4OzSBGN5p0fhhsCFYeRsalKJsgkmDqKdBwDKKnCOC+/+UHDaxYOQZukaQEj5+7
+         dhfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777619733; x=1778224533;
+        d=1e100.net; s=20251104; t=1777619735; x=1778224535;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=yOClhrJ15xoCIS1DoMdb7YME2yq0/VJyl12Zk7EZgH0=;
-        b=SM77TGCTxhAGhvq+5FCa/Rjz6gbfhFzGLc2O7kHnP40s9L3UEKgV23YWrHp1HN8E5c
-         pjkgxEjV5bKq7sJwWznZbaWw5GwnYCNyD0gocznOBCW05Crf/NhZChw1WCd+n2JiET7Z
-         KTevc+XeeLXet4s3hxru//5c9agO+2Vg042rITihKWB1TcnFv89lgIKeriHxW3i3yvT+
-         yrTIGDsFbKzPHdiohnLC6f/xifwuFvprOIGVUBq9D2eO72gHNghEQqtPhupCeOM0dT6A
-         zAOBEgD6PD1/yT57SebQWMnTXLCx1uttKCqVXl4bbMAfz3rTcpiaQCbwDMyAIblhnpit
-         6wIA==
-X-Forwarded-Encrypted: i=1; AFNElJ97DxVtwPu0QVF+ApZBZWH+wpqYjGaLIJTm34jp3c7PssSftHud+4fw2cLArmcN1UROYxmOHGfDcnmy@vger.kernel.org
-X-Gm-Message-State: AOJu0YzIQFJINFlwwy143U+bxyI9OGhATBVKTZPOUx8GybuPNuOvdGLj
-	TQUwPhXeluYeRKUnvbn4LmWvOMgFsHe40f1DSqVN/XUsmrMxUb4wH4e10O7UPAUXwaA=
-X-Gm-Gg: AeBDiesugnxWzpnMDt+72IeqqY0sVqRfvK5YJT8pd7XbeVS22aRBl+FqXeP54kTacss
-	nx1G/4yqoh3QZQsYgpXdJBx9uTbVhjKNXi66p5vLRATlch8EFUO+BXulCkTsu5gxkYWw6S5f2uQ
-	v5lsvc7qHhddWvowWz8ueCjVVVdyBrMa0TUEZv2Juro4KRa6gd2tIw1sRFYIQ+XcyieTsVvG8EG
-	N0jeQsCwNEcj8+qi5xDBsSi+vFjU44HmogzlRdMyTBVOmC/Ai1guY9WkXdgRT7wVQtNGzCtSiIz
-	FILUyjCgAOSKcl2ELpLNRQv3FlHC4QJeYEMxxUGiaq4D8+UUIUj4rh/ggmyPbsWorCA6wVz2iwL
-	68ASb9T0dlbHjE5d1Ef4Fnkdz/caPvbkKwZd+ClMtwdQ/K6x/4qGDSC281NkfvbHNzh0EobZr8m
-	AM8LW6rVOVG4PjpllGw/5tQ+m8beRdONWp4CLUunTpiLPgMknh5RcuquZAE+QamFknPcBPa5zGC
-	eukGOsz3Z3eHu9cSnY=
-X-Received: by 2002:a05:600c:4e8e:b0:486:f893:56c6 with SMTP id 5b1f17b1804b1-48a860758c7mr85960465e9.10.1777619733040;
-        Fri, 01 May 2026 00:15:33 -0700 (PDT)
+        bh=DcRaxEDDkb3JD3v/suj0HVGZb78w7Xi1M1DpP43HiY4=;
+        b=AoLenCc2sT6s15Na2/etgZ9hkGhjcX2VbdxadVpW8YLNdkD/MX4bDkJ4o2CYJ4NN3+
+         gYDKJbBD3r8gQT4JidPeAfVoqAYsNx941pSuZbx0Kb+Rz24mTSMUMoqUE6foeFnqiCX3
+         fRgs7sgTZ9Z9b62471wJfiaNU3tUxbAPSAp2d/CbWLyg1H2ul8RqNjezWb13RlkYkWUe
+         6fZiet6YYfBHhmqcFgy6gb5Fcle6pA4K3HPtTbFa9r3R8g7jrabBrvnWqgTR1tuJjJKa
+         15ZyhocPDJinbixt19ObXWkccTB6BOXhNIUHGi/2mVa2cQEPCFT6W793d6KIaX6ZyK3B
+         OXpw==
+X-Forwarded-Encrypted: i=1; AFNElJ8tDLj6tTre3qGnror9C8R2fdpCZKtlqGmkx58+JrYJoZv+ybjDAIes1JOMolZ7Qc7JKzBhS1/xVcFZ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxn7iyd67rm2HF/n3tT0AMSDcIYiEa3pP7JZwzHWLDzxJwEaPQJ
+	jyJIvhKD06RJnlNUY+Dv0HNaQgLeSenS6+h+Nz/5n3mICmQqZzqQ5YlLAsYQcfvdsXw=
+X-Gm-Gg: AeBDiev/CWSvUhAiHM1sTobJ0poEpk5iPBLytNNk7owTal6ish/iWUKSQad7SS2t9lP
+	1YS5CCmC/Av6QGW38j6QnlIvWRd6OUERNqpKt7+9d0g7dMLs9QmkCehI9lK6/B60iBk7Es1Qfhq
+	ICDhUETkmJEglsUlnbd57uqBuAWbecqwE/zQsiO6gJ1OvnkKlxiqcnw+w8ZB1h4uAFf0kjEI7Zt
+	qawGZV2Gy7NlJtIArxgERu0tg4CbvMc0SLayLvnjBNgBpSat5EsKXGQ2ZPLDYGxHjuJI1WckkHv
+	bJNYGsgG4xUofcoAs/+ZwBr+Y4oMzJrMYQrQN/JkwCG4A0dsoeJpMj/P3oLQShx5qM09ZTm/hV4
+	jRDbIaOfF9SisVPnZDfNUSuKYFMLlq9EIjxusSjgDr1Vi5PioQJ7p6tgB/mQj4nVz7jW3lNK2WE
+	tm/mLAY37nfGYKU5mZGpuaF5p2DPzJch4wt/+aAZ+uvsOXFbMAPPQPJCLz1x2Hg8DgUR+M0V9yv
+	mrwxCw42md/mTg53Yg=
+X-Received: by 2002:a05:600c:c049:b0:48a:5546:61a1 with SMTP id 5b1f17b1804b1-48a844683edmr73734095e9.15.1777619735065;
+        Fri, 01 May 2026 00:15:35 -0700 (PDT)
 Received: from [192.168.178.36] (046124199213.public.t-mobile.at. [46.124.199.213])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a8eba8487sm29668085e9.11.2026.05.01.00.15.31
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a8eba8487sm29668085e9.11.2026.05.01.00.15.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 01 May 2026 00:15:32 -0700 (PDT)
+        Fri, 01 May 2026 00:15:34 -0700 (PDT)
 From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 01 May 2026 09:14:47 +0200
-Subject: [PATCH v3 5/9] soc: qcom: ubwc: Add config for Milos
+Date: Fri, 01 May 2026 09:14:48 +0200
+Subject: [PATCH v3 6/9] drm/msm/dsi: add support for DSI-PHY on Milos
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260501-milos-mdss-v3-5-58bfc58c0e13@fairphone.com>
+Message-Id: <20260501-milos-mdss-v3-6-58bfc58c0e13@fairphone.com>
 References: <20260501-milos-mdss-v3-0-58bfc58c0e13@fairphone.com>
 In-Reply-To: <20260501-milos-mdss-v3-0-58bfc58c0e13@fairphone.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -93,57 +93,85 @@ Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  devicetree@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777619720; l=1658;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777619720; l=2987;
  i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=M4levVKqvb3E1M9kQrx1UfApgZmV6eS0fxmbvwGU/sM=;
- b=ACM2ohFxIVpVweQ73Py4edYjMY/+UctWWAm6q415d5l1h+x9zkwG1+1YDlS7uWPHXVnGqVgvg
- 70I2MgwnnolDWVS0T80Y9qdtwDKYYSlgrRpbeRegXvb76KPmYt8sMpI
+ bh=+OinyCwXS4Y2vYMDBUiIEDzwsNrg9k3i/PQu3jWxkfU=;
+ b=SiQkl681uapJJ+uqBxGlRfO5q1AtnuHZPJC8JzrYe8Fk7kRLJyIsRWb0JSIR4rjf1Jv9SL4hj
+ nPMtRiI/fR2DJlUQXHXfyEcjYDMgmdMJtNxhlZFToLqesXQZfRTZIrJ
 X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
  pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-Describe the Universal Bandwidth Compression (UBWC) configuration
-for the Milos SoC.
+Add DSI PHY support for the Milos platform.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
- drivers/soc/qcom/ubwc_config.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.c     |  2 ++
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy.h     |  1 +
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 23 +++++++++++++++++++++++
+ 3 files changed, 26 insertions(+)
 
-diff --git a/drivers/soc/qcom/ubwc_config.c b/drivers/soc/qcom/ubwc_config.c
-index 3fe47d8f0f63..1551f270afce 100644
---- a/drivers/soc/qcom/ubwc_config.c
-+++ b/drivers/soc/qcom/ubwc_config.c
-@@ -37,6 +37,17 @@ static const struct qcom_ubwc_cfg_data kaanapali_data = {
- 	.macrotile_mode = true,
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+index c59375aaae19..1fb3899b88bf 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.c
+@@ -571,6 +571,8 @@ static const struct of_device_id dsi_phy_dt_match[] = {
+ 	  .data = &dsi_phy_5nm_8350_cfgs },
+ 	{ .compatible = "qcom,sm8450-dsi-phy-5nm",
+ 	  .data = &dsi_phy_5nm_8450_cfgs },
++	{ .compatible = "qcom,milos-dsi-phy-4nm",
++	  .data = &dsi_phy_4nm_milos_cfgs },
+ 	{ .compatible = "qcom,sm8550-dsi-phy-4nm",
+ 	  .data = &dsi_phy_4nm_8550_cfgs },
+ 	{ .compatible = "qcom,sm8650-dsi-phy-4nm",
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+index c01784ca38ed..21a59d66e8dc 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy.h
+@@ -61,6 +61,7 @@ extern const struct msm_dsi_phy_cfg dsi_phy_5nm_8350_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_5nm_8450_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_5nm_8775p_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_5nm_sar2130p_cfgs;
++extern const struct msm_dsi_phy_cfg dsi_phy_4nm_milos_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_4nm_8550_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_4nm_8650_cfgs;
+ extern const struct msm_dsi_phy_cfg dsi_phy_3nm_8750_cfgs;
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+index 8f4b03713f25..984a66085dfb 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+@@ -1436,6 +1436,29 @@ const struct msm_dsi_phy_cfg dsi_phy_5nm_sar2130p_cfgs = {
+ 	.quirks = DSI_PHY_7NM_QUIRK_V5_2,
  };
  
-+static const struct qcom_ubwc_cfg_data milos_data = {
-+	.ubwc_enc_version = UBWC_4_0,
-+	.ubwc_dec_version = UBWC_4_0,
-+	.ubwc_swizzle = UBWC_SWIZZLE_ENABLE_LVL2 |
-+			UBWC_SWIZZLE_ENABLE_LVL3,
-+	.ubwc_bank_spread = true,
-+	/* TODO: highest_bank_bit = 14 for LP_DDR4 */
-+	.highest_bank_bit = 15,
-+	.macrotile_mode = true,
++const struct msm_dsi_phy_cfg dsi_phy_4nm_milos_cfgs = {
++	.has_phy_lane = true,
++	.regulator_data = dsi_phy_7nm_98000uA_regulators,
++	.num_regulators = ARRAY_SIZE(dsi_phy_7nm_98000uA_regulators),
++	.ops = {
++		.enable = dsi_7nm_phy_enable,
++		.disable = dsi_7nm_phy_disable,
++		.pll_init = dsi_pll_7nm_init,
++		.save_pll_state = dsi_7nm_pll_save_state,
++		.restore_pll_state = dsi_7nm_pll_restore_state,
++		.set_continuous_clock = dsi_7nm_set_continuous_clock,
++	},
++	.min_pll_rate = 600000000UL,
++#ifdef CONFIG_64BIT
++	.max_pll_rate = 5000000000UL,
++#else
++	.max_pll_rate = ULONG_MAX,
++#endif
++	.io_start = { 0xae95000 },
++	.num_dsi_phy = 1,
++	.quirks = DSI_PHY_7NM_QUIRK_V5_2,
 +};
 +
- static const struct qcom_ubwc_cfg_data msm8937_data = {
- 	.ubwc_enc_version = UBWC_1_0,
- 	.ubwc_dec_version = UBWC_1_0,
-@@ -247,6 +258,7 @@ static const struct of_device_id qcom_ubwc_configs[] __maybe_unused = {
- 	{ .compatible = "qcom,kaanapali", .data = &kaanapali_data, },
- 	{ .compatible = "qcom,glymur", .data = &glymur_data},
- 	{ .compatible = "qcom,mahua", .data = &glymur_data },
-+	{ .compatible = "qcom,milos", .data = &milos_data },
- 	{ .compatible = "qcom,msm8226", .data = &no_ubwc_data },
- 	{ .compatible = "qcom,msm8916", .data = &no_ubwc_data },
- 	{ .compatible = "qcom,msm8917", .data = &no_ubwc_data },
+ const struct msm_dsi_phy_cfg dsi_phy_4nm_8550_cfgs = {
+ 	.has_phy_lane = true,
+ 	.regulator_data = dsi_phy_7nm_98400uA_regulators,
 
 -- 
 2.54.0
