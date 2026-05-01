@@ -1,143 +1,170 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010003.outbound.protection.outlook.com [52.101.61.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF792367DF;
-	Fri,  1 May 2026 14:46:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.3
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777646793; cv=fail; b=AHWo4E83D5w2dYPYyqngz48tkauZAu0sTYdaZVb/QcjXxBjCcigLXy0Jief4jBRLNcU+V0+Zcpc9N6P1chpPzePAqtEEd/+pFvO6/lpJH/3VcswApHrQHuU+GcYTUMXWu6mYZ8LhCeEHDJ5pebSzdlxNiLUOgfFA8aXk4jwodgM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777646793; c=relaxed/simple;
-	bh=GuFGRMWqPZkK8bDsPFIM7Fpv2rmcffFhnysKElOVt2c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=SrMXe7chSfn4sOIgbHSNBtDnBGH/NP8wJVLTbvCMNS1H2ijNq8ct//SMd7yI8O36pTPyKMTfOeukn72paa82hYLcjo2vMU/69b160uWAHSiK+Ne8w2aS7KSiDfr0lg8Eojmn5pvKMQiLbP/ISkOl8s4PVgEIvLqbZVZJw2or8Ks=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=dP1N51Jm; arc=fail smtp.client-ip=52.101.61.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72EA440DFBD
+	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 15:30:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777649445; cv=none; b=T4RM3jD7iTBJscDe70iA3qdT0yh/oPnHakhAW8angPrlYJUayiH4dTlQ+88XbQGdFnrm9GPlSkdHXMHy0cgcLwpbAcp0Zqhrikuc9Mb2lm0pggKklDdS4cvecSdg3fnDGltxRjuRSiwcAomFra5FvfTzrNkrKbepdVGf49/S1iA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777649445; c=relaxed/simple;
+	bh=zeXjslT8//fV8OtPFz2zHel5UpFaJNBynQ6tRRznBbM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sQ/1/DiPmoC21MVNgAXSYL8QMi2FzVr74/oJ1Dz3mv6j6qOb0c4VHVI9lauBpDU1xYVgyVZvZegCx95WyTfVtDEhGyX7n/pJkmUVafHw1VF+4MxfS/qvpn/3ruAe57DnzL2YBdNMR+JI40Ej+dmaDObj0PJLtYVyMEbTik5bT2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BMFIGLkM; arc=none smtp.client-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="dP1N51Jm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RUXW4JmbQUXBnrs9CtWGRcYyKIL0oxPuHr+KOAjFq10j2LwiOAjFXJ6qEIfAlrCCenIh0ekLxAuAS9n3QbG6/zOZV8GdzyblFxjDHoBcOvHTvOsw+YClDHVd728E6ckg/Z7vrjEdFYqwtEcOXZwF2GlYrQLIblkjifK/WoCLza2BZCIC7vp/fTYrb0aFABPXNu8GHQ4mBBuraB7fjurgFxvYv5nKKE50PRRnlhSAN8NBsHjSNAzU2JK1eiLO8HitLyZYw6tGDVGWHUvA9vngk2gPujFEzsQp5vgyzT08uuiMocIrRZ6pACuYmxp7YzTRsA2a+tKgAZgjaLmgxzvd9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1UzLX4K3QU48n4tRtF840g1d/e/od+5AkDbktZ05Cyo=;
- b=GIOLP9VwImQy7PGVAbseU3MtOOjTTprzsxTXD7s2kLM91LJTNB0lEz7W8w7HNaAgEKCUBqdGrJYpUC+9z5QxHZBff0jJX4Wi2DSIARNPvEz938r3+UZAN5AUF5VsntvuIhwFbXRBcXO9E9BpbzSARF59FRX6RP2qI682XMxhadjSa7iheU6GhCIGYdggpZatLwmYBqfkEmKJ5GIKmZZQeSdikD4Pw+2g1UwBQRSTfx23hHmFlaq+B89PtIXFDBRsctww0ekqAnoIwWryvhYhEwcFydZtLz46JcB20pvtKaoZT7HlqNuwgf2StWcAINICG5Y/pClVPv9GXDVO20Qb6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1UzLX4K3QU48n4tRtF840g1d/e/od+5AkDbktZ05Cyo=;
- b=dP1N51JmCOEbMqxjUiPzOiwt4uHsgI4WqufO3VLvA3pHVSqX7+4Q8HZKl/MbP3KHDc5LRkKccaM9bsRirY8yAMKglFU2DzmQDOMSPhSMOHR3IhN6BrgudRUcFt4RaoTfryiJcnJ7aiQNCqa+8uJwyNdefwLL5y+P/L7HX6P9nlk=
-Received: from SJ0PR13CA0126.namprd13.prod.outlook.com (2603:10b6:a03:2c6::11)
- by CY5PR12MB6274.namprd12.prod.outlook.com (2603:10b6:930:21::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.22; Fri, 1 May
- 2026 14:46:29 +0000
-Received: from MWH0EPF000C6194.namprd02.prod.outlook.com
- (2603:10b6:a03:2c6:cafe::9e) by SJ0PR13CA0126.outlook.office365.com
- (2603:10b6:a03:2c6::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.8 via Frontend Transport; Fri, 1
- May 2026 14:46:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000C6194.mail.protection.outlook.com (10.167.249.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Fri, 1 May 2026 14:46:28 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 1 May
- 2026 09:46:27 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 1 May
- 2026 07:46:27 -0700
-Received: from [172.31.134.241] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 1 May 2026 09:46:27 -0500
-Message-ID: <1997464a-26b0-4384-9dbd-4000582896c8@amd.com>
-Date: Fri, 1 May 2026 09:46:23 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BMFIGLkM"
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-8a016799d2cso21348136d6.1
+        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 08:30:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777649442; x=1778254242; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=2ni3dKGcG7zejOacMGL96Vo7FoEUpzVIFEMhHf6gxlI=;
+        b=BMFIGLkMdjh9vNV84bxFMYD7d9bQnrBnmlolzrO73mK1rA9LTSmRKSYIKeKgzxMaaw
+         Hlxn5n2aJaxupx+DnyqD1JlRn3i2TgSG0XEKNYIWSE+utWaDJLIAE89+QVos63At+jWq
+         QSBU34ew3H1jOrP3Qp1F+RmpQ0kARwXiGjfsZtDCinC9iQvKf3V3YmmkpO6N0qt+/y0T
+         obL660gmqm6cpO0LpLCURlILMAvTy9moSia7/rmD0nCYK6k4xIDamRiiet7NZ6eVa7zU
+         4fFhTYAlQ7OEki7IZMaPXanxf4trM7Rd5PbP0BLBk455jFuDwu7n2MV+7PnSdXTbsYpL
+         /olg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777649442; x=1778254242;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2ni3dKGcG7zejOacMGL96Vo7FoEUpzVIFEMhHf6gxlI=;
+        b=cyg4LHFhFC9HjBAlkmNCKGzqTsjnptzW3jrfCyxGE7BFe2wLuZDjFn+xIdqR+kA155
+         zc7JFrMa1u6tbVfwbupXMz6UR3HsRr/StZCroO9U8qaV21pUPka56zM9srmT9bHI6Cy/
+         9vf2wUiBZdUmvyhBo5K1PGreIfFwoUXf/N3qohnZkL3I+aOA6vQ/gabCNSFKEeKYgN5E
+         fPf9duTlH25kC8Vcg88HjsnPvU0mpsUPw6q7YZj2pyqLmsOhYlZHQd2B3HXZWBIAT5H7
+         v358m3BCWwLkV1JY5Bxs9a3x/swL4H67nM3PoMyVQRAt0KViPPxgtAG1ItCA/3WpnPHj
+         Y4BQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+NOeMfpf5FIyloRnhmeWXy9o3qPE92xNfnMOGOB6UA/t0dpsAAlTqxJbm+yTnLmSQIRa6wUhNsFaQC@vger.kernel.org
+X-Gm-Message-State: AOJu0YzuKxON/Gm/bQyxc5guRZ99NxpfBY4QizVW5ac5DA4nzF2X0ZaT
+	R64M/okdl7U7e1qk8yxrs7nRrUFc5F2i13tC80BZfhYTsk1DYSim0p1q
+X-Gm-Gg: AeBDietLGLiWEvYumWaa0bJAy3PNilmPSDXe7r+TeETtlI8dHyHR8rWSLriPkOCeTMb
+	iSlOZUVRDXP9lAAKdNlrOxyNptlY332Lsp7FjH76fcFQSb9FLKLQdRgS3lcVZgrhBMN8/PKp13O
+	9l8MLYGRhUsZwC8unXddKyVcZJqL6sYXcWhg8uwhOFFxg1mJ2aeYtAKvj1pt6xfNY78Yjdz66Z+
+	Q6jQJiRvpuW/apIFvcBtoZU5BjIZ3tIsrYPIitXGcaKfGZA/GKQzyTK7RfjEL/XJtj9tFPDOqNo
+	aDH/gdTmLz+2Hjy3ehNXmMLVxyqiW5wiujYzw0D15pUAFBEtlKnwzWR80OowJgZAwjbWfS0/a9d
+	IeAgEWX/FsimqOttlGc71wLMkDxAbH1IWDDodiugGc4RILxdYORGq28fCKMiEe337U9nIaVecrM
+	E1P9nVEaVE2GSyOA/xU2WQOpVR5ufTnac1MuT9D+P/DjVI73MKHv7BpCNF8yH9zPxEb+ROr5CDV
+	GA21GlK9kFinsTIAc1wFyLDt+LpC6l7hfwY
+X-Received: by 2002:a05:6214:242e:b0:89c:ac72:2f6e with SMTP id 6a1803df08f44-8b3feef9e73mr118399146d6.43.1777649435886;
+        Fri, 01 May 2026 08:30:35 -0700 (PDT)
+Received: from localhost (bras-base-toroon21-grc-75-184-144-58-243.dsl.bell.ca. [184.144.58.243])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8b538b1d833sm29683646d6.10.2026.05.01.08.30.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 01 May 2026 08:30:35 -0700 (PDT)
+From: Richard Acayan <mailingradian@gmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: Nickolay Goppen <setotau@mainlining.org>,
+	Adam Skladowski <a39.skl@gmail.com>,
+	Vladimir Lypak <vladimir.lypak@gmail.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Wesley Cheng <quic_wcheng@quicinc.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Johan Hovold <johan@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Richard Acayan <mailingradian@gmail.com>
+Subject: [PATCH v4 00/15] SDM660 sound card and internal MI2S support
+Date: Fri,  1 May 2026 11:31:13 -0400
+Message-ID: <20260501153128.8152-1-mailingradian@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: <tanmay.shah@amd.com>
-Subject: Re: [PATCH v2 0/2] remoteproc: xlnx: add auto-boot support
-To: Tanmay Shah <tanmay.shah@amd.com>, <andersson@kernel.org>,
-	<mathieu.poirier@linaro.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <michal.simek@amd.com>, <ben.levinsky@amd.com>
-CC: <linux-remoteproc@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20260501143707.1591110-1-tanmay.shah@amd.com>
-Content-Language: en-US
-From: "Shah, Tanmay" <tanmays@amd.com>
-In-Reply-To: <20260501143707.1591110-1-tanmay.shah@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6194:EE_|CY5PR12MB6274:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5cc2307a-a77a-473f-8fee-08dea7906d86
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|1800799024|82310400026|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	uELI8w3AZdZN7NCsf2TaHc6eZpo6Dl8BBuMesp19xiN2K6h4/9asiP+KXq0/FqUZXm4pE9p10bZm04tCW5kuUIs0aXGEyIT9UsPfR9Z8r7YUVWlZWDlTMwaqc7bkKun2tjsv/CtVWIPU7OvG+N71rBl2UCWQWHU1mkn2kpCBwl666pT5l+/wtGPmSqwVCbT0SXqurqstKwwduGhCIE4y75s4cpLPsWLnQ+KT+U79g0qtwoz0xB3UehAzx8senv4fJEUoN5LXK7VRBWy8jJucC1fFCIPPWCWS7Koz4yfj0vtYPF8tS3pM0RvwxOgUC4QAP5OJnYdOMRnL1QowaERo63uW0uaXSGkUpjrMP9ucQFmG3cr3t20kScfyzUVKGn4+AR5yN0p6vcSYbPgBEe54qaDcO3dnJ5r+1WLF+oVSsCFswv70gbB/wPSzJqmEqKE8Ba73R+KHXRug+ZPhp5F8RtgyPVgyNGHgfQy3Vt7jt1n8zRlg3V0pMODCOZjtTofq9FEuwIt1VhA8y+UoFM/mSVyxNAjq/QS5pE1/RzMEVVhmJfMAEv/Vmet6FlFRuD9+VOxXr343qC6YSzgYxJMZGkN8hMiwKn37JfYmKUX+tbfrysjtHG6jCruovHGcxPPdfljiEjVD6PjR2yV77oLHxcLDPAmwkwINPM8PxgFkAq3be1NuTyMx/eMX1k/q63oAZDIdbqd93f0jTJ87oUnKJIMgx91MQolG7WekRg5A4IY=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	wNTnyG/lS6Nnr6OXPevmZVoxTyvXGC4/V2bIBw74uDn+e/gnRN6mOvVrvAFt4iwg7+9XqkO627maXpxG4EGhz9wexvtxdGjTGuwmswsUE13sHTf54qDOZhK8NkbvJr9IOtEWCvnwCPrMJ5JkeIy1Ig9Jh5+v5IuC1TkbUYP/YOCuwgpDK8D5ncJlweyJK7A5Qxq6mtJRVvQR0Vs1a05HgKg9T5T4nbCszsIHB9qw9cdLQH/4nCjMWPcJy2SCvtnqkfm8Hbo1856ouXon5i4oSIsFMJv1NFfoQfvr32S+4nLfwWTuMRynNSqSkReGuGHxwboopEr0okABniRMwx+NCXS5kKI0YE/E+MKKJNBUwxFggvqHPQiXAtzbXfsJAVzib087ChGgBCoMGZPHyumjRMEnrDiIdZruMmKIzYxcxPOKCeYdR0CByfr24aeQRkWm
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2026 14:46:28.6513
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cc2307a-a77a-473f-8fee-08dea7906d86
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6194.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6274
+Content-Transfer-Encoding: 8bit
 
+This adds support for the SDM660 (formerly "SDM660 internal") sound
+card and support for WCD codecs over internal MI2S.
 
+Like on MSM8916 and MSM8953, some SDM660 and SDM670 devices connect to a
+digital and analog codec. The connection to the digital codec is through
+special "internal" MI2S ports. The digital and analog codecs are used on
+the Xiaomi Redmi Note 7 for headset (playback + capture) and earpiece,
+and also on the Google Pixel 3a for the headset.
 
-On 5/1/2026 9:37 AM, Tanmay Shah wrote:
-> The Cortex-R remote processors on AMD-Xilinx platforms can run
-> before linux boot. Add auto-boot property to notify linux that remote
-> processor is ready to be used, so linux can load fw and start it or
-> attach to the running processor.
-> 
+This series does not include devicetree patches.
 
-Missed the change log here:
+Changes since v3 (https://lore.kernel.org/r/20260331193939.40636-1-mailingradian@gmail.com):
+- rebase onto v7.1-rc1
 
-Changes in v2:
-  - remove the auto-boot property from bindings patch (1/2)
-  - rebase on latest remoteproc for-next branch
-  - refactor the driver patch (2/2) and detect the auto-boot runtime
+Changes since v2 (https://lore.kernel.org/r/20260304195815.52347-1-mailingradian@gmail.com):
+- add missing sign-off (1/15)
+- use definition of last dt-bindings dai cell for LPASS_MAX_PORT (6/15)
+- move sdm660 support to existing sm8250 driver (11-12/15)
+- import WCD codec patches for MSM8953 (3/15, 13-14/15)
+	Changes from original (https://lore.kernel.org/r/20240731-msm8953-msm8976-asoc-v3-0-163f23c3a28d@gmail.com):
+	- add back empty line in WCD dt-bindings patch (3/15)
+	- add Dmitry's review tags (13-14/15)
+	- rebase onto q6dsp fixes
+- rebase onto q6dsp fixes
 
-If needed, I will send v2 with the change log.
+Changes since v1 (https://lore.kernel.org/r/20260211020302.2674-1-mailingradian@gmail.com):
+- rename sound card to drop "internal" (1/11, 10/11)
+- use common headphone jack code (9/11, 10/11)
+- remove no-op code in sound card driver (10/11)
+- remove inaccurate comment about clock consumer/producer (10/11)
+- add review tags (3/11, 4/11)
 
-> 
-> Tanmay Shah (2):
->   dt-bindings: remoteproc: xlnx: add firmware-name property
->   remoteproc: xlnx: enable auto boot feature
-> 
->  .../remoteproc/xlnx,zynqmp-r5fss.yaml         |  4 ++
->  drivers/remoteproc/xlnx_r5_remoteproc.c       | 48 +++++++++++++------
->  2 files changed, 38 insertions(+), 14 deletions(-)
-> 
-> 
-> base-commit: 54dacf6efe7196c1cd8ae4b5c691579d0510a8bd
+Adam Skladowski (2):
+  ASoC: dt-bindings: pm8916-wcd-analog-codec: Document pm8950/pm8953
+  ASoC: msm8916-wcd-analog: add pm8950 codec
+
+Nickolay Goppen (1):
+  ASoC: dt-bindings: qcom,sm8250: add compatible for sdm660
+
+Richard Acayan (11):
+  ASoC: dt-bindings: qcom: q6dsp: add internal mi2s support
+  ASoC: dt-bindings: pm8916-analog-codec: Add PM660L compatible
+  ASoC: dt-bindings: msm8916-digital-codec: Add SDM660 compatible
+  ASoC: qdsp6: q6dsp-lpass-ports: add internal mi2s support
+  ASoC: qdsp6: q6afe: add internal mi2s support
+  ASoC: qdsp6: q6afe-dai: add internal mi2s support
+  ASoC: qdsp6: q6routing: add internal mi2s support
+  ASoC: qdsp6: common: support headphone jacks connected to internal
+    mi2s
+  ASoC: qcom: sm8250: add support for INT0_MI2S_RX and INT3_MI2S_TX
+  ASoC: qcom: sm8250: add SDM660 compatible
+  ASoC: msm8916-wcd-analog: add quirk for cajon 2.0
+
+Vladimir Lypak (1):
+  ASoC: msm8916-wcd-analog: add pm8953 codec
+
+ .../sound/qcom,msm8916-wcd-digital-codec.yaml |   8 +-
+ .../sound/qcom,pm8916-wcd-analog-codec.yaml   |  11 +-
+ .../sound/qcom,q6dsp-lpass-ports.yaml         |   4 +-
+ .../bindings/sound/qcom,sm8250.yaml           |   1 +
+ .../sound/qcom,q6dsp-lpass-ports.h            |  14 ++
+ sound/soc/codecs/msm8916-wcd-analog.c         | 144 ++++++++++++-
+ sound/soc/qcom/common.c                       |   1 +
+ sound/soc/qcom/common.h                       |   2 +-
+ sound/soc/qcom/qdsp6/q6afe-dai.c              |  46 ++++
+ sound/soc/qcom/qdsp6/q6afe.c                  |  56 +++++
+ sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c      | 200 ++++++++++++++++++
+ sound/soc/qcom/qdsp6/q6routing.c              |  78 ++++++-
+ sound/soc/qcom/sm8250.c                       |  17 ++
+ 13 files changed, 570 insertions(+), 12 deletions(-)
+
+-- 
+2.54.0
 
