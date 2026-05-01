@@ -1,107 +1,123 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F29433F9F20
-	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 16:58:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A543C1400;
+	Fri,  1 May 2026 17:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777654737; cv=none; b=ElJZzRM12En4uiroFOjIaaGFHai4d9NZR4yS0zBUxGDfCaiqOOsM6qUPm8sbuvEkw5NYTBYOzvp5rREjgQwwayUCexpbXZTjXrwrEyb9JS98/52qb4SDnr5wTmInK20jVYzH0hV+d1t46LfJVf8M6Ngn5C6CmzoY1kKb0sz5VCk=
+	t=1777654984; cv=none; b=OdNmM9blqgIy4etjAdOhwRLQwj+DVof+tIayTQRZjuoU5HUN1NGnquDLgFjp23BcFDOVr2i0FG0JzJR87TlGIR3pCPb4v9sXp2FrYk36vFqX3d/ZfdaC5e0TcOVtdMX2aZvn/gSJU1QG5gXp7avlXvyOOxiux+jw2rnK3qbnwm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777654737; c=relaxed/simple;
-	bh=SHinq8nN6TVD/2Hc5zIN8kWJIqsdr6OOjs8GrCF8fnY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=TonncZur2e5/HLbLIisjOxEq30DqTCUlvCbO4fKJiQAEJkuNOX31jMHBHzuYHGVUcfiCSu9uUXya17v6h3uChXokQTpDSxb6I7JWPgEWlImhxAOeoL/kRXP5JjxnmQtPKpmIYh23HF4b6l9v9C1LXBkueM3SrNUv5v5HvmgsFkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=SCFGxm5N; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1777654984; c=relaxed/simple;
+	bh=8GvZWFD9xh/Bxx1Omdts7uL97aN6epJ/NSyX8QGcdw0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Miee7GkJC4rzsgfT3lq/krGZfAQID6oBtPg2s00OTnjurI8bzHmE4/pJnsU/xEidI+Eu0Jtc0/3QSccuCASAL8rq0cvgUBBa2pM2Wi5Y0swFzN/wsyPaewowgLYxILc8b8q88RZbFVOAqMCbijH1BhIGfIeL/0+znPypfl+BY+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SYB3YCTl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="SCFGxm5N"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-35fbca04006so1061097a91.1
-        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 09:58:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777654734; x=1778259534; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QSgZ9p+FLa5dE+egtAU5+ue1/mNyVaBwoePR7YQHN84=;
-        b=SCFGxm5NVGIIILLzNEls2kao56s33XhvDIV7V9zzF6ap2MQt5pA6GQ42zalFuyr8cQ
-         HkfGuETT7d8XliABoSHmMx5/S+xJbfvyt45GZUmWNBEWT4pkDjq6uM0SVt/UGREO+8EW
-         V0fNRS0UygByF4VyMXVc2658viUXIefdYbw94O8bm49oYOt/nS1Xq4mTKQAr++zIOv93
-         hvZMiHb0/u8cO6ltZvtUtMlqRZZ0bhsE5u56LkBh9Ktlg3ETwEdbHWAbVk/m696VKn8K
-         Vip07X5S2F7ja7N0dclDn9AMh2jSiC1ZZSpEIcKCJ9ysBXWOlA054lxPUjHiPUHnmZTe
-         xC0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777654734; x=1778259534;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=QSgZ9p+FLa5dE+egtAU5+ue1/mNyVaBwoePR7YQHN84=;
-        b=lxPl7lLE5V2UyXMHgDJa1oF22rwuFlYFVbsVS5q7ps+2Xd7b5Y+Xbg/YMuU6ZnBNcb
-         85+XYtYvtwvqigswHTZq2SI9mZY+EXVnKNY1Of9zdSiRpV9WU6MhpeUaToA1EJnvW4CR
-         os/rU8W6whdGxrnzPsKvNdCzxiG5fsoW+/udWoqs/MRO6n84FHL/DVvCqDppJ3fInzDz
-         PQP/wpOo0PfhL1zhi13sZjH+6Iqzo3rEZaVvXannlmmlNgNQDwBm5AqMyaxMvLYBG6F4
-         2iwoTO4C4JUflAkLwL31GpQo5lQ4lFcDLn45lbCqKMQyOMejp9IKjvp2trsAg+PsgAA0
-         31Ag==
-X-Forwarded-Encrypted: i=1; AFNElJ91PD61jrtOSQsuy0VTaXO4I4FwEjfH8J1rlPZhPemHayz+ITBHnU1qTD/j0OQtlvQucgJRJVE0l0Ie@vger.kernel.org
-X-Gm-Message-State: AOJu0YyEAuTEqJiu5qg7OaHFUpAv2JsoqXvBqIbRGZjojr9arRVg+SwK
-	Sh1doT9lZR5PtdRewUPZDeKsN0yezy9gHJ5B+srcxB/yb5ioJ2W3+E0HyltyYucevwI=
-X-Gm-Gg: AeBDievPHL74SjtJpCLiDTpru8MDGJrwB5lbqZhLhp1xgZK8z5Sxk3gklgU6mg8ZgU2
-	LTjdjzlqqA/FEu6zQga6cGPHMy7mYbZBuwnROLX+iXbwaDZZXQoDDnRHb/7gmSY66RyIcYQOPrT
-	coIsMcJ8Z4OhM1VoOrg0BAnGXR4UgvtkpNa2AymHmnF1wYyDfPDVR+oWM7xDO5ZRwcWmdWqUUqZ
-	WMQrnGONpS5bytQftkzJynD2CHf89S3qaXUZPIKc9LYuaIZ6aYyf1BzjFZ951f+afv/Hnd7kGm+
-	mWQhvR86LjYQLUitT87T+Zol99OLoQEeYwZfV3MosATGC6ARlVfPxeF2ZGWfxbQkBBF905H3xEv
-	e35ULG+q0OpWZ2Pa4qtHqDnDbGwlUtB/hj+zfcqKxzJIHcAEmQPHbyE2bpCgciEBFbJ7at9fJ4A
-	u8RGwGViU2Y013aLRl+DTp81qyiHP7aQ==
-X-Received: by 2002:a17:90b:4ec5:b0:35d:a3b4:2f0d with SMTP id 98e67ed59e1d1-3650cd264c9mr52117a91.6.1777654733851;
-        Fri, 01 May 2026 09:58:53 -0700 (PDT)
-Received: from localhost ([97.126.187.42])
-        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-364bdf54203sm6242551a91.7.2026.05.01.09.58.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 01 May 2026 09:58:53 -0700 (PDT)
-From: Kevin Hilman <khilman@baylibre.com>
-To: aaro.koskinen@iki.fi, andreas@kemnade.info, rogerq@kernel.org, 
- tony@atomide.com, Jihed Chaibi <jihed.chaibi.dev@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- eballetbo@kernel.org, linux-omap@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260325223411.123666-1-jihed.chaibi.dev@gmail.com>
-References: <20260325223411.123666-1-jihed.chaibi.dev@gmail.com>
-Subject: Re: [PATCH] ARM: dts: am335x-sl50: Fix audio bitclock and frame
- master endpoint
-Message-Id: <177765473277.136795.1708600331167857182.b4-ty@b4>
-Date: Fri, 01 May 2026 09:58:52 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SYB3YCTl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49821C2BCB4;
+	Fri,  1 May 2026 17:03:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777654984;
+	bh=8GvZWFD9xh/Bxx1Omdts7uL97aN6epJ/NSyX8QGcdw0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SYB3YCTlBgtZ5O7UnGDqbws87GO1iI3MRNp3qDOMBijL+cCbCV+gB8Mj2YSP4lUib
+	 364Mi+brhRGSCt7qyVfHBOFvEiYV84DTezlnJaBgcUyUbrjIuOunJncfENZPYHPqVr
+	 t44aBnaIZyc7G0KN9XHttW7IR3zkX30XumMSXveRJsAzvWk0UHaOJ3ADwpgBKBK0IW
+	 LOZe3ufkZu1vPhrRK5JzOaiKBJHdm37MRnjEMNoMc/NRwtTKrQwyPuJoAUGEN4kCFE
+	 8UgCbdWbWX0nw9CEDgxdXxWjVFwDbuF21Cm0v8nGg9iWWwDo4vyj87Ez7qURtWdDyw
+	 7qzskZBedd56Q==
+Date: Fri, 1 May 2026 18:02:58 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Can Guo <can.guo@oss.qualcomm.com>
+Cc: bvanassche@acm.org, beanhuo@micron.com, peter.wang@mediatek.com,
+	martin.petersen@oracle.com, mani@kernel.org,
+	linux-scsi@vger.kernel.org, Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>,
+	Zhaoming Luo <zhml@posteo.com>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: ufs: Document static TX Equalization
+ settings properties
+Message-ID: <20260501-exhale-nutshell-3d80a8a2d791@spud>
+References: <20260501134418.863432-1-can.guo@oss.qualcomm.com>
+ <20260501134418.863432-2-can.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zZv6/IXBq9h6cyVd"
+Content-Disposition: inline
+In-Reply-To: <20260501134418.863432-2-can.guo@oss.qualcomm.com>
 
 
-On Wed, 25 Mar 2026 23:34:11 +0100, Jihed Chaibi wrote:
-> The cpu_endpoint in mcasp0 specifies the TLV320AIC3106 codec as the
-> bitclock and frame master, but the phandles point to the codec's port
-> node (codec_port) rather than its endpoint node (codec_endpoint).
-> 
-> audio-graph-card calls simple_util_parse_daifmt() with ep_codec set to
-> the endpoint node (codec_endpoint). The function resolves the
-> bitclock-master phandle and checks whether it equals ep_codec. Since
-> codec_port is the parent of codec_endpoint, not the endpoint itself, the
-> comparison always evaluates to false. This causes the mcasp0 CPU side to
-> be silently configured as bitclock and frame master instead of the codec,
-> which is the opposite of the intended configuration.
-> 
-> [...]
+--zZv6/IXBq9h6cyVd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Applied, thanks!
+On Fri, May 01, 2026 at 06:44:17AM -0700, Can Guo wrote:
+> HW design team usually provides static TX Equalization settings based on
+> PCB board characteristics. These settings can be passed from the device
+> tree to configure the TX Equalization parameters (PreShoot, DeEmphasis,
+> and PreCodeEn) for Host and Device across different HS gears.
 
-[1/1] ARM: dts: am335x-sl50: Fix audio bitclock and frame master endpoint
-      commit: 2bc564f46b00dc4f4331fc337277ff3f5fac8a4e
+I'm not familiar enough with ufs stuff to tell, but this commit message
+sounds very qcom specific, but this is being added to a common file.
+I'd like to see a lot more detail in the commit message, detailing why
+this is truly applicable across IP vendors.
 
-Best regards,
--- 
-Kevin Hilman (TI) <khilman@baylibre.com>
+>=20
+> Add patternProperties for txeq-settings-g[1-6] to support specifying
+> static TX Equalization settings.
+>=20
+> Signed-off-by: Can Guo <can.guo@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/ufs/ufs-common.yaml | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/ufs/ufs-common.yaml b/Docu=
+mentation/devicetree/bindings/ufs/ufs-common.yaml
+> index ed97f5682509..bc83948fc168 100644
+> --- a/Documentation/devicetree/bindings/ufs/ufs-common.yaml
+> +++ b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
+> @@ -105,6 +105,17 @@ properties:
+>        Restricts the UFS controller to rate-a or rate-b for both TX and
+>        RX directions.
+> =20
+> +patternProperties:
+> +  "^txeq-settings-g[1-6]$":
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    minItems: 6
+> +    maxItems: 12
+> +    description: |
+> +      Static TX Equalization settings for High Speed (HS) gears.
+> +      The settings are specified as an array of tuples (PreShoot, DeEmph=
+asis, PrecodeEn).
+> +      The array must contain these tuples in the following order:
+> +      Host Lane 0, [Host Lane 1], Device Lane 0, [Device Lane 1].
+> +
+>  dependencies:
+>    freq-table-hz: [ clocks ]
+>    operating-points-v2: [ clocks, clock-names ]
+> --=20
+> 2.34.1
+>=20
 
+--zZv6/IXBq9h6cyVd
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafTcwgAKCRB4tDGHoIJi
+0vYZAP0e5vAEUy82WqTW/s+caijOyxLNxZItemHDAZwOqKIAkAD9GgJNBiixiK4Q
+fLlejc8u/KShPy6JLAz2mwFCLPvW/wU=
+=ofFG
+-----END PGP SIGNATURE-----
+
+--zZv6/IXBq9h6cyVd--
