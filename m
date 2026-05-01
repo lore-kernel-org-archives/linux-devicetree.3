@@ -1,117 +1,123 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011036.outbound.protection.outlook.com [40.107.208.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7452E173B
-	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 14:33:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777646005; cv=none; b=NxZ/O1niwPTVZBYai4REKiyX8J8/HOeUCNmUZslfokLMlYYBbDU4/hTDPE3JZcR8P9dAp2EYNUxtN1EwMcZEsKzEQVK2GdpmOYMuu+LRz2AKnUOGHva/OpqdNf/OB4YtvgJkUrw62YHj++qW/wRiIQdk0WOiX1rU+F7er308P0E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777646005; c=relaxed/simple;
-	bh=rM+ohjUAcsn8dXq0mb8PfyO9eXL54RezXFWp9ONY54M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RIo6ikJug98IhR7mCrIEYM2xWvWMfe3iE/wtxtWjZL/TZZCCUIoWyaR4oCB1ZXfhagBsYWDUTnp7pD3KL1u4/LRuMYn73WZk1tWHP8bZIq7Dn5U3o55rGkgYjwK5i7aCJlDW3QHlHz5GujwQ8cXRvZbXBTjGMzoLcbjD1TCoUBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=tEcbau33; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B6E423ABBE;
+	Fri,  1 May 2026 14:37:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777646248; cv=fail; b=gP3JXNhooS1OYEz2JrctySdsgq2jVsZAz2c0W/Ucz7gcnHWSA6gjpU/uIiMGYw6rUfUe0DPwS42qYzSErj17VORPuJ329D6GPFneV7AzRoC5eIe2NQ1dQQnhfuQle1qo5WhmMIevaKFCcXGN76Y3kd5cZORVWFF+fo4jjep1j40=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777646248; c=relaxed/simple;
+	bh=xv7L6gZw7Ak+58x/Ob5x2qyj4c6uD136vpBkEi1UC3I=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=j0+jtnRx1wxzBgmRhRkcxseT1I+vbCsRe/EaPvV725oEHK5WqtfPXxZ0V1H6g/aEwAvi+lGEEZDHqlzG1NpJWzvL1KXoI9SHUQaQi65r5SYKHene598tzMoL23PhDC3AmAWHA+2DIh6N6Bft0PKk2QXqAcw0SCvVte8BoRMOKiY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=RXO5gFaj; arc=fail smtp.client-ip=40.107.208.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="tEcbau33"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4852a9c6309so16309335e9.0
-        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 07:33:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777646003; x=1778250803; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=+5SFIqaEshVlX9LzlwHH+wo3PqHlpQWvbDIgoSHoIug=;
-        b=tEcbau33Ob5YtTyQcrz2W+Cl6OvOVYR7jq6iHBP+ST0ZA1zGQ1+VJ/LtcCDszZkKiW
-         4e3S4DEmvlsOPJZXUeJyQOjRxDtsyCMXaQvw76U5RpoWrAtcqzOPnYJISFPyP0CwZozN
-         gkZv17Vkk2x04EhITaJZ8M/G3yCg8ZewkyittQ1M9A5eItqHtMIlFqLs1m55c1LHWKGf
-         EAmVDvfS6NTSZsxk24AUeM9k1n7Z2FpJmYbTjKYc5K09JvrxPGqaWVlVN39OuIeI8tJQ
-         sVAFPr5OxLZFXD7VSLd5xBMHPSm6witUm1McH4ptuvLooE9Y/S13wWj2vJmGEIvEknJA
-         KzVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777646003; x=1778250803;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+5SFIqaEshVlX9LzlwHH+wo3PqHlpQWvbDIgoSHoIug=;
-        b=MXdTRlP6f4UFWPCmzWsfrnSr+qJMF3xPsqDWYzje8Y58BomfAoPyg1x+kzWnlCJIDh
-         gsB1aAvi/wjOa77+IHHUnCWt4WEddUFodjQh/XWafJMg4GlXzPPSkw9g1bX1QsHlO43z
-         a0R29XRsSpIrmP82Jy8iIEpd1kn/VLJI93ZNXhf2EEtX0t1Bq8FUWkQXMzpn+jd6CD/n
-         0z02KKcAksxYmdIyjdcZD97wGWgaBED/audf3QFBJ6Hu9MqlSxwttZA/xK+DTLi6v4ls
-         WOxRPIX0iAKE4Syg3b2Sq6h4zkgdgG8oByZkE2nAFgRwWmXfZEkOJlikCsInEA0JpwWv
-         8MYQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9Be3kIJPAN0MjoMkv8G6fnDhw41lhcvdT3QPtJaoJlurn1UFnrE22orGNe6STo1ye2E3O/Qp+potVd@vger.kernel.org
-X-Gm-Message-State: AOJu0YzIQ1SqtbplHfGJLOkO3JD2AuyrhDZCBDldxZBmhuEpyyPAN1Od
-	hf3CRCkA+rnlMMnzle/Ei57cBWUgHPAdM4qzvMWte0svbJQuUjI0WkwJzMjHxdosDuk=
-X-Gm-Gg: AeBDieteFxNWLImi5MH6ofpjC9yNfsn7Snahvx7IxBowQc6FZZshH+z1xH2IIbHpYN+
-	DxxdvDwvnsIYf1qaNU71k1dKArWpQCtwoQrv6vaUczJT2j6JONtBmJsBTQCJ4NK61VfAV+i2S3S
-	YJPCgGNOGQ98FUFuFYMIFEcj/OOWy8RNgKVrK4uVxaBhrVop79Hj7Qm4VwnrLamM3G6lXMCtWdx
-	RteFe5j3bZwTUcPDHuNBw0oN2Bg3FK6CiCyjoGhp0eah5FU1BxTsDWVhUVs0FfcyblCqfjUpii1
-	6xPpaD2HQ1f4IXmk60BhWnGPkbYWWwL5Boci4WyoK9lgJsRz9f63IbT3MtvmMkv12bsoycalBnQ
-	S+WzTlqTIqI767ksWuufB2eogI9QfJ8ybqET8yOGKX9CaFrdN4ssk4dqE4CAgRv16vvhFvF1ceU
-	Wfh+amdLNt08DMWg7m605+yilIWu74kmA9oYgaNem+DX8=
-X-Received: by 2002:a05:600c:49a3:b0:48a:8b02:ae91 with SMTP id 5b1f17b1804b1-48a8b02aeaamr51995435e9.11.1777646002848;
-        Fri, 01 May 2026 07:33:22 -0700 (PDT)
-Received: from [10.11.12.108] ([79.115.63.228])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a820c8556sm132049825e9.4.2026.05.01.07.33.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 01 May 2026 07:33:22 -0700 (PDT)
-Message-ID: <b9fa48f1-0ace-4a8b-b2bf-b5e01f789f7b@linaro.org>
-Date: Fri, 1 May 2026 17:33:15 +0300
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="RXO5gFaj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QcairT8mYrt3usp959P+cR4SKljQgafFnAiOaVIUbKow0g5k1yeOrrvfKwXmFu/1V+QWqQWMy2VQyXKYh1s8qBC07bI+84wN8YOvASZouSAQoLc8zuZ6mTCzpmQuWYcY57BPNGKzumkT9xoenK69rujx+alSYWhsssrKE1Z59iD90u3MfniwoqIf8EUIKwqHsz1ddSpdfFAkM1+g/MVezomjRnipQBjPgNwpex5ZqtRoz+sx3bKeeS4RhvoUhNiNcMwPnWBcR76elyPifmls1S8h7BfK2M3RQHXtUsmSa5QcF74uOuOWGpdq9OloJPMgl/VwVwF0XuuotDN+pOIM0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7YMX8QoBlAii4ScInIphfevMfdmmxHjJm41L9KSRHpc=;
+ b=yCagJr4b6lILRBbNTZSatdJvnPdM47LwhGx21KCAhcMYJbuubNqZTrgB+7s2DSAwmBIMZrTopZdk4mW1H7FvpV4y2C98hTgMLrE5n761cJ8wdSWS7U0Jrw87rtQlhfhh1tdsd3yW9Aps8vHSidd3i9ROu3cuysMpzrxnOnv0+DtMcroM1wHw27E9uujRKEXK/oFGTN45zzt4Twrm6oNhHxVA3TDH3aIDTn0MG6osCyquoZh8diCGc7yR+xb0Rt1r3o5ui3a6SamqListNE+XPy4Nz3JKQl9uV5Zm4DqUaTZDb8UBcarcXzlvHTEfrKDuuerQwFxQLrCaV0KP9jx5Og==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7YMX8QoBlAii4ScInIphfevMfdmmxHjJm41L9KSRHpc=;
+ b=RXO5gFajOhS20WqIgrhBSqxw3UjmsM3M9lf+WSeKQI09sbJ+fCa+Bx4xxKL81vT6QxyHjLtWkBx/seAQBPc9XeU+AP6Yc/dMpzQojtqArieSRJ8Q/KxNcaMEVg1IFyBEmAuURf9TgU7XICSK9TZdO83JGIoGATvYbNR2cXcU/34=
+Received: from PH8PR07CA0014.namprd07.prod.outlook.com (2603:10b6:510:2cd::25)
+ by IA1PR12MB6651.namprd12.prod.outlook.com (2603:10b6:208:3a0::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.17; Fri, 1 May
+ 2026 14:37:22 +0000
+Received: from CY4PEPF0000E9D3.namprd03.prod.outlook.com
+ (2603:10b6:510:2cd:cafe::a3) by PH8PR07CA0014.outlook.office365.com
+ (2603:10b6:510:2cd::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.23 via Frontend Transport; Fri,
+ 1 May 2026 14:37:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D3.mail.protection.outlook.com (10.167.241.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Fri, 1 May 2026 14:37:21 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 1 May
+ 2026 09:37:20 -0500
+Received: from xsjtanmays50.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 1 May 2026 09:37:19 -0500
+From: Tanmay Shah <tanmay.shah@amd.com>
+To: <andersson@kernel.org>, <mathieu.poirier@linaro.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <michal.simek@amd.com>,
+	<ben.levinsky@amd.com>, <tanmay.shah@amd.com>
+CC: <linux-remoteproc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2 0/2] remoteproc: xlnx: add auto-boot support
+Date: Fri, 1 May 2026 07:37:05 -0700
+Message-ID: <20260501143707.1591110-1-tanmay.shah@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/11] thermal: samsung: Add support for Google GS101
- TMU
-To: Alexey Klimov <alexey.klimov@linaro.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Lee Jones <lee@kernel.org>
-Cc: willmcvicker@google.com, jyescas@google.com, shin.son@samsung.com,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-hardening@vger.kernel.org,
- linux-clk@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260423-acpm-tmu-v4-0-8b59f8548634@linaro.org>
- <DI7D7JXW4RGK.XB0BE6ZXNMHS@linaro.org>
-Content-Language: en-US
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: <DI7D7JXW4RGK.XB0BE6ZXNMHS@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D3:EE_|IA1PR12MB6651:EE_
+X-MS-Office365-Filtering-Correlation-Id: dcc6ef6d-e2e8-42c9-b6ac-08dea78f279d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700016|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	XnJzAALLyzk0lGucjDoqgpDnEZXXXahzrwKH2xcivsSFPQWhyiXU26tZgMJRtQet7dz9ypFhluPgSNYC+WJTb5agQFkXUmFqRv8n2Yv0R0a/m0pWAZ/hAa99Vw03cAwJXCwjti+OHc1jRo+HvCEDOsowDDhqrWo+YFkhLHifqegZK8QyG3FJs25N4r6FH4d7mG52IC/nirGAwLNechjaRVQ0fVS08W2o5mLkEAIFCu4uqRNz4wd1cMPyPSC0vuEcVpVkIZ8bJhFZZY88zv6oeyTiCx5iZger5+QKsz0poOon6JrJx24e7Vu+kjZEBtcW0ktSaWZ/keeP6y1++evR7QBJbdmP57olo7tML8DxRy3Gswxh7OOlFm9XD4E0g/PTZ1H3KyvO8B5vRaEf70oJpLvf46UeTbXSww1F6Sf7idZ7t98ZSdl+7i2rPN4jtIHhCv/FI868TmqqEQ1e2aq76qXrQVglkc9h/Y/iwRDOlsNaMvrqKr17W8ufr8a2DZx11eRwe2XF660qFABWNuf5t/wvJeVIdcNSIFKZyZVsp/DpVsWtYB0iQGZjeGwPuASZn+aKqA7EkBy7TkrPsylFLeD1XfAE1mTwNKC5urn1L6+79iGEBjXkmdDxLRYikm6rEUZP4CgFsIiNOwWrfVODM7eTPJ3aV3S7RsBYJn+ft3Qkg7TI3GUoxQfVxRsBlP0tUfUobd9hbEZd83rTbKYA/uSlyTy6MvFeIo5Q3Umgi04=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	scCssobxJ2BLycoq1DfXJC9JYWMydMLp6PtQc22Q3EBrDMRE5bdK2PwunYLLSUtPJV1i0aeIMKivy0hJYCJ3SmU2o+Hh3vQRQMHL74O5QZL1p9cY4e6bg5JYRW4IjHgjxi+WuSHoAB8iKpxL13A22ijYiH7XfEZ2l+1TwzQjtO2d53e1yh6FIC1NO50qm0Qx3lxfYFWoEPPBlh4an3wawzGqrah6aX7bywAY2pZnXdjSAlv6bNa2IZRxHU9dn9XEKxhXfgXgMXGDEMWrCxiW3QUbRHKXx6TvpCFZK/7zFqCCZgecjqi/QuTCRcZZkiVgYT20qkO4PxzhTv5iBP30Io9Hl6kpceiOKQ0hZVPJHjWUdzpwb90ELKEJDrU6FNMfBfNd00MGaUdTW4qPOWTW5xej90HNAUHg+OWn6lezQzYm4mdv9qR2qykkbmay1Odc
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2026 14:37:21.9117
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dcc6ef6d-e2e8-42c9-b6ac-08dea78f279d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9D3.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6651
+
+The Cortex-R remote processors on AMD-Xilinx platforms can run
+before linux boot. Add auto-boot property to notify linux that remote
+processor is ready to be used, so linux can load fw and start it or
+attach to the running processor.
 
 
+Tanmay Shah (2):
+  dt-bindings: remoteproc: xlnx: add firmware-name property
+  remoteproc: xlnx: enable auto boot feature
 
-On 5/1/26 4:13 PM, Alexey Klimov wrote:
->> Dependencies
->> ============
->> - context dependency on the ACPM fixes sent at:
->>   Link: https://lore.kernel.org/linux-samsung-soc/20260423-acpm-fixes-sashiko-reports-v1-0-2217b790925e@linaro.org/T/#t
+ .../remoteproc/xlnx,zynqmp-r5fss.yaml         |  4 ++
+ drivers/remoteproc/xlnx_r5_remoteproc.c       | 48 +++++++++++++------
+ 2 files changed, 38 insertions(+), 14 deletions(-)
 
-cut
 
-> I've took series locally using b4 and result doesn't compile:
+base-commit: 54dacf6efe7196c1cd8ae4b5c691579d0510a8bd
+-- 
+2.34.1
 
-take the set linked above as well please.
-
-Cheers,
-ta
