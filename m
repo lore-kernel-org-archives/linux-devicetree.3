@@ -1,171 +1,172 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59211195811
-	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 07:33:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3501D3624C3;
+	Fri,  1 May 2026 07:42:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777620799; cv=none; b=oiNw99E7157nNsme42nP5Ruu3+NTOCGV0AxnABF1kHGNJJ0VBu5Mi+VbrySLzr6JltbwGHZck/t+0VDXvw0Yf5h42WfqoAHSitJVYnktq/dMd0YG7svhj3EGr6QqxQvQY8TOyGEBvJXnLCq0memYxcK5kbWS3FoocAvyUiPE1/w=
+	t=1777621342; cv=none; b=BMAI0sXmEu6kb0jqKmNUzjhdotc9YXoJ1VrzV8IpKtFnwDXQDyl/O29PFOprPEHIMTYBbdDf4GNuYTYNMjp/OAsHaGSoq6CwMVnI4UzWaYWcLgZuLZeEP/rQ5mLVE5lv6ZHeORt2GOWg0dajAqTJ4YCdg1Mv4IPh5WSkWhBvAqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777620799; c=relaxed/simple;
-	bh=f4ytoeoPomm5tYmISrt8VX4ssSEEKL+vgSrubij9sWA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fqpPk+93QkOZAqC/pOX4npX7Denwq2O4S69Ia3kl7z8zapIvEg0VG9JYswUF1ma79R4S1FZ4hLuRsEF5wdegGjpJqz44Ovlvx2WhZQ5/lHCKO/eIOxppXZDV7G2wvOw0ve2uv6/LOiT7yRxSCxRa6fvbxPPyF66JQ662r+9j5eI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jizN4cyk; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777621342; c=relaxed/simple;
+	bh=hBnzokI6KHxyl17lpS6jXZPBgbFHczeNt0+6RC6qwUQ=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=XsyO3N76JC6o1rMGGuMJM8HwJ1iHL+p59W1ibpwXQHJqiu7pywZe92xVR5OMPdpFH7jWdN36DYiPQ1h+gFlG4gGvE8Vfaykza9r/WwT0R0EpiwrcdXsY02i8PWimDK6lXL84PUYE7S5yY78VMVo+6EINbzWZjFdbdaefMig02yI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr; spf=pass smtp.mailfrom=alex-min.fr; dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b=BHPV6KbV; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=irqP4X/n; arc=none smtp.client-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alex-min.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jizN4cyk"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-364d72f2986so983570a91.3
-        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 00:33:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777620798; x=1778225598; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=eEGH/Mz9b26kwzXLbg9yiEa8TTkjExptNbsoCdY3tLk=;
-        b=jizN4cykeAH2Wb+JNfi6CKYX/WVQuazQ/63O5VzxsV7Onw3n5y4zCzaJ/Sl0zauIKL
-         1H7xk30eOWqDGlQ2yI1sdXiGnSpHVZSpAmF2gJY/rxPLiAX944WEZzG04iCK3qiXSeBz
-         Q8kskIBUgDc3nYyASDxsoxiSSH2z+c29/xk+rH0HonQ43fJ0HKuMx0LWyoVuZTRkWRKR
-         Y2Sl7Y0ClxsXk6h0FRIosGd0nqsg0twBaoR1HYIv7NuJpVTVYdHPGjSOom+2SajB6YF4
-         LyMMJ82gZmBSs/ICca3jMs8+7iAl86rE1TaSTg9/5f2Bb9RSH6oGoDkghaG00Y14cZbK
-         CH0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777620798; x=1778225598;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eEGH/Mz9b26kwzXLbg9yiEa8TTkjExptNbsoCdY3tLk=;
-        b=M8bk68x4trgvwQ4yAwEv9e04GfcxbsKGuoVpLEjPF1sVy0Ihk2bxJE45IJE9eyrZag
-         uccTLd1gxegHIrIdnVDog0WTqQ4uruFAfjEAA10s2A64bgynLrwtxzf6C+jqy/96Q7N6
-         KtHPZf/FCifhxh6BvBuHzz33oIlXgtagsFHtq4hJckCmvudRFLTIkHEL+n5Fpmtcdw+A
-         cI2/r9U3vY/csGpMy8AvFzTLhff6mybEYZ0uvkBNGhboEn1FvPmRgEB5iB4VCGi2nWVW
-         ZGmMD5rH0JEkEjhM+uZNFB/5R3HqjJdly37FO+DRASmlWnxCZDgnbqJ6CTwUOAa55Aa1
-         nZbw==
-X-Forwarded-Encrypted: i=1; AFNElJ8BMaY6+7giiRMTm5hmRB7iV1+n9X/DgK/8cmrDnP91/fu4JUAKNSpnYymH0TDxhkrCfweYAnEpdeVT@vger.kernel.org
-X-Gm-Message-State: AOJu0YylQat21X2/osZal4tsGWCk+9KP3a8l/ZcQkmRzLtpenE0c9u+/
-	ttCMkAzbKUUNvm/agM9pVeBJeEHz2NEkPkuIZxHyS/fzJPfJcY62B43G
-X-Gm-Gg: AeBDiev9HpsbnH69kjMlL2NPuGtP7UpMdml/voMNX0a3243MNag4laV7yJbN1jroerQ
-	1yhSeQZoEjlgV7yD7M6DIk360obEkcJxZbPzhtT5cDXJ8vKWGvfdUJCZKfYtAdG6/8WXEN9zUBb
-	nUr1/5CA4VN2SD2oZpzygPXpdAKNfBCm64WJduTmi8WCSke0U4bY8DN/YAU5F6b1fREmpGw0I5P
-	8oh3neZnW5rD97O4PdbZwmmTCrjtxurxsMwOylRZ0C9pnPj8i0690TtG+mqZQKwsQKtIdqRV+dw
-	wP1vlf2oAc4/ZsgoEganNXKI+IMQd4SlMSLiFS2e/yA6+QaJz1z3FdQmdvuNIuxhcGMl3jqlX4O
-	nrWdKQJDf3OVokqpFkha9oK6XoDgOX1NrguMR6uUmJ91T9brhlLYGwFFVCkjNpJiknHww2iByqs
-	GroRa7YAbC2ndO+bk9EaeALwGcnZNO4i1L1FoTg9s9q9XXXeUCdb6n1WiraoVbjVv50a4pRrZ2b
-	vVJAw==
-X-Received: by 2002:a17:90b:55cf:b0:35f:b940:4e81 with SMTP id 98e67ed59e1d1-364ef501f66mr2206239a91.16.1777620797619;
-        Fri, 01 May 2026 00:33:17 -0700 (PDT)
-Received: from Ubuntu.. ([49.37.171.148])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-364ebf12bcesm1481466a91.7.2026.05.01.00.33.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 01 May 2026 00:33:17 -0700 (PDT)
-From: Manish Baing <manishbaing2789@gmail.com>
-To: ukleinek@kernel.org,
-	thierry.reding@gmail.com,
-	linusw@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	manishbaing2789@gmail.com
-Subject: [PATCH] dt-bindings: pwm: stmpe: convert to DT schema
-Date: Fri,  1 May 2026 07:33:05 +0000
-Message-ID: <20260501073305.5866-1-manishbaing2789@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b="BHPV6KbV";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="irqP4X/n"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 693B7EC0128;
+	Fri,  1 May 2026 03:42:18 -0400 (EDT)
+Received: from phl-imap-02 ([10.202.2.81])
+  by phl-compute-04.internal (MEProxy); Fri, 01 May 2026 03:42:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alex-min.fr; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1777621338;
+	 x=1777707738; bh=Zg5eNZ5CCvS7Z24O3/xznVWLB3OXF7Zf2PatPh9o7WU=; b=
+	BHPV6KbVLBP0+ivN2+rBflpqymNvZEB8JHTB/+2kMQ2YMULpzEa0v5X/oaiKIvuY
+	1ZiGrLXpEPKPn44sNmiuB/tWmkTaYhk9fwAPduJKL8Rk+SQpydwQuBasjZdaC3TK
+	wSor3iQYk80x0iDLRvx7iRbY5J6LojfFXpqWnKVybO3bym1UCZcOu9Gpq9AsK0UL
+	0ZGXvj0zSw92gFtPXuC9jaq8zcDiK7hG6y8TerWgokP90rXAuJHjDz80KwlfcHeq
+	uv2waobLwrHNNAe5P7+ct/o82jiN49PxYw224G/K0hzFGINpPE9pmTsoCEovjUkY
+	5RlmyggfZAdBC2GYYeHCYg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777621338; x=
+	1777707738; bh=Zg5eNZ5CCvS7Z24O3/xznVWLB3OXF7Zf2PatPh9o7WU=; b=i
+	rqP4X/ncZgoXaUTrrxnDaN/aelca1i0lZ0zJfz7xE7WuREsyKyT7wvrI7tbr0Nuw
+	gtGBlPzug8vrNzwRywLY4ipBKJGE0/Cm977OIU0eQLAbXyum/9wLY2LjxSrVzvr9
+	R1QhvBkBuMFYzGyfC2WQNBE+L2rqsRSMMx8sgngvnPq4touiaS5VVqDJSzeLs3Gs
+	bEpVHBef+R1BXlCZAHk++sY9azs738d8jWx9KnQVlcWklT7Pu9j+IVuY3K6rGkO5
+	o+JpkmcuBT5vnXNx8BWAuGqDn10GC2SAKCoGG/HnXt4gY4XCwt1svIli20Vukzhs
+	kw5rTxy80EDEJ5Fw8Ll6A==
+X-ME-Sender: <xms:WVn0aY4gDNgx1dcpRRVIp8lt74QaDBil9eyJL_JCr3GpcLZzMX7afw>
+    <xme:WVn0aUtE4ORcwKnHixp5KMa-J16fLMsKtI5yAMAIx9DfKkdIyEskC0CrvPClNJ1y5
+    frR1opxLb6ADFCW3xZ9hRulIzeHwnt8Azx5vgFYUrGRFiCwrpXeXw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdekleeifecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+    hrpefoggffhffvvefkjghfufgtgfesthhqredtredtjeenucfhrhhomhepfdfokffpgffv
+    vffgucetlhgvgigrnhgurhgvfdcuoegtohhnthgrtghtsegrlhgvgidqmhhinhdrfhhrqe
+    enucggtffrrghtthgvrhhnpedtuedtfedtuddugedtuefggedtieekhefhteefvdetueev
+    heeghefhfeetfeejhfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrih
+    hlfhhrohhmpegtohhnthgrtghtsegrlhgvgidqmhhinhdrfhhrpdhnsggprhgtphhtthho
+    pedvfedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepjhhorhhoseeksgihthgvsh
+    drohhrghdprhgtphhtthhopehrohgsihhnrdhmuhhrphhhhiesrghrmhdrtghomhdprhgt
+    phhtthhopehlihhnuhigsehguhhruhgurghsrdguvghvpdhrtghpthhtohepghhpihgttg
+    holhhisehighgrlhhirgdrtghomhdprhgtphhtthhopehtohhnhidrlhhutghksehinhht
+    vghlrdgtohhmpdhrtghpthhtoheprghnuggvrhhsshhonheskhgvrhhnvghlrdhorhhgpd
+    hrtghpthhtoheptghonhhorhdoughtsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehk
+    vggvsheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepkhhonhhrrgguhigstghioheskh
+    gvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:WVn0aQDL2F-AF40KutzE8NRagdkt1s25sLDUepaJP0Gs399YZg6Cmw>
+    <xmx:WVn0ad-A-bhFR3otixkBEP5ojjstOyloATJVnAQUC-jKDeusgcIcAQ>
+    <xmx:WVn0aSRfiWvouhwJlWsYNAvzmrscLTvS6O7T06L6KZn77W59DrXRKQ>
+    <xmx:WVn0aT4JynqPYm-SJt6gJd55t9PXNGsTdxsUfcZTFxgOeMErILBOgw>
+    <xmx:Wln0acDKOmxMLmcQjSxJrVoRGxGmFxeG8awHyg1rwKf6ZrKBakyUQahQ>
+Feedback-ID: i72694427:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id B2479700065; Fri,  1 May 2026 03:42:17 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: A0acSZ0bucxw
+Date: Fri, 01 May 2026 09:41:09 +0200
+From: "MINETTE Alexandre" <contact@alex-min.fr>
+To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>,
+ "Bjorn Andersson" <andersson@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "MyungJoo Ham" <myungjoo.ham@samsung.com>,
+ "Chanwoo Choi" <cw00.choi@samsung.com>,
+ "Guru Das Srinagesh" <linux@gurudas.dev>,
+ "Linus Walleij" <linusw@kernel.org>,
+ "Rob Clark" <robin.clark@oss.qualcomm.com>, "Joerg Roedel" <joro@8bytes.org>,
+ "Will Deacon" <will@kernel.org>, "Robin Murphy" <robin.murphy@arm.com>,
+ "Kees Cook" <kees@kernel.org>, "Tony Luck" <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ iommu@lists.linux.dev, phone-devel@vger.kernel.org
+Message-Id: <edbaf71e-6a47-4294-a8c6-6b356bc336ed@app.fastmail.com>
+In-Reply-To: <97969bf9-8eb2-4498-90bd-9973fb2bd638@oss.qualcomm.com>
+References: <20260427-mainline-send-v1-sending-v2-0-dcaa9178007b@alex-min.fr>
+ <20260427-mainline-send-v1-sending-v2-8-dcaa9178007b@alex-min.fr>
+ <97969bf9-8eb2-4498-90bd-9973fb2bd638@oss.qualcomm.com>
+Subject: Re: [PATCH v2 8/8] ARM: dts: qcom: Add Samsung Galaxy S4
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Convert the STMicroelectronics STMPE PWM controller bindings
-from text format to YAML schema.
+Thanks a lot for the suggestion, I checked the downstream board files
+and it does not look like these buses are wired for GSBI.
 
-Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
----
- .../devicetree/bindings/pwm/st,stmpe-pwm.txt  | 18 --------
- .../devicetree/bindings/pwm/st,stmpe-pwm.yaml | 41 +++++++++++++++++++
- 2 files changed, 41 insertions(+), 18 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/pwm/st,stmpe-pwm.txt
- create mode 100644 Documentation/devicetree/bindings/pwm/st,stmpe-pwm.yaml
+There, the MAX77693 bus is instantiated as a dedicated i2c-gpio bus on
+GPIO 22/23, and the AN30259A LED bus as a dedicated i2c-gpio bus on
+GPIO 6/7. The native APQ8064 GSBI2/GSBI3 I2C pins are different
+(GPIO 24/25 and GPIO 8/9), so these two buses do not seem to be wired
+to the GSBI controllers on jflte.
 
-diff --git a/Documentation/devicetree/bindings/pwm/st,stmpe-pwm.txt b/Documentation/devicetree/bindings/pwm/st,stmpe-pwm.txt
-deleted file mode 100644
-index f401316e0248..000000000000
---- a/Documentation/devicetree/bindings/pwm/st,stmpe-pwm.txt
-+++ /dev/null
-@@ -1,18 +0,0 @@
--== ST STMPE PWM controller ==
--
--This is a PWM block embedded in the ST Microelectronics STMPE
--(ST Multi-Purpose Expander) chips. The PWM is registered as a
--subdevices of the STMPE MFD device.
--
--Required properties:
--- compatible: should be:
--  - "st,stmpe-pwm"
--- #pwm-cells: should be 2. See pwm.yaml in this directory for a description of
--  the cells format.
--
--Example:
--
--pwm0: pwm {
--	compatible = "st,stmpe-pwm";
--	#pwm-cells = <2>;
--};
-diff --git a/Documentation/devicetree/bindings/pwm/st,stmpe-pwm.yaml b/Documentation/devicetree/bindings/pwm/st,stmpe-pwm.yaml
-new file mode 100644
-index 000000000000..4d5b43c9e7fa
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pwm/st,stmpe-pwm.yaml
-@@ -0,0 +1,41 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pwm/st,stmpe-pwm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics STMPE PWM controller
-+
-+maintainers:
-+  - Linus Walleij <linus.walleij@linaro.org>
-+  - Thierry Reding <thierry.reding@gmail.com>
-+
-+description:
-+  This is a PWM block embedded in the STMicroelectronics STMPE
-+  (ST Multi-Purpose Expander) chips. The PWM is registered as a
-+  subdevice of the STMPE MFD device.
-+
-+allOf:
-+  - $ref: pwm.yaml#
-+
-+properties:
-+  compatible:
-+    const: st,stmpe-pwm
-+
-+  "#pwm-cells":
-+    const: 2
-+
-+required:
-+  - compatible
-+  - "#pwm-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    stmpe {
-+        pwm {
-+            compatible = "st,stmpe-pwm";
-+            #pwm-cells = <2>;
-+        };
-+    };
--- 
-2.43.0
+Regards,
+--=20
+  MINETTE Alexandre
+  contact@alex-min.fr
 
+Mar 28 avr 2026, =C3=A0 10:57, Konrad Dybcio a =C3=A9crit=E2=80=AF:
+> On 4/27/26 9:34 PM, Alexandre MINETTE via B4 Relay wrote:
+>> From: Alexandre MINETTE <contact@alex-min.fr>
+>>=20
+>> Add a device tree for the Samsung Galaxy S4, codenamed jflte.
+>>=20
+>> This has been tested on a Samsung Galaxy S4 GT-I9505. The initial sup=
+port
+>> covers UART, USB peripheral mode with USB networking, the front LED a=
+nd
+>> the physical buttons.
+>>=20
+>> Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
+>> ---
+>>  arch/arm/boot/dts/qcom/Makefile                    |   1 +
+>>  .../boot/dts/qcom/qcom-apq8064-samsung-jflte.dts   | 485 +++++++++++=
+++++++++++
+>>  2 files changed, 486 insertions(+)
+>>=20
+>> diff --git a/arch/arm/boot/dts/qcom/Makefile b/arch/arm/boot/dts/qcom=
+/Makefile
+>> index 32a44b02d2fa..c23c961f79e3 100644
+>> --- a/arch/arm/boot/dts/qcom/Makefile
+>> +++ b/arch/arm/boot/dts/qcom/Makefile
+>> @@ -12,6 +12,7 @@ dtb-$(CONFIG_ARCH_QCOM) +=3D \
+>>  	qcom-apq8064-ifc6410.dtb \
+>>  	qcom-apq8064-sony-xperia-lagan-yuga.dtb \
+>>  	qcom-apq8064-asus-nexus7-flo.dtb \
+>> +	qcom-apq8064-samsung-jflte.dtb \
+>>  	qcom-apq8064-lg-nexus4-mako.dtb \
+>
+> 'l'g < 's'amsung
+>
+> [...]
+>
+>> +	i2c-led {
+>> +		compatible =3D "i2c-gpio";
+>> +		sda-gpios =3D <&tlmm_pinmux 6 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)=
+>;
+>> +		scl-gpios =3D <&tlmm_pinmux 7 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)=
+>;
+>
+> Have you tried setting up the I2C-GPIO busses as GSBI devices, like
+> I think I suggested the last time? This will potentially bring power
+> and latency benefits, since there's an actual bus controller
+> connected to these pins
+>
+> Konrad
