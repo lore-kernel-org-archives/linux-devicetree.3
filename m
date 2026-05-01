@@ -1,816 +1,299 @@
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9FC372ECA
-	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 22:14:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B2C2D5C83
+	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 22:32:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777673673; cv=none; b=psFEKKu9Cc61Ia2bq9u3oi80fuwNb3yQKknQtJqtfIf1tbQCuaWX6gIC7LtGmSvlodoBT/r1ZqTh9Zgm/UmRTxkcvTi50qGXs6uvm9UOgjOkfESiv0PHuw3UrJo+8IHgKqfZfGuPpCJFOXd7xU/J30UzkJ6AhE8aII2Wx5Z7xOk=
+	t=1777674755; cv=none; b=ieSo0HzJpBxefx3+de93iU2aZi7BD/erGQES0tuGqHb+QEUFbibeMP2oCTXuNFsld2eUZslFW7r0DrLrwXSIVqEVA16N+Mr2KBpH+Z3X9kQLWycN7C3z6z205oeknG56rr/X+0ahSxbB4Q82IyazQueQUUqI6UoXI6IyH+M+X+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777673673; c=relaxed/simple;
-	bh=2HtY2p7Ki1OfqLdf5VZGvmqPls82qC8EkFvWa82lvS8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WhmbMW0jirRvLh3v3rBL8nBgOdSf11FiI0WjmJ6i3BjOt14O6QIhDwW3UDeEBQMVlnploCLzFJWn0dA23uhYLD5dAcqPrNEZ4X6I0brMTkvxgqQq+gEV0AtMnr1CS1WNBaczp2F5gHHUHwO5V3MYtUm5qjFzLSL4Zkizd5Haiy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h+FjZZ5z; arc=none smtp.client-ip=209.85.210.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777674755; c=relaxed/simple;
+	bh=4oi2IaluIhRvKF52S0SOnm9jRb+Tkz0XS5iLBmxeyEQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IncEz8MnqAhAj7JyX3uJ/5TVfA65DQOts17bJaP2lPvxXOoO+VF191JmTd48+5BdRQCHO1Z+iwH2jNrggzhI+Gb/hqDufocn5InYJDDP8dvzG4ZJjtYtYYFU9SabwKf3KhgOZyOexVTYPhhxM6omFWfMuZ3094tjcmwEUaG2Dy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Ebcn3N/X; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h+FjZZ5z"
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-7dcd89701acso2028434a34.1
-        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 15:14:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Ebcn3N/X"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-48a3e9862f0so14739145e9.1
+        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 15:32:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777673670; x=1778278470; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=na0sNAyLzzrnUsIBhafGX7pbrsz8+ySDMZJoSK54dZw=;
-        b=h+FjZZ5zSSYwSoqUmTnS9NQgHZoQ1Tfx2rP+smA6fexu22TjupILbXchlE7vv1z4v9
-         dFTEjUV2P0kD75PUbUk+DQg6fqRpextJVbHKHdfQaelVs9CM9ArjQ5WSLiiaM1YW4qDi
-         GLEfjAqP0JvHuLU+X+5aRm12ffiLP5rm6EEeiOv4heqKsA2QurzdPiJg2IFnYBYXOwL+
-         36/GqmHVwBlwYqAUKipWg+WN5cRrKD0ARWuDgBHVr04ngCRV+JnA2w8ME1AElW461QQm
-         ki+WQOL+3SXcZE2dxGmfJHenWvABNbq4ftb972rrDc7rNM34Bd1q6Ivpz4vYE9hbFtKT
-         VeIA==
+        d=linaro.org; s=google; t=1777674751; x=1778279551; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=mE5A7NqhuYtbLG8hB5tWWnVE9s95FeOPuLQxQGxHZPU=;
+        b=Ebcn3N/XZLnJqYQjncNMCDkhq0PcA0mfHACoi0uFKei414VDH7AiAEC49j3M5ugjpI
+         ug7S5v13aviAvKRT4MQJV6DR21/typZ/NN8LnitDsmsL9WFcwPZ992FwoGAfXzn12151
+         TWvYnZ2wTo5Sy0Kp3h1W/p8LDr4joMOJJlmklV32OuXQgXC9O6YB1LXTNnVTzgCttIrr
+         +uRtaYb84Yj5g9+cjvRKQqcIa77dNAVQGzLKvPIVLX9nEfNLSEQYhGg9wCRc4OCgPrBU
+         EoL9qB1PpbG8JQ/zEtB00wHuC9qehz2puGVI4tNAE1zflmIPxEAP5V5PyAUZJIKRyNlt
+         Nn7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777673670; x=1778278470;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=na0sNAyLzzrnUsIBhafGX7pbrsz8+ySDMZJoSK54dZw=;
-        b=fbcYLx30Il91BFHWEJ3SpzueyEnf7GdfhUYiOYdWEd6tDzxFag1M57zxUI9S9hLHpU
-         dFZHP6PJWjhxIocAzX4jacMGdTVZHifiKRcK4Wn8Q9IXmedKo9tAWEM9bcNJQiik8LEI
-         GtNj38y2yvlB/ZrlL8GyQxy9APTmYMFBLfQrK2yshrulU1ST8450re9Md9gObWmh51cg
-         5qMYYU3b19d05urcjoucDHsRaKPSfgRu2F4Um7T/VbytjY7yZhPhxvQJIuA55lIEym2l
-         p4KB+TrxuFCfDAbauPDeaverUWzTnOHbQHhoxJ1HyFQoL3AYpkNTgVU2l04gojcI7PIf
-         JN7g==
-X-Forwarded-Encrypted: i=1; AFNElJ8cBOyRQ8Ry7Yu/GDsqj0aAWmsHLw7qQjdMFU/zBEM2MsulD0kpNlZkFYjzTObBC42fkOfEu015aHC1@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxf8zQI2ukmnyTG5tTObkLi2fBBK3M+ZScJxjaJEBmXZOLAmK4M
-	YXwYFGe/5fpx3VC/gUBVC+YqsrVQSWHCftygF/aOQgjScjFKx7VetRWu
-X-Gm-Gg: AeBDievZmQQ+JLzLqx2YJWB0UgP+RqF5XE8TM1+UJ8NtxJ8LwBAXw22/oogSeuw4f8N
-	71pyink7zsPc9q3nycKmDzA431yd35OSYhZKhPbyYQqhawrvQ6tE0g9GQ0StdNPt3FBxKqhTFkP
-	CUBCi5LZTPpi8bWbfNwaLa202ZEM5NFA/mAGV8OVQD0vlLO6wrb72vZIGcO2QhboogBSxuq0D3c
-	Qrf0a6zMkx0YQBmmAD1Lz6LdccPG89aSeW4EwLN7Cqb9QiBaUC+6NDOZYwjnalBw46VnQbLct8v
-	kEXVQsvt6vTlr5/Omqq7SS8zWo7xMescFSkGvfJx02p6DtUKcXL0hnJyw21MBUjwh1XBagRLzfD
-	NPnff6Epw6cz60Q5ExALcZUTwY0evok2EGv+ZUHwxLFLce8xE1jFSUqY/bVUMvz2xT7CKaMVdPy
-	lkIqz0cVoyLTdzuf82XvYsMkYHTjvtgRQ=
-X-Received: by 2002:a05:6830:6b0b:b0:7cf:da97:57d6 with SMTP id 46e09a7af769-7dee1252363mr868800a34.6.1777673669635;
-        Fri, 01 May 2026 15:14:29 -0700 (PDT)
-Received: from localhost.localdomain ([2600:1700:fb0:1bc0::54])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ded51a9612sm1827337a34.26.2026.05.01.15.14.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 01 May 2026 15:14:29 -0700 (PDT)
-From: Chris Morgan <macroalpha82@gmail.com>
-To: linux-iio@vger.kernel.org
-Cc: andy@kernel.org,
-	nuno.sa@analog.com,
-	dlechner@baylibre.com,
-	jic23@kernel.org,
-	jean-baptiste.maneyrol@tdk.com,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	heiko@sntech.de,
-	conor+dt@kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	andriy.shevchenko@intel.com,
-	Chris Morgan <macromorgan@hotmail.com>
-Subject: [PATCH V4 09/10] iio: imu: inv_icm42607: Add Gyroscope to icm42607
-Date: Fri,  1 May 2026 17:11:48 -0500
-Message-ID: <20260501221152.194251-10-macroalpha82@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260501221152.194251-1-macroalpha82@gmail.com>
-References: <20260501221152.194251-1-macroalpha82@gmail.com>
+        d=1e100.net; s=20251104; t=1777674751; x=1778279551;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mE5A7NqhuYtbLG8hB5tWWnVE9s95FeOPuLQxQGxHZPU=;
+        b=kFLtTrBZcHbSBJN69QfzZXwl/wOxtINrgNWB5rXZS9HzSjH1NDdxV/SHdjDzGyHxOa
+         OPoDu43a+r1j7Zj75KItTqcKOWcaPAVjjuXwMmD9uBb/hPOiaeb/RsP5eJguBNCP1rZT
+         KYxaXfDkFpo6oTRyJ3oxewOhXDb8CfFK4vxY9DkYAGy37rxv5h04z8C6bFtJQzvQO12v
+         EqrnoCd2EIFTLjSCtbQwBxiylhTIn9VtbQEitF51GAcv6F40tfMVDKS8rHxfLL0sbkiS
+         FqXeqwS/49T5lvayX5hzuCOjbT+rGgbRL99kk09679+mLMNS9tqKEU8s6c6AyE02ZzK8
+         C8HQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9I3kWL4rVcCLQn3cDld7BJhxlEwKU21CBBr6sPA0kLZNaRJe+5xeeUfb8Wvme04x6TboqrgDaKYSDl@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy7cxC76xwL9Ez0sUV6rtrfahHoDrOPOjbdsgmywq9p/xTAlhft
+	rqIBLE7u2HnVCDCOFdDm97QD492A8HzESQ5MaybP2d43tM5i21cXGYOi1xVQhLxqhL4=
+X-Gm-Gg: AeBDieuesu2/jcXPaC1rkUBIs25tPjnb6paTgnEEuR2xrh0qagcjmR5geiprfUVKJ12
+	jmY9CjbvMAFZberKbkEH2/a2+gpkWV0mAitn0NZd6d480//Fel7mnHhVB9EtBlzkzA17SV9RT8h
+	67pkJulTX1ZYz4To16fDomM1PU7kTmwNtG3X3uNTgWlTKDktfFNWvuANf7PNuFohqjgQpRqLf45
+	rDYjcnpIyGNlXFGPbLGOrHtx3KuelYDD8/TceWly2PNh6ytG5f3OGCcD0reS8pwOS9wHEY/ipeh
+	z8yba+bDLFvl93SMINC1A12Sa4Ii7LdoOZx7bE0uwal31h1CEpB/5pMMZXLGBWCz+/Sb8gsy1wp
+	H9eBKpJJy1Srae6Q1VNwgzhdYWLqfPNLJ33nMCjBrvqYFtx/XMH9EfrnMTNjcTpLXwVs5F4aovs
+	Lq/25OmTErzv688uBB6Szkqpt24d8f2cEDY9iCwRgz3dFR7xPs
+X-Received: by 2002:a05:600c:a410:b0:48a:761:5816 with SMTP id 5b1f17b1804b1-48a970c1bc1mr14014075e9.8.1777674750296;
+        Fri, 01 May 2026 15:32:30 -0700 (PDT)
+Received: from [192.168.42.159] ([83.240.169.14])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a8fe845f0sm32044245e9.1.2026.05.01.15.32.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 01 May 2026 15:32:29 -0700 (PDT)
+Message-ID: <108ecc23-c821-4387-a324-5e3c20c3cc5e@linaro.org>
+Date: Fri, 1 May 2026 23:32:22 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/3] Add CAMSS support for SM6350
+To: Luca Weiss <luca.weiss@fairphone.com>, Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>
+References: <20260216-sm6350-camss-v4-0-b9df35f87edb@fairphone.com>
+ <2a108976-374a-46e1-968d-7befa4369a74@linaro.org>
+ <4SLDL62Oin3XdiLjUEC_YAVA-m1dKV4j_8_RolU6NJFWCIWtem6e6sCb9n7OIHbcIWBfWdXx_vZy5mXCAbWUDg==@protonmail.internalid>
+ <DHJD7P2TXQTH.1TQ4YQQ21A6CS@fairphone.com>
+ <c87d229c-137c-4e59-99cc-a97ef04f6e1b@kernel.org>
+ <DI79CX4PU08J.2M2V0U4PTOVEU@fairphone.com>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <DI79CX4PU08J.2M2V0U4PTOVEU@fairphone.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Chris Morgan <macromorgan@hotmail.com>
+On 01/05/2026 11:12, Luca Weiss wrote:
+> Hi Bryan,
+> 
+> On Fri Apr 3, 2026 at 5:07 PM CEST, Bryan O'Donoghue wrote:
+>> On 03/04/2026 09:09, Luca Weiss wrote:
+>>> Hi Vladimir,
+>>>
+>>> On Tue Mar 31, 2026 at 12:49 AM CEST, Vladimir Zapolskiy wrote:
+>>>> Hi Luca,
+>>>>
+>>>> On 2/16/26 10:54, Luca Weiss wrote:
+>>>>> Add bindings, driver and dts to support the Camera Subsystem on the
+>>>>> SM6350 SoC.
+>>>>>
+>>>>> These patches were tested on a Fairphone 4 smartphone with WIP sensor
+>>>>> drivers (Sony IMX576 and IMX582), the camera pipeline works properly as
+>>>>> far as I can tell.
+>>>>>
+>>>>> Though when stopping the camera stream, the following clock warning
+>>>>> appears in dmesg. But it does not interfere with any functionality,
+>>>>> starting and stopping the stream works and debugcc is showing 426.4 MHz
+>>>>> while the clock is on, and 'off' while it's off.
+>>>>>
+>>>>> Any suggestion how to fix this, is appreciated.
+>>>>
+>>>> I've looked at CAMCC recently, and I do notice that SM6350 CAMCC does not
+>>>> set '.use_rpm = true' flag for whatever reason.
+>>>>
+>>>> If you find a free minute, can you test the change below?..
+>>>
+>>> Unfortunately that change does not resolve the "gcc_camera_axi_clk
+>>> status stuck at 'on'" warning.
+>>>
+>>> fairphone-fp4:~$ cat /sys/bus/platform/drivers/sm6350-camcc/ad00000.clock-controller/power/runtime_status
+>>> active
+>>>
+>>> fairphone-fp4:~$ cat /sys/bus/platform/drivers/sm6350-camcc/ad00000.clock-controller/power/runtime_status
+>>> suspended
+>>>
+>>>>
+>>>> ----8<----
+>>>> diff --git a/drivers/clk/qcom/camcc-sm6350.c b/drivers/clk/qcom/camcc-sm6350.c
+>>>> index 7df12c1311c6..ba880e4edcaf 100644
+>>>> --- a/drivers/clk/qcom/camcc-sm6350.c
+>>>> +++ b/drivers/clk/qcom/camcc-sm6350.c
+>>>> @@ -1880,6 +1880,7 @@ static const struct qcom_cc_desc camcc_sm6350_desc = {
+>>>>     	.num_clks = ARRAY_SIZE(camcc_sm6350_clocks),
+>>>>     	.gdscs = camcc_sm6350_gdscs,
+>>>>     	.num_gdscs = ARRAY_SIZE(camcc_sm6350_gdscs),
+>>>> +	.use_rpm = true,
+>>>>     };
+>>>>
+>>>>     static const struct of_device_id camcc_sm6350_match_table[] = {
+>>>> ----8<----
+>>>>
+>>>> This change could be considered to be included in any case, I believe.
+>>>
+>>> I guess this change is now the way to enable pm_runtime, I had this
+>>> series 3 years ago in February 2023:
+>>> https://lore.kernel.org/linux-arm-msm/20230213-sm6350-camcc-runtime_pm-v3-0-d35e0d833cc4@fairphone.com/
+>>>
+>>> But I never followed up due to me not understanding pm_runtime well and
+>>> no direct need for it.
+>>>
+>>> But I guess reviving that with use_rpm = true, add power-domains &
+>>> required-opps to dt-bindings and sm6350.dtsi should be a good idea?
+>>>
+>>> Regards
+>>> Luca
+>>>
+>>>>
+>>>>> [ 5738.590980] ------------[ cut here ]------------
+>>>>> [ 5738.591009] gcc_camera_axi_clk status stuck at 'on'
+>>>>> [ 5738.591049] WARNING: CPU: 0 PID: 6918 at drivers/clk/qcom/clk-branch.c:87 clk_branch_toggle+0x170/0x190
+>>>>> [ 5738.591081] Modules linked in:
+>>>>> [ 5738.591099] CPU: 0 UID: 10000 PID: 6918 Comm: plasma-camera Tainted: G        W           6.17.0-00057-ge6b67db49622 #71 NONE
+>>>>> [ 5738.591118] Tainted: [W]=WARN
+>>>>> [ 5738.591126] Hardware name: Fairphone 4 (DT)
+>>>>> [ 5738.591136] pstate: 604000c5 (nZCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+>>>>> [ 5738.591150] pc : clk_branch_toggle+0x170/0x190
+>>>>> [ 5738.591164] lr : clk_branch_toggle+0x170/0x190
+>>>>> [ 5738.591177] sp : ffff800086ed3980
+>>>>> [ 5738.591184] x29: ffff800086ed3990 x28: 0000000000000001 x27: ffff800086ed3cd8
+>>>>> [ 5738.591208] x26: 0000000000000000 x25: ffffda14fcfbd250 x24: 0000000000000000
+>>>>> [ 5738.591230] x23: 0000000000000000 x22: ffffda14fc38bce0 x21: 0000000000000000
+>>>>> [ 5738.591252] x20: ffffda14fd33e618 x19: 0000000000000000 x18: 00000000000064c8
+>>>>> [ 5738.591274] x17: 0000000000000000 x16: 00001ae003667e9e x15: ffffda14fd2a07b0
+>>>>> [ 5738.591295] x14: 0000000000000000 x13: 6f27207461206b63 x12: 7574732073757461
+>>>>> [ 5738.591317] x11: 0000000000000058 x10: 0000000000000018 x9 : ffffda14fd2a0838
+>>>>> [ 5738.591338] x8 : 0000000000057fa8 x7 : 0000000000000a16 x6 : ffffda14fd2f8838
+>>>>> [ 5738.591360] x5 : ffff0001f6f59788 x4 : 0000000000000a15 x3 : ffff25ecf9d7e000
+>>>>> [ 5738.591381] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff0000baf5c100
+>>>>> [ 5738.591403] Call trace:
+>>>>> [ 5738.591412]  clk_branch_toggle+0x170/0x190 (P)
+>>>>> [ 5738.591429]  clk_branch2_disable+0x1c/0x30
+>>>>> [ 5738.591445]  clk_core_disable+0x5c/0xb4
+>>>>> [ 5738.591462]  clk_disable+0x38/0x60
+>>>>> [ 5738.591478]  camss_disable_clocks+0x44/0x78
+>>>>> [ 5738.591496]  vfe_put+0x7c/0xc0
+>>>>> [ 5738.591512]  vfe_set_power+0x40/0x50
+>>>>> [ 5738.591528]  pipeline_pm_power_one+0x14c/0x150
+>>>>> [ 5738.591546]  pipeline_pm_power+0x74/0xf4
+>>>>> [ 5738.591561]  v4l2_pipeline_pm_use+0x54/0x9c
+>>>>> [ 5738.591577]  v4l2_pipeline_pm_put+0x14/0x40
+>>>>> [ 5738.591592]  video_unprepare_streaming+0x18/0x24
+>>>>> [ 5738.591608]  __vb2_queue_cancel+0x4c/0x314
+>>>>> [ 5738.591626]  vb2_core_streamoff+0x24/0xc8
+>>>>> [ 5738.591643]  vb2_ioctl_streamoff+0x58/0x98
+>>>>> [ 5738.591657]  v4l_streamoff+0x24/0x30
+>>>>> [ 5738.591672]  __video_do_ioctl+0x430/0x4a8
+>>>>> [ 5738.591689]  video_usercopy+0x2ac/0x680
+>>>>> [ 5738.591705]  video_ioctl2+0x18/0x40
+>>>>> [ 5738.591720]  v4l2_ioctl+0x40/0x60
+>>>>> [ 5738.591734]  __arm64_sys_ioctl+0x90/0xf0
+>>>>> [ 5738.591750]  invoke_syscall.constprop.0+0x40/0xf0
+>>>>> [ 5738.591769]  el0_svc_common.constprop.0+0x38/0xd8
+>>>>> [ 5738.591785]  do_el0_svc+0x1c/0x28
+>>>>> [ 5738.591801]  el0_svc+0x34/0xe8
+>>>>> [ 5738.591820]  el0t_64_sync_handler+0xa0/0xe4
+>>>>> [ 5738.591838]  el0t_64_sync+0x198/0x19c
+>>>>> [ 5738.591854] ---[ end trace 0000000000000000 ]---
+>>>>>
+>>>>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+>>>>> ---
+>>>>> Changes in v4:
+>>>>> - Update power-domain-names order (Krzysztof)
+>>>>> - Make hex numbers lower case in init seq (David)
+>>>>> - Pick up tags
+>>>>> - Link to v3: https://lore.kernel.org/r/20260213-sm6350-camss-v3-0-30a845b0b7cc@fairphone.com
+>>>>
+>>>> Should find some time myself to issue RBs, sorry for the delay.
+>>>>
+>>>>> Changes in v3:
+>>>>> - Update dt-bindings to include everything related to camss
+>>>>> - Update regulator names
+>>>>> - Remove slow_ahb_src
+>>>>> - Link to v2: https://lore.kernel.org/r/20251114-sm6350-camss-v2-0-d1ff67da33b6@fairphone.com
+>>>>>
+>>>>> Changes in v2:
+>>>>> - Remove prefix from interconnect-names
+>>>>> - Move 'top' power-domain to the top of list
+>>>>> - Update regulator supply names
+>>>>> - Link to v1: https://lore.kernel.org/r/20251024-sm6350-camss-v1-0-63d626638add@fairphone.com
+>>>>>
+>>>>> ---
+>>>>> Luca Weiss (3):
+>>>>>          dt-bindings: media: camss: Add qcom,sm6350-camss
+>>>>>          media: qcom: camss: Add SM6350 support
+>>>>>          arm64: dts: qcom: sm6350: Add CAMSS node
+>>>>>
+>>>>>     .../bindings/media/qcom,sm6350-camss.yaml          | 471 +++++++++++++++++++++
+>>>>>     arch/arm64/boot/dts/qcom/sm6350.dtsi               | 233 ++++++++++
+>>>>>     .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     | 125 ++++++
+>>>>>     drivers/media/platform/qcom/camss/camss-vfe.c      |   2 +
+>>>>>     drivers/media/platform/qcom/camss/camss.c          | 261 ++++++++++++
+>>>>>     drivers/media/platform/qcom/camss/camss.h          |   1 +
+>>>>>     6 files changed, 1093 insertions(+)
+>>>>> ---
+>>>>> base-commit: 3daf23347bb5f4a375d0101ed29c97ce1a99721b
+>>>>> change-id: 20251024-sm6350-camss-9c404bf9cfdd
+>>>>>
+>>>>> Best regards,
+>>>
+>>
+>> What about taking the clock out of hardware gated mode ?
+>>
+>> ┌─[deckard@sagittarius-a] - [~/Development/qualcomm/qlt-kernel] - [Fri
+>> Apr 03, 16:05]
+>> └─[$]> git diff
+>> diff --git a/drivers/clk/qcom/gcc-sm6350.c b/drivers/clk/qcom/gcc-sm6350.c
+>> index a4d6dff9d0f7f..f98cb35bcd408 100644
+>> --- a/drivers/clk/qcom/gcc-sm6350.c
+>> +++ b/drivers/clk/qcom/gcc-sm6350.c
+>> @@ -909,8 +909,6 @@ static struct clk_branch gcc_camera_ahb_clk = {
+>>    static struct clk_branch gcc_camera_axi_clk = {
+>>           .halt_reg = 0x17018,
+>>           .halt_check = BRANCH_HALT,
+>> -       .hwcg_reg = 0x17018,
+>> -       .hwcg_bit = 1,
+> 
+> Unfortunately this change has no effect, still getting the same error
+> 
+> [  192.154311] ------------[ cut here ]------------
+> [  192.154339] gcc_camera_axi_clk status stuck at 'on'
+> [  192.154364] WARNING: drivers/clk/qcom/clk-branch.c:87 at clk_branch_toggle+0x170/0x190, CPU#5: CameraManager/5996
+> [  192.154387] Modules linked in:
+> [  192.154403] CPU: 5 UID: 10000 PID: 5996 Comm: CameraManager Tainted: G        W           7.0.0-00074-gb9262f98394c-dirty #31 PREEMPTLAZY
+> 
+> Regards
+> Luca
 
-Add gyroscope functions to the icm42607 driver.
+Sorry wait a second did you say you had a fix for this around CX ?
 
-Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+https://lore.kernel.org/linux-arm-msm/20230213-sm6350-camcc-runtime_pm-v3-2-d35e0d833cc4@fairphone.com/
+
+Is this series adding or missing power-domains = <CX> ?
+
+Shouldn't this be in the gcc node ?
+
++			power-domains = <&rpmhpd SM6350_CX>;
++			required-opps = <&rpmhpd_opp_low_svs>;
+
 ---
- drivers/iio/imu/inv_icm42607/Makefile         |   1 +
- drivers/iio/imu/inv_icm42607/inv_icm42607.h   |   8 +
- .../imu/inv_icm42607/inv_icm42607_buffer.c    |  25 +-
- .../iio/imu/inv_icm42607/inv_icm42607_core.c  |  48 ++
- .../iio/imu/inv_icm42607/inv_icm42607_gyro.c  | 536 ++++++++++++++++++
- 5 files changed, 617 insertions(+), 1 deletion(-)
- create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-
-diff --git a/drivers/iio/imu/inv_icm42607/Makefile b/drivers/iio/imu/inv_icm42607/Makefile
-index e908d77c4219..fc66e580fe99 100644
---- a/drivers/iio/imu/inv_icm42607/Makefile
-+++ b/drivers/iio/imu/inv_icm42607/Makefile
-@@ -2,6 +2,7 @@
- 
- obj-$(CONFIG_INV_ICM42607) += inv-icm42607.o
- inv-icm42607-y += inv_icm42607_core.o
-+inv-icm42607-y += inv_icm42607_gyro.o
- inv-icm42607-y += inv_icm42607_accel.o
- inv-icm42607-y += inv_icm42607_buffer.o
- inv-icm42607-y += inv_icm42607_temp.o
-diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-index a0123e062820..02715dded326 100644
---- a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-+++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-@@ -407,6 +407,10 @@ int inv_icm42607_set_accel_conf(struct inv_icm42607_state *st,
- 				struct inv_icm42607_sensor_conf *conf,
- 				unsigned int *sleep_ms);
- 
-+int inv_icm42607_set_gyro_conf(struct inv_icm42607_state *st,
-+			       struct inv_icm42607_sensor_conf *conf,
-+			       unsigned int *sleep_ms);
-+
- int inv_icm42607_set_temp_conf(struct inv_icm42607_state *st, bool enable,
- 			       unsigned int *sleep_ms);
- 
-@@ -419,6 +423,10 @@ int inv_icm42607_debugfs_reg(struct iio_dev *indio_dev, unsigned int reg,
- int inv_icm42607_core_probe(struct regmap *regmap, int chip,
- 			    inv_icm42607_bus_setup bus_setup);
- 
-+struct iio_dev *inv_icm42607_gyro_init(struct inv_icm42607_state *st);
-+
-+int inv_icm42607_gyro_parse_fifo(struct iio_dev *indio_dev);
-+
- struct iio_dev *inv_icm42607_accel_init(struct inv_icm42607_state *st);
- 
- int inv_icm42607_accel_parse_fifo(struct iio_dev *indio_dev);
-diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-index 34698b429c2e..1017439fa65c 100644
---- a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-+++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-@@ -379,7 +379,10 @@ static int inv_icm42607_buffer_postdisable(struct iio_dev *indio_dev)
- 		goto out_unlock;
- 
- 	conf.mode = INV_ICM42607_SENSOR_MODE_OFF;
--	ret = inv_icm42607_set_accel_conf(st, &conf, &sleep_sensor);
-+	if (sensor == INV_ICM42607_SENSOR_GYRO)
-+		ret = inv_icm42607_set_gyro_conf(st, &conf, &sleep_sensor);
-+	else
-+		ret = inv_icm42607_set_accel_conf(st, &conf, &sleep_sensor);
- 	if (ret)
- 		goto out_unlock;
- 
-@@ -468,6 +471,7 @@ int inv_icm42607_buffer_fifo_read(struct inv_icm42607_state *st,
- 
- int inv_icm42607_buffer_fifo_parse(struct inv_icm42607_state *st)
- {
-+	struct inv_icm42607_sensor_state *gyro_st = iio_priv(st->indio_gyro);
- 	struct inv_icm42607_sensor_state *accel_st = iio_priv(st->indio_accel);
- 	struct inv_sensors_timestamp *ts;
- 	int ret;
-@@ -475,6 +479,16 @@ int inv_icm42607_buffer_fifo_parse(struct inv_icm42607_state *st)
- 	if (st->fifo.nb.total == 0)
- 		return 0;
- 
-+	/* handle gyroscope timestamp and FIFO data parsing */
-+	if (st->fifo.nb.gyro > 0) {
-+		ts = &gyro_st->ts;
-+		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_gyro,
-+						st->timestamp.gyro);
-+		ret = inv_icm42607_gyro_parse_fifo(st->indio_gyro);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	/* handle accelerometer timestamp and FIFO data parsing */
- 	if (st->fifo.nb.accel > 0) {
- 		ts = &accel_st->ts;
-@@ -491,6 +505,7 @@ int inv_icm42607_buffer_fifo_parse(struct inv_icm42607_state *st)
- int inv_icm42607_buffer_hwfifo_flush(struct inv_icm42607_state *st,
- 				     unsigned int count)
- {
-+	struct inv_icm42607_sensor_state *gyro_st = iio_priv(st->indio_gyro);
- 	struct inv_icm42607_sensor_state *accel_st = iio_priv(st->indio_accel);
- 	struct inv_sensors_timestamp *ts;
- 	s64 gyro_ts, accel_ts;
-@@ -506,6 +521,14 @@ int inv_icm42607_buffer_hwfifo_flush(struct inv_icm42607_state *st,
- 	if (st->fifo.nb.total == 0)
- 		return 0;
- 
-+	if (st->fifo.nb.gyro > 0) {
-+		ts = &gyro_st->ts;
-+		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.gyro, gyro_ts);
-+		ret = inv_icm42607_gyro_parse_fifo(st->indio_gyro);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	if (st->fifo.nb.accel > 0) {
- 		ts = &accel_st->ts;
- 		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.accel, accel_ts);
-diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-index 480fe1741a04..eb6513c378a8 100644
---- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-+++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-@@ -220,6 +220,49 @@ int inv_icm42607_set_accel_conf(struct inv_icm42607_state *st,
- 					  st->conf.temp_en, sleep_ms);
- }
- 
-+int inv_icm42607_set_gyro_conf(struct inv_icm42607_state *st,
-+			       struct inv_icm42607_sensor_conf *conf,
-+			       unsigned int *sleep_ms)
-+{
-+	struct inv_icm42607_sensor_conf *oldconf = &st->conf.gyro;
-+	unsigned int val;
-+	int ret;
-+
-+	if (conf->mode < 0)
-+		conf->mode = oldconf->mode;
-+	if (conf->fs < 0)
-+		conf->fs = oldconf->fs;
-+	if (conf->odr < 0)
-+		conf->odr = oldconf->odr;
-+	if (conf->filter < 0)
-+		conf->filter = oldconf->filter;
-+
-+	if (conf->fs != oldconf->fs || conf->odr != oldconf->odr) {
-+		val = FIELD_PREP(INV_ICM42607_GYRO_CONFIG0_FS_SEL_MASK,
-+				 conf->fs);
-+		val |= FIELD_PREP(INV_ICM42607_GYRO_CONFIG0_ODR_MASK,
-+				  conf->odr);
-+		ret = regmap_write(st->map, INV_ICM42607_REG_GYRO_CONFIG0, val);
-+		if (ret)
-+			return ret;
-+		oldconf->fs = conf->fs;
-+		oldconf->odr = conf->odr;
-+	}
-+
-+	if (conf->filter != oldconf->filter) {
-+		val = FIELD_PREP(INV_ICM42607_GYRO_CONFIG1_FILTER_MASK,
-+				 conf->filter);
-+		ret = regmap_update_bits(st->map, INV_ICM42607_REG_GYRO_CONFIG1,
-+					 INV_ICM42607_GYRO_CONFIG1_FILTER_MASK, val);
-+		if (ret)
-+			return ret;
-+		oldconf->filter = conf->filter;
-+	}
-+
-+	return inv_icm42607_set_pwr_mgmt0(st, conf->mode, st->conf.accel.mode,
-+					  st->conf.temp_en, sleep_ms);
-+}
-+
- int inv_icm42607_set_temp_conf(struct inv_icm42607_state *st, bool enable,
- 			       unsigned int *sleep_ms)
- {
-@@ -589,6 +632,11 @@ int inv_icm42607_core_probe(struct regmap *regmap, int chip,
- 	if (ret)
- 		return ret;
- 
-+	/* Initialize IIO device for Gyro */
-+	st->indio_gyro = inv_icm42607_gyro_init(st);
-+	if (IS_ERR(st->indio_gyro))
-+		return PTR_ERR(st->indio_gyro);
-+
- 	/* Initialize IIO device for Accel */
- 	st->indio_accel = inv_icm42607_accel_init(st);
- 	if (IS_ERR(st->indio_accel))
-diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-new file mode 100644
-index 000000000000..4da012bc3947
---- /dev/null
-+++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-@@ -0,0 +1,536 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2026 InvenSense, Inc.
-+ */
-+
-+#include <linux/kernel.h>
-+#include <linux/device.h>
-+#include <linux/mutex.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/delay.h>
-+#include <linux/math64.h>
-+
-+#include <linux/iio/buffer.h>
-+#include <linux/iio/common/inv_sensors_timestamp.h>
-+#include <linux/iio/iio.h>
-+#include <linux/iio/kfifo_buf.h>
-+
-+#include "inv_icm42607.h"
-+#include "inv_icm42607_temp.h"
-+#include "inv_icm42607_buffer.h"
-+
-+#define INV_ICM42607_GYRO_CHAN(_modifier, _index, _ext_info)	\
-+{								\
-+	.type = IIO_ANGL_VEL,					\
-+	.modified = 1,						\
-+	.channel2 = _modifier,					\
-+	.info_mask_separate =					\
-+		BIT(IIO_CHAN_INFO_RAW),				\
-+	.info_mask_shared_by_type =				\
-+		BIT(IIO_CHAN_INFO_SCALE),			\
-+	.info_mask_shared_by_all =				\
-+		BIT(IIO_CHAN_INFO_SAMP_FREQ),			\
-+	.scan_index = _index,					\
-+	.scan_type = {						\
-+		.sign = 's',					\
-+		.realbits = 16,					\
-+		.storagebits = 16,				\
-+		.endianness = IIO_BE,				\
-+	},							\
-+	.ext_info = _ext_info,					\
-+}
-+
-+enum inv_icm42607_gyro_scan {
-+	INV_ICM42607_GYRO_SCAN_X,
-+	INV_ICM42607_GYRO_SCAN_Y,
-+	INV_ICM42607_GYRO_SCAN_Z,
-+	INV_ICM42607_GYRO_SCAN_TEMP,
-+	INV_ICM42607_GYRO_SCAN_TIMESTAMP,
-+};
-+
-+static const struct iio_chan_spec_ext_info inv_icm42607_gyro_ext_infos[] = {
-+	IIO_MOUNT_MATRIX(IIO_SHARED_BY_ALL, inv_icm42607_get_mount_matrix),
-+	{ },
-+};
-+
-+static const struct iio_chan_spec inv_icm42607_gyro_channels[] = {
-+	INV_ICM42607_GYRO_CHAN(IIO_MOD_X, INV_ICM42607_GYRO_SCAN_X,
-+			       inv_icm42607_gyro_ext_infos),
-+	INV_ICM42607_GYRO_CHAN(IIO_MOD_Y, INV_ICM42607_GYRO_SCAN_Y,
-+			       inv_icm42607_gyro_ext_infos),
-+	INV_ICM42607_GYRO_CHAN(IIO_MOD_Z, INV_ICM42607_GYRO_SCAN_Z,
-+			       inv_icm42607_gyro_ext_infos),
-+	INV_ICM42607_TEMP_CHAN(INV_ICM42607_GYRO_SCAN_TEMP),
-+	IIO_CHAN_SOFT_TIMESTAMP(INV_ICM42607_GYRO_SCAN_TIMESTAMP),
-+};
-+
-+/*
-+ * IIO buffer data: size must be a power of 2 and timestamp aligned
-+ * 16 bytes: 6 bytes angular velocity, 2 bytes temperature, 8 bytes timestamp
-+ */
-+struct inv_icm42607_gyro_buffer {
-+	struct inv_icm42607_fifo_sensor_data gyro;
-+	s16 temp;
-+	aligned_s64 timestamp;
-+};
-+
-+#define INV_ICM42607_SCAN_MASK_GYRO_3AXIS				\
-+	(BIT(INV_ICM42607_GYRO_SCAN_X) |				\
-+	 BIT(INV_ICM42607_GYRO_SCAN_Y) |				\
-+	 BIT(INV_ICM42607_GYRO_SCAN_Z))
-+
-+#define INV_ICM42607_SCAN_MASK_TEMP	BIT(INV_ICM42607_GYRO_SCAN_TEMP)
-+
-+static const unsigned long inv_icm42607_gyro_scan_masks[] = {
-+	INV_ICM42607_SCAN_MASK_GYRO_3AXIS,
-+	INV_ICM42607_SCAN_MASK_TEMP,
-+	INV_ICM42607_SCAN_MASK_GYRO_3AXIS | INV_ICM42607_SCAN_MASK_TEMP,
-+	0,
-+};
-+
-+/* enable gyroscope sensor and FIFO write */
-+static int inv_icm42607_gyro_update_scan_mode(struct iio_dev *indio_dev,
-+					      const unsigned long *scan_mask)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+	struct inv_icm42607_sensor_conf conf = INV_ICM42607_SENSOR_CONF_INIT;
-+	unsigned int fifo_en = 0;
-+	unsigned int sleep_gyro = 0;
-+	unsigned int sleep_temp = 0;
-+	unsigned int sleep;
-+	int ret;
-+
-+	mutex_lock(&st->lock);
-+
-+	if (*scan_mask & INV_ICM42607_SCAN_MASK_TEMP) {
-+		/* enable temp sensor */
-+		ret = inv_icm42607_set_temp_conf(st, true, &sleep_temp);
-+		if (ret)
-+			goto out_unlock;
-+		fifo_en |= INV_ICM42607_SENSOR_TEMP;
-+	}
-+
-+	if (*scan_mask & INV_ICM42607_SCAN_MASK_GYRO_3AXIS) {
-+		/* enable gyro sensor */
-+		conf.mode = INV_ICM42607_SENSOR_MODE_LOW_NOISE;
-+		ret = inv_icm42607_set_gyro_conf(st, &conf, &sleep_gyro);
-+		if (ret)
-+			goto out_unlock;
-+		fifo_en |= INV_ICM42607_SENSOR_GYRO;
-+	}
-+
-+	/* update data FIFO write */
-+	ret = inv_icm42607_buffer_set_fifo_en(st, fifo_en | st->fifo.en);
-+	if (ret)
-+		goto out_unlock;
-+
-+out_unlock:
-+	mutex_unlock(&st->lock);
-+	/* sleep maximum required time */
-+	sleep = max(sleep_gyro, sleep_temp);
-+	if (sleep)
-+		msleep(sleep);
-+	return ret;
-+}
-+
-+static int inv_icm42607_gyro_read_sensor(struct inv_icm42607_state *st,
-+					 struct iio_chan_spec const *chan,
-+					 s16 *val)
-+{
-+	struct device *dev = regmap_get_device(st->map);
-+	struct inv_icm42607_sensor_conf conf = INV_ICM42607_SENSOR_CONF_INIT;
-+	unsigned int reg;
-+	__be16 *data;
-+	int ret;
-+
-+	if (chan->type != IIO_ANGL_VEL)
-+		return -EINVAL;
-+
-+	switch (chan->channel2) {
-+	case IIO_MOD_X:
-+		reg = INV_ICM42607_REG_GYRO_DATA_X1;
-+		break;
-+	case IIO_MOD_Y:
-+		reg = INV_ICM42607_REG_GYRO_DATA_Y1;
-+		break;
-+	case IIO_MOD_Z:
-+		reg = INV_ICM42607_REG_GYRO_DATA_Z1;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-+	if (PM_RUNTIME_ACQUIRE_ERR(&pm))
-+		return -ENXIO;
-+
-+	guard(mutex)(&st->lock);
-+
-+	/* enable gyro sensor */
-+	conf.mode = INV_ICM42607_SENSOR_MODE_LOW_NOISE;
-+	ret = inv_icm42607_set_gyro_conf(st, &conf, NULL);
-+	if (ret)
-+		return ret;
-+
-+	/* read gyro register data */
-+	data = (__be16 *)&st->buffer[0];
-+	ret = regmap_bulk_read(st->map, reg, data, sizeof(*data));
-+	if (ret)
-+		return ret;
-+
-+	*val = (s16)be16_to_cpup(data);
-+	if (*val == INV_ICM42607_DATA_INVALID)
-+		ret = -EINVAL;
-+
-+	return ret;
-+}
-+
-+static const int inv_icm42607_gyro_scale_nano[][2] = {
-+	[INV_ICM42607_GYRO_FS_2000DPS] = { 0, 1065264 },
-+	[INV_ICM42607_GYRO_FS_1000DPS] = { 0, 532632 },
-+	[INV_ICM42607_GYRO_FS_500DPS] = { 0, 266316 },
-+	[INV_ICM42607_GYRO_FS_250DPS] = { 0, 133158 },
-+};
-+
-+static int inv_icm42607_gyro_read_scale(struct iio_dev *indio_dev,
-+					int *val, int *val2)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+	unsigned int idx;
-+
-+	idx = st->conf.gyro.fs;
-+
-+	*val = inv_icm42607_gyro_scale_nano[idx][0];
-+	*val2 = inv_icm42607_gyro_scale_nano[idx][1];
-+	return IIO_VAL_INT_PLUS_NANO;
-+}
-+
-+static int inv_icm42607_gyro_write_scale(struct iio_dev *indio_dev,
-+					 int val, int val2)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+	struct device *dev = regmap_get_device(st->map);
-+	unsigned int idx;
-+	struct inv_icm42607_sensor_conf conf = INV_ICM42607_SENSOR_CONF_INIT;
-+	int ret;
-+	size_t scales_len = ARRAY_SIZE(inv_icm42607_gyro_scale_nano);
-+
-+	for (idx = 0; idx < scales_len; idx++) {
-+		if (val == inv_icm42607_gyro_scale_nano[idx][0] &&
-+		    val2 == inv_icm42607_gyro_scale_nano[idx][1])
-+			break;
-+	}
-+	if (idx >= scales_len)
-+		return -EINVAL;
-+
-+	conf.fs = idx;
-+
-+	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-+	if (PM_RUNTIME_ACQUIRE_ERR(&pm))
-+		return -ENXIO;
-+
-+	guard(mutex)(&st->lock);
-+
-+	ret = inv_icm42607_set_gyro_conf(st, &conf, NULL);
-+
-+	return ret;
-+}
-+
-+/* IIO format int + micro */
-+static const int inv_icm42607_gyro_odr[] = {
-+	/* 12.5Hz */
-+	12, 500000,
-+	/* 25Hz */
-+	25, 0,
-+	/* 50Hz */
-+	50, 0,
-+	/* 100Hz */
-+	100, 0,
-+	/* 200Hz */
-+	200, 0,
-+	/* 400Hz */
-+	400, 0,
-+	/* 800Hz */
-+	800, 0,
-+	/* 1600Hz */
-+	1600, 0,
-+};
-+
-+static const int inv_icm42607_gyro_odr_conv[] = {
-+	INV_ICM42607_ODR_12_5HZ,
-+	INV_ICM42607_ODR_25HZ,
-+	INV_ICM42607_ODR_50HZ,
-+	INV_ICM42607_ODR_100HZ,
-+	INV_ICM42607_ODR_200HZ,
-+	INV_ICM42607_ODR_400HZ,
-+	INV_ICM42607_ODR_800HZ,
-+	INV_ICM42607_ODR_1600HZ,
-+};
-+
-+static int inv_icm42607_gyro_read_odr(struct inv_icm42607_state *st,
-+				      int *val, int *val2)
-+{
-+	unsigned int odr;
-+	unsigned int i;
-+
-+	odr = st->conf.gyro.odr;
-+
-+	for (i = 0; i < ARRAY_SIZE(inv_icm42607_gyro_odr_conv); ++i) {
-+		if (inv_icm42607_gyro_odr_conv[i] == odr)
-+			break;
-+	}
-+	if (i >= ARRAY_SIZE(inv_icm42607_gyro_odr_conv))
-+		return -EINVAL;
-+
-+	*val = inv_icm42607_gyro_odr[2 * i];
-+	*val2 = inv_icm42607_gyro_odr[2 * i + 1];
-+
-+	return IIO_VAL_INT_PLUS_MICRO;
-+}
-+
-+static int inv_icm42607_gyro_write_odr(struct iio_dev *indio_dev,
-+				       int val, int val2)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+	struct inv_icm42607_sensor_state *gyro_st = iio_priv(indio_dev);
-+	struct inv_sensors_timestamp *ts = &gyro_st->ts;
-+	struct device *dev = regmap_get_device(st->map);
-+	unsigned int idx;
-+	struct inv_icm42607_sensor_conf conf = INV_ICM42607_SENSOR_CONF_INIT;
-+	int ret;
-+
-+	for (idx = 0; idx < ARRAY_SIZE(inv_icm42607_gyro_odr); idx += 2) {
-+		if (val == inv_icm42607_gyro_odr[idx] &&
-+			val2 == inv_icm42607_gyro_odr[idx + 1])
-+			break;
-+	}
-+	if (idx >= ARRAY_SIZE(inv_icm42607_gyro_odr))
-+		return -EINVAL;
-+
-+	conf.odr = inv_icm42607_gyro_odr_conv[idx / 2];
-+
-+	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-+	if (PM_RUNTIME_ACQUIRE_ERR(&pm))
-+		return -ENXIO;
-+
-+	guard(mutex)(&st->lock);
-+
-+	ret = inv_sensors_timestamp_update_odr(ts, inv_icm42607_odr_to_period(conf.odr),
-+					       iio_buffer_enabled(indio_dev));
-+	if (ret)
-+		return ret;
-+
-+	ret = inv_icm42607_set_gyro_conf(st, &conf, NULL);
-+	if (ret)
-+		return ret;
-+	inv_icm42607_buffer_update_fifo_period(st);
-+	inv_icm42607_buffer_update_watermark(st);
-+
-+	return ret;
-+}
-+
-+static int inv_icm42607_gyro_read_raw(struct iio_dev *indio_dev,
-+				      struct iio_chan_spec const *chan,
-+				      int *val, int *val2, long mask)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+	s16 data;
-+	int ret;
-+
-+	switch (chan->type) {
-+	case IIO_ANGL_VEL:
-+		break;
-+	case IIO_TEMP:
-+		return inv_icm42607_temp_read_raw(indio_dev, chan, val, val2, mask);
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		if (!iio_device_claim_direct(indio_dev))
-+			return -EBUSY;
-+		ret = inv_icm42607_gyro_read_sensor(st, chan, &data);
-+		iio_device_release_direct(indio_dev);
-+		if (ret)
-+			return ret;
-+		*val = data;
-+		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_SCALE:
-+		return inv_icm42607_gyro_read_scale(indio_dev, val, val2);
-+	case IIO_CHAN_INFO_SAMP_FREQ:
-+		return inv_icm42607_gyro_read_odr(st, val, val2);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int inv_icm42607_gyro_write_raw(struct iio_dev *indio_dev,
-+				       struct iio_chan_spec const *chan,
-+				       int val, int val2, long mask)
-+{
-+	int ret;
-+
-+	if (chan->type != IIO_ANGL_VEL)
-+		return -EINVAL;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE:
-+		if (!iio_device_claim_direct(indio_dev))
-+			return -EBUSY;
-+		ret = inv_icm42607_gyro_write_scale(indio_dev, val, val2);
-+		iio_device_release_direct(indio_dev);
-+		return ret;
-+	case IIO_CHAN_INFO_SAMP_FREQ:
-+		return inv_icm42607_gyro_write_odr(indio_dev, val, val2);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int inv_icm42607_gyro_write_raw_get_fmt(struct iio_dev *indio_dev,
-+					       struct iio_chan_spec const *chan,
-+					       long mask)
-+{
-+	if (chan->type != IIO_ANGL_VEL)
-+		return -EINVAL;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE:
-+		return IIO_VAL_INT_PLUS_NANO;
-+	case IIO_CHAN_INFO_SAMP_FREQ:
-+		return IIO_VAL_INT_PLUS_MICRO;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int inv_icm42607_gyro_hwfifo_set_watermark(struct iio_dev *indio_dev,
-+						  unsigned int val)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+
-+	guard(mutex)(&st->lock);
-+
-+	st->fifo.watermark.gyro = val;
-+	return inv_icm42607_buffer_update_watermark(st);
-+}
-+
-+static int inv_icm42607_gyro_hwfifo_flush(struct iio_dev *indio_dev,
-+					  unsigned int count)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+	int ret;
-+
-+	if (count == 0)
-+		return 0;
-+
-+	guard(mutex)(&st->lock);
-+
-+	ret = inv_icm42607_buffer_hwfifo_flush(st, count);
-+	if (ret)
-+		return ret;
-+
-+	return st->fifo.nb.gyro;
-+}
-+
-+static const struct iio_info inv_icm42607_gyro_info = {
-+	.read_raw = inv_icm42607_gyro_read_raw,
-+	.write_raw = inv_icm42607_gyro_write_raw,
-+	.write_raw_get_fmt = inv_icm42607_gyro_write_raw_get_fmt,
-+	.debugfs_reg_access = inv_icm42607_debugfs_reg,
-+	.update_scan_mode = inv_icm42607_gyro_update_scan_mode,
-+	.hwfifo_set_watermark = inv_icm42607_gyro_hwfifo_set_watermark,
-+	.hwfifo_flush_to_buffer = inv_icm42607_gyro_hwfifo_flush,
-+};
-+
-+struct iio_dev *inv_icm42607_gyro_init(struct inv_icm42607_state *st)
-+{
-+	struct device *dev = regmap_get_device(st->map);
-+	const char *name;
-+	struct inv_icm42607_sensor_state *gyro_st;
-+	struct inv_sensors_timestamp_chip ts_chip;
-+	struct iio_dev *indio_dev;
-+	int ret;
-+
-+	name = devm_kasprintf(dev, GFP_KERNEL, "%s-gyro", st->name);
-+	if (!name)
-+		return ERR_PTR(-ENOMEM);
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*gyro_st));
-+	if (!indio_dev)
-+		return ERR_PTR(-ENOMEM);
-+	gyro_st = iio_priv(indio_dev);
-+
-+	/*
-+	 * clock period is 32kHz (31250ns)
-+	 * jitter is +/- 2% (20 per mille)
-+	 */
-+	ts_chip.clock_period = 31250;
-+	ts_chip.jitter = 20;
-+	ts_chip.init_period = inv_icm42607_odr_to_period(st->conf.accel.odr);
-+	inv_sensors_timestamp_init(&gyro_st->ts, &ts_chip);
-+
-+	iio_device_set_drvdata(indio_dev, st);
-+	indio_dev->name = name;
-+	indio_dev->info = &inv_icm42607_gyro_info;
-+	indio_dev->modes = INDIO_DIRECT_MODE | INDIO_BUFFER_SOFTWARE;
-+	indio_dev->channels = inv_icm42607_gyro_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(inv_icm42607_gyro_channels);
-+	indio_dev->available_scan_masks = inv_icm42607_gyro_scan_masks;
-+	indio_dev->setup_ops = &inv_icm42607_buffer_ops;
-+
-+	ret = devm_iio_kfifo_buffer_setup(dev, indio_dev,
-+					  &inv_icm42607_buffer_ops);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	ret = devm_iio_device_register(dev, indio_dev);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	return indio_dev;
-+}
-+
-+int inv_icm42607_gyro_parse_fifo(struct iio_dev *indio_dev)
-+{
-+	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-+	struct inv_icm42607_sensor_state *gyro_st = iio_priv(indio_dev);
-+	struct inv_sensors_timestamp *ts = &gyro_st->ts;
-+	ssize_t i, size;
-+	unsigned int no;
-+	const void *accel, *gyro, *timestamp;
-+	const s8 *temp;
-+	unsigned int odr;
-+	s64 ts_val;
-+	struct inv_icm42607_gyro_buffer buffer = { };
-+
-+	/* parse all fifo packets */
-+	for (i = 0, no = 0; i < st->fifo.count; i += size, ++no) {
-+		size = inv_icm42607_fifo_decode_packet(&st->fifo.data[i],
-+				&accel, &gyro, &temp, &timestamp, &odr);
-+		/* quit if error or FIFO is empty */
-+		if (size <= 0)
-+			return size;
-+
-+		/* skip packet if no gyro data or data is invalid */
-+		if (gyro == NULL || !inv_icm42607_fifo_is_data_valid(gyro))
-+			continue;
-+
-+		/* update odr */
-+		if (odr & INV_ICM42607_SENSOR_GYRO) {
-+			inv_sensors_timestamp_apply_odr(ts, st->fifo.period,
-+							st->fifo.nb.total, no);
-+		}
-+
-+		memcpy(&buffer.gyro, gyro, sizeof(buffer.gyro));
-+		/* convert 8 bits FIFO temperature in high resolution format */
-+		buffer.temp = temp ? (*temp * 64) : 0;
-+		ts_val = inv_sensors_timestamp_pop(ts);
-+		iio_push_to_buffers_with_ts(indio_dev, &buffer,
-+					    sizeof(buffer), ts_val);
-+	}
-+
-+	return 0;
-+}
--- 
-2.43.0
-
+bod
