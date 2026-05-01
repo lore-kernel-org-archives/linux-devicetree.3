@@ -1,218 +1,474 @@
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E42123F417
-	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 01:14:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777598073; cv=pass; b=Zs/IrgbhRDSlm9vQZTSWNZv586PyNmYQwPjYG9Mw8PP3fTfJVnAgsAhyj9kgSNQq+sQxX2/mzLKMUrJKJ2MnhSgl+Vb3EQu9ywDaTIP+8d5ySUzKlWcD80TSh9Cjc3xb6jNvK65wBXoq/5wdQQLOm9tQ0GKi086YyKOcwJMQ3Xw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777598073; c=relaxed/simple;
-	bh=exuSsdHKT+zthWkuRA+gPVVR1CT8EoAl1eoPv1aF30E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pX2F3ax9gfw+O12d4GEeuNbxoXRavggkaLptPUTx60cEM8IjYgTbJb+A8m8wN/2UwyGRoyKUmknHD5yGUEBxWCuUeva7fRK83uzhTHhTjisRkWZ6g6BpAlGsJBJ2WY2bLTTDoJou9B6YQe1O85ujEkWZDLR+tBYzKpdi9agFLPU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fmYq3UIj; arc=pass smtp.client-ip=209.85.167.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219372BEC5E
+	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 04:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777608330; cv=none; b=aYlRWRw1Bt2LINcSTsgU8ZElb9oxeuUPAnnUqF8s2WE7NRyF+1YJwBGv1f4rWYlZa+2R57fkCdh6k4KNAkEB5M4YWCXqRVVska2vkqD7g8+7Im+b44XcpaAeR23pAu3TwlRtDvICxZuHMD2mEBPnosrNr7NPKoZHX3ePJuKg+SY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777608330; c=relaxed/simple;
+	bh=hk9menut7yraUPHKVzEP5HkssZqRW7XKvcYZoS6dtfI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aRUIzouun/lvB+3z5kRKOxxTXlySLFjHIsKd0y6noDOsFJ63nr976T/bWXzfZ/osQRfiNdGyjpt1r+Cjo6UIUu50MCrD/EvsHo9gy9el/M1i8fouy/x4XrZMkZBGNZmsGPf8hDWkqhvYszqUkF79j6LyHdQYrsgxNFzo+HaHZ7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nl6b16dt; arc=none smtp.client-ip=209.85.210.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fmYq3UIj"
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5a742b8b72eso1687729e87.1
-        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 18:14:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777598070; cv=none;
-        d=google.com; s=arc-20240605;
-        b=kk68Dr9NGv/no8a8M8cOGhWLSEo0jwedOocUI6X2zMQvFk0NDiJ3oV7qX73EIDF1qW
-         y8j2TJGEzV4CJSRaA9cNlfeiArI8fWKi/IXNz0hQvIaSKPiRCf+AItaNWcP+c5mEae0R
-         cjADgFQw5gsHK3VD7qgoCdFBf4IUFP6SaOtkhO7NF6mgpAIb7X1qsWIrhm+FkIKrQH1M
-         d7bfaRWTQalGlG0NJ/A+TMNqs1t1NqCWYgdBJIets/UrBMAPPghdoFR+b/0nansqUPaP
-         RbzT1gAQDEPZjb93r3Sr6qZboO3+CLihoVXLw2jZq0nWNTJ6nQtNi0sYcR1CbVgbG1l0
-         TWSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=m28+puEu5Ee66n2KfB2wRWkME3JWmn3lDkS7ebPVgFI=;
-        fh=JayzxEyaioHg+D5Q+qGOHYTQ1YTUUxHGY8w7lzCxXKQ=;
-        b=Ps5tWSDyQW4Jlo0ppSEHRZl6Zapw8toPXYVBo6CGlcEFSZAD0uwIOJnLu2mNCYWoMp
-         OUh5s7kuOTuJv3UiXO2l7+/EzWW3SnxaMR+HVwPXZdnPLL3VrpmKVrNecmzvwx8OA3qh
-         STetaJEurw4BOYSyCzl5gCmJ3aNw3vDsVnVxDfupnzKWfgTpRfmO+rA/b62tx4C4HNVV
-         fT/CyfQLz1yq62///0ApiYegc/tgo1uqtHcFELJfb4QUlH+iUllBiv6hKIwB6Ws1pGYu
-         WEliE1+cKG2Ei3ixp/AENjfHIOXwgv3C0vooGbG+s04ToSAxcFZ9/Arng32kLvnmXnqf
-         LSyw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nl6b16dt"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-827270d50d4so1552927b3a.3
+        for <devicetree@vger.kernel.org>; Thu, 30 Apr 2026 21:05:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777598070; x=1778202870; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=m28+puEu5Ee66n2KfB2wRWkME3JWmn3lDkS7ebPVgFI=;
-        b=fmYq3UIj6n+1SlEHq0pvOEQYOO7uh4+ufhzeoW6uu2DnQB1l9XXWZj7MnNxlrABMXc
-         IoPT82retLbo5VNjEdmQZOT4/TTUYVs+NWLC8BLxCeyNoNyTO9ycDFKy/ofoyh7bWA/j
-         MDEWTKDCNzHLN/bQD2k2HW1WOjNOrNbeIt6DhCVU3lavmgMzNit9z9esLsklO0RGVili
-         1Jto8HWH6NUQ+3NAxsOGX9xsThf9tcY6ptsTlV51KfkEsgfcjjSAtyt01B2otT0Mj2/H
-         MeljtIOglRu7Kfu79at1tCKUwnxDWvXv2yu0qiYw70xif2w9UVZnWyLfCQORasu9iY1L
-         uUnQ==
+        d=gmail.com; s=20251104; t=1777608328; x=1778213128; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=NolRfXqrvWqre9Wtxu/jPySBcQ6D9Vpgy/nSf/fmvNk=;
+        b=Nl6b16dtLgrpPe+vz/cpSt92ZsollC1dUl6Yyz+qXdWZlII2chW0txBXZDzQaxciMg
+         VvUsfyi6grqSj6OhvPM/435KXyRANNQoqg+OcccVM7oFfneZByfzLJ/2zrgw0sGLvy8l
+         URbS2+UXyaaT57NikiTjbnRJ0+xM7b0PSs6+QRkmlWVQQFb1/zuSWmagxssQPlX70cmX
+         MGEcC2Le4Ck+Tl9H70AQItY2zwlA3Hhdj2pKm/QdPouVn9oeYBSMXVGLAvm4Y0n/Iqj0
+         yBR/oTu8QRnHOIIKFHIjuHjYdsTf+cLvAAG1xOQg4vODDkfogb0V3bsD67LfHrgPS+4W
+         Evbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777598070; x=1778202870;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=m28+puEu5Ee66n2KfB2wRWkME3JWmn3lDkS7ebPVgFI=;
-        b=SgPHQrPqnun2EESL9uVajrD6NE66Qwbp0R0mTOSmUxJUswfICvLTT7DFEfc6fygJSm
-         mXEd7wnSfJg7hNkEnGjftynfiT4g2Tt+EmyPMqOlQ6GYTHRFrjLloXRrOcch0A5gY4Sk
-         Mhwv3ufqqn7c93IyCX42GBYhTlcuYfcjHfbL+xAlXQDb8UUpr8Mc9v3SsaLBep3BuLoO
-         YwbBezXxaYlPzsNpxO6r3qYUykV8Lx0Jn2vvuKwN3Hv9sagNEdaQRPv0DuVTNkMt51if
-         avhEiCNSNkVrtQJNVWhYKx6TUwPgRmDF2xOQnpZzIBE2tkAv0LjrGuA7g+cvRyEJMbd8
-         DZ+g==
-X-Forwarded-Encrypted: i=1; AFNElJ+ZpYafvX5sfe5SDPOSMDCoCbzQ4KR7utfCNE5x99ToKameVai9KgLLprVqDsqtlKuLr9yQqrca1cMU@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw+j9TmX5kLvR2O8vu+79rpC/lruhvL7WOiqtpw6dUvCjizsR1T
-	qNt4D/OCRtrMYxWniB0UQVkB/L0yFvc2/TIOeAs2oNF4Tr8BDpanJQQItU8tXtXdC9bSRT30WM0
-	xLs8mg0VaiqZ4YBw9vO19NXZtmG/MJYs=
-X-Gm-Gg: AeBDies3w1h3Zc4jmeJT5JTIUDRmzYTWsHXqvjU0xgRgRQpeeJ5yuJUPAwpz1CjYyAF
-	ABWoy4rX8WcD4YPuCNkXnrjWZJtbvAF5aUfwYz8VN/Z3bZ86enmOOq+QG6UmBPtIupBmh+Ov+JF
-	a25ccYrKLngWhxU842Sa5BexEspm5wceDw837YRsqJ4A22ApyKaTz8hyYxNop8Maym/w1Q99bUw
-	3FGPMHubBRZJHW9XsQjsrmuq98IIK2MFjfOix0JdZrFauVwSS5ScgcN0JUsy8MNV0Le4uhr3iu9
-	LeNklwi/BZU/oDWqsTD4FqETh95VNlMibV7ZAMQz4NGIU5H4mWa+3nfNaH8GBvMjcMjtiPnvMNi
-	5nt8=
-X-Received: by 2002:a05:6512:2385:b0:5a8:53c4:f8b7 with SMTP id
- 2adb3069b0e04-5a85aea76edmr271048e87.27.1777598070239; Thu, 30 Apr 2026
- 18:14:30 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1777608328; x=1778213128;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=NolRfXqrvWqre9Wtxu/jPySBcQ6D9Vpgy/nSf/fmvNk=;
+        b=c6R2GrgiJuMw+lii3l2M1Vx3P8wpYebOTZJan10+13nP6hPTgwvDfJbY7EgoAseM94
+         QJCiYNRvlXSyNraI1dDRKIdBdGriKCP9LV7BP7mTkVr7RqUHeSx84ZY+/vcWInAYtZfo
+         N3vfEnqtBivP4p7zmFw2vpimfE/PX8+2xfdDhrXZygKw4/5bM2anPxcg+cZVlEFA/KKj
+         ZZD2xwzdA7KEF8wNyGe4u7cqO5YdaZKaEs1AiwpbH8CCeNsn+E3pPgKaT8aN/sG01+p6
+         gBIexc8ippNa50CLeJ10tDygxj5AyDGsc3Ugr9oXlAouS9wariH+wsZ9gNY4IT2Nl4HF
+         Octg==
+X-Forwarded-Encrypted: i=1; AFNElJ+1jzH7Jd4v9SZ7Ql8Zw42HmixwPFEIEeqUQy3oZbGpk3wQa5M3pZ5IKkQfyBU8JuYZNIXgTsjqlZep@vger.kernel.org
+X-Gm-Message-State: AOJu0YzqnuXl2MTmI1ktGbyiHVBq48u3PqO8Y6Z39hTXz2xMqSIA/X+x
+	cbuaJl9/lkFhs1UIptX9QJYLNNAhuJFb9mwISYAgwuYu38hFqW99RSQD
+X-Gm-Gg: AeBDievOGOk8OI19frAyB3toW63B24on8J+hCKXdIwkmGlMqtxbSa/okrw5Oq2Alho4
+	KOKRydRwiFwVDxv8fC7bHK9vZsTqUlGPVa8+V5uZypl5vAsKfm/n+VVq564sjU1W+Vgyhi8se/G
+	IcokPXvKBp4RXayR2TqM1HYCJe/3CQXU+ke00ZMptLXtECwhI9Mwhmld6tmbb7QoSA937zJ/M/U
+	oiLtvj9qm000sS96HYHBuwxwRnMaqyi9Dbav5pMczEN7DWjJK/O/OnYpLceUsSVzZDSQKbDRGQ2
+	oW1UB0rnC9CqCUCyZiXbXtmm3VOXg7V4ZeQCwzutAE+RGMGZH+f4KgY5224Bi8ZJ6ssrqTV2H5F
+	wzfJ2sF5mtTJUtFWXyAXUcLQ2/3Wc15JLy4lH2z/ZjOobbSXM5AU8/f2xBID/bofwdBNuwftJS0
+	bEi9L7xX7Azyk/Sz/MFkbRwoOZMZ0pBmw+RQ==
+X-Received: by 2002:a05:6a00:1405:b0:82f:6858:3f6 with SMTP id d2e1a72fcca58-834fd9b5711mr6791526b3a.0.1777608328272;
+        Thu, 30 Apr 2026 21:05:28 -0700 (PDT)
+Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8351582dd55sm1182119b3a.1.2026.04.30.21.05.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Apr 2026 21:05:27 -0700 (PDT)
+Date: Fri, 1 May 2026 12:05:17 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Ze Huang <huang.ze@linux.dev>, Inochi Amaoto <inochiama@gmail.com>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Alex Elder <elder@riscstar.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH 2/2] phy: spacemit: Add USB3/PCIe comb PHY driver for
+ Spacemit K3
+Message-ID: <afQj0ZaVx9gvx5YF@inochi.infowork>
+References: <20260430022843.1090138-1-inochiama@gmail.com>
+ <20260430022843.1090138-3-inochiama@gmail.com>
+ <DI6BHTW4FFN1.2YLR7O1P8F0Y3@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260430-ayn-qcs8550-v7-0-591a96735fa3@gmail.com>
- <20260430-ayn-qcs8550-v7-3-591a96735fa3@gmail.com> <51eb35d3-5390-4f3b-9cb7-8d289151a650@packett.cool>
-In-Reply-To: <51eb35d3-5390-4f3b-9cb7-8d289151a650@packett.cool>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Thu, 30 Apr 2026 20:14:19 -0500
-X-Gm-Features: AVHnY4IqGOmz8R89G_6Rz307FJq6ErM4oOGk3cUhVY1gE5fm-FmCr4i0j-Ja4HU
-Message-ID: <CALHNRZ_dG4KGoeCp0Qkqd667U90FfPXvO9UELnC5d=SwjxXLWQ@mail.gmail.com>
-Subject: Re: [PATCH v7 3/6] arm64: dts: qcom: Add AYN QCS8550 Common
-To: Val Packett <val@packett.cool>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DI6BHTW4FFN1.2YLR7O1P8F0Y3@linux.dev>
 
-On Thu, Apr 30, 2026 at 6:59=E2=80=AFPM Val Packett <val@packett.cool> wrot=
-e:
->
->
-> On 4/30/26 3:43 PM, Aaron Kling via B4 Relay wrote:
-> > From: Teguh Sobirin <teguh@sobir.in>
+On Thu, Apr 30, 2026 at 03:39:51PM +0800, Ze Huang wrote:
+> On Thu Apr 30, 2026 at 10:28 AM CST, Inochi Amaoto wrote:
+> > The comb PHY on K3 requires to configure a syscon device for the
+> > right mux configuration. And it requires calibration before any
+> > usage.
 > >
-> > This contains everything common between the AYN QCS8550 devices. It wil=
-l
-> > be included by device specific dts'.
-> > [..]
+> > Add USB3/PCIe comb PHY driver for Spacemit K3.
+> >
+> > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> > ---
+> >  drivers/phy/spacemit/Kconfig          |  16 ++
+> >  drivers/phy/spacemit/Makefile         |   2 +
+> >  drivers/phy/spacemit/phy-k3-combphy.c | 250 ++++++++++++++++
+> >  drivers/phy/spacemit/phy-k3-common.c  | 398 ++++++++++++++++++++++++++
+> >  drivers/phy/spacemit/phy-k3-common.h  |  27 ++
+> >  5 files changed, 693 insertions(+)
+> >  create mode 100644 drivers/phy/spacemit/phy-k3-combphy.c
+> >  create mode 100644 drivers/phy/spacemit/phy-k3-common.c
+> >  create mode 100644 drivers/phy/spacemit/phy-k3-common.h
+> >
+> > diff --git a/drivers/phy/spacemit/Kconfig b/drivers/phy/spacemit/Kconfig
+> > index 50b0005acf66..5fdf18fce499 100644
+> > --- a/drivers/phy/spacemit/Kconfig
+> > +++ b/drivers/phy/spacemit/Kconfig
+> > @@ -23,3 +23,19 @@ config PHY_SPACEMIT_K1_USB2
+> >  	help
+> >  	  Enable this to support K1 USB 2.0 PHY driver. This driver takes care of
+> >  	  enabling and clock setup and will be used by K1 udc/ehci/otg/xhci driver.
 > > +
-> > +     /* The tzlog label is required by ABL to apply a dtbo, but it can=
- be on any node */
-> > +     qcom_tzlog: chosen {
-> > [..]
+> > +config PHY_SPACEMIT_K3_COMMON_OPS
+> > +	tristate
+> > +	select MFD_SYSCON
+> > +	select GENERIC_PHY
 > > +
-> > +     /* The arch_timer label is unused here, but is required by ABL to=
- apply a dtbo */
-> > +     arch_timer: timer { };
->
-> awkwaaard.. Is there any problem with requiring erased dtbo? For phones
-> that's generally what's done. Having junk from random dtbos is best avoid=
-ed.
-
-This has been discussed like 6 times over at this point, like this [0]
-thread for example. The request from there was to make this device
-specific, so here it is. My use case needs a variant dtbo in order to
-support all AYN qcs8550 devices in one software release. And the
-install flow handles the dtbo partition, so for my use case there will
-be no random junk. And use cases that don't want dtbo will instruct
-users to erase the dtbo, and this doesn't prevent that.
-
-> Also according to the pmOS wiki [1] at least on some of these devices,
-> there's no need to boot from ABL at all! There's also U-Boot and you can
-> switch between ABL and U-Boot at will (sounds awesome!)
-
-My use case is Android, and shipping something installable by the
-average Android custom rom user. Manually replacing bootloaders is not
-something I want to force users to do. Especially given that the stock
-bootloader supports all the android setup already, I don't want to
-have to re-implement all that in u-boot. This has also been re-hashed
-several times in series leading up to this.
-
-> > [..]
-> > +&i2c_hub_2 {
-> > +     clock-frequency =3D <400000>;
+> > +config PHY_SPACEMIT_K3_COMBO_PHY
+> > +	tristate "SpacemiT K3 USB3/PCIe PHY support"
+> > +	depends on (ARCH_SPACEMIT || COMPILE_TEST) && OF
+> > +	depends on COMMON_CLK
+> > +	select PHY_SPACEMIT_K3_COMMON_OPS
+> > +	help
+> > +	  Enable this to support K3 USB3/PCIe combo PHY driver. This
+> > +	  driver takes care of enabling and clock setup and will be used
+> > +	  by K3 dwc3 driver.
+> > +	  If unsure, say N.
+> > diff --git a/drivers/phy/spacemit/Makefile b/drivers/phy/spacemit/Makefile
+> > index a821a21d6142..41be7b0388da 100644
+> > --- a/drivers/phy/spacemit/Makefile
+> > +++ b/drivers/phy/spacemit/Makefile
+> > @@ -1,3 +1,5 @@
+> >  # SPDX-License-Identifier: GPL-2.0-only
+> >  obj-$(CONFIG_PHY_SPACEMIT_K1_PCIE)		+= phy-k1-pcie.o
+> >  obj-$(CONFIG_PHY_SPACEMIT_K1_USB2)		+= phy-k1-usb2.o
+> > +obj-$(CONFIG_PHY_SPACEMIT_K3_COMBO_PHY)		+= phy-k3-combphy.o
+> > +obj-$(CONFIG_PHY_SPACEMIT_K3_COMMON_OPS)	+= phy-k3-common.o
+> > diff --git a/drivers/phy/spacemit/phy-k3-combphy.c b/drivers/phy/spacemit/phy-k3-combphy.c
+> > new file mode 100644
+> > index 000000000000..66fa6330ad6e
+> > --- /dev/null
+> > +++ b/drivers/phy/spacemit/phy-k3-combphy.c
+> > @@ -0,0 +1,250 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/*
+> > + * phy-k3-usb3.c - SpacemiT K3 Type-C Orientation Switch Driver
+> > + *
+> > + * Copyright (c) 2025 SpacemiT Technology Co. Ltd
+> > + */
 > > +
-> > +     status =3D "okay";
+> > +#include <linux/bitfield.h>
+> > +#include <linux/io.h>
+> 
+> ...
+> 
+
 > > +
-> > +     spk_amp_l: amplifier@34 {
-> > +             compatible =3D "awinic,aw88166";
-> > +             reg =3D <0x34>;
-> > +             #sound-dai-cells =3D <0>;
-> > +             reset-gpios =3D <&tlmm 103 GPIO_ACTIVE_LOW>;
-> > +             awinic,audio-channel =3D <0>;
-> > +             awinic,sync-flag;
-> > +             sound-name-prefix =3D "SPK_L";
-> I guess there's no real standard/convention for the prefixes but maybe
-> worth changing to the more readable "Amplifier L" / "Amplifier R" that's
-> used on e.g. the fairphone,fp5?
-
-I guess I could.
-
-> > +     };
+> > +	phy->apb_spare = syscon_regmap_lookup_by_phandle(node, "spacemit,apb-spare");
+> > +	if (IS_ERR(phy->apb_spare))
+> > +		return dev_err_probe(dev, PTR_ERR(phy->apb_spare),
+> > +				     "Failed to fine APB SPARE syscon");
+> 
+> typo, s/fine/find
+> 
 > > +
-> > +     spk_amp_r: amplifier@35 {
-> > +             compatible =3D "awinic,aw88166";
-> > +             reg =3D <0x35>;
-> > +             #sound-dai-cells =3D <0>;
-> Also #sound-dai-cells should go last, with a newline before it.
+> > +	apmu = syscon_regmap_lookup_by_phandle_args(node, "spacemit,apmu", 1, &config);
+> > +	if (IS_ERR(apmu))
+> > +		return dev_err_probe(dev, PTR_ERR(phy->apb_spare),
+> > +				     "Failed to fine APMU syscon");
+> 
+> 1. typo, s/fine/find
+> 2. PTR_ERR(phy->apb_spare) should be PTR_ERR(apmu)
+> 
 
-Ack.
+Thanks for pointing that
 
-> > +             reset-gpios =3D <&tlmm 100 GPIO_ACTIVE_LOW>;
-> > +             awinic,audio-channel =3D <1>;
-> > +             awinic,sync-flag;
-> The awinic properties should also be a newline-separated "block", before
-> the # one.
-
-Ack.
-
-> > +             sound-name-prefix =3D "SPK_R";
-> > +     };
+> > +
+> > +	ret = k3_comb_phy_update_config(apmu, config);
+> > +	if (ret < 0)
+> > +		return dev_err_probe(dev, ret, "Failed to set lane configuration");
+> > +
+> > +	phy->dev = dev;
+> > +	platform_set_drvdata(pdev, phy);
+> > +
+> > +	ret = k3_phy_calibrate(phy->apb_spare);
+> > +	if (ret < 0)
+> > +		return dev_err_probe(dev, ret, "Failed to calibrate phy");
+> > +
+> > +	ret = k3_comb_phy_init_lanes(phy, config);
+> > +	if (ret < 0)
+> > +		return dev_err_probe(dev, ret, "Failed to init lanes");
+> > +
+> > +	provider = devm_of_phy_provider_register(dev, k3_comb_phy_xlate);
+> > +	if (IS_ERR(provider))
+> > +		return dev_err_probe(dev, PTR_ERR(provider),
+> > +				     "Failed to register provider\n");
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static const struct of_device_id k3_comb_phy_of_match[] = {
+> > +	{ .compatible = "spacemit,k3-comb-phy" },
+> > +	{ },
 > > +};
-> > [..]
->
-> BTW, do these "just work" right now?
+> > +MODULE_DEVICE_TABLE(of, k3_comb_phy_of_match);
+> > +
+> > +static struct platform_driver k3_comb_phy_driver = {
+> > +	.probe = k3_comb_phy_probe,
+> > +	.driver = {
+> > +		.name = "spacemit,k3-comb-phy",
+> > +		.of_match_table = k3_comb_phy_of_match,
+> > +	},
+> > +};
+> > +module_platform_driver(k3_comb_phy_driver);
+> > +
+> > +MODULE_DESCRIPTION("SpacemiT K3 USB3/PCIe comb PHY driver");
+> > +MODULE_LICENSE("GPL");
+> > diff --git a/drivers/phy/spacemit/phy-k3-common.c b/drivers/phy/spacemit/phy-k3-common.c
+> > new file mode 100644
+> > index 000000000000..77c4b4073b96
+> > --- /dev/null
+> > +++ b/drivers/phy/spacemit/phy-k3-common.c
+> > @@ -0,0 +1,398 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +
+> > +#include <linux/bitfield.h>
+> > +#include <linux/cleanup.h>
+> > +#include <linux/io.h>
+> > +#include <linux/iopoll.h>
+> > +#include <linux/module.h>
+> > +#include <linux/regmap.h>
+> > +#include <linux/usb.h>
+> > +
+> > +#include <dt-bindings/phy/phy.h>
+> > +
+> > +#include "phy-k3-common.h"
+> > +
+> > +/* PHY Registers */
+> > +#define PHY_VERSION			0x0
+> > +
+> > +#define PHY_RESET_CFG			0x04
+> > +
+> > +#define PHY_RESET_RXBUF_RST		BIT(0)
+> > +#define PHY_RESET_SOFT_RST_PCS		BIT(1)
+> > +#define PHY_RESET_SOFT_RST_AHB		BIT(2)
+> > +#define PHY_RESET_EN_SD_AFTER_LOCK	BIT(6)
+> > +
+> > +#define PHY_CLK_CFG			0x08
+> > +
+> > +#define PHY_CLK_PLL_READY		BIT(0)
+> > +#define PHY_CLK_TXCLK_INV		BIT(2)
+> > +#define PHY_CLK_RXCLK_EN		BIT(3)
+> > +#define PHY_CLK_TXCLK_EN		BIT(4)
+> > +#define PHY_CLK_PCLK_EN			BIT(5)
+> > +#define PHY_CLK_PIPE_PCLK_EN		BIT(6)
+> > +#define PHY_CLK_REFCLK_FREQ		GENMASK(10, 7)
+> > +#define PHY_CLK_REFCLK_24M		2
+> > +#define PHY_CLK_SW_INIT_DONE		BIT(11)
+> > +#define PHY_CLK_PU_SSC_OUT		BIT(23)
+> > +
+> > +#define PHY_MODE_CFG			0x0C
+> > +
+> > +#define PHY_MODE_PCIE_INT_EN		BIT(0)
+> > +#define PHY_MODE_LFPS_TPERIOD		GENMASK(9, 8)
+> > +#define PHY_MODE_LFPS_TPERIOD_USB	3
+> > +
+> > +#define PHY_PU_SEL			0x40
+> > +
+> > +#define PHY_PU_CFG_STATUS		BIT(9)
+> > +#define PHY_PU_OVRD_STATUS		BIT(10)
+> > +
+> > +#define PHY_PU_CK_REG			0x54
+> > +
+> > +#define PHY_PU_REFCLK_100		BIT(25)
+> > +
+> > +#define PHY_PLL_REG1			0x58
+> > +
+> > +#define PHY_PLL_FREF_SEL		GENMASK(15, 13)
+> > +#define PHY_PLL_FREF_24M		0x1
+> > +#define PHY_PLL_SSC_DEP_SEL		GENMASK(27, 24)
+> > +#define PHY_PLL_SSC_5000PPM		0xa
+> > +#define PHY_PLL_SSC_MODE		GENMASK(29, 28)
+> > +#define PHY_PLL_SSC_MODE_CENTER_SPREAD	0
+> > +#define PHY_PLL_SSC_MODE_UP_SPREAD	1
+> > +#define PHY_PLL_SSC_MODE_DOWN_SPREAD	2
+> > +#define PHY_PLL_SSC_MODE_DOWN_SPREAD1	3
+> > +
+> > +#define PHY_PLL_REG2			0x5c
+> > +
+> > +#define PHY_PLL_SEL_REF100		BIT(21)
+> > +
+> > +/* PHY RX Register Definitions */
+> > +#define PHY_RX_REG_A			0x60
+> > +
+> > +#define PHY_RX_REG0_RLOAD		BIT(4)
+> > +#define PHY_RX_REG1_RTERM		GENMASK(11, 8)
+> > +#define PHY_RX_REG1_RC_CALI		GENMASK(15, 12)
+> > +#define PHY_RX_REG2_CSEL		GENMASK(19, 16)
+> > +#define PHY_RX_REG2_FORCE_CSEL		BIT(20)
+> > +#define PHY_RX_REG2_PSEL		GENMASK(23, 21)
+> > +#define PHY_RX_REG3_I_LOAD		GENMASK(26, 24)
+> > +#define PHY_RX_REG3_SEL_CBOOST_CODE	BIT(27)
+> > +#define PHY_RX_REG3_ADJ_BIAS		GENMASK(29, 28)
+> > +#define PHY_RX_REG3_RDEG1		GENMASK(31, 30)
+> > +
+> > +#define PHY_RX_REG_B			0x64
+> > +
+> > +#define PHY_RX_REGB_MASK		GENMASK(23, 0)
+> > +
+> > +#define PHY_RX_REG4_RDEG2		GENMASK(2, 1)
+> > +#define PHY_RX_REG4_ENVOS		BIT(4)
+> > +#define PHY_RX_REG4_RTERM_SEL		BIT(5)
+> > +#define PHY_RX_REG4_MANUAL_CFG		BIT(7)
+> > +#define PHY_RX_REG5_RCELL_VCM		GENMASK(11, 8)
+> > +#define PHY_RX_REG5_RCELL_BIAS		GENMASK(15, 12)
+> > +#define PHY_RX_REG6_H1_REG		GENMASK(19, 16)
+> > +#define PHY_RX_REG6_ADAPT_GAIN		GENMASK(21, 20)
+> > +#define PHY_RX_REG6_BYPASS_ADPT		BIT(22)
+> > +
+> > +#define PHY_ADPT_CFG0			0x140
+> > +#define PHY_ADPT_AFE_RST_OVRD_EN	BIT(1)
+> > +#define PHY_ADPT_AFE_RST_OVRD_VAL	BIT(4)
+> > +
+> > +#define PHY_RXEQ_TIME			0xb4
+> > +#define PHY_RXEQ_TIME_OVRD_POST_C_SOC	BIT(21)
+> > +#define PHY_RXEQ_TIME_CFG_AMP_SOC	GENMASK(23, 22)
+> > +#define PHY_RXEQ_TIME_AMP_SOC_650M	0
+> > +#define PHY_RXEQ_TIME_AMP_SOC_800M	1
+> > +#define PHY_RXEQ_TIME_AMP_SOC_870M	2
+> > +#define PHY_RXEQ_TIME_AMP_SOC_900M	3
+> > +#define PHY_RXEQ_TIME_OVRD_AMP_SOC	BIT(24)
+> > +
+> > +#define PCIE_PU_ADDR_CLK_CFG		0x0008
+> > +#define PHY_CLK_PLL_READY		BIT(0)
+> > +#define PCIE_INITAL_TIMER		GENMASK(6, 3)
+> > +#define CFG_INTERNAL_TIMER_ADJ		GENMASK(10, 7)
+> > +#define CFG_SW_PHY_INIT_DONE		BIT(11)
+> > +
+> > +/* Lane RX/TX configuration (per‑lane, at lane_base) */
+> > +#define PCIE_RX_REG1			0x050
+> > +#define PCIE_TX_REG1			0x064
+> > +
+> > +#define PCIE_PLL_TIMEOUT		500000
+> > +#define PCIE_POLL_DELAY			500
+> > +
+> > +
+> 
+> ...
+> 
+> > +static int k3_pcie_phy_init(struct phy *phy)
+> > +{
+> > +	struct k3_lane_group *lg = phy_get_drvdata(phy);
+> > +	void __iomem *phy_base = lg->base + lg->data->offsets[0];
+> > +	u32 val;
+> > +	int ret;
+> > +	int i;
+> > +
+> > +	val = readl(phy_base + PHY_PLL_REG1);
+> > +	val = u32_replace_bits(val, 0x2, GENMASK(15, 12));
+> > +	writel(val, phy_base + PHY_PLL_REG1);
+> > +
+> > +	val = readl(phy_base + PHY_PLL_REG2);
+> > +	val = u32_replace_bits(val, 0, BIT(21));
+> > +	writel(val, phy_base + PHY_PLL_REG2);
+> > +
+> > +	for (i = 0; i < lg->data->lanes; i++) {
+> > +		void __iomem *lane_base = lg->base + lg->data->offsets[i];
+> > +
+> 
+> > +		val = readl(lane_base + PCIE_RX_REG1);
+> > +		val = u32_replace_bits(val, 0, 0x3);
+> > +		writel(val, phy_base + PCIE_RX_REG1);
+> 
+> This looks like a copy-paste bug.
+> 
+> Read from lane_base but write the modified value to phy_base.
+> 
 
-I get sound out of the speakers with no additional aw881166 driver
-changes or manipulation on the amp alsa controls, so yes. I do have
-instability with sound in general, like the active stream will
-randomly stop making noise until a pause/resume or something in the
-kernel (or adsp?) will start infinite looping, taking down the entire
-card. But that appears to be related to the adsp or qcom dsp drivers
-and how aosp interacts with them. Still playing whack a mole with
-that.
+Yes, it should be the lane_base.
 
-Oh, and these devices also need mi2s clock support. Still waiting on
-some version of that support to land. I will have to follow up with
-whatever final form the dt plumbing for that ends up being, if any. I
-do have to carry out of tree patches for this at the moment.
+> > +	}
+> > +
+> > +	val = readl(phy_base + PHY_PLL_REG2);
+> > +	val |= BIT(20);
+> > +	writel(val, phy_base + PHY_PLL_REG2);
+> > +
+> 
+> > +	writel(0x00006505, phy_base + PCIE_RX_REG1);
+> 
+> Is it intentional? The loop above configured PCIE_RX_REG1, while the
+> hard-coded 0x00006505 overwrites what's done for lane0.
+> 
 
-> If so, I guess you're lucky and the "firmware" / register config binary
-> for these devices configures a 16-bit 48kHz format which is the one the
-> soc driver forces.. because the aw88166 driver, just like other awinic
-> amp drivers, doesn't negotiate the format stuff at all and blatantly
-> lies about supporting multiple formats :) I'm currently fixing this for
-> aw88261[2] but eventually we'll probably need to actually kinda unify
-> these drivers..
+Yes, the logic is coming from vendor.
 
-I would assume that's what is happening. Having a more robust and
-unified driver would be welcome, however.
+> > +
+> > +	/* pll_reg1 of lane0, disable SSC: pll_reg4[3:0] = 0 */
+> > +	val = readl(phy_base + PHY_PLL_REG1);
+> > +	val = u32_replace_bits(val, 0, GENMASK(27, 24));
+> > +	writel(val, phy_base + PHY_PLL_REG1);
+> 
+> A little confusing here, comment says "pll_reg4[3:0] = 0" but the code is
+> modifying PHY_PLL_REG1[27:24]
+> 
 
-Aaron
+I think this is is a mistake from the vendor code. IIRC, the
+reg4 may could be the [31:24]. As it is divided into four parts.
 
-[0] https://lore.kernel.org/linux-arm-msm/20260207-sm8550-abl-dtbo-v2-1-83a=
-faa6f3ce9@gmail.com/
+> > +
+> > +	for (i = 0; i < lg->data->lanes; i++) {
+> > +		void __iomem *lane_base = lg->base + lg->data->offsets[i];
+> > +
+> > +		/* set cfg_tx_send_dummy_data to be 1'b1 for disable dash data */
+> > +		val = readl(lane_base + PHY_PU_SEL);
+> > +		val = u32_replace_bits(val, 1, BIT(13));
+> > +		writel(val, lane_base + PHY_PU_SEL);
+> > +
+> > +		/* disable en_sample_data_after_cdr_locked */
+> > +		val = readl(lane_base + PHY_RESET_CFG);
+> > +		val = u32_replace_bits(val, 0, BIT(6));
+> > +		writel(val, lane_base + PHY_RESET_CFG);
+> > +
+> > +		/* Dynamic Lock */
+> > +		val = readl(lane_base + PHY_MODE_CFG);
+> > +		val = u32_replace_bits(val, 1, BIT(2));
+> > +		writel(val, lane_base + PHY_MODE_CFG);
+> > +
+> > +		val = FIELD_PREP(GENMASK(7, 0), 0x10) |
+> > +			FIELD_PREP(GENMASK(15, 8), 0x78) |
+> > +			FIELD_PREP(GENMASK(23, 16), 0x98) |
+> > +			FIELD_PREP(GENMASK(31, 24), 0xdf);
+> > +		writel(val, lane_base + PHY_RX_REG_A);
+> > +
+> > +		val = readl(lane_base + PHY_RX_REG_B);
+> > +		val &= ~PHY_RX_REGB_MASK;
+> > +		val |= FIELD_PREP(GENMASK(7, 0), 0xb4) |
+> > +			FIELD_PREP(GENMASK(15, 8), 0x88) |
+> > +			FIELD_PREP(GENMASK(23, 16), 0x28);
+> > +		writel(val, lane_base + PHY_RX_REG_B);
+> 
+> Can we define macros for these values? Just like you did for
+> PHY_CLK_CFG.
+> 
+
+We can, but I guess this makes no sense. As no detailed document
+about these magic numbers, there is no meaningful name for
+these numbers and fields.....
+
+Regards,
+Inochi
+
+> > +
+> > +		/* Set init done */
+> > +		val = readl(lane_base + PCIE_PU_ADDR_CLK_CFG);
+> > +		val = u32_replace_bits(val, 1, CFG_SW_PHY_INIT_DONE);
+> > +		writel(val, lane_base + PCIE_PU_ADDR_CLK_CFG);
+> > +	}
+> > +
+> > +	ret = readl_poll_timeout(phy_base + PCIE_PU_ADDR_CLK_CFG, val,
+> > +				 (val & PHY_CLK_PLL_READY), PCIE_POLL_DELAY,
+> > +				 PCIE_PLL_TIMEOUT);
+> > +	if (ret) {
+> > +		dev_err(&lg->phy->dev, "PHY PLL lock timeout\n");
+> > +		return ret;
+> > +	}
+> > +
+> > +	return 0;
+> > +}
