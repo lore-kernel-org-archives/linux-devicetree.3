@@ -1,68 +1,67 @@
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A48E359A94
-	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 19:32:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8422A4279F2
+	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 19:40:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777663971; cv=none; b=Uq+oOKWh3nDAF9zxnv29IHzOwd0WhKV2qBA7RWV3hsEMAyLjteHHFWPVLRsQc5nERir6QpKRynAMthLvzbgNZ4UUL/sV3wPsuze/F/7HKtaZU7nWkQ89XCyPCgwABeaRW2yCnJePT3OUt7EyydcHooETvJ15XITj3HHqglgTa2Y=
+	t=1777664434; cv=none; b=lrup10gleqoSvuRmqr6UHEYo1o178G+UTZq+3O9sgqN/H9a8ThQqjK2+NqTJHpMY0owPDZC5lJ+5nW6W3WcUkI0tMupN+GU5JD/0A/seGqUMFJ3rLDH5ayBVirFQclTaFVS72vA0ujYCAgO4CXo0g50QOJGoK+Pt4kHRLpQzDz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777663971; c=relaxed/simple;
-	bh=hTHIz+/tAO64LwsE/3jSAZmYzii7GdaAIgDuYHN/knE=;
+	s=arc-20240116; t=1777664434; c=relaxed/simple;
+	bh=E9GFsmnekKsH/6xM/QZ53TOVyqAnriWM8ZLZsUdfH0g=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ubNk0iKK/2nRj9wOLMG9VNVC99589VgVYDIhrzUlbJFQZZiKk1ZkRpzvk0rqSb7ySn1B6zR64b5fVBC6skwg6Q6XImM9NIGrYBDAs3zitg7CL1l5IIyWVIDslljijKjXj28jqkHW1EnjScP0vnqvybn4zv7AU3ZymEsVwQpETaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rtyZvAdr; arc=none smtp.client-ip=74.125.82.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=OfUkRITIULgH4E7yO+Ojy1PmvKl3Z0i1/Bc5CNv0xlzOcc4W5eU6zeVe0c5RlrFlmuztwM1BTs3JDUJ4/9Uss5j0qzMD5nzBG8zGDGxKVHdy1GVkWz0Q6lLfVu4pYaunZ7lX/zh4NBk/AumBHIfpFK8m40DEg9kf9d3Q11oZ1eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ra2U3c+0; arc=none smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rtyZvAdr"
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-12dbd0f8063so3371622c88.0
-        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 12:32:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ra2U3c+0"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-2ed0a45e970so2707121eec.1
+        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 12:40:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777663969; x=1778268769; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=cdEzZB8ARiChwuNSQzGR2iUqcN1oqQjQshROMA615kc=;
-        b=rtyZvAdrVQM3v/M7o5WusVvZ5Z5sbInlw1MiApob2Bv1wjJJO9+RZ4J5Grr6jE/UNR
-         s6D3Cnqg7iEa5T8UmMcWiA9hwFKPv1Po17HBxnMxw43hLMcT2U7LcBdJKl1rFZksnq5x
-         svP1F5n9I7Tk0TKhWAFAAFNTX4PB6/eLwmtci4U6iQ6AbyGEKEc6HuAK0Hfs5UHSuXeO
-         U3J5s/dVdviJW94nH1bK2Axu4zyGTaCfQPjfN3ZKnNF5qqqz5QT8s9xQGQHwSAeL+NMJ
-         Kei4BCjxPZOVYUf01y7GWOQQlvTu8XXNgW0eev+y4wrb8zZBaKDjbM7siROiE/XiiHbC
-         HCRg==
+        d=google.com; s=20251104; t=1777664430; x=1778269230; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=E8+F67fOWD2tr6DD1heUFiUUyHmOTJ/tbCdix11hm8s=;
+        b=Ra2U3c+0J/UdYQhUkAJV2m3CpiNxw6yLz25j3pF9agkdm07D/EcHmWEmiXKoY106cx
+         PAKOJdhnlkTaCEsFAoXNCCd2t7lsi7llhbbi3YiaJ7/8hl2vH4q8Q0j1HXdax2DQWd9c
+         Qgl9JaFD5/ydcqtef1w8gIM6sxS5JOitIisQRO6wsVMP9JrSqn8f96/0miffMH3Tf+F0
+         yL68d1ITCeItoNEWu9m5wOsq6EGY3jn46TCxDE7kehrESPT8FaI0Ljs6srR/npKKecwo
+         wsltWoF/bT5jaSU/gYYqz1REZ+Kt1HhikcXQhbQKizB6dMPObb7574y6Ssn4gBAv1lOK
+         +kWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777663969; x=1778268769;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=cdEzZB8ARiChwuNSQzGR2iUqcN1oqQjQshROMA615kc=;
-        b=Dh7eytNnXTA7pPJmwM8NptBYGvt1f3+kfi0ZmpH8wEIS3Abo2XOCzwcXJaTRE4v4FU
-         7hM8ONnJWsImc57xINeeRic3cB4Xx8/YWbovxUohoxpI40ekXuWXV3Wjs1sMJFTt6tIn
-         Jjt/I+7UZoOHqsmQF+v0brTb0Ztyj154xa8pRWLw+KJj4pEtT9EbR4eZwmPRbWfwgl99
-         jhrwApFj3nmY4dv5S3r0czrTnmuZ0k+rXCt1qYaTtEceLUwIfHANRKXTVoPz8bWcF1av
-         DJcTz8ymMa7EdSL+u88fBOJ9sIdwgLQwZYsaMH/L+0AwIrQVbSDiZLyGltr4+Fq6hDp9
-         +WOQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/lDFEXjUC5lkKkrsDfVsDvt3nLEAcDX6AszPKdv6SIXdg0ho+E0zw+Xw+/MUOXJU9oqKnFzsEVoHMY@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyzl+bx/t5KMmfhaPRa0Nkw+CYBmS4LEE+3AufpUfSwDCE7KjYq
-	KYJ0IvGSEkwtNIsyRAa0QwIQpeuv4GhuTskB429GFsGEiSYAi3wzgCny
-X-Gm-Gg: AeBDietGGzoKHO0yeWXoq/XyFi9/kTNqJetRwUdgTaGaKaHqC6CctnuJ08XqsXInqks
-	+NCOvDVObNtryDab7kzAWrfOxIie5I6pjp080YBfXOCl/6johkI7rFYzmTUAxuQBaAHXTAbqT9g
-	4B2FU8hk5Dgi7PcWOvYCCxbskBSaESRHRBfCgZAIOYbtnjl0zIztCLyNVt+xhvQhcu2e2/aPHfJ
-	e6NCgTd60ilJQCqH9rWj4hWrNKi9mlkIrccgcnA0RZN5zrXEHHe+N2/4cIoGoyCNElFChuNo8QY
-	xoebzQ12KmdKZ/PzmOpqEXa7Pof2ZoxZagdzxclwRuZJ1iRgZZ+gzYApUqSnF5/EetoiUSlFVm0
-	1U9zQKW3nzre/bHIBU0RIe6CD6tAIKAQ/x4YETl3uHTIYtxdkeb52QJ2VIJ17RPot98hsh7yBk/
-	ih4qTW5EH600CRFiM1jtwDhf1z21icPqXyVdyM/qRnjYDY25HP7M0tJ8Vi9Guc8FVZsRYtvmrt2
-	KW9/Y0iQ0I=
-X-Received: by 2002:a05:7022:4c:b0:128:cedb:33c6 with SMTP id a92af1059eb24-12dfd7d1ac1mr271848c88.16.1777663969150;
-        Fri, 01 May 2026 12:32:49 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12df8424ef1sm5442562c88.9.2026.05.01.12.32.48
+        d=1e100.net; s=20251104; t=1777664430; x=1778269230;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=E8+F67fOWD2tr6DD1heUFiUUyHmOTJ/tbCdix11hm8s=;
+        b=aLPFayfh1oB6IaAaeOo3lvFd8va4m5lnCah8tGs4hB8ybsnNNchZ0Jl6JDcSZfSzmv
+         0vbTYFkixDjhVwU1whWHz5Vn8ZRw6QbK/vT7QnVeauQDIDIEzIf3+hb6Ds5e1iipIwrm
+         PKnL5ly2eM7/R5s4SLMuGjsnmO2EqcqNkNi1dWFE9rO6qkC8JI9yQkcDCbYp9CtIYUnd
+         VC/3mNvjCT/iwZMITIbC8F40xbPrCLFQp3LhOXKkDkALU/o8ri55DK6UzpMYbzoxU4dr
+         o/jzJ4j6XaF+zBzXs+kIDKRdzcf/shVCYDLDZF9xGF4jIDOFa5oi0Y2sPQn9geFxYEz7
+         bWHg==
+X-Forwarded-Encrypted: i=1; AFNElJ9k0N0TIsfIbDgFQLw8W9sSRni3r9JSi+ovPSitctLf7RhdfcFkxh9noDfNf9E8sj5QE5dNBWO13ySs@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+HkjSJxIoL3qLsb84X0A8mdCNy52C80NFGIr7M8gTHEWjKiOW
+	ZjTTeJ+Kq/4Vn48G+pVbpSj/cjGS6saWG3d64rBPoxLd/avylzDzWlVFesscR4O1xg==
+X-Gm-Gg: AeBDiesyU/dIO29do4hTkwP32/tO/WqbmLUoiqBTN2wz80WlCLmW7isKIlWJNq2EbXC
+	r8CRiPZcE9c9NyoGkMTMCUxthn6qRUO++mFc7QS2eOwO0f9K1h8+U8gBsdWlwYjS2BfLYGIT8z8
+	5D0buqq6vVyNIeJIwRsBx0I9a/OQDl/cHXU6mKW71eZYS+15hBSA42TD4s8ueQFmwjeVqVXnByP
+	fHCMJ4Yk3x75p7vsnpqiUGojmN469C8MvwqF1mzSj4TrnlFeioV13AP1GpSrGnCqAHGx1s6gptw
+	U1aszl97QsAeaXnBbU0ySbKDc6Mz9lKy4HmKBJ8dQS+bpGnEcECLli7kPrx/Mha0ap7pNJDYADu
+	FAu95pAuTvqmH11kOmDo4ya7+sCDEbHFncW4VGt2AAFFU9nInvstkI+xW7knTLolGpbovmkwVs/
+	E6+1VuOBVh+I+bBDVTc5s61zPK/VgOUJ7a5iKExuXLTeRpp6CvrGOQFV6uaD0IwcXNZg/unQeTs
+	h7LYhDg82ygk8Q1BuVKWcGqr7kRegoN7epo6PKtfyLe8uU=
+X-Received: by 2002:a05:7300:6c12:b0:2ed:e12:376d with SMTP id 5a478bee46e88-2efba5a7316mr301846eec.35.1777664429125;
+        Fri, 01 May 2026 12:40:29 -0700 (PDT)
+Received: from ?IPV6:2a00:79e0:2e7c:8:5e5b:112e:7ef4:6fe2? ([2a00:79e0:2e7c:8:5e5b:112e:7ef4:6fe2])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ee3b390df0sm5587081eec.17.2026.05.01.12.40.27
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 01 May 2026 12:32:48 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <92fd08f3-f6c9-4a1e-a01e-c5d12b23503f@roeck-us.net>
-Date: Fri, 1 May 2026 12:32:47 -0700
+        Fri, 01 May 2026 12:40:28 -0700 (PDT)
+Message-ID: <d5d36882-5356-4b7f-a73f-70b8edba28d7@google.com>
+Date: Fri, 1 May 2026 12:40:24 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,82 +69,94 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] hwmon: (lm75) Support active-high alert polarity
-To: Conor Dooley <conor@kernel.org>,
- Markus Stockhausen <markus.stockhausen@gmx.de>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- jdelvare@suse.com, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260501120518.3085501-1-markus.stockhausen@gmx.de>
- <20260501120518.3085501-3-markus.stockhausen@gmx.de>
- <20260501-earache-balance-3ac33716ac5a@spud>
+Subject: Re: [PATCH v10 3/6] mfd: max77759: add register bitmasks and modify
+ irq configs for charger
+To: Krzysztof Kozlowski <krzk@kernel.org>, Lee Jones <lee@kernel.org>
+Cc: =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jagan Sridharan <badhri@google.com>, Mark Brown <broonie@kernel.org>,
+ Matti Vaittinen <mazziesaccount@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Sebastian Reichel
+ <sre@kernel.org>, Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, RD Babiera <rdbabiera@google.com>,
+ Kyle Tso <kyletso@google.com>
+References: <20260331-max77759-charger-v10-0-76f59233c369@google.com>
+ <20260331-max77759-charger-v10-3-76f59233c369@google.com>
+ <20260424082639.GI170138@google.com>
+ <fc767096-f39d-4088-b3ad-cc85bdedf36c@google.com>
+ <80599996-00e9-4e6c-9215-cf1c33a861bf@kernel.org>
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260501-earache-balance-3ac33716ac5a@spud>
+From: Amit Sunil Dhamne <amitsd@google.com>
+In-Reply-To: <80599996-00e9-4e6c-9215-cf1c33a861bf@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 5/1/26 10:05, Conor Dooley wrote:
-> On Fri, May 01, 2026 at 02:05:18PM +0200, Markus Stockhausen wrote:
->> All chips supported by this driver support configurable active-high
->> alert polarity. This is already documented in the devicetree description.
->> Add support for it to the driver.
+Hi Krzysztof,
+
+On 4/29/26 9:59 AM, Krzysztof Kozlowski wrote:
+> On 29/04/2026 02:29, Amit Sunil Dhamne wrote:
+>> Hi Lee,
 >>
->> The default polarity of the devices is 0 (active-low). So there is
->> no need to change the clear mask. For consistency reasons adapt the
->> hard-coded configuration value of the AS6200. It is the only device
->> that defaults to active-high polarity.
-> 
-> Uh, I dunno if you can do this, changing defaults is an ABI break
-> typically. What makes it okay to do that in this case?
-> 
+>>
+>> Thanks for your review.
+>>
+>>
+>> On 4/24/26 1:26 AM, Lee Jones wrote:
+>>> On Tue, 31 Mar 2026, Amit Sunil Dhamne via B4 Relay wrote:
+>>>
+>>>> From: Amit Sunil Dhamne <amitsd@google.com>
+>>>>
+>>>> Add register bitmasks for charger function.
+>>>> In addition split the charger IRQs further such that each bit represents
+>>>> an IRQ downstream of charger regmap irq chip. In addition populate the
+>>>> ack_base to offload irq ack to the regmap irq chip framework.
+>>> Please reword this commit messages.
+>>>
+>>> Using 'In addition' twice in such close proximity reads a little awkwardly.
+>> Thanks for pointing it out. Unfortunately, this commit is already part
+>> of the linux and linux-next so I am not sure if I could fix the commit
+>> message retrospectively.
+> I don't understand why you decided to put this with USB patchset. We do
+> ask not to mix subsystems all the time. You made it unnecessarily
+> combination of at least three subsystems.
+>
+> Do not do that.
+Thank you for the feedback. I understand the concern regarding mixing 
+subsystems, and I apologize for the extra overhead this caused during 
+review.
 
-Turns out the driver doesn't actually set the polarity bit due to a driver
-bug, and no one noticed. Also, _if_ active high polarity is set, the _alarm
-attribute shows the wrong value due to a second bug in the driver.
-Given all that, there is no real ABI breakage.
+The decision to group these was driven by tight functional 
+inter-dependencies that I felt would have caused build failures or 
+regressions if split:
 
-Guenter
+MFD & Charger: The charger driver relies on new macros and symbols 
+defined in mfd/max77759.h. Additionally, the MFD driver handles the IRQ 
+chip initialization and defines the named IRQ resources that the charger 
+driver requires to register its handlers.
 
+Charger & USB Type-C: To avoid a regression, the charger driver needed 
+to take over charger mode programming from the TCPC driver (where it was 
+previously handled as a workaround). Merging these separately would have 
+created a race condition or left the hardware in an inconsistent state 
+during the transition.
+
+I see now that this made the patchset difficult to manage across 
+subsystems. For future cases involving such dependencies, would you 
+recommend providing an immutable branch for maintainers to pull from, or 
+is there a different preferred workflow you'd suggest?
+
+Best regards,
+
+Amit
+
+
+>
+> Best regards,
+> Krzysztof
