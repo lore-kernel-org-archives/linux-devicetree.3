@@ -1,69 +1,67 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A833630A9
-	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 07:15:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD282369998
+	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 07:15:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777619742; cv=none; b=hzoxWsHN1QN0db2ACTrfjlhiAOqWIrnJXrQQZHlfWxHGEorxLkFjNRBqocxqs/5wx3QPW1K3aWdJeP096a7jy9S13oOtd9yaWLvVROkELHJxvUevQsmv5g3FbPg3kFK/hTfJw0iLLG/pGSYriLypTh+GwCMqzkZ7djZGaQPqxwU=
+	t=1777619743; cv=none; b=F2Og999fZffSwx4aSp8adkLQjoQpJUSgT/QSIJMxgjwcu7qz1Olq3Byi44FNjJyoBhJcv57mMga8LybmrBAdjs5hw8GMXZ7g8eUNED5oD5sb7prK3BCCBjDDUiIM1PvkI3vw2unONNK4ZvwoJXvfOqnfeo+fj9pQqMLPXP9HYAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777619742; c=relaxed/simple;
-	bh=cpSBeucP8Ss790ZkmBApuFPudNB0i62Xj2QNp9/IQ8M=;
+	s=arc-20240116; t=1777619743; c=relaxed/simple;
+	bh=2nJzs+ggM8UNo2NDd0LLZQ8cBS+aAGJpwl8JxlC8yxg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pfYIFAu6M7Tvg3WlhV7EEj6M4aZrCuRuNdFd/yul9O45QgDL8iKJ2M52c3CdqRr3iK27gH+pLMfH2b4hZK3/FihGro0NGBwEdxkjVTfyg6mvku31vO3hTM8IP6b2ib43eQZVc2FwpQvxqhM7dokKnXwOHjOt6Vic8Itef69VlM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=YJgVjxE9; arc=none smtp.client-ip=209.85.128.41
+	 In-Reply-To:To:Cc; b=LJgT2kYeIzaTLSVnnx979EFc8Mtq6wosvnc5ipz6BzNMXBzUgn3kVtB5e/UQwHAe1/s2cWTPDFwiX++8OoB4Np4HMnsTllMHQtKOynfK6r8vW+VWuz1O/rRxN6dA1WzelhHF3JHdoS4JQz81lKQZa7GOkTKRT+QpmliDVL11epI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=gwMD32sD; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="YJgVjxE9"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-48334ee0aeaso13937895e9.1
-        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 00:15:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="gwMD32sD"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4891f625344so18176445e9.0
+        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 00:15:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1777619731; x=1778224531; darn=vger.kernel.org;
+        d=fairphone.com; s=fair; t=1777619739; x=1778224539; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=hg6lKvTuHG4WEyxq/qM/gGPuVfbBHrwP8/vuB717wHQ=;
-        b=YJgVjxE9Ymh+5CTXK2IJ/vnO4zEZMmIZhxhCt0axB2FDYgZm46B4aH5fXPkv7bg4Hb
-         8uhMUI9+SD5maJtVebPjOMSo+jprDuXOwjXPKhKKvbgBF/DKG/Kf04nGo9kks7rI4Ik4
-         szAjg/U0XyGroZXPcdwCDtBGSXg3/6eL8e2PC1Q4y1bOKvYWv+DgkqS82rGgVK3yBkMh
-         vwY2YWwoZshvHxBPKpyIrUqLwBYNEd/F4E/RprZhSmX1kcdyy+tpivTn0dRC7XMV7BTi
-         ChxpshqzDeg3mccBwDZBn7nQW3bhlrh6gSHoxP9ORdXOENe2uVJq7lXIbtmpq6DYZcsA
-         eh+w==
+        bh=p40yQ0N4gw3cKX8I+3VHHK+y5Obu99UMNK8dsColTtQ=;
+        b=gwMD32sDzzvEu2G7ixU7naDyEgQcMhVD+r5mEzQPZtjBvSmz/+EuJ6HjgfCZ8CuW8O
+         vHR4FK/wTxDhkRfJviJAreHEahKO1dkujzLQJLKYIom3qYS2iwQOEcQbfAZJSn0gccKz
+         DDZGDiBdbF/di9mbUOANc90SvB0dYCu83Akdtbug6QquSCnpXFMoHQLIan6QNaYCn937
+         CMaMV8f68TFD0jnIMx1Aynm/dpNKEFTjRxX5qrfTg/dTSn5LJwbZuP6fV0N0elDXGm1r
+         PqbQq1lpaFlkXCMtoxHKQxiRo5vldNkkTaqpWgfqtOBnFPeG8vAOZ7GeXODZ5yeIZV3L
+         fEWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777619731; x=1778224531;
+        d=1e100.net; s=20251104; t=1777619739; x=1778224539;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=hg6lKvTuHG4WEyxq/qM/gGPuVfbBHrwP8/vuB717wHQ=;
-        b=PZhw0ue6x5ArtU9alUAK7ygUZhKZQV0keAw2DvqGMOxsIDcJkTeM3k+CG/bBYlY0XK
-         i7eJTsg9SyV4o8IncaJznTDsnU54ei4p5Qtqz/iG2dA7lvNAfikUe7SZXsgwgekNiNCQ
-         nyR9VoNXlTqRFFKuxyv8q5t0Yu+52hoPUthhAppfc0Zlo7C96LuL/6UP2tgAq2I1KHih
-         B4pZRIBrz0dBzglvBXntRb653zL1E8opTAwVaJOaWYKxqG4JTviNNqElbglcGSu9olUf
-         nDqY4ZaEV3RExn8d+2MoiHL8hC5gRQB4efVzMgkFrJxPAJT+Ly5RLuFfRS2u0/tDbzBy
-         /yBw==
-X-Forwarded-Encrypted: i=1; AFNElJ9kDOaqI0pYrsOQWAn9yTZYnBi6agzJgX1QV7EFd2sjoUrlLGKHow4oL3yuu8dWr9wpJIwAc/BcrWFX@vger.kernel.org
-X-Gm-Message-State: AOJu0YykjmCOvw1aJeOP8ECs3ZMbZZx+dXaeGFIkM/9M2wd9yuFz0x3A
-	Nyb51YB3LgeXBGxq5+qEiXWonJHex+xVaIXmqDP9MJiJvBagu+VIRytvqpxDRN7i++bICxSlL7z
-	CVArd99E=
-X-Gm-Gg: AeBDietiUYlvJGLb3Hg9fXBBEg/HDFlwnmCRv0KBq2Uq1EHVxqkfRBgY35/OmLuWJvl
-	94a8ECQgC+uBRIaNqB6WPpPWA2C31GeOyFnWnvpwMzB+EbxxCRHcda/hkfpKDKRN94IKJN/di8N
-	K9uIZ9v89sMk/kkAhfmhPNEkzWD2DijSQV4DeU/aXmsBCVeWb+REk1dcR+/MTyVAOEVxYc2mFbx
-	K15qUMLtho2WkzCRyU/iQjdExDJX7QW9UltgLmtDN/xf3aDhxMd0PnqfxXYFQTP6vGm9a9/tbVY
-	VtedI43TGVxU2uKv14SygeQDIRkW9B3OQ5R00QTPkv9h2iwgESgS6eokSkQS5/5zi/m5C4SWgp1
-	ozIJx7EP+gwZQtB36NmFZW9lMTyQkStFPz1wgyXr5c8AWePegLgyOfOxJBkK+WeAlTOu947FKmt
-	rgItF+Jnk1r3FgCEfDz0H7lFz4duoQDQgc+zs94p8pO6GTpr2NemPrlCTPvd4/0gcQrUvVlD7d6
-	yAmaShV
-X-Received: by 2002:a05:600c:c058:b0:487:2439:b7c8 with SMTP id 5b1f17b1804b1-48a83d6a866mr74058475e9.1.1777619730949;
-        Fri, 01 May 2026 00:15:30 -0700 (PDT)
+        bh=p40yQ0N4gw3cKX8I+3VHHK+y5Obu99UMNK8dsColTtQ=;
+        b=PJIZgGZz30e2ZF6B56Litu0/wCj0iTvUApcWU9PNd12sFdS5W9ior2tKjQemtTDfmY
+         oQRU4C1oCijphkQA/Xj7gX44bWhpZ331r0BLpJjis7/MY7ff96DlgFPFytWwxvl++hGp
+         jThWJkYNHmKzF70YJQ1tXCXbWaD9dlGDqLoTO8F5EkwJrFS8f2OBqiS0az89CynEHncQ
+         Rau7cDaYsogaZ8TLzslCb+h+FJSsguMRNKVtLxqAfaKvlGzg2efqYozg0NIO+XQYvrdt
+         uxIvt8Xyh7vCrde67iIdrnvx3URLV+YVVeX7bGhkX98fjex9QQIG/0ulXuj+D21ThMZ7
+         RMdQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8akk6HKq0WIpVIzvKYpszIolEMjqIwst05tvjJit7q5DRGjvCiVRd9e0vv/4NvOnpkG+gfMnFAZaki@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz1HihRqY9IRgzNeRjrKX7K55i7un8fwlZiGK5F513fnrkAA6l9
+	KXweVwiFKyPUWsvieHXqgq9WtcdBje2FWvN9UIPl6/ukT47ntrXh53FCb9PYzuIeuYI=
+X-Gm-Gg: AeBDiet5AVcb0ecWAgE95mbpxgJMAroPFyfSa52Arp0bnSOjPsOLBNUcs0w9rtUskCX
+	FdxfeB/0LlBDLwg/ACWbMCY1Clg5lB1asmj2P6albcGLr9t6mm5Sf66RiPKttOyUFZfHn6vJSc6
+	CTIUPUMWwfLYy7AbBTJSUIOEYfHoC3N4uMCpOwEa37jk8CfRdrz5VAuTz8JLmrUw2J8Q7rUwnzM
+	fp6MKRWW4vvc1H9VadZnPHckQHjRdfCkUVootnaFBiXdrgCnZb479QnP01lzck3HPJNKw7Ot0qV
+	zQGtdcPiQOdARUEhnhG2VY06irgg9h7zVKUFy+wMWoQiA4I2Odv0d/4Qp8sGeShR2T4tc41W/j1
+	msA4Ff3R/lI5Vv64vkEaJov2d8YnEXvdCDFXl/xhcPPrCa3fkSzHtoiDj9xVynx7KOWaZf7knXH
+	V6lVcPmyshkq24NCggw6tx0t6yDbJxuslkefrwKxzaxaw2RPCeLHyQqk3vonFJ/oCodCotFU1Im
+	V7dBuab
+X-Received: by 2002:a05:600c:4f52:b0:489:32b:ac0b with SMTP id 5b1f17b1804b1-48a85e684a8mr84080665e9.6.1777619739248;
+        Fri, 01 May 2026 00:15:39 -0700 (PDT)
 Received: from [192.168.178.36] (046124199213.public.t-mobile.at. [46.124.199.213])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a8eba8487sm29668085e9.11.2026.05.01.00.15.29
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a8eba8487sm29668085e9.11.2026.05.01.00.15.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 01 May 2026 00:15:30 -0700 (PDT)
+        Fri, 01 May 2026 00:15:38 -0700 (PDT)
 From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 01 May 2026 09:14:46 +0200
-Subject: [PATCH v3 4/9] dt-bindings: display: msm: document the Milos
- Mobile Display Subsystem
+Date: Fri, 01 May 2026 09:14:50 +0200
+Subject: [PATCH v3 8/9] drm/msm/dpu: Add Milos support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260501-milos-mdss-v3-4-58bfc58c0e13@fairphone.com>
+Message-Id: <20260501-milos-mdss-v3-8-58bfc58c0e13@fairphone.com>
 References: <20260501-milos-mdss-v3-0-58bfc58c0e13@fairphone.com>
 In-Reply-To: <20260501-milos-mdss-v3-0-58bfc58c0e13@fairphone.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -96,313 +94,388 @@ Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  devicetree@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777619720; l=9414;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777619720; l=12018;
  i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=cpSBeucP8Ss790ZkmBApuFPudNB0i62Xj2QNp9/IQ8M=;
- b=rydXBjABT+hodAOm0ItdUCLrIiDLWGd6Ct7O4HNC8damd2NM60CmZRo9R7PCyNCjBepBvwnXw
- RRsVc5TP2qIDgTAYfcr0mPyT5HitNhYHz+rE+/+MoLm5fbnIgIxtTnJ
+ bh=2nJzs+ggM8UNo2NDd0LLZQ8cBS+aAGJpwl8JxlC8yxg=;
+ b=b2SahVTBr4uO7zxZ84BCmcmRUcCZ+qp/Zvhs6/vLHtrng9Peqs0+TG/50ya3Qgahzud6rqz4D
+ 2z6yc5GibQJC63pjITBKLtDF6H8o2ISaNMRxnV6wPa6Y5Fw3KUIkoXy
 X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
  pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-Document the Mobile Display Subsystem (MDSS) on the Milos SoC.
+Add definitions for the display hardware used on the Qualcomm Milos
+platform.
 
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
- .../bindings/display/msm/qcom,milos-mdss.yaml      | 286 +++++++++++++++++++++
- 1 file changed, 286 insertions(+)
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_10_2_milos.h | 279 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |  29 +++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ 4 files changed, 310 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.yaml
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_2_milos.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_2_milos.h
 new file mode 100644
-index 000000000000..7010ffa0ae35
+index 000000000000..1aa8aea4e352
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.yaml
-@@ -0,0 +1,286 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/msm/qcom,milos-mdss.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_10_2_milos.h
+@@ -0,0 +1,279 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) 2022. Qualcomm Innovation Center, Inc. All rights reserved.
++ * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
++ * Copyright (c) 2026, Luca Weiss <luca.weiss@fairphone.com>
++ */
 +
-+title: Qualcomm Milos Display MDSS
++#ifndef _DPU_10_2_MILOS_H
++#define _DPU_10_2_MILOS_H
 +
-+maintainers:
-+  - Luca Weiss <luca.weiss@fairphone.com>
++static const struct dpu_caps milos_dpu_caps = {
++	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
++	.max_mixer_blendstages = 0x7,
++	.has_src_split = true,
++	.has_dim_layer = true,
++	.has_idle_pc = true,
++	.has_3d_merge = true,
++	.max_linewidth = 8192,
++	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
++};
 +
-+description:
-+  Milos MSM Mobile Display Subsystem(MDSS), which encapsulates sub-blocks like
-+  DPU display controller, DSI and DP interfaces etc.
++static const struct dpu_mdp_cfg milos_mdp = {
++	.name = "top_0",
++	.base = 0, .len = 0x494,
++	.clk_ctrls = {
++		[DPU_CLK_CTRL_REG_DMA] = { .reg_off = 0x2bc, .bit_off = 20 },
++	},
++};
 +
-+$ref: /schemas/display/msm/mdss-common.yaml#
++static const struct dpu_ctl_cfg milos_ctl[] = {
++	{
++		.name = "ctl_0", .id = CTL_0,
++		.base = 0x15000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
++	}, {
++		.name = "ctl_1", .id = CTL_1,
++		.base = 0x16000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
++	}, {
++		.name = "ctl_2", .id = CTL_2,
++		.base = 0x17000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
++	}, {
++		.name = "ctl_3", .id = CTL_3,
++		.base = 0x18000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
++	},
++};
 +
-+properties:
-+  compatible:
-+    const: qcom,milos-mdss
++static const struct dpu_sspp_cfg milos_sspp[] = {
++	{
++		.name = "sspp_0", .id = SSPP_VIG0,
++		.base = 0x4000, .len = 0x344,
++		.features = VIG_SDM845_MASK_SDMA,
++		.sblk = &dpu_vig_sblk_qseed3_3_3,
++		.xin_id = 0,
++		.type = SSPP_TYPE_VIG,
++	}, {
++		.name = "sspp_8", .id = SSPP_DMA0,
++		.base = 0x24000, .len = 0x344,
++		.features = DMA_SDM845_MASK_SDMA,
++		.sblk = &dpu_dma_sblk,
++		.xin_id = 1,
++		.type = SSPP_TYPE_DMA,
++	}, {
++		.name = "sspp_9", .id = SSPP_DMA1,
++		.base = 0x26000, .len = 0x344,
++		.features = DMA_SDM845_MASK_SDMA,
++		.sblk = &dpu_dma_sblk,
++		.xin_id = 5,
++		.type = SSPP_TYPE_DMA,
++	}, {
++		.name = "sspp_10", .id = SSPP_DMA2,
++		.base = 0x28000, .len = 0x344,
++		.features = DMA_SDM845_MASK_SDMA,
++		.sblk = &dpu_dma_sblk,
++		.xin_id = 9,
++		.type = SSPP_TYPE_DMA,
++	},
++};
 +
-+  clocks:
-+    items:
-+      - description: Display AHB
-+      - description: Display hf AXI
-+      - description: Display core
++static const struct dpu_lm_cfg milos_lm[] = {
++	{
++		.name = "lm_0", .id = LM_0,
++		.base = 0x44000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sdm845_lm_sblk,
++		.pingpong = PINGPONG_0,
++		.dspp = DSPP_0,
++	}, {
++		.name = "lm_2", .id = LM_2,
++		.base = 0x46000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sdm845_lm_sblk,
++		.lm_pair = LM_3,
++		.pingpong = PINGPONG_2,
++	}, {
++		.name = "lm_3", .id = LM_3,
++		.base = 0x47000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sdm845_lm_sblk,
++		.lm_pair = LM_2,
++		.pingpong = PINGPONG_3,
++	},
++};
 +
-+  iommus:
-+    maxItems: 1
++static const struct dpu_dspp_cfg milos_dspp[] = {
++	{
++		.name = "dspp_0", .id = DSPP_0,
++		.base = 0x54000, .len = 0x1800,
++		.sblk = &sdm845_dspp_sblk,
++	},
++};
 +
-+  interconnects:
-+    items:
-+      - description: Interconnect path from mdp0 port to the data bus
-+      - description: Interconnect path from CPU to the reg bus
++static const struct dpu_pingpong_cfg milos_pp[] = {
++	{
++		.name = "pingpong_0", .id = PINGPONG_0,
++		.base = 0x69000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
++	}, {
++		.name = "pingpong_2", .id = PINGPONG_2,
++		.base = 0x6b000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_1,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
++	}, {
++		.name = "pingpong_3", .id = PINGPONG_3,
++		.base = 0x6c000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_1,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11),
++	}, {
++		.name = "pingpong_cwb_0", .id = PINGPONG_CWB_0,
++		.base = 0x66000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++	},
++};
 +
-+  interconnect-names:
-+    items:
-+      - const: mdp0-mem
-+      - const: cpu-cfg
++static const struct dpu_merge_3d_cfg milos_merge_3d[] = {
++	{
++		.name = "merge_3d_1", .id = MERGE_3D_1,
++		.base = 0x4f000, .len = 0x8,
++	},
++};
 +
-+patternProperties:
-+  "^display-controller@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+    properties:
-+      compatible:
-+        const: qcom,milos-dpu
++/*
++ * NOTE: Each display compression engine (DCE) contains dual hard
++ * slice DSC encoders so both share same base address but with
++ * its own different sub block address.
++ */
++static const struct dpu_dsc_cfg milos_dsc[] = {
++	{
++		.name = "dce_0_0", .id = DSC_0,
++		.base = 0x80000, .len = 0x6,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &milos_dsc_sblk_0,
++	}, {
++		.name = "dce_0_1", .id = DSC_1,
++		.base = 0x80000, .len = 0x6,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &milos_dsc_sblk_1,
++	},
++};
 +
-+  "^displayport-controller@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+    properties:
-+      compatible:
-+        const: qcom,milos-dp
++static const struct dpu_wb_cfg milos_wb[] = {
++	{
++		.name = "wb_2", .id = WB_2,
++		.base = 0x65000, .len = 0x2c8,
++		.features = WB_SDM845_MASK,
++		.format_list = wb2_formats_rgb_yuv,
++		.num_formats = ARRAY_SIZE(wb2_formats_rgb_yuv),
++		.xin_id = 6,
++		.maxlinewidth = 4096,
++		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
++	},
++};
 +
-+  "^dsi@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+    properties:
-+      compatible:
-+        contains:
-+          const: qcom,milos-dsi-ctrl
++static const struct dpu_cwb_cfg milos_cwb[] = {
++	{
++		.name = "cwb_0", .id = CWB_0,
++		.base = 0x66200, .len = 0x8,
++	},
++};
 +
-+  "^phy@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+    properties:
-+      compatible:
-+        const: qcom,milos-dsi-phy-4nm
++static const struct dpu_intf_cfg milos_intf[] = {
++	{
++		.name = "intf_0", .id = INTF_0,
++		.base = 0x34000, .len = 0x300,
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_0,
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 25),
++	}, {
++		.name = "intf_1", .id = INTF_1,
++		.base = 0x35000, .len = 0x300,
++		.type = INTF_DSI,
++		.controller_id = MSM_DSI_CONTROLLER_0,
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 26),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 27),
++		.intr_tear_rd_ptr = DPU_IRQ_IDX(MDP_INTF1_TEAR_INTR, 2),
++	}, {
++		.name = "intf_3", .id = INTF_3,
++		.base = 0x37000, .len = 0x300,
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_0,	/* pair with intf_0 for DP MST */
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 31),
++	},
++};
 +
-+required:
-+  - compatible
++static const struct dpu_perf_cfg milos_perf_data = {
++	.max_bw_low = 7100000,
++	.max_bw_high = 9800000,
++	.min_core_ib = 2500000,
++	.min_llcc_ib = 0,
++	.min_dram_ib = 1600000,
++	.min_prefill_lines = 40,
++	/* FIXME: lut tables */
++	.danger_lut_tbl = {0x3ffff, 0x3ffff, 0x0},
++	.safe_lut_tbl = {0xff00, 0xfff0, 0x0fff},
++	.qos_lut_tbl = {
++		{.nentry = ARRAY_SIZE(sc7180_qos_linear),
++		.entries = sc7180_qos_linear
++		},
++		{.nentry = ARRAY_SIZE(sc7180_qos_macrotile),
++		.entries = sc7180_qos_macrotile
++		},
++		{.nentry = ARRAY_SIZE(sc7180_qos_nrt),
++		.entries = sc7180_qos_nrt
++		},
++		/* TODO: macrotile-qseed is different from macrotile */
++	},
++	.cdp_cfg = {
++		{.rd_enable = 1, .wr_enable = 1},
++		{.rd_enable = 1, .wr_enable = 0}
++	},
++	.clk_inefficiency_factor = 105,
++	.bw_inefficiency_factor = 120,
++};
 +
-+unevaluatedProperties: false
++static const struct dpu_mdss_version milos_mdss_ver = {
++	.core_major_ver = 10,
++	.core_minor_ver = 2,
++};
 +
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,dsi-phy-28nm.h>
-+    #include <dt-bindings/clock/qcom,milos-dispcc.h>
-+    #include <dt-bindings/clock/qcom,milos-gcc.h>
-+    #include <dt-bindings/clock/qcom,rpmh.h>
-+    #include <dt-bindings/interconnect/qcom,icc.h>
-+    #include <dt-bindings/interconnect/qcom,milos-rpmh.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/qcom,rpmhpd.h>
++const struct dpu_mdss_cfg dpu_milos_cfg = {
++	.mdss_ver = &milos_mdss_ver,
++	.caps = &milos_dpu_caps,
++	.mdp = &milos_mdp,
++	.cdm = &dpu_cdm_5_x,
++	.ctl_count = ARRAY_SIZE(milos_ctl),
++	.ctl = milos_ctl,
++	.sspp_count = ARRAY_SIZE(milos_sspp),
++	.sspp = milos_sspp,
++	.mixer_count = ARRAY_SIZE(milos_lm),
++	.mixer = milos_lm,
++	.dspp_count = ARRAY_SIZE(milos_dspp),
++	.dspp = milos_dspp,
++	.pingpong_count = ARRAY_SIZE(milos_pp),
++	.pingpong = milos_pp,
++	.dsc_count = ARRAY_SIZE(milos_dsc),
++	.dsc = milos_dsc,
++	.merge_3d_count = ARRAY_SIZE(milos_merge_3d),
++	.merge_3d = milos_merge_3d,
++	.wb_count = ARRAY_SIZE(milos_wb),
++	.wb = milos_wb,
++	.cwb_count = ARRAY_SIZE(milos_cwb),
++	.cwb = milos_cwb,
++	.intf_count = ARRAY_SIZE(milos_intf),
++	.intf = milos_intf,
++	.vbif = &milos_vbif,
++	.perf = &milos_perf_data,
++};
 +
-+    display-subsystem@ae00000 {
-+        compatible = "qcom,milos-mdss";
-+        reg = <0x0ae00000 0x1000>;
-+        reg-names = "mdss";
++#endif
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index bb4fd5fa4b22..2e10add84fd7 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -454,6 +454,16 @@ static const struct dpu_dsc_sub_blks dsc_sblk_1 = {
+ 	.ctl = {.name = "ctl", .base = 0xF80, .len = 0x10},
+ };
+ 
++static const struct dpu_dsc_sub_blks milos_dsc_sblk_0 = {
++	.enc = {.name = "enc", .base = 0x100, .len = 0x100},
++	.ctl = {.name = "ctl", .base = 0xF00, .len = 0x80},
++};
 +
-+        interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH 0>;
++static const struct dpu_dsc_sub_blks milos_dsc_sblk_1 = {
++	.enc = {.name = "enc", .base = 0x200, .len = 0x100},
++	.ctl = {.name = "ctl", .base = 0xF80, .len = 0x80},
++};
 +
-+        clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                 <&gcc GCC_DISP_HF_AXI_CLK>,
-+                 <&dispcc DISP_CC_MDSS_MDP_CLK>;
+ static const struct dpu_dsc_sub_blks sm8750_dsc_sblk_0 = {
+ 	.enc = {.name = "enc", .base = 0x100, .len = 0x100},
+ 	.ctl = {.name = "ctl", .base = 0xF00, .len = 0x24},
+@@ -513,6 +523,23 @@ static const struct dpu_vbif_dynamic_ot_cfg msm8998_ot_rdwr_cfg[] = {
+ 	},
+ };
+ 
++static const struct dpu_vbif_cfg milos_vbif = {
++	.len = 0x1074,
++	.features = BIT(DPU_VBIF_QOS_REMAP),
++	.xin_halt_timeout = 0x4000,
++	.qos_rp_remap_size = 0x40,
++	.qos_rt_tbl = {
++		.npriority_lvl = ARRAY_SIZE(sdm845_rt_pri_lvl),
++		.priority_lvl = sdm845_rt_pri_lvl,
++		},
++	.qos_nrt_tbl = {
++		.npriority_lvl = ARRAY_SIZE(sdm845_nrt_pri_lvl),
++		.priority_lvl = sdm845_nrt_pri_lvl,
++		},
++	.memtype_count = 16,
++	.memtype = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
++};
 +
-+        resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
+ static const struct dpu_vbif_cfg msm8996_vbif = {
+ 	.len = 0x1040,
+ 	.default_ot_rd_limit = 32,
+@@ -754,6 +781,8 @@ static const struct dpu_qos_lut_entry sc7180_qos_nrt[] = {
+ #include "catalog/dpu_9_2_x1e80100.h"
+ 
+ #include "catalog/dpu_10_0_sm8650.h"
++#include "catalog/dpu_10_2_milos.h"
 +
-+        interconnects = <&mmss_noc MASTER_MDP QCOM_ICC_TAG_ALWAYS
-+                         &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-+                        <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+                         &cnoc_main SLAVE_DISPLAY_CFG QCOM_ICC_TAG_ACTIVE_ONLY>;
-+        interconnect-names = "mdp0-mem",
-+                             "cpu-cfg";
-+
-+        power-domains = <&dispcc DISP_CC_MDSS_CORE_GDSC>;
-+
-+        iommus = <&apps_smmu 0x1c00 0x2>;
-+
-+        interrupt-controller;
-+        #interrupt-cells = <1>;
-+
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        ranges;
-+
-+        display-controller@ae01000 {
-+            compatible = "qcom,milos-dpu";
-+            reg = <0x0ae01000 0x8f000>,
-+                  <0x0aeb0000 0x3000>;
-+            reg-names = "mdp",
-+                        "vbif";
-+
-+            interrupts-extended = <&mdss 0>;
-+
-+            clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
-+                     <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                     <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
-+                     <&dispcc DISP_CC_MDSS_MDP_CLK>,
-+                     <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-+            clock-names = "nrt_bus",
-+                          "iface",
-+                          "lut",
-+                          "core",
-+                          "vsync";
-+
-+            assigned-clocks = <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-+            assigned-clock-rates = <19200000>;
-+
-+            operating-points-v2 = <&mdp_opp_table>;
-+
-+            power-domains = <&rpmhpd RPMHPD_CX>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+
-+                    dpu_intf1_out: endpoint {
-+                        remote-endpoint = <&mdss_dsi0_in>;
-+                    };
-+                };
-+            };
-+
-+            mdp_opp_table: opp-table {
-+                compatible = "operating-points-v2";
-+
-+                opp-200000000 {
-+                    opp-hz = /bits/ 64 <200000000>;
-+                    required-opps = <&rpmhpd_opp_low_svs>;
-+                };
-+
-+                opp-342000000 {
-+                    opp-hz = /bits/ 64 <342000000>;
-+                    required-opps = <&rpmhpd_opp_svs>;
-+                };
-+
-+                opp-402000000 {
-+                    opp-hz = /bits/ 64 <402000000>;
-+                    required-opps = <&rpmhpd_opp_svs_l1>;
-+                };
-+
-+                opp-535000000 {
-+                    opp-hz = /bits/ 64 <535000000>;
-+                    required-opps = <&rpmhpd_opp_nom>;
-+                };
-+
-+                opp-600000000 {
-+                    opp-hz = /bits/ 64 <600000000>;
-+                    required-opps = <&rpmhpd_opp_nom_l1>;
-+                };
-+
-+                opp-630000000 {
-+                    opp-hz = /bits/ 64 <630000000>;
-+                    required-opps = <&rpmhpd_opp_turbo>;
-+                };
-+            };
-+        };
-+
-+        dsi@ae94000 {
-+            compatible = "qcom,milos-dsi-ctrl", "qcom,mdss-dsi-ctrl";
-+            reg = <0x0ae94000 0x1000>;
-+            reg-names = "dsi_ctrl";
-+
-+            interrupts-extended = <&mdss 4>;
-+
-+            clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
-+                     <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
-+                     <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
-+                     <&dispcc DISP_CC_MDSS_ESC0_CLK>,
-+                     <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                     <&gcc GCC_DISP_HF_AXI_CLK>;
-+            clock-names = "byte",
-+                          "byte_intf",
-+                          "pixel",
-+                          "core",
-+                          "iface",
-+                          "bus";
-+
-+            assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>,
-+                              <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
-+            assigned-clock-parents = <&mdss_dsi0_phy DSI_BYTE_PLL_CLK>,
-+                                     <&mdss_dsi0_phy DSI_PIXEL_PLL_CLK>;
-+
-+            operating-points-v2 = <&mdss_dsi_opp_table>;
-+
-+            power-domains = <&rpmhpd RPMHPD_CX>;
-+
-+            phys = <&mdss_dsi0_phy>;
-+            phy-names = "dsi";
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+
-+                    mdss_dsi0_in: endpoint {
-+                        remote-endpoint = <&dpu_intf1_out>;
-+                    };
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+
-+                    mdss_dsi0_out: endpoint {
-+                    };
-+                };
-+            };
-+
-+            mdss_dsi_opp_table: opp-table {
-+                compatible = "operating-points-v2";
-+
-+                opp-187500000 {
-+                    opp-hz = /bits/ 64 <187500000>;
-+                    required-opps = <&rpmhpd_opp_low_svs>;
-+                };
-+
-+                opp-300000000 {
-+                    opp-hz = /bits/ 64 <300000000>;
-+                    required-opps = <&rpmhpd_opp_svs>;
-+                };
-+
-+                opp-358000000 {
-+                    opp-hz = /bits/ 64 <358000000>;
-+                    required-opps = <&rpmhpd_opp_svs_l1>;
-+                };
-+            };
-+        };
-+
-+        mdss_dsi0_phy: phy@ae95000 {
-+            compatible = "qcom,milos-dsi-phy-4nm";
-+            reg = <0x0ae95000 0x200>,
-+                  <0x0ae95200 0x300>,
-+                  <0x0ae95500 0x400>;
-+            reg-names = "dsi_phy",
-+                        "dsi_phy_lane",
-+                        "dsi_pll";
-+
-+            clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                     <&rpmhcc RPMH_CXO_CLK>;
-+            clock-names = "iface",
-+                          "ref";
-+
-+            #clock-cells = <1>;
-+            #phy-cells = <0>;
-+        };
-+    };
-+...
+ #include "catalog/dpu_12_0_sm8750.h"
+ #include "catalog/dpu_12_2_glymur.h"
+ #include "catalog/dpu_12_4_eliza.h"
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index ba04ac24d5a9..f45faf87333e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -766,6 +766,7 @@ struct dpu_mdss_cfg {
+ extern const struct dpu_mdss_cfg dpu_eliza_cfg;
+ extern const struct dpu_mdss_cfg dpu_glymur_cfg;
+ extern const struct dpu_mdss_cfg dpu_kaanapali_cfg;
++extern const struct dpu_mdss_cfg dpu_milos_cfg;
+ extern const struct dpu_mdss_cfg dpu_msm8917_cfg;
+ extern const struct dpu_mdss_cfg dpu_msm8937_cfg;
+ extern const struct dpu_mdss_cfg dpu_msm8953_cfg;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index 35f7af4743d7..7c37bd51f934 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -1483,6 +1483,7 @@ static const struct of_device_id dpu_dt_match[] = {
+ 	{ .compatible = "qcom,eliza-dpu", .data = &dpu_eliza_cfg, },
+ 	{ .compatible = "qcom,glymur-dpu", .data = &dpu_glymur_cfg, },
+ 	{ .compatible = "qcom,kaanapali-dpu", .data = &dpu_kaanapali_cfg, },
++	{ .compatible = "qcom,milos-dpu", .data = &dpu_milos_cfg, },
+ 	{ .compatible = "qcom,msm8917-mdp5", .data = &dpu_msm8917_cfg, },
+ 	{ .compatible = "qcom,msm8937-mdp5", .data = &dpu_msm8937_cfg, },
+ 	{ .compatible = "qcom,msm8953-mdp5", .data = &dpu_msm8953_cfg, },
 
 -- 
 2.54.0
