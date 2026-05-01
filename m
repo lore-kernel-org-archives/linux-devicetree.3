@@ -1,179 +1,173 @@
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54FEEEC3;
-	Fri,  1 May 2026 21:53:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B48372ECA
+	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 22:14:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777672414; cv=none; b=MHb46ZYqMs2bzK79tzQ0HlKqRk3g1RKnAMoDhg4uZq8ZU15q4W739TdOFagVLK983V4CopEplTvGWzb4mvaPlbCOd2/aJ+sUIz0TKiQ12Av4Rtu/GYpaON7imCaD/fEeW/C3F2S4JMFzq9SNtFPVUK4rWfjoTs4iYIwi3ZMQRm4=
+	t=1777673663; cv=none; b=QUIn1i9nVOFrF8Je/rkOkdzrxceu/fYfrhGcxrVArhBhxbrHaAEA+2usRA9Ec5xyH52mGRMzVw/OURAvE/MH0eO0cXb8ai8T0087qLlDGaqYqWu1eXkPHRKHYL1i1wX2PdYqzzv6ds3Sv5tb3yRNTo/7LAwRkuWK1Hnm83GaqVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777672414; c=relaxed/simple;
-	bh=FLjfmgYp3HEkmYkyLWIj99995Y2G6PJWAFtDRXnk9ug=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RBpR+BQpLrZh+0dL/DsFRtQ2lYWdHkCJ8BZnbQ6ypgm8oisdFrweBmHRbQBJtq1RNqTUES1a7UDWnQjymw6KPqs8lshf69OW9+o4Yiyj247CY8LLBMMFQTQ6jrxZcDyPa2KZJpcayL7hu97GpSDkQ0dc6ByxgLhwb3oNUdQduLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baker-net.org.uk; spf=pass smtp.mailfrom=baker-net.org.uk; arc=none smtp.client-ip=212.227.17.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baker-net.org.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baker-net.org.uk
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue109
- [212.227.15.153]) with ESMTPSA (Nemesis) id 1MXp1O-1vpIVD3ApI-00UDdk; Fri, 01
- May 2026 23:53:23 +0200
-Received: from [192.168.0.132] (gromit.baker-net.org.uk [192.168.0.132])
-	by wallace.baker-net.org.uk (Postfix) with ESMTPS id BA42B5980367;
-	Fri,  1 May 2026 22:53:22 +0100 (BST)
-Message-ID: <56d985c5-e795-4108-9045-c7b3ab8f71ae@baker-net.org.uk>
-Date: Fri, 1 May 2026 22:53:22 +0100
+	s=arc-20240116; t=1777673663; c=relaxed/simple;
+	bh=uIEC+gaUFWg2Vq0+zMbQZK+Vrfh/4lveC26NtpJtKRA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GZ+dhn5TIcdb99qczMzH+RxeJmtB1aQzmm89kweedvbwSbQ+jjllfFRpuMD7JsPvaF9ZDaO3AQfcmoQKtPmaBeosEQ7lXFvzwJyZH+v4U97g1T/7wgcneL9MTjVelydGlUa/F6FqafT/dMyODCkcDMEfPH6qa8EdXTqr2r4voR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uo0eFYLI; arc=none smtp.client-ip=209.85.210.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uo0eFYLI"
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7dbca22dbfeso1333374a34.1
+        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 15:14:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777673661; x=1778278461; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=McHLo3cj7iFPLZcReAQtNpsae+Pg1Wjxhu0OhYjCJIg=;
+        b=Uo0eFYLIII72Ry+RicEzOCW9YBd/C3H2LbLYqKIH8XJpvxQhkn2zvcjP2lbBvTOyql
+         ZUjIRyfHSr0nxuSs44YGtbA9b8qe9PiFHMTmT5j1TJU93jeqD1kc8XDHz1Wk3+vT+G5Y
+         4JRB/n+fOqUkEUPl5QhJVJbLfpLYs23KHaZ9m/wnpWKlcCbb03AieLMNtdp1z+IhruhM
+         NIiHI4BSc1pSB8jUePYFkgaXhovu4Y3VOs8zaubj1ert7H1a7Iz+rJzfUk1JPt+Ajdoj
+         nLG0AL6i9iAH3papkKRppt5ft3bJ6zOQO6Um22sgEj+6UQ9PGmVs3UchDJxu4u6rjXjF
+         8uRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777673661; x=1778278461;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=McHLo3cj7iFPLZcReAQtNpsae+Pg1Wjxhu0OhYjCJIg=;
+        b=iNPrCpqLjX46jV5C3uRHDVcPACmiKafdSQXyIGL7oDgzo7m3QHkPuQeNtEgJLW4apv
+         0fFDqh7LgLREfcw9xkgSHL0PooC7VAXVHDPuThL7SBX577fDBefIZrfESzRPd42iSi9g
+         ahtb3QHnpRS45kAmYsQ3TCqMlzij6Vmpiv9Tx3w73XmKGTggIN3CB7vr6b0Q4T5ul6Is
+         L+4tpT4jOR27J1n/q1nj7brQSDZ3OV45F5OheiVEZ70w6u+wZH+IsezJetHnLbj72hQ6
+         dXl4QE3ZFJMFlx0se/EGpu4m49TubE0TUWC4QbB58qr1lBRrz3JyDIbJhxYFjW7eRo7V
+         MOfw==
+X-Forwarded-Encrypted: i=1; AFNElJ+eqCRM0NPfxQ8+VMvdq+OAztCq9cUykfLD+bY/CdmsN48Y+X5Jn49ykxd4+0v0LOtIbPK+/lAH6OWa@vger.kernel.org
+X-Gm-Message-State: AOJu0YzJHKvE8S88VOIOg4uMdaPJK016nWCFhB7+ZsfR9eazDT8pMKfN
+	6lLYcORmuZRmoHvOMk6faTJk/EFAszSdkjnnf7RCwKv7/wt/CMFiQVhU
+X-Gm-Gg: AeBDieumeLoNqHEND8/jpKp/QzaLH0e3oHSzd/12TSPfV0RcyAepINvy2+/d+Rm+dy+
+	KJA0AxjR6nOVxNEXKUSAVQnnf3Ni5NrHyW6WjFOyxroWFOpVoUe/ivrE0MPJ/TbvIMqg6Q//TWf
+	Vyodkpl1INa3GjE0C7yvHbKeuXhPBejt9J2OD1kseLeWimGIKYwJ3fjlGswTqUbyyNrJIQ8yh23
+	8oC9s6k8WmJjr3zSUTxQ9NC8D9awzZ+pCS8YB5NkjzsPO3S75lWva2hyxGH5oC5SFJry7owT5xk
+	Xeb0geS35RsIFeD0toRTyifFY4kxsWzeWVJirHcZnm33Xe4rxmJU16AZw9asfvJlGD2WeNk+SUq
+	o5bPV0oB5SypEYxQoWmwgCTT6oHdfppXO9Uod90+4TndV28UG/HflxLZOHKiB78B9sXYMAULCWx
+	zsJcEY9HWiuhM6SAXqGaFPDn8c8n53T10=
+X-Received: by 2002:a05:6830:8d1:b0:7dc:cd0b:58b0 with SMTP id 46e09a7af769-7dee121bb21mr834710a34.3.1777673660884;
+        Fri, 01 May 2026 15:14:20 -0700 (PDT)
+Received: from localhost.localdomain ([2600:1700:fb0:1bc0::54])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ded51a9612sm1827337a34.26.2026.05.01.15.14.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 01 May 2026 15:14:20 -0700 (PDT)
+From: Chris Morgan <macroalpha82@gmail.com>
+To: linux-iio@vger.kernel.org
+Cc: andy@kernel.org,
+	nuno.sa@analog.com,
+	dlechner@baylibre.com,
+	jic23@kernel.org,
+	jean-baptiste.maneyrol@tdk.com,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	heiko@sntech.de,
+	conor+dt@kernel.org,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	andriy.shevchenko@intel.com,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: [PATCH V4 00/10] Add Invensense ICM42607
+Date: Fri,  1 May 2026 17:11:39 -0500
+Message-ID: <20260501221152.194251-1-macroalpha82@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: hwmon: zyxel,nsa320-mcu: convert to DT
- schema
-To: Manish Baing <manishbaing2789@gmail.com>, linux@roeck-us.net,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260501102116.8275-1-manishbaing2789@gmail.com>
-Content-Language: en-GB
-From: Adam Baker <linux@baker-net.org.uk>
-In-Reply-To: <20260501102116.8275-1-manishbaing2789@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:W4YXjXRfdXVdyyMRU3PR1+U+EDpYSuYxx0jGvoUmwiXDYbdWKZC
- DXaJYB+Tl7aao/RlogNDtia4Mp6YaCXcjXWftcP25TUBMpecWgbUBGgH35Do700kGqJfQDL
- a/jx72NEsSZ970RtRxqBvquf24qXLebBvfPFXzBGFHiemp3teBq4nPLT20+SlROOh6U9Dgv
- J+cuPKHZOjPG90a+rn3mg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:G6MZQ0C5Dps=;XT6TpJcNjCGTmSElnVM3qjJdNH8
- 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
+Content-Transfer-Encoding: 8bit
 
-Acked-By: Adam Baker <linux@baker-net.org.uk>
+From: Chris Morgan <macromorgan@hotmail.com>
 
-On 01/05/2026 11:21, Manish Baing wrote:
-> Convert the ZyXEL NSA320 MCU bindings from text format to YAML schema.
-> 
-> Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
-> ---
->   .../devicetree/bindings/hwmon/nsa320-mcu.txt  | 20 -------
->   .../bindings/hwmon/zyxel,nsa320-mcu.yaml      | 54 +++++++++++++++++++
->   2 files changed, 54 insertions(+), 20 deletions(-)
->   delete mode 100644 Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt
->   create mode 100644 Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt b/Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt
-> deleted file mode 100644
-> index 0863e067c85b..000000000000
-> --- a/Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt
-> +++ /dev/null
-> @@ -1,20 +0,0 @@
-> -Bindings for the fan / temperature monitor microcontroller used on
-> -the Zyxel NSA 320 and several subsequent models.
-> -
-> -Required properties:
-> -- compatible	: "zyxel,nsa320-mcu"
-> -- data-gpios	: The GPIO pin connected to the data line on the MCU
-> -- clk-gpios	: The GPIO pin connected to the clock line on the MCU
-> -- act-gpios	: The GPIO pin connected to the active line on the MCU
-> -
-> -Example:
-> -
-> -	hwmon {
-> -		compatible = "zyxel,nsa320-mcu";
-> -		pinctrl-0 = <&pmx_mcu_data &pmx_mcu_clk &pmx_mcu_act>;
-> -		pinctrl-names = "default";
-> -
-> -		data-gpios = <&gpio0 14 GPIO_ACTIVE_HIGH>;
-> -		clk-gpios = <&gpio0 16 GPIO_ACTIVE_HIGH>;
-> -		act-gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
-> -	};
-> diff --git a/Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml b/Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml
-> new file mode 100644
-> index 000000000000..a111f8125e09
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml
-> @@ -0,0 +1,54 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/hwmon/zyxel,nsa320-mcu.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ZyXEL NSA320 MCU
-> +
-> +maintainers:
-> +  - Adam Baker <linux@baker-net.org.uk>
-> +  - Guenter Roeck <linux@roeck-us.net>
-> +
-> +description:
-> +  The ZyXEL NSA320 uses a dedicated microcontroller to manage system-critical
-> +  functions like fan speed and power monitoring. It is connected to the SoC
-> +  via a GPIO-based serial protocol.
-> +
-> +properties:
-> +  compatible:
-> +    const: zyxel,nsa320-mcu
-> +
-> +  data-gpios:
-> +    maxItems: 1
-> +    description: GPIO pin connected to the data line on the MCU.
-> +
-> +  clk-gpios:
-> +    maxItems: 1
-> +    description: GPIO pin connected to the clock line on the MCU.
-> +
-> +  act-gpios:
-> +    maxItems: 1
-> +    description: GPIO pin connected to the active line on the MCU.
-> +
-> +required:
-> +  - compatible
-> +  - data-gpios
-> +  - clk-gpios
-> +  - act-gpios
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    hwmon {
-> +        compatible = "zyxel,nsa320-mcu";
-> +        pinctrl-0 = <&pmx_mcu_data &pmx_mcu_clk &pmx_mcu_act>;
-> +        pinctrl-names = "default";
-> +
-> +        data-gpios = <&gpio0 14 GPIO_ACTIVE_HIGH>;
-> +        clk-gpios = <&gpio0 16 GPIO_ACTIVE_HIGH>;
-> +        act-gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
-> +    };
+Add support for the ICM42607 IMU. This sensor shares the same
+functionality but a different register layout with the existing
+ICM42600.
+
+This driver should work with the ICM42607 and ICM42607P over both I2C
+and SPI, however only the ICM42607P over I2C could be tested.
+
+Changes Since V1:
+ - Instead of creating a new driver, merged with the existing inv_icm42600
+   driver. This necessitated adding some code to the existing driver to
+   permit using a different register layout for the same functionality.
+ - Split changes up a bit more to decrease the size of the individual
+   patches. Note that patch 0004 is still pretty hefty; if I need to split
+   further I may need to create some temporary stub functions.
+ - Used guard() and PM_RUNTIME_ACQUIRE_AUTOSUSPEND() on the new functions
+   per Jonathan's recommendations.
+
+Changes Since V2:
+ - Went back to using a new driver on advice from Invensense engineer.
+ - Further split changes up into smaller chunks of functionality. Note
+   still that the largest patch is approximately 900 lines, and that while
+   the driver compiles cleanly at each commit it is not able to drive the
+   hardware until the commit that adds the Interrupt (as it also adds the
+   Makefile).
+ - Change the error to a warning when the devicetree binding does not match
+   the hardware ID.
+ - Dropped the ack on the devicetree bindings, as I am creating a new file
+   (for a new driver) instead of modifying the existing one.
+
+Changes Since V3:
+ - Numerous small fixes (too many to list here). Thank you to everyone who
+   provided feedback.
+ - Split power management additions into an additional commit to break
+   things up further.
+ - Consolidated devicetree documentation in existing
+   invensense,icm42600.yaml file.
+ - Removed most of the FIELD_PREP from header file to c files to make code
+   easier to read.
+ - Changed scale values to 2D arrays for Gyro and Accelerometer.
+ - Removed IIO_CHAN_INFO_CALIBBIAS attribute.
+
+Chris Morgan (10):
+  dt-bindings: iio: imu: icm42600: Add icm42607 binding
+  iio: imu: inv_icm42607: Add inv_icm42607 Core Driver
+  iio: imu: inv_icm42607: Add I2C and SPI For icm42607
+  iio: imu: inv_icm42607: Add PM support for icm42607
+  iio: imu: inv_icm42607: Add Buffer support for icm42607
+  iio: imu: inv_icm42607: Add Temp Support in icm42607
+  iio: imu: inv_icm42607: Add Accelerometer for icm42607
+  iio: imu: inv_icm42607: Add Wake on Movement for icm42607
+  iio: imu: inv_icm42607: Add Gyroscope to icm42607
+  arm64: dts: rockchip: Add icm42607p IMU for RG-DS
+
+ .../bindings/iio/imu/invensense,icm42600.yaml |   4 +
+ .../dts/rockchip/rk3568-anbernic-rg-ds.dts    |  20 +-
+ drivers/iio/imu/Kconfig                       |   1 +
+ drivers/iio/imu/Makefile                      |   1 +
+ drivers/iio/imu/inv_icm42607/Kconfig          |  30 +
+ drivers/iio/imu/inv_icm42607/Makefile         |  14 +
+ drivers/iio/imu/inv_icm42607/inv_icm42607.h   | 438 ++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_accel.c | 989 ++++++++++++++++++
+ .../imu/inv_icm42607/inv_icm42607_buffer.c    | 559 ++++++++++
+ .../imu/inv_icm42607/inv_icm42607_buffer.h    | 101 ++
+ .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 809 ++++++++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_gyro.c  | 536 ++++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_i2c.c   |  91 ++
+ .../iio/imu/inv_icm42607/inv_icm42607_spi.c   |  97 ++
+ .../iio/imu/inv_icm42607/inv_icm42607_temp.c  |  81 ++
+ .../iio/imu/inv_icm42607/inv_icm42607_temp.h  |  30 +
+ 16 files changed, 3800 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/iio/imu/inv_icm42607/Kconfig
+ create mode 100644 drivers/iio/imu/inv_icm42607/Makefile
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607.h
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.h
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_temp.h
+
+-- 
+2.43.0
 
