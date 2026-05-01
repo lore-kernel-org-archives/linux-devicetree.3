@@ -1,49 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A543C1400;
-	Fri,  1 May 2026 17:03:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57B03939B4;
+	Fri,  1 May 2026 17:05:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777654984; cv=none; b=OdNmM9blqgIy4etjAdOhwRLQwj+DVof+tIayTQRZjuoU5HUN1NGnquDLgFjp23BcFDOVr2i0FG0JzJR87TlGIR3pCPb4v9sXp2FrYk36vFqX3d/ZfdaC5e0TcOVtdMX2aZvn/gSJU1QG5gXp7avlXvyOOxiux+jw2rnK3qbnwm4=
+	t=1777655144; cv=none; b=FaPFwvh5OTdXh2A60ycZrsP5cO+DHxBr/QJcrJIGf8it82+qtKF25mgF7WpvcCBqj9+zEIiOTHE4mwjiTNrez7IO8DgE55xRscxStOjqMEEmyCZVb+m3h94aFrdCV81SNOTRktGb3lJZyPh8l0QIP+9fRNkQabTGMDp6OPSHlh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777654984; c=relaxed/simple;
-	bh=8GvZWFD9xh/Bxx1Omdts7uL97aN6epJ/NSyX8QGcdw0=;
+	s=arc-20240116; t=1777655144; c=relaxed/simple;
+	bh=Zky/w8roGFiUskCftirIBIfMhxs+OSpIo7CAX+36NS0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Miee7GkJC4rzsgfT3lq/krGZfAQID6oBtPg2s00OTnjurI8bzHmE4/pJnsU/xEidI+Eu0Jtc0/3QSccuCASAL8rq0cvgUBBa2pM2Wi5Y0swFzN/wsyPaewowgLYxILc8b8q88RZbFVOAqMCbijH1BhIGfIeL/0+znPypfl+BY+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SYB3YCTl; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=WuMl6eBLg+CXZNQKsOaW5bbExC37gCiZaAeBZKbqwMuiN+0hJUnIor0vyViIbvDErz2yOeRXzX9UuZvzB4524YjrcY23yV0o4WFsx3E80iSZohxr72WZjnG9/spSzTz7FlrYQ0kE5a8OKQ1i5E6alkhZLSPz5ymnWLCgr3zMvYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtH5hMsv; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SYB3YCTl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49821C2BCB4;
-	Fri,  1 May 2026 17:03:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtH5hMsv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6FA5C2BCB4;
+	Fri,  1 May 2026 17:05:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777654984;
-	bh=8GvZWFD9xh/Bxx1Omdts7uL97aN6epJ/NSyX8QGcdw0=;
+	s=k20201202; t=1777655144;
+	bh=Zky/w8roGFiUskCftirIBIfMhxs+OSpIo7CAX+36NS0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SYB3YCTlBgtZ5O7UnGDqbws87GO1iI3MRNp3qDOMBijL+cCbCV+gB8Mj2YSP4lUib
-	 364Mi+brhRGSCt7qyVfHBOFvEiYV84DTezlnJaBgcUyUbrjIuOunJncfENZPYHPqVr
-	 t44aBnaIZyc7G0KN9XHttW7IR3zkX30XumMSXveRJsAzvWk0UHaOJ3ADwpgBKBK0IW
-	 LOZe3ufkZu1vPhrRK5JzOaiKBJHdm37MRnjEMNoMc/NRwtTKrQwyPuJoAUGEN4kCFE
-	 8UgCbdWbWX0nw9CEDgxdXxWjVFwDbuF21Cm0v8nGg9iWWwDo4vyj87Ez7qURtWdDyw
-	 7qzskZBedd56Q==
-Date: Fri, 1 May 2026 18:02:58 +0100
+	b=QtH5hMsvh1iRv05XWNAfD5QvbGiCBqqoCOnRFj8pkOvmZu4lQIZI7yk5Z3afewJEN
+	 P9KZt3qbDUvj6EMnD77W2JSTbqssTn8tvc2SQQT6dNlZ8ZIsDXrHSFjlkGSYY4odtT
+	 d0pJXRYJ9NfXlH8UMMYlTbgq7PrfpXpO8c1Hjk/bcjYMwTCCALqclcmv2zSEhNM0ez
+	 KkaXMKOvFyfhlDEZ5IlFSrt8S1Cf2fDGtMx8p1Y7f0dq1dvWNPhm9BHQNW281LgK3n
+	 iBzXBUSoQ4niJachMKcBa7X1H3mq+b628v1/kMP10EThlQpmJliQ4Xs1/DJ6do4k4Y
+	 z3zjOzOF2ZYIA==
+Date: Fri, 1 May 2026 18:05:40 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Can Guo <can.guo@oss.qualcomm.com>
-Cc: bvanassche@acm.org, beanhuo@micron.com, peter.wang@mediatek.com,
-	martin.petersen@oracle.com, mani@kernel.org,
-	linux-scsi@vger.kernel.org, Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>,
-	Zhaoming Luo <zhml@posteo.com>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: ufs: Document static TX Equalization
- settings properties
-Message-ID: <20260501-exhale-nutshell-3d80a8a2d791@spud>
-References: <20260501134418.863432-1-can.guo@oss.qualcomm.com>
- <20260501134418.863432-2-can.guo@oss.qualcomm.com>
+To: Markus Stockhausen <markus.stockhausen@gmx.de>
+Cc: linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, jdelvare@suse.com, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/2] hwmon: (lm75) Support active-high alert polarity
+Message-ID: <20260501-earache-balance-3ac33716ac5a@spud>
+References: <20260501120518.3085501-1-markus.stockhausen@gmx.de>
+ <20260501120518.3085501-3-markus.stockhausen@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,73 +43,104 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zZv6/IXBq9h6cyVd"
+	protocol="application/pgp-signature"; boundary="io1WObltbTbzSrNV"
 Content-Disposition: inline
-In-Reply-To: <20260501134418.863432-2-can.guo@oss.qualcomm.com>
+In-Reply-To: <20260501120518.3085501-3-markus.stockhausen@gmx.de>
 
 
---zZv6/IXBq9h6cyVd
+--io1WObltbTbzSrNV
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 01, 2026 at 06:44:17AM -0700, Can Guo wrote:
-> HW design team usually provides static TX Equalization settings based on
-> PCB board characteristics. These settings can be passed from the device
-> tree to configure the TX Equalization parameters (PreShoot, DeEmphasis,
-> and PreCodeEn) for Host and Device across different HS gears.
+On Fri, May 01, 2026 at 02:05:18PM +0200, Markus Stockhausen wrote:
+> All chips supported by this driver support configurable active-high
+> alert polarity. This is already documented in the devicetree description.
+> Add support for it to the driver.
+>=20
+> The default polarity of the devices is 0 (active-low). So there is
+> no need to change the clear mask. For consistency reasons adapt the
+> hard-coded configuration value of the AS6200. It is the only device
+> that defaults to active-high polarity.
 
-I'm not familiar enough with ufs stuff to tell, but this commit message
-sounds very qcom specific, but this is being added to a common file.
-I'd like to see a lot more detail in the commit message, detailing why
-this is truly applicable across IP vendors.
+Uh, I dunno if you can do this, changing defaults is an ABI break
+typically. What makes it okay to do that in this case?
 
 >=20
-> Add patternProperties for txeq-settings-g[1-6] to support specifying
-> static TX Equalization settings.
->=20
-> Signed-off-by: Can Guo <can.guo@oss.qualcomm.com>
+> Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
 > ---
->  Documentation/devicetree/bindings/ufs/ufs-common.yaml | 11 +++++++++++
->  1 file changed, 11 insertions(+)
+>  drivers/hwmon/lm75.c | 18 ++++++++++++++----
+>  1 file changed, 14 insertions(+), 4 deletions(-)
 >=20
-> diff --git a/Documentation/devicetree/bindings/ufs/ufs-common.yaml b/Docu=
-mentation/devicetree/bindings/ufs/ufs-common.yaml
-> index ed97f5682509..bc83948fc168 100644
-> --- a/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-> +++ b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-> @@ -105,6 +105,17 @@ properties:
->        Restricts the UFS controller to rate-a or rate-b for both TX and
->        RX directions.
+> diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
+> index f1a1e5b888f6..4b075a7b1cd7 100644
+> --- a/drivers/hwmon/lm75.c
+> +++ b/drivers/hwmon/lm75.c
+> @@ -123,7 +123,9 @@ struct lm75_data {
 > =20
-> +patternProperties:
-> +  "^txeq-settings-g[1-6]$":
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    minItems: 6
-> +    maxItems: 12
-> +    description: |
-> +      Static TX Equalization settings for High Speed (HS) gears.
-> +      The settings are specified as an array of tuples (PreShoot, DeEmph=
-asis, PrecodeEn).
-> +      The array must contain these tuples in the following order:
-> +      Host Lane 0, [Host Lane 1], Device Lane 0, [Device Lane 1].
+>  static const u8 lm75_sample_set_masks[] =3D { 0 << 5, 1 << 5, 2 << 5, 3 =
+<< 5 };
+> =20
+> -#define LM75_SAMPLE_CLEAR_MASK	(3 << 5)
+> +#define LM75_ALERT_POLARITY_HIGH_8_BIT	(BIT(2))
+> +#define LM75_ALERT_POLARITY_HIGH_16_BIT	(BIT(2) << 8)
+> +#define LM75_SAMPLE_CLEAR_MASK		(3 << 5)
+> =20
+>  /* The structure below stores the configuration values of the supported =
+devices.
+>   * In case of being supported multiple configurations, the default one m=
+ust
+> @@ -137,7 +139,7 @@ static const struct lm75_params device_params[] =3D {
+>  	},
+>  	[as6200] =3D {
+>  		.config_reg_16bits =3D true,
+> -		.set_mask =3D 0x94C0,	/* 8 sample/s, 4 CF, positive polarity */
+> +		.set_mask =3D 0x90C0,	/* 8 sample/s, 4 CF */
+>  		.default_resolution =3D 12,
+>  		.default_sample_time =3D 125,
+>  		.num_sample_times =3D 4,
+> @@ -728,6 +730,7 @@ static int lm75_generic_probe(struct device *dev, con=
+st char *name,
+>  	struct device *hwmon_dev;
+>  	struct lm75_data *data;
+>  	int status, err;
+> +	u16 set_mask;
+> =20
+>  	data =3D devm_kzalloc(dev, sizeof(struct lm75_data), GFP_KERNEL);
+>  	if (!data)
+> @@ -762,8 +765,15 @@ static int lm75_generic_probe(struct device *dev, co=
+nst char *name,
+>  		return err;
+>  	data->orig_conf =3D status;
+> =20
+> -	err =3D lm75_write_config(data, data->params->set_mask,
+> -				data->params->clr_mask);
+> +	set_mask =3D data->params->set_mask;
+> +	if (of_property_read_bool(dev->of_node, "lm75,alert-polarity-active-hig=
+h")) {
+> +		if (!data->params->config_reg_16bits)
+> +			set_mask |=3D LM75_ALERT_POLARITY_HIGH_8_BIT;
+> +		else
+> +			set_mask |=3D LM75_ALERT_POLARITY_HIGH_16_BIT;
+> +	}
 > +
->  dependencies:
->    freq-table-hz: [ clocks ]
->    operating-points-v2: [ clocks, clock-names ]
+> +	err =3D lm75_write_config(data, set_mask, data->params->clr_mask);
+>  	if (err)
+>  		return err;
+> =20
 > --=20
-> 2.34.1
+> 2.54.0
 >=20
 
---zZv6/IXBq9h6cyVd
+--io1WObltbTbzSrNV
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafTcwgAKCRB4tDGHoIJi
-0vYZAP0e5vAEUy82WqTW/s+caijOyxLNxZItemHDAZwOqKIAkAD9GgJNBiixiK4Q
-fLlejc8u/KShPy6JLAz2mwFCLPvW/wU=
-=ofFG
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafTdZAAKCRB4tDGHoIJi
+0sRhAP9cz2sSId3JiEBRhI4GSGt2Qgvy5RMclPY8f9aBBTPKuQD6A3T7JxhBNWz2
+D6FjAoSfQHoFQJSD0UF5ZrDHQRHmXgI=
+=cLHo
 -----END PGP SIGNATURE-----
 
---zZv6/IXBq9h6cyVd--
+--io1WObltbTbzSrNV--
