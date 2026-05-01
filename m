@@ -1,37 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D51F366DB5;
-	Fri,  1 May 2026 09:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7D03803CC
+	for <devicetree@vger.kernel.org>; Fri,  1 May 2026 09:18:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777626700; cv=none; b=XhT1JyNB1xYZbC2/g/uOtVI/OdshNc9FnGdSU6ZZDVgtO53l2C5/bSl8B73RzzlfOVbnvO3HLf16unKzBAaa8xLISlx6VwMyOMY3qXDRcVGqh+jfxfIZAFWAsO64M1KRijq5aVfaWR9RhwNZZwxwOit2Khwt0ckSvE/eUAeSQNw=
+	t=1777627118; cv=none; b=l9+wlFWZjyI0kyCA7kydykDOLmiIFXhe0aBoydKSjuOJ+KB+QzvowXCxpTijEmYERMn2neVUM8uMWQsbmp+/B7JufMIrDaf4dHHgvdbTSYJk7pmKbvZzzPoP9FOD49nbkzmyG1DHN8Y9VBWFxp0/dYBZyDUmr376hHnraAAa7MI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777626700; c=relaxed/simple;
-	bh=8NE3gWGYnFaVUlsJLjhktxC9sF6clIn1F8f80pRPo1Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sx62/JL1c3smbJrPzMGXAOjN5FijKCliGzyr6eNHlH+fCW/+LaPiHzKe4wmo79KyLECxsdqx2V46BQ2DnYFFpQ6WdPMLZOvGUnsYnfRdfQG/C04m6fPN0mjc4wSaE90PRolcbsoz5IlcpEA7ZS3upGM30PicH9IFO02I2DyJt70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cSiqoBZZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777627118; c=relaxed/simple;
+	bh=WGw15wnrL3hMI5E1OHDA/5Y1FK0IInxfQr7juzg6tUQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UzH2KbF17bvNOn6/FoZxpxQvsmhIcC1SeBFRustPbG9TmNhirdUp2Vn8/8S2dWow+xWhywen8R8BO7zArYIeBR2jpS8jtZ+tVnmZle+JFem/bsdq7qNXJgS2cOKnAIEV0EgOPNaq+PSdhJWa+rkOD517tzgIUBafKm6MTJiA/Sg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=HRaf4H39; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cSiqoBZZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E4BFCC2BCB4;
-	Fri,  1 May 2026 09:11:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777626699;
-	bh=8NE3gWGYnFaVUlsJLjhktxC9sF6clIn1F8f80pRPo1Q=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=cSiqoBZZWYStHiiq2FrwGX0l2NqJjgBYItoeXLLvi8LdwCzr6pXgSpBRWyuGBFmim
-	 PzYyjkeXK2w1WCI32SV7lD24sJAMUB2hN7mg/RdSRRfJhka0f5yAsZ0bBGETdWcP5W
-	 7D5H7pHmZvz3wbiH8eTTbWH1owdZDxvC48+DpRJXZK4DYtxEeZnt9XGTtmKWjLNLY4
-	 WDjBK7VWdqyOy2L63xPkutELQHt0VXIwQaTEBVFk7L+SYU44/JtkazqsjMleYR6pdM
-	 qD4tPLBpgmczq2EDEkV+LF1LspfvWfpTwizeY52QZxAFZ66EFRr7S8Ow9x1l0uHhIK
-	 VdCuMxA8oS3Lw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C8CF9CD3424;
-	Fri,  1 May 2026 09:11:39 +0000 (UTC)
-From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
-Date: Fri, 01 May 2026 11:11:29 +0200
-Subject: [PATCH] arm64: dts: qcom: sc8280xp-blackrock: switch to uefi rtc
- offset
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="HRaf4H39"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-43d76dd4ee8so1394944f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 02:18:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1777627114; x=1778231914; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=BDZosYsDgpbdMxXQX/sZK+i7ik/+NlYq5noK0zNARiA=;
+        b=HRaf4H39WdELAQDTdStWHUY7iU3sXOISHpXwCeU9xuAI5Ulppv5hrkD52nRlTymc1g
+         k98/rV7qOEg6PBNkTOWgcBWMElNg8h5cUopAnmfr9wVYe7sYFe4tHHOAUarjSTms9D2s
+         1GJp3wQ/R0Tg7Wu1L/H1ny95lOzsyby9kqcjBXo5MLvtkVWRyJ8ZrGn92E7mzTH+3rjJ
+         Dp110nLE+5LsdPOa2jeiKwzCGBV5DXaK05ggi+0K3Z/hL5g3Z7maR0hk4IGGy7ETmg2B
+         F4RH+p4C8WT8lbVmRuLkuU4VGjWSLuqj0hTIAGUvyqWuEIrJXsOwMCAY+GmgrdxRkM4N
+         TE2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777627114; x=1778231914;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BDZosYsDgpbdMxXQX/sZK+i7ik/+NlYq5noK0zNARiA=;
+        b=SjOXOEe0jkcjDYRkn0P7H+Te/89+TZJqnN5ZFJwb2z2Bi9r42je5TiFNXqzr04+Tah
+         QZNflZSfYfJ5AJYv27Wg4sBqsXDBEht5S/6qnby1/xhcQAFlnQAkPwZqAnrRFXtOeYo0
+         Ul2M4wVhqsLlZ8dh1eoj12fTAP23wxH3ATl5D1egZK9/+iV2RKn9Fp1RUVhVd8z56UPu
+         c9tWSvE8eC0GxlCi93Lzpo2KYPLVt1+de6U9tgtKIOSTaX9uspwVCBgcJTWcNt89cdSz
+         3RIiveOjhgY1d4/NXwq1WFuCKZjbhArOhh4AyWlsMK2jxrg8p2qlflxatwTx5Z3K0tf3
+         X6eg==
+X-Forwarded-Encrypted: i=1; AFNElJ8Xzyl+x82Tez9HHOdO7Obh1qjcDiLtGRWTj+JCHjUWhJnSudDGBgk80zhvr1m6ZcAFlHdnMJq729+e@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+W857mzfQcIxVcAJX+ANWV3L4cqw0uBVjoTK/0aWWVYk+OjLG
+	UmFqsrhfoQ8VH7X/ddrpIjk1YbAM00/d826azNi/3nVm7ZY6zy13nEBdvgILXQG8xug=
+X-Gm-Gg: AeBDiesXLfg008ZpgUvxM8VVZ0J8627G6sAxkK1SD+X9oeSH+Ehk7skWQtijamMuBDu
+	02nQW4Fu98eGz4sBAvNcSuTUSwVe13y7+X5G2CQJLSfSi/tmnst3cTwzGwLy3YPviAh9arpkzQR
+	GcWW4uvKM8tw8OaUZ8HkJ3xcTV+7BmSFgy88OLQ4nip5FB9SCDG4V9OBlMYq5dL+1bYlQtorQva
+	k2Bg6XDqah3p2+60twjryqAQ18waW5CfDPqv+BoXOY9153Vfq/3GmyIn4Kb0Dz9LZnmOUOfQdN2
+	JLUYnNqEPd4l1JrQv5AI1dJM8AmwMPLV6Et3EjjT780Pbx1vDLMQShIjEW80TFwyuHua8CFYz3z
+	XwK1nOvjbwMwIafJtsQxGuHGyo3KiEXfpXJwwn7ubLdieQ3z/Zs93y5GQczItHgnymidBO7EN75
+	0vWi/XUAsuqF1tFPQTi4BTCVsFgyAZavuG5/dEJyfxjtmz+I1gH4kFc+4FVZptgMo700vS9bptW
+	2UZXYA3nYXYsuYeSi0=
+X-Received: by 2002:a5d:5f91:0:b0:449:fb9e:4b4e with SMTP id ffacd0b85a97d-44a85d97773mr3498972f8f.15.1777627114550;
+        Fri, 01 May 2026 02:18:34 -0700 (PDT)
+Received: from [192.168.178.36] (046124199213.public.t-mobile.at. [46.124.199.213])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-44a98b76fd0sm3820787f8f.35.2026.05.01.02.18.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 01 May 2026 02:18:34 -0700 (PDT)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Subject: [PATCH v2 0/5] Support enabling interconnect path for GDSC for
+ fixing Milos camcc
+Date: Fri, 01 May 2026 11:18:28 +0200
+Message-Id: <20260501-milos-camcc-icc-v2-0-bb83c1256cc3@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,102 +70,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260501-blackrock-rtc-v1-1-bddf3e37fa94@oldschoolsolutions.biz>
-X-B4-Tracking: v=1; b=H4sIAEBu9GkC/x3M0QpAMBSH8VfRubaaxcSryMXMHydCZ5LS3t1y+
- bv4vpcChBGozV4S3Bz42BOKPCO/uH2G4jGZjDZWV7pQw+b8KodflVxeGUyoHRoHW1JqTsHEz//
- r+hg/WILRP18AAAA=
-X-Change-ID: 20260501-blackrock-rtc-2efe7ae9ae64
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQrCMBBEf6Xs2Ug21iqe+h/SQ5rs2gXblESCU
+ vLvxt49zOENzJsNEkWhBLdmg0hZkoSlgjk04Ca7PEiJrwxGm04jdmqWZ0jK2dk5JTW+xdEzn5D
+ 4CnW1RmJ578b7UHmS9Arxsx9k/LX/XRmVVq3W44Wdx3Nne7YS1yksdHRhhqGU8gWfxpmOsgAAA
+ A==
+X-Change-ID: 20260116-milos-camcc-icc-d41bdff31ef8
+To: Georgi Djakov <djakov@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>, 
- Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777626698; l=2425;
- i=jens.glathe@oldschoolsolutions.biz; s=20240919;
- h=from:subject:message-id;
- bh=tDNNxwtejUYdaPAby/1L+xoKUke9uWqBJlZ4wJWTrYY=;
- b=QLmw6GvnBSprPtboyVQDUmTXvT3P8+o1OoUgdHW47BtpgmxO+wiJSKesDiW5WC0ir0TSOHEEF
- U1US5Wev/LUCBehjoMxx1+XpYnJl1RJpuzW1RMOOs/dnlUfJEeqS3Gl
-X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
- pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
-X-Endpoint-Received: by B4 Relay for
- jens.glathe@oldschoolsolutions.biz/20240919 with auth_id=216
-X-Original-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-Reply-To: jens.glathe@oldschoolsolutions.biz
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Mike Tipton <mike.tipton@oss.qualcomm.com>, 
+ Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777627112; l=1757;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=WGw15wnrL3hMI5E1OHDA/5Y1FK0IInxfQr7juzg6tUQ=;
+ b=y9ZOv7Hz76149N7Pj/D9PMsrbeI3dZtb7wHBWIaRE92i7fwvPhqmH/Q9tyA9kVEcFZD6SwEHZ
+ psNpwpDjV8pCCusCyi2SuQMqPN2+E8tgey/9b47aPVmJ9ZvLaL7FV3u
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Some power domains like CAMSS_TOP_GDSC requires the enablement of the
+multimedia NoC on newer SoCs like Milos.
 
-On many Qualcomm platforms the PMIC RTC control and time registers are
-read-only so that the RTC time can not be updated. Instead an offset
-needs be stored in some machine-specific non-volatile memory, which a
-driver can take into account.
+Add support for getting an interconnect path as specified in the SoC
+clock driver, and enabling/disabling that interconnect path when the
+GDSC is being enabled/disabled.
 
-On platforms where the offset is stored in a Qualcomm specific UEFI
-variable the variables are also accessed in a non-standard way, which
-means that the OS cannot assume that the variable service is available
-by the time the RTC driver probes.
+Then specify that dependency in the camcc-milos driver and add it to the
+dt-bindings and milos.dtsi.
 
-Use the new 'qcom,uefi-rtc-info' property to indicate that the offset is
-stored in a UEFI variable so that the OS can determine whether to wait
-for it to become available.
-
-[1]: https://lore.kernel.org/r/20250423075143.11157-4-johan+linaro@kernel.org
-
-Fixes: 16a7fed11714 ("arm64: dts: qcom: sc8280xp-blackrock: dt definition for WDK2023")
-
-Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
-This is the first of a small series of incremental updates for the
-Microsoft Windows Dev Kit 2023 (sc8280xp-blackrock / Project Volterra).
-
-Subsequent patches will address:
-  - USB-C DP altmode support on the rear port (USB0)
-  - Audio on all three DisplayPort-capable connectors
-  - A few other cleanups cherry-picked from the Lenovo X13s
-
-The goal is to keep changes small and reviewable.
-
-base-commit: b9303e6bff706758c167af686b5315ad00233bf8
----
- arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts | 11 +----------
- 1 file changed, 1 insertion(+), 10 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
-index 00bbeeef6f14dd89de506e33742f8f73435ac021..3dc3d7ae928d0a509c564a32908e33f5ca934c98 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
-@@ -763,20 +763,11 @@ &pmk8280_pon_resin {
- };
- 
- &pmk8280_rtc {
--	nvmem-cells = <&rtc_offset>;
--	nvmem-cell-names = "offset";
-+	qcom,uefi-rtc-info;
- 
- 	status = "okay";
- };
- 
--&pmk8280_sdam_6 {
--	status = "okay";
--
--	rtc_offset: rtc-offset@bc {
--		reg = <0xbc 0x4>;
--	};
--};
--
- &pmk8280_vadc {
- 	channel@144 {
- 		reg = <PM8350_ADC7_AMUX_THM1_100K_PU(1)>;
+Changes in v2:
+- Move icc_set_bw() calls to gdsc_toggle_logic() (Mike)
+- Try to make dt-bindings commit message clearer
+- Pick up tags
+- Link to v1: https://lore.kernel.org/r/20260116-milos-camcc-icc-v1-0-400b7fcd156a@fairphone.com
 
 ---
-base-commit: b9303e6bff706758c167af686b5315ad00233bf8
-change-id: 20260501-blackrock-rtc-2efe7ae9ae64
+Luca Weiss (5):
+      interconnect: Add devm_of_icc_get_by_index() as exported API for users
+      dt-bindings: clock: qcom,milos-camcc: Document interconnect path
+      clk: qcom: gdsc: Support enabling interconnect path for power domain
+      clk: qcom: camcc-milos: Declare icc path dependency for CAMSS_TOP_GDSC
+      arm64: dts: qcom: milos: Add interconnects to camcc
+
+ .../bindings/clock/qcom,milos-camcc.yaml           |  8 ++++++
+ arch/arm64/boot/dts/qcom/milos.dtsi                |  3 ++
+ drivers/clk/qcom/camcc-milos.c                     |  7 +++++
+ drivers/clk/qcom/gdsc.c                            | 33 ++++++++++++++++++++++
+ drivers/clk/qcom/gdsc.h                            |  5 ++++
+ drivers/interconnect/core.c                        | 20 +++++++++++++
+ include/linux/interconnect.h                       |  6 ++++
+ 7 files changed, 82 insertions(+)
+---
+base-commit: 9f5d28c2bae83e051ab7f807c819a634693ebffc
+change-id: 20260116-milos-camcc-icc-d41bdff31ef8
 
 Best regards,
--- 
-Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-
+--  
+Luca Weiss <luca.weiss@fairphone.com>
 
