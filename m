@@ -1,99 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9ADC13A258;
-	Sat,  2 May 2026 12:01:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25BD136BCC0
+	for <devicetree@vger.kernel.org>; Sat,  2 May 2026 12:41:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777723265; cv=none; b=RbdCZLPsaKERklN6aXYr5nWK9u3aLemA+mYeQv9uG+LChbTi55z7xQZJlWJIvtgP7PygPoPZ6AGjfGADyKLFTP9duVH38PEnnAC/DQVqs7FXykgjir5b9ItWTNGCvGVLlTIEFffalY7BtWr+iCo2oCxUY6cnEu5qYuN5ALK5A9M=
+	t=1777725677; cv=none; b=fx8iSfGqDUor6+ZquMxQD1xPsFdRRmVa/HGhRGaTbrCY/l1wDtDZt32mf9aT4yH0TaJAL1qWoX7doZnSn3Fe+xGVSrzO16nm8+jVrrmaq/QNJvSxnNdYZ7OjFQUumAaJXFqIzL/gJNnZR6PaeD+xzIiJ+1sNf8pFIQaqn7a0RLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777723265; c=relaxed/simple;
-	bh=cYlEA7J2N+YnE4244ODfbSDfbaz+mByM60A7ApfHpIQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=igTXlFjWgxtAPLEWsoyGK5w0KL+qiSn7rUMVnTYWVDb/hGGbzNht3sZVZsswIexTK0iAyXctN44o9mubVO5rAZUYB3so4mRptY30Y3swuIycUgXbhi6oGMD2GxJPR1Za0T1DsQ0+WFDOP231BT8hQ8UB1UhRLOmg5ZC3sOebn58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ADpu4nPM; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777725677; c=relaxed/simple;
+	bh=bzK7TuhI7iXeChjCRE/yKbFe3uEBIwi8ReixnO3VzD0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Zllg1beNapfBeCWJgV0rloQWBITs64MHuzES0Na1yUrsUac4tWbvqNnITJ8XeLYxs8K+Kjs1Qu9DiQrcoQgK5TMkozNSKuabDCRhl14dQMbghsY24q2I+29hqfVK/o6ZQLIxhPeiPD3zwetXUG+2yzej209920kdd9RQ8UoyO+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=szC/F6aa; arc=none smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ADpu4nPM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF21DC19425;
-	Sat,  2 May 2026 12:01:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777723264;
-	bh=cYlEA7J2N+YnE4244ODfbSDfbaz+mByM60A7ApfHpIQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ADpu4nPMCwKotBgOh9ShhpN69OY0fmaT5OWxlb/QysGsFrMl0tM6PJiBgpgQnel7O
-	 3dFhDG5c+mbc9GuxK76cx1a+n9jPZpK7bkPLRfXSAe75g1uxWlZpiMCR3/70BbxMkJ
-	 ZSdpgYAR/TTpeRtO4mRZz9WlNJNM8Smdsz+TVPw7uumxDtkz7aeEyEIGatnzdXIr7o
-	 X3ymaszfjAaIwXCloJilEIgl0zZMmJ2fBa7FJQT208mztCGiFpjtplJlTQvTNYB0nV
-	 0Exqtvu9wQTvJ6UJV/ujYTni9aCzDENeKZ67vVRMY0f56N0bAk8HfUq6A9bklBeiUF
-	 o8NNjUaKfuGsQ==
-Date: Sat, 2 May 2026 12:01:02 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: spacemit@lists.linux.dev, Conor Dooley <conor.dooley@microchip.com>,
-	Vivian Wang <wangruikang@iscas.ac.cn>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="szC/F6aa"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-67b6da5a618so4341509a12.2
+        for <devicetree@vger.kernel.org>; Sat, 02 May 2026 05:41:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777725674; x=1778330474; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=HBPNRk7v8mm7QEjJvKG3bZ2ji7O0ntCyzGjvZOc47Jg=;
+        b=szC/F6aaQSGgS0XWpir9o5lO6cfT0oCt/xvdG5zbZfgRpZRZRei1DER181TJBgW3kZ
+         HG2LQMX5Wh0nqXLmesIugpj+EaiV8Z8LkjgHgMonkEl+f8c84+dc8A+K4WNaaNPfFTPz
+         2z5bnoHs8lDj0Xpg7hKi9GpAYaypNrUNNiNZ8oIwv6M2l8icQTeM9XGorcwjHzVL85n0
+         S5W1N77C0pkKYzK6FUHO092IDvVSJw4AyT6aFFkq3GGXHkOD1RaPEgOX8vXNoxSE4QGy
+         fx4oq0Vb1MVgIAs9zLRBMUobAs5IcXvdDRiyKiXAqsQSi2oTpViCsOKceO0LYYPD1xgR
+         T7xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777725674; x=1778330474;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HBPNRk7v8mm7QEjJvKG3bZ2ji7O0ntCyzGjvZOc47Jg=;
+        b=hafGxJT7fhtedN9oqOO0PbKjbF8UDZddktx34pxq9DFNlAgUtMsUyw2+Q7fZMqNrrv
+         DJr2iTyE6vsCEXXzNZzq7FpUJfyAMatOvuR5n3FQWLkJzg+vx6jjacKO37uA0QuqICu/
+         bS77ljK+ifs01qcKsArif47uKssgIsesR8qWnjWumI7B5+9/ltscs7JF8pji1lPqrD21
+         KTralSLhnA4lHqiVBtVM6FriqEIqJjr6YnMHSMhGgEQQgMEEFvFITjvXpfGs3Hc0/0QL
+         tBzsQeyD9jsK2pIAaesptjuQ5+4KBruPaXTJyoUawl5Z4os9o7t8X7B5vbH6+pguSROs
+         xvlw==
+X-Gm-Message-State: AOJu0YwWMMiGJsqpwoUrctr3WA6zto+VJ/9/JylJ7EbfqEFW9ObfMwQn
+	/UAB14JNG/IgfLLCjEL4wcrEpHzhjIUqd2O4tFbh02LPcdzGDtW2N/3A3jqZMw==
+X-Gm-Gg: AeBDieudhCtyGKmtJ11dSC26tc/DUG+qbzLP4MhhaquWVZ1YzHN/6jN4zbVTH55yi9r
+	xfF91mb0f+IbB2CTJhQ3EyYzn+aFhpsKHJNwHirLul8nKSzj6Y9RdVmlRDo7B03aYXVAUJudt8g
+	N5D2BqbOyY7ABXl4ExkKsTHyTYhUF4WvDa1tuYp47qupplJwLlDEg4bQ0vuOXWb2zFUhq4nUCPI
+	zIgyXN5EFLDJ0hzPIQ7lSwfq3W1Bq5/3NxwnXhIq8WDYQUPuSsJdF/XSx+ld1bnRFrvx7IAXz6r
+	iR3BmYnw7FNWwtqlQejKC0Ig98lfCSHr7UyizuRhtXdR8jrzEIhhNL/ieCmJqgCUQ0ukqe1UXSi
+	/tIM9qgLu6Fss3oenMrZWsM2gxO/sXXoTVIeZ/St+ZH25W950IY5RdQWlgDBXYtW3r6jNHGjkPb
+	bHq87t0K7HguCaQManJtpMyUo=
+X-Received: by 2002:a05:6402:1209:b0:665:3d68:c46c with SMTP id 4fb4d7f45d1cf-67c1ada368fmr865771a12.14.1777725674231;
+        Sat, 02 May 2026 05:41:14 -0700 (PDT)
+Received: from xeon ([188.163.112.56])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67b85e281cdsm1649649a12.3.2026.05.02.05.41.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 02 May 2026 05:41:13 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] dts: spacemit: set console baud rate on bpif3
-Message-ID: <20260502120102-GKC3266396@kernel.org>
-References: <20260430-reword-overstep-3be08b7eab25@spud>
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Ion Agorria <ion@agorria.com>,
+	=?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-leds@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: [PATCH v6 0/7] mfd: Add support for Asus Transformer embedded controller
+Date: Sat,  2 May 2026 15:40:48 +0300
+Message-ID: <20260502124055.22475-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260430-reword-overstep-3be08b7eab25@spud>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Conor,
+Add support for embedded controller used in Asus Transformers for
+managing power and input functions.
 
-On 19:52 Thu 30 Apr     , Conor Dooley wrote:
-> From: Conor Dooley <conor.dooley@microchip.com>
-> 
-> Because the default console's baud rate is not set, defconfig kernels do
-> not have any serial output on this platform. Set the baud rate to
-> 115200, matching what is used by U-Boot etc on this platform.
-> 
-> Suggested-by: Vivian Wang <wangruikang@iscas.ac.cn>
-> Fixes: d60d57ab6b2a8 ("riscv: dts: spacemit: add Banana Pi BPI-F3 board device tree")
-> Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
-> ---
-> CC: Rob Herring <robh@kernel.org>
-> CC: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> CC: Conor Dooley <conor+dt@kernel.org>
-> CC: Yixun Lan <dlan@kernel.org>
-> CC: devicetree@vger.kernel.org
-> CC: linux-riscv@lists.infradead.org
-> CC: spacemit@lists.linux.dev
-> CC: linux-kernel@vger.kernel.org
-> ---
->  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts | 2 +-
+---
+Changes in v2:
+- converted sysfs debug exports into debugfs
+- added kernel-doc comments for exposed functions
+- fixed minor typos and inconsistencies
 
-Looks good to me, but I think the fix should also apply to other boards,
-so do you want to fix other dts? I'd be fine if you keep it to BPI-F3 only
+Changes in v3:
+- dropped DockRAM commits (both schema and driver)
+- integrated DockRAM functionality directly into the controller driver
+- EC schema moved to embedded controllers folder
+- removed all cell descriptions from the schema
+- removed all compatibles from the cell drivers
+- adjusted naming conventions to better align with the ASUS Transformers
+- defined EC variant sets to provide coverage for all known devices
 
+Changes in v4:
+- grouped known programming models of EC chronologically (both schema
+  and driver)
+- call debugfs init only if CONFIG_DEBUG_FS is enabled
 
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> index 5790d927b93db..333ac8ebf3f51 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> @@ -19,7 +19,7 @@ aliases {
->  	};
->  
->  	chosen {
-> -		stdout-path = "serial0";
-> +		stdout-path = "serial0:115200n8";
->  	};
->  
->  	leds {
-> -- 
-> 2.53.0
-> 
+Changes in v5:
+- added asus,tf600t-ec-dock compatible to schema
+- rebased on top of v7.0
+- kzalloc > kzalloc_obj in keys and kbc
+
+Changes in v6:
+- removed asus_ec_handle_smi casting
+- asus_dockram_access_ctl > asus_ec_get_ctl in control_reg_*
+- fixed battery Kconfig description
+---
+
+Michał Mirosław (6):
+  mfd: Add driver for ASUS Transformer embedded controller
+  input: serio: Add driver for ASUS Transformer dock keyboard and
+    touchpad
+  input: keyboard: Add driver for ASUS Transformer dock multimedia keys
+  leds: Add driver for ASUS Transformer LEDs
+  power: supply: Add driver for ASUS Transformer battery
+  power: supply: Add charger driver for Asus Transformers
+
+Svyatoslav Ryhel (1):
+  dt-bindings: embedded-controller: document ASUS Transformer EC
+
+ .../asus,tf201-ec-pad.yaml                    | 119 +++
+ drivers/input/keyboard/Kconfig                |  10 +
+ drivers/input/keyboard/Makefile               |   1 +
+ .../input/keyboard/asus-transformer-ec-keys.c | 272 +++++++
+ drivers/input/serio/Kconfig                   |  15 +
+ drivers/input/serio/Makefile                  |   1 +
+ drivers/input/serio/asus-transformer-ec-kbc.c | 147 ++++
+ drivers/leds/Kconfig                          |  11 +
+ drivers/leds/Makefile                         |   1 +
+ drivers/leds/leds-asus-transformer-ec.c       |  79 ++
+ drivers/mfd/Kconfig                           |  14 +
+ drivers/mfd/Makefile                          |   1 +
+ drivers/mfd/asus-transformer-ec.c             | 762 ++++++++++++++++++
+ drivers/power/supply/Kconfig                  |  22 +
+ drivers/power/supply/Makefile                 |   2 +
+ .../supply/asus-transformer-ec-battery.c      | 272 +++++++
+ .../supply/asus-transformer-ec-charger.c      | 193 +++++
+ include/linux/mfd/asus-transformer-ec.h       | 162 ++++
+ 18 files changed, 2084 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/embedded-controller/asus,tf201-ec-pad.yaml
+ create mode 100644 drivers/input/keyboard/asus-transformer-ec-keys.c
+ create mode 100644 drivers/input/serio/asus-transformer-ec-kbc.c
+ create mode 100644 drivers/leds/leds-asus-transformer-ec.c
+ create mode 100644 drivers/mfd/asus-transformer-ec.c
+ create mode 100644 drivers/power/supply/asus-transformer-ec-battery.c
+ create mode 100644 drivers/power/supply/asus-transformer-ec-charger.c
+ create mode 100644 include/linux/mfd/asus-transformer-ec.h
 
 -- 
-Yixun Lan (dlan)
+2.51.0
+
