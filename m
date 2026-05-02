@@ -1,93 +1,337 @@
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 62BDA319847;
-	Sat,  2 May 2026 21:54:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F9B186A;
+	Sat,  2 May 2026 23:25:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777758882; cv=none; b=f9L9hAy5Yu8FN/YQ7dyP/5br2S9sfuesWdSpVPsRAEVHRJETcjLyeW1FGkxtSYZnvISDThyG6CCWHvs/EhqBn6Uc+3SAACINLattDOQRyJ3wKq8d1cUGDdGqndYe6trxuCKTTzOHTme+ohk2ZMZ3HbCdNka1Z7LkZiilVJVzwtQ=
+	t=1777764337; cv=none; b=eoBkygfKY80qseBue3x92PeFb4Nik0zz2Pc/a5sz7CBbsf02E44MIlnu3wscGG6cnUK2ylyJi8gQ1PSnNU+DzRirHhGFlWuRF8kUUkJB0mQb2B7HLnMT2JrQdlUNRsozmTcsdJo+GMut3dROIw89m04VtME3OF7RAkYk+7Ph4nY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777758882; c=relaxed/simple;
-	bh=tpnnFjisTahUM4MUYPoN0l/SLFoAL+pWtU6uPI3YPFU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=jybJ5PaWoc7t92AqyxQZXvEbUdhXy/71JBeZ5sq5Nmvp24OhZXthTD7Z1azhZPPxMJTsxqh2QAsg/s56f1ZR96i8wI8malIr6q93pDn/JlfVrk6rfvoDn/zq3bKoBF1ruTz4Sk/EPJH9WvZOhpgIs2j/AKHgJpuwbrHrEJEd8q0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 632CD92009C; Sat,  2 May 2026 23:54:37 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id 5E56B92009B;
-	Sat,  2 May 2026 22:54:37 +0100 (BST)
-Date: Sat, 2 May 2026 22:54:37 +0100 (BST)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Thomas Gleixner <tglx@kernel.org>
-cc: Caleb James DeLisle <cjd@cjdns.fr>, linux-mips@vger.kernel.org, 
-    robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-    linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 2/2] irqchip/econet-en751221: Support MIPS 34Kc VEIC
- mode
-In-Reply-To: <87tssuxmh8.ffs@tglx>
-Message-ID: <alpine.DEB.2.21.2605022158400.23161@angie.orcam.me.uk>
-References: <20260425123531.270548-1-cjd@cjdns.fr> <20260425123531.270548-3-cjd@cjdns.fr> <87tssuxmh8.ffs@tglx>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	s=arc-20240116; t=1777764337; c=relaxed/simple;
+	bh=IpSw53TOh/n7IS6SsjWLenMx6OMEcXR4c08TD6yYtic=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=sFDJNziuK6ul9RHxaai0bMxWBlBE8kCslaM7mFuPpALi4mBKoLbBL5ZTdFjhcSFr+E+F9yqESb/plmvaVzl2tlqvJ32QMg/60QPH5lCfEnnaNcD9DcmG9DECOkmaG9PrkMXEaIWBRhT5ygQ9/XZ9IGPN7uIbejN+Quctt3LWfXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K+IuxdTE; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K+IuxdTE"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 26A80C2BCB9;
+	Sat,  2 May 2026 23:25:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777764337;
+	bh=IpSw53TOh/n7IS6SsjWLenMx6OMEcXR4c08TD6yYtic=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=K+IuxdTEywD5QY+rQWZ5rG9iS5aAQ6JgK3t5rb4sav/TpCDyOFdDV4b6onzLb/Idl
+	 BDJ9xb6qJSNKmIM6Px8Ovgx+5Ow7JE0/irGTH3dogSgZZ6jXlIZcscjvldymaLH2G/
+	 NoK3c6twlqZxD8lHP+wOiWAFR7mQPRQ/qofaflsDlFkeH+TQlM68OV1zn7MbKYuqY6
+	 jU71ze3g3B3B4fs7+ABaKcpgrNZ9/LIlmkzfw/Wn6wyJOZGQ5sy3jmDKTMmIrrnU/7
+	 fbIbysvyrRDvn2RjnyTZFFePqGE+uoWeqKM4Y6WkBp21s+EWvocpxO8kk7m2ji+ZM3
+	 8ltXg5r50D/9w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 176DBCD3426;
+	Sat,  2 May 2026 23:25:37 +0000 (UTC)
+From: Ciprian Regus via B4 Relay <devnull+ciprian.regus.analog.com@kernel.org>
+Date: Sun, 03 May 2026 02:24:50 +0300
+Subject: [PATCH net-next 1/5] net: ethernet: oa_tc6: Handle the OA TC6 SPI
+ protected mode
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260503-adin1140-driver-v1-1-dd043cdd88f0@analog.com>
+References: <20260503-adin1140-driver-v1-0-dd043cdd88f0@analog.com>
+In-Reply-To: <20260503-adin1140-driver-v1-0-dd043cdd88f0@analog.com>
+To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, devicetree@vger.kernel.org, 
+ Ciprian Regus <ciprian.regus@analog.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777764335; l=8778;
+ i=ciprian.regus@analog.com; s=20260330; h=from:subject:message-id;
+ bh=smd/ALBtlVdeWdMQcAG2kvWHkVX9YyfLReANHzFrjYA=;
+ b=NgfRGoWt8KE67G6lRWZb1Ea1QUW1DMXqpn2nuURz9Uy0/fttF0/WI/FJp0hgkjR6YkutURFiR
+ o6O1K0tt6zoCj9ktDT1nEyqhWrapNUHQFKi69YfpTPE0z3TciutYAol
+X-Developer-Key: i=ciprian.regus@analog.com; a=ed25519;
+ pk=8WoNhI0kQcQUl8YqJO5ZevROYk9HP8lOIeIgIYgjfbc=
+X-Endpoint-Received: by B4 Relay for ciprian.regus@analog.com/20260330 with
+ auth_id=703
+X-Original-From: Ciprian Regus <ciprian.regus@analog.com>
+Reply-To: ciprian.regus@analog.com
 
-On Wed, 29 Apr 2026, Thomas Gleixner wrote:
+From: Ciprian Regus <ciprian.regus@analog.com>
 
-> Other than those nits, this look like a reasonable solution for a
-> completely unreasonable hardware design.
+Implement the OA TC6 standard defined protected mode for control (register
+access) transactions. In addition to the current register access formats
+the oa_tc6 driver handles, 1's complement values of the data field
+are included (by both the host and the MACPHY) in the SPI transfer frames.
+This feature acts as an integrity check.
 
- Why do you think this design is unreasonable?
+Control write transactions look like this:
 
- How is that different, at the high level, from say the x86 APIC priority 
-resolver and vector generator, combined with the interrupt descriptor 
-table (except for additional optional GPR stack switching, which saves the 
-handler from the hassle and extra cycles needed for GPR preservation, 
-though I reckon with x86 you could use task gates in the IDT to yield a 
-similar effect although at much higher cost performance-wise as x86 does 
-not implement alternative GPR stacks)?
+          |<- 32 bits ->|<--- data_size --->|<- 32 bits ->|
+    MOSI: | ctrl header | reg write data    | ignored     |
+    MISO: | (discard)   | echoed ctrl hdr   | echoed data |
 
- Analogously to x86 in the MIPS VEIC mode the IRQ number is determined by 
-the vector rather than the somewhat arbitrarily numbered (particularly in 
-cascaded topologies) IRQ line and available to the handler in the 
-CP0.Cause.RIPL register field.
+    data_size (LEN = number of registers to read in a sequence):
+      Unprotected: 32 x (LEN + 1) bits
+      Protected:   2 x 32 x (LEN + 1) bits
 
- NB this arbitrary non-VEIC IRQ numbering is particularly obvious with 
-MIPS platforms featuring an x86-style PCI southbridge with an embedded 
-8259A interrupt controller pair, where for compatibility with our driver 
-code we give root MIPS CPU IRQ lines numbers 16-23 while 8259A IRQ lines 
-cascaded from one of the IRQ lines 18-23 are given numbers 0-15.
+Control read transaction:
 
- Example such an odd topology:
+          |<- 32 bits ->|<--- 32 bits --> |<- data_size ->|
+    MOSI: | ctrl header | ignored ...                     |
+    MISO: | (discard)   | echoed ctrl hdr | reg read data |
 
-           CPU0       
-  0:          0   XT-PIC   0  timer
-  1:          0   XT-PIC   1  i8042
-  2:          0   XT-PIC   2  cascade
-  3:          4   XT-PIC   3  ttyS1
-  4:         37   XT-PIC   4  ttyS0
-  6:          3   XT-PIC   6  floppy
-  7:      52456   XT-PIC   7  parport0
-  8:          0   XT-PIC   8  rtc0
- 10:   99668740   XT-PIC  10  fddi0
- 11:          0   XT-PIC  11  uhci_hcd:usb1
- 12:          1   XT-PIC  12  i8042
- 14:          0   XT-PIC  14  ata_piix
- 15:         15   XT-PIC  15  ata_piix
- 20:          0     MIPS   4  ttyS2
- 21:          0     MIPS   5  CoreHi
- 23:  803937130     MIPS   7  timer
-ERR:          1
+    data_size (LEN = number of registers to read in a sequence):
+      Unprotected: 32 x (LEN + 1) bits
+      Protected:   2 x 32 x (LEN + 1) bits
 
-(where XT-PIC interrupts are cascaded from IRQ line 18/MIPS line 2, not 
-actually given stub registration).  At least the VEIC mode brings some 
-sanity here.
+Register data format ("reg write data" and "reg read data"):
 
- FWIW,
+    Unprotected:
+      | W1 (normal) | W2 (normal) | ... | Wx (normal) |
 
-  Maciej
+    Protected:
+    | W1 (normal) | W1 (complement) | ... | Wx (normal) | Wx (complement)|
+
+The protected mode state can be read from the bit 5 of CONFIG0 (0x4)
+register, and this setting is usually only configured during the
+MACPHY's reset (depending on the device it can be done by setting the
+state of a pin). We can read the protected mode configuration before any
+other register access and since the SPI transfer is initially sized for an
+unprotected read, the MACPHY's complement words are never clocked out
+and no checking is required. The data transactions (Ethernet frames)
+remain unchanged.
+
+Signed-off-by: Ciprian Regus <ciprian.regus@analog.com>
+---
+ drivers/net/ethernet/oa_tc6.c | 105 ++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 92 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
+index 91a906a7918a..546ca652d974 100644
+--- a/drivers/net/ethernet/oa_tc6.c
++++ b/drivers/net/ethernet/oa_tc6.c
+@@ -24,6 +24,7 @@
+ #define OA_TC6_REG_CONFIG0			0x0004
+ #define CONFIG0_SYNC				BIT(15)
+ #define CONFIG0_ZARFE_ENABLE			BIT(12)
++#define CONFIG0_PROTE				BIT(5)
+ 
+ /* Status Register #0 */
+ #define OA_TC6_REG_STATUS0			0x0008
+@@ -87,6 +88,7 @@
+ #define OA_TC6_PHY_C45_AUTO_NEG_MMS5		5	/* MMD 7 */
+ #define OA_TC6_PHY_C45_POWER_UNIT_MMS6		6	/* MMD 13 */
+ 
++#define OA_TC6_CTRL_PROT_REPLY_SIZE		4
+ #define OA_TC6_CTRL_HEADER_SIZE			4
+ #define OA_TC6_CTRL_REG_VALUE_SIZE		4
+ #define OA_TC6_CTRL_IGNORED_SIZE		4
+@@ -95,6 +97,13 @@
+ 						(OA_TC6_CTRL_MAX_REGISTERS *\
+ 						OA_TC6_CTRL_REG_VALUE_SIZE) +\
+ 						OA_TC6_CTRL_IGNORED_SIZE)
++
++#define OA_TC6_CTRL_SPI_BUF_PROT_SIZE		(OA_TC6_CTRL_HEADER_SIZE +\
++						(OA_TC6_CTRL_MAX_REGISTERS *\
++						(OA_TC6_CTRL_REG_VALUE_SIZE +\
++						 OA_TC6_CTRL_PROT_REPLY_SIZE)) +\
++						OA_TC6_CTRL_IGNORED_SIZE)
++
+ #define OA_TC6_CHUNK_PAYLOAD_SIZE		64
+ #define OA_TC6_DATA_HEADER_SIZE			4
+ #define OA_TC6_CHUNK_SIZE			(OA_TC6_DATA_HEADER_SIZE +\
+@@ -129,6 +138,7 @@ struct oa_tc6 {
+ 	u8 rx_chunks_available;
+ 	bool rx_buf_overflow;
+ 	bool int_flag;
++	bool prot_ctrl;
+ };
+ 
+ enum oa_tc6_header_type {
+@@ -212,25 +222,36 @@ static void oa_tc6_update_ctrl_write_data(struct oa_tc6 *tc6, u32 value[],
+ {
+ 	__be32 *tx_buf = tc6->spi_ctrl_tx_buf + OA_TC6_CTRL_HEADER_SIZE;
+ 
+-	for (int i = 0; i < length; i++)
++	for (int i = 0; i < length; i++) {
+ 		*tx_buf++ = cpu_to_be32(value[i]);
++		if (tc6->prot_ctrl)
++			*tx_buf++ = cpu_to_be32(~value[i]);
++	}
+ }
+ 
+-static u16 oa_tc6_calculate_ctrl_buf_size(u8 length)
++static u16 oa_tc6_calculate_ctrl_buf_size(u8 length, bool ctrl_prot)
+ {
++	u32 reply_size = OA_TC6_CTRL_REG_VALUE_SIZE;
++
++	if (ctrl_prot)
++		reply_size += OA_TC6_CTRL_PROT_REPLY_SIZE;
++
+ 	/* Control command consists 4 bytes header + 4 bytes register value for
+-	 * each register + 4 bytes ignored value.
++	 * each register (+ 4 bytes for the register value complement in case
++	 * protected mode is used) + 4 bytes ignored value.
+ 	 */
+-	return OA_TC6_CTRL_HEADER_SIZE + OA_TC6_CTRL_REG_VALUE_SIZE * length +
++	return OA_TC6_CTRL_HEADER_SIZE + reply_size * length +
+ 	       OA_TC6_CTRL_IGNORED_SIZE;
+ }
+ 
+ static void oa_tc6_prepare_ctrl_spi_buf(struct oa_tc6 *tc6, u32 address,
+ 					u32 value[], u8 length,
+-					enum oa_tc6_register_op reg_op)
++					enum oa_tc6_register_op reg_op,
++					u16 buf_size)
+ {
+ 	__be32 *tx_buf = tc6->spi_ctrl_tx_buf;
+ 
++	memset(tx_buf, 0, buf_size);
+ 	*tx_buf = oa_tc6_prepare_ctrl_header(address, length, reg_op);
+ 
+ 	if (reg_op == OA_TC6_CTRL_REG_WRITE)
+@@ -253,10 +274,12 @@ static int oa_tc6_check_ctrl_write_reply(struct oa_tc6 *tc6, u8 size)
+ 	return 0;
+ }
+ 
+-static int oa_tc6_check_ctrl_read_reply(struct oa_tc6 *tc6, u8 size)
++static int oa_tc6_check_ctrl_read_reply(struct oa_tc6 *tc6, u8 length)
+ {
+-	u32 *rx_buf = tc6->spi_ctrl_rx_buf + OA_TC6_CTRL_IGNORED_SIZE;
+-	u32 *tx_buf = tc6->spi_ctrl_tx_buf;
++	__be32 *rx_buf = tc6->spi_ctrl_rx_buf + OA_TC6_CTRL_IGNORED_SIZE;
++	__be32 *tx_buf = tc6->spi_ctrl_tx_buf;
++	u32 complement;
++	u32 reply;
+ 
+ 	/* The echoed control read header must match with the one that was
+ 	 * transmitted.
+@@ -264,6 +287,20 @@ static int oa_tc6_check_ctrl_read_reply(struct oa_tc6 *tc6, u8 size)
+ 	if (*tx_buf != *rx_buf)
+ 		return -EPROTO;
+ 
++	if (tc6->prot_ctrl) {
++		/* Skip past the echoed header to the value/complement pairs */
++		rx_buf += 1;
++		for (int i = 0; i < length; i++) {
++			reply = be32_to_cpu(rx_buf[0]);
++			complement = be32_to_cpu(rx_buf[1]);
++
++			if (complement != ~reply)
++				return -EPROTO;
++
++			rx_buf += 2;
++		}
++	}
++
+ 	return 0;
+ }
+ 
+@@ -273,8 +310,13 @@ static void oa_tc6_copy_ctrl_read_data(struct oa_tc6 *tc6, u32 value[],
+ 	__be32 *rx_buf = tc6->spi_ctrl_rx_buf + OA_TC6_CTRL_IGNORED_SIZE +
+ 			 OA_TC6_CTRL_HEADER_SIZE;
+ 
+-	for (int i = 0; i < length; i++)
++	for (int i = 0; i < length; i++) {
+ 		value[i] = be32_to_cpu(*rx_buf++);
++
++		/* skip complement word */
++		if (tc6->prot_ctrl)
++			rx_buf++;
++	}
+ }
+ 
+ static int oa_tc6_perform_ctrl(struct oa_tc6 *tc6, u32 address, u32 value[],
+@@ -283,10 +325,10 @@ static int oa_tc6_perform_ctrl(struct oa_tc6 *tc6, u32 address, u32 value[],
+ 	u16 size;
+ 	int ret;
+ 
+-	/* Prepare control command and copy to SPI control buffer */
+-	oa_tc6_prepare_ctrl_spi_buf(tc6, address, value, length, reg_op);
++	size = oa_tc6_calculate_ctrl_buf_size(length, tc6->prot_ctrl);
+ 
+-	size = oa_tc6_calculate_ctrl_buf_size(length);
++	/* Prepare control command and copy to SPI control buffer */
++	oa_tc6_prepare_ctrl_spi_buf(tc6, address, value, length, reg_op, size);
+ 
+ 	/* Perform SPI transfer */
+ 	ret = oa_tc6_spi_transfer(tc6, OA_TC6_CTRL_HEADER, size);
+@@ -301,7 +343,7 @@ static int oa_tc6_perform_ctrl(struct oa_tc6 *tc6, u32 address, u32 value[],
+ 		return oa_tc6_check_ctrl_write_reply(tc6, size);
+ 
+ 	/* Check echoed/received control read command reply for errors */
+-	ret = oa_tc6_check_ctrl_read_reply(tc6, size);
++	ret = oa_tc6_check_ctrl_read_reply(tc6, length);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1224,6 +1266,20 @@ netdev_tx_t oa_tc6_start_xmit(struct oa_tc6 *tc6, struct sk_buff *skb)
+ }
+ EXPORT_SYMBOL_GPL(oa_tc6_start_xmit);
+ 
++static int oa_tc6_check_ctrl_protection(struct oa_tc6 *tc6)
++{
++	u32 regval;
++	int ret;
++
++	ret = oa_tc6_read_register(tc6, OA_TC6_REG_CONFIG0, &regval);
++	if (ret)
++		return ret;
++
++	tc6->prot_ctrl = FIELD_GET(CONFIG0_PROTE, regval);
++
++	return 0;
++}
++
+ /**
+  * oa_tc6_init - allocates and initializes oa_tc6 structure.
+  * @spi: device with which data will be exchanged.
+@@ -1276,6 +1332,29 @@ struct oa_tc6 *oa_tc6_init(struct spi_device *spi, struct net_device *netdev)
+ 	if (!tc6->spi_data_rx_buf)
+ 		return NULL;
+ 
++	ret = oa_tc6_check_ctrl_protection(tc6);
++	if (ret) {
++		dev_err(&tc6->spi->dev,
++			"Failed to check the protection mode: %d\n", ret);
++		return NULL;
++	}
++
++	if (tc6->prot_ctrl) {
++		tc6->spi_ctrl_tx_buf = devm_krealloc(&tc6->spi->dev,
++						     tc6->spi_ctrl_tx_buf,
++						     OA_TC6_CTRL_SPI_BUF_PROT_SIZE,
++						     GFP_KERNEL);
++		if (!tc6->spi_ctrl_tx_buf)
++			return NULL;
++
++		tc6->spi_ctrl_rx_buf = devm_krealloc(&tc6->spi->dev,
++						     tc6->spi_ctrl_rx_buf,
++						     OA_TC6_CTRL_SPI_BUF_PROT_SIZE,
++						     GFP_KERNEL);
++		if (!tc6->spi_ctrl_rx_buf)
++			return NULL;
++	}
++
+ 	ret = oa_tc6_sw_reset_macphy(tc6);
+ 	if (ret) {
+ 		dev_err(&tc6->spi->dev,
+
+-- 
+2.43.0
+
+
