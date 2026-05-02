@@ -1,111 +1,128 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-07.mail-europe.com (mail-07.mail-europe.com [188.165.51.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A933C2D3220
-	for <devicetree@vger.kernel.org>; Sat,  2 May 2026 07:49:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE37D21771B;
+	Sat,  2 May 2026 08:07:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.165.51.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777708193; cv=none; b=RHeLA5YMlE6bvfKoW01Nvy/tjpaAh+o6PfEFUvX5Aj0RT5820WdtouCPCCWcLEQO6QiJPICYfPcURpXDeVfyAKuAkRksU9BZ4Ch31PlfrW2xt2e0L0x6pX/M3jpt8oFl91L+Wkj/uMJX2YTR91l61e/QlcQmzrLf5APy3rzvpa4=
+	t=1777709273; cv=none; b=Sq9EAZVv85avBg/JC8M+mVjJui+ONxXzy4mQ8zGNS15Vywvd0Pzyh08JzwVULRGHdJuBM55EF8A7OFp/uOCahFUvUcVJCnHqI8a8S3VPkXyoWZ3j/gx+SnOKX4R5H4QvqvrORjFYhAE8FVBHAUgJNpYChOsA/WPcJHwSP5TUmjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777708193; c=relaxed/simple;
-	bh=RqPgRU1MNYczYD9Dtu93nE1gf1619BlOwGsH7J3mUmk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FhsQNqKoXRfESc92GHhtEuPUOEAaaDTA54Z6z9ag3uoH5A/qfJr2G0cJMOzdLq8CwXVcPL4+7sHit9WQvSxD2tb8yWKdhZxjEzVKYUu2PFEE7DL+fNxvSOJNxrU4XHHN3WOqBig/lUbZCwEh96taL8nKQaZbru8oITGZXpYkYXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pcc.me.uk; spf=pass smtp.mailfrom=pcc.me.uk; dkim=pass (2048-bit key) header.d=pcc-me-uk.20251104.gappssmtp.com header.i=@pcc-me-uk.20251104.gappssmtp.com header.b=g5+o48UM; arc=none smtp.client-ip=74.125.82.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pcc.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pcc.me.uk
+	s=arc-20240116; t=1777709273; c=relaxed/simple;
+	bh=PrNsMyqaXJSDoyHBA49iMo6gC4O11Sf92zVA6QSykvk=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=oHIAD6xLUxzKD6Uf6BlEgbv5zuB1WyE+cMFLeTbBcufMdUQCyqc2UXnlt39F8tBfIqSE/R3mLIybU+0ejubCR4LvFd4HEFllHsEVrgHGVRxfmpz0qWTEGqbG6oLGKgsL8Ln/ZUHiPYBijIUkqNdJ9SFm1RWAAvBi96IzD3E37j4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=lB03v+0D; arc=none smtp.client-ip=188.165.51.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pcc-me-uk.20251104.gappssmtp.com header.i=@pcc-me-uk.20251104.gappssmtp.com header.b="g5+o48UM"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-2d8ffdc31d0so6796134eec.0
-        for <devicetree@vger.kernel.org>; Sat, 02 May 2026 00:49:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pcc-me-uk.20251104.gappssmtp.com; s=20251104; t=1777708192; x=1778312992; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=m+ZeSxbLTHdUprUeLJ8FV3dNcTYT+WtrO6078xK0XsY=;
-        b=g5+o48UMBSd59Rebj6InUmGyWQZxxyw35yU9U2a60rXHgrqJsY2T84xmTRTc5bhK5y
-         RHNzjF6P3e1wgoUOiW3mabQR+1S4Ih/ijKwqV6c07a934pnKyGMgzm/sRYW7JKROZFHx
-         VOZiqhm0x9oKRGApsg6puqWI3Jd+xrlQ9ODrSoB//B8/kVC8uvZCHQYPUTskqSEErRHi
-         aBQXC8j/ShBDP96JQAQDTkTJlcJ3ZCaPYDYTw+PL24HSDtXjWI4YleXxZs5ro35hGRnz
-         GLoaapkIz28BqRZ3NCoK9DE201Mpuuh09XHZPx5RLkav1xSuams3TJPUrQVlWOszH2NG
-         GzXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777708192; x=1778312992;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=m+ZeSxbLTHdUprUeLJ8FV3dNcTYT+WtrO6078xK0XsY=;
-        b=R9JevqjHHY07aGLrnroCnjE5jtcLPL/QYTSbzfT7djo71ieqaJP56VfYafKHiwN2Pa
-         meITAnrqo4RE1xXNul63ECCMdvwu7bl3hsqt18h+y8d+bPSPLOmlbBP+ugUbsrjs/7Hj
-         tKaqaIU6aycjE5W66kz2NqQmE7aHZG0151x4cyQUA1kPIsg9vYZyZAU/3RefMJ4G080U
-         Xu/YY55CWTUXkLG/HJb5yW1hCN0rlPWrhM3O4XFq75l4160emlZ2m1HBMNBmimMIc0wy
-         hGd+H6LfPC7trHOJ6iSJZ1GGopZPh0vSwKfGaJllj9cq29vfEmUEvjxXXmkHlbGRCXWf
-         aFOA==
-X-Forwarded-Encrypted: i=1; AFNElJ9SiUuc1n8YOgFKQ3uI1uaIxb7XOeuKupgDFAaTVbp+2iyRzaM3cQs/521D58eeaJ+uwHYkRBMVJcVM@vger.kernel.org
-X-Gm-Message-State: AOJu0YxOdQQXbHSkKy1oohx0Cd3HFWv/Vp9pTe59/N4hgukTesC7PM3w
-	xLTtmSYhqt5bVnI4EK0c4Y23G/hHsfKI1vHBWmWrqP6WkFgoH4GDMOhAuL04gaFvqAc=
-X-Gm-Gg: AeBDiesLFsF/mFuqe/4+24l2FUuBfcpI/iv0pZJDwtj71PP6dg97liCPf88lleKqkxR
-	PCGEnAskt/N/YQDQ+RpCGkwV3wToL8GO+meVI6egDSB7zHOGC493mNaXaihu3MkoQr9+71Z1H1l
-	aSZFt/r3XQtDEOv43aRmf19hzoeJdIhq1vzBYnEblQMFaebydWojMIU5mvoufstRfTOkijHhcqQ
-	iikj3zn6n+z6phwltUrxd/3PZ1o8+3IM/DWClLjWtN2sdUxCcUxVGygmmROBaGnm4eV7r3rNkJE
-	1Py4/lsjnu5Fodyt4pMfAGJZAsg1ZJ6qS+9ySpCAgwM7mOpaanA3zas2daQZXsKN0GIRaF5te6C
-	vPimGQEBU1Q/jrBsc1qPkDM9MBeKv4p0o5jyL0+lObtv2AVvJGVzv0zcka9E0QcF7wUo+isQl1Z
-	7QdodvsKTeAq8aGbsWItDHIfJI2Rkf1pNq0VG6EcORWgwcMEjmPcsyjAseWN4NAAw+Xg==
-X-Received: by 2002:a05:7301:6706:b0:2ef:1d11:18ae with SMTP id 5a478bee46e88-2efbb29039bmr1022967eec.28.1777708191723;
-        Sat, 02 May 2026 00:49:51 -0700 (PDT)
-Received: from localhost (c-67-180-161-137.hsd1.ca.comcast.net. [67.180.161.137])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-2ee3bb63c5fsm7422380eec.25.2026.05.02.00.49.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 02 May 2026 00:49:51 -0700 (PDT)
-From: Peter Collingbourne <peter@pcc.me.uk>
-To: Sjoerd Simons <sjoerd@collabora.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Peter Collingbourne <peter@pcc.me.uk>
-Subject: [PATCH] arm64: dts: mediatek: mt7981b: Add PMU
-Date: Sat,  2 May 2026 00:49:12 -0700
-Message-ID: <20260502074912.12193-1-peter@pcc.me.uk>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="lB03v+0D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1777709255; x=1777968455;
+	bh=6MaFy1JIEkr0wsybZqzwyI8zZR6m1tzW5QVq3zs+KOU=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=lB03v+0DZe6dMU/86CAj8534ZqhphmIiTCumQON3ScxucLwTx9tBCdaSIBbuvhIjg
+	 1ly7qy2xN6rre7R1wv/yxIlEmLpMW7oMXtsPULJ2xw47WvN6Q1I4M+xi4rbXXJYTIY
+	 vGwZ/FS1aFVZZPccMc6Yq9qrwETG0Mj1AjSt6c5HSiEFvUWXPu6IIpPNsDTRk48+Wo
+	 /rAAlt46ienmqRsL3STUrJr7sL3KMkZllXQDXphWpf98Wf6POFJ1MB+UiVv312XF4o
+	 hZ0farZED7pVLeKuOljUV+2LZRNYASklHdctYnmkoWRCkcPgZHGtKlzZz4GTwu9fEY
+	 fBKbJclnccIKw==
+Date: Sat, 02 May 2026 08:07:25 +0000
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH RFC v5 0/7] Add support for Adreno 810 GPU
+Message-ID: <20260502-adreno-810-v5-0-bc9fd2bb788d@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: 62446312e6647a598473eb76cb083cd2f4c7615c
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The interrupt number was taken from a downstream DTS of the similar MT7987
-[1] and verified on my OpenWrt One.
+Adreno 810 is present in the Milos SoC and is the first GPU to be released =
+in
+the A8x family.
 
-Signed-off-by: Peter Collingbourne <peter@pcc.me.uk>
-Link: [1] https://github.com/openwrt/openwrt/blob/e4b3d5c799aef3be20b7f6079e8e5a14b215c116/target/linux/mediatek/dts/mt7987.dtsi#L246
+This series is marked as RFC because it depends on a few other in review
+series, GPU GX GDSC handling [1], QFPROM efuse for Milos [2] and the GXCLKC=
+TL
+block for Milos [3].
+
+[1]: https://lore.kernel.org/linux-arm-msm/20260427-gfx-clk-fixes-v2-0-797e=
+54b3d464@oss.qualcomm.com
+[2]: https://lore.kernel.org/linux-arm-msm/20260331-milos-qfprom-v1-0-36017=
+cc642db@pm.me
+[3]: https://lore.kernel.org/linux-arm-msm/20260417-milos-gxclkctl-v3-0-08f=
+5988c43a2@fairphone.com
+
+Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
- arch/arm64/boot/dts/mediatek/mt7981b.dtsi | 6 ++++++
- 1 file changed, 6 insertions(+)
+Changes in v5:
+- Sync with latest kgsl
+- Link to v4: https://lore.kernel.org/r/20260416-adreno-810-v4-0-61676e073f=
+8a@pm.me
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt7981b.dtsi b/arch/arm64/boot/dts/mediatek/mt7981b.dtsi
-index 4084f4dfa3e5..3c6fbb6c5333 100644
---- a/arch/arm64/boot/dts/mediatek/mt7981b.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt7981b.dtsi
-@@ -38,6 +38,12 @@ oscillator-40m {
- 		#clock-cells = <0>;
- 	};
- 
-+	pmu {
-+		compatible = "arm,cortex-a53-pmu";
-+		interrupt-parent = <&gic>;
-+		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_LOW>;
-+	};
-+
- 	psci {
- 		compatible = "arm,psci-1.0";
- 		method = "smc";
--- 
-2.54.0
+Changes in v4:
+- Add 1150MHz speedbin
+- Rebase on next-20260415
+- Add dep on efuse patchset
+- Link to v3: https://lore.kernel.org/r/20260407-adreno-810-v3-0-30cb7f196e=
+d4@pm.me
+
+Changes in v3:
+- Drop DEMET from GMU clocks (not required on A810)
+- Document qcom,adreno-44010000 compatible (regex is gone in 7.0+)
+- Drop zeroed out CP_PROTECT_REG[46, 62] range, not required
+- Add a810_protect to __build_asserts
+- Add UCHE_CCHE_TRAP_BASE_[LO|HI] and UCHE_CCHE_WRITE_THRU_BASE_[LO|HI] to =
+a810_pwrup_reglist_regs
+- Move TPL1 registers to a810_pwrup_reglist_regs
+- Include all protect registers in a810_ifpc_reglist_regs
+- Revert pipe reg comment, just copied it from downstream but original also=
+ works
+- Link to v2: https://lore.kernel.org/r/20260402-adreno-810-v2-0-ce337ca87a=
+9e@pm.me
+
+Changes in v2:
+- Mark as RFC due to dependency on in-review changes
+- Explain in DTS commit why qcom,kaanapali-gxclkctl.h and not qcom,milos-gx=
+clkctl.h
+- cx_mmio -> cx_misc_mmio
+- Sync a810_nonctxt_regs with GRAPHICS.LA.14.0.r5-03100-lanai.0
+- Link to v1: https://lore.kernel.org/r/20260331-adreno-810-v1-0-725801dbb1=
+2b@pm.me
+
+---
+Alexander Koskovich (7):
+      dt-bindings: display/msm/gmu: Document Adreno 810 GMU
+      dt-bindings: display/msm/gpu: Document A810 GPU
+      drm/msm/adreno: rename llc_mmio to cx_misc_mmio
+      drm/msm/adreno: set cx_misc_mmio regardless of if platform has LLCC
+      drm/msm/a8xx: use pipe protect slot 15 for last-span-unbound feature
+      drm/msm/adreno: add Adreno 810 GPU support
+      arm64: dts: qcom: milos: Add Adreno 810 GPU and GMU nodes
+
+ .../devicetree/bindings/display/msm/gmu.yaml       |  30 +++
+ .../devicetree/bindings/display/msm/gpu.yaml       |   1 +
+ arch/arm64/boot/dts/qcom/milos.dtsi                | 166 ++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          | 298 +++++++++++++++++=
+++++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |   8 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  44 ++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |  14 +-
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c              |   6 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   5 +
+ 9 files changed, 534 insertions(+), 38 deletions(-)
+---
+base-commit: 968e97b00af4380a718e0badc978470e4587a50b
+change-id: 20260330-adreno-810-5a47525522cd
+
+Best regards,
+--=20
+Alexander Koskovich <akoskovich@pm.me>
+
 
