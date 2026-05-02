@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7910627FB1C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7917629BDBF;
 	Sat,  2 May 2026 23:25:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777764337; cv=none; b=RFkAVn5wlN1CUvyMG5UIz34yJiRFwg6E5yMOPSzidp/k3vSjVb5GHP/NygPyJiM0TTrjMmSSG/grxmF2YCNUchQTh+owT48B3zQ4WU8eErG/QNI3LrOWv1QdDiQ/S2y2Pu7hnptcLW8V2EmNhrsHroReDyKiitOvSvEQTNcx44Y=
+	t=1777764337; cv=none; b=SHcljhnqJXLVkZi+fisSdVrWoqwNIAxuXLz17bUGvGb+Ogh+pYhKxRpdLd6bxLDye4+8aBwykhgM/lFpiOyeixj/6dirdD9h2nuThkfxXuOyRRWjXNPWh8AfB1zrt2puf/JkwAafR2/HioNoSNponfY+zTwU5j0tqOz/uLm9EYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1777764337; c=relaxed/simple;
-	bh=/W92qVR03CbZRW8UHk+eSWnYxaVea1W7O/eNRCZFrvU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YyCe9JC1EtbJTnM+E1jW8gYYZLuxg68wxcTw7ZljQ0H1vFPNGdQtGE2SjICiUBZF7X1QFA7yW0/2bMr/gbIscZAefGEeehgKHmSNx800BRQUofhlhRdf13fVefQOPrdV99K9nM4D0XH8aSjyAn1aMNLP4h//6/ASQUVivKi5VyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qAO4cdUq; arc=none smtp.client-ip=10.30.226.201
+	bh=lSp5RtkRrkLS3UnLdEXDQPx8rCZF2JtRoDbFylwnoyc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=dtn59fi8h71GbkayWM4sgQzAqe4OkeoDyeLoUHIynXCPl4+Qs/cSaf02ePzBbHKjkpjoAYio5Q8Vp1U4Ndh4ReX/M2EqEbc5Fa+fJpKQG0K7eXN5XXk7RhcKcl7I4k/cWTMMvXb43He0sqw2aRZm/NG0sXQlKIdneE0VrKyqDa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BlUO0Em0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qAO4cdUq"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1480AC19425;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BlUO0Em0"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 35802C4AF0B;
 	Sat,  2 May 2026 23:25:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1777764337;
-	bh=/W92qVR03CbZRW8UHk+eSWnYxaVea1W7O/eNRCZFrvU=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=qAO4cdUqxLHd4sRc9P7Z0/fka1bzNoJ8RkMIosz5BI6tDhqAsozMD1bKgHSSvSA+Q
-	 GX+5IGdfBn0QJDd/IEbn5eUr/TRpl62etP9/HtHhZ92S63hcUaL8gRkQ1j3+xZhNH5
-	 yGlmUjFtfCE+WRbxm1erx0bm7zb8CnD3HZ1jvEUmlu7ti5YSUwdRagPdN0hNIrMMtS
-	 szeVv0q+a6y1ueuu0JBT2yfYEloXEOf9i8nGCtg4T+6dGBT5FrRg10357Zw3r3jGTK
-	 oqpebH0KogEkdWmM+5kbh/dZ4AmYSRyBX1NFp1nPSK+ZK1FI39VZhHgeHiEOU1Elod
-	 DatwkiN6xQpUg==
+	bh=lSp5RtkRrkLS3UnLdEXDQPx8rCZF2JtRoDbFylwnoyc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=BlUO0Em0KNw1bzJAzm/c/teQ9tbDVv1kLunkwvmOOs2dlt0+IMHNLtLG1GovxL4G8
+	 ArnSLueJNVE7DLY++hj8qcJQQiWUQAYSpaWa00JADq8kWJb0Iz+PRrmENIHiYJaVlg
+	 aUADQfABvbu2OGv/Fn86vkg16r8ajTqvIEoggVczlDQngMu0mBqxpNU0vwitJbrSjV
+	 7ZpMyXCrNqjpGcoJ+zxB4yF13c/nzXPcgOwH3/lz/doIWdPOTR5wtqaMrNZ2jC9icT
+	 dVjfTbgdxqt35EYVojTmdpsPzqa8FkKC8BgjlfJgsU5mm41XpkhJ9+5+az/P7yvRtU
+	 AF1Fbi3CuRk8A==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 03922CD3423;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27F97CD13DA;
 	Sat,  2 May 2026 23:25:37 +0000 (UTC)
 From: Ciprian Regus via B4 Relay <devnull+ciprian.regus.analog.com@kernel.org>
-Subject: [PATCH net-next 0/5] net: Add ADIN1140 support
-Date: Sun, 03 May 2026 02:24:49 +0300
-Message-Id: <20260503-adin1140-driver-v1-0-dd043cdd88f0@analog.com>
+Date: Sun, 03 May 2026 02:24:51 +0300
+Subject: [PATCH net-next 2/5] net: ethernet: oa_tc6: Allow custom mii_bus
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,9 +40,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAMGH9mkC/x3MSwqDQBBF0a1IjS3oj/jbimTQpF9iTUqpFhHEv
- afJ8AzuvanABIXm5ibDKUU2rfBtQ+816RcsuZqCC73rwsQpi3rfOc4mJ4ynmOByHProR6rVbvj
- I9T8upDhYcR30ep4fRQP+YWsAAAA=
+Message-Id: <20260503-adin1140-driver-v1-2-dd043cdd88f0@analog.com>
+References: <20260503-adin1140-driver-v1-0-dd043cdd88f0@analog.com>
+In-Reply-To: <20260503-adin1140-driver-v1-0-dd043cdd88f0@analog.com>
 To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
  Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
@@ -57,11 +57,11 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-doc@vger.kernel.org, devicetree@vger.kernel.org, 
  Ciprian Regus <ciprian.regus@analog.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777764335; l=4571;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777764335; l=8828;
  i=ciprian.regus@analog.com; s=20260330; h=from:subject:message-id;
- bh=/W92qVR03CbZRW8UHk+eSWnYxaVea1W7O/eNRCZFrvU=;
- b=9I5lCGeJwQ9U+jGD0xmD1gwarv3Gl44zOKfWaLZYM3N8pEDydrjZYK0E0Ox5CF7T+bz7356b+
- 1+XrxzC/yGqDm09arGzec4f0OJlkwgthto3HkJGoD1O7xbsyBcWzdbc
+ bh=i2IZDXFhSiWWDn9rUet0TbTRwmDcB1jlwrQRqyKLBfM=;
+ b=j2nbNGaipLRK/u1xIXBvUubr0GD80MDP1a9NnSREu10kT692oHrykvzN3rnYq+pJuYBraZkAI
+ y2b55NeHWy8BxW7NSgrk2Xo51GJRNFWBg3BmmR0Fr/5sNxwD62u6Czu
 X-Developer-Key: i=ciprian.regus@analog.com; a=ed25519;
  pk=8WoNhI0kQcQUl8YqJO5ZevROYk9HP8lOIeIgIYgjfbc=
 X-Endpoint-Received: by B4 Relay for ciprian.regus@analog.com/20260330 with
@@ -69,91 +69,247 @@ X-Endpoint-Received: by B4 Relay for ciprian.regus@analog.com/20260330 with
 X-Original-From: Ciprian Regus <ciprian.regus@analog.com>
 Reply-To: ciprian.regus@analog.com
 
-This series introduces support for the ADIN1140 (also called AD3306)
-10BASE-T1S single port MACPHY. The device integrates the MAC and PHY in
-the same package. The communication with the host CPU is done through an
-SPI interface, using the Open Alliance TC6 protocol for control and data
-transactions. As a result, the oa_tc6 framework is used to implement
-the communication with the device (register accesses and Ethernet frame
-RX/TX).
+From: Ciprian Regus <ciprian.regus@analog.com>
 
-The MAC and PHY are connected internally using an MII and MDIO bus.
+Some drivers that use oa_tc6 have to use their own mdio bus access
+functions as a workaround for hardware issues. Support these cases by
+adding a new parameter for the mii_bus in the oa_tc6_init(). In this
+case, drivers are responsible for allocating the mii_bus struct, assign
+the bus access methods and free the memory after it's no longer used
+by oa_tc6. The mii_bus is registered/unregistered by oa_tc6. The phy
+connection process does not change and it's still done by oa_tc6.
 
-The PHY is a half duplex 10Mbps device, which implements both the PLCA
-RS (IEEE 802.3 clause 148) and CSMA/CD methods of accessing the Ethernet
-medium. The 10BASE-T1S standard allows multiple PHY devices to be
-connected (in parallel) on the same single twisted pair network segment,
-so PLCA can be configured in order to provide a fair access scheme to
-all the nodes and reduce the jitter introduced by the unordered CSMA/CD
-transmits. The PHY's internal register map can be accessed using the
-direct MDIO mode of the OA TC6. The control, status, phy id 1 & 2 C22
-registers are mapped to the 0xFF00 - 0xFF03 range. As for C45
-addressable devices, the PHY has PCS, PMA and PLCA blocks.
-
-The first 2 patches in the series are changes to the oa_tc6, that would
-make the framework usable by the subsequent ADIN1140 MAC driver.
-
-The first commit is required because the ADIN1140 only allows protected
-mode OA TC6 control transactions, which the oa_tc6 framework doesn't
-currently implement.
-
-The second commit is required in order to allow the MAC driver to have a
-custom implementation for the mii_bus access methods as a workaround for
-hardware issues:
-
-1. The OA TC6 standard defines the direct and indirect access modes for
-   MDIO transactions. The ADIN1140 incorrectly advertises indirect mode
-   only (supported capabilities register - 0x2, bit 9), while actually
-   implementing just the direct mode. We cannot rely on the CAP register
-   to choose an access method (which oa_tc6 does by default, even though
-   it only implements the direct mode), so the driver has to use its
-   own.
-2. The ADIN1140 cannot access the C22 register space of the internal
-   PHY, while the PHY is busy receiving frames. If that happens, the
-   CONFIG0 and CONFIG2 registers of the MAC will get corrupted and the
-   data transfer will stop. Those two registers configure settings for
-   the transfer protocol between the MAC and host, so the value for some
-   of their subfields shouldn't be changed while the netdev is up.
-   Since we know the PHY is internal, the MAC driver can implement a
-   custom mii_bus, which can intercept C22 accesses. Most of the
-   registers mapped in the 0x0 - 0x3 range (the only ones the PHY offers)
-   are read only, and their value can be read from somewhere else (e.g
-   the PHYID 1 & 2 have the same value as 0x1 in the MAC memory map).
-   C45 accesses do not cause this issue, so we can properly implement
-   them.
-
-Even though they have different driver, the MAC one cannot function
-without the PHY driver, since the PHY is not compatible with the generic
-c22 driver. As such CONFIG_ADIN1140 selects CONFIG_ADIN1140_PHY.
+Drivers can still choose to use the default mii_bus access functions
+implemented by oa_tc6 by passing a NULL reference in the mii_bus param.
+To avoid extending the function signature every time a new configuration
+option is needed, convert oa_tc6_init() to take a config struct.
+Also, update the affected drivers and the oa_tc6 framework documentation.
 
 Signed-off-by: Ciprian Regus <ciprian.regus@analog.com>
 ---
-Ciprian Regus (5):
-      net: ethernet: oa_tc6: Handle the OA TC6 SPI protected mode
-      net: ethernet: oa_tc6: Allow custom mii_bus
-      net: phy: Add support for the ADIN1140 PHY
-      net: ethernet: adi: Add a driver for the ADIN1140 MACPHY
-      dt-bindings: net: Add bindings for the ADIN1140
+ Documentation/networking/oa-tc6-framework.rst    |  3 +-
+ drivers/net/ethernet/microchip/lan865x/lan865x.c |  6 +-
+ drivers/net/ethernet/oa_tc6.c                    | 89 +++++++++++++++---------
+ include/linux/oa_tc6.h                           |  9 ++-
+ 4 files changed, 70 insertions(+), 37 deletions(-)
 
- .../devicetree/bindings/net/adi,adin1140.yaml      |  69 ++
- Documentation/networking/oa-tc6-framework.rst      |   3 +-
- MAINTAINERS                                        |  15 +
- drivers/net/ethernet/adi/Kconfig                   |  12 +
- drivers/net/ethernet/adi/Makefile                  |   1 +
- drivers/net/ethernet/adi/adin1140.c                | 805 +++++++++++++++++++++
- drivers/net/ethernet/microchip/lan865x/lan865x.c   |   6 +-
- drivers/net/ethernet/oa_tc6.c                      | 194 +++--
- drivers/net/phy/Kconfig                            |   6 +
- drivers/net/phy/Makefile                           |   1 +
- drivers/net/phy/adin1140.c                         | 102 +++
- include/linux/oa_tc6.h                             |   9 +-
- 12 files changed, 1173 insertions(+), 50 deletions(-)
----
-base-commit: fbf6f64a4322cfeb0d98f39baf8ce18246dd12c0
-change-id: 20260429-adin1140-driver-93ae0d376318
+diff --git a/Documentation/networking/oa-tc6-framework.rst b/Documentation/networking/oa-tc6-framework.rst
+index fe2aabde923a..eaa5b4b85b34 100644
+--- a/Documentation/networking/oa-tc6-framework.rst
++++ b/Documentation/networking/oa-tc6-framework.rst
+@@ -453,8 +453,7 @@ Device drivers API
+ 
+ The include/linux/oa_tc6.h defines the following functions:
+ 
+-.. c:function:: struct oa_tc6 *oa_tc6_init(struct spi_device *spi, \
+-                                           struct net_device *netdev)
++.. c:function:: struct oa_tc6 *oa_tc6_init(struct oa_tc6_config *config);
+ 
+ Initialize OA TC6 lib.
+ 
+diff --git a/drivers/net/ethernet/microchip/lan865x/lan865x.c b/drivers/net/ethernet/microchip/lan865x/lan865x.c
+index 0277d9737369..c509c8a3e321 100644
+--- a/drivers/net/ethernet/microchip/lan865x/lan865x.c
++++ b/drivers/net/ethernet/microchip/lan865x/lan865x.c
+@@ -332,6 +332,7 @@ static const struct net_device_ops lan865x_netdev_ops = {
+ 
+ static int lan865x_probe(struct spi_device *spi)
+ {
++	struct oa_tc6_config tc6_config = {};
+ 	struct net_device *netdev;
+ 	struct lan865x_priv *priv;
+ 	int ret;
+@@ -346,7 +347,10 @@ static int lan865x_probe(struct spi_device *spi)
+ 	spi_set_drvdata(spi, priv);
+ 	INIT_WORK(&priv->multicast_work, lan865x_multicast_work_handler);
+ 
+-	priv->tc6 = oa_tc6_init(spi, netdev);
++	tc6_config.spi = spi;
++	tc6_config.netdev = netdev;
++
++	priv->tc6 = oa_tc6_init(&tc6_config);
+ 	if (!priv->tc6) {
+ 		ret = -ENODEV;
+ 		goto free_netdev;
+diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
+index 546ca652d974..fa89b820133f 100644
+--- a/drivers/net/ethernet/oa_tc6.c
++++ b/drivers/net/ethernet/oa_tc6.c
+@@ -139,6 +139,7 @@ struct oa_tc6 {
+ 	bool rx_buf_overflow;
+ 	bool int_flag;
+ 	bool prot_ctrl;
++	bool own_mdiobus;
+ };
+ 
+ enum oa_tc6_header_type {
+@@ -538,32 +539,37 @@ static int oa_tc6_mdiobus_register(struct oa_tc6 *tc6)
+ {
+ 	int ret;
+ 
+-	tc6->mdiobus = mdiobus_alloc();
+ 	if (!tc6->mdiobus) {
+-		netdev_err(tc6->netdev, "MDIO bus alloc failed\n");
+-		return -ENOMEM;
++		tc6->mdiobus = mdiobus_alloc();
++		if (!tc6->mdiobus) {
++			netdev_err(tc6->netdev, "MDIO bus alloc failed\n");
++			return -ENOMEM;
++		}
++
++		tc6->mdiobus->read = oa_tc6_mdiobus_read;
++		tc6->mdiobus->write = oa_tc6_mdiobus_write;
++		/* OPEN Alliance 10BASE-T1x compliance MAC-PHYs will have both C22 and
++		 * C45 registers space. If the PHY is discovered via C22 bus protocol it
++		 * assumes it uses C22 protocol and always uses C22 registers indirect
++		 * access to access C45 registers. This is because, we don't have a
++		 * clean separation between C22/C45 register space and C22/C45 MDIO bus
++		 * protocols. Resulting, PHY C45 registers direct access can't be used
++		 * which can save multiple SPI bus access. To support this feature, PHY
++		 * drivers can set .read_mmd/.write_mmd in the PHY driver to call
++		 * .read_c45/.write_c45. Ex: drivers/net/phy/microchip_t1s.c
++		 */
++		tc6->mdiobus->read_c45 = oa_tc6_mdiobus_read_c45;
++		tc6->mdiobus->write_c45 = oa_tc6_mdiobus_write_c45;
++
++		tc6->own_mdiobus = true;
+ 	}
+ 
+ 	tc6->mdiobus->priv = tc6;
+-	tc6->mdiobus->read = oa_tc6_mdiobus_read;
+-	tc6->mdiobus->write = oa_tc6_mdiobus_write;
+-	/* OPEN Alliance 10BASE-T1x compliance MAC-PHYs will have both C22 and
+-	 * C45 registers space. If the PHY is discovered via C22 bus protocol it
+-	 * assumes it uses C22 protocol and always uses C22 registers indirect
+-	 * access to access C45 registers. This is because, we don't have a
+-	 * clean separation between C22/C45 register space and C22/C45 MDIO bus
+-	 * protocols. Resulting, PHY C45 registers direct access can't be used
+-	 * which can save multiple SPI bus access. To support this feature, PHY
+-	 * drivers can set .read_mmd/.write_mmd in the PHY driver to call
+-	 * .read_c45/.write_c45. Ex: drivers/net/phy/microchip_t1s.c
+-	 */
+-	tc6->mdiobus->read_c45 = oa_tc6_mdiobus_read_c45;
+-	tc6->mdiobus->write_c45 = oa_tc6_mdiobus_write_c45;
+-	tc6->mdiobus->name = "oa-tc6-mdiobus";
+ 	tc6->mdiobus->parent = tc6->dev;
++	tc6->mdiobus->name = "oa-tc6-mdiobus";
+ 
+ 	snprintf(tc6->mdiobus->id, ARRAY_SIZE(tc6->mdiobus->id), "%s",
+-		 dev_name(&tc6->spi->dev));
++			 dev_name(&tc6->spi->dev));
+ 
+ 	ret = mdiobus_register(tc6->mdiobus);
+ 	if (ret) {
+@@ -577,19 +583,30 @@ static int oa_tc6_mdiobus_register(struct oa_tc6 *tc6)
+ 
+ static void oa_tc6_mdiobus_unregister(struct oa_tc6 *tc6)
+ {
++	if (!tc6->mdiobus)
++		return;
++
+ 	mdiobus_unregister(tc6->mdiobus);
+-	mdiobus_free(tc6->mdiobus);
++
++	if (tc6->own_mdiobus)
++		mdiobus_free(tc6->mdiobus);
+ }
+ 
+ static int oa_tc6_phy_init(struct oa_tc6 *tc6)
+ {
+ 	int ret;
+ 
+-	ret = oa_tc6_check_phy_reg_direct_access_capability(tc6);
+-	if (ret) {
+-		netdev_err(tc6->netdev,
+-			   "Direct PHY register access is not supported by the MAC-PHY\n");
+-		return ret;
++	/* If the driver provided a mii_bus, it is also responsible for
++	 * implementing the bus access methods, so we don't have to worry
++	 * about checking the PHY access mode.
++	 */
++	if (!tc6->mdiobus) {
++		ret = oa_tc6_check_phy_reg_direct_access_capability(tc6);
++		if (ret) {
++			netdev_err(tc6->netdev,
++				"Direct PHY register access is not supported by the MAC-PHY\n");
++			return ret;
++		}
+ 	}
+ 
+ 	ret = oa_tc6_mdiobus_register(tc6);
+@@ -621,7 +638,9 @@ static int oa_tc6_phy_init(struct oa_tc6 *tc6)
+ 
+ static void oa_tc6_phy_exit(struct oa_tc6 *tc6)
+ {
+-	phy_disconnect(tc6->phydev);
++	if (tc6->phydev)
++		phy_disconnect(tc6->phydev);
++
+ 	oa_tc6_mdiobus_unregister(tc6);
+ }
+ 
+@@ -1282,24 +1301,28 @@ static int oa_tc6_check_ctrl_protection(struct oa_tc6 *tc6)
+ 
+ /**
+  * oa_tc6_init - allocates and initializes oa_tc6 structure.
+- * @spi: device with which data will be exchanged.
+- * @netdev: network device interface structure.
++ * @config: pointer to a caller-filled structure describing the MACPHY
++ *          (SPI device, net_device, and config flags).
+  *
+  * Return: pointer reference to the oa_tc6 structure if the MAC-PHY
+  * initialization is successful otherwise NULL.
+  */
+-struct oa_tc6 *oa_tc6_init(struct spi_device *spi, struct net_device *netdev)
++struct oa_tc6 *oa_tc6_init(struct oa_tc6_config *config)
+ {
+ 	struct oa_tc6 *tc6;
+ 	int ret;
+ 
+-	tc6 = devm_kzalloc(&spi->dev, sizeof(*tc6), GFP_KERNEL);
++	if (!config)
++		return NULL;
++
++	tc6 = devm_kzalloc(&config->spi->dev, sizeof(*tc6), GFP_KERNEL);
+ 	if (!tc6)
+ 		return NULL;
+ 
+-	tc6->spi = spi;
+-	tc6->netdev = netdev;
+-	SET_NETDEV_DEV(netdev, &spi->dev);
++	tc6->spi = config->spi;
++	tc6->netdev = config->netdev;
++	tc6->mdiobus = config->mii_bus;
++	SET_NETDEV_DEV(tc6->netdev, &tc6->spi->dev);
+ 	mutex_init(&tc6->spi_ctrl_lock);
+ 	spin_lock_init(&tc6->tx_skb_lock);
+ 
+diff --git a/include/linux/oa_tc6.h b/include/linux/oa_tc6.h
+index 15f58e3c56c7..7ed7769bac88 100644
+--- a/include/linux/oa_tc6.h
++++ b/include/linux/oa_tc6.h
+@@ -8,11 +8,18 @@
+  */
+ 
+ #include <linux/etherdevice.h>
++#include <linux/mdio.h>
+ #include <linux/spi/spi.h>
+ 
+ struct oa_tc6;
+ 
+-struct oa_tc6 *oa_tc6_init(struct spi_device *spi, struct net_device *netdev);
++struct oa_tc6_config {
++	struct spi_device *spi;
++	struct net_device *netdev;
++	struct mii_bus *mii_bus;
++};
++
++struct oa_tc6 *oa_tc6_init(struct oa_tc6_config *config);
+ void oa_tc6_exit(struct oa_tc6 *tc6);
+ int oa_tc6_write_register(struct oa_tc6 *tc6, u32 address, u32 value);
+ int oa_tc6_write_registers(struct oa_tc6 *tc6, u32 address, u32 value[],
 
-Best regards,
 -- 
-Ciprian Regus <ciprian.regus@analog.com>
+2.43.0
 
 
