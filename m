@@ -1,87 +1,96 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABDA221F24;
-	Sun,  3 May 2026 02:49:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C092188596;
+	Sun,  3 May 2026 02:50:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777776573; cv=none; b=nNhx7zkW8QISv16bWR1IbL3C3z4Id8VetUdnasTNjMVU9SRf2acfKZd+v4ycivHiLY0nB0evWjY1hKgIAcYupmB7G7mG6zfPQrdAoKLHfUINpsOZgHbpZag+fui16cyIVHlFzWhc/S0KQInOcNuu/u4avcqBxzLVLn3zAmEhQHM=
+	t=1777776651; cv=none; b=BX8PJPikOSSH7WygIQKDiKNXXB7BfgBLehaPLcVX7N2BMQzv90643xxcq/qeZd/2hotMkHhI9qqhn3Cy8EwtliU5/XL/SRiuDpgq1CWWFth4QaXa+/Gic6P58HRFUs9TBLaeIJ58Y+hStOyXEmlfn8swEHjwacS4Ad9TeQRyR2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777776573; c=relaxed/simple;
-	bh=GFGdjCNf3F5kPxCTiB48JwetFydKfpJwz84jgiWDQos=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D/lMyCaJHiGwxZPPWOIMIY/802mIR37jtKvnTIhuXvvlot8fpcpfC5hkFUiJ3QZ1TOIrUkZDDJZGivRF4iG8vpjQjPAhsbsjzQF0OORfqoTHIzSqm6nbTFMRBRjY9vLc55RG/Z7wjF3AlrDVrbAxxTyVGbjRWGqXUBz1NLhKZow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=XWLuIj4W; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1777776651; c=relaxed/simple;
+	bh=1FjViA5hvJyZ/LsmIK7ksV+Cft1GjoD3Thb5jztjDco=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L/LmGt3yrIZ3WrdwaukkGzgZPga/mXxqTjjtRQWdwGTzB6tb1hTddBFPJW7J2cvaWh3NUmIF8Q29R4E2MdNfY330MmP2B02PbG1TL4GkXfnZ69PrjuAeWHGqhutRcaHmmpD69o1paRrcja+Ojo+ECYhnF/VlBQs8FyyvQeo+1CM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=khdl8CnH; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="XWLuIj4W"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=YmcxZf7SutD2K2WWcfwCmG8slAmsQJ99Yyc78yb8540=; b=XWLuIj4WipvGPsgidcptl/Qh5N
-	U+weMbENiXqUhZ9K+Huxv3/eFR240BNp8ysGxJUv5weTFCmXBQJGDCLuNAubJCXHxy2cX7WXz2k3j
-	OSsuuVcLs2dG3en05lRl41CWSaZ0IdcY0XVOyrk3VAoopjAUPxvah4wC+M7cYy7dpHHY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wJMst-00158d-Un; Sun, 03 May 2026 04:48:43 +0200
-Date: Sun, 3 May 2026 04:48:43 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Alex Elder <elder@riscstar.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
-	rmk+kernel@armlinux.org.uk, andersson@kernel.org,
-	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
-	arnd@arndb.de, gregkh@linuxfoundation.org, daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
-	alexandre.torgue@foss.st.com, ast@kernel.org,
-	boon.khai.ng@altera.com, chenchuangyu@xiaomi.com,
-	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
-	hkallweit1@gmail.com, inochiama@gmail.com, john.fastabend@gmail.com,
-	julianbraha@gmail.com, livelycarpet87@gmail.com,
-	matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
-	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
-	rohan.g.thomas@altera.com, sdf@fomichev.me,
-	siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com,
-	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 09/12] gpio: tc956x: add TC956x/QPS615 support
-Message-ID: <3e5a42cc-53b8-4065-a32a-d754be40b4c7@lunn.ch>
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-10-elder@riscstar.com>
- <736fb3b7-c88a-4ec4-96ad-d1b79cc48d30@lunn.ch>
- <30cec7dd-ac3c-47ab-896a-c29992bd5ba5@riscstar.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="khdl8CnH"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4g7TmP5BtLz9tjP;
+	Sun,  3 May 2026 04:50:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1777776645;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=d1A1qyP8QeOPCU1K/hsX1FmZmqrWn214Zp6AIo4nhBs=;
+	b=khdl8CnHDmq8rAwn3UDgffvBS7llbtM4SCECCpjOR0ezbfjH17+dLJReJmvcKjc+UoOKGA
+	RU3Z5xmkgQ3EoXJ8P1d+KjiiNYxCDEMTnsGK0BVWbBmRpi3lRxIkgHVYBx21GvhOhA71Lp
+	t/UpvNPk7kWBDD1UDbXF7kszEoDs7pf83TpH/2zYg+fNcnh8TMcZOgXyQ28KDCUyXqDOvR
+	8KaU9ZRoY/dTXZiwhyGmq1MKzmLi6C5ecTzgipWpegH4BMWYCPRoykeViDvgt1zE8Rb/gS
+	2KAbXg+hCgk5E/4nw/oUmnlmpLfdtfkEme0SzlHq81QefByEtuFmo/MjNBucZg==
+Message-ID: <8668e3da-fcd2-412e-9457-3413e0aceafc@mailbox.org>
+Date: Sat, 2 May 2026 21:23:33 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <30cec7dd-ac3c-47ab-896a-c29992bd5ba5@riscstar.com>
+Subject: Re: [PATCH 3/7] dt-bindings: clock: cs2000-cp: document CS2500
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
+ David Airlie <airlied@gmail.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Stephen Boyd <sboyd@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org>
+ <20260419193718.133174-4-marek.vasut+renesas@mailbox.org>
+ <CAMuHMdUkT6wO=mCSbJt1dQueW62=_o3r589MvFyHhz-zSfw_9w@mail.gmail.com>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <CAMuHMdUkT6wO=mCSbJt1dQueW62=_o3r589MvFyHhz-zSfw_9w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: 85931d5d9f889a08582
+X-MBO-RS-META: i4rmf11wrmk77r1ympywfpfi9bxrssa9
 
-> It's possible gpio-regmap.c *could* be used.  We started with
-> vendor code and this code got separated at some point along
-> the way.  It was working, and I don't think I pursued other
-> options at that point.  I'll look at this possibility before we
-> send out the next version.
-
-The GPIO subsystem has made a big effort to provide generic code,
-since GPIOs are pretty simple things with a lot in common. So if the
-generic code works, or can be made to work with minor changes, you
-should use it.
-
-> What do you mean instantiate it twice?
-
-I _think_ you need one instance for the first 32 GPIOs, and a second
-one for the remaining GPIOs. But maybe config->reg_stride might allow
-it to work with a single instance?
-
-   Andrew
+On 4/29/26 1:32 PM, Geert Uytterhoeven wrote:
+> Hi Marek,
+> 
+> On Sun, 19 Apr 2026 at 21:37, Marek Vasut
+> <marek.vasut+renesas@mailbox.org> wrote:
+>> Document backward compatibility support for CS2500 chip, which
+>> is a drop-in replacement for CS2000 chip.
+>>
+>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> 
+> Thanks for your patch!
+> 
+>> --- a/Documentation/devicetree/bindings/clock/cirrus,cs2000-cp.yaml
+>> +++ b/Documentation/devicetree/bindings/clock/cirrus,cs2000-cp.yaml
+>> @@ -11,14 +11,18 @@ maintainers:
+>>
+>>   description: |
+>>     The CS2000-CP is an extremely versatile system clocking device that
+>> -  utilizes a programmable phase lock loop.
+>> +  utilizes a programmable phase lock loop. CP2500-CP is a compatible
+>> +  drop-in replacement for CP2000-CP.
+> 
+> While CP2000 exists in two variants (-CP and -OTP, cfr. the link below),
+> there is just "CP2500"[2].
+And it is called CS2500 , suffix dropped and typo fixed in V2, thanks !
