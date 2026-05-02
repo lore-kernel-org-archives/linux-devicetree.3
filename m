@@ -1,119 +1,115 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECE59463
-	for <devicetree@vger.kernel.org>; Sat,  2 May 2026 17:20:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777742412; cv=pass; b=svwtBUZTTDVY2H6W5/rDp4q7joPVN7cblXPaOGwg1NQR4RLIlTToOEDZg1lRY/4+BJmjFCgHmgjPsO4uhhj8ZgyKTpyJ0akTItf8gFHhdiXAKAQADYTS81wGN70YPL78La9zfAe01oJLTjJousFqahvH7LFOnSE2ZNNmD0/+ADQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777742412; c=relaxed/simple;
-	bh=U4m3BCX8C5MEEq5ER7adYDj3ySGow2OAK9QLy4yridU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=A4pCLueJJB/j+EMEYOQFu9YNJJIpO4XTqnWzFj3y/HJVRHJK0livoO9R3mSkEqTuOVyuDcJWswKtvLlWi0QV0Yu85BDoGaDtmsJ+xlU1sPzS29AdMKdTCZn2GIv8dz/pJtSS+kQk0IbLr2YsJl03Tp+QYU000WEiltm1THzTOcA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nLr4e1US; arc=pass smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D48A29ACF7;
+	Sat,  2 May 2026 18:56:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777748173; cv=none; b=NgfhfWvDTsEXJiikwf+W5P4dE1KdYVkkCUZETniMxBQaXgrTU6buVaZSqRPiezekgGfYMZeKAx25zxc76Ukd5B+Cksaj/6hCPZZTlqoe41Ej4l+236ciwr3GruW9iBkUDppHlZDBexhd9tOVwzlM3T4Dygh5USXFRX7TMiXyNn8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777748173; c=relaxed/simple;
+	bh=B40ZGPoV4IQ9iEYnGgPlp56X3Z+9TTYm+IVw0em6NGM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i7sP1g8aiBw+z2+UIDR/LK6jB8/3Zrx3DIBd8tpiVLyzRX9B4D10o1s+1BPKPEFJ5zIr2/STldg3WPMme+wM3OoAbJT274v4MlEIcx69GqdK6XI1UrEFopCYXF3F3mkrYEiHyL68CRvwCs+2YFpKWJZnZeWiyF3EhbGOaCPriQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=cSC+M0ef; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=qbdQClBr; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nLr4e1US"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-43d7e23defbso1562292f8f.0
-        for <devicetree@vger.kernel.org>; Sat, 02 May 2026 10:20:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777742409; cv=none;
-        d=google.com; s=arc-20240605;
-        b=iJWlFuopXKkVZM/QFSNVj06l9l2IXaIzML6Jg/snU5HnB0CVBFiqJaZPMKzD/V99SB
-         HlSabz+I+eXw7njiqTvQGAmU4+6SPEeNZQU5hw50In0knMBWiPrb8yS1i7ZdFzoM5iX6
-         SFP/P5dYUgiWqjtjeV99fhf8jEGBhvxKglPi6VnALS2j0UwR8zWdmGuDeaSFvOvlUSdL
-         bmWm0Et5zqBFJk+9UlzUy0igJCBIQ04E2Kgdal2t9JEL5UMRoL7jmNUJva+VrSzjjX1z
-         GBLeWXhQkS4uPxJEptD6F3+eOCAD4pIJS+wmjSp7AVaX9dAwnp1LTS+lbE/zKHYK/A5w
-         E9Pg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=whFhBndJs8rNIwDbAnCZQ1mvUrLqXBGZtosZ49qZssw=;
-        fh=Ee+1EKPrEsBoA03Bfd/SvvHB4+nBIFkbVV2aVN4YbGs=;
-        b=VatbQUYKZSKtfkKLRm5vNkFG2CTOoJD/FqcnOJyjWfuDr0ox8ASVxwKRxEmNmkHzXt
-         z14YIJBdpw4rmO201BXGcHAE1LC4K8PnusgfR3Ow4Y02LG/zuYpNRitRAwTYJocDTsb7
-         ofiI/Uz/7jdMfZA9KCsFgt5RMrf7tuodf3rUh8qTWO7WF59CUGuvh6jmPMccsyg/wqlR
-         WxD2eQUr82OYqDU31l5dO/Mb+fbjUINMZ3F592RmNbyB5U6AG54BIDElr5q6fJe/frKL
-         UJKq75BCP5sqr7UHsgzCq/ZYZKozXeO2WNo0nFdybPKED4LrxpV7oKU8joNXvJ5blRVo
-         Zg/w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777742409; x=1778347209; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=whFhBndJs8rNIwDbAnCZQ1mvUrLqXBGZtosZ49qZssw=;
-        b=nLr4e1US27NQjL/DxNYKxeSg+AaxGKz00YkB42tWJijOjzxjDv0Z8+QmwF2tjYXDd6
-         Tb78zyDZniHKmDEr6sUewcQuzGU08t55kgWQzr1dE9/QoIU/xPHDKKnkpHoFSkQMXBiQ
-         yctlzz+71kOOwsBHdJ/EP/SecjAzk8dgdzarSN9Et7sU5rlDfqflLbqw5F2Kkm8rrXNi
-         OY2TTBU1R54WTAIWKXrHcy2Cm7e0MY5DwXwekrCNSK7JFy41j0+dfcbu+Upmkp5VBSyh
-         T8OtcrHEC4N2tiLK77AepkxFbwVBxaOuGDWIaTmxPXRWD9eaddljumrnYaz3+0L/5bGB
-         NiRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777742409; x=1778347209;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=whFhBndJs8rNIwDbAnCZQ1mvUrLqXBGZtosZ49qZssw=;
-        b=MZEnmmyV7/vY3WqDswM7S2KnhscAvoUj/vjtQVk57V6t+8qZBa9mquAa6LhoNn1E2Y
-         dNXS84ByGP+KWTuZZxYv1Muy2ZYBgdyO9L+PfOMtBCQ3IUT3Dhl3X92OfxwYCu+kQdqw
-         pjLRpXaP8Q2rEAKWrDBU0vb+AjvJYr4gYcaLZHg9B2YiNPQXPn5EWAsdJf5XBEHS5Sn6
-         kkENA80hcZHix+4+4jYH/k4OWVfmrMK3pCRdUvNBvEss+V+8gtBNnSRMVslYh5Pjx6Mr
-         Jck5BPzH9irKgU2SndYK+dmaA1KcOmlNosdvkAILx5iHTyvPgdXX2zW9/PXLCV5PTeFD
-         0YLA==
-X-Forwarded-Encrypted: i=1; AFNElJ8QRaPPnap/C8A88RSk8r7onE65T2AfvGWJAS2TzW0SNnKoo5b3YoB3kN8HNwta8tWAuZhwAWgUO3kF@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz61IjeHa5Ee3L9lAERQBYMu/z5061fhRxFp5fZ7alRXCY5C+dB
-	jSzAaifUqNj40KBP8RtoDkZWGAxUPhu09mo/waMHq/XYyfI5SxB3uv9+jxDj9AgtdXCsNKtihBz
-	MGsABD6KQod3/f8pqk12lCT3mdpPVMJI=
-X-Gm-Gg: AeBDievAGv70L2GEoLFkxykXV58kjxcVZfZeIpRnIUK6oWmhIPoNXlR+HA7UsA5Bmrc
-	sG926RSLZRIC+0ix3h4TClCPGHjPYQ9JYIdU0/zSSfSxJQ2o7xxe+LZUOQETg4nCNqHa6y3o2/s
-	19zWs3J+r8CkSSJjZTJ3rLijHPu01zbNHO7PIxjF/miSSJdrZMErypsliRs9sHZ790U1P7pUpnK
-	R8akLGywz/rzFgIAMdrq60bNE8APzSDqMlFZPLjBJlxRhl9vCdlOTU8r5UMxFq+xRlzapPlE/4j
-	R2B42SK9vJWqOdHbHhufOMTzEVPxcB+D+GnG2nQTKBMDvdAj
-X-Received: by 2002:a05:6000:3110:b0:43d:1c4a:37c with SMTP id
- ffacd0b85a97d-44bb2e2eefamr6396799f8f.4.1777742409079; Sat, 02 May 2026
- 10:20:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="cSC+M0ef";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="qbdQClBr"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4g7HDl6qFDz9tQR;
+	Sat,  2 May 2026 20:56:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1777748168;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=HRwBh39GqXNmqTCDkY03IEcf+DDmQW9MTqCgBPdfc/8=;
+	b=cSC+M0efPcqaKGZVy3Tvk7Demw0T5g6vW0WZD6NV/4PwQWcd4eC99Ej59w3Ri6XRqwLj2t
+	sGOdVxuoCnceTVe0PnlXKtUt8GMtF5ZrfNwbP5HxDbSPvXEQvmD7XTQQdu06SSZc33+fvI
+	Gtm9N/emaGEWOhRVch3Good6Y5DUxFUkd/3DKmsyG1pL7J9m6Ii30ILuko/UMaxZ0gmTBt
+	NI1LLxheCUGGnrDNsSUNId1714nS6dMgxMZ8lEpwbOV5pbZUvMSlSBe65gNzH0jI5syaDG
+	0Fpxysi1x0uf1Fw2UfQ/KfqXNrgBbQs9PGX1Tt06UHERsg73sJZUMX4iFjiTZg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=qbdQClBr;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1777748166;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=HRwBh39GqXNmqTCDkY03IEcf+DDmQW9MTqCgBPdfc/8=;
+	b=qbdQClBrdTqSZlF/7wCdIxX3+ASoi0f8mRQqxQ65I+yAvPgp9C4KJ5VsAc3bsxiGYbGNW7
+	DoUXyUISsFGdVV4/bZIhqvbg1h+zlhbbRgJi64XWP/wC8VTRTXt4mAu6A2OOW6JHabLQZZ
+	7Oe1s450H586CTUq7RvZehHs473yH0wlrPRzzrfl8F3/umoK3BEP9zE5SsrVyXXhRfZO/y
+	NfPFQlt09YW/d8iHWvYI19fzP3NR0DEF3bXZrNRP5C+9F3lL9wyNcF9bg5jMXsww9x/5/H
+	2shoHXhbZeOigMxP0ycGnvWKrlvf0++pjOOEjgOVijpE+Rf8+RpqlSy3BZT/PA==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH 0/4] Describe coresight on R-Mobile APE6
+Date: Sat,  2 May 2026 20:55:41 +0200
+Message-ID: <20260502185557.93061-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260429063712.2150938-1-gray.huang@wesion.com> <20260429063712.2150938-6-gray.huang@wesion.com>
-In-Reply-To: <20260429063712.2150938-6-gray.huang@wesion.com>
-From: Jimmy Hon <honyuenkwun@gmail.com>
-Date: Sat, 2 May 2026 12:19:58 -0500
-X-Gm-Features: AVHnY4I4aJL8bDrcLq713fIEFP6fqUjfNi1_05rQa4Z92_j9G-w3WDXUUfgZeg4
-Message-ID: <CALWfF7K+g0sYLDQ9ROo1nGR9EADK44kVKQ_x=zonWD9eJLMDng@mail.gmail.com>
-Subject: Re: [PATCH v2 5/7] arm64: dts: rockchip: Add HDMI and VOP support for
- Khadas Edge 2L
-To: Gray Huang <gray.huang@wesion.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	nick@khadas.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 29f8f6d9ad634f69e44
+X-MBO-RS-META: 86oor7uzk4fqymh5d3ijsxszf1ta3s1q
+X-Rspamd-Queue-Id: 4g7HDl6qFDz9tQR
 
-On Wed, Apr 29, 2026 at 1:38=E2=80=AFAM Gray Huang <gray.huang@wesion.com> =
-wrote:
->
-> Enable the Video Output Processor (VOP) and the HDMI TX controller
-> to support HDMI display output on the Khadas Edge 2L. Also, enable
-> the associated HDMI PHY.
->
-> Signed-off-by: Gray Huang <gray.huang@wesion.com>
+Implement support for ZT trace bus and ZTR trace clock on R-Mobile APE6.
+Describe coresight topology on R-Mobile APE6. Extend the current PTM node
+with connection funnel, TPIU, ETB and replicator. The coresight on this
+hardware is clocked from the ZT/ZTR trace clock.
 
-< snip >
+Please note that this is written according to R-Mobile APE6 User's Manual
+Rev. 0.7, Revision Date: 22-Jan-2013. I currently do not have access to
+this hardware.
 
-> +
-> +&hdmi_sound {
-> +       status =3D "okay";
-> +};
-To have hdmi sound working, you'll also need to enable sai6. Similar
-to the update for rock-4d
-e6066edc9413191479b05596ba06c40908f44e22
+Marek Vasut (4):
+  dt-bindings: clock: renesas,cpg-clocks: Document ZT/ZTR trace clock on
+    R-Mobile APE6
+  clk: renesas: r8a73a4: Implement ZT/ZTR trace clock on R-Mobile APE6
+  ARM: dts: renesas: r8a73a4: Add ZT/ZTR trace clock on R-Mobile APE6
+  ARM: dts: renesas: r8a73a4: Describe coresight on R-Mobile APE6
 
-Jimmy
+ .../bindings/clock/renesas,cpg-clocks.yaml    |   2 +
+ arch/arm/boot/dts/renesas/r8a73a4.dtsi        | 114 +++++++++++++++++-
+ drivers/clk/renesas/clk-r8a73a4.c             |   2 +
+ include/dt-bindings/clock/r8a73a4-clock.h     |   2 +
+ 4 files changed, 117 insertions(+), 3 deletions(-)
+
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-clk@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+
+-- 
+2.53.0
+
