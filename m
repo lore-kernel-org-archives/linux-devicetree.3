@@ -1,175 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C9C2C11E4;
-	Sat,  2 May 2026 23:25:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7AFE29BDBF;
+	Sat,  2 May 2026 23:28:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777764337; cv=none; b=UHS4nKbWMBIsbSSr4Nl5rpLTfnOwOBC0SKQNc1qDllEstKwukI6I66iV6sANHAdHrhKOM53VWX2EQVBv5xttvjS+tyUwL2QUp+waSTeD2LYxvwfQZMcGNiIRqZKn5oqJcPrVcSfKVSryHdcLAAWDGb33PeCo8eVan4H5zxWDu8U=
+	t=1777764537; cv=none; b=JM2f6wCteeIEskUakpXoVbeyC9PPuRgBaMU8tnNE9fiiVV3kAYuGq65seJXhmWCb4YG1QzzowIcwBi3NQ7pFI/+JKPuJnV9p2ZkvKluDYloAywfMrvE7vgCEKjQv2Er5V+Nzq+H53JLLUd1pwQauZ4WPPEKJoMmTI6QHZ3sfAkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777764337; c=relaxed/simple;
-	bh=PU/PgJRELyFZ9axF6kSaLQk+fnNU+Qed4LVJD3zSKoY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LNHVFH6eXf4fqHAcmrm3ZACDOHGbwvjUKUeIb1hloZyocMURtzyFf0dRj9R4hsUzbBVP8PAXv++lgxNoGzecvXImPxrG9dgQfFTCclBLGYh2MUbjKLR2a0Te1yGyYU/ENK43nuoyzVtaEoCVVwbqPVLRRJwl6roe8f5Y1DkkufQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZQIHiS/j; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777764537; c=relaxed/simple;
+	bh=Lw9jBOvvJjT4+4Jivn2cnbDip5QLiTDpLvRZx+ZQYJ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NW+Yq1Fs+urcZncl9BGwe/vAFcNFYfH690wOE7viV2bAyQwp15kMXXRJzqB8tkPcfKGfvrZjmkPmVOFsc2ktbqFXR9UXdY6OM6xv+zJEKUbaOkzoMKwtxkgT4kG8pODnh8ysxDDIx1Ua9mf+ROm4MXYHKuzyjwtdNZg+V9Q1esw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mqUe9wmo; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZQIHiS/j"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 62AD2C2BCF6;
-	Sat,  2 May 2026 23:25:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mqUe9wmo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5140FC19425;
+	Sat,  2 May 2026 23:28:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777764337;
-	bh=PU/PgJRELyFZ9axF6kSaLQk+fnNU+Qed4LVJD3zSKoY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ZQIHiS/jKnUyyk1Kx6a95GRHM+hkpT5cRE3tORgtshMYtXKzx6KZ4kjqpHXIkVk/F
-	 Y6yhidls8VmsczvZR5FcfwEtp6kdc5K5cWLYEs90bFYPXUFAUT379wY0hBI6FPNAeo
-	 k8QdrknPlKWGfwphczAronlP//Pj1Snm9Hk8zL3/GNZJkuCj8dHzCborITqpQWkYIu
-	 lWoN3zBsMKdqXvYk1NhLanIhd9PSC8LqDRND+tbHo8Y9d7RlC9KvQTxen8Cq1l/24n
-	 YSyBlu+mAl5q/OGVQ6pKN5UHWjcsoZhMhNAZkHN99AF5RrJnUdPnOSQjuCrwsG8WVQ
-	 zT4rzhBDnw6pw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B22ECD3426;
-	Sat,  2 May 2026 23:25:37 +0000 (UTC)
-From: Ciprian Regus via B4 Relay <devnull+ciprian.regus.analog.com@kernel.org>
-Date: Sun, 03 May 2026 02:24:54 +0300
-Subject: [PATCH net-next 5/5] dt-bindings: net: Add bindings for the
- ADIN1140
+	s=k20201202; t=1777764536;
+	bh=Lw9jBOvvJjT4+4Jivn2cnbDip5QLiTDpLvRZx+ZQYJ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mqUe9wmosAe2fwai+2Udb81wJW1nyket5qcrfupCVzkLAfVuEYehO9gK8/8+/HFoL
+	 9uX24NrGHpEmaAJsQ8cl+iA0tLjYq6vfypzT1Z6GH5z2725XXK1exOlbdlCzbQjM+/
+	 lYSE3WcXipBljMfblr5D0IBPhDYphWUSdutCSTBEHCOSGpEyTVQax9Pf7bMK3yu/iV
+	 m6SNQ1iDAKa/ALF/KtrDzBfvkyn3Uw/ZIeY/V4UgRSu/bldWOe73IUfY46NWMM3bfU
+	 2xrjFy+5hUfIeguSNiJxASXyJyJaOGwwJLz5+QdyPQrtNmwfqxvBXDxxaAqoTofuc9
+	 jjAh+yHurmE6g==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id A0A141AC5863; Sun, 03 May 2026 00:28:53 +0100 (BST)
+Date: Sun, 3 May 2026 08:28:53 +0900
+From: Mark Brown <broonie@kernel.org>
+To: Richard Acayan <mailingradian@gmail.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>, linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	Nickolay Goppen <setotau@mainlining.org>,
+	Adam Skladowski <a39.skl@gmail.com>,
+	Vladimir Lypak <vladimir.lypak@gmail.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Wesley Cheng <quic_wcheng@quicinc.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v4 08/15] ASoC: qdsp6: q6afe-dai: add internal mi2s
+ support
+Message-ID: <afaItZPyanmoWraa@sirena.co.uk>
+References: <20260501153128.8152-1-mailingradian@gmail.com>
+ <20260501153128.8152-9-mailingradian@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260503-adin1140-driver-v1-5-dd043cdd88f0@analog.com>
-References: <20260503-adin1140-driver-v1-0-dd043cdd88f0@analog.com>
-In-Reply-To: <20260503-adin1140-driver-v1-0-dd043cdd88f0@analog.com>
-To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Andrew Lunn <andrew@lunn.ch>, 
- Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, devicetree@vger.kernel.org, 
- Ciprian Regus <ciprian.regus@analog.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777764335; l=2909;
- i=ciprian.regus@analog.com; s=20260330; h=from:subject:message-id;
- bh=fsypCuzG+8KsvoEcvGQ6yCJv/rH7hOitcPb70G23Ry8=;
- b=IfQ3JGxqRuCDGFpO/P9bRwjhIFJQOyUBMejKbfs/rBS33QxPU7X5rXn5hE4r4EhqBykipUBB2
- dkVrqgIOr5ZAehaPGZErUqfkPGoO24jQjlt5vghv6N9DQoutLODifLf
-X-Developer-Key: i=ciprian.regus@analog.com; a=ed25519;
- pk=8WoNhI0kQcQUl8YqJO5ZevROYk9HP8lOIeIgIYgjfbc=
-X-Endpoint-Received: by B4 Relay for ciprian.regus@analog.com/20260330 with
- auth_id=703
-X-Original-From: Ciprian Regus <ciprian.regus@analog.com>
-Reply-To: ciprian.regus@analog.com
-
-From: Ciprian Regus <ciprian.regus@analog.com>
-
-Add DT bindings for the ADIN1140 10BASE-T1S MACPHY. Update the
-MAINTAINERS entry to include the bindings file as well.
-
-Signed-off-by: Ciprian Regus <ciprian.regus@analog.com>
----
- .../devicetree/bindings/net/adi,adin1140.yaml      | 69 ++++++++++++++++++++++
- MAINTAINERS                                        |  1 +
- 2 files changed, 70 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/net/adi,adin1140.yaml b/Documentation/devicetree/bindings/net/adi,adin1140.yaml
-new file mode 100644
-index 000000000000..26cd40d36f9b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/adi,adin1140.yaml
-@@ -0,0 +1,69 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/adi,adin1140.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ADI ADIN1140 10BASE-T1S MAC-PHY
-+
-+maintainers:
-+  - Ciprian Regus <ciprian.regus@analog.com>
-+
-+description: |
-+  The ADIN1140 (also called AD3306) is a low power single port
-+  10BASE-T1S MAC-PHY. It integrates an Ethernet PHY with a MAC
-+  and all the associated analog circuitry.
-+  The device implements the Open Alliance TC6 10BASE-T1x MAC-PHY
-+  Serial Interface specification and is compliant with the
-+  IEEE 802.3cg-2019 Ethernet standard for 10 Mbps single pair
-+  Ethernet (SPE). The device has a 4-wire SPI interface for
-+  communication between the MAC and host processor.
-+
-+allOf:
-+  - $ref: /schemas/net/ethernet-controller.yaml#
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - adi,adin1140
-+      - adi,ad3306
-+
-+  reg:
-+    maxItems: 1
-+
-+  spi-max-frequency:
-+    maximum: 25000000
-+
-+  interrupts:
-+    maxItems: 1
-+    description: Interrupt from the MAC-PHY for receive data available
-+      and error conditions
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - spi-max-frequency
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        ethernet@0 {
-+            compatible = "adi,adin1140";
-+            reg = <0>;
-+            spi-max-frequency = <23000000>;
-+
-+            interrupt-parent = <&gpio>;
-+            interrupts = <6 IRQ_TYPE_EDGE_FALLING>;
-+
-+            local-mac-address = [ 00 11 22 33 44 55 ];
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f9784c25beac..55e1e78fe04e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1848,6 +1848,7 @@ M:	Ciprian Regus <ciprian.regus@analog.com>
- L:	netdev@vger.kernel.org
- S:	Maintained
- W:	https://ez.analog.com/linux-software-drivers
-+F:	Documentation/devicetree/bindings/net/adi,adin1140.yaml
- F:	drivers/net/ethernet/adi/adin1140.c
- 
- ANALOG DEVICES INC ETHERNET PHY DRIVERS
-
--- 
-2.43.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="QptKJDS25bihgyZY"
+Content-Disposition: inline
+In-Reply-To: <20260501153128.8152-9-mailingradian@gmail.com>
+X-Cookie: 667:
 
 
+--QptKJDS25bihgyZY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Fri, May 01, 2026 at 11:31:21AM -0400, Richard Acayan wrote:
+> Add the internal MI2S ports found on the SDM660 internal sound card.
+
+> +	SND_SOC_DAPM_AIF_IN("INT0_MI2S_RX", "NULL",
+> +		0, SND_SOC_NOPM, 0, 0),
+
+Why are we using the string "NULL" rather than a NULL pointer here?
+
+--QptKJDS25bihgyZY
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmn2iLQACgkQJNaLcl1U
+h9CacQf7BJ+OXeV0F/HUONNiI6qJ9Rfx4EuyUKXePmMeyD3Y85OUjCUsdbJGDLsI
+ZiDHv16WxKCH5CFjkgsNfpxncz5Bd6OpRf+ZpMVewXB5Yx8kmGT7YZlY6gjV5m9+
+d6Ge3mZUuRLjCWNH43RDTboRu0/UuT6TnJW/P4Sa5eZfaVHS2ygUUZm6JDQ+Cjv8
+P9ChYSrLEspda58wDRlL4Zdkl851TLXnwh7nqG4goOLPLiJHBd5XWPJ/jnkPz2y9
+ctw1BtCwUh6lUMKeEm4Oe2L50oKdBlNdf7auO64JPbhoT68egrjKH2SbVgtd7IcB
+PYGC1H9WK7isPM0WCJFN6Ub/scZ2lA==
+=T+yC
+-----END PGP SIGNATURE-----
+
+--QptKJDS25bihgyZY--
