@@ -1,114 +1,93 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A463A1686;
-	Sat,  2 May 2026 21:34:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 62BDA319847;
+	Sat,  2 May 2026 21:54:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777757655; cv=none; b=RvYctMbpKSpfIwi3ywJ3RIyUOp87d9gewU1xrTzVjmoZVrKSGoLhC8Afk7EekveIhIRl+76HCUuBXDlWH+J6RVTi0v/M+r4KYaaLLw8xYYRhwEs85iCjWvobZ3IRBig8pxl85eCEbuCETBwv5s1L33WCu4gceYYNFbG3P85ZO0c=
+	t=1777758882; cv=none; b=f9L9hAy5Yu8FN/YQ7dyP/5br2S9sfuesWdSpVPsRAEVHRJETcjLyeW1FGkxtSYZnvISDThyG6CCWHvs/EhqBn6Uc+3SAACINLattDOQRyJ3wKq8d1cUGDdGqndYe6trxuCKTTzOHTme+ohk2ZMZ3HbCdNka1Z7LkZiilVJVzwtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777757655; c=relaxed/simple;
-	bh=aTizUp77vFtdaVut/y6EEzccWuA3wNr4gRWnrrdF4zQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nstkQjZapshrwhO5FjwO0htB/4hoPCtPktjxmDyeb03r02FNFH9vcc7pUX4z+9hIdR6feIgmTi0tiLx6XdB6CECbBeD8whMBmwEmr+fKWIrEYMObcFndamXh7MMIMz67Xn25MHyAOAmMWIMMGtTHOGE3aIKDcCTttXJrRoAn0Do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=knvsL8k1; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="knvsL8k1"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4g7LXs1LTVz9tjW;
-	Sat,  2 May 2026 23:25:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1777757117;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=krWvEte6rzYQK7UVqWb8Xrr0bPg1zlcGnKUfpj6lNEw=;
-	b=knvsL8k12JbPXpYAlE9cBexu30rqoUtTFLzP18ypZSmRCQPvA/hch4OLnCGgip9mSiF17t
-	2sFEMq2QuB84fTcucGgg+aAC1VQ/v1WOjLI4xQTvz1zpaaSH3YUELU//a2fRpHLY7DNnL0
-	+01jP0ak5enIm3CWv2Zvz3YEheA7CdBHUeATtHWkFO20v1Td4XLRx38Tx4qS7uBOUvwo0N
-	Qry9PMuiJ+vXurTP60Wc3kNEGqOJLdM2ckDM4IcwIZOoId2ryzCZIhDB9Vv8Jf7qa850BO
-	L8PCX6o4eBHX6TmsUL5qXFs8bZx0q3skIid21QoyjqrksGWRrn0panx7kh/EYQ==
-Message-ID: <321547f5-40b6-449f-8a6e-5396b70823e6@mailbox.org>
-Date: Sat, 2 May 2026 23:25:02 +0200
+	s=arc-20240116; t=1777758882; c=relaxed/simple;
+	bh=tpnnFjisTahUM4MUYPoN0l/SLFoAL+pWtU6uPI3YPFU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=jybJ5PaWoc7t92AqyxQZXvEbUdhXy/71JBeZ5sq5Nmvp24OhZXthTD7Z1azhZPPxMJTsxqh2QAsg/s56f1ZR96i8wI8malIr6q93pDn/JlfVrk6rfvoDn/zq3bKoBF1ruTz4Sk/EPJH9WvZOhpgIs2j/AKHgJpuwbrHrEJEd8q0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 632CD92009C; Sat,  2 May 2026 23:54:37 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 5E56B92009B;
+	Sat,  2 May 2026 22:54:37 +0100 (BST)
+Date: Sat, 2 May 2026 22:54:37 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Thomas Gleixner <tglx@kernel.org>
+cc: Caleb James DeLisle <cjd@cjdns.fr>, linux-mips@vger.kernel.org, 
+    robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+    linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/2] irqchip/econet-en751221: Support MIPS 34Kc VEIC
+ mode
+In-Reply-To: <87tssuxmh8.ffs@tglx>
+Message-ID: <alpine.DEB.2.21.2605022158400.23161@angie.orcam.me.uk>
+References: <20260425123531.270548-1-cjd@cjdns.fr> <20260425123531.270548-3-cjd@cjdns.fr> <87tssuxmh8.ffs@tglx>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 2/7] drm/rcar-du: Add support for Renesas R-Car R8A779MD
- M3Le
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
- David Airlie <airlied@gmail.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Stephen Boyd <sboyd@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org>
- <20260419193718.133174-3-marek.vasut+renesas@mailbox.org>
- <CAMuHMdUHKQwX43=c9JR67=x1EvWzdHTiXdUnPV2bDKU7PV_EnA@mail.gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CAMuHMdUHKQwX43=c9JR67=x1EvWzdHTiXdUnPV2bDKU7PV_EnA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: wgjgs6jskon4uskfcndud97puhskkd3w
-X-MBO-RS-ID: 03f2f67987000091c2f
+Content-Type: text/plain; charset=US-ASCII
 
-On 4/29/26 12:10 PM, Geert Uytterhoeven wrote:
+On Wed, 29 Apr 2026, Thomas Gleixner wrote:
 
-Hello Geert,
+> Other than those nits, this look like a reasonable solution for a
+> completely unreasonable hardware design.
 
-> On Sun, 19 Apr 2026 at 21:37, Marek Vasut
-> <marek.vasut+renesas@mailbox.org> wrote:
->> Add support the Renesas R-Car R8A779MD M3Le SoC. This SoC is
->> similar to R-Car R8A77965 M3-N SoC, except the HDMI port@1 is
->> not present.
-> 
-> "and DU1 is unused." (whatever that may mean...)
+ Why do you think this design is unreasonable?
 
-Fixed in V2.
+ How is that different, at the high level, from say the x86 APIC priority 
+resolver and vector generator, combined with the interrupt descriptor 
+table (except for additional optional GPR stack switching, which saves the 
+handler from the hassle and extra cycles needed for GPR preservation, 
+though I reckon with x86 you could use task gates in the IDT to yield a 
+similar effect although at much higher cost performance-wise as x86 does 
+not implement alternative GPR stacks)?
 
->> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c
->> @@ -564,6 +564,30 @@ static const struct rcar_du_device_info rcar_du_r8a779h0_info = {
->>          .dsi_clk_mask = BIT(0),
->>   };
->>
->> +static const struct rcar_du_device_info rcar_du_r8a779md_info = {
-> 
-> Assuming for this review we do need a new compatible value...
+ Analogously to x86 in the MIPS VEIC mode the IRQ number is determined by 
+the vector rather than the somewhat arbitrarily numbered (particularly in 
+cascaded topologies) IRQ line and available to the handler in the 
+CP0.Cause.RIPL register field.
 
-I will be dropping this part in V2.
+ NB this arbitrary non-VEIC IRQ numbering is particularly obvious with 
+MIPS platforms featuring an x86-style PCI southbridge with an embedded 
+8259A interrupt controller pair, where for compatibility with our driver 
+code we give root MIPS CPU IRQ lines numbers 16-23 while 8259A IRQ lines 
+cascaded from one of the IRQ lines 18-23 are given numbers 0-15.
 
-[...]
+ Example such an odd topology:
 
->>   static const struct of_device_id rcar_du_of_table[] = {
->>          { .compatible = "renesas,du-r8a7742", .data = &rcar_du_r8a7790_info },
->>          { .compatible = "renesas,du-r8a7743", .data = &rzg1_du_r8a7743_info },
-> 
-> I also don't know where "M3Le does not support 4K output." (which is
-> a VSP2 limitation) is to be handled.
-R-Car Gen3 RM R19UH0105EJ0230 Rev.2.30 Aug 31, 2021
-Page 2468
-32.1.1.1 Features of VSPI [R-Car H3/R-Car H3-N/R-Car M3-W/R-Car 
-M3-W+/R-Car M3-N/R-Car E3]
-point Video processing and point Performance of VSPI
-indicates R-Car E3 has similar limitation due to VSP bandwidth.
+           CPU0       
+  0:          0   XT-PIC   0  timer
+  1:          0   XT-PIC   1  i8042
+  2:          0   XT-PIC   2  cascade
+  3:          4   XT-PIC   3  ttyS1
+  4:         37   XT-PIC   4  ttyS0
+  6:          3   XT-PIC   6  floppy
+  7:      52456   XT-PIC   7  parport0
+  8:          0   XT-PIC   8  rtc0
+ 10:   99668740   XT-PIC  10  fddi0
+ 11:          0   XT-PIC  11  uhci_hcd:usb1
+ 12:          1   XT-PIC  12  i8042
+ 14:          0   XT-PIC  14  ata_piix
+ 15:         15   XT-PIC  15  ata_piix
+ 20:          0     MIPS   4  ttyS2
+ 21:          0     MIPS   5  CoreHi
+ 23:  803937130     MIPS   7  timer
+ERR:          1
 
-Currently, this seems to be up to user to avoid the higher resolution 
-operation on hardware which has lower VSP bandwidth.
+(where XT-PIC interrupts are cascaded from IRQ line 18/MIPS line 2, not 
+actually given stub registration).  At least the VEIC mode brings some 
+sanity here.
+
+ FWIW,
+
+  Maciej
