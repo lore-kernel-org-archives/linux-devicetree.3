@@ -1,137 +1,130 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378E1155C97
-	for <devicetree@vger.kernel.org>; Sat,  2 May 2026 02:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F89017BED0
+	for <devicetree@vger.kernel.org>; Sat,  2 May 2026 05:19:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777688010; cv=none; b=KYj3pByAHxFGTD3JjXoYNaOTWfHDTgwEmE30ZlnTYps5TIlI/EV/a+aiwfe3HZ12XxLs6QdQPbqASFIBiO7JOML/+2XgjWyl1KuZxykgsQd5YHZcopENgW3lywEedCRZd1v0MaFIa3DQVyXYDbQrmZZ/B94MbTulOAX5cdcQ9w8=
+	t=1777699156; cv=none; b=KTyxMMA/w4fYYrkAXtjzHIRThehZgKmBd7+5YDMmrUyRMFzZ9uCTd/7dQBS3VR50m3pNufc+Nm0bwRoh7qXM/tHsTL1xx8/4SLzz9RIMYnKw1qHJIuWkURAQqeZyxM/sMvR4QUrsA8k2wxEiuzGh44L/84tcx/DmjqEtMw+fYwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777688010; c=relaxed/simple;
-	bh=qaoSxtxpiDOxluongS3IsFiLg0sU88QL0+hHlGNYt6U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gY6ONqpFuMtOCR6VibZCFTJdTtCLqfDfA++AD2QFvp09gSorFGiC47yCz4i7Ag6zBwxiKye/VzCWhtGjsMRzYL0xP4unk0vD2SFX0RETtO+IIkErkOfaWRNBfBQNUOOJ992gAckGAHaaOt2O/O5WKOtEq9PYrPxhb6HfJ4X5uC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QEFfTMAZ; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1777699156; c=relaxed/simple;
+	bh=1ggK7mPsnS7zqgz4VemPVqRPiFJVYau2oDq6ODxaR+Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jHKFZhi1W9bw6P4I9HbzWa1WcY02yr2AaOCOjdReWeFcuay51/NRSDR/+A60FQ26jKVsIopZ4fVz4nfml+RSQjoqe7dsz67jmpALFejuEWQLQoBsUn7Q5hCl+YcSZ1WiGcx80IT78RmcHVv5Udl+PCFeBwwsJ+5d4N3tkkJsktw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J56Vch57; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QEFfTMAZ"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-488ab2db91aso28131485e9.3
-        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 19:13:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J56Vch57"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-82f8b60e485so1160364b3a.0
+        for <devicetree@vger.kernel.org>; Fri, 01 May 2026 22:19:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777688006; x=1778292806; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=3Z/SnEh+R9GBIDmL48pRWXTMLEn8uZXtceFZjBNG9Z4=;
-        b=QEFfTMAZ3BIhZGr48gs4NXz9EteavNhN/KccKPxtvF2byNG+h7QVUkRRd0TwB7u0Vs
-         VO2ERWhzKPaFiMKS5RXLr5/731CSM0HEmckjvb8VIUArPmoWZbS9z/kGO18gryzvc5Vf
-         rXHpRaQAIvyC92SrnD9xOTytuO91ZyfVJGoeoaepQLxQeRmusMMhjMifAEHT91kMK3kn
-         c1p0Krn4AlMICZbhUXXkbonjxctZ6L5OfqNXhNvC4CmL2+/y+fgMf0Jm8ULGEjTKtekH
-         yrMRnX8cU12nzbeNMdlBGfdYaP9nmulGVbQ0kxqy9fJPM+bDfwwiR3r261NoYyRTROWr
-         yhEA==
+        d=gmail.com; s=20251104; t=1777699155; x=1778303955; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=lrUF75Mz/1le31qBCqb70yVrs4hFKnGVHUNBS1DYUtw=;
+        b=J56Vch57McWQ9H9Z3pMHuki7hOTEqvaqC9arzPEb4/OoQfBfUaaLy86RdQb7rc1kL/
+         YuGzWLoq5WjIMGhHXTykUTlEOsBjhobaWKEaW937kSBiVYmUtJg89HAC1WH7whTbABiy
+         D6fDagCBEAzWZhWjKn3i+mC7xoKTKwG2dfXbQAOF/bTVFTgwOLh9FukA3IDdRloNaPhS
+         wovzb3g7vkEkU3Z+AZif7Cuctwqchr4TBy9kYlfwQ2mH6adl1+ETsh0OgmU7brxYWB1M
+         U5HZALmBA5QVs3Hr7zoLR2Iz7Xx8JJb0PaJRjfyD6+jBaOp5mgjTTSN4QA7xK/epEHLD
+         L4kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777688006; x=1778292806;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1777699155; x=1778303955;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3Z/SnEh+R9GBIDmL48pRWXTMLEn8uZXtceFZjBNG9Z4=;
-        b=O+/BUYBT5CHbjt1vMZixK8gnmjCFp7WAvYPYYP58ER0Q0Qc3h65tVUyEdXZq3KCUrN
-         nntnkVxITGp9PaWzmdbb4GrlMLrqpK+Riruwap+DM5l7YLy74bz/LbrrVb0xyLokg6lJ
-         QIh8TyW0gM6jeG0lK0GIUqAyOCALXDfDMMr38RvMp32YQET/k81NnAJHqar1zHa5LwxK
-         lR0LJzesnfTlLrQwqAf+2T0El3eC+dWLu9Z51LiihMM6DEmhvDxCJiHSLZU7tNcCSjLk
-         hPDp+sAntmu+v6NoCS2Tkt3n21IwEIIVCMngjnfkHjvSMCWOM0LjKkV+kFhAB16bqioY
-         5lXg==
-X-Forwarded-Encrypted: i=1; AFNElJ9BWy8+4IlCZ+Aa46fVHwgSoBuT3nUrWZvtnYjWf1QFkiQWzuAQ0Nk48O+AqmKTpyNZb5pZzNMnjLid@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6Yhvc+jno1P8mHWex2WcL/qN2vVKoqYWmAVeb9BG/ZtIpTWRk
-	49EBxeYmND+g9jWZfte+5KN//WLPzoct24zK1YIgToLh1a+saaw8eH4Nz6VcGspwv+I=
-X-Gm-Gg: AeBDiet3DP5yqVVYKujbDHDjOCXpTRQUQnXlu/Hu+BrIPElLheKCF6dhCF1rlazTMAb
-	1EOtXiKu3c9bbV5wA6+NsNN4qRWXYPj9pkeWHkqbT+BTFKfiWXounrUmN57dQti3Y5GMoh08Dd9
-	AJtT7McNeGOfod6Ec8n91C7fZtzJORqkIWt5kZ8eT1r4L3f7QqCdWMT9U97GGUnyZOTWp9mVc3L
-	x3+cLzppHZ30HgD9Q1ojRU6rJ4bkaDzJ+pRhQgNDbBac3NfSzL8jjMugQdu4H8nWyB1hiMDgOrq
-	y/+dEJpZYIhcXrvc9nuuACfI5LTsZMZ6EO/KeBsXMjUQfU/cS8k3eX1Iv5lQSTloIvrQyrssnfK
-	ggKGDM2WhNltaBLIbLPZ4zObTxvzDzeSpbUaEI6tKaeJ+8L3l1NW3I8Ho7UM+LdIae+wyCw40ZI
-	sFk64qwp0zosqwMI2Y7y/B64KinhTWunYibK1GYxAMKq8D2TafV99hYNlMfQTk2rsy8g0APled2
-	gzFvB5+LxWH/bYy1l4RO3s=
-X-Received: by 2002:a05:6000:184e:b0:43d:7af0:3a7c with SMTP id ffacd0b85a97d-44bb61111a9mr2649471f8f.29.1777688006126;
-        Fri, 01 May 2026 19:13:26 -0700 (PDT)
-Received: from localhost (host86-170-11-80.range86-170.btcentralplus.com. [86.170.11.80])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-44a981dee7asm8657699f8f.21.2026.05.01.19.13.25
+        bh=lrUF75Mz/1le31qBCqb70yVrs4hFKnGVHUNBS1DYUtw=;
+        b=pdwwUN0Z22cL8RTpB2GHiq4ZlSZJD7RPMuBYkkvislnt7OgPlJqOfrF3Jhn5fj0I4z
+         61Evw2SugiF+GKCi1k9xyxf+5FctpaBtoSX0NRIAbVzPGT15+xm7zoqlUCut+pYjUF6d
+         +56m0uIKASp7zdA6T8CCcnvGpCZQD7tQhBhI+UPPPvUk8SSn7I0IS+4vlKcQDN33INMA
+         8CRRncPidjiVQT0mC4PAeACBfdM7rFMoRfuZGvYoSEq3l6CbXaObILMiqD0jfk23rIzx
+         rsm1YJJNXmj5+ixW0KbEdiuvL2zZ9pgZC8m4gLBNg9OuNH4kf2/68yGNSY5HdZkyD+u/
+         PiMw==
+X-Forwarded-Encrypted: i=1; AFNElJ/ZgwIvHtMPzxP/+p3f9M35xPjSpd+MuxTMn6D5HdGPTEmeFcoq8ccSt3mzY19a1mtF34UwzKJid1o0@vger.kernel.org
+X-Gm-Message-State: AOJu0YylHXQlZ/1qOr3iwAFooYUyEoEPipRsXbNB3Z356GtcgaxNdB4M
+	Ft1IBYCdtsd6Z8/RrJIpvYlCzwnoG7vLZcSD1FbIXUwUELA4tx5NNVBS
+X-Gm-Gg: AeBDieuTBKXyZnSuiAoiB9mYjJixwbeYP8Nw+kzdH0kw651n/w1pO70bei30rYPuef3
+	8zSnU7/3JPKSj4o8LPMlWRuQXX7kDBQUqAUh2USvaPNFoqM/6kAIicMpKNWsw6zHogaDHt+EOdz
+	9ynZZxDhaLgUG5i00HQF9HUYsUowiFrOCkkgRRDvKltdBI2ltD+OzqXMuE5riPPkVfendH0iddl
+	RBN+DKk7VDtp+dUHjieJNvOnOihmOucWJw8YdIVoWPrv8noDT9Uocq9EaXPT7akGNpepDNOyt75
+	BULNa2wYbDMzbdIiE+zcqnNrgh/xTZOGHWDG5TfDDeHX7TJsatTtx+umGZz71G7qIi6gI1wQ5k6
+	Gu/NO+hcPEKTO06MHvyoXA1MTpsbAqjeXi+AGTxzdKL5M655lY8S7t1KnaRkXrkjeDcdY2BOg6J
+	Rz7ydQDqoK7fZq+g4aY1zDzyxcLIvkzA==
+X-Received: by 2002:a05:6a00:985:b0:82f:37e3:ae67 with SMTP id d2e1a72fcca58-8352d20b18amr1983415b3a.27.1777699154297;
+        Fri, 01 May 2026 22:19:14 -0700 (PDT)
+Received: from rockpi-5b ([45.112.0.72])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83515b4f7c1sm4224838b3a.51.2026.05.01.22.19.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 01 May 2026 19:13:25 -0700 (PDT)
-From: Christopher Obbard <christopher.obbard@linaro.org>
-Date: Sat, 02 May 2026 03:13:18 +0100
-Subject: [PATCH] ARM: dts: dm8168-evm: Set stdout-path to uart3
+        Fri, 01 May 2026 22:19:13 -0700 (PDT)
+From: Anand Moon <linux.amoon@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>,
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-riscv@lists.infradead.org (open list:RISC-V ARCHITECTURE),
+	spacemit@lists.linux.dev (open list:RISC-V SPACEMIT SoC Support),
+	linux-kernel@vger.kernel.org (open list)
+Cc: Anand Moon <linux.amoon@gmail.com>
+Subject: [PATCH v2 0/4] spacemit: k1-bananapi-f3: Fix the power source of USB3 nodes
+Date: Sat,  2 May 2026 10:48:53 +0530
+Message-ID: <20260502051906.8160-1-linux.amoon@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260502-wip-obbardc-omap-dm8168-evm-stdout-path-v1-1-d1e69c295c21@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAL1d9WkC/x3NQQ7CIBBA0as0s3YSIBaJVzEuBhjtLCgEsJo0v
- XuJy7f5f4fGVbjBfdqh8iZN8jqgLxOEhdY3o8RhMMpYNSuDXymYvacaA+ZEBWNy2jrkLWHrMX8
- 6FuoLWiJ384Gt01cYtVL5Jb//6fE8jhP7YX/peQAAAA==
-X-Change-ID: 20260502-wip-obbardc-omap-dm8168-evm-stdout-path-6aa87bce6814
-To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Christopher Obbard <christopher.obbard@linaro.org>, 
- Ettore Chimenti <ettore.chimenti@linaro.org>, 
- Andrew Goodbody <andrew.goodbody@linaro.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1029;
- i=christopher.obbard@linaro.org; h=from:subject:message-id;
- bh=qaoSxtxpiDOxluongS3IsFiLg0sU88QL0+hHlGNYt6U=;
- b=owEBbQKS/ZANAwAKAWNNxPBocEb4AcsmYgBp9V2/Z7SAfNmXHf1mRY2kfCkl87UHMTaHCecdO
- BaZ9VwJ6pmJAjMEAAEKAB0WIQTxi9yLbCX5CqI9UXRjTcTwaHBG+AUCafVdvwAKCRBjTcTwaHBG
- +C7lD/9h/R28wE+iUDIREfj+zwXLaqw5SSXZVkVjic4HXSEyBvMWqiOnRhMhK/EmfdI8RcItA/v
- JxufYrCUZtL0zaJobPmSccvfl0iZ8ZvI+2nJuyD+QM5c6f++d2ekms5ozkzKHxYDs1V253ja+Sz
- 8UNekFGWVJyQbrchanM4oWNsI5IbISWRASbN1uXrlLXzOdjL9Aw435j3UrqEuRZ8xYTZvS9mQZH
- Z7iCV+aSdp6r9UwGKq60ylgPpO5IwvH/ysuELkp8hbNXF9ONM/EJDoaeupjtZNqZxX+D710Ckko
- XnWxnQU8F7k7LZjM43dk1BncDkKFg8ROMfVhcKO6Ee65o7yCiqlBdPZif64RukaSIIjj2xt6hT0
- fu0PVhEqfHD1Dr1LbPat1cV/Hnq+d2jHL7DHkAsXP4acH5UlrcjSwPinmc8JGy3J+4xpnjry16r
- 6u9ArhAOTDOGNr0hiD9OdzRcf6EjiQNP0yH7KjphZqSDgTkuZBh1sf9eKlgRCjA0raNeCO3OCT3
- JcocJb7DSmdh51eGhWfODBNSBiq+GrU623qbheMKXlmltcCQ1dLr6hkAnjSbGyT+nPn6tdWeY5p
- LDgm2LaBzhumlQUOt7Bj8+7xh95mKb4bvdPPEi51mJpeOVk+wIKIkqL3bZv3QzcM7NHpMFvsx2a
- PWF5szyWQNpoYXQ==
-X-Developer-Key: i=christopher.obbard@linaro.org; a=openpgp;
- fpr=F18BDC8B6C25F90AA23D5174634DC4F0687046F8
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Specify the board's default console UART by setting chosen/stdout-path
-to uart3, so that early console output and /dev/console map to the
-expected serial port by default.
+Following changes fix the power source of USB 3 and pcie on K1-Bananapi-F3
+development board.
 
-Signed-off-by: Christopher Obbard <christopher.obbard@linaro.org>
----
- arch/arm/boot/dts/ti/omap/dm8168-evm.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+Bananapi F3 schematics.
+[1] https://drive.google.com/file/d/19iLJ5xnCB_oK8VeQjkPGjzAn39WYyylv/view (page 24)
 
-diff --git a/arch/arm/boot/dts/ti/omap/dm8168-evm.dts b/arch/arm/boot/dts/ti/omap/dm8168-evm.dts
-index 6130b9a5f660..81450e15b889 100644
---- a/arch/arm/boot/dts/ti/omap/dm8168-evm.dts
-+++ b/arch/arm/boot/dts/ti/omap/dm8168-evm.dts
-@@ -8,6 +8,10 @@ / {
- 	model = "DM8168 EVM";
- 	compatible = "ti,dm8168-evm", "ti,dm8168", "ti,dm816";
- 
-+	chosen {
-+		stdout-path = &uart3;
-+	};
-+
- 	memory@80000000 {
- 		device_type = "memory";
- 		reg = <0x80000000 0x40000000	/* 1 GB */
 
----
+v1: https://lore.kernel.org/all/20260325081700.1502-1-linux.amoon@gmail.com/
+
+v2: Add pcie vin for pcie regulator.
+
+To verify check regulator_summary for more details
+
+$ cat /sys/kernel/debug/regulator/regulator_summary
+ dc_in_12v                        3    2      0 unknown 12000mV     0mA 12000mV 12000mV
+    vcc_4v                        1    0      0 unknown  4000mV     0mA  4000mV  4000mV
+    vcc5v0_sys                    4    3      0 unknown  5000mV     0mA  5000mV  5000mV
+       PCIE_VCC3V3                3    2      0 unknown  3300mV     0mA  3300mV  3300mV
+          ca800000.pcie-vpcie3v3   1                                 0mA     0mV     0mV
+          ca400000.pcie-vpcie3v3   1                                 0mA     0mV     0mV
+       5V_VBUS                    2    1      0 unknown  5000mV     0mA  5000mV  5000mV
+          c0a00000.usb:hub@1-vdd   1                                 0mA     0mV     0mV
+       VCC5V0_HUB                 2    1      0 unknown  5000mV     0mA  5000mV  5000mV
+          c0a00000.usb-vbus       1                                 0mA     0mV     0mV
+
+Thanks
+-Anand
+
+Anand Moon (4):
+  riscv: dts: spacemit: k1-bananapi-f3: Add vcc5v0_sys regulator for
+    Banana Pi F3
+  riscv: dts: spacemit: k1-bananapi-f3: Update USB regulator on onboard
+    usb and label
+  riscv: dts: spacemit: k1-bananapi-f3: Correct USB hub power hierarchy
+  riscv: dts: spacemit: k1-bananapi-f3: Add vin-supply for PCIe 3.3V
+    regulator
+
+ .../boot/dts/spacemit/k1-bananapi-f3.dts      | 25 +++++++++++++++----
+ 1 file changed, 20 insertions(+), 5 deletions(-)
+
+
 base-commit: f1a5e78a55ebf2b05777fd5eb738038ddae609d6
-change-id: 20260502-wip-obbardc-omap-dm8168-evm-stdout-path-6aa87bce6814
-
-Best regards,
 -- 
-Christopher Obbard <christopher.obbard@linaro.org>
+2.50.1
 
