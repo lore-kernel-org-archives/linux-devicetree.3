@@ -1,111 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7743128B0;
-	Sat,  2 May 2026 23:30:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7540175A92;
+	Sat,  2 May 2026 23:39:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777764606; cv=none; b=eCLVDINsmUOTngFnjvLIYEXPDgs5KCLaDT4fVTXdwW2wGY4+Nu3M2AUtZ7NLYqS28db1unXaFR3bIbT90OkKBc0H/wWBVpHaMZ7yGjVmtczlvu8xYr+u71XzqkbFzWL3CITisT1+OUd1ctDWkBbv05GiBvbC79tA6kQT+JJbMPU=
+	t=1777765179; cv=none; b=SPEeTAbuPcU+KmVwV2Odi+QHsNM4LVlgh1QacZgMOt4e9q+NhhaUwYGf+7TBaxq5OYXpaPUcKXEDmyUyzZhqygbJgbSnTeBbXTL5GOdHI3FHiL9nxIpGWhl2asPhJSfJZTdAUFiqSxMtwm9VwkjKI5iy6u8YJU7OAOMjWKEOuUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777764606; c=relaxed/simple;
-	bh=c8tSNJ5FwoK/bo93cmcfDUrwcAE4yfvaA0eLewWAF+4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NmUwAysVOAybehc2jP5tFR5Tv8o02LUhNP3xq7bnsvsba7G4RoMtEICjXEC8iXmA2RyrgIh8IVG2cYUlMiKb5wDHOZWxz2hoAWRwKvm0ROHypcthT+MJm5SUwAtjDAKDkzgB+Oe/dqgZXah0iPm/2bRSUJmyWqYblL0PygdGXPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iRsBz1Fm; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777765179; c=relaxed/simple;
+	bh=G3JF5eEv1JBbgseoFQC10u3gWJvjBResLPsxk4Fv9M0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=X9Psh96pRIq7FHd5PziK1GMO33sqtRM1ydkMdlrbI+23eWQBDg4hzviFnmKB+I4Pijn/lrZDHMC257CNtXKHOamlOegBnsN5x3+LG9SmJBBCfR0Cjn+0+CxOIymbtQMyG/1DFsfimXB6DjHnX4H7Kv9k4OmfErv1if26EbTzV5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=d9HOVMyV; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iRsBz1Fm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36734C19425;
-	Sat,  2 May 2026 23:30:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777764606;
-	bh=c8tSNJ5FwoK/bo93cmcfDUrwcAE4yfvaA0eLewWAF+4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iRsBz1FmTh2Q5Q9XJsOjM0ygtpRp9u2sJUjsTJfmAlT6BAX+BtRLC3qPbG7otsIUz
-	 oUUrtRV9UrXSsTYiCA1o6D8yKDHrgXknTDVAF1m2sT+ylQ5QUHbkmqZUubRHnWu19j
-	 FDwOmuZM2by3QWCYyxjwZHvC/vg+6KmK9WO2mI+GYKMMMs+CqOenrqjH9/ryJs20Ge
-	 vLx5kFi3mB5WMD36ZZoepeJECjmRe0+MlgsAZXSyZoE7cYmzIDMRxBpxDcvcMdG3Wc
-	 4v+97CSntQKrvVNjLYqThpe8PF2sQys/tUGl5RGskDEmi3sezgIYwuauqq1puT67sS
-	 /0gKm8mQ7idGQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 1D14D1AC5863; Sun, 03 May 2026 00:30:04 +0100 (BST)
-Date: Sun, 3 May 2026 08:30:04 +0900
-From: Mark Brown <broonie@kernel.org>
-To: Richard Acayan <mailingradian@gmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	Nickolay Goppen <setotau@mainlining.org>,
-	Adam Skladowski <a39.skl@gmail.com>,
-	Vladimir Lypak <vladimir.lypak@gmail.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Wesley Cheng <quic_wcheng@quicinc.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v4 11/15] ASoC: qcom: sm8250: add support for
- INT0_MI2S_RX and INT3_MI2S_TX
-Message-ID: <afaI_FuIq7Pb0kYh@sirena.co.uk>
-References: <20260501153128.8152-1-mailingradian@gmail.com>
- <20260501153128.8152-12-mailingradian@gmail.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="d9HOVMyV"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4g7PWn37rZz9t65;
+	Sun,  3 May 2026 01:39:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1777765173;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pfILjtLnryyVkFeL+4YyfSAyo9v1cIId1IUMbHc/7qg=;
+	b=d9HOVMyV+ERwC0R89d4h1I+F8HG5GYp0N9FSJCr2qXU/85Mb48wp+DZY6TjAd/2swt5u5C
+	tVJH8rRunB3zDWvh6WFYsLGlR5//5UycBAO8mb6rUH5l3diyGRU9V/hymox+LdbP4PpGSd
+	1yhmMEJMi3hIsmC1Ec6dPh/Z3eAu572dnzoJDF5tW9ML6Y644St7vPz7cOnhR6up7AyX65
+	TXTz5na3KrzEAk/1WFVpJUKWgMFX1ZqZsiQDuB9MHQwydulYZjh8OWUhHRkboMHuaOP1Cb
+	Taxgx3XRXrpP+BhbCMSLGqL6APU2oYlKF5XY+kCKLC+23+K8JabFMNBeIX48YQ==
+Message-ID: <380861ce-b832-4789-93fa-c2340ce487e6@mailbox.org>
+Date: Sun, 3 May 2026 01:39:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5TVXTFgvmuU5e6Ml"
-Content-Disposition: inline
-In-Reply-To: <20260501153128.8152-12-mailingradian@gmail.com>
-X-Cookie: 667:
+Subject: Re: [PATCH 6/7] arm64: dts: renesas: r8a779md: Add Renesas R-Car
+ R8A779MD M3Le DTs
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+ Nguyen Tran <nguyen.tran.pz@bp.renesas.com>,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Stephen Boyd <sboyd@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org>
+ <20260419193718.133174-7-marek.vasut+renesas@mailbox.org>
+ <20260429221153.GD132396@killaraus.ideasonboard.com>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <20260429221153.GD132396@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: rcrxobjd51jeq56ffsfaa15qkptt7r43
+X-MBO-RS-ID: 3e84285b24ac2565bce
 
+On 4/30/26 12:11 AM, Laurent Pinchart wrote:
 
---5TVXTFgvmuU5e6Ml
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hello Laurent,
 
-On Fri, May 01, 2026 at 11:31:24AM -0400, Richard Acayan wrote:
+>> +/delete-node/ &vin4csi20;
+>> +/delete-node/ &vin5csi20;
+>> +/delete-node/ &vin6csi20;
+>> +/delete-node/ &vin7csi20;
+>> +/delete-node/ &xhci0;
+>> +
+>> +&du {
+>> +	compatible = "renesas,du-r8a779md";
+>> +	renesas,cmms = <&cmm0>, <&cmm3>;
+> 
+> Shouldn't you then also delete the cmm1 node ?
 
-> The INT0_MI2S_RX and INT3_MI2S_TX ports on SDM660 can be connected to
-> the digital and analog WCD codecs. They can be supported with the same
-> logic for other ports, but just need to be explicitly stated. Add
-> support for these ports.
+Please see my reply to [PATCH 1/7] dt-bindings: display: renesas,du: 
+Document Renesas R-Car R8A779MD M3Le , the CMM0,1,3 all seems to be on 
+the chip and accessible. I think the CMM driver should be aware of the 
+IP, even if it is unused, e.g. to bring it into low power state if needed.
 
-> +	case INT0_MI2S_RX:
-> +		codec_dai_fmt |= SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_I2S;
-> +		snd_soc_dai_set_sysclk(cpu_dai,
-> +			Q6AFE_LPASS_CLK_ID_INT0_MI2S_IBIT,
-> +			MI2S_BCLK_RATE, SNDRV_PCM_STREAM_PLAYBACK);
-> +		snd_soc_dai_set_fmt(cpu_dai, fmt);
-> +		snd_soc_dai_set_fmt(codec_dai, codec_dai_fmt);
-> +		break;
-> +	case INT3_MI2S_TX:
-> +		codec_dai_fmt |= SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_I2S;
-> +		snd_soc_dai_set_sysclk(cpu_dai,
-> +			Q6AFE_LPASS_CLK_ID_INT3_MI2S_IBIT,
-> +			MI2S_BCLK_RATE, SNDRV_PCM_STREAM_PLAYBACK);
+> And does the DU still need three clocks and three interrupts ?
+The Geist board schematic indicates that DU_DOTCLKIN1 is present on the 
+SoC package and is supplied by Xtal X22 on the board, so I think the 
+answer is "yes" for the first clock part of your question.
 
-Should these both be using SNDRV_PCM_STREAM_PLAYBACK?
-
---5TVXTFgvmuU5e6Ml
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmn2iPsACgkQJNaLcl1U
-h9A9wAf/ZF5dVK3iNZz2v38moW57Dc4bSRh94ogb4y6SZk1Swr1DMnHrZPXj3uTD
-4nktAqqUvy/uMN3PGDbrNZRYIQIqgQ0i+YqNQZ9Pb53nKXWDe9iKCo9dEK8Hd1Ay
-ANSTdkxFheOSEYhYqmlYmNiieMgdba65OYCRtDrhiVYwn5gRHF+HIC8R71f+ATdk
-3/wqdpQzSStf0LA6tycbZv6mMtGTiapUry7uOQtiveSptW4ZAQvxy3IqXGrD313x
-jiYzhDEmpN9W8WzIyhtE44ODZJWTvx4XDbMMUNZeLCMkC99OiUVeFMMRqn21HrAO
-gSgKrRKqd5VnvuLTd34syj+4cC5Vow==
-=p9nj
------END PGP SIGNATURE-----
-
---5TVXTFgvmuU5e6Ml--
+As for the interrupt part, it seems DU1 is present, but not connected. 
+That means the DU1 interrupt does exist, but is not going to be used. Do 
+you prefer to describe it or leave it out ?
