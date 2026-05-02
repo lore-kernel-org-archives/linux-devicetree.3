@@ -1,73 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1439A1E633C;
-	Sat,  2 May 2026 16:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777740436; cv=none; b=M3KBxGmFqdA5NpwjHUnpkflCSrO9IO4Dnnj8NNNhQLU8CXmvT/pTcwzx7hKH4owvg9dO6fMz6Je7eHUC51CPLkEA91UdXneXP0wulEPPtWrazd1Qf2t6T9H2vK5vhjqltRufgbMk9umdFJnXyL8X3r7ZI5FHqW+i2rxF+SH+O94=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777740436; c=relaxed/simple;
-	bh=zymvXjOjeTSggFeuoM050BBTeP4ivuV+K0ZODz63sG8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uQp/EtTLnNkk6qAMz66zeq5u8bLcgc7gi8wrAoFshW7+AHXdhc+kDwSNZEWFTNXhW7JLLozTeXWJtTpGMRkOBRRbDdhvOW4GXBErqetZDvhMhUn7orn+AcF/05DwP/1X+KVdJ7TaruX8ym+xExD/CznlrcIjYO+HX/QORvE+8DA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C2a0Vi3Q; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECE59463
+	for <devicetree@vger.kernel.org>; Sat,  2 May 2026 17:20:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777742412; cv=pass; b=svwtBUZTTDVY2H6W5/rDp4q7joPVN7cblXPaOGwg1NQR4RLIlTToOEDZg1lRY/4+BJmjFCgHmgjPsO4uhhj8ZgyKTpyJ0akTItf8gFHhdiXAKAQADYTS81wGN70YPL78La9zfAe01oJLTjJousFqahvH7LFOnSE2ZNNmD0/+ADQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777742412; c=relaxed/simple;
+	bh=U4m3BCX8C5MEEq5ER7adYDj3ySGow2OAK9QLy4yridU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=A4pCLueJJB/j+EMEYOQFu9YNJJIpO4XTqnWzFj3y/HJVRHJK0livoO9R3mSkEqTuOVyuDcJWswKtvLlWi0QV0Yu85BDoGaDtmsJ+xlU1sPzS29AdMKdTCZn2GIv8dz/pJtSS+kQk0IbLr2YsJl03Tp+QYU000WEiltm1THzTOcA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nLr4e1US; arc=pass smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C2a0Vi3Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4943CC19425;
-	Sat,  2 May 2026 16:47:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777740435;
-	bh=zymvXjOjeTSggFeuoM050BBTeP4ivuV+K0ZODz63sG8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=C2a0Vi3QX0WD3xutTIXFvjrVMuUqle24NF4BAQHxyUpWgq77agsQiQDARZ48oGEr8
-	 zWeFVrQ+2yNo3XsQXXseVTkoumlvbwMcqRQ9Yrv9/oCfoJJfiKSyfy/R/1KWeM8Ejx
-	 j3kgXK8lc2stL15qKUXCkaF9uBbZyYkkj9ca4JUpNJEbRoD1qD1piUoN2e5hAWLFZo
-	 hmI8PjcAL1L79x9BIkN1E2eRROzi9GCkLp+6y/VFSfpgKhQs2XFoSYrQPXb4whpnxD
-	 2Fh+iykG/8DvSFLTzfAlLeLNrYwBZESP4BuukCRYY4PUWPAJsNa9OBiyeLZcaDz2BO
-	 p7nB8soAtHKMg==
-Date: Sat, 2 May 2026 09:47:12 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, maxime.chevallier@bootlin.com,
- rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linusw@kernel.org, brgl@kernel.org, arnd@arndb.de,
- gregkh@linuxfoundation.org, daniel@riscstar.com,
- mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
- alexandre.torgue@foss.st.com, ast@kernel.org, boon.khai.ng@altera.com,
- chenchuangyu@xiaomi.com, chenhuacai@kernel.org, daniel@iogearbox.net,
- hawk@kernel.org, hkallweit1@gmail.com, inochiama@gmail.com,
- john.fastabend@gmail.com, julianbraha@gmail.com, livelycarpet87@gmail.com,
- matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
- prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
- rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
- weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 00/12] net: enable TC956x support
-Message-ID: <20260502094712.69b29dc8@kernel.org>
-In-Reply-To: <20260501155421.3329862-1-elder@riscstar.com>
-References: <20260501155421.3329862-1-elder@riscstar.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nLr4e1US"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-43d7e23defbso1562292f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 02 May 2026 10:20:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777742409; cv=none;
+        d=google.com; s=arc-20240605;
+        b=iJWlFuopXKkVZM/QFSNVj06l9l2IXaIzML6Jg/snU5HnB0CVBFiqJaZPMKzD/V99SB
+         HlSabz+I+eXw7njiqTvQGAmU4+6SPEeNZQU5hw50In0knMBWiPrb8yS1i7ZdFzoM5iX6
+         SFP/P5dYUgiWqjtjeV99fhf8jEGBhvxKglPi6VnALS2j0UwR8zWdmGuDeaSFvOvlUSdL
+         bmWm0Et5zqBFJk+9UlzUy0igJCBIQ04E2Kgdal2t9JEL5UMRoL7jmNUJva+VrSzjjX1z
+         GBLeWXhQkS4uPxJEptD6F3+eOCAD4pIJS+wmjSp7AVaX9dAwnp1LTS+lbE/zKHYK/A5w
+         E9Pg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=whFhBndJs8rNIwDbAnCZQ1mvUrLqXBGZtosZ49qZssw=;
+        fh=Ee+1EKPrEsBoA03Bfd/SvvHB4+nBIFkbVV2aVN4YbGs=;
+        b=VatbQUYKZSKtfkKLRm5vNkFG2CTOoJD/FqcnOJyjWfuDr0ox8ASVxwKRxEmNmkHzXt
+         z14YIJBdpw4rmO201BXGcHAE1LC4K8PnusgfR3Ow4Y02LG/zuYpNRitRAwTYJocDTsb7
+         ofiI/Uz/7jdMfZA9KCsFgt5RMrf7tuodf3rUh8qTWO7WF59CUGuvh6jmPMccsyg/wqlR
+         WxD2eQUr82OYqDU31l5dO/Mb+fbjUINMZ3F592RmNbyB5U6AG54BIDElr5q6fJe/frKL
+         UJKq75BCP5sqr7UHsgzCq/ZYZKozXeO2WNo0nFdybPKED4LrxpV7oKU8joNXvJ5blRVo
+         Zg/w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777742409; x=1778347209; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=whFhBndJs8rNIwDbAnCZQ1mvUrLqXBGZtosZ49qZssw=;
+        b=nLr4e1US27NQjL/DxNYKxeSg+AaxGKz00YkB42tWJijOjzxjDv0Z8+QmwF2tjYXDd6
+         Tb78zyDZniHKmDEr6sUewcQuzGU08t55kgWQzr1dE9/QoIU/xPHDKKnkpHoFSkQMXBiQ
+         yctlzz+71kOOwsBHdJ/EP/SecjAzk8dgdzarSN9Et7sU5rlDfqflLbqw5F2Kkm8rrXNi
+         OY2TTBU1R54WTAIWKXrHcy2Cm7e0MY5DwXwekrCNSK7JFy41j0+dfcbu+Upmkp5VBSyh
+         T8OtcrHEC4N2tiLK77AepkxFbwVBxaOuGDWIaTmxPXRWD9eaddljumrnYaz3+0L/5bGB
+         NiRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777742409; x=1778347209;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=whFhBndJs8rNIwDbAnCZQ1mvUrLqXBGZtosZ49qZssw=;
+        b=MZEnmmyV7/vY3WqDswM7S2KnhscAvoUj/vjtQVk57V6t+8qZBa9mquAa6LhoNn1E2Y
+         dNXS84ByGP+KWTuZZxYv1Muy2ZYBgdyO9L+PfOMtBCQ3IUT3Dhl3X92OfxwYCu+kQdqw
+         pjLRpXaP8Q2rEAKWrDBU0vb+AjvJYr4gYcaLZHg9B2YiNPQXPn5EWAsdJf5XBEHS5Sn6
+         kkENA80hcZHix+4+4jYH/k4OWVfmrMK3pCRdUvNBvEss+V+8gtBNnSRMVslYh5Pjx6Mr
+         Jck5BPzH9irKgU2SndYK+dmaA1KcOmlNosdvkAILx5iHTyvPgdXX2zW9/PXLCV5PTeFD
+         0YLA==
+X-Forwarded-Encrypted: i=1; AFNElJ8QRaPPnap/C8A88RSk8r7onE65T2AfvGWJAS2TzW0SNnKoo5b3YoB3kN8HNwta8tWAuZhwAWgUO3kF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz61IjeHa5Ee3L9lAERQBYMu/z5061fhRxFp5fZ7alRXCY5C+dB
+	jSzAaifUqNj40KBP8RtoDkZWGAxUPhu09mo/waMHq/XYyfI5SxB3uv9+jxDj9AgtdXCsNKtihBz
+	MGsABD6KQod3/f8pqk12lCT3mdpPVMJI=
+X-Gm-Gg: AeBDievAGv70L2GEoLFkxykXV58kjxcVZfZeIpRnIUK6oWmhIPoNXlR+HA7UsA5Bmrc
+	sG926RSLZRIC+0ix3h4TClCPGHjPYQ9JYIdU0/zSSfSxJQ2o7xxe+LZUOQETg4nCNqHa6y3o2/s
+	19zWs3J+r8CkSSJjZTJ3rLijHPu01zbNHO7PIxjF/miSSJdrZMErypsliRs9sHZ790U1P7pUpnK
+	R8akLGywz/rzFgIAMdrq60bNE8APzSDqMlFZPLjBJlxRhl9vCdlOTU8r5UMxFq+xRlzapPlE/4j
+	R2B42SK9vJWqOdHbHhufOMTzEVPxcB+D+GnG2nQTKBMDvdAj
+X-Received: by 2002:a05:6000:3110:b0:43d:1c4a:37c with SMTP id
+ ffacd0b85a97d-44bb2e2eefamr6396799f8f.4.1777742409079; Sat, 02 May 2026
+ 10:20:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260429063712.2150938-1-gray.huang@wesion.com> <20260429063712.2150938-6-gray.huang@wesion.com>
+In-Reply-To: <20260429063712.2150938-6-gray.huang@wesion.com>
+From: Jimmy Hon <honyuenkwun@gmail.com>
+Date: Sat, 2 May 2026 12:19:58 -0500
+X-Gm-Features: AVHnY4I4aJL8bDrcLq713fIEFP6fqUjfNi1_05rQa4Z92_j9G-w3WDXUUfgZeg4
+Message-ID: <CALWfF7K+g0sYLDQ9ROo1nGR9EADK44kVKQ_x=zonWD9eJLMDng@mail.gmail.com>
+Subject: Re: [PATCH v2 5/7] arm64: dts: rockchip: Add HDMI and VOP support for
+ Khadas Edge 2L
+To: Gray Huang <gray.huang@wesion.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	nick@khadas.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri,  1 May 2026 10:54:08 -0500 Alex Elder wrote:
->  create mode 100644 Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
->  create mode 100644 drivers/gpio/gpio-tc956x.c
->  create mode 100644 drivers/misc/tc956x_pci.c
->  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c
->  create mode 100644 drivers/net/pcs/pcs-xpcs-regmap.c
->  create mode 100644 include/linux/pcs/pcs-xpcs-regmap.h
->  create mode 100644 include/soc/toshiba/tc956x-dwmac.h
+On Wed, Apr 29, 2026 at 1:38=E2=80=AFAM Gray Huang <gray.huang@wesion.com> =
+wrote:
+>
+> Enable the Video Output Processor (VOP) and the HDMI TX controller
+> to support HDMI display output on the Khadas Edge 2L. Also, enable
+> the associated HDMI PHY.
+>
+> Signed-off-by: Gray Huang <gray.huang@wesion.com>
 
-Please add an entry to MAITNAINERS for tx956x stuff?
+< snip >
+
+> +
+> +&hdmi_sound {
+> +       status =3D "okay";
+> +};
+To have hdmi sound working, you'll also need to enable sai6. Similar
+to the update for rock-4d
+e6066edc9413191479b05596ba06c40908f44e22
+
+Jimmy
