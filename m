@@ -1,125 +1,219 @@
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648AE3537E2
-	for <devicetree@vger.kernel.org>; Sun,  3 May 2026 21:21:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45BA53A3E8B;
+	Sun,  3 May 2026 21:24:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777843313; cv=none; b=i4+M7CqI5Ji1wu9P86+Www7LLCfnm28vKQOYX4q0qx0Dttlxa0Lf8FwDjTXMueD5E9e+UiRoj1/x2vjemYTJObmrk47e5dbvksxFJpiffeZWA8V6H+3NAmHB+qhpQPYZCEkP/R2AOElRrfPdz70cY9rJdACptUpiA7oh5qBw9oM=
+	t=1777843497; cv=none; b=LNRDU1WbZ2IxGInvgu5Gp+113Fk+El5sJCZAY4aWig2EoDZI0zQsb2lAgjP/1zmVDfo3YKoJc0gNkPiL534TejcL+XRrqyggWE6boP1tjHdKh9IfAROXlfzMGWLbYfZFSO2TzigkdiipkWImXZyelT/Tup1p4CUiAEqn7SXqkU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777843313; c=relaxed/simple;
-	bh=tYupaspFfCJOfKetalRjhlUYhov1a4SvzMQl0DK1eKI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oMb66LKqP/u6Cyu0uDhCi/1tAOWKPVm2W7DEgW+bj6KB7akczOqKuUsV8nFMg0GF5c2WNJcHbTUVV/be5ZcS22T8GfzGmLT/DZ+SDeXrJ5H5uto3Cndm0Ll3Csc4R26JyauO/Ah6Ss3/lo4dykyv+R3Pd75Ol9RV1SuC8PZ0HKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hYe4kJcK; arc=none smtp.client-ip=209.85.219.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777843497; c=relaxed/simple;
+	bh=MaI8IZsaB50roRDHgSsWkLNVdEW09lgAOc08QCyiKfo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=r6MV+7t1rUkPa2+cg0PM5exgrB8Xo/qfDOLS5/9KYNhAPx2JMjuZecJWMtgCCFzzVwX5EOjMu2d9vnqMI1oOr5eJ1mURQRyyuYqs6Lwk96KNweQrR+rON9N8U7ltfT0sHs3jAcGxnI1TYlw/K23je+GMFe78S3RiyXzJkE9o088=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AKaSdiBa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hYe4kJcK"
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-8aca4e14411so36481646d6.3
-        for <devicetree@vger.kernel.org>; Sun, 03 May 2026 14:21:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777843311; x=1778448111; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=0mkg+VtHb7z5VW8iw73r4CHPWNF6Icrx/bYF2pZNP/U=;
-        b=hYe4kJcKFsFdUHwnpMqqBdO53ZOw1dL6AofRG/rs02xPmwVsgFwfCw4jjEw7mXle4g
-         NNtEh9CHVEYHyiV6RqcRnwl5UH4bVeVbd52Uwf2FrlBSNgmlLJkWFeQyPHMQtepxOZbk
-         62XskseUViuwj2O9nNnKHmxTLX8LvINTe2zjDLQ9BjyHHZObPgVppXLJ6vfpIhGLIgSP
-         VESxJeJQpWW5bZEw06d1zpt9Q0sH/ldfE9XSUXhmxMr+Jz4NwamDTaqOugGvouoy8PsG
-         x+cUs09UEreAFesCuy0STOjaMTYtldkQ4tb/8JNRd/prTpN/2ysWGsOmoRBGCQGswWhL
-         9Piw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777843311; x=1778448111;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=0mkg+VtHb7z5VW8iw73r4CHPWNF6Icrx/bYF2pZNP/U=;
-        b=UJMXIfVdHfMhJC5AngcvLbZltYSGl3oXPMnGQTv1VTIfVs58U6axhXzUAUX4NXEWoe
-         VH9QxvGmzy5hotuxDAm7z7LGhO45qIUMhug4byiSDg/Kp4HfRcI2Q9RO/otPs5l/NI9v
-         C8ooeuheY+dcIezePK/2orruDc/f0KPRe8UtQnjLjwB36i9r8FYKF//4Lp5R0nCuh3/3
-         pJVrOs2dQMiIQ82DniykRlmVR+zuERJnPbFhMx6nKLRVp42naREGFR/Ji71UwmkE9Xcq
-         JaUGhVA4zJgYwS0ACBz4HTHX0iwWsXLvABoOdnrkDCk1buJIUkX+Kkijo25lw+vlIuBh
-         C35A==
-X-Forwarded-Encrypted: i=1; AFNElJ8lVzp2DlIoPGd3NpkW+zeYK1tk7lYRCJxSvwHWQhuFxN2zdC2z0A3ixP92CrQ8LQEiWdh4zYQF97Cc@vger.kernel.org
-X-Gm-Message-State: AOJu0YyPnJ2+YWwIDpSszIKaJrLxIlXdSui8KefLXidO0HP1hFPYGtsg
-	dKgwKtG9N8EVmRhDLuYA6j/cdSExA0umdxBUbdrlGCerZwWVGsnmfEWw
-X-Gm-Gg: AeBDietruXayIRVjobxee3REL92EoAjCWPfEjLRx/EcHV/w78kLqbho/4VcSB5mG1Gr
-	iLQ0eQdYXGkn+4BexI5uT/Si6NP21/N7WxmQYFn2cBQ/qMThunRExrW7purZxTxHDfH1HxfwREZ
-	1WBQIzea/fiMn/aCOVt1g+NvTKk5OLV23cabMod33qErecqHJCuSodHQwCqufaz0bPErnOZuz+D
-	7bhKzrQEPZvH0SbLMrMBtId+Eq2YFaClATedVCuk9Jj360giewhcwEQGySC0rzwGhdn6xWvjZ3Q
-	CT9UT41FUFfYzhUyPTLwQbiVJKUyXlKki8N9a8pJ3KIdn1fBvXWxi3AIUWuIXj2BWYfGXLw6s/H
-	Q/yrfG3FzEnJEgSiwgHqOKXVAtH6aEobwFcWWTteU1eRCcLUQHsDq6m2KQ2/9gAl7eSv27L+cWr
-	OadjcjuBAZVOki4Uk2OrKitQFMSspZwyVmBYei+wYPb1wnWJIG4u8fuNF5pYkMbfl4BC3VTb0bA
-	7Q44Ccn2s+yKwQ0EaUiJrH2Ymy0xd0JhXSX
-X-Received: by 2002:ad4:596b:0:b0:899:f0b1:7332 with SMTP id 6a1803df08f44-8b6687360f3mr139026546d6.32.1777843311331;
-        Sun, 03 May 2026 14:21:51 -0700 (PDT)
-Received: from localhost (bras-base-toroon21-grc-75-184-144-58-243.dsl.bell.ca. [184.144.58.243])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8b5391e34dasm108625546d6.14.2026.05.03.14.21.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 03 May 2026 14:21:50 -0700 (PDT)
-Date: Sun, 3 May 2026 17:22:38 -0400
-From: Richard Acayan <mailingradian@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-Cc: Nickolay Goppen <setotau@mainlining.org>,
-	Adam Skladowski <a39.skl@gmail.com>,
-	Vladimir Lypak <vladimir.lypak@gmail.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Wesley Cheng <quic_wcheng@quicinc.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v4 04/15] ASoC: dt-bindings: pm8916-analog-codec: Add
- PM660L compatible
-Message-ID: <afe8nm9VXytzxyxj@rdacayan>
-References: <20260501153128.8152-1-mailingradian@gmail.com>
- <20260501153128.8152-5-mailingradian@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AKaSdiBa"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D6046C2BCB4;
+	Sun,  3 May 2026 21:24:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777843496;
+	bh=MaI8IZsaB50roRDHgSsWkLNVdEW09lgAOc08QCyiKfo=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=AKaSdiBa21sBIozRby+ppvyIvdA3s5wyWQSKGCL+1x7fL5Sf1nnY3UTxR1BQruvpE
+	 ZZFtINREKV2aGor0SRz+B3ijHsV/SFInbz2DYurYGEVKrsBo4efgz6qmbeWSRHDapN
+	 ONOOD/dVguqIk04Ck+bK4ALSnfZSeLGbpUeMA6GglmD+fE96I4R28VOvK6oaSHPU0l
+	 A8GMzgsqZL5W/CnU8ZgEyigCXuOkhyJR8jjXKU58Jb4AAAajAsCYdr11E3V4/eJ6GO
+	 Zqe/XFGqnn558TxTtPvyu5L056AQkBPEmBtm+x+8qGxXCbiQg8LWYUGYI8cvW5OfUa
+	 GN89MHWV2ounw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C34F4CD3427;
+	Sun,  3 May 2026 21:24:56 +0000 (UTC)
+From: Rudraksha Gupta via B4 Relay <devnull+guptarud.gmail.com@kernel.org>
+Date: Sun, 03 May 2026 14:24:48 -0700
+Subject: [PATCH RESEND] ARM: dts: qcom: msm8960: expressatt: Add
+ coreriver,tc360-touchkey
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260501153128.8152-5-mailingradian@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260503-expressatt-touchkey-v1-1-f7dd5db64e0d@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Rudraksha Gupta <guptarud@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777843496; l=5243;
+ i=guptarud@gmail.com; s=20240916; h=from:subject:message-id;
+ bh=bVqnx5maQ2+0asrPWYudZakdqnY0csCZUYY5fznTxHc=;
+ b=yZ0PEuekOalrlzaGvBnW1A/GLx9mmN6pRqQ9tYU+XIh/RjcNhnjr+j/ZFWkqbEwvm7tmuEyCr
+ RIohpm0judADFOJnQ5quFeFssZHzCQJ/Rt/4n3B/1WqFvjecsN+RoFf
+X-Developer-Key: i=guptarud@gmail.com; a=ed25519;
+ pk=ETrudRugWAtOpr0OhRiheQ1lXM4Kk4KGFnBySlKDi2I=
+X-Endpoint-Received: by B4 Relay for guptarud@gmail.com/20240916 with
+ auth_id=211
+X-Original-From: Rudraksha Gupta <guptarud@gmail.com>
+Reply-To: guptarud@gmail.com
 
-On Fri, May 01, 2026 at 11:31:17AM -0400, Richard Acayan wrote:
-> The PM8916 analog codec is also found on PM660L, typically connected to
-> the SDM660 internal sound card via the digital codec. Provide a space
-> for specific compatibles and add the compatible for PM660L.
-> 
-> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  .../sound/qcom,pm8916-wcd-analog-codec.yaml        | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml b/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
-> index 15389645a3e8..074a20cda89f 100644
-> --- a/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
-> +++ b/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
-> @@ -14,10 +14,16 @@ description:
->  
->  properties:
->    compatible:
-> -    enum:
-> -      - qcom,pm8916-wcd-analog-codec
-> -      - qcom,pm8950-wcd-analog-codec
-> -      - qcom,pm8953-wcd-analog-codec
-> +    oneOf:
-> +      - items:
-> +          - enum:
-> +              - qcom,pm660l-wcd-analog-codec
-> +          - const: qcom,pm8916-wcd-analog-codec
+From: Rudraksha Gupta <guptarud@gmail.com>
 
-This should be PM8953, since PM660L has the cajon 2.0 codec.
+Add the tc360 touchkey. It's unknown if this is the actual model of the
+touchkey, as downstream doesn't mention a variant, but this works.
+
+Link:
+https://github.com/LineageOS/android_kernel_samsung_d2/blob/stable/cm-12.0-YNG4N/drivers/input/keyboard/cypress_touchkey_236/Makefile#L5
+
+Signed-off-by: Rudraksha Gupta <guptarud@gmail.com>
+---
+Add the tc360 touchkey. It's unknown if this is the actual model of the
+touchkey, as downstream doesn't mention a variant, but this works.
+
+Link:
+https://github.com/LineageOS/android_kernel_samsung_d2/blob/stable/cm-12.0-YNG4N/drivers/input/keyboard/cypress_touchkey_236/Makefile#L5
+
+Test:
+=============
+- LEDs:
+samsung-expressatt:/sys/class/leds/tm2-touchkey$ echo heartbeat > trigger
+// Flashes LEDs :)
+
+- Touching buttons:
+samsung-expressatt:/sys/class/leds/tm2-touchkey$ evtest
+No device specified, trying to scan all of /dev/input/event*
+Not running as root, no devices may be available.
+Available devices:
+/dev/input/event0:      pmic8xxx_pwrkey
+/dev/input/event1:      gpio-keys
+/dev/input/event2:      tm2-touchkey
+/dev/input/event3:      Atmel maXTouch Touchscreen
+Select the device event number [0-3]: 2
+Input driver version is 1.0.1
+Input device ID: bus 0x18 vendor 0x0 product 0x0 version 0x0
+Input device name: "tm2-touchkey"
+Supported events:
+  Event type 0 (EV_SYN)
+  Event type 1 (EV_KEY)
+    Event code 139 (KEY_MENU)
+    Event code 158 (KEY_BACK)
+  Event type 4 (EV_MSC)
+    Event code 4 (MSC_SCAN)
+Properties:
+Testing ... (interrupt to exit)
+Event: time 1761059686.899755, type 4 (EV_MSC), code 4 (MSC_SCAN), value 00
+Event: time 1761059686.899755, type 1 (EV_KEY), code 139 (KEY_MENU), value 1
+Event: time 1761059686.899755, -------------- SYN_REPORT ------------
+Event: time 1761059687.113489, type 4 (EV_MSC), code 4 (MSC_SCAN), value 00
+Event: time 1761059687.113489, type 1 (EV_KEY), code 139 (KEY_MENU), value 0
+Event: time 1761059687.113489, -------------- SYN_REPORT ------------
+Event: time 1761059688.764757, type 4 (EV_MSC), code 4 (MSC_SCAN), value 01
+Event: time 1761059688.764757, type 1 (EV_KEY), code 158 (KEY_BACK), value 1
+Event: time 1761059688.764757, -------------- SYN_REPORT ------------
+Event: time 1761059688.817516, type 4 (EV_MSC), code 4 (MSC_SCAN), value 01
+Event: time 1761059688.817516, type 1 (EV_KEY), code 158 (KEY_BACK), value 0
+Event: time 1761059688.817516, -------------- SYN_REPORT ------------
+---
+ .../dts/qcom/qcom-msm8960-samsung-expressatt.dts   | 55 ++++++++++++++++++++++
+ 1 file changed, 55 insertions(+)
+
+diff --git a/arch/arm/boot/dts/qcom/qcom-msm8960-samsung-expressatt.dts b/arch/arm/boot/dts/qcom/qcom-msm8960-samsung-expressatt.dts
+index 5a39abd6f3ce..c4b98af6955d 100644
+--- a/arch/arm/boot/dts/qcom/qcom-msm8960-samsung-expressatt.dts
++++ b/arch/arm/boot/dts/qcom/qcom-msm8960-samsung-expressatt.dts
+@@ -52,6 +52,41 @@ key-volume-down {
+ 			linux,code = <KEY_VOLUMEDOWN>;
+ 		};
+ 	};
++
++	touchkey_enable: touchkey-enable {
++		compatible = "regulator-fixed";
++		regulator-name = "touchkey_enable";
++		gpio = <&tlmm 51 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		regulator-boot-on;
++	};
++
++	i2c-gpio-touchkey {
++		compatible = "i2c-gpio";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		sda-gpios = <&tlmm 71 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
++		scl-gpios = <&tlmm 72 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&touchkey_i2c_pins>;
++		status = "okay";
++		i2c-gpio,delay-us = <2>;
++
++		touchkey@20 {
++			compatible = "coreriver,tc360-touchkey";
++			reg = <0x20>;
++
++			interrupts-extended = <&tlmm 52 IRQ_TYPE_EDGE_FALLING>;
++			pinctrl-names = "default";
++			pinctrl-0 = <&touchkey_irq_pin>;
++
++			vddio-supply = <&touchkey_enable>;
++			vdd-supply = <&pm8921_l29>;
++			vcc-supply = <&pm8921_l29>;
++
++			linux,keycodes = <KEY_MENU KEY_BACK>;
++		};
++	};
+ };
+ 
+ &gsbi2 {
+@@ -198,6 +233,20 @@ firmware-pins {
+ 			bias-disable;
+ 		};
+ 	};
++
++	touchkey_i2c_pins: touchkey-i2c-state {
++		pins = "gpio71", "gpio72";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	touchkey_irq_pin: touchkey-irq-state {
++		pins = "gpio52";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
+ };
+ 
+ &pm8921 {
+@@ -420,6 +469,12 @@ pm8921_l25: l25 {
+ 			bias-pull-down;
+ 		};
+ 
++		pm8921_l29: l29 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <3300000>;
++			bias-pull-down;
++		};
++
+ 		/* Low Voltage Switch */
+ 		pm8921_lvs1: lvs1 {
+ 			bias-pull-down;
+
+---
+base-commit: 0ccd3ddf45c93ab06c9b1a9d266dcab1e52bf3d2
+change-id: 20251205-expressatt-touchkey-1747c503a2f3
+prerequisite-change-id: 20251119-expressatt_nfc_accel_magn_light-f78e02897186:v4
+prerequisite-patch-id: 6fdd0efa5eda512b442b885df80774d1a7037df7
+prerequisite-patch-id: 12d296f83ccb1bdfb8d06a72e476bf51ae5f4e6c
+prerequisite-patch-id: a970acf2080143f41ae0935dd2c57bb71f5bf338
+prerequisite-patch-id: fd25fef58503c5e5cf742e79b124948c7f6b98d9
+prerequisite-patch-id: 966ae746687ebf8eb29c6185a8909b047e70dbb1
+prerequisite-patch-id: 68603a680b24921759425fc289e61fc4435e5ccd
+
+Best regards,
+-- 
+Rudraksha Gupta <guptarud@gmail.com>
+
+
