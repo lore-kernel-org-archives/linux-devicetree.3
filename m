@@ -1,311 +1,176 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011023.outbound.protection.outlook.com [40.107.74.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F6D3AE6FA
-	for <devicetree@vger.kernel.org>; Sun,  3 May 2026 08:35:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777797346; cv=none; b=GW3BZsVlYlwTj5wPqhk85ollYxVN9YRJ8+ESUP0UdpP0Z2xOXomK6sbmkQYFe03iswX+F/j2pDdGUryuuRq9vSZ6wNlBSLf0WyDxkFY0vfwj1bsr4QJBDFXFfV8x3aqiceVrALCJk2MCKzcZRZfCeivI3jTly+Az3y5EOQ5F9Iw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777797346; c=relaxed/simple;
-	bh=KolT8FJ8JLaoV/kgDWZGr2X7yeSGK3Ft+hcA3H6ww2g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=j0M30uqA2LtzHXYYpyTgPXQXH4qRBK2ddAOjjD+QaIJyeoUGiK775w1o3nQkoLZJPT07Ji9oRi+w96lQRYMsncCwz6kxpSchY4S5wVHXYEozkrWxP02Yj+HXpTHSRZTwEFcGFChuzTmSubH0H4TVc9WdsjFqMipVCPK2LqCpL+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jy/cdvtQ; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4ACA30E0CC;
+	Sun,  3 May 2026 09:24:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.23
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777800291; cv=fail; b=lFm++7JG5JOeHsl0ARGuUr9rCyrmxyurFmvn8DdUlGnEKsI38XYIR2V1NjBJ2yhQox7oW0EUerkmYlvvvazS32YeVrCCB08w3VDSfsItRnmOJXMEw6S2SvB5BaUCMFmr3SXd5OaCNv9GYGC8xuWugva/FgqOo6SMnk6Nh4dxfoc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777800291; c=relaxed/simple;
+	bh=3Fr/AlpUEUHlieV6pyx923zYiU703DkIlE9cB7uGPhY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=pZp+NODznifRrEsgnNj+YNsllE8h86b8vvpN0x9B00qP94/Apcm4Fgh48Ik8UVmHSSLxnxDzCsR4+xlQTBe3k/rXdwDijHVH1Iv7gYxijgXo3+6zWt/yFVJZmhOBKfRirpNzWJUCZk3e3MNzCMEInFmscnyPcvbeI3qSZRApORY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=TR09Vcrr; arc=fail smtp.client-ip=40.107.74.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jy/cdvtQ"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-82f8892d4d6so1376774b3a.0
-        for <devicetree@vger.kernel.org>; Sun, 03 May 2026 01:35:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777797344; x=1778402144; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=cQUqKpseiXlQd/VoS7FXU0gNWFtXot4K0uLQjpjqL98=;
-        b=Jy/cdvtQN7FLDuq0p8i8WqQTwVyTdRSUx1OnsXyfFgS1zNGRvVEMy6f+ALXjxWLLb5
-         y8tsu3MHQVaF2JcbbiwJTA3iCfPSX695h/7/F8WbWwLhJif1H3vncO2FX+EqPvtmn0Mm
-         wDzhnwgTHJWbti017iSBKnUKxIr9ZgOYWhb+h3H++xJ0NUvKZSAkbweTYmSrEZHH5dlp
-         3+jTtfl0UY05iCnCdZWIxMha8KPzcBDLify7j83TZEUvo/wkoWsd8GdCOuA2kJ5DgZnc
-         PStG6HGuFkBszztAnvsan5hFJLclHlhahQbSFuh01GPvwaSSokxycqwec12rzChamuIG
-         FDRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777797344; x=1778402144;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=cQUqKpseiXlQd/VoS7FXU0gNWFtXot4K0uLQjpjqL98=;
-        b=eG//DTukm9kfijbp5EJNaL9Z/rJ8iCSxUboNKl5+pd3Reu5etdpppYAsoHBC/hn6+N
-         ijx/SzHgWSGWc/vmNPFtTBz5PiP7FhsnDE21/f1uMlLvc2UG7AbCr81MdwYKveVePl4K
-         7yxHgI2g4Dap1wLmsmd9ynLuCqJiWfLb3gfjChLyVh1jf+G6kcncTbbScWEtyM+8A0Id
-         pDY4302X+vii1WuEgvqWsVUtSSea1fGDwF0meIuNWpHT6PqA4iQrd0ESaSD4RpTUUv5+
-         dXoSkqHj5Jt2e2A0z7HuA+e78Wq6iel4TOgGI1MjyGHuwVhIUgPAslB35az6AmbjlGmL
-         na7A==
-X-Forwarded-Encrypted: i=1; AFNElJ9qAmQ7GaaCw257pFL89T3uQo7oCWlV0sDCp4/Okiejfhxa5a+qhO7VbfVAsPw+xUvCElftDKdQTGCE@vger.kernel.org
-X-Gm-Message-State: AOJu0YxR4Xb3Ybv2fZWosYZuzzraz0k9txH7nBgvxTeRbBDE5dJuCQXw
-	2WQT7IFeTjyGKANgjkxwkPD+o/xzbReCvLvUqM90RGBIDb7uC+BR4KH+
-X-Gm-Gg: AeBDieu3sio6UTmcSqt4fVTAN9owMVOCj2QpU34//gO9o7kuv6xV95VVSXMgz6pbGNg
-	gSpfjRI5xqj2/HwNuIVPKOvGt+ONLH/mcLGrG/Tgh2UcyTc8JD3fZEvyDDzjGWt+q5S6I2jSsk4
-	5hdeFfVLuMY4XSuj15JBl8DKARACwIedlQRDeRCvmYRsNUUdkApYYyBj0Ea9kXfzgcbFaDhzqaF
-	T6oru3UytzHrqGrmnJxdnFEaIhulo1wNeRaYfC9Xlc/bWs15JqFGsCtHiXCDmngWRGoCc0kKzU3
-	gLNRumcb6GszTUxpZYvo1TF/eQ2BrcE0WXU42r+htPhGqMLD/mEz8PvZWao/UfWHTGkeyxaruId
-	hhE6DVz7C8iDPD4Q5yqWA9vfws51XxApzKsoYe49wNuU2gahUST1WGgGp7e8lKwoV8OCXYj0+eb
-	dDVv2LiXtNkByCJBKHZqlBRXoti0leGRaHrnX3b0c1dXp4fwkmaW7L9gk=
-X-Received: by 2002:a05:6a00:4145:b0:824:3bd9:aac6 with SMTP id d2e1a72fcca58-8352d15f72cmr4706161b3a.16.1777797344272;
-        Sun, 03 May 2026 01:35:44 -0700 (PDT)
-Received: from Black-Pearl.localdomain ([60.243.224.75])
-        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-835446b1b0asm1578142b3a.8.2026.05.03.01.35.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 03 May 2026 01:35:43 -0700 (PDT)
-From: Charan Pedumuru <charan.pedumuru@gmail.com>
-Date: Sun, 03 May 2026 08:35:30 +0000
-Subject: [PATCH v2 2/2] dt-bindings: mmc: st,sdhci: convert to DT schema
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="TR09Vcrr"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xdkRz07d8LVU/32rTtq7r1dQu16jrl8Z7Xsr3gaQ9D6a5Agp0HA5MJAs960TWxs8k2+IIeVSagMl13mOiSRSoIY4XZPg+chiqdUlBmdUvFsfYtht3oBfQkDgGRlFZRV5La9SUINsATVUf1t01aK1qPUGypy9f8GoeyYolHEzkvGnX6oz5lr+TEmX5DhJAnF1Uf2dB6lsns+oM98quyYzs/trXXpNxPi0EuRrzANfUBCcfM+iY/LyWr8pbeDc+dQCTtEZce1J178LXho8Q+Ir+c6SoroM7R6YlmAhPrJNbba5ParZROkE6kj6SKpyan/GBlbdrniCnZT40cgHSPArFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3Fr/AlpUEUHlieV6pyx923zYiU703DkIlE9cB7uGPhY=;
+ b=kTtb0BmsQq8TlRFWOkTqxlb4HL/n5utz5xuiYoXufuYiVcTrTJPgDkTi0pz1ISw/x6LWl5pp6Yvw2EGvEjnf3kyDSGZeAGiSbWLX5CX4KKx7U2i9NnvfhKo/2ci++yD/U2tdHnUpvSxAIwfWBdhI537oY/OrOtf37dfj2c5yeIj3RtRsnlDQE7dUmDUMWw83fo3e0N1KwNaFJdtf9XjtoSFocHMDvYJ9H1x1VM3+kBxj+ZK+8gmBMfsVXFbVRLIbduY29yavJl5WsANhdYVOmtLQhYT7P4U182CQaWZ8eZabjYcwiKoDT59x/pa0spabBkErswUzy/TEsFuzq5Qu2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3Fr/AlpUEUHlieV6pyx923zYiU703DkIlE9cB7uGPhY=;
+ b=TR09VcrrakdRR3/LBdczU8ebsA7SmgChV52iFHcyqjgJ7nd3pB3atC2nFd17aqpJPNYEVIzUx61WzPNeSdkZy/gmaNDeU9hOCJlpuaxaueWWmaFRW/SByz5m1hRITHayej7dMebu0sIfYiKL4IU4WtFSRIAj7KST01XH4SywRXo=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYCPR01MB9418.jpnprd01.prod.outlook.com (2603:1096:400:197::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Sun, 3 May
+ 2026 09:24:28 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9870.023; Sun, 3 May 2026
+ 09:24:13 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Josua Mayer <josua@solid-run.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, magnus.damm <magnus.damm@gmail.com>
+CC: Jon Nettleton <jon@solid-run.com>, Mikhail Anikin
+	<mikhail.anikin@solid-run.com>, Yazan Shhady <yazan.shhady@solid-run.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
+Subject: RE: [PATCH RFC 0/2] regulator: raa215300: add support for
+ configurable 32kHz clock output
+Thread-Topic: [PATCH RFC 0/2] regulator: raa215300: add support for
+ configurable 32kHz clock output
+Thread-Index: AQHc2k3KnSEKAXB8J0ylNkZwLvu1irX8A5CA
+Date: Sun, 3 May 2026 09:24:13 +0000
+Message-ID:
+ <TY3PR01MB113461362FA13333641F6EB4A86302@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260502-raa215300-clkout-v1-0-fd1c2a240963@solid-run.com>
+In-Reply-To: <20260502-raa215300-clkout-v1-0-fd1c2a240963@solid-run.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYCPR01MB9418:EE_
+x-ms-office365-filtering-correlation-id: 804fd87e-8c6e-4f9b-4533-08dea8f5bdcc
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|7416014|376014|22082099003|18002099003|56012099003|38070700021;
+x-microsoft-antispam-message-info:
+ aQFBYIykwRKl+lagAbwROukxjROFq3u2BSprHg7wzx3BaUYW4tJbP3BpKdaISbBDSp7oJX5c6XSDDGclUsmM5AynBLIpKsHDXNIKS4LWUkqMtTC1u1M9AJht0RDGHN59zrb2mNm8RZyRNo+nXFOnGq6FyuCQU94PEDxsJtmGcYvJSq+GEvZLCO4RZ07a0NCXcAeUBQd6df+hGSikpDZPouNR1J7PGfKQwCHozLgWKQQdPvPPZpdWhVK129hAz/7/gtb8bn2CAf8wDKrB6whLO62dfanBBDEwhxNybM1XRAQoWJXc85HCdsusp7tpwWWvi/+SPrud1scOp6CdSanayEF6W+JCPClJf8x2IkxF5JIHUz0UvpfCKeT/gEn5FKKND8QmBjnMcv8uw0L7z/42rbxUEfdvx/UOzJ4F5Ig0wmLduETr78yxOPy5DhpzQXkOAQEFM1rJ8TvH24fDB/u4gk9aQsfbsPC4fAlL6jJgbKGvRNrCCx79Xa8pT5y8JHbXqcYOr+x2fOas0S1cRQ271leSxKOire1Kdx0crnYG3MxkPrBMPCtQUku9wqrJZDS4OsnVHSnPGRQWjfA88DIKxXb/ylwhFobWq6fS5qNKhz5FLhERwYdXtd7a+fjf0apMgUkGECBY10VNBKKaW5U3UxMAU4uHPmSnqJYhh5sflUnS/AFtJ27cg6xAQeeB8EGxCKHLPJxHLiaGo+AKGidCymc3ooIg5YyxVivgTun6XTYtOGHWlsNRi/XDeYuMDSJ9
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(22082099003)(18002099003)(56012099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?N1RKdmc1Z3FDZXFqR0VyZ2Rwc3hmN0lodnJoVnUvNkd0Q1JZb1pVVFFkc0lt?=
+ =?utf-8?B?Qk14eW55UEZTVVdMelhGNWtsMmJsemtzT2lPZ2syNis0WmZXQ3E2UjRlV2NK?=
+ =?utf-8?B?MGNLYUtUNjZBT0xqRldiUlgyN0VpNlI3V3pyMXdmTDdVMHJKTG5HNThGV0xp?=
+ =?utf-8?B?TFMyRjdxUzBLc1hkUTRjTmo0RVJaV0x0N29adVhFMFlVVnhrVDM1MDREbENU?=
+ =?utf-8?B?REVHTUkzbGVPcllKUi9hZHlDRWVhTmMyTFY4OGFQOVdXOE9TZ2x0bXlNVHpB?=
+ =?utf-8?B?b09JamxZdFhwYWxqVDY2VC9vcUtwNkZNMVo0aElma0J5SXpWSVUwd0JSTlZV?=
+ =?utf-8?B?cVFpOXBTU1E2NUVaS1FRRnZQeTAwek03MFNvVldGZG5CUEo5QkFCVnFNRDU3?=
+ =?utf-8?B?TittV2s2Z3NyTEdka2oraFR3elduY25KbGRjdTFCYnE1YVFBY051T0ovcmR0?=
+ =?utf-8?B?bzd1dXo5ekhZUmtycmFUTXRKeGdXdDExeFUxY1Vtb2Zsd0pldithOVpsaXNk?=
+ =?utf-8?B?ZE5SRkNGRG9pTGlqWTFaRndPbktwL1VRazFSc2ppWkNEVklDdTNUenY1cEJy?=
+ =?utf-8?B?Y2NOelZoTFdoWnFWSzdJb3hvMVRaUVZGaU5UK2cyUkZ4VVVJK0FIUENaaEZJ?=
+ =?utf-8?B?NkxhcFpQVzlrTHBhcko1SW56QlY2VHZUWHpTVytNZTFoRHpOV3dBMWNZOURK?=
+ =?utf-8?B?MU5aVFp5TFJ1UmlBWUVDdUN6NjVvblV6NXZNS1AvK1h5TlZCZm51ZGhhdnVk?=
+ =?utf-8?B?MmRQaWRXUW9qN21NQTlBdFZBcHpqVElKcnlVNWQwV01CUnF4OWdrZW44ZFNp?=
+ =?utf-8?B?eHdMeWtab285bFYweUtJN2dTakZQNVNJL1JRRFp5cXJGYlpsak1NQVRCY1pI?=
+ =?utf-8?B?Wlk2RG5BNnNnejJFSE9QYmljQ2M2NFFlb1hvMHgyZTVWZC9rMEtzUWxNUW41?=
+ =?utf-8?B?ZEY2aXFBVkZvSTZJT2RWMGRJbTdNRkc4K3hxNjJvbjUzTGR5WE85cHRhSFY3?=
+ =?utf-8?B?dWVUZEFEUHQvMlYxMVVGSFBEeDlPMC93WlRHazRYa0lQNWxYTjJSL1d0TGdE?=
+ =?utf-8?B?VFdOQjFKMjloa3ZpcCtQQ0FLUmkxQUcxS2NpYmtVM3UvZEM5OUZxa3R2eGNV?=
+ =?utf-8?B?K1kvWHlVdE5ocEdSZ00zVDAzVG5IWjN5SUo0ZG5QZVV3TUx4Y3FEOWg2MWZp?=
+ =?utf-8?B?RDAzQkRXL21mUHozWVB2Q1ZPSWd1dlF5Nmg4dTY5VHB1SUNTTWZoN3AwNjlX?=
+ =?utf-8?B?OW5tR1FDQitZdHhTcW1RSUNaaXRaOXd3NGFmV2wrSlRQZkFwNmRYM2VlbVh6?=
+ =?utf-8?B?QTgwaitoZGlWRWFlWXZrRnBZNWh0NW1lVjZTd3RBRk5PejNSUGpMUS8xMjVw?=
+ =?utf-8?B?bndPcEo4ZW9URXo4VjQ3d3JXOHZkREN0OWpUejZkSUNRNzRjVUVwdktmVGd4?=
+ =?utf-8?B?SkpjV2tUa2VNNVR3ZG9OVDR4cDFUVWVXSkVCT3ZBVnd1T2kvaFFZRW1XbzJs?=
+ =?utf-8?B?WUFOMzUxakE0TlZ4b040TVRWdVc5b0VuTSs1enhwTzNMMmYxbzllZStFS3M3?=
+ =?utf-8?B?dW5mdE5QRDJJcTF4d01CVVI2OUVPdjFneGxxVGYwdk5LY3AvdC9KVXRiSGRv?=
+ =?utf-8?B?eXVvSzAvdVM4aFBCcDh0VTFoekM1V2FVT2pzeUtWWk96aTFqbDR1T01PSWtv?=
+ =?utf-8?B?blJDbHVjVHVPMGhkY0ttS2FiWkgrRlJ3cHNJOWJNSHNBMU1pMSs3NFI2N01N?=
+ =?utf-8?B?Wlc0TUZWZ1kySElvdXNtYndTWUczTTdIemM3UjNTT0VuYzY2NE5HS3pQenJo?=
+ =?utf-8?B?S3dNUVQ4M3AwTU1aUHNpTlUwRjNKb2svejJXRnV1RldmMC84QUhPU2V0ZkFi?=
+ =?utf-8?B?bEtuT2hwQ2J2dGZGaTBaWHJ6Mm1vSEcxcWZIc3VIQTdhTmh1VU5sNENlMG01?=
+ =?utf-8?B?Zk8rVVpSQk1uajJpUFd6b2tFczZvbnhMOEFPSm1JMmV6OENwRmZhdkdVbVVO?=
+ =?utf-8?B?WnNleCtBazZMd0F0eUIvL3dSLzlYWmtPTGFxZkFEWGxZUUNCZ2FaTGNlcHE2?=
+ =?utf-8?B?TVU1UU5tZHRBaEZNNGZLOHZEaU9nYmNKd0FKcWhreUZIc25TcjJ5TmlFTWpV?=
+ =?utf-8?B?ck5qNjdnMnhKWW5Zd1lrUU9yZ0plWUkySjl1TTVOT2Zxa0RBZWU2YlAzVUUy?=
+ =?utf-8?B?KytEYjk0ZjI4SE5OWi82eUtHUytTNlJCWGdtQkhjdEh5MVF3TFlZTS9RWVJ1?=
+ =?utf-8?B?eWJHVHhoZFd4alJ0SUQ1UHVaL3lqV3d3MDd1QXJIUmtuVWgrVWdYdG1VUEMx?=
+ =?utf-8?B?NkgvSllZcVVhaitjYWp4UjNYWXhYT0crR0p6VEFlV0xXUWNWS0dQdz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260503-st-mmc-v2-2-11ae3216d2ce@gmail.com>
-References: <20260503-st-mmc-v2-0-11ae3216d2ce@gmail.com>
-In-Reply-To: <20260503-st-mmc-v2-0-11ae3216d2ce@gmail.com>
-To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Charan Pedumuru <charan.pedumuru@gmail.com>
-X-Mailer: b4 0.15.2
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 804fd87e-8c6e-4f9b-4533-08dea8f5bdcc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 May 2026 09:24:13.7438
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: nlZsurgLaa1skixIIko6paeb7d+nLmWYiZG9MzcPRS0ceETmJ1jn6zKwRt/W57qnbUxjox0/uc89uCowrFRAD2hRjZX4bqKqxnFfi/74ySs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB9418
 
-Convert STMicroelectronics sdhci-st MMC/SD controller binding to DT schema.
-
-Signed-off-by: Charan Pedumuru <charan.pedumuru@gmail.com>
----
- Documentation/devicetree/bindings/mmc/sdhci-st.txt | 110 ---------------------
- .../devicetree/bindings/mmc/st,sdhci.yaml          |  93 +++++++++++++++++
- 2 files changed, 93 insertions(+), 110 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/mmc/sdhci-st.txt b/Documentation/devicetree/bindings/mmc/sdhci-st.txt
-deleted file mode 100644
-index ccf82b4ee838..000000000000
---- a/Documentation/devicetree/bindings/mmc/sdhci-st.txt
-+++ /dev/null
-@@ -1,110 +0,0 @@
--* STMicroelectronics sdhci-st MMC/SD controller
--
--This file documents the differences between the core properties in
--Documentation/devicetree/bindings/mmc/mmc.txt and the properties
--used by the sdhci-st driver.
--
--Required properties:
--- compatible:		Must be "st,sdhci" and it can be compatible to "st,sdhci-stih407"
--			to set the internal glue logic used for configuring the MMC
--			subsystem (mmcss) inside the FlashSS (available in STiH407 SoC
--			family).
--
--- clock-names:		Should be "mmc" and "icn".  (NB: The latter is not compulsory)
--			See: Documentation/devicetree/bindings/resource-names.txt
--- clocks:		Phandle to the clock.
--			See: Documentation/devicetree/bindings/clock/clock-bindings.txt
--
--- interrupts:		One mmc interrupt should be described here.
--- interrupt-names:	Should be "mmcirq".
--
--- pinctrl-names:	A pinctrl state names "default" must be defined.
--- pinctrl-0:		Phandle referencing pin configuration of the sd/emmc controller.
--			See: Documentation/devicetree/bindings/pinctrl/pinctrl-bindings.txt
--
--- reg:			This must provide the host controller base address and it can also
--			contain the FlashSS Top register for TX/RX delay used by the driver
--			to configure DLL inside the flashSS, if so reg-names must also be
--			specified.
--
--Optional properties:
--- reg-names:		Should be "mmc" and "top-mmc-delay". "top-mmc-delay" is optional
--			for eMMC on stih407 family silicon to configure DLL inside FlashSS.
--
--- non-removable:	Non-removable slot. Also used for configuring mmcss in STiH407 SoC
--			family.
--			See:  Documentation/devicetree/bindings/mmc/mmc.txt.
--
--- bus-width:		Number of data lines.
--			See:  Documentation/devicetree/bindings/mmc/mmc.txt.
--
--- max-frequency:	Can be 200MHz, 100MHz or 50MHz (default) and used for
--			configuring the CCONFIG3 in the mmcss.
--			See:  Documentation/devicetree/bindings/mmc/mmc.txt.
--
--- resets:		Phandle and reset specifier pair to softreset line of HC IP.
--			See: Documentation/devicetree/bindings/reset/reset.txt
--
--- vqmmc-supply:		Phandle to the regulator dt node, mentioned as the vcc/vdd
--			supply in eMMC/SD specs.
--
--- sd-uhs-sdr50:	To enable the SDR50 in the mmcss.
--			See:  Documentation/devicetree/bindings/mmc/mmc.txt.
--
--- sd-uhs-sdr104:	To enable the SDR104 in the mmcss.
--			See:  Documentation/devicetree/bindings/mmc/mmc.txt.
--
--- sd-uhs-ddr50:		To enable the DDR50 in the mmcss.
--			See:  Documentation/devicetree/bindings/mmc/mmc.txt.
--
--Example:
--
--/* Example stih416e eMMC configuration */
--
--mmc0: sdhci@fe81e000 {
--	compatible	= "st,sdhci";
--	reg		= <0xfe81e000 0x1000>;
--	interrupts	= <GIC_SPI 127 IRQ_TYPE_NONE>;
--	interrupt-names	= "mmcirq";
--	pinctrl-names	= "default";
--	pinctrl-0	= <&pinctrl_mmc0>;
--	clock-names	= "mmc";
--	clocks		= <&clk_s_a1_ls 1>;
--	bus-width	= <8>
--
--/* Example SD stih407 family configuration */
--
--mmc1: sdhci@9080000 {
--	compatible	= "st,sdhci-stih407", "st,sdhci";
--	reg		= <0x09080000 0x7ff>;
--	reg-names	= "mmc";
--	interrupts	= <GIC_SPI 90 IRQ_TYPE_NONE>;
--	interrupt-names	= "mmcirq";
--	pinctrl-names	= "default";
--	pinctrl-0	= <&pinctrl_sd1>;
--	clock-names	= "mmc";
--	clocks		= <&clk_s_c0_flexgen CLK_MMC_1>;
--	resets		= <&softreset STIH407_MMC1_SOFTRESET>;
--	bus-width	= <4>;
--};
--
--/* Example eMMC stih407 family configuration */
--
--mmc0: sdhci@9060000 {
--	compatible	= "st,sdhci-stih407", "st,sdhci";
--	reg		= <0x09060000 0x7ff>, <0x9061008 0x20>;
--	reg-names	= "mmc", "top-mmc-delay";
--	interrupts	= <GIC_SPI 92 IRQ_TYPE_NONE>;
--	interrupt-names	= "mmcirq";
--	pinctrl-names	= "default";
--	pinctrl-0	= <&pinctrl_mmc0>;
--	clock-names	= "mmc";
--	clocks		= <&clk_s_c0_flexgen CLK_MMC_0>;
--	vqmmc-supply	= <&vmmc_reg>;
--	max-frequency	= <200000000>;
--	bus-width	= <8>;
--	non-removable;
--	sd-uhs-sdr50;
--	sd-uhs-sdr104;
--	sd-uhs-ddr50;
--};
-diff --git a/Documentation/devicetree/bindings/mmc/st,sdhci.yaml b/Documentation/devicetree/bindings/mmc/st,sdhci.yaml
-new file mode 100644
-index 000000000000..96edf6d51e6e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mmc/st,sdhci.yaml
-@@ -0,0 +1,93 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mmc/st,sdhci.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics SDHCI-ST MMC/SD Controller
-+
-+description:
-+  The STMicroelectronics SDHCI-ST MMC/SD host controller, which is
-+  compliant with the SD Host Controller Interface (SDHCI) specification and
-+  is used to interface with MMC, SD and SDIO cards. The ST SDHCI controller
-+  extends the standard SDHCI capabilities with platform-specific
-+  configurations such as additional register regions,clock inputs, and delay
-+  control mechanisms required for signal timing adjustments which are
-+  necessary to support high-speed modes and ensure reliable data transfer
-+  across different ST SoCs.
-+
-+allOf:
-+  - $ref: mmc-controller.yaml#
-+
-+maintainers:
-+  - Peter Griffin <peter.griffin@linaro.org>
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: st,sdhci
-+      - items:
-+          - const: st,sdhci-stih407
-+          - const: st,sdhci
-+
-+  reg:
-+    minItems: 1
-+    items:
-+      - description: Base address and size of the MMC controller registers
-+      - description: Base address and size of the MMC delay/auxiliary registers
-+
-+  reg-names:
-+    oneOf:
-+      - items:
-+          - const: mmc
-+      - items:
-+          - const: mmc
-+          - const: top-mmc-delay
-+
-+  clocks:
-+    items:
-+      - description: Clock for the MMC controller
-+      - description: Interconnect (ICN) clock
-+
-+  clock-names:
-+    items:
-+      - const: mmc
-+      - const: icn
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-names:
-+    const: mmcirq
-+
-+  resets:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - interrupts
-+  - interrupt-names
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stih407-clks.h>
-+    mmc@9060000 {
-+        compatible = "st,sdhci-stih407", "st,sdhci";
-+        reg = <0x09060000 0x7ff>, <0x9061008 0x20>;
-+        reg-names = "mmc", "top-mmc-delay";
-+        interrupts = <GIC_SPI 92 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-names = "mmcirq";
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&pinctrl_mmc0>;
-+        clock-names = "mmc", "icn";
-+        clocks = <&clk_s_c0_flexgen CLK_MMC_0>,
-+                 <&clk_s_c0_flexgen CLK_RX_ICN_HVA>;
-+        bus-width = <8>;
-+    };
-+...
-
--- 
-2.54.0
-
+SGkgSm9zdWEgTWF5ZXIsDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTog
+Sm9zdWEgTWF5ZXIgPGpvc3VhQHNvbGlkLXJ1bi5jb20+DQo+IFNlbnQ6IDAyIE1heSAyMDI2IDE3
+OjA3DQo+IFN1YmplY3Q6IFtQQVRDSCBSRkMgMC8yXSByZWd1bGF0b3I6IHJhYTIxNTMwMDogYWRk
+IHN1cHBvcnQgZm9yIGNvbmZpZ3VyYWJsZSAzMmtIeiBjbG9jayBvdXRwdXQNCj4gDQo+IEFkZCBk
+cml2ZXIgc3VwcG9ydCBhbmQgZXh0ZW5kIGJpbmRpbmdzIGZvciBSZW5lc2FzIFJBQTIxNTMwMCBQ
+TUlDIDMya0h6IGNsb2NrIG91dHB1dCBmZWF0dXJlIG9uIHBpbg0KPiBNUElPMi4NCg0KDQpTbmlw
+cGV0IGZyb20gaGFyZHdhcmUgTUFOVUFMIFsxXQ0KDQpOb3Qgc3VyZSwgZG9lcyBpdCBuZWVkIHRv
+IGJlIHBhcnQgb2YgYSByYWEyMTUzMDAgcGluY29udHJvbCBkcml2ZXI/DQoNCkZyb20gWzFdIHRo
+aXMgY2xvY2sgZ2VuZXJhdG9yIGRlcGVuZGluZyB1cCBvbiB0aGUgcGlubXV4IHNlbGVjdGlvbiBv
+Zg0KTVBJTzI/DQoNCg0KWzFdIA0KDQowMDA6IERpc2FibGVkDQowMDE6IDMyS19DTEsNCjAxMDog
+RXh0ZXJuYWwgVlIgUEdvb2QgaW5wdXQNCjAxMTogSW5wdXQgdG8gSTJDIHJlZ2lzdGVyDQoxMDA6
+IFBHb29kIG91dHB1dA0KMTAxOiBSZXNldCBvdXRwdXQNCjExMDogRXh0ZXJuYWwgVlIgRU4gb3V0
+cHV0DQoxMTE6IE91dHB1dCBmcm9tIEkyQyBvdXRwdXQNCg0KMzJrSHogQ2xvY2sgKDMyS19DTEsp
+DQoNCk9ubHkgTVBJTzIgc3VwcG9ydHMgdGhpcyBmdW5jdGlvbi4gVGhlIGZ1bmN0aW9uIHByb3Zp
+ZGVzIGEgZHJpdmVuIGNsb2NrIHNpZ25hbCBvdXRwdXQgZm9yIGV4dGVybmFsIGRldmljZXMuIFRo
+ZQ0KY2xvY2sgZnJlcXVlbmN5IGlzIHByb2dyYW1tYWJsZSB3aXRoIGEgbWF4aW11bSBzZXR0aW5n
+IG9mIDMyLjc2OGtIeiwgd2hpY2ggaXMgdGhlIFJUQyBjcnlzdGFsIG9zY2lsbGF0b3INCmZyZXF1
+ZW5jeS4gVGhlIFJUQyBuZWVkcyB0byBiZSBlbmFibGVkIGJ5IHRoZSBSVENfRU4gYml0IHRvIG91
+dHB1dCB0aGlzIGNsb2NrIHNpZ25hbC4gSWYgdGhlIHVzZXIgZG9lcyBub3QgaGF2ZQ0KYW4gZXh0
+ZXJuYWwgcHVsbC11cCB2b2x0YWdlLCB0aGUgTVBJTzIgbmVlZHMgdG8gYmUgY29uZmlndXJlZCBh
+cyBhIEZ1bGwgQ01PUyBvdXRwdXQuDQpXaGVuIHRoaXMgZnVuY3Rpb24gaXMgc2VsZWN0ZWQsIHRo
+ZSBNUElPMiBQb3dlci1PZmYgRGVsYXkgcmVnaXN0ZXIgQml0cyBbMzowXSBhcmUgdXNlZCB0byBz
+ZWxlY3QgdGhlIGNsb2NrDQpmcmVxdWVuY3kuIEluIHRoaXMgY2FzZSwgQml0cyBbNjowXSBpbiB0
+aGlzIHJlZ2lzdGVyIGFyZSBubyBsb25nZXIgdXNlZCBhcyBhIHBvd2VyLW9mZiBkZWxheS4NCg0K
+Q2hlZXJzLA0KQmlqdQ0KDQoNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEpvc3VhIE1heWVyIDxqb3N1
+YUBzb2xpZC1ydW4uY29tPg0KPiAtLS0NCj4gSm9zdWEgTWF5ZXIgKDIpOg0KPiAgICAgICByZWd1
+bGF0b3I6IGR0LWJpbmRpbmdzOiByYWEyMTUzMDA6IGFkZCBjbG9jayBvdXRwdXQNCj4gICAgICAg
+cmVndWxhdG9yOiByYWEyMTUzMDA6IGFkZCBzdXBwb3J0IGZvciBjb25maWd1cmFibGUgMzJrSHog
+Y2xvY2sgb3V0cHV0DQo+IA0KPiAgLi4uL2JpbmRpbmdzL3JlZ3VsYXRvci9yZW5lc2FzLHJhYTIx
+NTMwMC55YW1sICAgICAgfCAgIDYgKw0KPiAgZHJpdmVycy9yZWd1bGF0b3IvcmFhMjE1MzAwLmMg
+ICAgICAgICAgICAgICAgICAgICAgfCAxMzIgKysrKysrKysrKysrKysrKysrKysrDQo+ICAyIGZp
+bGVzIGNoYW5nZWQsIDEzOCBpbnNlcnRpb25zKCspDQo+IC0tLQ0KPiBiYXNlLWNvbW1pdDogMjU0
+ZjQ5NjM0ZWUxNmE3MzExNzRkMmFlMzRiYzUwYmQ1ZjQ1ZTczMQ0KPiBjaGFuZ2UtaWQ6IDIwMjYw
+NTAyLXJhYTIxNTMwMC1jbGtvdXQtYzNlZDg0MDI0ODg4DQo+IA0KPiBCZXN0IHJlZ2FyZHMsDQo+
+IC0tDQo+IEpvc3VhIE1heWVyIDxqb3N1YUBzb2xpZC1ydW4uY29tPg0KDQo=
