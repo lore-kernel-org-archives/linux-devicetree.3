@@ -1,389 +1,171 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazolkn19013073.outbound.protection.outlook.com [52.103.7.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553563A6B82
-	for <devicetree@vger.kernel.org>; Sun,  3 May 2026 19:18:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777835938; cv=none; b=WRsud1dQfb5GezTKb87d5nbIHU2wJ5kQrils31m5E35560E0IGUFIo6KR1r2xrg5EWrdJCAGC0ZSt1KCqenS1ZA7f6uTPR30pJJYgBzBpKvinu5/BZ7J8FQ1cr9ftrxM5dk21uri35P0MH8fgW84WWFPhdp6/f0ASXaU8gNys8w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777835938; c=relaxed/simple;
-	bh=tWwW8xlK/MSqrFa9aQd299c+0S/IVYTry0ZrZ8XSNPw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UeFRO3SE0PYVeOnSUie9H+mWjKRqW8zhKO2q5g6UpKCR2zrOJ3/EhY8XTVxMe0zFIkEfC9EFZB3o9xphgSoAMeSjJRDy+yZY8LIEyIzqWiZbfK+W+8A7rfm14yj/gGEsV2TCeJb7KzZiOxyHjKYQaluFWlfU7an52Bq8AznLz68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q8xYe6OH; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78B82641C6;
+	Sun,  3 May 2026 20:51:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.7.73
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777841497; cv=fail; b=WJK3x1L2H0ZJHrNA8tB70LUCWmkI57QOaAhFH8IY0gvXy1lBPnTR9KALkEAcPvje+dWoIv90FlKhjNMG784kUJpL9lO7I1Gu6rQ4Upu4+JyEWR06p3Qc47NZmxI81clJH7cdBv942pMOwOwfUbu9zq9Csu5WipQ6f7v/jfUSkCg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777841497; c=relaxed/simple;
+	bh=BPnHXHKpXDf+dwRS6uAhLWTuzgOx689cNEh5b9PDQJY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=fY66SPQEiBCjEtaD6pVC0CP94GRcjNn4+lQ6yF5tkINFgpkKg6tQ7oDLuroXMwnxwbPU7ufj0vSD234Etly0Rpb8o14q14cOX5ifmCbzADK4rTxS2jlNRQcA4usT5ZX6fCEyqyz8dm5kGNnv1CqspNbshRB2gGlLy0aQFQqK24Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=SGi3cO38; arc=fail smtp.client-ip=52.103.7.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q8xYe6OH"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4891c0620bcso23360115e9.1
-        for <devicetree@vger.kernel.org>; Sun, 03 May 2026 12:18:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777835935; x=1778440735; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/5SVr5FfGqw1uBAV0gP9IimhA/pN8ipjATE7h+sfzNk=;
-        b=Q8xYe6OHB4T0pK0RN+R4fSzxi3OcRIJiYnVrGUh7s5MEvC12ryBTaeSKdQMoUexmSC
-         L4ThlqH6EKf/3H+bQ28wZy4j5fXRNtF0QkHxRywW9KzoIwzg979OSjo56qkROm4GI/PP
-         XqaAlTEX0mcRZ1DBoQglV9n465EgTHDM6/3m9BaC5SXxDbYadcyr+gDqhYQQyyAbHno9
-         lfJuwp6Ok3GcedtxPLv/+N6ZKXd5bJS1RgVXtb0dzbWOrrhc5cTW52HTEr48+dMH5jwn
-         XG9JCYheW/HAdhF4pfObxWzNGOv08U2WXBfnH+NU4iEUkHNaoPt6GpfRdRWAU0mPMF2u
-         jk4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777835935; x=1778440735;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=/5SVr5FfGqw1uBAV0gP9IimhA/pN8ipjATE7h+sfzNk=;
-        b=qaLAGxhNBxpnAe9pKZM5iiYbqPIsx+YeEw5WeBXAhcvL0DC05CJN9WrEsMddQmelUE
-         Dj3q1vHizVobAmL4W/UO4kwjZfx/OU0KhoFizKNq+jdWDJAmP7Iou+0+jcny/wO2zVde
-         Yk3qk/Uu8wKi9M5mxlht3bNqc8S9hcljUE7JvM7ibtJhs56ehtVWOJ0JpccacLrTDHGe
-         jQTd/nit1+IYK9WQpLVjwvKwYuuP/2y3wiNlRsxDBhtUginwr+Gn1rnyn3xvEzAhZ1MG
-         qwNgEkLZiawwQ/WqtVaP10wwWxOtR6H1s5w6jOAQLFPKNoA+voL8AjmVfY49IGWDVreK
-         7fLg==
-X-Forwarded-Encrypted: i=1; AFNElJ/3CG6oGIhK9Ktav6zoXu+I7pkIkSXOu/XB5BIaTqDYAWpjmUF+uJ/LTinvzc+UjATOfVkMmYp+49DG@vger.kernel.org
-X-Gm-Message-State: AOJu0YxZw2SpkUi81ZoKlHvip2CwGtgDPKblccELq4riGQioBgNtij13
-	oXeJr3MP257QUro6dFLiiUyIOJl/q990aE+DhjTEdQU9nyFpQxIIwi9+
-X-Gm-Gg: AeBDievEqkXT4NAhyGYkzKKBDKEOda3wJyi7CNuDJ/U/4YZghX7q+ZY64PDU98LJbyv
-	OxZPXclIclKiuu+PYqgSYdgs2OHFLL3a7cW7/zdNZqIE9nwRr98Iz3bMg1WQki40zGxx2TF9VMT
-	LuNcq+j9tv8Xsuzdp5QvlY6gGzIUSf9NxQTth5tJtx+4x5cnPO6gya7HDopQ3s5LXhIJQwHzFdy
-	2jJaN9oMSe+/YJ1raUdhPceEKKd4sIjPfkJajrurfgxl9QAYYnsnl7OoDT03VNGg1bBRWU4Iaeq
-	HyqZn8KiVvyWcyJsIeGDsDv2xpVr0sxzLRzXS6uMs4adG4oJ4uoFZjb5BEcI++h1hnQMnsD+pYd
-	dsyrew/Iy4rN0hKIfuLhwxVPZx4NwfcPgvfTgzg9LjqRezqkZE0SisIYZIwtZe203SxKKDqmhhm
-	ne4UdgRuoV3PiFIV7kq90EpONjqIWMIlNAG6AQvARXbFRpsjmo5FgUxnmw1EcUBJs=
-X-Received: by 2002:a05:600c:a316:b0:489:2005:b36e with SMTP id 5b1f17b1804b1-48a988a4cfamr83350095e9.19.1777835934701;
-        Sun, 03 May 2026 12:18:54 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:1210:8642:2b00:82ee:73ff:feb8:99e3])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a8fe928f6sm62230925e9.6.2026.05.03.12.18.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 03 May 2026 12:18:54 -0700 (PDT)
-From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-To: linux-sunxi@lists.linux.dev
-Cc: Alexander Sverdlin <alexander.sverdlin@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Andre Przywara <andre.przywara@arm.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] arm64: dts: allwinner: A133: add support for Baijie Helper A133 board
-Date: Sun,  3 May 2026 21:18:38 +0200
-Message-ID: <20260503191842.2736130-4-alexander.sverdlin@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260503191842.2736130-1-alexander.sverdlin@gmail.com>
-References: <20260503191842.2736130-1-alexander.sverdlin@gmail.com>
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="SGi3cO38"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=a9mAoNQB2bGqMPGTy4jA64HF9RXMnA/gJORwrQRHwR7lQvmver8CHf0iZDFcsQbTULXPBXEKUKy7b1LlPbT2dU/RzXoLYCI6t3dJ1CZkjTllSdtexXyMmM3oG1gYh+7QsNtEKoUFSxCQugiF2cH9yA1z7RCJKKo+sMTKMVmpO/b4uR/6HLpuVnucTx1xplxtlnUdzi5Dim7Cq48JHAPQQbXxg9NDtW3Jl7jT3Lno7hdvSgh2a+xgbw3SzzCSQTzCgzWq86qNRCFFpKus3Q5mtofOzt/RsNJYUltoWopUzlDd8nzeX/hrYc0O484y5i5unsOTtlBUHUzZ6RlIo63FTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UsJMqS0eEFqecTota51ZAk3FATOZ8SI0bh2egl6ZMps=;
+ b=lVMGf42mwzhQtc2G/Bs/DkL3+59Dr6JqKjPOUXFp7b7/FiASTNTYaMXKGusCJJogWRq3zrqxMMzxKKs3Q0gZ5aXH0R20rgX08DIMNbJ041wqHnX9bV5xwoC9LBt9HK0kA1BEvuwvpcHwIC9K56KrU0zaLGtdwWf8N//STbVbmzW/gmJfRqJvBHBl+S8DJXFUDNNURTNocsptPYeNON0hBG2+RBArdR591g3i2qNQ7FS7NCohKK45vBcq34S2+HTQQ+c21eWESr0k21RNmfZuS+g50ohVM1aTfFa8752pFf9PBgepUIMIuypT/plOGhD35Ylbe9dD63+bNeb7fgCN9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UsJMqS0eEFqecTota51ZAk3FATOZ8SI0bh2egl6ZMps=;
+ b=SGi3cO38oxAnYIjXvisoD8F/cDS+wz27C3Ncn/Lkvs/mqTDx3bkJk2wlfN+LbeTrhSXrZDbcyap9al7XR0PT0GWxkphchrssS+fF9U0J6Y34BRAm6eVdwCVlurOpOIBAGS995KZsr10l70+rOxGrR8cp4o7kqcSGmw6rJEoM/0wNXZOH/Hrmn4aQUTCV5AMLeP+Gx7RSnzCLj0IjxR+BlzdVFnsaF3hRiUTJ4NooJM2KU5pa7FYjtKwn9xKMMR2BPfAdmihzCG+upGmjldWqQNrwscVJecPc0p0xgHnL/Q64ZKcuqFCc+ZMJMsh5nj/QWIXS5HuwGFsBe/tyIXrO0g==
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18) by PH8PR19MB7808.namprd19.prod.outlook.com
+ (2603:10b6:510:23b::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Sun, 3 May
+ 2026 20:51:32 +0000
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172]) by PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172%6]) with mapi id 15.20.9870.023; Sun, 3 May 2026
+ 20:51:32 +0000
+Date: Sun, 3 May 2026 15:51:30 -0500
+From: Chris Morgan <macromorgan@hotmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
+	andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
+	jic23@kernel.org, jean-baptiste.maneyrol@tdk.com,
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+	heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org,
+	robh@kernel.org, andriy.shevchenko@intel.com
+Subject: Re: [PATCH V4 01/10] dt-bindings: iio: imu: icm42600: Add icm42607
+ binding
+Message-ID:
+ <PH0PR19MB997338AB2F626D5898BAB27E53A5302@PH0PR19MB997338.namprd19.prod.outlook.com>
+References: <20260501221152.194251-1-macroalpha82@gmail.com>
+ <20260501221152.194251-2-macroalpha82@gmail.com>
+ <20260503-convivial-aquatic-yak-d2dbeb@quoll>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260503-convivial-aquatic-yak-d2dbeb@quoll>
+X-ClientProxiedBy: SA9PR13CA0162.namprd13.prod.outlook.com
+ (2603:10b6:806:28::17) To PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18)
+X-Microsoft-Original-Message-ID: <afe1Ut-jvr7MOA4I@wintermute.localhost.fail>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR19MB997338:EE_|PH8PR19MB7808:EE_
+X-MS-Office365-Filtering-Correlation-Id: 26f04583-2c3d-4114-9ca2-08dea955c172
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|8060799015|19110799012|461199028|15080799012|23021999003|6090799003|5072599009|37011999003|25031999004|51005399006|24021099003|10035399007|4302099013|3412199025|440099028|1602099012|40105399003;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?xLC4kdTfZn2kpGFg63FlYQSbplJbmZHMsMmCtqKXyNyQtJ7dTVJBlw8Lb93A?=
+ =?us-ascii?Q?ldseqI7++r4Gu61BbM6MufG9jR8gBzMvc9Gt0zAKoTgnthb5i02JNNFR2xq8?=
+ =?us-ascii?Q?TODTaQsuPW0zggUD7Ajkj27mnvKNqiMWS2W8Nsnm8ykFZHQQCy6j9Z/Z2LZn?=
+ =?us-ascii?Q?l/H+gXXHe1k1Q+DNZJoDauOHUex0OczotcL6poBVymD1RayOB3QiKDIoVSzm?=
+ =?us-ascii?Q?hch9j/knP6O6Sd7gz5qpuXn2u76rU6jE0oeL1/9xaU0EOkgtUxBukKdTiRFO?=
+ =?us-ascii?Q?F4yxHC76N5N/A75h+SDsP5lNA/htJyG6egkvPON/3Dnv+GOZw1ZHEXM6kyrW?=
+ =?us-ascii?Q?rGwHbmRdmJpwbgbV29FJAMPno4U5IkRZZZpd07+cCRRKl5d5RtsNXkmbp+JG?=
+ =?us-ascii?Q?ajtdvpopDH5zNnMa9IgplsaQyK4nIOM687cX3QySZUyZ5NmsFKxvoEydYBGj?=
+ =?us-ascii?Q?ua/ofWgI157b+GfPOKLN+cXBUhxNF24mxVxywQ2+bYmmJ8qfAwvlMqnNE16Z?=
+ =?us-ascii?Q?jMyhvMg7XkHVK9lou2l+2hhpu7qIXbwX0h4fix+XnsYEYOHDpV1/Oh7+qQ8O?=
+ =?us-ascii?Q?QVVUVOVyVu4jgsp+INCkrnAIRqzQg4AJN9qyxego7QLpLyPrsZxPacjF0GQP?=
+ =?us-ascii?Q?M7ufyB5ejVFMhUyh9yBu4yVm1fDu3lHawNjRE0BVlt7rAIQi13pC1bC8jPT8?=
+ =?us-ascii?Q?V+k6/nXJfRWXKHi3NOjk8HkVcak6LCT+l3DNw4XmZdPFBMHHQwxCGO+H5Vku?=
+ =?us-ascii?Q?AIW1Y2Ei37Vq9C6ig5HovRgxU84/eiA2zFy4Q5UfqCkMUyWUb9Kqp2LBu1l1?=
+ =?us-ascii?Q?WC0aOkV4RWL9LQ6oKQ2dJxcmAP4XD8+1eIfi7cq6fcE3ASntVecHX05OeqV9?=
+ =?us-ascii?Q?yT4/37vJ9S64WqKQH07CBjz2jWCriXuYpNg1FwjRrUQfaJyb/0gDBFanKiwV?=
+ =?us-ascii?Q?x8lOrL5Eqny40RQcVczbPBqyW6uu0p/Hs3AdpkW1CoaaMDNB+Sv7PxVvsFFq?=
+ =?us-ascii?Q?pvYHYo2xgqd/yIhsZezZam/5w5+RCCrw9mdr2oV6KMeRpWi/dZ0BtEIr1vvc?=
+ =?us-ascii?Q?vp5wnnpfHmUrT/ow5W5kq5h10HbTttD+KCNt6UpgZ2yhddXWKKMbYT4HBXDK?=
+ =?us-ascii?Q?ItZjqq8l1htd?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?vMmr60nAxPcb5drQiD55ZK1bleYKVXnnOtz1DHCOwAFli2dQIwdia8xIkYdI?=
+ =?us-ascii?Q?893jMEVIOu1L/hu8LkTV5Q0VUoC2paviLaQTfcWDXTxG9nsGJ8UuOuF1SJ+6?=
+ =?us-ascii?Q?GLYylL9+lYMuV60uNdTpNO5d3ESb4q/uLBZ96Ul+7Zc1pflyUr1uOLnupOCi?=
+ =?us-ascii?Q?3F6PcZOdzNCfCQLGFve9oMAklyGb88HSkRtYkaQPoa9y6CLvzAlrtPRn7zpm?=
+ =?us-ascii?Q?Sb869+665pZmnJNvh3fTVlv98czNqNnNURYdepg5xJqb/zVIhU+x8dqfASaI?=
+ =?us-ascii?Q?ixqZqxXYy7AE8R9z8Qyg7PX1aujO0h9bC+fZ4Ub8n5e12EZ4kxsLdo5PXEGm?=
+ =?us-ascii?Q?NxFesPgBmgOksGSvWpY2wyhfe/qv8EDQn0Ay3NYzF4y8SV6/k+OCYLeMm9oj?=
+ =?us-ascii?Q?90IAu/vPHAujegLz/2SHavxaBuPFXJXr9PX+wbsbiNzLT4LR1MYBkgDvAiXz?=
+ =?us-ascii?Q?sdO6+ar73JO9yltyNfLvo3jI+sBpm9zYyqoqgW1mpZhG4ZIvl7iDPXpZXLF6?=
+ =?us-ascii?Q?i2zGgtQrHe+2HbVKOYAAnyufxgo207CiehlujGwayu6KWLF5TmesULtk+gOG?=
+ =?us-ascii?Q?QWzshuJuNDed26EKWtluQAFKyhkIzZhO7dduEsTcM2FFvNxyy8q9/lnToXi4?=
+ =?us-ascii?Q?4NgG8jjqCwltUBLrX7bfBkW2d7nL/45D7r0g/ruzusrXPaxCldkHu1M2HQQv?=
+ =?us-ascii?Q?JRcie8XZv7mQL1uNPUzlzCjkkxMxd6exHTZm/M59jNFhRD4aPnWkknsJomsM?=
+ =?us-ascii?Q?r2DK+9xjD4tEiZm1vik8oQlwB61xKn0/MsEbVZ7W7NpXtKbkNThgiPJpzweK?=
+ =?us-ascii?Q?55L/aEwG/NDKNDLJYinu69U5EvapQWZ4ZjsvHig+iTEMThN+5BdkP0iapB/Z?=
+ =?us-ascii?Q?ayh8XfPs0a1gtzEeb92/F5wgOngZ69pMALkqHSRE/H5+Xy9BoFY2Qp+CJYnf?=
+ =?us-ascii?Q?reJUajUYoGwILb1IL8Tt/EpizKmt34Jy59j8+PYTzUlHSdI8hyOqhCEVrLMh?=
+ =?us-ascii?Q?fDFP2/fDWKRwjsc/0rmoJ8G2m0tHQ5fKfeLtf/Nz+Urz54o2ad0mYiKcBEki?=
+ =?us-ascii?Q?Wklx8w8fRvrrVqH0xLwtBCi9foOnkVcaKB4aS90xZ64Dijxl6QAkc9COXhBb?=
+ =?us-ascii?Q?FfYtnkwkTPUi+TBxX3NBtC+FmhjuPoCcsUInTFcAeJPTw7CO4OAD94OciJ5M?=
+ =?us-ascii?Q?jy0XhUg8nlByJOkQtXcjuUsgNNzhxUrFHkeqX+N/9NOoB/Y4faNHTkKKszbB?=
+ =?us-ascii?Q?1YJxBeliaixqAk/i8nqWtMoscxNaHzNYSTkG9PTPCaMoRd9O5/FAQNs3Q+X8?=
+ =?us-ascii?Q?pxgU1LdebYPZKPIz23g7lhmCR6iMVcWXIJWPjm14U3bCzjGtKP6Ymuurz9Zl?=
+ =?us-ascii?Q?vmym3L7QWnzszSk7MOq3uuLVgoHSU1Wos0Y43yfWKMjAfKpx1g=3D=3D?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26f04583-2c3d-4114-9ca2-08dea955c172
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR19MB997338.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2026 20:51:32.2251
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR19MB7808
 
-Baijie Helper A133 board is a development board around Baijie A133 Core
-SBC. Features:
+On Sun, May 03, 2026 at 02:18:18PM +0200, Krzysztof Kozlowski wrote:
+> On Fri, May 01, 2026 at 05:11:40PM -0500, Chris Morgan wrote:
+> > From: Chris Morgan <macromorgan@hotmail.com>
+> > 
+> > Add devicetree binding for the Invensense ICM42607 and Invensense
+> > ICM42607P inertial measurement unit. This unit is a combined
+> > accelerometer, gyroscope, and thermometer available via I2C or SPI.
+> > 
+> > This device is functionally very similar to the icm42600 series with a
+> > very different register layout. Additionally, add mount-matrix
+> > attribute to schema.
+> 
+> Why adding it? Is it something new? Is it applicable to other variants?
+> If not, why it is allowed for them?
 
-- 1/2/4GiB LPDDR4 DRAM
-- 8/16/32GiB eMMC
-- AXP707 PMIC
-- 2 USB 2.0 ports
-- MicroSD slot and on-board eMMC module
-- Gigabit Ethernet
-- Bluetooth
-- WiFi
+It's not new, technically this is a bug/oversight from the very first
+iteration of the invensense icm42600 driver. The driver requests a
+mount matrix using iio_read_mount_matrix and then returns an error from
+the probe function if it can't read one [1]. So it's very much required
+(and for the next version I'll upgrade it to a required element). I'm
+adding it because a cursory grep suggests that my use case (for the
+Anbernic RG-DS and in the near future the Anbernic RG Vita Pro) are the
+first devices to use this driver in mainline in a device tree based
+system.
 
-Add initial support for both the Helper and Core boards, including UART,
-PMU, eMMC, USB, Ethernet.
+Thank you,
+Chris
 
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
----
- arch/arm64/boot/dts/allwinner/Makefile        |   1 +
- .../dts/allwinner/sun50i-a133-baije-core.dtsi | 159 ++++++++++++++++++
- .../allwinner/sun50i-a133-baijie-helper.dts   |  92 ++++++++++
- 3 files changed, 252 insertions(+)
- create mode 100644 arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
- create mode 100644 arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c?h=v7.1-rc1#n746
 
-diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts/allwinner/Makefile
-index d116864b6c2b..926dfa851100 100644
---- a/arch/arm64/boot/dts/allwinner/Makefile
-+++ b/arch/arm64/boot/dts/allwinner/Makefile
-@@ -18,6 +18,7 @@ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-sopine-baseboard.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-teres-i.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h64-remix-mini-pc.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a100-allwinner-perf1.dtb
-+dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a133-baijie-helper.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a133-liontron-h-a133l.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h5-bananapi-m2-plus.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h5-bananapi-m2-plus-v1.2.dtb
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
-new file mode 100644
-index 000000000000..78da3baa65bb
---- /dev/null
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baije-core.dtsi
-@@ -0,0 +1,159 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (c) 2025 Arm Ltd.
-+ */
-+
-+/dts-v1/;
-+
-+#include "sun50i-a100.dtsi"
-+#include "sun50i-a100-cpu-opp.dtsi"
-+
-+/{
-+	aliases {
-+		serial1 = &uart1;	/* BT module */
-+	};
-+};
-+
-+&cpu0 {
-+	cpu-supply = <&reg_dcdc2>;
-+};
-+
-+&pio {
-+	vcc-pb-supply = <&reg_dcdc1>;
-+	vcc-pc-supply = <&reg_eldo1>;
-+	vcc-pd-supply = <&reg_dcdc1>;
-+	vcc-pe-supply = <&reg_dldo2>;
-+	vcc-pf-supply = <&reg_dcdc1>;
-+	vcc-pg-supply = <&reg_dldo1>;
-+	vcc-ph-supply = <&reg_dcdc1>;
-+};
-+
-+&mmc2 {
-+	vmmc-supply = <&reg_dcdc1>;
-+	vqmmc-supply = <&reg_eldo1>;
-+	cap-mmc-hw-reset;
-+	non-removable;
-+	bus-width = <8>;
-+	mmc-ddr-1_8v;
-+	mmc-hs200-1_8v;
-+	status = "okay";
-+};
-+
-+&r_i2c0 {
-+	status = "okay";
-+
-+	axp803: pmic@34 {
-+		compatible = "x-powers,axp803";
-+		reg = <0x34>;
-+		interrupt-parent = <&r_intc>;
-+		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
-+	};
-+};
-+
-+#include "axp803.dtsi"
-+
-+&ac_power_supply {
-+	status = "okay";
-+};
-+
-+&reg_aldo1 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <700000>;
-+	regulator-max-microvolt = <3300000>;
-+};
-+
-+&reg_aldo2 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <700000>;
-+	regulator-max-microvolt = <3300000>;
-+};
-+
-+&reg_aldo3 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <700000>;
-+	regulator-max-microvolt = <3300000>;
-+	regulator-enable-ramp-delay = <1000>;
-+};
-+
-+&reg_dcdc1 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <1600000>;
-+	regulator-max-microvolt = <3400000>;
-+	regulator-name = "vcc-3v3";
-+};
-+
-+&reg_dcdc2 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <500000>;
-+	regulator-max-microvolt = <1300000>;
-+	regulator-name = "vdd-cpu";
-+};
-+
-+&reg_dcdc3 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <500000>;
-+	regulator-max-microvolt = <1300000>;
-+};
-+
-+&reg_dcdc4 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <500000>;
-+	regulator-max-microvolt = <1300000>;
-+	regulator-name = "vdd-sys";
-+};
-+
-+&reg_dcdc5 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <800000>;
-+	regulator-max-microvolt = <1840000>;
-+	regulator-name = "vcc-dram";
-+};
-+
-+/* DCDC6 unused */
-+
-+&reg_dldo1 {
-+	regulator-min-microvolt = <700000>;
-+	regulator-max-microvolt = <3300000>;
-+	regulator-enable-ramp-delay = <1000>;
-+};
-+
-+&reg_dldo2 {
-+	regulator-min-microvolt = <700000>;
-+	regulator-max-microvolt = <3400000>;
-+	regulator-enable-ramp-delay = <1000>;
-+};
-+
-+&reg_dldo3 {
-+	regulator-min-microvolt = <700000>;
-+	regulator-max-microvolt = <3300000>;
-+	regulator-enable-ramp-delay = <1000>;
-+	regulator-name = "avdd-csi";
-+};
-+
-+&reg_dldo4 {
-+	regulator-min-microvolt = <700000>;
-+	regulator-max-microvolt = <3300000>;
-+	regulator-enable-ramp-delay = <1000>;
-+};
-+
-+&reg_eldo1 {
-+	regulator-min-microvolt = <700000>;
-+	regulator-max-microvolt = <1900000>;
-+	regulator-enable-ramp-delay = <1000>;
-+};
-+
-+&reg_eldo2 {
-+	regulator-min-microvolt = <700000>;
-+	regulator-max-microvolt = <1900000>;
-+	regulator-enable-ramp-delay = <1000>;
-+	regulator-name = "dvdd-csi";
-+};
-+
-+/* ELDO3 unused */
-+
-+&reg_fldo1 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <700000>;
-+	regulator-max-microvolt = <1450000>;
-+	regulator-name = "vdd-cpus-usb";
-+};
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
-new file mode 100644
-index 000000000000..d48b47ef2ed0
---- /dev/null
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-baijie-helper.dts
-@@ -0,0 +1,92 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (c) 2025 Arm Ltd.
-+ */
-+
-+/dts-v1/;
-+
-+#include "sun50i-a133-baije-core.dtsi"
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/leds/common.h>
-+
-+/{
-+	model = "HelperBoard A133";
-+	compatible = "baijie,helper-a133", "allwinner,sun50i-a100";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		led {
-+			function = LED_FUNCTION_INDICATOR;
-+			color = <LED_COLOR_ID_GREEN>;
-+			gpios = <&pio 7 13 GPIO_ACTIVE_LOW>;	/* PH13 */
-+		};
-+	};
-+};
-+
-+&mmc0 {
-+	vmmc-supply = <&reg_dcdc1>;
-+	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>;	/* PF6 */
-+	bus-width = <4>;
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_pb_pins>;
-+	status = "okay";
-+};
-+
-+&rgmii0_pins {
-+	drive-strength = <30>;
-+};
-+
-+&emac0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&rgmii0_pins>;
-+	phy-handle = <&eth_phy>;
-+	phy-mode = "rgmii-id";
-+	allwinner,rx-delay-ps = <200>;
-+	allwinner,tx-delay-ps = <200>;
-+	status = "okay";
-+};
-+
-+&mdio0 {
-+	reset-gpios = <&pio 7 11 GPIO_ACTIVE_LOW>;	/* PH11 */
-+	reset-delay-us = <10000>;
-+	reset-post-delay-us = <150000>;
-+
-+	eth_phy: ethernet-phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <1>;
-+	};
-+};
-+
-+&usbphy {
-+	status = "okay";
-+};
-+
-+&ehci0 {
-+	status = "okay";
-+};
-+
-+&ohci0 {
-+	status = "okay";
-+};
-+
-+&ehci1 {
-+	status = "okay";
-+};
-+
-+&ohci1 {
-+	status = "okay";
-+};
--- 
-2.53.0
-
+> 
+> Do not say WHAT you did, say why you did it.
+> 
+> Best regards,
+> Krzysztof
+> 
