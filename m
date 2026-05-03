@@ -1,90 +1,134 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C341BBBE5;
-	Sun,  3 May 2026 01:07:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7441C25228C
+	for <devicetree@vger.kernel.org>; Sun,  3 May 2026 01:45:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777770428; cv=none; b=hQnIu7MPVPWV4hRLzuJvIUck9xTxjgrO36s5N/Ls8y8MUm7feQtw8VRjuWUro5CuMtbKq2LxCNCPWbs91nRRi7PIjnem8Zjft8ccsnWMOOcmtQksoTgjrGcRfNLkJysLKxQUFdp3Q3u+BYe7llkPq5/DCgQlWmSlbeyNuxEs6oo=
+	t=1777772755; cv=none; b=Z1Ffkp9/rmLYQZAlnb+xQZG7O/bw6YlZ/hYwTWht6/5o4a9cSWDoUh2ApZjIJ5F69pBP406FJsR9x5PuQDoGV1CWk9DfKFm4h8jTixLCeQaVHmwHufGagkDxgIP46k7n4p/Kt2e2uK8p2KAT7w3gwtDxwWFVPIccZtpFUu/u6RE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777770428; c=relaxed/simple;
-	bh=xHVeCTvro9mydvIDUiH+Ipm5YcNn5dH+Gj8qneqcIhc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rUwm0ETkUfve5cyV3ABsbA4lH1PjUIqofG+jMlM0lKVuIBhY46hhOR259+/nrQ0JJ5bnWH0uZT4ue97C9S37q6dGb6xXeNG2bQ9sdoOyFpHUJAll+eENbkhDqoQt2JibP34lkW1rleziorehDGce/TPCVnF0vWDSJZ9PS/nlqM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=N2JoHuYi; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1777772755; c=relaxed/simple;
+	bh=YKj28Q85niDGU70q6VNatHef1IVTl7zI9IJbJKkrDqg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hT1b4EUvHwdPb07xfCOOH6GNN5b+oRbCRCuO5yXOoYVm/wiL4kg7pfcabmkcZajIdZLsa1/Q8D7NHuaxwI9ZCRZvjYMbqmtWpcBRH6/4+hZeS9r7t8jg9g1y/7y1q/pbaM1wnHN2y06taXI96mwEj8skE6yV82N/qRZwF3JYLWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=jiEwwJEI; arc=none smtp.client-ip=209.85.222.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="N2JoHuYi"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=iTliig7XY22fu4H32jB0NZpBHHicET4PgwXZUH5txE4=; b=N2JoHuYiOIPFUgca2LUzPPX8pT
-	qqh1+MInrcZI0EbTccvR75qQWgPnTk8kfEwc6xO8PVxqeJO9qAwf3FkV9PA53pj3WHYSBUrPKXWhU
-	3Uhi1k5uBi/zqgUeMQMajSkAJiGg3bU447q8BzAJsjL36J0mgWNyvhWjeJ3pPZ0HcOA0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wJLIO-0014NM-Ld; Sun, 03 May 2026 03:06:56 +0200
-Date: Sun, 3 May 2026 03:06:56 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: ciprian.regus@analog.com
-Cc: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next 5/5] dt-bindings: net: Add bindings for the
- ADIN1140
-Message-ID: <05ae6249-1f40-4530-b2dc-e52e4f454c0d@lunn.ch>
-References: <20260503-adin1140-driver-v1-0-dd043cdd88f0@analog.com>
- <20260503-adin1140-driver-v1-5-dd043cdd88f0@analog.com>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="jiEwwJEI"
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-8cb20bcff5aso288061285a.3
+        for <devicetree@vger.kernel.org>; Sat, 02 May 2026 18:45:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1777772753; x=1778377553; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=k2VDIdBulUU5TGbhBANhJGFN/QeEIFSIYNJHL/TT6dc=;
+        b=jiEwwJEIidVBpn5VKvdaqyut0STQFn5mUin1j0c7CPH3JyqMyIemYiIdKm9lx22P81
+         sv3BQST9ufNYY5RSEqNxV3ydmGcdP1P9DKRRfCF/5VLCbkV6KzJqtEfwrP7XxN7jBkVY
+         3jU+aJxY9wP68cm09MacVfg8HbSfAvnFojocv4c4fv1kJ3r4vGRF693QpbgFbJZNZYHm
+         J9+kpgPA04Up0whIt4myKwa9Jrr13USBrhogdKpVf+nKoicoHY/Mhr+9Yzv6lxXfccbY
+         PLOCKahXZZEwa6PRj9NvYXtyz1209AcMuvvlNoRYrWPVFUrhTtGhdFrtL1ARQTGX/ijI
+         b60w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777772753; x=1778377553;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=k2VDIdBulUU5TGbhBANhJGFN/QeEIFSIYNJHL/TT6dc=;
+        b=Auhx8VUipcibnzoHWKh/DmVW+wvUIMwx01EQuMxY5Y9unx1FXfl293qNiDONi57K8U
+         x/8NRu32ib2S3k7JgoDFFcZ0ULBg/Pt4sv1w5NIEIR/+ZriiIJa2DLxWZIgqZcJ95T0t
+         6wbiL3lBv1q33nzV/DSwk9ng5djgYS7KTaDxIrYZT/aNApw4V8fTL7rpvtaxt8O4lSqc
+         8VLzev5ssSwcuhcGd4hFj4Zq4EBnDgkQ3lBZt5yAcxdWe54In4aPJ1/VK0yILtfzzXfW
+         kz9DN+KvYR9jikwWoy+DQ/tjMyhLZWMC7LtHrvs96qdt+5ANBO7K91nOeF8czF+Q0nqh
+         lPcg==
+X-Forwarded-Encrypted: i=1; AFNElJ8ZjNyYO/khxpeqbIOkUpEpVXTM6lYfS6RC2Gwb0KhkzmRgHNWGNubnDjKsgIQk7gObnkIB91X69QbP@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMfIUD1JnRqBQ70Mxj7e24M+sLc+cY76yO+Kd/HYYzNXlpFYEr
+	M76xjTzPLwZHpJt7j6wcNuSOZhKk5Z64UcA0uo5uSc1APIQV3paDz/smvI8w/VNWU28=
+X-Gm-Gg: AeBDieu2EqqfCGmy8hd4hPAIUHbxP8B68iF8H/nHA17k2z2ii0WRkAKbfVknJ65cm+y
+	2NBAoGXiWqmjwUvFlOoYdIMl3PAcCBl6eCduhyuICVPvIeMmKJMjxYoE+p62uta3OlJb/vPtEc/
+	EreK/IIdfKc35LXxOwHnlbpRMDcIxadeOci9C3oKtKP/pta6ALiYm4bMZF/5TaYSyhJ4U5vcCeC
+	smvus2bo8GXL1nFS3npH/b7+4pSlDPjikMNCQKsgxbH+aXPeAsDp6i8qVaq8JuycMfnhXAEKN5z
+	c5GzGwfuUSwp7nTIEyLBhc0BwtdVKlAkY1FRCQoady2F4CDJumAEMZAxUmplqmHGdr7tqtkCIbC
+	Nzu/pik2VtD/+jaE+Cs90deOmsYZIN1pUtR3LR9joXQBVZNtwwe+tDTD7ktQL17dvLZ47aGA9E0
+	p/z5Y3hUlltgTwku+j7ypP5Wfqw60KrslkudOxaTMHf7icJ69nLEg19psubS6nJq4NTU5g3H/+t
+	Q==
+X-Received: by 2002:a05:620a:284a:b0:8eb:10d4:a471 with SMTP id af79cd13be357-8fd17e4b6c1mr769719785a.43.1777772753243;
+        Sat, 02 May 2026 18:45:53 -0700 (PDT)
+Received: from [172.22.22.28] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8fc2c9229c8sm680230385a.36.2026.05.02.18.45.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 02 May 2026 18:45:52 -0700 (PDT)
+Message-ID: <30cec7dd-ac3c-47ab-896a-c29992bd5ba5@riscstar.com>
+Date: Sat, 2 May 2026 20:45:48 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260503-adin1140-driver-v1-5-dd043cdd88f0@analog.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 09/12] gpio: tc956x: add TC956x/QPS615 support
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
+ rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
+ brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org,
+ daniel@riscstar.com, mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
+ alexandre.torgue@foss.st.com, ast@kernel.org, boon.khai.ng@altera.com,
+ chenchuangyu@xiaomi.com, chenhuacai@kernel.org, daniel@iogearbox.net,
+ hawk@kernel.org, hkallweit1@gmail.com, inochiama@gmail.com,
+ john.fastabend@gmail.com, julianbraha@gmail.com, livelycarpet87@gmail.com,
+ matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
+ weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-10-elder@riscstar.com>
+ <736fb3b7-c88a-4ec4-96ad-d1b79cc48d30@lunn.ch>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <736fb3b7-c88a-4ec4-96ad-d1b79cc48d30@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> +  The ADIN1140 (also called AD3306) is a low power single port
-> +  10BASE-T1S MAC-PHY. It integrates an Ethernet PHY with a MAC
-> +  and all the associated analog circuitry.
-> +  The device implements the Open Alliance TC6 10BASE-T1x MAC-PHY
+On 5/1/26 1:36 PM, Andrew Lunn wrote:
+>> + * There is a TC956X PCI power controller driver that accesses the
+>> + * direction and output value registers for GPIOs 2 and 3.  These
+>> + * GPIOs control the reset signal for the two downstream PCIe ports.
+>> + * Their values will never change during operation of this driver, and
+>> + * this driver reserves these two GPIOS.
+> 
+> Why doesn't this power controller driver actually use this driver to
+> control the GPIOs? Chicken/egg?
 
-The device _tries_ to implements the Open Alliance TC6 10BASE-T1x MAC-PHY.
+I am not the one with authority on this, but yes, that's my
+understanding.  *Something* about this chip requires that the
+PCIe ports need to have some configuration done on them *before*
+PCIe is powered up.  So that driver uses the I2C interface to
+apply these settings.  Meanwhile this driver uses the PCIe-mapped
+memory to manage the GPIO registers.
 
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    spi {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        ethernet@0 {
-> +            compatible = "adi,adin1140";
-> +            reg = <0>;
-> +            spi-max-frequency = <23000000>;
-> +
-> +            interrupt-parent = <&gpio>;
-> +            interrupts = <6 IRQ_TYPE_EDGE_FALLING>;
+> Maybe add a comment why gpio-regmap.c cannot be used. You probably
+> need to instantiate it twice, but i still think you will end up with
+> less code.
 
-Table 1: OPEN serial 10BASE-T1x Interface Pin Definition
+It's possible gpio-regmap.c *could* be used.  We started with
+vendor code and this code got separated at some point along
+the way.  It was working, and I don't think I pursued other
+options at that point.  I'll look at this possibility before we
+send out the next version.
 
-IRQn MAC-PHY Interrupt Request (Active Low)
+What do you mean instantiate it twice?
 
-Or is this something else which the device gets wrong?
+					-Alex
 
-	Andrew
+> 
+> 	Andrew
+
