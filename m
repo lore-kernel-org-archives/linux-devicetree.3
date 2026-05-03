@@ -1,67 +1,66 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54243AE709
-	for <devicetree@vger.kernel.org>; Sun,  3 May 2026 08:35:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F6D3AE6FA
+	for <devicetree@vger.kernel.org>; Sun,  3 May 2026 08:35:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777797342; cv=none; b=H+En1t3gshpOoX44IRWRWElhYVxr920bjtdScc9vOeJUdimlLFLd1b7IYMSy0L1PF5f9aUKSWeMm4e2TqYt8pZw0sDxRaDqP0ZOV0FSJGo0QTYkA5JdV9ZROTG9s5gcR8NCPmZKaR7F5erKS1FUZFKeZ49uUSkNmHSb1kbDYgNE=
+	t=1777797346; cv=none; b=GW3BZsVlYlwTj5wPqhk85ollYxVN9YRJ8+ESUP0UdpP0Z2xOXomK6sbmkQYFe03iswX+F/j2pDdGUryuuRq9vSZ6wNlBSLf0WyDxkFY0vfwj1bsr4QJBDFXFfV8x3aqiceVrALCJk2MCKzcZRZfCeivI3jTly+Az3y5EOQ5F9Iw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777797342; c=relaxed/simple;
-	bh=ER0AC/Xnj+ibEkD0vpGT/fnWFxVKVDSlU3bLlFczBTE=;
+	s=arc-20240116; t=1777797346; c=relaxed/simple;
+	bh=KolT8FJ8JLaoV/kgDWZGr2X7yeSGK3Ft+hcA3H6ww2g=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lp1AEzXgVXDGQrdTeIosAG8uDTmvo8J8iBGqIHlPQOF+hQSptsp7FRHwRI+mF0gx5TetO6ofXGVZWvCBHFiqIkpRXIS9DyynNIFiK4AMgg/3zcO/irzZOqZzmGTNRIkegQxKFXt0HzaIImuRsFydYH3OAXx+sdJ62R7OuO7W+5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c557duyU; arc=none smtp.client-ip=209.85.210.173
+	 In-Reply-To:To:Cc; b=j0M30uqA2LtzHXYYpyTgPXQXH4qRBK2ddAOjjD+QaIJyeoUGiK775w1o3nQkoLZJPT07Ji9oRi+w96lQRYMsncCwz6kxpSchY4S5wVHXYEozkrWxP02Yj+HXpTHSRZTwEFcGFChuzTmSubH0H4TVc9WdsjFqMipVCPK2LqCpL+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jy/cdvtQ; arc=none smtp.client-ip=209.85.210.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c557duyU"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-82f8b60e54dso2368582b3a.2
-        for <devicetree@vger.kernel.org>; Sun, 03 May 2026 01:35:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jy/cdvtQ"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-82f8892d4d6so1376774b3a.0
+        for <devicetree@vger.kernel.org>; Sun, 03 May 2026 01:35:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777797340; x=1778402140; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1777797344; x=1778402144; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=vAyKAjmkX6PvmXkxrw5YnaLQ/4sPrlWKfDdfdwHLY1Y=;
-        b=c557duyUE3KM8aRDLMOnfvDKZnxBC6cIPOAch9v+W2os7tDz+Ut7OYp3NVNTmyfbeP
-         oS9HnfsXwxvfKOE0A5OgF3Yg71iixjyWms809NhP8Z5u9erIQ8u/fHAm8NBpe7FQ001S
-         Y4BI+I7+QGqdeC99of6LfXOqJmLVbkUgPrZC3hF5UHG08hL4gJ8f7X428Nt0xlKDIRgc
-         HUF2DfS3nPCdgbv+i+yFBc+gkg5o5e+Gmb00aennBreDcaqMn/GCOhmqG1uhpIpz+xdE
-         XWMT9kvSrjVMtPQ/tXvpH2dPCfwiIAuh9gklNQl0iNA6sOWS5r2nO4TmWZLELYsq1i6d
-         3lNA==
+        bh=cQUqKpseiXlQd/VoS7FXU0gNWFtXot4K0uLQjpjqL98=;
+        b=Jy/cdvtQN7FLDuq0p8i8WqQTwVyTdRSUx1OnsXyfFgS1zNGRvVEMy6f+ALXjxWLLb5
+         y8tsu3MHQVaF2JcbbiwJTA3iCfPSX695h/7/F8WbWwLhJif1H3vncO2FX+EqPvtmn0Mm
+         wDzhnwgTHJWbti017iSBKnUKxIr9ZgOYWhb+h3H++xJ0NUvKZSAkbweTYmSrEZHH5dlp
+         3+jTtfl0UY05iCnCdZWIxMha8KPzcBDLify7j83TZEUvo/wkoWsd8GdCOuA2kJ5DgZnc
+         PStG6HGuFkBszztAnvsan5hFJLclHlhahQbSFuh01GPvwaSSokxycqwec12rzChamuIG
+         FDRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777797340; x=1778402140;
+        d=1e100.net; s=20251104; t=1777797344; x=1778402144;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=vAyKAjmkX6PvmXkxrw5YnaLQ/4sPrlWKfDdfdwHLY1Y=;
-        b=qgm39MCZlaYix8NEDbPg9mAGNaHO2hQbYGFAHjmZM/2lOPoCxddkC3pH9wMAaYl/D+
-         GRWDhG3DrMQlQXj+kVsVGSSRp8qqN/Uh/9zLPV6LoKLBvB9tjB/ABCVhDmskBUfkLPis
-         Ogqcl+vFloZGBDInd3iRuMVL1x1g9WrKcnx6DjhGj9p7Ryy3JZjvTxE6OYNbUmGKrV9V
-         UYl6J5Abn48dyYrNi9THeM3mOn49BAM8l4L3foagZoNPGePTEja619YfUUhLoaOItNJ3
-         KrFZR2SoHU8xp2pr2rb3SQSV7tZ5XeAwfEWAJdyNnoEWnwZToPGBWL0AN47/Bp1NFFP4
-         enyQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8AWpdlrYXJRQYdw59W8BDjXHMnFFfAuqqOf1b15e43w03+Z20zT7E19xO6ATcuuAju1uCwwZvihi2G@vger.kernel.org
-X-Gm-Message-State: AOJu0YycRPiADg/e98140Omkl+OdjhHYB1N5B+je0MuBmcuusC1caXxl
-	gI4iy3DCosd3fZpJfJ4z/REFiFKv3dJhi0O1ZLuVKNp9MgeORcUTSfss
-X-Gm-Gg: AeBDietx7/lLAnKbQ/VrueJAU0O9VBA1SsxmrdMDFaz6q7Y0qSRu+IUtTujmfyNFcGt
-	0G07qo6jFU3QQDMsLELZhYfLvuGwIp82IyfygSqeZw/xu9midSmECGYz0vFezm0kWXFwHtaeg5a
-	Ndvk9ybi6cna6Luib7pUZvFcYGZv65ph4z8atpIKenqdQEP+AC2YQpn8LGBN78D/kamjWv/2aw5
-	E/pxq/QrgdkjE7yZBtIKm+5rct9GgomRrdrB5E8SWa8OdrwKCSsBUIh+fgdwD9UyQwLKA6t9RwD
-	gmu1SC7q4Pkj+w5cZvClvFavlBd2pBewlP+eLEHamthIbMuJS8Ev6CjqXkXSuXd0Tn68mPhS52U
-	Y8i56tZHGYUmSZR3bsxFu7WvAtWrVxjOst1YHbTYBGFFfTrkaJcvgerFVOXXexxzuOzyMnaffJ6
-	9mmUjwBRzXziowjgmD+noZ9J0QUkgHsElpBp21kSliQvfkH0OdI8ge308=
-X-Received: by 2002:a05:6a00:14ca:b0:82f:721f:10ea with SMTP id d2e1a72fcca58-8352d1bf331mr5683330b3a.18.1777797340207;
-        Sun, 03 May 2026 01:35:40 -0700 (PDT)
+        bh=cQUqKpseiXlQd/VoS7FXU0gNWFtXot4K0uLQjpjqL98=;
+        b=eG//DTukm9kfijbp5EJNaL9Z/rJ8iCSxUboNKl5+pd3Reu5etdpppYAsoHBC/hn6+N
+         ijx/SzHgWSGWc/vmNPFtTBz5PiP7FhsnDE21/f1uMlLvc2UG7AbCr81MdwYKveVePl4K
+         7yxHgI2g4Dap1wLmsmd9ynLuCqJiWfLb3gfjChLyVh1jf+G6kcncTbbScWEtyM+8A0Id
+         pDY4302X+vii1WuEgvqWsVUtSSea1fGDwF0meIuNWpHT6PqA4iQrd0ESaSD4RpTUUv5+
+         dXoSkqHj5Jt2e2A0z7HuA+e78Wq6iel4TOgGI1MjyGHuwVhIUgPAslB35az6AmbjlGmL
+         na7A==
+X-Forwarded-Encrypted: i=1; AFNElJ9qAmQ7GaaCw257pFL89T3uQo7oCWlV0sDCp4/Okiejfhxa5a+qhO7VbfVAsPw+xUvCElftDKdQTGCE@vger.kernel.org
+X-Gm-Message-State: AOJu0YxR4Xb3Ybv2fZWosYZuzzraz0k9txH7nBgvxTeRbBDE5dJuCQXw
+	2WQT7IFeTjyGKANgjkxwkPD+o/xzbReCvLvUqM90RGBIDb7uC+BR4KH+
+X-Gm-Gg: AeBDieu3sio6UTmcSqt4fVTAN9owMVOCj2QpU34//gO9o7kuv6xV95VVSXMgz6pbGNg
+	gSpfjRI5xqj2/HwNuIVPKOvGt+ONLH/mcLGrG/Tgh2UcyTc8JD3fZEvyDDzjGWt+q5S6I2jSsk4
+	5hdeFfVLuMY4XSuj15JBl8DKARACwIedlQRDeRCvmYRsNUUdkApYYyBj0Ea9kXfzgcbFaDhzqaF
+	T6oru3UytzHrqGrmnJxdnFEaIhulo1wNeRaYfC9Xlc/bWs15JqFGsCtHiXCDmngWRGoCc0kKzU3
+	gLNRumcb6GszTUxpZYvo1TF/eQ2BrcE0WXU42r+htPhGqMLD/mEz8PvZWao/UfWHTGkeyxaruId
+	hhE6DVz7C8iDPD4Q5yqWA9vfws51XxApzKsoYe49wNuU2gahUST1WGgGp7e8lKwoV8OCXYj0+eb
+	dDVv2LiXtNkByCJBKHZqlBRXoti0leGRaHrnX3b0c1dXp4fwkmaW7L9gk=
+X-Received: by 2002:a05:6a00:4145:b0:824:3bd9:aac6 with SMTP id d2e1a72fcca58-8352d15f72cmr4706161b3a.16.1777797344272;
+        Sun, 03 May 2026 01:35:44 -0700 (PDT)
 Received: from Black-Pearl.localdomain ([60.243.224.75])
-        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-835446b1b0asm1578142b3a.8.2026.05.03.01.35.36
+        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-835446b1b0asm1578142b3a.8.2026.05.03.01.35.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 03 May 2026 01:35:39 -0700 (PDT)
+        Sun, 03 May 2026 01:35:43 -0700 (PDT)
 From: Charan Pedumuru <charan.pedumuru@gmail.com>
-Date: Sun, 03 May 2026 08:35:29 +0000
-Subject: [PATCH v2 1/2] arm: dts: st: align node patterns with established
- convention
+Date: Sun, 03 May 2026 08:35:30 +0000
+Subject: [PATCH v2 2/2] dt-bindings: mmc: st,sdhci: convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +69,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260503-st-mmc-v2-1-11ae3216d2ce@gmail.com>
+Message-Id: <20260503-st-mmc-v2-2-11ae3216d2ce@gmail.com>
 References: <20260503-st-mmc-v2-0-11ae3216d2ce@gmail.com>
 In-Reply-To: <20260503-st-mmc-v2-0-11ae3216d2ce@gmail.com>
 To: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>, 
@@ -83,35 +82,229 @@ Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
  Charan Pedumuru <charan.pedumuru@gmail.com>
 X-Mailer: b4 0.15.2
 
-Update ST MMC DTS node patterns to match established convention.
+Convert STMicroelectronics sdhci-st MMC/SD controller binding to DT schema.
 
 Signed-off-by: Charan Pedumuru <charan.pedumuru@gmail.com>
 ---
- arch/arm/boot/dts/st/stih407-family.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ Documentation/devicetree/bindings/mmc/sdhci-st.txt | 110 ---------------------
+ .../devicetree/bindings/mmc/st,sdhci.yaml          |  93 +++++++++++++++++
+ 2 files changed, 93 insertions(+), 110 deletions(-)
 
-diff --git a/arch/arm/boot/dts/st/stih407-family.dtsi b/arch/arm/boot/dts/st/stih407-family.dtsi
-index 3e6a0542e3ae..08acba209c56 100644
---- a/arch/arm/boot/dts/st/stih407-family.dtsi
-+++ b/arch/arm/boot/dts/st/stih407-family.dtsi
-@@ -596,7 +596,7 @@ spi@9542000 {
- 			status = "disabled";
- 		};
- 
--		mmc0: sdhci@9060000 {
-+		mmc0: mmc@9060000 {
- 			compatible = "st,sdhci-stih407", "st,sdhci";
- 			status = "disabled";
- 			reg = <0x09060000 0x7ff>, <0x9061008 0x20>;
-@@ -611,7 +611,7 @@ mmc0: sdhci@9060000 {
- 			bus-width = <8>;
- 		};
- 
--		mmc1: sdhci@9080000 {
-+		mmc1: mmc@9080000 {
- 			compatible = "st,sdhci-stih407", "st,sdhci";
- 			status = "disabled";
- 			reg = <0x09080000 0x7ff>;
+diff --git a/Documentation/devicetree/bindings/mmc/sdhci-st.txt b/Documentation/devicetree/bindings/mmc/sdhci-st.txt
+deleted file mode 100644
+index ccf82b4ee838..000000000000
+--- a/Documentation/devicetree/bindings/mmc/sdhci-st.txt
++++ /dev/null
+@@ -1,110 +0,0 @@
+-* STMicroelectronics sdhci-st MMC/SD controller
+-
+-This file documents the differences between the core properties in
+-Documentation/devicetree/bindings/mmc/mmc.txt and the properties
+-used by the sdhci-st driver.
+-
+-Required properties:
+-- compatible:		Must be "st,sdhci" and it can be compatible to "st,sdhci-stih407"
+-			to set the internal glue logic used for configuring the MMC
+-			subsystem (mmcss) inside the FlashSS (available in STiH407 SoC
+-			family).
+-
+-- clock-names:		Should be "mmc" and "icn".  (NB: The latter is not compulsory)
+-			See: Documentation/devicetree/bindings/resource-names.txt
+-- clocks:		Phandle to the clock.
+-			See: Documentation/devicetree/bindings/clock/clock-bindings.txt
+-
+-- interrupts:		One mmc interrupt should be described here.
+-- interrupt-names:	Should be "mmcirq".
+-
+-- pinctrl-names:	A pinctrl state names "default" must be defined.
+-- pinctrl-0:		Phandle referencing pin configuration of the sd/emmc controller.
+-			See: Documentation/devicetree/bindings/pinctrl/pinctrl-bindings.txt
+-
+-- reg:			This must provide the host controller base address and it can also
+-			contain the FlashSS Top register for TX/RX delay used by the driver
+-			to configure DLL inside the flashSS, if so reg-names must also be
+-			specified.
+-
+-Optional properties:
+-- reg-names:		Should be "mmc" and "top-mmc-delay". "top-mmc-delay" is optional
+-			for eMMC on stih407 family silicon to configure DLL inside FlashSS.
+-
+-- non-removable:	Non-removable slot. Also used for configuring mmcss in STiH407 SoC
+-			family.
+-			See:  Documentation/devicetree/bindings/mmc/mmc.txt.
+-
+-- bus-width:		Number of data lines.
+-			See:  Documentation/devicetree/bindings/mmc/mmc.txt.
+-
+-- max-frequency:	Can be 200MHz, 100MHz or 50MHz (default) and used for
+-			configuring the CCONFIG3 in the mmcss.
+-			See:  Documentation/devicetree/bindings/mmc/mmc.txt.
+-
+-- resets:		Phandle and reset specifier pair to softreset line of HC IP.
+-			See: Documentation/devicetree/bindings/reset/reset.txt
+-
+-- vqmmc-supply:		Phandle to the regulator dt node, mentioned as the vcc/vdd
+-			supply in eMMC/SD specs.
+-
+-- sd-uhs-sdr50:	To enable the SDR50 in the mmcss.
+-			See:  Documentation/devicetree/bindings/mmc/mmc.txt.
+-
+-- sd-uhs-sdr104:	To enable the SDR104 in the mmcss.
+-			See:  Documentation/devicetree/bindings/mmc/mmc.txt.
+-
+-- sd-uhs-ddr50:		To enable the DDR50 in the mmcss.
+-			See:  Documentation/devicetree/bindings/mmc/mmc.txt.
+-
+-Example:
+-
+-/* Example stih416e eMMC configuration */
+-
+-mmc0: sdhci@fe81e000 {
+-	compatible	= "st,sdhci";
+-	reg		= <0xfe81e000 0x1000>;
+-	interrupts	= <GIC_SPI 127 IRQ_TYPE_NONE>;
+-	interrupt-names	= "mmcirq";
+-	pinctrl-names	= "default";
+-	pinctrl-0	= <&pinctrl_mmc0>;
+-	clock-names	= "mmc";
+-	clocks		= <&clk_s_a1_ls 1>;
+-	bus-width	= <8>
+-
+-/* Example SD stih407 family configuration */
+-
+-mmc1: sdhci@9080000 {
+-	compatible	= "st,sdhci-stih407", "st,sdhci";
+-	reg		= <0x09080000 0x7ff>;
+-	reg-names	= "mmc";
+-	interrupts	= <GIC_SPI 90 IRQ_TYPE_NONE>;
+-	interrupt-names	= "mmcirq";
+-	pinctrl-names	= "default";
+-	pinctrl-0	= <&pinctrl_sd1>;
+-	clock-names	= "mmc";
+-	clocks		= <&clk_s_c0_flexgen CLK_MMC_1>;
+-	resets		= <&softreset STIH407_MMC1_SOFTRESET>;
+-	bus-width	= <4>;
+-};
+-
+-/* Example eMMC stih407 family configuration */
+-
+-mmc0: sdhci@9060000 {
+-	compatible	= "st,sdhci-stih407", "st,sdhci";
+-	reg		= <0x09060000 0x7ff>, <0x9061008 0x20>;
+-	reg-names	= "mmc", "top-mmc-delay";
+-	interrupts	= <GIC_SPI 92 IRQ_TYPE_NONE>;
+-	interrupt-names	= "mmcirq";
+-	pinctrl-names	= "default";
+-	pinctrl-0	= <&pinctrl_mmc0>;
+-	clock-names	= "mmc";
+-	clocks		= <&clk_s_c0_flexgen CLK_MMC_0>;
+-	vqmmc-supply	= <&vmmc_reg>;
+-	max-frequency	= <200000000>;
+-	bus-width	= <8>;
+-	non-removable;
+-	sd-uhs-sdr50;
+-	sd-uhs-sdr104;
+-	sd-uhs-ddr50;
+-};
+diff --git a/Documentation/devicetree/bindings/mmc/st,sdhci.yaml b/Documentation/devicetree/bindings/mmc/st,sdhci.yaml
+new file mode 100644
+index 000000000000..96edf6d51e6e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mmc/st,sdhci.yaml
+@@ -0,0 +1,93 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mmc/st,sdhci.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectronics SDHCI-ST MMC/SD Controller
++
++description:
++  The STMicroelectronics SDHCI-ST MMC/SD host controller, which is
++  compliant with the SD Host Controller Interface (SDHCI) specification and
++  is used to interface with MMC, SD and SDIO cards. The ST SDHCI controller
++  extends the standard SDHCI capabilities with platform-specific
++  configurations such as additional register regions,clock inputs, and delay
++  control mechanisms required for signal timing adjustments which are
++  necessary to support high-speed modes and ensure reliable data transfer
++  across different ST SoCs.
++
++allOf:
++  - $ref: mmc-controller.yaml#
++
++maintainers:
++  - Peter Griffin <peter.griffin@linaro.org>
++
++properties:
++  compatible:
++    oneOf:
++      - const: st,sdhci
++      - items:
++          - const: st,sdhci-stih407
++          - const: st,sdhci
++
++  reg:
++    minItems: 1
++    items:
++      - description: Base address and size of the MMC controller registers
++      - description: Base address and size of the MMC delay/auxiliary registers
++
++  reg-names:
++    oneOf:
++      - items:
++          - const: mmc
++      - items:
++          - const: mmc
++          - const: top-mmc-delay
++
++  clocks:
++    items:
++      - description: Clock for the MMC controller
++      - description: Interconnect (ICN) clock
++
++  clock-names:
++    items:
++      - const: mmc
++      - const: icn
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-names:
++    const: mmcirq
++
++  resets:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - interrupts
++  - interrupt-names
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/stih407-clks.h>
++    mmc@9060000 {
++        compatible = "st,sdhci-stih407", "st,sdhci";
++        reg = <0x09060000 0x7ff>, <0x9061008 0x20>;
++        reg-names = "mmc", "top-mmc-delay";
++        interrupts = <GIC_SPI 92 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-names = "mmcirq";
++        pinctrl-names = "default";
++        pinctrl-0 = <&pinctrl_mmc0>;
++        clock-names = "mmc", "icn";
++        clocks = <&clk_s_c0_flexgen CLK_MMC_0>,
++                 <&clk_s_c0_flexgen CLK_RX_ICN_HVA>;
++        bus-width = <8>;
++    };
++...
 
 -- 
 2.54.0
