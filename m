@@ -1,120 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEE81D5160;
-	Sun,  3 May 2026 18:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA57C30C601;
+	Sun,  3 May 2026 18:07:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777831362; cv=none; b=hFE6TfkTPKWJH7Fpq9jMYt8eJcwBSiN0/l1oqbEzz4JpvcESa/EZpiLZzK89uelHqJhTQk69eNOgqrjEbjudh6W2KbsYxEyUqgl2hFnYqr3sHRM0wvwNpQGMgLsbw+SXhkChow0YBcDLrM/qx7JF7b7H4/afGFyyRpm7Vay4zqg=
+	t=1777831629; cv=none; b=a/a/9ZH4v9k0BTBUFD3sdeYGCMHsaYtY4b9U3tG/hJgsjb0vqFl6mde2JbsHBJm3m+iFy5tb83E1G7xEV8xUOk/iDkz8IIrMXvBEfp6sRaYyDlZxIUmAyYUr+rfy/sDuFiDshXjAOuFZ8JrFNqRZDj6Er0kUp8+7YNEeZdFBBLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777831362; c=relaxed/simple;
-	bh=ulntF4mPLFHXb/9wMY7GY0e4NFEKhqLcWDtK6LuQaZY=;
+	s=arc-20240116; t=1777831629; c=relaxed/simple;
+	bh=z3iLtrQiFxec3Rd27LagU6TBPvQ87gSXwve6orcuQyI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QkjxSTg34DCo6ahtW5v2YFDKljuiasuzZabNckNtgE8WDFDihbNZD2kLuI6rFujmXG5nICJlIxfa1oyIzVv7urfvZXxh2raJilGkuFWyGarN+q9rC2KWFv1EccPNye/1ZwudQ3WEErNodvrlTot+R635eLfZUJfroUKnuK+UFik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o/WNooOC; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=P2aMbaN1zEsJ5YuDhc+jxkI675G1Lm1YrXOPgtHr9CHRljnHstHthdsZbml6tMrZ7pr02yszez+sYydiFQaobZrGOfX97nJ2wBq8rUbzFWzHSGF73lCRCPW6AOHipSg0kb5IZSxPH8hO5W3fi2PFdjLlL/Wui4H3H+hkrGkfqu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=f0y84LCN; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o/WNooOC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53C2BC2BCB4;
-	Sun,  3 May 2026 18:02:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777831362;
-	bh=ulntF4mPLFHXb/9wMY7GY0e4NFEKhqLcWDtK6LuQaZY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=o/WNooOC93pLcv9NHBGE/uh5hsLEtzHlW4fYo4YGzLvIe2sT5SOQ0B9GV949LK5aY
-	 cM/6E5t7uvLsmiLu40iwldkf/VG+BY1yOkmQwxApOADtXLy1TNuMBmnPytfG8p0+Ca
-	 Q2E9QwLZnp1BtvEUycYooOh9gfoqy6shVLTW/2nM1Y4HSVRQEgCVthp7zpaPAY44TK
-	 euG+efWkg362daE+hwv70RJgGYKY6/GV5rtHZX66m8DCG0RfwDZH6smVb9Y5ZDnU36
-	 k4hBCvEpX9rB1gnHbK8SjzjdwZjFwjibtk86KOfGbB2/DN4St3XyfKm2JWKS1b1J9W
-	 5jH4Is151a1wA==
-Date: Sun, 3 May 2026 19:02:38 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Markus Stockhausen <markus.stockhausen@gmx.de>
-Cc: linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, jdelvare@suse.com, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: hwmon: lm75: Add
- lm75,alert-polarity-active-high property
-Message-ID: <20260503-punisher-friend-08a942437954@spud>
-References: <20260501120518.3085501-1-markus.stockhausen@gmx.de>
- <20260501120518.3085501-2-markus.stockhausen@gmx.de>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="f0y84LCN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=77l6gcNF4966OHP0ggavWkcqsBmAcYVfrKG8lXEzGEA=; b=f0y84LCNDV8m5FQ65JijiZarcF
+	SmSCqre93MdkQKCjgAEcNIj4nlfNJsykqyGvZDgI4vR9yL6tvdaJg2ZEkH6hf9z2erYGa0MA63auc
+	1CGxFJcr9T2hEX0R09gwAGUS59c7Jp1MAC4Z9TVeKDW4UNXJMGg+fqrI+Tqi6+YdyNp0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wJbDK-0019st-TC; Sun, 03 May 2026 20:06:46 +0200
+Date: Sun, 3 May 2026 20:06:46 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Cc: "ciprian.regus@analog.com" <ciprian.regus@analog.com>,
+	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: Re: [PATCH net-next 2/5] net: ethernet: oa_tc6: Allow custom mii_bus
+Message-ID: <77df32ed-3e22-4e9b-941b-3046de25b88f@lunn.ch>
+References: <20260503-adin1140-driver-v1-0-dd043cdd88f0@analog.com>
+ <20260503-adin1140-driver-v1-2-dd043cdd88f0@analog.com>
+ <aad9cb98-8f1f-409f-8d58-0318e125210c@lunn.ch>
+ <CY8PR02MB92498A398D3F05B94EEB7ED383302@CY8PR02MB9249.namprd02.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gRT99R7m+UNpv6DB"
-Content-Disposition: inline
-In-Reply-To: <20260501120518.3085501-2-markus.stockhausen@gmx.de>
-
-
---gRT99R7m+UNpv6DB
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CY8PR02MB92498A398D3F05B94EEB7ED383302@CY8PR02MB9249.namprd02.prod.outlook.com>
 
-On Fri, May 01, 2026 at 02:05:17PM +0200, Markus Stockhausen wrote:
-> The LM75 alert pin is asserted based on the value of alert polarity bit of
-> the configuration register. The device/driver default is 0 which means al=
-ert
-> pin is configured to be active-low. A value of 1 maps to inverted (active=
--high).
->=20
-> Add an optional boolean property "lm75,alert-polarity-active-high" to
-> override the alert pin polarity. When absent, the default active-low
-> polarity is kept.
->=20
-> Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-> ---
->  Documentation/devicetree/bindings/hwmon/lm75.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/hwmon/lm75.yaml b/Document=
-ation/devicetree/bindings/hwmon/lm75.yaml
-> index 0b9fda81e3ec..173751a726f3 100644
-> --- a/Documentation/devicetree/bindings/hwmon/lm75.yaml
-> +++ b/Documentation/devicetree/bindings/hwmon/lm75.yaml
-> @@ -54,6 +54,13 @@ properties:
->    interrupts:
->      maxItems: 1
-> =20
-> +  lm75,alert-polarity-active-high:
+> > This all seems pretty invasive and ugly. Please could you think what
+> > happens if instead of passing in an mdiobus, you pass a phydev. Is the
+> > change to the core simpler and cleaner?
+> > 
+> > Andrew
+> 
 
-This should be "national" or "adi" as a prefix, lm75 isn't a vendor!
+> Kind of agree. Initially we were thinking about changing the
+> existing code (Microchip's vendor code) to alloc mii_bus so that
+> code would be same across multiple vendors. Either way, it would be
+> invasive changes. So, we decide to go with minimal change to other
+> vendor's code.
 
-Otherwise, seems reasonable enough to me.
+That would be wrong. The standard defines this, so it should be in the
+core. Anything which the standard defines should be in the core, so
+that drivers for hardware which actually follow the standard are
+minimal. Also, we try to keep workarounds for broken hardware out of
+the core, hide it in the driver. That is not always possible, but the
+aim should be to make the core clean. We don't want to penalise
+vendors which got the implementation correct because of vendors who
+got is wrong.
 
-pw-bot: changes-requested
+> Trying to understand your suggestion. Are you suggesting to move
+> entire mii_bus allocation/APIs implementation to vendor side and
+> keep only phy dev usage in oa_tc6.c?
 
-Cheers,
-Conor.
+No. I'm thinking maybe extend oa_tc6_init, similar to what you
+did. Add a quirks flag, and define TC6_QUIRK_BROKEN_PHY. And allow a
+phydev to be passed as well.
 
-> +    description: Alert pin is asserted based on the value of alert polar=
-ity
-> +      bit of configuration register. Default value is normal (0 which ma=
-ps to
-> +      active-low). The other value is inverted (1 which maps to active-h=
-igh).
-> +      Specify this property to set the alert polarity to active-high.
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +
->  required:
->    - compatible
->    - reg
-> --=20
-> 2.54.0
->=20
+If the quirk is set, don't call oa_tc6_mdiobus_register() or
+phy_find_first(), nor oa_tc6_mdiobus_unregister().
 
---gRT99R7m+UNpv6DB
-Content-Type: application/pgp-signature; name="signature.asc"
+You probably want to start with a patch which breaks oa_tc6_phy_init()
+into two, since you still need the phy_connect_direct() and
+phy_attached_info(). Then add the quirk, and lastly your driver making
+use of the quirk.
 
------BEGIN PGP SIGNATURE-----
+The quirks flag could also be used for devices which have MMD 30
+mapped into a vendor reserved MMS.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafeNvgAKCRB4tDGHoIJi
-0h7OAQCnqXDyL2cs9BRUcbngjv09iDFLi0EXYmnva80Ce9y0QgEAnWOoZlVV7XDn
-FuSel+wQiNb/aYES38V4n6ia3QVI7wc=
-=0/hP
------END PGP SIGNATURE-----
+	Andrew
 
---gRT99R7m+UNpv6DB--
