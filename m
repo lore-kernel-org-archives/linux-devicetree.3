@@ -1,178 +1,133 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918E9340281;
-	Sun,  3 May 2026 02:50:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED2C1E5B9A;
+	Sun,  3 May 2026 03:05:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777776661; cv=none; b=oozaOKJrUb51gk0YdJsusTr8oAeYYzqI2/l0K5XwhpXvBIlOwyq1d9DegII72gZp5OFbqOyeVH/NyNnQavkv/8uop6pGO6Byz3dNGZO0FO/wHXFc9s3x3GFYNtkXUabDq2uUtL7Pxc3XFxUfnjCvj3PUsaUYR5GPqQWo3DNNOPQ=
+	t=1777777542; cv=none; b=gJ/PWduH0LzqcTUXybThrI+RXTJ/HQDdFi7v5XTsKOffsFdURhqp+UYuxmLdgV1W7mpa+4eJ6VxRN6YAPJBtIJX9iPqvoCwey8LUzepon+RPMg5ffMN0E49aIbAJ8Xgbw6kS5SWhj6jeFKcY5yyFyAkFRKijqRU6BQtHyu+L6Rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777776661; c=relaxed/simple;
-	bh=SWduPrPv7Hs1tnivvKljivRKChxKhiE0bWPaYXn0xWI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ggc1MV4zcExki33IK6CGyFIBku7+FqB/0OSQW518BwHJxtNYCVfP5w9U+i6hPM2sIHUJFqXYkPPn7DIjQivE+9OKsEqIGz9VgbNZPHKG1UqSKiwk+6tNBoiiM3L9wNiwqrwboZsAlVn5Ep+dA2IMDR5cVycHex73o1nWHD+XWbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=yKfjR2zD; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1777777542; c=relaxed/simple;
+	bh=Bc7uubLHk/7Zvz+FjYl0CF0BcrblwRhjO8Bk4lzFuR4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HQYAeARtPW6ogWF6+hdY4GR8i/3mcDpuQKis9n0J3calRZ3kR6NVAtDDuMtpfIPzNIBsadzNJ16RTEFiidiwbRP4NvLlVDbD8PUthJmdp2ICb5y8Ld6N9lbhjSaN1PD2cBJScMiptSiy2J6+0+7FTkJ2uaAHOHbMc+N/u5KJW1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=WOqFdeGN; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="yKfjR2zD"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4g7TmT5w3Xz9t9n;
-	Sun,  3 May 2026 04:50:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1777776649;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1jmyfPlNX23L/mOTTiiXLgc1RStN2ndJcGiPbqaR3dc=;
-	b=yKfjR2zDF2QVZrLp6pEZKOu5gV9mYEU6Mk+OazS9IYYjoW0P1NXTpKq7Ae5UQJSoN1fMVk
-	Py0EhjKLEREv1fLBw1nLuWuG+8b6Nchn/RSJY2fNe/PM6J1JTzxhW/UZq/7vIoLUtFW0yv
-	s/PhL+ePEglLuFZ2T85rkVBy2g3mxQr9ESJxq7FeavP7m/KsikGyglB8V6Qyl7ADK2vsQs
-	Lxhmp7Xe6woXw6Mnbz99982wWZTODw85yb/GWfgkOKPdRZ/cyznxkWLCjKUekPCqE/xvOl
-	Y1dm6O0e2sCtnnsQk52zamiI5kTPe7Pgs+s5gkLBMtHXR9qEtHKQGw5gdQ8nHg==
-Message-ID: <0875e4a1-f112-4619-a229-2f6f9197f21c@mailbox.org>
-Date: Sun, 3 May 2026 03:25:29 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="WOqFdeGN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=vTkWlde2JHlNLRGm1ttbizoIX10aHI1/8IxqhQI+Whc=; b=WOqFdeGNyDYHYFP7rc3MuSp8dU
+	+Nq7spbXhTu22v9VhEL/bpGGO7Ny+KaFWZxNAfsJ0HQvqdYex7LnMbsUU5CcnClNP8nNEc2vlJqj1
+	z9ZnXFUs5K0tXBKfOy6LB27Y7HO6yRUvlHLIJRj8EWGVWE1xUyY3lEZWpWfi41LUNU0k=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wJN8j-0015D5-2u; Sun, 03 May 2026 05:05:05 +0200
+Date: Sun, 3 May 2026 05:05:05 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Alex Elder <elder@riscstar.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
+	rmk+kernel@armlinux.org.uk, andersson@kernel.org,
+	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
+	arnd@arndb.de, gregkh@linuxfoundation.org, daniel@riscstar.com,
+	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
+	alexandre.torgue@foss.st.com, ast@kernel.org,
+	boon.khai.ng@altera.com, chenchuangyu@xiaomi.com,
+	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
+	hkallweit1@gmail.com, inochiama@gmail.com, john.fastabend@gmail.com,
+	julianbraha@gmail.com, livelycarpet87@gmail.com,
+	matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
+	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+	rohan.g.thomas@altera.com, sdf@fomichev.me,
+	siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com,
+	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 09/12] gpio: tc956x: add TC956x/QPS615 support
+Message-ID: <3666e3e6-e6f3-4cbf-b9fe-caa394fbab7c@lunn.ch>
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-10-elder@riscstar.com>
+ <736fb3b7-c88a-4ec4-96ad-d1b79cc48d30@lunn.ch>
+ <30cec7dd-ac3c-47ab-896a-c29992bd5ba5@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 7/7] arm64: dts: renesas: r8a779md: Add support for R-Car
- M3Le R8A779MD Geist
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-arm-kernel@lists.infradead.org,
- Nguyen Tran <nguyen.tran.pz@bp.renesas.com>,
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Stephen Boyd <sboyd@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org>
- <20260419193718.133174-8-marek.vasut+renesas@mailbox.org>
- <CAMuHMdX17D3n_5vxsvmaSmionjOqrEdPygjPdYuu6a0DR7b83w@mail.gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CAMuHMdX17D3n_5vxsvmaSmionjOqrEdPygjPdYuu6a0DR7b83w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: btp1myu5i1sycqg3wd8pncfykxy8hp97
-X-MBO-RS-ID: 0401f179b09affd0292
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <30cec7dd-ac3c-47ab-896a-c29992bd5ba5@riscstar.com>
 
-On 4/29/26 3:59 PM, Geert Uytterhoeven wrote:
-
-Hello Geert,
-
->> +/plugin/;
->> +
->> +#include <dt-bindings/gpio/gpio.h>
+On Sat, May 02, 2026 at 08:45:48PM -0500, Alex Elder wrote:
+> On 5/1/26 1:36 PM, Andrew Lunn wrote:
+> > > + * There is a TC956X PCI power controller driver that accesses the
+> > > + * direction and output value registers for GPIOs 2 and 3.  These
+> > > + * GPIOs control the reset signal for the two downstream PCIe ports.
+> > > + * Their values will never change during operation of this driver, and
+> > > + * this driver reserves these two GPIOS.
+> > 
+> > Why doesn't this power controller driver actually use this driver to
+> > control the GPIOs? Chicken/egg?
 > 
-> This include is not needed?
+> I am not the one with authority on this, but yes, that's my
+> understanding.  *Something* about this chip requires that the
+> PCIe ports need to have some configuration done on them *before*
+> PCIe is powered up.  So that driver uses the I2C interface to
+> apply these settings.  Meanwhile this driver uses the PCIe-mapped
+> memory to manage the GPIO registers.
 
-It is not.
+The diagram you have is:
 
->> +#include "salvator-panel-aa104xd12.dtso"
->> +
->> +&{/panel} {
->> +       data-mapping = "jeida-24";
-> 
-> Is there any specific reason Geist needs "jeida-24", while all other
-> boards use "jeida-18"?
 
-This is a leftover, it should be jeida-18 , the Geist board pulls LVDS 
-output(LVDS0) pin 19 MODE=L , which on the aa104xd12 means 6-bit mode.
+              ----------------------------------
+              |              Host              |
+              ------+...+----------+........+---
+                    |i2c|          |  PCIe  |
+    ----------------+...+----------+........+------
+    | TC956x        |I2C|          |upstream|     |
+    |               -----        --+--------+---  |
+    |  -----  ------  -------    | PCIe switch |  |
+    |  |SPI|  |GPIO|  |reset|    |             |  |
+    |  -----  ------  |clock|    | DS3 DS2 DS1 |  |
+    |                 -------    ---++--++--++--  |
+    |  -----  ------     downstream//    \\  \\   |  downstream
+    |  |MCU|  |SRAM|    /==========/      \\  \===== PCIe port 1
+    |  -----  ------   //PCIe port 3       \\     |
+    |                  ||                   \======= downstream
+    |  ----+-----------++-----------+----         |  PCIe port 2
+    |  | M | internal PCIe endpoint | M |         |
+    |  | S |------------------------| S |  ------ |
+    |  | I |   PCIe   |  |   PCIe   | I |  |UART| |
+    |  | G |function 0|  |function 1| G |  ------ |
+    |  | E |----++----|  |----++----| E |         |
+    |  | N |  eMAC 0  |  |  eMAC 1  | N |         |
+    --------+.......+------+.....+-----------------
+            |USXGMII|      |SGMII|
+          --+.......+--  --+.....+--
+          |  ARQ113C  |  | QEP8121 |
+          |    PHY    |  |   PHY   |
+          -------------  -----------
 
-> It looks like the major difference between Salvator-X(S) and Geist vs.
-> Draak and Ebisu is that the former connect to lvds0, and the latter to lvds1.
-> So what about renaming
-> salvator-panel-aa104xd12.dtso to lvds0-panel-aa104xd12.dtso, and
-> draak-ebisu-panel-aa104xd12.dtso to lvds1-panel-aa104xd12.dtso?
+The two Ethernet controllers are hanging off port 3 of the
+switch. However, the GPIO block is just floating in space. What
+address space is it in?
 
-Will do in V2, although in a slightly different way.
+I'm wondering if the GPIO controller should be a device/driver of its
+own? It probes first. The PCI power controller driver then probes, and
+has phandles to the GPIO controller so it can activate ports 1 and
+2. Parallel to that the Ethernet driver(s) can probe, also using
+phandles to the GPIO they need.
 
-[...]
+Looking at this diagram, putting the GPIO controller within one of the
+port 3 functions is wrong. But maybe the diagram is not accurate.
 
->> +       x22_clk: x22-clock {
->> +               compatible = "fixed-clock";
->> +               #clock-cells = <0>;
->> +               clock-frequency = <33000000>;
->> +       };
-> 
-> X22 is not wired to anything; should we keep it?
-
-DT is supposed to be hardware description, the xtal is there and the 
-resistor footprint to connect it to the SoC is on the PCB, so someone 
-might populate it and use the xtal. This isn't a particularly convincing 
-argument for keeping the x22 node though.
-
-[...]
-
->> +&audio_clk_a {
->> +       clock-frequency = <22579200>;
->> +};
->> +
->> +&avb {
->> +       pinctrl-0 = <&avb_pins>;
->> +       pinctrl-names = "default";
->> +       phy-handle = <&phy0>;
->> +       tx-internal-delay-ps = <2000>;
->> +       status = "okay";
->> +
->> +       phy0: ethernet-phy@0 {
-> 
-> compatible = "ethernet-phy-id0022.1622";
-> 
->> +               rxc-skew-ps = <1500>;
->> +               reg = <0>;
->> +               interrupt-parent = <&gpio2>;
->> +               interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
-> 
-> interrupts-extended = <&gpio2 11 IRQ_TYPE_LEVEL_LOW>;
-> 
->> +               reset-gpios = <&gpio2 10 GPIO_ACTIVE_LOW>;
->> +               reset-assert-us = <100>;
->> +               reset-deassert-us = <100>;
-> 
-> Do we need these two? We don't have them in e.g.
-> arch/arm64/boot/dts/renesas/salvator-common.dtsi
-
-I believe we should add them, the KSZ9031 PHY does require 100us delay 
-after reset is deasserted and before MDIO access is possible:
-
-https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/KSZ9031RNX-Data-Sheet-DS00002117.pdf
-
-FIGURE 7-5: POWER-UP/POWER-DOWN/RESET TIMING
-
-"
-Note 2: After the de-assertion of reset, wait a minimum of 100 µs before 
-starting programming on the MIIM (MDC/MDIO)
-interface
-"
-
-[...]
-
->> +       pwm2_pins: pwm2 {
->> +               groups = "pwm2_a";
->> +               function = "pwm2";
->> +       };
-> 
-> What is pwm2 used for?
-
-The signal is accessible on the EXIO connector D (LBSC) .
-It is up to user to use the pin for their purposes.
-
-[...]
-
-The rest is addressed, thanks !
+     Andrew
