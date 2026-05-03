@@ -1,371 +1,248 @@
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357173803D2
-	for <devicetree@vger.kernel.org>; Sat,  2 May 2026 12:56:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777726575; cv=pass; b=nXdDwiO0wGqPnSsgsWMn2r9QzAPETndkeddbWVe40XnCmFhFnlB99G5jG0EiD6K9fDSsSzAWKn7HsxE6PYqqIAUXWBKWTggfgdOrtWavFycZb0klKGlnvJDLqZnxffOZxk0t4wEUvQsqqDuvXrelosW0Wo/uuvLrio5q2fNSkqM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777726575; c=relaxed/simple;
-	bh=inxHJ4hNpFRRZqlUmBHzDKjh6vCBzL3rqVbm4R6BHQ4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=t6IcdOv2fXq4q4oBj7JyzckxVLUTrEhWlGfIk97k3rlZVVhQuOS3rPKHXUXZe4eP427YPBGmibBugkxVMX98X7Pr2HrKnoDBHFzv+BrklyYO5KYpZPvH59CyBmAGGdT3tOJf0Vnr1wqRE1OMuAXAetpqPstky7TzubTd5rDa4kI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hbv8Vg9L; arc=pass smtp.client-ip=209.85.221.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC9A221F24
+	for <devicetree@vger.kernel.org>; Sat,  2 May 2026 13:31:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777728698; cv=none; b=NreM4t36AYd4Up4qwdQo1yj8c7rpTwDZR+ZOitia4lR/iBVxR3s2iQu1++CnFHZL4e2rXiKiypQkZvvzt1oN+rkkR7wp7gHk2WmtMlmkraj9tqw4P8wB+MKMC3R3I/p+/0XJeZHgswwNs6DT1UwuEhWXZthnKpvmWeYCd4pEbPE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777728698; c=relaxed/simple;
+	bh=lkmiyBtoSj6syPErmZWpl5ZaHRgasik6AHT5LgoudWA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rEs8vKJP0+71xm/ozOwhaVVPAyJHhjGZWNVEIXo9R4GZTG1UXvfWjucZFttfZrfgZOibvPmQ4Pa2T0SHJ+2pWr26uNZuyjJKj6Iuo893RDaAjVX6wF0MRtVLDXHZfmcHrA2e3+doaIbLYYL7+6ck2BP1+zK9lihePMjHws4ac3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=R614C1MV; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hbv8Vg9L"
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-56a8fdaddebso781584e0c.0
-        for <devicetree@vger.kernel.org>; Sat, 02 May 2026 05:56:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777726572; cv=none;
-        d=google.com; s=arc-20240605;
-        b=QBx5stHWxLmK1nNc0kdL7UBT2Q9U2e+jtu9ER14xsz3ZKVWrzdEZd7i/UKpOCmFzPq
-         nmOvHhFFLWe3qroFy3QpPgXqGNqMQ7P4ksFQtbK+FSSlCXHnaBaiRfxEvIEssnIcjc11
-         CzxaENvhMHxCO5pW44H9Zr0TdX7NZNd9pYNxE1uRRgMC8tnS82abDUE/2KqWkQsIV2bZ
-         qpkbrsi30E95aQnfTxXX21yahK8SPB/v8hJ4yDjV3tZlwb8uiupWiMn4EMmpwbreNWjC
-         Xy+G+CrzUV4i8sng4Mn2KV6GJaH5neKE/z7bYXyulue3Z+vteOBlijmX8bI7tA56o00U
-         B6aQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rQ/9hJH4xIefWRJxKO3VdMr8VIxS31cte1uAKqxVPuc=;
-        fh=bZPOL9VqN9H/VA1ai8b5osFBEQkgGWOy3g71P+CLxAY=;
-        b=IV8mNljQnerSBJErLQ4KkCgn8hk144Mk4DvvQgpoOW+0X6P3iWnJs54NGqNboYE1mq
-         bsJKDgHWPPldRXPelvmRkuEWIcCmeO0OicAgc79qYYHP+3xQenDBgDpSRiSBONmTT/fF
-         AoB9ppSCSJ7Z0GvXN1Uh3SE8UkaOWyghIlduEWrgXNkv2ecJ4o6duJNIveo2qSdCjNWk
-         fWUJhsiuDntnrPBOzH7wX9hlZa2+tuA6R+TROCpNM3Z+GmadXlTpNdGI+/YPHpsaxCpx
-         fSTakSCUD+VwTkYRfV/jWBh+2G5joDNCAM0ui9Qq4PcO01DTjU76Hy1Nf8/ZOkJu7yjd
-         X8Tg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="R614C1MV"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-35e576110adso1941356a91.0
+        for <devicetree@vger.kernel.org>; Sat, 02 May 2026 06:31:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777726572; x=1778331372; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rQ/9hJH4xIefWRJxKO3VdMr8VIxS31cte1uAKqxVPuc=;
-        b=Hbv8Vg9Lq7VSIjcBxIfMDTYRPS7vkuu4RsKlrkO4CDhdLpNsOorAwXct8Jqj1CPJFZ
-         CJqRoi8uQ6YhDwX6as/MgTwlkG8GJC8BtimCt4G2Yb8RgDTshs3k6h6LGHWfZCYu7qua
-         TziLpunQQemiLuZ+atsVurWWpZ6Gj9uxPw9wTwn8qID6n1+0O1uj6Mr7EhfsCbZuXjzQ
-         TstBOkS10Qa7GalntzfBmsZ+6IagDBO0ae5r3xYRQTIIhseMlsm8J8NynmaK0wqVJ8T2
-         algLW+CxwI5Xh4K91ZmPWY3yz8BD/ezwSw7ogh10n1kT8UrT3EBH12I3tEH9arOKc177
-         +RbA==
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1777728696; x=1778333496; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=5MLqLxOUOJNZlsERU0GicRjBWqhmqv+EmlMe22clUuo=;
+        b=R614C1MVGR1bF74HUskGFkTdB6Ihd62D8nXwxyN2ndnBpAxlm1RPNVCwYiXOofsvao
+         pyTASvzHCOOV/tdf4tw804sFy4rk3Xx4nJhNhy0ed0AjZhEMYaLQPYHfMOHtJmalmt8R
+         h1ttxD3mNgxmMvwOzyoEukIdFYqyqUzrTkabBr9Hu7mqlH59VlWi84WV5waxblOcdUNY
+         MrG2/mAWVXXp7m7QSHXX1oXZb3tBUiaHDjuc+i/CSBee1VbXUzaGF9A/YAyaFYj2msi9
+         JOFQhgYkdlzuRryYVvrza2tAGQUWqnWpkO5GeFwDyEi5nwhg0tEawJOGN6Od+7ARuH9z
+         8C8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777726572; x=1778331372;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=rQ/9hJH4xIefWRJxKO3VdMr8VIxS31cte1uAKqxVPuc=;
-        b=WfaQhvdLSxkJsm9ZdpClfttoLYVVcuPmDT2zgh1G3XJreWjTJ7nJGtY+9gup0oD+yI
-         q3dY2HXONwSm5h4N9wRHuI9jfcEtc/tfG5Vf3sv+SzqdeWeadBld8R2iK7i0D9ckhfDo
-         ScyI94KYiCe3Jm8DUnydvt0mPmoaMnC4JjZuDWEBJ0c8HrbzPmsyV+i74qJGCehH+XkJ
-         8gRMh+fOfZDhVcdFAWOxc92ncR9+/YeSwERmVeP4G1Kq3PdrrxGUVvaz8wvxpwnAvz05
-         9Bn9PdzQEQPIUQGAHEmDhT0CUvoDg1fdWOj/2UbuHQDR514Zi1AdrUlGFxwZ7v9EUGOd
-         FPoQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/Gzyl/CgWjp8/JFEUcWqVqIQe69q9tjuEmeLyEPSPzXj+26rVeqqHYNM3UED8GuS14M2ixfLep+QiE@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+ExFeseDidev6YnFHsXJk6kYK75qZFx7Y9XI22/lwYHg+ZtRg
-	LNLu5R/7wcmh2eEQK5KKYA+zFblR4F3QZk4utg2eKzHdkeYsMQyvSTEaYRCz8almttCYHFO+90B
-	nb8F32H1XaUy+nX3K/uBbpkinzEtUAnc=
-X-Gm-Gg: AeBDieunP8axinQKQYsFzJ5xLZMVvmCd6sJKmkD9IeKIaXNSzZeFVHkF0miIaXboDz8
-	f+hY/FG2pcZWcT+4u8fKsecAjveISYqC81b/RyuqusH+JXuwU+txhxklMX65gv7O+9ezOZjKaUC
-	VdO/G/IexoBvp/WWT8SdWOfwgWV5AFUI+bbBvAgQ4vLVv60lNfrdfdI8sEvJwx6WXwWuYFFtZkx
-	+Yfl2JegInA2IXgGj9uF+hvfWEmTNbnDe2UctmBX5TQ60vPYgWP1hB3NiH4JPIVMgJ2OXmeHBM/
-	Q2jhrflzKwP63Ig3yg==
-X-Received: by 2002:a05:6102:2c86:b0:60f:928f:bf98 with SMTP id
- ada2fe7eead31-62d86a1e1f0mr1004752137.17.1777726571912; Sat, 02 May 2026
- 05:56:11 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1777728696; x=1778333496;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5MLqLxOUOJNZlsERU0GicRjBWqhmqv+EmlMe22clUuo=;
+        b=CFz6a6Z4s2KnnQqjZJJ9kA8SG3tXPD+/n0Cp5yFyRhxzwlRj9uO+XQ9j1XcUX7WDrA
+         bhTG7gqIbwK+RumjBQdSXw7tSDZ/R9OQGKYBeiNsHUlaOjaPil2Pwv9G55Hyy7sDz0+0
+         sgS/YeXOnZjMaIcYWZM1l1363P8KUCW6+ltAsHC3O+/GH/JFU+qnupjfzYMeWdydSCTU
+         De60hc3Xwime2+ziga35LJ273PkhyR72hDUfB9VpSiyg3/xMZm7gIzQTUbLMP5U33wnM
+         d4ZYy2Gxx0PxzzAK4NVE2FkkmEx68QCcOedI5jc7qx5MobEV+k9USAADLMizv2bXkZbJ
+         e2Ng==
+X-Forwarded-Encrypted: i=1; AFNElJ9NIoFK+wKjsFEvQamQJ3gL68EwV+5NfxPndRy/HcbJc/XURYm6BrSTXdJF1SuvKj/GqspcFWXzwAp/@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxm4LqCBFFqHxoHx85Mx4uhWT5iFSXERYOxmXMAP3gsBHj4HV8j
+	2GgvfXSFkofNXHm4cv6+UPpG74xcNGqzb6GKljoa7BnpwLzvLw5GsBjrufpPpqP87A0=
+X-Gm-Gg: AeBDiesBnY+WVWdggoN+a5PhrZ3gz4z4Z9n7p0X1dACAZuUK8xOiVykCsVNNjNRDiev
+	lVEB3xqgaDBVOdi1KSB4VoDvOI6hnxkaNLRQRZloiQ8K78tKxT3pwmJkY70b1MtVONJGo5a1yrJ
+	Mt5zl7qQyi4Jzx2zsemA7ToeVZKNBOnU/TeO6blWEjEn2N8X9UGCBzggs6L2iY8uXt+YlE+cAp2
+	ZSvRQXMtLuRYOXNYdzkm37O6n0sjzNjSC6HY+KfrfO/2j6LxWuTA36iFYQ6kmFnveGsszDo23gX
+	SdrTsvUllcx4WM3AxL6zfnezsWeA+MOW5KpIRqHrXD0cVmsVEUSltJRApVUkC+3ac24G99yA5YK
+	gki7MIAuQlH2FdhYPyn7oHwRuEjcHZjxC/WKYydCFHroUk1oqsE2D/vBaRTDVh+hWFm/nHj/bRA
+	pvfH//glEfELyqnViMrqFz5QapA2fAQHACRs9v8L1p+QUmOC4FDSqCAQ==
+X-Received: by 2002:a17:90b:44:b0:35b:e4f0:f9b4 with SMTP id 98e67ed59e1d1-3650c4b9096mr2766949a91.10.1777728696153;
+        Sat, 02 May 2026 06:31:36 -0700 (PDT)
+Received: from [127.0.1.1] ([2a12:a305:4::3016])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-364ec02ab2fsm5647937a91.14.2026.05.02.06.31.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 02 May 2026 06:31:35 -0700 (PDT)
+From: Guodong Xu <guodong@riscstar.com>
+Subject: [PATCH v10 0/3] spi: support the SpacemiT K1 SPI controller
+Date: Sat, 02 May 2026 21:30:50 -0400
+Message-Id: <20260502-spi-spacemit-k1-v10-0-f412e1ae8a34@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260425105300.745044-1-mitltlatltl@gmail.com>
- <20260425105300.745044-5-mitltlatltl@gmail.com> <db441eb6-195e-4018-a84d-77b2d1531243@linaro.org>
-In-Reply-To: <db441eb6-195e-4018-a84d-77b2d1531243@linaro.org>
-From: Pengyu Luo <mitltlatltl@gmail.com>
-Date: Sat, 2 May 2026 20:55:19 +0800
-X-Gm-Features: AVHnY4JEamCgQAP8597TEs_qCW9Vb36Gn6E1ihfX1x2hcEUZDfZo_fx-C5F4roI
-Message-ID: <CAH2e8h4TYEMhjP9Vx7yYpKHAOR627Ovy2QZMT574oZPVDJX1oA@mail.gmail.com>
-Subject: Re: [PATCH 4/4] arm64: dts: qcom: sc8280xp: gaokun3: describe rear
- camera module information as musch as possible
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Martin Kepplinger-Novakovic <martink@posteo.de>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
-	Martin Kepplinger <martin.kepplinger@puri.sm>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEql9mkC/2WPwU7DMAyGX6XKmUx22qztTrwH4pAElxm0dYuzC
+ DTt3XFXDogdfLD9+/t/X41QZhKza64mU2Xh+agNwlNj0j4c38nymw6MA7eFDnorJ9YKiQ5c7Cd
+ agtH3qUVE74xenTJN/HVHvryuvVziB6WyYBbFnqXM+fvuWYdF90tHeKDXwYL1LcXYDaHDbvucW
+ ZKUkDdpPpjFoI5/EO4xYB0VMU29b6P32IL7h7itITOdL/p+WZObGISs7hWya2q/AZsTqvj2A9P
+ yVQszAQAA
+X-Change-ID: 20260407-spi-spacemit-k1-e0957c311152
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Alex Elder <elder@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Guodong Xu <guodong@riscstar.com>, 
+ Alex Elder <elder@riscstar.com>, Conor Dooley <conor.dooley@microchip.com>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.15.1
 
-On Thu, Apr 30, 2026 at 7:00=E2=80=AFPM Vladimir Zapolskiy
-<vladimir.zapolskiy@linaro.org> wrote:
->
-> On 4/25/26 13:53, Pengyu Luo wrote:
-> > The rear sensor is S5K3L6, describing it but dropping compatible
-> > string, since there is no upstream driver. A funcitonal downstream
-> > driver is in comment.
-> >
-> > The VCM is dw9714, describe it.
-> >
-> > Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
-> > ---
-> > Please take this patch as a RFC, I am not sure, how much I am allowed
-> > to add without a sensor driver.
-> > ---
-> >   .../boot/dts/qcom/sc8280xp-huawei-gaokun3.dts | 129 +++++++++++++++++=
--
-> >   1 file changed, 123 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts b/arc=
-h/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-> > index 39e559e91289..76b1ecb3819d 100644
-> > --- a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-> > +++ b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-> > @@ -22,12 +22,18 @@
-> >   #include "sc8280xp.dtsi"
-> >   #include "sc8280xp-pmics.dtsi"
-> >
-> > +/* remove due to gpio pins collision, skip 2nd instance won't break th=
-ings */
-> > +/delete-node/ &cci1_i2c1;
-> > +/delete-node/ &cci1_i2c1_default;
-> > +/delete-node/ &cci1_i2c1_sleep;
->
-> Instead of removal 'cci1_default' and 'cci1_sleep' nodes shall be rewritt=
-en
-> by excluding 'cci1_i2c1_default' and 'cci1_i2c1_sleep' from them.
->
+This series adds support for the SPI controller found in the SpacemiT
+K1 SoC.  The driver currently supports only master mode.  The controller
+has two 32-entry FIFOs and supports PIO and DMA for transfers.
 
-Should we register an unused node?
+Starting with v8, I am taking over from Alex Elder to shepherd this
+series upstream.  Alex developed versions 1 through 7.
 
-> > +
-> >   / {
-> >       chassis-type =3D "tablet";
-> >       model =3D "Matebook E Go";
-> >       compatible =3D "huawei,gaokun3", "qcom,sc8280xp";
-> >
-> >       aliases {
-> > +             i2c1 =3D &cci1_i2c0;
->
-> Likely this I2C alias can be removed.
->
-> >               i2c2 =3D &cci2_i2c1;
-> >               i2c4 =3D &i2c4;
-> >               i2c15 =3D &i2c15;
-> > @@ -52,9 +58,17 @@ framebuffer0: framebuffer@c6200000 {
-> >       leds {
-> >               compatible =3D "gpio-leds";
-> >
-> > -             pinctrl-0 =3D <&cam_indicator_en>;
-> > +             pinctrl-0 =3D <&cam_indicator_en>, <&camera_flash_en>;
-> >               pinctrl-names =3D "default";
-> >
-> > +             camera_flash: led {
-> > +                     function =3D LED_FUNCTION_FLASH;
-> > +                     color =3D <LED_COLOR_ID_WHITE>;
-> > +                     gpios =3D <&tlmm 93 GPIO_ACTIVE_HIGH>;
-> > +                     linux,default-trigger =3D "none";
-> > +                     default-state =3D "off";
-> > +             };
-> > +
-> >               privacy_led: privacy-led {
-> >                       function =3D LED_FUNCTION_INDICATOR;
-> >                       color =3D <LED_COLOR_ID_WHITE>;
-> > @@ -129,6 +143,18 @@ vreg_camf_1p2: regulator-camf-1p2 {
-> >               pinctrl-names =3D "default";
-> >       };
-> >
-> > +     vreg_camr: regulator-camr {
-> > +             compatible =3D "regulator-fixed";
-> > +
-> > +             regulator-name =3D "vreg_camr";
-> > +
-> > +             gpio =3D <&tlmm 92 GPIO_ACTIVE_HIGH>;
-> > +             enable-active-high;
-> > +
-> > +             pinctrl-0 =3D <&camr_reg_en>;
-> > +             pinctrl-names =3D "default";
-> > +     };
-> > +
-> >       vreg_misc_3p3: regulator-misc-3p3 {
-> >               compatible =3D "regulator-fixed";
-> >
-> > @@ -387,8 +413,8 @@ vreg_l1b: ldo1 {
-> >
-> >               vreg_l2b: ldo2 {
-> >                       regulator-name =3D "vreg_l2b";
-> > -                     regulator-min-microvolt =3D <1904000>;
-> > -                     regulator-max-microvolt =3D <1904000>;
-> > +                     regulator-min-microvolt =3D <1800000>;
-> > +                     regulator-max-microvolt =3D <2800000>;
-> >                       regulator-initial-mode =3D <RPMH_REGULATOR_MODE_H=
-PM>;
-> >               };
-> >
-> > @@ -433,10 +459,9 @@ vreg_l6b: ldo6 {
-> >
-> >               vreg_l7b: ldo7 {
-> >                       regulator-name =3D "vreg_l7b";
-> > -                     regulator-min-microvolt =3D <1800000>;
-> > -                     regulator-max-microvolt =3D <1800000>;
-> > +                     regulator-min-microvolt =3D <2800000>;
-> > +                     regulator-max-microvolt =3D <2800000>;
-> >                       regulator-initial-mode =3D <RPMH_REGULATOR_MODE_H=
-PM>;
-> > -                     regulator-boot-on;
-> >               };
->
-> ldo2 and ldo7 changes shall be done in separate commits.
->
+Version 10 fixes a buffer-offset + unsigned underflow on 16/32 bpw
+transfers (8 bpw worked because bytes == 1), reported by Mark Brown.
 
-Ack
+(Note, this is a distinct series from the QSPI driver, which was
+merged recently.)
 
-> >
-> >               vreg_l9b: ldo9 {
-> > @@ -622,6 +647,16 @@ &camss {
-> >       status =3D "okay";
-> >
-> >       ports {
-> > +             port@0 {
-> > +                     csiphy0_ep: endpoint@0 {
-> > +                             reg =3D <0>;
-> > +
-> > +                             clock-lanes =3D <7>;
->
-> Please remove 'clock-lanes' property here.
->
-> > +                             data-lanes =3D <0 1 2 3>;
-> > +                             remote-endpoint =3D <&s5k3l6_ep>;
-> > +                     };
-> > +             };
-> > +
-> >               port@3 {
-> >                       csiphy3_ep: endpoint@0 {
-> >                               reg =3D <0>;
-> > @@ -634,6 +669,58 @@ csiphy3_ep: endpoint@0 {
-> >       };
-> >   };
-> >
-> > +&cci1 {
-> > +     status =3D "okay";
-> > +};
-> > +
-> > +&cci1_i2c0 {
-> > +     voice_coil_motor: vcm@c {
-> > +             compatible =3D "dongwoon,dw9714";
-> > +             reg =3D <0xc>;
-> > +             vcc-supply =3D <&vreg_l7b>; /* FIXME: require l2c on firs=
-t */
-> > +     };
-> > +
-> > +     /*
-> > +      * https://source.puri.sm/Librem5/linux/-/blob/pureos/latest/driv=
-ers/media/i2c/s5k3l6xx.c
-> > +      *
-> > +      * This sensor has never been detected on Goakun3(2.69GHz)
-> > +      */
-> > +     camera_rear: camera@10 {
-> > +             reg =3D <0x10>;
-> > +
-> > +             pinctrl-0 =3D <&camr_rgb_default>;
-> > +             pinctrl-names =3D "default";
-> > +
-> > +             clocks =3D <&camcc CAMCC_MCLK4_CLK>;
-> > +             clock-names =3D "mclk";
-> > +             clock-frequency =3D <24000000>;
-> > +
-> > +             rstn-gpios =3D <&tlmm 7 GPIO_ACTIVE_LOW>;
-> > +
-> > +             vddio-supply =3D <&vreg_camr>;
-> > +             vdda-supply =3D <&vreg_l2b>;
-> > +             vddd-supply =3D <&vreg_l2c>;
-> > +
-> > +             /* &camera_flash can't be enabled directly for now */
-> > +             leds =3D <&privacy_led>;
-> > +             led-names =3D "privacy";
-> > +
-> > +             lens-focus =3D <&voice_coil_motor>;
-> > +
-> > +             orientation =3D <1>;
-> > +             rotation =3D <180>;
-> > +
-> > +             port {
-> > +                     s5k3l6_ep: endpoint {
-> > +                             data-lanes =3D <1 2 3 4>;
-> > +                             remote-endpoint =3D <&csiphy0_ep>;
-> > +                     };
-> > +             };
-> > +     };
-> > +
-> > +     /* eeprom@50/51 */
-> > +};
->
-> I believe it is unacceptable to add device tree nodes like this one
-> without a compatible property. While the motivation behind it is clear,
-> unfortunately it has to be removed.
->
+End-to-end tested on Banana Pi BPI-F3 with a GigaDevice GD25Q64E SPI
+NOR wired to the spi3 GPIO header pins.
 
-Ack
+BR,
+Guodong
 
-Best wishes,
-Pengyu
+Between version 9 and version 10:
+ Patch 2:
+  - Initialise tx_resid/rx_resid to transfer->len (matching the
+      "bytes left in transfer" struct comment and the byte-stride
+      decrement in the per-word helpers) and divide by drv_data->bytes
+      where the FIFO burst is capped in words.
 
-> > +
-> >   &cci2 {
-> >       status =3D "okay";
-> >   };
-> > @@ -1423,6 +1510,13 @@ cam_indicator_en: cam-indicator-en-state {
-> >               bias-disable;
-> >       };
-> >
-> > +     camera_flash_en: camera-flash-en-state {
-> > +             pins =3D "gpio93";
-> > +             function =3D "gpio";
-> > +             drive-strength =3D <2>;
-> > +             bias-disable;
-> > +     };
-> > +
-> >       camf_1p2_reg_en: camf-1p2-reg-en-state {
-> >               pins =3D "gpio44";
-> >               function =3D "gpio";
-> > @@ -1446,6 +1540,29 @@ sc-rgb-xshut-n-pins {
-> >               };
-> >       };
-> >
-> > +     camr_reg_en: camr-reg-en-state {
-> > +             pins =3D "gpio92";
-> > +             function =3D "gpio";
-> > +             drive-strength =3D <2>;
-> > +             bias-disable;
-> > +     };
-> > +
-> > +     camr_rgb_default: camr-rgb-default-state {
-> > +             mclk-pins {
-> > +                     pins =3D "gpio6";
-> > +                     function =3D "cam_mclk";
-> > +                     drive-strength =3D <6>;
-> > +                     bias-disable;
-> > +             };
->
-> MCLK pad function shoul be a part of the change to sc8280xp.dtsi
->
-> > +
-> > +             sc-rgb-xshut-n-pins {
-> > +                     pins =3D "gpio7";
-> > +                     function =3D "gpio";
-> > +                     drive-strength =3D <2>;
-> > +                     bias-disable;
-> > +             };
-> > +     };
-> > +
-> >       i2c4_default: i2c4-default-state {
-> >               pins =3D "gpio171", "gpio172";
-> >               function =3D "qup4";
->
-> --
-> Best wishes,
-> Vladimir
+Here is version 9 of this series:
+  https://patch.msgid.link/20260427-spi-spacemit-k1-v9-0-ff753b551302@riscstar.com
+
+Between version 8 and version 9:
+ Patch 1:
+  - Subject prefixes in the order of "spi: dt-bindings: ..."
+ Patch 2:
+  - k1_spi_dma_prep(): nested ternary to switch.
+  - k1_spi_ssp_isr(): return IRQ_NONE based on SSP_STATUS bits
+  - k1_spi_ssp_isr(): rename reading of SSP_STATUS to 'status' (and
+      'top_ctrl' for SSP_TOP_CTRL); stop overwriting it.
+
+Here is version 8 of this series:
+  https://patch.msgid.link/20260410-spi-spacemit-k1-v8-0-53ebb48a4146@riscstar.com
+
+Between version 7 and version 8:
+  - Use // comments for the file header (Mark Brown)
+  - Remove open-coded DMA mapping (k1_spi_map_dma_buffer(),
+    k1_spi_unmap_dma_buffer(), k1_spi_map_dma_buffers(), the dummy
+    buffer, k1_spi_io struct); use SPI core DMA mapping via
+    transfer->tx_sg/rx_sg instead
+  - Add can_dma() callback, replacing open-coded transfer length
+    checks
+  - Add set_cs() callback for chip select control via the
+    TOP_HOLD_FRAME_LOW bit
+  - Switch from transfer_one_message() to transfer_one()
+  - DMA completion calls spi_finalize_current_transfer() directly
+    instead of using a completion
+  - Add SSP_STATUS_BCE (bit count error) to error detection
+  - Return IRQ_NONE early if no transfer is active, before
+    acknowledging interrupts
+  - Simplify k1_spi_driver_data struct
+  - ~160 fewer lines of code
+
+Here is version 7 of this series:
+  https://lore.kernel.org/lkml/20251114185745.2838358-1-elder@riscstar.com/
+
+Between version 6 and version 7:
+  - DIV_ROUND_UP_ULL() is now used when setting the speed, to address
+    two errors reported by the Intel kernel test robot on 32-bit builds
+  - Fixed a bug interpreting the resource pointer in k1_spi_dma_cleanup()
+  - The driver is now built as a module by default, if ARCH_SPACEMIT
+    is defined
+
+Here is version 6 of this series:
+  https://lore.kernel.org/lkml/20251027125504.297033-1-elder@riscstar.com/
+
+Between version 5 and version 6:
+  - Rebase only
+
+Here is version 5 of this series:
+  https://lore.kernel.org/lkml/20251013123309.2252042-1-elder@riscstar.com/
+
+Between version 4 and version 5:
+  - Added Yixun's Reviewed-by tag on patch 3
+
+Here is version 4 of this series:
+  https://lore.kernel.org/lkml/20250925121714.2514932-1-elder@riscstar.com/
+
+Between version 3 and version 4 (all suggested by Yixun):
+  - Fixed an underrun/overrun comment error
+  - Renamed a pinctrl node
+  - Formatted dmas and dma-names properties on one line
+
+Here is version 3 of this series:
+  https://lore.kernel.org/lkml/20250922161717.1590690-1-elder@riscstar.com/
+
+Between version 2 and version 3:
+  - Add Conor's Acked-by to patch 1
+  - Add Rob's Reviewed-by to patch 1
+  - Added imply_PDMA to the SPI_SPACEMIT_K1 Kconfig option
+  - Fixed a bug pointed out by Vivian (and Troy) in word-sized reads
+  - Added a comment stating we use 1, 2, or 4 bytes per word
+  - Cleaned up DMA channels properly in case of failure setting up
+  - No longer use devm_*() for allocating DMA channels or buffer
+  - Moved the SPI controller into the dma-bus memory region
+
+Here is version 2 of this series:
+  https://lore.kernel.org/lkml/20250919155914.935608-1-elder@riscstar.com/
+
+Between version 1 and version 2:
+  - Use enum rather than const for the binding compatible string
+  - Omit the label and status property in the binding example
+  - The spi-spacemit-k1.o make target is now added in sorted order
+  - The SPI_SPACEMIT_K1 config option is added in sorted order
+  - The SPI_SPACEMIT_K1 config does *not* depend on MMP_PDMA,
+    however MMP_PDMA is checked at runtime, and if not enabled,
+    DMA will not be used
+  - Read/modify/writes of registers no longer use an additional
+    "virt" variable to hold the address accessed
+  - The k1_spi_driver_data->ioaddr field has been renamed base
+  - The DMA address for the base address is maintained, rather than
+    saving the DMA address of the data register
+  - The spi-max-frequency property value is now bounds checked
+  - A local variable is now initialized to 0 in k1_spi_write_word()
+  - The driver name is now "k1-spi"
+  - DT aliases are used rather than spacemit,k1-ssp-id for bus number
+  - The order of two pin control properties was changed as requested
+  - Clock names and DMA names are now on one line in the "k1.dtsi"
+  - The interrupts property is used rather than interrupts-extended
+
+Here is version 1 of this series:
+  https://lore.kernel.org/lkml/20250917220724.288127-1-elder@riscstar.com/
+
+Alex Elder (3):
+  dt-bindings: spi: add SpacemiT K1 SPI support
+  spi: spacemit: introduce SpacemiT K1 SPI controller driver
+  riscv: dts: spacemit: define a SPI controller node
+
+Signed-off-by: Guodong Xu <guodong@riscstar.com>
+---
+Alex Elder (3):
+      spi: dt-bindings: add SpacemiT K1 SPI support
+      spi: spacemit: introduce SpacemiT K1 SPI controller driver
+      riscv: dts: spacemit: define a SPI controller node
+
+ .../devicetree/bindings/spi/spacemit,k1-spi.yaml   |  84 +++
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts    |   7 +
+ arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi       |  20 +
+ arch/riscv/boot/dts/spacemit/k1.dtsi               |  15 +
+ drivers/spi/Kconfig                                |   9 +
+ drivers/spi/Makefile                               |   1 +
+ drivers/spi/spi-spacemit-k1.c                      | 789 +++++++++++++++++++++
+ 7 files changed, 925 insertions(+)
+---
+base-commit: 559f264e403e4d58d56a17595c60a1de011c5e20
+change-id: 20260407-spi-spacemit-k1-e0957c311152
+
+Best regards,
+--  
+Guodong Xu <guodong@riscstar.com>
+
