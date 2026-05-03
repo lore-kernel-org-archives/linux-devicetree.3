@@ -1,443 +1,81 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38864372EEF
-	for <devicetree@vger.kernel.org>; Sun,  3 May 2026 16:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1FA117BA6;
+	Sun,  3 May 2026 16:50:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777826712; cv=none; b=Qvsh7xFvm7aW/XhLdyA1ZraIIFxRRiaALHTEb3nQ/OFSAmj4PqntpLLAm2Q2wZ4rWpdF8GCRCSNVV3uIEsFpctQFYoz3dUD/IXAy18vnTBdfJCldO+/OOpR4IuPfSqU2+QAMr/Vra4MggK+hBua4egyHr7dYd+l9CSBATUOY/O8=
+	t=1777827017; cv=none; b=aMbRcDZTrGvWZ73AKf6ixQ3HGeOEljx8ia+X2aKy+hmmQbLz2js3AQ8QK1Q8erx7hVK8ParyhucYYh4Ny68wCbfGfF1mZ5w8ZfmhWOXMiDqrlbzVZ5DhwqZnNYwkNSIVXFDVTSccf9w4prjpj+qnC/BXETV9NyVQwWOZkzOYcCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777826712; c=relaxed/simple;
-	bh=7Op9ubqBC6Ql1b7wKXH5NzggGBRcOSoMZ1O9wP90KmY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GUsIIqPgEgsIQVIlOWm+wT+QGn3z1jZ81UNIcY/rZ/qqo/DCQOHcttVF0K4rzCVVWAunl5iEeQx4+TC4Sb6/9RdH85IHwVEcc3xyqpYr3DNq9Cczlj0LP6+six/V14Bn3/aKFu5VARyy1Pmk6GkfhB+gecppjeXJaPJ8kNIZbA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qZ2EBZ7E; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777827017; c=relaxed/simple;
+	bh=EcIJ+6nR1kdFOG4fTTp8uLBQCqZk2MyerUY14rOlOSA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fYXEpkBxCjBiMheN/whtNfdhrhX5PZq220Ke/baSwl8ll2c9W5w4+ea1PBmNeSkLNtjk2+AKPfWKsF23PRuc+LLbYt2YISW/QZGcqFzAFSzGlxY9SZsfVzi8Vq+G5YCV2QUYYZMeVIS56sdyEgQpot61ibSNFJS8RevezeE0ztQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lp0gv1z/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qZ2EBZ7E"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-67be871ed3fso2768782a12.1
-        for <devicetree@vger.kernel.org>; Sun, 03 May 2026 09:45:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777826706; x=1778431506; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gOh4PG7yMJifApqzJycmTrJ4xR4vGrLLw/m7gNops7A=;
-        b=qZ2EBZ7ENRshJPbMVu6KZ1CweDgNubT8ktNbsN5I6mcwXaXTji5x9AZtuTq6ZI4kap
-         KLHFRzCaioz1DbweFDIPu6TAXvBAeX0NLE65KE78x9DMYZDED66YmgZ0m39bqwhAlLJJ
-         S2tIwSMx4Ib12DBp1rKl/0cC6YLVnyJQ1Fr4TbLjXmpnYT9Oc9gtQun6DEDP0RggQ7iu
-         11LOhQBp9x8fDPJui2S6KJ9asdHacY56UD3JzQHJstxLJfI+DP1h2gJa9Ya3dU0aLvNQ
-         A6CCIx33Y31CEAAWJ5yYSXAcfInzbWQJl76P5JpehdxoMYwtjXrXOmoN1Z2QDOoMlZWW
-         Uk1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777826706; x=1778431506;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=gOh4PG7yMJifApqzJycmTrJ4xR4vGrLLw/m7gNops7A=;
-        b=OCfxXHlwPXHPMJB1ejdQrYgA4z4YKWIA9ueemnwbJVEkQTdQNC1EXsO51ZQ7LEYaFs
-         NqXM1TN3ijwN08YFIpN5VAUx5uS34jW/BkdWd7UvNoaIKRvL36oV+qzwCckLdemHzBJ5
-         HxmtbzCd0tox2n861OH3I6+bBWf4iwsWy2/8FWpkMfxpUUf9FX0GFxdRHZjh4bT4AUjC
-         /D7RUXJ/Sb8kbWqloe2S/s16PFNLT0/cOZXKm+P6J6YIQDvP+0en7D2GGlRAnqMFn4tI
-         hkJ738t/77GgAd0hKqZDq3DgRpmX3nEh9t6Lp5UjbfeNBGiFxtagqwWTGMtXr4ObVGOm
-         Ge9Q==
-X-Forwarded-Encrypted: i=1; AFNElJ9gj4Y5TQwTPf2nQGuZRxQeDY1yFTdGeZIiHKrGflAIqG9KprpartPxcWB+MQqakqbI/8/YHd/6hu/p@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzwkyb/WWl9CU9p/qHRr7y7TAh/ddOn/pwI6qoa4qmLo1k7hMSm
-	Sd2uLp93sEkbnsPs8JP58obRe4xTHMKndRvYOwz+nbt9XtguwGk4Ustc
-X-Gm-Gg: AeBDieutWyMRO8mQ1fki6iTsy4HtAbPp+dyN5ko6nBjab7neTMyQKQ+pNU4YyRIheFY
-	hjLfoNThaSTxU1ounHGcVDfflLXHdLYDYt6lM49jKLguj4L/YzvD96YCcfKPeCPXgliAK8tkSnf
-	a4ebLf25VPXWPNiFahtr8WklF9eWhQmaOCmlHxXtK/I7XwC6993eKMbrpBvMNXQ02Qazz52H3s2
-	KTIPPE7NDPjvMj1HE+ZECIxYY9T25qxJqkPRNVZavmQW7+UVCCeRPiVxKn+tRjri3aLikx8yD2a
-	BRhKglcK0kFrsLnw6+moqfjLgv/wJ/L+tOflO6z2Lqyu0gXuE90huHphddwhfCBhLfjwXCsUDe/
-	pygdl2PNTFkLYnybfiBcsZWeWeqPnBE5r6xVTa1Z/2iZpyokwcqDHwJTTg/kyMnMAvrusGuoJad
-	zJuSWWm0r2ACciORWM36C1KNLS73iMuMGkdQ==
-X-Received: by 2002:a17:907:805:b0:bc1:6ec9:453b with SMTP id a640c23a62f3a-bc16ec95285mr139456566b.42.1777826705359;
-        Sun, 03 May 2026 09:45:05 -0700 (PDT)
-Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bc237ef8297sm27430566b.57.2026.05.03.09.45.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 03 May 2026 09:45:04 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lp0gv1z/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB70C2BCB4;
+	Sun,  3 May 2026 16:50:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777827016;
+	bh=EcIJ+6nR1kdFOG4fTTp8uLBQCqZk2MyerUY14rOlOSA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lp0gv1z/9St8x7kSEsE5qrH6Uk67Q5ty4kT1IqtUMgeaA7dCVtmxE4u34QRnuxklE
+	 O2I60cgzCIEnUc6iUZjOu3togYE/T2wlhMgXbWAgiBkuJqBYWfOONaPoUvwXBQhh/8
+	 JZoiQ4rxka0GpD5g+h1EiI+StNJc95GjUTd90E/EKWYWCIjdJMeTquz1mjRKJ6aa+G
+	 pYJ0hFTVoliKB2hwUpP5xD5t8lAB9/MRgG4F9+MBiPH8bndVILIIZDUe93HgMXtmi3
+	 ZQjsW8/FQxyvlO8+PIQW9YBtvnfYaU7H7TA7KeFBqzma0aQIgXYOvES/mUIb9XkYhW
+	 7GPvp1xrhWmFQ==
+Date: Sun, 3 May 2026 22:20:12 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Frank Wang <frank.wang@rock-chips.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: [PATCH v5 6/6] media: i2c: lm3560: Add proper support for LM3559
-Date: Sun,  3 May 2026 19:44:45 +0300
-Message-ID: <20260503164445.215540-7-clamor95@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260503164445.215540-1-clamor95@gmail.com>
-References: <20260503164445.215540-1-clamor95@gmail.com>
+	Andy Yan <andy.yan@rock-chips.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Yubing Zhang <yubing.zhang@rock-chips.com>,
+	Alexey Charkov <alchark@gmail.com>, linux-phy@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kernel@collabora.com, devicetree@vger.kernel.org,
+	William Wu <william.wu@rock-chips.com>
+Subject: Re: [PATCH v4 00/16] phy: rockchip: usbdp: Fixes, DP 1-lane support
+ and cleanups
+Message-ID: <afd8xMS2hz208Lcl@vaman>
+References: <20260428-rockchip-usbdp-cleanup-v4-0-7775671ece22@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260428-rockchip-usbdp-cleanup-v4-0-7775671ece22@collabora.com>
 
-The LM3559 is very similar to the LM3560, but it operates at much lower
-currents. This may result in incorrect current selection if LM3560 ranges
-are applied to the LM3559. Implement driver data matching to use
-device-specific current configurations.
+Hi Sebastian,
 
-Since the driver no longer supports platform data and device configuration
-is performed more granularly, move the remaining enums from the header
-into the driver file and remove the header.
+On 28-04-26, 18:13, Sebastian Reichel wrote:
+> This series overhauls the Rockchip USBDP driver; apart from a
+> a bunch of cleanups and small improvements the main goal is to
+> get the driver ready for proper USB-C DP AltMode support.
+> 
+> Once this series has landed, it unblocks enabling proper USB-C
+> DP AltMode on the RK3588 and RK3576 platforms incl. runtime PM
+> for the Synopsys DesignWare DisplayPort controller.
+> 
+> Apart from this series, further changes are required on the
+> DRM side. There are no compile-time dependencies between the
+> DRM side and the PHY side, but the PHY side must be applied
+> to avoid SErrors once runtime PM is added to the DisplayPort
+> controller driver. Thus it would be really good to land this
+> series in the next merge window.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/media/i2c/lm3560.c | 120 ++++++++++++++++++++++++++++++-------
- include/media/i2c/lm3560.h |  69 ---------------------
- 2 files changed, 100 insertions(+), 89 deletions(-)
- delete mode 100644 include/media/i2c/lm3560.h
+Looks like sasiko has flagged 8 high warning, can you please check them
 
-diff --git a/drivers/media/i2c/lm3560.c b/drivers/media/i2c/lm3560.c
-index 15741ea5684f..da12fbd7dc59 100644
---- a/drivers/media/i2c/lm3560.c
-+++ b/drivers/media/i2c/lm3560.c
-@@ -23,9 +23,9 @@
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- #include <linux/videodev2.h>
--#include <media/i2c/lm3560.h>
- #include <media/v4l2-ctrls.h>
- #include <media/v4l2-device.h>
-+#include <media/v4l2-subdev.h>
- 
- /* registers definitions */
- #define REG_ENABLE		0x10
-@@ -40,12 +40,44 @@
- #define FAULT_OVERTEMP	(1<<1)
- #define FAULT_SHORT_CIRCUIT	(1<<2)
- 
-+#define LM3560_FLASH_TOUT_MIN			32
-+#define LM3560_FLASH_TOUT_STEP			32
-+#define LM3560_FLASH_TOUT_MAX			1024
-+#define LM3560_FLASH_TOUT_ms_TO_REG(a)		\
-+	((a) < LM3560_FLASH_TOUT_MIN ? 0 :	\
-+	 (((a) - LM3560_FLASH_TOUT_MIN) / LM3560_FLASH_TOUT_STEP))
-+#define LM3560_FLASH_TOUT_REG_TO_ms(a)		\
-+	((a) * LM3560_FLASH_TOUT_STEP + LM3560_FLASH_TOUT_MIN)
-+
-+enum lm3560_led_id {
-+	LM3560_LED0 = 0,
-+	LM3560_LED1,
-+	LM3560_LED_MAX
-+};
-+
-+enum lm3560_peak_current {
-+	LM3560_PEAK_1600mA = 0x00,
-+	LM3560_PEAK_2300mA = 0x20,
-+	LM3560_PEAK_3000mA = 0x40,
-+	LM3560_PEAK_3600mA = 0x60
-+};
-+
- enum led_enable {
- 	MODE_SHDN = 0x0,
- 	MODE_TORCH = 0x2,
- 	MODE_FLASH = 0x3,
- };
- 
-+struct lm3560_flash_config {
-+	u32 flash_brt_min_ua;
-+	u32 flash_brt_max_ua;
-+	u32 flash_brt_step_ua;
-+
-+	u32 torch_brt_min_ua;
-+	u32 torch_brt_max_ua;
-+	u32 torch_brt_step_ua;
-+};
-+
- /**
-  * struct lm3560_flash
-  *
-@@ -62,6 +94,7 @@ enum led_enable {
-  * @max_flash_timeout: flash timeout
-  * @max_flash_brt: flash mode led brightness
-  * @max_torch_brt: torch mode led brightness
-+ * @config: device specific current configuration
-  */
- struct lm3560_flash {
- 	struct device *dev;
-@@ -82,6 +115,8 @@ struct lm3560_flash {
- 
- 	u32 max_flash_brt[LM3560_LED_MAX];
- 	u32 max_torch_brt[LM3560_LED_MAX];
-+
-+	const struct lm3560_flash_config *config;
- };
- 
- #define to_lm3560_flash(_ctrl, _no)	\
-@@ -137,15 +172,20 @@ static int lm3560_enable_ctrl(struct lm3560_flash *flash,
- static int lm3560_torch_brt_ctrl(struct lm3560_flash *flash,
- 				 enum lm3560_led_id led_no, unsigned int brt)
- {
-+	const struct lm3560_flash_config *config = flash->config;
- 	int rval;
--	u8 br_bits;
-+	u32 br_bits;
- 
--	if (brt < LM3560_TORCH_BRT_MIN)
-+	if (brt < config->torch_brt_min_ua)
- 		return lm3560_enable_ctrl(flash, led_no, false);
- 	else
- 		rval = lm3560_enable_ctrl(flash, led_no, true);
- 
--	br_bits = LM3560_TORCH_BRT_uA_TO_REG(brt);
-+	br_bits = clamp(brt, config->torch_brt_min_ua,
-+			config->torch_brt_max_ua);
-+	br_bits = (br_bits - config->torch_brt_min_ua) /
-+		  config->torch_brt_step_ua;
-+
- 	if (led_no == LM3560_LED0)
- 		rval = regmap_update_bits(flash->regmap,
- 					  REG_TORCH_BR, 0x07, br_bits);
-@@ -160,15 +200,20 @@ static int lm3560_torch_brt_ctrl(struct lm3560_flash *flash,
- static int lm3560_flash_brt_ctrl(struct lm3560_flash *flash,
- 				 enum lm3560_led_id led_no, unsigned int brt)
- {
-+	const struct lm3560_flash_config *config = flash->config;
- 	int rval;
--	u8 br_bits;
-+	u32 br_bits;
- 
--	if (brt < LM3560_FLASH_BRT_MIN)
-+	if (brt < config->flash_brt_min_ua)
- 		return lm3560_enable_ctrl(flash, led_no, false);
- 	else
- 		rval = lm3560_enable_ctrl(flash, led_no, true);
- 
--	br_bits = LM3560_FLASH_BRT_uA_TO_REG(brt);
-+	br_bits = clamp(brt, config->flash_brt_min_ua,
-+			config->flash_brt_max_ua);
-+	br_bits = (br_bits - config->flash_brt_min_ua) /
-+		  config->flash_brt_step_ua;
-+
- 	if (led_no == LM3560_LED0)
- 		rval = regmap_update_bits(flash->regmap,
- 					  REG_FLASH_BR, 0x0f, br_bits);
-@@ -308,6 +353,7 @@ static int lm3560_init_controls(struct lm3560_flash *flash,
- 	u32 max_torch_brt = flash->max_torch_brt[led_no];
- 	struct v4l2_ctrl_handler *hdl = &flash->ctrls_led[led_no];
- 	const struct v4l2_ctrl_ops *ops = &lm3560_led_ctrl_ops[led_no];
-+	const struct lm3560_flash_config *config = flash->config;
- 
- 	v4l2_ctrl_handler_init(hdl, 8);
- 
-@@ -336,13 +382,13 @@ static int lm3560_init_controls(struct lm3560_flash *flash,
- 
- 	/* flash brt */
- 	v4l2_ctrl_new_std(hdl, ops, V4L2_CID_FLASH_INTENSITY,
--			  LM3560_FLASH_BRT_MIN, max_flash_brt,
--			  LM3560_FLASH_BRT_STEP, max_flash_brt);
-+			  config->flash_brt_min_ua, max_flash_brt,
-+			  config->flash_brt_step_ua, max_flash_brt);
- 
- 	/* torch brt */
- 	v4l2_ctrl_new_std(hdl, ops, V4L2_CID_FLASH_TORCH_INTENSITY,
--			  LM3560_TORCH_BRT_MIN, max_torch_brt,
--			  LM3560_TORCH_BRT_STEP, max_torch_brt);
-+			  config->torch_brt_min_ua, max_torch_brt,
-+			  config->torch_brt_step_ua, max_torch_brt);
- 
- 	/* fault */
- 	fault = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_FLASH_FAULT, 0,
-@@ -483,6 +529,10 @@ static int lm3560_probe(struct i2c_client *client)
- 	if (flash == NULL)
- 		return -ENOMEM;
- 
-+	flash->config = device_get_match_data(&client->dev);
-+	if (!flash->config)
-+		return -ENODEV;
-+
- 	flash->regmap = devm_regmap_init_i2c(client, &lm3560_regmap);
- 	if (IS_ERR(flash->regmap)) {
- 		rval = PTR_ERR(flash->regmap);
-@@ -509,16 +559,26 @@ static int lm3560_probe(struct i2c_client *client)
- 	rval = device_property_read_u32(flash->dev,
- 					"ti,peak-current-microamp", &peak_ua);
- 	if (!rval) {
-+		/*
-+		 * LM3559 has lower peak current limit, but
-+		 * bit configuration matches LM3560.
-+		 * Correct current restrictions are enforced
-+		 * by the LM3560 schema.
-+		 */
- 		switch (peak_ua) {
-+		case 1400000:
- 		case 1600000:
- 			flash->peak = LM3560_PEAK_1600mA;
- 			break;
-+		case 2100000:
- 		case 2300000:
- 			flash->peak = LM3560_PEAK_2300mA;
- 			break;
-+		case 2700000:
- 		case 3000000:
- 			flash->peak = LM3560_PEAK_3000mA;
- 			break;
-+		case 3200000:
- 		case 3600000:
- 			flash->peak = LM3560_PEAK_3600mA;
- 			break;
-@@ -547,6 +607,7 @@ static int lm3560_probe(struct i2c_client *client)
- 	pm_runtime_enable(flash->dev);
- 
- 	for_each_available_child_of_node(dev_of_node(flash->dev), node) {
-+		const struct lm3560_flash_config *config = flash->config;
- 		u32 reg;
- 
- 		rval = of_property_read_u32(node, "reg", &reg);
-@@ -555,11 +616,11 @@ static int lm3560_probe(struct i2c_client *client)
- 			continue;
- 
- 		if (reg == LM3560_LED0 || reg == LM3560_LED1) {
--			flash->max_flash_brt[reg] = LM3560_FLASH_BRT_MIN;
-+			flash->max_flash_brt[reg] = config->flash_brt_min_ua;
- 			of_property_read_u32(node, "flash-max-microamp",
- 					     &flash->max_flash_brt[reg]);
- 
--			flash->max_torch_brt[reg] = LM3560_TORCH_BRT_MIN;
-+			flash->max_torch_brt[reg] = config->torch_brt_min_ua;
- 			of_property_read_u32(node, "led-max-microamp",
- 					     &flash->max_torch_brt[reg]);
- 
-@@ -617,24 +678,43 @@ static const struct dev_pm_ops lm3560_pm_ops = {
- 	SET_RUNTIME_PM_OPS(lm3560_power_off, lm3560_power_on, NULL)
- };
- 
-+static const struct lm3560_flash_config lm3559_config = {
-+	.flash_brt_min_ua = 56250,
-+	.flash_brt_max_ua = 900000,
-+	.flash_brt_step_ua = 56250,
-+
-+	.torch_brt_min_ua = 28125,
-+	.torch_brt_max_ua = 225000,
-+	.torch_brt_step_ua = 28125,
-+};
-+
-+static const struct lm3560_flash_config lm3560_config = {
-+	.flash_brt_min_ua = 62500,
-+	.flash_brt_max_ua = 1000000,
-+	.flash_brt_step_ua = 62500,
-+
-+	.torch_brt_min_ua = 31250,
-+	.torch_brt_max_ua = 250000,
-+	.torch_brt_step_ua = 31250,
-+};
-+
- static const struct of_device_id lm3560_of_match[] = {
--	{ .compatible = "ti,lm3559" },
--	{ .compatible = "ti,lm3560" },
-+	{ .compatible = "ti,lm3559", .data = &lm3559_config },
-+	{ .compatible = "ti,lm3560", .data = &lm3560_config },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, lm3560_of_match);
- 
- static const struct i2c_device_id lm3560_id_table[] = {
--	{ LM3559_NAME },
--	{ LM3560_NAME },
--	{}
-+	{ "lm3559", (kernel_ulong_t)&lm3559_config },
-+	{ "lm3560", (kernel_ulong_t)&lm3560_config },
-+	{ }
- };
--
- MODULE_DEVICE_TABLE(i2c, lm3560_id_table);
- 
- static struct i2c_driver lm3560_i2c_driver = {
- 	.driver = {
--		   .name = LM3560_NAME,
-+		   .name = "lm3560",
- 		   .pm = pm_ptr(&lm3560_pm_ops),
- 		   .of_match_table = lm3560_of_match,
- 		   },
-diff --git a/include/media/i2c/lm3560.h b/include/media/i2c/lm3560.h
-deleted file mode 100644
-index b56c1ff8fd49..000000000000
---- a/include/media/i2c/lm3560.h
-+++ /dev/null
-@@ -1,69 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-only */
--/*
-- * include/media/i2c/lm3560.h
-- *
-- * Copyright (C) 2013 Texas Instruments
-- *
-- * Contact: Daniel Jeong <gshark.jeong@gmail.com>
-- *			Ldd-Mlp <ldd-mlp@list.ti.com>
-- */
--
--#ifndef __LM3560_H__
--#define __LM3560_H__
--
--#include <media/v4l2-subdev.h>
--
--#define LM3559_NAME	"lm3559"
--#define LM3560_NAME	"lm3560"
--#define LM3560_I2C_ADDR	(0x53)
--
--/*  FLASH Brightness
-- *	min 62500uA, step 62500uA, max 1000000uA
-- */
--#define LM3560_FLASH_BRT_MIN 62500
--#define LM3560_FLASH_BRT_STEP 62500
--#define LM3560_FLASH_BRT_MAX 1000000
--#define LM3560_FLASH_BRT_uA_TO_REG(a)	\
--	((a) < LM3560_FLASH_BRT_MIN ? 0 :	\
--	 (((a) - LM3560_FLASH_BRT_MIN) / LM3560_FLASH_BRT_STEP))
--#define LM3560_FLASH_BRT_REG_TO_uA(a)		\
--	((a) * LM3560_FLASH_BRT_STEP + LM3560_FLASH_BRT_MIN)
--
--/*  FLASH TIMEOUT DURATION
-- *	min 32ms, step 32ms, max 1024ms
-- */
--#define LM3560_FLASH_TOUT_MIN 32
--#define LM3560_FLASH_TOUT_STEP 32
--#define LM3560_FLASH_TOUT_MAX 1024
--#define LM3560_FLASH_TOUT_ms_TO_REG(a)	\
--	((a) < LM3560_FLASH_TOUT_MIN ? 0 :	\
--	 (((a) - LM3560_FLASH_TOUT_MIN) / LM3560_FLASH_TOUT_STEP))
--#define LM3560_FLASH_TOUT_REG_TO_ms(a)		\
--	((a) * LM3560_FLASH_TOUT_STEP + LM3560_FLASH_TOUT_MIN)
--
--/*  TORCH BRT
-- *	min 31250uA, step 31250uA, max 250000uA
-- */
--#define LM3560_TORCH_BRT_MIN 31250
--#define LM3560_TORCH_BRT_STEP 31250
--#define LM3560_TORCH_BRT_MAX 250000
--#define LM3560_TORCH_BRT_uA_TO_REG(a)	\
--	((a) < LM3560_TORCH_BRT_MIN ? 0 :	\
--	 (((a) - LM3560_TORCH_BRT_MIN) / LM3560_TORCH_BRT_STEP))
--#define LM3560_TORCH_BRT_REG_TO_uA(a)		\
--	((a) * LM3560_TORCH_BRT_STEP + LM3560_TORCH_BRT_MIN)
--
--enum lm3560_led_id {
--	LM3560_LED0 = 0,
--	LM3560_LED1,
--	LM3560_LED_MAX
--};
--
--enum lm3560_peak_current {
--	LM3560_PEAK_1600mA = 0x00,
--	LM3560_PEAK_2300mA = 0x20,
--	LM3560_PEAK_3000mA = 0x40,
--	LM3560_PEAK_3600mA = 0x60
--};
--
--#endif /* __LM3560_H__ */
 -- 
-2.51.0
-
+~Vinod
