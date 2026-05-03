@@ -1,95 +1,107 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7488E1A6808;
-	Sun,  3 May 2026 15:16:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652A914EC73;
+	Sun,  3 May 2026 15:44:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777821361; cv=none; b=GPJG6AXhP9shC6yFLNrP0IhfrN/sgSGJd7/1NU2VMUUMreZuu6OynEQDE6rWQXyFgqwTVsmD2rjB8werA86IU95N6635mrdEE08WDc7JuvcWRNAoL/I7jk94e3m+rPWJD7cBUv01Smdf0Dne9JKD7aCCkXKk6ZcaSSGQ06R1tS4=
+	t=1777823088; cv=none; b=kyiNlV4LZ92hAt7sFNMM7SzqwEbUINryC/fhv+2EwUmo2UKbgVX4WfkOP9oa3PrGRm/uj0tDf8oQJhgX1pWEPz0sJ35LdmKL41Arlgz5hnIAe3K4uO8hXHEvCDVUUgBv7fJhU8tGU/Aziv4K75fa4rr984012AIcQBOEFOS3Qts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777821361; c=relaxed/simple;
-	bh=B4u1yf6XCYjfHxnZlqZ92N6PosuuT1NEM8RoX52Sdy0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iIEdmKl+sOYbpBCT1AmWk49f2DUMY4I4kpNPGA1yWda2Ub4x5Vzd/Xs0GOK3kBwR8/79tclmw2Jpfzi0O93PUjIRrffjLBG7wEaznemTBiSxDXYgczs2kBoOHatZHBCG9BRsop67cgcWz18u8HQLiRItQAO2Ic5F+WbTHr0dF8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=z8CN0SXf; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1777823088; c=relaxed/simple;
+	bh=KvrSzVRlTtgdyIyOHllZeU18ckjlbXnfOtScHBIg2+M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fsnmQBmAApwfxxvtH47zCSJbHHhCFHAuCCDldfavGt46EfnLZVNU2ukrHI/1Ck261shkL7u3pm1JoqQ6jQZaNg0VmnFh+5UDNtJaKTUFwhtPLxs3C4ML8VbcRziJsFhIb8YxMF2C+h8OSXfsYI7pX8F1KnrVo+ctOez2nt0/DxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=NYF1sa57; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=U0gP5MBz; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="z8CN0SXf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=V4vajo9ZHeJX6wm70gR3OUzvzOPnc/VpEKoUULfy+YM=; b=z8CN0SXfLMJrbx0AvDydbPhxw9
-	MuJBRrDp4aHs/H2OmXH7QO4WJcVOWHQoj7PzWiVcxczUEMabCqd+IlcqnENFrNDxDfL6mqEOsHFpT
-	shD2tkSJbb4EBYHIp2J6BDwZuPdWcwATvbfdeGm88NqXdOlvLpHypvppB0EeKay9AP1c=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wJYXn-0018to-Al; Sun, 03 May 2026 17:15:43 +0200
-Date: Sun, 3 May 2026 17:15:43 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: ciprian.regus@analog.com
-Cc: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="NYF1sa57";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="U0gP5MBz"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4g7pxS0xq3z9tRM;
+	Sun,  3 May 2026 17:44:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1777823084;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=C5ndckZy3D++ygR4S2KuLZlKgbLjiLF0FZ4orIPcy4o=;
+	b=NYF1sa57Mu7V6hHn+z/sgUVc0p2VzdOu2fxRzR0Q/nlqSXZZP3Yxg7deD77CNd3PB5o0+G
+	ZIrWrknCgmkaO8g5a//sdYHH+e5pki0kMiFkJvDn7nr11VPSfSfdHd+AqiEQthnhiwenux
+	RQugUWpmp6tI7UHKZzmvOEJoGlVB0MrPeTsCmuE7iNpvaqv5IWehoNzAsyqpMxtvN80HeD
+	NHwhGiBh4N+2P5H+SKIbkRT2vVYiLZGG1GCnrSshjAtIaVmwmBNknZ2d8LPmnjWfIiCgsR
+	2ap7xek2E+NJeFuCRCCd0tCeIRHybZRqXnJbtDXP1wxt+BHktc9uzzDSycSkpA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=U0gP5MBz;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1777823083;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=C5ndckZy3D++ygR4S2KuLZlKgbLjiLF0FZ4orIPcy4o=;
+	b=U0gP5MBzbWM5mlEYDBACRaWwxW2CAsnl0H48y1IlyPg6UGxFA05hAu4lBpvZ2tTwqM6FcB
+	ifHQdKJyMiLsa/RmSNaL88d70y65/yY5dbCzuVDQhtDjyxakT0kxVjjeDobo3aFRfagDtH
+	ybg1ClfOZWYoXBOskA7afdlg8iC9LitWJnCVclWNH9th/Hxrt+lcrxbS5cSSYz+UiY04it
+	coXAZ4O/OOMONWcIQNaLArQYrtK/+PmpaZvzvpMqIjlIRLg50EAB1wWpJsPDM0M3wtP3o5
+	KwVNcqpywb8BiouEt8kXwQkDxcPspYKN0bIP4rJatp+1+564BT2unP54ZSzCZA==
+To: devicetree@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next 4/5] net: ethernet: adi: Add a driver for the
- ADIN1140 MACPHY
-Message-ID: <0b09b317-0a21-4b9f-aba9-0b9caa14c0d9@lunn.ch>
-References: <20260503-adin1140-driver-v1-0-dd043cdd88f0@analog.com>
- <20260503-adin1140-driver-v1-4-dd043cdd88f0@analog.com>
- <afc1cf8d-4a02-430e-89a5-b213c15a4f70@lunn.ch>
+	Rob Herring <robh@kernel.org>,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH] schemas: Allow clocks: property in cache nodes
+Date: Sun,  3 May 2026 17:44:13 +0200
+Message-ID: <20260503154439.27362-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <afc1cf8d-4a02-430e-89a5-b213c15a4f70@lunn.ch>
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 7fa1ca7aec103e1c8da
+X-MBO-RS-META: 4xodjuiiisazkf7hch37sdzhftahx3kq
+X-Rspamd-Queue-Id: 4g7pxS0xq3z9tRM
 
-On Sun, May 03, 2026 at 05:36:13AM +0200, Andrew Lunn wrote:
-> On Sun, May 03, 2026 at 02:24:53AM +0300, Ciprian Regus via B4 Relay wrote:
-> > From: Ciprian Regus <ciprian.regus@analog.com>
-> > 
-> > Add a driver for ADIN1140. The device is a 10BASE-T1S MAC-PHY
-> > (integrated in the same package) that connects to a CPU over an SPI bus,
-> > and implements the Open Alliance TC6 protocol for control and frame
-> > transfers. As such, this driver relies on oa_tc6 for the communication
-> > with the device. The device has an alternative name (AD3306), so the
-> > driver can be probed using one of the two compatible strings.
-> > 
-> > For control transactions, ADIN1140 only implements the protected mode.
-> > The driver has a custom implementation for the mii_bus access methods as a
-> > workaround for hardware issues:
-> > 
-> > 1. The OA TC6 standard defines the direct and indirect access modes for
-> >    MDIO transactions. The ADIN1140 incorrectly advertises indirect mode
-> >    only (supported capabilities register - 0x2, bit 9), while actually
-> >    implementing just the direct mode. We cannot rely on the CAP register
-> >    to choose an access method (which oa_tc6 does by default, even though
-> >    it only implements the direct mode), so the driver has to use its
-> >    own.
-> > 2. The ADIN1140 cannot access the C22 register space of the internal
-> >    PHY, while the PHY is busy receiving frames. If that happens, the
-> >    CONFIG0 and CONFIG2 registers of the MAC will get corrupted and the
-> >    data transfer will stop. Those two registers configure settings for
-> >    the transfer protocol between the MAC and host, so the value for some
-> >    of their subfields shouldn't be changed while the netdev is up.
+Renesas R-Mobile APE6 currently describes clock which supply the cache
+controller in their DT using "clocks" property. This is not the only
+hardware that has cache controller clock controllable via some sort of
+clock controller, for example Altera SoCFPGA Cyclone V and Arria V also
+has controllable cache controller clock. Allow clocks: property in cache
+controller node to allow users to fully describe such hardware.
 
-This device is pretty broken. Has it been shipped to customers? Is
-there going to be a new stepping of the silicon which is less broken?
-A new device to replace this one?
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ dtschema/schemas/cache.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-	Andrew
+diff --git a/dtschema/schemas/cache.yaml b/dtschema/schemas/cache.yaml
+index 73d345f..dee1cd5 100644
+--- a/dtschema/schemas/cache.yaml
++++ b/dtschema/schemas/cache.yaml
+@@ -33,6 +33,9 @@ properties:
+   compatible:
+     const: cache
+ 
++  clocks:
++    maxItems: 1
++
+   power-domains:
+     maxItems: 1
+ 
+-- 
+2.53.0
+
