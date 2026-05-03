@@ -1,533 +1,243 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.151.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 926173CCFB6
-	for <devicetree@vger.kernel.org>; Sun,  3 May 2026 16:56:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812232FF176
+	for <devicetree@vger.kernel.org>; Sun,  3 May 2026 17:35:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.151.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777827412; cv=none; b=SnvK7dplHuBe0aqogMTxsfqLMrvKek9XKlgE/ONvRYf2cY1Ps0dKXi6zhW+J8+46dKsWn/zXxo1t3hoqu1SaywQNgP1Am8RtGeUll15dcyL5No1XsVjeuyj6GHswNt0uLgrW39BRQuTdW2ZGmsb2M1U4TR7i+h12zmsQsu1gHHs=
+	t=1777829711; cv=none; b=rOfk77cq50HTJ0YF9mbhY/yqTHfeM+h9kMyWwvnBTkb9gAvT//AWOfYy+35kXKz2hj0zSb0jn0YO0Bvni32t1wwbuJO3i/p4behuJ1zjVWlI1DkJSeG2DkvmxsEQHyT5COcPwE2yqki3CZEv7DI4rzzjf6laZFHtQpK3zoL4UGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777827412; c=relaxed/simple;
-	bh=1EgF4lTgujdWo2rd/7EwXCUxfgSPSR3dwMN1MO5rQws=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gNW6QuYbd3CiIacQ/iq364xqM6LtJ3KQQ2Y+d/GLZArwoJJPcBgj6ZTTN6wnZHxpO7fPBNiMomf1sXUGuW2fG/q/9Qx8xeEt/kz1pAYh6NwSO8M9gT2vYr77JWFkFjMgx9L2QQ9ZAJoiIM6VecN6ue07bUJh7twfSYy4Kc1PPoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sMwDfOHD; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777829711; c=relaxed/simple;
+	bh=ajO5AI0LO6nCZe4N+69Dg4HIZXNpXML7RHgQIRxAxeE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 MIME-Version:Content-Type; b=Rk6FMUBd3baThkgXf1vGIMG4dmKqf4pBtITkpS7XPjb9SMse2j6al/wiCUs1xKBCxKzoVJ+7BkrCf1ATPDJCUawpAcWyP+3kEewIv4u0NhTWmbLVTaNBIWrrgTW3qN5UVt1YliVlEOCbDv3nWoVdIQtENA7hCriSs/93xz3yudU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=AM9LMuuE; arc=none smtp.client-ip=170.10.151.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sMwDfOHD"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-67bb5ad91bfso3777345a12.0
-        for <devicetree@vger.kernel.org>; Sun, 03 May 2026 09:56:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777827409; x=1778432209; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9Js9Sb4OdjXT4vTjLNzONFBOEW5yTJMmHB2WqVPjGr4=;
-        b=sMwDfOHDgc90Wq0YG4wbH69R1N5TUrNZgzNgZXthknn4mfIwviKNfTlAUXjD/LZEEa
-         Vpj/CBMn+wfzGpTS3bydXJFtan7KfV9Po7E3JXF8GGd/hpGtYGpowaJWbb8fPt7QwnC6
-         wM0SPO2JT428Kbr/TZW3RAaJb3flCMbk0EIdGFczPibdORa8DyTXZvdwIAZIzX8gxl2z
-         tKf5jHojASgEvRRlLMn2EtPC+aN/vxpC/MAtpj2XF21Qgh8lGMLLhsXFREqT7E/IgkrG
-         MfgbknMAaHkjGFNtZpr7pdtefC/155FniFlrJogEDWC7UhyBmiSbAAnsTCOb/adAYalM
-         Sh6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777827409; x=1778432209;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=9Js9Sb4OdjXT4vTjLNzONFBOEW5yTJMmHB2WqVPjGr4=;
-        b=l7Bf3iKgrnBANkavmxDjy9+8WTapM+wOMQOTBF4OyxY49u0L6CaDhm8sYusjWA8tsH
-         1XoZW7sub3naXShgLd6DdZeJwE9xiw3Y3wAfvWkWu5kE0Ra1Nu0y6qBXNV3d8kgZOcV2
-         SeQWnLkQiQxCFmM1pwFc3iz1ImKb/56VZQvl5hkYw9ysetj8wCbxiNffd4NzvKpNWFM6
-         DBJ35vtAfm1eqEKcPd8tNgGpNIe7fr3wCDCO7aaJRj7TfvcrM+aqxHm3YNBrFB02dMel
-         wxux78dAdQJo3Nh6vMdRbNVf/PyUdD7RcaoljEIhRS3EfBlfqMaZ/VDdqd6pdQ0TkFWi
-         sNRQ==
-X-Gm-Message-State: AOJu0Yx4SSLX9n+TFFjN0zjpujDkOUP6FLLMS5JMjNHN9WDWuLjJSxZY
-	DScA/PJuxaY4YFqiCF17K3C5GNQxcmy8FhpEbZmAGbedBobgwdGH+3Wz
-X-Gm-Gg: AeBDievmAdAuC9iANKy7SLPUOZJfjaNsXOOJbMCitGRU/uqVowI4WjVeMvDF6iXsO/e
-	BS8g7O/MqZqbm7fRE2e0bNndHv2Pv8MQhFjt99M5wwoU8cQbF2vOTwBwDOeivh+4fZpCQlapBEA
-	Ky8SZ3tRltDoeHJubWBBLiqUMhblD7jG0MX81C0AR9zmOt6fLvDckfP0/+ZVLszXtGcI6T+nvq4
-	lvDyxc9uibfjEFrQhaWDQAERkGLs80x3wc5LymCpA/+4kTeGrLY4a5IGwUik2agPDV+tEjm/Vfn
-	lI+kbEC0hsAR2jJtYdDpaeN3x5CB8ki0fOx9809a7jOmb0qJ3jsCzlZH+dib7aqv81MIFzbnOJ8
-	GHBfvnYeF58bat8IUg0oQ3g95lIrfRjOT6zJm2zUooDhgsZK6KW5AQzqCkCnsyQLyTQGHb/r0bO
-	9UUiRZZpPzyUO0XjIyW9/TM1I=
-X-Received: by 2002:a05:6402:4282:b0:66b:f0b3:42a7 with SMTP id 4fb4d7f45d1cf-67c1abb49d1mr2490450a12.24.1777827408878;
-        Sun, 03 May 2026 09:56:48 -0700 (PDT)
-Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67b8579891fsm2713649a12.0.2026.05.03.09.56.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 03 May 2026 09:56:47 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	=?UTF-8?q?Jonas=20Schw=C3=B6bel?= <jonasschwoebel@yahoo.de>
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: [PATCH v3 2/2] power: supply: Add support for Surface RT battery and charger
-Date: Sun,  3 May 2026 19:56:34 +0300
-Message-ID: <20260503165636.216257-3-clamor95@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260503165636.216257-1-clamor95@gmail.com>
-References: <20260503165636.216257-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="AM9LMuuE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
+	s=mimecast20250127; t=1777829702;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ajO5AI0LO6nCZe4N+69Dg4HIZXNpXML7RHgQIRxAxeE=;
+	b=AM9LMuuEcLADYs5fh5VV5XTaVaHNX5tSonl1oKxLUOk7APNtlzux4xNNU/+WAdRlY0n8jt
+	XesxWt1LPidTFeqDOLoOknV/Im6oWuK5zA3nhcbDuKVN5QtFVQtn4JfwmwjhDWrqjI2G9k
+	2XIwkpog5J6/nJRSvkxWXbuMCwdzq9tbeMmV1YYthOg9HYXt5N2LPqI5g3TM1/L768TrVE
+	PfWvoJBvlxZtu+Vy/wfkVFkrf8LteiZho+I51oeIgh38p+UDkjfPRDV/pwF3sdazSP8L+m
+	QDhwq4QziToYAOg0y/BbnSv8c5jS6tyuy8ZZYO/RSuTz3u9sCOxy4BWWAvgdhQ==
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012011.outbound.protection.outlook.com [52.101.43.11]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id usb-mta-57-MFwrQmrGOqWI5IUlOiOHag-1; Sun,
+ 03 May 2026 10:34:58 -0700
+X-MC-Unique: MFwrQmrGOqWI5IUlOiOHag-1
+X-Mimecast-MFC-AGG-ID: MFwrQmrGOqWI5IUlOiOHag_1777829693
+Received: from CY8PR02MB9249.namprd02.prod.outlook.com (2603:10b6:930:9c::17)
+ by CH3PR02MB9781.namprd02.prod.outlook.com (2603:10b6:610:178::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Sun, 3 May
+ 2026 17:34:48 +0000
+Received: from CY8PR02MB9249.namprd02.prod.outlook.com
+ ([fe80::e437:4ba8:6506:4cda]) by CY8PR02MB9249.namprd02.prod.outlook.com
+ ([fe80::e437:4ba8:6506:4cda%3]) with mapi id 15.20.9870.023; Sun, 3 May 2026
+ 17:34:48 +0000
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+To: Andrew Lunn <andrew@lunn.ch>, "ciprian.regus@analog.com"
+	<ciprian.regus@analog.com>
+CC: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
+	<corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Heiner Kallweit
+	<hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: RE: [PATCH net-next 2/5] net: ethernet: oa_tc6: Allow custom mii_bus
+Thread-Topic: [PATCH net-next 2/5] net: ethernet: oa_tc6: Allow custom mii_bus
+Thread-Index: AQHc2rEgF3hIAB6D/Eq3y9ss2XCLE7X8jmMA
+Date: Sun, 3 May 2026 17:34:47 +0000
+Message-ID: <CY8PR02MB92498A398D3F05B94EEB7ED383302@CY8PR02MB9249.namprd02.prod.outlook.com>
+References: <20260503-adin1140-driver-v1-0-dd043cdd88f0@analog.com>
+ <20260503-adin1140-driver-v1-2-dd043cdd88f0@analog.com>
+ <aad9cb98-8f1f-409f-8d58-0318e125210c@lunn.ch>
+In-Reply-To: <aad9cb98-8f1f-409f-8d58-0318e125210c@lunn.ch>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR02MB9249:EE_|CH3PR02MB9781:EE_
+x-ms-office365-filtering-correlation-id: a6af705c-2624-423e-2eed-08dea93a45f8
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7416014|22082099003|18002099003|56012099003|38070700021
+x-microsoft-antispam-message-info: r0KLl9d+3n7Z0kb99ChN/fFsTwzXHvJypAAKlzQSgutmUlcf9lCNiD6rjNi5LnLpxNVfUOOQVI8RCIlf1wNkiozdUWuzI3w6rtm7Y4eC2+iu1Vmejq5wCu+z+ifQquyJfHh6ogw1ViArBhXs/loyYJOZan7CMlm7HdxMf1fC1fcc7AoCAvw85IVhvynP48VrwhzPnuOUP4vzZXkfbVsh+zDXKUKbrVAVIpns2NSHMrkZaWRpTSmTkVf9GpBn/4kKgk9QBmGxPLbiDELMjUDFgn2rBiG6AHZmuA+xx464KA/wHd8p6L+obKktZmO2AbWiJOjOTHwg2PIhikpN3s4/woEGL2W1KRFtYyLRGsxAqSh4LCww2EU6Mo+3s+6SaETfdVNcJUh9t6XzP1wFKsjN/yD1jAsPA5+7PTSFV73Q1968UjRvfrjN2HxVS0wAoICgTBh3GEwH6oDMvAHzozNx5Lx1piGzb//s/ZKqNm5xzVulpQbpfDT+6737ElFFb7mFpx6sHH5SdRAGkCnUawGkJ1i5R7oxNbeuLxOORUSuGMoKbLv8l205bT1LPSSbbqImY4la7uWK2U1mjxrnCSetV9BkZd2DFz2A1dJWm4FIeQqTxWTyJSjGyAjGRP2o1i5A/6+yDzbvugYmvRIpFXyK8RsgJfFImbxNerjDJhbftAdJGvw26ElkUx0EmcflPzPEMI3wgUUa7+V1ndhLqzLnE7webw98J1pRws6KuOwlIAvKACZ/ZxUL8MN503NwVBLf
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR02MB9249.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7416014)(22082099003)(18002099003)(56012099003)(38070700021);DIR:OUT;SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?amxUWWpWd1AxNGU0Qk9WTjRlaTB1UFZHWDFwY1orVVFDVk5wTWFFczIxNU5W?=
+ =?utf-8?B?Qm41RTFsMUlDRUhMYVk5Z0NaN3MwZTdNME5xUnZWVnN2Zzh0Qms5Zkpta3lL?=
+ =?utf-8?B?SVYrelVsM0RUMVY2eGttM0hjWStqNS9RWGVtU2p0dEc0YjFERVFjMzFxNm94?=
+ =?utf-8?B?aWQ2dHhDelVxc0c2Z09JS3J6YWRpRTdFZnBRNUNkY0Jua1pwS1o1WVp2Q3h4?=
+ =?utf-8?B?azFrNnJwcnIyZTBBbFBnTGZ3NHpvQ084SmNVUXU1MUFHM1dDQU1LdENTUi9l?=
+ =?utf-8?B?S2ZBUjdjaVhkNFFybjBiS3QyU0dOc2dJL1gzN2ZGVHk1U1hyQmYzNXBORkxk?=
+ =?utf-8?B?ZXRLVXlWdnpKdnNrTXhZYUlkSEtNNm5BQmZMNWNxZk12VmNMQWdvVnA4Y0Rw?=
+ =?utf-8?B?YmNSZkdKekx1K0FNdjJUVG9leTEvOHBUSVdWeEg5SWxKdkg2b1dMSzQzeXNT?=
+ =?utf-8?B?QmdPbzI4SXNJb2krdFY4Tzl0cFNxeW5oQyt4WkpLUU9XMHB6bzd6RkpMZCtt?=
+ =?utf-8?B?Rjh5UVhsUmczSWZYTklIL3FuN0ZYNnhET1NITk82M283VzhsTGduQTFMbnkv?=
+ =?utf-8?B?TWd1TzRiSHJtSC9MSlkwakZ4dzBTNzRVWUxTVFhtdnhzc3VCMXBoNW5JYlps?=
+ =?utf-8?B?Ri80cHpRSDd2SHdXRGUxdnIwYmwzWHZ3elJ5S0ZLVjFvTVFvUUd3MkJPMXMw?=
+ =?utf-8?B?Z0ZIVjNiN1VaWndXUGxFM3VIdHN3cllqaEFvb3p0YjF3dDUrR002TlZVTUZT?=
+ =?utf-8?B?UDNhOU9sd3ZrYVduS0xNMzdZV1VtUGRFWDAwaHp1YmFKU1AwTHMxS0RnNWhv?=
+ =?utf-8?B?eWVsWDJ0Nkx1YlZkUFEwWE1QUFhwNXh5OUhMTXlIcUp0a290VndyQVBERGxG?=
+ =?utf-8?B?Rld3ZVFLSlE2OC9laVYzTzlUYVJxSnh1VHVxU1k0UUlvY0pXMjh5ZVhYUnEy?=
+ =?utf-8?B?akoyZFdDcFhrcUhLYUZmdkt0VTh0OWF3Q3JHc0plbm05UkdRMzQxRXFSYmtH?=
+ =?utf-8?B?bUo5clI5Q1pnbXNvci9nM1hndmRUUUZ2TTVIYXQ3UllybU9mWDJFY2huWHg3?=
+ =?utf-8?B?aXI5ZW9qeTVIeEdRRHF5L2J4azRNOTJmNGpvWDUwTUZwa3ZDRUVhVWgzQlYr?=
+ =?utf-8?B?WmI2c3NuVm8zdVN2R0tpN3lRcG8zVlBhUmVOWVBjanVpQS9xT053VG9PT1l2?=
+ =?utf-8?B?dWVrRDlFcWZST0lzTmo4R2JwVnh4SlI4aWMxenptdWFLRXdrWVg1NDc2MXU4?=
+ =?utf-8?B?c0c4RytrSzZLd3VleHgxWDRTT3QvY0JOVTIvbEZWTm8vM0s5UEdzRk5MODRX?=
+ =?utf-8?B?Wk1QeWdzMU1UWFk2QUcxNjBxNlNHRmFpUE5Ha1U1SkhTRHdDSTE2Uk5pbjI5?=
+ =?utf-8?B?V2VPUDdnclVnS0M3WkNDSy84SG5iTTVDSXJqajRJQktUQXgyS0FKSllNUzhw?=
+ =?utf-8?B?aGJ3cjlBN3RuVVFVbS8vR0RQYUhlelRiUHZ1RVZLczc3c3ZCOCs2YkpZMmhK?=
+ =?utf-8?B?OThnNC9MSXRKWU9Ga1l6WjJ4bzNNVG54aDVzZ0szem1KNXpFeEFMd0I3dkFK?=
+ =?utf-8?B?NzdFam1BcHM5d0dOSDBNNG1iR3BweVRNcFA2SDB2WVd3bGtjWWgxaWtRVWJL?=
+ =?utf-8?B?aUt1bkdsd2RoVGd0eDFFNE15dzkvejF3SUVxYVB4aTBRSFJPcXRrTWFSMkZx?=
+ =?utf-8?B?SERERVZWUFBIT1VoWEp0ZUFtNm14NmRMYUdPT2JTbE14ZkhvaU42UWMxYzJj?=
+ =?utf-8?B?NFRMRTFlTmhwbEZzeURKNEhNbnNQemRiYlZ5VTgxUDhtZzZIS3lhTlFaMmFw?=
+ =?utf-8?B?dlh3RmFyVWNzK2o1UVd4N0pQYWVuRDRWL3V1b1lNUEdiODY2Q3VJQUFEZDlZ?=
+ =?utf-8?B?QlUvRjk2WUVEdE5vMnUyWE5qRi9CYmpPSExJSnBYbFpsYWNsMzFOeU9GMytO?=
+ =?utf-8?B?ZkU2dlhRendtVG01Lyt2aTdWa1l6TjQ3ME95SXdQbXYvdlNOTzI1TFNsVEdi?=
+ =?utf-8?B?UCtxQmFkZy93Tm15NWlYTUxiVGRRWm9yYXJkU2NPQ0ZyNnRvQWV5dkJjV2Fl?=
+ =?utf-8?B?a1YvTEpjYzlWTEh3QklIVWlmOTJ0UFhyYk9LdTZ2RlpuK2ZsbTZPNDh2eUEx?=
+ =?utf-8?B?Q2ZLdXV6WHNheHdSNWhjdGRTbSt1eWdHNWx1SnpXYlZZNGdRNnZmMGljTGVI?=
+ =?utf-8?B?Z0Y3Ti80eFFraHJSOXpQZm8vZTVSeERGV0RFaS9BdVY1VUY1VytYRVpCeFZE?=
+ =?utf-8?B?cVNaYzhxTWJFNWNVaWpWTUZMQ1dtLzY1V0RScDhQcVkxTUZHMmwyYVRGeUFm?=
+ =?utf-8?B?bjRyU1ZkSGtWMDBRUnNsTFVoUVFySm5ZeThxLzRzZ0l5Nnc2d0lodz09?=
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: osCwsWDF9yE1fjk9acTFplJ34L13BI1t/GBFTkrg7MAra94Xrn/5QlfLd8worDvbRU40Muwuj0FVcGKE/jGnDaj19OikmCyoAtmr8a2LQOp/eUJsPKKTQ8nb5pyeYmKPLK653hLOJPkdvRPDlnyTW5OKfqB4H4yOjvWk7IZcBXRMeFhf8PFR4PM4ZXXLZD7nyIVdauJ2Ww7iAp1SAKzu2j0nPOU88PqLB6fPKPCBxdzr+IzVVJNo2ADFXJ+dosg1D5+nFQx+UWfHWwGxQLSGyNZ0tt0SpzhSs7Uvjz748KeyFNEYjVQypqT2DV3bFORPAJK0i116DQXBP6WkRer9+w==
+X-OriginatorOrg: onsemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR02MB9249.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a6af705c-2624-423e-2eed-08dea93a45f8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 May 2026 17:34:48.0045
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: X83O13LeebLcWukZgpThnm28lic1CxJMfkVcN7EUyCi3OqHEV60hwu1sN8LuIJ45fX8pPtIzflRH1UhE1Gw9lF2WwLjospn9IdHk9Ymb2zM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR02MB9781
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: ZK94nAs8dqUCiww__4t2RpfN5VGbtO30o-9krhH74bs_1777829693
+X-Mimecast-Originator: onsemi.com
+Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: base64
 
-From: Jonas Schwöbel <jonasschwoebel@yahoo.de>
-
-Add support for Embedded Controller found in the Microsoft Surface RT and
-used to monitor battery cell and charger input status and properties.
-Controller works both for UEFI and APX booting.
-
-[wmjb: added POWER_SUPPLY_PROP_CHARGE_NOW support]
-Signed-off-by: wmjb <jethrob@hotmail.com>
-Signed-off-by: Jonas Schwöbel <jonasschwoebel@yahoo.de>
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/power/supply/Kconfig         |  11 +
- drivers/power/supply/Makefile        |   1 +
- drivers/power/supply/surface-rt-ec.c | 389 +++++++++++++++++++++++++++
- 3 files changed, 401 insertions(+)
- create mode 100644 drivers/power/supply/surface-rt-ec.c
-
-diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
-index 4d04de6586ae..13661d3d39b4 100644
---- a/drivers/power/supply/Kconfig
-+++ b/drivers/power/supply/Kconfig
-@@ -1168,6 +1168,17 @@ config BATTERY_UG3105
- 	  device is off or suspended, the functionality of this driver is
- 	  limited to reporting capacity only.
- 
-+config BATTERY_CHARGER_SURFACE_RT
-+	tristate "Battery & Charger driver for Microsoft Surface RT"
-+	depends on I2C && GPIOLIB
-+	help
-+	  UEFI/APX driver for the 1st-generation Microsoft Surface RT
-+	  battery. Driver supports reading battery properties and
-+	  charger status.
-+
-+	  This driver can also be built as a module. If so, the module
-+	  will be called surface-rt-ec.
-+
- config CHARGER_QCOM_SMB2
- 	tristate "Qualcomm PMI8998 PMIC charger driver"
- 	depends on MFD_SPMI_PMIC
-diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
-index 3959b974ec84..ebd3beef4c84 100644
---- a/drivers/power/supply/Makefile
-+++ b/drivers/power/supply/Makefile
-@@ -129,6 +129,7 @@ obj-$(CONFIG_RN5T618_POWER)	+= rn5t618_power.o
- obj-$(CONFIG_BATTERY_ACER_A500)	+= acer_a500_battery.o
- obj-$(CONFIG_BATTERY_SURFACE)	+= surface_battery.o
- obj-$(CONFIG_CHARGER_SURFACE)	+= surface_charger.o
-+obj-$(CONFIG_BATTERY_CHARGER_SURFACE_RT) += surface-rt-ec.o
- obj-$(CONFIG_BATTERY_UG3105)	+= ug3105_battery.o
- obj-$(CONFIG_CHARGER_QCOM_SMB2)	+= qcom_smbx.o
- obj-$(CONFIG_FUEL_GAUGE_MM8013)	+= mm8013.o
-diff --git a/drivers/power/supply/surface-rt-ec.c b/drivers/power/supply/surface-rt-ec.c
-new file mode 100644
-index 000000000000..98b736f3b05a
---- /dev/null
-+++ b/drivers/power/supply/surface-rt-ec.c
-@@ -0,0 +1,389 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+
-+#include <linux/devm-helpers.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/interrupt.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+#include <linux/power_supply.h>
-+#include <linux/types.h>
-+
-+/* Register Addresses (B=byte; W=word; S=string) */
-+#define REGB_STATUS			0x02
-+#define REGW_VOLTAGE_NOW		0x20
-+#define REGW_CURRENT_NOW		0x24
-+#define REGW_CAPACITY			0x28
-+#define REGW_CHARGE_NOW			0x2a
-+#define REGW_CHARGE_FULL		0x2c
-+#define REGW_CYCLE_COUNT		0x3a
-+#define REGW_CHARGE_FULL_DESIGN		0x3c
-+#define REGW_VOLTAGE_MAX_DESIGN		0x3e
-+#define REGW_SERIAL_NUMBER		0x44
-+#define REGS_MANUFACTURER		0x46
-+#define REGS_MODEL_NAME			0x52
-+#define REGS_TECHNOLOGY			0x5a
-+#define REGB_ONLINE			0x67
-+
-+struct srt_ec_device {
-+	struct i2c_client *client;
-+
-+	struct power_supply *bat;
-+	struct power_supply *psy;
-+
-+	struct gpio_desc *enable_gpiod;
-+	struct delayed_work poll_work;
-+
-+	unsigned int technology;
-+	unsigned int capacity;
-+
-+	const char *serial;
-+	char manufacturer[13];
-+	char model_name[10];
-+};
-+
-+static const enum power_supply_property srt_bat_power_supply_props[] = {
-+	POWER_SUPPLY_PROP_CAPACITY,
-+	POWER_SUPPLY_PROP_CHARGE_NOW,
-+	POWER_SUPPLY_PROP_CHARGE_FULL,
-+	POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN,
-+	POWER_SUPPLY_PROP_CURRENT_NOW,
-+	POWER_SUPPLY_PROP_CYCLE_COUNT,
-+	POWER_SUPPLY_PROP_MANUFACTURER,
-+	POWER_SUPPLY_PROP_MODEL_NAME,
-+	POWER_SUPPLY_PROP_ONLINE,
-+	POWER_SUPPLY_PROP_PRESENT,
-+	POWER_SUPPLY_PROP_SERIAL_NUMBER,
-+	POWER_SUPPLY_PROP_STATUS,
-+	POWER_SUPPLY_PROP_TECHNOLOGY,
-+	POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN,
-+	POWER_SUPPLY_PROP_VOLTAGE_NOW,
-+};
-+
-+static const enum power_supply_property srt_psy_power_supply_props[] = {
-+	POWER_SUPPLY_PROP_ONLINE,
-+	POWER_SUPPLY_PROP_PRESENT,
-+};
-+
-+static int srt_bat_get_value(struct i2c_client *client, int reg, int *val)
-+{
-+	int ret;
-+
-+	switch (reg) {
-+	case REGW_CHARGE_NOW:
-+	case REGW_CHARGE_FULL_DESIGN:
-+	case REGW_CHARGE_FULL:
-+	case REGW_VOLTAGE_MAX_DESIGN:
-+	case REGW_VOLTAGE_NOW:
-+		ret = i2c_smbus_read_word_data(client, reg);
-+		if (ret < 0)
-+			return ret;
-+
-+		*val = ret * 1000;
-+		break;
-+
-+	case REGW_CURRENT_NOW:
-+		ret = i2c_smbus_read_word_data(client, reg);
-+		if (ret < 0)
-+			return ret;
-+
-+		*val = (s16)ret * 1000;
-+		break;
-+
-+	case REGW_CAPACITY:
-+	case REGW_CYCLE_COUNT:
-+		ret = i2c_smbus_read_word_data(client, reg);
-+		if (ret < 0)
-+			return ret;
-+
-+		*val = ret;
-+		break;
-+
-+	case REGB_STATUS:
-+		ret = i2c_smbus_read_byte_data(client, reg);
-+		if (ret < 0)
-+			return ret;
-+
-+		if (ret & BIT(0))
-+			*val = POWER_SUPPLY_STATUS_CHARGING;
-+		else
-+			*val =  POWER_SUPPLY_STATUS_DISCHARGING;
-+		break;
-+
-+	case REGB_ONLINE:
-+		ret = i2c_smbus_read_byte_data(client, reg);
-+		if (ret < 0)
-+			return ret;
-+
-+		*val = (ret & BIT(1)) >> 1;
-+		break;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int srt_bat_power_supply_get_property(struct power_supply *psy,
-+					     enum power_supply_property psp,
-+					     union power_supply_propval *val)
-+{
-+	struct srt_ec_device *srt = power_supply_get_drvdata(psy);
-+	struct i2c_client *client = srt->client;
-+	int ret = 0;
-+
-+	switch (psp) {
-+	case POWER_SUPPLY_PROP_MANUFACTURER:
-+		val->strval = srt->manufacturer;
-+		break;
-+	case POWER_SUPPLY_PROP_MODEL_NAME:
-+		val->strval = srt->model_name;
-+		break;
-+	case POWER_SUPPLY_PROP_SERIAL_NUMBER:
-+		val->strval = srt->serial;
-+		break;
-+	case POWER_SUPPLY_PROP_CAPACITY:
-+		ret = srt_bat_get_value(client, REGW_CAPACITY, &val->intval);
-+		break;
-+	case POWER_SUPPLY_PROP_CHARGE_NOW:
-+		ret = srt_bat_get_value(client, REGW_CHARGE_NOW, &val->intval);
-+		break;
-+	case POWER_SUPPLY_PROP_CHARGE_FULL:
-+		ret = srt_bat_get_value(client, REGW_CHARGE_FULL, &val->intval);
-+		break;
-+	case POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN:
-+		ret = srt_bat_get_value(client, REGW_CHARGE_FULL_DESIGN,
-+					&val->intval);
-+		break;
-+	case POWER_SUPPLY_PROP_CURRENT_NOW:
-+		ret = srt_bat_get_value(client, REGW_CURRENT_NOW, &val->intval);
-+		break;
-+	case POWER_SUPPLY_PROP_CYCLE_COUNT:
-+		ret = srt_bat_get_value(client, REGW_CYCLE_COUNT, &val->intval);
-+		break;
-+	case POWER_SUPPLY_PROP_PRESENT:
-+		val->intval = 1;
-+		break;
-+	case POWER_SUPPLY_PROP_ONLINE:
-+		ret = srt_bat_get_value(client, REGB_ONLINE, &val->intval);
-+		break;
-+	case POWER_SUPPLY_PROP_STATUS:
-+		if (srt->capacity < 100)
-+			ret = srt_bat_get_value(client, REGB_STATUS, &val->intval);
-+		else
-+			val->intval = POWER_SUPPLY_STATUS_FULL;
-+		break;
-+	case POWER_SUPPLY_PROP_TECHNOLOGY:
-+		val->intval = srt->technology;
-+		break;
-+	case POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN:
-+		ret = srt_bat_get_value(client, REGW_VOLTAGE_MAX_DESIGN,
-+					&val->intval);
-+		break;
-+	case POWER_SUPPLY_PROP_VOLTAGE_NOW:
-+		ret = srt_bat_get_value(client, REGW_VOLTAGE_NOW, &val->intval);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return ret;
-+}
-+
-+static int srt_psy_power_supply_get_property(struct power_supply *psy,
-+					     enum power_supply_property psp,
-+					     union power_supply_propval *val)
-+{
-+	struct srt_ec_device *srt = power_supply_get_drvdata(psy);
-+	struct i2c_client *client = srt->client;
-+	int ret;
-+
-+	switch (psp) {
-+	case POWER_SUPPLY_PROP_ONLINE:
-+	case POWER_SUPPLY_PROP_PRESENT:
-+		ret = i2c_smbus_read_byte_data(client, REGB_ONLINE);
-+		if (ret < 0)
-+			return ret;
-+
-+		val->intval = ret & BIT(0);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static void srt_bat_poll_work(struct work_struct *work)
-+{
-+	struct srt_ec_device *srt =
-+		container_of(work, struct srt_ec_device, poll_work.work);
-+	int ret, capacity;
-+
-+	ret = srt_bat_get_value(srt->client, REGW_CAPACITY, &capacity);
-+	if (!ret && capacity != srt->capacity) {
-+		srt->capacity = capacity;
-+		power_supply_changed(srt->bat);
-+	}
-+
-+	/* continuously send uevent notification */
-+	schedule_delayed_work(&srt->poll_work, 30 * HZ);
-+}
-+
-+static irqreturn_t srt_psy_detect_irq(int irq, void *dev_id)
-+{
-+	struct srt_ec_device *srt = dev_id;
-+
-+	power_supply_changed(srt->psy);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static const struct power_supply_desc srt_bat_power_supply_desc = {
-+	.name = "surface-rt-battery",
-+	.type = POWER_SUPPLY_TYPE_BATTERY,
-+	.properties = srt_bat_power_supply_props,
-+	.num_properties = ARRAY_SIZE(srt_bat_power_supply_props),
-+	.get_property = srt_bat_power_supply_get_property,
-+	.external_power_changed = power_supply_changed,
-+};
-+
-+static const struct power_supply_desc srt_psy_power_supply_desc = {
-+	.name = "surface-rt-ac-adapter",
-+	.type = POWER_SUPPLY_TYPE_MAINS,
-+	.properties = srt_psy_power_supply_props,
-+	.num_properties = ARRAY_SIZE(srt_psy_power_supply_props),
-+	.get_property = srt_psy_power_supply_get_property,
-+};
-+
-+static char *battery_supplied_to[] = { "surface-rt-battery" };
-+
-+static int srt_ec_probe(struct i2c_client *client)
-+{
-+	struct power_supply_config bat_cfg = {};
-+	struct power_supply_config psy_cfg = {};
-+	struct device *dev = &client->dev;
-+	struct srt_ec_device *srt;
-+	char str_buf[4];
-+	int ret;
-+
-+	srt = devm_kzalloc(dev, sizeof(*srt), GFP_KERNEL);
-+	if (!srt)
-+		return -ENOMEM;
-+
-+	i2c_set_clientdata(client, srt);
-+	srt->client = client;
-+
-+	srt->enable_gpiod = devm_gpiod_get(dev, "enable", GPIOD_OUT_HIGH);
-+	if (IS_ERR(srt->enable_gpiod))
-+		return dev_err_probe(dev, PTR_ERR(srt->enable_gpiod),
-+				     "failed to get enable gpio\n");
-+
-+	/* wait till EC is ready */
-+	usleep_range(1000, 1500);
-+
-+	ret = i2c_smbus_read_word_data(client, REGW_SERIAL_NUMBER);
-+	if (ret < 0)
-+		return ret;
-+
-+	srt->serial = devm_kasprintf(dev, GFP_KERNEL, "%04x", ret);
-+	if (!srt->serial)
-+		return -ENOMEM;
-+
-+	ret = i2c_smbus_read_i2c_block_data(client, REGS_MANUFACTURER,
-+					    sizeof(srt->manufacturer) - 1,
-+					    srt->manufacturer);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = i2c_smbus_read_i2c_block_data(client, REGS_MODEL_NAME,
-+					    sizeof(srt->model_name) - 1,
-+					    srt->model_name);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = i2c_smbus_read_i2c_block_data(client, REGS_TECHNOLOGY,
-+					    sizeof(str_buf) - 1, str_buf);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (!strncmp(str_buf, "LION", 4))
-+		srt->technology = POWER_SUPPLY_TECHNOLOGY_LION;
-+	else
-+		srt->technology = POWER_SUPPLY_TECHNOLOGY_UNKNOWN;
-+
-+	bat_cfg.drv_data = srt;
-+	bat_cfg.fwnode = dev_fwnode(dev);
-+
-+	srt->bat = devm_power_supply_register(dev, &srt_bat_power_supply_desc,
-+					      &bat_cfg);
-+	if (IS_ERR(srt->bat))
-+		return dev_err_probe(dev, PTR_ERR(srt->bat),
-+				     "failed to register battery power supply\n");
-+
-+	psy_cfg.drv_data = srt;
-+	psy_cfg.fwnode = dev_fwnode(dev);
-+	psy_cfg.supplied_to = battery_supplied_to;
-+	psy_cfg.num_supplicants = ARRAY_SIZE(battery_supplied_to);
-+
-+	srt->psy = devm_power_supply_register(dev, &srt_psy_power_supply_desc,
-+					      &psy_cfg);
-+	if (IS_ERR(srt->psy))
-+		return dev_err_probe(dev, PTR_ERR(srt->psy),
-+				     "failed to register AC power supply\n");
-+
-+	ret = devm_request_threaded_irq(dev, client->irq, NULL, srt_psy_detect_irq,
-+					IRQF_ONESHOT, client->name, srt);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to request interrupt\n");
-+
-+	ret = devm_delayed_work_autocancel(dev, &srt->poll_work, srt_bat_poll_work);
-+	if (ret < 0)
-+		return ret;
-+
-+	schedule_delayed_work(&srt->poll_work, HZ);
-+
-+	return 0;
-+}
-+
-+static int srt_ec_suspend(struct device *dev)
-+{
-+	struct srt_ec_device *srt = dev_get_drvdata(dev);
-+
-+	cancel_delayed_work_sync(&srt->poll_work);
-+
-+	return 0;
-+}
-+
-+static int srt_ec_resume(struct device *dev)
-+{
-+	struct srt_ec_device *srt = dev_get_drvdata(dev);
-+
-+	schedule_delayed_work(&srt->poll_work, HZ);
-+
-+	return 0;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(srt_ec_pm_ops, srt_ec_suspend, srt_ec_resume);
-+
-+static const struct of_device_id srt_ec_of_match[] = {
-+	{ .compatible = "microsoft,surface-rt-ec" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, srt_ec_of_match);
-+
-+static struct i2c_driver srt_ec_driver = {
-+	.driver = {
-+		.name = "surface-rt-ec",
-+		.of_match_table = srt_ec_of_match,
-+		.pm = &srt_ec_pm_ops,
-+	},
-+	.probe = srt_ec_probe,
-+};
-+module_i2c_driver(srt_ec_driver);
-+
-+MODULE_AUTHOR("Jonas Schwöbel <jonasschwoebel@yahoo.de>");
-+MODULE_DESCRIPTION("Surface RT Embedded Controller driver");
-+MODULE_LICENSE("GPL");
--- 
-2.51.0
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQW5kcmV3IEx1bm4gPGFu
+ZHJld0BsdW5uLmNoPg0KPiBTZW50OiBTYXR1cmRheSwgTWF5IDIsIDIwMjYgODo1MSBQTQ0KPiBU
+bzogY2lwcmlhbi5yZWd1c0BhbmFsb2cuY29tDQo+IENjOiBQYXJ0aGliYW4gVmVlcmFzb29yYW4g
+PHBhcnRoaWJhbi52ZWVyYXNvb3JhbkBtaWNyb2NoaXAuY29tPjsgQW5kcmV3IEx1bm4NCj4gPGFu
+ZHJldytuZXRkZXZAbHVubi5jaD47IERhdmlkIFMuIE1pbGxlciA8ZGF2ZW1AZGF2ZW1sb2Z0Lm5l
+dD47IEVyaWMgRHVtYXpldA0KPiA8ZWR1bWF6ZXRAZ29vZ2xlLmNvbT47IEpha3ViIEtpY2luc2tp
+IDxrdWJhQGtlcm5lbC5vcmc+OyBQYW9sbyBBYmVuaQ0KPiA8cGFiZW5pQHJlZGhhdC5jb20+OyBT
+aW1vbiBIb3JtYW4gPGhvcm1zQGtlcm5lbC5vcmc+OyBKb25hdGhhbiBDb3JiZXQNCj4gPGNvcmJl
+dEBsd24ubmV0PjsgU2h1YWggS2hhbiA8c2toYW5AbGludXhmb3VuZGF0aW9uLm9yZz47IEhlaW5l
+ciBLYWxsd2VpdA0KPiA8aGthbGx3ZWl0MUBnbWFpbC5jb20+OyBSdXNzZWxsIEtpbmcgPGxpbnV4
+QGFybWxpbnV4Lm9yZy51az47IFJvYiBIZXJyaW5nDQo+IDxyb2JoQGtlcm5lbC5vcmc+OyBLcnp5
+c3p0b2YgS296bG93c2tpIDxrcnprK2R0QGtlcm5lbC5vcmc+OyBDb25vciBEb29sZXkNCj4gPGNv
+bm9yK2R0QGtlcm5lbC5vcmc+OyBuZXRkZXZAdmdlci5rZXJuZWwub3JnOyBsaW51eC1rZXJuZWxA
+dmdlci5rZXJuZWwub3JnOyBsaW51eC0NCj4gZG9jQHZnZXIua2VybmVsLm9yZzsgZGV2aWNldHJl
+ZUB2Z2VyLmtlcm5lbC5vcmcNCj4gU3ViamVjdDogUmU6IFtQQVRDSCBuZXQtbmV4dCAyLzVdIG5l
+dDogZXRoZXJuZXQ6IG9hX3RjNjogQWxsb3cgY3VzdG9tIG1paV9idXMNCj4gDQo+IA0KPiBUaGlz
+IE1lc3NhZ2UgSXMgRnJvbSBhbiBFeHRlcm5hbCBTZW5kZXINCj4gVGhpcyBtZXNzYWdlIGNhbWUg
+ZnJvbSBvdXRzaWRlIHlvdXIgb3JnYW5pemF0aW9uLg0KPiANCj4gPiBAQCAtNTM4LDMyICs1Mzks
+MzcgQEAgc3RhdGljIGludCBvYV90YzZfbWRpb2J1c19yZWdpc3RlcihzdHJ1Y3Qgb2FfdGM2ICp0
+YzYpDQo+ID4gew0KPiA+IGludCByZXQ7DQo+ID4NCj4gPiAtIHRjNi0+bWRpb2J1cyA9IG1kaW9i
+dXNfYWxsb2MoKTsNCj4gPiBpZiAoIXRjNi0+bWRpb2J1cykgew0KPiA+IC0gbmV0ZGV2X2Vycih0
+YzYtPm5ldGRldiwgIk1ESU8gYnVzIGFsbG9jIGZhaWxlZFxuIik7DQo+ID4gLSByZXR1cm4gLUVO
+T01FTTsNCj4gPiArIHRjNi0+bWRpb2J1cyA9IG1kaW9idXNfYWxsb2MoKTsNCj4gPiArIGlmICgh
+dGM2LT5tZGlvYnVzKSB7DQo+ID4gKyBuZXRkZXZfZXJyKHRjNi0+bmV0ZGV2LCAiTURJTyBidXMg
+YWxsb2MgZmFpbGVkXG4iKTsNCj4gPiArIHJldHVybiAtRU5PTUVNOw0KPiA+ICsgfQ0KPiA+ICsN
+Cj4gPiArIHRjNi0+bWRpb2J1cy0+cmVhZCA9IG9hX3RjNl9tZGlvYnVzX3JlYWQ7DQo+ID4gKyB0
+YzYtPm1kaW9idXMtPndyaXRlID0gb2FfdGM2X21kaW9idXNfd3JpdGU7DQo+ID4gKyAvKiBPUEVO
+IEFsbGlhbmNlIDEwQkFTRS1UMXggY29tcGxpYW5jZSBNQUMtUEhZcyB3aWxsIGhhdmUgYm90aCBD
+MjIgYW5kDQo+ID4gKyAqIEM0NSByZWdpc3RlcnMgc3BhY2UuIElmIHRoZSBQSFkgaXMgZGlzY292
+ZXJlZCB2aWEgQzIyIGJ1cyBwcm90b2NvbCBpdA0KPiA+ICsgKiBhc3N1bWVzIGl0IHVzZXMgQzIy
+IHByb3RvY29sIGFuZCBhbHdheXMgdXNlcyBDMjIgcmVnaXN0ZXJzIGluZGlyZWN0DQo+ID4gKyAq
+IGFjY2VzcyB0byBhY2Nlc3MgQzQ1IHJlZ2lzdGVycy4gVGhpcyBpcyBiZWNhdXNlLCB3ZSBkb24n
+dCBoYXZlIGENCj4gPiArICogY2xlYW4gc2VwYXJhdGlvbiBiZXR3ZWVuIEMyMi9DNDUgcmVnaXN0
+ZXIgc3BhY2UgYW5kIEMyMi9DNDUgTURJTyBidXMNCj4gPiArICogcHJvdG9jb2xzLiBSZXN1bHRp
+bmcsIFBIWSBDNDUgcmVnaXN0ZXJzIGRpcmVjdCBhY2Nlc3MgY2FuJ3QgYmUgdXNlZA0KPiA+ICsg
+KiB3aGljaCBjYW4gc2F2ZSBtdWx0aXBsZSBTUEkgYnVzIGFjY2Vzcy4gVG8gc3VwcG9ydCB0aGlz
+IGZlYXR1cmUsIFBIWQ0KPiA+ICsgKiBkcml2ZXJzIGNhbiBzZXQgLnJlYWRfbW1kLy53cml0ZV9t
+bWQgaW4gdGhlIFBIWSBkcml2ZXIgdG8gY2FsbA0KPiA+ICsgKiAucmVhZF9jNDUvLndyaXRlX2M0
+NS4gRXg6IGRyaXZlcnMvbmV0L3BoeS9taWNyb2NoaXBfdDFzLmMNCj4gPiArICovDQo+ID4gKyB0
+YzYtPm1kaW9idXMtPnJlYWRfYzQ1ID0gb2FfdGM2X21kaW9idXNfcmVhZF9jNDU7DQo+ID4gKyB0
+YzYtPm1kaW9idXMtPndyaXRlX2M0NSA9IG9hX3RjNl9tZGlvYnVzX3dyaXRlX2M0NTsNCj4gPiAr
+DQo+ID4gKyB0YzYtPm93bl9tZGlvYnVzID0gdHJ1ZTsNCj4gPiB9DQo+ID4NCj4gPiB0YzYtPm1k
+aW9idXMtPnByaXYgPSB0YzY7DQo+ID4gLSB0YzYtPm1kaW9idXMtPnJlYWQgPSBvYV90YzZfbWRp
+b2J1c19yZWFkOw0KPiA+IC0gdGM2LT5tZGlvYnVzLT53cml0ZSA9IG9hX3RjNl9tZGlvYnVzX3dy
+aXRlOw0KPiA+IC0gLyogT1BFTiBBbGxpYW5jZSAxMEJBU0UtVDF4IGNvbXBsaWFuY2UgTUFDLVBI
+WXMgd2lsbCBoYXZlIGJvdGggQzIyIGFuZA0KPiA+IC0gKiBDNDUgcmVnaXN0ZXJzIHNwYWNlLiBJ
+ZiB0aGUgUEhZIGlzIGRpc2NvdmVyZWQgdmlhIEMyMiBidXMgcHJvdG9jb2wgaXQNCj4gPiAtICog
+YXNzdW1lcyBpdCB1c2VzIEMyMiBwcm90b2NvbCBhbmQgYWx3YXlzIHVzZXMgQzIyIHJlZ2lzdGVy
+cyBpbmRpcmVjdA0KPiA+IC0gKiBhY2Nlc3MgdG8gYWNjZXNzIEM0NSByZWdpc3RlcnMuIFRoaXMg
+aXMgYmVjYXVzZSwgd2UgZG9uJ3QgaGF2ZSBhDQo+ID4gLSAqIGNsZWFuIHNlcGFyYXRpb24gYmV0
+d2VlbiBDMjIvQzQ1IHJlZ2lzdGVyIHNwYWNlIGFuZCBDMjIvQzQ1IE1ESU8gYnVzDQo+ID4gLSAq
+IHByb3RvY29scy4gUmVzdWx0aW5nLCBQSFkgQzQ1IHJlZ2lzdGVycyBkaXJlY3QgYWNjZXNzIGNh
+bid0IGJlIHVzZWQNCj4gPiAtICogd2hpY2ggY2FuIHNhdmUgbXVsdGlwbGUgU1BJIGJ1cyBhY2Nl
+c3MuIFRvIHN1cHBvcnQgdGhpcyBmZWF0dXJlLCBQSFkNCj4gPiAtICogZHJpdmVycyBjYW4gc2V0
+IC5yZWFkX21tZC8ud3JpdGVfbW1kIGluIHRoZSBQSFkgZHJpdmVyIHRvIGNhbGwNCj4gPiAtICog
+LnJlYWRfYzQ1Ly53cml0ZV9jNDUuIEV4OiBkcml2ZXJzL25ldC9waHkvbWljcm9jaGlwX3Qxcy5j
+DQo+ID4gLSAqLw0KPiA+IC0gdGM2LT5tZGlvYnVzLT5yZWFkX2M0NSA9IG9hX3RjNl9tZGlvYnVz
+X3JlYWRfYzQ1Ow0KPiA+IC0gdGM2LT5tZGlvYnVzLT53cml0ZV9jNDUgPSBvYV90YzZfbWRpb2J1
+c193cml0ZV9jNDU7DQo+ID4gLSB0YzYtPm1kaW9idXMtPm5hbWUgPSAib2EtdGM2LW1kaW9idXMi
+Ow0KPiA+IHRjNi0+bWRpb2J1cy0+cGFyZW50ID0gdGM2LT5kZXY7DQo+ID4gKyB0YzYtPm1kaW9i
+dXMtPm5hbWUgPSAib2EtdGM2LW1kaW9idXMiOw0KPiA+DQo+ID4gc25wcmludGYodGM2LT5tZGlv
+YnVzLT5pZCwgQVJSQVlfU0laRSh0YzYtPm1kaW9idXMtPmlkKSwgIiVzIiwNCj4gPiAtIGRldl9u
+YW1lKCZ0YzYtPnNwaS0+ZGV2KSk7DQo+ID4gKyBkZXZfbmFtZSgmdGM2LT5zcGktPmRldikpOw0K
+PiA+DQo+ID4gcmV0ID0gbWRpb2J1c19yZWdpc3Rlcih0YzYtPm1kaW9idXMpOw0KPiA+IGlmIChy
+ZXQpIHsNCj4gPiBAQCAtNTc3LDE5ICs1ODMsMzAgQEAgc3RhdGljIGludCBvYV90YzZfbWRpb2J1
+c19yZWdpc3RlcihzdHJ1Y3Qgb2FfdGM2ICp0YzYpDQo+ID4NCj4gPiBzdGF0aWMgdm9pZCBvYV90
+YzZfbWRpb2J1c191bnJlZ2lzdGVyKHN0cnVjdCBvYV90YzYgKnRjNikNCj4gPiB7DQo+ID4gKyBp
+ZiAoIXRjNi0+bWRpb2J1cykNCj4gPiArIHJldHVybjsNCj4gPiArDQo+ID4gbWRpb2J1c191bnJl
+Z2lzdGVyKHRjNi0+bWRpb2J1cyk7DQo+ID4gLSBtZGlvYnVzX2ZyZWUodGM2LT5tZGlvYnVzKTsN
+Cj4gPiArDQo+ID4gKyBpZiAodGM2LT5vd25fbWRpb2J1cykNCj4gPiArIG1kaW9idXNfZnJlZSh0
+YzYtPm1kaW9idXMpOw0KPiA+IH0NCj4gPg0KPiA+IHN0YXRpYyBpbnQgb2FfdGM2X3BoeV9pbml0
+KHN0cnVjdCBvYV90YzYgKnRjNikNCj4gPiB7DQo+ID4gaW50IHJldDsNCj4gPg0KPiA+IC0gcmV0
+ID0gb2FfdGM2X2NoZWNrX3BoeV9yZWdfZGlyZWN0X2FjY2Vzc19jYXBhYmlsaXR5KHRjNik7DQo+
+ID4gLSBpZiAocmV0KSB7DQo+ID4gLSBuZXRkZXZfZXJyKHRjNi0+bmV0ZGV2LA0KPiA+IC0gIkRp
+cmVjdCBQSFkgcmVnaXN0ZXIgYWNjZXNzIGlzIG5vdCBzdXBwb3J0ZWQgYnkgdGhlIE1BQy1QSFlc
+biIpOw0KPiA+IC0gcmV0dXJuIHJldDsNCj4gPiArIC8qIElmIHRoZSBkcml2ZXIgcHJvdmlkZWQg
+YSBtaWlfYnVzLCBpdCBpcyBhbHNvIHJlc3BvbnNpYmxlIGZvcg0KPiA+ICsgKiBpbXBsZW1lbnRp
+bmcgdGhlIGJ1cyBhY2Nlc3MgbWV0aG9kcywgc28gd2UgZG9uJ3QgaGF2ZSB0byB3b3JyeQ0KPiA+
+ICsgKiBhYm91dCBjaGVja2luZyB0aGUgUEhZIGFjY2VzcyBtb2RlLg0KPiA+ICsgKi8NCj4gPiAr
+IGlmICghdGM2LT5tZGlvYnVzKSB7DQo+ID4gKyByZXQgPSBvYV90YzZfY2hlY2tfcGh5X3JlZ19k
+aXJlY3RfYWNjZXNzX2NhcGFiaWxpdHkodGM2KTsNCj4gPiArIGlmIChyZXQpIHsNCj4gPiArIG5l
+dGRldl9lcnIodGM2LT5uZXRkZXYsDQo+ID4gKyAiRGlyZWN0IFBIWSByZWdpc3RlciBhY2Nlc3Mg
+aXMgbm90IHN1cHBvcnRlZCBieSB0aGUgTUFDLVBIWVxuIik7DQo+ID4gKyByZXR1cm4gcmV0Ow0K
+PiA+ICsgfQ0KPiANCj4gVGhpcyBhbGwgc2VlbXMgcHJldHR5IGludmFzaXZlIGFuZCB1Z2x5LiBQ
+bGVhc2UgY291bGQgeW91IHRoaW5rIHdoYXQNCj4gaGFwcGVucyBpZiBpbnN0ZWFkIG9mIHBhc3Np
+bmcgaW4gYW4gbWRpb2J1cywgeW91IHBhc3MgYSBwaHlkZXYuIElzIHRoZQ0KPiBjaGFuZ2UgdG8g
+dGhlIGNvcmUgc2ltcGxlciBhbmQgY2xlYW5lcj8NCj4gDQo+IEFuZHJldw0KDQpLaW5kIG9mIGFn
+cmVlLiBJbml0aWFsbHkgd2Ugd2VyZSB0aGlua2luZyBhYm91dCBjaGFuZ2luZyB0aGUgZXhpc3Rp
+bmcgY29kZSAoTWljcm9jaGlwJ3MgdmVuZG9yIGNvZGUpIHRvIGFsbG9jIG1paV9idXMgc28gdGhh
+dCBjb2RlIHdvdWxkIGJlIHNhbWUgYWNyb3NzIG11bHRpcGxlIHZlbmRvcnMuIEVpdGhlciB3YXks
+IGl0IHdvdWxkIGJlIGludmFzaXZlIGNoYW5nZXMuIFNvLCB3ZSBkZWNpZGUgdG8gZ28gd2l0aCBt
+aW5pbWFsIGNoYW5nZSB0byBvdGhlciB2ZW5kb3IncyBjb2RlLg0KDQpUcnlpbmcgdG8gdW5kZXJz
+dGFuZCB5b3VyIHN1Z2dlc3Rpb24uIEFyZSB5b3Ugc3VnZ2VzdGluZyB0byBtb3ZlIGVudGlyZSBt
+aWlfYnVzIGFsbG9jYXRpb24vQVBJcyBpbXBsZW1lbnRhdGlvbiB0byB2ZW5kb3Igc2lkZSBhbmQg
+a2VlcCBvbmx5IHBoeSBkZXYgdXNhZ2UgaW4gb2FfdGM2LmM/DQoNCklmIG15IHVuZGVyc3RhbmRp
+bmcgaXMgY29ycmVjdCwgSSBndWVzcyBpdCB3b3VsZCBiZSBjbGVhbmVyLiBJIGNhbiB0cnkgdGhh
+dC4gTGV0IG1lIGtub3cuDQoNClNlbHZhDQoNCg0K
 
