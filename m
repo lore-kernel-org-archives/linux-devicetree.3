@@ -1,107 +1,161 @@
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE4843A7F4C
-	for <devicetree@vger.kernel.org>; Sun,  3 May 2026 21:34:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1743A785E;
+	Sun,  3 May 2026 21:43:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777844078; cv=none; b=I3nNQOurS70Hs8GVIXXlnhPiN26u/nT1RM/nFEYvoKBnzLpCD0zCg9VG0Ch7qxwxUJwDY6+khlwDeDaBx5ZC5WVVw0835P3PSQ8eSAy0xje7rnWAFIeEO0G1JZwyEU60KkldCAmEHRWy2GWiQMzsERYBgqE5g+LqCSg4f4WOve0=
+	t=1777844596; cv=none; b=p8KWyjemtfjPjn7Fy1+jUCJQu3u0O8QTG33LsQY9uXruTJZdzUuCvDB7tGRwerz5up68/KnfqQV3vZ577rrQYCtyu4Q6E8CyV45frr/2FkDwBeyZO5VKIw6azWtrpmX8KdBIp7znQey/BR6G7E5V/zFUhWM+tOc5ewZ10Ll20tk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777844078; c=relaxed/simple;
-	bh=V2CKovgPBbL3YrqfdVzTYZbUk38RE704n2LsR5Qlxgo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JKUU1WdkV6JH7H7+OxWof/fXMTKVDDwRnQ/0bEb7zSkd0PlZUCrdeVA3pVZgCHntPi/bMRj40OJ6OsljZIimYxq/cl/jWVSdht8s7+XCdWi7XlbvUzMzVcOcRjvbVmG14ybeWg/JdN2GGPQFPDxK6MYWTBQQ6Rj5QS5CViRBUCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=agjZ3B+9; arc=none smtp.client-ip=209.85.222.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777844596; c=relaxed/simple;
+	bh=cWFq0UmsChy1UMKhJ3jNAc6iyXXgrydkyp2h6htMuew=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=autUzPk4CCb1gUCbQAPiMmWoQg0PCQNlsz07UwjBAyq8+os5uyJlc3k132tZpencSqEaqPisoXh45RIJz9EdEtGkSR5awUqBCzyydcItYKBzVBU8vgK38Mx1DYmq8LEl9cmnkWAVLHpEcS5N5/LuGrl9Vf+Ze7+Ovu7ZV0/2/+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s/Abf71z; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="agjZ3B+9"
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-8f231f3b130so240343185a.3
-        for <devicetree@vger.kernel.org>; Sun, 03 May 2026 14:34:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777844075; x=1778448875; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=U+fB6N1kDtTpFfTTO4SeOyoK3hURDyYjimuuMZs4xRs=;
-        b=agjZ3B+98QP7bVmUJazHJsSeCx/GUFrk3oUZPsXbTiIn3sYwu+zvkgxId0VaWd2ISe
-         IoDa7SN4FNLz09aZBfBdO8M/iojUjAXQAtKyGvHUjVbM3cVTaUxZKMULuJZ6j+mf2HF6
-         NOaZGJNMwND6Cyz71XBJCpp7EjV6eoLm5fbf8WXAZaA9IZ0I+iVrWBrKKCE9+BGRN3yD
-         jBnEl1wm6VVFxuq+Z7DBLjX8BaN+3kqhd2/8if7FuHpIEftbu00dnYpYW/caNLgNQVem
-         97kpt5SkgU3KhW9Pkss58W0L0cRJshpq7sXRv7CuNE1uwYe9HGQKaxNDDfQkt3fY2lcN
-         OZTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777844075; x=1778448875;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=U+fB6N1kDtTpFfTTO4SeOyoK3hURDyYjimuuMZs4xRs=;
-        b=RgTqNHa1IjrdrNQ3TlpQNM59MCbqn2p9gj4k1tL+/mGD96LCQOXWSIhuzMKj6N3odo
-         vkzJBrfDa5xJDKdg4ExzaDXeTq38Z6KM/V0tuoR1Y6L1fbGAJaw2ojhQ/uOkZynNQ5JP
-         1abHx6hrX9vzNiB7QEnDqg8IRcRYWHIIOYo6FNcLmv5NsefY0DV45fJkKMtUw+g8sk6e
-         bNFJPuXoDVSUXqDeT+Y+oUIE2DoMIF9wQIdA2/tO2brTBSLTpMnfMRtTSCbe6g0qkNYb
-         J79wAjgct5XvIXx2dRNblVSAqFX9wRAc0TZ3KjlrSvPB5G4z6vkyWtcWhJMJHOP11pvn
-         XtHA==
-X-Forwarded-Encrypted: i=1; AFNElJ+r46p3zSN2Geruwcj8plOIhwRZbz7+WIU5GJvg28vXZdeIQLfZccp2FkpSDx4QMWYTEvZFT+LyW5FC@vger.kernel.org
-X-Gm-Message-State: AOJu0YzLQHHoL2/GHogZx0wCpVuUkq+P1PGK/fm1eifTef6MCrRHTvm1
-	0tcl2CGvCRqvQiXPttUBQUSnDFPwMN8mDTqbsnS0ema/OfobV4ESoiaF
-X-Gm-Gg: AeBDietq42QyXN7kqFj/IC1RfqSqyqlK/SmxGqoOixdsMkdr2K81P7QEl0jcXS59bJO
-	tvb2cHrVjipJC1IhwutcwfPq3ziXoBE4OvXIS13Y90cZFvsdghdNitse8WxrP9V8zCE/wWCRPdU
-	0ZgPu5H1ZjDlGdlKgF3zt+f6Z20EkG2EDNzQp4vzNsXqeXuTiVuacnjItUwEOHmd22kqcYnVd89
-	XFQ3obauc87DzP5bMxPj+CDLaKfhtaIHS6Iqq85F7tH/S2BFcrOfMhEKTtSSD4ft7xwfhkP6LSn
-	Prp4RVohmY1nTr3c3fsjDsii89pwQz46ygh430gjMz21/mBek9426CrBMmJfmGJHsQGdwr6dylB
-	e52gS6dX3EWI1VKldYhQA/5Vo0IMbbaXBrBZnSdTmALQzESBz7cOTCHUdM/BIXsea+mDRMPTD5q
-	Zr89UtS7aVgxbsU9/YSqmBj7yEgkTRYkZaGUWQ
-X-Received: by 2002:a05:620a:c51:b0:8ee:dc47:3b71 with SMTP id af79cd13be357-8fd18137f32mr1102849485a.31.1777844075258;
-        Sun, 03 May 2026 14:34:35 -0700 (PDT)
-Received: from localhost ([184.144.58.243])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8fc2c2540ecsm831799685a.26.2026.05.03.14.34.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 03 May 2026 14:34:33 -0700 (PDT)
-Date: Sun, 3 May 2026 17:35:16 -0400
-From: Richard Acayan <mailingradian@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	Nickolay Goppen <setotau@mainlining.org>,
-	Adam Skladowski <a39.skl@gmail.com>,
-	Vladimir Lypak <vladimir.lypak@gmail.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Wesley Cheng <quic_wcheng@quicinc.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v4 08/15] ASoC: qdsp6: q6afe-dai: add internal mi2s
- support
-Message-ID: <afe_lNt_zS0j8ZYr@rdacayan>
-References: <20260501153128.8152-1-mailingradian@gmail.com>
- <20260501153128.8152-9-mailingradian@gmail.com>
- <afaItZPyanmoWraa@sirena.co.uk>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s/Abf71z"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6BE6DC2BCB4;
+	Sun,  3 May 2026 21:43:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777844596;
+	bh=cWFq0UmsChy1UMKhJ3jNAc6iyXXgrydkyp2h6htMuew=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=s/Abf71zdPGK2EH6TIc1GQX8Gg5oaMLMS9QIm6i3WcLbROvc+rJSGW2HnMgw86Twa
+	 bvs4ra6r7pivhFfegB/jcxRYuJrPNfbLW2XFwPKweWvwOm+bwL2oz1CrYfuQgEeMTb
+	 YtJRz+w2wXJjO9twWN08VUPQo8+KrOnH7To9jrFCNA5mDs2jzXcvz3rkqU+jB8kxvz
+	 C7kZjLNpDTkcADnbu0+eOu2RL53fvmnS9N0n/85fWIEbhjAjC9bHa8p/nUFNryyAF/
+	 A6JJ/YBpKTBoAuRHKHwzK4M9zMbFgv2ud7kIMuWpiK1ALyMQzlZZs14VP9RgYAy6Fl
+	 C8iYRLCJbq9Qg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 63012CD3424;
+	Sun,  3 May 2026 21:43:16 +0000 (UTC)
+From: Rudraksha Gupta via B4 Relay <devnull+guptarud.gmail.com@kernel.org>
+Date: Sun, 03 May 2026 14:43:15 -0700
+Subject: [PATCH v5 1/3] dt-bindings: leds: rt8515: Support single-GPIO
+ flash ICs with vin supply
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <afaItZPyanmoWraa@sirena.co.uk>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260503-expressatt_camera_flash-v5-1-95524506a799@gmail.com>
+References: <20260503-expressatt_camera_flash-v5-0-95524506a799@gmail.com>
+In-Reply-To: <20260503-expressatt_camera_flash-v5-0-95524506a799@gmail.com>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Rudraksha Gupta <guptarud@gmail.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777844595; l=2722;
+ i=guptarud@gmail.com; s=20240916; h=from:subject:message-id;
+ bh=zVrQqx9DX85PpInFmz437RLTadxI5BhJ9KjSu1CJI9w=;
+ b=D34jREdsOmnrUJrEqDaIoKNsVbWPR6FSlZ+YLIU9a5KCB6+P96K7j5lAZrbwwVf3VBNfYsHep
+ KYe3PPgiY4nBYV94MtPA/rEVS7keiM0iaKvmF2+a3dI3VKcT6UIAqau
+X-Developer-Key: i=guptarud@gmail.com; a=ed25519;
+ pk=ETrudRugWAtOpr0OhRiheQ1lXM4Kk4KGFnBySlKDi2I=
+X-Endpoint-Received: by B4 Relay for guptarud@gmail.com/20240916 with
+ auth_id=211
+X-Original-From: Rudraksha Gupta <guptarud@gmail.com>
+Reply-To: guptarud@gmail.com
 
-On Sun, May 03, 2026 at 08:28:53AM +0900, Mark Brown wrote:
-> On Fri, May 01, 2026 at 11:31:21AM -0400, Richard Acayan wrote:
-> > Add the internal MI2S ports found on the SDM660 internal sound card.
-> 
-> > +	SND_SOC_DAPM_AIF_IN("INT0_MI2S_RX", "NULL",
-> > +		0, SND_SOC_NOPM, 0, 0),
-> 
-> Why are we using the string "NULL" rather than a NULL pointer here?
+From: Rudraksha Gupta <guptarud@gmail.com>
 
-The new additions will be fixed, but it originated in commit
-32d2c61ba059 ("ASoC: qdsp6: q6afe-dai: add support to Display port RX
-dais").
+Some flash ICs use the same one-wire pulse-count protocol as the RT8515
+but have only a single enable line for both flash and torch modes, plus
+an optional input voltage supply (e.g. a GPIO-controlled fixed
+regulator) that gates power to the chip.
+
+Make ent-gpios optional and add a vin-supply property to support these
+variants. Add a oneOf constraint requiring exactly one of ent-gpios or
+vin-supply. Add a binding example showing the single-GPIO configuration
+with an input supply.
+
+Assisted-by: Claude:claude-opus-4.6
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Rudraksha Gupta <guptarud@gmail.com>
+---
+ .../devicetree/bindings/leds/richtek,rt8515.yaml   | 34 +++++++++++++++++++++-
+ 1 file changed, 33 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/leds/richtek,rt8515.yaml b/Documentation/devicetree/bindings/leds/richtek,rt8515.yaml
+index 0356371a6b01..ab3c5139132c 100644
+--- a/Documentation/devicetree/bindings/leds/richtek,rt8515.yaml
++++ b/Documentation/devicetree/bindings/leds/richtek,rt8515.yaml
+@@ -15,6 +15,10 @@ description: |
+   current for each mode is defined in hardware using two resistors
+   RFS and RTS.
+ 
++  Some flash ICs use the same one-wire pulse-count protocol but have
++  only a single enable line for both flash and torch modes. For these
++  single-channel variants, only enf-gpios is needed.
++
+ properties:
+   compatible:
+     const: richtek,rt8515
+@@ -26,6 +30,11 @@ properties:
+   ent-gpios:
+     maxItems: 1
+     description: A connection to the 'ENT' (enable torch) pin.
++      Not present on single-channel flash ICs that use only one enable
++      line for both flash and torch modes.
++
++  vin-supply:
++    description: Optional input supply for the flash IC.
+ 
+   richtek,rfs-ohms:
+     minimum: 7680
+@@ -81,10 +90,15 @@ properties:
+ 
+ required:
+   - compatible
+-  - ent-gpios
+   - enf-gpios
+   - led
+ 
++oneOf:
++  - required:
++      - ent-gpios
++  - required:
++      - vin-supply
++
+ additionalProperties: false
+ 
+ examples:
+@@ -108,4 +122,22 @@ examples:
+         };
+     };
+ 
++  - |
++    /* Single-channel flash IC with input supply */
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/leds/common.h>
++
++    led-controller {
++        compatible = "richtek,rt8515";
++        enf-gpios = <&tlmm 3 GPIO_ACTIVE_HIGH>;
++        vin-supply = <&flash_reg>;
++        richtek,rfs-ohms = <16000>;
++
++        led {
++            function = LED_FUNCTION_FLASH;
++            color = <LED_COLOR_ID_WHITE>;
++            flash-max-timeout-us = <250000>;
++        };
++    };
++
+ ...
+
+-- 
+2.54.0
+
+
