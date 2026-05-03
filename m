@@ -1,196 +1,116 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B963CA52;
-	Sun,  3 May 2026 03:36:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BABC428FFF6
+	for <devicetree@vger.kernel.org>; Sun,  3 May 2026 03:42:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777779388; cv=none; b=pFf5IlZr3FbpuyBwPpi+LSa7cld40WCkvZvXJaV2ysLvmldR9Or7SQ4VGVxQ2c6mG67f/EbANvbdxoiYluzK3gAxVgWmrRebLNVXlJd2bzOw7mpPFPCrlpdBvu6TH5bIMONXAWH48P9O3zeC2/jeNc30K9jzDS3vit020jRAWiA=
+	t=1777779765; cv=none; b=gwCld7fYyRpSgn4YTMmbOBjLeWDywdsnDR9rBT6W1/T5S2jeW9HwEjfrgPwF5ncqrJ/7vyCZGMxwtgKnsDT5k6qja4MZJH5sD34NTMQEWMWo4l3KjJiFm+fFniLBzKlan8zV3UbYsLNQTMe1JjUEFqGZECMj/fkiw6WIuDT04CQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777779388; c=relaxed/simple;
-	bh=16gE3Zmxvq9l/e+8Adas9Ssngs8xP2I/U10xr3qEPG4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rNfbkamFPbSKMu488z+7jkXQgfmIWce92+bu3OLZTh65hbcAi51dp1i7yxKLeK34L2KF3qnRUnEoiSl8IsLaOdOIzOvGG2TZloERhvzGIeMDXAIg6K/VtTQnI1Md8gSFtwTk24XhUAw1s/T1Rl1cc+1T6Xo7QMDiqHBXIJ7p8kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=WuwyskRF; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1777779765; c=relaxed/simple;
+	bh=tjG1kTWygatN70wVlmDcJrkF7ZiwlCkEtZ14WpNp9YM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=b8/RWmD2SZFW6TY0XwYxIraNOfpzBPrRQD0TwfR3NEZdy9A9iCHADgqHhH4hboQzIcqmY/qT2rQRvUe6q/lNpKAVYb+yUA9Idp3/HfqhsMkRHo1gwQdGAUp1dlM33emzcuVunbjxBS9VC7HOdKmbQYp7Bf2ZRVrza0q4LXE0czg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bogIRTBj; arc=none smtp.client-ip=209.85.222.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="WuwyskRF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=DTFRDFkycfQcVTewpGkLJugXa/JrmWlRAbcO2CAGRH4=; b=WuwyskRFKAttARx1y/Qw6F2PtQ
-	VSfnmWsR0zwaG1mjFFG3zz5PfZxzNhLGqa3zB/gobKbU6K44LNuLmLWgx0dYnlvwjunAv1ocEbAK1
-	1VM3StlIh5OepYjDOW/iiALrXM8pqTXJraGqgoPZ/efOcBUa35D9/Oe8I4QmCUt0JdIU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wJNcr-0015Jc-HW; Sun, 03 May 2026 05:36:13 +0200
-Date: Sun, 3 May 2026 05:36:13 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: ciprian.regus@analog.com
-Cc: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next 4/5] net: ethernet: adi: Add a driver for the
- ADIN1140 MACPHY
-Message-ID: <afc1cf8d-4a02-430e-89a5-b213c15a4f70@lunn.ch>
-References: <20260503-adin1140-driver-v1-0-dd043cdd88f0@analog.com>
- <20260503-adin1140-driver-v1-4-dd043cdd88f0@analog.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bogIRTBj"
+Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-94ac8cbf3feso2063460241.0
+        for <devicetree@vger.kernel.org>; Sat, 02 May 2026 20:42:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777779763; x=1778384563; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=PiiXKGJux6g44aioDbCLD/YNgU+NyVlVqd4RaEM0CyY=;
+        b=bogIRTBj2NYB1Wx+NISe61rixqiMmilhr6CMCY7MKJG9isjO5Seco0qVA/yOZsaVcG
+         5pOsfzym9wWCYc+pUCe6ybYbOqDaw5zC0prMnbavrZN7dY+N7ngFWBC2pIh3QZYnKi1A
+         MXRpArxUJogCawuyP3oz0W1TlDavMuTk+pzBS71GlcJV/OQ/DfIqTQmnc+REdEkj0Z23
+         ypD37ohPkyq6mpAQIl6Oci4+/yiHktxJXiKQTsRzk7G4WARSfY3POLfuEX+YzMzRsQVn
+         YCRXv2utqrytLSwHwSQ5lGMMCAVityzCZ7CO7b2wBaQGFvkVWyXqQ0wCLDnkKySuwXAh
+         +ZmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777779763; x=1778384563;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PiiXKGJux6g44aioDbCLD/YNgU+NyVlVqd4RaEM0CyY=;
+        b=Mzj7LpaiX26bVkyAhxcTb+0oS8Bzo7yQ6JMAkrIIj31sYBU4pdiRm1AvKF645M88Yp
+         Vbdn1RzPU2Eg48c+kqCZGFIhKp/9iZz6TCFSCE2S1cwu3YuiSDSL7yw1P1eak14asG6K
+         B8iA8eMXy2llGtbm2xlrac11dNaI7CN+8hWQEq7k3uBO2rrdBuUkOMdL88KNMwVcsJty
+         OQ3M0GWyjiqHAbBUKiHRT454vRlWK/CKREfXznmANYB/1cXAZN+s6cMoXOM+eRayuXV+
+         PsblRX4fzN5DfooOLkdkr8oB68VCWCPCvKejtE/y39EiuECkUUhDeYMCw9xDQEb5o3mg
+         Tr6Q==
+X-Forwarded-Encrypted: i=1; AFNElJ9uMZsvi/c3DCOucu0hkFPprmJxY/HXMnR7ymz9ySdmLyxC0wPCR7xb/rI5W/oknIxQkuudOUtSTQT5@vger.kernel.org
+X-Gm-Message-State: AOJu0YzLBfmiV7O/bRHmRJDRd1AWJn0mYKXiHbbJL4EDMDZtKd4wiR6j
+	tp15ziIQhpfD+SESLBtwQWXfdLaKo+RjDbGbSpnTPzQS0799JKvAXPJc
+X-Gm-Gg: AeBDiet54Zi0SplKSRgNKpbuBBEUeonBlVsdwjktCRP4D/mq6DDK7PYx+ZttdxaPl+2
+	GOOBf29sdBCGbctXDB0WwvAfd+YnihorD+qbS+tn6l3MHCJvdFfLJi7bqp08xoSYiVURR0jQJ16
+	jY4yoij31r8ntxQYLe4mqWEKmfhK4//vqONEN/A1xrDNcpTkJYsYkOPOlRVY/aRiIcuGstQ+oK4
+	CYd8Xs7RE2AUPd+/BsGZ48f/3j+slMLk/7FTtOipAIo9LBo0pIy5jWZfONFnP3b6dX9sWIC720j
+	D3U3rSVsBBR0MurmKIamphuZkAkVJn8dWhaB3CgHnPPp/UUct2J3sai9DNx06KcfIj1Qr6GLadd
+	BEy/vkBy2x/jrf50G7vPtMXUftT3VRfkPimN2yUD5GDujke94kh/jP6gfPCZGw3QgZelIpPHSCZ
+	JXv8DE1T2RGBGc2f5ukie19GX1WbvkmyXfJOC8mUZybac=
+X-Received: by 2002:a05:6102:4b0c:b0:604:f29d:84be with SMTP id ada2fe7eead31-62d84a67460mr2488161137.3.1777779762631;
+        Sat, 02 May 2026 20:42:42 -0700 (PDT)
+Received: from [172.27.209.232] ([129.222.53.215])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-95ce0af57f6sm3669350241.8.2026.05.02.20.42.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 02 May 2026 20:42:41 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <1fe6bcb7-b5c0-454f-ad54-5014006edab5@gmail.com>
+Date: Sun, 3 May 2026 04:42:35 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260503-adin1140-driver-v1-4-dd043cdd88f0@analog.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 09/12] gpio: tc956x: add TC956x/QPS615 support
+To: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, maxime.chevallier@bootlin.com,
+ rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
+ brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org
+Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
+ alexandre.torgue@foss.st.com, ast@kernel.org, boon.khai.ng@altera.com,
+ chenchuangyu@xiaomi.com, chenhuacai@kernel.org, daniel@iogearbox.net,
+ hawk@kernel.org, hkallweit1@gmail.com, inochiama@gmail.com,
+ john.fastabend@gmail.com, livelycarpet87@gmail.com,
+ matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
+ weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-10-elder@riscstar.com>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20260501155421.3329862-10-elder@riscstar.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, May 03, 2026 at 02:24:53AM +0300, Ciprian Regus via B4 Relay wrote:
-> From: Ciprian Regus <ciprian.regus@analog.com>
-> 
-> Add a driver for ADIN1140. The device is a 10BASE-T1S MAC-PHY
-> (integrated in the same package) that connects to a CPU over an SPI bus,
-> and implements the Open Alliance TC6 protocol for control and frame
-> transfers. As such, this driver relies on oa_tc6 for the communication
-> with the device. The device has an alternative name (AD3306), so the
-> driver can be probed using one of the two compatible strings.
-> 
-> For control transactions, ADIN1140 only implements the protected mode.
-> The driver has a custom implementation for the mii_bus access methods as a
-> workaround for hardware issues:
-> 
-> 1. The OA TC6 standard defines the direct and indirect access modes for
->    MDIO transactions. The ADIN1140 incorrectly advertises indirect mode
->    only (supported capabilities register - 0x2, bit 9), while actually
->    implementing just the direct mode. We cannot rely on the CAP register
->    to choose an access method (which oa_tc6 does by default, even though
->    it only implements the direct mode), so the driver has to use its
->    own.
-> 2. The ADIN1140 cannot access the C22 register space of the internal
->    PHY, while the PHY is busy receiving frames. If that happens, the
->    CONFIG0 and CONFIG2 registers of the MAC will get corrupted and the
->    data transfer will stop. Those two registers configure settings for
->    the transfer protocol between the MAC and host, so the value for some
->    of their subfields shouldn't be changed while the netdev is up.
->    Since we know the PHY is internal, the MAC driver can implement a
->    custom mii_bus, which can intercept C22 accesses. Most of the
->    registers mapped in the 0x0 - 0x3 range (the only ones the PHY offers)
->    are read only, and their value can be read from somewhere else (e.g
->    the PHYID 1 & 2 have the same value as 0x1 in the MAC memory map).
->    For the fields that are R/W (loopback and AN/reset) in the control
->    register, the PHY driver already implements the set_loopback() and
->    config_aneg() functions. The C22 write function of the driver is a
->    no-op and is used to protect against the ioctl MDIO access path.
->    C45 accesses do not cause this issue, so we can properly implement
->    them.
-> 
-> Signed-off-by: Ciprian Regus <ciprian.regus@analog.com>
-> ---
->  MAINTAINERS                         |   7 +
->  drivers/net/ethernet/adi/Kconfig    |  12 +
->  drivers/net/ethernet/adi/Makefile   |   1 +
->  drivers/net/ethernet/adi/adin1140.c | 805 ++++++++++++++++++++++++++++++++++++
->  4 files changed, 825 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 1e58da5ef47a..f9784c25beac 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -1843,6 +1843,13 @@ S:	Supported
->  W:	https://ez.analog.com/linux-software-drivers
->  F:	drivers/dma/dma-axi-dmac.c
->  
-> +ANALOG DEVICES INC ETHERNET DRIVERS
-> +M:	Ciprian Regus <ciprian.regus@analog.com>
-> +L:	netdev@vger.kernel.org
-> +S:	Maintained
-> +W:	https://ez.analog.com/linux-software-drivers
-> +F:	drivers/net/ethernet/adi/adin1140.c
-> +
->  ANALOG DEVICES INC ETHERNET PHY DRIVERS
->  M:	Ciprian Regus <ciprian.regus@analog.com>
->  L:	netdev@vger.kernel.org
-> diff --git a/drivers/net/ethernet/adi/Kconfig b/drivers/net/ethernet/adi/Kconfig
-> index 760a9a60bc15..bdb8ff7d15da 100644
-> --- a/drivers/net/ethernet/adi/Kconfig
-> +++ b/drivers/net/ethernet/adi/Kconfig
-> @@ -26,4 +26,16 @@ config ADIN1110
->  	  Say yes here to build support for Analog Devices ADIN1110
->  	  Low Power 10BASE-T1L Ethernet MAC-PHY.
->  
-> +config ADIN1140
-> +	tristate "Analog Devices ADIN1140 MAC-PHY"
-> +	depends on SPI
-> +	select ADIN1140_PHY
-> +	select OA_TC6
-> +	help
-> +	  Say yes here to build support for Analog Devices, Inc. ADIN1140
-> +	  10BASE-T1S Ethernet MAC-PHY.
-> +
-> +	  To compile this driver as a module, choose M here. The module will be
-> +	  called adin1140.
-> +
->  endif # NET_VENDOR_ADI
-> diff --git a/drivers/net/ethernet/adi/Makefile b/drivers/net/ethernet/adi/Makefile
-> index d0383d94303c..0390ca8ccc49 100644
-> --- a/drivers/net/ethernet/adi/Makefile
-> +++ b/drivers/net/ethernet/adi/Makefile
-> @@ -4,3 +4,4 @@
->  #
->  
->  obj-$(CONFIG_ADIN1110) += adin1110.o
-> +obj-$(CONFIG_ADIN1140) += adin1140.o
-> diff --git a/drivers/net/ethernet/adi/adin1140.c b/drivers/net/ethernet/adi/adin1140.c
-> new file mode 100644
-> index 000000000000..5bc3f5732ed8
-> --- /dev/null
-> +++ b/drivers/net/ethernet/adi/adin1140.c
-> @@ -0,0 +1,805 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Driver for Analog Devices, Inc. ADIN1140 10BASE-T1S MAC-PHY
-> + *
-> + * Copyright 2026 Analog Devices Inc.
-> + */
-> +
-> +#include <linux/etherdevice.h>
-> +#include <linux/kernel.h>
-> +#include <linux/mdio.h>
-> +#include <linux/module.h>
-> +#include <linux/oa_tc6.h>
-> +#include <linux/phy.h>
-> +
-> +#define ADIN1140_MMS_REG(m, r)	((((m) & GENMASK(3, 0)) << 16) |	\
-> +				 ((r) & GENMASK(15, 0)))
-> +
-> +#define ADIN1140_MACPHY_ID_REG	ADIN1140_MMS_REG(0x0, 0x1)
+On 5/1/26 16:54, Alex Elder wrote:
+> +config GPIO_TC956X
+> +	tristate "Toshiba TC956X GPIO support"
+> +	depends on TOSHIBA_TC956X_PCI
+> +	default m if TOSHIBA_TC956X_PCI
 
-This is not an ADIN1140 MACPHY_ID_REG, it is the TC6 PHYID register.
+Hi Alex,
 
-> +
-> +#define ADIN1140_CONFIG0_REG		0x0004
-> +#define ADIN1140_CONFIG0_TXFCSVE	BIT(14)
-> +#define ADIN1140_CONFIG0_RFA_ZARFE	BIT(12)
-> +#define ADIN1140_CONFIG0_CPS_64		GENMASK(2, 1)
-> +
-> +#define ADIN1140_CONFIG2_REG		ADIN1140_MMS_REG(0x0, 0x6)
+In your Kconfig changes, this condition 'if TOSHIBA_TC956X_PCI' is dead
+code. Since you have the dependency on TOSHIBA_TC956X_PCI, you can just
+make the 'default m' unconditional - assuming this is what you intended.
 
-This is not an ADIN1140 CONFIG2 register. It is the TC6 CONFIG2
-register. 
+Perhaps you would prefer to use 'default TOSHIBA_TC956X_PCI', which
+would have GPIO_TC956X default to 'm' or 'y' when TOSHIBA_TC956X_PCI is
+'m' or 'y', respectively.
 
-Please add the TC6 registers to include/linux/oa_tc6.
-
-	Andrew
+- Julian Braha
