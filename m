@@ -1,81 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1FA117BA6;
-	Sun,  3 May 2026 16:50:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4E537649B
+	for <devicetree@vger.kernel.org>; Sun,  3 May 2026 16:52:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777827017; cv=none; b=aMbRcDZTrGvWZ73AKf6ixQ3HGeOEljx8ia+X2aKy+hmmQbLz2js3AQ8QK1Q8erx7hVK8ParyhucYYh4Ny68wCbfGfF1mZ5w8ZfmhWOXMiDqrlbzVZ5DhwqZnNYwkNSIVXFDVTSccf9w4prjpj+qnC/BXETV9NyVQwWOZkzOYcCQ=
+	t=1777827179; cv=none; b=LvIAtxji8yRoerJ7cV6wAIq16oxwRq6o+Mv76pkhGG5BLCAWQKBYN9RvEeWENse52AZjgczmULPNFYSlxTTRm2VoMbjEd6YHDb7XnCrte3LrYhU9pdi3lS8MLxHw7cOaGfPuhIPnAuxCSxvvWUwUtSeCh/KozHPhuf1hr6Ub+ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777827017; c=relaxed/simple;
-	bh=EcIJ+6nR1kdFOG4fTTp8uLBQCqZk2MyerUY14rOlOSA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fYXEpkBxCjBiMheN/whtNfdhrhX5PZq220Ke/baSwl8ll2c9W5w4+ea1PBmNeSkLNtjk2+AKPfWKsF23PRuc+LLbYt2YISW/QZGcqFzAFSzGlxY9SZsfVzi8Vq+G5YCV2QUYYZMeVIS56sdyEgQpot61ibSNFJS8RevezeE0ztQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lp0gv1z/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777827179; c=relaxed/simple;
+	bh=otc+OpkaiKiBwUF+tcUidC95oQ2tFxa+9cKGsKaCglI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RIcmEZlqlNtWmOv8XvNc0n0fI5MS/Knz8TEji9oNFpeiASS95ROJ2UPO6WZxzlJlbk6tFqMmVLKyj71pppxJP4NaNYFRQoF5tTWEf4/HxE9H1k6guxg4phQuWntgLAZLbWuSmc58uNtqX8GXzJ+NcVP03Gez5jMRmHqeFMmel1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KDTHcUjh; arc=none smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lp0gv1z/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB70C2BCB4;
-	Sun,  3 May 2026 16:50:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777827016;
-	bh=EcIJ+6nR1kdFOG4fTTp8uLBQCqZk2MyerUY14rOlOSA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lp0gv1z/9St8x7kSEsE5qrH6Uk67Q5ty4kT1IqtUMgeaA7dCVtmxE4u34QRnuxklE
-	 O2I60cgzCIEnUc6iUZjOu3togYE/T2wlhMgXbWAgiBkuJqBYWfOONaPoUvwXBQhh/8
-	 JZoiQ4rxka0GpD5g+h1EiI+StNJc95GjUTd90E/EKWYWCIjdJMeTquz1mjRKJ6aa+G
-	 pYJ0hFTVoliKB2hwUpP5xD5t8lAB9/MRgG4F9+MBiPH8bndVILIIZDUe93HgMXtmi3
-	 ZQjsW8/FQxyvlO8+PIQW9YBtvnfYaU7H7TA7KeFBqzma0aQIgXYOvES/mUIb9XkYhW
-	 7GPvp1xrhWmFQ==
-Date: Sun, 3 May 2026 22:20:12 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Frank Wang <frank.wang@rock-chips.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KDTHcUjh"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-b9c603ec2dfso439233166b.1
+        for <devicetree@vger.kernel.org>; Sun, 03 May 2026 09:52:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777827172; x=1778431972; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=7Wottvwh2F068u0uO4a2RGm+BqrKKg4sWw04x7ifouY=;
+        b=KDTHcUjh7LgoxOkPrkoK1I9RuOAl4OAhKfealjOJ381/qsIyyMJfq3dLdUjfzDmHZS
+         PACtTqztKocVZqHkEy/akoViFEc7aBN78adt6PQErjT7NK54CWPgsAJj0tW79iQX0kwQ
+         41aQ+SlP8Sj9iRm/VWjH770eJyqLWIt3EdzJdac/bzZp4IVKT5n/OTISSHVsONnXrw3N
+         trSUdBTy6Jg853YHnpZToXZTiy1hoYoniZpoM7ROb4omK08lH8Ju5Uyj6oAcMrIFcHqO
+         I5Iuc5aOsxbj+ZQbi8jFGe7MD0AocjoKrc9Y4Cq4l9xc+qsSevOHThfuD0RwkJ0UClrF
+         YAUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777827172; x=1778431972;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7Wottvwh2F068u0uO4a2RGm+BqrKKg4sWw04x7ifouY=;
+        b=gKvVtyP1b3hcTpGVDiIlDJl0pxobpFaifkL+fPOqNK1MRNLpxDmok6LWzrhGGOu3EV
+         Z0DAWqTKF9FgXUO2w10ceapEeHyVF0HWI+0kG0NI1mixOB+5l12SNKUYg1Mpx3+HByBo
+         OJ73qUwNavl3J1JfBl+q230gVGSWm7DU15g3UR3Ro0VIRoOuyDDplem4ZhnIF4t5i+Po
+         eXKgHNo/g7VSNQlvVFpCAF3XC7sumOMSquuKi+62rqja7OU4CcxK3ANESff4vSzfxkRb
+         uHehR2aP3adoN30PzQlYBYH/3EDLwmhi6RVO8tsami1mFDDQJhEL3Q9krVXtjP6gXI1B
+         Osdg==
+X-Forwarded-Encrypted: i=1; AFNElJ/KkcLLcEramzAe9jUGI7wwrk8T63Je/yftC3NMrUbbDn1OKurTvcnbCMHuj83nXZLB+3msjJqD0GLd@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxqr0vLx+UjzKgMs0fvHJUhzih4JPkXCSgElFwlB82Z/9Hbv4xV
+	YeM1bKAlsoY1X13rA8ixye0+KHGCXR9OVZzzTLyFqWExXG/Ck5vt94fp
+X-Gm-Gg: AeBDiet5EcFeOW8Jad8wTXD0B93EsmLdZd8bYGQ/bkSNg0tbCJtunbv9aISEfjjI/dY
+	xFMetGzgy5OXYi09/Jg06XvNH4SNyfFW0GsLyBzaPNlh3yH8i0t+L6jl743Cu62q4Waayml7Eoi
+	n6sYaSr5MKZF9DLTlzFvRPAC0jaNIW+arb/UDxpxanusdXTH7LcVcmeU6+J7yIcwASG/ke0uShq
+	qb1nVagleiWUTja/ymbEpnvv6AmnnfcIdHU8YNT6Ptwru3c39A6gPUM62BXTsgbBXhif4fer4J5
+	IhElbjghwaO1wmWCxIzZ63u/Ag9eisBiBTJZC9osdlKCzYB8chZ3E39PTw2Sa773hMnNYzyCUhI
+	LBdy5YvRBAv/nUUtKxLHDQXf8fo6lMjZ/+tVYzewOZLjcT6qOKDu6t+ccaLy1lpvLWQUg8PQcHV
+	zxdpJsAeHL6Ybk7CoGUP7Vc/s=
+X-Received: by 2002:a17:907:3f8c:b0:bc1:606b:1198 with SMTP id a640c23a62f3a-bc1606b1341mr133515966b.10.1777827172110;
+        Sun, 03 May 2026 09:52:52 -0700 (PDT)
+Received: from xeon ([188.163.112.56])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bbe69f6b7f6sm316772566b.3.2026.05.03.09.52.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 03 May 2026 09:52:51 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Yubing Zhang <yubing.zhang@rock-chips.com>,
-	Alexey Charkov <alchark@gmail.com>, linux-phy@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kernel@collabora.com, devicetree@vger.kernel.org,
-	William Wu <william.wu@rock-chips.com>
-Subject: Re: [PATCH v4 00/16] phy: rockchip: usbdp: Fixes, DP 1-lane support
- and cleanups
-Message-ID: <afd8xMS2hz208Lcl@vaman>
-References: <20260428-rockchip-usbdp-cleanup-v4-0-7775671ece22@collabora.com>
+	Linus Walleij <linusw@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] input: misc: add support for Imagis ISA1200 haptic motor driver
+Date: Sun,  3 May 2026 19:52:41 +0300
+Message-ID: <20260503165243.215979-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260428-rockchip-usbdp-cleanup-v4-0-7775671ece22@collabora.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Sebastian,
+The ISA1200 is a haptic feedback unit from Imagis Technology using two
+motors for haptic feedback in mobile phones. Used in many mobile devices
+c. 2012 including Samsung Galxy S Advance GT-I9070 (Janice), Samsung Beam
+GT-I8350 (Gavini), LG Optimus 4X P880 and LG Optimus Vu P895.
 
-On 28-04-26, 18:13, Sebastian Reichel wrote:
-> This series overhauls the Rockchip USBDP driver; apart from a
-> a bunch of cleanups and small improvements the main goal is to
-> get the driver ready for proper USB-C DP AltMode support.
-> 
-> Once this series has landed, it unblocks enabling proper USB-C
-> DP AltMode on the RK3588 and RK3576 platforms incl. runtime PM
-> for the Synopsys DesignWare DisplayPort controller.
-> 
-> Apart from this series, further changes are required on the
-> DRM side. There are no compile-time dependencies between the
-> DRM side and the PHY side, but the PHY side must be applied
-> to avoid SErrors once runtime PM is added to the DisplayPort
-> controller driver. Thus it would be really good to land this
-> series in the next merge window.
+The exact datasheet for the ISA1200 is not available; all data was modeled
+based on available downstream kernel sources for various devices and
+fragments of information scattered across the internet.
 
-Looks like sasiko has flagged 8 high warning, can you please check them
+---
+Changes in v3:
+- added clock state tracking
+- dropped level check in vibrator close
+- added clkdiv clamping
+- added comments regarding registers 5 and 6
+
+Changes in v2:
+- imagis,clk-div switched to accept actual divider value
+- dropped DT header
+- adjusted imagis,period-ns range
+- initiated hctrl0 and hctrl1 values in isa1200_start
+- fixed situation when PWM might return -EPROBE_DEFER to be
+  treated properly
+- added chech a clock or PWM is available
+- fixed regulator voltages check being off by 10
+- added chech if state.period is not zero
+- added action call to disable clock and gpios on error
+- used managed version of work init
+- added work cancel on suspend
+- PW calls are done under mutex lock
+---
+
+Linus Walleij (1):
+  Input: isa1200 - new driver for Imagis ISA1200
+
+Svyatoslav Ryhel (1):
+  dt-bindings: input: Document Imagis ISA1200 haptic motor driver
+
+ .../bindings/input/imagis,isa1200.yaml        | 140 +++++
+ drivers/input/misc/Kconfig                    |  11 +
+ drivers/input/misc/Makefile                   |   1 +
+ drivers/input/misc/isa1200.c                  | 535 ++++++++++++++++++
+ 4 files changed, 687 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/imagis,isa1200.yaml
+ create mode 100644 drivers/input/misc/isa1200.c
 
 -- 
-~Vinod
+2.51.0
+
