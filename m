@@ -1,84 +1,202 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450E423E33D;
-	Sun,  3 May 2026 18:13:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948453CBE84;
+	Sun,  3 May 2026 18:20:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777831985; cv=none; b=F5S3BCIqns241rVYT7Ezdikk//HX1zNO0l+JDG+JMEJFRG7fY1srf7ZjI5iMVxphyT4+ifrh8+KvuEar+el4ptn9SdsqeqomkuX6GhoZK0jyq7TmbLwRVgH3IhikyHhQHqt/adInuCT5n1vAoQMuCCepkh53wmgb57JF4J4OBxk=
+	t=1777832421; cv=none; b=LuMR0Txdf+VTIDAPD4HSvytR0MM4Z8m3FuifXG3+dyCpDsX8IK4F6AewT0WdAs5nicAckAUEJ/YICC+n4mMjhpSle+EZ4m7A5KphLCDiuWfe/8pRtViZ9lwocHjTPYwO9iSeIJNvvPhZJITtt1TsJ6h+d9Wg3fjzTIssOr7IzHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777831985; c=relaxed/simple;
-	bh=6klYnKC4RXHOdJ3ZuuclrwuTvOEpiEC/KlJrZ4KodOo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CBO7ViCgcLYpqjcv9VACu5WD98Nm3/1Zf04bWz7y2LuDxNNWCkxqUjSm9RxCraeNnkKPrCVA/MAf6ih3kBn5fqvilcU4qIkkDn2rtUtF1O5tGtGtxBdAeJrQWY0BC5YOkayyg0PJCt93EeY+rZ3s7qy1EyWIwxb5hlPwOtr/1F0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PgMBReOV; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777832421; c=relaxed/simple;
+	bh=RzINv7C0Bv0GAZFB5TSWPEzlVeYBlX2l1W7C9mocVc8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=eu7bEAzB7z5Bx7zbV+LRCzuNmMToGJM0yn63gtc18Jzh30uQ2JoSF2oXQhNcCubhapcMIcLkyhDjzQ6HqTPAo7MHaHsRGHt3+UpDWGjCLMegzGiktHcZ5i/HVWK32SN7d825WEl7M+Fs819elPGbMszad0IiV+1xAlvtr48/s0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=DkTNkRbx; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PgMBReOV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FE02C2BCB4;
-	Sun,  3 May 2026 18:13:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777831985;
-	bh=6klYnKC4RXHOdJ3ZuuclrwuTvOEpiEC/KlJrZ4KodOo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PgMBReOVIQqxZTLgYWJyxf+rLTn2fDZeQbxZHAYeMzS6Ece6sF/iExepd0VJyAi2U
-	 wPT9CqaMrcD1oH57ZGu4tLb4V3L8Gbr7wwRrKeYoYyIVaMy1mAAElXI4QHsmYWkETF
-	 YjvsQNAqZ/Ru7myxJWUoAnqXsRa9gyp5Dql6i7tNF9lLyb8tA3sqhTbq/2RG69MRrj
-	 WM+V+cjJmIhfqqWbH/CIbI9ZDMaQto5RsALldjiMyhVsZ5HMliottF/6TvOwiAwIA9
-	 YpaxX+g+CdpI0H6LLWgzk0M5g9EFE7QCTOkRerBYnCy/5Blai1ITaKpxQrSheZJ7H6
-	 yN13oFVERHO8w==
-Date: Sun, 3 May 2026 19:13:01 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Markus Stockhausen <markus.stockhausen@gmx.de>
-Cc: linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, jdelvare@suse.com, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: lm75: Add
- ti,alert-polarity-active-high property
-Message-ID: <20260503-ravioli-spirits-476c1d1152bc@spud>
-References: <20260502190408.3577731-1-markus.stockhausen@gmx.de>
- <20260502190408.3577731-2-markus.stockhausen@gmx.de>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="DkTNkRbx"
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 643D2mJI025250;
+	Sun, 3 May 2026 14:19:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=4vAO4
+	415P6z37caL+yzayBA15C5TCwbTNDHqi2x4iAw=; b=DkTNkRbxqOji7nLgCYIPc
+	oVtHGn5pshnlwpRb5oQ3m5PXcClyM1ytZR90V4Bys7q4dEnQ5Al0iB4OsHC9FDPY
+	icFEAsZKTmJZV61ZwVX1yT02itp40eBRU3Jb3MGf4ZFlCZjRqw5N/aLg1PJ5Q87d
+	6XQyr9TLdH4Zcf2HX62DXvts9JK+u53GqQliJ+lFxm9BXRp4CaUYGFM6P2D6mQSm
+	N++rWCna8o1y/zWiRxayo+PL6wGli4TklSCLP53hZP4EGV6479nU3tqnzK5JCLe4
+	4RSwjlB71Qqq93EDz7a6SlFnsF96DMDsnHCScb+HCRi6t4l3Xbr7JepW0+e8UaEO
+	Q==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4dwe6137nm-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 03 May 2026 14:19:54 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 643IJqf2000698
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sun, 3 May 2026 14:19:52 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Sun, 3 May
+ 2026 14:19:52 -0400
+Received: from ASHBMBX9.ad.analog.com ([fe80::a11:40fc:1a6f:d912]) by
+ ASHBMBX9.ad.analog.com ([fe80::a11:40fc:1a6f:d912%20]) with mapi id
+ 15.02.1748.037; Sun, 3 May 2026 14:19:52 -0400
+From: "Regus, Ciprian" <Ciprian.Regus@analog.com>
+To: Andrew Lunn <andrew@lunn.ch>
+CC: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+        Andrew Lunn
+	<andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        "Eric
+ Dumazet" <edumazet@google.com>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>,
+        Simon Horman <horms@kernel.org>, Jonathan Corbet
+	<corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Heiner Kallweit
+	<hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>, Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>,
+        "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: RE: [PATCH net-next 4/5] net: ethernet: adi: Add a driver for the
+ ADIN1140 MACPHY
+Thread-Topic: [PATCH net-next 4/5] net: ethernet: adi: Add a driver for the
+ ADIN1140 MACPHY
+Thread-Index: AQHc2osB4TQBSYFAe0qN63YeObU/GbX76fKAgADDcYD//+2AwA==
+Date: Sun, 3 May 2026 18:19:51 +0000
+Message-ID: <ea6dfd64c0314bfa9c8961ec36d77f33@analog.com>
+References: <20260503-adin1140-driver-v1-0-dd043cdd88f0@analog.com>
+ <20260503-adin1140-driver-v1-4-dd043cdd88f0@analog.com>
+ <afc1cf8d-4a02-430e-89a5-b213c15a4f70@lunn.ch>
+ <0b09b317-0a21-4b9f-aba9-0b9caa14c0d9@lunn.ch>
+In-Reply-To: <0b09b317-0a21-4b9f-aba9-0b9caa14c0d9@lunn.ch>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-adiruleop-newscl: Rule Triggered
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="j1lCQ+r1Alurczau"
-Content-Disposition: inline
-In-Reply-To: <20260502190408.3577731-2-markus.stockhausen@gmx.de>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTAzMDIwNiBTYWx0ZWRfX0QD2cBPDm6w+
+ o8JHB1kAGrYQoNLXkzO6kjwSTYmscGXQl3+6k1HVz++GfgX6WszOxiEhYqNO5Db9GRyf4Rj0ipG
+ zL/eaeyoWs6Lr0NY2YDzri1Q3DPT/ZIWaGnGLtjavmaVZ3ZfuO328tp6pE21TSPZcLFAr+zqhvM
+ jU1pG3NJeOiq0MmvMFQRBoo6FNNRGmTYenp5S+6/KRQuhk7es2DCtFohwZ8SVJ5ycEspvV+rIre
+ qTsVJpsl0KTKpX2vP86cQ5clpm6rF2I8BkDSWypqjLV9u97cHafrkFYDJYjstIIk/y2oxTyscMF
+ CAW7Y7gHBaFt1xDYrfSp2AW8kNW95NK4Oaem+jdhptYPPJaB1hF4HQSvE4MHS+rID5a4FN9vaso
+ r7ln73eY5zykMrNGEWQB705EsNvP1dwAbiZor+WTtB9mIbp1aFgUvgR7lT5mFpPrRxAw/oZf1xy
+ tCf2EQ77QcNNFYFD1zg==
+X-Authority-Analysis: v=2.4 cv=YcONIQRf c=1 sm=1 tr=0 ts=69f791ca cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=xqWC_Br6kY4A:10 a=HAm-ab27MHsA:10 a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22
+ a=gAnH3GRIAAAA:8 a=XYAwZIGsAAAA:8 a=J1Y8HTJGAAAA:8 a=1XWaLZrsAAAA:8
+ a=VwQbUJbxAAAA:8 a=20KFwNOVAAAA:8 a=07d9gI8wAAAA:8 a=ag1SF4gXAAAA:8
+ a=pGLkceISAAAA:8 a=PHq6YzTAAAAA:8 a=KytjqbFpDIeuf0yDoPcA:9 a=CjuIK1q_8ugA:10
+ a=E8ToXWR_bxluHZ7gmE-Z:22 a=y1Q9-5lHfBjTkpIzbSAN:22 a=e2CUPOnPG4QKp8I52DXD:22
+ a=Yupwre4RP9_Eg_Bd0iYG:22 a=ZKzU8r6zoKMcqsNulkmm:22
+X-Proofpoint-GUID: lkPE0x1i-LLgqNZl4hFLc_cClK2-IPfw
+X-Proofpoint-ORIG-GUID: lkPE0x1i-LLgqNZl4hFLc_cClK2-IPfw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-03_06,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1011 malwarescore=0 spamscore=0 phishscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605030206
 
 
---j1lCQ+r1Alurczau
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, May 02, 2026 at 09:04:07PM +0200, Markus Stockhausen wrote:
-> The LM75 alert pin is asserted based on the value of alert polarity bit of
-> the configuration register. The device/driver default is 0 which means al=
-ert
-> pin is configured to be active-low. A value of 1 maps to inverted (active=
--high).
+> -----Original Message-----
+> From: Andrew Lunn <andrew@lunn.ch>
+> Sent: Sunday, May 3, 2026 6:16 PM
+> To: Regus, Ciprian <Ciprian.Regus@analog.com>
+> Cc: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>;
+> Andrew Lunn <andrew+netdev@lunn.ch>; David S. Miller
+> <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>; Jakub
+> Kicinski <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>; Simon
+> Horman <horms@kernel.org>; Jonathan Corbet <corbet@lwn.net>; Shuah
+> Khan <skhan@linuxfoundation.org>; Heiner Kallweit
+> <hkallweit1@gmail.com>; Russell King <linux@armlinux.org.uk>; Rob Herring
+> <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>; Conor
+> Dooley <conor+dt@kernel.org>; netdev@vger.kernel.org; linux-
+> kernel@vger.kernel.org; linux-doc@vger.kernel.org;
+> devicetree@vger.kernel.org
+> Subject: Re: [PATCH net-next 4/5] net: ethernet: adi: Add a driver for th=
+e
+> ADIN1140 MACPHY
 >=20
-> Add an optional boolean property "ti,alert-polarity-active-high" to
-> override the alert pin polarity. When absent, the default active-low
-> polarity is kept.
+> [External]
 >=20
-> Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+> On Sun, May 03, 2026 at 05:36:13AM +0200, Andrew Lunn wrote:
+> > On Sun, May 03, 2026 at 02:24:53AM +0300, Ciprian Regus via B4 Relay
+> wrote:
+> > > From: Ciprian Regus <ciprian.regus@analog.com>
+> > >
+> > > Add a driver for ADIN1140. The device is a 10BASE-T1S MAC-PHY
+> > > (integrated in the same package) that connects to a CPU over an SPI b=
+us,
+> > > and implements the Open Alliance TC6 protocol for control and frame
+> > > transfers. As such, this driver relies on oa_tc6 for the communicatio=
+n
+> > > with the device. The device has an alternative name (AD3306), so the
+> > > driver can be probed using one of the two compatible strings.
+> > >
+> > > For control transactions, ADIN1140 only implements the protected mode=
+.
+> > > The driver has a custom implementation for the mii_bus access methods
+> as a
+> > > workaround for hardware issues:
+> > >
+> > > 1. The OA TC6 standard defines the direct and indirect access modes f=
+or
+> > >    MDIO transactions. The ADIN1140 incorrectly advertises indirect mo=
+de
+> > >    only (supported capabilities register - 0x2, bit 9), while actuall=
+y
+> > >    implementing just the direct mode. We cannot rely on the CAP regis=
+ter
+> > >    to choose an access method (which oa_tc6 does by default, even
+> though
+> > >    it only implements the direct mode), so the driver has to use its
+> > >    own.
+> > > 2. The ADIN1140 cannot access the C22 register space of the internal
+> > >    PHY, while the PHY is busy receiving frames. If that happens, the
+> > >    CONFIG0 and CONFIG2 registers of the MAC will get corrupted and th=
+e
+> > >    data transfer will stop. Those two registers configure settings fo=
+r
+> > >    the transfer protocol between the MAC and host, so the value for s=
+ome
+> > >    of their subfields shouldn't be changed while the netdev is up.
+>=20
+> This device is pretty broken. Has it been shipped to customers? Is
+> there going to be a new stepping of the silicon which is less broken?
+> A new device to replace this one?
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Hello Andrew,
 
---j1lCQ+r1Alurczau
-Content-Type: application/pgp-signature; name="signature.asc"
+The device has been out for some time, but it's only now being made public.
+There are customers using it at the moment. I'm not aware of future revisio=
+ns
+of the silicon,  but I can ask further about that.
 
------BEGIN PGP SIGNATURE-----
+>=20
+> 	Andrew
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafeQLQAKCRB4tDGHoIJi
-0rpEAP4gNXB8UozmLy3fgcBpQiGh/JAciUwbwkxxC0VcQs5YNgD/QnYoL4m6kQCc
-Gqxznm5rGlmKbwLRwepqpawknoK50wc=
-=LHJW
------END PGP SIGNATURE-----
-
---j1lCQ+r1Alurczau--
