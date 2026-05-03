@@ -1,175 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F312F12B3;
-	Sun,  3 May 2026 16:17:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C2130BF66
+	for <devicetree@vger.kernel.org>; Sun,  3 May 2026 16:44:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777825045; cv=none; b=Pf9aFAYZw81X5EOU7yiPne/XgB3vG+1XHD0yPqD5L9qbiEkhSCyn3Mo9YREzZgEweu+TwT/FuKQs8kHirJukYke9lKIS8n/7pFmNOuXAK0X70Mv91raCQEFN+IIqAzY3EgEyK64iAPdurCycHb42i+E3m58mL614qRl4kqt5lg8=
+	t=1777826700; cv=none; b=TQqImJ8GBeAxQ1XCBPSddurOsX1ACgQIFaBLH6QTTbd3b3/VzUHiQEBuR6xkjGAyi+RKYmHJE8QkjbEP+MEHkcCHzhR2I4/yxOPvRaUqJspcvkQ7wJBHR6JW466BkCwmAD+Ar18NSEFdlRsvHpNb+cjX/+GdL/W8nCbItRk8V6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777825045; c=relaxed/simple;
-	bh=ftVKHFYpwRInenE9RpxSzKg9jgv0zisPlSEzxsPeq/c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WlrFeNtBmuOFrP/igeYLF0gRuIIEjuRXRAnxrUXgM1Rld8Kip+YjgBD4iZ4U3dsYW+EPghoryYoeGEiDmq9p20O93x+7kNA3iA3mnbbjkSz40tKSS54VwIrfPcu0xxaq6kuAjzeQpZbXtxPW0g0CUhRSSav08H+3FUrHJnKhN6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZbU3spsN; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777826700; c=relaxed/simple;
+	bh=y+9xN+1jfnMVYLvwRJZSv0ezZVwL6LabrDEHqq7wFB8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Xy2DLlpFO8D6Vf9tOVefh56aHAD/OPQh6A29WtQdRCSJi2rhtH7l0kcnZ+evwhwb8Kt+KKsOOFvNO/iJ1ayauvQXnRM7Sh+SZooB1qiI43dEbseZRCGYHz3hWSx375de3l9sybM7Gv5VZwOCfZkFuP9PKGP831fnd2+DXDvVDwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nOSh3htg; arc=none smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZbU3spsN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8751C2BCB4;
-	Sun,  3 May 2026 16:17:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777825045;
-	bh=ftVKHFYpwRInenE9RpxSzKg9jgv0zisPlSEzxsPeq/c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZbU3spsNc94TKeiGLQVpthDxSSy+3vJAe1109rOHCmehtlO8Jzy/IJ7T+0oH46o/y
-	 PHuYum2F8kVnfIQvt09TsZaeKDOB/pGuwk3sA2/jxZedwDksU6rRoG/w5SgJLcGllW
-	 ggC83QhjIsYEa9uHFCaX/ePhpdR5KiTfPsai1aQTNQ5EnshPQpvZEmGronDu61ASeK
-	 0O/7SlDGHNu+W69+x+M7qTSUawTYud18/h+Vo0JH37HZsFedHr6UTCGIZZyMAu57MV
-	 t/N9TGbdMF+zJJKhoR0Y2BdD1o9kfgIX9oDoDc0Q3CpWiDWQk3KXqTDD5qK5DUc/T4
-	 znIz5KRqSluyA==
-Date: Sun, 3 May 2026 18:17:22 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
-Cc: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
-Subject: Re: [PATCH 1/2] dt-bindings: interconnect: document the RPM
- Network-On-Chip interconnect in Shikra SoC
-Message-ID: <20260503-enormous-benign-salamander-8d074c@quoll>
-References: <20260429-shikra_icc-v1-0-e3439903edf1@oss.qualcomm.com>
- <20260429-shikra_icc-v1-1-e3439903edf1@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nOSh3htg"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-b93698bb57aso644805066b.0
+        for <devicetree@vger.kernel.org>; Sun, 03 May 2026 09:44:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777826696; x=1778431496; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=l+0umxCULiEOpYYoS6pnO55Z9jlD+e8op4Q5ysR57J0=;
+        b=nOSh3htgkvFWtAo1UyX+K6p7lw68/sJ5GsEfmX1hG3LVjn0RCus+cl5OAYrH/3qw+r
+         veD+WSzp3MXFSrz4/fetBd0Pkqc9G9T2y/sUiYvFnVBvRW693tlwjyzItg426x3mLqYK
+         qzgT63kxEK2gL50BFOZ6Yp4xv3p1ih1MGcct/ymTHjH8uDi9DdHx5a9lqFPkLAmSfQXM
+         em+CTFzi4owrW1/6Zud8CpWmr9RBLyW5L9hno8vFMtzkRl+I0M7VWJKjk2eRONjMPtS9
+         1YLFfEr4T+u7PLDFB8CyZlNbIxOSaRFcuuDAsUG+Vx6eR82VymmtfcQFhCCnByHSNClR
+         8WkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777826696; x=1778431496;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=l+0umxCULiEOpYYoS6pnO55Z9jlD+e8op4Q5ysR57J0=;
+        b=AnCcqJrPPSveR7RSJLpDG1g+/YSe5svtEFPypeNa0XJW6xl2I7bGbRXpvF6edPbm4c
+         VIJpxspSYims7ZhFsvF+NcyiZEPhxroq4BlxkBQMAPJQEuKfFrt5yQKC5KBUs9o4a5L1
+         5z8qmhPPKpCD8JBTxBQTuVoT/GsWIIyKMwec7Zv86Pi2Qq4FcTzkfydld1qXp2d6a1x/
+         AAw7bbaxVSjLlintxOI+1x5b0pZwaFAHogMMQr0M6zNdNdom6KsRwjV6Ro1hDQPnqhyG
+         kTxyheKA/X6GxWEsbHhyWz8A7ggRgdTXT2svuRh39M0Qig2rA0aAyc0TN4fKySgofp2I
+         wrcg==
+X-Forwarded-Encrypted: i=1; AFNElJ8VqVV74iJTpUBFNHrZeIyjT3auLXBe90rpiCJfhx2uvdPmnBDbGiZVhT9esce6Wu9nMniPPJ0Rs+Tg@vger.kernel.org
+X-Gm-Message-State: AOJu0YzBTlve/gh5904XPkkPTsxYIoVIAmuZQITg3i86yFHiZTJqrb3g
+	7V1fPZJFoWS099fxr2gfhQXvBntmD0AkeJWC+lxcBQ2N9cbt9mRaXDvA
+X-Gm-Gg: AeBDiesET99LBPPz7SAszXWjgr83WeAe+bOXOK0lhFIsGZdNeojdsNOUALH9a9tRsEk
+	gKC0cGQw35PM2KEGGcToPCfCoqpJCHI3vGsa+D8j0Kjdoi6yntef5V4lS0++Q/G2U6qLPch50G9
+	7hDbQrNjXH3Am4rugEFSAp8UAjhIO6nuOyBeqkK9o1C88UFF3gseKsLENe2VgrtFUkME2I59IAQ
+	erixy/EdPvydU/PuWUwk/hUx4EDj4FOeEgDgqqwbYu8n948q521kggCjVdRvIEwZPbvVt9spHLz
+	lZcQc7r1WutpFSjDzc9xHaKHND+ZbEHEEE3kLWt15PQyO/neAT2fBsDC0zZmgtl92/u/4M2/oLh
+	M9w/mveN5VsQLm+6e7hu82E1eL0oFOy91Kgzn85ePsEuA9Xr6JYNVbmuerWAmloSSutQRlrdF0n
+	BmXXmnyJA9cbBBVVw+c3ku9Us=
+X-Received: by 2002:a17:907:3f1e:b0:ba6:79c0:c743 with SMTP id a640c23a62f3a-bbfe08823famr295010266b.11.1777826695583;
+        Sun, 03 May 2026 09:44:55 -0700 (PDT)
+Received: from xeon ([188.163.112.56])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bc237ef8297sm27430566b.57.2026.05.03.09.44.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 03 May 2026 09:44:55 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org
+Subject: [PATCH v5 0/6] media: lm3560: convert to use OF bindings
+Date: Sun,  3 May 2026 19:44:39 +0300
+Message-ID: <20260503164445.215540-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260429-shikra_icc-v1-1-e3439903edf1@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Apr 29, 2026 at 02:03:48PM +0000, Raviteja Laggyshetty wrote:
-> +++ b/Documentation/devicetree/bindings/interconnect/qcom,shikra.yaml
-> @@ -0,0 +1,135 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/interconnect/qcom,shikra.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Shikra Network-On-Chip interconnect
-> +
-> +maintainers:
-> +  - Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
-> +
-> +description: |
+Add missing HWEN input pin and IN supply. Fix v4l2 subdev registration.
+Remove platform data and switch to OF device tree bindings.
 
-Do not need '|' unless you need to preserve formatting.
+---
+Changes in v5:
+- schema adjusted to take into account lm3559
+- device_for_each_child_node > for_each_available_child_of_node
+- lm3559 and lm3560 configuration was diverged with data match
+- removed redundant header
 
-> +  The Qualcomm Shikra interconnect providers support adjusting the
-> +  bandwidth requirements between the various NoC fabrics.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - qcom,shikra-config-noc
-> +      - qcom,shikra-mem-noc-core
-> +      - qcom,shikra-sys-noc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    minItems: 1
-> +    maxItems: 4
-> +
-> +  clock-names:
-> +    minItems: 1
-> +    maxItems: 4
-> +
-> +# Child node's properties
-> +patternProperties:
-> +  '^interconnect-[a-z0-9]+$':
-> +    type: object
-> +    description:
-> +      The interconnect providers do not have a separate QoS register space,
-> +      but share parent's space.
-> +
-> +    $ref: qcom,rpm-common.yaml#
-> +
-> +    properties:
-> +      compatible:
-> +        enum:
-> +          - qcom,shikra-clk-virt
-> +          - qcom,shikra-mc-virt
-> +          - qcom,shikra-mmrt-virt
-> +          - qcom,shikra-mmnrt-virt
-> +
-> +    required:
-> +      - compatible
-> +
-> +    unevaluatedProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +allOf:
-> +  - $ref: qcom,rpm-common.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: qcom,shikra-mem-noc-core
-> +
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: GPU-NoC AXI clock
-> +
-> +        clock-names:
-> +          items:
-> +            - const: gpu_axi
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: qcom,shikra-sys-noc
-> +
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: EMAC0-NoC AXI clock.
-> +            - description: EMAC1-NoC AXI clock.
-> +            - description: USB2-NoC AXI clock.
-> +            - description: USB3-NoC AXI clock.
-> +
-> +        clock-names:
-> +          items:
-> +            - const: emac0_axi
-> +            - const: emac1_axi
-> +            - const: usb2_axi
-> +            - const: usb3_axi
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - qcom,shikra-clk-virt
-> +            - qcom,shikra-config-noc
-> +            - qcom,shikra-mc-virt
-> +            - qcom,shikra-mmrt-virt
-> +            - qcom,shikra-mmnrt-virt
+Changes in v4:
+- fixed current being off by 10 in schema
+- label property from schema replaced with modern equivalents
+- lm3560_init_device moved before subdev registration
+- v4l2_device_unregister_subdev > v4l2_async_unregister_subdev
+- added subdevice cleanup if second led registration fails
+- added check if "reg" property exists for LED nodes
+- added missing fwnode_handle_put if device loop fails
+- added bitmap to monitor configured LED id
+- added pm_ptr() macro for PM operations pointer
 
-This if is pointless here, changes nothing and not really correct. Drop
-it, I will fix existing bindings.
+Changes in v3:
+- added note regarding lm3559 in the schema commit
+- lm3560 power on/off functions converted to be part of PM,
+  dropped redundant wrappers
 
-OTOH, do all NoCs have children? If not, the patternProperties should be
-disallowed for such cases. Also clocks should be restricted, see my
-patch:
-20260503161653.60785-4-krzysztof.kozlowski@oss.qualcomm.com
+Changes in v2:
+- vendor properties swapped with generic LED properties
+- added mutex lock usage optimization
+- power supply and enable gpio commits squashed into PM
+  configuration since they are both required in making
+  proper on/off sequence.
+---
 
-Best regards,
-Krzysztof
+Svyatoslav Ryhel (6):
+  dt-bindings: leds: Document TI LM3560 Synchronous Boost Flash Driver
+  media: i2c: lm3560: Fix v4l2 subdev registration
+  media: i2c: lm3560: Optimize mutex lock usage
+  media: i2c: lm3560: Convert to use OF bindings
+  media: i2c: lm3560: Add support for PM features
+  media: i2c: lm3560: Add proper support for LM3559
+
+ .../devicetree/bindings/leds/ti,lm3560.yaml   | 163 ++++++++
+ drivers/media/i2c/lm3560.c                    | 385 +++++++++++++++---
+ include/media/i2c/lm3560.h                    |  84 ----
+ 3 files changed, 481 insertions(+), 151 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3560.yaml
+ delete mode 100644 include/media/i2c/lm3560.h
+
+-- 
+2.51.0
 
