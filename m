@@ -1,587 +1,175 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011067.outbound.protection.outlook.com [52.101.65.67])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44BC1DF27D;
-	Mon,  4 May 2026 20:34:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777926860; cv=fail; b=al32fWHgGgNERIM65MjAN8Ko+BH99D7QCXk5AG7SoK6ITQOngx18b6yZS5Htv7VOnY7oLSaIBVfx7ggjaA8N/1wXDt5+WeLsSR4+TkEyFOZ25vlJom11/1m/9ejMKRrMHl1Zy2H024Dqi0OZe8cZSa7X13kOhBeD+av4AWJDXMw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777926860; c=relaxed/simple;
-	bh=7iX2LJgGNkPMC4qt3SgHQm7Y9NzdVFGzmLNKEkgCv+0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=KRHJwaW/QoxfI7467YEVnITTo+T8PNhNZjckMIv8niOL2Jcy4RwTnxCuUCkLIG7PBhQD68MAqvA28/jXENUp+gbFxIdHLamRD1TcunsmbEQEkQSzSLnAr1yzxYoXH2vwUwjt1yjUvsUFbQ317d+YI70VQxRXHuDPS3gbt4qlNyg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=VwZh3gx6; arc=fail smtp.client-ip=52.101.65.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9594232F757;
+	Mon,  4 May 2026 20:45:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777927547; cv=none; b=CyNVso0ZDmjN88VGjMPIzIgTW43OuLXe1pjoloQ9N8O1CJ/TkK++FPnIkcmW49XRMWc/FHqVXVc9kRf74BzuzA8H4nggPujueYW9CWappkhJycb6qBKVkBV7XeUGK3o7qui2cpLFHUi61TlV7IcPyh9k9cnOwWD4BVFSgJgcwiI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777927547; c=relaxed/simple;
+	bh=6VmnF/xDyfENF11j8ggk+IvN36+HVqf4Q9Npk+oX3Xs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i5dFnkhGd7GFu5VT3QcS7q2lh+0zvMbkWQ/bBIiTE/d75t3SrlBpvAY/ODinEh6Fboddd5Dbg8qyWRp9AZUGXEa/SskVjVsVdUF+hZfvkcNlGQ2Z6hnipspdwpGHeE88tGST0J0a66SqmraUGst1x8rBzHW4kiUvJZVXidsIMO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AE2Z52Pe; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="VwZh3gx6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P3QRlJGNGjVgLKY7ECO7p0mypODz6WXTMU7rhsAVDDLQN2Gs1MswefCyyMMp/RElcVQE4P5RyYmRyOQpWo/YgLzwuyMAqTnjxEvu02pZXUMHSOtYxy0DbsjxxvWeQCe62DuV6Pb/gGj7xZL9HrYW0t7smyZgvJ88DbCT9ueiTLWIu454xb6dOF0GpA4qDvypNFtiqeqIRAsplwWnKmqDzF+W5I8eqfZMmo4p+2X5xLsRULC9UF+M5c6brmNORQfxNFnbdlZJrAaMHFyYf8rGYYY6dDNP/2S2Pg8gcC0oevFAUcuU4+L/0Spshm+MRmsPh/Xw4+84+rJZ+vM6KuUvzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rwoi2D25ckU7pxGmny9wvkf3ZAwFGVSrzbgFvRIaGVw=;
- b=Y5DlIAd4oHyrnS3XAKBt7d9uSHew5c8LIAuDEZ63ooh170gWIxxvtGCXMXuRjfgtgqPY9femCzvUUgzocsDQKyUpFTaayUNw+SkXmUHQCefeoKqomGiNAJcJE83d22fgWu5L2vXhq+1rdLR+EXA0+8FuBGXbioNSFJiMAug1fVC9VzD8EJC+pTTtbQAKOoEYRLFvHsR8aAqBDFJD3bDnHEK1TTRJl+lRXbeA1Wr8zzxXy1td2LX44hrhwOzmQINjXcSIGIWiyo5nvURXGA6hr+1oOf2uQUSqJEMczHsvuchKr2yo3E8LHlW+hzuPKh9UrvPa/+eX1aHj7wO/NYc4zw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rwoi2D25ckU7pxGmny9wvkf3ZAwFGVSrzbgFvRIaGVw=;
- b=VwZh3gx68CI4RhoBV+4c1pAzv0sWxxUSve4sBacrn9D8LMyUZkvlXwKRqQVtW+LNF5ed5CXPINopkuF2cCJOrILva5BeAN7ItGT0oHeRJfDcJ+4fss5KIcgihaEJKG3bZodJ8dOZP0AdPG6+L/2ZGkVvKJnBQ25QVE0GZFEZTE/hp4bDLqgR8ch7joywnZMH2Bk9ZqfDemR+drZyvEf6gWRAAxcWAI4JciIo1nu4u9OZoQKFBVLjJw0vlH8S6zCpHWei5rFbDuFUNF4lmdslyslX9OlpoqQD6G97nsX5RkyCCjdY8wov34d++fuMAP/oYAdzeK0S+O8SqJPiXcsOQg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by PA4PR04MB9590.eurprd04.prod.outlook.com (2603:10a6:102:26f::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
- 2026 20:34:13 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9870.023; Mon, 4 May 2026
- 20:34:13 +0000
-Date: Mon, 4 May 2026 16:34:05 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: zain_zhou@realsil.com.cn
-Cc: linux-staging@lists.linux.dev, linux-i3c@lists.infradead.org,
-	devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
-	alexandre.belloni@bootlin.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: i3c: add binding for Realtek RTS490x
- I3C HUB
-Message-ID: <afkCvVaPb-NrLs2P@lizhi-Precision-Tower-5810>
-References: <20260430121354.6253-1-zain_zhou@realsil.com.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260430121354.6253-1-zain_zhou@realsil.com.cn>
-X-ClientProxiedBy: BY5PR04CA0001.namprd04.prod.outlook.com
- (2603:10b6:a03:1d0::11) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AE2Z52Pe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2AD0C2BCC4;
+	Mon,  4 May 2026 20:45:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777927546;
+	bh=6VmnF/xDyfENF11j8ggk+IvN36+HVqf4Q9Npk+oX3Xs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=AE2Z52Pe6BXD0Om+orDgHP153pmS1aRqYU2ykGLSvtctGGmJ2HIfQGx6znyslMZTF
+	 ws97C6v0Mzt/eDd0wH0CEMo4pDYarOotysap7DKpsG4AM4ywdwRGzRvBRE/bHLtY03
+	 nclVT9GqnsSTseVRzvCPVeDi3X+3DX7mhL3q7+B2O9URnKs5J27XNYPDFIdE451MY0
+	 1DbCE6mfSht8tEIU/jbA41tuvXtkX1lqO21EbYotQpHCMxBM7n7dy57O3hd0EoDQu/
+	 iKxWDh4Xau0TgqKDiAbi8HOPa6PRX079Vj/cD+EPkrj+5bKkPO2996+PDCaTg20mJu
+	 X/3B5ThEPWK6Q==
+Message-ID: <a2444df4-abf1-4b56-8556-7efb238bc677@kernel.org>
+Date: Mon, 4 May 2026 22:45:40 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|PA4PR04MB9590:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5858a9e-2ddc-4ed7-245f-08deaa1c8129
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|376014|7416014|52116014|366016|22082099003|38350700014|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	gasN9wAP9hrIZeqr+duRzJYbkhKcQGvk08e2IltktAMaLWNP4pDLr+BIxxUJhLFlUkTPqfrbSvqvxMI5IK5DH5XvZxmuEBEb37O7rJns82ZX9c7O0aubQm0+7y/oL9uB0achvBd96DgMbmBHYyc0YLDm59KPqEBgrAeAM0595WMgc1RA7KUpeGajzmJtV4YjkivnC9ao58bOR+a/y98J4fU75Zv1KaA6VN3QDebdbvTU48HC8+dLO0mPx/Uc5zRa6jhRwwEqHY+dBDaZ/ZAh1oajWhs0btr11unQEfSkzI+8i3YGmbjWnULcIODD/P8i0IKWvNwNfJ/bXwPzLZFj/sLDNFkWBqo9fYxA9CzjR40GN7Hr4mQpUJohlK8vOKpGvnIiIUqgZsXGGVqaPCkZzFUgPwcgmPmcbL/toG4qfZpHCh7CcUksxPf/UpBhf+sbORKl5PuLMcHpsRNWubSg8dtirjXumnbSYrRCCx+XElhjndWUQY0Xstq0iYjlg1fMk4wSUcosbL7YhfL9AYXNKuWgo/KZsZRQpPunroohxjY/AL7fq2wIIXc8oM0RNgzw5Pink14/sqmUrpf4rUu4T6vOnugClIuQ1zb0PEkyGGKWZ2y9yiPPFzv/Nk9j9f1M7vtPudmsNsDbSvVXU+5inHIQItKAx6Ws1OiRyf7gpxlNQcFALWI/k/8nob9dRtM/vY8PSyk2M8A7hYrdYHgLWw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(7416014)(52116014)(366016)(22082099003)(38350700014)(56012099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?fEXLSIE2j+VA9XQemRL6Wj12TQNOZAOr+VlGBNzlDwTXdY3GqZ9BGxbkyPSK?=
- =?us-ascii?Q?NVxFuGLncSzx228qgCmxiL7p1hsukPjkyb2h1E3FiRqtI1MO8H7c78uD662W?=
- =?us-ascii?Q?/GcwNYqNfXeNjz5g6Sg2XAmAItN7ntlnMG/azT7n6ZNJZGuvLzV1ecg+StKu?=
- =?us-ascii?Q?y6yEalrbxp5tA7XwNXD5tLNkn57cv+EbxgqexrSQ9s/7NLUN3YDTmM4aoUdc?=
- =?us-ascii?Q?IiLTr4hjvDdmjrx82QDD6f71nGQ3BCfA9gyKk/JEywYhO+47YzmGwGRjizDD?=
- =?us-ascii?Q?TSNxGYBOdQWKqU+Dpp2syqN365ovDyWie8F9FhPhfm/TkqBpoeoVgjTziTm3?=
- =?us-ascii?Q?/+pvHPa0QC1zVEiSGr9zsxgo+e25uMPtgIkJWDBno+E+mR5/pldAzTuKk+bT?=
- =?us-ascii?Q?Jif/LbNALaPOuwE2MQt06Ar9dtpBIJrvw4w6uUwJinhka8kP3Of/EQRWBtvS?=
- =?us-ascii?Q?ha8Pvg/d8/CCSgsDeD2MRyjF0gTqB+HlELA4sRpUhRisgu8BRAHSdy+xjupd?=
- =?us-ascii?Q?+a2K7K75fvL7G9ZwtIx6OPF+nJcqnMJXKP05MEET6mxu+U4wr1HOjesuJoDC?=
- =?us-ascii?Q?GY6sbj69dKBmsOfANYJRqTMb4YTd+XGh0fVGegW0DzCScvZkUX0nMCbOrmVX?=
- =?us-ascii?Q?hmIAw8b+ARYHKkKKlW6bf1U6a10HCHGN+Vu46kCGQ1STpdfR/Y5+aXecKQgw?=
- =?us-ascii?Q?R00z5R+KsJXvAPM5ELsiOGZQr/1kMnQsB+rlzoVeEX9vqElR0VM0szqggbfe?=
- =?us-ascii?Q?GWz7GwX6DK69V4tntjP7jS/W8Dp5BGaYPt18OlArjM95zhcKgvz0SVtmg50k?=
- =?us-ascii?Q?P1UJCXYhEqLFRtF1nRmEz5yJaG1OntQSlIfNViyUPynYpqH2YKMZMliDHeU0?=
- =?us-ascii?Q?6sUWZ9T6lHYOfaZ4ub0CfnxsrC3APKiSWu8kzDgCkmjx4pzyR5u6f9DkpKtK?=
- =?us-ascii?Q?OZnPNyUy+jjgn61T8DrX53jrh0aOrz00KMwHuEzY5PoenMvBuu5PFukLcsBE?=
- =?us-ascii?Q?UegI1du4PND8hjXP7OlGkgI/vFKDwg2CQ6/2CaM3Q1HLqRHqFbRE/z/dAkl8?=
- =?us-ascii?Q?LevyeW3URQopeqbibEzB6XPZ4nUKkeEQrKWdk1Y7ZsCq5D7OlBS2KPdsgmk6?=
- =?us-ascii?Q?RqO/H7UUpP9Y/soFh9/8fPOYGJ/ZEWz4+SEolksay5vwzLGn2kfCjJclXm3T?=
- =?us-ascii?Q?0uB8Uxj0xhi22UmeIJE+p/40MDve10zBIorNS8agn/IfBfmLjjEmBrn7UG6h?=
- =?us-ascii?Q?VZU6qy9/LjvEZBAqThyGucQVaA+/lni8FUzxefh2Z+YIrPeeKVcFx9O2DiuQ?=
- =?us-ascii?Q?SPLhGyerIm0vrCrWbTfSVX+rzvpKAC0rxuzGcieZFz6MWC1ZeWLUnAdJtU8i?=
- =?us-ascii?Q?aUfzgnMiFtzGMK6MNfbwBwT4fHApkhOUWitEdr/lQ4TSt9Rw8HHh34SmMQ4o?=
- =?us-ascii?Q?7XVUXo/7MnhgOc2Hu77FI87J9bGZVKdeyWI2tVv3zooMSTqDBhcQuMpbSjMn?=
- =?us-ascii?Q?RTqtvrA7zksL8mRlmQGZMS5uZVAXwimuIQ6G+YUtXjjCkGiNpVqvroZT3WUo?=
- =?us-ascii?Q?Y93spAS3JgZpqmZOTqPtVXnneJ48RHwXy6pKXihFQJwKk2LfogYJvP5zDpLj?=
- =?us-ascii?Q?6W+QplE+ruAH0RHWchP/d898OV0sOfHAQRXqAJqzaoqvrz0xhoJvdgqJ0IPK?=
- =?us-ascii?Q?ajJvjSiVjSCIXKCoyAM+F8ZaSLfIZjmJ593LTfvkG/vDqliRNGyRL0LsTYbG?=
- =?us-ascii?Q?hIS7NK6zMQ=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5858a9e-2ddc-4ed7-245f-08deaa1c8129
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 20:34:13.7608
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: n1EMrTpCqsPsOuubo5IQJLqq8ZbXUwwqP58nLKyTWAWm5aVEKo86XCuqu5XXUI4l3kaszaIkC9N0YU71CaPYqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9590
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: display: panel: Add Novatek NT37705
+To: Luca Weiss <luca.weiss@fairphone.com>, Conor Dooley <conor@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
+ <20260501-fp6-panel-v1-1-e09cb05651cc@fairphone.com>
+ <20260501-yogurt-wise-2a2884e3ec59@spud>
+ <DI9XL1VYYTY7.19IRSM8VIDO53@fairphone.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
+ QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
+ +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
+ ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
+ 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
+ hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
+ tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
+ 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
+ naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
+ hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
+ whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
+ Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
+ MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
+ OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
+ GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
+ 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
+ YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
+ 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
+ BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
+ JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
+ 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
+ YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
+ qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
+ RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
+ Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
+ H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
+ dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
+ AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
+ jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
+ zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
+ XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
+In-Reply-To: <DI9XL1VYYTY7.19IRSM8VIDO53@fairphone.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Apr 30, 2026 at 08:13:53PM +0800, zain_zhou@realsil.com.cn wrote:
-> From: zain_zhou <zain_zhou@realsil.com.cn>
->
-> Add DT binding schema for Realtek RTS490x series I3C HUB devices.
->
-> The binding describes configuration properties for:
->   - LDO enable/disable and voltage level per port group
->   - Pull-up resistance per port group
->   - IO driver strength per port
->   - Per target-port mode (I3C/SMBus/GPIO/disabled), pull-up,
->     IO mode, SMBus clock frequency and polling interval
->   - Hub network always-I3C mode
->   - Hardware identification via CSEL pin (id) and CP1 pins (id-cp1)
+On 04/05/2026 15:36, Luca Weiss wrote:
+> Hi Conor,
+> 
+> On Fri May 1, 2026 at 5:51 PM CEST, Conor Dooley wrote:
+>> On Fri, May 01, 2026 at 03:52:45PM +0200, Luca Weiss wrote:
+>>> Novatek NT37705 is a display driver IC used to drive AMOLED DSI panels.
+>>>
+>>> Describe it and the panel in the Fairphone (Gen. 6) (BJ631JHM-T71-D900
+>>> from BOE) using it.
+>>>
+>>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+>>> ---
+>>>  .../bindings/display/panel/novatek,nt37705.yaml    | 72 ++++++++++++++++++++++
+>>>  1 file changed, 72 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml
+>>> new file mode 100644
+>>> index 000000000000..1c796599f6fc
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml
+>>> @@ -0,0 +1,72 @@
+>>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/display/panel/novatek,nt37705.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: Novatek NT37705-based DSI display panels
+>>> +
+>>> +maintainers:
+>>> +  - Luca Weiss <luca.weiss@fairphone.com>
+>>> +
+>>> +description:
+>>> +  The Novatek NT37705 is a generic DSI Panel IC used to control AMOLED panels.
+>>> +
+>>> +allOf:
+>>> +  - $ref: panel-common.yaml#
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    contains:
+>>> +      const: boe,bj631jhm-t71-d900
+>>
+>> Compatible doesn't match the filename, nor does the commit message match
+>> what you've got here. Sounds like you're missing a fallback to
+>> $filename.
+> 
+> The last times I was upstreaming panel drivers (Feb 2024 and June 2025),
+> this was the requested way of doing things.
 
-Please base on
-https://lore.kernel.org/linux-i3c/20260420105222.1562243-1-lakshay.piplani@nxp.com/T/#t
+So this was requested that time and is requested now. What is here
+uncertain?
 
-which almost done!
+> 
+> Compatible being the company and model number making the actual panel
+> assembly (driver IC + touchscreen + glass etc), while the rest being
+> named after the driver IC manufacturer & number.
 
-Frank
+So exactly what was asked for...
 
->
-> Signed-off-by: zain_zhou <zain_zhou@realsil.com.cn>
-> ---
->  .../bindings/i3c/realtek,rts490x-i3c-hub.yaml | 410 ++++++++++++++++++
->  MAINTAINERS                                   |   6 +
->  2 files changed, 416 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml
->
-> diff --git a/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml b/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml
-> new file mode 100644
-> index 000000000000..30295eefee89
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml
-> @@ -0,0 +1,410 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/i3c/realtek,rts490x-i3c-hub.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: I3C HUB
-> +
-> +maintainers:
-> +  - zain_zhou <zain_zhou@realsil.com.cn>
-> +
-> +description: |
-> +  I3C HUB is smart device which provides multiple functionality:
-> +  * enabling voltage compatibility across I3C Controller and Target devices,
-> +  * bus capacitance isolation
-> +  * address conflict isolation
-> +  * I3C port expansion
-> +  * two controllers in a single I3C bus
-> +  * I3C and SMBus device compatibility
-> +  * GPIO expansion
-> +
-> +  Having such big number of features, there is a need to have some DT knobs to tell the I3C HUB
-> +  driver which features shall be enabled and how they shall be configured. I3C HUB driver read,
-> +  validate DT knobs and set corresponding registers with the right way to satisfy user requests from
-> +  DT.
-> +
-> +  All the DT properties for I3C HUB are located under dedicated (for I3C HUB) DT entry. I3C HUB DT
-> +  entry structure is aligned with regular I3C device DT entry described in i3c.yaml.
-> +
-> +allOf:
-> +  - $ref: i3c.yaml#
-> +
-> +properties:
-> +  $nodename:
-> +    pattern: "^hub@0,0$"
-> +
-> +  cp0-ldo-en:
-> +    enum:
-> +      - disabled
-> +      - enabled
-> +    description: |
-> +      I3C HUB Controller Port 0 LDO disabling/enabling setting. If enabled, voltage produced by
-> +      on-die LDO will be available externally on dedicated pin. This option could be used to supply
-> +      external pull-up resistors or for any other purpose which does not cross LDO capabilities.
-> +
-> +      This property is optional. If not provided, LDO will be disabled.
-> +
-> +  cp1-ldo-en:
-> +    enum:
-> +      - disabled
-> +      - enabled
-> +    description: |
-> +      I3C HUB Controller Port 1 LDO disabling/enabling setting. If enabled, voltage produced by
-> +      on-die LDO will be available externally on dedicated pin. This option could be used to supply
-> +      external pull-up resistors or for any other purpose which does not cross LDO capabilities.
-> +
-> +      This property is optional. If not provided, LDO will be disabled.
-> +
-> +  tp0145-ldo-en:
-> +    enum:
-> +      - disabled
-> +      - enabled
-> +    description: |
-> +      I3C HUB Target Ports 0/1/4/5 LDO disabling/enabling setting. If enabled, voltage produced by
-> +      on-die LDO will be available externally on dedicated pin. This option could be used to supply
-> +      external pull-up resistors or for any other purpose which does not cross LDO capabilities.
-> +
-> +      This property is optional. If not provided, LDO will be disabled.
-> +
-> +  tp2367-ldo-en:
-> +    enum:
-> +      - disabled
-> +      - enabled
-> +    description: |
-> +      I3C HUB Target Ports 2/3/6/7 LDO disabling/enabling setting. If enabled, voltage produced by
-> +      on-die LDO will be available externally on dedicated pin. This option could be used to supply
-> +      external pull-up resistors or for any other purpose which does not cross LDO capabilities.
-> +
-> +      This property is optional. If not provided, LDO will be disabled.
-> +
-> +  cp0-ldo-volt:
-> +    enum:
-> +      - 1.0V
-> +      - 1.1V
-> +      - 1.2V
-> +      - 1.8V
-> +    description: |
-> +      I3C HUB Controller Port 0 LDO setting to control the Controller Port 1 voltage level. This
-> +      property is optional.
-> +
-> +      If not provided, LDO configuration is not modified in I3C HUB.
-> +
-> +  cp1-ldo-volt:
-> +    enum:
-> +      - 1.0V
-> +      - 1.1V
-> +      - 1.2V
-> +      - 1.8V
-> +    description: |
-> +      I3C HUB Controller Port 1 LDO setting to control the Controller Port 1 voltage level. This
-> +      property is optional.
-> +
-> +      If not provided, LDO configuration is not modified in I3C HUB.
-> +
-> +  tp0145-ldo-volt:
-> +    enum:
-> +      - disabled
-> +      - 1.0V
-> +      - 1.1V
-> +      - 1.2V
-> +      - 1.8V
-> +    description: |
-> +      I3C HUB Target Ports 0/1/4/5 LDO setting to control the Target Ports 0/1/4/5 voltage level.
-> +
-> +      If not provided, LDO configuration is not modified in I3C HUB.
-> +
-> +  tp2367-ldo-volt:
-> +    enum:
-> +      - disabled
-> +      - 1.0V
-> +      - 1.1V
-> +      - 1.2V
-> +      - 1.8V
-> +    description: |
-> +      I3C HUB Target Ports 2/3/6/7 LDO setting to control the Target Ports 2/3/6/7 voltage level.
-> +
-> +      If not provided, LDO configuration is not modified in I3C HUB.
-> +
-> +  tp0145-pullup:
-> +    enum:
-> +      - disabled
-> +      - 250R
-> +      - 500R
-> +      - 1k
-> +      - 2k
-> +    description: |
-> +      I3C HUB Target Ports 0/1/4/5 pull-up setting to control the Target Ports 0/1/4/5 pull-up
-> +      resistance level.
-> +
-> +      This property is optional. If not provided, pull-up configuration is not modified in I3C HUB.
-> +
-> +  tp2367-pullup:
-> +    enum:
-> +      - disabled
-> +      - 250R
-> +      - 500R
-> +      - 1k
-> +      - 2k
-> +    description: |
-> +      I3C HUB Target Ports 2/3/6/7 pull-up setting to control the Target Ports 2/3/6/7 pull-up
-> +      resistance level.
-> +
-> +      This property is optional. If not provided, pull-up configuration is not modified in I3C HUB.
-> +
-> +  cp0-io-strength:
-> +    enum:
-> +      - 20Ohms
-> +      - 30Ohms
-> +      - 40Ohms
-> +      - 50Ohms
-> +    description: |
-> +      I3C HUB Controller Port 0 IO strength setting to control the Controller Port 0 output driver
-> +      strength.
-> +
-> +      This property is optional. If not provided, IO strength configuration is not modified in I3C
-> +      HUB.
-> +
-> +  cp1-io-strength:
-> +    enum:
-> +      - 20Ohms
-> +      - 30Ohms
-> +      - 40Ohms
-> +      - 50Ohms
-> +    description: |
-> +      I3C HUB Controller Port 1 IO strength setting to control the Controller Port 1 output driver
-> +      strength.
-> +
-> +      This property is optional. If not provided, IO strength configuration is not modified in I3C
-> +      HUB.
-> +
-> +  tp0145-io-strength:
-> +    enum:
-> +      - 20Ohms
-> +      - 30Ohms
-> +      - 40Ohms
-> +      - 50Ohms
-> +    description: |
-> +      I3C HUB Target Ports 0/1/4/5 IO strength setting to control the Target Ports 0/1/4/5 output
-> +      driver strength.
-> +
-> +      This property is optional. If not provided, IO strength configuration is not modified in I3C
-> +      HUB.
-> +
-> +  tp2367-io-strength:
-> +    enum:
-> +      - 20Ohms
-> +      - 30Ohms
-> +      - 40Ohms
-> +      - 50Ohms
-> +    description: |
-> +      I3C HUB Target Ports 2/3/6/7 IO strength setting to control the Target Ports 2/3/6/7 output
-> +      driver strength.
-> +
-> +      This property is optional. If not provided, IO strength configuration is not modified in I3C
-> +      HUB.
-> +
-> +  id:
-> +    enum:
-> +      - 0
-> +      - 1
-> +      - 3
-> +    description: |
-> +      I3C HUB ID based on CSEL pin. There are three possible values:
-> +      0 - CP0 is selected as primary Controller Port
-> +      1 - Primary Controller Port is selected by software by writing the REG#56
-> +      3 - CP1 is selected as primary Controller Port
-> +
-> +      I3C HUB driver reads CSEL pin status (REG#121[5:4]) and tries to find DT node with matching
-> +      value in 'id' property.
-> +
-> +      This property is optional. If not provided, DT node can only be used by the I3C HUB driver if
-> +      there is no others with matching 'id' or 'id-cp1'. If there is a multiple DT nodes with no
-> +      'id' property - the first one will be chosen by I3C HUB driver. If there is a multiple DT
-> +      nodes with matching 'id' property - the first one will be chosen by I3C HUB driver.
-> +
-> +      If both 'id' and 'id-cp1' are available, DT node will chosen only when both values match those
-> +      read from I3C HUB.
-> +
-> +  id-cp1:
-> +    enum:
-> +      - 0
-> +      - 1
-> +      - 2
-> +      - 3
-> +    description: |
-> +      I3C HUB ID based on CP1 SDA and SCL pins state probed during power on.
-> +
-> +      I3C HUB driver reads CP1 SDA and SCL pin status and tries to find DT node with matching value
-> +      in 'id-cp1' property.
-> +
-> +      This property is optional. If not provided, DT node can only be used by the I3C HUB
-> +      driver if there is no others with matching 'id' or 'id-cp1'. If there is a multiple DT nodes
-> +      with no 'id-cp1' property - the first one will be chosen by I3C HUB driver. If there is a
-> +      multiple DT nodes with matching 'id-cp1' property - the first one will be chosen by I3C HUB
-> +      driver.
-> +
-> +      If both 'id' and 'id-cp1' are available, DT node will chosen only when both values match those
-> +      read from I3C HUB.
-> +
-> +patternProperties:
-> +  "@[0-9]$":
-> +    type: object
-> +    description: |
-> +      I3C HUB Target Port child, should be named: target-port@<target-port-id>
-> +
-> +    properties:
-> +      mode:
-> +        enum:
-> +          - disabled
-> +          - i3c
-> +          - smbus
-> +          - gpio
-> +        description: |
-> +          I3C HUB Target Port mode setting to control Target Port functionality.
-> +
-> +          This property is optional. If not provided, Target Port mode configuration is not modified
-> +          in I3C HUB.
-> +
-> +      pullup:
-> +        enum:
-> +          - disabled
-> +          - enabled
-> +        description: |
-> +          I3C HUB Target Port pull-up setting to disable/enable Target Port pull-up.
-> +
-> +          This property is optional. If not provided, Target Port pull-up configuration is not
-> +          modified in I3C HUB.
-> +
-> +      always-enable:
-> +        type: boolean
-> +        description: |
-> +          I3C HUB Target Port settings to control the port enable/disable policy.
-> +
-> +          This property is optional. If not provided, Target Port is enabled only on accessing to
-> +          the devices connected to it and the port is disabled automatically after the accessing
-> +          is done. If provided, the Target Port is always enabled.
-> +
-> +      polling-interval-ms:
-> +        type: uint32
-> +        description: |
-> +          I3C HUB Target Port SMBus polling interval in milliseconds.
-> +
-> +          This property is optional. If not provided or set to 0, polling is disabled and the driver
-> +          uses IBI (In-Band Interrupts). If provided with a positive value, polling is enabled for
-> +          this Target Port with the given period.Note: this positive value only affects the SMBus
-> +          target agent polling. The SMBus controller agent polling interval is computed dynamically
-> +          from clock and data length.
-> +
-> +      clock-frequency:
-> +        type: uint32
-> +        enum:
-> +          - 100000
-> +          - 200000
-> +          - 400000
-> +          - 1000000
-> +        description: |
-> +          I3C HUB Target Port SMBus clock frequency in Hz.
-> +
-> +          This property follows the standard I2C 'clock-frequency' semantics.
-> +          Applies only when the Target Port mode is set to "smbus".
-> +          Optional; if not provided, the driver uses 400000 Hz by default.
-> +
-> +additionalProperties: true
-> +
-> +examples:
-> +  - |
-> +    i3c-master@d040000 {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      hub@0,0 {
-> +        cp0-ldo-en = "disabled";
-> +        cp1-ldo-en = "enabled";
-> +        cp0-ldo-volt = "1.0V";
-> +        cp1-ldo-volt = "1.1V";
-> +        tp0145-ldo-en = "enabled";
-> +        tp2367-ldo-en = "disabled";
-> +        tp0145-ldo-volt = "1.2V";
-> +        tp2367-ldo-volt = "1.8V";
-> +        tp0145-pullup = "2k";
-> +        tp2367-pullup = "500R";
-> +        tp0145-io-strength = "50Ohms";
-> +        tp2367-io-strength = "30Ohms";
-> +        cp0-io-strength = "20Ohms";
-> +        cp1-io-strength = "40Ohms";
-> +
-> +        target-port@0 {
-> +          mode = "i3c";
-> +          pullup = "enabled";
-> +          always_enable;
-> +        };
-> +        target-port@1 {
-> +          mode = "smbus";
-> +          pullup = "enabled";
-> +          clock-frequency = <1000000>;
-> +          polling-interval-ms = <10>;
-> +          backend@10{
-> +              compatible = "i2c-slave-mqueue";
-> +              reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
-> +          };
-> +        };
-> +        target-port@2 {
-> +          mode = "gpio";
-> +          pullup = "disabled";
-> +        };
-> +        target-port@3 {
-> +          mode = "disabled";
-> +          pullup = "disabled";
-> +        };
-> +      };
-> +    };
-> +
-> +  - |
-> +    i3c-master@d040000 {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      hub@70,3C000000100 {
-> +        reg = <0x70 0x3C0 0x00000100>;
-> +        assigned-address = <0x70>;
-> +        dcr = <0xC2>;
-> +
-> +        cp0-ldo-en = "disabled";
-> +        cp1-ldo-en = "enabled";
-> +        cp0-ldo-volt = "1.0V";
-> +        cp1-ldo-volt = "1.1V";
-> +        tp0145-ldo-en = "enabled";
-> +        tp2367-ldo-en = "disabled";
-> +        tp0145-ldo-volt = "1.2V";
-> +        tp2367-ldo-volt = "1.8V";
-> +        tp0145-pullup = "2k";
-> +        tp2367-pullup = "500R";
-> +        tp0145-io-strength = "50Ohms";
-> +        tp2367-io-strength = "30Ohms";
-> +        cp0-io-strength = "20Ohms";
-> +        cp1-io-strength = "40Ohms";
-> +
-> +        target-port@0 {
-> +          mode = "i3c";
-> +          pullup = "enabled";
-> +          always-enable;
-> +        };
-> +        target-port@1 {
-> +          mode = "smbus";
-> +          pullup = "enabled";
-> +          backend@12{
-> +              compatible = "i2c-slave-mqueue";
-> +              reg = <(0x12 | I2C_OWN_SLAVE_ADDRESS)>;
-> +          };
-> +        };
-> +        target-port@2 {
-> +          mode = "gpio";
-> +          pullup = "disabled";
-> +        };
-> +        target-port@3 {
-> +          mode = "disabled";
-> +          pullup = "disabled";
-> +        };
-> +      };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 2fb1c75afd16..71ee5071ac0f 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -12214,6 +12214,12 @@ S:	Supported
->  F:	Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
->  F:	drivers/i3c/master/renesas-i3c.c
->
-> +I3C HUB DRIVER FOR REALTEK RTS490X
-> +M:	zain_zhou <zain_zhou@realsil.com.cn>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml
-> +F:	drivers/staging/rts490x/
-> +
->  I3C DRIVER FOR SYNOPSYS DESIGNWARE
->  S:	Orphan
->  F:	Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> --
-> 2.34.1
->
+> 
+> As seen in
+> * himax,hx83112b + djn,98-03057-6598b-i (Fairphone 3)
+> * himax,hx83112a + djn,9a-3r063-1102b (Fairphone 4)
+> 
+> Fairphone 5 panel (raydium,rm692e5) was upstreamed earlier and follows
+> different naming.
+
+
+
+Best regards,
+Krzysztof
