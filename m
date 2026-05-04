@@ -1,63 +1,61 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3DD354AE3;
-	Mon,  4 May 2026 11:27:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE75F35A3AD;
+	Mon,  4 May 2026 11:41:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777894078; cv=none; b=eN5/jo/YToV4Y5JQdoSTYkhHONCcxdJ4Rcw3VYE0XfCYB5XAJTuloEKTJnUwlcU0mLy0xxGBwi6xgBfifv1CGPUR4sK2kLd9Mb2xsBC/FoIRXbTCC9Rf3O1+ulY4xrcsNzI3D824WtE5M7Q9bzRIirwQUoMjv3vc2Oml8uj8SMo=
+	t=1777894870; cv=none; b=VEcebqHtckM/zR8ChYX1dmAoau1cTCjKEq+dLut+xDnx4qhya3OK2X2LmKgLcC4uLotVwVuVfV+oPDC/bzahrwv4OVf4U2aRKPqBPMFSBCUCURvf84yZCF/GtBJbtUYqpc8jD7btdtxPJ2/jfqJSkrdH3BI8PLgHw7BuG8qK7gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777894078; c=relaxed/simple;
-	bh=vmwhKpIuJ/kZwCXjcaFmLTe8fKVmq6dYhXjPDXJ2dss=;
+	s=arc-20240116; t=1777894870; c=relaxed/simple;
+	bh=3eGV8OYFkq805Nwmqn9XyS/g1IhWJZEPy7qTd1HJp0k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WIaN1Ty1u7kbhYMmZL1drIR04iMXMTKtkne4efG3tlqpQz0fmuvM4pEugy26HZlNXRpODMi6tFCAKIXtAKeNAVNQuGXHRZI06nf1oJ1fyXHiALoeywt7RiNOw1x2s6uY5Wg0QoCrZiGGLOkYDhUFb0IdQdN1fygE574W6AeQDEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A8pMY5gA; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=dSD36U4K7vGBgoQ2Juqgz4TxwdBXkCtIvGULGvh7XcSbjsHoixOz1QrXblqDv+S6MvOpMH3epUri9uEM8eXm7lgBMCptvNiN8swcAW/VLN0C14qxY14SbfJChZXZ0FhAYJk/Ff48XohtfttroP7WQr+6QGAnVjsTjJ0tHYrkShg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YMInOIiZ; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A8pMY5gA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E6DCC2BCB9;
-	Mon,  4 May 2026 11:27:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777894077;
-	bh=vmwhKpIuJ/kZwCXjcaFmLTe8fKVmq6dYhXjPDXJ2dss=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=A8pMY5gALGtg1xGJyZawkZqX7NzKmzo4hhJUD7PMuWFYqDT8DYoMLbSATCHNzy+9j
-	 9pzpd9WM9PXAQ+qliFpwwott2DWy2pCyXdx5Pw7lqK3jbHhf1CT65KX7rWU5Cw0MIc
-	 sd8rLoBV6+GFdaDmgxzjH9jwRFlBKMUpt6nmcM3IcrwXVlCgYr+0etwE0BZvRLMz+b
-	 8klOVo3i4ybTG3ezMXQ+iQ5THKHKoQEMA6oGmz/eHqqXBbEiXLOVss8ditfDjE6JuP
-	 tpjWuBpj+w4SeVFI9wVqlnmhjC0SfO4TRkmpW6BSmb6MzURpeP0INtWUP8lduNUb2T
-	 mLFJIqtsD3TIw==
-Date: Mon, 4 May 2026 16:57:40 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Harshal Dev <harshal.dev@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-	linux-media@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-	linux-remoteproc@vger.kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	robin.clark@oss.qualcomm.com, sean@poorly.run,
-	akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
-	jesszhan0024@gmail.com, marijn.suijten@somainline.org,
-	airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
-	dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
-	mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
-	trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
-	pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
-	tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
-	srinivas.kandagatla@oss.qualcomm.com,
-	amirreza.zarrabi@oss.qualcomm.com, op-tee@lists.trustedfirmware.org,
-	apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
-	linux-kernel@vger.kernel.org,
-	Sumit Garg <sumit.garg@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Subject: Re: [PATCH v4 04/15] firmware: qcom: Add a PAS TEE service
-Message-ID: <afiCrIYSm8AK9xn9@sumit-xelite>
-References: <20260427095603.1157963-1-sumit.garg@kernel.org>
- <20260427095603.1157963-5-sumit.garg@kernel.org>
- <ab4b5257-92df-4201-ab04-436ab77b2fd8@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YMInOIiZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777894868; x=1809430868;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=3eGV8OYFkq805Nwmqn9XyS/g1IhWJZEPy7qTd1HJp0k=;
+  b=YMInOIiZ6XzPH4pnkRoIUmtQtvUF/r+3H2RmW8ZoPwd9WbispkgjRnx9
+   AzDN9E+p/7Ns/g5ncWKSByOX2581ZizC3S8rT4h3Kl/eAF7F5UdezRzil
+   s0av/fQZzqqQzAWlsrHH8v+w+PACoOGLtEOjhQNjMDeUe/tVsQty9AqPk
+   +9AWJb2gJFogm2U2VXiewnHIIksKnHD16YTVgnbx62HZ5mrxM/pu8qD/3
+   vPvUey+6G//aIghlXPJZfTm2z4Hr5KcN1ejQgz3zJIj9RmFnkWKRpwH4Y
+   flMQtUmRbgJoszvGAHVveKa50/OYIKpZCzQoq0I8kl35qy8GgqfKFfEqT
+   g==;
+X-CSE-ConnectionGUID: V0ajjAOwTGulyd8vTrYBLg==
+X-CSE-MsgGUID: iSI4hMGlSHqu7Z8mZuBKVw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11775"; a="89440583"
+X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; 
+   d="scan'208";a="89440583"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 04:41:07 -0700
+X-CSE-ConnectionGUID: b+apxqhNQKyBvhWcalTnWA==
+X-CSE-MsgGUID: scoYSW3LSgeXCBSsmsvAyw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; 
+   d="scan'208";a="258847201"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.159.165])
+  by fmviesa002.fm.intel.com with ESMTP; 04 May 2026 04:41:03 -0700
+Date: Mon, 4 May 2026 19:18:15 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: iansdannapel@gmail.com
+Cc: linux-fpga@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, mdf@kernel.org, yilun.xu@intel.com,
+	trix@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, neil.armstrong@linaro.org, heiko@sntech.de,
+	marex@nabladev.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+	dev@kael-k.io
+Subject: Re: [PATCH v7 3/3] fpga-mgr: Add Efinix SPI programming driver
+Message-ID: <afiAdwJ9NOg/sPUr@yilunxu-OptiPlex-7050>
+References: <20260416144237.373852-1-iansdannapel@gmail.com>
+ <20260416144237.373852-4-iansdannapel@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -66,67 +64,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ab4b5257-92df-4201-ab04-436ab77b2fd8@oss.qualcomm.com>
+In-Reply-To: <20260416144237.373852-4-iansdannapel@gmail.com>
 
-On Mon, May 04, 2026 at 03:33:06PM +0530, Harshal Dev wrote:
-> Hi Sumit,
+On Thu, Apr 16, 2026 at 04:42:36PM +0200, iansdannapel@gmail.com wrote:
+> From: Ian Dannapel <iansdannapel@gmail.com>
 > 
-> On 4/27/2026 3:25 PM, Sumit Garg via OP-TEE wrote:
-> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > 
-> > Add support for Peripheral Authentication Service (PAS) driver based
-> > on TEE bus with OP-TEE providing the backend PAS service implementation.
-> > 
-> > The TEE PAS service ABI is designed to be extensible with additional API
-> > as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
-> > extensions of the PAS service needed while still maintaining backwards
-> > compatibility.
-> > 
-> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > ---
-> >  drivers/firmware/qcom/Kconfig        |  10 +
-> >  drivers/firmware/qcom/Makefile       |   1 +
-> >  drivers/firmware/qcom/qcom_pas_tee.c | 479 +++++++++++++++++++++++++++
-> >  3 files changed, 490 insertions(+)
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
+> Add a new driver for loading binary firmware to configuration
+> RAM using "SPI passive mode" on Efinix FPGAs.
 > 
-> [...]
+> Efinix passive SPI configuration requires chip select to remain asserted
+> from reset until the complete bitstream and trailing idle clocks have
+> been transferred, so the driver keeps CS active with cs_change and locks
+> the SPI bus for the duration of configuration.
 > 
-> > diff --git a/drivers/firmware/qcom/qcom_pas_tee.c b/drivers/firmware/qcom/qcom_pas_tee.c
-> 
-> > +static int qcom_pas_tee_mem_setup(struct device *dev, u32 pas_id,
-> > +				  phys_addr_t addr, phys_addr_t size)
-> > +{
-> 
-> [...]
-> 
-> > +
-> > +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
-> > +	if (ret < 0 || inv_arg.ret != 0) {
-> > +		dev_err(dev, "PAS mem setup failed, pas_id: %d, ret: %d, err: 0x%x\n",
-> > +			pas_id, ret, inv_arg.ret);
-> > +		return ret ?: -EINVAL;
-> 
-> Following the example from qcom_scm_pas_mem_setup() here:
-> https://elixir.bootlin.com/linux/v7.0.1/source/drivers/firmware/qcom/qcom_scm.c#L778
-> 
-> I think it should be:
-> return ret ?: inv_arg.ret;
+> Signed-off-by: Ian Dannapel <iansdannapel@gmail.com>
 
-inv_arg.ret return a GP TEE error code which doesn't map 1:1 to kernel
-error codes. The client drivers won't benefit without having a way to
-decode those errors. So just printing here can help the user to debug
-any issues.
+Reviewed-by: Xu Yilun <yilun.xu@intel.com>
 
-> 
-> This way the client (say mdt_loader) knows what error OPTEE PAS service returned.
-> I can see that is tries to print this error:
-> https://elixir.bootlin.com/linux/v7.0.1/source/drivers/soc/qcom/mdt_loader.c#L286
-> 
-> With that,
-> Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
-> 
-
-Thanks, I hope with above I can keep your tag.
-
--Sumit
+I applied this series to for-next. Thanks.
