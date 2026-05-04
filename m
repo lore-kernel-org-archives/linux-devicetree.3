@@ -1,162 +1,173 @@
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F219F377EDC
-	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 09:25:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C5DF378833
+	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 09:25:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777886710; cv=none; b=uGEQMGuk/dDT+uqPgSAGgpMlvlnBx8e9U+QOmz/gAZ8bKoGIQNg50yw3AwKU65VYtZqVWnFkxSHvktvBsYZ0jt6DUH33fEqvL/WZ3eAOEip5vCUOkL0aLjdqAZ4bKpn4j7NzuM4BVUxAHuFgwDrmuomTAAHJkBaOaQWbuQqgrNA=
+	t=1777886723; cv=none; b=CQa+FHOcX91ApqoItn/AUqUXnOlHzifteGOes06MORJQg/U+rbre0aSXHcrAhxsmuLlJqPyv4uQLvWJTe+9Uz/g9ex9j0rqfSNV1Zyp2aGgUInZTZXHZqmYP+aS3rBgRY2g0el/YxNZEzX7RpqmzTIys1AcaX9WhQxS+BFvUiks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777886710; c=relaxed/simple;
-	bh=lhMXoZX5EKaIKEyMd6/+4ptCK/lC4Z3mYLu5uWl9Ca8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=njKMeeAPr1W1CeYY9XJxanhFAlhp7xHAgBFpFFmV3A+q/CONa1mvJEoJHrmTzSN5+kAs9208f1rMezp5wu+bF52H+acr70aULxGm655L1eDXaVxQvDoXR29SRgJwsXuBTC6o9LzI7aVbq1JaBoPRJZWXQ8iCRsm6hbg/mOSYJbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5673804da95so1272033e0c.0
-        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 02:25:08 -0700 (PDT)
+	s=arc-20240116; t=1777886723; c=relaxed/simple;
+	bh=QXh8tpoCgxIgIRivtPfwf9N7Ak8nnu/99/ev/ItSxFE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iYS9sfz4SimQtniGSRqQ1Nl3qcShnLvQjOvgkXZwe5mqSFvZJbGnwI7EDfNmDZEkViNfm7dOzR+kBM/D9Pq/RGva2dgizjuqgm1lmAVFMw3IDJXZBgIuiQ0QHkpaDw1gQ4qB7K8FXirWinK0LWL5FaRzvdjN4ArO7m9Bke5lmpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EwMpDJNv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PgX5RlTx; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EwMpDJNv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PgX5RlTx"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6448fSU13817886
+	for <devicetree@vger.kernel.org>; Mon, 4 May 2026 09:25:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	NuWaOvztEPnbaaknO2almKhoHkHjQ5+e988XXejF9fM=; b=EwMpDJNvlTRTPpps
+	IIifzaLH68OW/kfIGuOnkK+Z8h1L9O5Vhi4rDnuI65D/Rm+qp3vkgfcQmeZVhyRn
+	Sfp5TK4xJuuVRqTV0RG3GZF/s7Hwoc8tsu8urAry4WhUeNCw3YbsqlocuT9rBG2y
+	BTCvwYJVZx649XHKrsyspuTvJxtvbk/2zNcZNqBQbNN5SFx2ye1J3VaoTMTvmBFl
+	8vcDKtp/A/vLWR78OKmUwWMadB+q2n/Et8SYl7hk1qx3lWqAMTaanPVCE6ZzDPrz
+	FV61YHeezdriZ+C95NuoD4UcgqtjtEHXm+HhMgiuvthhV056GqHziVVEBbaIFu2u
+	WU8iKQ==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dw9bvn2tj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 04 May 2026 09:25:21 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8aca8a79f42so10217476d6.2
+        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 02:25:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1777886720; x=1778491520; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=NuWaOvztEPnbaaknO2almKhoHkHjQ5+e988XXejF9fM=;
+        b=PgX5RlTxrvlS29ydwIugdYAA1mFcEy2UuoIHDxlKc3Y1R8/izu1cF3nxWjl8e3VAll
+         A/qb7NNTtJB3u5P3u9qZY/gfe4DPnYRjEIemkyh3W2HSoQr6DmkQUrHEO5z27IlDHidT
+         q0oFy4cNKNizL50wfHVSw3G/GNjP6fnbjoFfogempKVkNwT3/mQaJ2ZYcFF4Qj+QwLrx
+         7R6VFYzrf9LBrtsH1LBUKhjOume+q0+1Eorm9CVj2hBKuecKerqDnC3COZXIApsKfGmr
+         yC8Dt82Wg3sWcNwcmfWafS9bRDI2qiM9V5bfQ8p4lwjTRDXAGnD6LFA+34Wp1nOrK0Ec
+         nqrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777886708; x=1778491508;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=XiyjHCJDl/rogPwAqEoOmuI7BlhASDQQxZixIp7ihY8=;
-        b=iH9AHcQWtpK5hWuNAJIxv/lgE80UGV2aiAT+ftALj/1NRwfUrtLK5fHlbGSRGv8yhu
-         ItxYeHsFUOxr7pjn3JVYPH0DwLaG4CZdfNa9KzWwXF1H8pkA2S+IJnifdDrYgPPRRyX+
-         n1J9lOoEUFLnWFZVxTgi+bjuJBIEFBN3mjJs+iEQUpgFpNnpsUWS1JKFcGPRU6LtRi39
-         X8IOfaLLuVRbmXLVGZSfOC6lo1jdU0wjOXficuz/0M+k+Eq57NS/TntnqsijMBoh3Nxb
-         ypSS/rOOhLlyFnK8x8L9liikp2Hr5dW87Lf/Eqt08yce8y03671tuewo+D9fIGyUBF2i
-         Y5Vg==
-X-Forwarded-Encrypted: i=1; AFNElJ/K0LF16aw4ARNhUbp3IUUWl+eHcB98a/f5b3McCeyucIIARneeJdc2wHalCudonOy1s5crH8RYxgCs@vger.kernel.org
-X-Gm-Message-State: AOJu0YzvlAUUd5mtRdoonmWycKCv9Hlp5lf68vM51nfiIApzbXZeHds6
-	lB/OvkEJ6Nn6/kRKKOPfv9T3Pe7rMosQtohUaBOmkLTz9MmerJVBYvI3QG/kg3ML
-X-Gm-Gg: AeBDievx70XbT4bfu8rIcmBsQ5wuHe4uGqDVJ285h/N0wZm0rM5L2krLeReKacNLVzb
-	e2z1CiQxi7r54DLSEma/WNoHynZgv9LQjI5ty/8EAwHY5U5m0XIYkxL0yofASwnnFvSaLMYlcYA
-	WvAFn4EkvITsvQbfQ7YhucsFS7LGPZ6fwsXDUPUeC/Kj9WjJ+Wi8Zmkk2oIRu8+vPagl2Ni052c
-	vObg/+WAJAYHYW9mfzYphyg/SfgQOAa4jMNHOojikmB/n5uHukY8efG9j7p2TLH7lcNHk5GJEzC
-	R9gjGnGPtNuLTesv9CsByim20po8pNrXkAI0bVrBMIo3qXvg49omDs7nH4I4PbTUQ8es4n/QuDZ
-	jJez2n72GHOd5+dMTK7Jj5Zl11ZjZkWh+8/JYTeRACg8Yup/oA3tlgrOMgj7q4T9c5NpXkdCvY3
-	/ldenofg5U4jgmMmVZNLEOLhD3L/i2uGCGFaHO0nKJksaDMrTvy5NrldGCgXUlK0A9v28O5cHMU
-	lQ=
-X-Received: by 2002:a05:6122:62a3:b0:56d:7b2e:89a1 with SMTP id 71dfb90a1353d-5750c828d14mr3173628e0c.4.1777886707783;
-        Mon, 04 May 2026 02:25:07 -0700 (PDT)
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com. [209.85.221.177])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-574a6ef4012sm5922472e0c.18.2026.05.04.02.25.06
-        for <devicetree@vger.kernel.org>
+        d=1e100.net; s=20251104; t=1777886720; x=1778491520;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=NuWaOvztEPnbaaknO2almKhoHkHjQ5+e988XXejF9fM=;
+        b=CqKiT06w4ZOcP9yW6aKPGZjzT7F8aLz7I5yOy3qKovqqMmoyg4qGiperqwYLuls7U5
+         ZCYyqGTieEZ85yPvP430LrbZm1OUaqN4/8OEx2b2pIoWajFf1b2QcnsYxXgQp8XtRMAk
+         W4UHfATOB4FhIgBVNZXQ/ARYdoHU4dyjzv+1OneL7lxoEm6GZa0KrxNmPSHOKMG0hGql
+         uzmeXlD+/Vx1ooRJjwcohf1DA2MSIrTkEYxcLgc3nPRlsmfeDruVDG60l2dgYMa2igRy
+         lobgLhpV1OgFFlqyK6Iay9u6R0BqhfGR+MhBeSj28NqHwWckcVg+4YqIdLZksU54shmR
+         zyIA==
+X-Forwarded-Encrypted: i=1; AFNElJ/gvFxlxovOYEOB2fHsKjzf2aVupOCjQmb2slUoJVnl/NUAEQh1IKEU4urEDJIXoqFeOPHd8oKSk0qu@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZhA6HdRkRUoa8am9Gie6dS4BNq/d89twxJwGIh6V1zAADGmsd
+	QafbcJqqoY4Lpb/c1Qqs9Cmt0lxlKXdMIYGY2A0lD1DabKjRoCJ0cAc5yO4vRCH1b7xKT3lqyP1
+	xtv9fAwWPFsRqEsX5DpWgWek8/mFb6QEi8M+a2a8Lszn9ycZ2FAXWgdbm2Mrh679y
+X-Gm-Gg: AeBDievWQSyoWjKCp7ne5UJBRHeZEfYX/i/3uYnNEq1iy75IaHrX6swGBITpEs5oAtE
+	hNVwoNbLYGOOEx1vSV1cE/UoOS8/D0MNU7SnxvswIsmSxwwvdjNcwdKPSeIzHsxQ0KscAyCNIFb
+	zkiDAK69AIkdAG1VDTPgsEyGl6FDUCnu7gC2SVD5hon/VRKPNcA4/cz4zEwmxh31FUsVwr+io4Z
+	qBm9NGSWAHUTf6NWkZN4Eeo1Xl/zO5BFgkMDvty3Ccze3VL2qMASKcJtR+80EI4npc4pkHrBgor
+	d5lgk2zrk+BhCSDYbRTHr4qetD94twn0jilu3giTH6tEwq+Lzx4r86S0hdMnZExYt/NpnJ/KRSP
+	1aWKcHgK+PO43n03Xb6kCuJSWzM1EJaPUkLnHlLo6ASkniMNDuI1p4PMFAFwehBqOUIMBHEKufN
+	4VicG1nhf3+lE5sw==
+X-Received: by 2002:a05:620a:1709:b0:8f1:9e59:2208 with SMTP id af79cd13be357-8fd17d49509mr960459985a.4.1777886720585;
+        Mon, 04 May 2026 02:25:20 -0700 (PDT)
+X-Received: by 2002:a05:620a:1709:b0:8f1:9e59:2208 with SMTP id af79cd13be357-8fd17d49509mr960456085a.4.1777886720179;
+        Mon, 04 May 2026 02:25:20 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67b85e281cdsm3115053a12.3.2026.05.04.02.25.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 04 May 2026 02:25:06 -0700 (PDT)
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5752b279662so176359e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 02:25:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/eQi8gmqxzMiNvYiWssqDVOPnoMKbJ74Cn/R161VkQej8VxAf7BTTdI00SwAs1g/dMh3AdSsk4/a1k@vger.kernel.org
-X-Received: by 2002:a05:6122:2884:b0:56d:b639:5c0d with SMTP id
- 71dfb90a1353d-5750ca1f022mr3391522e0c.13.1777886706296; Mon, 04 May 2026
- 02:25:06 -0700 (PDT)
+        Mon, 04 May 2026 02:25:18 -0700 (PDT)
+Message-ID: <9eb8e746-5191-40b8-9edd-1286e41cfbae@oss.qualcomm.com>
+Date: Mon, 4 May 2026 11:25:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org>
- <20260419193718.133174-8-marek.vasut+renesas@mailbox.org> <CAMuHMdX17D3n_5vxsvmaSmionjOqrEdPygjPdYuu6a0DR7b83w@mail.gmail.com>
- <0875e4a1-f112-4619-a229-2f6f9197f21c@mailbox.org>
-In-Reply-To: <0875e4a1-f112-4619-a229-2f6f9197f21c@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 4 May 2026 11:24:55 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXJvrsXitGagqZJ_STdTTh_s1cBAKf6+esihaVWjfn40g@mail.gmail.com>
-X-Gm-Features: AVHnY4LakVD8SFWNnLvI5N41V0dwMs_sPKYjvoWQU3neqkGpISJJCy9fOpu_jcA
-Message-ID: <CAMuHMdXJvrsXitGagqZJ_STdTTh_s1cBAKf6+esihaVWjfn40g@mail.gmail.com>
-Subject: Re: [PATCH 7/7] arm64: dts: renesas: r8a779md: Add support for R-Car
- M3Le R8A779MD Geist
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, 
-	Nguyen Tran <nguyen.tran.pz@bp.renesas.com>, Conor Dooley <conor+dt@kernel.org>, 
-	David Airlie <airlied@gmail.com>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Simona Vetter <simona@ffwll.ch>, Stephen Boyd <sboyd@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, 
-	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: qcom: slim7x: Add Embedded Controller node
+To: Daniel J Blueman <daniel@quora.org>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
+        Maya Matuszczyk <maccraft123mc@gmail.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+References: <20260502063518.15153-1-daniel@quora.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260502063518.15153-1-daniel@quora.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 5QTt9MBGuMsw2HLL2RA4_kA31QJilu4v
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDA5OSBTYWx0ZWRfX+3q1xFIgUkaD
+ EZ1XSQ/hzH2H/RUBtZN+/no86flXzOzebAZj5BV1pDndB93/vRN3ZPZsVk2bumQokSMIM2IpPa1
+ od4LhYvQ90Hdx2JRC9JXh3EK7+B5Q7028t9TcKzrHLtOFgJ4iDAmPnO9pETf7wW2D6jK0bCI8o3
+ r/q6rGiKyLw98tfbrzeosGvSJYkSa1bCNE3I5dc1Jk7ScKCUMqSFM9517lYd3BQTPMBjygHJK7a
+ 9e/czhOdh2oPXGXzepEfJsizhNVBjsyqz8J9WTQ3RLhidr4qYNaqYibHVW01I77OIVrzfpXTTZg
+ bRqqtKVCVO6OwCdgFyis98/2qP74xt1ue8cKZvU/2shfGrpi1TYp+ZHxgZSdh1a17gUCtavNsMg
+ xp2VreQbyVtx1Vy51OM0wtT+RLUnPTyN2/X79gpD5EjATvklSGeWrHUzWOg0GryAtWlTxh5IdLY
+ ENeZ3ilYGvjxHJv5C2w==
+X-Authority-Analysis: v=2.4 cv=dqLrzVg4 c=1 sm=1 tr=0 ts=69f86601 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=t9ty7G3lAAAA:8 a=hdOfQ7PHE4ms6XNvABgA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22 a=CsAS6f0m0zARWR-uHzm3:22
+X-Proofpoint-ORIG-GUID: 5QTt9MBGuMsw2HLL2RA4_kA31QJilu4v
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-04_03,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 suspectscore=0 spamscore=0
+ lowpriorityscore=0 bulkscore=0 malwarescore=0 adultscore=0 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605040099
 
-Hi Marek,
+On 5/2/26 8:35 AM, Daniel J Blueman wrote:
+> The Lenovo Slim7x uses the same Embedded Controller as the Qualcomm
+> Hamoa Customer Reference Device (X1). Wire it up for fan control,
+> thermal sensor and suspend behaviour.
+> 
+> Signed-off-by: Daniel J Blueman <daniel@quora.org>
+> ---
+> Changes in v2:
+> - corrected DT compatible node
 
-On Sun, 3 May 2026 at 04:50, Marek Vasut <marek.vasut@mailbox.org> wrote:
-> On 4/29/26 3:59 PM, Geert Uytterhoeven wrote:
-> >> +&avb {
-> >> +       pinctrl-0 =3D <&avb_pins>;
-> >> +       pinctrl-names =3D "default";
-> >> +       phy-handle =3D <&phy0>;
-> >> +       tx-internal-delay-ps =3D <2000>;
-> >> +       status =3D "okay";
-> >> +
-> >> +       phy0: ethernet-phy@0 {
-> >
-> > compatible =3D "ethernet-phy-id0022.1622";
-> >
-> >> +               rxc-skew-ps =3D <1500>;
-> >> +               reg =3D <0>;
-> >> +               interrupt-parent =3D <&gpio2>;
-> >> +               interrupts =3D <11 IRQ_TYPE_LEVEL_LOW>;
-> >
-> > interrupts-extended =3D <&gpio2 11 IRQ_TYPE_LEVEL_LOW>;
-> >
-> >> +               reset-gpios =3D <&gpio2 10 GPIO_ACTIVE_LOW>;
-> >> +               reset-assert-us =3D <100>;
-> >> +               reset-deassert-us =3D <100>;
-> >
-> > Do we need these two? We don't have them in e.g.
-> > arch/arm64/boot/dts/renesas/salvator-common.dtsi
->
-> I believe we should add them, the KSZ9031 PHY does require 100us delay
-> after reset is deasserted and before MDIO access is possible:
->
-> https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDoc=
-uments/DataSheets/KSZ9031RNX-Data-Sheet-DS00002117.pdf
->
-> FIGURE 7-5: POWER-UP/POWER-DOWN/RESET TIMING
->
-> "
-> Note 2: After the de-assertion of reset, wait a minimum of 100 =C2=B5s be=
-fore
-> starting programming on the MIIM (MDC/MDIO)
-> interface
-> "
+You still need to introduce one specific to your actual hardware,
+even if the driver receives no changes at the moment.
 
-OK. So please add it to the other boards, too.
+This is a measure to enable retroactively enabling quirks for users
+that update their kernel but not their DTB, so that if a year from
+now it turns out that the yoga EC requires some special handling (but
+other users of qcom,hamoa-crd-ec don't), we can easily quirk it out
 
-> [...]
->
-> >> +       pwm2_pins: pwm2 {
-> >> +               groups =3D "pwm2_a";
-> >> +               function =3D "pwm2";
-> >> +       };
-> >
-> > What is pwm2 used for?
->
-> The signal is accessible on the EXIO connector D (LBSC) .
-> It is up to user to use the pin for their purposes.
+i.e., the desired outcome here is something like:
 
-Usually we do not enable support for random user wirings on EXIO connectors=
-.
+compatible = "lenovo,yoga-slim7x-ec",
+	     "qcom,hamoa-crd-ec";
 
-Gr{oetje,eeting}s,
+(the first compatible is ignored by the driver matching code today,
+the other ("fallback") one is matched on)
 
-                        Geert
+This will need an accompanying change, adding the new Lenovo
+compatible to the dt-bindings file
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+Konrad
