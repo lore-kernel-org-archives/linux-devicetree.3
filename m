@@ -1,456 +1,142 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012051.outbound.protection.outlook.com [40.107.209.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF6429DB6C
-	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 07:10:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5252C21F1;
+	Mon,  4 May 2026 07:11:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777878622; cv=pass; b=JrigR1MyN0Mqpz1V6gzMMB7xxgeikgLuGLjlwIfNbwwQ+e24UTEo3RahKyZzWPQD9AQhMRvCG+TnA1C4xYR255f6DTcgc7Q91gt6T1NDWpeZmheADIAz/nzsLxmop1sums2Q5Ke+mB0YXBYta2OW9SZNbqLRpsK01VjogVO8cIE=
+	t=1777878691; cv=fail; b=QYgi2aCq4QlBnMmqk5uv0ipeiGEiYXWF938Nq2TfABVYjc9slq32lLNBEcbE1W4x+KCOMhxClFLWI8eOpib4w6jVifxmnaOXa/bR8pOhrpN136IdRp8kQ4CB950zNrpNDkF5B8lUpXEioOENg3o1qVMesxVMyLIdaBauAwqHL5c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777878622; c=relaxed/simple;
-	bh=OjqC6P6YsLYtFV11AH/w2jHxwk61Jc3mjX95O+xljNI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sKdeYoJDxXiTK032sUEIBhCkSBKcnj77xIVA3PyZvQ8GGdrQb+a1Z+hsNoyPdsypUv7JB0MKg2RdK7lBrkRUq0LjVuU4n/auvKUTdus8jmmqzfe2IQ6akBTW68xzs8HMrK5khi1w6dRU9ZkglThkQIMpSUYwN3rMrLsKSbpt4JE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WabuMqf2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZWjh22un; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777878691; c=relaxed/simple;
+	bh=Z9mIbzC3PrvdKZfUsuU1STfvdcmRNORpCWqR3OxggMs=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=gfdk6hz55IeUDY1t5DYLIY/obY6RZfuIjAmyLM3VKQ0Fv5790O/Cj1cWz/t0V9etqUyILSIsu82tlKRwI/YHURaiD9Ema3C+4JNx/7lvnPEJD6XRw/JOTcGuzZHDmRtF4F7rAOEmBklSlQSLAm//3uw302/lGw6wjd1YsLP7sVw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=EzEUO6aP; arc=fail smtp.client-ip=40.107.209.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WabuMqf2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZWjh22un"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6446D81F483541
-	for <devicetree@vger.kernel.org>; Mon, 4 May 2026 07:10:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	3oKwXCyliFTwIoCdK9P8JHdmaC7JupCAf1bc8n0FPGE=; b=WabuMqf29mVomZHQ
-	ljaa+7MrsOcQu3H6aPuT+CwGsAOPYA3JKhxP2JXwpy663zjmMdayH039Pdn+RCRG
-	31GeAoB2ofdI+K7/G6j2tPwDK/WV2YzwEz/tRWlLnnqKcxPPGVZuUNcgiBUKbUDk
-	RfxUj+Wf6komcdap3PhewiT1dugXze5fnSV4PGg8YMBNHNcVmCb4wJZRD8cQsaej
-	r/K3LJmbb+8GxkVs4xpHT/ZPBYtEXPdycpOKVtY9zvtw27TBr0T63WD91XNkuWWz
-	mlLb6UXtqZZ4pEXYWg4ybP3rEjSW0Qg1dOKIUIaKTaxJe2DwNT9cv7uI7vg/OPer
-	HU8lTA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dw87sct8x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 04 May 2026 07:10:20 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-8ebc7ea2402so800863885a.0
-        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 00:10:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777878620; cv=none;
-        d=google.com; s=arc-20240605;
-        b=UaSGza81k3sFwzb5owv12NVqQIWHkkHSNg34Mc8NOL6u6O4/+0dx22y7d/xYbYP9iW
-         eEF6DJ0TjwLqN+vKi51/E40IvzYoh2R37Eptt0OprlyMdasvHFIaA5o08mToOe9lMjEX
-         p+og7rOCyRWFcdsHPRmBTZHwrEYGHVzdnNiG4cfvIhxWFWjTfE/1lh8P6EMgSInA+gXa
-         ubxOJ4fqEO2L4+Z2Qp2PohukkG2rz3LIxDwVa6T3VoWLoaMnKjOPMLyb7wynT8b7vv8/
-         DXgi5hWgbKBBGXbtYwNfRmyZeprB5cJuNoF2DAOqBxaKZWz3/9/bGy7gMoLRDsQ6HdK1
-         FzQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3oKwXCyliFTwIoCdK9P8JHdmaC7JupCAf1bc8n0FPGE=;
-        fh=JssJqu2UCaWsHz9YvO/m5v0hFfrqjXKaqmjbHa/qkrw=;
-        b=QcEomOqhMUN4HPudbdtuNJffoRBsWnal2rfpKfgk/5ZXpAstMMsKte8JQfQqbmT19z
-         wpngBOOBw9lMft/BhSJRzM27cz+4VqyuNGR42YPiYFVzxnUgEe+NEh64nP/PdEcoeEy3
-         aV3sINqboxQdI0tmQVP5w1Z+DDo6LI+gZKSlKYV0EaWRYEpLqKmAf77sRxsYjRXlnzPc
-         65MnIEHdBq7+UIwoJovtajKvERWxsFqxieuKaUCFxBav+NLVZuOg6xw1DxQigHysipQR
-         P0QttnCgx6NUlP+z0FBIQ07DSsfwKJ2fVxmald54TPOZX3miADPceL+ZBR6HIzS1ipCa
-         eS4Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777878620; x=1778483420; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3oKwXCyliFTwIoCdK9P8JHdmaC7JupCAf1bc8n0FPGE=;
-        b=ZWjh22unLI84HFE3cTVqaDnBtcsmE267BVaCXZIgzpX61jdMnZeDVUW07+wZgo33Pj
-         UxTjvj83RX22rr+lNyInQVe+xV0xwP983HdthYADQFxPWfsGiagMbsu+xJ8HwvlhfCCV
-         LACAzoPlhS4cdvuVFDEBm2kU3KtDLg8RraXtZR+wGhP4f0kvmxM446JDv1a5Gpvb/8do
-         +M4Hi8XEL96kio/4hzMFuUa0Oy3Z7BvsdggRqX7Z6KE5KqgGn7bR7MGu66uaELFBB4gI
-         jBb/Mv526P5Ce6Mrs9zJ3HnAO705U9v/rA71Us3p8UHZJDelXXV9tBb12g+Li8HN4YrW
-         SOvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777878620; x=1778483420;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=3oKwXCyliFTwIoCdK9P8JHdmaC7JupCAf1bc8n0FPGE=;
-        b=gxsIaG5hxwt92d9RAhNWbN5l9pHI2XWj6M8qorXyr/EkO72RUGBZ4ihV/fZVWltFBh
-         PrIByVYeWk9ISnAmMKMIW6DM8hnPs6h1MYT91zYFexJsbl6q2EKZkQOwpxHkab45sNd3
-         aQ9ZlevpwKkTtl5r1+tmYFUqBR8QvuWmGHX7fARi2T04jjGQMvCaSxRAasJFJFBS7A3m
-         o/RI9cYwhp3bb/mwR1J3tdBDWej5z1rY+Pvx66IiQG1efz+vw6u292qAoRUvif6xaCwS
-         glxuJqfn5mquxhIMCYYr4dxCPB2VUu8g+vu8YqD+e/HktDE1Q49pOeH9P1/j5gvHYAhy
-         q2AQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+3G6yIlKWbTp0Q6o66WbqSaMPDxfX9ZsbOe4M1mnW0mEu1c0nZM0bTrvlDgLc89JaSFoO8VCEQ0Mm6@vger.kernel.org
-X-Gm-Message-State: AOJu0YzHaO7ibJg8/nm2a6BrEOlsvMNzIely+ykUghj6cWEzjPAwjEwp
-	pTrFV1B60IwRltlwHTT+YsHVGsaj8L7FHFPyVLyWdQUiMvQDu3EfFHSpdJkrEggnedJ2H2p70Qy
-	VmFSVqXKA4AA30sZCWPN41anKu9D0/qgBT/QrG7O6euP/bLYHD3fi9P6lpy0vOzJCfp6ymnIlKX
-	lNAfX+tCJO1IhvjwK7BSxep7ZVM86ccdGqul3mm9A=
-X-Gm-Gg: AeBDievmNZfFJMHviLX+cwPHcCuOIo/0a1pDOINCB9y3edbYGn1+OFnDMuyl+jrEY5X
-	FWmG6AOlPZAGMxQ4/P/9SAYE0yGTgJs6mXLRpfkVEQl+A8cUAs8EDEU4n/8rA07heI+HkI+Lgiu
-	wBWLw4sE+JUH8e4p8CgN+u7BDOMCx9GA+KyNGcwrOnD0KYTgcpQSE0tgIEr03RDCNaV6DkPibsO
-	buEQzaVwLjSKI7VBA==
-X-Received: by 2002:a05:620a:13e2:b0:901:2877:ea43 with SMTP id af79cd13be357-90128872d9amr555667285a.1.1777878619620;
-        Mon, 04 May 2026 00:10:19 -0700 (PDT)
-X-Received: by 2002:a05:620a:13e2:b0:901:2877:ea43 with SMTP id
- af79cd13be357-90128872d9amr555663885a.1.1777878619039; Mon, 04 May 2026
- 00:10:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="EzEUO6aP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A7eQ8CWqTli7Mu+5fvao6O+fe5lEoXn0F3cRDyp7sKaAs+KAx9/l9uKBw45c603H38Kf/aZaGZVGHd2FB89oA0TOiDV+oyOsAEJWmdbZLNp7WXwc+kz3C+owvoYXJ5SS05Lt2VEVRzDDmn9NJ5aTYniU+s1nOUt83RdqpJ07LJ6cbtZxrcNXPf4f0c1RROYbZ2N/na5O33crBT72cER+CCNFWhAwrqOpiOeGk+QKt+kopf6d9ykTn+XDaEmsUm7FEzC8dIXfJCKn/OgLaZ5sww5A2InKX712L/GiaThESr4Gfhznr6W8K627svGUwtf0iXICpDHYD1gv6xEZ9sYBXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kqXC1ywNkkHeaQbOpbTdQ/VXL0esjiMcI6yWEjPOD/c=;
+ b=fKQfxpI4vJDxjCxIVn+MlwZovgs1cOv/Rb67AO/IyYwr7rjgkiwNn+AfLO5IQkJdWoVU1lMNVehtLZSYm6qH++iYGk+2flC0AHUadhSCYIW1ZE0J5Hj2kX+iIJ7SMQt3yIkK9uhILdFnGodEBASEnp0flOvK39mfns16gflvuYtX9+nhpSz2D6JkL0O4Hs0utJ24IX6so8Pr8fGRIJotC1MEBlr9oFDRAAWVjnn7J4yWZ/8msw5iodWuhdyTaSVnYIE9XM6p58pkmE6+IKgEHQiUxX9Rzf2L9yCKXG4VfFnlzVGG9mYwT3SHGKByD7p3xipim+PLblWP0a6NIQKFGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kqXC1ywNkkHeaQbOpbTdQ/VXL0esjiMcI6yWEjPOD/c=;
+ b=EzEUO6aPyHFveaYXh4VhzogZ+s5muZW0TITP1rP0VYOyR2HlvcKebrGj92SMnLSxNlekMjwvXOunObaNktSaNOWP9gDM9mr8XzEshhyFV30txRVeETW0kOi3P61dD753NJI+ybX9uupxxh7jn+2wLKqLSLvQP/6WPcj+8ikuugJ4qUdnzLfoy4Ys5bb8tKPMGW5oH+Rvg/lur+7VV0HM83tyO7vSm/GKm0E9cWXzaWNaTGsGsU3F4PtVL//Z3uqvVjMtjyvg4f1Q1PX4168w5WMwepc8ZnIomTV7VUyUKFe9ACiUcCNnGmbwNYYwVbB8P6HWz5HjaPwPmVKDHjcAgw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from DM8PR03MB6230.namprd03.prod.outlook.com (2603:10b6:8:3c::13) by
+ SN7PR03MB7181.namprd03.prod.outlook.com (2603:10b6:806:2e2::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
+ 2026 07:11:27 +0000
+Received: from DM8PR03MB6230.namprd03.prod.outlook.com
+ ([fe80::abad:9d80:7a13:9542]) by DM8PR03MB6230.namprd03.prod.outlook.com
+ ([fe80::abad:9d80:7a13:9542%4]) with mapi id 15.20.9870.023; Mon, 4 May 2026
+ 07:11:27 +0000
+From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+To: Dinh Nguyen <dinguyen@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+Subject: [PATCH 0/2] arm64: dts: intel: set alias for i3c controllers for agilex5 variants and derivatives
+Date: Mon,  4 May 2026 15:07:15 +0800
+Message-ID: <cover.1777878392.git.adrian.ho.yin.ng@altera.com>
+X-Mailer: git-send-email 2.49.GIT
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BY1P220CA0011.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:59d::11) To DM8PR03MB6230.namprd03.prod.outlook.com
+ (2603:10b6:8:3c::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260430142000.3707614-1-swati.agarwal@oss.qualcomm.com>
-In-Reply-To: <20260430142000.3707614-1-swati.agarwal@oss.qualcomm.com>
-From: Swati Agarwal <swati.agarwal@oss.qualcomm.com>
-Date: Mon, 4 May 2026 12:40:07 +0530
-X-Gm-Features: AVHnY4JPvk79cg7zuCQWXjdavvAbq1oIOeFo3Z98psmOnkEbNNtAv_cw5E9_X5U
-Message-ID: <CAHz4bYsQ2n2fLhiQULGS_s-oN9DZbabYyp48pJmMQ_9L+z-Ppw@mail.gmail.com>
-Subject: Re: [PATCH v2] arm64: dts: qcom: monaco-evk: Enable primary USB
- controller in host mode
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: hJ1WM5bXwhVLkHNMTN4bd1P66i_4zGac
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDA3NSBTYWx0ZWRfX9LQQgKgLc3v1
- sTUp0SWUJHhwZsvtmAFFfz6VMIoENpbVqo0GziPNJXAt6LYoqvPO/f93MXgWV2ZEAi8gxdo9e33
- DUiKDR+gBE97CSW6n88ltn4Sy2zMMmtQKZHlmk78ZI6Ju1dmB7h+H/K+q3CRmy5CVr+0IljdoA7
- uNsxvf/Mhr28/czTTAhbj8hg7FTd1CY/Zr9BqJBVRheK/bdE+Pn6kFiQJ1UZ3rkcqH2WnQ5UDvu
- e/U/83d2/f7FZcJn1ePr7gzZGaiwQTJBTF9fGYV5Z3C6eqd9ju1UWHC6ym20xutmTSs+kFpf/l/
- G0amb86uixZN+UB7dCCnUo1r3s5fL+2wkL6KmOpN3ZNpqSRSLJIqBI+7Hae/96MIRn/wsYCRgXS
- eVLNJbEJuXepIqI9J3xUfFfd93x37w==
-X-Authority-Analysis: v=2.4 cv=O4IJeh9W c=1 sm=1 tr=0 ts=69f8465c cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=EhA5XRWN1BnAoB2_VmUA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: hJ1WM5bXwhVLkHNMTN4bd1P66i_4zGac
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-04_02,2026-04-30_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 suspectscore=0 malwarescore=0 spamscore=0
- phishscore=0 bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2605040075
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM8PR03MB6230:EE_|SN7PR03MB7181:EE_
+X-MS-Office365-Filtering-Correlation-Id: c7ad622a-11af-4100-2a77-08dea9ac5b69
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|56012099003|18002099003|55112099003;
+X-Microsoft-Antispam-Message-Info:
+	Q2se7btaX00go+FGUg7WhRys7t6ObFZ6que/rkpINFMBElrEFsFMtUwtGh8nlZszEpR4+eXltKuZXtzJyVkm4sjw1qAumoutyjRYYknLbycKHvhTPJZknAi3e9h4OS8HcNZAbYf3RkrhGbugSW0UGi0ZIZcsr3dZuFBry9ww3defFxT9BjXd34X135MIv7pJ7oDE2qZM/LY8CbBO6smraENjVb9SEKl3xCQbjZhxPN4MyCI5hVOz04dHarMS1GiMa1cmIXoIBSVsYb4Rg+duBMUfkn+L5s3YIJiBBUwILl/NQbC0RnD4oiai1nknTJvCM+es6ulbsS5MHJ/JY/rB+fL2DNxBgroN3cY7czI3O7xXA3us/moJIK2m7zZLYY+/L3QFB/kXvjGeO/CjqeCSgahBbfWVsKLSJNgtA1cJ9ztGakK9ftP1coH1Bjtw3yVRuwd1yFidk1UHNeBmTUNtRpoairaWIulU6n5K/0U7GydzMBuSJqBWLYJHquNkrioLQkJC2i3zbwzzGUGZ+7vk/TnRfyWgFaD5XptRFkEe8YI3K8yVVvemTKIXnnz3WArRjZE7mkFcVoHtBJ1GWifSUQhozW73oZ3hkJ+icKt2VMPhp1ua0jb1VH7wTC2nE/U0xYyf7UIzrcb5seJk8YMUP61go8/SJsxy81JRH6lSdjW5BCMT6Th1KFBaKzIoE27w
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR03MB6230.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(18002099003)(55112099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?mP/IqEOPXwOR1Ai3hplQPYO9RKR6LA13NqA+An54TVIFns/sqWzDhjRGjVlx?=
+ =?us-ascii?Q?64TqnCTGJuA7oM0EEOJr8b2DdVNe8jDsrEM+/IaEyXhfYDj7QZJi1SkxPAUG?=
+ =?us-ascii?Q?wqXodmq0wMGKql2GsKG8w0CA3/5W7olmOlIWnrVZ4iGsEUEtswUuwkRwqjcD?=
+ =?us-ascii?Q?qAwu1j5y69HXVtwPJCQ5Pb9FFIsyw0TfjkoglM3YUYyYcrD1bQJ9wufBR9er?=
+ =?us-ascii?Q?v2F0pQQeF18+D50wvKggBNXdT5SCY/S15SrFEN6AC9q9b/lpszn8OGT3zVuC?=
+ =?us-ascii?Q?vxEAa1JNWNiH8OilagX2oS2diWWtajUBL2Mv+9awKKc/uNLQawBag4GTFmrr?=
+ =?us-ascii?Q?Jh1viUePPY7OOMMttBTARhJrikTiUiapPa1Wtqak3WZVMps1F2u5OIaSftpO?=
+ =?us-ascii?Q?B0CxnBl6IeD6S3v5Ir5vZFfSINlSZOTTD44y9w3gSwFnxAnTIGpa4o9dvQSP?=
+ =?us-ascii?Q?WsER5Dch3+lUIhKuRBFAE93svh+2ZMh+NfKenPncqD8nDYtEJqMX8FVQ1wFA?=
+ =?us-ascii?Q?juakAcDbYRHZgUENRARJG7dsUDnLkFjznlfAeBV9Foql5l5J119ijLgiUhaX?=
+ =?us-ascii?Q?D6NROEKcSl21GoTyTVc7sGk7K9vFy1VxvYCQNq4yOCdEaZnomgUjOh9Ax+KW?=
+ =?us-ascii?Q?yvh35Lb7biK1l9OZqJeELzP6XJKHRUZD3/83IoWhVQfR43yaQc5UxwJkZTa4?=
+ =?us-ascii?Q?ANWGAgZNbPhAeBGSTzE3nOhMCUgoZ4TIkqVN9oZFQVDVN1wM5BVs/SuLkRsr?=
+ =?us-ascii?Q?qlD+AL1ORlcAujKhWAlPi9YnTrxNqUvEBPmuzftm47HGCf9arOUG5yZYYrBn?=
+ =?us-ascii?Q?kJQU4Fl+6h49MoK/B7hpgm7/THCXqQu5dkXmSpPFOKehJZTcwTe5hR9nX39t?=
+ =?us-ascii?Q?rx3T8eCtwn/ppVAHk/7Ciz1qpvlZNNIrvPAGFj0rzl/P52tACaocSBR6fMP+?=
+ =?us-ascii?Q?5NSc3HzN1AB5gZY3PikyiBfqyhZSl67vaT8oTWsHu0pWbg3w+D2Gje4OqPVV?=
+ =?us-ascii?Q?6rllhm4aKEUDr07dd+EXcS2ztv7b0FtiiOzEmk/Jnegy+a0OO+JdKXOcBjBe?=
+ =?us-ascii?Q?9TNXmk4PpWeFHmylTCot4zqqRvw9pPYNPPptCwQqFoUBMSiDi+OuVQ6bTWJy?=
+ =?us-ascii?Q?Tc3zWmAt+nnlrMldIpa1Mayv36V4D7B8p4AImSq5t7jW7GcKOULtRRU324ht?=
+ =?us-ascii?Q?83acd+T8c3QMojIU/j0ta3E+Z7AgJd1j5mk0gLuw2wdNzUkYDPLAwonznh4L?=
+ =?us-ascii?Q?XuRmnnrsUBDXpeY6VLVGk2Q6NvEQ8f+wNK6n2QWzw7EvtGMkjsSzd4+Uz1c1?=
+ =?us-ascii?Q?dcjZWJwp3uW8r7wjBPH2OWIgndOdMwRETx+LUD0nYTOYkap2c/Ku9KW4BQ60?=
+ =?us-ascii?Q?Oo48nfPnuujgybHt+4vKVIEl1tktn3ZNivDT/4yXQ6FtPpyISH1IznhJdDA0?=
+ =?us-ascii?Q?SKwUxp+rU9qfroKh0DLqt3BRhEigbT8e4Dl2LmcIxxMmnO5Thr3JWlKtJv3U?=
+ =?us-ascii?Q?b6R4GAQZ6GLjt/c9sMg0h8KzcWUw916mxJdf+ZVJz27mJao7P32z5ahELpth?=
+ =?us-ascii?Q?AddV7ZEThxdG/KfiqlIyw5SOePRwTEzuVKKQxbmsV3zJ3YTrMXfWlgB+G4Z6?=
+ =?us-ascii?Q?FlN0Tdt9QeEZrjm1ZeFtzZ1xTmNknLRi/M726Hoy8XotSB9eye6hPtH3C0C/?=
+ =?us-ascii?Q?i0IWhPPMuJQ9C4EwDead0jSusktTKQfzgPVawYrLLo1Vqp/27CWQspPYYCwj?=
+ =?us-ascii?Q?uBGw+STNQqHSjvLjttk3CgGCoW46APw=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7ad622a-11af-4100-2a77-08dea9ac5b69
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR03MB6230.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 07:11:27.0469
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3ObLhlXA8HoDDAju35Mj935eJKhTgcLqyQhetoEyobWaVI1Ux+/gJNQoh8au9Q79zmGxY9J5Kq+Q5r064DQcwum98Zm5FMpDtXFTMsNNwlo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR03MB7181
 
-On Thu, Apr 30, 2026 at 7:50=E2=80=AFPM Swati Agarwal
-<swati.agarwal@oss.qualcomm.com> wrote:
->
-> Enable primary USB controller in host mode on monaco EVK Platform.
->
-> Primary USB controller is connected to a Genesys Logic USB HUB GL3590
-> having 4 ports. The ports of hub that are present on lemans EVK standalon=
-e
-> board are used as follows:-
-> 1) port-1 is connected to HD3SS3220 Type-C port controller.
-> 2) port-4 is used for the M.2 E key on corekit. Standard core kit uses UA=
-RT
-> for Bluetooth. This port is to be used only if user optionally replaces t=
-he
-> WiFi card with the NFA765 chip which uses USB for Bluetooth.
->
-> Remaining 2 ports will become functional when the interface plus mezzanin=
-e
-> board is stacked on top of corekit:
->
-> 3) port-2 is connected to another hub which is present on the mezz throug=
-h
-> which 4 type-A ports are connected.
-> 4) port-3 is used for the M.2 B key for a 5G card when the mezz is
-> connected.
->
-> Primary USB Controller
->           =E2=86=93
-> GL3590 USB Hub (4 ports)
->     |
->     |-- Port 1 =E2=86=92 HD3SS3220 Type=E2=80=91C Port Controller =E2=86=
-=92 USB=E2=80=91C Connector
->     |
->     |-- Port 2 =E2=86=92 Mezzanine USB Hub (when mezz attached)
->     |
->     |-- Port 3 =E2=86=92 M.2 B=E2=80=91Key Slot (when mezz attached)
->     |
->     |-- Port 4 =E2=86=92 M.2 E=E2=80=91Key Slot
->                          (Default: BT via UART;
->                           USB only if NFA765 module is installed)
->
-> Mark the primary USB controller as host only capable and add the HD3SS322=
-0
-> Type-C port controller along with Type-c connector for controlling vbus
-> supply.
->
-> In hardware, DIP switches are present to select between USB0 and USB1 por=
-ts
-> for the primary Type=E2=80=91C USB controller. By default, the switches a=
-re in
-> the OFF state, selecting the USB0 port. Add software support for both HS
-> and SS switches to eliminate the need for manually changing the DIP switc=
-h
-> position for USB1 operation. Add a USB1 hub reset pin to reset and activa=
-te
-> the hub after boot, ensuring proper detection from its pre=E2=80=91boot i=
-nactive
-> state.
->
-> Signed-off-by: Swati Agarwal <swati.agarwal@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> Split DT binding and DT patch.
-> Use gpio hog instead of pinctrl for usb hub reset and HS switch sel.
-Link to binding patch :-
-https://lore.kernel.org/all/20260504064936.2754570-1-swati.agarwal@oss.qual=
-comm.com/
+Agilex5 SoCFPGA variants and derivatives have 2 i3c controllers, a main
+master and a secondary master. Setting the alias for both i3c controllers
+to prevent bus id contention when both controllers are enabled which
+results in driver probe failures.
 
-Regards,
-Swati
->
-> Link to v1:
-> https://lore.kernel.org/all/20260417152014.3000797-1-swati.agarwal@oss.qu=
-alcomm.com/
->
-> This patch depends on:
-> https://lore.kernel.org/all/20260427170505.1494703-1-umang.chheda@oss.qua=
-lcomm.com/
-> ---
->  .../boot/dts/qcom/monaco-evk-common.dtsi      | 166 +++++++++++++++++-
->  1 file changed, 165 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-evk-common.dtsi b/arch/arm64=
-/boot/dts/qcom/monaco-evk-common.dtsi
-> index 12c847c03757..2d4ef8666822 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco-evk-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/monaco-evk-common.dtsi
-> @@ -23,6 +23,37 @@ chosen {
->                 stdout-path =3D "serial0:115200n8";
->         };
->
-> +       connector-1 {
-> +               compatible =3D "usb-c-connector";
-> +               label =3D "USB1-Type-C";
-> +               data-role =3D "host";
-> +               power-role =3D "source";
-> +
-> +               vbus-supply =3D <&usb1_vbus>;
-> +
-> +               ports {
-> +                       #address-cells =3D <1>;
-> +                       #size-cells =3D <0>;
-> +
-> +                       port@0 {
-> +                               reg =3D <0>;
-> +
-> +                               usb1_con_hs_ep: endpoint {
-> +                                       remote-endpoint =3D <&usb_hub_2_1=
->;
-> +                               };
-> +                       };
-> +
-> +                       port@1 {
-> +                               reg =3D <1>;
-> +
-> +                               usb1_con_ss_ep: endpoint {
-> +                                       remote-endpoint =3D <&hd3ss3220_1=
-_in_ep>;
-> +                               };
-> +
-> +                       };
-> +               };
-> +       };
-> +
->         connector-2 {
->                 compatible =3D "gpio-usb-b-connector", "usb-b-connector";
->                 label =3D "micro-USB";
-> @@ -77,6 +108,15 @@ dp1_connector_in: endpoint {
->                 };
->         };
->
-> +       usb1_vbus: regulator-usb1-vbus {
-> +               compatible =3D "regulator-fixed";
-> +               regulator-name =3D "usb1_vbus";
-> +               gpio =3D <&expander1 3 GPIO_ACTIVE_HIGH>;
-> +               regulator-min-microvolt =3D <5000000>;
-> +               regulator-max-microvolt =3D <5000000>;
-> +               enable-active-high;
-> +       };
-> +
->         usb2_vbus: regulator-usb2-vbus {
->                 compatible =3D "regulator-fixed";
->                 regulator-name =3D "usb2_vbus";
-> @@ -445,6 +485,39 @@ lt8713sx_dp1_out: endpoint {
->                         };
->                 };
->         };
-> +
-> +       usb-typec@47 {
-> +               compatible =3D "ti,hd3ss3220";
-> +               reg =3D <0x47>;
-> +
-> +               interrupts-extended =3D <&tlmm 45 IRQ_TYPE_EDGE_FALLING>;
-> +
-> +               id-gpios =3D <&tlmm 13 GPIO_ACTIVE_HIGH>;
-> +
-> +               pinctrl-0 =3D <&usb1_id>, <&usb1_intr>;
-> +               pinctrl-names =3D "default";
-> +
-> +               ports {
-> +                       #address-cells =3D <1>;
-> +                       #size-cells =3D <0>;
-> +
-> +                       port@0 {
-> +                               reg =3D <0>;
-> +
-> +                               hd3ss3220_1_in_ep: endpoint {
-> +                                       remote-endpoint =3D <&usb1_con_ss=
-_ep>;
-> +                               };
-> +                       };
-> +
-> +                       port@1 {
-> +                               reg =3D <1>;
-> +
-> +                               hd3ss3220_1_out_ep: endpoint {
-> +                                       remote-endpoint =3D <&usb_hub_3_1=
->;
-> +                               };
-> +                       };
-> +               };
-> +       };
->  };
->
->  &i2c1 {
-> @@ -556,6 +629,12 @@ expander5: gpio@3d {
->                 interrupts-extended =3D <&tlmm 3 IRQ_TYPE_LEVEL_LOW>;
->                 pinctrl-0 =3D <&expander5_int>;
->                 pinctrl-names =3D "default";
-> +
-> +               usb1_ss_sel_switch_hog: usb1-ss-sel-switch-hog {
-> +                       gpio-hog;
-> +                       gpios =3D <5 GPIO_ACTIVE_HIGH>;
-> +                       output-high;
-> +               };
->         };
->
->         expander6: gpio@3e {
-> @@ -742,6 +821,24 @@ expander5_int: expander5-int-state {
->                 bias-pull-up;
->         };
->
-> +       usb1_hub_reset_hog: usb1-hub-reset-hog {
-> +               gpio-hog;
-> +               gpios =3D <7 GPIO_ACTIVE_HIGH>;
-> +               output-high;
-> +       };
-> +
-> +       usb1_id: usb1-id-state {
-> +               pins =3D "gpio13";
-> +               function =3D "gpio";
-> +               bias-pull-up;
-> +       };
-> +
-> +       usb1_hs_sel_switch_hog: usb1-hs-sel-switch-hog {
-> +               gpio-hog;
-> +               gpios =3D <14 GPIO_ACTIVE_HIGH>;
-> +               output-high;
-> +       };
-> +
->         expander1_int: expander1-int-state {
->                 pins =3D "gpio16";
->                 function =3D "gpio";
-> @@ -784,6 +881,13 @@ expander3_int: expander3-int-state {
->                 bias-pull-up;
->         };
->
-> +       usb1_intr: usb1-intr-state {
-> +               pins =3D "gpio45";
-> +               function =3D "gpio";
-> +               bias-pull-up;
-> +               drive-strength =3D <2>;
-> +       };
-> +
->         expander6_int:  expander6-int-state {
->                 pins =3D "gpio52";
->                 function =3D "gpio";
-> @@ -863,9 +967,69 @@ &ufs_mem_phy {
->  };
->
->  &usb_1 {
-> -       dr_mode =3D "peripheral";
-> +       dr_mode =3D "host";
-> +
-> +       #address-cells =3D <1>;
-> +       #size-cells =3D <0>;
->
->         status =3D "okay";
-> +
-> +       usb_hub_2_x: hub@1 {
-> +               compatible =3D "usb5e3,610";
-> +               reg =3D <1>;
-> +
-> +               peer-hub =3D <&usb_hub_3_x>;
-> +
-> +               ports {
-> +                       #address-cells =3D <1>;
-> +                       #size-cells =3D <0>;
-> +
-> +                       port@1 {
-> +                               reg =3D <1>;
-> +
-> +                               usb_hub_2_1: endpoint {
-> +                                       remote-endpoint =3D <&usb1_con_hs=
-_ep>;
-> +                               };
-> +                       };
-> +
-> +                       /*
-> +                        * Port-4 is connected to M.2 E key connector on =
-corekit.
-> +                        */
-> +                       port@4 {
-> +                               reg =3D <4>;
-> +
-> +                               usb_hub_2_4: endpoint {
-> +                               };
-> +                       };
-> +               };
-> +       };
-> +
-> +       usb_hub_3_x: hub@2 {
-> +               compatible =3D "usb5e3,625";
-> +               reg =3D <2>;
-> +
-> +               peer-hub =3D <&usb_hub_2_x>;
-> +
-> +               ports {
-> +                       #address-cells =3D <1>;
-> +                       #size-cells =3D <0>;
-> +
-> +                       port@1 {
-> +                               reg =3D <1>;
-> +
-> +                               usb_hub_3_1: endpoint {
-> +                                       remote-endpoint =3D <&hd3ss3220_1=
-_out_ep>;
-> +                               };
-> +                       };
-> +
-> +                       port@4 {
-> +                               reg =3D <4>;
-> +
-> +                               usb_hub_3_4: endpoint {
-> +                               };
-> +                       };
-> +               };
-> +       };
->  };
->
->  &usb_1_hsphy {
-> --
-> 2.34.1
->
+Adrian Ng Ho Yin (2):
+  arm64: dts: agilex5: set alias for i3c controllers for agilex5
+    variants
+  arm64: dts: agilex3: set alias for i3c controllers for agilex3
+
+ arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts         | 2 ++
+ arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts         | 2 ++
+ arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_013b.dts    | 2 ++
+ arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_modular.dts | 2 ++
+ arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_nand.dts    | 2 ++
+ 5 files changed, 10 insertions(+)
+
+-- 
+2.49.GIT
+
