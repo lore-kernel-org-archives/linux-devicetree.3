@@ -1,114 +1,258 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B4393E0C5E;
-	Mon,  4 May 2026 14:25:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953E529E116;
+	Mon,  4 May 2026 14:38:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777904717; cv=none; b=tQ+SdTlJrLTiJ5uFB9P7y9Ujywz3iqs3Y1ZV7+R0sSvr2vzgqt82j6UU/LSNgrgcR47JW9Je6gER5Pb0sYnXCghorJlfSiGkXwGu7xGq7RPszbJxdm/IXKG0vo/KLboVGDSN8QWqkbT4QKDvCFdlZOcrAZD+FqvCgfj97/xHFrY=
+	t=1777905489; cv=none; b=EAei33c23s0RvgnJqs5t3I9NRMlGc7PrzWl2uT/IOpLU+JwkoOt7FIDjUxzUX0tHJ0jSdL3u+O9ATjrwWClBEd1DM5lKZ3XxEDsk1um2tr/mKnzGxzBfnXQgwRhWE3K/qmpn2OARg1wfewuJweorB+gpKXZHiT0xSk1sLJG1Ceg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777904717; c=relaxed/simple;
-	bh=DUSSVROYb4DS2NA8+SXrmEQ21dg1ZxCAhVIZPDuGArE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fcYFrYXVN15wA6wtRFVLMRGt+W61/DSJEqOrzQhsGrWSwk/aAlUBrSnJN+aJUKUa8H0BKjXMQKs79knh+8Mjvz1CxMEdltoIVV1Arz9BPq3O6vmw/WfdI92kXXl+wFIB+7Tic9l7r9geyvVxUIoTjxD1AXk8P8PzmSBkj85MBFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mGy+AQ5k; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1777905489; c=relaxed/simple;
+	bh=TNTaMNn9Qx6juhS0o5aGXz+wACJyj+lXsh9rSoIO/eo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mfvLsDpOhNQa32v6wQupciiyxBJReax2s0kEIOkuEta41q3dXenuIdebsa8d8qxTs3P9YEDiTDYzSDrnxZK2km0MykJQvbPQlHH45OcsWbw8q4QSPeoGcH2S49ze1/98NkYqAre8gc3W3N7lXSmlhCOM9S73wkvSaW/3i7iGbUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=v1OAtEQ/; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=V2KO/UXm; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mGy+AQ5k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777904716; x=1809440716;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=DUSSVROYb4DS2NA8+SXrmEQ21dg1ZxCAhVIZPDuGArE=;
-  b=mGy+AQ5kDDqfsBpPAKGSBpRxapyH33DtY3W9RSbV8desO0TvbkRiD+89
-   9ueJAGu1pR9ks1rpW7V7x7bDEwWfqHx6A8aqm2mJ/1fThMkBTPcsAFoHA
-   ypvc7ZbKod5JWzR2c+hEskQWvCCmMq44GlolMvH9gqd7whPVOpBEkMuyv
-   nxB2dN9etCeBTmJrwdxjbQstOb53BnVYdTfKqs4vu1yiak7iBe9f5qcD5
-   c0wrTZ2OGdjm8igd2d1ru2jzoPGESoD8rXqxGAkTpPDGPN+PPTS6PLUgZ
-   XvE0WAwKZbK2gJbJz/RET6mo171YFs8xDaDesdMwFujSi8yRiIGpnXzWp
-   A==;
-X-CSE-ConnectionGUID: SDyMUuY0QrifmbE6ItujSw==
-X-CSE-MsgGUID: W91JqkYHTMKNktJAK55vpQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="78752324"
-X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; 
-   d="scan'208";a="78752324"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 07:25:16 -0700
-X-CSE-ConnectionGUID: N0BtDaPbQPiMpKg53yQ08A==
-X-CSE-MsgGUID: oAQo10OaRgmwlBpmysa69A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; 
-   d="scan'208";a="235780601"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.198])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 07:25:12 -0700
-Date: Mon, 4 May 2026 17:25:10 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Piyush Patle <piyushpatle228@gmail.com>
-Cc: Andreas Klinger <ak@it-klinger.de>, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="v1OAtEQ/";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="V2KO/UXm"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4g8PPz2KwFz9v0b;
+	Mon,  4 May 2026 16:37:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1777905479;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=wBBgH/SwekkvEUj5hUEj4xBQU7ZFg8QEvCj3rWtRhYY=;
+	b=v1OAtEQ/iIuJbMejFNzyBoxHginAmhPCOi7gulFDDj4GOMs5ylY4snBvuOLhUT2IgvBLzd
+	iLelwOZucftPCXtvPEFUu2kYEIelPmprnM6FKSozLzROJ+RjJR5ZvayQKFPYwVonsDV8Q5
+	J4zXgPByuLAWwz9zGIz9GXfnEj5kQfYAJMevXvhCrOFY5QOoGbHH0uSqXfK0HJ8ENEjZwa
+	RAcxEulictj1kqtqSICD3NFvSm/b1iVN4hR1G+cedt3jnujmNLVcMqszV5Yb/gxjdQK8gb
+	Vpb4NKKnTHIR7okjrNgmhTD6OGSJQjrr9x0xS6ZrXiFt4ZD+KeJHt6Pj8lTwMA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b="V2KO/UXm";
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1777905477;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=wBBgH/SwekkvEUj5hUEj4xBQU7ZFg8QEvCj3rWtRhYY=;
+	b=V2KO/UXmenPspVl241dUMK//P4ADnYPSie9K4/xxflqBjBKGkU/ixNsP75QKC2faSQdFvR
+	QqF0kWmx0H4ldrB95bVZx0s+3SMc/wFSJv3cw5Ex6aHYN+zp35SrNsYkiaQfleK26AlY4+
+	opZo5ze60f7EfaJ5drzy+ZRf6GZXaLGdiDTJvH4f3otGnEYIZvHb1+F8RuFLaHu3kG0Pbx
+	eVZlLgAyY2LTG9tn4rzfp0LivH8wxc8sE+G4M0Zz4vjXHPi2nYOp0Nt04ZHFf+cQER3Par
+	Y2T45IG8AZF1gvWJa7ZtNfGToACSVYWYFfgQr3evEEUb8O5cziRLcLopsyLEiQ==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 05/11] iio: adc: hx711: move scale computation to
- per-device storage
-Message-ID: <afisRtohis1eJBBZ@ashevche-desk.local>
-References: <20260503120949.80292-1-piyushpatle228@gmail.com>
- <20260503120949.80292-6-piyushpatle228@gmail.com>
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH] arm64: dts: renesas: Simplify AA1024XD12 display DTO
+Date: Mon,  4 May 2026 16:37:15 +0200
+Message-ID: <20260504143751.42753-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260503120949.80292-6-piyushpatle228@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: qtdtonkhjf5zyfsokwgws7cdwn8ejha3
+X-MBO-RS-ID: db7a51eb740a63470bb
+X-Rspamd-Queue-Id: 4g8PPz2KwFz9v0b
 
-On Sun, May 03, 2026 at 05:39:34PM +0530, Piyush Patle wrote:
-> The gain-to-scale table is global today, so probe-time scale updates for
-> one device overwrite the values used by any earlier device instance.
-> 
-> Fix this by making the gain table const and storing the computed scale
-> values per device in hx711_data.
-> 
-> No functional change for single-sensor configurations.
+Simplify the AA1024XD12 display DTO, move all the differences into the
+panel-aa104xd12.dtsi , rename OF_GRAPH links to generic lvds_panel_out
+and lvds_panel_in names, and parametrize the LVDS output in use using
+RENESAS_LVDS_OUTPUT macro. No functional change.
 
-...
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ .../renesas/draak-ebisu-panel-aa104xd12.dtso  | 33 +---------
+ .../boot/dts/renesas/panel-aa104xd12.dtsi     | 64 +++++++++++++------
+ .../dts/renesas/salvator-panel-aa104xd12.dtso | 33 +---------
+ 3 files changed, 47 insertions(+), 83 deletions(-)
 
-> +static const struct hx711_gain_to_scale hx711_gain_to_scale[HX711_GAIN_MAX] = {
-> +	{ 128, 1, 0, },
-> +	{  32, 2, 1, },
-> +	{  64, 3, 0, },
-
-In such case the inner trailing commas are not needed. They are needed when the
-supplied lists are arrays and may be extended. Here it's a proper data type
-with fixed number of arguments. If you want to be even stricter and robust, move
-to C99 initialisers (but note, I'm fine with just trailing commas being removed).
-
-	{ 128, 1, 0 },
-	{  32, 2, 1 },
-	{  64, 3, 0 },
-
->  };
-
-...
-
-> @@ -574,4 +575,3 @@ MODULE_AUTHOR("Andreas Klinger <ak@it-klinger.de>");
->  MODULE_DESCRIPTION("HX711 bitbanging driver - ADC for weight cells");
->  MODULE_LICENSE("GPL");
->  MODULE_ALIAS("platform:hx711-gpio");
-> -
-
-Stray change.
-
+diff --git a/arch/arm64/boot/dts/renesas/draak-ebisu-panel-aa104xd12.dtso b/arch/arm64/boot/dts/renesas/draak-ebisu-panel-aa104xd12.dtso
+index 90767d74e21b2..2ab7e947a05b9 100644
+--- a/arch/arm64/boot/dts/renesas/draak-ebisu-panel-aa104xd12.dtso
++++ b/arch/arm64/boot/dts/renesas/draak-ebisu-panel-aa104xd12.dtso
+@@ -6,36 +6,5 @@
+  * Copyright 2021 Ideas on Board Oy
+  */
+ 
+-/dts-v1/;
+-/plugin/;
+-
+-&{/} {
++#define RENESAS_LVDS_OUTPUT	lvds1
+ #include "panel-aa104xd12.dtsi"
+-};
+-
+-&{/panel} {
+-	backlight = <&backlight>;
+-
+-	port {
+-		panel_in: endpoint {
+-			remote-endpoint = <&lvds1_out>;
+-		};
+-	};
+-};
+-
+-&lvds1 {
+-	status = "okay";
+-
+-	ports {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		port@1 {
+-			reg = <1>;
+-
+-			lvds1_out: endpoint {
+-				remote-endpoint = <&panel_in>;
+-			};
+-		};
+-	};
+-};
+diff --git a/arch/arm64/boot/dts/renesas/panel-aa104xd12.dtsi b/arch/arm64/boot/dts/renesas/panel-aa104xd12.dtsi
+index 4b1f0982b9e4a..11113a13a337d 100644
+--- a/arch/arm64/boot/dts/renesas/panel-aa104xd12.dtsi
++++ b/arch/arm64/boot/dts/renesas/panel-aa104xd12.dtsi
+@@ -5,26 +5,52 @@
+  * Copyright (C) 2014 Renesas Electronics Corp.
+  */
+ 
+-panel {
+-	compatible = "mitsubishi,aa104xd12", "panel-lvds";
+-
+-	width-mm = <210>;
+-	height-mm = <158>;
+-	data-mapping = "jeida-18";
+-
+-	panel-timing {
+-		/* 1024x768 @65Hz */
+-		clock-frequency = <65000000>;
+-		hactive = <1024>;
+-		vactive = <768>;
+-		hsync-len = <136>;
+-		hfront-porch = <20>;
+-		hback-porch = <160>;
+-		vfront-porch = <3>;
+-		vback-porch = <29>;
+-		vsync-len = <6>;
++/dts-v1/;
++/plugin/;
++
++&{/} {
++	panel {
++		compatible = "mitsubishi,aa104xd12", "panel-lvds";
++		backlight = <&backlight>;
++
++		width-mm = <210>;
++		height-mm = <158>;
++		data-mapping = "jeida-18";
++
++		panel-timing {
++			/* 1024x768 @65Hz */
++			clock-frequency = <65000000>;
++			hactive = <1024>;
++			vactive = <768>;
++			hsync-len = <136>;
++			hfront-porch = <20>;
++			hback-porch = <160>;
++			vfront-porch = <3>;
++			vback-porch = <29>;
++			vsync-len = <6>;
++		};
++
++		port {
++			lvds_panel_in: endpoint {
++				remote-endpoint = <&lvds_panel_out>;
++			};
++		};
+ 	};
++};
++
++&RENESAS_LVDS_OUTPUT {
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@1 {
++			reg = <1>;
+ 
+-	port {
++			lvds_panel_out: endpoint {
++				remote-endpoint = <&lvds_panel_in>;
++			};
++		};
+ 	};
+ };
+diff --git a/arch/arm64/boot/dts/renesas/salvator-panel-aa104xd12.dtso b/arch/arm64/boot/dts/renesas/salvator-panel-aa104xd12.dtso
+index 7807c3f80409a..4eb3e06ce52bb 100644
+--- a/arch/arm64/boot/dts/renesas/salvator-panel-aa104xd12.dtso
++++ b/arch/arm64/boot/dts/renesas/salvator-panel-aa104xd12.dtso
+@@ -6,36 +6,5 @@
+  * Copyright 2021 Ideas on Board Oy
+  */
+ 
+-/dts-v1/;
+-/plugin/;
+-
+-&{/} {
++#define RENESAS_LVDS_OUTPUT	lvds0
+ #include "panel-aa104xd12.dtsi"
+-};
+-
+-&{/panel} {
+-	backlight = <&backlight>;
+-
+-	port {
+-		panel_in: endpoint {
+-			remote-endpoint = <&lvds0_out>;
+-		};
+-	};
+-};
+-
+-&lvds0 {
+-	status = "okay";
+-
+-	ports {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		port@1 {
+-			reg = <1>;
+-
+-			lvds0_out: endpoint {
+-				remote-endpoint = <&panel_in>;
+-			};
+-		};
+-	};
+-};
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
