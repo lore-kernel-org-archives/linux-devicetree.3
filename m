@@ -1,441 +1,166 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695F319B5B1
-	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 07:40:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777880426; cv=pass; b=OJwL5dl/aWFlswilsR2yFthEuElmyKuTpIhA7X1N7WBdPG9ZP4CmUTfWgSNWDlF5xl0tNKQ6zH/aXD++tl4oob17ksraY5pDiTUJWUPCGqdwB4qh8WPIL0xKoMO8Gr+SrxlFr8Ir1GU5WSbKoNFVRKzEs+IQDaMazXahBlzja88=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777880426; c=relaxed/simple;
-	bh=iOIZC0Rb26Cur9uVnDQRUVm7x6p7aLLZEKmBIeaBAiw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Cj2K/mG4CIWwPKnoogiueK5MjQkocXZFFkUcPkcBAdb2kwWqwq7KE2jk4vlYXM3VjOWaqxoX7h7WesT7huDEoUNzoVibmUoqTnj2xiwyNFbVM3t+lqVNszeMQGLq+GbCLGBF4DE84V93NvjCB2itjasL9NLxdamAuSS7mMCdI68=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DL1Ss2ML; arc=pass smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC5E12F7AD2
+	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 07:40:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777880433; cv=none; b=rlHbEJTvmzZn1f7sFCKnqT9VzP26fqDj4uyeKmZyuz/F5/5Wo4LpTWpzIqfvobZ70DQxjQeHESlYoWKz2gUBWKE0vJI6vIvTKNAv863raQPhkI6nrKA9W8s9fhfl6xoAfZl62e9R3Gl1WhAYTVxEmWcsK+mosegw4m03MkoBKtk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777880433; c=relaxed/simple;
+	bh=CxHY4RvIZsFVhZ+sfhFRyOxtKsGuxa202wmwVB50kfc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CkuS1aBcGvjQYlZdymp6bw0IDwp6CtS2ZzidKGEMM4SxB0tFVqJvBJ62yj9GRR3E8fDDPJhyLZoIyxzqfze5Nrgc4RjPqGmIGQbN7INxRw99y3kmYiTp4qxOgbU09I1p4WfK4Cd9JmLCSDfoqDRIIg/MOG96n44jh0Pkb7yplBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XoaomhBi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZR7a1nXl; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DL1Ss2ML"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-2f00a567cfaso643269eec.0
-        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 00:40:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777880423; cv=none;
-        d=google.com; s=arc-20240605;
-        b=hRLOl7YtEVCsTKqGOAPrzn1UaKlQS/0vaQbM1zUj6gfM5A6QBp8LJ9I9nY3EFY8t5t
-         sAI9Em1a0CTUOq8Bctb3qjPPbswz/Fbd4jZCV7ObsdVegxXR8O48y28aPxhi5XXabbJz
-         QbywjR+6GU44ee4JlK2NaYTJnRpZiJiMGg+KIaXgi3zRj+vROSvgNa7AkUgTO4jtHCn3
-         /X9Uks3nM3eZ4biLprc+d8yYVf8PE+K0yD/CehiZpfzq4IqN327NWn2U+U16z8OonCY/
-         HiM+LSqdG+5HUi56QaRI3g2/1B0xPaJXDGDWk4KEVaTyUGjEHfFFfAjV7g/ZPU+IQtKU
-         ulkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FVoTA2LpzvgPxPTDBkf5ngvZMRRYbPntshQWcVxxYnA=;
-        fh=iAJmwGkuCrqFgPJi9E0XqCEsbdw5uC9ONKNS7rTc4GU=;
-        b=ep73LcccTSW5gixHHe7A5dEN/j3i2G7X4aKgOXKKxIO3CfJyNCleWM/L0Zq14qI4pL
-         1cTZ7w4lMg2UO/AZks6rjtDkmB/RkHS1U+3ryH/iter9Wg1qCpda0JnvI8rGWJFiCPTQ
-         tOlRuuG4e2R/HHhh1+y8azVKYwRUps0CDvemZqg+XXu9+qcj+aY1/dYiaS9ZSXGPNISN
-         7rArgoaHxTL8yZU9Fm+kzCAkWOyShNw0mXRs9tfRnATbJcKfH18eLIf6WFg1ppagUQhP
-         QjKQxEiKpjUHSwqBKAdqNBZUrBHCii8rLfsKZIT4QaOzDzaMY6bwefVQTyNdvGuFawtR
-         9ZDA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XoaomhBi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZR7a1nXl"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6446DKYk875789
+	for <devicetree@vger.kernel.org>; Mon, 4 May 2026 07:40:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	FwIM1jl5XWC+65YTaCeocqS1G1wiQx57VLQE5Vf3BN4=; b=XoaomhBii6vH9AqL
+	D1IMpS8AEOAFl8pbpgOoft5D2QxekEvTVYC/iMlgyDaCZOY6153eEmRxIH5CiPwI
+	WIuJ9AF1wR1KS3AiGm6XpZ5+qAtRrA4GDFnizPStVshUHVjkLEdBAI1zoNllPqQY
+	i0tPlv4tOyth2RQdpbrRbPq7C94lTTMNz6vLC5JLQE/qHJZNm6Pz4G0PG0mzPA1h
+	MRPrIdmRb7qkhshtoITuuQUDSGMBARjthU4BP38IOqQkGjOOKnbI2OA2VQ2hZw73
+	7ylxoOGy8UHoN/eQEGpobrQIOzJicKlK7YoU7HhOVBc1QjGFa0TXZbHX4d+685Zh
+	9o92Bw==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dwa1empww-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 04 May 2026 07:40:31 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5751831fe6dso46856e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 00:40:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777880423; x=1778485223; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FVoTA2LpzvgPxPTDBkf5ngvZMRRYbPntshQWcVxxYnA=;
-        b=DL1Ss2MLsPXqq/5jROTSDO0VB9Lne9JuKjksQvTmwRWzySHODEB1+q1krpfN5ILlaJ
-         1NLesqIx/fK7PJdpgXRALMyjSH8BDo1XERQyNSmQ2oH+7nsygPBg6uuFHA8Ga8MX2OmE
-         22pl34vx1utDWeGHPpzve4vLGbxPyPkxnyk6p8+/Qv7FBuN1jGUIst10Wef39ez0/IQw
-         yAaopf42s312z9BP47/ydTWd5uSuIZvaFEwv7uO5TLdZGoHaKli23wMAo+S4i+pAMryq
-         5Idg1M9lVHzKWNaUiy+Gc0DTwW6YXxyKkVDUUz0xy4+QvN0AAbsrkA4vSFoC0qXn+Jsx
-         2ybQ==
+        d=oss.qualcomm.com; s=google; t=1777880430; x=1778485230; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=FwIM1jl5XWC+65YTaCeocqS1G1wiQx57VLQE5Vf3BN4=;
+        b=ZR7a1nXl9i/4+jyXKzvEVd47QT5COUQXqnAMhafxBn31EbXS70Xci1npYPoHD0/l8I
+         5U7ine9kSsnWqHtK5nW2k9zcafIDWVEXFirGS65pCUDZqG+CKN3T5NZOCORCSJkCU6MF
+         p3oDX/2Q7WExmEIPCVqsp1k816cQW/9Ixssrf4Es4Y2A/gM6TNBOW9UvsaI2BSqc24+6
+         2bxXiN0maRRIxkGol6jyfZe9N4Q2tdak6HFKmWThbXFtUIvPFUFmDJClgH+X9Sjpt3sQ
+         +zUMOjePPUrZDXFLa4UYSWO8A3kkYZ7V5NUt7NkDu6BA6p9Ow4mVRc804MwV4DJ24QTf
+         VLow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777880423; x=1778485223;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=FVoTA2LpzvgPxPTDBkf5ngvZMRRYbPntshQWcVxxYnA=;
-        b=Xwf0wPYqC0tRiQczGz4hIUiX0yr33K9WV11Q/jsfG6sv5GxOxUgEKXD82VbbH5121g
-         aJVXjpPFBXHHqbX6UPAosKJcCPxya4I7FIV87QNUW0G8Xx65JClla0SdQQONNktkLRUY
-         OTbzPj4xzCLC98x1YCU4WVtROHdIm8AihwnsXsybBsEkjVDpKJWwf62yaKL5+nELx8+M
-         HdEzTAvYP5E2poB1PgXUyHGVTDCx40lU4GTmIX2PTyuvJR5ZZv9keE8y1tbe4IT8OGby
-         eS0c+stT084TZKHuEuOgW/sRP8yqO8bG2t+cGLw27S8j3HLTo09E8/thHRLH2Gm7PsEp
-         hZ6w==
-X-Forwarded-Encrypted: i=1; AFNElJ/fKXBAvqg4Sa5EXkVJqweY+HM1mosCLIuzejs29yRAtqHV1JC3+Z+a0XuuHUOE2gw7sr9XRAlUBSoy@vger.kernel.org
-X-Gm-Message-State: AOJu0YwE6uoO4DQ407ablDCPO4UNF7dBNDsWSpToJGBsczlIRBXevqvv
-	mD7jAPye+r/XdLaZx2iHAbxDCgrBBd1tAOdOpFJ7step1ffH1bkpFArrzjEMq0n7gKB/SRpA49o
-	WQGn7sjsYerZVuQ+J6X7DCnQBkuZeWZw=
-X-Gm-Gg: AeBDievdVaK2Asz6UQXDn45jzfDjrGpZqOLlOV8SR8q55Q/XeXrCrzC2k0k86gq1D8H
-	qvZlKGiizsjFUhvWxFEtHiZK5Efcw8QihMtZ0I6Zu8mHd7CeLq4pw1rLic+YwTMm1aa5RHBJNsq
-	V7JZEy881lZr4GM63qukLgZbGQ3pM6Ods6Hl7Jd7vpMX2PfnwlnRVQfff1hRXwUvTaOs8VDjBEI
-	j0LHN4klUZEsgefE+9KHUAViB8tqTnP69nnNAZnBlRw6qclYpAs1wP/8vTXMj5OgnBsp1AljT9a
-	j8xRoHDm70o4Qr34Ux4=
-X-Received: by 2002:a05:693c:6218:b0:2f3:55d3:6221 with SMTP id
- 5a478bee46e88-2f355d3776fmr41544eec.20.1777880423311; Mon, 04 May 2026
- 00:40:23 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1777880430; x=1778485230;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=FwIM1jl5XWC+65YTaCeocqS1G1wiQx57VLQE5Vf3BN4=;
+        b=Ji/UkJ8UK9tFVSbAaAcdxcOnD9lm6Qoz4h69sYC9Sy2dSdeY3mdsPZOEm3ZMtqxQ5q
+         Oy52ebi8gQY8D/Yj7tgu79avTqC6GE2mu3ykIrNA3k8VJM9stIusr6H+gUuSe8Q+9wAH
+         TD55kkFBvZ0HjvKa9CuJrNIn8ztt872ySrS1ea0n51KZd0rQBVAcunVctO7vtKfPaEoM
+         kNBM3Y92o+Rgl0VeCW1g29y7qOrGpMOEUVZe6eq5vQM+AD0UeFYeyVs/jiwq0zYvokP1
+         5ZfRHTCz0z3owga5RYf1GipthoBRLWlRNW09rm9sMpXaf/UF3Mc5Gt5okuxSmV/e0nKx
+         oVBg==
+X-Forwarded-Encrypted: i=1; AFNElJ8Q+vZB7u5vd4XhF0JVHTychPLRE1oh2qSmKER4xJuJlwftRIrx8Bb6BGR1qLOR4DftLbhTaG6vBIC6@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFJ7kfSDdOeSLCg7tYlZANozBH4Vvvm4A3NTJWL3TD2Bynqpy/
+	u88gOdRhGFi0ApKd135Dyj9eKOS3kgcnLB1c29+4vxySbB7Sp639pEJdOui1KRrmbQEiUmdOXGy
+	aGwbc5NQQ6LvlBV0tLG7CQB80SHGvHKkOJrjnMDjdbRnM4bivAjiYw6Zk5MuBLNBC
+X-Gm-Gg: AeBDietdgFk8VYLpd7Mzc9GUmawE5wT0Y/7L+TApyyASlB3EFDNwOft3+Inj8xL3aLC
+	gaNpJCJJd5a52Iu3wDjjncRczfVLIQ1CrrzmoFT7CzsNutV2/pI1tX+g+1FVU5BOWzn9YejiEct
+	683yIvKImBh7GcdJhrc5/+vox/IwZHmeru1i3FKs/7qTnBfPNVKzo+88RhSNuAHjn+ltVftRx6u
+	HnSNcmh8SoJP5hpSY/1N7M4fyWsR6uozheh8GyI/1cacAhN6ORtYvQk0sC0ddOWK4F+iJ8El/Dm
+	IgtC/szdv5PWXysRdQrcj2aZmlZpLQTuIgBJ112+gi0V6cbAkR3TQfzol2fXFeXis6OBE4f0ZJs
+	sTuxrkoLuF/qxHAoKHYjZSJmNoM3u93mBr7HK+nv/k2wC7GSYylQ4y5P5pujoRaXunnNRnmoxIM
+	80Zg7G832DLJRD/w==
+X-Received: by 2002:a05:6122:1216:b0:575:1954:4396 with SMTP id 71dfb90a1353d-57519545c81mr773080e0c.2.1777880430000;
+        Mon, 04 May 2026 00:40:30 -0700 (PDT)
+X-Received: by 2002:a05:6122:1216:b0:575:1954:4396 with SMTP id 71dfb90a1353d-57519545c81mr773066e0c.2.1777880429549;
+        Mon, 04 May 2026 00:40:29 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bc20825b337sm93249866b.23.2026.05.04.00.40.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 04 May 2026 00:40:28 -0700 (PDT)
+Message-ID: <fdca4d01-eb6b-49a6-86e1-b6d582af4ba8@oss.qualcomm.com>
+Date: Mon, 4 May 2026 09:40:25 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260503164445.215540-1-clamor95@gmail.com> <20260503164445.215540-5-clamor95@gmail.com>
- <afg-Xl7A7E0qowHR@kekkonen.localdomain>
-In-Reply-To: <afg-Xl7A7E0qowHR@kekkonen.localdomain>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Mon, 4 May 2026 10:40:11 +0300
-X-Gm-Features: AVHnY4JwU_TWRY-jAPgFfMW54lLGK2G6j1a95_xAI25pXjMmwNS4U4p7GAg5Lvo
-Message-ID: <CAPVz0n0YwUZ0TPSQV-Yb_4e7Di12ZWPVaKdde1v+7gHtWT1nuQ@mail.gmail.com>
-Subject: Re: [PATCH v5 4/6] media: i2c: lm3560: Convert to use OF bindings
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 8/8] ARM: dts: qcom: Add Samsung Galaxy S4
+To: MINETTE Alexandre <contact@alex-min.fr>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        MyungJoo Ham <myungjoo.ham@samsung.com>,
+        Chanwoo Choi <cw00.choi@samsung.com>,
+        Guru Das Srinagesh
+ <linux@gurudas.dev>,
+        Linus Walleij <linusw@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, Kees Cook <kees@kernel.org>,
+        Tony Luck <tony.luck@intel.com>,
+        "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+        iommu@lists.linux.dev, phone-devel@vger.kernel.org
+References: <20260427-mainline-send-v1-sending-v2-0-dcaa9178007b@alex-min.fr>
+ <20260427-mainline-send-v1-sending-v2-8-dcaa9178007b@alex-min.fr>
+ <97969bf9-8eb2-4498-90bd-9973fb2bd638@oss.qualcomm.com>
+ <edbaf71e-6a47-4294-a8c6-6b356bc336ed@app.fastmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <edbaf71e-6a47-4294-a8c6-6b356bc336ed@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 4efj-0cCki0LP5BchwIcSr1RyCvCWSqY
+X-Proofpoint-GUID: 4efj-0cCki0LP5BchwIcSr1RyCvCWSqY
+X-Authority-Analysis: v=2.4 cv=e7U2j6p/ c=1 sm=1 tr=0 ts=69f84d6f cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=DDlRktX6VRAlMvZBBbgA:9 a=QEXdDO2ut3YA:10 a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDA3NiBTYWx0ZWRfX91ka5lAII+fL
+ DdrohmZkYSQCS7Yf2ghas3e1jFGynetxYR9b4UBAQCQYOIWXDPa1N+PXdDKV/j56m3i8VLv0+1f
+ 1AjhWhqlEQT4xol1UuQEZj2T+t7OpFLSQoccKRKikncOdFw4kHu4S4AHCJpirxWdLAxugiC6rVk
+ Pwg4ryEoH0qO31yYbL4k7jkhe3Mx6q98XNKGZGuLxGBt9qCfZkAG2OhCUou2qwiPpGOD9e5cOOy
+ Mqq9kizzUTjJd6anuz+mkuc3dg4zvtY2Y7Y/YE7hBJJOy8mWQSEXGJlMCqapBM1QZ1HKLWdyqpF
+ iHmkeJUgxYR8JE9TSdAmr23kPIF7PbXLMq6RW/RXHyAp/+2W9JJ0zQeh3HCYobuI55mEHFQ0Upm
+ d8hYKPd2hP6C2BKgK55zTrFP+cnjY4nyscFUUcvV9VSx8bFhAyCnXSEQP539Q8iLvuCj+Gi4H/2
+ 74j4rep/thOQ7mHhy6Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-04_03,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
+ bulkscore=0 clxscore=1015 impostorscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605040076
 
-=D0=BF=D0=BD, 4 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 09:36=
- Sakari Ailus <sakari.ailus@linux.intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Hi Svyatoslav,
->
-> On Sun, May 03, 2026 at 07:44:43PM +0300, Svyatoslav Ryhel wrote:
-> > Since there are no users of this driver via platform data, remove the
-> > platform data support and switch to using Device Tree bindings.
-> >
-> > Converting to Device Tree assumes dynamic and independent registration =
-of
-> > LEDs. To monitor the configured LEDs, a bitmap has been added. This mak=
-es
-> > LED cleanup more robust and less context dependent.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  drivers/media/i2c/lm3560.c | 143 ++++++++++++++++++++++++++-----------
-> >  include/media/i2c/lm3560.h |  15 ----
-> >  2 files changed, 102 insertions(+), 56 deletions(-)
-> >
-> > diff --git a/drivers/media/i2c/lm3560.c b/drivers/media/i2c/lm3560.c
-> > index 5b568ed9536b..ce4b09d1f208 100644
-> > --- a/drivers/media/i2c/lm3560.c
-> > +++ b/drivers/media/i2c/lm3560.c
-> > @@ -9,11 +9,15 @@
-> >   *                   Ldd-Mlp <ldd-mlp@list.ti.com>
-> >   */
-> >
-> > +#include <linux/bitmap.h>
-> >  #include <linux/delay.h>
-> >  #include <linux/module.h>
-> >  #include <linux/i2c.h>
-> >  #include <linux/slab.h>
-> > +#include <linux/mod_devicetable.h>
-> >  #include <linux/mutex.h>
-> > +#include <linux/of.h>
-> > +#include <linux/property.h>
-> >  #include <linux/regmap.h>
-> >  #include <linux/videodev2.h>
-> >  #include <media/i2c/lm3560.h>
-> > @@ -43,22 +47,33 @@ enum led_enable {
-> >   * struct lm3560_flash
-> >   *
-> >   * @dev: pointer to &struct device
-> > - * @pdata: platform data
-> >   * @regmap: reg. map for i2c
-> >   * @lock: muxtex for serial access.
-> >   * @led_mode: V4L2 LED mode
-> >   * @ctrls_led: V4L2 controls
-> >   * @subdev_led: V4L2 subdev
-> > + * @led_id: LED status holder
-> > + * @peak: peak current
-> > + * @max_flash_timeout: flash timeout
-> > + * @max_flash_brt: flash mode led brightness
-> > + * @max_torch_brt: torch mode led brightness
-> >   */
-> >  struct lm3560_flash {
-> >       struct device *dev;
-> > -     struct lm3560_platform_data *pdata;
-> >       struct regmap *regmap;
-> >       struct mutex lock;
-> >
-> >       enum v4l2_flash_led_mode led_mode;
-> >       struct v4l2_ctrl_handler ctrls_led[LM3560_LED_MAX];
-> >       struct v4l2_subdev subdev_led[LM3560_LED_MAX];
-> > +
-> > +     DECLARE_BITMAP(led_id, LM3560_LED_MAX);
-> > +
-> > +     enum lm3560_peak_current peak;
-> > +     u32 max_flash_timeout;
-> > +
-> > +     u32 max_flash_brt[LM3560_LED_MAX];
-> > +     u32 max_torch_brt[LM3560_LED_MAX];
-> >  };
-> >
-> >  #define to_lm3560_flash(_ctrl, _no)  \
-> > @@ -269,8 +284,8 @@ static int lm3560_init_controls(struct lm3560_flash=
- *flash,
-> >                               enum lm3560_led_id led_no)
-> >  {
-> >       struct v4l2_ctrl *fault;
-> > -     u32 max_flash_brt =3D flash->pdata->max_flash_brt[led_no];
-> > -     u32 max_torch_brt =3D flash->pdata->max_torch_brt[led_no];
-> > +     u32 max_flash_brt =3D flash->max_flash_brt[led_no];
-> > +     u32 max_torch_brt =3D flash->max_torch_brt[led_no];
-> >       struct v4l2_ctrl_handler *hdl =3D &flash->ctrls_led[led_no];
-> >       const struct v4l2_ctrl_ops *ops =3D &lm3560_led_ctrl_ops[led_no];
-> >
-> > @@ -295,9 +310,9 @@ static int lm3560_init_controls(struct lm3560_flash=
- *flash,
-> >       /* flash strobe timeout */
-> >       v4l2_ctrl_new_std(hdl, ops, V4L2_CID_FLASH_TIMEOUT,
-> >                         LM3560_FLASH_TOUT_MIN,
-> > -                       flash->pdata->max_flash_timeout,
-> > +                       flash->max_flash_timeout,
-> >                         LM3560_FLASH_TOUT_STEP,
-> > -                       flash->pdata->max_flash_timeout);
-> > +                       flash->max_flash_timeout);
-> >
-> >       /* flash brt */
-> >       v4l2_ctrl_new_std(hdl, ops, V4L2_CID_FLASH_INTENSITY,
-> > @@ -339,15 +354,18 @@ static const struct regmap_config lm3560_regmap =
-=3D {
-> >  };
-> >
-> >  static int lm3560_subdev_init(struct lm3560_flash *flash,
-> > -                           enum lm3560_led_id led_no, char *led_name)
-> > +                           enum lm3560_led_id led_no,
-> > +                           struct device_node *np)
-> >  {
-> >       struct i2c_client *client =3D to_i2c_client(flash->dev);
-> >       int rval;
-> >
-> >       v4l2_i2c_subdev_init(&flash->subdev_led[led_no], client, &lm3560_=
-ops);
-> >       flash->subdev_led[led_no].flags |=3D V4L2_SUBDEV_FL_HAS_DEVNODE;
-> > -     strscpy(flash->subdev_led[led_no].name, led_name,
-> > -             sizeof(flash->subdev_led[led_no].name));
-> > +     snprintf(flash->subdev_led[led_no].name,
-> > +              sizeof(flash->subdev_led[led_no].name),
-> > +              "lm3560-led%d", led_no);
-> > +     flash->subdev_led[led_no].fwnode =3D of_fwnode_handle(np);
-> >       rval =3D lm3560_init_controls(flash, led_no);
-> >       if (rval)
-> >               goto err_out;
-> > @@ -378,7 +396,7 @@ static int lm3560_init_device(struct lm3560_flash *=
-flash)
-> >
-> >       /* set peak current */
-> >       rval =3D regmap_update_bits(flash->regmap,
-> > -                               REG_FLASH_TOUT, 0x60, flash->pdata->pea=
-k);
-> > +                               REG_FLASH_TOUT, 0x60, flash->peak);
-> >       if (rval < 0)
-> >               return rval;
-> >       /* output disable */
-> > @@ -391,18 +409,22 @@ static int lm3560_init_device(struct lm3560_flash=
- *flash)
-> >       return rval;
-> >  }
-> >
-> > -static void lm3560_subdev_cleanup(struct lm3560_flash *flash,
-> > -                               enum lm3560_led_id led_no)
-> > +static void lm3560_subdev_cleanup(struct lm3560_flash *flash)
-> >  {
-> > -     v4l2_async_unregister_subdev(&flash->subdev_led[led_no]);
-> > -     v4l2_ctrl_handler_free(&flash->ctrls_led[led_no]);
-> > -     media_entity_cleanup(&flash->subdev_led[led_no].entity);
-> > +     int led_no;
-> > +
-> > +     for_each_set_bit(led_no, flash->led_id, LM3560_LED_MAX) {
-> > +             v4l2_async_unregister_subdev(&flash->subdev_led[led_no]);
-> > +             v4l2_ctrl_handler_free(&flash->ctrls_led[led_no]);
-> > +             media_entity_cleanup(&flash->subdev_led[led_no].entity);
-> > +     }
-> >  }
-> >
-> >  static int lm3560_probe(struct i2c_client *client)
-> >  {
-> >       struct lm3560_flash *flash;
-> > -     struct lm3560_platform_data *pdata =3D dev_get_platdata(&client->=
-dev);
-> > +     struct device_node *node;
-> > +     u32 peak_ua;
-> >       int rval;
-> >
-> >       flash =3D devm_kzalloc(&client->dev, sizeof(*flash), GFP_KERNEL);
-> > @@ -415,36 +437,69 @@ static int lm3560_probe(struct i2c_client *client=
-)
-> >               return rval;
-> >       }
-> >
-> > -     /* if there is no platform data, use chip default value */
-> > -     if (pdata =3D=3D NULL) {
-> > -             pdata =3D devm_kzalloc(&client->dev, sizeof(*pdata), GFP_=
-KERNEL);
-> > -             if (pdata =3D=3D NULL)
-> > -                     return -ENODEV;
-> > -             pdata->peak =3D LM3560_PEAK_3600mA;
-> > -             pdata->max_flash_timeout =3D LM3560_FLASH_TOUT_MAX;
-> > -             /* led 1 */
-> > -             pdata->max_flash_brt[LM3560_LED0] =3D LM3560_FLASH_BRT_MA=
-X;
-> > -             pdata->max_torch_brt[LM3560_LED0] =3D LM3560_TORCH_BRT_MA=
-X;
-> > -             /* led 2 */
-> > -             pdata->max_flash_brt[LM3560_LED1] =3D LM3560_FLASH_BRT_MA=
-X;
-> > -             pdata->max_torch_brt[LM3560_LED1] =3D LM3560_TORCH_BRT_MA=
-X;
-> > -     }
-> > -     flash->pdata =3D pdata;
-> >       flash->dev =3D &client->dev;
-> >       mutex_init(&flash->lock);
-> >
-> > +     bitmap_zero(flash->led_id, LM3560_LED_MAX);
-> > +
-> > +     flash->peak =3D LM3560_PEAK_1600mA;
-> > +     rval =3D device_property_read_u32(flash->dev,
-> > +                                     "ti,peak-current-microamp", &peak=
-_ua);
-> > +     if (!rval) {
-> > +             switch (peak_ua) {
-> > +             case 1600000:
-> > +                     flash->peak =3D LM3560_PEAK_1600mA;
-> > +                     break;
-> > +             case 2300000:
-> > +                     flash->peak =3D LM3560_PEAK_2300mA;
-> > +                     break;
-> > +             case 3000000:
-> > +                     flash->peak =3D LM3560_PEAK_3000mA;
-> > +                     break;
-> > +             case 3600000:
-> > +                     flash->peak =3D LM3560_PEAK_3600mA;
-> > +                     break;
-> > +             default:
-> > +                     return -EINVAL;
-> > +             }
-> > +     }
-> > +
-> > +     flash->max_flash_timeout =3D LM3560_FLASH_TOUT_MIN * 1000;
-> > +     device_property_read_u32(flash->dev, "flash-max-timeout-us",
-> > +                              &flash->max_flash_timeout);
-> > +     flash->max_flash_timeout /=3D 1000;
-> > +
-> >       rval =3D lm3560_init_device(flash);
-> >       if (rval < 0)
-> >               return rval;
-> >
-> > -     rval =3D lm3560_subdev_init(flash, LM3560_LED0, "lm3560-led0");
-> > -     if (rval < 0)
-> > -             return rval;
-> > +     for_each_available_child_of_node(dev_of_node(flash->dev), node) {
->
-> device_for_each_child_node(), please.
->
-> > +             u32 reg;
-> >
-> > -     rval =3D lm3560_subdev_init(flash, LM3560_LED1, "lm3560-led1");
-> > -     if (rval < 0) {
-> > -             lm3560_subdev_cleanup(flash, LM3560_LED0);
-> > -             return rval;
-> > +             rval =3D of_property_read_u32(node, "reg", &reg);
->
-> device_property_read_u32() here and elsewhere.
->
+On 5/1/26 9:41 AM, MINETTE Alexandre wrote:
+> Thanks a lot for the suggestion, I checked the downstream board files
+> and it does not look like these buses are wired for GSBI.
+> 
+> There, the MAX77693 bus is instantiated as a dedicated i2c-gpio bus on
+> GPIO 22/23, and the AN30259A LED bus as a dedicated i2c-gpio bus on
+> GPIO 6/7. The native APQ8064 GSBI2/GSBI3 I2C pins are different
+> (GPIO 24/25 and GPIO 8/9), so these two buses do not seem to be wired
+> to the GSBI controllers on jflte.
 
-I have switched to OF equivalent deliberately because if I use
-device_for_each_child_node I found no sane way to pass fwnode to
-subdev_led since device_for_each_child_node releases fwnode handle it
-uses and I cannot assign it to subdev_led.fwnode since it will result
-in NULL pointer on loop exit
+What I meant is that the pins that the i2c-gpio nodes reference
+are actually wired (inside the SoC) to the GSBI I2C controllers.
 
-> > +             if (rval < 0)
-> > +                     /* We care only about nodes with reg property */
-> > +                     continue;
-> > +
-> > +             if (reg =3D=3D LM3560_LED0 || reg =3D=3D LM3560_LED1) {
-> > +                     flash->max_flash_brt[reg] =3D LM3560_FLASH_BRT_MI=
-N;
-> > +                     of_property_read_u32(node, "flash-max-microamp",
-> > +                                          &flash->max_flash_brt[reg]);
-> > +
-> > +                     flash->max_torch_brt[reg] =3D LM3560_TORCH_BRT_MI=
-N;
-> > +                     of_property_read_u32(node, "led-max-microamp",
-> > +                                          &flash->max_torch_brt[reg]);
-> > +
-> > +                     rval =3D lm3560_subdev_init(flash, reg, node);
-> > +                     if (rval < 0) {
-> > +                             lm3560_subdev_cleanup(flash);
-> > +                             return dev_err_probe(flash->dev, rval,
-> > +                                                 "failed to register l=
-ed%d\n",
-> > +                                                 reg);
-> > +                     }
-> > +
-> > +                     set_bit(reg, flash->led_id);
-> > +             }
-> >       }
-> >
-> >       i2c_set_clientdata(client, flash);
-> > @@ -455,12 +510,17 @@ static int lm3560_probe(struct i2c_client *client=
-)
-> >  static void lm3560_remove(struct i2c_client *client)
-> >  {
-> >       struct lm3560_flash *flash =3D i2c_get_clientdata(client);
-> > -     unsigned int i;
-> >
-> > -     for (i =3D LM3560_LED0; i < LM3560_LED_MAX; i++)
-> > -             lm3560_subdev_cleanup(flash, i);
-> > +     lm3560_subdev_cleanup(flash);
-> >  }
-> >
-> > +static const struct of_device_id lm3560_of_match[] =3D {
-> > +     { .compatible =3D "ti,lm3559" },
-> > +     { .compatible =3D "ti,lm3560" },
-> > +     { }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, lm3560_of_match);
-> > +
-> >  static const struct i2c_device_id lm3560_id_table[] =3D {
-> >       { LM3559_NAME },
-> >       { LM3560_NAME },
-> > @@ -473,6 +533,7 @@ static struct i2c_driver lm3560_i2c_driver =3D {
-> >       .driver =3D {
-> >                  .name =3D LM3560_NAME,
-> >                  .pm =3D NULL,
-> > +                .of_match_table =3D lm3560_of_match,
-> >                  },
-> >       .probe =3D lm3560_probe,
-> >       .remove =3D lm3560_remove,
-> > diff --git a/include/media/i2c/lm3560.h b/include/media/i2c/lm3560.h
-> > index 770d8c72c94a..b56c1ff8fd49 100644
-> > --- a/include/media/i2c/lm3560.h
-> > +++ b/include/media/i2c/lm3560.h
-> > @@ -66,19 +66,4 @@ enum lm3560_peak_current {
-> >       LM3560_PEAK_3600mA =3D 0x60
-> >  };
-> >
-> > -/* struct lm3560_platform_data
-> > - *
-> > - * @peak :  peak current
-> > - * @max_flash_timeout: flash timeout
-> > - * @max_flash_brt: flash mode led brightness
-> > - * @max_torch_brt: torch mode led brightness
-> > - */
-> > -struct lm3560_platform_data {
-> > -     enum lm3560_peak_current peak;
-> > -
-> > -     u32 max_flash_timeout;
-> > -     u32 max_flash_brt[LM3560_LED_MAX];
-> > -     u32 max_torch_brt[LM3560_LED_MAX];
-> > -};
-> > -
-> >  #endif /* __LM3560_H__ */
->
-> --
-> Kind regards,
->
-> Sakari Ailus
+You'll notice that in drivers/pinctrl/qcom/pinctrl-apq8064.c,
+there are bits like:
+
+PINGROUP(6, gsbi3, NA, NA, NA, NA, NA, NA, NA, NA, NA),
+
+which mean "function 0 is GPIO [implicitly in the macro], function
+1 is mux to the GSBI controller"
+
+Konrad
