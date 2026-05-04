@@ -1,67 +1,67 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE703DC4D3
-	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 13:34:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14193D47C1
+	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 13:36:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777901684; cv=none; b=Rf0AqX3mtsN9e/1lfoVkCt9qsYAaktT50JvoUKeHm9lq+0Oc9yUo/gigGtmz0WTLSS5Mlg5OzJ8xS6A2eiiyxgHcfwdPWboqMMuuKRJm4hYB1n8L7NkELnj028tstYzjue13BSQpCwwH79++GURtNJIQZc12usBkLKLZWNbBAts=
+	t=1777901767; cv=none; b=eLmP2YK4IBIU3yLkTVzXlv1sltR/dMouM7xJl+SMQzZ5BhBDkhnAlcA4LXh+jRJDqnlNeoZlsg4RdY+a+JyZ03c3culC3UojBIv5Re+JlHYxP7TQ6b5gtGM4PpW+XR7bSltfQbe6CHWjNEMPdqSVRROjvQErBYxPB8JplIzj9nM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777901684; c=relaxed/simple;
-	bh=fE/FMqRtr05uo+J0w0E8qsFyUlmDDBPKI19czQaErzI=;
+	s=arc-20240116; t=1777901767; c=relaxed/simple;
+	bh=LERfixZ4A/mCAlL4UIEjVNTDqF1ZRae/7FZpoHehMsc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GsLVA8Mk11yAkUgtxoxGKra9ugXu6yVWan9wEIe1/YxfK+2G2JGD4ShYQO6k1fnxAzKW+b5z7BBZmBYo4++SDikyW37FbQitoZ2Ch6y+ZsWjJ0OyJxpP9XcwA3m+AwSM+eOOJjrsbXkJNrXuUzn1FakXUNsoy2nED1SXU9TYZNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=IARYnIuF; arc=none smtp.client-ip=209.85.160.181
+	 In-Reply-To:Content-Type; b=Ueb4AE7LZClaTQ4lsU15IYwvVo0+OGI1D48JsEHn23pBJp5b8MLZjRA+AVwC8Abxw5abilTeHf36u0GgxbyNy/z9z5X3Qkl9INl7KopEm745z/FabeU4AYJjZyQ+O1jZ8b6i2J+KojW6MiBmdFRxNvWDbc+iltzdSkwOloRwREU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=jdq1jjAf; arc=none smtp.client-ip=209.85.222.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="IARYnIuF"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-50e5b55062fso29836251cf.2
-        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 06:34:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="jdq1jjAf"
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-8ee62a19730so445815885a.3
+        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 06:36:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1777901678; x=1778506478; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1777901764; x=1778506564; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=1O51d4ds85yTh8lyD3JZ4q7u8vPdQtNHSLTt8d3PVfM=;
-        b=IARYnIuF1jJJrB45HAzJaAtwE+AeyXoN91edqT8qe4dqB9eycPEBOeLfpbjRndv2p7
-         b1KTlNc/O7xHE8z8JpMGnwfuvFJOsigZyTVXl9Dzv3zHK3rS12ZhVun3jts6+mXEGbmw
-         70OKRfGlkhCJrz8BtUen4+30f0EA2u0RZqvTLPUb4ZInITmwks28S48SG273UIh+Dafz
-         J+dLHOlNYGpwQGzTTLA8thF81/iZcz62YxDr6puMELr40aJJPq99InHfWYgqNGBkjfhA
-         saRoIlS47YYiU6OqLCOdreoTIPFJVBwtTe2xXAvwWc3S+wjEVEfKGKHCJVvDqdaWHouy
-         U3zQ==
+        bh=z9fU46qFzoianaIQCMZvMdojbyNNsa2tYadi8NkaEg8=;
+        b=jdq1jjAfQDruf/IUUDdbyNqKpRRmR14Z90v/aHuamXGsdJwHq5BOfPxg3NTODmNbwn
+         QpcQYjUfmTVUNzXNggQC1TQE8++GnJXfkhkJpZ+ZNhib84+lkNLY/jU+boYCmFQupKTM
+         kFoUOAZhAySGm8/RFSEKdQCcJIDoJV7jYr/DR6GEOjS0MiQVvQ5dtUiTk8MtQrLTy9c4
+         Bllqmx7n8xIR1q/oUeGcRL7Ul/IDy//xs4wFGZnwgnkJsLzf2s1UDYV73Z9pLuHmSJP8
+         BpjVbQiyJbUFR4da2z956FssezxIHJ0ghMZ7GogDvCO1OLRAln4amQerQXKU5YFAtfeP
+         /88Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777901678; x=1778506478;
+        d=1e100.net; s=20251104; t=1777901764; x=1778506564;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=1O51d4ds85yTh8lyD3JZ4q7u8vPdQtNHSLTt8d3PVfM=;
-        b=DySZVdrEKLGSuEHTJpy1CgAmfWAqMDRAGE9qwZ7LYpndce20l8Eh8AcNp5N9blr4ta
-         Swb1pTPki3Rgqww2TN3kUe7jVFthyGiBqaaSRBj5zgSXEBtEYQxN2KBOlufSHMrybseZ
-         J9DGOD/1JAvXlomm1506oJlNoDCTDiYggOo4YXtR7cjocFLCQJsJLZGpYZctRCX3cLTp
-         0TVyISzXp9EXoceyalcVNuEZ1oJXUPtGK7TuXgefUviBJMykFyTluajmLHD6zFb3T6fZ
-         g9Qoi+LC6o+aHUrV8Z0FQxYAvWojUdLqp4dMkfv2vLOG+zaf8PKLQbPjl+YAmiUR++hV
-         88og==
-X-Forwarded-Encrypted: i=1; AFNElJ+NpYd3EGYNpdZC0eEW9MVNQAcVofVaPHi8oALi4lCqr0FaTrLwAKqMbzrcNN22LZ5wKQKhzwQGWjjs@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy31tbDzQnKnYzMCY655Q3MShlhDWckkXu/I6ZLsoTkJtKGVY8w
-	lVjVUir29RUF5Mm13adXs8fJwHnYmBLkwE69tLdo6GnEkAduscgGrf3snPtyQ9G2h0c=
-X-Gm-Gg: AeBDiev3o64NwRM75CtUBlbJqmKgOBD7VsrseHJxT87W/ZHEkfmAkZa7FNelsnA7L5j
-	Ml3FDq/ve0QTJ2LvGN20pHe+IT8CgbGMppnf51Qv8SWSkG81354RSrgAR+4jrcoTvdvcd0l2kLN
-	suP3Mwwc3K6u7qPh/uCu1r7EXpRvjgfbOmEuTvV0yqBgUcakeDQs4zvsVNa7Xc/zazW00Papbad
-	9U6SLEb3HfY+WZ8Pu/5PTHMvJ4JJY2cyVYTqM8VIFM2x/jswgeXxZ05wTtTTp15HsMfFG5LGjfX
-	kgApY0KKkbUg1UpTPsK0uiyD3ICtYWA44wJmlzVJgYJSBLKselhDhzXlZXnpqcqn28XFonxL9Au
-	/GIOw6XZeqscL1HrxOI1vxqIYQwAS7WFwIaSaZ/LQWOl4yC7Ww+j9pboM8Y35zk7QoujQT55q5O
-	btPVCA/PCsjb2ZaHE1M/4Wq39Vw0qMStieLc7zP8MRyzHi11Y+HNT0nwuWQYfdFx8ix7ftdwMc2
-	Q==
-X-Received: by 2002:a05:622a:48a:b0:50d:9e8d:9837 with SMTP id d75a77b69052e-5104bde3d42mr142601201cf.11.1777901678300;
-        Mon, 04 May 2026 06:34:38 -0700 (PDT)
+        bh=z9fU46qFzoianaIQCMZvMdojbyNNsa2tYadi8NkaEg8=;
+        b=YPEX7uedy8fMl9B4vftYiIZKbJGhAf+TtMe2jNzALNSVHgF6cVEC6PlAvsrcWU3Gmr
+         MAWxdwwr3AWtwMKKynlbjWI9luaPhRkXeOFwyZKy/lPgqrdYIJLKTqz0IRV4xn21sMvw
+         RKbm/hatIvvdGgWLZ2SPg89DeyYcdvFyYXoaYmb/82VOcYukyLoosdBdXYVpql/hz3u7
+         kswZmJB8PNa1E3wrl/A0/CB5R9VbjaGUKhrCYh2s5nrUR1pyJjIsKQws57kHb0H5moUy
+         dx6MF4/bslpqu4F2UaU0QxZAYjLbp12Im7BKxyakI6+Ob0M8mO9gUnAjOmhyWRr/DGgL
+         FzJQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/JA/Iz3yG3cO2NT9Imrco223pli+eLuIKEw/UcH8Lmz1XDs7lP+TmHT4BjnH0EkqD5KPL7s9u+IVcA@vger.kernel.org
+X-Gm-Message-State: AOJu0YxTnUhnVUuHcAGQs5tl0NPvq9RI0aCUak9jeqea0C6C9DJDL9By
+	D6SjVrBJYq/N05S2CmwJJ8ymtSf5m7FicARjOL4EgcFC+uPSuc7djvd10m/ngK/ECak=
+X-Gm-Gg: AeBDiet0tclkmG1mtumgDdWvBvm1v+BamVXyauuTiVXtVHLZ3WKU/IodIkKwYw+K5jc
+	L6A5s2MCcNsDfehH9TCkoJvVNgqH/InUu8Czdf14G+/zQxYDF55IFvzvz2dbun8FX7If2bmUqh4
+	JK+v/XD0R23GmoGnwsUDJGHw97bjy4yTlNu4KXWF53jJhWdJWibOt2bx1sExrU96Cg9Kot+/Gon
+	tXNnpWyvEHtsUZtCyZheHCXz6pVpqehVKFa9f6HSN8YJziMhgZPWbwO+3/ajDLgzGhTPijTPHp3
+	35lKjxcw3igX4PxRP5pEcF8qERNSqce2OxEpc9mk90rFX5ntUWUjEeJ2bnqI2BDug0VJ3v0D0mY
+	+gMNXJU4G8oQwpgjM9VrtJH2s2OocFwPS1MUiw0tCUGXKCrMR6z6cYSI6Sfxn9vygmUBS59kuBz
+	0vu+LgEFh/w6fh7O7i7/5crh4GKA4XvOr4QUD2n9Pn2MipSKfn3jlvhbv4GGZKQyTuBznlZL82W
+	w==
+X-Received: by 2002:a05:620a:2905:b0:8eb:f3c7:224a with SMTP id af79cd13be357-8fd17d49626mr1448021685a.30.1777901764463;
+        Mon, 04 May 2026 06:36:04 -0700 (PDT)
 Received: from [172.22.22.28] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8fc2c91c807sm1137764785a.32.2026.05.04.06.34.34
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8fc29a80784sm1058189985a.12.2026.05.04.06.36.01
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 04 May 2026 06:34:37 -0700 (PDT)
-Message-ID: <164fb5ca-9c42-46ad-a13c-3757ff5d2fdd@riscstar.com>
-Date: Mon, 4 May 2026 08:34:33 -0500
+        Mon, 04 May 2026 06:36:04 -0700 (PDT)
+Message-ID: <7fbb8bb4-5626-4908-ba80-2db35661e30a@riscstar.com>
+Date: Mon, 4 May 2026 08:36:00 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,21 +69,20 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 08/12] dt-bindings: net: toshiba,tc965x-dwmac:
- add TC956x Ethernet bridge
-To: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH net-next 04/12] net: stmmac: dma: create a separate
+ dma_device pointer
+To: Andrew Lunn <andrew@lunn.ch>
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
  rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
  robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
  brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org,
- Daniel Thompson <daniel@riscstar.com>, mohd.anwar@oss.qualcomm.com,
- a0987203069@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
- boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, chenhuacai@kernel.org,
- daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com,
- inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com,
- livelycarpet87@gmail.com, matthew.gerlach@altera.com,
- mcoquelin.stm32@gmail.com, me@ziyao.cc,
+ daniel@riscstar.com, mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
+ alexandre.torgue@foss.st.com, ast@kernel.org, boon.khai.ng@altera.com,
+ chenchuangyu@xiaomi.com, chenhuacai@kernel.org, daniel@iogearbox.net,
+ hawk@kernel.org, hkallweit1@gmail.com, inochiama@gmail.com,
+ john.fastabend@gmail.com, julianbraha@gmail.com, livelycarpet87@gmail.com,
+ matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
  prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
  rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
  weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
@@ -92,190 +91,47 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-9-elder@riscstar.com>
- <20260504-fascinating-teal-tarsier-b116c8@quoll>
+ <20260501155421.3329862-5-elder@riscstar.com>
+ <9203d8dd-8ec0-415e-9c2e-5b06b1b8dc11@lunn.ch>
+ <539b9de3-4a78-44cf-9085-06cd0cab2d17@riscstar.com>
+ <4cbe1a04-4a49-4e4d-95f4-ed4df1afa24f@lunn.ch>
 Content-Language: en-US
 From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260504-fascinating-teal-tarsier-b116c8@quoll>
+In-Reply-To: <4cbe1a04-4a49-4e4d-95f4-ed4df1afa24f@lunn.ch>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 5/4/26 6:00 AM, Krzysztof Kozlowski wrote:
-> On Fri, May 01, 2026 at 10:54:16AM -0500, Alex Elder wrote:
->> From: Daniel Thompson <daniel@riscstar.com>
+On 5/1/26 3:55 PM, Andrew Lunn wrote:
+> On Fri, May 01, 2026 at 01:06:23PM -0500, Alex Elder wrote:
+>> On 5/1/26 12:13 PM, Andrew Lunn wrote:
+>>>>    	if (priv->dma_cap.host_dma_width) {
+>>>> -		ret = dma_set_mask_and_coherent(device,
+>>>> -				DMA_BIT_MASK(priv->dma_cap.host_dma_width));
+>>>> +		u64 mask = DMA_BIT_MASK(priv->dma_cap.host_dma_width);
+>>>> +
+>>>> +		ret = dma_set_mask_and_coherent(priv->dma_device, mask);
+>>>
+>>> I'm nitpicking, but i don't think you need to introduce mask.
+>>> DMA_BIT_MASK... is already on a line of its own, and is within the 80
+>>> limit. Nothing changes here with s/device/priv->dma_device/
+>>>
+>>> 	Andrew
 >>
->> Add devicetree bindings for the Toshiba TC956x family of Ethernet-AVB/TSN
->> bridges.
+>> I did this.  It was simply to silence a checkpatch.pl warning
+>> about a long line.
 >>
->> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
->> Signed-off-by: Alex Elder <elder@riscstar.com>
->> ---
->>   .../bindings/net/toshiba,tc956x-dwmac.yaml    | 111 ++++++++++++++++++
->>   1 file changed, 111 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml b/Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
->> new file mode 100644
->> index 0000000000000..d95d22a3761da
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
->> @@ -0,0 +1,111 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/net/toshiba,tc956x-dwmac.yaml#
+>> I don't care either way, I'll gladly put it back the way it was.
 > 
-> Filename and here: toshiba,tc9564-dwmac
-> (s/x/4/)
-> 
-> 
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Toshiba TC956x Ethernet-AVB/TSN Controller
->> +
->> +maintainers:
->> +  - Alex Elder <elder@riscstar.com>
->> +  - Daniel Thompson <daniel@riscstar.com>
->> +
->> +description: |
->> +  This node provides properties for configuring the Ethernet PCI functions
->> +  that are attached to the internal downstream port of the TC956x's PCIe
->> +  switch.
-> 
-> Describe rather the hardware directly, not the DTS or the binding
-> itself.
-> 
-> Just say what is the hardware, what is consists of, what is less
-> obvious or usual (if there is such).
+> Please pull checkpatch fixes out into a patch of their own.
 
-I understand what you're saying.  We will reword this to focus
-on the hardware in version 2.
+That's what we'll do in the next version.  I'll undo this particular
+change, and will add it to the end of the series.
 
-> 
->> +
->> +  TC956x are a family of Ethernet-AVB/TSN bridge chips that combine a PCIe
->> +  switch together with a number of Ethernet controllers. These bindings
->> +  cover only the Ethernet functions of these devices.
-> 
-> What about the rest of the hardware - a PCIe switch? Shouldn't it be
-> described?
-
-It maybe should, just to provide a more complete picture.  It's
-a little strange, because the PCIe switch support (or at least
-its power controller) was already upstreamed:
-
-  
-https://lore.kernel.org/all/20251101-tc9563-v9-0-de3429f7787a@oss.qualcomm.com/
-
-That introduced DeviceTree bindings for a PCI device, which is
-itself sort of spanning two worlds of discoverability.
-
-That code focused on the *switch*.  This series is focused on
-the *Ethernet interfaces*.  But the "chip" has several other
-components, some of which (GPIO anyway, for now) also need to
-be modeled.
-
-I want to talk more with Daniel about this but either way we
-will revisit this and will attempt to describe the hardware in
-a more complete way when we send out v2.
-
->> +
->> +allOf:
->> +  - $ref: /schemas/pci/pci-bus-common.yaml#
->> +  - $ref: /schemas/pci/pci-device.yaml#
->> +
->> +unevaluatedProperties: false
-> 
-> Place both (allOf+unevaluatedProperties) after "required:".
-
-OK.
-
-> 
->> +
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - pci1179,0220 # Toshiba TC9564 (a.k.a. Qualcomm QPS615)
->> +
->> +  "#gpio-cells":
->> +    const: 2
->> +
->> +  gpio-controller: true
->> +
->> +  # We can't allOf reference Ethernet-controller.yaml because we end up with
-> 
-> s/Ethernet-controller.yaml/ethernet-controller.yaml/
-
-OK.
-
-> 
->> +  # contradictory $nodename rules (`ethernet@` versus `pci@`). Happily only a
-> 
-> But which schema requires pci@ for devices? If I am not mistaken, only
-> dtschema/schemas/pci/pci-bus-common.yaml requires it, and it does not
-> apply to actual PCI device.
-
-We'll revisit this and will simplify/clarify if possible in v2.
-
->> +  # small number of the properties are useful on TC956x so we can just reference
->> +  # what we need.
->> +  phy-connection-type:
->> +    $ref: ethernet-controller.yaml#/properties/phy-connection-type
->> +
->> +  phy-handle:
->> +    $ref: ethernet-controller.yaml#/properties/phy-handle
->> +
->> +  phy-mode:
->> +    $ref: ethernet-controller.yaml#/properties/phy-mode
->> +
->> +  mdio:
->> +    $ref: snps,dwmac.yaml#/properties/mdio
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +
->> +examples:
->> +  - |
->> +    pcie {
->> +      #address-cells = <3>;
->> +      #size-cells = <2>;
->> +
->> +      tc956x_emac0: pci@0,0 {
->> +        compatible = "pci1179,0220";
->> +        reg = <0x50000 0x0 0x0 0x0 0x0>;
->> +        #address-cells = <3>;
->> +        #size-cells = <2>;
->> +        device_type = "pci";
->> +        ranges;
->> +
->> +        gpio-controller;
->> +        #gpio-cells = <2>;
->> +
->> +        phy-mode = "10gbase-r";
->> +        phy-handle = <&tc956x_emac0_phy>;
->> +
->> +        mdio {
->> +          compatible = "snps,dwmac-mdio";
->> +          #address-cells = <1>;
->> +          #size-cells = <0>;
->> +
->> +          tc956x_emac0_phy: ethernet-phy@1c {
->> +            compatible = "ethernet-phy-id311c.1c12";
->> +            reg = <0x1c>;
->> +          };
->> +        };
->> +      };
-> 
-> Keep only one example, unless you have different properties (not their
-> values, but their presence),
-
-OK.  Thanks a lot for your review Krzysztof.
+Thanks.
 
 					-Alex
+
+
 > 
-> 
-> Best regards,
-> Krzysztof
-> 
+>         Andrew
 
