@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72ADD31DD97;
-	Mon,  4 May 2026 20:47:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D471DF27D;
+	Mon,  4 May 2026 20:54:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777927627; cv=none; b=fEj6QbSxq/JyDHjERRN3SwkVhGmA7hkM9OBkVrOPqjy2SZPSLCcZu6va94OO35hWxfujv1XpJovp4pWEmDxOcmWgLgeb3/eEGxfeh/94rcKSobDbEjwy+Eao/RkWVyHvdkqY7RCOf3EWY/CCRhes5P91/exRcyKqreE58tYRbvA=
+	t=1777928053; cv=none; b=WBLUTxbl2Dl0+45XcU+pFfKbCRRgHrZHItxOUjzJZhR1NOdhje/z1sn6Fw3L845qytX0O3B+UCyIm1NPJl9dZUjih9Br26h4xDILevysBoAt+WaRgj4EdXQGq06KnJAcKVqT9IEzql/4PfACu1vi556XdLEpv947Gj+eFZ9sP8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777927627; c=relaxed/simple;
-	bh=ofaeSJ6wgxoQTSkFMwPMfdQHfwwAu1hwLQCirCS8cps=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=UlyeGgtMyocAYoMIfiWnGwz4O6Nta12kv+sXrl9gMklW1sxolf15hSIDLM1lvpu1Gq0Q+bwKkhxL3UnTBf76JxlyYr9u4/+qLDkcHGZfsjYjZLvYfPmrA2PSwmeumDgpuG+/u09ghzexBjJQoTNTZGKqu15N4Hau+8RIkhem2VE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t0BUfo3n; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777928053; c=relaxed/simple;
+	bh=3DwqxqZG2ILftpv9pDgphsYDW58LSPzpdn18IjVO9AM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ufbz3q4gWbUtYj3zrZD5+1ltfxJevM6JoiiUqxPqLNNu3bhXpOXZdl3g51ImUYPWs/OU5U0t8Fu9rdEV3d0WogH3lQNS1nn5vm1WC+raeeWpGsGZneSZK6oupzOg/hl4yENjrYAG4BdnOMEBzH543gSHEzYz4t+z5PxX9HKR1r0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=col+GAB+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t0BUfo3n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DB62C2BCB8;
-	Mon,  4 May 2026 20:47:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="col+GAB+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76B39C2BCB8;
+	Mon,  4 May 2026 20:54:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777927627;
-	bh=ofaeSJ6wgxoQTSkFMwPMfdQHfwwAu1hwLQCirCS8cps=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=t0BUfo3nNFvYW95ko4gYpzNkm16E847yBACUad/Pu3ATFV3qwpgchbSpPQ+bUF+5O
-	 i3ZxRJneYB8jAUekM9KNEGJafdl/5PZFL9DP+GNmfJhWN/RDylnRZEDJS+zTWSv3kI
-	 Sdztehc42yj2mVEbWnSy3fJ5TMAsCiIlrawQc10je7EEUfHqvFxHwoBZahx+E5b7kT
-	 tUl0rHZi2a6D2MK4Hwx1g7fZe+1Q3q0jPAgq5APPrDIC0fMHo0Po1OH6fMmvGNKAph
-	 jpaKA8LEx96ljjlTI0TJbA79at2FVz7s017brqCvWiV1DO7J+4ZsA5SdOqw5hMnlLk
-	 cpRUq3w6xjwkw==
-Message-ID: <80908399-941b-4504-922b-555ba9d0e43a@kernel.org>
-Date: Mon, 4 May 2026 22:47:00 +0200
+	s=k20201202; t=1777928052;
+	bh=3DwqxqZG2ILftpv9pDgphsYDW58LSPzpdn18IjVO9AM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=col+GAB+/vuyEdhVHJcKidaOcTX5QJloXgGLKXC9pyjlW0QfmRL2G2mEOGd8Mw9hw
+	 85Fos0qzL8NLjcmYBJdjFy6qd0O+dnxeK4CIpQmq5y9KmV7E/e36QTLnm8ybj6AkfI
+	 1KPKt8P2WS1Cs99SPaFJnWGd2EKrJRbhF7ANpw5Klt7jl+v1fiOZIBREcXVxOtyEvE
+	 cj0hfecv+swkJoNW6sQkQytPFEa7/jNfLEVUPHcTxeXSFtZnjRlf5HKMPtz4cJzZB8
+	 MUIDZUZ9u5/GQsTfKx6IC8heT+pNnNAmjIscTQmecBozwdgU9ggxvRHrzAmXCuO5n1
+	 aNfs796FM+u6w==
+Message-ID: <de521e17-95e3-4b45-9575-f6190f8f5ccf@kernel.org>
+Date: Mon, 4 May 2026 22:54:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,25 +35,14 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: display: panel: Add Novatek NT37705
+Subject: Re: [PATCH v3 2/3] counter: add GPIO-based quadrature encoder driver
+To: Wadim Mueller <wafgo01@gmail.com>, wbg@kernel.org
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+ conor.dooley@microchip.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260501200749.20029-1-wafgo01@gmail.com>
+ <20260501200749.20029-3-wafgo01@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Luca Weiss <luca.weiss@fairphone.com>, Conor Dooley <conor@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
- <20260501-fp6-panel-v1-1-e09cb05651cc@fairphone.com>
- <20260501-yogurt-wise-2a2884e3ec59@spud>
- <DI9XL1VYYTY7.19IRSM8VIDO53@fairphone.com>
- <a2444df4-abf1-4b56-8556-7efb238bc677@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -98,73 +87,38 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <a2444df4-abf1-4b56-8556-7efb238bc677@kernel.org>
+In-Reply-To: <20260501200749.20029-3-wafgo01@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04/05/2026 22:45, Krzysztof Kozlowski wrote:
-> On 04/05/2026 15:36, Luca Weiss wrote:
->> Hi Conor,
->>
->> On Fri May 1, 2026 at 5:51 PM CEST, Conor Dooley wrote:
->>> On Fri, May 01, 2026 at 03:52:45PM +0200, Luca Weiss wrote:
->>>> Novatek NT37705 is a display driver IC used to drive AMOLED DSI panels.
->>>>
->>>> Describe it and the panel in the Fairphone (Gen. 6) (BJ631JHM-T71-D900
->>>> from BOE) using it.
->>>>
->>>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->>>> ---
->>>>  .../bindings/display/panel/novatek,nt37705.yaml    | 72 ++++++++++++++++++++++
->>>>  1 file changed, 72 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml
->>>> new file mode 100644
->>>> index 000000000000..1c796599f6fc
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml
->>>> @@ -0,0 +1,72 @@
->>>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->>>> +%YAML 1.2
->>>> +---
->>>> +$id: http://devicetree.org/schemas/display/panel/novatek,nt37705.yaml#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: Novatek NT37705-based DSI display panels
->>>> +
->>>> +maintainers:
->>>> +  - Luca Weiss <luca.weiss@fairphone.com>
->>>> +
->>>> +description:
->>>> +  The Novatek NT37705 is a generic DSI Panel IC used to control AMOLED panels.
->>>> +
->>>> +allOf:
->>>> +  - $ref: panel-common.yaml#
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    contains:
->>>> +      const: boe,bj631jhm-t71-d900
->>>
->>> Compatible doesn't match the filename, nor does the commit message match
->>> what you've got here. Sounds like you're missing a fallback to
->>> $filename.
->>
->> The last times I was upstreaming panel drivers (Feb 2024 and June 2025),
->> this was the requested way of doing things.
-> 
-> So this was requested that time and is requested now. What is here
-> uncertain?
-> 
->>
->> Compatible being the company and model number making the actual panel
->> assembly (driver IC + touchscreen + glass etc), while the rest being
->> named after the driver IC manufacturer & number.
-> 
-> So exactly what was asked for...
+On 01/05/2026 22:07, Wadim Mueller wrote:
+> +
+> +static int gpio_qenc_count_read(struct counter_device *counter,
+> +				struct counter_count *count, u64 *val)
+> +{
+> +	struct gpio_qenc_priv *priv = counter_priv(counter);
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&priv->lock, flags);
+> +	*val = (u64)priv->count;
+> +	spin_unlock_irqrestore(&priv->lock, flags);
+> +
+> +	return 0;
+> +}
+> +
+> +static int gpio_qenc_count_write(struct counter_device *counter,
+> +				 struct counter_count *count, const u64 val)
 
-Assuming "the rest" you mean the fallback. Just to remind - we talk here
-about the bindings, not drivers.
+Please don't continue this broken 'const scalar' pattern. You probably
+copied this code, but no such new code should be ever added.
+
+It's not necessary - compiler/preprocessor does not care from function
+signature point of view. It's not helping - it's scalar and no sane code
+modifies such argument, thus there is no single need to protect it. It's
+not making code easier to read. Quite opposite: raises eyebrows for no
+real reason.
+
+Same in few other places.
 
 Best regards,
 Krzysztof
