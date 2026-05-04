@@ -1,103 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6EC3C1419;
-	Mon,  4 May 2026 19:41:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4212F2607;
+	Mon,  4 May 2026 20:19:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777923700; cv=none; b=g4XlYX3gzau4hkpmJe8miI48VC1aKgpGXeYB2Q5sZnpCTaAgXKum3+rwr6/VqiZC1ANvBhXvJ241VvpGUiLkb5VLwUNHpqpg7hKWbXcImn0VwBzi7myN+4bILyjU0TbEAivowfHsKpQ+yJK91gXVC/v984gFASD9sEdqvYffa9g=
+	t=1777925995; cv=none; b=OFAnaNTKWk7H2VKuAi4ba1OJ91rPMFYIh6bfiSyhxvsxQDogf541yB/pa0Tu5mmILBDQUdbbp45KXdZJsxo4lwtk2MwHm+oXfXi6e6w7DwA+BUZ9ujBX5QybeFE7A6Q5+aMOi4RYsSWSpXHJyKUBtqrhI4/VC54CYwI6iVknbME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777923700; c=relaxed/simple;
-	bh=mgdlbKlEQOWDLqR92Whq5tURhflQ2Yr9KuyXqkV/fOc=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=jA/BoIrMFkFlaTkXUNB2Xv8oAmOEI/z3ft1j1aa02nE/aRHZ2GqXgiuoSiyFk0uKQGqdnJGLsqgyk1bhO9b8XWqWGiSWZUmR3uQRmwT3xvDmKDMDtCxXMa0kBaK2i1L6qnenA8AQ6rEizEJSNp3DaOSKEeVNHMoux0Nn1iU4dOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bXDisUIN; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777925995; c=relaxed/simple;
+	bh=RZjRMBUvteVfcBcvWC92zO6Uwu/jRF4NZPRcaMv6rCM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GwwADniNV+ViVgVOY1fq5bT8AOUjjUBchFTysko4jyLnzALMu1gaJKM+HzHpap6YADbHa1YxRJyDK/uZnq+65Yh/OQRhBlFBbvXJIHOjdwQ3ROxPbmtsxKV313BJ445aRr1a15jotaHnjCdAU1swL9MHIKJOAYXmeS2x2qD9psE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfBYXHu8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bXDisUIN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B22FC2BCB8;
-	Mon,  4 May 2026 19:41:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfBYXHu8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0093C2BCB8;
+	Mon,  4 May 2026 20:19:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777923700;
-	bh=mgdlbKlEQOWDLqR92Whq5tURhflQ2Yr9KuyXqkV/fOc=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=bXDisUINjwgG9lK4I/Zqy+kk2M+5q38IGKVNjSDriMrjWELbxnJlkuM5RDqwoBYWR
-	 lfAY1WaarsJU5oxnO15BRLy3rZmOWDgFmZG6eckX6eUQRbnQGDcSiLYFJcFhnAOOYA
-	 Cgt/FlhKZqkjxxT3PWe1Nf81n/pYY5BW88eMoPg3GD70VoEZyh/zZ0666xWTWqhiFx
-	 AHLCL5+1TzKcYpIKvZx3v9fiqkrvHd8hgrhf4ksarSL/AG7dW5PvcXnhcgwZu5/hH/
-	 n1z95QK/UCsjVOpdF6t4WhT5kJnjMhy5YXZxA/aVuxabP6ViC9shu3G8Cs9M/ATX/P
-	 iD6hvGg1cWrFg==
-Date: Mon, 04 May 2026 14:41:38 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20201202; t=1777925995;
+	bh=RZjRMBUvteVfcBcvWC92zO6Uwu/jRF4NZPRcaMv6rCM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=CfBYXHu8GrvhUmdFfPln1AR4BRTSzBXmkz7cG4nERmcL+zNPVVjfEVgAVlx0UU0UB
+	 7WoTe89QKv2D6/eAvfJ7lXhgDOW7XbmSS0xXEM915JkcIIVPUjdYsL5dZbQN0ZxTqN
+	 hAoJiJLjJoiatwHITrTTxyFOCF6CCH2W2u3uLmebCsBBWtLBmWR3jLmmhOlusHy/El
+	 eoqok9mrRRRj5yHiKp+doeHDDcNMfoj/1GioxJ78vqhNjFADXICQoXnkTdxxnTI3wR
+	 4T9+57QhtnP1EXQQO9FRXyOBOTDWYdIt43h4dRBYF/j5r81EDkyqgMELLmZ/ZeujVe
+	 HYiZeUZhRxSPQ==
+Message-ID: <4a41079d-4e3a-438c-9996-c756206c0c3a@kernel.org>
+Date: Mon, 4 May 2026 22:19:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- linux-pm@vger.kernel.org, Lee Jones <lee@kernel.org>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Zhang Rui <rui.zhang@intel.com>, Ben Grisdale <bengris32@protonmail.ch>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- linux-mediatek@lists.infradead.org, Andy Shevchenko <andy@kernel.org>, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Jonathan Cameron <jic23@kernel.org>, 
- Lukasz Luba <lukasz.luba@arm.com>, Srinivas Kandagatla <srini@kernel.org>, 
- linux-iio@vger.kernel.org
-To: Roman Vivchar <rva333@protonmail.com>
-In-Reply-To: <20260504-mt6323-v1-3-799b58b355ff@protonmail.com>
-References: <20260504-mt6323-v1-0-799b58b355ff@protonmail.com>
- <20260504-mt6323-v1-3-799b58b355ff@protonmail.com>
-Message-Id: <177792369830.4148180.15587020526695376827.robh@kernel.org>
-Subject: Re: [PATCH 03/13] dt-bindings: thermal: add mt6323 PMIC thermal
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/4] arm64: dts: qcom: monaco-evk: Extract common EVK
+ hardware into shared dtsi
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Umang Chheda <umang.chheda@oss.qualcomm.com>, andersson@kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, richardcochran@gmail.com
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260427170505.1494703-1-umang.chheda@oss.qualcomm.com>
+ <20260427170505.1494703-2-umang.chheda@oss.qualcomm.com>
+ <9ece279f-2f57-466a-9af1-9fc8670c8ef9@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <9ece279f-2f57-466a-9af1-9fc8670c8ef9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-On Mon, 04 May 2026 21:24:55 +0300, Roman Vivchar wrote:
-> The MediaTek mt6323 PMIC temperature can be read using AUXADC channel.
+On 04/05/2026 14:57, Konrad Dybcio wrote:
+> On 4/27/26 7:05 PM, Umang Chheda wrote:
+>> The monaco-ac EVK is a new board variant which shares the majority of
+>> its hardware description with the existing monaco-evk board.
+>>
+>> In preparation for adding this variant, extract the common hardware
+>> nodes from monaco-evk.dts into a new shared monaco-evk-common.dtsi
+>> include file, and update monaco-evk.dts to include it and keep only
+>> board-specific overrides.
+>>
+>> No functional change intended.
+>>
+>> Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
+>> ---
 > 
-> Add the devicetree binding documentation for the MediaTek mt6323 thermal.
-> Due similarities with newer PMICs like mt6358, which include more than
-> one thermal sensor, the #thermal-sensor-cells should be set to 1, to
-> avoid breaking devicetree ABI in future.
-> 
-> Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd Generation)
-> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
-> ---
->  .../bindings/thermal/mediatek,mt6323-thermal.yaml  | 63 ++++++++++++++++++++++
->  1 file changed, 63 insertions(+)
-> 
+> The patch is a bit difficult to view as-is, but the gist of it is that
+> the resulting monaco-evk.dts is:
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Diff should be fixed and since this is not even b4, than producing
+proper patch detecting rename is trivial. :/
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/arm/mediatek/mediatek,audsys.yaml:52:2: [warning] wrong indentation: expected 2 but found 1 (indentation)
-./Documentation/devicetree/bindings/arm/mediatek/mediatek,audsys.yaml:84:1: [warning] too many blank lines (2 > 1) (empty-lines)
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/renesas,ether.example.dtb: ethernet-phy@1 (ethernet-phy-id0022.1537): compatible: ['ethernet-phy-id0022.1537', 'ethernet-phy-ieee802.3-c22'] is too long
-	from schema $id: http://devicetree.org/schemas/net/micrel.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260504-mt6323-v1-3-799b58b355ff@protonmail.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Best regards,
+Krzysztof
