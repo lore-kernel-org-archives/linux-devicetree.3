@@ -1,61 +1,81 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B57212548;
-	Mon,  4 May 2026 10:18:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217FE37DE85
+	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 10:21:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777889938; cv=none; b=TvXmdJ2I8in1tsuh2gLZYAdP/2L2MpzkGmdfptgtAXhq8CIEKDZFtsEPd9/XTTQNpvjplqheuQhrisxfKyeHVMP34a8t65s9HWU3LvR0W2R6vet/LgDKUn9TpcYnobtot8bgrfsvhNlVx5bbX93KZxhaEPV+Es1EvZhtLPK1g3Q=
+	t=1777890077; cv=none; b=DdSRL5t6382aHCpU0X2/W03oSZx3kyzKnqP29zcbvxwwAp7NHL5VHcu/ihPWgKLEULcAPvyGQ9ReHWW+v5u90y9uItqJT98bcGEORVm0pd8+6iY8zv2kkz7NN16TS01K/QL8SdDliV4s/83xz7brVMXQh7AG2hzOfnhuDEvmLhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777889938; c=relaxed/simple;
-	bh=MfqW51JtMJ67r9GG1AsdY0vX48ujiBVmEXYA49YFM3o=;
+	s=arc-20240116; t=1777890077; c=relaxed/simple;
+	bh=Qpc9cSZIQ6XgIpUBdj/WRMIntrqVQ+95EOrd1XUDUos=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WvpmQ5nasnEApmui9bPyA9V2ynGv2Y1oZFQs66K6hJWmVY6fVaI6l91W70j4CApQryfXoTH3Vq02nz+mpIHLa/GoZsdhyKBV+KX7tcGBKTLr7hYm5jTNkgR35UB/DJnlZwmbugfNoeO/PEsXj2sAIJtV84mWUxMcP1dxA0LaNNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hiE5pVM9; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=hjYMlgVYLrrBTM9MDQ1ZETBfw8UT7Hej0GWTScmEvc6lAfmjF123CXcvUsRVAsy9wbENFfhrZO4xLiZolzlPShzul7hMLAAsZ3UXRscgq5Gz0r/flnAkuKqBCXRqNcLRLX7nKs/Cr8LhQUFlF8CiJPn8ZWI26UH5W9+uf6PoavM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n/lKxzyn; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hiE5pVM9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777889936; x=1809425936;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MfqW51JtMJ67r9GG1AsdY0vX48ujiBVmEXYA49YFM3o=;
-  b=hiE5pVM9+xBtgYc40cVnNo2pQEMifT+NLkV/fKR1zc4quoa2AbJlYpfO
-   TpwH4C5gdXighQWV8GfHT6hJ+IY0WLxsyBQ9WJNST+/jIY8tPC+M1SVSC
-   lHDIZgn8OY6Gzcf2j/uVeeSnt+3X6zYLV65sSFSoksiqHpdKdEQNsGLR1
-   rq3zutKXd1CqDsPmX8ujtgjVC9l/toLRFK/H/e3yFoqBxoZJoWVk9i9K+
-   4PtmJvMpko4FtjESawI5cOkDlZYqvxKdaLEI97lAJmQ6wS8EOJcQXKHE9
-   JKZLsDiUitUEiFZ544GxMvltCt28p1Es/dEhiiUbUTnN2ouTnLKzab9fG
-   A==;
-X-CSE-ConnectionGUID: W2vHQUdXTe2vYZOe5NvjHQ==
-X-CSE-MsgGUID: 2Z9+KgInSFiMVkjYtV9/Ig==
-X-IronPort-AV: E=McAfee;i="6800,10657,11775"; a="78770063"
-X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; 
-   d="scan'208";a="78770063"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 03:18:55 -0700
-X-CSE-ConnectionGUID: 3t7R4yJXTIqKPNw2SMP61w==
-X-CSE-MsgGUID: +7+te4ubTaeIATq9jQ7uRg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; 
-   d="scan'208";a="234453383"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 03:18:51 -0700
-Date: Mon, 4 May 2026 13:18:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Salih Erim <salih.erim@amd.com>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, git@amd.com, nuno.sa@analog.com,
-	andy@kernel.org, dlechner@baylibre.com, michal.simek@amd.com,
-	conall.ogriofa@amd.com, erimsalih@gmail.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] iio: adc: add Versal SysMon driver
-Message-ID: <afhyiW_5embow_hx@ashevche-desk.local>
-References: <20260502111951.538488-1-salih.erim@amd.com>
- <20260502111951.538488-3-salih.erim@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n/lKxzyn"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-824c9da9928so1662933b3a.3
+        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 03:21:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777890075; x=1778494875; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=AzJI2062NMt5980YtQqfww16vShKlaQt7llmD/pl5fY=;
+        b=n/lKxzynrqsju4/uRu0/UE3O9BTL8Qc86vBW8RZ1wVpISguA59QqBikod0VX//Pc5N
+         aGYLIHrRqMcUDMgmAB+3KF4OIYFeHMQhg2sRaTa+VzwwORJdBpaqpCDJantZV6QFXR/2
+         a00Pri31c71xTjpvapCilLzfB6LiF+HerS2Extfebw4YdOD8mPljr/mdtOdRRXrbHUUX
+         3YgZAxr201a4KT9JWQPtAB1iK5rVf85+1lqykNkQVg/huXYexOoi/+Qu527A4Y2mFsDQ
+         hfZNPQKVkNZeoBk2hGSsHYL65Q+tasIsoDj/Xy3ILNfrdUwmsnAgUog/T7ozYXS5e81h
+         SH3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777890075; x=1778494875;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=AzJI2062NMt5980YtQqfww16vShKlaQt7llmD/pl5fY=;
+        b=rmillC4IOAEXONQexwTD4eEoX0JEx7o0hJaMIqRY8tvg35JgQ3QUDvDMUC0INg2YyA
+         sUX6yyk77gGeaDm6+w+P4v/Oy2yC5cfv1VaDUBsvqR+8EUM30yl2aSCAf14KRqlDQ02i
+         BpXVf7GgiHZpCGyx/QacTi8AHHLp31YKAQDvTxoGhSyBlW46zT77UCz2GiKKNirIErYO
+         k0wAuHmAUVY0jYzDcEdeLH3Nojq+xY6A5qnVab45SJz1nwsgyDT/o+BsNFmkzYa6gRLf
+         +STqpuXwQKmqwcpIGvVM5vLDpcQVImXHfJ8AZLpzmPI7qV2R6BkkW8DIbNxZWZCduwbz
+         1Wmw==
+X-Forwarded-Encrypted: i=1; AFNElJ/+V5rrZ/4eGSef0O9TlnnzY6rgUDMBvY3ADQsfRXoTyxl8N8LsfsVw4WV+uo/a5WlHLvLxYnoFs8BZ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy6sJCuyMnrgsGkGmMGhdgBpBabmfWO17pAwDe3KptOsNnR6euW
+	NTrpMF8mAWtfX0yjn+XD5MxiozCrS/TueMoRcjQHstrYzjsycJbtwnDK
+X-Gm-Gg: AeBDievMReO8DqH2vFi741oX9XyCz1KFo7yxfVqpjlAuouLDRHoKVKUwoy1M/rfEi6V
+	KaFijqxd6w8eMfq4KrAic8ZSR8ck2raBpnJnQnnsRVCgisWit3Fs0mjTBwLzFmAM7+lPcofiP4Q
+	izoBwEvAF7563b7ow6vqQtu9liyA+XJIWz0zOCf9I1ZPciZzkrsKdj1MelcKE7SM6NDSBzVCeos
+	LhGyob8O13qc95dR0AHQuvTOM1xnnMFy15Y9ToxBYLb8/BgyfjeIY9SP3Zgy8IJtE7j895DLEJU
+	Ezv/kG0YRnLL2oEhMdlkxjEfEfHC8raenoW1GLrOioPlTahpioiXMVltliu4DuNeXDr5yGcUsWm
+	9iFKXnEDsXCO0RnO7pf93s/Jm3LyzJFW5pIxIWqK8T4imjASGKSnM7KciyyuOU1xA3HCVM+rD67
+	yoG3Jkyn/xnY8mK37TYFvyXBwx4Viy9EmvPTOhZKt2Qwzv
+X-Received: by 2002:a05:6a00:340f:b0:835:4291:6975 with SMTP id d2e1a72fcca58-835429173d9mr5262314b3a.39.1777890075240;
+        Mon, 04 May 2026 03:21:15 -0700 (PDT)
+Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8357c4f4530sm4335636b3a.9.2026.05.04.03.21.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 04 May 2026 03:21:14 -0700 (PDT)
+Date: Mon, 4 May 2026 18:20:59 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>, 
+	Inochi Amaoto <inochiama@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Ze Huang <huang.ze@linux.dev>, 
+	Alex Elder <elder@riscstar.com>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: phy: Add Spacemit K3 USB3/PCIe comb phy
+ support
+Message-ID: <afhx6C2EvDbMJc92@inochi.infowork>
+References: <20260430022843.1090138-1-inochiama@gmail.com>
+ <20260430022843.1090138-2-inochiama@gmail.com>
+ <20260504-logical-nice-python-1e1f43@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -64,407 +84,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260502111951.538488-3-salih.erim@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260504-logical-nice-python-1e1f43@quoll>
 
-On Sat, May 02, 2026 at 12:19:48PM +0100, Salih Erim wrote:
-> Add the AMD/Xilinx Versal System Monitor (SysMon) IIO driver.
+On Mon, May 04, 2026 at 11:54:11AM +0200, Krzysztof Kozlowski wrote:
+> On Thu, Apr 30, 2026 at 10:28:40AM +0800, Inochi Amaoto wrote:
+> > +properties:
+> > +  compatible:
+> > +    const: spacemit,k3-comb-phy
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  "#phy-cells":
+> > +    const: 2
+> > +    description:
+> > +      The first one is phy id, the second one is phy type.
 > 
-> The driver is split into a bus-agnostic core module
-> (versal-sysmon-core) and a memory-mapped I/O platform driver
-> (versal-sysmon). The core uses the regmap API so that different
-> bus implementations can share the same IIO logic.
+> You could mention here the defines representing supported phy types.
 > 
-> The core provides:
->   - Static temperature channels (current max/min, peak max/min)
->   - Supply voltage channels parsed from DT container nodes
->   - Temperature satellite channels parsed from DT container nodes
->   - read_raw for IIO_CHAN_INFO_RAW and IIO_CHAN_INFO_PROCESSED
->   - read_label using the DT label property
+
+OK.
+
+> > +
+> > +  spacemit,apb-spare:
+> > +    $ref: /schemas/types.yaml#/definitions/phandle
+> > +    description:
+> > +      Phandle to APB SPARE system controller interface, used for
+> > +      PHY calibration.
+> > +
+> > +  spacemit,apmu:
+> > +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> > +    items:
+> > +      - items:
+> > +          - description: phandle of APMU syscon
+> > +          - description: configuration of the PHY lanes
+> > +    description: |
+> > +      Phandle to control PHY mux configuration. The configuration
+> > +      is described as follows:
+> > +      bit 4: 0 - PCIe A x8 mode, 1 - PCIe lane share mode
+> > +      bit 3: 0 - PCIe A x4 mode, 1 - PCIe A x2 and PCIe B x2 mode
+> > +      bit 2: 0 - PCIe C lane 0 is PCIe mode , 1 - USB mode
+> > +      bit 1: 0 - PCIe C lane 1 is PCIe mode , 1 - USB mode
+> > +      bit 0: 0 - PCIe D lane is PCIe mode , 1 - USB mode
 > 
-> The MMIO platform driver provides:
->   - Memory-mapped register access via custom regmap callbacks
->   - NPI unlock before every register write (platform management
->     controller may re-lock NPI unpredictably on Versal devices)
+> I assume this device k3-comb-phy handles phys for PCIe A, B, C and D?
 > 
-> Threshold events, oversampling, and I2C bus support are added in
-> subsequent patches.
 
-...
-
-IWYU please:
-
-+ array_size.h
-
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/module.h>
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-
-+ string.h
-+ types.h
-
-(and maybe more that I missed).
-
-
-...
-
-> +#define SYSMON_CHAN_TEMP(_chan, _address, _ext) {		\
-> +	.type = IIO_TEMP,					\
-> +	.indexed = 1,						\
-> +	.address = _address,					\
-> +	.channel = _chan,					\
-
-> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |		\
-> +		BIT(IIO_CHAN_INFO_PROCESSED),			\
-
-It's better to use the following style:
-
-	.info_mask_separate =					\
-		BIT(IIO_CHAN_INFO_RAW) |			\
-		BIT(IIO_CHAN_INFO_PROCESSED),			\
-
-
-> +	.scan_type = {						\
-> +		.sign = 's',					\
-> +		.realbits = 15,					\
-> +		.storagebits = 16,				\
-> +		.endianness = IIO_CPU,				\
-> +	},							\
-> +	.datasheet_name = _ext,					\
-> +}
-
-...
-
-> +static void sysmon_q8p7_to_millicelsius(int raw_data, int *val)
-> +{
-> +	*val = ((s16)raw_data * SYSMON_MILLI) >> SYSMON_FRACTIONAL_SHIFT;
-
-No casting is needed, just make the type s16 to begin with.
-
-> +}
-
-...
-
-> +static void sysmon_supply_rawtoprocessed(int raw_data, int *val)
-> +{
-> +	int mantissa, format, exponent;
-> +
-> +	mantissa = FIELD_GET(SYSMON_MANTISSA_MASK, raw_data);
-> +	exponent = SYSMON_SUPPLY_MANTISSA_BITS - FIELD_GET(SYSMON_MODE_MASK, raw_data);
-> +	format = FIELD_GET(SYSMON_FMT_MASK, raw_data);
-> +	/*
-> +	 * When format bit is set the mantissa is two's complement
-> +	 * (per hardware spec); sign-extend to int for correct arithmetic.
-> +	 */
-> +	if (format)
-> +		mantissa = (int)(s16)mantissa;
-
-Potential user of FIELD_GET_SIGNED(), but for now just use explicit call to
-sign_extend32().
-
-> +	*val = (mantissa * SYSMON_MILLI) >> exponent;
-> +}
-
-...
-
-> +static int sysmon_read_raw(struct iio_dev *indio_dev,
-> +			   struct iio_chan_spec const *chan, int *val,
-> +			   int *val2, long mask)
-
-Use logical split:
-
-static int sysmon_read_raw(struct iio_dev *indio_dev,
-			   struct iio_chan_spec const *chan, int *val, int *val2,
-			   long mask)
-
-OR (to be strict in 80 limit)
-
-static int sysmon_read_raw(struct iio_dev *indio_dev,
-			   struct iio_chan_spec const *chan,
-			   int *val, int *val2, long mask)
-
-> +{
-> +	struct sysmon *sysmon = iio_priv(indio_dev);
-> +	unsigned int regval;
-> +	int ret;
-> +
-> +	if (mask != IIO_CHAN_INFO_RAW && mask != IIO_CHAN_INFO_PROCESSED)
-> +		return -EINVAL;
-> +
-> +	guard(mutex)(&sysmon->lock);
-> +
-> +	switch (chan->type) {
-> +	case IIO_TEMP:
-> +		ret = regmap_read(sysmon->regmap, chan->address, &regval);
-> +		if (ret)
-> +			return ret;
-> +		if (mask == IIO_CHAN_INFO_PROCESSED)
-> +			sysmon_q8p7_to_millicelsius(regval, val);
-> +		else
-> +			*val = (int)regval;
-
-Why casting?
-
-> +		return IIO_VAL_INT;
-> +
-> +	case IIO_VOLTAGE:
-> +		ret = regmap_read(sysmon->regmap,
-> +				  (chan->address * SYSMON_REG_STRIDE) + SYSMON_SUPPLY_BASE,
-> +				  &regval);
-> +		if (ret)
-> +			return ret;
-> +		if (mask == IIO_CHAN_INFO_PROCESSED)
-> +			sysmon_supply_rawtoprocessed(regval, val);
-> +		else
-> +			*val = (int)regval;
-
-Ditto.
-
-> +		return IIO_VAL_INT;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-...
-
-> +/**
-> + * sysmon_parse_fw() - Parse firmware nodes and configure IIO channels.
-> + * @indio_dev: IIO device instance
-> + * @dev: Parent device
-> + *
-> + * Reads supply-channels and temperature-channels container nodes from
-> + * firmware and builds the IIO channel array. Static temperature channels
-> + * are prepended, followed by supply and satellite channels from DT.
-> + *
-> + * Return: 0 on success, negative errno on failure.
-> + */
-> +static int sysmon_parse_fw(struct iio_dev *indio_dev, struct device *dev)
-> +{
-> +	unsigned int idx, temp_chan_idx, volt_chan_idx;
-> +	struct fwnode_handle *supply_node, *temp_node;
-
-> +	unsigned int num_supply = 0, num_temp = 0;
-
-Better for maintenance to split these assignments and perform them when they
-are really needed.
-
-> +	struct iio_chan_spec *sysmon_channels;
-> +	const char *label;
-> +	u32 reg;
-> +	int ret;
-
-> +	supply_node = device_get_named_child_node(dev, "supply-channels");
-
-Use what cleanup.h provides you,
-
-> +	if (supply_node)
-> +		num_supply = fwnode_get_child_node_count(supply_node);
-> +
-> +	temp_node = device_get_named_child_node(dev, "temperature-channels");
-> +	if (temp_node)
-> +		num_temp = fwnode_get_child_node_count(temp_node);
-
-As per above.
-
-> +	sysmon_channels = devm_kcalloc(dev,
-> +				       ARRAY_SIZE(temp_channels) +
-> +				       num_supply + num_temp,
-
-Each of num_supply and num_temp may lead to overflow on 32-bit machines.
-
-> +				       sizeof(*sysmon_channels), GFP_KERNEL);
-> +	if (!sysmon_channels) {
-> +		ret = -ENOMEM;
-> +		goto err_put;
-> +	}
-> +
-> +	/* Static temperature channels first (fixed indices) */
-> +	idx = 0;
-> +	memcpy(sysmon_channels, temp_channels, sizeof(temp_channels));
-> +	idx += ARRAY_SIZE(temp_channels);
-> +
-> +	/* Supply channels from DT */
-
-> +	if (supply_node) {
-
-Why? Do you expect the below loop to go on this being NULL?
-
-> +		fwnode_for_each_child_node_scoped(supply_node, child) {
-> +			ret = fwnode_property_read_u32(child, "reg", &reg);
-> +			if (ret < 0)
-> +				goto err_put;
-> +
-> +			if (reg > SYSMON_SUPPLY_IDX_MAX) {
-> +				ret = -EINVAL;
-> +				dev_err(dev, "supply reg %u exceeds max %u\n",
-> +					reg, SYSMON_SUPPLY_IDX_MAX);
-> +				goto err_put;
-> +			}
-> +
-> +			ret = fwnode_property_read_string(child, "label",
-> +							  &label);
-> +			if (ret < 0)
-> +				goto err_put;
-> +
-> +			sysmon_channels[idx++] = (struct iio_chan_spec) {
-> +				.type = IIO_VOLTAGE,
-> +				.indexed = 1,
-> +				.address = reg,
-> +				.info_mask_separate =
-> +					BIT(IIO_CHAN_INFO_RAW) |
-> +					BIT(IIO_CHAN_INFO_PROCESSED),
-> +				.scan_type = {
-> +					.realbits = 19,
-> +					.storagebits = 32,
-> +					.endianness = IIO_CPU,
-> +					.sign = fwnode_property_read_bool(child,
-> +						"bipolar") ? 's' : 'u',
-> +				},
-> +				.datasheet_name = label,
-> +			};
-> +		}
-> +		fwnode_handle_put(supply_node);
-> +		supply_node = NULL;
-> +	}
-> +
-> +	/* Temperature satellite channels from DT */
-> +	if (temp_node) {
-
-As per above.
-
-> +		fwnode_for_each_child_node_scoped(temp_node, child) {
-> +			ret = fwnode_property_read_u32(child, "reg", &reg);
-> +			if (ret < 0)
-> +				goto err_put;
-> +
-> +			if (reg < 1 || reg > SYSMON_TEMP_SAT_MAX) {
-> +				ret = -EINVAL;
-> +				dev_err(dev, "temp reg %u out of range [1..%u]\n",
-> +					reg, SYSMON_TEMP_SAT_MAX);
-> +				goto err_put;
-> +			}
-> +
-> +			ret = fwnode_property_read_string(child, "label",
-> +							  &label);
-> +			if (ret < 0)
-> +				goto err_put;
-> +
-> +			sysmon_channels[idx++] = (struct iio_chan_spec) {
-> +				.type = IIO_TEMP,
-> +				.indexed = 1,
-> +				.address = SYSMON_TEMP_SAT_BASE +
-> +					   ((reg - 1) * SYSMON_REG_STRIDE),
-> +				.info_mask_separate =
-> +					BIT(IIO_CHAN_INFO_RAW) |
-> +					BIT(IIO_CHAN_INFO_PROCESSED),
-> +				.scan_type = {
-> +					.sign = 's',
-> +					.realbits = 15,
-> +					.storagebits = 16,
-> +					.endianness = IIO_CPU,
-> +				},
-> +				.datasheet_name = label,
-> +			};
-> +		}
-> +		fwnode_handle_put(temp_node);
-> +		temp_node = NULL;
-> +	}
-> +
-> +	indio_dev->num_channels = idx;
-> +	indio_dev->info = &sysmon_iio_info;
-> +
-> +	/*
-> +	 * Assign per-type sequential channel numbers.
-> +	 * IIO sysfs uses type prefix (in_tempN, in_voltageN)
-> +	 * so numbers only need to be unique within each type.
-> +	 */
-> +	temp_chan_idx = 0;
-> +	volt_chan_idx = 0;
-> +	for (idx = 0; idx < indio_dev->num_channels; idx++) {
-> +		if (sysmon_channels[idx].type == IIO_TEMP)
-> +			sysmon_channels[idx].channel = temp_chan_idx++;
-> +		else
-> +			sysmon_channels[idx].channel = volt_chan_idx++;
-> +	}
-> +
-> +	indio_dev->channels = sysmon_channels;
-> +
-> +	return 0;
-> +
-> +err_put:
-> +	fwnode_handle_put(supply_node);
-> +	fwnode_handle_put(temp_node);
-> +	return ret;
-> +}
-
-...
-
-> +#include <linux/io.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-
-As per above, please respect and follow IWYU principle.
-
-...
-
-> +static int sysmon_platform_probe(struct platform_device *pdev)
-> +{
-> +	struct sysmon_mmio *mmio;
-> +	struct regmap *regmap;
-> +	int irq;
-> +
-> +	mmio = devm_kzalloc(&pdev->dev, sizeof(*mmio), GFP_KERNEL);
-> +	if (!mmio)
-> +		return -ENOMEM;
-> +
-> +	mmio->base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(mmio->base))
-> +		return PTR_ERR(mmio->base);
-> +
-> +	regmap = devm_regmap_init(&pdev->dev, NULL, mmio,
-
-Using
-
-	struct device *dev = &pdev->dev;
-
-at the top of the function makes this code neater and probably a single line.
-
-> +				  &sysmon_mmio_regmap_config);
-> +	if (IS_ERR(regmap))
-> +		return PTR_ERR(regmap);
-> +
-> +	irq = platform_get_irq_optional(pdev, 0);
-> +
-> +	return sysmon_core_probe(&pdev->dev, regmap, irq);
-> +}
-
-...
-
-> +#include <linux/iio/iio.h>
-> +#include <linux/mutex.h>
-> +#include <linux/regmap.h>
-
-Ditto for the header files, use and follow the IWYU principle.
-
-...
-
-> +/* Signed milli scale (MILLI from linux/units.h is unsigned long) */
-> +#define SYSMON_MILLI			1000
-
-I think you want a different approach. I already forgot how it's being used,
-but there shouldn't be a new (re-)definition just because of this.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+In fact it handles phys for PCIe A-E. The mux for the phy of PCIe E 
+(the id is 5) is controlled by bit 4. If the comb PHY is in shared
+mode, the PCIe E always got one lane.
+
+I think it is good to add a public link for this configuration, but
+Spacemit has no opened any document for this publicly....
+
+> > +
+> > +      The bit[3:0] is only valid when bit 4 is 1.
+> > +
+> > +required:
+> > +  - compatible
+> 
+> reg required.
+> 
+
+It is fine for me
+
+> > +  - "#phy-cells"
+> > +  - spacemit,apb-spare
+> > +  - spacemit,apmu
+> > +
+> > +additionalProperties: false
+> 
+> Best regards,
+> Krzysztof
+> 
+
+Regards,
+Inochi
