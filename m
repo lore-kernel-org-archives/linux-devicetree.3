@@ -1,307 +1,380 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010058.outbound.protection.outlook.com [40.93.198.58])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7993C2147E5;
-	Sun,  3 May 2026 22:52:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.58
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204B77E0E8;
+	Mon,  4 May 2026 01:31:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.135.77
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777848774; cv=fail; b=bAgoFYS0TBJ/M97hEc7qoeQAQ54LXNEHnUiGW5rSF+NPCTwNF1MAVu+K9Ahtbd/l0YqjvclJGhj5UhDQj3v7m9M5i/0lU5lXXDLtgWWFUONYMAnqN40ASdlm5tMw1ajbNpmc/siKun+9qUYX+R5SjzsTRX3gMWIu4IZ21jxl4wI=
+	t=1777858290; cv=fail; b=uWjUoeJLwnPmrVemr9g0fcMBfnTFaSqWXfsOVBsTnld5oXE2k2r/W9gaCuQcOr9qp0Km2tPt+RNodgriLQ1wIrWxL/p7Xul3iyCwQA4PrGmVRv5KWteNE0Er1WDFijDo+nNwvxhtLimOKfXU5NCu06rR+df7sV55bH691xWAutU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777848774; c=relaxed/simple;
-	bh=VtNTqkHjzw79+FNuTqvJtkTKtp7imDGAZ3enmU4S55Q=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=qK8Zsez8kxuMhi9vUOZgRqVbBlhWzz6nuzjh0+MMEYEThsA5lt3EacBxKcOyFyMc0zWMmqFqecWG/d5KfYfeRzv0E/6GDHBcEYnWF64B3tvO51NKm6jyIY4lLwm08Jf8gXcSwKQ/7UsJ4KmvNVHTs6iZwbNVU3eUbVl0ehSRkDI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Lee8eZN4; arc=fail smtp.client-ip=40.93.198.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1777858290; c=relaxed/simple;
+	bh=7yR9oQuKZfWXBMrAf/Axd0MmCzhhU7aM5BNl3VGFxIs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=i3dz2BEOH3InXweUZ5JU71/HuNnbUi0jafumr+jq722jtAKR3UH2cF7xTOtSn/tU4gROrDJcUKubTXaGhRsltjcNcU5aZjTMZ1URoj/tMr2UwgW4Vl6a2cbfjALfNgc+im5hqdgT9uvzwLNsefdf0Gp2WJsYyHErLW339rj0sI4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=wh2PbZVn; arc=fail smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Lee8eZN4"
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="wh2PbZVn"
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 643NDlsC3423921;
+	Sun, 3 May 2026 21:31:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=Ututf
+	zy6PiXC+wWj7lRv2aCAi93NIo0dGWU/iKi9DDg=; b=wh2PbZVn+7leZD39DtAdL
+	ZAmiKkfPl8GLcfdLnZcy8xr07OGTWY26xo5wKFKZciCYJfZO2nap3UnlZevvxJTE
+	Q+6e+cNYzcAozjklA1r2ridqu/9Qb7Vivmpi22oSphgDy0+isfj+9mQIgdOFVVfw
+	/aIRvMRCaMJlw7enqRZgU0zcKd62DP2mZ37t0tFDFOcI06ogfBIWK7AovgXxSDix
+	43eLaXtMCkV4vLUTlLX7OmChowQXY2YSiI6qoTPhwgqePB4au7CC6dybsWO/SLPp
+	yXf8d46/roenePPXYL2c0XjsoMnkljDwDLKSYSB8TvhBOEi7RDIPTcHacvNHEoH+
+	Q==
+Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011071.outbound.protection.outlook.com [40.93.194.71])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4dx2kfjbch-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sun, 03 May 2026 21:31:24 -0400 (EDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fcMVGv5ylDsYihmajkljrWrYXN8ap1vLu6ToK7G8gdDmNSOlosIHASxw/hz7RiASPY9pzTY24JzbAeth1Mp0brYAzZn/gAG/QJoCFIAHRA096OYNAiCT90qDfuvWJCdriV0d+65iJ1EPJtAr78n9JBeNJyySlWXX13MmadI4V7ziCg5tRb7c1jWcsIlwf7ULz1oSgQTbuXcQukGGa1nBPqHSiWAVFpN9lkIReVaPhSfAcMuol+5trD1BkzP2SxAP+GDdu+2BdWTulF+4Wf6Pc97D/tk9SdUf9dXiwKJTMOG9+MICA8umiEclKpZSlRRK78Vk2nYnRor19fIdJBP/QA==
+ b=dWMMPLcEXUd+9Wi3QkfIrxH2AWVl7sxDkek7pUcAAXX2F3f6rkbBZkVuDCb6Cd8qtJ5Yhtapi9gyTofN3IqbJMkPL+SfhPpo5iw9VH+s7zlZLV8kfKDpdB9Y64l5VdITuNV+7AKbTHPSZP/5pu6Ry3emSQqDQf1rv767W4BpzHx1wWvZR39iG9S+8Hy6WtXtHauM0FDuaKBirtfOmMlVhU7+YAFDR+IyKnsSXylZ6XN6iQjs4aF/rcsqaiNEhRkFpAcFI1fCv/BO3Cr8AHOjwJmadqxXqg3G5BUfYIKAGhXd+CPCsJpKbJFc7zFwtd3cApwEH1uYoJD11vr7fKIXwA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=inD4nesiHcqDEdP00TfZD8kaAeJNbLNFBsqbyteKa90=;
- b=HlslU5qrwRT9rC4Os4TzvjnBAsCUIhAE3kjFgH12vXNpcaf2SbOodycNYNIXzQfFvQUfDbRYsiFHHZh5kL0OHssfI9X6dGXiU/74mlrh2HeQcYWPnuJYdT2a/gmtTgrysIITFkewG0pIMKcRzKPpseL5AYiMDP94kIceFZaXUWcdckgKLomn+z+0vr3uA/IzNdwu+X16woEmj1AF6CGmxpWMAbu21sPpgZJQdpk9XaECKJVe2aJB6cOx2FB0yqrmyL5JTe3HrIdmcOH2+jfH3Gu0r7br7ygZUYJ87BXO9b9ggqt0DWBcydLPVqHR8UX1KozMXBCoUNKlCqpVq8sV2A==
+ bh=Ututfzy6PiXC+wWj7lRv2aCAi93NIo0dGWU/iKi9DDg=;
+ b=nQdnGZAOTSVhltA0KzpQZtxXzjKF7vE38CHpBZfBhPxXkjaGo21nMldL52U4gIBVjXZH10EMSJV5329hpt4s9WxW9EMZnMk0dSyda8PIMky9z5SKFnkY1nZpxrr15p+hVtgLaspAd2+Is37S0O9KBTyvF2mukSdxRB7DTLJ6uIwH5FmWBnyL9Y/0+ztEb8Nj5aAYfRtulv2Zj/nfdMKw14vQ7LfeciM9faP5SIaVhyqHDh3N9XNkgkX6kjkMLmSMcr4uBdXEe6g135KjRqXKp+ZqntpRO3uD14kv2NtDLRiCnMCPEWyORuTdqrzQ6upHAHyWmduS+qYHZ1iMgKtg7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=inD4nesiHcqDEdP00TfZD8kaAeJNbLNFBsqbyteKa90=;
- b=Lee8eZN4fuQYpgAubnf8CQjL/7z5LKlKRCiMKQhKurXLA0y3wlEc+FSI4sOynvQYw3G/Lauo0LW3FKsGqR5HybZ81TgIRtfoewcnvhL6LlcwfF4zK1SYBLFwRMRHZvEy3DOwSyby5r9Sk9/y2rh0AWnO5wu661LsYp62kcn9RgY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB7736.namprd12.prod.outlook.com (2603:10b6:208:420::15)
- by PH7PR12MB6835.namprd12.prod.outlook.com (2603:10b6:510:1b5::14) with
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
+Received: from DS0PR03MB7228.namprd03.prod.outlook.com (2603:10b6:8:126::15)
+ by DS0PR03MB7680.namprd03.prod.outlook.com (2603:10b6:8:1fb::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Sun, 3 May
- 2026 22:52:45 +0000
-Received: from IA1PR12MB7736.namprd12.prod.outlook.com
- ([fe80::2274:9fed:8f3:8550]) by IA1PR12MB7736.namprd12.prod.outlook.com
- ([fe80::2274:9fed:8f3:8550%6]) with mapi id 15.20.9870.023; Sun, 3 May 2026
- 22:52:44 +0000
-Message-ID: <28c65ef6-a777-47ba-875b-5a75ac457815@amd.com>
-Date: Sun, 3 May 2026 23:52:39 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] dt-bindings: iio: adc: add xlnx,versal-sysmon
- binding
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, git@amd.com, nuno.sa@analog.com, andy@kernel.org,
- dlechner@baylibre.com, michal.simek@amd.com, conall.ogriofa@amd.com,
- erimsalih@gmail.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260502111951.538488-1-salih.erim@amd.com>
- <20260502111951.538488-2-salih.erim@amd.com>
- <20260503-rebel-sassy-weasel-ed26ee@quoll>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
+ 2026 01:31:22 +0000
+Received: from DS0PR03MB7228.namprd03.prod.outlook.com
+ ([fe80::f873:a933:7837:67f5]) by DS0PR03MB7228.namprd03.prod.outlook.com
+ ([fe80::f873:a933:7837:67f5%5]) with mapi id 15.20.9870.023; Mon, 4 May 2026
+ 01:31:22 +0000
+From: "Escala, Edelweise" <Edelweise.Escala@analog.com>
+To: Lee Jones <lee@kernel.org>
+CC: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "linux-leds@vger.kernel.org" <linux-leds@vger.kernel.org>,
+        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v6 2/2] leds: ltc3220: Add Support for LTC3220 18 channel
+ LED Driver
+Thread-Topic: [PATCH v6 2/2] leds: ltc3220: Add Support for LTC3220 18 channel
+ LED Driver
+Thread-Index: AQHczk6XLUbstFfY6UahsFZK2E3YZ7X37DqAgAU8GsA=
+Date: Mon, 4 May 2026 01:31:22 +0000
+Message-ID:
+ <DS0PR03MB7228ACA655995A9CAC025B35ED312@DS0PR03MB7228.namprd03.prod.outlook.com>
+References: <20260417-ltc3220-driver-v6-0-18157871eddd@analog.com>
+ <20260417-ltc3220-driver-v6-2-18157871eddd@analog.com>
+ <20260430171145.GA2661693@google.com>
+In-Reply-To: <20260430171145.GA2661693@google.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Salih Erim <salih.erim@amd.com>
-In-Reply-To: <20260503-rebel-sassy-weasel-ed26ee@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO2P265CA0508.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:13b::15) To IA1PR12MB7736.namprd12.prod.outlook.com
- (2603:10b6:208:420::15)
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR03MB7228:EE_|DS0PR03MB7680:EE_
+x-ms-office365-filtering-correlation-id: ab1342a0-27ca-42df-6234-08dea97cd964
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|10070799003|376014|38070700021|56012099003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ Ayw60SQLR1CFkP3JbQAo/GNreT1F+MBHTitfQUfRFZwDnY03BsYpA+S/wT5XN3iywpKON6K29J9Xn7WLOPRx+alSdDHVay3qKpT7LFGqgRe91+Eig1as0T1y5imM2SAiSJhO81BwU5cP090q6A4ZaWPpMw4tNCFhjDJRHEqDUnLvuuMxMgt2GIZTIs8IBNdBA8qwJVde0n8Nrqwj6NCspX2dwaTMRHwNFzUFILC9JHKP1z8pwYyM+w/J1OiYtIEpH5E6KmkW5x+4Fos/PhdpU4hWYTKF+p31H6cEzftQfKTC9f1pRXWZSAZVwvFiYoAl2rfL7gybPYeFCLTGA9I4794aMrcjW3gBuLTfJuOaW3hFqNSfOPitrhQUN/Lszd+5EIJawv6ZXwi8SGPLyrRqorwjFQTuLL4FFi/OiW1iDUbwHvucpGaUgUzbcaDDo0TosJL73BztcPSWQ2vEofHy3Nw21OqMIeq7QG1D4Tvkyf3JvLKUbKtr06x9boVjzBEF7v4lyx//xKNEwSumXRmKkDFmUXqzPhzUx7p0WP2yEmMVqAQXQsT1TWRUKRVWbTkmykSyzbRW+EwQVjoYJU2/I5E+7Cej/PTeqKEpXXY5CaE0kcj+CDzMWurC+asz3qdo0c7Uyz/PjgDy7xsJvvl1RcLrtZIwrGdrU9aF9NAZ2HlKMdjLwdTswDu3vUj6aiwKS4Hz9Mut0dn1fw94NNQYeRSeK86KjeTxieVlpn2K88wOa0gBc3K3jAAghe7jua1D
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR03MB7228.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(10070799003)(376014)(38070700021)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?XMCjKOzpBWMH/snDSzwHuyC2eL5mu5NP2FxsAmWTHYAyWV2rVTD5P4ld2Fuy?=
+ =?us-ascii?Q?aVSp64chZ8zQQR4nZd/oyBPFvPrR+JIX6U7otJegwqhgzyn2C6EZIN4DKXGx?=
+ =?us-ascii?Q?o3uRIZpkxzJsxrq141iQFvH0tr70YlTydSiG4yOZygabk1HtnHAP9REBFpdd?=
+ =?us-ascii?Q?gJiK3WaKHXcbQ/wdbDtOPoFX2TbDEmRfH4d1ERByGvdsF8EyoSs5nZ4WBCBE?=
+ =?us-ascii?Q?zwvpT0Ky6ml68PM71awwsrj9m0OFsipH40wFhLrZHLcpZUf653EENkO/TIwP?=
+ =?us-ascii?Q?cZvTdtCPJedezRFCDXkyyY699oAU5dOhF34fAK88fPm6eyo0pOKAmjJlaj2F?=
+ =?us-ascii?Q?ZSCumzz9/jt6ohEpamxraN3FER7MeArBFkdXP8ckPx0OnN2WGHJw+lYtdPw0?=
+ =?us-ascii?Q?S5GSA0VO6YJmLmQI4QqTOuJPrBL+MO6VaaQVhsPtvY7Crffbg/FeMAW5Sr4S?=
+ =?us-ascii?Q?FMSLRkBm83buIYrJVn6AuEY4mEDCIludbOOFFyCvLiM1u+Ds636HvmLaEjr+?=
+ =?us-ascii?Q?tGNTnifEa8BLisHc/5itdij3pj0bFRvo4zt4whK0qs425qDHH7SKXc31IJsF?=
+ =?us-ascii?Q?KGzeH9v82J74KPFWVTtjaW/RdsNWnd8+h2sC3Gm2sEb8m2Zx4UWuqbcMGZ63?=
+ =?us-ascii?Q?cdYQsGFFX6w4xirqR2ccn7AZkgtN4pING1m96r2mZCzoEOv7cwXxJTaqtaWP?=
+ =?us-ascii?Q?VIj0GVuKeZS5NJ+Fwm38LDPVPrAsX+iUQ00PB5DbZzFb3b9UvQ9Ui9vr53XG?=
+ =?us-ascii?Q?m6lq9dA+VNTYMVqmfDVnPcVrxD+lej5ono1zSuD+79Gnyj+mYpXSwxsiC0HZ?=
+ =?us-ascii?Q?7XgKfkNc+Ng5v6hY5Jd2EPmZQoA56j3WQCh2dnWtLNYLKGEkVPZ9JBgVzANc?=
+ =?us-ascii?Q?WYqr1m3mNayGRnrITe2JdphEVmS6IZGpHCwP/e1gfHY0Pl1L9GujgQiHj8EH?=
+ =?us-ascii?Q?O6MPTSqtUdFTh7rovCxVX1g0OpeBgcNMAq8h/PtyVDUUw9tNIHF5+3qLwquT?=
+ =?us-ascii?Q?zU8VlDW3c+3sLMnvLAryDPCXsLJn7iVFUM259y4Tcdxe+9w5vjBm6lcu+hYs?=
+ =?us-ascii?Q?jYREAc9wW+gjyuR8YBGrBp0LJZmi9bAUEvbYgolTcGXaiET5J24DTQSn6DOt?=
+ =?us-ascii?Q?XdIsskxKeEwh1G+VKcdDF95JMDBRgqJ3ODLe3OF84jpcnDuOb/CNOKEz/nsp?=
+ =?us-ascii?Q?YEsBuP/2N9wGjDu29AycJWFJrFGPcFucRJ69KG4TwYvU2bKbjwTkZFKwmjZi?=
+ =?us-ascii?Q?qEbr4ufMeeq0OYe+5iQbSzESKTBZwnLjJC+pv77xT2oprX/TjuFlDq1uBGbb?=
+ =?us-ascii?Q?4839JEBniseSQhaSaRwj3hRCwVQG1O58Axuyk8Wxhn0Il4TpI5xMF3gM3Z2U?=
+ =?us-ascii?Q?5+mHy+V4ScE29J5AOmCvdaLbxQHHH9eGmh4NYWCi5p8szqR+16gnC1D+I5cH?=
+ =?us-ascii?Q?CCq2wiAu54MtXXWqVyljaqRhnXuYE0wWDmV3u9VcXvb+0Z/OKTcqF86WKyww?=
+ =?us-ascii?Q?dzanLQ4wChSb46ObCl3IoyhE7Wpc+pqTMZ2qPgxScGZzvPL7DkWAAaMoTkqn?=
+ =?us-ascii?Q?EKaFUpaPstAHXCxZmg2afBeuVjEQKbUpqds7im5szPg3mtLd6y0E8Wc3Wtng?=
+ =?us-ascii?Q?RosschjM3Af5MFim0gwN4o4qeiTmsLet5x4ZuZiViQDvjDqBXQIe41Zt+UrD?=
+ =?us-ascii?Q?tjf9wo16XzN40ChrpM7UUsFv8LG/C8bZeVUWfolDq/D4fbzc+Xy2Jrk+CTcR?=
+ =?us-ascii?Q?7cjB6jYMupv9dnu5d584ly40okTUTe1opmZhECxCnkaVA/yCmIxWbBL5CTJb?=
+x-ms-exchange-antispam-messagedata-1: Uh0SSw/9dYnmCA==
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB7736:EE_|PH7PR12MB6835:EE_
-X-MS-Office365-Filtering-Correlation-Id: d13ca11d-2dd4-49fe-7e12-08dea966b05f
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	vln3oK733j8siSqQUBOPNfP+5QBL4buXnWKHVO29rPIBpLcvx8KebRDbpBV458GxbJBNw9kER1TSrbRCoS5g9ZNA1i8CI3QeKv7nsC4uOeL64U+CxXobfqha+c8EmpbDqpIDLrSwWOz4SEy0S/lmi94i/D47BzjnDEtAU5Sm0DpoPAAAM98k7ltoIaDbLqkwgn9iEupnkDzAL/3WiLeUqhGxixrhMtEMymfCrsDOqy+IsX76CGl3pco/09S8GNfqND78o3KaP7MHFl+vwJ0hsBV+ldmbrhoR3Vky57RT4j29Vhx4cBukJ8SaVgh01Ei+hnyd+qRAZydQNiGaS/gyVkBPO+AIja0NsKG30SkUwbmoGKCKuXA4Z/YT1e85+FMc/r2uLIatMYMFfqEsN+1tMn9izcpCBEhu4nfbWBNnlfCDJ4DyKcOvtxhdZ1tiwMYQJ/R1HWOzRBBMyw6gnOLnrw2RHrNF9crhk4d2u9BQBZS4Sw5xHLma769HliOFwMRYqV6VHfM3qdehUGrYkLDakedZalNwBCnELWjLddqjoVl9H/ZWrieGeQS0qDzBvyrOSMQCvVD9laP6Qd0OGwTCwd6kxXQS3UFqWBA1hX/hFCcCWJDqk7HUmhPQQtsGdPgrOfMBILksbNnsHwv1yk+rRwyzXk00NaBrcC1G3Smsl3s4n/VmNo9Gg+4nb8QBhi39
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB7736.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MVZUYTdoUjNIZEJ1VkcvdFlERkFLc1B1bWcrU0ZvUGMydTVBWkJhSGt6U0tO?=
- =?utf-8?B?WVJoeHUxbWRiREUxeFhab0hXNDVYRUdzbU04cWRWNmhWUmZ6YTBZTWxxanZw?=
- =?utf-8?B?RTkybVN2ZS9jYkdsNGJyRTJBMldjK2lHZGFOZ0JTbzI2Y05Ic3YrK0tnNXV1?=
- =?utf-8?B?eFI3YTJzNCtDU2U4Mm50T0Q5NFdoRWhSWTRFWThiN0N4cWdxSGVEKzdGVk5y?=
- =?utf-8?B?ZGRRb0Uvb1Roa1V3OXp2d3ZEUjdEL1BZTS84c1lubUMvZVNkMnBjOWRsT05Y?=
- =?utf-8?B?MHJRSnRkQVVnSEhXSHNMNVZMbTV5M2IxbFk4QVpZZWczMnRlK1YyWVJFb25O?=
- =?utf-8?B?cHI0T2NJcHp1cEVtaDlPTmluanlrZ3YwZDNaWURjOFAzNTdQYUgrQTNrdjNm?=
- =?utf-8?B?bWs4SmhQazZRNGpPUkFYVXgrUXhEREtlM3JmOEIzUXR2OWhtbmZHZWZPSEd6?=
- =?utf-8?B?YnVCKzRRam8xdGRMc3k0bVpHSGZTOHhUNXZqdzgzbVJ5Zks3QmZqNkhSNE1R?=
- =?utf-8?B?QWpUVGF6K3lKa0VkUkplL2Z3Z0Frc3FHektjRStuOFFaQ28vREtmMmdFMFA0?=
- =?utf-8?B?SmQ4TXZ0S2Vuc29DSmpMbm5QUHE5eWJGQzA0OWRSZ3dtZnorRmRFUFNwNUR4?=
- =?utf-8?B?Rk9JTTRabmx0K0hRYlRoS2ZxQUlPK21uT2FmM2tGUWt1RUUyUEd5TEIzQVBr?=
- =?utf-8?B?cWN3ZC8wVGdGaFhkTTk1cUNZNXk1U0lJeERPTlpGS3J4bklMdWZ1clhvWTJs?=
- =?utf-8?B?TjZsSDlzajdmMTVJUGFYNmo0OS80Uy8wcWwvTnVnTVhCZXF5bUdSQ0grYTBl?=
- =?utf-8?B?eUZoRVk4Q1RNVTZiYk1SWGU3REpDRVlSRUFlQ0txUkJDeVI3TlhMUUhyQ0ty?=
- =?utf-8?B?L1Q0WE9zRmdMRGtvSkhrUFNVSEhvaWJuR3VTbmZXeTJObGdMNFBpQVJUa0F1?=
- =?utf-8?B?MEExbVlqODljOUtwZzUrVHVDSVMrbWZ3K1pQN2NPS0ljQWZSV1NLdW9lN2Zy?=
- =?utf-8?B?ekpnTDd5YW90R1ByZjJXY2ptWnNmVWxGcFlIU0JXdUE1M24yTVBTZUlhTXlk?=
- =?utf-8?B?aEQ5bzZJRFh5K25DME9tbmdZb1dKSWNsYWRzbWJoNlZibmZXMUx6WVpGZHZJ?=
- =?utf-8?B?TXMrL1Z5bnB4Qk1aYjQzb282QUwvblFBbzc1Zy9xcTRKeEUvdW9vVko0dkRT?=
- =?utf-8?B?UlNMT3A5bDlQSmRQZXJqWFNYc0lsUzl5NGJ4UkE5aGdHYktWdGVjYzhMN0xr?=
- =?utf-8?B?ejBkclZsVWY3Y3ZWb2xRRXBBdGlBNWNsZllWZlFpRXJJOXRLUFJQbytOYXpE?=
- =?utf-8?B?ODNiQkNJWUF5UFhTRm1hREtIMnIwazhxd1U2bWhlWVh1SkVNdTZadWVXSjB1?=
- =?utf-8?B?U3RqYUg2WmdDNmZVTjNUbUlSanVNdi8xOXJGNXdNUk0zem5vdWNraHp4Rk5v?=
- =?utf-8?B?Vkl6RDcraTlsWTBKbjIyLzJmVkxPTWozKzFWWlFMRThsWlFkOElhWFdyeVV5?=
- =?utf-8?B?RkUyYTBvb2xzWlZoRlR4QTl4RmlCUHpldXpDNkVjblI3SmZScnhGUXBXZlRV?=
- =?utf-8?B?NHlBU1RFaWZsK1J0SzZVZ1ZtaDAwd3BWVFNDQUl5SlZaalhQay8weFdxWjVW?=
- =?utf-8?B?QTVnSmszVHQ3RzBXSXFDcFFmYWdrMytBV3RSaTNyQUhsY08xMVdZWU9YdW9z?=
- =?utf-8?B?WjdObDVrOXo4Q3FtbTN4VWFrWktkbzJtL0NDLys5MWhrUWZkR3hIMW1BU2wy?=
- =?utf-8?B?cExFU3QzWm5GUml2ak5EbnlWajUrZjlxaTBtOFdLaXZZdEFHVzVNVUxsTWhs?=
- =?utf-8?B?Um93dGhFWnlkWTF2TWM0KzRtczhBMTFjRWN5UUJNOGxjak9LdHJzRjMydkd0?=
- =?utf-8?B?NXhnd1AyYTlvbkF4L21mU3E0blBubTBnS2ZVYWlML0RtbzlCYVdjRFBaeDlq?=
- =?utf-8?B?bTVNeEhuT1RMWFVER0R3TzE4MGR3Tkx6ZVh2dC9nakxKdmMvWFA1eHZWdHhq?=
- =?utf-8?B?V0dOK2pTWTI1VHR1ZW0yTVh0dTJweGduYjBMK0R0d3dNdEltV2JXbnphMGk5?=
- =?utf-8?B?MG9SVXVFZzNKREt4N0VaWGxXazYwaUFWYzNPU0praXJ6VStqTE5vU2pnY0h6?=
- =?utf-8?B?TDI0OEd2SzhpNnUxN25kQ0t0bjl4MXRsNHZ4Y1MzWStHdGNwMUw1bDZJanNP?=
- =?utf-8?B?NE5wdEt1aG9kTmczYVQvc0dlTTZ5M0src3hZZndjR3NpdTlNd2JQbEE4L0Jm?=
- =?utf-8?B?SDk3S2pJZVJQaEU2aFVFMklJTVpaUE5FR01yNFlqdU9PbE8rS2c0NG1qc1F4?=
- =?utf-8?Q?7Fmgari0fNGm5yz4O7?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d13ca11d-2dd4-49fe-7e12-08dea966b05f
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB7736.namprd12.prod.outlook.com
+X-Exchange-RoutingPolicyChecked:
+	Dp8ySJGbFBfG+PiEya1DgWQ8nk3RepoQ4nMyJX8INjiEkxvFnd/ZjOcNWj4Jp0TVwnQhM/GbwR9j0GXTF+tbo5Fk0PAOU74qHw/kbtvtzrJ+f8H3Cr3wTvR2VQUpUuGXAG6ROiIydiA/TBx05aPeA1maRQJklkFz+/yWEthbXvkzPf7fs+o+HGNwDmhJOKNGG5jIyGGew49yObt79nw2JXMtYCKjq40H58XJsxTU8swLnFz7cOsekmJ2P5jYI4/vVJHH65QqZZKi01W0l8Ixi9TnPq0mLh00/WbofHlSPa28wcPg4vsjqwrMlKlcjiC0urn9dCehkvyu1S2oWhmZdw==
+X-OriginatorOrg: analog.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2026 22:52:44.6940
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR03MB7228.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab1342a0-27ca-42df-6234-08dea97cd964
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 May 2026 01:31:22.1330
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RNs0KL9C7zLGWoPeHfIeE4vtTvVCWnl+2QC68d2upby7guL4FxJ3qOXoUrRM0jcD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6835
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: exqcpk/ZiDDfCXcS3ZonDAZz12MucAgycya0jh3eIrCs4vc6xylkDCerWSaz7kroo0DxbzQozHKAWNcRopP8hBvO9fZVi6dTYeapnvhQ4Ew=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR03MB7680
+X-Proofpoint-GUID: 5iAEuo1XzXw-krBaUaZ-JTnHnicBwv5T
+X-Proofpoint-ORIG-GUID: 5iAEuo1XzXw-krBaUaZ-JTnHnicBwv5T
+X-Authority-Analysis: v=2.4 cv=ZbMt8MVA c=1 sm=1 tr=0 ts=69f7f6ec cx=c_pps
+ a=ojhc/3A0J58/V7uwnPnIuw==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=OmVn7CZJonkx5R5zMQLL:22 a=gAnH3GRIAAAA:8 a=SYX0Y5NGJMQo1HSB2dcA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDAxNCBTYWx0ZWRfX3nqUaocbyW6Y
+ kxnwkwYmG5myVh3C/DmsuQ/xUNNxDl8iDUR4cGK1OcvthbO88P1rlU55AbXhSAQ/DkHH3abZE9M
+ xft/N8YnRxNvkpekyeEo3W9gjvu6lRaQaUkb6Z+JSnrarwd3psyB8VYglCRH7oTQ6Uxs+1GlHWj
+ C3rW/G0M+ajJZGmkjf/HD5Mp1Ss2IpNPcUoV00qp/8mQqLf86y+3ID8VHZ107EvW3Q+3RXrjddx
+ 6fwnN3miccW7iX9Azb0WN8r8NOC7j20TfufAh9Vyow2y6Dm8pPDU6pIXHqRd0BW3Ud2fYBIw1Pw
+ P4z2lIYcjpuCXKyAVnC535q1Wq1YsTtWOdoLAu+Y6TVvKhpLgSumOJNHKpk9GOJiyu1sE5Jms9G
+ ng0TVuQUZoQGZviaWciKtzPmrr+Frnkw5IrHFxiAN3UAVKqkVRm1WHgSbf0iavnD7p6KaQrkekO
+ jfk8b56n2CZliX8mvYQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-04_01,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 suspectscore=0 bulkscore=0 impostorscore=0
+ adultscore=0 spamscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605040014
 
-Hi Krzysztof,
+Hello Lee,
 
-Thanks for the review, Replies inline.
+Thank you for the review.
 
-On 5/3/2026 3:20 PM, Krzysztof Kozlowski wrote:
+> > +static const struct regmap_config ltc3220_regmap_config =3D {
+> > +	.reg_bits =3D 8,
+> > +	.val_bits =3D 8,
+> > +	.max_register =3D LTC3220_GRAD_BLINK_REG, };
+>=20
+> .cache_type?
+>=20
 
->> +
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - xlnx,versal-sysmon
->> +      - xlnx,versal-sysmon-i2c
-> 
-> This is explicitly mentioned in writing bindings. One device, one
-> compatible (not two, not three, not four compatibles).
+I will add=20
+.cache_type =3D REGCACHE_FLAT,
 
-Accepted. Will use single "xlnx,versal-sysmon" compatible. The I2C 
-driver will match via the I2C bus, so the bus type provides the 
-differentiation.
+> > +
+> > +struct ltc3220_uled_cfg {
+> > +	struct ltc3220_state *ltc3220_state;
+>=20
+> This is not a linked list.  Use container_of() instead.
+>=20
 
-> 
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->> +  '#io-channel-cells':
->> +    const: 1
->> +
->> +  supply-channels:
->> +    type: object
->> +    description:
->> +      Container for supply voltage measurement channels.
-> 
-> voltage, not supply. Supply is the source of energy coming to this
-> device. But are you measuring that source?
+Will drop struct ltc3220_state *ltc3220_state;, and use container_of()
 
-Accepted. Will rename to "voltage-channels".
+> > +	u8 reg_value;
+> > +	u8 led_index;
+> > +};
+> > +
+> > +struct ltc3220_state {
+>=20
+> Drop the "_state" part.
+>=20
 
-> 
->> +
->> +    properties:
->> +      '#address-cells':
->> +        const: 1
->> +
->> +      '#size-cells':
->> +        const: 0
->> +
->> +    patternProperties:
->> +      "^channel@([0-9a-f]|[1-9][0-9a-f])$":
-> 
-> Keep consistent quotes, either ' or "
+Will drop "_state"
 
-Will use single quotes throughout.
+> > +static int ltc3220_shutdown(struct ltc3220_state *ltc3220_state) {
+> > +	return regmap_update_bits(ltc3220_state->regmap,
+> LTC3220_COMMAND_REG,
+> > +				  LTC3220_SHUTDOWN_MASK,
+> LTC3220_SHUTDOWN_MASK); }
+> > +
+> > +static int ltc3220_resume_from_shutdown(struct ltc3220_state
+> > +*ltc3220_state) {
+> > +	return regmap_update_bits(ltc3220_state->regmap,
+> LTC3220_COMMAND_REG,
+> > +				  LTC3220_SHUTDOWN_MASK, 0);
+> > +}
+>=20
+> These do not need to be abstracted out.
+>=20
 
-> 
->> +        $ref: adc.yaml
->> +
->> +        description:
->> +          Measures a supply rail voltage. The register index and rail
->> +          name are assigned by the hardware design tool (Vivado).
->> +
->> +        properties:
->> +          reg:
->> +            minimum: 0
->> +            maximum: 159
->> +            description:
->> +              Supply measurement register index assigned by the hardware
->> +              design tool.
->> +
->> +          label:
->> +            description:
->> +              Name of the supply rail being monitored.
-> 
-> Drop property, it's already in adc.yaml.
+Will drop these functions and use inline
 
-Accepted, will drop from both voltage and temperature channel blocks.
+> > +
+> > +/*
+> > + * Set LED brightness and mode.
+> > + * The brightness value determines both the LED current and operating =
+mode:
+> > + * 0-63:    Normal mode - LED current from 0-63 (off to full brightnes=
+s)
+> > + * 64-127:  Blink mode - LED blinks with current level (brightness -
+> > +64)
+> > + * 128-191: Gradation mode - LED gradually changes brightness
+> > +(brightness - 128)
+> > + * 192-255: GPO mode - LED operates as general purpose output
+> > +(brightness - 192)  */ static int ltc3220_set_led_data(struct
+> > +led_classdev *led_cdev,
+> > +				enum led_brightness brightness)
+> > +{
+> > +	struct ltc3220_state *ltc3220_state;
+> > +	struct ltc3220_uled_cfg *uled_cfg;
+> > +	int ret;
+> > +	int i;
+> > +
+> > +	uled_cfg =3D container_of(led_cdev, struct ltc3220_uled_cfg, led_cdev=
+);
+> > +	ltc3220_state =3D uled_cfg->ltc3220_state;
+> > +
+> > +	ret =3D regmap_write(ltc3220_state->regmap,
+> LTC3220_ULED_REG(uled_cfg->led_index),
+> > +			   brightness);
+> > +	if (ret < 0)
+>=20
+> Should we be using 'if (ret)' to check for errors here instead of 'if (re=
+t < 0)'?
+>=20
 
-> 
->> +
->> +          bipolar: true
-> 
-> Drop
+Will use if (ret)
 
-Accepted, already defined in adc.yaml.
+> > +	/*
+> > +	 * When aggregated LED mode is enabled, writing to LED 1 updates all
+> > +	 * LEDs simultaneously via quick-write mode. Update cached values for
+> > +	 * all LEDs to reflect the synchronized state.
+> > +	 * See Documentation/devicetree/bindings/leds/adi,ltc3220.yaml for
+> how
+> > +	 * to configure aggregated LED mode.
+> > +	 */
+> > +	if (ltc3220_state->is_aggregated && uled_cfg->led_index =3D=3D 0) {
+> > +		for (i =3D 0; i < LTC3220_NUM_LEDS; i++)
+>=20
+> for (int i =3D 0; ...
+>=20
 
-> 
->> +
->> +        required:
->> +          - reg
->> +          - label
->> +
->> +        unevaluatedProperties: false
->> +
->> +    required:
->> +      - '#address-cells'
->> +      - '#size-cells'
->> +
->> +    additionalProperties: false
->> +
->> +  temperature-channels:
->> +    type: object
->> +    description:
->> +      Container for temperature satellite measurement channels.
->> +
->> +    properties:
->> +      '#address-cells':
->> +        const: 1
->> +
->> +      '#size-cells':
->> +        const: 0
->> +
->> +    patternProperties:
->> +      "^channel@([1-9a-f]|[1-3][0-9a-f]|40)$":
->> +        $ref: adc.yaml
->> +
->> +        description:
->> +          Reads a temperature satellite sensor. Each satellite monitors
->> +          a specific region of the SoC die.
->> +
->> +        properties:
->> +          reg:
->> +            minimum: 1
->> +            maximum: 64
->> +            description:
->> +              Temperature satellite number (1-based hardware index).
->> +
->> +          label:
->> +            description:
->> +              Name identifying this temperature satellite.
-> 
-> Drop property
-> 
->> +
->> +          xlnx,aie-temp:
->> +            type: boolean
->> +            description:
->> +              Indicates this satellite monitors an AI Engine tile.
-> 
-> What for? What is on the other side of the channel is not really
-> relevant to this device, but rather to that other side (consumer).
+Will apply this.
 
-Agreed. The driver does not use this property. Will remove.
+> > +			ltc3220_state->uled_cfg[i].reg_value =3D brightness;
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static enum led_brightness ltc3220_get_led_data(struct led_classdev
+> > +*led_cdev) {
+> > +	struct ltc3220_uled_cfg *uled_cfg =3D container_of(led_cdev,
+> > +							 struct
+> ltc3220_uled_cfg, led_cdev);
+> > +
+> > +	return uled_cfg->reg_value;
+> > +}
+> > +
+> > +/*
+> > + * LTC3220 pattern support for hardware-assisted breathing/gradation.
+> > + * The hardware supports 3 gradation ramp time 240ms, 480ms, 960ms)
+> > + * and can ramp up or down.
+> > + *
+> > + * Pattern array interpretation:
+> > + *   pattern[0].brightness =3D start brightness (0-63)
+> > + *   pattern[0].delta_t =3D ramp time in milliseconds
+> > + *   pattern[1].brightness =3D end brightness (0-63)
+> > + *   pattern[1].delta_t =3D (optional, can be 0 or same as pattern[0].=
+delta_t)
+> > + */
+> > +static int ltc3220_pattern_set(struct led_classdev *led_cdev,
+> > +			       struct led_pattern *pattern,
+> > +			       u32 len, int repeat)
+> > +{
+> > +	struct ltc3220_uled_cfg *uled_cfg =3D container_of(led_cdev, struct
+> ltc3220_uled_cfg,
+> > +							 led_cdev);
+>=20
+> This is the 3rd time we do this and every time has been different.
+>=20
 
-> 
->> +
->> +        required:
->> +          - reg
->> +          - label
->> +
->> +        unevaluatedProperties: false
->> +
->> +    required:
->> +      - '#address-cells'
->> +      - '#size-cells'
->> +
->> +    additionalProperties: false
->> +
->> +required:
->> +  - compatible
->> +  - reg
-> 
-> Best regards,
-> Krzysztof
-> 
+Will make it consistent
 
-I will address all items in v3.
+> > +	struct ltc3220_state *ltc3220_state =3D uled_cfg->ltc3220_state;
+> > +	u8 gradation_period;
+> > +	u8 start_brightness;
+> > +	u8 end_brightness;
+> > +	u8 reg_val;
+>=20
+> Something a little more descriptive please.
+>=20
 
-Salih.
+Will improve name to gradation_val
+
+> > +static int ltc3220_pattern_clear(struct led_classdev *led_cdev) {
+> > +	struct ltc3220_uled_cfg *uled_cfg =3D container_of(led_cdev, struct
+> ltc3220_uled_cfg,
+> > +							 led_cdev);
+> > +	struct ltc3220_state *ltc3220_state =3D uled_cfg->ltc3220_state;
+> > +
+> > +	return regmap_update_bits(ltc3220_state->regmap,
+> LTC3220_GRAD_BLINK_REG,
+> > +
+> LTC3220_GRADATION_MASK, 0);
+>=20
+> Odd tabbing.
+>=20
+
+Will fix tabbing
+
+> > +	if (ret < 0)
+> > +		return ret;
+> > +
+> > +	for (i =3D 0; i < LTC3220_NUM_LEDS; i++) {
+>=20
+> As above.
+>=20
+
+Will also apply changes on for loop
+
+> > +static const struct of_device_id ltc3220_of_match[] =3D {
+> > +	{ .compatible =3D "adi,ltc3220" },
+> > +	{ }
+> > +};
+> > +MODULE_DEVICE_TABLE(of, ltc3220_of_match);
+> > +
+> > +static struct i2c_driver ltc3220_led_driver =3D {
+> > +	.driver =3D {
+> > +		.name =3D "ltc3220",
+> > +		.of_match_table =3D ltc3220_of_match,
+> > +		.pm =3D pm_sleep_ptr(&ltc3220_pm_ops),
+> > +	},
+> > +	.probe =3D ltc3220_probe,
+> > +};
+> > +module_i2c_driver(ltc3220_led_driver);
+> > +
+> > +MODULE_AUTHOR("Edelweise Escala <edelweise.escala@analog.com>");
+> > +MODULE_DESCRIPTION("LED driver for LTC3220 controllers");
+> > +MODULE_LICENSE("GPL");
+> >
+> > --
+> > 2.43.0
+> >
+>=20
+> --
+> Lee Jones
+
+Best Regards,
+Edelweise Escala
