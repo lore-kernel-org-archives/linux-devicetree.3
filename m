@@ -1,68 +1,68 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C14A32D0C84
-	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 06:55:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4FAACA5A
+	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 07:00:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777877745; cv=none; b=XFyjJjbXa8W+1omOK3HslAiD8zA5SUuPa5tAyN4suLRntDhvqOgaWVl618BvZMG/KGn+2n0BY3wzx2J+j9LRU1RFXjK6tPFs9JUyEA1dYV2Q3yEFl59GZyqfpcqZFfhZ3DJyp18Qf15Rw63khxE3GuI2uypC1+xqLIEjeHBj8UU=
+	t=1777878031; cv=none; b=JlqkeM2kpePQHuiXTPzwTz2clC3ZgDM+ohcudqtcEJpV9DdMsBn4rfb59tCUk4g8HXMZ9S8VHpywcrnaV/G+q59+mk2VzgA9OuwVw3RyrJS9qL2iLQmiur4RR/8oz3JgwGaWVM+2WvHI80ERUNgQKcJlmcCkSOrvRElnNC3k7xM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777877745; c=relaxed/simple;
-	bh=GZIVdLl3kVhNX3ssX8Br2t3bbXFGzS51JUDVPw8q0Bc=;
+	s=arc-20240116; t=1777878031; c=relaxed/simple;
+	bh=v2YtCahVPmR4fkIqkNFB58bTUY2+rl+IivMbth/fUfs=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=BFVwTTfUTVGKz+ttsNvuuNAIV2bZd6FQeC0P1rMVswwvfim1nfqo/iUfFPDSJhOO6Kk6jkD7+3ijlbu4LupjEVodQQrxk1E0rGAo33J3TMHXigz+tFRDzcZvXPQy6Yk/oA5ZxszqI/iiLbjQz2GtjxsNhagDoHFG4PrfkDrrhWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=PzFbRXBS; arc=none smtp.client-ip=209.85.221.52
+	 In-Reply-To:Content-Type; b=UJk5fmmNXroJVakma/YY7OONAImp6BUl2ofhW2MraKANjfJROVn+bA4y8XM3QF2l7/loTV7eGtrD6hC2mGLLijGUgdQWcO8RVUq8NTiPEPhLzKNjl0QLGeqzVEeVZkoFW2GAq/t8i/UNuBbwzfhD3JUJwlv36mHI6xjA4GHDrDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=GbONXA6d; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="PzFbRXBS"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-43d73422431so3327213f8f.2
-        for <devicetree@vger.kernel.org>; Sun, 03 May 2026 23:55:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="GbONXA6d"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-488b150559bso24576465e9.1
+        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 00:00:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777877742; x=1778482542; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1777878028; x=1778482828; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=EEUnp57+dFeSCCp/1A9NmDUxCYKBXLwpvi6Pa+bh8jg=;
-        b=PzFbRXBSRWHpE5A3MRoZnlQ6SkX6zJ8jlZeDBoB5WF/Tx9yI2fgZ58I2spU7ilbZJz
-         TjieBrVk3loB0eHILL1XONQru7OUhTJEOomu7DgsjzNRnRWDgor4fcqR27zTgXKpGAih
-         IKCLlaFvlZjTnGtJ9x9iJHJJRV7ocukLRaqyw44UwzgC0RziHqfmkndvsPjyqNa7PRA8
-         VAaqZifUn41nD1jsl1yTXEr9yUCMwY0yX4yaAkgBa8FyKGsdM1zaCAIMclUYtXC6AZef
-         x0Efo8jc5PGlIdHqw0gU2eop49gArETasmyXFvQVtFhGpzFijUWC2/DrkrNY19RZOrKJ
-         7oag==
+        bh=/ig2G9MuhX/zFTO0paqrpp7sX2tVVOFfNXEQnXrmaj0=;
+        b=GbONXA6dM+PQzwQtmrhwFVyYs/MI6TJO0P4MLYKoyc8KYYymQFMnAeXxqUO0NLJfGC
+         OBQvFY0ucV9gVxj5aaUVIL89W/YBgkCCnmcz+riZr9Pyj/T3sobmtaR9vSmpowNzn2Xy
+         1swMV7dLwPvMO+XeVX7ZBuLYzYB9F6o2tB5VpvwQ6UH5i7YHNNbJRBTX7TdnL4Xs0j49
+         c5CXzOH4FeO52bGw2aVcHXpV5UQRijueu1myRg6Mt+sA6CO0CSIgzM8CKFM8yT/j4KFb
+         rimej7KuAfOkDYQ09Wct4eJYdFDcFlWS7q3UIzro7O9cmH8wrJYCqSYhv5CS9WpFyRja
+         XBhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777877742; x=1778482542;
+        d=1e100.net; s=20251104; t=1777878028; x=1778482828;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=EEUnp57+dFeSCCp/1A9NmDUxCYKBXLwpvi6Pa+bh8jg=;
-        b=SbYMIwoZ0got48LWR4eGzGOqWCIkpbehL1aJzYdvPBskt+2DkMmzSYiSCCJfNvNXbf
-         FhwvC3DEttAQUp+TwTA0F4z/7Oikh13kFzpGnfVqDt0Qb0wqrZmEF4vgHdnV0R86D5r1
-         jqovxKM1ElZzy1Ymgp65YtihnOe+F8snuE/FaiTcyvd5jSGLQkIUmTsh1kuwUAFyFOeS
-         jy10sjj0LNY8tJUg91sOJMGF1Tz26d35P8pUJgiQHv/HbRuozNEmveFcxtX6hj9hky4q
-         vGkIRzk9ZA7Wov26EQF9EQ623hk3iJEpLIEiC774diDcFY0iV27aPQpz2za0xSNyoUZr
-         Sy6g==
-X-Forwarded-Encrypted: i=1; AFNElJ/I4G5m2QDoSIrryHxzZmISGlQ+dG6Lc0opdNm0Up+cxSt/xQYYB14fn7ABfew8zo2RE8v9YuykjGPk@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmeMI4tw8C66MgbAAdgHYx7uFIsaG4rt4jNt76HaCFes8kI5aS
-	ifto+bvqTrN/CKGtM+OLYKVuv5BxhVEFRHMC6TMRxbkqpCbvCnzpsqAq4AbcaO0ikAo=
-X-Gm-Gg: AeBDietKMX7Tt0S9GMAiFN4GZvq8lQkb24vw5rC7YvKAWDH4yRhgMVBAcDswgwFhZfj
-	hfau8E6uUfpxGsfmvzs0CroDJ1Edec3tGMH09ammh7Vqb4sqfsGNdXJjAe3TQza85ryiu+V/LE8
-	+W7luRRGXqWUWGlS8Rv9bm8ceq5V6XRQHOPT7uQ5ujnEMykl1d/sT4VJhvOojoEYvaOIfGsAv2u
-	l+xA9RawUzbQkYikbb8wUt4CkLvBPG3SAEXbKOAH5kkzuFUU2tqXXdJuDQk6zCrYdhZ7qAeQBF8
-	xgaFW1ciIuneFMGTu6kg5GTNbjPAB0/fi13o+zcKWOlqZcTVNnCnSG404iklPH/bj3MWkXLo0di
-	ALkvV+jRQATc6cN4riXPb6kuULjCtqnoQhQcWJ3uOuPov3R9/OslDtfKGG87BJPrlosr9mP0aba
-	8Juoo+Z0NcGHP5pw42nMRC1LQr/5q8l3m06WMmhH2FtCM5yX/nQwpxLg7EDRNxLQhSyi9wzRFQj
-	/gY9H0uHdadDOhY62VStm1UDAUt
-X-Received: by 2002:a05:6000:184e:b0:43d:7af0:3a7c with SMTP id ffacd0b85a97d-44bb61111a9mr14782036f8f.29.1777877741890;
-        Sun, 03 May 2026 23:55:41 -0700 (PDT)
+        bh=/ig2G9MuhX/zFTO0paqrpp7sX2tVVOFfNXEQnXrmaj0=;
+        b=FxXcle/1+J1sHmDE7Fd326KWcFUO0Vb3Cc2BC5o/zTdIh44tyfmBIaxq6yr5X9naMQ
+         aNhHl02BEvsxRPjiSX2GjpP2Cj1AFnFQ6TAKF1Wm+HqOM8FcRm0xuYxLCriNJe6s8ugr
+         IFfCcjOBDUcG1iJC5iicj8cJRXszAe9MFu6i3KBR7Gq9/hyAHMVgiPGGVZPEZH22sN50
+         MhSUcfB/0DjlC9ydhPFx5d3XspbMo+BjsrtZJlVbqi+rNtd1f1nBl5sYWl+w9REx4RSG
+         NiDtJ5GWwHi2hbrrHs4SD8+lX2eJSmIUsbS5OQgmZa/BNhMZmnGtNg0ObwKSgI2j66x2
+         VLSA==
+X-Forwarded-Encrypted: i=1; AFNElJ8ZuSfzFBD3urY1Zp101m1fNsbbRgydU8DG9G+nhKkxsMhUGJ4cavjzlXuFOmr0QCUR1JBcFJ/PlX6n@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxy9dhpvx8XQP4jSld+uWf1mOjVjfrJEgYOLUX46FY3HY98Dl/u
+	IPmhNq1IJYa503C7NjKmC80TTTzm+mpumTXAexPcShBtCpom5a4F0tZGuhnmxL036Yw=
+X-Gm-Gg: AeBDieuE+DNRhWO5mb6WhTTaL8KXRoxHqqZkcEJ3G3yMv4to70HUN7tdpyrxtZsFVA5
+	qzcAXWo7nIUkIOgv4roOTuctwch4Zjz1S0K9TlIJ1h/1w2Js8AKLxPsrW491TcUSp8/YLrgXVBk
+	ha2DmVmTPdQiTMWrJ1jBM02TDQFDD5YcgLfaSBRDrJeTjJcXBH5LZUkCLAnpamqRBBXD9Q50bW9
+	A/lIQr6f0RynPiF1ndeCJs1xWOIFpAnyMxYFNnNuSpPj0/weVochVdoynrK5O5JiuQPEjeplqQn
+	03UB0TpgP4wnV7FY9lJqvLHeNzuSDg4nNfYiQzcjniGejxVA73HPtLwqrCOMHQIaq0NpjBhnlwt
+	MY7V52SmBntakC/i2lI9A6u2mmQEXmYTBgjSId8aQ5xXh4Eu4hxVgGQvjsc1Nk1vLU9o2m7XreY
+	gDGJdhBtwSEqB47REWnxW9kn5LT8/FuuqyKjr07pvm5QlIlMtfXJ6evvHLAvBTRx06Ppwj3w4or
+	1XfXqwsf3cXDva9kQ==
+X-Received: by 2002:a05:600c:620c:b0:48a:97b6:7420 with SMTP id 5b1f17b1804b1-48a98670f8emr134808975e9.24.1777878027763;
+        Mon, 04 May 2026 00:00:27 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:4245:af61:1735:3752? ([2a01:e0a:106d:1080:4245:af61:1735:3752])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-44a8f237368sm22625014f8f.14.2026.05.03.23.55.41
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a8ebb2fa5sm213757985e9.12.2026.05.04.00.00.26
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 03 May 2026 23:55:41 -0700 (PDT)
-Message-ID: <2dca0303-b296-4abd-a716-89e08e71a915@linaro.org>
-Date: Mon, 4 May 2026 08:55:45 +0200
+        Mon, 04 May 2026 00:00:27 -0700 (PDT)
+Message-ID: <d673c19d-f659-4549-8c2b-d64bfb0f9acf@linaro.org>
+Date: Mon, 4 May 2026 09:00:26 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,17 +72,22 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 2/2] regulator: add SGM3804 Dual Output driver
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
-References: <20260430-topic-sm8650-ayaneo-pocket-s2-sgm3804-v2-0-76108c65a560@linaro.org>
- <20260430-topic-sm8650-ayaneo-pocket-s2-sgm3804-v2-2-76108c65a560@linaro.org>
- <afMwIVRDxl11Ty_P@sirena.co.uk>
- <150cdb85-d0ac-4802-a09b-9dab1b9b805a@linaro.org>
- <afPp8DXSLQIkQNaK@sirena.co.uk>
+Subject: Re: [PATCH v2 1/2] dt-bindings: regulator: document the Renesas
+ R63419 based dual-DSI video mode Display Panels
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260430-topic-sm8650-ayaneo-pocket-s2-r63419-v2-0-91ac10453d0c@linaro.org>
+ <20260430-topic-sm8650-ayaneo-pocket-s2-r63419-v2-1-91ac10453d0c@linaro.org>
+ <20260503-magenta-aardwark-of-order-432352@quoll>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -109,36 +114,60 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <afPp8DXSLQIkQNaK@sirena.co.uk>
+In-Reply-To: <20260503-magenta-aardwark-of-order-432352@quoll>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 5/1/26 01:46, Mark Brown wrote:
-> On Thu, Apr 30, 2026 at 03:28:43PM +0200, Neil Armstrong wrote:
->> On 4/30/26 12:34, Mark Brown wrote:
->>> On Thu, Apr 30, 2026 at 10:48:47AM +0200, Neil Armstrong wrote:
+On 5/3/26 14:34, Krzysztof Kozlowski wrote:
+> On Thu, Apr 30, 2026 at 02:22:17PM +0200, Neil Armstrong wrote:
+>> Document the Renesas R63419 based dual-DSI video mode Display Panels found
+>> in the Ayaneo gaming handled devices.
+>>
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> ---
+>>   .../bindings/display/panel/renesas,r63419.yaml     | 93 ++++++++++++++++++++++
+>>   1 file changed, 93 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml b/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml
+>> new file mode 100644
+>> index 000000000000..17f166db3ca3
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml
+>> @@ -0,0 +1,93 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/display/panel/renesas,r63419.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Renesas R63419 based dual-DSI video mode Display Panel
+>> +
+>> +maintainers:
+>> +  - Neil Armstrong <neil.armstrong@linaro.org>
+>> +
+>> +description:
+>> +  The Renesas R63419 is a generic DDIC used to control dual-DSI LCD panels.
+>> +
+>> +allOf:
+>> +  - $ref: panel-common.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    enum:
+>> +      - ayaneo,wt0600-2k
+>> +      - ayaneo,wt0630-2k
 > 
->>>> +// SPDX-License-Identifier: GPL-2.0-only
->>>> +/*
->>>> + * SGMicro SGM3804 regulator Driver
->>>> + *
->>>> + * Copyright (C) 2025 Kancy Joe <kancy2333@outlook.com>
->>>> + * Copyright (C) 2026 Linaro Limited
->>>> + * Author: Neil Armstrong <neil.armstrong@linaro.org>
->>>> + */
-> 
->>> Please make the entire comment block a C++ one so things look more
->>> intentional.
-> 
->> Sure, converted into:
->> + * Copyright (C) 2026 Linaro Limited (Neil Armstrong <neil.armstrong@linaro.org>)
-> 
-> That's not the issue - that's not converting into a C++ comment.
+> Just like for all other panels (including other Renesas) you should have
+> fallback to indicate the actual panel IC, even if it is not used by the
+> driver.  Some SW still could fine that fallback usable.
 
-Oh right sorry I was confused, and I'm still very confused, sure I'll convert it
-to C++ comment block even if I don't fully understand the rationale about it and
-how does this look more intentional.
+Ack
 
-Do you want me to also switch _all_ comments to C++ style ?
-
+Thanks,
 Neil
+
+> 
+> Best regards,
+> Krzysztof
+> 
+
