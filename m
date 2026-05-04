@@ -1,83 +1,173 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010020.outbound.protection.outlook.com [52.101.69.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB3A2DB7BE;
-	Mon,  4 May 2026 11:42:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777894924; cv=none; b=edkv8Z95/a+uOIfHhCV0pdKtkd49RhEjKrdjpOjp5hehOW+Of+xzSmVwCnTzNb0f9/+CCY5hfmWxAH7iQ0AWb7+8jjge3f6SdXvvykl8NP5R7ZWlcMOr0Ra7ODAhzgbMPMYtHv9vs1HPJjBlGX0/KDaJhFs2qoPR8kT7v4kxGzI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777894924; c=relaxed/simple;
-	bh=qvUHI/Jk7Wsh27+QYlR/yeU+sPK3Rc0MiyiH2vd7ixI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nghqTsy9MImqk4qr/7SW91hucfRoEQeD6dYEfdg1mIlNJYM28nw3wd5qvnQRL+mF89ldX9a8st1yOsslwMA2dIRYfvzH9Pev4qtXGkQC8FhsDZQo8BzoVGH0v8PUgqWsSM4TrQKW2DhMkPlGPAcDBm29P8v7w4UqgwIYFiczVoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Dv1aWkL+; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57F531E84A;
+	Mon,  4 May 2026 11:50:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777895411; cv=fail; b=qKJoZynarh3LrWxMGiDth6DtuD7i5jDJd6+jbsTTxLIoj8KxcpdwYQY7zESuMEhJ/aZoz0b5YWtIvkbc795x3QblMmKFBrsKXjxCqGNFNjHGEY8iyIWnxjkdAZ+KQ3OXp1pZxIirSDaq9uohBM+mT6zWeOLp1pFiL9nK6+/Z5uI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777895411; c=relaxed/simple;
+	bh=cbZQ9EedmcGO9TVIU0Ur9GmKJED1OSy0sEbFwkVzGpI=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VIlASKQC5qajWCjhgZDY+TdNRuYPTMihj4nokFwT1DkU+No05YxehNXPdMhXbghcSYLkLjmU1XWzOpD1MEJuVjp+r7y9SmYWhBRzd7UxWA/wWJdr4d+zG53+cGZ0oz9L1DePT2shAXn0PdqPAoCmBF9JCEJZMNNajWnyXjstvjA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=bZ/guL58; arc=fail smtp.client-ip=52.101.69.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Dv1aWkL+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777894923; x=1809430923;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qvUHI/Jk7Wsh27+QYlR/yeU+sPK3Rc0MiyiH2vd7ixI=;
-  b=Dv1aWkL+D+5CpjjOr4zJJ9mvrGQpTT4bu2DGXF9xdWcnRB5bcOBzbtgP
-   Y9MLDSl0LZ551O+tfWzd7yiOZr4qqrkijIS+tuof4L9LwKDUkvHHrWS5t
-   D7s6CiqpJTcyO4ExWEG4Wz08R9TOWnKlT/lYZwGs6w8rxPk3pTxvPa91b
-   S3THVBazBW59i9QpgAWQco1nmxNrv6D8s7lapRZRCZb/oHziabWDvriQN
-   Ln/+6o1y5a/y/Rw+iIWr9wXmCs5s5HonxGJCuRpGLQa1kZoOGmHOdv3c3
-   AQkSQl+MJlyBMuWOmapiWUbBUK8mfCSegRAq3cQxad8CUmW5LgS4fewrn
-   Q==;
-X-CSE-ConnectionGUID: kwPboVQHROWOl0kiDT9bZw==
-X-CSE-MsgGUID: ojvSGE7cQZ67cHA8Mz2oog==
-X-IronPort-AV: E=McAfee;i="6800,10657,11775"; a="78799444"
-X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; 
-   d="scan'208";a="78799444"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 04:42:03 -0700
-X-CSE-ConnectionGUID: UT9/K/HOTzO9pCin0KW4CQ==
-X-CSE-MsgGUID: yg58v6N7TmOc+ld9Y045bw==
-X-ExtLoop1: 1
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.159.165])
-  by fmviesa003.fm.intel.com with ESMTP; 04 May 2026 04:42:00 -0700
-Date: Mon, 4 May 2026 19:19:12 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Phil Pemberton <philpem@philpem.me.uk>
-Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Tom Rix <trix@redhat.com>,
-	Florian Fainelli <f.fainelli@gmail.com>, linux-fpga@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] fpga: ts73xx-fpga: add OF match table for device
- tree probing
-Message-ID: <afiAsAUkNdVkXwFO@yilunxu-OptiPlex-7050>
-References: <20260409122016.3940462-1-philpem@philpem.me.uk>
- <20260409122016.3940462-3-philpem@philpem.me.uk>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="bZ/guL58"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vIrhhXvKkrYMrkKto5TCceaZS1eepRBLPp+Op322zREXKl60BtB0unR9pT0Hsq6pm7T8haN3fruDS58a5l4DbK7BukiupxZIaGmAJr0bNy92zmcEb5J/+3Gz1/y4tYPXsfXZvIsREpWl/sGqNv0HHjvDOh74bwn4DlnJCYzhrlGCXGL0dm2VSXNPKRG0P4q0jf3sGpPhDXnoZcMg3fpufI8xhZ8qZKlfbIybfwWGWnH6svwD2TJzkfWvVgrBB1xwpzvBRNktWAIds07mS+FSy3DYJGQZ5bD8Mo6ATfPcyngoiFuNbQYa+WeDXw0O9xqMARCDxXY5YCRpvm+2unOevg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zcoNVnqpoRp4lUINw02TRaJLlaizuUuGQxPscEfzY9I=;
+ b=j8TRYdrmYCgEkwxBw9/YbeNNSedZavopgukdSvxF+o2foX9KLRYemzcRHehlM6j128BzGWHhgXIqoc79C8fzcD0ODj+ar60Kr4BwjLPnRzFFJEdsZPLq6v4adsPJRVCcRy5IJBZK9kPBcL57G2QYlHkNuog7vWxNkGzIKZP5xZPZUkGEA1FH2op+893IJnYEyss1O9Jm1waL+YF9moYcWc2quSyHvRv89ULkDzZQA3MsxcOMpXFcCg2p3J+U/fDjIrycB5yKUV8gLMCPHbn15RgpalsVDfMeHValavbcD88Z3a6/tvP3tGR1gxNIoS73Gm8G7zXVULSgu4RH50pNpA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zcoNVnqpoRp4lUINw02TRaJLlaizuUuGQxPscEfzY9I=;
+ b=bZ/guL58MjRyRZst7TzOVvPn61mVOpBMCKqCDwiJA25ZGY651ZE/Vqtuvlryw57HbpRvCG5lF4y62ObFlgUfCkwgZp6tDMEOdhl9D8EAeaWT/yfAFrahEI0HQAOmjKugLf3//MTtkxE4dlo0XTens+rtIUKJCHDTVGfDCTZhGD6ZoRsJcDNkMrdXoI5JvmKaK0fMyvnXbHuBku2EH2zoTXIldVjcgUEpywwEsmQJPFup8Xd3r0GHGuivrNhfTgbDWf9n2CF3CYIuk3LsWYI1yxClWxaveKssVKlhHcJx+9+/b9LLY04Q9RW1qKwdyLjBBCp4ee+Olhm6jvJLUfnPNg==
+Received: from CWLP123CA0172.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:19b::7)
+ by AMBPR10MB9925.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:75e::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
+ 2026 11:50:03 +0000
+Received: from AM3PEPF0000A79B.eurprd04.prod.outlook.com
+ (2603:10a6:400:19b:cafe::f) by CWLP123CA0172.outlook.office365.com
+ (2603:10a6:400:19b::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.25 via Frontend Transport; Mon,
+ 4 May 2026 11:50:03 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AM3PEPF0000A79B.mail.protection.outlook.com (10.167.16.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Mon, 4 May 2026 11:50:03 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Mon, 4 May
+ 2026 13:53:19 +0200
+Received: from gnbcxd0016.gnb.st.com (10.130.77.119) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Mon, 4 May
+ 2026 13:50:02 +0200
+Date: Mon, 4 May 2026 13:49:53 +0200
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Alexandre
+ Torgue" <alexandre.torgue@foss.st.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <linux-media@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, Sakari Ailus <sakari.ailus@iki.fi>
+Subject: Re: [PATCH 00/13] media: stm32: dcmipp: add support for MP2x pixel
+ pipes
+Message-ID: <afiH4cNyG_vb2Dwf@gnbcxd0016.gnb.st.com>
+References: <20260202-stm32-dcmipp-pixel-pipes-support-v1-0-8d8d51f5e014@foss.st.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20260409122016.3940462-3-philpem@philpem.me.uk>
+In-Reply-To: <20260202-stm32-dcmipp-pixel-pipes-support-v1-0-8d8d51f5e014@foss.st.com>
+X-Disclaimer: ce message est personnel / this message is private
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM3PEPF0000A79B:EE_|AMBPR10MB9925:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2dd2bb67-7975-48bf-913f-08dea9d3478c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|30052699003|1800799024|36860700016|7416014|376014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	QrHujKkZgm0W5OvoBExyjsKiK8GOHgGT00Y4QX4wS3Bjr2Z5/Jks9U9GIWiFlTmWFbWlKz95yWWLoP8/f/EcW80jQU5AMFG++b8d0bPhBftSh67xCylqlB2wl6JA3TP1QQZf3iY8fJSjJM+8681DT67uchxyDiW+H//VsFcIPzmvja1P8vLnaMUgsQXXyn4GuKjR64821sK0qHZGEfiQzGgNzB3Jj/s0IyzrtIj42w3JenRwCTr6E2CRmjlqhL/hOFGCVnrrek8LSq1LvHydr96SwxyHCB5gDzu11nqYFyuH0NKfVut8GK1FiEhSMN8d7Wh7LxgQnr9TlrXP3ayyai6HUWU5XgRikDFmA9MZ2OPEeBIYliRpQ/D3cLXZall5uxX/DuLnt9ZssrS0KfnxiCdywZrjueAJC47LGgrs1a8oSONDv5BV0I+7v2X/Q10XTTsOH7vl+gDtCUKR49ugAghwWUhbAXFmAdsmkG2dwm27XShbo/P8Sx9AtgLBQcswi6piSDoX+GhjlvhX/sjZfWjQB6bzxI7RsZuv1NbobTme6mMxL/zzLFV4spmX+jb9qh/nfcyp64WDKO4+5Jpe9cUqkVSFq91W62n31E9vxUJxHLvEOyoOX03Iiu4xqBi5mzFK5wPLY4GISz/IVGCIpWU7VXHE7dIBCgxWRZ6xUfL0XQGfgY2V5Z2aMOwvnbCaDeNaw2sHLh66qVP+Es9NramS/bJIeXEnhouksRF7XZE=
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(30052699003)(1800799024)(36860700016)(7416014)(376014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	48rVSUdkvRs86m+yTOVOj87quZpDAqdx0QdRVOwxqfvroXngvEgJQYGr7nVVH02Pp2wehIzJb/WIXGYORg9Kvgyn/g6p/0ccIWCecxdlRn+xZjjPfSxYRHhRUdn0PCsrm3zP3Hlfxo6snTzkLk9PS6oOF9GrY7Ej23s+YZlk/3b2zXbJ29GXwxtPL6tMrKrdEeCb2/q/1nWK56TMcUNyPpkyHy+POzLoHrnmUhmuqokr708tBdAo/Oj0zTMs4Okfz0lqoynPLgysRLp+kbSVTPgWWZdn0T2CCmCkrayLlxOlFv0dSte5Q3XSQDx341EXEBxn9IUc7K9CCY/T4nHaM1gBKiTOlVWa6nvPlEhj/13jsIAkoaddQ8cr6C71a8pMVOE7L0SplMDRhqHKftn2QtOHsoopIDD/nw80n9Yd7aOKbUrOTvoywm1jw1F6jx6V
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 11:50:03.5869
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2dd2bb67-7975-48bf-913f-08dea9d3478c
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM3PEPF0000A79B.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR10MB9925
 
-On Thu, Apr 09, 2026 at 01:20:16PM +0100, Phil Pemberton wrote:
-> The ts73xx-fpga driver currently only matches by platform device name,
-> which prevents it from being probed when the device is described in a
-> device tree. Add an of_device_id table so the driver can match against
-> the "technologic,ts7300-fpga" compatible string.
+Hello,
+
+Gentle ping. Would it be possible to have this serie reviewed ?
+
+Regards,
+Alain
+
+On Mon, Feb 02, 2026 at 02:57:25PM +0100, Alain Volmat wrote:
+> This series add support for the main & aux pixel pipes
+> available on the MP2x. In addition to the byte pipe
+> already available, the DCMIPP is able to process two
+> other streams in parallel, including ISP operations
+> such as demosaicing, exposure etc, post-processing operations
+> such as cropping, downscaling and various pixel formats
+> output.
 > 
-> The TS-7350 and TS-7390 use different FPGAs with a different programming
-> interface, so while the driver is named "ts73xx-fpga", it doesn't apply
-> to them.
+> This series introduces the whole DCMIPP pipelines including
+> static configuration of the ISP part (such as demosaicing).
+> Dynamic control of the ISP as well as statistic extraction
+> part will be added on top of this serie via usage of 2 other
+> video devices (input & output) for statistics extraction and
+> dynamic ISP parameter injection.
 > 
-> Signed-off-by: Phil Pemberton <philpem@philpem.me.uk>
-> Reviewed-by: Florian Fainelli <f.fainelli@gmail.com>
-
-Reviewed-by: Xu Yilun <yilun.xu@intel.com>
-
-Applied this series to for-next.
+> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> ---
+> Alain Volmat (13):
+>       media: stm32: dcmipp: share struct dcmipp_device among subdevs
+>       media: stm32: dcmipp: make dcmipp_state & cmsr2 read common
+>       media: stm32: dcmipp: bytecap: protect CMIER register access
+>       media: stm32: dcmipp: move common structures in dcmipp-common.h
+>       media: stm32: dcmipp: correct swap in YUYV data with parallel input
+>       media: stm32: dcmipp: configure csi input of all pipes on stm32mp25
+>       media: stm32: dcmipp: introduce a dcmipp global media_pipeline
+>       media: stm32: dcmipp: add pixel pipes helper functions
+>       media: stm32: dcmipp: addition of a dcmipp-isp subdev
+>       media: stm32: dcmipp: pixelproc: addition of dcmipp-pixelproc subdev
+>       media: stm32: dcmipp: add pixel-pipe support in bytecap
+>       media: stm32: dcmipp: rename bytecap into capture
+>       media: stm32: dcmipp: instantiate & link stm32mp25 subdevs
+> 
+>  .../media/platform/st/stm32/stm32-dcmipp/Makefile  |   3 +-
+>  .../st/stm32/stm32-dcmipp/dcmipp-byteproc.c        |  27 +-
+>  .../{dcmipp-bytecap.c => dcmipp-capture.c}         | 593 +++++++++----
+>  .../platform/st/stm32/stm32-dcmipp/dcmipp-common.h |  98 ++-
+>  .../platform/st/stm32/stm32-dcmipp/dcmipp-core.c   | 124 ++-
+>  .../platform/st/stm32/stm32-dcmipp/dcmipp-input.c  | 113 ++-
+>  .../platform/st/stm32/stm32-dcmipp/dcmipp-isp.c    | 482 +++++++++++
+>  .../st/stm32/stm32-dcmipp/dcmipp-pixelcommon.c     | 180 ++++
+>  .../st/stm32/stm32-dcmipp/dcmipp-pixelcommon.h     |  41 +
+>  .../st/stm32/stm32-dcmipp/dcmipp-pixelproc.c       | 937 +++++++++++++++++++++
+>  10 files changed, 2322 insertions(+), 276 deletions(-)
+> ---
+> base-commit: eb4ee870747c3a77a9c3c84d84efb64bd481013a
+> change-id: 20251219-stm32-dcmipp-pixel-pipes-support-b42924c0b4e5
+> 
+> Best regards,
+> -- 
+> Alain Volmat <alain.volmat@foss.st.com>
+> 
