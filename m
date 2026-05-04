@@ -1,457 +1,172 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E3C29E116
-	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 12:44:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4913D6CA2
+	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 12:46:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777898661; cv=none; b=tJNo9Nfruc+QfQgHzeWkfy3m/bP72f7ME67PeiYwTbyc0mL+uV7GWmS0wo5vp/k6kmXfwaUjs4ja1oWrFPoMEKDCvvRaHkf9CWz5M3cnmae+vs+zGoium4gZRo6pcokZ/pexTgdwi0pNoiO5+4+X71s71hP79x+H+1vHcPJC9v0=
+	t=1777898814; cv=none; b=pqvLXQppurb+jCzr7OOctVpz9ZzSnFdH1QgHNzBbuxTEHwgX5t3SiClN40d11zwSpTgZKnZbc1u83h6UpXiHvVZTQeuLN80H0FGfjqZ/zb14sEFQwIzBD7QTbUnkYoqio1lNYDyZSJde7Yx7Ej2GhswAadHLufJx0k4J5Xkdz3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777898661; c=relaxed/simple;
-	bh=rrOIGT0whi5Rw+dQf/vHXUlI6F/g9aneDp9M4Aaqnqk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lvcoq1YDkDO7TkhXRrMOF6ql8C0M9/YxvLV/51eHRITrZ0CXUE5Sh1lV+StAj8leYWPI2lqlvKtv+I/0wFQC079fUam+IuoUcRaNy/7PPgLsjBXN2KVhpTIfr2VEjDcWC+FgWly9A54wBKP3DaZgKfh0eTjrg0MGga6eyTWvCYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ixYBxpJC; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ixYBxpJC"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-488b8bc6bc9so24819675e9.3
-        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 05:44:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777898650; x=1778503450; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=29DSsXZsWXZav9BRgsUmTtQvE8JjTg55XGr0k5jPXE8=;
-        b=ixYBxpJCGWOVCgVd/bPI7xWZbUQ9MDKIbFDGc6+X8/OfeT0E/bg0y5wXNkcZJYq6uU
-         NVvFfIn50S8vT322MSSG0sd4LIQlhoJEHCV08+61DvGrURHhIez/YohjQw1A58ewN1Lt
-         m3pscskvZoIPC3gqkIjkgGbkaDwhVX2PtjUWjTHKoCbJaPuMIUgLPAIFrhK5D7Ca7s4h
-         nLtVc9LllnOtksxcLznueQdU/x1bY29Qnvf9G02NuEMSsvWmntotekSvktGbSiXqTIE1
-         BzxHNpJYpt7zkWwSQ5tpBFingAxst/2urq48Km1frR0EK1n7HgEJALDZhhqq6Nf3T2Yk
-         KcVA==
+	s=arc-20240116; t=1777898814; c=relaxed/simple;
+	bh=mf48U3dZmpqt3p7RmvGUUMOB0UHyUtn3OAbikvFAdqk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iMSQUxnIkqk75kTjOINalz0JEz6u8GXg97nVZ9Mer9AAttse7iYCZPc4vERDuHQ6EjJePOPjTrz0nQc0v5C5SeOdazhz7KRqX3SLq+0eVTHZDmNZsNmXDIY6KQgosyJ7RrQBA4LJ5SBr4nwRnPPexYpdQFaQmylSGURjKHdB1is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.167.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-479d5ff103aso1819981b6e.0
+        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 05:46:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777898650; x=1778503450;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=29DSsXZsWXZav9BRgsUmTtQvE8JjTg55XGr0k5jPXE8=;
-        b=W3IOBY1dCGYQLMYhW3TFao4n9WJhX9vRpxJFSTQIKN1ojn+SGEm3bz39AregfMlJp5
-         QDEUoO9kebkOV5IzVy8E7nYCuqAz7GJqRMWsGJxs3LhQ5KXmfLXN0imBhZO7cwSTqz7i
-         TElpVmlW2J7FYv3/lRwaZGzy3117jeChr66LtrOTlbab1uABYaSFgBh9L/c0/nMin0Oc
-         uLoqpEal9q2CfjuxpJHvtm8CVB+lgBwSL+d59BvNLjmXTD6NjjDV94f58B8YA2Totg7F
-         kNORMWGxVm5XE9QzmZFyhmO0brQ6cxJrihLrnEKfLLqWsEwhM/regGz/DDp770/2biv5
-         zkGg==
-X-Forwarded-Encrypted: i=1; AFNElJ9MJ09oxy3ONY10PK7UTE+lEY1SKFj3GjWbEesOTr5s0dOIbaJ+ECBxhRwBy7d/SpqKTs9PgGyVOiJq@vger.kernel.org
-X-Gm-Message-State: AOJu0YztfM4bbvYUku4xwSHgIZjwPlR3nYOUUgg8e6xTUzLtHmyijDW1
-	6AF9PXOUgBxSR7hRaD0RmiEU0xiWI2yHk11MzvJr28vPdTQxKzekN+CJrqDFO47SzNoB71rzEYV
-	8cUeAc2XrlA==
-X-Gm-Gg: AeBDievghU3BtR0YcT+rqTYbXm/99uZ76kZfPltr45AU7ta+WfbrT7/oHVI7rZx0e/w
-	8judRiWSdwkTXP/VAtwwAeX1ZrGKrVWN1c4M0i3IZXk61tRyMOGkckW3AP+eXH5j6Lk/kG9DkN4
-	leKQsg2sseaqIXppSxCtGIhIDHN07rNARVY2f/5546SretkPln+IGQ3KSgKzzPUMQGibGq6nACx
-	EKLO+NUDaAPCJoWH/jQSFFmI7BRScxv8uwkvnJ6wNpOcHhDPilGTxyMAOCv3rVzZtn2QZ8d3hvx
-	53x2M+ZTYp0RMwLyjjhRLViPkORkfTEciM5TtRR9mI1APReQQDau3HpZnoCDyb4lqLcrgXYJrrr
-	8W12PdiIg2+e2oRp8qQttyomflq1UEu5SaWN2wA3rrrzWN9IxbdHITw63KYIN7cRwfAOsbqPtZo
-	rL8LXwCMqCJaJiSx871eVuWuaNf4uDVzF7tjRpRnp1N3QrPKM8c2TP0w0=
-X-Received: by 2002:a05:600c:859a:b0:48a:581c:ead with SMTP id 5b1f17b1804b1-48a98637facmr111494475e9.10.1777898650231;
-        Mon, 04 May 2026 05:44:10 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-44a986aab44sm26919443f8f.29.2026.05.04.05.44.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 04 May 2026 05:44:09 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Mon, 04 May 2026 14:44:06 +0200
-Subject: [PATCH v3 2/2] regulator: add SGM3804 Dual Output driver
+        d=1e100.net; s=20251104; t=1777898807; x=1778503607;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=znJkm+yheaBiOtiXBHrScjCf5aNJhz18eCP9uLN0zvY=;
+        b=UNtV0ua3T/LksTBQxerzx+Ujy/NPE57zmeHIGtWht6JNGP97OiXoq2brirPYF89Mj4
+         9R4OEgOTFPZaI4Z2wYtgXO5IftRrZk/pddie+rzimjgCGAqcEQX37AZPLLKB+1u1Midc
+         ZAlYtzftVhptVkgotA6uV8cwiFgS4KAC+iQyKK6r1iTjyAM7O6ALCUsYEPSl1lxxQzrt
+         ykNDpf7e45qUQSD/gHO9zQGxItLOHRMburivz0DmtcQsnfpYUMChqskTD+2g6WCq0v6g
+         EGlPifTqLytm8iL5CSPFWbiXXMnZyfgvRMvSP6m6HKQFK714NKJ+kNyGQGN/HY7+K90s
+         kPhg==
+X-Forwarded-Encrypted: i=1; AFNElJ+ogrAAdYcgGjux5xAGsHj5JWR4AKj5tPne3lZw2yie8ROnbyJlJwmBywtm8WUYnvFQfzfI6FbHurn6@vger.kernel.org
+X-Gm-Message-State: AOJu0YwkO+uQlrAv34XSH5+uPnbkma5vvmK3tufTBUh/P4Rsnq2OqUP5
+	WcLeW0Ky6z8pVnSPHjRubDnj/1HObrSC5N7z0QG6liz0Nb6/+MucRq5/UmrPYheL
+X-Gm-Gg: AeBDietcrHkgh8HsuUiYeFoGvq4prrwvPQqsO3caIHvyqGHrDT9gQDFWs2ekRnmlLZK
+	OnN/+O7OjKv/D5PWiwfQJOPnUDYZeqUioF78+5gefWrrasRAlzKxSWNy3V4LLEHVa6TIrwp+Hk8
+	0d5kIjdYYc1ujrY7fK5mkLZS7WERVaOGiHevCmobJOxBPMX+szhr7tKOnE3zOMDouKdkppzjkbL
+	sMInhDzLxar9q5E+/IOqw+kb1UoaJvGacdTfTF/Y0/NXR5GkMxaiy4usTgJYAszuC9wZSRdHkZI
+	hppBAm3YmgDPTr3BLI9gSxszo/rGXCxthcoveOw+o0b4YOIbm3c3w/oy+bJdnpYgAQIMwIO8oxc
+	ySgNLt9eMjgu6Wkz/CJFlnLvw4siDArq8NXVCKkQEPW+T9Nnhs/NLycEgZX3D8HkUUPMp/yKj7w
+	KtBxsiLkVDMTX5yWMav6yEOIIx7opzprYp/US5qfWAGl3vN6Qp6czpngJOcIM75yaO5ak/5JY=
+X-Received: by 2002:a05:6808:1709:b0:479:db65:8dbc with SMTP id 5614622812f47-47c8925e3ffmr4593118b6e.30.1777898807196;
+        Mon, 04 May 2026 05:46:47 -0700 (PDT)
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com. [209.85.160.53])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-43454951a95sm10529375fac.7.2026.05.04.05.46.46
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 04 May 2026 05:46:46 -0700 (PDT)
+Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-4094b31a037so2428432fac.1
+        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 05:46:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9qsbT3x16fwm8aXwIU3IjsQiy/QHJhvxG0IwwqXXvD6FYU3EC61v4NPA9PrLUHwDIh8VE2DCCCHi1S@vger.kernel.org
+X-Received: by 2002:a05:6122:130a:b0:56c:da22:6921 with SMTP id
+ 71dfb90a1353d-5750c5281a9mr3577419e0c.5.1777898480344; Mon, 04 May 2026
+ 05:41:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260504-topic-sm8650-ayaneo-pocket-s2-sgm3804-v3-2-c4783443890b@linaro.org>
-References: <20260504-topic-sm8650-ayaneo-pocket-s2-sgm3804-v3-0-c4783443890b@linaro.org>
-In-Reply-To: <20260504-topic-sm8650-ayaneo-pocket-s2-sgm3804-v3-0-c4783443890b@linaro.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- KancyJoe <kancy2333@outlook.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10751;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=Kk/ZMsGKHebvpPpc8smbsG87iC9ElVBwSEwR/cSOBfs=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBp+JSXMBXZT8EoSzlZc0xRs/1u1wDsMZAGsxgalNWL
- jwuybDCJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCafiUlwAKCRB33NvayMhJ0aM2EA
- CYuDAWXNj6khq/j3A2iDokLRWMKGN0kES362SICXRQsN7tj8cSRzlhx6AzSSyC+25o5DUIjulwVzM2
- KShZsdtgmsrXsMxrOc5l1xvWh56jg96GhE9MIxGiO8O1PM+fisvD2jRACObxtRcsnW6y8Od73rr+nv
- PQ7xVhiisZMM/0dgpb9rPX7nlQnbCRYDtcLGkqtuYN8xQNKgnbTdpctxNLliZqSb5+IjLBz+i5op8d
- p3ZxlhCKKUhF8owYlS7VNryoCEgRkvOGvk41hDZtH4Mr9zKHAvVsZpNi6LqwhIC+i38fPIDii4TvRi
- 672ASsjskZUOL/QywiO8GsEsXyhYAPWR7RLrLCwgXdxz78CEDIhnMp8/k2b/L2nVhT8gw+4GzwgD5i
- 4/XbI32fc7gnKjyyPC4dE2xc3ggs9/l32b1Au/EJ+wq444dlIcnifa/gqqMn67UiH8bNjzzBjNMMGj
- 07PV3En4md/bz+HFpj6V7yL0rq+F8S6q7arTNU+FfWBkuJAG+Ym9S6dZd9YsDA+SnjCKi1SlUlxlKJ
- xXSQPQ6AmSNFNP/NQUMZOmEeJOEWN+ww1AxKsybiyQXlXDDk3dTTEiF3etLS6nhzgL/0liHJfxnPNH
- +15GVgczrtQHJe7Zg1DJUu2DKzAvwhQnT7BvHOiCYxHaScLXGMuyPA1RtXog==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 4 May 2026 14:41:08 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUqdEZaK4C2zNjZ3Rh0TaiLrROUeWK-R5WZU+ULpArBrQ@mail.gmail.com>
+X-Gm-Features: AVHnY4LvtR9sYYwFkbyXTFSDx7n1q3qDBs-g1S0RCiV3vvmXtOpqt-05ZZXwFh0
+Message-ID: <CAMuHMdUqdEZaK4C2zNjZ3Rh0TaiLrROUeWK-R5WZU+ULpArBrQ@mail.gmail.com>
+Subject: Re: [PATCH v6 00/21] Add support for DU and DSI on the Renesas RZ/G3E SoC
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, laurent.pinchart@ideasonboard.com, 
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: KancyJoe <kancy2333@outlook.com>
+Hi Tommaso,
 
-Add support for the SG Micro SGM3804 Single Inductor Dual Output
-Buck/Boost Converter used to power LCD panels a provide positive
-and negative power rails with configurable voltage and active
-discharge function for each output.
+On Wed, 8 Apr 2026 at 12:37, Tommaso Merciai
+<tommaso.merciai.xr@bp.renesas.com> wrote:
+> This patch series adds support for the 2 Display Units (DUs) and MIPI DSI
+> interface found on the Renesas RZ/G3E SoC.
+>
+> RZ/G3E SoC has 2 LCD controller (LCDC0 and LCDC1), both are composed
+> of Frame Compression Processor (FCPVD), Video Signal Processor (VSPD),
+> and Display Unit (DU).
+>
+> LCDC0 is connected to LVDS (single or dual channel) and DSI.
+> LCDC1 is connected to LVDS (single ch), DSI, and GPIO (Parallel I/F).
 
-The SGM3804 is powered by the enable GPIO pins inputs and only
-supports I2C write messages.
-In order to add flexibility and simplify the driver, the
-regmap cache is enabled and populated with default values
-since we can't write registers when the 2 GPIOs are down.
+Thanks for your series!
 
-Signed-off-by: KancyJoe <kancy2333@outlook.com>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- drivers/regulator/Kconfig             |   7 +
- drivers/regulator/Makefile            |   1 +
- drivers/regulator/sgm3804-regulator.c | 297 ++++++++++++++++++++++++++++++++++
- 3 files changed, 305 insertions(+)
+> Tommaso Merciai (21):
+>   clk: renesas: rzv2h: Add PLLDSI clk mux support
+>   clk: renesas: r9a09g047: Add CLK_PLLETH_LPCLK support
+>   clk: renesas: r9a09g047: Add CLK_PLLDSI{0,1} clocks
+>   clk: renesas: r9a09g047: Add CLK_PLLDSI{0,1}_DIV7 clocks
+>   clk: renesas: r9a09g047: Add CLK_PLLDSI{0,1}_CSDIV clocks
+>   clk: renesas: r9a09g047: Add support for SMUX2_DSI{0,1}_CLK
+>   clk: renesas: r9a09g047: Add support for DSI clocks and resets
+>   clk: renesas: r9a09g047: Add support for LCDC{0,1} clocks and resets
 
-diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-index e8002526cfb0..9335c1bd0c5b 100644
---- a/drivers/regulator/Kconfig
-+++ b/drivers/regulator/Kconfig
-@@ -1590,6 +1590,13 @@ config REGULATOR_SUN20I
- 	help
- 	  This driver supports the internal LDOs in the Allwinner D1 SoC.
- 
-+config REGULATOR_SGM3804
-+	tristate "SGMicro SGM3804 voltage regulator"
-+	depends on I2C && OF
-+	select REGMAP_I2C
-+	help
-+	  This driver supports SGMicro SGM3804 dual-output voltage regulator.
-+
- config REGULATOR_SY7636A
- 	tristate "Silergy SY7636A voltage regulator"
- 	depends on MFD_SY7636A
-diff --git a/drivers/regulator/Makefile b/drivers/regulator/Makefile
-index 35639f3115fd..7c345c7caee7 100644
---- a/drivers/regulator/Makefile
-+++ b/drivers/regulator/Makefile
-@@ -181,6 +181,7 @@ obj-$(CONFIG_REGULATOR_STM32_PWR) += stm32-pwr.o
- obj-$(CONFIG_REGULATOR_STPMIC1) += stpmic1_regulator.o
- obj-$(CONFIG_REGULATOR_STW481X_VMMC) += stw481x-vmmc.o
- obj-$(CONFIG_REGULATOR_SUN20I) += sun20i-regulator.o
-+obj-$(CONFIG_REGULATOR_SGM3804) += sgm3804-regulator.o
- obj-$(CONFIG_REGULATOR_SY7636A) += sy7636a-regulator.o
- obj-$(CONFIG_REGULATOR_SY8106A) += sy8106a-regulator.o
- obj-$(CONFIG_REGULATOR_SY8824X) += sy8824x.o
-diff --git a/drivers/regulator/sgm3804-regulator.c b/drivers/regulator/sgm3804-regulator.c
-new file mode 100644
-index 000000000000..182dcf763afb
---- /dev/null
-+++ b/drivers/regulator/sgm3804-regulator.c
-@@ -0,0 +1,297 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// SGMicro SGM3804 regulator Driver
-+//
-+// Copyright (C) 2025 Kancy Joe <kancy2333@outlook.com>
-+// Copyright (C) 2026 Linaro Limited
-+// Author: Neil Armstrong <neil.armstrong@linaro.org>
-+
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/driver.h>
-+#include <linux/regulator/of_regulator.h>
-+#include <linux/gpio/consumer.h>
-+
-+#define SGM3804_POS_RAIL_VOLTAGE_REG	0x0
-+#define SGM3804_NEG_RAIL_VOLTAGE_REG	0x1
-+#define SGM3804_RAIL_DISCHARGE_REG	0x3
-+
-+#define RAIL_VOLTAGE_MASK	GENMASK(5, 0)
-+
-+#define POS_RAIL_DISCHARGE_EN	BIT(1)
-+#define NEG_RAIL_DISCHARGE_EN	BIT(0)
-+
-+#define RAIL_VOLTAGE_INVALID		RAIL_VOLTAGE_MASK
-+#define RAIL_DISCHARGE_REG_DEFAULT	(POS_RAIL_DISCHARGE_EN | NEG_RAIL_DISCHARGE_EN)
-+
-+#define SGM3804_VOLTAGES_COUNT	40
-+
-+enum {
-+	SGM3804_POS_RAIL = 0,
-+	SGM3804_NEG_RAIL,
-+	SGM3804_RAIL_COUNT,
-+};
-+
-+/*
-+ * The registers are only writable when the gpio is enabled, so
-+ * we need to use the cache for read operations and set the regmap
-+ * as cache_only when both GPIOs are down.
-+ */
-+struct sgm3804_data {
-+	struct regmap *regmap;
-+	/* Protects the regcache state update */
-+	struct mutex lock;
-+	struct gpio_desc *gpios[SGM3804_RAIL_COUNT];
-+};
-+
-+static const struct linear_range sgm3804_voltages[] = {
-+	REGULATOR_LINEAR_RANGE(2400000, 0x20, 0x2f, 100000),
-+	REGULATOR_LINEAR_RANGE(4000000, 0x00, 0x17, 100000),
-+};
-+
-+/*
-+ * The cache is populated with those hardware default values
-+ * so the regmap_update_bits operation will use the cached
-+ * value to build a new register value and write it when GPIOs
-+ * are enabled.
-+ */
-+static const struct reg_default sgm3804_reg_defaults[] = {
-+	{ SGM3804_POS_RAIL_VOLTAGE_REG, RAIL_VOLTAGE_INVALID },
-+	{ SGM3804_NEG_RAIL_VOLTAGE_REG, RAIL_VOLTAGE_INVALID },
-+	{ SGM3804_RAIL_DISCHARGE_REG, RAIL_DISCHARGE_REG_DEFAULT },
-+};
-+
-+/* Registers are only writable */
-+static bool sgm3804_writeable_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case SGM3804_POS_RAIL_VOLTAGE_REG:
-+	case SGM3804_NEG_RAIL_VOLTAGE_REG:
-+	case SGM3804_RAIL_DISCHARGE_REG:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+/*
-+ * Since all registers are only writeable, regmap will only read from the cache data.
-+ */
-+static bool sgm3804_readable_reg(struct device *dev, unsigned int reg)
-+{
-+	return false;
-+}
-+
-+static const struct regmap_config sgm3804_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = 0x03,
-+	.writeable_reg = sgm3804_writeable_reg,
-+	.readable_reg = sgm3804_readable_reg,
-+	.cache_type = REGCACHE_MAPLE,
-+	.reg_defaults = sgm3804_reg_defaults,
-+	.num_reg_defaults = ARRAY_SIZE(sgm3804_reg_defaults),
-+};
-+
-+static int sgm3804_sync_regcache_state(struct sgm3804_data *ctx)
-+{
-+	guard(mutex)(&ctx->lock);
-+
-+	/* If both GPIOs are down, IC is powered down and I2C writes will fail */
-+	if (!gpiod_get_value_cansleep(ctx->gpios[SGM3804_POS_RAIL]) &&
-+	    !gpiod_get_value_cansleep(ctx->gpios[SGM3804_NEG_RAIL])) {
-+		regcache_cache_only(ctx->regmap, true);
-+		regcache_mark_dirty(ctx->regmap);
-+	} else {
-+		/* At least a GPIO is up, we can write registers */
-+		regcache_cache_only(ctx->regmap, false);
-+		return regcache_sync(ctx->regmap);
-+	}
-+
-+	return 0;
-+}
-+
-+static int sgm3804_get_voltage_sel(struct regulator_dev *rdev)
-+{
-+	int ret;
-+
-+	ret = regulator_get_voltage_sel_regmap(rdev);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Force setting a voltage on probe */
-+	if (ret == RAIL_VOLTAGE_INVALID)
-+		return -ENOTRECOVERABLE;
-+
-+	return ret;
-+}
-+
-+static int sgm3804_enable(struct regulator_dev *rdev)
-+{
-+	struct sgm3804_data *ctx = rdev->reg_data;
-+	int ret;
-+
-+	ret = gpiod_set_value_cansleep(ctx->gpios[rdev_get_id(rdev)], 1);
-+	if (ret)
-+		return ret;
-+
-+	ret = sgm3804_sync_regcache_state(ctx);
-+	if (ret)
-+		goto err;
-+
-+	return 0;
-+
-+err:
-+	gpiod_set_value(ctx->gpios[rdev_get_id(rdev)], 0);
-+	return ret;
-+}
-+
-+static int sgm3804_disable(struct regulator_dev *rdev)
-+{
-+	struct sgm3804_data *ctx = rdev->reg_data;
-+	int ret;
-+
-+	ret = gpiod_set_value_cansleep(ctx->gpios[rdev_get_id(rdev)], 0);
-+	if (ret)
-+		return ret;
-+
-+	return sgm3804_sync_regcache_state(ctx);
-+}
-+
-+static int sgm3804_is_enabled(struct regulator_dev *rdev)
-+{
-+	struct sgm3804_data *ctx = rdev->reg_data;
-+
-+	return gpiod_get_value_cansleep(ctx->gpios[rdev_get_id(rdev)]);
-+}
-+
-+static const struct regulator_ops sgm3804_ops = {
-+	.list_voltage = regulator_list_voltage_linear_range,
-+	.map_voltage = regulator_map_voltage_linear_range,
-+	.set_voltage_sel = regulator_set_voltage_sel_regmap,
-+	.get_voltage_sel = sgm3804_get_voltage_sel,
-+	.set_active_discharge = regulator_set_active_discharge_regmap,
-+	.enable = sgm3804_enable,
-+	.disable = sgm3804_disable,
-+	.is_enabled = sgm3804_is_enabled,
-+};
-+
-+static const struct regulator_desc sgm3804_regulator_desc[] = {
-+	/* Positive Output */
-+	{
-+		.name = "pos",
-+		.of_match = "pos",
-+		.supply_name = "vin",
-+		.id = SGM3804_POS_RAIL,
-+		.ops = &sgm3804_ops,
-+		.type = REGULATOR_VOLTAGE,
-+		.linear_ranges = sgm3804_voltages,
-+		.n_linear_ranges = ARRAY_SIZE(sgm3804_voltages),
-+		.n_voltages = SGM3804_VOLTAGES_COUNT,
-+		.vsel_reg = SGM3804_POS_RAIL_VOLTAGE_REG,
-+		.vsel_mask = RAIL_VOLTAGE_MASK,
-+		.active_discharge_on = POS_RAIL_DISCHARGE_EN,
-+		.active_discharge_mask = POS_RAIL_DISCHARGE_EN,
-+		.active_discharge_reg = SGM3804_RAIL_DISCHARGE_REG,
-+		.enable_time = 40000,
-+		.owner = THIS_MODULE,
-+	},
-+	/* Negative Output */
-+	{
-+		.name = "neg",
-+		.of_match = "neg",
-+		.supply_name = "vin",
-+		.id = SGM3804_NEG_RAIL,
-+		.ops = &sgm3804_ops,
-+		.type = REGULATOR_VOLTAGE,
-+		.linear_ranges = sgm3804_voltages,
-+		.n_linear_ranges = ARRAY_SIZE(sgm3804_voltages),
-+		.n_voltages = SGM3804_VOLTAGES_COUNT,
-+		.vsel_reg = SGM3804_NEG_RAIL_VOLTAGE_REG,
-+		.vsel_mask = RAIL_VOLTAGE_MASK,
-+		.active_discharge_on = NEG_RAIL_DISCHARGE_EN,
-+		.active_discharge_mask = NEG_RAIL_DISCHARGE_EN,
-+		.active_discharge_reg = SGM3804_RAIL_DISCHARGE_REG,
-+		.enable_time = 40000,
-+		.owner = THIS_MODULE,
-+	},
-+};
-+
-+static int sgm3804_probe(struct i2c_client *i2c)
-+{
-+	struct device *dev = &i2c->dev;
-+	struct sgm3804_data *ctx;
-+	int ret, i;
-+
-+	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
-+	if (!ctx)
-+		return -ENOMEM;
-+
-+	mutex_init(&ctx->lock);
-+
-+	ctx->regmap = devm_regmap_init_i2c(i2c, &sgm3804_regmap_config);
-+	if (IS_ERR(ctx->regmap))
-+		return dev_err_probe(dev, PTR_ERR(ctx->regmap),
-+				     "failed to init regmap\n");
-+
-+	/* Set default values */
-+	for (i = 0; i < ARRAY_SIZE(sgm3804_regulator_desc); i++) {
-+		ctx->gpios[i] = devm_gpiod_get_index(dev, "enable",
-+						     i, GPIOD_ASIS);
-+		if (IS_ERR(ctx->gpios[i]))
-+			return dev_err_probe(dev, PTR_ERR(ctx->gpios[i]),
-+					"failed to get enable GPIO %d\n", i);
-+	}
-+
-+	ret = sgm3804_sync_regcache_state(ctx);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(sgm3804_regulator_desc); i++) {
-+		struct regulator_config config = { };
-+		struct regulator_dev *rdev;
-+
-+		config.dev = dev;
-+		config.regmap = ctx->regmap;
-+		config.of_node = dev->of_node;
-+		config.driver_data = ctx;
-+		rdev = devm_regulator_register(dev, &sgm3804_regulator_desc[i],
-+					       &config);
-+		if (IS_ERR(rdev))
-+			return dev_err_probe(dev, PTR_ERR(rdev),
-+					     "failed to register regulator %d\n", i);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct i2c_device_id sgm3804_id[] = {
-+	{ "sgm3804" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, sgm3804_id);
-+
-+static const struct of_device_id sgm3804_of_match[] = {
-+	{ .compatible = "sgmicro,sgm3804" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, sgm3804_of_match);
-+
-+static struct i2c_driver sgm3804_regulator_driver = {
-+	.driver = {
-+		.name = "sgm3804",
-+		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-+		.of_match_table = sgm3804_of_match,
-+	},
-+	.probe = sgm3804_probe,
-+	.id_table = sgm3804_id,
-+};
-+
-+module_i2c_driver(sgm3804_regulator_driver);
-+
-+MODULE_DESCRIPTION("SGMicro SGM3804 regulator Driver");
-+MODULE_AUTHOR("Kancy Joe <kancy2333@outlook.com>");
-+MODULE_AUTHOR("Neil Armstrong <neil.armstrong@linaro.org>");
-+MODULE_LICENSE("GPL");
+I have queued these in an immutable branch, targeted for renesas-clk
+for v7.2, and for consumption by the DRM patch(es) that have a hard
+dependency on the addition to include/linux/clk/renesas.h.
 
--- 
-2.34.1
+>   dt-bindings: display: renesas,rzg2l-du: Refuse port@1 for RZ/G2UL
+>   dt-bindings: display: renesas,rzg2l-du: Add support for RZ/G3E SoC
+>   dt-bindings: display: bridge: renesas,dsi: Add support for RZ/G3E SoC
+>   drm: renesas: rz-du: mipi_dsi: Add out_port to OF data
+>   drm: renesas: rz-du: mipi_dsi: Add RZ_MIPI_DSI_FEATURE_GPO0R feature
+>   drm: renesas: rz-du: mipi_dsi: Add support for RZ/G3E
+>   drm: renesas: rz-du: Add RZ/G3E support
+>   media: dt-bindings: media: renesas,vsp1: Document RZ/G3E
+>   media: dt-bindings: media: renesas,fcp: Document RZ/G3E SoC
+>   arm64: dts: renesas: r9a09g047: Add fcpvd{0,1} nodes
+>   arm64: dts: renesas: r9a09g047: Add vspd{0,1} nodes
+>   arm64: dts: renesas: r9a09g047: Add DU{0,1} and DSI nodes
+>   arm64: dts: renesas: r9a09g047e57-smarc: Enable DU0 and DSI support
 
+The following changes since commit 254f49634ee16a731174d2ae34bc50bd5f45e731:
+
+  Linux 7.1-rc1 (2026-04-26 14:19:00 -0700)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/geert/renesas-drivers.git
+tags/clk-renesas-rzg3e-plldsi-tag
+
+for you to fetch changes up to 272a6e2ad164094045af520299b5df3ce1763061:
+
+  clk: renesas: r9a09g047: Add support for LCDC{0,1} clocks and resets
+(2026-05-04 14:03:08 +0200)
+
+----------------------------------------------------------------
+clk: renesas: rzg3e: Add support for DSI clocks
+
+RZ/G3E Clock Pulse Generator PLLDSI limits, shared by clock and MIPI DSI
+driver source files.
+
+----------------------------------------------------------------
+Tommaso Merciai (8):
+      clk: renesas: rzv2h: Add PLLDSI clk mux support
+      clk: renesas: r9a09g047: Add CLK_PLLETH_LPCLK support
+      clk: renesas: r9a09g047: Add CLK_PLLDSI{0,1} clocks
+      clk: renesas: r9a09g047: Add CLK_PLLDSI{0,1}_DIV7 clocks
+      clk: renesas: r9a09g047: Add CLK_PLLDSI{0,1}_CSDIV clocks
+      clk: renesas: r9a09g047: Add support for SMUX2_DSI{0,1}_CLK
+      clk: renesas: r9a09g047: Add support for DSI clocks and resets
+      clk: renesas: r9a09g047: Add support for LCDC{0,1} clocks and resets
+
+ drivers/clk/renesas/r9a09g047-cpg.c |  84 +++++++++++++++++
+ drivers/clk/renesas/rzv2h-cpg.c     | 181 ++++++++++++++++++++++++++++++++++++
+ drivers/clk/renesas/rzv2h-cpg.h     |  12 +++
+ include/linux/clk/renesas.h         |  20 ++++
+ 4 files changed, 297 insertions(+)
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
