@@ -1,112 +1,116 @@
-Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C59346ACE
-	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 08:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6483E354ACE
+	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 09:04:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777884471; cv=none; b=h6Mbki10bpwpMvXNjN9rnH+2+Od9TD79D3qFIGcZp/36KN0pHYuOr/U4QNgsYqfEAGxf+aqvMWrPonXCp6Hwi9bXM7yGxZhH4qeQQE/C0ul0mcnkb6/4+iFWmg023wKx7hmuiphAeo68uTtD0V9HvjdGuY+DjQ3FkTpUGx0IN54=
+	t=1777885487; cv=none; b=kgB8n/f3/p3Jcfs27vb+hMlK9leR8TC/iAvOV089nOUGLMHZid7it5wURefqeYSTiF8YyQabmnOR9QjHCrZjNjolACA7j53CaWaCwlXanjDEcDy/YbROxl8ln7BAbIn17YdszC7cGSuWYOEnEiByDs0KXCo5tENTzGBtREKk4HQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777884471; c=relaxed/simple;
-	bh=9ThezaybU6JMwgX8EqkJ2e4UKZQQL7Vuu4i/Sg0xHEE=;
+	s=arc-20240116; t=1777885487; c=relaxed/simple;
+	bh=4b1Z9TVnKdKjkQ91UetoQAPM+PvtTG+uUazxkJyn0fU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=F8aI0IZ4mhfXJmqgjwfreb9gw1mQ3B/jUUbq1+Lq2qNmHX5jRmKMiw7rAcrDK15rcgEr6ydIQNcKcAqKml7xoTSkkZeb3rF/7LNnX0g+HStbBgY5NIqvUlqHj17Jr9KkZgyIrqGGezhVxf3n4kU2bi0oyFkZ9Ge2XhdNlGGzwAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.45
+	 To:Cc:Content-Type; b=B9fedPo+x7xxI2ntzm7c0GbHFyrqLZSSWGY3AjOStuoxLH+y7nSZ0szMADeONTQi4PwllY6oEfbbr94noIw4kpA5sbIPPYnXuc/1Vp2g1OkpgLJ1Dh0MdROsYd4qHXWRgq+2HUnoqo9VvE6VbnYoNsPno8stM+ve8gzai/XwwRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-94aaa5d3bfcso2285114241.3
-        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 01:47:50 -0700 (PDT)
+Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-8ee9ec26edaso416047885a.2
+        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 02:04:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777884469; x=1778489269;
+        d=1e100.net; s=20251104; t=1777885484; x=1778490284;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=d7dAimrYwm3G27zNKOrwjz8dgHuGQ7JjwxtM6TGtY+M=;
-        b=gBsZ9/BP7pCj5Gn1sMm7YoeDN4/Dw+2O2ukPEc0SdQ5NNpJEJRdDZT7dLUyVq8JsxT
-         Oa9rtUwV99OJ4JWhEjmtf1pW8J6aLmfuyu5TWd3Ts8Ps0rhsDIojFmOXp0qFivjrSHWI
-         dZL91IlhOIuc1XJ7pVB4kWZ+kkBS8FADcKtrJU81O6w4mHUW9WYtKEWQtKh9qGNFVY1q
-         ztJumFt+8NzCkT/BbBhjGJfNZffv17KwEDX1dQMagnq3ec5qq4c0artCnNXg0PeJpFVV
-         oluhhNLMldh4mWabYnhBvxwRKf8cNLVPOF1Xu835f2PJKc29FVaH7Qdvzj6/VB3Qgccu
-         bG8Q==
-X-Forwarded-Encrypted: i=1; AFNElJ+BpyVuiz89RqA6mfo5z70ENPzVVzgV/AGyq5vmmte+VlFzGpJeYfs2gFQmMatB7YkAhfUILALvcrEs@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy9b8CMxe6CQJZfDqFBAimxamxWLcTagBUsnrFKIbTL6aAMG9ZH
-	40WPVw/6wIOfuUVdKF5hABgl3UKQ3jbMU2JITs+Tj4bo41ylZ8srulJDP4tX+TIb
-X-Gm-Gg: AeBDies3EDAY+Q02Szbnq3xyBgX/tVLEIzPZbumCGh8iII2uZiMzHcb4md/V9vGBD78
-	iox6Ww/WkQdSIljzn0v9gy1Pqb4vgL34sxcLkC6Wdxc8MX67VytRfZP+b05xUBH0K3/99Bwfndt
-	H4lpmeBRmeL419+vC8o/ZqaMMYjxih3v/xiIeWb1vRulhyRtbkT2q/YdX+ixV2cyX9eNT9BICnU
-	GNRvgeoCG9dXmqorT/J8Re26wpW746VL3ORy7kgFd9ZOsISSB5en3biGOyFzAFAGBQgLhfHfteN
-	PjOhOKPv+dR4Tr7NQs+vkL3zEL/7NiYPzEFFavNZPLbR2LZ+mtiswsEV4sbDWwW/Mo05kn+GHwQ
-	fHO6eEvj8bg7IBN019+CgbOoeEt0IuJIJDJcsj+yEQQe8uAxfWYtq+HQWFu2YtZiH5p5LtPPmyC
-	aXBiTtMg+syJUZv5w+e71MGI8+LQTG3i+Z6bz8lyfj8M6pKPwMHXcluycc9yD0M+cgAq9pjXM=
-X-Received: by 2002:a05:6102:c4f:b0:605:218d:ae0f with SMTP id ada2fe7eead31-62d86a1cd99mr3182078137.18.1777884469226;
-        Mon, 04 May 2026 01:47:49 -0700 (PDT)
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com. [209.85.222.51])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-95ce08972bdsm4836514241.1.2026.05.04.01.47.48
+        bh=f5mGt0mKWKt7BharKNX9fTxCtQWRZYlGFfS86SF9TeM=;
+        b=hoOirmvhigD/EqUlDE11gj6mQBXqpJ7c+0pPf3rrbl6s9FGKjaPq3tcc65fS5tw7eV
+         7dtf8uRJtXBxCQX70H9M2rNg7DY5tS+Uk5P8k926kiLvZRLHEe3vB7kNctMOKz6YwA93
+         q1U4pTfQXXVUtL5K3YVhKpkKiSsCZLxNVNftnn+QxfZCBssk4l9C3MyvBwDPTPDRtFsl
+         Z5+4GiUe6vC9+D2QmFuuSBkGf0bDBuOvtFQiza45NvtVStWf0leRVLqwyuah7zzlS/N8
+         F+AnC9ZMMtdlu9qxwdP/3edH79vPS0iHZ+57dWXZ+zEjLD/+jwS8WbCca16lOLZzTuMS
+         IZEA==
+X-Forwarded-Encrypted: i=1; AFNElJ/P5ulXqltId7KP8ORD3VwoFWAE3haaLH2RuzHLmr/VRWMsVlKjqnTsgVbI2ccV1HU6sYED+6tabGLr@vger.kernel.org
+X-Gm-Message-State: AOJu0YzjTuCsaMwRO3rNaVY4YQpY4FVMgReq0+ZB8hoQ+qax+2RJN8CT
+	Rado6y4EHcKzNnO8F1MBYs7FpuE6mG2mpdQCYrO58XuARgGyZScBsvtg4brXZJ2V
+X-Gm-Gg: AeBDieuYqerqgZUJIpwx8FOzn8Okz++xrMl9BCq2DPU2AiamBTCKb77xCHQPC2kHi0G
+	z3Qt81QX6pdNNnh54/qtI0oT3mOsfr5U9MfejOtscUqhZiOyNIeYRxx+YKU7c0106AQBnt8g510
+	d+lISC+E/PrdHqo18niFKv2e3hMU+K6jfb6mTFkQrLzu/SPT9rfipyLcfezp8n5DxH1cgPYgQU5
+	LR7DbKnEWl7qVKQaNY6cD+r37g4RWmIXFlEtB7HcndFDDZHcPt2RqugpoR7cL5Z+917zTg6wS3d
+	7QZQ8iDm1ecSki/12rZ96R2c9K1BP5aNaye3yuYTzKyCtrgro7tr6mZafzM8AC45Q29I8YfptbX
+	QZ4Z5wCYykJZ9nYJJ6DRvHL5gIMQNiMq713vnDUlgDd05FC2kQYihvLbayncpExibnmBcwwiCF7
+	HakaVh10KM1KtwMgeo/kP/3/ohKDz0foN2aFNkJCF8rejQNhPTWwi9cyH/PGZtfjwAhHi5ePg=
+X-Received: by 2002:a05:620a:2903:b0:8ee:21b3:2ebe with SMTP id af79cd13be357-8fd17d4a7eamr1306507885a.36.1777885484141;
+        Mon, 04 May 2026 02:04:44 -0700 (PDT)
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com. [209.85.219.54])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8fc2c9229c8sm1057332785a.36.2026.05.04.02.04.43
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 04 May 2026 01:47:48 -0700 (PDT)
-Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-944168e8c5fso2331923241.2
-        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 01:47:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9n4zvL+riaMA7wwhsQpXjD+HyJBjdWwkwTOOtt4oUgP18DBbLkGJ4hTgoJs7PkzU5j2i3hwJONaJxf@vger.kernel.org
-X-Received: by 2002:a05:6102:6053:b0:605:6615:d9dd with SMTP id
- ada2fe7eead31-62d84a737edmr3283917137.3.1777884468126; Mon, 04 May 2026
- 01:47:48 -0700 (PDT)
+        Mon, 04 May 2026 02:04:43 -0700 (PDT)
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-8acb3daf2aaso63962336d6.0
+        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 02:04:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9pCrIp0DZXv/7PE+QGBo7dSI3D5qAd8kMCfhXL0p8ERWW60uwfP4vGsAPq1HQY0og5cJBuTEntE5fK@vger.kernel.org
+X-Received: by 2002:a05:6102:50a5:b0:62f:3abe:907f with SMTP id
+ ada2fe7eead31-62f3abe982fmr942838137.4.1777885021372; Mon, 04 May 2026
+ 01:57:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260503-rzg2-sr-boards-v1-0-8545677f93ca@solid-run.com>
-In-Reply-To: <20260503-rzg2-sr-boards-v1-0-8545677f93ca@solid-run.com>
+References: <20260502-raa215300-clkout-v1-0-fd1c2a240963@solid-run.com> <20260502-raa215300-clkout-v1-1-fd1c2a240963@solid-run.com>
+In-Reply-To: <20260502-raa215300-clkout-v1-1-fd1c2a240963@solid-run.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 4 May 2026 10:47:35 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdV=SVDL=7vShMgBas4KyUy7_XWs_9khLZSdggJofsA+VA@mail.gmail.com>
-X-Gm-Features: AVHnY4Ja_beTfs2zJQEP15HITljg2EdKPb6XLKJOnEpV1VMzgSNE4T0gDnfoB8Q
-Message-ID: <CAMuHMdV=SVDL=7vShMgBas4KyUy7_XWs_9khLZSdggJofsA+VA@mail.gmail.com>
-Subject: Re: [PATCH 0/4] arm64: dts: renesas: Add various SolidRun RZ/G2 based boards
+Date: Mon, 4 May 2026 10:56:50 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdV_mDhAVTH4bUzbHQAAhp-TdApp223PB-3Rrer+gs_3+A@mail.gmail.com>
+X-Gm-Features: AVHnY4IB14dciSQLYR6ve-hV1cawj2RAYgs2Laamwu_g76ZIh5HxQK0TWj__-U4
+Message-ID: <CAMuHMdV_mDhAVTH4bUzbHQAAhp-TdApp223PB-3Rrer+gs_3+A@mail.gmail.com>
+Subject: Re: [PATCH RFC 1/2] regulator: dt-bindings: raa215300: add clock output
 To: Josua Mayer <josua@solid-run.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
-	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, Jon Nettleton <jon@solid-run.com>, 
+	Mikhail Anikin <mikhail.anikin@solid-run.com>, Yazan Shhady <yazan.shhady@solid-run.com>, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
 Hi Josua,
 
-On Sun, 3 May 2026 at 13:18, Josua Mayer <josua@solid-run.com> wrote:
-> Add support for a variety of oliRun RZ/G2 based SoMs and the
-> HummingBoard IIoT Evaluation board.
+On Sat, 2 May 2026 at 18:07, Josua Mayer <josua@solid-run.com> wrote:
+> Renesas RAA215300 can generate a 32kHz clock on MPIO2 pin.
 >
-> Bindings are added for all currently known supported boards, namely:
-> - HummingBoard IIoT
-> - HummingBoard Pro
-> - HummingBoard Ripple
+> MPIO2 is a multi-function pin, with clkout being one of the functions
+> and exclusively available on this pin.
 >
-> Device-tree are only added for the first board to reduce effort.
+> It supports prepare, unprepare and set rate (32k divide by powers of 2).
+>
+> Add clock-cells and clock-output-names properties so that other dt nodes
+> can consume this clock.
 >
 > Signed-off-by: Josua Mayer <josua@solid-run.com>
 
-Thanks for your series!
+Thanks for your patch!
 
-FTR, I found documentation (incl. schematics) at:
-  - RZ/G2L SYSTEM ON MODULE
-    https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2l-som/
-  - RZ/V2L SYSTEM ON MODULE
-    https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-v2l-som/#documentation
-  - RZ/G2LC SYSTEM ON MODULE
-    https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2lc-som/
-  - RZ/G2UL SYSTEM ON MODULE
-    https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2ul-som/
-  - HUMMINGBOARD RZ/G2L IIOT
-    https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
-  - HUMMINGBOARD RZ/G2L PRO
-    https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-sbc/
-  - HUMMINGBOARD RZ/G2LC BASE
-    https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2lc-base/
+> --- a/Documentation/devicetree/bindings/regulator/renesas,raa215300.yaml
+> +++ b/Documentation/devicetree/bindings/regulator/renesas,raa215300.yaml
+> @@ -40,6 +40,12 @@ properties:
+>    interrupts:
+>      maxItems: 1
+>
+> +  "#clock-cells":
+> +    const: 0
+> +
+> +  clock-output-names:
+> +    maxItems: 1
 
-I believe "BASE" is the Ripple?
+Please no more new clock-output-names.
+
+> +
+>    clocks:
+>      description: |
+>        The clocks are optional. The RTC is disabled, if no clocks are
+>
 
 Gr{oetje,eeting}s,
 
