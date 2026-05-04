@@ -1,152 +1,193 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3DF7260D
-	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 03:46:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394191096F
+	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 05:03:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777866417; cv=none; b=JE4cpe3Oslb3/ABototCOBXrX4sMv6VmY6hOD9zqkMiiVhtidfoK26MMMiHnX6/elnfqrKgcXxWt6GSSEoeyH+/lMqJkbzR07fqMpprJwbw7qgVWC2eR5iTrdXYoGRxtLgX9wLWkw8RkowMME+geU/+VoNBXbaqlkYHZUtfW+MA=
+	t=1777870993; cv=none; b=YsaxmROUp5jkpzc+wbt2CVRAwLYpZr8zokB4qFqHOn8Wdd9Huf8npfTTKWDdYj3a1ONpj/13C1tWAb5jDFOGljIL7U5qybUKFKhv8RWT9ZiEqPuZahSFndjWbea16JuyOcDKFKaIPwazH5MCqzwg3Kvc7Jq4rrC2aXWskKio4TE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777866417; c=relaxed/simple;
-	bh=pLxMJg1KifrfWXeCQTwVo0cJp/RvGgrYCglxjMrSxt8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PThIDX7pb8RuXDazTnlUfqQOD/6kM16PQmbXDmYIMl9AMeU4LAjq5Veo6nRhYqUuk+3oj4DAZte82YloXofoHNmLdtXtu5texno55yy6m7CxOP9bNFLWLYdt8+HY+hPQ6vxiI3fdWy9dS5N/tW7K31by2EuYnX32bVsQF99bvRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com; spf=pass smtp.mailfrom=inventec.com; dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b=TEVENzP+; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inventec.com
+	s=arc-20240116; t=1777870993; c=relaxed/simple;
+	bh=agt5GECVqOdh9CtCVZmq7or6bJXZGyJ3eUh17LzI/BU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M5Zex3DzVjCCChWpXP/jbsZS7eTEfAgLINMk08S6p0eWnbBVGRb12pGaBhQVUvGWK3i0auUR2SeD9M4Wd1L35s8U8ewN3ZzfGAIQMfZdsKCsEqiF9vgapKsSEKGECuFVpj5CWYo5y1YoTSBTX855JFkczgZ+8Ip9+zg7ydGK220=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f1Jli/iH; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b="TEVENzP+"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-c8025500cc7so590439a12.1
-        for <devicetree@vger.kernel.org>; Sun, 03 May 2026 20:46:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f1Jli/iH"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3654ebfd57cso273853a91.1
+        for <devicetree@vger.kernel.org>; Sun, 03 May 2026 22:03:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=inventec.com; s=google; t=1777866414; x=1778471214; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=pLxMJg1KifrfWXeCQTwVo0cJp/RvGgrYCglxjMrSxt8=;
-        b=TEVENzP+6YgBO/a5qbvqk/n0zbw2726ri4eUTAx/KtmZkJsMYBg2lifcwwZGg5kF51
-         x6fILCQmtFNbJrYkBmK/6z3ODk0CP83VqcvXqq1FkCwQfXC05/HGxow9EjZem49p+sai
-         NGnhY3zI/263YrcXkUSJ2eLQXOVGDJKcU9SryylhfWKhHEEoYALB7IYb4JOg24PoB/Es
-         RKMLmeLgXSb5u7TF23dH+76ECNCf0Pg+qey2bsRsBkhB4YJUbMbCyat/JINsNRHzzwzW
-         500WiSHno3jDG/yr4XcEAXt3QuFQpaArfFs35MYNs8BL40z5zH6402x6TwYuO1yFoklK
-         clzA==
+        d=gmail.com; s=20251104; t=1777870991; x=1778475791; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=x8oi2Y54Hi+TOCHwR4zL5LgXe3sseiIfUSaKMjLYxQ0=;
+        b=f1Jli/iHLPB34HHbJFxYK6lbbBX2HSNG3qMntDl0bG8aUmIKsLFxuAn2cJz15kvUIl
+         Sq/2ZDUuIZVNzpxkGEdenxLbBhcTtD1MQFwJoJKECQzugfvSiGZhfpkU7OksnBNfVIOe
+         T+UosgyV3rHDRrXi8Jh0QfQszi5sfXFtz1m3vfbIr3aVfk3UVVLstBWVidS0nmpwyrhz
+         WwdKm4b0vmbzEr1CMW1b2htpjyl+rV/MF7U+a79H0Wa2OlBptXpu+dbaXMZ1n/3IJhnm
+         elG1Q/swSj59dtCJekmB5tKFB38kLtCtwaiDGIKMI/KHwc9Rvtt8Fabo9bMPsE6VMo0m
+         vT1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777866414; x=1778471214;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=pLxMJg1KifrfWXeCQTwVo0cJp/RvGgrYCglxjMrSxt8=;
-        b=PjpJ+MdZhQja8GwpoU4dYwxYFxfBivMg6K0tl0LnMV4J7b1Ejn9Ky/GSBNLy0ezXiX
-         5cTnXRIaEJMltKkqHPeWLhLFLd0bVCW0uqDdT7Dp9GTvJN3C3bGjWf4vyFv4Loxx+oWH
-         xctqd0bn3Hm0JjOPfWTP2+UK4bQt0jNrDAXexa3/fdp5vU5Tzil2WxNSkT2CJkJdpDin
-         KFCoUdWeAaKBtnkyvXj1AeGI4NinU2P3Ga9iW0326sfcT4DAp3MUuGjA8KPcIif23/T7
-         h5PDP91R1a811FPTRq0N8HP/GrFP2rRRp0GAoskhuQNRALIN8ArXy9YZ6o3IBoXhMc8E
-         DSGQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+2NkrEmucT9NNveWaZjZAkY47l3tT30lZv9EbLSSVUkWWZc0I4spCUHXJDFUqOIrai7xjpJ97rWvI1@vger.kernel.org
-X-Gm-Message-State: AOJu0YwB70t1qmtcLJUjFe40amQViwqwymTaO0aZI4c/dbPvdZyPYzb9
-	KYk91ttuk7QMmL++GSZMjkb3TSvDuokoqHzMF7b50zqZmdyYKjxBBP7wQLplGsH+JDVEMg+d5hN
-	iudMpMOk=
-X-Gm-Gg: AeBDieteSlWyLOyy3C25DDlDimsNY+EDW6ePWgrK4BAVDdg90XPNmCz+fr2ngJ0LFjN
-	9G+xfRDNy9iEFAVefUP9J9cpdaLolYIwG6QupM7FovMXoD5eQTKGydRaoVzCoQWndXovaWPOBzh
-	VWdOBu7n1lnLX1Xi20vV1jaKWEx5N233IA9dCz4MehUtEYzebQir/WgPMB5RruuAO/rkQ334ZXV
-	sRCqcoXZ7Ks6B2UzxpKLMJ3EpT+gItX89IyT3QbX9hpkgaYcYlL4u8fgr/6bI0Fg6uoktejcbsB
-	CTHz0yjvUn33086UG6kWWGr3PTBj/xgKfHlKELYBZhyZeR9dL4V5pABHlvwPmO05zjZzYn0aRf0
-	lB2Gb3R+pvOGqSlENj3BkE7x/DX5AHH3v7qoXQAuFEPG6I4r22FmmjWw0ar+MaWsG8M1wEfTaz4
-	wOcwTNoGm3f6GkShWT/sNXtY+nHoP6TKAl+WElGn4KAjJg6U+NFgF9ivfHPRYDon6TVEHQArYq2
-	sUI
-X-Received: by 2002:a05:6a21:33a2:b0:398:a1ca:7a2a with SMTP id adf61e73a8af0-3a7f1fcd4f8mr9500799637.48.1777866414193;
-        Sun, 03 May 2026 20:46:54 -0700 (PDT)
-Received: from TAO-BU2-SWA-3 (60-248-18-139.hinet-ip.hinet.net. [60.248.18.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83515ad0049sm10788953b3a.33.2026.05.03.20.46.52
+        d=1e100.net; s=20251104; t=1777870991; x=1778475791;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=x8oi2Y54Hi+TOCHwR4zL5LgXe3sseiIfUSaKMjLYxQ0=;
+        b=X2WYu7TBSZZfs+atfDdcS2SMy4AoLHhZYknB7DCbLtpif6kl09lpyIOcfdeJZE+1gN
+         yj1SY3PuI5HRLASi+Vv6EKmvqKy/kYdJYDCQIbrNbK3fUkIBNM5WbQZvrxfT/psoUS6V
+         YeY8wrawwT1AO4XmS1QpRd6Vhj/uI+u8XULukPAplXOwPrJc3wE0KOT1VsyAtUFR8YcF
+         YDOsCloHHEBSmSGT6SawWT+UlmrBkTzzreGkqNnKhOl6Yc8jce6ciqrwxTAt8fEAttJd
+         4IQTu450ml7mu3f+dAvwzx+nzNSMcN82M2tRTc2HcsAPCRIEQqzQvVW4Ej7RWbaU0yDM
+         YfCg==
+X-Forwarded-Encrypted: i=1; AFNElJ+OBo53hy34bP01T4etD7KU8ECQ5V3/GZ+sTVnXGzV8qjjCUv/a1SEPmluAIWOZGdOFSeMAuNxwjgnZ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyc32GkL7W/T8V/2WXXeFKEfLEX/fUpf8XaGCPZXfkp13X9zOdv
+	GC7IRMtfpEP6JGC7Ki5/YBczEINCBxBfa+NLCcK4n9+ZDgEAUDZQU722
+X-Gm-Gg: AeBDietuTRl+GMq3K62owaqn4iT6hGixu6DkdqtLFhLpJjxDycPz53YRcACUfdgekfC
+	GIA1b1En2vphUCvTX7EKGQ05j4AsXIsssUZBrJYXALhnGbFaItWjUHpqY+sCcfRLsaxc8RdIWMI
+	F5/PlUlfSu1c/m3tUM+T9L0GRQ/BrwBpmqgaJh8BhcFW1Drk9adbDj0d28ycndNGiMA03pi+yjx
+	IRB2801bSRe/Q8CMFgBb5tECXPQ6gSSW9cRD2sEXwALZZdfObbLB/Fh4aes/z2T63Iem0PmZ0LV
+	elDUKxLEadlN5tmb40bnbm/YLV01/mv18d4Aes41AE8Xk6SwgLPFZ1Tbpw3Shh0RbTIx3ZdkqTL
+	v8dPt+iwxmug2gmxjnBZT1ujoUx/6+yrKUwSw5QBc/rjDn12A+8Nw8xPrPMn65lbpcK1TQ1lUwt
+	foJg==
+X-Received: by 2002:a17:90b:35cf:b0:35f:b7f5:9cd with SMTP id 98e67ed59e1d1-3650cec0ce2mr8747896a91.20.1777870991576;
+        Sun, 03 May 2026 22:03:11 -0700 (PDT)
+Received: from archlinux ([2605:e440:15::152])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-365437b50b0sm2662908a91.0.2026.05.03.22.02.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 03 May 2026 20:46:53 -0700 (PDT)
-Date: Mon, 4 May 2026 03:46:50 +0000
-From: Brian Chiang <chiang.brian@inventec.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
-	Jack Cheng <Cheng.JackHY@inventec.com>
-Subject: Re: [PATCH v7 2/2] hwmon: (pmbus/q54sj108a2) Add support for
- q50sn12072 and q54sn120a1
-Message-ID: <u5vkf7w4e5skmrwrey4hp4ub3pr7zufkus2d7vkidmvjyb3s4p@tx7eul5cgymz>
-References: <20260429-add-support-for-q50sn12072-and-q54sn120a1-v7-0-f1f83d2039f7@inventec.com>
- <20260429-add-support-for-q50sn12072-and-q54sn120a1-v7-2-f1f83d2039f7@inventec.com>
- <mhguhlt5gi7sg7qsgetsizdslm2z4vdhlgag55bqjnq3a2kz24@iafh7hhezp4l>
- <f3b8d049-744c-42ab-a641-086bc1726b24@roeck-us.net>
+        Sun, 03 May 2026 22:03:11 -0700 (PDT)
+From: Mikhail Kalashnikov <iuncuim@gmail.com>
+To: Vasily Khoruzhick <anarsoul@gmail.com>,
+	Yangtao Li <tiny.windzz@gmail.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/5] Allwinner: A523: add support for A523 THS0/1 controllers
+Date: Mon,  4 May 2026 13:02:40 +0800
+Message-ID: <20260504050245.646078-1-iuncuim@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-In-Reply-To: <f3b8d049-744c-42ab-a641-086bc1726b24@roeck-us.net>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Apr 30, 2026 at 07:01:22AM -0700, Guenter Roeck wrote:
->On 4/29/26 23:58, Brian Chiang wrote:
->>On Wed, Apr 29, 2026 at 11:29:37AM +0000, Brian Chiang wrote:
->>>From: Jack Cheng <cheng.jackhy@inventec.com>
->>>
->>>The Q50SN12072 and Q54SN120A1 are high-efficiency, high-density DC-DC power
->>>module from Delta Power Modules.
->>>
->>>The Q50SN12072, quarter brick, single output 12V. This product provides up
->>>to 1200 watts of output power at 38~60V. The Q50SN12072 offers peak
->>>efficiency up to 98.3%@54Vin.
->>>
->>>The Q54SN120A1, quarter brick, single output 12V. This product provides up
->>>to 1300 watts of output power at 40~60V. The Q54SN120A1 offers peak
->>>efficiency up to 98.1%@54Vin.
->>>
->>>Add support for them to q54sj108a2 driver.
->>
->>Greetings, I received the feedback from Sashiko for this patch:
->>
->>```
->>This isn't a bug, but the commit message only mentions adding support for
->>the new modules. However, the patch also includes several other changes:
->>adding PMBus locking in the debugfs read/write paths, fixing the
->>WRITE_PROTECT restore logic, modifying the configuration for the existing
->>q54sj108a2 module, and refactoring the device identification logic.
->>Could the commit message be updated to describe these additional changes,
->>or should they be split into separate patches?
->>```
->>
->>I'm wondering if it is more appropriate to split only `fixing the WRITE_PROTECT restore logic` into separate patch? Since disabling WRITE_PROTECT was introduced in previous commit. And maybe keeping
->>other changes Sashiko mentioned in this patch and record them in the commit message?
->>
->>Please let me know if you have any suggestion, thanks.
->>
->
->Sorry, I seem to be missing something. I dont understand the logic above.
->What does fixing a bug have to do with how or when it was introduced ?
->
->The missing lock in debugfs functions is a pre-existing bug, isn't it ?
->All pre-existing bugs should be fixed first in separate patches so they
->can be backported.
->
+This patch series adds temperature sensor support for the Allwinner A523
+family of processors (same die with H728/A527/T527)
 
-Got it, I'll split them into standalone fix patches at the start of the
-series.
+Based on 7.1-rc1.
 
->Please use guard(pmbus_lock)(client) instead of pmbus_lock_interruptible().
->
+Changes v4~v3:
+1) dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
+ - gpadc replaced to mod clock
 
-Sure, I'll do this in v8.
+x) thermal/drivers/sun8i: add gpadc clock
+ - removed
 
->Also, your patch does not apply anymore. Support for q54sn120a1 was already
->added in a separate patch. Please rebase your patches to v7.1-rc1.
->
+2) thermal/drivers/sun8i: replace devm_reset_control_get to
+ - no functional changes
 
-Thank you for the notice, I'll rebase the patchset to lateset tag.
+3) thermal/drivers/sun8i: get calibration data from two nvmem cells
+ - no functional changes
 
+4) thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
+ - gpadc replaced to mod clock
 
-Thanks again for the review and suggestion and apologies for the delayed
-response.
+5) arm64: dts: allwinner: A523: Add thermal sensors and zones
+ - gpadc replaced to mod clock
 
->Thanks,
->Guenter
+v3 https://lore.kernel.org/linux-sunxi/20251025043129.160454-1-iuncuim@gmail.com
+Changes v3~v2:
+x) dt-bindings: nvmem: SID: Add binding for A523 SID controller
+ - previously accepted, therefore removed from this version
 
-Best Regards,
-Brian
+1) dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
+ - added changes as requested by Rob
+
+2) thermal/drivers/sun8i: add gpadc clock
+ - removed undescribed changes spaces to tabs
+
+3) thermal/drivers/sun8i: replace devm_reset_control_get to
+ - changed the commit description to the version suggested by wens
+ - added reviewed-by tag
+
+4) thermal/drivers/sun8i: get calibration data from two nvmem cells
+ - added spaces in the description block before "*"
+
+5) thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
+ - added alignment of functions in compliance with open parenthesis
+
+x) arm64: dts: allwinner: A523: Add SID controller node
+ - previously accepted, therefore removed from this version
+
+6) arm64: dts: allwinner: A523: Add thermal sensors and zones
+ - no functional changes
+
+Changes v2~v1:
+1) dt-bindings: nvmem: SID: Add binding for A523 SID controller
+ - added new patch
+
+2) dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
+ - changed clock order
+ - added additional nvmem cell with calibration data
+ - added requirements for new controllers
+ - added description
+
+3) thermal/drivers/sun8i: add gpadc clock
+ - removed unnecessary call to clk_prepare_enable() since
+ devm_clk_get_enabled()includes this
+
+4) thermal/drivers/sun8i: replace devm_reset_control_get to
+ - original function replaced with devm_reset_control_get_shared_deasserted()
+ - removed some of the repetitive code executed by 
+ devm_reset_control_get_shared_deasserted()
+
+5) thermal/drivers/sun8i: get calibration data from two nvmem cells
+ - added possibility to get calibration data from two independent cells
+
+6) thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
+ - removed magic digits
+ - changed description of calibration data procedure for A523
+ - changed numbers of array elements with calibration data
+
+7) arm64: dts: allwinner: A523: Add SID controller node
+ - fix typo (sun50i->sun55i)
+
+8) arm64: dts: allwinner: A523: Add thermal sensors and zones
+ - cell with calibration data divided into two
+ - added passive trips for gpu
+ - added information that information obtained from BSP
+
+v1: https://lore.kernel.org/linux-sunxi/20250411003827.782544-1-iuncuim@gmail.com
+
+Mikhail Kalashnikov (5):
+  dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
+  thermal/drivers/sun8i: replace devm_reset_control_get  to
+    devm_reset_control_get_shared_deasserted
+  thermal/drivers/sun8i: get calibration data from two nvmem cells
+  thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
+  Allwinner: A523: add support for A523 THS0/1 controllers
+
+ .../thermal/allwinner,sun8i-a83t-ths.yaml     |  54 ++++-
+ .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 154 ++++++++++++
+ drivers/thermal/sun8i_thermal.c               | 226 ++++++++++++++----
+ 3 files changed, 391 insertions(+), 43 deletions(-)
+
+-- 
+2.54.0
+
