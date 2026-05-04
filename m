@@ -1,330 +1,202 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BACA27380A;
-	Mon,  4 May 2026 06:37:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA35194C95
+	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 06:49:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777876634; cv=none; b=Yvh8lwQJz8ajG26QNfDWaJ/jhvzIZ62vCV3JHCyYGuhSygygOitdC6sj02JbKUhzq+9/8AC/E4eOWUeF3KvU5M8NEA+tuQ+t50Z82XqSwGHpt2UBaFhbih3enYZ9//7tGz1u0ceH5GUIscRStpKnAJetj8h2RjAEjRPbdgTdOng=
+	t=1777877390; cv=none; b=i3k8LcukdFLTjEk18655m8OT+QSciUmV2MM2wHVtTKVV7LCJ7kUIVxsdxy3MS/0VT95DWDSQ9r6hQ+mqI1wjjitSF83y2x/RVcF9rH7vx2WlA5Sxt6gYXIOhQEBz1aVNUWgtQfW/6KlIoAbPGtBj92KgKSIgcm8ZQ7eajdRPa+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777876634; c=relaxed/simple;
-	bh=VtoRALB7sC9UgeWTtrvjstB79Q/ifbeHt78WAQUTn8k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XsMAHrC+p/rSYH7F8RG8n2igh+R9WlNfaOS9hZi3UHq+9nSrIgPhaBOXnttB/t6WNDI0pejvGbAGufJoyLJ8LbAy4CCtTVWckgdZCKs7v6DS7a+4klgiZ7nQ+Wg8CyKpQMjkBQFHyxv6FVIvL/HyMcji29mmX6PbHlRLnc3/TOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VsbHWmRp; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1777877390; c=relaxed/simple;
+	bh=7RiyzX+zuh5Q9zvm7IyARRktAwMs7ElUM7tDz5Wv/bc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hRlRr2QnHdPrJd/Geidw07UCCleHUE+OtQWP+YBmg7XvrTjkSfL0Dk78CrG2paLLA95NshWPyo+MVRvURfvJObwCb6ZTBf7uXVUT3CmBUE/aSGP6pW6wekLTODOQpiQRG8iDtHy7dZ1DGwtu2PNHEVb4yG74E2/Dli4zksnhC9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gd+8XP1Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A1Jolmrb; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VsbHWmRp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777876634; x=1809412634;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=VtoRALB7sC9UgeWTtrvjstB79Q/ifbeHt78WAQUTn8k=;
-  b=VsbHWmRpuw4KgB/rISmacdXY3I9+OEXObwIEIk9UCeorngJDmhHe0ZIF
-   i5qWl7nqcNu0q02E2/YvlAgmXeT59kYb0BTNpvRT9VmlRFmD5y2w6x2ov
-   CsTO6VkzhXfhuQcViFZTZwEqN1rYUKLf55/MGZS0i3PD+XQ5j+C0p6rUo
-   ssNFThGtrx0w7LEUOwvSsujewOsIIEO68soAZYFRewQX1tXa6N7KxA+dE
-   2sgaVRTbwtVYFfFM4U1VLmgKv36HWLbEtkY4JhVqyqHt6nA7L2RM6SP5C
-   H3Pc9GAU8V7LIhxny2r7YgD0Aaw2iBah0ofiaJBdiCzKjoNO37QaZdyFI
-   g==;
-X-CSE-ConnectionGUID: GjHeBl/uTTu4diwu3wQaOw==
-X-CSE-MsgGUID: tgQnKXjLRCahGEu+LGrcWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11775"; a="89037125"
-X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; 
-   d="scan'208";a="89037125"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 May 2026 23:37:13 -0700
-X-CSE-ConnectionGUID: 5mCGxOw4Q8SjdVIBV20oqg==
-X-CSE-MsgGUID: 6bZPOJqrSaSBuYhPeCuVNg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; 
-   d="scan'208";a="265778467"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.114])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 May 2026 23:37:10 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 3F69B121CC4;
-	Mon, 04 May 2026 09:37:09 +0300 (EEST)
-Date: Mon, 4 May 2026 09:37:09 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v5 5/6] media: i2c: lm3560: Add support for PM features
-Message-ID: <afg-ldFd7hockYn-@kekkonen.localdomain>
-References: <20260503164445.215540-1-clamor95@gmail.com>
- <20260503164445.215540-6-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gd+8XP1Q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A1Jolmrb"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6446D8HZ3548437
+	for <devicetree@vger.kernel.org>; Mon, 4 May 2026 06:49:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=yVsm+TRR/LSV+0LR5+0IS9wjC6UrD1tiA6O
+	29Yv9hMw=; b=gd+8XP1QQwumofoAFeptFe3Xo8Gthg3QAhRJhRGuv5urXRPfIU7
+	7VAo0VOgErV5RoAZTfIBWS9xuz8Gji7EP5jexQnOg1blTjDayRWkZRGIPga7hlwj
+	yimQfTcEqZT5AoNp6/RPa2Up2N02JkMFAbHz/OaUVdiAMBTeGGcKch9NWVW+ye2l
+	uCi99nP0zMdM76iOx2or+R57PW8CUQvPLYmDv70AU67tQLIGeFx3xPKHqmtqnTse
+	s57k1QnxARNCVlZxK12Mxw83vxrvqOHnQWkVa4YU8GmZVvj5UMr0h9jEonnSNAec
+	JAqyOVCcOUs1wAwLKXXzxT34b42W7Fuc9CQ==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dw6mpcvah-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 04 May 2026 06:49:47 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c6e24ee93a6so2499990a12.0
+        for <devicetree@vger.kernel.org>; Sun, 03 May 2026 23:49:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1777877385; x=1778482185; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=yVsm+TRR/LSV+0LR5+0IS9wjC6UrD1tiA6O29Yv9hMw=;
+        b=A1Jolmrb1xTiwW6xpdsCL+ZAcsoo+8MIVg8NQm8G92zETOvnloJBPESwtYDynVBkdL
+         8c3SaIFDVIHcXscBPXWM5Rm8JuLdV2YnWDQ33L95qyhdoiACp8O8n3/oFXEUyIMIBaGd
+         PFTacgBwZIyS3jQHDppUy2tDaYZhoNqol8ww9P1G+IxVmo5eWe7Z/Dd51KkmkZBTC2RD
+         i+88K0ixhcTsA4QDWSlrTolhDsFbmCTdNrAxFOJtvUCZIKgBSRRmHJSYhx+2Kk2Z9lMO
+         ZZGB41gmc1l04kSOuljdeCADGR9Zv9mdnlRgyl5Y8bJgjgrEbZg/9T3kuO8Qp7gzNLOX
+         KvZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777877385; x=1778482185;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yVsm+TRR/LSV+0LR5+0IS9wjC6UrD1tiA6O29Yv9hMw=;
+        b=i0XyN/UvjdEYTAH6sZebAsuRyBqsZj+nGH9hO3F7CPAYfNcyfBeFJdoCfWfrECgo3w
+         TGNI37u1xmihNdk1IlL4y1zqstMpqm7Vd2dWeoAJSaEVtEIx76Mrw1A9CIwSD9EtQzHS
+         ZJemA0di9JQpTmbaTUwJX131M/+Dw4s/yyniI30PCWJcJ3puMqASab1+Wqocg78e+1m9
+         ZMTCs3gd/FZV9oyv0my7EIO4jevkC+sZFiPY68Lejf2OFAyI8pSHEwlfBHxkoRcgXCaA
+         akZ/gU1X6tAF9PP+ImvSacSITGjonRaobOcI02kf/2+kjWEjeZq3OHffOVf2ITVM/Q0O
+         E2UQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9EjBNNCnW54a4FOAZ9so7kMGUQcUt3Dwh1LoARXy/XAKjYPAAP/DPpuMV2a9Yc1RTbX5g+sXpu6vQ6@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzs0uIeTnlYvSP1gHpm5kTihQacMtUr+E60M+MFoD0bVHtgLl0W
+	NQz7AWazYswuU3ypMqMDm+CAq9PMmAjMmbCSISxhLa/S1IGxsLYripoW1hSktNQqjONuWiJJXiF
+	C+mczxVIjn4hrIOFpKF55R0K7AtIKoWlHuKNYQtJtDw6+8UsPWWSVixbeaXmYt06AQ5nhLKqM
+X-Gm-Gg: AeBDieuMeIH8+M7GzxiNw1Gn4Z4yUCLZQ+Zsu+u9s65xIf7cq4/q/CS7ZWN1Ef7DvLT
+	H4p7KV8OWSc1OtYurSTG+M6sKK4XSMEBoxKDM++3QYbYhGzffbxtWTPma2/PgLav0olhfbzpQOn
+	PXh1LiOcXMRPhbES9tV5iwZpIfUSsFiTA2nrzhzg5yzfohLarO5aDZ7hXh1I85BPU6Up5rTRIzv
+	aaVHrYxS3tWZNA/SrVC3lVty/qcbVtmVTlseMc/25GYVaEpLyToDQI2WrKX/QCbFLN2NJL6EXWf
+	7N3WZwwjKgVdyOGhf/6ObvczQM02aJzOqu09SNM+LA3hVZdPLM9v0AFt3VXtz0WRRIKie56zPOU
+	/JOe+eL/w+kamh5LbWGFbdzdSYce26ZblyDUXlMM4kFIJyvC3ZC4lajmztW1/GraaTQ==
+X-Received: by 2002:a05:6a20:6a26:b0:3a3:21db:8ef1 with SMTP id adf61e73a8af0-3a7f00dc3f9mr7117004637.4.1777877384593;
+        Sun, 03 May 2026 23:49:44 -0700 (PDT)
+X-Received: by 2002:a05:6a20:6a26:b0:3a3:21db:8ef1 with SMTP id adf61e73a8af0-3a7f00dc3f9mr7116989637.4.1777877384060;
+        Sun, 03 May 2026 23:49:44 -0700 (PDT)
+Received: from hu-swatagar-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c7ffbba73e1sm8470681a12.1.2026.05.03.23.49.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 03 May 2026 23:49:43 -0700 (PDT)
+From: Swati Agarwal <swati.agarwal@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Swati Agarwal <swati.agarwal@oss.qualcomm.com>
+Subject: [PATCH v3] dt-bindings: pinctrl: qcom: move gpio-hog schema to tlmm-common
+Date: Mon,  4 May 2026 12:19:36 +0530
+Message-Id: <20260504064936.2754570-1-swati.agarwal@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260503164445.215540-6-clamor95@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=H6rrBeYi c=1 sm=1 tr=0 ts=69f8418b cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=nYjtv9ulD0oZlCtruZkA:9 a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDA3MSBTYWx0ZWRfX9yTgOuO+ID/6
+ AwQtd49YECXD99ry0BIqL2x3sCOJAKBtXe5YUx5FaLXvIU5QUmcfP4ZUex6bOTSRKr9OPUQaqzu
+ wZ6y8wcnsjsRL6fHYVOJrLR591MzRc8TPoWUan1TBDParUFvKG4P8PqRC7EdOexKX5QZr9pu9eN
+ AFLf0igyv00+pdtVsr8daQGwhcP8N/kGagv9kesjf0YT/06ZJtnZ/dZ34Pkfj4fTJefk2OHFRA9
+ ODOZfKQUZgI07WFDgY3v7XTqxK1xXAcWIHDk28bMbm6BDScDLg3Xn3Q7o3OLVSkYi+jlxXCZw9Z
+ eDi/StE27taSdjw1jHXA1xN/9ZIh02pXt/LAN6/IltuMUtv51MtX+Nv1dmpLZe2USHyTScDf1VF
+ bfpIUVTkP2L45hoNj1Ny7OStiC5LCNBjl1e0qAQ9EtlJU6hvCxFr5ATnMoD95WkOwhwKb2gLPOJ
+ lm6Sxa9+7Dq3j6fJaHw==
+X-Proofpoint-GUID: GucZqBL_ZdFX-C5uChbBEBvWWzO79AdR
+X-Proofpoint-ORIG-GUID: GucZqBL_ZdFX-C5uChbBEBvWWzO79AdR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-04_02,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 malwarescore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 impostorscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605040071
 
-Hi Svyatoslav,
+Qualcomm TLMM-based pin controllers share the same gpio-hog binding
+semantics across multiple SoCs. The gpio-hog pattern currently defined in
+qcom,ipq4019-pinctrl.yaml and qcom,sdm845-pinctrl.yaml are not SOC specific
+and applies to all TLMM controllers.
 
-On Sun, May 03, 2026 at 07:44:44PM +0300, Svyatoslav Ryhel wrote:
-> Add support for power management features to better control the LM3560
-> within the media framework. To achieve the desired PM support, the HWEN
-> GPIO and VIN power supply were added and configured into power on/off
-> sequences. Added PM operations along with the PM configuration setup.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  drivers/media/i2c/lm3560.c | 117 ++++++++++++++++++++++++++++++++++---
->  1 file changed, 110 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/lm3560.c b/drivers/media/i2c/lm3560.c
-> index ce4b09d1f208..15741ea5684f 100644
-> --- a/drivers/media/i2c/lm3560.c
-> +++ b/drivers/media/i2c/lm3560.c
-> @@ -12,13 +12,16 @@
->  #include <linux/bitmap.h>
->  #include <linux/delay.h>
->  #include <linux/module.h>
-> +#include <linux/gpio/consumer.h>
->  #include <linux/i2c.h>
->  #include <linux/slab.h>
->  #include <linux/mod_devicetable.h>
->  #include <linux/mutex.h>
->  #include <linux/of.h>
-> +#include <linux/pm_runtime.h>
->  #include <linux/property.h>
->  #include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
->  #include <linux/videodev2.h>
->  #include <media/i2c/lm3560.h>
->  #include <media/v4l2-ctrls.h>
-> @@ -49,6 +52,8 @@ enum led_enable {
->   * @dev: pointer to &struct device
->   * @regmap: reg. map for i2c
->   * @lock: muxtex for serial access.
-> + * @hwen_gpio: line connected to HWEN pin
-> + * @vin_supply: line connected to IN supply (2.5V - 5.5V)
->   * @led_mode: V4L2 LED mode
->   * @ctrls_led: V4L2 controls
->   * @subdev_led: V4L2 subdev
-> @@ -63,6 +68,9 @@ struct lm3560_flash {
->  	struct regmap *regmap;
->  	struct mutex lock;
->  
-> +	struct gpio_desc *hwen_gpio;
-> +	struct regulator *vin_supply;
-> +
->  	enum v4l2_flash_led_mode led_mode;
->  	struct v4l2_ctrl_handler ctrls_led[LM3560_LED_MAX];
->  	struct v4l2_subdev subdev_led[LM3560_LED_MAX];
-> @@ -177,12 +185,17 @@ static int lm3560_get_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
->  	struct lm3560_flash *flash = to_lm3560_flash(ctrl, led_no);
->  	int rval = -EINVAL;
->  
-> +	if (!pm_runtime_get_if_in_use(flash->dev))
-> +		return 0;
-> +
->  	if (ctrl->id == V4L2_CID_FLASH_FAULT) {
->  		s32 fault = 0;
->  		unsigned int reg_val;
->  		rval = regmap_read(flash->regmap, REG_FLAG, &reg_val);
-> -		if (rval < 0)
-> +		if (rval < 0) {
-> +			pm_runtime_put(flash->dev);
->  			return rval;
-> +		}
->  		if (reg_val & FAULT_SHORT_CIRCUIT)
->  			fault |= V4L2_FLASH_FAULT_SHORT_CIRCUIT;
->  		if (reg_val & FAULT_OVERTEMP)
-> @@ -192,6 +205,8 @@ static int lm3560_get_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
->  		ctrl->cur.val = fault;
->  	}
->  
-> +	pm_runtime_put(flash->dev);
-> +
->  	return rval;
->  }
->  
-> @@ -201,6 +216,9 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
->  	u8 tout_bits;
->  	int rval = -EINVAL;
->  
-> +	if (!pm_runtime_get_if_in_use(flash->dev))
+Move the gpio-hog patternProperties definition to qcom,tlmm-common.yaml so
+that it can be reused by other Qualcomm TLMM pinctrl bindings and avoid
+schema duplication.
 
-This should be pm_runtime_get_if_active().
+Signed-off-by: Swati Agarwal <swati.agarwal@oss.qualcomm.com>
+---
+Changes in v3:
+Move the gpio-hog patternProperties for qcom,ipq4019-pinctrl.yaml to
+qcom,tlmm-common.yaml.
 
-> +		return 0;
-> +
->  	switch (ctrl->id) {
->  	case V4L2_CID_FLASH_LED_MODE:
->  		flash->led_mode = ctrl->val;
-> @@ -246,6 +264,8 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
->  		break;
->  	}
->  
-> +	pm_runtime_put(flash->dev);
-> +
->  	return rval;
->  }
->  
-> @@ -409,6 +429,38 @@ static int lm3560_init_device(struct lm3560_flash *flash)
->  	return rval;
->  }
->  
-> +static int __maybe_unused lm3560_power_off(struct device *dev)
-> +{
-> +	struct lm3560_flash *flash = dev_get_drvdata(dev);
-> +
-> +	gpiod_set_value_cansleep(flash->hwen_gpio, 0);
-> +	regulator_disable(flash->vin_supply);
-> +
-> +	return 0;
-> +}
-> +
-> +static int __maybe_unused lm3560_power_on(struct device *dev)
-> +{
-> +	struct lm3560_flash *flash = dev_get_drvdata(dev);
-> +	int rval;
-> +
-> +	rval = regulator_enable(flash->vin_supply);
-> +	if (rval < 0) {
-> +		dev_err(flash->dev, "failed to enable vin power supply\n");
-> +		return rval;
-> +	}
-> +
-> +	gpiod_set_value_cansleep(flash->hwen_gpio, 1);
-> +
-> +	rval = lm3560_init_device(flash);
-> +	if (rval < 0) {
-> +		lm3560_power_off(dev);
-> +		return rval;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static void lm3560_subdev_cleanup(struct lm3560_flash *flash)
->  {
->  	int led_no;
-> @@ -442,6 +494,17 @@ static int lm3560_probe(struct i2c_client *client)
->  
->  	bitmap_zero(flash->led_id, LM3560_LED_MAX);
->  
-> +	flash->hwen_gpio = devm_gpiod_get_optional(flash->dev, "enable",
-> +						   GPIOD_OUT_LOW);
-> +	if (IS_ERR(flash->hwen_gpio))
-> +		return dev_err_probe(flash->dev, PTR_ERR(flash->hwen_gpio),
-> +				     "failed to get hwen gpio\n");
-> +
-> +	flash->vin_supply = devm_regulator_get(flash->dev, "vin");
-> +	if (IS_ERR(flash->vin_supply))
-> +		return dev_err_probe(flash->dev, PTR_ERR(flash->vin_supply),
-> +				     "failed to get vin-supply\n");
-> +
->  	flash->peak = LM3560_PEAK_1600mA;
->  	rval = device_property_read_u32(flash->dev,
->  					"ti,peak-current-microamp", &peak_ua);
-> @@ -469,9 +532,19 @@ static int lm3560_probe(struct i2c_client *client)
->  				 &flash->max_flash_timeout);
->  	flash->max_flash_timeout /= 1000;
->  
-> +	rval = regulator_enable(flash->vin_supply);
-> +	if (rval < 0)
-> +		return dev_err_probe(flash->dev, rval,
-> +				     "failed to enable vin power supply\n");
-> +
-> +	gpiod_set_value_cansleep(flash->hwen_gpio, 1);
-> +
->  	rval = lm3560_init_device(flash);
->  	if (rval < 0)
-> -		return rval;
-> +		goto error_disable;
-> +
-> +	pm_runtime_set_active(flash->dev);
-> +	pm_runtime_enable(flash->dev);
->  
->  	for_each_available_child_of_node(dev_of_node(flash->dev), node) {
->  		u32 reg;
-> @@ -492,10 +565,10 @@ static int lm3560_probe(struct i2c_client *client)
->  
->  			rval = lm3560_subdev_init(flash, reg, node);
->  			if (rval < 0) {
-> -				lm3560_subdev_cleanup(flash);
-> -				return dev_err_probe(flash->dev, rval,
-> -						    "failed to register led%d\n",
-> -						    reg);
-> +				dev_err(flash->dev,
-> +					"failed to register led%d: %d\n",
-> +					reg, rval);
-> +				goto error_clean;
->  			}
->  
->  			set_bit(reg, flash->led_id);
-> @@ -504,7 +577,23 @@ static int lm3560_probe(struct i2c_client *client)
->  
->  	i2c_set_clientdata(client, flash);
->  
-> +	pm_runtime_set_autosuspend_delay(flash->dev, 1000);
-> +	pm_runtime_use_autosuspend(flash->dev);
-> +	pm_runtime_idle(flash->dev);
-> +
->  	return 0;
-> +
-> +error_clean:
-> +	pm_runtime_disable(flash->dev);
-> +	pm_runtime_set_suspended(flash->dev);
-> +
-> +	lm3560_subdev_cleanup(flash);
-> +
-> +error_disable:
-> +	gpiod_set_value_cansleep(flash->hwen_gpio, 0);
-> +	regulator_disable(flash->vin_supply);
-> +
-> +	return rval;
->  }
->  
->  static void lm3560_remove(struct i2c_client *client)
-> @@ -512,8 +601,22 @@ static void lm3560_remove(struct i2c_client *client)
->  	struct lm3560_flash *flash = i2c_get_clientdata(client);
->  
->  	lm3560_subdev_cleanup(flash);
-> +
-> +	/*
-> +	 * Disable runtime PM. In case runtime PM is disabled in the kernel,
-> +	 * make sure to turn power off manually.
-> +	 */
-> +	pm_runtime_disable(&client->dev);
-> +	if (!pm_runtime_status_suspended(&client->dev)) {
-> +		lm3560_power_off(&client->dev);
-> +		pm_runtime_set_suspended(&client->dev);
-> +	}
->  }
->  
-> +static const struct dev_pm_ops lm3560_pm_ops = {
-> +	SET_RUNTIME_PM_OPS(lm3560_power_off, lm3560_power_on, NULL)
-> +};
-> +
->  static const struct of_device_id lm3560_of_match[] = {
->  	{ .compatible = "ti,lm3559" },
->  	{ .compatible = "ti,lm3560" },
-> @@ -532,7 +635,7 @@ MODULE_DEVICE_TABLE(i2c, lm3560_id_table);
->  static struct i2c_driver lm3560_i2c_driver = {
->  	.driver = {
->  		   .name = LM3560_NAME,
-> -		   .pm = NULL,
-> +		   .pm = pm_ptr(&lm3560_pm_ops),
->  		   .of_match_table = lm3560_of_match,
->  		   },
->  	.probe = lm3560_probe,
+Changes in v2:
+Move the gpio-hog patternProperties definition to qcom,tlmm-common.yaml
 
+Link to v2:
+https://lore.kernel.org/all/20260430140118.3684018-1-swati.agarwal@oss.qualcomm.com/
+
+Link to v1:
+https://lore.kernel.org/all/20260417152014.3000797-1-swati.agarwal@oss.qualcomm.com/
+---
+ .../devicetree/bindings/pinctrl/qcom,ipq4019-pinctrl.yaml   | 5 -----
+ .../devicetree/bindings/pinctrl/qcom,sdm845-pinctrl.yaml    | 5 -----
+ .../devicetree/bindings/pinctrl/qcom,tlmm-common.yaml       | 6 ++++++
+ 3 files changed, 6 insertions(+), 10 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,ipq4019-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,ipq4019-pinctrl.yaml
+index cc5de9f77680..de9a3e67e1bb 100644
+--- a/Documentation/devicetree/bindings/pinctrl/qcom,ipq4019-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,ipq4019-pinctrl.yaml
+@@ -36,11 +36,6 @@ patternProperties:
+             $ref: "#/$defs/qcom-ipq4019-tlmm-state"
+         additionalProperties: false
+ 
+-  "-hog(-[0-9]+)?$":
+-    type: object
+-    required:
+-      - gpio-hog
+-
+ $defs:
+   qcom-ipq4019-tlmm-state:
+     type: object
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,sdm845-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,sdm845-pinctrl.yaml
+index 4fcac2e55b55..3b33daedc018 100644
+--- a/Documentation/devicetree/bindings/pinctrl/qcom,sdm845-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,sdm845-pinctrl.yaml
+@@ -42,11 +42,6 @@ patternProperties:
+             $ref: "#/$defs/qcom-sdm845-tlmm-state"
+         additionalProperties: false
+ 
+-  "-hog(-[0-9]+)?$":
+-    type: object
+-    required:
+-      - gpio-hog
+-
+ $defs:
+   qcom-sdm845-tlmm-state:
+     type: object
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,tlmm-common.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,tlmm-common.yaml
+index aae3dcf6cac8..aec72e8c0621 100644
+--- a/Documentation/devicetree/bindings/pinctrl/qcom,tlmm-common.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,tlmm-common.yaml
+@@ -51,6 +51,12 @@ properties:
+       should not be accessed by the OS. Please see the ../gpio/gpio.txt for more
+       information.
+ 
++patternProperties:
++  "-hog(-[0-9]+)?$":
++    type: object
++    required:
++      - gpio-hog
++
+ allOf:
+   - $ref: pinctrl.yaml#
+ 
 -- 
-Kind regards,
+2.34.1
 
-Sakari Ailus
