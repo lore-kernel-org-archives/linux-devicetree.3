@@ -1,114 +1,57 @@
-Received: from out-188.mta1.migadu.com (out-188.mta1.migadu.com [95.215.58.188])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C348A3A4501
-	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 10:29:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589533932D1;
+	Mon,  4 May 2026 10:29:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777890566; cv=none; b=TCqqxfU5WclN7G5EYRvJsYKrA8Mk0WOYBwvfGrW95WkkNzW822P/u3ZiMNiAayyaUJ1SEcVArbvXp3zWN0m6GO8wrOHyKUZYdOSpOkJDbRev1oBwMCagLAkM+Ou4oZ1LcfvuhoTO+/D4CX47sOU12N0yqD19eopr90Bi5sb6XS4=
+	t=1777890583; cv=none; b=GPhfzetIclDUWGRh62IRRJglTmYLIZhMpSwqcRzocIpOimvAKMmfqvdSFyCpH9Q5/XQnWVvtYNMeP80uvIkkG297tVrhI742awbCNOahM1pyE1xwT/o5RUDVdl9oSMGMy/1G0VB1CUyaBnefHwlpDeHxV9+++7NVSdfrTWn59/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777890566; c=relaxed/simple;
-	bh=Tl3VqM3hywY1r3QXa3Yprs6iZB9aAkfeNQRo5hC43UA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AgYYyOHkveEhjvVXK4lPvbt1geI9txGjQOaQIBBtqmdbHIyN9dIZmKzg4Ec2FX5+EQLq/cFN7WshD5tGUbrn1sLCQgxbeYl5FpgUcpoJVvpG3a9MsWSpp9Q8e2i0f3nxBBtIedUSIe822MOwTVtR24OVEp1tFSnOSEGggFTTtW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cmY2y3Wg; arc=none smtp.client-ip=95.215.58.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1777890583; c=relaxed/simple;
+	bh=qCOTeSiJkyj/atJ5cX+qcXCY1JXohAgIRddRFVjHtsw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BeZHLZ+BCoQPieydTv61gPbvJgtPR8FDGNpxMQwcgnM5bRWQbDrOHZ96ZNhR7VD+Wl4pyNoQpZ0AFKailuoWUb8YIomBM5ryNvcaTx4n/LfPYd2sZAWQQdo9IaGtCDHDtHDbgdt/gwI32WgD5/P8mGk00wWH7dyvjQelU6zV4uU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nh1i5ALX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cmY2y3Wg"
-Message-ID: <5f126a59-9f03-44e3-b4cd-27f70bd9840b@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1777890552;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/JdBfm5/FeCpkOwuefe6HGDXxCL2lAQQbrnIFT01dTg=;
-	b=cmY2y3WgXily0aTB6Cx05zGLsCDiTGEhAASXVI7NvaM/fULjpb0XiNUtlSSHcH6NdgTp+s
-	KRMMwxbtva2BSSlajV6/tzQ95QoxjrlW3dGcaljp5/gstLMRKLow84ZI7rQstpHLpOdGtU
-	6GWeNlzwzxWuhwUyh0kl5CZ3ZE87cog=
-Date: Mon, 4 May 2026 11:29:05 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nh1i5ALX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66624C2BCB8;
+	Mon,  4 May 2026 10:29:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777890583;
+	bh=qCOTeSiJkyj/atJ5cX+qcXCY1JXohAgIRddRFVjHtsw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nh1i5ALXCUiQj1Dyq0qyOYmt/KZyqiO6B85SQ5WACiEpZxiTPhU6zsvOg8KlRM4LP
+	 mWzGo+OSDecrI0q+2eoSbuN/lrKysq448WXDxY5OTCmiky1/aHy/M8cy6YKVbmj+j8
+	 qc4s3prx6Hpgpvz1F9UNwouh/vghceIRK2owW1foBRPYa5mIIfbu/1ZVn0snY2bJde
+	 NnGl9SwsHx/j/fR40KPzatR1wiK3GuDLZ6MM66BCa6D0EO2rKQozg4XXAtVLioFErm
+	 9svYy3YMPgUjc3QqwY8eptpJ9hc3SF8jWBiAIj0CvwJnUPJhLkptPKYNRUacd/ined
+	 j6HPycigpcX5g==
+Date: Mon, 4 May 2026 12:29:40 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Adam Baker <linux@baker-net.org.uk>
+Cc: Manish Baing <manishbaing2789@gmail.com>, linux@roeck-us.net, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: hwmon: zyxel,nsa320-mcu: convert to DT
+ schema
+Message-ID: <20260504-auspicious-grebe-of-awe-2f6ad2@quoll>
+References: <20260501102116.8275-1-manishbaing2789@gmail.com>
+ <56d985c5-e795-4108-9045-c7b3ab8f71ae@baker-net.org.uk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [RFC PATCH v2 1/4] i2c: rust: add smbus_read_byte_data and
- smbus_read_word_data
-To: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>, jic23@kernel.org,
- linux-iio@vger.kernel.org, rust-for-linux@vger.kernel.org,
- devicetree@vger.kernel.org
-Cc: branstj@gmail.com, lars@metafoo.de, ojeda@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, igor.korotin.linux@gmail.com,
- linux-kernel@vger.kernel.org
-References: <20260429132234.30514-1-muchamadcoirulanwar@gmail.com>
- <20260429132234.30514-2-muchamadcoirulanwar@gmail.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Igor Korotin <igor.korotin@linux.dev>
-In-Reply-To: <20260429132234.30514-2-muchamadcoirulanwar@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <56d985c5-e795-4108-9045-c7b3ab8f71ae@baker-net.org.uk>
 
-Hello Muchamad
+On Fri, May 01, 2026 at 10:53:22PM +0100, Adam Baker wrote:
+> Acked-By: Adam Baker <linux@baker-net.org.uk>
 
-On 4/29/2026 2:22 PM, Muchamad Coirul Anwar wrote:
-> Signed-off-by: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
-> ---
->   rust/kernel/i2c.rs | 24 ++++++++++++++++++++++++
->   1 file changed, 24 insertions(+)
-> 
-> diff --git a/rust/kernel/i2c.rs b/rust/kernel/i2c.rs
-> index 7b908f0c5a58..6eaea1158fda 100644
-> --- a/rust/kernel/i2c.rs
-> +++ b/rust/kernel/i2c.rs
-> @@ -477,6 +477,30 @@ impl<Ctx: device::DeviceContext> I2cClient<Ctx> {
->       fn as_raw(&self) -> *mut bindings::i2c_client {
->           self.0.get()
->       }
-> +
-> +    /// Reads a single byte from a register via SMBus.
-> +    pub fn smbus_read_byte_data(&self, reg: u8) -> Result<u8> {
-> +        // SAFETY: `self.as_raw()` is a valid pointer to a `struct i2c_client`
-> +        // by the type invariant of `I2cClient`.
-> +        let ret = unsafe { bindings::i2c_smbus_read_byte_data(self.as_raw(), reg) };
-> +        if ret < 0 {
-> +            Err(Error::from_errno(ret))
-> +        } else {
-> +            Ok(ret as u8)
-> +        }
-> +    }
-> +
-> +    /// Reads a 16-bit word from a register via SMBus.
-> +    pub fn smbus_read_word_data(&self, reg: u8) -> Result<u16> {
-> +        // SAFETY: `self.as_raw()` is a valid pointer to a `struct i2c_client`
-> +        // by the type invariant of `I2cClient`.
-> +        let ret = unsafe { bindings::i2c_smbus_read_word_data(self.as_raw(), reg) };
-> +        if ret < 0 {
-> +            Err(Error::from_errno(ret))
-> +        } else {
-> +            Ok(ret as u16)
-> +        }
-> +    }
->   }
->   
->   // SAFETY: `I2cClient` is a transparent wrapper of `struct i2c_client`.
+Difference in case: Acked-by.
 
-Thanks for the patch. However, we've previously agreed [1] that 
-I2cClient should implement the IO trait [2] rather than adding 
-standalone methods like these. This patch would need to be reworked in 
-that direction.
+Best regards,
+Krzysztof
 
-If you'd like to take that on, feel free to submit a patch series 
-implementing the IO trait instead.
-
-Cheers
-Igor
-
-[1] 
-https://lore.kernel.org/rust-for-linux/20260131-i2c-adapter-v1-4-5a436e34cd1a@gmail.com/
-
-[2] 
-https://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git/commit/?h=driver-core-testing&id=121d87b28e1d9061d3aaa156c43a627d3cb5e620
