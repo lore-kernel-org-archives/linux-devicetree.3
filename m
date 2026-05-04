@@ -1,173 +1,135 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499222EB5CD
-	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 07:41:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84E31B86C7;
+	Mon,  4 May 2026 07:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777880508; cv=none; b=nNpDS1UtLQWChfoeTNI3BE5sBWlbsiI/XhhkHHz6QWrgf4eFj3/okIb8mhbaMJaqgrfQR158nZgf1SL7vOYt1KGP46oIPADrLp/MEOC+MHr4EjhUNOq9eCXVuoy9648/2Njvq5zF1nQVmNPhTIV5zY6Lkn7mjg0kk2H36Q6IJw4=
+	t=1777880591; cv=none; b=JGG2UAzDlsEUcrqY7eS0IdfErF2VIYUCMQkwAYe41+510UZ3GtSfyLa2MpPhqVj3DZWD+PxGW6Ui/SRyldorDUR0JifQg7T4sWNc15dJRFDUxXanllrNmhjdFgyPwP+SeGMIDpGuDxsCKzshciIQ6fLRnNHUQ1HFFz5351mg140=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777880508; c=relaxed/simple;
-	bh=QI33Pz7U9UhsDa9ZD1RZtVFTpWOVF15tMOBDX8QVH9k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IaReicEo1ppjm7ndEmgtkBECTYmQpXLPyHmc+mPrrveD7uWzjLhzt3YXRuuhd9woAEPg8yf5pWGkGyYlz8RuedJ6rrRAO0pJKFFWa42+kS2seqvx9wN4JmeTHlLG2e+XIm4uKzLphSX02mOsuY/rL6OlLsa6RQGrw0GfMis9YqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lz4VL14B; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=E2nlRu1O; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777880591; c=relaxed/simple;
+	bh=bh3ovJn8JLAnMA6CkcWRCD4kPhHdbml/zu3lMDSb1RI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c3bWlcw6pS/fA4oZmpbmzI4hoHFL5fCgoVk0RpPjDCFg73dPKqlBqVkTWZrPyD7k6q2T0e+KJ5S5q/wBp1cV70mbSMYaCrMOTQ2EvkXB+07JEVakyaii4yX5rFqELnOuTCCpK6wzjbnFB1MeaCYH2be/pPfMWE5pwREVj7V25uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IKOgHeZ6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lz4VL14B";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="E2nlRu1O"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6446DDrO3479968
-	for <devicetree@vger.kernel.org>; Mon, 4 May 2026 07:41:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	g8ug/Zd9gtpfs2PpGhjlFATeBOiTKIDePAY4xdnfttk=; b=lz4VL14Boq9YDRng
-	2rYZveYVby4c1eOhEMWHlRcgRi8n/ZhGlFM/eJZDfrqSG4gtaW0FUTUNzQaCK4Wc
-	Hn++H3iqCnICWnLVBnTaq7dRhltDY6J3Na05nQbCruDvqb3tfOuzRxztXGe1fqf5
-	Zust1XExI/dWQZCMVCKC6eN42UEgBRQAVYdBqerwh6pfRbDXkHTfhNPL0cjHClv3
-	4Gkw0EiHNzEVY8x1ChPmfKK0HSqy0zhnBNZ/zTOfNS1efQm51+pdcRgTMdZukBsv
-	YBHZqOHRzxi8Yhx/jl9+x6aHclcmf/MItRMgaWPxGQJOTXQAozZUhEXWVDJ8LOfR
-	krsdrw==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dw9g3mskw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 04 May 2026 07:41:46 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5751d137d42so43560e0c.3
-        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 00:41:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777880505; x=1778485305; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=g8ug/Zd9gtpfs2PpGhjlFATeBOiTKIDePAY4xdnfttk=;
-        b=E2nlRu1OR+iIT7JDy+2N07m3al3zSifkRmI3UhEQeadxv5WESAPjy4TejSKjvLImh3
-         pG2fLgY4q71lUbsIH+Ce3eZ0Y2ajakvgb6NZI6Ew0Yw2dQF+SblSpz3C1PCkeB5KXTGo
-         UozOHLfJGXEG65QiZ/WSo5V9b4/LyA3d1gMNUMmI0dpyYMvPKBYJ6P2LyIaBj+PEnppU
-         scrWrTzYj0/gaLg2Nyas6Dbnm5PgIoIUXxObOO8ssrjFII6f9i401yTfG4ul/8+f0sAh
-         6n621hQ7eadJsRM2zycG8dFZdcRPH142HI+uNO4XSos2qdiKZDjPVUPAkTWMvfI62d2j
-         ImSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777880505; x=1778485305;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=g8ug/Zd9gtpfs2PpGhjlFATeBOiTKIDePAY4xdnfttk=;
-        b=Jjp6e5BYLE09/YtSgn4VLc79mrgRJyqn+JAd0UKLx2jdvTl23GxPFsFL9j3vH5vl5E
-         gyDo+L9nIkvZ180Ac6CpCbFGPEJri8ILYyUixpz84RMOQeLOGZpvDECvol45q7GYaNW/
-         b7iUR7f7iKnibz+yypPmICxKpNQJkngiDVdyMseTnZ70wPYqO/u/1+5348joK8mTIH1F
-         4snafRPMefultD7b0Y9E+xL6Q+9wfoWRNI0QdM6C6pu0G7j19O9d+BT3o0ONEj/2n0LL
-         R7nzQ86lPAhyfCtfgsjYahGhHcZjj0Ng5sPN9vA1evpgfPqzd9+zn3ujzIyltW7VATJN
-         +tBA==
-X-Forwarded-Encrypted: i=1; AFNElJ+gOUe9RIDzQB8Es3wtU5ToK286rPagmXwY1mUag/enVlWrYcPoCkZ2YhIO0EWJn2XCzzsGHxUtIf9X@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy54uzx5cOBZpNlSc5oqXaUua/ebP4fSoUS9hDLLooz7mS3n1JP
-	TW7BmNHAIyegrTOtW2aizbukyElSAA2l4wdKUwaqPP2qyqFTic8pJzFnDg42PSgWxNsERCDZVuJ
-	kgNJS6vE5lrvjrFddC/jv5vvu7/bUS2JtEic8J37zsA0IQR+iSzK0+2+E3gnGZMwy
-X-Gm-Gg: AeBDieuB6oZeU3derF09PlqqdzzMgg9lqCpA5VvEPX0nkPSjKoB7XCHkvI2C4TwOJBd
-	K5ghbbNtifVT/Of550vmESVWaVmFU9BsznfKVMIJTNgdAmCLeo6DX3yU9n6FInKqmUnflBhqALC
-	7DNM8hpoOmB3z4zhFKEBZMxp3wx78CxcCskxfw5N4qn1Ptbu0oluiLOVkBUYui0UbZTPJk1rGNM
-	kquiRpwmx09LOtvACoDZ721NSQ/939lF49gV6hYQfx9Cct9EY8OFWUDzAY8gUzc8yF6sI101cCU
-	PgyONGeXA9v2wOqc6SJu+aOfnxGzKcAIGLeTt/KMLejaySZf0/po3OrLtbKr6Fc+MeEom55u4di
-	A0zT8qn7oZRwTkWQ/F0asVIIoorTh0sUrhvX7QWscc/qHal1yBe8ovsKJ0K6bXYx87NKpXclzpE
-	6+NRQSYd9v6/QlMA==
-X-Received: by 2002:a05:6122:41e:b0:573:abb5:7d39 with SMTP id 71dfb90a1353d-5750c6aa09bmr1061240e0c.3.1777880505446;
-        Mon, 04 May 2026 00:41:45 -0700 (PDT)
-X-Received: by 2002:a05:6122:41e:b0:573:abb5:7d39 with SMTP id 71dfb90a1353d-5750c6aa09bmr1061221e0c.3.1777880505049;
-        Mon, 04 May 2026 00:41:45 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bbe6da73a9fsm361006666b.54.2026.05.04.00.41.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 04 May 2026 00:41:44 -0700 (PDT)
-Message-ID: <bb8353fe-29f6-4902-9c7f-67ef61676f2b@oss.qualcomm.com>
-Date: Mon, 4 May 2026 09:41:40 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IKOgHeZ6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE1EC2BCB8;
+	Mon,  4 May 2026 07:43:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777880591;
+	bh=bh3ovJn8JLAnMA6CkcWRCD4kPhHdbml/zu3lMDSb1RI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IKOgHeZ6BLbhYsIpmwAGs+SKNBdrrgcP5q1TudtvunigHspULJx2czDG7Kgk9/xrh
+	 zVqiGLWk1CEdJuCvT1DJ9j+VHOv7ENLBgPtstZaqKQUeUscvTqAry7kyGq3O3NRz7/
+	 B+3cX8hcdsMVtkryCxnc502zF8p52eoLydJIXnYUC6eBXOMctrw0LOa++TWbnbh9xg
+	 QTjCCeAsgJEPZKx+r9PGsWPw9UbGOvTPH71s7dGvlvXHRlvaAqxaEzbMOF1r71QT/n
+	 onle774duGjhWcg6V6r7kzaNNcaSLR5pnxqca0UZkwv2cSAXsF6w9SddZJmGZyPTiD
+	 km5GQzqwRgvKQ==
+Date: Mon, 4 May 2026 09:43:08 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Charan Pedumuru <charan.pedumuru@gmail.com>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, Patrice Chotard <patrice.chotard@foss.st.com>, 
+	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 2/2] dt-bindings: mmc: st,sdhci: convert to DT schema
+Message-ID: <20260504-rational-gleaming-clam-aeaaff@quoll>
+References: <20260503-st-mmc-v2-0-11ae3216d2ce@gmail.com>
+ <20260503-st-mmc-v2-2-11ae3216d2ce@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 8/8] ARM: dts: qcom: Add Samsung Galaxy S4
-To: MINETTE Alexandre <contact@alex-min.fr>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        MyungJoo Ham <myungjoo.ham@samsung.com>,
-        Chanwoo Choi <cw00.choi@samsung.com>,
-        Guru Das Srinagesh
- <linux@gurudas.dev>,
-        Linus Walleij <linusw@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Kees Cook <kees@kernel.org>,
-        Tony Luck <tony.luck@intel.com>,
-        "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-        iommu@lists.linux.dev, phone-devel@vger.kernel.org
-References: <20260427-mainline-send-v1-sending-v2-0-dcaa9178007b@alex-min.fr>
- <20260427-mainline-send-v1-sending-v2-8-dcaa9178007b@alex-min.fr>
- <97969bf9-8eb2-4498-90bd-9973fb2bd638@oss.qualcomm.com>
- <edbaf71e-6a47-4294-a8c6-6b356bc336ed@app.fastmail.com>
- <fdca4d01-eb6b-49a6-86e1-b6d582af4ba8@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <fdca4d01-eb6b-49a6-86e1-b6d582af4ba8@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDA4MiBTYWx0ZWRfX2NML2TIO1S/E
- 7CmYqrDc0S8UDg8e4mW/JcBOojYIpEnicaxO9rpRRWRlax9+jKosQEpKZenzLBB13UspBpmQXGO
- nnxlj6iVg2pwH7d8ZaHS1aVDVHKciTcaGQdBqBWQkZd/k/UUZTPc2IQrMkjYISLB0Wt3Zz/t3jo
- b59d0wCadu+MmLJtV/QAw4TAx5WKOeA74R7xuGR7m6Qe5uDICdOkiXdCexydtkX0KlgFtXdmgGo
- 9pKXAx4cb2UvOLntMC38tCeaEMuNo6J6TptidGvnK3mtpUOFiTp6W83r0xF5tP7Gke7u1RoHN5S
- S9ZZeSgtx30YLzJrNOEw6FUJwPZoaHRwrW0FHe3uGSBnf463Es+Q5RPa6XUolk3LkHXElCfMXu5
- SUDbvR07oTnC3MMWLNwfPQfHf3O08PhP3Bx3/T6JKSoWTfxX5SZA4DVN1GtgE2fi4GeFCj1dCGP
- rqBni8b+bXAvCixRTiQ==
-X-Proofpoint-GUID: 291Z8vcOijuyG9Qw3Z-4sjUktiK7dxO9
-X-Authority-Analysis: v=2.4 cv=Ge4nWwXL c=1 sm=1 tr=0 ts=69f84dba cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=XNjK35SS1xEl92Reu-YA:9 a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-ORIG-GUID: 291Z8vcOijuyG9Qw3Z-4sjUktiK7dxO9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-04_03,2026-04-30_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 adultscore=0 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 malwarescore=0 bulkscore=0 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605040082
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260503-st-mmc-v2-2-11ae3216d2ce@gmail.com>
 
-On 5/4/26 9:40 AM, Konrad Dybcio wrote:
-> On 5/1/26 9:41 AM, MINETTE Alexandre wrote:
->> Thanks a lot for the suggestion, I checked the downstream board files
->> and it does not look like these buses are wired for GSBI.
->>
->> There, the MAX77693 bus is instantiated as a dedicated i2c-gpio bus on
->> GPIO 22/23, and the AN30259A LED bus as a dedicated i2c-gpio bus on
->> GPIO 6/7. The native APQ8064 GSBI2/GSBI3 I2C pins are different
->> (GPIO 24/25 and GPIO 8/9), so these two buses do not seem to be wired
->> to the GSBI controllers on jflte.
-> 
-> What I meant is that the pins that the i2c-gpio nodes reference
-> are actually wired (inside the SoC) to the GSBI I2C controllers.
-> 
-> You'll notice that in drivers/pinctrl/qcom/pinctrl-apq8064.c,
-> there are bits like:
-> 
-> PINGROUP(6, gsbi3, NA, NA, NA, NA, NA, NA, NA, NA, NA),
-> 
-> which mean "function 0 is GPIO [implicitly in the macro], function
-> 1 is mux to the GSBI controller"
+On Sun, May 03, 2026 at 08:35:30AM +0000, Charan Pedumuru wrote:
+> +$id: http://devicetree.org/schemas/mmc/st,sdhci.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STMicroelectronics SDHCI-ST MMC/SD Controller
+> +
+> +description:
+> +  The STMicroelectronics SDHCI-ST MMC/SD host controller, which is
+> +  compliant with the SD Host Controller Interface (SDHCI) specification and
+> +  is used to interface with MMC, SD and SDIO cards. The ST SDHCI controller
+> +  extends the standard SDHCI capabilities with platform-specific
+> +  configurations such as additional register regions,clock inputs, and delay
+> +  control mechanisms required for signal timing adjustments which are
+> +  necessary to support high-speed modes and ensure reliable data transfer
+> +  across different ST SoCs.
+> +
+> +allOf:
+> +  - $ref: mmc-controller.yaml#
+> +
+> +maintainers:
+> +  - Peter Griffin <peter.griffin@linaro.org>
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: st,sdhci
+> +      - items:
+> +          - const: st,sdhci-stih407
+> +          - const: st,sdhci
+> +
+> +  reg:
+> +    minItems: 1
+> +    items:
+> +      - description: Base address and size of the MMC controller registers
 
-Unless you meant "these are indeed GSBI pins, but within that GSBIn
-pingroup, those specific ones aren't assigned to SDA/SCL when
-proto==I2C, to which I'm afraid I won't be able to find docs for (too
-old)
+s/Base address and size of the//
 
-Konrad
+> +      - description: Base address and size of the MMC delay/auxiliary registers
+
+Here the same
+
+> +
+> +  reg-names:
+> +    oneOf:
+> +      - items:
+> +          - const: mmc
+
+Drop three lines above
+
+> +      - items:
+
+So this is just items like you have in "reg" part. Same syntax.
+
+> +          - const: mmc
+> +          - const: top-mmc-delay
+> +
+> +  clocks:
+
+Here and:
+
+> +    items:
+> +      - description: Clock for the MMC controller
+> +      - description: Interconnect (ICN) clock
+> +
+> +  clock-names:
+
+here: Old binding icn is optional. You need to explain in the commit msg
+all the changes done during conversion.
+
+> +    items:
+> +      - const: mmc
+> +      - const: icn
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  interrupt-names:
+> +    const: mmcirq
+> +
+> +  resets:
+> +    maxItems: 1
+
+Best regards,
+Krzysztof
+
