@@ -1,342 +1,275 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86672DF13E
-	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 07:14:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 063112D7393
+	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 07:17:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777878863; cv=none; b=WB7lrEdniDFsTZLykBK+DJcGQd4UQ3uWODKPeBOdgYX7Gnrk6c3xDtRHjPcNGV/8z6IQstsIgWglFqhk5UdZiOea0+XlPqyrc9H91ODIZH1ct23AIXZsYhSXD/YqBlqMBu86PoRYRpC4PHrwQjA4zmcU28Sq57xG/eVVHi87lOw=
+	t=1777879066; cv=none; b=c13Jej0Eu5SpmAHVI3s7u9uBVJxzWRttgvCzpDa9xpt2CnkivWfNo+R8YsVAxiUSDDCLPTMTiti0EGSqX2j5BJ45bW5A+v6jdHdOyboz7UqzzV/2gQtO2CQ7G4gdT5cRsSXqw65zaSi4MiZ7j4ZFmv5+gQqChTA7YUmsHU2IBLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777878863; c=relaxed/simple;
-	bh=pv9jAeuFRhkHKpIR5bfO5WT9b7wRC1Arsl11qQKhKHw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=GJ1T2puF4TgQoclSk8vexfEqOYeaz3I/3FpZ7479KzSYrwt7JOy98rOtmBSQ2kjoErATJMO4N0RrGEOY3wR+Z7bn7btPQoV6r/ECNUpKBPmvTHHAXY+vVTODRUVKn4mCHbXwMagdH3Jj6deI5M0o3QQTtzHfQVDGrnotVq3bXdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=lTj1Zsc+; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1777879066; c=relaxed/simple;
+	bh=S2ywDK9Z/XmW1DdLWAaR4LWz/VfKoc196yZKCu9VRe8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CgZKQe8UL05hY7Xl+hagPPovCdKKuB7k+dUFmlE3e9eKJSXuaVh4DzwJhfpW45uYiWK462u4LqP9NgyhD9/MnvmoGKVylB4DpT3qlkBYiVweWu069DdeuXnFNO5NJ+V+SG1usHXGeYWrqGNNDGKTzj2VNkeUADDO1vew0EwIndc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BNqx5rRb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XzcQ02vj; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="lTj1Zsc+"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-48984d29fe3so55241355e9.0
-        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 00:14:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BNqx5rRb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XzcQ02vj"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6446DKXY3470735
+	for <devicetree@vger.kernel.org>; Mon, 4 May 2026 07:17:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BvsC7vS8QiLKFxVRhuJGpH17bq45h1P4AoYtDVy8ksQ=; b=BNqx5rRb5CIcNCsR
+	CNREwUAaymoTDVT0u8XlDeYGV1R2XAXtW3omxdfQ4gLcHFfzCabL41ziaCJlUbwM
+	krOuToYz4xZtgqy25I1/U6cBrBfgZ06SlImH7hldqxYvOSLgFAcC7S9GCo1xN8Kx
+	UXZJuEPcCfwIv+4QahndXKtMD33k9GF2tsKpivl+/LFzOehQo2Feu6oHu7/VQk2Y
+	gv8sRQ1X7CzVpIVHd7EP3Fd/gRKCgILJX8Bf0yEsa8f2DxoDzK02XKR1PjEpHnyv
+	HQWiZ2qyx/KaPbEDLhOaymJyKA062C1BD5uEbDVojHEE1EN3pkGBBqP7DBsmd19u
+	JDhnhA==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dw9bvmnmc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 04 May 2026 07:17:43 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-364edd430e6so3704407a91.2
+        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 00:17:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1777878860; x=1778483660; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=u5o9x9GYyoZ+AFvL1xpCIK5IQIqCECCAGULCOqSDjJ8=;
-        b=lTj1Zsc+UslpaIjsXlwi4PGhDnO/95Qaclv3/mAxtumYFdmv/JPb90/eJkIdeixXrZ
-         yjeKp/rJcYc9S3NuR55zGyOc3ViC9ijxPuhmO2yM08wultpNL5MLiMqjjZbIa/tN2fAa
-         Lkbnk4c/+/g1DcX1SGFe2nf/5VvAeuTvktbx7d+Z7Y+KixFt+nLPdBHRF/HycVVAiLEO
-         OXX3U/TwLX4rNWfJMNQTFbaVx8EME+yQoRl3uwijHG0CumqO2J+1rAuCUgvQ8Jju3UJP
-         FxqMivKosFBDnc0cp9h1a9Hr00al/q4TDzL0LG9GxPbwQrrsI9pQ6Eh02V4eSqmypEwn
-         wvjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777878860; x=1778483660;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+        d=oss.qualcomm.com; s=google; t=1777879063; x=1778483863; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=u5o9x9GYyoZ+AFvL1xpCIK5IQIqCECCAGULCOqSDjJ8=;
-        b=HGWXnMV0Bo0LfT1JJcfdUnFec1dygqUOG/meftZ1MSkfaB71LLAnlaYHe16e6sK5Bg
-         Z9MMGgl4T0eI8DGbUyTR26eIbFAVxXYXVlQI5Udw2bc/4jRUSkQg1rlXm1BXzp6P6x3A
-         VNzkzIdkqeEoqm/xdFrczvhvpb0vXmh7zcNHZ+B7z8jVkmwrrkk5NahGu/Wajm/jifXj
-         oimAhdsRHOGb8/O3MuAYrY5uWlcCgJYbxczGXknqIZqXd32bqNlMF78V7i69ix0l8wJF
-         o9Yr41t+r7KemU5oTG75gaxxCPtOeJJ9MSQX/LgShRuyszv26MP4C7oqAT8B6BCxE1o1
-         Cy2g==
-X-Forwarded-Encrypted: i=1; AFNElJ8KwG1WTArU+nYqHL7KZTki1yZH4se6Vm8sPibU2d1/x2kbGNk3rrdO7sypYIy06k8NN+kpsW4Otmpq@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw4m61syfGncH8UXziJn+bIqaDa4usk7goYkGclSShsn6Gn0um+
-	Gez0scS0Rvmr5zHY3UcQz7ywLGffzlcOPSKjD2PNGCfACAi0XrDeO2bL6qpov/wNUxw=
-X-Gm-Gg: AeBDievb+8ZT86Y6HR5pEKiHci5rYmEr+2xZ1vulZGxMzsbr9MXy/qQigndzmvWvQR1
-	Z1psp0FGPYtRBmpp4sX4KSGc4jOllf/Hr9zRqrgew+TlPvAuxuZHwWSq6aolA08SE7K/KoqVqv3
-	7wDkYFawsnx06yDeSr64//D9Xh+LDIDUb5bFWWXLRXom8eGz53JPWg9WavpvTUPEMJYbr8LQC/Q
-	cEN6AsZatSEG24fHFx7g/olor+QOdJkkuu6uR4nn3hd32X+KBMIULTslozcjcg+9v0EPuGoYRhK
-	K7itCVj5HpWtkmSPRpA+ZwIVMOC/TQjit5xAwQ7mCWQU39UosIO7rkyPeqwsm2zI1BC7BmJmBSz
-	S34uTivEqHqLZCnunJov4xbg1QLolb7Kiih9WeFRHdKK1bN4Yfu/6k01bpHpEtqnFv8akMMNHJ0
-	C9y8wkgRpSrFvfbial9VIcWviCdQXSVaYBdDUaA3MWlQ6GBnOG12uXA94Z1A/RnPzPD6mMGsNuK
-	NsAPh4A0w==
-X-Received: by 2002:a05:600c:8903:b0:487:1fb4:7e1 with SMTP id 5b1f17b1804b1-48a98663f36mr111227975e9.22.1777878860050;
-        Mon, 04 May 2026 00:14:20 -0700 (PDT)
-Received: from localhost (046124194177.public.t-mobile.at. [46.124.194.177])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a81ed6b89sm305101835e9.1.2026.05.04.00.14.18
+        bh=BvsC7vS8QiLKFxVRhuJGpH17bq45h1P4AoYtDVy8ksQ=;
+        b=XzcQ02vjl8t+OE7AZZ35GNpf9cmA8lRVD2AAUIIpK+y2DQvRH1cL2OqCFIX8GSu0l4
+         MFmO7eeFLdi4FBsoC9kVeiqsXZJ+kSIixTiXy1sUKFuzG86in7e0jBZif9CKdQNBKLht
+         3c7ZiLF3BuGPW509Mo5afcPVE+x3lzDk6zyz0cd9nWWfESdm/VghIz6E3S8dJlKm/aHn
+         tk8ZCG7+hvankfexyPqm87UQm5TL9kO0lIQutRs9IX7ajLHNYeJw9v1eDJ351vBzcNWt
+         /pj9YThRLtyqCxAUxIeUrestbZ/Q25coG8qMwvXeKCPpOCcMLtk+TdGMXI72MaDgruTJ
+         MUbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777879063; x=1778483863;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=BvsC7vS8QiLKFxVRhuJGpH17bq45h1P4AoYtDVy8ksQ=;
+        b=ecQVlXQeDZUgfYn5/8YYGKskBYewdYX8ut7trk4JUVXG9pgc4YhKCruyZCNQc0laWZ
+         uHJr5yLQ3cZ88MuNirx9xDltUKMwg/Q3bMX7sneLg0yNDsGeNbJnt2nZ4e2rAnhBnSER
+         gOj3eQkzxyMpKHxnvi2txyoFHJ9OMz0Ik83GAXL/mUgAwsU/MGXAKkFssSV97gFa5Hq5
+         +ZN4xfVDSzMB5I3QCziwqjwae863eiacxJfGe7O2LrE2/OGlNZyqmdaTpu2rJpaevmPZ
+         y7kEyKhEWyAjV+xr/sDl1KzfEnCAk6oqp97HaoIUteC6hB5EeQEWhfQ5mZ0TmabfZjKN
+         99BQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/io4yvO/65jvIO3Zk/n8f0ZnAOuwJdkSzA4wmSA3uQv5QcBTXeZSRa+08x8TtmxTJqQs0r40DZtIRq@vger.kernel.org
+X-Gm-Message-State: AOJu0YxY7QZjER1z2qi54QQudLiwA6qYN2aMjd24E8uJrA630pKvaYVx
+	Wc2r0jJQDGGgnpA/oBzuMd1qxz6Mz5EzUObyyXSWU+97dCD/Ipg4huMralVaVBSB6f6K8FCMWxc
+	FPP3jY2A3qBxoUp2bbIddnSpE/MGNxyGp4OwmZv8UazjMDLCfuHLl4Ra6quGg225r
+X-Gm-Gg: AeBDietHRMPULRKxEiDdzR3I+2Ojx+tavLdpXOeTKsI+d/+q2Otu3qOxw4aSX23H1Eb
+	HLIFXJdQMJ0P3ExrwN3ZxL0aLfPbIxb6iHPLYIhULqJdulrdZUTpal9Uqr5g5eWig0x07GUurGw
+	Q7XO4qo1KVZKfFrrwP6KX6VxHm2VnIf/6/EwQnfoIBb8i0aeQISLw415XV89KflZVT0bjINnrUw
+	X76PUcOf4Se/XRqxxbbBPc2H+MBksvAkFigGaGEinDoUFHlX/D6lmsrPNhUP0W9uHJ8aParDdnG
+	2nYQP4JkFLrPhagCXplKiFpQRwrjXGvrhAG0RsfxgnJIhIg6vDTMhRLoMxNJtydW8TjhKAmGO5V
+	0s5k9uDyOzS6jTeIy7+3QtwxJkTlyJnmYuSbePVlw5CGHhMGpf9908vl6rTPPz+vleChJpyuP
+X-Received: by 2002:a17:90b:33ca:b0:35f:b1f3:ac12 with SMTP id 98e67ed59e1d1-3650cd08154mr8172121a91.4.1777879062778;
+        Mon, 04 May 2026 00:17:42 -0700 (PDT)
+X-Received: by 2002:a17:90b:33ca:b0:35f:b1f3:ac12 with SMTP id 98e67ed59e1d1-3650cd08154mr8172109a91.4.1777879062217;
+        Mon, 04 May 2026 00:17:42 -0700 (PDT)
+Received: from [10.218.15.248] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-364bdf2a71bsm13571815a91.1.2026.05.04.00.17.38
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 04 May 2026 00:14:19 -0700 (PDT)
+        Mon, 04 May 2026 00:17:41 -0700 (PDT)
+Message-ID: <a078818d-9355-4f97-9fc7-91f3fd61f369@oss.qualcomm.com>
+Date: Mon, 4 May 2026 12:47:37 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: interconnect: document the RPM
+ Network-On-Chip interconnect in Shikra SoC
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
+References: <20260429-shikra_icc-v1-0-e3439903edf1@oss.qualcomm.com>
+ <20260429-shikra_icc-v1-1-e3439903edf1@oss.qualcomm.com>
+ <20260503-enormous-benign-salamander-8d074c@quoll>
+Content-Language: en-US
+From: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+In-Reply-To: <20260503-enormous-benign-salamander-8d074c@quoll>
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 04 May 2026 09:14:17 +0200
-Message-Id: <DI9PGFY950VK.3VURRR6215P75@fairphone.com>
-Subject: Re: [PATCH v4 0/3] Add CAMSS support for SM6350
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, "Luca Weiss"
- <luca.weiss@fairphone.com>, "Bryan O'Donoghue" <bod@kernel.org>, "Vladimir
- Zapolskiy" <vladimir.zapolskiy@linaro.org>
-Cc: "Konrad Dybcio" <konradybcio@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Robert Foss" <rfoss@kernel.org>,
- <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Krzysztof
- Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, "Todor Tomov"
- <todor.too@gmail.com>, "Mauro Carvalho Chehab" <mchehab@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Bjorn Andersson" <andersson@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260216-sm6350-camss-v4-0-b9df35f87edb@fairphone.com>
- <2a108976-374a-46e1-968d-7befa4369a74@linaro.org>
- <4SLDL62Oin3XdiLjUEC_YAVA-m1dKV4j_8_RolU6NJFWCIWtem6e6sCb9n7OIHbcIWBfWdXx_vZy5mXCAbWUDg==@protonmail.internalid> <DHJD7P2TXQTH.1TQ4YQQ21A6CS@fairphone.com> <c87d229c-137c-4e59-99cc-a97ef04f6e1b@kernel.org> <DI79CX4PU08J.2M2V0U4PTOVEU@fairphone.com> <108ecc23-c821-4387-a324-5e3c20c3cc5e@linaro.org>
-In-Reply-To: <108ecc23-c821-4387-a324-5e3c20c3cc5e@linaro.org>
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: kIi7UQubpwxcqixOreZrGrZOmbvTg_IM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDA3NSBTYWx0ZWRfX0UlMsrYll8AU
+ 97kWmWMfbTNTUTokr4kQhqK7i+jlD1ByMh+8W2iluXJ5HRKH9C1b1vBaVn90wP55ZHAaE/iA4S9
+ eBTjxrJ2xsXkKtpDaPL0YVLTEVSXxo0gOFKT9F9CL1odI/2FdUthes+vyc5C69VW+mH3OXjMwqd
+ fSRi7Jv4j+jP7UvYYNGwSo9kPKjxkJNV9nhHNN/ddpSbhaoIeryPrZCHnF9ZHNHmMYurkF0NXwf
+ lat8v1XpeP8/fJrkIEyMCx9VBZTXjIwdgbciv84owgDktquo7ZqO4YqXARUOKS12UQ+c6E57HQ2
+ 2sIPGSNZr3SUYXT1A7qnHw19ovgLlO1ipX9heSv+KJTECI0Wh9yNN+gt98DQ+V+ABwvF2DrH5a8
+ CesXZoaQ3JWxgTLIM0kewEyhJvDtmjl019ULoXMt9Qq3oTFGUf6oewHMfxqYtCSuK0/PHlG/tUU
+ VA8/o5HaHnyvJDfPJyg==
+X-Authority-Analysis: v=2.4 cv=dqLrzVg4 c=1 sm=1 tr=0 ts=69f84817 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=yHlWrU9OV0gRyedkY6sA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-ORIG-GUID: kIi7UQubpwxcqixOreZrGrZOmbvTg_IM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-04_02,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 suspectscore=0 spamscore=0
+ lowpriorityscore=0 bulkscore=0 malwarescore=0 adultscore=0 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605040075
 
-Hi Bryan,
 
-On Sat May 2, 2026 at 12:32 AM CEST, Bryan O'Donoghue wrote:
-> On 01/05/2026 11:12, Luca Weiss wrote:
->> Hi Bryan,
->>=20
->> On Fri Apr 3, 2026 at 5:07 PM CEST, Bryan O'Donoghue wrote:
->>> On 03/04/2026 09:09, Luca Weiss wrote:
->>>> Hi Vladimir,
->>>>
->>>> On Tue Mar 31, 2026 at 12:49 AM CEST, Vladimir Zapolskiy wrote:
->>>>> Hi Luca,
->>>>>
->>>>> On 2/16/26 10:54, Luca Weiss wrote:
->>>>>> Add bindings, driver and dts to support the Camera Subsystem on the
->>>>>> SM6350 SoC.
->>>>>>
->>>>>> These patches were tested on a Fairphone 4 smartphone with WIP senso=
-r
->>>>>> drivers (Sony IMX576 and IMX582), the camera pipeline works properly=
- as
->>>>>> far as I can tell.
->>>>>>
->>>>>> Though when stopping the camera stream, the following clock warning
->>>>>> appears in dmesg. But it does not interfere with any functionality,
->>>>>> starting and stopping the stream works and debugcc is showing 426.4 =
-MHz
->>>>>> while the clock is on, and 'off' while it's off.
->>>>>>
->>>>>> Any suggestion how to fix this, is appreciated.
->>>>>
->>>>> I've looked at CAMCC recently, and I do notice that SM6350 CAMCC does=
- not
->>>>> set '.use_rpm =3D true' flag for whatever reason.
->>>>>
->>>>> If you find a free minute, can you test the change below?..
->>>>
->>>> Unfortunately that change does not resolve the "gcc_camera_axi_clk
->>>> status stuck at 'on'" warning.
->>>>
->>>> fairphone-fp4:~$ cat /sys/bus/platform/drivers/sm6350-camcc/ad00000.cl=
-ock-controller/power/runtime_status
->>>> active
->>>>
->>>> fairphone-fp4:~$ cat /sys/bus/platform/drivers/sm6350-camcc/ad00000.cl=
-ock-controller/power/runtime_status
->>>> suspended
->>>>
->>>>>
->>>>> ----8<----
->>>>> diff --git a/drivers/clk/qcom/camcc-sm6350.c b/drivers/clk/qcom/camcc=
--sm6350.c
->>>>> index 7df12c1311c6..ba880e4edcaf 100644
->>>>> --- a/drivers/clk/qcom/camcc-sm6350.c
->>>>> +++ b/drivers/clk/qcom/camcc-sm6350.c
->>>>> @@ -1880,6 +1880,7 @@ static const struct qcom_cc_desc camcc_sm6350_d=
-esc =3D {
->>>>>     	.num_clks =3D ARRAY_SIZE(camcc_sm6350_clocks),
->>>>>     	.gdscs =3D camcc_sm6350_gdscs,
->>>>>     	.num_gdscs =3D ARRAY_SIZE(camcc_sm6350_gdscs),
->>>>> +	.use_rpm =3D true,
->>>>>     };
->>>>>
->>>>>     static const struct of_device_id camcc_sm6350_match_table[] =3D {
->>>>> ----8<----
->>>>>
->>>>> This change could be considered to be included in any case, I believe=
-.
->>>>
->>>> I guess this change is now the way to enable pm_runtime, I had this
->>>> series 3 years ago in February 2023:
->>>> https://lore.kernel.org/linux-arm-msm/20230213-sm6350-camcc-runtime_pm=
--v3-0-d35e0d833cc4@fairphone.com/
->>>>
->>>> But I never followed up due to me not understanding pm_runtime well an=
-d
->>>> no direct need for it.
->>>>
->>>> But I guess reviving that with use_rpm =3D true, add power-domains &
->>>> required-opps to dt-bindings and sm6350.dtsi should be a good idea?
->>>>
->>>> Regards
->>>> Luca
->>>>
->>>>>
->>>>>> [ 5738.590980] ------------[ cut here ]------------
->>>>>> [ 5738.591009] gcc_camera_axi_clk status stuck at 'on'
->>>>>> [ 5738.591049] WARNING: CPU: 0 PID: 6918 at drivers/clk/qcom/clk-bra=
-nch.c:87 clk_branch_toggle+0x170/0x190
->>>>>> [ 5738.591081] Modules linked in:
->>>>>> [ 5738.591099] CPU: 0 UID: 10000 PID: 6918 Comm: plasma-camera Taint=
-ed: G        W           6.17.0-00057-ge6b67db49622 #71 NONE
->>>>>> [ 5738.591118] Tainted: [W]=3DWARN
->>>>>> [ 5738.591126] Hardware name: Fairphone 4 (DT)
->>>>>> [ 5738.591136] pstate: 604000c5 (nZCv daIF +PAN -UAO -TCO -DIT -SSBS=
- BTYPE=3D--)
->>>>>> [ 5738.591150] pc : clk_branch_toggle+0x170/0x190
->>>>>> [ 5738.591164] lr : clk_branch_toggle+0x170/0x190
->>>>>> [ 5738.591177] sp : ffff800086ed3980
->>>>>> [ 5738.591184] x29: ffff800086ed3990 x28: 0000000000000001 x27: ffff=
-800086ed3cd8
->>>>>> [ 5738.591208] x26: 0000000000000000 x25: ffffda14fcfbd250 x24: 0000=
-000000000000
->>>>>> [ 5738.591230] x23: 0000000000000000 x22: ffffda14fc38bce0 x21: 0000=
-000000000000
->>>>>> [ 5738.591252] x20: ffffda14fd33e618 x19: 0000000000000000 x18: 0000=
-0000000064c8
->>>>>> [ 5738.591274] x17: 0000000000000000 x16: 00001ae003667e9e x15: ffff=
-da14fd2a07b0
->>>>>> [ 5738.591295] x14: 0000000000000000 x13: 6f27207461206b63 x12: 7574=
-732073757461
->>>>>> [ 5738.591317] x11: 0000000000000058 x10: 0000000000000018 x9 : ffff=
-da14fd2a0838
->>>>>> [ 5738.591338] x8 : 0000000000057fa8 x7 : 0000000000000a16 x6 : ffff=
-da14fd2f8838
->>>>>> [ 5738.591360] x5 : ffff0001f6f59788 x4 : 0000000000000a15 x3 : ffff=
-25ecf9d7e000
->>>>>> [ 5738.591381] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff=
-0000baf5c100
->>>>>> [ 5738.591403] Call trace:
->>>>>> [ 5738.591412]  clk_branch_toggle+0x170/0x190 (P)
->>>>>> [ 5738.591429]  clk_branch2_disable+0x1c/0x30
->>>>>> [ 5738.591445]  clk_core_disable+0x5c/0xb4
->>>>>> [ 5738.591462]  clk_disable+0x38/0x60
->>>>>> [ 5738.591478]  camss_disable_clocks+0x44/0x78
->>>>>> [ 5738.591496]  vfe_put+0x7c/0xc0
->>>>>> [ 5738.591512]  vfe_set_power+0x40/0x50
->>>>>> [ 5738.591528]  pipeline_pm_power_one+0x14c/0x150
->>>>>> [ 5738.591546]  pipeline_pm_power+0x74/0xf4
->>>>>> [ 5738.591561]  v4l2_pipeline_pm_use+0x54/0x9c
->>>>>> [ 5738.591577]  v4l2_pipeline_pm_put+0x14/0x40
->>>>>> [ 5738.591592]  video_unprepare_streaming+0x18/0x24
->>>>>> [ 5738.591608]  __vb2_queue_cancel+0x4c/0x314
->>>>>> [ 5738.591626]  vb2_core_streamoff+0x24/0xc8
->>>>>> [ 5738.591643]  vb2_ioctl_streamoff+0x58/0x98
->>>>>> [ 5738.591657]  v4l_streamoff+0x24/0x30
->>>>>> [ 5738.591672]  __video_do_ioctl+0x430/0x4a8
->>>>>> [ 5738.591689]  video_usercopy+0x2ac/0x680
->>>>>> [ 5738.591705]  video_ioctl2+0x18/0x40
->>>>>> [ 5738.591720]  v4l2_ioctl+0x40/0x60
->>>>>> [ 5738.591734]  __arm64_sys_ioctl+0x90/0xf0
->>>>>> [ 5738.591750]  invoke_syscall.constprop.0+0x40/0xf0
->>>>>> [ 5738.591769]  el0_svc_common.constprop.0+0x38/0xd8
->>>>>> [ 5738.591785]  do_el0_svc+0x1c/0x28
->>>>>> [ 5738.591801]  el0_svc+0x34/0xe8
->>>>>> [ 5738.591820]  el0t_64_sync_handler+0xa0/0xe4
->>>>>> [ 5738.591838]  el0t_64_sync+0x198/0x19c
->>>>>> [ 5738.591854] ---[ end trace 0000000000000000 ]---
->>>>>>
->>>>>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->>>>>> ---
->>>>>> Changes in v4:
->>>>>> - Update power-domain-names order (Krzysztof)
->>>>>> - Make hex numbers lower case in init seq (David)
->>>>>> - Pick up tags
->>>>>> - Link to v3: https://lore.kernel.org/r/20260213-sm6350-camss-v3-0-3=
-0a845b0b7cc@fairphone.com
->>>>>
->>>>> Should find some time myself to issue RBs, sorry for the delay.
->>>>>
->>>>>> Changes in v3:
->>>>>> - Update dt-bindings to include everything related to camss
->>>>>> - Update regulator names
->>>>>> - Remove slow_ahb_src
->>>>>> - Link to v2: https://lore.kernel.org/r/20251114-sm6350-camss-v2-0-d=
-1ff67da33b6@fairphone.com
->>>>>>
->>>>>> Changes in v2:
->>>>>> - Remove prefix from interconnect-names
->>>>>> - Move 'top' power-domain to the top of list
->>>>>> - Update regulator supply names
->>>>>> - Link to v1: https://lore.kernel.org/r/20251024-sm6350-camss-v1-0-6=
-3d626638add@fairphone.com
->>>>>>
->>>>>> ---
->>>>>> Luca Weiss (3):
->>>>>>          dt-bindings: media: camss: Add qcom,sm6350-camss
->>>>>>          media: qcom: camss: Add SM6350 support
->>>>>>          arm64: dts: qcom: sm6350: Add CAMSS node
->>>>>>
->>>>>>     .../bindings/media/qcom,sm6350-camss.yaml          | 471 +++++++=
-++++++++++++++
->>>>>>     arch/arm64/boot/dts/qcom/sm6350.dtsi               | 233 +++++++=
-+++
->>>>>>     .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     | 125 ++++++
->>>>>>     drivers/media/platform/qcom/camss/camss-vfe.c      |   2 +
->>>>>>     drivers/media/platform/qcom/camss/camss.c          | 261 +++++++=
-+++++
->>>>>>     drivers/media/platform/qcom/camss/camss.h          |   1 +
->>>>>>     6 files changed, 1093 insertions(+)
->>>>>> ---
->>>>>> base-commit: 3daf23347bb5f4a375d0101ed29c97ce1a99721b
->>>>>> change-id: 20251024-sm6350-camss-9c404bf9cfdd
->>>>>>
->>>>>> Best regards,
->>>>
->>>
->>> What about taking the clock out of hardware gated mode ?
->>>
->>> =E2=94=8C=E2=94=80[deckard@sagittarius-a] - [~/Development/qualcomm/qlt=
--kernel] - [Fri
->>> Apr 03, 16:05]
->>> =E2=94=94=E2=94=80[$]> git diff
->>> diff --git a/drivers/clk/qcom/gcc-sm6350.c b/drivers/clk/qcom/gcc-sm635=
-0.c
->>> index a4d6dff9d0f7f..f98cb35bcd408 100644
->>> --- a/drivers/clk/qcom/gcc-sm6350.c
->>> +++ b/drivers/clk/qcom/gcc-sm6350.c
->>> @@ -909,8 +909,6 @@ static struct clk_branch gcc_camera_ahb_clk =3D {
->>>    static struct clk_branch gcc_camera_axi_clk =3D {
->>>           .halt_reg =3D 0x17018,
->>>           .halt_check =3D BRANCH_HALT,
->>> -       .hwcg_reg =3D 0x17018,
->>> -       .hwcg_bit =3D 1,
->>=20
->> Unfortunately this change has no effect, still getting the same error
->>=20
->> [  192.154311] ------------[ cut here ]------------
->> [  192.154339] gcc_camera_axi_clk status stuck at 'on'
->> [  192.154364] WARNING: drivers/clk/qcom/clk-branch.c:87 at clk_branch_t=
-oggle+0x170/0x190, CPU#5: CameraManager/5996
->> [  192.154387] Modules linked in:
->> [  192.154403] CPU: 5 UID: 10000 PID: 5996 Comm: CameraManager Tainted: =
-G        W           7.0.0-00074-gb9262f98394c-dirty #31 PREEMPTLAZY
->>=20
->> Regards
->> Luca
->
-> Sorry wait a second did you say you had a fix for this around CX ?
->
-> https://lore.kernel.org/linux-arm-msm/20230213-sm6350-camcc-runtime_pm-v3=
--2-d35e0d833cc4@fairphone.com/
->
-> Is this series adding or missing power-domains =3D <CX> ?
->
-> Shouldn't this be in the gcc node ?
->
-> +			power-domains =3D <&rpmhpd SM6350_CX>;
-> +			required-opps =3D <&rpmhpd_opp_low_svs>;
 
-In this thread I've tried ".use_rpm =3D true" for *camcc* - which I
-believe is the modern equivalent to all the code added in the linked
-series.
+On 5/3/2026 9:47 PM, Krzysztof Kozlowski wrote:
+> On Wed, Apr 29, 2026 at 02:03:48PM +0000, Raviteja Laggyshetty wrote:
+>> +++ b/Documentation/devicetree/bindings/interconnect/qcom,shikra.yaml
+>> @@ -0,0 +1,135 @@
+>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/interconnect/qcom,shikra.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm Shikra Network-On-Chip interconnect
+>> +
+>> +maintainers:
+>> +  - Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+>> +
+>> +description: |
+> 
+> Do not need '|' unless you need to preserve formatting.
 
-For gcc I don't believe I've tried adding anything.
+I will fix it next revision.
 
-But practically, isn't CX always on anyways, especially with screen on
-and everthing, so practically it shouldn't make any difference?
+> 
+>> +  The Qualcomm Shikra interconnect providers support adjusting the
+>> +  bandwidth requirements between the various NoC fabrics.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    enum:
+>> +      - qcom,shikra-config-noc
+>> +      - qcom,shikra-mem-noc-core
+>> +      - qcom,shikra-sys-noc
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  clocks:
+>> +    minItems: 1
+>> +    maxItems: 4
+>> +
+>> +  clock-names:
+>> +    minItems: 1
+>> +    maxItems: 4
+>> +
+>> +# Child node's properties
+>> +patternProperties:
+>> +  '^interconnect-[a-z0-9]+$':
+>> +    type: object
+>> +    description:
+>> +      The interconnect providers do not have a separate QoS register space,
+>> +      but share parent's space.
+>> +
+>> +    $ref: qcom,rpm-common.yaml#
+>> +
+>> +    properties:
+>> +      compatible:
+>> +        enum:
+>> +          - qcom,shikra-clk-virt
+>> +          - qcom,shikra-mc-virt
+>> +          - qcom,shikra-mmrt-virt
+>> +          - qcom,shikra-mmnrt-virt
+>> +
+>> +    required:
+>> +      - compatible
+>> +
+>> +    unevaluatedProperties: false
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +
+>> +allOf:
+>> +  - $ref: qcom,rpm-common.yaml#
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          const: qcom,shikra-mem-noc-core
+>> +
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          items:
+>> +            - description: GPU-NoC AXI clock
+>> +
+>> +        clock-names:
+>> +          items:
+>> +            - const: gpu_axi
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          const: qcom,shikra-sys-noc
+>> +
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          items:
+>> +            - description: EMAC0-NoC AXI clock.
+>> +            - description: EMAC1-NoC AXI clock.
+>> +            - description: USB2-NoC AXI clock.
+>> +            - description: USB3-NoC AXI clock.
+>> +
+>> +        clock-names:
+>> +          items:
+>> +            - const: emac0_axi
+>> +            - const: emac1_axi
+>> +            - const: usb2_axi
+>> +            - const: usb3_axi
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          enum:
+>> +            - qcom,shikra-clk-virt
+>> +            - qcom,shikra-config-noc
+>> +            - qcom,shikra-mc-virt
+>> +            - qcom,shikra-mmrt-virt
+>> +            - qcom,shikra-mmnrt-virt
+> 
+> This if is pointless here, changes nothing and not really correct. Drop
+> it, I will fix existing bindings.
+> 
+> OTOH, do all NoCs have children? If not, the patternProperties should be
+> disallowed for such cases. Also clocks should be restricted, see my
+> patch:
+> 20260503161653.60785-4-krzysztof.kozlowski@oss.qualcomm.com
+> 
+Only system_noc has children, rest of the NoCs don't.
+I will update the bindings to 
+1. disallow the patternProperties for the NoCs which don't have children.
+2. drop the redundant clock property check for child NoCs at top-level
+   allOf:if:then:properties:.
 
-Regards
-Luca
+Thanks,
+Raviteja
+
+> Best regards,
+> Krzysztof
+> 
+
