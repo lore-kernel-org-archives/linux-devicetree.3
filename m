@@ -1,178 +1,161 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F7037D125
-	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 09:41:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777887675; cv=pass; b=k8gh1cCs+UsaPrGQSlkrViyTwePTKjfxkz2wspkyZcBl4XaFUm26G5j6Xx/DJ+SHHdrVbLgzik0mDG9KwQWJhTD5n91CSh3uUgnh9f/vMAgSAACbalL80+dEfpSv+2w1Iv79r4Iu211J1I070I2kENXwfePXj3MY3CJdvEhR9y0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777887675; c=relaxed/simple;
-	bh=FC+ugtDkMHT+Cp9OamWwymYjYElZN3bAE2C744G4TbM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qvYxg2UIqZac6N7acs3CyWyH1OQezJNSz4kEHlsLs3yl+lMeGjxhrq/d//XIBf030gbd3Ie4mHITQdNzPHnLNgugZgOq+vhBywy2Q+Mk6UjpUHqQmPJJib14MQuj4hF2qZ3xJPwLSd01jYd3/z4gMU773Vz11ZgdmO5Mmln87rI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=UIYuEQ2z; arc=pass smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B81637DEB5
+	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 09:41:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777887682; cv=none; b=JAV04jyTrPityPLuJsXO2oKuRBMm4VLtn6BZBGybuKdHA7yoz8fQPblI1UDoW6KC99veEopK2DANRjNykm3ZYMjTDpTEnrHwtD8ZIDUgoWpNzQBoP5fbJBU891N/AcSO9HlYJtaki78XDI5DQ96vHDmsPZbhg/jL6aaGfegkEwk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777887682; c=relaxed/simple;
+	bh=6yzycqaTd6zO7vWwqNnDn9oASp2oYwGYeee9ZCMKSYY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cZgutrRWq8mRgAz6yO9Q7/ke84Hg3+vZxdzTRIk5n/7CZ6tiz/t29lepQjPzpCevD+cekrB8UWv6ynf/UAPA6kWNJaCje+qlxA79KamO31muiLcpENYhTXa2lo2hUs7HvJMTNbVlCLazeueJxKZECSVg1Y/sXlnE9hG5xlG0ziA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JoKyRvud; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Jfj4XNRj; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="UIYuEQ2z"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5a8704dc3a8so769625e87.3
-        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 02:41:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777887672; cv=none;
-        d=google.com; s=arc-20240605;
-        b=D1cQnFG0eMhB6M0wn4ZtQ7Quz+41DaynJHRLyz2BaqYmJfQChxeKFRjlYssq/2pzk2
-         ZYnRzuhOZ98rybNMAJvMA1hO88TCsA/mmrWRy2Jvo/Z9r25w6yUf/DeGFiRb6u8oeAFV
-         5akUybBdJpK6BODnpTurRK438hjXGWcqJ7CMg4o460ACE8+GwDzgqVBHFmX3hhQPqPum
-         fCWSmFuinpbOez2qf4HFjvOI/0od/4EAUgUjU+NslSw1iLLM8m69q6J8nZLs18cgUh+Z
-         sXAzJoD5HWAQPQDImleFENVXXgx0MsO3PNA3gZ3CDl6MmVvmcAEfwHj+GNGT1Tk3OCqe
-         a+vQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pPRPoG0bnXrUp5Oogbu+VyQo8WCBzCtv1bsnZQz2h4s=;
-        fh=9vb0WJi2pTLEdJxx4p6G34MFTY8PL3MQOESWe+Sd1SI=;
-        b=gO5k6CArDSLc+JNqAb/J9zLIFKeLIsoSBwx5QKowuEH/r0eoMwNyr6WEauszIRALV9
-         JLDVCdRSv0vLhOUR3OguHK5jXG+oWBD44Gt3Tgz62Xm3HBb8/sI6COQbcPjC7Yu/ZyTi
-         odgpPOBzzC8JVCx7FOP6kbwdhSqW8npB5SdNNDPwv1cZMK96PaIb9+Q4cp2GnbfY65UE
-         Maj0kCizNSmtYjRqzl+nJbr0ekgskr6ExaaP2Dz96DTH3hu5qbbY+DJwK0DbAN/FOyFf
-         AKi2uRk9JhYmwudRX8hvDFf7cVpALlq8wpBtO5PcT0eFctQy+PGtmSbCgamME7gpGEum
-         KRfQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JoKyRvud";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Jfj4XNRj"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6448fQ5J459395
+	for <devicetree@vger.kernel.org>; Mon, 4 May 2026 09:41:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=ufalV60YTG3i28AyLmavx3
+	qMo2IMwPvj8r0M1rSF6Jc=; b=JoKyRvudM62w8TD2trJxtFcrdO3sBHHrkWHqMC
+	U8ZwJ1J5C6xf4BEoVzxviZ8Qh8PE8iKgxqcLWxTp9WWj/R8qkARXZzoYgU6u2cXT
+	paT5RpKAc7MpFrCL6+bqUyw0aqK4Q1pxGgrOlqHwv8He3JrhgW+08xo2/kNdTRMB
+	olwEz4OYQEKtrwGAaCBRBv+5y6CMeB7nrcQvVjJGKr+lGMRJaJbSm4s3P9xwhfQR
+	QTEc7K+ktrnoqCU79rWBbr1d05bHNbn6G5EcvvKD/zRBKv9xOBDSbDPxCAOAXihU
+	bP+1bQPhKipD2TBzj0oNCdH+dusQvXsXvdHptxU2vtfLQ0Dw==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dwaejn36h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 04 May 2026 09:41:20 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2b2e6ee9444so35044905ad.1
+        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 02:41:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1777887672; x=1778492472; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pPRPoG0bnXrUp5Oogbu+VyQo8WCBzCtv1bsnZQz2h4s=;
-        b=UIYuEQ2z9UYfww4hm1RGYMwwdlNeTOo6RpG4QkN95Ac2EQv+iC4Q6p79Aq8QkY7GOT
-         +D0LFdDkH01jmJXjf1rSm/BEE1Hnl706wcdOskdMDK4XBhKroJN+0Jxb8tT0dVQlwj0T
-         +jHlifIntf72vwMNE4LCRa90XBYxgl2aMP5vE=
+        d=oss.qualcomm.com; s=google; t=1777887680; x=1778492480; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ufalV60YTG3i28AyLmavx3qMo2IMwPvj8r0M1rSF6Jc=;
+        b=Jfj4XNRjH3zx8p1ubcvtmeI/hxWQLANkTFSf3lmK3QWSrz06Mw8ifsjSyWktVmV0pm
+         vy32CWbuJD/mVDIhqeWkFhlOO2Wr7bbQ+qWNDdqdZJRMGmV452Z2C7nW9tWTOWDkUK6x
+         9UQ95Q9PDf84szHWYfRF/a3rDmDbpDAN5jrcTEGRoFKt+l2YusTgg7hGcyWZUHMLTZRY
+         2TiAbMF1FkhlpKStD0LZ3Tpk6wECO0Sz2pPkfkeB16AHRxD23S0SRGzsLBXGcMlHE7uA
+         a1gbo+6tQi9u/hW6iYRQBnS50pqq9Ke1BzynAF8TkhGoC/U6P03MB6pM/S3km+giCD0X
+         ysUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777887672; x=1778492472;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=pPRPoG0bnXrUp5Oogbu+VyQo8WCBzCtv1bsnZQz2h4s=;
-        b=nL6Q9hM56hvM4lbOUbvx8vNzBqf3SsvFIwcOwuEfk2leMNBRkU3miBQv0e2cjm6l1z
-         Av7oBi43szHnaLYLm5Icqw/nGgjdu/GckKbI6u/oLsjF8AkWPf+KPu8ax13nHUrIBrZZ
-         zNo8xgJwu7fRYY4eUeF1RhVToV4yNrkClN90EgE0lBmNvBLh3Wd0ll+vQO4xt37qX3vq
-         lFXYgAATRY2mQZ1Tr6pIleT0RlMww7FvYHWOAwtkyr1YcJihxb5LU2pv9O5zieOymkpa
-         hz9gjW9NrV5PXS1KYbNHTjM2NhB82IpuUXcje0NRSGlFhy6Cf9BzAKLcF2z+nRH5pPAb
-         KPPA==
-X-Forwarded-Encrypted: i=1; AFNElJ9vqvxqLKIY5LSapwAYZEKJ68tbagqPZRmIW5dTbTqdOS/+ytHLk1eePeAlGZlMRGRwAqzmdnUt6Y8/@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQGifr4YMk6pln6HRDh0jpyPnqgyi2q33VIitPd/WZSDRP3069
-	2Jm1fhCz7G6ZKyVUWD3LBR2nGGs14Ot9alc4AyX3PLtNpg+SulH5MpfPMJxLdiZuccirq+WeS1w
-	CN6DE8FE4oJvgnY0L8JGOipYxpzKQzQf2Oy1z/WqUi2mY+v1D8uU5pQ==
-X-Gm-Gg: AeBDiesvMPN41RGc3js+LL8XpJYqAn0koRAe1KXZovPMb6P619BOtkTCRkaptdUWWmL
-	qw3SyrkQp8wxdLeAcGewX4sKYc9OjSj6+H9PIugPvlRKfu95oq9yfqOyoX+XAsiVXyJJxC8ZjCd
-	tMYhrxd46glYqHOajyFasqC/FuP9zt1rTXBaSbkrqfvMFeJ8p4GEwl8+mVvk7cbN79FBqmzgWRx
-	fEjCOPIY8dKxwUTJ0M6uamJ0/p4OZ086U88y0uQYmi+HaouPB9wRw6CFm7Hj32UHhVNO1Oe7Wja
-	+oRXY3c9llTNtP/9rsfTz44URsO9Pben/DnBfrXPCUJe8Sq5
-X-Received: by 2002:a05:6512:400f:b0:5a4:304:43c9 with SMTP id
- 2adb3069b0e04-5a862fbd635mr2676512e87.14.1777887672100; Mon, 04 May 2026
- 02:41:12 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1777887680; x=1778492480;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ufalV60YTG3i28AyLmavx3qMo2IMwPvj8r0M1rSF6Jc=;
+        b=LwCy5/vDy76vBBYM0oxfPbAYWDyhJYk+XzjyftvQ0hVTqWIs1LJSLyABj2/0+RpDwr
+         7ow1xI5IYOxprnU5jXvbXhFvxcejM3UUBrFEkpTLc1+8s6plyIFKxQOTPsvXqL/5eB8X
+         tnw9Ky5ElXnZyW/zpSJfDfw0VobGnrN3y2cNIO/38pCYqFDQ4DBdCIUm0RtiqAFLeSKk
+         aUbD/47SaseMldbxu5r4x/FixOVcgrEjG23TkN98VxcTw04JOMJ8mUu5LGoC6BASpYmo
+         f7Yj2IRJBfnky7ggjLp2lM1kTbH8+zjzacm5hRLsZOQ6D1zqhT01iyMzYGmEqbSAHlMq
+         z0LA==
+X-Forwarded-Encrypted: i=1; AFNElJ+fUwMtef3h+pT+LWyikIO0D18DA1FjhY60mtf4UPoB1QvXa20uDd5Vz+kJsxfE4dP5Y3MFr5k5RdYx@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/8+pz2hvi5ASpt27RqEMzZvisGUohjqaHFZLrBgsfM+p60aeV
+	vv/9QMWVpGQ701r8fsXB/WpD/GwjYfC0CXVCi2/fvVO8WPLqU9J/LMP5np1xl+LEaVqnVCeBKCn
+	jp5og14LzG5Bqf3g2yM/GSU67CwwcvnD94YiwxAmPxk8yN/KFbfjS4Y9xRNH41o76
+X-Gm-Gg: AeBDiesGmVYsvQLW9D44Ohaobn18hC4AA98t67lPMZo87h6CVsfL5tgJ/A+z4iKpe6E
+	Tp+fETXpcqzckjpyDF//EqJxlk/aani94VefR0ciV/FuUPQNE55qMHMmtyX7NoCwm/iKo7wVPVv
+	VvCA7mJ6ljy4o2kNXSZF/kjiSjVz3FwhSjPOaubCmy8fFgnHK6SoqbP9Z6IPn7IODnLAfT1a0rm
+	cz0aR8m+Adq1cMDCyK7DaW0WA0MJUpci9FEEsfgtbnk8bF/bSi+7jHrn+Zjp0ZUK3z6aGVIA2m7
+	LAQkBO26ZAQrDH+9AUCBKcRm1Cl5pCm9jAK+RPztZuL8rPEUAW+zY+Xm3mxTstq2q5xS6Kd5QBp
+	/h+YLXRoRGwIGXvmR3Gb+VirHuk2qZyqSNwQDZwXlL93x1NATMdPhg5Y=
+X-Received: by 2002:a17:903:2f0f:b0:2b4:64cf:e8f8 with SMTP id d9443c01a7336-2b9a42aae6dmr149433355ad.2.1777887679872;
+        Mon, 04 May 2026 02:41:19 -0700 (PDT)
+X-Received: by 2002:a17:903:2f0f:b0:2b4:64cf:e8f8 with SMTP id d9443c01a7336-2b9a42aae6dmr149433135ad.2.1777887679348;
+        Mon, 04 May 2026 02:41:19 -0700 (PDT)
+Received: from [169.254.0.2] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ba038ae95csm58985045ad.46.2026.05.04.02.41.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 04 May 2026 02:41:18 -0700 (PDT)
+From: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] Add interconnect support for Qualcomm Shikra SoC
+Date: Mon, 04 May 2026 09:41:12 +0000
+Message-Id: <20260504-shikra_icc-v2-0-81076171e010@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260504072846.2581096-1-zhengxingda@iscas.ac.cn>
-In-Reply-To: <20260504072846.2581096-1-zhengxingda@iscas.ac.cn>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Mon, 4 May 2026 17:41:01 +0800
-X-Gm-Features: AVHnY4L9QFY2fxGccmoY4I5c6vHRXkexmo_pKFyAww1n-29lZtiDvf1w1FXMeYk
-Message-ID: <CAGXv+5FvdufzjqBRQnnG3y8FVW9bHL47CVv_=e7GbVv2d3eEuA@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: mediatek: mt8188-geralt: enable touchpad
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALhp+GkC/03MwQrCMAzG8VcZOdvRplOYJ99DhswudUG3zkaLM
+ vbu1nnxEvgHvt8MQpFJYF/MECmxcBhz4KYA17fjhRR3uQE17rRFraTna2xP7Jw6G+/IV1uD2EE
+ eTJE8v1bs2OTuWR4hvlc7me/3x1RY/zPJKK3IVrautaXOm0MQKe/P9ubCMJT5QLMsywcSyvAxq
+ wAAAA==
+X-Change-ID: 20260320-shikra_icc-b1fcef45122d
+To: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+        Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
+X-Mailer: b4 0.15.0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDEwMyBTYWx0ZWRfX5c+ci/hs5PxV
+ z+z2by1tmyHcczZr6rfoWZE10LtdMcO37uPHRsOjhNWDI157dU4ZoQGWIg3eYkgsu0jZwu4l5g8
+ vWSzlhhMoMCi91KJxiUAK4nbR6qy6SKqq3PRqx5w5sa6OSbfUo+1GXoAi/MYxJVyWPs9eQoj+vc
+ mlIyHTwCEGZRPg2TZRVZhnL8yvYUtfOl+AIH9ECAI56ppTKqhG42slRF+0+5kJi+vEwTbNwrJQL
+ jJ0PrclmNuXgy+/3lsUQXUdj4J7S1PbeB4sd0gmTu4CglrCTswf2qDWWGHL1gnAAI6tfpI4yVRA
+ +gqxqBkUUb3tdEcADTUQW7w08lSx+Zk+jBe2XTtfspKf2RqSPY9e8HUgaVEHT4EsnUTkHQuKt65
+ 4mZ3LxJd7i5RVgbDolddLaTPAMZ3VBbORRvwAVJYmaivBO4R+z60u9BUCvkUsAzauBT2Yo+guHh
+ 5yT5cuAVTooNzok+bwA==
+X-Authority-Analysis: v=2.4 cv=Wa48rUhX c=1 sm=1 tr=0 ts=69f869c0 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=OZudk8sDxFVV_aZhaj8A:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: WNDDdxmes6sxSsi9gGwIW4d3fVAZJ5T6
+X-Proofpoint-GUID: WNDDdxmes6sxSsi9gGwIW4d3fVAZJ5T6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-04_03,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 impostorscore=0 suspectscore=0
+ bulkscore=0 phishscore=0 spamscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605040103
 
-On Mon, May 4, 2026 at 3:28=E2=80=AFPM Icenowy Zheng <zhengxingda@iscas.ac.=
-cn> wrote:
->
-> Despite the Ciri device's touchpad is on the detachable keyboard, the
-> I2C HID device seen by Linux is emulated by ChromeOS EC and always
-> present regardless of the presence of physical touchpad.
+Add interconnect dt-bindings and RPM-based interconnect driver support
+for Qualcomm Shikra SoC.
 
-AFAIK it is actually an I2C HID device on the detachable keyboard.
-The I2C bus is "tunneled" across the EC-EC connection. And if you
-detach the keyboard, the I2C device will stop responding.
+Device tree changes aren't part of this series and will be posted
+separately.
 
-We have some downstream trickery to deal with this:
+Signed-off-by: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+---
+Changes in v2:
+ - dt-bindings update to disallow patternProperties for the NoCs
+   which don't have children [Krzysztof].
+ - Drop the redundant clock property checks for child NoCs at
+   top-level allOf:if:then:properties: in dt-bindings [Krzysztof].
+ - Link to v1: https://patch.msgid.link/20260429-shikra_icc-v1-0-e3439903edf1@oss.qualcomm.com
 
-    https://crrev.com/c/6040044
-    https://crrev.com/c/6040045
+---
+Raviteja Laggyshetty (2):
+      dt-bindings: interconnect: document the RPM Network-On-Chip interconnect in Shikra SoC
+      interconnect: qcom: add Shikra interconnect provider driver
 
-It basically involves registering the I2C device when the keyboard is
-attached, and removing it when it is detached. We haven't gotten around
-to upstreaming it though. I talked to Krzysztof about this design last
-year, and I believe it was at least acceptable from DT point of view.
+ .../bindings/interconnect/qcom,shikra.yaml         |  134 ++
+ drivers/interconnect/qcom/Kconfig                  |    9 +
+ drivers/interconnect/qcom/Makefile                 |    2 +
+ drivers/interconnect/qcom/shikra.c                 | 1837 ++++++++++++++++++++
+ include/dt-bindings/interconnect/qcom,shikra.h     |  121 ++
+ 5 files changed, 2103 insertions(+)
+---
+base-commit: 9974969c14031a097d6b45bcb7a06bb4aa525c40
+change-id: 20260320-shikra_icc-b1fcef45122d
 
-So this patch is somewhat incorrect, in that the trackpad should be
-disabled by default, and its status should be toggled at runtime based
-on the detachable keyboard events.
+Best regards,
+--  
+Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
 
-Otherwise if you boot the system without the keyboard, the driver will
-probably fail to read the HID descriptor.
-
-
-ChenYu
-
-> Enable the device in the device tree.
->
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ---
->  .../boot/dts/mediatek/mt8188-geralt.dtsi      | 20 +++++++++++++++++++
->  1 file changed, 20 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64=
-/boot/dts/mediatek/mt8188-geralt.dtsi
-> index 8e423504ec052..8f801454bf84c 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-> +++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-> @@ -460,6 +460,18 @@ &i2c4 {
->         pinctrl-0 =3D <&i2c4_pins>;
->         clock-frequency =3D <400000>;
->         status =3D "okay";
-> +
-> +       /* The touchpad HID device is emulated by EC so it's always prese=
-nt */
-> +       touchpad: touchpad@56 {
-> +               compatible =3D "hid-over-i2c";
-> +               reg =3D <0x56>;
-> +               hid-descr-addr =3D <0x0001>;
-> +               interrupt-parent =3D <&pio>;
-> +               interrupts =3D <148 IRQ_TYPE_LEVEL_LOW>;
-> +               pinctrl-names =3D "default";
-> +               pinctrl-0 =3D <&touchpad_int>;
-> +               wakeup-source;
-> +       };
->  };
->
->  &i2c5 {
-> @@ -1131,6 +1143,14 @@ pins-bus {
->                 };
->         };
->
-> +       touchpad_int: touchpad-int-pins {
-> +               pins-ec-ap-touchpad-int-odl {
-> +                       pinmux =3D <PINMUX_GPIO148__FUNC_B_GPIO148>;
-> +                       input-enable;
-> +                       bias-disable;
-> +               };
-> +       };
-> +
->         uart0_pins: uart0-pins {
->                 pins-bus {
->                         pinmux =3D <PINMUX_GPIO31__FUNC_O_UTXD0>,
-> --
-> 2.52.0
->
->
