@@ -1,26 +1,27 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E06C2D593E
-	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 20:21:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48163C6A39
+	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 20:21:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777926114; cv=none; b=Mwli1dYQ2B1f0BKgMS12yDwM3pVj5PUP5ZA9r2cCjktimiYG9ljJXbRe4WsqJaCwAvlUBj1GndL6cCHf+qAYPvYQaXbF9dqlVAo5zYqVN+u082qxrq0/lSINIiq/H6CIK5AxO/8qL5kBuPeX3QTkCPI51e4RKPH0xXOVn7JiSrk=
+	t=1777926120; cv=none; b=elTJG9KU8DGUpWXrf4/poqXvlReQaEc0AmxlG5A0iFjJq76ps3wUS1wbvztSZFyHNdh7zQaQKr+MgEDnwLBr/xfkVLpTWVrPaWaDEibkOBA7mWiritT+Mi3w8DYcNrAHjodRLz3pocc5InSrJISlbGQ+hWjW5ezeWb/TLvcLeYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777926114; c=relaxed/simple;
-	bh=kimmPxIEbJIWotQ/PJtFA8ikdt7CwSJsNgiqfEh15b8=;
+	s=arc-20240116; t=1777926120; c=relaxed/simple;
+	bh=GjX+Zl01+xvHUVCSI7brDzkX1/1clyd15YAzu3xxyvk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NWGvqdkFPAgueKtfliThzAS7bfz/xys+7dKiXOs9894X0fGEGcuN9aKrGSS3UlVMbGM6ldswvX5HHZaZvOmjRZwhDMivI6dVLwrmZJbKYLYtt43IVO3/r1+7iXyjiyJ4vOUoI+KiqaU6SN1+q/hREzA8SVVmkO4wKt3dpnpDHC0=
+	 In-Reply-To:To:Cc; b=aOxNxHbkoTlK0QMjAxTc3rBl6gwz9GGkN2TEL9RIDAYoKwAsN4lxN0botNah0tlS2+kNf1iihh4A445X516HIgrlKW/60/GBZhedJ88Jq+SVloYXRJueilGu8GKdytAd0kO2E32UoPxAfc4/DBRS1/vC3S9GfVdQe6qncCViHL8=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from dude02.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::28])
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <m.felsch@pengutronix.de>)
-	id 1wJznX-0007WV-HU; Mon, 04 May 2026 22:21:47 +0200
+	id 1wJznX-0007WV-BD; Mon, 04 May 2026 22:21:47 +0200
 From: Marco Felsch <m.felsch@pengutronix.de>
-Date: Mon, 04 May 2026 22:21:43 +0200
-Subject: [PATCH 3/4] ARM: dts: imx6sx: remove LDB reg property
+Date: Mon, 04 May 2026 22:21:41 +0200
+Subject: [PATCH 1/4] Revert "dt-bindings: display: bridge: ldb: Add check
+ for reg and reg-names"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -29,7 +30,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260504-v7-1-topic-ldb-fixes-v1-3-0125d937ff7f@pengutronix.de>
+Message-Id: <20260504-v7-1-topic-ldb-fixes-v1-1-0125d937ff7f@pengutronix.de>
 References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
 In-Reply-To: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -55,35 +56,55 @@ X-SA-Exim-Mail-From: m.felsch@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-The iomux-gpr syscon device has a very loose register definition. Many
-registers have a multi purpose, e.g. one register controlls the WDG
-behavior and the CSI2 mux settings. This would lead into multiple
-sub-devices which use the same 'reg' which is wrong.
+This reverts commit 8aa2f0ac08d3b207ba54e98698c9d696b86452a7.
 
-Instead of specifying the 'reg' in the OF each sub-device driver needs
-to handle the correct bits on their own. Therefore drop the 'reg'
-porperty from the bridge node as well as the @18 register suffix.
+The LDB is either part of the IOMUX_GPR (i.MX6SX) or the BLKCTRL
+(i.MX8MP, i.MX93) register space. Both IOMUX_GPR and BLKCTRL are
+register ranges with loose register definitions. E.g.
+
+  - On the i.MX8MP there is one register which controls the AXI
+    threshold for two different IPs (BIT(31:16) - IP1, BIT(15:0) - IP2).
+  - On the i.MX6SX IOMUXC_GPR5 controlls: CSI2 mux, WDOG3 settings, PXP
+    handshake, ...
+
+In conclusion: it can't be ensured that one register belongs to one
+dedicated IP and the LDB is rather an exception than the rule.
+
+Therefore remove the 'reg' and 'reg-names' property requirement.
 
 Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
 ---
- arch/arm/boot/dts/nxp/imx/imx6sx.dtsi | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml | 10 ----------
+ 1 file changed, 10 deletions(-)
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6sx.dtsi b/arch/arm/boot/dts/nxp/imx/imx6sx.dtsi
-index aefae5a3a6bebd43c67070376196db559d0d20cb..4b974b54195950e8bd2ef6d590f3530b2a43106e 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6sx.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6sx.dtsi
-@@ -850,9 +850,8 @@ gpr: syscon@20e4000 {
- 				#size-cells = <1>;
- 				reg = <0x020e4000 0x4000>;
+diff --git a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
+index 7f380879fffdfef28d9a35d7fbf87fdf28377b43..828b7a40e9b6cf27f76d1cd3009505b03cbe09f1 100644
+--- a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
+@@ -68,7 +68,6 @@ required:
+   - compatible
+   - clocks
+   - ports
+-  - reg
  
--				lvds_bridge: bridge@18 {
-+				lvds_bridge: bridge {
- 					compatible = "fsl,imx6sx-ldb";
--					reg = <0x18 0x4>;
- 					clocks = <&clks IMX6SX_CLK_LDB_DI0>;
- 					clock-names = "ldb";
- 					status = "disabled";
+ allOf:
+   - if:
+@@ -83,15 +82,6 @@ allOf:
+         ports:
+           properties:
+             port@2: false
+-  - if:
+-      not:
+-        properties:
+-          compatible:
+-            contains:
+-              const: fsl,imx6sx-ldb
+-    then:
+-      required:
+-        - reg-names
+ 
+   - if:
+       properties:
 
 -- 
 2.47.3
