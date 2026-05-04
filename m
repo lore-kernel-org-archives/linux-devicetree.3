@@ -1,155 +1,202 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F9B311975
-	for <devicetree@vger.kernel.org>; Mon,  4 May 2026 07:56:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DADB33033D6;
+	Mon,  4 May 2026 07:56:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777881395; cv=none; b=WL0DC5JGCdAboPykql8Od6QnNlJf+msj/LPfx7PJuR8iYWTfXEzCjePKpx9fVLLnha68MKaSpnblFxhpjfqcyxs3eiI1oZzabisecq4mq086nhr6v9ez6+2Yar+6iyl2KY1sSLRDpwvkj+neFYlzMHQ2CdyI15y7FdGFUH7556w=
+	t=1777881400; cv=none; b=TNQOFLWxc9GobZLBNU4EMbePqIUOCTaazIr8huD5wCBorcX6oduEcghk8u/jiGVmBBrXK+aCb+OAEwu+Li7eG7laYEnzJBu64csosg1OFk/gjPf62BJorIMmN39BQv9UJsk0nyIaxqfzJPWQ6ng/vvSMv7dVvAdazsPLjT9u9gY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777881395; c=relaxed/simple;
-	bh=jd0s/jvIDISRsyDV2jaZSUJqYEywMClZG15n5rakyxM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I07Uwr8Sx7oSGMRzfrGispoqFOkdObbgcLDWrBRQc2kts+ruvlSdny2t477EvFh63j3m2QtiNlMwiFeiCiIMD2YpHIGvYzTHUuY/L4LtxH3Srx07o6yC8hNS16EMN0UtzJrlloX4pyezS5Dh0mAVabFHlgUy8hTt+w9MPd/wtSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SyICL8ZE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NQPEK5dB; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777881400; c=relaxed/simple;
+	bh=EU6GNMPxyqZpjatfpAqkrmjlNPcqAxcQGexzOkAfu0w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ESSl03gMzroynf7IX4DcywvuygrBH7bphw+YmOSq01Ged/WhiM5hMf6wZTWaRD0OgYWJEUq8J2m1uuGwJUi5y9OQ38fFE/BCoAY8YJa8SpleWFg1s10u0lB8v8s4mDwBwjDW5gbV8Al3QSh4GpUDi05LfphMexXOYTS0rDtnPcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LrXLITtU; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SyICL8ZE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NQPEK5dB"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6446DMEL875811
-	for <devicetree@vger.kernel.org>; Mon, 4 May 2026 07:56:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pRZ96Ld+Gp1PrytRI2L1DzZwGRx5l3Gs/96clMZAJbo=; b=SyICL8ZE7una0WN+
-	dkF9Drg2Oge/LQ4kEaXOq8ESOQb/Emd5n2OSQ2GYP7SDaL0T3kk+XntYM0Getu97
-	x9AZfIIEBoKKUXyT+VoZXJmnQZYBPa4tEzM+wwgBM3cNiLF1VgcW8pw2FKh292NK
-	fKzhYpInC/jV/CFMv0sxDRzS9J/ZJaymfJ42f26++bqv3QfM+Tqi/JOOt3Iz6ye4
-	ewpZFSYrV5LN8cXvEBXT2EsX28zD/c3dY7oNxvwOAncsPMHWLhTRqczRBTUhXP7N
-	AsXCPqxEYywoI7GpYFq1v0WMNcBTopsWAq2e6zvxAXxdfXidP9bYuf9d4khZCWZ1
-	avscLQ==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dwa1emr9v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 04 May 2026 07:56:33 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c6e24ee93a6so2529553a12.0
-        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 00:56:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777881393; x=1778486193; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pRZ96Ld+Gp1PrytRI2L1DzZwGRx5l3Gs/96clMZAJbo=;
-        b=NQPEK5dBvUw39JzvYqsn5Hc2jslkh0S+IAFGzsKp1k+WVoD5OcWv0fVmFX5PKK2pGG
-         T8mzN3RIzaGt07Sr2ywf4z6prTczsA1KoNMbOGQvZxZEJskXVmuzBg+5+tQMyci3CGm5
-         /opi9oK/1K+mDpKTNQ55Ms5NJV8tkKPGQNKSg/N9+XlJ9uVbDKrO+vmnUI/tE9IlTd5f
-         x3qyvoWLJgQo0gK1rKifC01dcFQy0wX2N7oZyYH9eeWDfGKFo0mEQYs0N5ztI1x94ggy
-         t4EulG8it3fOu1/+yMSgmhTO6mP+Tch5BOZurwTRm4XHN1zzpYgWkD6Rtvis4zDkJE8k
-         cbVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777881393; x=1778486193;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pRZ96Ld+Gp1PrytRI2L1DzZwGRx5l3Gs/96clMZAJbo=;
-        b=nLuLzwWfdutH0qgRodijCN4Z+nJ568rlvD3nQmp7zKAd61E0QPbKsU0sGvjb184/xd
-         rp78NPlDm6rJVMmzg6HBBXaolcprSEidkmBmNLOi9w33DE4c64sqeHa4o+E3U/eE44Mr
-         qsaUcZYLUfFsqsFtBAzr2MQ0eBk6Eg7WMWTEhpMzEO0ADqFwjc6xljl0aak3P4F4haWO
-         Q4nOZCx1/N2+oAQg4L4BVTQmm1NRm0Tvrqcb+r2w/1aWkdlWrCs/E6Sv45/vXA/Qm42N
-         j7XqxLAplcLZK3WRvNlq4fmhBJtci+eJR+E54oDDmd7J74fZJoFq1CKKQE3Eqsmugb4I
-         5mrg==
-X-Forwarded-Encrypted: i=1; AFNElJ9KVV84uhXSOAJvmzhXHp7UuVj0lHFCjeTFVrc0i7F0VmWiQA2iQty+4HHqU8NvmUEG3iHUb9lDdB/+@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZMXy+jBmDVQjpKILtLrRVHbbIa9x4y4Qqu744aK2uYO3mCRvD
-	lVTL7dxYNQ8gsWMspJ/u4g/2B0NtJIpmFTvmaysyd50ahUAq3OLqdKs55oxYW1N4aJZnXE3SQB9
-	LAFVsYDJNAiSivCSjKKJ604bgT4i5atoCqLyf1x+pzrIdywrYYOqHDVAhiduc5Zpn
-X-Gm-Gg: AeBDievwO50zrjtz+FgTWta6NMKRaQoEbyLQ2xJ96sj8Y/GjTjL+DYpo0WGQnFwSA2G
-	hlugyCK/IKIJ0tyl6tEgoLSHWa6X0WOTzGELsYpDrksys93Oa4jZapgmC2tpiPLfu7Szdx8Eeoc
-	oA4+v1U2ugAC7S19cjOCgGZxXUIx5suGwkZiDGiCIHK1hfPVh6bCs+fIckBRhO+l2ON4s4zQpEF
-	6jfH0pwloqYWQl73AtaX0mk0zTFn+E8foVBNbrUoc79j3mI6MOfIGq0cdbDm8xeZKvOJUTsiMeW
-	7SBBg/YWWSnLsIGHDaNrKZGxwhK7mqFKV7pshiBcHWcX99ORLdahsk2bAy2TEbJDYO365iDIpqC
-	TaNmqx258RGfiqT3KByirYEpsFsQm51mSqeYk0QyskfZoB1cMYutDo3GsvrE=
-X-Received: by 2002:a05:6a20:5493:b0:3a2:d838:bfcd with SMTP id adf61e73a8af0-3a3d17c42damr14494827637.0.1777881392174;
-        Mon, 04 May 2026 00:56:32 -0700 (PDT)
-X-Received: by 2002:a05:6a20:5493:b0:3a2:d838:bfcd with SMTP id adf61e73a8af0-3a3d17c42damr14494801637.0.1777881391699;
-        Mon, 04 May 2026 00:56:31 -0700 (PDT)
-Received: from [192.168.1.143] ([59.96.95.34])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c801fd404basm4379097a12.24.2026.05.04.00.56.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 04 May 2026 00:56:31 -0700 (PDT)
-Message-ID: <7bb59b79-511c-4a40-acb1-05e08cea10a8@oss.qualcomm.com>
-Date: Mon, 4 May 2026 13:26:25 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LrXLITtU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777881400; x=1809417400;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=EU6GNMPxyqZpjatfpAqkrmjlNPcqAxcQGexzOkAfu0w=;
+  b=LrXLITtUxdHC4SWJ/MEhJWbn4KLyvQS1GeetJRLWcpyXOtDGWKqvA8sh
+   b3O5XS233WdtJCrqLr4Pexw9+QLKEzWqGaPgL+wJzlBVbafSGnXImTOD3
+   C55eYmWtGG3hz60u91mj5lo9tg6du9JLqoqP+CWhJNdgEObQ0LB0g/Kze
+   xYmmko+8x9D8CNQ8gKp1JKSradRi9l52t/JdyFjdvpfwQLUpRYIefOIRx
+   TeAAdBXSd8NWtiROuBewxEtbk14NouM/Gdd+V2VAP1xqcsxIduIk7lIq9
+   v2CVpxwM/blXDsZeEI928C9ut5iDImqV13ZfEddKnbQxVWWnvzbLdp4Ki
+   w==;
+X-CSE-ConnectionGUID: X6hIBdWnRWSufaSfY57znQ==
+X-CSE-MsgGUID: N60SBKrgTaijisu7eI4eXA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11775"; a="78441258"
+X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; 
+   d="scan'208";a="78441258"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 00:56:39 -0700
+X-CSE-ConnectionGUID: lCvPEamETZq0u/3UJ7xUqg==
+X-CSE-MsgGUID: pT1gv9KjQPilMC7nT4onIQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; 
+   d="scan'208";a="235705935"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.114])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 May 2026 00:56:36 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id A7621121CC4;
+	Mon, 04 May 2026 10:56:34 +0300 (EEST)
+Date: Mon, 4 May 2026 10:56:34 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH v5 3/6] media: i2c: lm3560: Optimize mutex lock usage
+Message-ID: <afhRMmtzOwQllJ6-@kekkonen.localdomain>
+References: <20260503164445.215540-1-clamor95@gmail.com>
+ <20260503164445.215540-4-clamor95@gmail.com>
+ <afg8JPS3KGMO4xj9@kekkonen.localdomain>
+ <CAPVz0n1JjHY2R3fEhkt4Ejwq81K=uHVrZQjkJ5dUDYJOFN_mmQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] pinctrl: qcom: Add Shikra pinctrl driver
-To: Linus Walleij <linusw@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Richard Cochran <richardcochran@gmail.com>,
-        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        netdev@vger.kernel.org
-References: <20260429-shikra-pinctrl-v1-0-1b4bb2b3a8d6@oss.qualcomm.com>
- <20260429-shikra-pinctrl-v1-2-1b4bb2b3a8d6@oss.qualcomm.com>
- <CAD++jLnDc_Myjt4TKUHZAqYqVwO37TaRO6t23ABew0M5VnzJWg@mail.gmail.com>
-Content-Language: en-US
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-In-Reply-To: <CAD++jLnDc_Myjt4TKUHZAqYqVwO37TaRO6t23ABew0M5VnzJWg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: nHAbeRw5j1rkvpIBSTHs-iy1-QvwoDL4
-X-Proofpoint-GUID: nHAbeRw5j1rkvpIBSTHs-iy1-QvwoDL4
-X-Authority-Analysis: v=2.4 cv=e7U2j6p/ c=1 sm=1 tr=0 ts=69f85131 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=d18XUvOkrfNYrh/LwM53Ig==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=7-43aZWuTfuDHQZ0LJsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDA4NSBTYWx0ZWRfXxDqWnb7wAqMD
- cCT+nw1/dDE1bVoOdzNAY9C0+tmftqXnHe6UsJMjrfdeLFPuZxQlaoJlxNcSoxS+f+mq4a9IQnL
- spDDYKVUaVTX3WTeW77omFn50NKSXA/Pcy1FIgjoeaCMfky0FxsaZyYUcmv94S3ETFUVqjSwnxp
- DIvnETZrGEKy+Wx7BQjjtbsW9Xs2DygZ4GA0KZpEGKIN8I4720CKNiSPq4YHK0JIVgS2noA+hgT
- BQ4QuU7+GEpP/NapS5/mFs5rE+H0xS/5LTA9a5qYd/JWKdDdAP+j/unwM5yqgvAiTBM6TgrVjNI
- K/QcVASCXtCizdnXBzD+u0WwCp44wIT8vATymG4J88sFTSK1kzVfnIT937kI2SduDhFTeM1ELP0
- YqqdQ2CFafb6/wpQRtU8QyKSx3ItcHoj3EFp0gPmbbqsGan/YA1Jf7oH1Gb9AnBCOvbOEgvCVQQ
- vrR4gA7alRvW01Iq2Ow==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-04_03,2026-04-30_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
- bulkscore=0 clxscore=1015 impostorscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605040085
+In-Reply-To: <CAPVz0n1JjHY2R3fEhkt4Ejwq81K=uHVrZQjkJ5dUDYJOFN_mmQ@mail.gmail.com>
 
-On 4/30/2026 5:21 PM, Linus Walleij wrote:
-> On Wed, Apr 29, 2026 at 3:12 PM Komal Bajaj
-> <komal.bajaj@oss.qualcomm.com> wrote:
->
->> Add pinctrl driver for TLMM block found in Shikra SoC.
->>
->> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> (...)
->> +config PINCTRL_SHIKRA
->> +       tristate "Qualcomm Technologies Inc Shikra pin controller driver"
-> Those descriptions are changed in my devel branch, should be something
-> like "Qualcomm Shikra pin controller driver".
+Hi Svyatoslav,
 
-Will make the changes as suggested in the next revision.
+On Mon, May 04, 2026 at 10:37:40AM +0300, Svyatoslav Ryhel wrote:
+> пн, 4 трав. 2026 р. о 09:26 Sakari Ailus <sakari.ailus@linux.intel.com> пише:
+> >
+> > Hi Svyatoslav,
+> >
+> > On Sun, May 03, 2026 at 07:44:42PM +0300, Svyatoslav Ryhel wrote:
+> > > Pass the device's own mutex lock to the control handler so that the media
+> > > framework can handle control access instead of managing it manually. The
+> > > lock must be common to both sub-devices since they share same hardware,
+> > > so the individual sub-device locks will not work here.
+> > >
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > ---
+> > >  drivers/media/i2c/lm3560.c | 19 ++++++-------------
+> > >  1 file changed, 6 insertions(+), 13 deletions(-)
+> > >
+> > > diff --git a/drivers/media/i2c/lm3560.c b/drivers/media/i2c/lm3560.c
+> > > index edfb07587cab..5b568ed9536b 100644
+> > > --- a/drivers/media/i2c/lm3560.c
+> > > +++ b/drivers/media/i2c/lm3560.c
+> > > @@ -162,14 +162,12 @@ static int lm3560_get_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
+> > >       struct lm3560_flash *flash = to_lm3560_flash(ctrl, led_no);
+> > >       int rval = -EINVAL;
+> > >
+> > > -     mutex_lock(&flash->lock);
+> > > -
+> > >       if (ctrl->id == V4L2_CID_FLASH_FAULT) {
+> > >               s32 fault = 0;
+> > >               unsigned int reg_val;
+> > >               rval = regmap_read(flash->regmap, REG_FLAG, &reg_val);
+> > >               if (rval < 0)
+> > > -                     goto out;
+> > > +                     return rval;
+> > >               if (reg_val & FAULT_SHORT_CIRCUIT)
+> > >                       fault |= V4L2_FLASH_FAULT_SHORT_CIRCUIT;
+> > >               if (reg_val & FAULT_OVERTEMP)
+> > > @@ -179,8 +177,6 @@ static int lm3560_get_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
+> > >               ctrl->cur.val = fault;
+> > >       }
+> > >
+> > > -out:
+> > > -     mutex_unlock(&flash->lock);
+> > >       return rval;
+> > >  }
+> > >
+> > > @@ -190,8 +186,6 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
+> > >       u8 tout_bits;
+> > >       int rval = -EINVAL;
+> > >
+> > > -     mutex_lock(&flash->lock);
+> > > -
+> > >       switch (ctrl->id) {
+> > >       case V4L2_CID_FLASH_LED_MODE:
+> > >               flash->led_mode = ctrl->val;
+> > > @@ -202,14 +196,12 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
+> > >       case V4L2_CID_FLASH_STROBE_SOURCE:
+> > >               rval = regmap_update_bits(flash->regmap,
+> > >                                         REG_CONFIG1, 0x04, (ctrl->val) << 2);
+> > > -             if (rval < 0)
+> > > -                     goto err_out;
+> > >               break;
+> > >
+> > >       case V4L2_CID_FLASH_STROBE:
+> > >               if (flash->led_mode != V4L2_FLASH_LED_MODE_FLASH) {
+> > >                       rval = -EBUSY;
+> > > -                     goto err_out;
+> > > +                     break;
+> > >               }
+> > >               flash->led_mode = V4L2_FLASH_LED_MODE_FLASH;
+> > >               rval = lm3560_mode_ctrl(flash);
+> > > @@ -218,7 +210,7 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
+> > >       case V4L2_CID_FLASH_STROBE_STOP:
+> > >               if (flash->led_mode != V4L2_FLASH_LED_MODE_FLASH) {
+> > >                       rval = -EBUSY;
+> > > -                     goto err_out;
+> > > +                     break;
+> > >               }
+> > >               flash->led_mode = V4L2_FLASH_LED_MODE_NONE;
+> > >               rval = lm3560_mode_ctrl(flash);
+> > > @@ -239,8 +231,6 @@ static int lm3560_set_ctrl(struct v4l2_ctrl *ctrl, enum lm3560_led_id led_no)
+> > >               break;
+> > >       }
+> > >
+> > > -err_out:
+> > > -     mutex_unlock(&flash->lock);
+> > >       return rval;
+> > >  }
+> > >
+> > > @@ -328,6 +318,8 @@ static int lm3560_init_controls(struct lm3560_flash *flash,
+> > >       if (fault != NULL)
+> > >               fault->flags |= V4L2_CTRL_FLAG_VOLATILE;
+> > >
+> > > +     hdl->lock = &flash->lock;
+> > > +
+> > >       if (hdl->error)
+> > >               return hdl->error;
+> > >
+> > > @@ -363,6 +355,7 @@ static int lm3560_subdev_init(struct lm3560_flash *flash,
+> > >       if (rval < 0)
+> > >               goto err_out;
+> > >       flash->subdev_led[led_no].entity.function = MEDIA_ENT_F_FLASH;
+> > > +     flash->subdev_led[led_no].state_lock = &flash->lock;
+> >
+> > I must have missed it earlier but you can use the control handler's mutex
+> > here. As a result, I believe you can drop the driver's own mutex
+> > altogether.
+> >
+> 
+> Control handler mutexes are per device, but both devices share the
+> same hardware so those mutexes will not prevent simultaneous access
+> from both devices. For this reason driver's own mutex is used.
 
-Thanks
-Komal
+Right. You could still use one for the other handler.
 
->
-> Yours,
-> Linus Walleij
+Feel free to keep it as-is, too.
 
+> 
+> > >
+> > >       rval = v4l2_async_register_subdev(&flash->subdev_led[led_no]);
+> > >       if (rval < 0) {
+> >
+
+-- 
+Sakari Ailus
