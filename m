@@ -1,104 +1,134 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 795F5389452;
-	Tue,  5 May 2026 16:20:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BEE73F7A94
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 16:23:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777998057; cv=none; b=qNPXbf3MEPjo3fDZ0WXq92cDA4P/XvaPPtURmUaLBXjGoeGngOZ/cBqOm/436OOcZLVhChAyd7FhUEhCqeUvnjVJOItW/GXVyNlGNfzVCXbWeQtsNPXqwetWBDoSr0glFt62nVXSrlCUK9rXLpm3SDjjCmeGPMANoNBvjChxs1c=
+	t=1777998219; cv=none; b=PMJF+jECdCm8qj3hlKuuedDu6Fhsuc4Z6Kc88oDB5UXd3aj3+rHdm8AZGLZm7bbI0OynF7LC09rxulVWH+mEIk5DN5Hzl5iiZdDnkzSFDwSognj8QqS+FSaaPmj77YjJgqGnbF88ap1HbBb17aEf8zPzUtGOsZ1KRwJAiYykQMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777998057; c=relaxed/simple;
-	bh=C8efCugq5/wF4si+DgA/qFTAdUR0kg1MpKn17jk6yuM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AQaw+fW3PGLy2ZkpYZZt8XmeSdPc05OnofHIUkO/hMgzGRiasC7KwiAcuIWHcOMV6CylV7k2PE0AdCG18CcpyQsu6MJa/MlMpi6ppROn8Cm+I+CWL7Mpu4yumzfxJvUiDsmFe9iYkbi5KBMd7mf7gXbWd6u21NABjUSDjLdjX2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FnqFTI+o; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1777998219; c=relaxed/simple;
+	bh=anPUf+K1f/VrCDMAp1BHNbEjgRlzyjFTp1BJcYqY0fA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=t0adpqiQUd/4LEclSuPVXFR5EO2IwI0HhzQIrhPpRtnsJBrhNgz4X4mxJ3xRxWEN5r560OebePZShRWnEBLuBaUtBa2ZNoL4upGqc/Qr/5a2rbCXQs8OrzJvQuv7DAOOAOuYic47Tk+jb7pG4GuPnLeBz/lgJt0rABIaGLmVD30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iSFzBd8z; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FnqFTI+o"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 887F21C2B;
-	Tue,  5 May 2026 09:20:48 -0700 (PDT)
-Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0581E3F763;
-	Tue,  5 May 2026 09:20:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1777998053; bh=C8efCugq5/wF4si+DgA/qFTAdUR0kg1MpKn17jk6yuM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=FnqFTI+oE0YtcnjRCbvYHUF8oZI18TcjaZur9kjU8zGkkPPaFMnJykcV6ZwmQYroB
-	 QbYiwMfaZHg/ifnCvZ4ddY0gQIN1gwFUQRdBnC6UlAhZdUMKM4Lyw2RZVYYj4YV56p
-	 0EZDUcGxKllp0vr0FwW5BhjWUmsBTMH/KDsod0II=
-Date: Tue, 5 May 2026 18:20:17 +0200
-From: Andre Przywara <andre.przywara@arm.com>
-To: Paul Kocialkowski <paulk@sys-base.io>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai
- <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland
- <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 08/14] clk: sunxi-ng: a523: add system mod clocks
-Message-ID: <20260505182017.10d71c11@ryzen.lan>
-In-Reply-To: <afoRe6DI4GJIVtg4@shepard>
-References: <20250307002628.10684-1-andre.przywara@arm.com>
-	<20250307002628.10684-9-andre.przywara@arm.com>
-	<afoRe6DI4GJIVtg4@shepard>
-Organization: Arm Ltd.
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iSFzBd8z"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-44a14580111so3478787f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 09:23:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777998217; x=1778603017; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ApEyVbHibMfUXEFKd8vG2mJSusEJJaisfPMffm8l//c=;
+        b=iSFzBd8z8TIrq+ZAVV6eIKOkh70SvjZVUCMIaRvrl2rPsA3bpZqBClINnN+mg5sbL5
+         5TJWVnNmrPUfcU/HnuV02+vSqv5HU+TzjI6gTC0JUwG/Agoar4RdvvfN5phQxJPkXHVr
+         54xAe+0ggbJfga3XJLeMKmWNXiR3p666FEj/hy5dD/HelljNqVLmu8U0Q2FbF5s8/BFv
+         yRhs8sOrjqkbtqo3t/xiMDB/Vjdig2kzfIOUWssouFD33JsRzrrpoQ7ku3YZfd0GJr8P
+         M9/p7MVcpj8HGSKiND/F6/doCPJ/jU77VUNZS2w2AHAUQfB5NmFH7DrlDITTMGzhFDGC
+         7Jrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777998217; x=1778603017;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ApEyVbHibMfUXEFKd8vG2mJSusEJJaisfPMffm8l//c=;
+        b=ntwEuJdGyiJEvAr/kDOpKck5lEkhkbDPUvRVzFsH/pq25KVqRHPf8n/0iMuOGuCFAK
+         rYF1T3KkUEpAhLGvSl/nbkUB7/sV8q72eWGDfo1zbE70eBJsHGvCMH8nQ1awKtne16/9
+         UijJR1iHhRB2RLqNTN7n6jt5k8XsnurPANTAKfB6/QWToeCmoK7RMbd6BEpdTPgvpszo
+         MiuXpJeRjBnKIfoeCXOfc8VH8D75upcKuD5Wb/rA+aiw24mPCPMjFO0cCBp7wPopVOoM
+         TQFFWfTGxqo0iVvOVhY8xvp8GUdvvE6Wjs4Ld/a2dBN1eXJk0He0iLy3k0pH/TSq0u1u
+         jPdA==
+X-Gm-Message-State: AOJu0Yy+GmIM2O9YObtyG29vwlSuHO22Br3yS4sQW6V6ywKgQbWxImRa
+	0apCHYkAWGKaygebP0BKxo/bwWI1AzxMFsb6tIdvQTER7pii5cpSjR2/
+X-Gm-Gg: AeBDieu5vhDEqHRfQGu888iJpbqG14QX5x/2t7/9YHwdLfCywmDcR9Vur950hzNVeX/
+	kc5RSCpICEtZVNNUycxkkE/al53ZZS92fa0WpEL47iUbtqVMaAE0gI/xL33k0lJIg7D4IHgPZ7/
+	gpUapwbbatuWf79oEjSHoO6T3iC2zw3gP01i1AeeR0QIwAqwFeCFGF7KwdBYGNhsR0oVVZH3gkE
+	2lu5iI9SATZvm2gRfL9k4w8BR8EcYACaEk13hIPdNjffwoXn/VRjoGv4MQlzrMp0khd6EGcju6+
+	8HqZft2C4uW/C40A2iI0RBOAe9UGWHqgDgstv1v0coaC5i2ISdwRa4AQ8wxtRJo/bdHcwuxv+F3
+	9BoVP6Mk4ESWl+ry4evic/J8Cp6OMJjY7v+wQ00Qu5a3w02RASb7lckXNUmGlpq23oRRhRNrggG
+	wvi+GRE7SepfQ5Lf+2lX+x7rpINm0GPP+wp07UQ7MXSsBH7uq0pHrlqCcfSe4ZUg8CaCp6tenoC
+	WTIjtU4+E2HSo4DuIb1DLSxSDsR
+X-Received: by 2002:a5d:5d8a:0:b0:44a:2555:f8a9 with SMTP id ffacd0b85a97d-44bb3c94c11mr24734377f8f.10.1777998216446;
+        Tue, 05 May 2026 09:23:36 -0700 (PDT)
+Received: from jernej-laptop.localnet (46-150-62-216.dynamic.telemach.net. [46.150.62.216])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45054b03e04sm5934939f8f.21.2026.05.05.09.23.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 05 May 2026 09:23:35 -0700 (PDT)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Michal Piekos <michal.piekos@mmpsystems.pl>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Michal Piekos <michal.piekos@mmpsystems.pl>
+Subject: Re: [PATCH v2] arm: dts: allwinner: t113s: enable watchdog for reboot
+Date: Tue, 05 May 2026 18:23:33 +0200
+Message-ID: <sv5CLRHyTX2Cm45r4DQahA@gmail.com>
+In-Reply-To:
+ <20260425-t113-mangopi-reboot-hang-v2-1-fd343207a4be@mmpsystems.pl>
+References:
+ <20260425-t113-mangopi-reboot-hang-v2-1-fd343207a4be@mmpsystems.pl>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Tue, 5 May 2026 17:49:15 +0200
-Paul Kocialkowski <paulk@sys-base.io> wrote:
+Dne sobota, 25. april 2026 ob 10:19:40 Srednjeevropski poletni =C4=8Das je =
+Michal Piekos napisal(a):
+> Reboot hangs on T113s boards because no restart handler is
+> available.
+>=20
+> Enable the SoC watchdog whose driver registers a restart handler.
+>=20
+> Tested on MangoPi MQ-R T113s.
+>=20
+> Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
+> ---
+> Changes in v2:
+> - Moved watchdog enablement to SoC level dts following Jernej's
+>   suggestion
+> - Link to v1: https://lore.kernel.org/r/20260412-t113-mangopi-reboot-hang=
+=2Dv1-1-5002cfa6e0cc@mmpsystems.pl
+> ---
+>  arch/arm/boot/dts/allwinner/sun8i-t113s.dtsi | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>=20
+> diff --git a/arch/arm/boot/dts/allwinner/sun8i-t113s.dtsi b/arch/arm/boot=
+/dts/allwinner/sun8i-t113s.dtsi
+> index 424f4a2487e2..d3bbed84eedb 100644
+> --- a/arch/arm/boot/dts/allwinner/sun8i-t113s.dtsi
+> +++ b/arch/arm/boot/dts/allwinner/sun8i-t113s.dtsi
+> @@ -34,6 +34,12 @@ cpu1: cpu@1 {
+>  		};
+>  	};
+> =20
+> +	soc {
+> +		wdt {
+> +			status =3D "okay";
+> +		};
+> +	};
+> +
+>  	gic: interrupt-controller@1c81000 {
+>  		compatible =3D "arm,gic-400";
+>  		reg =3D <0x03021000 0x1000>,
+>
 
-Hi Paul,
+=46ollowing, at the end of the file should work:
 
-> On Fri 07 Mar 25, 00:26, Andre Przywara wrote:
-> > Add the clocks driving some core system related subsystems of the SoC:
-> > the "CE" crypto engine, the high speed timers, the DRAM and the associated
-> > MBUS clock, and the PCIe clock.
-> > 
-> > Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> > ---
-> >  drivers/clk/sunxi-ng/ccu-sun55i-a523.c | 135 +++++++++++++++++++++++++
-> >  1 file changed, 135 insertions(+)
-> > 
-> > diff --git a/drivers/clk/sunxi-ng/ccu-sun55i-a523.c b/drivers/clk/sunxi-ng/ccu-sun55i-a523.c
-> > index 17a4ffc0b7f52..c59f3f789d052 100644
-> > --- a/drivers/clk/sunxi-ng/ccu-sun55i-a523.c
-> > +++ b/drivers/clk/sunxi-ng/ccu-sun55i-a523.c  
-> 
-> [...]
-> 
-> > +static const struct clk_parent_data hstimer_parents[] = {
-> > +	{ .fw_name = "hosc" },
-> > +	{ .fw_name = "iosc" },
-> > +	{ .fw_name = "losc" },
-> > +	{ .hw = &pll_periph0_200M_clk.hw },
-> > +};
-> > +static SUNXI_CCU_MP_DATA_WITH_MUX_GATE(hstimer0_clk, "hstimer0",
-> > +				       hstimer_parents, 0x730,
-> > +				       0, 0,	/* M */  
-> 
-> I was looking at the A523 ccu code and see lots of
-> SUNXI_CCU_MP_DATA_WITH_MUX_GATE with no M.
-> 
-> Was there a particular reason for not using SUNXI_CCU_M_DATA_WITH_MUX_GATE
-> instead? It would surely be less confusing.
-> 
-> One difference would be that the ops end up as ccu_div_ops instead of
-> ccu_mp_ops. Do you need ccu_mp_ops for some reason?
+&wdt {
+	status =3D "okay";
+};
 
-Yes, please double check that (as it *is* confusing), but to me it
-looks like the CCU_M_ version has just a pure divider, whereas in
-CCU_MP_ the P is a *shift*, and the M a divider. Those timer clocks just
-feature a shift, which I don't think we have seen before?
+Best regards,
+Jernej
 
-Cheers,
-Andre
+
