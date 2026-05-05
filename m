@@ -1,63 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA0A30CD85;
-	Tue,  5 May 2026 09:19:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBEC2FF669
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 09:21:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777972783; cv=none; b=sacYY+Qqm9OXH+pVIGu58XnOM2vjCatkkTfrqh2/VoAJMjPWFOsUbkTvs6ova8mk7AJ210vzovghHuo/jH/OuxoitOptwkyUYsw6FZSk/chuCt0sqxArtwgUOJ18hKzxIGVxlw1oL6DbItGUQ3o7KfDb/drchxHYvP2Vltqdf40=
+	t=1777972887; cv=none; b=E8IfK1kSqG9clJakiELsnSviyyfohmcam9yGK2TpmVA6Qr7UmEA1TZzsgfH8ar8EJQCDzAxissVhhiDbeyDgDa0ph1etQ/vHw+AX4r6DQuMFlB9GHCDMqrzNtxRhnGW7pLn7c+0SCqJGhr1sFDN+sOsYMH9EM+0SrZLQa+iOp3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777972783; c=relaxed/simple;
-	bh=CPglZ9VeE7ocMLt+W0T6FvtLOr0yuBeE1tDtdf0luXU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AlohetxsomP2o1YPHprYaW9nnMBm55HmUJzItnPOag8apKD2UF3YUmdEWiB3tWBg89x6TUqnMLqi2/j3KzskYXLYILej6+hWyvYJyGCd7zmfoRxjR3QwS2zJKUOaMlj9KuSFF37FlLA+YW0WG1mibpSe0bC3MzhMxQEGImNA3Pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TSp273iy; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777972887; c=relaxed/simple;
+	bh=fPgYO/h0P6jBglEJ/FzHxwNEaZtQJbUM8Z0qBsYUCYU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dakfyJfVjBFbm6SmGnNcswXmB9C7nkEQaDRCnj5YZ6FnWvZiUIfgWlVo0Oh0Ly0xE5QfYkVBX+M+cYy/39jEoLoNDF5xeLEtKioH46EbZrw4UNiaruglMP2KzxrqmoWOnY3tA/qnegrPqqGeG16p43V+gEM3sfAkNa0q146NgYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LnysTQju; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TSp273iy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E269C2BCB4;
-	Tue,  5 May 2026 09:19:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LnysTQju"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49E96C2BCC9
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 09:21:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777972783;
-	bh=CPglZ9VeE7ocMLt+W0T6FvtLOr0yuBeE1tDtdf0luXU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TSp273iyNnDHL6irJQvf6PWCKoMgLTRUA7hP9f+yTr+InUAI+Gbp20QdCmT0hmydp
-	 ljQnhCunhl2IZoaymvaSZBz7jO4U4LPAv2LfAlDpFx6+cAibG3ydSgTlf3UUrdYRl/
-	 mQEiccspeMdQAaIZXWuOQ60KVfBlQEuF7NUWbZXgWazp0Chl/KfZp0cfvGui5AgVxE
-	 U3gV4ugDTEOl2d1UEcI2FHs6hTrKtJ8/37TKPv7vyvGahsm0/YUDmpw2X8r0myywrU
-	 RbXGTYRA+iAEVv5Ar7VtWWJqULO7Q4zPS+ciWMm4Ph933yUldlA0KEjgNkWUGccbCs
-	 1anetaEMIY9NQ==
-Date: Tue, 5 May 2026 11:19:40 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Avinash Bhatt <avinash.bhatt@intel.com>
-Cc: devicetree@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	johannes@sipsolutions.net, miriam.rachel.korenblit@intel.com, linux-kernel@vger.kernel.org, 
-	kobi.guetta@intel.com, emmanuel.grumbach@intel.com
-Subject: Re: [PATCH v2 0/3] wifi: iwlwifi: add Device Tree hardware
- integration information
-Message-ID: <20260505-crouching-albatross-of-beauty-a5ac6b@quoll>
-References: <20260504095327.30892-1-avinash.bhatt@intel.com>
+	s=k20201202; t=1777972887;
+	bh=fPgYO/h0P6jBglEJ/FzHxwNEaZtQJbUM8Z0qBsYUCYU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=LnysTQjuZHQyFzRJFA0j8SG/R5gdS2CRSC3IY8xU6QwuPZNP5oZKQAqNMJmItNh29
+	 1GJkhuXoRY/LyGyOgWwCkvnNtc/kSQ1h+PICY21XnG66/2utmiopUCNkojYZFirxBR
+	 2cwOe7IL3YB1iroUlVrix/n4dXiQHT4iPhOfptAgYxa0VUuwGp7tU87NhK7C4guQ60
+	 vDgMJZg0A3/OKf+7lyhGi3WBa/yLWyhR7kQM4H1Dx5D6asQnJ3skbCzdHCVGKp8+4n
+	 sXUB+D6gBGIRDxvN7HLczCTh7RG5rMqM6VN0pAi51h2q/GRL7ss+uc66QXr3lKv+MJ
+	 w5ef2BFtwxyXQ==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-39397d63804so21787531fa.2
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 02:21:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+lc+DYOf4g4j+IObeOrspJiWLqojqntI3tWrkR/gJm7eXf50jFOiJR4bbEWnKc0w4X1zGg5j34ZkLw@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzl1kUGT8080Q4CMH1/oJHSu7KR1hg1ludCbupOssA88lLG5K7L
+	JqlvaZi5fJcqg4yiKwdnMNOmLradEu0GZuEKbUy9YeM4Hw7HsyqwP57a8zAtPLCch4k6fOM/+Qx
+	GTaPAhAkPfJuyO4AGCXg/AaIE2J2AqJA=
+X-Received: by 2002:a2e:360a:0:b0:393:903c:225c with SMTP id
+ 38308e7fff4ca-393903c23aamr29489301fa.9.1777972886000; Tue, 05 May 2026
+ 02:21:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260504095327.30892-1-avinash.bhatt@intel.com>
+References: <20260428-a9-pinctrl-v1-0-cd611bb5f52d@amlogic.com> <20260428-a9-pinctrl-v1-1-cd611bb5f52d@amlogic.com>
+In-Reply-To: <20260428-a9-pinctrl-v1-1-cd611bb5f52d@amlogic.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 5 May 2026 11:21:14 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkX27ceGQp4w9J=MDXmibo7h=Rzg4RdRJUGRvA67zj7vw@mail.gmail.com>
+X-Gm-Features: AVHnY4JqgJJ_-DwBFHnVz-Fim1cfJYHsgLM7L9yfuud9N3SuTcVr04357vZ1UsE
+Message-ID: <CAD++jLkX27ceGQp4w9J=MDXmibo7h=Rzg4RdRJUGRvA67zj7vw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: pinctl: amlogic,pinctrl-a4: Add
+ compatible string for A9
+To: xianwei.zhao@amlogic.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, linux-amlogic@lists.infradead.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 04, 2026 at 12:53:24PM +0300, Avinash Bhatt wrote:
-> Add Device Tree support for Intel Wi-Fi hardware integration information
-> on platforms that do not provide UEFI variables or ACPI methods.
-> 
-> Patch 1/3 adds the DT binding schema for the Intel iwlwifi compatible
-> node. Patches 2/3 and 3/3 add the driver infrastructure and integrate DT
-> as the lowest-priority fallback after UEFI and ACPI.
+Hi Xianwei,
 
-Please provide link to any upstream DTS user of this binding, either
-complete or work in progress.
+thanks for your patch!
 
-Best regards,
-Krzysztof
+On Tue, Apr 28, 2026 at 10:22=E2=80=AFAM Xianwei Zhao via B4 Relay
+<devnull+xianwei.zhao.amlogic.com@kernel.org> wrote:
 
+> From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+>
+> Update dt-binding document for pinctrl of Amlogic A9.
+>
+> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+
+Please update the commit message with the information the DT
+maintainers need to determine that a new compatible is needed,
+i.e. "registers are allocated differently" or "new hardware registers
+exist" etc.
+
+Yours,
+Linus Walleij
