@@ -1,100 +1,148 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41CE3DD505;
-	Tue,  5 May 2026 07:25:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F633C277F;
+	Tue,  5 May 2026 07:26:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777965918; cv=none; b=LwqkgON+rhNPrf7WprmyO4yWSqd4vx9+AQzbk5XXhw4C7YOg7VGgVcGps/9Y0f+rViKdGSotgcIymp+3Gf1bCDRHU+lEB7ldau1kdiXaUgAXXvlAfdNWrAioHOTRwekeJThIo8jPpBud1wr6FOaF7xpDi6jbTKj+4gB8B9dt2uE=
+	t=1777965960; cv=none; b=PvvKdJ4kKmUcBDrGQtJJrs48gL5BV0y7MhhbNhGE+i/ndo+Qkwfa2K8ywfwqC9IEyplff5XwoDZX/Z9Eyrh3ynfK0NMxXAZVu+XgRhKkFDNhV0qwsJRvBcaEnW3hSO8p6g3GfK0YtyubztsG2zvR9BJVRaft3KST8b0huiUWzK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777965918; c=relaxed/simple;
-	bh=J8uzf0UxBnakhr29755Qqmk8YumZt3G68S6svRZD3q0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BBk03onMFspocs/hLJbAiAMxG6wEtpTzHJiC37AbZA2/4Dgd3dClPM81Tm9PoYh5/fi1AzqhyhfgGxi+Fu0H3Se7hyZdive5+ePXeo0rpifMj4VRB4CQAt4DfSHMffBw5mj+nMvV1LugpMBVS0xd1L7quy4WNDbd3Xq1g0orYJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=zSDE4QF7; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=SykxpLQ7; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1777965960; c=relaxed/simple;
+	bh=eT41NRcm63yB/JJgaw8p8HD5Cjz0HdP8LLdoIwTe5pM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JbikMuK6fiyB8jw2qOqV8GvD/FvbBWHrBtYvOr9CvkYPfZHLCTgPmT65UQTB4NgtECaO0Zv0f5vguqreGYVWtzu1GNFrRuiyOwNpCUmnNDxFh0hsK6KDDY3KkHZ2FLanSbbHHzDkm7G+7gfv6+uuTJ1K9++IhISvNgSFV1VkYoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JyFG/61B; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="zSDE4QF7";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="SykxpLQ7"
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1777965916;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6AcipymrztotqziX7C3pSX0j0j5jMczP0kYAPjLO05o=;
-	b=zSDE4QF7sfIkPaBRDfkGp8V87GlkHgZCZEZpncKPWiXlyVJPc5iklFJxyoC16BgEbt/kkX
-	2/S43Lno3CWobTMm3YJwKXW0do/UTnI4sI+dRCvaDRe3K82RF7EIjMQmhrdPOUaDXbOedG
-	UFB50O+qx+OL83+cJI2dUvkRo/LuXY5cEN8I0MhiGKbZVaWiOwsgeU9RdmbzPuTzpYnSbO
-	PC55BDqgVFBuKki8owbX/M7adA7mAyj7BJq5hwOTp09mwT2/Jg4S8CGQ9CCOyL2XLGL4e1
-	7ZyaoJsVxcEzikkoeiq9Iiqa36tFqLiWvkVz8pK5J4vRJaNwFN2sI0CP26B6Yg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1777965916;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6AcipymrztotqziX7C3pSX0j0j5jMczP0kYAPjLO05o=;
-	b=SykxpLQ7b67XIrm/zjHnicmSoWLEZpc+pH2lErTk3DlUN8HiW2GK2rFgka4rlSv8UFle6m
-	mxef/cehlM3+caAA==
-Date: Tue, 05 May 2026 09:25:12 +0200
-Subject: [PATCH v2 4/4] arm64: dts: broadcom: bcm2712: add bcm2712-firmware
- compatible
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JyFG/61B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AE4DC2BCB4;
+	Tue,  5 May 2026 07:25:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777965960;
+	bh=eT41NRcm63yB/JJgaw8p8HD5Cjz0HdP8LLdoIwTe5pM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=JyFG/61BtZCtHU14vyDTaMYQNisg5W4AeWmbJn4OTIUVJIqMRvQfFo++jFJ0FGnAp
+	 liiDNMRnnK7v9YFKJxFd+lYimprdo+CRxNvQ2bPctHj5viLVzraf9eJIMizyEJWySI
+	 1b17/X4Xl22HXdll8BdRxLu3gTjcp2IDxueoAU7ku2Ojx58G4GeMMmBNnGo6ErNevD
+	 cCvzB+6lbTKZ6BIPz3i4OvplRFgV0YBiyuJ0p9IGD1m1b5n1Uuvbu6LgOrrQHL3DZ4
+	 Kje4H1GPiX/bDGaSxaK8ozDo8MmCvRyNzXmHh6KU2ks/lh8lTiyQUimFifty/d7Dzc
+	 wPrunx2phVhBg==
+Message-ID: <dd7ebb25-014c-4983-ae31-6a6cbd24e628@kernel.org>
+Date: Tue, 5 May 2026 09:25:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: display: panel: Add Novatek NT37705
+To: Luca Weiss <luca.weiss@fairphone.com>, Conor Dooley <conor@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
+ <20260501-fp6-panel-v1-1-e09cb05651cc@fairphone.com>
+ <20260501-yogurt-wise-2a2884e3ec59@spud>
+ <DI9XL1VYYTY7.19IRSM8VIDO53@fairphone.com>
+ <a2444df4-abf1-4b56-8556-7efb238bc677@kernel.org>
+ <DIAJCURQ37FA.1CNEKX6QM6ZO8@fairphone.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <DIAJCURQ37FA.1CNEKX6QM6ZO8@fairphone.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260505-rpi-otp-driver-v2-4-e9176ec72837@linutronix.de>
-References: <20260505-rpi-otp-driver-v2-0-e9176ec72837@linutronix.de>
-In-Reply-To: <20260505-rpi-otp-driver-v2-0-e9176ec72837@linutronix.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
- Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org, 
- Gregor Herburger <gregor.herburger@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777965913; l=858;
- i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
- bh=J8uzf0UxBnakhr29755Qqmk8YumZt3G68S6svRZD3q0=;
- b=OaBrTyYswxhcwx6rx7uAFSQ3p80HfRcgtEUXXpD9an/IpdfKr+T5LotzbdIHIz2qHTmbVAFjY
- 5qGpMDkMCn0Bh0Q0lFezPrJ+ubSvh+FiQ+sKayJpFI87xPSOh5d4kZ7
-X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
- pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-The Raspberry Pi 5 firmware exposes additional features. Update the
-compatible to reflect these differences.
+On 05/05/2026 08:40, Luca Weiss wrote:
+>>>>> +  compatible:
+>>>>> +    contains:
+>>>>> +      const: boe,bj631jhm-t71-d900
+>>>>
+>>>> Compatible doesn't match the filename, nor does the commit message match
+>>>> what you've got here. Sounds like you're missing a fallback to
+>>>> $filename.
+>>>
+>>> The last times I was upstreaming panel drivers (Feb 2024 and June 2025),
+>>> this was the requested way of doing things.
+>>
+>> So this was requested that time and is requested now. What is here
+>> uncertain?
+>>
+>>>
+>>> Compatible being the company and model number making the actual panel
+>>> assembly (driver IC + touchscreen + glass etc), while the rest being
+>>> named after the driver IC manufacturer & number.
+>>
+>> So exactly what was asked for...
+> 
+> I don't quite understand what is asked for now, that's my issue.
+> 
+> 1. Change the filename to boe,bj631jhm-t71-d900.yaml and leave the rest
+>    as-is.
+> 
+> 2. Add a fallback compatible for novatek,nt37705. IIRC last time it was
+>    argued that a "generic" nt37705 driver will never be correct for a
+>    specific panel since it's missing a bunch of panel-specific init. So
+>    that's why there should not be a fallback to nt37705.
 
-Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
----
- arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+To my limited knowledge the (2) with fallback describing the specific IC
+is preferred, because that compatible although not currently usable is
+still specific and describes actual IC used. I imagine that such
+fallback still could be useful to some SW implementation to determine
+the IC and act based on that.
 
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
-index b7a6bc34ae1a..7283078fd441 100644
---- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
-+++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
-@@ -46,7 +46,7 @@ power_button: power-button {
- 
- 	firmware {
- 		firmware: rpi-firmware {
--			compatible = "raspberrypi,bcm2835-firmware", "simple-mfd";
-+			compatible = "raspberrypi,bcm2712-firmware", "simple-mfd";
- 
- 			mboxes = <&mailbox>;
- 
+If you have sources of other preference, please share, but I just gave
+same review to Neil for his ayaneo,wt0600-2k panels.
 
--- 
-2.47.3
-
+Best regards,
+Krzysztof
