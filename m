@@ -1,61 +1,61 @@
 Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43013423A62
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:14:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BAF42669B
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:14:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777976076; cv=none; b=IEdTET6RGXZj0/T4Fm26VHT4hLPhUpjeSgvftpzwu8ajmOgm3UkpMQMmcu3WmXK7rj1LH9ItIq+sR3h9iJODy4AoSsJB/mqbZS6uzz6Gkyr5K+rSBNYbaVzlE6zLuyq7vFOo7cNfxip6p25wuwreOX5QFDSBa90MGTr5s63Dyfc=
+	t=1777976079; cv=none; b=orcf0F9Pzm9+mQEAhOPYyZhHQATCPcQnLNPgDlHrjflCAofAfpnchV7CLfvEipw2xSuroor6E8Y+QM7ZJ5OUbTXw7ZEUz7osxXmTmjhFs8tYxGctl5Qtw99JarMIqJgArhHESsWu47OA4NQEJnXBOfT3mD9xYdRAYWNdlXUgUaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777976076; c=relaxed/simple;
-	bh=nik/PEmX20T923AHDp6qo4D+HNhofVbHF7e81vpkH+Y=;
+	s=arc-20240116; t=1777976079; c=relaxed/simple;
+	bh=nI3ftRFCx7BvI5aHP6Z5Neq016/qdZrGqNq3rdXbjFg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bd51eZrjTANok2aZvChLB8Rid8t/3TJM6Nh/MycubvMx3iLtuIXA2CVcxX4TrlJmdMmmeCW7nxzOcu9pv7yQOXOC20BOFjuZAwg9HhiMw60+4qxgb8VOPgHiws7ymEgUSpeNw2NrIGDbIOwx9oqpZH1iiuBbHIATKGM9SWahSbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Y86Q/qDE; arc=none smtp.client-ip=209.85.210.178
+	 MIME-Version; b=oX5bkb+1tnmPo9gkdmaQkDyKMLhq6lwKaWCMMCO9CV5GsZBoWAlJSUS4HQ+7xQRFJd9Yaac8dajA2fJ831iTLV62uorDmPFnitTY8AKIWrOEAcNRvl1KustAa3TOmyfCxqs/rniMAPCL5GvLvarNQvysgS2htuBptcA3ctjybtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=O0/BOW0D; arc=none smtp.client-ip=209.85.210.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Y86Q/qDE"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-83975e992e1so208068b3a.2
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:14:35 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="O0/BOW0D"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-837dfccd950so902547b3a.0
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:14:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1777976074; x=1778580874; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1777976077; x=1778580877; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=w3KiKQ7J1YhGEy4V5AW2fr2heaf9v6dJ/SRBQ8mnN0A=;
-        b=Y86Q/qDEOEcdPjUyLyAQmS7NyyoA82fVCEjPAO1Xr1jYS2rfdOMouTpJgiBMzIezJU
-         vnuKvDhvD42INf05IP3pd1S9jiQQXm/YioaDP6S/MGdmUiwZvnN1lLppHMVxcFRyghaZ
-         +zoDijUdUlBK7/1ykQZSTrFzc3jFk9cE3dwN0=
+        bh=lujO5dCfpLfAzjv2ZKWu1TMfvLXvEfolWEoTcgyYSpY=;
+        b=O0/BOW0DIm5eA01gny7bzrMa2ViIAnJkyQA3bL/7tl2lgHtKN6NM+HgJDtqGjTQfg6
+         esxW8RpL18thyhgQq+UzzTJG3F2zhnXFMlGWWrXU6IF3Ui/RpA9H1enP0erbRviCSUch
+         PMpN+bQj/m5rDQEYHIYAWaiQDyJ5azYmcE2CQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777976074; x=1778580874;
+        d=1e100.net; s=20251104; t=1777976077; x=1778580877;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=w3KiKQ7J1YhGEy4V5AW2fr2heaf9v6dJ/SRBQ8mnN0A=;
-        b=UtvS0yaDN+mhhTmTlu1JAzxSFvQaFoBhI3LSDtEP4c/mVZKIY8SQnRYmVFPp9oby7p
-         EFgsLziP2O+zha0zdAreXizvoIUyz3LoyfFH2kvCv5Do5/rtbJOh6Rl7T38/+H13dk4L
-         XJubafWd6+1uGT1l5amtJ1k2hlhKXNHBJesSjvhKiGjZJZC2xLKXTXUYFkuyYqDS4gf4
-         lmcgUE+2EYA3TNYJMtOuoxec+l7MyhvINFMKY2EOPaLhJhWtf0IvN6RMBYuk6kzYzehF
-         AOJnGujrWBfmDY/flaBK5ZBE0vJI7uNcC5YjcJRBCiSWiwtlTBbSsER5k+AQEG93A0PC
-         yksQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/mhvA/McGomej+oHw4h8Lj7DuJkXO814vHdOqa1Ktdowm7eD5ch3rYWiCTtnWNnO1SDvMZy7jnuXcJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YxZ0jCec+SYt9CsynDIze3zvKF/ewM/pSf2s7A4cNFGhipNeMWi
-	51bdVYRWsaqF9REll0LhcTvv1qdMX+bDVJoNfEBS15yToEVI0/tUBE8Psv15eLxUHw==
-X-Gm-Gg: AeBDiet2zGEb3VCyjTl7xMaJjfU9w48q8YlC1VWx40Oi7Qkk0U7ZM3944fnpHFU957W
-	80cz4v8/IgLSMMW1RtsqcfVWGO/1JaoKMsSkC3ob2ePlpi0QJDZ3QaMsI/lc4TQ41HheRgVatS+
-	uf70cJWL+DyTG6aEuyB1RpKmn4CTuApsPYBUVSQyfmAuSLEEKI4jhr+L6UNizFgr0wEb+vHbWyN
-	a5hoIzw6jTJ6KCjqsDAUTcUsmL8KeQ+Nz/khq7KhHxykL2ucfnOSqdcpAkoIMoDaGPh6WyeAjk9
-	0CCpcnezKR+rs6Wy6vR+DvH56VECl4MNi2x/vwL96ebwl927w5Q/rrnKVuGJOca/rqtUzwldqXv
-	D+KfZR6EA76oDx5MYSWW77nzS6e+G4qH41Z0d/ac1XYXhMQcLOwMQ1utg4B5bLwQRLF+UEWPQhw
-	CCTF2Pdfoea5BCKsK2e7DKD4qSXCW0oR+1P2WfUQdfpn2jretNzep/YkRbtgD+p8v4Gk8HunQqn
-	Z9cazF+ItBoDGGDBj0=
-X-Received: by 2002:a05:6a00:1249:b0:82f:6b94:99d6 with SMTP id d2e1a72fcca58-83921dfaa0emr2465583b3a.5.1777976074570;
-        Tue, 05 May 2026 03:14:34 -0700 (PDT)
+        bh=lujO5dCfpLfAzjv2ZKWu1TMfvLXvEfolWEoTcgyYSpY=;
+        b=qYzxw/7zJisZxzSuBYquj4PWNU1qb99G7XJf4Ur5bWoHlYwnnzN1dtEz9+3v9VFz4b
+         jsYQ80FeF+9erh5XPvoGzYLeH/Y12E9TMOoco26E+WLbilebj7UZYI39yzViKLtgRp/L
+         QNlF9GUbS4Jgtclfe3FL55OInSzDXYfnfyp6uL73TN1n2mDha2rIqK96nQdlfZKRJyOs
+         EQTnhkD9frbLjAtcH4QItvLoy4dM1seVWFT5ZxVPRd1Cm/Q2NfsjiMD/7IJRgVnQEO19
+         WT/fMNQrGVNAjXQnvVo0f+zzwUzktNPZACJY1Idf5RO87SqeUqtHTPgnc0QXtAJFlYP5
+         bV7g==
+X-Forwarded-Encrypted: i=1; AFNElJ9xI5E2qlXKOXVjtZwiRgk3gk9Poj+/eJCR5VT5L/9kqq53/14n66fMytBF3/m1moqU+PHYMgCqm1r3@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMYxXIDtMEJonXNLy6765gkkGmd/MHTbL4rI6ACMFaKSNfTkRh
+	PrBxBw8bS70cyO/3Nhn/Uvuqy7g568ABYZ1PtGIoda+jR/i7ry8UqQOUN+K94J8YLg==
+X-Gm-Gg: AeBDieuNwuWh3LRYxTB+XmaWmqe/C9Q1DFhETtpisiMyzQBaCW3vQsKane65agXgPEN
+	QNbA8OwFISbyK+aKXHaB6gN+WheNe0V1s0iRYx3Y+tqQtiLZUfKViNFpqxEEvo2FTqW2pRMHdIu
+	4EDOHERk+xHBFl4x5dsX8JfTnXsji2+6DWTO+GFhCoUTkUT5kR2mEg6JiaLyjcxeitsECvJfdoR
+	z4Aio7Hgas1DkoZkvLaa7Oc5+9nCWUqKI1V5uYdagCVgSSYNqshsJYT7Spigg0prkRNA1CXdqZp
+	rXflrFKwdyO4wfzS8pyod2j+ezC02hYO31D2/RqON8krFrCVGVTqsBTkJV4OOSkZtAPTRIXij4W
+	H9EE41U4fCxk3Bk2pNEh3/suMu9GF+X8mUn8wXcUJqFzPijac74eS+fbC2WQkd5qHylTaAzZS0m
+	WoOhyrjTnWa+K6QnWyzi39aS1HqYZv3gaWkU+wbwMJL5Kdo2GRkXSezTCaZGP2e+dV3ZsK0vlRI
+	ovJZxVSv1Eo9LuOLhE=
+X-Received: by 2002:a05:6a00:8c2:b0:837:666f:8fcb with SMTP id d2e1a72fcca58-837667f0d5dmr8094589b3a.5.1777976077208;
+        Tue, 05 May 2026 03:14:37 -0700 (PDT)
 Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:f1d4:2ef0:7d08:9dd8])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839679c8462sm1666121b3a.38.2026.05.05.03.14.32
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839679c8462sm1666121b3a.38.2026.05.05.03.14.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 03:14:34 -0700 (PDT)
+        Tue, 05 May 2026 03:14:36 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
@@ -64,9 +64,9 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 06/16] arm64: dts: mediatek: mt8192-asurada: Add CPU power supplies
-Date: Tue,  5 May 2026 18:13:56 +0800
-Message-ID: <20260505101408.1796563-7-wenst@chromium.org>
+Subject: [PATCH v2 07/16] arm64: dts: mediatek: mt8192-asurada: Add SPI NOR flash power supply
+Date: Tue,  5 May 2026 18:13:57 +0800
+Message-ID: <20260505101408.1796563-8-wenst@chromium.org>
 X-Mailer: git-send-email 2.54.0.545.g6539524ca2-goog
 In-Reply-To: <20260505101408.1796563-1-wenst@chromium.org>
 References: <20260505101408.1796563-1-wenst@chromium.org>
@@ -78,60 +78,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The device tree for the MT8192 Asurada is missing power supplies for all
-the CPU cores.
+The device tree for the MT8192 Asurada is missing a power supply for
+the SPI NOR flash chip.
 
-Add supplies to the CPU cores. The big and little clusters each have
-their own regulator.
+Add the supply for the SPI NOR flash chip.
 
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
- .../boot/dts/mediatek/mt8192-asurada.dtsi     | 32 +++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
-index d08ba6aec382..a6543bbcbfd0 100644
+index a6543bbcbfd0..aae9d5ccca13 100644
 --- a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
 +++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
-@@ -299,6 +299,38 @@ &afe {
- 	memory-region = <&afe_dma_mem>;
+@@ -637,6 +637,7 @@ flash@0 {
+ 		spi-max-frequency = <52000000>;
+ 		spi-rx-bus-width = <2>;
+ 		spi-tx-bus-width = <2>;
++		vcc-supply = <&mt6359_vio18_ldo_reg>;
+ 	};
  };
  
-+&cpu0 {
-+	cpu-supply = <&mt6315_6_vbuck3>;
-+};
-+
-+&cpu1 {
-+	cpu-supply = <&mt6315_6_vbuck3>;
-+};
-+
-+&cpu2 {
-+	cpu-supply = <&mt6315_6_vbuck3>;
-+};
-+
-+&cpu3 {
-+	cpu-supply = <&mt6315_6_vbuck3>;
-+};
-+
-+&cpu4 {
-+	cpu-supply = <&mt6315_6_vbuck1>;
-+};
-+
-+&cpu5 {
-+	cpu-supply = <&mt6315_6_vbuck1>;
-+};
-+
-+&cpu6 {
-+	cpu-supply = <&mt6315_6_vbuck1>;
-+};
-+
-+&cpu7 {
-+	cpu-supply = <&mt6315_6_vbuck1>;
-+};
-+
- &dpi0 {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&dpi_pin_func>;
 -- 
 2.54.0.545.g6539524ca2-goog
 
