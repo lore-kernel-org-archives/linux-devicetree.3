@@ -1,68 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD5C392C52;
-	Tue,  5 May 2026 03:40:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738DF224AF1;
+	Tue,  5 May 2026 03:43:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777952418; cv=none; b=iAkradHdsHzU566nsCpT/itElYQQLs0xKZs4oggS3HA+gKqdVQFgSWQJVs/OI5eM7ad4mPwvLuvb+dGkLfvdOw/WgXJpEuk78Zkd8eRm1eEYR7QChCZfCPpTX6FcenPm9YegjeHOPPORFAH4NRAnp26jgf5wcipSfXJjlb8kYQk=
+	t=1777952623; cv=none; b=j+AQOSYylEd/EUbWmtV+FXqRNMhF3WSZih/VmDKnXlm03kRON4acJkggZ8kyDBcKaxVA1IlAgLXdde+kAhLV+Qp2ExzKnt3zZ0VEsKo0ajLlpgKnmL4mjZVBFYYpSBeE+rz2//oOIdaWMM71pKHsr25PL1GAm5V/Tg4pCW/Q6U0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777952418; c=relaxed/simple;
-	bh=csWnQpidmPrKGdDUUZaNm+ctkleqb00qfe9TAInxaSc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H+LPR+Dr5nLMN6MqW4f62fHdDdHZEad89pzqN/QAw0wqSeLpAeqzAGsc6mIl3GbGGqeXK90QbSEb4aZ0L6q5sP9ENR9Laj+M65FkPvugVkd0l4F/Y+o/VtlnJFAR/VjHyOvTkvFb+f9+qFwI05x5AZ9MPONKj21xuNz/xCHx/mQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oaEt8NuM; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777952623; c=relaxed/simple;
+	bh=+HKjeg46457d7ufEpp0nqhVFJkjWcezOgVNG7swBCzo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kCXy96q3s7bUKhD9WfCYzqcUOTZ6Nv9FsWtbtUl+/cWYNz4xkN7Mkd3wVovb4MvUwfSib3/TpB//ka9fsBWhrYkHvA+6UaoXVA6vh9ILZSsy2mcQalHgSNRUs4Zre7/sZ0wgZlaZU+OimIhj0N+SnmM0HntF/JZqKG0TA1QKjrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=pqpcm4bz; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ADrJmMy1; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oaEt8NuM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49FC0C2BCB4;
-	Tue,  5 May 2026 03:40:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777952417;
-	bh=csWnQpidmPrKGdDUUZaNm+ctkleqb00qfe9TAInxaSc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=oaEt8NuMl9PUli8jKGjqqA0JQSsu9nbwxtni84SqU5gK4xNYBakxN12/ff8diI0+J
-	 dbPVQEQ96SH8mqEmARkFLm3hG//bcBxadroK62uDAOvsFgBSWYV0lfV4s2EISJyrhJ
-	 +N2avSs0NLnUN2mcLTG0K6NKU2CoNVzFm2o38LI+OMq/C5L8o34l8ef3vlcdFrmGzt
-	 wmMg6hNzIsNMJtrZSbaF7Aps46lmjgltG+FG1Yt6icyx97U0MCouGgharlJNo+9tl2
-	 9nV4S++LKrJARRDtSp1aUvjZffz4M5Jyt8MNXLi2SIsGXuWPwUkqbuDYjkPSaspaDh
-	 yoRG/QWBkhC1g==
-Message-ID: <f9dd23a7-8795-49ec-a653-61eabf42218e@kernel.org>
-Date: Mon, 4 May 2026 22:40:16 -0500
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="pqpcm4bz";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ADrJmMy1"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4g8krV2lYSz9tTx;
+	Tue,  5 May 2026 05:43:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1777952618;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=JPkGMZo0R8KobEm/98TuUeUCs1yFUDqx+eNSwkeA/iQ=;
+	b=pqpcm4bz3BcUl0ve39KN5SchvunleQntvqpkk1MvevwqbrrlnX8S0q+v6wlaw6B9D3n5Mi
+	WPi3TUWTpB5Brp/SlHnBRHTVPhLZEglO14Rf4YKk0sDL/tX+/LXwGkWxG6DiEuoJb9kGPx
+	fCCr4tUQwAAspzOcSWfV/W9d5xvH9YFC4F61P7Iq4r/QU3f83ezjkEaZIQaUubDVI4jxfA
+	PKWjC0ioW9hGMlcPk908Ygr69wbI2kw0+dwJEttWVdYvyL+WmpG1fmP/NFcWCkkLZvmgmr
+	w0rrJG63cXWXjXwKphD/Kca4hXti3Rdh8K47uAzo6y8ESRZ9I08omgN/klnfwQ==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1777952616;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=JPkGMZo0R8KobEm/98TuUeUCs1yFUDqx+eNSwkeA/iQ=;
+	b=ADrJmMy1aGJQlE/aiU2l1NM842m8tRA4ZG9OBBgDljZtYKFLh5Nu/hBO+/l5xiGHzVOkIs
+	26jwNC0eurgKbhx2wxV6GKPFe+Bn4vOWWM/Tfta6O0DIjR6cI+CV8BxfolOHNjH8OmDtms
+	d3Tju65XEs1s0jFZJjcMFQ9MrhGweN1FMogPKYKqbdivqvikn66veeMoW/jxLCfp+UsmGf
+	DTrOHx43/DOABBerIj4/77ouTNNXNz3rxkkUTz227W7mg7G5dzjjV78wjBKw6kFMzCeFQA
+	EI0Wj51J1GulEulEFqwg6xKncayZAX2MK5LjZlTkdlD1YMbcNe0ltZvksQ4aNw==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH 00/11] arm64: dts: renesas: Specify ethernet PHY reset timings
+Date: Tue,  5 May 2026 05:42:41 +0200
+Message-ID: <20260505034325.167797-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: intel: set alias for i3c controllers
- for agilex3
-Content-Language: en-US
-To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Adrian Ng Ho Yin <adrianhoyin.ng@altera.com>
-References: <cover.1777951738.git.adrian.ho.yin.ng@altera.com>
- <b83be9e6a3ea0c15c7032856cc6e67f3185ad613.1777951738.git.adrian.ho.yin.ng@altera.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <b83be9e6a3ea0c15c7032856cc6e67f3185ad613.1777951738.git.adrian.ho.yin.ng@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 96149303a1e4fb23754
+X-MBO-RS-META: uxm3dosm56ffjxoto3s1gzf8tzrwabpd
 
-Please use this commit header:
+This is the same patch for various boards, details are below.
+The discussion that prompted this patchset is at [0].
 
-arm64: dts: socfpga: agilex3: set alias for i3c controllers
+The KSZ9031RNX reference manual [1] DS00002096H page 60 FIGURE 7-7:
+POWER-UP/POWER-DOWN/RESET TIMING Note 2 states, that after the
+de-assertion of reset, wait a minimum of 100 us before starting
+programming on the MIIM (MDC/MDIO) interface. Set DT property
+reset-deassert-us to three times that, 300 us, to provide ample
+time between reset deassertion and MDIO access.
 
-On 5/4/26 22:30, Adrian Ng Ho Yin wrote:
-> From: Adrian Ng Ho Yin <adrianhoyin.ng@altera.com>
-> 
-> Agilex3 SoCFPGA have 2 i3c controllers, a main master and a secondary
-> master. Setting the alias for both i3c controllers to prevent bus id
-> contention when both controllers are enabled which results in driver
-> probe failures.
-> 
-> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-> --
+The KSZ9031RNX reference manual [1] DS00002096H page 60 TABLE 7-7:
+POWER-UP/POWER-DOWN/RESET TIMING PARAMETERS row tSR Stable supply
+voltages to de-assertion of reset is at minimum 10 ms. Set DT
+property reset-assert-us to 10ms because the KSZ9031RNX RM does
+not explicitly spell out how long the reset has to be asserted,
+but this at least covers the worst case scenario.
 
-Dinh
+The Gray Hawk patch in this series depends on [2].
+
+[0] https://lore.kernel.org/all/CAMuHMdXJvrsXitGagqZJ_STdTTh_s1cBAKf6+esihaVWjfn40g@mail.gmail.com/
+[1] https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/KSZ9031MNX-Data-Sheet-DS00002096.pdf
+[2] https://lore.kernel.org/all/20260504225428.114959-1-marek.vasut+renesas@mailbox.org/
+
+Marek Vasut (11):
+  arm64: dts: renesas: salvator-common: Specify ethernet PHY reset
+    timings
+  arm64: dts: renesas: ulcb: Specify ethernet PHY reset timings
+  arm64: dts: renesas: eagle: Specify ethernet PHY reset timings
+  arm64: dts: renesas: v3msk: Specify ethernet PHY reset timings
+  arm64: dts: renesas: condor-common: Specify ethernet PHY reset timings
+  arm64: dts: renesas: v3hsk: Specify ethernet PHY reset timings
+  arm64: dts: renesas: ebisu: Specify ethernet PHY reset timings
+  arm64: dts: renesas: draak: Specify ethernet PHY reset timings
+  arm64: dts: renesas: falcon: Specify ethernet PHY reset timings
+  arm64: dts: renesas: white-hawk: Specify ethernet PHY reset timings
+  arm64: dts: renesas: gray-hawk: Specify ethernet PHY reset timings
+
+ arch/arm64/boot/dts/renesas/condor-common.dtsi         | 2 ++
+ arch/arm64/boot/dts/renesas/draak.dtsi                 | 2 ++
+ arch/arm64/boot/dts/renesas/ebisu.dtsi                 | 2 ++
+ arch/arm64/boot/dts/renesas/gray-hawk-single.dtsi      | 2 ++
+ arch/arm64/boot/dts/renesas/r8a77970-eagle.dts         | 2 ++
+ arch/arm64/boot/dts/renesas/r8a77970-v3msk.dts         | 2 ++
+ arch/arm64/boot/dts/renesas/r8a77980-v3hsk.dts         | 2 ++
+ arch/arm64/boot/dts/renesas/r8a779a0-falcon.dts        | 2 ++
+ arch/arm64/boot/dts/renesas/salvator-common.dtsi       | 2 ++
+ arch/arm64/boot/dts/renesas/ulcb.dtsi                  | 2 ++
+ arch/arm64/boot/dts/renesas/white-hawk-cpu-common.dtsi | 2 ++
+ 11 files changed, 22 insertions(+)
+
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+
+-- 
+2.53.0
+
