@@ -1,61 +1,61 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BAF42669B
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:14:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69EA426EA1
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:14:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777976079; cv=none; b=orcf0F9Pzm9+mQEAhOPYyZhHQATCPcQnLNPgDlHrjflCAofAfpnchV7CLfvEipw2xSuroor6E8Y+QM7ZJ5OUbTXw7ZEUz7osxXmTmjhFs8tYxGctl5Qtw99JarMIqJgArhHESsWu47OA4NQEJnXBOfT3mD9xYdRAYWNdlXUgUaU=
+	t=1777976082; cv=none; b=lUSlQluC5uc4UzGTuQUgB6k3+qCpkQhrAZLJtZpV2KOOw9YCU0mYic/Ap+Uu6AsjwhDema/0Dgw0KN8sOFUUugzN1347MBflAfNSRJdOHpsCuGjxqN/7P0N2HU5ySdZJtISroU+qgRUtZpTlEWvGw52Rt7FBWNRIA1FxXY93+xw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777976079; c=relaxed/simple;
-	bh=nI3ftRFCx7BvI5aHP6Z5Neq016/qdZrGqNq3rdXbjFg=;
+	s=arc-20240116; t=1777976082; c=relaxed/simple;
+	bh=lGZrUXuflBOqHCFyvr0PB1/T7c/t+SObD8XkwOt47Vw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oX5bkb+1tnmPo9gkdmaQkDyKMLhq6lwKaWCMMCO9CV5GsZBoWAlJSUS4HQ+7xQRFJd9Yaac8dajA2fJ831iTLV62uorDmPFnitTY8AKIWrOEAcNRvl1KustAa3TOmyfCxqs/rniMAPCL5GvLvarNQvysgS2htuBptcA3ctjybtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=O0/BOW0D; arc=none smtp.client-ip=209.85.210.178
+	 MIME-Version; b=ht/aZ5jjcV6lraNngjQJIt3IlZpteYwDbCFOfTuLfPN0jcmDzWJSAyoW2HTawZNHyFSLIcqnp9tYyH9pkt4W3m0NvzSk5CUiYx2XYz6tR7zIvLsnAz9fimrStQMERW4LHP6GgRo6oeufzqy8sCyfmNbFX3JCANqzixv/msQw7yA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=e2tn7U7e; arc=none smtp.client-ip=209.85.210.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="O0/BOW0D"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-837dfccd950so902547b3a.0
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:14:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="e2tn7U7e"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8383fb7143aso807556b3a.3
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:14:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1777976077; x=1778580877; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1777976080; x=1778580880; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lujO5dCfpLfAzjv2ZKWu1TMfvLXvEfolWEoTcgyYSpY=;
-        b=O0/BOW0DIm5eA01gny7bzrMa2ViIAnJkyQA3bL/7tl2lgHtKN6NM+HgJDtqGjTQfg6
-         esxW8RpL18thyhgQq+UzzTJG3F2zhnXFMlGWWrXU6IF3Ui/RpA9H1enP0erbRviCSUch
-         PMpN+bQj/m5rDQEYHIYAWaiQDyJ5azYmcE2CQ=
+        bh=D1yF58yQBbcHl4r1i7GF6fw/efnf7TJKaSEphSpwRag=;
+        b=e2tn7U7e0yAQmgLZT8aWd1XDPevA8dsYTdKGOV7HArUZaonLORoBClMTZgUpNNcCBB
+         mJew/ecQZds2Vj0TLGyERagogAGtFBmUf+I8N6hGwxOco3ac6r0onZSwkThzRz5ET3JP
+         t2OM7L3pB1tnu5vwcJKx7syRRRFvZLcCimN6w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777976077; x=1778580877;
+        d=1e100.net; s=20251104; t=1777976080; x=1778580880;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=lujO5dCfpLfAzjv2ZKWu1TMfvLXvEfolWEoTcgyYSpY=;
-        b=qYzxw/7zJisZxzSuBYquj4PWNU1qb99G7XJf4Ur5bWoHlYwnnzN1dtEz9+3v9VFz4b
-         jsYQ80FeF+9erh5XPvoGzYLeH/Y12E9TMOoco26E+WLbilebj7UZYI39yzViKLtgRp/L
-         QNlF9GUbS4Jgtclfe3FL55OInSzDXYfnfyp6uL73TN1n2mDha2rIqK96nQdlfZKRJyOs
-         EQTnhkD9frbLjAtcH4QItvLoy4dM1seVWFT5ZxVPRd1Cm/Q2NfsjiMD/7IJRgVnQEO19
-         WT/fMNQrGVNAjXQnvVo0f+zzwUzktNPZACJY1Idf5RO87SqeUqtHTPgnc0QXtAJFlYP5
-         bV7g==
-X-Forwarded-Encrypted: i=1; AFNElJ9xI5E2qlXKOXVjtZwiRgk3gk9Poj+/eJCR5VT5L/9kqq53/14n66fMytBF3/m1moqU+PHYMgCqm1r3@vger.kernel.org
-X-Gm-Message-State: AOJu0YzMYxXIDtMEJonXNLy6765gkkGmd/MHTbL4rI6ACMFaKSNfTkRh
-	PrBxBw8bS70cyO/3Nhn/Uvuqy7g568ABYZ1PtGIoda+jR/i7ry8UqQOUN+K94J8YLg==
-X-Gm-Gg: AeBDieuNwuWh3LRYxTB+XmaWmqe/C9Q1DFhETtpisiMyzQBaCW3vQsKane65agXgPEN
-	QNbA8OwFISbyK+aKXHaB6gN+WheNe0V1s0iRYx3Y+tqQtiLZUfKViNFpqxEEvo2FTqW2pRMHdIu
-	4EDOHERk+xHBFl4x5dsX8JfTnXsji2+6DWTO+GFhCoUTkUT5kR2mEg6JiaLyjcxeitsECvJfdoR
-	z4Aio7Hgas1DkoZkvLaa7Oc5+9nCWUqKI1V5uYdagCVgSSYNqshsJYT7Spigg0prkRNA1CXdqZp
-	rXflrFKwdyO4wfzS8pyod2j+ezC02hYO31D2/RqON8krFrCVGVTqsBTkJV4OOSkZtAPTRIXij4W
-	H9EE41U4fCxk3Bk2pNEh3/suMu9GF+X8mUn8wXcUJqFzPijac74eS+fbC2WQkd5qHylTaAzZS0m
-	WoOhyrjTnWa+K6QnWyzi39aS1HqYZv3gaWkU+wbwMJL5Kdo2GRkXSezTCaZGP2e+dV3ZsK0vlRI
-	ovJZxVSv1Eo9LuOLhE=
-X-Received: by 2002:a05:6a00:8c2:b0:837:666f:8fcb with SMTP id d2e1a72fcca58-837667f0d5dmr8094589b3a.5.1777976077208;
-        Tue, 05 May 2026 03:14:37 -0700 (PDT)
+        bh=D1yF58yQBbcHl4r1i7GF6fw/efnf7TJKaSEphSpwRag=;
+        b=drYBu8V6r/OCH9hGFrts/Gqb8yIA4uT7QUJn2lr2fvkGBxjN7PghfGhOzI68cwCoCa
+         WWPIe/1MmL7Bz+nqNaBAoGIlRPTIS0Mbl3GF6BTVtWiU8RbWX7QkAHI+LJfhyz898IWn
+         rInROktIGmv/hT0pse8ifKBI/KvV37+VA9KsC22J0RnQVEBrwaQNzf8bXF5EofBKjj+x
+         jEF5RfNijs+ZDKqYJT7h3eIkIuUrJkJQbBjKn87LqkZPahF1048VoYi0Fo5UxKRtg5SW
+         ZvyKqTk6/kMMgWpMjYbMNYmroZDpYaHUQzE5tP4WOxhU/362370gPs10S3aEsoDADaA7
+         /HQg==
+X-Forwarded-Encrypted: i=1; AFNElJ+E6nmyUXsvIrYTwtPECnCv3EDLZQc/kiHO5WZtsM72K4cO4O9Bm8ruSLtd+BuUNG1oFdypjdWcjUTN@vger.kernel.org
+X-Gm-Message-State: AOJu0YzjRk4A1zyGacmFsJzeJrno4vdj9exMR8Gaf5dB+2xxYx/TcGeP
+	HnLqEV9RnFyTTWH+i5CsHp4AjD+r75eLWiSdMxDtQPjvB45LQv6mKzdTKX5ffcZHyQ==
+X-Gm-Gg: AeBDiev0/bAjAcmv77ZQ41NVQfqJb1aWzYTiv/GZrQGIMfb//KVkw/PgWLxlYd5N1/U
+	IDroUknkMXQUMo360p1KxfVR+Js80qY3yA2wvwMdCuMVpYD4UMRzuU1Z1YQ8Szsi5EY/m8ir0Dl
+	z3bcNfEpIxioG4k3fuL3CXE6FCWvqOsowfbbDPK0OYTksffqa6cme25zxcdzMisJYRtg/PJ1yX6
+	iVqmTT+dmO/I/vaxPUayuGDFQwqHlwb6arwKNO+gMJPiHJWU5gpIwdpn+Xq0P+GrYWxGeuNwx9M
+	nWnmaHiVZMehfDggDBr0/ov7z3w8/7osd5FZaBrp6q3R7wp18S8ODzF/VvN2FSOlSc0yDIGsJ4J
+	jMrkw/wzEwNUUkq3WXBYW7pXAao7C5JvgtZsgnOKFHptpipUZ7+u94YUUQdzD5cbzjXb9s7ctfQ
+	K2o08fMNe5gxVc5Da5Zaa9ZSwA4qMyGuZO9bLriH4NUwulC11siViXNzmYrv3sCgtrZO+8nKLKj
+	Q4y+G+oI+Rcddvc67U=
+X-Received: by 2002:a05:6a00:a14:b0:82a:780f:a187 with SMTP id d2e1a72fcca58-8352d2b5436mr13440114b3a.36.1777976080065;
+        Tue, 05 May 2026 03:14:40 -0700 (PDT)
 Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:f1d4:2ef0:7d08:9dd8])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839679c8462sm1666121b3a.38.2026.05.05.03.14.34
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839679c8462sm1666121b3a.38.2026.05.05.03.14.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 03:14:36 -0700 (PDT)
+        Tue, 05 May 2026 03:14:39 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
@@ -64,9 +64,9 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 07/16] arm64: dts: mediatek: mt8192-asurada: Add SPI NOR flash power supply
-Date: Tue,  5 May 2026 18:13:57 +0800
-Message-ID: <20260505101408.1796563-8-wenst@chromium.org>
+Subject: [PATCH v2 08/16] arm64: dts: mediatek: mt8192-asurada: Fix WiFi regulator description
+Date: Tue,  5 May 2026 18:13:58 +0800
+Message-ID: <20260505101408.1796563-9-wenst@chromium.org>
 X-Mailer: git-send-email 2.54.0.545.g6539524ca2-goog
 In-Reply-To: <20260505101408.1796563-1-wenst@chromium.org>
 References: <20260505101408.1796563-1-wenst@chromium.org>
@@ -78,28 +78,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The device tree for the MT8192 Asurada is missing a power supply for
-the SPI NOR flash chip.
+The WiFi supply regulator is a current-limiting switch. It does not have
+voltage regulation capabilities. The description is also missing a power
+input.
 
-Add the supply for the SPI NOR flash chip.
+Drop the voltage constraints, and add a supply input.
 
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
- arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
-index a6543bbcbfd0..aae9d5ccca13 100644
+index aae9d5ccca13..da819f36718b 100644
 --- a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
 +++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
-@@ -637,6 +637,7 @@ flash@0 {
- 		spi-max-frequency = <52000000>;
- 		spi-rx-bus-width = <2>;
- 		spi-tx-bus-width = <2>;
-+		vcc-supply = <&mt6359_vio18_ldo_reg>;
+@@ -167,12 +167,11 @@ pp3300_wlan: regulator-3v3-wlan {
+ 		regulator-name = "pp3300_wlan";
+ 		regulator-always-on;
+ 		regulator-boot-on;
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pp3300_wlan_pins>;
+ 		enable-active-high;
+ 		gpio = <&pio 143 GPIO_ACTIVE_HIGH>;
++		vin-supply = <&pp3300_g>;
  	};
- };
  
+ 	/* system wide switching 4.2V power rail */
 -- 
 2.54.0.545.g6539524ca2-goog
 
