@@ -1,219 +1,154 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB1742EEB8
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 12:25:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 566B9426D2A
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 12:27:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777983947; cv=none; b=N3Za8lr4sKSpsAoiFMaSnVV0TBoRgXqhFS2a6cNejHKtD3h1vwHeN6eqlNlP2zfexZcVYlbWOZjQUmiUoZh7U8R5k5bL5kq0EO4GnFyHKYJeR+5nxNIviA6h26eRE41adXgMA34hfdxr99Nxjo3+VUSAYm/vNTdcybv872SVGZA=
+	t=1777984064; cv=none; b=o19ynQXrb3spNefm0RrQ/wMsEZRojVH+ybX7x9Xv4dP593lXj3lNevWW0z7Bp5W4ZBNpws+Xn0r/h/TCxdN0ZNJBM9lAZRTcrexLN3uSjS6+cV0FJyWA3ZQX5i8/vPT03NfnWvRJzerL1e8Ty9pgfueZNWkbh8qX1AqNyGrxi9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777983947; c=relaxed/simple;
-	bh=YOcZgnUU7aNUADZbewVlvFKcPy4NxigrSCC0vnQKVC0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=USfKvn44ueUVvy4WMjVZmCHcSojes//g5wDtTLHIu3vyUy1EE8tW8fDT4FW6YzYfEnNCMYZuuPgYfSIOs3Oig2RfVMOo7FiNuZRueDjk6gIJKn9JECn7MuLU1E8PwQy2GHVqTpwuMtD0bI4cGbFmk7OXstpYcoWpP+4/vzEjsjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=elXwbKAS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hjY39Sqp; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777984064; c=relaxed/simple;
+	bh=TcjxIvutvevB74eNkxChY6boBUl3W0xRM40RkukRMNY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=f1+vZl3tS6Pe7/MikBOtouKfvRRUHhvMzmTBPPiPT3WjOh6KGwoHBJGTMGP4GLNyGkHdSWS+9dOwAKsUKwoSUq4Qdyvcu+4lBw5pWx+wSFmgZquy1niTqEKiNPz1ha8ZzLkO795jX8vbJDyMTFT1PLPTZNLamrC1ya2BHCb8ArU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lAtoFDt6; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="elXwbKAS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hjY39Sqp"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 645B6Lgv3091350
-	for <devicetree@vger.kernel.org>; Tue, 5 May 2026 12:25:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	cezRDIDuuGgXSugZUDs0zZVIa3d2l+pmJWevmxHgvlI=; b=elXwbKASq3qWKy3v
-	e4Npmt6BrwzXXhMyMhh8mMOfkCkGaa2hCjj9DdHm4ZHNhyPS/5nNEZphaOsBeAMP
-	hya9Due/LQzDgnRGwcT5kieWSAqSpbCj/xWXVlr0c7NbhYkgvZ27AVLgAyqTrLAY
-	bJ5EMqtI/thEr3G/LluNuy7EGovejlgM50GPfuzpMeOlCX8mtfCupYjbFLPRi1JK
-	XmdIAAY+kFnEKTGkMbduOMFMw3DPfahp4ME50z27QQ85SXsmBGIeEMnFYnYReP+2
-	vl1kl2hjRBn16/FflTPzhJFkVaVVyBIuPvMvZ/syTEJCJZxdKBFMxLac/pgK5WTy
-	eFqcNg==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dyfct07j1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 05 May 2026 12:25:45 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8217f2c9359so846155b3a.1
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 05:25:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lAtoFDt6"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2aae4d2d215so3367005ad.2
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 05:27:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777983945; x=1778588745; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=cezRDIDuuGgXSugZUDs0zZVIa3d2l+pmJWevmxHgvlI=;
-        b=hjY39Sqpci5KhWFzV5YMtKt2Wca7Y75nZa/k6Mikm9F9w8cnZ3TqZ7LnkrEazU72ly
-         ciIyqCv1qvSk9wYa7cBRUCou5qmSRXcmDU+T37XgO+xZSwAWMAounojzDpKN16Z81HWL
-         DEkTd3S2o3kFlWE5leX3f/OgCFYys09ukeCGPcvaePIWE9aCiVhznPA9rKT7sEsrYqmp
-         UK80Ijs1i5glSWaFFXxgn3UB0RTnH7UDN4PtQ+6nPVYbXaPb/CqcjFEI9uK+SjV2mOCK
-         ppVLpxU7gkJAs1TIXD1XDMbQwzddKuVHeZOnozGflqG0nXs0H3wTRFmv/mEgT31E+d4C
-         RTYg==
+        d=gmail.com; s=20251104; t=1777984063; x=1778588863; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=VkB9fZzeXBdMOAv5MDDWZl0j3iCw0olbI+cJ31NwW94=;
+        b=lAtoFDt6rnTDs2CTx25nzfuq+DQtRc74Tp9yfG4BFhPOYLqgWdVRRSCffpZNwaPdqK
+         ipyZIZDhGq0FTShso44/PKpmksLUr3SQF3350r4H4fyFiBlpFC2k7jMheGu3dp9iEBAk
+         BvYlJOmc8ZexobsWJJyg94nKjOYhINjJNLK7G1jt12ZfEFNUrb3UFct/5tgAdOPVT930
+         GYZPkvFLjgXBve/7MgzsbHM/mGVpKm3ReP9awmloEDtVJfOYkJKwNZWohMAVmn69MHxY
+         um7omQnAdVSDevaDKBNjiIPfFXSUIT/6/WszYYRiuRUGtGou62G1usmHyLRj+W/r3kjU
+         peqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777983945; x=1778588745;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=cezRDIDuuGgXSugZUDs0zZVIa3d2l+pmJWevmxHgvlI=;
-        b=EvHfC5vIUiEPmFgk3F4g8iyiyyzFUh2fhdzkMtJkloFhJN8SmgyP65Tm2Aqay2MPLI
-         Ww8NQM284d5tfd2iz8K/jktigcgy2f+n/p6wNsH6IV5gqUAQm/DMmalaNOLnu6lTGAi5
-         9t/2rEbhZhRfs1QVrTawDeqpPGG17Yc9HQHTEDz4/RqJPSU82UsIMf9uG05Ta+x+VLNE
-         iYnvqr4iDybDHT0mRQ3w9cmsBbD9CwSbPLc/N+WC0I7WaiPKvISFUkaFMEntAIFLhaqi
-         RFnN1OmtLF2v3yxr0XOj1wxuMrpjtq8j4YNfX90/EnDrvDcmhNX6VMI+LTbS65jC3nD0
-         x+Qg==
-X-Forwarded-Encrypted: i=1; AFNElJ8GJQgcFz4/RneJQsuexa5dOP9E3uj5eubeFWeyItfGN3NTwFCw2JcJOWNl5GsjqV3GYOVr4ijMjwjU@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1pRG0bIECRabddrPljXpqwfv4JemniM7CHuo3fFsZU0Ov9RWv
-	rNMOoQPndLewONOzUGRpJcujErYHUXFciY/nKtDthEi3lewAR0Ww+wUnFrAyrMhKPrOTQ3sKT0B
-	AZd21JAs1KKRLaULmmZePW83E7S3PzxUAYDPZxCIZldYLIAk92X9x32ucntxiypz0
-X-Gm-Gg: AeBDieuW7WetdBkVUFyUtJeMguczJWLnh8i+U6WIb7brag1DAnFlSRoFEUDmlHvP1DI
-	bHXFECx1vcmuo4WEY5q1s0kg7H7HnGsF8hi2iDYwwLh7p+tyL5OUZtMdGkblS0wQCWjub+fxOD4
-	6qmSyaqfi6jBVNMhO565chrH9M03XqAXJxBtFxeSlE5LHTt9eMwep6cjyf/fC5az7sHSQm0NEWk
-	4Akm4ODh1D153S2kjG4YZiHWZ69wELzUh8r34i+meOK1LUWtd+Asr1APPZtqVP650JFrlEgOS7I
-	Bjc3fGFLORkURpnBbL7r9VMpwYfZjFW9LzEpWrfamtzexazgYt0S6TVuW8vtuniBaCgb9jDKkR8
-	fV6WA36g9bhbJDa0a6DSlXxwVi9E2bR2X3VXADReNwq5noLQS92O53M5mOewDLgs=
-X-Received: by 2002:a05:6a20:6f87:b0:39f:6343:c6e6 with SMTP id adf61e73a8af0-3a7f1d53191mr7943166637.7.1777983944530;
-        Tue, 05 May 2026 05:25:44 -0700 (PDT)
-X-Received: by 2002:a05:6a20:6f87:b0:39f:6343:c6e6 with SMTP id adf61e73a8af0-3a7f1d53191mr7943130637.7.1777983943895;
-        Tue, 05 May 2026 05:25:43 -0700 (PDT)
-Received: from hu-uchheda-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c7ffbbaac5bsm12597998a12.6.2026.05.05.05.25.37
+        d=1e100.net; s=20251104; t=1777984063; x=1778588863;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VkB9fZzeXBdMOAv5MDDWZl0j3iCw0olbI+cJ31NwW94=;
+        b=K1phzYReA4eEdHHoK+EvAJr0K9q4m2qtxSQqrmwZz70KPX34BzjX0IDecPUAwIeWfo
+         hz9ZijwdvICVmQI8gF6yDhDjenGIPxcvxNZw5ajDUDPQBOzs1rhEJiG3WqTSGB/pp67+
+         6WeaoqdI2MFqZVcJA72qXFckq09bEQAbiRN0LpBrpPT1HO7LxLXXSm9OIDYP38ln3bF6
+         PQDO23XKfcpvi8jzO1oARh6ta8okVoX8eHxXem+oHxUikaxkve4Mb2VBNUC72Vh7aS4e
+         o7QqWCSuYhVPc6BsiqjuxxfpLS7xvcqgZdeUGL5ljoNyeuRxs3P6GmEQbU4XLUZDPio1
+         pV4Q==
+X-Gm-Message-State: AOJu0YyDe3tziCzscR5EEsqVhEUi8PzbzX+Gf+NHFIFtSeaPRYr051RT
+	+7X8idYvZvz+/HC6gYoETRQ51sVoy7vrzVxegMqZCOwK7I8EXqmhwDAOWyyT+g==
+X-Gm-Gg: AeBDiesvRgZgq6opxHBe+JGFpsYjVk7Z1LMtDns7L534MzVhIYTtV5aKh9scNpJFRJ8
+	MQQE0a4mzH04RhWnsutb8yQmFJ+Z3geW5cFE80MnKNbyhzAdZDoWdGZj2FoGxhkTXCsHdxxbSeT
+	5hcP7jm2EwlHtJKZ5RvaAk6IoDeYEoz0d8F0u+cJQCI1SKJ9PEp2glndFCz/gJMlXJ0aa9wJBLn
+	N/KSZNtKuWoWfBWqvLksWWdDjwPA1X/cbY8ouJcUbrRbLsgUQV8JWvUc8FOyWuV7WrPG90gX+5g
+	uvQt6HL7saUnEspskSEJggOqZ2yqWCWMbsoVbQ6s6FimqBdu82zXZgYdWwdbzt8tVGU5VJErfOI
+	aZLgI87VhRffb2hJRggeCqeKaMVYxF6GjsXI9QFCVsSORfHA/5mntZtzKOQ26n80odaUUvXWW7L
+	uwgV01lgWdq5bulvcpuvdjZ4iD/dJDHpV5
+X-Received: by 2002:a17:903:3545:b0:2ae:54b2:27d9 with SMTP id d9443c01a7336-2b9f283fc3bmr67457505ad.7.1777984062612;
+        Tue, 05 May 2026 05:27:42 -0700 (PDT)
+Received: from marchy ([2405:3800:88c:d085:ee8e:77ff:fed4:d18b])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b9caab231dsm139811825ad.26.2026.05.05.05.27.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 05:25:43 -0700 (PDT)
-From: Umang Chheda <umang.chheda@oss.qualcomm.com>
-Date: Tue, 05 May 2026 17:53:52 +0530
-Subject: [PATCH 8/8] arm64: dts: qcom: monaco: add AEST error nodes
+        Tue, 05 May 2026 05:27:42 -0700 (PDT)
+From: Adam Azuddin <azuddinadam@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org,
+	Adam Azuddin <azuddinadam@gmail.com>
+Subject: [RFC PATCH v1 0/2] Migrate RAiO RA8875 from fbtft to DRM
+Date: Tue,  5 May 2026 20:26:28 +0800
+Message-ID: <20260505122636.11859-1-azuddinadam@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260505-aest-devicetree-support-v1-8-d5d6ffacf0a5@oss.qualcomm.com>
-References: <20260505-aest-devicetree-support-v1-0-d5d6ffacf0a5@oss.qualcomm.com>
-In-Reply-To: <20260505-aest-devicetree-support-v1-0-d5d6ffacf0a5@oss.qualcomm.com>
-To: Ruidong Tian <tianruidond@linux.alibaba.com>,
-        Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, catalin.marinas@arm.com,
-        will@kernel.org, lpieralisi@kernel.org, rafael@kernel.org,
-        mark.rutland@arm.com, Sudeep Holla <sudeep.holla@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-acpi@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-edac@vger.kernel.org,
-        Umang Chheda <umang.chheda@oss.qualcomm.com>,
-        Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777983885; l=2471;
- i=umang.chheda@oss.qualcomm.com; s=20260328; h=from:subject:message-id;
- bh=YOcZgnUU7aNUADZbewVlvFKcPy4NxigrSCC0vnQKVC0=;
- b=IHRZKVkkhxU9y02nDwnaD6SzrjQm04m+20HXWuq2/N4sWJObINqXltUQZ1/qyBP+tvKxUc5iD
- JMepAm3K+K8CN73vjyA6Efr0HTg9ztmpukLEzg04lLRt4vmu3gpMBMM
-X-Developer-Key: i=umang.chheda@oss.qualcomm.com; a=ed25519;
- pk=3+tjZ+PFFYphz0Vvu4B14pBQSzqcG0jZAQspTaDRQYA=
-X-Proofpoint-GUID: 2itTz2lszndBZ5VuuAz-MNOu13o4U1ov
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA1MDExOCBTYWx0ZWRfX7bfjTFLl6hYg
- 7UHcuhBri7iaRNGJ3HEU7qozWglUCfOHsPuUToGjyPKCyJwzXF/uG75AMEgWLZfhTP02BGE6YDu
- VVNl1VHstbCsWJ5KCjl2RKIZAayJmhicjDcCHmOqN7xM/yXKOupoUOrdMJtCEbYJH8bSOyd3O60
- owLuWSfYLevFWJnDssky1crlbbKYiXXbv+vDIyRAevm/982PNcsgYQeLhne8erbJZ4GsNN0+IjG
- AsSt0l+hUMFzZKcbnvFbMEfJxaNT60chd61NFTW1F9G2Tk4I1zXrv/gVnu+M5IXKPXNUkT526OW
- cCbn/cHox7J+KjlX/4kU/NdKt2c2zZMFQsQu7wqulUGIG3WUlC2t3BoC3tiSGq4dBYh/hE/Kywd
- u92xFtwu2ijCAUygTLHFJys5rKQ/Ao0ok+IIoZz9FeQjHdhiW4OX3La3hOoqdC0j5SLE7KWsmnx
- Yf+qi92SrmuHLqpZLqA==
-X-Proofpoint-ORIG-GUID: 2itTz2lszndBZ5VuuAz-MNOu13o4U1ov
-X-Authority-Analysis: v=2.4 cv=NtXhtcdJ c=1 sm=1 tr=0 ts=69f9e1c9 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=JAhf3ahiasQHMHGiI4QA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-05_02,2026-04-30_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 bulkscore=0 impostorscore=0 lowpriorityscore=0
- adultscore=0 spamscore=0 priorityscore=1501 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605050118
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Add AEST RAS error source nodes for the Monaco SoC.
+This is a resend — the original submission on Monday did not go through
+as I was not yet subscribed to the list.
 
-The DT describes a processor error source covering all CPU cores and a
-shared L3 cache error source for the cluster. These nodes model the
-hardware error reporting blocks and associated interrupts as required
-by the Arm AEST specification.
+This RFC migrates the old fbtft fb_ra8875 (drivers/staging/fbtft/)
+to a proper DRM/KMS driver. The RA8875 has a 2D Block Transfer Engine (BTE),
+a touch controller, and PWM backlight control. This driver currently
+implements only basic display pipe, with BTE and other subsystems as
+planned follow-up work.
 
-Co-developed-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/monaco.dtsi | 41 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
+This driver does not use drm_mipi_dbi. The RA8875 SPI protocol is
+structurally incompatible with both Type C options drm_mipi_dbi supports.
+Type C1 encodes command/data as a 9th bit within a 9-bit SPI word. The
+RA8875 uses a full prefix byte (0x80 = command write, 0x00 = data write,
+0x40 = data read, 0xC0 = status read) sent as a separate 8-bit transaction.
+These are not the same thing and cannot be mapped to each other.
 
-diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
-index 7b1d57460f1e..8e43ceed7d84 100644
---- a/arch/arm64/boot/dts/qcom/monaco.dtsi
-+++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
-@@ -3,6 +3,7 @@
-  * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
-  */
- 
-+#include <dt-bindings/arm/aest.h>
- #include <dt-bindings/clock/qcom,dsi-phy-28nm.h>
- #include <dt-bindings/clock/qcom,qcs8300-gcc.h>
- #include <dt-bindings/clock/qcom,rpmh.h>
-@@ -29,6 +30,46 @@ / {
- 	#address-cells = <2>;
- 	#size-cells = <2>;
- 
-+	aest {
-+		compatible = "arm,aest";
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		aest-processor-0 {
-+			compatible = "arm,aest-processor";
-+			arm,num-records = <1>;
-+			arm,record-impl = /bits/ 64 <0x0>;
-+			arm,status-reporting = /bits/ 64 <0x0>;
-+			arm,addressing-mode = /bits/ 64 <0x0>;
-+			arm,processor-flags = <AEST_PROC_GLOBAL>;
-+			interrupts = <GIC_PPI 0 IRQ_TYPE_LEVEL_LOW>;
-+			interrupt-names = "fhi";
-+		};
-+
-+		aest-l3-cluster0 {
-+			compatible = "arm,aest-processor";
-+			arm,num-records = <2>;
-+			arm,record-impl = /bits/ 64 <0x1>;
-+			arm,status-reporting = /bits/ 64 <0x0>;
-+			arm,addressing-mode = /bits/ 64 <0x0>;
-+			arm,processor-flags = <AEST_PROC_SHARED>;
-+			interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "fhi";
-+		};
-+
-+		aest-l3-cluster1 {
-+			compatible = "arm,aest-processor";
-+			arm,num-records = <2>;
-+			arm,record-impl = /bits/ 64 <0x1>;
-+			arm,status-reporting = /bits/ 64 <0x0>;
-+			arm,addressing-mode = /bits/ 64 <0x0>;
-+			arm,processor-flags = <AEST_PROC_SHARED>;
-+			interrupts = <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "fhi";
-+		};
-+	};
-+
- 	clocks {
- 		xo_board_clk: xo-board-clk {
- 			compatible = "fixed-clock";
+Type C3 models two transfer types via a D/CX GPIO. The RA8875 has four
+transfer cycle types and no D/CX pin. More critically, the GRAM write path
+is stateful: an MRWC register-address transaction followed by a streaming
+pixel pump under a single CS assertion. There is no way to express this
+through the dbi->command() dispatch model without either abusing the
+abstraction or reimplementing the transfer layer underneath it anyway.
+
+Other than that, forcing DBI would actively obstruct the BTE
+implementation, which requires direct control of the SPI bus at the
+transaction level. A direct SPI implementation keeps this path clean.
+Any feedback on these would be valuable.
+
+Tested on Raspberry Pi 3B, 5" 800x480 display, kernel 7.0.0-rc3.
+
+Currently placed in drm/tiny for review purposes. The intention is to move
+to drivers/gpu/drm/ra8875/ in v2 to accommodate future BTE plane support
+and the touch input subsystem on the same SPI device node.
+
+Known limitation: at 25MHz SPI, full-screen throughput for 800x480 RGB565
+is physically capped at ~4-5fps. The driver mitigates this with damage
+tracking so only dirty regions are transferred. Full-screen animation and
+video are not achievable over SPI at this resolution and are not intended
+use cases for this hardware.
+
+Some questions:
+
+1. Register writes are currently capped at 1MHz. The datasheet allows
+   higher but some boards have signal integrity issues. Should this be
+   a DT property or is 1MHz a reasonable default?
+
+2. PLL initialization hardcodes a 20MHz crystal assumption
+   (PLLC1=0x0B, PLLC2=0x02). Should this be derived from a clock
+   subsystem node or a DT property?
+
+3. Currently using display-timings in the DT binding with
+   of_get_videomode(OF_USE_NATIVE_MODE) in the driver. Should this
+   use panel-timings instead, or is display-timings the correct
+   choice for a controller-level binding like this?
+
+4. Given planned BTE support as a DRM plane, is drm_simple_display_pipe
+   the right foundation or should this be a full drm_driver from the
+   start? Happy to restructure in v2 if consensus is to go full split now.
+
+Future work: PWM backlight via DRM backlight interface, BTE as a DRM plane
+or through drm_rect operations, touchscreen via input subsystem.
+
+
+Adam Azuddin (2):
+  dt-bindings: display: panel: Add RAiO RA8875 display controller
+  drm/tiny: Add RAiO RA8875 display controller driver
+
+ .../bindings/display/panel/raio,ra8875.yaml   |  76 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |   6 +
+ drivers/gpu/drm/tiny/Kconfig                  |  14 +
+ drivers/gpu/drm/tiny/Makefile                 |   1 +
+ drivers/gpu/drm/tiny/ra8875.c                 | 681 ++++++++++++++++++
+ 6 files changed, 780 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+ create mode 100644 drivers/gpu/drm/tiny/ra8875.c
 
 -- 
-2.34.1
+2.54.0
 
