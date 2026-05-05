@@ -1,61 +1,61 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4812439012
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:14:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EC9C481AA2
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:14:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777976098; cv=none; b=C7gnhky0oiRbatBFLVJHE66stAa59E+TyG3RPBQJ1cut/TDS3MfzIV6vCuY4SSlyhOS6gQgSasGEbgFusS/9DhCK9XyCnn9SJAG8LQPcZe3f0bW7/hFJY45xM7KOkd/0MjnEclwmQbAIM/Ss/FNzOcyTf88TE+1pWzrbxK1lW+E=
+	t=1777976100; cv=none; b=OjAWn1MJG8oGz/ElvsO2N7Y42ptOb4YFym4rATXzHRxr7qZevMMq3aqQo1+mzkSfyQ7Ou6fdjSkjtzrRHPEcRLNVpbueaHW98qZy4FJVOZ5uIfrSRydr2T6niDV9XNr2PdKhG2YYZiWF+8OGOoLeqW+cJe9VGkEj+WlyOsbX/Eg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777976098; c=relaxed/simple;
-	bh=0qeYbfkmxQ+9E5WCeTwSocR0q3uoBNNJ52M6Wnc1d7k=;
+	s=arc-20240116; t=1777976100; c=relaxed/simple;
+	bh=+xgY8VbgsO1tV8qwCoQUN+hxw84yhesqu2RZ2QZ5I8s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Mt2qAAb2UiAnLQDLxRaFzKYML0A2fYtdKImorzYjSxf0UPro5L8DEFy1WM6eEK6sFjzzS78vkz/v3TNE2PSSosYbOTJXldNzN4TtJXlzZFG+OEuhM/RWm2VIqiI8PVEh1LUckA6fjuuis5JzKHjG8Lkexb5D/yz9vD7xpkahg7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=OSEvhIad; arc=none smtp.client-ip=209.85.210.170
+	 MIME-Version; b=Yag9aMcy7f+fUdZ5l+OJO9YuEwWG3rttfGMtt9eTPCN+9UUnQD5JDOEJ2yz+/iNXY61KleVnDvuizyb8rHezCH5z9dPE45JHXMRrkMd3iTmuR1fVHSAlbNCF6IFkCUNaDwqkPZcRGB5cv01OJv1xOr3EkDsKyMsrpIAuikSqBTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ihF9bbQx; arc=none smtp.client-ip=209.85.210.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="OSEvhIad"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8353dfdad62so1664231b3a.1
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:14:56 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ihF9bbQx"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-837dfccd950so902690b3a.0
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:14:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1777976096; x=1778580896; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1777976099; x=1778580899; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=l8Eah5020XPyWcD+00bfEGevAL0MUbbOqWk8LFNDCIU=;
-        b=OSEvhIadOkq5ZJD/iwM4OFByZkMxkad3SCnV7dOgkQoYPga3wF7f72KFbD45rEfdfg
-         GohFwUZIr/UNb0CzUV7mq6xB99rS7YsLBLgiPCt/Do/QMWIPpYkcfDhI7Zsm8oMK+aHR
-         CEpM1cg+n0doqTow/2el+AKKTqTHkOEixSXoU=
+        bh=hukAoBkjzE/JQZiJOlkn+RWEhZuaTeJUsZGO9TflGew=;
+        b=ihF9bbQxRbD1p4GBgx1XQ6YHantfXSpAnP9ZYiA69TAvbKCpznzLMlGRc5Ff3vUK3p
+         uqXdoRU0YyzUktMIW/47TGXNppgsnUmh5eRPiEqhwJRe4vQPBIhWzo/3pKZdeKuyrmt6
+         9/E0AUZXz2/8AMYGI5grmzgxcnWQUtJlzvoME=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777976096; x=1778580896;
+        d=1e100.net; s=20251104; t=1777976099; x=1778580899;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=l8Eah5020XPyWcD+00bfEGevAL0MUbbOqWk8LFNDCIU=;
-        b=NCoudpndC6K2dC3aWM7RmnTo9FGkcZ4iSR7ngjcpP5fb5XDvBzAUHMKHGLaoILmtia
-         KC9i3Jd18EDw5XH9HEI5ktUGTO7h6XBwdNnGX6FDUHgM8tj+emwHJjJheJJmdNdPBXwi
-         9yZbv0yFTEhKwSXuRHTHQ1UkaKLBTvE4Snos4p1RSIODVfufvk4kTnhF2WtmLb3qz12U
-         9j7l4YYmrAeRSAwCEreXZbOm06bQml+9sfqpNwt77koL6Muc6jeRKG/ufjg4FtX2IfAg
-         pE+BJHchqMtEVwpYVRb/KRGN6UTMRBS7CC3byzpEtOP7zvzjVMpyWveSWDVvKAvRBSYN
-         JOMg==
-X-Forwarded-Encrypted: i=1; AFNElJ84MP+KVEgdTqOQj9+dHWPTMyZBspfO5Ct4mkrR+7W+wmDOxYWMBDAiiLX0H05Ee++aL/5zpowYmueI@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjRTlWvXONu/cEQ2j5+JMr2f6L2VV5gHi7Abki/qS9AFQKF5Hi
-	iUHMLU4TK3DtlqrOwjfnaM3JPXlVkvq6LWpi0f8O9knt2BKh+yGY5KvkBmiSuYz2pQ==
-X-Gm-Gg: AeBDieuKxcG+Xj3hVqhTx3PbhIqdh8ncQsHgoDTMCtxS8PiV+ejb+kdu7nVQiSKVsi8
-	RiUdU0nwvObeaUNl4ratLIFmbl8kW+TNbTrssP2VhfJUlfJFHsPZRDsGASF4jm2xPo3FKWYilSS
-	Rd2Hemg8KAkhhuUy2L+EAqMFxXNYUZ10LmV2HkqXRO0cVctix+oJMtOaFDmQd87ItUTyMO55Gqo
-	tqhrIK0FrrK30c2jUpk/ZoEckamslZXmtbN/29ugoGciVsxG0VNbWdy/awsaMEeOWEQVl4VIq2u
-	lExZ4ipA2+kDDFS4FwfCObrDmdNwbauwSXo9933rbQfSbzckrIHGCTHwAh6KmQ/qo++/eGnp7Mg
-	zbSkuUBK1L4bG4JF9J3imffAJJfZ/2LnDQAPjqhzfa8Q28mpPZiAESTOFflRTu48yaPtlcrgPro
-	n5S/d3UbM6UtTvAJ1mM4GIiGqZgZHa/366nEfK8AGsWNeB17dgudmFs7jy/fD+mF8f4P99PyPFl
-	ZCS6At0Fp4+IJd6ovM=
-X-Received: by 2002:a05:6a00:2d9d:b0:82f:425b:4c27 with SMTP id d2e1a72fcca58-8352d16ed31mr14109597b3a.14.1777976096134;
-        Tue, 05 May 2026 03:14:56 -0700 (PDT)
+        bh=hukAoBkjzE/JQZiJOlkn+RWEhZuaTeJUsZGO9TflGew=;
+        b=sZESTnf26SG4Sta/QBUfCSmWdgmtbwgAZpwm3eKWIN1lepZqnw9ugECJF2Ky//rZz4
+         LnKnrp3iVjUrtG/NOYOsEz6CBJ+pnLJBU/nwJ+DT4MAbXnoAqkVhPzH8F1YR9iqMzgo8
+         ehha9PRfMq/74Y0HLBnXN0xpc/bdjLTeqHqIR9AQjJiRE6LXH/iYX6X1uAE39NJ8HlGP
+         V+am+ZBBWME341y3UCMN1DSi6eNuUWjQMwhqqg9V54pgO7g2Aa6lP5DBiBaKN/QxifQD
+         tY8A9m4HjeCjbnoA44ypOr4caEuBXkHqEktbe3dIMu8w7NcnZqOKMD27vgPB9AhnUp27
+         gKkQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+5rUElGJ4ZvYOmltfJdmftn1+0Te5+f/uDenJm9IkWrpei0LbNs058cOltH/Hb0DawNDYMFyqJgrEI@vger.kernel.org
+X-Gm-Message-State: AOJu0YypEK+D3Mz6Tm5h/r0bS0Ca7MVlvMCZ3c3/0QYZleQrORjB2Qyk
+	cgFcGZLrnGxbNHWU2hhKiUONj+1dGu/AaGrjgX7BX+dr8POqnCPb0a8AzcxDJngo3w==
+X-Gm-Gg: AeBDieshKXHeeNTb4G782ibl4dFTh89Cn4KK9KS1Ud+HK0jTC4NFr+qwpwX81+wufC4
+	w7DHi+verKXD/bfnJPiVG7wNBmfVOYC6q805TMoKLy9WxNNCj4I1aLfzQvffl05wbEGAu6q+D0W
+	6eNYqtNuCdqeY8Gb4wbRyTzzoGj9Kh1eFu7+dT1GX5YEl7iiE2Rvu0ZrJnOJWfiXHjbx4R2TnaZ
+	VCwTVrP6q+k7fjEBYiVhLyNy2iHVahNNiAxjuqOCuFDiuxwcapPLQ9ldWi4ojAXwTeNkAUlXo4S
+	EjmE6xq/NMfIMIaAbXGH1twoiL1LSD0UVYSy0+K+3T4IYR7MFwJeV7IZaZnf0glwCuN1s/ZgwHn
+	tfnpyZxZoZiubQmAXoy9C6nSaHa6DNV1pV9A++NNLtEx5iX3w8aiUgH64SSDwviQNKVQB2Z0XXq
+	sC6kUFSA+hd5LQf5Epo4a+ffj60RuyhFrzeb8mfQMvvHRhs+/ZdAez+qRlv638qP1XAuzmNylX3
+	bh8emQv0SQfc3uWwWk0ev/7/nAWWw==
+X-Received: by 2002:a05:6a00:188e:b0:838:127d:a168 with SMTP id d2e1a72fcca58-838127da456mr6444355b3a.17.1777976098759;
+        Tue, 05 May 2026 03:14:58 -0700 (PDT)
 Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:f1d4:2ef0:7d08:9dd8])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839679c8462sm1666121b3a.38.2026.05.05.03.14.54
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839679c8462sm1666121b3a.38.2026.05.05.03.14.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 03:14:55 -0700 (PDT)
+        Tue, 05 May 2026 03:14:57 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
@@ -64,9 +64,9 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 13/16] arm64: dts: mediatek: mt8195-cherry: Add supply for SPI NOR flash
-Date: Tue,  5 May 2026 18:14:03 +0800
-Message-ID: <20260505101408.1796563-14-wenst@chromium.org>
+Subject: [PATCH v2 14/16] arm64: dts: mediatek: mt8195-cherry: Add vusb33 supplies for XHCI controllers
+Date: Tue,  5 May 2026 18:14:04 +0800
+Message-ID: <20260505101408.1796563-15-wenst@chromium.org>
 X-Mailer: git-send-email 2.54.0.545.g6539524ca2-goog
 In-Reply-To: <20260505101408.1796563-1-wenst@chromium.org>
 References: <20260505101408.1796563-1-wenst@chromium.org>
@@ -78,45 +78,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The SPI NOR flash is powered by a separate "always on" 1.8V LDO
-regulated power rail. This rail is fed from the system 3.3V rail.
+Like the dual-role SSUSB controller block that encompasses the XHCI
+controller, the latter also takes a vusb33 supply.
+
+Add the supply for each XHCI controller. Also fix up any property
+ordering according to DT styles, i.e. move "status" property to the
+end.
 
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
 Changes since v1:
 - New patch
 ---
- arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi b/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
-index dc1ba143ccf2..62e2d7616f20 100644
+index 62e2d7616f20..ca2bb367ee68 100644
 --- a/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
 +++ b/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
-@@ -47,6 +47,17 @@ memory@40000000 {
- 		reg = <0 0x40000000 0 0x80000000>;
- 	};
+@@ -1622,21 +1622,23 @@ vdosys1_ep_ext: endpoint@1 {
+ };
  
-+	/* system critical LDO 1.8V power rail */
-+	pp1800_ldo_z2: regulator-pp1800-ldo-z2 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "pp1800_ldo_z2";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&pp3300_z2>;
-+	};
-+
- 	pp3300_disp_x: regulator-pp3300-disp-x {
- 		compatible = "regulator-fixed";
- 		regulator-name = "pp3300_disp_x";
-@@ -762,6 +773,7 @@ flash@0 {
- 		spi-max-frequency = <52000000>;
- 		spi-rx-bus-width = <2>;
- 		spi-tx-bus-width = <2>;
-+		vcc-supply = <&pp1800_ldo_z2>;
- 	};
+ &xhci0 {
+-	status = "okay";
+-
+ 	rx-fifo-depth = <3072>;
+ 	vbus-supply = <&usb_vbus>;
++	vusb33-supply = <&mt6359_vusb_ldo_reg>;
++	status = "okay";
+ };
+ 
+ &xhci2 {
+-	status = "okay";
+ 	vbus-supply = <&usb_vbus>;
++	vusb33-supply = <&mt6359_vusb_ldo_reg>;
++	status = "okay";
+ };
+ 
+ &xhci3 {
+ 	/* MT7921's USB Bluetooth has issues with USB2 LPM */
+ 	usb2-lpm-disable;
+ 	vbus-supply = <&pp3300_wlan>;
++	vusb33-supply = <&mt6359_vusb_ldo_reg>;
+ 	status = "okay";
  };
  
 -- 
