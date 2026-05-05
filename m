@@ -1,86 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D6340627C
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:37:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB1A2DCF45
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:39:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777977448; cv=none; b=rvimUOnxM52BBRb97lIa8RJAHZGe8WP1g89ss94etJtCV9LhBQwo59VqAEbywqEGP/s/1Lyy8sZiDFU/eZJDXdxA+k+zr+uQ6bGRIDKDuVZySBjjiBdRyhsB0m2M9J9S9YgZk/mHsldMpkRA0GK1zSQHht5epHkwelw6jfMbdr4=
+	t=1777977598; cv=none; b=mFAsXvkc8kLC32XhUUz7fREpVVqmGRvQFYNS2OB4Znqr9DY5arurRUEIh+8Wh7hgadDh8jBk9Vy+D6TM/U7cLOiGvduun4F0rR7gWF+vxAMPfBMfbvEcY473wVZm7RKS1aAxcWjMQZsipz7iBO6int7owsSj6EBe0tqH/gbd4tc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777977448; c=relaxed/simple;
-	bh=O1k9EcQ6FxBoy0l3c2OuSS9sgdShv8hsm/6tH6dR92Y=;
+	s=arc-20240116; t=1777977598; c=relaxed/simple;
+	bh=5R6SFlz/bfx5XQ7wxa5PSrekDt/yAtW9RF4cfWCQgyQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CPpW4OKs8MCGP0FrOgKfvvW4rdtqpxGz4rhsqM6XC0hwr4JDjJ43XsPRoYhi6czdWyjrq6BUQGwUtUVvp2JzAzuxgpzDD7Uv55y0a6RHRVUjNr+yOPIy7XA7O4Fj+HBAh6akZ7RV/NWPxUn5dTxkTNwFG85miT5ciYeELm503LY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ThXqo6e1; arc=none smtp.client-ip=10.30.226.201
+	 To:Cc:Content-Type; b=JaI719/LOv4JvOnaPNas/Fk4qDTNhzLbId9z5fJ6C0e2boAF+tsDXJCBeGEpP+4DlqO1xsBmLGa5/riq/vSh+lBLn97mNHkw+qU/JnnBQJNYp+OszgsjSCSRiENYDwz71jjm/lQpBJ89Ch0D+WVKtVAXokpnQlbyCyytUzKuC3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fWZc6OTo; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ThXqo6e1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2880C2BD01
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:37:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fWZc6OTo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ADF5C2BCC7
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:39:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777977447;
-	bh=O1k9EcQ6FxBoy0l3c2OuSS9sgdShv8hsm/6tH6dR92Y=;
+	s=k20201202; t=1777977598;
+	bh=5R6SFlz/bfx5XQ7wxa5PSrekDt/yAtW9RF4cfWCQgyQ=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=ThXqo6e1rU/ERqtjJ0/iY65yI8g5OKLcudnQZ3mErUhAINOrMK1kRvatSEjw/aymI
-	 tyz8uJRT1H94QGgZgJpAmZBEKhwt+k5rgNB1+fkpLK6nLklda575BySe/kvkxgxrPi
-	 4W4L5829nXgbOk8BtTeUl/Z1/JKX8WvgnQyTT/G/C2RqdSFvkvX15ABfdQAGXz0o+b
-	 D/ZCmpEQgi4ZUdCkmV11FwMv4ggLphaQeEJBgZf95MrOsV40mnU3Z3cVRoeVPy2qze
-	 cR69WrZjNFzSklu/jNHQ4VFhLVhhXLbkcI7VGXwzxbLWJ0Wa6iULmA64C8/m9NpmJ3
-	 T6+DsTjTPuThg==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5a4113ab355so4853730e87.1
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:37:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/V1PJEEmIxYzQDt1Qp/tK/4uZQa1ICq167cwXzSylcr1M8y+b7cwhcJJJCOZjNdYSNU00oYjj+EiNb@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0BGTdVGxsOSLScrDNmw2JZkWdLklVFHnhaYxoa1jQEVM6ZvSa
-	To+fh2ClNPw8q+3VozDe8QV+8b0v04/ukvoLo+r4Fvy6p30px4vFqbz6Nnwd0g1l9ana7ei7h+L
-	gib0murNIW9df/3pX97GfpWv6FWQj89A=
-X-Received: by 2002:a05:6512:3095:b0:5a8:8222:7fbb with SMTP id
- 2adb3069b0e04-5a882228046mr652967e87.34.1777977446254; Tue, 05 May 2026
- 03:37:26 -0700 (PDT)
+	b=fWZc6OToKu/yoYoTf5W9dTK/aDelutXzPYtDe5gXWl4ry0PiqtmviIVeOZnP379VG
+	 QpbzGXSdl+YeH1mvQ8lSd8MufHcpG5ij7uyILbrlskt5SDh2j9w85cf3Y4YUzR+Rqu
+	 FdCY3iZdB29qYZxOxy+KN985LCUHEWHxBJzqFe3Tj7D8NwW2WWU/zmBYCr5MqAAHrJ
+	 TD5EQZ8zybb7DqsIMl/PVaZXg21c8ooizyBeq6wr3E8SLOlYrRx44kr1/RRjiXr4jQ
+	 jtPV1IUO1BQcbyvBJIWZnGE0dr+/M+ArI/varG+j1QKaDCIDESY4LZUaDRt6MEiiZa
+	 ohM0mc2ZIeCLA==
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-38e7b0903cdso51312441fa.3
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:39:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9sZMab8CI6aN+Bai+r9RyQn9bsVVlW2kNjceuHpXN3oxDWrpfLL88P3khiCvNzbiTjTVM31NgHcZWK@vger.kernel.org
+X-Gm-Message-State: AOJu0YxU9enHqGVshv5tg6m1YZvzw3Url3QlBAu7T1P5bOs4e6NCdqXq
+	/T/6SjdFHI3mOF+nqlbU9PeWVBCLornSkbBltPNLpWhuuSQDWrkU1fIBa5EMRweMJCxySl+9uYI
+	zeFD7qyrQTgFw0fb+v58TWX/UpTBBZq0=
+X-Received: by 2002:a05:6512:68f:b0:5a8:73c3:f270 with SMTP id
+ 2adb3069b0e04-5a873c3f40dmr2568123e87.8.1777977597130; Tue, 05 May 2026
+ 03:39:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260430081242.3686993-1-arnd@kernel.org> <20260430081242.3686993-3-arnd@kernel.org>
-In-Reply-To: <20260430081242.3686993-3-arnd@kernel.org>
+References: <20260428114308.113253-1-clamor95@gmail.com> <20260428114308.113253-3-clamor95@gmail.com>
+ <CAD++jLkU-G38xtzzfAV_otiYuM2G5NHdCdtjFjsy2AjpG22_rg@mail.gmail.com> <CAPVz0n3h+zWi-b-ZTLqwXR-9JNGcUgVodUgo+ywhBfK-UDQJAw@mail.gmail.com>
+In-Reply-To: <CAPVz0n3h+zWi-b-ZTLqwXR-9JNGcUgVodUgo+ywhBfK-UDQJAw@mail.gmail.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 5 May 2026 12:37:12 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=tgW74cF_e+4Ak7cV_pUCYo3koqmZ6vNR9SQiUsb2zUA@mail.gmail.com>
-X-Gm-Features: AVHnY4Kta7CTuYHDE7Wgt7oimq4LNXS-PqBiYhrkb4K1P_cfZhJR-Ui5oKw0IfI
-Message-ID: <CAD++jL=tgW74cF_e+4Ak7cV_pUCYo3koqmZ6vNR9SQiUsb2zUA@mail.gmail.com>
-Subject: Re: [PATCH v4 2/3 net-next] p54spi: convert to devicetree
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: netdev@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>, 
-	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
-	Bartosz Golaszewski <brgl@kernel.org>, =?UTF-8?Q?Beno=C3=AEt_Cousson?= <bcousson@baylibre.com>, 
-	"David S. Miller" <davem@davemloft.net>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Eric Dumazet <edumazet@google.com>, Felipe Balbi <balbi@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Johannes Berg <johannes@sipsolutions.net>, Kevin Hilman <khilman@baylibre.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, 
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, linux-wireless@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
-	linux-omap@vger.kernel.org, Christian Lamparter <chunkeey@gmail.com>
+Date: Tue, 5 May 2026 12:39:45 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk_SojErY4gxjixzwEF3sfSownH=jBYaoPD2LeoxibhWw@mail.gmail.com>
+X-Gm-Features: AVHnY4KHuhdjhUS5hnVh3matnEBusZqUnHj1GhrxmfNfdL0iJx6VhTo5biYlmW0
+Message-ID: <CAD++jLk_SojErY4gxjixzwEF3sfSownH=jBYaoPD2LeoxibhWw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] Input: isa1200 - new driver for Imagis ISA1200
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 30, 2026 at 10:13=E2=80=AFAM Arnd Bergmann <arnd@kernel.org> wr=
-ote:
+On Thu, Apr 30, 2026 at 11:46=E2=80=AFAM Svyatoslav Ryhel <clamor95@gmail.c=
+om> wrote:
+> =D1=87=D1=82, 30 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 12=
+:22 Linus Walleij <linusw@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
 
-> From: Arnd Bergmann <arnd@arndb.de>
+> In you original code
+> /*
+> * This is done in the vendor tree with the commment
+> * "Duty 0x64 =3D=3D nForce 90", and no force feedback happens
+> * unless we do this.
+> */
+> if (isa->clk)
+> regmap_write(isa->map, ISA1200_HCTRL5, 0x64);
 >
-> The Prism54 SPI driver hardcodes GPIO numbers and expects users to
-> pass them as module parameters, apparently a relic from its life as a
-> staging driver. This works because there is only one user, the Nokia
-> N8x0 tablet.
->
-> Convert this to the gpio descriptor interface and DT based probing
-> to improve this and simplify the code at the same time.
->
-> Acked-by: Christian Lamparter <chunkeey@gmail.com>
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> 0x64 is actually some conversion of duty cycle, you got this accurately.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+I wonder if 0x64 =3D 100 is simply 100% duty cycle?
+So the value in this register can only be 0..100.
 
 Yours,
 Linus Walleij
