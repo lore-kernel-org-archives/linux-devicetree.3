@@ -1,95 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33A6429838;
-	Tue,  5 May 2026 16:42:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 721B749251F;
+	Tue,  5 May 2026 16:45:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777999375; cv=none; b=ozjWPPSQalXo0nnVqyz+xfL+HlWxZ0eQ50165x2UVlyq7Me06nm4A8inOYfshbNQqucK895d08hIoyjqSzoOiXcrdub0vZ11kg5ULjT+CLcLTdmXJlQGt1pfxu9z3U3s1V2KFn36t65LOeNYOwYyEendBlPw7RIpBJrlZg9OvDk=
+	t=1777999529; cv=none; b=MC6+GSSzor4+Y1vAAsUcA3S1GZT7CuOKbaUVsxPguuyU2hmhKfSZHDNmbn0865N9L6dM3V2AkIWubhnIPjrmjHWDY3pfkwIRlbqlfpvuprEb7wojHoMgeOty12BZ6V33V+Y+8rl5g8/rnTBykYPx6rWnzicXNO677rAwaP0cfY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777999375; c=relaxed/simple;
-	bh=/ST3POmUMHpr3+tcwM9JD54cfRb54w9coIuMU0yzs70=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O8hFO5DFeVVhB9Xz4l1BmnoCbFECxqIhkmAcVz7RY1x7aee6+ZzpUawpzsMkjE3+f5OAqkeZ4uzFKN3OZJIjWpd1EMHS4y3xcPb8omdkdl/W11XkjYOiiatOZO/O3bALELjefhtOvunTBd+b5wzfc6OKixbo/puYQugxqqef3FE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oQV8x5Z6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777999529; c=relaxed/simple;
+	bh=ZL+x5JnSYricNTQBlCdvNn1Bd+MbOL2DnOKdr0McMoo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tsG93peYnT0e8lyInlKbp0M9S9jBZckeS2TdXuopa2CLUbv5KTS5VhNQM7vUemobXEe35UMzddDKupzzvpM0f6LHxKk3Vf7Xygw8V0HlvUETWjQ3xqaKYu1YqK+PEqLs3WKxfWt30aOgtqgEhpPgOkAf/tLDTsD5mC1mCS4bBkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=WHnmpUah; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oQV8x5Z6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28395C2BCB4;
-	Tue,  5 May 2026 16:42:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777999375;
-	bh=/ST3POmUMHpr3+tcwM9JD54cfRb54w9coIuMU0yzs70=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oQV8x5Z6wWRo4fgRVwQik/KgBI3JxnJMpMgww/lhGRfvZ/dKirsFDQtw2LSPW9h4P
-	 4ucQT1ilLHvEZXgwfibjABRb674+UsPgdl2kvG7D2o/4nRFd7pLw0hG+FFT2ZsaWbA
-	 u0QKNpIxcfX33bQr0kHM0hTTemwhMDWB4iya+s43fk6edm/T/KeU3xjAeqmMbUVETp
-	 DTlY0yGw2Zl1h+p6CQqtkZAQ7I6EgtEWNJmjQMlLz+ikEgcloxf1lLNU8LeXdpJmUe
-	 db13gSn6r0mhXFGUCIY/dlfo0SJwv1/S5rbR2xDl+j/yn4UAkjWSSLMz+DV0/T9YqT
-	 q0NGRGpVOhfxg==
-Date: Tue, 5 May 2026 17:42:51 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Josua Mayer <josua@solid-run.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jon Nettleton <jon@solid-run.com>,
-	Mikhail Anikin <mikhail.anikin@solid-run.com>,
-	Yazan Shhady <yazan.shhady@solid-run.com>,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: soc: renesas: Add various SolidRun
- RZ/G2 based boards
-Message-ID: <20260505-reusable-hastily-a014412c267c@spud>
-References: <20260503-rzg2-sr-boards-v1-0-8545677f93ca@solid-run.com>
- <20260503-rzg2-sr-boards-v1-1-8545677f93ca@solid-run.com>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="WHnmpUah"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:
+	Subject:Cc:To:From:Reply-To:Content-Type:In-Reply-To:References;
+	bh=xuaZ+lu/0oOjq7MzxlekezwgJbuBqAkQmbRBgUbItoQ=; b=WHnmpUahTQD2zbx3pbPMlCuQiO
+	W0Zxi4E+3fdR/BrPjI7J5Yywfj7P2KuNhSV5f4Wta+KSEPWpTcn49K/wIdra8z++l/p6e6DazCGBE
+	i951cdIz7W5MLojlC8Br+NS+qVxzvlQjKQiqPj4R9XbwXgyV8IDgdVdPdHZO5Y1QzVTJ+b6qThaTq
+	WojXAhJxDz71+F4M0dlssocoOc3lEVgQyJ22I4yYlY6zu7UpQeHw8g0TY7Eb0LNjlCXFRz3DDcAyw
+	zCsGVs8UdPpPTs+rh5ADdy4dWQ8eqjwy8QBdd0YJtwOiK9/DK8TxPVe7EQU4YWsNhEmIDz2zpQutP
+	wbWatNnQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: gregkh@linuxfoundation.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	heiko@sntech.de,
+	linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jonas Karlman <jonas@kwiboo.se>
+Subject: [PATCH] dt-bindings: usb: dwc3: Add compatible for RK3528
+Date: Tue,  5 May 2026 18:45:09 +0200
+Message-ID: <20260505164509.3254707-1-heiko@sntech.de>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="g06tqCVkPwAgzTSP"
-Content-Disposition: inline
-In-Reply-To: <20260503-rzg2-sr-boards-v1-1-8545677f93ca@solid-run.com>
+Content-Transfer-Encoding: 8bit
 
+From: Jonas Karlman <jonas@kwiboo.se>
 
---g06tqCVkPwAgzTSP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The USB dwc3 core on Rockchip RK3528 is the same as the one already
+described by the generic snps,dwc3 schema.
 
-On Sun, May 03, 2026 at 01:17:58PM +0200, Josua Mayer wrote:
-> Add bindings for various SolidRun boards and System on Module built
-> around Renesas RZ/G2 family of SoCs:
->=20
-> - RZ/G2L SoM
-> - RZ/V2L SoM
->   (shares PCB with G2L and has very similar programming model)
-> - RZ/G2LC SoM
-> - RZ/G2UL SoM
->   (shares PCB with G2LC but programming model differs largely)
-> - HummingBoard IIoT (RZ/G2L, RZ/V2L, RZ/G2LC)
-> - HummingBoard Pro (RZ/G2L, RZ/V2L)
-> - HummingBoard Ripple (RZ/G2L, RZ/V2L, RZ/G2LC, RZ/G2UL)
+Add the compatible for the Rockchip RK3528 variant.
 
-Missing signoff. Content looks okay.
+Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+---
+ Documentation/devicetree/bindings/usb/rockchip,dwc3.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-pw-bot: changes-requested
+diff --git a/Documentation/devicetree/bindings/usb/rockchip,dwc3.yaml b/Documentation/devicetree/bindings/usb/rockchip,dwc3.yaml
+index fd1b13c0ed6b..0554dbc4b854 100644
+--- a/Documentation/devicetree/bindings/usb/rockchip,dwc3.yaml
++++ b/Documentation/devicetree/bindings/usb/rockchip,dwc3.yaml
+@@ -26,6 +26,7 @@ select:
+       contains:
+         enum:
+           - rockchip,rk3328-dwc3
++          - rockchip,rk3528-dwc3
+           - rockchip,rk3562-dwc3
+           - rockchip,rk3568-dwc3
+           - rockchip,rk3576-dwc3
+@@ -38,6 +39,7 @@ properties:
+     items:
+       - enum:
+           - rockchip,rk3328-dwc3
++          - rockchip,rk3528-dwc3
+           - rockchip,rk3562-dwc3
+           - rockchip,rk3568-dwc3
+           - rockchip,rk3576-dwc3
+@@ -135,6 +137,7 @@ allOf:
+         compatible:
+           contains:
+             enum:
++              - rockchip,rk3528-dwc3
+               - rockchip,rk3568-dwc3
+               - rockchip,rk3576-dwc3
+     then:
+-- 
+2.47.3
 
-Cheers,
-Conor.
-
---g06tqCVkPwAgzTSP
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafoeCwAKCRB4tDGHoIJi
-0nUdAQDx/iZXnu6bfWlDm644EkJZMUSRDcoz8vD+tuy/NsAtsAD+Kh5NsdW8wbct
-wq87fDe4qMkekK8dUGyw1+eSfVjT/gs=
-=wLhG
------END PGP SIGNATURE-----
-
---g06tqCVkPwAgzTSP--
