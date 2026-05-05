@@ -1,80 +1,80 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57AF3335555
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:05:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD963385A5
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:05:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777975515; cv=none; b=bWJo1U8fPrdSt4ctHimUUOx8ZniTwzJJfIhMcpfQpKtgFX71eIGfKfxX5f1cevFfzi/PgTQm2XUDREQkFvVmOvnX4hX3vatHh20H4B6CosgnCI2AulcaWVqBDMtwGhQevl77U1Bxx7Eu5iu/fQ0cG3BLV0ZdJg+8OBPYJA8f5rM=
+	t=1777975518; cv=none; b=QQHyeyIbmS9V+UCZEATS0ouuwZTADP8JHfsRQzlI7NZQcAM1dnm0krsfBMeAdoC7U6D68+SWDgg+PQ7qooRZficGV6SkLExzisl2aOo7ZWPmLU1mVuFigWPolJsfePPDeazXdCVleuWxk8CtGNdeYmmwM91o+sqaHTJshMn9hUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777975515; c=relaxed/simple;
-	bh=85ZMPLGpxoRpy2f+r9DYTWj94EYD6Y1LmgoIzYUd+t0=;
+	s=arc-20240116; t=1777975518; c=relaxed/simple;
+	bh=w8wS3TNv+cxAx8RC/W+dKZDyufaRvLTdI8fYMN2ideE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ATm1KYO+afqoObk4hdyaFw4ABiXEqu0+09vlJuD8vFrBaCgw93ybEa7pfoh4yZWjrmzUmHZsCDAk49PD70ToCpj50fcMU2xqqr+nzrZNr6NEK0Ge7067xxy9yGr/bol74IJy/lO38tqV+yQJmNX//QM7kP2FbLstXUQNEkX7t6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=x4WeLat1; arc=none smtp.client-ip=209.85.128.42
+	 MIME-Version:Content-Type; b=fKUp0GHB2hhkC4wGs2WVGU5zdVIp4FB9IWu9bCCk4ctCsrsA3WM+MAibqnUCTNe/jjNRQCh3UEfVzpRaKqoSvQ76xhNA7GknABkqJPUn6A2hMIHaZ5P3NXjiodCTHumEo8Ag7Sho7GuzyOLoJqMzqt+RC0Bgg9slI6tTnTz9Jzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=f3XXgmj+; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="x4WeLat1"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-488a14c31eeso37808255e9.0
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:05:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="f3XXgmj+"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-48a7fe4f40bso53624025e9.0
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:05:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777975513; x=1778580313; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1777975516; x=1778580316; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PDcU1VfHbCGuJTy56GX4ox0vXLw5tdTcv15F5Q8EwE8=;
-        b=x4WeLat1U49eluxR/Zvl8zQxcAcnqlQB1mNh1wB8q9hUMv2UcoCIb3Zxp8/WcV3m0m
-         Q9FvUSx9SYXpIioy0YPH3qz+MNB3/FCt9P9pNpb8CYkzbZxnaoKryiUGkpUBBT1eWrAL
-         09gAqjHKT53s3vm5q1dGMlumGlU4JvIPkBqqTqcY0vq6K1SHdcJkZxb1IY/bIaww+wv2
-         8ei/mXZbnTa4GxCuvfIHo0kOXnhniqQIFAU6GbYzwArsIA/k7M2zYm0UzR4mD0NBrpn6
-         V7XtOrpuRPCj33LRorWFVLOiEgU+0nDoPTLfPX1HlnbHi3vjfL7d5pAB07yvANgTPfc4
-         e5vQ==
+        bh=GlHVQCxd0yBU+/mNTY+khRLm9HzXPlkgRkNoBEL+zto=;
+        b=f3XXgmj+m+2WAk4f1ZbCizDLktTfpN6lxRHtOVaCO4UXBd1jVYz4XZrmiUBVApqQvE
+         m/IIsi7K9kPpw8rZUOWZYRWa6al0aydv5akh0GHLHD02w+qlhZeL9F4p5PStWAllwGyl
+         QlX0p+drEBqNBbDh9JtbN21e1DXUWSVjo6xF93FmtyITPnJU5nURvLrPDgPZVQGssnr/
+         jdBl+SBAcns2IYatUzKUGWHnHK/JxSSvnKWrmCPKBtuAFUq0fH5m5RW8/ymP4kV9Pt60
+         aqX6SYJ1OXI/b9s5Gyg2+umSa7S8vudSYuixZgBIwhRuM6+/RTJ96jx9suQZBlBxgs15
+         NyNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777975513; x=1778580313;
+        d=1e100.net; s=20251104; t=1777975516; x=1778580316;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=PDcU1VfHbCGuJTy56GX4ox0vXLw5tdTcv15F5Q8EwE8=;
-        b=loQ7qfcDv3uD/GsAtqX9wW4ILPEJAypxnXeB6NiVzsmRU5f8YLIB5r6au7pMNH30hK
-         NZPh8FfqzsLiUj+PmNmY33vtdo1HlSOrT6CS+bmpf3GvEoQYLm/0/FzKPJeULlBLAy+c
-         pGoMuTkp8NQsn6d2B/Whv60x1vnXvXYmqdCMbpREYbmljrJmXd7D9yhjo2+Q/a6jjW62
-         tO4V2nlNgXZkY4DS7TSr+3mCottDzf50FISoJ6/AM7AZHxifNPfDd10/wT/5GPjB9kSi
-         qutTiHxDR7lRm8jADA3D/ea3KpT+cwSJflODiT9BNi34z7/FPjvZn47vx3uH1GAPlObZ
-         ptAg==
-X-Forwarded-Encrypted: i=1; AFNElJ/tfTExDafAGqLInivSCjbP6+r2E4Vf2CfKjQyI4NasfYY7GcYKxFqWFkmUqz1Wp7g/fzY8Id+coZo+@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx4yuPRbUVnvNMgxkGpXly4Ws02r+qo/lPbKC/pIqHGw40ojJL7
-	cgRcc9TvOfDykfS/McD3Z8npFS4xZnrpyt2OKmmOAmFSC0N1qfiLsqnxyGNGnlan7TM=
-X-Gm-Gg: AeBDiesjtq03MMVf9cZetLrcEWzukHB1TRMJzVEqhvJUnO+bu35EHCy2reqjZK6GKzJ
-	nrTfCD+HV6Dt5n+qWJIyrxA/wUjovOBtNF9mc28fZ5jVloFu7oIkczaCjB94aQcwNxRcpydkruw
-	DwzpsCqrKeJr1LbHp9ec6aWiiDoN9PvRKWfzW8lir0caNNkkAvU3eVSjxLKriyvYaNGZpUIYZMe
-	dQUXCbG9gbqdV9tVr5xrveejJvdZldCqKKXZ+wqHubcd2k/go8GmUWLHPDqC7i4lnQ/eotKKRzL
-	N+FwCWDYtIBH+sOBzHYK2uJv7M4+C624csHwcoUDAFH1xjWCFjXVgQJbhvK6ZL699gVkwo7z6ni
-	HeST6zeLdl1+VP8X/PRTiJLC6365uXVUMw+BMAZ96il0mSSbRfrq4r7a5uHz7QDD2661JdWWuVR
-	CUx4MCIykLkTVBVVX3n35UKWvfJRI7DCoy+BixkoYb9WwgMr61gaDtTm0kbRNAY6NFWw==
-X-Received: by 2002:a05:600c:c082:b0:48a:5821:5ff2 with SMTP id 5b1f17b1804b1-48a9887190fmr152119415e9.8.1777975512645;
-        Tue, 05 May 2026 03:05:12 -0700 (PDT)
+        bh=GlHVQCxd0yBU+/mNTY+khRLm9HzXPlkgRkNoBEL+zto=;
+        b=VQa8fltmwGIv67zCgvPuiZMCwfmDxEgLfSuqvAakRktjfv9RldDR+nqKDI5b+RG64k
+         cLQv1un7iF8v969zUbyKWi8GxOT5NnNac1Nl3Qp3Ie7Buhv61mfJ9xh8miJmouZ3di4r
+         YsR0jGyJdrPhKJL72pI/ZTv9tHFTEpbItTqonWkj1SxdAKn5RCtgf37b3XfhsRG6Hb05
+         r6UUPjbUbqHqWJd8ScQr15D0ZvnX4gADu6JAZbPmSJXIaLjyVmBgYoTS29+nEo7ZHz8x
+         PKmwIthjoJ8PbvFItXT4yB9hzjpkcrlkpvzlONYE+3tK3TFeOCb49dlJTKw+CN3Q7QK0
+         rpVQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/N4YWs51vzeE7nLWPROy2PZszXZvcxCfda7XBoSuqRnJXqpn4oZyD/gEHFE6VefwuD+On14bMKOelr@vger.kernel.org
+X-Gm-Message-State: AOJu0YywxV0Np3cRQI/vSsvvYWn6j6KRJkcfUXiFyhpcDEQZOE6kRFPx
+	3FrVQmNudyjU2ZNBHN7a0HAmUQf3S41dkcUNIrcR7lvzzz06E5Yewr6aDYV9VEmDYYY=
+X-Gm-Gg: AeBDieuY8leIiBqE1y/eLiaK1P2kANAc5+jnyoVTmOtdovPJWnJx+aJt2+qsiCn9JWR
+	e7EvTf+XgvJv2X8pzTDxkfl1WiU6baN0MX8oGyAuOhJnhggat5+fpBQgTIZOx4cHgalzBZbNAzk
+	P4d+pOFL/w74665ygSDNY4hcfLtE4+W/wqeLF3/UveOEgdvdtkJ3Edjl8TPgfEXe6FQRs2dAt8r
+	FK13+rjfRISGm+SNe8qt0hfSjcE1ShJIt00JrGSHuEVcYJITUfGJZQnh5pJfY+MMVpJPQnONeA5
+	BQkc6Kf2FHVcAmxKyyz1muobTx9LApG0weP9wxrP0tsVyDurk/daN/v6g+IPK055JMaJyjfepPP
+	vB5y7ADpXBh+i4LEosYRvKNtSsbKFVvqnu+o3GYuooMVGGjE5c+0Gi4BeT9EWSkkfbwI30yEJNv
+	WLWvKzMbx7/0K3iz7PKKK4LzY+8PwqFqvJJbTeGGFpaJdfAfl+Jv9Ck+4=
+X-Received: by 2002:a05:600c:859a:b0:48a:525b:e157 with SMTP id 5b1f17b1804b1-48a9865f870mr157244835e9.13.1777975515504;
+        Tue, 05 May 2026 03:05:15 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a820c8556sm381856295e9.4.2026.05.05.03.05.11
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a820c8556sm381856295e9.4.2026.05.05.03.05.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 03:05:12 -0700 (PDT)
+        Tue, 05 May 2026 03:05:13 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
 To: Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Stefan Kerkmann <s.kerkmann@pengutronix.de>
+ Conor Dooley <conor+dt@kernel.org>, Aaron Kling <webgeek1234@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260407-panel-simple-startek-upstream-v1-0-76721696655f@pengutronix.de>
-References: <20260407-panel-simple-startek-upstream-v1-0-76721696655f@pengutronix.de>
-Subject: Re: [PATCH 0/2] drm/panel: simple: Add Startek KD070HDFLD092 LVDS
- panel support
-Message-Id: <177797551157.290023.14211642204638721298.b4-ty@b4>
-Date: Tue, 05 May 2026 12:05:11 +0200
+ linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+In-Reply-To: <20260426-ch13726a-v7-0-554247c569e5@gmail.com>
+References: <20260426-ch13726a-v7-0-554247c569e5@gmail.com>
+Subject: Re: [PATCH v7 0/2] drm/panel: Add panel driver for ChipWealth
+ CH13726A based panels
+Message-Id: <177797551275.290023.313213958679206999.b4-ty@b4>
+Date: Tue, 05 May 2026 12:05:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,15 +87,22 @@ X-Mailer: b4 0.15.1
 
 Hi,
 
-On Tue, 07 Apr 2026 11:31:15 +0200, Stefan Kerkmann wrote:
-> The Startek KD070HDFLD092 is a 7" WSVGA LVDS panel.
+On Sun, 26 Apr 2026 23:39:36 -0500, Aaron Kling wrote:
+> This driver is based on the one by Teguh Sobirin [0], cut down to only
+> support the AYN Thor bottom panel.
+> 
+> Due to [1], the AYN vendor description patch has been folded into the
+> AYN QCS8550 dt series. Which means this series now depends on said
+> series and it must be picked up before this.
+> 
+> [...]
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/2] dt-bindings: display: simple: Add Startek KD070HDFLD092 panel
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/9252742eeb74853cdcb7972eb2aa39fa6385752c
-[2/2] drm/panel: simple: Add Startek KD070HDFLD092 LVDS panel support
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/247e7480c13e77079b71e783c478fc7027974161
+[1/2] dt-bindings: display: panel: Add ChipWealth CH13726A AMOLED driver
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/889898e011b281e77f2ae03c32246000daa3ef26
+[2/2] drm/panel: Add panel driver for ChipWealth CH13726A based panels
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/3ee01b8647b5ed894c8a18aafb4ea51b4fa05ccf
 
 -- 
 Neil
