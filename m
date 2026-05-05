@@ -1,71 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6426739934C;
-	Tue,  5 May 2026 08:53:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01FEE2F290B
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 08:59:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777971194; cv=none; b=uYGgEkj8PGPCAvbVsdLS03ZQW0eloYRw0XG/cOOJiWQCJd5vQ3Cw4E9H470NNmCh8cJC+eAdv+OLVeAIEvAKZxp1ggVoObsev9/xA8xTH2UzsSsOQ1BRan0f/xWrBtRsS0al8USP75OIR2YTLA0Zy59Pa3CbpummO9jL/a9EE0c=
+	t=1777971561; cv=none; b=JMXp+Ui6ezOCzVO++976gSLb5mUU5lQiLOcttZwTtT9Z+PdM+rymy82l0A4nrTf/nQnOCbdkUnrEW31D1FFMDAeDVNEnt6vNwIiaVF8E4EV51Bh9t2rfKfAijagv9hPYjlop4t7TLqDi0CdfuF9mVdnVkrW6/9ADcelyB2JPazQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777971194; c=relaxed/simple;
-	bh=+fxw3GWOaW5i1Rt7AYvW9ueNOp4s3QpM81hQC4XSmKg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gUOkno8VX/EUn6I/USX+OY9Ofvdr+IEauuCbwY9RBOFnS4TNFTy5G8SZ6AMHZkJuDhwgrKnMX7eHFZVx7lnjQSPo3PmqAdVhnNl1wuEMV9rGBoK7niwF4RC+zK3H8XZ3T4JSh8/b/jPqw6rN01bR10ffa91eYBYoH7X622y5ZgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C7v3zufe; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777971561; c=relaxed/simple;
+	bh=CHfzsbBBWkt442uo449ObgtnuSTM8h9Xz+UeThmzFOg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UKMhYtCjtJ1yWE8WK3Ba4gyngVjDL3MSaOKyZK49fC8ztfT5dpt5MyQakIHbTppbsXrF/r+Przh2bs9czeY2wd2408SSecjKdWJdA5xxkiAQoo+0PRMuCkHExCviHmzo2aTF12g1gHi/He4bHMIHMW9p8rey0h8ZwAVyqgeiV3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gAd/ep8C; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=OGTbNZVA; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C7v3zufe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4D2C2BCB9;
-	Tue,  5 May 2026 08:53:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777971194;
-	bh=+fxw3GWOaW5i1Rt7AYvW9ueNOp4s3QpM81hQC4XSmKg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=C7v3zufeAcj0HCHyboRNBPRPoEypDLgZ2/fsqe4kAY29sPi9yK78XL9yn1B8PnWn9
-	 XXmwuDJrzUFP2sYuicTnATn8FnlXBUc03JW06Gdg1PTzjqf8Jza1c696aXvq2ckCfJ
-	 0TSTgA0TY3wilxC51M7CnsoeTMMKtaRZ7vFdo+PnJCT0ETVPKAhZOnVT9GcQ8oPfiv
-	 Ps/qO69DBOwnyZB0OAzORt/hKBoPQJaJZIS1dYtGc2tMO+WRfToapd60Ndm0qlUmc5
-	 NIEai3nXm8hs0WI5oiLUi13dazLB7qFj1HkC+5kD7+C5KeTnyejHlP2H+y+yOwwIxy
-	 acp8eDQLHFnfg==
-From: Yixun Lan <dlan@kernel.org>
-To: spacemit@lists.linux.dev,
-	Conor Dooley <conor@kernel.org>
-Cc: Yixun Lan <dlan@kernel.org>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Vivian Wang <wangruikang@iscas.ac.cn>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] dts: spacemit: set console baud rate on bpif3
-Date: Tue,  5 May 2026 08:53:06 +0000
-Message-ID: <177797117437.466549.17292861658160797583.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260430-reword-overstep-3be08b7eab25@spud>
-References: <20260430-reword-overstep-3be08b7eab25@spud>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gAd/ep8C";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="OGTbNZVA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1777971558;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=F0r85uYEBvFZwjw3nY1w+QDsZrIZzp0BkVyYOYWi2dY=;
+	b=gAd/ep8CUNH7HQwq8zUjoU7MeyNPlL6R4xPaaiV3HAQq8fi/pAHNW7rhwHYc+jGxovA+uF
+	giaTaxTFHFFks0NPoyadeXRkM5t3Z8png268IMxGRzWwHfZDDadJePFDaN8zzdCI9bwSiC
+	O53+kdG7zTrA0dGBT9QwLROC9OzBrTo=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-379-JLnpZN8cMyGFWm-IRF7WZA-1; Tue, 05 May 2026 04:59:17 -0400
+X-MC-Unique: JLnpZN8cMyGFWm-IRF7WZA-1
+X-Mimecast-MFC-AGG-ID: JLnpZN8cMyGFWm-IRF7WZA_1777971556
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-48d035e8593so12934275e9.0
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 01:59:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1777971555; x=1778576355; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=F0r85uYEBvFZwjw3nY1w+QDsZrIZzp0BkVyYOYWi2dY=;
+        b=OGTbNZVAbvXa0QCpzGF/gEd1atRftGjJVX9OniclUCDeDPa7vxtlr/RAgg7DuJkzgy
+         GfD6vMwMjCk0T2G+e3EEavpbEsUJbRlgulmg2vfLouNsDwV054jTkRlGz9DPz0xTJQNa
+         yXcciymXL4/9Qh2BeCA5Q/R8cGs0jMZhS/TbG+bs5KiZloB6194W/zwIfobTSgK0eVpG
+         oaAJ4IOfr2paYH85vjhdOMb6EMrrOZ7kl6hgk3Ns7BRJbE5NtgQzAhVTBz1xKNcUP294
+         PGuF1M4rTT1G49ngdsSEz6BFaDCe1piheWYhB68UFz4Wnt8OkW0o/eaxpPuWav1zP0wD
+         3BJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777971555; x=1778576355;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=F0r85uYEBvFZwjw3nY1w+QDsZrIZzp0BkVyYOYWi2dY=;
+        b=jC7BP7FWYyuwlx3DC8S32ab6FWYKL3kNG+sNXw0VXrndZn64ygHuF0tVYyWuwmh4by
+         gRf3y5TTbFfTiGQ6kvXi/UsFtgYrJYVsd6tVMcP901FzJzA7T8ovwpePbrW7jDzz8Bv/
+         zl6U21owuqLz0DKsZD3PlKBx5X82jwzeM2mUOY5WqctrkbWrSIFZcXdkv80zTIHZ12wT
+         GoDmN5y4nNmGuIkS6ef3NCxJ0qZWi09af5Y+5q+r1CatmI8EOAi8By+qKi1sKLar2dBq
+         yZCCRsFAYBwqbUUTPhJvYTKOSWFzb3v83kFXbOsOi1cgOurAci9ltwZ2pKqsWnbIkKCe
+         2l+A==
+X-Forwarded-Encrypted: i=1; AFNElJ98Y5qZiwlkvXqY1cT/COgLfOXy8sKo+zeRDP5JZCKqZw4kZdkToc/Kq5U1SWTfi2lQQV9M17GqhgUu@vger.kernel.org
+X-Gm-Message-State: AOJu0YxjKCEDddocFrocJCBdnIHaJugcyeutFUnXs+0gLdQReGOX5bqg
+	TtEcX1aMN7po9D2ZkU4DDQ6oyB0PIHI2R2xv9k/yg/jHAN5uZ3e6xNqS26lH0pA7O7NlbS7QXx/
+	aweOqZlY5Wox+DgKTLJvJprvkl79TWUwZSRFRWF27iWSja0NpnpfcIFElWVufdJGynAxVMkk=
+X-Gm-Gg: AeBDievpKOLL56iFh3bonYp+EmHUyJzli6RlseNFF5MYuSqpgji8aIcYZiWIt+VToVu
+	wXoVufRl2oY09O9mHA4lTCcJa0Q/AEDRYPYPqbGa8vpyDF53NYaopFd55Q3tdZ0ti1TlB0ngeab
+	ayXpE4hjIOJcdJsuC/hVAoFRgxpLRkn2JDYLOyMYkRvsEdq4RUlQCmgX9zKfoSUEu6YR5iLpKhj
+	6wqyN5oV9tDhbvK20uBnphsKRaUSLOYeY0qlT1QBGPKTeJ/5ktZ428UqRzw7nn4C6zwb+rflGqn
+	tU7n22+sj9FbQX5qA0sN8v1rYBwZlivjBzwwzA1x84Jwgc4M0p22pU6SSvwIxx0TzSnGz2L4d8Q
+	TOK644ZHVNJtvpang9eUjCRB3jqzZBAkSZPlWS6aKts/sbSE/XKOCFA6hSpkWKzWVeO8=
+X-Received: by 2002:a05:600c:5308:b0:48a:5565:ec3d with SMTP id 5b1f17b1804b1-48d03b401f5mr161071195e9.22.1777971555614;
+        Tue, 05 May 2026 01:59:15 -0700 (PDT)
+X-Received: by 2002:a05:600c:5308:b0:48a:5565:ec3d with SMTP id 5b1f17b1804b1-48d03b401f5mr161070775e9.22.1777971555194;
+        Tue, 05 May 2026 01:59:15 -0700 (PDT)
+Received: from [192.168.88.32] ([212.105.155.47])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48d184ed3b0sm12329145e9.34.2026.05.05.01.59.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 05 May 2026 01:59:14 -0700 (PDT)
+Message-ID: <6324783e-b5c8-462d-8cf7-f6cc9c01ea89@redhat.com>
+Date: Tue, 5 May 2026 10:59:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 net-next 04/15] net: enetc: add basic operations to the
+ FDB table
+To: Wei Fang <wei.fang@nxp.com>, claudiu.manoil@nxp.com,
+ vladimir.oltean@nxp.com, xiaoning.wang@nxp.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, f.fainelli@gmail.com,
+ frank.li@nxp.com, chleroy@kernel.org, horms@kernel.org, linux@armlinux.org.uk
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev
+References: <20260430024945.3413973-1-wei.fang@nxp.com>
+ <20260430024945.3413973-5-wei.fang@nxp.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20260430024945.3413973-5-wei.fang@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-On Thu, 30 Apr 2026 19:52:12 +0100, Conor Dooley wrote:
-> Because the default console's baud rate is not set, defconfig kernels do
-> not have any serial output on this platform. Set the baud rate to
-> 115200, matching what is used by U-Boot etc on this platform.
+On 4/30/26 4:49 AM, Wei Fang wrote:
+> The FDB table is used for MAC learning lookups and MAC forwarding lookups.
+> Each table entry includes information such as a FID and MAC address that
+> may be unicast or multicast and a forwarding destination field containing
+> a port bitmap identifying the associated port(s) with the MAC address.
+> FDB table entries can be static or dynamic. Static entries are added from
+> software whereby dynamic entries are added either by software or by the
+> hardware as MAC addresses are learned in the datapath.
 > 
+> The FDB table can only be managed by the command BD ring using table
+> management protocol version 2.0. Table management command operations Add,
+> Delete, Update and Query are supported. And the FDB table supports three
+> access methods: Entry ID, Exact Match Key Element and Search. This patch
+> adds the following basic supports to the FDB table.
 > 
+> ntmp_fdbt_update_entry() - update the configuration element data of a
+> specified FDB entry
+> 
+> ntmp_fdbt_delete_entry() - delete a specified FDB entry
+> 
+> ntmp_fdbt_add_entry() - add an entry into the FDB table
+> 
+> ntmp_fdbt_search_port_entry() - Search the FDB entry on the specified
+> port based on RESUME_ENTRY_ID.
+> 
+> Signed-off-by: Wei Fang <wei.fang@nxp.com>
+> ---
+>  drivers/net/ethernet/freescale/enetc/ntmp.c   | 203 +++++++++++++++++-
+>  .../ethernet/freescale/enetc/ntmp_private.h   |  61 +++++-
+>  include/linux/fsl/ntmp.h                      |  44 +++-
+>  3 files changed, 305 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/freescale/enetc/ntmp.c b/drivers/net/ethernet/freescale/enetc/ntmp.c
+> index c94a928622fd..4ed8d783a9a2 100644
+> --- a/drivers/net/ethernet/freescale/enetc/ntmp.c
+> +++ b/drivers/net/ethernet/freescale/enetc/ntmp.c
+> @@ -1,7 +1,7 @@
+>  // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+>  /*
+>   * NETC NTMP (NETC Table Management Protocol) 2.0 Library
+> - * Copyright 2025 NXP
+> + * Copyright 2025-2026 NXP
+>   */
+>  
+>  #include <linux/dma-mapping.h>
+> @@ -21,11 +21,15 @@
+>  /* Define NTMP Table ID */
+>  #define NTMP_MAFT_ID			1
+>  #define NTMP_RSST_ID			3
+> +#define NTMP_FDBT_ID			15
+>  
+>  /* Generic Update Actions for most tables */
+>  #define NTMP_GEN_UA_CFGEU		BIT(0)
+>  #define NTMP_GEN_UA_STSEU		BIT(1)
+>  
+> +/* Query Action: 0: Full query, 1: Only query entry ID */
+> +#define NTMP_QA_ENTRY_ID		1
 
-Applied, thanks!
+Sashiko noted that the above comments looks inconsistent with the update
+code, where NTMP_QA_ENTRY_ID apparently uses a full query, and 0 just
+the entry ID.
 
-[1/1] dts: spacemit: set console baud rate on bpif3
-      https://github.com/spacemit-com/linux/commit/24c12ca43b12c104389d9a159207d0b25779d0af
+If you have to repost for other reasons, please fix this. Note that you
+should reply on the ML to sashiko reviews ruling out invalid comments.
 
-Best regards,
--- 
-Yixun Lan <dlan@kernel.org>
+Thanks,
+
+Paolo
+
