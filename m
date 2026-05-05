@@ -1,61 +1,63 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953AF1DF27D
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 14:54:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C93147ECE8
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 14:54:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777992851; cv=none; b=luigqnUgx7cMqoUA999dIE2yHwNNMPvUgoYwyv7nvtkW45hzAMP0NbJjFtM9r1XHydlwV271SF6V7ChNsL0AgGt3tUY2pWk5IvYdG5JNRiIqNSAYWmnEGLYJHstl5Xg/par2f992nK8Z5Vg8WWZXVw9WmFW9Gevk+gjKO5IGygQ=
+	t=1777992853; cv=none; b=G+lTiT5OZOOIaBOt2/jt8E5hSd7YrR/H0ARiG2cL+gAM0Zdb5HWlHrA43YpOgnZ1MhqzJ0nbB1SlTlcqrzuLUnBUzjV1cCgOQoo6N/CSFVTY7ST+sML/zcqliPrT0WjScg25QT3VSQuaNWcyn6FY/6Yybx1BGyV+WeKvyVcRue8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777992851; c=relaxed/simple;
-	bh=iMU3DpYEt6DQC0zDMTljEwIwuTHDhTEQdQhp/5OALpU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tsjxJFW71v7yu5ZCrgHvWHQPjG/d+KLJtGZ9X21H065/xWQUCk/pOtx7OFqBN0Ax6OPg0NEim4tTIgI2tFmgZ4Wf6kXpfzKkb1i+mUzX9LWSivYJSr7Ca2xyRt1wF19g8ZPvuFHQRk8wn8Z6xPykCy25Gvhy2GaAbsFR0hLrF40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HgGo7my5; arc=none smtp.client-ip=74.125.82.174
+	s=arc-20240116; t=1777992853; c=relaxed/simple;
+	bh=8FIj2vwHaCPknQp78twOz1Zth9N9Ie6U66NEqjKkem0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SzkECqXQiDiYESoXyQFM6UAy3bfKtWC2QZ7CMfaHmImLG+BUlxtUf7hrLvdw8R5iOFB+Cw84oa9V9VSml5cHT2ujavn9Zx6fxP3E88KMO4+pxkSOke0yijkx+jotRBqSH1r8k3ytBJDMdCw149K2cJ7KKOf4BQX8RAdlqRzIWe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hFahGCvn; arc=none smtp.client-ip=74.125.82.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HgGo7my5"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-2ba895adfeaso5765671eec.0
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 07:54:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hFahGCvn"
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-12dfee30612so3349956c88.0
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 07:54:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777992844; x=1778597644; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=cEuY3xrF+GY6CciBovDXE63XwQObE7NxSwqBErA+J0g=;
-        b=HgGo7my5o0BqXb26qc9zqOraHkN5p1vCrViAuvliAOGR0dFWTG/OKkBbbQhvpH3lro
-         SjwDvbtMLvYUwrYvmgRV8TNyZH/R2610YXa1hmxswvRghp981BaP/+PkiWKO6EjNxhEc
-         yEb5gqXcowgawUOiZPN1e5S6H5HM0PmLJ2VF8No2rCh7XBEqu7NppFi69sI3oulmJwPg
-         YjS5LNcyWWzz9dpt8savMWgT0HiZ5/ohTczTCAjuGDjP9hWYmfbCh/jna1QUbvN8a6Nk
-         QnnSvJPGzVbaiKqHwkfblGxydeDW9tGAl5Xh4jJGde8rtjCXLecBeOpTKDLVlfFh+9z7
-         Z85A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777992844; x=1778597644;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1777992852; x=1778597652; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cEuY3xrF+GY6CciBovDXE63XwQObE7NxSwqBErA+J0g=;
-        b=gO+y6I8+v3RFBFxjXmqkBTv9Vdb4bAxPff9FFQdR5xdUpLSFZPBY3axhpuhGhNTz2e
-         rQtjdVgglj6KTtS/zIoAIFC3pij14dNd/cEjsKt+fr0ACyXI5nyKlju19cCe+wbj/9XQ
-         bthCjYs8hh7B330XGPZq93UgnSsQ/0Qg486NzasWKy79ePRqmlFawjb1L09wvoDcQKNa
-         M4SBFLtE2J3qjNkmS5+f4MdRSAltJ0SdEfy+LUkbOWfDNOn+73nI5v9P7oA4Jn+nlCMg
-         JqWlS1kDyGRCjyeJtJFvD3IF+JEbwfSI4mJ6kR2ZIfMYGpvIiBpY5zXp2J/9+5LEMF8T
-         8TCA==
-X-Forwarded-Encrypted: i=1; AFNElJ9mX9fy73QGuJJd8iE+ok4rhvnVH3FedqnnrstJP9wDNB+VsSGr109M2XcEh9qqzU47cN5ibcFO+V/f@vger.kernel.org
-X-Gm-Message-State: AOJu0YyCZfig+thyf+UWxzRGf9jOY4xusG5OJ2VLkDaOjucuL8Ayh5gx
-	yEmBEHTqR9xtmGalksnBHPQ8sx02jxMz52qZJbzXoA0haTypMF1THyb1
-X-Gm-Gg: AeBDievivY5LWiJx/U2IqIabu7kZCmy1WvdKrOeQnhBIZM8JCgpb9iGeZxl5yrduysN
-	14nRzy84yPUPYEuHEI4nYZ2WaPQBnUk0k7hc+vu6KwF1+vFvEjko2pQW3MH0NH1UVNQbMT+UwZL
-	Bj46KvGL32WTh4HTu5/9IzS51rmRMv8pAVlWmwKqVRmra9ghpPzfp38PtjSBfmUT5+4LEP/3nGK
-	fM7yD+0v5tUAyeKSf85hm+QOSUBsA4ssKuYiTtLmD5KpVUMZ7JA3wEcA0ecmW3RkEvkRbriB5oO
-	A3FSdYC6GEO6vrLhjfu7CKdIhn3bMO3sufA+DOhvLwzNbR+47wyj7SpcflVmmb/6+xGmrf35p6v
-	l27sZtaLkXjNEOMFrA6cRTzVzhK2Z054UAHAj2c6WduhIvNNbQ/qSq4BHOhxxmrZrhk11ZOko/k
-	3HlYp6xXN6NpK9BMLNvmaNm7YUaBshdco=
-X-Received: by 2002:a05:693c:300a:b0:2f3:986d:2d01 with SMTP id 5a478bee46e88-2f3986d9397mr2342431eec.19.1777992843487;
-        Tue, 05 May 2026 07:54:03 -0700 (PDT)
+        bh=M8TztFWsmlUN+/A2WKJC3c5pIrurPNUURxJ+wMTWoKs=;
+        b=hFahGCvnLxN32J58cZGlvUKcFbS1cHifSNSI3xU79CfcqaoZsqGQe3XbHZEGdAHOhv
+         wUjBb4rLSbyiZmzy/BMnifXGir1WR2CYXAwFMJxaZBjCYNtwY+6mowNuFuhD2UqrW3Uw
+         Rz2T0eCb45fgxOjxAaXQI1quh82GUb3nBXeX5pboE3P16fHLshuXb7gM7R3GCqsitHEH
+         8P8cx769ZgfpN58oTdm98JeIK90Afe+MExOSfkI5HUXQO5+SEl1Srwm4YqnP3gGm1Q1y
+         MfraYfP7QQ2avslYCL7AH6+ytHKS8TTT502SK3rDmPE3T/FZyriy5/eKW5Zx3kkCiEaL
+         Dm/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777992852; x=1778597652;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=M8TztFWsmlUN+/A2WKJC3c5pIrurPNUURxJ+wMTWoKs=;
+        b=XBRSgRhXV1C3o7eVSoOu6w0bpbexU7l7XE1xKzLqSY7+sTFqWzhBqUlLwUBKX74WTN
+         5Zf5Pmvz2MQEb3CscHr5110xnxAn3YqvqLwkCEuW+AdO+DFHcATcskzDs2BdWMuOJrXE
+         quc4qfk0wLCyAboimxfVSBfIPVe4AJU8J5uDO1NdogClRbpTXuLA2KVyisIgQzOTm3J0
+         +bwWomL6foi9/KovSrUYo8mjJfKSGpZFMeawJBx4vyv/fOCIB/ypkMoWQQFZEoOnXVON
+         F++1B1cMQK5c1EhwVOr88Iq60sR1MDebjyP11YbiTt2J9cSZmtsrNX2IieTtw2jIw/gv
+         drSA==
+X-Forwarded-Encrypted: i=1; AFNElJ9zqLh27tPAF2OL5CfIpGof5duPcknAXP+4NCd7BSMXMHEDYJZhcd9FS5/MBZjqnyjTOIHhnsbcWjKz@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHzkc3oYAPuDM9YTThodPiwiBHvYjZ9SNPVgSzFOThcAQD0UT4
+	zCVxSarwp2yWToRDDqRMUMN4/GALT5BfICmbrqCGjBLat1m6cxTyk0tF
+X-Gm-Gg: AeBDieuC6HfZvmsvhyD9EvgVvtqN1eaLW944HY/pi4wgb23HcL03OuAErkJo5KSAND/
+	j6o2sVwpIK0btjZBvEpFZODDnNiPPU+W/6NW5dw/zoiZqMptObm0CJ2XQ9TLu91wR6nc/SCLL3b
+	2dTHHjY88bjvQL/BfhoSxQbN1AdLkC05XAGsu5XZ5JduKVapXFxcmywmt7zMD8qP/VhwBsm7TlH
+	+RGy11VdiJMxyWngtfSa0Cmva0KohdlTXmdSllqZ9nwcDuhP1DGaQHhx8bF8MdfJhPmeFaNGPzN
+	RM2nOqFC61GVnkIJU/lv5vK6C+hKFzl06kNoIyqz5cPDJOic/s+hSUOflpxefn5O1eqyCHBiB4E
+	Hm6hTch38DY5zCfw7y3Gz4KGWZxdv6RzQ8SfW3ZbKLuSonqsdTwOfGpxFeSjHPtXWY0ZT8lkpi3
+	Dn6cnyirrtsUUQ932DBlNbVFNqQBzNa3vhlXv/Emk73Q==
+X-Received: by 2002:a05:693c:2b0d:b0:2be:6f30:f2f9 with SMTP id 5a478bee46e88-2efb9f7e8c7mr6665716eec.26.1777992851627;
+        Tue, 05 May 2026 07:54:11 -0700 (PDT)
 Received: from arch.localdomain ([2409:8a28:a59:55d1::1002])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f3bf67cf8dsm5793545eec.6.2026.05.05.07.53.59
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f3bf67cf8dsm5793545eec.6.2026.05.05.07.54.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 07:54:03 -0700 (PDT)
+        Tue, 05 May 2026 07:54:11 -0700 (PDT)
 From: Jun Yan <jerrysteve1101@gmail.com>
 To: linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
@@ -68,10 +70,12 @@ Cc: lee@kernel.org,
 	pzalewski@thegoodpenguin.co.uk,
 	daniel@zonque.org,
 	Jun Yan <jerrysteve1101@gmail.com>
-Subject: [PATCH v4 0/5] leds: Add powerdown gpio for is31fl32xx
-Date: Tue,  5 May 2026 22:53:49 +0800
-Message-ID: <20260505145354.1267095-1-jerrysteve1101@gmail.com>
+Subject: [PATCH v4 2/5] dt-bindings: leds: leds-is31fl32xx: add support for is31fl3236a
+Date: Tue,  5 May 2026 22:53:51 +0800
+Message-ID: <20260505145354.1267095-3-jerrysteve1101@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260505145354.1267095-1-jerrysteve1101@gmail.com>
+References: <20260505145354.1267095-1-jerrysteve1101@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -80,48 +84,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch series primarily adds the powerdown-gpios support
-for the IS31FL32xx controller.It also includes a fix and
-dt-bindings updates derived from previous attempts [1].
+Add an additional and optional control property for setting
+the output PWM frequency to 22kHz that exists on is31fl3236a.
+The default is 3kHz and this option puts the operational frequency
+outside of the audible range.
 
-Patch 1 and patch 2 are based on a previous attempt [1].
-The driver-related updates in patch 2 have already been merged.
+Co-developed-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+---
+ .../bindings/leds/issl,is31fl32xx.yaml        | 25 +++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-Patch 3 and Patch 4 add support for the powerdown-gpios property,
-which corresponds to the SDB pin of the IS31FL32xx series chips.
-This pin is used to enter and exit the hardware powerdown mode.
-
-Patch 5 fixes errors introduced by previous changes. It impacts
-the brightness control function of the IS31FL3236.
-
-[1] https://lore.kernel.org/all/20250723-leds-is31fl3236a-v6-0-210328058625@thegoodpenguin.co.uk/
-
-Changes in v4:
-- Fixed compilation build errors due to missing header files
-- Link to v3: https://lore.kernel.org/all/20260429154449.730880-1-jerrysteve1101@gmail.com/
-
-Changes in v3:
-- Replace shutdown-gpios with powerdown-gpios, follow gpio-consumer-common binding.
-- Link to v2: https://lore.kernel.org/all/20260428023401.330308-1-jerrysteve1101@gmail.com/
-
-Changes in v2:
-- Fix $id mismatch with file name in dt-binding.
-- Link to v1: https://lore.kernel.org/all/20260428003412.322032-1-jerrysteve1101@gmail.com/
-
-Jun Yan (5):
-  dt-bindings: leds: is31fl32xx: convert the binding to yaml
-  dt-bindings: leds: leds-is31fl32xx: add support for is31fl3236a
-  dt-bindings: leds: leds-is31fl32xx: Add powerdown-gpios property
-  leds: is31fl32xx: Add powerdown pin to exit hardware shutdown mode
-  leds: is31f132xx: Fix missing brightness_steps for is31f13236
-
- .../bindings/leds/issl,is31fl32xx.yaml        | 200 ++++++++++++++++++
- .../bindings/leds/leds-is31fl32xx.txt         |  53 -----
- drivers/leds/leds-is31fl32xx.c                |   8 +
- 3 files changed, 208 insertions(+), 53 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/leds/issl,is31fl32xx.yaml
- delete mode 100644 Documentation/devicetree/bindings/leds/leds-is31fl32xx.txt
-
+diff --git a/Documentation/devicetree/bindings/leds/issl,is31fl32xx.yaml b/Documentation/devicetree/bindings/leds/issl,is31fl32xx.yaml
+index cb4741dee12e..25ce67940c88 100644
+--- a/Documentation/devicetree/bindings/leds/issl,is31fl32xx.yaml
++++ b/Documentation/devicetree/bindings/leds/issl,is31fl32xx.yaml
+@@ -21,6 +21,7 @@ description: |
+     https://www.lumissil.com/assets/pdf/core/IS31FL3218_DS.pdf
+     https://www.lumissil.com/assets/pdf/core/IS31FL3235_DS.pdf
+     https://www.lumissil.com/assets/pdf/core/IS31FL3236_DS.pdf
++    https://www.lumissil.com/assets/pdf/core/IS31FL3236A_DS.pdf
+     https://www.lumissil.com/assets/pdf/core/IS31FL3293_DS.pdf
+ 
+ properties:
+@@ -30,6 +31,7 @@ properties:
+       - issi,is31fl3218
+       - issi,is31fl3235
+       - issi,is31fl3236
++      - issi,is31fl3236a
+       - issi,is31fl3293
+       - si-en,sn3216
+       - si-en,sn3218
+@@ -37,6 +39,12 @@ properties:
+   reg:
+     maxItems: 1
+ 
++  issi,22khz-pwm:
++    type: boolean
++    description:
++      When present, the chip's PWM will operate at ~22kHz as opposed
++      to ~3kHz to move the operating frequency out of the audible range.
++
+   "#address-cells":
+     const: 1
+ 
+@@ -60,6 +68,22 @@ patternProperties:
+       - reg
+ 
+ allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - issi,is31fl3216
++              - issi,is31fl3218
++              - issi,is31fl3235
++              - issi,is31fl3236
++              - issi,is31fl3293
++              - si-en,sn3216
++              - si-en,sn3218
++    then:
++      properties:
++        issi,22khz-pwm: false
++
+   - if:
+       properties:
+         compatible:
+@@ -116,6 +140,7 @@ allOf:
+           contains:
+             enum:
+               - issi,is31fl3236
++              - issi,is31fl3236a
+     then:
+       patternProperties:
+         "^led@([1-9])+$":
 -- 
 2.53.0
 
