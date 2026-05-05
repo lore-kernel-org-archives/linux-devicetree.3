@@ -1,101 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D226B480955;
-	Tue,  5 May 2026 13:48:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1DD47ECD6;
+	Tue,  5 May 2026 13:52:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777988903; cv=none; b=VnFOShKXjetS2AVCMvYD08ze2cJSr+Y6nXa9EtUQsvXFVZe6nOvHD5zvcjres4keK9n0Rg3GHweX0eONOvodQN2MLDFYt+jq6ui2I3NCM3YoymKyMEWlWNgrO9XrXXWLAaHS5SVkOI8xmbUyBZNwJuEnlCJlwCRITlTAgQVjZJM=
+	t=1777989130; cv=none; b=RRUp/KMe5ngzlwYBJH/HTGm42LxIGjlSWjD3zDVanxUVAk6llP1Qk5sYHo0ICAPxglEdK8iXBumOQu0zN+zLyqUqDZCaGcmwCNzh8M7XvgzdHKgbcjVghLMeR+GE4sT7ZQqoAiu4PjHEOMOK35ophD9hOuywCQ7tGglsUVKXifA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777988903; c=relaxed/simple;
-	bh=xIvBj6hevsJHw2j0MVGJKKmBTt9OLC6z57UMc3zYwzU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XEn713nnjrHQ+yWNvcEygtPRaVk+wCWNwPhj4Mcq+or4u1cfmQEScaURdSO/PzamSMrMUQW5xiFaEOvsKTklrjdS8JibhcAVlzO0yl8lTxLYWiWJsCKoEOHEcVgZmzwvNNske1+cGnE93ssUXN94sITvX5b5kaoAJ4NZKHIhxlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sYnaEkUM; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777989130; c=relaxed/simple;
+	bh=ZWIongSi2sHc0KkDpAKN24XGWS3ZeBA/lRfNTAcOLT4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=PZYEgWu3YBygdSixWp82uumkp4uJzVF9AyOOdZPdpcyiNvN0AAiUwfo3ufbSg9rUAN/FX9Ol3BVJ8c06DOvMHRpZAads93fc0lzmnOY6cuwAIDPe4appXZE6EVkA3LHZLe+Wslo6UkOYCR1sp8ynFGrSMHcyxxZU5LSLyzgaON0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eq5VI6mt; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sYnaEkUM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C6F0C2BCC9;
-	Tue,  5 May 2026 13:48:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eq5VI6mt"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 44E8FC2BCB4;
+	Tue,  5 May 2026 13:52:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777988903;
-	bh=xIvBj6hevsJHw2j0MVGJKKmBTt9OLC6z57UMc3zYwzU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=sYnaEkUML//txH/xY59GXC0uSPaRY0h5JQtdz1MN64IW+rD4HFt1weJ1OkRQsKMMM
-	 wkb5JMDu8l+GzstMWOJVFBU/DZZLUnYOrsyhCFg7N5nkLtvKiRU1dOLrU9FyfhOkLr
-	 Mm2xuoq+ksc0hA5o+onsmpp0jY6a9bpMTIoU2LOP9almZ2/gXE8NeybrGW3aouiKgk
-	 agWBWMjyckMu+A0W/yyfbnqAnLtOiVoFMFxCA+4VQKippPpnXEvJiFFsyLOcVWi9Vk
-	 VEyP10YmDucOsmIUy1GEBlhlFgzVJ77/KlQj02lOGu+GA7wNzNadpGBr/fg8hxyw2i
-	 uxQjPrkT55wLg==
-Received: by wens.tw (Postfix, from userid 1000)
-	id 6D8D25FF56; Tue, 05 May 2026 21:48:19 +0800 (CST)
-From: Chen-Yu Tsai <wens@kernel.org>
-To: Maxime Ripard <mripard@kernel.org>,
-	Paul Kocialkowski <paulk@sys-base.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej@kernel.org>,
-	Samuel Holland <samuel@sholland.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 7/7] arm64: dts: allwinner: sun50i-h616: Add video engine
-Date: Tue,  5 May 2026 21:48:11 +0800
-Message-ID: <20260505134812.408316-8-wens@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260505134812.408316-1-wens@kernel.org>
-References: <20260505134812.408316-1-wens@kernel.org>
+	s=k20201202; t=1777989130;
+	bh=ZWIongSi2sHc0KkDpAKN24XGWS3ZeBA/lRfNTAcOLT4=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=eq5VI6mtZXu4eRP43OoaLYy16/viZ+OFOC9+dvAWoC/MhpKcdDBakRCC8xcWUmh/+
+	 rNm4xAthULbOBOLiDNMvVN2UGNJSD0wpFtWE8VwFWaYagxwwH/bQScfvhTCJKowr/S
+	 u+u3w+duwgk1QhNhl3F9Oux6ERoPQXXAO2kbYYpcyvipopRprCF19Efamc892d/DDD
+	 TjeRxJ0PQfCQzHQyHQZJVetH2ZtgPVA1FvNYLYKZaFRPG7Kl4fUM6ynuCa4Dn1hOSJ
+	 3yrZGmh7lARHnlLxeUXcuNOTluz0ilABI88UY37UEoOHTU/jk+f4Xjev4HiOmxoavp
+	 bFDIfosPndk4g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 31F9ECD3436;
+	Tue,  5 May 2026 13:52:10 +0000 (UTC)
+From: David Wales via B4 Relay <devnull+daviewales.disroot.org@kernel.org>
+Subject: [PATCH v3 0/2] Add initial device tree for Motorola Moto G (2014)
+Date: Tue, 05 May 2026 23:51:40 +1000
+Message-Id: <20260505-device-motorola-titan-mainline-v3-0-8fcfa280e5d0@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WOywrCMBBFf6VkbSSZPnXlf4iLmE7akZpIEotS+
+ u+mVRBXLg9czrkTC+gJA9tnE/M4UiBnE+SbjOle2Q45tYkZCKhEIQreppFGfnXReTcoHikqy6+
+ K7EAWuTFV1ZgcygoMS5KbR0OPNXA8vTnczxfUcbEui55CUj3XB6Ncdp8Y5P9io+SCo2xkrgQ0W
+ jeHloJ3Lm6d79iSG+ErLAX8FUIS6nonoa51XQj1K5zn+QXJJjkLMQEAAA==
+X-Change-ID: 20260404-device-motorola-titan-mainline-ff668f32562f
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, David Wales <daviewales@disroot.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1418;
+ i=daviewales@disroot.org; h=from:subject:message-id;
+ bh=ZWIongSi2sHc0KkDpAKN24XGWS3ZeBA/lRfNTAcOLT4=;
+ b=owEBbQGS/pANAwAKAW1jV4FG9KFmAcsmYgBp+fYDtsh6c0D6MTX5TZ/FaZu87Vt6A22Yz/mIU
+ pkVNHm8hPWJATMEAAEKAB0WIQTXikd3yUPmOPWSLPJtY1eBRvShZgUCafn2AwAKCRBtY1eBRvSh
+ ZpyoB/9rIGoZkdaH4kIEMPWptwYrA3OXiR3YgdAcqATr1gaKXt4jfQkwUPzQ5ZsgyES3d73vyuu
+ n/FqWlfT7L/b3az1GytJtLUmY7Ii2toaBWBaZHMsRrjdMOjcysa9mSQXpMcxewTv1DiAQTmR3X6
+ NCb7yi2jnKtBtt/l39jhX/z84iKPU9JeW2dbrJrovR5h8kF9Sx451Ycc0NOvpxuXJZOK3dbu7D6
+ uag9kYJsitqshOU99+WOu6yd9cJhjVSRMP3nOoDdS0dy/5F3IHt9rJHmr6oBt30brFA5bATPWcm
+ XPbetOSCgC12auRfRjLr+pn1rQzP2MhzlFNs2VjFFx8HFuQq
+X-Developer-Key: i=daviewales@disroot.org; a=openpgp;
+ fpr=8F5BAFB15444A769DC3B61684022B817D275D037
+X-Endpoint-Received: by B4 Relay for daviewales@disroot.org/default with
+ auth_id=737
+X-Original-From: David Wales <daviewales@disroot.org>
+Reply-To: daviewales@disroot.org
 
-From: Jernej Skrabec <jernej.skrabec@gmail.com>
+The Motorola Moto G (2014) is the second device in the Moto G series,
+with codename motorola-titan.
 
-The H616 SoC has a video engine, and two SRAM regions needed by it.
+This series documents the motorola-titan, and adds an initial device
+tree.
 
-Add the video engine to the dtsi file.
+These patches have been previously discussed and merged into the
+downstream msm8226-mainline fork:
+https://github.com/msm8226-mainline/linux/pull/18
 
-Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-[wens@kernel.org: Add VE SRAM region and commit message]
-Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+Signed-off-by: David Wales <daviewales@disroot.org>
 ---
- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Changes in v3:
+- Add missing trailers to commits
+- Link to v2: https://patch.msgid.link/20260502-device-motorola-titan-mainline-v2-0-c791277c740a@disroot.org
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-index b116d3c12881..6272c9a947a3 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-@@ -175,6 +175,18 @@ crypto: crypto@1904000 {
- 			resets = <&ccu RST_BUS_CE>;
- 		};
- 
-+		video-codec@1c0e000 {
-+			compatible = "allwinner,sun50i-h616-video-engine";
-+			reg = <0x01c0e000 0x2000>;
-+			clocks = <&ccu CLK_BUS_VE>, <&ccu CLK_VE>,
-+				 <&ccu CLK_MBUS_VE>;
-+			clock-names = "ahb", "mod", "ram";
-+			resets = <&ccu RST_BUS_VE>;
-+			interrupts = <GIC_SPI 93 IRQ_TYPE_LEVEL_HIGH>;
-+			iommus = <&iommu 3>, <&iommu 1>;
-+			allwinner,sram = <&ve_sram 1>, <&sram_c 1>;
-+		};
-+
- 		syscon: syscon@3000000 {
- 			compatible = "allwinner,sun50i-h616-system-control";
- 			reg = <0x03000000 0x1000>;
--- 
-2.47.3
+Changes in v2:
+- Remove active-high from reg_lcd_default.
+- Add reg_vddio_disp_default, which I somehow missed in the last version.
+  (Assuming this also shouldn't use active-high)
+- Link to v1: https://patch.msgid.link/20260423-device-motorola-titan-mainline-v1-0-e1813a028cc8@disroot.org
+
+---
+David Wales (2):
+      dt-bindings: arm: qcom: Add Motorola Moto G2 (2014)
+      ARM: dts: qcom: Support Motorola Moto G2 (2014)
+
+ Documentation/devicetree/bindings/arm/qcom.yaml   |   1 +
+ arch/arm/boot/dts/qcom/Makefile                   |   1 +
+ arch/arm/boot/dts/qcom/msm8226-motorola-titan.dts | 357 ++++++++++++++++++++++
+ 3 files changed, 359 insertions(+)
+---
+base-commit: 028ef9c96e96197026887c0f092424679298aae8
+change-id: 20260404-device-motorola-titan-mainline-ff668f32562f
+
+Best regards,
+--  
+David Wales <daviewales@disroot.org>
+
 
