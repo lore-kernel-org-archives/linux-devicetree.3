@@ -1,141 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFAD2DCC1C;
-	Tue,  5 May 2026 06:36:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1612874F5
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 06:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777963010; cv=none; b=izG60XhWQLq3dHtCA2FjraPy3w5PV+mejh5inelE7rIpBXCmPqghguihVRGs4GJOrHbLLiRm/0LYjHETxAK25IYpTA/XZOGEYkSuRTBPCk3Yu4fwqYLokODhVZqZC0i16nzFSFqghrOJlUFObSc0dXj5E9Xb5SlaWa1P2HL8AuI=
+	t=1777963222; cv=none; b=GAFDwXbSftmLk/sUVaSlixF6FXijrgyEHdO5iJPO2qcVdN88jIxy/YJgGxRQD06H7ksSLyy31+54gvx91wQfA/Lj0h8sJ6KS43+xK91OH3oVOtztbExCwZEc3VELgW6ffutclZGKfxcSBmymOEZwSGvElmQLh0ik41S0mf2ozKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777963010; c=relaxed/simple;
-	bh=TFqejn3IsKpgwjK1Z2L0fPwG+m/H57fk/+s9Zz00kQw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j4spojX6YnHEwrb0d7iGPMuf6BmnZ2VG47UHGBYhtUbZp+dBjv5HLB6HkefZW/MjR3NIH5UtOCAKv8MIcsru6cQxcfuecf8if5I8QsHw1GXiazEY02xsVVSFra3M6Oz5kzzYfuD0FpftstduOVA63KEK0eQNHLiHzubvhrMXDjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZtJNlD1g; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777963222; c=relaxed/simple;
+	bh=Oisny6SnkrUNZeLcjZJ1jSrF2FlNzVUV1uHu+sxvunw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=Fy5yVX5DYRLuBX3r5Kpc6pgJ53ItDt2cZY2Z1fO6cDzySzBakmYNj7Q6hFuSGOR2E4vg6pOgWHSkKGo/l56i4lG+PDCYO+p0qG5bbagvYtX7GAI41WAy9+2ek/mns8LKEY7adVaHg0kXOxOTM9sW02Vf+uESjnCIgcs/7KAfcGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=QYBWBLdT; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZtJNlD1g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EB56C2BCC7;
-	Tue,  5 May 2026 06:36:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777963009;
-	bh=TFqejn3IsKpgwjK1Z2L0fPwG+m/H57fk/+s9Zz00kQw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZtJNlD1gP5UTFF7E3XRVex68cbvPUFAtSI0ibdDgLfDF40rX4XRZFZQLNg/DgHC+8
-	 8ZBzi52k9sTkVUKDuZ1kgVKzNrSBsDFPa8Prw3DCWcpRzFiwyYubaQv3x0U8FA7rei
-	 5QJHEctJm5XiD3S8QNSxl1fKVnVwK2INCqUm/rnQNIB/idr+LcqD5mpZsuvuiED2KQ
-	 BBevOhz4ISTmkmiwI9LMP0LwnQvJ6bv9YaoAznU9k9iLGFciAIECBHcdSzl4lLVVc8
-	 pEXvEIjgTzNfe1xhXzD8JuAg0TPbaWdn/S1E7hTo+d68vTMqES3Smqrr4VX0+P3IhN
-	 iC/aNUuoY4N4w==
-Date: Tue, 5 May 2026 08:36:47 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>, 
-	Bartosz Golaszewski <brgl@bgdev.pl>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
-	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>, Larisa Grigore <larisa.grigore@nxp.com>, 
-	Lee Jones <lee@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Alberto Ruiz <aruizrui@redhat.com>, 
-	Christophe Lizzi <clizzi@redhat.com>, devicetree@vger.kernel.org, Enric Balletbo <eballetb@redhat.com>, 
-	Eric Chanudet <echanude@redhat.com>, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Vincent Guittot <vincent.guittot@linaro.org>
-Subject: Re: [PATCH v9 5/7] dt-bindings: pinctrl: s32g2-siul2: describe GPIO
- and EIRQ resources
-Message-ID: <20260505-voracious-gregarious-stallion-ff6c34@quoll>
-References: <20260504131148.3622697-1-khristineandreea.barbulescu@oss.nxp.com>
- <20260504131148.3622697-6-khristineandreea.barbulescu@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="QYBWBLdT"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-44a044cb827so3322096f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 23:40:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1777963219; x=1778568019; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=W6FO20EYGAs2fwB6e1zerXDAb7NyQnTU9vNFbNdbR+I=;
+        b=QYBWBLdTfedPzOyEpb+4TsW561mAJnZ5UzZ5i4FuxC6CgwddN3Qmx0ot+cQEw1R4Qo
+         8k9VeoQz6CPIGqwwzGwk7fMrNzANKz0Plffrx/np+Wkq7xXFCVIPhX9SC+WrflrhHgog
+         hjyz6D/i4loWZn02h3APfjl7nQ69lchXmP5XAwAiwbLQBZQpOCXvEkh8+zU+mYmx8Nhf
+         d5MA4fbgUTkyhbpgLQUDgOnb0LzBacDGVTBmTMbSyo5qhBHhhpR9rs/06YgXOiM3s4ZE
+         c4GuKHzp1RGacN9/c7ryfyd9jVreRFqnK8pSRB7Y3wtxoE07my5gqi6k59nYP9T8hdMr
+         mv/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777963219; x=1778568019;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=W6FO20EYGAs2fwB6e1zerXDAb7NyQnTU9vNFbNdbR+I=;
+        b=shzYhwb2QJSxHaRQyozryxcdq14HVxd9Hf6nMQ7mYd9hio7RpqSdgo4XipeWHRxnpH
+         eiC8G0JRLFk+dTVcoBrre4aPzfNMnW3fdEBAIpZruexDAbA8AiyELnctPRdMjWLhjr+N
+         WWmpNlSSFhEl9H6cSWA0dxk5YuuxZpCuNql16Ubkump3T163nyFnJSWmf90+mM2fLVaO
+         XYL0IU0XTpgUw7gQwqoGhzRK+BohDGpJwLLqrgp4s8LttT+yH1clTELMNWpA1LrRGyGx
+         DATtGbBXE9AQFiT++GNtC8iNBhaNLEttzM0p1qG4mNA2lzsuXoruZuTQiOjj2AGa1KjF
+         /ffA==
+X-Forwarded-Encrypted: i=1; AFNElJ+t3J22xCcWvJ4sZRYEOXJnkCGP4EIPqEtVFhw/pcSmVxOygmRVAQ/hCr9tqX01HE4d637825JQb1HY@vger.kernel.org
+X-Gm-Message-State: AOJu0YxL4CtaH4O4E7F4plA1pdFbwEcJU8a6sQDKD/P7lX+dqchYh6Cs
+	2mz1nQI+//XV3VfCFyj9TLO+rNKymPwdYZRwBQLXqaIR5toTGiwT5WxyBKwILituMUU=
+X-Gm-Gg: AeBDietOUC917XiO5Ae1mRwvQs2uhT03d7Ysht+p4/ihPUAqIms/XrD6ZMtomshiEZW
+	N4d7yy5TUDi3nhHOKXFzy23zSOuKZa3QHaB8+Pp7e481vflsehJ3NWgPsSlGtn6WqPklH5CRXPB
+	MMSDebJnDvsOTWTnk343/qQBemrfHMpbBY9JtLMQ+KLTzPJN2h0P+4vYs5AK4dbIV72mEnac26W
+	FdtxRD8Ym90CA/nfMRV9ljtPMvxcL8+lTNYkYOaumHV7En2NQ0QToEjaoPDV4fp+rxp9d/Ch9c+
+	p+5p+cm3G/8pEfsKvte0bszszLwL0rKe3uzbnHGrsiDv6a6aAAohcQBFcHYvTaqgGVIjIUkTV3N
+	6JpRaAJXrNNPQpu3C/hblFP/rbrvqyNeP8G3Lvlbolv9iehCYoGMo0GVbjLOG7rRvVeDz+IEs/Q
+	MCmQxL9F7Go+4f5mbfaZ28PDawNwYuzV/L8vxDOYA=
+X-Received: by 2002:a05:6000:2001:b0:441:377f:82a7 with SMTP id ffacd0b85a97d-44bb6d95a09mr22079695f8f.32.1777963218742;
+        Mon, 04 May 2026 23:40:18 -0700 (PDT)
+Received: from localhost ([213.208.155.171])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45055d36dacsm2083055f8f.32.2026.05.04.23.40.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 04 May 2026 23:40:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260504131148.3622697-6-khristineandreea.barbulescu@oss.nxp.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 05 May 2026 08:40:09 +0200
+Message-Id: <DIAJCURQ37FA.1CNEKX6QM6ZO8@fairphone.com>
+Cc: "Neil Armstrong" <neil.armstrong@linaro.org>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Bjorn Andersson" <andersson@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>,
+ <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>
+Subject: Re: [PATCH 1/4] dt-bindings: display: panel: Add Novatek NT37705
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Luca Weiss"
+ <luca.weiss@fairphone.com>, "Conor Dooley" <conor@kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
+ <20260501-fp6-panel-v1-1-e09cb05651cc@fairphone.com>
+ <20260501-yogurt-wise-2a2884e3ec59@spud>
+ <DI9XL1VYYTY7.19IRSM8VIDO53@fairphone.com>
+ <a2444df4-abf1-4b56-8556-7efb238bc677@kernel.org>
+In-Reply-To: <a2444df4-abf1-4b56-8556-7efb238bc677@kernel.org>
 
-On Mon, May 04, 2026 at 03:11:46PM +0200, Khristine Andreea Barbulescu wrote:
-> Extend the S32G2 SIUL2 pinctrl binding to describe the additional
-> resources used by the updated SIUL2 pinctrl driver.
+Hi Krzysztof,
 
-Please describe hardware, not drivers. Statement is not even true -
-drivers do not use these resources, unless you organized your patchset
-wrong (see submitting bindings documents, both).
+On Mon May 4, 2026 at 10:45 PM CEST, Krzysztof Kozlowski wrote:
+> On 04/05/2026 15:36, Luca Weiss wrote:
+>> Hi Conor,
+>>=20
+>> On Fri May 1, 2026 at 5:51 PM CEST, Conor Dooley wrote:
+>>> On Fri, May 01, 2026 at 03:52:45PM +0200, Luca Weiss wrote:
+>>>> Novatek NT37705 is a display driver IC used to drive AMOLED DSI panels=
+.
+>>>>
+>>>> Describe it and the panel in the Fairphone (Gen. 6) (BJ631JHM-T71-D900
+>>>> from BOE) using it.
+>>>>
+>>>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+>>>> ---
+>>>>  .../bindings/display/panel/novatek,nt37705.yaml    | 72 +++++++++++++=
++++++++++
+>>>>  1 file changed, 72 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,n=
+t37705.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt377=
+05.yaml
+>>>> new file mode 100644
+>>>> index 000000000000..1c796599f6fc
+>>>> --- /dev/null
+>>>> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.=
+yaml
+>>>> @@ -0,0 +1,72 @@
+>>>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>>>> +%YAML 1.2
+>>>> +---
+>>>> +$id: http://devicetree.org/schemas/display/panel/novatek,nt37705.yaml=
+#
+>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>> +
+>>>> +title: Novatek NT37705-based DSI display panels
+>>>> +
+>>>> +maintainers:
+>>>> +  - Luca Weiss <luca.weiss@fairphone.com>
+>>>> +
+>>>> +description:
+>>>> +  The Novatek NT37705 is a generic DSI Panel IC used to control AMOLE=
+D panels.
+>>>> +
+>>>> +allOf:
+>>>> +  - $ref: panel-common.yaml#
+>>>> +
+>>>> +properties:
+>>>> +  compatible:
+>>>> +    contains:
+>>>> +      const: boe,bj631jhm-t71-d900
+>>>
+>>> Compatible doesn't match the filename, nor does the commit message matc=
+h
+>>> what you've got here. Sounds like you're missing a fallback to
+>>> $filename.
+>>=20
+>> The last times I was upstreaming panel drivers (Feb 2024 and June 2025),
+>> this was the requested way of doing things.
+>
+> So this was requested that time and is requested now. What is here
+> uncertain?
+>
+>>=20
+>> Compatible being the company and model number making the actual panel
+>> assembly (driver IC + touchscreen + glass etc), while the rest being
+>> named after the driver IC manufacturer & number.
+>
+> So exactly what was asked for...
 
-Nothing above explains why you need new compatible.
+I don't quite understand what is asked for now, that's my issue.
 
-> 
-> Besides the MSCR and IMCR register ranges used for pinmux and
-> pin configuration, the SIUL2 block also contains PGPDO and PGPDI
-> registers for GPIO output and input operations, as well as EIRQ
-> registers used for external interrupt configuration.
-> 
-> Add GPIO controller properties:
->   - gpio-controller
->   - #gpio-cells
->   - gpio-ranges
-> 
-> Add interrupt controller properties:
->   - interrupt-controller
->   - #interrupt-cells
->   - interrupts
+1. Change the filename to boe,bj631jhm-t71-d900.yaml and leave the rest
+   as-is.
 
-Do not explain what you did, but say why.
+2. Add a fallback compatible for novatek,nt37705. IIRC last time it was
+   argued that a "generic" nt37705 driver will never be correct for a
+   specific panel since it's missing a bunch of panel-specific init. So
+   that's why there should not be a fallback to nt37705.
 
-> 
-> Also update the binding example to show the complete SIUL2 register
-> layout, including the GPIO data and EIRQ register windows.
-> 
-> Signed-off-by: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
-> ---
->  .../pinctrl/nxp,s32g2-siul2-pinctrl.yaml      | 107 ++++++++++++++++--
->  1 file changed, 98 insertions(+), 9 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinctrl.yaml
-> index a24286e4def6..0bd341f1e84d 100644
-> --- a/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinctrl.yaml
-> +++ b/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinctrl.yaml
-> @@ -1,5 +1,5 @@
->  # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> -# Copyright 2022 NXP
-> +# Copyright 2022, 2026 NXP
->  %YAML 1.2
->  ---
->  $id: http://devicetree.org/schemas/pinctrl/nxp,s32g2-siul2-pinctrl.yaml#
-> @@ -17,26 +17,39 @@ description: |
->      SIUL2_0 @ 0x4009c000
->      SIUL2_1 @ 0x44010000
->  
-> -  Every SIUL2 region has multiple register types, and here only MSCR and
-> -  IMCR registers need to be revealed for kernel to configure pinmux.
-> +  Every SIUL2 region has multiple register types. MSCR and IMCR registers
-> +  need to be revealed for kernel to configure pinmux. PGPDO and PGPDI
-> +  registers are used for GPIO output/input operations. EIRQ registers
-> +  are used for external interrupt configuration.
->  
->    Please note that some register indexes are reserved in S32G2, such as
->    MSCR102-MSCR111, MSCR123-MSCR143, IMCR84-IMCR118 and IMCR398-IMCR429.
->  
->  properties:
->    compatible:
-> -    enum:
-> -      - nxp,s32g2-siul2-pinctrl
-> +    oneOf:
-> +      - const: nxp,s32g2-siul2-pinctrl
-> +      - items:
-> +          - const: nxp,s32g2-siul2-pinctrl-gpio
-> +          - const: nxp,s32g2-siul2-pinctrl
+Either way, it's different to what I was working on with the two
+examples I gave. Please help to clarify.
 
-I don't get how this binding develops. You were asked to grow existing
-binding instead of deprecating it and now you did not grow it: you added
-completely new compatible.
+Regards
+Luca
 
-Please go back to previous version comments.
-
-Best regards,
-Krzysztof
-
+>> As seen in
+>> * himax,hx83112b + djn,98-03057-6598b-i (Fairphone 3)
+>> * himax,hx83112a + djn,9a-3r063-1102b (Fairphone 4)
+>>=20
+>> Fairphone 5 panel (raydium,rm692e5) was upstreamed earlier and follows
+>> different naming.
