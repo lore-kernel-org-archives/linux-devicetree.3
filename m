@@ -1,70 +1,133 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB10B480971;
-	Tue,  5 May 2026 15:02:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D450480DCD;
+	Tue,  5 May 2026 15:05:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777993346; cv=none; b=LoJqSkutPAWyEpBTl8ag7gLRGwTPhGEGNDl/R80wXq7gjb20mM0UOxkTxNsmT1cMqbtot9d8iKkHY7PJkATptZS88C133CUa0HOxMSfXK4bNasSqQxkoJTWsbITNgo5tD+cWO8ctDk1bnBk2vFHkAepYlIK9PlZKN5gLnpNn3+Y=
+	t=1777993548; cv=none; b=aL+G8LyouKPuXuyBrFrBeNOccdDLkrrLU8cDowu4THsi0ocZcIGca57gfROqBb55qdQ8yFKF7guLEsKKcv1z/1izp0/agSdozouGRlnd+wv+YJMWbBalpjzhfBI34l5/qiHmoemO7rqXvvpMto6BBDVunET5pDEjNLyRVK8eawY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777993346; c=relaxed/simple;
-	bh=D5NM9D45U+HRxtr4zS0rhyXNBvtlLryblFSilZm8AM4=;
+	s=arc-20240116; t=1777993548; c=relaxed/simple;
+	bh=fjhctLjrzP8ABWybAS9/Xz+fkBSmi6e/VKPohchYNGw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SFy+fT1GWafNf30cnCGWqw+9MhK4RYmHx1dIw/2oLwB618IyLQHNHoVdYUnwn5bD9F3ivwrc63J7DjsyC+WUCvupG6jA/xSBjImXesUzDkYC0iYqhSaksek7Ik6CrmsoWf8d1hh8POtLW5+g+Sr91Whs+nfXj8LN9a++hOeA7dk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=D85IxtV+; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=khclFOPjhhMNyyBC/aW65FFbGyTCxdKzzw+NnWdYKN2K+7kZHPc1Q9BKC1hPnbiHoglFihxgtJKF3zM1nq6zmRc6/rnjgc+aJ2x+OZJpb7AqW28lsqcIzUp1cxNeNtkuR9O3whO7KAcOmdhpGFLu/cusudIIzktRPV9IF+UcHdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DldJROvJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="D85IxtV+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=+qiW4xxubIB0MR1bojP/4mlYxoFshGCTX1h3dtN3LIM=; b=D85IxtV+T0xm75lvOV74ujn0fs
-	FpNxV4oHsYQcQCqXOB5aTfzjdGn8BdOX5ag1CfvPMAIE+agsMBIQoO7MBGZRP8OI1OG4dx2mFMNEr
-	4PSkrkKLdUtIhIsFg4PLNRWVGYEaDtA0LalI60SnFoLP4b2Jt9MHvC2zOZn97MummApo=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wKHHo-001U0Q-NX; Tue, 05 May 2026 17:02:12 +0200
-Date: Tue, 5 May 2026 17:02:12 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Paul Gerber <paul.gerber@tq-group.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux@ew.tq-group.com,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: freescale: add initial device tree for
- TQMa8MPQS with i.MX8MP
-Message-ID: <710ae855-0f44-4b2d-8afe-415b30afd37e@lunn.ch>
-References: <20260505063346.1799500-1-alexander.stein@ew.tq-group.com>
- <20260505063346.1799500-2-alexander.stein@ew.tq-group.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DldJROvJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FAE2C2BCC7;
+	Tue,  5 May 2026 15:05:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777993547;
+	bh=fjhctLjrzP8ABWybAS9/Xz+fkBSmi6e/VKPohchYNGw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DldJROvJl+GnItu11wN0UY1H6kpVglyyugjbuNb0x52JurAYJp3+RIldpVzIMIpDH
+	 3UjyLAJ9kK1WNvj3gSQRs3BnPKMtVMdw/w90NVfsApy1YWCtUFAPVxGwQ3YDYGdpt5
+	 UIrav3YWYVCyZv7zW8B2l2uT0XPCZmoqAiHxn9gQMH3Kf+gH++H+nyUfbG+58tXsFK
+	 NcQBpoqwfWIw1c7gT36EjY2QkTAwdEHgq1T/Y5KbgzazK7Q7b8NQPPIlrahhBkUOAu
+	 nkD4JblRwUB+x3kManmAZCtgsYqpt4mYTuvxQ3I0ML9cSjyeSRp3zr9A9W0gOhNf5W
+	 a0cfPTqAE3G+w==
+Date: Tue, 5 May 2026 16:05:38 +0100
+From: Lee Jones <lee@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>,
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Andre Draszik <andre.draszik@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Christian Loehle <christian.loehle@arm.com>,
+	Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	John Stultz <john.stultz@linaro.org>,
+	Moritz Fischer <moritz.fischer@ettus.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>
+Subject: Re: [PATCH v21 08/13] mfd: core: Add firmware-node support to MFD
+ cells
+Message-ID: <20260505150538.GE2661693@google.com>
+References: <20260427-arm-psci-system_reset2-vendor-reboots-v21-0-dcf937775e73@oss.qualcomm.com>
+ <20260427-arm-psci-system_reset2-vendor-reboots-v21-8-dcf937775e73@oss.qualcomm.com>
+ <CAMRc=Mf+-04Zr7jjRoaxTzO3LKSMyQ7DzxJc=dHNSyThEUiq_Q@mail.gmail.com>
+ <c0677503-8073-4940-8eb0-c06b34f843d2@oss.qualcomm.com>
+ <CAMRc=MdxpSXiqAn-8Az4ig4N8TFVdE9psacPVG9J9KehuFnbwA@mail.gmail.com>
+ <d6112b9c-01ea-483c-98fe-b480e78872e5@oss.qualcomm.com>
+ <ce92a493-5016-41a2-8337-d2227cdf760a@oss.qualcomm.com>
+ <CAMRc=Md_OON4cAGcJ=jDu=VY_mw0qa8HPz4VCDxYLpr7JMxLRw@mail.gmail.com>
+ <37ab0178-1c9d-409e-bbaa-832f8075afa4@oss.qualcomm.com>
+ <CAMRc=Mcqa5RMarC+6pVYYvYsuJ03GQMtM=69bQMxyotN1u2B0w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260505063346.1799500-2-alexander.stein@ew.tq-group.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMRc=Mcqa5RMarC+6pVYYvYsuJ03GQMtM=69bQMxyotN1u2B0w@mail.gmail.com>
 
-> +/* GBE1 */
-> +&fec {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_fec>;
-> +	phy-mode = "rgmii-id";
-> +	phy-handle = <&ethphy3>;
-> +	fsl,magic-packet;
+On Thu, 30 Apr 2026, Bartosz Golaszewski wrote:
 
-One of my FAQs: Has WoL been tested?
+> On Wed, Apr 29, 2026 at 6:10 PM Shivendra Pratap
+> <shivendra.pratap@oss.qualcomm.com> wrote:
+> >
+> >
+> >
+> > On 29-04-2026 15:20, Bartosz Golaszewski wrote:
+> > > On Wed, Apr 29, 2026 at 11:46 AM Shivendra Pratap
+> > > <shivendra.pratap@oss.qualcomm.com> wrote:
+> > >>
+> > >>>>
+> > >>>> If set, it would be called from MFD core and would do the name lookup
+> > >>>> and return the fwnode which would then be assigned to the cell device?
+> > >>>
+> > >>
+> > >> Or should we just drop this patch for fwnode in mfd-core?
+> > >>
+> > >> Export a new call in reboot-mode framework as:
+> > >> reboot_mode_register_node(struct reboot_mode_driver *reboot,
+> > >>                     struct device_node *np / fwnode)
+> > >>
+> > >> Use the parent node in psci-reboot-mode and find reboot-mode and call
+> > >> reboot_mode_register_node?
+> > >>
+> > >
+> > > No, I think the reboot-mode device (as pointed to by the dev field of
+> > > struct reboot_mode_driver) should be associated with the right fwnode
+> > > from the start so it should be handled in MFD core.
+> >
+> > Ack. something like should be fine?
+> >
+> > drivers/mfd/mfd-core.c :
+> > +       if (!pdev->dev.fwnode && cell->get_fwnode) {
+> > +               fwnode = cell->get_fwnode(parent);
+> > +               if (fwnode)
+> > +                       device_set_node(&pdev->dev, fwnode);
+> > +       }
+> >
+> 
+> Possibly we could find a better name, but yeah the general idea is sound.
+> 
+> Of course, let's maybe here from Lee if he's ok before sending a new version.
 
-    Andrew
+Send away - I'll review in the context of the whole submission.
+
+-- 
+Lee Jones
