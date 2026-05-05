@@ -1,251 +1,258 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9985F345736
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 09:54:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C6130F7F3;
+	Tue,  5 May 2026 10:01:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.10
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777974885; cv=pass; b=nYpuFecS+eu5pMKTOnA+NberH+iQIHvploarsiHu18UO/3OxRgKp7YiofVn1XJ1/UZ7dDXE00laRB0uoUHyXmH3dwcqbeLilkYbPWSl+Q4vpHXQ1cBdYRTOekW+j0UAo+joR/KUlh4ubeRaO/YGIhRon+k9/ZnDOfBKt9tEBrzc=
+	t=1777975271; cv=fail; b=oVKEBz+aSydw2jRliA7eXQiJMvxl3Y/Q/bsiNBWd0xiWamiZEErhGGinvt0ZtjhWMkpVUNx+kTvW8p3oyw5FPCXym9qqC5NzJe6vAW0O+KTu/lAOVgJES61uNi/u5A6vUKynUxAus2fQQOW+MqFSs4m5xPfVd+/mNl/KyASkk6c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777974885; c=relaxed/simple;
-	bh=E35b9v/9N86s+jnlEC41wZVsmhcr4qcpURavxyfZD9U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=us85BxNf6qD+w0WDSSm2cfPaCiEiUZXIo8N9Z7/kF7CFK7tlipI4ZZuy/A+1iLupRrGxTaG2FGQCNMzjAnMdpMU+xeIdpOkQIpSfjw6I/oQTNPcEIdqd2B9XJvZ7+j7rVTPDU27UvEDu4l9teUTnEsejfzHU7ghhAwtRbZoBQlU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZEHsKYha; arc=pass smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777975271; c=relaxed/simple;
+	bh=KOv2YvgYcI9Mc7LqDJnAC5/stTu4kVkBrvxKcz2X/kg=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=KggPSBx67xfIhd5ewDG5qnrtyAoZJFo+hbTBOfnPoMThqalpVYhnAl0JAYeV6n3ItDkZcDvlZUC/NF4w9KHCG/Oi7zuscSVB9+8n00HICTG/4ndas9a4gCGQCDl+YIX/lq2qWVMUeX74NTqfyt+ESQm1z8lRsiXIZddPLIE4f4s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GiGBLZQq; arc=fail smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZEHsKYha"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-48d146705b4so8970495e9.3
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 02:54:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777974882; cv=none;
-        d=google.com; s=arc-20240605;
-        b=JFii6EkA8vh8jsXn1RRLCEsta/YFODSdhFF1iOGr54pltNImYTicC2MnQginSBYwg4
-         /7gbPjVT9docQ76eNU/kntvacMZF6+41snbi5tngo2MXzrjpXtVZ3AyVGFOQe4Awa1ol
-         Ityjipv+KsV1F9V9tv8A1N3r6J8CZd3+2HXrvfh2veuXdMgrBCmXP3r2BKFVyxKbDC0d
-         aifncVg0XhsPc62U/sq2+o3culO7uwgQL5mXJeLlX5M4Rh9fzDOuzyVsWTKFZYAc/fsG
-         rSCeSxZ4La8KfiZIVD29DrxOj21s6DXSMnflTWiSMmDonBA4+Qf5XqWoJjh/GlhMZTuc
-         W9Hg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/OFVXXRgPbKb/k/EVNaXDuuccfuOclNAixih9iVgxqg=;
-        fh=V6nClAIddMxoLMjJwuTn4CIChXCmAoKolVR4Rkf2Czs=;
-        b=dK/PcgXnQ4W55V9q2nsWzeQM0chBLJDvVfc8QlO4QreZ/0E2+MGCHWChBwAA2CbTJ4
-         HjGEFlqMtnC4K81q3X9S2HGOtSR1leHGzYc7jk6mpQhVp/BhCs3ntw4SPJF7LS/x45Dd
-         udmXOFd1qVB4vNIRqLUJeTkiBzX8AzUJ3WX3NXMVrfzpN20i5m7z+XX0AgeQZ3O8qem7
-         2TKrAFapg7dV/eN3hejaThGJjAe0AF+yJvD9KLe4gJY2Wd3xNyqInliN7fHqxJHAjEIg
-         fszBX13Pj9vztkG4E3DrjI+bi3sJKbEexDTCITusVm+T2/cjIAfHGsTgzjedoU+eK2Fx
-         1XCg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777974882; x=1778579682; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/OFVXXRgPbKb/k/EVNaXDuuccfuOclNAixih9iVgxqg=;
-        b=ZEHsKYha81Il5yhbFlSBZdApQeIN0/u+vgCZx7aHUilChCBH9AGMZflSPaNQimVOQY
-         88cYh887Jm9nWH3PzwP0UMY/M3Zecx9lmweanyrS319w6o8AZ9P7jg8acXRRyLhjClUE
-         VAVuKwroK74wgcA61/JWu6dWI3R0oB8oLCzxgB+dQfSDgF4+1xbMN/bENUw8qolOCRrM
-         NkmuHLsJYZMi9YtW01gRlrkREYQg+knJq/HDrP8TIcs6NirW5hxhSUMZrhsT44sl8XCa
-         4noUOHrRdLp93S5/q4LpNfnphQ/icZGjITewT0u9jN0Va3It9ZLx83zIVVzS/brrQhxJ
-         eShQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777974882; x=1778579682;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=/OFVXXRgPbKb/k/EVNaXDuuccfuOclNAixih9iVgxqg=;
-        b=pYfeWO9YJrlsAVuSYz2cXaNxF9q6EOTk4Shko+61ESkyOcWEeKtpr5EdTSMZjwZ6bv
-         5F2WmN7E3BVdyKiDXeZdLqvCYNDBkC7Nkldedc1LsCD1MDHU4XpQ+rmoXUJfSY8D6F7N
-         aeVc4pNgFSt+7PIX2NP3EY/4bkQEz9lzjJO1wVQFLXPWPisa8OOa4RLU5Qj+QyhwqYuw
-         pzbc1IojqPuWhqNEZwkXMMya4SlNjziK8LuRQFJArNs02ZOlE4xTNQdioyZEekqw+l4m
-         v8jT/2RYKmRyY5ifulydJjgDE0AuxTU1yqn0i+OUazMkXO1+qfnXwhe/RoDnbtVBpXeK
-         QyAg==
-X-Forwarded-Encrypted: i=1; AFNElJ883KdNWO68lH0+guSd1eud7Sr+f/jY0UX9Zd0Rnzs0PPJGFYC0ADRup8Lg5+U1oTvAU19vb8mQGEOX@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyd7rLEcsMJWbUkL9KUwdCVkE2trCzB+gc/4nnGKNFn5fjGsSff
-	A+bXo6e71R35rNjluXo6pdh47xmdwDlniCV4xwz1n4CEorIObEJ+Z70Oz/QMCY0qstUCaZdQao9
-	Eglb8VOqAt8CD4ap7/E7GYkHs0eQbc0I=
-X-Gm-Gg: AeBDievBuX5FsQTApEEmhrrDP14/rvGsrtUYkjtip4eKZ36b1LOEJ2EjbqGDDUIxpOg
-	rzWk6Xp6mvgPraAVV7FKZVDSwHC1y2EsHrDqhk7YImivEf5yEl8YTkuC/wQ3UNUGc9KCww1mKe2
-	Iq42TkoQF2Ngb8ymo1KE8C1iBP21z8b23tZSJSyMJCdNT3wWcWiEMkG5kgu9IeEBW7KL3i40xmy
-	rkh3Tn4VW2ei84aXC601Qr5ZwZtnAB9tZHy1dkQlWFCRhM0iJ2RLU4Uy9zkHwJ/Nfrb0768PSuM
-	mYEJ9pp9hxeOgH+7zgvxfJjko0DNZvROl2AZS6mKITirVRGI3Ckv7b2z7E8SF9iF/ceigS/k6uc
-	AznO49y1sauU8Yw==
-X-Received: by 2002:a05:600c:8b58:b0:488:9bf8:7f17 with SMTP id
- 5b1f17b1804b1-48d18be5b32mr36270575e9.14.1777974881868; Tue, 05 May 2026
- 02:54:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GiGBLZQq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1777975270; x=1809511270;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=KOv2YvgYcI9Mc7LqDJnAC5/stTu4kVkBrvxKcz2X/kg=;
+  b=GiGBLZQqxx1vVAY+CaM7zuKcMEAVfxnIyRpO0rnWlYsb3W2mIpHhDNUp
+   zSTT0Pifbxy1HGFDgVdCZb/D6a4trGcRsYJs/H0vDFLWNMU7bg8ES3rbw
+   j2VUfNMINdeTkR3g1cQQagN0TeABtIGEKc3daxpSma0WXmup8MGYmPdPU
+   c0SfHL2IM8iksN2N5QUvUgIDmSGkPCAXGDoYQPgEE0k4l57yPEeXMu7r9
+   hWTMR6/tGFd2YyTTJ1BXHSrUFOov5PHFYQZrNiu+cBXApkP5/EH8XKDox
+   mMH7n1Lfh66wS9lTHuvrO79APBnL4zHYAGltiXRHoyYYGRXUpKna/dNeU
+   w==;
+X-CSE-ConnectionGUID: vxhH7q2jTl+9ejX9Bks3+A==
+X-CSE-MsgGUID: 8EYkf8L2Ro2evEK35BlBWQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="90214168"
+X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; 
+   d="scan'208";a="90214168"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 May 2026 03:01:09 -0700
+X-CSE-ConnectionGUID: GRWkMiJMRYWigWtoDETDCw==
+X-CSE-MsgGUID: defuzKYoSHuD8rqzg1HHpw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; 
+   d="scan'208";a="259122588"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 May 2026 03:01:09 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 5 May 2026 03:01:09 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Tue, 5 May 2026 03:01:09 -0700
+Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.52) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 5 May 2026 03:01:08 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=k25Eed8EJZgXPES9a5gracXOumGSPlOWtuFSc15J2amoe1WovEmvJlXnp69kU+iXsEtFF+STrsDIfHDNrnJ1cVELJR1Llq2tpFKisarkErMMWoMWfzMoyCg89dO1pKK2DyvqYd1IbE8rcvCnSnEU1QQk7h8xl77XTi2A+qevkDKoNe8cIAHF4h8cF6gvDFrlR2lINkYn+sBowktbGkSIp3+ZJy8ly3GeoT75juTaFXfAz1XEjNOGyu2f8L4J99EXKsmV8ptOmbJ5nNE6m0opw1NpqQFiVFhUUSC0mBz/DiO+hwsKK854rut//Ei5Khqaqz5XzGSNGL/BRlQUBVZ57g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F6fbvhqup9wMLUEhSN4UsM8lPEyFM+Z4Hp5jXuVDtSA=;
+ b=KbDBhrpE2mqMZwI8yL1xdhgcPLUH/CRWNe3Lwlmz3xBM8SkNxuXvpHxQjwrGuFsZx5PqCPhdTKlexJtbw3JC1rGi3ef8HNLijmaBrWMCZ2A/LFlhF2XaFajG/hrpuiPbRAaZDs66bWB5dtA3G9niKRf0EzRp2b7u4yOKd0nksahhjJWjD4NfBDK1xykerTL+KHFbcdp8PfAf41UMXiQeBlE2N93hpmrkuEBkfmL3XrTWPLJaI+mzdCYTQNqBmk2MfS8AOEIIvb6yjZCEo1wZFkDTGpA+Z3XdamfBrF/Fz3TWVQuDg0G6aFmZxCSQdWcoItVhWviLvzSsYshBoXVSkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com (2603:10b6:208:419::15)
+ by SA0PR11MB4559.namprd11.prod.outlook.com (2603:10b6:806:9a::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
+ 2026 10:01:05 +0000
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456]) by IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456%3]) with mapi id 15.20.9870.023; Tue, 5 May 2026
+ 10:01:05 +0000
+Message-ID: <5ebaeea1-215b-415b-9333-02705ac305f5@intel.com>
+Date: Tue, 5 May 2026 13:00:58 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 3/5] mmc: sdhci-msm: Set ICE clk to TURBO at sdhci ICE
+ init
+To: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>, Bjorn Andersson
+	<andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, "Manivannan
+ Sadhasivam" <mani@kernel.org>, "James E.J. Bottomley"
+	<James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
+	<martin.petersen@oracle.com>, Ulf Hansson <ulf.hansson@linaro.org>, "Neeraj
+ Soni" <neeraj.soni@oss.qualcomm.com>, Harshal Dev
+	<harshal.dev@oss.qualcomm.com>, Kuldeep Singh
+	<kuldeep.singh@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-scsi@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260409-enable-ice-clock-scaling-v8-0-ca1129798606@oss.qualcomm.com>
+ <20260409-enable-ice-clock-scaling-v8-3-ca1129798606@oss.qualcomm.com>
+Content-Language: en-US
+From: Adrian Hunter <adrian.hunter@intel.com>
+Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park,
+ 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 -
+ 4, Domiciled in Helsinki
+In-Reply-To: <20260409-enable-ice-clock-scaling-v8-3-ca1129798606@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DB9PR06CA0017.eurprd06.prod.outlook.com
+ (2603:10a6:10:1db::22) To IA1PR11MB7198.namprd11.prod.outlook.com
+ (2603:10b6:208:419::15)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260318124450.163471-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260318124450.163471-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <605e8d4c-09e7-4d11-acdb-7829a85eacc3@tuxon.dev> <CA+V-a8srS9g2WDMARDJn98K=nL9v1LiZYxqM8evsVrzR-s5ZMA@mail.gmail.com>
- <CAMuHMdXRtAOZrQbebng5pLXNENUeZenA1Hng1kER+1vbSwaj0Q@mail.gmail.com>
-In-Reply-To: <CAMuHMdXRtAOZrQbebng5pLXNENUeZenA1Hng1kER+1vbSwaj0Q@mail.gmail.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 5 May 2026 10:54:15 +0100
-X-Gm-Features: AVHnY4LoB9VhkRhCHgWKDjlqC7kBQg0p7x7zE8Yn05GYW88TH9I1loXaSoAIan0
-Message-ID: <CA+V-a8t2HhtMWT6v489PZbi+-Yzc0ybgYXFuPd2QeEndn-x+TQ@mail.gmail.com>
-Subject: Re: [PATCH 5/5] PCI: rzg3s-host: Add support for RZ/V2H(P) SoC
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Magnus Damm <magnus.damm@gmail.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	John Madieu <john.madieu.xa@bp.renesas.com>, linux-pci@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR11MB7198:EE_|SA0PR11MB4559:EE_
+X-MS-Office365-Filtering-Correlation-Id: ccc1900e-837a-441b-aea3-08deaa8d38eb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014|921020|18092099006|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: IBA7ci91O9oTibuJMVWQ5d7iI/JtaHs89DpJe+BwWUbqwbpeXzya/2eityunqTVF7VTslyrBNoToHRPI+7fy1Dqcumcosj7VE9IyGm07nj8icZe94QnF5WmoFuqB62fVHFtmWYGPr/IsKP3ybRGKx2ylufdts/KvtRC9WL3+AIjm8nXBADZ3goj6wdwEQG030oZkoY5yrYiykowVY7+wHHrVVrAgVTBuKVIOfgWNxpWfaQZprl00c76KaEIjb2IX4iH1Lg568GCsavRPqFRUKATH00g49bXnxAV03Ftcz1/W3SsplvX+8gAi3WDdXfCEgffy8AKkDIJbuXyxIwLhIJ8xsYEa7f6Z92qR8wsHLLZAsxJeQmtmx0n9gwhJ5017nm3HVlDM9D86H6z5+2Ey4PfNVi3Fi5hAUWvuvqidyo1ftukfJbe/JnJSDq3GAkorwjpzK6wltjONls5XrVYpm06+v1L301Lz8TmctJu/MU/hI1Ck1EaIqeSqGep37gFjGbh1GHdmgFP5qi07BrZkMZQepg4tNui5SJspGxduuKD3nawy5FTvC1PezEikpZixvkvBLpGvlfOErsNT4kYrcBsfnZkKKzHWjqhkdYv6URv4a73+enJhDGzxJorDFdBeHjsSojFFEvzvbKENNXTSjXWsytWJZGILkBjIdelxEyhCAR+ZQsN82b8W+1Sx4AF9CvmHsoXiai9YMSiS5wT0ab7WF0fldKYf7IE39WkCy4Y=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB7198.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(921020)(18092099006)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OEdsZWtLekpOZEp4N3F3WHF1MDhBb0g1T0ZpbWNmREhWbTBSYTg4MlRjci80?=
+ =?utf-8?B?YWVIbFRybVAyb2h5cHBGWFE5eHN4bzIrNEd2UkF6TzR6akh3TnZ4eUlORjZO?=
+ =?utf-8?B?bldQc0FzYWw1cDRDTzJJT1l2WDZ6dWlJUkFkV0dnMDE1aXZGRjczTEd4UitW?=
+ =?utf-8?B?dC95TXUyMHlZYWhFSmNyS1BtWXVZZ1IxdEFQSTJCVitXN2R5QkVhbFpPMzBW?=
+ =?utf-8?B?VlZIWTFZbktsVG52Q096ZkczaXU3aFA5VUhCVWtmb1p3b3dubmFlMHRPVWcx?=
+ =?utf-8?B?ejRMN1hTNVJEUDN1NjFFSHR4cWJxdkxJbEdCdXFLTFNTYThsaThYWVNaa1NV?=
+ =?utf-8?B?eGU2SEpCeDZ4cEQ2S3A5b2Joa0c4SC85VThrQWs5R2hFQU9QNVFHMFFFUkNr?=
+ =?utf-8?B?OHZSNmFMZ0VvOXo3a0RWeHRNR2pDVE1iRTBsQmxPUUdiMzNwZVIzMTJGdVVn?=
+ =?utf-8?B?YzJraUdYaUc1OTJEclN1WlYxaUxBQUdsbktMUFVFbldnVDcxOFZ0M2lBUzN6?=
+ =?utf-8?B?QVlJTnc5TEZTZ2pwZmdBZXN4RUV4VERmYkhNNDBrT09hL3pQV1ZNVlIxcGdH?=
+ =?utf-8?B?Y3p1Tjc4Zks3bm05ZWVVU1dkdDl6SVVkNy8rcEhyQm1oMmJRdFNPWGdDbVlo?=
+ =?utf-8?B?SmRvQ09jZ2dQeXZMRnBadlJQMnV2ajk1d0tOMnFvMEpxT1YyYTVNWlM1L1l0?=
+ =?utf-8?B?Rjh3WlRHanhkc0xCRVBUdUdNdW1sdEVZWnhJcGJnL2hoNld4Ykl2WDlOSTlH?=
+ =?utf-8?B?MXFHZGtJanlBaHRVK25FR0h6dmxxWXdHcCsyT1dZcG9qL0c3QlhaY3gxWHZJ?=
+ =?utf-8?B?SzA2WGRqdGdoUWFkZEIzZlQ2NFNYcE9QMXBIRE9MR0FYeExMcHhiNlVCWTRG?=
+ =?utf-8?B?U1RiWDdJUnZsT2tjTUZZM0tQMnF1T2gzc21FdzltbFZFam5YRGdXZ0RyUTVz?=
+ =?utf-8?B?ZFI1VWpYQ2JGMHAxdVEwSGtqcElkZWlWQStTUUM0TGs0cklvUm9WTnc3ajds?=
+ =?utf-8?B?VTBIUW1rUVlJdW5NeWh1REdBMXB2Y1NOY1JrUmNndDh3L2hJQXc4R25LSDBq?=
+ =?utf-8?B?TW1EcXkvZDZDUWswV0FCMkdxSno3eWplOVlQdDV6OXRDSDBlQTVkU0J4RnZU?=
+ =?utf-8?B?d01PRkVuSWI3aE1wUHhwcWdZa3FQb2s5OVRlL1ZRTzNEbXBvWXpVUEtOVGlH?=
+ =?utf-8?B?S2xjcWJWZ0k5RWZiUkhONUlRbG1HbEhnbkgvUkVvY3hCTE5VNUpZQUI5bEtj?=
+ =?utf-8?B?UEttN1BEdUlJTDZJOHdNR3YrMkVBK2VMbzU2a3c1RWtLSHJSMm9uVXB4WHJp?=
+ =?utf-8?B?V250ZVlnOGZpa3hLUXBXaExWd3pDWC9ERm9Sb1NONU1RRC84NlNYV0hLK3hw?=
+ =?utf-8?B?cFFCeVFGdk5TMjQ0WDdSVU1pVW1UaUtFOHVqc3krUVpHa2hBMHh3RWFpRXU3?=
+ =?utf-8?B?V1RCQ2loZllab3FhMlNmYWFPT2c0V3NRaFY0SlhWWHZzemZSR0RHZDg2cGJy?=
+ =?utf-8?B?ckpUM1d0VWlhMjIxRjNIWTdHMkhlUi8yOU1uc2FGOHBNRlE4UXZHY1BEc1Bu?=
+ =?utf-8?B?V1l3ejZaenh0UWRKU3pUR2Zla2NjMUdnTU94MytZVUM2eEtNc1pZbkdFczNB?=
+ =?utf-8?B?NmwyT2FFVTU1VjZKbHZidnQ4MzUzMTU4TFFSOHp3RHNUM2JrYUg3WUpQcFp0?=
+ =?utf-8?B?a1NueEVVN0R6Zm1BU1VCWU4vQjBhU1gwTExYQUI4UkJJb1Z5ZVRoK2RhSXpI?=
+ =?utf-8?B?ZHVSRk9xbzhRc0xRNEZMS0hhMEVuYlkvbEJGYnFRZHFOTEd5U0NKT1VTRytW?=
+ =?utf-8?B?YkZHbGFqSmMvUEovcm9WUllYRCt1TjlrVEl6WlRmM0RycCttTndQS1ZiMjl1?=
+ =?utf-8?B?cUdCUXJOSTlubmNNWkEvTDVSdEoyaHpOWUpKMW1oOStYU2h4WGVrUFJSdGov?=
+ =?utf-8?B?N29GcW1JZktsWUdDZWNpSnRxL24xZVFOc2VzcjdUQVg4VmllNWQwb3hkeUFa?=
+ =?utf-8?B?UnVzeXAyODczMW9DL0RmZGgzN0ExdXZoWkhDbHFsdER4S2RHUkxudnoxdHVG?=
+ =?utf-8?B?bmdWcmI3RVplRy8xMk1HQnpNL0UwZXV1TGxQTGtlNGpKYk4vajB3OWhHbnUv?=
+ =?utf-8?B?dXJnYVJGZVFyOFpUTmxCaFMwZk01RlRXN0QxODNuYllrN3ljN3VUN2pLZDFr?=
+ =?utf-8?B?SmNBQTZLQVNwZ01Eczg3eFc2UWVTaHRNaHdsTzNEUit2UXFPRmk3SXRkbDMw?=
+ =?utf-8?B?a2FKM3lNQ1hvNnJDZDBOYUJzejZpTmZENU5oV0xYdFRpZEZzZE0yV01SL054?=
+ =?utf-8?B?S3NLaTJ6Qk9jY2NZNmJQZXRZR0RXTVVrRVVUTVVIZ3V1R2RMaktsY3MzbjhQ?=
+ =?utf-8?Q?LVFV8zP4OcsGmJls=3D?=
+X-Exchange-RoutingPolicyChecked: eI5xV0tC/3hpDIGjY8j7OJJrxc7U59JKnIaojsDzUUW7lD2CpN/sp+WAwQnO/wUNra85uj47FGrzJDyNnVjQZz2Y2zF5syv5mPKCERqum0wMMnAdlT6i2tMIPqZuDFGLFQWKeUMCoCZxIO3CewZNc8tJ/R7ne3fRIUlnyfI1KBE/rniyjQQKucLGA5FQDUGum8T65ItvU9YiCSOjmHaDpAea77NN26m0Nhv2+QW7cCoy5XdTa+B401fViy7+ArUzkzagdz6o1zpt798lAumRB7CpsI0HVsxd/YmL5Tpv/uIaQIN5aZJ2TK8KoGZlyIG6Z2pGc0xB1mk28q2yAafD6w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ccc1900e-837a-441b-aea3-08deaa8d38eb
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB7198.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 10:01:05.7461
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZqcyC1h6K3B+VCp9piCI/J3Rf/dQkxn0E33/BH0O/+eb/LKH3B+JqeUbiOdkdUAgcSZaObz4+ZKwn2FIy1SLfw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR11MB4559
+X-OriginatorOrg: intel.com
 
-Hi Geert,
+On 09/04/2026 14:44, Abhinaba Rakshit wrote:
+> MMC controller lacks a clock scaling mechanism, unlike the UFS
+> controller. By default, the MMC controller is set to TURBO mode
+> during probe, but the ICE clock remains at XO frequency,
+> leading to read/write performance degradation on eMMC.
+> 
+> To address this, set the ICE clock to TURBO during sdhci_msm_ice_init
+> to align it with the controller clock. This ensures consistent
+> performance and avoids mismatches between the controller
+> and ICE clock frequencies.
+> 
+> For platforms where ICE is represented as a separate device,
+> use the OPP framework to vote for TURBO mode, maintaining
+> proper voltage and power domain constraints.
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
 
-On Mon, May 4, 2026 at 10:14=E2=80=AFAM Geert Uytterhoeven <geert@linux-m68=
-k.org> wrote:
->
-> Hi Prabhakar,
->
-> On Wed, 8 Apr 2026 at 20:55, Lad, Prabhakar <prabhakar.csengg@gmail.com> =
-wrote:
-> > On Wed, Mar 25, 2026 at 10:18=E2=80=AFAM Claudiu Beznea
-> > <claudiu.beznea@tuxon.dev> wrote:
-> > > On 3/18/26 14:44, Prabhakar wrote:
-> > > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > > >
-> > > > Add support for the RZ/V2H(P) SoC PCIe controller to the rzg3s-host
-> > > > driver.
-> > > >
-> > > > The RZ/V2H(P) SoC features two independent PCIe channels that share
-> > > > physical lanes. The hardware supports two configuration modes: sing=
-le
-> > > > x4 mode where one controller uses all four lanes, or dual x2 mode
-> > > > where both controllers use two lanes each.
-> > > >
-> > > > Introduce configure_lanes() function pointer to configure the PCIe
-> > > > lanes based on the number of channels enabled. Implement
-> > > > rzv2h_pcie_configure_lanes() to detect the active PCIe channels at
-> > > > boot time and program the lane mode via the system controller using
-> > > > the new RZG3S_SYSC_FUNC_ID_LINK_MASTER function ID.
-> > > >
-> > > > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.c=
-om>
->
-> > > > --- a/drivers/pci/controller/pcie-rzg3s-host.c
-> > > > +++ b/drivers/pci/controller/pcie-rzg3s-host.c
-> > > > @@ -1687,6 +1712,63 @@ rzg3s_pcie_host_setup(struct rzg3s_pcie_host=
- *host,
-> > > >       return ret;
-> > > >   }
-> > > >
-> > > > +static int rzg3s_pcie_get_controller_id(struct rzg3s_pcie_host *ho=
-st)
-> > > > +{
-> > > > +     struct device_node *np =3D host->dev->of_node;
-> > > > +     u32 domain;
-> > > > +     int ret;
-> > > > +
-> > > > +     if (host->data->num_channels =3D=3D 1)
-> > > > +             return 0;
-> > > > +
-> > > > +     ret =3D of_property_read_u32(np, "linux,pci-domain", &domain)=
-;
-> > >
-> > > This introduces some limits in the systems with RZ/V2H(P) SoCs with r=
-egards to
-> > > the usage of linux,pci-domain. I would like the PCIe maintainers take=
- on this.
-> > >
-> > > As this is necessary to index in the system controller driver specifi=
-c data (as
-> > > there are different SYSC offsets for different PCIe controllers) I se=
-e the
-> > > following alternatives, if any:
-> > >
-> > > 1/ add a dedicated DT property for this, e.g. renesas,pcie-controller=
--id
-> > > 2/ Add dedicated DT bindings for RZ/V2H(P) SoC that would be used to =
-specify the
-> > >     system controller register offset and mask for different function=
-alities.
-> > >
-> > >     E.g.:
-> > >     renesas,sysc-l1-allow =3D <&sysc 0x1020 0x1>;
-> > >     renesas,sysc-mode =3D <&sysc 0x1024 0x1>;
-> > >     renesas,sysc-link-master =3D <&sysc 0x1060 0x300>;
-> > >
-> > >     And use them in each controller DT node. E.g.:
-> > >
-> > >     pcie0: pcie@add1 {
-> > >         // ...
-> > >
-> > >         renesas,sysc-l1-allow =3D <&sysc 0x1020 0x1>;
-> > >         renesas,sysc-mode =3D <&sysc 0x1024 0x1>;
-> > >         renesas,sysc-link-master =3D <&sysc 0x1060 0x300>;
-> > >
-> > >         // ...
-> > >     };
-> > >
-> > >     pcie0: pcie@add1 {
-> > >         // ...
-> > >
-> > >         renesas,sysc-l1-allow =3D <&sysc 0x1050 0x1>;
-> > >         renesas,sysc-mode =3D <&sysc 0x1054 0x1>;
-> > >         renesas,sysc-link-master =3D <&sysc 0x1060 0x300>;
-> > >
-> > >         // ...
-> > >     };
-> > >
-> > I'd like to get a clearer steer from the PCIe and DT maintainers
-> > before investing further in either direction.
-> >
-> > To recap the two approaches on the table:
-> >
-> >   Option 1: A single renesas,pcie-controller-id property used to look u=
-p
-> >             SYSC offsets in the driver.
-> >
-> >   Option 2: Explicit per-controller DT properties carrying the SYSC
-> >             phandle, register offset, and mask for each functionality
-> >             (L1 allow, mode, link-master, etc.).
-> >
-> > Both have trade-offs. Option 1 is simpler in the DT but moves hardware
-> > knowledge into the driver, tightening the coupling. Option 2 is more
-> > verbose but fully describes the hardware topology in the DT and avoids
-> > a driver-internal lookup table.
->
-> As this is SoC integration description, I think it belongs in DT.
-> But adding many properties is indeed cumbersome.
-> Fortunately the two register blocks inside SYSC seem to have the same
-> layout for both channels, so you can just use a single property to
-> refer to the base offsets (0x1000 and 0x1030).  Even if a difference
-> would pop up later, you could check for e.g. =3D=3D 0x1000 in the driver.
->
-Okay, something like below?
+Reviewed-by: Adrian Hunter <adrian.hunter@intel.com>
 
-&pcie0 {
-  renesas,sysc =3D <&sysc 0x1000>;
-};
+> ---
+>  drivers/mmc/host/sdhci-msm.c | 24 ++++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+> 
+> diff --git a/drivers/mmc/host/sdhci-msm.c b/drivers/mmc/host/sdhci-msm.c
+> index da356627d9de6a11ed5779bf057fa8eb23c38bc0..32e3f37fe425f66c00290a373e06e8ab6257824e 100644
+> --- a/drivers/mmc/host/sdhci-msm.c
+> +++ b/drivers/mmc/host/sdhci-msm.c
+> @@ -1901,6 +1901,8 @@ static void sdhci_msm_set_clock(struct sdhci_host *host, unsigned int clock)
+>  #ifdef CONFIG_MMC_CRYPTO
+>  
+>  static const struct blk_crypto_ll_ops sdhci_msm_crypto_ops; /* forward decl */
+> +static int sdhci_msm_ice_scale_clk(struct sdhci_msm_host *msm_host, unsigned long target_freq,
+> +				   bool round_ceil); /* forward decl */
+>  
+>  static int sdhci_msm_ice_init(struct sdhci_msm_host *msm_host,
+>  			      struct cqhci_host *cq_host)
+> @@ -1964,6 +1966,11 @@ static int sdhci_msm_ice_init(struct sdhci_msm_host *msm_host,
+>  	}
+>  
+>  	mmc->caps2 |= MMC_CAP2_CRYPTO;
+> +
+> +	err = sdhci_msm_ice_scale_clk(msm_host, INT_MAX, false);
+> +	if (err && err != -EOPNOTSUPP)
+> +		dev_warn(dev, "Unable to boost ICE clock to TURBO\n");
+> +
+>  	return 0;
+>  }
+>  
+> @@ -1989,6 +1996,16 @@ static int sdhci_msm_ice_suspend(struct sdhci_msm_host *msm_host)
+>  	return 0;
+>  }
+>  
+> +static int sdhci_msm_ice_scale_clk(struct sdhci_msm_host *msm_host,
+> +				   unsigned long target_freq,
+> +				   bool round_ceil)
+> +{
+> +	if (msm_host->mmc->caps2 & MMC_CAP2_CRYPTO)
+> +		return qcom_ice_scale_clk(msm_host->ice, target_freq, round_ceil);
+> +
+> +	return 0;
+> +}
+> +
+>  static inline struct sdhci_msm_host *
+>  sdhci_msm_host_from_crypto_profile(struct blk_crypto_profile *profile)
+>  {
+> @@ -2114,6 +2131,13 @@ sdhci_msm_ice_suspend(struct sdhci_msm_host *msm_host)
+>  {
+>  	return 0;
+>  }
+> +
+> +static inline int
+> +sdhci_msm_ice_scale_clk(struct sdhci_msm_host *msm_host, unsigned long target_freq,
+> +			bool round_ceil)
+> +{
+> +	return 0;
+> +}
+>  #endif /* !CONFIG_MMC_CRYPTO */
+>  
+>  /*****************************************************************************\
+> 
 
-&pcie1 {
-  renesas,sysc =3D <&sysc 0x1030>;
-};
-
-> > Are there other approaches the maintainers would prefer that we
-> > haven't considered?
->
-> Option 3: Look at the unit address.
->
-Indeed but this might be discouraged by DT maintainers ;)
-
-Cheers,
-Prabhakar
