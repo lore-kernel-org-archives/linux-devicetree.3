@@ -1,136 +1,141 @@
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD892BE026
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 20:31:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778013063; cv=pass; b=YcMrNWGgXDiBpYq7CnC+kCbJ1rz17hQ6utKbXMmZEFgL4W9xdEs1H5ZwhyIU63DGKEOI3+onS8ob6LRgsbI9pk+b+YFtAD7rWIPV3FDQ4dTVZ4AH3lcmXJ61AATK+kR8IZDGHma9g+BZJS2xqjWjNhn590G2bpw8I/OyVIDShDE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778013063; c=relaxed/simple;
-	bh=XWiaguT33mFKTHX+XCub37wPb4gjq7oRFtLlclQ4EBM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HuSzfD8KJh14KZu8XYh0WT0aBGrmI9q92vg2xWnqk/JMP9W0smyT7utEv8BdpsZ8BaJQ8+U4SiFNx01In1LsS2kOcELjC+l6o2/LDxCSQ2WuSOzPkfHDtIUleLF2bLeQQMhQqZQ5UFm43HHAV6p3D9sVCT5W6xmU2wbxuttAKQA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us; spf=pass smtp.mailfrom=gilmore.net.au; dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b=EwWSZdDc; arc=pass smtp.client-ip=209.85.161.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gilmore.net.au
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b="EwWSZdDc"
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-692205ca402so3038601eaf.0
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 13:31:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778013060; cv=none;
-        d=google.com; s=arc-20240605;
-        b=NJQeoZDcHH1wfL3pWcmQdNaoQ+DxbLDLWuOsmQXlC+r9YNFxobjPnkKxg1MxgqAxjD
-         AbjOwpKzuTL9BVO8LzH01lU8BuF0Gwc6F4ND5tk498LNSD0KtHg0c3n7fytf7ToX7RdW
-         6PHuj2WFN7YQJsGC+x/m8RGtWW1BI37xdRyflx3bZ+0/bsM0mq5xqculAG2mZulfXXo4
-         NjsVcfRvXFtB6PAcGl4VKa8eMfIqGgTwOuWCkFrGY/Vvza2Ak2lhvMbjBRFPyoJORaw7
-         yM9NRQRO47BgLLeI6MLjb3GY9guw2oMR0YLODYmU6QyV41Sd+fK18uRVSWw7nvwIjlGA
-         4j4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XWiaguT33mFKTHX+XCub37wPb4gjq7oRFtLlclQ4EBM=;
-        fh=6TGc2qWZLMUKSZwgETlIzl3saI7ho1GeEN+53FW62Ek=;
-        b=fhyXPTsAOneSOGKUbMbpv56HYiXA/VyUarR9z7Fh2zu7pKTpf0oVY6dtoeA5bOXU7W
-         2PABWWq+GM6NpdIVmaLmQgpk+V0PWT/s7nNLbqFw7kLW2C/hMag4J0xB8dszw+UpGQEo
-         pMa7FbGqg3eeUWzlfPOnZLGtRSVu3B8Adml/+wslP7bJimEY50SWIF3JY8ZrpcUDIoOx
-         nsRCryaqbGo8DxR/SqpsgM2R6Y/ShHH5VuV2lIkfRo7LwGYcUZBwkbu00Ml/Nu/6n+Hg
-         f9+/AMnoiII2KgZhaFu6yWJmvFyIWezH8DW1OzD7UU5gxAB/sBjLQaIkk+KLQucKOqPE
-         0yCA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ausil.us; s=google; t=1778013060; x=1778617860; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XWiaguT33mFKTHX+XCub37wPb4gjq7oRFtLlclQ4EBM=;
-        b=EwWSZdDcKIblfVQKsk7V88bUs2fBQV+nLxaw/b3jHjlKQ5qLfivFmS72bhbHAGJXvP
-         RmRseND4RpNzyMYvGKqObO+XLEPq4OtbSzhiNmGtFjBSCG7UdMdLuZTTkFBFcwisJ2ek
-         MwsBdLJPDZwIN7LU7mj0KztrmsdFzLyfvcC49OC0FUBYzsM5j3bPN2s9lN4NCDvDpRCE
-         cw1EhPgbuXf1Jx9jYB0ggz24cCkVXWttJAXDv4SH9KfRqBxOdgHzUTflrYHpNLrM6P3q
-         B5asNPbkmAOE4fLzkMciZk/XhP7fANjyngMPP7qlOLNxVsczsMPb5XGoc+cXF/mt+Ii5
-         V/RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778013060; x=1778617860;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=XWiaguT33mFKTHX+XCub37wPb4gjq7oRFtLlclQ4EBM=;
-        b=bvGq6GkmGRVimvGacbgW660blQRr2r6h6kMS/SWknOinII4mJIfdlCJpUX2PKE5Mrx
-         0p4ds6xIASzuDhrcTzcc8/ZUqjdBFGjS9WfQgYK3AjELRZL//t5Waki1l0Fl5HVuFNzm
-         sYx4tfN6fwSN5zn7jqq3XRELcOsM53gbYT7B8QZIq9kufVQr8aJyUaLR63u/4Z8NMgMK
-         iOoxQTCYtyj/LYEofspjSRkFCPNWCUKzSoZSvimf/5bDB/3p0BkptY2+K20NluXsW5zs
-         cucP3lvUTYgrULqbb/dMXbZPXsw7ZXO8hON+IciqyKXziN4zT5u/sNtNyBaaKzuP8KDN
-         DxkQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9AbO5jEIYL80TNQk8CGPf6QpUbWhLPI+TUYZ/vUEkQuwW2GAHKorEQFjiEH2V6ikmNkfJH8G2wdD2N@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw66gxhfgPv/xdEucs51/gelGGndN0LrkQzCy13Q7WtH98XIID5
-	iPGvjAjgUSaJYT+L8bQ4fulejISWcUAAN/j5yLrajIMMdIKP1BxwA0yrT2dpORDdMtxeCBef+mP
-	zT4ArKGaAGRyd2d07p8O0dmI5FuOl89UMXUh1VbB/Ew==
-X-Gm-Gg: AeBDiet0hOPMebAkaRftARhwlwBmnsCwoVD1QA6T8Ky6rEvt2mpxDfCeOUeb+7gGgzE
-	4ZkO0PwSwvyleXd/ij9OHTq5k4PDEQ1kcdcwTnkPadEvQYQkqtCBoZ8l6s213IUTOiSK6bsI2iu
-	E4hE21sG+PlZ7FbD4S4MIewK+zLqi4zGq+X4knKo0jFJ9eybf03dOCNCF5ZLFcf/ATJd7Wjsae/
-	qjkQhtu/QX7RZXSGMPU6FQK9Q0v+AvTMPRC5PScNCCwqE4izUVxFYZ/CKbc/BtaLo6M72c+hO4F
-	51ZsmYXlpyYMzEDzoU9+WdJXJge7+GZpP6lrTNaHNEWsMMqf03sib0x7YKBLzFJ6asbhvsp2DEW
-	w0BtNiQ==
-X-Received: by 2002:a05:6820:612:b0:694:914a:ebe1 with SMTP id
- 006d021491bc7-69998d496f4mr230276eaf.47.1778013060106; Tue, 05 May 2026
- 13:31:00 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1610530C35F;
+	Tue,  5 May 2026 20:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778013337; cv=none; b=ukF0chSHW2uPxFhdJA5BpKcyzJHjewVaQlkw7X2CpfDR8J4PzMnXOQpO0j7kO2vAAvbezdjAPVnRFymdMg+V1e5H65FSPu+n8HFvmpKXDPmq4/dEhsEb174NDX6K1QPCqYB3DJjvjqu45QGKbrwjTn0xadv0kyzaPMH7DhBCfrk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778013337; c=relaxed/simple;
+	bh=UXC9+hPU2ndmcK4oDF3blwKtby0Kh/UxqWZqMo0pXNM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bZlo9m4C+1LwnjT3K0X7MiZeiwN43m07SoRmfIMtp5kP3UWyOhWlVlLbu36Ibae2BKXjutKTKj8NWsxL63aSAw/1RUrEx1500Uttl+j40z7nvb4QL0WGWxdyYCtHKppFE7AmmS4ppEye+XMF3iSp3aUXUdWHchqG05a1J5zQJXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id 352BF1F8005C;
+	Tue,  5 May 2026 20:35:28 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id 965ABB40590; Tue,  5 May 2026 20:35:26 +0000 (UTC)
+X-Spam-Level: 
+Received: from shepard (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id 2A1DAB4058A;
+	Tue,  5 May 2026 20:35:25 +0000 (UTC)
+Date: Tue, 5 May 2026 22:35:22 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Chen-Yu Tsai <wens@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Jernej Skrabec <jernej@kernel.org>,
+	Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/7] arm64: dts: allwinner: sun50i-h6: Add missing SRAM
+ region for video engine
+Message-ID: <afpUiupOgPhLksM8@shepard>
+References: <20260505134812.408316-1-wens@kernel.org>
+ <20260505134812.408316-6-wens@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260429024737.544813-1-dennis@ausil.us> <20260429024737.544813-4-dennis@ausil.us>
- <26834823.ouqheUzb2q@phil>
-In-Reply-To: <26834823.ouqheUzb2q@phil>
-From: Dennis Gilmore <dennis@ausil.us>
-Date: Tue, 5 May 2026 15:30:49 -0500
-X-Gm-Features: AVHnY4JYRhq_p9ta-ys9Z6NemjXvr6rGjpeyTa05lQ2fOW4hQ-wHeaXjdlyGa24
-Message-ID: <CAABkxwtJv4VrS+6kdZ5c1QeuRtnKaFJir0=B9xsqirUiai+iKA@mail.gmail.com>
-Subject: Re: [PATCH v9 3/4] arm64: dts: rockchip: refactor items from Orange
- Pi 5/b to prep for Pro
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
-	Alexey Charkov <alchark@gmail.com>, Quentin Schulz <quentin.schulz@cherry.de>, 
-	FUKAUMI Naoki <naoki@radxa.com>, Peter Robinson <pbrobinson@gmail.com>, devicetree@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="FpfFtflQBQQ4ZJAp"
+Content-Disposition: inline
+In-Reply-To: <20260505134812.408316-6-wens@kernel.org>
+
+
+--FpfFtflQBQQ4ZJAp
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 5, 2026 at 12:36=E2=80=AFPM Heiko Stuebner <heiko@sntech.de> wr=
-ote:
->
-> Hi Dennis,
->
-> Am Mittwoch, 29. April 2026, 04:47:34 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb Dennis Gilmore:
-> > The RK806 PLDO1 and PLDO2 outputs are wired differently between the
-> > 5/5B and the Pro (PLDO1/PLDO2 are swapped), so label the PMIC node
-> > rk806_single in the base dtsi, drop pldo-reg1/pldo-reg2 from it, and
-> > define them via a &rk806_single regulators augmentation in
-> > rk3588s-orangepi-5-5b.dtsi. The Pro will supply its own mapping.
->
-> I guess my only question is, where did that "single" come from and what
-> is it supposed to mean? ... I would've assumed "&rk806" as label would've
-> been enough? But maybe that "_single" has some special meaning?
->
-> Thanks
-> Heiko
+Hi Chen-Yu,
 
-Hi Heiko,
+On Tue 05 May 26, 21:48, Chen-Yu Tsai wrote:
+> The SRAM C region contains a partial alias to the VE SRAM already
+> referenced by the video engine. To avoid access through this alias
+> window, the region should also be claimed by the video engine.
+>=20
+> Add a reference to the SRAM C region to the video engine node.
 
-The _single suffix was meant to distinguish this from dual-RK806
-designs (e.g. EVB1/EVB2/QuartzPro64) where two RK806 PMICs are chained
-as master (pmic@0) and slave (pmic@1). I wanted to signal "this board
-has exactly one RK806, not the master half of a pair."
+It feels very weird to have a reference to the DE2 SRAM region in the
+VE node. It seems unlikely that the same region would be used by both DE2 a=
+nd
+VE and I am pretty sure can have both running at the same time without
+overstepping.
 
-You're right that this is unnecessary =E2=80=94 the EVB boards don't label
-their master as rk806_master either, so there's no established
-convention that _single is part of. I'll rename it to just rk806 in
-v10.
+=46rom what I can see we have so far assumed that the SRAM C and SRAM C1
+are two different physical SRAM areas, but this is most likely not the case.
+My guess would be that SRAM C1 is actually a part of SRAM C and the DE2 is
+using another part of it. The syscon block probably allows switching access
+to these different parts of SRAM C.
 
-Dennis
+Also the sram_c1 node implies it's 2 MiB, which sounds quite unlikely.
+
+All the best,
+
+Paul
+
+>=20
+> Fixes: b542570e5605 ("arm64: dts: allwinner: h6: Add Video Engine node")
+> Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+> ---
+>  arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi b/arch/arm64/bo=
+ot/dts/allwinner/sun50i-h6.dtsi
+> index 72ce1a75647b..88c6e3e105c0 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+> @@ -205,7 +205,7 @@ video-codec@1c0e000 {
+>  			clock-names =3D "ahb", "mod", "ram";
+>  			resets =3D <&ccu RST_BUS_VE>;
+>  			interrupts =3D <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
+> -			allwinner,sram =3D <&ve_sram 1>;
+> +			allwinner,sram =3D <&ve_sram 1>, <&de2_sram 1>;
+>  			iommus =3D <&iommu 3>;
+>  		};
+> =20
+> --=20
+> 2.47.3
+>=20
+
+--=20
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--FpfFtflQBQQ4ZJAp
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmn6VIoACgkQhP3B6o/u
+lQz8VBAAkfyeAYZhinUwpsJmf+oDlItFt7Lfusv+8SkH/qZnD6zCrAQk/Geol1rW
+wZlYqRlWIV1tboLHrW+hgJmK43/FRZ8zoXdUVBTmn1qlfDX0VtLF2DvHC+uaufyF
+4DTP/NfJmIdPOIltCC3FEYzt78hqUzYwwEnsyR+uZ0kPKS8dQyvBoS24LOwnF70g
+huYXW9SWc+458Sjd+NVae7vJneQsx8xrtafjkfPP5Zx2PdYmMTsGPxuBNgLa2CiA
+TvtW1mzJtP2egSTdCfzIJRVCdQ6w9/lYvQoFQfz7U+L+MwpB8U7g3yU7sbIEEBwz
+1RzbbYTvHm68D95/Qb4wkxEPXPw/HTD5Hy3iHdw6JLz3VOXvvQapTbOQqADL7SqD
+6HE8NxgGcLLVMO6P3Na0l+nu6AyuXnou5x99ukr1lQYNAVeUCcq4CpN6GV9/Tgq+
+5ZcTzVFJqD2RJfdPbuljaRgWU5i7fUk1QX0QiNmW+m84Kg5e+wkzf/TB1E5JmypQ
+w4d8oYb059s57puI8NZgwHnyhoLu3HB/NhjboHLcuwzcbgY6PMq68lqazv6qNY/p
+bvQU0TQ/2HwBmCtQT7dIn1ShT5xfo0cu3qpl0bHH9iKBcnXCjdGGqmrNliwBIhta
+5rW/eK5LQyKRXSSg3mKHjITNERBpiraMB65z3LMKUrE/UHivWxA=
+=03GE
+-----END PGP SIGNATURE-----
+
+--FpfFtflQBQQ4ZJAp--
