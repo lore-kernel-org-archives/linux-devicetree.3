@@ -1,139 +1,81 @@
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC780391822
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 18:55:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6126C4B8DC4;
+	Tue,  5 May 2026 19:01:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778007346; cv=none; b=OXZILO6jK1Bup8GY8pqwNRNojMljpYLQvh/bWbX6MM4mTrOxoTSWyh7+WqRC5CMGHEFr/X7vdkqnmPWvIf0A3j7/BjZBoItb6xYzysW+MIoNCmNoZB7X6IgLtzYQgc5MuAuSDIZbi5HQY9T17h15t2kiuHpvoCpBbrqoPBxukMw=
+	t=1778007716; cv=none; b=KlNr8r0qSbb49Mm5F9vqQCAIN2Iptiw+Hk3tsGYKS7Vi0YoayzSC1Mxn8LKpwmInvd8ZNWbdkcMznBhWDkZyGgCsOqks2/mKPYO+PN7KGZ9Kw8VRD+1V9ENalqDwNnKfOZpn0a5cKAqR0t7vjKgzBm8wT1hvLV7N4sEF5QizCCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778007346; c=relaxed/simple;
-	bh=Qrih9tbIxMYK3cVffn8rChfomShm6TcW+n2OQ6LGqGA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jYTvQMyNdwsE6xdaiOaxtcUthP4jc6OddFnm0Bg1XFSTYcI6/5KKvLwiLPv+9Ire2BpVYYPEWvevvFtzoEwfAH4MvYutcMvquT/Pq3mJpRSRqEyv8oDTM1n8EKh/Ibn86RSJBCCbym50hEWef54Dr61fae0NV4PH9DbGLwkYwOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=J5HoPn+l; arc=none smtp.client-ip=209.85.208.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1778007716; c=relaxed/simple;
+	bh=P9N778U3RllFTxP2AoteTVxbVBVX3pa8/oJW54oK+9Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N2hi7Tae38ZinGGu1dLmmBzD2iiaRooe8iYkVvzvOubSYZbIHQeO7vL4bNp2eOzvVDRrl/ByT8M/yogWR/2G3P1ibC7da/GrqAVNCcMgMVFVsNTyF9z4fD2oRfRBF80PmOoRxSZw0TB432A28BZinQvlr7NbJ1QUBBLp4jHNDz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=EtODWq8w; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="J5HoPn+l"
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3937a1f9f7aso4397931fa.0
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 11:55:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1778007342; x=1778612142; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gWLCp8e9dyR6o6t0FMX093JcFxR+HkBbCVvJsU9sLHM=;
-        b=J5HoPn+l6jV5hGSLKn4NHP9KvSnHq7N0LYbPkufjlgcYzDMkKr0IfithL78JM9fbbg
-         85ArIY0QlT6L0cjsX/6JBxZUaJ6FAwSxFBoj1S2D5G7dxbHpojgU7BiqL3CUhXP8aGpW
-         BcLEkXU7X95iiI9Qymp5qZ3Z28ktdMzSSdGwoIFTOAPlTCkz5BhLS3yW+7oKF6yul/AX
-         GcziERwiYn9d1/gBgIFIPrFoF48f87RgXuOO+63m29PbG7DVb+SdyoTf2Bw+BDRxdFMt
-         QjBiTuia3vTIj2qPCUnwL4Uo6AYhRHcAhmHbel0tm9zfctTQ/ifBoeXfb2+HuUzBFCrK
-         S0FQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778007342; x=1778612142;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gWLCp8e9dyR6o6t0FMX093JcFxR+HkBbCVvJsU9sLHM=;
-        b=C6DyOkiWmtqR+EdQTWM8DcsLXtVycRNj7HHIx6rgdWz3U6hc0NysITP+MqRUbLiW/i
-         zQC6j1AQE6iMxFpiKeJUbOY8h/cQhIy3cU8gnAUTRXvQRgfzJZnrUoOHxMBG7fxcTZw+
-         bAKFAkFnBinPv/QxhJ94IWnz6POITH63pqDEWEpmsA+TEEzMII8ov+ljjqbbEF+Rjhgb
-         hZNSAaa2vigAOeqsyX6xtUyehxRoiHUceADdUJuZS98vScbdjcYyveh0chKjExRvBEzu
-         9e4ERtv8xhYMeKspy9s10KTn2BuTAct9elfAjeIX3Fptq36N3KIh1qH/NccHuCqCMUEU
-         jKtA==
-X-Forwarded-Encrypted: i=1; AFNElJ/nhmta1x/sep2PIrLzL7xDBSFo3FkfjvDpm4JDQy46mk1JsfJMy7uPY+WyxGCSDKp1TxfGTGS0TQlB@vger.kernel.org
-X-Gm-Message-State: AOJu0YycCTvr2OR7LzQlyVK75qqTRMO1tbJNqn6fIF3iUPynQ0P0XxXI
-	SMm91SQnOkeUOG+D7w4WmX8ZCC8m8pCzwbIW7SuzIbwTufhd29m6So6UTdCcNWePOFk=
-X-Gm-Gg: AeBDieuSuHSBSXaAO3szvOknAwn2KbEgB+SX97IuN1NlGGj6RQqL0juU5QAd0kPzsxl
-	q4pGgm5297tSxDAZNJagKVVPwrz/DLjVCiQDHWOhB1WuP6IO0U0EASvq7+nwh5PuzLuAMDWg1D1
-	sliOilTCmPoQWFxg5Xw7UB1U3LSNtrne/UtcZjsrNwOrCKl3fWbtjMX07Qaw3krxnjPNNUXXjIV
-	QR7rUU6kcf3U8k/l53k+UT0s1hulnTTkfYgsBDVeCtl46/9LonwSWsmLpcHmkbg6+I66PVoKwS+
-	2ubRzaN0VndwzqgfDS0F7f4TjPlE2X4/uqCQ3m01v2PtwNAPBZO5pKdwbqDlP2D6H5jAZ9E7dLm
-	t71FL692wWKIk9Nfv0WZUgqoeodeTEMZvMj80wpBxW3Mq90Pow5OXuyy3cTM2Uy05NtUI4RbeUE
-	BzXOzbkljQy6tvW8QAkcIaftO+bmySFWJeyzRXJhuNPEXtf7x5sbi4dvrfQZnXxEqS219yhsUdA
-	/ITGm8aDq6lPDa1
-X-Received: by 2002:a05:6512:1056:b0:5a7:4912:1a3e with SMTP id 2adb3069b0e04-5a8631b8d40mr1976270e87.3.1778007342013;
-        Tue, 05 May 2026 11:55:42 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a882e3589dsm654744e87.30.2026.05.05.11.55.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 05 May 2026 11:55:41 -0700 (PDT)
-Message-ID: <9da6d544-97f6-4915-8d53-e3fde7339695@linaro.org>
-Date: Tue, 5 May 2026 21:55:41 +0300
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="EtODWq8w"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=Tc1Ou8TseUH7oOrozpxYqdSnMg7Q1I3CXcfA2cR25iM=; b=EtODWq8wk8aUDQVLg8P6rL/GQv
+	vjspXkXXNTM/5Gk2B7xXoZk0X15u2OEWe6ry3XxhCTCVJznMzarvGxO6j699jm6lnMYckdNGZwOcO
+	9UO+CKVf6F7KN+P9EE6sSA69nkWl4tADMMDtxwZ6iwxjl5n7hofRZD63pLQBcArLt9Rw=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wKL1W-001Wbh-4J; Tue, 05 May 2026 21:01:38 +0200
+Date: Tue, 5 May 2026 21:01:38 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Piergiorgio Beruto <Pier.Beruto@onsemi.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next 1/5] dt-bindings: net: add onsemi's
+ TS2500/NCN26010 10BASE-T1S MACPHY
+Message-ID: <69cfb4a7-93b8-4ea7-b4c8-422f19419fe5@lunn.ch>
+References: <CY8PR02MB9249D083B637477C254F9B0583322@CY8PR02MB9249.namprd02.prod.outlook.com>
+ <20260505134434.GA2493310-robh@kernel.org>
+ <CY8PR02MB924915930E62AE03DF05C2DC833E2@CY8PR02MB9249.namprd02.prod.outlook.com>
+ <7fad56ee-88c8-4e0a-8411-eeb5c0ab4a38@lunn.ch>
+ <CY8PR02MB9249B2450E2931FD5533F46E833E2@CY8PR02MB9249.namprd02.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] arm64: dts: qcom: sc8280xp: gaokun3: describe rear
- camera module information as musch as possible
-To: Pengyu Luo <mitltlatltl@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Martin Kepplinger-Novakovic <martink@posteo.de>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>,
- Martin Kepplinger <martin.kepplinger@puri.sm>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-References: <20260425105300.745044-1-mitltlatltl@gmail.com>
- <20260425105300.745044-5-mitltlatltl@gmail.com>
- <db441eb6-195e-4018-a84d-77b2d1531243@linaro.org>
- <CAH2e8h4TYEMhjP9Vx7yYpKHAOR627Ovy2QZMT574oZPVDJX1oA@mail.gmail.com>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <CAH2e8h4TYEMhjP9Vx7yYpKHAOR627Ovy2QZMT574oZPVDJX1oA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CY8PR02MB9249B2450E2931FD5533F46E833E2@CY8PR02MB9249.namprd02.prod.outlook.com>
 
-On 5/2/26 15:55, Pengyu Luo wrote:
-> On Thu, Apr 30, 2026 at 7:00 PM Vladimir Zapolskiy
-> <vladimir.zapolskiy@linaro.org> wrote:
->>
->> On 4/25/26 13:53, Pengyu Luo wrote:
->>> The rear sensor is S5K3L6, describing it but dropping compatible
->>> string, since there is no upstream driver. A funcitonal downstream
->>> driver is in comment.
->>>
->>> The VCM is dw9714, describe it.
->>>
->>> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
->>> ---
->>> Please take this patch as a RFC, I am not sure, how much I am allowed
->>> to add without a sensor driver.
->>> ---
->>>    .../boot/dts/qcom/sc8280xp-huawei-gaokun3.dts | 129 +++++++++++++++++-
->>>    1 file changed, 123 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
->>> index 39e559e91289..76b1ecb3819d 100644
->>> --- a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
->>> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
->>> @@ -22,12 +22,18 @@
->>>    #include "sc8280xp.dtsi"
->>>    #include "sc8280xp-pmics.dtsi"
->>>
->>> +/* remove due to gpio pins collision, skip 2nd instance won't break things */
->>> +/delete-node/ &cci1_i2c1;
->>> +/delete-node/ &cci1_i2c1_default;
->>> +/delete-node/ &cci1_i2c1_sleep;
->>
->> Instead of removal 'cci1_default' and 'cci1_sleep' nodes shall be rewritten
->> by excluding 'cci1_i2c1_default' and 'cci1_i2c1_sleep' from them.
->>
+> > Since it is a 10Mbps media, if the SPI speed is lower than 15MHz,
+> > maybe it cannot keep up with the media? But this clock speed on its
+> > own is not the deciding factor, there could be other users of the SPI
+> > bus. I would expect the driver and device to keep working if the SPI
+> > bus is saturated, just not give the full 10Mbps. And it would also be
+> > a good test the device and driver do work correctly when the bus is
+> > saturated.
 > 
-> Should we register an unused node?
 > 
 
-I believe unused nodes are found everywhere marked by status = "disabled"
-or if they do not produce a conflict for resources. I understand that a CCI
-IP with two ports are special, but likely (not always though) it should be
-acceptable to keep its device tree node as is.
+> I should have given more information. If we configure SPI at lower
+> speed, it may start losing frames as it can't sustain the PHY's
+> speed. Please let me know If I should remove it.
 
--- 
-Best wishes,
-Vladimir
+So it is not really a requirement. Please add a comment that at speed
+of at least 15MHz is recommended in order to obtain line rate
+performance.
+
+   Andrew
