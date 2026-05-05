@@ -1,146 +1,835 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9A7214813
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 04:21:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777954906; cv=none; b=Ae5vjiMj/7xK9VAV7tmGoc1v/q3fKceLnnSDidY5dWoB2DgyVL5pd7I6icU9oMAuRX9ziekDD7xVVhc9980y8nYsKmPuLEeZVW0shkHxN/HWL9JcA5aQGn63OPzCRQvBfx/dnn5czEd3prwx+iNaLsb5to+ezhQ1Gnu6K1I6Vag=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777954906; c=relaxed/simple;
-	bh=rsbtrwoNteIeG4Ft1aA7m24bGGBadiqhJUwN9fwPGzA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d+257kZ5rpjJ7ECMsVQEBiZV6kMi9Oed+L+7ny719D3gCreat4qBff8hU/CP6+TGigFQkiQI/aGT1gMmiS0Izc/NIK/r5JcGZR8AAJ0ypN7tFkji65P4ACggBjCTqGNan1UNTifdfA4UDPPHSiby45hy6KyzQDktYL2p692nAos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=q-lab.dev; spf=pass smtp.mailfrom=q-lab.dev; dkim=pass (2048-bit key) header.d=q-lab.dev header.i=@q-lab.dev header.b=Rmsi5hSm; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=G8N2TVBp; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=q-lab.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=q-lab.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2C3386440
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 04:44:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777956246; cv=pass; b=ZfAxgvuBWXl3DIJ0n7zeG4DJW4bSy1Lkv2WtdLj5OPYQiT4PJ8xIGcIY+tvr1QPamKjx83tC+Mei5wfXHPFvlZZgumuNJnKu+tWJN6YDbaMvw1M7Mk2IJDI322AQEOSgAd3EgpeMxP6PvvQwEubKRgKJMXb+bRP3X1qGoV/tWoU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777956246; c=relaxed/simple;
+	bh=kL1aVLYS3I0g52inbTT0LTuylr5L6m0FkhAXhpc6gYY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pVjJ7Z6kHoMSE7xA01L52Vk+0dKWnSK4qjQIwYD4G/mRXqEfmENoxCXaVr3tGeicg1DNdPAzQjAJH5P4hFqzlAqigbcSWGhQaN+6Yy+AeS9MZ8nLztATKdfi4v0sIEqggD3Kcga6qqfRod2nnKuSPiNf5kWshDzlVePvm3pCWT4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=VHKttfgU; arc=pass smtp.client-ip=209.85.167.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=q-lab.dev header.i=@q-lab.dev header.b="Rmsi5hSm";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="G8N2TVBp"
-DKIM-Signature: a=rsa-sha256; b=Rmsi5hSmFq9CEojmDWWkJLoIzThtwjpm3jQDUanzKMUfYD8sMldRxedFF7KmO28C0vNkiUxeCf6PFHV2TvNzvfD49aEXSpfffT5j4oUs8VExJuRzoTaj2YviWqkPmFRyui94gsqYjS6z5dpHknv0N4r9zT5ddOpME06Eu4fr9JZh3Jb9/WkwodmEs/mY073KC1Hxbxa3U6KA43qS+PgOwusG+cupHsI5tm54C3cJ+9lOwTm4flqEBg6c4DO7wzHuvVVO8lFhKaqDlhgk1eHd3BL89I1ttqAk6uWb2Rt9w8mmKOnUx0Jvl5JQTRjxHWS/MiXxSQ5PAU1CEKgHQ+GTYQ==; s=purelymail3; d=q-lab.dev; v=1; bh=rsbtrwoNteIeG4Ft1aA7m24bGGBadiqhJUwN9fwPGzA=; h=Received:Date:Subject:To:From;
-DKIM-Signature: a=rsa-sha256; b=G8N2TVBpRdlKrvfoFlpLUGmRKiThzebKH/CWFyqWJL4e+f8RRpa6WckXXpqG42+yjVNKeTH74t7zQFyB/D5o/dQsvDgI9VxpnIccTODuQx/VCKcMU1TBbutAkXa6+8wIkPUSOWMXHgj1NVH4IuJ3+hXe1lsc8HUJo02+C7BguJRwlfdFHGPGj9J0G/ukBOQ51O0vlVSYG9eUqoYdHEGX2hnh9rn3OuwKYf01QhqNJkyxb5Co798U5tTKED05QEf7xztSMIeUFu0j2oD6yB32HtF3M4PyhBOpWlA86sQ+csypNRv4tTypEKkczaNasdDFCIDwdx/knXo5H7mpsO9DNQ==; s=purelymail3; d=purelymail.com; v=1; bh=rsbtrwoNteIeG4Ft1aA7m24bGGBadiqhJUwN9fwPGzA=; h=Feedback-ID:Received:Date:Subject:To:From;
-Feedback-ID: 284201:25281:null:purelymail
-X-Pm-Original-To: devicetree@vger.kernel.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -864377277;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Tue, 05 May 2026 04:21:29 +0000 (UTC)
-Message-ID: <9bda558f-8ddd-49e1-ac5f-1f64a37fefb7@q-lab.dev>
-Date: Mon, 4 May 2026 21:21:27 -0700
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="VHKttfgU"
+Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4756e74f8edso3154954b6e.1
+        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 21:44:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777956242; cv=none;
+        d=google.com; s=arc-20240605;
+        b=GoXIsGXlMn6HwTTHBQIaWfsHN8Z5DE87+EM9x06LUDfZJsvaxE67bo5ibCXy8yC8fZ
+         9yX5i90RIFClEFSyRXoQno+pd9Mab/Xxf9eeqSqLCtSVS98bvIs3SSAFt/ck6WCsPRx6
+         +kX6LPN5LKYY+POwl8EIBdyqicr4vQ+SY+XD0t3ErUr3fJHDBEqUIzvTCG5eyp2X/S57
+         waj8gA8ICHY4YZm0+pTJNiL5X7jULnAazUnyiQuYYgryOJCMDPOQ7HVggj9t6DMlPV+X
+         /owR342eW/2UelB0VqyjJyC7zD1ObDu0nA9+uyw6uGjUpqVZOe/IhDu8uw5IC7L89G3I
+         fb8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=m0dr/GoCls3mdoSP87F22ugMi/si1hLktDUJmNHHS5k=;
+        fh=rxyAXHjK8WLkEEu9x/tMaVcXUGmdtfdVh8avIUlia0w=;
+        b=iktGRvcug9Ycjz50v+wnnN4z160x4xnqd3d7f6AZ8Ss4yYuhMmeLkRTVLjLx5mYGI2
+         LqYVbLu1BxnA+lYHSiUmL4WwzYyHEWjmsroctWzkPHLKpqSEtqdJrqjhSKguIeZ0hT2I
+         SXgUaXueWygecTvpYK9JRdiW3kMsw8L4avriw4sX8g2iVRtm3agfA23FecfrZ8YXerBa
+         03DXgCFdxujOgvrLWCR0VNzSfoBN8nT/jXLdR1zoXLF0D2DyP2ehJmHmgkXaf5pr2lXN
+         1Do9gOy8tHvR/+NCsTUDqu75haz0AURtQCB4Yj1MU8AVLDbT9lyEYCCs5b99e3qfosV4
+         R8Ew==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1777956242; x=1778561042; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=m0dr/GoCls3mdoSP87F22ugMi/si1hLktDUJmNHHS5k=;
+        b=VHKttfgUL23M5njjvJjGXLO7kBvgg/92b/1zhyR2KoyGpOZhysKR6IOntyXV6cdvKm
+         KpmRy7hYj8Bbv7iNgdQ4cneLHr1nyKInAh9pnUlyenfBdSJUR0Eklre+ZYJQIOSve0vF
+         pHY1EYJ2xOayP8kmjX8wbnN29LHQKIOgB3ZeFaIdYhv6BNUCUC3tItJMWBEyplouqH9J
+         zGkOgdZkKwNkhqmNRcnVrUIZQIdoSYOfJAnA9LfRgAXxNYZL1NheV4s7/Ip+VD3Erslh
+         iAx+nRpaABgJEysUUACjQCoPUaxOBSUjW4LzsXr8QwpbIHEeFLECmir4W2O5rugkgxWo
+         23xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777956242; x=1778561042;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=m0dr/GoCls3mdoSP87F22ugMi/si1hLktDUJmNHHS5k=;
+        b=J0JotwpTwgAbPke54OA0XbfL66zrEQYZLAAbgvtc8tP1lagsj7VTSjrBMFt9mVhJNW
+         G4x3cdBi0rcMgyAzuHRdQCbHR57mOaytMZn6F9kvcXlOSTKidT4RatRAy3GvEUXY5wzg
+         TkcY+5AMhg2+KOMKYO/t+4YdDMYOn3O5OSzjJcihaarsjmrGrJwtPdqtmXnHJsi+AfOT
+         DsYB99UyJXV4fTTSEYFzoBiVIuhKeeLmHzXjtBqWvs+1J7ctDFAdXPROT8tzpEoTRJDb
+         QI30cgFy872ewH4ELSFbCgLIHT/wR+8AJpl1srVnMGWtCoKQzB9jucPIgFt8H/vVwrPG
+         Of0g==
+X-Forwarded-Encrypted: i=1; AFNElJ+IHfevLVsInCP9ya7fKieT70oQNm4ZjVMFza5abgrXazJYoBNX4xfvJJzlS5ZpLfVRL11vh9x1jokU@vger.kernel.org
+X-Gm-Message-State: AOJu0YxaPI2Z/XIUYd595V3vzJYrkqCWwpYpfMjd7XZF2TDVJLt3iqf0
+	qfobqnF/2qwymmRqztn15jdT0W9nLWVM6DEOtI9KKpHsdU+3tY5gFUTFL0Ge9m4PLDBPIi9DcWh
+	lG8kB1w38ILlAfnwrmPiGPGnxdPalivEoicDJxHWFig==
+X-Gm-Gg: AeBDiest9pf4WiJefjnliae94Vzs4InJ1XqpCD24/JEYm/VREBigoZ/phORuYtl1dCh
+	FxiEWUmm6xxzcmOHrPkxeoZkzTYDnbEUEULWQMcT0rzsI7nkYm0ApqLgPsGZJyKAdeRzD4mPIgk
+	0JfQHgTMPCmjwRxFk4900Yd0Y0B/tdhguCVHZShMXGzfBDUHTWc/laocU5C3geJ9zWv8k1qp4pZ
+	1PVnzgiYdzo5Xo/deiavAdDi37frr8zIljWLK9jYqyHHdVnie9bWLwo8LUSvVqnXjkRy8BHQbkx
+	pIn/sIuGCKHKEaPXOw==
+X-Received: by 2002:a05:6808:1787:b0:463:c56f:a45b with SMTP id
+ 5614622812f47-47c89278598mr6149400b6e.28.1777956241520; Mon, 04 May 2026
+ 21:44:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [RFC PATCH v3 2/2] media: i2c: Add onsemi AR0234 image sensor
- driver
-To: Alexander Shiyan <eagle.alexander923@gmail.com>,
- linux-media@vger.kernel.org
-Cc: Isaac Scott <isaac.scott@ideasonboard.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Dongcheng Yan <dongcheng.yan@intel.com>, devicetree@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Hans Verkuil <hverkuil@kernel.org>,
- Hans de Goede <johannes.goede@oss.qualcomm.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mehdi Djait <mehdi.djait@linux.intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Jingjing Xiong <jingjing.xiong@intel.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>
-References: <20260306103614.3208182-1-eagle.alexander923@gmail.com>
- <20260306103614.3208182-3-eagle.alexander923@gmail.com>
-Content-Language: en-US
-From: Quentin Freimanis <quentin@q-lab.dev>
-In-Reply-To: <20260306103614.3208182-3-eagle.alexander923@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260414-ssqosid-cbqri-rqsc-v7-0-v3-0-b3b2e7e9847a@kernel.org> <20260414-ssqosid-cbqri-rqsc-v7-0-v3-4-b3b2e7e9847a@kernel.org>
+In-Reply-To: <20260414-ssqosid-cbqri-rqsc-v7-0-v3-4-b3b2e7e9847a@kernel.org>
+From: yunhui cui <cuiyunhui@bytedance.com>
+Date: Tue, 5 May 2026 12:43:46 +0800
+X-Gm-Features: AVHnY4JDo5TOygkhxu1cNu9895DnVgYp2hsOMIszIrebr2MLdn7QcIxT2PPZiEM
+Message-ID: <CAEEQ3wmkSyThakHy=fe-uNAZbzGaSM=avsqdgcZ2ZTkPNvCkMA@mail.gmail.com>
+Subject: Re: [External] [PATCH RFC v3 04/11] RISC-V: QoS: add CBQRI hardware interface
+To: Drew Fustini <fustini@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	=?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, 
+	Samuel Holland <samuel.holland@sifive.com>, Adrien Ricciardi <aricciardi@baylibre.com>, 
+	Nicolas Pitre <npitre@baylibre.com>, =?UTF-8?Q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
+	Atish Patra <atish.patra@linux.dev>, Atish Kumar Patra <atishp@rivosinc.com>, 
+	Vasudevan Srinivasan <vasu@rivosinc.com>, Ved Shanbhogue <ved@rivosinc.com>, 
+	Conor Dooley <conor.dooley@microchip.com>, Chen Pei <cp0613@linux.alibaba.com>, 
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Weiwei Li <liwei1518@gmail.com>, 
+	guo.wenjia23@zte.com.cn, Gong Shuai <gong.shuai@sanechips.com.cn>, 
+	Gong Shuai <gsh517@gmail.com>, liu.qingtao2@zte.com.cn, 
+	Reinette Chatre <reinette.chatre@intel.com>, Tony Luck <tony.luck@intel.com>, 
+	Babu Moger <babu.moger@amd.com>, Peter Newman <peternewman@google.com>, 
+	Fenghua Yu <fenghua.yu@intel.com>, James Morse <james.morse@arm.com>, 
+	Ben Horgan <ben.horgan@arm.com>, Dave Martin <Dave.Martin@arm.com>, Rob Herring <robh@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Robert Moore <robert.moore@intel.com>, Sunil V L <sunilvl@ventanamicro.com>, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, x86@kernel.org, 
+	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev, 
+	devicetree@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Alexander,
+Hi Drew,
 
-On 2026-03-06 2:36 a.m., Alexander Shiyan wrote:
-> +static int ar0234_identify_module(struct ar0234 *ar0234)
+On Wed, Apr 15, 2026 at 9:57=E2=80=AFAM Drew Fustini <fustini@kernel.org> w=
+rote:
+>
+> Add the CBQRI controller hardware interface layer.
+>
+> Define data structures representing CBQRI controller properties
+> (cbqri_controller) and hardware capabilities for capacity and bandwidth
+> controllers (riscv_cbqri_capacity_caps, riscv_cbqri_bandwidth_caps) in
+> include/linux/riscv_qos.h.
+>
+> Define MMIO register offsets, field masks, and internal wrapper structs
+> (cbqri_resctrl_res, cbqri_resctrl_dom, cbqri_config) in internal.h.
+>
+> Implement MMIO helpers for capacity block mask and bandwidth reservation,
+> alloc control operations for capacity and bandwidth controllers, and
+> probe functions to discover controller capabilities. A per-controller
+> spinlock serializes multi-step MMIO sequences.
+>
+> Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> Signed-off-by: Drew Fustini <fustini@kernel.org>
+> ---
+>  MAINTAINERS                         |   1 +
+>  arch/riscv/kernel/qos/internal.h    |  81 +++++++
+>  arch/riscv/kernel/qos/qos_resctrl.c | 432 ++++++++++++++++++++++++++++++=
+++++++
+>  include/linux/riscv_qos.h           |  76 +++++++
+>  4 files changed, 590 insertions(+)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index b17f885411ba..6a66d7047c51 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -22785,6 +22785,7 @@ L:      linux-riscv@lists.infradead.org
+>  S:     Supported
+>  F:     arch/riscv/include/asm/qos.h
+>  F:     arch/riscv/kernel/qos/
+> +F:     include/linux/riscv_qos.h
+>
+>  RISC-V RPMI AND MPXY DRIVERS
+>  M:     Rahul Pathak <rahul@summations.net>
+> diff --git a/arch/riscv/kernel/qos/internal.h b/arch/riscv/kernel/qos/int=
+ernal.h
+> new file mode 100644
+> index 000000000000..edbcbd9471b1
+> --- /dev/null
+> +++ b/arch/riscv/kernel/qos/internal.h
+> @@ -0,0 +1,81 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef _ASM_RISCV_QOS_INTERNAL_H
+> +#define _ASM_RISCV_QOS_INTERNAL_H
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/resctrl.h>
+> +#include <linux/riscv_qos.h>
+> +
+> +#define RISCV_RESCTRL_EMPTY_CLOSID     ((u32)~0)
+> +
+> +#define CBQRI_CC_CAPABILITIES_OFF 0
+> +#define CBQRI_CC_MON_CTL_OFF      8
+> +#define CBQRI_CC_MON_CTL_VAL_OFF 16
+> +#define CBQRI_CC_ALLOC_CTL_OFF   24
+> +#define CBQRI_CC_BLOCK_MASK_OFF  32
+> +
+> +#define CBQRI_BC_CAPABILITIES_OFF 0
+> +#define CBQRI_BC_MON_CTL_OFF      8
+> +#define CBQRI_BC_MON_CTR_VAL_OFF 16
+> +#define CBQRI_BC_ALLOC_CTL_OFF   24
+> +#define CBQRI_BC_BW_ALLOC_OFF    32
+> +
+> +#define CBQRI_CC_CAPABILITIES_VER_MINOR_MASK  GENMASK(3, 0)
+> +#define CBQRI_CC_CAPABILITIES_VER_MAJOR_MASK  GENMASK(7, 4)
+> +
+> +#define CBQRI_CC_CAPABILITIES_NCBLKS_MASK  GENMASK(23, 8)
+> +#define CBQRI_CC_CAPABILITIES_FRCID_MASK   GENMASK(24, 24)
+> +
+> +#define CBQRI_BC_CAPABILITIES_VER_MINOR_MASK  GENMASK(3, 0)
+> +#define CBQRI_BC_CAPABILITIES_VER_MAJOR_MASK  GENMASK(7, 4)
+> +
+> +#define CBQRI_BC_CAPABILITIES_NBWBLKS_MASK  GENMASK(23, 8)
+> +#define CBQRI_BC_CAPABILITIES_MRBWB_MASK    GENMASK_ULL(47, 32)
+> +
+> +#define CBQRI_CONTROL_REGISTERS_OP_MASK      GENMASK(4, 0)
+> +#define CBQRI_CONTROL_REGISTERS_AT_MASK      GENMASK(7, 5)
+> +#define CBQRI_CONTROL_REGISTERS_AT_DATA      0
+> +#define CBQRI_CONTROL_REGISTERS_AT_CODE      1
+> +#define CBQRI_CONTROL_REGISTERS_RCID_MASK    GENMASK(19, 8)
+> +#define CBQRI_CONTROL_REGISTERS_STATUS_MASK  GENMASK_ULL(38, 32)
+> +#define CBQRI_CONTROL_REGISTERS_BUSY_MASK    GENMASK_ULL(39, 39)
+> +#define CBQRI_CONTROL_REGISTERS_RBWB_MASK    GENMASK(15, 0)
+> +
+> +#define CBQRI_CC_MON_CTL_OP_CONFIG_EVENT 1
+> +#define CBQRI_CC_MON_CTL_OP_READ_COUNTER 2
+> +#define CBQRI_CC_MON_CTL_STATUS_SUCCESS  1
+> +
+> +#define CBQRI_CC_ALLOC_CTL_OP_CONFIG_LIMIT 1
+> +#define CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT   2
+> +#define CBQRI_CC_ALLOC_CTL_OP_FLUSH_RCID   3
+> +#define CBQRI_CC_ALLOC_CTL_STATUS_SUCCESS  1
+> +
+> +#define CBQRI_BC_MON_CTL_OP_CONFIG_EVENT 1
+> +#define CBQRI_BC_MON_CTL_OP_READ_COUNTER 2
+> +#define CBQRI_BC_MON_CTL_STATUS_SUCCESS  1
+> +
+> +#define CBQRI_BC_ALLOC_CTL_OP_CONFIG_LIMIT 1
+> +#define CBQRI_BC_ALLOC_CTL_OP_READ_LIMIT   2
+> +#define CBQRI_BC_ALLOC_CTL_STATUS_SUCCESS  1
+> +
+> +int qos_resctrl_setup(void);
+> +int qos_resctrl_online_cpu(unsigned int cpu);
+> +int qos_resctrl_offline_cpu(unsigned int cpu);
+> +
+> +struct cbqri_resctrl_res {
+> +       struct rdt_resource     resctrl_res;
+> +       u32 max_rcid;
+> +       u32 max_mcid;
+> +};
+> +
+> +struct cbqri_resctrl_dom {
+> +       struct rdt_ctrl_domain  resctrl_ctrl_dom;
+> +       struct cbqri_controller *hw_ctrl;
+> +};
+> +
+> +struct cbqri_config {
+> +       u64 cbm; /* capacity block mask */
+> +       u64 rbwb; /* reserved bandwidth blocks */
+> +};
+> +
+> +#endif /* _ASM_RISCV_QOS_INTERNAL_H */
+> diff --git a/arch/riscv/kernel/qos/qos_resctrl.c b/arch/riscv/kernel/qos/=
+qos_resctrl.c
+> new file mode 100644
+> index 000000000000..6d294f2f2504
+> --- /dev/null
+> +++ b/arch/riscv/kernel/qos/qos_resctrl.c
+> @@ -0,0 +1,432 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +
+> +#define pr_fmt(fmt) "qos: resctrl: " fmt
+> +
+> +#include <linux/err.h>
+> +#include <linux/io.h>
+> +#include <linux/io-64-nonatomic-lo-hi.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/ioport.h>
+> +#include <linux/resctrl.h>
+> +#include <linux/riscv_qos.h>
+> +#include <linux/slab.h>
+> +#include <linux/types.h>
+> +#include <asm/csr.h>
+> +#include <asm/qos.h>
+> +#include "internal.h"
+> +
+> +static struct cbqri_resctrl_res cbqri_resctrl_resources[RDT_NUM_RESOURCE=
+S];
+> +
+> +static bool exposed_alloc_capable;
+> +/* CDP (code data prioritization) on x86 is AT (access type) on RISC-V *=
+/
+> +static bool exposed_cdp_l2_capable;
+> +static bool exposed_cdp_l3_capable;
+> +static bool is_cdp_l2_enabled;
+> +static bool is_cdp_l3_enabled;
+> +
+> +/* used by resctrl_arch_system_num_rmid_idx() */
+> +static u32 max_rmid;
+> +
+> +LIST_HEAD(cbqri_controllers);
+> +
+> +static int cbqri_wait_busy_flag(struct cbqri_controller *ctrl, int reg_o=
+ffset,
+> +                               u64 *regp);
+> +
+> +/* Set capacity block mask (cc_block_mask) */
+> +static void cbqri_set_cbm(struct cbqri_controller *ctrl, u64 cbm)
 > +{
-> +	u64 id, rev;
-> +	int ret;
+> +       iowrite64(cbm, ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
+> +}
+
+ CBQRI capacity limits appear to include both cc_block_mask and
+cc_cunits, but only cc_block_mask seems to be modeled here. How is
+cc_cunits expected to be handled?
+
 > +
-> +	ret = cci_read(ar0234->regmap, AR0234_REG_CHIP_VERSION, &id, NULL);
-> +	ret = cci_read(ar0234->regmap, AR0234_REG_REVISION_NUMBER, &rev, &ret);
-> +	if (ret)
-> +		return dev_err_probe(ar0234->dev, ret,
-> +				     "Failed to read chip id\n");
+> +/* Set the Rbwb (reserved bandwidth blocks) field in bc_bw_alloc */
+> +static void cbqri_set_rbwb(struct cbqri_controller *ctrl, u64 rbwb)
+> +{
+> +       u64 reg;
 > +
-> +	if (id == AR0234_CHIP_ID_MONO)
-> +		ar0234->variant = AR0234_VARIANT_MONO;
-> +	else if (id == AR0234_CHIP_ID)
-> +		ar0234->variant = AR0234_VARIANT_COLOUR;
-> +	else
-> +		return dev_err_probe(ar0234->dev, -ENODEV,
-> +				     "Invalid chip id: 0x%04x\n", (u16)id);
-> +
-> +	dev_info(ar0234->dev, "Success reading chip id: 0x%04x, Rev.%lld\n",
-> +		 (u16)id, (rev >> 12) & 0xf);
-> +
-> +	return ret;
+> +       reg =3D ioread64(ctrl->base + CBQRI_BC_BW_ALLOC_OFF);
+> +       reg &=3D ~CBQRI_CONTROL_REGISTERS_RBWB_MASK;
+> +       reg |=3D FIELD_PREP(CBQRI_CONTROL_REGISTERS_RBWB_MASK, rbwb);
+> +       iowrite64(reg, ctrl->base + CBQRI_BC_BW_ALLOC_OFF);
 > +}
 > +
-> +static int ar0234_power_on(struct device *dev)
+> +/* Get the Rbwb (reserved bandwidth blocks) field in bc_bw_alloc */
+> +static u64 cbqri_get_rbwb(struct cbqri_controller *ctrl)
 > +{
-> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-> +	struct ar0234 *ar0234 = to_ar0234(sd);
-> +	int ret;
+> +       u64 reg;
 > +
-> +	ret = regulator_bulk_enable(ARRAY_SIZE(ar0234->supplies),
-> +				    ar0234->supplies);
-> +	if (ret) {
-> +		dev_err(ar0234->dev, "Failed to enable regulators\n");
-> +		return ret;
-> +	}
-> +
-> +	ret = clk_prepare_enable(ar0234->clk);
-> +	if (ret) {
-> +		dev_err(ar0234->dev, "Failed to enable clock\n");
-> +		regulator_bulk_disable(ARRAY_SIZE(ar0234->supplies),
-> +				       ar0234->supplies);
-> +		return ret;
-> +	}
-> +
-> +	gpiod_set_value_cansleep(ar0234->reset, 1);
-
-should be 0 to de-assert the reset pin to power on
-
-> +	/* ~160000 EXTCLKs */
-> +	usleep_range(27000, 28000);
-> +
-> +	return 0;
+> +       reg =3D ioread64(ctrl->base + CBQRI_BC_BW_ALLOC_OFF);
+> +       return FIELD_GET(CBQRI_CONTROL_REGISTERS_RBWB_MASK, reg);
 > +}
 > +
-> +static int ar0234_power_off(struct device *dev)
+> +static int cbqri_wait_busy_flag(struct cbqri_controller *ctrl, int reg_o=
+ffset,
+> +                               u64 *regp)
 > +{
-> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-> +	struct ar0234 *ar0234 = to_ar0234(sd);
+> +       u64 reg;
+> +       int ret;
 > +
-> +	gpiod_set_value_cansleep(ar0234->reset, 0);
-
-1 to assert reset to power off
-
-> +	regulator_bulk_disable(ARRAY_SIZE(ar0234->supplies), ar0234->supplies);
-> +	clk_disable_unprepare(ar0234->clk);
-> +	/* 100ms PwrDown until next PwrUp */
-> +	usleep_range(100000, 110000);
+> +       ret =3D readq_poll_timeout_atomic(ctrl->base + reg_offset, reg,
+> +                                       !FIELD_GET(CBQRI_CONTROL_REGISTER=
+S_BUSY_MASK, reg),
+> +                                       0, 1000);
+> +       if (!ret && regp)
+> +               *regp =3D reg;
 > +
-> +	return 0;
+> +       return ret;
 > +}
 > +
-after fixing the reset polarity locally I got the driver working with a 
-rgb ar0234cs in 4-lane 10bit mode using a 24mhz extclk and a 448MHz link 
-frequency.
+> +/* Perform capacity allocation control operation on capacity controller =
+*/
+> +static int cbqri_cc_alloc_op(struct cbqri_controller *ctrl, int operatio=
+n, int rcid,
+> +                            enum resctrl_conf_type type)
+> +{
+> +       int reg_offset =3D CBQRI_CC_ALLOC_CTL_OFF;
+> +       int status;
+> +       u64 reg;
+> +
+> +       reg =3D ioread64(ctrl->base + reg_offset);
+> +       reg &=3D ~CBQRI_CONTROL_REGISTERS_OP_MASK;
+> +       reg |=3D FIELD_PREP(CBQRI_CONTROL_REGISTERS_OP_MASK, operation);
+> +       reg &=3D ~CBQRI_CONTROL_REGISTERS_RCID_MASK;
+> +       reg |=3D FIELD_PREP(CBQRI_CONTROL_REGISTERS_RCID_MASK, rcid);
+> +
+> +       /* CBQRI capacity AT is only supported on L2 and L3 caches for no=
+w */
+> +       if (ctrl->type =3D=3D CBQRI_CONTROLLER_TYPE_CAPACITY &&
+> +           ((ctrl->cache.cache_level =3D=3D 2 && is_cdp_l2_enabled) ||
+> +           (ctrl->cache.cache_level =3D=3D 3 && is_cdp_l3_enabled))) {
+> +               reg &=3D ~CBQRI_CONTROL_REGISTERS_AT_MASK;
+> +               switch (type) {
+> +               case CDP_CODE:
+> +                       reg |=3D FIELD_PREP(CBQRI_CONTROL_REGISTERS_AT_MA=
+SK,
+> +                                         CBQRI_CONTROL_REGISTERS_AT_CODE=
+);
+> +                       break;
+> +               case CDP_DATA:
+> +               default:
+> +                       reg |=3D FIELD_PREP(CBQRI_CONTROL_REGISTERS_AT_MA=
+SK,
+> +                                         CBQRI_CONTROL_REGISTERS_AT_DATA=
+);
+> +                       break;
+> +               }
+> +       }
+> +
+> +       iowrite64(reg, ctrl->base + reg_offset);
+> +
+> +       if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
+> +               pr_err("%s(): BUSY timeout when executing the operation\n=
+", __func__);
+> +               return -EIO;
+> +       }
+> +
+> +       status =3D FIELD_GET(CBQRI_CONTROL_REGISTERS_STATUS_MASK, reg);
+> +       if (status !=3D CBQRI_CC_ALLOC_CTL_STATUS_SUCCESS) {
+> +               pr_err("%s(): operation %d failed: status=3D%d\n", __func=
+__, operation, status);
+> +               return -EIO;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +/*
+> + * Write a capacity block mask and verify the hardware accepted it by
+> + * reading back the value after a CONFIG_LIMIT + READ_LIMIT sequence.
+> + */
+> +static int cbqri_apply_cache_config(struct cbqri_resctrl_dom *hw_dom, u3=
+2 closid,
+> +                                   enum resctrl_conf_type type, struct c=
+bqri_config *cfg)
+> +{
+> +       struct cbqri_controller *ctrl =3D hw_dom->hw_ctrl;
+> +       int err =3D 0;
+> +       u64 reg;
+> +
+> +       spin_lock(&ctrl->lock);
+> +
+> +       /* Set capacity block mask (cc_block_mask) */
+> +       cbqri_set_cbm(ctrl, cfg->cbm);
+> +
+> +       /* Capacity config limit operation */
+> +       err =3D cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_CONFIG_LIMI=
+T, closid, type);
+> +       if (err < 0) {
+> +               pr_err("%s(): operation failed: err =3D %d\n", __func__, =
+err);
+> +               goto out;
+> +       }
+> +
+> +       /* Clear cc_block_mask before read limit to verify op works */
+> +       cbqri_set_cbm(ctrl, 0);
+> +
+> +       /* Perform a capacity read limit operation to verify blockmask */
+> +       err =3D cbqri_cc_alloc_op(ctrl, CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT,=
+ closid, type);
+> +       if (err < 0) {
+> +               pr_err("%s(): operation failed: err =3D %d\n", __func__, =
+err);
+> +               goto out;
+> +       }
+> +
+> +       /* Read capacity blockmask to verify it matches the requested con=
+fig */
+> +       reg =3D ioread64(ctrl->base + CBQRI_CC_BLOCK_MASK_OFF);
+> +       if (reg !=3D cfg->cbm) {
+> +               pr_err("%s(): failed to verify allocation (reg:%llx !=3D =
+cbm:%llx)\n",
+> +                      __func__, reg, cfg->cbm);
+> +               err =3D -EIO;
+> +       }
+> +
+> +out:
+> +       spin_unlock(&ctrl->lock);
+> +       return err;
+> +}
+> +
+> +/* Perform bandwidth allocation control operation on bandwidth controlle=
+r */
+> +static int cbqri_bc_alloc_op(struct cbqri_controller *ctrl, int operatio=
+n, int rcid)
+> +{
+> +       int reg_offset =3D CBQRI_BC_ALLOC_CTL_OFF;
+> +       int status;
+> +       u64 reg;
+> +
+> +       reg =3D ioread64(ctrl->base + reg_offset);
+> +       reg &=3D ~CBQRI_CONTROL_REGISTERS_OP_MASK;
+> +       reg |=3D FIELD_PREP(CBQRI_CONTROL_REGISTERS_OP_MASK, operation);
+> +       reg &=3D ~CBQRI_CONTROL_REGISTERS_RCID_MASK;
+> +       reg |=3D FIELD_PREP(CBQRI_CONTROL_REGISTERS_RCID_MASK, rcid);
+> +       iowrite64(reg, ctrl->base + reg_offset);
+> +
+> +       if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
+> +               pr_err("%s(): BUSY timeout when executing the operation\n=
+", __func__);
+> +               return -EIO;
+> +       }
+> +
+> +       status =3D FIELD_GET(CBQRI_CONTROL_REGISTERS_STATUS_MASK, reg);
+> +       if (status !=3D CBQRI_BC_ALLOC_CTL_STATUS_SUCCESS) {
+> +               pr_err("%s(): operation %d failed with status =3D %d\n",
+> +                      __func__, operation, status);
+> +               return -EIO;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +/*
+> + * Write a bandwidth reservation and verify the hardware accepted it by
+> + * reading back the value after a CONFIG_LIMIT + READ_LIMIT sequence.
+> + */
+> +static int cbqri_apply_bw_config(struct cbqri_resctrl_dom *hw_dom, u32 c=
+losid,
+> +                                enum resctrl_conf_type type, struct cbqr=
+i_config *cfg)
+> +{
+> +       struct cbqri_controller *ctrl =3D hw_dom->hw_ctrl;
+> +       int ret =3D 0;
+> +       u64 reg;
+> +
+> +       spin_lock(&ctrl->lock);
+> +
+> +       /* Set reserved bandwidth blocks */
+> +       cbqri_set_rbwb(ctrl, cfg->rbwb);
+> +
+> +       /* Bandwidth config limit operation */
+> +       ret =3D cbqri_bc_alloc_op(ctrl, CBQRI_BC_ALLOC_CTL_OP_CONFIG_LIMI=
+T, closid);
+> +       if (ret < 0) {
+> +               pr_err("%s(): operation failed: ret =3D %d\n", __func__, =
+ret);
+> +               goto out;
+> +       }
+> +
+> +       /* Clear rbwb before read limit to verify op works */
+> +       cbqri_set_rbwb(ctrl, 0);
+> +
+> +       /* Bandwidth allocation read limit operation to verify */
+> +       ret =3D cbqri_bc_alloc_op(ctrl, CBQRI_BC_ALLOC_CTL_OP_READ_LIMIT,=
+ closid);
+> +       if (ret < 0)
+> +               goto out;
+> +
+> +       /* Read bandwidth allocation to verify it matches the requested c=
+onfig */
+> +       reg =3D cbqri_get_rbwb(ctrl);
+> +       if (reg !=3D cfg->rbwb) {
+> +               pr_err("%s(): failed to verify allocation (reg:%llx !=3D =
+rbwb:%llu)\n",
+> +                      __func__, reg, cfg->rbwb);
+> +               ret =3D -EIO;
+> +       }
+> +
+> +out:
+> +       spin_unlock(&ctrl->lock);
+> +       return ret;
+> +}
+> +
+> +static int cbqri_probe_feature(struct cbqri_controller *ctrl, int reg_of=
+fset,
+> +                              int operation, int *status, bool *access_t=
+ype_supported)
+> +{
+> +       u64 reg, saved_reg;
+> +       int at;
+> +
+> +       /* Keep the initial register value to preserve the WPRI fields */
+> +       reg =3D ioread64(ctrl->base + reg_offset);
+> +       saved_reg =3D reg;
+> +
+> +       /* Execute the requested operation to find if the register is imp=
+lemented */
+> +       reg &=3D ~CBQRI_CONTROL_REGISTERS_OP_MASK;
+> +       reg |=3D FIELD_PREP(CBQRI_CONTROL_REGISTERS_OP_MASK, operation);
+> +       iowrite64(reg, ctrl->base + reg_offset);
+> +       if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
+> +               pr_err("%s(): BUSY timeout when executing the operation\n=
+", __func__);
+> +               return -EIO;
+> +       }
+> +
+> +       /* Get the operation status */
+> +       *status =3D FIELD_GET(CBQRI_CONTROL_REGISTERS_STATUS_MASK, reg);
+> +
+> +       /*
+> +        * Check for the AT support if the register is implemented
+> +        * (if not, the status value will remain 0)
+> +        */
+> +       if (*status !=3D 0) {
+> +               /* Set the AT field to a valid value */
+> +               reg =3D saved_reg;
+> +               reg &=3D ~CBQRI_CONTROL_REGISTERS_AT_MASK;
+> +               reg |=3D FIELD_PREP(CBQRI_CONTROL_REGISTERS_AT_MASK,
+> +                                 CBQRI_CONTROL_REGISTERS_AT_CODE);
+> +               iowrite64(reg, ctrl->base + reg_offset);
+> +               if (cbqri_wait_busy_flag(ctrl, reg_offset, &reg) < 0) {
+> +                       pr_err("%s(): BUSY timeout when setting AT field\=
+n", __func__);
+> +                       return -EIO;
+> +               }
+> +
+> +               /*
+> +                * If the AT field value has been reset to zero,
+> +                * then the AT support is not present
+> +                */
+> +               at =3D FIELD_GET(CBQRI_CONTROL_REGISTERS_AT_MASK, reg);
+> +               if (at =3D=3D CBQRI_CONTROL_REGISTERS_AT_CODE)
+> +                       *access_type_supported =3D true;
+> +               else
+> +                       *access_type_supported =3D false;
+> +       }
+> +
+> +       /* Restore the original register value */
+> +       iowrite64(saved_reg, ctrl->base + reg_offset);
+> +       if (cbqri_wait_busy_flag(ctrl, reg_offset, NULL) < 0) {
+> +               pr_err("%s(): BUSY timeout when restoring the original re=
+gister value\n", __func__);
+> +               return -EIO;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +static int cbqri_probe_cc(struct cbqri_controller *ctrl)
+> +{
+> +       int err, status;
+> +       u64 reg;
+> +
+> +       reg =3D ioread64(ctrl->base + CBQRI_CC_CAPABILITIES_OFF);
+> +       if (reg =3D=3D 0)
+> +               return -ENODEV;
+> +
+> +       ctrl->ver_minor =3D FIELD_GET(CBQRI_CC_CAPABILITIES_VER_MINOR_MAS=
+K, reg);
+> +       ctrl->ver_major =3D FIELD_GET(CBQRI_CC_CAPABILITIES_VER_MAJOR_MAS=
+K, reg);
+> +       ctrl->cc.supports_alloc_op_flush_rcid =3D
+> +               FIELD_GET(CBQRI_CC_CAPABILITIES_FRCID_MASK, reg);
+> +       ctrl->cc.ncblks =3D FIELD_GET(CBQRI_CC_CAPABILITIES_NCBLKS_MASK, =
+reg);
+> +
+> +       pr_debug("version=3D%d.%d ncblks=3D%d cache_level=3D%d\n",
+> +                ctrl->ver_major, ctrl->ver_minor,
+> +                ctrl->cc.ncblks, ctrl->cache.cache_level);
+> +
+> +       /* Probe allocation features (monitoring not yet implemented) */
+> +       err =3D cbqri_probe_feature(ctrl, CBQRI_CC_ALLOC_CTL_OFF,
+> +                                 CBQRI_CC_ALLOC_CTL_OP_READ_LIMIT,
+> +                                 &status, &ctrl->cc.supports_alloc_at_co=
+de);
+> +       if (err)
+> +               return err;
+> +
+> +       if (status =3D=3D CBQRI_CC_ALLOC_CTL_STATUS_SUCCESS) {
+> +               ctrl->alloc_capable =3D true;
+> +               exposed_alloc_capable =3D true;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +static int cbqri_probe_bc(struct cbqri_controller *ctrl)
+> +{
+> +       int err, status;
+> +       u64 reg;
+> +
+> +       reg =3D ioread64(ctrl->base + CBQRI_BC_CAPABILITIES_OFF);
+> +       if (reg =3D=3D 0)
+> +               return -ENODEV;
+> +
+> +       ctrl->ver_minor =3D FIELD_GET(CBQRI_BC_CAPABILITIES_VER_MINOR_MAS=
+K, reg);
+> +       ctrl->ver_major =3D FIELD_GET(CBQRI_BC_CAPABILITIES_VER_MAJOR_MAS=
+K, reg);
+> +       ctrl->bc.nbwblks =3D FIELD_GET(CBQRI_BC_CAPABILITIES_NBWBLKS_MASK=
+, reg);
+> +       ctrl->bc.mrbwb =3D FIELD_GET(CBQRI_BC_CAPABILITIES_MRBWB_MASK, re=
+g);
+> +
+> +       if (!ctrl->bc.nbwblks) {
+> +               pr_err("bandwidth controller has nbwblks=3D0\n");
+> +               return -EINVAL;
+> +       }
+> +
+> +       pr_debug("version=3D%d.%d nbwblks=3D%d mrbwb=3D%d\n",
+> +                ctrl->ver_major, ctrl->ver_minor,
+> +                ctrl->bc.nbwblks, ctrl->bc.mrbwb);
+> +
+> +       /* Probe allocation features (monitoring not yet implemented) */
+> +       err =3D cbqri_probe_feature(ctrl, CBQRI_BC_ALLOC_CTL_OFF,
+> +                                 CBQRI_BC_ALLOC_CTL_OP_READ_LIMIT,
+> +                                 &status, &ctrl->bc.supports_alloc_at_co=
+de);
+> +       if (err)
+> +               return err;
+> +
+> +       if (status =3D=3D CBQRI_BC_ALLOC_CTL_STATUS_SUCCESS) {
+> +               ctrl->alloc_capable =3D true;
+> +               exposed_alloc_capable =3D true;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +static int cbqri_probe_controller(struct cbqri_controller *ctrl)
+> +{
+> +       int err;
+> +
+> +       pr_debug("controller info: type=3D%d addr=3D%pa size=3D%pa max-rc=
+id=3D%u max-mcid=3D%u\n",
+> +                ctrl->type, &ctrl->addr, &ctrl->size,
+> +                ctrl->rcid_count, ctrl->mcid_count);
+> +
+> +       if (!ctrl->addr) {
+> +               pr_warn("%s(): controller has invalid addr=3D0x0, skippin=
+g\n", __func__);
+> +               return -EINVAL;
+> +       }
+> +
+> +       if (!request_mem_region(ctrl->addr, ctrl->size, "cbqri_controller=
+")) {
+> +               pr_err("%s(): request_mem_region failed for %pa\n",
+> +                      __func__, &ctrl->addr);
+> +               return -EBUSY;
+> +       }
+> +
+> +       ctrl->base =3D ioremap(ctrl->addr, ctrl->size);
+> +       if (!ctrl->base) {
+> +               pr_err("%s(): ioremap failed for %pa\n", __func__, &ctrl-=
+>addr);
+> +               err =3D -ENOMEM;
+> +               goto err_release;
+> +       }
+> +
+> +       spin_lock_init(&ctrl->lock);
+> +
+> +       switch (ctrl->type) {
+> +       case CBQRI_CONTROLLER_TYPE_CAPACITY:
+> +               err =3D cbqri_probe_cc(ctrl);
+> +               break;
+> +       case CBQRI_CONTROLLER_TYPE_BANDWIDTH:
+> +               err =3D cbqri_probe_bc(ctrl);
+> +               break;
+> +       default:
+> +               pr_err("unknown controller type %d\n", ctrl->type);
+> +               err =3D -ENODEV;
+> +               break;
+> +       }
+> +
+> +       if (err)
+> +               goto err_iounmap;
+> +
+> +       /*
+> +        * max_rmid is used by resctrl_arch_system_num_rmid_idx()
+> +        * Find the smallest mcid_count amongst all controllers.
+> +        */
+> +       max_rmid =3D min(max_rmid, ctrl->mcid_count);
+> +
+> +       return 0;
+> +
+> +err_iounmap:
+> +       iounmap(ctrl->base);
+> +       ctrl->base =3D NULL;
+> +err_release:
+> +       release_mem_region(ctrl->addr, ctrl->size);
+> +       return err;
+> +}
+> diff --git a/include/linux/riscv_qos.h b/include/linux/riscv_qos.h
+> new file mode 100644
+> index 000000000000..0f3daae2e84f
+> --- /dev/null
+> +++ b/include/linux/riscv_qos.h
+> @@ -0,0 +1,76 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +#ifndef __LINUX_RISCV_QOS_H
+> +#define __LINUX_RISCV_QOS_H
+> +
+> +#include <linux/spinlock.h>
+> +#include <linux/types.h>
+> +
+> +#include <asm/qos.h>
+> +
+> +enum cbqri_controller_type {
+> +       CBQRI_CONTROLLER_TYPE_CAPACITY,
+> +       CBQRI_CONTROLLER_TYPE_BANDWIDTH,
+> +       CBQRI_CONTROLLER_TYPE_UNKNOWN
+> +};
+> +
+> +/* Capacity Controller hardware capabilities */
+> +struct riscv_cbqri_capacity_caps {
+> +       u16 ncblks; /* number of capacity blocks */
+> +
+> +       bool supports_alloc_at_code;
+> +       bool supports_alloc_op_flush_rcid;
+> +};
+> +
+> +/* Bandwidth Controller hardware capabilities */
+> +struct riscv_cbqri_bandwidth_caps {
+> +       u16 nbwblks; /* number of bandwidth blocks */
+> +       u16 mrbwb;   /* max reserved bw blocks */
+> +
+> +       bool supports_alloc_at_code;
+> +};
+> +
+> +struct cbqri_controller {
+> +       void __iomem *base;
+> +       /*
+> +        * Protects multi-step MMIO register sequences on this controller=
+.
+> +        * CBQRI operations (e.g. CONFIG_LIMIT, READ_LIMIT) require writi=
+ng
+> +        * an operation register, waiting for the busy flag to clear, the=
+n
+> +        * reading back the result. These sequences must be atomic per
+> +        * controller to prevent interleaving.
+> +        */
+> +       spinlock_t lock;
+> +
+> +       int ver_major;
+> +       int ver_minor;
+> +
+> +       struct riscv_cbqri_bandwidth_caps bc;
+> +       struct riscv_cbqri_capacity_caps cc;
+> +
+> +       bool alloc_capable;
+> +
+> +       phys_addr_t addr;
+> +       phys_addr_t size;
+> +       enum cbqri_controller_type type;
+> +       u32 rcid_count;
+> +       u32 mcid_count;
+> +       struct list_head list;
+> +
+> +       struct cache_controller {
+> +               u32 cache_level;
+> +               u32 cache_size; /* in bytes */
+> +               struct cpumask cpu_mask;
+> +               /* Unique Cache ID from the PPTT table's Cache Type Struc=
+ture */
+> +               u32 cache_id;
+> +       } cache;
+> +
+> +       struct mem_controller {
+> +               /* Proximity Domain from SRAT table Memory Affinity Contr=
+oller */
+> +               u32 prox_dom;
+> +               struct cpumask cpu_mask;
+> +       } mem;
+> +};
+> +
+> +extern struct list_head cbqri_controllers;
+> +
+> +#endif /* __LINUX_RISCV_QOS_H */
+>
+> --
+> 2.43.0
+>
 
-Tested-by: Quentin Freimanis <quentin@q-lab.dev>
-(after the reset fix)
-
-- Quentin
+Thanks,
+Yunhui
