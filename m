@@ -1,100 +1,76 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A08B41325B
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:23:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DCB26C385
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777976634; cv=none; b=uLY6DUH+dxQ5Z85Om+N4gSZvTgcbEGrY9AgQgW+el2Nw0v4or7r1jTNEOM0mxChR5lyHPSs5L1SyxUiR3sQAIbxuuRE1PWbsIP5w7YB0dIfA0OPDdQ3cYq+MF96Red6r8cbGAoe7VRayYZ5+EFeExoiE1utIfotqNDLeUePfRaI=
+	t=1777976810; cv=none; b=kSUiLr3/BnL1kzSGLlmqmRT8Xoynlkgo+3tKSeFfV7q/Mrjqg3aQAc5X2y2W7PZrD7UHDcjjo3ip4aLzPV2DAT0VJbtRiVW9cn+uYdj+yt12j23paZEEWcDhD06+S6rqjI89aXSmeRSdnyJ08W3mo+jMMeOdGZun9gK5M7/r/us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777976634; c=relaxed/simple;
-	bh=RpjSjjB4pjZfFcbB7XVzwzy4YMbJ9NXUiyxiX8xJI5E=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=BamvO2JBUB4a0tUKXXxxHuLOD62u9eiSQiBAJ4dioDcLMTZL3TlVxXJNX8VVIhLSniC8bBIF3qiGLALjRxb2PQWDJgYtj6gVkmP82Io0q0OE9IC5rLAy5B6XfsmjU+bMStJ44bOfOM4ewvretiihqKI+7Sqfw9nU2f4mdb00kEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GJV9UjwH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=W50NIdfB; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1777976810; c=relaxed/simple;
+	bh=BNQcmIUcI/sLEEdMaIwi95O/OjrcePYCPJrqUygwTgw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mh+56t+C0za9NPLsO/CkaJ7+/W2kxdY1DO6i3OXWELqaEjke2siQtMrWX9dpR1tNOXS7i7eJ+qTosqHAppDbKIbfqXn7kLlRcAXkZ4B8zYD5Snd7mJl0upzoNEw3Vmh7t7CZBwHCSh8Ru0hXLJu4kQ1McybF8/Se4Dc7Un9vK/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dIXQOwu7; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GJV9UjwH";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W50NIdfB"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6456u5V5331067
-	for <devicetree@vger.kernel.org>; Tue, 5 May 2026 10:23:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=PiAJ979ctt8
-	7jli43AjJjSavikAkdqiFGxXDSeW5JsM=; b=GJV9UjwH1tw2DMdKgVk6P36gbiB
-	LotfKCO82R9ie9tO8aZfYBYr6CqRAH4h3YcpR3ys7pp7OYDIUpkZDeEu/DFM5oOW
-	3xO+8lrVQDqODegUyXsEWHlT8gtwKtQT3HW6SvBHLEnG7GhqI66CYE1fAFVwoGN8
-	nKlb2f5aT3KfFrukcU8L34fomR9RGtK7vOA9i+G4jjMrhPUWlvrcHNw2EwmxIz1s
-	I4MZUpqyCYfIVcGfd3IOtbb7fXrZ4hesCu8h44LPT4iBYXVnWSnb4rgWnsYZb2dJ
-	YJkFHulA6C88c3D12992l2RVHJno+hHZcdj3ikganP8aXXAYpRcutQpwYjw==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dxvr1c07m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 05 May 2026 10:23:52 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3651991d0bcso5307435a91.0
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:23:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dIXQOwu7"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-36523acb0c1so1377373a91.0
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:26:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777976632; x=1778581432; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PiAJ979ctt87jli43AjJjSavikAkdqiFGxXDSeW5JsM=;
-        b=W50NIdfBz08PvBme4Eq1VH8SGMuSRhe/aInYgobxDSX6WbxCvPWNB/kpV5oxYAZg1O
-         l49m0D8NPumQdbwm6NmzogMvyDSM3qHG4aZhZ9ATHecEsDDevcOL2vSAUUQatja9Rz6s
-         /tCnCZDs266y1GKfrShAhZqBb0U0A8B5vdsLksblRG4ExA4y9QhYy8T6q8uekGAY392s
-         sNJkjIlmNWGgFE1b65sCtLYFO31+XOAXzely04eAZuhhHv38is7CBf82YphkfSBFDL5H
-         1dhVp17woQeUdqUXnZ3F8jV+hCJKQDmgyTIRs+Dm2eeyyUFTKSD3I8K3rRzItudAmMVE
-         ML+w==
+        d=gmail.com; s=20251104; t=1777976809; x=1778581609; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9jtWi+BJEmMiKBLc81hfsFIIWmO6WhR/hALIJ9C45EQ=;
+        b=dIXQOwu7zB1tEJgWSyY4KD5pxGYKtakygcC21CgTB5itCV4q+2IX0yhPNTZ5HaJVZH
+         BCb0rN2NCqdRaFkcAz3aNOV6jUHanm6PzmuloxueQ9RHJarj1S5cXBBHzd0qrlNAvMSt
+         IeUjEu0mOqslVPO4cuIlOi7J6lQ3JNl9yTyJkx5FKwyugp86keV3dsIz5Q4FM8PTUbJ5
+         os7XFX6RuYhtHRX2K2d4VRhJ8dAnjvVexax9EqPQCzOl9+fkYmZKpMbprS8irAl8EQLE
+         kTgx+0e8cecgFMKh16DDRem3D7LkwYn+ZEC1oQgue12eky+QpXno/GwJNqcr4G/QjEE+
+         /HVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777976632; x=1778581432;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=PiAJ979ctt87jli43AjJjSavikAkdqiFGxXDSeW5JsM=;
-        b=hUjdOi5OiX796BhqUGyxt+9NElHMF4UB587i6MIu5XKG6EW6HxmdaIJG7TyF3kMZMM
-         lO0N6waoIozpGFP98OovJckTVEHiip16ODSr7BlLR+KDWhzkLe1cICn4bOCRol9yNteP
-         5Xm5/vpR4b6DPckqCpaEAEhmAVkQ/qT7dQDxr+yEpyBHjYruFPn/EYS24jFs4XT8KPsn
-         GPsPXXcarjWjV99MdqcC+iypuItYXkOHt7wS74kx3VZiOHQgsxcU5PWHPRH9jE01YcD4
-         Bh+QMdOW2qEZ7Qjtp4nRrxrzwe+e0OatgfI0zsXftvdF2erK5hKSZuTcLqyowRvMNTcB
-         ZJ5A==
-X-Forwarded-Encrypted: i=1; AFNElJ9CUYw6UPxkhiEAyPLYBJrGXCVX3HqgL5tVAnjc1Y/fBuWydYOFvdVicQqjzAwV/CmJPhdh1YWMBrbK@vger.kernel.org
-X-Gm-Message-State: AOJu0YwgiCI0HEDFM+z3izxiGUQVFfnFrnpHOWv4gRn26AQmi1FbvqJ4
-	DWYV3j8kwFytkqKyGHawxgdQdsvTEaaBhsXqjFa6/Sdwg3KRRHgfUpjM8d0nTk1wmGogwBItNHj
-	oImggh9pDWE0CesFuUF8vKOME4FTdr3YSIdi9NDdjt6hIJzINJbDyCM4MV8vstqN1
-X-Gm-Gg: AeBDies1Wq7jQUljuVLofSiEcB03+3FeknbKCqdRr+mLt4eiVxtw2MIFdXrwqMjPHKe
-	f0l208nemGC+a2ktJ4o/HwiKc1I/Papcm9EMkBmPMnHtVtO8VdZu87m//7ZSISIOciRraQP+9wI
-	YNhDqX/W2pdItfBptDA+MHFhT9P/D6uT5cSrxhhLSPn9rzI6YbvjkvbfsOkDfgClzyBiSP4CBIH
-	Cdw2zF6fjY5m76Fd2HT/4PIJbo/9KxEGioyWRwZo7FOcj9nlnzWGI+IdE5Lk9v3FRilOKPVGBfJ
-	N8COgWdiauuhUacLYza3XSmM65PA5ZBEZpe5JnoPCumP76r05KEmlNIsIyZUM/UScQqHjPZ3JRS
-	04MZlY2t4DBU/lwxZmIxZPfv75GydpRQkKqbBFTIdYAmtjm8IaQPXzisgUpXAaVf0r1wZAW0o9d
-	4PknTIY/b8LCYiCW7SaXiYDgdKXJ0/JCWLsQeFeO3mNEAjDIvWcfarjpdUwFTzgg==
-X-Received: by 2002:a17:90b:588b:b0:35d:8f3d:c554 with SMTP id 98e67ed59e1d1-3650ce8ebb8mr12021962a91.13.1777976631694;
-        Tue, 05 May 2026 03:23:51 -0700 (PDT)
-X-Received: by 2002:a17:90b:588b:b0:35d:8f3d:c554 with SMTP id 98e67ed59e1d1-3650ce8ebb8mr12021923a91.13.1777976631188;
-        Tue, 05 May 2026 03:23:51 -0700 (PDT)
-Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3656ae05d30sm3299333a91.6.2026.05.05.03.23.46
+        d=1e100.net; s=20251104; t=1777976809; x=1778581609;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9jtWi+BJEmMiKBLc81hfsFIIWmO6WhR/hALIJ9C45EQ=;
+        b=Be0uro6u8D0vUHZ5GwQOG5MpupkVWf5TRYQDLJcv055AES36FwwI1+PHD0+xr7zfSP
+         rtXQjcjgKXuT1DjnIpBVM3OpYqi/lN6oOighc7GpVKzPvKlWybkr7zi61dDT/u+GPrgP
+         Ktec1rMtzTO8ML6pVWsicS1w2O0Zk4sg1wOeAoCo9KMyNGjBGtuI1PeyLHsAI+RZL/Kj
+         Kx8JdhS/WD0CkLfWvL1mnUNwCea1GQudPkHx9Fk3/dYz9cC9vCth9OKzi026hVGa76UV
+         jE8M0r1SXJuqCPh5fLfZU1Y3BJ60o08318T+nXLwdFGUjSyXzvivTSr+JWKGk7Vo0EOT
+         H+kA==
+X-Forwarded-Encrypted: i=1; AFNElJ+N8eDvKvhVxfzUTKrt45ILv2VKwNHH02YNvZo3edBDWXbDkC3YUoer369qeEimrOF1MbIEcprnnOjV@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy5Jjj+BI8bBmGjmbJG4nVI6ViQC4P1QeCfIp97rPJ76OzWs3fT
+	tnOXbB/lX+swztn7mkpgdlOjZ06+XG4QZQP8xHHnOSdsWICBfboZ4+tH
+X-Gm-Gg: AeBDietURxQAZ9l9y24YutBpgVHaXaN5b0zzEA5T5eA2REgVpGN97TkqOj5IjxUA/kg
+	An8g+H/yzsu4+gE4ukwajA4fnYczK1uR+OAHElvXmJJsEm7bD1jp8QY1897a23+HW3GzPlqRzyG
+	1b1qEBDJALLavHMYAtS+0PM89AVVsV6kBEnEyDX29HF1uqreKEi5SUWudQDco8+vKig/Im+uv6Y
+	J2Q5LSfxNw/kpGHpdhlon8TjLP/pf9c57wVE3VoRDMMmJrPTyhNmTNJPtbthlAl3VzkZ68riZyh
+	HLt9TivZvRJMxPF1K54BJ5xHumoxW1qfdT5t1fz2Dn5dGBEkoNXPuHWLK8+WlSv7rciiKa/xmoK
+	VY41TS0PerFK/B1S8b+3I/uki8SXyWiNb+5R65SbTgRTFrpYGww7hn6kI1fcBdeV61QkWhxlEZv
+	WDC/gnqUvL3Qqv6WNSGpz/AwX4SrSCrLk4yjmJK3QA2vRVpfF4AevFvc9+AmQbhBwdZGPaT+Fpy
+	7C73WKdAQk=
+X-Received: by 2002:a17:90b:53c3:b0:33b:b078:d6d3 with SMTP id 98e67ed59e1d1-365774d3260mr2619605a91.23.1777976808405;
+        Tue, 05 May 2026 03:26:48 -0700 (PDT)
+Received: from chaitanya-virtualbox.. ([103.249.241.52])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-364ec00ad4dsm18983102a91.11.2026.05.05.03.26.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 03:23:50 -0700 (PDT)
-From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-To: andersson@kernel.org, mathieu.poirier@linaro.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, konradybcio@kernel.org,
-        manikanta.mylavarapu@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Gokul Sriram Palanisamy <gokul.sriram.p@oss.qualcomm.com>,
-        George Moussalem <george.moussalem@outlook.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Subject: [PATCH v12 6/6] arm64: dts: qcom: ipq9574: add nodes to bring up q6
-Date: Tue,  5 May 2026 15:53:10 +0530
-Message-Id: <20260505102310.2925956-7-varadarajan.narayanan@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260505102310.2925956-1-varadarajan.narayanan@oss.qualcomm.com>
-References: <20260505102310.2925956-1-varadarajan.narayanan@oss.qualcomm.com>
+        Tue, 05 May 2026 03:26:48 -0700 (PDT)
+From: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
+To: andi.shyti@kernel.org,
+	wsa@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
+Subject: [PATCH] dt-bindings: i2c: convert davinci i2c to dt-schema
+Date: Tue,  5 May 2026 15:56:26 +0530
+Message-ID: <20260505102626.5726-1-chaitanya.msabnis@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -102,132 +78,140 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: xsdoLDOsKH2xCvwtz9zUDnbX8imiDWNN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA1MDA5NyBTYWx0ZWRfXwReOH1W3VbX7
- pjav9LfjJ7m3xHTaSAhihtHzlwyLornor8elTdg+Rwp5Mjn9/duRHnAyMWKeNBoipZkR1xUDsz/
- VvSjxVsCaH1KIaJam40fu/SJwsde5qFI4a0K7XDVbtixJlGpezQ3rAzEwdZsjmunlLQgcHDVgcA
- hKKceRhU+4CVodi2rrupPdqD1k2sm4rGxHcKHDjTespTlmIlId0/S+DVBAdXRYu0elDLxr/MPnx
- WQKd2M88rYXvLa39WJn0FBFAMnmOYkA48fx8qlVJlosOqHoJPLZmZ9s0WVCpbXLVKvNDmgyaGUt
- O2ZtiGcLk98fCRihtE2H3ntFPM8dNPLKfGaJDFcsxMHHMblCAvrnkRuiME6+M/0alWlbdsxPsD/
- +15gyU3fqKImXrqxdc7i1HM7TDCvPM6QBl8KKlPb01Tifps4U5IvnUSqyEKkDTdYVfoI6iLhTyW
- 1hEirA3OSdlBvPL4NEA==
-X-Proofpoint-GUID: xsdoLDOsKH2xCvwtz9zUDnbX8imiDWNN
-X-Authority-Analysis: v=2.4 cv=RvL16imK c=1 sm=1 tr=0 ts=69f9c538 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=UqCG9HQmAAAA:8 a=VFxxlfVBB3dI8x85gZMA:9 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-05_02,2026-04-30_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
- impostorscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605050097
 
-From: Manikanta Mylavarapu <manikanta.mylavarapu@oss.qualcomm.com>
+Convert the Texas Instruments DaVinci and Keystone I2C controller
+bindings from legacy text format to modern dt-schema (YAML).
 
-Enable nodes required for q6 remoteproc bring up.
+During the conversion, the `interrupts` property was made required
+to match the strict requirement in the driver probe function. The
+custom `ti,has-pfunc` and `power-domains` properties were also
+properly defined to match SoC-specific hardware features.
 
-Signed-off-by: Manikanta Mylavarapu <manikanta.mylavarapu@oss.qualcomm.com>
-Signed-off-by: Gokul Sriram Palanisamy <gokul.sriram.p@oss.qualcomm.com>
-Signed-off-by: George Moussalem <george.moussalem@outlook.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Signed-off-by: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
 ---
-v12: Change Manikanta's mail id to oss.qualcomm.com in S-o-b and Author
-v9: Add R-b Konrad and Signed-off-by
----
- arch/arm64/boot/dts/qcom/ipq9574.dtsi | 60 ++++++++++++++++++++++++++-
- 1 file changed, 59 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/i2c/i2c-davinci.txt   | 43 -------------
+ .../bindings/i2c/ti,davinci-i2c.yaml          | 62 +++++++++++++++++++
+ 2 files changed, 62 insertions(+), 43 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/i2c/i2c-davinci.txt
+ create mode 100644 Documentation/devicetree/bindings/i2c/ti,davinci-i2c.yaml
 
-diff --git a/arch/arm64/boot/dts/qcom/ipq9574.dtsi b/arch/arm64/boot/dts/qcom/ipq9574.dtsi
-index 622cfa96ed2b..5c828c855c98 100644
---- a/arch/arm64/boot/dts/qcom/ipq9574.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq9574.dtsi
-@@ -3,7 +3,7 @@
-  * IPQ9574 SoC device tree source
-  *
-  * Copyright (c) 2020-2021 The Linux Foundation. All rights reserved.
-- * Copyright (c) 2023-2024, Qualcomm Innovation Center, Inc. All rights reserved.
-+ * Copyright (c) 2023-2025, Qualcomm Innovation Center, Inc. All rights reserved.
-  */
- 
- #include <dt-bindings/clock/qcom,apss-ipq.h>
-@@ -222,6 +222,35 @@ smem@4aa00000 {
- 			hwlocks = <&tcsr_mutex 3>;
- 			no-map;
- 		};
+diff --git a/Documentation/devicetree/bindings/i2c/i2c-davinci.txt b/Documentation/devicetree/bindings/i2c/i2c-davinci.txt
+deleted file mode 100644
+index 6590501c53d4..000000000000
+--- a/Documentation/devicetree/bindings/i2c/i2c-davinci.txt
++++ /dev/null
+@@ -1,43 +0,0 @@
+-* Texas Instruments Davinci/Keystone I2C
+-
+-This file provides information, what the device node for the
+-davinci/keystone i2c interface contains.
+-
+-Required properties:
+-- compatible: "ti,davinci-i2c" or "ti,keystone-i2c";
+-- reg : Offset and length of the register set for the device
+-- clocks: I2C functional clock phandle.
+-	  For 66AK2G this property should be set per binding,
+-	  Documentation/devicetree/bindings/clock/ti,sci-clk.yaml
+-
+-SoC-specific Required Properties:
+-
+-The following are mandatory properties for Keystone 2 66AK2G SoCs only:
+-
+-- power-domains:	Should contain a phandle to a PM domain provider node
+-			and an args specifier containing the I2C device id
+-			value. This property is as per the binding,
+-			Documentation/devicetree/bindings/soc/ti/sci-pm-domain.yaml
+-
+-Recommended properties :
+-- interrupts : standard interrupt property.
+-- clock-frequency : desired I2C bus clock frequency in Hz.
+-- ti,has-pfunc: boolean; if defined, it indicates that SoC supports PFUNC
+-	registers. PFUNC registers allow to switch I2C pins to function as
+-	GPIOs, so they can be toggled manually.
+-
+-Example (enbw_cmc board):
+-	i2c@1c22000 {
+-		compatible = "ti,davinci-i2c";
+-		reg = <0x22000 0x1000>;
+-		clock-frequency = <100000>;
+-		interrupts = <15>;
+-		interrupt-parent = <&intc>;
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		dtt@48 {
+-			compatible = "national,lm75";
+-			reg = <0x48>;
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/i2c/ti,davinci-i2c.yaml b/Documentation/devicetree/bindings/i2c/ti,davinci-i2c.yaml
+new file mode 100644
+index 000000000000..89c639d023a3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/i2c/ti,davinci-i2c.yaml
+@@ -0,0 +1,62 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/i2c/ti,davinci-i2c.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+		q6_region: wcss@4ab00000 {
-+			reg = <0x0 0x4ab00000 0x0 0x2b00000>;
-+			no-map;
-+		};
-+	};
++title: Texas Instruments DaVinci/Keystone I2C
 +
-+	wcss: smp2p-wcss {
-+		compatible = "qcom,smp2p";
-+		qcom,smem = <435>, <428>;
++maintainers:
++  - Chaitanya Sabnis <chaitanya.msabni@gmail.com>
 +
-+		interrupt-parent = <&intc>;
-+		interrupts = <GIC_SPI 322 IRQ_TYPE_EDGE_RISING>;
++allOf:
++  - $ref: /schemas/i2c/i2c-controller.yaml#
 +
-+		mboxes = <&apcs_glb 9>;
++properties:
++  compatible:
++    enum:
++      - ti,davinci-i2c
++      - ti,keystone-i2c
 +
-+		qcom,local-pid = <0>;
-+		qcom,remote-pid = <1>;
++  reg:
++    maxItems: 1
 +
-+		smp2p_wcss_out: master-kernel {
-+			qcom,entry-name = "master-kernel";
-+			#qcom,smem-state-cells = <1>;
-+		};
++  interrupts:
++    maxItems: 1
 +
-+		smp2p_wcss_in: slave-kernel {
-+			qcom,entry-name = "slave-kernel";
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+		};
- 	};
- 
- 	soc: soc@0 {
-@@ -914,6 +943,35 @@ frame@b128000 {
- 			};
- 		};
- 
-+		q6v5_wcss: remoteproc@cd00000 {
-+			compatible = "qcom,ipq9574-wcss-sec-pil";
-+			reg = <0x0cd00000 0x10000>;
-+			firmware-name = "ath11k/IPQ9574/hw1.0/q6_fw.mbn";
-+			interrupts-extended = <&intc GIC_SPI 325 IRQ_TYPE_EDGE_RISING>,
-+					      <&smp2p_wcss_in 0 IRQ_TYPE_NONE>,
-+					      <&smp2p_wcss_in 1 IRQ_TYPE_NONE>,
-+					      <&smp2p_wcss_in 2 IRQ_TYPE_NONE>,
-+					      <&smp2p_wcss_in 3 IRQ_TYPE_NONE>;
-+			interrupt-names = "wdog",
-+					  "fatal",
-+					  "ready",
-+					  "handover",
-+					  "stop-ack";
++  clocks:
++    maxItems: 1
 +
-+			qcom,smem-states = <&smp2p_wcss_out 1>,
-+					   <&smp2p_wcss_out 0>;
-+			qcom,smem-state-names = "stop",
-+						"shutdown";
-+			memory-region = <&q6_region>;
++  power-domains:
++    maxItems: 1
 +
-+			glink-edge {
-+				interrupts = <GIC_SPI 321 IRQ_TYPE_EDGE_RISING>;
-+				label = "rtr";
-+				qcom,remote-pid = <1>;
-+				mboxes = <&apcs_glb 8>;
-+			};
-+		};
++  ti,has-pfunc:
++    description:
++      Indicates that the SoC supports PFUNC registers, allowing I2C pins 
++      to function as GPIOs for manual toggling.
++    type: boolean
 +
- 		pcie1: pcie@10000000 {
- 			compatible = "qcom,pcie-ipq9574";
- 			reg = <0x10000000 0xf1d>,
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c@1c22000 {
++        compatible = "ti,davinci-i2c";
++        reg = <0x01c22000 0x1000>;
++        clocks = <&i2c_clk>;
++        clock-frequency = <100000>;
++        interrupts = <15>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        sensor@48 {
++            compatible = "national,lm75";
++            reg = <0x48>;
++        };
++    };
 -- 
-2.34.1
+2.43.0
 
