@@ -1,120 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043A537F8A9;
-	Tue,  5 May 2026 10:52:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B4738237D;
+	Tue,  5 May 2026 10:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777978363; cv=none; b=EbUi73mu/iAQPeoxIoNWyi+ZYKNqAb3Ru3chpH9mznRCwtfRHMTgOt2N2ZZuZ5oam/F8wC9k5DC7MXHP2P1lLkmc57zj4nMbX81Lc0Hr7SItnBhWMnF0MrRP+jwHSKdogwE3M52ex7m2fyDLCh3SNAfwXsrGiaHNosd0yscRMK0=
+	t=1777978747; cv=none; b=r9ZkM55+TckF9hh5tzwJyly/gsParIKjt/erYdm/XNvChofPY/TK/GQOA/ODJOwYbCLwY8DAe6yOiEfXmAjQyuxlJX7/cxHoz+pgHNXnFNiAi2tv12rBUVHZW/7kOtFZZg0JTloxQgEoBxJU7OGfAI3olzgnPlKJYADB178dE1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777978363; c=relaxed/simple;
-	bh=kONvU9QT8uLWn4u8q/7hxfEiyiNB1w4H3dUPhCm0G7k=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=nFqXrGA6g1ksc2XlIG5qRsYUCtJm4CTplVn+VjwkzvIMcVSP0/0w++3bP0o3KY91k1hZ/2X7PjkTmwt5aUnPNmLyyT2qzfTQbByMzWSkrtr3wRnqzBPCe/+WS9W+JhCOIU7yISZBk9i7L/Bk6tTpew9yHV0+1IvvdPfvHHImVhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a/2Gr62u; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777978747; c=relaxed/simple;
+	bh=+TI5vsVQxIRaX64nbDgruf049V5My5Wp2bprF8ZD6ZM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lvrCdbuX2qceoZXcRY/pWlql8qWt2vJHbVdKUZgsu3AZTgkFNoMLkjWRbpt5iyvA8eE754f44ZuGszhFO9U8dL/yWMH8XTUTrmiL9f86P+0qXEKrSqQmLweqV6imsbqWEANBTODxqgneGymt6V2auAIZ2xw+CMRml5RUD7WK+vg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=BSAwxvNn; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a/2Gr62u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3FDEC2BCB9;
-	Tue,  5 May 2026 10:52:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777978362;
-	bh=kONvU9QT8uLWn4u8q/7hxfEiyiNB1w4H3dUPhCm0G7k=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=a/2Gr62uxHjKuvCdwDzwCOj8XnHWdCm4a0Ybg9B0LtKZsBpFG+b+q0r6lPwlL2056
-	 o/y6E8WIxUmW6g//MK/C5/fzMcnvsHHCK1sNF1wBasrkCccbaMcbyqHcixINW64ElC
-	 VBUAnM2+pO1PumjD2B9sNKRQDuID9Exz39ilLMwVPx9ZDEi5Kg6AzGdtymqx0WLhi9
-	 HVyXXeuE2s+o/ER42/dZ0hO56ftwYKfcCgZJ7XRUkh5StNDLq7TsVufX4NJ7wJAP/L
-	 nHnUQRc80LGo0Kx65CviI7YBiL8bWY5Kn5F9zRet9cuXo8/Mg0GFwOPfXGAh2rIJBB
-	 jNnRYVf1OCxew==
-Message-ID: <8cd564af-9646-40c5-a8ef-c7197fb3cfe9@kernel.org>
-Date: Tue, 5 May 2026 12:52:36 +0200
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="BSAwxvNn"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 645AwcMuB1171994, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1777978718; bh=+weT3KNEWHRZNkAbVSTMGJxpE357XP50uaxJaJN6zaQ=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=BSAwxvNnxeKq53eNbASK9q+fR0UVjwn053a9HQEJnofJaGi6PsbHM7JBGwxw0MnRA
+	 4YeEd7dIj3+ECjtk09LkoBgdAxv1fxnsOcw/UlW0XZ/UHh0LaQ4U79HkqSUrBN1o0V
+	 mqfh6z2j3SqYnpD2PHb19kZN9EdaKRCNyw8ktE/TCFZouPqWfejeVYYHxyLcV/uDl4
+	 b3ooxEghLByozK0BBQOGA9xp07UKGwCHTt5G6Fw5CiV334esHKWHuGrL/bOglwzzKr
+	 hltxjeYshh1MctPBPk4qRks+i3ySyCCA9OnS7Tyv3nkMlSn3OMGOkG+SB/Hu6D655I
+	 cYqWn3m1UE5kA==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.27/5.94) with ESMTPS id 645AwcMuB1171994
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 5 May 2026 18:58:38 +0800
+Received: from RTKEXHMBS04.realtek.com.tw (10.21.1.54) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10; Tue, 5 May 2026 18:58:38 +0800
+Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS04.realtek.com.tw
+ (10.21.1.54) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Tue, 5 May 2026 18:58:38 +0800
+From: Yu-Chun Lin <eleanor.lin@realtek.com>
+To: <soc@kernel.org>
+CC: <james.tai@realtek.com>, <eleanor.lin@realtek.com>, <afaerber@suse.com>,
+        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+        <linux-realtek-soc@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <cy.huang@realtek.com>, <stanley_chang@realtek.com>,
+        Linus Walleij
+	<linusw@kernel.org>
+Subject: [PATCH 2/3] arm64: dts: realtek: Add pinctrl support for RTD1625
+Date: Tue, 5 May 2026 18:58:36 +0800
+Message-ID: <20260505105838.1014771-1-eleanor.lin@realtek.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260505103955.1010130-1-eleanor.lin@realtek.com>
+References: <20260505103955.1010130-1-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] dt-bindings: phy: qcom,msm8998-qmp-usb3-phy: Add
- support for Shikra
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Vinod Koul
- <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>,
- Johan Hovold <johan+linaro@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260504170659.282532-1-krishna.kurapati@oss.qualcomm.com>
- <20260504170659.282532-3-krishna.kurapati@oss.qualcomm.com>
- <20260505-gifted-salamander-of-prowess-5107a6@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260505-gifted-salamander-of-prowess-5107a6@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 05/05/2026 12:49, Krzysztof Kozlowski wrote:
-> On Mon, May 04, 2026 at 10:36:57PM +0530, Krishna Kurapati wrote:
->> Declare the USB-C QMP PHY present on the Qualcomm Shikra platform.
->>
->> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
->> ---
->>  .../devicetree/bindings/phy/qcom,msm8998-qmp-usb3-phy.yaml      | 2 ++
->>  1 file changed, 2 insertions(+)
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Add the pinctrl nodes for the Realtek RTD1625 SoC.
 
-... and then I looked at the driver. So un-reviewed. Devices are clearly
-compatible. If not, explain what is not compatible.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+---
+ arch/arm64/boot/dts/realtek/kent.dtsi | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-Best regards,
-Krzysztof
+diff --git a/arch/arm64/boot/dts/realtek/kent.dtsi b/arch/arm64/boot/dts/realtek/kent.dtsi
+index ae006ce24420..8d4293cd4c03 100644
+--- a/arch/arm64/boot/dts/realtek/kent.dtsi
++++ b/arch/arm64/boot/dts/realtek/kent.dtsi
+@@ -150,6 +150,26 @@ uart0: serial@7800 {
+ 				reg-shift = <2>;
+ 				status = "disabled";
+ 			};
++
++			iso_pinctrl: pinctrl@4e000 {
++				compatible = "realtek,rtd1625-iso-pinctrl";
++				reg = <0x4e000 0x1a4>;
++			};
++
++			main2_pinctrl: pinctrl@4f200 {
++				compatible = "realtek,rtd1625-main2-pinctrl";
++				reg = <0x4f200 0x50>;
++			};
++
++			isom_pinctrl: pinctrl@146200 {
++				compatible = "realtek,rtd1625-isom-pinctrl";
++				reg = <0x146200 0x34>;
++			};
++
++			ve4_pinctrl: pinctrl@14e000 {
++				compatible = "realtek,rtd1625-ve4-pinctrl";
++				reg = <0x14e000 0x84>;
++			};
+ 		};
+ 
+ 		gic: interrupt-controller@ff100000 {
+-- 
+2.34.1
+
