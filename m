@@ -1,355 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF6F47ECEB
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 14:06:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7425D3EDAB0;
+	Tue,  5 May 2026 14:08:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777989982; cv=none; b=mI4GT9tJAU1AlMAxpfPyeTykcFP+pinz2Kx8e1AuESYOnbIlaZNWX3E6LhOMgR4ilblTW1dHsWcZL8lMaFGnbE1wt4903xxpk5DlFFsJ0nZArMMyDbsK4VQAsicpJemt5e7UcQ6/ejNwJsMTTcttuqL3hWxHlWnuf6asVygyBIs=
+	t=1777990093; cv=none; b=HfqjBRGT5gEnw6+MS88E3yL9CL6o26bpDa44NfLw8jG+0XvVrN6Xn+/UqMawM25iE5JhNQOFVEJ8xQYok/TvIz0z+s1gyvZugSRLsVKFCzKCgN/e8jkSqprpyXZpqC8amtx94oaHfhHBZN0CJ41mrqT0u2JYn2LJNUszaGt3gjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777989982; c=relaxed/simple;
-	bh=rNYgNQr5mkdtUhLGKFLW7WoA8FnDIdcH1ROMQwGb3HI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S+u3FOxQoYlqzcDiCnmP9hPADnI8QVhWjJOxB3w040vANQYcs5V2q5+W/2qFowi7x5FwclTm/okGXd03DDrwKVcHrcr8ntGBGvTKP638HeMy+0QqU+fozwNi4u20rz7UCXORuF0ELL3c8iv1RNZibVUCoRRmfnxVA1MQbJMIu7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CznDH8OZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777990093; c=relaxed/simple;
+	bh=W3QQ0Qld1r5T+DvalykwLo7CUYoKVtBgQYkk+ya1W+8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KP4Sw4Xiiz4xnOkBWJGNUeEkUVhxgtbH+SaGpPrpfVbHIW8G9qXetkX/9A7wAUv99gf+JwU0LVSZK6V03wPbRWeW2ER3ehebCnBlDsu9lLvwaz3SXF7FU5ctJiP1F0Brg/e9leq5SJrBkdoa6nvFlvsAEnhSJf9au9htABTgIbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IW1nFvhY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CznDH8OZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45DD9C2BCFF
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 14:06:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IW1nFvhY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7788C2BCB4;
+	Tue,  5 May 2026 14:08:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777989982;
-	bh=rNYgNQr5mkdtUhLGKFLW7WoA8FnDIdcH1ROMQwGb3HI=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
-	b=CznDH8OZkfci3IkrcPCxNPxUtXMmRMbNCkG0X7cs8TotwZFUCiXVEylt7yB7/ETo9
-	 fTmCpCCCPiHFaYtSjfhwYDV6eFRZlnJLg1clUWLvvmY0LyBtEmdhxEcF0Qks8GfLhU
-	 QbN9TolhxujFloiHthou3gCeRMWLN3TiIr8/wC5eE6fkhPVzNT9MlfAeFtU5+u9P91
-	 P/K7hvucSBR54GUWicxoUuvGai1hAKs+wTuGg8KEVTrSPzsLNcCqPhcCkUG4hbH+Uf
-	 MpQ0Tq0xGbrs4dePpipdRyiEbM1Pc3PSUdg2sf0z0I9uDf9xz1qDgysPU9kBQg0ye5
-	 JGD1XZPCvauVg==
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-38eab6cf7d8so45134651fa.1
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 07:06:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9OMPklwogzPET6OwdPiuBe6zn98Bc616oCHeaovmW101dfJbaLtc70Yguvd0k3wHbMMIjNBZT0qeWe@vger.kernel.org
-X-Gm-Message-State: AOJu0YyxImcTSMy9WkgiaQ2RXpjo76Pf/Bx4jeK/oDTOmhZjda7FcS9i
-	zo1/tSi/NA84FW52o9mdNloqVTYCiYvwk2oO5sAFCh3eKqd8P9DMkFXybkahtXNQcAS+d6C6NtS
-	fTokDmskFM0jwWAoPsfn6QtZIOO1bqbI=
-X-Received: by 2002:a05:651c:1113:b0:38e:9eb1:6949 with SMTP id
- 38308e7fff4ca-393b4d5c2d9mr13859431fa.14.1777989980570; Tue, 05 May 2026
- 07:06:20 -0700 (PDT)
+	s=k20201202; t=1777990093;
+	bh=W3QQ0Qld1r5T+DvalykwLo7CUYoKVtBgQYkk+ya1W+8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=IW1nFvhY/22oIN2dXEJHGKy3dP/BhBB5PAO0K9SDKOL6AmGZyoR4EqEZ8mHYAl0H9
+	 T1cxlrFS83sYUgKPs1UMILbOHfS9LSHL+BbL4YXfQ+lsEo1Y4BnITBY6MWZe1+aATq
+	 JifUAef9Zyq3MjXseC0W+l2zimGV6fR0oJoqwcBsu6hrJ5LYBtaCWpCIx6VpTdcJg4
+	 gyQCz7lQkz2Ph9fkPg7A3Fq6tWhOSzhMgilKykH799uUV6EI4LLDMUJY/pptZ8JtWe
+	 7pi8Cz82q1Mp2EGg3QzplQA3U52bmndOOtiyGFbPzHgbXSsgkNqtYpm2NTRKUomg4F
+	 KSoT2wlbjGe+w==
+Date: Tue, 5 May 2026 15:07:59 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Linus Walleij
+ <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH v9 3/6] iio: adc: ad4691: add triggered buffer support
+Message-ID: <20260505150759.3f2700a0@jic23-huawei>
+In-Reply-To: <20260430-ad4692-multichannel-sar-adc-driver-v9-3-33e439e4fb87@analog.com>
+References: <20260430-ad4692-multichannel-sar-adc-driver-v9-0-33e439e4fb87@analog.com>
+	<20260430-ad4692-multichannel-sar-adc-driver-v9-3-33e439e4fb87@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260504050245.646078-1-iuncuim@gmail.com> <20260504050245.646078-6-iuncuim@gmail.com>
-In-Reply-To: <20260504050245.646078-6-iuncuim@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 5 May 2026 22:06:07 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65e=vLh05=4LyyzGGta4ztfqaid1f-AxRby=AT_SG-6zA@mail.gmail.com>
-X-Gm-Features: AVHnY4J0fkZsvugR5CVYJTl2H3_fmrJpYd2yKAtceV_whYV2Bj11TnBfcpEN4Vs
-Message-ID: <CAGb2v65e=vLh05=4LyyzGGta4ztfqaid1f-AxRby=AT_SG-6zA@mail.gmail.com>
-Subject: Re: [PATCH v4 5/5] Allwinner: A523: add support for A523 THS0/1 controllers
-To: Mikhail Kalashnikov <iuncuim@gmail.com>
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>, Yangtao Li <tiny.windzz@gmail.com>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Thu, 30 Apr 2026 13:16:45 +0300
+Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
 
-On Mon, May 4, 2026 at 1:04=E2=80=AFPM Mikhail Kalashnikov <iuncuim@gmail.c=
-om> wrote:
+> From: Radu Sabau <radu.sabau@analog.com>
+>=20
+> Add buffered capture support using the IIO triggered buffer framework.
+>=20
+> CNV Burst Mode: the GP pin identified by interrupt-names in the device
+> tree is configured as DATA_READY output. The IRQ handler stops
+> conversions and fires the IIO trigger; the trigger handler executes a
+> pre-built SPI message that reads all active channels from the AVG_IN
+> accumulator registers and then resets accumulator state and restarts
+> conversions for the next cycle.
+>=20
+> Manual Mode: CNV is tied to SPI CS so each transfer simultaneously
+> reads the previous result and starts the next conversion (pipelined
+> N+1 scheme). At preenable time a pre-built, optimised SPI message of
+> N+1 transfers is constructed (N channel reads plus one NOOP to drain
+> the pipeline). The trigger handler executes the message in a single
+> spi_sync() call and collects the results. An external trigger (e.g.
+> iio-trig-hrtimer) is required to drive the trigger at the desired
+> sample rate.
+>=20
+> Both modes share the same trigger handler and push a complete scan =E2=80=
+=94
+> one u16 slot per channel at its scan_index position, followed by a
+> timestamp =E2=80=94 to the IIO buffer via iio_push_to_buffers_with_ts().
+>=20
+> The CNV Burst Mode sampling frequency (PWM period) is exposed as a
+> buffer-level attribute via IIO_DEVICE_ATTR.
+>=20
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+Another Sashiko found issue inline.
 
-The correct format for the patch subject should be:
+Also it calls out that you have no validate_trigger which might mean
+another trigger is used.  Moving the irq enable to the trigger_reenable
+should solve that.
 
-    arm64: dts: allwinner: sun55i: add thermal sensors
+> +static ssize_t sampling_frequency_show(struct device *dev,
+> +				       struct device_attribute *attr,
+> +				       char *buf)
+> +{
+> +	struct iio_dev *indio_dev =3D dev_to_iio_dev(dev);
+> +	struct ad4691_state *st =3D iio_priv(indio_dev);
+> +
+> +	return sysfs_emit(buf, "%lu\n", NSEC_PER_SEC / st->cnv_period_ns);
+> +}
+> +
+> +static ssize_t sampling_frequency_store(struct device *dev,
+> +					struct device_attribute *attr,
+> +					const char *buf, size_t len)
+> +{
+> +	struct iio_dev *indio_dev =3D dev_to_iio_dev(dev);
+> +	struct ad4691_state *st =3D iio_priv(indio_dev);
+> +	int freq, ret;
+> +
+> +	ret =3D kstrtoint(buf, 10, &freq);
+I missed this but as Sashiko points out this could read in a negative
+frequency. Given that's clearly silly kstrtouint()
 
-> The A523 processor has two temperature controllers, THS0 and THS1.
-> THS0 has only one temperature sensor, which is located in the DRAM.
-                                                                ^
-                                                          "DRAM controller"=
-.
-
->
-> THS1 does have 3 sensors:
-> ths1_0 - "big" cores
-> ths1_1 - "little" cores
-> ths1_2 - gpu
->
-> Add the thermal sensor configuration and the thermal zones.
-> Trips temperature, polling-delay and sustainable-power parameters are
-> derived from the manufacturer's BSP.
->
-> Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
-> ---
->  .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 154 ++++++++++++++++++
->  1 file changed, 154 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/=
-boot/dts/allwinner/sun55i-a523.dtsi
-> index 5afa8d92a..288a4710b 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-> +++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-> @@ -11,6 +11,7 @@
->  #include <dt-bindings/reset/sun55i-a523-r-ccu.h>
->  #include <dt-bindings/power/allwinner,sun55i-a523-ppu.h>
->  #include <dt-bindings/power/allwinner,sun55i-a523-pck-600.h>
-> +#include <dt-bindings/thermal/thermal.h>
->
->  / {
->         interrupt-parent =3D <&gic>;
-> @@ -26,6 +27,7 @@ cpu0: cpu@0 {
->                         device_type =3D "cpu";
->                         reg =3D <0x000>;
->                         enable-method =3D "psci";
-> +                       #cooling-cells =3D <2>;
->                 };
->
->                 cpu1: cpu@100 {
-> @@ -33,6 +35,7 @@ cpu1: cpu@100 {
->                         device_type =3D "cpu";
->                         reg =3D <0x100>;
->                         enable-method =3D "psci";
-> +                       #cooling-cells =3D <2>;
->                 };
->
->                 cpu2: cpu@200 {
-> @@ -40,6 +43,7 @@ cpu2: cpu@200 {
->                         device_type =3D "cpu";
->                         reg =3D <0x200>;
->                         enable-method =3D "psci";
-> +                       #cooling-cells =3D <2>;
->                 };
->
->                 cpu3: cpu@300 {
-> @@ -47,6 +51,7 @@ cpu3: cpu@300 {
->                         device_type =3D "cpu";
->                         reg =3D <0x300>;
->                         enable-method =3D "psci";
-> +                       #cooling-cells =3D <2>;
->                 };
->
->                 cpu4: cpu@400 {
-> @@ -54,6 +59,7 @@ cpu4: cpu@400 {
->                         device_type =3D "cpu";
->                         reg =3D <0x400>;
->                         enable-method =3D "psci";
-> +                       #cooling-cells =3D <2>;
->                 };
->
->                 cpu5: cpu@500 {
-> @@ -61,6 +67,7 @@ cpu5: cpu@500 {
->                         device_type =3D "cpu";
->                         reg =3D <0x500>;
->                         enable-method =3D "psci";
-> +                       #cooling-cells =3D <2>;
->                 };
->
->                 cpu6: cpu@600 {
-> @@ -68,6 +75,7 @@ cpu6: cpu@600 {
->                         device_type =3D "cpu";
->                         reg =3D <0x600>;
->                         enable-method =3D "psci";
-> +                       #cooling-cells =3D <2>;
->                 };
->
->                 cpu7: cpu@700 {
-> @@ -75,6 +83,7 @@ cpu7: cpu@700 {
->                         device_type =3D "cpu";
->                         reg =3D <0x700>;
->                         enable-method =3D "psci";
-> +                       #cooling-cells =3D <2>;
->                 };
->         };
->
-> @@ -565,12 +574,46 @@ dma: dma-controller@3002000 {
->                         #dma-cells =3D <1>;
->                 };
->
-> +               ths1: thermal-sensor@2009400 {
-> +                       compatible =3D "allwinner,sun55i-a523-ths1";
-> +                       reg =3D <0x02009400 0x400>;
-> +                       interrupts =3D <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>;
-> +                       clocks =3D <&ccu CLK_BUS_THS>, <&ccu CLK_GPADC1>;
-> +                       clock-names =3D "bus", "mod";
-> +                       resets =3D <&ccu RST_BUS_THS>;
-> +                       nvmem-cells =3D <&ths_calibration0>, <&ths_calibr=
-ation1>;
-> +                       nvmem-cell-names =3D "calibration",
-> +                                    "calibration-second-part";
-> +                       #thermal-sensor-cells =3D <1>;
-> +               };
+> +	if (ret)
+> +		return ret;
 > +
-> +               ths0: thermal-sensor@200a000 {
-> +                       compatible =3D "allwinner,sun55i-a523-ths0";
-> +                       reg =3D <0x0200a000 0x400>;
-> +                       interrupts =3D <GIC_SPI 39 IRQ_TYPE_LEVEL_HIGH>;
-> +                       clocks =3D <&ccu CLK_BUS_THS>, <&ccu CLK_GPADC0>;
-> +                       clock-names =3D "bus", "mod";
-> +                       resets =3D <&ccu RST_BUS_THS>;
-> +                       nvmem-cells =3D <&ths_calibration0>, <&ths_calibr=
-ation1>;
-> +                       nvmem-cell-names =3D "calibration",
-> +                                    "calibration-second-part";
-> +                       #thermal-sensor-cells =3D <0>;
-> +               };
+> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +		return -EBUSY;
 > +
-
-The device nodes are sorted by base address, so the thermal sensors should
-be much further up in this file.
-
->                 sid: efuse@3006000 {
->                         compatible =3D "allwinner,sun55i-a523-sid",
->                                      "allwinner,sun50i-a64-sid";
->                         reg =3D <0x03006000 0x1000>;
->                         #address-cells =3D <1>;
->                         #size-cells =3D <1>;
 > +
-> +                       ths_calibration0: ths-calibration0@38 {
-> +                               reg =3D <0x38 0x8>;
-> +                       };
+> +	ret =3D ad4691_set_pwm_freq(st, freq);
+> +	if (ret)
+> +		return ret;
 > +
-> +                       ths_calibration1: ths-calibration1@44 {
-> +                               reg =3D <0x44 0x8>;
-> +                       };
->                 };
->
->                 gic: interrupt-controller@3400000 {
-> @@ -1087,4 +1130,115 @@ npu: npu@7122000 {
->                         power-domains =3D <&ppu PD_NPU>;
->                 };
->         };
+> +	return len;
+> +}
 > +
-> +       thermal-zones {
-> +               cpu0_thermal: cpu0-thermal {
-> +                       polling-delay-passive =3D <100>;
-> +                       polling-delay =3D <1000>;
-> +                       thermal-sensors =3D <&ths1 1>;
-> +                       sustainable-power =3D <1200>;
+> +static IIO_DEVICE_ATTR_RW(sampling_frequency, 0);
 > +
-> +                       trips {
-> +                               cpu0_threshold: cpu-trip-0 {
-> +                                       temperature =3D <70000>;
-> +                                       type =3D "passive";
-> +                                       hysteresis =3D <0>;
-> +                               };
-
-Please have one empty line between nodes, per the DT coding style.
-Same for the other two "trips" nodes.
-
-> +                               cpu0_target: cpu-trip-1 {
-> +                                       temperature =3D <90000>;
-> +                                       type =3D "passive";
-> +                                       hysteresis =3D <0>;
-> +                               };
-> +                               cpu0_critical: cpu-trip-2 {
-> +                                       temperature =3D <110000>;s
-> +                                       type =3D "critical";
-> +                                       hysteresis =3D <0>;
-> +                               };
-> +                       };
-> +
-> +                       cooling-maps {
-> +                               map0 {
-> +                                       trip =3D <&cpu0_target>;
-> +                                       cooling-device =3D <&cpu0 THERMAL=
-_NO_LIMIT THERMAL_NO_LIMIT>,
-> +                                                        <&cpu1 THERMAL_N=
-O_LIMIT THERMAL_NO_LIMIT>,
-> +                                                        <&cpu2 THERMAL_N=
-O_LIMIT THERMAL_NO_LIMIT>,
-> +                                                        <&cpu3 THERMAL_N=
-O_LIMIT THERMAL_NO_LIMIT>;
-> +                               };
-> +                       };
-> +               };
-> +
-> +               cpu4_thermal: cpu4-thermal {
-> +                       polling-delay-passive =3D <100>;
-> +                       polling-delay =3D <1000>;
-> +                       thermal-sensors =3D <&ths1 0>;
-> +                       sustainable-power =3D <1600>;
-> +
-> +                       trips {
-> +                               cpu4_threshold: cpu-trip-0 {
-> +                                       temperature =3D <70000>;
-> +                                       type =3D "passive";
-> +                                       hysteresis =3D <0>;
-> +                               };
-> +                               cpu4_target: cpu-trip-1 {
-> +                                       temperature =3D <90000>;
-> +                                       type =3D "passive";
-> +                                       hysteresis =3D <0>;
-> +                               };
-> +                               cpu4_critical: cpu-trip-2 {
-> +                                       temperature =3D <110000>;
-> +                                       type =3D "critical";
-> +                                       hysteresis =3D <0>;
-> +                               };
-> +                       };
-> +
-> +                       cooling-maps {
-> +                               map0 {
-> +                                       trip =3D <&cpu4_target>;
-> +                                       cooling-device =3D <&cpu4 THERMAL=
-_NO_LIMIT THERMAL_NO_LIMIT>,
-> +                                                        <&cpu5 THERMAL_N=
-O_LIMIT THERMAL_NO_LIMIT>,
-> +                                                        <&cpu6 THERMAL_N=
-O_LIMIT THERMAL_NO_LIMIT>,
-> +                                                        <&cpu7 THERMAL_N=
-O_LIMIT THERMAL_NO_LIMIT>;
-> +                               };
-> +                       };
-> +               };
-> +
-> +               gpu-thermal {
-> +                       polling-delay-passive =3D <100>;
-> +                       polling-delay =3D <1000>;
-> +                       thermal-sensors =3D <&ths1 2>;
-> +                       sustainable-power =3D <2400>;
-> +
-> +                       gpu-trips {
-> +                               gpu_temp_threshold: gpu-trip-0 {
-> +                                       temperature =3D <60000>;
-> +                                       type =3D "passive";
-> +                                       hysteresis =3D <0>;
-> +                               };
-> +                               gpu_temp_target: gpu-trip-1 {
-> +                                       temperature =3D <90000>;
-> +                                       type =3D "passive";
-> +                                       hysteresis =3D <0>;
-> +                               };
-> +                               gpu_temp_critical: gpu-trip-2 {
-> +                                       temperature =3D <110000>;
-> +                                       type =3D "critical";
-> +                                       hysteresis =3D <0>;
-> +                               };
-> +                       };
-> +               };
-> +
-> +               ddr-thermal {
-> +                       polling-delay-passive =3D <0>;
-> +                       polling-delay =3D <0>;
-> +                       thermal-sensors =3D <&ths0>;
-> +
-> +                       trips {
-> +                               ddr_temp_critical: ddr-trip-0 {
-> +                                       temperature =3D <110000>;
-> +                                       type =3D "critical";
-> +                                       hysteresis =3D <0>;
-> +                               };
-> +                       };
-> +               };
-> +       };
->  };
-> --
-> 2.54.0
->
+> +static const struct iio_dev_attr *ad4691_buffer_attrs[] =3D {
+> +	&iio_dev_attr_sampling_frequency,
+> +	NULL
+> +};
