@@ -1,186 +1,190 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E972533343C
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 13:22:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF8D392C32;
+	Tue,  5 May 2026 13:23:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777987324; cv=none; b=aouLR0a+NC2gVGZ9vIe4DrRQj89T/4IwZlop8p816H9v0ONTFa+IC544o1mP/qcR6P05hrQB+jcOSikf2JlZsQa8HXuWGHaRHIZPECGQ+KUM8nmRFrgBSZEnin4w/sR6ht3zbZK0w+qYJ1pf/alUxdxUQj1BEIFHPRizVKJtrvo=
+	t=1777987422; cv=none; b=SiFXf5JYv/Ss6fFNVqkNy6/JkdQ4CkpfRD0sXkhWsjvisJT0aiTVNZbIezZ9ub1jmEJuam7EFaq+ZdI6R+eA35dYsHHlPu4mtVoNgmxFnX/H0ND0gs18W8ARdCdsjSvtRPGWWWAaS94L5TP5evW6bbzqBPmMZuB6UEKZ6YsjJJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777987324; c=relaxed/simple;
-	bh=O8v+5oxbFh4eT5+okYqt+svpXK+3HTEmUls1wLQMzPc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eqIT0HPPQr4SXOsFZwBzApWbbi0UgdV+2W4m5QeGy8QuktjtxSfqjlJrF3zfXwRM10lsQcPYnTCLytpOJaIAlvPXipx7xu6fnGGFdH2smoCzxNaX55lUsZHxEmsI78vehwNw/5xX8/QCCFqhLQ4xKDXPbl/bghUJoGQbyMsK5kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gcs/QXF5; arc=none smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777987422; c=relaxed/simple;
+	bh=Hgq1xuGgwGhdzj9TbVmCIlyjgoWMt078/W8y7jpz5tc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qODkfM/mzmbivQW4Hh0Pej7v9WnqUZgHM/VU32NjEjaBuhZJ3o/J0WdqzD+piMJyYV+Ym+drsW+xajx/o7z+gSmk6eBjOpS/4bL5dPVW/aC/mIXSYEJhbEwAsiRMBSR9ighXJuHjYAjphNVB2hK6nVwO8B0jzUdnb4mNit0Lupc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TX6B/FLQ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gcs/QXF5"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-2f03d6cf77bso3358272eec.0
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 06:22:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777987318; x=1778592118; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pD8x1Q/Xam2zhPT/cWjBJfD2xANG/MZRgfmjejPy5dQ=;
-        b=gcs/QXF5ZX4LBbcZsqsT7Vbltn3jrAVTmc/ILucisWeeAdXQ1OKBySNUzFibkcIusg
-         jhK78yKH0RLErs9Ga+d8rY9ogp7HHSqDXFxpPZxFUJJDxwrBJuMzTOkxRYD1r50MfyA0
-         Y4TkY3t3zzMeaCYwFpWDYIwyxXPdtaKhJe2s9dm7Tr3x78XjZA1t5Gyr1D8CUxdxHGs9
-         DdNropxYHlOF4cTq5lJciMyygbyYAkNEuYnTik+hpNtTU1jSU0pgrr5u7Fpc2KDViG9K
-         +IWwftI/xXLyqnkotjDmLNfvmWOhaKWd2Y77VXKtfMj9PpP95DJpxL2Td0OiaQfPLbQo
-         AEyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777987318; x=1778592118;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=pD8x1Q/Xam2zhPT/cWjBJfD2xANG/MZRgfmjejPy5dQ=;
-        b=THEiEXgNJTqXc3pJ6+GC86gvdPNUMYte86CRR1ak6yIyU3wtxkYIo2bA/ZvnUN/kGA
-         8jsJuHiVrEABg3/DQv+PqfP1ocOglfGoc/3Gp9Z+8qO+3UssBofG5seoHAMZOKb7SVFD
-         KYgFwuyHYk5d18td1vXvSEvGpbInAa+umLaMuNYYlD7HxMkePB+/HnVAPib1CnnppSZ2
-         rA9OOA/Z9gIrRoDjK+8KpOX1KEziUjULUSWoO/5fbLg8ZLFzzqx+jXXonml3vk+OPa35
-         ddkhiCU/TUxCVqAWB2HVahRdFBcneyxtvPfD7To/uJ69MkmFkAadlVt4n1G+tSs5GHH1
-         XL8w==
-X-Forwarded-Encrypted: i=1; AFNElJ+OX1ih0J9cTa7gSODdg32SpAYDwLOcaaSuKHKwfwDwbBc7/lng9J7WWBKOPd0rXouGCo6v/PVkUNBU@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy+uKCQvK8ofU+3hfD/DBP8M3nFhZibo3w/l+jytYRytgeNY2Lx
-	4hYw/Ow7YGVTDxKy7FLRy3iFm8wVn/bDRTqU11c00V4SqGaGLsD9BH/SI8V7Tg==
-X-Gm-Gg: AeBDiesxr6Nt+hXjoIXi40TxsFlElcWHqPajC2JuKbpFCm6lCtMESbWObu+m6AnNbyG
-	yegJDnhF3Ju23gzxS/WO60jBEVsQAy87cKQjTBjchx9nX/rt6gElONE4B2Hml9WBkmWpHxZpAz+
-	e8aRofoglGTzNZ7U+z/FWMX6VCxKuzeQA4/Ytf/UG5zg+KKU8vEIogMhQZ/yspq9Mxqzf0VcH8Z
-	HLTEhVAdWYsbu2YPACekuJ14UKq0leX1XdTJfBSsIX60RDEXXRd32r61HPLo3ifvgGDukWpa/7R
-	lCLAadkdxUmKEUdiuhAn5NYxvMh7DWoSkbWnyxMWdt1jofMDgEQvjErGPL4r3b9B2d/yVkgJSn9
-	Z6BLqC6UKTbq0Xp2PslvZWpYFGqBU5KOCpERkGYG/99Sbrs63MlVfG0NiytKqU60PRrxzT+xSZx
-	pnshdHfU+DgJtGJzsk7AE6e4bTcLodIRuqn5D6F8r6AbI82CY=
-X-Received: by 2002:a05:7300:578d:b0:2d1:9b35:4ed3 with SMTP id 5a478bee46e88-2f40a09561fmr1290615eec.28.1777987318256;
-        Tue, 05 May 2026 06:21:58 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ee38e71cedsm24278756eec.9.2026.05.05.06.21.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 06:21:57 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Tue, 5 May 2026 06:21:57 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Manish Baing <manishbaing2789@gmail.com>
-Cc: linux@baker-net.org.uk, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: hwmon: zyxel,nsa320-mcu: convert to DT
- schema
-Message-ID: <f3f1f99c-4433-4a5a-bbee-934c6d78380f@roeck-us.net>
-References: <20260501102116.8275-1-manishbaing2789@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TX6B/FLQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E664AC2BCB4;
+	Tue,  5 May 2026 13:23:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777987422;
+	bh=Hgq1xuGgwGhdzj9TbVmCIlyjgoWMt078/W8y7jpz5tc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=TX6B/FLQk9+Pi5HsG7DtcwJF6tl8JRNDHikvpK8nECA+kVKRAzgnajCXCxD480UV/
+	 F7HvMdiosf1m+pqw5t7/60+FllC8b96C02pMHJNGr0bS5nnSFQMZ/GekELNWDaS3PK
+	 y6QHr+aM5J4OXRCtYmogcq+r3x90WbmSXaTnr276YDfqUzlf8nIZUGQ8vcY/0gAV0Z
+	 4c53Sy789IVXIADrNgBZvRt21/HXa+OS0pSuZxdLldoKANFVgyYD9tN+hPyh/Xw09l
+	 FHgJsZ1GExxvnrHYipXG9HkeiQx28BUa2xYwY0lHI1ohkCfP+GJIW5VGWDuaVmY+6B
+	 0a4zfdabIbEWg==
+Date: Tue, 5 May 2026 14:23:28 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Linus Walleij
+ <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH v9 2/6] iio: adc: ad4691: add initial driver for AD4691
+ family
+Message-ID: <20260505142328.05b4b127@jic23-huawei>
+In-Reply-To: <20260430-ad4692-multichannel-sar-adc-driver-v9-2-33e439e4fb87@analog.com>
+References: <20260430-ad4692-multichannel-sar-adc-driver-v9-0-33e439e4fb87@analog.com>
+	<20260430-ad4692-multichannel-sar-adc-driver-v9-2-33e439e4fb87@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260501102116.8275-1-manishbaing2789@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, May 01, 2026 at 10:21:16AM +0000, Manish Baing wrote:
-> Convert the ZyXEL NSA320 MCU bindings from text format to YAML schema.
+On Thu, 30 Apr 2026 13:16:44 +0300
+Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+
+> From: Radu Sabau <radu.sabau@analog.com>
 > 
-> Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
-> Acked-by: Adam Baker <linux@baker-net.org.uk>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Applied, after fixing Acked-By: -> Acked-by: as above.
-
-Thanks,
-Guenter
-
-> ---
->  .../devicetree/bindings/hwmon/nsa320-mcu.txt  | 20 -------
->  .../bindings/hwmon/zyxel,nsa320-mcu.yaml      | 54 +++++++++++++++++++
->  2 files changed, 54 insertions(+), 20 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt
->  create mode 100644 Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml
+> Add support for the Analog Devices AD4691 family of high-speed,
+> low-power multichannel SAR ADCs: AD4691 (16-ch, 500 kSPS),
+> AD4692 (16-ch, 1 MSPS), AD4693 (8-ch, 500 kSPS) and
+> AD4694 (8-ch, 1 MSPS).
 > 
-> diff --git a/Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt b/Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt
-> deleted file mode 100644
-> index 0863e067c85b..000000000000
-> --- a/Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt
-> +++ /dev/null
-> @@ -1,20 +0,0 @@
-> -Bindings for the fan / temperature monitor microcontroller used on
-> -the Zyxel NSA 320 and several subsequent models.
-> -
-> -Required properties:
-> -- compatible	: "zyxel,nsa320-mcu"
-> -- data-gpios	: The GPIO pin connected to the data line on the MCU
-> -- clk-gpios	: The GPIO pin connected to the clock line on the MCU
-> -- act-gpios	: The GPIO pin connected to the active line on the MCU
-> -
-> -Example:
-> -
-> -	hwmon {
-> -		compatible = "zyxel,nsa320-mcu";
-> -		pinctrl-0 = <&pmx_mcu_data &pmx_mcu_clk &pmx_mcu_act>;
-> -		pinctrl-names = "default";
-> -
-> -		data-gpios = <&gpio0 14 GPIO_ACTIVE_HIGH>;
-> -		clk-gpios = <&gpio0 16 GPIO_ACTIVE_HIGH>;
-> -		act-gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
-> -	};
-> diff --git a/Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml b/Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml
+> The driver implements a custom regmap layer over raw SPI to handle the
+> device's mixed 1/2/3/4-byte register widths and uses the standard IIO
+> read_raw/write_raw interface for single-channel reads.
+> 
+> The chip idles in Autonomous Mode so that single-shot read_raw can use
+> the internal oscillator without disturbing the hardware configuration.
+> 
+> Three voltage supply domains are managed: avdd (required), vio, and a
+> reference supply on either the REF pin (ref-supply, external buffer)
+> or the REFIN pin (refin-supply, uses the on-chip reference buffer;
+> REFBUF_EN is set accordingly). Hardware reset is performed via
+> the reset controller framework; a software reset through SPI_CONFIG_A
+> is used as fallback when no hardware reset is available.
+> 
+> Accumulator channel masking for single-shot reads uses ACC_MASK_REG via
+> an ADDR_DESCENDING SPI write, which covers both mask bytes in a single
+> 16-bit transfer.
+> 
+> Reviewed-by: David Lechner <dlechner@baylibre.com>
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+Hi Radu
+
+Just one query that Sashiko raised that made me look 
+closer at how you are handling different register sizes.
+https://sashiko.dev/#/patchset/20260430-ad4692-multichannel-sar-adc-driver-v9-0-33e439e4fb87%40analog.com
+
+There was also a question about whether the sampling frequency control would
+be better described as shared by all.
+
+> diff --git a/drivers/iio/adc/ad4691.c b/drivers/iio/adc/ad4691.c
 > new file mode 100644
-> index 000000000000..a111f8125e09
+> index 000000000000..05826b762c7f
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml
-> @@ -0,0 +1,54 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/hwmon/zyxel,nsa320-mcu.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +++ b/drivers/iio/adc/ad4691.c
+
+
+> +static int ad4691_reg_read(void *context, unsigned int reg, unsigned int *val)
+> +{
+> +	struct spi_device *spi = context;
+> +	u8 tx[2], rx[4];
+> +	int ret;
 > +
-> +title: ZyXEL NSA320 MCU
+> +	/* Set bit 15 to mark the operation as READ. */
+> +	put_unaligned_be16(0x8000 | reg, tx);
 > +
-> +maintainers:
-> +  - Adam Baker <linux@baker-net.org.uk>
-> +  - Guenter Roeck <linux@roeck-us.net>
+> +	switch (reg) {
+> +	case 0 ... AD4691_OSC_FREQ_REG:
+> +	case AD4691_SPARE_CONTROL ... AD4691_ACC_SAT_OVR_REG(15):
+
+Sashiko raised a query here.
+"Will this result in a truncated 1-byte read for AD4691_ACC_MASK_REG (0x185)?
+AD4691_ACC_MASK_REG falls into the range between AD4691_SPARE_CONTROL and
+AD4691_ACC_SAT_OVR_REG(15). In ad4691_reg_write(), AD4691_ACC_MASK_REG is
+handled explicitly alongside AD4691_STD_SEQ_CONFIG to perform a 16-bit
+write, but it seems missing from the 2-byte read block here."
+
+Just to check - the reasoning behind not just treating these as
+fixed sized registers and using bulk reads and writes is the statement
+about them being invalid if partially written?
+
+The ACK_MASK_REG is documented as two separate 8 bit registers so why
+attempt to treat it as a larger one?
+
+
+> +		ret = spi_write_then_read(spi, tx, sizeof(tx), rx, 1);
+> +		if (ret)
+> +			return ret;
+> +		*val = rx[0];
+> +		return 0;
+> +	case AD4691_STD_SEQ_CONFIG:
+> +	case AD4691_AVG_IN(0) ... AD4691_AVG_IN(15):
+> +		ret = spi_write_then_read(spi, tx, sizeof(tx), rx, 2);
+> +		if (ret)
+> +			return ret;
+> +		*val = get_unaligned_be16(rx);
+> +		return 0;
+> +	case AD4691_AVG_STS_IN(0) ... AD4691_AVG_STS_IN(15):
+> +	case AD4691_ACC_IN(0) ... AD4691_ACC_IN(15):
+> +		ret = spi_write_then_read(spi, tx, sizeof(tx), rx, 3);
+> +		if (ret)
+> +			return ret;
+> +		*val = get_unaligned_be24(rx);
+> +		return 0;
+> +	case AD4691_ACC_STS_DATA(0) ... AD4691_ACC_STS_DATA(15):
+> +		ret = spi_write_then_read(spi, tx, sizeof(tx), rx, 4);
+> +		if (ret)
+> +			return ret;
+> +		*val = get_unaligned_be32(rx);
+> +		return 0;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
 > +
-> +description:
-> +  The ZyXEL NSA320 uses a dedicated microcontroller to manage system-critical
-> +  functions like fan speed and power monitoring. It is connected to the SoC
-> +  via a GPIO-based serial protocol.
+> +static int ad4691_reg_write(void *context, unsigned int reg, unsigned int val)
+> +{
+> +	struct spi_device *spi = context;
+> +	u8 tx[4];
 > +
-> +properties:
-> +  compatible:
-> +    const: zyxel,nsa320-mcu
+> +	put_unaligned_be16(reg, tx);
 > +
-> +  data-gpios:
-> +    maxItems: 1
-> +    description: GPIO pin connected to the data line on the MCU.
-> +
-> +  clk-gpios:
-> +    maxItems: 1
-> +    description: GPIO pin connected to the clock line on the MCU.
-> +
-> +  act-gpios:
-> +    maxItems: 1
-> +    description: GPIO pin connected to the active line on the MCU.
-> +
-> +required:
-> +  - compatible
-> +  - data-gpios
-> +  - clk-gpios
-> +  - act-gpios
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    hwmon {
-> +        compatible = "zyxel,nsa320-mcu";
-> +        pinctrl-0 = <&pmx_mcu_data &pmx_mcu_clk &pmx_mcu_act>;
-> +        pinctrl-names = "default";
-> +
-> +        data-gpios = <&gpio0 14 GPIO_ACTIVE_HIGH>;
-> +        clk-gpios = <&gpio0 16 GPIO_ACTIVE_HIGH>;
-> +        act-gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
-> +    };
+> +	switch (reg) {
+> +	case 0 ... AD4691_OSC_FREQ_REG:
+> +	case AD4691_SPARE_CONTROL ... AD4691_ACC_MASK_REG - 1:
+> +	case AD4691_ACC_MASK_REG + 1 ... AD4691_GPIO_MODE2_REG:
+> +		if (val > U8_MAX)
+> +			return -EINVAL;
+> +		tx[2] = val;
+> +		return spi_write_then_read(spi, tx, 3, NULL, 0);
+> +	case AD4691_ACC_MASK_REG:
+> +	case AD4691_STD_SEQ_CONFIG:
+> +		if (val > U16_MAX)
+> +			return -EINVAL;
+> +		put_unaligned_be16(val, &tx[2]);
+> +		return spi_write_then_read(spi, tx, 4, NULL, 0);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
