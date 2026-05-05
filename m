@@ -1,66 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F126B37F8A2;
-	Tue,  5 May 2026 10:47:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B0E937F8B1;
+	Tue,  5 May 2026 10:48:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777978022; cv=none; b=UaeO4mb3tGuf16aHbCHTYUN/ELdVgXDjayaBe41X4qDTCIjApmXLV8jwG5p4j7Pv99yMrBcJ3sD4uGD0/jLo07P0YGnmuDgN2G23Y1Q712kMHJFa61Ku+pt9kesRO2nzwS3AjAhQ/J3haWjesoElOtp15QW2m8yU7LMv9B9za9U=
+	t=1777978119; cv=none; b=RSk2RgYDdzAWFj+VEofux8eEzpH7qE27EbMwsdegzam801gDKE1VUgdPeafuR/Y7jf7VqU1QIG6D+95Ln6cGdJAvDwQUKn3zKU5sPHXJko/K3bjrClCUjF+mLcwXPcGa4hfyZXOyI6goEgp70H8DvkRHBO4djGtoaQc58xuNBcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777978022; c=relaxed/simple;
-	bh=32TlcTEMx1Mbzn0Gs/lnWQJYQ/HQQGkV76hj7abltnI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WT/wVAvfKRtZ8G9U6GCv8mQs8F7jiB+mBMYINIXIv0hl85zAnkSHViGCUDa0pBVXUAlt3rDXI1O1SjJIWq9FmO2MNEbyFAxLT2UV0wL/gG412zIvOqpfYxBEfgF/cOL7bE5cc0lCC/zo4TIAdNroYBshfjnyt7k8NzFS4mkLgj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lq4H0nb5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777978119; c=relaxed/simple;
+	bh=k8wxVOeIqz80WLZwC1r+QJNmKJWrY7Q9ApKvYiR8V58=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QoZLmZYqoMczHZYHYoaZjPmmAeWt1IUSz4oi5OAd/cAqif7xzVHl3xLscWVvzAMdFEXjN/rhdXW8BVdadqhDRYXoXqL900dfTXECsyrYLMPkrLBsstJSwKYOd1W4BrIK3hlEFmNSKs67cbKxKy35Dbtrj54hGZ/9x2DfPMQV8Gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gdEu0Okv; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lq4H0nb5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A848CC2BCB4;
-	Tue,  5 May 2026 10:46:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gdEu0Okv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA45EC2BCB4;
+	Tue,  5 May 2026 10:48:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777978021;
-	bh=32TlcTEMx1Mbzn0Gs/lnWQJYQ/HQQGkV76hj7abltnI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Lq4H0nb5HiXE61wqdYfomuRUiD/XFJrizuaazj16cX+AMeQtPAns4fqnENEEoHLag
-	 PwV+IjgIA/8cMIUw7xWpxi+stmkPnj1CblvqwwOwgWxQ1PoVu3//SZgvQBv4hAgmrj
-	 3w8+IvDH1PgO3OZ8RvdawYWTdSh4QtsZCqoXN1NDC9X3z8QXwokzsoEHxqFw72m3Ax
-	 dhE0Tani24Z7b3BYSA4NQkFYshXM/C3Be/wAqq4GTvLbnccMais6kc9kvqLUCj/WYG
-	 mSaDhlqetBgjda78DEd9GoogfqaWcMIaIdqWbemgPmoud3zd48fH54TdZWvoHLn7iM
-	 +IgcsDzwDPkWg==
-Date: Tue, 5 May 2026 11:46:51 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
- dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V4 09/10] iio: imu: inv_icm42607: Add Gyroscope to
- icm42607
-Message-ID: <20260505114651.57adbadf@jic23-huawei>
-In-Reply-To: <20260501221152.194251-10-macroalpha82@gmail.com>
-References: <20260501221152.194251-1-macroalpha82@gmail.com>
-	<20260501221152.194251-10-macroalpha82@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20201202; t=1777978119;
+	bh=k8wxVOeIqz80WLZwC1r+QJNmKJWrY7Q9ApKvYiR8V58=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gdEu0Okv8KAq+vMmxhT2whlVNE4DPIR43AErGtOblFB92fokuogyc4EBWQ9m6Dwmo
+	 DExwd+9VdJIv59EG7Kvk9P0Qq+lXD+iCjbjRsGbQxYRtUtILtXASG/RJ+LWKj8JlML
+	 +8LNUPFJLdg+ySo1PaTcd7kRDWpVzeszhv/6RHf7p9bRY10joZeAi1Yo3lbTTU3xAc
+	 iaNbvNWtMDha9DivrGAGcUsXQRV+i7HUlhfibqRN3COdrtKpEWia/fw7bAKWF+jnt/
+	 9eVszCPocAa4OuPvoy0jJvelHXG3MdgmjEPKHR3wJTqgGvQIiUANnlMB6WWovB0Ft3
+	 xHxVDTHscIrbw==
+Date: Tue, 5 May 2026 12:48:36 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>, Johan Hovold <johan+linaro@kernel.org>, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: phy: qcom,qusb2: Document QUSB2 Phy
+ for Shikra
+Message-ID: <20260505-gifted-bulldog-of-opportunity-34dfc1@quoll>
+References: <20260504170659.282532-1-krishna.kurapati@oss.qualcomm.com>
+ <20260504170659.282532-2-krishna.kurapati@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260504170659.282532-2-krishna.kurapati@oss.qualcomm.com>
 
-On Fri,  1 May 2026 17:11:48 -0500
-Chris Morgan <macroalpha82@gmail.com> wrote:
+On Mon, May 04, 2026 at 10:36:56PM +0530, Krishna Kurapati wrote:
+> Update dt-bindings to add Shikra to QUSB2 Phy list. Shikra SoC
+> has two High Speed QUSB2 Phys.
+> 
+> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/phy/qcom,qusb2-phy.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-> From: Chris Morgan <macromorgan@hotmail.com>
->=20
-> Add gyroscope functions to the icm42607 driver.
->=20
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-=46rom a quick look, feedback will be near identical to the accelerometer
-driver, so just check this for similar things to change.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Thanks,
+Best regards,
+Krzysztof
 
-Jonathan
