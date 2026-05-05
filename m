@@ -1,258 +1,186 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA83314A98;
-	Tue,  5 May 2026 13:19:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777987185; cv=fail; b=a93BiA0JPzdVjW7gpC3HIHx0BCctKZ+J8h9bH9Z5JlKM0RJxJDY5Ln3+x+83ok3ALPEXyVawBQ0K7qWPxSrpUqfI9lRfvI4m1NAirQqKEWI+KWvulahIzXHnOp1XtWoBeU5cTqT9ddEfRe2b6A8jk03isFftm3VYR6NLJaaE0Fc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777987185; c=relaxed/simple;
-	bh=t60cpKTqF6WAMsnbRjqZQU8b+ZteJhJ7lZprL8MSmgQ=;
-	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=D7SwphY9uNTt1ezR5kmC0t7xtSenzvxH4Dr3MFKmCSVpGi8jrsi3kj/DFmk/2DV57pHXOh+P2P2XOXRqWCyNicz3qgv4g6EbTPyzleuwAlUo5CdXenhIXsUCklP7Pnh3o8X9ovHles96bGJfHObNKCYYFYDzdQ8ScoootMDVCys=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LRyP3nIx; arc=fail smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E972533343C
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 13:22:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777987324; cv=none; b=aouLR0a+NC2gVGZ9vIe4DrRQj89T/4IwZlop8p816H9v0ONTFa+IC544o1mP/qcR6P05hrQB+jcOSikf2JlZsQa8HXuWGHaRHIZPECGQ+KUM8nmRFrgBSZEnin4w/sR6ht3zbZK0w+qYJ1pf/alUxdxUQj1BEIFHPRizVKJtrvo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777987324; c=relaxed/simple;
+	bh=O8v+5oxbFh4eT5+okYqt+svpXK+3HTEmUls1wLQMzPc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eqIT0HPPQr4SXOsFZwBzApWbbi0UgdV+2W4m5QeGy8QuktjtxSfqjlJrF3zfXwRM10lsQcPYnTCLytpOJaIAlvPXipx7xu6fnGGFdH2smoCzxNaX55lUsZHxEmsI78vehwNw/5xX8/QCCFqhLQ4xKDXPbl/bghUJoGQbyMsK5kc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gcs/QXF5; arc=none smtp.client-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LRyP3nIx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1777987184; x=1809523184;
-  h=message-id:date:subject:to:references:from:in-reply-to:
-   content-transfer-encoding:mime-version;
-  bh=t60cpKTqF6WAMsnbRjqZQU8b+ZteJhJ7lZprL8MSmgQ=;
-  b=LRyP3nIxF1e1c9NVcJQzJUzna1IYQEFoP7xJrF0h4Ke1piKD8rS9mCyV
-   rUvlI3xoY1Jq4gHF9QnHRYSlxJVjjzMutWt/yRDKCAGCJzegahNPeZHKB
-   FP3vddmwR7L9qc/jrPNe0B7Yond26SikdnWeAhnmAcT2j2yyOQfi//UUp
-   5cYPnFlKQ2JpI3umerzUz/vUVYbvW8Hlew5xjM3f2ZzF+ltO9QSZsT1Nr
-   BjewkF4CVcWcGQYIK0Y1YK+NRtUpYGjAdg9bczeJTtNE36DCgfJv1l9Mz
-   hobMKXxj0XPPjoZgKDteihpX58q64/m7JZ+ycPspmWKIhUjtPQNbON4Ez
-   Q==;
-X-CSE-ConnectionGUID: HLRT2UjJS8CvPRWQJ8UEFw==
-X-CSE-MsgGUID: SOZACu/RTWWiIlWMyAuWYg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11777"; a="79046432"
-X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; 
-   d="scan'208";a="79046432"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 May 2026 06:19:43 -0700
-X-CSE-ConnectionGUID: 0zeomjSJTaeqpYIl42z0RQ==
-X-CSE-MsgGUID: K7uh3kt5TwuncCbxLZZtjw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; 
-   d="scan'208";a="232670725"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 May 2026 06:19:42 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 5 May 2026 06:19:39 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 5 May 2026 06:19:39 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.55) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 5 May 2026 06:19:30 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kwl9okNSrQEUdJpNWyqxq29XZx+jevrg5SciAc02oxXN+ZFLM9E4uDh/dpiZSoEp+RP9ZWBNgoTEm4N9Fm8JbF//mxs2pz75AZls1jNyyEtJ4pRqJtEJF/k3iJ15+RVSXIDWCNpR0OO0NdNCO6+nTEtaNyUK7ckTn3fJ6UJMNWW+1jrnSkpAi9Vy7Z1+WEU4p3Gw4XWylmTj4mcy3UlLGAVxytx49ggNpHkEMbLrHg0dv1mwQiJD9d6BPcO/EAagfQqeXvp3OiXmiOc/lekPTvJEhQcZ7CPDESjAPTQWYCTTMwdx8ANpYeWEMrWH536AN4eCES3mX+nf2iaxNdzlTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z8y7CYMYGsdoNB+HuHEm9oROBYv2gSaBGykRuzpn5Q8=;
- b=bWQ/VveUP4/Swmn4JMXzAGjPT7jUiY5Rk7dOg8SZ4Q1PIQ9q5wYH0e2n3QzIB/PVaSvRxELylPolkwyHkdKgw0oLU0shvBtEm/+l9f7i8zM/hM1ZDN1p86tMlKGfV5JpVtAlvziwHAycglm5DUxHp1epHdD4vbKWT8mIco1mtLkVzolWAXlVmNyIMn6mj9Pkdb3rsH7/DqOFHfMSO2tRYxH74+WB6mIlvY234bfAW64Qz0eHIJ+JnAYPwlgc8RoHa5wV8h7AQkdZWTxrftqHzJeZxBsOzdPTt8l0H6W1r1omnVjYl6gbY9ssL4EuRVJ5H7cRVs93tJwPpm1kCuQ8Xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA1PR11MB7198.namprd11.prod.outlook.com (2603:10b6:208:419::15)
- by IA4PR11MB9154.namprd11.prod.outlook.com (2603:10b6:208:55e::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
- 2026 13:19:16 +0000
-Received: from IA1PR11MB7198.namprd11.prod.outlook.com
- ([fe80::2c4e:e92a:4fa:a456]) by IA1PR11MB7198.namprd11.prod.outlook.com
- ([fe80::2c4e:e92a:4fa:a456%3]) with mapi id 15.20.9870.023; Tue, 5 May 2026
- 13:19:16 +0000
-Message-ID: <13607cc5-b724-4fbc-8595-8fd5c7f1b4c3@intel.com>
-Date: Tue, 5 May 2026 16:19:09 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/5] i3c: mipi-i3c-hci: add microchip sama7d65 SoC
- compatible with the required quirk
-To: Manikandan Muralidharan <manikandan.m@microchip.com>,
-	<alexandre.belloni@bootlin.com>, <Frank.Li@nxp.com>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <nicolas.ferre@microchip.com>,
-	<claudiu.beznea@tuxon.dev>, <linux@armlinux.org.uk>,
-	<mturquette@baylibre.com>, <sboyd@kernel.org>, <Ryan.Wanner@microchip.com>,
-	<tytso@mit.edu>, <romain.sioen@microchip.com>,
-	<aubin.constans@microchip.com>, <cristian.birsan@microchip.com>,
-	<jarkko.nikula@linux.intel.com>, <npitre@baylibre.com>,
-	<linux-i3c@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-clk@vger.kernel.org>
-References: <20260505071327.125787-1-manikandan.m@microchip.com>
- <20260505071327.125787-4-manikandan.m@microchip.com>
-Content-Language: en-US
-From: Adrian Hunter <adrian.hunter@intel.com>
-Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park,
- 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 -
- 4, Domiciled in Helsinki
-In-Reply-To: <20260505071327.125787-4-manikandan.m@microchip.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DUZPR01CA0191.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b6::20) To IA1PR11MB7198.namprd11.prod.outlook.com
- (2603:10b6:208:419::15)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gcs/QXF5"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-2f03d6cf77bso3358272eec.0
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 06:22:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777987318; x=1778592118; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=pD8x1Q/Xam2zhPT/cWjBJfD2xANG/MZRgfmjejPy5dQ=;
+        b=gcs/QXF5ZX4LBbcZsqsT7Vbltn3jrAVTmc/ILucisWeeAdXQ1OKBySNUzFibkcIusg
+         jhK78yKH0RLErs9Ga+d8rY9ogp7HHSqDXFxpPZxFUJJDxwrBJuMzTOkxRYD1r50MfyA0
+         Y4TkY3t3zzMeaCYwFpWDYIwyxXPdtaKhJe2s9dm7Tr3x78XjZA1t5Gyr1D8CUxdxHGs9
+         DdNropxYHlOF4cTq5lJciMyygbyYAkNEuYnTik+hpNtTU1jSU0pgrr5u7Fpc2KDViG9K
+         +IWwftI/xXLyqnkotjDmLNfvmWOhaKWd2Y77VXKtfMj9PpP95DJpxL2Td0OiaQfPLbQo
+         AEyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777987318; x=1778592118;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=pD8x1Q/Xam2zhPT/cWjBJfD2xANG/MZRgfmjejPy5dQ=;
+        b=THEiEXgNJTqXc3pJ6+GC86gvdPNUMYte86CRR1ak6yIyU3wtxkYIo2bA/ZvnUN/kGA
+         8jsJuHiVrEABg3/DQv+PqfP1ocOglfGoc/3Gp9Z+8qO+3UssBofG5seoHAMZOKb7SVFD
+         KYgFwuyHYk5d18td1vXvSEvGpbInAa+umLaMuNYYlD7HxMkePB+/HnVAPib1CnnppSZ2
+         rA9OOA/Z9gIrRoDjK+8KpOX1KEziUjULUSWoO/5fbLg8ZLFzzqx+jXXonml3vk+OPa35
+         ddkhiCU/TUxCVqAWB2HVahRdFBcneyxtvPfD7To/uJ69MkmFkAadlVt4n1G+tSs5GHH1
+         XL8w==
+X-Forwarded-Encrypted: i=1; AFNElJ+OX1ih0J9cTa7gSODdg32SpAYDwLOcaaSuKHKwfwDwbBc7/lng9J7WWBKOPd0rXouGCo6v/PVkUNBU@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+uKCQvK8ofU+3hfD/DBP8M3nFhZibo3w/l+jytYRytgeNY2Lx
+	4hYw/Ow7YGVTDxKy7FLRy3iFm8wVn/bDRTqU11c00V4SqGaGLsD9BH/SI8V7Tg==
+X-Gm-Gg: AeBDiesxr6Nt+hXjoIXi40TxsFlElcWHqPajC2JuKbpFCm6lCtMESbWObu+m6AnNbyG
+	yegJDnhF3Ju23gzxS/WO60jBEVsQAy87cKQjTBjchx9nX/rt6gElONE4B2Hml9WBkmWpHxZpAz+
+	e8aRofoglGTzNZ7U+z/FWMX6VCxKuzeQA4/Ytf/UG5zg+KKU8vEIogMhQZ/yspq9Mxqzf0VcH8Z
+	HLTEhVAdWYsbu2YPACekuJ14UKq0leX1XdTJfBSsIX60RDEXXRd32r61HPLo3ifvgGDukWpa/7R
+	lCLAadkdxUmKEUdiuhAn5NYxvMh7DWoSkbWnyxMWdt1jofMDgEQvjErGPL4r3b9B2d/yVkgJSn9
+	Z6BLqC6UKTbq0Xp2PslvZWpYFGqBU5KOCpERkGYG/99Sbrs63MlVfG0NiytKqU60PRrxzT+xSZx
+	pnshdHfU+DgJtGJzsk7AE6e4bTcLodIRuqn5D6F8r6AbI82CY=
+X-Received: by 2002:a05:7300:578d:b0:2d1:9b35:4ed3 with SMTP id 5a478bee46e88-2f40a09561fmr1290615eec.28.1777987318256;
+        Tue, 05 May 2026 06:21:58 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ee38e71cedsm24278756eec.9.2026.05.05.06.21.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 05 May 2026 06:21:57 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 5 May 2026 06:21:57 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Manish Baing <manishbaing2789@gmail.com>
+Cc: linux@baker-net.org.uk, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: hwmon: zyxel,nsa320-mcu: convert to DT
+ schema
+Message-ID: <f3f1f99c-4433-4a5a-bbee-934c6d78380f@roeck-us.net>
+References: <20260501102116.8275-1-manishbaing2789@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR11MB7198:EE_|IA4PR11MB9154:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85380632-2969-4f68-9181-08deaaa8e815
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014|921020|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: K4iVZ5pzIKRdwzO9CLBbyc5w7nIu3ja43Hj3f6woZjKjqECL/6m5hU2R0dlGSZRe746A7R9D109OjXgAkuEG0WXoOCzqB7kKMTZnZiy+NPbqwnRD49pWT3vunnsX8bHZ4IWqCO7l9yDmlsEUsqCli+7lotvQLGMyZprVj06jW75ZiqjvBHRHAgssAhBhXbXGSG7Mj5AcclIaUUbR/NX+n8jikCevtzDT7v3i4Xrhu02yr/HyrxoOHCAz22Z3faQF3+On7zUtgua6rBBxvn8ZV77Ib6q3yceYcYtdh1PEkr09RjbvY6LOJo8mRCi/GTTNmTdsCTbQddSZQvW0cwuunLQUtvjNdC1dMXhqeMV8jsgSzs+4Z3+2YiVo7OlE68TMxEMiz3gFxnXQud1hCGt1izUeu9K05Ix7clJ3Q5oediEACnwpcxDlD1v2cthQZTvEZRwSpxzs59XV3y2t8MJISYTERfgJuzQRl5gLaGiUq3M8KDRkD2PLsVilbdmS5luufo5GlESK6ykZ0qdNZgGSEbe6Jugq4C90DNCY8lBwhaY2+c1g+ePOSV4xDLXdVjmMoeS3kf9KtfKvj96vN7ZD8AkApaWgDNqIzVfs6MaYPTMPKU/wevf3yE1qns/hoEq/Ejp4BvpfTj3pfDyc7y2Sd1OvDL+mT4ajA3UoWz0g2NavRcMrRPhJa90LPJq45kwVpxgLpqJS+aYfULHFmeKZnOaL3g5OOWyuZ+zm5R7jy78=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB7198.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(921020)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bTFyUTdqbWRFc3RiMUhURW9Fakh0RHpGNXluRU5FMzFHR1BHcEZyMFJ2VHgz?=
- =?utf-8?B?dzEwTDVxUjYyMVl6cHdEMTB5ZFprZGhjWHdhd0VPZG1USjB6aHFiWUlFNm5j?=
- =?utf-8?B?TkpOZy9IUzZMQ1BTdzE2SklDZERTdllTS3lIYkJpOWpRcmtDU3RLUGN4SWN5?=
- =?utf-8?B?TFYvTG1mTWlaLzZRWXplY1BzOGwzU3B0eXhxTTNkYndycHhZbnFwcndOeHRv?=
- =?utf-8?B?bjEveTJRc3pPa1g5L0ttbERvaEpvV0F4Z2tISHJBNmhQWnVnUHN2VGlPZHcx?=
- =?utf-8?B?a3RHcmRUNkVPSHJEUzBuci9oYUd1L3VBRmkyUmR1Skd5ZVR6YlZ1Tjhiendp?=
- =?utf-8?B?MU4xKzl5WTcyWjlIOGlyekpyVmZQK1dIU3BxNlo3RUtmdTRTVGdmV3U1Y2NV?=
- =?utf-8?B?Y1plQldwUDdaWHVwRitYTFdYaEJWY3pKMGJYbTdndk5XZ0lnajdEbWFJSDZ4?=
- =?utf-8?B?YnA4bGllRURuUFJBRmYweENJRW9pUlMrdytmbWQyNVBzRUR0V3dwZk55cXhQ?=
- =?utf-8?B?a0Z4dGpObDduOCtuVFFjNENkdVdEK29LN1lLVmpnMENjUkY2OHJhNW9uc04r?=
- =?utf-8?B?dUNYL1BVamNPWGRKVHZySEZZRWNINE1QQXZoVzlreVYyOG5TYlF1R3paS3Zo?=
- =?utf-8?B?dWFoMTZOQll3bmRiWHo4U1JaQk1BY1ZpbXkrVG8rdE5yY3Vwc1VYalRuV0NT?=
- =?utf-8?B?QStJY054MW85UDhoRzZxdkpXS3ByV25BWVgzTFpxdjdkaWczY3M5bnUxVXUw?=
- =?utf-8?B?S3hEK0xFM2F3cytjUWp0cjNQZktQOWFIa01LQUs5blFrRCsvL1FDTStnQjFm?=
- =?utf-8?B?cHNoVG1jbyt4dGRiNUVHUnhtT05sMVJ0MGJBQ0MzNktBWkdGNklKaGVDQzd4?=
- =?utf-8?B?b0ZReG5ENjErSCtFMlVydk8yT0xHcnZ1K3k1dmxYeXFhSVVUZFNySmRuV3Rj?=
- =?utf-8?B?Y21IMUpyRlBwZ25LQ01TQ2VTY1FlUkhXWDRrT2JXYWJHeTJTMHdYaVNDV20x?=
- =?utf-8?B?ZnR2WWoxZmluWUwraHpPaVg4ZFRKL1BJa1hBOXhuVWRrNlo2NWR0RXBKaHVY?=
- =?utf-8?B?NncraUFsdzhmVlVFeXR6VXArWVNHRWtUR3ZpYXpwRlVwU0ZCNUUyTWNYNjFJ?=
- =?utf-8?B?UU9pc2pPS3o2MUl2L3BXOXpXa2VERndReDdiVGFGZE9JR2VzelhKRXcxeTRZ?=
- =?utf-8?B?SXAybGtmNWhNWmVXQXU0MjVhSHFsdldQK0NXVzhqR21nUllYMWhhV0JKdHpw?=
- =?utf-8?B?VEllT1hVSXM4UUpZN0h0QVVBSTZkcDJTcG1ZM1N5VnhmRjlJVjhHc2p6MFMz?=
- =?utf-8?B?M28vWXNwN3FOVGdzUEl6TE4zK2dhR2xqdjlyRXArczFuYjBxSXdYK3VJdmFL?=
- =?utf-8?B?YzZVWjJpWEl2U3FCb0xOZ3V1ZEQwQXNOTCt6ejNNRzJOdGxGMFBOOXRvSmZv?=
- =?utf-8?B?UzNXb01HdVpJODMxTHlTMjIreVl5aVdHeVRaVllyUy9FVkZDUHp1ZkJIVGpK?=
- =?utf-8?B?WEpDcTNFSVZLb0ExWVkyUDVYczBZYy9HSHJ0Vzcrd1hqL0ltY2pJR0UwdWtM?=
- =?utf-8?B?OTZ3TmpLRzZFanhQa0cxYXJTR3U4STdwNTV0V2NuZ1FXZS9VdXBEYW9VZE1E?=
- =?utf-8?B?TFNxYTdBeXhnZ0xjSy8xVy95dlYxbEQwclBkaEpPRlJ5UEFtOTdmN2hWd0kr?=
- =?utf-8?B?WStmWWVNa0ZuZWl1ZlE5NFY2QmV4YkczdEwrUnRGWUh5bklTLzMrL3dkbEJo?=
- =?utf-8?B?cmN6dUUzUjI0clRHaUlLTUlJWGxVZnFtS1pld1dhMEdxRkpsYjZvV1BoNHpk?=
- =?utf-8?B?MnZQKzlWYmltdEhDY1YwNjI1Ym5Zc29za0dlTDUxcUNWR3VYK2VQK0hnbHlR?=
- =?utf-8?B?RjlDc3h0U1JGdGxxcksyc2pEcFJPR3RMVmhxbXJvNmtrbjlFNEtmV21zaWUw?=
- =?utf-8?B?ajI4S3NRMUZvenNBTzBpRm1XZTlubzJSR2g0M29aVldVNVk4UzdLUXJ5TCtw?=
- =?utf-8?B?YXF3UGoyUTFwQndJTTJVOHp1bnVSTGF3NFFHUkFSU1hvMmhvdXNvQUgvbzAv?=
- =?utf-8?B?M2RKUjNLdE5VbktOTlN5d1FOcmpTRmtEQnlNbCtkVUxVK1Noc3RSMjNUNVlV?=
- =?utf-8?B?eXc1eUkyZnZ3Y2hHeUNldk92YVR3LzVHQnkwR3prNTczN3JmdE9vWGxaUG93?=
- =?utf-8?B?MklqVjJ6ajhzWW0zNUs5MkV5cFZIM21TWmhUaTVYZEFkazlNVGVLSmJkdzZ6?=
- =?utf-8?B?bWxuNGl0Y2JhV0hEcEV4NWZsbVpIRHc0RzBPTzZocFR6eHUxMU1wam5oa2FX?=
- =?utf-8?B?K1dFN2p3eTlmZmxEbGgzWTVlRFNmSXNDcU96aDIyb0k2ekVxUWloY3d4MGNm?=
- =?utf-8?Q?YZnjj8vxNJTam1HY=3D?=
-X-Exchange-RoutingPolicyChecked: ogi/uMBAscPhss4rvLNumkdTPY8DL9aeOEM/VWL73Is4Yp43AEkyisOb0gcXL9SsS9PfNukSNrsJ+GTPghSBE+z7aBcwc8IdfdBRfZ6zbZ3agmbmQ870a1z71qnbrazDkzxnBfCiZyfq3rgHy6wAznw3oDz6N6JV/hykPvdvO7l4Nhyb53GLqvxL+TWnEvLiLrGGBKE/AeTAMuR/N29fj/ZPz43eSQT8XAQXckZUDNwv2goKqI2PsfAcl7OuevM+0/Ts2vIw5aD8jhlhZ5FsRCFJAJj4o66hBbay0rSkl1AFIq6xinxpGM2Khj4k96tIRgMY9jCHNS3vostkes+1mA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85380632-2969-4f68-9181-08deaaa8e815
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB7198.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 13:19:16.0304
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aoGgwM8c3TrKv3rDqJj+EUCVdukcEfeg7gXcUBp6YLJjunz13rZ/oP8oMpFbDFoPceidR4659cH+OrlTwbT8Qg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR11MB9154
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260501102116.8275-1-manishbaing2789@gmail.com>
 
-On 05/05/2026 10:13, Manikandan Muralidharan wrote:
-> Add support for microchip sama7d65 SoC I3C HCI master only IP
-> with additional clock support to enable bulk clock acquisition
+On Fri, May 01, 2026 at 10:21:16AM +0000, Manish Baing wrote:
+> Convert the ZyXEL NSA320 MCU bindings from text format to YAML schema.
 > 
-> Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
+> Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
+> Acked-by: Adam Baker <linux@baker-net.org.uk>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-One minor cosmetic comment below, nevertheless:
+Applied, after fixing Acked-By: -> Acked-by: as above.
 
-Reviewed-by: Adrian Hunter <adrian.hunter@intel.com>
+Thanks,
+Guenter
 
 > ---
-> Changes in v5:
-> - Remove HCI_QUIRK_CLK_SUPPORT quirk and call
-> devm_clk_bulk_get_all_enabled unconditionally
+>  .../devicetree/bindings/hwmon/nsa320-mcu.txt  | 20 -------
+>  .../bindings/hwmon/zyxel,nsa320-mcu.yaml      | 54 +++++++++++++++++++
+>  2 files changed, 54 insertions(+), 20 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt
+>  create mode 100644 Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml
 > 
-> Changes in v4:
-> - Remove the clock index variable MCHP_I3C_CLK_IDX
-> 
-> Changes in v3:
-> - Make use of existing HCI_QUIRK_* code base
-> - Introduce HCI_QUIRK_CLK_SUPPORT to handle/enable the required Peripheral
-> and system generic clk in bulk
-> 
-> Changes in v2:
-> - Platform specific changes are integrated in the existing mipi-i3c-hci
-> driver by introducing separate MCHP_HCI_QUIRK_* quirks and vendor
-> specific quirk files
-> ---
->  drivers/i3c/master/mipi-i3c-hci/core.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/mipi-i3c-hci/core.c
-> index b781dbed2165..20d32a9eb62c 100644
-> --- a/drivers/i3c/master/mipi-i3c-hci/core.c
-> +++ b/drivers/i3c/master/mipi-i3c-hci/core.c
-> @@ -8,6 +8,7 @@
->   */
->  
->  #include <linux/bitfield.h>
-> +#include <linux/clk.h>
->  #include <linux/device.h>
->  #include <linux/errno.h>
->  #include <linux/i3c/master.h>
-> @@ -970,6 +971,7 @@ static int i3c_hci_probe(struct platform_device *pdev)
->  {
->  	const struct mipi_i3c_hci_platform_data *pdata = pdev->dev.platform_data;
->  	struct i3c_hci *hci;
-> +	struct clk_bulk_data *clks;
-
-If you roll a new version of this patch, prefer to arrange local variable
-definitions in descending order of line length e.g.
-
-  	const struct mipi_i3c_hci_platform_data *pdata = pdev->dev.platform_data;
-	struct clk_bulk_data *clks;
-  	struct i3c_hci *hci;
-
->  	int irq, ret;
->  
->  	hci = devm_kzalloc(&pdev->dev, sizeof(*hci), GFP_KERNEL);
-> @@ -1001,6 +1003,11 @@ static int i3c_hci_probe(struct platform_device *pdev)
->  	if (!hci->quirks && platform_get_device_id(pdev))
->  		hci->quirks = platform_get_device_id(pdev)->driver_data;
->  
-> +	ret = devm_clk_bulk_get_all_enabled(&pdev->dev, &clks);
-> +	if (ret < 0)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "Failed to get clocks\n");
+> diff --git a/Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt b/Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt
+> deleted file mode 100644
+> index 0863e067c85b..000000000000
+> --- a/Documentation/devicetree/bindings/hwmon/nsa320-mcu.txt
+> +++ /dev/null
+> @@ -1,20 +0,0 @@
+> -Bindings for the fan / temperature monitor microcontroller used on
+> -the Zyxel NSA 320 and several subsequent models.
+> -
+> -Required properties:
+> -- compatible	: "zyxel,nsa320-mcu"
+> -- data-gpios	: The GPIO pin connected to the data line on the MCU
+> -- clk-gpios	: The GPIO pin connected to the clock line on the MCU
+> -- act-gpios	: The GPIO pin connected to the active line on the MCU
+> -
+> -Example:
+> -
+> -	hwmon {
+> -		compatible = "zyxel,nsa320-mcu";
+> -		pinctrl-0 = <&pmx_mcu_data &pmx_mcu_clk &pmx_mcu_act>;
+> -		pinctrl-names = "default";
+> -
+> -		data-gpios = <&gpio0 14 GPIO_ACTIVE_HIGH>;
+> -		clk-gpios = <&gpio0 16 GPIO_ACTIVE_HIGH>;
+> -		act-gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
+> -	};
+> diff --git a/Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml b/Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml
+> new file mode 100644
+> index 000000000000..a111f8125e09
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/zyxel,nsa320-mcu.yaml
+> @@ -0,0 +1,54 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/hwmon/zyxel,nsa320-mcu.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
->  	ret = i3c_hci_init(hci);
->  	if (ret)
->  		return ret;
-> @@ -1031,6 +1038,9 @@ static void i3c_hci_remove(struct platform_device *pdev)
->  
->  static const __maybe_unused struct of_device_id i3c_hci_of_match[] = {
->  	{ .compatible = "mipi-i3c-hci", },
-> +	{ .compatible = "microchip,sama7d65-i3c-hci",
-> +	  .data = (void *)(HCI_QUIRK_PIO_MODE | HCI_QUIRK_OD_PP_TIMING |
-> +			   HCI_QUIRK_RESP_BUF_THLD) },
->  	{},
->  };
->  MODULE_DEVICE_TABLE(of, i3c_hci_of_match);
-
+> +title: ZyXEL NSA320 MCU
+> +
+> +maintainers:
+> +  - Adam Baker <linux@baker-net.org.uk>
+> +  - Guenter Roeck <linux@roeck-us.net>
+> +
+> +description:
+> +  The ZyXEL NSA320 uses a dedicated microcontroller to manage system-critical
+> +  functions like fan speed and power monitoring. It is connected to the SoC
+> +  via a GPIO-based serial protocol.
+> +
+> +properties:
+> +  compatible:
+> +    const: zyxel,nsa320-mcu
+> +
+> +  data-gpios:
+> +    maxItems: 1
+> +    description: GPIO pin connected to the data line on the MCU.
+> +
+> +  clk-gpios:
+> +    maxItems: 1
+> +    description: GPIO pin connected to the clock line on the MCU.
+> +
+> +  act-gpios:
+> +    maxItems: 1
+> +    description: GPIO pin connected to the active line on the MCU.
+> +
+> +required:
+> +  - compatible
+> +  - data-gpios
+> +  - clk-gpios
+> +  - act-gpios
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    hwmon {
+> +        compatible = "zyxel,nsa320-mcu";
+> +        pinctrl-0 = <&pmx_mcu_data &pmx_mcu_clk &pmx_mcu_act>;
+> +        pinctrl-names = "default";
+> +
+> +        data-gpios = <&gpio0 14 GPIO_ACTIVE_HIGH>;
+> +        clk-gpios = <&gpio0 16 GPIO_ACTIVE_HIGH>;
+> +        act-gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
+> +    };
