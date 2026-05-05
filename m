@@ -1,59 +1,61 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9941033F5B3
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:14:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E619402455
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:14:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777976060; cv=none; b=q/Wmp/8E5Q6BaTna9IYN1unsfvTOEk7S3Q6SdAG3bi0Ry29dlMemspmPiqCxmfEv3DoX2tn7ZLqp5XYD7F8USfbVOjR6WM0DCmsC/PpKEt96M+lJi6WFawFcAUlYE+B+7Wu5MFDQ7i4virryck61gewZIvVLNvQd7Qa+fqXztrk=
+	t=1777976062; cv=none; b=pBgt0XBCY6OptLSjZ74wn1iIM+Nrwc8Gn3tv1F9cPJfCD4qb8ETyDOFipknBtQ7LO5+XuiQ0LzA2gX9KLEaoQAbdbSXJ8JQRQyhFj/aAva65Oqp9zWz1xEDPmwYQvkF1+bffihaVlo37hTnjCiOn9pt8J23p84zY4bEb0BTRGOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777976060; c=relaxed/simple;
-	bh=8xdCAMijE0E2X4EsYdb5pUdCKzFcIo7uJX+8IB0Q3yw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LFTRybSoPibu/WFDbg85W5j7dYNphwRAPrHtMxgRtbgMiZsYj6DjJgcBS+VST365lbvvIjgxk9P1xQPn6miRsCaB20yyGh/zCEzVYJH1xBu1ODEDuYmRRhoyV64Vhc2XDmSAoYP3SXybgCRjYUkIGx4KFCw7Ozydq5a6vKyUjLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Ch9Vkd+d; arc=none smtp.client-ip=209.85.210.171
+	s=arc-20240116; t=1777976062; c=relaxed/simple;
+	bh=3uwKBmKUbRrPvdSt8kHKyfmTfZec6aqlK6HFTGynQZk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=E7SUB+mcY6xuzw7ySLC6wXbVBzO2beAXcQpGXxS/TCWWLN44uJZ42OW5jA6qCZZl6K9OqyvsGcfk6kyrSMPB4KLsFfPNm5ZlNS1s73F4wPYa9V40MQ7wQoGPAAQKXWkrlW+u5xUA/n/TEn4/SAzWeACqYDRoJquT1MwjPTcMsaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=N6/6HZe2; arc=none smtp.client-ip=209.85.210.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Ch9Vkd+d"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-82faf871346so3111374b3a.0
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:14:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="N6/6HZe2"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-83659d38e38so938555b3a.1
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:14:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1777976058; x=1778580858; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=/ytUABekc5RrdYiXa04ZEShkxwLJERJBYHoA0rFWO/Y=;
-        b=Ch9Vkd+dDxgdQ3foE4qdJ5f1jh9mvKSEMlKNkubrVbNNTYXiyOMIKVqUIkbEhnudX+
-         7PZsy7XzjME1aqd5m3+U37VpAiKvO22i2xI61iJFyBZTqhK0Hci5647b9v/3sO57k9LS
-         NQ897I7jxPQMDp1lVxlfow6OZnntYOhnUImOs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777976058; x=1778580858;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=chromium.org; s=google; t=1777976061; x=1778580861; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/ytUABekc5RrdYiXa04ZEShkxwLJERJBYHoA0rFWO/Y=;
-        b=YZWA3wUEg59CRzvOEz6d4rHbqP8iRzOJCvetRuNLNLeE6fFCpMobodgumxs/Jqycbo
-         ehMueVUIZPc5T7u6XMZqLnJiggCmcARWUb6gbdYz0lQGeHMFVEeMYJpBCA4quMRNZqv0
-         iBbEaJFO8jhqf4yCrsszqXjyU/OAAY3niSVzIRysOXCKObQyVqUQECxtXqtKvVPCJe7m
-         Vuk6j9hyLh7Fxe+7bi03maD8IPAzzVT6Xpyvxqgt8UTamdC1EErXmFI4mq4Ngvvof8I6
-         1A/HqGXnYGO+D2XbLFE6uuWJmI7AWFrZlfA7TnVLwT8PG2zj8SUFQk8zvBWAiGE8wX65
-         TOSw==
-X-Forwarded-Encrypted: i=1; AFNElJ/W0ViGpky6ulKKPXFVJaV118Nu55PFcxU4/Ho81knnUdfUE1yTE12LWDzHROnj2kRUxIBoGY3NJNv/@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz0KXKFn4Cdj6uBiIhlmWSR0URwcX/Aj8lHiSPIwOoclmZCFdMx
-	d5lLusjpd8WcHSPctyJY6U5JSznh8e+v8TfmOlxzDUwpR0ln6YG7gtHHcqosEt/WTg==
-X-Gm-Gg: AeBDieukMQCQhxAXpGrZyLbS1jfdxBs7uoVhSIdOioVVZEMOHg/zAtNd+LerhujE/3O
-	EA61Orocwp1kjixlrZGPu/GqV/h8n+hlHZq91QAqSIVuUnahm1InHLxdw2OVxGar9S5r5p3B068
-	i0itU2AihjIwFjgP2caRtCd+D+DVzdrbAq3EZpDS2A3tzHj4faQrubdUBDa3otSd+1sUXIW597F
-	qs5WsFWoz2hY+ADi5Vzx/wx1tbP/wmzwaVjGGlXihvTkWx0pLNMEY5BCqB3KTDJr2Y1qjk6Y+Km
-	2qIJMTocXsiiJVuqIDn1MtZmQAKgA/2cEfx00e991s6mZryEgK1TlNvgkGOqxi3GFU8BTdfAMAz
-	/ppdjB2rxQjkMoWsdek2NozofF24V/SiL5NbPu6HqguyFgvUCy6BA2RenyKeuxOMjB0dKUFPH5v
-	ITNiPolN7zNezca44ZfZS8BisIotSpIHbsxRGNULMFrRUetGsWR0GYgl04t8eQTg9evyYlDS3as
-	lHjWpSnBmzJOSMzN1I=
-X-Received: by 2002:a05:6a00:4b10:b0:82c:247b:ffdc with SMTP id d2e1a72fcca58-83923e9857cmr2413115b3a.29.1777976058038;
-        Tue, 05 May 2026 03:14:18 -0700 (PDT)
+        bh=0SwJxrTaXr1qkR9Kq861LT/XLSkQTjOpjDiqJ3gweEA=;
+        b=N6/6HZe2oXN7u9GopHElnRDWAj9rkcEJSR4XtwzwF0WocFgQfLlLiIK7frKY5Og19i
+         b3UllkPhzT1J/ZbvCaPUtvRWMWTl3m+cHvbErO2ao+Z33P6O8bWCZCiA5WPtdY53wBku
+         KK7zIjzXHf9/mSu3EwBWXrtkbk2Y114gUdzXc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777976061; x=1778580861;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=0SwJxrTaXr1qkR9Kq861LT/XLSkQTjOpjDiqJ3gweEA=;
+        b=XEUMiKZKj9SUkJj/XNp6h2gKknd1Wlmm0MC1W4mHkudByP+ut5YWOqnsIw21Wu0eAl
+         y4GtQP9oJuzOjKRcEy9ivrHy9vkKPSMRPIFAe/HS+j3txbpFJP07cLVze2JDtx7sFcMS
+         XNZ1fPb5R2p6/pR1r/0hoyeZ/4+Gu9v1LjTvlqyji4ekboO41TZSRjMDvdcGy5MKdilt
+         cTnaCJsM8p2uAm5etCRKs7SQ+6idBlZlYr3oOO0xbk/Y/9AzQIiu5ohyQzirV3+XdDNi
+         omefJnC32gSD9pIhn0E5BbWW0X8g1ghsM+6jPeNcQEhbjgUZcZd5Ma2qV2ZFBfgwyVB5
+         3ASg==
+X-Forwarded-Encrypted: i=1; AFNElJ+ImB+jtnYWGXrAwR0OZxEh0hUXHdXgqXcxYmrFVtbLL6v5YwlzcJ/lhexk5YRnQP0aCvqz/RxBQRlK@vger.kernel.org
+X-Gm-Message-State: AOJu0YzOO7bvvLx+MLmdhNhNVXUVhvhn2xoi6xTI5Wl6x4AoJtIuN8zk
+	IWuin0Ra9+Mav2jsgmkz/CmARIFcEJQQUJ5WRIYMt9+Fzu8WCh40muH5nEXgTPsSxQ==
+X-Gm-Gg: AeBDievQqkRojny6rR4RO+3hNLouAqA5xG5p5G5cJ7Wg12HNqlgu8JolmZZaHe9EfDo
+	CrpLV4trz9u7fMs2qLXbnw8LJOjwg4CZlA9ZIt2u9F3eNHCAcy7fVNHg/VK0gwRefa4XX0QQriF
+	0hDn+zyoGZ+2ZiQXw6oZ0eTu0ALsj1aPw6jP2yzJwoqLroEnpZA5TNV7Uheu0iWiKJi6yso7Pf3
+	Sqi4c8ayrD9RnFk0bdGi4HJBGJjiHExRnNzPmY+qWkmi4xZbzwwdwexhEEmDNoMjp+w5bH2Z37b
+	gS+IgTK3q4TD7A1MyLiYX3yE7yNufbNLAdIDNKT26NARn0Se5y1khNHwE7YQTesRq2CDUMgQq61
+	2mP7IyaG4FKztB3W7R97SA/b2zWrMnV5Ju8xRDvoyXiMfNd4xQP1lN/bkiHRnPsHPOeHB/9Y3UB
+	73gbeg8dkmlvNrmJ2dYyfWm40c++ww1iBDqpzWSwimUtJCe/hFokki+rZkyFdllhliR32zc3k1f
+	dU1bgDiT5QHmRYsVRwKZqWR49b+ow==
+X-Received: by 2002:a05:6a00:4143:b0:82c:e5d0:5249 with SMTP id d2e1a72fcca58-83921eeef5cmr2466196b3a.8.1777976060673;
+        Tue, 05 May 2026 03:14:20 -0700 (PDT)
 Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:f1d4:2ef0:7d08:9dd8])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839679c8462sm1666121b3a.38.2026.05.05.03.14.13
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839679c8462sm1666121b3a.38.2026.05.05.03.14.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 03:14:14 -0700 (PDT)
+        Tue, 05 May 2026 03:14:20 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
@@ -62,10 +64,12 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 00/16] arm64: dts: mediatek: Regulator cleanup for Chromebooks
-Date: Tue,  5 May 2026 18:13:50 +0800
-Message-ID: <20260505101408.1796563-1-wenst@chromium.org>
+Subject: [PATCH v2 01/16] arm64: dts: mediatek: mt8186-corsola-voltorb: Add MT6315 PMIC supplies
+Date: Tue,  5 May 2026 18:13:51 +0800
+Message-ID: <20260505101408.1796563-2-wenst@chromium.org>
 X-Mailer: git-send-email 2.54.0.545.g6539524ca2-goog
+In-Reply-To: <20260505101408.1796563-1-wenst@chromium.org>
+References: <20260505101408.1796563-1-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -74,102 +78,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+The MT8186 Voltorb device has one MT6315 PMIC. The first 2 outputs
+ganged together, and the other two unused.
 
-This is v2 of my MediaTek Chromebook regulator cleanup series.
+Add supplies for this PMIC. Even though the outputs are unused, the
+inputs are still connected.
 
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
 Changes since v1:
-- Switch to properly named vcn33_[12] regulator nodes for MT6359, and
-  converted existing users
-- Moved PMIC regulator supply properties to PMIC top-level node
-- Dropped "mt6359: Add label for regulator sub-node"
-- Added all supplies for MT6315, even for unused regulator outputs
-- Added missing peripheral supplies on MT8195 Cherry
-- Added missing supplies for ChromeOS EC regulators on MT8195 Cherry
-- Fixed pp_4200_g regulator name
-- Link to v1: 
-  https://lore.kernel.org/all/20260320084351.2461060-1-wenst@chromium.org/
+- New patch
+---
+ arch/arm64/boot/dts/mediatek/mt8186-corsola-voltorb.dtsi | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-This series contains the device tree bits for the collection of regulator
-related cleanups for MediaTek Chromebooks. The device tree binding and
-driver changes are:
-
-MT6315
-- https://lore.kernel.org/all/20260324053030.4077453-1-wenst@chromium.org/
-  (merged)
-MT6359
-- https://lore.kernel.org/all/20260429074113.3720271-1-wenst@chromium.org/
-cros-ec-regulator
-- https://lore.kernel.org/all/20260320083135.2455444-1-wenst@chromium.org/
-  (merged)
-
-The goal is to complete the regulator tree so that there are no orphan
-regulators, and there are no devices that are missing supplies.
-
-Patch 1, 4 and 10 add supplies for the MT6315 PMIC in various Chromebook
-designs.
-
-Patch 2 converts the vcn33_[12]_(wifi|bt) regulator nodes to vcn33_[12].
-
-Patch 3, 9, and 15 add supplies for the MT6359 PMIC in various
-Chromebook designs.
-
-Patch 5 and 11 add supplies for the ChromeOS EC controlled regulators.
-
-Patch 6 and 16 add power supplies for the CPU cores.
-
-Patch 7 and 13 add power supplies for the SPI NOR flash chips.
-
-Patch 8 and 12 fix up load switch descriptions.
-
-Patch 14 adds missing supplies for the USB controllers on the Cherry
-design.
-
-Obviously the 3 dependency series need to be merged before this series,
-or we will get a bunch of new DT validation errors.
-
-Please have a look.
-
-
-Thanks
-ChenYu
-
-Chen-Yu Tsai (16):
-  arm64: dts: mediatek: mt8186-corsola-voltorb: Add MT6315 PMIC supplies
-  arm64: dts: mediatek: mt6359: Switch to proper ldo_vcn33_[12]
-    regulators
-  arm64: dts: mediatek: mt8192-asurada: Add MT6359 PMIC supplies
-  arm64: dts: mediatek: mt8192-asurada: Add MT6315 PMIC supplies
-  arm64: dts: mediatek: mt8192-asurada: Add supplies for ChromeOS EC
-    regulators
-  arm64: dts: mediatek: mt8192-asurada: Add CPU power supplies
-  arm64: dts: mediatek: mt8192-asurada: Add SPI NOR flash power supply
-  arm64: dts: mediatek: mt8192-asurada: Fix WiFi regulator description
-  arm64: dts: mediatek: mt8195-cherry: Add MT6359 PMIC supplies
-  arm64: dts: mediatek: mt8195-cherry: Add MT6315 PMIC supplies
-  arm64: dts: mediatek: mt8195-cherry: Add supplies for ChromeOS EC
-    regulators
-  arm64: dts: mediatek: mt8195-cherry: Fix VBUS regulator description
-  arm64: dts: mediatek: mt8195-cherry: Add supply for SPI NOR flash
-  arm64: dts: mediatek: mt8195-cherry: Add vusb33 supplies for XHCI
-    controllers
-  arm64: dts: mediatek: mt8188-geralt: Add MT6359 PMIC supplies
-  arm64: dts: mediatek: mt8188-geralt: Add little core CPU power
-    supplies
-
- arch/arm64/boot/dts/mediatek/mt6359.dtsi      | 22 +-----
- .../dts/mediatek/mt8186-corsola-voltorb.dtsi  |  4 +
- .../boot/dts/mediatek/mt8188-geralt.dtsi      | 41 ++++++++++
- .../boot/dts/mediatek/mt8192-asurada.dtsi     | 74 ++++++++++++++++++-
- .../boot/dts/mediatek/mt8195-cherry.dtsi      | 50 +++++++++++--
- .../dts/mediatek/mt8390-genio-common.dtsi     |  4 +-
- .../dts/mediatek/mt8390-grinn-genio-som.dtsi  |  2 +-
- .../dts/mediatek/mt8390-tungsten-smarc.dtsi   |  6 +-
- .../dts/mediatek/mt8395-genio-common.dtsi     |  6 +-
- .../mt8395-radxa-nio-12l-8-hd-panel.dtso      |  4 +-
- .../dts/mediatek/mt8395-radxa-nio-12l.dts     |  2 +-
- 11 files changed, 178 insertions(+), 37 deletions(-)
-
+diff --git a/arch/arm64/boot/dts/mediatek/mt8186-corsola-voltorb.dtsi b/arch/arm64/boot/dts/mediatek/mt8186-corsola-voltorb.dtsi
+index b495a241b443..0250b4eeadd4 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8186-corsola-voltorb.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8186-corsola-voltorb.dtsi
+@@ -73,6 +73,10 @@ &spmi {
+ 	pmic@6 {
+ 		compatible = "mediatek,mt6319-regulator", "mediatek,mt6315-regulator";
+ 		reg = <0x6 SPMI_USID>;
++		pvdd1-supply = <&pp4200_z2>;
++		pvdd2-supply = <&pp4200_z2>;
++		pvdd3-supply = <&pp4200_z2>;
++		pvdd4-supply = <&pp4200_z2>;
+ 
+ 		regulators {
+ 			mt6319_buck1: vbuck1 {
 -- 
 2.54.0.545.g6539524ca2-goog
 
