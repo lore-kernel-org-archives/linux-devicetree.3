@@ -1,41 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AAFD48C8BA;
-	Tue,  5 May 2026 16:31:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF6C448BD27;
+	Tue,  5 May 2026 16:32:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777998663; cv=none; b=s4YgujMl23Wb2Fxht1GnDDDmw2bS+j554CFctwwBjAOrYXZ9n3nRC5KndxraX/D6jmKJN5s3UDOursgSbNou4Pp2GWWNgBvqpGFvZ0+lgG7II0fxAwWCtosmmQ6KgMUxMNDpYvCjUOJUp62efm4t5VyhMnKQdeA0fp66Jws8maU=
+	t=1777998722; cv=none; b=D3TiqbyUxrB/A6pGcgUC+ru+IxataRcHMYLbdeoqT3YY32nPV8mbtbx93SKaUl7dGW2bAof1uk80gKr+V1jEGTI05GQNcOisvJgCMYELnVC6gXVOfwRD4GafOFCw3YkU2cQl4YuYOUkJOyIH46EUKfDEHRcVNmZ2OaBtAVLLc9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777998663; c=relaxed/simple;
-	bh=gF0YOpy0AgSgb45W10/iDuugizyRyn5fWd2ue+rexOs=;
+	s=arc-20240116; t=1777998722; c=relaxed/simple;
+	bh=+L8m/p9IEyMYT1UnbyJiPTjD5qfi3vt0C0WteZRYkKg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Owq8tA5mZKHglK+6vOoWzkLwdwAXk+3G/RgA0DjisR0GLZmG4MzeTngoOCAkXi4RA/11fJ5miFBOKqmLh5Agy99DX7pchvBRzI+RCWA33M3Rc+iYfwlufupmXz1VkRrBcMkwO9Q6iWDq3p0yWQjVlz9ACSMFC+LHYfNzLlY/Rfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SzYGnNwZ; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=P4lfUzc02yVeUdAbnLzQIjxU5g4qGIvaosWGciOryilFmuAUR+UvP30GfSlkpNvqYgmq+hEMF81NJ8XuCdRe/EGBxaSFfVoxBzjwIzpvhEWrngUIhAfOiJnJeu9Sh44k4gu82w30FS6dj9pIvye8Cku3iVgNKoWy5asYA6VRFeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CGJQnsTg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SzYGnNwZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38049C2BCB4;
-	Tue,  5 May 2026 16:31:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CGJQnsTg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77549C2BCB4;
+	Tue,  5 May 2026 16:31:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777998662;
-	bh=gF0YOpy0AgSgb45W10/iDuugizyRyn5fWd2ue+rexOs=;
+	s=k20201202; t=1777998721;
+	bh=+L8m/p9IEyMYT1UnbyJiPTjD5qfi3vt0C0WteZRYkKg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SzYGnNwZk+DEt6X/IqCE9cbmjWS/OljsoHDDApVa/de2zbm+NxqABHSsf89h+Rc3N
-	 3se0GBo4jnyFHHXerfsq0jtBZB4gJIGIgeQOS6R7gSfewiFTOgcTR5x05dc/kz6YgQ
-	 TN5PDRBkRfYsdiDjUpCB013sTBnFLnytdXdmtMniNk4F95XEQpXuS6YRlz/vsxz3bj
-	 slD1iapmnUg+y/Rjn/wBKF7fulY3JsmoeqYyhZoHnBPXsaocS311sYMM+0BMSdeN93
-	 mWkHpZGJuyF+/7anivFIL37RM59pfGNqMUtqV28vlSOol52uhdXtb5RCnuykPyX1k2
-	 B2ItOg0l8SGeQ==
-Date: Tue, 5 May 2026 17:30:58 +0100
+	b=CGJQnsTgoMjZoYLgTsyP6vL6jauFF73n2pNkYTif/o2WInikA1BclPC/FkUvPq0+7
+	 wqa5s5zTc7Wj42snBK7Ums9sYe6zVqi5acuF3a9eLmXBkVMzTnVEHxpFGmh1oMNGIe
+	 HJgyx6Z91thzEihdPko6G8SYzCazJV6sDpsk0B18qgzsItM4533rWIwpfAAma9sCHy
+	 7RbeTHUeAglPUu822wZmhCSKFo8YdWjvER31vErKd3orFZMDOry8OI3zgxrVYgZEhW
+	 dLlwg0mqvwTyKTKGlA2BuxJhf2Emu5A4YL4BxEf/lUqtHAtdi2tcoOSyYbH4NSGY9V
+	 J+fGY1mlO1AOQ==
+Date: Tue, 5 May 2026 17:31:56 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Udaya Kiran Challa <challauday369@gmail.com>
-Cc: alexandre.belloni@bootlin.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, skhan@linuxfoundation.org,
-	me@brighamcampbell.com, linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: rtc: epson,rx6110: Convert to DT Schema
-Message-ID: <20260505-draw-unbraided-be4f74e38df1@spud>
-References: <20260504183728.27412-1-challauday369@gmail.com>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Brian Masney <bmasney@redhat.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v2 1/7] dt-bindings: mmc: renesas,sdhi: Document R-Car
+ M3Le support
+Message-ID: <20260505-freebee-unclaimed-7bd3d1d5fc84@spud>
+References: <20260504144534.43745-1-marek.vasut+renesas@mailbox.org>
+ <20260504144534.43745-2-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,182 +54,34 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="r6jWYLpgRGISHE5p"
+	protocol="application/pgp-signature"; boundary="CKnv4REyRk1oKXCq"
 Content-Disposition: inline
-In-Reply-To: <20260504183728.27412-1-challauday369@gmail.com>
+In-Reply-To: <20260504144534.43745-2-marek.vasut+renesas@mailbox.org>
 
 
---r6jWYLpgRGISHE5p
+--CKnv4REyRk1oKXCq
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 05, 2026 at 12:07:28AM +0530, Udaya Kiran Challa wrote:
-> Convert the Epson RX6110 Real Time Clock devicetree binding
-> from the legacy text format to DT schema.
+On Mon, May 04, 2026 at 04:43:23PM +0200, Marek Vasut wrote:
+> Document support for the SD Card/MMC Interface in the Renesas R-Car M3Le
+> (R8A779MD) SoC.
 >=20
-> Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
-> ---
->  .../devicetree/bindings/rtc/epson,rx6110.txt  | 39 -----------
->  .../devicetree/bindings/rtc/epson,rx6110.yaml | 69 +++++++++++++++++++
->  2 files changed, 69 insertions(+), 39 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/rtc/epson,rx6110.txt
->  create mode 100644 Documentation/devicetree/bindings/rtc/epson,rx6110.ya=
-ml
->=20
-> diff --git a/Documentation/devicetree/bindings/rtc/epson,rx6110.txt b/Doc=
-umentation/devicetree/bindings/rtc/epson,rx6110.txt
-> deleted file mode 100644
-> index 3dc313e01f77..000000000000
-> --- a/Documentation/devicetree/bindings/rtc/epson,rx6110.txt
-> +++ /dev/null
-> @@ -1,39 +0,0 @@
-> -Epson RX6110 Real Time Clock
-> -=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D
-> -
-> -The Epson RX6110 can be used with SPI or I2C busses. The kind of
-> -bus depends on the SPISEL pin and can not be configured via software.
-> -
-> -I2C mode
-> ---------
-> -
-> -Required properties:
-> -  - compatible: should be: "epson,rx6110"
-> -  - reg : the I2C address of the device for I2C
-> -
-> -Example:
-> -
-> -	rtc: rtc@32 {
-> -		compatible =3D "epson,rx6110"
-> -		reg =3D <0x32>;
-> -	};
-> -
-> -SPI mode
-> ---------
-> -
-> -Required properties:
-> -  - compatible: should be: "epson,rx6110"
-> -  - reg: chip select number
-> -  - spi-cs-high: RX6110 needs chipselect high
-> -  - spi-cpha: RX6110 works with SPI shifted clock phase
-> -  - spi-cpol: RX6110 works with SPI inverse clock polarity
-> -
-> -Example:
-> -
-> -	rtc: rtc@3 {
-> -		compatible =3D "epson,rx6110"
-> -		reg =3D <3>
-> -		spi-cs-high;
-> -		spi-cpha;
-> -		spi-cpol;
-> -	};
-> diff --git a/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml b/Do=
-cumentation/devicetree/bindings/rtc/epson,rx6110.yaml
-> new file mode 100644
-> index 000000000000..32d15a014f91
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
-> @@ -0,0 +1,69 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/rtc/epson,rx6110.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Epson RX6110 Real Time Clock
-> +
-> +description: |
-> +  The Epson RX6110 can be used with SPI or I2C busses.
-> +  The kind of bus depends on the SPISEL pin and can not be
-> +  configured via software.
-> +
-> +maintainers:
-> +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: epson,rx6110
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  # SPI-specific properties
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Drop the obvious comment.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-> +  spi-cs-high:
-> +    type: boolean
-> +    description: RX6110 needs chipselect high
-> +
-> +  spi-cpha:
-> +    type: boolean
-> +    description: RX6110 works with SPI shifted clock phase
-> +
-> +  spi-cpol:
-> +    type: boolean
-> +    description: RX6110 works with SPI inverse clock polarity
-
-These spi properties should be replaced by a ref to /schemas/spi/spi-periph=
-eral-props.yaml
-and become "spi-foo: true", unless you want to reword these descriptions
-to make it clear that these are all mandatory.
-
-pw-bot: changes-requested
-
-Cheers,
-Conor.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  # I2C mode
-> +  - |
-> +    i2c {
-> +      #address-cells =3D <1>;
-> +      #size-cells =3D <0>;
-> +
-> +      rtc1: rtc@32 {
-
-Drop the labels here, since they have no users.
-
-> +        compatible =3D "epson,rx6110";
-> +        reg =3D <0x32>;
-> +      };
-> +    };
-> +
-> +  # SPI mode
-> +  - |
-> +    spi {
-> +      #address-cells =3D <1>;
-> +      #size-cells =3D <0>;
-> +
-> +      rtc2: rtc@3 {
-> +        compatible =3D "epson,rx6110";
-> +        reg =3D <3>;
-> +        spi-cs-high;
-> +        spi-cpha;
-> +        spi-cpol;
-> +      };
-> +    };
-> --=20
-> 2.43.0
->=20
-
---r6jWYLpgRGISHE5p
+--CKnv4REyRk1oKXCq
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafobQgAKCRB4tDGHoIJi
-0uYpAP0WA5K+8qHfZVSBOQnWTOBDnzoIDEoPv5IShp9c6lFFyQD+OYEUckJzxc3I
-QLFfJm1NmFr/e85cZeyrDa21AEuHUg4=
-=95g/
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafobfAAKCRB4tDGHoIJi
+0jQ9AQDBfT++JVm1H/VuOc28cNbFV/Q4uuX+2DRkrk6Do/lUeAD9GdaCI3FQ467T
+o9yqpxAzCpz0T6Zzl9vMwB/7kPnE1Qk=
+=9qFT
 -----END PGP SIGNATURE-----
 
---r6jWYLpgRGISHE5p--
+--CKnv4REyRk1oKXCq--
