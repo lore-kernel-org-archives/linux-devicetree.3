@@ -1,61 +1,61 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D81481ABE
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:15:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D5543CEC5
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777976103; cv=none; b=VrWk6UKHvqZCd3SdzZrDmtLVTlHe0Yl9z1oFWqAS/5r1Dxe3B45483hgcf6qHXuzfKFnYDc1dcVq/tzB2AZ7E2OmC9EKevCUegv2s5T9h3d7IWK2tV7YBpqBJdYwrc+eGtRR+PANwsKC3WucgHkPS19LSsDEUx9K6uxctwDwfkw=
+	t=1777976106; cv=none; b=XSbrmsVsXUG7gaCST+7WlBed+uQcsxTu86ceG0kIbmJ4JBhoYmFcRqHl35/jZJZ0bVcb0b7ygu3G7VJtlFrInY3rFjArklRJ0uufnvLwwWbq0yphW4ErcXZ5mJL7yHjWWKbMk+zvo4Layn6UuyBDiildyp/1fhQzORohhGAYfuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777976103; c=relaxed/simple;
-	bh=VLShPyQkLfv+DyhLp5xbBcKXslCTljhs5BOn8rHMq6o=;
+	s=arc-20240116; t=1777976106; c=relaxed/simple;
+	bh=Xql/uX8TAdN3xnADnpPNMVEpddtMrNDkEa6mSsu8y8E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=us4frKtYUAjwlIcv5QocvDXeDV6zC9e1xYx2TPd5sRigT6sUyThWW07IGRTefEQ0KB/auvKdZ//KdQtu4IKLLqFlxag8IVnTLz+g29lySKLfQT1ts4dfqvWAG11yN6GKLJKhOp18qJC8g8x0Dakn7sm2b28H1mPYqCOXCG1Q/zM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Dm+KQ4Vg; arc=none smtp.client-ip=209.85.215.169
+	 MIME-Version; b=Xfy7d+mkVzDiwzQ/gK8xlQqOYuXtWtbE3ggKImG6f25yeJ24sPw5ywU2qPRdhxzDfWObw4EHlIbx8Nbmgw0ft9j9bEsnTcPwSG76Sr+S2ATqyfgTQVq8RQTSj9kZq2o4mEYV1ef9FU4q9AXECi+YDRHm++EJa8MCYGmSwbGPA0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=JhCUJuZ9; arc=none smtp.client-ip=209.85.210.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Dm+KQ4Vg"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-c7b9f54d3deso3152261a12.1
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:15:02 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="JhCUJuZ9"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8383fb7143aso807718b3a.3
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:15:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1777976102; x=1778580902; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1777976105; x=1778580905; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OCkbLWM0T7ihDsfGf8HM6rffZAvlpjoVa/cZRXt588I=;
-        b=Dm+KQ4VgcuWkxGV9WNGKV81CC4rq5ykdDS0oCBCNidHqhplv2jcqM4TckSYTcxhP0u
-         SmUdoSLmuOh5OkAM1Wgi+lNDIhtA78p+2zEg8MGhzocEjQdIZwcLOqKJ/hoaIVTRcLUN
-         ljOCctQB6NVrtaHUmX5+vGHzZTtp/gLpmPdzA=
+        bh=iAonctQOxYmxWwndqnNFpeNxU3FDX0KHXQsR2pNC/7w=;
+        b=JhCUJuZ9d9RHwyD2nNPutfuSDixglIsTTSJBcHq4ZerzIbQroJset4mq7b2ErxO2Kb
+         hJCy50J5aL1qRET1RcK/kmYjuGes7Ptv6nDhXcRBNNKrsWq0/tTVqna56O807pipl7sa
+         e1yOvu6gEAU6q7nM9GhfoHSzSJH9UGOpXG44k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777976102; x=1778580902;
+        d=1e100.net; s=20251104; t=1777976105; x=1778580905;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=OCkbLWM0T7ihDsfGf8HM6rffZAvlpjoVa/cZRXt588I=;
-        b=TGHBTcPBvGPunodgbFCv8PzU/cWASBlNA1eUiWThPYnmZ1VHUNWrjaLYDyGRtZh6pL
-         1j9HUD320RTJGYsDZ+WcPx4ci5Ugp2tjyv5bFJo6XrCDsEe/r73+G4bn8/L3pH37Igry
-         p0Pu286is8lsnL3w57fsdRP/Z+0x5lT3whMzR9fUPYq0KHEa3wUIY7WMHWCUaNsNb0N/
-         sHII6qCv6JWSZVyXs4+8V1WxWQRa/Dot071w+5+1vB9FHt9WX5F1jAr3G3Sd5b1KgZ83
-         Wav9nFC9fl2d/mD0vJ6cVReKrHTzW2yTFqXIfJCIM7QvR2J+FGqiQqG9nbOSZ8DFsAAU
-         55RQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+ReZi4wpCDgIbasKwa1Vu5eB6ho2NZ7JktV8+NNsflSrB70USE1QvbgGegH87MB8CjR4Ht32WRvMdU@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyq+rR42yOINLgrO4mb+b4AfI4UWUJagCFtW0pAv8cCAptcUnIm
-	k2o6CWLx0lPH4txTzbYmyUIN6WvADTQIjFnRl2OjvN24IuFe6jEVKK0XyuHH2ctkPg==
-X-Gm-Gg: AeBDiese6lpQ4EfloqP1FGpaflHJsgtniuBmY00FsQRMv2ThbjHABZ2DSVFXuU0bFuP
-	L/dVW1fz29d0Cmz7l4TW6C4UQzKZjzmy0IaBp2cgvJIXGviMCkZSMEUi6fHb8k0U5ZwaF6ifC2v
-	Vd3/8qaQEepJTjHTy61QWIs+OkxaHjA19LJzJNqL/asRJx8lmGAB/SWH8Nu4+Kaw3K6jQOfB8e7
-	Ep+OVGNLBWvZxmdF5vD2QEx/14MSFKyt6LOPCp+B5vWyWMKlHiLdz/C77YZ2hwpnwti+6RBbu6z
-	xipjdl7++g7F+OrwetLyvUC6s95FU+XzorxomLEkFz3BZpScLM8RHMWBf8mKn1sYJYnxMiy0O+l
-	q+DoMLqSFq/PglRiFc1p12F9zaYH9IW70W1xco6ouF/8+F/see1cl8ZHarIalPRPP5912mcfvZ2
-	KYSwvDrxTMFsxxxsD2mCLJhMls9OTlQiyBA3w4RLg8aVWur5ijMMsHhTTk6KaRUpjRF3hR3chd7
-	vWDQyqzrQbjBxpvpSQ=
-X-Received: by 2002:a05:6a20:a122:b0:3a3:3d95:507e with SMTP id adf61e73a8af0-3aa3b6279a1mr2621746637.28.1777976101728;
-        Tue, 05 May 2026 03:15:01 -0700 (PDT)
+        bh=iAonctQOxYmxWwndqnNFpeNxU3FDX0KHXQsR2pNC/7w=;
+        b=DfN2+ZTOBZBkbjyfQJvFEM/01aD30Z8dgXfbrGMR9JLoE5OPJD+5BX61orvWnWMKlQ
+         c0oRziwvR0rmK/amH6e8WusdY6Es0Ia/Eb8/LeXkwH4KXoHPVyiOLJ05iIBV6EIuOl6e
+         VsihjGBmXLJqcEqhjDz4hKnUbmSzUlkzrs+XAPi4o4WdMlLXuwW4T+8pLKzr9kGv2nV1
+         k1qoxPAqFyuwzwBsfE5qYNTjFq9e8Yfm1EUhoIzEf0gxuZDPwbXb7jtnAaO/9n9S9G55
+         OBjGYZyuQimk/BxNxy9yFx3FwWqz+YYEE+qnUf77/Qy5FcwsaW2MH2tbUv2b6XVX97zk
+         bprg==
+X-Forwarded-Encrypted: i=1; AFNElJ8Vk3wqrZGe4nKY2egguxlZKTkTxqe1gGAiBF9vNKkBm43NQaKvYgiYBD7LqtgqNkx4n5YO2piNZbMB@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz/NVdZQw9XBUfRIAEDMzLYjfEmGxKm/1s+Ol6a+jQNx2m5InyV
+	SCbRuqlSu5Wb9rbPQ2LfhFSOlmYJsHrDmhE7qgf/I3kZj4PdGUdjbnCs58w2YOmK4g==
+X-Gm-Gg: AeBDievUr3eG8jCyR8nfDlYW511dkk0v1AULPOKE8EgS/ieQd41CAvek/XFbVQtGvlf
+	yCXT0YPXP+Dc7dLG2qpDEuScgmO3wmKbBYJG5IcWUZ3p926upuOneWnu3XU/GeakS626CYjab8t
+	6QKUaSh6XzaiTNXCRZB7GG2sFBkl8K/NwtIR4PvB9q8mh0Ph6xQU5Wa4mFlQGOvAitf+xD1y2db
+	Lxon+fPNMWUfb4KYh8iYAOAb3QtczRYD7kyqurbiMFx6ycLSyKGIfhZQ2bKCMEItUkEbOqYMVGb
+	nkiggRRmcANvbzoXJYLZhx/o+EnMV/OMakx/SguShIHZBH0/E22mnwJvIgQmvd4YSiXhLkOIXP3
+	kLW68XusL2qWngWcL/Lr7/NdKb3l9G9WggpUu3sDYWtiZLNxs52Sj2+1dn3lD4KYNaMy67ELIGj
+	F9R89Cwr4VGE08rY9GHZRau9mIqJjtOyGBlyzVjhF0kvWrcSxmCOXVsX16I2jEqinPgBBKUKA6F
+	8RSItLbm+l7awmph6w=
+X-Received: by 2002:a05:6a20:9143:b0:398:7912:cb05 with SMTP id adf61e73a8af0-3a7f1c4a82fmr13892686637.38.1777976104687;
+        Tue, 05 May 2026 03:15:04 -0700 (PDT)
 Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:f1d4:2ef0:7d08:9dd8])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839679c8462sm1666121b3a.38.2026.05.05.03.14.59
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839679c8462sm1666121b3a.38.2026.05.05.03.15.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 03:15:00 -0700 (PDT)
+        Tue, 05 May 2026 03:15:03 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
@@ -65,9 +65,9 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Fei Shao <fshao@chromium.org>
-Subject: [PATCH v2 15/16] arm64: dts: mediatek: mt8188-geralt: Add MT6359 PMIC supplies
-Date: Tue,  5 May 2026 18:14:05 +0800
-Message-ID: <20260505101408.1796563-16-wenst@chromium.org>
+Subject: [PATCH v2 16/16] arm64: dts: mediatek: mt8188-geralt: Add little core CPU power supplies
+Date: Tue,  5 May 2026 18:14:06 +0800
+Message-ID: <20260505101408.1796563-17-wenst@chromium.org>
 X-Mailer: git-send-email 2.54.0.545.g6539524ca2-goog
 In-Reply-To: <20260505101408.1796563-1-wenst@chromium.org>
 References: <20260505101408.1796563-1-wenst@chromium.org>
@@ -79,49 +79,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The MT6359 PMIC has a number of power inputs for its various buck and
-LDO regulators. The binding recently gained property definitions for
-them.
+The device tree for the MT8188 Geralt is missing power supplies for all
+the CPU cores. Power for the little cores is fed from the MT6359 PMIC.
+Power for the big cores is fed from an MT6319 PMIC on SPMI. The latter
+is currently not working in Linux.
 
-Add the supplies for the PMIC regulators to the common design dtsi file.
+Add the power supplies for the little cores.
+
+Supplies for the big cores will be added once the issue with SPMI is
+resolved.
 
 Reviewed-by: Fei Shao <fshao@chromium.org>
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
-Changes since v1:
-- Moved supplies to top level PMIC node
----
- arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ .../boot/dts/mediatek/mt8188-geralt.dtsi      | 24 +++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-index 8e423504ec05..d57e0eec676a 100644
+index d57e0eec676a..4cb23595d17b 100644
 --- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
 +++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-@@ -1149,6 +1149,23 @@ pins-en-pp3300-wlan {
- 
- &pmic {
- 	interrupts-extended = <&pio 222 IRQ_TYPE_LEVEL_HIGH>;
-+	vsys-smps-supply = <&pp4200_s5>;
-+	vsys-vcore-supply = <&pp4200_s5>;
-+	vsys-vgpu11-supply = <&pp4200_s5>;
-+	vsys-vgpu12-supply = <&pp4200_s5>;
-+	vsys-vpa-supply = <&pp4200_s5>;
-+	vsys-vproc1-supply = <&pp4200_s5>;
-+	vsys-vproc2-supply = <&pp4200_s5>;
-+	vsys-vpu-supply = <&pp4200_s5>;
-+	vsys-vs1-supply = <&pp4200_s5>;
-+	vsys-vs2-supply = <&pp4200_s5>;
-+	vsys-vmodem-supply = <&pp4200_s5>;
-+	vsys-ldo1-supply = <&pp4200_s5>;
-+	vsys-ldo2-supply = <&pp4200_s5>;
-+	vs1-ldo1-supply = <&mt6359_vs1_buck_reg>;
-+	vs1-ldo2-supply = <&mt6359_vs1_buck_reg>;
-+	vs2-ldo1-supply = <&mt6359_vs2_buck_reg>;
-+	vs2-ldo2-supply = <&mt6359_vs2_buck_reg>;
+@@ -217,6 +217,30 @@ &cam_vcore {
+ 	domain-supply = <&mt6359_vproc1_buck_reg>;
  };
  
- &postmask0_in {
++&cpu0 {
++	cpu-supply = <&mt6359_vcore_buck_reg>;
++};
++
++&cpu1 {
++	cpu-supply = <&mt6359_vcore_buck_reg>;
++};
++
++&cpu2 {
++	cpu-supply = <&mt6359_vcore_buck_reg>;
++};
++
++&cpu3 {
++	cpu-supply = <&mt6359_vcore_buck_reg>;
++};
++
++&cpu4 {
++	cpu-supply = <&mt6359_vcore_buck_reg>;
++};
++
++&cpu5 {
++	cpu-supply = <&mt6359_vcore_buck_reg>;
++};
++
+ /*
+  * Geralt is the reference design and doesn't have target TDP.
+  * Ciri is (currently) the only device following Geralt, and its
 -- 
 2.54.0.545.g6539524ca2-goog
 
