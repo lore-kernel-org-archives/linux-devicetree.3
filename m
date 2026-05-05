@@ -1,141 +1,98 @@
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+Received: from mail.chunchunmaru.org (mail.chunchunmaru.org [45.79.219.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1610530C35F;
-	Tue,  5 May 2026 20:35:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2003D3C2763;
+	Tue,  5 May 2026 20:38:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.219.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778013337; cv=none; b=ukF0chSHW2uPxFhdJA5BpKcyzJHjewVaQlkw7X2CpfDR8J4PzMnXOQpO0j7kO2vAAvbezdjAPVnRFymdMg+V1e5H65FSPu+n8HFvmpKXDPmq4/dEhsEb174NDX6K1QPCqYB3DJjvjqu45QGKbrwjTn0xadv0kyzaPMH7DhBCfrk=
+	t=1778013537; cv=none; b=paNGkz1qvCW73GRMQJV6ggmiVo/c+Wz9d0imjCDJp9UwewWxHu6f+f8Msw9gpOmHa1GxkB8IWm1PxsSZxovQxjffVFEKKRNCLEZFF0+dhu/I1Qy17qjASOpK6fHX3jeAlQfPCxWNWz3+ZrUewxA5pl1WqwIihR2KLmN74driafk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778013337; c=relaxed/simple;
-	bh=UXC9+hPU2ndmcK4oDF3blwKtby0Kh/UxqWZqMo0pXNM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bZlo9m4C+1LwnjT3K0X7MiZeiwN43m07SoRmfIMtp5kP3UWyOhWlVlLbu36Ibae2BKXjutKTKj8NWsxL63aSAw/1RUrEx1500Uttl+j40z7nvb4QL0WGWxdyYCtHKppFE7AmmS4ppEye+XMF3iSp3aUXUdWHchqG05a1J5zQJXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id 352BF1F8005C;
-	Tue,  5 May 2026 20:35:28 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id 965ABB40590; Tue,  5 May 2026 20:35:26 +0000 (UTC)
-X-Spam-Level: 
-Received: from shepard (unknown [192.168.1.1])
-	by laika.paulk.fr (Postfix) with ESMTPSA id 2A1DAB4058A;
-	Tue,  5 May 2026 20:35:25 +0000 (UTC)
-Date: Tue, 5 May 2026 22:35:22 +0200
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Jernej Skrabec <jernej@kernel.org>,
-	Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/7] arm64: dts: allwinner: sun50i-h6: Add missing SRAM
- region for video engine
-Message-ID: <afpUiupOgPhLksM8@shepard>
-References: <20260505134812.408316-1-wens@kernel.org>
- <20260505134812.408316-6-wens@kernel.org>
+	s=arc-20240116; t=1778013537; c=relaxed/simple;
+	bh=dHd2KDKnBvYMY1x5Ql4RD/wy9CzzB4WBj1LykRhnhTI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cYKw8w3CZWjBpnVAuW/9/4G5RirJmy32MoB8jcA13MJyQFjsS2nTJVLvwqjVzbM7a9viPva1PsuLIMq9LprEI/84RMbOzZfNoqZr4jNpwo1PjsWQnNNbvjbq80yX8a/7cZ6ZkIXLUIWUFcByrxqLkcmJFHUe9VFEYF57pLAZjWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=floorchan.org; spf=none smtp.mailfrom=floorchan.org; arc=none smtp.client-ip=45.79.219.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=floorchan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=floorchan.org
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9517A32254A;
+	Tue,  5 May 2026 20:38:53 +0000 (EDT)
+From: "Catherine A. Frederick" <serenity@floorchan.org>
+To: andersson@kernel.org,
+	sboyd@kernel.org,
+	krzk+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Catherine A. Frederick" <serenity@floorchan.org>
+Subject: [PATCH 1/3] clk: qcom: smd-rpm: Add clocks for MSM8920
+Date: Tue,  5 May 2026 16:38:39 -0400
+Message-ID: <20260505203845.192140-1-serenity@floorchan.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FpfFtflQBQQ4ZJAp"
-Content-Disposition: inline
-In-Reply-To: <20260505134812.408316-6-wens@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+MSM8920 is very similar to MSM8917, but adds IPA clocks.
 
---FpfFtflQBQQ4ZJAp
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Catherine A. Frederick <serenity@floorchan.org>
+---
+ drivers/clk/qcom/clk-smd-rpm.c | 31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-Hi Chen-Yu,
+diff --git a/drivers/clk/qcom/clk-smd-rpm.c b/drivers/clk/qcom/clk-smd-rpm.c
+index 103db984a40b..cdabe373aabc 100644
+--- a/drivers/clk/qcom/clk-smd-rpm.c
++++ b/drivers/clk/qcom/clk-smd-rpm.c
+@@ -666,6 +666,36 @@ static const struct rpm_smd_clk_desc rpm_clk_msm8917 = {
+ 	.num_icc_clks = ARRAY_SIZE(bimc_pcnoc_snoc_smmnoc_icc_clks),
+ };
+ 
++static struct clk_smd_rpm *msm8920_clks[] = {
++	[RPM_SMD_XO_CLK_SRC]		= &clk_smd_rpm_branch_bi_tcxo,
++	[RPM_SMD_XO_A_CLK_SRC]		= &clk_smd_rpm_branch_bi_tcxo_a,
++	[RPM_SMD_BIMC_GPU_CLK]		= &clk_smd_rpm_bimc_gpu_clk,
++	[RPM_SMD_BIMC_GPU_A_CLK]	= &clk_smd_rpm_bimc_gpu_a_clk,
++	[RPM_SMD_IPA_CLK]		= &clk_smd_rpm_ipa_clk,
++	[RPM_SMD_IPA_A_CLK]		= &clk_smd_rpm_ipa_a_clk,
++	[RPM_SMD_QDSS_CLK]		= &clk_smd_rpm_qdss_clk,
++	[RPM_SMD_QDSS_A_CLK]		= &clk_smd_rpm_qdss_a_clk,
++	[RPM_SMD_BB_CLK1]		= &clk_smd_rpm_bb_clk1,
++	[RPM_SMD_BB_CLK1_A]		= &clk_smd_rpm_bb_clk1_a,
++	[RPM_SMD_BB_CLK2]		= &clk_smd_rpm_bb_clk2,
++	[RPM_SMD_BB_CLK2_A]		= &clk_smd_rpm_bb_clk2_a,
++	[RPM_SMD_RF_CLK2]		= &clk_smd_rpm_rf_clk2,
++	[RPM_SMD_RF_CLK2_A]		= &clk_smd_rpm_rf_clk2_a,
++	[RPM_SMD_DIV_CLK2]		= &clk_smd_rpm_div_clk2,
++	[RPM_SMD_DIV_A_CLK2]		= &clk_smd_rpm_div_clk2_a,
++	[RPM_SMD_BB_CLK1_PIN]		= &clk_smd_rpm_bb_clk1_pin,
++	[RPM_SMD_BB_CLK1_A_PIN]		= &clk_smd_rpm_bb_clk1_a_pin,
++	[RPM_SMD_BB_CLK2_PIN]		= &clk_smd_rpm_bb_clk2_pin,
++	[RPM_SMD_BB_CLK2_A_PIN]		= &clk_smd_rpm_bb_clk2_a_pin,
++};
++
++static const struct rpm_smd_clk_desc rpm_clk_msm8920 = {
++	.clks = msm8920_clks,
++	.num_clks = ARRAY_SIZE(msm8920_clks),
++	.icc_clks = bimc_pcnoc_snoc_smmnoc_icc_clks,
++	.num_icc_clks = ARRAY_SIZE(bimc_pcnoc_snoc_smmnoc_icc_clks),
++};
++
+ static struct clk_smd_rpm *msm8936_clks[] = {
+ 	[RPM_SMD_XO_CLK_SRC]		= &clk_smd_rpm_branch_bi_tcxo,
+ 	[RPM_SMD_XO_A_CLK_SRC]		= &clk_smd_rpm_branch_bi_tcxo_a,
+@@ -1295,6 +1325,7 @@ static const struct of_device_id rpm_smd_clk_match_table[] = {
+ 	{ .compatible = "qcom,rpmcc-msm8909", .data = &rpm_clk_msm8909 },
+ 	{ .compatible = "qcom,rpmcc-msm8916", .data = &rpm_clk_msm8916 },
+ 	{ .compatible = "qcom,rpmcc-msm8917", .data = &rpm_clk_msm8917 },
++	{ .compatible = "qcom,rpmcc-msm8920", .data = &rpm_clk_msm8920 },
+ 	{ .compatible = "qcom,rpmcc-msm8936", .data = &rpm_clk_msm8936 },
+ 	{ .compatible = "qcom,rpmcc-msm8937", .data = &rpm_clk_msm8937 },
+ 	{ .compatible = "qcom,rpmcc-msm8940", .data = &rpm_clk_msm8940 },
+-- 
+2.53.0
 
-On Tue 05 May 26, 21:48, Chen-Yu Tsai wrote:
-> The SRAM C region contains a partial alias to the VE SRAM already
-> referenced by the video engine. To avoid access through this alias
-> window, the region should also be claimed by the video engine.
->=20
-> Add a reference to the SRAM C region to the video engine node.
-
-It feels very weird to have a reference to the DE2 SRAM region in the
-VE node. It seems unlikely that the same region would be used by both DE2 a=
-nd
-VE and I am pretty sure can have both running at the same time without
-overstepping.
-
-=46rom what I can see we have so far assumed that the SRAM C and SRAM C1
-are two different physical SRAM areas, but this is most likely not the case.
-My guess would be that SRAM C1 is actually a part of SRAM C and the DE2 is
-using another part of it. The syscon block probably allows switching access
-to these different parts of SRAM C.
-
-Also the sram_c1 node implies it's 2 MiB, which sounds quite unlikely.
-
-All the best,
-
-Paul
-
->=20
-> Fixes: b542570e5605 ("arm64: dts: allwinner: h6: Add Video Engine node")
-> Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
-> ---
->  arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi b/arch/arm64/bo=
-ot/dts/allwinner/sun50i-h6.dtsi
-> index 72ce1a75647b..88c6e3e105c0 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
-> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
-> @@ -205,7 +205,7 @@ video-codec@1c0e000 {
->  			clock-names =3D "ahb", "mod", "ram";
->  			resets =3D <&ccu RST_BUS_VE>;
->  			interrupts =3D <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
-> -			allwinner,sram =3D <&ve_sram 1>;
-> +			allwinner,sram =3D <&ve_sram 1>, <&de2_sram 1>;
->  			iommus =3D <&iommu 3>;
->  		};
-> =20
-> --=20
-> 2.47.3
->=20
-
---=20
-Paul Kocialkowski,
-
-Independent contractor - sys-base - https://www.sys-base.io/
-Free software developer - https://www.paulk.fr/
-
-Expert in multimedia, graphics and embedded hardware support with Linux.
-
---FpfFtflQBQQ4ZJAp
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmn6VIoACgkQhP3B6o/u
-lQz8VBAAkfyeAYZhinUwpsJmf+oDlItFt7Lfusv+8SkH/qZnD6zCrAQk/Geol1rW
-wZlYqRlWIV1tboLHrW+hgJmK43/FRZ8zoXdUVBTmn1qlfDX0VtLF2DvHC+uaufyF
-4DTP/NfJmIdPOIltCC3FEYzt78hqUzYwwEnsyR+uZ0kPKS8dQyvBoS24LOwnF70g
-huYXW9SWc+458Sjd+NVae7vJneQsx8xrtafjkfPP5Zx2PdYmMTsGPxuBNgLa2CiA
-TvtW1mzJtP2egSTdCfzIJRVCdQ6w9/lYvQoFQfz7U+L+MwpB8U7g3yU7sbIEEBwz
-1RzbbYTvHm68D95/Qb4wkxEPXPw/HTD5Hy3iHdw6JLz3VOXvvQapTbOQqADL7SqD
-6HE8NxgGcLLVMO6P3Na0l+nu6AyuXnou5x99ukr1lQYNAVeUCcq4CpN6GV9/Tgq+
-5ZcTzVFJqD2RJfdPbuljaRgWU5i7fUk1QX0QiNmW+m84Kg5e+wkzf/TB1E5JmypQ
-w4d8oYb059s57puI8NZgwHnyhoLu3HB/NhjboHLcuwzcbgY6PMq68lqazv6qNY/p
-bvQU0TQ/2HwBmCtQT7dIn1ShT5xfo0cu3qpl0bHH9iKBcnXCjdGGqmrNliwBIhta
-5rW/eK5LQyKRXSSg3mKHjITNERBpiraMB65z3LMKUrE/UHivWxA=
-=03GE
------END PGP SIGNATURE-----
-
---FpfFtflQBQQ4ZJAp--
