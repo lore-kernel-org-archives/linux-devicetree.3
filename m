@@ -1,144 +1,114 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011049.outbound.protection.outlook.com [40.107.208.49])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11F338E5C5;
-	Tue,  5 May 2026 06:25:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777962315; cv=fail; b=opFiv1/sFfoE5kEMkxU1+aFIIPOBXUSOMQX3bOSJyjMZrGEPTNofupYBTPVmbtT1DV0AMrA84dvP7dmFDhGQAg6GqnOQBatYHmsZAOIEMgKMvgvsNmlDU0cyKKysEwkEOuWxBqnNCG3PmOjlcMadncxM8rvYNQYbw+e4J/1K/FA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777962315; c=relaxed/simple;
-	bh=moLmLkvzXt1QlB/DKFjP4mediYdJs/eGb6JhxQwEd68=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=JSxtpnBHcDZyadTC7qmV+ccu7HHaftyi9OGx6A+I/CDRzUNxWt6/63EMAyKFwolsiZVrUz/Pm48JYtamCV2CKFrm7+dAGQkYGsNTbfmAdPSiE+U1pOWrpQSVYGdIvmkuJROadENYRJ/zGeX13MYxBlaDHuJzYtcNoGrFuM065BQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=iiaEsIEY; arc=fail smtp.client-ip=40.107.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B52A3A383A;
+	Tue,  5 May 2026 06:33:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777962835; cv=none; b=sAndRF5aUgSfqeB6i0RQ3YAVKN6MLDc8euZb0pDpVZPjwKMKUfqdmVtangeMVe6zWh0jRbsLmLvFIuw5/2j3PvvgqtMNtujv5MhYtLhx5Ax5RKURAILtgNCzGo82Q2SjJ38vyZAs6G8vjrl1XKMqW5a5Jr1DeFXIOWvPFlUCdwY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777962835; c=relaxed/simple;
+	bh=jAIaYDkSBSVChTdmNPZ8YCi79SVo0E14jpZaYpeNCI0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pfZIw0lN14bLySEGmz5VvGh3ktMbUr4Gp5RiEQg/QFbs7Onyx0TEJOICzFr3Lqt0iXFWltEgTUuNbONbhqBiHl8t7hMZjNOxYjw8+S91B/lNQrr5d1UtubGB0EO0Jdy8VAm4yMuTVjAShM2Ie6l4w9tieqiuwmKJqZ1d4WhrG+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=mJRHjQnU; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="iiaEsIEY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YQZBCzMPCf+psQpQABBzRkuIy761bzfFyBFdP9cw1PNj3lV1McvqBy2UVsdGC/3N6MpcEyBqWqNObXDmDhXAHjB6zCWvs+dmaSJVqqlidu/wMeutkL4HLfma9Fy5o5xwYJhLNnfEcJVY21lAyzIgwuaEiOE5lvkmPrYQglzrYSHxf6BKj6A/F9segmbZ3Ou0zhu3IrGOH3nSOE6goZs2ADU0i/y1G0I5EUrHCygcwjbBMtxWQZVfKOnO3XnbpmdeihtJyRuLlib0RG0e8mYbGzs5vibx2ZE7edsmJr7u6IJctq1ewE2AToEBws6yyN7AynqF1GPU+G1yupPoaDGWAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AnZVujZDP0WbsJZVkLUt0bSLsKfikaNUmRORvJR+O5Y=;
- b=ugw2NAUqj+4UZmDyeEmlB+zd2Ez2OFWaz3CUr/+vpeN5hXIE/UXX6sXpiolc/nMieoirRr/4DRdGKGFT8jgrIKqfd2MLpiqinRgbrq7ywADTR7z/M0J7HjWFVluiiTxSls6bNuViX1yWtqM+gIxJ5YUajVy6NjJJgA0IQLBXHYVceYAM9amlvKiOWSd96QqZK3duqvB5o3NkMMJOQ0n00aabH8G2Zhp145EIXH5Our9o84PZ0TMz4fT46SpKz7oPR67Y9FjEE4Yb2F6vnLwphco1GwL1MKPBI38ZzbqUikEOc31zRzz+BM4r46eQ94zW7q4ncYMXcCOX4denzcTVTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AnZVujZDP0WbsJZVkLUt0bSLsKfikaNUmRORvJR+O5Y=;
- b=iiaEsIEYce1L4e4BqD53eYXl3/BfiJtdhmQfedxxVA+eT+NiAc7wsMuROnHfooKHoUo9MeJqt0lfQLPBc5pPIlZN4a7/mUeWqmAUNt2Eh+kk3bH5lf6YFuRmJsbU3eTQvqljgZM7ii7ZlKO35bxRad40lMFZgrgNNh1t0RPzIso=
-Received: from BN1PR14CA0003.namprd14.prod.outlook.com (2603:10b6:408:e3::8)
- by SJ0PR10MB5718.namprd10.prod.outlook.com (2603:10b6:a03:3ed::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
- 2026 06:25:10 +0000
-Received: from BN2PEPF000055DA.namprd21.prod.outlook.com
- (2603:10b6:408:e3:cafe::68) by BN1PR14CA0003.outlook.office365.com
- (2603:10b6:408:e3::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.25 via Frontend Transport; Tue,
- 5 May 2026 06:25:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- BN2PEPF000055DA.mail.protection.outlook.com (10.167.245.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.1 via Frontend Transport; Tue, 5 May 2026 06:25:09 +0000
-Received: from DLEE210.ent.ti.com (157.170.170.112) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 5 May
- 2026 01:25:09 -0500
-Received: from DLEE215.ent.ti.com (157.170.170.118) by DLEE210.ent.ti.com
- (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 5 May
- 2026 01:25:06 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE215.ent.ti.com
- (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Tue, 5 May 2026 01:25:06 -0500
-Received: from [172.24.233.62] (devarsh-precision-tower-3620.dhcp.ti.com [172.24.233.62])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6456P1pv2369282;
-	Tue, 5 May 2026 01:25:01 -0500
-Message-ID: <9eb58fea-23e9-43a6-90f1-f8567f0dfbf9@ti.com>
-Date: Tue, 5 May 2026 11:55:00 +0530
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="mJRHjQnU"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
+	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=sDuvub1778pFatrBftHPmBbzNs+W0zYjZGDQ4MGF/Sg=; b=mJRHjQnU1i3UVnMzked5o+Kfdj
+	XFd8nziBpu7uVBFatCGtXDQIXbDKdeSPI96BWqcpFvFseWYgXB0qZguFhuSWq3Jzx4JkLmvl5ydSy
+	V8gvI0LyZbe7eH8cv7jynG90GjmpIqaqvK2T1lJx3m7wqWW/k9GvpIfdygOvec5364sRs4kXJ6dJB
+	IDWnn1Xhs0kVlZ7ihFTKT50u5KTTLTA99N4L5dIX63OZ+atGSc3kEaj7Ha+ed+mrqmJxK1lgcqiMP
+	Vuz+vWKm3Xdfid0hL/0dWCOZR7bNdRg12FIxlOcxzyyzFWA6+m40fqoNxhW3sVAi8dCJzonlFuPUy
+	Si/EA3Rw==;
+Received: from sslproxy06.your-server.de ([78.46.172.3])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wK9Lq-0004vM-1M;
+	Tue, 05 May 2026 08:33:50 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wK9Lq-000KOQ-0O;
+	Tue, 05 May 2026 08:33:49 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>
+Cc: Paul Gerber <paul.gerber@tq-group.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux@ew.tq-group.com,
+	linux-renesas-soc@vger.kernel.org,
+	Alexander Stein <alexander.stein@ew.tq-group.com>
+Subject: [PATCH 1/2] dt-bindings: arm: fsl: add TQMa8MPxS board
+Date: Tue,  5 May 2026 08:33:43 +0200
+Message-ID: <20260505063346.1799500-1-alexander.stein@ew.tq-group.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] arm64: defconfig: Enable DRM_PANEL_SSD16XX
-To: Krzysztof Kozlowski <krzk@kernel.org>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>, Bjorn Andersson
-	<bjorn.andersson@oss.qualcomm.com>, <dri-devel@lists.freedesktop.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <praneeth@ti.com>, <vigneshr@ti.com>, <s-jain1@ti.com>, <s-wang12@ti.com>,
-	<r-donadkar@ti.com>, <r-sharma3@ti.com>, <afd@ti.com>
-References: <20260430183311.2978142-1-devarsht@ti.com>
- <20260430183311.2978142-7-devarsht@ti.com>
- <faed4992-3f9d-4729-bdb6-e60e6bc8ee05@kernel.org>
-Content-Language: en-US
-From: Devarsh Thakkar <devarsht@ti.com>
-In-Reply-To: <faed4992-3f9d-4729-bdb6-e60e6bc8ee05@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DA:EE_|SJ0PR10MB5718:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0cd86ede-ae36-4451-a608-08deaa6f0ed4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|376014|82310400026|7416014|921020|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	RFAi2noSAmq4G2MBVdRuGk0Osdw18J9Aa9WOAx2HWUWVI13D4C/ZAeF3XYsDZPdkeyeghHOSVZuCy6X0nCObakVzlTz+lKz/OKRNFWSwhyngpFxwKZ2zFQ08p3IMwPRrf5zFpXUcyMecSXCggX0FlfvQsXlg1Cg7Elj5R10vKsyUCnjQXrmtt8SfmzuzJqLViTXh1SGG8JcSOfBYBlIrr2vUFTHwjovZ1UmMF5nmV5h0aGTSExR6DSHNMHMvN/X+c59cJPorDy4MiMePbrDIHt8ttkFXZh4YqYoy438TzNsNCRgJTbdUWgm/xSg2VTLzAIspqW6k1GWlCVEhJJsMLwr4VaDqrVysB40bd38sLGy2SG9o+KbbeE5SgVsHeXx7YqsZXV8qFsr7/dpxcooP5fQDdVgxuuhpzLOaaQk05hwJwoq3AQXpBFiyEjcOMUbKLxgDVYneIyYs8WAUdzVYQsS6yjDMlmhZQ/SdhqofdANh8NxrPPMORv34Avvdj8uzcBTkBWsEsFSRD5Bmj3j2AxuhcDVO6A9AfbRo2ceSTAHN07SYg6FZ/3pAx7AfqP4tc0K7hpODLivaNaQFp/y/DovuZms8UwIRGkCxss1XVvlsbWV9/UOQmzwzia24iN4KKFeiDPuM8/ORds4NTi1TFzE98ZSfqAYOSX7WwAJZsmov+WF/9iFAous0WQ5erLuk+UGaYbRPauHNYVul4bh2VnGpQjV+sbUOcJsVG1YBbpW9VBBEsw2Vcv884G87gig8y69hQXFzQt+u+q5bi+R+lA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(7416014)(921020)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	7qIfMRgo/1nOoR3t95KxUg4OEbXLueWWOsH/YvrExp5GX9duK/tsG7Re/2xrgjsb/eGv2Nw1K3ENPHeZ4qC/LSgD8XbfDM5uZIWVAGv3Cjz9V+wKuP99UDvhNrvord7QSn61ezTcBWRilJrN6zvUVV4PGltAXCoO2oMsSFnwRWEBwykD0aUQcXWRFVJWr5oofJjhhHdMol72+6YqElKpA01hn9EQrFFgevRUKjzojk8P95xw+XbgqR4256uowZphCbpIDuu2AteiVclBNlqKPVL6IkT6tkf2nEK+1dFZlRyM++NeWV6vSBrDZb2dczwln4oV6W14cUdKYpRDnH9ukhRE29CXT2WCRfHaqd45rfRLMNQc+BnJp6gUJBcma5EdF4PrEB05vtb5th7f0ZqcF6FWQCnDo856aONuOTy57upACC4K8m7hdukmIHkTPCYJ
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 06:25:09.8851
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0cd86ede-ae36-4451-a608-08deaa6f0ed4
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DA.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB5718
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/27991/Mon May  4 08:24:39 2026)
 
-Hi Krzysztof,
+From: Paul Gerber <paul.gerber@tq-group.com>
 
-Thanks for the review.
-On 01/05/26 15:00, Krzysztof Kozlowski wrote:
-> On 30/04/2026 20:33, Devarsh Thakkar wrote:
->> Enable the Solomon SSD16xx e-ink display controller driver as a module
->> in the arm64 defconfig, making it available by default on TI AM6x SoC
->> platforms that use this driver.
-> 
-> You need to name here the actual platforms (boards) having this device.
-> 
+TQMa8MPxS is a SOM family using NXP i.MX8MP CPU family.
+MB-SMARC-2 is an evaluation mainbord for this SOM
 
-Noted, will update the commit message in v2 to make it more clearer. 
-Just to clarify: while tested with AM62L3 EVM, this is not specific to 
-any particular platform. The SSD16xx family are SPI-based e-paper 
-display controllers and display panels using these controllers can work 
-with any platform supporting a SPI interface.
+The SOM needs a mainboard, therefore we provide two compatibles here:
 
-Regards
-Devarsh
+"tq,imx8mp-<SOM>" for the module and
+"tq,imx8mp-<SOM>-<SBC>"
+
+Signed-off-by: Paul Gerber <paul.gerber@tq-group.com>
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+---
+ Documentation/devicetree/bindings/arm/fsl.yaml | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index 0023cd1268075..b69c34752ace6 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -1300,6 +1300,18 @@ properties:
+           - const: tq,imx8mp-tqma8mpql            # TQ-Systems GmbH i.MX8MP TQMa8MPQL SOM
+           - const: fsl,imx8mp
+ 
++      - description:
++          TQMa8MPxS is a series of SOM featuring NXP i.MX8MP system-on-chip
++          variants. It has the SMARC-2.0 form factor and is designed to be
++          placed on different carrier boards. All CPU variants use the same
++          device tree hence only one compatible is needed. MB-SMARC-2 is a
++          carrier reference design.
++        items:
++          - enum:
++              - tq,imx8mp-tqma8mpqs-mb-smarc-2    # TQ-Systems GmbH i.MX8MP TQMa8MPQS SOM on MB-SMARC-2
++          - const: tq,imx8mp-tqma8mpqs            # TQ-Systems GmbH i.MX8MP TQMa8MPQS SOM
++          - const: fsl,imx8mp
++
+       - description: Variscite VAR-SOM-MX8M Plus based boards
+         items:
+           - const: variscite,var-som-mx8mp-symphony
+-- 
+2.43.0
+
