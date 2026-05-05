@@ -1,54 +1,42 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C663B1D9A5F
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 15:46:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D55B47DD67;
+	Tue,  5 May 2026 15:47:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777995991; cv=none; b=jQVVLfec4XmfDH/azm8MsWtdSC16ftyimOOwuHahLDs2dvN06jSemTT7djEz4xbyAnFO0Gv9rFVvpZElxZoUlzSW1ML/UJLQybylWuq0iW8Ptw9znpriUvwfVSV7d+Jx4HnFXs/ZvCEIgRF43LLJzyDdWi1TzTUnBUC/hA3L8TE=
+	t=1777996023; cv=none; b=KfYLSwuXdI2v5QEUvgVP+EvqlOJBXjyDJMgJEqBWzaAAI/n3ZayxdKpLU0TUEG0VCkAesI2IuJs44vPDVSGxwzt4hco+YBEefFu0PW7l1qabCslG9Fz35ggrmWOL4bQGlUpJIAQaYUmE1oSFi9Y+fcfT4H5HdMegbLgwka8g/K0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777995991; c=relaxed/simple;
-	bh=rPgtOYp44AMEE4w8jb+sAMH6oh60u9dHF+uoLjTnEHE=;
+	s=arc-20240116; t=1777996023; c=relaxed/simple;
+	bh=loSXYggyKfor3zLcUOfD6vEQMzQ6HkN5o6t2z+QPJNc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rtlnG7W5pyvzmQCOC+sR4JBLiCYI9GZWhE+cQ/fKE1s+9df3zM9DoQ9eGmZ60WHhPlDcGteY2tt/8S8AFloqrDNo7DBchVd1YCNdGmppEAEqeeXqqDiRrWk0mtrhsuJ1WjGRizrMTfPzGYKMFFsVPS4OrFZrS4vebE3QlxISOS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <mfe@pengutronix.de>)
-	id 1wKHyA-0002ON-5T; Tue, 05 May 2026 17:45:58 +0200
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mfe@pengutronix.de>)
-	id 1wKHy7-000bK5-3A;
-	Tue, 05 May 2026 17:45:56 +0200
-Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <mfe@pengutronix.de>)
-	id 1wKHy8-00000001KYi-17yu;
-	Tue, 05 May 2026 17:45:56 +0200
-Date: Tue, 5 May 2026 17:45:56 +0200
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Rob Herring <robh@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, laurentiu.palcu@oss.nxp.com, 
-	victor.liu@nxp.com, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 2/4] Revert "dt-bindings: display: bridge: ldb: Fill in
- reg property"
-Message-ID: <2bl2mwpk57xgkuye2gydliymjkzikiovnb7ovnb73olwtfkjwn@byn3732grvnh>
-References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
- <20260504-v7-1-topic-ldb-fixes-v1-2-0125d937ff7f@pengutronix.de>
- <20260505141538.GA2547282-robh@kernel.org>
+	 Content-Type:Content-Disposition:In-Reply-To; b=X4Uub6iA8Jh5Q355Ixw8SwhhLgKK3RD3Ax8z8goli7efDKsC4SWZoFumW1OOedVoi1z3GMl/3RnSQ2FmgmJYJB5PZKg8XMONINFOmKmysFCumSwNILSTXu4EIGmKu2fdLjxM3z6Fi0e9OJPq40LyI4LFWwo30BF9RO09GvA6nlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h0WcJMCF; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h0WcJMCF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD2D2C4AF63;
+	Tue,  5 May 2026 15:47:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777996022;
+	bh=loSXYggyKfor3zLcUOfD6vEQMzQ6HkN5o6t2z+QPJNc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=h0WcJMCF6UILtJk2Trr9mpUfzIFex2vuXu8MVIv7a+dBezzR0mTxDvj5zSzU3FOua
+	 NKCyOo/hKORk6yFnRVZjUnzEuu/WQW/2f2cHfamuYplYmcslJKOXbU8CbgLluUCYcv
+	 hJI0gOLUYRBiifX394KWtkw3ADI2x51JEn/jblV7c9X2kN8Y+Cra25abgEe6aISqMJ
+	 DvKFP0qu0hzPTStPnwpE4IYSXX8wkgNmX76HvpDw9l0iPQhYFcG2t4l8hp37Sf8DYB
+	 Bj2A/JJ7HedGdR/NS1LSvXyN2LIdEnkWnt3zKOFk6djFSMnm1gy37b/Dj39zOqp9EW
+	 RX7zu71h0Rd/w==
+Date: Tue, 5 May 2026 10:47:00 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Daniel Golle <daniel@makrotopia.org>
+Cc: linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: misc: fsl,qoriq-mc: drop trailing
+ whitespace
+Message-ID: <177799601839.2983920.8894154052886581968.robh@kernel.org>
+References: <cover.1777434096.git.daniel@makrotopia.org>
+ <20fb6993052534958ca57b537204de6c5617215a.1777434096.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,86 +45,17 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260505141538.GA2547282-robh@kernel.org>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mfe@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+In-Reply-To: <20fb6993052534958ca57b537204de6c5617215a.1777434096.git.daniel@makrotopia.org>
 
-On 26-05-05, Rob Herring wrote:
-> On Mon, May 04, 2026 at 10:21:42PM +0200, Marco Felsch wrote:
-> > This reverts commit 16c8d76abe83d75b578d72ee22d25a52c764e14a.
-> > 
-> > Remove the 'reg' and 'reg-names' property from the LDB.
-> > 
-> > The LDB is either part of the IOMUX_GPR (i.MX6SX) or the BLKCTRL
-> > (i.MX8MP, i.MX93) register space. Both IOMUX_GPR and BLKCTRL are
-> > register ranges with loose register definitions. E.g.
-> > 
-> >   - On the i.MX8MP there is one register which controls the AXI
-> >     threshold for two different IPs (BIT(31:16) - IP1, BIT(15:0) - IP2).
-> >   - On the i.MX6SX IOMUXC_GPR5 controlls: CSI2 mux, WDOG3 settings, PXP
-> >     handshake, ...
-> > 
-> > In conclusion: it can't be ensured that one register belongs to one
-> > dedicated IP and the LDB is rather an exception than the rule.
+
+On Wed, 29 Apr 2026 04:48:38 +0100, Daniel Golle wrote:
+> Drop trailing whitespace from example.
 > 
-> It is fine if there's a child node for LDB if the LDB registers are 
-> consistent, but the other misc things are represented by the parent 
-> node. It is certainly not a requirement that either everything be in 
-> child nodes or nothing be in child nodes.
-> 
-> What I don't see in this series is what problem does this fix? If you 
-> are going to break compatibility, then there had better be a good 
-> reason.
-
-Hi Rob,
-
-with the upcoming i.MX9x SoCs the parent syscon (BLKCTRL) controlls
-multiple other IPs, e.g. a DPI mux added by commit 3feaa4342637
-("dt-bindings: soc: imx93-media-blk-ctrl: Add PDFC subnode to schema and
-example").
-
-During the discussion of the above commit we agreed that the sub-devices
-of the syscon shall not use the reg property due to the fact that one
-register serves multiple purposes. In the above case the same register
-controlling the dpi-mux also controlls MIPI-DSI bits. The MIPI-DSI bits
-can be abstracted as drm-bridge as well. Two sub-devs using the same
-'reg' property below the same parent seems odd and I don't know if this
-allowed either.
-
-Now the LDB is also part of this BLKCTRL syscon device but requires the
-reg property. TBH, I don't know why the reg property was added in the
-first place, due to the above fact (multiple sub-devs - same register).
-
-Of course, we could limit the breakage to i.MX9* SoCs only which is done
-by:
- - https://lore.kernel.org/all/20260329-fsl_ldb_schema_fix-v1-1-351372754bc0@nxp.com/
-
-but I don't think that this would be nice from user and from maintainer
-perspective, because:
- 1) The same LDB "IP" would have a different dt-binding
-    (user perspective)
- 2) It introduces another dimension drivers need to care about
-    (maintainer perspective)
-
-Therefore I went this way to drop it all together to make it easier for
-the user and the maintainers.
-
-Regards,
-  Marco
-
-
-
-> 
-> Rob
+> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+> ---
+>  Documentation/devicetree/bindings/misc/fsl,qoriq-mc.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 
--- 
-#gernperDu 
-#CallMeByMyFirstName
+Applied, thanks!
 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
