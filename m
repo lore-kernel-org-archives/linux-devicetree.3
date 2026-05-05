@@ -1,68 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630553CAE9C;
-	Tue,  5 May 2026 07:23:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC883DB646;
+	Tue,  5 May 2026 07:23:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777965787; cv=none; b=TXPeRmVZ3EbOhD2Eb7uUGoAHAWTIp5JSYM+04uLhCGhXQJ2gbQ76C4QEamg6Ef/dmo640SKofsKI0YmL//UfSbPzqN4x9GjFpsn1cBoIritd/pq/rNWmdSeBikjBoE2TqHAjHyitB8q+QHuXlyfrI819jufdMIUJe5mFhdd98hE=
+	t=1777965831; cv=none; b=SmqQtRMAu+uIRxKeA3jk574ZmmbTupEdNLQRDocazCWrvR+aMiqhiJrjww0PmP3QLgk0+ze9r6G5CWDfXJY2tF4YI1rgymg0uSJWc1JT9FW/1FuPzFxeR8sLWdTD+fbhvjXD+fcedpmR0k8PS+wm/XRHcsa4xjdk7GoCQzxveKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777965787; c=relaxed/simple;
-	bh=3BtQrd+NUk0P1mGoJXaCFFD0wXEpuR2Jz+eNtx6jV/E=;
+	s=arc-20240116; t=1777965831; c=relaxed/simple;
+	bh=lVEGQZADhV3IBGi5bRZNIIRtTV+/BGvbWgLuLVuyE1s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bgTTaCTFUlpD5Kl0XktQGJCZ2ar+7BQY/44O3Q5Lm8kewkDsJvaQu0BJMQ7VioeMORSTblI7KUBXIWlFiO+paydWwURvp9hEGMHTCazelP8NhK6haZDJ5Qs3qtasG6VCIx1sBbfNR3K7Zt0VfTh5QVLv00UEPzDTBhnPpZfOuc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KK/tRHoj; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=LvmUGZfWxBVdgJ0h1rluXX2SRtK7p3k0Ws6vmvCFEPYQ4/ioxpdpZV7eHRTfF407OZuW3uFHCcDRWZbXWS16ZAD4YjqQYdR5qsujZVWTUqQRSBZkBVwxo0i8vcoAtHeNAmP4R0WjgamVbQ+rdg3X2Cfz8DCyeJ6eZPA+Mqinct0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sU9cyXpw; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KK/tRHoj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A85C3C2BCB4;
-	Tue,  5 May 2026 07:23:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sU9cyXpw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8558FC2BCB4;
+	Tue,  5 May 2026 07:23:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777965787;
-	bh=3BtQrd+NUk0P1mGoJXaCFFD0wXEpuR2Jz+eNtx6jV/E=;
+	s=k20201202; t=1777965831;
+	bh=lVEGQZADhV3IBGi5bRZNIIRtTV+/BGvbWgLuLVuyE1s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KK/tRHojvi0M8VolIkN2K06EyOE+Kvg5JsWZqDZNod4JhuRIuiuSaxaoYMsNsZXMv
-	 j1KwX4FraJ11JXTtzpXvLOQ/nRWuyobpMmDsffawPH33etDbgY1cNB7HcUFid0oWcf
-	 /0DzJBlhXDIkWQRyFvQgeQ8W429l3H3O95jGFFI+vDOZ9+oMP713/DpDojd1La6bel
-	 SJOHb/Q4oRjGQKVcZL8rP1n2jcsdAyxPjVs5PjuaRd0s/zFD343cAZdsNHehUGgxbO
-	 iGqhmN8RXSROnFt2A7zptIHHmgvhWtapwcPGtNpyb/8irl32VbwPXNbwXMtmKL0cre
-	 Dn5Y7KDXs3fLg==
-Date: Tue, 5 May 2026 09:23:04 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: display: panel: document the Renesas
- R63419 based dual-DSI video mode Display Panels
-Message-ID: <20260505-tunneling-antique-degu-1dfc60@quoll>
-References: <20260504-topic-sm8650-ayaneo-pocket-s2-r63419-v3-0-9f61cf24aebf@linaro.org>
- <20260504-topic-sm8650-ayaneo-pocket-s2-r63419-v3-1-9f61cf24aebf@linaro.org>
+	b=sU9cyXpwi/EQ/gI46x4DzAEILkOO0ZXMCKA1wGYpZBq/nmNEPhVgMYtF9f7wrLAg3
+	 PaZiRljnfn1a1T5gnS9nkEUHuF+9Wu8xLmKPI+8N1R/F21ZAL9bcnBJQ0NvpLJ/Yrg
+	 Dd2jEZZKP0UKwJGxcQqwP28PRCcLiz7wJSp/7woOzKrMES6/O1derypCUGPz+phdKx
+	 +n2Hkh2/UqOiiV4OfyT+ADhspS7o4m0Ytov/Pl9ur4W/Ac3OX4MAxoiedwFyW+rrh8
+	 VwQcw0VtQxcxPo03i+5y/a3ZhGkLBChcKzefdBec3adw2y26EYbSg/h6NzBMMlMxAk
+	 QeS9hTt01guow==
+Date: Tue, 5 May 2026 07:23:48 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: spacemit@lists.linux.dev, Conor Dooley <conor.dooley@microchip.com>,
+	Vivian Wang <wangruikang@iscas.ac.cn>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] dts: spacemit: set console baud rate on bpif3
+Message-ID: <20260505072348-GKB3537744@kernel.org>
+References: <20260430-reword-overstep-3be08b7eab25@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260504-topic-sm8650-ayaneo-pocket-s2-r63419-v3-1-9f61cf24aebf@linaro.org>
+In-Reply-To: <20260430-reword-overstep-3be08b7eab25@spud>
 
-On Mon, May 04, 2026 at 10:02:05AM +0200, Neil Armstrong wrote:
-> Document the Renesas R63419 based dual-DSI video mode Display Panels found
-> in the Ayaneo gaming handled devices.
+Hi Conor,
+
+On 19:52 Thu 30 Apr     , Conor Dooley wrote:
+> From: Conor Dooley <conor.dooley@microchip.com>
 > 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  .../bindings/display/panel/renesas,r63419.yaml     | 97 ++++++++++++++++++++++
->  1 file changed, 97 insertions(+)
+> Because the default console's baud rate is not set, defconfig kernels do
+> not have any serial output on this platform. Set the baud rate to
+> 115200, matching what is used by U-Boot etc on this platform.
+> 
+> Suggested-by: Vivian Wang <wangruikang@iscas.ac.cn>
+> Fixes: d60d57ab6b2a8 ("riscv: dts: spacemit: add Banana Pi BPI-F3 board device tree")
+> Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Yixun Lan <dlan@kernel.org>
 
-Best regards,
-Krzysztof
-
+-- 
+Yixun Lan (dlan)
