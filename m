@@ -1,186 +1,102 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1612874F5
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 06:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777963222; cv=none; b=GAFDwXbSftmLk/sUVaSlixF6FXijrgyEHdO5iJPO2qcVdN88jIxy/YJgGxRQD06H7ksSLyy31+54gvx91wQfA/Lj0h8sJ6KS43+xK91OH3oVOtztbExCwZEc3VELgW6ffutclZGKfxcSBmymOEZwSGvElmQLh0ik41S0mf2ozKQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777963222; c=relaxed/simple;
-	bh=Oisny6SnkrUNZeLcjZJ1jSrF2FlNzVUV1uHu+sxvunw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=Fy5yVX5DYRLuBX3r5Kpc6pgJ53ItDt2cZY2Z1fO6cDzySzBakmYNj7Q6hFuSGOR2E4vg6pOgWHSkKGo/l56i4lG+PDCYO+p0qG5bbagvYtX7GAI41WAy9+2ek/mns8LKEY7adVaHg0kXOxOTM9sW02Vf+uESjnCIgcs/7KAfcGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=QYBWBLdT; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B582E06E4;
+	Tue,  5 May 2026 06:49:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777963788; cv=pass; b=uSjX5ahHDfWRap5bBWiyHJLstKS1Xy5xDmX7VilF0f8+sFXBMV1Zpf7/njobUHMIEAVVtH8mZwlqfKVenziKbDtVKPVl7eoluWqWbjMWcpL8YKUt2DWx8zOhCXjeU+Izfg/lyX7LJaCC01y/kXomgYV9pg5k3/WN+mfseUaA82Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777963788; c=relaxed/simple;
+	bh=+qOsPCOc57uBN2XUpF8157PoTK7L1efFwFT9RhreG+I=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ub32Tt7mlKIgNf82MlQu8YohnJiPRc2ky/sawY+wHbb24TXbLAKVEBbmC0QBnWU+g6drKBMaRqyY0D8fpvpfL05SxyLAanq0RcDA+xTVa+bmkiuQwDMR894QRzEIb/rnU8I+6h2TNwNImTSN50f1Q5aUYoKgUn2B/gvd523SOEg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sjoerd@collabora.com header.b=CDULNg+V; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="QYBWBLdT"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-44a044cb827so3322096f8f.0
-        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 23:40:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1777963219; x=1778568019; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=W6FO20EYGAs2fwB6e1zerXDAb7NyQnTU9vNFbNdbR+I=;
-        b=QYBWBLdTfedPzOyEpb+4TsW561mAJnZ5UzZ5i4FuxC6CgwddN3Qmx0ot+cQEw1R4Qo
-         8k9VeoQz6CPIGqwwzGwk7fMrNzANKz0Plffrx/np+Wkq7xXFCVIPhX9SC+WrflrhHgog
-         hjyz6D/i4loWZn02h3APfjl7nQ69lchXmP5XAwAiwbLQBZQpOCXvEkh8+zU+mYmx8Nhf
-         d5MA4fbgUTkyhbpgLQUDgOnb0LzBacDGVTBmTMbSyo5qhBHhhpR9rs/06YgXOiM3s4ZE
-         c4GuKHzp1RGacN9/c7ryfyd9jVreRFqnK8pSRB7Y3wtxoE07my5gqi6k59nYP9T8hdMr
-         mv/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777963219; x=1778568019;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=W6FO20EYGAs2fwB6e1zerXDAb7NyQnTU9vNFbNdbR+I=;
-        b=shzYhwb2QJSxHaRQyozryxcdq14HVxd9Hf6nMQ7mYd9hio7RpqSdgo4XipeWHRxnpH
-         eiC8G0JRLFk+dTVcoBrre4aPzfNMnW3fdEBAIpZruexDAbA8AiyELnctPRdMjWLhjr+N
-         WWmpNlSSFhEl9H6cSWA0dxk5YuuxZpCuNql16Ubkump3T163nyFnJSWmf90+mM2fLVaO
-         XYL0IU0XTpgUw7gQwqoGhzRK+BohDGpJwLLqrgp4s8LttT+yH1clTELMNWpA1LrRGyGx
-         DATtGbBXE9AQFiT++GNtC8iNBhaNLEttzM0p1qG4mNA2lzsuXoruZuTQiOjj2AGa1KjF
-         /ffA==
-X-Forwarded-Encrypted: i=1; AFNElJ+t3J22xCcWvJ4sZRYEOXJnkCGP4EIPqEtVFhw/pcSmVxOygmRVAQ/hCr9tqX01HE4d637825JQb1HY@vger.kernel.org
-X-Gm-Message-State: AOJu0YxL4CtaH4O4E7F4plA1pdFbwEcJU8a6sQDKD/P7lX+dqchYh6Cs
-	2mz1nQI+//XV3VfCFyj9TLO+rNKymPwdYZRwBQLXqaIR5toTGiwT5WxyBKwILituMUU=
-X-Gm-Gg: AeBDietOUC917XiO5Ae1mRwvQs2uhT03d7Ysht+p4/ihPUAqIms/XrD6ZMtomshiEZW
-	N4d7yy5TUDi3nhHOKXFzy23zSOuKZa3QHaB8+Pp7e481vflsehJ3NWgPsSlGtn6WqPklH5CRXPB
-	MMSDebJnDvsOTWTnk343/qQBemrfHMpbBY9JtLMQ+KLTzPJN2h0P+4vYs5AK4dbIV72mEnac26W
-	FdtxRD8Ym90CA/nfMRV9ljtPMvxcL8+lTNYkYOaumHV7En2NQ0QToEjaoPDV4fp+rxp9d/Ch9c+
-	p+5p+cm3G/8pEfsKvte0bszszLwL0rKe3uzbnHGrsiDv6a6aAAohcQBFcHYvTaqgGVIjIUkTV3N
-	6JpRaAJXrNNPQpu3C/hblFP/rbrvqyNeP8G3Lvlbolv9iehCYoGMo0GVbjLOG7rRvVeDz+IEs/Q
-	MCmQxL9F7Go+4f5mbfaZ28PDawNwYuzV/L8vxDOYA=
-X-Received: by 2002:a05:6000:2001:b0:441:377f:82a7 with SMTP id ffacd0b85a97d-44bb6d95a09mr22079695f8f.32.1777963218742;
-        Mon, 04 May 2026 23:40:18 -0700 (PDT)
-Received: from localhost ([213.208.155.171])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45055d36dacsm2083055f8f.32.2026.05.04.23.40.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 04 May 2026 23:40:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sjoerd@collabora.com header.b="CDULNg+V"
+ARC-Seal: i=1; a=rsa-sha256; t=1777963778; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=UJq6pDGenh8py9GIApZpSEo/n9vzbml5iAbCmE861qH+OKBgvLs+cWV4+mJuyU2FUZs6PUcrAPp3AZuy/1PglPbBTu8uLR3lMSaszy04X3NPmURUYZqGNs1QWUrcpuC3Hf8yoLaviTNnmMC/Ip3eTUt6Tmn71gvCBMMeLIEsQVk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1777963778; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=yXd5fFW5+hV4sE9fLs/inGdGi7ufqi9nV7XrtFhIiX8=; 
+	b=L6OiivbxLYE6yOuUbtSbilr5d8ZnlAr6em6u9rchBQqCBi5TNbmwbYK1mHCb5Q4Y6jkdQMaoQ7vnjyRD6h1Eue3Ks6Qj5O7oI0j39u1CbjbRiKbpk07mcHcltdynYLaFYI5WrNT2hnGyy5gru6xgISRMKedo6JVhXl/lsL54IVs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sjoerd@collabora.com;
+	dmarc=pass header.from=<sjoerd@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777963778;
+	s=zohomail; d=collabora.com; i=sjoerd@collabora.com;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=yXd5fFW5+hV4sE9fLs/inGdGi7ufqi9nV7XrtFhIiX8=;
+	b=CDULNg+Vp97LhZK+YeVqB6h4u2Th00Ue2RqZd5XYhBQs4P66jjg2h+g0vEC0xzv9
+	mq7Z05ZLeXMsJkzRtLE43XJFAh+MuWR0Btyu3e80GgmDRZVX0GBOT7ens6lMexVtN4d
+	OrsJZsTY/OC4h2lb36rmAEr3keQ+nLIvCukRHEiE=
+Received: by mx.zohomail.com with SMTPS id 1777963774575650.9780236530866;
+	Mon, 4 May 2026 23:49:34 -0700 (PDT)
+Message-ID: <6dbefb2c80964c0394771ae11fd0f9e05486db29.camel@collabora.com>
+Subject: Re: [PATCH] arm64: dts: mediatek: mt7981b: Add PMU
+From: Sjoerd Simons <sjoerd@collabora.com>
+To: Peter Collingbourne <peter@pcc.me.uk>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
+ <angelogioacchino.delregno@collabora.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+Date: Tue, 05 May 2026 08:49:31 +0200
+In-Reply-To: <20260502074912.12193-1-peter@pcc.me.uk>
+References: <20260502074912.12193-1-peter@pcc.me.uk>
+Organization: Collabora
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 05 May 2026 08:40:09 +0200
-Message-Id: <DIAJCURQ37FA.1CNEKX6QM6ZO8@fairphone.com>
-Cc: "Neil Armstrong" <neil.armstrong@linaro.org>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>,
- <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>
-Subject: Re: [PATCH 1/4] dt-bindings: display: panel: Add Novatek NT37705
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Luca Weiss"
- <luca.weiss@fairphone.com>, "Conor Dooley" <conor@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
- <20260501-fp6-panel-v1-1-e09cb05651cc@fairphone.com>
- <20260501-yogurt-wise-2a2884e3ec59@spud>
- <DI9XL1VYYTY7.19IRSM8VIDO53@fairphone.com>
- <a2444df4-abf1-4b56-8556-7efb238bc677@kernel.org>
-In-Reply-To: <a2444df4-abf1-4b56-8556-7efb238bc677@kernel.org>
+MIME-Version: 1.0
+X-ZohoMailClient: External
 
-Hi Krzysztof,
+On Sat, 2026-05-02 at 00:49 -0700, Peter Collingbourne wrote:
+> The interrupt number was taken from a downstream DTS of the similar MT798=
+7
+> [1] and verified on my OpenWrt One.
+>=20
+> Signed-off-by: Peter Collingbourne <peter@pcc.me.uk>
+> Link: [1]
+> https://github.com/openwrt/openwrt/blob/e4b3d5c799aef3be20b7f6079e8e5a14b=
+215c116/target/linux/mediatek/dts/mt7987.dtsi#L246
+> ---
+> =C2=A0arch/arm64/boot/dts/mediatek/mt7981b.dtsi | 6 ++++++
+> =C2=A01 file changed, 6 insertions(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/mediatek/mt7981b.dtsi
+> b/arch/arm64/boot/dts/mediatek/mt7981b.dtsi
+> index 4084f4dfa3e5..3c6fbb6c5333 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt7981b.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt7981b.dtsi
+> @@ -38,6 +38,12 @@ oscillator-40m {
+> =C2=A0		#clock-cells =3D <0>;
+> =C2=A0	};
+> =C2=A0
+> +	pmu {
+> +		compatible =3D "arm,cortex-a53-pmu";
+> +		interrupt-parent =3D <&gic>;
 
-On Mon May 4, 2026 at 10:45 PM CEST, Krzysztof Kozlowski wrote:
-> On 04/05/2026 15:36, Luca Weiss wrote:
->> Hi Conor,
->>=20
->> On Fri May 1, 2026 at 5:51 PM CEST, Conor Dooley wrote:
->>> On Fri, May 01, 2026 at 03:52:45PM +0200, Luca Weiss wrote:
->>>> Novatek NT37705 is a display driver IC used to drive AMOLED DSI panels=
-.
->>>>
->>>> Describe it and the panel in the Fairphone (Gen. 6) (BJ631JHM-T71-D900
->>>> from BOE) using it.
->>>>
->>>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->>>> ---
->>>>  .../bindings/display/panel/novatek,nt37705.yaml    | 72 +++++++++++++=
-+++++++++
->>>>  1 file changed, 72 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,n=
-t37705.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt377=
-05.yaml
->>>> new file mode 100644
->>>> index 000000000000..1c796599f6fc
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.=
-yaml
->>>> @@ -0,0 +1,72 @@
->>>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->>>> +%YAML 1.2
->>>> +---
->>>> +$id: http://devicetree.org/schemas/display/panel/novatek,nt37705.yaml=
-#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: Novatek NT37705-based DSI display panels
->>>> +
->>>> +maintainers:
->>>> +  - Luca Weiss <luca.weiss@fairphone.com>
->>>> +
->>>> +description:
->>>> +  The Novatek NT37705 is a generic DSI Panel IC used to control AMOLE=
-D panels.
->>>> +
->>>> +allOf:
->>>> +  - $ref: panel-common.yaml#
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    contains:
->>>> +      const: boe,bj631jhm-t71-d900
->>>
->>> Compatible doesn't match the filename, nor does the commit message matc=
-h
->>> what you've got here. Sounds like you're missing a fallback to
->>> $filename.
->>=20
->> The last times I was upstreaming panel drivers (Feb 2024 and June 2025),
->> this was the requested way of doing things.
->
-> So this was requested that time and is requested now. What is here
-> uncertain?
->
->>=20
->> Compatible being the company and model number making the actual panel
->> assembly (driver IC + touchscreen + glass etc), while the rest being
->> named after the driver IC manufacturer & number.
->
-> So exactly what was asked for...
+The parent node already specifies the interrupt-parent, so this is redundan=
+t.
 
-I don't quite understand what is asked for now, that's my issue.
+> +		interrupts =3D <GIC_PPI 7 IRQ_TYPE_LEVEL_LOW>;
+> +	};
+> +
 
-1. Change the filename to boe,bj631jhm-t71-d900.yaml and leave the rest
-   as-is.
+Otherwise looks good
 
-2. Add a fallback compatible for novatek,nt37705. IIRC last time it was
-   argued that a "generic" nt37705 driver will never be correct for a
-   specific panel since it's missing a bunch of panel-specific init. So
-   that's why there should not be a fallback to nt37705.
-
-Either way, it's different to what I was working on with the two
-examples I gave. Please help to clarify.
-
-Regards
-Luca
-
->> As seen in
->> * himax,hx83112b + djn,98-03057-6598b-i (Fairphone 3)
->> * himax,hx83112a + djn,9a-3r063-1102b (Fairphone 4)
->>=20
->> Fairphone 5 panel (raydium,rm692e5) was upstreamed earlier and follows
->> different naming.
+Regards,
+--=20
+Sjoerd Simons
+Collabora
