@@ -1,116 +1,103 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FB94B8DDD
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 21:46:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CA6496910
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 21:54:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778017596; cv=none; b=NY1ebcht2WE3Ii8cuChqEjN2xuQHsmaIWuJtpcTO8feySABoTAmFvwtkFPN4iurnkieboxotN6xoVps4LobTRNkVKQVdEyAi9rEG3iP2n5xsGqE2Hx4SfYtkQbNGHLjzSVM6CnnUIv9G+5MzsbMJ6GDTGWZ3Xyxc2lPV5Ojubwc=
+	t=1778018081; cv=none; b=JwwyjeMd+qtqhAlWLgNtYmB1fUQZfRl3J1q39FMWBfI88pJC+Q0Dqzh7fGyR3ojaIFEudNI1YRInS/lV7m9YqH67kMjPnai5YwRJjrmc7kMPfZYm3L9HetS/cwBpJ2mDoVoZWKy9XaSggNWfPL0eYQTLAJiw7lebxQxs8/HNrjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778017596; c=relaxed/simple;
-	bh=DZKEanc292MoU5uFVUkAMMRJ7zjKboXEf5oxvifSHrc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t98K1Q9PzT5yonxCdftJN/4iaR5x9cybk9zPXYUnXB+9TVD939FWl1S034lK7IkcKOMKB0POjxJYgSTMiKNiO0zsyoY/0E0u/bTNDy2bkklSC4d0UQU0SmV4e44RF57Bpxtp6sZbF8VXAWyo9T4Q9DjlkLdy3LUy6q+6ubccc2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CqEek4MM; arc=none smtp.client-ip=209.85.128.52
+	s=arc-20240116; t=1778018081; c=relaxed/simple;
+	bh=Z2huH/EQXujQCyF1M3eGhzyawOQuqd92ysZl/OTmGJc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iiTqhQSZaFmZVsKcoTgj7tKpBB9hJOBsf95vKf7B0CP1bA4DSpvhcVC7iX6fC7wvy/dKbhT6zm+D8MCFVKAUeUIeElfNN0dMhS4jaDWIcyTrmaGxzMMKCb1BrGuVLzQH5slrN0//e3/EVPRcvJEvCVfi8lmvAd1asCsDU//6xe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c/53vS+F; arc=none smtp.client-ip=74.125.82.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CqEek4MM"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-488b8bc6bc9so36488505e9.3
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 14:46:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c/53vS+F"
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-12dfbcc0703so464780c88.1
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 14:54:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778017593; x=1778622393; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IJBvhYuyv/JdwansPLGJPjqYXoVeTZUEnpdVBNEj1Pw=;
-        b=CqEek4MMjrUAPYiQp80urURuawoVLaqQL66hrMJcxu4tLxfzc7GKFscLt7egNyZMaY
-         YJE1f5eXZWEnTB7yeuP/bUGQ3BsV2UQGU7QrL3EksKPEc7zCs2MWudkoP3OyghxChCbU
-         v74qfPFG3L/pcu082NyCB8IKEE8KSDXhQD2cI3pUmCCteawNZJoEWbBWhhffAXdA4w0P
-         jmqZ1Fo/KO4BMJ/u16QE0sZYdlkmvWjGFLIcPXIdfnc351oyozeyEiIYVQwFLFSCh90g
-         PXkgWoKqB1RGKguYozJa4cYqfEtXLVuYRWXx4T7/Oq4Fd7UMMGlF9vPBH8FcYvwyVs3j
-         ZpkQ==
+        d=gmail.com; s=20251104; t=1778018078; x=1778622878; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Qn2gN9TOXcgav3hEevfmLoUHUeCTTlNmOyy5YzrGBk4=;
+        b=c/53vS+FeMcLQacVv+h31lhxPSmgVWLYmYQBYDZwgntoj7qetk3qnpz5cjCvXqbHiK
+         rwkk3IQbWB/DJLvj5uvOQ+DS3cdYK2g4PpInEgIqwYYnQC2wfkxCjgWEGQN2qoxEDpit
+         06u+7kMtPgoAzr1Y6UQWXYiZPGjmQeBALkrxTubNDKQn2nMLLfp0DFIcf5M5yWtS1r8/
+         /1DraMhRP+9Mk9YpCrEWkAHDQ6VealkMENOo2W+hiOMeAl30BqioIDqlmm5JQxxYzDnq
+         KtyKGCk0579DYyhRA2Bapvoqe1tXxYMsRMKxfOrWJziYwMXslRqsOXKpt8H23KqtEEhT
+         o41Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778017593; x=1778622393;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=IJBvhYuyv/JdwansPLGJPjqYXoVeTZUEnpdVBNEj1Pw=;
-        b=c/VcCrd9xk8WZ8bjIYFFUsuIEVFqX988z7c0tKZVeRxCd5ivU8MSUsGSNh0N/zTLHr
-         FM5dn7ChCjSi4kNIV1N2dH4xZ1zZoC29QUbfHCu1F8rtAKFb0U5wik/DmMqygK4PRsd3
-         mb37c8FrzgtwRYIjGKpMTZzgC7bSqp3LujAlMsXtRr4Zjmmuw2WY6SKHSmnLZcRY/7J5
-         ED8UYNek7sXwnVrs5zS5ypqjTbSk0PmdRgD01GKjOPnr6G4EGCmf8kUK8D5De57PH3DS
-         PwWElEsaPhBatwyJetI+BZGvWn8Hy4tlE6mid8J/Txe8KlTMU+AAS0VsWcAmJgZhkDnI
-         n1bg==
-X-Forwarded-Encrypted: i=1; AFNElJ+bE5wlC5Z2rd4cx0YToWwgsEuUIGnaD88/Czsp8YBd+paTUQqMJ8Zu7a9yhfB66l3vEDRPMfWeEQVi@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx4ZhwLa6TF94jzFROFHOpNweCVAH6mxuxxYqD7tR4mIJsECIp7
-	xJ5K2OCpkcvNNXobCSdB55vlwgvk7nHw4MprdSewXdeuMTnSFuqGf7N3
-X-Gm-Gg: AeBDietuh321EuunNmE+npHyx+G+nSlMbo+ZIQ+jEK3UATXQqE5iEllqzD2Lkg71EGF
-	/z0V1wOyOF+O6ygupkZRilzvjJAO72JqtVQd5EPfQxdvbNlSOepYvusGzzEWgsexXnN5GAQu0Ye
-	wYRcs+PUV0qmTmxCYlZ8PWDE2nQcIl6CmdXCGonMcJEORMKTLBzBlk1f3Dta7n0tzK9WKJSC0F6
-	WjewBEZZ3WCKV9LA6TB978NoRYHCSYMXauIQ4AvRSZ0F09cdM0KUeS5jSmN3P5iTzENc/ACBBg8
-	wewHxB3+LeEJrf7MTzJUscuMSHaF2nnlMmMJPb/4AK2cQZ9YBi5G9Gm13vUEwqnpTu3A0+OUToJ
-	ROOAl9XbmktQxBiQiCIF/URPrR+oKMY/eMSt0VCNgQSFSNnwUHKk2AqHaSzUuJf6kQSBgFI9OeG
-	Hc5jPKRueH9in/5PRvxmgu4SfrflfvVg==
-X-Received: by 2002:a05:600c:45c6:b0:48a:93f8:dd02 with SMTP id 5b1f17b1804b1-48e521e6090mr12630715e9.14.1778017593036;
-        Tue, 05 May 2026 14:46:33 -0700 (PDT)
-Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a824f9f0dsm411556165e9.15.2026.05.05.14.46.32
+        d=1e100.net; s=20251104; t=1778018078; x=1778622878;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Qn2gN9TOXcgav3hEevfmLoUHUeCTTlNmOyy5YzrGBk4=;
+        b=HTiXmwC+CTjHlmPgxoso4Rf+J8sSfbp31TtEd0v9OsKeK2yhHF2qTpXqM+mnnQUKQ7
+         D0c6abbioYCqAPND6AXT1Yz5UAzSnfCkwT6b7O2UlFM9Ue4JZwamA9W+XJbHX/eXR2W8
+         rJhv40seoSzF7SlCi5468UPLA68kxLGiJu7Xg20Dpf1406lf0z3yCVSS0Q0ERoHT2s4Y
+         Y4nvt2/OnhgASKJPNpP6uusrrk9DsLogT18qMv0bbbQAeSUYp4QbY0QGJnEOxZUYdp0C
+         s3kOoHHoBUEn0QhjMP2/MWDDfScP6G/wN+Ho4vMvsqTQg1k1OP3bYRp1BF+W8qXkCXob
+         gy1g==
+X-Forwarded-Encrypted: i=1; AFNElJ96omAjCJnmnieCWESKneuPvZR2HoiI03SdxQ+jn+INW6nZXpT3LRg+d0aOiiNbi0WJcovdZR+Rxm9S@vger.kernel.org
+X-Gm-Message-State: AOJu0YwpjTo6AEXPkZB94Rh2OKQhzm2KUA1KC4ANPZCgKSCEo/ptp+c2
+	UiqjpLk01ugqVbtN1Seq1xppkTCwZGnooUXIgL+cUMER5NspSj9O6UpL
+X-Gm-Gg: AeBDieszSrFWzKqt8DWeEv5WQmeGId3SBJPvXrsTGJH2DfC3qMfjvKIj3f826CD8/CE
+	g5+0T7kXrgy0ngOCv2vBMnin23/b4p6puu0mpMxIsNlYevd/qcq9xuH+xqxKFjEc0NA4mMpZklR
+	zSU+U/Mx3ONIOHaEQgVmeL9CpvYG+VvVbHUI2ZZU6YXesrkDUqRDncvdU/GOjFuZocQo6S+A6ja
+	k0K0kB4lmpMFFyqeIgLdWVMDo8eQgREP9e0tl2icWAVvl+5HVQEpeUF0M8KZJ2MNcvxRhGoCUzQ
+	jpi8s652UKIQUsGpgGw1cquoat9JpGypIDYDlR00mhk5FiYk/uGNQMv4oGtzjyGGqGwsV215edr
+	ZccrEOXtnyYHPNgKYTXwIHP64cYzjnqiChwB/U02WbFdtaI5MR98V2+7GY+5pNeDnRtdqdhXD54
+	LScTeRpOoHCXq7/aZroNJrXelLH4W8FTAoNqMMMjuSAa/jHKMwhpI+BFK6coyq3C7Oc+kt9Vt/O
+	eM=
+X-Received: by 2002:a05:693c:8110:b0:2d9:32c8:2b69 with SMTP id 5a478bee46e88-2f54a39074amr415753eec.28.1778018077853;
+        Tue, 05 May 2026 14:54:37 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:94ef:a6f3:2c96:2d58])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f56cec763fsm722870eec.4.2026.05.05.14.54.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 14:46:32 -0700 (PDT)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH v4 2/2] drm/mediatek: dsi: Add compatible for mt8167-dsi
-Date: Tue,  5 May 2026 22:45:00 +0100
-Message-ID: <20260505214541.333657-3-l.scorcia@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260505214541.333657-1-l.scorcia@gmail.com>
-References: <20260505214541.333657-1-l.scorcia@gmail.com>
+        Tue, 05 May 2026 14:54:37 -0700 (PDT)
+Date: Tue, 5 May 2026 14:54:33 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: david@ixit.cz
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Henrik Rydberg <rydberg@bitmath.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Petr Hodina <petr.hodina@protonmail.com>, 
+	linux-input@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v4 00/11] Input: support for STM FTS5
+Message-ID: <afpmQKJilpgDqrpJ@google.com>
+References: <20260409-stmfts5-v4-0-64fe62027db5@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260409-stmfts5-v4-0-64fe62027db5@ixit.cz>
 
-The mt8167 DSI controller is fully compatible with the one found in
-mt2701. Unfortunately the device tree has a dedicated compatible for
-mt8167 since 2022 and it cannot be changed with a fallback nor removed at
-this point. The only way to get the device to work is to add the
-compatible to the driver.
+On Thu, Apr 09, 2026 at 12:15:43AM +0200, David Heidelberg via B4 Relay wrote:
+> Used on various phones. Minimal viable driver.
+> 
+> Includes device-tree enabling touchscreen on Pixel 3.
+> 
+> What is missing:
+>  - switching between AP and SLPI mode (to be able to wake up phone by touch)
+>  - firmware loading
+>  - anything above basic touch
+> 
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
----
- drivers/gpu/drm/mediatek/mtk_dsi.c | 1 +
- 1 file changed, 1 insertion(+)
+Applied #1 through #8 (#5 with minor edits). 
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index 5aa71fcdcfab..167e33fef025 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -1305,6 +1305,7 @@ static const struct mtk_dsi_driver_data mt8188_dsi_driver_data = {
- 
- static const struct of_device_id mtk_dsi_of_match[] = {
- 	{ .compatible = "mediatek,mt2701-dsi", .data = &mt2701_dsi_driver_data },
-+	{ .compatible = "mediatek,mt8167-dsi", .data = &mt2701_dsi_driver_data },
- 	{ .compatible = "mediatek,mt8173-dsi", .data = &mt8173_dsi_driver_data },
- 	{ .compatible = "mediatek,mt8183-dsi", .data = &mt8183_dsi_driver_data },
- 	{ .compatible = "mediatek,mt8186-dsi", .data = &mt8186_dsi_driver_data },
+Thanks.
+
 -- 
-2.43.0
-
+Dmitry
