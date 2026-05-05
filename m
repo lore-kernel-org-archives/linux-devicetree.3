@@ -1,92 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013064.outbound.protection.outlook.com [40.107.201.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31892ED870;
-	Tue,  5 May 2026 16:25:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777998344; cv=none; b=cNtDJzW4OJOLp0o0HFpCyPibyn73gkADVhw8ILDdImqgjLFAjAF0CC3QFVfKjp3vatX78422sDHOPGHaDNvYuiNTYETK9Nu8XwjwQ5wUsBl9IBdD/kLA72E2O54Ij0KTKdxAzEK1c3vLw2ExX3MqdFeMx253BueGfKXxn4oNCms=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777998344; c=relaxed/simple;
-	bh=WPu216Incjmw8eB35/lQ6mmp0B1xWpx8Vomx2fAa9Hc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kpEJ0Egnq/I3qsfFXzE3n2dpsWxP2Obi9TjXfM55r+8rvcw15wenjy0PmOloyYO7PNEm2cCtMl2J3QwNCISvMJvdQCzaHBwBG7/CtRPXYE8kkep/XOqq/tc6EjKAk/oWQtnmOFJhVosfDr5U2ak3GdbF6iy1haUJLFCqJjEP0qw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oljCHmBF; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F7F335AC0B;
+	Tue,  5 May 2026 16:26:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.64
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777998410; cv=fail; b=HIMts/d6E+flBnAPZQAWedqXxN5cTSKQuy68J/H6lyW3s9a5MzpX/RB4cVeF3Tc2MpHyG356duNBLCNUGZ6HPegB4Iy49V7ernQNNZS/5/0Pt4kSDfXSMEcf7sgbEfv8QeZXwRrxy1g3APW93o6FVRwgxCGATl+ou1wmi6hx1+Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777998410; c=relaxed/simple;
+	bh=D2iX1yxIEiNXaW7wkU+GW7TFhpWeSmoN+x8uIRlCIKI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=O4A2arFOhP402htdVl0DJS2tJMsJ6eI2hp2uwiAKMaMlo9rALlVlWSCCEaLPgkXGFf8FwEXP7NK9bAfIk7hckxsCkBfgCnY5Ee6/4RvxJ0na0WBwA9wWIcmAH8x1TdyD45/H1fteSQ/10ree1d88w3VOTQmyoE6YWUVv+5L0JT8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=OAJZ1bh3; arc=fail smtp.client-ip=40.107.201.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oljCHmBF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7BE7C2BCB4;
-	Tue,  5 May 2026 16:25:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777998343;
-	bh=WPu216Incjmw8eB35/lQ6mmp0B1xWpx8Vomx2fAa9Hc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oljCHmBFalJCqjOsNZm/6iDsv9Z/utu/RtUTfdZCgSouRJ/iXtBN51p0CrV9AvYeI
-	 SjFBjFDFkfVZrC6oh97JlguqYhaITna9Yd3qwuv91OfPXGjwlXlAc+lBSxXwtZbzi0
-	 bzk0K3FTIp4GGh+WIjictqdrIgXhbe791hZ6wBAO/m7uVyLy5P1TPja6XLw9Y//48F
-	 C4bPj3AMUruUsvvhqgX1pi34jYq9dC58AvopzbteYOuuxvuKzfC4tC6ZDIVeGnWTvj
-	 AjnWjRIQT5Gkv/g9uIuvolZyH+wY5QWjW6EzadQ6ig6HXvP+WXvRxpu9sPsy3REJH4
-	 ghRRWFkavysuw==
-Date: Tue, 5 May 2026 17:25:37 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Paul Gerber <paul.gerber@tq-group.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux@ew.tq-group.com,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: arm: fsl: add TQMa8MPxS board
-Message-ID: <20260505-eleven-sustainer-5d71b389ac03@spud>
-References: <20260505063346.1799500-1-alexander.stein@ew.tq-group.com>
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="OAJZ1bh3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NUr8GGUouMQ6MRdQLRK6bnwgdh7YR5bOLiOknzBNm8N6C5MAaiWeufDj2iRAyXFj3c5oGp2u+ZDXyYsVxFH7FvJ1Jtm+Y4TrbuVlvYcVnb0s4ZYB1i7+B8/OMlO6oRvPEdXw89PHqdHD5FZkE5kz18RNYqJyKd7ks5n2+MP9o3QfBb5KLY9zPaEkzup5fpV3vaRU5OhbdP5LnNZHAW+vwYnoNZC7ScXKp380OivvOL7kw3qS3x/o3sprWxorbu/29zPA/Mp52+uyKXeBKNIvie5aqAPBzPUkwVyKf2Z7phnXruYvzI3Yx0VVnHz8Kf2WEGtMBTT+i5f1UkosCnsxQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zw/Nfny8q6dDNldcRTJ0lsQdgdGzgbYWHUg/apYZhas=;
+ b=fK0yy1n5fbRFXM3arkbiwzZTJd0NBeLcOe3EeXmGSi24BOBE+0P6OClJRO6BVPtddH7KmHhgfJ3TiAYhNy0LL2vYCwwsq4UpsAPu0YrYN6Qx8EbYAhrUY1hhxjfk5s7y603Mh1nQthdK4cZrt0kI8J4ZjmMItpet6lNJsy5fAIf3W/Su19YsmGMj8YCNgY/CD4/NGoV+W5D8VN/V2lcL6VQkt1DDgeFe/PWHqNMl8Zgtd9hmisx88J1N7eOMQj66x5Eyt1rHCgZwe5GBrv1CpDM4XqFw1L4XYi/lHu8Gx31zz5ExLg6yOmg4qF0aRNj4P7q2IWIks7ICzf6cSKhaaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zw/Nfny8q6dDNldcRTJ0lsQdgdGzgbYWHUg/apYZhas=;
+ b=OAJZ1bh3RyNCLiSaG5Go3GiVjhe9cAyu68ON6tC41o/5ecpKpkllDbj3J5Vx8hpn5Wfvk1LxgJAPv3UBsyRdTOkRhkpMhFcD4nd3K9LCw9Igh2haOnrzuUhxD9NQF+ZZ10NSwTFSMXRMyMVMa2dapNSNqq4pxtzAWqI8pL27TMY=
+Received: from SJ0PR03CA0377.namprd03.prod.outlook.com (2603:10b6:a03:3a1::22)
+ by SN7PR10MB6329.namprd10.prod.outlook.com (2603:10b6:806:273::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.27; Tue, 5 May
+ 2026 16:26:15 +0000
+Received: from SJ1PEPF00002321.namprd03.prod.outlook.com
+ (2603:10b6:a03:3a1:cafe::76) by SJ0PR03CA0377.outlook.office365.com
+ (2603:10b6:a03:3a1::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.25 via Frontend Transport; Tue,
+ 5 May 2026 16:26:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ SJ1PEPF00002321.mail.protection.outlook.com (10.167.242.91) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Tue, 5 May 2026 16:26:13 +0000
+Received: from DFLE211.ent.ti.com (10.64.6.69) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 5 May
+ 2026 11:26:10 -0500
+Received: from DFLE200.ent.ti.com (10.64.6.58) by DFLE211.ent.ti.com
+ (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 5 May
+ 2026 11:26:10 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE200.ent.ti.com
+ (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Tue, 5 May 2026 11:26:10 -0500
+Received: from [128.247.81.105] (judy-hp.dhcp.ti.com [128.247.81.105])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 645GQAGZ3352059;
+	Tue, 5 May 2026 11:26:10 -0500
+Message-ID: <a8d8e93d-fa20-4175-a615-27876960a175@ti.com>
+Date: Tue, 5 May 2026 11:26:10 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="veD3UL3c+j07JysG"
-Content-Disposition: inline
-In-Reply-To: <20260505063346.1799500-1-alexander.stein@ew.tq-group.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: ti: Add k3-am62l3-beaglebadge
+To: Andrew Davis <afd@ti.com>, Bryan Brattlof <bb@ti.com>
+CC: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, "Tero
+ Kristo" <kristo@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20260501233148.4180391-1-jm@ti.com>
+ <20260501233148.4180391-3-jm@ti.com>
+ <20260504161900.sivd2s4roiqtnsc7@bryanbrattlof.com>
+ <073e52f1-f5d0-43aa-b9f0-d4f179838f10@ti.com>
+ <c8cf753b-f542-40bd-b1ef-a06720b2106c@ti.com>
+Content-Language: en-US
+From: Judith Mendez <jm@ti.com>
+In-Reply-To: <c8cf753b-f542-40bd-b1ef-a06720b2106c@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002321:EE_|SN7PR10MB6329:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66948387-3ea1-4474-7e3b-08deaac3066f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|1800799024|82310400026|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	6aQp/+cezrrdr6EKTlkC1ZkJXU6hX0LxS71GtXFnVquObWBC2xJSuBVyQOjbYyxokG9AQ7I+FnEvbQhYr5RGOHvQLkMZ1CYbsLLCAcmXatXNnduJ/1ijnEaL3zaPxFLoGeC/ufacRVSiDnLAFv0i6yznsgtYJN5EZ+bgSb+pzWMdlMeHmHPHqyzPgFHS8I682LJlT6/WSiM9z1ZnAU1zCcv9ss1vE2YIUpkZJQY81nrmg3lHtLIvbLnBFqygoxqXLTAbcqPVPY4S6B1/KuxArcCU1yKgpJVWCdgaCPxNzEB1XnlCn7Stzxt+tnhUX/UeFQ8275xdvOlfohlE4VaIF8/5sEQVgOKQY7NaHTssebpSKaspaeydnxEMlBVkjIBBjiev8tpDtu+TmCJPxh3OBb5LedS7n6TwqnZ8rw8ugVjsHSjiEBfVoQwfEEnwFdAaG8zzYEqbPbeGgJWLJnqJ5kDrbco9bJgRdnpFdPrESKqwFoY1dhSKDHVMcPHDM73yXH47RXSi49p9jva2I4F8aO0mdP5npRvI8s9ErmKuFrcQysr83AjBsn8KKCdgOYbFvNml3XB8UMmmRVBKFmo5ySojfhlziFuAHpX+KEM/p72W4DIACkkfakeBZlKiYQPizOQkcPmGHekfr4i1mbXNQ9JF/OFIli5ONLqddpsOS6E=
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	4j4ZdsuRJnDcjJFNnZwFpQUBjmyL4dMRA6gPeOsGWLu1+WkYb3Ell6FBzbiOlZMuLV7tecQLxRSk5qwjCVVjI7RSjg74Bm/JjUuyhAdYEaZSVRmNskFsn4OgNwdnNjJZVB2FnFHwLPiyHsbLRHNjOgcsI7xmDX3xocgOD5PoV9Ib407T3Ml9URb6RCxk/oQLjm5jWwuZdl1qHvm+xViuNv6WJRM4Uj+Vr6LZAISDJC/XXEik60jHKLO6oDNluqg65qtgwwU7yDGzjll/h6UwiaZKPzrImIIuCaDwX/rK1xuA8cRdlTbdVRTPaylGFcond0jb7xuSve9cjNtHntchxnW//QcS9UMmXFEhFja9ssioF/seuKIO53NQoFNKIWgyhSbsBHErgnb43m5SRY7regsJNEn4DoDjqeA5L2/Beijfj0h9dct5eVSEt+Yh5JUp
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 16:26:13.4838
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66948387-3ea1-4474-7e3b-08deaac3066f
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002321.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR10MB6329
 
+On 5/5/26 11:01 AM, Andrew Davis wrote:
+> On 5/5/26 10:48 AM, Judith Mendez wrote:
+>> Hi Bryan, all,
+>>
+>> On 5/4/26 11:19 AM, Bryan Brattlof wrote:
+>>> On May  1, 2026 thus sayeth Judith Mendez:
+>>>> BeagleBoard.org BeagleBadge is a compact, affordable open source
+>>>> hardware single board computer based on the Texas Instruments AM62L3
+>>>> SoC designed for IoT and embedded applications with low power 
+>>>> consumption.
+>>>> Expansion is provided over open standards based headers including
+>>>> QWIIC and GPIO interfaces.
+>>>>
+>>>> https://beagleboard.org/
+>>>> https://github.com/beagleboard/BeagleBadge
+>>>>
+>>>> Co-developed-by: Andrew Davis <afd@ti.com>
+>>>> Signed-off-by: Judith Mendez <jm@ti.com>
+>>>> ---
+>>>>   arch/arm64/boot/dts/ti/Makefile            |   1 +
+>>>>   arch/arm64/boot/dts/ti/k3-am62l3-badge.dts | 655 +++++++++++++++++ 
+>>>> ++++
+>>>
+>>> ...
+>>>
+>>>> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-badge.dts
+>>>> b/arch/arm64/boot/dts/ti/k3-am62l3-badge.dts
+>>>> new file mode 100644
+>>>> index 000000000000..0125d3fec5e9
+>>>> --- /dev/null
+>>>> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-badge.dts
+>>>> @@ -0,0 +1,655 @@
+>>>> +// SPDX-License-Identifier: GPL-2.0
+>>>> +/*
+>>>> + * https://www.beagleboard.org/boards/beaglebadge
+>>>> + *
+>>>> + * Copyright (C) 2026 Texas Instruments Incorporated - https:// 
+>>>> www.ti.com/
+>>>> + */
+>>>> +
+>>>> +/dts-v1/;
+>>>> +
+>>>> +#include <dt-bindings/gpio/gpio.h>
+>>>> +#include <dt-bindings/input/input.h>
+>>>> +#include <dt-bindings/leds/common.h>
+>>>> +#include <dt-bindings/net/ti-dp83867.h>
+>>>> +#include "k3-am62l3.dtsi"
+>>>> +#include "k3-pinctrl.h"
+>>>> +
+>>>> +/ {
+>>>> +    compatible = "beagle,am62l3-badge", "ti,am62l3";
+>>>
+>>> I noticed the $subject calls it the k3-am62l3-beaglebadge do we want to
+>>> name the DT that as well?
+>>>
+>>>> +    model = "BeagleBoard.org BeagleBadge";
+>>>> +
+>>>
+>>
+>> So I see other beagle boards have the following:
+>>
+>> beagle,am67a-beagley-ai in k3-am67a-beagley-ai.dts
+>> beagle,am625-beagleplay in k3-am625-beagleplay.dts
+>> beagle,am62-pocketbeagle2 in k3-am62-pocketbeagle2.dts
+>> beagle,j721e-beagleboneai64 in k3-j721e-beagleboneai64.dts
+>>
+>> so I think we should be using:
+>>
+>> beagle,am62l3-beaglebadge in k3-am62l3-beaglebadge.dts
+>>
+>> so if it is fine with everyone will update compatible
+>> & DT filename accordingly.
+>>
+> 
+> Looks correct to me.
+> 
+>>>
+>>>> +&sdhci2 {
+>>>> +    vmmc-supply = <&wlan_en>;
+>>>> +    bus-width = <4>;
+>>>> +    non-removable;
+>>>> +    cap-power-off-card;
+>>>> +    keep-power-in-suspend;
+>>>> +    #address-cells = <1>;
+>>>> +    #size-cells = <0>;
+>>>> +    pinctrl-names = "default";
+>>>> +    pinctrl-0 = <&mmc2_pins_default>;
+>>>> +    ti,driver-strength-ohm = <50>;
+>>>> +    ti,fails-without-test-cd;
+>>>> +    status = "okay";
+>>>> +
+>>>> +    wlcore: wlcore@2 {
+>>>> +        compatible = "ti,cc3300";
+>>>
+>>> Sadly this only exists on our evil vendor tree :/
+>>
+>> So sure, I saw that the WIFI driver is not in mainline,
+>> but I also referenced beagleplay series & it seems
+>> like as long as the hardware is described properly,
+>> the node can be upstreamed. Please correct me if I
+>> am wrong here..
+>>
+> 
+> Only in some special cases, but in general the driver needs
+> to be upstreamed first. And even in those special cases a
+> DT binding is always needed first. Otherwise how would we know
+> if the node is described properly.
+> 
+> For Beagleplay I only see the CC1352P7 radio in DT upstream,
+> and it has a proper binding[0]. For now drop the CC3300, we
+> can simply add it when the driver gets upstream.
+> 
 
---veD3UL3c+j07JysG
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+got it, will drop wlcore node, thanks.
 
-On Tue, May 05, 2026 at 08:33:43AM +0200, Alexander Stein wrote:
-> From: Paul Gerber <paul.gerber@tq-group.com>
->=20
-> TQMa8MPxS is a SOM family using NXP i.MX8MP CPU family.
-> MB-SMARC-2 is an evaluation mainbord for this SOM
->=20
-> The SOM needs a mainboard, therefore we provide two compatibles here:
->=20
-> "tq,imx8mp-<SOM>" for the module and
-> "tq,imx8mp-<SOM>-<SBC>"
->=20
-> Signed-off-by: Paul Gerber <paul.gerber@tq-group.com>
-> Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+~ Judith
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
-
---veD3UL3c+j07JysG
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafoaAQAKCRB4tDGHoIJi
-0n3iAP4jZpdMpADxOFMIh+lf54qGmc29o3W8mvfbGPUr1TaJwgEApzbZzyUbjw4R
-J5kBwnbcl8PhWUs3oWQdq5DtHYfMvAc=
-=Wzmt
------END PGP SIGNATURE-----
-
---veD3UL3c+j07JysG--
