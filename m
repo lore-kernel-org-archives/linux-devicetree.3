@@ -1,141 +1,89 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C4A319871;
-	Tue,  5 May 2026 10:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0EC401A3B
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:35:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777976948; cv=none; b=cIEAuox9KM5Bu+VpgsttfXVKyPCGAAghDwRx0JUt8Ea4cNH0qmIcwkp5YhIaL7YPL9TFI0WBC1TAR97TWt3FOr3Mg+itdxzcQWtm7Ds8N/J13cEOP7UDCDQ9qZc9+FhK8p0hBzjxYE9X+373aDVlyg3dWptF6uIaPUR0K01U3VY=
+	t=1777977357; cv=none; b=uFRficIf8gyFkWU7ifA1S5dSJF3C3xikauMiV9Y2H7Md3W7C3jS3FQtBRTWiySheamk2B3H1r1QiB6uwJ1cZmWC1NxeGarTDmaxB5KPX8NyfPR8mQzSYj4GhYAtqvf7me4ribTycaAcETaLnX88WxbOuxJCmPhcEPVnPIDLK+qE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777976948; c=relaxed/simple;
-	bh=cxGWlzlELOhdabZ340UknooccM2YL8sXPTlYRnoEU8Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NCa2Y4u035fi7q/A1CQpBWqiz1M5BjqnCOUHwdROoF+KX8nb+M4pL8AXIMaxbThEZgJyi1cfV5K749H6axImRUYPiNw15b3k+J8amPJKeGopfX2M5bVx/EJ8J0CMSLrOzVvqlkfvSgTAWnnvMhEzSl7CL7e+jauazYUUQ2xEhyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=cwz9iEZJ; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1777977357; c=relaxed/simple;
+	bh=Sry2ktgGdcsR64ZwxTmIoQXh4KYNJajghvrHVmfRXmM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ucXmsMnrQeu9YIItr2zDRQulBUWVXxyOWcR1/qtaVURjjskwvmuSiz8qxWihofQPyqytppXzITJ7Kv62nMmIHFolpl44JolnMDLKElK4Irw2FGOtUpQnmkzhyBQ3Hee/3HnqPze911sl1vAbDQMEiFsdJtPJaWV6m74pzr5XRnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bcs+MsDp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="cwz9iEZJ"
-Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7955BC71;
-	Tue,  5 May 2026 12:29:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1777976941;
-	bh=cxGWlzlELOhdabZ340UknooccM2YL8sXPTlYRnoEU8Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cwz9iEZJN3op+x+2Wyvus7lCeQBOeM9H89qe42QQoS6IAE/aj5XMRbHalgz27WHyF
-	 uAyZbZ7ajF9LtuJa3baOV6TzM0hrJMxtJ46ymJxRNVeQErCtnJkHlDlxOg5P7QYIBr
-	 6hTE3/xtIWSjR64Cd/0q0+wParWra8byoLB/GMOY=
-Date: Tue, 5 May 2026 13:29:02 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Alexander Shiyan <eagle.alexander923@gmail.com>
-Cc: linux-media@vger.kernel.org, Isaac Scott <isaac.scott@ideasonboard.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Dongcheng Yan <dongcheng.yan@intel.com>, devicetree@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Jingjing Xiong <jingjing.xiong@intel.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Subject: Re: [RFC PATCH v3 0/2] media: i2c: Add onsemi AR0234 camera sensor
- driver
-Message-ID: <20260505102902.GC1547435@killaraus.ideasonboard.com>
-References: <20260306103614.3208182-1-eagle.alexander923@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bcs+MsDp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 025FEC2BCFD
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:35:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777977357;
+	bh=Sry2ktgGdcsR64ZwxTmIoQXh4KYNJajghvrHVmfRXmM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=bcs+MsDp+Ixm++6Da/isHYjDFJcaiCIQNXrHqiwHg4/RX4B+IfFtbIKl7x7idmXla
+	 W/47zC0N0oOZRwpX11u14YnEVeBEm3TpJco2FOpbp0Onwj89crfN9/BL4AtdSlGgBC
+	 S83a3gStX2xWx75Z5ytmARoHPfr8n5JaBK4xpJeOzA3gstkI2JIPwn2XOx14b5XpWJ
+	 PC3zC47nGmNUv+ZUqCmyk72SpR5FaGu2LueTlqk1KHUKHn4aCAGg8MR5hIClepu/iz
+	 MwSEqLuoMNyL/brTnAtRy6OorYh4swPNoAJiqZfvdqOgdis8vuD8n5nLuMlwRopvwZ
+	 IUt2agwBRh/1w==
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-38e7d983f79so52199751fa.0
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:35:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9iWPInZphTa1KLumi/g0Rczct0fWDT0P72cRQHM1UAY21D1NhPfqotmwLx3/8L4wPGem8jeayog3ho@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7Q3XtsYwt3kR+VXPlMZOtxyHtsqKz4JYatWMB2JDNeWo7FYbc
+	5gnKR7HkHXujGJ3c6SLaToEW8YKT8Ustu5tX5cI8NTFufwtb7ulu5Rkgd3KiQAgllHIkq37hyVx
+	NsWUa8gqV/VWddcgV7G/aHAm0holvslA=
+X-Received: by 2002:a05:651c:4408:20b0:393:7ab3:6d50 with SMTP id
+ 38308e7fff4ca-3937ab36e35mr29580461fa.6.1777977355591; Tue, 05 May 2026
+ 03:35:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260306103614.3208182-1-eagle.alexander923@gmail.com>
+References: <20260430-sm6350-lpi-tlmm-v2-0-81d068025b97@fairphone.com>
+In-Reply-To: <20260430-sm6350-lpi-tlmm-v2-0-81d068025b97@fairphone.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 5 May 2026 12:35:44 +0200
+X-Gmail-Original-Message-ID: <CAD++jL==mAQAmfQDcnasnjgXnTsN46nFBgFuHOz_1Tf-k-3BpQ@mail.gmail.com>
+X-Gm-Features: AVHnY4J6LQT4hNxO1MLWM78U1AQG8KUhna4m7qci3-9x_WiKfvEo4HSyfMeATtg
+Message-ID: <CAD++jL==mAQAmfQDcnasnjgXnTsN46nFBgFuHOz_1Tf-k-3BpQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/5] Add LPASS LPI pin controller support for SM6350
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, 
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Mar 06, 2026 at 01:36:12PM +0300, Alexander Shiyan wrote:
-> This series adds a driver for the onsemi AR0234 CMOS image sensor.
-> The AR0234 is a 1/2.6-inch global-shutter sensor with a 1940x1220
-> pixel array, capable of 1920x1200 resolution at up to 120 fps.
-> It supports MIPI CSI-2 output with 1 to 4 data lanes, raw Bayer
-> (8/10-bit) and monochrome formats, as well as DPCM 10->8 compression.
-> 
-> The driver has been tested with 2 and 4 lanes on an ARM64 Rockchip
-> RK3568 platform with a 27 MHz external clock. Both 8-bit and 10-bit
-> raw Bayer modes are functional.
-> 
-> Notes:
-> - 1-lane mode is currently disabled; attempts to use it produced no
->   valid image. Further investigation is needed.
+On Thu, Apr 30, 2026 at 9:10=E2=80=AFAM Luca Weiss <luca.weiss@fairphone.co=
+m> wrote:
 
-That's a fair limitation for the time being.
+> Introduce support for the LPASS LPI pin controller for the Qualcomm
+> SM6350 SoC, by adding the dt-bindings, driver, dts bits and enabling it
+> in the arm64 defconfig.
+>
+> The custom slew offset for gpio14 is described as
+> "qcom,lpi-slew-base-tbl" in the downstream dts[0]. I've tried to find
+> some reasonable solution to have this handled correctly in the patches
+> here, but suggestions are welcome how to improve the situation. There's
+> of course several ways to implement a solution for this.
+>
+> [0] https://gerrit-public.fairphone.software/plugins/gitiles/kernel/msm-e=
+xtra/devicetree/+/refs/heads/kernel/13/fp4/qcom/lagoon-lpi.dtsi#25
+>
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 
-> - The driver uses a private streaming flag to protect cropping changes
->   during streaming. Is this the recommended approach, or should we
->   rely solely on the subdev state?
+Fixed up Kconfig text and applied patches 1, 2 and 3 to the pinctrl tree.
 
-Is there a reason not to use v4l2_subdev_is_streaming() ?
+Please funnel patches 4 & 5 through the SoC tree (Bjorn Andersson,
+I think.)
 
-> - The DPCM (10->8 compression) mode is included in the code but could
->   not be tested due to lack of suitable hardware; any testing help
->   would be appreciated.
-
-The only upstream drivers that implement DPCM support are omap3isp and
-atomisp. It will be difficult to get hold of a hardware setup that
-include an AR0234 :-(
-
-> Changes since v2:
-> - Added devicetree binding documentation for the onsemi AR0234 sensor.
-> - Added support for 8-bit raw Bayer output (verified working).
-> - Added DPCM 10->8 compression mode (untested, included for
->   completeness).
-> - Reworked mode handling: each mode now specifies input/output bpp,
->   DPCM flag, MIPI data type, and link frequency index.
-> - Reworked link frequency handling: the driver now accepts any valid
->   link frequencies from the device tree. It expects two frequencies -
->   one for 8-bit mode and one for 10-bit mode - but does not enforce
->   a fixed set; frequencies are validated by attempting PLL calculation.
->   This makes the driver compatible with a wider range of system
->   configurations.
-> - Updated ar0234_calculate_pll() to use a temporary structure and
->   update cached PLL only on success.
-> 
-> Changes since v1:
-> - Improved error handling: use cci_write() with &ret chaining for
->   sequential register writes, as suggested by Isaac Scott.
-> - Refactored format and cropping support:
->   Replaced static format list with dynamic cropping rectangle
->   (struct v4l2_rect crop).
->   Implemented get_selection and set_selection for V4L2_SEL_TGT_CROP,
->   allowing runtime selection of the active sensor area.
-> - Migrated to modern streaming model: replaced s_stream with
->   enable_streams/disable_streams using v4l2_subdev_s_stream_helper.
-> - Corrected blanking constants: replaced ambiguous AR0234_HBLANK_DEF
->   with AR0234_LINE_LENGTH_PCK_MIN; updated min/max ranges.
-> - Added ACPI match table (untested).
-> - Style fixes.
-> 
-> Any further comments or test results would be greatly appreciated.
-> 
-> Alexander Shiyan (2):
->   dt-bindings: media: i2c: Add onsemi AR0234 image sensor binding
->   media: i2c: Add onsemi AR0234 image sensor driver
-> 
->  .../bindings/media/i2c/onnn,ar0234.yaml       |  109 ++
->  drivers/media/i2c/Kconfig                     |   12 +
->  drivers/media/i2c/Makefile                    |    1 +
->  drivers/media/i2c/ar0234.c                    | 1309 +++++++++++++++++
->  4 files changed, 1431 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
->  create mode 100644 drivers/media/i2c/ar0234.c
-
--- 
-Regards,
-
-Laurent Pinchart
+Yours,
+Linus Walleij
