@@ -1,74 +1,175 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7EF48B389;
-	Tue,  5 May 2026 17:28:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A1348B396
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 17:29:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778002089; cv=none; b=b3VBpGcUWzRYKZf7BEBqb5OWiO0Bh2ucJoer17XChSQyG5xwb31PvHIslDDfDygV18VJHT/crF5oL5Xv14olUr5BxIjzgETvFOr9BO5j2EYaVLUyy9+JSGws/iKJgJarX/nRD4zoEBW3cWkTXbs9HLD1zDpIyckdtZHl64pPi/8=
+	t=1778002154; cv=none; b=qZETHEhbe+VFVAUaCEfqLqnkEDTA+n/mAfndpH8tu0PS++/4WxdLfnNuUkzehGIhebusD6ijxWeqr0cTTGltZJiIFucZS5587QXJrtChcbT5YDsp9xllnq/islpC4qhR4CmGezpNzrP0Od9cUnWNSNYMUt9SC1MLLyRNwA2xT5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778002089; c=relaxed/simple;
-	bh=LzJN7Fs6VOQDpud4UTTma8uMftJBmgV3wyaAcUWi2WM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DOuCGT3Oxgflu11qsyETCICH7pXtpjTSyyfIiJM2XCYtuCGtDwdE71kcLhrDDEwTG3tE3FxZQIYHuRQnkl19sA/qRb/0aDAeQP8rB9Zx5WcNtquMbDC3J4cl/ik0Uj2g677Xo6//ZFnr7QFVixkGhxqu+9QRBJm1GDTA1HZPdLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=dCB3errv; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1778002154; c=relaxed/simple;
+	bh=a2VxScLn6dlcb/B5AXY9SHUXcMy7dE/2xkJkiH/Eh64=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qEXNwoybXxbNOje9VK8JcOdw5/CBn3EOjVueYS2KuYylDQVhB+tYku3LC8MBhH7nOZT+OCznxnkJZFX9ZON58j3GyPlFUEa6MmEa8SIp2bnk9iwg0UI2WJB9ddk4n4CPf6EXYoaZvUetROLoO7t1gqfDytGka0DDGwEkhu3V5Js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GG+WlmF8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="dCB3errv"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=ohDDtqjwQ/7ssQBcXiRssQgtJor4cfVJslOhwwHcKe4=; b=dCB3errv9Qe07YxNgAl0xMG4vz
-	ilB4j1osMlmjobg+peP/84c12XHt26FxKocYgbsCuJlpJCuBTOrcedMBDHLywdgFvgU7iQeaT3eAm
-	U004EnARjmLLwbV/FhWPvqlVlEB70MJlYB0tCTSws8s/pVeBc9zze/EgeChIKQtdrEJk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wKJYk-001Vp6-Bf; Tue, 05 May 2026 19:27:50 +0200
-Date: Tue, 5 May 2026 19:27:50 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Piergiorgio Beruto <Pier.Beruto@onsemi.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
-	"davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@google.com" <edumazet@google.com>,
-	"kuba@kernel.org" <kuba@kernel.org>,
-	"pabeni@redhat.com" <pabeni@redhat.com>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next 1/5] dt-bindings: net: add onsemi's
- TS2500/NCN26010 10BASE-T1S MACPHY
-Message-ID: <7fad56ee-88c8-4e0a-8411-eeb5c0ab4a38@lunn.ch>
-References: <CY8PR02MB9249D083B637477C254F9B0583322@CY8PR02MB9249.namprd02.prod.outlook.com>
- <20260505134434.GA2493310-robh@kernel.org>
- <CY8PR02MB924915930E62AE03DF05C2DC833E2@CY8PR02MB9249.namprd02.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GG+WlmF8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A70FCC2BCB4;
+	Tue,  5 May 2026 17:29:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778002153;
+	bh=a2VxScLn6dlcb/B5AXY9SHUXcMy7dE/2xkJkiH/Eh64=;
+	h=From:To:Cc:Subject:Date:From;
+	b=GG+WlmF81wNTntNhmwTh+yozRh7WXzFRPrLxFe5qtm8PDNgQQ7GMWVQkCL0zAoOGj
+	 UkPotkAd/zlKhVaS1zZb9ZKKvsvuizmVFUUKc9sP3d8DB+V8+tbkXsG7/378gegIQK
+	 6+SgiH8AOiMdlyzQsyMYY7LscWi0kvKqD1yPLEBl2xBKuEqU5Czz6JRYIoubzsTssC
+	 JIz7YBmDStHS/iurX91bFDcZ6sETLo6JZSks3LvPQphOtkEfgVWODbSRJTQkeomn2H
+	 ZS7V/pnYFMNh8i1RbEUfSxV7rgjbVioCIc+2mj1FFeDnJvknwvFM9LYsnlJxdgqllg
+	 nAeWRu7l8G3cg==
+From: Chen-Yu Tsai <wens@kernel.org>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Chen-Yu Tsai <wens@kernel.org>,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH] arm64: dts: rockchip: rk3399-nanopi-r4s: Disable removed devices
+Date: Wed,  6 May 2026 01:29:02 +0800
+Message-ID: <20260505172903.33271-1-wens@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CY8PR02MB924915930E62AE03DF05C2DC833E2@CY8PR02MB9249.namprd02.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
 
-> Had the same question in internal review. Datasheet says the minimum
-> speed 15 MHz is needed. That's why we had placed.
+While the design of the NanoPi R4S is based on the common NanoPi 4
+family, it is trimmed down a lot.
 
-Could you try it at lower speeds. What happens?
+Disable all the peripherals on the SoC that are not used, and delete
+all the external components that are not present.
 
-Since it is a 10Mbps media, if the SPI speed is lower than 15MHz,
-maybe it cannot keep up with the media? But this clock speed on its
-own is not the deciding factor, there could be other users of the SPI
-bus. I would expect the driver and device to keep working if the SPI
-bus is saturated, just not give the full 10Mbps. And it would also be
-a good test the device and driver do work correctly when the bus is
-saturated.
+Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+---
+ .../boot/dts/rockchip/rk3399-nanopi-r4s.dtsi  | 68 +++++++++++++++++++
+ 1 file changed, 68 insertions(+)
 
-	Andrew
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi b/arch/arm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi
+index 3a9a10f531bd..4274d1b6e80a 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3399-nanopi-r4s.dtsi
+@@ -66,16 +66,41 @@ &emmc_phy {
+ 	status = "disabled";
+ };
+ 
++/* No USB type-C PD power manager */
++/delete-node/ &fusb0;
++
++&i2c1 {
++	status = "disabled";
++};
++
+ &i2c4 {
+ 	status = "disabled";
+ };
+ 
++&i2c7 {
++	status = "disabled";
++};
++
++&i2s2 {
++	status = "disabled";
++};
++
++&hdmi {
++	status = "disabled";
++};
++
++&hdmi_sound {
++	status = "disabled";
++};
++
+ &pcie0 {
+ 	num-lanes = <1>;
+ 	vpcie3v3-supply = <&vcc3v3_sys>;
+ };
+ 
+ &pinctrl {
++	/delete-node/ fusb30x;
++
+ 	gpio-leds {
+ 		/delete-node/ status-led-pin;
+ 
+@@ -101,14 +126,21 @@ reset_button_pin: reset-button-pin {
+ 	};
+ };
+ 
++&pwm0 {
++	status = "disabled";
++};
++
+ &sdhci {
+ 	status = "disabled";
+ };
+ 
+ &sdio0 {
++	/delete-property/ mmc-pwrseq;
+ 	status = "disabled";
+ };
+ 
++/delete-node/ &sdio_pwrseq;
++
+ &u2phy0_host {
+ 	phy-supply = <&vdd_5v>;
+ };
+@@ -119,12 +151,48 @@ &u2phy1_host {
+ 
+ &uart0 {
+ 	status = "disabled";
++
++	/delete-node/ bluetooth;
+ };
+ 
++&u2phy1_host {
++	status = "disabled";
++};
++
++&usb_host1_ehci {
++	status = "disabled";
++};
++
++&usb_host1_ohci {
++	status = "disabled";
++};
+ &usbdrd_dwc3_0 {
+ 	dr_mode = "host";
+ };
+ 
++/delete-node/ &vbus_typec;
++
+ &vcc3v3_sys {
+ 	vin-supply = <&vcc5v0_sys>;
+ };
++
++&vopb {
++	status = "disabled";
++};
++
++&vopb_mmu {
++	status = "disabled";
++};
++
++&vopl {
++	status = "disabled";
++};
++
++&vopl_mmu {
++	status = "disabled";
++};
++
++/delete-node/ &bt_host_wake_l;
++/delete-node/ &bt_reg_on_h;
++/delete-node/ &bt_wake_l;
++/delete-node/ &wifi_reg_on_h;
+-- 
+2.47.3
+
