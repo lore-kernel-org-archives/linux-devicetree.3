@@ -1,82 +1,82 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D2D2DCF45;
-	Tue,  5 May 2026 10:40:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30BB3407586
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777977617; cv=none; b=AxRI9xGG+FhD6CAqpvH0bPr+rn4QLP5lpqZqVB53lxesdr5FGAMha8o45NP3rjjYqMuC+MHas2icO1N5id8v/dkHizGsCj2BLMfLpbsGrWHRUD3DAWM3UzKyEeV1JrvLhkFolZrtcfDtC75RqCMstyr857vhXBSL2hmQC0C4SrA=
+	t=1777977727; cv=none; b=aBRZE3EBZhUpSYtL5LANMt9/9hIaZZbePyy4/Y5gk6iMfDIAwuZ0/HlO5Th/FIbqger5eBjx1A80uKAQQbdPpqirTbGbceQvyXLJjrbHBZmTsJjqSj0sXoAViV1ipmYPs0oD7nrJeEQYwVx+HO1726f0mTmAEI7tobHi763YxGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777977617; c=relaxed/simple;
-	bh=21KkK8fuHwyUMnWeb63n9WmVc90yAKVk7g5A9u1COZg=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OmdFDE3xvb7zlmSmDDBiWOiRlyYQNM0XlG2yUVnbCTbLgzmy9veK1ZZ5zZTFqXi12iyriaah/KRQqXkowt7qgNJjwbvX/NqU6VyHJ/UyHF3Sbzq6YdCBBKqd+3ElkLU+tRz2sa5XZpj1TnaNX7Xyd0DYXfOckbyQdK5Cywan+Cg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=IhGQGDuq; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1777977727; c=relaxed/simple;
+	bh=QAxbkpqBCKTE79BmMO4+ohI26sWtDnSzhbxpx26l2V8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WhVpjw+WQo4WsYaYNsKzLKVdG3Pq8JEdAMkpQjXHn+rcNqwCvVP47L45j/orXAZiDsiaez2OU2CNtO1Tu9cQKI24QBWGYMYkFs0/DPjuaHkyypg0tDF93Y6FzFIYTM9LU4HMnmZaiV/s76pw4RclzEskZ6tZEFov/t7RoOEyXbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iB3LP/gB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="IhGQGDuq"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 645AdtrU71157145, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1777977595; bh=7ipe0+lXh5EphXIInZY0Ql0rK52tFhFsSOH18o40fNw=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	b=IhGQGDuqEphjZt3v0D0E5oAgug1vhvMAFMR4iE7pR8TvUgmOKBny9B6Ab4MzYJJfG
-	 ZeHqnAiqua8GMVkUVRtV9c53zQ+FK8vQzWZrDohF+6uKGERkrarLhIx/vbLbN87YCP
-	 Pp38KSSKLgaBC4R/8IvIR0jkUgYN2Ca/lUonQ42WlusRn0evkNQCVcoOlBwPdp3qUy
-	 5KOp/zD5eywsEJU8yY+q11FHjDidG9xVugo3hXa9jwBwudPd1QcYpxYt6AS4L3VJ7i
-	 pO5LI6wWd8HYiunQjxLyr71oaGdZnwA5xeh9SseFIWP7ibhcbyW0Dh/O+LsQfTrDZ7
-	 XvMC68mK/eZ5A==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.27/5.94) with ESMTPS id 645AdtrU71157145
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 5 May 2026 18:39:55 +0800
-Received: from RTKEXHMBS04.realtek.com.tw (10.21.1.54) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Tue, 5 May 2026 18:39:55 +0800
-Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS04.realtek.com.tw
- (10.21.1.54) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Tue, 5 May 2026 18:39:55 +0800
-From: Yu-Chun Lin <eleanor.lin@realtek.com>
-To: <soc@kernel.org>
-CC: <james.tai@realtek.com>, <eleanor.lin@realtek.com>, <afaerber@suse.com>,
-        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-        <linux-realtek-soc@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <cy.huang@realtek.com>, <stanley_chang@realtek.com>
-Subject: [PATCH 0/3] ARM/Realtek: Add maintainers and pinctrl support for RTD1625
-Date: Tue, 5 May 2026 18:39:52 +0800
-Message-ID: <20260505103955.1010130-1-eleanor.lin@realtek.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iB3LP/gB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBF8DC2BCB9
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:42:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777977726;
+	bh=QAxbkpqBCKTE79BmMO4+ohI26sWtDnSzhbxpx26l2V8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=iB3LP/gBTdkL681ekJ6SD7SzFnjeEi0S7q13Uso5teGhN4R9KYvcrXC4myk/6zJ9Y
+	 2psnd+tfE0mclve2Zz2qh9NG4Ht3aPQe37v+qJerfkOQ/ImhraqadrpeVodLewPo12
+	 PaU+AnLGj7Tf7GtmVl9ZyCQgl973aaKYdipuKSCq4BUg6N3orsVxuXcZyb3FQoBELf
+	 CBUarz8RynkQW0ZE/REclid3FDXRanLQIi+zq/ELKKn4xQaMeymZPrk7vs5czGy2ER
+	 c9Ac3gL9ItUiB9KwHsuNCbxzkt7LXDN+O76QcEREmz/T3dpZfcxc/ZocILw7NNJLph
+	 im4ok6XRSXD/Q==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-392445f11c5so67348741fa.1
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:42:06 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ81GJDhsmM9jO7VEad+G3wCPXn5nNQVNpr9DlyO8wqv/cIZG/w+59TkRfRDRnBgGqG4Qol9WiN/h/gL@vger.kernel.org
+X-Gm-Message-State: AOJu0YzhfVdGmAk+CZGJj1ILQyPi+6m0DFKTOwSasSE4TQPxKXBo0iek
+	CpuMrwA2JW6CQlCUx9jykssd52iC19fC/pOeNT+t8y5g+l5rxEUnyA+soXr3FX7OmVHJQm4eADP
+	Mx8Gphad5abCBl3fw28Nchov5bPPbeOU=
+X-Received: by 2002:a2e:bc09:0:b0:393:9cf1:78a with SMTP id
+ 38308e7fff4ca-393b2bda7c5mr11198661fa.22.1777977725320; Tue, 05 May 2026
+ 03:42:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260430081242.3686993-1-arnd@kernel.org> <20260430081242.3686993-4-arnd@kernel.org>
+In-Reply-To: <20260430081242.3686993-4-arnd@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 5 May 2026 12:41:51 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkDmQ5eK3Lzg4N2X=_iQMoeh9TWh67hvOLBh1r_x=afoQ@mail.gmail.com>
+X-Gm-Features: AVHnY4LQ-69b-VeuKsX-tQijtzj4ctkK9Gpn7v8pkwosSSN69m0jMPm2kOmRFFg
+Message-ID: <CAD++jLkDmQ5eK3Lzg4N2X=_iQMoeh9TWh67hvOLBh1r_x=afoQ@mail.gmail.com>
+Subject: Re: [PATCH v4 3/3 omap] ARM: dts: omap2: add stlc4560 spi-wireless node
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: netdev@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>, 
+	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Bartosz Golaszewski <brgl@kernel.org>, =?UTF-8?Q?Beno=C3=AEt_Cousson?= <bcousson@baylibre.com>, 
+	"David S. Miller" <davem@davemloft.net>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Eric Dumazet <edumazet@google.com>, Felipe Balbi <balbi@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Johannes Berg <johannes@sipsolutions.net>, Kevin Hilman <khilman@baylibre.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, 
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, linux-wireless@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	linux-omap@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-This series consists of patches that have already been reviewed on LKML.
+On Thu, Apr 30, 2026 at 10:13=E2=80=AFAM Arnd Bergmann <arnd@kernel.org> wr=
+ote:
 
-Add pinctrl support for the RTD1625 SoC and update the ARM/Realtek
-architecture MAINTAINERS file to reflect current maintainers and include
-the pin controller drivers.
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> Converted from the platform_device creation in board-n8x0.c.
+>
+> Link: https://lore.kernel.org/all/20230314163201.955689-1-arnd@kernel.org=
+/
+> Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Best regards,
-Yu-Chun
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Krzysztof Kozlowski (1):
-  ARM: realtek: MAINTAINERS: Include pin controller drivers
-
-Yu-Chun Lin (2):
-  MAINTAINERS: Add maintainers for ARM/REALTEK ARCHITECTURE
-  arm64: dts: realtek: Add pinctrl support for RTD1625
-
- MAINTAINERS                           |  5 ++++-
- arch/arm64/boot/dts/realtek/kent.dtsi | 20 ++++++++++++++++++++
- 2 files changed, 24 insertions(+), 1 deletion(-)
-
--- 
-2.34.1
-
+Yours,
+Linus Walleij
