@@ -1,61 +1,61 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EC9C481AA2
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:14:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D81481ABE
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:15:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777976100; cv=none; b=OjAWn1MJG8oGz/ElvsO2N7Y42ptOb4YFym4rATXzHRxr7qZevMMq3aqQo1+mzkSfyQ7Ou6fdjSkjtzrRHPEcRLNVpbueaHW98qZy4FJVOZ5uIfrSRydr2T6niDV9XNr2PdKhG2YYZiWF+8OGOoLeqW+cJe9VGkEj+WlyOsbX/Eg=
+	t=1777976103; cv=none; b=VrWk6UKHvqZCd3SdzZrDmtLVTlHe0Yl9z1oFWqAS/5r1Dxe3B45483hgcf6qHXuzfKFnYDc1dcVq/tzB2AZ7E2OmC9EKevCUegv2s5T9h3d7IWK2tV7YBpqBJdYwrc+eGtRR+PANwsKC3WucgHkPS19LSsDEUx9K6uxctwDwfkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777976100; c=relaxed/simple;
-	bh=+xgY8VbgsO1tV8qwCoQUN+hxw84yhesqu2RZ2QZ5I8s=;
+	s=arc-20240116; t=1777976103; c=relaxed/simple;
+	bh=VLShPyQkLfv+DyhLp5xbBcKXslCTljhs5BOn8rHMq6o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yag9aMcy7f+fUdZ5l+OJO9YuEwWG3rttfGMtt9eTPCN+9UUnQD5JDOEJ2yz+/iNXY61KleVnDvuizyb8rHezCH5z9dPE45JHXMRrkMd3iTmuR1fVHSAlbNCF6IFkCUNaDwqkPZcRGB5cv01OJv1xOr3EkDsKyMsrpIAuikSqBTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ihF9bbQx; arc=none smtp.client-ip=209.85.210.182
+	 MIME-Version; b=us4frKtYUAjwlIcv5QocvDXeDV6zC9e1xYx2TPd5sRigT6sUyThWW07IGRTefEQ0KB/auvKdZ//KdQtu4IKLLqFlxag8IVnTLz+g29lySKLfQT1ts4dfqvWAG11yN6GKLJKhOp18qJC8g8x0Dakn7sm2b28H1mPYqCOXCG1Q/zM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Dm+KQ4Vg; arc=none smtp.client-ip=209.85.215.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ihF9bbQx"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-837dfccd950so902690b3a.0
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:14:59 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Dm+KQ4Vg"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-c7b9f54d3deso3152261a12.1
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:15:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1777976099; x=1778580899; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1777976102; x=1778580902; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hukAoBkjzE/JQZiJOlkn+RWEhZuaTeJUsZGO9TflGew=;
-        b=ihF9bbQxRbD1p4GBgx1XQ6YHantfXSpAnP9ZYiA69TAvbKCpznzLMlGRc5Ff3vUK3p
-         uqXdoRU0YyzUktMIW/47TGXNppgsnUmh5eRPiEqhwJRe4vQPBIhWzo/3pKZdeKuyrmt6
-         9/E0AUZXz2/8AMYGI5grmzgxcnWQUtJlzvoME=
+        bh=OCkbLWM0T7ihDsfGf8HM6rffZAvlpjoVa/cZRXt588I=;
+        b=Dm+KQ4VgcuWkxGV9WNGKV81CC4rq5ykdDS0oCBCNidHqhplv2jcqM4TckSYTcxhP0u
+         SmUdoSLmuOh5OkAM1Wgi+lNDIhtA78p+2zEg8MGhzocEjQdIZwcLOqKJ/hoaIVTRcLUN
+         ljOCctQB6NVrtaHUmX5+vGHzZTtp/gLpmPdzA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777976099; x=1778580899;
+        d=1e100.net; s=20251104; t=1777976102; x=1778580902;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=hukAoBkjzE/JQZiJOlkn+RWEhZuaTeJUsZGO9TflGew=;
-        b=sZESTnf26SG4Sta/QBUfCSmWdgmtbwgAZpwm3eKWIN1lepZqnw9ugECJF2Ky//rZz4
-         LnKnrp3iVjUrtG/NOYOsEz6CBJ+pnLJBU/nwJ+DT4MAbXnoAqkVhPzH8F1YR9iqMzgo8
-         ehha9PRfMq/74Y0HLBnXN0xpc/bdjLTeqHqIR9AQjJiRE6LXH/iYX6X1uAE39NJ8HlGP
-         V+am+ZBBWME341y3UCMN1DSi6eNuUWjQMwhqqg9V54pgO7g2Aa6lP5DBiBaKN/QxifQD
-         tY8A9m4HjeCjbnoA44ypOr4caEuBXkHqEktbe3dIMu8w7NcnZqOKMD27vgPB9AhnUp27
-         gKkQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+5rUElGJ4ZvYOmltfJdmftn1+0Te5+f/uDenJm9IkWrpei0LbNs058cOltH/Hb0DawNDYMFyqJgrEI@vger.kernel.org
-X-Gm-Message-State: AOJu0YypEK+D3Mz6Tm5h/r0bS0Ca7MVlvMCZ3c3/0QYZleQrORjB2Qyk
-	cgFcGZLrnGxbNHWU2hhKiUONj+1dGu/AaGrjgX7BX+dr8POqnCPb0a8AzcxDJngo3w==
-X-Gm-Gg: AeBDieshKXHeeNTb4G782ibl4dFTh89Cn4KK9KS1Ud+HK0jTC4NFr+qwpwX81+wufC4
-	w7DHi+verKXD/bfnJPiVG7wNBmfVOYC6q805TMoKLy9WxNNCj4I1aLfzQvffl05wbEGAu6q+D0W
-	6eNYqtNuCdqeY8Gb4wbRyTzzoGj9Kh1eFu7+dT1GX5YEl7iiE2Rvu0ZrJnOJWfiXHjbx4R2TnaZ
-	VCwTVrP6q+k7fjEBYiVhLyNy2iHVahNNiAxjuqOCuFDiuxwcapPLQ9ldWi4ojAXwTeNkAUlXo4S
-	EjmE6xq/NMfIMIaAbXGH1twoiL1LSD0UVYSy0+K+3T4IYR7MFwJeV7IZaZnf0glwCuN1s/ZgwHn
-	tfnpyZxZoZiubQmAXoy9C6nSaHa6DNV1pV9A++NNLtEx5iX3w8aiUgH64SSDwviQNKVQB2Z0XXq
-	sC6kUFSA+hd5LQf5Epo4a+ffj60RuyhFrzeb8mfQMvvHRhs+/ZdAez+qRlv638qP1XAuzmNylX3
-	bh8emQv0SQfc3uWwWk0ev/7/nAWWw==
-X-Received: by 2002:a05:6a00:188e:b0:838:127d:a168 with SMTP id d2e1a72fcca58-838127da456mr6444355b3a.17.1777976098759;
-        Tue, 05 May 2026 03:14:58 -0700 (PDT)
+        bh=OCkbLWM0T7ihDsfGf8HM6rffZAvlpjoVa/cZRXt588I=;
+        b=TGHBTcPBvGPunodgbFCv8PzU/cWASBlNA1eUiWThPYnmZ1VHUNWrjaLYDyGRtZh6pL
+         1j9HUD320RTJGYsDZ+WcPx4ci5Ugp2tjyv5bFJo6XrCDsEe/r73+G4bn8/L3pH37Igry
+         p0Pu286is8lsnL3w57fsdRP/Z+0x5lT3whMzR9fUPYq0KHEa3wUIY7WMHWCUaNsNb0N/
+         sHII6qCv6JWSZVyXs4+8V1WxWQRa/Dot071w+5+1vB9FHt9WX5F1jAr3G3Sd5b1KgZ83
+         Wav9nFC9fl2d/mD0vJ6cVReKrHTzW2yTFqXIfJCIM7QvR2J+FGqiQqG9nbOSZ8DFsAAU
+         55RQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+ReZi4wpCDgIbasKwa1Vu5eB6ho2NZ7JktV8+NNsflSrB70USE1QvbgGegH87MB8CjR4Ht32WRvMdU@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyq+rR42yOINLgrO4mb+b4AfI4UWUJagCFtW0pAv8cCAptcUnIm
+	k2o6CWLx0lPH4txTzbYmyUIN6WvADTQIjFnRl2OjvN24IuFe6jEVKK0XyuHH2ctkPg==
+X-Gm-Gg: AeBDiese6lpQ4EfloqP1FGpaflHJsgtniuBmY00FsQRMv2ThbjHABZ2DSVFXuU0bFuP
+	L/dVW1fz29d0Cmz7l4TW6C4UQzKZjzmy0IaBp2cgvJIXGviMCkZSMEUi6fHb8k0U5ZwaF6ifC2v
+	Vd3/8qaQEepJTjHTy61QWIs+OkxaHjA19LJzJNqL/asRJx8lmGAB/SWH8Nu4+Kaw3K6jQOfB8e7
+	Ep+OVGNLBWvZxmdF5vD2QEx/14MSFKyt6LOPCp+B5vWyWMKlHiLdz/C77YZ2hwpnwti+6RBbu6z
+	xipjdl7++g7F+OrwetLyvUC6s95FU+XzorxomLEkFz3BZpScLM8RHMWBf8mKn1sYJYnxMiy0O+l
+	q+DoMLqSFq/PglRiFc1p12F9zaYH9IW70W1xco6ouF/8+F/see1cl8ZHarIalPRPP5912mcfvZ2
+	KYSwvDrxTMFsxxxsD2mCLJhMls9OTlQiyBA3w4RLg8aVWur5ijMMsHhTTk6KaRUpjRF3hR3chd7
+	vWDQyqzrQbjBxpvpSQ=
+X-Received: by 2002:a05:6a20:a122:b0:3a3:3d95:507e with SMTP id adf61e73a8af0-3aa3b6279a1mr2621746637.28.1777976101728;
+        Tue, 05 May 2026 03:15:01 -0700 (PDT)
 Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:f1d4:2ef0:7d08:9dd8])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839679c8462sm1666121b3a.38.2026.05.05.03.14.56
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839679c8462sm1666121b3a.38.2026.05.05.03.14.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 03:14:57 -0700 (PDT)
+        Tue, 05 May 2026 03:15:00 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
@@ -63,10 +63,11 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	linux-mediatek@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 14/16] arm64: dts: mediatek: mt8195-cherry: Add vusb33 supplies for XHCI controllers
-Date: Tue,  5 May 2026 18:14:04 +0800
-Message-ID: <20260505101408.1796563-15-wenst@chromium.org>
+	linux-kernel@vger.kernel.org,
+	Fei Shao <fshao@chromium.org>
+Subject: [PATCH v2 15/16] arm64: dts: mediatek: mt8188-geralt: Add MT6359 PMIC supplies
+Date: Tue,  5 May 2026 18:14:05 +0800
+Message-ID: <20260505101408.1796563-16-wenst@chromium.org>
 X-Mailer: git-send-email 2.54.0.545.g6539524ca2-goog
 In-Reply-To: <20260505101408.1796563-1-wenst@chromium.org>
 References: <20260505101408.1796563-1-wenst@chromium.org>
@@ -78,52 +79,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Like the dual-role SSUSB controller block that encompasses the XHCI
-controller, the latter also takes a vusb33 supply.
+The MT6359 PMIC has a number of power inputs for its various buck and
+LDO regulators. The binding recently gained property definitions for
+them.
 
-Add the supply for each XHCI controller. Also fix up any property
-ordering according to DT styles, i.e. move "status" property to the
-end.
+Add the supplies for the PMIC regulators to the common design dtsi file.
 
+Reviewed-by: Fei Shao <fshao@chromium.org>
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
 Changes since v1:
-- New patch
+- Moved supplies to top level PMIC node
 ---
- arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi b/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
-index 62e2d7616f20..ca2bb367ee68 100644
---- a/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
-@@ -1622,21 +1622,23 @@ vdosys1_ep_ext: endpoint@1 {
+diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+index 8e423504ec05..d57e0eec676a 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+@@ -1149,6 +1149,23 @@ pins-en-pp3300-wlan {
+ 
+ &pmic {
+ 	interrupts-extended = <&pio 222 IRQ_TYPE_LEVEL_HIGH>;
++	vsys-smps-supply = <&pp4200_s5>;
++	vsys-vcore-supply = <&pp4200_s5>;
++	vsys-vgpu11-supply = <&pp4200_s5>;
++	vsys-vgpu12-supply = <&pp4200_s5>;
++	vsys-vpa-supply = <&pp4200_s5>;
++	vsys-vproc1-supply = <&pp4200_s5>;
++	vsys-vproc2-supply = <&pp4200_s5>;
++	vsys-vpu-supply = <&pp4200_s5>;
++	vsys-vs1-supply = <&pp4200_s5>;
++	vsys-vs2-supply = <&pp4200_s5>;
++	vsys-vmodem-supply = <&pp4200_s5>;
++	vsys-ldo1-supply = <&pp4200_s5>;
++	vsys-ldo2-supply = <&pp4200_s5>;
++	vs1-ldo1-supply = <&mt6359_vs1_buck_reg>;
++	vs1-ldo2-supply = <&mt6359_vs1_buck_reg>;
++	vs2-ldo1-supply = <&mt6359_vs2_buck_reg>;
++	vs2-ldo2-supply = <&mt6359_vs2_buck_reg>;
  };
  
- &xhci0 {
--	status = "okay";
--
- 	rx-fifo-depth = <3072>;
- 	vbus-supply = <&usb_vbus>;
-+	vusb33-supply = <&mt6359_vusb_ldo_reg>;
-+	status = "okay";
- };
- 
- &xhci2 {
--	status = "okay";
- 	vbus-supply = <&usb_vbus>;
-+	vusb33-supply = <&mt6359_vusb_ldo_reg>;
-+	status = "okay";
- };
- 
- &xhci3 {
- 	/* MT7921's USB Bluetooth has issues with USB2 LPM */
- 	usb2-lpm-disable;
- 	vbus-supply = <&pp3300_wlan>;
-+	vusb33-supply = <&mt6359_vusb_ldo_reg>;
- 	status = "okay";
- };
- 
+ &postmask0_in {
 -- 
 2.54.0.545.g6539524ca2-goog
 
