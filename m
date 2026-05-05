@@ -1,129 +1,141 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AEE2C030E;
-	Tue,  5 May 2026 10:27:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C4A319871;
+	Tue,  5 May 2026 10:29:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777976845; cv=none; b=lNvRAklS0zcw4jK4MXV8jpiNBZ1l63zrzw1K1zu0ZxIj4W233DRTLl+n932LIzRdT82rydcLviqu0qILrqRGgo/6RDV2+XmtOtmQ2RcNvsyWuJRviRhReHpQznL7fF/jnfZG+rU3j4+udwsvSgJQR/nSJfE1uD7SScEE+2AMtiw=
+	t=1777976948; cv=none; b=cIEAuox9KM5Bu+VpgsttfXVKyPCGAAghDwRx0JUt8Ea4cNH0qmIcwkp5YhIaL7YPL9TFI0WBC1TAR97TWt3FOr3Mg+itdxzcQWtm7Ds8N/J13cEOP7UDCDQ9qZc9+FhK8p0hBzjxYE9X+373aDVlyg3dWptF6uIaPUR0K01U3VY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777976845; c=relaxed/simple;
-	bh=nd4ZcYSmdEtBrbYBc5EdvBORdOz6BQRpz7hjMzcloAs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=YJlw3F/je/Yg0QHQlawvYXOVrw+rpOtZenN3ukGycFVlzMaU4q7kpnfpad8yOahnDN071utXRxKEtIH3Pvanp9MkJ0Vil+2rclvpj0UErjA2de9jq25DiKyIyXu+xedZh5qbPWSJ8AmJGu9US7lUheg8oRi0ZCnIF0k5womh+dE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=KRUPH5Am; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1777976948; c=relaxed/simple;
+	bh=cxGWlzlELOhdabZ340UknooccM2YL8sXPTlYRnoEU8Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NCa2Y4u035fi7q/A1CQpBWqiz1M5BjqnCOUHwdROoF+KX8nb+M4pL8AXIMaxbThEZgJyi1cfV5K749H6axImRUYPiNw15b3k+J8amPJKeGopfX2M5bVx/EJ8J0CMSLrOzVvqlkfvSgTAWnnvMhEzSl7CL7e+jauazYUUQ2xEhyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=cwz9iEZJ; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="KRUPH5Am"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 645AQbyP61150973, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1777976797; bh=nd4ZcYSmdEtBrbYBc5EdvBORdOz6BQRpz7hjMzcloAs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=KRUPH5AmyvR3Ywi2gVAXXKSJKUY1dbABEKalo9995UmQmFI3BknwOuxt4gqAgVM67
-	 09gzw4NaRay1M6Ev6gX10ZGvXQG8xsPoA6W+yVlfnxw1AiKOeGF/HQb896TiJ0hfeK
-	 YpUIhHSygWZ9XCh6J/O5MBVfbZP3wTyScU1hSpTlGJxKu0eNVTmnqRZKSY2FjXk4qR
-	 o8BZkbgrwzO0kFbNPK61+3MbgqzJ/NOmVqrjieJ2/Arv/mSsnAtJJr9c3F0BvtK9/u
-	 4Dr3QEYG/8HRT+N5uzhw/FpSscWM+Ug9oj+QM5IVQCdJxDjY8rl16q69102056mwGU
-	 9+rQJ+E78ZQkg==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.27/5.94) with ESMTPS id 645AQbyP61150973
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 5 May 2026 18:26:37 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Tue, 5 May 2026 18:26:36 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::ed72:3015:2840:4458]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::ed72:3015:2840:4458%10]) with mapi id
- 15.02.1748.010; Tue, 5 May 2026 18:26:36 +0800
-From: =?big5?B?WXUtQ2h1biBMaW4gW6pMr6enZ10=?= <eleanor.lin@realtek.com>
-To: Michael Walle <mwalle@kernel.org>, Linus Walleij <linusw@kernel.org>
-CC: Bartosz Golaszewski <brgl@kernel.org>,
-        "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>,
-        "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>,
-        "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-        "linux-realtek-soc@lists.infradead.org"
-	<linux-realtek-soc@lists.infradead.org>,
-        =?big5?B?Q1lfSHVhbmdbtsDgsq7LXQ==?=
-	<cy.huang@realtek.com>,
-        =?big5?B?U3RhbmxleSBDaGFuZ1up96h8vHdd?=
-	<stanley_chang@realtek.com>,
-        =?big5?B?SmFtZXMgVGFpIFvAuafTrnBd?=
-	<james.tai@realtek.com>,
-        "robh@kernel.org" <robh@kernel.org>,
-        "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-        "conor+dt@kernel.org"
-	<conor+dt@kernel.org>,
-        "afaerber@suse.com" <afaerber@suse.com>,
-        =?big5?B?VFlfQ2hhbmdbsWmkbLZoXQ==?= <tychang@realtek.com>
-Subject: RE: [PATCH v2 3/4] gpio: realtek: Add driver for Realtek DHC RTD1625
- SoC
-Thread-Topic: [PATCH v2 3/4] gpio: realtek: Add driver for Realtek DHC RTD1625
- SoC
-Thread-Index: AQHcxwLHJ5/eWVH9pU2ZY37QYpQGurXUP0uAgAPMV8CADmSzAIAAqFqAgBBo1aD//5D9AIAIUqFA
-Date: Tue, 5 May 2026 10:26:36 +0000
-Message-ID: <3f9aa7a00a384511bf12d5b420c98e85@realtek.com>
-References: <20260408025243.1155482-1-eleanor.lin@realtek.com>
- <20260408025243.1155482-4-eleanor.lin@realtek.com>
- <CAMRc=MfUh_OuxS4SC6QzSOg_PMNc9i9crGYgBASrbVUgHDHSCw@mail.gmail.com>
- <52bf9ce2b7754af8af69b0afee0d07b2@realtek.com>
- <CAD++jLkpS-T9yK=ctSwpLvXkj7s7ivmwu1KKwzy4KS40LVYeyA@mail.gmail.com>
- <DHXSUW3NJU22.1RUYUHQZSZ53S@kernel.org>
- <b73f34ec55984a33b0172e2ac3a28e04@realtek.com>
- <DI6G6LSE68E9.1PHS6K9083JJ9@kernel.org>
-In-Reply-To: <DI6G6LSE68E9.1PHS6K9083JJ9@kernel.org>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="cwz9iEZJ"
+Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7955BC71;
+	Tue,  5 May 2026 12:29:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1777976941;
+	bh=cxGWlzlELOhdabZ340UknooccM2YL8sXPTlYRnoEU8Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cwz9iEZJN3op+x+2Wyvus7lCeQBOeM9H89qe42QQoS6IAE/aj5XMRbHalgz27WHyF
+	 uAyZbZ7ajF9LtuJa3baOV6TzM0hrJMxtJ46ymJxRNVeQErCtnJkHlDlxOg5P7QYIBr
+	 6hTE3/xtIWSjR64Cd/0q0+wParWra8byoLB/GMOY=
+Date: Tue, 5 May 2026 13:29:02 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Alexander Shiyan <eagle.alexander923@gmail.com>
+Cc: linux-media@vger.kernel.org, Isaac Scott <isaac.scott@ideasonboard.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Dongcheng Yan <dongcheng.yan@intel.com>, devicetree@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Jingjing Xiong <jingjing.xiong@intel.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Subject: Re: [RFC PATCH v3 0/2] media: i2c: Add onsemi AR0234 camera sensor
+ driver
+Message-ID: <20260505102902.GC1547435@killaraus.ideasonboard.com>
+References: <20260306103614.3208182-1-eagle.alexander923@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260306103614.3208182-1-eagle.alexander923@gmail.com>
 
-PiBIaSwNCj4NCj4gT24gVGh1IEFwciAzMCwgMjAyNiBhdCAxMTo1OCBBTSBDRVNULCBZdS1DaHVu
-IExpbiBbqkyvp6dnXSB3cm90ZToNCj4gPj4gPj4gMy4gSGFyZHdhcmUgRGVib3VuY2U6IFdlIGFs
-c28gbmVlZCB0byBzdXBwb3J0IGhhcmR3YXJlIGRlYm91bmNlIA0KPiA+PiA+PiBzZXR0aW5ncyBw
-ZXIgcGluLCB3aGljaCByZXF1aXJlcyBjdXN0b20gY29uZmlndXJhdGlvbiB2aWEgDQo+ID4+ID4+
-IHNldF9jb25maWcgbWFwcGVkIHRvIHRoZXNlIHNwZWNpZmljIHBlci1waW4gcmVnaXN0ZXJzLg0K
-PiA+PiA+DQo+ID4+ID4gSnVzdCBhZGQgYSB2ZXJzaW9uIG9mIGFuIG9wdGlvbmFsIC5zZXRfY29u
-ZmlnKCkgY2FsbCB0byANCj4gPj4gPiBncGlvLXJlZ21hcC5jIHRvIGhhbmRsZSB0aGlzIHVzaW5n
-IC5yZWdfbWFza194bGF0ZSgpIHBlciBhYm92ZSBhbmQgDQo+ID4+ID4gYWRkIGEgbmV3IEdQSU9f
-UkVHTUFQX0NPTkZJR19PUCB0byB0aGUgYWJvdmUgZW51bSwgcHJvYmxlbSBzb2x2ZWQuDQo+ID4+
-ID4NCj4gPj4gPiBJZiBpdCBzZWVtcyB0b28gaGFyZCBJIGNhbiB3cml0ZSBwYXRjaCAxICYgMiBh
-ZGRpbmcgdGhpcyANCj4gPj4gPiBpbmZyYXN0cnVjdHVyZSBidXQgSSBiZXQgeW91IGNhbiBlYXNp
-bHkgc2VlIHdoYXQgY2FuIGJlIGRvbmUgd2l0aCANCj4gPj4gPiBncGlvLXJlZ21hcC5jIGhlcmUg
-cHJvdmlkZWQgTWljaGFlbCBXIGFwcHJvdmVzIHRoZSBpZGVhLg0KPiA+PiA+DQo+ID4NCj4gPiBP
-dXIgLnNldF9jb25maWcgcmVxdWlyZXMgbWFwcGluZyBzcGVjaWZpYyBkZWJvdW5jZSB0aW1lIHZh
-bHVlcyB0byANCj4gPiBoYXJkd2FyZS1zcGVjaWZpYyBlbnVtcyBhbmQgYXBwbHlpbmcgYSBXcml0
-ZS1FbmFibGUgYml0Lg0KPiA+DQo+ID4gV291bGQgaXQgYmUgYmV0dGVyIHRvIGFsbG93IGRyaXZl
-cnMgdG8gYXNzaWduIGEgY3VzdG9tICcuc2V0X2NvbmZpZycgDQo+ID4gY2FsbGJhY2sgZGlyZWN0
-bHkgd2l0aGluICdzdHJ1Y3QgZ3Bpb19yZWdtYXBfY29uZmlnJz8NCj4NCj4gWWVhaCwgSSBkb24n
-dCB0aGluayB0aGVyZSB3aWxsIGJlIG11Y2ggY29kZSBzaGFyaW5nIG9mIGNvZGUvZnVuY3Rpb25h
-bGl0eQ0KPiBmb3IgdGhlIC5zZXRfY29uZmlnIGNhbGxiYWNrLiBBIGN1c3RvbSAuc2V0X2NvbmZp
-ZyB3YXMgcHJvcG9zZWQgbWFueSB0aW1lcyBpbiB0aGUgcGFzdC4NCj4gDQoNCldpbGwgYWRkIGEg
-bmV3IHBhdGNoIHRvIHN1cHBvcnQgY3VzdG9tIC5zZXRfY29uZmlnLg0KDQo+ID4gQWRkaXRpb25h
-bGx5LCBJIGRpZG4ndCBtZW50aW9uIHRoaXMgaW4gbXkgcHJldmlvdXMgZW1haWwuIHdlIGFsc28g
-bmVlZCANCj4gPiB0byBpbXBsZW1lbnQgR1BJTyBpbnRlcnJ1cHRzLiBPdXIgaGFyZHdhcmUgZGVz
-aWduIGRvZXMgbm90IGZpdCB3ZWxsIA0KPiA+IHdpdGggJ3JlZ21hcF9pcnFfY2hpcCcuIFRoZXJl
-Zm9yZSwgSSBhbSBwbGFubmluZyB0byBjcmVhdGUgb3VyIG93biANCj4gPiAnaXJxZG9tYWluJyBh
-bmQgJ2lycWNoaXAnIG9wcyB0byBoYW5kbGUgb3VyIGNhc2NhZGVkIGludGVycnVwdHMuDQo+ID4N
-Cj4gPiBCZWNhdXNlIG9mIHRoaXMgY3VzdG9tIElSUSBpbXBsZW1lbnRhdGlvbiwgSSB3b3VsZCBu
-ZWVkIHRvIHVzZSAncmVhZGwoKS93cml0ZWwoKScNCj4gPiBmb3IgdGhlIElSUSBjYWxsYmFja3Mg
-aW4gdGhlIHJ0ZDE2MjUgR1BJTyBkcml2ZXIgaW5zdGVhZCBvZiB0aGUgcmVnbWFwIEFQSXMuDQo+
-ID4gRG8geW91IGhhdmUgYW55IHN1Z2dlc3Rpb25zIG9uIGhvdyB0byBoYW5kbGUgdGhpcyBncmFj
-ZWZ1bGx5IHdoaWxlIA0KPiA+IGtlZXBpbmcgaXQgYWxpZ25lZCB3aXRoIHRoZSByZWdtYXAgaW5m
-cmFzdHJ1Y3R1cmU/DQo+DQo+IFdoeSBjYW4ndCB0aGUgTU1JTyByZWdtYXAgYmUgdXNlZCBmb3Ig
-dGhhdD8NCj4NCj4gLW1pY2hhZWwNCg0KSSB3YXMgd29ycmllZCBhYm91dCByZWdtYXAgb3Zlcmhl
-YWQgaW4gYXRvbWljIGNvbnRleHQsIGJ1dCBNTUlPIHJlZ21hcCBzaG91bGQNCmJlIGZpbmUuIEkn
-bGwgY29udmVydCB0aGUgaXJxY2hpcCBjYWxsYmFja3MgdG8gdXNlIHJlZ21hcCBpbiB2My4NCg0K
-QmVzdCBSZWdhcmRzLA0KWXUtQ2h1bg0K
+On Fri, Mar 06, 2026 at 01:36:12PM +0300, Alexander Shiyan wrote:
+> This series adds a driver for the onsemi AR0234 CMOS image sensor.
+> The AR0234 is a 1/2.6-inch global-shutter sensor with a 1940x1220
+> pixel array, capable of 1920x1200 resolution at up to 120 fps.
+> It supports MIPI CSI-2 output with 1 to 4 data lanes, raw Bayer
+> (8/10-bit) and monochrome formats, as well as DPCM 10->8 compression.
+> 
+> The driver has been tested with 2 and 4 lanes on an ARM64 Rockchip
+> RK3568 platform with a 27 MHz external clock. Both 8-bit and 10-bit
+> raw Bayer modes are functional.
+> 
+> Notes:
+> - 1-lane mode is currently disabled; attempts to use it produced no
+>   valid image. Further investigation is needed.
+
+That's a fair limitation for the time being.
+
+> - The driver uses a private streaming flag to protect cropping changes
+>   during streaming. Is this the recommended approach, or should we
+>   rely solely on the subdev state?
+
+Is there a reason not to use v4l2_subdev_is_streaming() ?
+
+> - The DPCM (10->8 compression) mode is included in the code but could
+>   not be tested due to lack of suitable hardware; any testing help
+>   would be appreciated.
+
+The only upstream drivers that implement DPCM support are omap3isp and
+atomisp. It will be difficult to get hold of a hardware setup that
+include an AR0234 :-(
+
+> Changes since v2:
+> - Added devicetree binding documentation for the onsemi AR0234 sensor.
+> - Added support for 8-bit raw Bayer output (verified working).
+> - Added DPCM 10->8 compression mode (untested, included for
+>   completeness).
+> - Reworked mode handling: each mode now specifies input/output bpp,
+>   DPCM flag, MIPI data type, and link frequency index.
+> - Reworked link frequency handling: the driver now accepts any valid
+>   link frequencies from the device tree. It expects two frequencies -
+>   one for 8-bit mode and one for 10-bit mode - but does not enforce
+>   a fixed set; frequencies are validated by attempting PLL calculation.
+>   This makes the driver compatible with a wider range of system
+>   configurations.
+> - Updated ar0234_calculate_pll() to use a temporary structure and
+>   update cached PLL only on success.
+> 
+> Changes since v1:
+> - Improved error handling: use cci_write() with &ret chaining for
+>   sequential register writes, as suggested by Isaac Scott.
+> - Refactored format and cropping support:
+>   Replaced static format list with dynamic cropping rectangle
+>   (struct v4l2_rect crop).
+>   Implemented get_selection and set_selection for V4L2_SEL_TGT_CROP,
+>   allowing runtime selection of the active sensor area.
+> - Migrated to modern streaming model: replaced s_stream with
+>   enable_streams/disable_streams using v4l2_subdev_s_stream_helper.
+> - Corrected blanking constants: replaced ambiguous AR0234_HBLANK_DEF
+>   with AR0234_LINE_LENGTH_PCK_MIN; updated min/max ranges.
+> - Added ACPI match table (untested).
+> - Style fixes.
+> 
+> Any further comments or test results would be greatly appreciated.
+> 
+> Alexander Shiyan (2):
+>   dt-bindings: media: i2c: Add onsemi AR0234 image sensor binding
+>   media: i2c: Add onsemi AR0234 image sensor driver
+> 
+>  .../bindings/media/i2c/onnn,ar0234.yaml       |  109 ++
+>  drivers/media/i2c/Kconfig                     |   12 +
+>  drivers/media/i2c/Makefile                    |    1 +
+>  drivers/media/i2c/ar0234.c                    | 1309 +++++++++++++++++
+>  4 files changed, 1431 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+>  create mode 100644 drivers/media/i2c/ar0234.c
+
+-- 
+Regards,
+
+Laurent Pinchart
