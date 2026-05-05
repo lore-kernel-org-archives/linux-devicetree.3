@@ -1,32 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B60147DFB8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CFA47ECEE;
 	Tue,  5 May 2026 13:48:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777988901; cv=none; b=ien0yzTvNU37xcaAzWVJE3nZS5ntv5P+VWFc09KzEtK6HdvOM0J6nA61Xwszx1ShX6RC7kr7QOd6pNr5chRyTXXLWaCqzFClwrku3stNbVQ7j5Hn8lgJzb6vvNbDs6wnkvOrxHEhm6DmztR8XWXRj92RssUGKdEz4iuP3nOw3qw=
+	t=1777988901; cv=none; b=t6kxE0LNW3zQ8shxVRp6eLXnKXbvzyATfV8Im17Vsqlk+ys7wJom+NwWXS+RO5NCdNsTySO3U0CkrgknlqvDIDiZb3rYMW69622Ypdt5FqZlkRXikHrGcBmJUiLE36qxa0/4PNwGS5YeB4oE4Y06V+Y1ZbOD5TftNXt47wT2/tg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1777988901; c=relaxed/simple;
-	bh=AG0oKwGOLP7O1AKKR+FpbgNj0bCG/wVgOoeQV3TqI0c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BK8yjgdAQRuW2vZWts6FBM7t98xuRufDG083tHkdFB10l1+it8YuQtKEiiptBQGUI1Tsh8iQV8sMKl8TBG3IYqtVXxBzYDFn/t8kaGNiu1zqJo2Nty1QoMH7ZVXVeTl0efmPVoRySBo1kj6yHKkICzmP44IfPThgzvC+MzB3vBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qQQymP0J; arc=none smtp.client-ip=10.30.226.201
+	bh=xF1jTvN4NvmVxS1I/epYbue7pIXNESPdSRtLfleCD1w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Vz3BsQAEPFb5XEjkjEDAzVmsXeKDJ84AqFP7iPj91UV4cnyMKpphRJvM80q4eQQbPIjxNv2q6sCxHcc1njYNYli9bG6YbEVYsrC4EYsfqwv5Ksh+BBM/SCkuaUX+UaE524SBcFVkPJFwY2al2evXrEIKkFlQqCPkbHwznR1Vwhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ijx1lBqN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qQQymP0J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32D42C2BCB4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ijx1lBqN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94034C2BCFB;
 	Tue,  5 May 2026 13:48:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1777988901;
-	bh=AG0oKwGOLP7O1AKKR+FpbgNj0bCG/wVgOoeQV3TqI0c=;
-	h=From:To:Cc:Subject:Date:From;
-	b=qQQymP0JMuJLCD/jYY8/0Y0PKc2gOEr7Jedi1Aw2st+I2JzEGvC709NwpL+YHivz2
-	 tkYlQSW4xCrOBj+TorwBIVmIXDz47Ym519qG/rR18hdeQvKOSa4Mwy0pjmVw69hcKb
-	 MR12+5n2hof8yV4KH8xa6Ho9zLe/ydUU1JNUIa4BpzsF6TR7tzAJ7vdJ03cCJF1dj6
-	 GTwoASfa78iolU9CsZOWqozr2ibFTyeim3b7V+V08Y0+xZfjRkMf3mQTG9izHJp9qf
-	 JBtIPDpGnZ+MgicoeFDLfNwVwfqUFtOgNVKzAKKAxAtlQh71knfVtl9JW6tHa0askv
-	 Baj7+Hj25B+Sw==
+	bh=xF1jTvN4NvmVxS1I/epYbue7pIXNESPdSRtLfleCD1w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ijx1lBqNPEMBLP0Ay/ZHh/p1+vm09mTq5rbpTTL9e2SRWmgOk+2cdAYU55l+2+gqM
+	 x4KLqdokMk/QJS9+kE1wTYVOhNr9I5aGoBIQr7sV+HIfGCkKRh9Tiu++nD4BPtIm5+
+	 WZXtCvLPinyKtuiUkmxEbmb314GQC9bz7FnacDyNkAorkQHPJeLN6VCIcKd5b8IS4K
+	 CeQjNyyfQjV3aSm5B2s2r7c8fXQTIuxDS1gpUeHOYpX+iw3TAxLTAbAS0aVoxRMNSQ
+	 BH4FZyY1dlC5dA3hTbmWjJ6/ij4SZKsJvCOqIWRP44mVoIsgJVvDUYyYXI01NBj5o0
+	 N61zew6Me6/sw==
 Received: by wens.tw (Postfix, from userid 1000)
-	id 2B4DD5FEF9; Tue, 05 May 2026 21:48:19 +0800 (CST)
+	id 539755FFCE; Tue, 05 May 2026 21:48:19 +0800 (CST)
 From: Chen-Yu Tsai <wens@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>,
 	Paul Kocialkowski <paulk@sys-base.io>,
@@ -44,10 +45,12 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-sunxi@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/7] arm64: allwinner: h616: Support Video Engine
-Date: Tue,  5 May 2026 21:48:04 +0800
-Message-ID: <20260505134812.408316-1-wens@kernel.org>
+Subject: [PATCH 4/7] drivers: staging: media: sunxi: cedrus: add H616 variant
+Date: Tue,  5 May 2026 21:48:08 +0800
+Message-ID: <20260505134812.408316-5-wens@kernel.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260505134812.408316-1-wens@kernel.org>
+References: <20260505134812.408316-1-wens@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,59 +59,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi folks,
+The Allwinner H616 SoC has a video engine hardware block like the one
+found on previous generations such as the H6. In addition to the
+currently supported features of the H6, it is also supposed to include
+a VP9 decoder. However software support for this is currently missing
+and still needs to be reverse engineered from the vendor BSP.
 
-This series adds support for the Cedar video engine found in the
-Allwinner H616 SoC. On the way, it also fixes some issues with the
-DT representation for the Allwinner H6 SoC.
+Add the compatible for the H616 variant, using the H6 variant data.
 
-Patch 1 fixes the video engine's number of IOMMU endpoints on the
-H6 in the DT binding.
+Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+---
+ drivers/staging/media/sunxi/cedrus/cedrus.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Patch 2 fixes the video engine's number of SRAM regions on the
-H6 in the DT binding.
-
-Patch 3 adds a new compatible for the H616's video engine.
-
-Patch 4 adds the new compatible for the H616's video engine to the
-cedrus driver.
-
-Patch 5 adds the video engine's missing SRAM region to the H6 dtsi.
-
-Patch 6 adds the video engine's missing IOMMU endpoint to the H6 dtsi.
-
-Patch 7 adds a device node for the video engine to the H616 dtsi.
-
-
-Patches 1-4 should go through the media tree, while patches 5-7 will go
-through the soc tree via the sunxi tree.
-
-
-Please have a look.
-
-
-Thanks
-ChenYu
-
-
-Chen-Yu Tsai (6):
-  dt-bindings: media: sun4i-a10-video-engine: Fix IOMMU count for H6
-  dt-bindings: media: sun4i-a10-video-engine: Fix SRAM count for H6
-  dt-bindings: media: sun4i-a10-video-engine: Add H616 compatible
-  drivers: staging: media: sunxi: cedrus: add H616 variant
-  arm64: dts: allwinner: sun50i-h6: Add missing SRAM region for video
-    engine
-  arm64: dts: allwinner: sun50i-h6: Add missing IOMMU for video engine
-
-Jernej Skrabec (1):
-  arm64: dts: allwinner: sun50i-h616: Add video engine
-
- .../allwinner,sun4i-a10-video-engine.yaml     | 45 ++++++++++++++++++-
- arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi  |  4 +-
- .../arm64/boot/dts/allwinner/sun50i-h616.dtsi | 12 +++++
- drivers/staging/media/sunxi/cedrus/cedrus.c   |  4 ++
- 4 files changed, 61 insertions(+), 4 deletions(-)
-
+diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.c b/drivers/staging/media/sunxi/cedrus/cedrus.c
+index ee0e286add67..2801b9a064bd 100644
+--- a/drivers/staging/media/sunxi/cedrus/cedrus.c
++++ b/drivers/staging/media/sunxi/cedrus/cedrus.c
+@@ -695,6 +695,10 @@ static const struct of_device_id cedrus_dt_match[] = {
+ 		.compatible = "allwinner,sun50i-h6-video-engine",
+ 		.data = &sun50i_h6_cedrus_variant,
+ 	},
++	{
++		.compatible = "allwinner,sun50i-h616-video-engine",
++		.data = &sun50i_h6_cedrus_variant,
++	},
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, cedrus_dt_match);
 -- 
 2.47.3
 
