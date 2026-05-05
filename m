@@ -1,207 +1,168 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F965438FFB;
-	Tue,  5 May 2026 10:15:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E694371899;
+	Tue,  5 May 2026 10:17:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777976117; cv=none; b=WUBLzz2Nf3vl5Ngu7ztihubEnMUIjI52qVHuojnX+thdbAUfuQv6E5C3SbXEcwS1Ayb213JqPkYNKlGUpOgBdtxairwgxrCv85ZqkH3XzZaDBHvWyxNU7iLXpK0Wdq5IKDNek5nS+2oER0M/p7w9hvDFwPtoMdH+5QJvMoWZ7cY=
+	t=1777976258; cv=none; b=YOwIRPhSlkwuYn39NRlYnDst1j25lRbsVSM87yy2/9ei79khYbP39FEvf9o5qqHFUBX/cpO+7+zkF7rG+PtRUNh+nTR/9aVJHrbGhrl/HBndgTk4TAkRPhU/9R0ZqVerlh3jt3nQZLwfDRWK+W+G2GbgOt5gP/t7HgzK1ug3y0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777976117; c=relaxed/simple;
-	bh=irhwqt3pKWI8A9+c4uATwd1lfeQj1Qp64GK5X6PBU6M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gf1UfcriNl9ReJLFWahOVE2/WAH4PhjcKgaRQyPcOisUGYseC2JrCGIKnPsMUgLSh5Xr7CZ8jW/f/QC2kFTEJa/YKqedxQ/oDVCYV8kNSKtNLwSvON0AIe5BxR2PBmIVzQh0J05lM3vg7jdw6NVZA0iSySTDiqofgRlCSIo8fDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=QtJKsZHW; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1777976258; c=relaxed/simple;
+	bh=HiZy0Hq2RZxmk3TPPKQemNpPCrDQCvf6ZPEVCZexKAU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=soE/f3j859cPBaoT0ljrij18Jq0stLDQmz8nnq/dYzgE+0HiYfsPy+WpFbDLNj6q5VJbdHlneniZY+WpUSm+sVTTLJ2VuRzOayBu5NOdb+4PoxDQ8Up30+Um6VYGsH/yD6L3LN9C+zcZiLFX34nz+7ckQyLGz/54oYazC4Dq3Sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HPhMJ8fE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="QtJKsZHW"
-Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B2137874;
-	Tue,  5 May 2026 12:15:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1777976104;
-	bh=irhwqt3pKWI8A9+c4uATwd1lfeQj1Qp64GK5X6PBU6M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QtJKsZHWMFVaYqitfZJGvVeX7ouWbbMSaaLfgMOAMxOO3NO+WlmzNkXqGrNDrZKoy
-	 m2hurIMNnbwPRNxF76UutfbzPLtXgj0eG17LI5SGv0fuUuZy/LQRknnx9Qsul/oS0f
-	 ZjGVbsfozGKrEje54UWlTMV5yHjDhSYPZvJA4xT8=
-Date: Tue, 5 May 2026 13:15:05 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Alexander Shiyan <eagle.alexander923@gmail.com>
-Cc: linux-media@vger.kernel.org, Isaac Scott <isaac.scott@ideasonboard.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Dongcheng Yan <dongcheng.yan@intel.com>, devicetree@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Jingjing Xiong <jingjing.xiong@intel.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Subject: Re: [RFC PATCH v3 1/2] dt-bindings: media: i2c: Add onsemi AR0234
- image sensor binding
-Message-ID: <20260505101505.GB1547435@killaraus.ideasonboard.com>
-References: <20260306103614.3208182-1-eagle.alexander923@gmail.com>
- <20260306103614.3208182-2-eagle.alexander923@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HPhMJ8fE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84821C2BCB4;
+	Tue,  5 May 2026 10:17:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777976257;
+	bh=HiZy0Hq2RZxmk3TPPKQemNpPCrDQCvf6ZPEVCZexKAU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=HPhMJ8fEh1VnXw3SGcS/g6PyuN1kKUoUYlnXkKsdAoTDGCAw39otgQf19rbzhrtPq
+	 aa6RCPMGZtoFAmb+Iv68pXJpEC0Y6LHZMCz/JTcIKh4QXF7qm2aortty6FFL/kiDMR
+	 3iAk/3MRpztY+wkXIXa38KhKeFuigA28ty287WhUyKMnoGW7v/RFA07SEfctQDoMyS
+	 dQOOsuvzXUQZHv8+h4X6ekoGR/+cyXKUEdmL4xJmS0/dHuiNB761wNLeNNziLLnHcv
+	 0Taf5dH6VshB58z419zZbpKMuS/nipNCsKKHXc3BdGeVCJmBTzSdG1cSf49IGOPAwp
+	 ieQWsQnCSjRdQ==
+Date: Tue, 5 May 2026 11:17:28 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+ dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+ andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH V4 06/10] iio: imu: inv_icm42607: Add Temp Support in
+ icm42607
+Message-ID: <20260505111728.4fdd9eec@jic23-huawei>
+In-Reply-To: <20260501221152.194251-7-macroalpha82@gmail.com>
+References: <20260501221152.194251-1-macroalpha82@gmail.com>
+	<20260501221152.194251-7-macroalpha82@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260306103614.3208182-2-eagle.alexander923@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Alexander,
+On Fri,  1 May 2026 17:11:45 -0500
+Chris Morgan <macroalpha82@gmail.com> wrote:
 
-Thank you for the patch.
-
-On Fri, Mar 06, 2026 at 01:36:13PM +0300, Alexander Shiyan wrote:
-> Add devicetree binding for the onsemi AR0234 CMOS image sensor.
+> From: Chris Morgan <macromorgan@hotmail.com>
 > 
-> Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
-> ---
->  .../bindings/media/i2c/onnn,ar0234.yaml       | 109 ++++++++++++++++++
->  1 file changed, 109 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+> Add functions for reading temperature sensor data.
 > 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml b/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+A few minor things.
+
+Thanks,
+
+Jonathan
+
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
 > new file mode 100644
-> index 000000000000..d93fa99e6535
+> index 000000000000..bcc11620c74c
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
-> @@ -0,0 +1,109 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/onnn,ar0234.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
+> @@ -0,0 +1,81 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (C) 2026 InvenSense, Inc.
+> + */
 > +
-> +title: ON Semiconductor AR0234 1/2.6-inch CMOS Digital Image Sensor
-> +
-> +description:
-> +  The AR0234 is a 1/2.6-inch CMOS digital image sensor with a pixel
-> +  array of 1940x1220 pixels, capable of 1920x1200 resolution at up
-> +  to 120 fps. It supports MIPI CSI-2 output with 1, 2, or 4 data lanes,
-> +  and raw Bayer (8/10-bit) or monochrome output.
-> +
-> +properties:
-> +  compatible:
-> +    const: onnn,ar0234cs
+> +#include <linux/kernel.h>
 
-Should we define separate compatible strings for the mono and colour
-variants ? I know you identify the variant at runtime in the driver, but
-avoid I2C communication at boot time can be beneficial (to reduce boot
-time, and also to avoid flashing the privacy LED on systems that have
-one, albeit the latter is probably less applicable to the AR0234).
+As in previous avoid this by using more specific headers.
+
+> +#include <linux/device.h>
+> +#include <linux/mutex.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regmap.h>
+
+blank line here to match other files.
+
+> +#include <linux/iio/iio.h>
+> +
+> +#include "inv_icm42607.h"
+> +#include "inv_icm42607_temp.h"
+> +
+> +static int inv_icm42607_temp_read(struct inv_icm42607_state *st, s16 *temp)
+> +{
+> +	struct device *dev = regmap_get_device(st->map);
+> +	__be16 *raw;
+> +	int ret;
+> +
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
+> +	if (PM_RUNTIME_ACQUIRE_ERR(&pm))
+> +		return -ENXIO;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	ret = inv_icm42607_set_temp_conf(st, true, NULL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	raw = &st->buffer[0];
+> +	ret = regmap_bulk_read(st->map, INV_ICM42607_REG_TEMP_DATA1, raw, sizeof(*raw));
+> +	if (ret)
+> +		return ret;
+> +
+> +	*temp = be16_to_cpup(raw);
+> +	if (*temp == INV_ICM42607_DATA_INVALID)
+> +		ret = -EINVAL;
+		return -EINVAL;
+
+	return 0;
+
+is no longer and to me a tiny bit simpler to read.
 
 > +
-> +  reg:
-> +    description: I2C device address
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    description: Reference clock (external clock) input
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    description: Reset pin, usually active low (if needed)
-> +    maxItems: 1
-> +
-> +  vaa-supply:
-> +    description: Analog (2.8V) supply regulator
-> +
-> +  vdd-supply:
-> +    description: Digital Core (1.2V) supply regulator
-> +
-> +  vddio-supply:
-> +    description: I/O (1.8V-2.8V) supply regulator
-> +
-> +  port:
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    description: CSI-2 transmitter port
-> +    additionalProperties: false
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/media/video-interfaces.yaml#
-> +        unevaluatedProperties: false
-> +        properties:
-> +          data-lanes:
-> +            description:
-> +              Number of MIPI CSI-2 data lanes. Supported values: 2, 4.
-> +            minItems: 2
-> +            maxItems: 4
-> +            items:
-> +              enum: [1, 2, 3, 4]
-> +
-> +          link-frequencies:
-> +            description:
-> +              Allowed MIPI link frequencies in Hz. The driver expects two
-> +              frequencies: one for 8-bit and one for 10-bit modes,
-> +              typically 360 MHz and 450 MHz, but any frequency supported
-> +              by the sensor may be used.
+> +	return ret;
+> +}
 
-What the driver supports isn't relevant for the DT bindings. The
-frequencies should only be limited here to the range supported by the
-device, regardless of the current driver implementation.
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.h b/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.h
+> new file mode 100644
+> index 000000000000..d0bd6c460ff2
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.h
+> @@ -0,0 +1,30 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * Copyright (C) 2026 InvenSense, Inc.
+> + */
+> +
+> +#ifndef INV_ICM42607_TEMP_H_
+> +#define INV_ICM42607_TEMP_H_
+> +
+> +#include <linux/iio/iio.h>
 
-> +            minItems: 2
-> +            maxItems: 2
-> +            items:
-> +              minimum: 360000000
-> +              maximum: 450000000
-> +
-> +        required:
-> +          - data-lanes
-> +          - link-frequencies
-> +
-> +    required:
-> +      - endpoint
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - port
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        camera@10 {
-> +            compatible = "onnn,ar0234cs";
-> +            reg = <0x10>;
-> +            clocks = <&clk_ext_camera>;
-> +
-> +            vaa-supply = <&reg_cam_vaa>;
-> +            vdd-supply = <&reg_cam_vdd>;
-> +            vddio-supply = <&reg_cam_vddio>;
-> +
-> +            reset-gpios = <&gpio 42 GPIO_ACTIVE_LOW>;
-> +
-> +            port {
-> +                ar0234_ep: endpoint {
-> +                    data-lanes = <1 2 3 4>;
-> +                    link-frequencies = /bits/ 64 <360000000 450000000>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +...
+Need header for BIT() and I'm not seeing a need for this one.
+Just add forward defs for struct iio_dev and struct iio_chan_spec
 
--- 
-Regards,
+> +
+> +#define INV_ICM42607_TEMP_CHAN(_index)				\
+> +{								\
+> +	.type = IIO_TEMP,					\
+> +	.info_mask_separate =					\
+> +		BIT(IIO_CHAN_INFO_RAW) |			\
+> +		BIT(IIO_CHAN_INFO_OFFSET) |			\
+> +		BIT(IIO_CHAN_INFO_SCALE),			\
+> +	.scan_index = _index,					\
+> +	.scan_type = {						\
+> +		.sign = 's',					\
+> +		.realbits = 16,					\
+> +		.storagebits = 16,				\
+> +	},							\
+> +}
+> +
+> +int inv_icm42607_temp_read_raw(struct iio_dev *indio_dev,
+> +			       struct iio_chan_spec const *chan,
+> +			       int *val, int *val2, long mask);
+> +
+> +#endif
 
-Laurent Pinchart
