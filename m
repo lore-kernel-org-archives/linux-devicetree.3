@@ -1,115 +1,92 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA4037FF77
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:50:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F571425CC4;
+	Tue,  5 May 2026 10:50:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777978202; cv=none; b=r7X+9u4fd2eGuqyIvPvGEwzBsLLD+tTy9uNp5rkm8JDyubiLxp1wjTv2SygKRctDUj8UwW+5DMvaxHgSdIvSC5C8nvmmETF+emL53pjb8lVKukJ3tQuRPSl89R6V966duIV6zI8fEqfkA51X4QWApGyF3FpYDsfCTDDHgqXYeg0=
+	t=1777978220; cv=none; b=KW6TjNLfIbMKax4HuUb1+ctxLfOD/u52aYSqZEhxG8/0anPNeGXKku0MVNCIh/186Zi1zMZcWCuHOS5pm6zEPIzMUnuHIo7G2scwY/kvVrIv4KYxpxNHJZy5wgNXRcfE6zzbY8oylOaZe0gfykJF8QrGsd7+jR8ZGesCmB+9nXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777978202; c=relaxed/simple;
-	bh=YcedT8Hfo7viBomSJ6+7C6YDOpC7Sj4vecnEZZ9FNFE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=P/1AVV6SRLFxEkFAjMQAaoTP/nODYdN6E65wPeJpw0fgSsYmkASspGtoIEN73LEwxllB7oQBpwqIyNz73hgqx79Yzl4lc6djetSiec8Qcfv3aAQnkzZdqX1Y6gnttpKz9etVcSkVbliXKGdsUsUC/Uu4TE8BuKzVDjQUzHglCPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=QsGj+Ja6; arc=none smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1777978220; c=relaxed/simple;
+	bh=wlXpugk6r9mJmRNQ2cr1RlgB1qYY1ILeREvHnWMgMg0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GOO+cH2OqibgsUdouOJ8ATnH2bEVY6pPJNkiajcxQ3Mks3gvO8jbsCJRYRuMkbpoksMCsWIvyxxQLCI/yXrmQaplWJd+kKkBDAcRRKbiV7vUennEYxF1A/3ROL3rI+ggQ2WyGYpqyTowhfcSHw6QwAlYbn2zoTQHhto4X5FEZec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mzVXiRx5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="QsGj+Ja6"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-67cd93d8affso556487a12.2
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:50:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1777978199; x=1778582999; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YcedT8Hfo7viBomSJ6+7C6YDOpC7Sj4vecnEZZ9FNFE=;
-        b=QsGj+Ja6HsATb9yOQ2YXRaCLv+zbT6BEsknbCFiKd1mQmGjQ3qcvmOd+l7HId964IL
-         vtL2YKy9oHvbVs0z0ZFBN8zke8ydFDf0PYflw25xLb+Wl3lnUbPC8ikhcJ2nATeJb9QU
-         NxHmRQuzf0RSxyprv30zDph1m4LjPle6InXQx95VeOKTDbfQ/87S/PveFpZNhr4uoUwo
-         PkQrr0on1C9v9wLgK/6LnTg71jikv7HVcbO80iouPZKR8h0xnHmvw9ZlqWhkCJxspfUm
-         VopKU9H/A2BiL8IbDWwlOQ/fTKkAyhZhJRSaYk8rRvin9PlvCyne1HUgGsKu7nSQrJq8
-         Ov/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777978199; x=1778582999;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=YcedT8Hfo7viBomSJ6+7C6YDOpC7Sj4vecnEZZ9FNFE=;
-        b=XIE9q9KV+O43op9ITvm+dMqrp7WHoFNSSF3tpwZ3eZpwJ4ovwSnmGq822GnTk1tKts
-         4WHWGPH0UYLRTpzxvkX4HCzuE549IwsuieJnQa7tgHRi8ZkQR9SFHiJjCWXsom6uAj7P
-         ZUudeou4xpUqsjL1rE1UKdpAzf/E26w78fM/oqS9EN8tl942sZ/vsyWzlI4PuViln9eC
-         LrzMQx3YWhz3EyDFm3HYCIkKHvFKKR+Ttuf+/3OocX6SuKUkVRP5aushSk4HjfgYzAYL
-         W1LJVBua2Xvw9WtKAGuzrs9L3EipSpxn1O2jE716zKi5Nl/gA84T3MYksD93N02csqvP
-         bbxg==
-X-Forwarded-Encrypted: i=1; AFNElJ+edqUDPB44uxHBPBw0W7Ygz9uojTEydIWXqMPetS5t7cXsWgjB8AsWhCMCVOHOFHS3izvFCE+IoLcR@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw9EULRG9kKJAMX/SXx8u6J9bsBuOrm5xiRpNKzMzwcctjKXnwb
-	Pq6x8hVfccUqHNUPuXQkOLP47oWsZdLzfcsN89eYYHAsiMU1bQPPboq4F3ls4oEvcmIiSYmJKUz
-	Ija+aIXXNGw==
-X-Gm-Gg: AeBDievMr5BVubdmZfz73ypP2KSDk24QzQoFftrgEGsJa4t5YyrtgLGymRNRBdBsvmb
-	BpeSrQV+OLn5kwSTiLvZ9yKyOrzuYPU8Vq6yCwTRLpuokei4j0alJqdy5wzet7qPTkc3O6lBXcn
-	cjxn3PjLe2p8UzwuNbD6YaYfkMn4MT0SOy6RY0PcDGEGgBuR468uwJEGmOP2WbGaa3hlS3kKfXT
-	hAFU/DhUM/QkzbY6VF2tUz7qXDV2DoGdPLIDCJTlHXOlqcHUpmYqEs/AbOe25pjI4hkOX00uWpX
-	jaIlj3bZr5uwpkkcByB76q5drJOMZtnYHrVQm3k2Rno56Xt2G5JpOre/1LaTkIlInp13bfCZHwH
-	uVlvJY00lAbjiKrOBybbCz2J+brALJcT/OUoaVC3H/8ku1ibqBlD9e+RiIpoFb7dlYIPrLauNEs
-	YIiFUWspAuYdgY9KmDiUxz/lPQdeghLmZJ2rVZehAjg0KT2xff+ihip63exYmZTLA9PKqgXkduR
-	z1N6l4aw8LifkK8ojs1WWAXukMGbCOzpvL3Lq2v+t/KkIg=
-X-Received: by 2002:aa7:c707:0:b0:66c:17d5:c18f with SMTP id 4fb4d7f45d1cf-67c1aab2f5fmr4883394a12.21.1777978199217;
-        Tue, 05 May 2026 03:49:59 -0700 (PDT)
-Received: from localhost (2001-1c00-3b89-c600-71a4-084f-6409-1447.cable.dynamic.v6.ziggo.nl. [2001:1c00:3b89:c600:71a4:84f:6409:1447])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67cd904fe68sm297388a12.0.2026.05.05.03.49.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 05 May 2026 03:49:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mzVXiRx5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A774C2BCB9;
+	Tue,  5 May 2026 10:50:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777978220;
+	bh=wlXpugk6r9mJmRNQ2cr1RlgB1qYY1ILeREvHnWMgMg0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mzVXiRx5bazBpUd05r+8RLJ7f6es/GACNwaTFGBccrNR7pe9NBLwBmifxBIo+4ONG
+	 z9PN9NmDv/klndYV8FaY27auclJGEF4JUZbRJYdzIcmOnSqlfIvB0+eavfAFBIanxI
+	 9r4IOASpgpqzOKB+HRZ11JwrlrLjSmcWCFeWhIHnlOhqCNmiBcd9l+P1OOOEYWUE01
+	 mkQXfYwzrQv+J5KePDmTsB2xpNLAOqmwIIxeiDquxt8Is1JoaJtsoFQC5pk7biBO30
+	 gyRzG3NUnwt1+YRz+0D/tNdplWrkaJjKYUUsj2KX7rmQR8yPvyNUWPxg0wBu/moAKI
+	 RSS5GXB/WlCNw==
+Date: Tue, 5 May 2026 12:50:17 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>, Johan Hovold <johan+linaro@kernel.org>, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] phy: qcom: qmp-usbc: Add qmp configuration for
+ Shikra
+Message-ID: <20260505-glittering-shrew-of-promise-09db29@quoll>
+References: <20260504170659.282532-1-krishna.kurapati@oss.qualcomm.com>
+ <20260504170659.282532-5-krishna.kurapati@oss.qualcomm.com>
+ <gb46nv455vfkldkhvlo7c26amuonrlzvstirdpbzictbqgyxox@6vypar3byxhs>
+ <230aef5f-43da-4b7a-994c-7a63b631ae8e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 05 May 2026 12:49:57 +0200
-Message-Id: <DIAOO42VKFTK.A241C4JZT34G@fairphone.com>
-Cc: "Bjorn Andersson" <andersson@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>,
- "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>,
- <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Konrad
- Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/5] Add LPASS LPI pin controller support for SM6350
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Linus Walleij" <linusw@kernel.org>, "Luca Weiss"
- <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260430-sm6350-lpi-tlmm-v2-0-81d068025b97@fairphone.com>
- <CAD++jL==mAQAmfQDcnasnjgXnTsN46nFBgFuHOz_1Tf-k-3BpQ@mail.gmail.com>
-In-Reply-To: <CAD++jL==mAQAmfQDcnasnjgXnTsN46nFBgFuHOz_1Tf-k-3BpQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <230aef5f-43da-4b7a-994c-7a63b631ae8e@oss.qualcomm.com>
 
-On Tue May 5, 2026 at 12:35 PM CEST, Linus Walleij wrote:
-> On Thu, Apr 30, 2026 at 9:10=E2=80=AFAM Luca Weiss <luca.weiss@fairphone.=
-com> wrote:
->
->> Introduce support for the LPASS LPI pin controller for the Qualcomm
->> SM6350 SoC, by adding the dt-bindings, driver, dts bits and enabling it
->> in the arm64 defconfig.
->>
->> The custom slew offset for gpio14 is described as
->> "qcom,lpi-slew-base-tbl" in the downstream dts[0]. I've tried to find
->> some reasonable solution to have this handled correctly in the patches
->> here, but suggestions are welcome how to improve the situation. There's
->> of course several ways to implement a solution for this.
->>
->> [0] https://gerrit-public.fairphone.software/plugins/gitiles/kernel/msm-=
-extra/devicetree/+/refs/heads/kernel/13/fp4/qcom/lagoon-lpi.dtsi#25
->>
->> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->
-> Fixed up Kconfig text and applied patches 1, 2 and 3 to the pinctrl tree.
->
-> Please funnel patches 4 & 5 through the SoC tree (Bjorn Andersson,
-> I think.)
+On Tue, May 05, 2026 at 09:36:31AM +0530, Krishna Kurapati wrote:
+> 
+> 
+> On 5/5/2026 12:58 AM, Dmitry Baryshkov wrote:
+> > On Mon, May 04, 2026 at 10:36:59PM +0530, Krishna Kurapati wrote:
+> > > Add init sequence and phy configuration for the Super Speed port
+> > > on Shikra SoC.
+> > > 
+> > > Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+> > > ---
+> > >   drivers/phy/qualcomm/phy-qcom-qmp-usbc.c | 3 +++
+> > >   1 file changed, 3 insertions(+)
+> > > 
+> > > diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
+> > > index c342479a3798..400dcebf8222 100644
+> > > --- a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
+> > > +++ b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
+> > > @@ -2019,6 +2019,9 @@ static const struct of_device_id qmp_usbc_of_match_table[] = {
+> > >   	}, {
+> > >   		.compatible = "qcom,sdm660-qmp-usb3-phy",
+> > >   		.data = &sdm660_usb3phy_cfg,
+> > > +	}, {
+> > > +		.compatible = "qcom,shikra-qmp-usb3-phy",
+> > > +		.data = &qcs615_usb3phy_cfg,
+> > 
+> > If we are reusing Talos configuration, should Talos also be used for the
+> > fallback compat instead of modifying the driver?
+> > 
+> 
+> The clocks are different and hence I didn't use fallback.
 
-Great, thank you!
+And why can't you use the same clocks?
+
+Best regards,
+Krzysztof
+
