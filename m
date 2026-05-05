@@ -1,107 +1,259 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010006.outbound.protection.outlook.com [52.101.193.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B87D1219FC
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 12:59:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777985972; cv=none; b=uGnUuW/tsZ45AaC558lW8viRdVl27h9w55eLgkBQ9hDsymaS2IMSBzm7HMQ3gIpbbYeIrk+HJ6O9ZO+rPWXoNukm2fuYfB4nHpbYJdSw8sO1PeEUc2uG4JI3fXlol954A1fVUOxOH6frPxovXIv2WBCo3o9G+lv0X//IfqtU3yk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777985972; c=relaxed/simple;
-	bh=hUzf6DhWUXDvkdX8HD9Gwj48RIJFkDs0CZ6OQcnOoD8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZY0lDvqcqRfZyJlMyTKaSEKhc2Wf5SC1MjOv4c07Ep2LdESuH8NsvzNOnx23f2UhorZQskoZzHmuQbFOZxvRGBIlcbvq9+wjtASILDR4+0l5WRzI+gLSDD2lWJCjdFrUm4e0xagn5lEfze65ht37HQJ7ucRoZY967MutgR3DWjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LsQD3jVy; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634B2351C1F;
+	Tue,  5 May 2026 12:59:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777985992; cv=fail; b=B+1aPxITIoKCr0hwtsAyeKLFCzQJGkwN3lcGyY6ZE83oCL68AcApbgTQnBGtjNL3Sq6ro5pLoi5Cfwxx7vKFkxBg5RCH1G271Pc4R/hg6ZuzYXUVFo15IBnV9INtBCGX0ClZRldR1TH/0LQuEGp/yi36hGLxCQSRYx/cYf4zkfc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777985992; c=relaxed/simple;
+	bh=vl6D+xrbvCL9NX4ZsI7x48nhSacIGXzKLAL2hroVKP4=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VvLYdtO0OwwAMw7URPts/Bzu70P+la1XeJN6FbTFkBZ2XsLf4UApJbcGXgfBEMYh0mtKk2wK5LGvRZ+8KIYb+gRGf3hPb4o0ESoPepA/GxB3sBh7C94d64Z+53itk5xQXydpIiwS853SFqcPpo5ZeFFRzkADiMA92H+8RB2xctY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=uheJFMUn; arc=fail smtp.client-ip=52.101.193.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LsQD3jVy"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-488d2079582so55809165e9.2
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 05:59:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777985965; x=1778590765; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=IPKJ1OltZUIEZcaxYTjZIm1/li/hs+r7skSVCHusmnM=;
-        b=LsQD3jVyeiMymXJ26yQJXyGbD+0FYoER0Z6yE3ASiGOMn7GEoPpOzPrHHUSkGkSAfm
-         TLSr9B70TmtcgfZ/zMTkgeh1gywCpuVjucF3Kr9C4qMcpLlILhhHzVAWtVWBkAmdoejT
-         t6AstnVIXqX0ZE8I1kMVspWvZfizVcV16PxCYSjKdelEJi9KD39a78328IZB/d2WJxhP
-         L1OqJh9SSHv3uauT662G6xGlOvhZkD0xmLgwydzWOAH9lqht2a6i2Nyt6hjDZBvgyTeg
-         GFSWsBxM1ijzHmI9zOQJHIBvbaEuxiVuEGMb4pZqpn28k1rg9kg/KLu/GbKtwvhbOpYO
-         +bmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777985965; x=1778590765;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IPKJ1OltZUIEZcaxYTjZIm1/li/hs+r7skSVCHusmnM=;
-        b=S52A5REy4x3gO13C4GtMcAMvvJOiZnhTg+eXCts3hM8xZx1L3b22Qgbd0qLwR0PFyJ
-         XRJvVpvnZP4hZ51nWef0eX/xh+R1UBcA50tDFbJ+xjClUNH8CNncmeuPOabH/hrdA0D5
-         Yp2rsZ2yDLbCQawGo5rrET0M9qwnCbykNGgii9qPdfkQXIDJ+oKNyvQS/urU5nD/cPMe
-         hBp4nB4m4F8wX1HJiUgNRnnREF6NajcR8ZlfSttp2+lLxJ/nvaEP5StJySHflBT2mUr4
-         pNHMfy0HEQSdrR2LwlA9qqXxVw+W70JwOM/KQ/vI+OWTJu4t4BfyH/7C4LeXGLOyPvCP
-         gaPw==
-X-Forwarded-Encrypted: i=1; AFNElJ9ROzd9fzdSX1TzzQFoAR7reDVElHAl8uecg1DJnSv4Jdrk/nAjX4xdBKzTnDSsm1hotNJyMicqcfWD@vger.kernel.org
-X-Gm-Message-State: AOJu0YxbJVxFLpGJlkh1fab/F4mwDsuyUCXhhnRPwgcaFMiT5diphaFA
-	GXQHnksmqg0+ml6lPPuNfteJKVQhvT/0hrajHo4jD0hR3C3mK7t4/rVO
-X-Gm-Gg: AeBDievEPsgUmBa4QhNIsC6gWp//Jz/gqgglePV4BgF/lGadQkE5GdYA+pqlGgU39hv
-	IRIoHUuM2JbbPUZFG8GaPggJfbj8ZZr77guImjaopZ4/gh+1gHSyMmhm0fYT97uKWVtAbj64csW
-	+YtXjnVUIlDrlOMAGvY9EmlJy4E3yhhac/WRGoSy8dOpJ2CvzDX9fymgolPMquACfPWXb/VQbYE
-	OZTy0pPRckOskEh13CKiBorl9ljPrPEMb8MGVYd1SZRyPQc5yukbbv0wUbVv/7GD0AZFbpjrRXJ
-	JVLUBeMemU9dmxirES75DNdRsXOBvWAP9UD2b7R/1q6xoGPYWd+67DzddW1/rgqyeuYDI27xyQo
-	TfAqXm6DANWNeWGWc26jIjO/R3ZevTfp+eao72kSAtRbQFnq1sv2IdV2Iv6K67obaQuan6HIIGy
-	ICgAzdfftAOODikprbTuzYqlm6oz/E8kvedCK+AqGvrn52gukK9JubFJT33T8=
-X-Received: by 2002:a05:600c:c174:b0:48d:1a94:56c with SMTP id 5b1f17b1804b1-48d1a94087dmr46619075e9.18.1777985964912;
-        Tue, 05 May 2026 05:59:24 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a758:8a01:1da3:f63c:84a5:197e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a82301ad1sm625634745e9.9.2026.05.05.05.59.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 05:59:24 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH 0/2] Enable watchdog on RZ/G3L SMARC EVK
-Date: Tue,  5 May 2026 13:59:15 +0100
-Message-ID: <20260505125921.149682-1-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="uheJFMUn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Fu0/fJD3BMgpu8yl+K5CTbPzT6Xklw/jfwpCQWaqYRqYB7YTRfwdCPyPh4dgAkKQnd3mywkdLfBjOpNRIDVqLo4LDmxOdK63txSeIwm9RWjUgXyUs0C4CHufunCoeobaexoJZ3BbxVYhZ3+mmrm8TxHGX/WB6UHrQJoo7hHLc5t81flgq3zZpZrQfhIljOfBXkDLm6x7OIxSYTRjJSeh8Z7aNO3DqQOAxepwpigQgLk0FgMEWwvwvbXnT9xgHTcVKhq4LQVE7gQT13BK3ZJHJL0TpP7LnWUe/4kxHr1ja41ThuHDVsAcLS7cHwH0Kx2S7PV6tSO/n3eajijDRBwNdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hU5wAVIJyHs9K+yaHH8vyxDxbAaXVWjT22V/HMPaxdQ=;
+ b=pvaAREYyp7TZk/fKJW4vqz+6s54qEgxBw/eC3+pH8GnL7L8IGB65pqx2RsE6Eu59HjsO7vnTusb+N4D4HIUMhSE/y4KMpvJ+5/pCOtZS9ghkja0mJI4bkmK4VItrZorXx3/waiuoPDOarPMBJ98S6ddC4cI/VifZ7KAC1T9eZlO8KA9sVfzMBFEJPQkA2I5TV+Esgy5d4lNcLUxeB1f4y9HR5ItSvcfKOX60Pjitlk6hc8/FNruPMQIoGu2/FLKIG8SFmkyFeaYEYS9cBYNmZz4MUk2xVGiTlLQeeFUswG6Vu1jZi42r1JxzUdncwGIVRX4Qo/5dYmQQLl+Og4/EUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hU5wAVIJyHs9K+yaHH8vyxDxbAaXVWjT22V/HMPaxdQ=;
+ b=uheJFMUn4Q9uG4qAqeAK1ugFajOgI65lsO7E/baSLrbyDx/2YrIXMyCOzsYtVXt78x3cnVtp25Phm5OiPU/xSXc6heFc/XIdxo337iJb8EbNP2wNnBHNj1hRC+kbo9u37NL9X2znpieU+0/paRGXbyJT+NWFGCkPQn9vbdGBZuY=
+Received: from SJ0PR13CA0178.namprd13.prod.outlook.com (2603:10b6:a03:2c7::33)
+ by MW4PR10MB6372.namprd10.prod.outlook.com (2603:10b6:303:1e9::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.27; Tue, 5 May
+ 2026 12:59:47 +0000
+Received: from MW1PEPF0001615C.namprd21.prod.outlook.com
+ (2603:10b6:a03:2c7:cafe::36) by SJ0PR13CA0178.outlook.office365.com
+ (2603:10b6:a03:2c7::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.15 via Frontend Transport; Tue,
+ 5 May 2026 12:59:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ MW1PEPF0001615C.mail.protection.outlook.com (10.167.249.87) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.1 via Frontend Transport; Tue, 5 May 2026 12:59:46 +0000
+Received: from DLEE207.ent.ti.com (157.170.170.95) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 5 May
+ 2026 07:59:45 -0500
+Received: from DLEE215.ent.ti.com (157.170.170.118) by DLEE207.ent.ti.com
+ (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 5 May
+ 2026 07:59:45 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE215.ent.ti.com
+ (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Tue, 5 May 2026 07:59:45 -0500
+Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 645CxjlD3003518;
+	Tue, 5 May 2026 07:59:45 -0500
+Date: Tue, 5 May 2026 07:59:45 -0500
+From: Nishanth Menon <nm@ti.com>
+To: "Richard Genoud (TI)" <richard.genoud@bootlin.com>
+CC: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Udit Kumar <u-kumar1@ti.com>, "Abhash
+ Kumar" <a-kumar2@ti.com>, Beleswar Padhi <b-padhi@ti.com>, Thomas Richard
+	<thomas.richard@bootlin.com>, Gregory CLEMENT <gregory.clement@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 1/1] arm64: dts: ti: k3-j7: Reserve memory for LPM
+ meta data
+Message-ID: <20260505125945.mxucy4cfpno2x66z@slacking>
+References: <20260427160326.370415-1-richard.genoud@bootlin.com>
+ <20260427160326.370415-2-richard.genoud@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260427160326.370415-2-richard.genoud@bootlin.com>
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF0001615C:EE_|MW4PR10MB6372:EE_
+X-MS-Office365-Filtering-Correlation-Id: ed2ff93a-6b9e-4b9a-7d99-08deaaa62f32
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|7416014|36860700016|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ZBk9qS873E7ZZbicRUQkkOmf70ZSbpaqFC4U2hjaAbEcl6fNfSmsaBkMriVnfyf4PMea66S+DHsFjLTop6ZMTcDBlcv4C97p7K+ytfWUkWcdW5Xr6krZFy1QyV1TbvfbG7UsRnwQvv+hfR6Q/yBVsEu81Lc+Im9o5Flha3xyEtecBw2WWPU3DLcEUmmlOiR8nbQkr0VXsX6+NAG9qOB+DW/sPOTe4HrMwYp348uB8COxB2DwmoEd4oCoQ0j411tsqx0r4DW1z+I9QTZkLzC1g25ZZxJ5cGdhPBtjKXCIpw917hT92S0vommTwYFydCKCXPryTgwrJl3NbwLi6Wp2HD8xz+3W+crPIG8/eR0VymuAzVqhnJtFU6gtOBf1zSzhHGc4FaFolor9n1UKQKG+qi77iFWUeaDsBXHrK7tt1FCS+JqslbzBliqC30nx4ST4JLSexLpk5gHpehkWOmsVUzemST52hI8k8sL1Blb/XvWrOj4dtZ2qQiiKkMMnN49H84zSja5wfNcsdPUIl0FxzrS1z0n29q7WEGG+SKRvv6m9LDeVXp0V258pumjINWAWfoKVIQm3OUg9P5PidXsSx3aOPS8CaR/uhDVx7CX/YIesygcGCLATIdgqGOeJcrGOtExibZJD+cXvxC8xi7UIDjcGqZtya/BfWQjIk622wOsFPhB79zJ943k85wSzlMwf
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(7416014)(36860700016)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	rOLm5r9iEg9TdktgjxozXb+MkJtOpIr7xnqi2Savhu44HZUGkntNkikPMDa2oTGDb9E9Ail7Cr0Pt4ghXDnfPgkvfRaFEjh7rakBHUOj2AnDHy1Rre6EeomiAZR3JrF5ihb9GWrEw663SBTpoqS0+eOPiUyMaSvyZXyYlwBSA02cfR3B4Oo5Xo+A/Z+9hzV7AhzGktrzWuHEK0Zsr0pnvRTAfvf9j9bxg6bgPcbmFJypUvMUyhom2Y4RogEkbFZwNP1TMGkfhSIGMDjMlY9imCZyWlSZHoytwaSIhbQE+Hx6cTG3wbE7W4F4wDOafmjnBpOsvucBTlnUhMktIYd53aXpWFLRDo99N+wod4hde84sSdhTOg0KsTfzfueIzgDTqh8bFbXJb3MX4KAOWQnl30AiFQty7z/6qRhkULLXXNtUlBOABoIVMNTqsWIn0DVU
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 12:59:46.4930
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed2ff93a-6b9e-4b9a-7d99-08deaaa62f32
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MW1PEPF0001615C.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR10MB6372
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+On 18:03-20260427, Richard Genoud (TI) wrote:
+> From: Prasanth Babu Mantena <p-mantena@ti.com>
+> 
+> For TI SOCs J7200, J784S4, J722S, J721s2 which support low power modes,
+> a chunk of memory is reserved for LPM meta data, which is needed for
+> saving ATF context and the certificate information of ATF and OPTEE and
+> DM image. This LPM metadata area is firewalled to be accessed only by
+> TIFS.
+> 
+> U-Boot/TIFS will use this area to save and restore:
+> - ATF context
+> - ATF certificate information
+> - OPTEE certificate information
+> - DM image
 
-The RZ/G3L SOC has 3 watchdog timer channels:
- wdt channel0(wdt0) for Cortex-A55-CPU Non-Secure
- wdt channel1(wdt1) for Cortex-A55 CPU Secure
- wdt channel2(wdt2) for Cortex-M33 CPU
+DM image is loaded from storage, correct?
+> 
+> https://software-dl.ti.com/tisci/esd/latest/2_tisci_msgs/pm/lpm.html#lpm-msg-lpm-save-addr
+> 
+> U-Boot has to parse and retrieve this area from the device tree, thus
+> @lpm-memory node are used instead of the generic @memory.
+> 
+> Signed-off-by: Prasanth Babu Mantena <p-mantena@ti.com>
+> Signed-off-by: Richard Genoud (TI) <richard.genoud@bootlin.com>
+> ---
+>  arch/arm64/boot/dts/ti/k3-j7200-som-p0.dtsi  | 6 ++++++
+>  arch/arm64/boot/dts/ti/k3-j721s2-som-p0.dtsi | 6 ++++++
+>  arch/arm64/boot/dts/ti/k3-j722s-evm.dts      | 6 ++++++
+>  arch/arm64/boot/dts/ti/k3-j742s2-evm.dts     | 9 +++++++++
+>  arch/arm64/boot/dts/ti/k3-j784s4-evm.dts     | 9 ++++++---
 
-Enable wdt0 on RZ/G3L SMARC EVK platform.
+Split this up into platform wise. I dont understand why you'd not modify
+the ipc-firmware.dtsi and use the phandle similar to https://lore.kernel.org/all/20260318-topic-am62a-ioddr-dt-v6-19-v3-4-c41473cb23c3@baylibre.com/
 
-This patch depend upon the binding patch[1] and [2]
-[1] https://lore.kernel.org/all/20260206112227.233229-1-biju.das.jz@bp.renesas.com/
-[2] https://lore.kernel.org/all/20260505123708.134069-1-biju.das.jz@bp.renesas.com/T/#t
+Split the patches per ipc-firmware.dtsi as required.
 
-Biju Das (2):
-  arm64: dts: renesas: r9a08g046: Add wdt device node
-  arm64: dts: renesas: rzg3l-smarc-som: Enable watchdog
+>  5 files changed, 33 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/ti/k3-j7200-som-p0.dtsi b/arch/arm64/boot/dts/ti/k3-j7200-som-p0.dtsi
+> index 5a8c2e707fde..756928a2d411 100644
+> --- a/arch/arm64/boot/dts/ti/k3-j7200-som-p0.dtsi
+> +++ b/arch/arm64/boot/dts/ti/k3-j7200-som-p0.dtsi
+> @@ -40,6 +40,12 @@ mcu_r5fss0_core0_memory_region: memory@a0100000 {
+>  			reg = <0x00 0xa0100000 0x00 0xf00000>;
+>  			no-map;
+>  		};
+> +
+> +		lpm_memory_region: lpm-memory@a4800000 {
 
- arch/arm64/boot/dts/renesas/r9a08g046.dtsi       | 14 ++++++++++++++
- arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi |  5 +++++
- 2 files changed, 19 insertions(+)
+vignesh already flagged this in previous revision - just use phandle
+reference in u-boot and make this memory@
+
+> +			reg = <0x00 0xa4800000 0x00 0x00300000>;
+> +			no-map;
+> +			bootph-all;
+> +		};
+>  	};
+>  
+>  	mux0: mux-controller-0 {
+> diff --git a/arch/arm64/boot/dts/ti/k3-j721s2-som-p0.dtsi b/arch/arm64/boot/dts/ti/k3-j721s2-som-p0.dtsi
+> index 12a38dd1514b..ceab8f057640 100644
+> --- a/arch/arm64/boot/dts/ti/k3-j721s2-som-p0.dtsi
+> +++ b/arch/arm64/boot/dts/ti/k3-j721s2-som-p0.dtsi
+> @@ -42,6 +42,12 @@ mcu_r5fss0_core0_memory_region: memory@a0100000 {
+>  			reg = <0x00 0xa0100000 0x00 0xf00000>;
+>  			no-map;
+>  		};
+> +
+> +		lpm_memory_region: lpm-memory@a9c00000 {
+> +			reg = <0x00 0xa9c00000 0x00 0x00300000>;
+> +			no-map;
+> +			bootph-all;
+> +		};
+>  	};
+>  
+>  	mux0: mux-controller-0 {
+> diff --git a/arch/arm64/boot/dts/ti/k3-j722s-evm.dts b/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
+> index e66330c71593..eebc5cc7d4cd 100644
+> --- a/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
+> +++ b/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
+> @@ -63,6 +63,12 @@ wkup_r5fss0_core0_memory_region: memory@a0100000 {
+>  			reg = <0x00 0xa0100000 0x00 0xf00000>;
+>  			no-map;
+>  		};
+> +
+> +		lpm_memory_region: lpm-memory@a6c00000 {
+> +			reg = <0x00 0xa6c00000 0x00 0x00300000>;
+> +			no-map;
+> +			bootph-all;
+> +		};
+>  	};
+>  
+>  	vmain_pd: regulator-0 {
+> diff --git a/arch/arm64/boot/dts/ti/k3-j742s2-evm.dts b/arch/arm64/boot/dts/ti/k3-j742s2-evm.dts
+> index fcb7f05d7faf..d0752c8a6b37 100644
+> --- a/arch/arm64/boot/dts/ti/k3-j742s2-evm.dts
+> +++ b/arch/arm64/boot/dts/ti/k3-j742s2-evm.dts
+> @@ -23,4 +23,13 @@ memory@80000000 {
+>  		device_type = "memory";
+>  		bootph-all;
+>  	};
+> +
+> +};
+> +
+> +&reserved_memory {
+> +	lpm_memory_region: lpm-memory@ab000000 {
+> +		reg = <0x00 0xab000000 0x00 0x00300000>;
+> +		no-map;
+> +		bootph-all;
+> +	};
+>  };
+> diff --git a/arch/arm64/boot/dts/ti/k3-j784s4-evm.dts b/arch/arm64/boot/dts/ti/k3-j784s4-evm.dts
+> index 6c7458c76f53..114594f37f0b 100644
+> --- a/arch/arm64/boot/dts/ti/k3-j784s4-evm.dts
+> +++ b/arch/arm64/boot/dts/ti/k3-j784s4-evm.dts
+> @@ -23,10 +23,13 @@ memory@80000000 {
+>  		device_type = "memory";
+>  		bootph-all;
+>  	};
+> +};
+>  
+> -	reserved_memory: reserved-memory {
+> -		#address-cells = <2>;
+> -		#size-cells = <2>;
+> +&reserved_memory {
+> +	lpm_memory_region: lpm-memory@ac000000 {
+> +		reg = <0x00 0xac000000 0x00 0x00300000>;
+> +		no-map;
+> +		bootph-all;
+>  	};
+>  };
+>  
 
 -- 
-2.43.0
-
+Regards,
+Nishanth Menon
+Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
+https://ti.com/opensource
