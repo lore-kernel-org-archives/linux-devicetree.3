@@ -1,135 +1,207 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D5543CEC5
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 10:15:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F965438FFB;
+	Tue,  5 May 2026 10:15:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777976106; cv=none; b=XSbrmsVsXUG7gaCST+7WlBed+uQcsxTu86ceG0kIbmJ4JBhoYmFcRqHl35/jZJZ0bVcb0b7ygu3G7VJtlFrInY3rFjArklRJ0uufnvLwwWbq0yphW4ErcXZ5mJL7yHjWWKbMk+zvo4Layn6UuyBDiildyp/1fhQzORohhGAYfuU=
+	t=1777976117; cv=none; b=WUBLzz2Nf3vl5Ngu7ztihubEnMUIjI52qVHuojnX+thdbAUfuQv6E5C3SbXEcwS1Ayb213JqPkYNKlGUpOgBdtxairwgxrCv85ZqkH3XzZaDBHvWyxNU7iLXpK0Wdq5IKDNek5nS+2oER0M/p7w9hvDFwPtoMdH+5QJvMoWZ7cY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777976106; c=relaxed/simple;
-	bh=Xql/uX8TAdN3xnADnpPNMVEpddtMrNDkEa6mSsu8y8E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xfy7d+mkVzDiwzQ/gK8xlQqOYuXtWtbE3ggKImG6f25yeJ24sPw5ywU2qPRdhxzDfWObw4EHlIbx8Nbmgw0ft9j9bEsnTcPwSG76Sr+S2ATqyfgTQVq8RQTSj9kZq2o4mEYV1ef9FU4q9AXECi+YDRHm++EJa8MCYGmSwbGPA0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=JhCUJuZ9; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1777976117; c=relaxed/simple;
+	bh=irhwqt3pKWI8A9+c4uATwd1lfeQj1Qp64GK5X6PBU6M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gf1UfcriNl9ReJLFWahOVE2/WAH4PhjcKgaRQyPcOisUGYseC2JrCGIKnPsMUgLSh5Xr7CZ8jW/f/QC2kFTEJa/YKqedxQ/oDVCYV8kNSKtNLwSvON0AIe5BxR2PBmIVzQh0J05lM3vg7jdw6NVZA0iSySTDiqofgRlCSIo8fDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=QtJKsZHW; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="JhCUJuZ9"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8383fb7143aso807718b3a.3
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 03:15:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1777976105; x=1778580905; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iAonctQOxYmxWwndqnNFpeNxU3FDX0KHXQsR2pNC/7w=;
-        b=JhCUJuZ9d9RHwyD2nNPutfuSDixglIsTTSJBcHq4ZerzIbQroJset4mq7b2ErxO2Kb
-         hJCy50J5aL1qRET1RcK/kmYjuGes7Ptv6nDhXcRBNNKrsWq0/tTVqna56O807pipl7sa
-         e1yOvu6gEAU6q7nM9GhfoHSzSJH9UGOpXG44k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777976105; x=1778580905;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=iAonctQOxYmxWwndqnNFpeNxU3FDX0KHXQsR2pNC/7w=;
-        b=DfN2+ZTOBZBkbjyfQJvFEM/01aD30Z8dgXfbrGMR9JLoE5OPJD+5BX61orvWnWMKlQ
-         c0oRziwvR0rmK/amH6e8WusdY6Es0Ia/Eb8/LeXkwH4KXoHPVyiOLJ05iIBV6EIuOl6e
-         VsihjGBmXLJqcEqhjDz4hKnUbmSzUlkzrs+XAPi4o4WdMlLXuwW4T+8pLKzr9kGv2nV1
-         k1qoxPAqFyuwzwBsfE5qYNTjFq9e8Yfm1EUhoIzEf0gxuZDPwbXb7jtnAaO/9n9S9G55
-         OBjGYZyuQimk/BxNxy9yFx3FwWqz+YYEE+qnUf77/Qy5FcwsaW2MH2tbUv2b6XVX97zk
-         bprg==
-X-Forwarded-Encrypted: i=1; AFNElJ8Vk3wqrZGe4nKY2egguxlZKTkTxqe1gGAiBF9vNKkBm43NQaKvYgiYBD7LqtgqNkx4n5YO2piNZbMB@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz/NVdZQw9XBUfRIAEDMzLYjfEmGxKm/1s+Ol6a+jQNx2m5InyV
-	SCbRuqlSu5Wb9rbPQ2LfhFSOlmYJsHrDmhE7qgf/I3kZj4PdGUdjbnCs58w2YOmK4g==
-X-Gm-Gg: AeBDievUr3eG8jCyR8nfDlYW511dkk0v1AULPOKE8EgS/ieQd41CAvek/XFbVQtGvlf
-	yCXT0YPXP+Dc7dLG2qpDEuScgmO3wmKbBYJG5IcWUZ3p926upuOneWnu3XU/GeakS626CYjab8t
-	6QKUaSh6XzaiTNXCRZB7GG2sFBkl8K/NwtIR4PvB9q8mh0Ph6xQU5Wa4mFlQGOvAitf+xD1y2db
-	Lxon+fPNMWUfb4KYh8iYAOAb3QtczRYD7kyqurbiMFx6ycLSyKGIfhZQ2bKCMEItUkEbOqYMVGb
-	nkiggRRmcANvbzoXJYLZhx/o+EnMV/OMakx/SguShIHZBH0/E22mnwJvIgQmvd4YSiXhLkOIXP3
-	kLW68XusL2qWngWcL/Lr7/NdKb3l9G9WggpUu3sDYWtiZLNxs52Sj2+1dn3lD4KYNaMy67ELIGj
-	F9R89Cwr4VGE08rY9GHZRau9mIqJjtOyGBlyzVjhF0kvWrcSxmCOXVsX16I2jEqinPgBBKUKA6F
-	8RSItLbm+l7awmph6w=
-X-Received: by 2002:a05:6a20:9143:b0:398:7912:cb05 with SMTP id adf61e73a8af0-3a7f1c4a82fmr13892686637.38.1777976104687;
-        Tue, 05 May 2026 03:15:04 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:f1d4:2ef0:7d08:9dd8])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839679c8462sm1666121b3a.38.2026.05.05.03.15.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 03:15:03 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Fei Shao <fshao@chromium.org>
-Subject: [PATCH v2 16/16] arm64: dts: mediatek: mt8188-geralt: Add little core CPU power supplies
-Date: Tue,  5 May 2026 18:14:06 +0800
-Message-ID: <20260505101408.1796563-17-wenst@chromium.org>
-X-Mailer: git-send-email 2.54.0.545.g6539524ca2-goog
-In-Reply-To: <20260505101408.1796563-1-wenst@chromium.org>
-References: <20260505101408.1796563-1-wenst@chromium.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="QtJKsZHW"
+Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B2137874;
+	Tue,  5 May 2026 12:15:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1777976104;
+	bh=irhwqt3pKWI8A9+c4uATwd1lfeQj1Qp64GK5X6PBU6M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QtJKsZHWMFVaYqitfZJGvVeX7ouWbbMSaaLfgMOAMxOO3NO+WlmzNkXqGrNDrZKoy
+	 m2hurIMNnbwPRNxF76UutfbzPLtXgj0eG17LI5SGv0fuUuZy/LQRknnx9Qsul/oS0f
+	 ZjGVbsfozGKrEje54UWlTMV5yHjDhSYPZvJA4xT8=
+Date: Tue, 5 May 2026 13:15:05 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Alexander Shiyan <eagle.alexander923@gmail.com>
+Cc: linux-media@vger.kernel.org, Isaac Scott <isaac.scott@ideasonboard.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Dongcheng Yan <dongcheng.yan@intel.com>, devicetree@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Jingjing Xiong <jingjing.xiong@intel.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Subject: Re: [RFC PATCH v3 1/2] dt-bindings: media: i2c: Add onsemi AR0234
+ image sensor binding
+Message-ID: <20260505101505.GB1547435@killaraus.ideasonboard.com>
+References: <20260306103614.3208182-1-eagle.alexander923@gmail.com>
+ <20260306103614.3208182-2-eagle.alexander923@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260306103614.3208182-2-eagle.alexander923@gmail.com>
 
-The device tree for the MT8188 Geralt is missing power supplies for all
-the CPU cores. Power for the little cores is fed from the MT6359 PMIC.
-Power for the big cores is fed from an MT6319 PMIC on SPMI. The latter
-is currently not working in Linux.
+Hi Alexander,
 
-Add the power supplies for the little cores.
+Thank you for the patch.
 
-Supplies for the big cores will be added once the issue with SPMI is
-resolved.
+On Fri, Mar 06, 2026 at 01:36:13PM +0300, Alexander Shiyan wrote:
+> Add devicetree binding for the onsemi AR0234 CMOS image sensor.
+> 
+> Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
+> ---
+>  .../bindings/media/i2c/onnn,ar0234.yaml       | 109 ++++++++++++++++++
+>  1 file changed, 109 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml b/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+> new file mode 100644
+> index 000000000000..d93fa99e6535
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+> @@ -0,0 +1,109 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/onnn,ar0234.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: ON Semiconductor AR0234 1/2.6-inch CMOS Digital Image Sensor
+> +
+> +description:
+> +  The AR0234 is a 1/2.6-inch CMOS digital image sensor with a pixel
+> +  array of 1940x1220 pixels, capable of 1920x1200 resolution at up
+> +  to 120 fps. It supports MIPI CSI-2 output with 1, 2, or 4 data lanes,
+> +  and raw Bayer (8/10-bit) or monochrome output.
+> +
+> +properties:
+> +  compatible:
+> +    const: onnn,ar0234cs
 
-Reviewed-by: Fei Shao <fshao@chromium.org>
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
- .../boot/dts/mediatek/mt8188-geralt.dtsi      | 24 +++++++++++++++++++
- 1 file changed, 24 insertions(+)
+Should we define separate compatible strings for the mono and colour
+variants ? I know you identify the variant at runtime in the driver, but
+avoid I2C communication at boot time can be beneficial (to reduce boot
+time, and also to avoid flashing the privacy LED on systems that have
+one, albeit the latter is probably less applicable to the AR0234).
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-index d57e0eec676a..4cb23595d17b 100644
---- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-@@ -217,6 +217,30 @@ &cam_vcore {
- 	domain-supply = <&mt6359_vproc1_buck_reg>;
- };
- 
-+&cpu0 {
-+	cpu-supply = <&mt6359_vcore_buck_reg>;
-+};
-+
-+&cpu1 {
-+	cpu-supply = <&mt6359_vcore_buck_reg>;
-+};
-+
-+&cpu2 {
-+	cpu-supply = <&mt6359_vcore_buck_reg>;
-+};
-+
-+&cpu3 {
-+	cpu-supply = <&mt6359_vcore_buck_reg>;
-+};
-+
-+&cpu4 {
-+	cpu-supply = <&mt6359_vcore_buck_reg>;
-+};
-+
-+&cpu5 {
-+	cpu-supply = <&mt6359_vcore_buck_reg>;
-+};
-+
- /*
-  * Geralt is the reference design and doesn't have target TDP.
-  * Ciri is (currently) the only device following Geralt, and its
+> +
+> +  reg:
+> +    description: I2C device address
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    description: Reference clock (external clock) input
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    description: Reset pin, usually active low (if needed)
+> +    maxItems: 1
+> +
+> +  vaa-supply:
+> +    description: Analog (2.8V) supply regulator
+> +
+> +  vdd-supply:
+> +    description: Digital Core (1.2V) supply regulator
+> +
+> +  vddio-supply:
+> +    description: I/O (1.8V-2.8V) supply regulator
+> +
+> +  port:
+> +    $ref: /schemas/graph.yaml#/$defs/port-base
+> +    description: CSI-2 transmitter port
+> +    additionalProperties: false
+> +    properties:
+> +      endpoint:
+> +        $ref: /schemas/media/video-interfaces.yaml#
+> +        unevaluatedProperties: false
+> +        properties:
+> +          data-lanes:
+> +            description:
+> +              Number of MIPI CSI-2 data lanes. Supported values: 2, 4.
+> +            minItems: 2
+> +            maxItems: 4
+> +            items:
+> +              enum: [1, 2, 3, 4]
+> +
+> +          link-frequencies:
+> +            description:
+> +              Allowed MIPI link frequencies in Hz. The driver expects two
+> +              frequencies: one for 8-bit and one for 10-bit modes,
+> +              typically 360 MHz and 450 MHz, but any frequency supported
+> +              by the sensor may be used.
+
+What the driver supports isn't relevant for the DT bindings. The
+frequencies should only be limited here to the range supported by the
+device, regardless of the current driver implementation.
+
+> +            minItems: 2
+> +            maxItems: 2
+> +            items:
+> +              minimum: 360000000
+> +              maximum: 450000000
+> +
+> +        required:
+> +          - data-lanes
+> +          - link-frequencies
+> +
+> +    required:
+> +      - endpoint
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - port
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        camera@10 {
+> +            compatible = "onnn,ar0234cs";
+> +            reg = <0x10>;
+> +            clocks = <&clk_ext_camera>;
+> +
+> +            vaa-supply = <&reg_cam_vaa>;
+> +            vdd-supply = <&reg_cam_vdd>;
+> +            vddio-supply = <&reg_cam_vddio>;
+> +
+> +            reset-gpios = <&gpio 42 GPIO_ACTIVE_LOW>;
+> +
+> +            port {
+> +                ar0234_ep: endpoint {
+> +                    data-lanes = <1 2 3 4>;
+> +                    link-frequencies = /bits/ 64 <360000000 450000000>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +...
+
 -- 
-2.54.0.545.g6539524ca2-goog
+Regards,
 
+Laurent Pinchart
