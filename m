@@ -1,212 +1,191 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012056.outbound.protection.outlook.com [52.101.48.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C073B636A
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 05:32:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777959158; cv=none; b=Yb/nKU0PEWMvbmL8o/rihnbTpVvjn4F0/xBBTDkr7oo+5fahtdPjgw4agYpEDaW7MHx3kiPiIy4BCP6ckbcBzYPuKz16IQpiEyT6DkudZNGXAr4CLm9Sw7M4xiOG+0qGRmWKUxcJSGb1wZVVcpYS4ATXUIX5z91Z2TKAUrEIyRs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777959158; c=relaxed/simple;
-	bh=Zf/Oi6MhLnJyKz8VujhJqisPDWxr4yB5R7/vc6z2gm4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XbfKLFkyUhCP7D8eLgBMY3+CVGE/dY0G7co0B4ZN2K1jBp55o2fV8LzgTFL42Rz7txapvMIEIwlK+oc9CXjAjmfw5K/exQnd/Dm4fb4KABoqs5P+scQuMLeCrUiYONh6mDJcPHs8UPmCDH2GqxjKmsauSM2kTUYNw3RQ4aLsUVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GSIXBVPK; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EA73BE17E;
+	Tue,  5 May 2026 05:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777960709; cv=fail; b=fUXGpfobWX1WCx8RGd5m6QqyrqO4e8I+/4UPH0ziMx4m4vuAkdeEO6pSK97qQgC0Z3dDD4qsHme2Q1KZpP+jvvCVrvWJlDK5dyPQKK04PZC82HVuPTU2mzuR1HtSkRY+AFsz72VBI6ot7hr/rQqqGT5VtjtDzg4+Eo8NuErt6cM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777960709; c=relaxed/simple;
+	bh=d47zGCHc3hD6NU1ELpyH77lrBRXsTC2mivPqFkBo3ks=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=SSJfSbNGG3YqG/gpvA05zCC0rjRtgIsN+6zDLYL9TA23r9KnW+01Uq4oNQIQ+6DgUGwSTG3Rt/6L6ZiSQGyzbOIb4YlaUOsJKDPC4UBY+YSYNfee299crBbFk8UQyCZQgVXZCOc94gc3i092S7HHjrxywv8uJhNuDIj4kWQruFQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=mAKqZ5IH; arc=fail smtp.client-ip=52.101.48.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GSIXBVPK"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ab077e3f32so18035005ad.3
-        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 22:32:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777959156; x=1778563956; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=uIV0LcEpykTmV5tvFks4fy+hbUPeuDUPjcF4e2eUCYw=;
-        b=GSIXBVPKHX/AYVuI1oPlaIDd3cdFODFlO1V7PZxcykKZDJMM2ApvnbDkbPRgGmLSdE
-         McH9C+o4mKvkU/iMDFfXBEyCW4q5LZyqp1OzlaMwWJZ/J/uyLh4RQfxW04zHJ428ttS5
-         GVfIhyR6AGNAZYqw6XDHDIAPPMIYpbdvhRPKVOcBOyBYPZIJIGdyslOhzzj+BtNkQ3wX
-         t1DdmlUPEpQY3ZLX6Yc6SHrweFx58do5TlGQCv8Y4ahJGGXnWGweSVAfBFCrAwNPwrVp
-         0+ssyN2sVRSVib/7fP5mTG2jlMc/Wh78lX8RetNFz4XN4mAoxaop825glqkwt+Iezkl6
-         zJgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777959156; x=1778563956;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uIV0LcEpykTmV5tvFks4fy+hbUPeuDUPjcF4e2eUCYw=;
-        b=AMqqc8FFavLjxi8okrknVPoRGoQUqmcRNG7aJuMomFX0tpZho9wYnjxjpVl0BKytbY
-         4EQGGyB/gmz/QXJDoyCTJV40nyhTiQB/YrJ4Be94OzZuqIOwT74xLWMW7V/qgkUq5gkG
-         KckZAWU1xXa1QB/yoJixnprDsbC4kvM3F1ryrG23Zq+kauIK1e/x3GNgBxDmbTgw7etW
-         Q1bJG/9QagovwM825O5z6nee8/Gz5Y59NJCBzkA4PMsnprxGexzfCHnGA8afi2YrifIa
-         6oO6XjrYPhp6p6e+C2n6ksYHuJzbINEjZbpf4m4K4whXkhjvQNE+UCu3bl+USsUes2qp
-         SnoA==
-X-Forwarded-Encrypted: i=1; AFNElJ+iIwV+zcshn1EVNquKoZgqV2DAjO7pn17DfG5Zjlb7i2OSLBBlnOZTr3izP4GderAL9+T3k5MUNhK4@vger.kernel.org
-X-Gm-Message-State: AOJu0YxGR3NybVSCY9IYmdf3pUT03xjk1FHRHfJXHE3hNQ6RgCdqkgI0
-	kcQaxLVvMUTz9pbiBHoZ7tm1f37yoe4pnQSuhj6AHEhHmh3+r8emoYmf
-X-Gm-Gg: AeBDies12cdRTPM5sktiLJag2ne9WRMu3jX4db0KgZD00VT43cVNwi7+NMeUz/fyHPz
-	7+9iT9mPcngahntTnZE0X+nbp5S4HUjVsq7i2rDIG7X/VAItJ+qxxY34FlCoqg1KsDQfPitRgAW
-	5XL3G4G61rNBM6ElXvP8PvPlMRRWbbVW2f9+q4Dd0gHMx+m+3pkoJgaYi9p2+87SGDG7MB1Yk6M
-	wJ7e0unDXJiUuhZkVDkU4sk2Zc0R2o2j/D18ZFaaxZvqLW1emHoZYm3e7WUZeLNHVLGsUYWuYrU
-	U1Q8+i4EeDyT07DG3KIHQpREvEUvx8PpC2sNEBXoFRlgcsnavV/feo0jBanilRIxIOjxWq/BuuI
-	LsKh1bJ2Vv70IFraRWcC2LYRvIr6Bsov0YDt8wUP2+hhHFn43P283oGIsCXY4PqICGIeCVR1P0m
-	UUUxnUd7TSwYYC0ifKzco6yvlFfg3eieZe4LHF+Ftduy1/fIiKabbPtwEjUh1VZhWnoaCotRBl0
-	84BFkLLGFIaxVZXLuuu6g==
-X-Received: by 2002:a17:902:e547:b0:2ae:6259:5aff with SMTP id d9443c01a7336-2ba535ae6c3mr15910545ad.6.1777959155886;
-        Mon, 04 May 2026 22:32:35 -0700 (PDT)
-Received: from chaitanya-virtualbox.. ([103.249.241.52])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b9caaadb1esm128161535ad.20.2026.05.04.22.32.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 04 May 2026 22:32:35 -0700 (PDT)
-From: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
-To: wsa@kernel.org,
-	thor.thayer@linux.intel.com
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
-Subject: [PATCH] dt-bindings: i2c: convert altera i2c to dt-schema
-Date: Tue,  5 May 2026 11:02:01 +0530
-Message-ID: <20260505053201.5795-1-chaitanya.msabnis@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="mAKqZ5IH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ryvJOSvZD6d1dWMt47xel0ADCQlPsLBEfRpAOYWaNxlvrYjXGB134PDeeFMpmyhQPQ2Bwm9gLFXrgVbVc3JRQjqhrI6OPz8SxLwyqVIGgSlI1W/dh6Q55csN+i6iRAjIzPG2VLoCkLIV5ntXZD8YTBSLFuGayag68FbJBl2taSI0n9730czrHiGAU6RcUmC+Y1a3/8g8GTDjd03oVszoxYoUnq80JHEbjXBI3bmVQ6vBkcspcIF4udk3n/tXycsyxz+/PRc3Cz40yLI550AOs+xXpWcQDx4vvMUfypdQs0i+55cFRq+dEM5F7qnRsEs7pF2p3JNQM917O/au1k7oKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kddPkpre7ME5y3bcroj6Je9pgogY2lLTOokJDaid64A=;
+ b=p8LxWbauQDs7p9569EFXegIWJBSy9f1lO67Uao+OguaTJHOIZx76sWNW9EtxESP2tBNTHtR2JbEaz5hbfK37+HiYa3hyeOY/2nbmo/E+mfoOlqcAj9Spd1zp16WefIky9Nck7eBu72dEao58upuc7L7ikBPiTaeabkykEHREUgUBbD80z0JBw+7qoMt4uLoTkmejR0QQqqv+aDhb/LnrCjq8Tc5y8NC/Fr0hnLEEYqCvDYerY5veiBAb4hnR59Kq+ygUYrApjfT760iscy1Sa7zW6CwveiLy8saNSI5xl9+usvVtDZopUlbJ/mizBH4gHwn6tjLMxhuZCkGCAv6fMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kddPkpre7ME5y3bcroj6Je9pgogY2lLTOokJDaid64A=;
+ b=mAKqZ5IHtB+JqNGbc9yP+hvWUx3wyQ7pXdtPFn10YbpP6hIELeqR+sekWcfd++a4sdAOQv1HoB4DsYQR+4PDlcJE7k1DgNlNacPYMIv8gjO7wpz6pE/Sfoa3Gq4Yxt+s3ZASjwABwAyxlx82EcxZXccgotl8PHVOoPipQMqGKWs=
+Received: from BN1PR13CA0012.namprd13.prod.outlook.com (2603:10b6:408:e2::17)
+ by CY8PR10MB7195.namprd10.prod.outlook.com (2603:10b6:930:78::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
+ 2026 05:58:25 +0000
+Received: from BN2PEPF000044A2.namprd02.prod.outlook.com
+ (2603:10b6:408:e2:cafe::22) by BN1PR13CA0012.outlook.office365.com
+ (2603:10b6:408:e2::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.13 via Frontend Transport; Tue,
+ 5 May 2026 05:58:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ BN2PEPF000044A2.mail.protection.outlook.com (10.167.243.153) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Tue, 5 May 2026 05:58:25 +0000
+Received: from DLEE206.ent.ti.com (157.170.170.90) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 5 May
+ 2026 00:58:24 -0500
+Received: from DLEE204.ent.ti.com (157.170.170.84) by DLEE206.ent.ti.com
+ (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 5 May
+ 2026 00:58:24 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE204.ent.ti.com
+ (157.170.170.84) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Tue, 5 May 2026 00:58:24 -0500
+Received: from [10.24.50.20] (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6455wKDZ2612260;
+	Tue, 5 May 2026 00:58:21 -0500
+Message-ID: <1f06c527-4806-47a9-aa3d-70a01c5390f9@ti.com>
+Date: Tue, 5 May 2026 11:28:19 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] ti,j721e-system-controller.yaml: Allow
+ audio-refclk as clock-controller child
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: <krzk+dt@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
+	<nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <u-kumar1@ti.com>, <gehariprasath@ti.com>,
+	<y-abhilashchandra@ti.com>
+References: <20260330094459.128648-1-m-shah@ti.com>
+ <20260330094459.128648-2-m-shah@ti.com>
+ <20260331-flashy-hilarious-whale-6e606c@quoll>
+ <62dd6a7f-7a5b-4939-a18d-8b763f6e8f9b@ti.com>
+ <0c78744d-6bdb-4b0e-a0bc-039bb6527476@kernel.org>
+Content-Language: en-US
+From: Moteen Shah <m-shah@ti.com>
+In-Reply-To: <0c78744d-6bdb-4b0e-a0bc-039bb6527476@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A2:EE_|CY8PR10MB7195:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ddec9c5-5341-4cd7-74b3-08deaa6b52a5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	TSa/8W1f9NeEMg94cZoipuTCjdY6oYHrnCS09s8UlROWVnbBWx+pnBVkSiLV7K5tz3yaBBFNuQDGT5vMAkEi40HaefwNWQKTWvmYtJ9GlqyKMB1hQp5xkusV5h2Pep4eaKeKAHNnzIQm49Dl8al4EdraXoVg9c7gmehmLqohg6cYACC9N09IbalESRiirLEZFcyRo10EgAyQAcplEdqnNumdaDJgCA/3QaUv/ykDdCxmHUa9Ll21U4GC0c9O2nkqW8b33hFelRa9yi8t8gloN8I485YXR2GyJ+MSaaTrPnT/w/MYT2OjOsaILpC75A8Mek6Z1SZW2k91WxbBz5SUXI3dBLyvmuQQrDZvKFq36BiDvUNfkHb0TDrMEqUx48uv0AxNTcpE35YRBdkms2rWHVfZ2qcmqs1y+YXsjWyxnQxhq31o411JvC4VkQ1dwpqj5Ay/Jjp1zfhU2kJv4Ie8Wrjomfd7BS+hzlIP/IkUdAm8TC2e1HXpeAVyCrb+5VklzJnAgWoWCbv/1FLe+097v4wCobx1jqI/eRPIZFczyNbOL/r5oaYgn7uA+2R8gLvRt+Ae3H7s/KNhdYSdkDMPtNkzSEjCcqTS1BE4nLGF34MCbBOlojJ9Fo3ocMEfpIE7tBA+VX9fQSDiLuTtS7TZO8fTlK9pXVSi/gmk1OM0cjWfmSEg1HHWvI49Hf9s4H6QLB6kCLWHEuEOhSs7zW1C1R5XW6weX5o1seWGtL/X6L0=
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+1UfVy5yYbrcEzYLA2cwvgpSR58fbT9nL/UwFTv9wO7qMDfJdaZsAoxKT8Zqqo1rz2ZVTp0wsqLASR4A734SmWNS0CIKSzCVEkRpRMkNHpRfACpmiIszn1qNah5vq/PEh2wxUbKP1zsI7kKLg0wPaudWL3mgECIfihRwkPmkSDdHpiS9aMJvsydOAqOJIGTEK0covYXubp8fopJQ3cx9TlLd66dRhTozJy8R8I0gTYFQmPjEBwL3CdcKsHl34qk8TOP+uHaSJMXADW9N1F42fMsLfptDybLbzrg92qoHmf1xvSm8Hc4UzT00mRW13iOavT4GhgfVNAdlSI02RLgsNV20OIB2dM0zsqmhBZGBkZGZkH3gTwduKP8uFyOHguWOppArhSCWptXSQDKBwULOfBQKrWYQ9bQTJZnHKcPlSOOT4mqZj8lVyI9T5bx0LCyi
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 05:58:25.6858
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ddec9c5-5341-4cd7-74b3-08deaa6b52a5
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000044A2.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR10MB7195
 
-Convert the Altera SoftIP I2C Controller bindings from legacy text
-format to modern dt-schema (YAML).
+Hey Krzysztof,
 
-The hardware constraints and properties remain identical. The example
-node was updated to use a standard 32-bit address space to clear
-compilation warnings.
+On 07/04/26 11:23, Krzysztof Kozlowski wrote:
+> On 07/04/2026 07:46, Moteen Shah wrote:
+>> Hey Krzysztof,
+>>
+>> On 31/03/26 12:39, Krzysztof Kozlowski wrote:
+>>> On Mon, Mar 30, 2026 at 03:14:58PM +0530, Moteen Shah wrote:
+>>>> The ti,j721e-system-controller binding currently only allows
+>>>> clock-controller@ child nodes to reference the ti,am654-ehrpwm-tbclk
+>>>> schema. However, the system controller on J721S2 also contains audio
+>>> J721S2 or AM62?
+>>>
+>>>> reference clock controllers (ti,am62-audio-refclk) that use the same
+>>>> clock-controller@XXXX naming pattern.
+>>>>
+>>>> Hence, extend the clock-controller pattern to accept either ehrpwm-tbclk
+>>>> or audio-refclk schemas using a oneOf constraint.
+>>>>
+>>>> Signed-off-by: Moteen Shah <m-shah@ti.com>
+>>>> ---
+>>>>    .../bindings/soc/ti/ti,j721e-system-controller.yaml         | 6 ++++--
+>>>>    1 file changed, 4 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml b/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml
+>>>> index f3bd0be3b279..d5d84a8f1257 100644
+>>>> --- a/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml
+>>>> +++ b/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml
+>>>> @@ -53,9 +53,11 @@ patternProperties:
+>>>>    
+>>>>      "^clock-controller@[0-9a-f]+$":
+>>>>        type: object
+>>>> -    $ref: /schemas/clock/ti,am654-ehrpwm-tbclk.yaml#
+>>>> +    oneOf:
+>>>> +      - $ref: /schemas/clock/ti,am654-ehrpwm-tbclk.yaml#
+>>>> +      - $ref: /schemas/clock/ti,am62-audio-refclk.yaml#
+>>> Alphanumerical order.
+>>>
+>>> There is no ti,am62 in the top level compatibles, so why am62 is here?
+>>> Top level has j721s2 but this ti,am62-audio-refclk.yaml only am62.
+>>>
+>>> Best regards,
+>>> Krzysztof
+>> The "ti,am62-audio-refclk" compatible refers to a shared audio reference
+>> clock IP block that was first introduced/named on AM62 but is present on
+>> other TI K3 SoCs as well, including J721S2. The compatible string
+>> identifies the IP block, not the SoC family.
+>>
+>> This is already an established pattern —
+>> k3-j784s4-j742s2-main-common.dtsi uses the same compatible for the
+>> J784S4/J742S2 audio refclk node.
+> Please read carefully writing-bindings doc.
+>
 
-Signed-off-by: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
----
- .../bindings/i2c/altr,softip-i2c-v1.0.yaml    | 62 +++++++++++++++++++
- .../devicetree/bindings/i2c/i2c-altera.txt    | 39 ------------
- 2 files changed, 62 insertions(+), 39 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/i2c/altr,softip-i2c-v1.0.yaml
- delete mode 100644 Documentation/devicetree/bindings/i2c/i2c-altera.txt
+I am planning add another compatible for j721s2: "compatible = 
+"ti,j721s2-audio-refclk", "ti,am62-audio-refclk""
+This will eventually be falling back to am62-audio-refclk's compatible 
+for now, since we require the same functionality as 
+"ti,am62-audio-refclk" but if in future someone wants j721s2 specific 
+change only they can use the new compatible for j721s2 specific usecase. 
+Does that sounds okay?
 
-diff --git a/Documentation/devicetree/bindings/i2c/altr,softip-i2c-v1.0.yaml b/Documentation/devicetree/bindings/i2c/altr,softip-i2c-v1.0.yaml
-new file mode 100644
-index 000000000000..d04570680c05
---- /dev/null
-+++ b/Documentation/devicetree/bindings/i2c/altr,softip-i2c-v1.0.yaml
-@@ -0,0 +1,62 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/i2c/altr,softip-i2c-v1.0.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Altera I2C Controller
-+
-+maintainers:
-+  - Thor Thayer <thor.thayer@linux.intel.com>
-+  - Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
-+
-+description:
-+  Altera's synthesizable logic block I2C Controller for use in Altera's FPGAs.
-+
-+allOf:
-+  - $ref: /schemas/i2c/i2c-controller.yaml#
-+
-+properties:
-+  compatible:
-+    const: altr,softip-i2c-v1.0
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  fifo-size:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Size of the RX and TX FIFOs in bytes.
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c@80000 {
-+        compatible = "altr,softip-i2c-v1.0";
-+        reg = <0x80000 0x40>;
-+        interrupt-parent = <&intc>;
-+        interrupts = <0 43 4>;
-+        clocks = <&clk_0>;
-+        clock-frequency = <100000>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        fifo-size = <4>;
-+
-+        eeprom@51 {
-+            compatible = "atmel,24c32";
-+            reg = <0x51>;
-+            pagesize = <32>;
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/i2c/i2c-altera.txt b/Documentation/devicetree/bindings/i2c/i2c-altera.txt
-deleted file mode 100644
-index 767664f448ec..000000000000
---- a/Documentation/devicetree/bindings/i2c/i2c-altera.txt
-+++ /dev/null
-@@ -1,39 +0,0 @@
--* Altera I2C Controller
--* This is Altera's synthesizable logic block I2C Controller for use
--* in Altera's FPGAs.
--
--Required properties :
-- - compatible : should be "altr,softip-i2c-v1.0"
-- - reg        : Offset and length of the register set for the device
-- - interrupts : <IRQ> where IRQ is the interrupt number.
-- - clocks     : phandle to input clock.
-- - #address-cells = <1>;
-- - #size-cells = <0>;
--
--Recommended properties :
-- - clock-frequency : desired I2C bus clock frequency in Hz.
--
--Optional properties :
-- - fifo-size : Size of the RX and TX FIFOs in bytes.
-- - Child nodes conforming to i2c bus binding
--
--Example :
--
--	i2c@100080000 {
--		compatible = "altr,softip-i2c-v1.0";
--		reg = <0x00000001 0x00080000 0x00000040>;
--		interrupt-parent = <&intc>;
--		interrupts = <0 43 4>;
--		clocks = <&clk_0>;
--		clock-frequency = <100000>;
--		#address-cells = <1>;
--		#size-cells = <0>;
--		fifo-size = <4>;
--
--		eeprom@51 {
--			compatible = "atmel,24c32";
--			reg = <0x51>;
--			pagesize = <32>;
--		};
--	};
--
--- 
-2.43.0
+Regards,
+Moteen
 
+
+> Best regards,
+> Krzysztof
