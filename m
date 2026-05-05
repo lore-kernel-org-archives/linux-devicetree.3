@@ -1,108 +1,129 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E57337FF69
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 11:37:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777981047; cv=none; b=rDtXNW4/ZNdDuHJhoKzt3dGIduBbUt0tc3o1f6pir16+tqBu/dMVikTzGryWNOidPue15S/SaAeFb/DDiL+1OoTFdKS87pElh6NnPo2w8tNSPKRPze31Ft3ggrQvPZYcAZfekcrjVOi3YCeFM+IYFgacFsB2vCmoT0WY3FrqsxE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777981047; c=relaxed/simple;
-	bh=hNk5hAGBEBQ3Qc10Py1DmI/n/SS0XTIkRTMGQ4NLmzY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FFsY/1uwNYys4J5kxJ/L9Lx/DZuGEaDgdAT9z6guINxwSkZE5Jx1fr8frPYAsYw06DM+g28CwTTVTeR18DOb+1gWi0FQLno/+d1bB8ZlorepHFo8xQWjvrL9w2hk4jZ5u4ZKTWq0OtlOzQI4743EfKL5tDcy/rt4b70Y1tpxO0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T6kkDfja; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E864637FF77
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 11:43:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1777981385; cv=pass; b=J7mu/iabthM7s6lv0JZqVqFvYQXHHmh42I8cU89TVo3VUoNIcx8tTUJsVtMcIj8GtjpQhUkumbuqaJiNqojW25saITm2Umk/2ZcIfLUtgHm3GfEiy6Ab6M6A/4GW3v2PhjGSDpAMxpmVfen4wa5ZnyuDjplh1ZAwVNNg1MvHdnY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1777981385; c=relaxed/simple;
+	bh=uW95L79+oRSfL6rUWy9JAkaDOq8YV0W5D8GzHWw5BHo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bAKxsPCLaDdUWc8oOsnOiHxiTNRVgYk+CpjN4z7YA3QzNtl4Z1Iz8Krlf6do/wX/khRKxQdIKy5vaqC9MIqTDFPwYnXoiZfh8WS4K6EsSlpWisXOgiZ2Ie1eQCDxo41Lw5amtQT3inqOTtCIKkhPsO8cPGBaY0c/L8Mw9A/stZc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LlvDeqWZ; arc=pass smtp.client-ip=74.125.82.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T6kkDfja"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-483708b697cso6785175e9.3
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 04:37:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LlvDeqWZ"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-2f30a4601bbso1858756eec.1
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 04:43:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777981383; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Q4ASBoAl40InOAEHk2Jc5zyi4BYMzHd9JIybtxgivHRIe7uMboLmvEX+AWojQIV5st
+         rKZ67fwTen9ovpEfP6TTXJNH2ylbysELjK4O3Q0T+3+kni80lk2CX4OTKOJdZWoT0io2
+         T6fOf6kzpMIQw8e1afukUmMG27IQC1w7Bc/Zm1h6/0o25uNMEA4xB11Nlj5Jfnqpm6r1
+         WLRDByW4eL+wsAnj7QSw+AhfM/inhz1VdocHrIKH5nKKId8JMQIVgg4uU0CU6b6uGBVw
+         KsSISjPOW49Vn9XNvbLga3t2gSzbaePV/7vgIz1HxUA4vwAdkuo26odipQAbpbCv72ub
+         p5jA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uW95L79+oRSfL6rUWy9JAkaDOq8YV0W5D8GzHWw5BHo=;
+        fh=hpPEzeYqw7N1UpqEg4bdSvACzgfDWH/Pkb41X0U/Tuw=;
+        b=A9aPm69D39HriZXtjPg1fHd0PumaTf8z6uOLXGioptCq4B7E+oUgOcOmUg+kROYGTh
+         /+QfSrwVPrDEGXlUNbBydsL2dKqm63LItY99odJs5x8XCl+FwQsuGnArps+UA6/oPZU3
+         hC8Xxy662sCPXBrKFi6lu6lj6mhImoHKc6P3tfhYvXh9FTqZXJNn5xSBCvhSvlJo6RhE
+         YFGhrpbWkChd+v2M9iY5L+bDMVT4QU/6i3kbCA78SIEJz2Qaz+nkzP7gTGYz/I40fXGu
+         axNzELkBxZpLE2HJ4KOhMOKArf09bkKSwYRWESV5gH4DFFLJ09SPVhxQWUVhiVlZ4JNt
+         0JLg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777981045; x=1778585845; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZdRzt5sMT7kBUftNf4L682EBI7TwKGESedWlm0GTlT0=;
-        b=T6kkDfjauEUPccs1q9A8IksR3MEkuHXkXPZVeFfTE4kWZOxrnsvGtJTNUb9HGbZi0g
-         x0oj4TN2QbjOP7DQssm+i95xaCwO+vsZibbSMneBOX6VRF650z32RYVzZWLHWFacm9jH
-         CoTM/BF7fdU22x3jX/RT6YeD2ukOhU4XsAT46nIPCbOa11WXHCRgXy4gybNTaXjaK2b4
-         kF/GSj1f/75IJ9/BH4jaF9g2tJDVDaZtehvsdeCr9VR8z/GNvIPsp/JIy0TWm+OliTBY
-         K9xVSIM10LSeSziBbUzHJi4z61eCdvwJSzUqj3KcheuJDcWkrmrzjDR9pcMtm7pzGksW
-         7clw==
+        d=gmail.com; s=20251104; t=1777981383; x=1778586183; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uW95L79+oRSfL6rUWy9JAkaDOq8YV0W5D8GzHWw5BHo=;
+        b=LlvDeqWZ3LOUSYK/+CkN0q6gDnkNxVdHakloChAskA/ra95flTUDBEpVxdkddlcnXw
+         XLLkMqZb3uHBuTae7csHl9WrQAiBo0K2r6wQggS0aIkkUQtbSkFrflii3Fb7MVuULXyt
+         2vfHVX6qU4Uguy6gky6lf8FWcpAtbSagnyPXJfCOke3YTj1IYgAEedxN5FPNW9a6JCIs
+         bAeM5MQVlrMghKZxrNvNTwkUDTIG1Wc1qDERyIV6YYpIptb/YguJJFHsBNyWZAu++QXn
+         AZqfsywihkyUVkMOArLep0jtBwPrEJOQRljt8DuocFCG6JzOIl4f85Rx12/pwdFTDL40
+         8v+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777981045; x=1778585845;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ZdRzt5sMT7kBUftNf4L682EBI7TwKGESedWlm0GTlT0=;
-        b=GQHFep3lsJhoJcC2Nr9FCbmdyq/KXarAGoL2YE5IqfUOspgSNO/JQgCXPoXgAv+aUZ
-         pod7ox2HtbeqoDi5kKBE1NyWtZ/Bf6aZhUs3MgEx/rtGkfF+RXXL4dd16yYAJAbWIToI
-         OofI7ZIwJgzVdLiD67BLBJ75eaA6aFFI7WS5mlKd4immd1ws5VBD5l5jCpLwfeb8Dape
-         Ztxs4jxL2yaVCzYJ7cn6dtKOMlik1A5D8dxsaKZsgj/yecKR1swfMoquCajHPJGs6owv
-         eUPksUdUJqSa5d/48WN2cbi0EtyAGW876EADyCdyFSV3NNtN/r3qZvXyhUUC8RlKRUe8
-         IF5w==
-X-Forwarded-Encrypted: i=1; AFNElJ/vq0CAOxjN69MxVHjbbAbK5JAr+qxN6QycQUSaElctmtHUbMJyKX0Z3HRwZqHugDQgsgSIhBuLfB1s@vger.kernel.org
-X-Gm-Message-State: AOJu0YwiBdJaJ+iXhbMRqk2e7qY8ORn+xBmy5z+LZGG0uYde6b/0B06H
-	zfPB8PUj1rUnbVewPZdPD1KfF+wwJqBE6lfWqZkvAG8ei11yIaMRraQo
-X-Gm-Gg: AeBDiesKyBFRDMdG463//1lE7fzY4Qdoyah+TOouMLDxGMow7sYh/qNd8F8HL6fC3qS
-	1kCoEETguwrOU6usDLpiqOIioQaPXDyBb8L5hR3XyhY9StY61+KkTTATiUnzEubJWO9RZsuE72r
-	nn76+86cvP0kugLDszMVG+/Cqsgm+Pn+QSYt7z9SVWeLLooqvbgO1Rvf3ZZ61qCnZ/lMDIEPapQ
-	f10XJXDfVlvaeFfbA3GS7dipQOv7kJ+JNoJZ/Dm8SRxfnikDePHU7910SyxkRMiu588W7K084nF
-	w0E9+PFHO/xacmukG4lsLOvYr7s8OyHteyBPculRId9NwLDyLmVx80ZNlp/gB3iSi/V4ORL1Kmi
-	lGhDdLkFKQMecCE6f2RA6o2EeyOOaeaUC0W9WQxUUb6B5QTnAM9OLS7iKNXvQBfJ82aCgvUlniJ
-	10q/+exx53y0WltKf1gsG3Z6t9fQ==
-X-Received: by 2002:a05:600c:444c:b0:489:e696:127d with SMTP id 5b1f17b1804b1-48a9866a67dmr112715415e9.5.1777981044664;
-        Tue, 05 May 2026 04:37:24 -0700 (PDT)
-Received: from skbuf ([2a02:2f04:d403:cf00:9b58:9830:baf1:5f76])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48d181efbdfsm15094235e9.25.2026.05.05.04.37.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 04:37:24 -0700 (PDT)
-Date: Tue, 5 May 2026 14:37:21 +0300
-From: Vladimir Oltean <olteanv@gmail.com>
-To: Rustam Adilov <adilov@disroot.org>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stanley Chang <stanley_chang@realtek.com>,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/6] phy: realtek: usb2: support for RTL9607C USB2 PHY
-Message-ID: <20260505113721.ur4qd4udu7jas473@skbuf>
-References: <20260420191941.81834-1-adilov@disroot.org>
+        d=1e100.net; s=20251104; t=1777981383; x=1778586183;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=uW95L79+oRSfL6rUWy9JAkaDOq8YV0W5D8GzHWw5BHo=;
+        b=s3l+6lwNTmZnXdABZvx2xomyKqzUzC0ziP3ax1ibNe6deCzFyMRdURPjodzsWQ08YE
+         KDtNkMIHfZzRnFH64A22F+bbA2ruJLtpg5QXSRlGHYOg1y/5NANBpPFDdWnUVmag37ZA
+         hPai+bh/CTQf4Fq3k6/n7kCzkfbBUxEBVU+8CCOVF9eoaJE8AYn5sOOTQ9NySnfYTPOx
+         jSNss/Okuh5hU6OIIX+1dyeOsEVKsNOs9l7oHmYaIk3PLq9sprGHA2I9eDAGMeA50jMh
+         vfKl+ah8cA9JZmG5HJgbRpjvYmjzF3sl4SferbbDq6/HZ33khxzeBpaAMzTdsnZry4eX
+         X2kA==
+X-Forwarded-Encrypted: i=1; AFNElJ/yV6NyMPAc68/fXLGKer6D4iUNGjAmT1ZCP4Qpon/Nyqc7+LJBP94p7lOEiV38GU9aH5Le+gEMcg1t@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw6oTG9moHYpCD5itAXVbuYAdX3wZ8VnN3NQSMM/IwHG44oEo89
+	3Ie/5dtOuIgzcPxpWfkv6aGaTFfgKmm7MI7YB2IzgKFpR1wiL/hYF7zshYYPxsRXRnDTiNKNwJT
+	WhPJGSX8yST8L5tP3JqRA8rycPpwf2nk=
+X-Gm-Gg: AeBDieuyenWDtbJk0JG33jD0qExx7jyhYYcW0FvT+hGeYsTpY5gPod0CLHgSM2rCzOz
+	gIeFTEU6HMfayv9hMiCFJK7tTz0JzRMJzBATf4gX5nMSngj+UErBeYFcx5hjv+qXQhbVCPMhSvO
+	ugFRDTvKiV76WHJqEgehtNI/Cnj21wk8h0soCBe+VRdoa6dH+tHeJrtrw+yTBr4iKT9GF8eQ1v9
+	wQyrHBW1gDyWc6i9abcQRVOMtPheVmnjm1UY4fIqqptDyYH4LSJ9JSfLdeSROtBqN7DIGuFN9oc
+	8pE8AKa8Jt07anC7KGQm/e5hPdly4Q==
+X-Received: by 2002:a05:7300:6422:b0:2f4:3a9c:819c with SMTP id
+ 5a478bee46e88-2f43a9c8382mr1004597eec.25.1777981382922; Tue, 05 May 2026
+ 04:43:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260420191941.81834-1-adilov@disroot.org>
+References: <20260428114308.113253-1-clamor95@gmail.com> <20260428114308.113253-3-clamor95@gmail.com>
+ <CAD++jLkU-G38xtzzfAV_otiYuM2G5NHdCdtjFjsy2AjpG22_rg@mail.gmail.com>
+ <CAPVz0n3h+zWi-b-ZTLqwXR-9JNGcUgVodUgo+ywhBfK-UDQJAw@mail.gmail.com> <CAD++jLk_SojErY4gxjixzwEF3sfSownH=jBYaoPD2LeoxibhWw@mail.gmail.com>
+In-Reply-To: <CAD++jLk_SojErY4gxjixzwEF3sfSownH=jBYaoPD2LeoxibhWw@mail.gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 5 May 2026 14:42:51 +0300
+X-Gm-Features: AVHnY4ITV9EyPZ98FbxObZvxz5c2SoAcqHGxP-Gd0GWhXxPPqB1dn3Lmq_w-bg0
+Message-ID: <CAPVz0n15mgd4pJ-H1Tv8Rgr_7r0J2ycBo-3KnruoY9MnApqr+w@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] Input: isa1200 - new driver for Imagis ISA1200
+To: Linus Walleij <linusw@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Apr 21, 2026 at 12:19:35AM +0500, Rustam Adilov wrote:
-> This patch series for Realtek USB2 PHY driver adds support for RTL9607C
-> USB2 PHY.
-> 
-> RTL9607C is a big endian MIPS CPU which is quite far from RTD series SoCs
-> supported by realtek usb2 phy driver, but the phy initilization is found
-> to be very indentical in most areas.
-> 
-> Most of the code was based on the Realtek's usb driver from the GPL tarball
-> in [1] and adjusted to fit into the realtek usb2 phy driver code format.
-> 
-> The patch series was split into smaller patches that add/change something
-> in the driver that are not exactly related to RTL9607C and that also
-> helps for easier review. That also means, patch 5 depends on all the prior
-> patches that come before it.
-> 
-> USB2 PHY on RTL9607C is primarly used for its internal OHCI/EHCI controllers.
-> 
-> [1] - https://github.com/jameywine/GPL-for-GP3000/blob/main/linux-5.10.x/arch/mips/rtl9607c/usb.c
-> 
-> ---
+=D0=B2=D1=82, 5 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 13:39=
+ Linus Walleij <linusw@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Thu, Apr 30, 2026 at 11:46=E2=80=AFAM Svyatoslav Ryhel <clamor95@gmail=
+.com> wrote:
+> > =D1=87=D1=82, 30 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
+12:22 Linus Walleij <linusw@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> > In you original code
+> > /*
+> > * This is done in the vendor tree with the commment
+> > * "Duty 0x64 =3D=3D nForce 90", and no force feedback happens
+> > * unless we do this.
+> > */
+> > if (isa->clk)
+> > regmap_write(isa->map, ISA1200_HCTRL5, 0x64);
+> >
+> > 0x64 is actually some conversion of duty cycle, you got this accurately=
+.
+>
+> I wonder if 0x64 =3D 100 is simply 100% duty cycle?
+> So the value in this register can only be 0..100.
+>
 
-Could you go through Patchwork and reply inline to the issues found,
-stating whether you are or are not going to resolve them?
-https://patchwork.kernel.org/project/linux-phy/list/?series=1083475
+Assumption is interesting, but it is still just a guess based on
+observation of a single hw configuration. For example, Samsung Galaxy
+Tab 10.1 (GT-P7501) passes 133 (0x85) into duty register.
+
+> Yours,
+> Linus Walleij
