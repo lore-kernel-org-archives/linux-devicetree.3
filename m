@@ -1,446 +1,135 @@
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012011.outbound.protection.outlook.com [40.93.195.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F553BF68E
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 04:46:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040F6346E40;
+	Tue,  5 May 2026 05:06:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777956392; cv=pass; b=Lqe0urXZ8bUlDHTwvg+IDlTTXSfGkU+Ao34q7kCeDnlJWorzj/fz5BP3+XeZ90VhvJxN3zrtogan11N5j0bs2LAehHLhNy1IdW//VhtQFWuI+r+5tHWhZZ6g7nvGZyhGjW93DgwHRDSY4ani4pr0VQA0PiiZ1gYVUWny/+HCXNA=
+	t=1777957589; cv=fail; b=nPBuXJdL6NSFJ+TdWClfrGsoWjYj4eXtiDAUrqynOfs3b4XAOJwFXIu9USHJXG75AHezwj8wT3S/yl4d11n54zfTRupnG15Ta2DhBmkOvreb4QcX5/9m8U17BxIThlW5TtQ13CfIxve8+YP6/146T3m48UyBQsUcjtyCQ8w1qys=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777956392; c=relaxed/simple;
-	bh=uTbnda8uOUyubdToRS22NXXTi/L+6JZ/TRggEH+fM50=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hz+UKDjSnG9iVt7HHt8/wxQhChW4B8Sra/eI2LtO5rYI6q57epz7R4FTinBKtnSu4CD7KY6ZVplQ+18No4W9VprM/HukK2KjwQn+pQHqnXMaoHTjKNQ8PwCDOfgS5h9C34FTEsLXxWJFzXVHAyGLplwsLrGiBDFEW+NmL7mZzaA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=iwk91X2V; arc=pass smtp.client-ip=209.85.210.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1777957589; c=relaxed/simple;
+	bh=5Ag90iH3JKbeUCC7g/1LCuB9L3aHvwXFQlowOGkKpEY=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TAN1HKIq2WoNoLZGYBjWEgEgfauPNOVSbre6THq3oK+cJ4ep6MBX09CIiaVNOzqXf9t9SEyl+9T3hMCz2KnvPn+cjQ5oJQwwA1bFyGf5tRXQvpDdjc7QKuWBEX+/WeG+E0/UojzApjjL/GoHnlfBejtXfzO1Ujn6uvvnc4bIXHg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Cu/BSIui; arc=fail smtp.client-ip=40.93.195.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="iwk91X2V"
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7d55b97f358so3608926a34.3
-        for <devicetree@vger.kernel.org>; Mon, 04 May 2026 21:46:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777956390; cv=none;
-        d=google.com; s=arc-20240605;
-        b=GBbepjauSgKAf2m256qWZrODsi0BSoeLEODIa71d/zAJNVFtnKGjoJml5QtuIyiHDk
-         hd3gNKLIr4U2b45Wy1wC8Kzy3VvoryXvtaUOfQBYA72z4AB36/KBZxkvHJIOjuNdL2LX
-         pq4C6Wvj+a2QpNo7WiDG6JQAZT1Ofuc95U0c6rxM2hvTnpwj3FKwYekYcfq28FFVODAO
-         Kxqc5IFGaNM8zuAAsC0FiSNlEMH+012H20/xGm2qEOb3YWNgk0bxvcXVl+XwSymDpv5a
-         3c0Q9hgyXa2+S6NZQ6YvP9aefLDaKEUZkkFIM0Dko5TGHv2DRUoySdjJ+hWtmi0agCLr
-         SUYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=u8yGl+Hr9fjC3YKMYNK0dZu8iKL0HA86CQ4mT9KcKOk=;
-        fh=iqUhA7oB2au1l9aHa4xG2LHnX8Sw/dpC+Z8ujjd0Sxo=;
-        b=CBph05EBsf8dASrcfVg2DmI52UTgYFYfLLWz9ARFUo0PPD5wDiftN2zI7cyYNARIod
-         9HDKNXoI9n9rxk1RZIN+9ytgK4Ak1fbFH2Y5Wohkcx0xhieOqiCLz/Tosz5EP4X5Wgjv
-         1ZdNJuWCHHzv1Ml8swJ1KFcxPbIfVxmLmVDBzKXg+Wpt6ch/r2F9KpwEhzcODkPVdvqD
-         940Rpahhg6rq7vI3hE32Fd7RFjGXXBMHuEFpxldz1V1mLYU4q90fwg4PQ9v2z7mI+7fu
-         5Q0VVhGfzdwzeE4shOQS9efDocaB9Xxy8GbPlbPWKBb8UYmnn8ANnKhLEudn1PlnWn7h
-         5kwg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1777956390; x=1778561190; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=u8yGl+Hr9fjC3YKMYNK0dZu8iKL0HA86CQ4mT9KcKOk=;
-        b=iwk91X2V2/ATBcThnLNbv1F0s42N1uclxmB5/FWo8vkmV0+3nRJ5T0n5HmJaAdAT1e
-         bZPGo3OtDZY7WH72ZxRXvnpG8kr+oQaOjvJAG5ZkV3F75Vu+k3fT5LKvayOzSdp5zfi+
-         cB1u4+JcjRjSuDIvLVJVi3iFUKMQf3fbFn50PSfsbzly/Uwk/m8iXAwLSs97VYOSgbzb
-         +WCFyWGeiImvgJ6OTTgDdYAcSTvs5P+JLiMArVNcBbTHkQHwttfwoWqjNhDer6zWjEON
-         2iNJdcXuozZEpsdGcPm6wzmOpV9bUiBvNqCQsi1mKnx4l5pUA4ZIufccNe4j/8B1tKJk
-         5pGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777956390; x=1778561190;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=u8yGl+Hr9fjC3YKMYNK0dZu8iKL0HA86CQ4mT9KcKOk=;
-        b=GREsrveuedwi1MBueZ7/OEBxKNX5S6lk95HaqjoT0H3HdlSzHB7pxMIMdFMrfLF2gb
-         Ei+Ff71F6IqJKJ3qAWdZzkNXcWF+oicYN4cq2I1Rrb2yQwyP6esTwc9M7C3CWMdn7pNp
-         x2Hd8Z/KDpBT70jh/E1OK+NbZAO+qk7i6zv4Hcx6c832vuYJIKESBsW4p3DcM1sPIO9C
-         y9+1pRgx6zVmIZtzMCFc2To0d8r2AEgarIPsz18uOp36LjcNIIaiiVEaOAnIDFvugoXe
-         oiTWz8rdEKcjnuX6jfwe0ycKE1d8RoFcI0fRmNJ+zinEGqIiDtLeWc/o4BNCZGgIi34f
-         mhvQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9iV0cfCEBXFbHNJb1N/VPtZgiH9JxolfwGD3XEo5zx9qjzJq0yOelynqBRqYyieASjE2lzcy3dYyUP@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz63Ij7C6FMq0KTM6/s274zItEKo8Pe+vbHrxqB+BLht/bvdiwo
-	/V6x2P/4hgD/1LO+v6wJGHeYUVVa+xnsfTqtVpHXanl7771ERB82belVeeo1sYncKnQtyO53FNd
-	+k07y0S9UiLt7ba7TbxmrHSWKmqOcxb5T1zLLOlualQ==
-X-Gm-Gg: AeBDievCssYT3wAj9vg839lhlxHWS2ZydhcdXzKeoIMGlqxVEeoQQgoIf91oIr8+Owt
-	A2gbpmvrr4Qnv5U1oEyeyiNiI8ZyDxr8QrYum98ooLd0hRKYIcHXpBUqXhEnrn9WtJ2RUqHxIBq
-	wMP5385pIf46QLBn6yepb2bi61ZOtv6UNGA3+nFBXts7AWtjxwkTa2lg/P2/ww5OxFAgP9dl3K9
-	j3BU+DdoLNHd4u1g0htaLOUVa5h3Xfwr/2t9kYh4AqKA+KTdQonLir0ReiNZwZ6x5HowSRfwFsp
-	mXgmOuPdc0VKXz+8Ow==
-X-Received: by 2002:a05:6830:270a:b0:7d7:e59c:80e6 with SMTP id
- 46e09a7af769-7dee127f28dmr8275314a34.12.1777956389387; Mon, 04 May 2026
- 21:46:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Cu/BSIui"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JM1EWUGtszzFqTc+/1ooP+UxMmcGsW+oWULyGGscX6PU8MrNsUp8+/baJqebCkcO6eqNqSSZ986PdHCCYyFW7w7B7ul1yRWqCi8XLmgliqn5A5mm1YuLEkCymizA9wj63QKgb/HbfdmbxLIV/ZMhS3lRWxeXXIBWFDaKcx47sgHw1kYf4Q4yPL7Fck232Vfnun8UNvw99fbia6EBeBs5Qg+XUeHSCfRXHaZbZ6NSPswdO+juDmcUNwQcB4QPlK/5X6ARNBe9/bUqxTRmkgIC/CTrwmDlkofK40ZbCQNUHaQnnwxcs5WCjFbQfab0W5F7OPDWMLO4nU6h7T6RZbvwRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IrVPfIjZtdKKQ6X1OAT/VyFAr6iHgDYFmsm09Jfkaek=;
+ b=fnljYKb8C0iO6Q1pUYofs+ajfCad9+69pA2M/VmSK/5COqwWU9xjvDq8i8OQMOT8H5AIv31yB4TnKfYGECMOW+XdoM+YrdaPbfDhoHrq8FCwlN+KG6Ax/DHAg1AGMjsqQ7VjmfMA420xAHCnuYjhjj9noekygVajkF28t3ZJeo0GZ/A8N53yYmT0p6HPmgDAZaMLusHu5q75DyF7uISSiooxaV4z/r3s8c8XBILRcMwFT8jzMDkJi9BNXD8S81n07n8cUc8s/bxHh9PzAcpSmtM+q35rqsXdHSCnqKT1vLm4uPUp6xyUX+oOaSZ/btTiRMYIYNLcDGn5S+fcJjOBvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IrVPfIjZtdKKQ6X1OAT/VyFAr6iHgDYFmsm09Jfkaek=;
+ b=Cu/BSIui84LkzN2Jq+Zvv5QbQjzWWIaBvICfwc6CPbe5p8ouxoRhVspdcpf+giLZnZl4E38FfBHxTlgR9qfNpjIwKITkxQO/yF+4b4qHi2RVBf5FILnTya0Cj/YCE64HYEKD/9qf2E6lLZHK7Us4c7Qie5KwbmMZlgT34fiFMKsK8BDMf+Zwj53JYnEtZh41nqY3Grm1x+qbP0p3RlZ//fylakZuT213f9GXfwaStHJp8M92bmf4HNqfr2+pYu5dHeuvr/MMaxSnUSIfP18N4f53ReR1QRlegCVR8d6EEaHS0KuHwYiPAdMNd6KGjZ/EcI5y4Y949L7ASvl2/Xp+bA==
+Received: from SJ0PR05CA0131.namprd05.prod.outlook.com (2603:10b6:a03:33d::16)
+ by BN7PPF9507C739C.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6da) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Tue, 5 May
+ 2026 05:06:22 +0000
+Received: from MWH0EPF000C6184.namprd02.prod.outlook.com
+ (2603:10b6:a03:33d:cafe::c) by SJ0PR05CA0131.outlook.office365.com
+ (2603:10b6:a03:33d::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.13 via Frontend Transport; Tue,
+ 5 May 2026 05:06:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ MWH0EPF000C6184.mail.protection.outlook.com (10.167.249.116) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Tue, 5 May 2026 05:06:22 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 4 May
+ 2026 22:05:59 -0700
+Received: from nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Mon, 4 May
+ 2026 22:05:56 -0700
+From: Ender Hsieh <andhsieh@nvidia.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
+ Jeffery" <andrew@codeconstruct.com.au>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>, Andrew Lunn
+	<andrew@lunn.ch>, Marc Olberding <molberding@nvidia.com>, Jacky Chou
+	<jacky_chou@aspeedtech.com>
+Subject: [PATCH 0/1] aspeed: msx4: enable BMC networking via MAC0
+Date: Tue, 5 May 2026 14:05:40 +0900
+Message-ID: <20260505050541.3031447-1-andhsieh@nvidia.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260414-ssqosid-cbqri-rqsc-v7-0-v3-0-b3b2e7e9847a@kernel.org>
-In-Reply-To: <20260414-ssqosid-cbqri-rqsc-v7-0-v3-0-b3b2e7e9847a@kernel.org>
-From: yunhui cui <cuiyunhui@bytedance.com>
-Date: Tue, 5 May 2026 12:46:14 +0800
-X-Gm-Features: AVHnY4Lbz9xobMi2Ejre2OoBc7YiLqBPA7RApmoiKlfRYR15FBy4T_r2birU5bA
-Message-ID: <CAEEQ3wn3F-Wg-Wi+d5znpcgt5pfJVuRQCPvi4W7q4an+SLrOdQ@mail.gmail.com>
-Subject: Re: [External] [PATCH RFC v3 00/11] RISC-V: QoS: add CBQRI resctrl interface
-To: Drew Fustini <fustini@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	=?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, 
-	Samuel Holland <samuel.holland@sifive.com>, Adrien Ricciardi <aricciardi@baylibre.com>, 
-	Nicolas Pitre <npitre@baylibre.com>, =?UTF-8?Q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
-	Atish Patra <atish.patra@linux.dev>, Atish Kumar Patra <atishp@rivosinc.com>, 
-	Vasudevan Srinivasan <vasu@rivosinc.com>, Ved Shanbhogue <ved@rivosinc.com>, 
-	Conor Dooley <conor.dooley@microchip.com>, Chen Pei <cp0613@linux.alibaba.com>, 
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Weiwei Li <liwei1518@gmail.com>, 
-	guo.wenjia23@zte.com.cn, Gong Shuai <gong.shuai@sanechips.com.cn>, 
-	Gong Shuai <gsh517@gmail.com>, liu.qingtao2@zte.com.cn, 
-	Reinette Chatre <reinette.chatre@intel.com>, Tony Luck <tony.luck@intel.com>, 
-	Babu Moger <babu.moger@amd.com>, Peter Newman <peternewman@google.com>, 
-	Fenghua Yu <fenghua.yu@intel.com>, James Morse <james.morse@arm.com>, 
-	Ben Horgan <ben.horgan@arm.com>, Dave Martin <Dave.Martin@arm.com>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Robert Moore <robert.moore@intel.com>, Sunil V L <sunilvl@ventanamicro.com>, 
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, x86@kernel.org, 
-	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev, 
-	devicetree@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6184:EE_|BN7PPF9507C739C:EE_
+X-MS-Office365-Filtering-Correlation-Id: 31e95129-7c31-47e7-7a4a-08deaa640d09
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|7416014|376014|13003099007|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	BDecSk97sdlBJpyFUTNkJrBUWYyttiQZG6zk46PlkAYwZXInJnrlqBHORH3B/f4JL8vGBHQMa/T0n5eKZp0XZTQCQdWr+2Wda6k+BfpOLXdgNiiNOuIrsDa1nSd+WpBWl96Vm4wZuB8X43J2nlrUX43joej7LUAo3dACBK09yU3DeC6Xb5UZ8Y212uwH6U8oLUavXBuhlcRX/RtPebRkQudmG4BfmkttWxCGmwjbSySL3z6LC90WocRO0XH1hLOFVacGqFsu0JblzdVhCWZSe98Ywm29Bool1WnO6hbtjH8neTxecHPkAMU9frTuRM/gljX/I+qWc4ZPTMUIK+dWej3jIHquUMsh3Rb8IHh+4nCZC3Ih4zZzT/OK3t8RZQkoNQnYZHQQ8uWGUmiooQ8j5yw4uVDQoyVqhogzzGVX/SYJB0XwKJ63LI4Gje6ODAZg9AK7D2Rrze8pqJUwtheYA/4E+/M1i9BtgOf5yDvEP2GT11yLubTGGv6zAMMY9BF430U7FoMJi4eqw+Fz8JF19uZD3Cavn5qCN6cFbotdpLLnzFE1hbZeUtLPIZwhtzXznpLElWYBJYWJTgcaBFtrtW4wqNbcX6VeHvDwv3ZedUYS4trPrxZNVl4ssPHobjgqMOCVR1HF1B+JajW+2AzIDpK82v38Sl4Gqcf/4pqCRiZUmj1Ro57QP3MOuF3JplF70na9DhForN6oP5hic29CqJEQnVPb9MdCgB9BDRtif7FTY/bNVaIo8nVujjQDiF2V
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(7416014)(376014)(13003099007)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	PCQD4zv8s5dHDwGiGRL3y6oV9yK9F/VDdTPU4HA+zoJDxLc9i7668e7SXLOdwfqtiHTV82VAxIk06cfJUxT5hUDdaMWVNzHlfDIKPSUI0jxvo7ucCXdJhqAMXuaqbFTtmDjFj7wZhktvIEbsodIKw4fJjzXsb7X3QzIkedNXqTrNhIAjMkRHlFPAxOvyErFsweQLSZHWAgP4f9R/2hwMw1rmVlTrmJzBzEk7rFThJyuP4oVnfDiT/CSnts9CK4vWoajUFdt5UZpTeTaMjrZxeGGSkNQvLQJ1fnu2ipyAE/gXCngt3fMFHvbBaI5eTbgqmlxpoZmhPq5VjXT5SO3bEyjmDdj2kRIeRZt4GeBFuu7avhqSmExDyQgmZfE12h3mqfviuEXJs57smF6TAZ3e8RO7Lp/iVURHCiAyM5DsdbehQgiuU2d76IlJe6tC9uFz
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 05:06:22.3951
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31e95129-7c31-47e7-7a4a-08deaa640d09
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000C6184.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF9507C739C
 
-Hi Drew,
+Add the &mac0/&mdio3/ethphy3 nodes to the NVIDIA MSX4 board dts to
+enable BMC networking. These nodes were intentionally omitted in
+commit f28674fab34f ("ARM: dts: aspeed: Add NVIDIA MSX4 HPM") at
+Andrew Lunn's request, pending RGMII delay handling clarification.
 
-On Wed, Apr 15, 2026 at 9:57=E2=80=AFAM Drew Fustini <fustini@kernel.org> w=
-rote:
->
-> This RFC series adds RISC-V Quality-of-Service support: the Ssqosid
-> extension [1] (srmcfg register), the CBQRI controller interface [2]
-> integrated with the kernel's resctrl subsystem [3], and ACPI RQSC [4]
-> table support for controller discovery. Device tree support is possible
-> but no platform drivers are included. All patches are available as a
-> branch [5].
->
-> There is a QEMU patch series [6] that implements Ssqosid and CBQRI. ACPI
-> RQSC support is implemented as a set of additional patches [7]. All of
-> the QEMU patches are available as a branch [8].
->
-> [1] https://github.com/riscv/riscv-ssqosid/releases/tag/v1.0
-> [2] https://github.com/riscv-non-isa/riscv-cbqri/releases/tag/v1.0
-> [3] https://docs.kernel.org/filesystems/resctrl.html
-> [4] https://github.com/riscv-non-isa/riscv-rqsc/blob/main/src/
-> [5] https://git.kernel.org/pub/scm/linux/kernel/git/fustini/linux.git/log=
-/?h=3Db4/ssqosid-cbqri-rqsc
-> [6] https://lore.kernel.org/qemu-devel/20260105-riscv-ssqosid-cbqri-v4-0-=
-9ad7671dde78@kernel.org/
-> [7] https://lore.kernel.org/qemu-devel/20260202-riscv-rqsc-v1-0-dcf448a3e=
-d73@kernel.org/
-> [8] https://github.com/tt-fustini/qemu/tree/b4/riscv-rqsc
->
-> Series organization
-> -------------------
->  01:    DT binding for Ssqosid extension
->  02-03: Ssqosid ISA support (detection, srmcfg CSR and switch_to)
->  04-07: CBQRI resctrl (hw interface, arch callbacks, domain
->         management, Kconfig/build wiring)
->  08-11: ACPI support (PPTT helper, actbl2.h RQSC structs [DO NOT
->         MERGE], RQSC parser, controller initialization)
->
-> RISC-V QoS
-> ----------
-> QoS (Quality of Service) in this context is concerned with shared
-> resources on an SoC such as cache capacity and memory bandwidth.
->
-> The Ssqosid extension defines the srmcfg CSR which configures a hart
-> with two identifiers:
->
->  - Resource Control ID (RCID)
->  - Monitoring Counter ID (MCID)
->
-> These identifiers accompany each request issued by the hart to shared
-> resource controllers. This allows the capacity and bandwidth resources
-> used by a software workload (e.g. a process or a set of processes) to be
-> controlled and monitored.
->
-> CBQRI defines operations to configure resource usage limits, in the form
-> of capacity or bandwidth, for an RCID. CBQRI also defines operations to
-> configure counters to track resource utilization per MCID. Furthermore,
-> the Access Type (AT) field allows resource usage to be differentiated
-> between data and code.
->
-> x86 comparison
-> --------------
-> The existing QoS identifiers on x86 map well to RISC-V:
->
->   CLOSID (Class of Service ID) on x86 is RCID on RISC-V
->     RMID (Resource Monitoring ID) on x86 is MCID on RISC-V
->
-> In addition, CDP (code data prioritization) on x86 is similar to the
-> AT (access type) field in CBQRI which defines code and data types.
->
-> One aspect of CBQRI that simplifies the RISC-V resctrl interface is that
-> any CPU (technically a hart, or hardware thread, in RISC-V terminology)
-> can access the memory-mapped registers of any CBQRI controller in the
-> system. This means it does not matter which CPU runs the resctrl code.
->
-> Example SoC
-> -----------
-> This series was developed and tested using the QEMU virt platform
-> configured as a hypothetical SoC with a cache controller that implements
-> CBQRI capacity operations and a memory controller that implements CBQRI
-> bandwidth operations.
->
->   - L2 cache controllers
->     - Resource type: Capacity
->     - Number of capacity blocks (NCBLKS): 12
->         - In the context of a set-associative cache, the number of
->           capacity blocks can be thought of as the number of ways
->     - Number of access types: 2 (code and data)
->     - Usage monitoring not supported
->     - Capacity allocation operations: CONFIG_LIMIT, READ_LIMIT
->
->   - Last-level cache (LLC) controller
->     - Resource type: Capacity
->     - Number of capacity blocks (NCBLKS): 16
->     - Number of access types: 2 (code and data)
->     - Usage monitoring operations: CONFIG_EVENT, READ_COUNTER
->     - Event IDs supported: None, Occupancy
->     - Capacity allocation ops: CONFIG_LIMIT, READ_LIMIT, FLUSH_RCID
->
->   - Memory controllers
->     - Resource type: Bandwidth
->     - Number of bandwidth blocks (NBWBLKS): 1024
->        - Bandwidth blocks do not have a unit but instead represent a
->          portion of the total bandwidth resource. For NBWBLKS of 1024,
->          each block represents about 0.1% of the bandwidth resource.
->     - Maximum reserved bandwidth blocks (MRBWB): 819 (80% of NBWBLKS)
->     - Number of access types: 1 (no code/data differentiation)
->     - Usage monitoring operations: CONFIG_EVENT, READ_COUNTER
->     - Event IDs supported: None, Total read/write byte count, Total
->                            read byte count, Total write byte count
->     - Bandwidth allocation operations: CONFIG_LIMIT, READ_LIMIT
->
-> The memory map for this example SoC:
->
->   Base addr  Size
->   0x4820000  4KB  Cluster 0 L2 cache controller
->   0x4821000  4KB  Cluster 1 L2 cache controller
->   0x4828000  4KB  Memory controller 0
->   0x4829000  4KB  Memory controller 1
->   0x482a000  4KB  Memory controller 2
->   0x482b000  4KB  Shared LLC cache controller
->
-> This configuration is only meant to provide a "concrete" example, and it
-> represents just one of many possible ways that hardware can implement
-> the CBQRI spec.
->
-> The example SoC configuration is created with the following:
->
->   qemu-system-riscv64 \
->         -M virt,pflash0=3Dpflash0,pflash1=3Dpflash1,aia=3Daplic-imsic  \
->         -smp cpus=3D8,sockets=3D1,clusters=3D2,cores=3D4,threads=3D1 \
->         -m 1G \
->         -nographic \
->         -kernel ${LINUX}/arch/riscv/boot/Image \
->         -append "root=3D/dev/vda rootwait" \
->         -blockdev node-name=3Dpflash0,driver=3Dfile,read-only=3Don,filena=
-me=3D${EDK}/RISCV_VIRT_CODE.fd \
->         -blockdev node-name=3Dpflash1,driver=3Dfile,filename=3D${EDK}/RIS=
-CV_VIRT_VARS.fd \
->         -drive if=3Dnone,file=3D${ROOTFS}/rootfs.ext2,format=3Draw,id=3Dh=
-d0 \
->         -device virtio-blk-device,drive=3Dhd0 \
->         -device qemu-xhci \
->         -device usb-kbd \
->         -device virtio-net-pci,netdev=3Dnet0 \
->         -netdev user,id=3Dnet0 \
->         -device riscv.cbqri.capacity,max_mcids=3D256,max_rcids=3D64,ncblk=
-s=3D12,alloc_op_flush_rcid=3Dfalse,mon_op_config_event=3Dfalse,mon_op_read_=
-counter=3Dfalse,mon_evt_id_none=3Dfalse,mon_evt_id_occupancy=3Dfalse,mmio_b=
-ase=3D0x04820000 \
->         -device riscv.cbqri.capacity,max_mcids=3D256,max_rcids=3D64,ncblk=
-s=3D12,alloc_op_flush_rcid=3Dfalse,mon_op_config_event=3Dfalse,mon_op_read_=
-counter=3Dfalse,mon_evt_id_none=3Dfalse,mon_evt_id_occupancy=3Dfalse,mmio_b=
-ase=3D0x04821000 \
->         -device riscv.cbqri.capacity,max_mcids=3D256,max_rcids=3D64,ncblk=
-s=3D16,mmio_base=3D0x0482B000 \
->         -device riscv.cbqri.bandwidth,max_mcids=3D256,max_rcids=3D64,nbwb=
-lks=3D1024,mrbwb=3D819,mmio_base=3D0x04828000 \
->         -device riscv.cbqri.bandwidth,max_mcids=3D256,max_rcids=3D64,nbwb=
-lks=3D1024,mrbwb=3D819,mmio_base=3D0x04829000 \
->         -device riscv.cbqri.bandwidth,max_mcids=3D256,max_rcids=3D64,nbwb=
-lks=3D1024,mrbwb=3D819,mmio_base=3D0x0482a000
->
-> Open issues:
-> ------------
->  - RQSC structs in actbl2.h must go through ACPICA upstream first. The
->    spec is in the final phase before ratification.
->
->  - No L2 and L3 cache occupancy monitoring
->    - This is not currently implemented and I have decided to leave
->      it for a followup series.
->
->  - No MBM (bandwidth monitoring)
->    - MBA schema works ok for the CBQRI-enabled memory controllers, but
->      resctrl does not currently have a solution for representing MBM for
->      bandwidth resources that are not associated with a L3 cache.
->    - For the old CBQRI proof-of-concept RFC, two separate domains were
->      created for each memory controller: one for MB (allocation) and one
->      for MBM (monitoring). The monitoring domains had to pretend that
->      these memory controllers were L3 caches which is not the case. I
->      have removed this as it was too complicated and not the right
->      solution.
->
-> Changelog
-> ---------
-> Changes in v3:
+Following his guidance on linux-aspeed [1], the U-Boot bootloader
+has been modified to stop enabling MAC clock delays on the SoC
+side. With phy-mode = "rgmii-id", the PHY now adds the required
+~2ns delay without any double-delay from the MAC controller.
 
-Thanks for posting the series. Once the remaining issues are
-addressed, are you considering moving this out of RFC in the next
-revision?
+Tested on alon8 hardware: 1G link negotiation succeeds with this
+change in coordination with the U-Boot patch [2].
 
+[1] https://patch.msgid.link/eac09481-0ba1-4ac2-ad8c-d859822ff0d5@lunn.ch
+[2] https://patch.msgid.link/20260504044702.2613879-1-andhsieh@nvidia.com
 
->  Series restructuring:
->  - Restructure from 17 to 11 patches: introduce data structures
->    alongside their first users, consolidate build wiring into a
->    single "enable resctrl" commit
->  - Split the monolithic patch 08/17 into separate patches for HW
->    interface, arch callbacks, domain management, and Kconfig wiring
->  - Do not expose monitoring to resctrl; allocation only for now.
->    A separate followup series will add cache occupancy monitoring.
->    Bandwidth monitoring will have to wait for the larger issue of non-L3
->    bandwidth to be resolved first.
->
->  Bug fixes from v2 review:
->  - Fix cbqri_apply_bw_config() and resctrl_arch_get_config() using
->    capacity operation constants instead of bandwidth
->  - Fix missing err =3D -ENOMEM after ioremap() failure
->  - Fix ver_major not shifted after masking with GENMASK(7, 4)
->  - Fix ctrl->mcid_count =3D node->rcid in RQSC parser
->
->  Improvements from v2 review:
->  - Implement resctrl_arch_set_cpu_default_closid_rmid() (was no-op),
->    use per-cpu cpu_srmcfg_default for resctrl allocation rule 2
->  - Remove hw_dom->ctrl_val[] cache, read/write CBQRI registers directly
->  - Drop resctrl_arch_find_domain(), use resctrl_find_domain() directly
->  - Use sorted domain insertion via resctrl_find_domain()
->  - Set domain id from cache_id (capacity) or prox_dom (bandwidth)
->  - Define RISCV_RESCTRL_EMPTY_CLOSID instead of referencing x86 constant
->  - Find minimum mcid_count across controllers for max_rmid
->  - Convert SHIFT/MASK pairs to GENMASK() and FIELD_GET()/FIELD_PREP()
->  - Use acpi_pptt_get_cpumask_from_cache_id() instead of hardcoding
->  - Remove fixed-size f[6] array in RQSC; parse with ACPI_ADD_PTR and
->    flexible array for resource descriptors
->
->  Error handling and robustness:
->  - Implement resctrl_arch_reset_all_ctrls() to reset all CLOSID
->    allocations to defaults on unmount, including CDP code/data entries
->  - Capture resctrl_init() return and cleanup on failure
->  - Call resctrl_exit() on cpuhp_setup_state() failure
->  - Call resctrl_offline_ctrl_domain() before freeing in error path
->  - Check resctrl_find_domain() return to reject duplicate domain ids
->  - Validate nbwblks!=3D0 during probe; bounds-check RQSC res[0] access
->  - Skip controllers with bad cpumask instead of adding with empty mask
->  - Validate resource capabilities match across controllers at same
->    cache level
->
->  Bandwidth allocation:
->  - Derive max_bw from hardware MRBWB/NBWBLKS with DIV_ROUND_UP()
->  - Clamp rbwb to mrbwb so write/readback round-trips exactly
->  - Copy cpu_mask for bandwidth domains from proximity domain NUMA node
->
->  Hardware interface:
->  - Return final register from cbqri_wait_busy_flag() to eliminate
->    redundant MMIO reads after busy-wait
->  - Add per-controller spinlock for MMIO register sequence serialization
->  - Use readq_poll_timeout_atomic() instead of hand-rolled jiffies loop
->  - Move max_rmid update after successful controller probe
->
->  Cleanup:
->  - Add lockdep_assert_cpus_held() in resctrl_arch_update_domains()
->    and resctrl_arch_reset_all_ctrls()
->  - Mark acpi_parse_rqsc() __init
->  - Convert __switch_to_srmcfg() stub from macro to static inline to
->    make both checkpatch and clang happy
->  - Use pr_debug for per-controller details, pr_warn for non-fatal skips
->  - Remove unused arch stubs and dead code
->  - Use GENMASK_ULL for bits>=3D32, io-64-nonatomic-lo-hi.h for rv32
->
->  Link to v2: https://lore.kernel.org/r/20260128-ssqosid-cbqri-v2-0-dca586=
-b091b9@kernel.org
->
-> Changes in v2:
->  - Add support for ACPI RQSC table which provides the details needed to
->    discover the CBQRI controllers and support resctrl
->  - Drop the "not for upstream" platform drivers and QEMU dts patches.
->    Those can be found in v1 and were only for the RFC series. The
->    branch for the v1 series is preserved as ssqosid-cbqri-rfc-v1
->  - Change cbqri_wait_busy_flag() from 100 ms to 1 ms to avoid
->    unnecessary latency.
->  - Change resctrl_arch_get_config() to return resctrl_get_default_ctrl()
->    instead of a negative errno value which is not valid for u32.
->  - Change cbqri_probe_controller() to return -EBUSY when
->    request_mem_region() fails
->  - Change resctrl_arch_get_config() to no longer increment when rbwb
->    modulo ctrl->bc.nbwblks is true
->  - Fix indentation in cbqri_set_cbm(), cbqri_set_rbwb() and
->    cbqri_get_rbwb().
->  - Link to v1: https://lore.kernel.org/r/20260119-ssqosid-cbqri-v1-0-aa2a=
-75153832@kernel.org
->
-> ---
-> Drew Fustini (11):
->       dt-bindings: riscv: Add Ssqosid extension description
->       RISC-V: Detect the Ssqosid extension
->       RISC-V: Add support for srmcfg CSR from Ssqosid extension
->       RISC-V: QoS: add CBQRI hardware interface
->       RISC-V: QoS: add resctrl arch callbacks for CBQRI controllers
->       RISC-V: QoS: add resctrl setup and domain management
->       RISC-V: QoS: enable resctrl support for Ssqosid
->       ACPI: PPTT: Add acpi_pptt_get_cache_size_from_id helper
->       DO NOT MERGE: include: acpi: actbl2: Add structs for RQSC table
->       ACPI: RISC-V: Parse RISC-V Quality of Service Controller (RQSC) tab=
-le
->       ACPI: RISC-V: Add support for RISC-V Quality of Service Controller =
-(RQSC)
->
->  .../devicetree/bindings/riscv/extensions.yaml      |    6 +
->  MAINTAINERS                                        |   11 +
->  arch/riscv/Kconfig                                 |   20 +
->  arch/riscv/include/asm/acpi.h                      |   10 +
->  arch/riscv/include/asm/csr.h                       |    6 +
->  arch/riscv/include/asm/hwcap.h                     |    1 +
->  arch/riscv/include/asm/processor.h                 |    3 +
->  arch/riscv/include/asm/qos.h                       |   52 +
->  arch/riscv/include/asm/resctrl.h                   |    7 +
->  arch/riscv/include/asm/switch_to.h                 |    3 +
->  arch/riscv/kernel/Makefile                         |    2 +
->  arch/riscv/kernel/cpufeature.c                     |    1 +
->  arch/riscv/kernel/qos/Makefile                     |    2 +
->  arch/riscv/kernel/qos/internal.h                   |   81 ++
->  arch/riscv/kernel/qos/qos.c                        |   40 +
->  arch/riscv/kernel/qos/qos_resctrl.c                | 1092 ++++++++++++++=
-++++++
->  drivers/acpi/pptt.c                                |   63 ++
->  drivers/acpi/riscv/Makefile                        |    1 +
->  drivers/acpi/riscv/init.c                          |   23 +
->  drivers/acpi/riscv/rqsc.c                          |  136 +++
->  include/acpi/actbl2.h                              |   36 +
->  include/linux/acpi.h                               |    8 +
->  include/linux/riscv_qos.h                          |  109 ++
->  23 files changed, 1713 insertions(+)
-> ---
-> base-commit: 7aaa8047eafd0bd628065b15757d9b48c5f9c07d
-> change-id: 20260329-ssqosid-cbqri-rqsc-v7-0-b0c788bab48a
->
-> Best regards,
-> --
-> Drew Fustini <fustini@kernel.org>
->
+Ender Hsieh (1):
+  ARM: dts: aspeed: msx4: enable BMC networking via MAC0
 
-Thanks,
-Yunhui
+ .../dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts     | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+-- 
+2.34.1
+
