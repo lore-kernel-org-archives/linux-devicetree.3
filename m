@@ -1,148 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F633C277F;
-	Tue,  5 May 2026 07:26:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC11621255A
+	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 07:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777965960; cv=none; b=PvvKdJ4kKmUcBDrGQtJJrs48gL5BV0y7MhhbNhGE+i/ndo+Qkwfa2K8ywfwqC9IEyplff5XwoDZX/Z9Eyrh3ynfK0NMxXAZVu+XgRhKkFDNhV0qwsJRvBcaEnW3hSO8p6g3GfK0YtyubztsG2zvR9BJVRaft3KST8b0huiUWzK8=
+	t=1777966322; cv=none; b=D5IJxFO5GtUT192n9oalZHjnN/PUjilDxWUyqEVRy6MHeeSaNMOQYlNWKjZRN7fnYQDTtdISf8IkEtNDzyQBl1s6oFsE7NaQzcYt6SboXOW8U0GWEOU0RXdtTNoRFgI/qDajH3s8dsKnILzh7Nse7MxqRVIRlRcyPV6t4HVIZBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777965960; c=relaxed/simple;
-	bh=eT41NRcm63yB/JJgaw8p8HD5Cjz0HdP8LLdoIwTe5pM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JbikMuK6fiyB8jw2qOqV8GvD/FvbBWHrBtYvOr9CvkYPfZHLCTgPmT65UQTB4NgtECaO0Zv0f5vguqreGYVWtzu1GNFrRuiyOwNpCUmnNDxFh0hsK6KDDY3KkHZ2FLanSbbHHzDkm7G+7gfv6+uuTJ1K9++IhISvNgSFV1VkYoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JyFG/61B; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JyFG/61B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AE4DC2BCB4;
-	Tue,  5 May 2026 07:25:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777965960;
-	bh=eT41NRcm63yB/JJgaw8p8HD5Cjz0HdP8LLdoIwTe5pM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=JyFG/61BtZCtHU14vyDTaMYQNisg5W4AeWmbJn4OTIUVJIqMRvQfFo++jFJ0FGnAp
-	 liiDNMRnnK7v9YFKJxFd+lYimprdo+CRxNvQ2bPctHj5viLVzraf9eJIMizyEJWySI
-	 1b17/X4Xl22HXdll8BdRxLu3gTjcp2IDxueoAU7ku2Ojx58G4GeMMmBNnGo6ErNevD
-	 cCvzB+6lbTKZ6BIPz3i4OvplRFgV0YBiyuJ0p9IGD1m1b5n1Uuvbu6LgOrrQHL3DZ4
-	 Kje4H1GPiX/bDGaSxaK8ozDo8MmCvRyNzXmHh6KU2ks/lh8lTiyQUimFifty/d7Dzc
-	 wPrunx2phVhBg==
-Message-ID: <dd7ebb25-014c-4983-ae31-6a6cbd24e628@kernel.org>
-Date: Tue, 5 May 2026 09:25:54 +0200
+	s=arc-20240116; t=1777966322; c=relaxed/simple;
+	bh=ukZ9FK4VGWfiaXO2VPuEc3ogAHyIjVxYKoMVyr+5s8E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NI41vBt3iXhHabuXGOY1sRjVvicI14GflguKKHEPArKd4ppt1ThkpWEMwmbKXi2o6MSjPexlmK45t7O86u4m7moRzxWrovP0ZNcPGc0AtFM/GSsFjy5mT1q99l4+7GzyZo1oAMNjFCzeObnqjRJacoU8e9askgZekWdJonFELhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-62f534f7036so566662137.1
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 00:32:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777966319; x=1778571119;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=0fZD/PSymOwfq/roAe5oPCoIu7rlEolsxxYooXw1Fcs=;
+        b=c+A3v4WdinKLTUiv/pJcrVnXQmtIkZPzbq4yMQd8xC6ubW1IBScUUYCN13J1QXcrF8
+         /f0PDB0nyPrQpy1OTjgx5Ihq0lW5fYVAXc25xKB7s2y6Ecu5L9MYfS9qBtNRgdNJXQ8J
+         G4zvRVjpHo9O44NDjoqbkTaviDDv6fNVfDhUn05ZL1hXyAYFVNu/QvRa49ibpc8DKeOF
+         ETY3Moe1soeaxaVJ/9QtVF+d79Ot6Hkr5s/C836tRiafbThP3dsa+OrT9e8RWaGh1FJW
+         a+GaEyNRM6L1ZLqBfO4XOV6zBwW9C3DTTgD8+dMg8Iqwhnyccfzc+3+HvSK7LWftGepk
+         /XwQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/mH3SN3RAmbmzNQEOcbqABpkK1qYUunqSv/RyjPs0Uof1lEiA8JLHW2qhX9fIvj3NKfYD2X1R0445k@vger.kernel.org
+X-Gm-Message-State: AOJu0YyiDvRzPbbJrsBfjAbvztSxJK0RtRiNI+TrUSTEtZm03OOy4qxZ
+	37d2x9e8v2DbPGVlZ39Ctu2HK5wc+L0s7kKYU85DCyDrXgYxi+zZ0clF/IS8nmcv
+X-Gm-Gg: AeBDieu9vcxsSM6ylZ5KihARDfHFB5kc1SEkQdjm3JD9BJ6mXsjVwtNYDaXy69EMQfF
+	0agUaNQwb5ISaDbVUEWq/EfHxQnrlaf62oRprXByCawAu8INkeWsHQ4y/HddEtAn/X5cG9lb3qb
+	ioYXohwHO6WM2rQrsWI1BTg55pI7N86lTQUKzOxvEmljpWRhoQ+AXd/DiT8qAhj9beg5Ku+EcHt
+	+9gwQYTNun8Pk5s29y5G5XP1jMXSVUpW3NCppkXD5RGftBZ9xG9aS7bWYe3ZqzRCwpbZTxwwP37
+	NaP5yHhiABM6YsWjcYDBAedZEhNRNgjmC6ADbjsutVdK0Nfd3/kNmak48sEmTQ1J51m3MBptEzg
+	aVNlIZ+s7A94mcmKkVhTuJPCqcRVs/muELedLTjPdcaC9cBcVEIjCjXE9GNVZbGHg3FY1Eib3CZ
+	5q6NVken/UR5obytg+CEQr4a8LrWajYoDtqqhjlddNDtXlhDUTZZibC+QQeoGwL+dZ6jKMaTjff
+	GI=
+X-Received: by 2002:a05:6102:4489:b0:60f:f543:232a with SMTP id ada2fe7eead31-62d84a67b82mr6257676137.2.1777966319422;
+        Tue, 05 May 2026 00:31:59 -0700 (PDT)
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com. [209.85.221.175])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-95ce0902d6dsm6403255241.6.2026.05.05.00.31.58
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 05 May 2026 00:31:58 -0700 (PDT)
+Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-575320e6f2aso1018065e0c.0
+        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 00:31:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/6isBe1ur3XAFHzWj6T8fnmMLjQX5PfTcUHU3ax6+IVyQ6OXpsey8FW4HrUmRnnHNqi1Nnwca13T3F@vger.kernel.org
+X-Received: by 2002:a05:6102:809e:b0:605:6089:674a with SMTP id
+ ada2fe7eead31-62d8754d144mr5578911137.23.1777966318428; Tue, 05 May 2026
+ 00:31:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: display: panel: Add Novatek NT37705
-To: Luca Weiss <luca.weiss@fairphone.com>, Conor Dooley <conor@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
- <20260501-fp6-panel-v1-1-e09cb05651cc@fairphone.com>
- <20260501-yogurt-wise-2a2884e3ec59@spud>
- <DI9XL1VYYTY7.19IRSM8VIDO53@fairphone.com>
- <a2444df4-abf1-4b56-8556-7efb238bc677@kernel.org>
- <DIAJCURQ37FA.1CNEKX6QM6ZO8@fairphone.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <DIAJCURQ37FA.1CNEKX6QM6ZO8@fairphone.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260206112227.233229-1-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260206112227.233229-1-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 5 May 2026 09:31:47 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVfGA6yie7FJ1p5Vo8pzYfT7JaapVKKs89zDajyjoYdyw@mail.gmail.com>
+X-Gm-Features: AVHnY4KGVyBJgcrD6fwdul7hiswvhvhZiaYkMacUewIFbE46z83RiXF3MOHRmi0
+Message-ID: <CAMuHMdVfGA6yie7FJ1p5Vo8pzYfT7JaapVKKs89zDajyjoYdyw@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: watchdog: renesas,wdt: Document RZ/G3L support
+To: Biju <biju.das.au@gmail.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-watchdog@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 05/05/2026 08:40, Luca Weiss wrote:
->>>>> +  compatible:
->>>>> +    contains:
->>>>> +      const: boe,bj631jhm-t71-d900
->>>>
->>>> Compatible doesn't match the filename, nor does the commit message match
->>>> what you've got here. Sounds like you're missing a fallback to
->>>> $filename.
->>>
->>> The last times I was upstreaming panel drivers (Feb 2024 and June 2025),
->>> this was the requested way of doing things.
->>
->> So this was requested that time and is requested now. What is here
->> uncertain?
->>
->>>
->>> Compatible being the company and model number making the actual panel
->>> assembly (driver IC + touchscreen + glass etc), while the rest being
->>> named after the driver IC manufacturer & number.
->>
->> So exactly what was asked for...
-> 
-> I don't quite understand what is asked for now, that's my issue.
-> 
-> 1. Change the filename to boe,bj631jhm-t71-d900.yaml and leave the rest
->    as-is.
-> 
-> 2. Add a fallback compatible for novatek,nt37705. IIRC last time it was
->    argued that a "generic" nt37705 driver will never be correct for a
->    specific panel since it's missing a bunch of panel-specific init. So
->    that's why there should not be a fallback to nt37705.
+Hi Biju,
 
-To my limited knowledge the (2) with fallback describing the specific IC
-is preferred, because that compatible although not currently usable is
-still specific and describes actual IC used. I imagine that such
-fallback still could be useful to some SW implementation to determine
-the IC and act based on that.
+On Fri, 6 Feb 2026 at 12:22, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> Document the support for the watchdog IP available on RZ/G3L SoC. The
+> watchdog IP available on RZ/G3L SoC is identical to the one found on
+> RZ/G2L SoC.
+>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-If you have sources of other preference, please share, but I just gave
-same review to Neil for his ayaneo,wt0600-2k panels.
+Thanks for your patch!
 
-Best regards,
-Krzysztof
+> --- a/Documentation/devicetree/bindings/watchdog/renesas,rzg2l-wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/renesas,rzg2l-wdt.yaml
+> @@ -18,6 +18,7 @@ properties:
+>                - renesas,r9a07g044-wdt    # RZ/G2{L,LC}
+>                - renesas,r9a07g054-wdt    # RZ/V2L
+>                - renesas,r9a08g045-wdt    # RZ/G3S
+> +              - renesas,r9a08g046-wdt    # RZ/G3L
+>            - const: renesas,rzg2l-wdt
+>
+>        - items:
+
+However, there seems to be a small difference in the formulas for the
+timeout register value on the various SoCs:
+
+RZ/G2L, RZ/G2UL, and RZ/V2L:
+
+    WDTTIME setting value =3D \frac{WDT cycle}{(WDTn_CLK (n =3D 0,1,2)
+cycle =C3=97 1024 =C3=97 1024) =E2=88=92 1}
+
+RZ/G3S and RZ/G3E:
+
+    WDTTIME setting value =3D \frac{WDT cycle}{(WDTn_CLK (n =3D 0,1,2)
+cycle =C3=97 1024 =C3=97 1024} =E2=88=92 1
+
+I.e. on the former, the "- 1" offset is inside the denominator, while
+on the former, it is outside the fraction.  I assume this is just a typo
+in the documentation, and both formulas are supposed to be identical, so
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
