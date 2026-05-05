@@ -1,133 +1,105 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7498A388E49
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 11:24:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86EC537CD54;
+	Tue,  5 May 2026 11:28:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777980256; cv=none; b=u4i0g+jYqIXKftEBX09D0Fp/HeZtZn7C0vYQYFO7ySnGZaIkEX7I/MmDpWwqeopfdVbYXBLzbm5GjKCfCTp61EJvWcKhS4ikkrs+M6PxSLYPFjtrzPz0tyspV+fZ4Oibk4u4Zgvlq8wry3RjlpoMplMcjXGFACvYbt7JTuFdxf8=
+	t=1777980510; cv=none; b=fF7iI6TShvRqQeObC5rCb2N4L5Hhiy8pg60oz/Ysdb2ozu3eZx+44sC+w9Se1QjNNJkVxYy8fTfIwFKFv7c+wRTGXXuF659wZnHp3uI+1tkorMsB2eduGkNc+T/LdM3VmvTBUjhISCt/9QRZPYrrq3ZLDL3ZegkQBpQ9RFZutZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777980256; c=relaxed/simple;
-	bh=91K842evcD16Ucl1KjEyczWmeAeIibln7xC0ChPpD3c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PFdYVldWtVKKAH+7Y5OFMp+E6MWgXUcnKz4l5qKSTDlzYaHWzJZVblHmiiWNA3BsFdtWKsC+6j+xritbFf4+UdXaEaiS19rJjaAL0GKB2LYUXa1vzSWi8JWUDftHrEbM64OOXirg3FuBToRbm7I0o9OIC/rgI45nIVzJ2gp2FwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lFJy1OYG; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777980510; c=relaxed/simple;
+	bh=DnmlrSJFdGQ8SDrNDiP9ssHPgMoJPlTfk8qc1QT5ptE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tNwsYNTBcE0FFyof8pZkDgTBj24AQvZjk/mtum1usTsUMt8V/DFVkwR0jdJadPcxMR2L7UO7BWinQP14xY4LsblWTKzyGP6jjIxboVkQ05Ph9FFzacpOgCTcghF9WatKFCSqZCp9oLGhNzIkn7l17VeDEI3CjO13knSIN8QxqZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=shdcuDPo; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lFJy1OYG"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-48896199cbaso45444165e9.1
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 04:24:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777980253; x=1778585053; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yBWradkhizwSf4yE2yoAp/RFCrxwteOMoA1zZzyzf0s=;
-        b=lFJy1OYGnzCMYuhTUdRZgzOUoKNaYYhav0G2OQk637GOefYk6F+iI5c8Nu2rP/tiOJ
-         tLNapp2XBmq1r/uy1oYiV7fS6bEZsBiOF9fhmqeddGPl6Omw4xUL2xWhNytOA+6ZUrCy
-         SsNKrFyEuStMqJsfoJuHZJ1m9Nz+c6XJqEAIvQ29mV84ByncPUZlX/zIBMjggj/pNggD
-         g7CNf0odFYFbCDe9MAC/4YoEuKTEwl/lD4MJ9P5Ha93o+KbRulSef3qjaThYMl1yg9BX
-         IEW/cCXnJRoAuU9GVMhiyPCMcxEZva1HwhwRXlkPIBfOlt1Dz61GCc0wTsH0sQ7c/8HV
-         yfQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777980253; x=1778585053;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=yBWradkhizwSf4yE2yoAp/RFCrxwteOMoA1zZzyzf0s=;
-        b=BKoDgLSkeYvYYQQU0A7+V0UazIigUu1T2wvhY9Jv95dhzhS8n+gzQAcugKMsPEEB8/
-         hH2ZFZ9+4AasV+GPbUXpRM+tk2zVSz693ixohfs45oedfidvSoP3h/bIbXmXynieYpkB
-         ADRmpbfgzQwm/Gc61dAqJHtCmVLn7P2UBzxHed8EcrZUnE6uPW0fY8ZjE/hvQX8/2yZs
-         Vq1reiSOGkH5y2l/d0PFE6oxT8jxK2p4ycEQDzrGaU5R403HRHTYINihtjPqNHms9A5n
-         CA/mX5LE/7Agyr4Dr59PIVUG4XFR/tScF4iX8kT/mrR6knsUf0bNNiX7qESpp6fj2bVB
-         B1ug==
-X-Forwarded-Encrypted: i=1; AFNElJ/vtDGdJBuYS/levA45xWBj/r4dfjh3D3fOyLsX2KQi49P936fgNC88IgpHNKMmo7T/BkWiQRkcMpyI@vger.kernel.org
-X-Gm-Message-State: AOJu0YyKShi5ww2iF4lUm0qTpndLklGbAwKg7hCrhoYTvwEabi9mbRIR
-	nNsFS8QGpqU60/S1pllr8kN+yQGo8dorWMHieAcQnNWw+sRi78u8lmMe
-X-Gm-Gg: AeBDieugC7M2qxezm7sD1WbRsnxvYHWbf+ixvFsGRoOc6zWfrHRSHzgEdXdK0XDAwra
-	/Es8ZYllWa69Qf3xYQmiLQC6ovsPzDogsCkg4uQ6Q7B7NE+1Roiu+I5mndkSsN5msMrMr3kMh/U
-	ydpQ1eDy5jNHL1V/SyLs32+Hd8wsGuB6vDeWK7aXOPD9JBhDfawdiFcxKBBI6n50ebbmstBB0d8
-	IG6ByxAgf61Sej2y7dPPuGnV9hYAp18s+SrSk8I3ZgUx9SGM7hxzes6bQpGx+I/YW9ZRdPB0U3Y
-	j/i8wHG1VHIwFo3as4erP/204hNhUtNxoE+3z2th5VBs0RhXyHlF42a/tR0uFMdVpQoBgLNuJta
-	p5jibsMyeKyhklyfKsQYXXc4xilhluQNW9/Y0i3WpZ20Q6rNCbpNehh1RczXu8eeBU1uMPYHwvS
-	XGJdEY8sztsJV3wdEqshDVlOJCdqvhcMPWltSya0wfRAIp9WUA4KP3ghDCdjplSGAv+F2Dr6zg2
-	9yUfkLHPdAvxg0QWRAGr8IxXZ+e2Y8dCWfrIl4i7xfcztObzb7RUATphQ==
-X-Received: by 2002:a05:600c:4f82:b0:48a:906b:14ca with SMTP id 5b1f17b1804b1-48d18ce240cmr39137725e9.20.1777980252724;
-        Tue, 05 May 2026 04:24:12 -0700 (PDT)
-Received: from iku.example.org ([2a06:5906:61b:2d00:7d2a:9b5b:a191:3b81])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48a8eba8487sm339946455e9.11.2026.05.05.04.24.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 04:24:12 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Prabhakar <prabhakar.csengg@gmail.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v3 2/2] memory: renesas-rpc-if: Fix duplicate device name on multi-instance platforms
-Date: Tue,  5 May 2026 12:24:05 +0100
-Message-ID: <20260505112405.667796-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260505112405.667796-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260505112405.667796-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="shdcuDPo"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 19B2AC2BCB9;
+	Tue,  5 May 2026 11:28:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777980510;
+	bh=DnmlrSJFdGQ8SDrNDiP9ssHPgMoJPlTfk8qc1QT5ptE=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=shdcuDPoOCHMD90M1fweESACr4Obuqv+DTF67kGquadTZ53H1PzQPz5kuMQqPpNYI
+	 uJpso+ut8ZSkvshaWE20KqefEOnJegh3lRCbqPue3gOT5VAxJG/6XUZvjxxwOLCQGC
+	 f9bH3CcO+knLszlyymeDyXTqWUN39c6RtERx2cjnXeEHmGw1MQGYTh3R/fnotvWOLa
+	 NmWPh1vxWkW561Jb0dUntOAnKjO1aD9S5vaou34wc4cUPdo4/r0xw4hgsHop5C5yj6
+	 MD4tg4gHye8JYxV+XF9sLJ4E57Me2Mv3noUIkhBhytza1WL/hqk2AG6TDWkWaVDIwB
+	 log9k2E4V/EUw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0983DCD3430;
+	Tue,  5 May 2026 11:28:30 +0000 (UTC)
+From: Haritha S K via B4 Relay <devnull+haritha.k.oss.qualcomm.com@kernel.org>
+Date: Tue, 05 May 2026 16:56:17 +0530
+Subject: [PATCH v2] arm64: dts: qcom: talos: Add passive polling-delay for
+ gpu-thermal zone
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260505-qcs615_gpu_cooling-v2-1-1ba42260b29d@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIANjT+WkC/32NywqDMBREf0WybsTER2tX/Y8iEuNVb9FEc1Vax
+ H9vtPtuBg7MzNkYgUMgdg825mBFQms8yEvAdKdMCxxrz0xGMosSKfmkKRNp2Y5Lqa3t0bQ8zrM
+ 0qq5Nk4ia+eHooMH3efosfkxL9QI9H09Ho0Oarfuc1lUcvb+CVXDB61Tlt0RpmUP8sEThtKhe2
+ 2EIfbBi3/cvvKWFPM0AAAA=
+X-Change-ID: 20260422-qcs615_gpu_cooling-39650b7ff41d
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, manaf.pallikunhi@oss.qualcomm.com, 
+ gaurav.kohli@oss.qualcomm.com, Haritha S K <haritha.k@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777980508; l=1005;
+ i=haritha.k@oss.qualcomm.com; s=20260422; h=from:subject:message-id;
+ bh=pZXEN7DVPFaFDrW/CKL2KXb/m1Lm+4AA3U1lQG1OwgM=;
+ b=fjPsnfcijY1WZVTHRFxBstIPndZDmJmEQ2dXAvhXt1jShAdcpPwaRbNVaCaGvqLcbugpDZ/pJ
+ XIaCuB9bTfQDECE1/VxYikBXvBBpm90hCnT/wOaXjHY4pz6nl+ciAas
+X-Developer-Key: i=haritha.k@oss.qualcomm.com; a=ed25519;
+ pk=ivp2P9RgsC6IkOe8JaqweeahT9pd0BVtL2d1YD8ICSg=
+X-Endpoint-Received: by B4 Relay for haritha.k@oss.qualcomm.com/20260422
+ with auth_id=745
+X-Original-From: Haritha S K <haritha.k@oss.qualcomm.com>
+Reply-To: haritha.k@oss.qualcomm.com
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Haritha S K <haritha.k@oss.qualcomm.com>
 
-On platforms with multiple xSPI instances, the driver fails to probe
-additional instances due to duplicate sysfs entries:
+Introduce a passive polling delay to ensure more than one
+"passive" thermal point is considered when throttling the GPU
+thermal zone.
 
-  [   86.878242] sysfs: cannot create duplicate filename '/bus/platform/devices/rpc-if-spi'
-
-This occurs because platform_device_alloc() uses pdev->id for the device
-ID, which may be PLATFORM_DEVID_NONE (-1) for multiple instances, causing
-all instances to attempt registration with the same name.
-
-Fix this by using PLATFORM_DEVID_AUTO instead, which automatically assigns
-unique IDs to each device instance, allowing multiple xSPI controllers to
-coexist without naming conflicts.
-
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Signed-off-by: Haritha S K <haritha.k@oss.qualcomm.com>
 ---
-v2->v3:
-- No change
-
-v1->v2:
-- Add RB tag from Wolfram.
+Changes in v2:
+- Updated commit message.
+- Link to v1: https://patch.msgid.link/20260422-qcs615_gpu_cooling-v1-1-d5a984ac29e3@oss.qualcomm.com
 ---
- drivers/memory/renesas-rpc-if.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/talos.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/memory/renesas-rpc-if.c b/drivers/memory/renesas-rpc-if.c
-index 0fb568456164..3755956ae906 100644
---- a/drivers/memory/renesas-rpc-if.c
-+++ b/drivers/memory/renesas-rpc-if.c
-@@ -1034,7 +1034,7 @@ static int rpcif_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(rpc->spi_clk),
- 				     "cannot get enabled spi clk\n");
+diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qcom/talos.dtsi
+index ff5afbfce2a4..8a3669b2d062 100644
+--- a/arch/arm64/boot/dts/qcom/talos.dtsi
++++ b/arch/arm64/boot/dts/qcom/talos.dtsi
+@@ -5267,6 +5267,7 @@ cpu-critical {
  
--	vdev = platform_device_alloc(name, pdev->id);
-+	vdev = platform_device_alloc(name, PLATFORM_DEVID_AUTO);
- 	if (!vdev)
- 		return -ENOMEM;
- 	vdev->dev.parent = dev;
--- 
-2.54.0
+ 		gpu-thermal {
+ 			thermal-sensors = <&tsens0 9>;
++			polling-delay-passive = <200>;
+ 
+ 			trips {
+ 				gpu_alert0: trip-point0 {
+
+---
+base-commit: bee6ea30c48788e18348309f891ed8afbf7702ac
+change-id: 20260422-qcs615_gpu_cooling-39650b7ff41d
+
+Best regards,
+--  
+Haritha S K <haritha.k@oss.qualcomm.com>
+
 
