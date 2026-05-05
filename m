@@ -1,957 +1,168 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011001.outbound.protection.outlook.com [40.107.130.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33F73E0225
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 20:10:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778011811; cv=none; b=AafP7slKdvfJS3RwuwgVZ4GRedbUPu6lhnO1ReDSmFKZks2iOG146DLFSyjmV9zN6H1ebqO25Hsz7GnnLAWhnuAsAWzWtTWpVH9I1zEjy1e0eCaJNRkQvh+bcdV04SahGBQ1rVxi27PtR+XazSEpRzK/tXBjVIkpQNM14bO1dYM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778011811; c=relaxed/simple;
-	bh=M8q85cHuD0IjA1YEFkE69hYJVLVnkgwDfpkr7khlWG8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=D0a3d7jzHHIVo3HR/+MQgmaIOeEQOZp0ftznqqJbg8vNgPGE67uJamj06cpbsU4rrM+k1A0X7gcnRW4zCfkW2eUPf7ueQQnMaAD/VF8cmXuBLLTDX7T4tZq/0s75R8Gtd9YH0WOjvrmXXGYUkaq5/I37XDGPQ/SsXVLLxBZ9qOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=WetIelqQ; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC21F3CF02C;
+	Tue,  5 May 2026 20:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778011924; cv=fail; b=HzhMnvdi2dEahT+EF0ECoa5MHcM/P7MNTjv6je73RORDAusUkZqT3nAvCuQVlmOvTHSoQ4rzA2fbG8daCjkn+krnIBZ0gjA2/Mzms1ngG2lR9YIB2qduuFi4xGDpD91EPp+xhDCGA8BLTbjICuAcuh0g24D+1MrWqUKkQO6qdCI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778011924; c=relaxed/simple;
+	bh=aMQM/z+j3lwGITs10ZmVPCPLr7+DyasxOeMzYUlbMTQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 Content-Type:MIME-Version; b=pKoQNm51z2mYqY91yPWr1bT+xu0b2TR0UuLCwaCUxRu+a1YnQp9uBezTSx/arFFxKSGD/3P/2gklIU1+esBscmmUWX9phr/47iDSzEsvCGhvE7/NreXxwHbzvUnzk6F0XYFQ43S2IekNC9GF6P2SBss4NBLDmVOTFooghXgw73g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=kyxe2KuM; arc=fail smtp.client-ip=40.107.130.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="WetIelqQ"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4893940bb5eso31187905e9.3
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 13:10:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=imd-tec.com; s=google; t=1778011807; x=1778616607; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=H96GoGVNWeBT3mnRxUx/mo6k/EMQS91J6elkRaHR/kE=;
-        b=WetIelqQTXWZxLtj0FE6Sf1Lix4JxWyWaV0kzYG14n66GL9yVWAUjo++DZHSIP6MES
-         +tPP+j9I5pgecY4nMHCyunspJC9Frlqw3CXi4lVc2miC9BSvzp4i1VSCaRQ0HC5UFgMp
-         xvzR7YGauueNd3Y03hmHpLc19ewp2VSQrP4UcWwbysDHLjq6TfdM5GAAX7tu0DxiyHHn
-         dpmdXWvwfoGNbdZyC0LhhdOHCChCSwiN9N836xn3BEHKey7sd0VPKWi2Bh/5gKDbyPXG
-         7pJcpUchFsK1NY1CAfgrkUgfsC+6pvuztOk/ohG5FA2WssbLB0DV9XX6lb8fIRzQZqxZ
-         ogzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778011807; x=1778616607;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=H96GoGVNWeBT3mnRxUx/mo6k/EMQS91J6elkRaHR/kE=;
-        b=kyA5G45xQXiqu08U5y6G6cpgllzg08JJr0DSIPHwKzH7t8fOO6b6YZIPmXuMtdka+p
-         uauXenqxzMCcYLX4ACjXJeXhfhAWSmPeI1OZ4JYwY/PWtlcT/Yz8YIMJk2nsZdjFCP61
-         KeLFhsdVNfT6Ebh4ZJUF+jF0aS5rGm9bNyedtX8B2sSggajxYVc2Vqd98OEsrp8Sa3rb
-         UzpqP3PEvddwTMX02jWW3ASKIKxK6xgtdl7IUauMtvM0VHeG+UqUaZIlBLTKMEjvAutz
-         J/sidsWgr0L4P65BD2q9KXKL0OzTjgnLnDNl39nGKO4eraMc57GvY8Jz3fMg+nBdUwjH
-         Em4Q==
-X-Gm-Message-State: AOJu0YxT10HX96y0bAEEPMA0BI2qqU4AfGBkFhmFMQ94D/9ffGzLJQc0
-	1oU70dZagTb/EdPL7SvFHI5pweQf2GGddBP1a9AOaH2DKr7XCtWj7tcqrqULZoDGloFbwlmGpOU
-	vLbBpVN0=
-X-Gm-Gg: AeBDiesqjPf7mAaHAmLBR6cCAs6RyuBDftvv0dIsHnRlB18WYXtcIKwhbFSffPfZUCS
-	8uW1CKBwMya15+WX6efyRQeMFeaA2azBSo/n/m5OZeg7XTstr23S9Ffaw2b4nm6vf6m2EY00WzM
-	UBskngtNHt5WvYfkR4ugiIKavVnL9gL919PLGpGZjLIuT9L5W/8jlm/fj28G8et2XnqTFNHRTvX
-	7kyxfA+FCkUR620WqeREtjHJ5Gt3O+KtYZ9QOjitDs3ozL+88wsJ951zlmBDZJAcJG+0x4roEAu
-	RoHWjwFIWJsxI85e3sMFKh7I27Fmw4JA2yIADuCzY5dEuxMr4fVRZz7WDXi6/GY0BScIwd1yF6l
-	yxksMI0I/LgMNYtK4w7Na3yW/kF1HItL16NOFY/gALe3wjUe1sHzNFI+/Kjgeu6e7b9FZopxuNt
-	AkjI0BrztWPr84NIWmMPDy1IocOs3zes35Vmm2xEzUp0x9GsjDnlOgCJdmo5ZeV2M6MUJm8DXs4
-	Y+LtSVilVLrSK9V8g5gZEBwb16KAVpUCGc=
-X-Received: by 2002:a05:600c:43d5:b0:489:1d74:56d with SMTP id 5b1f17b1804b1-48e51f4940emr5829045e9.29.1778011806939;
-        Tue, 05 May 2026 13:10:06 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:23c6:2736:8e01:fc8c:f883:9efa:3625])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e5285ffc5sm1752205e9.2.2026.05.05.13.10.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 13:10:06 -0700 (PDT)
-From: William Bright <william.bright@imd-tec.com>
-Date: Tue, 05 May 2026 21:09:54 +0100
-Subject: [PATCH v2 4/4] arm64: dts: qcom: Add IMDT QCS8550 SBC
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="kyxe2KuM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Kz372QaXHhEMfVqd3kstDjC1wl4t3w9Qdp79Bok9t+ADrN0bSYSuyqDPDjFA1UZfS9XhQYAw2B85SeOlPHH7FT6aG9p5DLr26iQNyBOMLJa78NGO0aPRPehrVbEFNhLNXJVSfbqTysxkf4EhOVJvUohcBwjmesQVzXNbbEJdxLddiaFgNgE5rTV9tOBoiGX9Oaj3d5+n4u6c2E4gRlWZtd6UDq7Jq5wu2XzexYafoBTuMH2JWIR+TDQuDqNV6YLo4xWyK8l+GoT5LsiCVLFxYTe4WQdBhVPNOhihrtuxdJahR5qdz3rpmpdh1/JtQgJ4+pZ5bF5F61CgvTolWG/Giw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TfRzuK1HI6G8d4TIsqxuCTlT6zieF/kWtpfoCw6sl5Q=;
+ b=CO+g0nZVEMFtd5+HRamep4N6aPgYHdF9sU0FMo0XltxmAoD8EH/+6HYm4xNc6CPLG5nUWu1kPXP11tiLbqhW0DzQwTM/ISxZMTHeWuTYhHjw8++Wl8cQunXOyeMJpNd8PhMYu9Hql+pbMfW0lN+7HbOmY1okcfl8OOnVJebCK/xttCqN4t/VhGOJvEVzqZTBkbzADDWCXN27nM26B2IpjE9RbnzV59CCfATrF4XPu0EmoY3YWSfNbZQ4b+24mP+Jn05SNll0vDxGp+/PXHIUndI6kUHi6rmEWbnUp85ae08/5o9XbmOUOg/TTCBJX41oBtHCsfgvyY8pQWTu+xIahQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TfRzuK1HI6G8d4TIsqxuCTlT6zieF/kWtpfoCw6sl5Q=;
+ b=kyxe2KuM9YuXKCoyBrx12cQFjl5JwkqGVr59LACX8z7W3C/4Emsj6BIJqztdDiyjHKauNLviF3AXzNt8IuAZJ+F/AwC3AdDiUG5gG/8B+4NWEPFhvjND8LEIp6J5d/D4JNXjpfaXQaczoLp0HNxka9VfP8vVfqA27pNTT2cxvl0CzFxwQreffHdTXuA2mh4TRpHNKfytyD0KA8IbRGIgvy6yDxI+pgFK5qfz8+7yqbnwDsQoEEPtVLCXH/cs0U3C+XlhwrYEye0NrT27JktxgqAz1gCdEonrkmfkp94BFTXrPeWScubliUlw3WrlT7kEawyjt5Ug0/qvIWLd8kxFxg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by VI0PR04MB12233.eurprd04.prod.outlook.com (2603:10a6:800:335::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
+ 2026 20:11:50 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9870.023; Tue, 5 May 2026
+ 20:11:50 +0000
+From: Frank Li <Frank.Li@nxp.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
+ Francesco Dolcini <francesco@dolcini.it>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260409095855.61252-1-francesco@dolcini.it>
+References: <20260409095855.61252-1-francesco@dolcini.it>
+Subject: Re: [PATCH v1 0/7] Add verdin imx8m[mp] and imx95 zinnia board
+Message-Id: <177801190792.2069344.428143754036338345.b4-ty@nxp.com>
+Date: Tue, 05 May 2026 16:11:47 -0400
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.2
+X-ClientProxiedBy: SA1PR05CA0022.namprd05.prod.outlook.com
+ (2603:10b6:806:2d2::28) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260505-imdt-qcs8550-sbc-rfc-v2-4-b4767d0dd421@imd-tec.com>
-References: <20260505-imdt-qcs8550-sbc-rfc-v2-0-b4767d0dd421@imd-tec.com>
-In-Reply-To: <20260505-imdt-qcs8550-sbc-rfc-v2-0-b4767d0dd421@imd-tec.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, William Bright <william.bright@imd-tec.com>
-X-Mailer: b4 0.15.2
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|VI0PR04MB12233:EE_
+X-MS-Office365-Filtering-Correlation-Id: c6927011-bab8-4cbe-38cd-08deaae28abb
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|7416014|52116014|376014|19092799006|366016|1800799024|38350700014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+ GnU+iQhvRfLrDNLtyt2Jr/vZKqXX4qK6Sblg872lZiHL/YxxqVIZwDshwinscn6ghYYK6NKgAxYYtzcIKcu4RwlvYKgGx04ivEpbQn4VBxMzIHSyGKs8Z7kE8QJuZMXQiqx92I7uKJx3QvgJnoDlYKL3mdpyFNm+dexusMKMShCXfKR22qoyRVdMuDXNCc6xNA/DEQmT4duE/rY0z14j27uqCoTzppwMX4F9h8oQ/c2OV72Dmjcy5168ggiXrcCgM5VVh+Y6EcvIYhdEFFTKn+M98l3Ilk4GLu2HV/9X13+T5JaLCzYGMOK0jag9S9D6w1yjfWb0yg1D63zqSVvkFXWH6qcBQs4SWtS2eCeJEi179kXAvH2d1oNsjopKQQVtFINg1I7mJ1S+kbAeHkv1PnKwwNyGDbWsUj5C8R0o6TXZElJkAcj/D2FIAxSOC2L3JdXpE8pcIlnJ4oMf75y1cY9EecvQSARtmlE6UfpW8tfsOeV8JGux3EI07S2OzLMdz4ye8l4YEI9rp8sWg4EQ5WoN0TxoY/taq49vRoDkMqzz0PSyUEp/oX1jbmLwuqVoAWhPBs31qTc/hifbLfKosFoP740b8Cxexcun7je452TazV0kasKbmhVwx6iDlvRfAG0Cfb2uHCw5caKeSmJ9EPbRzpDOQ9OhpDT/0muLEnljyH2ncCJdK0xn2gtSUbycWtx/4JjXolMGfzHd1cNBOiEXu7ua7lKwvqGqLbVYCdEbT53EEwpSUe9wfH9xr4Vf
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(376014)(19092799006)(366016)(1800799024)(38350700014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?bTJ4NVVWbXQvVXdzRklkSHdKU3htdXdvdVgwbndxdm42THRKZzF2RzdTZ3RJ?=
+ =?utf-8?B?OXlVYWhLUUtIU2wzRmVvWkdjR3lyd29Hd2EyR1BDQWFwRGRpeEppOFNZV0ND?=
+ =?utf-8?B?MTJNMWx1YUx0MEJEcnlpbElYUHVPOTRNWDVRWWp1ZXBsMkdnNFVtQ2Q1czJ0?=
+ =?utf-8?B?VHBXZGx6dnpOK0xpZlVDbFhHT2pNRi9weW1TKzVUWERKV1ZDaktFcm1ZY1Ra?=
+ =?utf-8?B?ZDdldGRQKytHamdRT3pOTGZ2VmRURXVpUmtLZHdSMFI0dERxa3Nud0dYZzN0?=
+ =?utf-8?B?aDl4SUZhOEgwVW5CdHhsOEVpdVp2REdjRWc0ajhNMDhFRVBLOHVkR3lBM2Zv?=
+ =?utf-8?B?RzMzZXhOdTVvY0VBS3QwNzBHa1c5Yzk0Y3NXWlFGUi9yYXZ6Tml5YWlJL3ky?=
+ =?utf-8?B?bWcvWU5UUmN2U213Sk41N0dzT0VMOWI2K1VpZ0xGVy9RN09CMHNhcjBmNm1N?=
+ =?utf-8?B?a3lJeENLc0FjaXRaTDc3Rzl1bjJ3c05nR2ZxbXFuNGd2S0RoQUZqVjBMSVpw?=
+ =?utf-8?B?NVhTSlJUQjlONXZSWUpNSVh0K09LZnpMcG9kR0pSejJMdllPb2pXZDBNc0p2?=
+ =?utf-8?B?OEttU25lZ3RCWkJ3MUIzb29aVTA1N3ViVDZuT2Z3QmorVG9uZlRTM0tkMlIw?=
+ =?utf-8?B?TnZrZGl6a2tpeTdGdlVXM0UvZDFodVdkUmZzZzFFWlBjYUdqc3hKcjFYdEJk?=
+ =?utf-8?B?VUlnZlYrcjArZU5QUE9pdnFDOWpzUUVPZVRqUTU5ZkZUeGZFaGZoZnRDMTd5?=
+ =?utf-8?B?bTByZVJqeHgvakFtSlpvYWtrRzJwZEVVNlpnZzVHK3RlRlY4RWc0RzlKQldK?=
+ =?utf-8?B?Z09mMnJvVE0reGppYzMvOFY4ZWdEbHZ1QWJEWkFpOERNbTB0OWx0OGtlR1pJ?=
+ =?utf-8?B?cXFqcjlzRVlqd3JwQjNtUFRoQ3FqVHVlOE1LeFVORWNVOVVseWJvaUI2dnB4?=
+ =?utf-8?B?Rmp5QytaMXlTQzg3VkdXSmRzZzQ2ZW5PeU50SGhZMFFCOHN1QnozVzJVeC9s?=
+ =?utf-8?B?eUlhdzFkSkN2aXhXY2hCSENaVGg2a0tDZE1ybWQ5ZnFjTkRsbzZERjh0cHNs?=
+ =?utf-8?B?NE0wRzlxYWcweElDb3hJMWhuZFZrUGVpVGcxOHFiRGRFdFhpdlg1L2gwbGhm?=
+ =?utf-8?B?dTFnMUNOZmt3SHQwTWx0b2RKNTg4QzgvZ2xQZ0tsdWJOMGlCY1VwZ1p0WnNr?=
+ =?utf-8?B?c09wTTVEazg2Qi9SN2kvTWxJTUdrODhnTUwyNkFGMU5qQldybVUwRkExekNC?=
+ =?utf-8?B?d2dnR1NjZTFqdTNiaytLY1psMDZJNklUUVFhbVpLNW5PczlJODEwRVgrcU1F?=
+ =?utf-8?B?eHpuRWZ3TEpmM0hEelFJUmFkVURqcHRPaDdCSTNydkgvcmpFSjJrRndLNFdY?=
+ =?utf-8?B?S3VEdnZiWHF3RENmWTcxNFlwNFdXNG5OKytIeGY3TVBia1ZQNHZUT050WXd4?=
+ =?utf-8?B?VWJJMUtwRmFPanFlNUNVeFNZdFM3Q2dhSGkzUlpPRTdJVnhmeitla0JjMFFH?=
+ =?utf-8?B?RmczMHgzODlYNUFtdyttczhYZ2c4Um43N3RrT3Z2ekhIMlNHQWp0UEpxanZz?=
+ =?utf-8?B?MmsrbGRJaWlxd09KdTJWcHVYcDJTajJrMUpHck02SDZ3T0UxRnl6aU1BTU9h?=
+ =?utf-8?B?czBQMjNZK3c4eVI3ZElSaEg2U0NwMmZDRFlJblpuTnpEYzF1RW11eTN3MVM3?=
+ =?utf-8?B?THpXZkFnZlA4aUpZWnd2dzlPUnVtUXBKUUI3clBhWmkvZ1JFT21zNWxOU2hr?=
+ =?utf-8?B?SnhlYWdmOFYvVklweXdsNFJRQVpKMmVKNGdjSlpyZW1TZ2xZUENiSzBXREkv?=
+ =?utf-8?B?dkJNVUpVakRRSHJlOWRzQTRLN2JadHExNDM1dU0zLzlJUUg2SlU0ZENTdDJy?=
+ =?utf-8?B?QitBTkduTEgrR295WjdvTjdPRXhBN2JkZHRUWU5ZUGxHYTY4VDRzbWNmSkE4?=
+ =?utf-8?B?UllXQkZBK3JmZk51Q3lHcy9LMDI1SmJXaDgvQXRWR3Q5UGNHdHZHdzkxdHZr?=
+ =?utf-8?B?VFArRElydm1Wa25FS25qRmZKT0N5N2FsK242SjFZTCtscUpsNmR5b3pCVmlr?=
+ =?utf-8?B?dU1oeVk1bjE5N0wrOUh4eklkMmdBUnNjUXJtbkttbytYcm1HdE1HVFZ3UE1S?=
+ =?utf-8?B?bWg2a00wQXpsNEN5VEVHR0V4L0ljUFNzU3MrQ2E1d3lEM1Ruc3VXMFlPbFI5?=
+ =?utf-8?B?VlpuNGxIUjllN01sdG5yQ2U3VXlOb0tuVnJmV3JHSlA5c2xldFVsQTNkb0Nu?=
+ =?utf-8?B?MzlWMUVsTThaQXdIMmtja3prdzFBNzgrelEyVEJtaFArR2ljdEtIOEQvd3l6?=
+ =?utf-8?B?ZUlUNHVldEVLcnBoZHpyK0daRjRTMG83UUhCbm40WmhNTnB0V3A3QT09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6927011-bab8-4cbe-38cd-08deaae28abb
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 20:11:50.1499
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mswZke56CMotxq7XXvnP8sDSpMsxqCmy5VMABmrHYXSZhlduCgueDisGyHUVpJOMiL1bTwCauZ8k8Fi+UKtAyg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12233
 
-The IMDT QCS8550 SBC is a two-board design from IMD Technologies Ltd
-built around the Qualcomm QCS8550 SoC. An IMDT QCS8550 SoM is soldered
-onto the IMDT QCS8550 carrier board that supplies VPH_PWR and exposes
-the off-module peripherals.
 
-With this DTS, the board can boot to shell with a UFS rootfs with
-debugging through uart7. USB and ethernet also are fully functional.
+On Thu, 09 Apr 2026 11:58:46 +0200, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> 
+> Add Zinnia Carrier Board mated with Verdin iMX8M Plus, Verdin iMX8M Mini and
+> Verdin iMX95.
+> 
+> It features 1 x RS232, 1 x RS485, 1 x CAN, 3 x isolated digital I/O,
+> 2 x 1GBit/s Ethernet, a mini PCIe slot with USB / SIM card connector
+> for a modem, USB and SD card interfaces.
+> 
+> [...]
 
-Features enabled are:
-- On-board regulators
-- uSD
-- UART
-- UFS
-- PCIe0
-- PCIe1
-- USB (gadget only)
-- Ethernet via LAN7430 (PCIe1)
-- ADSP, CDSP
+Applied, thanks!
 
-Assisted-by: Claude:claude-opus-4.7
-Signed-off-by: William Bright <william.bright@imd-tec.com>
----
- arch/arm64/boot/dts/qcom/Makefile             |   1 +
- arch/arm64/boot/dts/qcom/qcs8550-imdt-sbc.dts | 827 ++++++++++++++++++++++++++
- 2 files changed, 828 insertions(+)
+[1/7] dt-bindings: arm: fsl: Add verdin imx8m[mp] and imx95 zinnia board
+      commit: 70e7491569309e53ac4591d2e41c66867a43f3a0
+[2/7] arm64: dts: freescale: imx8mm-verdin: Split UART_2 pinctrl group
+      commit: 1adec08904bdb8edfcb78ba6144797db68a1b049
+[3/7] arm64: dts: freescale: imx8mm-verdin: Add Zinnia
+      commit: 4ae9c3f71915ba8a137ae37982273f6e0a521c8c
+[4/7] arm64: dts: freescale: imx8mp-verdin: Split UART_2 pinctrl group
+      commit: 64f3d33bb803d70044cbe9b98894c8098fa122b6
+[5/7] arm64: dts: freescale: imx8mp-verdin: Add Zinnia
+      commit: 17658e1c90b0df0e7152011e496cc251a373a581
+[6/7] arm64: dts: freescale: imx95-verdin: Split UART_2 pinctrl group
+      commit: 7bd750e7b7d1a70b838ba5f375547ca30f7c4b39
+[7/7] arm64: dts: freescale: imx95-verdin: Add Zinnia
+      commit: 76182019a4c41c1f187694f1c3db48a0112854c0
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 88c5c0c1cb8e..d38fb3c43c13 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -181,6 +181,7 @@ qcs8300-ride-el2-dtbs := qcs8300-ride.dtb monaco-el2.dtbo
- 
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8300-ride-el2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-aim300-aiot.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-imdt-sbc.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride-r3.dtb
- 
-diff --git a/arch/arm64/boot/dts/qcom/qcs8550-imdt-sbc.dts b/arch/arm64/boot/dts/qcom/qcs8550-imdt-sbc.dts
-new file mode 100644
-index 000000000000..d8ed92e746a2
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/qcs8550-imdt-sbc.dts
-@@ -0,0 +1,827 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026 IMD Technologies Ltd
-+ */
-+
-+/dts-v1/;
-+
-+#include "qcs8550-imdt-som.dtsi"
-+
-+/ {
-+	model = "IMDT QCS8550 SBC";
-+	compatible = "imdt,qcs8550-sbc", "imdt,qcs8550-som",
-+		     "qcom,qcs8550", "qcom,sm8550";
-+	chassis-type = "embedded";
-+
-+	aliases {
-+		serial0 = &uart7;
-+		serial1 = &uart14;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	backlight: backlight {
-+		compatible = "gpio-backlight";
-+		gpios = <&pm8550_gpios 6 GPIO_ACTIVE_HIGH>;
-+		default-on;
-+	};
-+
-+	cam_1v2_reg: regulator-cam-1v2 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "cam_1v2_reg";
-+		regulator-min-microvolt = <1200000>;
-+		regulator-max-microvolt = <1200000>;
-+		vin-supply = <&hr_cam_pwr>;
-+	};
-+
-+	cam_1v8_reg: regulator-cam-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "cam_1v8_reg";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		vin-supply = <&hr_cam_pwr>;
-+	};
-+
-+	cam_2v8_reg: regulator-cam-2v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "cam_2v8_reg";
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+		vin-supply = <&hr_cam_pwr>;
-+	};
-+
-+	cam_3v3_reg: regulator-cam-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "cam_3v3_reg";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&hr_cam_pwr>;
-+	};
-+
-+	display_panel_pwr_en: regulator-display-panel-en {
-+		compatible = "regulator-fixed";
-+		regulator-name = "display_panel_pwr_en";
-+		regulator-min-microvolt = <8000000>;
-+		regulator-max-microvolt = <8000000>;
-+		startup-delay-us = <10000>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&panel_en_default>;
-+
-+		gpio = <&tlmm 123 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		vin-supply = <&som_vph_pwr>;
-+	};
-+
-+	/* 5V VIN to backlight LED driver PMIC */
-+	dsi_5v_en: regulator-dsi-5v-en {
-+		compatible = "regulator-fixed";
-+		regulator-name = "dsi_5v_en";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&dsi_5v_en_default>;
-+
-+		gpio = <&tlmm 140 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		vin-supply = <&som_vph_pwr>;
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	/* Enables 1V2, 1V8_CAM and 3V3_CAM */
-+	hr_cam_pwr: regulator-hr-cam-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "hr_cam_pwr";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&hr_cam_en_default>;
-+
-+		gpio = <&tlmm 146 GPIO_ACTIVE_LOW>;
-+
-+		vin-supply = <&som_vph_pwr>;
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	/* Enables V2MB_3V8 and V2ME_3V3 */
-+	m2_pd_pwr: regulator-m2-pd-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "m2_pd_pwr";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&m2_pd_en_default>;
-+
-+		gpio = <&tlmm 144 GPIO_ACTIVE_LOW>;
-+
-+		vin-supply = <&som_vph_pwr>;
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+
-+		gpio-open-drain;
-+	};
-+
-+	per_1v8_reg: regulator-per-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "per_1v8_reg";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		vin-supply = <&per_pwr>;
-+	};
-+
-+	per_3v3_reg: regulator-per-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "per_3v3_reg";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&per_pwr>;
-+	};
-+
-+	per_5v_reg: regulator-per-5v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "per_5v_reg";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&per_pwr>;
-+	};
-+
-+	/* Enables 5V_PER, 3V3_PER and 1V8_PER */
-+	per_pwr: regulator-per-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "per_pwr";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pwr_per_en_default>;
-+
-+		gpio = <&tlmm 142 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		vin-supply = <&som_vph_pwr>;
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	sdhci_2_vqmmc: regulator-sdhci-2-vqmmc {
-+		compatible = "regulator-gpio";
-+
-+		regulator-name = "sdhci_2_vqmmc";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-type = "voltage";
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&sd_vset_default>;
-+
-+		gpios = <&tlmm 4 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		gpios-states = <0>;
-+		states = <3300000 0>,
-+			 <1800000 1>;
-+
-+		startup-delay-us = <10000>;
-+	};
-+
-+	sdhci_4_vqmmc: regulator-sdhci-4-vqmmc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "sdhci_4_vqmmc";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	som_vph_pwr: regulator-som-vph-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "som_vph_pwr";
-+		regulator-min-microvolt = <3900000>;
-+		regulator-max-microvolt = <3900000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vph_pwr: regulator-vph-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vph_pwr";
-+		regulator-min-microvolt = <3700000>;
-+		regulator-max-microvolt = <3700000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vsys_sd_3v3_reg: regulator-vsys-sd-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vsys_sd_3v3_reg";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vsys_wlan_3v3_reg: regulator-vsys-wlan-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vsys_wlan_3v3_reg";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	wifi_pwrseq: wifi-pwrseq {
-+		compatible = "mmc-pwrseq-simple";
-+		/*
-+		 * NXP IW416 chip enables: PMIC_EN (master) and WLAN_EN.
-+		 * Held asserted (low) before SDHC4 powers up, then
-+		 * released after vmmc/vqmmc are stable.
-+		 */
-+		reset-gpios = <&tlmm 19 GPIO_ACTIVE_LOW>,
-+			      <&tlmm 5 GPIO_ACTIVE_LOW>;
-+		post-power-on-delay-ms = <50>;
-+	};
-+};
-+
-+&apps_rsc {
-+	regulators-0 {
-+		vdd-bob1-supply = <&vph_pwr>;
-+		vdd-bob2-supply = <&vph_pwr>;
-+	};
-+
-+	regulators-3 {
-+		vdd-s4-supply = <&vph_pwr>;
-+		vdd-s5-supply = <&vph_pwr>;
-+	};
-+
-+	regulators-4 {
-+		vdd-s4-supply = <&vph_pwr>;
-+	};
-+
-+	regulators-5 {
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vph_pwr>;
-+		vdd-s3-supply = <&vph_pwr>;
-+		vdd-s4-supply = <&vph_pwr>;
-+		vdd-s5-supply = <&vph_pwr>;
-+		vdd-s6-supply = <&vph_pwr>;
-+	};
-+};
-+
-+&gpi_dma1 {
-+	status = "okay";
-+};
-+
-+&gpu {
-+	status = "okay";
-+};
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/sm8550/a740_zap.mbn";
-+	/* Zap shader doesn't load so is disabled */
-+	status = "disabled";
-+};
-+
-+&i2c_master_hub_0 {
-+	status = "okay";
-+};
-+
-+&i2c_hub_2 {
-+	clock-frequency = <400000>;
-+	status = "okay";
-+
-+	ptn3222: redriver@43 {
-+		compatible = "nxp,ptn3222";
-+		reg = <0x43>;
-+		#phy-cells = <0>;
-+
-+		vdd1v8-supply = <&vreg_l15b_1p8>;
-+		vdd3v3-supply = <&vreg_l5b_3p1>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&eusb2_repeater_reset_default>;
-+
-+		reset-gpios = <&pm8550vs_d_gpios 4 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&ipa {
-+	qcom,gsi-loader = "self";
-+	memory-region = <&ipa_fw_mem>;
-+	firmware-name = "qcom/sm8550/ipa_fws.mbn";
-+	status = "okay";
-+};
-+
-+&iris {
-+	status = "okay";
-+};
-+
-+&lpass_rxmacro {
-+	status = "disabled";
-+};
-+
-+&lpass_tlmm {
-+	status = "disabled";
-+};
-+
-+&lpass_txmacro {
-+	status = "disabled";
-+};
-+
-+&lpass_vamacro {
-+	status = "disabled";
-+};
-+
-+&lpass_wsa2macro {
-+	status = "disabled";
-+};
-+
-+&lpass_wsamacro {
-+	status = "disabled";
-+};
-+
-+&pcie0 {
-+	wake-gpios = <&tlmm 96 GPIO_ACTIVE_HIGH>;
-+	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-+
-+	/*
-+	 * pcie0 hosts the M.2 Key-E slot. Apply the SDIO reset
-+	 * de-assert here so any module's chip enable is settled
-+	 * before pcie0 trains its link.
-+	 */
-+	pinctrl-0 = <&pcie0_default_state>, <&m2e_sdio_resetn_default>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&pcie0_phy {
-+	vdda-phy-supply = <&vreg_l1e_0p88>;
-+	vdda-pll-supply = <&vreg_l3e_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&pcie1 {
-+	wake-gpios = <&tlmm 99 GPIO_ACTIVE_HIGH>;
-+	perst-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
-+
-+	/*
-+	 * pcie_switch_sel_default and gbe_reset_default are board-init
-+	 * lines that must be stable before pcie1 trains its link: the
-+	 * PCIe switch needs its mode-select strap settled, and the
-+	 * downstream LAN743x must be out of reset to enumerate.
-+	 * Applying them via pcie1's pinctrl-0 fires them during
-+	 * qcom-pcie probe, before bus enumeration.
-+	 */
-+	pinctrl-0 = <&pcie1_default_state>,
-+		    <&pcie_switch_sel_default>,
-+		    <&gbe_reset_default>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&pcie1_phy {
-+	vdda-phy-supply = <&vreg_l3c_0p9>;
-+	vdda-pll-supply = <&vreg_l3e_1p2>;
-+	vdda-qref-supply = <&vreg_l1e_0p88>;
-+
-+	status = "okay";
-+};
-+
-+&pm8550_gpios {
-+	sd_card_detect_default: sd-card-detect-default-state {
-+		pins = "gpio12";
-+		function = "normal";
-+		input-enable;
-+		output-disable;
-+		bias-disable;
-+		power-source = <1>; /* 1.8 V */
-+	};
-+};
-+
-+&pm8550vs_d_gpios {
-+	eusb2_repeater_reset_default: eusb2-repeater-reset-default-state {
-+		pins = "gpio4";
-+		function = "normal";
-+
-+		input-enable;
-+		output-enable;
-+		bias-disable;
-+
-+		drive-push-pull;
-+		power-source = <1>; /* 1.8V */
-+		qcom,drive-strength = <3>;
-+	};
-+};
-+
-+&pmk8550_gpios {
-+	pmk8550_sleep_clk: sleep-clk-state {
-+		pins = "gpio3";
-+		function = "func1";
-+		input-disable;
-+		output-enable;
-+		bias-disable;
-+		power-source = <1>; /* 1.8 V */
-+	};
-+};
-+
-+&pon_pwrkey {
-+	status = "okay";
-+};
-+
-+&pon_resin {
-+	linux,code = <KEY_VOLUMEDOWN>;
-+
-+	status = "okay";
-+};
-+
-+&qupv3_id_0 {
-+	status = "okay";
-+};
-+
-+&qupv3_id_1 {
-+	status = "okay";
-+};
-+
-+&remoteproc_adsp {
-+	firmware-name = "qcom/sm8550/adsp.mbn",
-+			"qcom/sm8550/adsp_dtb.mbn";
-+	status = "okay";
-+};
-+
-+&remoteproc_cdsp {
-+	firmware-name = "qcom/sm8550/cdsp.mbn",
-+			"qcom/sm8550/cdsp_dtb.mbn";
-+	status = "okay";
-+};
-+
-+&remoteproc_mpss {
-+	firmware-name = "qcom/sm8550/modem.mbn",
-+			"qcom/sm8550/modem_dtb.mbn";
-+	status = "okay";
-+};
-+
-+&sdc2_default {
-+	clk-pins {
-+		drive-strength = <16>;
-+	};
-+
-+	cmd-pins {
-+		/delete-property/ bias-pull-up;
-+		bias-disable;
-+		drive-strength = <16>;
-+	};
-+
-+	data-pins {
-+		/delete-property/ bias-pull-up;
-+		bias-disable;
-+		drive-strength = <16>;
-+	};
-+};
-+
-+&sdhc_2 {
-+	cd-gpios = <&pm8550_gpios 12 GPIO_ACTIVE_LOW>;
-+
-+	pinctrl-0 = <&sdc2_default>, <&sd_card_detect_default>;
-+	pinctrl-1 = <&sdc2_default>, <&sd_card_detect_default>;
-+	pinctrl-names = "default", "sleep";
-+
-+	vmmc-supply = <&vsys_sd_3v3_reg>;
-+	vqmmc-supply = <&sdhci_2_vqmmc>;
-+
-+	bus-width = <4>;
-+	no-sdio;
-+	no-mmc;
-+
-+	status = "okay";
-+};
-+
-+&tlmm {
-+	/* Reserved I/Os for NFC */
-+	gpio-reserved-ranges = <32 8>;
-+
-+	bt_default: bt-default-state {
-+		bt-en-pins {
-+			pins = "gpio81";
-+			function = "gpio";
-+			drive-strength = <16>;
-+			bias-disable;
-+		};
-+
-+		sw-ctrl-pins {
-+			pins = "gpio82";
-+			function = "gpio";
-+			bias-pull-down;
-+		};
-+	};
-+
-+	dsi_5v_en_default: dsi-5v-en-default-state {
-+		pins = "gpio140";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-pull-down;
-+	};
-+
-+	goodix_int_default: goodix-int-default-state {
-+		goodix-int-pins {
-+			pins = "gpio88";
-+			function = "gpio";
-+			bias-disable;
-+		};
-+	};
-+
-+	goodix_reset_default: goodix-reset-default-state {
-+		goodix-reset-pins {
-+			pins = "gpio122";
-+			function = "gpio";
-+			drive-strength = <8>;
-+			drive-open-drain;
-+			bias-disable;
-+		};
-+	};
-+
-+	hr_cam_en_default: hr-cam-en-default-state {
-+		hr-cam-en-pins {
-+			pins = "gpio146";
-+			function = "gpio";
-+			drive-strength = <16>;
-+		};
-+	};
-+
-+	lt9611_irq_pin: lt9611-irq-state {
-+		pins = "gpio8";
-+		function = "gpio";
-+		bias-disable;
-+	};
-+
-+	lt9611_rst_pin: lt9611-rst-state {
-+		pins = "gpio7";
-+		function = "gpio";
-+		output-high;
-+	};
-+
-+	m2_pd_en_default: m2-pd-en-default-state {
-+		m2-pd-en-pins {
-+			pins = "gpio144";
-+			function = "gpio";
-+			drive-strength = <16>;
-+			drive-open-drain;
-+		};
-+	};
-+
-+	panel_en_default: panel-en-default-state {
-+		pins = "gpio123";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-pull-down;
-+	};
-+
-+	panel_reset_default: panel-reset-default-state {
-+		pins = "gpio133";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-disable;
-+		drive-open-drain;
-+	};
-+
-+	pwr_per_en_default: pwr-per-en-default-state {
-+		pwr-per-en-pins {
-+			pins = "gpio142";
-+			function = "gpio";
-+			drive-strength = <16>;
-+		};
-+	};
-+
-+	sd_vset_default: sd-vset-default-state {
-+		sd-vset-pins {
-+			pins = "gpio4";
-+			function = "gpio";
-+			bias-disable;
-+			drive-strength = <16>;
-+		};
-+	};
-+
-+	sdc4_default: sdc4-default-state {
-+		clk-pins {
-+			pins = "gpio50";
-+			function = "sdc4_clk";
-+			bias-disable;
-+			drive-strength = <16>;
-+		};
-+
-+		cmd-pins {
-+			pins = "gpio51";
-+			function = "sdc4_cmd";
-+			bias-disable;
-+			drive-strength = <16>;
-+		};
-+
-+		data0-pins {
-+			pins = "gpio89";
-+			function = "sdc40";
-+			bias-disable;
-+			drive-strength = <16>;
-+		};
-+
-+		data1-pins {
-+			pins = "gpio90";
-+			function = "sdc41";
-+			bias-disable;
-+			drive-strength = <16>;
-+		};
-+
-+		data2-pins {
-+			pins = "gpio48";
-+			function = "sdc42";
-+			bias-disable;
-+			drive-strength = <16>;
-+		};
-+
-+		data3-pins {
-+			pins = "gpio49";
-+			function = "sdc43";
-+			bias-disable;
-+			drive-strength = <16>;
-+		};
-+	};
-+
-+	sdc4_sleep: sdc4-sleep-state {
-+		clk-pins {
-+			pins = "gpio50";
-+			function = "sdc4_clk";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+		cmd-pins {
-+			pins = "gpio51";
-+			function = "sdc4_cmd";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+		data0-pins {
-+			pins = "gpio89";
-+			function = "sdc40";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+		data1-pins {
-+			pins = "gpio90";
-+			function = "sdc41";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+		data2-pins {
-+			pins = "gpio48";
-+			function = "sdc42";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+		data3-pins {
-+			pins = "gpio49";
-+			function = "sdc43";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+	};
-+
-+	wcd_default: wcd-reset-n-active-state {
-+		pins = "gpio108";
-+		function = "gpio";
-+		drive-strength = <16>;
-+		bias-disable;
-+		output-low;
-+	};
-+
-+	wlan_en: wlan-en-state {
-+		pins = "gpio80";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-pull-down;
-+	};
-+
-+	audio-speaker-dac-reset-default-state {
-+		pins = "gpio171";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		drive-open-drain;
-+	};
-+
-+	/*
-+	 * Drive LAN743x reset high (de-asserted) when pcie1 probes,
-+	 * so the PHY enumerates on the bus. Open-drain matches the
-+	 * board's external pull-up on the reset line.
-+	 */
-+	gbe_reset_default: gbe-reset-default-state {
-+		pins = "gpio138";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		drive-open-drain;
-+		bias-disable;
-+		output-high;
-+	};
-+
-+	/*
-+	 * We drive this GPIO physically high on the M2 Key-E
-+	 * connector to make sure the module is enabled. An M2
-+	 * Key-E module could be using this pin as a chip enable.
-+	 */
-+	m2e_sdio_resetn_default: m2e-sdio-resetn-default-state {
-+		pins = "gpio41";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+		output-high;
-+	};
-+
-+	/* Force the on-board PCIe switch to select the GbE upstream port. */
-+	pcie_switch_sel_default: pcie-switch-sel-default-state {
-+		pins = "gpio16";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+		output-low;
-+	};
-+};
-+
-+&uart7 {
-+	status = "okay";
-+};
-+
-+&uart14 {
-+	status = "okay";
-+
-+	/*
-+	 * NXP IW416 WiFi+BT combo, BT side over UART. The btnxpuart
-+	 * driver auto-detects the chip ID at runtime; the upstream
-+	 * binding only enumerates 88w8987/8997 compatibles, so use
-+	 * the closest match until an iw416-bt compatible is added.
-+	 */
-+	bluetooth {
-+		compatible = "nxp,88w8987-bt";
-+		fw-init-baudrate = <115200>;
-+		max-speed = <3000000>;
-+		firmware-name = "uartiw416_bt.bin";
-+		reset-gpios = <&tlmm 160 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&ufs_mem_hc {
-+	reset-gpios = <&tlmm 210 GPIO_ACTIVE_LOW>;
-+
-+	vcc-supply = <&vreg_l17b_2p5>;
-+	vcc-max-microamp = <1300000>;
-+	vccq-supply = <&vreg_l1g_1p2>;
-+	vccq-max-microamp = <1200000>;
-+	vdd-hba-supply = <&vreg_l3g_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&ufs_mem_phy {
-+	vdda-phy-supply = <&vreg_l1d_0p88>;
-+	vdda-pll-supply = <&vreg_l3e_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&usb_1 {
-+	/delete-property/ usb-role-switch;
-+	dr_mode = "peripheral";
-+
-+	status = "okay";
-+};
-+
-+&usb_1_hsphy {
-+	vdd-supply = <&vreg_l1e_0p88>;
-+	vdda12-supply = <&vreg_l3e_1p2>;
-+
-+	phys = <&ptn3222>;
-+
-+	status = "okay";
-+};
-+
-+&usb_dp_qmpphy {
-+	vdda-phy-supply = <&vreg_l3e_1p2>;
-+	vdda-pll-supply = <&vreg_l3f_0p88>;
-+
-+	status = "okay";
-+};
-
+Best regards,
 -- 
-2.43.0
+Frank Li <Frank.Li@nxp.com>
 
