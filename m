@@ -1,107 +1,104 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F2438C2D1
-	for <devicetree@vger.kernel.org>; Tue,  5 May 2026 16:18:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 795F5389452;
+	Tue,  5 May 2026 16:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777997932; cv=none; b=ahzUpIAicqJiYs6lnoauxSEmjI8YexhKxMxI9edv83iM2vM8P5dnDGblgLCUcVQxSxlYPmvEQ9kUsVjh+NEEgjZpLCBwh5g9oSij5aWiSOWaZODeioGyvQ28awkE2XCd2DPhNumoBBnc4aihXoaffacBJphyidLwgJZlvTGAh+A=
+	t=1777998057; cv=none; b=qNPXbf3MEPjo3fDZ0WXq92cDA4P/XvaPPtURmUaLBXjGoeGngOZ/cBqOm/436OOcZLVhChAyd7FhUEhCqeUvnjVJOItW/GXVyNlGNfzVCXbWeQtsNPXqwetWBDoSr0glFt62nVXSrlCUK9rXLpm3SDjjCmeGPMANoNBvjChxs1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777997932; c=relaxed/simple;
-	bh=kFgK8lPtkO+1vWsJ8rKW8KSPYA1D7WBjiFbzZGEngaU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Fbx13jrzHV0LF5dC+1SFM3J6ER1mQ4P9kTqWJqzftXBSaI0n4ykC9laGNPEFyacsBAstrte6WdF5P6Ehv4DhnU4p+ttl9QZQAmr6kNbQIZKtMklruK6ck/aaVlc7WHkh0mgp8ljrOafEHU12AnzaxastEYcGy/E7aIMzMUSjKh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cbbFgloP; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1777998057; c=relaxed/simple;
+	bh=C8efCugq5/wF4si+DgA/qFTAdUR0kg1MpKn17jk6yuM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AQaw+fW3PGLy2ZkpYZZt8XmeSdPc05OnofHIUkO/hMgzGRiasC7KwiAcuIWHcOMV6CylV7k2PE0AdCG18CcpyQsu6MJa/MlMpi6ppROn8Cm+I+CWL7Mpu4yumzfxJvUiDsmFe9iYkbi5KBMd7mf7gXbWd6u21NABjUSDjLdjX2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FnqFTI+o; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cbbFgloP"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-48984d29fe3so79076555e9.0
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 09:18:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777997929; x=1778602729; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kFgK8lPtkO+1vWsJ8rKW8KSPYA1D7WBjiFbzZGEngaU=;
-        b=cbbFgloPVj92mDTeO6wAhCwJKNq/DbmGqRhsakbAcyysDO2KNfly5Lk5nnOfuyu42A
-         2hKzQCXiSZm0wCKjgeQ1pCsrvhkcq8/YNEXC1+xzymHxbRaQYR+ypbFN0Q3ye5aLOBxE
-         SeYC3+n81iEJ9sFqUfqFTTHFEwUP9LfcXgAbU9y0acWc40ic97IAxctERGURU0gVbxju
-         Xx/bWTu0FVN61ZlCgIAMmyZb4AGhjMbb7zEbb3ar9I8sKLbC5I6curWTJgL5A8ye4jpD
-         HoyoTlEhbYbHLZfsdEmRglQvKfArGpXXVKNUzA7DdzJZfUrWJNS91K9U8AJXPXzU9425
-         w08A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777997929; x=1778602729;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=kFgK8lPtkO+1vWsJ8rKW8KSPYA1D7WBjiFbzZGEngaU=;
-        b=e8M4cGOAbh/kL5KNscrkJfBrMYEYD8KEXsf956gYdpsrF9Wm2tNHd/UbtuX1nWTcP2
-         3s2GQ+iwtkVDkaMPPr/X72KQY3hhl0VYHodrDRWskIJSJboGgSv20k6VNXMuw5NyoGXd
-         GAvlXPUV6M5pqeA5ej2unuQ8KQ98AR2Awbjj7yPSpFqB0Pd5La6Db7aekiWz6XbgnbSt
-         7gbtQ/xfK9VEokghPTbCKjRioc/yJbFuKFoQlsjEiG8mP9nwNxnHd00akZqAodg74oh8
-         eEbuIWDz7luAbAzAvfpdAmw5w1+DArA9zJmPN4ckIg6g4CEeXj7jqIvb8znyIrEeXaOQ
-         0/3A==
-X-Forwarded-Encrypted: i=1; AFNElJ/SM8vjRJSNWIZ69XaeP6bOJE6cHdFo34hDg4TSpIIL5PE8Z3FuEWfB2TLuzdGBUE0fA6GjS0ud/PWk@vger.kernel.org
-X-Gm-Message-State: AOJu0YwJV3gza+M76VclxYezwfHgWhg/15g1sqKrvHpTezmG05CeXceL
-	jRKqZwtXO0MvrR7HT0QBXUj0Fnkqzkmg1q+Aw41vQeD/Ml55uOJgZp/C
-X-Gm-Gg: AeBDievsa+gkdpyjV0R2HSEoS1T/oZWOMojfAsB4+a454L3H0KvsVcKctW+/DgGpmWS
-	dqnhkW4IzFP0P2CLlsq7Iqf2V8js/CZqBDgEcphOSFBcatG0aH5s3L3v6kvFzY4tZM5aPbPPS04
-	w50Qj+TbEHHOmxb8/N+zdB2+D2p/Ien0bvgyqSyx+JsuXCzEmt3RCWHJj3hPhaz1+VwrKrkCLoS
-	Y+6/D4VpApxzmBSffBzgaTB77PoCUke8ujLJCLscuglK7ZACLxagkY11iEEbmer4HrRbsBFNikr
-	lTHXK+KdwRHfn6SDFb4GRpw8KBkW6KieGGWQg6IBb3qVoyTF7sml9rk7eGUqbTvX+eRQdiCVgwh
-	wvL6Z+9iYeKnVB9UUuzNfFnaAk5fHncjOlHS6GnQd0T3ftzjmwA2MpAObvl3XMhNy0kQ1mQ/zue
-	PaTWxFKAzt/0fBfwUesSxyNHm81AnRjJLF1+Yq8rtgadXdwNGpMc/MHh7DhO3SUXmTVAIfUGWS6
-	L8Wz3BXU1es24ZgREYSIN2cHxEI
-X-Received: by 2002:a05:600d:8408:b0:48a:53ea:13df with SMTP id 5b1f17b1804b1-48d186dc892mr46627055e9.2.1777997929083;
-        Tue, 05 May 2026 09:18:49 -0700 (PDT)
-Received: from jernej-laptop.localnet (46-150-62-216.dynamic.telemach.net. [46.150.62.216])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45055e2d3d0sm5425787f8f.34.2026.05.05.09.18.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 09:18:48 -0700 (PDT)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski <paulk@sys-base.io>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
- devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH 6/7] arm64: dts: allwinner: sun50i-h6: Add missing IOMMU for video
- engine
-Date: Tue, 05 May 2026 18:18:46 +0200
-Message-ID: <YPmvp_egR-m-cMSokrsA5w@gmail.com>
-In-Reply-To: <20260505134812.408316-7-wens@kernel.org>
-References:
- <20260505134812.408316-1-wens@kernel.org>
- <20260505134812.408316-7-wens@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FnqFTI+o"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 887F21C2B;
+	Tue,  5 May 2026 09:20:48 -0700 (PDT)
+Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0581E3F763;
+	Tue,  5 May 2026 09:20:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1777998053; bh=C8efCugq5/wF4si+DgA/qFTAdUR0kg1MpKn17jk6yuM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=FnqFTI+oE0YtcnjRCbvYHUF8oZI18TcjaZur9kjU8zGkkPPaFMnJykcV6ZwmQYroB
+	 QbYiwMfaZHg/ifnCvZ4ddY0gQIN1gwFUQRdBnC6UlAhZdUMKM4Lyw2RZVYYj4YV56p
+	 0EZDUcGxKllp0vr0FwW5BhjWUmsBTMH/KDsod0II=
+Date: Tue, 5 May 2026 18:20:17 +0200
+From: Andre Przywara <andre.przywara@arm.com>
+To: Paul Kocialkowski <paulk@sys-base.io>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai
+ <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland
+ <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 08/14] clk: sunxi-ng: a523: add system mod clocks
+Message-ID: <20260505182017.10d71c11@ryzen.lan>
+In-Reply-To: <afoRe6DI4GJIVtg4@shepard>
+References: <20250307002628.10684-1-andre.przywara@arm.com>
+	<20250307002628.10684-9-andre.przywara@arm.com>
+	<afoRe6DI4GJIVtg4@shepard>
+Organization: Arm Ltd.
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Dne torek, 5. maj 2026 ob 15:48:10 Srednjeevropski poletni =C4=8Das je Chen=
-=2DYu Tsai napisal(a):
-> The video engine on the H6 actually has two IOMMU ports. The one already
-> listed is simply named "VE" in the user manual. The missing one is named
-> "VE_R" and is probably either read-only or used for reference frames.
-> Either way, it should be listed.
->=20
-> Add a reference to the "VE_R" IOMMU port to the video engine node.
->=20
-> Fixes: 62a8ccf3a248 ("arm64: dts: allwinner: h6: Fix Cedrus IOMMU usage")
-> Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+On Tue, 5 May 2026 17:49:15 +0200
+Paul Kocialkowski <paulk@sys-base.io> wrote:
 
-Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Hi Paul,
 
-Best regards,
-Jernej
+> On Fri 07 Mar 25, 00:26, Andre Przywara wrote:
+> > Add the clocks driving some core system related subsystems of the SoC:
+> > the "CE" crypto engine, the high speed timers, the DRAM and the associated
+> > MBUS clock, and the PCIe clock.
+> > 
+> > Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+> > ---
+> >  drivers/clk/sunxi-ng/ccu-sun55i-a523.c | 135 +++++++++++++++++++++++++
+> >  1 file changed, 135 insertions(+)
+> > 
+> > diff --git a/drivers/clk/sunxi-ng/ccu-sun55i-a523.c b/drivers/clk/sunxi-ng/ccu-sun55i-a523.c
+> > index 17a4ffc0b7f52..c59f3f789d052 100644
+> > --- a/drivers/clk/sunxi-ng/ccu-sun55i-a523.c
+> > +++ b/drivers/clk/sunxi-ng/ccu-sun55i-a523.c  
+> 
+> [...]
+> 
+> > +static const struct clk_parent_data hstimer_parents[] = {
+> > +	{ .fw_name = "hosc" },
+> > +	{ .fw_name = "iosc" },
+> > +	{ .fw_name = "losc" },
+> > +	{ .hw = &pll_periph0_200M_clk.hw },
+> > +};
+> > +static SUNXI_CCU_MP_DATA_WITH_MUX_GATE(hstimer0_clk, "hstimer0",
+> > +				       hstimer_parents, 0x730,
+> > +				       0, 0,	/* M */  
+> 
+> I was looking at the A523 ccu code and see lots of
+> SUNXI_CCU_MP_DATA_WITH_MUX_GATE with no M.
+> 
+> Was there a particular reason for not using SUNXI_CCU_M_DATA_WITH_MUX_GATE
+> instead? It would surely be less confusing.
+> 
+> One difference would be that the ops end up as ccu_div_ops instead of
+> ccu_mp_ops. Do you need ccu_mp_ops for some reason?
 
+Yes, please double check that (as it *is* confusing), but to me it
+looks like the CCU_M_ version has just a pure divider, whereas in
+CCU_MP_ the P is a *shift*, and the M a divider. Those timer clocks just
+feature a shift, which I don't think we have seen before?
 
+Cheers,
+Andre
