@@ -1,91 +1,106 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742D24921B2;
-	Tue,  5 May 2026 18:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8C4748BD43;
+	Tue,  5 May 2026 18:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778004652; cv=none; b=ewcQ/iKtJvy17fWGdw31eLpMLG2s5BS8NcyLenDpN0YHwJ5DqEwNpVNO2iv4L49jN0iBN6WLhBcUu78sa4TSEdVc37j/U0Hf52yqy2t0XaUApa7piEsBjI70v93pTk9h6sj5/rYvrx6fWgUgrS68rr6cxc7kRq3Q/vc8ElFHWPU=
+	t=1778004904; cv=none; b=ggtbErMFM0/xzEP8VkDVFUOf417RsCfqX+YAn4OO0CCwHSu9jC8Z4b90+hmJHWLzMGIvNbY4ppg0f87qr4VryHcE1bHIQIUkcjhbOejxyopfMrNUpdLCEbLd/mbH0VR8oxyPwKuvFa62NClxzbtZJILKknWPo1vbLisooUtajAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778004652; c=relaxed/simple;
-	bh=QftOI+uL3NSXDiQJ4xlx2cTriJ118BztrE1iKu5XB34=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=MzO/uQWhuoWE8d8spvRcmtIGH5xQH/a0amJGsQT65PLMgKBHDyeqz0aH83fvpeQOblJ1FkGnpz6DPTrmh3t/xI1YLWZvKw8cLFgGe/k+XcREfV7u799WjOVVkpTz23xxx0dD5hdQDZHyFqmC7lR50X/MVgYfqeA6v11XtrtWy20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=Q8SZQKvR; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1778004904; c=relaxed/simple;
+	bh=mY5ckSV/U4sQODz+6cDbl4DnNfzjCu+HvxWVlVn51ms=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rddvkC+AjncOvwH05SAc6jR96SnProcrobZllroBX2W4pSVJtiDGUkULKZenqxy375fpohPBaazAAaaA2dvRLKhq37pXfw3ULXTyM0C9qCLd5pmd9UXeG9q/HSGI26BYH0tXVsMGkDRNbGSqjbcZWFds5j0Ypwk4qUpjFEfFPM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X1/Iw8o2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="Q8SZQKvR"
-Received: from mail01.disroot.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id E55A027131;
-	Tue,  5 May 2026 20:10:42 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id AIWZhtpxwpGs; Tue,  5 May 2026 20:10:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1778004642; bh=QftOI+uL3NSXDiQJ4xlx2cTriJ118BztrE1iKu5XB34=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Q8SZQKvRjYWkapLVRpN6pDVHuJILmO+k6UXGAvTJRjkrDnUZSl6lg7aVewQ39Lz28
-	 Ta9ynvTw3Am/1w2szGhesIVuVGLqvJBbOL5T6AGCQ4IbtThFZZ4DFGuxAgoVV0CJrN
-	 PpsZik3HmPouVW1KfBAQCnjppzi5Crrd3t3EDYfvFrowRUP7QpV/wEsvXePE5Wop23
-	 qQg5vdXvbNotdbxh5yHNlveM5hZG+2rOUPjGlqNndPXFIFqVyRa4F+J424Mb3Qa196
-	 H2mqqoaaGEkeLkBUsR4RRwuyNatZGtXFuHfvFPGNyky66rvGlbWMxFkzQET8GswP0L
-	 AmcnlNoTC/6qg==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X1/Iw8o2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18336C2BCB4;
+	Tue,  5 May 2026 18:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778004904;
+	bh=mY5ckSV/U4sQODz+6cDbl4DnNfzjCu+HvxWVlVn51ms=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=X1/Iw8o28oFmNbhUneu2Pq/ro2uvC89gzU0vmOpXZ5yLKP9Hu/6CS+lFot6eB0Y0n
+	 EJH1YOxNGdYDsk3ARDh1IjKFshwJxe+V9Pqd7569pD+qKizUqkJbp6T4yWw2ER0xdQ
+	 YAp1EaY9ezzBFwy09B7HDjVXwIll0CDYxz6UpNj1ivYr/IGUuqeyZKTxKnPNNrFe+u
+	 y9mElQfw76iWuu0u6D6m1zDfNc8jr3hNImEJ1Po+5DseMoywBSo9aekS9KexBpTw2k
+	 NGMCV7jRA7tY9uQaWoqUPqvitBt4U6Ns24Wj6si6Ozz0ltilsZWbn8PIvyvf+jVYN+
+	 vsTRqMVTbRRgg==
+Date: Tue, 5 May 2026 13:15:02 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Lakshay Piplani <lakshay.piplani@nxp.com>
+Cc: aman.kumarpandey@nxp.com, lee@kernel.org, broonie@kernel.org,
+	krzk+dt@kernel.org, devicetree@vger.kernel.org,
+	vikash.bansal@nxp.com, linux-i3c@lists.infradead.org,
+	conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+	alexandre.belloni@bootlin.com, lgirdwood@gmail.com,
+	Frank.Li@nxp.com, priyanka.jain@nxp.com
+Subject: Re: [PATCH v9 3/7] dt-bindings: i3c: Add NXP P3H2x4x i3c-hub support
+Message-ID: <177800490174.3674177.12021771110967093852.robh@kernel.org>
+References: <20260420105222.1562243-1-lakshay.piplani@nxp.com>
+ <20260420105222.1562243-4-lakshay.piplani@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 05 May 2026 18:10:42 +0000
-From: Rustam Adilov <adilov@disroot.org>
-To: Vladimir Oltean <olteanv@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stanley
- Chang <stanley_chang@realtek.com>, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Michael Zavertkin
- <misha.zavertkin@mail.ru>
-Subject: Re: [PATCH v5 5/6] phy: realtek: usb2: add support for RTL9607C USB2
- PHY
-In-Reply-To: <20260505113001.idgj7ssikjgcypa2@skbuf>
-References: <20260420191941.81834-1-adilov@disroot.org>
- <20260420191941.81834-6-adilov@disroot.org>
- <20260505113001.idgj7ssikjgcypa2@skbuf>
-Message-ID: <9de0dcc209eab02d2a4e5fcec25e7711@disroot.org>
-X-Sender: adilov@disroot.org
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260420105222.1562243-4-lakshay.piplani@nxp.com>
 
-On 2026-05-05 11:30, Vladimir Oltean wrote:
-> On Tue, Apr 21, 2026 at 12:19:40AM +0500, Rustam Adilov wrote:
->> Add support for the usb2 phy of RTL9607C series based SoCs.
->> Add the macros and phy config struct for rtl9607.
->> 
->> RTL9607C requires to clear a "force host disconnect" bit in the
->> specific register (which is at an offset from reg_wrap_vstatus)
->> before proceeding with phy parameter writes. Since it belongs into
->> the vstatus register region, it doesn't need bytes swapping.
->> 
->> Add the bool variable to the driver data struct and hide this whole
->> procedure under the if statement that checks this new variable.
->> 
->> Add the appropriate little endian read and write functions for rtl9607
->> and assign them to its phy config struct.
->> 
->> As mentioned earlier, the readl/writel are native endian on MIPS arch
->> if SWAP_IO_SPACE is not enabled. Since enabling SWAP_IO_SPACE results
->> in boot hang on RTL9607C machine, wrapping le32 around readl/writel
->> should be a good compromise, but swab32 could be also work.
->> 
->> Co-developed-by: Michael Zavertkin <misha.zavertkin@mail.ru>
->> Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
->> Signed-off-by: Rustam Adilov <adilov@disroot.org>
->> ---
+
+On Mon, 20 Apr 2026 16:22:18 +0530, Lakshay Piplani wrote:
+> From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 > 
-> Have you considered ioread32() instead of wrapping le32 around readl()?
+> Add bindings for the NXP P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841)
+> multiport I3C hub family. These devices connect to a host via
+> I3C/I2C/SMBus and allow communication with multiple downstream
+> peripherals.
+> 
+> Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
+> Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+> 
+> ---
+> Changes in v9:
+>  - Referenced i3c.yaml and i2c-controller.yaml for child nodes
+>  - Dropped unnecessary #address-cells and #size-cells from child nodes
+> 
+> Changes in v8:
+>  - Add compatible in i3c example
+> 
+> Changes in v7:
+>  - Fix schema validation issues
+>  - Adjust required properties
+>  - Add I2C example
+> 
+> Changes in v6:
+>  - Use a vendor prefix for the attributes
+> 
+> Changes in v5:
+>  - Removed SW properties: cp0-ldo-microvolt,cp1-ldo-microvolt,
+>    tp0145-ldo-microvolt, tp2367-ldo-microvolt
+>  - Changed supply entries and its descriptions
+> 
+> Changes in v4:
+>  - Fixed DT binding check warning
+>  - Removed SW properties: ibi-enable, local-dev, and always-enable
+> 
+> Changes in v3:
+>  - Added MFD (Multi-Function Device) support for I3C hub and on-die regulator
+>  - Added Regulator supply node
+> 
+> Changes in v2:
+>  - Fixed DT binding check warning
+>  - Revised logic for parsing DTS nodes
+> ---
+> ---
+>  .../devicetree/bindings/i3c/nxp,p3h2840.yaml  | 291 ++++++++++++++++++
+>  MAINTAINERS                                   |   9 +
+>  2 files changed, 300 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+> 
 
-I think you meant ioread32be() and yes i have considered it. If this is what
-it takes to get rid of le32 warning you mentioned from an earlier email then
-so be it.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+
