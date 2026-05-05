@@ -1,139 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6F43E51D7;
-	Tue,  5 May 2026 14:13:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D3B1C3BF7;
+	Tue,  5 May 2026 14:15:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777990390; cv=none; b=oKFrrYI+9L4KnQe8FA9J6vpvUaJhWo8hSo6t+fI7V+6UJMqCbTb6Hz9MeI0dCoXeSTVVbe729zCOm9NQwCH/Spxu1zvC5ikM9MCz5c1Irk7dMCryXh/9eHbqFbyu2z8h0EdmqlyOLdNJVuG0iruF+feWkAnOkwWU6iTxUbeavWQ=
+	t=1777990541; cv=none; b=d9EhZMazA0aN4a37PlneJlS8Ed7EOZtNHh9QYnPx/Cl8we9Q3PzfmeoqEHF2iyl4Sjb4OMhN+MVLGEkBYOI0r4oTXhalnwPh32KMwhAW42KgHVsqCOtVIso/KUk7umJ7jdd6ch9TDW8WUD7Y70e8p4jw647sMYEGARQ6pKBPtXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777990390; c=relaxed/simple;
-	bh=ZOjUNHe9D+ZO5F0CooExI8tSsZdiNfTkV5INJ4CerVE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=h1klyghu6bjrDuvhla9ebDNDEa9c1LMAHFVYdQMEZRMrnt7JXLDkTZr2OFQZHVMoDpILdlFuUL6w4CD9ImfJVR3Np+4KldBBCRvRoLt/0royWooAzSeFBPed5rBkeLun4xtnHDJPXiGS507vRyJbPbYjRX4cmWFfodOort+BKXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SjBdfeMN; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1777990541; c=relaxed/simple;
+	bh=FQsBhAgsYHplHV2/vcCwYjBqbsq7KXkPO3MRqXSfMok=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TqbCeD1x3CQxvS1HkJxI9LYHue3T1CalSgIEI+mtxhjoz+j6kCC/v0lF4gerk+juj9WgTCKH4c/nChmSjUvV/P7v0JQs+OINZrGVtuRq6jLxUR5RbB8FqGV6v9twbdGf+6RnzYZpA2sHIH2Dr5uo+A6kdQjUJN7kuioQ459b6xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E6osNGJm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SjBdfeMN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4403BC2BCC7;
-	Tue,  5 May 2026 14:13:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E6osNGJm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 698A6C2BCB4;
+	Tue,  5 May 2026 14:15:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777990389;
-	bh=ZOjUNHe9D+ZO5F0CooExI8tSsZdiNfTkV5INJ4CerVE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=SjBdfeMNsFeA/DzVO7V3Od0m+3SCPmZ9Njh5k9GhJ8Kl8Ls5l3CUBGd2DLyRDgdPA
-	 m1W/QbsW+WLQnoZIyP3lDjebDgUXuc77J/u7oEc3DmQZ3I3CA1y98jJjBvDme3nspd
-	 nOgLCDn2mvUYEd6Xh7vxCkaIvhRYXR+bIAZh5wVsJEdq04i2Ex6vG/PvyCDW9O+iaR
-	 7aVPTplnJ73nE2is15lupzekX2FvfYyW7ZYlqXzAd4XUSsvONnbN7eexACu0+2dZQZ
-	 dDYbmiLbnGEX1jiMeqE+Jh3EsJcrauJEKxjT688Crkde7QeXz/b8h2/fC14vC+34zO
-	 4EQvdLF0d1BLA==
-Date: Tue, 5 May 2026 15:12:56 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Linus Walleij
- <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v9 4/6] iio: adc: ad4691: add SPI offload support
-Message-ID: <20260505151256.23e07d6b@jic23-huawei>
-In-Reply-To: <20260430-ad4692-multichannel-sar-adc-driver-v9-4-33e439e4fb87@analog.com>
-References: <20260430-ad4692-multichannel-sar-adc-driver-v9-0-33e439e4fb87@analog.com>
-	<20260430-ad4692-multichannel-sar-adc-driver-v9-4-33e439e4fb87@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20201202; t=1777990540;
+	bh=FQsBhAgsYHplHV2/vcCwYjBqbsq7KXkPO3MRqXSfMok=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=E6osNGJmPtrOn/dO5V7lDP7Lu/A7Jxq46ChObn5PlgAvC6B/uvqi6QdXgDtylkKuM
+	 fustiBuO44Cvy9/Z8gnQ76Exw7F/EXMUM4tSZWdpthwoUGaAcvKTxfr129TuZP6AEp
+	 acVDIdJWpmY9DvuBke1cI4BAhj6/Bo7OzY2Lo5qNrUeNE3QZsRE8RiO0sPN9cQVgoK
+	 UIC3P1lMZp8WkwsjfaA+BGMryIpLkoMJpkbBeeXm28BjehqGYWBVps0s8ISiwSZ3ti
+	 UIk9UYCpdU0ypAKcGcmQqzOppY78h0DnZSdZF+XEj94/78Kh78Mv6n5pO1dnuOpRqM
+	 Sg6yu/4lU10xg==
+Date: Tue, 5 May 2026 09:15:38 -0500
+From: Rob Herring <robh@kernel.org>
+To: Marco Felsch <m.felsch@pengutronix.de>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, laurentiu.palcu@oss.nxp.com,
+	victor.liu@nxp.com, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 2/4] Revert "dt-bindings: display: bridge: ldb: Fill in
+ reg property"
+Message-ID: <20260505141538.GA2547282-robh@kernel.org>
+References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
+ <20260504-v7-1-topic-ldb-fixes-v1-2-0125d937ff7f@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260504-v7-1-topic-ldb-fixes-v1-2-0125d937ff7f@pengutronix.de>
 
-On Thu, 30 Apr 2026 13:16:46 +0300
-Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+On Mon, May 04, 2026 at 10:21:42PM +0200, Marco Felsch wrote:
+> This reverts commit 16c8d76abe83d75b578d72ee22d25a52c764e14a.
+> 
+> Remove the 'reg' and 'reg-names' property from the LDB.
+> 
+> The LDB is either part of the IOMUX_GPR (i.MX6SX) or the BLKCTRL
+> (i.MX8MP, i.MX93) register space. Both IOMUX_GPR and BLKCTRL are
+> register ranges with loose register definitions. E.g.
+> 
+>   - On the i.MX8MP there is one register which controls the AXI
+>     threshold for two different IPs (BIT(31:16) - IP1, BIT(15:0) - IP2).
+>   - On the i.MX6SX IOMUXC_GPR5 controlls: CSI2 mux, WDOG3 settings, PXP
+>     handshake, ...
+> 
+> In conclusion: it can't be ensured that one register belongs to one
+> dedicated IP and the LDB is rather an exception than the rule.
 
-> From: Radu Sabau <radu.sabau@analog.com>
-> 
-> Add SPI offload support to enable DMA-based, CPU-independent data
-> acquisition using the SPI Engine offload framework.
-> 
-> When an SPI offload is available (devm_spi_offload_get() succeeds),
-> the driver registers a DMA engine IIO buffer and uses dedicated buffer
-> setup operations. If no offload is available the existing software
-> triggered buffer path is used unchanged.
-> 
-> Both CNV Burst Mode and Manual Mode support offload, but use different
-> trigger mechanisms:
-> 
-> CNV Burst Mode: the SPI Engine is triggered by the ADC's DATA_READY
-> signal on the GP pin specified by the trigger-source consumer reference
-> in the device tree (one cell = GP pin number 0-3). For this mode the
-> driver acts as both an SPI offload consumer (DMA RX stream, message
-> optimization) and a trigger source provider: it registers the
-> GP/DATA_READY output via devm_spi_offload_trigger_register() so the
-> offload framework can match the '#trigger-source-cells' phandle and
-> automatically fire the SPI Engine DMA transfer at end-of-conversion.
-> 
-> Manual Mode: the SPI Engine is triggered by a periodic trigger at
-> the configured sampling frequency. The pre-built SPI message uses
-> the pipelined CNV-on-CS protocol: N+1 16-bit transfers are issued
-> for N active channels (the first result is discarded as garbage from
-> the pipeline flush) and the remaining N results are captured by DMA.
-> 
-> All offload transfers use 16-bit frames (bits_per_word=16, len=2).
-> The channel scan_type (storagebits=16, shift=0, IIO_BE) is shared
-> between the software triggered-buffer and offload paths; no separate
-> scan_type or channel array is needed for the offload case. The
-> ad4691_manual_channels[] array introduced in the triggered-buffer
-> commit is reused here: it hides the IIO_CHAN_INFO_OVERSAMPLING_RATIO
-> attribute, which is not applicable in Manual Mode.
+It is fine if there's a child node for LDB if the LDB registers are 
+consistent, but the other misc things are represented by the parent 
+node. It is certainly not a requirement that either everything be in 
+child nodes or nothing be in child nodes.
 
-Probably good to call out that oversampling hasn't been introduced
-to the driver yet. This confused Sashiko ;)
+What I don't see in this series is what problem does this fix? If you 
+are going to break compatibility, then there had better be a good 
+reason.
 
-> 
-> Kconfig gains a dependency on IIO_BUFFER_DMAENGINE.
-> 
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
-One minor thing inline.
-
->  static int ad4691_reg_read(void *context, unsigned int reg, unsigned int *val)
->  {
->  	struct spi_device *spi = context;
-> @@ -712,6 +791,7 @@ static const struct iio_buffer_setup_ops ad4691_manual_buffer_setup_ops = {
->  static int ad4691_cnv_burst_buffer_preenable(struct iio_dev *indio_dev)
->  {
->  	struct ad4691_state *st = iio_priv(indio_dev);
-> +	unsigned int acc_mask;
->  	unsigned int k, i;
->  	int ret;
->  
-> @@ -758,9 +838,9 @@ static int ad4691_cnv_burst_buffer_preenable(struct iio_dev *indio_dev)
->  	if (ret)
->  		goto err_unoptimize;
->  
-> -	ret = regmap_write(st->regmap, AD4691_ACC_MASK_REG,
-> -			   ~bitmap_read(indio_dev->active_scan_mask, 0,
-> -				iio_get_masklength(indio_dev)) & GENMASK(15, 0));
-> +	acc_mask = ~bitmap_read(indio_dev->active_scan_mask, 0,
-> +				iio_get_masklength(indio_dev)) & GENMASK(15, 0);
-
-Not obvious to me why this change is here.  If you want it, push back to the
-original patch that introduced this code.
-
-> +	ret = regmap_write(st->regmap, AD4691_ACC_MASK_REG, acc_mask);
->  	if (ret)
->  		goto err_unoptimize;
->  
-> @@ -803,6 +883,209 @@ static const struct iio_buffer_setup_ops ad4691_cnv_burst_buffer_setup_ops = {
->  	.postdisable = &ad4691_cnv_burst_buffer_postdisable,
->  };
-
+Rob
