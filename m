@@ -1,51 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA28F3C8729;
-	Tue,  5 May 2026 19:39:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B815A3D1CDF;
+	Tue,  5 May 2026 19:41:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778009996; cv=none; b=RVNSRMMfs5tUw6el3ravGCs9i/EXxp9uh1SEMTjfhCcRHGdJf5rd6soDHwZHTVnrHNGPVDv7zD1CChDgVcOiv/rQpXC5D682xWEWL1zZF4oWhbsgGHc5eXaSUYIp32qC9/k4/8zPbxWG5+MC0QrLBVZUxac8XstDAKk+AP73agE=
+	t=1778010107; cv=none; b=Stzj4PluQjKc1GyE4WlLmjbAI17zGbka1+TsbT6prfHYeEPZBotYgi8aF23C1shHC6VUMzzfyc6CwMDoB60v1P/Mqo3Np+mYoznoqSRSIbVmFdFJIalYtEWR7pkMiz4oYDXu8JO7+2vFqScprEJNigQokNnHy3yXXJnlpTnVFxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778009996; c=relaxed/simple;
-	bh=VSiMCNBuHpiPp86N99Xj+iuf6kVZawCPJiGuH+dp5rU=;
+	s=arc-20240116; t=1778010107; c=relaxed/simple;
+	bh=f+zthwuppfpFTa8b8uyHJmInP9s5La5GZHSH/CQEOa4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gs2YG1wGy3MzzIUI9/gzXUKhH9//gWXk0RgHnzlsDp2nQVT6+NrQCAYkuedPakIHD5bq9Nqf3TckWiDXshE98F0zo3VNCCF8He4BCGlrJXFLm74qHYqGhmKlO7T5MUI57bJwRlQFa4Li1Rm5ut6XL53bOsDpYCXQMnJyCuN1Vws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=chGnl/Qy; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=iDHaHJ/+lVLWIw5cG/WGKukxkRHibu/Lpv7GaXAs/fOElvMxheOROLQRAeW1vupNSPerbOysEYlnRIUlDj4GHWs4UiEWhzAhKManIcvcliWDGa54Jivpk/os1JuRN/fqOyDgPAhn/Rk8IJ/1O7N39quJxSBoKajWTVdlclCgjtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NUROvmTj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="chGnl/Qy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C7E7C2BCB4;
-	Tue,  5 May 2026 19:39:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NUROvmTj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E4BCC2BCB4;
+	Tue,  5 May 2026 19:41:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778009995;
-	bh=VSiMCNBuHpiPp86N99Xj+iuf6kVZawCPJiGuH+dp5rU=;
+	s=k20201202; t=1778010107;
+	bh=f+zthwuppfpFTa8b8uyHJmInP9s5La5GZHSH/CQEOa4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=chGnl/QyLautU03Pg06PeXJGCSGlDl5BsiBytVAZoYxJ2Fs24UAxPXeSNIyE6fVXB
-	 Pc+l1U2c8fzNtuYqUYfNlkYC8SpeeHx3RbwvXk3Q2f3rQ1ZQbee+TxwEJUlH6pKMKQ
-	 KMydki/1DnhKzMBmM8NKuj2jvA2W/pGt0+v+aMzjzzvQiuqpypluqO7iXmFcEchtnc
-	 c6d6RzlRFmvnf8tvnP0XJxXIUt5JaRVzdPtmAvhOANShu8LhOJomeGtK9IYjry7sXv
-	 HA7l2u05Z1u1pZ6S6Yy1SKzzkgD4HFAubbzYG2TVwnCKdiI3LNOhZGT2S2Eplfr+Wz
-	 PrivbX3OufqPw==
-Date: Tue, 5 May 2026 14:39:52 -0500
+	b=NUROvmTjlsPg6l30xYj3CqxY+c99n1i7qfItZZvbymBEeQr2WwOY4HVw6KGNUhXmm
+	 8pDlHR+A6EOAZcTEsVmjf+1MKasze01GDQSdeieKoxSyiGO+f1b7vN9LdhJEghaxYv
+	 Fw5pbBkw6/tnsG7Z0HzR/Kg0RhjQJHHniCNFY81vIXm+E/dkLtEMY8OeVTHByaBWSo
+	 PclJN70pGhz8Jqqgu2KF1DUJKy47haFlJKfRxXkmF2D3NUrPBVn4Edw7sQaM6u1sNm
+	 /xcljRt7QpHTRVa0meiOobjQZEIC0i5ma2Q9jUMFn3N+swNB3Eedvyj6Rc483sPx1o
+	 ownyMgcLaNoTw==
+Date: Tue, 5 May 2026 14:41:45 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Aradhya Bhatia <aradhya.bhatia@linux.dev>,
-	Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
-	Simona Vetter <simona@ffwll.ch>, Conor Dooley <conor+dt@kernel.org>,
-	Vignesh Raghavendra <vigneshr@ti.com>, linux-kernel@vger.kernel.org,
-	Maxime Ripard <mripard@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	David Airlie <airlied@gmail.com>, Lee Jones <lee@kernel.org>,
-	Nishanth Menon <nm@ti.com>,
-	Louis Chauvet <louis.chauvet@bootlin.com>,
-	devicetree@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
-	linux-arm-kernel@lists.infradead.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Swamil Jain <s-jain1@ti.com>
-Subject: Re: [PATCH 05/15] dt-bindings: display: ti,am65x-dss: Add AM62P DSS
-Message-ID: <177800999241.3798284.2696880196834050021.robh@kernel.org>
-References: <20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com>
- <20260420-beagley-ai-display-v1-5-f628543dfd14@ideasonboard.com>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: Sen Chu <sen.chu@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Gary Bisson <bisson.gary@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Lee Jones <lee@kernel.org>, linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
+	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Julien Massot <julien.massot@collabora.com>,
+	Fabien Parent <parent.f@gmail.com>,
+	Macpaul Lin <macpaul.lin@mediatek.com>,
+	Val Packett <val@packett.cool>, Liam Girdwood <lgirdwood@gmail.com>,
+	Linus Walleij <linusw@kernel.org>, linux-pm@vger.kernel.org,
+	Sean Wang <sean.wang@mediatek.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Akari Tsuyukusa <akkun11.open@gmail.com>,
+	Chen Zhong <chen.zhong@mediatek.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Subject: Re: [PATCH v5 4/9] dt-bindings: pinctrl: mediatek,mt65xx: Add MT6392
+ pinctrl
+Message-ID: <177801010490.3801319.4232280510868698517.robh@kernel.org>
+References: <20260420213529.1645560-1-l.scorcia@gmail.com>
+ <20260420213529.1645560-5-l.scorcia@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,43 +63,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260420-beagley-ai-display-v1-5-f628543dfd14@ideasonboard.com>
+In-Reply-To: <20260420213529.1645560-5-l.scorcia@gmail.com>
 
 
-On Mon, 20 Apr 2026 15:54:12 +0300, Tomi Valkeinen wrote:
-> TI's AM62P, J722S and AM67A SoCs contain same implementation of the
-> display subsystem (DSS). There are two instances of the DSS (DSS0 and
-> DSS1), each with two video ports (VP) and two video planes.
-> Additionally the SoCs contain two OLDI TXes (OLDI0 and OLDI1), a MIPI
-> DSI TX and a MIPI DPI output path.
+On Mon, 20 Apr 2026 22:30:03 +0100, Luca Leonardo Scorcia wrote:
+> Add a compatible for the pinctrl device of the MT6392 PMIC, a variant of
+> the already supported MT6397.
 > 
-> DSS0 supports:
-> - VP0: OLDI0 in single-link mode, or OLDI0 and OLDI1 in dual-link or
->   clone mode.
-> - VP1: DPI
-> 
-> DSS1 supports:
-> - VP0: OLDI1 in single-link mode, or DPI
-> - VP1: DPI or DSI
-> 
-> The DSI is only connected to VP1 of DSS1, but OLDI and DPI are shared
-> between the DSS instances. Thus only a single VP can output to DPI, and
-> a single VP can use an OLDI block. Note that in single-link
-> configuration OLDI0 can be used by DSS0, and at the same time OLDI1 can
-> be used by DSS1.
-> 
-> The DSS IP itself is compatible with older SoCs. While we could use
-> "ti,am625-dss" compatible string, we add a new one "ti,am62p-dss" to be
-> on the safe side in case the driver needs to do something special for
-> the dual-DSS case in the future.
-> 
-> Original patch by Swamil Jain <s-jain1@ti.com>
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 > ---
->  .../bindings/display/ti/ti,am65x-dss.yaml          | 27 ++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
+>  .../pinctrl/mediatek,mt65xx-pinctrl.yaml      |  1 +
+>  .../pinctrl/mediatek,mt6392-pinfunc.h         | 39 +++++++++++++++++++
+>  2 files changed, 40 insertions(+)
+>  create mode 100644 include/dt-bindings/pinctrl/mediatek,mt6392-pinfunc.h
 > 
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
