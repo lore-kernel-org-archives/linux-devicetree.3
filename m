@@ -1,191 +1,174 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012056.outbound.protection.outlook.com [52.101.48.56])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010018.outbound.protection.outlook.com [52.101.228.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EA73BE17E;
-	Tue,  5 May 2026 05:58:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41DD1DE8BE;
+	Tue,  5 May 2026 06:04:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.18
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1777960709; cv=fail; b=fUXGpfobWX1WCx8RGd5m6QqyrqO4e8I+/4UPH0ziMx4m4vuAkdeEO6pSK97qQgC0Z3dDD4qsHme2Q1KZpP+jvvCVrvWJlDK5dyPQKK04PZC82HVuPTU2mzuR1HtSkRY+AFsz72VBI6ot7hr/rQqqGT5VtjtDzg4+Eo8NuErt6cM=
+	t=1777961063; cv=fail; b=SDcv9Pu08ZCBFrH5l5P4zpuwFF2S+owzrjhB9pJH9nZfVjbD56HRFfTK2w4K23Gjoqmz2VTkyee4Raj/RSrHcxqC9eJjG564LvwspJ2m3zv7WmWBWC/AO/SFk3TPpS/4ApbYWqY5freia9xZwobD5mq9nJ952aEmLUNDQhfuavI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1777960709; c=relaxed/simple;
-	bh=d47zGCHc3hD6NU1ELpyH77lrBRXsTC2mivPqFkBo3ks=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=SSJfSbNGG3YqG/gpvA05zCC0rjRtgIsN+6zDLYL9TA23r9KnW+01Uq4oNQIQ+6DgUGwSTG3Rt/6L6ZiSQGyzbOIb4YlaUOsJKDPC4UBY+YSYNfee299crBbFk8UQyCZQgVXZCOc94gc3i092S7HHjrxywv8uJhNuDIj4kWQruFQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=mAKqZ5IH; arc=fail smtp.client-ip=52.101.48.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1777961063; c=relaxed/simple;
+	bh=fp013CBP898cx9aKBRsEZ34xjkUtFHAGDuLrtOaBNew=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=jkCpdSLFOXJ1cL9KCeCEKLgBLmsspuv/aY6DQzPl+nlDoBQiPRQr25HTn2xvNIkgvVzjFtK7ZqmQpfFU7j9Ffmn654z3N6dgVoojsvLJ8IEMJaW++QpDvAn4HO/y7hOEuW/4lYkeezFF1At+2NYICyHA2kJlelPj8mjWyuVSqos=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=OA43M55l; arc=fail smtp.client-ip=52.101.228.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="mAKqZ5IH"
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="OA43M55l"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ryvJOSvZD6d1dWMt47xel0ADCQlPsLBEfRpAOYWaNxlvrYjXGB134PDeeFMpmyhQPQ2Bwm9gLFXrgVbVc3JRQjqhrI6OPz8SxLwyqVIGgSlI1W/dh6Q55csN+i6iRAjIzPG2VLoCkLIV5ntXZD8YTBSLFuGayag68FbJBl2taSI0n9730czrHiGAU6RcUmC+Y1a3/8g8GTDjd03oVszoxYoUnq80JHEbjXBI3bmVQ6vBkcspcIF4udk3n/tXycsyxz+/PRc3Cz40yLI550AOs+xXpWcQDx4vvMUfypdQs0i+55cFRq+dEM5F7qnRsEs7pF2p3JNQM917O/au1k7oKg==
+ b=osn1TlPDJhQ6flxXhkpJFdO9h4yJJ/+6zFdC8IBdNVGzBxwVDf6LZoewvv2mxz96NyPBkrYKKRVjfNAkh3fbzJ94ShlUvM5EPQjr/csJ2qrFLHF8db/NBKRGYTorDbF/iu3MNPhPFR/8SchPJaC21N0/CTesGQLLdgtNoskRZWJs0K38Hk35xdRgPrCyHqKR8eFMHET3OJsAV6Rqve3KhMNoACGx7isPemwQeLyCimMfRyCtHhnZTfd3lqgoCF3v6KRZnQjmr8MCrOPozxbuCMNeSYKMUxfgeHx9BQF8ql7Bc91HmNAwqn5LSx2wxzGi8c2QxY4B7TISxin5XKAlow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kddPkpre7ME5y3bcroj6Je9pgogY2lLTOokJDaid64A=;
- b=p8LxWbauQDs7p9569EFXegIWJBSy9f1lO67Uao+OguaTJHOIZx76sWNW9EtxESP2tBNTHtR2JbEaz5hbfK37+HiYa3hyeOY/2nbmo/E+mfoOlqcAj9Spd1zp16WefIky9Nck7eBu72dEao58upuc7L7ikBPiTaeabkykEHREUgUBbD80z0JBw+7qoMt4uLoTkmejR0QQqqv+aDhb/LnrCjq8Tc5y8NC/Fr0hnLEEYqCvDYerY5veiBAb4hnR59Kq+ygUYrApjfT760iscy1Sa7zW6CwveiLy8saNSI5xl9+usvVtDZopUlbJ/mizBH4gHwn6tjLMxhuZCkGCAv6fMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ bh=R5C5I1OGqL1i1JAyeNnUYF6yV6/g4wujULGKDUYBshI=;
+ b=G27x2p0JYHXkgX1QpdwhA0pP6HuYX/bcfTmzcAtZ89yJjR5g5UCAd0lz9Wwznf/hekJpV0MZR58gZqRauY3sSLAg1rc/q/BN6PqIb/0vIdSkhtAdoS5uWjdFJvmQstAQHCfFdy3eFp3xuHLpAYHFKMavr5hatTDJYviDd2lg/r+CL0c8QDFahUmX0vG+SfXNb45XheDGm0erXDCooY++2MwxlFaAnpMV4Q31EQkT+2OELZ9IV1pEfS/AKdhPBpkqWyxVCtjNo9UdaY/UtcOIdkX0bYLQjmW7Wd9Ux0p9ycqE/4enpPzKRTfe9leFsU1tXVuLuJtg0RQK7JH3Kleprg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kddPkpre7ME5y3bcroj6Je9pgogY2lLTOokJDaid64A=;
- b=mAKqZ5IHtB+JqNGbc9yP+hvWUx3wyQ7pXdtPFn10YbpP6hIELeqR+sekWcfd++a4sdAOQv1HoB4DsYQR+4PDlcJE7k1DgNlNacPYMIv8gjO7wpz6pE/Sfoa3Gq4Yxt+s3ZASjwABwAyxlx82EcxZXccgotl8PHVOoPipQMqGKWs=
-Received: from BN1PR13CA0012.namprd13.prod.outlook.com (2603:10b6:408:e2::17)
- by CY8PR10MB7195.namprd10.prod.outlook.com (2603:10b6:930:78::12) with
+ bh=R5C5I1OGqL1i1JAyeNnUYF6yV6/g4wujULGKDUYBshI=;
+ b=OA43M55lqNARbyHOiPXRKmBvmxmGvmDF6IwLyYIOWM/9INtO/6foAMO6u02UKvVIDg+s4UdiNJDGqD3g5EJ/SNr5QjI2cd6JCt4ITLHM6PRme9aB5HugQKVBVj9C4WUdRRatMVaTIV+2GV9Pfl5noqc+27i6xzCoZEEe9FhKsiw=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TY3PR01MB10284.jpnprd01.prod.outlook.com (2603:1096:400:1ab::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
- 2026 05:58:25 +0000
-Received: from BN2PEPF000044A2.namprd02.prod.outlook.com
- (2603:10b6:408:e2:cafe::22) by BN1PR13CA0012.outlook.office365.com
- (2603:10b6:408:e2::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.13 via Frontend Transport; Tue,
- 5 May 2026 05:58:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- BN2PEPF000044A2.mail.protection.outlook.com (10.167.243.153) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Tue, 5 May 2026 05:58:25 +0000
-Received: from DLEE206.ent.ti.com (157.170.170.90) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 5 May
- 2026 00:58:24 -0500
-Received: from DLEE204.ent.ti.com (157.170.170.84) by DLEE206.ent.ti.com
- (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 5 May
- 2026 00:58:24 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE204.ent.ti.com
- (157.170.170.84) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Tue, 5 May 2026 00:58:24 -0500
-Received: from [10.24.50.20] (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6455wKDZ2612260;
-	Tue, 5 May 2026 00:58:21 -0500
-Message-ID: <1f06c527-4806-47a9-aa3d-70a01c5390f9@ti.com>
-Date: Tue, 5 May 2026 11:28:19 +0530
+ 2026 06:04:19 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9870.023; Tue, 5 May 2026
+ 06:04:19 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+	<linux@roeck-us.net>, Geert Uytterhoeven <geert+renesas@glider.be>
+CC: "linux-watchdog@vger.kernel.org" <linux-watchdog@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, biju.das.au
+	<biju.das.au@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, magnus.damm
+	<magnus.damm@gmail.com>, biju.das.au <biju.das.au@gmail.com>
+Subject: RE: [PATCH] dt-bindings: watchdog: renesas,wdt: Document RZ/G3L
+ support
+Thread-Topic: [PATCH] dt-bindings: watchdog: renesas,wdt: Document RZ/G3L
+ support
+Thread-Index: AQHcl1rksZlmKBi7w02Zq6hIncuAibX4I3mw
+Date: Tue, 5 May 2026 06:04:19 +0000
+Message-ID:
+ <TY3PR01MB113460F42089A5AFF6F7EF9E7863E2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260206112227.233229-1-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260206112227.233229-1-biju.das.jz@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY3PR01MB10284:EE_
+x-ms-office365-filtering-correlation-id: c1f9de70-7222-4ad8-16f0-08deaa6c254c
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|7416014|376014|18002099003|22082099003|56012099003|38070700021;
+x-microsoft-antispam-message-info:
+ 6cgAsEIWZ3S5OIZmwiERYWb4J/geECrzru8oOOobeSj2QOyXBLoeMm9iz3iX4JGfm6k2X5HPdIxOGoF6B84ZMqs+6FNkpDyGRgpGOOiYrJi82h86XVz19lHUj0wFmj/y5/sq2O6s08kp4uzPEFZDwjuKgdDwj+5vNOEetTOLBCfTdE2xH+PDz6NuqqdvZFxLHsibgWJ2sPW/wfzhxWXD9uayPuTihgrWitWbttU2DzRtJGY60oHqecMLEukHxb2YRTJGQN3SuClU3XrP0grbPbyR23WygQs84GS/edTd5McVyV0pSLb/IqUmFQO0xMPFE4C2wqwuzx1YGfJ4lm122CUu9O3wKNQjzjqhfQ1+g+7F9udM5m3nFfEvYOYMohh6TB9H9y6JuLkPR7B1dv4qrCJLk5uj5VbQJ38Tahzh+Q+8OH80gGXR8J2lSj6BZaT5o5XGTSt+Nw6KuY0GcBLL+dDxX/kAzz1UkkU2ApJLjR+NBOW6AOAHyn4MSp2I4LC69ZXRF2A4xOo3EvSr+CRJCS/EQetDYeYpFOWYo7f0+h0Mxj5m6QpCAiU2paCy9FD2eAk/H93PysH+E5vmhE0y9uc9YiPhg7NNnk0/Xf6S3Wvhgmh8jXWl/WS0NBbUQqoHpeRZP1W557YCXhb6tg+UPcpMoSQBqesX+BtOJy2HgjBKEuO25B8XDP9GGQX+ILsd6w8eg2e2OTwriWMeemQM9gpf/WEu4qbM63O2JMZoRzPPKAKTOcG44iusR41s/QIa
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(18002099003)(22082099003)(56012099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?PU2G+RpLQKFX1NDRSLzy8L1kkPvu/AXH5capodruKPF/+2a7LsMRQsm+eSZ0?=
+ =?us-ascii?Q?5aT0+gXbNqVZieXKK9KujMd9mdym2ogwv9li4oL5D/2iXp5uZnGXRMdgbMRE?=
+ =?us-ascii?Q?ZukIasBboWghj4dlhdkbR2G3ll8XMe/OeowHYImf0teEbtcYlsxeh4CutGdp?=
+ =?us-ascii?Q?aq6hlbkXCQS1yXdiwDbHjFu4ueoJqbbOKD3RW+9I69gG8a5/CsOR/Gn/Yptl?=
+ =?us-ascii?Q?b74qHwy5blvyPqixT0ea/PxnupP4xzDSJHygZ9MbZY/Xte7ZEB6WebzVOuYF?=
+ =?us-ascii?Q?50T3nciFknYdhaJYRZ3EbkQUyXlCPBlYM+OVF7GdaeVyBhcfu1VYc8shzAdJ?=
+ =?us-ascii?Q?yTvlJ7THl/vNUeVd9iNbLYZro5U+HeTlVxtd9XPodNJfF5njODRl7I5Ozh7S?=
+ =?us-ascii?Q?TUXhrqd8QpajUpqtFVc1mZmbTnI7GOKCpLh7LWfA3tmuopBJYx5/58ZVBtam?=
+ =?us-ascii?Q?iIXdJp+/TNJQPzlbA77pzgf+P3rzKfI5YjPg1EBsgnaCZUGlJZ8mkHpxgFiX?=
+ =?us-ascii?Q?VZEvkLcll4zACXe+zry4YUnl5P1x5SWAajuzKbhdHS/Kc7yDzpBZNPCQB2mZ?=
+ =?us-ascii?Q?sUfA6drLAJQK6w1vzZe0samLSc9UkUanvBljZG77R856L1v/vLBVQi+ojwRV?=
+ =?us-ascii?Q?oKUD7v/pSc4Xkhz4+iJ4p13Di3hgpTyYS2uKnn9oWuqdX3tpUsmjbzB5pdNE?=
+ =?us-ascii?Q?Go2IGco0DmY+WrFWmb4bbXofSq0TXsPu7d+trO9J9YOBD5MKLUrzcblFfKFW?=
+ =?us-ascii?Q?8wdgEucdOgaX6w6Fv2AVz2pDSh30okL4DQOARPxkW0sjgnkV5Il/lnSRC/PM?=
+ =?us-ascii?Q?Ksvh0PtHvc097wBay/gPtnWFi27Y+3GcKUc+hMHktvnFVOgI6oKzQJFYrrVL?=
+ =?us-ascii?Q?wY7kdBBZPKCDNohzucJOZ07dwXYmj8C+w+xeLisNXGbidLGEQlameRPXc8Wt?=
+ =?us-ascii?Q?+UEFvtjJfTTPGIqbEC95Zq7M58nzH1lQcBl11+G6VPgOePY9+YyxTkd0Le/i?=
+ =?us-ascii?Q?KJdpvNUcVyVXRdpVesioZkvZ4+HtBFYSQwT9dJ4Z3++dl1GVyxYC6UFhbwwj?=
+ =?us-ascii?Q?lLge7kTC+ji+QkNxfKBFuGL7Ctl7pjtiux+Gs/dl8pLdcmpQaUAiuntRjPaO?=
+ =?us-ascii?Q?i0WhqMqw49KIghHNhL2v4x4DoPmwsdWPOQb1tAp5uKM2uxPv7S76JtX2Ap2x?=
+ =?us-ascii?Q?Lc00dXfzNqECq9yGE/O5hu5A5n/VFmANCWRPAB4Rw6AeOE25oH7uu+gdrZlp?=
+ =?us-ascii?Q?fUvrQp/mNrwadXlzkkAAbZ6Bb9SWj+O9Z2s1BvVrZTl3bQmyTknwZj8S5yhi?=
+ =?us-ascii?Q?hz1lPEQCqfK6Mold/53MO2qP8Ca+3t99QqBysKRqwDPjcCJhnFJNU/yYlGip?=
+ =?us-ascii?Q?ZUy5G7wyTMasTPnTnwzEkYJ4V98kRNM4HoUFRQz801GEbggS+CVBuMDSBuib?=
+ =?us-ascii?Q?tVQhZTbxaT0JyJ2RmZ7QCBpzopQGz2TVSVVxl6FcsbxnKA9s/jlebpbgLv1u?=
+ =?us-ascii?Q?VE2hGZ2/3cUUwq2zjlQpr4vf7/7Jn94nf9s8zCb/fucukN6LHjOVAfR9Pi/+?=
+ =?us-ascii?Q?IkpgSUW64vYF1YqYjWvmvTdZkkHdE4hOVS9WNEcgHrWMMuCFWrGghaDObP9o?=
+ =?us-ascii?Q?CUyHhc0hQyW7SuO4RvFV0JELg1Sbp7c5DU4Ern/rKcjOS68afVGQL/zmaLxI?=
+ =?us-ascii?Q?A2TrpsejqOFztK1agzQ4Xh/Hl1Flar0OPM9nuaDWADpQ8TlaB39eDEibwuCg?=
+ =?us-ascii?Q?XTn2zILoFA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] ti,j721e-system-controller.yaml: Allow
- audio-refclk as clock-controller child
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: <krzk+dt@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
-	<nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <u-kumar1@ti.com>, <gehariprasath@ti.com>,
-	<y-abhilashchandra@ti.com>
-References: <20260330094459.128648-1-m-shah@ti.com>
- <20260330094459.128648-2-m-shah@ti.com>
- <20260331-flashy-hilarious-whale-6e606c@quoll>
- <62dd6a7f-7a5b-4939-a18d-8b763f6e8f9b@ti.com>
- <0c78744d-6bdb-4b0e-a0bc-039bb6527476@kernel.org>
-Content-Language: en-US
-From: Moteen Shah <m-shah@ti.com>
-In-Reply-To: <0c78744d-6bdb-4b0e-a0bc-039bb6527476@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A2:EE_|CY8PR10MB7195:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ddec9c5-5341-4cd7-74b3-08deaa6b52a5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	TSa/8W1f9NeEMg94cZoipuTCjdY6oYHrnCS09s8UlROWVnbBWx+pnBVkSiLV7K5tz3yaBBFNuQDGT5vMAkEi40HaefwNWQKTWvmYtJ9GlqyKMB1hQp5xkusV5h2Pep4eaKeKAHNnzIQm49Dl8al4EdraXoVg9c7gmehmLqohg6cYACC9N09IbalESRiirLEZFcyRo10EgAyQAcplEdqnNumdaDJgCA/3QaUv/ykDdCxmHUa9Ll21U4GC0c9O2nkqW8b33hFelRa9yi8t8gloN8I485YXR2GyJ+MSaaTrPnT/w/MYT2OjOsaILpC75A8Mek6Z1SZW2k91WxbBz5SUXI3dBLyvmuQQrDZvKFq36BiDvUNfkHb0TDrMEqUx48uv0AxNTcpE35YRBdkms2rWHVfZ2qcmqs1y+YXsjWyxnQxhq31o411JvC4VkQ1dwpqj5Ay/Jjp1zfhU2kJv4Ie8Wrjomfd7BS+hzlIP/IkUdAm8TC2e1HXpeAVyCrb+5VklzJnAgWoWCbv/1FLe+097v4wCobx1jqI/eRPIZFczyNbOL/r5oaYgn7uA+2R8gLvRt+Ae3H7s/KNhdYSdkDMPtNkzSEjCcqTS1BE4nLGF34MCbBOlojJ9Fo3ocMEfpIE7tBA+VX9fQSDiLuTtS7TZO8fTlK9pXVSi/gmk1OM0cjWfmSEg1HHWvI49Hf9s4H6QLB6kCLWHEuEOhSs7zW1C1R5XW6weX5o1seWGtL/X6L0=
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	+1UfVy5yYbrcEzYLA2cwvgpSR58fbT9nL/UwFTv9wO7qMDfJdaZsAoxKT8Zqqo1rz2ZVTp0wsqLASR4A734SmWNS0CIKSzCVEkRpRMkNHpRfACpmiIszn1qNah5vq/PEh2wxUbKP1zsI7kKLg0wPaudWL3mgECIfihRwkPmkSDdHpiS9aMJvsydOAqOJIGTEK0covYXubp8fopJQ3cx9TlLd66dRhTozJy8R8I0gTYFQmPjEBwL3CdcKsHl34qk8TOP+uHaSJMXADW9N1F42fMsLfptDybLbzrg92qoHmf1xvSm8Hc4UzT00mRW13iOavT4GhgfVNAdlSI02RLgsNV20OIB2dM0zsqmhBZGBkZGZkH3gTwduKP8uFyOHguWOppArhSCWptXSQDKBwULOfBQKrWYQ9bQTJZnHKcPlSOOT4mqZj8lVyI9T5bx0LCyi
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 05:58:25.6858
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1f9de70-7222-4ad8-16f0-08deaa6c254c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 May 2026 06:04:19.1963
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ddec9c5-5341-4cd7-74b3-08deaa6b52a5
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000044A2.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR10MB7195
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: nuJaMs1fUIy7vkRIFme0/753DyVDTSFrmXh7aBqbmSJkyGHhB5m/ybxU8zrAwYNsrPFxlrp82o1UGHROh1BifA7wqnzo01wQBFzlIKQChK4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB10284
 
-Hey Krzysztof,
+Hi Wim/Guenter/Geert,
 
-On 07/04/26 11:23, Krzysztof Kozlowski wrote:
-> On 07/04/2026 07:46, Moteen Shah wrote:
->> Hey Krzysztof,
->>
->> On 31/03/26 12:39, Krzysztof Kozlowski wrote:
->>> On Mon, Mar 30, 2026 at 03:14:58PM +0530, Moteen Shah wrote:
->>>> The ti,j721e-system-controller binding currently only allows
->>>> clock-controller@ child nodes to reference the ti,am654-ehrpwm-tbclk
->>>> schema. However, the system controller on J721S2 also contains audio
->>> J721S2 or AM62?
->>>
->>>> reference clock controllers (ti,am62-audio-refclk) that use the same
->>>> clock-controller@XXXX naming pattern.
->>>>
->>>> Hence, extend the clock-controller pattern to accept either ehrpwm-tbclk
->>>> or audio-refclk schemas using a oneOf constraint.
->>>>
->>>> Signed-off-by: Moteen Shah <m-shah@ti.com>
->>>> ---
->>>>    .../bindings/soc/ti/ti,j721e-system-controller.yaml         | 6 ++++--
->>>>    1 file changed, 4 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml b/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml
->>>> index f3bd0be3b279..d5d84a8f1257 100644
->>>> --- a/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml
->>>> +++ b/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml
->>>> @@ -53,9 +53,11 @@ patternProperties:
->>>>    
->>>>      "^clock-controller@[0-9a-f]+$":
->>>>        type: object
->>>> -    $ref: /schemas/clock/ti,am654-ehrpwm-tbclk.yaml#
->>>> +    oneOf:
->>>> +      - $ref: /schemas/clock/ti,am654-ehrpwm-tbclk.yaml#
->>>> +      - $ref: /schemas/clock/ti,am62-audio-refclk.yaml#
->>> Alphanumerical order.
->>>
->>> There is no ti,am62 in the top level compatibles, so why am62 is here?
->>> Top level has j721s2 but this ti,am62-audio-refclk.yaml only am62.
->>>
->>> Best regards,
->>> Krzysztof
->> The "ti,am62-audio-refclk" compatible refers to a shared audio reference
->> clock IP block that was first introduced/named on AM62 but is present on
->> other TI K3 SoCs as well, including J721S2. The compatible string
->> identifies the IP block, not the SoC family.
->>
->> This is already an established pattern —
->> k3-j784s4-j742s2-main-common.dtsi uses the same compatible for the
->> J784S4/J742S2 audio refclk node.
-> Please read carefully writing-bindings doc.
->
+> -----Original Message-----
+> From: Biju <biju.das.au@gmail.com>
+> Sent: 06 February 2026 11:22
+> Subject: [PATCH] dt-bindings: watchdog: renesas,wdt: Document RZ/G3L supp=
+ort
+>=20
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> Document the support for the watchdog IP available on RZ/G3L SoC. The wat=
+chdog IP available on RZ/G3L
+> SoC is identical to the one found on RZ/G2L SoC.
+>=20
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+>  .../devicetree/bindings/watchdog/renesas,rzg2l-wdt.yaml          | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/watchdog/renesas,rzg2l-wdt=
+.yaml
+> b/Documentation/devicetree/bindings/watchdog/renesas,rzg2l-wdt.yaml
+> index a4d06c9c8b86..40b4fb26d9c5 100644
+> --- a/Documentation/devicetree/bindings/watchdog/renesas,rzg2l-wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/renesas,rzg2l-wdt.yaml
+> @@ -18,6 +18,7 @@ properties:
+>                - renesas,r9a07g044-wdt    # RZ/G2{L,LC}
+>                - renesas,r9a07g054-wdt    # RZ/V2L
+>                - renesas,r9a08g045-wdt    # RZ/G3S
+> +              - renesas,r9a08g046-wdt    # RZ/G3L
+>            - const: renesas,rzg2l-wdt
+>=20
+>        - items:
+> --
+> 2.43.0
 
-I am planning add another compatible for j721s2: "compatible = 
-"ti,j721s2-audio-refclk", "ti,am62-audio-refclk""
-This will eventually be falling back to am62-audio-refclk's compatible 
-for now, since we require the same functionality as 
-"ti,am62-audio-refclk" but if in future someone wants j721s2 specific 
-change only they can use the new compatible for j721s2 specific usecase. 
-Does that sounds okay?
+Gentle ping.
 
-Regards,
-Moteen
+Cheers,
+Biju
 
-
-> Best regards,
-> Krzysztof
