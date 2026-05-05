@@ -1,72 +1,83 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62AB03C1981;
-	Tue,  5 May 2026 17:36:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DE7388377;
+	Tue,  5 May 2026 18:05:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778002566; cv=none; b=aft1Smp72oGQVP8vOp+oWo9sfYTpgbL/X8iwmg1oYjXsy290vKmsAX1JBno+YpIRhloCTwk2tJd2/VHbA7aZupROpk0ax/riD2LEL6coV6pgDOp5f/NGfaiuFf/KVcR8PwJK2cIL+WXql1hsuUx1R7h7rhkd7cTghc3MFwleChM=
+	t=1778004325; cv=none; b=Bgmd9urN8SQhthc/TXvwDUAWRO+RZRhlaDJZyn6QEeNXc1nQzXLz3e0Rr6/ZaMvgl5mIuNxs/eu6vheAFjlBdex6mkrwnhmJl3NFQUcY/bqS5ZJPUjgcL2Qoz1aS2WGajBn8zmbRVY0ESRhW7dSQIwZ63yQZBo8cgZ7GmujiUmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778002566; c=relaxed/simple;
-	bh=1rUgiNEja4VdnawWmpKJXAeTor1kPOFVIqJ3p24fzq4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XVaYZOkbDNQE33V2cm6DGhc1yIbwmrxXr6qvQs7yR5L3QawD+ctvE2LP+wnDD/pTrluu5xflSVjI+9qUI/A9qbz6BNwE9zRBYLMELER+GgDZaPQwu50WKjxtQ88feOJkX9T226ovlDkP7fkWBJqwsEpsTqrWpM0Jlcg9+tMPUYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=fVEUiBs9; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1778004325; c=relaxed/simple;
+	bh=ZNLo7th8W2xt99tj+o8D68RlN3XT//3Th7ovV3uYYg4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A+/cf90TPZq+z9VeFKKcyomtIXis4/2awc/aig4HHwXNZIpAztBT3G5lXkm5rnZYSnZ3AcUVZZ5QjFZcZTGL6sL44atFplF6GiV4KnsWBTm1ORLvuc2ga2I/LVdcGB/oxy3WyI1sATdQpyaDUEumo2jxum6iKephzy8ArkJw0rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gjsL/zG6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="fVEUiBs9"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=1rUgiNEja4VdnawWmpKJXAeTor1kPOFVIqJ3p24fzq4=; b=fVEUiBs9iFuCVeDxw3tyYpZCZN
-	jC+6HulUNzAiOGjHz2qhVODEf63QJMSAPNI2fHQ1KRosjxwS6PPNUjir0GnJvKMDUMgycEH/6eWwg
-	znmbMa0bTyr6CYOvDiwnVPyPb0YmdB+0CcBjnVKyS9OLqKRWJs6FNjlAFWzDjHcFUE7oaRQLTuDHD
-	qJ2apECTu8bun55BfPEQtEJH4AepL+0Czk4U5svUtviKuVYEZqwR8nRlTW8/h1LGe8XBN3yu9DYz1
-	ZZZaPxkVoU7Pgq28H+NGNKOaiRuNewyWKd7HF8BxdNO6X4l2qhHF5Xi2ogr5ZbMygrURu9DeV6O7Y
-	iCPWlZ3w==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Dennis Gilmore <dennis@ausil.us>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Alexey Charkov <alchark@gmail.com>,
- Quentin Schulz <quentin.schulz@cherry.de>, FUKAUMI Naoki <naoki@radxa.com>,
- Peter Robinson <pbrobinson@gmail.com>, devicetree@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Dennis Gilmore <dennis@ausil.us>
-Subject:
- Re: [PATCH v9 3/4] arm64: dts: rockchip: refactor items from Orange Pi 5/b to
- prep for Pro
-Date: Tue, 05 May 2026 19:35:52 +0200
-Message-ID: <26834823.ouqheUzb2q@phil>
-In-Reply-To: <20260429024737.544813-4-dennis@ausil.us>
-References:
- <20260429024737.544813-1-dennis@ausil.us>
- <20260429024737.544813-4-dennis@ausil.us>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gjsL/zG6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19BAEC2BCB4;
+	Tue,  5 May 2026 18:05:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778004325;
+	bh=ZNLo7th8W2xt99tj+o8D68RlN3XT//3Th7ovV3uYYg4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gjsL/zG6lQHzWjxl7VvlKMECR6/plMrDl+BOWk4P0sShWXwn7iujy1bYHaZ/vosSf
+	 YNxSFDmYXAB6Cziomh6HOAab5uBNCRLE2lo+YbFCfRTfTx9XaafVyyXLkHbg5wY7QT
+	 8uRGW85oJ8ZVk96S55Aj9PYG/k5nZAdR5shrSqR/Tj3gH1gV/hgQzTQJBFe2mr+SxX
+	 LvsJ4r86z/0FPIgiqN3eLe3Ln/FcFpdbMFCV4O05+S3Sq3N1OBHpAEZYAab5vpTZHN
+	 S1Ue40qIv0hycNotuj4mNOCEi6BWehORJ59O4hM55ze+Zh2Ay09hQCxnBDAuzaxxpF
+	 4RdW62qlSLXIw==
+Date: Tue, 5 May 2026 13:05:22 -0500
+From: Rob Herring <robh@kernel.org>
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] drivers/of: validate live-tree string properties
+ before string use
+Message-ID: <20260505180522.GA3265505-robh@kernel.org>
+References: <20260403183501.1-drivers-of-live-tree-pengpeng@iscas.ac.cn>
+ <20260417223003.1-drivers-of-live-tree-v2-pengpeng@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260417223003.1-drivers-of-live-tree-v2-pengpeng@iscas.ac.cn>
 
-Hi Dennis,
+On Fri, Apr 17, 2026 at 08:36:00PM +0800, Pengpeng Hou wrote:
+> `populate_properties()` stores live-tree property values as raw byte
+> sequences plus a separate `length`. They are not globally guaranteed to
+> be NUL-terminated.
+> 
+> `of_prop_next_string()` iterates string-list properties by walking raw
+> bytes, `__of_node_is_type()` checks `device_type`,
+> `__of_device_is_status()` checks `status`, and
+> `of_alias_from_compatible()` reads the first `compatible` entry. These
+> paths must validate that the relevant string fits within the property
+> bounds before they hand it to C string helpers.
+> 
+> Validate these live-tree string properties within their declared bounds.
+> In particular, make `of_prop_next_string()` reject malformed entries
+> before returning them, use `of_property_match_string()` for
+> `device_type`, and add unit coverage for malformed first and trailing
+> string-list entries.
+> 
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> ---
+> Changes since v1:
+> - use of_property_match_string() for device_type as suggested by
+>   Rob Herring
+> - rework of_prop_next_string() so the first returned string is validated
+>   through the same bounded path
+> - add of_unittest_property_string() coverage for malformed first and
+>   trailing string-list entries
 
-Am Mittwoch, 29. April 2026, 04:47:34 Mitteleurop=C3=A4ische Sommerzeit sch=
-rieb Dennis Gilmore:
-> The RK806 PLDO1 and PLDO2 outputs are wired differently between the
-> 5/5B and the Pro (PLDO1/PLDO2 are swapped), so label the PMIC node
-> rk806_single in the base dtsi, drop pldo-reg1/pldo-reg2 from it, and
-> define them via a &rk806_single regulators augmentation in
-> rk3588s-orangepi-5-5b.dtsi. The Pro will supply its own mapping.
+Did you even test this? The virt machine under QEMU doesn't even boot. 
 
-I guess my only question is, where did that "single" come from and what
-is it supposed to mean? ... I would've assumed "&rk806" as label would've
-been enough? But maybe that "_single" has some special meaning?
+[    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT                                                                                                                                    
 
-Thanks
-Heiko
+It hangs here.
 
-
+[    0.000000] NUMA: Faking a node at [mem 0x0000000040000000-0x000000007fffffff]                                                                                                                                      
