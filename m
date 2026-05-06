@@ -1,247 +1,155 @@
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2271C43DA31
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 12:07:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E7632BF5A
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 12:12:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778069260; cv=none; b=VU7R0O4no0mCMgWE37cIogtDLLhhQZFadsVP76+K8cq0vszyAof+raV89iEhwytzvlGQydHnH4I1sA5+L7XBFexHPix5ZpgnaApyX+2XidgxUF7ss00G0TZEtboQGInxibF2/91iaQhBn3PiNNuYekzA7bmPMh/QW5a6VTCvcLQ=
+	t=1778069530; cv=none; b=Oz0AnCr0Aqeq+VgYc1kXewSE/yhnJN+crmHQ2FKkd6FQlGITzVOb59R8D2VIK8TuJvnrwZ8sdyc+BVPlxYuarOiGTnijMlyLCyPRm+AF0l+9kT3MJSQgYGxb2QrMe0a2fKZhC093HLaYFs4e6fo1ncYvEtzuy7RPOgybc++aVZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778069260; c=relaxed/simple;
-	bh=soAn2vrnq+NZwkeJhBPM72OE9WgHbaIcXvtyW2rribo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JSLyRSMuBECChSltyF7j0NDkdykxU8sGu9x3GOoXMsSE/Ayc9AjIFuf6rGc3GFSvR7kyFcrTUB3X48beKE6GqoMfYKDM1PuN3tSGC8H+1gbe1ZvfcMxr1sIvU4zE5lJxSpZuN6RKCS8F7TJB/ZGorNtIq4uE6vXCucEwI/BOUSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-56a857578a8so2213458e0c.3
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 05:07:37 -0700 (PDT)
+	s=arc-20240116; t=1778069530; c=relaxed/simple;
+	bh=jfaWp8ixppP8eOYKh4ns9ulx+xbxaJZiancW/JSA0pI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lzfsNoxIm+dG94XW3agB8DV8KaM+Yohu6xZ8IRvRT3Z1JDOWn7Ri6Di4GI9riaC9/jrgzIrD4eltVnx/A5gV6h0ugTOY4OCHg2ZjQmMiJ+WJFnIkJ1EG8uqXKIxHa/SbJHWnMxx5b5GA2K/7xPOXGHr5M4fxhPamzWUEvT2mcXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nrJ5hFOX; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nrJ5hFOX"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-44dd5cb0f81so550340f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 05:12:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1778069527; x=1778674327; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ws629W1+/OZhaFCmlUMwKh3w716Ok42C3gMHhe8mbxc=;
+        b=nrJ5hFOXuaflWcEsoXo3dxTHpuS3ftE95u7k7KXNz4zU4Actt5qBQIG762MMZa6AMF
+         ptUyu9wv2fRxgViXB2h/JD/xyEVBQhaYcLTG+w298GRJ4FkvSIyYGLhPKH2hx4oolsfd
+         RMawdbH8hJtcaSmlMPVGXsnONWoDQd28L5imB1FB0bgONq+ev3H9P35u8cTUIYDIVxUt
+         PgZjgsgHKB/HlpXwnAMSBOkcL7lNbRxwlQ1CJBZ8c30ZGiIqBNgXP24dVEfpIMpZI/u+
+         rdoUgYGfj5y8ApxZtFR2++zZlGeujcePYZdROaD372tlww6+VOAEHxHMJqmry2OhqY+h
+         9xWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778069257; x=1778674057;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=p1b6tMUtONBmgXqH4JWcLF8QY3yG7D5JUUuZo3u2Uck=;
-        b=aHtiSn0M4ZahsOfP+tDaixgp5xyenWMIZQdYYw40ColOqDL7wMt4rUzTptodSXESfz
-         AykdtXvI3T1HVu089HO1YeAS1N1eCSdKWGYRyBX3RRvA3Ud80k9gks3JBx9aeb0AR2Qu
-         tgkrwATj7DFk27iKLUvuAJpkQgZRCyhOn/gz+OsUsFxsAfxsG7pDtQao/A8usYaN7Nph
-         xGTvpSj63S8H3yRqVQGgy0v4A/W6EnxNYKxhN/9TgpsYzG93LY7RyhHRrl92Zg9dqSO4
-         YyiYNGghByCqf/R9x+fCeykBt/4TJCOwMdr1s58BGoXZDsIRVA68jPlAufdWd1/YdBFc
-         Lf1g==
-X-Forwarded-Encrypted: i=1; AFNElJ9WPr28K4Kw42IrMhokKI87OSP4fqEv0xZyVTE1GjC7LP4p0uHK3BkcX0zUTeTi71XdmQnW+OJXoLiO@vger.kernel.org
-X-Gm-Message-State: AOJu0YxxQkM6e0yGcglDqTswz2mqQGS6YB+vAkrfRSrgdFSSMPmfJu/p
-	lM0VDS7acTnnCpJTBf3KgtytFGzpVeWErJrRinAATwWrnyYUiRczPQxUnvEwAZH7Sv4=
-X-Gm-Gg: AeBDievRybJX1XD0olg1p7K6CqeldMPEAEk1RXHYXW+BmrhMFQgbFRNHe60cQq756ej
-	l0M2VRwHeAEEcYCW7XVAwkzOd0DU9Z1400L6Zddp1RaLgvQFx9ZteitatXQqcKQdIAe3915WvQr
-	+WUVgotRSdP9nQ7Y+atp/r+s0fLOvDC8ywnsSuftOUADbMO8e64Rxqk2q41zVa+HonFbKbmBhcg
-	PNgi+awbxvhgJW5vrayFmyiAaf0uhih56dabHojvlbC4PGfLDIqGsDt1l0lnwTzU98Gm5xe/nkX
-	ZQewwPDLmgqtJ04ELHBpyNQynQnD0XwQQce0Q5I+m2uTVwVas8xmOa0w/BUy1nWANkuEWeGxk7b
-	UhxaibcFW6a74BM4dM84ayeFqSvIztKjqdYzEu57st7QK8+/iVVORCgKUB69p9qXG/7e6ULU/c7
-	DZ35/jeWrsK8owWHIu0usMm/MnICUlTkEFl5jeSAOebksLIdqDZ9qNaBRU9uN2MdXD+EjUuVo=
-X-Received: by 2002:a05:6122:e26d:b0:56f:1ed6:1d29 with SMTP id 71dfb90a1353d-575596891f1mr1425287e0c.9.1778069256931;
-        Wed, 06 May 2026 05:07:36 -0700 (PDT)
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com. [209.85.217.52])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-574a6ef4012sm10391618e0c.18.2026.05.06.05.07.34
-        for <devicetree@vger.kernel.org>
+        d=1e100.net; s=20251104; t=1778069527; x=1778674327;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ws629W1+/OZhaFCmlUMwKh3w716Ok42C3gMHhe8mbxc=;
+        b=NJOxNeIvbo7Hq46XFiivD5YsgM14puH1Hy0Fqz4FpFkPCFi6sCKXkZBqa7tFnuKtmp
+         c+Pnve55uEB9GhYJSyoM4E5HRcttmobXfbhiz3l0LJoMpDK2UtnOT5AOLmK24KbT+xQA
+         eDxKciHZFBErGyp6x0QNazLTODvIFpuYNbIZhyZO2mn4fI4HfDRJUT5HkVRB5uQhzyNR
+         F52sSfPVC6V4BAvZtFYSoSDTbt2B9107poX+fECYNLvfQuoom0zHwaQveY0IqnGMrhur
+         vgRh/CY7HB25PUVpCurjk4n4NWYzu0eXdCDwDr2KMECqA3C7YmK0Yygyhlh+uf/mgDzj
+         vGHQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8YyTSll05B33o2gbxEUaFsi9LKhL+PXtjfUxVQWg9Gn3i6n7E7OUP+R8w5xC+CorJztjb9qCsFhlEf@vger.kernel.org
+X-Gm-Message-State: AOJu0YzJIYOuAzCpHT1qKPltP4Np9TEL64BTy7tY/tuLPbHc5eIiNJFi
+	pzR0MT0zqHyKc2hPTypHV0eHqdPxVcvVMrFt869hBAvWJ1Z0CAqABsSaVN1AuMVxrtY=
+X-Gm-Gg: AeBDietHqc6pTrWvs1UxQ9knfGhD/u/ekGmx1Z0yRdnQm6DteQl3DtXuVb0AmL4X9xy
+	p+99v0IzJQevjxjBQQPwBI/xYECtVuskKOdT4ex+k710CrhyRpPUHHIolVhX5RLUMV4nBqV2wnz
+	TCEL8YCDqZ8TXOI0xHngQdnlTTkoAlMD2RvWsXX60Fo1NXhl2DZcyYMyA3r5dnFSJEhCF3rm8JS
+	9s8cqidhLcyXSRbb2E4KexxV5viAjshxKSk13DwaHKv4A8Yvia9prp7UyPz6Pk9n7C4x8MzHqUt
+	BMb0+aUqa+s5DMmMGVWwoa+7OIbZTw5Z1wmxQ32sf/cGhjvvxkLcGDj3Ul62pZ91RhiqtIBXoKr
+	Ap0zpPMezF6nWDvENBw2n0iu323m+6VcMMzWEGIc682zdd3q+wAbgk5tm6q4qbVsqqrrKYFSOui
+	46IN52rxHXVjC3LNhr4uuYgHnzzLsvei2giA6zcdehg60=
+X-Received: by 2002:a5d:64c5:0:b0:43e:a75e:352 with SMTP id ffacd0b85a97d-45162570080mr4694269f8f.4.1778069526968;
+        Wed, 06 May 2026 05:12:06 -0700 (PDT)
+Received: from [10.11.12.108] ([79.115.63.228])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45052a488d8sm12000365f8f.12.2026.05.06.05.12.05
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2026 05:07:35 -0700 (PDT)
-Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-62dff2771abso1375636137.2
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 05:07:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ88vOjAb7BOKzpf7zyMyYPMRsgG6m0P6FOI5S0hJz2dpGJgrU/U+kes3XrPUJ53GwQKMA1PaBK2iBUh@vger.kernel.org
-X-Received: by 2002:a05:6102:5693:b0:611:7c7b:4d40 with SMTP id
- ada2fe7eead31-630f907cbb1mr1000566137.30.1778069254404; Wed, 06 May 2026
- 05:07:34 -0700 (PDT)
+        Wed, 06 May 2026 05:12:06 -0700 (PDT)
+Message-ID: <b7657812-3afc-4b13-a579-6f07d061e2d9@linaro.org>
+Date: Wed, 6 May 2026 15:11:58 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260318124450.163471-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260318124450.163471-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <605e8d4c-09e7-4d11-acdb-7829a85eacc3@tuxon.dev> <CA+V-a8srS9g2WDMARDJn98K=nL9v1LiZYxqM8evsVrzR-s5ZMA@mail.gmail.com>
- <lvix7p4e7c4dtchtdti3rwrs7jkda5iy7lthcffhqc7g6vgu2p@54qywklrspi7>
- <CA+V-a8sd=dyTZmViLbDrCPYbx5ujWzjk74HxhP0aBEqxLuEqJA@mail.gmail.com>
- <leky6ktelj7t3uwd4bakgefrk32m3ceyxmwbkkjpp5zqp6rjgj@jtiqktxchws3>
- <CAMuHMdUpzABKKRBwK3mMmTS1+S21R+0k94bOX-+4ZBoa+bRWSA@mail.gmail.com> <phuerp2kp6ngruqjkpyjczpn5ya7iywrsiaqiiydvqxwlkntks@gyfcws3intsw>
-In-Reply-To: <phuerp2kp6ngruqjkpyjczpn5ya7iywrsiaqiiydvqxwlkntks@gyfcws3intsw>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 6 May 2026 14:07:21 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdW_f5676cmimQYNyO3FZyi=DY_3sdVdUSUqXyZXpqCN0Q@mail.gmail.com>
-X-Gm-Features: AVHnY4JBLrNERmCgzgZxToIaKZzdpYZg7PBuCPB4L1Dje6XmwXVPrc9hRXm7oGY
-Message-ID: <CAMuHMdW_f5676cmimQYNyO3FZyi=DY_3sdVdUSUqXyZXpqCN0Q@mail.gmail.com>
-Subject: Re: [PATCH 5/5] PCI: rzg3s-host: Add support for RZ/V2H(P) SoC
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Magnus Damm <magnus.damm@gmail.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	John Madieu <john.madieu.xa@bp.renesas.com>, linux-pci@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: exynos850: Add SRAM node
+To: Alexey Klimov <alexey.klimov@linaro.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Sam Protsenko <semen.protsenko@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>
+References: <20260413-exynos850_sram-v1-1-7fda5b7fb7d4@linaro.org>
+ <2ff077e1-8983-4a41-bb21-5e4140545aa3@kernel.org>
+ <DHSR70EGYY4N.2EA2HWIXJR7QR@linaro.org>
+ <4c6a92e0-15a1-4f82-afc9-542f5ad9d2df@kernel.org>
+ <DI6LNH2F0DP5.H1ZM8MTSDQJR@linaro.org>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <DI6LNH2F0DP5.H1ZM8MTSDQJR@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Manivannan,
 
-On Wed, 6 May 2026 at 14:02, Manivannan Sadhasivam <mani@kernel.org> wrote:
-> On Mon, May 04, 2026 at 11:05:11AM +0200, Geert Uytterhoeven wrote:
-> > On Fri, 1 May 2026 at 16:42, Manivannan Sadhasivam <mani@kernel.org> wr=
-ote:
-> > > On Fri, May 01, 2026 at 12:13:55PM +0100, Lad, Prabhakar wrote:
-> > > > On Thu, Apr 30, 2026 at 4:26=E2=80=AFPM Manivannan Sadhasivam <mani=
-@kernel.org> wrote:
-> > > > > On Wed, Apr 08, 2026 at 07:54:41PM +0100, Lad, Prabhakar wrote:
-> > > > > > On Wed, Mar 25, 2026 at 10:18=E2=80=AFAM Claudiu Beznea
-> > > > > > <claudiu.beznea@tuxon.dev> wrote:
-> > > > > > > On 3/18/26 14:44, Prabhakar wrote:
-> > > > > > > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.co=
-m>
-> > > > > > > >
-> > > > > > > > Add support for the RZ/V2H(P) SoC PCIe controller to the rz=
-g3s-host
-> > > > > > > > driver.
-> > > > > > > >
-> > > > > > > > The RZ/V2H(P) SoC features two independent PCIe channels th=
-at share
-> > > > > > > > physical lanes. The hardware supports two configuration mod=
-es: single
-> > > > > > > > x4 mode where one controller uses all four lanes, or dual x=
-2 mode
-> > > > > > > > where both controllers use two lanes each.
-> > > > > > > >
-> > > > > > > > Introduce configure_lanes() function pointer to configure t=
-he PCIe
-> > > > > > > > lanes based on the number of channels enabled. Implement
-> > > > > > > > rzv2h_pcie_configure_lanes() to detect the active PCIe chan=
-nels at
-> > > > > > > > boot time and program the lane mode via the system controll=
-er using
-> > > > > > > > the new RZG3S_SYSC_FUNC_ID_LINK_MASTER function ID.
-> > > > > > > >
-> > > > > > > > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.r=
-enesas.com>
-> > > > > > > > ---
-> > > > > > > >   drivers/pci/controller/pcie-rzg3s-host.c | 142 ++++++++++=
-+++++++++++++
-> > > > > > > >   1 file changed, 142 insertions(+)
-> > > > > > > >
-> > > > <snip>
-> > > > > > >
-> > > > > > > This introduces some limits in the systems with RZ/V2H(P) SoC=
-s with regards to
-> > > > > > > the usage of linux,pci-domain. I would like the PCIe maintain=
-ers take on this.
-> > > > > > >
-> > > > > > > As this is necessary to index in the system controller driver=
- specific data (as
-> > > > > > > there are different SYSC offsets for different PCIe controlle=
-rs) I see the
-> > > > > > > following alternatives, if any:
-> > > > > > >
-> > > > > > > 1/ add a dedicated DT property for this, e.g. renesas,pcie-co=
-ntroller-id
-> > > > > > > 2/ Add dedicated DT bindings for RZ/V2H(P) SoC that would be =
-used to specify the
-> > > > > > >     system controller register offset and mask for different =
-functionalities.
-> > > > > > >
-> > > > > > >     E.g.:
-> > > > > > >     renesas,sysc-l1-allow =3D <&sysc 0x1020 0x1>;
-> > > > > > >     renesas,sysc-mode =3D <&sysc 0x1024 0x1>;
-> > > > > > >     renesas,sysc-link-master =3D <&sysc 0x1060 0x300>;
-> > > > > > >
-> > > > > > >     And use them in each controller DT node. E.g.:
-> > > > > > >
-> > > > > > >     pcie0: pcie@add1 {
-> > > > > > >         // ...
-> > > > > > >
-> > > > > > >         renesas,sysc-l1-allow =3D <&sysc 0x1020 0x1>;
-> > > > > > >         renesas,sysc-mode =3D <&sysc 0x1024 0x1>;
-> > > > > > >         renesas,sysc-link-master =3D <&sysc 0x1060 0x300>;
-> > > > > > >
-> > > > > > >         // ...
-> > > > > > >     };
-> > > > > > >
-> > > > > > >     pcie0: pcie@add1 {
-> > > > > > >         // ...
-> > > > > > >
-> > > > > > >         renesas,sysc-l1-allow =3D <&sysc 0x1050 0x1>;
-> > > > > > >         renesas,sysc-mode =3D <&sysc 0x1054 0x1>;
-> > > > > > >         renesas,sysc-link-master =3D <&sysc 0x1060 0x300>;
-> > > > > > >
-> > > > > > >         // ...
-> > > > > > >     };
-> > > > > > >
-> > > > > > I'd like to get a clearer steer from the PCIe and DT maintainer=
-s
-> > > > > > before investing further in either direction.
-> > > > > >
-> > > > > > To recap the two approaches on the table:
-> > > > > >
-> > > > > >   Option 1: A single renesas,pcie-controller-id property used t=
-o look up
-> > > > > >             SYSC offsets in the driver.
-> > > > >
-> > > > > Can you explain what is the limitation with 'linux,pci-domain' pr=
-operty?
-> > > > >
-> > > > As sashiko pointed out.dev, The linux,pci-domain property is genera=
-lly
-> > > > an OS-specific logical property intended to assign a stable PCI dom=
-ain
-> > > > number across reboots. Restricting it to [0, 1] would prevent syste=
-m
-> > > > integrators from using non-conflicting domain numbers like 2 or 3 i=
-f
-> > > > the board incorporates other PCIe controllers.
-> > >
-> > > "linux,pci-domain" is supposed to be used in SoC.dtsi, not in board.d=
-ts. AFAIK,
-> > > the board designers have no reason to change it.
-> > >
-> > > Yes, the property name implies that it is a Linux specific property a=
-nd if you
-> > > want, you can propose a generic one (not vendor specific one). Other =
-than that,
-> > > I don't see a blocker in using this property. Many SoCs already do th=
-is and
-> > > other DT projects like u-boot do not end up parsing this property.
-> >
-> > Sounds like this overlaps with pciN DT aliases, which are in use on
-> > some (PPC) boards?
-> >
->
-> Hmm. DT aliases are discouraged these days, AFAIK. Are those boards also =
-need
-> these register configuration? I thought only RZ/V2H(P) SoCs need them. If=
- not,
-> then RZ/V2H(P) DTS can use 'linux,pci-domain' property.
->
-> If yes, then it would be better to hardcode these offsets in the driver b=
-ased
-> on the compatible. DT's job is to describe the hardware topology and reso=
-urces,
-> not register offsets.
 
-The offsets cannot be hardcoded based just on the compatible value as there
-are two instances.  The offsets do describe the topology.
+On 4/30/26 6:37 PM, Alexey Klimov wrote:
+> On Tue Apr 14, 2026 at 10:08 AM BST, Krzysztof Kozlowski wrote:
+>> On 14/04/2026 11:00, Alexey Klimov wrote:
+>>> On Mon Apr 13, 2026 at 4:23 PM BST, Krzysztof Kozlowski wrote:
+>>>> On 13/04/2026 16:52, Alexey Klimov wrote:
+>>>>> SRAM is used by the ACPM protocol to retrieve the ACPM channels
+>>>>> information and configuration data. Add the SRAM node.
+>>>>>
+>>>>> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+>>>>> ---
+>>>>>  arch/arm64/boot/dts/exynos/exynos850.dtsi | 8 ++++++++
+>>>>>  1 file changed, 8 insertions(+)
+>>>>>
+>>>>> diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+>>>>> index cb55015c8dce..cf4a6168846c 100644
+>>>>> --- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
+>>>>> +++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+>>>>> @@ -910,6 +910,14 @@ spi_2: spi@11d20000 {
+>>>>>  			};
+>>>>>  		};
+>>>>>  	};
+>>>>> +
+>>>>> +	apm_sram: sram@2039000 {
+>>>>> +		compatible = "mmio-sram";
+>>>>> +		reg = <0x0 0x2039000 0x40000>;
+>>>>> +		#address-cells = <1>;
+>>>>> +		#size-cells = <1>;
+>>>>> +		ranges = <0x0 0x0 0x2039000 0x40000>;
+>>>>
+>>>> You miss here children.
+>>>
+>>> Thank you! I guess I should convert it to smth like this:
+>>>
+>>> apm_sram: sram@2039000 {
+>>> 		compatible = "mmio-sram";
+>>> 		reg = <0x0 0x2039000 0x40000>;
+>>> 		ranges = <0x0 0x0 0x2039000 0x40000>;
+>>> 		#address-cells = <1>;
+>>> 		#size-cells = <1>;
+>>>
+>>> 		acpm_sram_region: sram-section@0 {
+>>> 			reg = <0x0 0x40000>;
+>>
+>> This covers entire block, so feels pointless. Maybe requirement of
+>> children should be dropped. What's the point of having children? Why
+>> does the driver need them?
+> 
+> Thinking further about this. I was looking at the schema file and
+> different commits and it the right approach could be:
+> 
+> - add separate compatible for mmio-sram region for this case. Similar
+> to scmi and scpi, i'd say it should be "exynos,acpm-sram" or
+> "samsung,acpm-sram";
+> 
+> - update schema sram.yaml to exclude requirement for having child nodes
+> and properties like ranges, address and size cells
+> Similar like in commit, for instance, git show d0fe6491ddd22
+> (or git show 2d4a22e79a5fd).
 
-Gr{oetje,eeting}s,
+this works fine, but only if the sram is consumed as a whole, and only by
+ACPM. Is this the case for exynos850?
 
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+Cheers,
+ta
