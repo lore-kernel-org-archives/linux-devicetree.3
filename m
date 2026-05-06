@@ -1,439 +1,167 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A738A2F12C6;
-	Wed,  6 May 2026 07:53:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F4094369203;
+	Wed,  6 May 2026 07:56:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778053984; cv=none; b=EzEtE9nZyq1o3WWaxIhaxTyYRQdFuLyXAK8T568ZFWcZGDMjWHD3i+1rv/HNpTU4zLtbeqpCdFUn3W14vbf7YcEJSDamEb0zlh0Fr8UsGQ7IvruQl8VpzlHPLca7CHA/4/kLb5Ynw6oUs/wR+S2exjzMIr60d3tG1sEUedZMqKQ=
+	t=1778054171; cv=none; b=SARHt/oEOvHehaXGCBaXOp4qI1F2YFSfDwFhRHOs58XLTMFUUr+Ugg13fqqki9ruEV+PWU+i8fVV+upnk3zS1xqPXo/yZPoWFT0UHj5XTTLPkF+okGgoBBFkzZGSB7SH688UXtsrSsQdTWeSh0DuPUEmDx6qcHioJ1ldx4CbI7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778053984; c=relaxed/simple;
-	bh=ujoMgw0KTaFRI5Rhg7nsyMJfTN2kAJDhrQY8gy4rLM4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G3bBfQnZbvQGRFTRFkgEqXBIUnr83STI/xPgNKuIw7948KRFA+/zAgz9OgoZlO7A5zjCuodHJ9SDL7vMGFJdr1I7wkbn4SVh8uI5RYvbR91zmPkgde8TKG9ILjeq48SJMf68Qt8FK8JLYhOATJ0naQS3M3ef2tkDoe3ly81I5+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k3kTkBZ0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778054171; c=relaxed/simple;
+	bh=juwrtWczzTPvQJJwIG07H9kX0vRNlp9abje+dq/wKWQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BH1nLEikmYFtbw6MD2XHCaaLE6YgTbKpSH4QhFb+6NJg3PFLB2WXQepQcaa+4zuOCcxeUWuknsfR/6O1WswzFVcBtOtNCulyoonI87aoHnwoDCl0lrHp659fIvZD6o9t09Cd4nJcNXmlBYlHSpjjxw9M79ahWEBW4KF1/h4RAAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mlid59Fm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k3kTkBZ0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A35B8C2BCB8;
-	Wed,  6 May 2026 07:53:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mlid59Fm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B97CDC2BCB8;
+	Wed,  6 May 2026 07:56:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778053984;
-	bh=ujoMgw0KTaFRI5Rhg7nsyMJfTN2kAJDhrQY8gy4rLM4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=k3kTkBZ0g34L2cGHZDCgLzsx8aC1kw4htLAG+xnIbz9hEzUSmXfQ6EwuNoXmrwUQI
-	 McBO4I+Lk0ea7MijSdiATtcMVn+1fsUSfLr5ZRXS/kG4Sm38/bCb2WU80QPFQ3CRCq
-	 DA0ys+PFliTp3y1BxGdcxDGM4CytH4/fQdlHK5U9s9FcaBdineuFtlsjaSc+IRl36X
-	 lxQ6sdDhtYFXhlkbMhCkRGKy9dpGgqlDtgYbqEa2lisRQzFYEPA/sB5uCJaeU+mD5C
-	 7SdD5+cGR7TQMJc6B5m+mACGKI2guhGO4wKZHKeGpx10g25hQE7q2mypiSb7ZbJNzv
-	 4aUz5bun6i/kQ==
-Date: Wed, 6 May 2026 09:53:01 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: William Bright <william.bright@imd-tec.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: Add IMDT QCS8550 SBC
-Message-ID: <20260506-aquatic-shrew-of-engineering-09fbe8@quoll>
-References: <20260505-imdt-qcs8550-sbc-rfc-v2-0-b4767d0dd421@imd-tec.com>
- <20260505-imdt-qcs8550-sbc-rfc-v2-4-b4767d0dd421@imd-tec.com>
+	s=k20201202; t=1778054170;
+	bh=juwrtWczzTPvQJJwIG07H9kX0vRNlp9abje+dq/wKWQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Mlid59Fm7N4bpcaqRnWYuJsBdUgzafUkj2zf45JTU3c49ZMis9RT2P+qU+RNz7Rmy
+	 SH8EbtgsZ5iwwf0D+RQKI9CyaTfLRg6j7ZhnSm4GbV4RmE2Fg/xVMYUZo1n553OplQ
+	 T/G1vYwseBIUFXVqzgB3q5/u3PGKMnshzoizZyQOuSkluLzKXsGsqEZv/jDwxm3k/J
+	 AWs12P+xDUHTkow75J50MAtkUXJDVHUMaX5r/+peAEUN8Sxk32kqQzAbPRxQhSqESk
+	 m4ISfabBNeVZTHbEN8hBB+IMGcsVUSiH6zrKm+1Z7MHx6YvVXvpwiQ4hUhSZLbGRMQ
+	 X4yn8oRjy2LQA==
+Message-ID: <389917bb-c64c-4ac2-ab8f-b28ab0a89ecb@kernel.org>
+Date: Wed, 6 May 2026 09:56:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260505-imdt-qcs8550-sbc-rfc-v2-4-b4767d0dd421@imd-tec.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/13] dt-bindings: iio: adc: add mt6323 PMIC AUXADC
+To: rva333@protonmail.com, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Srinivas Kandagatla <srini@kernel.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ Lee Jones <lee@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-pm@vger.kernel.org,
+ Ben Grisdale <bengris32@protonmail.ch>
+References: <20260504-mt6323-v1-0-799b58b355ff@protonmail.com>
+ <20260504-mt6323-v1-1-799b58b355ff@protonmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260504-mt6323-v1-1-799b58b355ff@protonmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, May 05, 2026 at 09:09:54PM +0100, William Bright wrote:
-> +#include "qcs8550-imdt-som.dtsi"
-> +
-> +/ {
-> +	model = "IMDT QCS8550 SBC";
-> +	compatible = "imdt,qcs8550-sbc", "imdt,qcs8550-som",
-> +		     "qcom,qcs8550", "qcom,sm8550";
-> +	chassis-type = "embedded";
-> +
-> +	aliases {
-> +		serial0 = &uart7;
-> +		serial1 = &uart14;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path = "serial0:115200n8";
-> +	};
-> +
-> +	backlight: backlight {
-> +		compatible = "gpio-backlight";
-> +		gpios = <&pm8550_gpios 6 GPIO_ACTIVE_HIGH>;
-> +		default-on;
-> +	};
-> +
-> +	cam_1v2_reg: regulator-cam-1v2 {
+On 04/05/2026 20:24, Roman Vivchar via B4 Relay wrote:
+> From: Roman Vivchar <rva333@protonmail.com>
+> 
+> The MediaTek mt6323 PMIC includes an AUXADC used for battery voltage,
+> temperature, and other internal measurements.
+> 
+> Add the devicetree binding documentation and the associated header file
+> defining the ADC channel constants.
+> 
+> Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd Generation)
 
-This is not used. Drop regulator completely.
+Sorry, but that's not possible or explain please how YAML file can be
+tested on a device.
 
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "cam_1v2_reg";
-> +		regulator-min-microvolt = <1200000>;
-> +		regulator-max-microvolt = <1200000>;
-> +		vin-supply = <&hr_cam_pwr>;
-> +	};
-> +
-> +	cam_1v8_reg: regulator-cam-1v8 {
 
-Same here
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+> ---
+>  .../bindings/iio/adc/mediatek,mt6323-auxadc.yaml   | 39 ++++++++++++++++++++++
+>  .../dt-bindings/iio/adc/mediatek,mt6323-auxadc.h   | 16 +++++++++
+>  2 files changed, 55 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/mediatek,mt6323-auxadc.yaml b/Documentation/devicetree/bindings/iio/adc/mediatek,mt6323-auxadc.yaml
+> new file mode 100644
+> index 000000000000..7dc1ac8bf253
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/mediatek,mt6323-auxadc.yaml
+> @@ -0,0 +1,39 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/mediatek,mt6323-auxadc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: MediaTek MT6323 PMIC AUXADC
+> +
+> +maintainers:
+> +  - Roman Vivchar <rva333@protonmail.com>
+> +
+> +description: >
+> +  The Auxiliary Analog/Digital Converter (AUXADC) is an ADC found
+> +  in the MediaTek MT6323 PMIC, performing various PMIC related measurements
+> +  such as battery and PMIC internal voltage regulators temperatures,
+> +  accessory detection resistance (usually, for a 3.5mm audio jack)
+> +  other than voltages for various PMIC internal components.
+> +
+> +properties:
+> +  compatible:
+> +    const: mediatek,mt6323-auxadc
+> +
+> +  "#io-channel-cells":
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - "#io-channel-cells"
 
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "cam_1v8_reg";
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-max-microvolt = <1800000>;
-> +		vin-supply = <&hr_cam_pwr>;
-> +	};
-> +
-> +	cam_2v8_reg: regulator-cam-2v8 {
 
-Same here
+This is heavily incomplete node... or unnecessarily split. Why it cannot
+be part of parent binding? Or even parent node?
 
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "cam_2v8_reg";
-> +		regulator-min-microvolt = <2800000>;
-> +		regulator-max-microvolt = <2800000>;
-> +		vin-supply = <&hr_cam_pwr>;
-> +	};
-> +
-> +	cam_3v3_reg: regulator-cam-3v3 {
-
-Same here
-
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "cam_3v3_reg";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +		vin-supply = <&hr_cam_pwr>;
-> +	};
-> +
-> +	display_panel_pwr_en: regulator-display-panel-en {
-
-Again, unused
-
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "display_panel_pwr_en";
-> +		regulator-min-microvolt = <8000000>;
-> +		regulator-max-microvolt = <8000000>;
-> +		startup-delay-us = <10000>;
-> +
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&panel_en_default>;
-> +
-> +		gpio = <&tlmm 123 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +
-> +		vin-supply = <&som_vph_pwr>;
-> +	};
-> +
-> +	/* 5V VIN to backlight LED driver PMIC */
-> +	dsi_5v_en: regulator-dsi-5v-en {
-
-Also unused.
-
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "dsi_5v_en";
-> +		regulator-min-microvolt = <5000000>;
-> +		regulator-max-microvolt = <5000000>;
-> +
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&dsi_5v_en_default>;
-> +
-> +		gpio = <&tlmm 140 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +
-> +		vin-supply = <&som_vph_pwr>;
-> +
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
-> +
-> +	/* Enables 1V2, 1V8_CAM and 3V3_CAM */
-> +	hr_cam_pwr: regulator-hr-cam-pwr {
-
-And this becames unused after dropping fake regulators. Why don't you
-have proper users of these controllable supplies?
-
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "hr_cam_pwr";
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-max-microvolt = <1800000>;
-> +
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&hr_cam_en_default>;
-> +
-> +		gpio = <&tlmm 146 GPIO_ACTIVE_LOW>;
-> +
-> +		vin-supply = <&som_vph_pwr>;
-> +
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
-> +
-> +	/* Enables V2MB_3V8 and V2ME_3V3 */
-> +	m2_pd_pwr: regulator-m2-pd-pwr {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "m2_pd_pwr";
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-max-microvolt = <1800000>;
-> +
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&m2_pd_en_default>;
-> +
-> +		gpio = <&tlmm 144 GPIO_ACTIVE_LOW>;
-> +
-> +		vin-supply = <&som_vph_pwr>;
-> +
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +
-> +		gpio-open-drain;
-> +	};
-> +
-> +	per_1v8_reg: regulator-per-1v8 {
-
-Drop node
-
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "per_1v8_reg";
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-max-microvolt = <1800000>;
-> +		vin-supply = <&per_pwr>;
-> +	};
-> +
-> +	per_3v3_reg: regulator-per-3v3 {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "per_3v3_reg";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +		vin-supply = <&per_pwr>;
-> +	};
-> +
-> +	per_5v_reg: regulator-per-5v {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "per_5v_reg";
-> +		regulator-min-microvolt = <5000000>;
-> +		regulator-max-microvolt = <5000000>;
-> +		vin-supply = <&per_pwr>;
-> +	};
-
-Drop all these
-
-> +
-> +	/* Enables 5V_PER, 3V3_PER and 1V8_PER */
-> +	per_pwr: regulator-per-pwr {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "per_pwr";
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-max-microvolt = <1800000>;
-> +
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&pwr_per_en_default>;
-> +
-> +		gpio = <&tlmm 142 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +
-> +		vin-supply = <&som_vph_pwr>;
-> +
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
-> +
-> +	sdhci_2_vqmmc: regulator-sdhci-2-vqmmc {
-> +		compatible = "regulator-gpio";
-> +
-> +		regulator-name = "sdhci_2_vqmmc";
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-max-microvolt = <3300000>;
-> +		regulator-type = "voltage";
-> +
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&sd_vset_default>;
-> +
-> +		gpios = <&tlmm 4 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +
-> +		gpios-states = <0>;
-> +		states = <3300000 0>,
-> +			 <1800000 1>;
-> +
-> +		startup-delay-us = <10000>;
-> +	};
-> +
-> +	sdhci_4_vqmmc: regulator-sdhci-4-vqmmc {
-
-Even more completely redundant nodes.
-
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "sdhci_4_vqmmc";
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-max-microvolt = <1800000>;
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
-> +
-> +	som_vph_pwr: regulator-som-vph-pwr {
-
-Not used (usage by other redundant nodes does not count). Drop.
-
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "som_vph_pwr";
-> +		regulator-min-microvolt = <3900000>;
-> +		regulator-max-microvolt = <3900000>;
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
-> +
-> +	vph_pwr: regulator-vph-pwr {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "vph_pwr";
-> +		regulator-min-microvolt = <3700000>;
-> +		regulator-max-microvolt = <3700000>;
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
-> +
-> +	vsys_sd_3v3_reg: regulator-vsys-sd-3v3 {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "vsys_sd_3v3_reg";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
-> +
-> +	vsys_wlan_3v3_reg: regulator-vsys-wlan-3v3 {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "vsys_wlan_3v3_reg";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
-
-Probably most of them are to be dropped :/
-
-> +
-> +	wifi_pwrseq: wifi-pwrseq {
-> +		compatible = "mmc-pwrseq-simple";
-> +		/*
-> +		 * NXP IW416 chip enables: PMIC_EN (master) and WLAN_EN.
-> +		 * Held asserted (low) before SDHC4 powers up, then
-> +		 * released after vmmc/vqmmc are stable.
-> +		 */
-> +		reset-gpios = <&tlmm 19 GPIO_ACTIVE_LOW>,
-> +			      <&tlmm 5 GPIO_ACTIVE_LOW>;
-> +		post-power-on-delay-ms = <50>;
-> +	};
-> +};
-> +
-> +&apps_rsc {
-> +	regulators-0 {
-> +		vdd-bob1-supply = <&vph_pwr>;
-> +		vdd-bob2-supply = <&vph_pwr>;
-> +	};
-> +
-> +	regulators-3 {
-> +		vdd-s4-supply = <&vph_pwr>;
-> +		vdd-s5-supply = <&vph_pwr>;
-> +	};
-> +
-> +	regulators-4 {
-> +		vdd-s4-supply = <&vph_pwr>;
-> +	};
-> +
-> +	regulators-5 {
-> +		vdd-s1-supply = <&vph_pwr>;
-> +		vdd-s2-supply = <&vph_pwr>;
-> +		vdd-s3-supply = <&vph_pwr>;
-> +		vdd-s4-supply = <&vph_pwr>;
-> +		vdd-s5-supply = <&vph_pwr>;
-> +		vdd-s6-supply = <&vph_pwr>;
-> +	};
-> +};
-> +
-> +&gpi_dma1 {
-> +	status = "okay";
-> +};
-> +
-> +&gpu {
-> +	status = "okay";
-> +};
-> +
-> +&gpu_zap_shader {
-> +	firmware-name = "qcom/sm8550/a740_zap.mbn";
-> +	/* Zap shader doesn't load so is disabled */
-> +	status = "disabled";
-> +};
-> +
-> +&i2c_master_hub_0 {
-> +	status = "okay";
-> +};
-> +
-> +&i2c_hub_2 {
-> +	clock-frequency = <400000>;
-> +	status = "okay";
-> +
-> +	ptn3222: redriver@43 {
-> +		compatible = "nxp,ptn3222";
-> +		reg = <0x43>;
-> +		#phy-cells = <0>;
-> +
-> +		vdd1v8-supply = <&vreg_l15b_1p8>;
-> +		vdd3v3-supply = <&vreg_l5b_3p1>;
-> +
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&eusb2_repeater_reset_default>;
-> +
-> +		reset-gpios = <&pm8550vs_d_gpios 4 GPIO_ACTIVE_LOW>;
-> +	};
-> +};
-> +
-> +&ipa {
-> +	qcom,gsi-loader = "self";
-> +	memory-region = <&ipa_fw_mem>;
-> +	firmware-name = "qcom/sm8550/ipa_fws.mbn";
-> +	status = "okay";
-> +};
-> +
-> +&iris {
-> +	status = "okay";
-> +};
-> +
-> +&lpass_rxmacro {
-> +	status = "disabled";
-> +};
-> +
-> +&lpass_tlmm {
-> +	status = "disabled";
-> +};
-> +
-> +&lpass_txmacro {
-> +	status = "disabled";
-> +};
-> +
-> +&lpass_vamacro {
-> +	status = "disabled";
-> +};
-> +
-> +&lpass_wsa2macro {
-> +	status = "disabled";
-> +};
-> +
-> +&lpass_wsamacro {
-> +	status = "disabled";
-> +};
-
-Why are all these LPASS codecs disabled?
 
 Best regards,
 Krzysztof
-
