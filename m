@@ -1,161 +1,399 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C984B8DED
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 17:44:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579F44BCACA;
+	Wed,  6 May 2026 17:44:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778089477; cv=none; b=W1r5j36q4NoeT9olB/rtMsbOX+fKdbrh4LJzSGHLX5k3SlWCp0Iz249WcJ38fM/NIt+RCnKaKenNs5ACLnFsvQuKfyar4Blo4ydkg8zlgY/Tle9uPnF6+e/bakKpu4F0Ewqm2XC3KyHeBoaIVq2WI04hLWD6J4iEDqf10HaLwww=
+	t=1778089498; cv=none; b=kCvJYnfqVoKziW+31TnRJ23ZdlYPHJ+XJpnNm9U6P+i6BFiklLnJG3VLl9YTv434e1gIS6RmnhMXphH7/Na0QZi3H3LjI9xiIibh4WdgHkSglyTjJuUzDQInYOtE53YnsiXWzqrDx2V7EH6Ks6mHhqElS0/faMntQpgmqWTVZYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778089477; c=relaxed/simple;
-	bh=/YjFQWxNpMQZ2f2KytppViSRzU0yZJvUee9ryGQwSOQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hlvSliiQCGcHrS7F/FAvTclWCTmfX+1VFr6FflzBKQ+DNG0CN6PgF3JSb60OtCdm+53/wwhDh5lJQkq8en00rAOcDYR7NMn7tIF70qpzzA5cxwRJXqcnCnNPFkhQ2mYFmoSMe7QIIu6dboUx2ezEq7GJt3xmuw/0LNBaC49ruCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=A/tWM9I+; arc=none smtp.client-ip=209.85.222.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1778089498; c=relaxed/simple;
+	bh=ZmMSBgWoVtXt9pPcFaiLROafSxVn0gpv/awkaUvEKh0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bF5Bl9ckUfOlgexB2GwMBNE7rwncMZlqbx5+amYacliYVJPjkCWXVxHhPZwS1N0U6BsDBCDFd84BH9qUl7TLd2iIQgicy7EVN5ERDRpW1NSb3Ak/3vXTO2gNVGd4hf5LZaqAyrXKyD4zyT5mUNJi4xW0sW31qS32LyRzKTg9EY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CPwgCAxd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="A/tWM9I+"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-8eae9229110so1064530485a.1
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 10:44:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778089473; x=1778694273; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=k6wXO6STmxH+YsbEuPXhWzzsM6OvvesRxD9MxXwGEOY=;
-        b=A/tWM9I+MidkfGgsZV3URMJGGeCgr+x0pwX/vDmp9qjFxG3qTM0C7yaPymIneMJsak
-         00eo6ukEIws+rAbKxilEt8PE3bBQl/bdeIR843LD5oyHIoQlulo6XQ2P7r5eu8hR4feO
-         KEVy7WEU2p/Ey/PiAiRMaz+tmrsQkdVuICkapNuYK1QpbWLQoF14Yl0qTNN55VLq3nHj
-         tbr9KV5I1Xt75WkkNjVUdlujZzYhGTnfDX4KghuHirRo+pcUytReOCCL8DveJ7DESIQB
-         UXqEHuL//GRfLjdNZXXg54F1QEu0gFapghqGj2IZcfZ9iImftmoCfFv33sIOaKewB+a6
-         47XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778089473; x=1778694273;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=k6wXO6STmxH+YsbEuPXhWzzsM6OvvesRxD9MxXwGEOY=;
-        b=B+v/l2mwvZzXJQARag8zrhyaemSH7E7FDT6zrNfugroBM+LZhTD0TNJJ4N4LgpmtZN
-         pXLt/0frYx0EHtsRtoI53SXp3vALA6TYH3Oeu6TgiHxGqs4/QQk69wdRNaW7tl9ojEK3
-         Lom3azbtKeGuD/nEqap+fV4cnLWdIIEWBjzs8oAe0ya2iWRl6RaXopae6LtGOYqfXoca
-         MClZmDWo5QUUySPaOmF8xsZOYOmyvdGhThmove5R+K1163vb1sFOZ8De3e4Q2yUUzxOq
-         bjg4+Dm8a8jcg9cZhQHaMvwaGNFSpYgBmB4YheEBocwY3KOgbycZxKEUHt3Yfq0PsBEj
-         TZZA==
-X-Forwarded-Encrypted: i=1; AFNElJ8+1obrNQLKxGqFDK+GVPlq8mFhtUyhoh/k17U1okz4eLdU9kSzRa9vvZJlG7V8XN62mpGo4o+a2ETw@vger.kernel.org
-X-Gm-Message-State: AOJu0YydCbNxtDwr8nmuiloGi1hrqROob43V/iN8A+UzsLlSF9xRGzZ0
-	xPzUNOrpTE66KEAJVlrHK15vmK+YPyR7+gPFa/vxRYQREyeiTb4s+AkXYU21+FeMb28=
-X-Gm-Gg: AeBDietwB1SnOhWoTeVelJzz9z0fK2fOwVdG0qZVrmkdgB8e7YjgH8AgUmFWxm5tJep
-	83V8vTRro2NMNt3RO3PhOhihuMpThNa3BKvJaGGngvu5RC67+yfkLYE34jUyo+7XfwKr1MjYrHq
-	zgojPSHmTVpl4IL70GJoMw4g2p5tOGiFcEVLUF9BG36qqiyXaMvYgS3/1KbRdj19rtHYX5gTRZD
-	vUhsh2rusdvYEtIWDUlC2OOZUtpWfiWmOW4hpars/IrJsA6OU2kga3exL03J7e0ZCSTmuP7dnhf
-	rgG6YoPf9HpnBbmqkl/exPEBBIKjgUCfp/Zk/Z+ZPivmq+HOEfY0yI/KrGPYEnrJQ2kNIQ/WIC7
-	+tkisyjRRX+rK3WTNPm+y5e+xHXCa00ad9cfTJMzXHNVpnegIVJ7cUKJJBiU+21YFkBDeweKvp8
-	WWxnanylzq7x1ndbuI0ph6KyqeJbiOrKsDIfcaLL2smzh3F5v4WnzfnO2DGZT1v0w+kO5g6k0ij
-	Q==
-X-Received: by 2002:a05:620a:f0c:b0:8f1:9e59:220e with SMTP id af79cd13be357-904d63e7a90mr642596485a.39.1778089473124;
-        Wed, 06 May 2026 10:44:33 -0700 (PDT)
-Received: from [172.22.22.28] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8fc2c91cdfbsm1736572285a.34.2026.05.06.10.44.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2026 10:44:32 -0700 (PDT)
-Message-ID: <7f3a0f16-5159-4bbc-8b15-9b5841603bf6@riscstar.com>
-Date: Wed, 6 May 2026 12:44:28 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CPwgCAxd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F267EC2BCB8;
+	Wed,  6 May 2026 17:44:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778089497;
+	bh=ZmMSBgWoVtXt9pPcFaiLROafSxVn0gpv/awkaUvEKh0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CPwgCAxdpaxxed8rh/FF97QIB4mYMNI1oTRTFVQXLtbMSEorhxuOGZuCMjberyUD7
+	 Z8SgW2QZvGL4WgrdfofynRQ/YQYBK/bF6shI0Up7Ch4i+FpLIJYSb7veKe95k/mFfa
+	 CjvqU+aXpP2EoeCGeP1ZMyZMFlzK5oMVJXWq7dfcCap7Ze/LShulzkaGh6f8bIi2r3
+	 cm4PDg0MLC8yhDjK6O0JaQq1lAlJfVW3UURbqfnOz05RuW5JzrX7MjcGfTeEU/0oe6
+	 NheS859QfCncoihC2mcYwrjO2vLSCdEOE1OexenucZ5IWxFiFGJpA6M9dAWpat9qx5
+	 tkQHEglI2LFIQ==
+Date: Wed, 6 May 2026 18:44:49 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>, Yixun Lan <dlan@kernel.org>,
+	Joel Stanley <jms@oss.tenstorrent.com>,
+	Drew Fustini <dfustini@oss.tenstorrent.com>,
+	Darshan Prajapati <darshan.prajapati@einfochips.com>,
+	Guodong Xu <guodong@riscstar.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Junhui Liu <junhui.liu@pigmoral.tech>,
+	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
+	E Shattow <e@freeshell.de>, Icenowy Zheng <uwu@icenowy.me>,
+	Anup Patel <anup@brainfault.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	Ji Sheng Teoh <jisheng.teoh@starfivetech.com>,
+	Hal Feng <hal.feng@starfivetech.com>,
+	Ley Foon Tan <leyfoon.tan@starfivetech.com>,
+	Michael Zhu <michael.zhu@starfivetech.com>
+Subject: Re: [PATCH v2 4/4] riscv: dts: starfive: jhb100: Add JHB100 base DT
+Message-ID: <20260506-proud-dubbed-9ab8011df899@spud>
+References: <20260506085937.754808-1-changhuang.liang@starfivetech.com>
+ <20260506085937.754808-5-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
- support
-To: Xilin Wu <sophon@radxa.com>, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- maxime.chevallier@bootlin.com, rmk+kernel@armlinux.org.uk,
- andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
- arnd@arndb.de, gregkh@linuxfoundation.org
-Cc: Daniel Thompson <daniel@riscstar.com>, mohd.anwar@oss.qualcomm.com,
- a0987203069@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
- boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, chenhuacai@kernel.org,
- daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com,
- inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com,
- livelycarpet87@gmail.com, matthew.gerlach@altera.com,
- mcoquelin.stm32@gmail.com, me@ziyao.cc,
- prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
- rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
- weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-11-elder@riscstar.com>
- <DD71CDEABC7C16D5+02d052ff-13bb-4712-a847-91416f76c578@radxa.com>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <DD71CDEABC7C16D5+02d052ff-13bb-4712-a847-91416f76c578@radxa.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-On 5/5/26 9:30 PM, Xilin Wu wrote:
-> On 5/1/2026 11:54 PM, Alex Elder wrote:
->> From: Daniel Thompson <daniel@riscstar.com>
->>
->> Toshiba TC956x is an Ethernet AVB/TSN bridge and is essentially a
->> small and highly-specialized SoC. TC956x includes an "eMAC" subsystem
->> that can be accessed, along with several other peripherals, via two
->> PCIe endpoint functions. There is a main driver for the endpoint that
->> decomposes things and creates auxiliary bus devices to model the SoC.
->>
->> The eMAC consists of a Designware XGMAC, XPCS and PMA. Each eMAC is
->> supported by an MSIGEN that bridges TC956x level interrupts to PCIe
->> MSIs.
->>
->> Add a driver for the eMAC/MSIGEN combination.
->>
->> Co-developed-by: Alex Elder <elder@riscstar.com>
->> Signed-off-by: Alex Elder <elder@riscstar.com>
->> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
->> ---
->>   drivers/net/ethernet/stmicro/stmmac/Kconfig   |  13 +
->>   drivers/net/ethernet/stmicro/stmmac/Makefile  |   2 +
->>   .../ethernet/stmicro/stmmac/dwmac-tc956x.c    | 791 ++++++++++++++++++
->>   include/soc/toshiba/tc956x-dwmac.h            |  84 ++
->>   4 files changed, 890 insertions(+)
->>   create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c
->>   create mode 100644 include/soc/toshiba/tc956x-dwmac.h
->>
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/ 
->> net/ethernet/stmicro/stmmac/Kconfig
->> index e3dd5adda5aca..66bcfaccbe21f 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
->> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
->> @@ -404,6 +404,19 @@ config DWMAC_MOTORCOMM
->>         This enables glue driver for Motorcomm DWMAC-based PCI Ethernet
->>         controllers. Currently only YT6801 is supported.
->> +config DWMAC_TC956X
->> +    tristate "Toshiba TC956X DWMAC support"
->> +    depends on PCI
->> +    depends on COMMON_CLK
->> +    depends on TOSHIBA_TC956X_PCI
->> +    default m if TOSHIBA_TC956X_PCI
-> 
-> Hi Alex,
-> 
-> I think GENERIC_IRQ_CHIP should be selected here.
-
-Yes there are a number of things missing in the Kconfig definitions
-and I'm working through them this week.  And yes, since we use
-irq_generic_chip_ops we must ensure CONFIG_GENERIC_IRQ_CHIP is
-enabled here.
-
-> Thank you for the driver.
-
-Thank you for your feedback (this and others I see).
-
-					-Alex
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3tCyEtlHKzoPzEv0"
+Content-Disposition: inline
+In-Reply-To: <20260506085937.754808-5-changhuang.liang@starfivetech.com>
 
 
+--3tCyEtlHKzoPzEv0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, May 06, 2026 at 01:59:37AM -0700, Changhuang Liang wrote:
+> From: Ley Foon Tan <leyfoon.tan@starfivetech.com>
+>=20
+> Add JHB100 base dtsi and dts. Consist of 4 Dubhe-70 cores, CLINT, PLIC,
+> PMU, UART, INTC and 1GB DDR.
+>=20
+> Signed-off-by: Ley Foon Tan <leyfoon.tan@starfivetech.com>
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>  MAINTAINERS                                  |   6 +
+>  arch/riscv/boot/dts/starfive/Makefile        |   2 +
+>  arch/riscv/boot/dts/starfive/jhb100-evb1.dts |  32 ++
+>  arch/riscv/boot/dts/starfive/jhb100.dtsi     | 337 +++++++++++++++++++
+>  4 files changed, 377 insertions(+)
+>  create mode 100644 arch/riscv/boot/dts/starfive/jhb100-evb1.dts
+>  create mode 100644 arch/riscv/boot/dts/starfive/jhb100.dtsi
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 0dfad67f66c0..22e34d2ad696 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25588,6 +25588,12 @@ F:	Documentation/devicetree/bindings/phy/starfiv=
+e,jh7110-usb-phy.yaml
+>  F:	drivers/phy/starfive/phy-jh7110-pcie.c
+>  F:	drivers/phy/starfive/phy-jh7110-usb.c
+> =20
+> +STARFIVE JHB100 DEVICETREES
+> +M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> +L:	linux-riscv@lists.infradead.org
+> +S:	Supported
+> +F:	arch/riscv/boot/dts/starfive/jhb100*
+> +
+>  STARFIVE JHB100 EXTERNAL INTERRUPT CONTROLLER DRIVER
+>  M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+>  S:	Supported
+> diff --git a/arch/riscv/boot/dts/starfive/Makefile b/arch/riscv/boot/dts/=
+starfive/Makefile
+> index 3dd1f05283f7..42841942fe54 100644
+> --- a/arch/riscv/boot/dts/starfive/Makefile
+> +++ b/arch/riscv/boot/dts/starfive/Makefile
+> @@ -18,3 +18,5 @@ dtb-$(CONFIG_ARCH_STARFIVE) +=3D jh7110-starfive-vision=
+five-2-lite.dtb
+>  dtb-$(CONFIG_ARCH_STARFIVE) +=3D jh7110-starfive-visionfive-2-lite-emmc.=
+dtb
+>  dtb-$(CONFIG_ARCH_STARFIVE) +=3D jh7110-starfive-visionfive-2-v1.2a.dtb
+>  dtb-$(CONFIG_ARCH_STARFIVE) +=3D jh7110-starfive-visionfive-2-v1.3b.dtb
+> +
+> +dtb-$(CONFIG_ARCH_STARFIVE) +=3D jhb100-evb1.dtb
+> diff --git a/arch/riscv/boot/dts/starfive/jhb100-evb1.dts b/arch/riscv/bo=
+ot/dts/starfive/jhb100-evb1.dts
+> new file mode 100644
+> index 000000000000..462b6fb7953b
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/starfive/jhb100-evb1.dts
+> @@ -0,0 +1,32 @@
+> +// SPDX-License-Identifier: GPL-2.0 OR MIT
+> +/*
+> + * Copyright (c) 2024-2026 StarFive Technology Co., Ltd.
+> + */
+> +
+> +#include "jhb100.dtsi"
+> +
+> +/ {
+> +	model =3D "StarFive JHB100 EVB-1";
+> +	compatible =3D "starfive,jhb100-evb1", "starfive,jhb100";
+> +
+> +	aliases {
+> +		serial6 =3D &uart6;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path =3D "serial6:115200n8";
+> +	};
+> +
+> +	cpus {
+> +		timebase-frequency =3D <5000000>;
+> +	};
+> +
+> +	memory@40000000 {
+> +		device_type =3D "memory";
+> +		reg =3D <0x0 0x40000000 0x0 0x40000000>;	/* 1GB */
+> +	};
+> +};
+> +
+> +&uart6 {
+> +	status =3D "okay";
+> +};
+> diff --git a/arch/riscv/boot/dts/starfive/jhb100.dtsi b/arch/riscv/boot/d=
+ts/starfive/jhb100.dtsi
+> new file mode 100644
+> index 000000000000..4133ba1f45b4
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/starfive/jhb100.dtsi
+> @@ -0,0 +1,337 @@
+> +// SPDX-License-Identifier: GPL-2.0 OR MIT
+> +/*
+> + * Copyright (c) 2024-2026 StarFive Technology Co., Ltd.
+> + */
+> +
+> +/dts-v1/;
+> +
+> +/ {
+> +	compatible =3D "starfive,jhb100";
+> +	#address-cells =3D <2>;
+> +	#size-cells =3D <2>;
+> +
+> +	cpus {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		cpu0: cpu@0 {
+> +			compatible =3D "starfive,dubhe-70", "riscv";
+> +			reg =3D <0x0>;
+
+> +			riscv,isa =3D "rv64imafdcbh";
+
+Please just remove this property.
+
+> +			riscv,isa-base =3D "rv64i";
+> +			riscv,isa-extensions =3D "i", "m", "a", "f", "d", "c", "b", "h", "zba=
+", "zbb",
+> +					       "zbc", "zbs", "zicbom", "zicbop", "zicboz", "zicntr",
+> +					       "zicond", "zicsr", "zifencei", "zihintpause",
+> +					       "zihpm", "svinval", "svnapot", "sscofpmf";
+> +			riscv,cbom-block-size =3D <64>;
+> +			riscv,cbop-block-size =3D <64>;
+> +			riscv,cboz-block-size =3D <64>;
+> +			d-cache-block-size =3D <64>;
+> +			d-cache-sets =3D <512>;
+> +			d-cache-size =3D <32768>;
+> +			d-tlb-sets =3D <1>;
+> +			d-tlb-size =3D <16>;
+> +			device_type =3D "cpu";
+> +			i-cache-block-size =3D <64>;
+> +			i-cache-sets =3D <512>;
+> +			i-cache-size =3D <32768>;
+> +			i-tlb-sets =3D <1>;
+> +			i-tlb-size =3D <24>;
+> +			mmu-type =3D "riscv,sv48";
+> +			next-level-cache =3D <&l2c0>;
+> +			tlb-split;
+> +
+> +			cpu0_intc: interrupt-controller {
+> +				compatible =3D "riscv,cpu-intc";
+> +				interrupt-controller;
+> +				#interrupt-cells =3D <1>;
+> +			};
+> +		};
+
+> +		cpu-map {
+> +			cluster0 {
+> +				core0 {
+> +					cpu =3D <&cpu0>;
+> +				};
+> +			};
+
+Each cpu is in a different cluster? Interesting, suppose it makes sense
+when you have different l2 caches. What other resources are not shared?
+Do they have different cpu clocks too etc?
+
+> +
+> +			cluster1 {
+> +				core0 {
+> +					cpu =3D <&cpu1>;
+> +				};
+> +			};
+> +
+> +			cluster2 {
+> +				core0 {
+> +					cpu =3D <&cpu2>;
+> +				};
+> +			};
+> +
+> +			cluster3 {
+> +				core0 {
+> +					cpu =3D <&cpu3>;
+> +				};
+> +			};
+> +		};
+> +
+> +		l2c0: cache-controller-0 {
+> +			compatible =3D "cache";
+> +			cache-block-size =3D <64>;
+> +			cache-level =3D <2>;
+> +			cache-sets =3D <2048>;
+> +			cache-size =3D <0x20000>;
+> +			cache-unified;
+> +			next-level-cache =3D <&l3_cache>;
+> +		};
+> +
+> +		l2c1: cache-controller-1 {
+> +			compatible =3D "cache";
+> +			cache-block-size =3D <64>;
+> +			cache-level =3D <2>;
+> +			cache-sets =3D <2048>;
+> +			cache-size =3D <0x20000>;
+> +			cache-unified;
+> +			next-level-cache =3D <&l3_cache>;
+> +		};
+> +
+> +		l2c2: cache-controller-2 {
+> +			compatible =3D "cache";
+> +			cache-block-size =3D <64>;
+> +			cache-level =3D <2>;
+> +			cache-sets =3D <2048>;
+> +			cache-size =3D <0x20000>;
+> +			cache-unified;
+> +			next-level-cache =3D <&l3_cache>;
+> +		};
+> +
+> +		l2c3: cache-controller-3 {
+> +			compatible =3D "cache";
+> +			cache-block-size =3D <64>;
+> +			cache-level =3D <2>;
+> +			cache-sets =3D <2048>;
+> +			cache-size =3D <0x20000>;
+> +			cache-unified;
+> +			next-level-cache =3D <&l3_cache>;
+> +		};
+> +
+> +		l3_cache: cache-controller-4 {
+> +			compatible =3D "cache";
+> +			cache-block-size =3D <64>;
+> +			cache-level =3D <3>;
+> +			cache-sets =3D <1024>;
+> +			cache-size =3D <0x20000>;
+> +			cache-unified;
+> +		};
+> +	};
+
+> +	clk_uart: clock-25000000 {
+> +		compatible =3D "fixed-clock"; /* Initial clock handler for UART */
+
+What does this comment mean?
+
+> +		#clock-cells =3D <0>;
+> +		clock-frequency =3D <25000000>;
+> +	};
+> +
+> +	soc {
+> +		compatible =3D "simple-bus";
+> +		interrupt-parent =3D <&plic>;
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		dma-ranges;
+> +		ranges;
+> +
+> +		clint: timer@2000000 {
+> +			compatible =3D "starfive,jhb100-clint", "sifive,clint0";
+> +			reg =3D <0x0 0x02000000 0x0 0x10000>;
+> +			interrupts-extended =3D <&cpu0_intc 3>, <&cpu0_intc 7>,
+> +					      <&cpu1_intc 3>, <&cpu1_intc 7>,
+> +					      <&cpu2_intc 3>, <&cpu2_intc 7>,
+> +					      <&cpu3_intc 3>, <&cpu3_intc 7>;
+> +		};
+> +
+> +		plic: interrupt-controller@c000000 {
+> +			compatible =3D "starfive,jhb100-plic", "sifive,plic-1.0.0";
+> +			reg =3D <0x0 0x0c000000 0x0 0x4000000>;
+> +			riscv,ndev =3D <400>;
+> +			interrupt-controller;
+> +			#interrupt-cells =3D <1>;
+> +			#address-cells =3D <0>;
+> +			interrupts-extended =3D <&cpu0_intc 11>, <&cpu0_intc 9>,
+> +					      <&cpu1_intc 11>, <&cpu1_intc 9>,
+> +					      <&cpu2_intc 11>, <&cpu2_intc 9>,
+> +					      <&cpu3_intc 11>, <&cpu3_intc 9>;
+> +		};
+> +
+> +		bus_nioc: bus_nioc {
+
+jhb100-evb1.dtb: bus_nioc (simple-bus): $nodename:0: 'bus_nioc' does not ma=
+tch '^([a-z][a-z0-9\\-]+-bus|bus|localbus|soc|axi|ahb|apb)(@.+)?$'
+        from schema $id: http://devicetree.org/schemas/simple-bus.yaml
+
+
+Cheers,
+Conor.
+
+> +			compatible =3D "simple-bus";
+> +			#address-cells =3D <2>;
+> +			#size-cells =3D <2>;
+> +			dma-noncoherent;
+> +			dma-ranges =3D <0x4 0x00000000 0x0 0x40000000 0x2 0x0>,
+> +				     <0x4 0x00000000 0x4 0x00000000 0x2 0x0>;
+> +			ranges;
+> +
+> +			uart6: serial@11982000 {
+> +				compatible =3D "snps,dw-apb-uart";
+> +				reg =3D <0x0 0x11982000 0x0 0x400>;
+> +				clocks =3D <&clk_uart>, <&clk_uart>;
+> +				clock-names =3D "baudclk", "apb_pclk";
+> +				interrupt-parent =3D <&intc>;
+> +				interrupts =3D <26>;
+> +				reg-io-width =3D <4>;
+> +				reg-shift =3D <2>;
+> +				status =3D "disabled";
+> +			};
+> +
+> +			intc: interrupt-controller@13220000 {
+> +				compatible =3D "starfive,jhb100-intc";
+> +				reg =3D <0x0 0x13220000 0x0 0x80>;
+> +				interrupts =3D <1>;
+> +				interrupt-controller;
+> +				#interrupt-cells =3D <1>;
+> +			};
+> +		};
+> +	};
+> +};
+> --=20
+> 2.25.1
+>=20
+
+--3tCyEtlHKzoPzEv0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaft+EQAKCRB4tDGHoIJi
+0rd4AP43nGycLBSIKTznxWMihonljZWvV81MDpg7Vz7S+sBFYgEA6phltZkz693z
+FUii8VSiQeITFdNZB39U4XEzXuhx1As=
+=YYdo
+-----END PGP SIGNATURE-----
+
+--3tCyEtlHKzoPzEv0--
