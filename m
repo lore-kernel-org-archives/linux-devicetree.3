@@ -1,156 +1,152 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E234393DF5
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 14:26:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8CE480DE2
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 14:26:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778077597; cv=none; b=Aob1n7qfXE+LtY2alAkNbLSTKkeXs+cLFbN5KYhaPCNKQuFWACoKsdSF+Su7Enfdu3oQCAuxUPeE7ZKuiLr6tLb0/b3FpI0fvg7Hj0EbYqUkXBbuwxQQ4IGnf+2OQQrWRAm147bYDAO7d3CWvOTyRAoQiNYnoC7rSYXpAwQztmU=
+	t=1778077601; cv=none; b=p6aP/vHcQUfAEgIJe7zc2DkaNXXf4Qx8VMZUPoLSkmsXalu9PgvzsXNXYH+ensMS1dZi01FYsj8ee7xv5bfnT0GdTm4ojstyUb9wm2lne0r1gcLwNdLwkfbWwrFtGeRGkVRCkCbCgBSGFLR8ksj0b23fo8UTLwe2vO8xFpmuGn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778077597; c=relaxed/simple;
-	bh=srPsf9DGtjuwNp0lmZ/jXjqw3neX9w70YKOrPJckz/A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sp2Xux0U+Uw+AjvNqPUxwHnDwbh2Iav2szYg2HcKZwkSMXBXC9B2ljCi0G/2cMBaBdNkF6CdxNb3G9OOx9hgw4lPmVYzOCfrEHLT+1EITbzU57hmYR1iyDTRU15yZTKU5lkFrKfPUWuvmk58kpiwXXKUAWCAPmqfn7tgoavympQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iN1G/EWN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NvtkZsZF; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iN1G/EWN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NvtkZsZF"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 646CVLsG1515371
-	for <devicetree@vger.kernel.org>; Wed, 6 May 2026 14:26:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rqf4RBq3GqNRH4BGmUrshX4k7nqqdx7ZkyuDEuKF3e0=; b=iN1G/EWNwfgWQKL3
-	YAX+dNLrgxe2qqzkPQEvOTz9o8n8gYjG7HIbqbrC2dQ48IromOGPqNvckoG7DZUm
-	YMO+2WEfAZPWoygw22tPuxiAD/h6hOndd+qVPjNqUqVRFRM6tGdtUqqM45pMfRdp
-	XocTHk1vLrByN6EWoqEqhTNyBZBHOB5b5YceOBvwtrKR8MYSM71ZWotYXEId+SS/
-	UMwJWBgTzPwoMThpSEhpbiqecdJibaGDgMNoNp4Bq9RAIKotGSQrGHjBacQsHnz0
-	8LDRjA1lCwoPo8jw+yGY+eQz4Qi6m+3mXezqCYhCE5tTPSwx6+s1H879cO2FAT+i
-	4t2eFQ==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e00v1ssja-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 06 May 2026 14:26:33 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-83565161a6eso449868b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 07:26:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778077593; x=1778682393; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=rqf4RBq3GqNRH4BGmUrshX4k7nqqdx7ZkyuDEuKF3e0=;
-        b=NvtkZsZFEwZi/479mxw8kezbBqwrCiUc8ummFTwSSJgHaffXvJdLFBYkRA214aQ7BA
-         r3HKzrr0ikF3E3vw0oUWOexuGK9yR45CJEtpt6hjOr157SA/Y2fW5jpqTlXuaOLTMRGk
-         ivWEC0dAY3fqkSrPFQpM0nCTysMhPAWzqAxqDtRXftcU+5hLEIEdTSsVfvoMY6jtbYob
-         WwyCtFoIbxGBVDgLchzajLcdBAu1bpgLd8n88tt9tw0L7I5L3WCxfEa4U7lhbBj3mr/Z
-         FeWcKjx7xBPu81PWQFyLa469RfL1FEIzehXfmNJFo7l0t5bnPcMLko/vbq360uyxbNDt
-         O4aw==
+	s=arc-20240116; t=1778077601; c=relaxed/simple;
+	bh=YJHhuXmcmAbbsrOx/1EkRrG2CsYJcpBD2mAbpq2+4uM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AfgNXRF2Hg4maGk+NLgHEn1mL3VKyZjow6uyovFUMwqmVgBNVHXy1M46rnj32MPbKknQxS+tM8jcZK1e+/KcyO9vMk1ap0iuLXr29CfNwVJSft2fPcRNVuLrQv7VEbE+TfAKgqX63I9bF5qODdFdLIdVi38JyOnNIgrgTP6wIzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-ba60d78aff3so927547166b.2
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 07:26:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778077593; x=1778682393;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rqf4RBq3GqNRH4BGmUrshX4k7nqqdx7ZkyuDEuKF3e0=;
-        b=FqJqI/vN1yypnNjSDXEZ/5CRxJT6NzqVTopu1Cb0SxlbhfZPUpwdF4DRHqkWdJ2boB
-         pTjRjsCxUjQ4rVhkzZcUtU1zX26b+mBEsy5AntZcSoN5XyJOK/xyDm93gkUC9dUULXoi
-         PdGMwjIgFixJFOgJySqtxTJvy25yg72uGND0fUbkrWDl5etyti7n6ywmBHgLw/2L19Ej
-         H53wN8SDshbT2qRYKQR1yWU5ROBUHBFEKT5O7IoMqibwNU8vF1lT7Bf0MmRVuPySA7Jf
-         oKnk2mqBOyd4dnW+INaP+K1lcPfXqk70RZ2UPNWUoIK6adg1Ro8du5us0J9pBqrGcOl8
-         KwzA==
-X-Forwarded-Encrypted: i=1; AFNElJ8OV8IlzRygS54gz7+nFHXuGu0eakBBmjk8mGt+r1RrKCemGDNx4EpJ9SV0srwEgScbHqq1R8Of3W90@vger.kernel.org
-X-Gm-Message-State: AOJu0YyGby+YH0ZsSi6orSh3inADomEbTsmu4XFLqbOyaqOujBrT31F0
-	1UCPmAGsxZp+CK/hhQmiFSAPO/YyBLRAUTfqV2Ddmf5Sz68vPhYT1sf5upmMUq0uKXVQjggxPzW
-	82/Zbkh7lKvqFgTlZJVIDb93ZBmv0dT6UPBnV+QG+OY3g9C5gCTJAy+FWH5Mgdm98
-X-Gm-Gg: AeBDieuFO+XBa7NiVVHfz9qLiSKrKi2ImwXI+NbYNFvWhquax151/nvvuhpGouJCYU9
-	OM2cdYoBoL2bqlbLJ4LjPAI0Nu32WDgwQh/JOZvDSMyh2EmvbFuUV0BNudNfiQ9UfpK/YmA7rIT
-	fNxUcHbuDBXGOi+kSd9or6Rg/0fI2ZWPjwqi+CrKADlR/Q8ZhS/PvKbtPYhXjOza2Pn5sXG6FUQ
-	jt4TEtmyBA/HshVAeF2DeuX76QXGb0awXsicyD5naBr53k0gj0RXovcjkr4TGcljrgQKLjUIrd+
-	0/hA4CkydjrS5mPWm1QSqjUFF407cNP2LvpBRkX41PMA9qGDaYuJwvlCpveYGkqEpVImRB7iuGe
-	CKbw3mROZCdc1Wu5hRJvw3M7zJFmxz1IHYEGLd29m5Tc0AyqXqLoTEPYFlRF48asp
-X-Received: by 2002:a05:6a00:98f:b0:835:3f9c:c681 with SMTP id d2e1a72fcca58-838fed5e872mr6814163b3a.34.1778077592389;
-        Wed, 06 May 2026 07:26:32 -0700 (PDT)
-X-Received: by 2002:a05:6a00:98f:b0:835:3f9c:c681 with SMTP id d2e1a72fcca58-838fed5e872mr6814130b3a.34.1778077591827;
-        Wed, 06 May 2026 07:26:31 -0700 (PDT)
-Received: from [10.204.101.47] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83965d36c10sm7146996b3a.25.2026.05.06.07.26.25
+        d=1e100.net; s=20251104; t=1778077596; x=1778682396;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iGwBD/Xye3jm815Ej5TC/rh/kNzvD/6gf/0ous2Pk1s=;
+        b=VZ5JhNbr/THajKgGUW77hRAbyhYhVaZMTbum/dJAbqJ5emaUzoOAo9Z9+csnjvUy3r
+         KPw9gONW85NPdoEdnZ6HgpKLvlujngc6o+nSSj9C7LqmVJdQt0hU68jm8NY10XM4Ox+M
+         jBAW0CR4XL8PHgUd/9gHPEBPpCM0RH20SpPM5R2Qy6EnTrXxCvUqfWMLugKq4RWLGGQ7
+         jlQJtN2nY1ZrkZMHqYgn18+JMJQALwjh0YcnUZteXAILDGaCO+SULSWmWbdZWzx2qnlc
+         7BOJBcM9lrnTCeIt1K+CeNYVu7GUwV54sSTwWf8Itq5cLo+5IRJwvJLh+Jx9VSHj5rbM
+         UOnw==
+X-Forwarded-Encrypted: i=1; AFNElJ/H9UWqqMOJ9nikDmB3ou3HSDAMaOgJYtXPMLJJjw3syT7LNzSJlR0d0/Sh7FY2+UA5wmkMuREZr7hV@vger.kernel.org
+X-Gm-Message-State: AOJu0YwzLiIHgek6ovIOpF8Au/1ltKTDCimY0qKb0UBrLf21UlubsfKy
+	LVrrAcK5f+TuU4FMLsCtlTgo+nl/om4qlhmSkd5Zavf744U2i1yRj6D4jkfOo8blg7g=
+X-Gm-Gg: AeBDievCyucZ18DkBwLICx77m4KE3sN5q5VwtTqBwyol3YNUC3ZYA+ejF9xaTjgsL47
+	Nf1R2SDIJvNo7+BLVKVrkUP9VSbrEj/J4ggAn7DZPUXrGamW0b9eUZ+ZHGIoU8Saniay48PgJg9
+	ng/E6vbeoFDqsIRO1R8vpEnyA8QIpSP0qSDOHTYhF2HItqzYnHpF6JPf0YKXPLs2RprS6Sz3Z8k
+	1cf8i9a4jYba+3EqEf/wANJqmt7UQgKZM2UBXm3dHinc3UeaLQTdaN4m0AlMyamC3Ce10/Q7CK3
+	o4F+r1oOUTwfs24L/eXVD3EctJyi68Sl/j4W9B882HAeCihbPFHpmj6xaaeBQJwBdR0a44d3u3x
+	Sr4rGqCwUpSwSMBjPZQj1c1wPH1wUQ+/Lg669Qf+fDbzluwqY7lvvsD37QNmqqacBsfy1iXr8NM
+	VYXKD5+YQnOyvNTETIhPSQLTueiLhxUcQpGb9ztm5f6uNJOUl3M9Vs0N/D5KZcu4Iqnv7j3xA=
+X-Received: by 2002:a17:907:3d0c:b0:ba5:3e3a:81ee with SMTP id a640c23a62f3a-bc56d90f514mr198669366b.39.1778077595839;
+        Wed, 06 May 2026 07:26:35 -0700 (PDT)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com. [209.85.208.53])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bc55f214a5bsm90505666b.54.2026.05.06.07.26.34
+        for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2026 07:26:31 -0700 (PDT)
-Message-ID: <0c33ae9b-db53-4557-8fff-27c2da69366c@oss.qualcomm.com>
-Date: Wed, 6 May 2026 19:56:23 +0530
+        Wed, 06 May 2026 07:26:34 -0700 (PDT)
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-67bc6098640so7798437a12.0
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 07:26:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+Puq8ojzd6rLp1Uv9XaVntGZdrXqJcu/2XSf9vlkmz4I1aZ5hYm5SyKMSZOa+qsrELejc6+HyvkoM9@vger.kernel.org
+X-Received: by 2002:a05:6402:1f46:b0:67d:1e9b:990d with SMTP id
+ 4fb4d7f45d1cf-67d642bc4b7mr1875234a12.16.1778077594610; Wed, 06 May 2026
+ 07:26:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/13] media: iris: Add context bank hooks for platform
- specific initialization
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        iommu@lists.linux.dev
-References: <20260505-glymur-v4-0-17571dbd1caa@oss.qualcomm.com>
- <20260505-glymur-v4-6-17571dbd1caa@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20260505-glymur-v4-6-17571dbd1caa@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 4ldpPCdYhDGA8PJ8U-ayHSNVCUz_B8re
-X-Proofpoint-GUID: 4ldpPCdYhDGA8PJ8U-ayHSNVCUz_B8re
-X-Authority-Analysis: v=2.4 cv=cKXQdFeN c=1 sm=1 tr=0 ts=69fb4f99 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=LctZHUKdXz4wyCJjwzEA:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA2MDE0MSBTYWx0ZWRfX/8LU2TJvvUBL
- I9cyPXKE1SEMNzLltDp1nR6jNLg0jgyj6LfrtUfBUv4fr/9xeb7SCtV9t9nhKGvx0aoR0x7Ds7E
- VLhVAicnHENC+yjLHYMQ0N9EF6CaTCSlv6//REO/ygHUDD68LD+/I+Zi0u2PDrGh0LgMIo/Jlec
- RXzTWlsUuZ8Ilmc9ayd+k/dwmf/ciTmCZbjfrG/ySrGz5pop1Ts5+1xNFrrN657BySGRQHPuAnR
- TyetfvXDcDYCSlGW2fzZzZjHhMqBXsxlgl0pnIRU8Czcs9gWTO3WOJZGr0nshmgEzoeT9tAuF0G
- N+er0SID+nePmUqW/jmbQ/GlHI2eqWI5jzc9h4SE5GUUny6bieRu2mREQNyVkYYJk1P+yahFy8C
- EY5jr28e1Hfr5HdppbHojSyS072eamMieRJFjIViFMH3EPlbcn5iEO6woQaNNgWbGg+F7mJTd23
- VxPBPkG3DVq/B8C8aiA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-05_03,2026-05-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 priorityscore=1501 bulkscore=0 phishscore=0
- malwarescore=0 clxscore=1015 spamscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605060141
+References: <20260413160331.2611829-1-antoine.bouyer@nxp.com> <20260413160331.2611829-10-antoine.bouyer@nxp.com>
+In-Reply-To: <20260413160331.2611829-10-antoine.bouyer@nxp.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 6 May 2026 16:26:20 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXrvn+kwBsc96SQxWMABZv3Y6EPc3FLU7f-pOi2+J+S1A@mail.gmail.com>
+X-Gm-Features: AVHnY4Jz5uRp9a-KMKa4ktgjK5kRGGM5ufVLGN1Ppw7eSDSfOOOzlRIBWUnB9YY
+Message-ID: <CAMuHMdXrvn+kwBsc96SQxWMABZv3Y6EPc3FLU7f-pOi2+J+S1A@mail.gmail.com>
+Subject: Re: [PATCH v1 09/11] media: platform: Add NXP Neoisp Image Signal Processor
+To: Antoine Bouyer <antoine.bouyer@nxp.com>
+Cc: julien.vuillaumier@nxp.com, alexi.birlinger@nxp.com, daniel.baluta@nxp.com, 
+	peng.fan@nxp.com, frank.li@nxp.com, jacopo.mondi@ideasonboard.com, 
+	laurent.pinchart@ideasonboard.com, mchehab@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, michael.riesch@collabora.com, 
+	anthony.mcgivern@arm.com, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	ai.luthra@ideasonboard.com, paul.elder@ideasonboard.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Antoine,
+
+On Mon, 13 Apr 2026 at 18:10, Antoine Bouyer <antoine.bouyer@nxp.com> wrote:
+> First NXP neoisp driver version with the following contents:
+>
+> This driver was initially inspired from raspberrypi pisp_be driver. It
+> reuses same approach for ISP job scheduling.
+>
+> The Neoisp driver supports:
+> * 8, 10, 12, 14 and 16-bits RAW Bayer images input.
+> * Monochrome sensors input.
+> * RGB/YUV, IR and Greyscale output formats.
+>
+> The neoisp features are:
+> * Provides single context to limit amount of v4l2 devices.
+> * Supports M2M operations.
+> * Support SDR and HDR modes.
+> * Supports generic v4l2-isp framework for extensible Parameters and
+> Statistics buffers.
+> * Provides a `core_media_register` API to register neoisp's media entities
+> into another media graph.
+> * A module parameter to run in standalone mode with its own media device.
+>
+> Co-developed-by: Alexi Birlinger <alexi.birlinger@nxp.com>
+> Signed-off-by: Alexi Birlinger <alexi.birlinger@nxp.com>
+> Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
+
+Thanks for your patch!
+
+> --- /dev/null
+> +++ b/drivers/media/platform/nxp/neoisp/Kconfig
+> @@ -0,0 +1,15 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +config VIDEO_NXP_NEOISP
+> +       tristate "NXP NEOISP v4l2 hardware driver"
+> +       depends on VIDEO_DEV
+
+depends on ARCH_MXC || COMPILE_TEST
+
+> +       select MEDIA_CONTROLLER
+> +       select VIDEOBUF2_DMA_CONTIG
+> +       select V4L2_ISP
+> +       help
+> +         Enable this to support the NXP NEO Image Signal Processing (ISP)
+> +         module present in various NXP SoCs. This module offers multiple
+> +         functions for processing RAW images and generating RGB or YUV images.
+> +
+> +         To compile this driver as a module, choose M here: the module
+> +         will be called neoisp.
 
 
-On 5/5/2026 12:29 PM, Vishnu Reddy wrote:
-> The Glymur platform requires a dedicated firmware context bank device
-> which is mapped to the firmware stream ID to load the firmware.
-> 
-> Add init and deinit hooks in the platform data for context bank setup.
-> These hooks allow platform specific code to initialize and tear down
-> context banks.
-> 
-> Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
-> ---
+> +#define NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2_MASK GENMASK(23, 16)
+> +#define NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2_SET(x) (((x) & GENMASK(7, 0)) << 16)
+> +#define NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2_GET(x) (((x) >> 16) &  GENMASK(7, 0))
 
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+What about just:
+
+    #define NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2 GENMASK(23, 16)
+
+and using the helpers from include/linux/bitfield.h in the driver code?
+
+    FIELD_PREP(NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2, val)
+    FIELD_GET(NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2, reg)
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
