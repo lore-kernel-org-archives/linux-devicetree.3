@@ -1,181 +1,114 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E97D428474;
-	Wed,  6 May 2026 13:26:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1D743E9C5;
+	Wed,  6 May 2026 13:32:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778073986; cv=none; b=WQVwBnMWyVw/DZJYu21tlhRd1BBRJh81gWeyuRikPqkFf+TjKwsHG1gUjIQmbssoXiGqQyNYyLnPHSHO1V/63ReflsidRNCWe8WDzv6++Di4WeKZzoUYiHHNxzBsXt0AxhucdoFxP0RyQC4wp4aL7oM2czo4HM5DJQJHMvbWqAQ=
+	t=1778074332; cv=none; b=Z83EpbmIP4nuCzneJY+mtvin+5LbrC9fSAyINsNeXf+/re3jiGB/ulhCln/JRNcYlfCpa1bX3/G+e1efnra3zXg2xP7BY4MtmEH9cLO2gW2tuKalTeXnioZr+7J9qDBv7PzOmBohK0XMGDIqVmV/F3Sk5MJ45hxz3hIt1oJaLHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778073986; c=relaxed/simple;
-	bh=xaKcmCC+I9v/E09bRdoBMaTkVzosR8rUiWNrEUV6lAg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J5sH5Dg06AAqC0YrR6dD4UQIBP7m/OJ7W0WFoi1/EXzzaT7KmbGwRadrRsa+kWyypFPB3Pbho/OqyPSgMqZ6C9qYcbtGFZRbnAUMUVrBQPIT03BAmaZaYcErfcpNoyKJs6yxwZ6y8YXDXKigp2BpdLEeklUpJ1vxM/K3Pogm3Ag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Kn+Nojck; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1778074332; c=relaxed/simple;
+	bh=7SyZS0ivEjgZA4nePQg5BQyqm+SCAEV96EdGsQWfh2I=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qwmlrSV+jWlFKbKf5JBI50s60+DoMjpH63mgBNCDe+QQ7GKPs7RKxrU3pvweur+3btMnwRhzCKd/30V5Grij6DaTZNHekHrQzqB6VRwC4NoDEp+L82api7xKxe58uQBo8SnAt1gu8rBzBlvqw7/4pzUzj31N5qqd4NA6SmQEnUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=rP8jWi0S; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Kn+Nojck"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778073984; x=1809609984;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xaKcmCC+I9v/E09bRdoBMaTkVzosR8rUiWNrEUV6lAg=;
-  b=Kn+Nojck1aQDpvDs6sZpBe+keJhErcrZLKGJxT+oyOMP0h0IOBHqxV1p
-   1Tk05lqs4qKHuQxX09uG1Pejy/q53jcEQWdeRE1qBRsvkBcqHv01hZVwj
-   B//qJvxTZqZH+7omXrQbztU+Zel4Qd79zqEvbPWwloVTfHNGX8fMXdZox
-   UGCQ4PNCXDWZJp7zuekqY8BwTUmdB6vaXmcrXl8oIzqNq1ZfWoAtpg19f
-   J7uTQkp/+NdPB47QXfw8T+LRwY/p4NfcKF8fli2KB41Dz7zGumCkfukx+
-   xMZg4kBq2DlVqkoJDXbFU5DK6V3exKq0yrkjxSUjwEDTfEinlEd0qaqlE
-   g==;
-X-CSE-ConnectionGUID: G6eMnH1hTYuQP1PlIslZHA==
-X-CSE-MsgGUID: 62NSLGv9QwikO+m2V57evA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11777"; a="89312838"
-X-IronPort-AV: E=Sophos;i="6.23,219,1770624000"; 
-   d="scan'208";a="89312838"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 May 2026 06:26:23 -0700
-X-CSE-ConnectionGUID: 1H3000o9TMadDzDQXXLY9Q==
-X-CSE-MsgGUID: tL+QbN0HRuqstpiz/lB/YA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,219,1770624000"; 
-   d="scan'208";a="235306952"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.183])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 May 2026 06:26:19 -0700
-Date: Wed, 6 May 2026 16:26:16 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Roman Vivchar <rva333@protonmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-pm@vger.kernel.org,
-	Ben Grisdale <bengris32@protonmail.ch>
-Subject: Re: [PATCH 06/13] thermal: mediatek: add pmic thermal support
-Message-ID: <aftBeFbVIap59FFS@ashevche-desk.local>
-References: <20260504-mt6323-v1-0-799b58b355ff@protonmail.com>
- <20260504-mt6323-v1-6-799b58b355ff@protonmail.com>
- <afmnUG8dG0N0HpV6@ashevche-desk.local>
- <cgsML96DsJh_Ow9XsSnyrZ3NhlCnNj1rKegzYNR3eQzkWoF5xQB5-aU6Zi7pKcT8GfUnO3B-D71je60APUtorB7p_A3GtUCp2oer3KYLn6k=@protonmail.com>
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="rP8jWi0S"
+X-UUID: f86054c6494f11f1a4e839cc21f16abe-20260506
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=kVrS/dHQWKD+3tc6CAAThNJdve9BvuJWPhVI1OXqr40=;
+	b=rP8jWi0SXFdbvuONLPyevH3YhsQaMs6fvbAyR3OFPfVKEqXvezjclJ64vkc3ogRHJbSaKg9P1/7ilMIs0qxqNmRNb+JrsPBsndL8GQY13+zoVjyi4JJVcX2djV0a27pYnwuBn4jwe4AyXaZ/QlCXn9aXvohvkEuP7/KuWKN2OLQ=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:595c8a3f-49c0-40e7-80a7-fccfd493f824,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:e7bac3a,CLOUDID:961ff5be-65a8-4b41-ac18-3671578a914d,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102|836|865|888|898,TC:-5,Content:0|
+	15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0
+	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: f86054c6494f11f1a4e839cc21f16abe-20260506
+Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
+	(envelope-from <arnab.layek@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1006408303; Wed, 06 May 2026 21:32:04 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 6 May 2026 21:32:03 +0800
+Received: from mtksitap99.mediatek.inc (10.233.130.16) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Wed, 6 May 2026 21:32:03 +0800
+From: Arnab Layek <arnab.layek@mediatek.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+	<mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>
+CC: <linux-remoteproc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>,
+	<Project_Global_Chrome_Upstream_Group@mediatek.com>, Arnab Layek
+	<arnab.layek@mediatek.com>
+Subject: [PATCH] dt-bindings: remoteproc: mtk,scp: Allow multiple memory regions
+Date: Wed, 6 May 2026 21:31:57 +0800
+Message-ID: <20260506133157.3283204-1-arnab.layek@mediatek.com>
+X-Mailer: git-send-email 2.45.2
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cgsML96DsJh_Ow9XsSnyrZ3NhlCnNj1rKegzYNR3eQzkWoF5xQB5-aU6Zi7pKcT8GfUnO3B-D71je60APUtorB7p_A3GtUCp2oer3KYLn6k=@protonmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-On Wed, May 06, 2026 at 11:22:15AM +0000, Roman Vivchar wrote:
-> On Tuesday, May 5th, 2026 at 11:16 AM, Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-> > On Mon, May 04, 2026 at 09:24:58PM +0300, Roman Vivchar via B4 Relay wrote:
+Update the memory-region property to support 1-2 reserved memory
+regions instead of exactly one. This is needed for newer MediaTek
+SoCs like MT8188 which require additional memory regions for SCP
+operation.
 
-...
+Tested on MT8188 Geralt platform.
 
-> > > +struct mtk_pmic_sensor {
-> > > +	struct mtk_pmic_thermal *mt;
-> > > +	int id;
-> > > +	struct iio_channel *adc_channel;
-> > > +	struct thermal_zone_device *tzdev;
-> > > +};
-> > 
-> > Can you confirm with `pahole` that this is the best layout (taking into account
-> > the use in the below data structure)?
-> > 
-> > > +struct mtk_pmic_thermal {
-> > > +	struct device *dev;
-> > > +	struct regmap *regmap;
-> > > +	struct mtk_pmic_sensor sensors[MAX_SENSORS];
-> > > +
-> > > +	s32 t_slope1;
-> > > +	s32 t_slope2;
-> > > +	s32 t_intercept;
-> > > +
-> > > +	const struct mtk_thermal_data *data;
-> > > +};
-> 
-> On the ARMv7 it shouldn't be an issue, because pointer size equals to
-> the s32 or int. However, I've reordered the fields to group pointers
-> and integers together.
-> 
-> struct mtk_pmic_sensor {
-> 	struct mtk_pmic_thermal *  mt;                   /*     0     4 */
-> 	struct iio_channel *       adc_channel;          /*     4     4 */
-> 	struct thermal_zone_device * tzdev;              /*     8     4 */
-> 	int                        id;                   /*    12     4 */
-> 
-> 	/* size: 16, cachelines: 1, members: 4 */
-> 	/* last cacheline: 16 bytes */
-> };
-> 
-> struct mtk_pmic_thermal {
-> 	struct device *            dev;                  /*     0     4 */
-> 	struct regmap *            regmap;               /*     4     4 */
-> 	const struct mtk_thermal_data  * data;           /*     8     4 */
-> 	s32                        t_slope1;             /*    12     4 */
-> 	s32                        t_slope2;             /*    16     4 */
-> 	s32                        t_intercept;          /*    20     4 */
-> 	struct mtk_pmic_sensor     sensors[1];           /*    24    16 */
-> 
-> 	/* size: 40, cachelines: 1, members: 7 */
-> 	/* last cacheline: 40 bytes */
-> };
-> 
-> The compiler will still add some padding on the AArch64 though.
-> 
-> struct mtk_pmic_sensor {
-> 	struct mtk_pmic_thermal *  mt;                   /*     0     8 */
-> 	struct iio_channel *       adc_channel;          /*     8     8 */
-> 	struct thermal_zone_device * tzdev;              /*    16     8 */
-> 	int                        id;                   /*    24     4 */
-> 
-> 	/* size: 32, cachelines: 1, members: 4 */
-> 	/* padding: 4 */
-> 	/* last cacheline: 32 bytes */
-> };
-> 
-> struct mtk_pmic_thermal {
-> 	struct device *            dev;                  /*     0     8 */
-> 	struct regmap *            regmap;               /*     8     8 */
-> 	const struct mtk_thermal_data  * data;           /*    16     8 */
-> 	s32                        t_slope1;             /*    24     4 */
-> 	s32                        t_slope2;             /*    28     4 */
-> 	s32                        t_intercept;          /*    32     4 */
-> 
-> 	/* XXX 4 bytes hole, try to pack */
+Signed-off-by: Arnab Layek <arnab.layek@mediatek.com>
+---
+ .../devicetree/bindings/remoteproc/mtk,scp.yaml        | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-^^^^
-
-> 	struct mtk_pmic_sensor     sensors[1];           /*    40    32 */
-> 
-> 	/* size: 72, cachelines: 2, members: 7 */
-> 	/* sum members: 68, holes: 1, sum holes: 4 */
-> 	/* last cacheline: 8 bytes */
-> };
-> 
-> Is this good enough?
-
-In the last it seems moving the s32 members to be the last will removes
-the 4-byte hole.
-
-
+diff --git a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml b/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
+index bdbb12118da4..9f6dca94ff40 100644
+--- a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
+@@ -55,7 +55,10 @@ properties:
+       initializing SCP.
+ 
+   memory-region:
+-    maxItems: 1
++    description:
++      Phandle to the reserved memory regions.
++    minItems: 1
++    maxItems: 2
+ 
+   cros-ec-rpmsg:
+     $ref: /schemas/embedded-controller/google,cros-ec.yaml
+@@ -123,7 +126,10 @@ patternProperties:
+           initializing sub cores of multi-core SCP.
+ 
+       memory-region:
+-        maxItems: 1
++        description:
++          Phandle to the reserved memory regions.
++        minItems: 1
++        maxItems: 2
+ 
+       cros-ec-rpmsg:
+         $ref: /schemas/embedded-controller/google,cros-ec.yaml
 -- 
-With Best Regards,
-Andy Shevchenko
+2.45.2
 
 
