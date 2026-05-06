@@ -1,276 +1,144 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022102.outbound.protection.outlook.com [52.101.126.102])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4553770B;
-	Wed,  6 May 2026 01:24:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.102
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778030670; cv=fail; b=OStSMJznaq6q97yhDYeN3xWEm3Prei2a0gKMEGn31OJ4vhk55ZwS5RmQtzAv8Nc5Sq8jFIBq6SJV8ks9Oppwvo9IpQK74Vp73etjI6cFbmZ0u6n5SLhohySMcm0tG0+zG4BKTb7s2ZTDU+6g9XfKTTx1m1xx9i4DweW+LWudjBs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778030670; c=relaxed/simple;
-	bh=ZnZvZNI2nE8TbrH6w/sHTEdkXSS512VNBmUVuOHurVE=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB1DE204F93;
+	Wed,  6 May 2026 01:25:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778030758; cv=none; b=fwO+u49dZv/GL4Hmcnhp6UKA/yFG/42yD/qTHno+JdE6uD8o3y1YbVDeEen/a3CSQnaAy0qmOgI2JHowi/j5pApVrQhxKBhpDCyNG4Hnnxcqh0pEXBFn4ownyFVfT0sA7DVdLjHqR8GSDSwySwNiGn45WobhJUCU4QUZ2JYHOlw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778030758; c=relaxed/simple;
+	bh=7XqJAINRGOIrXlZLOK6eK3oz0SKwRLEWMQhNHaZGhu4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XrbQsH6bjT15RrVyFxNb567aaeH5m6aXJeliyGECPsKIpO+6eJ4uBP/MAeKutD/SdC/DN4f7xVhj+GTEe/Pr1qvOwjU72jJSgIRENTtyoFM9K5LS6S3U7MexsK6iUuF+SEuakmoxCRu5+VaSXVJWln8FRKhmwDFuVyENHHp1/Go=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.126.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VLwTHvKJUuZO8mMMrQDUL+VZ46Q7yIvszkKexK73qGJCHgBfRuTh+0Y8h1nll22nwRg+/3cboZkOMIg3msA/p8xh+IMxCxwz6E0CC8Fz4489f8h+WI9rvAdhnNS9osU+mmUUvyh9LzczDhsXFd85lWaIA4QziQIWTHC6YSp3QpJKT4v1G1nOjCz96GpTGFEuAx+wM//J+HbOX2IQKNUHQAC8vi25nNtD+SuyZEfFXQ6iYoufpKy8mdohf1YVEQEHQv1GgUnBYadOXk47pHT9prwRrhQ5HKOaC7lGaKs4Rq7fnrN22hIGWeF6gDiGzCfq5UR3Px1a1pJ3Dw6MNRR7vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m+kSzB09yTbc35Xjh5K3HYp/b9j7X9OVMBfU1bBLn1E=;
- b=S6T3ysdT0BuAHoAeRBZ7tfLlFdkypQIyhOxZ3ZmnNzytb8r32nGI7fx5IwRhrLLytggRKM2KBm8MqXNAo38GIuu8PNBGb271CZNQbP9rnxt2QJEGVFRUhnxYy0Lnav+PxMDAG27lPVkMjGBF761cOWbZzRSo5qXPgB14Fqp/ToLaAerr/2JTwSNrCrm54rwmom1nlXAAiNKcczX5s5BjChQ43umYev0ekPcv8ZxXE/CEbU+4UOxC7b6wF8J+GK/A2IN44pDYqI4Bo4CMvoMuCrMKmeWLPWCAywZsyl0sWZ0HOA6ZGXcgzOwUWOs7iVgUw3M2KMR+SWIQFXsV9HzgBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SG2PR01CA0152.apcprd01.prod.exchangelabs.com
- (2603:1096:4:8f::32) by JH0PR06MB6797.apcprd06.prod.outlook.com
- (2603:1096:990:2f::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
- 2026 01:24:24 +0000
-Received: from SG2PEPF000B66CB.apcprd03.prod.outlook.com
- (2603:1096:4:8f:cafe::e) by SG2PR01CA0152.outlook.office365.com
- (2603:1096:4:8f::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.15 via Frontend Transport; Wed,
- 6 May 2026 01:24:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG2PEPF000B66CB.mail.protection.outlook.com (10.167.240.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Wed, 6 May 2026 01:24:23 +0000
-Received: from nchen-desktop (unknown [172.16.64.25])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 495DA41609C1;
-	Wed,  6 May 2026 09:24:21 +0800 (CST)
-Date: Wed, 6 May 2026 09:24:20 +0800
-From: Peter Chen <peter.chen@cixtech.com>
-To: Devin Li <Devin.Li@cixtech.com>
-Cc: fugang.duan@cixtech.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, cix-kernel-upstream@cixtech.com,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, guoyin.chen@cixtech.com,
-	robin.wang@cixtech.com, hong.guo@cixtech.com
-Subject: Re: [PATCH v1] arm64: dts: cix: Add SCMI performance domains for
- CPUFreq on Sky1
-Message-ID: <afqYRK+1oB+SZDNe@nchen-desktop>
-References: <20260430113559.3102436-1-Devin.Li@cixtech.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=X3nVnl9kRfyHiJ+lIXqVRdWqwOxqZLVJi9crv5t3VFz78nnzg5ublEweyWcFq+pYk9+e81Vr9DJLITEewAxknsI0mZYm61noEtdtvVqYUGWA2EaZOUQYxb4hyICsnn/v+pk22eKsSSQvdmchTk/pkcjHzRz0HuZrSoyYkvSYavU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uiHCivsv; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uiHCivsv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3803FC2BCB4;
+	Wed,  6 May 2026 01:25:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778030758;
+	bh=7XqJAINRGOIrXlZLOK6eK3oz0SKwRLEWMQhNHaZGhu4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=uiHCivsv7jc8PG4ySgH1N4AemPKi9n46X8G+I3KCPPU4OtX5rukWQqxWGXKnMqGb6
+	 0lJQKB3oSD7AyS+Q3nhM/HrQV+Vq2E0hfkxOz14qEEa0RmtG83lsvss/DJBHBdbAqL
+	 GfYeiPn8BJumA+nVx2m2+dR0Mr7kjtnCuLEDChDw4825cjRJl7e8L1pxL/4fM2bp7E
+	 ZqZQSiQGPWgNcK/PHrQgTn5wU2A3yHJYaToQTWtpnoFQkj4p2Oy5fCkUu6FhAIFGwz
+	 4mqm5AQBJ1li/a65LCqg132ddmXW35uUVwaqZhxbdVs+X+iBwF/YuZvKMNKE0iy6zD
+	 YA5IwvC0AAmeg==
+Date: Tue, 5 May 2026 20:25:56 -0500
+From: Rob Herring <robh@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] dt-bindings: hwmon: Add starfive,jhb100-fan-tach
+Message-ID: <20260506012556.GB248179-robh@kernel.org>
+References: <20260428082337.743546-1-changhuang.liang@starfivetech.com>
+ <20260428082337.743546-2-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260430113559.3102436-1-Devin.Li@cixtech.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CB:EE_|JH0PR06MB6797:EE_
-X-MS-Office365-Filtering-Correlation-Id: ddd49f36-a097-49a1-615c-08deab0e34b4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|82310400026|1800799024|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	qCpXgKZ19D5aQKrGJC1E1qS4+vD4m/CRAsNhEi7d4HP/ZoMcG8mCWCPSD3aGcYjTcxWSaYz4ZE1vbpSnnpRtLU60WiBYJyQYfKyj563p8tZ14LqogWW7BLn0WB3Lnd/8EyVLtwAhYrc7D826vwvJqCmHTkPnoZjMSrcE0WiEgnHcA1P9okzqXG6Q6fFjSoi7S+MZXDM3olIDnZ2BQ03Hk+qK+0DEaEIGmiRE0LonJOxDWf6FJPiYlycuDncy5dwbCiEgO71ZDkHlWIjAQuFepNXDLgBun666zMcNI5RR819/BV4ftyireS6gG7a7snsQ9oZGQtwPJTfhBvNIF8zfCvzdW8xaogj1j9cPJ9cdiW+afAKcTCrMRHP2iKz1Nz6XssDo3ZVi11LfxcTLbrR1g02jfUdQo+xY6n6RzgSnd6qpwsukbvHYDotNr9gtwnfWV8ZOtbObb/HkNC2ZdT43wXaGZ+3dXpBXkifi9te4vubpx8/8D7TxjWDDQOHPRz4G5NVLZinqgcXqqxQ9eaTucz+Swt+TapAnxa5p+opT4UHl/k+OJfJk+JIP5Ltnt7IClZIJEkLdi9MdUeeMJ4L8HoQI9HbMLXhBeu4XDCzlV1EY6sYTmoa56uFQaX3O/c8u5XFxjSadOjRniA44lMgN3jKxn8OwLSi9k+HALxj2k6lNFvhTdBCQx2HA3JJXqIU+UqLsnF7vKacj6rk0f2FBIl1ptm2zzwWu22LqmH8P3Tg=
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Q0G51N2jTFjs+mt86shGN51ZQFAroJxhA1XRTrJyzf/m1YBYpfA19VjAC7pAOFBPONJzjgqoNldDn8RwwAWHQkeGx3MAJ6z/mRO2+cLWLaFdaadmcFSaj7Zd9HVH6WLe65C1yMd2aNkAImM2GSQrdBHjs7o3ZURAX1JuOTefaAUnk8X7eXCbFhiu1PLhpg5jnrDExL1TqQVaj6OzIEX8oxKrkudhfbg9YcQVhrB8fKnU71651xe2xqLOt7itekXIdQWMOTlF4ctXKYNKr5fNqXO5pPuy28VZHNZxyYo2/1TpFbei8OceRynxmekX1KGWNhgbMnXGCe7Uoe90kDN5JWuppFJxxyypSaHnIZPCYtKKSibdQhldL//5waKVk9yZr+vyUXhIsPjxMBoHobgFUFZNEgqaQdjSPgqPuzCajcUIWlt1KC5gFh7u4IKoJwjr
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 01:24:23.3393
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ddd49f36-a097-49a1-615c-08deab0e34b4
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG2PEPF000B66CB.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6797
+In-Reply-To: <20260428082337.743546-2-changhuang.liang@starfivetech.com>
 
-On 26-04-30 19:35:59, Devin Li wrote:
-> From: "devin.li" <Devin.Li@cixtech.com>
-
-Please use your real name
-
-Others are okay for me.
-
-Peter
-
+On Tue, Apr 28, 2026 at 01:23:36AM -0700, Changhuang Liang wrote:
+> Add compatible "starfive,jhb100-fan-tach" for StarFive JHB100 Fan-Tach
+> controller.
 > 
-> Add SCMI Protocol 13 (Performance) node under ap_to_pm_scmi with
-> domains.
-> 
-> Define SKY1_PERF_* macros in sky1-power.h for all performance domain
-> IDs (CPU L/B0/B1/M0/M1, GPU, DSU, NPU, VPU, CI700, NI700), and
-> wire each CPU node to its corresponding performance domain using
-> power-domains and power-domain-names properties.
-> 
-> Signed-off-by: Devin Li <Devin.Li@cixtech.com>
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 > ---
->  arch/arm64/boot/dts/cix/sky1-power.h | 13 +++++++++++++
->  arch/arm64/boot/dts/cix/sky1.dtsi    | 29 ++++++++++++++++++++++++++++
->  2 files changed, 42 insertions(+)
+>  .../hwmon/starfive,jhb100-fan-tach.yaml       | 98 +++++++++++++++++++
+>  1 file changed, 98 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yaml
 > 
-> diff --git a/arch/arm64/boot/dts/cix/sky1-power.h b/arch/arm64/boot/dts/cix/sky1-power.h
-> index 53f4a3af36b3..144567579b71 100644
-> --- a/arch/arm64/boot/dts/cix/sky1-power.h
-> +++ b/arch/arm64/boot/dts/cix/sky1-power.h
-> @@ -30,4 +30,17 @@
->  #define SKY1_PD_ISP0		20
->  #define SKY1_PD_GPU		21
->  
-> +#define SKY1_PERF_GPU_CORE	0
-> +#define SKY1_PERF_GPU_TOP	1
-> +#define SKY1_PERF_CPU_L     2
-> +#define SKY1_PERF_CPU_B0	3
-> +#define SKY1_PERF_CPU_B1	4
-> +#define SKY1_PERF_CPU_M0	5
-> +#define SKY1_PERF_CPU_M1	6
-> +#define SKY1_PERF_DSU	    7
-> +#define SKY1_PERF_NPU	    8
-> +#define SKY1_PERF_VPU	    9
-> +#define SKY1_PERF_CI700	    10
-> +#define SKY1_PERF_NI700	    11
+> diff --git a/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yaml b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yaml
+> new file mode 100644
+> index 000000000000..fdc8539ec804
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yaml
+> @@ -0,0 +1,98 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/hwmon/starfive,jhb100-fan-tach.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
->  #endif
-> diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
-> index 0611098b5f05..a77c52296ebd 100644
-> --- a/arch/arm64/boot/dts/cix/sky1.dtsi
-> +++ b/arch/arm64/boot/dts/cix/sky1.dtsi
-> @@ -22,6 +22,8 @@ cpu0: cpu@0 {
->  			enable-method = "psci";
->  			reg = <0x0 0x0>;
->  			device_type = "cpu";
-> +			power-domains = <&scmi_dvfs SKY1_PERF_CPU_L>;
-> +			power-domain-names = "perf";
->  			capacity-dmips-mhz = <403>;
->  			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
->  		};
-> @@ -31,6 +33,8 @@ cpu1: cpu@100 {
->  			enable-method = "psci";
->  			reg = <0x0 0x100>;
->  			device_type = "cpu";
-> +			power-domains = <&scmi_dvfs SKY1_PERF_CPU_L>;
-> +			power-domain-names = "perf";
->  			capacity-dmips-mhz = <403>;
->  			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
->  		};
-> @@ -40,6 +44,8 @@ cpu2: cpu@200 {
->  			enable-method = "psci";
->  			reg = <0x0 0x200>;
->  			device_type = "cpu";
-> +			power-domains = <&scmi_dvfs SKY1_PERF_CPU_L>;
-> +			power-domain-names = "perf";
->  			capacity-dmips-mhz = <403>;
->  			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
->  		};
-> @@ -49,6 +55,8 @@ cpu3: cpu@300 {
->  			enable-method = "psci";
->  			reg = <0x0 0x300>;
->  			device_type = "cpu";
-> +			power-domains = <&scmi_dvfs SKY1_PERF_CPU_L>;
-> +			power-domain-names = "perf";
->  			capacity-dmips-mhz = <403>;
->  			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
->  		};
-> @@ -58,6 +66,8 @@ cpu4: cpu@400 {
->  			enable-method = "psci";
->  			reg = <0x0 0x400>;
->  			device_type = "cpu";
-> +			power-domains = <&scmi_dvfs SKY1_PERF_CPU_M0>;
-> +			power-domain-names = "perf";
->  			capacity-dmips-mhz = <1024>;
->  			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
->  		};
-> @@ -67,6 +77,8 @@ cpu5: cpu@500 {
->  			enable-method = "psci";
->  			reg = <0x0 0x500>;
->  			device_type = "cpu";
-> +			power-domains = <&scmi_dvfs SKY1_PERF_CPU_M0>;
-> +			power-domain-names = "perf";
->  			capacity-dmips-mhz = <1024>;
->  			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
->  		};
-> @@ -76,6 +88,8 @@ cpu6: cpu@600 {
->  			enable-method = "psci";
->  			reg = <0x0 0x600>;
->  			device_type = "cpu";
-> +			power-domains = <&scmi_dvfs SKY1_PERF_CPU_M1>;
-> +			power-domain-names = "perf";
->  			capacity-dmips-mhz = <1024>;
->  			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
->  		};
-> @@ -85,6 +99,8 @@ cpu7: cpu@700 {
->  			enable-method = "psci";
->  			reg = <0x0 0x700>;
->  			device_type = "cpu";
-> +			power-domains = <&scmi_dvfs SKY1_PERF_CPU_M1>;
-> +			power-domain-names = "perf";
->  			capacity-dmips-mhz = <1024>;
->  			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
->  		};
-> @@ -94,6 +110,8 @@ cpu8: cpu@800 {
->  			enable-method = "psci";
->  			reg = <0x0 0x800>;
->  			device_type = "cpu";
-> +			power-domains = <&scmi_dvfs SKY1_PERF_CPU_B0>;
-> +			power-domain-names = "perf";
->  			capacity-dmips-mhz = <1024>;
->  			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
->  		};
-> @@ -103,6 +121,8 @@ cpu9: cpu@900 {
->  			enable-method = "psci";
->  			reg = <0x0 0x900>;
->  			device_type = "cpu";
-> +			power-domains = <&scmi_dvfs SKY1_PERF_CPU_B0>;
-> +			power-domain-names = "perf";
->  			capacity-dmips-mhz = <1024>;
->  			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
->  		};
-> @@ -112,6 +132,8 @@ cpu10: cpu@a00 {
->  			enable-method = "psci";
->  			reg = <0x0 0xa00>;
->  			device_type = "cpu";
-> +			power-domains = <&scmi_dvfs SKY1_PERF_CPU_B1>;
-> +			power-domain-names = "perf";
->  			capacity-dmips-mhz = <1024>;
->  			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
->  		};
-> @@ -121,6 +143,8 @@ cpu11: cpu@b00 {
->  			enable-method = "psci";
->  			reg = <0x0 0xb00>;
->  			device_type = "cpu";
-> +			power-domains = <&scmi_dvfs SKY1_PERF_CPU_B1>;
-> +			power-domain-names = "perf";
->  			capacity-dmips-mhz = <1024>;
->  			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
->  		};
-> @@ -205,6 +229,11 @@ ap_to_pm_scmi: scmi {
->  			#address-cells = <1>;
->  			#size-cells = <0>;
->  
-> +			scmi_dvfs: protocol@13 {
-> +				reg = <0x13>;
-> +				#power-domain-cells = <1>;
-> +			};
+> +title: StarFive JHB100 Fan-Tach controller
 > +
->  			scmi_clk: protocol@14 {
->  				reg = <0x14>;
->  				#clock-cells = <1>;
-> -- 
-> 2.49.0
-> 
+> +maintainers:
+> +  - Changhuang Liang <changhuang.liang@starfivetech.com>
+> +
+> +description:
+> +  The StarFive Fan-Tach controller can support up to 16 fan tach input.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - starfive,jhb100-fan-tach
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +patternProperties:
+> +  "^fan@[0-9]+$":
 
--- 
+Unit-addresses are hex.
 
-Best regards,
-Peter
+> +    $ref: fan-common.yaml#
+> +    unevaluatedProperties: false
+> +    required:
+> +      - reg
+> +      - tach-ch
+
+You need constraints on the 'reg' values. Also, what does 'reg' 
+represent in this case?
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - resets
+> +  - interrupts
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    fan-tach-controller@11be0000 {
+> +        compatible = "starfive,jhb100-fan-tach";
+> +        reg = <0x11be0000 0x400>;
+> +        interrupts = <128>;
+> +        clocks = <&per2crg 33>;
+> +        resets = <&per2crg 5>;
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        fan@0 {
+> +            reg = <0>;
+> +            tach-ch = /bits/ 8 <0x0>, <0x8>;
+
+How do you have 1 fan with 2 tach signals?
+
+Rob
