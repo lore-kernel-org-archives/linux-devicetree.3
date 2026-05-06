@@ -1,96 +1,54 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A60B47CC80
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 15:28:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84D844D6A9;
+	Wed,  6 May 2026 15:31:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778081302; cv=none; b=tJtzgcrGISTUbBYrflmMYEU9sCbV7vCL0qiLLD0hftY5VYQJJOmdO5RY3aEv4bKDKyeWjXzYCYi6PKRfGVTRO/h8uSXHTHEW6/642ZJPBKn3rcuqS3eTfXOsQDQJYeFZn9SxkGDT9k5sL7ct6C1dJqGYFVs5mQj4dnlBOCHQkok=
+	t=1778081490; cv=none; b=rDJCzpxwhYd1+YRFKwjII9yDPErd8cT4pfb9sYmYAG3JYzCw2rbLW3q8Jh/KkoRFatRWgUhICZxPGT0k9KWFRRJ2HP6NnaPgIuX2mZ2wYvL4C5Ani4ECDBJXK/hNPAFfVe+mIfaJvHuN8fW/m/O43dVCEH4ppxu2ohkBcJOqntw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778081302; c=relaxed/simple;
-	bh=ZjEF3HpGwOZm1XS1TR6kZf0bNGfRZAZycuJei4ErS4k=;
+	s=arc-20240116; t=1778081490; c=relaxed/simple;
+	bh=IgHqoBvpmtUA7FgXX/Le9CmNm36RAHe0VSyPKzaNLfU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ssm6sZ1n3g/4RHRwwdFb/EIuQtfRK1Y+lAokKRjWQnBjYpogKj/EMc+QHCFZlzJCJn3owky6LIFq/EhbDkpba0TcXk+x0qPGq8KDW8Z+xLCWm6FmztU5vaCT2Fos8bDjKevtSsZqiipxRqWziHMvs/jIVfBG3t42sExg5COZEM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=C+XW4o+3; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZO5f1ecyTaYrSqVwJ3xxNrv1ZKuJVqRvJPCO+Nd1eucmpmVOpXAZThrRk+qYYLpG6zVwrGnGqFkW20jujIlFcAz6a94Ta3o17KdlRCXFqb7cQZE3SEim/KBtBSlpNRnZQ8HBI6G5W4TjlHCh1WjfZ5ase9q7i1GguEMI8TpoKww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qapj2ZbJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="C+XW4o+3"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-44da2de25f3so2454026f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 08:28:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778081300; x=1778686100; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=CGs4aXiGfe9FWzGIQNV1c8scbxohD/REqUQGlNaM17Q=;
-        b=C+XW4o+3BpfIYq+R7bvkXpReBGJrMLl/LMNXIlRWJaDMCP8l12gnAozRU838922lJO
-         RRMdFfzQKpQnWzb6ARXvdQ/RtmoNDrD6n6niAyKgqBRMYhB4EgtCI9TgzaWGrCFvQr69
-         fFOwH466Yb5gBEBbxEPPUBIughRl1DS0H5ACmf77Pp1KVqBLSvWKdCqpaMHf8bQrkbrG
-         WSEmp1uejt1RRMTrd2KyJVV6XAhyvlzZlZ6XjoIR5zHH8AFIBX7xOryI1vY82/TAmX2r
-         QaH5nTkRIC2PshdIC8H4YqtCezuEp5OV4V4OailE6fk5iyxuluRnpcZi1h4qmNgHK/m3
-         OkoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778081300; x=1778686100;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=CGs4aXiGfe9FWzGIQNV1c8scbxohD/REqUQGlNaM17Q=;
-        b=npRKcXRwI79bskILsZLdPk+nH7HXffz7GTifbBHEecbUvObeEx73AEWUqmU0tt7NhA
-         baKaS6dbok2U75FGmQL+h4KWcp2MQKQf3j3yNE9u3mBmCapuNB1sKZLH3PKziLC2oyhn
-         tCufyDKp3NMk0I/DiAgrGt284lYIH+GN6ra8nGvP0wEn7laAZzYNwYAtTlxinnwI6xuZ
-         RYRLVJ/477KWaJkVzRNFmCp5BDXcDYCrPprtQ2tjEuCcyCqSHuxsBal862kLmjrjp/3A
-         22OnOZgIQFAkC4snaKINBQKH7XweCHkMtcOUZgvh+jC2TW9asbKgtpua3DWlau1e21o+
-         U3uw==
-X-Forwarded-Encrypted: i=1; AFNElJ/LQIqT5VTbbKUxwmclvuTofG7myMwBmCkfeSRE5hYTyxuv7qJd544dqnAblwXeqvf5g+TEXQ2hu6sI@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1yw5EaKb9ImYOTT3jF0VpnM88VrXt2eqFRc+/4QJjIjhch+ZP
-	2CVgACBOxFmS86oWeJJEO6ZjVsl9eQE+/4JDT7260p/us5r0IVKNszRpKfIhAcXrH2M=
-X-Gm-Gg: AeBDievE4UC+GbUAkhR20N9vcxYlSmZIu1WyFG+j83w8E32nSAiZPZW+Dt20KzZ8qjV
-	IIL3gL3tvYpDvXSpewR3DJyYs5h0VmGuu+OyMp8oZKqb+I/FZgcgvMXSxtUJroT2I3vbs9SvQ+m
-	q2TMq1qaPidQjAp0oF3O3XddQezLAs6yTd8fSG97fhRbrKhCtHeojAEU/gvAmVd4Iii/6qEhHAx
-	xAbWWBBMR4AymiXsp2Hi4aRkAB1se6ekq7PVUne3Ujyb5FyzCW+WFr7vsa3LD/3kNPDNtDch3dz
-	EF8shhPC4ruf++zfls8vJ+9WsPnFGJisk/fN8ict0mQPMq2nRjlPliIk6txqOHizL+A5i3wD+W5
-	qt6r6lVvjdP9OZ1c6l2RncOo5UzJYyq2PLFDVDktMxRD1zqx6TxOKA0lC7jGm8g5m2V02AkwTX4
-	lsrMETRY2QRvE5kNUG8zhEYCCE0UgMUCcZxh3QWBNko+u7pRGfLNcbAeDjF29xyFTOsjX529GMN
-	JP3BU7kvEdn0DfC6nmbEuyS1InTDQM2N5zzTJ6lV9zkXHV3aDGTYFIdQax8+pG8jlUFBcneTFfo
-	pm8q7yDiIicuT9T4bKk=
-X-Received: by 2002:a05:6000:2405:b0:44e:902f:e341 with SMTP id ffacd0b85a97d-4515cf11ce9mr6889250f8f.20.1778081299271;
-        Wed, 06 May 2026 08:28:19 -0700 (PDT)
-Received: from aspen.lan (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45055960902sm14773996f8f.28.2026.05.06.08.28.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 May 2026 08:28:18 -0700 (PDT)
-Date: Wed, 6 May 2026 16:28:15 +0100
-From: Daniel Thompson <daniel@riscstar.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Xilin Wu <sophon@radxa.com>, Alex Elder <elder@riscstar.com>,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
-	rmk+kernel@armlinux.org.uk, andersson@kernel.org,
-	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
-	arnd@arndb.de, gregkh@linuxfoundation.org,
-	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
-	alexandre.torgue@foss.st.com, ast@kernel.org,
-	boon.khai.ng@altera.com, chenchuangyu@xiaomi.com,
-	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
-	hkallweit1@gmail.com, inochiama@gmail.com, john.fastabend@gmail.com,
-	julianbraha@gmail.com, livelycarpet87@gmail.com,
-	matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
-	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
-	rohan.g.thomas@altera.com, sdf@fomichev.me,
-	siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com,
-	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
- support
-Message-ID: <afteD2d8d87Nyvl7@aspen.lan>
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-11-elder@riscstar.com>
- <224E233C593EF171+8c8a43dd-5061-40f8-9eb7-f360eabf2ecc@radxa.com>
- <4015f47a-af62-441d-b1b8-a8598f963970@lunn.ch>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qapj2ZbJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6784C2BCB0;
+	Wed,  6 May 2026 15:31:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778081489;
+	bh=IgHqoBvpmtUA7FgXX/Le9CmNm36RAHe0VSyPKzaNLfU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Qapj2ZbJvROo6HMGSV8FORvgrI9+0dhDdr5aft67gXjbpw92uNrsHG5vt8FhEeQ3e
+	 ItYO/Aowm+Dg6y/ZaoLVCdxffOSyqnVLui0pLHwEAmCpkH7F84xGgW2fH2weUl6uU/
+	 TFGVlgx9gljReqc2Leb7nX1UO/vL9CHvZLQKhtER/RISgk1ylzCBe9/VeTrAcVJDWI
+	 B8NHnsRILYZYFUo0bPIbQhBe4NwJ7RUIll/oC2Aa9bLprg4Nxl81L5lk2uwN57SHnI
+	 0XHdf1CF/wXotjhxzx1lVcWaA6XOrzkb3miEXU25G+R/2k/mQ+197EnuUOS7iVeCW7
+	 0PU+5kX9UVJGw==
+Date: Wed, 6 May 2026 10:31:26 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: Sen Chu <sen.chu@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>, Lee Jones <lee@kernel.org>,
+	linux-mediatek@lists.infradead.org,
+	Jonathan Cameron <jic23@kernel.org>, devicetree@vger.kernel.org,
+	kernel@collabora.com,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-input@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Chen Zhong <chen.zhong@mediatek.com>, linux-pm@vger.kernel.org,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-iio@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/9] dt-bindings: mfd: mediatek: mt6397: Add rtc for
+ MT6359
+Message-ID: <177808148601.2163979.5712342936678937427.robh@kernel.org>
+References: <20260429-mediatek-genio-mt6365-cleanup-v1-0-6f43838be92f@collabora.com>
+ <20260429-mediatek-genio-mt6365-cleanup-v1-1-6f43838be92f@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -99,74 +57,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <4015f47a-af62-441d-b1b8-a8598f963970@lunn.ch>
-
-On Wed, May 06, 2026 at 04:19:54PM +0200, Andrew Lunn wrote:
-> On Wed, May 06, 2026 at 08:59:01PM +0800, Xilin Wu wrote:
-> > On 5/1/2026 11:54 PM, Alex Elder wrote:
-> > > +	/* AXI Configuration */
-> > > +	axi = &td->axi;
-> > > +	axi->axi_lpi_en = 1;
-> > > +	axi->axi_wr_osr_lmt = 31;
-> > > +	axi->axi_rd_osr_lmt = 31;
-> > > +	/* All sizes (2^2..2^8) are supported */
-> > > +	axi->axi_blen_regval = DMA_AXI_BLEN_MASK;
-> > > +	plat->axi = axi;
-> > > +
-> > > +	plat->mac_port_sel_speed = speed;
-> > > +	plat->flags = STMMAC_FLAG_MULTI_MSI_EN | STMMAC_FLAG_TSO_EN;
-> >
-> > I got WoL working only after adding STMMAC_FLAG_USE_PHY_WOL here. I guess
-> > it's required, since the driver clocks down the MAC/PMA/XPCS in its suspend
-> > hook?
->
-> Nice to see somebody testing WoL.
-
-Absolutely!
-
-We recently stripped out the (obviously broken and partially ported)
-WoL support we had in tc956x-pci.c. We planned to bring it back later.
-Hadn't realized it could be so easy.
+In-Reply-To: <20260429-mediatek-genio-mt6365-cleanup-v1-1-6f43838be92f@collabora.com>
 
 
-> In your testing, is it the PHY doing the WoL, or the MAC? I assume
-> PHY.
->
-> If i remember the DT correctly, the PHY interrupt is connected to a
-> SoC GPIO, not a GPIO of this chip.
+On Wed, 29 Apr 2026 11:44:14 +0200, Louis-Alexis Eyraud wrote:
+> The rtc block of MT6359 PMIC is compatible with the one found in MT6358
+> but this compatibility was never expressed in the dt-bindings, so add
+> the missing compatible string for the rtc subnode.
+> 
+> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+> ---
+>  Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
 
-On RB3Gen2 (and I think also the QPS615 reference design) the phy
-interrupt is routed twice. It is connected both to the TC9564 GPIO
-block and to the host SoC.
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-
-> So for your board, it is the SoCs
-> GPIO controllers ability to perform the wake which is
-> important. However, where the PHY interrupt is connected is a board
-> design issue. Could the PHY interrupt be connected to the chip? Would
-> the chip be able to wake the system? Should STMMAC_FLAG_USE_PHY_WOL be
-> conditional?
-
-I couldn't think of any reason to use the TC9564 GPIO block for the
-interrupts on RB3gen2 so I left it unused and the DT describes the SoC
-routing only.
-
-However if TC9564 were to be mounted on a real PCIe card then we'd have
-to use the TC9564 GPIO instead and would have to leave enough of the
-TC9564 enabled to handle the interrupt (and also to load a firmware to
-catch the interrupt and drive the PCI wake up signal).
-
-However such systems would need extensions to the current driver. We
-have done all we can to make it possible to add those extensions in the
-future but we would not be able to test them: not only do would a real
-PCIe card need extra driver features to play nice with ACPI but the
-card would also need an I2C EEPROM. We don't have that EEPROM on
-RB3gen2 (and again, we'd need firmware to read it).
-
-TL;DR - there are conceivable (and sane) hardware designs where the
-interrupt goes only to the TC9564 GPIO, but they are too different to
-RB3gen2 (and related SBC designs) for them to be supported before
-they exist!
-
-
-Daniel.
