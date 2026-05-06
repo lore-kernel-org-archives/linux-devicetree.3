@@ -1,399 +1,220 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579F44BCACA;
-	Wed,  6 May 2026 17:44:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFC64A3412
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 18:21:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778089498; cv=none; b=kCvJYnfqVoKziW+31TnRJ23ZdlYPHJ+XJpnNm9U6P+i6BFiklLnJG3VLl9YTv434e1gIS6RmnhMXphH7/Na0QZi3H3LjI9xiIibh4WdgHkSglyTjJuUzDQInYOtE53YnsiXWzqrDx2V7EH6Ks6mHhqElS0/faMntQpgmqWTVZYQ=
+	t=1778091695; cv=none; b=KoUcpAMQt8dt4uf2QnnGqcZeM2q+QGrUED6Og/ou2mN1Jn0ptFj4hFXKx1kA6wcf0bf0Dgi3VbpiCdlEmZbTzIBI2RatwGN7i0ooakJv7plll/55Ezhc8Mo9YYutiYoy8t74e/LB9Y4CvfGpfbH/4da4LzgspOJ8zKAjNUATJHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778089498; c=relaxed/simple;
-	bh=ZmMSBgWoVtXt9pPcFaiLROafSxVn0gpv/awkaUvEKh0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bF5Bl9ckUfOlgexB2GwMBNE7rwncMZlqbx5+amYacliYVJPjkCWXVxHhPZwS1N0U6BsDBCDFd84BH9qUl7TLd2iIQgicy7EVN5ERDRpW1NSb3Ak/3vXTO2gNVGd4hf5LZaqAyrXKyD4zyT5mUNJi4xW0sW31qS32LyRzKTg9EY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CPwgCAxd; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778091695; c=relaxed/simple;
+	bh=l9RL6ffZ0V6p/nZhYhiJ/k+Ncl3ace6QHYzBN675cRE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VxBl1Amk410itfZKMsDfqZ1RfX+1w5NUiXMOnM6uzEfvYS/+oPwFxwBVyA/aAcWxS+PCnx6ZZ1UNLp4gCtHnK5kij8sqOTeLUDJ7TzcnWdHBMZh5yBJkgyClSzvndZjo0CZ0W6vTRm4msU/jPwQPONh5sBVMrAVmtWY0NvAHrQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=MXQ1ByoQ; arc=none smtp.client-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CPwgCAxd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F267EC2BCB8;
-	Wed,  6 May 2026 17:44:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778089497;
-	bh=ZmMSBgWoVtXt9pPcFaiLROafSxVn0gpv/awkaUvEKh0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CPwgCAxdpaxxed8rh/FF97QIB4mYMNI1oTRTFVQXLtbMSEorhxuOGZuCMjberyUD7
-	 Z8SgW2QZvGL4WgrdfofynRQ/YQYBK/bF6shI0Up7Ch4i+FpLIJYSb7veKe95k/mFfa
-	 CjvqU+aXpP2EoeCGeP1ZMyZMFlzK5oMVJXWq7dfcCap7Ze/LShulzkaGh6f8bIi2r3
-	 cm4PDg0MLC8yhDjK6O0JaQq1lAlJfVW3UURbqfnOz05RuW5JzrX7MjcGfTeEU/0oe6
-	 NheS859QfCncoihC2mcYwrjO2vLSCdEOE1OexenucZ5IWxFiFGJpA6M9dAWpat9qx5
-	 tkQHEglI2LFIQ==
-Date: Wed, 6 May 2026 18:44:49 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>, Yixun Lan <dlan@kernel.org>,
-	Joel Stanley <jms@oss.tenstorrent.com>,
-	Drew Fustini <dfustini@oss.tenstorrent.com>,
-	Darshan Prajapati <darshan.prajapati@einfochips.com>,
-	Guodong Xu <guodong@riscstar.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Junhui Liu <junhui.liu@pigmoral.tech>,
-	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
-	E Shattow <e@freeshell.de>, Icenowy Zheng <uwu@icenowy.me>,
-	Anup Patel <anup@brainfault.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	Ji Sheng Teoh <jisheng.teoh@starfivetech.com>,
-	Hal Feng <hal.feng@starfivetech.com>,
-	Ley Foon Tan <leyfoon.tan@starfivetech.com>,
-	Michael Zhu <michael.zhu@starfivetech.com>
-Subject: Re: [PATCH v2 4/4] riscv: dts: starfive: jhb100: Add JHB100 base DT
-Message-ID: <20260506-proud-dubbed-9ab8011df899@spud>
-References: <20260506085937.754808-1-changhuang.liang@starfivetech.com>
- <20260506085937.754808-5-changhuang.liang@starfivetech.com>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="MXQ1ByoQ"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-8f0a87e23daso669391485a.1
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 11:21:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778091693; x=1778696493; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5oBqOeQFggE8v+cavTTn16m1Xk99yYA0Xp28tAkW6v4=;
+        b=MXQ1ByoQInRWPvTL/VCZ1IQuPvW37sz9uZec9IY6HESSYPe434OaNktzL4FV46P8hy
+         GUHNPZdb3PM+G9O981LjNDaf5vwazehHtDvvz3JMB4QTAFsTeVjeN0c8Y9ebS64Zwkx+
+         CrQoawpsKZHIL3PepkgbpA5SemfLG/37+pA7nvC0UnvYN/kw9kY1icXlnELq6tkGiPs4
+         yBxYhbZqdPumQCerXDNlJlqHnb9GnlMkvq3oHVRKbjDVWkYoCIrr+80sI1ReDp94/9Ig
+         SYYiZqxGJiZmFPHseAQ49nWXI7UuneIUnVf4t3XyDYo/rg/4vkeJMPgIar/acqRQOZF6
+         cpxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778091693; x=1778696493;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=5oBqOeQFggE8v+cavTTn16m1Xk99yYA0Xp28tAkW6v4=;
+        b=XgbXraiFS78sTEDhC+ZYOGYs9YarS2jt+PsewnQEA7huegH7ujUzb1E1PedKJG7kUx
+         g2Qws+c2PyakRQ6C+sZYwPy3LRE13TiyIwx3uArB9t02M3OM8srEcQ5Z/FAoVbyuudZs
+         cr9yQ/k89EqQNaq/pyunufMfpR6gh4bXCJwH2qTVopnbLkmHmTwLc554CeEqvK9pcN6j
+         MZIC4a9k0mS06ZXy5jjLU1pmcdXHUWF7tTXndmg6YwOdP3fo4Io+XiTmOr1D+wMESh9c
+         ZB+MnKzhWur4p+F9uGvdeAQ4vJZitlNy1G16rCfrJtCVhLIZX4hxp5YO/fDEcFPxO9M9
+         M9HA==
+X-Forwarded-Encrypted: i=1; AFNElJ9UKysj3VRdQW74N+dmUoyGAhntuPSllHnyoRm6E/QnH1KYlBxYYiYxZl/7hBmLHOwpp1JmO3lqAK5H@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMnOZoXcnrTTatWOUIAZRqD17EN/liXWX6yaNKtOiWG7bH9pVy
+	teJxkN0+ObE8tf9XSAYzFJRFmaLEhJBjaojWS51xtpAMuES6EDSQgY+9acXt8ZsFoNE=
+X-Gm-Gg: AeBDievpoe8m4/Qov526yf+URUOmJiuDMxlHcbrjBNB8YbTlIBZ7QM2wq3RgCCR/2kH
+	MudbiOvmAgmYB97K7chVm+o8Rrl4Li09Zl364/3JbuKBlaUFXk9zHdQwiGIamXhzGycYGeqRYXY
+	nZdj3kcdASSkvv+0GbIjfJiX7XxojzIayO6ouKUas8DHilvBRX3r7GANN9gkdNHSLH2DFHWl6fJ
+	02JUatYi1Liv74+044Z+GQoPVABhSnBBrrFavyPESF9MULNpQnv3RBJehMwXm9ZYjKyU5gCzzXC
+	OHhjPm2NuoakKPaxjWbyQIQbg/GWq8a4kvpeoDCkemCIWznR0QrCsHioWt6kbAjCCRDLnhqcry+
+	zHZGmcu0QLZlGV00QvhePKPyB5OL2q34YNmSwCHA8mUhYfOfjjS4uwa7cGjiDEhm7Kftr/8cZoX
+	vDdRIyl21yiYWzvkEQUyrZklvAH/jU5xc8mVpkJOxikCgdjTGK6+lZCruRgUaZEBHi+y8HTl45Q
+	Q==
+X-Received: by 2002:a05:620a:29c1:b0:8ef:12de:1337 with SMTP id af79cd13be357-904d60f5233mr705172585a.38.1778091693050;
+        Wed, 06 May 2026 11:21:33 -0700 (PDT)
+Received: from [172.22.22.28] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8fc2cd057acsm1895096485a.47.2026.05.06.11.21.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 06 May 2026 11:21:32 -0700 (PDT)
+Message-ID: <0751a051-9894-45be-92d6-0d46f2c39293@riscstar.com>
+Date: Wed, 6 May 2026 13:21:29 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3tCyEtlHKzoPzEv0"
-Content-Disposition: inline
-In-Reply-To: <20260506085937.754808-5-changhuang.liang@starfivetech.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 09/12] gpio: tc956x: add TC956x/QPS615 support
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
+ rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
+ brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org,
+ daniel@riscstar.com, mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
+ alexandre.torgue@foss.st.com, ast@kernel.org, boon.khai.ng@altera.com,
+ chenchuangyu@xiaomi.com, chenhuacai@kernel.org, daniel@iogearbox.net,
+ hawk@kernel.org, hkallweit1@gmail.com, inochiama@gmail.com,
+ john.fastabend@gmail.com, julianbraha@gmail.com, livelycarpet87@gmail.com,
+ matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
+ weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-10-elder@riscstar.com>
+ <736fb3b7-c88a-4ec4-96ad-d1b79cc48d30@lunn.ch>
+ <30cec7dd-ac3c-47ab-896a-c29992bd5ba5@riscstar.com>
+ <3666e3e6-e6f3-4cbf-b9fe-caa394fbab7c@lunn.ch>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <3666e3e6-e6f3-4cbf-b9fe-caa394fbab7c@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 5/2/26 10:05 PM, Andrew Lunn wrote:
+> On Sat, May 02, 2026 at 08:45:48PM -0500, Alex Elder wrote:
+>> On 5/1/26 1:36 PM, Andrew Lunn wrote:
+>>>> + * There is a TC956X PCI power controller driver that accesses the
+>>>> + * direction and output value registers for GPIOs 2 and 3.  These
+>>>> + * GPIOs control the reset signal for the two downstream PCIe ports.
+>>>> + * Their values will never change during operation of this driver, and
+>>>> + * this driver reserves these two GPIOS.
+>>>
+>>> Why doesn't this power controller driver actually use this driver to
+>>> control the GPIOs? Chicken/egg?
+>>
+>> I am not the one with authority on this, but yes, that's my
+>> understanding.  *Something* about this chip requires that the
+>> PCIe ports need to have some configuration done on them *before*
+>> PCIe is powered up.  So that driver uses the I2C interface to
+>> apply these settings.  Meanwhile this driver uses the PCIe-mapped
+>> memory to manage the GPIO registers.
+> 
+> The diagram you have is:
+> 
+> 
+>                ----------------------------------
+>                |              Host              |
+>                ------+...+----------+........+---
+>                      |i2c|          |  PCIe  |
+>      ----------------+...+----------+........+------
+>      | TC956x        |I2C|          |upstream|     |
+>      |               -----        --+--------+---  |
+>      |  -----  ------  -------    | PCIe switch |  |
+>      |  |SPI|  |GPIO|  |reset|    |             |  |
+>      |  -----  ------  |clock|    | DS3 DS2 DS1 |  |
+>      |                 -------    ---++--++--++--  |
+>      |  -----  ------     downstream//    \\  \\   |  downstream
+>      |  |MCU|  |SRAM|    /==========/      \\  \===== PCIe port 1
+>      |  -----  ------   //PCIe port 3       \\     |
+>      |                  ||                   \======= downstream
+>      |  ----+-----------++-----------+----         |  PCIe port 2
+>      |  | M | internal PCIe endpoint | M |         |
+>      |  | S |------------------------| S |  ------ |
+>      |  | I |   PCIe   |  |   PCIe   | I |  |UART| |
+>      |  | G |function 0|  |function 1| G |  ------ |
+>      |  | E |----++----|  |----++----| E |         |
+>      |  | N |  eMAC 0  |  |  eMAC 1  | N |         |
+>      --------+.......+------+.....+-----------------
+>              |USXGMII|      |SGMII|
+>            --+.......+--  --+.....+--
+>            |  ARQ113C  |  | QEP8121 |
+>            |    PHY    |  |   PHY   |
+>            -------------  -----------
+> 
+> The two Ethernet controllers are hanging off port 3 of the
+> switch. However, the GPIO block is just floating in space. What
+> address space is it in?
 
---3tCyEtlHKzoPzEv0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Well, that isn't easily representable.
 
-On Wed, May 06, 2026 at 01:59:37AM -0700, Changhuang Liang wrote:
-> From: Ley Foon Tan <leyfoon.tan@starfivetech.com>
->=20
-> Add JHB100 base dtsi and dts. Consist of 4 Dubhe-70 cores, CLINT, PLIC,
-> PMU, UART, INTC and 1GB DDR.
->=20
-> Signed-off-by: Ley Foon Tan <leyfoon.tan@starfivetech.com>
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  MAINTAINERS                                  |   6 +
->  arch/riscv/boot/dts/starfive/Makefile        |   2 +
->  arch/riscv/boot/dts/starfive/jhb100-evb1.dts |  32 ++
->  arch/riscv/boot/dts/starfive/jhb100.dtsi     | 337 +++++++++++++++++++
->  4 files changed, 377 insertions(+)
->  create mode 100644 arch/riscv/boot/dts/starfive/jhb100-evb1.dts
->  create mode 100644 arch/riscv/boot/dts/starfive/jhb100.dtsi
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 0dfad67f66c0..22e34d2ad696 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25588,6 +25588,12 @@ F:	Documentation/devicetree/bindings/phy/starfiv=
-e,jh7110-usb-phy.yaml
->  F:	drivers/phy/starfive/phy-jh7110-pcie.c
->  F:	drivers/phy/starfive/phy-jh7110-usb.c
-> =20
-> +STARFIVE JHB100 DEVICETREES
-> +M:	Changhuang Liang <changhuang.liang@starfivetech.com>
-> +L:	linux-riscv@lists.infradead.org
-> +S:	Supported
-> +F:	arch/riscv/boot/dts/starfive/jhb100*
-> +
->  STARFIVE JHB100 EXTERNAL INTERRUPT CONTROLLER DRIVER
->  M:	Changhuang Liang <changhuang.liang@starfivetech.com>
->  S:	Supported
-> diff --git a/arch/riscv/boot/dts/starfive/Makefile b/arch/riscv/boot/dts/=
-starfive/Makefile
-> index 3dd1f05283f7..42841942fe54 100644
-> --- a/arch/riscv/boot/dts/starfive/Makefile
-> +++ b/arch/riscv/boot/dts/starfive/Makefile
-> @@ -18,3 +18,5 @@ dtb-$(CONFIG_ARCH_STARFIVE) +=3D jh7110-starfive-vision=
-five-2-lite.dtb
->  dtb-$(CONFIG_ARCH_STARFIVE) +=3D jh7110-starfive-visionfive-2-lite-emmc.=
-dtb
->  dtb-$(CONFIG_ARCH_STARFIVE) +=3D jh7110-starfive-visionfive-2-v1.2a.dtb
->  dtb-$(CONFIG_ARCH_STARFIVE) +=3D jh7110-starfive-visionfive-2-v1.3b.dtb
-> +
-> +dtb-$(CONFIG_ARCH_STARFIVE) +=3D jhb100-evb1.dtb
-> diff --git a/arch/riscv/boot/dts/starfive/jhb100-evb1.dts b/arch/riscv/bo=
-ot/dts/starfive/jhb100-evb1.dts
-> new file mode 100644
-> index 000000000000..462b6fb7953b
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/starfive/jhb100-evb1.dts
-> @@ -0,0 +1,32 @@
-> +// SPDX-License-Identifier: GPL-2.0 OR MIT
-> +/*
-> + * Copyright (c) 2024-2026 StarFive Technology Co., Ltd.
-> + */
-> +
-> +#include "jhb100.dtsi"
-> +
-> +/ {
-> +	model =3D "StarFive JHB100 EVB-1";
-> +	compatible =3D "starfive,jhb100-evb1", "starfive,jhb100";
-> +
-> +	aliases {
-> +		serial6 =3D &uart6;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path =3D "serial6:115200n8";
-> +	};
-> +
-> +	cpus {
-> +		timebase-frequency =3D <5000000>;
-> +	};
-> +
-> +	memory@40000000 {
-> +		device_type =3D "memory";
-> +		reg =3D <0x0 0x40000000 0x0 0x40000000>;	/* 1GB */
-> +	};
-> +};
-> +
-> +&uart6 {
-> +	status =3D "okay";
-> +};
-> diff --git a/arch/riscv/boot/dts/starfive/jhb100.dtsi b/arch/riscv/boot/d=
-ts/starfive/jhb100.dtsi
-> new file mode 100644
-> index 000000000000..4133ba1f45b4
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/starfive/jhb100.dtsi
-> @@ -0,0 +1,337 @@
-> +// SPDX-License-Identifier: GPL-2.0 OR MIT
-> +/*
-> + * Copyright (c) 2024-2026 StarFive Technology Co., Ltd.
-> + */
-> +
-> +/dts-v1/;
-> +
-> +/ {
-> +	compatible =3D "starfive,jhb100";
-> +	#address-cells =3D <2>;
-> +	#size-cells =3D <2>;
-> +
-> +	cpus {
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		cpu0: cpu@0 {
-> +			compatible =3D "starfive,dubhe-70", "riscv";
-> +			reg =3D <0x0>;
+In fact, the GPIO (and UART and eMACs, etc.) is accessible
+multiple ways.   They are in a single "SFR" range of memory
+within the TC956x, which is partitioned into sub-ranges for
+the separate IP blocks.
 
-> +			riscv,isa =3D "rv64imafdcbh";
+E.g:
+0x40000000	Bootup config registers (size 0x1000)
+0x40006000	UART registers (size 0x1000)
+0x40020000	PCIe registerfs (size 0x00010000)
+0x40040000	EMAC0 (size 0x8000)
+and others.
 
-Please just remove this property.
+The MCU has access to this SFR space.  The host CPU can
+access it via the I2C interface (as the PCIe power control
+driver does).  The PCIe power control driver actually
+touches the GPIO registers to be able to assert reset
+on the two downstream PCIe ports.
 
-> +			riscv,isa-base =3D "rv64i";
-> +			riscv,isa-extensions =3D "i", "m", "a", "f", "d", "c", "b", "h", "zba=
-", "zbb",
-> +					       "zbc", "zbs", "zicbom", "zicbop", "zicboz", "zicntr",
-> +					       "zicond", "zicsr", "zifencei", "zihintpause",
-> +					       "zihpm", "svinval", "svnapot", "sscofpmf";
-> +			riscv,cbom-block-size =3D <64>;
-> +			riscv,cbop-block-size =3D <64>;
-> +			riscv,cboz-block-size =3D <64>;
-> +			d-cache-block-size =3D <64>;
-> +			d-cache-sets =3D <512>;
-> +			d-cache-size =3D <32768>;
-> +			d-tlb-sets =3D <1>;
-> +			d-tlb-size =3D <16>;
-> +			device_type =3D "cpu";
-> +			i-cache-block-size =3D <64>;
-> +			i-cache-sets =3D <512>;
-> +			i-cache-size =3D <32768>;
-> +			i-tlb-sets =3D <1>;
-> +			i-tlb-size =3D <24>;
-> +			mmu-type =3D "riscv,sv48";
-> +			next-level-cache =3D <&l2c0>;
-> +			tlb-split;
-> +
-> +			cpu0_intc: interrupt-controller {
-> +				compatible =3D "riscv,cpu-intc";
-> +				interrupt-controller;
-> +				#interrupt-cells =3D <1>;
-> +			};
-> +		};
+In addition, BAR4 for both PCIe functions has access to the
+same SFR space.  So in fact, both of these functions are
+capable of controlling GPIOs.  We are having just one of
+them (function 0) be responsible for that.
 
-> +		cpu-map {
-> +			cluster0 {
-> +				core0 {
-> +					cpu =3D <&cpu0>;
-> +				};
-> +			};
+> I'm wondering if the GPIO controller should be a device/driver of its
+> own? It probes first. The PCI power controller driver then probes, and
+> has phandles to the GPIO controller so it can activate ports 1 and
+> 2. Parallel to that the Ethernet driver(s) can probe, also using
+> phandles to the GPIO they need.
+> 
+> Looking at this diagram, putting the GPIO controller within one of the
+> port 3 functions is wrong. But maybe the diagram is not accurate.
 
-Each cpu is in a different cluster? Interesting, suppose it makes sense
-when you have different l2 caches. What other resources are not shared?
-Do they have different cpu clocks too etc?
+When the PCIe power controller was implemented, the GPIO
+functionality was not separated out.  That driver simply
+touches two registers to manage asserting reset on the two
+downstream PCIe ports.  (It changes these only during the
+appropriate times during power-up and power-down of the ports.)
 
-> +
-> +			cluster1 {
-> +				core0 {
-> +					cpu =3D <&cpu1>;
-> +				};
-> +			};
-> +
-> +			cluster2 {
-> +				core0 {
-> +					cpu =3D <&cpu2>;
-> +				};
-> +			};
-> +
-> +			cluster3 {
-> +				core0 {
-> +					cpu =3D <&cpu3>;
-> +				};
-> +			};
-> +		};
-> +
-> +		l2c0: cache-controller-0 {
-> +			compatible =3D "cache";
-> +			cache-block-size =3D <64>;
-> +			cache-level =3D <2>;
-> +			cache-sets =3D <2048>;
-> +			cache-size =3D <0x20000>;
-> +			cache-unified;
-> +			next-level-cache =3D <&l3_cache>;
-> +		};
-> +
-> +		l2c1: cache-controller-1 {
-> +			compatible =3D "cache";
-> +			cache-block-size =3D <64>;
-> +			cache-level =3D <2>;
-> +			cache-sets =3D <2048>;
-> +			cache-size =3D <0x20000>;
-> +			cache-unified;
-> +			next-level-cache =3D <&l3_cache>;
-> +		};
-> +
-> +		l2c2: cache-controller-2 {
-> +			compatible =3D "cache";
-> +			cache-block-size =3D <64>;
-> +			cache-level =3D <2>;
-> +			cache-sets =3D <2048>;
-> +			cache-size =3D <0x20000>;
-> +			cache-unified;
-> +			next-level-cache =3D <&l3_cache>;
-> +		};
-> +
-> +		l2c3: cache-controller-3 {
-> +			compatible =3D "cache";
-> +			cache-block-size =3D <64>;
-> +			cache-level =3D <2>;
-> +			cache-sets =3D <2048>;
-> +			cache-size =3D <0x20000>;
-> +			cache-unified;
-> +			next-level-cache =3D <&l3_cache>;
-> +		};
-> +
-> +		l3_cache: cache-controller-4 {
-> +			compatible =3D "cache";
-> +			cache-block-size =3D <64>;
-> +			cache-level =3D <3>;
-> +			cache-sets =3D <1024>;
-> +			cache-size =3D <0x20000>;
-> +			cache-unified;
-> +		};
-> +	};
+It's possible *that* work could have implemented a separate
+GPIO driver.  We did not pursue modifying the power control
+driver to work that way.
 
-> +	clk_uart: clock-25000000 {
-> +		compatible =3D "fixed-clock"; /* Initial clock handler for UART */
+Instead, we modeled it starting with the STMMAC driver (which
+is how the Toshiba vendor driver works).  But we separated
+the GPIO functionality into a separate (auxiliary) device,
+which has its own driver.
 
-What does this comment mean?
+Because the internal endpoint won't operate until the PCIe
+power controller has enabled power, this GPIO driver and
+the PCIe power control driver won't interfere with each
+other's access to the shared registers.
 
-> +		#clock-cells =3D <0>;
-> +		clock-frequency =3D <25000000>;
-> +	};
-> +
-> +	soc {
-> +		compatible =3D "simple-bus";
-> +		interrupt-parent =3D <&plic>;
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +		dma-ranges;
-> +		ranges;
-> +
-> +		clint: timer@2000000 {
-> +			compatible =3D "starfive,jhb100-clint", "sifive,clint0";
-> +			reg =3D <0x0 0x02000000 0x0 0x10000>;
-> +			interrupts-extended =3D <&cpu0_intc 3>, <&cpu0_intc 7>,
-> +					      <&cpu1_intc 3>, <&cpu1_intc 7>,
-> +					      <&cpu2_intc 3>, <&cpu2_intc 7>,
-> +					      <&cpu3_intc 3>, <&cpu3_intc 7>;
-> +		};
-> +
-> +		plic: interrupt-controller@c000000 {
-> +			compatible =3D "starfive,jhb100-plic", "sifive,plic-1.0.0";
-> +			reg =3D <0x0 0x0c000000 0x0 0x4000000>;
-> +			riscv,ndev =3D <400>;
-> +			interrupt-controller;
-> +			#interrupt-cells =3D <1>;
-> +			#address-cells =3D <0>;
-> +			interrupts-extended =3D <&cpu0_intc 11>, <&cpu0_intc 9>,
-> +					      <&cpu1_intc 11>, <&cpu1_intc 9>,
-> +					      <&cpu2_intc 11>, <&cpu2_intc 9>,
-> +					      <&cpu3_intc 11>, <&cpu3_intc 9>;
-> +		};
-> +
-> +		bus_nioc: bus_nioc {
+In short, because this "SFR" space is available in various
+ways, there are several ways the GPIO (and other) IP can
+be managed and represented.
 
-jhb100-evb1.dtb: bus_nioc (simple-bus): $nodename:0: 'bus_nioc' does not ma=
-tch '^([a-z][a-z0-9\\-]+-bus|bus|localbus|soc|axi|ahb|apb)(@.+)?$'
-        from schema $id: http://devicetree.org/schemas/simple-bus.yaml
+					-Alex
 
+> 
+>       Andrew
 
-Cheers,
-Conor.
-
-> +			compatible =3D "simple-bus";
-> +			#address-cells =3D <2>;
-> +			#size-cells =3D <2>;
-> +			dma-noncoherent;
-> +			dma-ranges =3D <0x4 0x00000000 0x0 0x40000000 0x2 0x0>,
-> +				     <0x4 0x00000000 0x4 0x00000000 0x2 0x0>;
-> +			ranges;
-> +
-> +			uart6: serial@11982000 {
-> +				compatible =3D "snps,dw-apb-uart";
-> +				reg =3D <0x0 0x11982000 0x0 0x400>;
-> +				clocks =3D <&clk_uart>, <&clk_uart>;
-> +				clock-names =3D "baudclk", "apb_pclk";
-> +				interrupt-parent =3D <&intc>;
-> +				interrupts =3D <26>;
-> +				reg-io-width =3D <4>;
-> +				reg-shift =3D <2>;
-> +				status =3D "disabled";
-> +			};
-> +
-> +			intc: interrupt-controller@13220000 {
-> +				compatible =3D "starfive,jhb100-intc";
-> +				reg =3D <0x0 0x13220000 0x0 0x80>;
-> +				interrupts =3D <1>;
-> +				interrupt-controller;
-> +				#interrupt-cells =3D <1>;
-> +			};
-> +		};
-> +	};
-> +};
-> --=20
-> 2.25.1
->=20
-
---3tCyEtlHKzoPzEv0
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaft+EQAKCRB4tDGHoIJi
-0rd4AP43nGycLBSIKTznxWMihonljZWvV81MDpg7Vz7S+sBFYgEA6phltZkz693z
-FUii8VSiQeITFdNZB39U4XEzXuhx1As=
-=YYdo
------END PGP SIGNATURE-----
-
---3tCyEtlHKzoPzEv0--
