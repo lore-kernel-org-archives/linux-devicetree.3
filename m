@@ -1,320 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010053.outbound.protection.outlook.com [52.101.201.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A4B48124E;
-	Wed,  6 May 2026 14:08:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778076530; cv=none; b=BAU4hwIhgIboKw1wuvrMabNoMNcvdrH99eCBZPOf3T7p1W2BEJ+s854WbWfQTvDbp2gZs2qbpiwxEg3GW/4C2UISiZFoTacOzZyovkTwPu7iuENGEGCxmdslT4h9hXWTN9HkmBIMXAj5dknRJ5oRzDx4YgVjXGX5n9TlGI1QfzQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778076530; c=relaxed/simple;
-	bh=xhMT6m9MSrFZJ4JjaIR/01q4K4EeL4ONktLfcyCv1e0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=T6J3UFCY768J9ZJUXShI7hnEjEQGYNxnX6AR5VDvtIxn52WoJ4UknEMfgh1fbWRGNcmWlVB/KzgSk9fqi65PzTVaOmsHutf+B1y1qOy6EAMk1+KIuPDbKMKlPRD/CdrKQXNRgE9peC/8z+bywCMRB4QV4xx39txTHNU6zqhk7rs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hGEg22xR; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F29848AE2B;
+	Wed,  6 May 2026 14:08:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778076537; cv=fail; b=lkjXcxIESqd/j4QGIZHR4RcD7YghJ6X6WuQAlGnDaVXUftxHfPYRZRUY7lXQCAx9t/BsB25E32u3ki8ueOF7F1ZFMdq6Yzro/M+uvlkqCFTq1XGh+uKSfZRV3IWb+ThwJrjQVdWuD/bDN4bHM045OgrxCALEk9ztcR9Y8uGM5cs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778076537; c=relaxed/simple;
+	bh=2PmiOPR1nhqjgrHXwT7zW9VgLRnco39lzrbnLYaYlLM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=c+2q9RYo7Za/1C05QWLAZUmynYS+6LQl0HS/5kewJdd1jlE2uXB4XRyrQcgIEkBJrUzQDlX9nhIaGrWlF864ZIo6T2nqct1ZPV3fsWtF/3fNeCPmVrtBOJ6ygTgIrFlCWWAAyF2w3T9ihBuMdlwJlRAj9T8uyO+W4FfjAnOjOAE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=p1+BbqXO; arc=fail smtp.client-ip=52.101.201.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hGEg22xR"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3C5E1C2BCF6;
-	Wed,  6 May 2026 14:08:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778076530;
-	bh=xhMT6m9MSrFZJ4JjaIR/01q4K4EeL4ONktLfcyCv1e0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=hGEg22xR/itUK67WqCEewXyOIV/K1DSp5VD2gvKxiaS5r1hV2W26Jjp5116OGXc3I
-	 hCbM39d5Y/jq3Y8oovOWOJAr9Pz06ziCtsQy9W2VGpZE7Q2CeIu5NvFmCuic79c0fD
-	 n0HM6+V0icoTyc8odILOX3dHCD+rsANje/sOmPr15bGfxpL0iKmz68LuBiG5y84kOR
-	 wxEp/wDzoY1HwleV35sUH/SAzZDa1mAEs6OvKrcJDp6uDIsGnka2du6EESEsEx526M
-	 XyrA5AB+D2a0ds2ou8GG0i7rhAZX2+i5MEID94zXqKOwVr9knpH2R1q8OaGK4FPylG
-	 onEuuHcQBNVQQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 353A3CD343B;
-	Wed,  6 May 2026 14:08:50 +0000 (UTC)
-From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Wed, 06 May 2026 15:08:54 +0100
-Subject: [PATCH v11 10/11] docs: iio: add documentation for adf41513 driver
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="p1+BbqXO"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B2OfVGcFqI1b39a6TB/jUzOy9XNlpPPBBSjEtGA+FWih/8Xdn8juiXdmagnhpSA8rRjQT4tkczm5kmt5qLeSgc5whTqYGULatJThaHxZ9bMTY/7OqJMdUmWuhQuArOgPKS33k8l/qr4TfVnIUoKCzYtgnU1yOUWaYZqyL7TiSlRC9v4/4KntuQJvf45ykz9wQ9DyCjepbjNuhy8dpzQqbCDl1dJg6ZI66oPP6brDpj2vrBDbUPK/PeNcxC3SXbLIPt9EQtSJ+7GHGf8cgLMIfhT0WAZ4lmKU6alCx6wTmM30/eywGFwL+htwSVSvl3zfK9+24jpI23HJFVsOU/MlIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qgi+A/ZIfv7/qbiGk9UAv8jE3kQb4C8q8+nRTgbh1Q8=;
+ b=gNX7RtVZ+H7qJKpyZTHE5U1sKipIo9ZwTyPoRHJqq040w3Wc0dKibSlWq2iFqkyrHxFM9428odEoYBUyxlosXxn/XwwzbCvNz9lrG9RF/Bvre7QRYKRFePZrviFxRnhmBJ5S9zoVzkNQEP8n8fw0pMfCFhuWeDOYoYVMTNxbXEgsvBqvrgjdkGGc1Pj16xkpdN7nL18HHMZ9IV+68avtkn+zPpMchR6ahfAb4V/MXu/i0RCFpMYfNxOJ+ExMJohmhAguoQ/yVpuP+xlJHfKhqfq9BvrWjaZXZghCjvqAfh1ayY4Ly3IuMBSo2tOSqj1r6bB7nSebxBXN7cahtzP3zQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qgi+A/ZIfv7/qbiGk9UAv8jE3kQb4C8q8+nRTgbh1Q8=;
+ b=p1+BbqXOBn4IowyXfhK8nVD+LmaLgOhbL2+PBcJMBTOkAkBwxsAsIzRb2nRMFWfMFTetCbfLyGaZVCqEFIBF7mvlU3Wh2YJ/FClldYZUHOlmwjLdEnWfrGoyPyc3on2ezqbjdpHt8CfDkluScT+uJ6qztHRzw3AsABvWF9CxEM4=
+Received: from CH2PR19CA0001.namprd19.prod.outlook.com (2603:10b6:610:4d::11)
+ by DS7PR10MB5119.namprd10.prod.outlook.com (2603:10b6:5:297::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
+ 2026 14:08:53 +0000
+Received: from CH2PEPF00000099.namprd02.prod.outlook.com
+ (2603:10b6:610:4d:cafe::2) by CH2PR19CA0001.outlook.office365.com
+ (2603:10b6:610:4d::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.15 via Frontend Transport; Wed,
+ 6 May 2026 14:08:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ CH2PEPF00000099.mail.protection.outlook.com (10.167.244.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Wed, 6 May 2026 14:08:51 +0000
+Received: from DFLE203.ent.ti.com (10.64.6.61) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 6 May
+ 2026 09:08:45 -0500
+Received: from DFLE208.ent.ti.com (10.64.6.66) by DFLE203.ent.ti.com
+ (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 6 May
+ 2026 09:08:45 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Wed, 6 May 2026 09:08:45 -0500
+Received: from toolbox.dhcp.ti.com (uda0492258.dhcp.ti.com [10.24.73.74])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 646E8IWo1221395;
+	Wed, 6 May 2026 09:08:39 -0500
+From: Siddharth Vadapalli <s-vadapalli@ti.com>
+To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <josua@solid-run.com>,
+	<w.egorov@phytec.de>, <matthias.schiffer@ew.tq-group.com>,
+	<d.haller@phytec.de>, <francesco.dolcini@toradex.com>,
+	<joao.goncalves@toradex.com>, <emanuele.ghidoli@toradex.com>,
+	<ernest.vanhoecke@toradex.com>, <rogerq@kernel.org>, <eballetb@redhat.com>,
+	<robertcnelson@gmail.com>, <afd@ti.com>, <u-kumar1@ti.com>
+CC: <stable@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<luis.parga@ti.com>, <srk@ti.com>, <s-vadapalli@ti.com>
+Subject: [PATCH v2 03/13] arm64: dts: ti: k3-am642-sk: fix USB clocking for compliance
+Date: Wed, 6 May 2026 19:39:35 +0530
+Message-ID: <20260506141040.1368918-4-s-vadapalli@ti.com>
+X-Mailer: git-send-email 2.51.1
+In-Reply-To: <20260506141040.1368918-1-s-vadapalli@ti.com>
+References: <20260506141040.1368918-1-s-vadapalli@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260506-adf41513-iio-driver-v11-10-2b7e99cfe8f2@analog.com>
-References: <20260506-adf41513-iio-driver-v11-0-2b7e99cfe8f2@analog.com>
-In-Reply-To: <20260506-adf41513-iio-driver-v11-0-2b7e99cfe8f2@analog.com>
-To: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Cc: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Rodrigo Alencar <rodrigo.alencar@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778076527; l=9329;
- i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=ek72Uni0aLVjECog+k9zY7JILNn8elgvhuyZE9QQN+Y=;
- b=21T5KbDau58nN3pvzDNFa4I+KC3fPyubMQFqaRV0f/6HPEXinjYEzIaaM1Q+XqVVwZbzQyapU
- BQ/uia/GrtvDmAxtKvZa7oD+F7SYyD0BU6swb7Y+QQ1elUZk4sEgKXe
-X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
- pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
-X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
- with auth_id=561
-X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Reply-To: rodrigo.alencar@analog.com
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000099:EE_|DS7PR10MB5119:EE_
+X-MS-Office365-Filtering-Correlation-Id: 962ef1d2-3032-4566-de43-08deab79000b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|7416014|36860700016|1800799024|921020|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	rBSVhIcb/dFuFgaLSHDkzY7Lia7eEUZ1ExeH8oc6kcqPUcK7cRQX5SuIK8ile5ocU74e0pMDKn2YufOOLqlJBSTHDpuAG1t8xNDAl1eNsr09aJCRSEr/d3h9DChEWGgiFnbhkJ51shJYSaRArUbveAi7C1qw8m30/VH08S61nV59YACuq6qLiIkjjl54eSGEVdK3fBfa0v3HRR0D6RZP69G7jCgwNe6pG6bnWIdKgYZ+k0dc9KSY8QbDHvaBAUtZDCvTrmdjPrCwUWelp8EVD2dT1G8K38TbNB3sSyhucxPS6lIw+y1a9ly/VUxn9WQDsB1Jfm+qV9Gs1NWL7ODJ1EnrOmztMO1Jw8qyCeY4LT460Fs9ofTY1J5WIQJBkGH8s0IRSwcyUlM1phEGXnq+oU5L8JfCogDyFyhZTSjBGUHBjlSp+owcF63pDk7khjNST4UOVshSnkBkB1Eiob9yes0T+RF+TJOqhoVMK+kkKj9v+7m8eOhkJxI8YmcaE2bhm/rXjqZKqWGFIzRJQzHxOPp58+c47e5w7wO3xNhh90edy3Mx64nqD/7kSPhn3DsIUdEO1WD/bqSRPrBsKQVBdF3C+z08DTETrwmhaYTkA9KJ5K8AXIqLT6GNEDRirfSjvhtJDsrFi1nJWKnPnpmGt+aDSFoa2tsugJsJooJ/cO0s+PQiCf5Lefq/HJKu5IFkM8/sUsYjO4DmOWoA9dGiZTlAS5f7BWR1keqiz6JOgm5bVqzSo4D/rBiP7Fa3dxLW5LOdssm13jBnYbl51Mt9VWBaZjuo31J8Hi13SdsME6M=
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(36860700016)(1800799024)(921020)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	X1Jcy+4Yu9DgV5TcOvBjAeVaNG5rr8jqL818qBIF1OgeBrZ7mxCqlu93zrDR1UCRdiGCL82TQBd0y3P68DWAGSQk318BMbTpM4A4TX75bXe2DEp7v90ppcrL+OiIfFPRDi+boywEZqJcvFFaUi50S1FGe4HyVc7+cDOJu7hFIk0ChuWkY04PiS6XqikI+c3TxSFLIF49O1SffLCSYcs3R4yIHPg1nwyrOpez6mXB1rxIHLUJXEf2hNGLLjHy1wUn+ip86XSLgBY7Xs6/9Rdg+DImLAdWVXTsSkLtvFzpbTRVaNtegTkTakgDLOzX5Y5Zhha7xmjVOmxbWsLYqOMYgNQJDn/zk4BZbKw4YzMnSFZ1QyZyfXw9jv6nciczUUNNNzqpreneprDSp25DbVXogslqUtCS371vQ1TfHypGEs5GDD+ZSgR2GMndBkLsXD82
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 14:08:51.2412
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 962ef1d2-3032-4566-de43-08deab79000b
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000099.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB5119
 
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+From: Luis Parga <luis.parga@ti.com>
 
-Add documentation for ADF41513 driver, which describes the device
-driver files and shows how userspace may consume the ABI for various
-tasks.
+According to section "6.5.3 Normative Spread Spectrum Clocking (SSC)" of
+the USB 3.2 Specification, SSC should be enabled by default. This protects
+against EMI violations. Hence, enable internal SSC for USB SuperSpeed.
 
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Fixes: 4e8aa4e3559a ("arm64: dts: ti: k3-am642-sk: Enable USB Super-Speed HOST port")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Luis Parga <luis.parga@ti.com>
+Signed-off-by: Siddharth Vadapalli <s-vadapalli@ti.com>
 ---
- Documentation/iio/adf41513.rst | 199 +++++++++++++++++++++++++++++++++++++++++
- Documentation/iio/index.rst    |   1 +
- MAINTAINERS                    |   1 +
- 3 files changed, 201 insertions(+)
 
-diff --git a/Documentation/iio/adf41513.rst b/Documentation/iio/adf41513.rst
-new file mode 100644
-index 000000000000..244453cce6f6
---- /dev/null
-+++ b/Documentation/iio/adf41513.rst
-@@ -0,0 +1,199 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+===============
-+ADF41513 driver
-+===============
-+
-+This driver supports Analog Devices' ADF41513 and similar SPI PLL frequency
-+synthesizers.
-+
-+1. Supported devices
-+====================
-+
-+* `ADF41510 <https://www.analog.com/ADF41510>`_
-+* `ADF41513 <https://www.analog.com/ADF41513>`_
-+
-+The ADF41513 is an ultralow noise frequency synthesizer that can be used to
-+implement local oscillators (LOs) as high as 26.5 GHz in the upconversion and
-+downconversion sections of wireless receivers and transmitters. The ADF41510
-+is a similar device that supports frequencies up to 10 GHz.
-+
-+Both devices support integer-N and fractional-N operation modes, providing
-+excellent phase noise performance and flexible frequency generation
-+capabilities.
-+
-+Key Features:
-+
-+- **ADF41510**: 1 GHz to 10 GHz frequency range
-+- **ADF41513**: 1 GHz to 26.5 GHz frequency range
-+- Integer-N and fractional-N operation modes
-+- Ultra-low phase noise (-235 dBc/Hz integer-N, -231 dBc/Hz fractional-N)
-+- High maximum PFD frequency (250 MHz integer-N, 125 MHz fractional-N)
-+- 25-bit fixed modulus or 49-bit variable modulus fractional modes
-+- Programmable charge pump currents with 16x range
-+- Digital lock detect functionality
-+- Phase resync capability for consistent output phase
-+
-+2. Device attributes
-+====================
-+
-+The ADF41513 driver provides the following IIO extended attributes for
-+frequency control and monitoring:
-+
-+Each IIO device has a device folder under ``/sys/bus/iio/devices/iio:deviceX``,
-+where X is the IIO index of the device. Under these folders reside a set of
-+device files that provide access to the synthesizer's functionality.
-+
-+The following table shows the ADF41513 related device files:
-+
-++--------------------------------------+-------------------------------------------------------+
-+| Device file                          | Description                                           |
-++======================================+=======================================================+
-+| out_altvoltage0_frequency            | RF output frequency control and readback (Hz)         |
-++--------------------------------------+-------------------------------------------------------+
-+| out_altvoltage0_frequency_resolution | Target frequency resolution control (Hz)              |
-++--------------------------------------+-------------------------------------------------------+
-+| out_altvoltage0_powerdown            | Power management control (0=active, 1=power down)     |
-++--------------------------------------+-------------------------------------------------------+
-+| out_altvoltage0_phase                | RF output phase adjustment and readback (radians)     |
-++--------------------------------------+-------------------------------------------------------+
-+
-+2.1 Frequency Control
-+----------------------
-+
-+The ``out_altvoltage0_frequency`` attribute controls the RF output frequency
-+with sub-Hz precision. The driver automatically selects between integer-N and
-+fractional-N modes to achieve the requested frequency with the best possible
-+phase noise performance.
-+
-+**Supported ranges:**
-+
-+- **ADF41510**: 1,000,000,000 Hz to 10,000,000,000 Hz (1 GHz to 10 GHz)
-+- **ADF41513**: 1,000,000,000 Hz to 26,500,000,000 Hz (1 GHz to 26.5 GHz)
-+
-+The frequency is specified in Hz, for sub-Hz precision use decimal notation.
-+For example, 12.102 GHz would be written as "12102000000.000000".
-+
-+2.2 Frequency Resolution Control
-+--------------------------------
-+
-+The ``out_altvoltage0_frequency_resolution`` attribute controls the target
-+frequency resolution that the driver attempts to achieve. This affects the
-+choice between integer-N and fractional-N modes, including fixed modulus
-+(25-bit) and variable modulus (49-bit) fractional-N modes:
-+
-+- **Integer-N**: Resolution = :math:`f_{PFD}` (same as PFD frequency)
-+- **Fixed modulus**: Resolution = :math:`f_{PFD} / 2^{25}` (~3 Hz with 100 MHz PFD)
-+- **Variable modulus**: Resolution = :math:`f_{PFD} / 2^{49}` (µHz resolution possible)
-+
-+Default resolution is 1 Hz (1,000,000 µHz).
-+
-+2.3 Phase adjustment
-+--------------------
-+
-+The ``out_altvoltage0_phase`` attribute allows adjustment of the output phase
-+in radians. Setting this attribute enables phase adjustment. It can be set
-+from 0 to :math:`2\pi` radians. Reading this attribute returns the current
-+phase offset of the output signal. To create a consistent phase relationship
-+with the reference signal, the phase resync feature needs to be enabled by
-+setting a non-zero value to the ``adi,phase-resync-period-ns`` device property,
-+which triggers a phase resynchronization after locking is achieved.
-+
-+3. Operating modes
-+==================
-+
-+3.1 Integer-N Mode
-+------------------
-+
-+When the requested frequency can be achieved as an integer multiple of the PFD
-+frequency (within the specified resolution tolerance), the driver automatically
-+selects integer-N mode for optimal phase noise performance.
-+
-+In integer-N mode:
-+
-+- Phase noise: -235 dBc/Hz normalized floor
-+- Frequency resolution: :math:`f_{PFD}` (same as PFD frequency)
-+- Maximum PFD frequency: 250 MHz
-+- Bleed current: Disabled
-+
-+3.2 Fractional-N Mode
-+---------------------
-+
-+When sub-integer frequency steps are required, the driver automatically selects
-+fractional-N mode using either fixed or variable modulus.
-+
-+**Fixed Modulus (25-bit)**:
-+
-+- Used when variable modulus is not required
-+- Resolution: :math:`f_{PFD} / 2^{25}`
-+- Simpler implementation, faster settling
-+
-+**Variable Modulus (49-bit)**:
-+
-+- Used for maximum resolution requirements
-+- Resolution: :math:`f_{PFD} / 2^{49}` (theoretical)
-+- Exact frequency synthesis capability
-+
-+In fractional-N mode:
-+
-+- Phase noise: -231 dBc/Hz normalized floor
-+- Maximum PFD frequency: 125 MHz
-+- Bleed current: Automatically enabled and optimized
-+- Dithering: Enabled to reduce fractional spurs
-+
-+3.3 Automatic Mode Selection
-+----------------------------
-+
-+The driver automatically selects the optimal operating mode based on:
-+
-+1. **Frequency accuracy requirements**: Determined by ``frequency_resolution`` setting
-+2. **Phase noise optimization**: Integer-N preferred when possible
-+3. **PFD frequency constraints**: Different limits for integer vs fractional modes
-+4. **Prescaler selection**: Automatic 4/5 vs 8/9 prescaler selection based on frequency
-+
-+4. Usage examples
-+=================
-+
-+4.1 Basic Frequency Setting
-+----------------------------
-+
-+Set output frequency to 12.102 GHz:
-+
-+.. code-block:: bash
-+
-+    root:/sys/bus/iio/devices/iio:device0> echo 12102000000 > out_altvoltage0_frequency
-+
-+Read current frequency:
-+
-+.. code-block:: bash
-+
-+    root:/sys/bus/iio/devices/iio:device0> cat out_altvoltage0_frequency
-+    12101999999.582767
-+
-+4.2 High Resolution Frequency Control
-+-------------------------------------
-+
-+Configure for sub-Hz resolution and set a precise frequency:
-+
-+.. code-block:: bash
-+
-+    # Set resolution to 0.1 Hz (100,000 µHz)
-+    root:/sys/bus/iio/devices/iio:device0> echo 0.1 > out_altvoltage0_frequency_resolution
-+
-+    # Set frequency to 12.102 GHz (1 µHz precision)
-+    root:/sys/bus/iio/devices/iio:device0> echo 12102000000 > out_altvoltage0_frequency
-+    root:/sys/bus/iio/devices/iio:device0> cat out_altvoltage0_frequency
-+    12101999999.980131
-+
-+4.3 Monitor Lock Status
-+-----------------------
-+
-+When lock detect GPIO is configured, check if PLL is locked:
-+
-+.. code-block:: bash
-+
-+    # Read frequency - will return error if not locked
-+    root:/sys/bus/iio/devices/iio:device0> cat out_altvoltage0_frequency
-+
-+If the PLL is not locked, the frequency read will return ``-EBUSY`` (Device or
-+resource busy).
-diff --git a/Documentation/iio/index.rst b/Documentation/iio/index.rst
-index 007e0a1fcc5a..b02b879b053a 100644
---- a/Documentation/iio/index.rst
-+++ b/Documentation/iio/index.rst
-@@ -31,6 +31,7 @@ Industrial I/O Kernel Drivers
-    ad7625
-    ad7944
-    ade9000
-+   adf41513
-    adis16475
-    adis16480
-    adis16550
-diff --git a/MAINTAINERS b/MAINTAINERS
-index b5bf5f7de9c9..4c326244d496 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1668,6 +1668,7 @@ L:	linux-iio@vger.kernel.org
- S:	Supported
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/iio/frequency/adi,adf41513.yaml
-+F:	Documentation/iio/adf41513.rst
- F:	drivers/iio/frequency/adf41513.c
+v1:
+https://lore.kernel.org/r/20260505110631.1144200-4-s-vadapalli@ti.com/
+No changes since v1.
+
+ arch/arm64/boot/dts/ti/k3-am642-sk.dts | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/ti/k3-am642-sk.dts b/arch/arm64/boot/dts/ti/k3-am642-sk.dts
+index d28a38c87f32..9f63fea5e6a4 100644
+--- a/arch/arm64/boot/dts/ti/k3-am642-sk.dts
++++ b/arch/arm64/boot/dts/ti/k3-am642-sk.dts
+@@ -463,6 +463,11 @@ &serdes_refclk {
  
- ANALOG DEVICES INC ADF4377 DRIVER
-
+ &serdes_wiz0 {
+ 	bootph-all;
++	ti,core-clk-sel = <1>;  /* Select internal reference clock */
++	ti,ssc-enable; /* Enable SSC */
++	ti,ssc-type = <1>; /* 1 for Downspread */
++	ti,ssc-frequency-hz = <33000>; /* 33 KHz */
++	ti,ssc-depth-per-mil = <5>; /* 0.5% depth */
+ };
+ 
+ &serdes0 {
+@@ -473,6 +478,7 @@ serdes0_usb_link: phy@0 {
+ 		cdns,num-lanes = <1>;
+ 		#phy-cells = <0>;
+ 		cdns,phy-type = <PHY_TYPE_USB3>;
++		cdns,ssc-mode = <2>; /* 2 for internal SSC */
+ 		resets = <&serdes_wiz0 1>;
+ 	};
+ };
 -- 
-2.43.0
-
+2.51.1
 
