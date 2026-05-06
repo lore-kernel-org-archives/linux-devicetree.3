@@ -1,103 +1,104 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA33770809;
-	Wed,  6 May 2026 22:40:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E11369980
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 22:41:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778107237; cv=none; b=kZy1pLT6Jdl++T2z5OFvOKTwS2w07cEbNtY8/uWCPMheEPSaBF0+RlY647mYlEDqUxdNBlkQkRRvS4nBGvWACM8ClH5/yeOKIXK+r8fgACa8Cz3jFt1nw9EphU9ibNKBu8to2SThtm737aTNaKLll3x6Eq6VD8lVeENHTcCKoXc=
+	t=1778107297; cv=none; b=WJJHSyuaRX9IXEDOaGqqLO1rHmlja2Q1wPwc3pcIQggCg74ySU9pktAe9707WwLKjKw0oiviVPX0brCTxw/IJjx6hbOButT5EyF8tNkgIgyMa6u1cHgNi8DARxanIl6uydPRElSq0RtjHdgi89PhMf78r2YGQ32cPJgiFw07eds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778107237; c=relaxed/simple;
-	bh=gsK1AubfywTgARP6ZBJNFwZCqCGKnL32OBn6DpxUoug=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HoDKR6gN9JcE9r9S7OMoHHqE1u//yypqaIj9kuRQdbGays0c/ez9L22b/BC0nPfHdggZC4O66kh/MKWRoa3yTC6A/BS6mnfqYiDXgXS1H4ZuYXOCp79yIvyKkmdazJyL0zf/MjoKfcuA9VtLOB48nTG14k1yQ4gd/aFioPjABL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=u3artJhS; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ZjG1yuH0; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1778107297; c=relaxed/simple;
+	bh=PmsRz6+C0zWDdNa25QXMM0mm1NJ8sRDQgJ3iimwKjzI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=evoel5W4sfBIY/uHPhrKc9Bpp6rBOaKwSpoMbIT6mk2/toNiN1qVKW353Bx1kDgLEkcit1SucT2xA0aPgJu1Kn3yE2xNzQCcDdDgZWTtnFALSRN7fWJYq5lNX/9Mt81Ap0EoyVfrR18aQYjJ19j55LyuUEKOeLpXH8MeyVEWVPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=El8OFq17; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="u3artJhS";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ZjG1yuH0"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4g9r1r2Ttmz9tcW;
-	Thu,  7 May 2026 00:40:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1778107232;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UWBO9OrNKl3GTFxm6utkM2kR6qRM8Jvldyy+o4BbU4s=;
-	b=u3artJhSfM9zXA2x7lW545FTky+TIoZWzk/3CfrCYXEjwSlSgwkUBzoSj0YzXpzW3e76GJ
-	X7SyyDUQLems76Yhh5ll8G1nMcwSaFNkjjp5MIaf1BP/pyEwROiPTAlsCx8TCTVW6lPPX9
-	LFGsy4NKYsw1tQXy0LjhU8W9fhPzN9U16HUWROVltzLGZUrmwDiBw5rIsEjY6j73ChguJX
-	TNxuJrhjHLKdRRx8diWToLDraSFVQPi9w93RIj+SVr2foNZouGU63Gv2aZIVvLlg2GMBxg
-	7h6C8BpZCKJ25CYaI7YCJ6I47SzEuLyTv9i4pPGT+Wu7sJ/h/fksjIJjZ1f9kA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=ZjG1yuH0;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=marek.vasut@mailbox.org
-Message-ID: <1670fef1-2ff7-4902-b7ae-34ffaead64e3@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1778107230;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UWBO9OrNKl3GTFxm6utkM2kR6qRM8Jvldyy+o4BbU4s=;
-	b=ZjG1yuH0ILULcGS7bEug6HuEedgWQZCNd+IFrNBSRhpDUdICgYgCmqNTHk9UJJD2TnSedT
-	6cILmcmJNOUhtfdciSI87HEUGpeizo1XgPXemS8wUoGGpWDPAWpe/6ncaf4OnMBMLN5GK/
-	+/ixf6H6QEfFEE7rCsBDMFNriwdjQ/V547tWGWnTL2v4G7KczKxrn2A7TKA6Q6E89c8zxa
-	viwkF6b5o8RV27zeYBz6V1mQg9rBqx7EzChi4kokGc79YjybqgHxmILclGRdPUWmx4aZI0
-	XIZA1yD+c1DtSnnKmzF921/ckrhh0w+W+5xWAzcYyIypRkMGzI93RERM7D63kw==
-Date: Thu, 7 May 2026 00:40:22 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="El8OFq17"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-48374014a77so2352795e9.3
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 15:41:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778107295; x=1778712095; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:date:message-id:subject
+         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KouoTL4PzOBYmkbjYLcs67bF3yuXBF5vYz+z+OF4FFE=;
+        b=El8OFq17WSmDwCMLneSvILadCH7CFEPMy1GqTCjN8lgzHUaCZhWiZYpEAXQLJZWLLY
+         H7gqBk8eBweJ98qDCi0EmxqZN1rXosNd6MV3juE4RGjNu5U0k5Fsk3SqxWQ6KFhdDUKB
+         l8XMBlcto6BgGUVfCxkvTB/R/wNyXjzJrIe+rh6d8Ne08r4l0NlaNMdhkjVt5m072FPe
+         IylpkFGMKOP8Olz13mkZsFQ86MWYhV8N3gNMj5jS6CxBajvMHoI3opIbmv8GHK7UYxBR
+         YVswBN91lKMdIFfQaIpovh2vvQ/FgFsNCoGWVfFY4fyj8d9sQ6cjI6+WHq09kBT+6FMC
+         zAVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778107295; x=1778712095;
+        h=content-transfer-encoding:mime-version:date:message-id:subject
+         :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=KouoTL4PzOBYmkbjYLcs67bF3yuXBF5vYz+z+OF4FFE=;
+        b=M1XHMhf7bde6gmABD3wl/looav9XninKyJRKcudE2RLZxxdJ20tzzzBvWyKuCgAIaW
+         q0XRFkD91Lh4x3+LO5TSkgh1OTynehqCRMhm9uuKViMwAGgpi4eqdLXeSiU+DAe+Kdcx
+         ic1vVA9gz+Y2YLjJNN3lqz40J+C2XI4UiJ3rl5QdHhPBrZM9C+N4NySVPH4m5T1+C1pr
+         Hcpt20bfyf76mHW0csw0PlEiAJB2T/Cy/PVNbofi7xZCp4ydJeMiYPvpyBL6ijHdanO4
+         LWd9PEWRlLFMlnwnk5kRM6rWfI+CucA/GNbMiRsRjDgyC8NFZ2+x19Xip6oUZs2xO07A
+         S7/A==
+X-Forwarded-Encrypted: i=1; AFNElJ/lBE6zhfV4ekN47Cr+5/9iXjtgJ8ySw2bfGp/FHcH86G6eUGlHaBa98DyeXkpYKRCbwYcr0Fi8m5uu@vger.kernel.org
+X-Gm-Message-State: AOJu0YxyDxTUyVPSEQYtTGGKwmbU29r1k1g4zAFudkJZaBkqCAUxKQ0O
+	4bXvXp+x6VuUC7k1y2vEIidiPDnbAKBWlNFIO+ErNHjvSYKT4ckuIQZI
+X-Gm-Gg: AeBDiev7DeVhxKnk9poOu++hgn/auyv8KddddzKU6pG19o3QRZPrGeLUmUZ99ruvtez
+	doa9Q+UOdemWiD2HOBoL3vBlmBCgIqsMBN/G2xX6Ai3vHnogppMRt9rQ10GfBLI0CoBXandst4/
+	tIZj7xTy2lTIQFtLd3/V2SbYBCZAFzP1BQ2nwEH4qwfWEwqM5Dv2ekyf8ZwoMPM2nEqQTXgPdbI
+	wJWhavUVOv0UQpzRLDWUDwzeGAyHPTEypLqUZw9Dj2mI6pwkBsjYhJYCZm1/c9yFLMnPwIaQ7Gv
+	anNMQFetwwqs1CCQA6WaAvP92gzKuIC9k/Pzxv97+vSuQMSh6mKDEFqrIPy8lHL6QxYho1oOimU
+	0MYVyIoRV9FW9iPLZy8T40OkVh1kd4xJ5gNr4Gh51iGWjCOuD7iRkBFVU1n4W4R5l2CCLA+WgiQ
+	GjfZgE+7zpwmhQieTFUQUIsbdXzu4mJ3jnvtu+Sew++7flg7ICLiT4hbw9a1aaGCLyvqWqG8yz+
+	sN7/Jc5UgbzQv9pcvcmB5ViS8r5Yc2E7z4a
+X-Received: by 2002:a05:600c:811a:b0:489:1c32:210d with SMTP id 5b1f17b1804b1-48e51f369c3mr91695785e9.15.1778107294675;
+        Wed, 06 May 2026 15:41:34 -0700 (PDT)
+Received: from [127.0.1.1] (93-143-241-172.adsl.net.t-com.hr. [93.143.241.172])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e538bc9bdsm92181315e9.11.2026.05.06.15.41.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 06 May 2026 15:41:32 -0700 (PDT)
+From: "=?utf-8?q?Duje_Mihanovi=C4=87?=" <dujemihanovic32@gmail.com>
+X-Google-Original-From: =?utf-8?q?Duje_Mihanovi=C4=87?= <duje@dujemihanovic.xyz>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Duje_Mihanovi=C4=87?= <dujemihanovic32@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Karel Balej <balejk@matfyz.cz>, 
+ David Wronek <david@mainlining.org>, phone-devel@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht
+In-Reply-To: <20260409-cprime-dt-fixes-v6-20-v1-0-8df6f88942c8@dujemihanovic.xyz>
+References: <20260409-cprime-dt-fixes-v6-20-v1-0-8df6f88942c8@dujemihanovic.xyz>
+Subject: Re: [PATCH 0/4] samsung,coreprimevelte dt fixes
+Message-Id: <177810729157.349411.9116754282787318766.b4-ty@b4>
+Date: Thu, 07 May 2026 00:41:31 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH/RFC 09/14] dt-bindings: clock: Document Renesas R-Car X5H
- Clock Pulse Generator
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Saravana Kannan <saravanak@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Ulf Hansson <ulfh@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1776793163.git.geert+renesas@glider.be>
- <f8c98dbf6b32c0d467606d59b071e9c2bfc29dbc.1776793163.git.geert+renesas@glider.be>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <f8c98dbf6b32c0d467606d59b071e9c2bfc29dbc.1776793163.git.geert+renesas@glider.be>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: qcuenbn8cnr7hi8yath89o8qnw76r9qk
-X-MBO-RS-ID: a83454511542bb04792
-X-Rspamd-Queue-Id: 4g9r1r2Ttmz9tcW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.15.2
 
-On 4/21/26 8:11 PM, Geert Uytterhoeven wrote:
-> Document support for the Renesas R-Car X5H Clock Pulse Generator,
-> and add definitions for a very limited and preliminary set of clocks.
-> 
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-I managed to implement U-Boot CPG remap driver based on these bindings, 
-and the bindings also fit for U-Boot on RSIP direct hardware access CPG 
-driver.
+On Thu, 09 Apr 2026 23:17:23 +0200, Duje Mihanović wrote:
+> A small assortment of DT fixes for samsung,coreprimevelte.
 
-Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Tested-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Applied, thanks!
+
+[1/4] arm64: dts: marvell: samsung-coreprimevelte: Increase touchscreen voltage
+      commit: 4da515eca1b8de56c9e8a17866626f99d9bccbc7
+[2/4] arm64: dts: marvell: samsung,coreprimevelte: Use memory-region for framebuffer
+      commit: cfb4346423eb5dab498546d617a8c444b878bff3
+[3/4] arm64: dts: marvell: pxa1908: Add PSCI function IDs
+      commit: e93abeef9267a9c3e063e594571d46b3d9461efc
+[4/4] arm64: dts: marvell: samsung-coreprimevelte: Add missing SDIO properties
+      commit: 52c47f734f934fdd83659e1a7b096597cca14522
+
+Best regards,
+-- 
+Duje Mihanović <duje@dujemihanovic.xyz>
+
