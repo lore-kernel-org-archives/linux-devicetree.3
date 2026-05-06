@@ -1,151 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out198-5.us.a.mail.aliyun.com (out198-5.us.a.mail.aliyun.com [47.90.198.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA8D63F7AAA;
-	Wed,  6 May 2026 09:56:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66413F54B4;
+	Wed,  6 May 2026 09:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778061389; cv=none; b=hQyx3mf/OKjgKSMfiF5nh1HCuqwnHq5zrYRdBO4gVB7cc1/2wE2AVN6AFob7NMH7qipeGHwBkSUeq0IS06OiMrBu0lZlM5MZnakMXN/Et9ZIjWC9bB0HAkjZT2gmGdCgESQzygm4okRP1JAuKYBABqTlVcsOJ1/ZPnncA+fydRE=
+	t=1778061420; cv=none; b=pJ8NyMv8Z5uFgBmIRib1rqO/5CHtOxqpmVQQosntGQKUhlNFcOUSS1hSBhnqv+Y/fV25bWNpNIlHGfOsoENsFKEho7a3jNAb4SyfjS5GLKSYzeEFoJ4Iq8NpD2gkRoZBI6GcaHdEEnAQh8pCObTMou4AqIx1v3eczCt+zCaWePo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778061389; c=relaxed/simple;
-	bh=QF1Oy3KAlUqFyR6FjVwD3ZaTS9edq3Aah9KEPn7CM8E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RfbH/goe0JHMpbO36CcfmDOe0JiOddYiUhGlkcBKwmmWHpCwsMXc/AYJ2WP5hVoc0nzMZfEW0VXLeBADrovMKNi57JpTEyLEsU2AA69bucd5YShaZwShpI/7YAThJxHnBUnmGwN2O3QsXmYrkjeUe7BIgEPwhRqDljwnp9x4xqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gOzfabUr; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778061420; c=relaxed/simple;
+	bh=RLOz/ZnVJZCDYB9dS2jiJaVTjLGpOoo2hwv74R6DDKs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Au3Va0meB4L2lIJF1758pPiHGX1kHbheFmJR68b2wSJgAXqSnbi/Z0y06Ei1kKhx2//QFsCSerR/JYGOQK7rOuVbMo9Q2x++DGQx8NE+wpQx3YeFl6JyM63THxtChFr1oHe0St8E6ztv/3CvWsNQznY+FNeHPYsi/EitULUqg6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=vpiQMNwt; arc=none smtp.client-ip=47.90.198.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gOzfabUr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C57ECC2BCB8;
-	Wed,  6 May 2026 09:56:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778061385;
-	bh=QF1Oy3KAlUqFyR6FjVwD3ZaTS9edq3Aah9KEPn7CM8E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gOzfabUros6Jj5KScyL+9r/KHEMRT0ebLE6YrPbisSUkeVYeLu/mqvgL/7aDE6hnL
-	 68Le3yycy2PoFttuUqOVPI/QrfS4IX6FxdxOkEjg4S5RtsKU8OgMDeNf+Qa5UY5BGr
-	 /cPC/aHZigyEEopM5o7xtTV7ley6llX/2phv8DPGItY6VLo3ZpT6dokqqrRRszhy1n
-	 2PWf1QVPHhFGRjBKo7uPzI3glTdWIk6eBi2tvtlfQ07fH7kCEtglTQIscUPhvdIerI
-	 SUGFpNZ1ovpVGfqzOEL5a+9fsitGoC4FJRi3FS3qPpDzblhkTBcrFmR7hv1MRZ7L3v
-	 lf0+JXH3bX78Q==
-Message-ID: <319fc5ac-1211-4845-9a66-79f1a3026126@kernel.org>
-Date: Wed, 6 May 2026 11:56:20 +0200
+	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="vpiQMNwt"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=lontium.com; s=default;
+	t=1778061384; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=rTVeenQDP4Q2AleUYbvOEo57e4WiFM7IEwD5oihr2sM=;
+	b=vpiQMNwt8JNrrmnkInLNkXK1iQdtWZNN2FlpYCtXL0rbvjnq0BhsmZIKcAs6X/EzJkGXhx9M1OZA02Gj1MlipxIcQVYOhhtQkLOXQjXC1H4b6Tpb50GxDAhyztJpkq01ibo+4df/hrVvG5JDJiW7EuHnU7flmBctbdomrtnRM7J61q0lBwcJeSvr9OTrWN3ejYDeCyWau+hm7i1AxKpq5ht2zE12ocH/sikYsmbheu72460Xnz3AcKhxRDxiZP8TvuFkRVNrYR9fudc0jh4ReT8fNMCZFa6tamxwg7GzlApO+XvDuoeUqidKMw3MaUT8xJWIwNDAdh+azDI99bICLA==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07905283|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0167526-0.000462775-0.982785;FP=12634903803476037369|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033068016216;MF=syyang@lontium.com;NM=1;PH=DS;RN=22;RT=22;SR=0;TI=SMTPD_---.hQlP4X-_1778061062;
+Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.hQlP4X-_1778061062 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 06 May 2026 17:51:04 +0800
+From: syyang@lontium.com
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	dmitry.baryshkov@oss.qualcomm.com,
+	maarten.lankhorst@linux.intel.com,
+	rfoss@kernel.org,
+	mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	tzimmermann@suse.de,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	yangsunyun1993@gmail.com,
+	xmzhu@lontium.corp-partner.google.com,
+	xmzhu@lontium.com,
+	rlyu@lontium.com,
+	xbpeng@lontium.com,
+	Sunyun Yang <syyang@lontium.com>
+Subject: [PATCH v4 0/2] Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
+Date: Wed,  6 May 2026 17:50:58 +0800
+Message-Id: <20260506095100.78998-1-syyang@lontium.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: cache: qcom,llcc: Document Eliza LLCC
- block
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Conor Dooley <conor@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260504-eliza-llcc-v1-0-d7006c899812@oss.qualcomm.com>
- <20260504-eliza-llcc-v1-1-d7006c899812@oss.qualcomm.com>
- <20260506-imported-emerald-quoll-fd1ef8@quoll>
- <0028dd41-d039-4ef5-a9f7-deb730a05b0b@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <0028dd41-d039-4ef5-a9f7-deb730a05b0b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06/05/2026 10:49, Konrad Dybcio wrote:
-> On 5/6/26 10:25 AM, Krzysztof Kozlowski wrote:
->> On Mon, May 04, 2026 at 01:00:07PM +0300, Abel Vesa wrote:
->>> Document the Last Level Cache Controller on Eliza SoC. Eliza LLCC has 2
->>> base register regions and an additional AND, OR broadcast region, total 4
->>> register regions.
->>>
->>> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
->>> ---
->>>  .../devicetree/bindings/cache/qcom,llcc.yaml       | 22 ++++++++++++++++++++++
->>>  1 file changed, 22 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/cache/qcom,llcc.yaml b/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
->>> index 995d57815781..90f5a54b76e3 100644
->>> --- a/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
->>> +++ b/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
->>> @@ -20,6 +20,7 @@ description: |
->>>  properties:
->>>    compatible:
->>>      enum:
->>> +      - qcom,eliza-llcc
->>>        - qcom,glymur-llcc
->>>        - qcom,ipq5424-llcc
->>>        - qcom,kaanapali-llcc
->>> @@ -341,6 +342,27 @@ allOf:
->>>              - const: llcc_broadcast_base
->>>              - const: llcc_broadcast_and_base
->>>  
->>> +  - if:
->>> +      properties:
->>> +        compatible:
->>> +          contains:
->>> +            enum:
->>> +              - qcom,eliza-llcc
->>> +    then:
->>> +      properties:
->>> +        reg:
->>> +          items:
->>> +            - description: LLCC0 base register region
->>> +            - description: LLCC2 base register region
->>
->> LLCC1?
-> 
-> Unfortunately not
+From: Sunyun Yang <syyang@lontium.com>
 
-Then let's just skip the names, because it will cause unnecessary
-confusion when name is llcc1 (since it is the NEXT entry) but it points
-to block called LLCC2 in the manual.
+This series introduces:
+- A device tree binding YAML file describing the hardware
+- A new DRM bridge driver implementing the basic functionality
 
+LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
+mipi dsi and output hdmi, differences in hardware features:
+- LT9611C: supports 1-port mipi dsi to hdmi 1.4
+- LT9611EX: supports 2-port mipi dsi to hdmi 1.4
+- LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
 
-Best regards,
-Krzysztof
+Signed-off-by: Sunyun Yang<syyang@lontium.com>
+---
+Changes in v4:
+- dt-binding:
+ 1. fix commit message                                                              [Krzysztof]
+- drm/bridge:
+ 1. use lt9611c_fw.bin                                                              [Dmitry]
+ 2. use drm_bridge::next_bridge
+ 3. use enum lt9611_chip_type
+ 4. remove *fw from the lt9611c struct
+ 5. "bool hdmi_connected;" variable add comment
+ 6. use read_poll_timeout and -ETIMEDOUT in the "lt9611c_read_write_flow" function
+ 7. replace mutex_lock(&lt9611c->ocm_lock) with guard(mutex)(&lt9611c->ocm_lock) in some place
+ 8. switch to ARRAY_SIZE instead of specifying lengths directly
+ 9. use dev_err_probe
+ 10. add clear functions for AVI and audio infoframes
+ 11. add DRM_BRIDGE_OP_HDMI  and remove .hpd_notify
+ 12. remove the sample_rate validation code
+ 13. fix MODULE_DESCRIPTION
+ 14. replace "GPL v2" with "GPL"
+- Link to v3: https://lore.kernel.org/lkml/20260420061644.1251070-1-syyang@lontium.com/
+
+Changes in v3:
+- dt-binding:
+ 1. lt9611c(ex/uxd) content merged into lontium,lt9611.yaml
+- drm/bridge:
+ 1. Drop the licence text, only use SPDX header
+ 2. Sort the headers
+ 3. Use library functions for crc8
+ 4. Drop i2c_read_byte and i2c_write_byte
+ 5. Lowercase all hex values
+ 6. Use paged writes as implemented for LT9611C(EX/UXD)
+ 7. Drop dev_info, use dev_dbg
+ 8. Modify lt9611c_get_edid_block, don't store EDID in the long-term structures
+ 9. Use HDMI audio helpers.
+ 10.Remove unnecessary flags,Implement proper cleanup path, unwinding resources one by one.
+ 11.Replace devm_kzalloc with devm_drm_bridge_alloc.
+ 12.Remove extra kthread.
+- Link to v1: https://lore.kernel.org/lkml/20250903123825.1721443-1-syyang@lontium.com/
+
+Changes in v2:
+ 1. Forget modify code, operation error, Please disregard this submit.
+
+Changes in v1:
+- dt-binding:
+ 1. Submit the first version of the code.
+- drm/bridge:
+ 1. Submit the first version of the code.
+
+---
+Sunyun Yang (2):
+  dt-bindings: bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI
+    driver
+  drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
+
+ .../display/bridge/lontium,lt9611.yaml        |    8 +-
+ drivers/gpu/drm/bridge/Kconfig                |   18 +
+ drivers/gpu/drm/bridge/Makefile               |    1 +
+ drivers/gpu/drm/bridge/lontium-lt9611c.c      | 1211 +++++++++++++++++
+ 4 files changed, 1236 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/gpu/drm/bridge/lontium-lt9611c.c
+
+-- 
+2.34.1
+
