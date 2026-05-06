@@ -1,111 +1,133 @@
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5136F3F9F4B
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 15:38:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564F93EE1FD;
+	Wed,  6 May 2026 15:38:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778081918; cv=none; b=OyGehl2ItxTATAnCvnUr+GqZqZBXMZxHv1MGUYktGh870lmuQA6tCLu6F++s1Nzit3dXsTKNn498ayjMoz+uPzQ7VB187bh/JfUSF5Waqg6uMkP2++25S53y80qXtP1dNhJobW4MWQJHKtEBwgQ4hoCnQ85AxMZ3UgX5hmsiwfI=
+	t=1778081931; cv=none; b=gBfzbcVSrw0gszrcW9xrlL8kser/M8khauOIghtcoTReynXhJTIUyIuKW0btyaOchCP7hlVcHSdL0aPo1FVDAujR887KUZJmmm41mjBq2e3bT5iI3ifJy0wRLDri+kHowSggO1nOtb0akOxYqycaIj9GYUtFtArf7VyWNw2iEaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778081918; c=relaxed/simple;
-	bh=mK4RQvudzSfHDKsOsVoyt8Iw5IZ1HXhGx8SNTgh8YWU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZHX3MyMSiaQzZuEc3qEYXEV2cfuW+AgihzAlAZ68HTB1C2+EDryli1rp0UHFtwkv/+gnMTOvtteeJedTUFR0Ad9YH+ggy+mmI5XdXfrJ5Rt/INbIG2dc/krURJCWmuq0RIuP+fCNMuvL0TLZ08OWLrZIAh+nJHAzBdinXTkxLwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-57512a429d1so2853949e0c.3
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 08:38:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778081916; x=1778686716;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uiPvar8b58lM8s+EHxxzQhZuLn8K6vNLqEMxBWnkjCU=;
-        b=iA79yLv7UIgKrcJ0b2OlMoBBLueX0vBsFFM39PXFn3itCMjwNlDoPiQrQeGMzbdYgx
-         ZcmWDylgiiaot3VkKr0dx5pAc5q+4aDYo+B5cjMRpdNm449oPgKGCsvHVZ97s26xfNU/
-         wz55ijm6u/h0BLaDH71p9LK5iip6yTe24Phnu5Q95rNR0OO4QP4tijC/weMiuB/y8khi
-         3xYpXfLrdLMeQYRzD6010dQZ8duI9PxGmO08iru+Gf9mRWL8+FZwtKX+9155lEXBt4lp
-         YslnCYzEesim2AWg4Vg3xf+P9EbY8x91lRPxHKc6nIVMMD4D13zYhEVmMUpFN0VNkFkR
-         +AmQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+89ZCdoKtBRofdcfQALZM6Ngrn/s087d8jsRmJTw+UB+HwGJ1TUJ7S/MXRwEbamL18wFZs+c2KyuJt@vger.kernel.org
-X-Gm-Message-State: AOJu0YzLWjC8mKib+vU1bRMsXDiJ8qPtYyJGqXWEFiDYHklbCTOBYsaK
-	Qhj5PlZdv0TNecBhRPMIiiVKYuVCJJX6Rt4knrFSoYg4H8AKInhijWT0CsNi9VCFv1o=
-X-Gm-Gg: AeBDiesCPlNHJXD97/CTfjKs1Xqr05m0SGklF1mbGn69WDEUFJFs1vtzD9dk8AMUdH1
-	97a9rO7WepeW+RdpDvkCGCmH/sVov67uTg3ek+IT+UZyMu1KacRncT2mp4NvRRbjzVEl5aNB6se
-	luXRliC+BUq3CPdc4PtIRGIWlAgApDI3a4Dp8PAB/IYsAVMSG3HH6/T1QN01NeoO6AF9CLJq4Qg
-	mqiBAqAW+kM0qvhY2QUAH/thA+i8cAb96ph8DivmYyPdjJpaMQSFbDsbMXsmQXxQ7vrKIo+Yt0O
-	2d8/w0NbzOc2Tc7u3VVwTx5D0DL4xuQM8X0uKrh8xZJAHJGcHBpX6KIBXE3LFIOfctkzIJE0Yvs
-	s8nDbUS9BtntFs/xQa7IFYIOvlS5m9miHuHqJwc0OJF+sa2sBKOPL4931Uf/Bf05MAxHFj/aHLy
-	lAJ+yMkClWCPWzSluYgiApm7mJnyVA74AgxzCN6lJnFAfNmsEjs7yIHPrw7rSm1leb8aGyHno=
-X-Received: by 2002:a05:6122:915:b0:56b:5893:d042 with SMTP id 71dfb90a1353d-5755962d507mr2115810e0c.12.1778081915609;
-        Wed, 06 May 2026 08:38:35 -0700 (PDT)
-Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com. [209.85.222.44])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5749f835632sm10170259e0c.5.2026.05.06.08.38.34
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2026 08:38:34 -0700 (PDT)
-Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-94ac8cbf3feso4136397241.0
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 08:38:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/kHWGWkpfVlfNdwRnxnd45FueQAk5YESA9uxzRyh3FMCoIbbRfuXc26BXBAxa+dIURdFX9p45iGjEd@vger.kernel.org
-X-Received: by 2002:a05:6102:948:b0:613:6b44:3fad with SMTP id
- ada2fe7eead31-630f90367e5mr1751467137.25.1778081914401; Wed, 06 May 2026
- 08:38:34 -0700 (PDT)
+	s=arc-20240116; t=1778081931; c=relaxed/simple;
+	bh=6sQcvJ02EAB9Lz/kHFbKX/FUadBZAXtEZqWiVpfYz4E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IZ7chOJdLt5ErZt3+Y65KZpxiWWjKUwgaGmk1RypLw8Qgz/zTT/sCwq0vq/0kSAaaI4ZddUmYmG/IuONs4vwwmAxb0ZIsB/h7Z1W8oZW6VP5N+fCB7vh6d2Rcdtm0FfFOWF7TxL25LeRS5AGHEM4ae7gTdSvIWxM0ShTfGzzj2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: esmtpsz20t1778081905t5dc8af55
+X-QQ-Originating-IP: 66bIYIjIjPtDUf7ZMQLWTQPiTh7x0N6Cl1Fw8/bZasU=
+Received: from [127.0.0.1] ( [116.234.74.217])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 06 May 2026 23:38:19 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 4295684557063516514
+Message-ID: <859776B5671B36B9+577c19e4-3e66-4036-b26f-fe20287a1d43@radxa.com>
+Date: Wed, 6 May 2026 23:38:17 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260430093422.74812-1-biju.das.jz@bp.renesas.com> <20260430093422.74812-2-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260430093422.74812-2-biju.das.jz@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 6 May 2026 17:38:23 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVUQonMKppURhOpuewET5v9=dqqbywtRzn5jNBqPdFFuQ@mail.gmail.com>
-X-Gm-Features: AVHnY4JsU8xfdNxfBXAX3UweYeeFn-aNk8d9aeafTdrWsa0-SJ8O5YDm2A2HTXw
-Message-ID: <CAMuHMdVUQonMKppURhOpuewET5v9=dqqbywtRzn5jNBqPdFFuQ@mail.gmail.com>
-Subject: Re: [PATCH v4 1/7] dt-bindings: pinctrl: renesas: Document RZ/G3L SoC
-To: Biju <biju.das.au@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
+ support
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, maxime.chevallier@bootlin.com,
+ rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
+ brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org,
+ Daniel Thompson <daniel@riscstar.com>, mohd.anwar@oss.qualcomm.com,
+ a0987203069@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
+ boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, chenhuacai@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com,
+ inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com,
+ livelycarpet87@gmail.com, matthew.gerlach@altera.com,
+ mcoquelin.stm32@gmail.com, me@ziyao.cc,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
+ weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-11-elder@riscstar.com>
+ <224E233C593EF171+8c8a43dd-5061-40f8-9eb7-f360eabf2ecc@radxa.com>
+ <4015f47a-af62-441d-b1b8-a8598f963970@lunn.ch>
+ <4C0D95BC59F1A4ED+53f3be85-2cdd-4058-8950-57970027d481@radxa.com>
+ <2af0fee3-d3d6-4434-847f-3fd2fbb841d3@lunn.ch>
+Content-Language: en-US
+From: Xilin Wu <sophon@radxa.com>
+In-Reply-To: <2af0fee3-d3d6-4434-847f-3fd2fbb841d3@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NMth3b25qZ/y3GsZOZbTcTtn7ivxtNnfDwhten1J2cIhmuHszCIWDEp5
+	62vFagLVkDtj/ihAfFxqCDAkwPknNTQ8rt2JdPO3DntsuJvxTDZwhwn6v9Q2Zr3fexxrdav
+	Z8tOqhADpYyVy9j/gfNlM6y7qT+IPNVQIh9ISw9xH2humwR+0QuQgfl/S6YVNPcViexfzng
+	Tu0rFdlhN+wyFpLgg5vpKp26j9ufuc6yKDetrb4Ryuw7818jy3rdUpAnCorwW/EAkH7GC45
+	9sHsQ0R5GNdl9foXYGG8tVWqi46VBH2HlSGhx+89L9ZEqbHo1NLEErlzEuRkNG3xqWER7V5
+	xHAS00ExpjcrZcs2qHWpfE/7l1GfoyFa/+5zYjXotwBHkWlBP0uJxiOf01OCq9uFnyyXzpb
+	OeRyO4nGN5aYqgEjRrsxivJFb6rJNwBktM1YIPpoCA2CwJtV6zvB9XDvhjuDv5ZYgiwB29H
+	gGz3Qd1kYxiEFMNOgAJK2zvON05qEvjOLsSde0Vo+LL6YZHv4M+VlHospu6p2a+wEMuEmHF
+	Jc2st9+8GhXzqMowizoLQAL9VnQzdAOXMjWoyRvsXqT7B4Vc0LM4XecnPl0Ziru2BKirpPA
+	qHkI1zSenEcKZXkvc23ex+ZqmzUztSiU4e/RZIrZsvktRyV/SbBD38JEeWOcNI+nTpBNslx
+	iSwfov58UuPq6538i53SLFp+W5xh7QCd1qKPQXAOljWV5AvuAyaKKulKBGYDttswirvo6r0
+	0oNQl9z2qpNBc/OtuZcFmGLL4vpn7ILM/Y7dCPvMO85opK0XJce6YlVCCUTeh04dthfKACl
+	k+pLhAPReZWtmYTjow9htBMh3OFHZxmVd7cppGF6kZYVWO2OeK+mNL2+FOSTHHcxXshpWZb
+	vErub9eGThX/A8VngZnkNdzGFFh+kutCnJM/uiHn4Af2yNS/MOKLin5rNs1vHhv3TxdC4hu
+	PJzWLeXYsrFARDQrb66jMt7nTlS2mT9f+K/V7dpZw3LpyIDgi3kTgwqwerOn2yClL/iZKrv
+	DZbuWNVc60wjyJ2QSJx9V51Y+lE9LALFS636snRufTrAe5eLiCLWBoPPg2wB9ETWOt9C2EA
+	ghCObbyLYQElz+mAyIcubIu/ppF34Od5oZzNMZsR0f9
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-On Thu, 30 Apr 2026 at 11:34, Biju <biju.das.au@gmail.com> wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->
-> Add documentation for the pin controller found on the Renesas RZ/G3L
-> (R9A08G046) SoC. The RZ/G3L PFC is similar to the RZ/G3S SoC but has
-> more pins.
->
-> Also add header file similar to RZ/G3E and RZ/V2H as it has alpha
-> numeric ports.
->
-> Document renesas,clonech property for controlling clone channel
-> control register located on SYSC IP block on RZ/G3L SoC.
->
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-> ---
-> v3->v4:
->  * Dropped Port P4 as it does not exist on RZ/G3L SoC.
->  * Retained the tag as it is trivial change.
+On 5/6/2026 10:45 PM, Andrew Lunn wrote:
+>> Hi Andrew,
+>>
+>> Yes, the PHY is doing the WoL. And I guess this makes sense as it allows the
+>> MAC to power down during suspend to save power.
+>>
+>> The INTN pin of QCA8081 is connected to the ETH_0_INT_N of QPS615. And the
+>> INTN_WOL pin is connected to a SoC GPIO.
+>>
+>> Without this change, I can't get WoL to work. I have a working branch for
+>> our board here:
+>> https://github.com/strongtz/linux-radxa-qcom/commits/v7.0.2-8280-wip/
+> 
+> Please take a look at commit
+> 
+> commit 6911308d7d111a9c367293b52f2dc265819f2b60
+> Author: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> Date:   Thu Oct 23 10:16:50 2025 +0100
+> 
+>      net: stmmac: convert to phylink-managed Wake-on-Lan
+> 
+> In particular:
+> 
+>      When STMMAC_FLAG_USE_PHY_WOL is not set, we provide the MAC's WoL
+>      capabilities to phylink, which then allows phylink to choose between
+>      the PHY and MAC for WoL depending on their individual capabilities
+>      as described in the phylink commit. This only augments the WoL
+>      functionality with PHYs that declare to the driver model that they are
+>      wake-up capable. Currently, very few PHY drivers support this.
+>      
+> Could you actually patch the PHY driver to make it list its
+> capabilities. That is the direction we want to go in the long term,
+> and not use STMMAC_FLAG_USE_PHY_WOL.
+> 
+>      Andrew
+> 
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in a branch shared by renesas-pinctrl for v7.2
-and renesas-devel.
+Thanks for pointing this out! You are right that I should patch the PHY 
+driver. I have made WoL work without the change in the tc956x driver.
 
-Gr{oetje,eeting}s,
+-- 
+Best regards,
+Xilin Wu <sophon@radxa.com>
 
-                        Geert
-
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
