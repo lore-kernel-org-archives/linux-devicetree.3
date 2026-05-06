@@ -1,183 +1,200 @@
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com [209.85.222.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012045.outbound.protection.outlook.com [40.107.200.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F55047F2D9
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 14:04:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA060317177;
+	Wed,  6 May 2026 14:08:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.45
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778076241; cv=pass; b=Jg2GOc+r3Itd1fHfLVFXilaaP46dw0lN1ZRKUNTwATJ0mjWezbpPYKrtWlWYg3zHrXKMN08ZlqsMfX4nSvYaJ21psSYvSBxFrCM3cJnVC+l9N8sMvm6+hm5nxWniyfnAp4MiHiYfmFO7M2KuG/kK1nde8gY7MHGX/4/R1n4lm1I=
+	t=1778076514; cv=fail; b=eLIaq/xugDX7wQf446ydJsyh/Rz64vcIpIWDXQsQNcwh9ciwok+x5OWtRzxrnQDUy//WyXwLGuP7mFtEOKxOMkKyxCxzYAe+gS+Q4+3sePAyWE0Mq8Z/SKpM8wY8y/FkUCzAgOksA/6Z48ACvwgvF0hhnBrUoPJJeVoV0nVgrx8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778076241; c=relaxed/simple;
-	bh=+RS49Kd2DbvtubK5kt5W1aYVEDo05KG7Xep0OnmpGgg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oGoLEUm0ZDSSRnPV47jsqnqIAUev0fJdNBSOZl/wt0shWKRDCadzpA/IyT+/ngTml9qqvwhzmo62FMTR1Wu1fNZg1ZAL9cnD1kO0DWOBwI7XDZjFeSVodJK5li8dawI80CQgbDCC8HPms0YZ/Z6c8PmUi/PdCT74k19dtd3ksiw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PULCZyqm; arc=pass smtp.client-ip=209.85.222.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778076514; c=relaxed/simple;
+	bh=ayBoWTgTZvW1j9ft2tZae5GhAKFQLyzfkvmlJJA5Oow=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LhVJOpyEQGxtHLB09DVo2MD+VUEhxmqezl3QLSPP1iZW3mwWXTMKx1OXmoFz6EqrvY3H/83q6z3UqfG4hbbL0LVr33wx+Aun19OzDkM3NpezNWzJVX8GpBKxaidtCK1BMvieq2Ssj2soTTaE2bMRRhFLcAI+VlGzDZUOC1ldEBc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=g4XQ0UEf; arc=fail smtp.client-ip=40.107.200.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PULCZyqm"
-Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-95cc8ac98bfso1232388241.3
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 07:04:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778076239; cv=none;
-        d=google.com; s=arc-20240605;
-        b=XoXtq5pWmONDQO+MFFTePHwVXANko/8+fRO6qKkiPpSwyzEDB7EVRbJwZ17VAwqxYX
-         +kuY9lg5G9f3uSjIZiIK35p1ld8Xm3sXAleP4IkndE8pAF9WrOLtqvw+KxUuBeTuCbWX
-         gQebyTgXQSieTgNvEbGgO5tUAK5L2Do1X7uhs67lLHcJUQQ7QVGv+Nhjv7+iPfYBLCAb
-         XY9161ac4ojJQSwWOFpgiML/hmiy0zYIyb87KasPP4UDmHsJGfNBox43r4abgYOULexZ
-         4Wr4WyhISDXOfT5f3n2sGCmNQf/q1vjMvudsheyDbAVCOiXEHmBG0Emg7aHEWXYfCPU5
-         qU/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jsD9mMCCpukEdwiIZPox/sOpEjhE31kEGDjuvOB20/g=;
-        fh=dV9Z4nGn2MRX5pudezPnb76Rp/ppehUNMchpP8hwt+A=;
-        b=CYxR585EpCdP9GIqBHL6u3b1Fm31ZznZtSRhJQJiRUrsGJY0S/LTSUJmBFvKPD0W5w
-         /oohWCO81UwjWDN4eY+xiwHpz0r0u9tNhuDVlEjIOhKsdrhBc0BuHngN8E3T8rpjMwr6
-         WMCZsQK/nbf5cjNBoMM4kkpPuyzBg5Wh29JknqSSYgK//vEzBDEqrsexFMXd0xa0dNK3
-         Xhpkk3b3P8boNOJjXZugKVF0NQP3Y5c+8NPwW17mKPXB+fsiXLvA+rnnvlB1HEon2B43
-         Dk9IDNwgxn4AZJoheO2W5y2oqcnEL6kciAaXKLrYHl9P6k1OHoBfgO91PaIwTGdOlGXO
-         r/bg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778076239; x=1778681039; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jsD9mMCCpukEdwiIZPox/sOpEjhE31kEGDjuvOB20/g=;
-        b=PULCZyqmUCNjLBfLOu5f7dfJkEQ6msYeV+fw5aWICfkcD0ZmkqfGBU2C0Qg1+JMkDR
-         w7aOzJd2QmvEYej6f78uHwDEAT1DJPTIfU4sLPvy4m7Ef4yPQUhjec0fwgpxGNdIQ5v/
-         fLkLqqLtjfZsw64TQSrGjOkUb/4FgdNmRGH51yRH0akneC3BQFFJsLMu/xGwo9a+WhsL
-         DCcm1BFRqPHUY4CZnZ6JtXK63Smj8+fBdwUmwzOcanaZFwrM+DQ3VEw2rKja3DZX+dHz
-         kqdKH9RojKQ3ILEtPPk91qt4c8Za8AXKObaMmnhESUM2ayhOkMdhA4ssfuSc4iE0mCMq
-         Xvjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778076239; x=1778681039;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=jsD9mMCCpukEdwiIZPox/sOpEjhE31kEGDjuvOB20/g=;
-        b=sGRTFwq2oAeTsyHGQ1eB/h/Oycl7H5avr36ukSm0FgJ1WzJLatH5LntxkaylhMNgij
-         z0emzYzBZyl02Cxe6XswiX//mUe6zKgxJxPKwmhchQamnSVFfGm/MRuvN85FB8+eIMb2
-         EE3cBYeV7N5lUynxoFt90e4G7/HB7wficZAZmrBxfGgQPAMWYmxvLllk6YUjXJMXtZJx
-         0mACC1g9TSbcu4zTe7dviv6sL8nzya1Oebci9xADiOKkRwv6ZVl8EUeGZ03+PV2Yd2S8
-         bky2t35Yf/VUWXyU+85ClGTy2lQwmmqy5w6zWjcfL2m1pO6vpQXTp+JoPKPOXOI9SXYE
-         xsZQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9KTMOmZFeNvhQ7mNS6GmWc97PDBjh51sDUa4IcGv7SvaeuBEa6VV79t4FBuH/GnB5HIZJiFMERkWvm@vger.kernel.org
-X-Gm-Message-State: AOJu0YwIbSloasxrETnL+zVqi+34EGuU+8lNtUrY8YBAekkrrnWg/pLK
-	qIRoLb8faQsMsrP91i4q2iqTxbmzRbx3xsCjY6cHmG1ECkiS3ep5A0nJKrr39lSF0kU4oS1Mqt+
-	xXOSQdk0MheFIu4wAegUttfS41iLwULw=
-X-Gm-Gg: AeBDiev1gJHpsDjPt85QI2jvSQc57ZXYx8vMaoHu+I/LRuTdbPZqDG3qKDllXJlMijj
-	l04yaPtk5F6rbYuNtf0gWQdHBlighdEmeApepBmomTc/l3xrTN1dpMeODISNmiNPAeRGfXA5KE+
-	KyDJbaX1ISVKMnanYueK7HtJliX6TiurNGgqG90tXZrmVi0d/xpOkHUyBGups4CZj+BiNx3FozI
-	yRYY7ldeO0jYvpRWqKjzvn5op2bfxLxJpsu+X5R/Ld+/vKxEGZ9+YkmjJSLwqTwTKXWAaFZYY8X
-	+S2irdWpveH2KA894QaDO4EUE6hmyF+aoIlLUz5TeJzibgjvSQ==
-X-Received: by 2002:a05:6102:4a8c:b0:605:889a:89a1 with SMTP id
- ada2fe7eead31-630f9041b24mr1272953137.23.1778076137325; Wed, 06 May 2026
- 07:02:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="g4XQ0UEf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PeP/5aQLo+xUMKRCrg73lOVxxZuSd+Af+YIRc29UCrbIonIoQgULz1y3cWOPGFqsrSqG/vyNqsETbMyk0k+g8ysfr726dNj2vSyhoRYBAh8BM8UWcQqgT/y4MKoAgxsls0cuWN1rVqCjkGqOi4XEjTuzJvSVZO/HuTR8Lmrwa/SDXz3kzHafb3cU3hRRKf6EXnLN8VK93yQLpLAIRuKntd1jlCR7PWebrtGmBGOAIgChmhrHv8LqoUP+4BBwGO+RkUc7capfWL+73gVSLzO298+wzgTxHeicY5WfYTIn0UKn1yaO3m4DSdkUPs2/bd0Q+pxV/ti5fvJZl49BG+kOPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sh3tn4POvhesUevZz6lcpZUxiElWwOWCSC80fCULLbY=;
+ b=w0t4xsopbVZEgAZJNd4+/Z4M2Y37PJkUJdT3tGlQh7gN790CFWPWpmhTXt446gsBnjOCcvlmDn6MjVGLpioEVZ32HZMMq6p/FKwusilAKFQ5DpPwgy8NmP7x6Gkm30srVOi8rtxjGBiT/Wz3puktVhri/PO/q4tRoVgF53zoChFa5CwbJd007YhUGgqbKvIWT9vASVn8rgTkvvrTmkZ8m/l/B2AkF58SmCsrrmt0DxOqjHXxcCJ8TMcJvPUN5KLsPGv5hucrJg+vbgPq6KNdJlPgIDQFIWa/T4k457aigttd4OYzwzFk3o18gbK1E0RkKYnnH4uQPOVWiZuKIgjAcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sh3tn4POvhesUevZz6lcpZUxiElWwOWCSC80fCULLbY=;
+ b=g4XQ0UEfjboMOSOUtQ1iu6KWK6wE/6np5bz+N+vptes+NZqvDMB77q9Y7f060piBQAGoC+86Ny86+CMp5xroP9RLhw4l0VS950JHM/vxy2Mg83FJ0EhOAfo4w+ESrQbticVlP+X6MrJGNOFrTWPw59Qc+Mu9WpR5QBRNNo+QOwI=
+Received: from BLAPR03CA0084.namprd03.prod.outlook.com (2603:10b6:208:329::29)
+ by SA1PR10MB6615.namprd10.prod.outlook.com (2603:10b6:806:2b8::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
+ 2026 14:08:28 +0000
+Received: from BL6PEPF00020E65.namprd04.prod.outlook.com
+ (2603:10b6:208:329:cafe::1b) by BLAPR03CA0084.outlook.office365.com
+ (2603:10b6:208:329::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.15 via Frontend Transport; Wed,
+ 6 May 2026 14:08:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ BL6PEPF00020E65.mail.protection.outlook.com (10.167.249.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Wed, 6 May 2026 14:08:27 +0000
+Received: from DLEE213.ent.ti.com (157.170.170.116) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 6 May
+ 2026 09:08:25 -0500
+Received: from DLEE212.ent.ti.com (157.170.170.114) by DLEE213.ent.ti.com
+ (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 6 May
+ 2026 09:08:25 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE212.ent.ti.com
+ (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Wed, 6 May 2026 09:08:25 -0500
+Received: from toolbox.dhcp.ti.com (uda0492258.dhcp.ti.com [10.24.73.74])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 646E8IWl1221395;
+	Wed, 6 May 2026 09:08:19 -0500
+From: Siddharth Vadapalli <s-vadapalli@ti.com>
+To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <josua@solid-run.com>,
+	<w.egorov@phytec.de>, <matthias.schiffer@ew.tq-group.com>,
+	<d.haller@phytec.de>, <francesco.dolcini@toradex.com>,
+	<joao.goncalves@toradex.com>, <emanuele.ghidoli@toradex.com>,
+	<ernest.vanhoecke@toradex.com>, <rogerq@kernel.org>, <eballetb@redhat.com>,
+	<robertcnelson@gmail.com>, <afd@ti.com>, <u-kumar1@ti.com>
+CC: <stable@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<luis.parga@ti.com>, <srk@ti.com>, <s-vadapalli@ti.com>
+Subject: [PATCH v2 00/13] TI: K3 DTS: fix USB Clocking for Compliance
+Date: Wed, 6 May 2026 19:39:32 +0530
+Message-ID: <20260506141040.1368918-1-s-vadapalli@ti.com>
+X-Mailer: git-send-email 2.51.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260501095433.1609309-1-mitltlatltl@gmail.com>
- <20260501095433.1609309-4-mitltlatltl@gmail.com> <OmTXoHZJTSGePymL9I-1Cw@puri.sm>
-In-Reply-To: <OmTXoHZJTSGePymL9I-1Cw@puri.sm>
-From: Pengyu Luo <mitltlatltl@gmail.com>
-Date: Wed, 6 May 2026 22:01:22 +0800
-X-Gm-Features: AVHnY4Jp93agdi_Y8mXGWuXYD7rYu7UJTV_Ohq4VXA590K98lCrI7__F8JibURM
-Message-ID: <CAH2e8h6YM1D6K-SKg8UUL_-jJ0uuEvU1iK-xZtguNTurfO-U4Q@mail.gmail.com>
-Subject: Re: [PATCH v2 3/4] media: hi846: Add 6MP and 8MP modes support
-To: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Martin Kepplinger-Novakovic <martink@posteo.de>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E65:EE_|SA1PR10MB6615:EE_
+X-MS-Office365-Filtering-Correlation-Id: 18a1eb12-01d0-4a4d-6320-08deab78f1a5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|7416014|921020|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	EssJ6CZr6FEmk823SmpaCv5NAzvXVXagTx9zeCspXnQpN/GZu0a5eGkE7yN5q3MsOeMcondjGbAeD62uEn6dD15F7BvjRaFCYGMeH+LpenCJxMPOas92PPWpslR9pk8+bgEdaNovETkS/q0zCYUzYMf3+enXpAvXTbxWRJXWGkaV/XYldjbU1Da6jRK9K/MeMviGXmLfNeBPVg7LLGOfxr3laR/yw+28EOwkXBpkjZQuhBS41uTEIaHDBhf3FuEx3PtuzqxAmCJx/huk38hE73veDWuX0ufbIB5YFqQMVf/d7U0bF5uq3WZXebwZXmv1PdWshpzjq5zAEIb1FzK9wD8C8YMM5B7mFHwk49CptHTPRKX/YtbGHGg3kTBjbYQwfshKDXHsNBzi66fQg/bTyG4ORzZaaeVENBmAnsOCDQVcHniuKh9ZXRBARV7UOPatzKw4Dnq8p00szfChnTAzvoxkeuCC0Bw5x37HBeg+zvQw2Zgo59J/yrV7BAAUaF0JYlWtsg91ZyTje1H2MCV+8uu/gxYA3axAbN3B4qO4MrP2hRDckzExISAO3Hdn3Szb3NtWsnI77tD2uIH4qYpsM8IdIFr0lsZc+Pq+Esom2T1Cc03KjcYCuaQZqbYazvAkQdYZNEDjgx61spJV1Y9cga455bT2LVXVYUk0EUt4M42rkAKKui8TgGqoOw77/xx4dR+yTe1Fs5ajr5AzDp7nGrRqPs7067727S7ZE0tK1PeDvoT6D1e8a20eyUvV/4graagEM7Y6PvJeh+T9UnSyEG3T+fSZlGZx8p6kgEY0bsk=
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(7416014)(921020)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	cyRaKRr02fLm8PmzkZ7XuBo+fqmwLMTnZxzdHmDOnrHHu413Fi+X4ChXXPy1IccYB9ST/M1BVLsT1KyV+6zPQ14UCIS0zL/SmJayqCjITUhzQHYnaQ3mJoI5sdWtdgLKiTRxuJWyQRxbq9AhKu0OYVg5N8SF+dzrNOOQqSPh7ZwE64by/3+9x2RNB41b3FMGoY2AWlxUilHvYnqCRB1Fbb2cQNqD96yOsolin271og4aWrwp48+0/MjWyEZaLmYRmrx0NAP0cAehxTUlHb9PwKtIp6XW8GhudHToCVg3We0cJhlspnpGwAR+l4E1SSWyndC282USWO/cdvEQjM+PKHLtt/IxlXjShk2BP90o2qkPk6j0htqk5loehL+vSpU/Iv3vT+HVdfYbdFYBDMYCOcoc5PlmyQPSkH7ASLaoZht/Ws8m5NWkE+grYkDGdnoj
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 14:08:27.0524
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18a1eb12-01d0-4a4d-6320-08deab78f1a5
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00020E65.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB6615
 
-On Wed, May 6, 2026 at 8:51=E2=80=AFPM Sebastian Krzyszkowiak
-<sebastian.krzyszkowiak@puri.sm> wrote:
->
-> On pi=C4=85tek, 1 maja 2026 11:54:32 czas =C5=9Brodkowoeuropejski letni P=
-engyu Luo
-> wrote:
-> > Hi846 is an 8MP sensor, but the upstream driver has only supported 2MP
-> > mode for years. This patch adds 6MP and 8MP modes to maximize sensor
-> > utilization.
-> >
-> > Note that these modes require 4-lane MIPI CSI-2, as the downstream
-> > driver only exposes 2MP, 6MP, and 8MP configurations in 4-lane
-> > operation on the target device. The register sequences are extracted
-> > from the downstream Windows driver.
->
-> Has this been tested in this form at all? I tried, failed and looking at =
-the
-> driver I don't see how could it ever end up using these modes in its curr=
-ent
-> state. It can only cause troubles when used with 2 lanes, while 4 lanes a=
-re
-> completely broken.
->
+Hello,
 
-I may have messed up. I tested it with two more patches. The first
-patch removes 480P and 720P, the second uses a new 4-lane init list.(I
-just sincerely followed the downstream) Since I didn't think much, I
-thought removing modes would not break things, I just tested without
-the second patch, so it works for me.
+This series enables Internal Spread Spectrum Clocking (SSC) for USB
+SuperSpeed configuration. This is mandated by the USB Specification
+section 6.5.3 Normative Spread Spectrum Clocking (SSC).
 
-> The driver defaults to its first supported mode, which happens to be a 64=
-0x480
-> mode that only defines its register list for 2 lanes. hi846_set_format wa=
-s
-> supposedly meant to check whether the mode returned by v4l2_find_nearest_=
-size
-> is compatible with the used lane count, but it does so too early - it act=
-ually
-> checks it against the already set mode rather than the one it's about to =
-set.
-> This means that you're never going to be able to set any valid mode when =
-using
-> 4 lanes without fixing this first.
->
-> And even if this was fixed, with 2 lanes this makes some calls from users=
-pace
-> that previously succeeded now fail when v4l2_find_nearest_size happens to=
- match
-> a mode that's only supported with 4 lanes. v4l2_find_nearest_size would h=
-ave to
-> be fed with already filtered list of modes to fix that (which would actua=
-lly
-> make the check mentioned above unnecessary).
->
-> Of course these are preexisting issues in the driver, but they make it
-> impossible to actually use what's being added in this patch and to add th=
-ese
-> modes without causing regressions. So far these didn't matter as this dri=
-ver
-> was only ever used with 2 lanes, but they have to be fixed first before a=
-dding
-> any actual 4 lane usage or modes that require 4 lanes.
->
+Series has been posted as individual patches for respective boards since
+the Fixes tag is different for each board and needs to be backported via
+stable.
 
-Thanks for your feedback. I think we can use specific modes for
-different lane modes. The snippet like
+Series is based on commit
+74fe02ce122a Merge tag 'wq-for-7.1-rc2-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/tj/wq
+of Mainline Linux.
 
-    hi846->supported_modes =3D supported_modes;
-    hi846->num_modes =3D ARRAY_SIZE(supported_modes) - 2;
-    if (hi846->nr_lanes =3D=3D 4) {
-        hi846->supported_modes =3D supported_modes + 1;
-        hi846->num_modes =3D ARRAY_SIZE(supported_modes) - 1;
-    }
+v1 of this series is at:
+https://lore.kernel.org/r/20260505110631.1144200-1-s-vadapalli@ti.com/
+Changes since v1:
+- Collected Acked-by tag on patch 1 from Josua Mayer <josua@solid-run.com>
+- Reordered properties in patches 7, 8, 12 and 13 to have 'status' at the
+  end of the node based on feedback from Francesco Dolcini <francesco@dolcini.it>
 
-Best wishes,
-Pengyu
+Series has been tested on the following boards:
+1. AM642-SK
+https://gist.github.com/Siddharth-Vadapalli-at-TI/d4aecc572697bd02bb65a0fe5efea393
+2. AM68-SK-Baseboard
+https://gist.github.com/Siddharth-Vadapalli-at-TI/371aacaada2b236776455be5fa15e593
+3. AM69-SK
+https://gist.github.com/Siddharth-Vadapalli-at-TI/1d7c6c3a5cbe6ec2bc966887c3e4d913
+4. J721E-Common-Processor-Board
+https://gist.github.com/Siddharth-Vadapalli-at-TI/f815f1a9b400ba492133e43c36f69936
+5. J721E-SK
+https://gist.github.com/Siddharth-Vadapalli-at-TI/0d1e4e72b47ab1482b5b7d1247bc8bfa
+6. J722S-EVM
+https://gist.github.com/Siddharth-Vadapalli-at-TI/146533f0a89bde59b47ead582a924e62
+7. J742S2-EVM
+https://gist.github.com/Siddharth-Vadapalli-at-TI/be8ed3e339441b7301f57ad006868238
+8. J784S4-EVM
+https://gist.github.com/Siddharth-Vadapalli-at-TI/62795430857387491162b21d9c9692d0
 
-> S.
->
->
+Regards,
+Siddharth.
+
+Luis Parga (2):
+  arm64: dts: ti: k3-am642-sk: fix USB clocking for compliance
+  arm64: dts: ti: k3-j722s-evm: fix USB clocking for compliance
+
+Siddharth Vadapalli (11):
+  arm64: dts: ti: k3-am642-hummingboard-t: fix USB clocking for
+    compliance
+  arm64: dts: ti: k3-am642-phyboard-electra-rdk: fix USB clocking for
+    compliance
+  arm64: dts: ti: k3-am642-tqma64xxl: fix USB clocking for compliance
+  arm64: dts: ti: k3-am68-phyboard-izar: fix USB clocking for compliance
+  arm64: dts: ti: k3-am68-sk-baseboard: fix USB clocking for compliance
+  arm64: dts: ti: k3-am69-aquila: fix USB clocking for compliance
+  arm64: dts: ti: k3-am69-sk: fix USB clocking for compliance
+  arm64: dts: ti: k3-j721e-beagleboneai64: fix USB clocking for
+    compliance
+  arm64: dts: ti: k3-j721e-common-proc-board: fix USB clocking for
+    compliance
+  arm64: dts: ti: k3-j721e-sk: fix USB clocking for compliance
+  arm64: dts: ti: k3-j784s4-j742s2-evm-common: fix USB clocking for
+    compliance
+
+ .../boot/dts/ti/k3-am642-hummingboard-t-usb3.dts  |  9 +++++++++
+ .../boot/dts/ti/k3-am642-phyboard-electra-rdk.dts |  9 +++++++++
+ arch/arm64/boot/dts/ti/k3-am642-sk.dts            |  6 ++++++
+ .../boot/dts/ti/k3-am642-tqma64xxl-mbax4xxl.dts   |  9 +++++++++
+ arch/arm64/boot/dts/ti/k3-am68-phyboard-izar.dts  |  9 +++++++++
+ arch/arm64/boot/dts/ti/k3-am68-sk-base-board.dts  |  9 +++++++++
+ arch/arm64/boot/dts/ti/k3-am69-aquila.dtsi        |  6 ++++++
+ arch/arm64/boot/dts/ti/k3-am69-sk.dts             |  6 ++++++
+ .../arm64/boot/dts/ti/k3-j721e-beagleboneai64.dts | 15 +++++++++++++++
+ .../boot/dts/ti/k3-j721e-common-proc-board.dts    |  6 ++++++
+ arch/arm64/boot/dts/ti/k3-j721e-sk.dts            | 15 +++++++++++++++
+ arch/arm64/boot/dts/ti/k3-j722s-evm.dts           |  6 ++++++
+ .../boot/dts/ti/k3-j784s4-j742s2-evm-common.dtsi  |  6 ++++++
+ 13 files changed, 111 insertions(+)
+
+-- 
+2.51.1
+
