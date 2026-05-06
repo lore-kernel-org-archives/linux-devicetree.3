@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AABB31714B;
-	Wed,  6 May 2026 22:19:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B028C214A84;
+	Wed,  6 May 2026 22:22:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778105996; cv=none; b=coCF4f4iSAsQoexCbUzonkYxujLP2NFlfuT70LTdjcyO5kGkifmvW3AfFN1uHr3pVURzGJPplPX0SeVhXbxH+ZoBoLluAsGyN6XgBfDlbQyKDAA2/eGMTWNXzvURgJXIk54mtwRiZGqU2ZDuSiIbgB7oQLXJBiFduyT6kHLBKJ8=
+	t=1778106161; cv=none; b=HVIDbvpahf19kh2xIR0mObPmk01XPvswpBZxsTFx67lpyvZ8z6pnsIyJsXA7GDZnlQ+tGqMSTkyMRKf5sfxKH4E6qMy66vzbEE+IkM9mFa/wp6HTrtyUblR0QcKExyPTk23FbUU8HMPYNUFg7cv0j8qf/5LEjB17Fv8eXHOxIyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778105996; c=relaxed/simple;
-	bh=/+CKgoeuypQEaB7jyv2Zm3OW8jOi1NyTKSfrDXFqRhI=;
+	s=arc-20240116; t=1778106161; c=relaxed/simple;
+	bh=hwqxnsO+ALySBum5tOGbNdnlNfkkmm95U+0x4x3rmDk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ks2gsL0xMOK+sqKVpxHDmhRuF/+Ter+Q6BFYd3tqZUGP75sVQwIWHKaIbOJEfoj6SAfmuf0u39wqSe+UbFh8kYxZ9NSQD9DK+XY4qsK7wwAKOlSGalSaBAH4upFVINqsbp7um0RP00CRt66zdRywyHpZ60UvpBlJgyA1wKBvIGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EpSWsfc5; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=nVOVfH98iTvT9ZsIGMjiXmiA3zcm1614Hx8Lhncc5zAYMAqZNQVp9lyJifKsVjV+caU85PBLD324hCyQFThqNXvYbF5Ot9f7FZm8iWVtvXSjJzIcXbuhkDjfaUozq/0kXoHO0I5oBKmSk2xb5T/EVmXcb/HEbs6fwCtuvzOR23w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BmmjiaY0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EpSWsfc5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E8AC2BCB0;
-	Wed,  6 May 2026 22:19:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BmmjiaY0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83875C2BCB0;
+	Wed,  6 May 2026 22:22:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778105996;
-	bh=/+CKgoeuypQEaB7jyv2Zm3OW8jOi1NyTKSfrDXFqRhI=;
+	s=k20201202; t=1778106161;
+	bh=hwqxnsO+ALySBum5tOGbNdnlNfkkmm95U+0x4x3rmDk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EpSWsfc56Yj3uwb8u81FnIIC3/JdJ62h+fG/xSsxTuCfW/N7DssJcmHwyKyPcTTX3
-	 CKON33G7l/otFmsXbqc9bWkoAL8U9g2je5zrzrAlhd+QY/W6ban9Nv2EUR4LmRjcJ5
-	 UJLH4SD299tBu5o45uhAGc4+Cs/FcpJbElOA4mLeWiMUnXXCC0jzHYL7xQKp85qKqQ
-	 e3r89avbtzCqaI1RDGHg7tG3OGAc5FL/ZVdGLJcpfZ40VLFIJsM38JQKesGmOZpmXe
-	 RlupeC/briU7sP08A6Zn3qVh3TRXaHC2X5NS8mcT0H3Ke9RXzGzZg689DvhJtz31Bs
-	 t/K7HnJ3qJSNQ==
-Date: Wed, 6 May 2026 17:19:54 -0500
+	b=BmmjiaY0RCKWxcyRYn2cz29/lsX5fQSz/IWZDpve0Lp5yKmf/XZsTwBAdiItqQd/v
+	 ytC2W+0oI2bJTUNIej5Jc16Nv+73nR7hOaLcRa6C/io0s4Gf9lfn/Zu+GltbUyfwFs
+	 TIUDbWVJQkZ5ZchQJqKyK5kSM7slM0d8bOBHouiNcF0XxWczgQHo/qzF20tPEKl8MQ
+	 MeHr5le2grDqsuthLd1VI/GvFceYfilCV/zERRmhRWir3hxR044MvPW711jreeywR0
+	 QaeYfEweLTOjLbilLinl8omGMgd15zx90I5ka2o6rJBcVyW/VYTzd6L5z84wgV7uHI
+	 RE7DF+tOVEU8w==
+Date: Wed, 6 May 2026 17:22:38 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Cheng Ming Lin <linchengming884@gmail.com>
-Cc: conor+dt@kernel.org, richard@nod.at, linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org, alvinzhou@mxic.com.tw,
-	devicetree@vger.kernel.org, miquel.raynal@bootlin.com,
-	krzk+dt@kernel.org, Cheng Ming Lin <chengminglin@mxic.com.tw>,
-	vigneshr@ti.com
-Subject: Re: [PATCH v10 1/3] dt-bindings: mtd: nand: Add nand-randomizer
- property
-Message-ID: <177810599339.3410044.3676671440442113308.robh@kernel.org>
-References: <20260505013453.980249-1-linchengming884@gmail.com>
- <20260505013453.980249-2-linchengming884@gmail.com>
+To: Wei Fang <wei.fang@nxp.com>
+Cc: linux-kernel@vger.kernel.org, chleroy@kernel.org, edumazet@google.com,
+	frank.li@nxp.com, kuba@kernel.org, netdev@vger.kernel.org,
+	vladimir.oltean@nxp.com, devicetree@vger.kernel.org,
+	linux@armlinux.org.uk, conor+dt@kernel.org, horms@kernel.org,
+	davem@davemloft.net, andrew+netdev@lunn.ch, xiaoning.wang@nxp.com,
+	pabeni@redhat.com, krzk+dt@kernel.org,
+	linuxppc-dev@lists.ozlabs.org, claudiu.manoil@nxp.com,
+	f.fainelli@gmail.com, linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev
+Subject: Re: [PATCH v5 net-next 02/15] dt-bindings: net: dsa: add NETC switch
+Message-ID: <177810615811.3413821.3835724819820623979.robh@kernel.org>
+References: <20260430024945.3413973-1-wei.fang@nxp.com>
+ <20260430024945.3413973-3-wei.fang@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,30 +50,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260505013453.980249-2-linchengming884@gmail.com>
+In-Reply-To: <20260430024945.3413973-3-wei.fang@nxp.com>
 
 
-On Tue, 05 May 2026 09:34:51 +0800, Cheng Ming Lin wrote:
-> From: Cheng Ming Lin <chengminglin@mxic.com.tw>
+On Thu, 30 Apr 2026 10:49:32 +0800, Wei Fang wrote:
+> Add bindings for NETC switch. This switch is a PCIe function of NETC IP,
+> it supports advanced QoS with 8 traffic classes and 4 drop resilience
+> levels, and a full range of TSN standards capabilities. The switch CPU
+> port connects to an internal ENETC port, which is also a PCIe function
+> of NETC IP. So these two ports use a light-weight "pseudo MAC" instead
+> of a back-to-back MAC, because the "pseudo MAC" provides the delineation
+> between switch and ENETC, this translates to lower power (less logic and
+> memory) and lower delay (as there is no serialization delay across this
+> link).
 > 
-> Add the 'nand-randomizer' property to control the data randomizer
-> feature. This is used to improve data reliability by reducing
-> cell-to-cell interference.
-> 
-> Depending on the hardware architecture, this property is designed to be
-> generic and can apply to either the NAND chip's internal randomizer
-> or the hardware randomizer engine embedded in the NAND host controller.
-> 
-> This property is defined as a uint32 enum (0 or 1) instead of a simple
-> boolean. This design choice explicitly supports the "not present" case.
-> If the property is omitted, the driver will not interfere and will leave
-> the randomizer in its current state (e.g., as already configured by the
-> bootloader or hardware default).
-> 
-> Signed-off-by: Cheng Ming Lin <chengminglin@mxic.com.tw>
+> Signed-off-by: Wei Fang <wei.fang@nxp.com>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
 > ---
->  Documentation/devicetree/bindings/mtd/nand-chip.yaml | 9 +++++++++
->  1 file changed, 9 insertions(+)
+>  .../bindings/net/dsa/nxp,netc-switch.yaml     | 127 ++++++++++++++++++
+>  1 file changed, 127 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/dsa/nxp,netc-switch.yaml
 > 
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
