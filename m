@@ -1,94 +1,172 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD86B48C405;
-	Wed,  6 May 2026 15:27:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A60B47CC80
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 15:28:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778081247; cv=none; b=lr8eXBQ5Ng9cyTpAFP7S9t1RwVV5gNqBg3NG/SlR32QxsnTclYsXo/LmhuZEymW+Qk7YoXiJfS+Q8qb4/bm+1CdJP3gwsjl0W9KdliV6xRIbfmilA8sgQfK3pO62VDzGnuFO/lp21uGThEOS4dNMtVC2w7t/XbWOovW7T5T184s=
+	t=1778081302; cv=none; b=tJtzgcrGISTUbBYrflmMYEU9sCbV7vCL0qiLLD0hftY5VYQJJOmdO5RY3aEv4bKDKyeWjXzYCYi6PKRfGVTRO/h8uSXHTHEW6/642ZJPBKn3rcuqS3eTfXOsQDQJYeFZn9SxkGDT9k5sL7ct6C1dJqGYFVs5mQj4dnlBOCHQkok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778081247; c=relaxed/simple;
-	bh=FEvngRTBTYk4B9n3K7Okanm/jldFJ4FdUeITv2+Pte4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ey6tQwooHreCaAFymd+q1Unde2IhrJUdYK7Akna79vEDio63U0rTzwhSMg+CITYa96L1ZPqUcjrrMQKNJq76x4fRHkxbcTP9+o2AR1ze48eMBp6+Fya96nVPh7Elunp4WwbZ/77cF+0i6dmBJ6ecfIiaKI8jOgNAYFUMiyu/vDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=jb74YaeK; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1778081302; c=relaxed/simple;
+	bh=ZjEF3HpGwOZm1XS1TR6kZf0bNGfRZAZycuJei4ErS4k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ssm6sZ1n3g/4RHRwwdFb/EIuQtfRK1Y+lAokKRjWQnBjYpogKj/EMc+QHCFZlzJCJn3owky6LIFq/EhbDkpba0TcXk+x0qPGq8KDW8Z+xLCWm6FmztU5vaCT2Fos8bDjKevtSsZqiipxRqWziHMvs/jIVfBG3t42sExg5COZEM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=C+XW4o+3; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="jb74YaeK"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A42FF306F35;
-	Wed,  6 May 2026 17:27:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1778081236; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=8HE3m8x+hz3IF4eoayZQahKTddy0WxRCJveHFD/TVLs=;
-	b=jb74YaeKXYNfIDXcQFgTn+cCHMxjIEgbtCghknAiPXAvLLe7C9p3N469XNYG0O9Ew/3app
-	tMM7yQKSrFBk4r4JPAGw7mIJp1O2u/gjQnsbgBT59O+kANRSIUK7kx+PMu49lPG1TzSDMc
-	p8eG7y6JeIihr5i1FIsZ6nhrtN1ZnAi6jEmXExH/j46tr1/Fs6jLp6f7RFGbCrwqIlAyt6
-	JBkRMYG7UZ/UoAJQplY8AOvvxOQaQ3Vr7aJdTXLK37bbwycpl2gbYH85brNkSga4698TFk
-	olq7HyGuNV8fXRkSMMFZVriQ03dnicGI4jPHwSDnBIJ0GJLsJINT24N2zxSTQg==
-Message-ID: <b37dd665-3d25-4627-ab04-17431d9931f4@cjdns.fr>
-Date: Wed, 6 May 2026 17:27:08 +0200
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="C+XW4o+3"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-44da2de25f3so2454026f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 08:28:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778081300; x=1778686100; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=CGs4aXiGfe9FWzGIQNV1c8scbxohD/REqUQGlNaM17Q=;
+        b=C+XW4o+3BpfIYq+R7bvkXpReBGJrMLl/LMNXIlRWJaDMCP8l12gnAozRU838922lJO
+         RRMdFfzQKpQnWzb6ARXvdQ/RtmoNDrD6n6niAyKgqBRMYhB4EgtCI9TgzaWGrCFvQr69
+         fFOwH466Yb5gBEBbxEPPUBIughRl1DS0H5ACmf77Pp1KVqBLSvWKdCqpaMHf8bQrkbrG
+         WSEmp1uejt1RRMTrd2KyJVV6XAhyvlzZlZ6XjoIR5zHH8AFIBX7xOryI1vY82/TAmX2r
+         QaH5nTkRIC2PshdIC8H4YqtCezuEp5OV4V4OailE6fk5iyxuluRnpcZi1h4qmNgHK/m3
+         OkoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778081300; x=1778686100;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=CGs4aXiGfe9FWzGIQNV1c8scbxohD/REqUQGlNaM17Q=;
+        b=npRKcXRwI79bskILsZLdPk+nH7HXffz7GTifbBHEecbUvObeEx73AEWUqmU0tt7NhA
+         baKaS6dbok2U75FGmQL+h4KWcp2MQKQf3j3yNE9u3mBmCapuNB1sKZLH3PKziLC2oyhn
+         tCufyDKp3NMk0I/DiAgrGt284lYIH+GN6ra8nGvP0wEn7laAZzYNwYAtTlxinnwI6xuZ
+         RYRLVJ/477KWaJkVzRNFmCp5BDXcDYCrPprtQ2tjEuCcyCqSHuxsBal862kLmjrjp/3A
+         22OnOZgIQFAkC4snaKINBQKH7XweCHkMtcOUZgvh+jC2TW9asbKgtpua3DWlau1e21o+
+         U3uw==
+X-Forwarded-Encrypted: i=1; AFNElJ/LQIqT5VTbbKUxwmclvuTofG7myMwBmCkfeSRE5hYTyxuv7qJd544dqnAblwXeqvf5g+TEXQ2hu6sI@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz1yw5EaKb9ImYOTT3jF0VpnM88VrXt2eqFRc+/4QJjIjhch+ZP
+	2CVgACBOxFmS86oWeJJEO6ZjVsl9eQE+/4JDT7260p/us5r0IVKNszRpKfIhAcXrH2M=
+X-Gm-Gg: AeBDievE4UC+GbUAkhR20N9vcxYlSmZIu1WyFG+j83w8E32nSAiZPZW+Dt20KzZ8qjV
+	IIL3gL3tvYpDvXSpewR3DJyYs5h0VmGuu+OyMp8oZKqb+I/FZgcgvMXSxtUJroT2I3vbs9SvQ+m
+	q2TMq1qaPidQjAp0oF3O3XddQezLAs6yTd8fSG97fhRbrKhCtHeojAEU/gvAmVd4Iii/6qEhHAx
+	xAbWWBBMR4AymiXsp2Hi4aRkAB1se6ekq7PVUne3Ujyb5FyzCW+WFr7vsa3LD/3kNPDNtDch3dz
+	EF8shhPC4ruf++zfls8vJ+9WsPnFGJisk/fN8ict0mQPMq2nRjlPliIk6txqOHizL+A5i3wD+W5
+	qt6r6lVvjdP9OZ1c6l2RncOo5UzJYyq2PLFDVDktMxRD1zqx6TxOKA0lC7jGm8g5m2V02AkwTX4
+	lsrMETRY2QRvE5kNUG8zhEYCCE0UgMUCcZxh3QWBNko+u7pRGfLNcbAeDjF29xyFTOsjX529GMN
+	JP3BU7kvEdn0DfC6nmbEuyS1InTDQM2N5zzTJ6lV9zkXHV3aDGTYFIdQax8+pG8jlUFBcneTFfo
+	pm8q7yDiIicuT9T4bKk=
+X-Received: by 2002:a05:6000:2405:b0:44e:902f:e341 with SMTP id ffacd0b85a97d-4515cf11ce9mr6889250f8f.20.1778081299271;
+        Wed, 06 May 2026 08:28:19 -0700 (PDT)
+Received: from aspen.lan (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45055960902sm14773996f8f.28.2026.05.06.08.28.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 06 May 2026 08:28:18 -0700 (PDT)
+Date: Wed, 6 May 2026 16:28:15 +0100
+From: Daniel Thompson <daniel@riscstar.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Xilin Wu <sophon@radxa.com>, Alex Elder <elder@riscstar.com>,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
+	rmk+kernel@armlinux.org.uk, andersson@kernel.org,
+	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
+	arnd@arndb.de, gregkh@linuxfoundation.org,
+	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
+	alexandre.torgue@foss.st.com, ast@kernel.org,
+	boon.khai.ng@altera.com, chenchuangyu@xiaomi.com,
+	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
+	hkallweit1@gmail.com, inochiama@gmail.com, john.fastabend@gmail.com,
+	julianbraha@gmail.com, livelycarpet87@gmail.com,
+	matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
+	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+	rohan.g.thomas@altera.com, sdf@fomichev.me,
+	siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com,
+	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
+ support
+Message-ID: <afteD2d8d87Nyvl7@aspen.lan>
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-11-elder@riscstar.com>
+ <224E233C593EF171+8c8a43dd-5061-40f8-9eb7-f360eabf2ecc@radxa.com>
+ <4015f47a-af62-441d-b1b8-a8598f963970@lunn.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 2/2] clocksource/timer-econet-en751221: Support irq number
- per timer
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
- linux-mips@vger.kernel.org
-Cc: naseefkm@gmail.com, daniel.lezcano@kernel.org, tglx@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260416175101.958073-1-cjd@cjdns.fr>
- <20260416175101.958073-3-cjd@cjdns.fr>
- <e5851014-3f9f-4e5b-bdfe-8c277f581155@oss.qualcomm.com>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <e5851014-3f9f-4e5b-bdfe-8c277f581155@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4015f47a-af62-441d-b1b8-a8598f963970@lunn.ch>
 
-Hello, thanks for having a look.
-
-
-On 06/05/2026 16:39, Daniel Lezcano wrote:
-> On 4/16/26 19:51, Caleb James DeLisle wrote:
->> This timer was first developed on the EN751221 which is a MIPS 34Kc
->> and therefore has a custom interrupt controller. The hardware for
->> econet,en751221-intc implements percpu routing of the timer
->> interrupts.
->>
->> However, the EN751627 and EN7528 are MIPS 1004Kc based, and
->> therefore use the standard mti,gic compatible interrupt controller.
->> This interrupt controller uses a different IRQ number for each
->> timer interrupt.
->>
->> Add support for both models in this timer driver.
+On Wed, May 06, 2026 at 04:19:54PM +0200, Andrew Lunn wrote:
+> On Wed, May 06, 2026 at 08:59:01PM +0800, Xilin Wu wrote:
+> > On 5/1/2026 11:54 PM, Alex Elder wrote:
+> > > +	/* AXI Configuration */
+> > > +	axi = &td->axi;
+> > > +	axi->axi_lpi_en = 1;
+> > > +	axi->axi_wr_osr_lmt = 31;
+> > > +	axi->axi_rd_osr_lmt = 31;
+> > > +	/* All sizes (2^2..2^8) are supported */
+> > > +	axi->axi_blen_regval = DMA_AXI_BLEN_MASK;
+> > > +	plat->axi = axi;
+> > > +
+> > > +	plat->mac_port_sel_speed = speed;
+> > > +	plat->flags = STMMAC_FLAG_MULTI_MSI_EN | STMMAC_FLAG_TSO_EN;
+> >
+> > I got WoL working only after adding STMMAC_FLAG_USE_PHY_WOL here. I guess
+> > it's required, since the driver clocks down the MAC/PMA/XPCS in its suspend
+> > hook?
 >
-> Given the changes done in this driver, the description is short and 
-> does not explain why the code is so impacted.
+> Nice to see somebody testing WoL.
+
+Absolutely!
+
+We recently stripped out the (obviously broken and partially ported)
+WoL support we had in tc956x-pci.c. We planned to bring it back later.
+Hadn't realized it could be so easy.
 
 
-Fair enough. Supporting the two different IRQ models lead to an annoying 
-amount of changes.
-
-
+> In your testing, is it the PHY doing the WoL, or the MAC? I assume
+> PHY.
 >
-> I suggest to split the changes in order to facilitate the review process
+> If i remember the DT correctly, the PHY interrupt is connected to a
+> SoC GPIO, not a GPIO of this chip.
+
+On RB3Gen2 (and I think also the QPS615 reference design) the phy
+interrupt is routed twice. It is connected both to the TC9564 GPIO
+block and to the host SoC.
 
 
-Okay, I'll see what I can do in this regard.
+> So for your board, it is the SoCs
+> GPIO controllers ability to perform the wake which is
+> important. However, where the PHY interrupt is connected is a board
+> design issue. Could the PHY interrupt be connected to the chip? Would
+> the chip be able to wake the system? Should STMMAC_FLAG_USE_PHY_WOL be
+> conditional?
+
+I couldn't think of any reason to use the TC9564 GPIO block for the
+interrupts on RB3gen2 so I left it unused and the DT describes the SoC
+routing only.
+
+However if TC9564 were to be mounted on a real PCIe card then we'd have
+to use the TC9564 GPIO instead and would have to leave enough of the
+TC9564 enabled to handle the interrupt (and also to load a firmware to
+catch the interrupt and drive the PCI wake up signal).
+
+However such systems would need extensions to the current driver. We
+have done all we can to make it possible to add those extensions in the
+future but we would not be able to test them: not only do would a real
+PCIe card need extra driver features to play nice with ACPI but the
+card would also need an I2C EEPROM. We don't have that EEPROM on
+RB3gen2 (and again, we'd need firmware to read it).
+
+TL;DR - there are conceivable (and sane) hardware designs where the
+interrupt goes only to the TC9564 GPIO, but they are too different to
+RB3gen2 (and related SBC designs) for them to be supported before
+they exist!
 
 
-Thanks,
-
-Caleb
-
-
->
-> [ ... ]
+Daniel.
