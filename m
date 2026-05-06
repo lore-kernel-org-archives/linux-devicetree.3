@@ -1,79 +1,74 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF1530C610;
-	Wed,  6 May 2026 07:25:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C20439B486;
+	Wed,  6 May 2026 07:30:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778052358; cv=none; b=dCJwkQ3tiqTRtUEgH27DZAssT71/mgLEgiFuI6MYT/TQjve1fORDh8hFJmLz9xLDTRWRUrMLgOaEkfW75QdcAhxjxLBAS8X6z1J5tT8fNQ2xBqKz5BoA+xBmjvTpZ2TMVBJJ97mdn4pxZ6glFNFyosoUA/+xfilXdLZAOTFgRSU=
+	t=1778052627; cv=none; b=Jf11oChW7BQ9ID5pEPCe4DzQxpbvcRQw9LcmpmVhA721xKAbBLvwvEg6pzDUYTXmBkv7vzto2XoRgfI1bua+/SpQuRgiOezbPHubyvdbn/FxJw7wpVaBOquXLmD9dVwPxNB5AEEbE+4W9sdU0nMkIgQZDgOji8IK2QldGoc385M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778052358; c=relaxed/simple;
-	bh=UjJX+Z0GuisaTRIRYcSJemaTdvdhYahy84Qu7RDrclk=;
+	s=arc-20240116; t=1778052627; c=relaxed/simple;
+	bh=vCLaey9OpjFpEdYt8M8cmjBiqJz+wr5dw2RBMYVEuTg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=btX/LCbVNYxTHWEoSXL6GY1tjo/rRyF6SSt5IVe0TO8OCpPW3AUpMrdoRNCP8vxVm6S4bFb+KiTDDZE6xY/obRBt5dcM68LaSbuaqGbsUXgI9Cr8w7W31cNmV9kpHrBOv1/7Z7xRc3VciTFEtRpdkkLZLkyzMuUYUbkhvOSr2Sc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DrbJthKE; arc=none smtp.client-ip=198.175.65.11
+	 Content-Type:Content-Disposition:In-Reply-To; b=B+H3KNxxj1401sWZac/A3k11iUUviTLadBQQmDSSS0dRHFUz4Zzno2wG2oQ3qTOn8Z7+nTs1ifO5KP46fxwWROwlzlEaG38iQLm9SABFsL74efFbbip3ZcQ7J7aQ48NfH2RZYcYCExF8dpTOsBuCdvHyotEmqw3zQ1r05OvFAhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I7srsGs8; arc=none smtp.client-ip=192.198.163.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DrbJthKE"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I7srsGs8"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778052358; x=1809588358;
+  t=1778052626; x=1809588626;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=UjJX+Z0GuisaTRIRYcSJemaTdvdhYahy84Qu7RDrclk=;
-  b=DrbJthKEn4tfk9yQmWr8fpjJwIphq5YpXOean6luBI4cAwGWT7Vu+jZA
-   sfPBk5wzv/isJ7dCKnNTW66WU9BAKKMj+SvtgqQNf8tS4w2VOjgqVd9wI
-   enVe7LWXez3/WsdUAocUAEcG1onNGWr4IsX9Nq9nUxi/uIH+SBg2C2yg6
-   WqU9rkXtVhswdoif9lG4/vO77Cfm0VE2niCEc8oYCfYtxXTl4FTjIkKC6
-   gOJ40hpM+upZmSBygHQRBJf1KNQY4zBFr31L/2/xXCpxSSgwlR05MPW9U
-   pnpzTXf842D9tyFPRSpHgy2UdynGJscmTtZwb48yZ5a+rpaZJ3NRc7Iyl
-   A==;
-X-CSE-ConnectionGUID: wQAX8EoiSHS/oLpQN76ueA==
-X-CSE-MsgGUID: UIuy7poZQ5GppMxEPvyrKw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11777"; a="89283468"
+  bh=vCLaey9OpjFpEdYt8M8cmjBiqJz+wr5dw2RBMYVEuTg=;
+  b=I7srsGs8RLHoCtJpn+n9OOUkjpelb4q5GnpX4wCYOyhwoL3YmA5uKXaE
+   u4WOfxYRot38zz6nmz8ckNMwcwCphLMGewA/TxKw0hlMRH5D7E2Judzwp
+   RCLLeHnMsXZMlrUoVP9RXchWyXjA1LH7FLDyHQtLBJ6GUzIp1fLucILt9
+   GCcAkHTLb2HDJtGF7PKYjnem0bj17+y36ElR5OU5x2+d2SX/e1C7OQnI8
+   P7bbi9b25bDmBNVMIwa+A9CumTiIrNhq7HAlfWDmHqMqXUrfknt4PF3jj
+   8KaONpQh/JzpNMtygD/q1h12UvBJU3oLry0EtuHTjAGA6f0Jt3ze4bMd+
+   g==;
+X-CSE-ConnectionGUID: YBGhiCMyTAiUkAlTqqFD1w==
+X-CSE-MsgGUID: ctYfomJNQtu0ne4/cYA17A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11777"; a="81538829"
 X-IronPort-AV: E=Sophos;i="6.23,219,1770624000"; 
-   d="scan'208";a="89283468"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 May 2026 00:25:50 -0700
-X-CSE-ConnectionGUID: 6TkjfeaoSF6U+TVo4Ivm5Q==
-X-CSE-MsgGUID: X1ADEw+uQ9Sy30gRFsDSdg==
+   d="scan'208";a="81538829"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 May 2026 00:30:26 -0700
+X-CSE-ConnectionGUID: ZorZsCONRaOy1EKm4bJdsA==
+X-CSE-MsgGUID: EE77A/rMTuCutPrAFu7/Sw==
 X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,219,1770624000"; 
+   d="scan'208";a="241044287"
 Received: from abityuts-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.183])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 May 2026 00:25:44 -0700
-Date: Wed, 6 May 2026 10:25:41 +0300
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 May 2026 00:30:21 -0700
+Date: Wed, 6 May 2026 10:30:18 +0300
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
+To: Roman Vivchar <rva333@protonmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
-	"Sa, Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v9 3/6] iio: adc: ad4691: add triggered buffer support
-Message-ID: <afrs9ZN3moV157fR@ashevche-desk.local>
-References: <20260430-ad4692-multichannel-sar-adc-driver-v9-0-33e439e4fb87@analog.com>
- <20260430-ad4692-multichannel-sar-adc-driver-v9-3-33e439e4fb87@analog.com>
- <afhReLCsEdaEOT_H@ashevche-desk.local>
- <LV9PR03MB841441B282275F8F36FD12C1F7312@LV9PR03MB8414.namprd03.prod.outlook.com>
- <20260505142640.49cde0ca@jic23-huawei>
- <afoFjaUBcGXeuEzH@ashevche-desk.local>
- <20260505171723.390feb20@jic23-huawei>
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-pm@vger.kernel.org,
+	Ben Grisdale <bengris32@protonmail.ch>
+Subject: Re: [PATCH 05/13] nvmem: add mt6323 PMIC EFUSE driver
+Message-ID: <afruCjvTluKgI-tV@ashevche-desk.local>
+References: <20260504-mt6323-v1-0-799b58b355ff@protonmail.com>
+ <20260504-mt6323-v1-5-799b58b355ff@protonmail.com>
+ <afmjfWtt7Vii6xfH@ashevche-desk.local>
+ <Bn1O24yJ2aBvKUTpiFUzxnqbuuybRirR73G7R38ghYtwhFvQqWJb3HPgcikEa1otDw6n07nX_g8khZUHXJ_QRA--LrV5yj5Mcg1QzrWt6vA=@protonmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,47 +77,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260505171723.390feb20@jic23-huawei>
+In-Reply-To: <Bn1O24yJ2aBvKUTpiFUzxnqbuuybRirR73G7R38ghYtwhFvQqWJb3HPgcikEa1otDw6n07nX_g8khZUHXJ_QRA--LrV5yj5Mcg1QzrWt6vA=@protonmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, May 05, 2026 at 05:17:23PM +0100, Jonathan Cameron wrote:
-> On Tue, 5 May 2026 17:58:21 +0300
-> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-> > On Tue, May 05, 2026 at 02:26:40PM +0100, Jonathan Cameron wrote:
+On Tue, May 05, 2026 at 04:24:41PM +0000, Roman Vivchar wrote:
+> On Tuesday, May 5th, 2026 at 11:00 AM, Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+> > On Mon, May 04, 2026 at 09:24:57PM +0300, Roman Vivchar via B4 Relay wrote:
+
+First of all, please drop the pieces you are agree with or not going to comment
+on (for whatever reason). It makes easier not miss anything important and saves
+reviewer's time on doing that for you.
 
 ...
 
-> > > > > > +	for (i = 0; i < ARRAY_SIZE(ad4691_gp_names); i++) {
-> > > > > > +		irq = fwnode_irq_get_byname(dev_fwnode(dev),
-> > > > > > +					    ad4691_gp_names[i]);
-> > > > > > +		if (irq > 0)
-> > > > > > +			break;    
-> > > > > 
-> > > > > This is problematic in case the above returns EPROBE_DEFER. Can you confirm
-> > > > > it
-> > > > > may not ever happen? (Note, I don't know the answer.)  
-> > > > 
-> > > > You are right, thanks for this!  
-> > > I'm missing something. Why is that a problem?  Driver will return
-> > > the error and a dev_err_probe() is used so it won't print anything.
-> > > So probe will fail which is exactly what we want.  
+> > 	for (size_t i = 0; i < bytes; i += sizeof(*buf)) {
 > > 
-> > If there are two IRQs and the first one is probe deferred and second returns
-> > an error, we return that error instead of the deferral probe.
+> > > +		ret = regmap_read(efuse->regmap,
+> > > +				  MT6323_EFUSE_DOUT_BASE + offset + i, &tmp);
+> > > +		if (ret)
+> > > +			return ret;
+> > > +		buf[i / 2] = tmp;
+> > > +	}
 > > 
-> > May be I missed something, but I have no idea how in this case it may return
-> > the first error code in such a case.
-> Ah. Indeed. I completely misread the code.  if (irq) would do the job to fix this.
+> > + blank line.
+> > 
+> > Isn't this reimplementation of bulk read? Why the latter may not be used?
+> 
+> Yes, but the PWRAP (the regmap which the driver uses) doesn't support read
+> callback, only reg_read is implemented in the driver.
+> It hits the map->cache_type == REGCACHE_NONE in the regmap_read_raw, and falls
+> for the !map->read check, so regmap_bulk_read neither the regmap_read_raw
+> can be used.
+> 
+> Technically the PMIC is not continuous address space, but rather non-MMIO FSM,
+> so it makes sense to not implement the read callback. I guess the custom
+> implementation is fine then?
 
-Not really, as we are only concerned about deferred probe.
-
-	if (irq > 0 || irq == -EPROBE_DEFER)
-		break;
-
-will do the job. But again, please double check that the
-fwnode_irq_get_byname() is even capable of returning deferral probe
-(probably yes as my weak memory tells me).
+No objections from me, but please make sure the summary of this is mentioned
+in the comment in the code and/or in the commit message.
 
 -- 
 With Best Regards,
