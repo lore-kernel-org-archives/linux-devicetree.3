@@ -1,68 +1,68 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072B048A2CE
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 14:49:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D138C4534B7
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 14:50:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778078983; cv=none; b=RrweuqJt8Ag6c5dI680NqdjakESepRnKMM8AvUVjfYfBgXIP4+Wb91zF/HNMzcBityEg+xTruXSD14QCr3vLMolc90CHCITZYHmAypqVkiBDeCf/cFSP7bnLF9/4kRoOxFoxzRjgilI7MAZlnBG2osWGntumoR+i3+X4V0EwX48=
+	t=1778079012; cv=none; b=MPvylBVqmIzjPIrOFyI9snx278XW1z4au2TQuWbxQMbaSAZNm/SqAkZc9TjH0YYpZQFAr/ZR7CD5PCsvCw+/Zof79+nXqr+Jc6fbWeyXzQqYgAedME9CYNi/TlPPMEpXBwx4O6fHeJXgwhGnyAXbxA1qwBlgg7GhgBj2yHzaB9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778078983; c=relaxed/simple;
-	bh=E4j/5JIxs2RFw0dHYZvGZu3nb78ZTFUG1m2FapdPN/8=;
+	s=arc-20240116; t=1778079012; c=relaxed/simple;
+	bh=E/7Hn0lBRsokKc6OpKls9FgRkgsCMpy/r+V2ptQbSuY=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=XnQy8c05KHHNEkx7f65gohT3L78crMPd8p9TWshX+bqBkAIy/cM5428urz+apXQzcvTv2lZxomlUxf2TfSHzecrMjd51489HtsS/lwFoxm3iXF05NX0qPPIABKvp1NnGNvv3JGJXCaqMkZHlF3SrKEJFiuK5x/2IOXa0fTkiDG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Ra7swc/T; arc=none smtp.client-ip=209.85.221.53
+	 In-Reply-To:Content-Type; b=E1REhRX+2mKWtZyAzrVUdVcTbogOcMlbOtbZ3L1FSNFWu2SQNKn0xSxQrnclqfaPWlbcdXdtOLaz0Ma+FVNb7hpqmGd4N2x+QxsQ4B+28QShX1hhYC6BslQMdDvHQCXiqF6eZYJhxLfrRxZqU3rinNukqXteUPFCN1GxKSFfXGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=tUVAwgY7; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Ra7swc/T"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-44a74032ff8so3708673f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 07:49:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="tUVAwgY7"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4896c22fcbaso50667485e9.0
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 07:50:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1778078977; x=1778683777; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1778079009; x=1778683809; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=xgbuIPvwGTDZ1vH1DcLJwAkJi5BHMTFvMXCyADYeRKI=;
-        b=Ra7swc/TdMCBet5b5E26NIoZpFvYs+cf9u03RjKhFYltjZkFMPsIblfjPPNpsyLC/5
-         NZXVgLTMfgu+qvfJDeuIAWuewpuvjLRCIwybgBD3MFCmli0ePqwDaPkX/rjbnLBR2NE1
-         IdvwFn7htzHqcnDGFPhUwb5ExQMKRiInQ2lKyobmTUYBOa5+6QjzZjY3fY6qENGlS8pA
-         S3CvCW13qcPbUGLsaD9R6+LyslHLpeaFAehyXQIBIFnpOPN+MnoeUlFj7LjnhBfoxYS/
-         fekhi1DYU/q2+xXok/VHCrcaHAdfV7cj+46FHZ9zqkhDez+iYhL4dZHl38yNoaYEcTrk
-         RA5Q==
+        bh=iNlQdkQkqMvv6TX3zSIUZJDpuOz3OCXPy5mPofQZIh8=;
+        b=tUVAwgY7dq/fY4xocAXkyo5rSBv5tVBscixR/+jUDJO1xsp+0rcspglv6ZFL0Ky61U
+         g6IQYnCzC2lAG3kUx4h0lTy0StJImHoalprbGliL+wHMEZBLRSfgaxXpBF0NX66n9lFK
+         nM0UbKMxEw1/KBEzsVtjezdkrQtLTlhvzJXRPAWEYMesLjsH/uunj5OEA69VohOHBI6s
+         v9OaTmNrdSgh2Pq64Oywklp74Ivp1omUC5EZY+nnKRlHmKMPcFeOkJI2q+lk/+BgMjk2
+         Yu+L1bHo0IUfDS+z7jPSAUJBkxXQvoFPxzsr5PzTB9EtnoQf5ZP3bYK2oKXxYiuOwvEx
+         FmZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778078977; x=1778683777;
+        d=1e100.net; s=20251104; t=1778079009; x=1778683809;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=xgbuIPvwGTDZ1vH1DcLJwAkJi5BHMTFvMXCyADYeRKI=;
-        b=JBIAFccKDWIGFJAbof2bOfWvbj+ykhQQXo4HyRGs3Nq1Yx+doSN0HmnHc3gniEefsa
-         fyzUZB2K9cxEukoaxnks1EO180R6GpXivWTkvE9EPBMDvaF9/Rv0mhRoLHhaIz6Ql3vR
-         /8+ivIwrC4af+Gsm1LSeryMvIl18LtMnKvgiENuHHWpHJ8Qknmsv6eQ5LYKOPTszgUem
-         syZ5wdh+zruJGFUouG97jd5sOAuzTMaJG7uV19V79NMTtdVHnW3/sUxTwdFMQcrJxujg
-         Vx8pka3DOSdYBVjKl68LxVySo0nQq78tnu14bhkyjUudhmR9WNoRtgh0TC3dG+CLNs7a
-         O/Wg==
-X-Forwarded-Encrypted: i=1; AFNElJ8qCATOonezsNUXXKYutzy++ZDzDGV66Zt0KSyNN0rUtbprupO4TfEjpz1u+k1NhB+TCTTfbx6+d8Pn@vger.kernel.org
-X-Gm-Message-State: AOJu0YysYBBeTA3ut2dbgqavyfh4E40Hlic3zv7bYfdCubGlBF8AOo3L
-	Ffnl/H2d/ehvRdhOqx+3d98+B8dYAkNoiXPbaUUQcmfWSz4TQrIlEkVPpUGXLGiVf7g=
-X-Gm-Gg: AeBDietAYrUxLMTs74sPzzg+68RsJ/y4pNJhnLgq4/SItM0A8uqxGo5nXM+BqJmJrlx
-	lkWst8H3mMMYIyPAgZsz5b41ocw53Egi6b4IkdlNs4EjlMM7xk4WDNpjnkU4jNWBa36etABBUnK
-	RHTy0SHrJjg1SaIxnG36Nbj+Qy7hy6NeyFAB4uh4UTwhuQllZu9YyLHLcrSBwAv4tglmmCSPAb8
-	h7Z14F6LXeIHO0W/vmR0gMkuaJ7skCqvcIN23kmmAWJRV56dAPacsP3IzlO6hDxqN2hgJu8itI1
-	yNx1uubfDiz2VVKxNGofbz+iJA1XbaMjB5xTnFLkiz9CxUuFKsbUD/IgevvwtrUt6O7BJJ1nIDl
-	oXA1pM8BHH2Tf6p6FeUPP5DRtXHq9VCziF4lc2HPf0y53Fjta17AO7RC7pz+Pe3SNRR9H4161Lg
-	bxHDWONkWx0b30BR4IkUOJrkdXky9rjox2wG1R0qIHeCe5qCBve13zA7OBKKWWQoYYud8gyxThN
-	PUEosLpCD2IjchGkg==
-X-Received: by 2002:a05:6000:2013:b0:43c:f3ef:ee36 with SMTP id ffacd0b85a97d-4515d4d0fbcmr6911189f8f.33.1778078977349;
-        Wed, 06 May 2026 07:49:37 -0700 (PDT)
+        bh=iNlQdkQkqMvv6TX3zSIUZJDpuOz3OCXPy5mPofQZIh8=;
+        b=Ai8VbEBvsVT56Sx1DFTttWX0f+9tPWF+a0xrFDx9MoUIZeiCRsoiEbrmfupd1Ydpg4
+         I7plUKYpfiZAdNsjpxtbFLhG6lXGX8f9zepQuWs6R6gZVQPQm5FLjiOXTrudOl8nArMw
+         4FB7bKM+KmToXArfmOuhXT7y70uM6VymFeQzStAJ3RIvXUiTah3REqfxmf8EGZWRoYR5
+         HAIHmXmh6yYDifJRzuD5xvkHtCtsf5whHTNY8xwT+gUGV+C+pdP6dM7P3cvnyx/cONgD
+         kuObGWEhS4FbaoOsUQQ+Fp9QZdiLS2N/IWKwnROzK7yZ4T8qapmgTpEa+xHkYdmyQotp
+         FlRg==
+X-Forwarded-Encrypted: i=1; AFNElJ/OrD8qxaP3KUp83+N54Uf52tpr9sBBr4fj83k0FglIqlKYa4UMOTiKs7Ul2qlpiJnL45zuSGmyq69Y@vger.kernel.org
+X-Gm-Message-State: AOJu0YxTjL3tVswRCdRGpJwxUDdUakysLAzqofkpV04foBJe48IFrw0W
+	A7f3SqYmWIZDhDgX+R4ThGUW4n5y+/G2E4eBsPjwG300B5HRJsy9Eb7RTB5BGDVLglE=
+X-Gm-Gg: AeBDiesAgyVOWnccc6kzvm1F8UAEA5gGvdBZjwseIQ8s2LJsu0Moc91c/VCDZst6bQt
+	FS0CS4CnJqos1xEfaY6bAkXGvwMQS28qghXK++kYpVmpRziuqMfev9NELkzwafma+0jWvB6COqE
+	RPW9Bt0/jHVneNlhC5x6kB1YzMEsaoEze6pi6Zz5JA7+Kyqo43yqTp1o1rrc6k4vNCgouZ1+4vY
+	Y5+73f7LO0tEgH+NtqEV4HjgJwLFfK8k8hi67ePWI7OUagFTgR03uhpXyIiJlgTLIYm5d47w2Sp
+	m2OU3g85EUqcokpPNXKcwHfwaFmvUTjnoS7QRHdFhgS3We1INSvw7F6GjJJdlkx9O02HqcQXViv
+	PS855wcm+SUetP1wQD/P/3gHUXXQrQC0UzxfbK0ieoyFECsczkIWs6JRsC5c8w/NrP7eGwoad4x
+	PGVUM1koLeK29jtbgIJWGpG5OgptmpG7EgSV/yKOF/6IWL7QcLF3yrsJCCJLEnhlCOOMkioinbN
+	9ePAS87LVmoKx8laaNsa+ynwALn
+X-Received: by 2002:a05:6000:268a:b0:451:3b12:9bca with SMTP id ffacd0b85a97d-4515ce1cde3mr6569525f8f.25.1778079009130;
+        Wed, 06 May 2026 07:50:09 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:5798:67fd:c866:b378? ([2a01:e0a:106d:1080:5798:67fd:c866:b378])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45054b02c5asm13014040f8f.19.2026.05.06.07.49.36
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45052483166sm12894076f8f.7.2026.05.06.07.50.05
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2026 07:49:36 -0700 (PDT)
-Message-ID: <ab5efb9a-a2a7-4871-94c3-599ba8510dd3@linaro.org>
-Date: Wed, 6 May 2026 16:49:35 +0200
+        Wed, 06 May 2026 07:50:06 -0700 (PDT)
+Message-ID: <7430e331-5bc4-4814-baf1-e87a9104045f@linaro.org>
+Date: Wed, 6 May 2026 16:50:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,8 +72,8 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v4 05/16] phy: rockchip: usbdp: Fix LFPS detect threshold
- control
+Subject: Re: [PATCH v4 06/16] phy: rockchip: usbdp: Add missing mode_change
+ update
 To: Sebastian Reichel <sebastian.reichel@collabora.com>,
  Vinod Koul <vkoul@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
  Frank Wang <frank.wang@rock-chips.com>, Rob Herring <robh@kernel.org>,
@@ -83,9 +83,9 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  Alexey Charkov <alchark@gmail.com>, linux-phy@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, kernel@collabora.com,
- devicetree@vger.kernel.org, William Wu <william.wu@rock-chips.com>
+ devicetree@vger.kernel.org
 References: <20260428-rockchip-usbdp-cleanup-v4-0-7775671ece22@collabora.com>
- <20260428-rockchip-usbdp-cleanup-v4-5-7775671ece22@collabora.com>
+ <20260428-rockchip-usbdp-cleanup-v4-6-7775671ece22@collabora.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -112,47 +112,64 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260428-rockchip-usbdp-cleanup-v4-5-7775671ece22@collabora.com>
+In-Reply-To: <20260428-rockchip-usbdp-cleanup-v4-6-7775671ece22@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 4/28/26 18:13, Sebastian Reichel wrote:
-> From: William Wu <william.wu@rock-chips.com>
+> rk_udphy_set_typec_default_mapping() updates the available modes,
+> but does not set the mode_change as required. This results in
+> missing re-initialization and thus non-working DisplayPort.
 > 
-> According to the LFPS Tx Low Power/LFPS Rx Detect Threshold [1],
-> the device under test(DUT) must not respond if LFPS below the
-> minimum LFPS Rx Detect Threshold 100mV. Test fail on Rockchip
-> platforms, because the default LFPS detect threshold is set to
-> 65mV.
+> Fix this issue by introducing a new helper to update the available
+> modes.
 > 
-> The USBDP PHY LFPS detect threshold voltage could be set to
-> 30mV ~ 140mV, and since there could be 10-20% PVT variation,
-> we set LFPS detect threshold voltage to 110mV.
-> 
-> [1] https://compliance.usb.org/resources/LFPS_Rx_Tx_Low_Power_Compliance_Update_Rev5.pdf
-> 
-> Signed-off-by: William Wu <william.wu@rock-chips.com>
-> [Taken over from rockchip's kernel tree; the registers are not described
-> in the TRM]
 > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 > ---
->   drivers/phy/rockchip/phy-rockchip-usbdp.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
+>   drivers/phy/rockchip/phy-rockchip-usbdp.c | 16 +++++++++++-----
+>   1 file changed, 11 insertions(+), 5 deletions(-)
 > 
 > diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> index 1f686844c337..97e53b933225 100644
+> index 97e53b933225..febc148a754e 100644
 > --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 > +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -413,7 +413,8 @@ static const struct reg_sequence rk_udphy_init_sequence[] = {
->   	{0x0070, 0x7d}, {0x0074, 0x68},
->   	{0x0af4, 0x1a}, {0x1af4, 0x1a},
->   	{0x0440, 0x3f}, {0x10d4, 0x08},
-> -	{0x20d4, 0x08}, {0x0024, 0x6e}
-> +	{0x20d4, 0x08}, {0x0024, 0x6e},
-> +	{0x09c0, 0x0a}, {0x19c0, 0x0a}
->   };
+> @@ -619,6 +619,15 @@ static void rk_udphy_dp_hpd_event_trigger(struct rk_udphy *udphy, bool hpd)
+>   	rk_udphy_grfreg_write(udphy->vogrf, &cfg->vogrfcfg[udphy->id].hpd_trigger, hpd);
+>   }
 >   
->   static inline int rk_udphy_grfreg_write(struct regmap *base,
+> +static void rk_udphy_mode_set(struct rk_udphy *udphy, u8 mode)
+> +{
+> +	if (udphy->mode == mode)
+> +		return;
+> +
+> +	udphy->mode_change = true;
+> +	udphy->mode = mode;
+> +}
+> +
+>   static void rk_udphy_set_typec_default_mapping(struct rk_udphy *udphy)
+>   {
+>   	if (udphy->flip) {
+> @@ -649,7 +658,7 @@ static void rk_udphy_set_typec_default_mapping(struct rk_udphy *udphy)
+>   		gpiod_set_value_cansleep(udphy->sbu2_dc_gpio, 1);
+>   	}
+>   
+> -	udphy->mode = UDPHY_MODE_DP_USB;
+> +	rk_udphy_mode_set(udphy, UDPHY_MODE_DP_USB);
+>   }
+>   
+>   static int rk_udphy_orien_sw_set(struct typec_switch_dev *sw,
+> @@ -1385,10 +1394,7 @@ static int rk_udphy_typec_mux_set(struct typec_mux_dev *mux,
+>   			usleep_range(750, 800);
+>   			rk_udphy_dp_hpd_event_trigger(udphy, true);
+>   		} else if (data->status & DP_STATUS_HPD_STATE) {
+> -			if (udphy->mode != mode) {
+> -				udphy->mode = mode;
+> -				udphy->mode_change = true;
+> -			}
+> +			rk_udphy_mode_set(udphy, mode);
+>   			rk_udphy_dp_hpd_event_trigger(udphy, true);
+>   		} else {
+>   			rk_udphy_dp_hpd_event_trigger(udphy, false);
 > 
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
