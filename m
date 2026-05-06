@@ -1,226 +1,215 @@
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010035.outbound.protection.outlook.com [52.101.84.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19E53E3C41;
-	Wed,  6 May 2026 08:12:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778055134; cv=none; b=ZKliovSy9gFxWAS4cTS69M1zNWtnXBwlRMitXwKf1dZqGfZ4pvFbwtTDM47O0fuZ8zGOe0xJb+SGik9oM00gd69z+tbD0MOOAIK67XfZgOIcNXqSajJbYyidhitizobPSfweQZrfSNajzYLyoVCmEzyfk7FRNxQY9Y5MJFNEQDE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778055134; c=relaxed/simple;
-	bh=ruVKvpSBaq4Bcz/8i9J/C5cM6Jsi0IxDofl/fqhw4Bs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=NCLGgacGjSx+HrTT8HVNW4RqI31l6XrOwyomhiX06sV7HIt0TIO9ls3cKwtvvpb9smmKSIFvh12999n7SaYvGDl3vcWCa4NrQDJVfVH405vUsrRkWDTyk/jQlh7QTX49yGskhEGwx043dhGUDnhRfyq0PBSmLJSssXqswBxzVQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 6 May
- 2026 16:06:58 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Wed, 6 May 2026 16:06:58 +0800
-From: Billy Tsai <billy_tsai@aspeedtech.com>
-Date: Wed, 6 May 2026 16:06:19 +0800
-Subject: [PATCH v9 2/3] dt-bindings: mfd: aspeed,ast2x00-scu: Describe
- AST2700 SCU0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15EC23932C0;
+	Wed,  6 May 2026 08:20:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778055654; cv=fail; b=XNjRXW7wTVi6eTAr+sF3m1wbtYusitHZR1awJnnfnNVsZufX4cJXRFdknQ741ArD4pJNJA2r1M9P0xPwVHOi/V7H+8r8V08e6RPvTAwXmWr12pE/PTxeI0Fmd2g94+a4FsnQAm2agZGxgFR63A1a8SN0qON/NkFLQ1sPhnhZ6is=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778055654; c=relaxed/simple;
+	bh=mYK57GVKCa5uRUnPUbG0vVnt+aQJoWw8WK4XzdwPg5E=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=IdNjaalu4STZ+s/hRP+40GYM50Tdfd/4QcRS/PbFJt6ocD1YL2dghuTjrW4vszX8oOlhGO1M0qracDuDSrjNlgLCMsMTYfMpjv3BKCotftwTjkcd9XUdyyDDweCxBEQuFogpX+w8ACu0+WiSOuwq+OhTQgLC8euoaDAyJq4OspA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=lDdlw5Ac; arc=fail smtp.client-ip=52.101.84.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="lDdlw5Ac"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VUkbA2RLpO5txRV9R1oSH65eX9AqrFT/W/E0uR7iwQccyMtv1zIf7OBEnz08IG1WzriZjNJ9X53B0PuglrwYmpyQkbhH1QduEWorBl64KMrO1FNiVZSbqPpUdg1407SHJpLnk1a7ugKwZFugOPHFua+pEuOO/ZetVhrMyMoPu7WKY5EM2OzaKeNOq70dAfvibHB0TqMC3ZHiXud3v5tsuOfFGjIHP0k8TAjg/EBCuR2zhq5xeITWApA4k9HBtOtzO/+PK9hCtRVF/IVaCmcBp1d7PvsVarnVHl/EKMeiECIo9i5BTsjdNSv6PJxrDJyVoigMWlgyiZTA5YcUHu9T2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v5iRsWVBxuxE3wropxKlvZpmI8CJiv7FmPNRX3l8yD8=;
+ b=pTxP86OIitxQHvXPWMGmfqb2RCwRndOUwqbd+tBlRQZdN7tQT3AzYeGkgTAPrKyVmzaoNbHrPvjaXq+jfyG0ys1sXweA870+XhJLuAzru7XaGv1d5tORSja224thPszn4C4H+WsnuMv+gshRIo/lDXcmIeInbcg2/wHR+jkuLC7BORwavEuGtNow/VV63y2WYMGcnU3sDTsNUwZ51DfpafLvcgP5ygvbAgJ+XHv4twmTogUPJwP23I6qkq2tLOCkXr72pT+Vo7gUUbR8abElSdwQDe3kBjC4qykbkUVdgb/O/cCDCThlgMUjzX/SngGjYlly5OQ+tOk7GBKIGDA67Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v5iRsWVBxuxE3wropxKlvZpmI8CJiv7FmPNRX3l8yD8=;
+ b=lDdlw5AcipoHj6I/ltbjEDEhW671O+zu5Ce/itfPgihZa8flYqPmfoXExmQtj2zqhHbO+cuBKmJGNH0ODtr4gNcQcLmr2PzuizqNI//Qjrpzo9lAEEtejWHmHs5tr1InrfD/dvpJ1DrZuVcoMjdqT7xUQbLx80K7G8lPuP+eRITcrBcryXzbRRER6Jzvp9geUtx1Th/g62vHc0X6Dl5Iig5bswCDXxxE2F5zV1ULPLO1HwRrG3fI0lVYe7rHBkLQe2geuTqr6ck3R9Nhp2QeLPSbv1kykvVbpqfQ86WkDMSg9p6gSAF7hyDSoN0PQYEsYHGuKPcBTTuS7X3VrUof0Q==
+Received: from DBBPR04MB7500.eurprd04.prod.outlook.com (2603:10a6:10:1f4::16)
+ by AM8PR04MB7425.eurprd04.prod.outlook.com (2603:10a6:20b:1d6::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
+ 2026 08:20:49 +0000
+Received: from DBBPR04MB7500.eurprd04.prod.outlook.com
+ ([fe80::c291:543b:4bde:cee7]) by DBBPR04MB7500.eurprd04.prod.outlook.com
+ ([fe80::c291:543b:4bde:cee7%6]) with mapi id 15.20.9891.008; Wed, 6 May 2026
+ 08:20:49 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: Claudiu Manoil <claudiu.manoil@nxp.com>, Vladimir Oltean
+	<vladimir.oltean@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"f.fainelli@gmail.com" <f.fainelli@gmail.com>, Frank Li <frank.li@nxp.com>,
+	"chleroy@kernel.org" <chleroy@kernel.org>, "horms@kernel.org"
+	<horms@kernel.org>, "linux@armlinux.org.uk" <linux@armlinux.org.uk>
+CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "imx@lists.linux.dev"
+	<imx@lists.linux.dev>
+Subject: RE: [PATCH v5 net-next 11/15] net: dsa: netc: add phylink MAC
+ operations
+Thread-Topic: [PATCH v5 net-next 11/15] net: dsa: netc: add phylink MAC
+ operations
+Thread-Index: AQHc2EvdRzdmP5L41Ee8UAxFPap3yrYArdig
+Date: Wed, 6 May 2026 08:20:49 +0000
+Message-ID:
+ <DBBPR04MB7500E0F877E0D3BA5DAD89EF883F2@DBBPR04MB7500.eurprd04.prod.outlook.com>
+References: <20260430024945.3413973-1-wei.fang@nxp.com>
+ <20260430024945.3413973-12-wei.fang@nxp.com>
+In-Reply-To: <20260430024945.3413973-12-wei.fang@nxp.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DBBPR04MB7500:EE_|AM8PR04MB7425:EE_
+x-ms-office365-filtering-correlation-id: 7c3f2d51-9cb6-4ecb-332f-08deab486156
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|376014|19092799006|1800799024|366016|921020|38070700021|56012099003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ oyR8JvPbXsyE8EJBxC3DgJtbCgbFjY0l/rtllCVVgZpdvh1tXwf7+Eg5PpekJNxpka4CEJ5ZDSrtgktFmX1bKNXYMwhrVDAEoMCycdtl0qRoUHBJYtSXTePmH8NeXRtVX/SJIycFIyjzzQ5dfmrfxGtsJXzufNtj2WnFLpzTraCXzw7mJEXkoJcy8yHOhSjvfhXnCoX9TpNlRWahLIf5nGLtQR8KFzN9Xp6qLz4LHVV1032vXy0Fo0yaufNdCIGPY5w3463AzpR5FXcowTe8ez2D4yPHEfGIdKYcPgvJOFpmCBjHdqPI3BNrtG7nrVuOvNhcmkVMNVAZP6p2xU3g0ICRUoeBJuIJTnL3Ef7vShvC5AOcMZ0FKKeUbDSdR0c/WCuNhPDn9tjSt8OPK1AaytrJw+uG/NIX3fJT/e5oefLq49EVCYRAtwKV5frwy/dB4GjHzmRHuP3Mf9agrwvqPqhuUYvXUYX8OlprUwvC9fOAB5dRHvh4ttYszGTN/48OQBKYA5jBtp9bCpLUOJWb/U56gSXf++/YX584mNilrS8V5km5N1PczsyCQVgn0u2/Xv5UWm3EH1sVnnYyuSIw7WANk+6kgNnAhIZA7fE1hTP8NtAslYIl05S8VrkhoGlH0JvtxezAz9rjOGUQdCukUHrVdz2+dILBqnWFjNqaq1H7IBf0RtZTwjhFOxVQuTNJB73JbmM0v9EzizMLDpVvgzBftsjsdKv55BBpnt6AgSlW0UrhXZQTdRBckaH5a9o/yub5ulLPIo8nGg6ad1Xqlw==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7500.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(19092799006)(1800799024)(366016)(921020)(38070700021)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?vV9Q+mH5G162DZDZhN/NEU/d7zXtmBLPlrFASwZS00HE8O79Oig7Ukrto1J2?=
+ =?us-ascii?Q?7UvquXUb9B1bfIhRhApDOa0VOxaWP0WKPlclX3rGQy5aX5Vyjmdm7BilOCap?=
+ =?us-ascii?Q?18+xlVqJjMWYOFb4dNU2qV/ezjE3V3awjbLo3vpkrf1c1/a7u77vPpL45/KV?=
+ =?us-ascii?Q?MvHzUSwAWaDXouQMtL94lS/KI8leiWQF7aLXDjPBbLQlQtzWPwy1xLc7iQMO?=
+ =?us-ascii?Q?Uuld1MwdE+hqZXcEVB7BLzshencVV2FXFmwolhVQoQjjpVU98u4wnXJHOT/b?=
+ =?us-ascii?Q?HtThujGYlknGnE3neE1dCiQS+8jGQWt1WBphx52tc1tYAeoxRkzbqpE1JkBJ?=
+ =?us-ascii?Q?zwylewLrFuMYf+Ysu1PLMXmNEOx1ajT+cBbLqw9qkf7t2GBwuDmnNI0E6tcJ?=
+ =?us-ascii?Q?atEwMSec99PFDwPvEnXdMDp/pM6sr5N5PLE3KOsMW5ZBT6lah3ghoxobfjTU?=
+ =?us-ascii?Q?At3HUY5m/PVTlCqwn8+wrK+DIgxosTy04+7V3weBTRm9SHNETh406xcq3lSF?=
+ =?us-ascii?Q?ZeAyJ+9NRRp4j8ypi9EDRNXrEWkcYSxHNILO2XRaM2+i5Z0aZG8UDnvIXBM+?=
+ =?us-ascii?Q?W66zqk+7qJlFrAmvCkSaOMmv3wXmsspmwT3VNRiNeeen783w35iXi3A/4XvR?=
+ =?us-ascii?Q?sc5/LegMgYL8HaIKw+VfmCvaDPFdFokoJrrt/hiQvm1xrsGthaS/w38bJtXe?=
+ =?us-ascii?Q?FxhH+aPr55lTYuWbQf/j4NtJf2fBSbALl0WYMRyhCq15nKESX41rJUgnkaVB?=
+ =?us-ascii?Q?iWFm2xfvYB7Ky4256m77XXGKucNj73P3tmvX2WBQ89k5L8EYYZxgnenUD31X?=
+ =?us-ascii?Q?G2h8MeoxHptKlkpxI9C5W4phJs+OR64comOqvUf6yI5O8ikCJpkERhrd3EEY?=
+ =?us-ascii?Q?UuYTqOMxAP4uiXChFeDTRdXxKwemh7E+xHoQY811pl5dL/CS6Nld2uBvAZ28?=
+ =?us-ascii?Q?A8zMrMiZP2CQiPzbGT78vMbWj/T7p7A020SSSrp1HY/YcPaup4303zvLr1VJ?=
+ =?us-ascii?Q?pBrKINKKMYTVUBqddCpcmy0Y5Q0YtvRUPHwLGdCfB8ox37hQt6dnNm1McM3R?=
+ =?us-ascii?Q?14XQ58XwUUrJvYVthXyzJx1/42EHPV/jyhyBtLnl8WUyc0u6H7y1IwdOUGNl?=
+ =?us-ascii?Q?KGnMEUfnPgIGcJU3+zUzE2VvTuGOARxT0NhFhYhl3SV6hzElLdg3egPmbfzi?=
+ =?us-ascii?Q?uAhaBqz5t2YIU7RpNHxZOBSca+0yu1nHeYqerP7ZomzDeVcqqx5G3sMs2u2O?=
+ =?us-ascii?Q?XYtasyR7Z7UIGVJ/alWtPwR5rhYovTbner3NJ9Ktnvlp6akXppSfA5Cgcg+j?=
+ =?us-ascii?Q?OADsbvpCvON2eXETm+sk2hCsucDFtx93M80Bpg2QFet/Y33WRfhWI/0GDFqE?=
+ =?us-ascii?Q?pNsaW+NmYJ+fNc9mwqjCm2h9x1O8ALpEISdEObEmqM7/6u2iawuVcYBL5bHl?=
+ =?us-ascii?Q?f+43jDqbbmOd++K8vBZU7P3C0bjdA17rYLJ9FzsSXP9nnfaKKRC9xZCrrG5r?=
+ =?us-ascii?Q?tVAsxqEGGqyoxog7AuzC8vn6ej9maEhsokSys052eDUx1XscOjAGyxe+3fuf?=
+ =?us-ascii?Q?9NYXue4oc7HLMmytan2e/elLNFsc2RTAWOHb94KAP9aD61c5zmeO+Q12yEto?=
+ =?us-ascii?Q?XuJwjaHm68ltEOaXzN8qjO+JGPLBZkoTEknAPeOGA1y/jhdcdRp3ISbFVrOF?=
+ =?us-ascii?Q?lf2/IlEDlEVZms+t/iWifXE97cngY6ELVJJmSBt3ig8+Kw2L?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260506-upstream_pinctrl-v9-2-0636e22343ad@aspeedtech.com>
-References: <20260506-upstream_pinctrl-v9-0-0636e22343ad@aspeedtech.com>
-In-Reply-To: <20260506-upstream_pinctrl-v9-0-0636e22343ad@aspeedtech.com>
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Joel
- Stanley" <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	"Linus Walleij" <linusw@kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>,
-	"Bartosz Golaszewski" <brgl@kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>
-CC: Andrew Jeffery <andrew@aj.id.au>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
-	<linux-kernel@vger.kernel.org>, <openbmc@lists.ozlabs.org>,
-	<linux-gpio@vger.kernel.org>, <linux-clk@vger.kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778054817; l=5341;
- i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
- bh=ruVKvpSBaq4Bcz/8i9J/C5cM6Jsi0IxDofl/fqhw4Bs=;
- b=g4mts3EpgRaqlZT68vfmeJIROUXUeVmr2BXXASjDlKn4DkI0PF/HKeFkamE+fA9GKE4/2H1vF
- e5Dv8klvwk1BtAF7fHxHNJ+EC1LVVOFpN/ivA0euuuOEJTClBMilRyn
-X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
- pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7500.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c3f2d51-9cb6-4ecb-332f-08deab486156
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 May 2026 08:20:49.1980
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: SGJyUaMeNbDY3g6pslV5FhoGae934zxkkaveghZKNC7c2utw3tKZixJ92VDbHElIQ2kSkyvc9N5FmVprqfVHew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7425
 
-AST2700 consists of two interconnected SoC instances, each with its own
-System Control Unit (SCU). The SCU0 provides pin control, interrupt
-controllers, clocks, resets, and address-space mappings for the
-Secondary and Tertiary Service Processors (SSP and TSP).
+There are some comments from Sashiko and see my response inline.
 
-Describe the SSP/TSP address mappings using the standard
-memory-region and memory-region-names properties.
+> +static void netc_mac_port_rmw(struct netc_port *np, u32 reg,
+> +			      u32 mask, u32 val)
+> +{
+> +	u32 old, new;
+> +
+> +	if (is_netc_pseudo_port(np))
+> +		return;
+> +
+> +	WARN_ON((mask | val) !=3D mask);
+> +
+> +	old =3D netc_port_rd(np, reg);
+> +	new =3D (old & ~mask) | val;
+> +	if (new =3D=3D old)
+> +		return;
+> +
+> +	netc_port_wr(np, reg, new);
+> +	if (np->caps.pmac)
+> +		netc_port_wr(np, reg + NETC_PMAC_OFFSET, new);
 
-Disallow legacy child nodes that are not present on AST2700, including
-p2a-control and smp-memram. The latter is unnecessary as software can
-access the scratch registers via the SCU syscon.
+Does this code risk corrupting the pseudo-MAC (PMAC) configuration?
 
-Also allow the AST2700 SoC0 pin controller to be described as a child
-node of the SCU0, and add an example illustrating the SCU0 layout,
-including reserved-memory, interrupt controllers, and pinctrl.
+By reading the original register value exclusively from the primary MAC
+(MAC 0) and writing the resulting new value to both MAC 0 and the PMAC,
+any independent configuration stored in the unmasked bits of the PMAC could
+be blindly overwritten.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
----
- .../bindings/mfd/aspeed,ast2x00-scu.yaml           | 114 +++++++++++++++++++++
- 1 file changed, 114 insertions(+)
+Additionally, if the new value matches the old value for MAC 0, the functio=
+n
+returns early. Could this leave the PMAC permanently out of sync if its sta=
+te
+needed updating but MAC 0 did not?
 
-diff --git a/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml b/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml
-index a87f31fce019..0d5e168b0309 100644
---- a/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml
-+++ b/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml
-@@ -46,6 +46,18 @@ properties:
-   '#reset-cells':
-     const: 1
- 
-+  memory-region:
-+    items:
-+      - description: Region mapped through the first SSP address window.
-+      - description: Region mapped through the second SSP address window.
-+      - description: Region mapped through the TSP address window.
-+
-+  memory-region-names:
-+    items:
-+      - const: ssp-0
-+      - const: ssp-1
-+      - const: tsp
-+
- patternProperties:
-   '^p2a-control@[0-9a-f]+$':
-     description: >
-@@ -87,6 +99,7 @@ patternProperties:
-             - aspeed,ast2400-pinctrl
-             - aspeed,ast2500-pinctrl
-             - aspeed,ast2600-pinctrl
-+            - aspeed,ast2700-soc0-pinctrl
- 
-     required:
-       - compatible
-@@ -156,6 +169,30 @@ required:
-   - '#clock-cells'
-   - '#reset-cells'
- 
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - aspeed,ast2700-scu0
-+              - aspeed,ast2700-scu1
-+    then:
-+      patternProperties:
-+        '^p2a-control@[0-9a-f]+$': false
-+        '^smp-memram@[0-9a-f]+$': false
-+
-+  - if:
-+      not:
-+        properties:
-+          compatible:
-+            contains:
-+              const: aspeed,ast2700-scu0
-+    then:
-+      properties:
-+        memory-region: false
-+        memory-region-names: false
-+
- additionalProperties: false
- 
- examples:
-@@ -180,4 +217,81 @@ examples:
-             reg = <0x7c 0x4>, <0x150 0x8>;
-         };
-     };
-+
-+  - |
-+    / {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        reserved-memory {
-+            #address-cells = <2>;
-+            #size-cells = <2>;
-+            ranges;
-+
-+            ssp_region_0: memory@400000000 {
-+                reg = <0x4 0x00000000 0x0 0x01000000>;
-+                no-map;
-+            };
-+
-+            ssp_region_1: memory@401000000 {
-+                reg = <0x4 0x01000000 0x0 0x01000000>;
-+                no-map;
-+            };
-+
-+            tsp_region: memory@402000000 {
-+                reg = <0x4 0x02000000 0x0 0x01000000>;
-+                no-map;
-+            };
-+        };
-+
-+        bus {
-+            #address-cells = <2>;
-+            #size-cells = <2>;
-+
-+            syscon@12c02000 {
-+                compatible = "aspeed,ast2700-scu0", "syscon", "simple-mfd";
-+                reg = <0 0x12c02000 0 0x1000>;
-+                ranges = <0x0 0x0 0x12c02000 0x1000>;
-+                #address-cells = <1>;
-+                #size-cells = <1>;
-+                #clock-cells = <1>;
-+                #reset-cells = <1>;
-+
-+                memory-region = <&ssp_region_0>, <&ssp_region_1>,
-+                                <&tsp_region>;
-+                memory-region-names = "ssp-0", "ssp-1", "tsp";
-+
-+                silicon-id@0 {
-+                    compatible = "aspeed,ast2700-silicon-id", "aspeed,silicon-id";
-+                    reg = <0x0 0x4>;
-+                };
-+
-+                interrupt-controller@1b0 {
-+                    compatible = "aspeed,ast2700-scu-ic0";
-+                    reg = <0x1b0 0x4>;
-+                    #interrupt-cells = <1>;
-+                    interrupts-extended = <&intc0 97>;
-+                    interrupt-controller;
-+                };
-+
-+                interrupt-controller@1e0 {
-+                    compatible = "aspeed,ast2700-scu-ic1";
-+                    reg = <0x1e0 0x4>;
-+                    #interrupt-cells = <1>;
-+                    interrupts-extended = <&intc0 98>;
-+                    interrupt-controller;
-+                };
-+
-+                pinctrl@400 {
-+                    compatible = "aspeed,ast2700-soc0-pinctrl";
-+                    reg = <0x400 0x318>;
-+                    emmc-state {
-+                        function = "EMMC";
-+                        groups = "EMMCG1";
-+                    };
-+                };
-+            };
-+        };
-+    };
-+
- ...
+The pmac means preemption MAC not the pseudo MAC, I will add a comment
+to the pmac definition. The purpose of netc_mac_port_rmw() is to make
+pMAC and eMAC configurations the same. So this is a false positive.
 
--- 
-2.34.1
+[...]
+
+> +static void netc_port_mac_tx_graceful_stop(struct netc_port *np) {
+> +	netc_port_rmw(np, NETC_POR, POR_TXDIS, POR_TXDIS);
+> +
+> +	if (is_netc_pseudo_port(np))
+> +		return;
+> +
+> +	netc_port_wait_tx_empty(np, 0);
+> +	if (np->caps.pmac)
+> +		netc_port_wait_tx_empty(np, 1);
+> +
+> +	netc_mac_port_rmw(np, NETC_PM_CMD_CFG(0), PM_CMD_CFG_TX_EN,
+> 0); }
+
+Can this sequence race with the Port actively pushing the remainder of a pa=
+cket
+to the MAC?
+
+The code disables the Port TX (POR_TXDIS) and then immediately waits for th=
+e
+MAC TX FIFO to empty. However, without polling the PSR_TX_BUSY bit in NETC_=
+PSR
+to ensure the port has finished its work (similar to how PSR_RX_BUSY is che=
+cked
+in netc_port_mac_rx_graceful_stop), it appears the MAC TX FIFO could
+momentarily empty while the port is still pushing data.
+
+Would this lead to prematurely disabling the MAC TX (PM_CMD_CFG_TX_EN =3D 0=
+) and
+potentially truncating egress packets or leaving the hardware in an invalid
+state?
+
+This is also a false positive, the procedures for configuring graceful stop=
+ for TX
+and RX are different, and they are all configured in accordance with the NE=
+TC
+reference manual.
 
