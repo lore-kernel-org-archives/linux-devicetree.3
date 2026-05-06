@@ -1,220 +1,95 @@
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFC64A3412
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 18:21:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DF74A3412;
+	Wed,  6 May 2026 18:23:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778091695; cv=none; b=KoUcpAMQt8dt4uf2QnnGqcZeM2q+QGrUED6Og/ou2mN1Jn0ptFj4hFXKx1kA6wcf0bf0Dgi3VbpiCdlEmZbTzIBI2RatwGN7i0ooakJv7plll/55Ezhc8Mo9YYutiYoy8t74e/LB9Y4CvfGpfbH/4da4LzgspOJ8zKAjNUATJHo=
+	t=1778091807; cv=none; b=J4vh2H+Dqnx0uL1QLY3rocleTowf7L7MYorreiXHQ2EU1R1mRZwe3KIgTu5zOwzq4FbdTd1xweFW9EElXdm1id2pWe4wnAMdIj3F5hAEKuoUzdWjWVaU8X1Huxrl0H7eE2QMYJXxVadK2lRrKHJYkN3ox06BPgaV3ru/FDEDc1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778091695; c=relaxed/simple;
-	bh=l9RL6ffZ0V6p/nZhYhiJ/k+Ncl3ace6QHYzBN675cRE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VxBl1Amk410itfZKMsDfqZ1RfX+1w5NUiXMOnM6uzEfvYS/+oPwFxwBVyA/aAcWxS+PCnx6ZZ1UNLp4gCtHnK5kij8sqOTeLUDJ7TzcnWdHBMZh5yBJkgyClSzvndZjo0CZ0W6vTRm4msU/jPwQPONh5sBVMrAVmtWY0NvAHrQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=MXQ1ByoQ; arc=none smtp.client-ip=209.85.222.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1778091807; c=relaxed/simple;
+	bh=/SxnHXwXkcJ2w7XFQ1HeyaJ3OACr3W5SIqggah0abSE=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=j9VV+ihzyKYNVkq+QhCM1VLOHpsBj/Wn5ZBGVrGvf3l0apyg8yz6pSkaUs+BcgoVNM4zdeu9r2IzGh4MZAZTC2ZKxb6UKed6GZhwUatX+IDG8hOpzmSQdQZWkbwxX5VM/Zt/g1iI/WUDzmveBN0UW/Taj8dEuoHRu9X0vJ0qFSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dZ4KhPTe; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="MXQ1ByoQ"
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-8f0a87e23daso669391485a.1
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 11:21:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778091693; x=1778696493; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5oBqOeQFggE8v+cavTTn16m1Xk99yYA0Xp28tAkW6v4=;
-        b=MXQ1ByoQInRWPvTL/VCZ1IQuPvW37sz9uZec9IY6HESSYPe434OaNktzL4FV46P8hy
-         GUHNPZdb3PM+G9O981LjNDaf5vwazehHtDvvz3JMB4QTAFsTeVjeN0c8Y9ebS64Zwkx+
-         CrQoawpsKZHIL3PepkgbpA5SemfLG/37+pA7nvC0UnvYN/kw9kY1icXlnELq6tkGiPs4
-         yBxYhbZqdPumQCerXDNlJlqHnb9GnlMkvq3oHVRKbjDVWkYoCIrr+80sI1ReDp94/9Ig
-         SYYiZqxGJiZmFPHseAQ49nWXI7UuneIUnVf4t3XyDYo/rg/4vkeJMPgIar/acqRQOZF6
-         cpxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778091693; x=1778696493;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=5oBqOeQFggE8v+cavTTn16m1Xk99yYA0Xp28tAkW6v4=;
-        b=XgbXraiFS78sTEDhC+ZYOGYs9YarS2jt+PsewnQEA7huegH7ujUzb1E1PedKJG7kUx
-         g2Qws+c2PyakRQ6C+sZYwPy3LRE13TiyIwx3uArB9t02M3OM8srEcQ5Z/FAoVbyuudZs
-         cr9yQ/k89EqQNaq/pyunufMfpR6gh4bXCJwH2qTVopnbLkmHmTwLc554CeEqvK9pcN6j
-         MZIC4a9k0mS06ZXy5jjLU1pmcdXHUWF7tTXndmg6YwOdP3fo4Io+XiTmOr1D+wMESh9c
-         ZB+MnKzhWur4p+F9uGvdeAQ4vJZitlNy1G16rCfrJtCVhLIZX4hxp5YO/fDEcFPxO9M9
-         M9HA==
-X-Forwarded-Encrypted: i=1; AFNElJ9UKysj3VRdQW74N+dmUoyGAhntuPSllHnyoRm6E/QnH1KYlBxYYiYxZl/7hBmLHOwpp1JmO3lqAK5H@vger.kernel.org
-X-Gm-Message-State: AOJu0YwMnOZoXcnrTTatWOUIAZRqD17EN/liXWX6yaNKtOiWG7bH9pVy
-	teJxkN0+ObE8tf9XSAYzFJRFmaLEhJBjaojWS51xtpAMuES6EDSQgY+9acXt8ZsFoNE=
-X-Gm-Gg: AeBDievpoe8m4/Qov526yf+URUOmJiuDMxlHcbrjBNB8YbTlIBZ7QM2wq3RgCCR/2kH
-	MudbiOvmAgmYB97K7chVm+o8Rrl4Li09Zl364/3JbuKBlaUFXk9zHdQwiGIamXhzGycYGeqRYXY
-	nZdj3kcdASSkvv+0GbIjfJiX7XxojzIayO6ouKUas8DHilvBRX3r7GANN9gkdNHSLH2DFHWl6fJ
-	02JUatYi1Liv74+044Z+GQoPVABhSnBBrrFavyPESF9MULNpQnv3RBJehMwXm9ZYjKyU5gCzzXC
-	OHhjPm2NuoakKPaxjWbyQIQbg/GWq8a4kvpeoDCkemCIWznR0QrCsHioWt6kbAjCCRDLnhqcry+
-	zHZGmcu0QLZlGV00QvhePKPyB5OL2q34YNmSwCHA8mUhYfOfjjS4uwa7cGjiDEhm7Kftr/8cZoX
-	vDdRIyl21yiYWzvkEQUyrZklvAH/jU5xc8mVpkJOxikCgdjTGK6+lZCruRgUaZEBHi+y8HTl45Q
-	Q==
-X-Received: by 2002:a05:620a:29c1:b0:8ef:12de:1337 with SMTP id af79cd13be357-904d60f5233mr705172585a.38.1778091693050;
-        Wed, 06 May 2026 11:21:33 -0700 (PDT)
-Received: from [172.22.22.28] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8fc2cd057acsm1895096485a.47.2026.05.06.11.21.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2026 11:21:32 -0700 (PDT)
-Message-ID: <0751a051-9894-45be-92d6-0d46f2c39293@riscstar.com>
-Date: Wed, 6 May 2026 13:21:29 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dZ4KhPTe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDB78C2BCB0;
+	Wed,  6 May 2026 18:23:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778091806;
+	bh=/SxnHXwXkcJ2w7XFQ1HeyaJ3OACr3W5SIqggah0abSE=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=dZ4KhPTeKCPdcIM3uY86WUQaB9adD2ubzosodrUC4/SwTpySCmDBdrvx67EYge27s
+	 tNE9ZhkCenZ81z/D/SE6P01CwPW/ok2eBcI21VLgLzuObPwCSjREAKH+s1yRCg2Z0t
+	 A7tgJMo8n3n7VV82r4DWXyiMHXSZmUynpjQzchs5OjVzEcmknRlUpDqnJtgyWzpYyd
+	 1Lrq6sqOs1faA+8iVCd9c+aXXMjbONgx3lfar7Fu1uUVwXa7yCoMnCveVrRu08qOV1
+	 KnCK4Wx52BWZEArM6SipxnPXahFsLVM/oQHlh0OEzyN9THeF2IFnZJK+Zhjw3ZavYQ
+	 wMOZpnXGvONgw==
+Date: Wed, 06 May 2026 13:23:21 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 09/12] gpio: tc956x: add TC956x/QPS615 support
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
- rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
- brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org,
- daniel@riscstar.com, mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
- alexandre.torgue@foss.st.com, ast@kernel.org, boon.khai.ng@altera.com,
- chenchuangyu@xiaomi.com, chenhuacai@kernel.org, daniel@iogearbox.net,
- hawk@kernel.org, hkallweit1@gmail.com, inochiama@gmail.com,
- john.fastabend@gmail.com, julianbraha@gmail.com, livelycarpet87@gmail.com,
- matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
- prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
- rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
- weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-10-elder@riscstar.com>
- <736fb3b7-c88a-4ec4-96ad-d1b79cc48d30@lunn.ch>
- <30cec7dd-ac3c-47ab-896a-c29992bd5ba5@riscstar.com>
- <3666e3e6-e6f3-4cbf-b9fe-caa394fbab7c@lunn.ch>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <3666e3e6-e6f3-4cbf-b9fe-caa394fbab7c@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Andrew Rembrandt <kernel@rembrandt.dev>
+In-Reply-To: <20260506170236.2610955-1-kernel@rembrandt.dev>
+References: <20260506170236.2610955-1-kernel@rembrandt.dev>
+Message-Id: <177809180119.2697484.15620649929174831633.robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: arm: st,nomadik: Convert to DT schema
 
-On 5/2/26 10:05 PM, Andrew Lunn wrote:
-> On Sat, May 02, 2026 at 08:45:48PM -0500, Alex Elder wrote:
->> On 5/1/26 1:36 PM, Andrew Lunn wrote:
->>>> + * There is a TC956X PCI power controller driver that accesses the
->>>> + * direction and output value registers for GPIOs 2 and 3.  These
->>>> + * GPIOs control the reset signal for the two downstream PCIe ports.
->>>> + * Their values will never change during operation of this driver, and
->>>> + * this driver reserves these two GPIOS.
->>>
->>> Why doesn't this power controller driver actually use this driver to
->>> control the GPIOs? Chicken/egg?
->>
->> I am not the one with authority on this, but yes, that's my
->> understanding.  *Something* about this chip requires that the
->> PCIe ports need to have some configuration done on them *before*
->> PCIe is powered up.  So that driver uses the I2C interface to
->> apply these settings.  Meanwhile this driver uses the PCIe-mapped
->> memory to manage the GPIO registers.
+
+On Wed, 06 May 2026 19:02:36 +0200, Andrew Rembrandt wrote:
+> Convert the ST Nomadik boards binding from free-form text to DT schema.
 > 
-> The diagram you have is:
+> The binding documents the Nomadik NHK15/USB-S8815 platform compatibles
+> and keeps the existing example.
 > 
+> Signed-off-by: Andrew Rembrandt <kernel@rembrandt.dev>
+> ---
+>  .../devicetree/bindings/arm/st,nomadik.yaml   | 36 ++++++++++++++++++
+>  .../devicetree/bindings/arm/ste-nomadik.txt   | 38 -------------------
+>  MAINTAINERS                                   |  2 +-
+>  3 files changed, 37 insertions(+), 39 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/arm/st,nomadik.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/arm/ste-nomadik.txt
 > 
->                ----------------------------------
->                |              Host              |
->                ------+...+----------+........+---
->                      |i2c|          |  PCIe  |
->      ----------------+...+----------+........+------
->      | TC956x        |I2C|          |upstream|     |
->      |               -----        --+--------+---  |
->      |  -----  ------  -------    | PCIe switch |  |
->      |  |SPI|  |GPIO|  |reset|    |             |  |
->      |  -----  ------  |clock|    | DS3 DS2 DS1 |  |
->      |                 -------    ---++--++--++--  |
->      |  -----  ------     downstream//    \\  \\   |  downstream
->      |  |MCU|  |SRAM|    /==========/      \\  \===== PCIe port 1
->      |  -----  ------   //PCIe port 3       \\     |
->      |                  ||                   \======= downstream
->      |  ----+-----------++-----------+----         |  PCIe port 2
->      |  | M | internal PCIe endpoint | M |         |
->      |  | S |------------------------| S |  ------ |
->      |  | I |   PCIe   |  |   PCIe   | I |  |UART| |
->      |  | G |function 0|  |function 1| G |  ------ |
->      |  | E |----++----|  |----++----| E |         |
->      |  | N |  eMAC 0  |  |  eMAC 1  | N |         |
->      --------+.......+------+.....+-----------------
->              |USXGMII|      |SGMII|
->            --+.......+--  --+.....+--
->            |  ARQ113C  |  | QEP8121 |
->            |    PHY    |  |   PHY   |
->            -------------  -----------
-> 
-> The two Ethernet controllers are hanging off port 3 of the
-> switch. However, the GPIO block is just floating in space. What
-> address space is it in?
 
-Well, that isn't easily representable.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-In fact, the GPIO (and UART and eMACs, etc.) is accessible
-multiple ways.   They are in a single "SFR" range of memory
-within the TC956x, which is partitioned into sub-ranges for
-the separate IP blocks.
+yamllint warnings/errors:
 
-E.g:
-0x40000000	Bootup config registers (size 0x1000)
-0x40006000	UART registers (size 0x1000)
-0x40020000	PCIe registerfs (size 0x00010000)
-0x40040000	EMAC0 (size 0x8000)
-and others.
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/arm/st,nomadik.yaml: properties:compatible:oneOf: [{'const': 'st,nomadik-nhk-15'}, {'const': 'calaosystems,usb-s8815'}] should not be valid under {'items': {'propertyNames': {'const': 'const'}, 'required': ['const']}}
+	hint: Use 'enum' rather than 'oneOf' + 'const' entries
+	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/arm/st,nomadik.example.dtb: usb-s8815: ethernet-gpio: {'gpios': [[4294967295, 19, 1]], 'interrupts': [[19, 1]]} is not of type 'array'
+	from schema $id: http://devicetree.org/schemas/gpio/gpio-consumer.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/arm/st,nomadik.example.dtb: usb-s8815: mmcsd-gpio: {'gpios': [[4294967295, 16, 1]]} is not of type 'array'
+	from schema $id: http://devicetree.org/schemas/gpio/gpio-consumer.yaml
 
-The MCU has access to this SFR space.  The host CPU can
-access it via the I2C interface (as the PCIe power control
-driver does).  The PCIe power control driver actually
-touches the GPIO registers to be able to assert reset
-on the two downstream PCIe ports.
+doc reference errors (make refcheckdocs):
 
-In addition, BAR4 for both PCIe functions has access to the
-same SFR space.  So in fact, both of these functions are
-capable of controlling GPIOs.  We are having just one of
-them (function 0) be responsible for that.
+See https://patchwork.kernel.org/project/devicetree/patch/20260506170236.2610955-1-kernel@rembrandt.dev
 
-> I'm wondering if the GPIO controller should be a device/driver of its
-> own? It probes first. The PCI power controller driver then probes, and
-> has phandles to the GPIO controller so it can activate ports 1 and
-> 2. Parallel to that the Ethernet driver(s) can probe, also using
-> phandles to the GPIO they need.
-> 
-> Looking at this diagram, putting the GPIO controller within one of the
-> port 3 functions is wrong. But maybe the diagram is not accurate.
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-When the PCIe power controller was implemented, the GPIO
-functionality was not separated out.  That driver simply
-touches two registers to manage asserting reset on the two
-downstream PCIe ports.  (It changes these only during the
-appropriate times during power-up and power-down of the ports.)
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-It's possible *that* work could have implemented a separate
-GPIO driver.  We did not pursue modifying the power control
-driver to work that way.
+pip3 install dtschema --upgrade
 
-Instead, we modeled it starting with the STMMAC driver (which
-is how the Toshiba vendor driver works).  But we separated
-the GPIO functionality into a separate (auxiliary) device,
-which has its own driver.
-
-Because the internal endpoint won't operate until the PCIe
-power controller has enabled power, this GPIO driver and
-the PCIe power control driver won't interfere with each
-other's access to the shared registers.
-
-In short, because this "SFR" space is available in various
-ways, there are several ways the GPIO (and other) IP can
-be managed and represented.
-
-					-Alex
-
-> 
->       Andrew
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
