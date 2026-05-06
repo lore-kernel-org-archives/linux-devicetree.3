@@ -1,138 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D928A13B58C;
-	Wed,  6 May 2026 17:31:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147EA4ADDAA
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 17:39:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778088701; cv=none; b=EMAthwcVVlbb0EOujUPQ30qcrZ+d/NwRbq2z4grd7jhqZE+quKMm8cjSH3I7dxq0ps2EH7Fzh9nmq2gwaipghhvc0vnb1r9T1Gyar4Ho4CFv5ZkYloefnSEbeg3Zs1onL6vdPDFvAaN2QI9TEY2xtumeEWMT7TlDwPDVGX2XVbg=
+	t=1778089163; cv=none; b=rRLf414El2Dhz/bnKU5LpOiiDHiV89kRuERedYkX6bU6vIdjMP2XqLaiyLuBzh85+ynZa3JjGNfRmTy5pxCeXcgZD0okKJmPjRl0g3hDqcAJxbjt4T0staHmRnMF5Xyy+y8at/xBwpiDJU0wO0o3Ve8ye41VMrMQOA4jGrQW+2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778088701; c=relaxed/simple;
-	bh=IXW/gs6w5MDeR9oMEXijuhUMUHTh6E+zU+M+iFLMlpU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XnhrJ2RCPyPX57g9jRsbNxa3iGLYyUDVsJbLCxGgsBQqYDO+4g5/v24N+NP7czmah6uFiqXKSEJY4m7TLx5sDxILRbXqapq2qqs/PJTOrioW8rMqWiM4PXc4WxtmgGWQ5b8FzwicFkW6ZR7SqoYArRAO8taNbcExcfdNN63MA4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dx4isqLg; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778089163; c=relaxed/simple;
+	bh=6i1w8FUVeMItLfoBEsQ1m6McI0ZsDh5XdVy3i6eNKsY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dGA4zYTcIa4C/ewSv7/mTCIBF92s1VYwM1HGBysjW+qDLxeH9GQmBrv4ud4OyjuiBQLByPKyGRVrJ4MO3bupr10cCn3FAsNdBPWqPXsdlaJG5lLfkkcRSchb6bcZlULUzeNwrS0TmOvBdPCdcc78QwpWq+6jCQtjWOxDxordMMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TdLIiDEy; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dx4isqLg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21E85C2BCB0;
-	Wed,  6 May 2026 17:31:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778088701;
-	bh=IXW/gs6w5MDeR9oMEXijuhUMUHTh6E+zU+M+iFLMlpU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dx4isqLgc1x044bHqO4HPhxPHkU5q1I21A0oaqtU2HF+Qa84+yMomcDCGJSrY6DCM
-	 Zb9Tzppb8RpJElwMjzQywDASxzwAiwwct4qwAhHBN/TZCbPCirZbvLIMkWVFB0dZK0
-	 Q1h6UUI7HDoETh2igqwGdFUSasl4gESt2HcrFSyNi+2ElnAqA6SsgivETY/ljf/59z
-	 n2YyKpEG9jUDsUJ5geeKAAeGL1QEjWKTc4zP3MIRPjGb9oZPBuLHRu4SI36cxq54bQ
-	 OHCyMLHWA0RlzmbzCY2422zCZp6NLoN7VZWr+1mKDzUaCSBcL25H5ooE6cD4WrkFn/
-	 jGaeq/kaWyDAw==
-Date: Wed, 6 May 2026 18:31:37 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Andrew Rembrandt <kernel@rembrandt.dev>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: arm: st,nomadik: Convert to DT schema
-Message-ID: <20260506-turmoil-chef-81946165534a@spud>
-References: <20260506170236.2610955-1-kernel@rembrandt.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TdLIiDEy"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-488ba840146so59721295e9.1
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 10:39:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778089160; x=1778693960; darn=vger.kernel.org;
+        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=6i1w8FUVeMItLfoBEsQ1m6McI0ZsDh5XdVy3i6eNKsY=;
+        b=TdLIiDEyzUKjsIHEs2BOaoMIdNi99JiO5V2RkIC8kF1lztgZwpfgLw8B+36GgXMlnU
+         svoeqXeo1rq1akTs04DPVx3ZkHHf7C+q/6cl3N8SsaSkqbC3wl0n7ft1+CQMjDCIahJV
+         qNbKnvbPFT3YjvAqpXXMHio7M+pM4+SI7ROHefCEAPH8KNyPwxVU4ZiTgHGqSDyedsHA
+         t+lXcoKqMIQHrgq2MSAzhfFuG3QEXWHlc3EHFwuDlFepfdZGitvoBw5t7GSjxIDVVXlD
+         VkR+8vUpPMJb+VR2qLwt/n3SjhxDlfyhRQ8ynuvQPDTbbiOv44pFiMj6k/yyyINxBQhU
+         CUlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778089160; x=1778693960;
+        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=6i1w8FUVeMItLfoBEsQ1m6McI0ZsDh5XdVy3i6eNKsY=;
+        b=c2Z2KzAbFYgVxChXsblXGkG5O9aKsRLIDkAhd2YSKyHM/3TX3URgn5ibUUDnpWfv74
+         wEpBoB38izqKxJMAPBj3+PXVjHH8JE42YQHD1sRTWi1lNA75YLX+LdgdAaRqJIihUO3R
+         LZwSf0QS3L83DWJUYa7ASFin6mvnm0Ul9+QRIKDRFBCQ6BAomreZ5ZnrZakNf+OHJ+s6
+         /6yr3HR9M2hEkmNDGwIF3XHD35mFMBSI6JSHSanaA/ykbrz09PHcY1mnmIOmInBU7ZOA
+         ytRkfq/72SlaNJo7wIxG+z7m6Vif0u0t2u4VWyRVGTeos1RxmIVkEA4VzFwWPLbJALbY
+         oLAw==
+X-Forwarded-Encrypted: i=1; AFNElJ9Bmn2hD3ovCtJSgMT84qGmYc1JtgoV533O56dwJGtFqqU4ed9nXruRy7zExoWJl1I31An5WSQXCSJM@vger.kernel.org
+X-Gm-Message-State: AOJu0YxeUhJA95/vlTuA7Rpvv2IFWJgjGX0OVX46OdeDzlC8b6VoiOpa
+	eykua4+6hzKNMWrcHw6Avyp9J8541CFZj7upMpBYvCIPgoTEVtyrpFDs
+X-Gm-Gg: AeBDieuMbalkqxRwowzaGOvagDI/QHMdO0e4vSDnJzv1XB/IXmONBrjHkucu6BTwg9M
+	KDvdQ+CKoeNhdWMGQMK5jS4R/sEPXCLV5dzzrrVY2U+iduwvLat59vW6Qo0De3oS+YNUguMnFUL
+	ItOYYXM8oIUo7jCLvNAfkHwZ4QSekI6GiuMvh6Wf4x3cFZWlXOV5gFhR3q1HOsgA1JYpjawRz18
+	XnfTY44wrQ/JUsG/fhFmzROnXb/xy8Al7KtYoalMR3PhrfS6wyA9xYM+OZrg+rnYS3RuCHGCdKb
+	7K0+3XGKwqIWhvgrngE0o+Gq6KQqkCAgdrOeEoqL1wjSLCAf4lzS0smfOqF7iZUmmII7yzpeWiP
+	WFLOqG2yqRAGMJMAE5bLNbtS/tusprFnNzWA2FjzL64GxvGyY2/owuNhx/j/9RSLXILDgw+J/sC
+	AcE1oTt2ixyDtH9LwzBJ0ndpvD/cKAWcnS1kKxgjUPyL8xEdl6e4sQ
+X-Received: by 2002:a05:600c:2e0c:b0:48e:526e:1011 with SMTP id 5b1f17b1804b1-48e526e106bmr38312325e9.25.1778089160201;
+        Wed, 06 May 2026 10:39:20 -0700 (PDT)
+Received: from strix.localnet ([197.250.51.29])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e53116a9fsm31957135e9.8.2026.05.06.10.39.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 06 May 2026 10:39:19 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Drew Fustini <fustini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, soc@lists.linux.dev, linux-serial@vger.kernel.org
+Subject: Re: [PATCH v7 6/6] ARM: zte: defconfig: Add a zx29 defconfig file
+Date: Wed, 06 May 2026 20:39:02 +0300
+Message-ID: <5379905.31r3eYUQgx@strix>
+In-Reply-To:
+ <CAD++jL=S6DSOuC-PXFn76SA7e-Lgueu9Z2wuF7icXCVX7MBpJw@mail.gmail.com>
+References:
+ <20260429-send-v7-0-b432e00d2db8@gmail.com>
+ <20260429-send-v7-6-b432e00d2db8@gmail.com>
+ <CAD++jL=S6DSOuC-PXFn76SA7e-Lgueu9Z2wuF7icXCVX7MBpJw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="RGBws5Tk3qhVLKYL"
-Content-Disposition: inline
-In-Reply-To: <20260506170236.2610955-1-kernel@rembrandt.dev>
+Content-Type: multipart/signed; boundary="nextPart5014054.LvFx2qVVIh";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-
---RGBws5Tk3qhVLKYL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--nextPart5014054.LvFx2qVVIh
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Linus Walleij <linusw@kernel.org>
+Date: Wed, 06 May 2026 20:39:02 +0300
+Message-ID: <5379905.31r3eYUQgx@strix>
+MIME-Version: 1.0
 
-On Wed, May 06, 2026 at 07:02:36PM +0200, Andrew Rembrandt wrote:
-> Convert the ST Nomadik boards binding from free-form text to DT schema.
->=20
-> The binding documents the Nomadik NHK15/USB-S8815 platform compatibles
-> and keeps the existing example.
->=20
-> Signed-off-by: Andrew Rembrandt <kernel@rembrandt.dev>
-> ---
->  .../devicetree/bindings/arm/st,nomadik.yaml   | 36 ++++++++++++++++++
->  .../devicetree/bindings/arm/ste-nomadik.txt   | 38 -------------------
->  MAINTAINERS                                   |  2 +-
->  3 files changed, 37 insertions(+), 39 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/arm/st,nomadik.yaml
->  delete mode 100644 Documentation/devicetree/bindings/arm/ste-nomadik.txt
->=20
-> diff --git a/Documentation/devicetree/bindings/arm/st,nomadik.yaml b/Docu=
-mentation/devicetree/bindings/arm/st,nomadik.yaml
-> new file mode 100644
-> index 000000000000..9a6d1458cad3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/arm/st,nomadik.yaml
-> @@ -0,0 +1,36 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/arm/st,nomadik.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ST Nomadik SoC based Boards
-> +
-> +maintainers:
-> +  - Linus Walleij <linusw@kernel.org>
-> +
-> +description: |
-> +  Boards using the Nomadik SoC platform
-> +
-> +properties:
-> +  $nodename:
-> +    const: '/'
-> +  compatible:
-> +    oneOf:
-> +      - const: st,nomadik-nhk-15
-> +      - const: calaosystems,usb-s8815
-> +
-> +additionalProperties: true
-> +
-> +examples:
-> +  - |
-> +    usb-s8815 {
-> +        ethernet-gpio {
-> +            gpios =3D <&gpio3 19 0x1>;
-> +            interrupts =3D <19 0x1>;
-> +            interrupt-parent =3D <&gpio3>;
-> +        };
-> +        mmcsd-gpio {
-> +            gpios =3D <&gpio3 16 0x1>;
-> +        };
-> +    };
+Hi,
 
-This example should just be removed, it has nothing to do with what's in
-the binding above. The text binding describes it as a "required node",
-but no node by the name appears in the kernel sources.
+Am Dienstag, 5. Mai 2026, 12:54:29 Ostafrikanische Zeit schrieb Linus Walle=
+ij:
+> On Wed, Apr 29, 2026 at 9:14=E2=80=AFPM Stefan D=C3=B6singer
+> I'm in favor of this, mainly because multi_v7 is pretty useless
+> for this board, it is absolutely too big to boot on the machine,
+> the board is odd and need some ARM64 stuff.
 
-With it gone,
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+I added it more out of cluenessness, thought that every board should have a=
+=20
+defconfig and Sashiko let me know that multi_v7 is the preferred. But I lik=
+e=20
+your reasoning. I'll send a v8 with some of Sashiko's (very impressive)=20
+findings but keep the defconfig.
 
-pw-bot: changes-requested
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Cheers,
-Conor.
+Thanks for the reviews as always, and thanks to Krzysztof for the yeoman's=
+=20
+work of guiding noobs over and over again!
 
---RGBws5Tk3qhVLKYL
+--nextPart5014054.LvFx2qVVIh
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaft6+QAKCRB4tDGHoIJi
-0uk7AQDoPwVpfTCEtPu/YLhKAFhJCyzqRG9Psyh7SjBjLJQSDQD9GvcsDxGN1a6P
-GpyjKA5lv3Ffwr4tM+0mwUmH6KsHywQ=
-=37OC
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmn7fLYbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoiGRcP/ihTsoTIIoe31SesPPm7
+q97WA2l0QuRdt6uaaVSwsjuCxhCKwuVvPOYPsy5+/F0BG9UxylI20cKySsfndZyc
+kMG7hIOD2GgP2oFpXvD9Rm6mABU/01SRMgYxJ8BERldruK2XBi/tTl5z9mLCU9Gv
+6hHKRVkiS28GG08oKXywoEXba+Dt5a4HLk6oVy1UgP9OlImj1Bm+KPD3wvWmlRsL
+fYr2suEdrJ76ox0Mx0kHIrwqhGpDEOAwm3g5pjmNOEcXS1eVXW1QLSg83wN2KOty
+3NWXcwr0KxZjxMc6zkq2jqMZmx/4d7Mdijbs/TInuprU1G9mUcyVvi6BHFYS5Hpz
+2ezEEESl6nIbaMpA9zFZWHkhouqr2bOVH12W0Exkml/rhwIQBRv3S53wAeYeR3Mv
+H1LNEaKdJgZWKKL5f9WC9q4QFQ7CKJQZc+jnArsKp9GkdC1uRLWzLP3eriuRsgbf
+zAOrJSziqrze8Dq2VNH9OpqyNk0W92TO4mmUMNrsqpTMh3dDMM8MiM4VJcLIhb/J
+xUUZ4kRf2lHfx/KAJnn9munL1lsJa/k1zBVxarYe1ASh9ivRxqyojTcy0AIPklbQ
+eaQp/Vj1+rGq43J9RuCxFzqT22DpbK9xsmEcxNaCzW+ECpBXRqhclbKHHYESo/aF
++r9T9FDiyUEQwbmVCzN6OIBc
+=eicH
 -----END PGP SIGNATURE-----
 
---RGBws5Tk3qhVLKYL--
+--nextPart5014054.LvFx2qVVIh--
+
+
+
