@@ -1,33 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2B334FF4F;
-	Wed,  6 May 2026 13:36:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4932047DFA8
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 13:56:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778074605; cv=none; b=WnAJevQHWqO9hJDZgAQ+s947IGbL3kh8maHZaQ1b+Bars5D8FLHrMql252FDBiFnKn97rvioJsOXeUoKY3Sz2VPKtcQm0Fm6JuIIeWTPV6Fb3TM2Lf6L5t9u+QFx01CmC7pM4WFNT1KRZ6XyPpgBIIf7uJ7DhVRwh6tZoInGyfk=
+	t=1778075762; cv=none; b=kyogQXKpnbhF7Z9jXViYOHUA7n2j15S0/79NbxS5MToVc+U7lg8nw+HnAOifSZHua8P0Q/NRWD3x1PWKBlqG80gpkSysk6sMinTbq1J6PVIbj0PGlP0EsiE0Ao2VdvUVeyzkWcJFEYOUg3cXcF1pk3m972XmmFqiU8nrjNL3XYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778074605; c=relaxed/simple;
-	bh=7I7M1eUDVF5088ev2jyWTqkJf4GORVg6OfRPDZkIzIU=;
+	s=arc-20240116; t=1778075762; c=relaxed/simple;
+	bh=XcLrxU6hNruep/5Mhx3tarBzPKestSx9/PV2ZEBRHHE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J+X35gTRPyAqCDWp155h9r0eNRs0wwJDQw1WBiSWJ9e14HAEVz73cGDVRaH/dX1cOyNeKZ0xKkQNYzkA22Gug4TK5o7SFncf4SHMT2u2HGRmmOX3EWdt4s0sH4t3Emd8sNF3LoiSYw8IQIaZvhP9Dw5wiUeJoXI6fBbGPu5eiVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EJbOClFH; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=HQNiAAPSnJ3S8ICf6rOpY1XXdKpYO3iXeA1reUCG8qKpEnDJvUsUVvr9KAesjn6ryV2e2r1ojnfhYieOPoRRM5OOaXYUh2b7sBBbio5THy1UsOVGsSmAB3e8Ak657X/EjQcAIXu3J/R9ir+Q3Mo35c4v9WSo9e5CN5zOXiJ3PPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WLavsInj; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EJbOClFH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9692C2BCB8;
-	Wed,  6 May 2026 13:36:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778074605;
-	bh=7I7M1eUDVF5088ev2jyWTqkJf4GORVg6OfRPDZkIzIU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=EJbOClFHa2CcPRVkMYmz3+QesZYjQNBc5i5M+WR8ZnFT9UmFA+x50oAQQSJHu+wKe
-	 CKDdBcu44jNL7MH1Pyrr3IenoyMDkNSEABAhwHqFAn/+ZNZ/Ru37bg++86Ty4aioHL
-	 N5IHrimxJBe6wi+A/9kPXXbRDlqhk8j7H69HKEnsRDr+nKqVonKkbB6FioOrf5bMWj
-	 9HGQy1nIB2gw9ozVOnTFkBJvuNpLhFXBGunovGg103oANtLK7ie1csTZoX2AXucpP1
-	 pD8b2yqX9SOWfN/J6LLnlsAkljS7Ud+emFKAVa3IviQ4g5dCqsvTx79S+JR1fMJmhu
-	 Rt40RKlmr6k9A==
-Message-ID: <f4212885-fcfe-4687-ba1f-b8713b1ecdad@kernel.org>
-Date: Wed, 6 May 2026 15:36:39 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WLavsInj"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c8025500cc7so2744256a12.1
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 06:56:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778075761; x=1778680561; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=21im18CnslCvYwXS2NJ84S3pXykaNCx3/vuExYBK0cE=;
+        b=WLavsInjlhIZmPR3Ac8Zgb15aC4S/NDZrr4OP2UnPYBjUxFiz/CJ6rZmJiqksh1yhM
+         qq6AUZ4GU10Y4OEQ3OM7sWtUeTNEs5o5UToriPlFTUCqMdHVQFMrnXKebLhw+yr49jpb
+         8titwrXNiBEk/3XLEZWTr3NaegCuVJLgFxLtBM+amf6ZICNjtGdnL0e+PAPNkRavXivs
+         LoabUPRZpYV3VFHTrMMvBVmsDD0WRIIog0l6fKRnBadrFwPB5/SCAtfWqo5Z7elqXe92
+         wpeNTRXhfJs5Sf5PHx3MCxls4O9hXtcUZyXu8XXwCo010puwLa4mndyQvpO2muQHYP0U
+         jQvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778075761; x=1778680561;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=21im18CnslCvYwXS2NJ84S3pXykaNCx3/vuExYBK0cE=;
+        b=dAk1DyYXvRTz+AzBudx40ZPR13g5IjtMq1AvN2VRmm7drFujoosm+ZcoBprxJg1c5g
+         oFMAmt2Wf2kwhujtCFEYU+8ZYBzUWzFHJTQ5r6W00w2BUd21SGEtCzwui1ZkOEXWrWFf
+         rq3/WxDMZlhMbMMJG200w126IgBgDqDl7DQSZc6kXUVjaWqp2ruwxwie4aoa3FoTiEz7
+         T+NSbSBeVoDjmRarFR7wk0ks//FRZucdRzYySzHJmLYtna8RaHFpOqIJD94EfO48uHac
+         xNxs+0TlkwImif3PYdVnF7a+7r++vvWGT1kBbufdpIDiBnC+h55TkufrhpeC3tcFiJsJ
+         w0rA==
+X-Forwarded-Encrypted: i=1; AFNElJ/iNZDQ9FeT542nBrAVU3NIarYjSy/2P27Dv/ACpwo4rmn+zbdIK3nSrLT6zZ3/Bnyo4yFYB2Wr5AMO@vger.kernel.org
+X-Gm-Message-State: AOJu0YzTtjuGacEYhihX4AJSA7qZI3oFwqgPDAy5+gPUwKbRKVGT+h7w
+	MxNpdgnCGdZ/HPEJ4c4wdKMyeXrwHvrKryz7Rfuz7LIRL4ZMyCJWliP9
+X-Gm-Gg: AeBDieu+drINc63XkCwh9KT+IKgOAq1B5R67kMP9p/8srOm2hE/3iYny822cAWSwMxq
+	jAvhpDF1S3mJXDAASdOjbcyuHyqMDF3R/jdjH/e2U031Gv0pnKgBTqTFWKCc8wEr/kQFMxj/Cul
+	njnj+MlD8JLH6w/xObNxfKmOBW5jdvD4LCVhN7A381A1nBnyd5CVaCIjytbx1bBzKtHe/ORb7kv
+	gQJ9IGWSnGu8VQl1YcmPsF2c9XqP7h1IGltrCpSFISeZwQsDLyWSI61iZL2baNYZX+RAGac3csk
+	BkWdQ+JhYsi7BfX6VW3PCPfHbs2tmJUmGZDS57HfzPkkwvyrXkVsj23hARBdoT5TO2RK121o9wO
+	sxhCxbZEh6+DIO2ppFue4GRvfdlM+G8qY9XBXRKvrPCKEtBYqxceBjNT4uLLyjjgad4vRNwxkSK
+	+WHkFjVPr5AckZdNlPJNIPd+ZzkdxxtIuoR7L2AcXiI+uuFc4giYTBpxAf
+X-Received: by 2002:a05:6a20:2443:b0:39b:ba95:b127 with SMTP id adf61e73a8af0-3aa5a83151bmr4200206637.4.1778075760634;
+        Wed, 06 May 2026 06:56:00 -0700 (PDT)
+Received: from [192.168.1.3] ([60.243.224.75])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8242b811a5sm2326811a12.20.2026.05.06.06.55.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 06 May 2026 06:56:00 -0700 (PDT)
+Message-ID: <b386707d-944f-485b-8a06-236c1242f5ee@gmail.com>
+Date: Wed, 6 May 2026 19:25:52 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,105 +68,128 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: remoteproc: mtk,scp: Allow multiple memory
- regions
-To: Arnab Layek <arnab.layek@mediatek.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v2 2/2] dt-bindings: mmc: st,sdhci: convert to DT schema
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com
-References: <20260506133157.3283204-1-arnab.layek@mediatek.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
+ Patrice Chotard <patrice.chotard@foss.st.com>, linux-mmc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260503-st-mmc-v2-0-11ae3216d2ce@gmail.com>
+ <20260503-st-mmc-v2-2-11ae3216d2ce@gmail.com>
+ <20260504-rational-gleaming-clam-aeaaff@quoll>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260506133157.3283204-1-arnab.layek@mediatek.com>
+From: Charan Pedumuru <charan.pedumuru@gmail.com>
+In-Reply-To: <20260504-rational-gleaming-clam-aeaaff@quoll>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06/05/2026 15:31, Arnab Layek wrote:
-> Update the memory-region property to support 1-2 reserved memory
-> regions instead of exactly one. This is needed for newer MediaTek
-> SoCs like MT8188 which require additional memory regions for SCP
-> operation.
 
-So where is the compatible? Already there?
+
+On 04-05-2026 13:13, Krzysztof Kozlowski wrote:
+> On Sun, May 03, 2026 at 08:35:30AM +0000, Charan Pedumuru wrote:
+>> +$id: http://devicetree.org/schemas/mmc/st,sdhci.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: STMicroelectronics SDHCI-ST MMC/SD Controller
+>> +
+>> +description:
+>> +  The STMicroelectronics SDHCI-ST MMC/SD host controller, which is
+>> +  compliant with the SD Host Controller Interface (SDHCI) specification and
+>> +  is used to interface with MMC, SD and SDIO cards. The ST SDHCI controller
+>> +  extends the standard SDHCI capabilities with platform-specific
+>> +  configurations such as additional register regions,clock inputs, and delay
+>> +  control mechanisms required for signal timing adjustments which are
+>> +  necessary to support high-speed modes and ensure reliable data transfer
+>> +  across different ST SoCs.
+>> +
+>> +allOf:
+>> +  - $ref: mmc-controller.yaml#
+>> +
+>> +maintainers:
+>> +  - Peter Griffin <peter.griffin@linaro.org>
+>> +
+>> +properties:
+>> +  compatible:
+>> +    oneOf:
+>> +      - const: st,sdhci
+>> +      - items:
+>> +          - const: st,sdhci-stih407
+>> +          - const: st,sdhci
+>> +
+>> +  reg:
+>> +    minItems: 1
+>> +    items:
+>> +      - description: Base address and size of the MMC controller registers
+> 
+> s/Base address and size of the//
+
+Okay, I will remove these words.
 
 > 
-> Tested on MT8188 Geralt platform.
+>> +      - description: Base address and size of the MMC delay/auxiliary registers
+> 
+> Here the same
 
-You cannot test binding.
+Okay.
 
 > 
-> Signed-off-by: Arnab Layek <arnab.layek@mediatek.com>
-> ---
->  .../devicetree/bindings/remoteproc/mtk,scp.yaml        | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
+>> +
+>> +  reg-names:
+>> +    oneOf:
+>> +      - items:
+>> +          - const: mmc
 > 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml b/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
-> index bdbb12118da4..9f6dca94ff40 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
-> @@ -55,7 +55,10 @@ properties:
->        initializing SCP.
->  
->    memory-region:
-> -    maxItems: 1
-> +    description:
-> +      Phandle to the reserved memory regions.
-> +    minItems: 1
-> +    maxItems: 2
+> Drop three lines above
 
-Just like I sent some patches long time ago for iommus Mediatek media
-bindings - fix it the same way. Pity the patches were not picked up,
-even though sending twice, but that does not give you easier way to get
-incorrect code in. You just multiple poor patterns...
+Sure.
 
-Best regards,
-Krzysztof
+> 
+>> +      - items:
+> 
+> So this is just items like you have in "reg" part. Same syntax.
+> 
+>> +          - const: mmc
+>> +          - const: top-mmc-delay
+>> +
+>> +  clocks:
+> 
+> Here and:
+
+Should I add minItems and maxItems instead of items?
+
+> 
+>> +    items:
+>> +      - description: Clock for the MMC controller
+>> +      - description: Interconnect (ICN) clock
+>> +
+>> +  clock-names:
+> 
+> here: Old binding icn is optional. You need to explain in the commit msg
+> all the changes done during conversion.
+
+Okay, I will write this change in commit message.
+
+> 
+>> +    items:
+>> +      - const: mmc
+>> +      - const: icn
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  interrupt-names:
+>> +    const: mmcirq
+>> +
+>> +  resets:
+>> +    maxItems: 1
+> 
+> Best regards,
+> Krzysztof
+> 
+
+-- 
+Best Regards,
+Charan.
+
