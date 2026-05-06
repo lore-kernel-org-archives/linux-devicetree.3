@@ -1,76 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF453CF68F;
-	Wed,  6 May 2026 15:37:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5136F3F9F4B
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 15:38:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778081846; cv=none; b=qszeHLzW42i2f5dUrBkPMYPNF/Ja59md6d82+ye6ONJIa55CGvZT7SUZMr2LbWc/KFCZ4fQiIWAief5dy2+2AyHeeNK8R3v160DHxZTpwvcybYkZDUzFRrEu+U6Rzo7LryMqHho8SIb27kYeAimne7CZreifkDrr0mod3oBAFA8=
+	t=1778081918; cv=none; b=OyGehl2ItxTATAnCvnUr+GqZqZBXMZxHv1MGUYktGh870lmuQA6tCLu6F++s1Nzit3dXsTKNn498ayjMoz+uPzQ7VB187bh/JfUSF5Waqg6uMkP2++25S53y80qXtP1dNhJobW4MWQJHKtEBwgQ4hoCnQ85AxMZ3UgX5hmsiwfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778081846; c=relaxed/simple;
-	bh=Lh8IyNcOsvb3e/MfNcreMdBJXDLwuzXVxIKBw+0229w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KE2o6DLxR5lVs7uVLlBgV0RualSG2Hnwg1uTRIbsBowFF+aNPZdT9/gTDFwaKp6AiWZY84eWm7ewsL2kRA7rg6bJz5hJGwmZwGNywZBhowwlmXC1pF9RSoevEU0GD6mmTunusYTOOiqOazNEiEEagDDzz+v6y6G7iHf/LmCZ9VQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lQvu6hdM; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lQvu6hdM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7753DC2BCB0;
-	Wed,  6 May 2026 15:37:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778081845;
-	bh=Lh8IyNcOsvb3e/MfNcreMdBJXDLwuzXVxIKBw+0229w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lQvu6hdMapYt7LjfZiB8CbVxjsPgfnyYf2ve9VHEGRnVn//q3Xhcs+bexhSA6TfBc
-	 0ORCKt9iT7NfpSzm5gqoBk9jJfYY+TwgMO/lmnG62pHXG1YyZLiQaTenLhcX32/N6X
-	 uLEONELKPyXzh1Ln6h3F0UfxfSpLSLgGkY1QgfCncDPVmu01nf6LecNW9PaHG6KVCv
-	 0oA5ui2FVrPmNFPMiiYeQ3+2rydIuZmZMUjPIGegDxvSNVjjfU2dx05CoQ14ynbDG0
-	 z+lmCuK7me75kq8tsxAl+92ylH9XydjjhnZH4e5I3l907a3G/Km3Q5cLcYzufydkgQ
-	 TwaZ/osjmiXLA==
-Date: Wed, 6 May 2026 10:37:23 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Marius Cristea <marius.cristea@microchip.com>
-Cc: Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	linux-hwmon@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH v10 1/2] dt-bindings: hwmon: temperature: add support for
- EMC1812
-Message-ID: <177808184247.2172411.12359640916021641487.robh@kernel.org>
-References: <20260429-hw_mon-emc1812-v10-0-a8ca1d779502@microchip.com>
- <20260429-hw_mon-emc1812-v10-1-a8ca1d779502@microchip.com>
+	s=arc-20240116; t=1778081918; c=relaxed/simple;
+	bh=mK4RQvudzSfHDKsOsVoyt8Iw5IZ1HXhGx8SNTgh8YWU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZHX3MyMSiaQzZuEc3qEYXEV2cfuW+AgihzAlAZ68HTB1C2+EDryli1rp0UHFtwkv/+gnMTOvtteeJedTUFR0Ad9YH+ggy+mmI5XdXfrJ5Rt/INbIG2dc/krURJCWmuq0RIuP+fCNMuvL0TLZ08OWLrZIAh+nJHAzBdinXTkxLwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-57512a429d1so2853949e0c.3
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 08:38:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778081916; x=1778686716;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uiPvar8b58lM8s+EHxxzQhZuLn8K6vNLqEMxBWnkjCU=;
+        b=iA79yLv7UIgKrcJ0b2OlMoBBLueX0vBsFFM39PXFn3itCMjwNlDoPiQrQeGMzbdYgx
+         ZcmWDylgiiaot3VkKr0dx5pAc5q+4aDYo+B5cjMRpdNm449oPgKGCsvHVZ97s26xfNU/
+         wz55ijm6u/h0BLaDH71p9LK5iip6yTe24Phnu5Q95rNR0OO4QP4tijC/weMiuB/y8khi
+         3xYpXfLrdLMeQYRzD6010dQZ8duI9PxGmO08iru+Gf9mRWL8+FZwtKX+9155lEXBt4lp
+         YslnCYzEesim2AWg4Vg3xf+P9EbY8x91lRPxHKc6nIVMMD4D13zYhEVmMUpFN0VNkFkR
+         +AmQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+89ZCdoKtBRofdcfQALZM6Ngrn/s087d8jsRmJTw+UB+HwGJ1TUJ7S/MXRwEbamL18wFZs+c2KyuJt@vger.kernel.org
+X-Gm-Message-State: AOJu0YzLWjC8mKib+vU1bRMsXDiJ8qPtYyJGqXWEFiDYHklbCTOBYsaK
+	Qhj5PlZdv0TNecBhRPMIiiVKYuVCJJX6Rt4knrFSoYg4H8AKInhijWT0CsNi9VCFv1o=
+X-Gm-Gg: AeBDiesCPlNHJXD97/CTfjKs1Xqr05m0SGklF1mbGn69WDEUFJFs1vtzD9dk8AMUdH1
+	97a9rO7WepeW+RdpDvkCGCmH/sVov67uTg3ek+IT+UZyMu1KacRncT2mp4NvRRbjzVEl5aNB6se
+	luXRliC+BUq3CPdc4PtIRGIWlAgApDI3a4Dp8PAB/IYsAVMSG3HH6/T1QN01NeoO6AF9CLJq4Qg
+	mqiBAqAW+kM0qvhY2QUAH/thA+i8cAb96ph8DivmYyPdjJpaMQSFbDsbMXsmQXxQ7vrKIo+Yt0O
+	2d8/w0NbzOc2Tc7u3VVwTx5D0DL4xuQM8X0uKrh8xZJAHJGcHBpX6KIBXE3LFIOfctkzIJE0Yvs
+	s8nDbUS9BtntFs/xQa7IFYIOvlS5m9miHuHqJwc0OJF+sa2sBKOPL4931Uf/Bf05MAxHFj/aHLy
+	lAJ+yMkClWCPWzSluYgiApm7mJnyVA74AgxzCN6lJnFAfNmsEjs7yIHPrw7rSm1leb8aGyHno=
+X-Received: by 2002:a05:6122:915:b0:56b:5893:d042 with SMTP id 71dfb90a1353d-5755962d507mr2115810e0c.12.1778081915609;
+        Wed, 06 May 2026 08:38:35 -0700 (PDT)
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com. [209.85.222.44])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5749f835632sm10170259e0c.5.2026.05.06.08.38.34
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 06 May 2026 08:38:34 -0700 (PDT)
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-94ac8cbf3feso4136397241.0
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 08:38:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/kHWGWkpfVlfNdwRnxnd45FueQAk5YESA9uxzRyh3FMCoIbbRfuXc26BXBAxa+dIURdFX9p45iGjEd@vger.kernel.org
+X-Received: by 2002:a05:6102:948:b0:613:6b44:3fad with SMTP id
+ ada2fe7eead31-630f90367e5mr1751467137.25.1778081914401; Wed, 06 May 2026
+ 08:38:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260429-hw_mon-emc1812-v10-1-a8ca1d779502@microchip.com>
+References: <20260430093422.74812-1-biju.das.jz@bp.renesas.com> <20260430093422.74812-2-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260430093422.74812-2-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 6 May 2026 17:38:23 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVUQonMKppURhOpuewET5v9=dqqbywtRzn5jNBqPdFFuQ@mail.gmail.com>
+X-Gm-Features: AVHnY4JsU8xfdNxfBXAX3UweYeeFn-aNk8d9aeafTdrWsa0-SJ8O5YDm2A2HTXw
+Message-ID: <CAMuHMdVUQonMKppURhOpuewET5v9=dqqbywtRzn5jNBqPdFFuQ@mail.gmail.com>
+Subject: Re: [PATCH v4 1/7] dt-bindings: pinctrl: renesas: Document RZ/G3L SoC
+To: Biju <biju.das.au@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
 
-
-On Wed, 29 Apr 2026 15:58:07 +0300, Marius Cristea wrote:
-> This is the devicetree schema for Microchip EMC1812/13/14/15/33
-> Multichannel Low-Voltage Remote Diode Sensor Family. It also
-> updates the MAINTAINERS file to include the new driver.
-> 
-> EMC1812 has one external remote temperature monitoring channel.
-> EMC1813 has two external remote temperature monitoring channels.
-> EMC1814 has three external remote temperature monitoring channels and
-> channels 2 and 3 support anti parallel diode.
-> EMC1815 has four external remote temperature monitoring channels and
-> channels 1/2  and 3/4 support anti parallel diode.
-> EMC1833 has two external remote temperature monitoring channels and
-> channels 1 and 2 support anti parallel diode.
-> Resistance Error Correction is supported on channels 1/2 and 3/4.
-> 
-> Signed-off-by: Marius Cristea <marius.cristea@microchip.com>
+On Thu, 30 Apr 2026 at 11:34, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> Add documentation for the pin controller found on the Renesas RZ/G3L
+> (R9A08G046) SoC. The RZ/G3L PFC is similar to the RZ/G3S SoC but has
+> more pins.
+>
+> Also add header file similar to RZ/G3E and RZ/V2H as it has alpha
+> numeric ports.
+>
+> Document renesas,clonech property for controlling clone channel
+> control register located on SYSC IP block on RZ/G3L SoC.
+>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 > ---
->  .../bindings/hwmon/microchip,emc1812.yaml          | 193 +++++++++++++++++++++
->  MAINTAINERS                                        |   6 +
->  2 files changed, 199 insertions(+)
-> 
+> v3->v4:
+>  * Dropped Port P4 as it does not exist on RZ/G3L SoC.
+>  * Retained the tag as it is trivial change.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in a branch shared by renesas-pinctrl for v7.2
+and renesas-devel.
 
+Gr{oetje,eeting}s,
+
+                        Geert
+
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
