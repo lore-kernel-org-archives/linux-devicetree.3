@@ -1,68 +1,68 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A693ECBDA
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 14:53:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F89246781
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 14:55:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778079206; cv=none; b=gRr9tJJGY7O2nkIIUIOY5odkXrJLqYEXAWTbJLTWXH7jKtyrSMx1TFmN2ytkcQRZj2kjr2Cw6yw8W7c+BMvRr/wgM9sII4T5VC4l7HZTl+oiV8ZxsD0vOjnF+pwxB5RKMJt1wpUqRmvlrKhvSmTjRRRS0A4uwHL50NPzkxOrosA=
+	t=1778079302; cv=none; b=OfYkhRSgMjIooF8xjRiurTypqMMh3uVy4VWFxRCXP9BTrEq5wrCLPFNztDfTM0C+ADe5Zn5KDMHClVHEdW7i+znUk+V/Np5OMjpqiC1Ia3ss7mllHMRIJqrqxjYEzx19WFAtDadN/LOQ/tVJBZ7eFeSFH9tYkVvD3bLzuREkbvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778079206; c=relaxed/simple;
-	bh=4qfn+tiAZ1CX5Zz/D3C/XMk+tIo8N+RJ+erQO7WoTiw=;
+	s=arc-20240116; t=1778079302; c=relaxed/simple;
+	bh=rpq98Csl+lQ5wYR6qlUiykh7sw2CinuH04grcHiC76Y=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=MBzucUadTVXYS19g1m133Noei8Uk+1QWIFZBq5ZLbHqzlJodbf/+AXN/nQqEBqLo8zW4RNw9xBZUaWsOm1QaCI3rBxFGX1yVK0zwxRgalACc3bKmOW8PLaipjSv+3lR13ic3gc8Vjc6Ha6JHIxd03vI+FUpI4Mb30Vyz+gHW3XQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wg+PEvAP; arc=none smtp.client-ip=209.85.128.48
+	 In-Reply-To:Content-Type; b=L4wvZhJQmBNMrnMEBym+e2zwbPXvuXV/Pr1gxCY/zu1cZ2T+kbDWJ8SG9ahrR7LpXD9HBSoU7YIyRu4tI/psEB3xYF8w7LNVwsBa/9gWkVuSRcwRUCPyvMLf6rLRGB7tOnNjqZahKEFi7a5Kh6QT2FNe9ixQ3hRVFF8M3XYTLlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=L4Ub3bjI; arc=none smtp.client-ip=209.85.221.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wg+PEvAP"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-488b0046078so57902565e9.1
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 07:53:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="L4Ub3bjI"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-44a786a9a35so3658079f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 07:55:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1778079204; x=1778684004; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1778079299; x=1778684099; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=hpSjTagPhl7VYCNjsjMoXdAj9yIuGfraDWHI738kHCI=;
-        b=wg+PEvAPi77brTrVXQtoaBcny1y6uXNNWZbsgbYHv5kpBCQXXtFEu4f0SS4rDz0zhh
-         JrqQRBwEsB3L41kMhfVLy0Pqj1gsSgrgGJkTJ85fqQoNtgOZw+TLjAvq3MA8RERIK8Nr
-         eDOK127FTRWI9Zr871q3G/x92X5qbcsxQHeb/nI20l+L8RY7Qz3hZYgYW3iqNsyrICBm
-         oeJzJPCBgyoUzWTPh6nDW45XQMfXaC93VOtlHUR5+9qlb2S094e4aEQquFRGEq9lRLGx
-         MaUovSnm6oK05cBHRPT+yASSaTlUjBCDuGCxLKiHrHp0fppxZz5nUNqvrCUcYDGBBymN
-         4WnQ==
+        bh=q9IziybJHuk3HSxCnNSfWSRrMnoKvg7/QyPJ8LC6HiM=;
+        b=L4Ub3bjI93FbAV24RYiF/YbXq8jYWSF+Z0XeIi5xPvjLx+uZCg+Z8306PrA0CJgcLP
+         qED5M17nd7fB4XCNETqfOtYYNU+7lgCvaVW1bKmj5pGhcuNQHfdfZBQduJVoy6P/euOv
+         D+o35miAuA2g25dvCz7MsrGkFe+kUauVudRpmDCQOkzkDKNuR/8fOgi+DfrWoidhvrff
+         Sr9NtB+oguPa7+0WaFUHil65Cu4cBZT7MXa1u+c2rgckvtZwZ1uBc0r5IBh07xLxlXMc
+         I9K29g1Dixcm2uBeN070kUnNhmAQQb1oLQwvAq1b907W7ZJRShuF1Xc9qAEgJnsevxzH
+         kI3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778079204; x=1778684004;
+        d=1e100.net; s=20251104; t=1778079299; x=1778684099;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=hpSjTagPhl7VYCNjsjMoXdAj9yIuGfraDWHI738kHCI=;
-        b=WK551vCFrBddbSJP2OybdecZ2VI/NCCwyuiwb5gouzPoZWuxkqckSUB5bsOsCc9TKq
-         4dhFAIWtWmqFteES7InMB5pgfSH4XHXAp7zp80jtnO79TIRQsz9WKvp7NlJyG0tHxzZr
-         hfiEnCYuCswtPcsQSWxVqoH8gRHNILBW3c/z4/PAJIIORhAC20hNtEb4JtIuhLarTH15
-         7YHfLQibturB50lYK1Dgf1wtFuRl2HoNeHwSNq5fLdyj7pIK8PbUn86u51baA+e+tLuj
-         hRqVaQs1+5ZLUr2qjWKDn2IKeH4RJhhd5vvum8Yf2OZwg6q2ojlaww8o9VFRseADyNuq
-         eYaA==
-X-Forwarded-Encrypted: i=1; AFNElJ9SNHVsA242XF5q25fyYq1LKGmZQDZq+NAu1sYX7O2uOJH6Vo5/wkaNxdma/CzQqH4Wc7f4Kuv1+SPo@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywir5mij2rO4J5YQk8JCNXg/S2/vFn4WuUEepXvQCuTsUCV/Fon
-	xEW2t8V/HS5VAdcj59WlFBLvxa2b9/aEC4YquaH5TNDbx6k4guCLCqJHemJjCNI79hw=
-X-Gm-Gg: AeBDiet8ELROzhpmj3p0eUe9u5sJpWWni3JfshOvmNBSbCM++E7w+k96XlnY32BVQUV
-	51s6fsTNGkjik4VOqh6OOVAN8HX2EHKk/QAQurwSAbn4X2H3OmA/4hvphGxjX5YJqwZq0qi3XDc
-	jkHbIcqwoQ2+f3+RF8RASPkbWyHWAiHPzioYUaP2u2pVY3P8p68ZhHiU2dlPLlKnAibVoWrd4HR
-	UgM4CYkqrULbvZiBdiva6GTpncEHSvd+EvPPDbzBTVol7mI6vppIh+wVndJ1DjZSl8SffPor7YW
-	AA9YYoFnDIVUdnmMbYVRGL/tSH8wcfAOh078c0xtShvhLa2GdooDbJHWMCtvFWYw2zvLJu5Jltx
-	n49BYH91xl3+4xBEASTsOnuBgs5PQQ/o7zWiDI3MCDHI/u65h+9nyjhmb/8fSaibVQNLVnJrL/g
-	pQtx19J1yGfXsOVg1hR61haaILZwpO61H+P2k9+YtmxQ2E+rv4xrlNQ0gVDzvkhfI5/IbHlPvli
-	KIuklqk9xbEtPCazQ==
-X-Received: by 2002:a05:600c:1c0f:b0:48a:5342:36b5 with SMTP id 5b1f17b1804b1-48e51f3deddmr72610725e9.21.1778079203544;
-        Wed, 06 May 2026 07:53:23 -0700 (PDT)
+        bh=q9IziybJHuk3HSxCnNSfWSRrMnoKvg7/QyPJ8LC6HiM=;
+        b=hrf+ig6eNoVGqx8XqAY+uF6q0xQbt1DeHJ67neqMK7WEDw0ORmNVvDBh0+rkfdOg5g
+         B3pm+dXeFSf6Rft7hUnlPJhPec2tp7dxePe0AuhRJFrM3NstcszeMfZH0ftrzyZqLJbY
+         8F5wCysh/e91KZzBZaFkhasaa7ZAPMEJOnoeLv7I074+a84uqHBYP763isuO4m4eVQWh
+         Z6e7E6HylL3LtteJukU08jeKjysu2fB0rGfqKIESgwkWEec56bS1UC1PyLvj3eedMqf9
+         sFQeIfDmSRzTkDgscndRLF1Wq/WLq2p/uO9+LbbodWfFbp+XwQWWc8O1II6EUe5AvfVG
+         D69g==
+X-Forwarded-Encrypted: i=1; AFNElJ8hMxhusqfe8vJKx3ZKQOBpbS9mCC0e6NnnDOO2zfKhWqHZm/IUvYNIwjNFN/6ypUL8P1fn62fKteme@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw/5dzRJRwrMdMzLvz5IbkoPY7sDfXbVsLFahpuxdjTpR3jRj30
+	2dmIOjuGONA0E24IhwdVi3SpRptAgTRIN3dpA5luPxAIYVYymOKmEzKfM1i+lBV4D6g=
+X-Gm-Gg: AeBDievPbOPK+3BeftWHpE5ZpPej6m7apIv1PCxro+XOrLIiqFZ+DH82UxdhJ18JCX8
+	FGOJzwrMJr3SDpPQIVdaz/LrdkaE56Rnv5Uw14RLFVjrJsd7U4IAL98Gp9ZID6NJeEFOUOiT5vf
+	CgxWN8qvJuu+TFZ3n8QjmAzOPI+kkkjX1GvZ+JvR4heKO2QZvwMf5aQtFIOfYijv70USCTDIT69
+	BEZa6om7D5+cCOxmdei1Ryx4A+UVc5GgKTP9M6kGPtKZcLLmvWKmR7g8juI0qWqs25yxxQmKnVL
+	ezJqCPiqdrepgrx5JQ2Kbj9VMLcmHAsWzJd66OUDwvWTukmikeKqkGmQqKwO0AYAf/vTFa2HRjr
+	HVU89jy/pHNqzx2xVQipx+OxgHHZQNI+wolSMP4hZpssOq5BZKAtRI3EgmENo5oZSkwZdAwlJky
+	stTvkpy9JId80RfZAPhwkjbt5CC+fsMA0pqe2uclHWWQDcAWbGxmAJ7Kr2X6jkIOr4iGpTmuLwF
+	eWslR22AFnc2dvygQ==
+X-Received: by 2002:a5d:64c9:0:b0:44a:3aee:370e with SMTP id ffacd0b85a97d-4515ce1c5aemr6073557f8f.25.1778079298902;
+        Wed, 06 May 2026 07:54:58 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:5798:67fd:c866:b378? ([2a01:e0a:106d:1080:5798:67fd:c866:b378])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e530a68aesm28180715e9.1.2026.05.06.07.53.22
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45055960902sm14567686f8f.28.2026.05.06.07.54.57
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2026 07:53:22 -0700 (PDT)
-Message-ID: <40518e75-fea1-4367-a47a-024cf115bd12@linaro.org>
-Date: Wed, 6 May 2026 16:53:21 +0200
+        Wed, 06 May 2026 07:54:58 -0700 (PDT)
+Message-ID: <aeec8c6e-c0dc-4643-a117-be3f787fcec2@linaro.org>
+Date: Wed, 6 May 2026 16:54:57 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +72,7 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v4 08/16] phy: rockchip: usbdp: Rename DP lane functions
+Subject: Re: [PATCH v4 09/16] phy: rockchip: usbdp: Use FIELD_PREP_WM16_CONST
 To: Sebastian Reichel <sebastian.reichel@collabora.com>,
  Vinod Koul <vkoul@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
  Frank Wang <frank.wang@rock-chips.com>, Rob Herring <robh@kernel.org>,
@@ -84,7 +84,7 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  linux-kernel@vger.kernel.org, kernel@collabora.com,
  devicetree@vger.kernel.org
 References: <20260428-rockchip-usbdp-cleanup-v4-0-7775671ece22@collabora.com>
- <20260428-rockchip-usbdp-cleanup-v4-8-7775671ece22@collabora.com>
+ <20260428-rockchip-usbdp-cleanup-v4-9-7775671ece22@collabora.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -111,63 +111,50 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260428-rockchip-usbdp-cleanup-v4-8-7775671ece22@collabora.com>
+In-Reply-To: <20260428-rockchip-usbdp-cleanup-v4-9-7775671ece22@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 4/28/26 18:13, Sebastian Reichel wrote:
-> The common prefix for DisplayPort related functions is rk_udphy_dp_
-> (with a final _), so update the two DP lane functions to follow that
-> scheme.
+> Cleanup code by replacing open-coded version of FIELD_PREP_WM16_CONST
+> with the existing helper macro.
 > 
 > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 > ---
->   drivers/phy/rockchip/phy-rockchip-usbdp.c | 10 +++++-----
->   1 file changed, 5 insertions(+), 5 deletions(-)
+>   drivers/phy/rockchip/phy-rockchip-usbdp.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
 > 
 > diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> index bf8394174294..6d7ca11b308e 100644
+> index 6d7ca11b308e..1bfc365e2b2c 100644
 > --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 > +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -547,7 +547,7 @@ static void rk_udphy_usb_bvalid_enable(struct rk_udphy *udphy, u8 enable)
->    * ---------------------------------------------------------------------------
->    */
+> @@ -12,6 +12,7 @@
+>   #include <linux/clk.h>
+>   #include <linux/delay.h>
+>   #include <linux/gpio.h>
+> +#include <linux/hw_bitfield.h>
+>   #include <linux/mfd/syscon.h>
+>   #include <linux/mod_devicetable.h>
+>   #include <linux/module.h>
+> @@ -75,7 +76,6 @@
+>   #define TRSV_LN2_MON_RX_CDR_DONE_OFFSET		0x1b84	/* trsv_reg06E1 */
+>   #define TRSV_LN2_MON_RX_CDR_LOCK_DONE		BIT(0)
 >   
-> -static void rk_udphy_dplane_select(struct rk_udphy *udphy)
-> +static void rk_udphy_dp_lane_select(struct rk_udphy *udphy)
->   {
->   	const struct rk_udphy_cfg *cfg = udphy->cfgs;
->   	u32 value = 0;
-> @@ -576,7 +576,7 @@ static void rk_udphy_dplane_select(struct rk_udphy *udphy)
->   		     FIELD_PREP(DP_AUX_DOUT_SEL, udphy->dp_aux_dout_sel) | value);
+> -#define BIT_WRITEABLE_SHIFT			16
+>   #define PHY_AUX_DP_DATA_POL_NORMAL		0
+>   #define PHY_AUX_DP_DATA_POL_INVERT		1
+>   #define PHY_LANE_MUX_USB			0
+> @@ -104,8 +104,8 @@ struct rk_udphy_grf_reg {
+>   #define _RK_UDPHY_GEN_GRF_REG(offset, mask, disable, enable) \
+>   {\
+>   	offset, \
+> -	FIELD_PREP_CONST(mask, disable) | (mask << BIT_WRITEABLE_SHIFT), \
+> -	FIELD_PREP_CONST(mask, enable) | (mask << BIT_WRITEABLE_SHIFT), \
+> +	FIELD_PREP_WM16_CONST(mask, disable), \
+> +	FIELD_PREP_WM16_CONST(mask, enable), \
 >   }
 >   
-> -static void rk_udphy_dplane_enable(struct rk_udphy *udphy, int dp_lanes)
-> +static void rk_udphy_dp_lane_enable(struct rk_udphy *udphy, int dp_lanes)
->   {
->   	u32 val = 0;
->   	int i;
-> @@ -1072,9 +1072,9 @@ static int rk_udphy_dp_phy_power_on(struct phy *phy)
->   	if (ret)
->   		goto unlock;
->   
-> -	rk_udphy_dplane_enable(udphy, udphy->dp_lanes);
-> +	rk_udphy_dp_lane_enable(udphy, udphy->dp_lanes);
->   
-> -	rk_udphy_dplane_select(udphy);
-> +	rk_udphy_dp_lane_select(udphy);
->   
->   unlock:
->   	mutex_unlock(&udphy->mutex);
-> @@ -1092,7 +1092,7 @@ static int rk_udphy_dp_phy_power_off(struct phy *phy)
->   	struct rk_udphy *udphy = phy_get_drvdata(phy);
->   
->   	mutex_lock(&udphy->mutex);
-> -	rk_udphy_dplane_enable(udphy, 0);
-> +	rk_udphy_dp_lane_enable(udphy, 0);
->   	rk_udphy_power_off(udphy, UDPHY_MODE_DP);
->   	mutex_unlock(&udphy->mutex);
->   
+>   #define RK_UDPHY_GEN_GRF_REG(offset, bitend, bitstart, disable, enable) \
 > 
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
