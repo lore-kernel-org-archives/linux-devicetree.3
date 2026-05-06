@@ -1,144 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C63234252D;
-	Wed,  6 May 2026 18:44:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B4A4418D7
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 18:51:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778093090; cv=none; b=WILHgZEIthbDfBax6farY1srm81pj20kktLrlQwUofNXWhlEXBDcYLWYCRvMCroP7dmL9vBqG9Ehj07e5Sv4dtDualgyf35efyOY2y1MRhnXbANQ2ZWMP9bnQjbcPt4Xbs9Gw8qKZK0K1oRAiM0rvsFkl8rztwi7cU5UgoIGnhQ=
+	t=1778093479; cv=none; b=oFfrnEKv1LE9MQSqL7kv42esio6JQboB37Kv74u8N/yENimjgqa+jUIgRSzs7oppDAWdli2hwvfRxHze3KShUkaGcdf86mAxvddo4fCPF9fSjoXjwOM7giDNyyRobXuje1NeEiqIeK02/ymHjbzZMswmIsBliJsnNVuJmSanvl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778093090; c=relaxed/simple;
-	bh=PhUTFwNZhL26mBnCQolEZhAS8rM1PlBSjQ8H1nTgPh8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kmGQoFqPh/Arkk+nnRYsO/1Tid6SPNG+JtDMYqIeA368w2zbxPLTWXCqwMXhiflWdaLmDYVnaBVotyGcG8j48fmPD/IGOJtc3DBijYpHRg8qmilF6BC0pUTRTfF8vZfr6iN0h9irJqZjW8aVfRHwI10cnpOljMkMQJ7jYC9yuYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FylzyLg3; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778093479; c=relaxed/simple;
+	bh=s8SojpSoc+YK02FQkvYYyW4yXNu4hN2c6ETT93ArWJQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V3X9f/LhACEhTsjBndmucT6rL8sfMNvUVPt0pgmEzyZIr4qJgBxD9WyL8M1MmaqExzo5lp5KZQIRruvii7C/f0AJB5f5Yze33JN/D79tlIXoa4tmtzp4i1kukldbOaRXJb6/IKd70XMYgsET5CAC1xA/xVl4QsukfxR3UGu1lCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=yqlozRSf; arc=none smtp.client-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FylzyLg3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBE66C2BCB0;
-	Wed,  6 May 2026 18:44:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778093090;
-	bh=PhUTFwNZhL26mBnCQolEZhAS8rM1PlBSjQ8H1nTgPh8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FylzyLg3tP5NRy+iz162qz9JGnBXJjmgYQZ9opVu2Dt+be+20VCYvGLhnG7o1nYtc
-	 eq1qEXqsga4sIaDUfD1FbqJga8MY1xHTgrCEHK9k+iMvhdIhxBk9oVP5jWVk6hlF1b
-	 yqWXWXoRBZpzR82G6NJYBwS49tA5qkLWOf2O1Pd+gE16f5veLuMdRfCwHgdP2UZi5W
-	 d9GPNBwT/LX9lFdu8+rXe1CXB/KCYSNMMolOcgeG74lNLfXpWzo4fUFfHNrWo1+iaR
-	 V5a8Jin246HLZH+AJHkzyTlIhokpOztBfx/Xf02MVWBFHohPfcWS08QqnKWwtW5Q+O
-	 MA47VBZwWgoxg==
-Date: Wed, 6 May 2026 13:44:47 -0500
-From: Rob Herring <robh@kernel.org>
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Aleksander Jan Bajkowski <olek2@wp.pl>,
-	Test User <test@example.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: wire style checker into
- dt_binding_check
-Message-ID: <20260506184447.GA2816439-robh@kernel.org>
-References: <cover.1777471439.git.daniel@makrotopia.org>
- <ed254ed45f19f37a7e7933a33f2f00195d8e5f20.1777471439.git.daniel@makrotopia.org>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="yqlozRSf"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-8ef45a6d9dfso3878885a.0
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 11:51:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778093477; x=1778698277; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=qVXRMaORBAm1p+hmPERIzD3vaX/XPR3tJcXrI0tApsg=;
+        b=yqlozRSfuCUJJ9D/wW3WpVlAitl6p+MalJd4d+qGeBPP7HHYOs15Ifo4zv4JyQM3RY
+         oHUbujbmeUjmk/O4VeGR+RGnA5ACtoV1slnTP6zjtIbj9FGxzvsCksN3JeAJuUeQBmX1
+         nRTiF8ZF9styqnDRIE7ecUgF92XqjybzmU2tpys//cSjNx11JXVgSmQFJy+B++GX2ZOC
+         u6zWm0k2NWbcK/N5MW1WjdBqxvdMsVhpGXTL2VLC3zGDINTcSdycmkw83ftcdERHrH5w
+         WiRYxhwO/qEdWGPjZdrnDZShFy8obFYV9aNveGpk9ZuEsT82efZmnwLdExxspdhvUjsj
+         3Z3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778093477; x=1778698277;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=qVXRMaORBAm1p+hmPERIzD3vaX/XPR3tJcXrI0tApsg=;
+        b=aYww9Agz8mG1azz3eYiQ3PyE3dq2IFYykMIJv91gRho3tNTFkgje+OoXNJZKYE6J6R
+         RGEznnU2MlWZaFAP33Dj+jeHteZrzJ5a71aDnEXfoSXi+XDyZaBsaZB0SBsqL+ClTNZh
+         hXPlcjPI2fb12Y+uAxCBUWijHGc9yo/ZdyOn0ogdlVPOnAqpyqjBJw71WyOHYrPe8UPJ
+         lA6feb1kYbmW1Jd+6uW5UTOn0sXBWh66wCJzl7uUojBdpao5bmoLfcqr31E8PkO0niqH
+         skPgcCGNY4pY7IPNFdJGtcyFJq/yOEEtmcz9ZhSre6p4uaJowsbMZMwZTo5JjciYj0V7
+         k9QQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/Y7ojh4EpRcCpcGmOY32tWC5De8D0j3sE8Y4ZfNQC6Y46h5wF6Ns/eCuKBVcmzOTd8xEMESHE8y1JD@vger.kernel.org
+X-Gm-Message-State: AOJu0YycNcpVVXX6XKC2GykXPL57f8n6OUep2moM3VdPfvzkl7CJLGKd
+	vj7gk9tGUXHE0d0kVIsCG93/4rcSlISdPG2iI8dFmKmwxYpyvDFEPLMN1B9sePzofMM=
+X-Gm-Gg: AeBDieuB5N8hebTa21wGC55H4TtU1NXEHqBFFl7Sy/SpNmZwqv3z/BWLlCoO6syIc00
+	Sq7zeouldH/oBgxNgKPF3+p5LvLqyXcwlsQtv2R2cgGIMtxF570zJcuwYE25NIV5nMYEvsDkjVS
+	z16veTdWvph+71NDA+yxn5gTS7lNnr/1GcDWKRHILtf8XnEl44W4a1AKejP4yXqDZGptinDCeoI
+	tts2MqTdeknd1+DgnGpxVWAgrWusm5zlkBJcfp7KU5EXz3HS9XwJM95IvTZuVtj2zuuZcbNyg7X
+	7W0dZd32KsELX8s41SwXDblEQ2Gfc701JuNDEYohLH4NApXR7ZLezp1ncHImFxFo/CVNVqiXV5i
+	WhwwpXNEIT2MnEh/VohPoIiEiuiNOgiCI+C7CxXqoIGjX+2m+T49DDheo7JhUc91Kavn5NcNEio
+	Y14PqkQvk1aKiMqIvstbI7uFKe/CgpqX+u+kBfZvGeJaSZW7RNFM9p270sJ7XEPR/jNMokPcEUk
+	A==
+X-Received: by 2002:a05:620a:1a13:b0:8cf:d804:456a with SMTP id af79cd13be357-904d4c54265mr713100885a.20.1778093476942;
+        Wed, 06 May 2026 11:51:16 -0700 (PDT)
+Received: from [172.22.22.28] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8fc293837b5sm1889639085a.10.2026.05.06.11.51.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 06 May 2026 11:51:16 -0700 (PDT)
+Message-ID: <a52659e8-0382-4eb2-ab2f-5563bbb73fcc@riscstar.com>
+Date: Wed, 6 May 2026 13:51:12 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ed254ed45f19f37a7e7933a33f2f00195d8e5f20.1777471439.git.daniel@makrotopia.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 09/12] gpio: tc956x: add TC956x/QPS615 support
+To: Julian Braha <julianbraha@gmail.com>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, maxime.chevallier@bootlin.com,
+ rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
+ brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org
+Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
+ alexandre.torgue@foss.st.com, ast@kernel.org, boon.khai.ng@altera.com,
+ chenchuangyu@xiaomi.com, chenhuacai@kernel.org, daniel@iogearbox.net,
+ hawk@kernel.org, hkallweit1@gmail.com, inochiama@gmail.com,
+ john.fastabend@gmail.com, livelycarpet87@gmail.com,
+ matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
+ weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-10-elder@riscstar.com>
+ <1fe6bcb7-b5c0-454f-ad54-5014006edab5@gmail.com>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <1fe6bcb7-b5c0-454f-ad54-5014006edab5@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Apr 29, 2026 at 03:21:33PM +0100, Daniel Golle wrote:
-> Run dt-check-style as part of dt_binding_check_one. The recipe wraps
-> the tool with scripts/jobserver-exec so worker count follows the GNU
-> make jobserver -- `make -j N dt_binding_check` constrains the checker
-> to N workers rather than spawning one per CPU.
+On 5/2/26 10:42 PM, Julian Braha wrote:
+> On 5/1/26 16:54, Alex Elder wrote:
+>> +config GPIO_TC956X
+>> +	tristate "Toshiba TC956X GPIO support"
+>> +	depends on TOSHIBA_TC956X_PCI
+>> +	default m if TOSHIBA_TC956X_PCI
 > 
-> Default mode (relaxed) is zero-violation on the current tree, so this
-> does not introduce new warnings into make dt_binding_check. Stricter
-> rules are available via --mode=strict (eg. for use by checkpatch.pl in
-> a future series).
+> Hi Alex,
 > 
-> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
-> ---
-> Changes since v1:
->  - dropped xargs -n200 -P$(nproc) sharding; single Python invocation
->    with file list via @argfile
->  - dropped `|| true`: relaxed mode is zero-output today
+> In your Kconfig changes, this condition 'if TOSHIBA_TC956X_PCI' is dead
+> code. Since you have the dependency on TOSHIBA_TC956X_PCI, you can just
+> make the 'default m' unconditional - assuming this is what you intended.
 
-Just to make sure, when there is a warning added, we don't want to error 
-out the build. Because they will sneak in.
+I'm not sure I'd call it "dead" but you're right, it's not
+necessary because it already depends on that symbol.
 
->  - wrapped under scripts/jobserver-exec so worker count follows the
->    make jobserver
-> 
->  Documentation/devicetree/bindings/Makefile | 20 ++++++++++++++++++--
->  1 file changed, 18 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/Makefile b/Documentation/devicetree/bindings/Makefile
-> index 7b668f7fd400..35ddd0b7a349 100644
-> --- a/Documentation/devicetree/bindings/Makefile
-> +++ b/Documentation/devicetree/bindings/Makefile
-> @@ -46,6 +46,19 @@ quiet_cmd_chk_bindings = CHKDT   $(src)
->  			  xargs -n200 -P$$(nproc) $(DT_DOC_CHECKER) -u $(src)) \
->  			  && touch $@ || true
->  
-> +DT_CHK_STYLE = $(srctree)/scripts/dtc/dt-check-style
-> +
-> +# Feed the file list to the checker via @argfile in a single Python
-> +# process so the ruamel.yaml import is paid once. scripts/jobserver-exec
-> +# claims slots from the GNU make jobserver and exposes the count via
-> +# $PARALLELISM, which dt-check-style picks up to size its worker pool.
-> +quiet_cmd_chk_style = STYLE   $(src)
-> +      cmd_chk_style = f=$$(mktemp) && $(find_cmd) > $$f && \
-> +		      $(PYTHON3) $(srctree)/scripts/jobserver-exec \
-> +		      $(PYTHON3) $(DT_CHK_STYLE) @$$f; \
+> Perhaps you would prefer to use 'default TOSHIBA_TC956X_PCI', which
+> would have GPIO_TC956X default to 'm' or 'y' when TOSHIBA_TC956X_PCI is
+> 'm' or 'y', respectively.
 
-What's the reason to run via PYTHON3 vs. running dt-check-style 
-directly? It's just different from the rest of this makefile.
+Yeah that might be better.  I'd like to eventually include
+COMPILE_TEST as well, and that might need the "if" on the
+default.  I'll find out whenever I test that.
 
-> +		      r=$$?; rm -f $$f; \
-> +		      if [ $$r -eq 0 ]; then touch $@; else exit $$r; fi
-> +
->  quiet_cmd_mk_schema = SCHEMA  $@
->        cmd_mk_schema = f=$$(mktemp) ; \
->                        $(find_all_cmd) > $$f ; \
-> @@ -62,13 +75,16 @@ override DTC_FLAGS := \
->  $(obj)/processed-schema.json: $(DT_DOCS) check_dtschema_version FORCE
->  	$(call if_changed,mk_schema)
->  
-> -targets += .dt-binding.checked .yamllint.checked
-> +targets += .dt-binding.checked .yamllint.checked .dt-style.checked
->  $(obj)/.yamllint.checked: $(DT_DOCS) $(src)/.yamllint FORCE
->  	$(if $(DT_SCHEMA_LINT),$(call if_changed,yamllint),)
->  
->  $(obj)/.dt-binding.checked: $(DT_DOCS) FORCE
->  	$(call if_changed,chk_bindings)
->  
-> +$(obj)/.dt-style.checked: $(DT_DOCS) FORCE
-> +	$(call if_changed,chk_style)
-> +
->  always-y += processed-schema.json
->  targets += $(patsubst $(obj)/%,%, $(CHK_DT_EXAMPLES))
->  targets += $(patsubst $(obj)/%.dtb,%.dts, $(CHK_DT_EXAMPLES))
-> @@ -82,7 +98,7 @@ dt_compatible_check: $(obj)/processed-schema.json
->  	$(Q)$(srctree)/scripts/dtc/dt-extract-compatibles $(srctree) | xargs dt-check-compatible -v -s $<
->  
->  PHONY += dt_binding_check_one
-> -dt_binding_check_one: $(obj)/.dt-binding.checked $(obj)/.yamllint.checked
-> +dt_binding_check_one: $(obj)/.dt-binding.checked $(obj)/.yamllint.checked $(obj)/.dt-style.checked
->  
->  PHONY += dt_binding_check
->  dt_binding_check: dt_binding_check_one $(CHK_DT_EXAMPLES)
-> -- 
-> 2.54.0
+This GPIO feature should still be a module even if
+TOSHIBA_TC956X_PCI is y, because it's not always
+necessary to enable the GPIO driver (depending on
+how devicetree defines the PHY resets).
+
+So:  In drivers/gpio/Kconfig it will be "default m", and
+for drivers/net/ethernet/stmicro/stmmac/Kconfig it will be
+default TOSHIBA_TC956X_PCI (at least for now).
+
+Thanks a lot for the suggestion.
+
+					-Alex
+
+> - Julian Braha
+
