@@ -1,98 +1,189 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FC833C518;
-	Wed,  6 May 2026 13:22:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F2630BF6B;
+	Wed,  6 May 2026 13:24:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778073746; cv=none; b=X6CYoG3g6cTyzXTn6Jxc4L57WoNN6k+NVpuQzGKAR3aBNlojBKF4CNbnHc3xXq4rX+uIH3fJWcqWnkDZZaAI0ooIpMaHB8Zj4VNwuTG1J3q3A7uXhIfwidnMzOK60GuUL6oLyAUj2IWcpxEeDsd664vorEqzs592UveqJ982ZOc=
+	t=1778073892; cv=none; b=R4BaZWJimp9WfhI8Vhdnc83UZ/LBRaJlCo6PUudle2j5kmo39sKrUPxMAT5GWrcYZHF3NDRMUji09+aXhenFTQs7FuoLXUFu+8a6wOe/3VGa06kDNbN+zGNd3RLpjpf21t30nSV5xYLdkzq7U8gHSc5gB+mA3WD7PS4+kSgNVaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778073746; c=relaxed/simple;
-	bh=txNWG74hS7pwR6q9ysCCXzPNZmvNzSaAb+/IAkjuGKk=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=PYzLqmH446MZlZjA7fKchfqvV2YVGu+Fae4irGLVLVLV3DKsImXEs2gh3rQ9hWjqQXgGx5zMor3xG/hRT9vnhYb8DEw0/mNYOHspUqtNz/nmS98D+GW2L9XVZaJymAEvx5UYWGMUB9atNE+gnkmXRfZUUifDFfLUQhkmM5yF3G8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BiRaMpBv; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778073892; c=relaxed/simple;
+	bh=KBdPCA7WqEzlXbX6sx7AIpxIm+mcvsDlaeSMWNZqW4E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BHL52xz556kTzwU6ozF20gK1GrTHlKWoFfdh1q7vuPC8OtScCHgEp8VqwkPnRBdQI0XS5KJGlbPGRwLsIrkyzs/2vYKIbpeJ/LcZ+ojOBWX05dUq0cxIR5kOCdg8F72xVxbuRNhjr+QE0LZXzAmTrebCKL6K1PYD1Rw0qVMDuL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dnhLWjdj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BiRaMpBv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1393C2BCB8;
-	Wed,  6 May 2026 13:22:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dnhLWjdj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89500C2BCB8;
+	Wed,  6 May 2026 13:24:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778073746;
-	bh=txNWG74hS7pwR6q9ysCCXzPNZmvNzSaAb+/IAkjuGKk=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=BiRaMpBvHwjkOgQ01obw9YRNpYyQfzB4tYh9vhxvwvDCmebFlcZrTBQBjT0xEshoz
-	 2w2kMhX4dc81h4CzwzopUPmL4LbH+xLEAalsBigAX6a8FG556u9UBSWw0v/W7qyY8t
-	 cS+j1reEozcasXSX8h4+NfZAPbxXc0HIyJHnPsAued5mO7VRF8o3WJgpTwRCeDHzop
-	 ofAQ8rtcg1Pa9QM3n2uk/FjkVMTzQdhwzJROrXBpOQF1Hfq4rMHAMMt05+xSKHO2BB
-	 46UQF+oLW+JjZR5KgE73yGral/ASMY4vRt7CAVwJjbDCQeKwkcgIcbXkzLBdYSv6Ne
-	 bTe+ynW0Fcx+g==
-Date: Wed, 06 May 2026 08:22:23 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20201202; t=1778073891;
+	bh=KBdPCA7WqEzlXbX6sx7AIpxIm+mcvsDlaeSMWNZqW4E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=dnhLWjdjcB85BCksEOsYETDm11pnnkv3yP24sIU6FIManXsMJ7dFahkQIHbmrTcY+
+	 qIJTQTO6qq3MfuxajunDNQPFobTLiZgOo4IJk5AM248sBhgMfX4XRv4cWy54gowgbB
+	 y3jAS/QqvOJKsmh2ajHTcJjNfBUifcIrqzv8X6lbXsTX07j2+CK8YvhakjsmxFozk2
+	 Z3I3oksig/VmS2cKqZyK3CKxIwf5XVZL9W8jl3+hhNsx/IB+3Sk825a0mR/REY2JKz
+	 5VSp49IldZjboehsv8+q3cVuVo9nkYu4a3msLQXCaILnrv2n3U4yv8Ke/09SvPSkl5
+	 ds6NBUt/noKZg==
+Message-ID: <0d9b9a53-2743-4202-96dc-0b922c48f375@kernel.org>
+Date: Wed, 6 May 2026 15:24:46 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>, 
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Mahesh Rao <mahesh.rao@altera.com>, 
- Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>, 
- Dinh Nguyen <dinguyen@kernel.org>
-To: tze.yee.ng@altera.com
-In-Reply-To: <09822cb8171f90d50c018f2f1fae5e5aab737301.1778070377.git.tze.yee.ng@altera.com>
-References: <cover.1778070377.git.tze.yee.ng@altera.com>
- <09822cb8171f90d50c018f2f1fae5e5aab737301.1778070377.git.tze.yee.ng@altera.com>
-Message-Id: <177807374335.1865702.3878759257634615890.robh@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: firmware: document rsu-handle for
- intel stratix10-svc
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: mmc: cdns,sdhci: Add CQE support
+To: rohan1sj@cadence.com, Ulf Hansson <ulfh@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Masahiro Yamada <yamada.masahiro@socionext.com>,
+ Adrian Hunter <adrian.hunter@intel.com>
+Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mparab@cadence.com, pawell@cadence.com,
+ sjakhade@cadence.com, mpillai@cadence.com
+References: <20260506-cdns_sdhci_cqe-support-v2-0-754fe4de8b65@cadence.com>
+ <20260506-cdns_sdhci_cqe-support-v2-1-754fe4de8b65@cadence.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260506-cdns_sdhci_cqe-support-v2-1-754fe4de8b65@cadence.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-On Wed, 06 May 2026 05:42:20 -0700, tze.yee.ng@altera.com wrote:
-> From: Tze Yee Ng <tze.yee.ng@altera.com>
+On 06/05/2026 11:04, Rohan Joshi via B4 Relay wrote:
+> From: Rohan Joshi <rohan1sj@cadence.com>
 > 
-> Add the optional rsu-handle property to the intel,stratix10-svc binding.
-> It holds a phandle to the QSPI boot partition (qspi_boot) for U-Boot
-> remote system update (RSU) handoff.
+> Cadence host controller can support CQE. Add optional CQE
+> register space and reg-names property to cdns sdhci binding
 > 
-> Extend the example with a minimal QSPI fixed-partitions node so the
-> qspi_boot label is defined where rsu-handle is used.
-> 
-> Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
+> Signed-off-by: Rohan Joshi <rohan1sj@cadence.com>
 > ---
->  .../firmware/intel,stratix10-svc.yaml         | 25 +++++++++++++++++++
->  1 file changed, 25 insertions(+)
+>  .../devicetree/bindings/mmc/cdns,sdhci.yaml        | 41 +++++++---------------
+>  1 file changed, 12 insertions(+), 29 deletions(-)
 > 
+> diff --git a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml b/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
+> index 8902e7925eab..79064282fabc 100644
+> --- a/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/cdns,sdhci.yaml
+> @@ -26,7 +26,9 @@ properties:
+>  
+>    reg-names:
 
-My bot found errors running 'make dt_binding_check' on your patch:
+There are no reg-names in this file.
 
-yamllint warnings/errors:
+>      minItems: 1
+> -    maxItems: 2
+> +    items:
+> +      - const: hc
+> +      - const: cqhci
+>  
+>    interrupts:
+>      maxItems: 1
+> @@ -138,22 +140,16 @@ allOf:
+>            items:
+>              - description: Host controller registers
+>              - description: Elba byte-lane enable register for writes
+> +        reg-names: false
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/firmware/intel,stratix10-svc.example.dtb: qspi@0 (jedec,spi-nor): $nodename:0: 'qspi@0' does not match '^(flash|.*sram|nand)(@.*)?$'
-	from schema $id: http://devicetree.org/schemas/mtd/jedec,spi-nor.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/firmware/intel,stratix10-svc.example.dtb: qspi@0 (jedec,spi-nor): reg:0: [0, 4096] is too long
-	from schema $id: http://devicetree.org/schemas/mtd/jedec,spi-nor.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/firmware/intel,stratix10-svc.example.dtb: qspi@0 (jedec,spi-nor): Unevaluated properties are not allowed ('#address-cells', '#size-cells', 'partitions' were unexpected)
-	from schema $id: http://devicetree.org/schemas/mtd/jedec,spi-nor.yaml
+Why?
 
-doc reference errors (make refcheckdocs):
+> +      required:
+> +        - resets
 
-See https://patchwork.kernel.org/project/devicetree/patch/09822cb8171f90d50c018f2f1fae5e5aab737301.1778070377.git.tze.yee.ng@altera.com
+Why?
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+>      else:
+>        properties:
+>          reg:
+> -          oneOf:
+> -            - items:
+> -                - description: Host controller registers
+> -            - items:
+> -                - description: Host controller registers
+> -                - description: CQE (Command Queue Engine) registers
+> -        reg-names:
+> -          oneOf:
+> -            - items:
+> -                - const: sdhci
+> -            - items:
+> -                - const: sdhci
+> -                - const: cqhci
+> +          minItems: 1
+> +          items:
+> +            - description: Host Controller registers
+> +            - description: CQE (Command Queuing Engine) registers
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+Why each device has CQE? If each, then why not Pensando?
 
-pip3 install dtschema --upgrade
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
 
+>  
+>  unevaluatedProperties: false
+>  
+> @@ -161,7 +157,8 @@ examples:
+>    - |
+>      emmc: mmc@5a000000 {
+>          compatible = "socionext,uniphier-sd4hc", "cdns,sd4hc";
+> -        reg = <0x5a000000 0x400>;
+> +        reg = <0x5a000000 0x400>, <0x5a000400 0x060>;
+> +        reg-names = "hc", "cqhci";
+>          interrupts = <0 78 4>;
+>          clocks = <&clk 4>;
+>          bus-width = <8>;
+> @@ -170,17 +167,3 @@ examples:
+>          mmc-hs400-1_8v;
+>          cdns,phy-dll-delay-sdclk = <0>;
+>      };
+> -
+> -  - |
+
+What are you doing here?
+
+
+Best regards,
+Krzysztof
