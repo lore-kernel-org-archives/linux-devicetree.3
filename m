@@ -1,566 +1,563 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2113.outbound.protection.partner.outlook.cn [139.219.146.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5543F54D1;
-	Wed,  6 May 2026 10:34:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.113
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778063688; cv=fail; b=fi12Oa6OcqDZ2OCuqQiT4FpbUwpZL67YqFj340W3irs25gq5Pb04F9c9vkyQhmtRFqw11JZ74wY1Zz8hAYCcYUhKXYa6HUbCt0J3mDPNuZGqlaUKN7TF0ydjhEJVlJD3HiEPE/1tQLepAdgSPIEkcloex73Kd3a6m1RAFd5oo3w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778063688; c=relaxed/simple;
-	bh=a2kYXQk1CCEhgOp5/l9Fhd+vqWmoADvc2PwdQdf5+jg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gDMwpPaLuD2TF77o+0PjZ6I69It7Dwn/lo6YlctngxlqXGEPKTcRWJqS6fkhCbW7x/t72c9/1DBsWT7sbITtEobVQjEQ7sVI98NepRUQVvye+Jv3w9eIoNivBMEkHFddhxc8i0PexrjUKFXL64Hpg4sQL+zBZQBd/aBQ3W67CKQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QJORXmv4ruKDVY956NTnsIKv0GkUPI0Gul2gpXuUHI/PfUNZ1E95owBzbi9hjImecX74n6qzvYyVwxK5nkOrJnuB29GnvuHqac7T+Qr0JKBmKGdlPkPNgU1wplFhM6Wrq70IwfxtZI/ZulMEWSqtEHIPmijZ/dzymFxV5+CRtWSOT1MyBtboAfR/7f+Z1OhW4M5Mj9YXFEfQ1srM0eE5UgFj65WZP2flJwoUT4Yg8gCG5LTDGEQAFXbIFVGJbOS95cb5I0VkxOInM/KRmwiDZ4O/WKnUUMpmme/foqDVCnH1My2L2GxjA9YBRQDOzriFlxQyaZOctk1KGezrA8oS2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YsTj+aoc0+ExI40nUrB0nnEBbyE4/0jmewMTsXGTDqY=;
- b=kY9aLNY1/AE8c5Y02gPKxMBqJDVn/QX8KQdqmBDbThNbZrOiWKtjsDFXLjalzeFYhWVNyH/tVknWuBOO4pY/ob/IkCzD6zXRog04eF74cBLJtbeRGA9spRly8LPsd0ZWq0jb80ZkXB4wtOm8xoaPlTJ365RpvOo/AFloqXfkbb91lcPhP5bFC/4fWvHewLRUEX8ICDGX1v6CBWTzjpIO3993/VrtP6XMaAzo6d49wmIj63eYpiLe8bpqbQMMUp0tpTKH2UVIl2Ju/7GaGy3LqNNS1LokC7bR4jAy/Oxdpjn0w3DLQTFW35QaQ+bNfw06mEjxySnKljwiA7rNST/bwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1171.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:15::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
- 2026 08:59:55 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
- with mapi id 15.20.9891.008; Wed, 6 May 2026 08:59:55 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>
-Cc: Yixun Lan <dlan@kernel.org>,
-	Joel Stanley <jms@oss.tenstorrent.com>,
-	Drew Fustini <dfustini@oss.tenstorrent.com>,
-	Darshan Prajapati <darshan.prajapati@einfochips.com>,
-	Guodong Xu <guodong@riscstar.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Junhui Liu <junhui.liu@pigmoral.tech>,
-	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
-	E Shattow <e@freeshell.de>,
-	Icenowy Zheng <uwu@icenowy.me>,
-	Anup Patel <anup@brainfault.org>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Ji Sheng Teoh <jisheng.teoh@starfivetech.com>,
-	Hal Feng <hal.feng@starfivetech.com>,
-	Ley Foon Tan <leyfoon.tan@starfivetech.com>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Michael Zhu <michael.zhu@starfivetech.com>
-Subject: [PATCH v2 4/4] riscv: dts: starfive: jhb100: Add JHB100 base DT
-Date: Wed,  6 May 2026 01:59:37 -0700
-Message-Id: <20260506085937.754808-5-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260506085937.754808-1-changhuang.liang@starfivetech.com>
-References: <20260506085937.754808-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0011.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510::20) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD393F20EC
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 10:41:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778064073; cv=none; b=uZFVwUmBbGsJFcIGt38iFRH7Cw5T63dJJevIeDPGp3mlegYqhlYZuYzIAGxcPd9nOMEoHK4+9jCS4yWvp5Wwu5izikBqzj6vIj3wr5WZ5Ky87qHbB5StbLbwJEa9GemI3EKT+C9ZXhr8pjJpxMAHSn/GHfU9wpKLRvJf1WjZdXU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778064073; c=relaxed/simple;
+	bh=YGdrnZDHEAKU19puluFb0aQrRnmCH5AJB66zLm2mhzs=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kEDutg3/Ail/37704UROqxaYmm4RtI6aKxvzxb54qSHfYVYZ6QHDnpmfX1luz8NCtIJcLjMZJ0swPHaSED4lRWDmervGe/UCGw9w+2l7tZ/q5kYeAtTdgqcYbkLsrvmpPIlFc2Cl791trLZWc1G514Dh4qWj01HcFCCishDld84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D1xgW5IJ; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D1xgW5IJ"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-44ce78ab5feso3268814f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 03:41:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778064069; x=1778668869; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=eAMMS6+ymkXk81im8PQp9ngpssGuoAIg/fNUOQlqE+c=;
+        b=D1xgW5IJZQDHV/Ke/TctsM2v6C28KsdfiNWCIJ6dkDvwCGF6FPZSBEClVZif6IR/IO
+         alqhQtkdRtKwQ86ovhXS7zoQChwkpp87vNv/OAxy4lZumqOCu8zAP39x/66FPV8BS1Pf
+         eOtxWqYZWRQAfOJhnbCtu1s9AR0Dt6V9V/eHmnQGJd0Y7l7rBxpbwZUpYKOqCiHxn7LQ
+         sJ5xaDK2vushhdG5birTHrgsW+6qnu1XQ3c5CQV5PEQxjSodurdJJJSpMSsSLj6uN1SB
+         x5j+4g0+Lg8QMhj3M9GmD35V7dQYlVCj1Sansajb3SaR1/E8/cdn5u84erAlqrQvYi9n
+         DqfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778064069; x=1778668869;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=eAMMS6+ymkXk81im8PQp9ngpssGuoAIg/fNUOQlqE+c=;
+        b=QuWWWUFRXt5zFk73DjQdwHrGS1kxzCyDFJsCk8hJ7P0vJwQS/Z2EJvQ5wEAQQEKnYd
+         AIC3kixvJ/SxhhmNPmEXRJuA6ASP/5VqkKwyJmydupKn0yCD1Cm28WWaWi6w5NkYKzt+
+         +0BRKEXCcxfcx4t0SvHB0NEcRzsfShwjBWWLAJFMQd5/wK1gVTxJMpSW8SB0k3RgRlH3
+         FFzMJuwqmK5CqDzs6ITgbVLekwiWAMzbGCH2olvNGR1c8YmuQp4b+PD6eMMprh3Aw31K
+         WuNKhBFVJgncqbAcmLhNXrmogRk+Nj5Wcqdfagkn/+nVFMptq3Fyf8mfPn50TEe6ntRu
+         2G4A==
+X-Forwarded-Encrypted: i=1; AFNElJ83WG+IEU6MCGn1cNen40yaFXHsJGGB6mR9pSek3QnmKQEykl0a7m1sRGrtAGyl+3sYzE+htbwVz/n9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8YJWeBRO0KT5/IT6O6MCRPRZM665yFAVF4X2S/E0cGjG+nF2W
+	rfBZJYanLMKu9drddkOGjcLBDfJWrukR6EW3M45Ev7VkKH+S2yCpG4FP
+X-Gm-Gg: AeBDietLamhSXolsoZmpxOilygjAOYxsx75NLaxpu6ag45eDXWNBbf4HVXl49Ka6A+h
+	aNWoTIuIc265al6HJADXIjGoWt6kynaDTT4hruh4ky7SwOKbJgE5+iz9XcCIIPQxCukAwGzjWdp
+	eyX6mQB/rNM7C3fRqEubIiMs+sjhZZMis4DpEfSZphFfjWXB1ajAh0wZCkJEOmYBRriopmMYhv1
+	mRIxO1dGoCEGSybi1fFONEMDyrdccWAQ1J4fV6T4+Lb2HjqMkPBOAEpuZYAkyIF6Z8fxWZTt1DK
+	Lhdel6eCTUpVOV2U9gYXS+Mg4vkyNN0QbGQFvxVU5Fq5b4dDKhCYUpJsWwa89NSS+dpWBnZPZgT
+	ZKRESZ9JzeRI/+jnCdCIDm9XwAl8XV9MH0vatpjK+XIN5SAWeS5nbx2oUbSuP1gX676Z1+6VGNp
+	ElOPVqrOtgsoAbb6D9ITHCFPNqQBR1qVC5yY9CLjjyUBXXCanr/Bvu930RMTp+qkPORYs5hBEz/
+	GuRtysfi/Nyf9bN6a7fm5gykBU1XFJP5zWdPpDpVDrcO3c/+YF7aYfzoF2Q
+X-Received: by 2002:adf:f44d:0:b0:452:1868:8e5f with SMTP id ffacd0b85a97d-45218688ee3mr1327753f8f.3.1778064068378;
+        Wed, 06 May 2026 03:41:08 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45054b02c5asm11432708f8f.19.2026.05.06.03.41.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 06 May 2026 03:41:07 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Wed, 6 May 2026 11:41:00 +0100
+To: Jonathan Cameron <jic23@kernel.org>, 
+	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH RFC v3 9/9] docs: iio: add documentation for ad9910 driver
+Message-ID: <kwx4kgvagwoaljurnkvuvwggrss2qdjwzszpju6mkdxjfi4n4n@yjsv33ewxkzy>
+References: <20260417-ad9910-iio-driver-v3-0-29b93712a228@analog.com>
+ <20260417-ad9910-iio-driver-v3-9-29b93712a228@analog.com>
+ <20260426141007.345c76e4@jic23-huawei>
+ <lkvrmc6y2z45b4qsmaxg3c2iaiar6hjmim3hdbkxqx3536yx3p@o6h7de4ire2d>
+ <20260427104608.7819a134@jic23-huawei>
+ <dsppqeyqtelrt3arkgxdgkhxvgtqpxkvf6n3rbkz4wk7zgfwqb@cn4rqk7p4g6i>
+ <20260505180827.2972124e@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1171:EE_
-X-MS-Office365-Filtering-Correlation-Id: 06ac75e7-6267-43c9-d952-08deab4dd790
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|52116014|1800799024|366016|376014|921020|38350700014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	RmltUCV8hSNBhveKL9coDeq9B74IVO6BqzsD3P3ZraF1kQYvQh91ZXpeJ1yO+1b16mDOj4HM2OMxgw9pkKJ+ez18m2i7zWM2k6/fMxBnRhRPyJdxon/PgEaJGKtanee6aCMmpfm4mLyGbUS+Duec74pbMzdkWGSoZswVBRU3t2FFkQLse7YKOybtTZeGZt2FizIdieQjocMHFn7Enj3WLUlHVWL5JceJeXNUlwwUSwHES/dgXC2ga0ULCfHPfFPXbXezw49XnCtm0K3Z2uzUrcAZwJK4c+6uVTSyJrJPKyWdnGJw0kR7jrtsgvM7rz7c6oFio2JuhDl3btd30u2jw3B31hxeHCSnYWtRBRhC56OooPjE2QuEU9MpJAcNtNFwSd2TMwkvPY3jFG5/bYG5SjSWiW/ZATy75HiZsNq140QqgaEo7EDYkFI50/O5oun2TFTki/EOUR1ZiR83c9g8sF70AjkkNpCL3GsH2/ZFFRLvsgxioKhUBE5sMd/YM55mL9vLmsWb5B1JOTN9M2IbKzpE+mR3/qqLPJt2UwKt1GdxLsPmoQV98f5/AiMkdnjyqtRk6qoMuDPlWB5KgqljcA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(1800799024)(366016)(376014)(921020)(38350700014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?eNHP/MTb9lCXaIxp4L/duslERZjYJFYJqMCxtMMtmnqAoeu0f1fKlooR2TLP?=
- =?us-ascii?Q?6TPduVzqt+2eIMvsM0zJMu3+hpo5E41SjJjpiR+DiYIPK+uq2H9HSr+IInOW?=
- =?us-ascii?Q?WEkLRo46wNbm2i/rOKESUpxEsJz9yhbQ421VI6XP/Q3cLCCj64cevDHiv2/V?=
- =?us-ascii?Q?SEVKkyD8kmKiB8urh5+aD+h9bFHniPOAcpWm3uOw8mQ+AdhAj12inX/svUMM?=
- =?us-ascii?Q?EIGT9tava2dnigZkwOf7BqZyMHEGxFgzM/c0xtRZ0iVsKRd1FAP5qByBRmdK?=
- =?us-ascii?Q?IiRTm2bVCp9QxgUfkXWLBsiuPj3Hylk5AqOQmF06p9LO23O4E/tSq6EhOou9?=
- =?us-ascii?Q?h2GiQgopvH93qZrnqAxApY0zP8X8a5vEM2tYZB7R3woMIDpC6+stonmyxBXy?=
- =?us-ascii?Q?AZP41/ZSXp1fR4GbSlrT1HqEqA86eZ16p9Bcgw+CMdCgjqxXUXyXq8PYWXuY?=
- =?us-ascii?Q?l3kQ+F+tDRmlUWoHYi3h0MGKvzt28AgY8uIuwtrGRSUUMWEoRyDmAgfr5NUP?=
- =?us-ascii?Q?twHHJpDp4DsAKTKZqocE8+dVVqW+48Y89PSia7FD9G+e7AeYORvFLBStfrEW?=
- =?us-ascii?Q?3q44VzDOjqaVKGp4g6gxaheFEQjKnmKePvTqpx8NOWg7IJGOiL2KkL7FqAfk?=
- =?us-ascii?Q?AdEy1Xvr4BTZBEECKeLN4Pkcp9gocEy7i9eZZ2yA4OHb16J2sIv+BtcFRY1P?=
- =?us-ascii?Q?hvYkBSJ2iOEws6CvBzorIGuBmWidsid1/q2dicL4Vinyo5EMZzfcL0ZZyJUb?=
- =?us-ascii?Q?blFAXuboABOb8skY3MiAX7YAo25dF2RqifVoYL7WXS82UFhkSYGNFGVP4WOL?=
- =?us-ascii?Q?rfkiB1cCl/Bv2KyygXyhQWN36KAmA/m/HM82RrySJQRodIT8c/D/Pq29L44a?=
- =?us-ascii?Q?RBO/46dHYppv0nezRbO4KxxzFQcZqFRaAMqAYCVMEplhLhpbe0PMKNbUkTAO?=
- =?us-ascii?Q?z/y8GMY0lE2RYuysgZX7mt36aV+l8mdiasR1UhbkEL+DC1pz71Xaeehe7rRZ?=
- =?us-ascii?Q?59fMnflJnc1wYQVEyq9tMghnvIsXf2nf3ZW9Uu7POnD368m6MWTb876QmTR4?=
- =?us-ascii?Q?W6XBM8j82mdPo/WbJyrnaCcjYSHac78N28QC4DZuafrgmyTvrWW2ePSV5EpM?=
- =?us-ascii?Q?P231a/DngwzUj4ut4ncW19OEH/Caan1CoHIz4lXznPkfI6ChClcqX76YDGxX?=
- =?us-ascii?Q?ohptZqJjepZhboyjVa0mctG0Jopy3z1HKyVA8TEbmFfEzLJGS5gWoZJ1VlQg?=
- =?us-ascii?Q?5meogoKWmN+rDC7s19Sr5b3hZjd9o05Ua9f6rKNemsYFYjgcWvlgZdydxNWk?=
- =?us-ascii?Q?rIw+Jan1aZ6Td6I3F1VStQ0LWtPZd014lZDjrWUoj67zviJFZWvitXLdGTYF?=
- =?us-ascii?Q?xYVP9v5ji2raFzZquoAk0l5o1QViH4jEYEZqA4Wo+DkDKYyCeTazj33B+OY5?=
- =?us-ascii?Q?a47+CVm/pWcucukqUaJdQc41zj0gnEzQCavS8yCce+i5DoQgEm0dA+ea1CCw?=
- =?us-ascii?Q?M7jTql8n0opSIJ09UfKQ6+dxLJZDIaNQMFV/vCJ4082PAJqHSW1PCEBAf549?=
- =?us-ascii?Q?VYZ2jz/VtV3JCkXRfK4YlyJ0KuqWN/66XB4m6Qy2JDJu85vYfVbdlHF+6r/D?=
- =?us-ascii?Q?YGteVMsS1TbOr7nh3gCTcKZ2flO/+JH3gvWvLjfPiLdysn5rxy9f2L46i8yl?=
- =?us-ascii?Q?Jnsj0Hhuj6K7t7b5HSn37qTRxZZdBxbh4yZ5aKarmpOgRAu9PrHQ0mwKkG6A?=
- =?us-ascii?Q?T6ag5g72vD+k4c3tyUTlSB1xSymNvJ9mSfUvSuTUUg1hKR3oI73Y?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06ac75e7-6267-43c9-d952-08deab4dd790
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 08:59:55.2618
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NU8RusicLu7Lw+ufouaT4AOOL1Su5QPr9AN3lhNNqdCMvApnuY71WwzAIxs9AzF8bVm9nHp4ItCMHeheLDBxqQRlv7lbenhLsVe6KE+4TAHv3j+wvu0seGD0iq1GtFLL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1171
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260505180827.2972124e@jic23-huawei>
 
-From: Ley Foon Tan <leyfoon.tan@starfivetech.com>
+On 26/05/05 06:08PM, Jonathan Cameron wrote:
+> On Mon, 27 Apr 2026 15:35:21 +0100
+> Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
+> 
+> > On 26/04/27 10:46AM, Jonathan Cameron wrote:
+> > > On Sun, 26 Apr 2026 21:42:15 +0100
+> > > Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
+> > >   
+> > > > On 26/04/26 02:10PM, Jonathan Cameron wrote:  
+> > > > > On Fri, 17 Apr 2026 09:17:38 +0100
+> > > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> > > > >     
+> > > > > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > > > > 
+> > > > > > Add documentation for the AD9910 DDS IIO driver, which describes channels,
+> > > > > > DDS modes, attributes and ABI usage examples.
+> > > > > > 
+> > > > > > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>    
+> > > > > 
+> > > > > Hi Rodrigo,
+> > > > > 
+> > > > > I think this is getting close to something workable subject to some tweaks
+> > > > > to not make the priority thing visible and use rate of change parameters
+> > > > > so /Sec rather than steps.    
+> > > > 
+> > > > I am not sure about this one. Getting the value into units per seconds will
+> > > > increase the range of values by a lot, e.g., for the frequency case the step
+> > > > size can range from a few Hz up to the entire supported range (hundreds of
+> > > > MHz), and if you consider that one would often have the sampling_frequency
+> > > > at 250 MHz... an attribute frequency_roc could have an order of 10^17 Hz/s,
+> > > > and I am not sure how practical is that, although it can have a physical meaning,
+> > > > like a "chirp slope".  
+> > > 
+> > > That scaling is indeed a bit of a pain though it will go in a 64 bit int
+> > > however, seems likely we'll get higher frequency devices one day that will
+> > > limb even faster.
+> > > 
+> > > Maybe wait and see if anyone else has input on this.
 
-Add JHB100 base dtsi and dts. Consist of 4 Dubhe-70 cores, CLINT, PLIC,
-PMU, UART, INTC and 1GB DDR.
+Maybe we add this _roc ABI for this device and figure out scaling issues on new devices
+later.
 
-Signed-off-by: Ley Foon Tan <leyfoon.tan@starfivetech.com>
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
----
- MAINTAINERS                                  |   6 +
- arch/riscv/boot/dts/starfive/Makefile        |   2 +
- arch/riscv/boot/dts/starfive/jhb100-evb1.dts |  32 ++
- arch/riscv/boot/dts/starfive/jhb100.dtsi     | 337 +++++++++++++++++++
- 4 files changed, 377 insertions(+)
- create mode 100644 arch/riscv/boot/dts/starfive/jhb100-evb1.dts
- create mode 100644 arch/riscv/boot/dts/starfive/jhb100.dtsi
+> > > >   
+> > > > > 
+> > > > > Given this defines the ABI for a whole class of new devices that are
+> > > > > rather complex, one concern is whether whatever we define here is general
+> > > > > enough to be useful.  
+> > > > > 
+> > > > > Do you have any other DDS in your queue to upstream? Maybe it's worth
+> > > > > sanity checking the ABI against them to see if it is fit for purpose?    
+> > > > 
+> > > > Not really, still the only DDS. Other DDS of the same family have a similar
+> > > > Digital Ramp Generator with controls over ramp limits, rates and step.   
+> > > 
+> > > There are two in staging that have been there a very long time... 
+> > > ad9832 and ad9834.  I haven't looked at how they correspond to this.  
+> > 
+> > It seems they can benefit of this child channel concept, as they define
+> > multiple frequency and phase configuration for the same physical DAC.
+> > I see the following in the most complicated one:
+> > - out_altvoltage0_frequency0
+> > - out_altvoltage0_frequency1
+> > - out_altvoltage0_frequency_scale
+> > - out_altvoltage0_phase0
+> > - out_altvoltage0_phase1
+> > - out__altvoltage0_phase_scale
+> > - out_altvoltage0_pincontrol_en
+> > - out_altvoltage0_frequencysymbol
+> > - out_altvoltage0_phasesymbol
+> > - out_altvoltage0_out_enable
+> > - out_altvoltage0_out1_enable
+> > - out_altvoltage0_out0_wavetype
+> > - out_altvoltage0_out1_wavetype
+> > - out_altvoltage0_out0_wavetype_available
+> > - out_altvoltage0_out1_wavetype_available
+> > 
+> > less complicated, no RAM, no DRG nor parallel port. In terms of common stuff I can see
+> > frequency_scale and pinctrl_en.  
+> 
+> My main concern here is IIRC these are very much PSK / FSK devices with expectation
+> of symbol being externally controlled. (maybe I remembered that wrong ;)
+> So the symbol relationship would need to map to child channels in some fashion.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0dfad67f66c0..22e34d2ad696 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25588,6 +25588,12 @@ F:	Documentation/devicetree/bindings/phy/starfive,jh7110-usb-phy.yaml
- F:	drivers/phy/starfive/phy-jh7110-pcie.c
- F:	drivers/phy/starfive/phy-jh7110-usb.c
+With multiple channels, I'd say that is already figured with the standard "enable" ABI,
+As the "symbol" to select is a choice of one of the channels to enable. Like it is
+being done here for the single tone profiles. Being externally controlled is a user
+problem, being its responsability to make sure that expectations on the values are
+aligned during some specific actions. For instance, this very driver, expects the selected profile
+to be trully selected by the profile pins so that RAM loading works. Also, there is another
+weird case, where the profile needs to be selected to make sure a read of the profile register
+works (which is another reason to use cached reads). Apart from those cases, I suppose
+profile pin control can be "detached" from the driver. 
+
+> 
+> > 
+> > > We should think hard about whether to bring them inline with this
+> > > and out of staging, or just delete them.
+> > >   
+> > > > 
+> > > > ...
+> > > >   
+> > > > > > +DDS modes
+> > > > > > +=========
+> > > > > > +
+> > > > > > +The AD9910 supports multiple modes of operation that can be configured
+> > > > > > +independently or in combination. Such modes and their corresponding IIO channels
+> > > > > > +are described in this section. The following tables are extracted from the
+> > > > > > +AD9910 datasheet and summarizes the control parameters for each mode and their
+> > > > > > +priority when multiple sources are enabled simultaneously:    
+> > > > > 
+> > > > > Maybe add a bit on what priority means.  Does it mean that only the highest
+> > > > > priority one is acted on?  If so why do we need to expose that others are
+> > > > > enabled? Just report only the highest priority one as enabled.
+> > > > > 
+> > > > > I can see the hardware needs to do priority so it knows where to go when
+> > > > > a given source is disabled but from a software point of view that
+> > > > > can be controlled by us enabling that next item (and the driver does
+> > > > > things in the right order to get the appropriate transition)
+> > > > > 
+> > > > > That may mean that if all modes are disabled, we have to disable any output
+> > > > > but seems doable.    
+> > > > 
+> > > > That is a bit complicated, as you can see, this part has modes that target
+> > > > one DDS parameter or multiple (destinations: phase, frequency, amplitude).
+> > > > Also, multiple modes can coexist, when they target different parameters/destination.
+> > > > At the same time, RAM mode complicates everything because even though it targets
+> > > > one specific parameter, once it is enabled influences the base mode for the
+> > > > other parameters because single-tone is off. I have ordered the mode channels so
+> > > > that higher index have higher priority, so that can be a bit clearer.
+> > > > 
+> > > > Right now, all the controls are provided, what might be missing is a way
+> > > > to query which level of those priorities is currently active, but those levels
+> > > > are not the same thing as the controls. If we turn the priority levels into the
+> > > > controls themselves it would be a different ABI and it would get a lot messy.
+> > > > That is why I am dumping this priority table in this document! =(  
+> > > 
+> > > I understand (at least some) of the hardware complexity but I don't like
+> > > the fact this is effectively exposing it to userspace. + I really don't want
+> > > more ABI to indicate whether a mode is actively doing anything or not.
+> > > Whilst I agree the code will be more complex, having clarity on what is
+> > > enabled at any given time is definitely something we ant to aim for.  
+> > 
+> > This part seems special, so I would not bother with the fact that userspace
+> > needs to figure some things out.
+> 
+> I'm kind of fine for that being needed for complex usecases but if I want
+> to do something simple I'd like that to be standard and intuitive.
+> Obviously gets blurry wrt to what counts as simple.
+> 
+> > 
+> > Since there is this priority, there is a difference on enable vs active,
+> > and things are different for each DDS parameter. Take the single tone example
+> > when it is enabled, should that mean that it is active on frequency, phase
+> > or amplitude? that granularity could be exposed like that if we create dedicated
+> > channels for each parameter on every mode possible, which turns the ABI into
+> > a greater mess.
+> 
+> I did wonder if we should separate those but agree it's tricky.
+> 
+> > 
+> > > Can we work out a transition diagram?  That might make it easier to
+> > > tell whether it's possible to map it as single enables at a time and
+> > > incorporate weird corners like the RAM one.  Maybe not needed if the
+> > > RAM one is the only real oddity and otherwise it's just going up
+> > > and down the priority lists.  
+> > 
+> > I still think it is not that simple, an enable is just a control for
+> > a specific mode-destination pair.
+> >  
+> > > One complexity I can see with single enables is that they'd need
+> > > to be separate for each of frequency, phase and amplitude to reflect
+> > > the transitions that can occur.  
+> > 
+> > As mentioned above, that would be messy to interface with...
+> >  
+> > > Also the fun of profiles, where those profile pins are basically picking
+> > > symbols - could be used for multi level PSK or FSK for example if wired
+> > > up to an external symbol source.  I'd be a bit surprised if those are
+> > > always wired up to a host CPU.  
+> > 
+> > Yes, some users may want to control the profile pins through an FPGA.
+> > 
+> > > *sigh* I'm talking my self around to needing ABI to indicate a channel
+> > > is active.  The symbol stuff gets us some of the way there (and would
+> > > work for the tones) but doesn't cover the added complexity of RAM etc.
+> > > So 'maybe' new ABI for _isactive or something like that?  
+> > 
+> > active_params or active_targets? listing out DDS parameters that is currently
+> > active for that mode/channel? like printing "frequency phase amplitude", so
+> > that would mean the mode is driving all of them. That would be a read-only
+> > status. 
+> 
+> Would have to be simple per channel sysfs attribute that would say
+> is this particular channel actually contributing to the current output.
+> Where it can contribute in multiple ways we'll need separate attributes.
+> 
+> Anything else is going to break the rules on one thing per each sysfs
+> attribute.
+> out_altvoltageXXX_phase_active
+> out_altvoltageXXX_freq_active
+> or something like that.
+
+Yes, that could be done. This would be just informative, and I suppose that
+any userspace software that knows how to control the part would not even
+look at those. Probably it would just be used while debugging.
  
-+STARFIVE JHB100 DEVICETREES
-+M:	Changhuang Liang <changhuang.liang@starfivetech.com>
-+L:	linux-riscv@lists.infradead.org
-+S:	Supported
-+F:	arch/riscv/boot/dts/starfive/jhb100*
-+
- STARFIVE JHB100 EXTERNAL INTERRUPT CONTROLLER DRIVER
- M:	Changhuang Liang <changhuang.liang@starfivetech.com>
- S:	Supported
-diff --git a/arch/riscv/boot/dts/starfive/Makefile b/arch/riscv/boot/dts/starfive/Makefile
-index 3dd1f05283f7..42841942fe54 100644
---- a/arch/riscv/boot/dts/starfive/Makefile
-+++ b/arch/riscv/boot/dts/starfive/Makefile
-@@ -18,3 +18,5 @@ dtb-$(CONFIG_ARCH_STARFIVE) += jh7110-starfive-visionfive-2-lite.dtb
- dtb-$(CONFIG_ARCH_STARFIVE) += jh7110-starfive-visionfive-2-lite-emmc.dtb
- dtb-$(CONFIG_ARCH_STARFIVE) += jh7110-starfive-visionfive-2-v1.2a.dtb
- dtb-$(CONFIG_ARCH_STARFIVE) += jh7110-starfive-visionfive-2-v1.3b.dtb
-+
-+dtb-$(CONFIG_ARCH_STARFIVE) += jhb100-evb1.dtb
-diff --git a/arch/riscv/boot/dts/starfive/jhb100-evb1.dts b/arch/riscv/boot/dts/starfive/jhb100-evb1.dts
-new file mode 100644
-index 000000000000..462b6fb7953b
---- /dev/null
-+++ b/arch/riscv/boot/dts/starfive/jhb100-evb1.dts
-@@ -0,0 +1,32 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
-+/*
-+ * Copyright (c) 2024-2026 StarFive Technology Co., Ltd.
-+ */
-+
-+#include "jhb100.dtsi"
-+
-+/ {
-+	model = "StarFive JHB100 EVB-1";
-+	compatible = "starfive,jhb100-evb1", "starfive,jhb100";
-+
-+	aliases {
-+		serial6 = &uart6;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial6:115200n8";
-+	};
-+
-+	cpus {
-+		timebase-frequency = <5000000>;
-+	};
-+
-+	memory@40000000 {
-+		device_type = "memory";
-+		reg = <0x0 0x40000000 0x0 0x40000000>;	/* 1GB */
-+	};
-+};
-+
-+&uart6 {
-+	status = "okay";
-+};
-diff --git a/arch/riscv/boot/dts/starfive/jhb100.dtsi b/arch/riscv/boot/dts/starfive/jhb100.dtsi
-new file mode 100644
-index 000000000000..4133ba1f45b4
---- /dev/null
-+++ b/arch/riscv/boot/dts/starfive/jhb100.dtsi
-@@ -0,0 +1,337 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
-+/*
-+ * Copyright (c) 2024-2026 StarFive Technology Co., Ltd.
-+ */
-+
-+/dts-v1/;
-+
-+/ {
-+	compatible = "starfive,jhb100";
-+	#address-cells = <2>;
-+	#size-cells = <2>;
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu0: cpu@0 {
-+			compatible = "starfive,dubhe-70", "riscv";
-+			reg = <0x0>;
-+			riscv,isa = "rv64imafdcbh";
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "h", "zba", "zbb",
-+					       "zbc", "zbs", "zicbom", "zicbop", "zicboz", "zicntr",
-+					       "zicond", "zicsr", "zifencei", "zihintpause",
-+					       "zihpm", "svinval", "svnapot", "sscofpmf";
-+			riscv,cbom-block-size = <64>;
-+			riscv,cbop-block-size = <64>;
-+			riscv,cboz-block-size = <64>;
-+			d-cache-block-size = <64>;
-+			d-cache-sets = <512>;
-+			d-cache-size = <32768>;
-+			d-tlb-sets = <1>;
-+			d-tlb-size = <16>;
-+			device_type = "cpu";
-+			i-cache-block-size = <64>;
-+			i-cache-sets = <512>;
-+			i-cache-size = <32768>;
-+			i-tlb-sets = <1>;
-+			i-tlb-size = <24>;
-+			mmu-type = "riscv,sv48";
-+			next-level-cache = <&l2c0>;
-+			tlb-split;
-+
-+			cpu0_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu1: cpu@1 {
-+			compatible = "starfive,dubhe-70", "riscv";
-+			reg = <0x1>;
-+			riscv,isa = "rv64imafdcbh";
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "h", "zba", "zbb",
-+					       "zbc", "zbs", "zicbom", "zicbop", "zicboz", "zicntr",
-+					       "zicond", "zicsr", "zifencei", "zihintpause",
-+					       "zihpm", "svinval", "svnapot", "sscofpmf";
-+			riscv,cbom-block-size = <64>;
-+			riscv,cbop-block-size = <64>;
-+			riscv,cboz-block-size = <64>;
-+			d-cache-block-size = <64>;
-+			d-cache-sets = <512>;
-+			d-cache-size = <32768>;
-+			d-tlb-sets = <1>;
-+			d-tlb-size = <16>;
-+			device_type = "cpu";
-+			i-cache-block-size = <64>;
-+			i-cache-sets = <512>;
-+			i-cache-size = <32768>;
-+			i-tlb-sets = <1>;
-+			i-tlb-size = <24>;
-+			mmu-type = "riscv,sv48";
-+			next-level-cache = <&l2c1>;
-+			tlb-split;
-+
-+			cpu1_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu2: cpu@2 {
-+			compatible = "starfive,dubhe-70", "riscv";
-+			reg = <0x2>;
-+			riscv,isa = "rv64imafdcbh";
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "h", "zba", "zbb",
-+					       "zbc", "zbs", "zicbom", "zicbop", "zicboz", "zicntr",
-+					       "zicond", "zicsr", "zifencei", "zihintpause",
-+					       "zihpm", "svinval", "svnapot", "sscofpmf";
-+			riscv,cbom-block-size = <64>;
-+			riscv,cbop-block-size = <64>;
-+			riscv,cboz-block-size = <64>;
-+			d-cache-block-size = <64>;
-+			d-cache-sets = <512>;
-+			d-cache-size = <32768>;
-+			d-tlb-sets = <1>;
-+			d-tlb-size = <16>;
-+			device_type = "cpu";
-+			i-cache-block-size = <64>;
-+			i-cache-sets = <512>;
-+			i-cache-size = <32768>;
-+			i-tlb-sets = <1>;
-+			i-tlb-size = <24>;
-+			mmu-type = "riscv,sv48";
-+			next-level-cache = <&l2c2>;
-+			tlb-split;
-+
-+			cpu2_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu3: cpu@3 {
-+			compatible = "starfive,dubhe-70", "riscv";
-+			reg = <0x3>;
-+			riscv,isa = "rv64imafdcbh";
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "h", "zba", "zbb",
-+					       "zbc", "zbs", "zicbom", "zicbop", "zicboz", "zicntr",
-+					       "zicond", "zicsr", "zifencei", "zihintpause",
-+					       "zihpm", "svinval", "svnapot", "sscofpmf";
-+			riscv,cbom-block-size = <64>;
-+			riscv,cbop-block-size = <64>;
-+			riscv,cboz-block-size = <64>;
-+			d-cache-block-size = <64>;
-+			d-cache-sets = <512>;
-+			d-cache-size = <32768>;
-+			d-tlb-sets = <1>;
-+			d-tlb-size = <16>;
-+			device_type = "cpu";
-+			i-cache-block-size = <64>;
-+			i-cache-sets = <512>;
-+			i-cache-size = <32768>;
-+			i-tlb-sets = <1>;
-+			i-tlb-size = <24>;
-+			mmu-type = "riscv,sv48";
-+			next-level-cache = <&l2c3>;
-+			tlb-split;
-+
-+			cpu3_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu-map {
-+			cluster0 {
-+				core0 {
-+					cpu = <&cpu0>;
-+				};
-+			};
-+
-+			cluster1 {
-+				core0 {
-+					cpu = <&cpu1>;
-+				};
-+			};
-+
-+			cluster2 {
-+				core0 {
-+					cpu = <&cpu2>;
-+				};
-+			};
-+
-+			cluster3 {
-+				core0 {
-+					cpu = <&cpu3>;
-+				};
-+			};
-+		};
-+
-+		l2c0: cache-controller-0 {
-+			compatible = "cache";
-+			cache-block-size = <64>;
-+			cache-level = <2>;
-+			cache-sets = <2048>;
-+			cache-size = <0x20000>;
-+			cache-unified;
-+			next-level-cache = <&l3_cache>;
-+		};
-+
-+		l2c1: cache-controller-1 {
-+			compatible = "cache";
-+			cache-block-size = <64>;
-+			cache-level = <2>;
-+			cache-sets = <2048>;
-+			cache-size = <0x20000>;
-+			cache-unified;
-+			next-level-cache = <&l3_cache>;
-+		};
-+
-+		l2c2: cache-controller-2 {
-+			compatible = "cache";
-+			cache-block-size = <64>;
-+			cache-level = <2>;
-+			cache-sets = <2048>;
-+			cache-size = <0x20000>;
-+			cache-unified;
-+			next-level-cache = <&l3_cache>;
-+		};
-+
-+		l2c3: cache-controller-3 {
-+			compatible = "cache";
-+			cache-block-size = <64>;
-+			cache-level = <2>;
-+			cache-sets = <2048>;
-+			cache-size = <0x20000>;
-+			cache-unified;
-+			next-level-cache = <&l3_cache>;
-+		};
-+
-+		l3_cache: cache-controller-4 {
-+			compatible = "cache";
-+			cache-block-size = <64>;
-+			cache-level = <3>;
-+			cache-sets = <1024>;
-+			cache-size = <0x20000>;
-+			cache-unified;
-+		};
-+	};
-+
-+	pmu {
-+		compatible = "riscv,pmu";
-+		interrupts-extended = <&cpu0_intc 13>, <&cpu1_intc 13>,
-+				      <&cpu2_intc 13>, <&cpu3_intc 13>;
-+
-+		riscv,event-to-mhpmevent = <0x00005 0x0000 0xA>,
-+					   <0x00006 0x0000 0xB>,
-+					   <0x00008 0x0000 0x10>,
-+					   <0x00009 0x0000 0xF>,
-+					   <0x10000 0x0000 0x19>,
-+					   <0x10001 0x0000 0x1A>,
-+					   <0x10002 0x0000 0x1B>,
-+					   <0x10003 0x0000 0x1C>,
-+					   <0x10008 0x0000 0x8>,
-+					   <0x10009 0x0000 0x9>,
-+					   <0x1000C 0x0000 0x9E>,
-+					   <0x1000D 0x0000 0x9F>,
-+					   <0x10010 0x0000 0x1D>,
-+					   <0x10011 0x0000 0x1E>,
-+					   <0x10012 0x0000 0x1F>,
-+					   <0x10013 0x0000 0x20>,
-+					   <0x10014 0x0000 0x21>,
-+					   <0x10018 0x0000 0x17>,
-+					   <0x10019 0x0000 0x18>,
-+					   <0x10020 0x0000 0x8>,
-+					   <0x10021 0x0000 0x7>;
-+
-+		riscv,event-to-mhpmcounters = <0x00005 0x00006 0x00007FF8>,
-+					      <0x00008 0x00009 0x00007FF8>,
-+					      <0x10000 0x10003 0x00007FF8>,
-+					      <0x10008 0x10009 0x00007FF8>,
-+					      <0x1000C 0x1000D 0x00007FF8>,
-+					      <0x10010 0x10014 0x00007FF8>,
-+					      <0x10018 0x10019 0x00007FF8>,
-+					      <0x10020 0x10021 0x00007FF8>;
-+
-+		riscv,raw-event-to-mhpmcounters =
-+			<0x00 0x00 0xFFFFFFFF 0xFFFFFFE0 0x00007FF8>,	/* Event ID 1-31 */
-+			<0x00 0x20 0xFFFFFFFF 0xFFFFFFFE 0x00007FF8>,	/* Event ID 32-33 */
-+			<0x00 0x22 0xFFFFFFFF 0xFFFFFF22 0x00007FF8>;	/* Event ID 34 */
-+	};
-+
-+	clk_uart: clock-25000000 {
-+		compatible = "fixed-clock"; /* Initial clock handler for UART */
-+		#clock-cells = <0>;
-+		clock-frequency = <25000000>;
-+	};
-+
-+	soc {
-+		compatible = "simple-bus";
-+		interrupt-parent = <&plic>;
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		dma-ranges;
-+		ranges;
-+
-+		clint: timer@2000000 {
-+			compatible = "starfive,jhb100-clint", "sifive,clint0";
-+			reg = <0x0 0x02000000 0x0 0x10000>;
-+			interrupts-extended = <&cpu0_intc 3>, <&cpu0_intc 7>,
-+					      <&cpu1_intc 3>, <&cpu1_intc 7>,
-+					      <&cpu2_intc 3>, <&cpu2_intc 7>,
-+					      <&cpu3_intc 3>, <&cpu3_intc 7>;
-+		};
-+
-+		plic: interrupt-controller@c000000 {
-+			compatible = "starfive,jhb100-plic", "sifive,plic-1.0.0";
-+			reg = <0x0 0x0c000000 0x0 0x4000000>;
-+			riscv,ndev = <400>;
-+			interrupt-controller;
-+			#interrupt-cells = <1>;
-+			#address-cells = <0>;
-+			interrupts-extended = <&cpu0_intc 11>, <&cpu0_intc 9>,
-+					      <&cpu1_intc 11>, <&cpu1_intc 9>,
-+					      <&cpu2_intc 11>, <&cpu2_intc 9>,
-+					      <&cpu3_intc 11>, <&cpu3_intc 9>;
-+		};
-+
-+		bus_nioc: bus_nioc {
-+			compatible = "simple-bus";
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+			dma-noncoherent;
-+			dma-ranges = <0x4 0x00000000 0x0 0x40000000 0x2 0x0>,
-+				     <0x4 0x00000000 0x4 0x00000000 0x2 0x0>;
-+			ranges;
-+
-+			uart6: serial@11982000 {
-+				compatible = "snps,dw-apb-uart";
-+				reg = <0x0 0x11982000 0x0 0x400>;
-+				clocks = <&clk_uart>, <&clk_uart>;
-+				clock-names = "baudclk", "apb_pclk";
-+				interrupt-parent = <&intc>;
-+				interrupts = <26>;
-+				reg-io-width = <4>;
-+				reg-shift = <2>;
-+				status = "disabled";
-+			};
-+
-+			intc: interrupt-controller@13220000 {
-+				compatible = "starfive,jhb100-intc";
-+				reg = <0x0 0x13220000 0x0 0x80>;
-+				interrupts = <1>;
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+	};
-+};
--- 
-2.25.1
+> > 
+> > > Perhaps the boundary we put on this is the ABI should be such that
+> > > simple choices such as enabling a single tone, or single RAM mode
+> > > setting are intuitive. 
+> > > 
+> > > Why do we only have one ram channel? I'd kind of expect the firmware
+> > > to fill all 8 RAM profiles because of that 'external' profile pins
+> > > use case.  
+> > 
+> > Most of the RAM configuration is now comming from the firmware, so there
+> > is no much info to display/configure in multiple channels. The per-profile
+> > configs require the weird ABI like operating modes and address start/end.
+> > By removing those, I have mostly "global" stuff.
+> If folk are doing profile control from external pins I'd kind of expect to
+> see some description of what they are controlling even if it's read only.
+> 
+> Maybe we don't do this now but we should make sure there is space in the ABI
+> by thinking what it might look like.
 
+Right now, I am not seeing anything generic in RAM control appart from a
+"sampling_frequency". A lot of it seems device-specific:
+
+- Destination (freq/phase/amplitude/polar)
+- Internal profile control config (sequenced modes I had before)
+- Per-profile config:
+	- Start address
+	- End address
+	- Address step rate (sampling freq)
+	- RAM mode:
+		- direct switch
+		- ramp-up
+		- bidirectional
+		- bidirectional continuous
+		- ramp-up continuous
+	- No-dwell high bit (specific to ramp-up mode)
+	- Zero-crossing bit (specific to direct switch mode)
+
+...
+
+> > > > > > +Digital ramp generator (DRG)
+> > > > > > +----------------------------
+> > > > > > +
+> > > > > > +The DRG produces linear frequency, phase or amplitude sweeps using dedicated
+> > > > > > +hardware. It is controlled through three channels: a parent control channel
+> > > > > > +(``digital_ramp_generator``) and two child ramp channels
+> > > > > > +(``digital_ramp_up``, ``digital_ramp_down``). DRG destination is set when
+> > > > > > +ramp attributes are written, i.e. writing to ``frequency`` or ``frequency_step``
+> > > > > > +sets the destination to frequency.
+> > > > > > +
+> > > > > > +Control channel attributes
+> > > > > > +^^^^^^^^^^^^^^^^^^^^^^^^^^
+> > > > > > +
+> > > > > > +.. flat-table::
+> > > > > > +   :header-rows: 1
+> > > > > > +
+> > > > > > +   * - Attribute
+> > > > > > +     - Unit
+> > > > > > +     - Description
+> > > > > > +
+> > > > > > +   * - ``en``
+> > > > > > +     - boolean
+> > > > > > +     - Enable/disable the DRG.
+> > > > > > +
+> > > > > > +Ramp channel attributes
+> > > > > > +^^^^^^^^^^^^^^^^^^^^^^^^
+> > > > > > +
+> > > > > > +The ``digital_ramp_up`` and ``digital_ramp_down`` channels share the same
+> > > > > > +attribute set but configure ascending and descending ramp parameters
+> > > > > > +independently:
+> > > > > > +
+> > > > > > +.. flat-table::
+> > > > > > +   :header-rows: 1
+> > > > > > +
+> > > > > > +   * - Attribute
+> > > > > > +     - Unit
+> > > > > > +     - Description
+> > > > > > +
+> > > > > > +   * - ``en``
+> > > > > > +     - boolean
+> > > > > > +     - Enable/disable the ramp no-dwell behavior. Enabling both creates a
+> > > > > > +       bidirectional continuous ramp (Triangular pattern). Other configurations
+> > > > > > +       creates a single-shot ramp at the trasition of the DRCTL pin: ramp-up    
+> > > > > 
+> > > > > transition
+> > > > >     
+> > > > > > +       only, ramp-down only or bidirectional with dwell at the limits.    
+> > > > > 
+> > > > > Feels a little unintuitive to use the generic enable for this.
+> > > > > We might need a specific control for this one.     
+> > > > 
+> > > > How about dwell_en, but it might not sound that generic. I used "enable" because:
+> > > > - no-dwell high means a ramp-up pattern (only enabling the ramp-up channel)
+> > > > - no-dwell low means a ramp-down pattern (only enabling the ramp-down channel)
+> > > > - both no-dwell is a continuous ramp that goes up and down. (both enabled)
+> > > > The last case is a bit off though, when both are disabled we get the normal mode, which
+> > > > is also a ramps up and down, but dwelling in the limits.
+> > > >    
+> > > > > > +
+> > > > > > +   * - ``frequency``
+> > > > > > +     - Hz
+> > > > > > +     - Frequency ramp limit. Range [0, SYSCLK/2).
+> > > > > > +
+> > > > > > +   * - ``phase``
+> > > > > > +     - rad
+> > > > > > +     - Phase ramp limit. Range [0, 2*pi).  
+> > > 
+> > > Looking at this again, how do we set the DRG mode?  E.g. if it effects
+> > > only phase?   
+> > 
+> > You mean the destination? I removed the destination ABI. so now destination is
+> > set when we write to either frequency, phase or scale properties.
+> > * writing to frequency or frequency_step sets the destination to frequency
+> > * writing to phase or phase_step sets the destination to phase
+> > * writing to scale or scale_step sets the destination to amplitude
+> 
+> So it's last write that sets it.  We definitely need a way to know which
+> one is active if we get multiple writes.  What do the others return if they
+> were set but something else has been set since?
+
+All those values represent the same set of registers with different scaling for
+frequency, phase or scale units. I can get the other values to return -EBUSY
+when reading a destination attribute that was not set.
+
+> > 
+> > The DRG mode (dwell mode) is now controlled with the enable bits in the ramp
+> > up/down channels 
+> > 
+> > > > > > +
+> > > > > > +   * - ``scale``
+> > > > > > +     - fractional
+> > > > > > +     - Amplitude scale ramp limit. Range [0, 1).
+> > > > > > +
+> > > > > > +   * - ``sampling_frequency``
+> > > > > > +     - Hz
+> > > > > > +     - Ramp clock rate: SYSCLK / (4 * divider).
+> > > > > > +
+> > > > > > +   * - ``frequency_step``
+> > > > > > +     - Hz
+> > > > > > +     - Per-tick frequency increment/decrement. Range [0, SYSCLK/2).    
+> > > > > 
+> > > > > So this was the bit I referred to earlier.  Normally we do
+> > > > > rate of change measurements for this stuff rather than what happens on
+> > > > > each tick (based on how we handle things like ROC events)
+> > > > > 
+> > > > > So could we make these
+> > > > > 	``frequency_roc`` units HZ/Sec
+> > > > > etc?  Then from the mix configured would need to work out the optimum
+> > > > > tick to deliver it.
+> > > > > 
+> > > > > I suppose it's possible that someone might want a stepped frequency
+> > > > > though which would break this approach?  Does anyone actually do that?
+> > > > > If so we'd need to keep the samping_frequency but then control _roc
+> > > > > with that in mind.    
+> > > > 
+> > > > yeah... frequency steps would make sense when the user controls when to
+> > > > perform the updates, or when it comes from certain events.  
+> > > 
+> > > You've lost me here.  How can they do that?  Some external clocking
+> > > or event?  
+> > 
+> > That would depend on what the user does. This part has this DRHOLD pin
+> > which can freeze the ramp. If the user sets this HIGH and creates pulses
+> > it is able to control the stepping of the RAMP manually. But I assume
+> > that no one would do that... such application is unknown to me.
+> 
+> They'd have to sync that with the clock driving the ramp. I guess that's
+> possible - but nasty.  I vote we pretend this usecase doesn't exist for now ;)
+> 
+> > > > > > +
+> > > > > > +Output shift keying (OSK)    
+> > > > > This is a new one on me...     
+> > > > > > +-------------------------
+> > > > > > +
+> > > > > > +OSK controls the output amplitude envelope, allowing the output to be ramped
+> > > > > > +on/off rather than switched abruptly.    
+> > > > >     
+> > > > > > +
+> > > > > > +.. flat-table::
+> > > > > > +   :header-rows: 1
+> > > > > > +
+> > > > > > +   * - Attribute
+> > > > > > +     - Unit
+> > > > > > +     - Description
+> > > > > > +
+> > > > > > +   * - ``en``
+> > > > > > +     - boolean
+> > > > > > +     - Enable/disable OSK.
+> > > > > > +
+> > > > > > +   * - ``scale``
+> > > > > > +     - fractional
+> > > > > > +     - Target amplitude for the OSK ramp. 14-bit ASF field. Range [0, 1).
+> > > > > > +
+> > > > > > +   * - ``sampling_frequency``
+> > > > > > +     - Hz
+> > > > > > +     - OSK ramp rate: SYSCLK / (4 * divider).
+> > > > > > +
+> > > > > > +   * - ``pinctrl_en``
+> > > > > > +     - boolean
+> > > > > > +     - Enable manual external pin control. When enabled, the OSK pin directly
+> > > > > > +       gates the output on/off instead of using the automatic ramp.    
+> > > > > 
+> > > > > I wonder if we should split the various OSK modes into different channels given
+> > > > > only some properties apply to each of automatic and manual modes. Also I think
+> > > > > automatic mode is meaningless without pinctrl_en (so that can be replaced
+> > > > > by simply enabling that mode).  I have no idea if anyone cares about pin ctrl
+> > > > > with manual mode or not?  That one seems even more odd.    
+> > > > 
+> > > > OSK is either in manual or auto:
+> > > > * In manual mode the OSK pin enables and disables the output based on its level.
+> > > > * In auto, the OSK pin controls the direction the amplitude updates. 
+> > > > 
+> > > > If we enable RAM mode, and other modes do not target amplitude, the only way to
+> > > > manually configure the amplitude in software (i.e. without using an OSK gpio)
+> > > > is going manual mode (scale_step == 0), disable this pinctrl_en and then set the
+> > > > scale property (ASF register). That is the only reason I added this property.  
+> > > 
+> > > Ah.  Maybe we hide that away and make the amplitude a property of RAM channel?  
+> > 
+> > And what if a user is in fact willing to use the OSK pin?
+> 
+> Sigh. I don't have a good answer, but I don't like the weird 'special' nature
+> of this attribute.  I guess sometimes there isn't a good answer to be found.
+> 
+> OSK + RAM is odd enough that I'm not that bothered if we have to go weird
+> here.
+
+I will remove this then. I suppose that adding another possible value for
+scale_roc allows us to go around this, i.e., if scale_roc is such that the
+amplitude step is a value equal or greater than the amplitude itself (or even the
+max amplitude value) I could assume that this would be the manual mode with pinctrl
+enable as it would be like an automatic mode with no ramp, but an immediate on-off
+transition. Then scale_roc == 0 means manual mode with pinctrl disabled.
+Will try to develop on this....
+
+> > 
+> > > It can do this magic under the hood. I don't mind the attributes for OSK changing
+> > > if this trick is in use (they won't be active anyway).  
+> > 
+> > OSK has the highest priority of all, but it only acts on the amplitude.
+> > 
+> > > > > > +
+> > > > > > +   * - ``scale_step``
+> > > > > > +     - fractional
+> > > > > > +     - Automatic OSK amplitude step. Writing non-zero enables automatic OSK
+> > > > > > +       and sets the per-tick increment. Writing ``0`` disables it. Rounded to
+> > > > > > +       nearest hardware step: 0.000061, 0.000122, 0.000244 or 0.000488.    
+> > > > > 
+> > > > > Similar thing about rate of change of amplitude fitting better with current ABI
+> > > > > than step does.    
+> > > > 
+> > > > ok... and this one is still missing the correspondent available attr.  
+> > > 
+> > > Available is a bit tricky when there is an inverse relationship involved in the maths
+> > > as what do we put the step as.  Maybe we should add a note on that to the ABI
+> > > docs.  [min step max] where step gives the minimum step that due to non linearity
+> > > may not be applicable between discrete values that may be taken away from that
+> > > minimum granularity base value.  If that occurs the driver will round to the
+> > > nearest possible value.  
+
+-- 
+Kind regards,
+
+Rodrigo Alencar
