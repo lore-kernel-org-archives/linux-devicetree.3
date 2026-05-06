@@ -1,142 +1,184 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A5C23EAA4;
-	Wed,  6 May 2026 13:09:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD8623F1645;
+	Wed,  6 May 2026 13:12:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778072972; cv=none; b=oUzZ9mRcwKV5xNjLkjCTsRdX3TebMnTUNqz0ce1mlyAOXXeqzokeIZyKtUqQ2Kbyxo9IeaVa6PjAHMHIuzXDWAEmKMgKZmh7XAsaE8Oc4IMsqiewj7I20jaEQuHZdw6JpyG9t7wcX9w1vqmijxDvcDU8KIz3cVa3B364C3fh0RE=
+	t=1778073155; cv=none; b=iHsDrGi7Cl3CnKowYIYpQgLyfL+7YXGSi9Si/1NFvDDAjcUMKvOSOZ1C2zyMjlzY4eZ6qK0zUYu43stO582/entdmTX04l1C2F7l142lBYWa+QhXN8lMM+oBXwRQ8qr0bodKqTcNRthMGjmKUcIzG3bk0+ieAauwlQx1j7hjrCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778072972; c=relaxed/simple;
-	bh=juxC1w54vZtFk+kcyUmrx4kkcWDaPhp0wFIhxrFViIc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bz/bSwfEu3qNa2Znuk1sNz56TmOTg9Ie6oi+0UAjD9RFXAcbxlpRbrdzLGR9jZzZHg7VIUoOxwc15gDfv8c37p0cODJbqAvBYxhHQwG2pojw0pRjS023sEP1OX2B1zArjFruwQ6aI914dwJcwMwHlXvLpMNPV+FMYH83iLOGQ+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rljuuN/w; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778073155; c=relaxed/simple;
+	bh=QFFoUoAMce6NFU+gr6rURVwWJnWkoSeNA2b22yMweFY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XmGw8ABzGBqRgPZxwxSmxjUGUZLGVFBDGNpVumz11B0Pv44OExlTSk5CCo46hcXeIQAtWV/8qfqEz08NKcqoskllbLSUNcKDF6uTehF31uBVisRkd3CZWzwwQ2y8lSjcPnVmAIbpfq9uKYvs57oJgI1XWizcj2Q/bAUHubLYOoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ogZAU6go; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rljuuN/w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3291BC2BCB8;
-	Wed,  6 May 2026 13:09:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ogZAU6go"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 351F0C2BCC9;
+	Wed,  6 May 2026 13:12:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778072971;
-	bh=juxC1w54vZtFk+kcyUmrx4kkcWDaPhp0wFIhxrFViIc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=rljuuN/wHYHuQ1ICP4gxoD6AY++1WO7WmPN8MIkYnuePHNUNljqvMnk4j7wrm15FH
-	 //WtO4b4Q5WpQ2hgEGrCGiNPUfXuFWiOTC1c7jw4z17xUZcuzV6lKxzAP5DFposiYy
-	 SChE8cnNdHYJntv56LHKejp5GYLDsi14trlY0GxE828C7H+8q4DjyXrw/ezIrCLoS3
-	 BR5V5bs4L5X+n4lhxC2Y3l9HbCXeVJF1vKRMFAc1fMKTje7eVEzvn54v3WhNGHmjx+
-	 q7AkU2L8e6B7mp2m1f+pJucrB+pdERK25dqe4oyklMKKMM0m/wPVKNORBGFVFquyvn
-	 954ZSC3aJtxmA==
-Message-ID: <333ba4cd-8168-41f1-afdc-348f99ed0611@kernel.org>
-Date: Wed, 6 May 2026 15:09:25 +0200
+	s=k20201202; t=1778073155;
+	bh=QFFoUoAMce6NFU+gr6rURVwWJnWkoSeNA2b22yMweFY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ogZAU6goCpX5lBTvQX1GgPoe7WNJj4UAMtFFjz1n0EKC+o+Ep4mAPqogpFrqmpNha
+	 M/Nv5I5IE7cIKL+p332BZEVtCoVwcb8KUZxfKWJytk3FHc0MWWQYPv4wLXjpz6yB24
+	 EGM0TaSRK/Vv5w7+F0GKBp/SMzxH/KYrFiv/62stxsDmT553OEOmOxVIE9rDOuKuQd
+	 alFuh3k+2VV482PLX65OedeuyFyrjttdUg/XsX3Lzr431xWXLgsUNnVkLr/6Kmxalu
+	 1xQLLXH9InKDPQic/y/JLdGbPj659jAAPw6iScKCrA63xuF5nsLGg4vqpcjnHGRj6f
+	 9DkMplK4YGm5Q==
+Date: Wed, 6 May 2026 18:42:25 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Magnus Damm <magnus.damm@gmail.com>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, John Madieu <john.madieu.xa@bp.renesas.com>, 
+	linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 5/5] PCI: rzg3s-host: Add support for RZ/V2H(P) SoC
+Message-ID: <ed3g6ff6rprbmho6aegkl3p3rzr2lroskf3h2rk774jhxpbqkt@pkuovjn3hrlw>
+References: <20260318124450.163471-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260318124450.163471-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <605e8d4c-09e7-4d11-acdb-7829a85eacc3@tuxon.dev>
+ <CA+V-a8srS9g2WDMARDJn98K=nL9v1LiZYxqM8evsVrzR-s5ZMA@mail.gmail.com>
+ <lvix7p4e7c4dtchtdti3rwrs7jkda5iy7lthcffhqc7g6vgu2p@54qywklrspi7>
+ <CA+V-a8sd=dyTZmViLbDrCPYbx5ujWzjk74HxhP0aBEqxLuEqJA@mail.gmail.com>
+ <leky6ktelj7t3uwd4bakgefrk32m3ceyxmwbkkjpp5zqp6rjgj@jtiqktxchws3>
+ <CAMuHMdUpzABKKRBwK3mMmTS1+S21R+0k94bOX-+4ZBoa+bRWSA@mail.gmail.com>
+ <phuerp2kp6ngruqjkpyjczpn5ya7iywrsiaqiiydvqxwlkntks@gyfcws3intsw>
+ <CAMuHMdW_f5676cmimQYNyO3FZyi=DY_3sdVdUSUqXyZXpqCN0Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/13] dt-bindings: media: qcom,venus: Remove clock,
- power-domain, and iommus from common schema
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>,
- Stefan Schmidt <stefan.schmidt@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, iommu@lists.linux.dev
-References: <20260505-glymur-v4-0-17571dbd1caa@oss.qualcomm.com>
- <20260505-glymur-v4-2-17571dbd1caa@oss.qualcomm.com>
- <20260506-inquisitive-wondrous-lori-a9e639@quoll>
- <455376f9-48c2-e663-3be3-fd310afb7f7f@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <455376f9-48c2-e663-3be3-fd310afb7f7f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMuHMdW_f5676cmimQYNyO3FZyi=DY_3sdVdUSUqXyZXpqCN0Q@mail.gmail.com>
 
-On 06/05/2026 11:32, Vishnu Reddy wrote:
+On Wed, May 06, 2026 at 02:07:21PM +0200, Geert Uytterhoeven wrote:
+> Hi Manivannan,
 > 
-> On 5/6/2026 12:11 PM, Krzysztof Kozlowski wrote:
->> On Tue, May 05, 2026 at 12:29:23PM +0530, Vishnu Reddy wrote:
->>> The common schema defines minItems and maxItems for clocks, power-domains,
->>> and iommus. This suggests that the number of these resources can vary,
->>> while in reality they are fixed constraints per platform.
->> OK, that's interesting approach. I am fine with it, but then you need to
->> remove these from "required:" list as well, because requiring properties
->> which are not defined here is not the most readable.
+> On Wed, 6 May 2026 at 14:02, Manivannan Sadhasivam <mani@kernel.org> wrote:
+> > On Mon, May 04, 2026 at 11:05:11AM +0200, Geert Uytterhoeven wrote:
+> > > On Fri, 1 May 2026 at 16:42, Manivannan Sadhasivam <mani@kernel.org> wrote:
+> > > > On Fri, May 01, 2026 at 12:13:55PM +0100, Lad, Prabhakar wrote:
+> > > > > On Thu, Apr 30, 2026 at 4:26 PM Manivannan Sadhasivam <mani@kernel.org> wrote:
+> > > > > > On Wed, Apr 08, 2026 at 07:54:41PM +0100, Lad, Prabhakar wrote:
+> > > > > > > On Wed, Mar 25, 2026 at 10:18 AM Claudiu Beznea
+> > > > > > > <claudiu.beznea@tuxon.dev> wrote:
+> > > > > > > > On 3/18/26 14:44, Prabhakar wrote:
+> > > > > > > > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > > > > > > > >
+> > > > > > > > > Add support for the RZ/V2H(P) SoC PCIe controller to the rzg3s-host
+> > > > > > > > > driver.
+> > > > > > > > >
+> > > > > > > > > The RZ/V2H(P) SoC features two independent PCIe channels that share
+> > > > > > > > > physical lanes. The hardware supports two configuration modes: single
+> > > > > > > > > x4 mode where one controller uses all four lanes, or dual x2 mode
+> > > > > > > > > where both controllers use two lanes each.
+> > > > > > > > >
+> > > > > > > > > Introduce configure_lanes() function pointer to configure the PCIe
+> > > > > > > > > lanes based on the number of channels enabled. Implement
+> > > > > > > > > rzv2h_pcie_configure_lanes() to detect the active PCIe channels at
+> > > > > > > > > boot time and program the lane mode via the system controller using
+> > > > > > > > > the new RZG3S_SYSC_FUNC_ID_LINK_MASTER function ID.
+> > > > > > > > >
+> > > > > > > > > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > > > > > > > > ---
+> > > > > > > > >   drivers/pci/controller/pcie-rzg3s-host.c | 142 +++++++++++++++++++++++
+> > > > > > > > >   1 file changed, 142 insertions(+)
+> > > > > > > > >
+> > > > > <snip>
+> > > > > > > >
+> > > > > > > > This introduces some limits in the systems with RZ/V2H(P) SoCs with regards to
+> > > > > > > > the usage of linux,pci-domain. I would like the PCIe maintainers take on this.
+> > > > > > > >
+> > > > > > > > As this is necessary to index in the system controller driver specific data (as
+> > > > > > > > there are different SYSC offsets for different PCIe controllers) I see the
+> > > > > > > > following alternatives, if any:
+> > > > > > > >
+> > > > > > > > 1/ add a dedicated DT property for this, e.g. renesas,pcie-controller-id
+> > > > > > > > 2/ Add dedicated DT bindings for RZ/V2H(P) SoC that would be used to specify the
+> > > > > > > >     system controller register offset and mask for different functionalities.
+> > > > > > > >
+> > > > > > > >     E.g.:
+> > > > > > > >     renesas,sysc-l1-allow = <&sysc 0x1020 0x1>;
+> > > > > > > >     renesas,sysc-mode = <&sysc 0x1024 0x1>;
+> > > > > > > >     renesas,sysc-link-master = <&sysc 0x1060 0x300>;
+> > > > > > > >
+> > > > > > > >     And use them in each controller DT node. E.g.:
+> > > > > > > >
+> > > > > > > >     pcie0: pcie@add1 {
+> > > > > > > >         // ...
+> > > > > > > >
+> > > > > > > >         renesas,sysc-l1-allow = <&sysc 0x1020 0x1>;
+> > > > > > > >         renesas,sysc-mode = <&sysc 0x1024 0x1>;
+> > > > > > > >         renesas,sysc-link-master = <&sysc 0x1060 0x300>;
+> > > > > > > >
+> > > > > > > >         // ...
+> > > > > > > >     };
+> > > > > > > >
+> > > > > > > >     pcie0: pcie@add1 {
+> > > > > > > >         // ...
+> > > > > > > >
+> > > > > > > >         renesas,sysc-l1-allow = <&sysc 0x1050 0x1>;
+> > > > > > > >         renesas,sysc-mode = <&sysc 0x1054 0x1>;
+> > > > > > > >         renesas,sysc-link-master = <&sysc 0x1060 0x300>;
+> > > > > > > >
+> > > > > > > >         // ...
+> > > > > > > >     };
+> > > > > > > >
+> > > > > > > I'd like to get a clearer steer from the PCIe and DT maintainers
+> > > > > > > before investing further in either direction.
+> > > > > > >
+> > > > > > > To recap the two approaches on the table:
+> > > > > > >
+> > > > > > >   Option 1: A single renesas,pcie-controller-id property used to look up
+> > > > > > >             SYSC offsets in the driver.
+> > > > > >
+> > > > > > Can you explain what is the limitation with 'linux,pci-domain' property?
+> > > > > >
+> > > > > As sashiko pointed out.dev, The linux,pci-domain property is generally
+> > > > > an OS-specific logical property intended to assign a stable PCI domain
+> > > > > number across reboots. Restricting it to [0, 1] would prevent system
+> > > > > integrators from using non-conflicting domain numbers like 2 or 3 if
+> > > > > the board incorporates other PCIe controllers.
+> > > >
+> > > > "linux,pci-domain" is supposed to be used in SoC.dtsi, not in board.dts. AFAIK,
+> > > > the board designers have no reason to change it.
+> > > >
+> > > > Yes, the property name implies that it is a Linux specific property and if you
+> > > > want, you can propose a generic one (not vendor specific one). Other than that,
+> > > > I don't see a blocker in using this property. Many SoCs already do this and
+> > > > other DT projects like u-boot do not end up parsing this property.
+> > >
+> > > Sounds like this overlaps with pciN DT aliases, which are in use on
+> > > some (PPC) boards?
+> > >
+> >
+> > Hmm. DT aliases are discouraged these days, AFAIK. Are those boards also need
+> > these register configuration? I thought only RZ/V2H(P) SoCs need them. If not,
+> > then RZ/V2H(P) DTS can use 'linux,pci-domain' property.
+> >
+> > If yes, then it would be better to hardcode these offsets in the driver based
+> > on the compatible. DT's job is to describe the hardware topology and resources,
+> > not register offsets.
 > 
-> Ack, I will remove them from "required:" in the next revision.
+> The offsets cannot be hardcoded based just on the compatible value as there
+> are two instances.  The offsets do describe the topology.
 > 
->> I still do not understand though why you cannot just grow the properties
->> here. The point of this schema is to define common set for range of
->> devices, because all of these devices are supposed to be veri similar.
-> 
-> If a new platform schema uses this common schema but does not explicitly
-> re-declare clocks or power-domains, it will inherit minItems and maxItems
 
-But new platform MUST define them, because each platform has both clocks
-and power domains.
+Oops. I mixed it with the PHY compatibles... Anyhow, I'd suggest to go with
+'linux,pci-domain' to get the domain ID and use it to calculate the offset.
 
-> range from the common schema. This gives the false impression that the
-> resource count is flexible for that platform, when in reality it should
-> be a fixed constraints.
-> 
-> If a new platform requires more resources than the current maxItems (e.g.,
-> Glymur due to its dual vcodec core design), we need to keep bumping maxItems
-> in the common schema every time a new platform exceeds the previous limit.
-> That makes the common schema a moving target driven by platform specific.
+- Mani
 
-That's pretty expected, I don't see a problem in that.
-
-Best regards,
-Krzysztof
+-- 
+மணிவண்ணன் சதாசிவம்
