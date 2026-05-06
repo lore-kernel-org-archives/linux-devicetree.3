@@ -1,140 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C80A4B8DF6;
-	Wed,  6 May 2026 17:26:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05FF813B58C
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 17:30:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778088412; cv=none; b=mCQ8jBw3ePQGuydx3sThdYh1Ax95+soV2g4mWQdb6YcGS/EXnYvorPE+VblNRnhsJ6p3DpgkFhrJE5tmDyKIZyXRbqA7X/XtYqyz61FJgm+22Eka9DrpiXvFQ27ezLcBoP2IrC1iBBfkxcamD0ImCcwolAucPGx+hiF9u7eeHcM=
+	t=1778088654; cv=none; b=BOoUxHBVxrZBP80U8v53keZWmqCaF88Z6SyXiFIyg2hGKp50+ErFiUiYMwLFh0/vSN5eFWZTOulOk0jtY59nVVkYz/wTbeYsi6tt9F2H+tkRZvM0sQ6VS8jVaYwppUekLdRO83Py210J5M+EIU8QKboaFCGQ4ap8PQsv55gZG3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778088412; c=relaxed/simple;
-	bh=6spRu0fK39sPcn0qt/4e8ycfain8ILV1hQ2Je1l3kos=;
+	s=arc-20240116; t=1778088654; c=relaxed/simple;
+	bh=4Ykz0ExoUaMMR6EC+daSv9XmEUawcxqmyTTi/73hV1g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xr8oLwsgIu4uRZhIqadc++qOXP7K2fSgfGwp1gGCSVvGP5uDZyVJjgu++E/9AHMPcSOFWwgf4MHN9SY8/2j7UtxzbG+FTAD1CbRLxUHfzXcG0oGLtdl1kYPVhAdmJ+hTvTrG7f+XtI8lI6a4AZnt7LfL3Shxk6MvH1hdx1FcBF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NldR935S; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=EjQLSOhK7GTO/mDF6X5f2caM6uMOz2rOpU2qYKCA4sofPJtk3kkP3AI3AvzrESLxOQX9cHBQu4UbpkioLetOLux2hW8NGq6TiL71Ak05SL7/XlfYvCl/+RzY95iGSrCMFyydMSeTXTkQMbjcf72gaFVhP1AGIi0jjTjspwO6Wk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nnbCDp+r; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NldR935S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526B0C2BCB0;
-	Wed,  6 May 2026 17:26:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778088411;
-	bh=6spRu0fK39sPcn0qt/4e8ycfain8ILV1hQ2Je1l3kos=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NldR935Sd6deO8ySyNbKHJ5ZB9i5mrWL2hpACmplrZUYYK1fYiBBuuvKU8h8hQaFE
-	 cNMhUIcKF+nr8/vn5cITq7APdSbwBSYNrZ/cQq4SPOnW6Qs5Qt2N2d1jsxxEjjyYe2
-	 BSbKMnWMPFCnzKR+bIdq+kErUMxXwKrDFXsVCRWni5iSPl/g2c6EsvFhIYpHxDBGtj
-	 axlPftO57X/o9YqAs3bn9DICS2yJMleKTqpjhLTxjmmsjft6RhIrMxhds1iYl3b8l0
-	 FVujuhNzrE19Sg2POmhLklbGNZkkwpgILrkOi+APwowixzTs94Mof/zqUYhh7A/5Xt
-	 5ZMFNi4QOOuvA==
-Date: Wed, 6 May 2026 18:26:46 +0100
-From: Conor Dooley <conor@kernel.org>
-To: "Stan, Liviu" <Liviu.Stan@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
-	"Sa, Nuno" <Nuno.Sa@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: iio: temperature: Add ADT7604 support
- to adi,ltc2983
-Message-ID: <20260506-running-change-9d5f9d342452@spud>
-References: <20260427132526.272716-1-liviu.stan@analog.com>
- <20260427132526.272716-2-liviu.stan@analog.com>
- <20260427-epileptic-pendant-1df77a472793@spud>
- <SA5PR03MB83779FB7E2577AE0247D8669F63F2@SA5PR03MB8377.namprd03.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nnbCDp+r"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3567e2b4159so5291351a91.0
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 10:30:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778088651; x=1778693451; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=q92pYl98bSnKhgO0g+LA6h/wojvjo0EO8G9dXoXq+H4=;
+        b=nnbCDp+rRp1fGxgTNajKMfzPf7OM8xFbx0n469NTPtMgvoUbed2DJ9nSNlsEwWf2RB
+         OKf1r/oN7uvCSm9fnQ5QLH4x9sRo5DQhHjfiYw9ybguwL6xOFud2xEFlZxRHsA3JHHdb
+         qK6yResf6vSXfGcJaxkI/tAtT9LRkgLy0g6e7c8RBtVtg2cCQkYNddJzqcW1QsxQpOya
+         UAAkBMOaOpfwk5BL2F7zrNyIbrFgav2qt3O7ze0wOMv/c8t14i8T7FX3u7R3BQBe8PyI
+         7i/PsS1lbTwMUh7aPs/PJuaErORTJUpI/ht2v01goWC47wUU44KFxKbAhKCiss12hr2O
+         f7hQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778088651; x=1778693451;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=q92pYl98bSnKhgO0g+LA6h/wojvjo0EO8G9dXoXq+H4=;
+        b=fPDdEqf9UHvnDjOo9LeWWwc0K3TP2k1VSigG6Ggb9mIdwJTea1VH1cMpfQbC3AlFlM
+         Gamm6I3ZkQP0K0an5NEPuX/u4dN4/qvI2Wbbind4DxXgPYwkN5CrvT6o1YgZ1wt8mSHY
+         v0ZJA5Azwex09tgCB1ge2FBygIDm3zHJ9SsxNdjjGfMzZ9vUvZzD2fzQa1A+BFbyzuuR
+         nMVrX1bSu9aDzRtVJQg232GWmMn/o1e53XCdjFpzDcvsQQiRYJg7hsGSf6zFSRt2LeHZ
+         PfeyfnfYPfShiq8qLLvxCxNI+5uYBn75aP8LKMmjARLMUpsQcFksiXoTXkPyPx1hmfRa
+         pbow==
+X-Forwarded-Encrypted: i=1; AFNElJ/QqD42t6gGXcgFbf4d25kJYC4mk+cCsMprZCLEM6oRa39dKstuigUETLBNwKXS/gbUUHWLEhlWAU0Y@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxo6ydPxtxU/v/wKqyr+V8p7m6YMwIS11bciRwQ8JxFZshcbBWP
+	+f5tmL41oRFZU4WGcPOG4gq0J3YzooEfND5xmqP4AS6SCnNZjzFVie0H+yV5Yg==
+X-Gm-Gg: AeBDietFXrPCJdZVVOxAxC7Bh7teLF/tXpi6161og6OWVBe6FzdC+GCi1B/mzKtw2nx
+	i+w2VKsoi9zXzqkInZa/EGvSZNj3K7a0EMub3JaJHTpcgtQPrS6Co1SkG9Rfre7aweJHZu6BsnO
+	pXwVRb04aIborrHe+415gFeL3xp+6i1r0AdD8ldQm6tMdemIQev+FlQ/CZxvSlOPrlf27bJh/H4
+	VJ+52uqgmeeA2l0sEILB+ri1HfGOXyOKFSSQiPTABPH8apVN5VJ3q+tUXwnsKIwfdvdXbWY2jMb
+	Vbpn8LujOAm20zRwMV+Uhv1hn9hCbAX1taeqCBaRHLq1RNnbT9i5AzynBwx5A0MWiwF+jCGa//X
+	MecaiPENCDnD3zLZBZ/0dF2Qjg99Lq6PoALcMV45WESFrNvVyggd+OGv/CHnIs0QimMI0EwMGzp
+	kFXdT9rIF32AHB2rWdL3Ye1akVpoE++UZGatVVRvDebiNb0PW/mCVWaUbdmA==
+X-Received: by 2002:a17:90b:264e:b0:35b:e553:9cc2 with SMTP id 98e67ed59e1d1-365ac89cf2cmr4261014a91.26.1778088651264;
+        Wed, 06 May 2026 10:30:51 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-365cad597c3sm1338302a91.4.2026.05.06.10.30.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 06 May 2026 10:30:50 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 6 May 2026 10:30:49 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: wim@linux-watchdog.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org, Jonas Karlman <jonas@kwiboo.se>
+Subject: Re: [PATCH] dt-bindings: watchdog: Add watchdog compatible for RK3528
+Message-ID: <2ee02f9b-56cf-4dbe-9312-e2ba85d44de1@roeck-us.net>
+References: <20260506092420.3320031-1-heiko@sntech.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="B0kR81PJcyXpxgJc"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <SA5PR03MB83779FB7E2577AE0247D8669F63F2@SA5PR03MB8377.namprd03.prod.outlook.com>
+In-Reply-To: <20260506092420.3320031-1-heiko@sntech.de>
 
+On Wed, May 06, 2026 at 11:24:20AM +0200, Heiko Stuebner wrote:
+> From: Jonas Karlman <jonas@kwiboo.se>
+> 
+> The RK3528 uses the same watchdog block as all previous Rockchip SoCs.
+> So add a compatible for it to the soc-list.
+> 
+> Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+> Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
---B0kR81PJcyXpxgJc
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to my watchdog-next branch.
 
-On Wed, May 06, 2026 at 01:06:35PM +0000, Stan, Liviu wrote:
-> Thank you for the comments, and I apologize for the delayed answer.=20
->=20
-> On Mon, Apr 27, 2026, Conor Dooley wrote:
-> > I have to wonder if this is the right approach, if it's the same device
-> > just with a different label and advertised purpose.
->=20
-> Could you expand on this? Are you suggesting the copper-trace@ and
-> leak-detector@ node types aren't needed, or something about the overall
-> approach of adding ADT7604 to the existing ltc2983 binding? I want to
-> make sure I understand the concern.
+Thanks,
+Guenter
 
-Yeah, if it is the same device, just with different uses for the same
-pins, I was wondering whether the correct approach is to reuse the
-existing child nodes, with some way of indicating what they are
-measuring (e.g. use the compatible to decide). I think Jonathan
-expressed a similar sentiment.
-
->=20
-> > Pedantry perhaps, but isn't this an "ohmmeter"?
->=20
-> For the naming I followed the convention used in this binding: rtd@,=20
-> thermocouple@, diode@ are named after what they are, not what
-> they measure. copper-trace@ names the component being sensed. Jonathan
-
-An "ohmmeter" is what it is, not what it measures. What it measures
-would be "ohms".
-
-> has a related question below about whether this should just reuse rtd@
-> with type 18, so the name might change depending on where that lands.
->=20
-> > I want to look into this property, where is the datasheet?
->=20
-> The ADT7604 datasheet is not yet publicly available. Will add the URL
-> once it is.
-
-Right. It'll be hard to provide a full review without being able to look
-at the datasheet.
-
-> =20
-> > Are these ever linked in a different way?
-> > Ditto here and in the rtd node. Are these fixed linkages or actually
-> > dynamic?
-
-Please don't trim this aggressively, you've removed the context for what
-this is about, and it was 2 weeks ago so there's no way I remember what
-it was.
-
-> The linkage is board-dependent. Any rsense on channels 2-20 can be
-> paired with any sensor channel in that range. The example uses two
-> separate sense resistors because the copper trace and leak detector
-> channels need different values (100=CE=A9 vs 10k=CE=A9, these are the rec=
-ommended
-> values in the datasheet).
-
-This question of mine is fairly moot anyway, given the existing child
-nodes all have have it, especially if there ends up being reuse of them,
-so you can ignore this comment.
-
-Cheers,
-Conor.
-
---B0kR81PJcyXpxgJc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaft51gAKCRB4tDGHoIJi
-0vPLAQCqMeZh7sEYWP9JZlTPTGPpKshIebnp2u3eGsQXVOmBawD/VZI65GullHyu
-4m05JDve2DmsJLmIpc6tYaJoInfIJgI=
-=KnO+
------END PGP SIGNATURE-----
-
---B0kR81PJcyXpxgJc--
+> ---
+>  Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml b/Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml
+> index 609e98cdaaff..731794dccd4a 100644
+> --- a/Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/snps,dw-wdt.yaml
+> @@ -29,6 +29,7 @@ properties:
+>                - rockchip,rk3368-wdt
+>                - rockchip,rk3399-wdt
+>                - rockchip,rk3506-wdt
+> +              - rockchip,rk3528-wdt
+>                - rockchip,rk3562-wdt
+>                - rockchip,rk3568-wdt
+>                - rockchip,rk3576-wdt
