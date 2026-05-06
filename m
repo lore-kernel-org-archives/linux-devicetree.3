@@ -1,66 +1,67 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984253B7749
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 07:34:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 927EB3B7754
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 07:34:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778052852; cv=none; b=WiMK/iXmKhfwEKiZA2E9CZU3+EmSH4wLgpVABZsoo3Da89Wc50vEdE+q14e8buxFks+eKLRYnxILfNg9GKUqbrZlKW7pDzgwmpP5YO9K7afBPyLQWKudf7I7GG8WWzLEQcG9obQ0/fWY700kD2cLMJ2NUU0v8i6xIiRbCWDySbA=
+	t=1778052853; cv=none; b=glMUTV4rZHwJjEQ2D7bnovzELyoDM9qQZn4Kj/sgd+I4mqLZCk+fp6TwpKpOJmn2eDokafdCEwiDyXy5vttgG7At+TiC7r4Oe+DriB0R46t+RFCeOyF9REWRqCJmU+MeHIn6uaZ5GQqGvRYfNJfpME1pMaBhPVyXAhfns61FT0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778052852; c=relaxed/simple;
-	bh=6hTUYuUjpwM0BpoJCUuJMIoyvSlhYDr0dzWajGdcN88=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jO6uMgs1O5nNjWKQSU9uT8rQbeL2KZqRLT9KagwfQakcfTonM1tCfKwLCCygi8kYFzODDMyhI7MvklqG6CKXF5/YAB6NVZqAa4BDQtMcQv8O2EcQsZsQ9W29ZqZvIv0e0Oj9OFnq8ymzu4PG1I9UeIC4dKoQttUhWKFiYkOJu0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=X03Adwcg; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1778052853; c=relaxed/simple;
+	bh=t6LydqUMaiA9RITqtRjvNO/7mSQu8qm0BY+eJh0PIms=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ldrhhEeoC8katkmiX0P8vnouXF/YYxiog191LFO5VrMQ8Saz267aymybM8k5TAlJWejfOWky8ES80blBg6U4kg6e0BVNv6e86AGpH6zApqWokBXswWfV5jxhri03of8YNaTUZjD9kLrWgZ9AzWindFDDutVcq7aQnqAmoH+UwBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=O5PPC3aG; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="X03Adwcg"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-488a9033b2cso53690595e9.2
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 00:34:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="O5PPC3aG"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-48d102471a4so27816575e9.2
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 00:34:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1778052849; x=1778657649; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=8tlmEqzBpv8xyIqB/D2mYRP2+7T1ZelaDB4jjNnwdiA=;
-        b=X03AdwcgbekZgid4zhPnjzumx1Ftj/fq9YN2e1arn4iOqIJNiyoZBh7BPMVnsXQrQy
-         PD9nKNfFq8pILrUQOV4HjPkoLobBFXicVYhvqO30yTgetfrQtLPWWBYbn+FMC8ZktGtl
-         bAwxC9fz5NcxFShgTx1XDYpdzO5kY9wCuvONNfKi7MH6s8dxH3ffDJZgzbuJzy1Nn/vR
-         IpC70169sENqzVvw2DSteDX4y/lKy75wK/mrSBmum871Bcc83Ih/ARRDQ4lx71cfVXaU
-         aw7p8DKSowdkcNeF9nWLiAlnMVsrBwvZHRgQKZhZRKXj2FxVs29NqB1mKK9LO48VwUYn
-         0+Ag==
+        d=linaro.org; s=google; t=1778052850; x=1778657650; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kcCuUaooYGwAZf4AbNW8h46t9NowClOwuaIZzuKTGIw=;
+        b=O5PPC3aG2cz38prdpD5wkd1qHJ8mEE5pYMo0WGdtJ4uJkSdBZzhaEb6dWMLifeNZ7u
+         m/mfiE1qkL9wJ+Jtz3nE4sxgY2aKQExMpdwOinR9xqWE4BBZp4l49uPFO7TG47OrnK4I
+         MFPJXmXw4Z+vGO5OyARdsHJhZHTJpjNA/JMk/ISo7CiJob2jLKGDgXf1uJ8IgiFveSQ5
+         LIb099xhT7/1NMbPf0R6E/Pd5pFA+xmU4M1nvSEM3G/LIFnOvkjW7QZP7TSx2Q6GZb5a
+         kdFWMwUvEwskjl2ocI1L/lYfO9SC+HPnQ1EJZ8TqEK/8gtTyUHbknjDcaarS6+mgKQS4
+         MIGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778052849; x=1778657649;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8tlmEqzBpv8xyIqB/D2mYRP2+7T1ZelaDB4jjNnwdiA=;
-        b=LV+C18fsmhe1ft1nH9e8796TYAVaHC1UfC4ZcnVtHMWUPzJtLi1IKzF3en9jnr+h7b
-         KgWbFkmn5lx73EKy1IeYwetGiveIL9hw8WrMs6+yZ42eUTqADiZccfD2KPNEKjv2tQ83
-         mzZN5TGWzdPZire7f90Lm0D/6lDqg+BNucPkJFPA3M6exmFqfbVfgInHaodLOkJ9LvE8
-         +myyUes/jl9xElPuqA1h/S2uleSn7IyhL4/aUa+mZxrYj/Txj3hRYlC0/hLRbOgWFQuX
-         1xZNXh739wrkvcGdilYNrNccBLRAwoB5sJW6vC3mBLsCLgigg/RDiqUDmQVZ4jirptEI
-         BEbA==
-X-Forwarded-Encrypted: i=1; AFNElJ/uQAKk1p0IZhUD1tMTaGTVKtj1k2sHDscMr0i/Qkw/Mxc/Y2tQb+1g9+nURRXOsFYWZiPPGXt/i5Ln@vger.kernel.org
-X-Gm-Message-State: AOJu0YxcVH1Z8Ha0sPXWG3QLmjaR/+B8x2auBFVVKRmJKgvD+BZn3ZtQ
-	WYoObkEXv8uO+GQKkYBaS3dIptv+qzlLoro8paM5loUbx5kW/UwM8n6M7zlmW+zIFW4=
-X-Gm-Gg: AeBDievLmn1p2WwcWf20D0Zocs4hoqvlOUrvwXvHGKkdBJ8QxlYFla3D7JapIu5vMTu
-	QuxG1wbg+YoeVB/+bKAisYxO4acg6DfYk1TNbwDHsPzP9DEf0pSqcXD58UOCzmxbJHJvFy3jtnc
-	PIdkOcu5FRphgHEX1BlLtyJx4Ra6TbSGtW5FLP+XlfiNaeKNFsJ9d13wu8xkDHNtASYueTIiVeP
-	sJctozCoGiX7OZYN8dwkVyA/B5x6Ac4zmr4W1efxhapxazvTMuR2d5SYkj7JwFFsBJN5bdZopPL
-	tqvJBynTmNp7MCDxz48T/iB323/PpTnF6PwRBareuskg4pSryjZkuL3DViO2lpKXzeOn0VTMN8j
-	5KpcfMGRXmBSFt4GWIRVAH7slCowfVSNBz/c5o2SL2iqrg7r7WTBcmJZEnX8bhYQyQ2Dza3Dx0/
-	6Ex/pZEMvbkmGepy2BN7srLjhpWsbFz+yxKg1nPCBpDCG8YwvJ2Pl/Jlo=
-X-Received: by 2002:a05:600c:c11c:b0:488:c078:bfda with SMTP id 5b1f17b1804b1-48e51f4835dmr25792585e9.26.1778052848820;
-        Wed, 06 May 2026 00:34:08 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1778052850; x=1778657650;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=kcCuUaooYGwAZf4AbNW8h46t9NowClOwuaIZzuKTGIw=;
+        b=Z7A7wAfcEk6j8FA1gVCznx4NWSuo/3Za2Fc57mf9hSOMtZ/cZDqfqM7l6XDMelJWi7
+         EdKqjWXvjNn4LBqW6KQNPWzg/Bq+CwkTK4f7xjR6uCkzPHAsD9jHNxolJqhmCf+0xikz
+         XwCgNlM9YynCKvNHPba+zoXwNkFbfVoYg3rUYL9yEX4L1B/HN9t+BekijnwkhWoogfE9
+         eIpzciBkzxwDCnMifgxHEBl3t5LJZ1nqQH288k1ZocMDzD6ToBDnFh8c2bPZA/jncUns
+         QPXxZ0tOeJQb+4rjWyXyiULmvb4faPmbyG1j0twDBxzIrrRHuCv8ydYT6o3ebUdgqf8F
+         52yA==
+X-Forwarded-Encrypted: i=1; AFNElJ/HRS05/zgqC/YDz16T6ZAoS23JexaJqGH8yiszKbtmu6OrbTySzksT+jzkUOj5Tg6RUYo8OQFDHeeq@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw5EoyRPDXs5IRmlYXKa2TGLlCkY4WAACElyOr8CoAxfwZK4IKd
+	GGuU7yCd/kJgTy/0zVkd6LzVjNRz58XqzE1BCNUHVomKDpg1VSEEl3q9/qIQTlZE3ls=
+X-Gm-Gg: AeBDiesos5scFHKLZ2Yy2BJXJc6axcro44dLYk9bCDi6obcPf5U1WVZq9TmQ/o2yzcU
+	kn3lyiP5m8cHijfUHDyRlN7upGBIA+l823pXv9vv/0SMB2G6n9e1lRremEq6yOss9nCAVqtHu9j
+	2ybVBFE3+OSAj8sNuP7V2jzolQ82xWmdEin5alciomNOvuo5FAhSoL+Q/6vznreYgfgL14WK9nL
+	VFcEj0QrdK9hHpaD9+2iRMc2VZDc8CzIPquBe+epvi/uMrtHq8dD4JAaRD4EoDeQYzhdzrOFJNG
+	vNJoR7XqoPjE2rWoihtYIvkDXdhmYRsSl3Swbw4f1uUv6nRFLK2B4gfQPy3sg0ZfNVg3Vf73Uqr
+	yNQypCwDugmdRHOoe/tRQrI4jOo6tZR17vnfSuOf8Vo6OoXbgHZY9vGpKERAXggek6vhj3pXSSS
+	izBikjoFZK0rCROJskRfLulZv+4XxxUA3VKjfl2wYORw8gmyEi9hhSR64=
+X-Received: by 2002:a05:600c:8b04:b0:47e:e2eb:bc22 with SMTP id 5b1f17b1804b1-48e51f183demr35575375e9.5.1778052849595;
+        Wed, 06 May 2026 00:34:09 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
         by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e52f5e668sm13644835e9.0.2026.05.06.00.34.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 May 2026 00:34:08 -0700 (PDT)
+        Wed, 06 May 2026 00:34:09 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: [PATCH v4 0/2] regulator: add support for SGM3804 Dual Output
- driver
-Date: Wed, 06 May 2026 09:34:05 +0200
-Message-Id: <20260506-topic-sm8650-ayaneo-pocket-s2-sgm3804-v4-0-7495e7905693@linaro.org>
+Date: Wed, 06 May 2026 09:34:06 +0200
+Subject: [PATCH v4 1/2] regulator: dt-bindings: document the SGM3804 Dual
+ Output regulator
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,12 +70,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAO3u+mkC/5XOTW7CMBAF4Ksgr5lq4n9Y9R5VF7YzBNMmjuw0K
- kK5ex26gKobWD7pzffmwgrlSIXtNxeWaY4lpqEGud2wcHRDRxDbmhlHrlFyC1MaY4DSW60Q3Nk
- NlGBM4YMmKBxK1wuLEqzR8uC94eQNq9aY6RC/rztv77+5fPkThWnF18Yxlinl8/WRuVl7z27OD
- SA0rW2D0fVU6dfPOLicXlLu2Do68ztW4KMsr6zRDdqglVMa/7Hixqp68CArKhuksUJKYXfo/7D
- LsvwAksUlZZsBAAA=
-X-Change-ID: 20260428-topic-sm8650-ayaneo-pocket-s2-sgm3804-8764fbb72eb7
+Message-Id: <20260506-topic-sm8650-ayaneo-pocket-s2-sgm3804-v4-1-7495e7905693@linaro.org>
+References: <20260506-topic-sm8650-ayaneo-pocket-s2-sgm3804-v4-0-7495e7905693@linaro.org>
+In-Reply-To: <20260506-topic-sm8650-ayaneo-pocket-s2-sgm3804-v4-0-7495e7905693@linaro.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
@@ -82,78 +80,117 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  KancyJoe <kancy2333@outlook.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2411;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2595;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=6hTUYuUjpwM0BpoJCUuJMIoyvSlhYDr0dzWajGdcN88=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBp+u7uHwrFibIEVj6qZzb/5OKHgmvZmUO/1wYM/oLO
- MG4SdGuJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCafru7gAKCRB33NvayMhJ0dB1D/
- 9iTr+QVgq3wC/Ke+CNAe+MGxGZEVVJ0SfkfEtCNnm7CScYgMlYrwiqB/7mRRBQofmcdVIEFBHM5/Oa
- Fo31FwH8cBjD7oDc8kZqeqSmUbGeApt0AP1o7Eeyk2clmoswimPmfgoGEABLW1iFYPu7tP1ycml5aG
- rdCr8vndoo3qx+ILKqNLkyPHGfM5aSs+SHtNDKP2A2XOHeviE9RaogUgxIcJmBZLaTudOTAH1YLWtW
- 7Lu2C/2TzhBTgQy6fZSG4tIHH3QfxMi0trm9eE7XyVziotULQ4c+YdU2ytWdgN7BRqAYwWkXDKy4a6
- e383UWGxOVMq0Xj0WTT+o6dvTGOt3JPOUYJyKhUbcyut/XHFzkD4AP0N1M2q5zyamo+/awJ1Y6TNL+
- 6+LibjSi5bQ6vRrTgHEScCB/acCvy+TMErSD1E2Lg/c244Ne0IkZunHnij+G4Zk6alDC9DVCODbB7o
- /gNZ2+gdT9k9aklnWDqpa14jbsEbPPMY3lQSQ944jW8ZIiPfQM20mxN2BXgOVW4gjnhy9SWrXYT0TK
- ZR6R9P1lTpScid1uchwKEpeFs0Vpom37O7hnNn17AcHDvk4SfCVzP0L3zBSMEDHtDtedjtp+qaILJ3
- +Jlspa+YAV/ISt3vjb+HIy/zInEcdRnJXwzww8lZfmvVVxm5KkucO+7xQH4A==
+ bh=t6LydqUMaiA9RITqtRjvNO/7mSQu8qm0BY+eJh0PIms=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBp+u7vHokT5jEw9Cvz6fHrwCOa/dElfLxUifom6Kan
+ Hz6nVYqJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCafru7wAKCRB33NvayMhJ0U5iEA
+ CetLiHXm7q8t9SHgOu/d5QM0zVN7LJ6BPtIdqbc0IFNARWkAo2BwiTnsPgH1Q4H9bNd3j4mHsARq81
+ yMYDURI6LD2x1MaOqFQTq32dzMNN6JWkWxbSQaTdFXO0omVvN4h4x5jBYyC/SjlxgqvWLscti4gxRn
+ HD0m6A+HM3gTZMKs1uY59zbES+kyvjiy+MuGfhOMyB0UJMLjDQZspc7HPH5jYGGovsxGleQPNn1ZVD
+ FGaA2UK6SYzGgjidFUhbEpSPXFPkGNiqyEa7yI+re7pkYYcr7ewvIBOBZX7e2GSOzDavtBVoXcvef+
+ f8xzz3MnctDzek4LPfH9QPGTmk8UXkVR0KtubrHXZlEnOfkVnUFd3w74CH8OdIiOF06dcFX98GwTEG
+ k07Df4rM+2qT7ZtS49YKjI1ZfNnjzdAFQe8iOyoaNeCy50Y4+5PJ1qaAWNltpYOQz6ah6ZWr8urzQ6
+ sQ63NKGEsX1Q1cS/o+mIewwoQVdrTQf0ZG3pGhsRSDmUTYtAiIHT76bwgNhR7rK9PqDPaLO3iEmAzA
+ BfGF2wXHT488KDtVWyJ/XhQ1wINRiy5N7nBPH9QrKu9NbVKcmNmnrEj2GayJHUOUp0cftVqnFCn/Fe
+ MTk12eQrz3xMb8q4VziZFQc5KJDERRO0HrlcwanXoNjiiRH/mQsFvOh2m6zg==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Add support for the SG Micro SGM3804 Single Inductor Dual Output
-Buck/Boost Converter used to power LCD panels a provide positive
-and negative power rails with configurable voltage and active
-discharge function for each output.
-
-The SGM3804 is powered by the enable GPIO pins inputs and only
-supports I2C write messages. 
-In order to add flexibility and simplify the driver, the
-regmap cache is enabled and populated with default values
-since we can't write registers when the 2 GPIOs are down.
-
-This regulator is used to provide vsn and vsn power to the
-Ayaneo Pocket S2 dual-DSI LCD panel.
+Document the SG Micro SGM3804 Single Inductor Dual Output Buck/Boost
+Converter used to power LCD panels a provide positive and negative
+power rails with configurable voltage and active discharge function
+for each output.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
-Changes in v4:
-- Moved the enable-gpios to subnodes due to enable-gpio bindings constraint
-- Added code to get enable gpios from subnodes using fwnode to avoid the of->fwnode dance
-- Switch last gpio call to cansleep
-- Moved the Kconfig/Makefile entry in the right place
-- Link to v3: https://patch.msgid.link/20260504-topic-sm8650-ayaneo-pocket-s2-sgm3804-v3-0-c4783443890b@linaro.org
+ .../bindings/regulator/sgmicro,sgm3804.yaml        | 77 ++++++++++++++++++++++
+ 1 file changed, 77 insertions(+)
 
-Changes in v3:
-- Change header in c++ comment block
-- Switch to regcache dirty/only instead of custom handling
-- Use GPIO_ASIS to avoid turning off regulator on boot
-- Use gpio cansleep
-- Add my MODULE_AUTHOR and reorder the signoff
-- Link to v2: https://patch.msgid.link/20260430-topic-sm8650-ayaneo-pocket-s2-sgm3804-v2-0-76108c65a560@linaro.org
+diff --git a/Documentation/devicetree/bindings/regulator/sgmicro,sgm3804.yaml b/Documentation/devicetree/bindings/regulator/sgmicro,sgm3804.yaml
+new file mode 100644
+index 000000000000..3716eaf81aa9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/sgmicro,sgm3804.yaml
+@@ -0,0 +1,77 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/sgmicro,sgm3804.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: SG Micro SGM3804 Single Inductor Dual Output Buck/Boost Converter
++
++maintainers:
++  - Neil Armstrong <neil.armstrong@linaro.org>
++
++description:
++  The SGM3804 is a dual voltage regulator, designed to support positive/negative
++  supply for driving LCD panels. It support software-configurable output
++  switching. The output voltages can be programmed via an I2C compatible interface.
++
++properties:
++  compatible:
++    const: sgmicro,sgm3804
++
++  reg:
++    maxItems: 1
++
++  vin-supply: true
++
++patternProperties:
++  "^(pos|neg)$":
++    type: object
++    $ref: regulator.yaml#
++
++    properties:
++      enable-gpios: true
++
++    unevaluatedProperties: false
++
++    required:
++      - enable-gpios
++
++required:
++  - compatible
++  - reg
++  - pos
++  - neg
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        regulator@3e {
++            compatible = "sgmicro,sgm3804";
++            reg = <0x3e>;
++
++            vin-supply = <&vin_reg>;
++
++            pos {
++                regulator-name = "outpos";
++                regulator-min-microvolt = <5000000>;
++                regulator-max-microvolt = <5000000>;
++                enable-gpios = <&gpio 17 GPIO_ACTIVE_HIGH>;
++            };
++
++            neg {
++                regulator-name = "outneg";
++                regulator-min-microvolt = <5000000>;
++                regulator-max-microvolt = <5000000>;
++                enable-gpios = <&gpio 18 GPIO_ACTIVE_HIGH>;
++            };
++        };
++    };
++...
++
 
-Changes in v2:
-- Fixed bindings subject and gpios minItems
-- Fixed regulator signed-off order
-- Added second MODULE_AUTHOR entry
-- Added more comments on how regmap cache is configured to work
-- Link to v1: https://patch.msgid.link/20260428-topic-sm8650-ayaneo-pocket-s2-sgm3804-v1-0-1d8dc7620256@linaro.org
-
----
-KancyJoe (1):
-      regulator: add SGM3804 Dual Output driver
-
-Neil Armstrong (1):
-      regulator: dt-bindings: document the SGM3804 Dual Output regulator
-
- .../bindings/regulator/sgmicro,sgm3804.yaml        |  77 ++++++
- drivers/regulator/Kconfig                          |   7 +
- drivers/regulator/Makefile                         |   1 +
- drivers/regulator/sgm3804-regulator.c              | 308 +++++++++++++++++++++
- 4 files changed, 393 insertions(+)
----
-base-commit: 39704f00f747aba3144289870b5fd8ac230a9aaf
-change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-sgm3804-8764fbb72eb7
-
-Best regards,
---  
-Neil Armstrong <neil.armstrong@linaro.org>
+-- 
+2.34.1
 
