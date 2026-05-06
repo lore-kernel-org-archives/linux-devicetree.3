@@ -1,56 +1,64 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4839F2236EE;
-	Wed,  6 May 2026 19:43:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E062E1722;
+	Wed,  6 May 2026 19:44:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778096629; cv=none; b=L9/+LuvpHimKBojJfLXn8vsZFYq/4LtAH9a6OgMaeHTmt0bpBtfJfQ05gTOgvVPvdAgqHbMannqmiaFdy/IBF6TnaogyN96G0D2CYFSTKelfKU5KmVnK3LP3tCAP4F+T/fC1ZFxaL7SAZVx61kiRFBsAuDBXLF+G1yoq3SDnrys=
+	t=1778096674; cv=none; b=OsFFWEEj+n3pgBYEAclii23YHpU+N7TTK7Plm8P+d4Fx8sHj4WtvUvwJWge05/erMLRW8UzFks8EZGJmoJNQ0uqXeHiRYx1p//3b+FQYYvuEcXvAeNe3Bgadd/q1i7mHcueegshi3cBZIYFoCAvKJhyh1t/1KcV1UafoPH1NQhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778096629; c=relaxed/simple;
-	bh=yBKhUTLCJ2QHF56yMuQaZcb5yds3Ll46g1mWTKd7ads=;
+	s=arc-20240116; t=1778096674; c=relaxed/simple;
+	bh=0YUUrxVxCjt2QmOLirTyM0FZ+bSf6y2AZqT+AxHoPjg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lmw0D2o9CuIRTFDi7BoAIX5676LiYxN8A+XnM6muNa68jqV52pMk0oym44hvHUCKIjtqfhs7gHb95Mt3K6LujYDIwP5kFZXQVCrhkFCpkEpCMX3cg9kuRAwPF5ubHWceMQAQTBDzUy4OKHYOK5YqEgLIA8wOljme0x+MrFfQ1t8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CCq6KrSN; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=X8X2g1FNr2N682i62uKiZdyYIkuCaKGRUbWKzrrWd9H0EWaBCIyJrI1zTgzTAsEdTbRMCC6StGKB3UCI79HQjGtzOsm7vlj46lOZl7ayl2yvZWEf4RVDAyt2B+ROfxIcD2sPFDY/8M2Fl/zfYgoFt7XYo01uZuYt+i1vDuHKqVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=r8sFM1pw; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CCq6KrSN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C797C2BCB0;
-	Wed,  6 May 2026 19:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778096628;
-	bh=yBKhUTLCJ2QHF56yMuQaZcb5yds3Ll46g1mWTKd7ads=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CCq6KrSNkSQO91CBMGr4ZxfEL0nMqSHwov+dNb1ce79jaaRcmGUnQST0w5yuS7jON
-	 e30q9jKRiWa00x58mJSARedHjp1OsuDFfylHa1yJqERtVSJrmM45yw9Phadc7i232u
-	 Ht4p89Hcgwa5Cu3n2k/3kYy75hZOE4PkBmePeyo/F0Lzv1q2jH9+W8/IRuY+ksrAMq
-	 uINmzVkT4sCsYW3TTDL4JRl0tPERFaz+Aq/spOPxJodhAr5dwt7XUbZNSI0CPuAkKj
-	 RhmTVucwnREQhRPdivWrVmrW80aEHgRG0nmzkFulgI3ajgdmLe2nafQKybBNLe/8rZ
-	 N9YClUXE1XUKQ==
-Date: Wed, 6 May 2026 14:43:46 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	devicetree@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	David Airlie <airlied@gmail.com>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	linux-kernel@vger.kernel.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH 1/4] dt-bindings: display: renesas,rzg2l-du: Add RZ/T2H
- and RZ/N2H support
-Message-ID: <177809662589.2997094.4845644199076103667.robh@kernel.org>
-References: <20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260429170012.366537-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="r8sFM1pw"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=K1q3NI3BsSpOEHU3gmV8o6cjnh4W3gSw9Ujwg8EaS+A=; b=r8sFM1pwHJMVxud91KWvxLzmcJ
+	gwRnbQDJaMv62Iq9lhwBZzABSwYGSEE82UrEms+6AWU5jNfdJfR411CccFSrQH9zjssZ/YoBWl7O2
+	DCTNp/nXrptBPLlYXwwXR0+qOG0wDZuVdAryAuBRIjI81zj4gUpXxwjsm7t7bhyEmcG0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wKi9o-001hEj-Dc; Wed, 06 May 2026 21:43:44 +0200
+Date: Wed, 6 May 2026 21:43:44 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Alex Elder <elder@riscstar.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
+	rmk+kernel@armlinux.org.uk, andersson@kernel.org,
+	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
+	arnd@arndb.de, gregkh@linuxfoundation.org, daniel@riscstar.com,
+	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
+	alexandre.torgue@foss.st.com, ast@kernel.org,
+	boon.khai.ng@altera.com, chenchuangyu@xiaomi.com,
+	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
+	hkallweit1@gmail.com, inochiama@gmail.com, john.fastabend@gmail.com,
+	julianbraha@gmail.com, livelycarpet87@gmail.com,
+	matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
+	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+	rohan.g.thomas@altera.com, sdf@fomichev.me,
+	siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com,
+	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 09/12] gpio: tc956x: add TC956x/QPS615 support
+Message-ID: <7d7b6b89-3ef4-4891-a794-c8b11f39db34@lunn.ch>
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-10-elder@riscstar.com>
+ <736fb3b7-c88a-4ec4-96ad-d1b79cc48d30@lunn.ch>
+ <30cec7dd-ac3c-47ab-896a-c29992bd5ba5@riscstar.com>
+ <3666e3e6-e6f3-4cbf-b9fe-caa394fbab7c@lunn.ch>
+ <0751a051-9894-45be-92d6-0d46f2c39293@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,31 +67,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260429170012.366537-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <0751a051-9894-45be-92d6-0d46f2c39293@riscstar.com>
+
+> >                ----------------------------------
+> >                |              Host              |
+> >                ------+...+----------+........+---
+> >                      |i2c|          |  PCIe  |
+> >      ----------------+...+----------+........+------
+> >      | TC956x        |I2C|          |upstream|     |
+> >      |               -----        --+--------+---  |
+> >      |  -----  ------  -------    | PCIe switch |  |
+> >      |  |SPI|  |GPIO|  |reset|    |             |  |
+> >      |  -----  ------  |clock|    | DS3 DS2 DS1 |  |
+> >      |                 -------    ---++--++--++--  |
+> >      |  -----  ------     downstream//    \\  \\   |  downstream
+> >      |  |MCU|  |SRAM|    /==========/      \\  \===== PCIe port 1
+> >      |  -----  ------   //PCIe port 3       \\     |
+> >      |                  ||                   \======= downstream
+> >      |  ----+-----------++-----------+----         |  PCIe port 2
+> >      |  | M | internal PCIe endpoint | M |         |
+> >      |  | S |------------------------| S |  ------ |
+> >      |  | I |   PCIe   |  |   PCIe   | I |  |UART| |
+> >      |  | G |function 0|  |function 1| G |  ------ |
+> >      |  | E |----++----|  |----++----| E |         |
+> >      |  | N |  eMAC 0  |  |  eMAC 1  | N |         |
+> >      --------+.......+------+.....+-----------------
+> >              |USXGMII|      |SGMII|
+> >            --+.......+--  --+.....+--
+> >            |  ARQ113C  |  | QEP8121 |
+> >            |    PHY    |  |   PHY   |
+> >            -------------  -----------
+> > 
 
 
-On Wed, 29 Apr 2026 18:00:09 +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> Document the Display Unit (DU) support for the RZ/T2H and RZ/N2H SoCs.
-> 
-> The DU block on RZ/T2H is functionally equivalent to the RZ/G2UL DU and
-> supports the DPI interface, but includes SoC-specific register differences.
-> Add a dedicated compatible string to represent this variant.
-> 
-> As the DU implementation on RZ/N2H matches RZ/T2H, describe it using an
-> RZ/N2H specific compatible string with the RZ/T2H compatible as fallback.
-> 
-> Unlike other DU variants which use a multi-port model, the RZ/T2H and
-> RZ/N2H DU has a single output and is modelled using a single port node
-> with one endpoint. Add a port property to support this and update the
-> allOf constraints accordingly.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
->  .../bindings/display/renesas,rzg2l-du.yaml    | 24 +++++++++++++++++--
->  1 file changed, 22 insertions(+), 2 deletions(-)
-> 
+> Because the internal endpoint won't operate until the PCIe
+> power controller has enabled power, this GPIO driver and
+> the PCIe power control driver won't interfere with each
+> other's access to the shared registers.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+What i find interesting is that there are two GPIOs, and two external
+downstream PCIe ports. A naive way of looking at this is that each
+external PCIe port has one GPIO. And the internal PCIe port does not
+have one. Hence the internal port might well work without any
+additional setup?  That was my thinking.
 
+But you are saying it is not as simple as this, and two GPIOs affect
+three ports? Do you have any idea what they actually do?
+
+      Andrew
