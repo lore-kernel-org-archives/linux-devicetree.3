@@ -1,271 +1,216 @@
-Received: from s106b.cyber-folks.pl (s106b.cyber-folks.pl [195.78.66.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7958481AB1;
-	Wed,  6 May 2026 15:10:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.78.66.88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2552247CC80
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 15:14:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778080261; cv=none; b=HE7zSCDxYbO952rbv5XYu5PB8O/HFbhw3qCs5RAzPy5GUtGH3yAdKm6gLIJson9bX+lL4/4XszKVCzCnvvFBtaPTZAQR3H+C2sqMS11R+jJyoD1sDNVXoshG3tmZIrl241lMbDSYDVN50elkl3RqLANQgKFQjYVP734NkvlNAFo=
+	t=1778080450; cv=none; b=sOQfpBDs0bPrT9rK78PA+1K4NSUl5MCIWAROsGeFibrZbkLnZ25igqixQYCkN/B7j/l+ssiSg7XH6+QffBe9K0zBUHUwWQA0wiANbBRW1kbDtW2JD47eWgFnNJZ47iJ3GFbR35oGoI+N/GYhREhX6Z6zzi1U6rR0k/kF20ctacM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778080261; c=relaxed/simple;
-	bh=1L3rHOJVuAnpxzydteKfdfNTRtbJkFSx+Yr9EHtcqh8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gGMUTV+gh2qpGpMzO/WEEIDUmZxfonaBsV80l00YiFQrgcknLm4JeYyGV0hrq8GRAU7uldMUzERQ/BR933Q8+5a2swtQ4P0BxwWdeItwrJS3OO9f90q/GcfCOww8weyPzk9S3cBWQU2BRsUXC+sscN7Co9IGy/fb44DDKrXBlcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mmpsystems.pl; spf=pass smtp.mailfrom=mmpsystems.pl; dkim=pass (2048-bit key) header.d=mmpsystems.pl header.i=@mmpsystems.pl header.b=HNxCjowt; arc=none smtp.client-ip=195.78.66.88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mmpsystems.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mmpsystems.pl
+	s=arc-20240116; t=1778080450; c=relaxed/simple;
+	bh=6uxmBcsusZraeh4PG9F1SE0HCI0qSLyvABncvHgVrrw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l5vktOl4v3ZvuVF8JWPW6vWkHZazCFvsT4WT7EZoqm56u+6u4LLgZWp3Zxf5hWaIyv6tWgqKBCkkkI9OGvQdJuAqwOT8BLbbeW1sJtayh9vDXpKKQZKQAxNoQiHNZCKI0C9D5spMIt1AsjFjP4bogZnogB2ehfpQl9AxBXDcrdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=DNQ17v0/; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mmpsystems.pl header.i=@mmpsystems.pl header.b="HNxCjowt"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=mmpsystems.pl; s=x; h=Cc:To:In-Reply-To:References:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
-	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
-	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=0lyxdy796hLpUJj9EnQoEnVMUSThmvftMavjmWl7Rps=; b=HNxCjowtS+jyOLnrkhoLKyn2RQ
-	QSeYES65TDO9yCZRCONAUZfE7SVgozgIxVdQ4FbohpTsb7NncTr+KshRz87IAPf6VXykUV/zyA/S4
-	QPdyPT5hafOJqgvhJX0YQvG2sZfLv+1hVViZx6+gd1mh/K3qI8+vWUX1Bli0C9/vxmmkQa1+vWRjd
-	Y+WHFnq5twV74kw65ETzSo3vzgJG/KsUICQSPk3jmSNNXP5bt1CCpbYc+6KeXvY9yNsFJw3sV4pu0
-	PKKOdKNT13d7BHXqzXyVcSJS2COk1tp0j084ONyyibYnXfCZgojemCOsL509AkEPfIW0QydHd/9qa
-	AZHm3/UA==;
-Received: from user-188-33-36-99.play-internet.pl ([188.33.36.99] helo=localhost)
-	by s106.cyber-folks.pl with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <michal.piekos@mmpsystems.pl>)
-	id 1wKdtj-00000003auJ-2TuZ;
-	Wed, 06 May 2026 17:10:51 +0200
-From: Michal Piekos <michal.piekos@mmpsystems.pl>
-Date: Wed, 06 May 2026 17:10:27 +0200
-Subject: [PATCH v4 2/4] clocksource/drivers/sun5i: add D1 hstimer support
+	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="DNQ17v0/"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4891e5b9c1fso63572785e9.2
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 08:14:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=imd-tec.com; s=google; t=1778080447; x=1778685247; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=IqBw8Kd6OtjjnQiFLsdPfhJ7HyL89HYldEhFC8X0GH0=;
+        b=DNQ17v0/9S0QPq+fGJQdHrALvbwpzxoj6RmDJFsbf5jLvjMPnlEVUcMS0jjgAi2AYf
+         O3eY5fGSaMIigEABwmqAlQZixfn+knoD9zRhu2O9DSwirSv94zWeiMESMzxl6TCbBWMP
+         TLfSKa+v0nbbPcd/i8ZY6jbCcMOby2N/V55r/ai0JV8u5eZ9QqrGLq98UkILHnhgGw5k
+         Pkyl6QmLeigrP2PPSrgSKMYif6f3l8aqWjVJM+X7FSAuORIf6ToEFK7rtpGnNPf1Tu+V
+         +FSwQHLjMzri9BFwvMPVDF4xvCTzpDUANtlWj40rv49LAoTy/YKBd8BSj6F0Hckm2vvC
+         42uQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778080447; x=1778685247;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=IqBw8Kd6OtjjnQiFLsdPfhJ7HyL89HYldEhFC8X0GH0=;
+        b=RU/B9xJEyZWzuP29BSIE3Nl/qipehlxRQfLnrLEhBI5iLjSs6n74NEUbaRgpXM+M+P
+         eI1aesPc1OqDmm0wJpm+LORJqnJKKwfyNBkaWse+Z07ig37UG7+Cvp1OWyDnA1HZnPrb
+         kRoLDsA9bJx10BAo/RsAx6YoziKfIFtnLVbGxVYB61/ov93w8/yEK82NtsBCQWS3tE6m
+         1/Q2s4zSeo/Al0F/Pfeh1fAS6kBIYtKHwg4Q8MfrXYrfdI5zMo1cLw3+nppV4xI+3WUz
+         qLXyLb/0AYJfoxJX/90pArv//8xSHFon1qaLdWt2LN2R+TUNZ064KnCqGzGG/c3AxYpN
+         Y/uw==
+X-Forwarded-Encrypted: i=1; AFNElJ9R4ZbnTqRmJvrbrYKefrFJ7hQQOvNmuDGDol8U3czrHHMjUQG6sGPBXR9ROigRHNHWKOdRclrzvHNI@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy++Udeo5pLcXNmg9uYZYbFpH45GovyZ8yHzjlYBC2jQ7WVNxTp
+	Q/ujBm8UAQR/LRaIBwSotuqGHBE4/e1AOFszPSbzyW9+ivZ9ObXMCezIWQcFQ9vsdX4=
+X-Gm-Gg: AeBDiev6nAoAfPccTZtDJaQ9n2gR2uesjca9H85mJUTAjKHPJa7wELDd4gUDQQ57jAh
+	l2qu199VjMo6iAjnikIuK8VUoC3aDWuSwrD00p1W3+6ugjbp3hTRNTlp78voxDP5qaH0EdkD1ku
+	h2b5JYHJQrlMeDtvsm3NvV5AIpV4y/OLxiVrAtvpXuVx35TyOBEupchUTQqmiZfWlDSsG8If6/9
+	56C8vtwBMMzhmu29xfIEwfTr/81Vlt0o8QyUE1aMzoMGZ9i5Bl8VbFtD6z8w1u7kJ2TMuQEJXcF
+	ujeeJueSMxJUkjye+s7NN22Le4F2qw1bp6feYAL0Pbw7zIOCn29X1oHg1AXwg8BFagjt/y1B/y2
+	cfyZI/nA+8nYLRiK66bx5kZYls9g3f5oCvpPiPoVZ8Qg+GGwFUbSdWBkSDJZ5DkjMY9p16w4+lJ
+	oXwHD0TF88mbJzZ2vZ29+yE2n/tfe6qWv44wBCVHqI08UZp9S8zYyY5ZgqAIQpaIUG9gTdOC610
+	CRZx1/rriYPGq4mPERqp6OK4JjsUir4KxoQTA/hVzMzXf+ILe9SIg==
+X-Received: by 2002:a05:600c:a111:b0:480:1c69:9d36 with SMTP id 5b1f17b1804b1-48e51f2f83dmr51500945e9.17.1778080447300;
+        Wed, 06 May 2026 08:14:07 -0700 (PDT)
+Received: from will-Legion-Slim-5-16APH8 ([2a00:23c6:2736:8e01:5fbb:faec:b3da:7ea1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e538b26a3sm95055395e9.9.2026.05.06.08.14.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 06 May 2026 08:14:06 -0700 (PDT)
+Date: Wed, 6 May 2026 16:14:05 +0100
+From: William Bright <william.bright@imd-tec.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: Add IMDT QCS8550 SBC
+Message-ID: <aftavTZafl6bCQhD@will-Legion-Slim-5-16APH8>
+References: <20260505-imdt-qcs8550-sbc-rfc-v2-0-b4767d0dd421@imd-tec.com>
+ <20260505-imdt-qcs8550-sbc-rfc-v2-4-b4767d0dd421@imd-tec.com>
+ <20260506-aquatic-shrew-of-engineering-09fbe8@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260506-h616-t113s-hstimer-v4-2-591d425863d6@mmpsystems.pl>
-References: <20260506-h616-t113s-hstimer-v4-0-591d425863d6@mmpsystems.pl>
-In-Reply-To: <20260506-h616-t113s-hstimer-v4-0-591d425863d6@mmpsystems.pl>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
-Cc: Michal Piekos <michal.piekos@mmpsystems.pl>, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- Andre Przywara <andre.przywara@arm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778080247; l=6812;
- i=michal.piekos@mmpsystems.pl; s=20260301; h=from:subject:message-id;
- bh=1L3rHOJVuAnpxzydteKfdfNTRtbJkFSx+Yr9EHtcqh8=;
- b=ThUGr/fA0GKCDHpJqpH/f1YPTRX2yF7Uy9hkseuGoDdPfl5DZh92BRjIJe9v2O/wQPNOguRfM
- aqw/LyAuenpD7pCkXLjpO4mtPPK1HZFNykQ693ptZxSD1KFmcb4XqqV
-X-Developer-Key: i=michal.piekos@mmpsystems.pl; a=ed25519;
- pk=Aixyx03If7ZDamiKKN0lsa+0mtA+WjIuIf2ZQVYNBqg=
-X-Authenticated-Id: michal.piekos@mmpsystems.pl
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260506-aquatic-shrew-of-engineering-09fbe8@quoll>
 
-D1 high speed timer differs from existing timer-sun5i by register base
-offset.
+On Wed, May 06, 2026 at 09:53:01AM +0200, Krzysztof Kozlowski wrote:
+> On Tue, May 05, 2026 at 09:09:54PM +0100, William Bright wrote:
+> > + compatible = "regulator-fixed";
+> > + regulator-name = "cam_3v3_reg";
+> > + regulator-min-microvolt = <3300000>;
+> > + regulator-max-microvolt = <3300000>;
+> > + vin-supply = <&hr_cam_pwr>;
+> > + };
+> > +
+> > + display_panel_pwr_en: regulator-display-panel-en {
+>
+> Again, unused
+>
 
-Add sunxi quirks to handle D1 specific offset.
-Add D1 compatible string to OF match table.
+For the camera regulators, I intended these to be used within device tree
+overlays (I.E a DTSO would be made for an AR1335 connected to CSI0).
+I don't have any camera device tree overlays in this patch series
+as the only camera I have tested is the OnSemi AR1335 which isn't supported
+upstream. So I will drop these camera regulator nodes.
 
-Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
----
- drivers/clocksource/timer-sun5i.c | 84 ++++++++++++++++++++++++++++++---------
- 1 file changed, 65 insertions(+), 19 deletions(-)
+> > + compatible = "regulator-fixed";
+> > + regulator-name = "dsi_5v_en";
+> > + regulator-min-microvolt = <5000000>;
+> > + regulator-max-microvolt = <5000000>;
+> > +
+> > + pinctrl-names = "default";
+> > + pinctrl-0 = <&dsi_5v_en_default>;
+> > +
+> > + gpio = <&tlmm 140 GPIO_ACTIVE_HIGH>;
+> > + enable-active-high;
+> > +
+> > + vin-supply = <&som_vph_pwr>;
+> > +
+> > + regulator-always-on;
+> > + regulator-boot-on;
+> > + };
+> > +
+> > + /* Enables 1V2, 1V8_CAM and 3V3_CAM */
+> > + hr_cam_pwr: regulator-hr-cam-pwr {
+>
+> And this becames unused after dropping fake regulators. Why don't you
+> have proper users of these controllable supplies?
+>
 
-diff --git a/drivers/clocksource/timer-sun5i.c b/drivers/clocksource/timer-sun5i.c
-index f827d3f98f60..517c048a4870 100644
---- a/drivers/clocksource/timer-sun5i.c
-+++ b/drivers/clocksource/timer-sun5i.c
-@@ -18,21 +18,30 @@
- #include <linux/slab.h>
- #include <linux/platform_device.h>
- 
--#define TIMER_IRQ_EN_REG		0x00
-+#define TIMER_IRQ_EN_REG			0x00
- #define TIMER_IRQ_EN(val)			BIT(val)
--#define TIMER_IRQ_ST_REG		0x04
--#define TIMER_CTL_REG(val)		(0x20 * (val) + 0x10)
-+#define TIMER_IRQ_ST_REG			0x04
-+#define TIMER_CTL_REG(val, offset)		(0x20 * (val) + 0x10 + (offset))
- #define TIMER_CTL_ENABLE			BIT(0)
- #define TIMER_CTL_RELOAD			BIT(1)
- #define TIMER_CTL_CLK_PRES(val)			(((val) & 0x7) << 4)
- #define TIMER_CTL_ONESHOT			BIT(7)
--#define TIMER_INTVAL_LO_REG(val)	(0x20 * (val) + 0x14)
--#define TIMER_INTVAL_HI_REG(val)	(0x20 * (val) + 0x18)
--#define TIMER_CNTVAL_LO_REG(val)	(0x20 * (val) + 0x1c)
--#define TIMER_CNTVAL_HI_REG(val)	(0x20 * (val) + 0x20)
-+#define TIMER_INTVAL_LO_REG(val, offset)	(0x20 * (val) + 0x14 + (offset))
-+#define TIMER_INTVAL_HI_REG(val, offset)	(0x20 * (val) + 0x18 + (offset))
-+#define TIMER_CNTVAL_LO_REG(val, offset)	(0x20 * (val) + 0x1c + (offset))
-+#define TIMER_CNTVAL_HI_REG(val, offset)	(0x20 * (val) + 0x20 + (offset))
- 
- #define TIMER_SYNC_TICKS	3
- 
-+/**
-+ * struct sunxi_timer_quirks - Differences between SoC variants.
-+ *
-+ * @from_ctl_base_offset: offset applied from ctl register onwards
-+ */
-+struct sunxi_timer_quirks {
-+	u32 from_ctl_base_offset;
-+};
-+
- struct sun5i_timer {
- 	void __iomem		*base;
- 	struct clk		*clk;
-@@ -40,6 +49,7 @@ struct sun5i_timer {
- 	u32			ticks_per_jiffy;
- 	struct clocksource	clksrc;
- 	struct clock_event_device	clkevt;
-+	const struct sunxi_timer_quirks *quirks;
- };
- 
- #define nb_to_sun5i_timer(x) \
-@@ -57,28 +67,36 @@ struct sun5i_timer {
-  */
- static void sun5i_clkevt_sync(struct sun5i_timer *ce)
- {
--	u32 old = readl(ce->base + TIMER_CNTVAL_LO_REG(1));
-+	u32 offset = ce->quirks->from_ctl_base_offset;
-+	u32 old = readl(ce->base + TIMER_CNTVAL_LO_REG(1, offset));
- 
--	while ((old - readl(ce->base + TIMER_CNTVAL_LO_REG(1))) < TIMER_SYNC_TICKS)
-+	while ((old - readl(ce->base + TIMER_CNTVAL_LO_REG(1, offset))) <
-+	       TIMER_SYNC_TICKS)
- 		cpu_relax();
- }
- 
- static void sun5i_clkevt_time_stop(struct sun5i_timer *ce, u8 timer)
- {
--	u32 val = readl(ce->base + TIMER_CTL_REG(timer));
--	writel(val & ~TIMER_CTL_ENABLE, ce->base + TIMER_CTL_REG(timer));
-+	u32 offset = ce->quirks->from_ctl_base_offset;
-+	u32 val = readl(ce->base + TIMER_CTL_REG(timer, offset));
-+
-+	writel(val & ~TIMER_CTL_ENABLE,
-+	       ce->base + TIMER_CTL_REG(timer, offset));
- 
- 	sun5i_clkevt_sync(ce);
- }
- 
- static void sun5i_clkevt_time_setup(struct sun5i_timer *ce, u8 timer, u32 delay)
- {
--	writel(delay, ce->base + TIMER_INTVAL_LO_REG(timer));
-+	u32 offset = ce->quirks->from_ctl_base_offset;
-+
-+	writel(delay, ce->base + TIMER_INTVAL_LO_REG(timer, offset));
- }
- 
- static void sun5i_clkevt_time_start(struct sun5i_timer *ce, u8 timer, bool periodic)
- {
--	u32 val = readl(ce->base + TIMER_CTL_REG(timer));
-+	u32 offset = ce->quirks->from_ctl_base_offset;
-+	u32 val = readl(ce->base + TIMER_CTL_REG(timer, offset));
- 
- 	if (periodic)
- 		val &= ~TIMER_CTL_ONESHOT;
-@@ -86,7 +104,7 @@ static void sun5i_clkevt_time_start(struct sun5i_timer *ce, u8 timer, bool perio
- 		val |= TIMER_CTL_ONESHOT;
- 
- 	writel(val | TIMER_CTL_ENABLE | TIMER_CTL_RELOAD,
--	       ce->base + TIMER_CTL_REG(timer));
-+	       ce->base + TIMER_CTL_REG(timer, offset));
- }
- 
- static int sun5i_clkevt_shutdown(struct clock_event_device *clkevt)
-@@ -141,8 +159,9 @@ static irqreturn_t sun5i_timer_interrupt(int irq, void *dev_id)
- static u64 sun5i_clksrc_read(struct clocksource *clksrc)
- {
- 	struct sun5i_timer *cs = clksrc_to_sun5i_timer(clksrc);
-+	u32 offset = cs->quirks->from_ctl_base_offset;
- 
--	return ~readl(cs->base + TIMER_CNTVAL_LO_REG(1));
-+	return ~readl(cs->base + TIMER_CNTVAL_LO_REG(1, offset));
- }
- 
- static int sun5i_rate_cb(struct notifier_block *nb,
-@@ -173,12 +192,13 @@ static int sun5i_setup_clocksource(struct platform_device *pdev,
- 				   unsigned long rate)
- {
- 	struct sun5i_timer *cs = platform_get_drvdata(pdev);
-+	u32 offset = cs->quirks->from_ctl_base_offset;
- 	void __iomem *base = cs->base;
- 	int ret;
- 
--	writel(~0, base + TIMER_INTVAL_LO_REG(1));
-+	writel(~0, base + TIMER_INTVAL_LO_REG(1, offset));
- 	writel(TIMER_CTL_ENABLE | TIMER_CTL_RELOAD,
--	       base + TIMER_CTL_REG(1));
-+	       base + TIMER_CTL_REG(1, offset));
- 
- 	cs->clksrc.name = pdev->dev.of_node->name;
- 	cs->clksrc.rating = 340;
-@@ -237,6 +257,7 @@ static int sun5i_setup_clockevent(struct platform_device *pdev,
- 
- static int sun5i_timer_probe(struct platform_device *pdev)
- {
-+	const struct sunxi_timer_quirks *quirks;
- 	struct device *dev = &pdev->dev;
- 	struct sun5i_timer *st;
- 	struct reset_control *rstc;
-@@ -273,11 +294,18 @@ static int sun5i_timer_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	}
- 
-+	quirks = of_device_get_match_data(&pdev->dev);
-+	if (!quirks) {
-+		dev_err(&pdev->dev, "Failed to determine the quirks to use\n");
-+		return -ENODEV;
-+	}
-+
- 	st->base = timer_base;
- 	st->ticks_per_jiffy = DIV_ROUND_UP(rate, HZ);
- 	st->clk = clk;
- 	st->clk_rate_cb.notifier_call = sun5i_rate_cb;
- 	st->clk_rate_cb.next = NULL;
-+	st->quirks = quirks;
- 
- 	ret = devm_clk_notifier_register(dev, clk, &st->clk_rate_cb);
- 	if (ret) {
-@@ -311,9 +339,27 @@ static void sun5i_timer_remove(struct platform_device *pdev)
- 	clocksource_unregister(&st->clksrc);
- }
- 
-+static const struct sunxi_timer_quirks sun5i_sun7i_hstimer_quirks = {
-+	.from_ctl_base_offset = 0x0,
-+};
-+
-+static const struct sunxi_timer_quirks sun20i_d1_hstimer_quirks = {
-+	.from_ctl_base_offset = 0x10,
-+};
-+
- static const struct of_device_id sun5i_timer_of_match[] = {
--	{ .compatible = "allwinner,sun5i-a13-hstimer" },
--	{ .compatible = "allwinner,sun7i-a20-hstimer" },
-+	{
-+		.compatible = "allwinner,sun5i-a13-hstimer",
-+		.data = &sun5i_sun7i_hstimer_quirks,
-+	},
-+	{
-+		.compatible = "allwinner,sun7i-a20-hstimer",
-+		.data = &sun5i_sun7i_hstimer_quirks,
-+	},
-+	{
-+		.compatible = "allwinner,sun20i-d1-hstimer",
-+		.data = &sun20i_d1_hstimer_quirks,
-+	},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, sun5i_timer_of_match);
+I will drop the on-board regulators for panels. These were intended to
+be used by a panel DTSO. So I will these back in when I 
+submit patches for a panel DTSO for this board.
 
--- 
-2.43.0
+> > + per_1v8_reg: regulator-per-1v8 {
+>
+> Drop node
+>
+
+I have omitted that its used by the LAN7430. I will add this
+usage in V3.
+
+> > + compatible = "regulator-fixed";
+> > + regulator-name = "per_1v8_reg";
+> > + regulator-min-microvolt = <1800000>;
+> > + regulator-max-microvolt = <1800000>;
+> > + vin-supply = <&per_pwr>;
+> > + };
+> > +
+> > + per_3v3_reg: regulator-per-3v3 {
+> > + compatible = "regulator-fixed";
+> > + regulator-name = "per_3v3_reg";
+> > + regulator-min-microvolt = <3300000>;
+> > + regulator-max-microvolt = <3300000>;
+> > + vin-supply = <&per_pwr>;
+> > + };
+> > +
+> > + per_5v_reg: regulator-per-5v {
+> > + compatible = "regulator-fixed";
+> > + regulator-name = "per_5v_reg";
+> > + regulator-min-microvolt = <5000000>;
+> > + regulator-max-microvolt = <5000000>;
+> > + vin-supply = <&per_pwr>;
+> > + };
+>
+> Drop all these
+>
+
+per_3v3_reg: Used by the LAN7430 but omitted by accident so I will define 
+  that it's used by the LAN7430 in V3.
+per_5v_reg: Used by onboard audio but audio support is omitted within this 
+  patch series so I will drop this regulator.
+
+>
+> Probably most of them are to be dropped :/
+>
+
+For V3, I will go through all of these and eliminate any redundant regulators
+or add where they're used.
+Most of them likely became unused when removing SDHC4 whilst
+preparing this patch series.
+
+> > +&lpass_rxmacro {
+> > + status = "disabled";
+> > +};
+> > +
+> > +&lpass_tlmm {
+> > + status = "disabled";
+> > +};
+> > +
+> > +&lpass_txmacro {
+> > + status = "disabled";
+> > +};
+> > +
+> > +&lpass_vamacro {
+> > + status = "disabled";
+> > +};
+> > +
+> > +&lpass_wsa2macro {
+> > + status = "disabled";
+> > +};
+> > +
+> > +&lpass_wsamacro {
+> > + status = "disabled";
+> > +};
+>
+> Why are all these LPASS codecs disabled?
+>
+> Best regards,
+> Krzysztof
+>
+
+No audio driver support is included in this series, but disabling the LPASS
+codec nodes is unnecessary so I'll drop these changes in V3.
+Many thanks for your feedback.
+
+Best regards,
+William Bright
 
